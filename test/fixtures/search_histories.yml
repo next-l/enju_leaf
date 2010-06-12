@@ -1,0 +1,61 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+one:
+  id: 1
+  operation: MyString
+  version: 1.2
+  query: MyString
+  start_record: 1
+  maximum_records: 1
+  record_packing: MyString
+  record_schema: MyString
+  result_set_ttl: 1
+  stylesheet: MyString
+  extra_request_data: MyString
+  created_at: 2007-10-13 11:28:02
+  updated_at: 2007-10-13 11:28:02
+  user_id: 1
+two:
+  id: 2
+  operation: MyString
+  version: 1.2
+  query: MyString
+  start_record: 1
+  maximum_records: 1
+  record_packing: MyString
+  record_schema: MyString
+  result_set_ttl: 1
+  stylesheet: MyString
+  extra_request_data: MyString
+  created_at: 2007-10-13 11:28:02
+  updated_at: 2007-10-13 11:28:02
+  user_id: 2
+three:
+  id: 3
+  operation: MyString
+  version: 1.2
+  query: MyString
+  start_record: 1
+  maximum_records: 1
+  record_packing: MyString
+  record_schema: MyString
+  result_set_ttl: 1
+  stylesheet: MyString
+  extra_request_data: MyString
+  created_at: 2007-10-13 11:28:02
+  updated_at: 2007-10-13 11:28:02
+  user_id: 3
+four:
+  id: 4
+  operation: MyString
+  version: 1.2
+  query: MyString
+  start_record: 1
+  maximum_records: 1
+  record_packing: MyString
+  record_schema: MyString
+  result_set_ttl: 1
+  stylesheet: MyString
+  extra_request_data: MyString
+  created_at: 2007-10-13 11:28:02
+  updated_at: 2007-10-13 11:28:02
+  user_id: 

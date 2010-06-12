@@ -1,0 +1,7 @@
+= Next-L Enju Light
+
+Next-L Enju Light is the lightweight version of {Next-L Enju}[http://wiki.github.com/nabeta/next-l]. Still in a pre-alpha status.
+
+== Authors and contributors
+* {TANABE, Kosuke}[http://mwr.mediacom.keio.ac.jp/~tanabe/]
+* {Project Next-L}[http://www.next-l.jp]

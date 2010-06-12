@@ -1,0 +1,40 @@
+<p class="notice"><%= notice %></p>
+
+<p>
+  <b>User:</b>
+  <%= @reserve.user_id %>
+</p>
+
+<p>
+  <b>Manifestation:</b>
+  <%= @reserve.manifestation_id %>
+</p>
+
+<p>
+  <b>Item:</b>
+  <%= @reserve.item_id %>
+</p>
+
+<p>
+  <b>State:</b>
+  <%= @reserve.state %>
+</p>
+
+<p>
+  <b>Checked out at:</b>
+  <%= @reserve.checked_out_at %>
+</p>
+
+<p>
+  <b>Canceled at:</b>
+  <%= @reserve.canceled_at %>
+</p>
+
+<p>
+  <b>Expired at:</b>
+  <%= @reserve.expired_at %>
+</p>
+
+
+<%= link_to 'Edit', edit_reserve_path(@reserve) %> |
+<%= link_to 'Back', reserves_path %>

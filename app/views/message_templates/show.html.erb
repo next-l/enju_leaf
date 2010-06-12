@@ -1,0 +1,26 @@
+<div id="content_detail">
+<h1 class="title"><%= t('page.showing', :model => t('activerecord.models.message_template')) -%></h1>
+<div id="content_list">
+<p>
+  <strong><%= t('activerecord.attributes.message_template.status') -%>:</strong>
+  <%= @message_template.status -%>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.message_template.title') -%>:</strong>
+  <%= @message_template.title -%>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.message_template.body') -%>:</strong><br />
+  <%= h(@message_template.body).gsub("\n", '<br />') -%>
+</p>
+</div>
+</div>
+
+<div id="submenu">
+  <ul>
+    <li><%= link_to t('page.edit'), edit_message_template_path(@message_template) -%></li>
+    <li><%= link_to t('page.back'), message_templates_path -%></li>
+  </ul>
+</div>

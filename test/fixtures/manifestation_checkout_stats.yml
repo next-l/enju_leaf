@@ -1,0 +1,15 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  id: 1
+  start_date: 2008-12-12 17:00:38
+  end_date: 2008-12-13 17:00:38
+  note: MyText
+  state: pending
+
+two:
+  id: 2
+  start_date: 2008-12-12 17:00:38
+  end_date: 2008-12-13 17:00:38
+  note: MyText
+  state: pending

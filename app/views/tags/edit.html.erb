@@ -1,0 +1,24 @@
+<div id="content_detail">
+<h1 class="title"><%= t('page.editing', :model => t('activerecord.models.tag')) -%></h1>
+<div id="content_list">
+
+<%= form_for(@tag, :url => tag_path(@tag.name)) do |f| -%>
+  <%= f.error_messages -%>
+  <p>
+    <%= f.label t('activerecord.attributes.tag.name') -%><br />
+    <%= f.text_field :name, :value => @tag.name -%>
+  </p>
+
+  <p>
+    <%= f.submit t('page.update') -%>
+  </p>
+<%- end -%>
+</div>
+</div>
+
+<div id="submenu">
+  <ul>
+    <li><%= link_to t('page.show'), tag_path(@tag.name) -%></li>
+    <li><%= link_to t('page.back'), tags_path -%></li>
+  </ul>
+</div>

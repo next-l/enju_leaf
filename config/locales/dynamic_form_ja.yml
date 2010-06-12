@@ -1,0 +1,9 @@
+ja:
+  errors:
+    template:
+      header:
+        one:    "1 つのエラーが %{model} を保存するときに発生しました"
+        other:  "%{count} つのエラーが %{model} を保存するときに発生しました"
+      # The variable :count is also available
+      body: "以下の項目にエラーがあります:"
+

@@ -1,0 +1,26 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+event_import_file_00001:
+  id: 1
+  event_import_file_name: MyString
+  event_import_file_size: 1
+  file_hash: MyString
+  user_id: 1
+  event_import_content_type: text/csv
+  state: completed
+event_import_file_00002:
+  id: 2
+  event_import_file_name: MyString
+  event_import_file_size: 1
+  file_hash: MyString
+  user_id: 1
+  event_import_content_type: text/csv
+  state: pending
+event_import_file_00003:
+  id: 3
+  event_import_file_name: MyString
+  event_import_file_size: 1
+  file_hash: MyString
+  user_id: 1
+  event_import_content_type: text/csv
+  state: pending

@@ -1,0 +1,73 @@
+<div id="content_detail">
+<h1 class="title"><%= t('page.listing', :model => t('activerecord.models.library')) -%></h1>
+<div id="content_list">
+
+<%= form_for :libraries, :url => libraries_path, :html => {:method => 'get'} do -%>
+  <p>
+    <%= t('page.search_term') -%>: <%= text_field_tag 'query', h(@query), {:id => 'search_form_top', :class => 'search_form'} -%>
+    <%= submit_tag t('page.search') -%>
+  </p>
+  <%= javascript_tag("$('#search_form_top').focus()") -%>
+<%- end -%>
+
+<p>
+  <%= t('page.sort_by') -%>:
+  <%= link_to t('activerecord.attributes.tag.name'), libraries_path(:order => 'name') -%>
+  <%= link_to t('page.created_at'), libraries_path(:sort_by => 'created_at') -%>
+</p>
+
+<table class="index">
+  <tr>
+    <th id="position"></th>
+    <th><%= t('activerecord.attributes.library.name') -%></th>
+    <th>
+      <%= t('activerecord.attributes.library.telephone_number_1') -%>
+      /
+      <%= t('activerecord.attributes.library.telephone_number_2') -%>
+    </th>
+    <th>
+      <%= t('activerecord.attributes.library.fax_number') -%>
+    </th>
+    <th style="width: 50px"></th>
+  </tr>
+  
+<%- @libraries.each_with_index do |library, i| -%>
+  <tr class="line<%= cycle("0", "1") -%>">
+    <td>
+      <%- if can? :update, library -%>
+        <%= library.first? ? image_tag('cross.png', :size => '16x16') : link_to(image_tag('arrow_up.png', :size => '16x16', :alt => t('page.asc')), {:action => 'update', :position  => (library.position > 1 ? library.position - 1 : 1), :id => library.name}, :method => :put) -%>
+        <%= library.last? ? image_tag('cross.png', :size => '16x16') : link_to(image_tag('arrow_down.png', :size => '16x16', :alt => t('page.desc')), {:action => 'update', :position => (library.position + 1), :id => library.name}, :method => :put) -%>
+      <%- end -%>
+    </td>
+    <td>
+      <%= link_to h(library.display_name.localize), library_path(library.name) -%>
+      <br />
+      <%= library.postal_code -%>
+      <%= library.address -%>
+    </td>
+    <td>
+      <%= library.telephone_number_1 -%>
+      <br />
+      <%= library.telephone_number_2 -%>
+    </td>
+    <td><%= library.fax_number -%></td>
+    <td>
+      <%- if can? :destroy, library -%>
+        <%= link_to image_tag('/icons/page_white_edit.png', :size => '16x16', :alt => t('page.edit')), edit_library_path(library) -%>
+        <%= link_to image_tag('/icons/delete.png', :size => '16x16', :alt => t('page.destroy')), library, :confirm => t('page.are_you_sure'), :method => :delete -%>
+      <%- end -%>
+    </td>
+  </tr>
+<%- end -%>
+</table>
+
+</div>
+</div>
+
+<div id="submenu">
+  <ul>
+    <%- if can? :create, Library -%>
+      <li><%= link_to t('page.new', :model => t('activerecord.models.library')), new_library_path -%></li>
+    <%- end -%>
+  </ul>
+</div>

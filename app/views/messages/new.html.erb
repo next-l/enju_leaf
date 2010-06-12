@@ -1,0 +1,41 @@
+<div id="content_detail">
+  <h1 class="title"><%= t('page.new', :model => t('activerecord.models.message')) -%></h1>
+<div id="content_list">
+  <fieldset>
+
+    <%= form_for :message, :url => user_messages_path(current_user) do |f| -%>
+      <p>
+        <label for="message_recepient"><%= t('message.recipient') -%>:</label>
+        <%- if @message.recipient -%>
+          <%= link_to h(@message.recipient), user_path(@message.recipient) -%>
+          <%= f.hidden_field :recipient, :value => h(@message.recipient) -%>
+        <%- else -%>
+          <%= f.text_field :recipient, :class => 'resource_title', :value => @message.recipient -%>
+        <%- end -%>
+      </p>
+    
+      <p>
+        <label for="message_subject"><%= t('activerecord.attributes.message.subject') -%>:</label>
+        <%= f.text_field :subject, :class => 'resource_title' -%>
+      </p>
+      
+      <p>
+        <label for="message_body"><%= t('activerecord.attributes.message.body') -%>:</label><br />
+        <%= f.text_area :body, :id => 'message_body' -%>
+      </p>
+
+      <%= f.hidden_field :parent_id -%>
+      <%= javascript_tag("$('#message_recipient').focus()") -%>
+      <%= submit_tag t('message.send') -%>
+
+    <%- end -%>
+  </fieldset>
+  
+</div>
+</div>
+
+<div id="submenu">
+  <ul>
+    <li><%= link_to t('page.listing', :model => t('activerecord.models.message')), user_messages_path(current_user.username) -%></li>
+  </ul>
+</div>

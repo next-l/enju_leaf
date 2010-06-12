@@ -1,0 +1,35 @@
+<div id="content_detail">
+<h1 class="title"><%= t('page.editing', :model => t('activerecord.models.message_template')) -%></h1>
+<div id="content_list">
+
+<%= form_for(@message_template) do |f| -%>
+  <%= f.error_messages -%>
+
+  <p>
+    <%= f.label t('activerecord.attributes.message_template.status') -%><br />
+    <%= f.text_field :status, :class => 'resource_title' -%>
+  </p>
+
+  <p>
+    <%= f.label t('activerecord.attributes.message_template.title') -%><br />
+    <%= f.text_field :title, :class => 'resource_title' -%>
+  </p>
+
+  <p>
+    <%= f.label t('activerecord.attributes.message_template.body') -%><br />
+    <%= f.text_area :body, :class => 'resource_textarea' -%>
+  </p>
+
+  <p>
+    <%= f.submit t('page.update') -%>
+  </p>
+<%- end -%>
+</div>
+</div>
+
+<div id="submenu">
+  <ul>
+    <li><%= link_to t('page.show'), @message_template -%></li>
+    <li><%= link_to t('page.back'), message_templates_path -%></li>
+  </ul>
+</div>

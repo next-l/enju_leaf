@@ -1,0 +1,28 @@
+<div id="content_detail">
+<h1 class="title"><%= t('page.showing', :model => t('activerecord.models.resource_relationship_type')) -%></h1>
+<div id="content_list">
+
+<p>
+  <strong><%= t('activerecord.attributes.resource_relationship_type.name') -%>:</strong>
+  <%= @resource_relationship_type.name -%>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.resource_relationship_type.display_name') -%>:</strong>
+  <%= @resource_relationship_type.display_name.localize -%>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.resource_relationship_type.note') -%>:</strong>
+  <%= @resource_relationship_type.note -%>
+</p>
+
+</div>
+</div>
+
+<div id="submenu">
+  <ul>
+    <li><%= link_to t('page.edit'), edit_resource_relationship_type_path(@resource_relationship_type) -%></li>
+    <li><%= link_to t('page.back'), resource_relationship_types_path -%></li>
+  </ul>
+</div>

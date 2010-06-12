@@ -1,0 +1,18 @@
+<div id="content_detail">
+  <p>
+    <strong><%= t('activerecord.models.user') -%>:</strong>
+    <%= @basket.user.username -%>
+  </p>
+
+  <p>
+    <strong><%= t('activerecord.attributes.basket.note') -%>:</strong>
+    <%= @basket.note -%>
+  </p>
+</div>
+
+<div id="submenu">
+  <ul>
+    <li><%= link_to t('page.edit'), edit_user_basket_path(@basket.user.username, @basket) -%></li>
+    <li><%= link_to t('page.back'), user_baskets_path(@basket.user.username) -%></li>
+  </ul>
+</div>

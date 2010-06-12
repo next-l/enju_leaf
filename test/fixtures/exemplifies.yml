@@ -1,0 +1,121 @@
+--- 
+exemplify_00001: 
+  updated_at: 2008-01-11 23:28:19.277110 +09:00
+  item_id: 1
+  manifestation_id: 1
+  id: 1
+  created_at: 2008-01-11 23:28:19.277110 +09:00
+exemplify_00002: 
+  updated_at: 2008-01-11 23:28:57.068191 +09:00
+  item_id: 2
+  manifestation_id: 2
+  id: 2
+  created_at: 2008-01-11 23:28:57.068191 +09:00
+exemplify_00003: 
+  updated_at: 2008-01-11 23:32:03.701425 +09:00
+  item_id: 3
+  manifestation_id: 3
+  id: 3
+  created_at: 2008-01-11 23:32:03.701425 +09:00
+exemplify_00004: 
+  updated_at: 2008-01-11 02:34:20.183962 +09:00
+  item_id: 4
+  manifestation_id: 1
+  id: 4
+  created_at: 2008-01-11 02:34:20.183962 +09:00
+exemplify_00005: 
+  updated_at: 2008-01-11 02:34:32.352223 +09:00
+  item_id: 5
+  manifestation_id: 2
+  id: 5
+  created_at: 2008-01-11 02:34:32.352223 +09:00
+exemplify_00006: 
+  updated_at: 2008-01-11 23:35:36.467584 +09:00
+  item_id: 6
+  manifestation_id: 3
+  id: 6
+  created_at: 2008-01-11 23:35:36.467584 +09:00
+exemplify_00007: 
+  updated_at: 2008-01-11 02:40:24.038276 +09:00
+  item_id: 7
+  manifestation_id: 1
+  id: 7
+  created_at: 2008-01-11 02:40:24.038276 +09:00
+exemplify_00008: 
+  updated_at: 2008-01-11 02:40:40.316742 +09:00
+  item_id: 8
+  manifestation_id: 2
+  id: 8
+  created_at: 2008-01-11 02:40:40.316742 +09:00
+exemplify_00009: 
+  updated_at: 2008-01-11 02:40:55.664604 +09:00
+  item_id: 9
+  manifestation_id: 3
+  id: 9
+  created_at: 2008-01-11 02:40:55.664604 +09:00
+exemplify_00010: 
+  updated_at: 2008-01-11 02:44:37.135721 +09:00
+  item_id: 10
+  manifestation_id: 1
+  id: 10
+  created_at: 2008-01-11 02:44:37.135721 +09:00
+exemplify_00011: 
+  updated_at: 2008-01-11 02:44:37.135721 +09:00
+  item_id: 11
+  manifestation_id: 1
+  id: 11
+  created_at: 2008-01-11 02:44:37.135721 +09:00
+exemplify_00012: 
+  updated_at: 2008-01-11 02:44:37.135721 +09:00
+  item_id: 12
+  manifestation_id: 2
+  id: 12
+  created_at: 2008-01-11 02:44:37.135721 +09:00
+exemplify_00013: 
+  updated_at: 2008-01-11 02:44:37.135721 +09:00
+  item_id: 13
+  manifestation_id: 2
+  id: 13
+  created_at: 2008-01-11 02:44:37.135721 +09:00
+exemplify_00014: 
+  updated_at: 2008-01-11 02:44:37.135721 +09:00
+  item_id: 14
+  manifestation_id: 2
+  id: 14
+  created_at: 2008-01-11 02:44:37.135721 +09:00
+exemplify_00015: 
+  updated_at: 2008-01-11 02:44:37.135721 +09:00
+  item_id: 15
+  manifestation_id: 2
+  id: 15
+  created_at: 2008-01-11 02:44:37.135721 +09:00
+exemplify_00016: 
+  updated_at: 2008-01-11 02:44:37.135721 +09:00
+  item_id: 16
+  manifestation_id: 3
+  id: 16
+  created_at: 2008-01-11 02:44:37.135721 +09:00
+exemplify_00017: 
+  updated_at: 2008-01-11 02:44:37.135721 +09:00
+  item_id: 17
+  manifestation_id: 3
+  id: 17
+  created_at: 2008-01-11 02:44:37.135721 +09:00
+exemplify_00018: 
+  updated_at: 2008-01-11 02:44:37.135721 +09:00
+  item_id: 18
+  manifestation_id: 1
+  id: 18
+  created_at: 2008-01-11 02:44:37.135721 +09:00
+exemplify_00019: 
+  updated_at: 2008-01-11 02:44:37.135721 +09:00
+  item_id: 19
+  manifestation_id: 1
+  id: 19
+  created_at: 2008-01-11 02:44:37.135721 +09:00
+exemplify_00020: 
+  updated_at: 2008-01-11 02:44:37.135721 +09:00
+  item_id: 20
+  manifestation_id: 1
+  id: 20
+  created_at: 2008-01-11 02:44:37.135721 +09:00

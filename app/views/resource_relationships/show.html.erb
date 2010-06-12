@@ -1,0 +1,23 @@
+<div id="content_detail">
+<h1 class="title"><%= t('page.showing', :model => t('activerecord.models.resource_relationship')) -%></h1>
+<div id="content_list">
+
+<p>
+  <b>Parent:</b>
+  <%= link_to @resource_relationship.parent.original_title, @resource_relationship.parent %>
+</p>
+
+<p>
+  <b>Child:</b>
+  <%= link_to @resource_relationship.child.original_title, @resource_relationship.parent %>
+</p>
+
+</div>
+</div>
+
+<div id="submenu">
+  <ul>
+    <li><%= link_to 'Edit', edit_resource_relationship_path(@resource_relationship) %></li>
+    <li><%= link_to 'Back', resource_relationships_path %></li>
+  </ul>
+</div>

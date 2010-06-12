@@ -1,0 +1,17 @@
+<div class="header_and_footer">
+  <div id="footer">
+    <a href="http://wiki.github.com/nabeta/enju_light">Next-L Enju Light</a>,
+    <%= t('page.open_source_integrated_library_system') -%> |
+    <%= link_to t('page.about_this_system'), "/page/about" -%> |
+    <%= link_to t('page.add_on'), "/page/add_on" -%> |
+    <%= link_to t('page.report_bugs'), "http://github.com/nabeta/enju_light/issues" -%>
+    <br />
+    Developed by <a href="http://d.hatena.ne.jp/nabeta/">Kosuke Tanabe</a> and <a href="http://www.next-l.jp/">Project Next-L</a> |
+    Powered by <a href="http://www.rubyonrails.org/">Ruby on Rails</a>,
+    <%= database_adapter -%>
+    and <a href="http://lucene.apache.org/solr/">Solr</a>
+    <%- if Resource.respond_to?(:enju_worldcat) -%>
+      <a href="http://www.worldcat.org/" target="_blank"><img border="0" src="http://www.worldcat.org/images/wc_badge_144x19.gif?ai=Tokyo_nabeta" width="144" height="19" alt="WorldCat lets people access the collections of libraries worldwide [WorldCat.org]" title="WorldCat lets people access the collections of libraries worldwide [WorldCat.org]" /></a>
+    <%- end -%>
+  </div>
+</div>

@@ -1,0 +1,66 @@
+<div id="content_detail">
+<h1 class="title"><%= t('page.listing', :model => t('activerecord.models.patron')) -%></h1>
+<div id="content_list">
+  <%- cache(:id => @manifestation.id, :action => :show, :controller => :manifestations, :action_suffix => 'title', :role => nil, :locale => @locale) do -%>
+  <%= render :partial => 'manifestations/title', :locals => {:manifestation => @manifestation} -%>
+<%- end -%>
+
+<%= form_for :patrons, :url => manifestation_patrons_path(@manifestation), :html => {:method => 'get'} do -%>
+  <p>
+    <%= t('page.search_term') -%>: <%= text_field_tag 'query', h(@query), {:id => 'search_form_top', :class => 'search_form'} -%>
+    <%- if can? :destroy, @manifestation -%>
+      <%- if params[:mode] == 'add' -%>
+        <%= radio_button_tag 'mode', 'show' -%> <%= t('page.show') -%>
+        <%= radio_button_tag 'mode', 'add', :checked => true -%> <%= t('page.add') -%>
+      <%- else -%>
+        <%= radio_button_tag 'mode', 'show', :checked => true -%> <%= t('page.show') -%>
+        <%= radio_button_tag 'mode', 'add' -%> <%= t('page.add') -%>
+      <%- end -%>
+    <%- end -%>
+    <%= submit_tag t('page.search') -%>
+    <%= link_to t('page.back_to_index'), manifestation_patrons_path(@manifestation) -%>
+  </p>
+  <%= javascript_tag("$('#search_form_top').focus()") -%>
+<%- end -%>
+
+<table class="index">
+  <tr>
+    <th><%= t('activerecord.attributes.patron.full_name') -%></th>
+    <th><%= t('activerecord.models.patron_type') -%></th>
+    <th><%= t('activerecord.attributes.patron.date_of_birth') -%></th>
+    <th><%= t('activerecord.attributes.patron.date_of_death') -%></th>
+    <th></th>
+  </tr>
+  <%- @patrons.each do |patron| -%>
+    <tr class="line<%= cycle("0", "1") -%>">
+      <td><%= link_to h(patron.full_name), patron -%></td>
+      <td><%= patron.patron_type.display_name.localize -%></td>
+      <td><%=l patron.date_of_birth if patron.date_of_birth -%></td>
+      <td><%=l patron.date_of_death if patron.date_of_death -%></td>
+      <td>
+        <%- if can? :destroy, patron -%>
+          <%- if params[:mode] == 'add' -%>
+            <%= link_to t('page.add'), new_manifestation_produce_path(@manifestation, :patron_id => patron.id) unless @manifestation.patrons.include?(patron) -%>
+          <%- else -%>
+            <%= link_to t('page.destroy'), manifestation_produce_path(@manifestation, @manifestation.produced(patron)), :confirm => t('page.are_you_sure'), :method => :delete -%>
+          <%- end -%>
+        <%- end -%>
+      </td>
+    </tr>
+  <%- end -%>
+</table>
+
+<%= will_paginate(@patrons) -%>
+</div>
+</div>
+
+<div id="submenu">
+  <%= render :partial => 'manifestations/book_jacket', :locals => {:manifestation => @manifestation} -%>
+  <ul>
+    <li><%= link_to t('activerecord.models.manifestation'), manifestations_path -%></li>
+    <li><%= link_to t('page.listing', :model => t('activerecord.models.item')), manifestation_items_path(@manifestation) -%></li>
+    <%- if can? :create, Patron -%>
+      <li><%= link_to t('page.new', :model => t('activerecord.models.patron')), new_manifestation_patron_path(@manifestation) -%></li>
+    <%- end -%>
+  </ul>
+</div>

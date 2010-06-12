@@ -1,0 +1,13 @@
+<%=
+checkouts = @checkouts
+RiCal.Calendar do
+  checkouts.each do |checkout|
+    event do
+      description checkout.item.manifestation.original_title
+      dtstart     checkout.created_at
+      dtend       checkout.due_date
+      location    checkout.item.shelf.library.address
+    end
+  end
+end.to_s
+-%>

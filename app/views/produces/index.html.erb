@@ -1,0 +1,7 @@
+<%- if @patron -%>
+  <%= render :partial => 'index_patron' -%>
+<%- elsif @manifestation -%>
+  <%= render :partial => 'index_manifestation' -%>
+<%- else -%>
+  <%= render :partial => 'index' -%>
+<%- end -%>

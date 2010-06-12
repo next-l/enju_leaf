@@ -1,0 +1,18 @@
+<div id="manifestation">
+  <ul>
+    <%- @manifestations.each do |manifestation| -%>
+      <li>
+        [M]
+        <%= link_to h(manifestation.original_title), manifestation -%>
+        <%= form_icon(manifestation.carrier_type) -%>
+        <%= raw patrons_list(manifestation.creators, current_user) -%>
+        <%= raw patrons_list(manifestation.contributors, current_user) -%>
+        <%= raw patrons_list(manifestation.publishers, current_user) -%>
+        <%- if manifestation.date_of_publication -%>
+          (<%= manifestation.date_of_publication.strftime('%Y') -%>)
+        <%- end -%>
+      </li>
+    <%- end -%>
+  </ul>
+  <%= will_paginate(@manifestations, :param_name => :manifestation_list_page, :class => 'content_pagination digg_pagination') -%>
+</div>

@@ -1,0 +1,31 @@
+<div id="content_detail">
+<h1 class="title"><%= t('page.showing', :model => t('activerecord.models.checkout')) -%></h1>
+<div id="content_list">
+  <%= render :partial => 'manifestations/title', :locals => {:manifestation => @checkout.item.manifestation} -%>
+  <p>
+    <strong><%= t('activerecord.attributes.item.item_identifier') -%></strong><br />
+    <%= link_to h(@checkout.item.item_identifier), @checkout.item -%>
+  </p>
+  <p>
+    <strong><%= t('activerecord.attributes.checkout.due_date') -%></strong><br />
+    <%= l(@checkout.due_date, :format => :short) -%>
+  </p>
+  <%- if can? :destroy, @checkout -%>
+    <p>
+      <strong><%= t('checkout.current_user') -%></strong><br />
+      <%= link_to h(@checkout.user.username), user_path(@checkout.user.username) -%>
+    </p>
+  <%- end -%>
+</div>
+</div>
+
+<div id="submenu">
+  <%= render :partial => 'manifestations/book_jacket', :locals => {:manifestation => @checkout.item.manifestation} -%>
+  <ul>
+    <li><%= link_to t('page.edit'), edit_user_checkout_path(@checkout.user.username, @checkout) -%></li>
+    <li><%= link_to t('page.back'), user_checkouts_path(@checkout.user.username) -%></li>
+    <%- if current_user.has_role?('Librarian') -%>
+      <li><%= link_to t('page.back_to', :model => t('activerecord.models.checkout')), checkouts_path -%></li>
+    <%- end -%>
+  </ul>
+</div>

@@ -1,0 +1,27 @@
+== 2009-12-09 / Version 2.1
+* Added the 'use_all_day' option. If this is set to true (by default it is false), it will check for an 'all_day' boolean field when displaying an event. If it is an all day event, or the event is multiple days, then it will display as usual. Otherwise it will display without a background color bar.
+* Added a --use-all-day option to the generator
+* Note, if updating, you will need to slightly change your helper. The block parameters passed to the calendar method are now in an argument hash. (More flexible, and future changes won't have this problem.) See the example in README for more.
+    calendar event_calendar_options do |args|
+      event = args[:event]
+      ...
+    end
+* Javascript handles highlighting non-all-day events
+* Re-factored javascript to be unobtrusive
+* JQuery works the same as the Prototype version
+* Minor changes to the stylesheet as a result of the new display option
+* A helper method for displaying an event's time
+
+== 2009-11-23 / Version 2
+* Complete rewrite of the calendar's HTML generation and styling
+* Event rows are now table cells which span the desired number of columns
+* The width can be set arbitrarily, or it can be left to resize with the containing element
+* Removes the use of background images for displaying the grid
+* Increased ability to style calendar days
+* Removed legacy options, comments, and code
+* Caution, not backwards compatible with some of Version 1's options
+
+== 2009-11-11 / Version 1
+* The initial EventCalendar Rails Plugin
+* Most bugs and issues have been resolved
+* Works, but isn't as flexible as desired

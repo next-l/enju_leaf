@@ -1,0 +1,2 @@
+class Manifestation < Resource
+end

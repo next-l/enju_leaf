@@ -1,0 +1,18 @@
+<%= form_for(:picture_file, :url => event_picture_files_path(@event), :html => { :multipart => true, :method => :post }) do |f| -%>
+  <%= f.error_messages -%>
+  <p>
+    <%= f.label t('page.attachable') -%><br />
+    <%= link_to h(@event.title), @event -%>
+    <%= f.hidden_field :picture_attachable_id -%>
+    <%= f.hidden_field :picture_attachable_type -%>
+  </p>
+
+  <p>
+    <%= f.label t('page.file') -%><br />
+    <%= f.file_field :picture -%>
+  </p>
+
+  <p>
+    <%= f.submit t('page.create') -%>
+  </p>
+<%- end -%>

@@ -1,0 +1,14 @@
+<h1 class="title"><%= t('page.new', :model => t('activerecord.models.checkin')) -%></h1>
+
+<%= form_for(@checkin) do |f| -%>
+  <%= f.error_messages -%>
+
+  <p>
+    <%= f.label t('activerecord.models.item') -%><br />
+    <%= f.text_field :item_id -%>
+  </p>
+
+  <%= f.submit t('page.create') -%>
+<%- end -%>
+
+<%= link_to t('page.back'), checkins_path -%>

@@ -1,0 +1,37 @@
+--- 
+request_status_type_00001: 
+  name: Available For Pickup  
+  display_name: Available For Pickup
+  id: 1
+  position: 1
+  note: ""
+request_status_type_00002: 
+  name: Cannot Fulfill Request  
+  display_name: Cannot Fulfill Request
+  id: 2
+  position: 2
+  note: ""
+request_status_type_00003: 
+  name: Expired  
+  display_name: Expired
+  id: 3
+  position: 3
+  note: ""
+request_status_type_00004: 
+  name: In Process  
+  display_name: In Process
+  id: 4
+  position: 4
+  note: ""
+request_status_type_00005: 
+  name: Need to Accept Conditions  
+  display_name: Need to Accept Conditions
+  id: 5
+  position: 5
+  note: ""
+request_status_type_00006: 
+  name: Requested Via ILL  
+  display_name: Requested Via ILL
+  id: 6
+  position: 6
+  note: ""

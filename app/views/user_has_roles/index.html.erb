@@ -1,0 +1,34 @@
+<div id="content_detail">
+<h1 class="title"><%= t('page.listing', :model => t('activerecord.models.user_has_role')) -%></h1>
+<div id="content_list">
+
+<table class="index">
+  <tr>
+    <th><%= t('activerecord.models.user') -%></th>
+    <th><%= t('activerecord.models.role') -%></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<%- for user_has_role in @user_has_roles -%>
+  <tr class="line<%= cycle("0", "1") -%>">
+    <td><%= link_to h(user_has_role.user.username), user_has_role.user -%></td>
+    <td><%= link_to h(user_has_role.role.display_name.localize), user_has_role.role -%></td>
+    <td><%= link_to t('page.show'), user_has_role -%></td>
+    <td>
+      <%= link_to t('page.edit'), edit_user_has_role_path(user_has_role) -%>
+      <%= link_to t('page.destroy'), user_has_role, :confirm => t('page.are_you_sure'), :method => :delete -%>
+    </td>
+  </tr>
+<%- end -%>
+</table>
+
+<%= will_paginate(@user_has_roles) -%>
+</div>
+</div>
+
+<div id="submenu">
+  <ul>
+    <li><%= link_to t('page.new', :model => t('activerecord.models.user_has_role')), new_user_has_role_path -%></li>
+  </ul>
+</div>

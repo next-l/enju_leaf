@@ -1,0 +1,42 @@
+<div id="content_detail">
+<h1 class="title"><%= t('page.listing', :model => t('activerecord.models.checkout')) -%></h1>
+<div id="content_list">
+
+<%= render :partial => 'list' -%>
+
+<%- if @checkouts.size == 0 -%>
+  <p><%= t('checkout.no_checkout') -%></p>
+<%- end -%>
+
+</div>
+</div>
+
+<div id="submenu">
+  <ul>
+    <%- @user.user_group.user_group_has_checkout_types.each do |available_checkout_type| -%>
+      <li>
+        <%= available_checkout_type.checkout_type.display_name.localize -%>:
+        <%= @user.checked_item_count[:"#{available_checkout_type.checkout_type.name}"] -%> / <%= available_checkout_type.checkout_limit -%>
+      </li>
+    <%- end -%>
+  </ul>
+  <ul>
+    <li><%= link_to t('activerecord.models.reserve'), user_reserves_path(@user.username) -%></li>
+    <%- if current_user.has_role?('Librarian') -%>
+      <li><%= link_to t('checkout.all_checkout'), checkouts_path -%></li>
+    <%- end -%>
+    <li><%= link_to 'iCalendar', checkouts_path(:icalendar_token => @user.checkout_icalendar_token, :format => :ics) -%></li>
+  </ul>
+  <p>
+    <%- if params[:view] == 'overdue' -%>
+      <%= link_to (image_tag 'feed-icon-14x14.png', :size => '14x14', :alt => 'RSS', :border => 0), user_checkouts_path(@user.username, :format => :rss, :view => 'overdue') -%>
+      (<%= link_to 'RSS', user_checkouts_path(@user.username, :format => :rss, :view => 'overdue') -%>)
+      (<%= link_to 'CSV', user_checkouts_path(@user.username, :format => :csv, :view => 'overdue', :locale => @locale) -%>)
+    <%- else -%>
+      <%= link_to (image_tag 'feed-icon-14x14.png', :size => '14x14', :alt => 'RSS', :border => 0), user_checkouts_path(@user.username, :format => :rss) -%>
+      (<%= link_to 'RSS', user_checkouts_path(@user.username, :format => :rss) -%>)
+      (<%= link_to 'CSV', user_checkouts_path(@user.username, :format => :csv, :locale => @locale) -%>)
+    <%- end -%>
+  </p>
+
+</div>

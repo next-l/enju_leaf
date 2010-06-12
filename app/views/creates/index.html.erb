@@ -1,0 +1,7 @@
+<%- if @patron -%>
+  <%= render :partial => 'index_patron' -%>
+<%- elsif @work -%>
+  <%= render :partial => 'index_work' -%>
+<%- else -%>
+  <%= render :partial => 'index' -%>
+<%- end -%>

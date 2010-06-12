@@ -1,0 +1,45 @@
+<div id="content_detail">
+<h1 class="title"><%= t('page.new', :model => t('activerecord.models.realize')) -%></h1>
+<div id="content_list">
+
+<%= form_for(@realize) do |f| -%>
+  <%= f.error_messages -%>
+
+  <p>
+    <%= f.label t('activerecord.models.patron') -%><br />
+    <%- if @realize.patron -%>
+		  <%= link_to h(@realize.patron.full_name), @realize.patron -%>
+      <%= f.hidden_field :patron_id -%>
+    <%- else -%>
+      <%= f.text_field :patron_id -%>
+    <%- end -%>
+  </p>
+
+  <p>
+    <%= f.label t('activerecord.models.expression') -%><br />
+    <%- if @realize.expression -%>
+		  <%= link_to h(@realize.expression.original_title), @realize.expression -%>
+      <%= f.hidden_field :expression_id -%>
+    <%- else -%>
+      <%= f.text_field :expression_id -%>
+    <%- end -%>
+  </p>
+
+  <p>
+    <%= f.submit t('page.create') -%>
+  </p>
+<%- end -%>
+
+</div>
+</div>
+
+<div id="submenu">
+  <ul>
+    <%- if @realize.patron -%>
+      <li><%= link_to t('page.listing', :model => t('activerecord.models.expression')), patron_expressions_path(@realize.patron) -%></li>
+    <%- end -%>
+    <%- if @realize.expression -%>
+      <li><%= link_to t('page.listing', :model => t('activerecord.models.patron')), expression_patrons_path(@realize.expression) -%></li>
+    <%- end -%>
+  </ul>
+</div>

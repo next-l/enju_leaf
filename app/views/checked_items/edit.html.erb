@@ -1,0 +1,21 @@
+<h1 class="title"><%= t('page.editing', :model => t('activerecord.models.checked_item')) -%></h1>
+
+<%= form_for(@checked_item) do |f| -%>
+  <%= f.error_messages -%>
+  <p>
+    <%= f.label t('activerecord.models.item') -%><br />
+    <%= f.text_field :item_id -%>
+  </p>
+
+  <p>
+    <%= f.label t('activerecord.models.basket') -%><br />
+    <%= f.text_field :basket_id -%>
+  </p>
+
+  <p>
+    <%= f.submit t('page.update') -%>
+  </p>
+<%- end -%>
+
+<%= link_to t('page.show'), user_basket_checked_item_path(@checked_item.basket.user, @checked_item.basket, @checked_item) -%> |
+<%= link_to t('page.back'), user_basket_checked_items_path(@checked_item.basket.user, @checked_item.basket) -%>

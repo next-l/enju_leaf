@@ -1,0 +1,12 @@
+<div id="header_select_locale">
+<%- if request.get? -%>
+  <form method="get" action="<%= url_for -%>">
+    <%- params.merge!(:controller => nil, :action => nil, :locale => nil, :commit => nil) -%>
+    <%- params.reject{|key, value| value.nil?}.each do |param, value| -%>
+      <%= hidden_field_tag h(param), h(value) -%>
+    <%- end -%>
+    <%= select_tag 'locale', options_from_collection_for_select(@available_languages, 'iso_639_1', 'native_name', @locale) -%>
+    <%= submit_tag t('page.set_locale') -%>
+  </form>
+<%- end -%>
+</div>

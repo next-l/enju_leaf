@@ -1,0 +1,7 @@
+"manifestation_identifier"	"original_title"	"title_transcription"	"title_alternative"	"series_statement_identifier"	"series_statement_original_title"	"series_statement_title_transcription"	"author"	"publisher"	"date_of_publication"	"volume_number_list"	"edition"	"isbn"	"issn"	"manifestation_price"	"item_price"	"height"	"shelf"	"item_identifier"	"nbn"	"lccn"	"subject"
+	"test"						"test"	"test1"		"invalid"											
+	"test"						"test"	"test2"													
+	"test"						"test1"	"test"													
+	"test"						"test2"	"test"													
+	"test"						"test"	"test3"													
+	"テスト"						"test"	"test4"						1000	0		"first_shelf"	11111			

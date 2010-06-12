@@ -1,0 +1,18 @@
+<div id="content_detail">
+  <h2 class="title"><%= t('page.access_denied') -%></h2>
+  <div id="content_list">
+  <%= form_for :resources, :url => resources_path, :html => {:method => 'get'} do -%>
+    <p>
+      <%= t('page.search_term') -%>:
+      <%= text_field_tag 'query', h(@query), {:id => 'search_form_top', :class => 'search_form'} -%>
+      <%= hidden_field_tag 'reservable', h(@reservable) if @reservable -%>
+      <%= submit_tag t('page.search') -%>
+      <%= link_to t('page.advanced_search'), '/page/advanced_search' -%>
+    </p>
+    <%= javascript_tag("$('#search_form_top').focus()") -%>
+  <%- end -%>
+  </div>
+</div>
+
+<div id="submenu">
+</div>

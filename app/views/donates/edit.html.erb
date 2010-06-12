@@ -1,0 +1,30 @@
+<div id="content_detail">
+<h1 class="title"><%= t('page.editing', :model => t('activerecord.models.donate')) -%></h1>
+<div id="content_list">
+
+<%= form_for(@donate) do |f| -%>
+  <%= f.error_messages -%>
+  <p>
+    <%= f.label t('activerecord.models.patron') -%><br />
+    <%= f.text_field :patron_id -%>
+  </p>
+
+  <p>
+    <%= f.label t('activerecord.models.item') -%><br />
+    <%= f.text_field :item_id -%>
+  </p>
+
+  <p>
+    <%= f.submit t('page.update') -%>
+  </p>
+<%- end -%>
+
+</div>
+</div>
+
+<div id="submenu">
+  <ul>
+    <li><%= link_to t('page.show'), @donate -%></li>
+    <li><%= link_to t('page.back'), donates_path -%></li>
+  </ul>
+</div>

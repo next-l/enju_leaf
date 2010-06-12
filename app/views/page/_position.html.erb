@@ -1,0 +1,2 @@
+<%= object.first? ? image_tag('cross.png', :size => '16x16') : link_to(image_tag('arrow_up.png', :size => '16x16', :alt => t('page.asc')), {:action => 'update', :position  => (object.position > 1 ? object.position - 1 : 1), :id => object.id}, :method => :put) -%>
+<%= object.last? ? image_tag('cross.png', :size => '16x16') : link_to(image_tag('arrow_down.png', :size => '16x16', :alt => t('page.desc')), {:action => 'update', :position => (object.position + 1), :id => object.id}, :method => :put) -%>

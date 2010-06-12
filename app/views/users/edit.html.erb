@@ -1,0 +1,71 @@
+<div id="content_detail">
+<h1 class="title"><%= t('page.edit_user_profile', :login_name => @user.username) -%></h1>
+<div id="content_list">
+
+<%= form_for(@user, :url => user_path(@user.username)) do |f| -%>
+  <%= f.error_messages -%>
+
+  <%= render :partial => 'users/edit_credential', :locals => {:f => f} -%>
+  
+  <p>
+    <%= f.submit t('page.update') -%>
+  </p>
+<div style="clear: both">
+  <p>
+    <%= f.label t('activerecord.attributes.user.keyword_list') -%><br />
+    <%= f.text_area :keyword_list, :class => 'resource_textarea' -%>
+  </p>
+
+  <p>
+    <%= f.label t('user.reset_checkout_icalendar_url') -%><br />
+    <div id="feed_token">
+      <%- if @user.checkout_icalendar_token -%>
+        <%= link_to h(checkouts_url(:icalendar_token => @user.checkout_icalendar_token, :format => :ics)), checkouts_url(:icalendar_token => @user.checkout_icalendar_token, :format => :ics) -%>
+        <%= f.hidden_field :checkout_icalendar_token -%>
+      <%- end -%>
+      <br />
+      <input onclick="$.ajax({data:'authenticity_token=' + encodeURIComponent('<%= form_authenticity_token %>'), success:function(request){$('#feed_token').html(request);}, type:'get', url:'/users/<%= @user.username %>/edit?mode=feed_token'});" type="button" value="<%= t('page.reset') %>" />
+      <input onclick="$.ajax({data:'authenticity_token=' + encodeURIComponent('<%= form_authenticity_token %>'), success:function(request){$('#feed_token').html(request);}, type:'get', url:'/users/<%= @user.username %>/edit?disable=true&amp;mode=feed_token'});" type="button" value="<%= t('page.delete') %>" />
+    </div>
+    <br />
+  </p>
+
+  <p>
+    <%= f.label t('activerecord.attributes.user.note') -%><br />
+    <%= f.text_area :note, :class => 'resource_textarea' -%>
+  </p>
+
+  <!--
+  <h1 class="title"><%= t('page.history') -%></h1>
+  <p>
+    <%= f.check_box :save_search_history -%> <%= ('Save search history') -%>
+  </p>
+
+  <p>
+    <%= f.check_box :save_checkout_history -%> <%= ('Save checkout history') -%>
+  </p>
+  -->
+  <p>
+    <%= f.submit t('page.update') -%>
+  </p>
+
+  <%- end -%>
+
+</div>
+</div>
+</div>
+
+<div id="submenu">
+  <ul>
+    <%- if @user.patron -%>
+      <li><%= link_to t('user.patron_profile'), @user.patron -%></li>
+    <%- else -%>
+      <li><%= link_to t('user.patron_profile'), new_user_patron_path(@user.username) -%></li>
+    <%- end -%>
+    <%- if current_user.has_role?('Librarian') -%>
+      <%- unless current_user == @user -%>
+        <li><%= link_to t('page.destroy'), user_path(@user.username), :confirm => t('page.are_you_sure'), :method => :delete -%></li>
+      <%- end -%>
+    <%- end -%>
+  </ul>
+</div>

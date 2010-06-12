@@ -1,0 +1,20 @@
+<%= form_for(@patron) do |f| %>
+  <% if @patron.errors.any? %>
+  <div id="errorExplanation">
+    <h2><%= pluralize(@patron.errors.count, "error") %> prohibited this patron from being saved:</h2>
+    <ul>
+    <% @patron.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
+    <% end %>
+    </ul>
+  </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :full_name %><br />
+    <%= f.text_area :full_name %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

@@ -1,0 +1,36 @@
+<div id="content_detail">
+  <h1 class="title"><%= t('page.showing', :model => t('activerecord.models.tag')) -%></h1>
+  <div id="content_list">
+    <h2 class="resource_title">
+      [T]
+      <%= @tag.name -%>
+    </h2>
+
+    <p>
+      (<%= link_to_wikipedia(@tag.name) -%>)
+    </p>
+
+    <p>
+      <strong><%= t('activerecord.attributes.tag.taggings_count') -%>:</strong>
+      <%= @tag.taggings.size -%>
+      (<%= link_to t('page.search'), resources_path(:tag => @tag.name) -%>)
+    </p>
+
+    <p>
+      <strong><%= t('page.created_at') -%>:</strong>
+      <%= l(@tag.created_at) -%>
+    </p>
+
+  </div>
+</div>
+
+<div id="submenu">
+  <ul>
+    <li><%= link_to t('page.back'), :back -%></li>
+    <li><%= link_to t('page.edit'), edit_tag_path(@tag.name) -%></li>
+    <li><%= link_to t('page.search_resource', :model => t('activerecord.models.resource')), resources_path(:tag => h(@tag.name)) -%></li>
+    <%- if user_signed_in? -%>
+      <li><%= link_to t('page.search_resource', :model => t('activerecord.models.bookmark')), user_bookmarks_path(current_user.username, :tag => h(@tag.name)) -%></li>
+    <%- end -%>
+  </ul>
+</div>

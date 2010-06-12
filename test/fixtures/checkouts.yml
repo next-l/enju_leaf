@@ -1,0 +1,121 @@
+--- 
+checkout_00001: 
+  item_id: 1
+  updated_at: 2007-09-08 01:20:22.000026 +09:00
+  lock_version: 0
+  user_id: 1
+  id: 1
+  librarian_id: 1
+  checkout_renewal_count: 0
+  due_date: 2010-09-15 00:00:00 +09:00
+  created_at: 2007-09-08 01:19:02.285850 +09:00
+  basket_id: 1
+checkout_00002: 
+  item_id: 2
+  updated_at: 2007-09-08 01:34:25.103403 +09:00
+  lock_version: 0
+  user_id: 1
+  id: 2
+  librarian_id: 1
+  checkout_renewal_count: 0
+  due_date: 2010-09-15 00:00:00 +09:00
+  created_at: 2007-09-08 01:34:07.363023 +09:00
+  basket_id: 1
+checkout_00003: 
+  item_id: 3
+  updated_at: 2007-09-09 21:15:11.648996 +09:00
+  lock_version: 0
+  user_id: 3
+  id: 3
+  librarian_id: 1
+  checkout_renewal_count: 0
+  due_date: 2010-09-15 00:00:00 +09:00
+  created_at: 2007-09-08 01:39:03.210081 +09:00
+  basket_id: 2
+checkout_00004: 
+  item_id: 4
+  updated_at: 2007-09-09 21:15:11.648996 +09:00
+  lock_version: 0
+  user_id: 1
+  id: 4
+  librarian_id: 1
+  checkout_renewal_count: 0
+  due_date: 2010-09-15 00:00:00 +09:00
+  created_at: 2007-09-08 01:39:03.210081 +09:00
+  basket_id: 3
+checkout_00005: 
+  item_id: 5
+  updated_at: 2007-09-09 21:15:11.648996 +09:00
+  lock_version: 0
+  user_id: 2
+  id: 5
+  librarian_id: 1
+  checkout_renewal_count: 0
+  due_date: 2010-09-15 00:00:00 +09:00
+  created_at: 2007-09-08 01:39:03.210081 +09:00
+  basket_id: 4
+checkout_00006:
+  item_id: 7
+  updated_at: 2007-09-09 21:15:11.648996 +09:00
+  lock_version: 0
+  user_id: 2
+  id: 6
+  librarian_id: 2
+  checkout_renewal_count: 0
+  due_date: 2010-09-15 00:00:00 +09:00
+  created_at: 2007-09-08 01:39:03.210081 +09:00
+checkout_00007: 
+  item_id: 7
+  updated_at: 2007-09-09 21:15:11.648996 +09:00
+  lock_version: 0
+  user_id: 1
+  id: 7
+  librarian_id: 1
+  checkout_renewal_count: 0
+  due_date: 2010-09-15 00:00:00 +09:00
+  created_at: 2007-09-08 01:39:03.210081 +09:00
+  basket_id: 5
+checkout_00008: 
+  item_id: 8
+  updated_at: 2007-09-09 21:15:11.648996 +09:00
+  lock_version: 0
+  user_id: 2
+  id: 8
+  librarian_id: 1
+  checkout_renewal_count: 0
+  due_date: 2010-09-15 00:00:00 +09:00
+  created_at: 2007-09-08 01:39:03.210081 +09:00
+  basket_id: 6
+checkout_00009: 
+  item_id: 9
+  updated_at: 2007-09-09 21:15:11.648996 +09:00
+  lock_version: 0
+  user_id: 3
+  id: 9
+  librarian_id: 1
+  checkout_renewal_count: 1
+  due_date: 2010-09-15 00:00:00 +09:00
+  created_at: 2007-09-08 01:39:03.210081 +09:00
+  basket_id: 7
+checkout_00010: 
+  item_id: 13
+  updated_at: 2007-09-09 21:15:11.648996 +09:00
+  lock_version: 0
+  user_id: 3
+  id: 10
+  librarian_id: 1
+  checkout_renewal_count: 1
+  due_date: 2010-09-15 00:00:00 +09:00
+  created_at: 2007-09-08 01:39:03.210081 +09:00
+  basket_id: 7
+checkout_00011: 
+  item_id: 14
+  updated_at: 2007-09-09 21:15:11.648996 +09:00
+  lock_version: 0
+  user_id: 1
+  id: 11
+  librarian_id: 1
+  checkout_renewal_count: 1
+  due_date: <%= 1.years.ago %>
+  created_at: 2007-09-08 01:39:03.210081 +09:00
+  basket_id: 7

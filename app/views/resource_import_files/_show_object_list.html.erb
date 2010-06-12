@@ -1,0 +1,26 @@
+<div id="object_list">
+  <table class="index">
+  <%- @imported_objects.each do |imported_object| -%>
+    <tr class="line<%= cycle("0", "1") -%>">
+      <td><%= link_to h("#{imported_object.importable_type}/#{imported_object.importable_id}"), imported_object -%></td>
+      <td>
+        <%- case imported_object.importable_type when 'Work' -%>
+          <%= link_to h(imported_object.importable.original_title), imported_object.importable -%>
+        <%- when 'Expression' -%>
+          <%= link_to h(imported_object.importable.original_title), imported_object.importable -%>
+        <%- when 'Manifestation' -%>
+          <%= link_to h(imported_object.importable.original_title), imported_object.importable -%>
+        <%- when 'Item' -%>
+          <%= link_to h(imported_object.importable.item_identifier), imported_object.importable -%>
+          <%- if imported_object.importable.manifestation -%>
+            (<%= link_to h(imported_object.importable.manifestation.original_title), imported_object.importable.manifestation -%>)
+          <%- end -%>
+        <%- end -%>
+      </td>
+      <!-- <td><%= imported_object.line_number -%></td> -->
+    </tr>
+  <%- end -%>
+  </table>
+
+  <%= will_paginate(@imported_objects, :param_name => :object_page, :class => 'content_pagination digg_pagination') -%>
+</div>

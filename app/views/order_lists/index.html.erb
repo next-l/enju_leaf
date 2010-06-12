@@ -1,0 +1,34 @@
+<div id="content_detail">
+<h1 class="title"><%= t('page.listing', :model => t('activerecord.models.order_list')) -%></h1>
+<div id="content_list">
+
+<table class="index">
+  <tr>
+    <th><%= t('activerecord.attributes.order_list.title') -%></th>
+    <th><%= t('activerecord.models.bookstore') -%></th>
+    <th><%= t('activerecord.attributes.order_list.note') -%></th>
+    <th style="width: 50px"></th>
+  </tr>
+
+<%- @order_lists.each do |order_list| -%>
+  <tr class="line<%= cycle("0", "1") -%>">
+    <td><%= link_to h(order_list.title), order_list -%></td>
+    <td><%= link_to h(order_list.bookstore.name), order_list.bookstore -%></td>
+    <td><%= order_list.note -%></td>
+    <td>
+      <%= link_to image_tag('/icons/page_white_edit.png', :size => '16x16', :alt => t('page.edit')), edit_order_list_path(order_list) -%>
+      <%= link_to t('page.destroy'), order_list, :confirm => t('page.are_you_sure'), :method => :delete -%>
+  </tr>
+<%- end -%>
+</table>
+
+<%= will_paginate(@order_lists) -%>
+
+</div>
+</div>
+
+<div id="submenu">
+  <ul>
+    <li><%= link_to t('page.new', :model => t('activerecord.models.order_list')), new_order_list_path -%></li>
+  </ul>
+</div>

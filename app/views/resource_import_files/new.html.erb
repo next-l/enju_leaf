@@ -1,0 +1,25 @@
+<div id="content_detail">
+  <h1 class="title"><%= t('page.new', :model => t('activerecord.models.resource_import_file')) -%></h1>
+<div id="content_list">
+
+<%= form_for(@resource_import_file, :html => { :multipart => true }) do |f| -%>
+  <%= f.error_messages -%>
+
+  <p>
+    <%= f.label t('page.file') -%><br />
+    <%= f.file_field :resource_import -%>
+  </p>
+
+  <p>
+    <%= f.submit t('page.create') -%>
+  </p>
+<%- end -%>
+
+</div>
+</div>
+
+<div id="submenu">
+  <ul>
+    <li><%= link_to t('page.back'), resource_import_files_path -%></li>
+  </ul>
+</div>

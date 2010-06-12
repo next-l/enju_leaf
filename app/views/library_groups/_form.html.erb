@@ -1,0 +1,28 @@
+<%= form_for(@library_group) do |f| %>
+  <% if @library_group.errors.any? %>
+  <div id="errorExplanation">
+    <h2><%= pluralize(@library_group.errors.count, "error") %> prohibited this library_group from being saved:</h2>
+    <ul>
+    <% @library_group.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
+    <% end %>
+    </ul>
+  </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :name %><br />
+    <%= f.text_field :name %>
+  </div>
+  <div class="field">
+    <%= f.label :display_name %><br />
+    <%= f.text_area :display_name %>
+  </div>
+  <div class="field">
+    <%= f.label :note %><br />
+    <%= f.text_area :note %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

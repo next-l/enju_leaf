@@ -1,0 +1,74 @@
+<div id="content_detail">
+<h1 class="title"><%= t('page.new', :model => t('activerecord.models.purchase_request')) -%></h1>
+<div id="content_list">
+
+<%= form_for(@purchase_request, :url => order_list_purchase_requests_path(@order_list)) do |f| -%>
+  <%= f.error_messages -%>
+
+  <p>
+    <%= f.label t('activerecord.models.user') -%><br />
+    <%- if @user -%>
+      <%= link_to h(@user.username), user_path(@user.username) -%>
+    <%- else -%>
+      <%= link_to h(current_user.username), user_path(current_user.username) -%>
+    <%- end -%>
+  </p>
+
+  <p>
+    <%= f.label t('activerecord.attributes,purchase_request.title') -%><br />
+    <%= f.text_area :title, :class => 'resource_textarea' -%>
+  </p>
+
+  <p>
+    <%= f.label t('activerecord.attributes,purchase_request.author') -%><br />
+    <%= f.text_area :author, :class => 'resource_textarea' -%>
+  </p>
+
+  <p>
+    <%= f.label t('activerecord.attributes,purchase_request.publisher') -%><br />
+    <%= f.text_area :publisher, :class => 'resource_textarea' -%>
+  </p>
+
+  <p>
+    <%= f.label t('activerecord.attributes,purchase_request.isbn') -%><br />
+    <%= f.text_field :isbn, :class => 'resource_isbn_issn' -%>
+  </p>
+
+  <p>
+    <%= f.label t('activerecord.attributes,purchase_request.date_of_publication') -%><br />
+    <%= f.text_field :date_of_publication, :class => 'date_field' -%>
+  </p>
+
+  <p>
+    <%= f.label t('activerecord.attributes,purchase_request.price') -%><br />
+    <%= f.text_field :price, :class => 'resource_integer' -%>
+  </p>
+
+  <p>
+    <%= f.label t('activerecord.attributes,purchase_request.url') -%><br />
+    <%= f.text_field :url, :class => 'resource_url' -%>
+  </p>
+
+  <p>
+    <%= f.label t('activerecord.attributes,purchase_request.note') -%><br />
+    <%= f.text_area :note, :class => 'resource_textarea' -%>
+  </p>
+
+  <p>
+    <%= f.submit t('page.create') -%>
+  </p>
+
+<%- end -%>
+
+</div>
+</div>
+
+<div id="submenu">
+  <ul>
+    <%- if @user -%>
+      <li><%= link_to t('page.back'), user_purchase_requests_path(@user.username) -%></li>
+    <%- else -%>
+      <li><%= link_to t('page.back'), purchase_requests_path -%></li>
+    <%- end -%>
+  </ul>
+</div>

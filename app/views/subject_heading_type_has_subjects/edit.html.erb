@@ -1,0 +1,28 @@
+<div id="content_detail">
+<h1 class="title"><%= t('page.editing', :model => t('activerecord.models.subject_heading_type_has_subject')) -%></h1>
+<div id="content_list">
+
+<%= form_for(@subject_heading_type_has_subject) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label t('activerecord.models.subject') %><br />
+    <%= f.text_field :subject_id %>
+  </p>
+  <p>
+    <%= f.label t('activerecord.models.subject_heading_type') %><br />
+    <%= f.text_field :subject_heading_type_id %>
+  </p>
+  <p>
+    <%= f.submit t('page.update') %>
+  </p>
+<%- end %>
+</div>
+</div>
+
+<div id="submenu">
+  <ul>
+    <li><%= link_to t('page.show'), @subject_heading_type_has_subject %></li>
+    <li><%= link_to t('page.back'), subject_heading_type_has_subjects_path %></li>
+  </ul>
+</div>

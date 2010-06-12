@@ -1,0 +1,43 @@
+<div id="content_detail">
+<h1 class="title"><%= t('page.listing', :model => t('activerecord.models.inter_library_loan')) -%></h1>
+<div id="content_list">
+<table class="index">
+  <tr>
+    <th><%= t('activerecord.models.item') -%></th>
+    <th><%= t('activerecord.models.library') -%></th>
+    <th><%= t('inter_library_loan.borrowing_library') -%></th>
+    <th><%= t('activerecord.attributes.inter_library_loan.shipped_at') -%></th>
+    <th><%= t('activerecord.attributes.inter_library_loan.received_at') -%></th>
+  </tr>
+
+<%- for inter_library_loan in @inter_library_loans -%>
+  <tr class="line<%= cycle("0", "1") -%>">
+    <td>
+      <%= link_to h(inter_library_loan.item.item_identifier), inter_library_loan.item -%>
+      <br />
+      (<%= link_to h(inter_library_loan.item.manifestation.original_title), inter_library_loan.item.manifestation -%>)
+    </td>
+    <td><%= link_to h(inter_library_loan.item.shelf.library.display_name.localize), library_path(inter_library_loan.item.shelf.library.name) -%></td>
+    <td><%= link_to h(inter_library_loan.borrowing_library.display_name.localize), library_path(inter_library_loan.borrowing_library.name) -%></td>
+    <td><%= l(inter_library_loan.shipped_at) if inter_library_loan.shipped_at -%></td>
+    <td><%= l(inter_library_loan.received_at) if inter_library_loan.received_at -%></td>
+    <%- if can? :destroy, inter_library_loan -%>
+      <td><%= link_to t('page.show'), inter_library_loan -%></td>
+      <td><%= link_to t('page.edit'), edit_inter_library_loan_path(inter_library_loan) -%></td>
+      <td><%= link_to t('page.destroy'), inter_library_loan, :confirm => t('page.are_you_sure'), :method => :delete -%></td>
+    <%- end -%>
+  </tr>
+<%- end -%>
+</table>
+
+<%= will_paginate(@inter_library_loans) -%>
+</div>
+</div>
+
+<div id="submenu">
+  <ul>
+    <%- if can? :create, InterLibraryLoan -%>
+      <li><%= link_to t('page.new', :model => t('activerecord.models.inter_library_loan')), new_inter_library_loan_path -%></li>
+    <%- end -%>
+  </ul>
+</div>

@@ -1,0 +1,34 @@
+<div id="content_detail">
+<h1 class="title"><%= t('page.listing', :model => t('activerecord.models.resource_relationship')) -%></h1>
+<div id="content_list">
+
+<table class="index">
+  <tr>
+    <th>Parent</th>
+    <th>Child</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @resource_relationships.each do |resource_relationship| %>
+  <tr>
+    <td><%= resource_relationship.parent_id %></td>
+    <td><%= resource_relationship.child_id %></td>
+    <td><%= link_to t('page.show'), resource_relationship %></td>
+    <td><%= link_to t('page.edit'), edit_resource_relationship_path(resource_relationship) %></td>
+    <td><%= link_to t('page.destroy'), resource_relationship, :confirm => t('page.are_you_sure'), :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+</div>
+</div>
+
+<div id="submenu">
+  <ul>
+    <li><%= link_to 'New Patron relationship', new_resource_relationship_path %></li>
+  </ul>
+</div>

@@ -1,0 +1,12 @@
+<p>
+  <strong><%= t('activerecord.models.item') -%>:</strong>
+  <%= @checked_item.item_id -%>
+</p>
+
+<p>
+  <strong><%= t('activerecord.models.basket') -%>:</strong>
+  <%= @checked_item.basket_id -%>
+</p>
+
+<%= link_to t('page.edit'), edit_user_basket_checked_item_path(@checked_item.basket.user, @checked_item.basket, @checked_item) -%> |
+<%= link_to t('page.back'), user_basket_checked_items_path(@checked_item.basket.user, @checked_item.basket) -%>

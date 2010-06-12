@@ -1,0 +1,11 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  sender_id: 1
+  receiver_id: 1
+  message_template_id: 1
+
+two:
+  sender_id: 1
+  receiver_id: 1
+  message_template_id: 1

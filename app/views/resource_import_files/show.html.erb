@@ -1,0 +1,59 @@
+<div id="content_detail">
+<h1 class="title"><%= t('page.showing', :model => t('activerecord.models.resource_import_file')) -%></h1>
+<div id="content_list">
+<p>
+  <strong>Id:</strong>
+  <%= @resource_import_file.id -%>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.manifestation_import_file.resource_import_file_name') -%>:</strong>
+  <%= link_to h(@resource_import_file.resource_import_file_name), resource_import_file_path(@resource_import_file, :format => :download) -%>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.manifestation_import_file.resource_import_content_type') -%>:</strong>
+  <%= @resource_import_file.resource_import_content_type -%>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.manifestation_import_file.resource_import_file_size') -%>:</strong>
+  <%= @resource_import_file.resource_import_file_size -%>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.manifestation_import_file.file_hash') -%>:</strong>
+  <%= @resource_import_file.file_hash -%>
+</p>
+
+<p>
+  <strong><%= t('page.created_at') -%>:</strong>
+  <%= l(@resource_import_file.created_at) if @resource_import_file.created_at -%>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.manifestation_import_file.imported_at') -%>:</strong>
+  <%= l(@resource_import_file.imported_at) if @resource_import_file.imported_at -%>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.manifestation_import_file.state') -%>:</strong>
+  <%= localized_state(@resource_import_file.state) -%>
+</p>
+
+<p>
+  <strong><%= t('activerecord.models.user') -%>:</strong>
+  <%= link_to h(@resource_import_file.user.username), user_path(@resource_import_file.user.username) -%>
+</p>
+
+<%= render 'show_object_list' -%>
+
+</div>
+</div>
+
+<div id="submenu">
+  <ul>
+    <li><%= link_to t('page.edit'), edit_resource_import_file_path(@resource_import_file) -%></li>
+    <li><%= link_to t('page.back'), resource_import_files_path -%></li>
+  </ul>
+</div>

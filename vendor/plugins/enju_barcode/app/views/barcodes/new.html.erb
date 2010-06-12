@@ -1,0 +1,36 @@
+<div id="content_detail">
+<h1 class="title"><%= t('page.new', :model => t('activerecord.models.barcode')) -%></h1>
+<div id="content_list">
+
+<%- form_for(@barcode) do |f| -%>
+  <%= f.error_messages -%>
+
+  <p>
+    <%= f.label t('activerecord.attributes.barcode.barcode_type') -%><br />
+    <%= f.text_field :barcode_type -%>
+  </p>
+  <p>
+    <%= f.label t('activerecord.attributes.barcode.barcodable') -%><br />
+    <%= f.text_field :barcodable_id -%>
+  </p>
+  <p>
+    <%= f.label t('activerecord.attributes.barcode.barcodable_type') -%><br />
+    <%= f.text_field :barcodable_type -%>
+  </p>
+  <p>
+    <%= f.label t('activerecord.attributes.barcode.data') -%><br />
+    <%= f.text_field :data -%>
+  </p>
+  <p>
+    <%= f.submit t('page.create') -%>
+  </p>
+<%- end -%>
+
+</div>
+</div>
+
+<div id="submenu">
+  <ul>
+    <li><%= link_to t('page.back'), barcodes_path -%></li>
+  </ul>
+</div>

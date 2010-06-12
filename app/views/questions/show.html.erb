@@ -1,0 +1,66 @@
+<div id="content_detail">
+<h1 class="title"><%= t('page.showing', :model => t('activerecord.models.question')) -%></h1>
+<div id="content_list">
+<p>
+  <strong><%= t('activerecord.models.user') -%>:</strong>
+  <%= link_to h(@question.user.username), user_path(@question.user.username) -%>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.question.body') -%>:</strong>
+  <%= auto_link(textilize_without_paragraph(h(@question.body))) -%>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.question.shared') -%>:</strong>
+  <%= localized_boolean(@question.shared) -%>
+</p>
+
+<p>
+  <strong><%= t('page.created_at') -%>:</strong>
+  <%= l(@question.created_at) -%>
+</p>
+
+<p>
+  <strong><%= t('page.updated_at') -%>:</strong>
+  <%= l(@question.updated_at) -%>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.question.solved') -%>:</strong>
+  <%= localized_boolean(@question.solved) -%>
+</p>
+
+<p>
+  <strong><%= link_to t('activerecord.models.answer'), user_question_answers_path(@question.user.username, @question) -%>:</strong>
+</p>
+
+<ul>
+  <%- for answer in @question.answers.public_answers -%>
+    <li><%= link_to h(answer.user.username), user_path(answer.user.username) -%>
+    (<%=l answer.updated_at %>)<br />
+    <%= raw auto_link(textilize_without_paragraph(h(answer.body))) -%><br />
+    <% unless answer.items.empty? %>
+      <ul>
+        <% answer.items.each do |item| %>
+          <li><%= link_to h(item.manifestation.original_title), item.manifestation %><br /></li>
+        <% end %>
+      </ul>
+    <% end %>
+    </li>
+  <%- end -%>
+</ul>
+
+</div>
+</div>
+
+<div id="submenu">
+  <ul>
+    <li><%= link_to t('question.answer_question'), new_user_question_answer_path(@question.user.username, @question) -%></li>
+    <%- if can? :update, @question -%>
+      <li><%= link_to t('page.edit'), edit_user_question_path(@question.user.username, @question) -%></li>
+    <%- end -%>
+    <li><%= link_to t('page.back'), questions_path -%></li>
+    <li><%= link_to 'レファレンス協同データベース用XMLファイル', user_question_path(@question.user.username, @question, :mode => 'crd', :format => 'xml') -%></li>
+  </ul>
+</div>

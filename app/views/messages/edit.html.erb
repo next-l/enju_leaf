@@ -1,0 +1,43 @@
+<div id="content_detail">
+<h1 class="title"><%= t('page.editing', :model => t('activerecord.models.message')) -%></h1>
+<div id="content_list">
+
+<%= form_for(@message) do |f| -%>
+  <%= f.error_messages -%>
+
+  <p>
+    <%= f.label t('message.sender') -%><br />
+    <%= @message.sender.username -%>
+    <%= f.hidden_field :sender_id -%>
+  </p>
+
+  <p>
+    <%= f.label t('message.receiver') -%><br />
+    <%= f.text_field :recipient, :class => 'resource_title', :value => @message.receiver.username -%>
+  </p>
+
+  <p>
+    <%= f.label t('activerecord.attributes.message.subject') -%><br />
+    <%= f.text_field :subject, :class => 'resource_title' -%>
+  </p>
+
+  <p>
+    <%= f.label t('activerecord.attributes.message.body') -%><br />
+    <%= f.text_area :body, :id => 'message_body' -%>
+  </p>
+
+  <p>
+    <%= javascript_tag("$('#message_body').focus()") -%>
+    <%= f.submit t('page.update') -%>
+  </p>
+<%- end -%>
+
+</div>
+</div>
+
+<div id="submenu">
+  <ul>
+    <li><%= link_to t('page.show'), @message -%></li>
+    <li><%= link_to t('page.listing', :model => t('activerecord.models.message')), user_messages_path(current_user.username) -%></li>
+  </ul>
+</div>

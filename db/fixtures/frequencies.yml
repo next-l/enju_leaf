@@ -1,0 +1,41 @@
+--- 
+frequency_00001: 
+  name: unknown
+  display_name: unknown
+  id: 1
+  position: 1
+frequency_00002: 
+  name: daily
+  display_name: daily
+  id: 2
+  position: 2
+frequency_00003: 
+  name: weekly
+  display_name: weekly
+  id: 3
+  position: 3
+frequency_00004: 
+  name: biweekly
+  display_name: biweekly
+  id: 4
+  position: 4
+frequency_00005: 
+  name: quarterly
+  display_name: quarterly
+  id: 5
+  position: 5
+frequency_00006: 
+  name: bimonthly
+  display_name: bimonthly
+  id: 6
+  position: 6
+frequency_00007: 
+  name: biyearly
+  display_name: biyearly
+  id: 7
+  position: 7
+frequency_00008: 
+  name: yearly
+  display_name: yearly
+  id: 8
+  position: 8

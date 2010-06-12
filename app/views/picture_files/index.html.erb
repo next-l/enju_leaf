@@ -1,0 +1,9 @@
+<%- case when @shelf -%>
+  <%= render 'index_shelf' -%>
+<%- when @manifestation -%>
+  <%= render 'index_manifestation' -%>
+<%- when @patron -%>
+  <%= render 'index_patron' -%>
+<%- else -%>
+  <%= render 'index' -%>
+<%- end -%>

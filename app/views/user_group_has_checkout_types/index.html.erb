@@ -1,0 +1,31 @@
+<div id="content_detail">
+<h1 class="title"><%= t('page.listing', :model => t('activerecord.models.user_group_has_checkout_type')) -%></h1>
+<div id="content_list">
+
+<table class="index">
+  <tr>
+    <th><%= t('activerecord.models.user_group') -%></th>
+    <th><%= t('activerecord.models.checkout_type') -%></th>
+    <th><%= t('activerecord.attributes.user_group_has_checkout_type.note') -%></th>
+  </tr>
+
+<%- for user_group_has_checkout_type in @user_group_has_checkout_types -%>
+  <tr class="line<%= cycle("0", "1") -%>">
+    <td><%= link_to h(user_group_has_checkout_type.user_group.display_name.localize.localize), user_group_has_checkout_type.user_group -%></td>
+    <td><%= link_to h(user_group_has_checkout_type.checkout_type.display_name.localize.localize), user_group_has_checkout_type.checkout_type -%></td>
+    <td><%= user_group_has_checkout_type.note -%></td>
+    <td><%= link_to t('page.show'), user_group_has_checkout_type -%></td>
+    <td><%= link_to t('page.edit'), edit_user_group_has_checkout_type_path(user_group_has_checkout_type) -%></td>
+    <td><%= link_to t('page.destroy'), user_group_has_checkout_type, :confirm => t('page.are_you_sure'), :method => :delete -%></td>
+  </tr>
+<%- end -%>
+</table>
+
+</div>
+</div>
+
+<div id="submenu">
+  <ul>
+    <li><%= link_to t('page.new', :model => t('activerecord.models.user_group_has_checkout_type')), new_user_group_has_checkout_type_path -%></li>
+  </ul>
+</div>

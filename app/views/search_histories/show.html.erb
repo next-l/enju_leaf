@@ -1,0 +1,71 @@
+<div id="content_detail">
+<h1 class="title"><%= t('page.showing', :model => t('activerecord.models.search_history')) -%></h1>
+<div id="content_list">
+<p>
+  <strong>Operation:</strong>
+  <%= @search_history.operation -%>
+</p>
+
+<p>
+  <strong>Version:</strong>
+  <%= @search_history.version -%>
+</p>
+
+<p>
+<strong><%= t('activerecord.attributes.search_history.query') -%>:</strong>
+<%= link_to h(@search_history.query), resources_path(:query => @search_history.query) -%>
+</p>
+
+<p>
+<strong><%= t('activerecord.attributes.search_history.start_record') -%>:</strong>
+  <%= @search_history.start_record -%>
+</p>
+
+<p>
+<strong><%= ('Maximum records') -%>:</strong>
+  <%= @search_history.maximum_records -%>
+</p>
+
+<p>
+  <strong>Record packing:</strong>
+  <%= @search_history.record_packing -%>
+</p>
+
+<p>
+  <strong>Record schema:</strong>
+  <%= @search_history.record_schema -%>
+</p>
+
+<p>
+  <strong>Result set ttl:</strong>
+  <%= @search_history.result_set_ttl -%>
+</p>
+
+<p>
+  <strong>Stylesheet:</strong>
+  <%= @search_history.stylesheet -%>
+</p>
+
+<p>
+  <strong>Extra request data:</strong>
+  <%= @search_history.extra_request_data -%>
+</p>
+
+<p>
+<strong><%= t('page.created_at') -%>:</strong>
+  <%= l(@search_history.created_at) -%>
+</p>
+
+<p>
+<strong><%= t('activerecord.models.user') -%>:</strong>
+  <%= @search_history.user.username if @search_history.user -%>
+</p>
+
+</div>
+</div>
+
+<div id="submenu">
+  <ul>
+    <li><%= link_to t('page.back'), search_histories_path -%></li>
+  </ul>
+</div>

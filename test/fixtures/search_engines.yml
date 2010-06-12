@@ -1,0 +1,21 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+search_engine_00001:
+  id: 1
+  name: Keio University Library
+  url: http://catalog.lib.keio.ac.jp/
+  base_url: http://catalog.lib.keio.ac.jp/
+  http_method: post
+  query_param: query
+  note: 
+  position: 1
+
+search_engine_00002:
+  id: 2
+  name: Google
+  url: http://www.google.com/
+  base_url: http://www.google.com/
+  http_method: get
+  query_param: q
+  note: 
+  position: 2

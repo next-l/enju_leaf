@@ -1,0 +1,31 @@
+<div id="content_detail">
+<h1 class="title"><%= t('page.listing', :model => t('activerecord.models.checked_item')) -%></h1>
+<div id="content_list">
+
+<div id="checked_item_list">
+  <%= render 'list' -%>
+</div>
+
+<br />
+
+<%= render 'checkouts' -%>
+</div>
+</div>
+
+<div id="submenu">
+  <ul>
+    <li><%= link_to h(@basket.user.username), user_path(@basket.user.username) -%></li>
+  </ul>
+  <ul>
+    <%- @basket.user.user_group.user_group_has_checkout_types.each do |available_checkout_type| -%>
+      <li>
+        <%= available_checkout_type.checkout_type.display_name.localize -%>:
+        <%= @basket.user.checked_item_count[:"#{h(available_checkout_type.checkout_type.name)}"] -%> / <%= available_checkout_type.checkout_limit -%>
+      </li>
+    <%- end -%>
+  </ul>
+  <ul>
+    <li><%= link_to t('activerecord.models.checkin'), checkins_path -%></li>
+    <li><%= link_to t('activerecord.models.reserve'), user_reserves_path(@basket.user.username) -%></li>
+  </ul>
+</div>

@@ -1,0 +1,2 @@
+module CarrierTypesHelper
+end

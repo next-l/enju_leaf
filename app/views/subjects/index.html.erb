@@ -1,0 +1,7 @@
+<%- case when @work -%>
+  <%= render :partial => 'subjects/index_work', :locals => {:subjects => @subjects} -%>
+<%- when @classification -%>
+  <%= render :partial => 'subjects/index_classification', :locals => {:subjects => @subjects} -%>
+<%- else -%>
+  <%= render :partial => 'subjects/index', :locals => {:subjects => @subjects} -%>
+<%- end -%>

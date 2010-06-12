@@ -1,0 +1,34 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+       "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+       
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+  <title><%= t('activerecord.models.barcode') -%> - <%= @library_group.display_name.localize -%></title>
+</head>
+
+<body style="width: 210mm; padding-left: 5mm; padding-right: 5mm">
+<table>
+  <%- @barcodes.each_with_index do |barcode, i| -%>
+    <%- if i == 0 or i % 4 == 0 -%>
+      <tr>
+    <%- end -%>
+      <td style="text-align: center; width: 50mm; height: 30mm">
+        <div style="font-size: 10pt; line-height: 0" -%>
+          <%- unless barcode.code_word.blank? -%>
+            <%= link_to image_tag("#{barcode_url(barcode)}.png", :alt => barcode.code_word), barcode.barcodable -%>
+          <%- end -%>
+          <br />
+          <%= barcode.code_word -%>
+        </div>
+        <div style="font-size: 10pt" -%>
+          <%= @library_group.display_name.localize -%>
+        </div>
+      </td>
+    <%- if i != 0 and (i + 1) % 4 == 0 -%>
+      </tr>
+    <%- end -%>
+  <%- end -%>
+</table>
+</body>
+</html>

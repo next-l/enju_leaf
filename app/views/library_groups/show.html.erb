@@ -1,0 +1,20 @@
+<p class="notice"><%= notice %></p>
+
+<p>
+  <b>Name:</b>
+  <%= @library_group.name %>
+</p>
+
+<p>
+  <b>Display name:</b>
+  <%= @library_group.display_name %>
+</p>
+
+<p>
+  <b>Note:</b>
+  <%= @library_group.note %>
+</p>
+
+
+<%= link_to 'Edit', edit_library_group_path(@library_group) %> |
+<%= link_to 'Back', library_groups_path %>

@@ -1,0 +1,9 @@
+EnjuCalil
+================
+
+Next-L Enju (http://wiki.github.com/nabeta/next-l/) にカーリル (http://calil.jp) を用いた横断検索機能を追加するプラグインです。
+
+$ script/generate enju_calil Library
+$ rake db:migrate
+
+Copyright (c) 2010 Kosuke Tanabe and Project Next-L, released under the MIT license

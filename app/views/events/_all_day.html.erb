@@ -1,0 +1,43 @@
+<script language="javascript">
+  $(document).ready(function() { 
+    if ($('input:checkbox#event_all_day').is(':checked')) { 
+      $('#event_start_at_1i').attr('disabled', true); 
+      $('#event_start_at_2i').attr('disabled', true); 
+      $('#event_start_at_3i').attr('disabled', true); 
+      $('#event_start_at_4i').attr('disabled', true); 
+      $('#event_start_at_5i').attr('disabled', true); 
+      $('#event_end_at_1i').attr('disabled', true); 
+      $('#event_end_at_2i').attr('disabled', true); 
+      $('#event_end_at_3i').attr('disabled', true); 
+      $('#event_end_at_4i').attr('disabled', true); 
+      $('#event_end_at_5i').attr('disabled', true); 
+    }
+
+    $('input:checkbox#event_all_day').click(function() { 
+      if ($(this).is(':checked')) { 
+        $('#event_start_at_1i').attr('disabled', true); 
+        $('#event_start_at_2i').attr('disabled', true); 
+        $('#event_start_at_3i').attr('disabled', true); 
+        $('#event_start_at_4i').attr('disabled', true); 
+        $('#event_start_at_5i').attr('disabled', true); 
+        $('#event_end_at_1i').attr('disabled', true); 
+        $('#event_end_at_2i').attr('disabled', true); 
+        $('#event_end_at_3i').attr('disabled', true); 
+        $('#event_end_at_4i').attr('disabled', true); 
+        $('#event_end_at_5i').attr('disabled', true); 
+      } else { 
+        $('#event_start_at_1i').attr('disabled', false); 
+        $('#event_start_at_2i').attr('disabled', false); 
+        $('#event_start_at_3i').attr('disabled', false); 
+        $('#event_start_at_4i').attr('disabled', false); 
+        $('#event_start_at_5i').attr('disabled', false); 
+        $('#event_end_at_1i').attr('disabled', false); 
+        $('#event_end_at_2i').attr('disabled', false); 
+        $('#event_end_at_3i').attr('disabled', false); 
+        $('#event_end_at_4i').attr('disabled', false); 
+        $('#event_end_at_5i').attr('disabled', false); 
+      } 
+    }); 
+  }); 
+</script>
+

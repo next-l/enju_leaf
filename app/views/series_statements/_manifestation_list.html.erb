@@ -1,0 +1,14 @@
+<div id="manifestation">
+<h2><%= t('page.listing', :model => t('activerecord.models.manifestation')) -%></h2>
+<table class="index">
+<%- @manifestations.each do |manifestation| -%>
+  <tr class="line<%= cycle("0", "1") -%>">
+    <td>
+      <%= link_to h(manifestation.original_title), manifestation -%><br />
+    </td>
+  </tr>
+<%- end -%>
+</table>
+
+<%= will_paginate(@manifestations, :param_name => :manifestation_page, :class => 'content_pagination digg_pagination') -%>
+</div>

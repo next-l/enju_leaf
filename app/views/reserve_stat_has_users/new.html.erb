@@ -1,0 +1,27 @@
+<div id="content_detail">
+<h1 class="title"><%= t('page.new', :model => t('activerecord.models.reserve_stat_has_user')) -%></h1>
+<div id="content_list">
+
+<%= form_for(@reserve_stat_has_user) do |f| -%>
+  <%= f.error_messages -%>
+
+  <p>
+    <%= f.label t('activerecord.models.user_reserve_stat') -%><br />
+    <%= f.text_field :user_reserve_stat_id -%>
+  </p>
+  <p>
+    <%= f.label t('activerecord.models.user') -%><br />
+    <%= f.text_field :user_id -%>
+  </p>
+  <p>
+    <%= f.submit t('page.create') -%>
+  </p>
+<%- end -%>
+</div>
+</div>
+
+<div id="submenu">
+  <ul>
+    <li><%= link_to t('page.back'), reserve_stat_has_users_path -%></li>
+  </ul>
+</div>

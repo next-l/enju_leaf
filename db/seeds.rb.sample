@@ -1,0 +1,34 @@
+# This file should contain all the record creation needed to seed the database with its default values.
+# The data can then be loaded with the rake db:seed (or created alongside the db with db:setup).
+#
+# Examples:
+#
+#   cities = City.create([{ :name => 'Chicago' }, { :name => 'Copenhagen' }])
+#   Mayor.create(:name => 'Daley', :city => cities.first)
+
+username = 'admin'
+email = 'admin@example.jp'
+password = 'adminpassword'
+
+#Don't edit!
+unless Library.real.first and Role.first and Patron.first
+  raise 'You should run "rake enju:setup"'
+end
+unless solr = Sunspot.commit rescue nil
+  raise "Solr is not running."
+end
+
+user = User.new
+user.username = username
+user.email = email
+user.password = password
+user.password_confirmation = password
+user.library = Library.real.first
+user.patron = Patron.first
+user.locale = I18n.default_locale.to_s
+user.role = Role.find_by_name('Administrator')
+user.operator = user
+user.save!
+#user.confirm!
+user.index!
+puts 'Administrator account created.'

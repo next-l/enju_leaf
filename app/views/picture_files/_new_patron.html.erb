@@ -1,0 +1,18 @@
+<%= form_for(:picture_file, :url => patron_picture_files_path(@patron), :html => { :multipart => true, :method => :post }) do |f| -%>
+  <%= f.error_messages -%>
+  <p>
+    <%= f.label t('page.attachable') -%><br />
+    <%= link_to h(@patron.full_name), @patron -%>
+    <%= f.hidden_field :picture_attachable_id -%>
+    <%= f.hidden_field :picture_attachable_type -%>
+  </p>
+
+  <p>
+    <%= f.label t('page.file') -%><br />
+    <%= f.file_field :picture -%>
+  </p>
+
+  <p>
+    <%= f.submit t('page.create') -%>
+  </p>
+<%- end -%>

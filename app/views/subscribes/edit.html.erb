@@ -1,0 +1,37 @@
+<div id="content_detail">
+  <h1 class="title"><%= t('page.editing', :model => t('activerecord.models.subscribe')) -%></h1>
+<div id="content_list">
+
+<%= form_for(@subscribe) do |f| -%>
+  <%= f.error_messages -%>
+
+  <p>
+    <%= f.label t('activerecord.models.subscription') -%><br />
+    <%= f.text_field :subscription_id -%>
+  </p>
+  <p>
+    <%= f.label t('activerecord.models.work') -%><br />
+    <%= f.text_field :work_id -%>
+  </p>
+  <p>
+    <%= f.label t('activerecord.attributes.subscribe.start_at') -%><br />
+    <%= f.text_field :start_at, :value => @subscribe.start_at.try(:strftime, "%Y-%m-%d"), :class => 'date_field' -%>
+  </p>
+  <p>
+    <%= f.label t('activerecord.attributes.subscribe.end_at') -%><br />
+    <%= f.text_field :end_at, :value => @subscribe.end_at.try(:strftime, "%Y-%m-%d"), :class => 'date_field' -%>
+  </p>
+  <p>
+    <%= f.submit t('page.update') -%>
+  </p>
+<%- end -%>
+
+</div>
+</div>
+
+<div id="submenu">
+  <ul>
+    <li><%= link_to t('page.show'), @subscribe -%></li>
+    <li><%= link_to t('page.back'), subscribes_path -%></li>
+  </ul>
+</div>

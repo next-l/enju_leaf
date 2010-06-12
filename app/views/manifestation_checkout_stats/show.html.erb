@@ -1,0 +1,48 @@
+<div id="content_detail">
+<h1 class="title"><%= t('page.showing', :model => t('activerecord.models.manifestation_checkout_stat')) -%></h1>
+<div id="content_list">
+<p>
+  <strong><%= t('activerecord.attributes.manifestation_checkout_stat.start_date') -%>:</strong>
+  <%= l(@manifestation_checkout_stat.start_date) -%>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.manifestation_checkout_stat.end_date') -%>:</strong>
+  <%= l(@manifestation_checkout_stat.end_date) -%>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.manifestation_checkout_stat.note') -%>:</strong>
+  <%= @manifestation_checkout_stat.note -%>
+</p>
+
+<table class="index">
+  <tr>
+    <th><%= t('activerecord.models.manifestation') -%></th>
+    <th><%= t('activerecord.attributes.checkout_stat_has_manifestation.checkouts_count') -%></th>
+  </tr>
+  <%- @stats.each do |stat| -%>
+    <tr class="line<%= cycle("0", "1") -%>">
+      <td>
+        <%= render :partial => 'manifestations/show_index', :locals => {:manifestation => stat.manifestation} -%>
+      </td>
+      <td><%= stat.checkouts_count -%></td>
+    </tr>
+  <%- end -%>
+</table>
+
+<%= will_paginate(@stats) -%>
+
+</div>
+</div>
+
+<div id="submenu">
+  <ul>
+    <li><%= link_to t('page.edit'), edit_manifestation_checkout_stat_path(@manifestation_checkout_stat) -%></li>
+    <li><%= link_to t('page.back'), manifestation_checkout_stats_path -%></li>
+  </ul>
+  <h4><%= t('page.export') -%></h4>
+  <ul>
+    <li><%= link_to 'CSV', manifestation_checkout_stat_path(@manifestation_checkout_stat, :format => :csv, :locale => @locale) -%></li>
+  </ul>
+</div>

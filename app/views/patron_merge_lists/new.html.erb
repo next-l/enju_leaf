@@ -1,0 +1,24 @@
+<div id="content_detail">
+  <h1 class="title"><%= t('page.new', :model => t('activerecord.models.patron_merge_list')) -%></h1>
+<div id="content_list">
+
+<%= form_for(@patron_merge_list) do |f| -%>
+  <%= f.error_messages -%>
+  <p>
+    <%= f.label t('page.title') -%><br />
+    <%= f.text_field :title -%>
+  </p>
+
+  <p>
+    <%= f.submit t('page.create') -%>
+  </p>
+<%- end -%>
+
+</div>
+</div>
+
+<div id="submenu">
+  <ul>
+    <li><%= link_to t('page.back'), :back -%></li>
+  </ul>
+</div>

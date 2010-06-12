@@ -1,0 +1,219 @@
+<div id="content_detail">
+<h1 class="title"><%= t('page.showing', :model => t('activerecord.models.patron')) -%></h1>
+<div id="content_list">
+  <h2 class="resource_title">
+    [P]
+    <%= @patron.full_name -%>
+  </h2>
+
+  <%- if @version -%>
+    <p>(<%= l(@patron.versions.find(@version).created_at) -%>)</p>
+  <%- end -%>
+  <p>
+    (<%= link_to_wikipedia(@patron.full_name_without_space) -%>)
+    <%- if !@patron.user && can?(:update, @patron) -%>
+      (<%= link_to t('patron.activate_as_user'), new_user_path(:patron_id => @patron.id) -%>)
+    <%- end -%>
+  </p>
+
+<%= render 'page/tabview' %>
+<div id="tabs">
+
+  <ul>
+    <li title="active" class="selected"><a href="#detail"><em><%= t('page.detail') -%></em></a></li>
+    <%- if @patron.derived_patrons.present? or @patron.original_patrons.present? -%>
+      <li><a href="#related"><em><%= t('page.related') -%></em></a></li>
+    <%- end -%>
+    <%- unless @patron.works.empty? -%>
+      <li><a href="#work"><em><%= t('activerecord.models.work') -%></em></a></li>
+    <%- end -%>
+    <%- unless @patron.expressions.empty? -%>
+      <li><a href="#expression"><em><%= t('activerecord.models.expression') -%></em></a></li>
+    <%- end -%>
+    <%- unless @patron.manifestations.empty? -%>
+      <li><a href="#manifestation"><em><%= t('activerecord.models.manifestation') -%></em></a></li>
+    <%- end -%>
+    <li><a href="#history"><em><%= t('page.history') -%></em></a></li>
+  </ul>
+  <div id="detail">
+    <table class="index vcard">
+      <tr>
+        <td><strong><%= t('activerecord.attributes.patron.full_name') -%>:</strong></td>
+        <td>
+          <span class="fn"><%= @patron.full_name -%></span>
+        </td>
+      </tr>
+      <tr>
+        <td><strong><%= t('activerecord.attributes.patron.full_name_transcription') -%>:</strong></td>
+        <td><%= @patron.full_name_transcription -%></td>
+      </tr>
+      <%- if @patron.user -%>
+        <tr>
+          <td><strong><%= t('activerecord.attributes.user.username') -%>:</strong></td>
+          <td><%= link_to h(@patron.user.username), edit_user_path(@patron.user.username) -%></td>
+        </tr>
+      <%- end -%>
+      <tr>
+        <td><strong><%= t('activerecord.models.patron_type') -%>:</strong></td>
+        <td><%= @patron.patron_type.display_name.localize -%></td>
+      </tr>
+      <tr>
+        <td><strong><%= t('activerecord.attributes.patron.email') -%>:</strong></td>
+        <td>
+          <%= mail_to h(@patron.email), nil, :class => 'email' -%>
+        </td>
+      </tr>
+      <tr>
+        <td><strong><%= t('activerecord.attributes.patron.url') -%>:</strong></td>
+        <td>
+          <%= link_to h(@patron.url), @patron.url, :class => 'url' -%>
+        </td>
+      </tr>
+      <tr>
+        <td><strong><%= t('activerecord.attributes.patron.other_designation') -%>:</strong></td>
+        <td><%= @patron.other_designation -%></td>
+      </tr>
+      <tr>
+        <td><strong><%= t('activerecord.attributes.patron.place') -%>:</strong></td>
+        <td><%= @patron.place -%></td>
+      </tr>
+      <tr>
+        <td><strong><%= t('activerecord.models.language') -%>:</strong></td>
+        <td><%= @patron.language.display_name.localize -%></td>
+      </tr>
+      <%- if can? :destroy, @patron -%>
+        <tr>
+          <td><strong><%= t('activerecord.attributes.patron.zip_code_1') -%>:</strong></td>
+          <td><%= @patron.zip_code_1 -%></td>
+        </tr>
+        <tr>
+          <td><strong><%= t('activerecord.attributes.patron.address_1') -%>:</strong></td>
+          <td><%= @patron.address_1 -%></td>
+        </tr>
+        <tr>
+          <td><strong><%= t('activerecord.attributes.patron.telephone_number_1') -%>:</strong></td>
+          <td><%= @patron.telephone_number_1 -%></td>
+        </tr>
+        <tr>
+          <td><strong><%= t('activerecord.attributes.patron.fax_number_1') -%>:</strong></td>
+          <td><%= @patron.fax_number_1 -%></td>
+        </tr>
+        <tr>
+          <td><strong><%= t('activerecord.attributes.patron.address_1_note') -%>:</strong></td>
+          <td><%= @patron.address_1_note -%></td>
+        </tr>
+        <tr>
+          <td><strong><%= t('activerecord.attributes.patron.zip_code_2') -%>:</strong></td>
+          <td><%= @patron.zip_code_2 -%></td>
+        </tr>
+        <tr>
+          <td><strong><%= t('activerecord.attributes.patron.address_2') -%>:</strong></td>
+          <td><%= @patron.address_2 -%></td>
+        </tr>
+        <tr>
+          <td><strong><%= t('activerecord.attributes.patron.telephone_number_2') -%>:</strong></td>
+          <td><%= @patron.telephone_number_2 -%></td>
+        </tr>
+        <tr>
+          <td><strong><%= t('activerecord.attributes.patron.fax_number_2') -%>:</strong></td>
+          <td><%= @patron.fax_number_2 -%></td>
+        </tr>
+        <tr>
+          <td><strong><%= t('activerecord.attributes.patron.address_2_note') -%>:</strong></td>
+          <td><%= @patron.address_2_note -%></td>
+        </tr>
+        <tr>
+          <td><strong><%= t('activerecord.attributes.patron.date_of_birth') -%>:</strong></td>
+          <td><%= l(@patron.date_of_birth) if @patron.date_of_birth -%></td>
+        </tr>
+        <%- if @patron.user and current_user.try(:has_role?, 'Administrator') %>
+          <tr>
+            <td><strong><%= t('activerecord.attributes.patron.date_of_death') -%>:</strong></td>
+            <td><%= l(@patron.date_of_death) if @patron.date_of_death -%></td>
+          </tr>
+        <% end %>
+      <%- end -%>
+      <tr>
+        <td><strong><%= t('activerecord.attributes.patron.note') -%>:</strong></td>
+        <td><%= @patron.note -%></td>
+      </tr>
+      <tr>
+        <td><strong><%= t('page.created_at') -%>:</strong></td>
+        <td><%= l(@patron.created_at) -%></td>
+      </tr>
+      <tr>
+        <td><strong><%= t('page.updated_at') -%>:</strong></td>
+        <td><%= l(@patron.updated_at) -%></td>
+      </tr>
+    </table>
+  </div>
+  <%- if @patron.derived_patrons.present? or @patron.original_patrons.present? -%>
+    <%= render 'patrons/patron_list' -%>
+  <%- end -%>
+  <%- unless @works.blank? -%>
+    <%= render 'patrons/work_list' -%>
+  <%- end -%>
+  <%- unless @expressions.blank? -%>
+    <%= render 'patrons/expression_list' -%>
+  <%- end -%>
+  <%- unless @manifestations.blank? -%>
+    <%= render 'patrons/manifestation_list' -%>
+  <%- end -%>
+  <%= render 'history_list' -%>
+  </div>
+</div>
+</div>
+
+<div id="submenu">
+    <%- unless @patron.picture_files.empty? -%>
+      <div id="manifestation_book_jacket">
+        <%= patron_custom_book_jacket(@patron) -%>
+      </div>
+      <ul>
+        <%- @patron.picture_files.each_with_index do |picture_file, i| -%>
+          <%- next if i == 0 -%>
+          <%- if i == 1 -%>
+            <li><%= link_to_custom_book_jacket(@patron, picture_file) -%></li>
+          <%- else -%>
+            <li style="display: none"><%= link_to_custom_book_jacket(@patron, picture_file) -%></li>
+          <%- end -%>
+        <%- end -%>
+        <li><%= link_to t('page.listing', :model => t('activerecord.models.picture_file')), patron_picture_files_path(@patron) -%></li>
+        <%- if current_user.try(:has_role?, 'Librarian') -%>
+          <li><%= link_to t('page.new', :model => t('activerecord.models.picture_file')), new_patron_picture_file_path(@patron) -%></li>
+        <%- end -%>
+      </ul>
+      <script type="text/javascript">
+        $(document).ready(function(){
+          $("a[rel='patron_<%= @patron.id -%>']").colorbox({transition:"none"});
+        })
+      </script>
+    <%- else -%>
+      <%- if current_user.try(:has_role?, 'Librarian') -%>
+        <ul>
+          <li><%= link_to t('page.new', :model => t('activerecord.models.picture_file')), new_patron_picture_file_path(@patron) -%></li>
+        </ul>
+      <%- end -%>
+    <%- end -%>
+  <ul>
+    <li><%= link_to t('page.back'), patrons_path -%></li>
+    <%- if can? :update, @patron -%>
+      <%- if @patron.user.blank? -%>
+        <li><%= link_to t('patron.activate_as_user'), new_user_path(:patron_id => @patron.id) -%></li>
+      <%- else -%>
+        <li><%= link_to t('page.editing', :model => t('activerecord.models.user')), edit_user_path(@patron.user.username) -%></li>
+      <%- end -%>
+      <li><%= link_to t('page.add_picture'), new_patron_picture_file_path(@patron) -%></li>
+      <li><%= link_to t('page.edit'), edit_patron_path(@patron) -%></li>
+    <%- end -%>
+    <%- if can? :destroy, @patron -%>
+      <li><%= link_to t('page.new', :model => t('activerecord.models.patron')), new_patron_path -%></li>
+      <li><%= link_to t('page.destroy'), @patron, :confirm => t('page.are_you_sure'), :method => :delete -%></li>
+    <%- end -%>
+  </ul>
+  <ul>
+    <li><%= link_to t('page.listing', :model => t('activerecord.models.work')), creator_resources_path(@patron) -%></li>
+    <li><%= link_to t('page.listing', :model => t('activerecord.models.expression')), contributor_resources_path(@patron) -%></li>
+    <li><%= link_to t('page.listing', :model => t('activerecord.models.manifestation')), publisher_resources_path(@patron) -%></li>
+  </ul>
+</div>

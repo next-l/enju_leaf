@@ -1,0 +1,11 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+one:
+  id: 1
+  name: unknown
+  display_name: unknown
+  short_name: unknown
+  email: next-l@library.example.jp
+  use_dsbl: false
+  note: 
+  my_networks: 0.0.0.0/0
+  allow_bookmark_external_url: true

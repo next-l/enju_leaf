@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>EnjuLight</title>
+  <%= stylesheet_link_tag 'yui/cssreset/reset-min',
+    'yui/cssfonts/fonts-min',
+    'yui/cssbase/base-min',
+    'scaffold_modified', 'enju',
+    'formtastic', 'formtastic_changes'
+  %>
+  <%= stylesheet_link_tag 'smoothness/jquery-ui-1.8.1.custom' %>
+  <%= javascript_include_tag 'jquery-1.4.2.min', 'jquery-ui-1.8.custom.min',
+    'rails'
+  %>
+  <%= csrf_meta_tag %>
+</head>
+<body>
+
+<%= render :partial => 'page/header' %>
+
+<div id="content">
+
+<%= yield %>
+
+</div>
+
+<%= render :partial => 'page/footer' %>
+
+</body>
+</html>

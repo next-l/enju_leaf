@@ -1,0 +1,201 @@
+--- 
+item_00001: 
+  updated_at: 2007-08-24 23:46:56.484813 +09:00
+  item_identifier: '00001'
+  circulation_status_id: 2
+  checkout_type_id: 1
+  shelf_id: 1
+  call_number: 
+  id: 1
+  include_supplements: false
+  created_at: 2007-08-24 23:46:56.484813 +09:00
+item_00002: 
+  updated_at: 2007-08-24 23:46:56.641413 +09:00
+  item_identifier: '00002'
+  circulation_status_id: 2
+  checkout_type_id: 1
+  shelf_id: 1
+  call_number: 
+  id: 2
+  include_supplements: false
+  created_at: 2007-08-24 23:46:56.641413 +09:00
+item_00003: 
+  updated_at: 2007-08-24 23:46:56.502569 +09:00
+  item_identifier: '00003'
+  circulation_status_id: 2
+  checkout_type_id: 2
+  shelf_id: 1
+  call_number: 
+  id: 3
+  include_supplements: false
+  created_at: 2007-08-24 23:46:56.502569 +09:00
+item_00004: 
+  updated_at: 2007-08-24 23:46:56.520781 +09:00
+  item_identifier: '00004'
+  circulation_status_id: 2
+  checkout_type_id: 1
+  shelf_id: 1
+  call_number: 
+  id: 4
+  include_supplements: true
+  created_at: 2007-08-24 23:46:56.520781 +09:00
+item_00005: 
+  updated_at: 2007-08-24 23:46:56.538073 +09:00
+  item_identifier: '00005'
+  circulation_status_id: 2
+  checkout_type_id: 2
+  shelf_id: 1
+  call_number: 
+  id: 5
+  include_supplements: false
+  created_at: 2007-08-24 23:46:56.538073 +09:00
+item_00006: 
+  updated_at: 2007-08-24 23:46:56.555353 +09:00
+  item_identifier: '00006'
+  circulation_status_id: 2
+  checkout_type_id: 2
+  shelf_id: 1
+  call_number: 
+  id: 6
+  include_supplements: true
+  created_at: 2007-08-24 23:46:56.555353 +09:00
+item_00007: 
+  updated_at: 2007-08-24 23:46:56.572631 +09:00
+  item_identifier: '00007'
+  circulation_status_id: 2
+  checkout_type_id: 1
+  shelf_id: 1
+  call_number: 
+  id: 7
+  include_supplements: false
+  created_at: 2007-08-24 23:46:56.572631 +09:00
+item_00008: 
+  updated_at: 2007-08-24 23:46:56.589909 +09:00
+  item_identifier: '00008'
+  circulation_status_id: 2
+  checkout_type_id: 2
+  shelf_id: 1
+  call_number: 
+  id: 8
+  include_supplements: true
+  created_at: 2007-08-24 23:46:56.589909 +09:00
+item_00009: 
+  updated_at: 2007-08-24 23:46:56.607081 +09:00
+  item_identifier: '00009'
+  circulation_status_id: 2
+  checkout_type_id: 1
+  shelf_id: 4
+  call_number: 
+  id: 9
+  include_supplements: false
+  created_at: 2007-08-24 23:46:56.607081 +09:00
+item_00010: 
+  updated_at: 2007-08-24 23:46:56.624281 +09:00
+  item_identifier: '00010'
+  circulation_status_id: 2
+  checkout_type_id: 2
+  shelf_id: 1
+  call_number: 
+  id: 10
+  include_supplements: false
+  created_at: 2007-08-24 23:46:56.624281 +09:00
+item_00011: 
+  updated_at: 2007-08-24 23:46:56.484813 +09:00
+  item_identifier: '00011'
+  circulation_status_id: 2
+  checkout_type_id: 1
+  shelf_id: 1
+  call_number: 
+  id: 11
+  include_supplements: false
+  created_at: 2007-08-24 23:46:56.484813 +09:00
+item_00012: 
+  updated_at: 2007-08-24 23:46:56.484813 +09:00
+  item_identifier: '00012'
+  circulation_status_id: 3
+  checkout_type_id: 2
+  shelf_id: 1
+  call_number: 
+  id: 12
+  include_supplements: false
+  created_at: 2007-08-24 23:46:56.484813 +09:00
+item_00013: 
+  updated_at: 2007-08-24 23:46:56.484813 +09:00
+  item_identifier: '00013'
+  circulation_status_id: 10
+  checkout_type_id: 1
+  shelf_id: 1
+  call_number: 
+  id: 13
+  include_supplements: false
+  created_at: 2007-08-24 23:46:56.484813 +09:00
+item_00014: 
+  updated_at: 2007-08-24 23:46:56.484813 +09:00
+  item_identifier: '00014'
+  circulation_status_id: 10
+  checkout_type_id: 2
+  shelf_id: 1
+  call_number: 
+  id: 14
+  include_supplements: false
+  created_at: 2007-08-24 23:46:56.484813 +09:00
+item_00015: 
+  updated_at: 2007-08-24 23:46:56.484813 +09:00
+  item_identifier: '00015'
+  circulation_status_id: 10
+  checkout_type_id: 3
+  shelf_id: 1
+  call_number: 
+  id: 15
+  include_supplements: false
+  created_at: 2007-08-24 23:46:56.484813 +09:00
+item_00016: 
+  updated_at: 2007-08-24 23:46:56.484813 +09:00
+  item_identifier: '00016'
+  circulation_status_id: 10
+  checkout_type_id: 2
+  shelf_id: 1
+  call_number: 
+  id: 16
+  include_supplements: true
+  created_at: 2007-08-24 23:46:56.484813 +09:00
+item_00017: 
+  updated_at: 2007-08-24 23:46:56.484813 +09:00
+  item_identifier: '00017'
+  circulation_status_id: 10
+  checkout_type_id: 3
+  shelf_id: 1
+  call_number: 
+  id: 17
+  include_supplements: false
+  created_at: 2007-08-24 23:46:56.484813 +09:00
+item_00018: 
+  updated_at: 2007-08-24 23:46:56.484813 +09:00
+  item_identifier: '00018'
+  circulation_status_id: 10
+  checkout_type_id: 3
+  shelf_id: 1
+  call_number: 
+  id: 18
+  include_supplements: false
+  created_at: 2007-08-24 23:46:56.484813 +09:00
+item_00019: 
+  updated_at: 2007-08-24 23:46:56.484813 +09:00
+  item_identifier: '00019'
+  circulation_status_id: 2
+  checkout_type_id: 3
+  shelf_id: 1
+  call_number: 
+  id: 19
+  include_supplements: false
+  created_at: 2007-08-24 23:46:56.484813 +09:00
+item_00020: 
+  updated_at: 2007-08-24 23:46:56.484813 +09:00
+  item_identifier: '00020'
+  circulation_status_id: 13
+  checkout_type_id: 3
+  shelf_id: 1
+  call_number: 
+  id: 20
+  include_supplements: false
+  created_at: 2007-08-24 23:46:56.484813 +09:00

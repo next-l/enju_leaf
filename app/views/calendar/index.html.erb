@@ -1,0 +1,46 @@
+<!-- Probably move the stylesheet to you layout. Also make sure you include the javascript. -->
+<%= stylesheet_link_tag "event_calendar" %>
+
+<div id="content_detail">
+  <%- if @library -%>
+    <h1 class="title">
+      <%= t('calendar.library_calendar', :library_name => @library.display_name.localize) -%>
+    </h1>
+  <%- else -%>
+    <h1 class="title">
+      <%= t('calendar.calendar') -%>
+    </h1>
+  <%- end -%>
+
+  <div id="content_list">
+    <%- if @library -%>
+      <h2 class="resource_title">
+        <%= link_to h(@library.display_name.localize), library_path(@library.name) -%>
+      </h2>
+    <%- else -%>
+      <h2 class="resource_title">
+        <%= t('event.all_libraries') -%>
+      </h2>
+    <%- end -%>
+
+    <p>
+      <%- if @library -%>
+        (<%= link_to 'iCalendar', library_events_path(@library.name, :format => :ics) -%>)
+      <%- else -%>
+        (<%= link_to 'iCalendar', events_path(:format => :ics) -%>)
+      <%- end -%>
+    </p>
+
+    <%= raw event_calendar %>
+  </div>
+</div>
+
+<div id="submenu">
+  <ul>
+    <li><%= link_to t('page.listing', :model => t('activerecord.models.event')), events_path -%></li>
+    <li><%= link_to t('page.show_all'), :controller => :calendar, :action => :index -%></li>
+    <%- Library.all.each do |library| -%>
+      <li><%= link_to h(library.display_name.localize), :controller => :calendar, :action => :index, :library_id => library.name -%></li>
+    <%- end -%>
+  </ul>
+</div>

@@ -1,0 +1,71 @@
+<div style="color: red"><%= flash[:message].to_s -%></div>
+<div id="content_detail">
+<h1 class="title"><%= t('page.listing', :model => t('activerecord.models.reserve')) -%></h1>
+<div id="content_list">
+<table class="index">
+  <tr>
+    <th style="width: 30px"><%= 'Id' -%></th>
+    <th><%= t('activerecord.models.user') -%></th>
+    <th><%= t('activerecord.models.manifestation') -%></th>
+    <th><%= t('activerecord.models.request_status_type') -%></th>
+    <th><%= t('activerecord.attributes.reserve.expired_at') -%></th>
+    <%- if can? :update, @reserves.first -%>
+      <th style="width: 50px"></th>
+    <% end %>
+  </tr>
+  
+<%- @reserves.each_with_index do |reserve, i| -%>
+  <tr class="line<%= cycle("0", "1") -%>">
+    <td><%= link_to h(reserve.id), user_reserve_path(reserve.user.username, reserve) -%></td>
+    <td><%= link_to h(reserve.user.username), user_path(reserve.user.username) -%></td>
+    <td>
+      <%= render :partial => 'title', :locals => {:reserve => reserve} -%>
+    </td>
+    <td><%= reserve.request_status_type.display_name.localize -%></td>
+    <td><%= l(reserve.expired_at, :format => :only_date) -%></td>
+    <%- if can? :destroy, reserve -%>
+      <td>
+        <%= link_to image_tag('/icons/page_white_edit.png', :size => '16x16', :alt => t('page.edit')), edit_user_reserve_path(reserve.user.username, reserve) -%>
+        <%- if reserve.user.reserves.waiting.include?(reserve) -%>
+          <%= link_to image_tag('/icons/cancel.png', :size => '16x16', :alt => t('page.cancel')), user_reserve_path(reserve.user.username, reserve, :mode => 'cancel'), :confirm => t('page.are_you_sure'), :method => :put -%>
+        <%- else -%>
+          <%= link_to image_tag('/icons/delete.png', :size => '16x16', :alt => t('page.destroy')), user_reserve_path(reserve.user.username, reserve), :confirm => t('page.are_you_sure'), :method => :delete -%>
+        <%- end -%>
+      </td>
+    <%- end -%>
+  </tr>
+<%- end -%>
+</table>
+
+<%= will_paginate(@reserves) -%>
+
+</div>
+</div>
+
+<div id="submenu">
+  <ul>
+    <li>
+    <%= link_to t('page.new', :model => t('activerecord.models.reserve')), resources_path(:reservable => true) -%>
+    <br />
+    (<%= t('page.search_resource', :model => t('page.resource')) -%>)
+    </li>
+    <%- if current_user.has_role?('Librarian') -%>
+      <li><%= link_to t('reserve.all_reservation'), reserves_path -%></li>
+      <li><%= link_to t('reserve.my_reservation'), user_reserves_path(current_user.username) -%></li>
+    <%- end -%>
+    <%- if @user -%>
+      <li><%= link_to t('page.listing', :model => t('activerecord.models.checkout')), user_checkouts_path(@user.username) -%></li>
+    <%- end -%>
+  </ul>
+  <p>
+    <%- if @user -%>
+      <%= link_to (image_tag 'feed-icon-14x14.png', :size => '14x14', :alt => t('page.feed'), :border => 0), :user_id => @user.username, :format => :rss -%>
+      (<%= link_to 'RSS', user_reserves_path(@user.username, :format => :rss) -%>)
+      (<%= link_to 'CSV', user_reserves_path(@user.username, :format => :csv, :locale => @locale) -%>)
+    <%- else -%>
+      <%= link_to (image_tag 'feed-icon-14x14.png', :size => '14x14', :alt => t('page.feed'), :border => 0), :format => :rss -%>
+      (<%= link_to 'RSS', reserves_path(:format => :rss) -%>)
+      (<%= link_to 'CSV', reserves_path(:format => :csv, :locale => @locale) -%>)
+    <%- end -%>
+  </p>
+</div>

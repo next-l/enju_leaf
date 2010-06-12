@@ -1,0 +1,56 @@
+<div id="content_detail">
+<h1 class="title"><%= t('page.showing', :model => t('activerecord.models.inter_library_loan')) -%></h1>
+<div id="content_list">
+<p>
+  <strong><%= t('activerecord.models.library') -%>:</strong>
+  <%= link_to h(@inter_library_loan.item.shelf.library.display_name.localize), library_path(@inter_library_loan.item.shelf.library.name) -%>
+</p>
+
+<p>
+  <strong><%= t('inter_library_loan.borrowing_library') -%>:</strong>
+  <%= link_to h(@inter_library_loan.borrowing_library.display_name.localize), library_path(@inter_library_loan.borrowing_library.name) -%>
+</p>
+
+<p>
+  <strong><%= t('activerecord.models.item') -%>:</strong>
+  <%= link_to h(@inter_library_loan.item.item_identifier), @inter_library_loan.item -%>
+  (<%= link_to h(@inter_library_loan.item.manifestation.original_title), @inter_library_loan.item.manifestation -%>)
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.inter_library_loan.requested_at') -%>:</strong>
+  <%= l(@inter_library_loan.requested_at) if @inter_library_loan.requested_at -%>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.inter_library_loan.shipped_at') -%>:</strong>
+  <%= l(@inter_library_loan.shipped_at) if @inter_library_loan.shipped_at -%>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.inter_library_loan.received_at') -%>:</strong>
+  <%= l(@inter_library_loan.received_at) if @inter_library_loan.received_at -%>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.inter_library_loan.return_shipped_at') -%>:</strong>
+  <%= l(@inter_library_loan.return_shipped_at) if @inter_library_loan.return_shipped_at -%>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.inter_library_loan.return_received_at') -%>:</strong>
+  <%= l(@inter_library_loan.return_received_at) if @inter_library_loan.return_received_at -%>
+</p>
+
+</div>
+</div>
+
+<div id="submenu">
+  <ul>
+    <li><%= link_to t('page.edit'), edit_inter_library_loan_path(@inter_library_loan) -%></li>
+    <%- unless @inter_library_loan.item.shelf.library == current_user.library -%>
+      <li><%= link_to t('inter_library_loan.return_this_item'), edit_inter_library_loan_path(@inter_library_loan) -%></li>
+    <%- end -%>
+    <li><%= link_to t('page.back'), inter_library_loans_path -%></li>
+  </ul>
+</div>

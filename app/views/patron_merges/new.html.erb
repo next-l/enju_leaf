@@ -1,0 +1,39 @@
+<div id="content_detail">
+<h1 class="title"><%= t('page.new', :model => t('activerecord.models.patron_merge')) -%></h1>
+<div id="content_list">
+
+<%= form_for(@patron_merge) do |f| -%>
+  <%= f.error_messages -%>
+  <p>
+    <%= f.label t('activerecord.models.patron') -%><br />
+    <%- if @patron -%>
+      <%= link_to h(@patron.full_name), @patron -%>
+      <%= f.hidden_field :patron_id -%>
+    <%- else -%>
+      <%= f.text_field :patron_id -%>
+    <%- end -%>
+  </p>
+
+  <p>
+    <%= f.label t('activerecord.models.patron_merge_list') -%><br />
+    <%- if @patron_merge_list -%>
+      <%= link_to h(@patron_merge_list.title), patron_merge_list_path(@patron_merge_list) -%>
+      <%= f.hidden_field :patron_merge_list_id, :value => @patron_merge_list.id -%>
+    <%- else -%>
+      <%= f.text_field :patron_merge_list_id, :value => params[:patron_merge_list_id] -%>
+    <%- end -%>
+  </p>
+
+  <p>
+    <%= f.submit t('page.create') -%>
+  </p>
+<%- end -%>
+
+</div>
+</div>
+
+<div id="submenu">
+  <ul>
+    <li><%= link_to t('page.back'), patron_merges_path -%></li>
+  </ul>
+</div>

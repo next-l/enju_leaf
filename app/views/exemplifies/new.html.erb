@@ -1,0 +1,28 @@
+<div id="content_detail">
+<h1 class="title"><%= t('page.new', :model => t('activerecord.models.exemplify')) -%></h1>
+<div id="content_list">
+
+<%= form_for(@exemplify) do |f| -%>
+  <%= f.error_messages -%>
+
+  <p>
+    <%= f.label t('activerecord.models.manifestation') -%><br />
+    <%= f.text_field :manifestation_id -%>
+  </p>
+  <p>
+    <%= f.label t('activerecord.models.item') -%><br />
+    <%= f.text_field :item_id -%>
+  </p>
+  <p>
+    <%= f.submit t('page.create') -%>
+  </p>
+<%- end -%>
+
+</div>
+</div>
+
+<div id="submenu">
+  <ul>
+    <li><%= link_to t('page.back'), exemplifies_path -%></li>
+  </ul>
+</div>

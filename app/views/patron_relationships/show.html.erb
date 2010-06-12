@@ -1,0 +1,26 @@
+<div id="content_detail">
+<h1 class="title"><%= t('page.showing', :model => t('activerecord.models.patron_relationship')) -%></h1>
+<div id="content_list">
+
+<p>
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Parent:</b>
+  <%= link_to @patron_relationship.parent.full_name, @patron_relationship.parent %>
+</p>
+
+<p>
+  <b>Child:</b>
+  <%= link_to @patron_relationship.child.full_name, @patron_relationship.parent %>
+</p>
+
+</div>
+</div>
+
+<div id="submenu">
+  <ul>
+    <li><%= link_to 'Edit', edit_patron_relationship_path(@patron_relationship) %></li>
+    <li><%= link_to 'Back', patron_relationships_path %></li>
+  </ul>
+</div>

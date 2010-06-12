@@ -1,0 +1,53 @@
+<div id="content_detail">
+<h1 class="title"><%= t('page.showing', :model => t('activerecord.models.event')) -%></h1>
+<div id="content_list">
+<h2 class="resource_title">
+  <%= @event.title.localize -%>
+</h2>
+
+<p>
+  <strong><%= t('activerecord.models.event_category') -%>:</strong>
+  <%= @event.event_category.display_name.localize -%>
+</p>
+
+<p>
+  <strong><%= t('activerecord.models.library') -%>:</strong>
+  <%= link_to h(@event.library.display_name.localize), library_path(@event.library.name) -%>
+</p>
+
+<%- if @event.all_day -%>
+  <p>
+    <strong><%= t('activerecord.attributes.event.all_day') -%>:</strong>
+    <%= l(@event.start_at, :format => :only_date) -%>
+  </p>
+<%- else -%>
+  <p>
+    <strong><%= t('activerecord.attributes.event.start_at') -%>:</strong>
+    <%= l(@event.start_at, :format => :short) -%>
+  </p>
+
+  <p>
+    <strong><%= t('activerecord.attributes.event.end_at') -%>:</strong>
+    <%= l(@event.end_at, :format => :short) -%>
+  </p>
+<%- end -%>
+
+<p>
+  <strong><%= t('activerecord.attributes.event.note') -%>:</strong>
+  <%= raw auto_link(simple_format(h(@event.note))) -%>
+</p>
+
+</div>
+</div>
+
+<div id="submenu">
+  <ul>
+    <li><%= link_to t('page.edit'), edit_event_path(@event) -%></li>
+    <li><%= link_to t('page.back'), events_path(:page => flash[:page] ||= nil) -%></li>
+  </ul>
+<%- if user_signed_in? -%>
+  <ul>
+    <li><%= link_to t('bookmark.add_to_my_bookmark'), new_user_bookmark_path(current_user.username, :url => request.url) -%></li>
+  </ul>
+<%- end -%>
+</div>

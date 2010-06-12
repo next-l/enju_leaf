@@ -1,0 +1,4 @@
+title,creator,contributor,publisher,created_at,tag
+<%- @resources.each do |resource| -%>
+"<%=h resource.original_title.gsub(/"/, '""') -%>",<%=h resource.creator -%>,<%=h resource.contributor -%>,<%=h resource.publisher -%>,<%=h resource.created_at -%>,<%= resource.tags.each do |tag| h(tag.name) end -%><%= "\n" -%>
+<%- end -%>

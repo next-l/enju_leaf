@@ -1,0 +1,29 @@
+<%= form_for(@resource_relationship) do |f| %>
+  <% if @resource_relationship.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@resource_relationship.errors.count, "error") %> prohibited this resource_relationship from being saved:</h2>
+
+      <ul>
+      <% @resource_relationship.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :parent_id %><br />
+    <%= f.text_field :parent_id %>
+  </div>
+  <div class="field">
+    <%= f.label :child_id %><br />
+    <%= f.text_field :child_id %>
+  </div>
+  <div class="field">
+    <%= f.label :resource_relationship_type_id %><br />
+    <%= f.select(:resource_relationship_type_id, @resource_relationship_types.collect{|r| [r.display_name.localize, r.id]}) -%>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

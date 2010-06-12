@@ -1,0 +1,34 @@
+<div id="content_detail">
+<h1 class="title"><%= t('page.listing', :model => t('activerecord.models.role')) -%></h1>
+<div id="content_list">
+
+<table class="index">
+  <tr>
+    <th><%= t('activerecord.attributes.role.name') -%></th>
+    <th><%= t('activerecord.attributes.role.display_name') -%></th>
+    <th><%= t('activerecord.attributes.role.score') -%></th>
+    <th><%= t('activerecord.attributes.role.note') -%></th>
+    <th></th>
+    <th></th>
+  </tr>
+  
+<%- @roles.each do |role| -%>
+  <tr class="line<%= cycle("0", "1") -%>">
+    <td><%= link_to h(role.name), role -%></td>
+    <td><%= link_to h(role.display_name.localize), role -%></td>
+    <td><%= role.score -%></td>
+    <td><%= role.note -%></td>
+    <td><%= link_to t('page.edit'), edit_role_path(role) -%></td>
+    <td><%= link_to t('page.destroy'), role, :confirm => t('page.are_you_sure'), :method => :delete -%></td>
+  </tr>
+<%- end -%>
+</table>
+
+</div>
+</div>
+
+<div id="submenu">
+  <ul>
+    <li><%= link_to t('page.new', :model => t('activerecord.models.role')), new_role_path -%></li>
+  </ul>
+</div>

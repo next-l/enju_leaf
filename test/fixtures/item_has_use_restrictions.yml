@@ -1,0 +1,25 @@
+--- 
+item_has_use_restriction_00001: 
+  item_id: 1
+  updated_at: 2008-02-13 12:29:36.013448 +09:00
+  id: 1
+  use_restriction_id: 10
+  created_at: 2008-02-13 12:29:36.013448 +09:00
+item_has_use_restriction_00002: 
+  item_id: 2
+  updated_at: 2008-02-13 17:58:37.527556 +09:00
+  id: 2
+  use_restriction_id: 2
+  created_at: 2008-02-13 17:58:37.527556 +09:00
+item_has_use_restriction_00003: 
+  item_id: 3
+  updated_at: 2008-02-13 17:58:49.490086 +09:00
+  id: 3
+  use_restriction_id: 3
+  created_at: 2008-02-13 17:58:49.490086 +09:00
+item_has_use_restriction_00004: 
+  item_id: 17
+  updated_at: 2008-02-13 12:29:36.013448 +09:00
+  id: 4
+  use_restriction_id: 6
+  created_at: 2008-02-13 12:29:36.013448 +09:00

@@ -1,0 +1,34 @@
+<div id="content_detail">
+<h1 class="title"><%= t('page.new', :model => t('activerecord.models.form_of_work')) -%></h1>
+<div id="content_list">
+
+<%= form_for(@form_of_work) do |f| -%>
+  <%= f.error_messages -%>
+  <p>
+    <%= f.label t('activerecord.attributes.form_of_work.name') -%><br />
+    <%= f.text_field :name, :class => 'resource_title' -%>
+  </p>
+
+  <p>
+    <%= f.label t('activerecord.attributes.form_of_work.display_name') -%><br />
+    <%= f.text_area :display_name, :class => 'resource_textarea' -%>
+  </p>
+
+  <p>
+    <%= f.label t('activerecord.attributes.form_of_work.note') -%><br />
+    <%= f.text_area :note, :class => 'resource_textarea' -%>
+  </p>
+
+  <p>
+    <%= f.submit t('page.create') -%>
+  </p>
+<%- end -%>
+
+</div>
+</div>
+
+<div id="submenu">
+  <ul>
+    <li><%= link_to t('page.back'), form_of_works_path -%></li>
+  </ul>
+</div>

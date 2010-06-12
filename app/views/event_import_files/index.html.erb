@@ -1,0 +1,39 @@
+<div id="content_detail">
+<h1 class="title"><%= t('page.listing', :model => t('activerecord.models.event_import_file')) -%></h1>
+<div id="content_list">
+
+<table class="index">
+  <tr>
+    <th>Id</th>
+    <th><%= t('activerecord.attributes.event_import_file.event_import_file_name') -%></th>
+    <th><%= t('activerecord.attributes.event_import_file.imported_at') -%></th>
+    <th><%= t('activerecord.models.user') -%></th>
+    <th><%= t('activerecord.attributes.event_import_file.state') -%></th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<%- for event_import_file in @event_import_files -%>
+  <tr class="line<%= cycle("0", "1") -%>">
+    <td><%= link_to (event_import_file.id), event_import_file -%></td>
+    <td><%= event_import_file.event_import_file_name -%></td>
+    <td><%= l(event_import_file.imported_at) if event_import_file.imported_at -%></td>
+    <td><%= link_to h(event_import_file.user.username), user_path(event_import_file.user.username) -%></td>
+    <td><%= localized_state(event_import_file.state) -%></td>
+    <td><%= link_to t('page.show'), event_import_file -%></td>
+    <td><%= link_to t('page.edit'), edit_event_import_file_path(event_import_file) -%></td>
+    <td><%= link_to t('page.destroy'), event_import_file, :confirm => t('page.are_you_sure'), :method => :delete -%></td>
+  </tr>
+<%- end -%>
+</table>
+
+<%= will_paginate(@event_import_files) -%>
+</div>
+</div>
+
+<div id="submenu">
+  <ul>
+    <li><%= link_to t('page.new', :model => t('activerecord.models.event_import_file')), new_event_import_file_path -%></li>
+  </ul>
+</div>

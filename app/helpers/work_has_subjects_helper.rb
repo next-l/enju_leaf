@@ -1,0 +1,2 @@
+module WorkHasSubjectsHelper
+end

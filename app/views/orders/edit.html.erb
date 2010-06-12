@@ -1,0 +1,30 @@
+<div id="content_detail">
+<h1 class="title"><%= t('page.editing', :model => t('activerecord.models.order')) -%></h1>
+<div id="content_list">
+
+<%= form_for(@order) do |f| -%>
+  <%= f.error_messages -%>
+  <p>
+    <%= f.label t('activerecord.models.order_list') -%><br />
+    <%= f.text_field :order_list_id -%>
+  </p>
+
+  <p>
+    <%= f.label t('activerecord.models.purchase_request') -%><br />
+    <%= f.text_field :purchase_request_id -%>
+  </p>
+
+  <p>
+    <%= f.submit t('page.update') -%>
+  </p>
+<%- end -%>
+
+</div>
+</div>
+
+<div id="submenu">
+  <ul>
+    <li><%= link_to t('page.show'), order_path(@order) -%></li>
+    <li><%= link_to t('page.back'), orders_path -%></li>
+  </ul>
+</div>

@@ -1,0 +1,64 @@
+--- 
+frequency_00006: 
+  name: bimonthly
+  display_name: !binary |
+    5pes5YiK
+
+  updated_at: 2007-12-31 21:40:49.776669 +09:00
+  id: 6
+  created_at: 2007-12-31 21:40:49.776669 +09:00
+  position: 6
+frequency_00007: 
+  name: yearly
+  display_name: !binary |
+    5bm05YiK
+
+  updated_at: 2007-12-31 21:41:03.004736 +09:00
+  id: 7
+  created_at: 2007-12-31 21:41:03.004736 +09:00
+  position: 7
+frequency_00001: 
+  name: not refularly
+  display_name: !binary |
+    5pel5YiK
+
+  updated_at: 2007-12-31 21:39:45.737531 +09:00
+  id: 1
+  created_at: 2007-12-31 21:39:45.737531 +09:00
+  position: 1
+frequency_00002: 
+  name: daily
+  display_name: !binary |
+    6YCx5YiK
+
+  updated_at: 2007-12-31 21:39:54.980787 +09:00
+  id: 2
+  created_at: 2007-12-31 21:39:54.980787 +09:00
+  position: 2
+frequency_00003: 
+  name: weekly
+  display_name: !binary |
+    6ZqU6YCx5YiK
+
+  updated_at: 2007-12-31 21:40:11.112040 +09:00
+  id: 3
+  created_at: 2007-12-31 21:40:11.112040 +09:00
+  position: 3
+frequency_00004: 
+  name: biweekly
+  display_name: !binary |
+    5pyI5YiK
+
+  updated_at: 2007-12-31 21:40:18.803661 +09:00
+  id: 4
+  created_at: 2007-12-31 21:40:18.803661 +09:00
+  position: 4
+frequency_00005: 
+  name: monthly
+  display_name: !binary |
+    6ZqU5pyI5YiK
+
+  updated_at: 2007-12-31 21:40:31.247081 +09:00
+  id: 5
+  created_at: 2007-12-31 21:40:31.247081 +09:00
+  position: 5

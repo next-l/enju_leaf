@@ -1,0 +1,55 @@
+<div id="content_detail">
+<h1 class="title"><%= t('page.listing', :model => t('activerecord.models.message_request')) -%></h1>
+<div id="content_list">
+
+<table class="index">
+  <tr>
+    <th>
+      <%= t('message.sender') -%>
+      /
+      <%= t('message.receiver') -%>
+    </th>
+    <th><%= t('activerecord.models.message_template') -%></th>
+    <th><%= t('activerecord.attributes.message.subject') -%></th>
+    <th><%= t('page.created_at') -%></th>
+    <th><%= t('activerecord.attributes.message_request.sent_at') -%></th>
+  </tr>
+
+<%- for message_request in @message_requests -%>
+  <tr class="line<%= cycle("0", "1") -%>">
+    <td>
+      <%= link_to h(message_request.sender.login), user_path(message_request.sender.login) -%>
+      <br />
+      -&gt;
+      <%= link_to h(message_request.receiver.login), user_path(message_request.receiver.login) -%>
+    </td>
+    <td><%= link_to h(message_request.message_template.status), message_template_path(message_request.message_template) -%></td>
+    <td><%= message_request.subject -%></td>
+    <td><%= l(message_request.created_at) -%></td>
+    <td><%= l(message_request.sent_at) if message_request.sent_at -%></td>
+    <td><%= link_to t('page.show'), message_request -%></td>
+    <td><%= link_to t('page.edit'), edit_message_request_path(message_request) -%></td>
+    <td><%= link_to t('page.destroy'), message_request, :confirm => t('page.are_you_sure'), :method => :delete -%></td>
+  </tr>
+<%- end -%>
+</table>
+
+<%= will_paginate(@message_requests) -%>
+</div>
+</div>
+
+<div id="submenu">
+  <ul>
+    <%- case params[:mode] when 'sent' -%>
+      <li><%= link_to t('message_request.not_sent'), message_requests_path(:mode => 'not_sent') -%></li>
+      <li><%= link_to t('message_request.all'), message_requests_path(:mode => 'all') -%></li>
+    <%- when 'all' -%>
+      <li><%= link_to t('message_request.not_sent'), message_requests_path(:mode => 'not_sent') -%></li>
+      <li><%= link_to t('message_request.sent'), message_requests_path(:mode => 'sent') -%></li>
+    <%- else -%>
+      <li><%= link_to t('message_request.sent'), message_requests_path(:mode => 'sent') -%></li>
+      <li><%= link_to t('message_request.all'), message_requests_path(:mode => 'all') -%></li>
+    <%- end -%>
+  </ul>
+</div>
+

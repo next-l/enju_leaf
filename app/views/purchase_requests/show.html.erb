@@ -1,0 +1,93 @@
+<div id="content_detail">
+<h1 class="title"><%= t('page.showing', :model => t('activerecord.models.purchase_request')) -%></h1>
+<div id="content_list">
+
+<p>
+<strong><%= t('activerecord.models.user') -%>:</strong>
+  <%= link_to h(@purchase_request.user.username), user_path(@purchase_request.user.username) -%>
+</p>
+
+<p>
+<strong><%= t('activerecord.models.order_list') -%>:</strong>
+  <%- if @purchase_request.order_list -%>
+    <%= link_to h(@purchase_request.order_list.title), order_list_purchase_requests_path(@purchase_request.order_list) -%>
+  <%- else -%>
+    <%= t('purchase_request.not_ordered') -%>
+  <%- end -%>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.purchase_request.title') -%>:</strong>
+  <%= @purchase_request.title -%>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.purchase_request.author') -%>:</strong>
+  <%= @purchase_request.author -%>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.purchase_request.publisher') -%>:</strong>
+  <%= @purchase_request.publisher -%>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.purchase_request.isbn') -%>:</strong>
+  <%= @purchase_request.isbn -%>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.purchase_request.date_of_publication') -%>:</strong>
+  <%=l @purchase_request.date_of_publication if @purchase_request.date_of_publication -%>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.purchase_request.price') -%>:</strong>
+  <%= @purchase_request.price -%>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.purchase_request.url') -%>:</strong>
+  <%= link_to h(@purchase_request.url), @purchase_request.url -%>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.purchase_request.note') -%>:</strong>
+  <%= @purchase_request.note -%>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.order_list.ordered_at') -%>:</strong>
+  <%= l(@purchase_request.order_list.ordered_at) if @purchase_request.order_list rescue nil -%>
+</p>
+
+<p>
+<strong><%= t('page.created_at') -%>:</strong>
+  <%= l(@purchase_request.created_at) -%>
+</p>
+
+<p>
+<strong><%= t('page.updated_at') -%>:</strong>
+  <%= l(@purchase_request.updated_at) -%>
+</p>
+
+</div>
+</div>
+
+<div id="submenu">
+  <ul>
+    <%- if @purchase_request.order_list -%>
+      <li><%= link_to t('purchase_request.remove_from_order_list'), order_list_order_path(@purchase_request.order_list, @purchase_request.order), :method => :delete, :confirm => t('page.are_you_sure') -%></li>
+    <%- else -%>
+      <li><%= link_to t('purchase_request.add_to_order_list'), new_purchase_request_order_path(@purchase_request) -%></li>
+    <%- end -%>
+    <%- if @user -%>
+      <li><%= link_to t('page.new', :model => t('activerecord.models.purchase_request')), new_user_purchase_request_path(@user.username)%></li>
+    <%- end -%>
+    <li><%= link_to t('page.edit'), edit_user_purchase_request_path(@purchase_request.user.username, @purchase_request) -%></li>
+    <%- if current_user.has_role?('Librarian') -%>
+      <li><%= link_to t('page.destroy'), user_purchase_request_path(@purchase_request.user.username, @purchase_request), :confirm => t('page.are_you_sure'), :method => :delete -%></li>
+    <%- end -%>
+    <li><%= link_to t('page.back'), user_purchase_requests_path(@purchase_request.user.username, :page => flash[:page] ||= nil) -%></li>
+  </ul>
+</div>

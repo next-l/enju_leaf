@@ -1,0 +1,32 @@
+<div id="resource">
+  <ul>
+    <%- manifestation.original_resources.each do |resource| -%>
+        <li>
+          [M]
+          <%= link_to h(resource.original_title), resource -%>
+          <%= form_icon(resource.carrier_type) -%>
+          <%= link_to image_tag('/icons/world_go.png', :size => '16x16', :alt => ('Web')), h(resource.access_address) unless resource.access_address.blank? -%>
+          <%= raw patrons_list(manifestation.creators, current_user) -%>
+          <%= raw patrons_list(manifestation.contributors, current_user) -%>
+          <%= raw patrons_list(manifestation.publishers, current_user) -%>
+          <%- if resource.date_of_publication -%>
+            (<%= resource.date_of_publication.strftime('%Y') -%>)
+          <%- end -%>
+        </li>
+    <%- end -%>
+    <%- manifestation.derived_resources.each do |resource| -%>
+        <li>
+          [M]
+          <%= link_to h(resource.original_title), resource -%>
+          <%= form_icon(resource.carrier_type) -%>
+          <%= link_to image_tag('/icons/world_go.png', :size => '16x16', :alt => ('Web')), h(resource.access_address) unless resource.access_address.blank? -%>
+          <%= raw patrons_list(manifestation.creators, current_user) -%>
+          <%= raw patrons_list(manifestation.contributors, current_user) -%>
+          <%= raw patrons_list(manifestation.publishers, current_user) -%>
+          <%- if resource.date_of_publication -%>
+            (<%= resource.date_of_publication.strftime('%Y') -%>)
+          <%- end -%>
+        </li>
+    <%- end -%>
+  </ul>
+</div>

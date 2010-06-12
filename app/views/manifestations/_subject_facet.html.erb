@@ -1,0 +1,18 @@
+<h4><%= t('activerecord.models.subject') -%></h4>
+<%- unless @subject_facet.blank? -%>
+<ul>
+  <%- @subject_facet[0..19].each do |facet| -%>
+    <%- subject = Subject.first(:conditions => {:id => facet.value}) -%>
+    <%- if subject -%>
+      <li>
+        <%= link_to "#{h(subject.term)} (#{facet.count})", url_for(params.merge(:page => nil, :subject => h(subject.term), :view => nil)) -%>
+      </li>
+    <%- end -%>
+  <%- end -%>
+  <%- if @subject_by_term -%>
+    <li><%= link_to t('page.remove_this_facet'), params.merge(:subject => nil, :page => nil, :view => nil) -%></li>
+  <%- end -%>
+</ul>
+<%- else -%>
+  <p><%= t('page.no_subject') -%></p>
+<%- end -%>

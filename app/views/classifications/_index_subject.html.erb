@@ -1,0 +1,62 @@
+<div id="content_detail">
+<h1 class="title"><%= t('page.listing', :model => t('activerecord.models.classification')) -%></h1>
+<div id="content_list">
+  <h2><%= link_to h(@subject.term), @subject -%></h2>
+
+  <%= form_for :classifications, :url => subject_classifications_path(@subject), :html => {:method => 'get'} do -%>
+    <p>
+      <%= t('page.search_term') -%>: <%= text_field_tag 'query', h(@query), {:id => 'search_form_top', :class => 'search_form'} -%>
+      <%= submit_tag t('page.search') -%>
+      <%- if can? :create, SubjectHasClassification -%>
+        <%- if params[:mode] == 'add' -%>
+          <%= radio_button_tag 'mode', 'show' -%> <%= t('page.show') -%>
+          <%= radio_button_tag 'mode', 'add', :checked => true -%> <%= t('page.add') -%>
+        <%- else -%>
+          <%= radio_button_tag 'mode', 'show', :checked => true -%> <%= t('page.show') -%>
+          <%= radio_button_tag 'mode', 'add' -%> <%= t('page.add') -%>
+        <%- end -%>
+      <%- end -%>
+    </p>
+    <%= javascript_tag("$('#search_form_top').focus()") -%>
+  <%- end -%>
+        
+<table class="index">
+  <tr>
+    <th><%= t('activerecord.models.classification') -%></th>
+    <th><%= t('activerecord.attributes.classification.note') -%></th>
+    <th><%= t('activerecord.models.classification_type') -%></th>
+  </tr>
+
+<%- for classification in @classifications -%>
+  <tr class="line<%= cycle("0", "1") -%>">
+    <td><%= link_to h(classification.category), subject_classification_path(@subject, classification) -%></td>
+    <td><%= classification.note -%></td>
+    <td><%= classification.classification_type.display_name.localize -%></td>
+    <%- if can? :destroy, classification -%>
+      <td>
+        <%= link_to t('page.edit'), edit_classification_path(classification) -%>
+      </td>
+      <td>
+        <%- if params[:mode] == 'add' -%>
+          <%= link_to t('page.add'), new_subject_subject_has_classification_path(@subject, :classification_id => classification.id) unless @subject.classifications.include?(classification) -%>
+        <%- else -%>
+          <%- has_classification = @subject.subject_has_classifications.find_by_classification_id(classification) -%>
+          <%= link_to t('page.destroy'), subject_subject_has_classification_path(@subject, has_classification), :confirm => t('page.are_you_sure'), :method => :delete if has_classification -%>
+        <%- end -%>
+      </td>
+    <%- end -%>
+  </tr>
+<%- end -%>
+</table>
+
+<%= will_paginate(@classifications) -%>
+</div>
+</div>
+
+<div id="submenu">
+  <ul>
+    <%- if can? :create, Classification -%>
+      <li><%= link_to t('page.new', :model => t('activerecord.models.classification')), new_classification_path -%></li>
+    <%- end -%>
+  </ul>
+</div>

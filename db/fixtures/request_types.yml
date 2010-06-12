@@ -1,0 +1,29 @@
+--- 
+request_type_00001: 
+  name: Estimate  
+  display_name: Estimate
+  id: 1
+  position: 1
+  note: ""
+request_type_00002: 
+  name: Hold  
+  display_name: Hold
+  id: 2
+  position: 2
+  note: ""
+request_type_00003: 
+  name: Loan  
+  display_name: Loan
+  position: 3
+  note: ""
+request_type_00004: 
+  name: Non-Returnable Copy  
+  display_name: Non-Returnable Copy
+  position: 4
+  note: ""
+request_type_00005: 
+  name: Stack Retrieval  
+  display_name: Stack Retrieval
+  id: 5
+  position: 5
+  note: ""

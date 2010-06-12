@@ -1,0 +1,40 @@
+<div id="content_detail">
+<h1 class="title"><%= t('page.editing', :model => t('activerecord.models.message_request')) -%></h1>
+<div id="content_list">
+
+<%= form_for(@message_request) do |f| -%>
+  <%= f.error_messages -%>
+
+  <p>
+    <%= f.label t('message.sender') -%><br />
+    <%= link_to h(@message_request.sender.username), user_path(@message_request.sender.username) -%>
+  </p>
+  <p>
+    <%= f.label t('message.receiver') -%><br />
+    <%= link_to h(@message_request.receiver.username), user_path(@message_request.receiver.username) -%>
+  </p>
+  <p>
+    <%= f.label t('activerecord.models.message_template') -%><br />
+    <%= f.select(:message_template_id, @message_templates.collect{|m| [m.title, m.id]}) -%>
+  </p>
+  <p>
+    <%= f.label t('activerecord.attributes.message.subject') -%><br />
+    <%= @message_request.subject -%>
+  </p>
+  <p>
+    <%= f.label t('activerecord.attributes.message.body') -%><br />
+    <%= textilize(h(@message_request.body)) -%>
+  </p>
+  <p>
+    <%= f.submit t('page.update') -%>
+  </p>
+<%- end -%>
+</div>
+</div>
+
+<div id="submenu">
+  <ul>
+    <li><%= link_to t('page.show'), @message_request -%></li>
+    <li><%= link_to t('page.back'), message_requests_path -%></li>
+  </ul>
+</div>

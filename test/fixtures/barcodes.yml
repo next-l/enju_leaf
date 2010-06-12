@@ -1,0 +1,13 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+barcode_00001:
+  barcodable_id: 1
+  barcodable_type: Item
+  data:
+  code_word: aaaaaa
+
+barcode_00002:
+  barcodable_id: 2
+  barcodable_type: Item
+  data: 
+  code_word: bbbbbb

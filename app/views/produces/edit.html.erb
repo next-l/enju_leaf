@@ -1,0 +1,32 @@
+<div id="content_detail">
+<h1 class="title"><%= t('page.editing', :model => t('activerecord.models.produce')) -%></h1>
+<div id="content_list">
+
+<%= form_for(@produce) do |f| -%>
+  <%= f.error_messages -%>
+
+  <p>
+    <%= f.label t('activerecord.models.patron') -%><br />
+    <%= f.text_field :patron_id -%>
+  </p>
+
+  <p>
+    <%= f.label t('activerecord.models.manifestation') -%><br />
+    <%= f.text_field :manifestation_id -%>
+  </p>
+
+  <p>
+    <%= f.submit t('page.update') -%>
+  </p>
+
+<%- end -%>
+
+</div>
+</div>
+
+<div id="submenu">
+  <ul>
+    <li><%= link_to t('page.show'), @produce -%></li>
+    <li><%= link_to t('page.back'), produces_path -%></li>
+  </ul>
+</div>

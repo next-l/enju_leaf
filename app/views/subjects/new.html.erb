@@ -1,0 +1,45 @@
+<div id="content_detail">
+<h1 class="title"><%= t('page.new', :model => t('activerecord.models.subject')) -%></h1>
+<div id="content_list">
+
+<%= form_for(@subject) do |f| -%>
+  <%= f.error_messages -%>
+  <p>
+    <%= f.label t('activerecord.models.subject_type') -%>
+    <%= f.select(:subject_type_id, @subject_types.collect{|s| [s.display_name.localize, s.id]}) -%>
+  </p>
+
+  <p>
+    <%= f.label t('activerecord.attributes.subject.term') -%><br />
+    <%= f.text_area :term -%>
+  </p>
+  <p>
+    <%= f.label t('activerecord.attributes.subject.note') -%><br />
+    <%= f.text_area :note -%>
+  </p>
+  <%- if @classification -%>
+    <p>
+      <%= f.label t('activerecord.models.classification') -%>
+      <%= link_to h(@classification.category), @classification -%>
+      <%= f.hidden_field :classification_id -%>
+    </p>
+  <%- end -%>
+  <%- if @subject_heading_type -%>
+    <p>
+      <%= f.label t('activerecord.models.subject_heading_type') -%>
+      <%= link_to h(@subject_heading_type.display_name.localize), @subject_heading_type -%>
+      <%= f.hidden_field :subject_heading_type_id -%>
+    </p>
+  <%- end -%>
+  <p>
+    <%= f.submit t('page.create') -%>
+  </p>
+<%- end -%>
+</div>
+</div>
+
+<div id="submenu">
+  <ul>
+    <li><%= link_to t('page.back'), subjects_path -%></li>
+  </ul>
+</div>

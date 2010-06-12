@@ -1,0 +1,19 @@
+<%= form_for(:picture_file, :url => library_shelf_picture_files_path(@shelf.library, @shelf), :html => { :multipart => true, :method => :post }) do |f| -%>
+  <%= f.error_messages -%>
+  <p>
+    <%= f.label t('page.attachable') -%><br />
+    <%= link_to h(@shelf.library.display_name.localize), library_path(@shelf.library.name) -%>
+    <%= link_to h(@shelf.display_name.localize), @shelf -%>
+    <%= f.hidden_field :picture_attachable_id -%>
+    <%= f.hidden_field :picture_attachable_type -%>
+  </p>
+
+  <p>
+    <%= f.label t('page.file') -%><br />
+    <%= f.file_field :picture -%>
+  </p>
+
+  <p>
+    <%= f.submit t('page.create') -%>
+  </p>
+<%- end -%>

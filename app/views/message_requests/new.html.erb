@@ -1,0 +1,32 @@
+<div id="content_detail">
+  <h1 class="title"><%= t('page.new', :model => t('activerecord.models.message_request')) -%></h1>
+<div id="content_list">
+
+<%= form_for(@message_request) do |f| -%>
+  <%= f.error_messages -%>
+
+  <p>
+    <%= f.label t('message.sender') -%><br />
+    <%= link_to h(current_user.username), user_path(current_user.username) -%>
+    <%= f.hidden_field :sender_id -%>
+  </p>
+  <p>
+    <%= f.label t('message.receiver') -%><br />
+    <%= f.text_field :receiver_id -%>
+  </p>
+  <p>
+    <%= f.label t('activerecord.models.message_template') -%><br />
+    <%= f.select(:message_template_id, @message_templates.collect{|m| [m.title, m.id]}) -%>
+  </p>
+  <p>
+    <%= f.submit t('page.create') -%>
+  </p>
+<%- end -%>
+</div>
+</div>
+
+<div id="submenu">
+  <ul>
+    <li><%= link_to t('page.back'), message_requests_path -%></li>
+  </ul>
+</div>

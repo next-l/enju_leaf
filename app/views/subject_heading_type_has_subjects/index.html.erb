@@ -1,0 +1,30 @@
+<div id="content_detail">
+<h1 class="title"><%= t('page.listing', :model => t('activerecord.models.subject_heading_type_has_subject')) -%></h1>
+<div id="content_list">
+
+<table class="index">
+  <tr>
+    <th><%= t('activerecord.models.subject') -%></th>
+    <th><%= t('activerecord.models.subject_heading_type') -%></th>
+  </tr>
+
+<%- for subject_heading_type_has_subject in @subject_heading_type_has_subjects %>
+  <tr class="line<%= cycle("0", "1") -%>">
+    <td><%= link_to h(subject_heading_type_has_subject.subject.term), subject_heading_type_has_subject.subject %></td>
+    <td><%= link_to h(subject_heading_type_has_subject.subject_heading_type.display_name.localize), subject_heading_type_has_subject.subject_heading_type %></td>
+    <td><%= link_to t('page.show'), subject_heading_type_has_subject %></td>
+    <td><%= link_to t('page.edit'), edit_subject_heading_type_has_subject_path(subject_heading_type_has_subject) %></td>
+    <td><%= link_to t('page.destroy'), subject_heading_type_has_subject, :confirm => t('page.are_you_sure'), :method => :delete %></td>
+  </tr>
+<%- end %>
+</table>
+
+<%= will_paginate(@subject_heading_type_has_subjects) -%>
+</div>
+</div>
+
+<div id="submenu">
+  <ul>
+    <li><%= link_to t('page.new', :model => t('activerecord.models.subject_heading_type_has_subject')), new_subject_heading_type_has_subject_path %></li>
+  </ul>
+</div>

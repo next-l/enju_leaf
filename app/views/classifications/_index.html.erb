@@ -1,0 +1,48 @@
+<div id="content_detail">
+<h1 class="title"><%= t('page.listing', :model => t('activerecord.models.classification')) -%></h1>
+<div id="content_list">
+
+<%= form_for :classifications, :url => classifications_path, :html => {:method => 'get'} do -%>
+  <p>
+    <%= t('page.search_term') -%>: <%= text_field_tag 'query', h(@query), {:id => 'search_form_top', :class => 'search_form'} -%>
+    <%= submit_tag t('page.search') -%>
+  </p>
+  <%= javascript_tag("$('#search_form_top').focus()") -%>
+<%- end -%>
+        
+<table class="index">
+  <tr>
+    <th><%= t('activerecord.attributes.classification.category') -%></th>
+    <th><%= t('activerecord.attributes.classification.note') -%></th>
+    <th><%= t('activerecord.models.classification_type') -%></th>
+  </tr>
+
+<%- for classification in @classifications -%>
+  <tr class="line<%= cycle("0", "1") -%>">
+    <td><%= link_to h(classification.category), classification -%></td>
+    <td><%= classification.note -%></td>
+    <td><%= link_to h(classification.classification_type.display_name.localize), classification.classification_type -%></td>
+    <%- if can? :destroy, classification -%>
+      <td><%= link_to t('page.edit'), edit_classification_path(classification) -%></td>
+      <td><%= link_to t('page.destroy'), classification, :confirm => t('page.are_you_sure'), :method => :delete -%></td>
+    <%- end -%>
+  </tr>
+<%- end -%>
+</table>
+
+<%= will_paginate(@classifications) -%>
+
+</div>
+</div>
+
+<div id="submenu">
+  <ul>
+    <%- if can? :create, Classification -%>
+      <%- if @classification_type -%>
+        <li><%= link_to t('page.new', :model => t('activerecord.models.classification')), new_classification_type_classification_path(@classification_type) -%></li>
+      <%- else -%>
+        <li><%= link_to t('page.new', :model => t('activerecord.models.classification')), new_classification_path -%></li>
+      <%- end -%>
+    <%- end -%>
+  </ul>
+</div>

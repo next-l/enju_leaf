@@ -1,0 +1,19 @@
+<div id="content_detail">
+<p>
+<strong><%= t('activerecord.models.item') -%>:</strong>
+  <%= link_to h(@checkin.item.manifestation.original_title), @checkin.item -%>
+</p>
+
+<p>
+<strong><%= ('Librarian') -%>:</strong>
+  <%= link_to h(@checkin.librarian.username), user_path(@checkin.librarian.username) -%>
+</p>
+
+</div>
+
+<div id="submenu">
+  <ul>
+    <li><%= link_to t('page.edit'), edit_checkin_path(@checkin) -%></li>
+    <li><%= link_to t('page.back'), checkins_path -%></li>
+  </ul>
+</div>

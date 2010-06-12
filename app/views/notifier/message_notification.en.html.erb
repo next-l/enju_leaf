@@ -1,0 +1,8 @@
+<%=h @user.patron.full_name -%> :
+
+A new message arrived from <%=h LibraryGroup.site_config.display_name.localize -%>.
+<%=h user_messages_url(@user.username) %>
+
+-- 
+<%=h LibraryGroup.site_config.display_name.localize %>
+<%=h LibraryGroup.url %>

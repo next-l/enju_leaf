@@ -1,0 +1,9 @@
+<%= form_for :resources, :url => resources_path, :html => {:method => 'get'} do -%>
+  <p>
+    <%= t('page.search_term') -%>:
+    <%= text_field_tag 'query', nil, :class => 'search_form_short' -%>
+    <%= submit_tag t('page.search') -%><br />
+    (<%= link_to t('page.advanced_search'), '/page/advanced_search' -%>)
+  </p>
+<%- end -%>
+<%= javascript_tag("$('#query').focus()") -%>

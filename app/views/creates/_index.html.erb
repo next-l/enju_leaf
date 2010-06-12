@@ -1,0 +1,33 @@
+<div id="content_detail">
+<h1 class="title"><%= t('page.listing', :model => t('activerecord.models.create')) -%></h1>
+<div id="content_list">
+
+<table class="index">
+  <tr>
+    <th><%= t('activerecord.models.patron') -%></th>
+    <th><%= t('activerecord.models.work') -%></th>
+  </tr>
+
+<%- @creates.each do |create| -%>
+  <tr class="line<%= cycle("0", "1") -%>">
+    <td><%= link_to h(create.patron.full_name), create.patron -%></td>
+    <td><%= link_to h(create.work.original_title), create.work -%></td>
+    <%- if can? :destroy, create -%>
+      <td><%= link_to t('page.show'), create -%></td>
+      <td><%= link_to t('page.destroy'), create, :confirm => t('page.are_you_sure'), :method => :delete -%></td>
+    <%- end -%>
+  </tr>
+<%- end -%>
+</table>
+
+<%= will_paginate(@creates) -%>
+</div>
+</div>
+
+<div id="submenu">
+  <%- if can? :create, Create -%>
+    <ul>
+      <li><%= link_to t('page.new', :model => t('activerecord.models.create')), new_create_path -%></li>
+    </ul>
+  <%- end -%>
+</div>

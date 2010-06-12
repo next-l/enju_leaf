@@ -1,0 +1,279 @@
+--- 
+patron_00001: 
+  place: ""
+  last_name: Administrator
+  first_name: 
+  full_name: Administrator
+  updated_at: 2007-11-21 22:01:56.137409 +09:00
+  other_designation: ""
+  id: 1
+  date_of_birth: 2000-01-01
+  date_of_death: 
+  address_1: 
+  language_id: 1
+  country_id: 1
+  patron_type_id: 1
+  required_role_id: 1
+  created_at: 2007-11-19 17:06:06.507237 +09:00
+  user_id: 1
+patron_00002: 
+  place: ""
+  last_name: Librarian1
+  first_name: 
+  full_name: Librarian1
+  updated_at: 2007-11-21 22:02:10.359793 +09:00
+  other_designation: ""
+  id: 2
+  date_of_birth: 2000-01-01
+  date_of_death: 
+  address_1: 
+  language_id: 1
+  country_id: 1
+  patron_type_id: 1
+  required_role_id: 4
+  created_at: 2007-11-19 17:06:07.724517 +09:00
+  user_id: 2
+patron_00003: 
+  place: 
+  last_name: Kosuke
+  first_name: Tanabe
+  full_name: Kosuke Tanabe
+  updated_at: 2007-12-04 16:25:01.523618 +09:00
+  other_designation: 
+  id: 3
+  date_of_birth: 2000-01-01
+  date_of_death: 
+  address_1: 
+  language_id: 1
+  country_id: 1
+  patron_type_id: 1
+  required_role_id: 3
+  created_at: 2007-12-04 16:25:01.523618 +09:00
+  user_id: 3
+patron_00004: 
+  place: 
+  last_name: Librarian2
+  first_name: 
+  full_name: Librarian2
+  updated_at: 2007-12-04 16:25:01.785027 +09:00
+  other_designation: 
+  id: 4
+  date_of_birth: 2000-01-01
+  date_of_death: 
+  address_1: 
+  language_id: 1
+  country_id: 1
+  patron_type_id: 1
+  required_role_id: 1
+  created_at: 2007-12-04 16:25:01.785027 +09:00
+  user_id: 4
+patron_00005: 
+  place: ""
+  last_name: User2
+  first_name: 
+  full_name: User2
+  updated_at: 2007-11-21 22:02:35.579396 +09:00
+  other_designation: ""
+  id: 5
+  date_of_birth: 2000-01-01
+  date_of_death: 
+  address_1: 
+  language_id: 1
+  country_id: 1
+  patron_type_id: 1
+  required_role_id: 2
+  created_at: 2007-11-19 17:24:50.153417 +09:00
+  user_id: 5
+patron_00006: 
+  place: ""
+  last_name: New patron 1
+  first_name: 
+  full_name: New patron 1
+  updated_at: 2007-11-21 22:02:35.579396 +09:00
+  other_designation: ""
+  id: 6
+  date_of_birth: 2000-01-01
+  date_of_death: 
+  address_1: 
+  language_id: 1
+  country_id: 1
+  patron_type_id: 1
+  required_role_id: 1
+  created_at: 2007-11-19 17:24:50.153417 +09:00
+patron_00007: 
+  place: ""
+  last_name: New patron 2
+  first_name: 
+  full_name: New patron 2
+  updated_at: 2007-11-21 22:02:35.579396 +09:00
+  other_designation: ""
+  id: 7
+  date_of_birth: 2000-01-01
+  date_of_death: 
+  address_1: 
+  language_id: 1
+  country_id: 1
+  patron_type_id: 1
+  required_role_id: 1
+  created_at: 2007-11-19 17:24:50.153417 +09:00
+patron_00008: 
+  place: ""
+  last_name: New patron 3
+  first_name: 
+  full_name: New patron 3
+  updated_at: 2007-11-21 22:02:35.579396 +09:00
+  other_designation: ""
+  id: 8
+  date_of_birth: 2000-01-01
+  date_of_death: 
+  address_1: 
+  language_id: 1
+  country_id: 1
+  patron_type_id: 1
+  required_role_id: 1
+  created_at: 2007-11-19 17:24:50.153417 +09:00
+patron_00009: 
+  place: ""
+  last_name: New patron 4
+  first_name: 
+  full_name:  New patron 4
+  updated_at: 2007-11-21 22:02:35.579396 +09:00
+  other_designation: ""
+  id: 9
+  date_of_birth: 2000-01-01
+  date_of_death: 
+  address_1: 
+  language_id: 1
+  country_id: 1
+  patron_type_id: 1
+  required_role_id: 1
+  created_at: 2007-11-19 17:24:50.153417 +09:00
+patron_00010: 
+  place: ""
+  last_name: New patron 5
+  first_name: 
+  full_name: New patron 5
+  updated_at: 2007-11-21 22:02:35.579396 +09:00
+  other_designation: ""
+  id: 10
+  date_of_birth: 2000-01-01
+  date_of_death: 
+  address_1: 
+  language_id: 1
+  country_id: 1
+  patron_type_id: 1
+  required_role_id: 1
+  created_at: 2007-11-19 17:24:50.153417 +09:00
+patron_00011: 
+  place: ""
+  last_name: User3
+  first_name: 
+  full_name: User3
+  updated_at: 2007-11-21 22:02:35.579396 +09:00
+  other_designation: ""
+  id: 11
+  date_of_birth: 2000-01-01
+  date_of_death: 
+  address_1: 
+  language_id: 1
+  country_id: 1
+  patron_type_id: 1
+  required_role_id: 1
+  created_at: 2007-11-19 17:24:50.153417 +09:00
+  user_id: 6
+patron_00101:
+  place: ""
+  last_name: テスト名字
+  first_name: テスト名前
+  full_name: テスト正式名称
+  updated_at: 2010-03-03 17:00:00.579396 +09:00
+  other_designation: ""
+  id: 101
+  date_of_birth: 2000-01-01
+  date_of_death:
+  address_1:
+  language_id: 1
+  country_id: 1
+  patron_type_id: 1
+  required_role_id: 1
+  created_at: 2010-03-03 17:00:00.579396 +09:00
+patron_00102:
+  place: ""
+  last_name:
+  first_name:
+  full_name: 出版社テスト
+  updated_at: 2010-03-03 17:00:00.579396 +09:00
+  other_designation: ""
+  id: 102
+  date_of_birth:
+  date_of_death:
+  address_1:
+  language_id: 1
+  country_id: 1
+  patron_type_id: 1
+  required_role_id: 1
+  created_at: 2010-03-03 17:00:00.579396 +09:00
+patron_00103:
+  place: ""
+  last_name:
+  first_name:
+  full_name: 作者ダミー
+  updated_at: 2010-03-16 19:00:00.579396 +09:00
+  other_designation: ""
+  id: 103
+  date_of_birth:
+  date_of_death:
+  address_1:
+  language_id: 1
+  country_id: 1
+  patron_type_id: 1
+  required_role_id: 1
+  created_at: 2010-03-16 19:00:00.579396 +09:00
+patron_00104:
+  place: ""
+  last_name:
+  first_name:
+  full_name: 試験用会社
+  updated_at: 2010-03-16 19:00:00.579396 +09:00
+  other_designation: ""
+  id: 104
+  date_of_birth:
+  date_of_death:
+  address_1:
+  language_id: 1
+  country_id: 1
+  patron_type_id: 1
+  required_role_id: 1
+  created_at: 2010-03-16 19:00:00.579396 +09:00
+patron_00201:
+  place: ""
+  last_name:
+  first_name:
+  full_name: オーム社
+  updated_at: 2010-03-15 17:00:00.579396 +09:00
+  other_designation: ""
+  id: 201
+  date_of_birth:
+  date_of_death:
+  address_1:
+  language_id: 1
+  country_id: 1
+  patron_type_id: 1
+  required_role_id: 1
+  created_at: 2010-03-15 17:00:00.579396 +09:00
+patron_00202:
+  place: ""
+  last_name:
+  first_name:
+  full_name: Ruby社
+  updated_at: 2010-03-15 17:00:00.579396 +09:00
+  other_designation: ""
+  id: 202
+  date_of_birth:
+  date_of_death:
+  address_1:
+  language_id: 1
+  country_id: 1
+  patron_type_id: 1
+  required_role_id: 1
+  created_at: 2010-03-15 17:00:00.579396 +09:00

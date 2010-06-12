@@ -1,0 +1,149 @@
+<div id="content_detail">
+  <h1 class="title"><%= t('page.editing', :model => t('activerecord.models.inter_library_loan')) -%></h1>
+<div id="content_list">
+
+<%= form_for(@inter_library_loan) do |f| -%>
+  <%= f.error_messages -%>
+
+  <p>
+    <%= f.label t('inter_library_loan.borrowing_library') -%><br />
+    <%= f.select(:borrowing_library_id, @libraries.collect{|l| [l.display_name.localize, l.id]}) -%>
+  </p>
+
+  <p>
+    <%= f.label t('activerecord.models.item') -%><br />
+    <%= link_to h(@inter_library_loan.item.shelf.library.display_name.localize), library_path(@inter_library_loan.item.shelf.library.name) -%>
+    <%= link_to h(@inter_library_loan.item.item_identifier), @inter_library_loan.item -%>
+    (<%= link_to h(@inter_library_loan.item.manifestation.original_title), @inter_library_loan.item.manifestation -%>)
+    <%= f.hidden_field :item_id -%>
+  </p>
+
+  <%- case @inter_library_loan.state
+    when 'requested' -%>
+    <p>
+      <%= f.label t('activerecord.attributes.inter_library_loan.requested_at') -%><br />
+      <%= @inter_library_loan.requested_at -%>
+    </p>
+
+    <%- if @inter_library_loan.item.hold?(current_user.library) -%>
+      <p>
+        <%= f.label t('activerecord.attributes.inter_library_loan.shipped_at') -%><br />
+        <%= f.datetime_select :shipped_at -%>
+      </p>
+      <p>
+        <%= f.submit t('page.update'), :confirm => t('page.are_you_sure') -%>
+      </p>
+    <%- end -%>
+  <%- when 'shipped' -%>
+    <p>
+      <%= f.label t('activerecord.attributes.inter_library_loan.requested_at') -%><br />
+      <%= @inter_library_loan.requested_at -%>
+    </p>
+
+    <p>
+      <%= f.label t('activerecord.attributes.inter_library_loan.shipped_at') -%><br />
+      <%= @inter_library_loan.shipped_at -%>
+    </p>
+
+    <%- if !@inter_library_loan.item.hold?(current_user.library) -%>
+      <p>
+        <%= f.label t('activerecord.attributes.inter_library_loan.received_at') -%><br />
+        <%= f.datetime_select :received_at -%>
+      </p>
+      <p>
+        <%= f.submit t('page.update'), :confirm => t('page.are_you_sure') -%>
+      </p>
+    <%- end -%>
+  <%- when 'received' -%>
+    <p>
+      <%= f.label t('activerecord.attributes.inter_library_loan.requested_at') -%><br />
+      <%= @inter_library_loan.requested_at -%>
+    </p>
+
+    <p>
+      <%= f.label t('activerecord.attributes.inter_library_loan.shipped_at') -%><br />
+      <%= @inter_library_loan.shipped_at -%>
+    </p>
+
+    <p>
+      <%= f.label t('activerecord.attributes.inter_library_loan.received_at') -%><br />
+      <%= @inter_library_loan.received_at -%>
+    </p>
+
+    <%- if !@inter_library_loan.item.hold?(current_user.library) -%>
+      <p>
+        <%= f.label t('activerecord.attributes.inter_library_loan.return_shippd_at') -%><br />
+        <%= f.datetime_select :return_shipped_at -%>
+      </p>
+      <p>
+        <%= f.submit t('page.update'), :confirm => t('page.are_you_sure') -%>
+      </p>
+    <%- end -%>
+  <%- when 'return_shipped' -%>
+    <p>
+      <%= f.label t('activerecord.attributes.inter_library_loan.requested_at') -%><br />
+      <%= @inter_library_loan.requested_at -%>
+    </p>
+
+    <p>
+      <%= f.label t('activerecord.attributes.inter_library_loan.shipped_at') -%><br />
+      <%= @inter_library_loan.shipped_at -%>
+    </p>
+
+    <p>
+      <%= f.label t('activerecord.attributes.inter_library_loan.received_at') -%><br />
+      <%= @inter_library_loan.received_at -%>
+    </p>
+
+    <p>
+      <%= f.label t('activerecord.attributes.inter_library_loan.return_shippd_at') -%><br />
+      <%= @inter_library_loan.return_shipped_at -%>
+    </p>
+
+    <%- if @inter_library_loan.item.hold?(current_user.library) -%>
+      <p>
+        <%= f.label t('activerecord.attributes.inter_library_loan.return_received_at') -%><br />
+        <%= f.datetime_select :return_received_at -%>
+      </p>
+      <p>
+        <%= f.submit t('page.update'), :confirm => t('page.are_you_sure') -%>
+      </p>
+    <%- end -%>
+  <%- when 'return_received' -%>
+    <p>
+      <%= f.label t('activerecord.attributes.inter_library_loan.requested_at') -%><br />
+      <%= @inter_library_loan.requested_at -%>
+    </p>
+
+    <p>
+      <%= f.label t('activerecord.attributes.inter_library_loan.shipped_at') -%><br />
+      <%= @inter_library_loan.shipped_at -%>
+    </p>
+
+    <p>
+      <%= f.label t('activerecord.attributes.inter_library_loan.received_at') -%><br />
+      <%= @inter_library_loan.received_at -%>
+    </p>
+
+    <p>
+      <%= f.label t('activerecord.attributes.inter_library_loan.return_shippd_at') -%><br />
+      <%= @inter_library_loan.return_shipped_at -%>
+    </p>
+
+    <p>
+      <%= f.label t('activerecord.attributes.inter_library_loan.return_received_at') -%><br />
+      <%= @inter_library_loan.return_received_at -%>
+    </p>
+  <%- end -%>
+
+<%- end -%>
+
+</div>
+</div>
+
+<div id="submenu">
+  <ul>
+    <li><%= link_to t('page.show'), @inter_library_loan -%></li>
+    <li><%= link_to t('page.back'), inter_library_loans_path -%></li>
+  </ul>
+</div>

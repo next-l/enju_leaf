@@ -1,0 +1,32 @@
+<div id="content_detail">
+<h1 class="title"><%= t('page.editing', :model => t('activerecord.models.subject')) -%></h1>
+<div id="content_list">
+
+<%= form_for(@subject) do |f| -%>
+  <%= f.error_messages -%>
+  <p>
+    <%= f.label t('activerecord.models.subject_type') -%>
+    <%= f.select(:subject_type_id, @subject_types.collect{|p| [p.display_name.localize, p.id]}) -%>
+  </p>
+
+  <p>
+    <%= f.label t('activerecord.attributes.subject.term') -%><br />
+    <%= f.text_area :term -%>
+  </p>
+  <p>
+    <%= f.label t('activerecord.attributes.subject.note') -%><br />
+    <%= f.text_area :note -%>
+  </p>
+  <p>
+    <%= f.submit t('page.update') -%>
+  </p>
+<%- end -%>
+</div>
+</div>
+
+<div id="submenu">
+  <ul>
+    <li><%= link_to t('page.show'), @subject -%></li>
+    <li><%= link_to t('page.back'), subjects_path -%></li>
+  </ul>
+</div>

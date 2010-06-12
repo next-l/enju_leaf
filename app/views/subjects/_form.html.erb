@@ -1,0 +1,28 @@
+<%= form_for(@subject) do |f| %>
+  <% if @subject.errors.any? %>
+  <div id="errorExplanation">
+    <h2><%= pluralize(@subject.errors.count, "error") %> prohibited this subject from being saved:</h2>
+    <ul>
+    <% @subject.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
+    <% end %>
+    </ul>
+  </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :term %><br />
+    <%= f.text_field :term %>
+  </div>
+  <div class="field">
+    <%= f.label :term_transcription %><br />
+    <%= f.text_area :term_transcription %>
+  </div>
+  <div class="field">
+    <%= f.label :subject_type_id %><br />
+    <%= f.select :subject_type_id, @subject_types.collect{|s| s.name} %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

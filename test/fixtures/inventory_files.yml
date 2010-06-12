@@ -1,0 +1,23 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+inventory_file_00001:
+  id: 1
+  inventory_file_name: MyString
+  inventory_file_size: 1
+  file_hash: MyString
+  user_id: 1
+  inventory_content_type: text/csv
+inventory_file_00002:
+  id: 2
+  inventory_file_name: MyString
+  inventory_file_size: 1
+  file_hash: MyString
+  user_id: 1
+  inventory_content_type: text/csv
+inventory_file_00003:
+  id: 3
+  inventory_file_name: MyString
+  inventory_file_size: 1
+  file_hash: MyString
+  user_id: 1
+  inventory_content_type: text/csv

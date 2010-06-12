@@ -1,0 +1,46 @@
+<div id="content_detail">
+<h1 class="title"><%= t('activerecord.models.message') -%></h1>
+<div id="content_list">
+
+  <%= flash[:notice] -%> 
+  <fieldset>
+	    <p>
+        <label for="message_receiver_name" ><strong><%= t('message.receiver') -%>:</strong></label>
+        <%= link_to h(@message.receiver.username), @message.receiver -%>
+      </p>
+      <p>
+        <label for="message_sender_name" ><strong><%= t('message.sender') -%>:</strong></label>
+        <%= link_to h(@message.sender.username), @message.sender -%>
+      </p>
+    
+      <p>
+        <label for="message_sent_at" ><strong><%= t('message.sent_at') -%>:</strong></label>
+        <%= l(@message.created_at) -%>
+      </p>
+    
+      <p>
+        <label for="message_subject" ><strong><%= t('activerecord.attributes.message.subject') -%>:</strong></label>  
+        <%= @message.subject -%>
+      </p>
+      
+      <p>
+        <label for="message_body" ><strong><%= t('activerecord.attributes.message.body') -%>:</strong></label>  
+        <%= raw auto_link(simple_format(h(@message.body))) -%>
+      </p>
+
+  </fieldset>
+  
+</div>
+</div>
+
+<div id="submenu">
+  <ul>
+    <% if request.referer %>
+      <li><%= link_to t('page.back'), :back -%></li>
+    <% else %>
+      <li><%= link_to t('page.listing', :model => t('activerecord.models.message')), user_messages_path(current_user.username) -%></li>
+    <% end %>
+    <li><%= link_to t('message.reply'), new_user_message_path(current_user.username, :parent_id => @message.id) -%></li>
+    <li><%= link_to t('page.destroy'), @message, :confirm => t('page.are_you_sure'), :method => :delete -%></li>
+  </ul>
+</div>

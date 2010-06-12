@@ -1,0 +1,41 @@
+<table class="index">
+  <tr>
+    <th><%= t('activerecord.models.user') -%></th>
+    <th class="checked_item_title"><%= t('page.title') -%></th>
+    <th><%= t('activerecord.attributes.item.item_identifier') -%></th>
+    <th><%= t('activerecord.attributes.checkout.due_date') -%></th>
+    <th></th>
+    <th></th>
+  </tr>
+  
+<%- if @checkouts -%>
+  <%- @checkouts.each_with_index do |checkout, i| -%>
+  <tr class="line<%= cycle("0", "1") -%>">
+    <td>
+      <%= link_to h(checkout.user.username), user_path(checkout.user.username) -%>
+      <br>
+      (<%= link_to h(checkout.user.user_number), user_path(checkout.user.username) -%>)
+    </td>
+    <td>
+      <%= render :partial => 'manifestations/show_index', :locals => {:manifestation => checkout.item.manifestation} -%>
+      <%= render :partial => 'manifestations/holding', :locals => {:manifestation => checkout.item.manifestation} -%>
+    </td>
+    <td><%= link_to h(checkout.item.item_identifier), item_path(checkout.item) -%></td>
+    <td><%= l(checkout.due_date, :format => :only_date) -%></td>
+    <td><%= link_to t('page.show'), user_checkout_path(checkout.user.username, checkout) -%>
+    <td>
+      <%- if can? :update, checkout -%>
+        <%= link_to t('checkout.extend'), edit_user_checkout_path(checkout.user.username, checkout) -%>
+      <%- end -%>
+    </td>
+    <!--
+    <td>
+      <%- if can? :destroy, checkout -%>
+        <%= link_to t('page.destroy'), user_checkout_path(checkout.user.username, checkout), :confirm => t('page.are_you_sure'), :method => :delete -%>
+      <%- end -%>
+    </td>
+    -->
+  </tr>
+  <%- end -%>
+<%- end -%>
+</table>

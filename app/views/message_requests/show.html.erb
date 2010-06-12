@@ -1,0 +1,53 @@
+<div id="content_detail">
+<h1 class="title"><%= t('page.showing', :model => t('activerecord.models.message_request')) -%></h1>
+<div id="content_list">
+<p>
+  <strong><%= t('message.sender') -%>:</strong>
+  <%= link_to h(@message_request.sender.username), user_path(@message_request.sender.username) -%>
+</p>
+
+<p>
+  <strong><%= t('message.receiver') -%>:</strong>
+  <%= link_to h(@message_request.receiver.username), user_path(@message_request.receiver.username) -%>
+</p>
+
+<p>
+  <strong><%= t('page.created_at') -%>:</strong>
+  <%= l(@message_request.created_at) -%>
+</p>
+
+<p>
+  <strong><%= t('page.updated_at') -%>:</strong>
+  <%= l(@message_request.updated_at) -%>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.message_request.sent_at') -%>:</strong>
+  <%= l(@message_request.sent_at) if @message_request.sent_at -%>
+</p>
+
+<p>
+  <strong><%= t('activerecord.models.message_template') -%>:</strong>
+  <%= link_to h(@message_request.message_template.status), message_template_path( @message_request.message_template) -%>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.message.subject') -%>:</strong>
+  <%= @message_request.subject -%>
+</p>
+
+<div>
+  <strong><%= t('activerecord.attributes.message.body') -%>:</strong>
+  <%= auto_link(textilize(h(@message_request.body))) -%>
+</div>
+
+</div>
+</div>
+
+<div id="submenu">
+  <ul>
+    <li><%= link_to t('page.edit'), edit_message_request_path(@message_request) -%></li>
+    <li><%= link_to t('page.back'), message_requests_path -%></li>
+    <li><%= link_to t('message.send'), new_user_message_path(current_user.username, :message_request_id => @message_request.id) -%></li>
+  </ul>
+</div>

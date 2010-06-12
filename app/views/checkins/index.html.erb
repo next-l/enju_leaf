@@ -1,0 +1,16 @@
+<div id="content_detail">
+<h1 class="title"><%= t('page.listing', :model => t('activerecord.models.checkin')) -%></h1>
+<div id="content_list">
+
+  <div id="checkin_list">
+    <%= render :partial => 'checkins/list', :locals => {:checkins => @checkins} -%>
+  </div>
+
+</div>
+</div>
+
+<div id="submenu">
+  <ul>
+    <li><%= link_to t('page.checkout'), new_basket_path -%></li>
+  </ul>
+</div>

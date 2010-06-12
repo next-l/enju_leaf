@@ -1,0 +1,78 @@
+nii_type_00001:
+  id: 1
+  name: Journal Article
+  display_name: Journal Article
+  note: 
+  position: 1
+nii_type_00002:
+  id: 2
+  name: Thesis or Dissertation
+  display_name: Thesis or Dissertation
+  note: 
+  position: 2
+nii_type_00003:
+  id: 3
+  name: Departmental Bulletin Paper
+  display_name: Departmental Bulletin Paper
+  note: 
+  position: 3
+nii_type_00004:
+  id: 4
+  name: Conference Paper
+  display_name: Conference Paper
+  note: 
+  position: 4
+nii_type_00005:
+  id: 5
+  name: Presentation
+  display_name: Presentation
+  note: 
+  position: 5
+nii_type_00006:
+  id: 6
+  name: Book
+  display_name: Book
+  note: 
+  position: 6
+nii_type_00007:
+  id: 7
+  name: Technical Report
+  display_name: Technical Report
+  note: 
+  position: 7
+nii_type_00008:
+  id: 8
+  name: Research Paper
+  display_name: Research Paper
+  note: 
+  position: 8
+nii_type_00009:
+  id: 9
+  name: Article
+  display_name: Article
+  note: 
+  position: 9
+nii_type_00010:
+  id: 10
+  name: Preprint
+  display_name: Preprint
+  note: 
+  position: 10
+nii_type_00011:
+  id: 11
+  name: Learning Material
+  display_name: Learning Material
+  note: 
+  position: 11
+nii_type_00012:
+  id: 12
+  name: Data or Dataset
+  display_name: Data or Dataset
+  note: 
+  position: 12
+nii_type_00013:
+  id: 13
+  name: Others
+  display_name: Others
+  note: 
+  position: 13

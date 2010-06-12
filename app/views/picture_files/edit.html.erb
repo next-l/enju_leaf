@@ -1,0 +1,56 @@
+<div id="content_detail">
+<h1 class="title"><%= t('page.editing', :model => t('activerecord.models.picture_file')) -%></h1>
+<div id="content_list">
+
+<%= form_for(@picture_file) do |f| -%>
+  <%= f.error_messages -%>
+
+  <p>
+    <%= f.label t('activerecord.attributes.picture_file.picture_attachable_type') -%><br />
+    <%= f.text_field :picture_attachable_type -%>
+  </p>
+
+  <p>
+    <%= f.label t('page.attachable') -%><br />
+    <%= f.text_field :picture_attachable_id -%>
+  </p>
+
+  <p>
+    <%= f.label t('activerecord.attributes.picture_file.picture_file_size') -%><br />
+    <%= f.text_field :picture_file_size -%>
+  </p>
+
+  <p>
+    <%= f.label t('activerecord.attributes.picture_file.picture_content_type') -%><br />
+    <%= f.text_field :picture_content_type -%>
+  </p>
+
+  <p>
+    <%= f.label t('activerecord.attributes.picture_file.picture_file_name') -%><br />
+    <%= f.text_field :picture_file_name -%>
+  </p>
+
+  <p>
+    <%= f.label t('activerecord.attributes.picture_file.width') -%><br />
+    <%= f.text_field :width -%>
+  </p>
+
+  <p>
+    <%= f.label t('activerecord.attributes.picture_file.height') -%><br />
+    <%= f.text_field :height -%>
+  </p>
+
+  <p>
+    <%= f.submit t('page.update') -%>
+  </p>
+<%- end -%>
+
+</div>
+</div>
+
+<div id="submenu">
+  <ul>
+    <li><%= link_to t('page.show'), @picture_file -%></li>
+    <li><%= link_to t('page.back'), :back -%></li>
+  </ul>
+</div>
