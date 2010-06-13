@@ -3,12 +3,12 @@
 <div id="content_list">
 <p>
   <strong><%= t('message.sender') -%>:</strong>
-  <%= link_to h(@message_request.sender.username), user_path(@message_request.sender.username) -%>
+  <%= link_to h(@message_request.sender.username), @message_request.sender -%>
 </p>
 
 <p>
   <strong><%= t('message.receiver') -%>:</strong>
-  <%= link_to h(@message_request.receiver.username), user_path(@message_request.receiver.username) -%>
+  <%= link_to h(@message_request.receiver.username), @message_request.receiver -%>
 </p>
 
 <p>
@@ -48,6 +48,6 @@
   <ul>
     <li><%= link_to t('page.edit'), edit_message_request_path(@message_request) -%></li>
     <li><%= link_to t('page.back'), message_requests_path -%></li>
-    <li><%= link_to t('message.send'), new_user_message_path(current_user.username, :message_request_id => @message_request.id) -%></li>
+    <li><%= link_to t('message.send'), new_user_message_path(current_user, :message_request_id => @message_request.id) -%></li>
   </ul>
 </div>

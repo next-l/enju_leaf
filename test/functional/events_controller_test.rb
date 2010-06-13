@@ -91,26 +91,26 @@ class EventsControllerTest < ActionController::TestCase
   end
   
   def test_guest_should_not_create_event
-    old_count = Event.count
-    post :create, :event => { :title => 'test', :library_id => '1', :event_category_id => 1, :start_at => '2008-02-05', :end_at => '2008-02-08' }
-    assert_equal old_count, Event.count
+    assert_no_difference('Event.count') do
+      post :create, :event => { :title => 'test', :library_id => '1', :event_category_id => 1, :start_at => '2008-02-05', :end_at => '2008-02-08' }
+    end
     
     assert_redirected_to new_user_session_url
   end
 
   def test_user_should_not_create_event
-    old_count = Event.count
-    post :create, :event => { :title => 'test', :library_id => '1', :event_category_id => 1, :start_at => '2008-02-05', :end_at => '2008-02-08' }
-    assert_equal old_count, Event.count
+    assert_no_difference('Event.count') do
+      post :create, :event => { :title => 'test', :library_id => '1', :event_category_id => 1, :start_at => '2008-02-05', :end_at => '2008-02-08' }
+    end
     
     assert_redirected_to new_user_session_url
   end
 
   def test_librarian_should_create_event_without_library_id
     sign_in users(:librarian1)
-    old_count = Event.count
-    post :create, :event => { :title => 'test', :event_category_id => 1, :start_at => '2008-02-05', :end_at => '2008-02-08' }
-    assert_equal old_count+1, Event.count
+    assert_difference('Event.count') do
+      post :create, :event => { :title => 'test', :event_category_id => 1, :start_at => '2008-02-05', :end_at => '2008-02-08' }
+    end
     
     assert_redirected_to event_url(assigns(:event))
     assigns(:event).remove_from_index!
@@ -118,9 +118,9 @@ class EventsControllerTest < ActionController::TestCase
 
   def test_librarian_should_create_event_without_category_id
     sign_in users(:librarian1)
-    old_count = Event.count
-    post :create, :event => { :title => 'test', :library_id => '1', :start_at => '2008-02-05', :end_at => '2008-02-08' }
-    assert_equal old_count+1, Event.count
+    assert_difference('Event.count') do
+      post :create, :event => { :title => 'test', :library_id => '1', :start_at => '2008-02-05', :end_at => '2008-02-08' }
+    end
     
     assert_redirected_to event_url(assigns(:event))
     assigns(:event).remove_from_index!
@@ -128,9 +128,9 @@ class EventsControllerTest < ActionController::TestCase
 
   def test_librarian_should_not_create_event_with_invalid_dates
     sign_in users(:librarian1)
-    old_count = Event.count
-    post :create, :event => { :title => 'test', :library_id => '1', :event_category_id => 1, :start_at => '2008-02-08', :end_at => '2008-02-05' }
-    assert_equal old_count, Event.count
+    assert_no_difference('Event.count') do
+      post :create, :event => { :title => 'test', :library_id => '1', :event_category_id => 1, :start_at => '2008-02-08', :end_at => '2008-02-05' }
+    end
     
     assert_response :success
     assert assigns(:event).errors['start_at']

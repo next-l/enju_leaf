@@ -6,7 +6,7 @@
 
 <p>
 <strong><%= ('Librarian') -%>:</strong>
-  <%= link_to h(@checkin.librarian.username), user_path(@checkin.librarian.username) -%>
+  <%= link_to h(@checkin.librarian.username), @checkin.librarian -%>
 </p>
 
 </div>

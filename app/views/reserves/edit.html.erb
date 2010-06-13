@@ -2,7 +2,7 @@
 <h1 class="title"><%= t('page.editing', :model => t('activerecord.models.reserve')) -%></h1>
 <div id="content_list">
 
-<%= form_for(@reserve, :url => user_reserve_path(@reserve.user.username, @reserve)) do |f| -%>
+<%= form_for(@reserve, :url => user_reserve_path(@reserve.user, @reserve)) do |f| -%>
   <%= f.error_messages -%>
 
   <%- if @reserve.manifestation -%>
@@ -17,7 +17,7 @@
 
   <p>
     <%= f.label t('activerecord.models.user') -%>
-    <%= link_to h(@reserve.user.username), user_path(@reserve.user.username) -%>
+    <%= link_to h(@reserve.user.username), @reserve.user -%>
     (<%= @reserve.user.user_number %>)
   </p>
 
@@ -27,7 +27,7 @@
   </p>
 
   <p>
-    <%= f.submit t('page.update') -%>
+    <%= f.submit %>
   </p>
 <%- end -%>
 
@@ -36,7 +36,7 @@
 
 <div id="submenu">
   <ul>
-    <li><%= link_to t('page.show'), user_reserve_path(@reserve.user.username, @reserve) -%></li>
-    <li><%= link_to t('page.back'), user_reserves_path(@reserve.user.username) -%></li>
+    <li><%= link_to t('page.show'), user_reserve_path(@reserve.user, @reserve) -%></li>
+    <li><%= link_to t('page.back'), user_reserves_path(@reserve.user) -%></li>
   </ul>
 </div>

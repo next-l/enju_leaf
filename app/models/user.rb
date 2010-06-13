@@ -6,7 +6,7 @@ class User < ActiveRecord::Base
          :lockable, :lock_strategy => :none, :unlock_strategy => :none
 
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :email, :password, :password_confirmation, :username, :current_password
+  attr_accessible :email, :password, :password_confirmation, :username, :current_password, :user_number
 
   scope :administrators, :include => ['role'], :conditions => ['roles.name = ?', 'Administrator']
   scope :librarians, :include => ['role'], :conditions => ['roles.name = ? OR ?', 'Administrator', 'Librarian']
@@ -53,7 +53,7 @@ class User < ActiveRecord::Base
 
   validates_presence_of     :email, :email_confirmation, :on => :create, :if => proc{|user| !user.operator.try(:has_role?, 'Librarian')}
   validates_associated :patron, :user_group, :library
-  validates_presence_of :user_group, :library, :locale #, :patron
+  validates_presence_of :user_group, :library, :locale #, :user_number
   validates_uniqueness_of :user_number, :with=>/\A[0-9A-Za-z_]+\Z/, :allow_blank => true
   validates_confirmation_of :email, :email_confirmation, :on => :create, :if => proc{|user| !user.operator.try(:has_role?, 'Librarian')}
   before_validation :set_role_and_patron, :on => :create
@@ -67,7 +67,7 @@ class User < ActiveRecord::Base
   has_friendly_id :username
   acts_as_tagger
   has_paper_trail
-  normalize_attributes :username #, :email
+  normalize_attributes :username, :user_number #, :email
 
   searchable do
     text :username, :email, :note, :user_number

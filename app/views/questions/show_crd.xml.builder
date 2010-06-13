@@ -28,7 +28,7 @@ xml.CRD('version' => "1.0"){
     xml.NOTE h(@question.note)
     xml.tag! 'PTN-TYPE'
     if @question.answers.first
-      xml.CONTRI @question.answers.collect(&:user).collect(&:login).uniq.join(' ')
+      xml.CONTRI @question.answers.collect(&:user).collect(&:username).uniq.join(' ')
     end
   }
 }

@@ -43,14 +43,14 @@
 
 <p>
   <strong><%= t('activerecord.models.user') -%>:</strong>
-  <%= link_to h(@patron_import_file.user.username), user_path(@patron_import_file.user.username) -%>
+  <%= link_to h(@patron_import_file.user.username), @patron_import_file.user -%>
 </p>
 
 <table class="index">
   <%- @patron_import_file.imported_objects.each do |object| -%>
     <tr class="line<%= cycle("0", "1") -%>">
       <td><%= link_to h(object.importable.full_name), object.importable -%></td>
-      <td><%= link_to h(object.importable.user.username), user_path(object.importable.login) if object.importable.user -%></td>
+      <td><%= link_to h(object.importable.user.username), object.importable.user if object.importable.user -%></td>
       <td><%= l(object.created_at) -%></td>
     </tr>
   <%- end -%>

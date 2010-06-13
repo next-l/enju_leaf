@@ -51,7 +51,7 @@ user2:
   confirmed_at: 2008-01-18 13:29:06.922728 +09:00
   save_search_history: false
   required_role_id: 2
-  user_number: 
+#  user_number: '00005'
   locale: "ja"
 admin: 
   password_salt: $2a$10$vHohD1WflnTIqAa8zMkF9e
@@ -161,7 +161,7 @@ user3:
   save_search_history: false
   required_role_id: 3
   checkout_icalendar_token: 
-  user_number: "00006"
+  user_number: "00007"
   locale: "ja"
 user4: 
   password_salt: CnM9OO2zUsKFIi-b3mpA
@@ -188,7 +188,7 @@ user4:
   save_search_history: false
   required_role_id: 3
   checkout_icalendar_token: 
-  user_number: "00007"
+  user_number: "00006"
   locale: "ja"
 user3: 
   password_salt: CnM9OO2zUsKFIi-b3mpA
@@ -216,7 +216,7 @@ user3:
   save_search_history: false
   required_role_id: 3
   checkout_icalendar_token: 
-  user_number: "00006"
+  user_number: "00007"
   locale: "ja"
 user4: 
   password_salt: CnM9OO2zUsKFIi-b3mpA

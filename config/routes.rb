@@ -67,7 +67,11 @@ EnjuLight::Application.routes.draw do |map|
     resources :questions do
       resources :answers
     end
-    resources :messages
+    resources :messages do
+      collection do
+        post :destroy_selected
+      end
+    end
     resources :reserves
     resources :bookmarks
     resources :purchase_requests

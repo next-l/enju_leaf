@@ -1,6 +1,6 @@
 <div style="color: red"><%= flash[:message].to_s -%></div>
 
-<%= form_for @checked_item, :html => {:method => :post}, :update => :checked_item_list, :url => user_basket_checked_items_path(@basket.user.username, @basket, :mode => 'list'), :remote => true do |f| -%>
+<%= form_for @checked_item, :html => {:method => :post}, :update => :checked_item_list, :url => user_basket_checked_items_path(@basket.user, @basket, :mode => 'list'), :remote => true do |f| -%>
   <%= f.error_messages -%>
   <p>
     <%= t('activerecord.attributes.item.item_identifier') -%>: <%= f.text_field :item_identifier -%>
@@ -24,7 +24,7 @@
     </td>
     <td><%= link_to h(checked_item.item.item_identifier), checked_item.item -%></td>
     <td><%= l(checked_item.due_date, :format => :only_date) -%></td>
-    <td><%= link_to t('page.destroy'), user_basket_checked_item_path(checked_item.basket.user.username, checked_item.basket, checked_item), :confirm => t('page.are_you_sure'), :method => :delete -%></td>
+    <td><%= link_to t('page.destroy'), user_basket_checked_item_path(checked_item.basket.user, checked_item.basket, checked_item), :confirm => t('page.are_you_sure'), :method => :delete -%></td>
   </tr>
 <%- end -%>
 </table>

@@ -2,12 +2,12 @@
 <h1 class="title"><%= t('page.new', :model => t('activerecord.models.question')) -%></h1>
 <div id="content_list">
 
-<%= form_for(:question, :url => user_questions_path(@question.user.username)) do |f| -%>
+<%= form_for(:question, :url => user_questions_path(@question.user)) do |f| -%>
   <%= f.error_messages -%>
 
   <p>
     <%= f.label t('activerecord.models.user') -%><br />
-    <%= link_to h(@question.user.username), user_path(@question.user.username) -%>
+    <%= link_to h(@question.user.username), @question.user -%>
     <%= f.hidden_field :user_id -%>
   </p>
 
@@ -22,7 +22,7 @@
   </p>
 
   <p>
-    <%= f.submit t('page.create') -%>
+    <%= f.submit %>
   </p>
 <%- end -%>
 
@@ -31,6 +31,6 @@
 
 <div id="submenu">
   <ul>
-    <li><%= link_to t('page.back'), user_questions_path(@question.user.username) -%></li>
+    <li><%= link_to t('page.back'), user_questions_path(@question.user) -%></li>
   </ul>
 </div>

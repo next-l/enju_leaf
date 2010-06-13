@@ -40,6 +40,8 @@ class MessagesController < ApplicationController
     respond_to do |format|
       format.html # index.rhtml
       format.xml  { render :xml => @messages }
+      format.rss
+      format.atom
     end
   end
 

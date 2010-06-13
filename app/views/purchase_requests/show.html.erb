@@ -4,7 +4,7 @@
 
 <p>
 <strong><%= t('activerecord.models.user') -%>:</strong>
-  <%= link_to h(@purchase_request.user.username), user_path(@purchase_request.user.username) -%>
+  <%= link_to h(@purchase_request.user.username), @purchase_request.user -%>
 </p>
 
 <p>

@@ -217,19 +217,6 @@ module ApplicationHelper
     current_user.try(:role).try(:name) || 'Guest'
   end
 
-  def language_facet(language, current_languages, facet)
-    string = ''
-    languages = current_languages.dup
-    if languages.include?(language.name)
-      string << "<strong>"
-    end
-    string << link_to("#{language.display_name.localize} (" + facet.count.to_s + ")", url_for(params.merge(:page => nil, :language => (current_languages << language.name).uniq.join(' '), :carrier_type => nil, :view => nil)))
-    if languages.include?(language.name)
-      string << "</strong>"
-    end
-    string.html_safe
-  end
-
   def title(model_name)
     string = ''
     unless model_name == 'page'

@@ -14,10 +14,17 @@ class UserTest < ActiveSupport::TestCase
     end
   end
 
-  def test_should_require_login
+  def test_should_require_username
     assert_no_difference 'User.count' do
       u = create_user(:username => nil)
       assert u.errors[:username]
+    end
+  end
+
+  def test_should_not_require_user_number
+    assert_difference 'User.count' do
+      u = create_user(:user_number => nil)
+      assert_blank u.errors[:user_number]
     end
   end
 
@@ -147,7 +154,7 @@ class UserTest < ActiveSupport::TestCase
 
   protected
   def create_user(options = {})
-    user = User.new({ :username => 'quire', :email => 'quire@example.com', :email_confirmation => 'quire@example.com', :password => 'quirepassword', :password_confirmation => 'quirepassword' }.merge(options))
+    user = User.new({ :username => 'quire', :email => 'quire@example.com', :email_confirmation => 'quire@example.com', :password => 'quirepassword', :password_confirmation => 'quirepassword', :user_number => '99999' }.merge(options))
     user.operator = users(:admin)
     user.save
     user

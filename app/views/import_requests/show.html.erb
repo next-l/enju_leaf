@@ -8,7 +8,7 @@
 
 <p>
   <strong><%= t('activerecord.models.user') -%>:</strong>
-  <%= link_to h(@import_request.user.username), user_path(@import_request.user.username) -%>
+  <%= link_to h(@import_request.user.username), @import_request.user -%>
 </p>
 
 <p>

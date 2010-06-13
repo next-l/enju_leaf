@@ -69,43 +69,44 @@ class InterLibraryLoansControllerTest < ActionController::TestCase
   end
   
   def test_guest_should_not_create_inter_library_loan
-    old_count = InterLibraryLoan.count
-    post :create, :inter_library_loan => { }
+    assert_no_difference('InterLibraryLoan.count') do
+      post :create, :inter_library_loan => { }
+    end
     assert_redirected_to new_user_session_url
   end
 
   def test_everyone_should_not_create_inter_library_loan_without_item_id
     sign_in users(:admin)
-    old_count = InterLibraryLoan.count
-    post :create, :inter_library_loan => {:borrowing_library_id => 1}
-    assert_equal old_count, InterLibraryLoan.count
+    assert_no_difference('InterLibraryLoan.count') do
+      post :create, :inter_library_loan => {:borrowing_library_id => 1}
+    end
     
     assert_response :success
   end
 
   def test_everyone_should_not_create_inter_library_loan_without_borrowing_library_id
     sign_in users(:admin)
-    old_count = InterLibraryLoan.count
-    post :create, :inter_library_loan => {:item_identifier => '00001'}
-    assert_equal old_count, InterLibraryLoan.count
+    assert_no_difference('InterLibraryLoan.count') do
+      post :create, :inter_library_loan => {:item_identifier => '00001'}
+    end
     
     assert_response :success
   end
 
   def test_user_should_not_create_inter_library_loan
     sign_in users(:user1)
-    old_count = InterLibraryLoan.count
-    post :create, :inter_library_loan => {:item_identifier => '00005', :borrowing_library_id => 2}
-    assert_equal old_count, InterLibraryLoan.count
+    assert_no_difference('InterLibraryLoan.count') do
+      post :create, :inter_library_loan => {:item_identifier => '00005', :borrowing_library_id => 2}
+    end
     
     assert_response :forbidden
   end
 
   def test_librarian_should_create_inter_library_loan
     sign_in users(:librarian1)
-    old_count = InterLibraryLoan.count
-    post :create, :inter_library_loan => {:item_identifier => '00005', :borrowing_library_id => 2}
-    assert_equal old_count+1, InterLibraryLoan.count
+    assert_difference('InterLibraryLoan.count') do
+      post :create, :inter_library_loan => {:item_identifier => '00005', :borrowing_library_id => 2}
+    end
     
     assert_redirected_to inter_library_loan_url(assigns(:inter_library_loan))
     assert_equal 'Recalled', assigns(:inter_library_loan).item.circulation_status.name
@@ -114,9 +115,9 @@ class InterLibraryLoansControllerTest < ActionController::TestCase
 
   def test_admin_should_create_inter_library_loan
     sign_in users(:admin)
-    old_count = InterLibraryLoan.count
-    post :create, :inter_library_loan => {:item_identifier => '00005', :borrowing_library_id => 2}
-    assert_equal old_count+1, InterLibraryLoan.count
+    assert_difference('InterLibraryLoan.count') do
+      post :create, :inter_library_loan => {:item_identifier => '00005', :borrowing_library_id => 2}
+    end
     
     assert_redirected_to inter_library_loan_url(assigns(:inter_library_loan))
   end

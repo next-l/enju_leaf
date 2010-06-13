@@ -4,7 +4,7 @@
   <h2 class="resource_title">
     <%= t('bookmark.user_bookmark', :login_name => h(@user.username)) -%>
   </h2>
-  <%= form_for :bookmarks, :url => user_bookmarks_path(@user.username), :html => {:method => 'get'} do -%>
+  <%= form_for :bookmarks, :url => user_bookmarks_path(@user), :html => {:method => 'get'} do -%>
     <p>
       <%= t('page.search_term') -%>: <%= text_field_tag 'query', h(@query), {:id => 'search_form_top', :class => 'search_form'} -%>
       <%= submit_tag t('page.search') -%>
@@ -22,7 +22,7 @@
 
 <%- for bookmark in @bookmarks -%>
   <tr class="line<%= cycle("0", "1") -%>">
-    <td><%= link_to h(bookmark.user.username), user_path(bookmark.user.username) -%></td>
+    <td><%= link_to h(bookmark.user.username), bookmark.user -%></td>
     <td>
       <%= render :partial => 'manifestations/show_index', :locals => {:manifestation => bookmark.manifestation} -%>
       <%= render :partial => 'manifestations/holding', :locals => {:manifestation => bookmark.manifestation} -%>
@@ -51,7 +51,7 @@
   <%- if user_signed_in? -%>
     <h4><%= t('page.bookmarklet') -%></h4>
     <ul>
-      <li><a href="javascript:window.location.href='<%= new_user_bookmark_url(current_user.username) -%>?bookmark[url]='+encodeURIComponent(location.href)+'&bookmark[title]='+encodeURIComponent(document.title);"><%= t('bookmark.add_to_library_bookmark') -%></a></li>
+      <li><a href="javascript:window.location.href='<%= new_user_bookmark_url(current_user) -%>?bookmark[url]='+encodeURIComponent(location.href)+'&bookmark[title]='+encodeURIComponent(document.title);"><%= t('bookmark.add_to_library_bookmark') -%></a></li>
     </ul>
   <%- end -%>
 </div>

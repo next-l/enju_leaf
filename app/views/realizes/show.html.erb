@@ -17,6 +17,6 @@
 <div id="submenu">
   <ul>
     <li><%= link_to t('page.back_to', :model => t('activerecord.models.patron')), expression_patrons_path(@realize.expression) -%></li>
-    <li><%= link_to t('page.back_to', :model => t('activerecord.models.expression')), patron_expressions_path(@realize.patron) -%></li>
+    <li><%= link_to t('page.back_to', :model => t('activerecord.models.expression')), contributor_resources_path(@realize.patron) -%></li>
   </ul>
 </div>

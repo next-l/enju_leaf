@@ -28,7 +28,7 @@ ja:
       classification: 分類
       imported_object: インポートされたオブジェクト
       exemplify: 例証
-      own: 所有
+      own: 所有関係
       search_history: 検索履歴
       shelf: 本棚
       event_category: 催し物の種類
@@ -38,7 +38,7 @@ ja:
       basket: 貸出セッション
       subject_as_event: 対象イベントとして
       checked_item: 貸出資料
-      produce: 生産
+      produce: 出版関係
       role: 権限
       session: セッション
       subject_broader_term: 件名広範な用語
@@ -50,7 +50,7 @@ ja:
       barcode: バーコード
       work: 著作形
       purchase_request: 購入リクエスト
-      realize: 実現
+      realize: 表現関係
       reify: 具体化
       subject_as_concept: 件名概念として
       frequency: 発行頻度
@@ -74,7 +74,7 @@ ja:
       news_post: 図書館からのお知らせ
       search_engine: 検索エンジン
       bookmark: ブックマーク
-      create: 作成
+      create: 著作関係
       carrier_type: 体現形の形態
       manifestation: 体現形
       user_group: 利用者グループ
@@ -973,8 +973,8 @@ ja:
     user_title: "ようこそ %{login_name} さん"
     logged_in_as: "%{login_name} としてログイン"
     edit_user_profile: "%{login_name} さんのプロフィールの編集"
-    login: "ログイン"
-    logout: "ログアウト"
+    sign_in: "ログイン"
+    sign_out: "ログアウト"
     login_name: "ユーザ名"
     password: "パスワード"
     email_and_password: "電子メールとパスワード"

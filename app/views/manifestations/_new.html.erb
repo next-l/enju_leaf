@@ -114,8 +114,8 @@
 
   <p>
     <%= hidden_field_tag :patron_id, @patron.id if @patron -%>
-    <%= hidden_field_tag :resource_id, @original_resource.id if @original_resource -%>
-    <%= submit_tag t('page.create') -%>
+    <%= hidden_field_tag :manifestation_id, @original_manifestation.id if @original_manifestation -%>
+    <%= f.submit -%>
   </p>
   <%= javascript_tag("$('#resource_original_title').focus()") -%>
 <%- end -%>

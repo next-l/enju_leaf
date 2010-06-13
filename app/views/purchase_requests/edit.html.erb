@@ -2,12 +2,12 @@
 <h1 class="title"><%= t('page.editing', :model => t('activerecord.models.purchase_request')) -%></h1>
 <div id="content_list">
 
-<%= form_for(@purchase_request, :url => user_purchase_request_path(@purchase_request.user.username, @purchase_request)) do |f| -%>
+<%= form_for(@purchase_request, :url => user_purchase_request_path(@purchase_request.user, @purchase_request)) do |f| -%>
   <%= f.error_messages -%>
 
   <p>
     <%= f.label t('activerecord.models.user') -%><br />
-    <%= link_to h(@purchase_request.user.username), user_path(@purchase_request.user.username) -%>
+    <%= link_to h(@purchase_request.user.username), @purchase_request.user -%>
     <%= f.hidden_field :user_id -%>
   </p>
 
@@ -52,7 +52,7 @@
   </p>
 
   <p>
-    <%= f.submit t('page.update') -%>
+    <%= f.submit %>
   </p>
 <%- end -%>
 </div>

@@ -24,7 +24,7 @@
 
 <p>
   <strong><%= t('activerecord.models.user') -%> :</strong>
-  <%= link_to h(@inventory_file.user.username), user_path(@inventory_file.user.username) -%> 
+  <%= link_to h(@inventory_file.user.username), @inventory_file.user -%> 
 </p>
 
 <p>

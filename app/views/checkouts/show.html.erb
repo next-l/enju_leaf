@@ -13,7 +13,7 @@
   <%- if can? :destroy, @checkout -%>
     <p>
       <strong><%= t('checkout.current_user') -%></strong><br />
-      <%= link_to h(@checkout.user.username), user_path(@checkout.user.username) -%>
+      <%= link_to h(@checkout.user.username), @checkout.user -%>
     </p>
   <%- end -%>
 </div>
@@ -22,8 +22,8 @@
 <div id="submenu">
   <%= render :partial => 'manifestations/book_jacket', :locals => {:manifestation => @checkout.item.manifestation} -%>
   <ul>
-    <li><%= link_to t('page.edit'), edit_user_checkout_path(@checkout.user.username, @checkout) -%></li>
-    <li><%= link_to t('page.back'), user_checkouts_path(@checkout.user.username) -%></li>
+    <li><%= link_to t('page.edit'), edit_user_checkout_path(@checkout.user, @checkout) -%></li>
+    <li><%= link_to t('page.back'), user_checkouts_path(@checkout.user) -%></li>
     <%- if current_user.has_role?('Librarian') -%>
       <li><%= link_to t('page.back_to', :model => t('activerecord.models.checkout')), checkouts_path -%></li>
     <%- end -%>

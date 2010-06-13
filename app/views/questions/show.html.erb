@@ -3,7 +3,7 @@
 <div id="content_list">
 <p>
   <strong><%= t('activerecord.models.user') -%>:</strong>
-  <%= link_to h(@question.user.username), user_path(@question.user.username) -%>
+  <%= link_to h(@question.user.username), @question.user -%>
 </p>
 
 <p>
@@ -32,12 +32,12 @@
 </p>
 
 <p>
-  <strong><%= link_to t('activerecord.models.answer'), user_question_answers_path(@question.user.username, @question) -%>:</strong>
+  <strong><%= link_to t('activerecord.models.answer'), user_question_answers_path(@question.user, @question) -%>:</strong>
 </p>
 
 <ul>
   <%- for answer in @question.answers.public_answers -%>
-    <li><%= link_to h(answer.user.username), user_path(answer.user.username) -%>
+    <li><%= link_to h(answer.user.username), answer.user -%>
     (<%=l answer.updated_at %>)<br />
     <%= raw auto_link(textilize_without_paragraph(h(answer.body))) -%><br />
     <% unless answer.items.empty? %>
@@ -56,11 +56,11 @@
 
 <div id="submenu">
   <ul>
-    <li><%= link_to t('question.answer_question'), new_user_question_answer_path(@question.user.username, @question) -%></li>
+    <li><%= link_to t('question.answer_question'), new_user_question_answer_path(@question.user, @question) -%></li>
     <%- if can? :update, @question -%>
-      <li><%= link_to t('page.edit'), edit_user_question_path(@question.user.username, @question) -%></li>
+      <li><%= link_to t('page.edit'), edit_user_question_path(@question.user, @question) -%></li>
     <%- end -%>
     <li><%= link_to t('page.back'), questions_path -%></li>
-    <li><%= link_to 'レファレンス協同データベース用XMLファイル', user_question_path(@question.user.username, @question, :mode => 'crd', :format => 'xml') -%></li>
+    <li><%= link_to 'レファレンス協同データベース用XMLファイル', user_question_path(@question.user, @question, :mode => 'crd', :format => 'xml') -%></li>
   </ul>
 </div>

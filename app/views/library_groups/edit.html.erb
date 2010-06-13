@@ -70,7 +70,7 @@
     <%= f.select(:country_id, @countries.collect{|c| [c.display_name.localize, c.id]}) -%>
   </p>
 
-  <%= f.submit t('page.update') -%>
+  <%= f.submit %>
 <%- end -%>
 </div>
 </div>

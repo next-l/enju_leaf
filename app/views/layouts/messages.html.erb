@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title><%= t('message.user_message', :login_name => current_user.username) -%></title>
+  <%= render :partial => 'page/include' -%>
+  <%= auto_discovery_link_tag(:rss, user_messages_url(current_user.username, :format => :rss), :title => (t('message.user_message', :login_name => current_user.username) + " (RSS)")) %>
+  <%= auto_discovery_link_tag(:atom, user_messages_url(current_user.username, :format => :atom), :title => (t('message.user_message', :login_name => current_user.username) + " (Atom)")) %>
+</head>
+<body>
+  
+<%= render :partial => 'page/header' -%>
+<%= render :partial => 'page/menu' -%>
+
+<div id="content">
+<div class="notice"><%= notice %></div>
+
+<%= yield  -%>
+
+</div>
+
+<%= render :partial => 'page/footer' -%>
+
+</body>
+</html>

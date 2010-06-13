@@ -43,7 +43,7 @@
 
 <p>
   <strong><%= t('activerecord.models.user') -%>:</strong>
-  <%= link_to h(@resource_import_file.user.username), user_path(@resource_import_file.user.username) -%>
+  <%= link_to h(@resource_import_file.user.username), @resource_import_file.user -%>
 </p>
 
 <%= render 'show_object_list' -%>

@@ -13,7 +13,7 @@
           <li><%= link_to t('page.checkout'), new_basket_path -%></li>
           <li>
             <%- if @checkins and @basket -%>
-              <%= link_to t('page.checkin'), user_basket_checkins_path(@basket.user.username, @basket) -%>
+              <%= link_to t('page.checkin'), user_basket_checkins_path(@basket.user, @basket) -%>
             <%- else -%>
               <%= link_to t('page.checkin'), checkins_path -%>
             <%- end -%>
@@ -23,7 +23,7 @@
           <%- if current_user.has_role?('Librarian') -%>
             <%= link_to t('page.listing', :model => t('activerecord.models.reserve')), reserves_path -%>
           <%- else -%>
-            <%= link_to t('page.listing', :model => t('activerecord.models.reserve')), user_reserves_path(current_user.username) -%>
+            <%= link_to t('page.listing', :model => t('activerecord.models.reserve')), user_reserves_path(current_user) -%>
           <%- end -%>
         </li>
         <%- if current_user.has_role?('Librarian') -%>
@@ -32,7 +32,7 @@
           <li><%= link_to 'NACSIS ILL', '/page/under_construction' -%></li>
           -->
         <%- end -%>
-        <li><%= link_to t('page.checkout_history'), user_checkouts_path(current_user.username) -%></li>
+        <li><%= link_to t('page.checkout_history'), user_checkouts_path(current_user) -%></li>
       </ul>
     <%- else -%>
       <ul>
@@ -51,9 +51,6 @@
           <li><%= link_to t('page.upload_file'), new_resource_path(:mode => 'attachment') -%></li>
         <%- end -%>
         <li><%= link_to t('page.search_resource', :model => t('activerecord.models.subject')), subjects_path -%></li>
-        <!--
-        <li><%= link_to t('bookmark.add_to_my_bookmark'), new_user_bookmark_path(current_user.username, :url => request.url) -%></li>
-        -->
       </ul>
     </div>
   <%- else -%>
@@ -67,8 +64,8 @@
     <%- if user_signed_in? -%>
       <div id="request_menu" class="hidden">
         <ul>
-          <li><%= link_to t('activerecord.models.purchase_request'), user_purchase_requests_path(current_user.username) -%></li>
-          <li><%= link_to t('activerecord.models.question'), user_questions_path(current_user.username) -%></li>
+          <li><%= link_to t('activerecord.models.purchase_request'), user_purchase_requests_path(current_user) -%></li>
+          <li><%= link_to t('activerecord.models.question'), user_questions_path(current_user) -%></li>
         </ul>
       </div>
     <%- else -%>
@@ -122,12 +119,12 @@
           </ul>
         <%- else -%>
           <ul>
-            <li><%= link_to t('user.account_management'), edit_user_path(current_user.username) -%></li>
+            <li><%= link_to t('user.account_management'), edit_user_path(current_user) -%></li>
           </ul>
         <%- end -%>
       <%- else -%>
         <ul>
-          <li><%= link_to t('page.login'), new_user_session_path -%></li>
+          <li><%= link_to t('page.sign_in'), new_user_session_path -%></li>
         </ul>
       <%- end -%>
     </div>

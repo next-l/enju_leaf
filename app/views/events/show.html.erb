@@ -45,9 +45,4 @@
     <li><%= link_to t('page.edit'), edit_event_path(@event) -%></li>
     <li><%= link_to t('page.back'), events_path(:page => flash[:page] ||= nil) -%></li>
   </ul>
-<%- if user_signed_in? -%>
-  <ul>
-    <li><%= link_to t('bookmark.add_to_my_bookmark'), new_user_bookmark_path(current_user.username, :url => request.url) -%></li>
-  </ul>
-<%- end -%>
 </div>

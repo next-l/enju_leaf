@@ -24,7 +24,7 @@
 
   <p>
     <%= f.label t('activerecord.models.user') -%>
-    <%= link_to h(@reserve.user.username), user_path(@reserve.user.username) -%>
+    <%= link_to h(@reserve.user.username), @reserve.user -%>
     (<%= @reserve.user.user_number %>)
   </p>
 
@@ -44,7 +44,7 @@
 <div id="submenu">
   <%= render :partial => 'manifestations/book_jacket', :locals => {:manifestation => @reserve.manifestation} -%>
   <ul>
-    <li><%= link_to t('page.listing', :model => t('activerecord.models.reserve')), user_reserves_path(@reserve.user.username) -%></li>
+    <li><%= link_to t('page.listing', :model => t('activerecord.models.reserve')), user_reserves_path(@reserve.user) -%></li>
     <%- if @manifestation -%>
       <li><%= link_to t('page.showing', :model => t('activerecord.models.manifestation')), @manifestation -%></li>
     <%- end -%>

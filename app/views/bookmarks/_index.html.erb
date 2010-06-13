@@ -19,7 +19,7 @@
 
 <%- @bookmarks.each do |bookmark| -%>
   <tr class="line<%= cycle("0", "1") -%>">
-    <td><%= link_to h(bookmark.user.username), user_path(bookmark.user.username) -%></td>
+    <td><%= link_to h(bookmark.user.username), bookmark.user -%></td>
     <td>
       <%= render :partial => 'manifestations/show_index', :locals => {:manifestation => bookmark.manifestation} -%>
       <%= render :partial => 'manifestations/holding', :locals => {:manifestation => bookmark.manifestation} -%>
@@ -49,7 +49,7 @@
   <%- if user_signed_in? -%>
     <h4><%= t('page.bookmarklet') -%></h4>
     <ul>
-      <li><a href="javascript:window.location.href='<%= new_user_bookmark_url(current_user.username) -%>?url='+encodeURIComponent(location.href)+'&title='+encodeURIComponent(document.title);"><%= t('bookmark.add_to_library_bookmark') -%></a></li>
+      <li><a href="javascript:window.location.href='<%= new_user_bookmark_url(current_user) -%>?url='+encodeURIComponent(location.href)+'&title='+encodeURIComponent(document.title);"><%= t('bookmark.add_to_library_bookmark') -%></a></li>
     </ul>
   <%- end -%>
 </div>

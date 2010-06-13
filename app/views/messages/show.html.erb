@@ -38,9 +38,9 @@
     <% if request.referer %>
       <li><%= link_to t('page.back'), :back -%></li>
     <% else %>
-      <li><%= link_to t('page.listing', :model => t('activerecord.models.message')), user_messages_path(current_user.username) -%></li>
+      <li><%= link_to t('page.listing', :model => t('activerecord.models.message')), user_messages_path(current_user) -%></li>
     <% end %>
-    <li><%= link_to t('message.reply'), new_user_message_path(current_user.username, :parent_id => @message.id) -%></li>
+    <li><%= link_to t('message.reply'), new_user_message_path(current_user, :parent_id => @message.id) -%></li>
     <li><%= link_to t('page.destroy'), @message, :confirm => t('page.are_you_sure'), :method => :delete -%></li>
   </ul>
 </div>

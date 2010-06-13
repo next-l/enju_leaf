@@ -12,7 +12,7 @@
 <%- for checkout_stat_has_user in @checkout_stat_has_users -%>
   <tr class="line<%= cycle("0", "1") -%>">
     <td><%= link_to h(checkout_stat_has_user.user_checkout_stat.id), checkout_stat_has_user.user_checkout_stat -%></td>
-    <td><%= link_to h(checkout_stat_has_user.user.username), user_path(checkout_stat_has_user.user.username) -%></td>
+    <td><%= link_to h(checkout_stat_has_user.user.username), checkout_stat_has_user.user -%></td>
     <td><%= checkout_stat_has_user.checkouts_count -%></td>
     <td><%= link_to t('page.show'), checkout_stat_has_user -%></td>
     <td><%= link_to t('page.edit'), edit_checkout_stat_has_user_path(checkout_stat_has_user) -%></td>

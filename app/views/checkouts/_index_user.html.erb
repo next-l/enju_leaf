@@ -21,7 +21,7 @@
     <%- end -%>
   </ul>
   <ul>
-    <li><%= link_to t('activerecord.models.reserve'), user_reserves_path(@user.username) -%></li>
+    <li><%= link_to t('activerecord.models.reserve'), user_reserves_path(@user) -%></li>
     <%- if current_user.has_role?('Librarian') -%>
       <li><%= link_to t('checkout.all_checkout'), checkouts_path -%></li>
     <%- end -%>
@@ -29,13 +29,13 @@
   </ul>
   <p>
     <%- if params[:view] == 'overdue' -%>
-      <%= link_to (image_tag 'feed-icon-14x14.png', :size => '14x14', :alt => 'RSS', :border => 0), user_checkouts_path(@user.username, :format => :rss, :view => 'overdue') -%>
-      (<%= link_to 'RSS', user_checkouts_path(@user.username, :format => :rss, :view => 'overdue') -%>)
-      (<%= link_to 'CSV', user_checkouts_path(@user.username, :format => :csv, :view => 'overdue', :locale => @locale) -%>)
+      <%= link_to (image_tag 'feed-icon-14x14.png', :size => '14x14', :alt => 'RSS', :border => 0), user_checkouts_path(@user, :format => :rss, :view => 'overdue') -%>
+      (<%= link_to 'RSS', user_checkouts_path(@user, :format => :rss, :view => 'overdue') -%>)
+      (<%= link_to 'CSV', user_checkouts_path(@user, :format => :csv, :view => 'overdue', :locale => @locale) -%>)
     <%- else -%>
-      <%= link_to (image_tag 'feed-icon-14x14.png', :size => '14x14', :alt => 'RSS', :border => 0), user_checkouts_path(@user.username, :format => :rss) -%>
-      (<%= link_to 'RSS', user_checkouts_path(@user.username, :format => :rss) -%>)
-      (<%= link_to 'CSV', user_checkouts_path(@user.username, :format => :csv, :locale => @locale) -%>)
+      <%= link_to (image_tag 'feed-icon-14x14.png', :size => '14x14', :alt => 'RSS', :border => 0), user_checkouts_path(@user, :format => :rss) -%>
+      (<%= link_to 'RSS', user_checkouts_path(@user, :format => :rss) -%>)
+      (<%= link_to 'CSV', user_checkouts_path(@user, :format => :csv, :locale => @locale) -%>)
     <%- end -%>
   </p>
 

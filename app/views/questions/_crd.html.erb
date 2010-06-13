@@ -4,8 +4,8 @@
     <li><%= link_to t('question.all'), questions_path -%></li>
   <%- end -%>
   <%- if can? :create, Question -%>
-    <li><%= link_to t('question.my'), user_questions_path(current_user.username) -%></li>
-    <li><%= link_to t('page.new', :model => t('activerecord.models.question')), new_user_question_path(current_user.username) -%></li>
+    <li><%= link_to t('question.my'), user_questions_path(current_user) -%></li>
+    <li><%= link_to t('page.new', :model => t('activerecord.models.question')), new_user_question_path(current_user) -%></li>
   <%- end -%>
   </ul>
 <%- end -%>

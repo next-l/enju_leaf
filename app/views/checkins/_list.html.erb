@@ -1,5 +1,5 @@
 <div style="color: red"><%= flash[:message].to_s -%></div>
-<%- remote_form_for @checkin, :html => {:method => :post}, :update => :checkin_list, :url => user_basket_checkins_path(@basket.user.username, @basket, :mode => 'list') do |f| -%>
+<%- remote_form_for @checkin, :html => {:method => :post}, :update => :checkin_list, :url => user_basket_checkins_path(@basket.user, @basket, :mode => 'list') do |f| -%>
 
   <p><%= t('activerecord.attributes.item.item_identifier') -%>:
     <%= f.text_field :item_identifier, :class => 'resource_item_identifier' -%>
@@ -33,7 +33,7 @@
         <%= l(checkin.checkout.due_date, :format => :only_date) -%>
       <%- end -%>
     </td>
-    <td><%= link_to h(checkin.checkout.user.username), user_path(checkin.checkout.user.username) if checkin.checkout -%></td>
+    <td><%= link_to h(checkin.checkout.user.username), checkin.checkout.user if checkin.checkout -%></td>
   </tr>
 <%- end -%>
 </table>

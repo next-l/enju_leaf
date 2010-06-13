@@ -14,7 +14,7 @@
 
 <div id="submenu">
   <ul>
-    <li><%= link_to h(@basket.user.username), user_path(@basket.user.username) -%></li>
+    <li><%= link_to h(@basket.user.username), @basket.user -%></li>
   </ul>
   <ul>
     <%- @basket.user.user_group.user_group_has_checkout_types.each do |available_checkout_type| -%>
@@ -26,6 +26,6 @@
   </ul>
   <ul>
     <li><%= link_to t('activerecord.models.checkin'), checkins_path -%></li>
-    <li><%= link_to t('activerecord.models.reserve'), user_reserves_path(@basket.user.username) -%></li>
+    <li><%= link_to t('activerecord.models.reserve'), user_reserves_path(@basket.user) -%></li>
   </ul>
 </div>

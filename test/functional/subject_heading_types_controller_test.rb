@@ -55,45 +55,45 @@ class SubjectHeadingTypesControllerTest < ActionController::TestCase
   end
   
   def test_guest_should_not_create_subject_heading_type
-    old_count = SubjectHeadingType.count
-    post :create, :subject_heading_type => { }
-    assert_equal old_count, SubjectHeadingType.count
+    assert_no_difference('SubjectHeadingType.count') do
+      post :create, :subject_heading_type => { }
+    end
     
     assert_redirected_to new_user_session_url
   end
 
   def test_user_should_not_create_subject_heading_type
     sign_in users(:user1)
-    old_count = SubjectHeadingType.count
-    post :create, :subject_heading_type => { }
-    assert_equal old_count, SubjectHeadingType.count
+    assert_no_difference('SubjectHeadingType.count') do
+      post :create, :subject_heading_type => { }
+    end
     
     assert_response :forbidden
   end
 
   def test_librarian_should_not_create_subject_heading_type
     sign_in users(:librarian1)
-    old_count = SubjectHeadingType.count
-    post :create, :subject_heading_type => { }
-    assert_equal old_count, SubjectHeadingType.count
+    assert_no_difference('SubjectHeadingType.count') do
+      post :create, :subject_heading_type => { }
+    end
     
     assert_response :forbidden
   end
 
   def test_admin_should_not_create_subject_heading_type_without_name
     sign_in users(:admin)
-    old_count = SubjectHeadingType.count
-    post :create, :subject_heading_type => { }
-    assert_equal old_count, SubjectHeadingType.count
+    assert_no_difference('SubjectHeadingType.count') do
+      post :create, :subject_heading_type => { }
+    end
     
     assert_response :success
   end
 
   def test_admin_should_create_subject_heading_type
     sign_in users(:admin)
-    old_count = SubjectHeadingType.count
-    post :create, :subject_heading_type => {:name => 'test'}
-    assert_equal old_count+1, SubjectHeadingType.count
+    assert_difference('SubjectHeadingType.count') do
+      post :create, :subject_heading_type => {:name => 'test'}
+    end
     
     assert_redirected_to subject_heading_type_url(assigns(:subject_heading_type))
   end
@@ -174,36 +174,36 @@ class SubjectHeadingTypesControllerTest < ActionController::TestCase
   end
   
   def test_guest_should_not_destroy_subject_heading_type
-    old_count = SubjectHeadingType.count
-    delete :destroy, :id => subject_heading_types(:subject_heading_type_00001).id
-    assert_equal old_count, SubjectHeadingType.count
+    assert_no_difference('SubjectHeadingType.count') do
+      delete :destroy, :id => subject_heading_types(:subject_heading_type_00001).id
+    end
     
     assert_redirected_to new_user_session_url
   end
 
   def test_user_should_not_destroy_subject_heading_type
     sign_in users(:user1)
-    old_count = SubjectHeadingType.count
-    delete :destroy, :id => subject_heading_types(:subject_heading_type_00001).id
-    assert_equal old_count, SubjectHeadingType.count
+    assert_no_difference('SubjectHeadingType.count') do
+      delete :destroy, :id => subject_heading_types(:subject_heading_type_00001).id
+    end
     
     assert_response :forbidden
   end
 
   def test_librarian_should_not_destroy_subject_heading_type
     sign_in users(:librarian1)
-    old_count = SubjectHeadingType.count
-    delete :destroy, :id => subject_heading_types(:subject_heading_type_00001).id
-    assert_equal old_count, SubjectHeadingType.count
+    assert_no_difference('SubjectHeadingType.count') do
+      delete :destroy, :id => subject_heading_types(:subject_heading_type_00001).id
+    end
     
     assert_response :forbidden
   end
 
   def test_admin_should_destroy_subject_heading_type
     sign_in users(:admin)
-    old_count = SubjectHeadingType.count
-    delete :destroy, :id => subject_heading_types(:subject_heading_type_00001).id
-    assert_equal old_count-1, SubjectHeadingType.count
+    assert_difference('SubjectHeadingType.count', -1) do
+      delete :destroy, :id => subject_heading_types(:subject_heading_type_00001).id
+    end
     
     assert_redirected_to subject_heading_types_url
   end

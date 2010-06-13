@@ -10,7 +10,7 @@
         <li><%= link_to t('user.edit_profile'), edit_patron_path(@user.patron) -%></li>
         <li><%= link_to t('user.edit_account'), edit_user_path(@user.username) -%></li>
       <%- end -%>
-      <li><%= link_to t('message.send'), new_user_message_path(current_user.username, :recipient => @user.username) -%></li>
+      <li><%= link_to t('message.send'), new_user_message_path(current_user, :recipient => @user.username) -%></li>
     </ul>
   </div>
 </div>

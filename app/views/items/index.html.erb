@@ -54,8 +54,8 @@
 
 <div id="submenu">
   <ul>
-    <%- if can? :create, Item -%>
-      <li><%= link_to t('page.new', :model => t('activerecord.models.item')), :controller => 'items', :action => 'new', :manifestation_id => params[:manifestation_id] -%></li>
+    <%- if can?(:create, Item) and @manifestation -%>
+      <li><%= link_to t('page.new', :model => t('activerecord.models.item')), new_manifestation_item_path(@manifestation) -%></li>
     <%- end -%>
   </ul>
 </div>

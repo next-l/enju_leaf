@@ -128,13 +128,13 @@ class BookmarksControllerTest < ActionController::TestCase
 
   def test_user_should_not_create_other_users_bookmark
     sign_in users(:user1)
-    assert_difference('Bookmark.count') do
-      post :create, :bookmark => {:user_id => users(:user2).id, :title => 'example', :url => 'http://example.com/'}, :user_id => users(:user2).username
+    old_bookmark_counts = users(:user2).bookmarks.count
+    assert_no_difference('Bookmark.count') do
+      post :create, :bookmark => {:user_id => users(:user2).id, :title => 'example', :url => 'http://example.com/'}
     end
+    assert_equal old_bookmark_counts, users(:user2).bookmarks.count
     
-    assert_response :redirect
-    assert_redirected_to bookmark_url(assigns(:bookmark))
-    assigns(:bookmark).remove_from_index!
+    assert_response :forbidden
   end
 
   def test_user_should_create_bookmark_with_tag_list

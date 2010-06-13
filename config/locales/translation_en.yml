@@ -349,13 +349,10 @@ en:
         deleted_at: Deleted at
         state: State
       message:
-        receiver_deleted: Receiver deleted
-        receiver_purged: Receiver purged
-        sender_deleted: Sender deleted
-        sender_purged: Sender purged
-        read_at: Read at
         subject: Subject
         body: Body
+        sender: Sender
+        receiver: Receiver
       classification:
         category: Category
         name: Name
@@ -976,8 +973,8 @@ en:
 
   page:
     user_title: "Welcome %{login_name}"
-    login: "Login"
-    logout: "Logout"
+    sign_in: "Sign in"
+    sign_out: "Sign out"
     logged_in_as: "logged in as %{login_name}"
     edit_user_profile: "Edit %{login_name}'s profile"
     user_bookmark_title: "%{login_name}'s bookmark"

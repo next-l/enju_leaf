@@ -3,12 +3,12 @@
 <div id="content_list">
 <p>
   <strong><%= t('activerecord.models.user') -%>:</strong>
-  <%= link_to h(@answer.user.username), user_path(@answer.user.username) -%>
+  <%= link_to h(@answer.user.username), @answer.user -%>
 </p>
 
 <p>
   <strong><%= t('activerecord.models.question') -%>:</strong>
-  <%= link_to h(@answer.question.user.username), user_path(@answer.question.user.username) -%>: <%= auto_link(textilize_without_paragraph(h(@answer.question.body))) -%>
+  <%= link_to h(@answer.question.user.username), @answer.question.user -%>: <%= auto_link(textilize_without_paragraph(h(@answer.question.body))) -%>
 </p>
 
 <p>
@@ -45,8 +45,8 @@
 <div id="submenu">
   <ul>
     <%- if can? :update, @answer -%>
-      <li><%= link_to t('page.edit'), edit_user_question_answer_path(@answer.question.user.username, @answer.question, @answer) -%></li>
+      <li><%= link_to t('page.edit'), edit_user_question_answer_path(@answer.question.user, @answer.question, @answer) -%></li>
     <%- end -%>
-    <li><%= link_to t('page.back'), user_question_answers_path(@answer.question.user.username, @answer.question) -%></li>
+    <li><%= link_to t('page.back'), user_question_answers_path(@answer.question.user, @answer.question) -%></li>
   </ul>
 </div>

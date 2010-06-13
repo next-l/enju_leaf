@@ -54,45 +54,45 @@ class NiiTypesControllerTest < ActionController::TestCase
   end
   
   def test_guest_should_not_create_nii_type
-    old_count = NiiType.count
-    post :create, :nii_type => { }
-    assert_equal old_count, NiiType.count
+    assert_no_difference('NiiType.count') do
+      post :create, :nii_type => { }
+    end
     
     assert_redirected_to new_user_session_url
   end
 
   def test_user_should_not_create_nii_type
     sign_in users(:user1)
-    old_count = NiiType.count
-    post :create, :nii_type => { }
-    assert_equal old_count, NiiType.count
+    assert_no_difference('NiiType.count') do
+      post :create, :nii_type => { }
+    end
     
     assert_response :forbidden
   end
 
   def test_librarian_should_not_create_nii_type
     sign_in users(:librarian1)
-    old_count = NiiType.count
-    post :create, :nii_type => { }
-    assert_equal old_count, NiiType.count
+    assert_no_difference('NiiType.count') do
+      post :create, :nii_type => { }
+    end
     
     assert_response :forbidden
   end
 
   def test_admin_should_not_create_nii_type_without_name
     sign_in users(:admin)
-    old_count = NiiType.count
-    post :create, :nii_type => { }
-    assert_equal old_count, NiiType.count
+    assert_no_difference('NiiType.count') do
+      post :create, :nii_type => { }
+    end
     
     assert_response :success
   end
 
   def test_admin_should_create_nii_type
     sign_in users(:admin)
-    old_count = NiiType.count
-    post :create, :nii_type => {:name => 'test'}
-    assert_equal old_count+1, NiiType.count
+    assert_difference('NiiType.count') do
+      post :create, :nii_type => {:name => 'test'}
+    end
     
     assert_redirected_to nii_type_url(assigns(:nii_type))
   end
@@ -173,36 +173,36 @@ class NiiTypesControllerTest < ActionController::TestCase
   end
   
   def test_guest_should_not_destroy_nii_type
-    old_count = NiiType.count
-    delete :destroy, :id => 1
-    assert_equal old_count, NiiType.count
+    assert_no_difference('NiiType.count') do
+      delete :destroy, :id => 1
+    end
     
     assert_redirected_to new_user_session_url
   end
 
   def test_user_should_not_destroy_nii_type
     sign_in users(:user1)
-    old_count = NiiType.count
-    delete :destroy, :id => 1
-    assert_equal old_count, NiiType.count
+    assert_no_difference('NiiType.count') do
+      delete :destroy, :id => 1
+    end
     
     assert_response :forbidden
   end
 
   def test_librarian_should_not_destroy_nii_type
     sign_in users(:librarian1)
-    old_count = NiiType.count
-    delete :destroy, :id => 1
-    assert_equal old_count, NiiType.count
+    assert_no_difference('NiiType.count') do
+      delete :destroy, :id => 1
+    end
     
     assert_response :forbidden
   end
 
   def test_admin_should_destroy_nii_type
     sign_in users(:admin)
-    old_count = NiiType.count
-    delete :destroy, :id => 1
-    assert_equal old_count-1, NiiType.count
+    assert_difference('NiiType.count', -1) do
+      delete :destroy, :id => 1
+    end
     
     assert_redirected_to nii_types_url
   end

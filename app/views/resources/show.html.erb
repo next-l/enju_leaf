@@ -88,25 +88,25 @@
         <%- if @resource.bookmarked?(current_user) -%>
           <li><%= link_to t('bookmark.remove_from_my_bookmark'), bookmark_path(Bookmark.first(:conditions => {:user_id => current_user.id, :manifestation_id => @resource.id})), :confirm => t('page.are_you_sure'), :method => :delete -%></li>
         <%- else -%>
-          <li><%= link_to t('bookmark.add_to_my_bookmark'), new_user_bookmark_path(current_user.username, :bookmark => {:url => resource_url(@resource)}) -%></li>
+          <li><%= link_to t('bookmark.add_to_my_bookmark'), new_user_bookmark_path(current_user, :bookmark => {:url => resource_url(@resource)}) -%></li>
         <%- end -%>
 
       <%- unless @resource.carrier_type.name == 'file' -%>
         <li>
           <% if @resource.reservable? %>
             <%- if current_user.has_role?('Librarian') -%>
-              <%= link_to t('manifestation.reserve_this'), new_reserve_path(:resource_id => @resource.id) -%>
+              <%= link_to t('manifestation.reserve_this'), new_reserve_path(:manifestation_id => @resource.id) -%>
             <%- else -%>
               <%- if @resource.is_reserved_by(current_user) -%>
-                <%= link_to t('manifestation.cancel_reservation'), user_reserve_path(@reserve.user.username, @reserve) -%>
+                <%= link_to t('manifestation.cancel_reservation'), user_reserve_path(@reserve.user, @reserve) -%>
               <%- else -%>
-                <%= link_to t('manifestation.reserve_this'), new_user_reserve_path(current_user.username, :resource_id => @resource.id) -%>
+                <%= link_to t('manifestation.reserve_this'), new_user_reserve_path(current_user, :manifestation_id => @resource.id) -%>
               <%- end -%>
             <%- end -%>
             <br />
             (<%= t('page.number_of_reservations', :count => @reserved_count) -%>)
           <%- else -%>
-            <%= link_to t('activerecord.models.purchase_request'), new_user_purchase_request_path(current_user.username, :url => resource_url(@resource)) %>
+            <%= link_to t('activerecord.models.purchase_request'), new_user_purchase_request_path(current_user, :purchase_request => {:url => resource_url(@resource)}) %>
           <%- end -%>
         </li>
       <%- end -%>
@@ -129,7 +129,7 @@
               <li><%= link_to t('manifestation.add_next_issue'), new_series_statement_resource_path(@resource.series_statement) if @resource.series_statement -%></li>
             <%- end -%>
           </ul>
-          <li><%= link_to t('manifestation.edit_item'), resource_items_path(@resource) -%></li>
+          <li><%= link_to t('manifestation.edit_item'), manifestation_items_path(@resource) -%></li>
         </ul>
       <%- end -%>
     <%- end -%>

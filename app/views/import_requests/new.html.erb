@@ -8,7 +8,7 @@
     <%= f.label t('activerecord.attributes.import_request.isbn') -%><br />
     <%= f.text_field :isbn, :class => 'resource_isbn_issn' -%>
 
-    <%= f.submit t('page.create') -%>
+    <%= f.submit %>
   </p>
   <%= javascript_tag("$('#import_request_isbn').focus()") -%>
 <%- end -%>

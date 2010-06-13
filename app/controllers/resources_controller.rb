@@ -312,15 +312,15 @@ class ResourcesController < ApplicationController
   # GET /resources/new
   def new
     @resource = Resource.new
-    @original_resource = get_resource
+    @original_manifestation = get_manifestation
     @resource.series_statement = @series_statement
     unless params[:mode] == 'import_isbn'
       if @resource.series_statement
         @resource.original_title = @resource.series_statement.original_title
         @resource.title_transcription = @resource.series_statement.title_transcription
-      elsif @original_resource
-        @resource.original_title = @original_resource.original_title
-        @resource.title_transcription = @original_resource.title_transcription
+      elsif @original_manifestation
+        @resource.original_title = @original_manifestation.original_title
+        @resource.title_transcription = @original_manifestation.title_transcription
       elsif @expression
         @resource.original_title = @expression.original_title
         @resource.title_transcription = @expression.title_transcription
@@ -343,7 +343,7 @@ class ResourcesController < ApplicationController
       end
     end
     @resource = Resource.find(params[:id])
-    @original_resource = get_resource
+    @original_manifestation = get_manifestation
     @resource.series_statement = @series_statement if @series_statement
     if params[:mode] == 'tag_edit'
       @bookmark = current_user.bookmarks.first(:conditions => {:resource_id => @resource.id}) if @resource rescue nil
@@ -366,11 +366,8 @@ class ResourcesController < ApplicationController
     respond_to do |format|
       if @resource.save
         Resource.transaction do
-          if @original_resource = get_resource
-            @resource.derived_resources << @original_resource
-          end
-          if @patron
-            @resource.patrons << @expression
+          if @original_manifestation = get_resource
+            @resource.derived_resources << @original_manifestation
           end
         end
 

@@ -18,10 +18,10 @@
 <%- for message_request in @message_requests -%>
   <tr class="line<%= cycle("0", "1") -%>">
     <td>
-      <%= link_to h(message_request.sender.login), user_path(message_request.sender.login) -%>
+      <%= link_to h(message_request.sender.username), message_request.sender -%>
       <br />
       -&gt;
-      <%= link_to h(message_request.receiver.login), user_path(message_request.receiver.login) -%>
+      <%= link_to h(message_request.receiver.username), message_request.receiver -%>
     </td>
     <td><%= link_to h(message_request.message_template.status), message_template_path(message_request.message_template) -%></td>
     <td><%= message_request.subject -%></td>

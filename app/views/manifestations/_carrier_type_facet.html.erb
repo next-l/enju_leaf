@@ -1,13 +1,7 @@
 <h4><%= t('activerecord.models.carrier_type') -%></h4>
 <ul>
   <%- @carrier_type_facet.each do |facet| -%>
-    <li>
-      <%- carrier_type = CarrierType.first(:conditions => {:name => facet.value}) -%>
-      <%= form_icon(carrier_type) -%>
-      <%- if params[:carrier_type] == carrier_type.name -%><strong><%- end -%>
-        <%= link_to h("#{carrier_type.display_name.localize} (" + facet.count.to_s + ")"), url_for(params.merge(:carrier_type => carrier_type.name, :page => nil, :view => nil)) -%>
-      <%- if params[:carrier_type] == carrier_type.name -%></strong><%- end -%>
-    </li>
+    <li><%= carrier_type_facet(facet) %></li>
   <%- end -%>
   <%- if params[:carrier_type] -%>
     <li><%= link_to t('page.remove_this_facet'), url_for(params.merge(:carrier_type => nil, :page => nil, :view => nil)) -%></li>

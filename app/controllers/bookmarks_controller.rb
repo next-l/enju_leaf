@@ -114,6 +114,9 @@ class BookmarksController < ApplicationController
         access_denied; return
       end
     end
+    if @bookmark.user != current_user
+      access_denied; return
+    end
     manifestation = @bookmark.get_manifestation
     if manifestation
       if manifestation.bookmarked?(current_user)
