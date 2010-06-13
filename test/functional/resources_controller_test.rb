@@ -65,6 +65,20 @@ class ResourcesControllerTest < ActionController::TestCase
     assert assigns(:resources)
   end
 
+  def test_guest_should_get_index_mods
+    get :index, :format => 'mods'
+    assert_response :success
+    assert_template('resources/index')
+    assert assigns(:resources)
+  end
+
+  def test_guest_should_get_index_rdf
+    get :index, :format => 'rdf'
+    assert_response :success
+    assert_template('resources/index')
+    assert assigns(:resources)
+  end
+
   def test_user_should_not_create_search_history_if_log_is_written_to_file
     sign_in users(:user1)
     if configatron.write_search_log_to_file
@@ -334,6 +348,18 @@ class ResourcesControllerTest < ActionController::TestCase
   test 'guest shoud show resource screen shot' do
     get :show, :id => 22, :mode => 'screen_shot'
     assert_response :success
+  end
+
+  test 'guest shoud show resource mods template' do
+    get :show, :id => 22, :format => 'mods'
+    assert_response :success
+    assert_template 'resources/show'
+  end
+
+  test 'guest shoud show resource rdf template' do
+    get :show, :id => 22, :format => 'rdf'
+    assert_response :success
+    assert_template 'resources/show'
   end
 
   def test_guest_should_show_resource_with_holding

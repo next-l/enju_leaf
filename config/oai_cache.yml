@@ -1,0 +1,3 @@
+defaults:
+  ttl: 1800
+  servers: localhost:11211

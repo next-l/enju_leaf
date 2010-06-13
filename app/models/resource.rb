@@ -245,7 +245,7 @@ class Resource < ActiveRecord::Base
 
   def url
     #access_address
-    "#{LibraryGroup.url}manifestations/#{self.id}"
+    "#{LibraryGroup.url}#{self.to_s.tablelize}/#{self.id}"
   end
 
   def available_checkout_types(user)

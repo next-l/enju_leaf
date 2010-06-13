@@ -65,7 +65,7 @@ module OaiController
         end
       end
       @cursor ||= 0
-      yml = YAML.load_file("#{RAILS_ROOT}/config/memcached.yml")
+      yml = YAML.load_file("#{RAILS_ROOT}/config/oai_cache.yml")
       ttl = yml["#{ENV['RAILS_ENV']}"]["ttl"] || yml["defaults"]["ttl"]
       resumption = {
         :token => "f(#{from_time.utc.iso8601.to_s}).u(#{until_time.utc.iso8601.to_s}):#{@cursor}",
