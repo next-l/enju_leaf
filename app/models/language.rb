@@ -1,4 +1,5 @@
 class Language < ActiveRecord::Base
+  include MasterModel
   default_scope :order => "position"
   # If you wish to change the field names for brevity, feel free to enable/modify these.
   # alias_attribute :iso1, :iso_639_1
@@ -12,9 +13,5 @@ class Language < ActiveRecord::Base
 
   def self.available_languages
     Language.all(:conditions => {:iso_639_1 => I18n.available_locales.map{|l| l.to_s}})
-  end
-
-  def set_display_name
-    self.display_name = self.name if display_name.blank?
   end
 end

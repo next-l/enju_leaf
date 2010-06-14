@@ -1,4 +1,5 @@
 class Shelf < ActiveRecord::Base
+  include MasterModel
   default_scope :order => "position"
   scope :real, :conditions => ['library_id != 1']
   belongs_to :library, :validate => true
@@ -20,10 +21,6 @@ class Shelf < ActiveRecord::Base
 
   def self.per_page
     10
-  end
-
-  def set_display_name
-    self.display_name = self.name if display_name.blank?
   end
 
   def web_shelf?

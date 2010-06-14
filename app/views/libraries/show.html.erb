@@ -35,7 +35,7 @@
         <%= render :partial => 'libraries/map', :locals => {:library => @library} if @library.latitude and @library.longitude -%>
       </div>
       <div id="tab2">
-        <%- unless @library.users.librarians.empty? -%>
+        <%- if @library.users.librarians.first -%>
           <ul>
             <%- @library.users.librarians.each do |librarian| -%>
               <li>

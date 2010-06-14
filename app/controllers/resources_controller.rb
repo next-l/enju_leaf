@@ -238,9 +238,9 @@ class ResourcesController < ApplicationController
   #  end
   #  return
   rescue QueryError => e
-    render :template => 'resources/error.xml', :layout => false
+  #  render :template => 'resources/error.xml', :layout => false
     Rails.logger.info "#{Time.zone.now}\t#{query}\t\t#{current_user.try(:username)}\t#{e}"
-    return
+  #  return
   end
 
   # GET /resources/1
@@ -259,7 +259,7 @@ class ResourcesController < ApplicationController
         raise ActiveRecord::RecordNotFound if @resource.nil?
       end
     else
-      @resource = Resource.find(params[:id])
+      @resource = Resource.find(params[:id], :include => :creators)
     end
     @resource = @resource.versions.find(@version).item if @version
 

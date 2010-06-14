@@ -65,8 +65,8 @@ module OaiController
         end
       end
       @cursor ||= 0
-      yml = YAML.load_file("#{RAILS_ROOT}/config/oai_cache.yml")
-      ttl = yml["#{ENV['RAILS_ENV']}"]["ttl"] || yml["defaults"]["ttl"]
+      yml = YAML.load_file("#{Rails.root.to_s}/config/oai_cache.yml")
+      ttl = yml["#{Rails.env}"]["ttl"] || yml["defaults"]["ttl"]
       resumption = {
         :token => "f(#{from_time.utc.iso8601.to_s}).u(#{until_time.utc.iso8601.to_s}):#{@cursor}",
         :cursor => @cursor,

@@ -1,5 +1,6 @@
 # -*- encoding: utf-8 -*-
 class Library < ActiveRecord::Base
+  include MasterModel
   default_scope :order => 'libraries.position'
   scope :real, :conditions => ['id != 1']
   has_many :shelves, :order => 'shelves.position'
@@ -58,10 +59,6 @@ class Library < ActiveRecord::Base
 
   def set_calil_neighborhood_library
     self.calil_neighborhood_systemid = self.calil_library(self.access_calil).collect{|l| l[:systemid]}.uniq.join(',')
-  end
-
-  def set_display_name
-    self.display_name = self.name if display_name.blank?
   end
 
   def closed?(date)

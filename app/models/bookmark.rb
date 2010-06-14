@@ -68,7 +68,7 @@ class Bookmark < ActiveRecord::Base
   end
 
   def shelved?
-    true unless self.manifestation.items.on_web.empty?
+    true if self.manifestation.items.on_web.first
   end
 
   def self.get_title(string)

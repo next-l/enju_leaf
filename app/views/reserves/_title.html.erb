@@ -7,13 +7,13 @@
       <%= reserve.manifestation.serial_number_list -%>
     <%- end -%>
     <br />
-    <%- unless reserve.manifestation.creators.blank? -%>
+    <%- if reserve.manifestation.creators.first -%>
       <%= t('page.author') -%>: <%= raw patrons_list(reserve.manifestation.creators, current_user) -%>
     <%- end -%>
-    <%- unless reserve.manifestation.contributors.blank? -%>
+    <%- if reserve.manifestation.contributors.first -%>
       <%= t('page.editor') -%>: <%= raw patrons_list(reserve.manifestation.contributors, current_user) -%>
     <%- end -%>
-    <%- unless reserve.manifestation.publishers.blank? -%>
+    <%- if reserve.manifestation.publishers.first -%>
       <%= t('page.publisher') -%>: <%= raw patrons_list(reserve.manifestation.publishers, current_user) -%>
       <%- if reserve.manifestation.date_of_publication -%>
         (<%= reserve.manifestation.date_of_publication.strftime('%Y') -%>)

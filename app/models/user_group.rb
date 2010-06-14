@@ -1,5 +1,6 @@
 # -*- encoding: utf-8 -*-
 class UserGroup < ActiveRecord::Base
+  include MasterModel
   default_scope :order => "position"
   has_many :users
   #has_many :available_carrier_types
@@ -17,10 +18,6 @@ class UserGroup < ActiveRecord::Base
 
   def self.per_page
     10
-  end
-
-  def set_display_name
-    self.display_name = self.name if display_name.blank?
   end
 
 end

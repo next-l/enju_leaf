@@ -1,4 +1,5 @@
 class EventCategory < ActiveRecord::Base
+  include MasterModel
   default_scope :order => "position"
   has_many :events
   validates_presence_of :name, :display_name
@@ -9,9 +10,5 @@ class EventCategory < ActiveRecord::Base
 
   def self.per_page
     10
-  end
-
-  def set_display_name
-    self.display_name = self.name if display_name.blank?
   end
 end

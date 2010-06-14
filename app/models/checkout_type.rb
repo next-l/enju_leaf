@@ -1,4 +1,5 @@
 class CheckoutType < ActiveRecord::Base
+  include MasterModel
   default_scope :order => "checkout_types.position"
   scope :available_for_carrier_type, lambda {|carrier_type| {:include => :carrier_types, :conditions => ['carrier_types.name = ?', carrier_type.name], :order => 'carrier_types.position'}}
   scope :available_for_user_group, lambda {|user_group| {:include => :user_groups, :conditions => ['user_groups.name = ?', user_group.name], :order => 'user_group.position'}}
@@ -19,9 +20,4 @@ class CheckoutType < ActiveRecord::Base
   def self.per_page
     10
   end
-
-  def set_display_name
-    self.display_name = self.name if display_name.blank?
-  end
-
 end

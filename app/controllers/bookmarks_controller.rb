@@ -118,12 +118,10 @@ class BookmarksController < ApplicationController
       access_denied; return
     end
     manifestation = @bookmark.get_manifestation
-    if manifestation
-      if manifestation.bookmarked?(current_user)
-        flash[:notice] = t('bookmark.already_bookmarked')
-        redirect_to manifestation
-        return
-      end
+    if manifestation.try(:bookmarked?, current_user)
+      flash[:notice] = t('bookmark.already_bookmarked')
+      redirect_to manifestation
+      return
     end
 
     respond_to do |format|

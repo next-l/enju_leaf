@@ -32,7 +32,7 @@
 
 <div id="submenu">
   <ul>
-    <%- unless @series_statement.manifestations.empty? -%>
+    <%- if @series_statement.manifestations.first -%>
       <li><%= link_to t('page.new', :model => t('activerecord.models.manifestation')), new_series_statement_manifestation_path(@series_statement) %></li>
     <%- end -%>
     <li><%= link_to t('page.edit'), edit_series_statement_path(@series_statement) %></li>
