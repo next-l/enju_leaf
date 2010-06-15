@@ -8,7 +8,7 @@ class ResourceImportFile < ActiveRecord::Base
   validates_attachment_presence :resource_import
   belongs_to :user, :validate => true
   has_many :imported_objects, :as => :imported_file, :dependent => :destroy
-  after_create :set_digest
+  #after_create :set_digest
 
   aasm_column :state
   aasm_initial_state :pending
@@ -57,8 +57,9 @@ class ResourceImportFile < ActiveRecord::Base
     rows.each do |row|
       manifestation = fetch(row)
       begin
-        if manifestation
-          unless item = Item.first(:conditions => {:item_identifier => row['item_identifier'].to_s.strip})
+        item_identifier = row['item_identifier'].to_s.strip
+        if manifestation and item_identifier.present?
+          unless item = Item.first(:conditions => {:item_identifier => item_identifier})
             create_item(row, manifestation)
             Rails.logger.info("resource registration succeeded: column #{record}"); next
             num[:success] += 1

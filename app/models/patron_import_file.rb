@@ -11,7 +11,7 @@ class PatronImportFile < ActiveRecord::Base
 
   validates_associated :user
   validates_presence_of :user
-  after_create :set_digest
+  #after_create :set_digest
 
   aasm_column :state
   aasm_initial_state :pending

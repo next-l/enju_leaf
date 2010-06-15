@@ -8,7 +8,7 @@ class EventImportFile < ActiveRecord::Base
   validates_attachment_presence :event_import
   belongs_to :user, :validate => true
   has_many :imported_objects, :as => :imported_file, :dependent => :destroy
-  after_create :set_digest
+  #after_create :set_digest
 
   aasm_column :state
   aasm_initial_state :pending
