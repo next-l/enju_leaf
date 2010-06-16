@@ -9,7 +9,7 @@
     <th><%= t('activerecord.attributes.manifestation_checkout_stat.note') -%></th>
   </tr>
 
-<%- for manifestation_checkout_stat in @manifestation_checkout_stats -%>
+<%- @manifestation_checkout_stats.each do |manifestation_checkout_stat| -%>
   <tr class="line<%= cycle("0", "1") -%>">
     <td><%= l(manifestation_checkout_stat.start_date) -%></td>
     <td><%= l(manifestation_checkout_stat.end_date) -%></td>

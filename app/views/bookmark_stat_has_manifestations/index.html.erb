@@ -9,7 +9,7 @@
     <th><%= t('activerecord.attributes.bookmark_stat_has_manifestation.bookmarks_count') -%></th>
   </tr>
 
-<%- for bookmark_stat_has_manifestation in @bookmark_stat_has_manifestations -%>
+<%- @bookmark_stat_has_manifestations.each do |bookmark_stat_has_manifestation| -%>
   <tr class="line<%= cycle("0", "1") -%>">
     <td><%= link_to h(bookmark_stat_has_manifestation.bookmark_stat.id), bookmark_stat_has_manifestation.bookmark_stat -%></td>
     <td><%= link_to h(bookmark_stat_has_manifestation.manifestation.original_title), bookmark_stat_has_manifestation.manifestation -%></td>

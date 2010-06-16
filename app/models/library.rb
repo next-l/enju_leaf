@@ -12,7 +12,6 @@ class Library < ActiveRecord::Base
   has_many :users
   belongs_to :country
 
-  acts_as_list
   #acts_as_soft_deletable
   has_friendly_id :name
   #acts_as_geocodable
@@ -27,8 +26,8 @@ class Library < ActiveRecord::Base
 
   #validates_associated :library_group, :holding_patron
   validates_associated :library_group, :patron
-  validates_presence_of :name, :display_name, :short_display_name, :library_group, :patron
-  validates_uniqueness_of :name, :short_display_name, :case_sensitive => false
+  validates_presence_of :short_display_name, :library_group, :patron
+  validates_uniqueness_of :short_display_name, :case_sensitive => false
   validates_uniqueness_of :display_name
   validates_format_of :name, :with => /^[a-z][0-9a-z]{2,254}$/
   before_validation :set_patron, :on => :create

@@ -6,7 +6,7 @@ atom_feed(:url => checkouts_url(:format => :atom)) do |feed|
   end
   feed.updated(@checkouts.first ? @checkouts.first.created_at : Time.zone.now)
 
-  for checkout in @checkouts
+  @checkouts.each do |checkout|
     feed.entry(checkout) do |entry|
       entry.title(checkout.item.manifestation.original_title)
     end

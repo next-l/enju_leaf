@@ -12,7 +12,7 @@
     <th><%= t('activerecord.attributes.inventory_file.note') -%> </th>
   </tr>
 
-<%- for inventory_file in @inventory_files -%> 
+<%- @inventory_files.each do |inventory_file| -%> 
   <tr class="line<%= cycle("0", "1") -%>">
     <td><%= inventory_file.inventory_file_name -%> </td>
     <td><%= inventory_file.inventory_content_type -%> </td>

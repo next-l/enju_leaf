@@ -6,7 +6,7 @@ atom_feed(:url => answers_url(:format => :atom)) do |feed|
   end
   feed.updated(@answers.first ? @answers.first.created_at : Time.zone.now)
 
-  for answer in @answers
+  @answers.each do |answer|
     feed.entry(answer) do |entry|
       entry.title(truncate(answer.body))
       entry.author(answer.user.username)

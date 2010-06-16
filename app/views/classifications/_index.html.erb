@@ -15,17 +15,20 @@
     <th><%= t('activerecord.attributes.classification.category') -%></th>
     <th><%= t('activerecord.attributes.classification.note') -%></th>
     <th><%= t('activerecord.models.classification_type') -%></th>
+    <th></th>
   </tr>
 
-<%- for classification in @classifications -%>
+<%- @classifications.each do |classification| -%>
   <tr class="line<%= cycle("0", "1") -%>">
     <td><%= link_to h(classification.category), classification -%></td>
     <td><%= classification.note -%></td>
     <td><%= link_to h(classification.classification_type.display_name.localize), classification.classification_type -%></td>
-    <%- if can? :destroy, classification -%>
-      <td><%= link_to t('page.edit'), edit_classification_path(classification) -%></td>
-      <td><%= link_to t('page.destroy'), classification, :confirm => t('page.are_you_sure'), :method => :delete -%></td>
-    <%- end -%>
+    <td>
+      <%- if can? :destroy, classification -%>
+        <%= link_to t('page.edit'), edit_classification_path(classification) -%>
+        <%= link_to t('page.destroy'), classification, :confirm => t('page.are_you_sure'), :method => :delete -%>
+      <%- end -%>
+    </td>
   </tr>
 <%- end -%>
 </table>

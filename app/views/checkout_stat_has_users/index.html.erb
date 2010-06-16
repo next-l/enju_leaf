@@ -9,7 +9,7 @@
     <th><%= t('activerecord.attributes.checkout_stat_has_user.checkouts_count') -%></th>
   </tr>
 
-<%- for checkout_stat_has_user in @checkout_stat_has_users -%>
+<%- @checkout_stat_has_users.each do |checkout_stat_has_user| -%>
   <tr class="line<%= cycle("0", "1") -%>">
     <td><%= link_to h(checkout_stat_has_user.user_checkout_stat.id), checkout_stat_has_user.user_checkout_stat -%></td>
     <td><%= link_to h(checkout_stat_has_user.user.username), checkout_stat_has_user.user -%></td>

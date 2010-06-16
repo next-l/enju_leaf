@@ -8,7 +8,7 @@
     <th><%= t('activerecord.models.subject_heading_type') -%></th>
   </tr>
 
-<%- for subject_heading_type_has_subject in @subject_heading_type_has_subjects %>
+<%- @subject_heading_type_has_subjects.each do |subject_heading_type_has_subject| %>
   <tr class="line<%= cycle("0", "1") -%>">
     <td><%= link_to h(subject_heading_type_has_subject.subject.term), subject_heading_type_has_subject.subject %></td>
     <td><%= link_to h(subject_heading_type_has_subject.subject_heading_type.display_name.localize), subject_heading_type_has_subject.subject_heading_type %></td>

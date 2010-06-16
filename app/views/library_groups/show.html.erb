@@ -71,16 +71,6 @@
   <%- end -%>
 </ul>
 
-<p>
-  <strong><%= t('activerecord.models.news_feed') -%>:</strong><br />
-</p>
-
-<ul>
-  <%- @library_group.news_feeds.each do |news_feed| -%>
-    <li><%= link_to h(news_feed.title), news_feed -%></li>
-  <%- end -%>
-</ul>
-
 </div>
 </div>
 

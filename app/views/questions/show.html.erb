@@ -36,7 +36,7 @@
 </p>
 
 <ul>
-  <%- for answer in @question.answers.public_answers -%>
+  <%- @question.answers.public_answers.each do |answer| -%>
     <li><%= link_to h(answer.user.username), answer.user -%>
     (<%=l answer.updated_at %>)<br />
     <%= raw auto_link(textilize_without_paragraph(h(answer.body))) -%><br />

@@ -6,7 +6,7 @@ atom_feed(:url => purchase_requests_url(:format => :atom)) do |feed|
   end
   feed.updated(@purchase_requests.first ? @purchase_requests.first.created_at : Time.zone.now)
 
-  for purchase_request in @purchase_requests
+  @purchase_requests.each do |purchase_request|
     feed.entry(purchase_request) do |entry|
       entry.title(purchase_request.title)
       entry.author(purchase_request.author)

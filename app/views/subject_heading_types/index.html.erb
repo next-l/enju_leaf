@@ -11,7 +11,7 @@
     <th></th>
   </tr>
 
-<%- for subject_heading_type in @subject_heading_types -%>
+<%- @subject_heading_types.each do |subject_heading_type| -%>
   <tr class="line<%= cycle("0", "1") -%>">
     <td>
       <%- if can? :destroy, subject_heading_type -%>

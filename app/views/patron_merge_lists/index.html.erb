@@ -11,7 +11,7 @@
     <th></th>
   </tr>
 
-<%- for patron_merge_list in @patron_merge_lists -%>
+<%- @patron_merge_lists.each do |patron_merge_list| -%>
   <tr class="line<%= cycle("0", "1") -%>">
     <td><%= link_to h(patron_merge_list.title), patron_merge_list -%></td>
     <td><%= l(patron_merge_list.created_at) -%></td>

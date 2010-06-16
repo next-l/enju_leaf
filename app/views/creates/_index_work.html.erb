@@ -13,7 +13,7 @@
     <th><%= t('page.updated_at') -%></th>
   </tr>
 
-<%- for create in @creates -%>
+<%- @creates.each do |create| -%>
   <tr class="line<%= cycle("0", "1") -%>">
     <td>
       <%- if can? :destroy, create -%>

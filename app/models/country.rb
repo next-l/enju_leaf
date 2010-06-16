@@ -14,7 +14,5 @@ class Country < ActiveRecord::Base
   # alias_attribute :numeric, :numeric_3
   
   # Validations
-  validates_presence_of :name, :display_name, :alpha_2, :alpha_3, :numeric_3
-  before_validation :set_display_name, :on => :create
-  acts_as_list
+  validates_presence_of :alpha_2, :alpha_3, :numeric_3
 end

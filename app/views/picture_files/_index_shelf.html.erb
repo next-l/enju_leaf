@@ -13,7 +13,7 @@
     <th><%= t('activerecord.attributes.picture_file.picture_file_name') -%></th>
     <th></th>
   </tr>
-  <%- for picture_file in @picture_files -%>
+  <%- @picture_files.each do |picture_file| -%>
     <tr class="line<%= cycle("0", "1") -%>">
       <td>
         <%- if can? :destroy, picture_file -%>

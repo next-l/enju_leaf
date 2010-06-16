@@ -11,7 +11,7 @@
     <th><%= t('activerecord.models.expression') -%></th>
   </tr>
 
-<%- for realize in @realizes -%>
+<%- @realizes.each do |realize| -%>
   <tr class="line<%= cycle("0", "1") -%>">
     <td>
       <%- if can? :destroy, realize -%>

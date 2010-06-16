@@ -27,7 +27,7 @@ xml.rss('version' => "2.0",
       xml.tag! "opensearch:itemsPerPage", @messages.per_page
       #xml.tag! "opensearch:Query", :role => 'request', :searchTerms => params[:query], :startPage => (params[:page] || 1)
     end
-    for message in @messages
+    @messages.each do |message|
       xml.item do
         xml.title message.subject
         #xml.description(message.title)

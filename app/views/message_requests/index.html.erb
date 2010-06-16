@@ -15,7 +15,7 @@
     <th><%= t('activerecord.attributes.message_request.sent_at') -%></th>
   </tr>
 
-<%- for message_request in @message_requests -%>
+<%- @message_requests.each do |message_request| -%>
   <tr class="line<%= cycle("0", "1") -%>">
     <td>
       <%= link_to h(message_request.sender.username), message_request.sender -%>

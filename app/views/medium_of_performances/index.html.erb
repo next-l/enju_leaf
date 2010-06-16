@@ -11,7 +11,7 @@
     <th></th>
   </tr>
 
-<%- for medium_of_performance in @medium_of_performances -%>
+<%- @medium_of_performances.each do |medium_of_performance| -%>
   <tr class="line<%= cycle("0", "1") -%>">
     <td>
       <%- if can? :destroy, medium_of_performance -%>

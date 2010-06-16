@@ -10,7 +10,7 @@
     <th></th>
   </tr>
 
-<%- for message_template in @message_templates -%>
+<%- @message_templates.each do |message_template| -%>
   <tr class="line<%= cycle("0", "1") -%>">
     <td>
       <%- if can? :destroy, message_template -%>

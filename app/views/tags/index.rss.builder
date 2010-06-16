@@ -17,7 +17,7 @@ xml.rss('version' => "2.0",
       xml.tag! "opensearch:itemsPerPage", @tags.per_page
       xml.tag! "opensearch:Query", :role => 'request', :searchTerms => h(params[:query]), :startPage => (h(params[:page]) || 1)
     end
-    for tag in @tags
+    @tags.each do |tag|
       xml.item do
         xml.title h(tag.name)
         xml.pubDate h(tag.created_at.utc.iso8601)

@@ -14,7 +14,7 @@
     <th></th>
   </tr>
 
-<%- for event_import_file in @event_import_files -%>
+<%- @event_import_files.each do |event_import_file| -%>
   <tr class="line<%= cycle("0", "1") -%>">
     <td><%= link_to (event_import_file.id), event_import_file -%></td>
     <td><%= event_import_file.event_import_file_name -%></td>

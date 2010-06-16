@@ -25,26 +25,30 @@
     <th><%= t('activerecord.models.classification') -%></th>
     <th><%= t('activerecord.attributes.classification.note') -%></th>
     <th><%= t('activerecord.models.classification_type') -%></th>
+    <th></th>
+    <th></th>
   </tr>
 
-<%- for classification in @classifications -%>
+<%- @classifications.each do |classification| -%>
   <tr class="line<%= cycle("0", "1") -%>">
     <td><%= link_to h(classification.category), subject_classification_path(@subject, classification) -%></td>
     <td><%= classification.note -%></td>
     <td><%= classification.classification_type.display_name.localize -%></td>
-    <%- if can? :destroy, classification -%>
-      <td>
+    <td>
+      <%- if can? :destroy, classification -%>
         <%= link_to t('page.edit'), edit_classification_path(classification) -%>
-      </td>
-      <td>
+      <% end %>
+    </td>
+    <td>
+      <%- if can? :destroy, classification -%>
         <%- if params[:mode] == 'add' -%>
           <%= link_to t('page.add'), new_subject_subject_has_classification_path(@subject, :classification_id => classification.id) unless @subject.classifications.include?(classification) -%>
         <%- else -%>
           <%- has_classification = @subject.subject_has_classifications.find_by_classification_id(classification) -%>
           <%= link_to t('page.destroy'), subject_subject_has_classification_path(@subject, has_classification), :confirm => t('page.are_you_sure'), :method => :delete if has_classification -%>
         <%- end -%>
-      </td>
-    <%- end -%>
+      <%- end -%>
+    </td>
   </tr>
 <%- end -%>
 </table>

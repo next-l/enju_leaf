@@ -10,7 +10,7 @@
     <th><%= t('activerecord.models.manifestation') -%></th>
   </tr>
   
-<%- for produce in @produces -%>
+<%- @produces.each do |produce| -%>
   <tr class="line<%= cycle("0", "1") -%>">
     <td>
       <%= link_to h(produce.manifestation.original_title), produce.manifestation -%>

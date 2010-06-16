@@ -17,7 +17,7 @@
       <th><%= t('activerecord.attributes.message.sender') -%></th>
       <th><%= t('message.sent_at') -%></th>
     </tr>
-  <%- for message in @messages  -%>
+  <%- @messages.each do |message| -%>
     <tr class="line<%= cycle("0", "1") -%>">
       <td>
         <input id="delete_<%=h message.id -%>" name="delete[]" type="checkbox" value="<%=h message.id %>" class="checkbox" />

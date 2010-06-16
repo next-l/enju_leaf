@@ -17,7 +17,7 @@ xml.rss('version' => "2.0",
       xml.tag! "opensearch:itemsPerPage", @order_lists.per_page
       #xml.tag! "opensearch:Query", :role => 'request', :searchTerms => params[:query], :startPage => (params[:page] || 1)
     end
-    for order_list in @order_lists
+    @order_lists.each do |order_list|
       xml.item do
         xml.title order_list.title
         #xml.description(order_list.title)

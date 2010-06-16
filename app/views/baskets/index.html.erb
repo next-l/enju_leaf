@@ -7,7 +7,7 @@
     <th><%= t('page.updated_at') -%></th>
   </tr>
 
-<%- for basket in @baskets -%>
+<%- @baskets.each do |basket| -%>
   <tr class="line<%= cycle("0", "1") -%>">
     <td><%= basket.user.username -%></td>
     <td><%= basket.note -%></td>

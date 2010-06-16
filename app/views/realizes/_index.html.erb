@@ -8,7 +8,7 @@
     <th><%= t('activerecord.models.expression') -%></th>
   </tr>
 
-<%- for realize in @realizes -%>
+  <%- @realizes.each do |realize| -%>
   <tr class="line<%= cycle("0", "1") -%>">
     <td><%= link_to h(realize.patron.full_name), realize.patron -%></td>
     <td><%= link_to h(realize.expression.original_title), realize.expression -%></td>

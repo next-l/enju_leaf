@@ -19,7 +19,8 @@ class OrdersController < ApplicationController
     respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @orders }
-      format.rss  { render :layout => false }
+      format.rss
+      format.atom
       format.csv
     end
   end

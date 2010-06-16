@@ -11,7 +11,7 @@
     <th><%= t('page.updated_at') -%></th>
   </tr>
 
-<%- for realize in @realizes -%>
+<%- @realizes.each do |realize| -%>
   <tr class="line<%= cycle("0", "1") -%>">
     <td><%= link_to h(realize.expression.original_title), realize.expression -%></td>
     <td><%= l(realize.created_at) -%></td>

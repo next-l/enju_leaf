@@ -8,7 +8,7 @@
     <th><%= t('activerecord.attributes.work_has_subject.work') -%></th>
   </tr>
 
-<%- for work_has_subject in @work_has_subjects -%>
+<%- @work_has_subjects.each do |work_has_subject| -%>
   <tr class="line<%= cycle("0", "1") -%>">
     <td><%= link_to h(work_has_subject.subject.term), work_has_subject.subject -%></td>
     <!-- TODO: Manifestation以外 -->

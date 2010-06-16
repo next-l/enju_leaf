@@ -71,7 +71,7 @@
     <%- end -%>
   <%- if user_signed_in? -%>
     <div id="call_number_content">
-      <%- for item in @resource.items.on_shelf -%>
+      <%- @resource.items.on_shelf.each do |item| -%>
         <%- if item.hold?(current_user.library) -%>
           <%= call_number_label(item) -%>
         <%- end -%>

@@ -6,7 +6,7 @@ atom_feed(:url => reserves_url(:format => :atom)) do |feed|
   end
   feed.updated(@reserves.first ? @reserves.first.created_at : Time.zone.now)
 
-  for reserve in @reserves
+  @reserves.each do |reserve|
     feed.entry(reserve) do |entry|
       entry.title(reserve.manifestation.original_title)
     end

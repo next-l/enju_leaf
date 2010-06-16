@@ -10,7 +10,7 @@
     <th></th>
   </tr>
 
-<%- for carrier_type_has_checkout_type in @carrier_type_has_checkout_types -%>
+<%- @carrier_type_has_checkout_types.each do |carrier_type_has_checkout_type| -%>
   <tr class="line<%= cycle("0", "1") -%>">
     <td><%= link_to h(carrier_type_has_checkout_type.carrier_type.display_name.localize), carrier_type_has_checkout_type.carrier_type -%></td>
     <td><%= link_to h(carrier_type_has_checkout_type.checkout_type.display_name.localize), carrier_type_has_checkout_type.checkout_type -%></td>

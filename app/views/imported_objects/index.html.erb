@@ -9,7 +9,7 @@
     <th><%= t('activerecord.attributes.imported_object.importable') -%></th>
   </tr>
 
-<%- for imported_object in @imported_objects -%>
+<%- @imported_objects.each do |imported_object| -%>
   <tr class="line<%= cycle("0", "1") -%>">
     <td><%= link_to h("#{imported_object.imported_file_type} / #{imported_object.imported_file_id}"), imported_object.imported_file -%></td>
     <td><%= imported_object.line_number -%></td>

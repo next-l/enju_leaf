@@ -5,12 +5,6 @@ class CarrierType < ActiveRecord::Base
   has_many :carrier_type_has_checkout_types, :dependent => :destroy
   has_many :checkout_types, :through => :carrier_type_has_checkout_types
 
-  validates_presence_of :name, :display_name
-  validates_uniqueness_of :name
-  before_validation :set_display_name, :on => :create
-
-  acts_as_list
-
   def mods_type
     case name
     when 'print'

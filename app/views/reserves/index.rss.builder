@@ -27,14 +27,14 @@ xml.rss('version' => "2.0",
       xml.tag! "opensearch:itemsPerPage", @reserves.per_page
       #xml.tag! "opensearch:Query", :role => 'request', :searchTerms => params[:query], :startPage => (params[:page] || 1)
     end
-    for reservation in @reserves
+    @reserves.each do |reserve|
       xml.item do
-        xml.title reservation.manifestation.original_title
-        #xml.description(reservation.title)
+        xml.title reserve.manifestation.original_title
+        #xml.description(reserve.title)
         # rfc822
-        xml.pubDate reservation.created_at.utc.iso8601
-        xml.link user_reserve_url(reservation.user.username, reservation)
-        xml.guid user_reserve_url(reservation.user.username, reservation), :isPermaLink => "true"
+        xml.pubDate reserve.created_at.utc.iso8601
+        xml.link user_reserve_url(reserve.user.username, reserve)
+        xml.guid user_reserve_url(reserve.user.username, reserve), :isPermaLink => "true"
       end
     end
   }

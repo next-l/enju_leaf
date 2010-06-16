@@ -10,7 +10,7 @@
     <th></th>
   </tr>
 
-<%- for user_has_role in @user_has_roles -%>
+<%- @user_has_roles.each do |user_has_role| -%>
   <tr class="line<%= cycle("0", "1") -%>">
     <td><%= link_to h(user_has_role.user.username), user_has_role.user -%></td>
     <td><%= link_to h(user_has_role.role.display_name.localize), user_has_role.role -%></td>

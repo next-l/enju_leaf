@@ -9,7 +9,7 @@
     <th><%= t('activerecord.attributes.user_group_has_checkout_type.note') -%></th>
   </tr>
 
-<%- for user_group_has_checkout_type in @user_group_has_checkout_types -%>
+<%- @user_group_has_checkout_types.each do |user_group_has_checkout_type| -%>
   <tr class="line<%= cycle("0", "1") -%>">
     <td><%= link_to h(user_group_has_checkout_type.user_group.display_name.localize.localize), user_group_has_checkout_type.user_group -%></td>
     <td><%= link_to h(user_group_has_checkout_type.checkout_type.display_name.localize.localize), user_group_has_checkout_type.checkout_type -%></td>

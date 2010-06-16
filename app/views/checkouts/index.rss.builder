@@ -24,7 +24,7 @@ xml.rss('version' => "2.0",
       xml.tag! "opensearch:itemsPerPage", @checkouts.per_page
       #xml.tag! "opensearch:Query", :role => 'request', :searchTerms => params[:query], :startPage => (params[:page] || 1)
     end
-    for checkout in @checkouts
+    @checkouts.each do |checkout|
       xml.item do
         xml.title h(checkout.item.manifestation.original_title)
         #xml.description(checkout.title)

@@ -9,13 +9,6 @@ class UserGroup < ActiveRecord::Base
   has_many :checkout_types, :through => :user_group_has_checkout_types, :order => :position
   has_many :lending_policies
 
-  validates_presence_of :name, :display_name
-  validates_uniqueness_of :name, :case_sensitive => false
-  validates_uniqueness_of :display_name
-  before_validation :set_display_name, :on => :create
-
-  acts_as_list
-
   def self.per_page
     10
   end

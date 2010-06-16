@@ -24,7 +24,7 @@ xml.rss('version' => "2.0",
       xml.tag! "opensearch:itemsPerPage", @purchase_requests.per_page
       #xml.tag! "opensearch:Query", :role => 'request', :searchTerms => params[:query], :startPage => (params[:page] || 1)
     end
-    for purchase_request in @purchase_requests
+    @purchase_requests.each do |purchase_request|
       xml.item do
         xml.title purchase_request.title
         #xml.description(purchase_request.title)

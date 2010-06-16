@@ -8,7 +8,7 @@
     <th><%= t('activerecord.models.use_restriction') -%></th>
   </tr>
 
-<%- for item_has_use_restriction in @item_has_use_restrictions -%>
+<%- @item_has_use_restrictions.each do |item_has_use_restriction| -%>
   <tr>
     <td><%= link_to h(item_has_use_restriction.item_id), item_has_use_restriction.item -%></td>
     <td><%= link_to h(item_has_use_restriction.item.item_identifier), item_has_use_restriction.item -%></td>

@@ -17,7 +17,7 @@ xml.rss('version' => "2.0",
     #  xml.tag! "opensearch:itemsPerPage", @inter_library_loans.per_page
       #xml.tag! "opensearch:Query", :role => 'request', :searchTerms => params[:query], :startPage => (params[:page] || 1)
     #end
-    for inter_library_loan in @inter_library_loans
+    @inter_library_loans.each do |inter_library_loan|
       xml.item do
         xml.title h(inter_library_loan.item.manifestation.original_title)
         #xml.description(inter_library_loan.title)
