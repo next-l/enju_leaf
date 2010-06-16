@@ -1,20 +1,92 @@
-<p class="notice"><%= notice %></p>
-
+<div id="content_detail">
+<h1 class="title"><%= t('page.showing', :model => t('activerecord.models.library_group')) -%></h1>
+<div id="content_list">
 <p>
-  <b>Name:</b>
-  <%= @library_group.name %>
+  <strong><%= t('activerecord.attributes.library_group.name') -%>:</strong>
+  <%= @library_group.name -%>
 </p>
 
 <p>
-  <b>Display name:</b>
-  <%= @library_group.display_name %>
+  <strong><%= t('activerecord.attributes.library_group.display_name') -%>:</strong>
+  <%= @library_group.display_name.localize -%>
 </p>
 
 <p>
-  <b>Note:</b>
-  <%= @library_group.note %>
+  <strong><%= t('activerecord.attributes.library_group.email') -%>:</strong>
+  <%= @library_group.email -%>
 </p>
 
+<p>
+  <strong><%= t('activerecord.attributes.library_group.valid_period_for_new_user') -%>:</strong>
+  <%= @library_group.valid_period_for_new_user -%>
+</p>
 
-<%= link_to 'Edit', edit_library_group_path(@library_group) %> |
-<%= link_to 'Back', library_groups_path %>
+<div>
+  <strong><%= t('activerecord.attributes.library_group.login_banner') -%>:</strong>
+  <%= raw textilize(h(@library_group.login_banner)) -%>
+</div>
+
+<p>
+  <strong><%= t('activerecord.attributes.library_group.allow_bookmark_external_url') -%>:</strong>
+  <%= localized_boolean(@library_group.allow_bookmark_external_url) -%>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.library_group.post_to_union_catalog') -%>:</strong>
+  <%= localized_boolean(@library_group.post_to_union_catalog) -%>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.library_group.my_networks') -%>:</strong>
+  <%= @library_group.my_networks -%>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.library_group.admin_networks') -%>:</strong>
+  <%= @library_group.admin_networks -%>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.library_group.use_dsbl') -%>:</strong>
+  <%= localized_boolean(@library_group.use_dsbl) -%>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.library_group.dsbl_list') -%>:</strong>
+  <%= raw simple_format(h(@library_group.dsbl_list)) -%>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.library_group.note') -%>:</strong>
+  <%= @library_group.note -%>
+</p>
+
+<p>
+  <strong><%= t('activerecord.models.library') -%>:</strong><br />
+</p>
+
+<ul>
+  <%- @library_group.real_libraries.each do |library| -%>
+    <li><%= link_to h(library.display_name.localize), library_path(library.name) -%></li>
+  <%- end -%>
+</ul>
+
+<p>
+  <strong><%= t('activerecord.models.news_feed') -%>:</strong><br />
+</p>
+
+<ul>
+  <%- @library_group.news_feeds.each do |news_feed| -%>
+    <li><%= link_to h(news_feed.title), news_feed -%></li>
+  <%- end -%>
+</ul>
+
+</div>
+</div>
+
+<div id="submenu">
+  <ul>
+    <li><%= link_to t('page.edit'), edit_library_group_path(@library_group) -%></li>
+    <li><%= link_to t('page.back'), library_groups_path -%></li>
+  </ul>
+</div>
