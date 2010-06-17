@@ -192,6 +192,10 @@ class Resource < ActiveRecord::Base
     ISBN_Tools.cleanup!(isbn) if isbn.present?
   end
 
+  def self.per_page
+    10
+  end
+
   def self.cached_numdocs
     #if Rails.env == 'production'
     #  Rails.cache.fetch("Resource.search.total"){self.search.total}
