@@ -9,6 +9,7 @@
     <th><%= t('activerecord.models.expression') -%></th>
     <th><%= t('page.created_at') -%></th>
     <th><%= t('page.updated_at') -%></th>
+    <th></th>
   </tr>
 
 <%- @realizes.each do |realize| -%>
@@ -16,9 +17,11 @@
     <td><%= link_to h(realize.expression.original_title), realize.expression -%></td>
     <td><%= l(realize.created_at) -%></td>
     <td><%= l(realize.updated_at) -%></td>
-    <%- if can? :destroy, realize -%>
-      <td><%= link_to t('page.destroy'), patron_realize_path(@patron, realize), :confirm => t('page.are_you_sure'), :method => :delete -%></td>
-    <%- end -%>
+    <td>
+      <%- if can? :destroy, realize -%>
+        <%= link_to t('page.destroy'), patron_realize_path(@patron, realize), :confirm => t('page.are_you_sure'), :method => :delete -%>
+      <%- end -%>
+    </td>
   </tr>
 <%- end -%>
 </table>

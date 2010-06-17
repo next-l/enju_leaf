@@ -11,6 +11,7 @@
     <th><%= t('activerecord.models.patron') -%></th>
     <th><%= t('page.created_at') -%></th>
     <th><%= t('page.updated_at') -%></th>
+    <th></th>
   </tr>
 
 <%- @creates.each do |create| -%>
@@ -24,11 +25,13 @@
     <td><%= link_to h(create.patron.full_name), create.patron -%></td>
     <td><%= l(create.created_at) -%></td>
     <td><%= l(create.updated_at) -%></td>
-    <%- if can? :destroy, create -%>
-      <td><%= link_to t('page.show'), work_create_path(@work, create) -%></td>
-      <td><%= link_to t('page.destroy'), work_create_path(@work, create), :confirm => t('page.are_you_sure'), :method => :delete -%></td>
-    <%- end -%>
-    </tr>
+    <td>
+      <%- if can? :destroy, create -%>
+        <%= link_to t('page.show'), work_create_path(@work, create) -%>
+        <%= link_to t('page.destroy'), work_create_path(@work, create), :confirm => t('page.are_you_sure'), :method => :delete -%>
+      <%- end -%>
+    </td>
+  </tr>
 <%- end -%>
 </table>
 

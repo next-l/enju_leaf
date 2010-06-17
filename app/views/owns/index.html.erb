@@ -7,6 +7,7 @@
     <th><%= t('activerecord.models.patron') -%></th>
     <th><%= t('activerecord.models.item') -%></th>
     <th><%= t('activerecord.models.manifestation') -%></th>
+    <th></th>
   </tr>
   
 <%- @owns.each do |own| -%>
@@ -22,10 +23,12 @@
     <td>
       <%= render :partial => 'manifestations/show_index', :locals => {:manifestation => own.item.manifestation} -%>
     </td>
-    <%- if can? :destroy, own -%>
-      <td><%= link_to t('page.show'), own -%></td>
-      <td><%= link_to t('page.destroy'), own, :confirm => t('page.are_you_sure'), :method => :delete -%></td>
-    <%- end -%>
+    <td>
+      <%- if can? :destroy, own -%>
+        <%= link_to t('page.show'), own -%>
+        <%= link_to t('page.destroy'), own, :confirm => t('page.are_you_sure'), :method => :delete -%>
+      <%- end -%>
+    </td>
   </tr>
 <%- end -%>
 </table>

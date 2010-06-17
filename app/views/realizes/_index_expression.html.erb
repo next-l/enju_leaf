@@ -9,6 +9,7 @@
   <tr>
     <th id="position"></th>
     <th><%= t('activerecord.models.expression') -%></th>
+    <th></th>
   </tr>
 
 <%- @realizes.each do |realize| -%>
@@ -25,9 +26,11 @@
       <br />
       <%= raw patrons_list(@expression.patrons, current_user) -%>
     </td>
-    <%- if can? :destroy, realize -%>
-      <td><%= link_to t('page.destroy'), expression_realize_path(@expression, realize), :confirm => t('page.are_you_sure'), :method => :delete -%></td>
-    <%- end -%>
+    <td>
+      <%- if can? :destroy, realize -%>
+        <%= link_to t('page.destroy'), expression_realize_path(@expression, realize), :confirm => t('page.are_you_sure'), :method => :delete -%>
+      <%- end -%>
+    </td>
   </tr>
 <%- end -%>
 </table>

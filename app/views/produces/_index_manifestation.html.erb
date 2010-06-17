@@ -6,6 +6,7 @@
   <tr>
     <th id="position"></th>
     <th><%= t('activerecord.models.patron') -%></th>
+    <th></th>
   </tr>
   
 <%- @produces.each do |produce| -%>
@@ -17,9 +18,11 @@
       <%- end -%>
     </td>
     <td><%= link_to h(produce.patron.full_name), produce.patron -%></td>
-    <%- if can? :destroy, produce -%>
-      <td><%= link_to t('page.destroy'), manifestation_produce_path(produce.manifestation, produce), :confirm => t('page.are_you_sure'), :method => :delete -%></td>
-    <%- end -%>
+    <td>
+      <%- if can? :destroy, produce -%>
+        <%= link_to t('page.destroy'), manifestation_produce_path(produce.manifestation, produce), :confirm => t('page.are_you_sure'), :method => :delete -%>
+      <%- end -%>
+    </td>
   </tr>
 <%- end -%>
 </table>
