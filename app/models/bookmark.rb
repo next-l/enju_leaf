@@ -94,7 +94,7 @@ class Bookmark < ActiveRecord::Base
       end
     end
     unless manifestation
-      doc = Nokogiri::HTML(open(url).read)
+      doc = Nokogiri::HTML(open(url))
       # TODO: 日本語以外
       #charsets = ['iso-2022-jp', 'euc-jp', 'shift_jis', 'iso-8859-1']
       #if charsets.include?(page.charset.downcase)

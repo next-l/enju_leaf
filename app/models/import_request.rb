@@ -1,8 +1,22 @@
 class ImportRequest < ActiveRecord::Base
   belongs_to :user
   belongs_to :manifestation, :class_name => 'Resource'
-
+  validates_presence_of :isbn
+  validate :check_isbn
+  validate :check_imported, :on => :create
   enju_ndl
+
+  def check_isbn
+    if isbn.present?
+      errors.add(:isbn) unless ISBN_Tools.is_valid?(isbn)
+    end
+  end
+
+  def check_imported
+    if isbn.present?
+      errors.add(:isbn) if Resource.first(:conditions => {:isbn => isbn})
+    end
+  end
 
   def self.import_patrons(patron_lists)
     patrons = []

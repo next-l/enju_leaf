@@ -97,9 +97,9 @@ class PatronsController < ApplicationController
     end
     @patron = @patron.versions.find(@version).item if @version
 
-    @works = @patron.works.paginate(:page => params[:work_list_page])
-    @expressions = @patron.expressions.paginate(:page => params[:expression_list_page])
-    @manifestations = @patron.manifestations.paginate(:page => params[:manifestation_list_page], :order => 'date_of_publication DESC')
+    @works = @patron.works.paginate(:page => params[:work_list_page], :per_page => Resource.per_page)
+    @expressions = @patron.expressions.paginate(:page => params[:expression_list_page], :per_page => Resource.per_page)
+    @manifestations = @patron.manifestations.paginate(:page => params[:manifestation_list_page], :order => 'date_of_publication DESC', :per_page => Resource.per_page)
 
     respond_to do |format|
       format.html # show.rhtml

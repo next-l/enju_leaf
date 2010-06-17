@@ -140,6 +140,7 @@ class Resource < ActiveRecord::Base
       # TODO 詳細不明
     end
     # OTC end
+    string :sort_title
   end
 
   enju_amazon
@@ -158,15 +159,37 @@ class Resource < ActiveRecord::Base
   validates_uniqueness_of :manifestation_identifier, :allow_blank => true
   validates_format_of :access_address, :with => URI::regexp(%w(http https)) , :allow_blank => true
   validate :check_isbn
+  before_validation :convert_isbn
+  normalize_attributes :manifestation_identifier, :date_of_publication, :isbn, :issn, :nbn, :lccn
 
   def check_isbn
     if isbn.present?
       errors.add(:isbn) unless ISBN_Tools.is_valid?(isbn)
+      #set_wrong_isbn
     end
   end
 
-  def self.per_page
-    10
+  def set_wrong_isbn
+    if isbn.present?
+      wrong_isbn = isbn unless ISBN_Tools.is_valid?(isbn)
+    end
+  end
+
+  def convert_isbn
+    if isbn
+      isbn_cleanup
+      if isbn.length == 10
+        isbn10 = isbn.dup
+        isbn = ISBN_Tools.isbn10_to_isbn13(isbn)
+        isbn10 = isbn10
+      elsif isbn.length == 13
+        isbn10 = ISBN_Tools.isbn13_to_isbn10(isbn)
+      end
+    end
+  end
+
+  def isbn_cleanup
+    ISBN_Tools.cleanup!(isbn) if isbn.present?
   end
 
   def self.cached_numdocs
@@ -412,4 +435,7 @@ class Resource < ActiveRecord::Base
     serial_number_list.gsub(/\D/, ' ').split(" ") if serial_number_list
   end
 
+  def sort_title
+    NKF.nkf('--katakana', title_transcription) if title_transcription
+  end
 end
