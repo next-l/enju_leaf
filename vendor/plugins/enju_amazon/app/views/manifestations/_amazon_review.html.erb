@@ -4,4 +4,4 @@
     <div class="amazon_summary"><strong><%= review[:summary] -%></strong> (<%= review[:date] -%>)</div>
     <p><%= raw h(review[:content]).gsub('&lt;', '<').gsub('&gt;', '>') -%></p>
   <%- end -%>
-</div>    
+</div>
