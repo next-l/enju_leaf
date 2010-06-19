@@ -43,7 +43,8 @@ gem 'scribd_fu'
 gem 'devise', :git => 'git://github.com/plataformatec/devise.git'
 gem 'paperclip'
 gem 'bcrypt-ruby', :require => 'bcrypt'
-#gem 'system_timer'
+gem 'whenever', :git => 'git://github.com/javan/whenever.git', :branch => 'integration', :require => false
+gem 'system_timer'
 
 # Use unicorn as the web server
 # gem 'unicorn'

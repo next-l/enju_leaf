@@ -12,6 +12,8 @@ EnjuLight::Application.routes.draw do |map|
     resources :picture_files
     resources :items
     resources :work_has_subjects
+    resources :resource_relationships
+    resources :resources
   end
 
   resources :patrons do
@@ -31,11 +33,17 @@ EnjuLight::Application.routes.draw do |map|
     resources :creates
     resources :subjects
     resources :work_has_subjects
+    resources :expressions, :controller => 'resources'
+    resources :resource_relationships
+    resources :resources
   end
 
   resources :expressions, :controller => 'resources' do
     resources :patrons
     resources :realizes
+    resources :manifestations, :controller => 'resources'
+    resources :resource_relationships
+    resources :resources
   end
 
   resources :manifestations, :controller => 'resources' do
@@ -43,6 +51,9 @@ EnjuLight::Application.routes.draw do |map|
     resources :patrons
     resources :items
     resources :picture_files
+    resources :expressions, :controller => 'resources'
+    resources :resource_relationships
+    resources :resources
   end
 
   resources :creators, :controller => 'patrons' do

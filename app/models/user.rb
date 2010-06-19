@@ -9,7 +9,7 @@ class User < ActiveRecord::Base
   attr_accessible :email, :password, :password_confirmation, :username, :current_password, :user_number
 
   scope :administrators, :include => ['role'], :conditions => ['roles.name = ?', 'Administrator']
-  scope :librarians, :include => ['role'], :conditions => ['roles.name = ? OR ?', 'Administrator', 'Librarian']
+  scope :librarians, :include => ['role'], :conditions => ['roles.name = ? OR roles.name = ?', 'Administrator', 'Librarian']
   scope :suspended, :conditions => ['locked_at IS NOT NULL']
   has_one :patron
   has_many :checkouts

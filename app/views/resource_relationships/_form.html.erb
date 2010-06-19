@@ -12,12 +12,24 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :parent_id %><br />
-    <%= f.text_field :parent_id %>
+    <% if @resource_relationship.try(:parent) %>
+      <%= f.label :parent_id %><br />
+      <%= link_to @resource_relationship.parent.original_title, @resource_relationship.parent %>
+      <%= f.hidden_field :parent_id %>
+    <% else %>
+      <%= f.label :parent_id %><br />
+      <%= f.text_field :parent_id %>
+    <% end %>
   </div>
   <div class="field">
-    <%= f.label :child_id %><br />
-    <%= f.text_field :child_id %>
+    <% if @resource_relationship.child.try(:original_title) %>
+      <%= f.label :child_id %><br />
+      <%= link_to @resource_relationship.child.original_title, @resource_relationship.child %>
+      <%= f.hidden_field :child_id %>
+    <% else %>
+      <%= f.label :child_id %><br />
+      <%= f.text_field :child_id %>
+    <% end %>
   </div>
   <div class="field">
     <%= f.label :resource_relationship_type_id %><br />

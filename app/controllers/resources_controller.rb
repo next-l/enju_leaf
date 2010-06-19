@@ -3,6 +3,7 @@ class ResourcesController < ApplicationController
   load_and_authorize_resource
   before_filter :authenticate_user!, :only => :edit
   before_filter :get_patron
+  before_filter :get_resource, :only => :index
   before_filter :get_manifestation, :only => :index
   before_filter :get_series_statement, :only => [:index, :new, :edit]
   before_filter :prepare_options, :only => [:new, :edit]

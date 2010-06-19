@@ -13,8 +13,8 @@
 
 <% @resource_relationships.each do |resource_relationship| %>
   <tr>
-    <td><%= resource_relationship.parent_id %></td>
-    <td><%= resource_relationship.child_id %></td>
+    <td><%= link_to resource_relationship.parent.original_title, resource_relationship.parent %></td>
+    <td><%= link_to resource_relationship.child.original_title, resource_relationship.child %></td>
     <td><%= link_to t('page.show'), resource_relationship %></td>
     <td><%= link_to t('page.edit'), edit_resource_relationship_path(resource_relationship) %></td>
     <td><%= link_to t('page.destroy'), resource_relationship, :confirm => t('page.are_you_sure'), :method => :delete %></td>

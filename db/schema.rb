@@ -268,9 +268,8 @@ ActiveRecord::Schema.define(:version => 20100607044753) do
   add_index "countries", ["numeric_3"], :name => "index_countries_on_numeric_3"
 
   create_table "creates", :force => true do |t|
-    t.integer  "patron_id"
-    t.string   "patron_type"
-    t.integer  "work_id",     :null => false
+    t.integer  "patron_id",  :null => false
+    t.integer  "work_id",    :null => false
     t.integer  "position"
     t.string   "type"
     t.datetime "created_at"
@@ -761,9 +760,8 @@ ActiveRecord::Schema.define(:version => 20100607044753) do
   add_index "orders", ["purchase_request_id"], :name => "index_orders_on_purchase_request_id"
 
   create_table "owns", :force => true do |t|
-    t.integer  "patron_id"
-    t.string   "patron_type"
-    t.integer  "item_id",     :null => false
+    t.integer  "patron_id",  :null => false
+    t.integer  "item_id",    :null => false
     t.integer  "position"
     t.string   "type"
     t.datetime "created_at"
@@ -931,8 +929,7 @@ ActiveRecord::Schema.define(:version => 20100607044753) do
   add_index "picture_files", ["picture_attachable_id", "picture_attachable_type"], :name => "index_picture_files_on_picture_attachable_id_and_type"
 
   create_table "produces", :force => true do |t|
-    t.integer  "patron_id"
-    t.string   "patron_type"
+    t.integer  "patron_id",        :null => false
     t.integer  "manifestation_id", :null => false
     t.integer  "position"
     t.string   "type"
@@ -981,8 +978,7 @@ ActiveRecord::Schema.define(:version => 20100607044753) do
   add_index "questions", ["user_id"], :name => "index_questions_on_user_id"
 
   create_table "realizes", :force => true do |t|
-    t.integer  "patron_id"
-    t.string   "patron_type"
+    t.integer  "patron_id",     :null => false
     t.integer  "expression_id", :null => false
     t.integer  "position"
     t.string   "type"
@@ -1460,8 +1456,8 @@ ActiveRecord::Schema.define(:version => 20100607044753) do
   add_index "user_reserve_stats", ["state"], :name => "index_user_reserve_stats_on_state"
 
   create_table "users", :force => true do |t|
-    t.string   "email",                                   :default => ""
-    t.string   "encrypted_password",       :limit => 128
+    t.string   "email",                    :default => ""
+    t.string   "encrypted_password"
     t.string   "password_salt"
     t.string   "confirmation_token"
     t.datetime "confirmed_at"
@@ -1469,12 +1465,12 @@ ActiveRecord::Schema.define(:version => 20100607044753) do
     t.string   "reset_password_token"
     t.string   "remember_token"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",                           :default => 0
+    t.integer  "sign_in_count",            :default => 0
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
     t.string   "last_sign_in_ip"
-    t.integer  "failed_attempts",                         :default => 0
+    t.integer  "failed_attempts",          :default => 0
     t.string   "unlock_token"
     t.datetime "locked_at"
     t.string   "authentication_token"
@@ -1482,27 +1478,27 @@ ActiveRecord::Schema.define(:version => 20100607044753) do
     t.datetime "updated_at"
     t.datetime "deleted_at"
     t.string   "username"
-    t.integer  "library_id",                              :default => 1,     :null => false
-    t.integer  "user_group_id",                           :default => 1,     :null => false
-    t.integer  "reserves_count",                          :default => 0,     :null => false
+    t.integer  "library_id",               :default => 1,     :null => false
+    t.integer  "user_group_id",            :default => 1,     :null => false
+    t.integer  "reserves_count",           :default => 0,     :null => false
     t.datetime "expired_at"
-    t.integer  "libraries_count",                         :default => 0,     :null => false
-    t.integer  "bookmarks_count",                         :default => 0,     :null => false
-    t.integer  "checkouts_count",                         :default => 0,     :null => false
+    t.integer  "libraries_count",          :default => 0,     :null => false
+    t.integer  "bookmarks_count",          :default => 0,     :null => false
+    t.integer  "checkouts_count",          :default => 0,     :null => false
     t.string   "checkout_icalendar_token"
-    t.integer  "questions_count",                         :default => 0,     :null => false
-    t.integer  "answers_count",                           :default => 0,     :null => false
+    t.integer  "questions_count",          :default => 0,     :null => false
+    t.integer  "answers_count",            :default => 0,     :null => false
     t.string   "answer_feed_token"
-    t.integer  "due_date_reminder_days",                  :default => 1,     :null => false
+    t.integer  "due_date_reminder_days",   :default => 1,     :null => false
     t.text     "note"
-    t.boolean  "share_bookmarks",                         :default => false, :null => false
-    t.boolean  "save_search_history",                     :default => false, :null => false
-    t.boolean  "save_checkout_history",                   :default => false, :null => false
-    t.integer  "required_role_id",                        :default => 1,     :null => false
+    t.boolean  "share_bookmarks",          :default => false, :null => false
+    t.boolean  "save_search_history",      :default => false, :null => false
+    t.boolean  "save_checkout_history",    :default => false, :null => false
+    t.integer  "required_role_id",         :default => 1,     :null => false
     t.text     "keyword_list"
     t.string   "user_number"
     t.string   "state"
-    t.integer  "required_score",                          :default => 0,     :null => false
+    t.integer  "required_score",           :default => 0,     :null => false
     t.string   "locale"
     t.string   "openid_identifier"
     t.string   "oauth_token"

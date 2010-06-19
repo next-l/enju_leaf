@@ -8,6 +8,7 @@ class LibrariesController < ApplicationController
   # GET /libraries
   # GET /libraries.xml
   def index
+    @library_groups = LibraryGroup.all
     sort = {:sort_by => 'position', :order => 'asc'}
     case params[:sort_by]
     when 'name'

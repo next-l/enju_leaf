@@ -176,8 +176,8 @@ class Resource < ActiveRecord::Base
   end
 
   def convert_isbn
+    isbn = ISBN_Tools.cleanup(isbn) if isbn
     if isbn
-      isbn_cleanup
       if isbn.length == 10
         isbn10 = isbn.dup
         isbn = ISBN_Tools.isbn10_to_isbn13(isbn)
@@ -186,10 +186,6 @@ class Resource < ActiveRecord::Base
         isbn10 = ISBN_Tools.isbn13_to_isbn10(isbn)
       end
     end
-  end
-
-  def isbn_cleanup
-    ISBN_Tools.cleanup!(isbn) if isbn.present?
   end
 
   def self.per_page

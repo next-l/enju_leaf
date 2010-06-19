@@ -111,7 +111,7 @@ class UsersController < ApplicationController
       @user = current_user
     end
     raise ActiveRecord::RecordNotFound if @user.blank?
-    @user_role_id = @user.role.id
+    @user.role_id = @user.role.id
 
     if params[:mode] == 'feed_token'
       if params[:disable] == 'true'

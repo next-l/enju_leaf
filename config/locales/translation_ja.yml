@@ -84,7 +84,7 @@ ja:
       message_template: メッセージテンプレート
       patron_merge: 著者・出版者・読者の併合
       subject_related_term: 件名の関連語
-      library_group: 図書館グループ
+      library_group: 図書館全体の設定
       event_import_file: 催し物ファイルのインポート
       attachment_file: 添付ファイル
       reserve: 予約
@@ -298,7 +298,7 @@ ja:
         activation_code: 活性化コード
         activated_at: 登録時刻
         expired_at: 有効期限
-        active: 利用可能
+        deactivated: 利用不可
         confirmed: 確認済み
         approved: 承認済み
         checkout_icalendar_token: 貸出iCalendarのトークン
