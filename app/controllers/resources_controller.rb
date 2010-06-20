@@ -19,6 +19,11 @@ class ResourcesController < ApplicationController
   # GET /resources.xml
   def index
     @seconds = Benchmark.realtime do
+      if params[:mode] == 'add'
+        unless current_user.try(:has_role?, 'Librarian')
+          access_denied; return
+        end
+      end
       @oai = check_oai_params(params)
       next if @oai[:need_not_to_search]
 	    if user_signed_in?
@@ -107,10 +112,13 @@ class ResourcesController < ApplicationController
       else
         reservable = nil
       end
-      resource = @resource if @resource
+      unless params[:mode] == 'add'
+        resource = @resource if @resource
+      end
       patron = get_index_patron
       search.build do
         fulltext query unless query.blank?
+        with(:original_resource_ids).equal_to resource.id if resource
         order_by sort[:sort_by], sort[:order] unless oai_search
         order_by :updated_at, :desc if oai_search
         with(:creator_ids).equal_to patron[:creator].id if patron[:creator]

@@ -968,6 +968,14 @@ ja:
         publish: 公開承認
         state: 状態
         deleted_at: 削除時刻
+      patron_relationship:
+        parent_id: 派生元の人物・団体
+        child_id: 派生先の人物・団体
+        patron_relationship_type_id: 人物・団体の関係の種類
+      resource_relationship:
+        parent_id: 派生元の資料
+        child_id: 派生先の資料
+        resource_relationship_type_id: 資料の関係の種類
 
   page:
     user_title: "ようこそ %{login_name} さん"
@@ -1106,7 +1114,6 @@ ja:
     sent_email: "電子メールを送信しました。"
     identifier: "識別子"
     set_locale: "言語を設定"
-    add_derivation: "派生資料を追加"
     local_record: "自館の情報"
     search_catalog_at: "%{library_name}の目録を検索"
     add_on: "アドオン"
@@ -1438,5 +1445,6 @@ ja:
     published: 公開済み
     reject: 却下
     withdraw: 取り下げ
+    add_derivation: "派生資料を追加"
   news_feed:
     failed_to_fetch_feed: フィードの読み込みに失敗しました。

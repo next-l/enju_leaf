@@ -179,32 +179,24 @@
           <%- end -%>
         <%- end -%>
         <li><%= link_to t('page.listing', :model => t('activerecord.models.picture_file')), patron_picture_files_path(@patron) -%></li>
-        <%- if current_user.try(:has_role?, 'Librarian') -%>
-          <li><%= link_to t('page.new', :model => t('activerecord.models.picture_file')), new_patron_picture_file_path(@patron) -%></li>
-        <%- end -%>
       </ul>
       <script type="text/javascript">
         $(document).ready(function(){
           $("a[rel='patron_<%= @patron.id -%>']").colorbox({transition:"none"});
         })
       </script>
-    <%- else -%>
-      <%- if current_user.try(:has_role?, 'Librarian') -%>
-        <ul>
-          <li><%= link_to t('page.new', :model => t('activerecord.models.picture_file')), new_patron_picture_file_path(@patron) -%></li>
-        </ul>
-      <%- end -%>
     <%- end -%>
   <ul>
     <li><%= link_to t('page.back'), patrons_path -%></li>
-    <%- if can? :update, @patron -%>
+    <%- if can? :create, User -%>
       <%- if @patron.user.blank? -%>
         <li><%= link_to t('patron.activate_as_user'), new_user_path(:patron_id => @patron.id) -%></li>
       <%- else -%>
         <li><%= link_to t('page.editing', :model => t('activerecord.models.user')), edit_user_path(@patron.user.username) -%></li>
       <%- end -%>
-      <li><%= link_to t('page.add_picture'), new_patron_picture_file_path(@patron) -%></li>
       <li><%= link_to t('page.edit'), edit_patron_path(@patron) -%></li>
+      <li><%= link_to t('patron.add_derivation'), patron_patrons_path(@patron, :mode => 'add') -%></li>
+      <li><%= link_to t('page.add_picture'), new_patron_picture_file_path(@patron) -%></li>
     <%- end -%>
     <%- if can? :destroy, @patron -%>
       <li><%= link_to t('page.new', :model => t('activerecord.models.patron')), new_patron_path -%></li>

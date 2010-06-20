@@ -2,6 +2,7 @@
           <%- manifestations.each_with_index do |resource, i| -%>
             <tr class="line<%= cycle("0", "1") -%>">
               <td style="width: 30px"><%= itemnum = manifestations.offset + 1 + i -%></td>
+              <% cache(:id => resource.id, :page => 'index_list') do %>
               <td style="480px">
                 <%= render :partial => 'manifestations/show_index', :locals => {:manifestation => resource} -%>
                 <div id="access_address">
@@ -18,6 +19,7 @@
                 <%# グループ表示の部分テンプレート %>
                 <%= render :partial => 'manifestations/show_group', :locals => {:manifestation => resource} -%>
               </td>
+              <% end %>
               <%- if user_signed_in? -%>
                 <td>
                   <% if resource.reservable? %>
@@ -34,7 +36,7 @@
                     <% if @resource %>
                       <%= link_to t('page.add'), new_resource_resource_relationship_path(@resource, :child_id => resource.id) -%>
                     <% else %>
-                      <%= link_to image_tag('/icons/arrow_divide.png', :size => '16x16', :alt => t('page.add_derivation')), resource_resources_path(resource) -%>
+                      <%= link_to image_tag('/icons/arrow_divide.png', :size => '16x16', :alt => t('resource.add_derivation')), resource_resources_path(resource, :mode => 'add') -%>
                     <% end %>
                   </td>
                 <%- end -%>

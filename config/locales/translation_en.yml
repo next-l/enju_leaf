@@ -1119,7 +1119,6 @@ en:
     sent_email: "Sent email."
     identifier: "Identifier"
     set_locale: "Set locale"
-    add_derivation: "Add a derivation"
     local_record: "Local record"
     search_catalog_at: "Search catalog at %{library_name}"
     add_on: "Add-ons"
@@ -1454,5 +1453,6 @@ en:
     published: Published
     reject: Reject
     withdraw: Withdraw
+    add_derivation: "Add a derivation"
   news_feed:
     failed_to_fetch_feed: Failed to fetch feeds.

@@ -20,6 +20,11 @@ class PatronsController < ApplicationController
     #session[:params][:patron] = params
     # 最近追加されたパトロン
     #@query = params[:query] ||= "[* TO *]"
+    if params[:mode] == 'add'
+      unless current_user.try(:has_role?, 'Librarian')
+        access_denied; return
+      end
+    end
     query = params[:query].to_s.strip
     @query = query.dup
     query = query.gsub('　', ' ')

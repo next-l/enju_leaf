@@ -15,8 +15,7 @@
     <th><%= t('activerecord.attributes.user.username') -%></th>
     <th><%= t('activerecord.models.patron_type') -%></th>
     <th><%= t('activerecord.attributes.patron.date_of_birth') -%></th>
-    <th><%= t('activerecord.attributes.patron.date_of_death') -%></th>
-    <th></th>
+    <th style="width: 50px"></th>
   </tr>
   <%- @patrons.each do |patron| -%>
     <tr class="line<%= cycle("0", "1") -%>">
@@ -27,13 +26,12 @@
       <td>
         <%= link_to h(patron.user.username), edit_user_path(patron.user.username) if patron.user -%>
       </td>
-      <td><%= patron.patron_type.display_name.localize  -%></td>
+      <td><%= patron.patron_type.display_name.localize -%></td>
       <td><%=l patron.date_of_birth if patron.date_of_birth -%></td>
-      <td><%=l patron.date_of_death if patron.date_of_death -%></td>
       <td>
         <%- if can? :destroy, patron -%>
           <%= link_to image_tag('/icons/page_white_edit.png', :size => '16x16', :alt => t('page.edit')), edit_patron_path(patron) -%>
-          <%= link_to image_tag('/icons/arrow_divide.png', :size => '16x16', :alt => t('patron.add_derivation')), patron_patrons_path(patron) -%>
+          <%= link_to image_tag('/icons/arrow_divide.png', :size => '16x16', :alt => t('patron.add_derivation')), patron_patrons_path(patron, :mode => 'add') -%>
         <%- end -%>
       </td>
     </tr>

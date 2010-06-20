@@ -12,12 +12,24 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :parent_id %><br />
-    <%= f.text_field :parent_id %>
+    <% if @patron_relationship.try(:parent) %>
+      <%= f.label :parent_id %><br />
+      <%= link_to @patron_relationship.parent.full_name, @patron_relationship.parent %>
+      <%= f.hidden_field :parent_id %>
+    <% else %>
+      <%= f.label :parent_id %><br />
+      <%= f.text_field :parent_id %>
+    <% end %>
   </div>
   <div class="field">
-    <%= f.label :child_id %><br />
-    <%= f.text_field :child_id %>
+    <% if @patron_relationship.child.try(:full_name) %>
+      <%= f.label :child_id %><br />
+      <%= link_to @patron_relationship.child.full_name, @patron_relationship.child %>
+      <%= f.hidden_field :child_id %>
+    <% else %>
+      <%= f.label :child_id %><br />
+      <%= f.text_field :child_id %>
+    <% end %>
   </div>
   <div class="field">
     <%= f.label :patron_relationship_type_id %><br />

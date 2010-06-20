@@ -26,6 +26,7 @@ EnjuLight::Application.routes.draw do |map|
     resources :patrons
     resources :patron_merges
     resources :patron_merge_lists
+    resources :patron_relationships
   end
 
   resources :works, :controller => 'resources' do
