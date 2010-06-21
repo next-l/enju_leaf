@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title><%= resource_title(@resource, controller.controller_name) %></title>
+  <%= render :partial => 'page/include' %>
+  <%- if controller.action_name == 'index' -%>
+    <%= auto_discovery_link_tag(:rss, url_for(params.merge(:format => 'rss', :page => nil, :commit => nil)), :title => (t('patron.library_group_patron', :library_group_name => @library_group.display_name.localize) + " (RSS)")) %>
+    <%= auto_discovery_link_tag(:atom, url_for(params.merge(:format => 'atom', :page => nil, :commit => nil)), :title => (t('patron.library_group_patron', :library_group_name => @library_group.display_name.localize) + " (Atom)")) %>
+  <%- end -%>
+</head>
+<body>
+
+<%= render 'page/header' %>
+<%= render 'page/menu' %>
+
+<div id="content">
+<div class="notice"><%= notice %></div>
+
+<%= yield %>
+
+</div>
+
+<%= render 'page/footer' %>
+
+</body>
+</html>
