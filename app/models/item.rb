@@ -38,7 +38,7 @@ class Item < ActiveRecord::Base
   validates_presence_of :circulation_status #, :checkout_type
   validates_uniqueness_of :item_identifier, :allow_blank => true, :if => proc{|item| !item.item_identifier.blank?}
   validates_length_of :url, :maximum => 255, :allow_blank => true
-  validates_format_of :item_identifier, :with=>/\A[0-9]+\Z/, :allow_blank => true
+  validates_format_of :item_identifier, :with=>/\A\w+\Z/, :allow_blank => true
   before_validation :set_circulation_status, :on => :create
   #after_create :create_lending_policy
   after_save :save_manifestation
