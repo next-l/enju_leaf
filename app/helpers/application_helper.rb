@@ -222,6 +222,7 @@ module ApplicationHelper
     unless model_name == 'page'
       string << t("activerecord.models.#{model_name.singularize}") + ' - '
     end
-    string << 'EnjuLight'
+    string << LibraryGroup.site_config.display_name.localize + ' - EnjuLight'
+    string.html_safe
   end
 end
