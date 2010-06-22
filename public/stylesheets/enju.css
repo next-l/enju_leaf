@@ -444,7 +444,7 @@ div#flash_notice{
   color: green;
 }
 
-td#edit_icons{
+td#edit_icons, th#edit_icons{
   width: 50px;
 }
 
