@@ -444,4 +444,8 @@ div#flash_notice{
   color: green;
 }
 
+td#edit_icons{
+  width: 50px;
+}
+
 /* .yui-skin-sam .yui-navset .yui-content{background:white;} */

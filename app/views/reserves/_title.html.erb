@@ -8,13 +8,13 @@
     <%- end -%>
     <br />
     <%- if reserve.manifestation.creators.first -%>
-      <%= t('page.author') -%>: <%= raw patrons_list(reserve.manifestation.creators, current_user) -%>
+      <%= t('patron.creator') -%>: <%= raw patrons_list(reserve.manifestation.creators, current_user) -%>
     <%- end -%>
     <%- if reserve.manifestation.contributors.first -%>
-      <%= t('page.editor') -%>: <%= raw patrons_list(reserve.manifestation.contributors, current_user) -%>
+      <%= t('patron.contributor') -%>: <%= raw patrons_list(reserve.manifestation.contributors, current_user) -%>
     <%- end -%>
     <%- if reserve.manifestation.publishers.first -%>
-      <%= t('page.publisher') -%>: <%= raw patrons_list(reserve.manifestation.publishers, current_user) -%>
+      <%= t('patron.publisher') -%>: <%= raw patrons_list(reserve.manifestation.publishers, current_user) -%>
       <%- if reserve.manifestation.date_of_publication -%>
         (<%= reserve.manifestation.date_of_publication.strftime('%Y') -%>)
       <%- end -%>

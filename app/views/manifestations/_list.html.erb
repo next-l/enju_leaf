@@ -31,7 +31,7 @@
                   <%- end -%>
                 </td>
                 <%- if can? :destroy, resource -%>
-                  <td style="width: 50px">
+                  <td id="edit_icons">
                     <%= link_to image_tag('/icons/book_edit.png', :size => '16x16', :alt => t('page.edit')), edit_resource_path(resource) -%>
                     <% if @resource %>
                       <%= link_to t('page.add'), new_resource_resource_relationship_path(@resource, :child_id => resource.id) -%>

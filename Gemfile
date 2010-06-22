@@ -7,6 +7,7 @@ gem 'rails', '3.0.0.beta4'
 
 #gem 'sqlite3-ruby', :require => 'sqlite3'
 gem 'pg'
+#gem 'activerecord-jdbcpostgresql-adapter'
 #gem 'mysql'
 gem 'will_paginate', :git => 'git://github.com/mislav/will_paginate.git', :branch => 'rails3'
 gem 'delayed_job', :git => 'git://github.com/collectiveidea/delayed_job.git'

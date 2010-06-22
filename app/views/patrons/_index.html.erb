@@ -15,7 +15,7 @@
     <th><%= t('activerecord.attributes.user.username') -%></th>
     <th><%= t('activerecord.models.patron_type') -%></th>
     <th><%= t('activerecord.attributes.patron.date_of_birth') -%></th>
-    <th style="width: 50px"></th>
+    <th id="edit_icons"></th>
   </tr>
   <%- @patrons.each do |patron| -%>
     <tr class="line<%= cycle("0", "1") -%>">

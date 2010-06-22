@@ -10,13 +10,15 @@
       <%= hidden_field_tag 'reservable', h(@reservable) if @reservable -%>
       <%= hidden_field_tag 'resource_id', @resource.id if @resource -%>
       <%= submit_tag t('page.search') -%>
-      <%- if can? :destroy, @patron -%>
-        <%- if params[:mode] == 'add' -%>
-          <%= radio_button_tag 'mode', 'show' -%> <%= t('page.show') -%>
-          <%= radio_button_tag 'mode', 'add', :checked => true -%> <%= t('page.add') -%>
-        <%- else -%>
-          <%= radio_button_tag 'mode', 'show', :checked => true -%> <%= t('page.show') -%>
-          <%= radio_button_tag 'mode', 'add' -%> <%= t('page.add') -%>
+      <% if @resource %>
+        <%- if can? :destroy, @resource -%>
+          <%- if params[:mode] == 'add' -%>
+            <%= radio_button_tag 'mode', 'show' -%> <%= t('page.show') -%>
+            <%= radio_button_tag 'mode', 'add', :checked => true -%> <%= t('page.add') -%>
+          <%- else -%>
+            <%= radio_button_tag 'mode', 'show', :checked => true -%> <%= t('page.show') -%>
+            <%= radio_button_tag 'mode', 'add' -%> <%= t('page.add') -%>
+          <%- end -%>
         <%- end -%>
       <%- end -%>
       <br />

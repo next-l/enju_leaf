@@ -4,13 +4,13 @@
 
 <table class="index">
   <tr>
-    <th style="width: 50px">Id</th>
+    <th id="edit_icons">Id</th>
     <th><%= t('activerecord.models.user') -%></th>
     <th><%= t('activerecord.attributes.import_request.isbn') -%></th>
     <th><%= t('page.created_at') -%></th>
     <th><%= t('activerecord.attributes.import_request.state') -%></th>
     <th><%= t('activerecord.models.manifestation') -%></th>
-    <th style="width: 50px"></th>
+    <th id="edit_icons"></th>
   </tr>
 
 <%- @import_requests.each do |import_request| -%>

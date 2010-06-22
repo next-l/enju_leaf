@@ -10,7 +10,7 @@
     <th><%= t('activerecord.models.request_status_type') -%></th>
     <th><%= t('activerecord.attributes.reserve.expired_at') -%></th>
     <%- if can? :update, @reserves.first -%>
-      <th style="width: 50px"></th>
+      <th id="edit_icons"></th>
     <% end %>
   </tr>
   

@@ -49,7 +49,7 @@
           <%= t('question.not_solved') %>
         <% end %>
       </td>
-      <td style="width: 50px">
+      <td id="edit_icons">
         <%- if can? :destroy, question -%>
           <%= link_to image_tag('/icons/page_white_edit.png', :alt => t('page.edit'), :size => '16x16'), edit_user_question_path(question.user.username, question), :confirm => t('page.are_you_sure'), :method => :delete -%>
           <%= link_to image_tag('/icons/delete.png', :alt => t('page.destroy'), :size => '16x16'), user_question_path(question.user.username, question), :confirm => t('page.are_you_sure'), :method => :delete -%>

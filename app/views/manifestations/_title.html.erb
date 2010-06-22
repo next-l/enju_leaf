@@ -5,13 +5,13 @@
   </h2>
   <p>
     <%- if manifestation.creators.first -%>
-      <%= t('page.author') -%>: <%= raw patrons_list(manifestation.creators, current_user) -%>
+      <%= t('patron.creator') -%>: <%= raw patrons_list(manifestation.creators, current_user) -%>
     <%- end -%>
     <%- if manifestation.contributors.first -%>
-      <%= t('page.editor') -%>: <%= raw patrons_list(manifestation.contributors, current_user) -%>
+      <%= t('patron.contributor') -%>: <%= raw patrons_list(manifestation.contributors, current_user) -%>
     <%- end -%>
     <%- if manifestation.publishers.first -%>
-      <%= t('page.publisher') -%>: <%= raw patrons_list(manifestation.publishers, current_user) -%>
+      <%= t('patron.publisher') -%>: <%= raw patrons_list(manifestation.publishers, current_user) -%>
       <%- if manifestation.date_of_publication -%>
         (<%= manifestation.date_of_publication.strftime('%Y') -%>)
       <%- end -%>

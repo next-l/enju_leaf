@@ -1,5 +1,5 @@
 <div id="content_detail">
-<h1 class="title"><%= t('page.listing', :model => t('activerecord.models.patron')) -%></h1>
+<h1 class="title"><%= t('page.listing', :model => t('patron.creator')) -%></h1>
 <div id="content_list">
 
   <h2 class="resource_title">
@@ -33,7 +33,7 @@
     <th><%= t('activerecord.attributes.patron.full_name') -%></th>
     <th><%= t('activerecord.models.patron_type') -%></th>
     <th><%= t('activerecord.attributes.patron.date_of_birth') -%></th>
-    <th style="width: 50px"></th>
+    <th id="edit_icons"></th>
   </tr>
   
   <%- @patrons.each do |patron| -%>
