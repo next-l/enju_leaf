@@ -6,15 +6,18 @@ order_list_00001:
   user_id: 1
   title: MyText
   note: MyText
+  state: pending
 order_list_00002:
   id: 2
   bookstore_id: 2
   user_id: 1
   title: MyText
   note: MyText
+  state: pending
 order_list_00003:
   id: 3
   bookstore_id: 3
   user_id: 2
   title: MyText
   note: MyText
+  state: pending

@@ -44,7 +44,7 @@ class ResourceSweeper < ActionController::Caching::Sweeper
         expire_editable_fragment(donor)
       end
     when record.is_a?(Library)
-      expire_fragment(:controller => :libraries, :action => :index, :action_suffix => 'menu')
+      expire_fragment(:controller => :libraries, :action => :index, :page => 'menu')
     when record.is_a?(Shelf)
       # TODO: 書架情報が更新されたときのキャッシュはバッチで削除する
       #record.items.each do |item|
@@ -132,7 +132,7 @@ class ResourceSweeper < ActionController::Caching::Sweeper
             expire_fragment(:controller => record.class.to_s.pluralize.downcase, :action => :show, :id => record.id, :role => role.name, :locale => locale.to_s)
             if fragments
               fragments.each do |fragment|
-                expire_fragment(:controller => record.class.to_s.pluralize.downcase, :action => :show, :id => record.id, :action_suffix => fragment, :role => role.name, :locale => locale.to_s)
+                expire_fragment(:controller => record.class.to_s.pluralize.downcase, :action => :show, :id => record.id, :page => fragment, :role => role.name, :locale => locale.to_s)
               end
             end
           end
@@ -142,8 +142,8 @@ class ResourceSweeper < ActionController::Caching::Sweeper
   end
 
   def expire_manifestation_cache(manifestation, fragments)
-    fragments = %w[detail pickup index_list book_jacket show_index show_limited_authors show_all_authors show_contributors_and_publishers title show_xisbn picture_file title_reserve] if fragments.nil?
-    expire_fragment(:controller => :manifestations, :action => :index, :action_suffix => 'numdocs')
+    fragments = %w[detail pickup book_jacket show_index show_limited_authors show_all_authors show_contributors_and_publishers title show_xisbn picture_file title_reserve] if fragments.nil?
+    expire_fragment(:controller => :manifestations, :action => :index, :page => 'numdocs')
     fragments.each do |fragment|
       expire_manifestation_fragment(manifestation, fragment)
     end
@@ -156,10 +156,10 @@ class ResourceSweeper < ActionController::Caching::Sweeper
     if manifestation
       I18n.available_locales.each do |locale|
         Role.all.each do |role|
-          ['atom', 'csv', 'mods', 'oai_list_identifiers', 'oai_list_records', 'rdf', 'rss'].each do |format|
-            expire_fragment(:controller => :manifestations, :action => :show, :id => manifestation.id, :locale => locale.to_s, :role => role.name, :format_suffix => format, :user_id => nil)
+          ['atom', 'csv', 'mods', 'oai_list_identifiers', 'oai_list_records', 'rdf', 'rss'].each do |page|
+            expire_fragment(:controller => :manifestations, :action => :show, :id => manifestation.id, :locale => locale.to_s, :role => role.name, :page => page, :user_id => nil)
           end
-          expire_fragment(:controller => :manifestations, :action => :show, :id => manifestation.id, :action_suffix => fragment, :locale => locale.to_s, :role => role.name, :user_id => nil)
+          expire_fragment(:controller => :manifestations, :action => :show, :id => manifestation.id, :page => fragment, :locale => locale.to_s, :role => role.name, :user_id => nil)
         end
       end
     end
@@ -168,8 +168,8 @@ class ResourceSweeper < ActionController::Caching::Sweeper
   def expire_tag_cloud(bookmark)
     I18n.available_locales.each do |locale|
       Role.all.each do |role|
-        expire_fragment(:controller => :tags, :action => :index, :action_suffix => 'user_tag_cloud', :user_id => bookmark.user.username, :locale => locale, :role => role.name, :user_id => nil)
-        expire_fragment(:controller => :tags, :action => :index, :action_suffix => 'public_tag_cloud', :locale => locale, :role => role.name, :user_id => nil)
+        expire_fragment(:controller => :tags, :action => :index, :page => 'user_tag_cloud', :user_id => bookmark.user.username, :locale => locale, :role => role.name, :user_id => nil)
+        expire_fragment(:controller => :tags, :action => :index, :page => 'public_tag_cloud', :locale => locale, :role => role.name, :user_id => nil)
       end
     end
   end

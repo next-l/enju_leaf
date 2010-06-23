@@ -8,18 +8,18 @@ xml.tag! "OAI-PMH", :xmlns => "http://www.openarchives.org/OAI/2.0/",
     xml.error :code => error
   end
   xml.ListIdentifiers do
-    @manifestations.each do |manifestation|
-      cache(:id => manifestation.id, :action => 'show', :controller => 'manifestations', :role => current_user_role_name, :format_suffix => 'oai_pmh_list_identifiers', :locale => @locale) do
+    @resources.each do |resource|
+      cache(:id => resource.id, :action => 'show', :controller => 'resources', :role => current_user_role_name, :page => 'oai_pmh_list_identifiers', :locale => @locale) do
         xml.header do
-          xml.identifier manifestation.oai_identifier
-          xml.datestamp manifestation.updated_at.utc.iso8601
-          xml.setSpec manifestation.series_statement.id if manifestation.series_statement
+          xml.identifier resource.oai_identifier
+          xml.datestamp resource.updated_at.utc.iso8601
+          xml.setSpec resource.series_statement.id if resource.series_statement
         end
       end
     end
     if @resumption.present?
-      if @resumption[:cursor].to_i + @manifestations.per_page < @manifestations.total_entries
-        xml.resumptionToken @resumption[:token], :completeListSize => @manifestations.total_entries, :cursor => @resumption[:cursor], :expirationDate => @resumption[:expired_at]
+      if @resumption[:cursor].to_i + @resources.per_page < @resources.total_entries
+        xml.resumptionToken @resumption[:token], :completeListSize => @resources.total_entries, :cursor => @resumption[:cursor], :expirationDate => @resumption[:expired_at]
       end
     end
   end

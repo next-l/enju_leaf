@@ -1,5 +1,4 @@
 class MessageRequest < ActiveRecord::Base
-  include AASM
   scope :not_sent, :conditions => ['sent_at IS NULL AND state = ?', 'pending']
   scope :sent, :conditions => {:state => 'sent'}
   scope :started, :conditions => {:state => 'started'}
@@ -11,31 +10,25 @@ class MessageRequest < ActiveRecord::Base
   validates_associated :sender, :receiver, :message_template
   validates_presence_of :sender, :receiver, :message_template
 
-  #acts_as_soft_deletable
+  state_machine :initial => :pending do
+    before_transition any - :sent => :sent, :do => :send_message
+
+    event :sm_send_message do
+      transition any - :sent => :sent
+    end
+
+    event :sm_start do
+      transition :pending => :started
+    end
+  end
 
   def self.per_page
     10
   end
 
-  aasm_initial_state :pending
-
-  aasm_column :state
-  aasm_state :pending
-  aasm_state :started
-  aasm_state :sent
-
-  aasm_event :aasm_send_message do
-    transitions :from => [:pending, :started], :to => :sent,
-      :on_transition => :send_message
-  end
-
-  aasm_event :aasm_start do
-    transitions :from => :pending, :to => :started
-  end
-
   def start_sending_message
-    aasm_start!
-    aasm_send_message!
+    sm_start!
+    sm_send_message!
   end
 
   def send_message

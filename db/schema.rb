@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100607044753) do
+ActiveRecord::Schema.define(:version => 20100623173800) do
 
   create_table "answer_has_items", :force => true do |t|
     t.integer  "answer_id"
@@ -1200,7 +1200,7 @@ ActiveRecord::Schema.define(:version => 20100607044753) do
   create_table "search_histories", :force => true do |t|
     t.integer  "user_id"
     t.string   "operation",                      :default => "searchRetrieve"
-    t.float    "version",                        :default => 1.2
+    t.float    "sru_version",                    :default => 1.2
     t.string   "query"
     t.integer  "start_record"
     t.integer  "maximum_records"

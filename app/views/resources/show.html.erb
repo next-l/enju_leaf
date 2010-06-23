@@ -25,7 +25,6 @@
 
 <%- if params[:mode] == 'generate_cache' -%>
   <%= render :partial => 'manifestations/show_index', :locals => {:manifestation => @resource} -%>
-  <%= render :partial => 'manifestations/show_authors', :locals => {:manifestation => @resource} -%>
   <%= render :partial => 'manifestations/pickup', :locals => {:manifestation => @resource} -%>
 <%- end -%>
 

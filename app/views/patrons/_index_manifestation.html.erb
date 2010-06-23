@@ -1,9 +1,7 @@
 <div id="content_detail">
 <h1 class="title"><%= t('page.listing', :model => t('patron.publisher')) -%></h1>
 <div id="content_list">
-  <%- cache(:id => @manifestation.id, :action => :show, :controller => :manifestations, :action_suffix => 'title', :role => nil, :locale => @locale) do -%>
   <%= render :partial => 'manifestations/title', :locals => {:manifestation => @manifestation} -%>
-<%- end -%>
 
 <%= form_for :patrons, :url => manifestation_patrons_path(@manifestation), :html => {:method => 'get'} do -%>
   <p>

@@ -61,7 +61,7 @@ class InterLibraryLoansController < ApplicationController
 
     respond_to do |format|
       if @inter_library_loan.save
-        @inter_library_loan.aasm_request!
+        @inter_library_loan.sm_request!
         flash[:notice] = t('controller.successfully_created', :model => t('activerecord.models.inter_library_loan'))
         format.html { redirect_to(@inter_library_loan) }
         format.xml  { render :xml => @inter_library_loan, :status => :created, :location => @inter_library_loan }
@@ -82,13 +82,13 @@ class InterLibraryLoansController < ApplicationController
 
     case @inter_library_loan.state
     when 'requested'
-      @inter_library_loan.aasm_ship!
+      @inter_library_loan.sm_ship!
     when 'shipped'
-      @inter_library_loan.aasm_receive!
+      @inter_library_loan.sm_receive!
     when 'received'
-      @inter_library_loan.aasm_return_ship!
+      @inter_library_loan.sm_return_ship!
     when 'return_shipped'
-      @inter_library_loan.aasm_return_receive!
+      @inter_library_loan.sm_return_receive!
     when 'return_received'
     end
 

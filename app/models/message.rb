@@ -1,6 +1,5 @@
 # -*- encoding: utf-8 -*-
 class Message < ActiveRecord::Base
-  include AASM
   scope :unread, :conditions => ['state = ?', 'unread']
   belongs_to :message_request
   belongs_to :sender, :class_name => 'User'
@@ -16,18 +15,17 @@ class Message < ActiveRecord::Base
   acts_as_tree
   attr_accessor :recipient
 
-  aasm_column :state
-  aasm_state :read
-  aasm_state :unread
-  aasm_initial_state :unread
+  state_machine :initial => :unread do
+    before_transition any => :read, :do => :read
+    before_transition :read => :unread, :do => :unread
 
-  aasm_event :aasm_read do
-    transitions :from => [:read, :unread], :to => :read,
-      :on_transition => :read
-  end
+    event :sm_read do
+      transition any => :read
+    end
 
-  aasm_event :aasm_unread do
-    transitions :from => :read, :to => :unread
+    event :sm_unread do
+      transition :read => :unread
+    end
   end
 
   searchable do

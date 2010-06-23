@@ -62,7 +62,7 @@ class ImportRequestsControllerTest < ActionController::TestCase
   test "librarian should not create import_request without isbn" do
     sign_in users(:librarian1)
     assert_no_difference('ImportRequest.count') do
-      post :create, :import_request => @import_request.attributes.merge(:isbn => '')
+      post :create, :import_request => {:isbn => ''}
     end
 
     assert_response :success
@@ -71,7 +71,7 @@ class ImportRequestsControllerTest < ActionController::TestCase
   test "librarian should not create import_request with invalid isbn" do
     sign_in users(:librarian1)
     assert_no_difference('ImportRequest.count') do
-      post :create, :import_request => @import_request.attributes.merge(:isbn => 'invalid')
+      post :create, :import_request => {:isbn => 'invalid'}
     end
 
     assert_response :success
@@ -89,7 +89,7 @@ class ImportRequestsControllerTest < ActionController::TestCase
   test "librarian should not create import_request already imported" do
     sign_in users(:librarian1)
     assert_no_difference('ImportRequest.count') do
-      post :create, :import_request => @import_request.attributes.merge(:isbn => resources(:manifestation_00001).isbn)
+      post :create, :import_request => {:isbn => resources(:manifestation_00001).isbn}
     end
 
     assert_response :success

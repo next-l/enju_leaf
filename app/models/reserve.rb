@@ -1,6 +1,5 @@
 # -*- encoding: utf-8 -*-
 class Reserve < ActiveRecord::Base
-  include AASM
   scope :hold, :conditions => ['item_id IS NOT NULL']
   scope :not_hold, :conditions => ['item_id IS NULL']
   scope :waiting, :conditions => ['canceled_at IS NULL AND expired_at > ?', Time.zone.now], :order => 'id DESC'
@@ -34,44 +33,38 @@ class Reserve < ActiveRecord::Base
   before_validation :set_expired_at, :on => :create
   before_validation :set_item_and_manifestation, :on => :create
 
-  def self.per_page
-    10
-  end
   attr_accessor :user_number, :item_identifier
 
-  aasm_column :state
-  aasm_state :pending
-  aasm_state :requested
-  aasm_state :retained
-  aasm_state :canceled
-  aasm_state :expired
-  aasm_state :completed
+  state_machine :initial => :pending do
+    before_transition :pending => :requested, :do => :do_request
+    before_transition [:pending, :requested] => :retained, :do => :retain
+    before_transition [:pending ,:requested,  :retained] => :canceled, :do => :cancel
+    before_transition [:pending, :requested, :retained] => :expired, :do => :expire
+    before_transition :retained => :completed, :do => :checkout
 
-  aasm_initial_state :pending
+    event :sm_request do
+      transition :pending => :requested
+    end
 
-  aasm_event :aasm_request do
-    transitions :from => :pending, :to => :requested,
-      :on_transition => :do_request
+    event :sm_retain do
+      transition [:pending, :requested] => :retained
+    end
+
+    event :sm_cancel do
+      transition [:pending, :requested, :retained] => :canceled
+    end
+  
+    event :sm_expire do
+      transition [:pending, :requested, :retained] => :expired
+    end
+
+    event :sm_complete do
+      transition :retained => :completed
+    end
   end
 
-  aasm_event :aasm_retain do
-    transitions :from => [:pending, :requested], :to => :retained,
-      :on_transition => :retain
-  end
-
-  aasm_event :aasm_cancel do
-    transitions :from => [:pending, :requested, :retained], :to => :canceled,
-      :on_transition => :cancel
-  end
-
-  aasm_event :aasm_expire do
-    transitions :from => [:pending, :requested, :retained], :to => :expired,
-      :on_transition => :expire
-  end
-
-  aasm_event :aasm_complete do
-    transitions :from => :retained, :to => :completed,
-      :on_transition => :checkout
+  def self.per_page
+    10
   end
 
   def set_item_and_manifestation
@@ -135,25 +128,25 @@ class Reserve < ActiveRecord::Base
         message_template_to_patron = MessageTemplate.first(:conditions => {:status => 'reservation_accepted'})
         request = MessageRequest.create!(:sender => system_user, :receiver => self.user, :message_template => message_template_to_patron)
         request.embed_body(:manifestations => Array[self.manifestation])
-        request.aasm_send_message! # 受付時は即時送信
+        request.sm_send_message! # 受付時は即時送信
         message_template_to_library = MessageTemplate.first(:conditions => {:status => 'reservation_accepted'})
         request = MessageRequest.create!(:sender => system_user, :receiver => self.user, :message_template => message_template_to_library)
         request.embed_body(:manifestations => Array[self.manifestation])
-        request.aasm_send_message! # 受付時は即時送信
+        request.sm_send_message! # 受付時は即時送信
       when 'canceled'
         message_template_to_patron = MessageTemplate.first(:conditions => {:status => 'reservation_canceled_for_patron'})
         request = MessageRequest.create!(:sender => system_user, :receiver => self.user, :message_template => message_template_to_patron)
         request.embed_body(:manifestations => Array[self.manifestation])
-        request.aasm_send_message! # キャンセル時は即時送信
+        request.sm_send_message! # キャンセル時は即時送信
         message_template_to_library = MessageTemplate.first(:conditions => {:status => 'reservation_canceled_for_library'})
         request = MessageRequest.create!(:sender => system_user, :receiver => system_user, :message_template => message_template_to_library)
         request.embed_body(:manifestations => Array[self.manifestation])
-        request.aasm_send_message! # キャンセル時は即時送信
+        request.sm_send_message! # キャンセル時は即時送信
       when 'expired'
         message_template_to_patron = MessageTemplate.first(:conditions => {:status => 'reservation_expired_for_patron'})
         request = MessageRequest.create!(:sender => system_user, :receiver => self.user, :message_template => message_template_to_patron)
         request.embed_body(:manifestations => Array[self.manifestation])
-        request.aasm_send_message! # 期限切れ時は利用者にのみ即時送信
+        request.sm_send_message! # 期限切れ時は利用者にのみ即時送信
         self.update_attribute(:expiration_notice_to_patron, true)
       else
         raise 'status not defined'
@@ -185,8 +178,8 @@ class Reserve < ActiveRecord::Base
 
   def self.expire
     Reserve.transaction do
-      self.will_expire_retained(Time.zone.now.beginning_of_day).map{|r| r.aasm_expire!}
-      self.will_expire_pending(Time.zone.now.beginning_of_day).map{|r| r.aasm_expire!}
+      self.will_expire_retained(Time.zone.now.beginning_of_day).map{|r| r.sm_expire!}
+      self.will_expire_pending(Time.zone.now.beginning_of_day).map{|r| r.sm_expire!}
 
       # キューに登録した時点では本文は作られないので
       # 予約の連絡をすませたかどうかを識別できるようにしなければならない

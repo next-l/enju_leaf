@@ -11,7 +11,7 @@ class PatronsController < ApplicationController
   before_filter :store_location
   before_filter :get_version, :only => [:show]
   after_filter :solr_commit, :only => [:create, :update, :destroy]
-  #cache_sweeper :resource_sweeper, :only => [:create, :update, :destroy]
+  cache_sweeper :resource_sweeper, :only => [:create, :update, :destroy]
   
   # GET /patrons
   # GET /patrons.xml

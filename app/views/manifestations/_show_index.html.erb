@@ -1,3 +1,4 @@
+<%- cache(:id => manifestation.id, :controller => :manifestations, :action => :show, :page => 'show_index', :locale => @locale, :role => current_user_role_name) do -%>
   <strong><%= link_to h(manifestation.original_title), manifestation -%></strong>
   <%- if manifestation.serial? -%>
     <%= manifestation.volume_number_list -%>
@@ -13,3 +14,4 @@
   <div id="author_list_<%= manifestation.id -%>">
     <%= render :partial => 'manifestations/show_authors', :locals => {:manifestation => manifestation} -%>
   </div>
+<% end %>

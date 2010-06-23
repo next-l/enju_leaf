@@ -120,7 +120,7 @@ class Item < ActiveRecord::Base
       self.circulation_status = CirculationStatus.first(:conditions => {:name => 'On Loan'})
       if self.reserved_by_user?(user)
         self.next_reservation.update_attributes(:checked_out_at => Time.zone.now)
-        self.next_reservation.aasm_complete!
+        self.next_reservation.sm_complete!
       end
       save!
     end
@@ -136,7 +136,7 @@ class Item < ActiveRecord::Base
       reservation = self.manifestation.next_reservation
       unless reservation.nil?
         reservation.item = self
-        reservation.aasm_retain!
+        reservation.sm_retain!
         reservation.update_attributes({:request_status_type => RequestStatusType.find_by_name('Available For Pickup')})
         request = MessageRequest.new(:sender_id => librarian.id, :receiver_id => reservation.user_id)
         message_template = MessageTemplate.find_by_status('item_received')

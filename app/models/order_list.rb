@@ -1,6 +1,5 @@
 class OrderList < ActiveRecord::Base
-  include AASM
-  scope :not_ordered, :conditions => ['ordered_at IS NULL']
+  scope :not_ordered, :conditions => ['state = ?', 'pending']
 
   has_many :orders, :dependent => :destroy
   has_many :purchase_requests, :through => :orders
@@ -11,21 +10,16 @@ class OrderList < ActiveRecord::Base
   validates_presence_of :title, :user, :bookstore
   validates_associated :user, :bookstore
 
-  #acts_as_soft_deletable
+  state_machine :initial => :pending do
+    before_transition :pending => :ordered, :do => :order
+
+    event :sm_order do
+      transition :pending => :ordered
+    end
+  end
 
   def self.per_page
     10
-  end
-
-  aasm_initial_state :pending
-
-  aasm_column :state
-  aasm_state :pending
-  aasm_state :ordered
-
-  aasm_event :aasm_order do
-    transitions :from => :pending, :to => :ordered,
-      :on_transition => :order
   end
 
   def total_price

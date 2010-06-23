@@ -1,5 +1,4 @@
 class ManifestationCheckoutStat < ActiveRecord::Base
-  include AASM
   include CalculateStat
   scope :not_calculated, :conditions => {:state => 'pending'}
   has_many :checkout_stat_has_manifestations
@@ -8,15 +7,11 @@ class ManifestationCheckoutStat < ActiveRecord::Base
   validates_presence_of :start_date, :end_date
   validate :check_date
 
-  aasm_column :state
-  aasm_state :pending
-  aasm_state :completed
-
-  aasm_initial_state :pending
-
-  aasm_event :aasm_calculate do
-    transitions :from => :pending, :to => :completed,
-      :on_transition => :calculate_count
+  state_machine :initial => :pending do
+    before_transition :pending => :completed, :do => :calculate_count
+    event :calculate do
+      transition :pending => :completed
+    end
   end
 
   def self.per_page

@@ -49,7 +49,7 @@ class MessagesController < ApplicationController
   # GET /messages/1.xml
   def show
     @message = current_user.received_messages.find(params[:id])
-    @message.aasm_read!
+    @message.sm_read!
 
     respond_to do |format|
       format.html # show.rhtml
@@ -71,7 +71,7 @@ class MessagesController < ApplicationController
   # GET /messages/1;edit
   def edit
     @message = current_user.received_messages.find(params[:id])
-    @message.aasm_read!
+    @message.sm_read!
   end
 
   # POST /messages

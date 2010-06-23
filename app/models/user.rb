@@ -242,7 +242,7 @@ class User < ActiveRecord::Base
       request.message_template = MessageTemplate.find_by_status(status)
       request.embed_body(options)
       request.save!
-      request.aasm_send_message!
+      request.sm_send_message!
     end
   end
 

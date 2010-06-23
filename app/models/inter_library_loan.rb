@@ -1,5 +1,4 @@
 class InterLibraryLoan < ActiveRecord::Base
-  include AASM
   scope :completed, :conditions => {:state => 'return_received'}
   #scope :processing, lambda {|item, borrowing_library| {:conditions => ['item_id = ? AND borrowing_library_id = ? AND state != ?', item.id, borrowing_library.id, 'return_received']}}
   scope :processing, lambda {|item, borrowing_library| {:conditions => ['item_id = ? AND borrowing_library_id = ?', item.id, borrowing_library.id]}}
@@ -21,45 +20,38 @@ class InterLibraryLoan < ActiveRecord::Base
     end
   end
 
-  #acts_as_soft_deletable
-
   def self.per_page
     10
   end
+
   attr_accessor :item_identifier
 
-  aasm_initial_state :pending
+  state_machine :initial => :pending do
+    before_transition :pending => :requested, :do => :do_request
+    before_transition :requested => :shipped, :do => :ship
+    before_transition :shipped => :received, :do => :receive
+    before_transition :received => :return_shipped, :do => :return_ship
+    before_transition :return_shipped => :return_received, :do => :return_receive
 
-  aasm_column :state
-  aasm_state :pending
-  aasm_state :requested
-  aasm_state :shipped
-  aasm_state :received
-  aasm_state :return_shipped
-  aasm_state :return_received
+    event :sm_request do
+      transition :pending => :requested
+    end
 
-  aasm_event :aasm_request do
-    transitions :from => :pending, :to => :requested,
-      :on_transition => :do_request
-  end
-  aasm_event :aasm_ship do
-    transitions :from => :requested, :to => :shipped,
-      :on_transition => :ship
-  end
+    event :sm_ship do
+      transition :from => :requested, :to => :shipped
+    end
 
-  aasm_event :aasm_receive do
-    transitions :from => :shipped, :to => :received,
-      :on_transition => :receive
-  end
+    event :sm_receive do
+      transition :from => :shipped, :to => :received
+    end
 
-  aasm_event :aasm_return_ship do
-    transitions :from => :received, :to => :return_shipped,
-      :on_transition => :return_ship
-  end
+    event :sm_return_ship do
+      transition :from => :received, :to => :return_shipped
+    end
 
-  aasm_event :aasm_return_receive do
-    transitions :from => :return_shipped, :to => :return_received,
-      :on_transition => :return_receive
+    event :sm_return_receive do
+      transition :from => :return_shipped, :to => :return_received
+    end
   end
 
   def do_request

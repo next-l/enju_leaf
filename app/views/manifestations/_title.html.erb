@@ -1,3 +1,4 @@
+<%- cache(:id => manifestation.id, :action => :show, :controller => :manifestations, :page => 'title', :role => nil, :locale => @locale) do -%>
   <h2 class="resource_title">
     [M]
     <%= link_to h(manifestation.original_title), manifestation -%>
@@ -22,3 +23,4 @@
       <%= link_to image_tag('/icons/world_go.png', :size => '16x16', :alt => ('Web')), h(manifestation.access_address) -%>
     <%- end -%>
   </p>
+<% end %>

@@ -62,29 +62,29 @@ def record!(xml, rec, position)
   xml.recordPosition position
 end
 
-def get_record(mf)
+def get_record(manifestation)
   xml = Builder::XmlMarkup.new
   xml.tag! 'srw_dc:dc',
     'xmlns:dc' => "http://purl.org/dc/elements/1.1/",
     'xmlns:srw_dc' => "info:srw/schema/1/dc-v1.1",
     'xmlns:xsi' => "http://www.w3.org/2001/XMLSchema-instance",
     'xsi:schemaLocation' => "info:srw/schema/1/dc-v1.1 http://www.loc.gov/standards/sru/dc-schema.xsd" do
-    #cache(:id => mf.id, :action => 'show', :controller => 'resources', :role => current_user_role_name, :format_suffix => 'sru') do
-      xml.tag! 'dc:title', mf.original_title
-      mf.creators.each do |patron|
+    cache(:id => manifestation.id, :action => 'show', :controller => 'resources', :role => current_user_role_name, :page => 'sru') do
+      xml.tag! 'dc:title', manifestation.original_title
+      manifestation.creators.each do |patron|
         xml.tag! 'dc:creator', patron.full_name
       end
-      mf.contributors.each do |patron|
+      manifestation.contributors.each do |patron|
         xml.tag! 'dc:contributor', patron.full_name
       end
-      mf.publishers.each do |patron|
+      manifestation.publishers.each do |patron|
         xml.tag! 'dc:publisher', patron.full_name
       end
-      mf.subjects.each do |subject|
+      manifestation.subjects.each do |subject|
         xml.tag! "dc:subject", subject.term
       end
-      xml.tag! 'dc:description', mf.description
-    #end
+      xml.tag! 'dc:description', manifestation.description
+    end
   end
 end
 

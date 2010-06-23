@@ -11,7 +11,7 @@ class ResourcesController < ApplicationController
   before_filter :get_version, :only => [:show]
   after_filter :solr_commit, :only => [:create, :update, :destroy]
   after_filter :convert_charset, :only => :index
-  #cache_sweeper :resource_sweeper, :only => [:create, :update, :destroy]
+  cache_sweeper :resource_sweeper, :only => [:create, :update, :destroy]
   #include WorldcatController
   include OaiController
 

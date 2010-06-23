@@ -1,5 +1,4 @@
 class ImportRequest < ActiveRecord::Base
-  include AASM
   belongs_to :user
   belongs_to :manifestation, :class_name => 'Resource'
   validates_presence_of :isbn
@@ -7,18 +6,14 @@ class ImportRequest < ActiveRecord::Base
   validate :check_imported, :on => :create
   enju_ndl
 
-  aasm_column :state
-  aasm_state :pending
-  aasm_state :failed
-  aasm_state :completed
-  aasm_initial_state :pending
+  state_machine :initial => :pending do
+    event :sm_fail do
+      transition :pending => :failed
+    end
 
-  aasm_event :aasm_fail do
-    transitions :from => :pending, :to => :failed
-  end
-
-  aasm_event :aasm_complete do
-    transitions :from => :pending, :to => :completed
+    event :sm_complete do
+      transition :pending => :completed
+    end
   end
 
   def check_isbn
@@ -50,10 +45,10 @@ class ImportRequest < ActiveRecord::Base
     unless manifestation
       manifestation = self.class.import_isbn!(isbn)
       self.manifestation = manifestation
-      aasm_complete!
+      sm_complete!
       manifestation.index!
     else
-      aasm_fail!
+      sm_fail!
     end
   end
 

@@ -2,7 +2,7 @@
 one:
   id: 1
   operation: MyString
-  version: 1.2
+  sru_version: 1.2
   query: MyString
   start_record: 1
   maximum_records: 1
@@ -17,7 +17,7 @@ one:
 two:
   id: 2
   operation: MyString
-  version: 1.2
+  sru_version: 1.2
   query: MyString
   start_record: 1
   maximum_records: 1
@@ -32,7 +32,7 @@ two:
 three:
   id: 3
   operation: MyString
-  version: 1.2
+  sru_version: 1.2
   query: MyString
   start_record: 1
   maximum_records: 1
@@ -47,7 +47,7 @@ three:
 four:
   id: 4
   operation: MyString
-  version: 1.2
+  sru_version: 1.2
   query: MyString
   start_record: 1
   maximum_records: 1

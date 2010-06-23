@@ -32,7 +32,7 @@ class MessageTest < ActiveSupport::TestCase
   
   def test_should_set_read_at
     m = messages(:user2_to_user1_1)
-    m.aasm_read!
+    m.sm_read!
     assert m.read_at
     assert m.read?
     assert_equal m.state, 'read'
