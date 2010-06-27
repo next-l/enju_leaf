@@ -1,4 +1,4 @@
-<%- cache(:id => manifestation.id, :controller => :manifestations, :action => :show, :page => 'show_index', :locale => @locale, :role => current_user_role_name) do -%>
+<%- cache(:id => manifestation.id, :controller => :resources, :action => :show, :action_suffix => 'show_index', :locale => @locale, :role => current_user_role_name) do -%>
   <strong><%= link_to h(manifestation.original_title), manifestation -%></strong>
   <%- if manifestation.serial? -%>
     <%= manifestation.volume_number_list -%>

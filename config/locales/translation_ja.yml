@@ -3,10 +3,10 @@ ja:
     models:
       library: 図書館
       question: 質問（レファレンス）
-      patron_import_file: 著者・出版者・読者のインポート用ファイル
+      patron_import_file: 人物・団体のインポート用ファイル
       circulation_status: 貸出状態
       inventory: 蔵書点検
-      patron: 著者・出版者・読者
+      patron: 人物・団体
       feeds/app: フィード/アプリ
       feeds/persistence: フィード/永続
       feeds/shared: フィード/共有
@@ -16,13 +16,13 @@ ja:
       subject_as_object: 件名オブジェクトとして
       subject_as_place: 対象地として
       subject_has_classification: 件名と分類の関係
-      expression: 表現形
+      expression: 協力した資料
       language: 言語
-      patron_merge_list: 著者・出版者・読者の併合リスト
+      patron_merge_list: 人物・団体の併合リスト
       user: 利用者
       work_has_subject: 資料と件名の関係
       picture_file: 画像ファイル
-      form_of_work: 著作形の形態
+      form_of_work: 書いた資料の形態
       inter_library_loan: 相互貸借
       message: メッセージ
       classification: 分類
@@ -46,43 +46,43 @@ ja:
       subject_heading_type: 件名標目の種類
       subscribe: 購読
       checkin: 返却
-      item: 個別資料
+      item: 所蔵情報
       barcode: バーコード
-      work: 著作形
+      work: 書いた資料
       purchase_request: 購入リクエスト
       realize: 表現関係
       reify: 具体化
       subject_as_concept: 件名概念として
       frequency: 発行頻度
-      expression_merge_list: 表現形の併合リスト
+      expression_merge_list: 協力した資料の併合リスト
       use_restriction: 利用制限
       subject: 件名
-      content_type: 表現形の形態
-      work_merge: 著作形の併合
+      content_type: 協力した資料の形態
+      work_merge: 書いた資料の併合
       aaws_response: Aawsの応答
-      patron_type: 著者・出版者・読者の種類
-      work_merge_list: 著作形の併合リスト
+      patron_type: 人物・団体の種類
+      work_merge_list: 書いた資料の併合リスト
       order: 発注
       order_list: 発注リスト
       advertise: 広告
       event: 開館日と催し物
       embody: 具体化
       item_has_use_restriction: 項目を制限している
-      expression_merge: 表現形の併合
+      expression_merge: 協力した資料の併合
       request_status_type: 依頼の状態の種類
       news_feed: お知らせのフィード
       news_post: 図書館からのお知らせ
       search_engine: 検索エンジン
       bookmark: ブックマーク
       create: 著作関係
-      carrier_type: 体現形の形態
-      manifestation: 体現形
+      carrier_type: 出版した資料の形態
+      manifestation: 出版した資料
       user_group: 利用者グループ
       resource_import_file: インポートされる資料のファイル
       checkout: 貸出
       subscription: 購読
       message_template: メッセージテンプレート
-      patron_merge: 著者・出版者・読者の併合
+      patron_merge: 人物・団体の併合
       subject_related_term: 件名の関連語
       library_group: 図書館全体の設定
       event_import_file: 催し物ファイルのインポート
@@ -94,46 +94,46 @@ ja:
       checkout_type: 貸出区分
       classification_type: 分類型
       country: 国と地域
-      manifestation_api_response: 体現形APIの応答
+      manifestation_api_response: 出版した資料APIの応答
       request_type: 依頼の種類
       inventory_file: 蔵書点検ファイル
       user_group_has_checkout_type: 利用者グループと貸出区分の関係
-      carrier_type_has_checkout_type: 体現形の種類と貸出区分の関係
+      carrier_type_has_checkout_type: 出版した資料の種類と貸出区分の関係
       tag: タグ
       bookmark_stat: ブックマーク統計
       manifestation_checkout_stat: 資料別貸出統計
       user_checkout_stat: 利用者別貸出統計
       manifestation_reserve_stat: 資料別予約統計
       user_reserve_stat: 利用者別予約統計
-      work_has_work: 著作形間の関係
-      expression_has_expression: 表現形間の関係
-      manifestation_has_manifestation: 体現形間の関係
-      item_has_item: 個別資料間の関係
-      bookmark_stat_has_manifestation: ブックマーク統計と体現形の関係
-      reserve_stat_has_manifestation: 予約統計と体現形の関係
+      work_has_work: 書いた資料間の関係
+      expression_has_expression: 協力した資料間の関係
+      manifestation_has_manifestation: 出版した資料間の関係
+      item_has_item: 所蔵情報間の関係
+      bookmark_stat_has_manifestation: ブックマーク統計と出版した資料の関係
+      reserve_stat_has_manifestation: 予約統計と出版した資料の関係
       reserve_stat_has_user: 予約統計と利用者の関係
       concept: 概念
       place: 場所
-      work_has_concept: 著作形と概念の関係
-      work_has_place: 著作形と場所の関係
+      work_has_concept: 書いた資料と概念の関係
+      work_has_place: 書いた資料と場所の関係
       person: 人
       corporate_body: 団体
       family: 家族
       subject_heading_type_has_subject: 件名標目と件名の関係
       user_has_shelf: 利用者と書棚の関係
       participate: 参加
-      patron_has_patron: 著者・出版者・読者間の関係
-      shelf_has_manifestation: 書棚と体現形の関係
+      patron_has_patron: 人物・団体間の関係
+      shelf_has_manifestation: 書棚と出版した資料の関係
       extent: 大きさ
       medium_of_performance: 演奏手段
       content_type: 内容の種類
-      patron_relationship_type: 著者・出版者・読者の関係の種類
+      patron_relationship_type: 人物・団体の関係の種類
       resource_relationship_type: 資料の関係の種類
       lending_policy: 貸出規則
       nii_type: NIIメタデータタイプ
       license: ライセンス
-      work_to_expression_rel_type: 著作形と表現形の関係の種類
-      expression_to_manifestation_rel_type: 表現形と体現形の関係の種類
+      work_to_expression_rel_type: 書いた資料と協力した資料の関係の種類
+      expression_to_manifestation_rel_type: 協力した資料と出版した資料の関係の種類
       series_statement: 定期刊行物の記述
       checkout_stat_has_manifestation: 資料別貸出統計
       checkout_stat_has_user: 利用者別貸出統計
@@ -217,7 +217,7 @@ ja:
         lock_version: ロックバージョン
         note: 注記
         country: 国籍
-        patron_type: 著者・出版者・読者の種類
+        patron_type: 人物・団体の種類
         language: 言語
         email: 電子メール
         url: URL
@@ -305,14 +305,14 @@ ja:
         answer_rss_token: 回答用RSSのトークン
         duedate_reminder_days: Duedateリマインダー日
         note: 注記
-        share_bookmarks: ブックマークを他の著者・出版者・読者と共有する
+        share_bookmarks: ブックマークを他の人物・団体と共有する
         save_search_history: 検索履歴を保存する
         save_checkout_history: 貸出の履歴を保存する
         lock_version: ロックバージョン
         keyword_list: キーワードリスト
         user_number: 利用者番号
         state: 状態
-        patron: 著者・出版者・読者
+        patron: 人物・団体
         library: 所属館
         user_group: ユーザグループ
         full_name: 氏名
@@ -321,7 +321,7 @@ ja:
         locale: 言語
         password_confirmation: パスワード（確認）
       work_has_subject:
-        work: 著作形
+        work: 書いた資料
         subject: 件名
         subjectable_type: 件名付与対象の種類
       picture_file:
@@ -438,7 +438,7 @@ ja:
       checkin:
       item:
         call_number: 請求記号
-        item_identifier: 個別資料ID
+        item_identifier: 所蔵情報ID
         deleted_at: 削除時刻
         include_supplements: 付録を含む
         note: 注記
@@ -582,7 +582,7 @@ ja:
         title_alternative: 代替タイトル
         title_transcription: タイトルよみ
         classification_number: 分類番号
-        manifestation_identifier: 体現形の識別子
+        manifestation_identifier: 出版した資料の識別子
         date_of_publication: 出版日
         deleted_at: 削除時刻
         access_address: アクセスアドレス
@@ -603,7 +603,7 @@ ja:
         note: 注記
         repository_content: リポジトリのコンテンツ
         lock_version: ロックバージョン
-        carrier_type: 体現形の形態
+        carrier_type: 出版した資料の形態
         language: 言語
         lccn: LCCN
         issn: ISSN
@@ -688,7 +688,7 @@ ja:
         body: 本文
         deleted_at: 削除時刻
         shared: 回答を公開する
-        item_identifier_list: 個別資料IDリスト
+        item_identifier_list: 所蔵情報IDリスト
         url_list: URLリスト
       bookstore:
         name: 名前
@@ -870,7 +870,7 @@ ja:
         to_patron: 終点
       shelf_has_manifestation:
         shelf: 書棚
-        manifestation: 体現形
+        manifestation: 出版した資料
         position: 位置
       medium_of_performance:
         name: 名前
@@ -954,14 +954,14 @@ ja:
         numbering: シリーズ番号
         title_subseries: 副シリーズ名
         numbering_subseries: 副シリーズ番号
-        work: 著作形
+        work: 書いた資料
         series_statement_identifier: シリーズ識別子
       import_request:
         isbn: ISBN
         state: 状態
       resource:
         iss_token: トークン
-        manifestation_id: 体現形
+        manifestation_id: 出版した資料
         dcndl_xml: DCNDL XML
         work_token: 著作トークン
         approve: 修正承認
@@ -1054,7 +1054,7 @@ ja:
     remove_this_facet: "この絞り込みを解除する"
     no_subject: "件名はついていません。"
     no_tag: "タグはついていません。"
-    add_patron: "著者・出版者・読者を追加する"
+    add_patron: "人物・団体を追加する"
     total: "合計"
     sort_by: "次の項目で並べ替える"
     bookmarklet: "ブックマークレット"
@@ -1086,7 +1086,7 @@ ja:
     new: "%{model}の新規作成"
     editing: "%{model}の編集"
     showing: "%{model}の表示"
-    patron_management: "著者・出版者・読者の管理"
+    patron_management: "人物・団体の管理"
     user_management: "利用者の管理"
     back_to: "%{model}の一覧に戻る"
     picture: "画像"
@@ -1153,19 +1153,19 @@ ja:
     specify_title_and_url: "タイトルとURLを指定してください。"
     already_bookmarked: "すでにブックマークに登録されています。"
     user_bookmark: "%{login_name} さんのブックマーク"
-    only_manifestation_should_be_bookmarked: "サイト内のブックマークは体現形に対してのみ行えます。"
+    only_manifestation_should_be_bookmarked: "サイト内のブックマークは出版した資料に対してのみ行えます。"
     not_our_holding: "当館の所蔵資料ではありません。"
   work:
-    patron_work: "%{patron_name} の著作形"
-    library_group_work: "%{library_group_name} にある著作形"
-    add: "著作形を追加する"
+    patron_work: "%{patron_name} の書いた資料"
+    library_group_work: "%{library_group_name} にある書いた資料"
+    add: "書いた資料を追加する"
   expression:
-    patron_expression: "%{patron_name} の表現形"
-    manifestations_expression: "%{manifestation_title} に含まれる表現形"
-    library_group_expression: "%{library_group_name} にある表現形"
-    add: "表現形を追加する"
-    specify_work: "著作形を指定してください。"
-    specify_manifestation: "体現形を指定してください。"
+    patron_expression: "%{patron_name} の協力した資料"
+    manifestations_expression: "%{manifestation_title} に含まれる協力した資料"
+    library_group_expression: "%{library_group_name} にある協力した資料"
+    add: "協力した資料を追加する"
+    specify_work: "書いた資料を指定してください。"
+    specify_manifestation: "出版した資料を指定してください。"
   manifestation:
     date_of_acquisition: "受入日"
     physical_description: "ページ数と大きさ"
@@ -1173,11 +1173,11 @@ ja:
     edit_creator: "著者を編集"
     edit_contributor: "編者を編集"
     edit_publisher: "出版者を編集"
-    edit_expression: "表現形を編集"
+    edit_expression: "協力した資料を編集"
     edit_item: "所蔵を編集"
-    patron_manifestation: "%{patron_name} の体現形"
-    expressions_manifestation: "%{expression_title} の体現形"
-    library_group_manifestation: "%{library_group_name} にある体現形"
+    patron_manifestation: "%{patron_name} の出版した資料"
+    expressions_manifestation: "%{expression_title} の出版した資料"
+    library_group_manifestation: "%{library_group_name} にある出版した資料"
     reserve_this: "この資料を予約する"
     cancel_reservation: "この資料の予約を解除する"
     user_who_bookmark_this_resource: "この資料をブックマークしている利用者"
@@ -1189,8 +1189,8 @@ ja:
     invalid_isbn: "無効なISBNです。"
     already_imported: "すでにインポートされています。"
     record_not_found: "資料が見つかりませんでした。"
-    add: "体現形を追加する"
-    specify_expression: "表現形を指定してください。"
+    add: "出版した資料を追加する"
+    specify_expression: "協力した資料を指定してください。"
     pickup: "ピックアップ"
     showing_all_record: "すべての資料を表示しています。"
     showing_reservable_record: "予約可能な資料のみを表示しています。"
@@ -1206,25 +1206,25 @@ ja:
   item:
     current_checkout: "現在の貸出"
     donor: "寄贈者"
-    library_group_item: "%{library_group_name}にある個別資料"
-    add: "個別資料を追加する"
-    specify_manifestation: "体現形を指定してください。"
+    library_group_item: "%{library_group_name}にある所蔵情報"
+    add: "所蔵情報を追加する"
+    specify_manifestation: "出版した資料を指定してください。"
     this_item_is_reserved: "この資料は予約されています！"
     create_shelf_first: "最初に書棚を作成してください。"
     this_item_include_supplement: "この資料は付録を含んでいます。"
-    all_item: "全ての個別資料"
+    all_item: "全ての所蔵情報"
     add_new_copy: "複本を追加"
-    no_manifestation: "体現形なし"
+    no_manifestation: "出版した資料なし"
     no_number: "番号なし"
     add_lending_policy: "貸出規則の追加"
   patron:
-    library_group_patron: "%{library_group_name} の著者・出版者・読者"
+    library_group_patron: "%{library_group_name} の人物・団体"
     work_patron: "%{work_title} の著作者"
     expression_patron: "%{expression_title} の編者"
     manifestation_patron: "%{manifestation_title} の出版者"
     activate_as_user: "利用者として登録する"
     deactivate: "利用者登録を解除する"
-    add: "著者・出版者・読者を追加する"
+    add: "人物・団体を追加する"
     publication: "出版物"
     recent_publication: "最近の出版物"
     all_publication: "全ての出版物"
@@ -1328,7 +1328,7 @@ ja:
     edit_profile: "プロフィールの編集"
     edit_account: "アカウント情報の編集"
     already_activated: "すでに利用者として登録されています。"
-    specify_patron: "著者・出版者・読者を指定してください。"
+    specify_patron: "人物・団体を指定してください。"
     wrong_password: "パスワードが間違っています。"
     password_mismatch: "パスワードが一致しません。"
     cannot_destroy_myself: "自分自身を削除することはできません。"
@@ -1336,7 +1336,7 @@ ja:
     last_librarian: "この利用者はシステム上の最後の図書館員です。"
     only_administrator_can_destroy: "この利用者は管理者でなければ削除できません。"
     this_user_has_checked_out_item: "この利用者は貸出中の資料があります。"
-    patron_profile: "著者・出版者・読者のプロフィール"
+    patron_profile: "人物・団体のプロフィール"
     set_auto_generated_password: "自動生成したパスワードを設定する"
     history: "履歴"
     account_management: "アカウント管理"
@@ -1358,7 +1358,7 @@ ja:
     this_patron_cannot_reserve: "この利用者はこの資料を予約できません。"
     reservation_was_canceled: "予約は取り消されました。"
     this_item_is_not_reserved: "この資料は予約されていません。"
-    invalid_item: "無効な個別資料です。"
+    invalid_item: "無効な所蔵情報です。"
   purchase_request:
     user_purchase_request: "%{login_name} さんの購入依頼資料"
     library_group_purchase_request: "%{library_group_name} での購入依頼資料"
@@ -1384,7 +1384,7 @@ ja:
     already_checked_out: "この資料はすでに貸し出されています。"
   checkin:
     item_not_found: "資料が見つかりません。"
-    enter_item_identifier: "個別資料番号を入力してください。"
+    enter_item_identifier: "所蔵情報番号を入力してください。"
     other_library_item: "この資料は他の図書館のものです！"
     already_checked_in: "この資料はすでに返却されています。"
     checkin: "返却（取り消しはできません）"
@@ -1412,7 +1412,7 @@ ja:
     create_order_list: "発注リストを作成してください。"
     specify_purchase_request: "購入依頼を指定してください。"
   work_has_subject:
-    add_work: "著作形を追加する"
+    add_work: "書いた資料を追加する"
     add_subject: "件名を追加する"
     subjectable: "件名付与対象"
   library_group:
@@ -1422,7 +1422,7 @@ ja:
     library_calendar: "%{library_name}のカレンダー"
   series_statement:
     edit: "シリーズ情報の編集"
-    you_should_specify_work: "シリーズ情報には著作形を指定しなければなりません。"
+    you_should_specify_work: "シリーズ情報には書いた資料を指定しなければなりません。"
   state:
     pending: "処理待ち"
     cancaled: "中止"
