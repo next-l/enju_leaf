@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100623173800) do
+ActiveRecord::Schema.define(:version => 20100627193848) do
 
   create_table "answer_has_items", :force => true do |t|
     t.integer  "answer_id"
@@ -1503,10 +1503,12 @@ ActiveRecord::Schema.define(:version => 20100623173800) do
     t.string   "openid_identifier"
     t.string   "oauth_token"
     t.string   "oauth_secret"
+    t.string   "enju_access_key"
   end
 
   add_index "users", ["confirmation_token"], :name => "index_users_on_confirmation_token", :unique => true
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
+  add_index "users", ["enju_access_key"], :name => "index_users_on_enju_access_key", :unique => true
   add_index "users", ["oauth_secret"], :name => "index_users_on_oauth_secret", :unique => true
   add_index "users", ["oauth_token"], :name => "index_users_on_oauth_token", :unique => true
   add_index "users", ["openid_identifier"], :name => "index_users_on_openid_identifier"
