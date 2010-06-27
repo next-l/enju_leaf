@@ -38,19 +38,19 @@ class InterLibraryLoan < ActiveRecord::Base
     end
 
     event :sm_ship do
-      transition :from => :requested, :to => :shipped
+      transition :requested => :shipped
     end
 
     event :sm_receive do
-      transition :from => :shipped, :to => :received
+      transition :shipped => :received
     end
 
     event :sm_return_ship do
-      transition :from => :received, :to => :return_shipped
+      transition :received => :return_shipped
     end
 
     event :sm_return_receive do
-      transition :from => :return_shipped, :to => :return_received
+      transition :return_shipped => :return_received
     end
   end
 

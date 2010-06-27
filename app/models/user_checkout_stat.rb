@@ -4,9 +4,6 @@ class UserCheckoutStat < ActiveRecord::Base
   has_many :checkout_stat_has_users
   has_many :users, :through => :checkout_stat_has_users
 
-  validates_presence_of :start_date, :end_date
-  validate :check_date
-
   state_machine :initial => :pending do
     before_transition :pending => :completed, :do => :calculate_count
     event :calculate do
@@ -16,15 +13,6 @@ class UserCheckoutStat < ActiveRecord::Base
 
   def self.per_page
     10
-  end
-
-  def check_date
-    if self.start_date and self.end_date
-      if self.start_date >= self.end_date
-        errors.add(:start_date)
-        errors.add(:end_date)
-      end
-    end
   end
 
   def calculate_count
