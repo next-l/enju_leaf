@@ -47,7 +47,7 @@ class ImportRequestsController < ApplicationController
 
     respond_to do |format|
       if @import_request.save
-        @import_request.delay.import!
+        @import_request.import!
         flash[:notice] = t('controller.successfully_created', :model => t('activerecord.models.import_request'))
         format.html { redirect_to new_import_request_path }
         format.xml  { render :xml => @import_request, :status => :created, :location => @import_request }
@@ -65,7 +65,7 @@ class ImportRequestsController < ApplicationController
 
     respond_to do |format|
       if @import_request.update_attributes(params[:import_request])
-        @import_request.delay.import!
+        @import_request.import!
         flash[:notice] = t('controller.successfully_updated', :model => t('activerecord.models.import_request'))
         format.html { redirect_to(@import_request) }
         format.xml  { head :ok }

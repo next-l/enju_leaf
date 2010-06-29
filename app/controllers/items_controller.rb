@@ -168,7 +168,7 @@ class ItemsController < ApplicationController
           end
         end
         flash[:notice] = t('controller.successfully_created', :model => t('activerecord.models.item'))
-        @item.delay.post_to_union_catalog if LibraryGroup.site_config.post_to_union_catalog
+        @item.post_to_union_catalog if LibraryGroup.site_config.post_to_union_catalog
         if @patron
           format.html { redirect_to patron_item_url(@patron, @item) }
           format.xml  { render :xml => @item, :status => :created, :location => @item }
