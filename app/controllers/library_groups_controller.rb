@@ -1,7 +1,7 @@
 # -*- encoding: utf-8 -*-
 class LibraryGroupsController < ApplicationController
   load_and_authorize_resource
-  #cache_sweeper :library_group_sweeper, :only => [:create, :update, :destroy]
+  cache_sweeper :library_group_sweeper, :only => [:create, :update, :destroy]
 
   # GET /library_groups
   # GET /library_groups.xml

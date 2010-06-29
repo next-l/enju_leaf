@@ -7,7 +7,7 @@ class UsersController < ApplicationController
   before_filter :store_location, :only => [:index]
   before_filter :clear_search_sessions, :only => [:show]
   after_filter :solr_commit, :only => [:create, :update, :destroy]
-  #cache_sweeper :user_sweeper, :only => [:create, :update, :destroy]
+  cache_sweeper :user_sweeper, :only => [:create, :update, :destroy]
   #ssl_required :new, :edit, :create, :update, :destroy
   ssl_allowed :index, :show, :new, :edit, :create, :update, :destroy
 

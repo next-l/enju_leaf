@@ -11,7 +11,7 @@ class ItemsController < ApplicationController
   #before_filter :store_location
   after_filter :solr_commit, :only => [:create, :update, :destroy]
   after_filter :convert_charset, :only => :index
-  #cache_sweeper :resource_sweeper, :only => [:create, :update, :destroy]
+  cache_sweeper :resource_sweeper, :only => [:create, :update, :destroy]
 
   # GET /items
   # GET /items.xml

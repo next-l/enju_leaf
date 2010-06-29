@@ -2,7 +2,7 @@ class MessagesController < ApplicationController
   load_and_authorize_resource
   before_filter :get_user_if_nil, :only => :index
   after_filter :solr_commit, :only => [:create, :update, :destroy, :destroy_selected]
-  #cache_sweeper :resource_sweeper, :only => [:create, :update, :destroy]
+  cache_sweeper :resource_sweeper, :only => [:create, :update, :destroy]
 
   # GET /messages
   # GET /messages.xml

@@ -4,7 +4,7 @@ class SubjectsController < ApplicationController
   before_filter :get_resource, :get_subject_heading_type, :get_classification
   before_filter :prepare_options, :only => :new
   after_filter :solr_commit, :only => [:create, :update, :destroy]
-  #cache_sweeper :resource_sweeper, :only => [:create, :update, :destroy]
+  cache_sweeper :resource_sweeper, :only => [:create, :update, :destroy]
 
   # GET /subjects
   # GET /subjects.xml

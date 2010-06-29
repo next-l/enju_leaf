@@ -2,7 +2,7 @@ class OwnsController < ApplicationController
   load_and_authorize_resource
   before_filter :get_patron, :get_item
   after_filter :solr_commit, :only => [:create, :update, :destroy]
-  #cache_sweeper :resource_sweeper, :only => [:create, :update, :destroy]
+  cache_sweeper :resource_sweeper, :only => [:create, :update, :destroy]
 
   # GET /owns
   # GET /owns.xml
