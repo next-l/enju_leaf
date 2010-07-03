@@ -1,26 +1,30 @@
 module EventCalendar
   
-  module PluginMethods
-    def has_event_calendar
-      ClassMethods.setup_event_calendar_on self
-    end
+  def self.included(base)
+    base.send :extend, ClassMethods
   end
-  
-  # class Methods
+
   module ClassMethods
-    
-    def self.setup_event_calendar_on(recipient)
-      recipient.extend ClassMethods
-      recipient.class_eval do
-        include InstanceMethods
-      end
+
+    def has_event_calendar(options={})
+      cattr_accessor :start_at_field, :end_at_field 
+      self.start_at_field = ( options[:start_at_field] ||= :start_at).to_s
+      self.end_at_field   = ( options[:end_at_field]   ||= :end_at  ).to_s
+      alias_attribute :start_at, start_at_field unless start_at_field == 'start_at'
+      alias_attribute :end_at,   end_at_field   unless end_at_field   == 'end_at'
+      before_save :adjust_all_day_dates
+      send :include, InstanceMethods
     end
-    
+
     # For the given month, find the start and end dates
     # Find all the events within this range, and create event strips for them
-    def event_strips_for_month(shown_date, first_day_of_week=0)
+    def event_strips_for_month(shown_date, first_day_of_week=0, find_options = {})
+      if first_day_of_week.is_a?(Hash)
+        find_options.merge!(first_day_of_week)
+        first_day_of_week =  0
+      end
       strip_start, strip_end = get_start_and_end_dates(shown_date, first_day_of_week)
-      events = events_for_date_range(strip_start, strip_end)
+      events = events_for_date_range(strip_start, strip_end, find_options)
       event_strips = create_event_strips(strip_start, strip_end, events)
       event_strips
     end
@@ -44,11 +48,11 @@ module EventCalendar
     end
     
     # Get the events overlapping the given start and end dates
-    def events_for_date_range(start_d, end_d)
-      self.find(
+    def events_for_date_range(start_d, end_d, find_options = {})
+      self.scoped(find_options).find(
         :all,
-        :conditions => [ '(? <= end_at) AND (start_at < ?)', start_d.to_time.utc, end_d.to_time.utc ],
-        :order => 'start_at ASC'
+        :conditions => [ "(? <= #{self.end_at_field}) AND (#{self.start_at_field}< ?)", start_d.to_time.utc, end_d.to_time.utc ],
+        :order => "#{self.start_at_field} ASC"
       )
     end
     
@@ -168,5 +172,17 @@ module EventCalendar
       end
       [clipped_start, clipped_end]
     end
+
+    def adjust_all_day_dates
+      if self[:all_day]
+        self[:start_at] = self[:start_at].beginning_of_day
+        if self[:end_at]
+          self[:end_at] = self[:end_at].beginning_of_day + 1.day - 1.second
+        else
+          self[:end_at] = self[:start_at].beginning_of_day + 1.day - 1.second
+        end
+      end
+    end
+
   end
 end

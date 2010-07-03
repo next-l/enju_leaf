@@ -112,14 +112,14 @@ module EventCalendar
       cal << %(<table class="ec-calendar-header" cellpadding="0" cellspacing="0">)
       cal << %(<thead><tr>)
       if options[:previous_month_text] or options[:next_month_text]
-        cal << %(<th colspan="2" class="ec-month-nav">#{options[:previous_month_text]}</th>)
+        cal << %(<th colspan="2" class="ec-month-nav ec-previous-month">#{options[:previous_month_text]}</th>)
         colspan = 3
       else
         colspan = 7
       end
       cal << %(<th colspan="#{colspan}" class="ec-month-name">#{options[:month_name_text]}</th>)
       if options[:next_month_text]
-        cal << %(<th colspan="2" class="ec-month-nav">#{options[:next_month_text]}</th>)
+        cal << %(<th colspan="2" class="ec-month-nav ec-next-month">#{options[:next_month_text]}</th>)
       end
       cal << %(</tr></thead></table>)
       
@@ -135,8 +135,8 @@ module EventCalendar
       cal << %(</tr></tbody></table>)
       
       # container for all the calendar rows
-      cal << %(<div class="ec-rows" style="top: #{options[:day_names_height]}px; )
-      cal << %(height: #{(height - options[:day_names_height]).to_i}px;">)
+      cal << %(<div class="ec-rows" style="top: #{options[:day_names_height].to_i}px; )
+      cal << %(height: #{height - options[:day_names_height].to_i}px;">)
       
       # initialize loop variables
       first_day_of_week = beginning_of_week(first, options[:first_day_of_week])
@@ -170,7 +170,7 @@ module EventCalendar
           cal << %(ec-today-header ) if options[:show_today] and (day == Date.today)
           cal << %(ec-other-month-header ) if (day < first) || (day > last)
           cal << %(ec-weekend-day-header) if weekend?(day)
-          cal << %(" style="height: #{options[:day_nums_height]}px;">)
+          cal << %(" style="height: #{options[:day_nums_height].to_i}px;">)
           if options[:link_to_day_action]
             cal << day_link(day.day, day, options[:link_to_day_action])
           else
