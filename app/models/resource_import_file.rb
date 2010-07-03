@@ -44,9 +44,7 @@ class ResourceImportFile < ActiveRecord::Base
     self.reload
     num = {:found => 0, :success => 0, :failure => 0}
     record = 2
-    file = FasterCSV.open(self.resource_import.path, :col_sep => "\t")
-    rows = FasterCSV.open(self.resource_import.path, :headers => file.first, :col_sep => "\t")
-    file.close
+    rows = self.open_import_file
     field = rows.first
     if [field['isbn'], field['original_title']].reject{|field| field.to_s.strip == ""}.empty?
       raise "You should specify isbn or original_tile in the first line"
@@ -172,6 +170,24 @@ class ResourceImportFile < ActiveRecord::Base
   #  marc.split("\r\n").each do |record|
   #  end
   #end
+
+  def open_import_file
+    file = FasterCSV.open(self.resource_import.path, :col_sep => "\t")
+    rows = FasterCSV.open(self.resource_import.path, :headers => file.first, :col_sep => "\t")
+    file.close
+    rows
+  end
+
+  def remove
+    rows = self.open_import_file
+    field = rows.first
+    rows.each do |row|
+      item_identifier = row['item_identifier'].to_s.strip
+      if item = Item.first(:conditions => {:item_identifier => item_identifier})
+        item.destroy
+      end
+    end
+  end
 
   private
   def import_subject(row)
