@@ -1,7 +1,7 @@
 .digg_pagination {
   background: white;
   /* self-clearing method: */ }
-  .digg_pagination a, .digg_pagination span {
+  .digg_pagination a, .digg_pagination span, .digg_pagination em {
     padding: .2em .5em;
     display: block;
     float: left;
@@ -9,7 +9,7 @@
   .digg_pagination span.disabled {
     color: #999;
     border: 1px solid #DDD; }
-  .digg_pagination span.current {
+  .digg_pagination span.current, .digg_pagination em {
     font-weight: bold;
     background: #2E6AB1;
     color: white;
