@@ -17,5 +17,15 @@ class CalendarController < ApplicationController
       @event_strips = Event.event_strips_for_month(@shown_month)
     end
   end
+
+  def show
+    date = Time.zone.local(params[:year].to_i, params[:month].to_i, params[:day].to_i) rescue Time.zone.now
+    date_string = date.strftime('%Y/%m/%d')
+    if Event.on(date_string).first
+      redirect_to events_path(:date => date_string)
+    else
+      redirect_to new_event_path(:date => date_string)
+    end
+  end
   
 end

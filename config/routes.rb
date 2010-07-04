@@ -322,8 +322,8 @@ EnjuLight::Application.routes.draw do |map|
   # Note: This route will make all actions in every controller accessible via GET requests.
   # match ':controller(/:action(/:id(.:format)))'
   match '/isbn/:isbn' => 'resources#show'
-  match '/calendar' => 'calendar#index'
-  match '/calendar/:year/:month' => 'calendar#index'
+  match '/calendar(/:year(/:month))' => 'calendar#index', :as => :calendar, :constraints => {:year => /\d{4}/, :month => /\d{1,2}/}
+  match "/calendar/:year/:month/:day" => "calendar#show"
   match '/page/about' => 'page#about'
   match '/page/configuration' => 'page#configuration'
   match '/page/advanced_search' => 'page#advanced_search'
