@@ -18,7 +18,7 @@ class Event < ActiveRecord::Base
   has_event_calendar
 
   searchable do
-    text :title, :note
+    text :name, :note
     integer :library_id
     time :created_at
     time :updated_at
@@ -26,7 +26,7 @@ class Event < ActiveRecord::Base
     time :end_at
   end
 
-  validates_presence_of :title, :library, :event_category
+  validates_presence_of :name, :library, :event_category
   validates_associated :library, :event_category
   validate :check_date
   before_validation :set_date
@@ -60,10 +60,6 @@ class Event < ActiveRecord::Base
         errors.add(:end_at)
       end
     end
-  end
-
-  def name
-    title
   end
 
 end

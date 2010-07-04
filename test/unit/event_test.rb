@@ -15,6 +15,6 @@ class EventTest < ActiveSupport::TestCase
   end
 
   def test_event_should_respond_to_name
-    assert_equal events(:event_00001).name, events(:event_00001).title
+    assert_equal events(:event_00001).name, events(:event_00001).name
   end
 end

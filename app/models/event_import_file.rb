@@ -48,8 +48,8 @@ class EventImportFile < ActiveRecord::Base
     rows = FasterCSV.open(self.event_import.path, :headers => file.first, :col_sep => "\t")
     file.close
     field = rows.first
-    if [field['title']].reject{|f| f.to_s.strip == ""}.empty?
-      raise "You should specify title in the first line"
+    if [field['name']].reject{|f| f.to_s.strip == ""}.empty?
+      raise "You should specify a name in the first line"
     end
     if [field['start_at'], field['end_at'], field['all_day']].reject{|field| field.to_s.strip == ""}.empty?
       raise "You should specify dates in the first line"
@@ -57,7 +57,7 @@ class EventImportFile < ActiveRecord::Base
     #rows.shift
     rows.each do |row|
       event = Event.new
-      event.title = row['title']
+      event.name = row['name']
       event.note = row['note']
       event.start_at = row['start_at']
       event.end_at = row['end_at']

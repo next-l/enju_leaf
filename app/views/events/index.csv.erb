@@ -1,4 +1,4 @@
 library,title,note,start_at,end_at
 <%- @events.each do |event| -%>
-"<%=h event.library.name.gsub(/"/, '""') -%>","<%=h event.title.gsub(/"/, '""') -%>","<%=h event.note.to_s.gsub(/"/, '""') -%>","<%=h event.start_at.to_s.gsub(/"/, '""') -%>","<%=h event.end_at.to_s.gsub(/"/, '""') -%>"<%= "\n" -%>
+"<%=h event.library.name.gsub(/"/, '""') -%>","<%=h event.name.gsub(/"/, '""') -%>","<%=h event.note.to_s.gsub(/"/, '""') -%>","<%=h event.start_at.to_s.gsub(/"/, '""') -%>","<%=h event.end_at.to_s.gsub(/"/, '""') -%>"<%= "\n" -%>
 <%- end -%>

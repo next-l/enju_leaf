@@ -4,7 +4,7 @@ atom_feed(:url => events_url(:format => :atom)) do |feed|
 
   @events.each do |event|
     feed.entry(event) do |entry|
-      entry.title(event.title)
+      entry.title(event.name)
     end
   end
 end

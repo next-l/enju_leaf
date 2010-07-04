@@ -529,7 +529,7 @@ ja:
       advertise:
         position: 位置
       event:
-        title: タイトル
+        name: 名前
         note: 注記
         start_at: 開始時刻
         end_at: 終了時刻

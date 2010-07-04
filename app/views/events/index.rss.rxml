@@ -19,8 +19,8 @@ xml.rss('version' => "2.0",
     end
     @events.each do |event|
       xml.item do
-        xml.title event.title
-        #xml.description(event.title)
+        xml.title event.name
+        #xml.description(event.name)
         # rfc822
         xml.pubDate event.created_at.rfc2822
         xml.link event_url(event)

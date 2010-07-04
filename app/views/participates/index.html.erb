@@ -11,7 +11,7 @@
 <%- @participates.each do |participate| %>
   <tr class="line<%= cycle("0", "1") -%>">
     <td><%= link_to h(participate.patron.full_name), participate.patron %>
-    <td><%= link_to h(participate.event.title), participate.event %>
+    <td><%= link_to h(participate.event.name), participate.event %>
     <td><%= link_to t('page.show'), participate %></td>
     <td><%= link_to t('page.edit'), edit_participate_path(participate) %></td>
     <td><%= link_to t('page.destroy'), participate, :confirm => t('page.are_you_sure'), :method => :delete %></td>

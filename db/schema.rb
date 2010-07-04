@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100627193848) do
+ActiveRecord::Schema.define(:version => 20100704131155) do
 
   create_table "answer_has_items", :force => true do |t|
     t.integer  "answer_id"
@@ -340,7 +340,7 @@ ActiveRecord::Schema.define(:version => 20100627193848) do
   create_table "events", :force => true do |t|
     t.integer  "library_id",        :default => 1,     :null => false
     t.integer  "event_category_id", :default => 1,     :null => false
-    t.string   "title"
+    t.string   "name"
     t.text     "note"
     t.datetime "start_at"
     t.datetime "end_at"

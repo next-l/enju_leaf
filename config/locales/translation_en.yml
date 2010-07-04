@@ -529,7 +529,7 @@ en:
       advertise:
         position: Position
       event:
-        title: Title
+        name: Name
         note: Note
         start_at: Start at
         end_at: End at
