@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<searchRetrieveResponse xmlns="http://www.loc.gov/zing/srw/">
-  <diagnostics>
-    <ns1:message>Mandatory parameter not supplied</ns1:message>
-  </diagnostics>
-</searchRetrieveResponse>
