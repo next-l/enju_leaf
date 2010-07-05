@@ -151,10 +151,10 @@ class UsersController < ApplicationController
     if current_user.has_role?('Librarian')
       if params[:user]
         @user.note = params[:user][:note]
-        @user.user_group_id = params[:user][:user_group_id] ||= 1
-        @user.library_id = params[:user][:library_id] ||= 1
-        @user.role_id = params[:user][:role_id] ||= 1
-        @user.required_role_id = params[:user][:required_role_id] ||= 1
+        @user.user_group_id = params[:user][:user_group_id] || 1
+        @user.library_id = params[:user][:library_id] || 1
+        @user.role_id = params[:user][:role_id]
+        @user.required_role_id = params[:user][:required_role_id] || 1
         @user.user_number = params[:user][:user_number]
         @user.locale = params[:user][:locale]
         expired_at_array = [params[:user]["expired_at(1i)"], params[:user]["expired_at(2i)"], params[:user]["expired_at(3i)"]]
@@ -176,18 +176,18 @@ class UsersController < ApplicationController
         @user.password_confirmation = params[:password_confirmation]
       end
     end
+    if current_user.has_role?('Administrator')
+      if @user.role_id
+        role = Role.find(@user.role_id)
+        @user.role = role
+      end
+    end
 
     #@user.save do |result|
     respond_to do |format|
       #if @user.update_attributes(params[:user])
       if @user.save!
         @user.update_with_password(params[:user])
-        if current_user.has_role?('Administrator')
-          if @user.role_id
-            role = Role.find(@user.role_id)
-            @user.role = role
-          end
-        end
         flash[:temporary_password] = @user.password
 
         flash[:notice] = t('controller.successfully_updated', :model => t('activerecord.models.user'))

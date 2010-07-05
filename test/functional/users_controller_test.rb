@@ -73,6 +73,7 @@ class UsersControllerTest < ActionController::TestCase
     assert_redirected_to user_url(assigns(:user).username)
     assert_equal assigns(:user).keyword_list, 'test'
     assigns(:user).remove_from_index!
+    assert_equal assigns(:user).role.name, 'User'
   end
 
   def test_user_should_not_update_other_user
