@@ -1370,6 +1370,7 @@ en:
     reservation_was_canceled: "Reservation was canceled."
     this_item_is_not_reserved: "This item is not reserved."
     invalid_item: "Invalid item."
+    show: "Show reservation"
   purchase_request:
     user_purchase_request: "%{login_name} 's purchase requests"
     library_group_purchase_request: "Purchase requests in %{library_group_name}"

@@ -3,6 +3,7 @@
             <tr class="line<%= cycle("0", "1") -%>">
               <td style="width: 30px"><%= itemnum = manifestations.offset + 1 + i -%></td>
               <td style="480px">
+              <% cache(:controller => :resources, :action => :show, :id => resource.id, :locale => @locale, :role => current_user.try(:role).try(:name), :page => 'show_list') do %>
                 <%= render :partial => 'manifestations/show_index', :locals => {:manifestation => resource} -%>
                 <div id="access_address">
                   <%= link_to h(resource.access_address), resource.access_address if resource.access_address.present? -%>
@@ -17,17 +18,19 @@
                 <%= render :partial => 'manifestations/holding', :locals => {:manifestation => resource} -%>
                 <%# グループ表示の部分テンプレート %>
                 <%= render :partial => 'manifestations/show_group', :locals => {:manifestation => resource} -%>
+              <% end %>
               </td>
               <%- if user_signed_in? -%>
                 <td>
                   <% if resource.reservable? %>
                     <%- if reserve = resource.is_reserved_by(current_user) -%>
-                      <%= link_to t('page.cancel'), user_reserve_path(reserve.user, reserve) -%>
+                      <%= link_to t('reserve.show'), user_reserve_path(reserve.user, reserve) -%>
                     <%- else -%>
                       <%= link_to t('activerecord.models.reserve'), new_user_reserve_path(current_user, :manifestation_id => resource.id) -%>
                     <%- end -%>
                   <%- end -%>
                 </td>
+                <% cache(:controller => :resources, :action => :show, :id => resource.id, :locale => @locale, :role => current_user.try(:role).try(:name), :page => 'edit_list') do %>
                 <%- if can? :destroy, resource -%>
                   <td id="edit_icons">
                     <%= link_to image_tag('/icons/book_edit.png', :size => '16x16', :alt => t('page.edit')), edit_resource_path(resource) -%>
@@ -37,6 +40,7 @@
                       <%= link_to image_tag('/icons/arrow_divide.png', :size => '16x16', :alt => t('resource.add_derivation')), resource_resources_path(resource, :mode => 'add') -%>
                     <% end %>
                   </td>
+                <%- end -%>
                 <%- end -%>
               <%- end -%>
             </tr>

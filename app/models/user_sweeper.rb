@@ -4,8 +4,8 @@ class UserSweeper < ActionController::Caching::Sweeper
     case
     when record.is_a?(User)
       I18n.available_locales.each do |locale|
-        ['search', 'message', 'request', 'configuration'].each do |name|
-          expire_fragment(:controller => :page, :user => record.username, :menu => name, :locale => locale)
+        ['menu'].each do |name|
+          expire_fragment(:controller => :page, :user => record.username, :role => record.role.name, :page => name, :locale => locale)
         end
       end
     end
