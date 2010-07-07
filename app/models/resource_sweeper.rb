@@ -97,6 +97,7 @@ class ResourceSweeper < ActionController::Caching::Sweeper
     when record.is_a?(Language)
       Language.all.each do |language|
         expire_fragment(:controller => 'page', :locale => language.iso_639_1)
+        expire_fragment(:controller => 'page', :locale => language.iso_639_1, :page => 'select_locale')
       end
     when record.is_a?(SeriesStatement)
       record.manifestations.each do |manifestation|
