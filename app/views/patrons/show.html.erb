@@ -1,4 +1,5 @@
 <div id="content_detail">
+<% cache(:controller => :patrons, :action => :show, :id => @patron.id, :locale => @locale, :role => current_user.try(:role).try(:name)) do %>
 <h1 class="title"><%= t('page.showing', :model => t('activerecord.models.patron')) -%></h1>
 <div id="content_list">
   <h2 class="resource_title">
@@ -18,7 +19,6 @@
 
 <%= render 'page/tabview' %>
 <div id="tabs">
-
   <ul>
     <li title="active" class="selected"><a href="#detail"><em><%= t('page.detail') -%></em></a></li>
     <%- if @patron.derived_patrons.first or @patron.original_patrons.first -%>
@@ -147,6 +147,7 @@
       </tr>
     </table>
   </div>
+<% end %>
   <%- if @patron.derived_patrons.first or @patron.original_patrons.first -%>
     <%= render 'patrons/patron_list' -%>
   <%- end -%>

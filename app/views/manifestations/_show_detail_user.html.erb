@@ -1,5 +1,6 @@
   <%= render 'page/tabview' -%>
   <div id="tabs">
+    <% cache(:controller => :resources, :action => :show, :id => manifestation.id, :role => current_user.try(:role).try(:name), :locale => @locale, :page => 'detail') do %>
     <%= render :partial => 'manifestations/tab_menu', :locals => {:manifestation => manifestation} %>
     <div id="detail">
       <%- if manifestation.isbn -%>
@@ -117,7 +118,6 @@
             <%= raw simple_format(h(manifestation.note)) -%>
           </td>
         </tr>
-        <%= render 'manifestations/show_worldcat_record' if @worldcat_record.present? -%>
       </table>
       <%- if manifestation.items.on_shelf.first -%>
         <%= render :partial => 'manifestations/show_holding', :locals => {:manifestation => manifestation} -%>
@@ -127,5 +127,6 @@
       <%= render :partial => 'manifestations/bookmarks_for_this_manifestation', :locals => {:manifestation => manifestation} -%>
 
     </div>
+    <% end %>
     <%= render :partial => 'manifestations/tab_list', :locals => {:manifestation => manifestation} %>
   </div>

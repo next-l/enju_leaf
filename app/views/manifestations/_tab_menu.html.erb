@@ -9,9 +9,6 @@
   <%- unless manifestation.amazon_customer_reviews.blank? -%>
     <li><a href="#amazon"><em><%= t('page.amazon_review') -%></em></a></li>
   <%- end -%>
-  <%- unless @xisbn_resources.blank? -%>
-    <li><a href="#worldcat"><em><%= 'WorldCat' -%></em></a></li>
-  <%- end -%>
   <%- if current_user.try(:has_role?, 'Librarian') -%>
     <li><a href="#history"><em><%= t('page.history') -%></em></a></li>
   <%- end -%>
