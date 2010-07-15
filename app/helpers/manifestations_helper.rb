@@ -79,6 +79,19 @@ module ManifestationsHelper
     string.html_safe
   end
 
+  def library_facet(library, current_libraries, facet)
+    string = ''
+    libraries = current_libraries.dup
+    if libraries.include?(library.name)
+      string << "<strong>"
+    end
+    string << link_to("#{library.display_name.localize} (" + facet.count.to_s + ")", url_for(params.merge(:page => nil, :library => (current_libraries << library.name).uniq.join(' '), :carrier_type => nil, :view => nil)))
+    if libraries.include?(library.name)
+      string << "</strong>"
+    end
+    string.html_safe
+  end
+
   def carrier_type_facet(facet)
     string = ''
     carrier_type = CarrierType.first(:conditions => {:name => facet.value})
