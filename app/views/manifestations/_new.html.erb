@@ -45,7 +45,7 @@
   </p>
 
   <%- if manifestation.series_statement -%>
-    <%= render :partial => 'serial_form', :locals => {:f => f} -%>
+    <%= render :partial => 'manifestations/serial_form', :locals => {:f => f} -%>
   <%- else -%>
     <p>
       <%= f.label t('activerecord.attributes.manifestation.edition') -%>

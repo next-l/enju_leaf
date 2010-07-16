@@ -60,8 +60,7 @@ class SeriesStatementsController < ApplicationController
   # GET /series_statements/new.xml
   def new
     @series_statement = SeriesStatement.new
-    @series_statement.work = @work if @work
-    @series_statement.manifestation_id = @manifestation.id if @manifestation
+    @series_statement.resource = @manifestation if @manifestation
 
     respond_to do |format|
       format.html # new.html.erb

@@ -131,7 +131,9 @@ EnjuLight::Application.routes.draw do |map|
   end
   resources :subscribes
   resources :picture_files
-  resources :series_statements
+  resources :series_statements do
+    resources :manifestations
+  end
   resources :barcodes
   resources :message_requests
   resources :message_templates

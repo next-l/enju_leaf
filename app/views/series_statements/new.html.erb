@@ -5,12 +5,6 @@
 <% form_for(@series_statement) do |f| %>
   <%= f.error_messages %>
 
-  <%- if @series_statement.work -%>
-    <p>
-      <%= link_to h(@series_statement.work.original_title), @series_statement.work -%>
-    </p>
-  <%- end -%>
-  
   <%- if @manifestation -%>
     <p>
       <%= link_to h(@manifestation.original_title), @manifestation -%>
