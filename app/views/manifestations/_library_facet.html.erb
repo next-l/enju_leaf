@@ -1,12 +1,12 @@
 <h4><%= t('activerecord.models.library') -%></h4>
 <ul>
-  <%- librarys = params[:library].to_s.split -%>
-  <%- current_librarys = librarys.dup -%>
+  <%- libraries = params[:library].to_s.split -%>
   <%- @library_facet.each do |facet| -%>
+    <%- current_libraries = libraries.dup -%>
     <%- library = Library.first(:conditions => {:name => facet.value}) -%>
     <%- if library -%>
       <li>
-      <%= library_facet(library, current_librarys, facet) %>
+        <%= library_facet(library, current_libraries, facet) %>
       </li>
     <%- end -%>
   <%- end -%>

@@ -126,11 +126,10 @@ class ResourcesController < ApplicationController
         with(:publisher_ids).equal_to patron[:publisher].id if patron[:publisher]
         facet :reservable
       end
+      search = make_internal_query(search)
       all_result = search.execute!
       @count[:query_result] = all_result.total
       @reservable_facet = all_result.facet(:reservable).rows
-
-      search = make_internal_query(search)
 
       if session[:search_params]
         unless search.query.to_params == session[:search_params]
