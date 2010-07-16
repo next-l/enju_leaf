@@ -128,6 +128,7 @@ class BookmarksController < ApplicationController
       if @bookmark.save
         flash[:notice] = t('controller.successfully_created', :model => t('activerecord.models.bookmark'))
         @bookmark.manifestation.index!
+        @bookmark.create_tag_index
         if params[:mode] == 'tag_edit'
           format.html { redirect_to resource_url(@bookmark.manifestation) }
           format.xml  { render :xml => @bookmark, :status => :created, :location => user_bookmark_url(@bookmark.user.username, @bookmark) }
@@ -164,6 +165,7 @@ class BookmarksController < ApplicationController
       if @bookmark.update_attributes(params[:bookmark])
         flash[:notice] = t('controller.successfully_updated', :model => t('activerecord.models.bookmark'))
         @bookmark.manifestation.save
+        @bookmark.create_tag_index
         case params[:mode]
         when 'remove_tag'
           format.html { redirect_to resource_url(@bookmark.manifestation) }
@@ -193,6 +195,7 @@ class BookmarksController < ApplicationController
     
     @bookmark.destroy
     flash[:notice] = t('controller.successfully_deleted', :model => t('activerecord.models.bookmark'))
+    @bookmark.create_tag_index
 
     if @user
       respond_to do |format|

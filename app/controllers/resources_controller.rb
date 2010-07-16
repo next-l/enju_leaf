@@ -354,7 +354,7 @@ class ResourcesController < ApplicationController
     @original_manifestation = get_manifestation
     @resource.series_statement = @series_statement if @series_statement
     if params[:mode] == 'tag_edit'
-      @bookmark = current_user.bookmarks.first(:conditions => {:resource_id => @resource.id}) if @resource rescue nil
+      @bookmark = current_user.bookmarks.first(:conditions => {:manifestation_id => @resource.id}) if @resource rescue nil
       render :partial => 'manifestations/tag_edit', :locals => {:manifestation => @resource}
     end
     store_location unless params[:mode] == 'tag_edit'

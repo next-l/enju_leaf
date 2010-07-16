@@ -10,7 +10,7 @@
         <%= embed_content(manifestation) -%>
         <%- if manifestation.serial? -%>
           <tr>
-            <td style="width: 200px"><%= t('resource.serial') -%>:</td>
+            <td style="width: 200px"><%= t('manifestation.serial') -%>:</td>
             <td style="width: 490px"><%= link_to h(manifestation.series_statement.original_title), manifestation.series_statement -%>
             <%- if manifestation.issn.present? -%>
               (<%= t('activerecord.attributes.manifestation.issn') -%>: <%= manifestation.issn -%>)

@@ -63,7 +63,6 @@ class Bookmark < ActiveRecord::Base
     taggings.each do |tagging|
       tagging.tagger = user
       tagging.save(:validate => false)
-      Tag.find(tagging.tag_id).index
     end
   end
 
@@ -193,6 +192,12 @@ class Bookmark < ActiveRecord::Base
       self.bookmarked(start_date, end_date).count(:all, :conditions => {:manifestation_id => manifestation.id})
     else
       0
+    end
+  end
+
+  def create_tag_index
+    taggings.each do |tagging|
+      Tag.find(tagging.tag_id).index!
     end
   end
 
