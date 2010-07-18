@@ -1,9 +1,9 @@
 <div class="header_and_footer">
-  <% cache(:page => 'header', :locale => @locale) do %>
-    <div id="header_left">
+  <div id="header_left">
+    <% cache("library_group_header_#{@locale}") do %>
       <h2><a href="/" title="<%= LibraryGroup.site_config.display_name.localize -%>"><%= LibraryGroup.site_config.display_name.localize -%></a></h2>
-    </div>
-  <% end %>
+    <% end %>
+  </div>
 
   <div id="header_advertisement"></div>
   <%= render 'page/select_locale' -%>
