@@ -1,6 +1,9 @@
-= Next-L Enju Light
+= Next-L Enju Leaf
 
-Next-L Enju Light is the lightweight version of {Next-L Enju}[http://wiki.github.com/nabeta/next-l]. Still in a pre-alpha status.
+Next-L Enju Leaf is an open-source integrated library system. Still in an alpha status.
+
+== Related project
+* {Next-L Enju Root}[http://wiki.github.com/nabeta/enju_root]
 
 == Authors and contributors
 * {TANABE, Kosuke}[http://mwr.mediacom.keio.ac.jp/~tanabe/]
