@@ -1,4 +1,4 @@
-EnjuLight::Application.routes.draw do |map|
+EnjuLeaf::Application.routes.draw do |map|
   devise_for :users
 
   resources :resources do
