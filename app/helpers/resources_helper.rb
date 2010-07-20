@@ -8,7 +8,7 @@ module ResourcesHelper
         string << ' - ' + resource.original_title.to_s
       end
     end
-    string << ' - Enju Light'
+    string << ' - Enju Leaf'
     string.html_safe
   end
 end
