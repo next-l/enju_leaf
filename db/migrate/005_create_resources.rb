@@ -26,7 +26,7 @@ class CreateResources < ActiveRecord::Migration
       t.string :lccn
       t.string :oclc_number
       t.string :issn
-      t.decimal :price # TODO: 通貨単位
+      t.integer :price # TODO: 通貨単位
       #t.text :filename
       #t.string :content_type
       #t.integer :size

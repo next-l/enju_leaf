@@ -10,9 +10,14 @@ class LibraryGroup < ActiveRecord::Base
 
   validates_presence_of :name, :display_name, :email
   before_validation :set_display_name, :on => :create
+  after_save :clear_site_config_cache
+
+  def clear_site_config_cache
+    Rails.cache.delete('library_site_config')
+  end
 
   def self.site_config
-    LibraryGroup.find(1)
+    Rails.cache.fetch('library_site_config'){LibraryGroup.find(1)}
   end
 
   def self.url

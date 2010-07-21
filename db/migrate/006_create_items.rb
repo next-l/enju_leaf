@@ -16,7 +16,7 @@ class CreateItems < ActiveRecord::Migration
       t.integer :resource_has_subjects_count, :default => 0, :null => false
       t.text :note
       t.string :url
-      t.decimal :price
+      t.integer :price
       t.integer :lock_version, :default => 0, :null => false
       t.integer :required_role_id, :default => 1, :null => false
       t.string :state

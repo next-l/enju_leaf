@@ -7,7 +7,7 @@ class CreatePurchaseRequests < ActiveRecord::Migration
       t.text :publisher
       t.string :isbn
       t.datetime :date_of_publication
-      t.decimal :price
+      t.integer :price
       t.string :url
       t.text :note
       t.datetime :accepted_at
