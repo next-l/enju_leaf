@@ -1,6 +1,6 @@
 class Language < ActiveRecord::Base
   include MasterModel
-  default_scope :order => "position"
+  default_scope :order => "languages.position"
   # If you wish to change the field names for brevity, feel free to enable/modify these.
   # alias_attribute :iso1, :iso_639_1
   # alias_attribute :iso2, :iso_639_2
@@ -8,8 +8,13 @@ class Language < ActiveRecord::Base
 
   # Validations
   # validates_presence_of :iso_639_1, iso_639_2, iso_639_3
+  after_save :clear_available_languages_cache
+
+  def clear_available_languages_cache
+    Rails.cache.delete('available_languages')
+  end
   
   def self.available_languages
-    Language.all(:conditions => {:iso_639_1 => I18n.available_locales.map{|l| l.to_s}})
+    Rails.cache.fetch('available_languages'){Language.all(:conditions => {:iso_639_1 => I18n.available_locales.map{|l| l.to_s}})}
   end
 end
