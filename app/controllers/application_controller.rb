@@ -260,10 +260,10 @@ class ApplicationController < ActionController::Base
   end
 
   def check_dsbl
-    @library_group = LibraryGroup.site_config
-    return true if @library_group.network_access_allowed?(request.remote_ip, :network_type => 'lan')
+    library_group = LibraryGroup.site_config
+    return true if library_group.network_access_allowed?(request.remote_ip, :network_type => 'lan')
     begin
-      dsbl_hosts = @library_group.dsbl_list.split.compact
+      dsbl_hosts = library_group.dsbl_list.split.compact
       reversed_address = request.remote_ip.split(/\./).reverse.join(".")
       dsbl_hosts.each do |dsbl_host|
         result = Socket.gethostbyname("#{reversed_address}.#{dsbl_host}.").last.unpack("C4").join(".")
@@ -289,7 +289,7 @@ class ApplicationController < ActionController::Base
   end
 
   def set_role_query(user, search)
-    role = user.try(:role) || Role.find(1)
+    role = user.try(:role) || Rails.cache.fetch('guest_role'){Role.find(1)}
     search.build do
       with(:required_role_id).less_than role.id
     end
