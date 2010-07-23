@@ -30,7 +30,7 @@ class UsersController < ApplicationController
 
     query = params[:query]
     page = params[:page] || 1
-    role = current_user.try(:role) || Role.find(1)
+    role = current_user.try(:role) || Role.default_role
 
     unless query.blank?
       begin
@@ -305,8 +305,8 @@ class UsersController < ApplicationController
 
   def prepare_options
     @user_groups = UserGroup.all
-    @roles = Role.all
-    @libraries = Library.all
+    @roles = Rails.cache.fetch('role_all'){Role.all}
+    @libraries = Rails.cache.fetch('library_all'){Library.all}
     @languages = Language.all
   end
 

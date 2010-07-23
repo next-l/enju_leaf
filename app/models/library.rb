@@ -35,9 +35,15 @@ class Library < ActiveRecord::Base
   before_save :set_calil_neighborhood_library
   after_validation :fetch_coordinates
   after_create :create_shelf
+  after_create :clear_all_cache
+  after_destroy :clear_all_cache
 
   def self.per_page
     10
+  end
+
+  def clear_all_cache
+    Rails.cache.delete('library_all')
   end
 
   def set_patron

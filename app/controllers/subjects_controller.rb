@@ -41,7 +41,7 @@ class SubjectsController < ApplicationController
       end
     end
 
-    role = current_user.try(:role) || Role.find(1)
+    role = current_user.try(:role) || Role.default_role
     search.build do
       with(:required_role_id).less_than role.id
     end

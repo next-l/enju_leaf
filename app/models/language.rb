@@ -9,9 +9,11 @@ class Language < ActiveRecord::Base
   # Validations
   # validates_presence_of :iso_639_1, iso_639_2, iso_639_3
   after_save :clear_available_languages_cache
+  after_destroy :clear_available_languages_cache
 
   def clear_available_languages_cache
     Rails.cache.delete('available_languages')
+    Rails.cache.delete('language_all')
   end
   
   def self.available_languages

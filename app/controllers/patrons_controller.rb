@@ -59,7 +59,7 @@ class PatronsController < ApplicationController
       end
     end
 
-    role = current_user.try(:role) || Role.find(1)
+    role = current_user.try(:role) || Role.default_role
     search.build do
       with(:required_role_id).less_than role.id
     end
@@ -127,7 +127,7 @@ class PatronsController < ApplicationController
     else
       @patron.required_role = Role.find_by_name('Guest')
     end
-    @patron.language = Language.find(:first, :conditions => {:iso_639_1 => I18n.default_locale.to_s}) || Language.first
+    @patron.language = Language.first(:conditions => {:iso_639_1 => I18n.default_locale.to_s}) || Language.first
     @patron.country = current_user.library.country
     prepare_options
 
@@ -231,8 +231,8 @@ class PatronsController < ApplicationController
   def prepare_options
     @countries = Country.all
     @patron_types = PatronType.all
-    @roles = Role.all
-    @languages = Language.all
+    @roles = Rails.cache.fetch('role_all'){Role.all}
+    @languages = Rails.cache.fetch('language_all'){Language.all}
   end
 
   def get_resources

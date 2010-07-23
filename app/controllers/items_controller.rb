@@ -74,7 +74,7 @@ class ItemsController < ApplicationController
         order_by(:created_at, :desc)
       end
 
-      role = current_user.try(:role) || Role.find(1)
+      role = current_user.try(:role) || Role.default_role
       search.build do
         with(:required_role_id).less_than role.id
       end
@@ -243,7 +243,7 @@ class ItemsController < ApplicationController
     else
       @checkout_types = CheckoutType.all
     end
-    @roles = Role.all
+    @roles = Rails.cache.fetch('role_all'){Role.all}
   end
 
 end

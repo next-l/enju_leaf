@@ -102,7 +102,7 @@ class ResourcesController < ApplicationController
       query = query.gsub('　', ' ')
 
       search = Sunspot.new_search(Resource)
-      role = current_user.try(:role) || Role.find(1)
+      role = current_user.try(:role) || Role.default_role
       oai_search = true if params[:format] == 'oai'
       case @reservable
       when 'true'
@@ -574,8 +574,8 @@ class ResourcesController < ApplicationController
 
   def prepare_options
     @carrier_types = CarrierType.all
-    @roles = Role.all
-    @languages = Language.all
+    @roles = Rails.cache.fetch('role_all'){Role.all}
+    @languages = Rails.cache.fetch('language_all'){Language.all}
     @frequencies = Frequency.all
     @nii_types = NiiType.all
   end

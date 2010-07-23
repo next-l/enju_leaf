@@ -158,7 +158,7 @@ class ApplicationController < ActionController::Base
   end
 
   def get_libraries
-    @libraries = Library.all
+    @libraries = Rails.cache.fetch('library_all'){Library.all}
   end
 
   def get_library_group
@@ -289,7 +289,7 @@ class ApplicationController < ActionController::Base
   end
 
   def set_role_query(user, search)
-    role = user.try(:role) || Rails.cache.fetch('guest_role'){Role.find(1)}
+    role = user.try(:role) || Role.default_role
     search.build do
       with(:required_role_id).less_than role.id
     end
