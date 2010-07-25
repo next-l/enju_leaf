@@ -18,14 +18,10 @@ class CheckinsController < ApplicationController
 
     @checkin = @basket.checkins.new
 
-    if params[:mode] == 'list'
-      render :partial => 'checkins/list', :locals => {:checkin => @checkin, :checkins => @checkins}
-      return
-    end
-
     respond_to do |format|
       format.html # index.rhtml
       format.xml  { render :xml => @checkins.to_xml }
+      format.js
     end
   end
 

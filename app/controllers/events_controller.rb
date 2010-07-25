@@ -106,6 +106,7 @@ class EventsController < ApplicationController
   # POST /events.xml
   def create
     @event = Event.new(params[:event])
+    @event.set_date
 
     respond_to do |format|
       if @event.save
@@ -124,6 +125,7 @@ class EventsController < ApplicationController
   # PUT /events/1.xml
   def update
     @event = Event.find(params[:id])
+    @event.set_date
 
     respond_to do |format|
       if @event.update_attributes(params[:event])

@@ -182,7 +182,7 @@ class ResourcesController < ApplicationController
         @library_facet = search_result.facet(:library).rows
       end
 
-      @search_engines = SearchEngine.all
+      @search_engines = Rails.cache.fetch('search_engine_all'){SearchEngine.all}
 
       # TODO: 検索結果が少ない場合にも表示させる
       if resource_ids.blank?

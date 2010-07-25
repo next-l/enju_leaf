@@ -15,7 +15,7 @@
     <th><%= t('activerecord.models.user') -%></th>
   </tr>
   
-<%- checkins.each_with_index do |checkin, i| -%>
+<%- @checkins.each_with_index do |checkin, i| -%>
   <tr class="line<%= cycle("0", "1") -%>">
     <td>
       <%= render :partial => 'manifestations/show_index', :locals => {:manifestation => checkin.item.manifestation} -%>

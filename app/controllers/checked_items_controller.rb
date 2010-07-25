@@ -14,14 +14,10 @@ class CheckedItemsController < ApplicationController
       return
     end
 
-    if params[:mode] == 'list'
-      render :partial => 'list'
-      return
-    end
-
     respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @checked_items }
+      format.js
     end
   end
 
@@ -102,8 +98,9 @@ class CheckedItemsController < ApplicationController
         flash[:notice] = t('controller.successfully_created', :model => t('activerecord.models.checked_item'))
 
         if params[:mode] == 'list'
-          redirect_to(user_basket_checked_items_url(@basket.user.username, @basket, :mode => 'list'))
-          return
+          format.html{
+            redirect_to(user_basket_checked_items_url(@basket.user.username, @basket, :mode => 'list'))
+          }
         else
           flash[:message] << @checked_item.errors["base"]
           format.html { redirect_to(user_basket_checked_items_url(@basket.user.username, @basket)) }

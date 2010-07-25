@@ -12,7 +12,7 @@ gem 'will_paginate', :git => 'git://github.com/mislav/will_paginate.git', :branc
 gem 'delayed_job', :git => 'git://github.com/collectiveidea/delayed_job.git'
 gem 'exception_notification', :git => 'git://github.com/rails/exception_notification.git'
 gem 'state_machine'
-gem 'prawn', :git => 'git://github.com/sandal/prawn.git'
+gem 'prawn' #, :git => 'git://github.com/sandal/prawn.git'
 gem 'fastercsv'
 gem 'friendly_id'
 gem 'inherited_resources'

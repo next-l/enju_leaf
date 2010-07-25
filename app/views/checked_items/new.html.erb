@@ -1,6 +1,6 @@
 <h1 class="title"><%= t('page.new', :model => t('activerecord.models.checked_item')) -%></h1>
 
-<%= form_for(@checked_item, :url => user_basket_checked_items_path(@basket.user.username, @basket)) do |f| -%>
+<%= form_for(@checked_item, :url => user_basket_checked_items_path(@basket.user, @basket)) do |f| -%>
   <%= f.error_messages -%>
   <p>
     <%= f.label t('activerecord.models.item') -%><br />
@@ -17,4 +17,4 @@
   </p>
 <%- end -%>
 
-<%= link_to t('page.back'), user_basket_checked_items_path(@basket.user.username, @basket) -%>
+<%= link_to t('page.back'), user_basket_checked_items_path(@basket.user, @basket) -%>

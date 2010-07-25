@@ -7,9 +7,15 @@ class SearchEngine < ActiveRecord::Base
   validates_inclusion_of :http_method, :in => %w(get post)
   validates_length_of :url, :maximum => 255
   validate :check_url
+  after_save :clear_all_cache
+  after_destroy :clear_all_cache
 
   def self.per_page
     10
+  end
+
+  def clear_all_cache
+    Rails.cache.delete('search_engine_all')
   end
 
   def check_url
