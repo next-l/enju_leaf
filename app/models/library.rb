@@ -56,10 +56,7 @@ class Library < ActiveRecord::Base
   end
 
   def set_geocode
-    self.latitude = self.geocode.latitude
-    self.longitude = self.geocode.longitude
-  rescue NoMethodError
-    nil
+    fetch_coordinates!
   end
 
   def set_calil_neighborhood_library

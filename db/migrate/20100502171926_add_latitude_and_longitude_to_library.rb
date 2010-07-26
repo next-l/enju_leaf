@@ -1,7 +1,7 @@
 class AddLatitudeAndLongitudeToLibrary < ActiveRecord::Migration
   def self.up
-    add_column :libraries, :latitude, :decimal
-    add_column :libraries, :longitude, :decimal
+    add_column :libraries, :latitude, :float
+    add_column :libraries, :longitude, :float
   end
 
   def self.down
