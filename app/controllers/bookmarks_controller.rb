@@ -127,8 +127,8 @@ class BookmarksController < ApplicationController
     respond_to do |format|
       if @bookmark.save
         flash[:notice] = t('controller.successfully_created', :model => t('activerecord.models.bookmark'))
-        @bookmark.manifestation.index!
         @bookmark.create_tag_index
+        @bookmark.manifestation.index!
         if params[:mode] == 'tag_edit'
           format.html { redirect_to resource_url(@bookmark.manifestation) }
           format.xml  { render :xml => @bookmark, :status => :created, :location => user_bookmark_url(@bookmark.user.username, @bookmark) }
