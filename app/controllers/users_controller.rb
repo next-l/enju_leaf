@@ -226,10 +226,11 @@ class UsersController < ApplicationController
     if @user.patron_id
       @user.patron = Patron.find(@user.patron_id) rescue nil
     end
+    @user.set_auto_generated_password
+    @user.role = Role.first(:conditions => {:name => 'User'})
 
     respond_to do |format|
       if @user.save
-        @user.roles << Role.first(:conditions => {:name => 'User'})
         #self.current_user = @user
         flash[:notice] = t('controller.successfully_created.', :model => t('activerecord.models.user'))
         format.html { redirect_to user_url(@user.username) }
