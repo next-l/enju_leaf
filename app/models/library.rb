@@ -14,7 +14,6 @@ class Library < ActiveRecord::Base
 
   #acts_as_soft_deletable
   has_friendly_id :name
-  #acts_as_geocodable
   geocoded_by :address
   enju_calil_library
 
@@ -33,7 +32,7 @@ class Library < ActiveRecord::Base
   before_validation :set_patron, :on => :create
   before_validation :set_display_name
   before_save :set_calil_neighborhood_library
-  after_validation :fetch_coordinates
+  #after_validation :fetch_coordinates
   after_create :create_shelf
   after_create :clear_all_cache
   after_destroy :clear_all_cache
@@ -53,10 +52,6 @@ class Library < ActiveRecord::Base
 
   def create_shelf
     Shelf.create!(:name => "#{self.name}_default", :library => self)
-  end
-
-  def set_geocode
-    fetch_coordinates!
   end
 
   def set_calil_neighborhood_library

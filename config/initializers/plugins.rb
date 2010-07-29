@@ -1,2 +1,2 @@
 #http://railspress.matake.jp/extend-plugin-gem-library-in-rails-project
-require File.join(RAILS_ROOT, 'lib', 'plugins')
+require File.join(Rails.root.to_s, 'lib', 'plugins')

@@ -149,6 +149,7 @@ class Resource < ActiveRecord::Base
   enju_oai
   enju_calil_check
   has_paper_trail
+  has_attached_file :attachment
 
   validates_presence_of :original_title, :carrier_type, :language
   validates_associated :carrier_type, :language

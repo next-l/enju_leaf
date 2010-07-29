@@ -1,0 +1,6 @@
+<%- if can? :show, @resource -%>
+  <tr>
+    <td><%= t('manifestation.attachment_file') -%>:</td>
+    <td><%= link_to h(@resource.attachment_file_name), @resource.attachment.url -%></td>
+  </tr>
+<%- end -%>

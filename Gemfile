@@ -1,6 +1,6 @@
 source 'http://rubygems.org'
 
-gem 'rails', '3.0.0.beta4'
+gem 'rails', '3.0.0.rc'
 
 # Bundle edge Rails instead:
 #gem 'rails', :git => 'git://github.com/rails/rails.git'
@@ -11,7 +11,7 @@ gem 'pg'
 gem 'will_paginate', :git => 'git://github.com/mislav/will_paginate.git', :branch => 'rails3'
 gem 'delayed_job', :git => 'git://github.com/collectiveidea/delayed_job.git'
 gem 'exception_notification', :git => 'git://github.com/rails/exception_notification.git'
-gem 'state_machine'
+gem 'state_machine', :git => 'git://github.com/pluginaweek/state_machine.git'
 gem 'prawn' #, :git => 'git://github.com/sandal/prawn.git'
 gem 'fastercsv'
 gem 'friendly_id'
@@ -41,11 +41,13 @@ gem 'configatron'
 gem 'extractcontent'
 gem 'cancan'
 gem 'scribd_fu'
-gem 'devise', '1.1.rc2'
+gem 'devise', '1.1.1'
 gem 'paperclip'
 gem 'bcrypt-ruby', :require => 'bcrypt'
 gem 'whenever', :require => false
 gem 'system_timer'
+gem 'amazon-ecs', :require => 'amazon/ecs'
+gem 'formatize'
 
 # Use unicorn as the web server
 # gem 'unicorn'

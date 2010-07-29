@@ -103,7 +103,7 @@ EnjuLeaf::Application.routes.draw do |map|
   resources :resource_relationship_types
   resources :patron_relationship_types
   resources :licenses
-  resources :medium_of_performance
+  resources :medium_of_performances
   resources :extents
   resources :request_status_types
   resources :request_types
