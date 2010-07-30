@@ -39,6 +39,6 @@ class Tag < ActiveRecord::Base
   end
 
   def tagged(taggable_type)
-    self.taggings.all(:conditions => {:taggable_type => taggable_type.to_s}, :include => {:taggings => :taggable}).collect(&:taggable)
+    self.taggings.all(:conditions => {:taggable_type => taggable_type.to_s}, :include => [:taggable]).collect(&:taggable)
   end
 end

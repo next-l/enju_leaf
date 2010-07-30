@@ -27,7 +27,7 @@ class BookmarksController < ApplicationController
       end
     end
 
-    search = Sunspot.new_search(Bookmark)
+    search = Bookmark.search(:include => [:manifestation])
     query = params[:query].to_s.strip
     unless query.blank?
       @query = query.dup

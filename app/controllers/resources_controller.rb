@@ -101,7 +101,7 @@ class ResourcesController < ApplicationController
       @query = query.dup
       query = query.gsub('　', ' ')
 
-      search = Resource.search(:include => [:carrier_type, :required_role])
+      search = Resource.search(:include => [:carrier_type, :required_role, :items, :creators, :contributors, :publishers, :bookmarks])
       role = current_user.try(:role) || Role.default_role
       oai_search = true if params[:format] == 'oai'
       case @reservable
@@ -267,7 +267,7 @@ class ResourcesController < ApplicationController
         raise ActiveRecord::RecordNotFound if @resource.nil?
       end
     else
-      @resource = Resource.find(params[:id], :include => :creators)
+      @resource = Resource.find(params[:id], :include => [:creators, :contributors, :publishers, :items])
     end
     @resource = @resource.versions.find(@version).item if @version
 

@@ -131,7 +131,7 @@ class ResourceSweeper < ActionController::Caching::Sweeper
         expire_manifestation_cache(record, fragments)
       else
         I18n.available_locales.each do |locale|
-          Role.all.each do |role|
+          Rails.cache.fetch('role_all'){Role.all}.each do |role|
             expire_fragment(:controller => record.class.to_s.pluralize.downcase, :action => :show, :id => record.id, :role => role.name, :locale => locale.to_s)
             if fragments
               fragments.each do |fragment|
@@ -158,7 +158,7 @@ class ResourceSweeper < ActionController::Caching::Sweeper
   def expire_manifestation_fragment(manifestation, fragment)
     if manifestation
       I18n.available_locales.each do |locale|
-        Role.all.each do |role|
+        Rails.cache.fetch('role_all'){Role.all}.each do |role|
           ['atom', 'csv', 'mods', 'oai_list_identifiers', 'oai_list_records', 'rdf', 'rss'].each do |page|
             expire_fragment(:controller => :resources, :action => :show, :id => manifestation.id, :locale => locale.to_s, :role => role.name, :page => page, :user_id => nil)
           end
@@ -170,7 +170,7 @@ class ResourceSweeper < ActionController::Caching::Sweeper
 
   def expire_tag_cloud(bookmark)
     I18n.available_locales.each do |locale|
-      Role.all.each do |role|
+      Rails.cache.fetch('role_all'){Role.all}.each do |role|
         expire_fragment(:controller => :tags, :action => :index, :page => 'user_tag_cloud', :user_id => bookmark.user.username, :locale => locale, :role => role.name, :user_id => nil)
         expire_fragment(:controller => :tags, :action => :index, :page => 'public_tag_cloud', :locale => locale, :role => role.name, :user_id => nil)
       end
@@ -179,7 +179,7 @@ class ResourceSweeper < ActionController::Caching::Sweeper
 
   def expire_menu
     I18n.available_locales.each do |locale|
-      Role.all.each do |role|
+      Rails.cache.fetch('role_all'){Role.all}.each do |role|
         expire_fragment(:controller => :page, :page => 'menu', :role => role.name, :locale => locale.to_s)
       end
     end

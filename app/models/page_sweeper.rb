@@ -15,9 +15,8 @@ class PageSweeper < ActionController::Caching::Sweeper
   end
 
   def expire_page_fragment
-    role_names = Role.all.collect(&:name)
-    role_names.each do |name|
-      expire_fragment(:controller => :page, :role_name => name)
+    Rails.cache.fetch('role_all'){Role.all}.each do |role|
+      expire_fragment(:controller => :page, :role_name => role.name)
     end
   end
 
