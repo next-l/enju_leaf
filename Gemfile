@@ -45,12 +45,13 @@ gem 'devise', '1.1.1'
 gem 'paperclip'
 gem 'bcrypt-ruby', :require => 'bcrypt'
 gem 'whenever', :require => false
-gem 'system_timer'
 gem 'amazon-ecs', :require => 'amazon/ecs'
+gem 'aws-s3', :require => 'aws/s3'
 gem 'formatize'
+gem 'system_timer'
 
 # Use unicorn as the web server
-# gem 'unicorn'
+gem 'unicorn'
 
 # Deploy with Capistrano
 # gem 'capistrano'

@@ -31,7 +31,7 @@ class PatronsController < ApplicationController
     order = nil
     @count = {}
 
-    search = Sunspot.new_search(Patron)
+    search = Patron.search(:include => [:patron_type, :required_role])
     set_role_query(current_user, search)
 
     if params[:mode] == 'recent'

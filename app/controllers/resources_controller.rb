@@ -101,7 +101,7 @@ class ResourcesController < ApplicationController
       @query = query.dup
       query = query.gsub('　', ' ')
 
-      search = Sunspot.new_search(Resource)
+      search = Resource.search(:include => [:carrier_type, :required_role])
       role = current_user.try(:role) || Role.default_role
       oai_search = true if params[:format] == 'oai'
       case @reservable

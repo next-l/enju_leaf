@@ -23,6 +23,7 @@ class Resource < ActiveRecord::Base
   belongs_to :series_statement
   belongs_to :resource_relationship_type
   belongs_to :frequency
+  belongs_to :required_role, :class_name => 'Role', :foreign_key => 'required_role_id', :validate => true
 
   searchable do
     text :title, :default_boost => 2 do
@@ -372,7 +373,7 @@ class Resource < ActiveRecord::Base
     return nil if self.cached_numdocs < 5
     resource = nil
     # TODO: ヒット件数が0件のキーワードがあるときに指摘する
-    response = Sunspot.search(Resource) do
+    response = Resource.search(:include => [:creators, :contributors, :publishers, :subjects]) do
       fulltext keyword if keyword
       order_by(:random)
       paginate :page => 1, :per_page => 1
