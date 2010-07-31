@@ -49,6 +49,9 @@ class ApplicationController < ActionController::Base
   end
 
   def set_locale
+    unless I18n.available_locales.include?(params[:locale].intern)
+      raise InvalidLocaleError
+    end
     if Rails.env == 'test'
       locale = 'en'
     else
@@ -57,9 +60,6 @@ class ApplicationController < ActionController::Base
       else
         locale = params[:locale] || session[:locale] || I18n.default_locale.to_s
       end
-    end
-    unless I18n.available_locales.include?(locale.intern)
-      locale = I18n.default_locale.to_s
     end
     I18n.locale = locale
     @locale = session[:locale] = locale

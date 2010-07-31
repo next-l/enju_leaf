@@ -7,6 +7,8 @@
     <th><%= t('activerecord.models.user_group') -%></th>
     <th><%= t('activerecord.models.checkout_type') -%></th>
     <th><%= t('activerecord.attributes.user_group_has_checkout_type.note') -%></th>
+    <th></th>
+    <th></th>
   </tr>
 
 <%- @user_group_has_checkout_types.each do |user_group_has_checkout_type| -%>
@@ -15,8 +17,10 @@
     <td><%= link_to h(user_group_has_checkout_type.checkout_type.display_name.localize.localize), user_group_has_checkout_type.checkout_type -%></td>
     <td><%= user_group_has_checkout_type.note -%></td>
     <td><%= link_to t('page.show'), user_group_has_checkout_type -%></td>
-    <td><%= link_to t('page.edit'), edit_user_group_has_checkout_type_path(user_group_has_checkout_type) -%></td>
-    <td><%= link_to t('page.destroy'), user_group_has_checkout_type, :confirm => t('page.are_you_sure'), :method => :delete -%></td>
+    <td>
+      <%= link_to t('page.edit'), edit_user_group_has_checkout_type_path(user_group_has_checkout_type) -%>
+      <%= link_to t('page.destroy'), user_group_has_checkout_type, :confirm => t('page.are_you_sure'), :method => :delete -%>
+    </td>
   </tr>
 <%- end -%>
 </table>

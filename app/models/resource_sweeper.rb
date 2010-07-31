@@ -96,7 +96,7 @@ class ResourceSweeper < ActionController::Caching::Sweeper
     when record.is_a?(Checkin)
       expire_editable_fragment(record.item, 'holding')
     when record.is_a?(Language)
-      Language.all.each do |language|
+      Rails.cache.fetch('language_all'){Language.all}.each do |language|
         expire_fragment(:page => 'header', :locale => language.iso_639_1)
         expire_fragment(:page => 'select_locale', :locale => language.iso_639_1)
         expire_fragment(:controller => 'page', :locale => language.iso_639_1)
