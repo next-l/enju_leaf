@@ -3,7 +3,7 @@ class WorkHasSubjectsController < ApplicationController
   before_filter :get_work, :get_subject
   before_filter :get_patron
   after_filter :solr_commit, :only => [:create, :update, :destroy]
-  cache_sweeper :resource_sweeper, :only => [:create, :update, :destroy]
+  cache_sweeper :page_sweeper, :only => [:create, :update, :destroy]
 
   # GET /work_has_subjects
   # GET /work_has_subjects.xml

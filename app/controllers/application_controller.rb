@@ -360,4 +360,8 @@ class ApplicationController < ActionController::Base
     true unless params[:format].nil? or params[:format] == 'html'
   end
 
+  def current_user_role_name
+    current_user.role.name || Role.find(1).name
+  end
+
 end

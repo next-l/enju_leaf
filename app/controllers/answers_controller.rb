@@ -3,7 +3,7 @@ class AnswersController < ApplicationController
   load_and_authorize_resource
   before_filter :get_user_if_nil, :except => [:edit]
   before_filter :get_question
-  cache_sweeper :resource_sweeper, :only => [:create, :update, :destroy]
+  cache_sweeper :page_sweeper, :only => [:create, :update, :destroy]
 
   # GET /answers
   # GET /answers.xml

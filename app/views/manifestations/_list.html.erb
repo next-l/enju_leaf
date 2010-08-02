@@ -3,7 +3,7 @@
             <tr class="line<%= cycle("0", "1") -%>">
               <td style="width: 30px"><%= itemnum = manifestations.offset + 1 + i -%></td>
               <td style="480px">
-              <% cache(:controller => :resources, :action => :show, :id => resource.id, :locale => @locale, :role => current_user.try(:role).try(:name), :page => 'show_list') do %>
+              <% cache(:controller => :resources, :action => :show, :id => resource.id, :locale => @locale, :role => current_user_role_name, :page => 'show_list') do %>
                 <%= render :partial => 'manifestations/show_index', :locals => {:manifestation => resource} -%>
                 <div id="access_address">
                   <%= link_to h(resource.access_address), resource.access_address if resource.access_address.present? -%>
@@ -30,7 +30,6 @@
                     <%- end -%>
                   <%- end -%>
                 </td>
-                <% cache(:controller => :resources, :action => :show, :id => resource.id, :locale => @locale, :role => current_user.try(:role).try(:name), :page => 'edit_list') do %>
                 <%- if can? :destroy, resource -%>
                   <td id="edit_icons">
                     <%= link_to image_tag('/icons/book_edit.png', :size => '16x16', :alt => t('page.edit')), edit_resource_path(resource) -%>
@@ -40,7 +39,6 @@
                       <%= link_to image_tag('/icons/arrow_divide.png', :size => '16x16', :alt => t('resource.add_derivation')), resource_resources_path(resource, :mode => 'add') -%>
                     <% end %>
                   </td>
-                <%- end -%>
                 <%- end -%>
               <%- end -%>
             </tr>

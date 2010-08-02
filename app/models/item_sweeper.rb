@@ -1,14 +1,15 @@
-class ResourceSweeper < ActionController::Caching::Sweeper
+class ItemSweeper < ActionController::Caching::Sweeper
   include ExpireEditableFragment
-  observe Resource
+  observe Item
 
   def after_save(record)
     expire_editable_fragment(record)
-    record.items.each do |item|
-      expire_editable_fragment(item)
-    end
+    expire_editable_fragment(record.manifestation, ['detail'])
     record.patrons.each do |patron|
       expire_editable_fragment(patron)
+    end
+    record.donors.each do |donor|
+      expire_editable_fragment(donor)
     end
   end
 

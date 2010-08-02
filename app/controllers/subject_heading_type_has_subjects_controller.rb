@@ -1,6 +1,6 @@
 class SubjectHeadingTypeHasSubjectsController < ApplicationController
   load_and_authorize_resource
-  cache_sweeper :resource_sweeper, :only => [:create, :update, :destroy]
+  cache_sweeper :page_sweeper, :only => [:create, :update, :destroy]
 
   # GET /subject_heading_type_has_subjects
   # GET /subject_heading_type_has_subjects.xml

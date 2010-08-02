@@ -71,7 +71,7 @@ class Item < ActiveRecord::Base
   end
 
   def save_manifestation
-    self.manifestation.save(:validation => false) if self.manifestation
+    #self.manifestation.save(:validation => false) if self.manifestation
   end
 
   def set_circulation_status
@@ -121,12 +121,12 @@ class Item < ActiveRecord::Base
       self.next_reservation.update_attributes(:checked_out_at => Time.zone.now)
       self.next_reservation.sm_complete!
     end
-    save!
+    save(false)
   end
 
   def checkin!
     self.circulation_status = CirculationStatus.first(:conditions => {:name => 'Available On Shelf'})
-    save(:validate => false)
+    save(false)
   end
 
   def retain(librarian)

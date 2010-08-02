@@ -26,7 +26,7 @@ class Reserve < ActiveRecord::Base
   belongs_to :request_status_type
 
   #acts_as_soft_deletable
-  validates_associated :user, :manifestation, :librarian, :item, :request_status_type
+  validates_associated :user, :librarian, :item, :request_status_type, :manifestation
   validates_presence_of :user, :manifestation, :request_status_type #, :expired_at
   #validates_uniqueness_of :manifestation_id, :scope => :user_id
   validate :manifestation_must_include_item
@@ -37,7 +37,7 @@ class Reserve < ActiveRecord::Base
 
   state_machine :initial => :pending do
     before_transition :pending => :requested, :do => :do_request
-    before_transition [:pending, :requested] => :retained, :do => :retain
+    before_transition [:pending, :requested, :retained] => :retained, :do => :retain
     before_transition [:pending ,:requested,  :retained] => :canceled, :do => :cancel
     before_transition [:pending, :requested, :retained] => :expired, :do => :expire
     before_transition :retained => :completed, :do => :checkout
@@ -47,7 +47,7 @@ class Reserve < ActiveRecord::Base
     end
 
     event :sm_retain do
-      transition [:pending, :requested] => :retained
+      transition [:pending, :requested, :retained] => :retained
     end
 
     event :sm_cancel do

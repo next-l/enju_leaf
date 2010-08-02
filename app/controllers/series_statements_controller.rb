@@ -3,7 +3,7 @@ class SeriesStatementsController < ApplicationController
   load_and_authorize_resource
   before_filter :get_work, :only => [:index, :new, :edit]
   before_filter :get_manifestation, :only => [:index, :new, :edit]
-  cache_sweeper :resource_sweeper, :only => [:create, :update, :destroy]
+  cache_sweeper :page_sweeper, :only => [:create, :update, :destroy]
   after_filter :solr_commit, :only => [:create, :update, :destroy]
 
   # GET /series_statements

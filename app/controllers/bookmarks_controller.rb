@@ -5,7 +5,7 @@ class BookmarksController < ApplicationController
   before_filter :get_user, :only => :new
   before_filter :get_user_if_nil, :except => :new
   after_filter :solr_commit, :only => [:create, :update, :destroy]
-  cache_sweeper :resource_sweeper, :only => [:create, :update, :destroy]
+  cache_sweeper :bookmark_sweeper, :only => [:create, :update, :destroy]
 
   # GET /bookmarks
   # GET /bookmarks.xml

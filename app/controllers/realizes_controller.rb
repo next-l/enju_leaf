@@ -2,7 +2,7 @@ class RealizesController < ApplicationController
   load_and_authorize_resource
   before_filter :get_patron, :get_expression
   after_filter :solr_commit, :only => [:create, :update, :destroy]
-  cache_sweeper :resource_sweeper, :only => [:create, :update, :destroy]
+  cache_sweeper :page_sweeper, :only => [:create, :update, :destroy]
 
   # GET /realizes
   # GET /realizes.xml
