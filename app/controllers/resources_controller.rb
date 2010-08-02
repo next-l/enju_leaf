@@ -274,7 +274,7 @@ class ResourcesController < ApplicationController
     case params[:mode]
     when 'send_email'
       if user_signed_in?
-        Notifier.resource_info(current_user, @resource).deliver
+        Notifier.manifestation_info(current_user, @resource).deliver
         flash[:notice] = t('page.sent_email')
         redirect_to resource_url(@resource)
         return

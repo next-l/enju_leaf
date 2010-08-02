@@ -145,6 +145,7 @@ class UsersController < ApplicationController
       @user.openid_identifier = params[:user][:openid_identifier]
       @user.keyword_list = params[:user][:keyword_list]
       @user.checkout_icalendar_token = params[:user][:checkout_icalendar_token]
+      @user.email = params[:user][:email]
       #@user.note = params[:user][:note]
     end
 
