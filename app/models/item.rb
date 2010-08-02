@@ -121,12 +121,12 @@ class Item < ActiveRecord::Base
       self.next_reservation.update_attributes(:checked_out_at => Time.zone.now)
       self.next_reservation.sm_complete!
     end
-    save(false)
+    save!
   end
 
   def checkin!
     self.circulation_status = CirculationStatus.first(:conditions => {:name => 'Available On Shelf'})
-    save(false)
+    save!
   end
 
   def retain(librarian)

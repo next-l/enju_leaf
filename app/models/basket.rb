@@ -22,15 +22,15 @@ class Basket < ActiveRecord::Base
   
   def basket_checkout(librarian)
     return nil if self.checked_items.size == 0
-    #Item.transaction do
+    Item.transaction do
       self.checked_items.each do |checked_item|
         checkout = self.user.checkouts.new(:librarian_id => librarian.id, :item_id => checked_item.item.id, :basket_id => self.id, :due_date => checked_item.due_date)
         if checked_item.item.checkout!(self.user)
-          checkout.save(false)
+          checkout.save!
         end
       end
       CheckedItem.destroy_all(:basket_id => self.id)
-    #end
+    end
   end
 
   def self.expire
