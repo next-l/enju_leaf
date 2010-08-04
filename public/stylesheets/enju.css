@@ -39,6 +39,7 @@ div#navibar{
 }
 
 div#content{
+  padding-top: 8px;
   padding-left: 4px;
   padding-right: 4px;
   clear: both;
@@ -90,9 +91,8 @@ div#search_footer{
 }
 
 div#submenu{
-  margin-top: 5px;
-  width: 193px;
-  margin-left: 5px;
+  width: 192px;
+  margin-left: 10px;
   padding: 5px;
   float: left;
   border: 1px solid #5970B2;
@@ -124,10 +124,9 @@ div#manifestation_bookmark_buttons{
 }
 
 div#content_detail{
-  width: 710px;
+  width: 700px;
   float: left;
   margin-bottom: 5px;
-  margin-top: 5px;
   border: 1px solid #5970B2;
 }
 
@@ -141,14 +140,12 @@ div#manifestation_footer{
 }
 
 div#left_pane{
-  margin-top: 5px;
   float: left;
   width: 456px;
   word-break: break-all;
 }
 
 div#right_pane{
-  margin-top: 5px;
   float: left;
   margin-left: 10px;
   width: 456px;
@@ -263,19 +260,14 @@ div#bookmarks_for_manifestation{
 
 div#user_search_form, div#message_box, div#news_feed_box, div#user_box{
   padding: 10px;
-  border: 1px solid #5970B2;
-  margin-bottom: 10px;
 }
 
 div#picked_up_box{
   padding: 10px;
-  border: 1px solid #5970B2;
-  margin-bottom: 10px;
 }
 
 div#tag_cloud_box{
   padding: 10px;
-  border: 1px solid #5970B2;
 }
 
 div.config_box{
