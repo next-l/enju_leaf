@@ -1,4 +1,4 @@
-<div id="content_detail">
+<div id="content_detail" class="ui-corner-all">
 <h1 class="title"><%= t('page.listing', :model => t('activerecord.models.message_request')) -%></h1>
 <div id="content_list">
 
@@ -38,7 +38,7 @@
 </div>
 </div>
 
-<div id="submenu">
+<div id="submenu" class="ui-corner-all">
   <ul>
     <%- case params[:mode] when 'sent' -%>
       <li><%= link_to t('message_request.not_sent'), message_requests_path(:mode => 'not_sent') -%></li>

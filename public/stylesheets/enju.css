@@ -91,8 +91,8 @@ div#search_footer{
 }
 
 div#submenu{
-  width: 192px;
   margin-left: 10px;
+  width: 190px;
   padding: 5px;
   float: left;
   border: 1px solid #5970B2;

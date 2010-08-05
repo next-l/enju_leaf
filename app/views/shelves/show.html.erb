@@ -1,4 +1,4 @@
-<div id="content_detail">
+<div id="content_detail" class="ui-corner-all">
 <h1 class="title"><%= t('page.listing', :model => t('activerecord.models.shelf')) -%></h1>
 <div id="content_list">
   <h2 class="resource_title"><%= link_to h(@shelf.library.display_name.localize), library_path(@shelf.library.name) -%>
@@ -28,7 +28,7 @@
 </div>
 </div>
 
-<div id="submenu">
+<div id="submenu" class="ui-corner-all">
   <%- if can? :destroy, @shelf -%>
     <ul>
       <%- if @library -%>

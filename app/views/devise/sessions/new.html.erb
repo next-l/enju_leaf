@@ -1,5 +1,5 @@
 <%= form_for resource_name, resource, :url => session_path(resource_name) do |f| -%>
-<div id="content_detail">
+<div id="content_detail" class="ui-corner-all">
 <h1 class="title"><%= t('page.sign_in') -%> : Next-L Enju</h1>
 <div id="content_list">
   <%= raw sanitize(textilize(h(@library_group.login_banner))) %>
@@ -7,7 +7,7 @@
 </div>
 </div>
 
-<div id="submenu">
+<div id="submenu" class="ui-corner-all">
   <p>
     <%= f.label t('activerecord.attributes.user.username') %><br />
     <%= f.text_field :username, :class => 'login_password' %>

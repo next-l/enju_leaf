@@ -1,4 +1,4 @@
-<div id="content_detail">
+<div id="content_detail" class="ui-corner-all">
 <h1 class="title"><%= t('page.search_resource', :model => t('page.resource')) -%></h1>
 <div id="content_list">
   <%= render :partial => 'manifestations/title', :locals => {:manifestation => @resource} if @resource -%>
@@ -78,7 +78,7 @@
   </div>
 </div>
 
-<div id="submenu">
+<div id="submenu" class="ui-corner-all">
     <h3><%= link_to h("#{t('page.total')}: #{@count[:query_result]}"), url_for(params.merge(:action => 'index', :view => nil, :carrier_type => nil, :library => nil, :language => nil, :subject => nil))  -%></h3>
     <%- if @resources.total_entries > 0 -%>
       <%= render 'manifestations/all_facet' -%>

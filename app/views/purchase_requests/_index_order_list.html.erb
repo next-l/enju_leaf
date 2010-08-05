@@ -1,4 +1,4 @@
-<div id="content_detail">
+<div id="content_detail" class="ui-corner-all">
 <h1 class="title"><%= t('page.listing', :model => t('activerecord.models.purchase_request')) -%></h1>
 <div id="content_list">
 <h2 class="resource_title"><%= link_to h(@order_list.title), @order_list -%></h2>
@@ -55,7 +55,7 @@
 </div>
 </div>
 
-<div id="submenu">
+<div id="submenu" class="ui-corner-all">
   <ul>
     <%- unless @order_list.ordered? -%>
       <li><%= link_to t('activerecord.models.order'), edit_order_list_path(@order_list, :mode => 'order') -%></li>

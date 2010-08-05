@@ -1,4 +1,4 @@
-<div id="content_detail">
+<div id="content_detail" class="ui-corner-all">
 <h1 class="title"><%= t('page.showing', :model => t('activerecord.models.classification_type')) -%></h1>
 <div id="content_list">
 <p>
@@ -19,7 +19,7 @@
 </div>
 </div>
 
-<div id="submenu">
+<div id="submenu" class="ui-corner-all">
   <ul>
     <li><%= link_to t('page.listing', :model => t('activerecord.models.classification')), classification_type_classifications_path(@classification_type) -%></li>
     <li><%= link_to t('page.edit'), edit_classification_type_path(@classification_type) -%></li>

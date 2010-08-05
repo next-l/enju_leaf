@@ -1,4 +1,4 @@
-<div id="content_detail">
+<div id="content_detail" class="ui-corner-all">
 <h1 class="title"><%= t('page.showing', :model => t('activerecord.models.reserve')) -%></h1>
 <div id="content_list">
   
@@ -38,7 +38,7 @@
 </div>
 </div>
 
-<div id="submenu">
+<div id="submenu" class="ui-corner-all">
   <%= render :partial => 'manifestations/book_jacket', :locals => {:manifestation => @reserve.manifestation} -%>
   <ul>
     <li><%= link_to t('page.edit'), edit_user_reserve_path(@reserve.user.username, @reserve) -%></li>

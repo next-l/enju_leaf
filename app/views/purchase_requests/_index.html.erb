@@ -1,4 +1,4 @@
-<div id="content_detail">
+<div id="content_detail" class="ui-corner-all">
   <h1 class="title"><%= t('page.listing', :model => t('activerecord.models.purchase_request')) -%></h1>
 <div id="content_list">
 
@@ -46,7 +46,7 @@
 </div>
 </div>
 
-<div id="submenu">
+<div id="submenu" class="ui-corner-all">
   <ul>
     <li><%= link_to t('page.new', :model => t('activerecord.models.purchase_request')), new_user_purchase_request_path(current_user)%></li>
     <% if current_user.try(:has_role?, 'Librarian') %>

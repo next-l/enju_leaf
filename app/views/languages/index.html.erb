@@ -1,4 +1,4 @@
-<div id="content_detail">
+<div id="content_detail" class="ui-corner-all">
 <h1 class="title"><%= t('page.listing', :model => t('activerecord.models.language')) -%></h1>
 <div id="content_list">
 
@@ -39,7 +39,7 @@
 </div>
 </div>
 
-<div id="submenu">
+<div id="submenu" class="ui-corner-all">
   <%- if can? :create, Country -%>
     <ul>
       <li><%= link_to t('page.new', :model => t('activerecord.models.language')), new_language_path -%></li>

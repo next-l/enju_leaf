@@ -1,6 +1,6 @@
 <div id="content_list">
 <h1 class="title"><%= t('page.showing', :model => t('activerecord.models.basket')) -%></h1>
-<div id="content_detail">
+<div id="content_detail" class="ui-corner-all">
   <p>
     <strong><%= t('activerecord.models.user') -%>:</strong>
     <%= @basket.user.username -%>
@@ -13,7 +13,7 @@
 </div>
 </div>
 
-<div id="submenu">
+<div id="submenu" class="ui-corner-all">
   <ul>
     <li><%= link_to t('page.edit'), edit_user_basket_path(@basket.user.username, @basket) -%></li>
     <li><%= link_to t('page.back'), user_baskets_path(@basket.user.username) -%></li>

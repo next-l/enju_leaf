@@ -1,4 +1,4 @@
-<div id="content_detail">
+<div id="content_detail" class="ui-corner-all">
 <h1 class="title"><%= t('page.showing', :model => t('activerecord.models.purchase_request')) -%></h1>
 <div id="content_list">
 
@@ -74,7 +74,7 @@
 </div>
 </div>
 
-<div id="submenu">
+<div id="submenu" class="ui-corner-all">
   <ul>
     <%- if @purchase_request.order_list -%>
       <li><%= link_to t('purchase_request.remove_from_order_list'), order_list_order_path(@purchase_request.order_list, @purchase_request.order), :method => :delete, :confirm => t('page.are_you_sure') -%></li>

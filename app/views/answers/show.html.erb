@@ -1,4 +1,4 @@
-<div id="content_detail">
+<div id="content_detail" class="ui-corner-all">
 <h1 class="title"><%= t('page.showing', :model => t('activerecord.models.answer')) -%></h1>
 <div id="content_list">
 <p>
@@ -44,7 +44,7 @@
 </div>
 </div>
 
-<div id="submenu">
+<div id="submenu" class="ui-corner-all">
   <ul>
     <%- if can? :update, @answer -%>
       <li><%= link_to t('page.edit'), edit_user_question_answer_path(@answer.question.user, @answer.question, @answer) -%></li>

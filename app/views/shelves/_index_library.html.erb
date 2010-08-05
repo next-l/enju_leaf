@@ -1,4 +1,4 @@
-<div id="content_detail">
+<div id="content_detail" class="ui-corner-all">
   <h1 class="title"><%= t('page.listing', :model => t('activerecord.models.shelf')) -%></h1>
 <div id="content_list">
 
@@ -30,7 +30,7 @@
 </div>
 </div>
 
-<div id="submenu">
+<div id="submenu" class="ui-corner-all">
   <ul>
     <%- if can? :create, Shelf -%>
       <li><%= link_to t('page.new', :model => t('activerecord.models.shelf')), new_library_shelf_path(@library.name) -%></li>

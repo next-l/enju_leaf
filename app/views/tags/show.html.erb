@@ -1,4 +1,4 @@
-<div id="content_detail">
+<div id="content_detail" class="ui-corner-all">
   <h1 class="title"><%= t('page.showing', :model => t('activerecord.models.tag')) -%></h1>
   <div id="content_list">
     <h2 class="resource_title">
@@ -24,7 +24,7 @@
   </div>
 </div>
 
-<div id="submenu">
+<div id="submenu" class="ui-corner-all">
   <ul>
     <li><%= link_to t('page.back'), :back -%></li>
     <li><%= link_to t('page.edit'), edit_tag_path(@tag.name) -%></li>

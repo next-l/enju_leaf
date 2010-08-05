@@ -1,4 +1,4 @@
-<div id="content_detail">
+<div id="content_detail" class="ui-corner-all">
 <h1 class="title"><%= t('page.showing', :model => t('activerecord.models.import_request')) -%></h1>
 <div id="content_list">
 <p>
@@ -34,7 +34,7 @@
 </div>
 </div>
 
-<div id="submenu">
+<div id="submenu" class="ui-corner-all">
   <ul>
     <%- if can? :update, @import_request -%>
       <li><%= link_to t('page.edit'), edit_import_request_path(@import_request) -%></li>

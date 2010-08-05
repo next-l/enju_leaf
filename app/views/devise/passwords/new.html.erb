@@ -1,4 +1,6 @@
-<h2>Forgot your password?</h2>
+<div id="content_detail" class="ui-corner-all">
+<h2 class="title">Forgot your password?</h2>
+<div id="content_list">
 
 <%= form_for(resource, :as => resource_name, :url => password_path(resource_name)) do |f| %>
   <%= devise_error_messages! %>
@@ -9,4 +11,9 @@
   <p><%= f.submit "Send me reset password instructions" %></p>
 <% end %>
 
-<%= render :partial => "devise/shared/links" %>
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all">
+  <%= render :partial => "devise/shared/links" %>
+</div>

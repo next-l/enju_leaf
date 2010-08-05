@@ -1,4 +1,4 @@
-<div id="content_detail">
+<div id="content_detail" class="ui-corner-all">
 <p>
 <strong><%= t('activerecord.models.item') -%>:</strong>
   <%= link_to h(@checkin.item.manifestation.original_title), @checkin.item -%>
@@ -11,7 +11,7 @@
 
 </div>
 
-<div id="submenu">
+<div id="submenu" class="ui-corner-all">
   <ul>
     <li><%= link_to t('page.edit'), edit_checkin_path(@checkin) -%></li>
     <li><%= link_to t('page.back'), checkins_path -%></li>

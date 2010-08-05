@@ -1,4 +1,4 @@
-<div id="content_detail">
+<div id="content_detail" class="ui-corner-all">
 <h1 class="title"><%= t('page.listing', :model => t('activerecord.models.user')) -%></h1>
 <div id="content_list">
 
@@ -56,7 +56,7 @@
 </div>
 </div>
 
-<div id="submenu">
+<div id="submenu" class="ui-corner-all">
   <ul>
     <%- if user_signed_in? && current_user.has_role?('Librarian') -%>
       <li><%= link_to t('page.new', :model => t('activerecord.models.user')), new_user_path -%></li>
