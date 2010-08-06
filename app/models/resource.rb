@@ -163,7 +163,6 @@ class Resource < ActiveRecord::Base
   validate :check_isbn
   before_validation :convert_isbn
   normalize_attributes :manifestation_identifier, :date_of_publication, :isbn, :issn, :nbn, :lccn
-  after_save :clear_cached_numdocs
 
   def check_isbn
     if isbn.present?
@@ -201,10 +200,6 @@ class Resource < ActiveRecord::Base
     else
       self.search.total
     end
-  end
-
-  def clear_cached_numdocs
-    Rails.cache.delete("resource_search_total")
   end
 
   def next_reservation

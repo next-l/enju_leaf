@@ -10,6 +10,7 @@ class ResourceSweeper < ActionController::Caching::Sweeper
     record.patrons.each do |patron|
       expire_editable_fragment(patron)
     end
+    Rails.cache.write("resource_search_total", Resource.search.total)
   end
 
   def after_destroy(record)

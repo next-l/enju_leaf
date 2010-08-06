@@ -41,7 +41,7 @@ gem 'configatron'
 gem 'extractcontent'
 gem 'cancan'
 gem 'scribd_fu'
-gem 'devise', '1.1.1'
+gem 'devise'
 gem 'paperclip'
 gem 'bcrypt-ruby', :require => 'bcrypt'
 gem 'whenever', :require => false
