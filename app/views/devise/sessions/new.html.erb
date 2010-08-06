@@ -2,6 +2,8 @@
 <div id="content_detail" class="ui-corner-all">
 <h1 class="title"><%= t('page.sign_in') -%> : Next-L Enju</h1>
 <div id="content_list">
+  <%= f.error_messages -%>
+
   <%= raw sanitize(textilize(h(@library_group.login_banner))) %>
 
 </div>
@@ -17,6 +19,9 @@
     <%= f.label t('page.password') %><br />
     <%= f.password_field :password, :class => 'login_password' %>
   </p>
+
+  <p class="notice"><%= notice %></p>
+  <p class="alert"><%= alert %></p>
 
   <% if devise_mapping.rememberable? -%>
     <p><%= f.check_box :remember_me %> <%= f.label :remember_me %></p>
