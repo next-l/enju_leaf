@@ -53,45 +53,45 @@ class SubscriptionsControllerTest < ActionController::TestCase
   end
   
   def test_guest_should_not_create_subscription
-    old_count = Subscription.count
-    post :create, :subscription => { :title => 'test' }
-    assert_equal old_count, Subscription.count
+    assert_no_difference('Subscription.count') do
+      post :create, :subscription => { :title => 'test' }
+    end
     
     assert_redirected_to new_user_session_url
   end
 
   def test_user_should_not_create_subscription
     sign_in users(:user1)
-    old_count = Subscription.count
-    post :create, :subscription => { :title => 'test' }
-    assert_equal old_count, Subscription.count
+    assert_no_difference('Subscription.count') do
+      post :create, :subscription => { :title => 'test' }
+    end
     
     assert_response :forbidden
   end
 
   def test_librarian_should_not_create_subscription_without_title
     sign_in users(:librarian1)
-    old_count = Subscription.count
-    post :create, :subscription => { }
-    assert_equal old_count, Subscription.count
+    assert_no_difference('Subscription.count') do
+      post :create, :subscription => { }
+    end
     
     assert_response :success
   end
 
   def test_librarian_should_create_subscription
     sign_in users(:librarian1)
-    old_count = Subscription.count
-    post :create, :subscription => { :order_list_id => 1, :title => 'test' }
-    assert_equal old_count+1, Subscription.count
+    assert_difference('Subscription.count') do
+      post :create, :subscription => { :order_list_id => 1, :title => 'test' }
+    end
     
     assert_redirected_to subscription_url(assigns(:subscription))
   end
 
   def test_admin_should_create_subscription
     sign_in users(:admin)
-    old_count = Subscription.count
-    post :create, :subscription => { :order_list_id => 1, :title => 'test' }
-    assert_equal old_count+1, Subscription.count
+    assert_difference('Subscription.count') do
+      post :create, :subscription => { :order_list_id => 1, :title => 'test' }
+    end
     
     assert_redirected_to subscription_url(assigns(:subscription))
   end
@@ -174,36 +174,36 @@ class SubscriptionsControllerTest < ActionController::TestCase
   end
   
   def test_guest_should_not_destroy_subscription
-    old_count = Subscription.count
-    delete :destroy, :id => 1
-    assert_equal old_count, Subscription.count
+    assert_no_difference('Subscription.count') do
+      delete :destroy, :id => 1
+    end
     
     assert_redirected_to new_user_session_url
   end
 
   def test_user_should_not_destroy_subscription
     sign_in users(:user1)
-    old_count = Subscription.count
-    delete :destroy, :id => 1
-    assert_equal old_count, Subscription.count
+    assert_no_difference('Subscription.count') do
+      delete :destroy, :id => 1
+    end
     
     assert_response :forbidden
   end
 
   def test_librarian_should_destroy_subscription
     sign_in users(:librarian1)
-    old_count = Subscription.count
-    delete :destroy, :id => 1
-    assert_equal old_count-1, Subscription.count
+    assert_difference('Subscription.count', -1) do
+      delete :destroy, :id => 1
+    end
     
     assert_redirected_to subscriptions_url
   end
 
   def test_admin_should_destroy_subscription
     sign_in users(:admin)
-    old_count = Subscription.count
-    delete :destroy, :id => 1
-    assert_equal old_count-1, Subscription.count
+    assert_difference('Subscription.count', -1) do
+      delete :destroy, :id => 1
+    end
     
     assert_redirected_to subscriptions_url
   end

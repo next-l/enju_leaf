@@ -54,45 +54,45 @@ class MediumOfPerformancesControllerTest < ActionController::TestCase
   end
   
   def test_guest_should_not_create_medium_of_performance
-    old_count = MediumOfPerformance.count
-    post :create, :medium_of_performance => { }
-    assert_equal old_count, MediumOfPerformance.count
+    assert_no_difference('MediumOfPerformance.count') do
+      post :create, :medium_of_performance => { }
+    end
     
     assert_redirected_to new_user_session_url
   end
 
   def test_user_should_not_create_medium_of_performance
     sign_in users(:user1)
-    old_count = MediumOfPerformance.count
-    post :create, :medium_of_performance => { }
-    assert_equal old_count, MediumOfPerformance.count
+    assert_no_difference('MediumOfPerformance.count') do
+      post :create, :medium_of_performance => { }
+    end
     
     assert_response :forbidden
   end
 
   def test_librarian_should_not_create_medium_of_performance
     sign_in users(:librarian1)
-    old_count = MediumOfPerformance.count
-    post :create, :medium_of_performance => { }
-    assert_equal old_count, MediumOfPerformance.count
+    assert_no_difference('MediumOfPerformance.count') do
+      post :create, :medium_of_performance => { }
+    end
     
     assert_response :forbidden
   end
 
   def test_admin_should_not_create_medium_of_performance_without_name
     sign_in users(:admin)
-    old_count = MediumOfPerformance.count
-    post :create, :medium_of_performance => { }
-    assert_equal old_count, MediumOfPerformance.count
+    assert_no_difference('MediumOfPerformance.count') do
+      post :create, :medium_of_performance => { }
+    end
     
     assert_response :success
   end
 
   def test_admin_should_create_medium_of_performance
     sign_in users(:admin)
-    old_count = MediumOfPerformance.count
-    post :create, :medium_of_performance => {:name => 'test'}
-    assert_equal old_count+1, MediumOfPerformance.count
+    assert_difference('MediumOfPerformance.count') do
+      post :create, :medium_of_performance => {:name => 'test'}
+    end
     
     assert_redirected_to medium_of_performance_url(assigns(:medium_of_performance))
   end
@@ -173,36 +173,36 @@ class MediumOfPerformancesControllerTest < ActionController::TestCase
   end
   
   def test_guest_should_not_destroy_medium_of_performance
-    old_count = MediumOfPerformance.count
-    delete :destroy, :id => 1
-    assert_equal old_count, MediumOfPerformance.count
+    assert_no_difference('MediumOfPerformance.count') do
+      delete :destroy, :id => 1
+    end
     
     assert_redirected_to new_user_session_url
   end
 
   def test_user_should_not_destroy_medium_of_performance
     sign_in users(:user1)
-    old_count = MediumOfPerformance.count
-    delete :destroy, :id => 1
-    assert_equal old_count, MediumOfPerformance.count
+    assert_no_difference('MediumOfPerformance.count') do
+      delete :destroy, :id => 1
+    end
     
     assert_response :forbidden
   end
 
   def test_librarian_should_not_destroy_medium_of_performance
     sign_in users(:librarian1)
-    old_count = MediumOfPerformance.count
-    delete :destroy, :id => 1
-    assert_equal old_count, MediumOfPerformance.count
+    assert_no_difference('MediumOfPerformance.count') do
+      delete :destroy, :id => 1
+    end
     
     assert_response :forbidden
   end
 
   def test_admin_should_destroy_medium_of_performance
     sign_in users(:admin)
-    old_count = MediumOfPerformance.count
-    delete :destroy, :id => 1
-    assert_equal old_count-1, MediumOfPerformance.count
+    assert_difference('MediumOfPerformance.count', -1) do
+      delete :destroy, :id => 1
+    end
     
     assert_redirected_to medium_of_performances_url
   end

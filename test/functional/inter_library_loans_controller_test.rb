@@ -255,44 +255,45 @@ class InterLibraryLoansControllerTest < ActionController::TestCase
   end
 
   def test_guest_should_not_destroy_inter_library_loan
-    old_count = InterLibraryLoan.count
-    delete :destroy, :id => 1
+    assert_no_difference('InterLibraryLoan.count') do
+      delete :destroy, :id => 1
+    end
     assert_response :redirect
     assert_redirected_to new_user_session_url
   end
 
   def test_everyone_should_not_destroy_missing_inter_library_loan
     sign_in users(:admin)
-    old_count = InterLibraryLoan.count
-    delete :destroy, :id => 100, :user_id => users(:user1).username
-    assert_equal old_count, InterLibraryLoan.count
+    assert_no_difference('InterLibraryLoan.count') do
+      delete :destroy, :id => 100, :user_id => users(:user1).username
+    end
     
     assert_response :missing
   end
 
   def test_user_should_not_destroy_inter_library_loan
     sign_in users(:user1)
-    old_count = InterLibraryLoan.count
-    delete :destroy, :id => 3
-    assert_equal old_count, InterLibraryLoan.count
+    assert_no_difference('InterLibraryLoan.count') do
+      delete :destroy, :id => 3
+    end
     
     assert_response :forbidden
   end
 
   def test_librarian_should_destroy_inter_library_loan
     sign_in users(:librarian1)
-    old_count = InterLibraryLoan.count
-    delete :destroy, :id => 3
-    assert_equal old_count-1, InterLibraryLoan.count
+    assert_difference('InterLibraryLoan.count', -1) do
+      delete :destroy, :id => 3
+    end
     
     assert_redirected_to inter_library_loans_url
   end
 
   def test_librarian_should_destroy_inter_library_loan
     sign_in users(:admin)
-    old_count = InterLibraryLoan.count
-    delete :destroy, :id => 3
-    assert_equal old_count-1, InterLibraryLoan.count
+    assert_difference('InterLibraryLoan.count', -1) do
+      delete :destroy, :id => 3
+    end
     
     assert_redirected_to inter_library_loans_url
   end

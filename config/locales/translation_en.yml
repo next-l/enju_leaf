@@ -1281,7 +1281,7 @@ en:
     answer_question: "Answer this question"
     crd: "NDL Collaborative Reference Database"
     you_can_search_crd: "You can search within NDL Collaborative Reference Database."
-    created_at: "Question updated at"
+    created_at: "Question created at"
     updated_at: "Question updated at"
     last_answered_at: "Last answered at"
     solved: "Solved"

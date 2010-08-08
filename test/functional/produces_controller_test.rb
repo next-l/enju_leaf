@@ -155,27 +155,27 @@ class ProducesControllerTest < ActionController::TestCase
   end
   
   def test_guest_should_not_destroy_produce
-    old_count = Produce.count
-    delete :destroy, :id => 1
-    assert_equal old_count, Produce.count
+    assert_no_difference('Produce.count') do
+      delete :destroy, :id => 1
+    end
     
     assert_redirected_to new_user_session_url
   end
 
   def test_user_should_not_destroy_produce
     sign_in users(:user1)
-    old_count = Produce.count
-    delete :destroy, :id => 1
-    assert_equal old_count, Produce.count
+    assert_no_difference('Produce.count') do
+      delete :destroy, :id => 1
+    end
     
     assert_response :forbidden
   end
 
   def test_librarian_should_destroy_produce
     sign_in users(:librarian1)
-    old_count = Produce.count
-    delete :destroy, :id => 1
-    assert_equal old_count-1, Produce.count
+    assert_difference('Produce.count', -1) do
+      delete :destroy, :id => 1
+    end
     
     assert_redirected_to produces_url
   end

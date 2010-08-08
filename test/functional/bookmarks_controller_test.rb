@@ -83,7 +83,7 @@ class BookmarksControllerTest < ActionController::TestCase
     sign_in users(:user1)
     get :new, :user_id => users(:user1).username, :bookmark => {:url => 'http://www.slis.keio.ac.jp/'}
     assert_response :redirect
-    assert_equal 'This resource is already bookmarked.', flash[:notice]
+    assert_equal I18n.t('bookmark.already_bookmarked'), flash[:notice]
     assert_redirected_to resource_url(assigns(:bookmark).get_manifestation)
   end
   
@@ -182,7 +182,7 @@ class BookmarksControllerTest < ActionController::TestCase
       post :create, :bookmark => {:user_id => users(:user1).id, :url => 'http://www.slis.keio.ac.jp/'}, :user_id => users(:user1).username
     end
     
-    assert_equal 'This resource is already bookmarked.', flash[:notice]
+    assert_equal I18n.t('bookmark.already_bookmarked'), flash[:notice]
   end
 
   def test_guest_should_not_show_bookmark_without_user_id
@@ -308,9 +308,9 @@ class BookmarksControllerTest < ActionController::TestCase
   end
   
   def test_guest_should_not_destroy_bookmark
-    old_count = Bookmark.count
-    delete :destroy, :id => 1
-    assert_equal old_count, Bookmark.count
+    assert_no_difference('Bookmark.count') do
+      delete :destroy, :id => 1
+    end
     
     assert_response :redirect
     assert_redirected_to new_user_session_url
@@ -318,18 +318,18 @@ class BookmarksControllerTest < ActionController::TestCase
 
   def test_user_should_destroy_my_bookmark
     sign_in users(:user1)
-    old_count = Bookmark.count
-    delete :destroy, :id => 3, :user_id => users(:user1).username
-    assert_equal old_count-1, Bookmark.count
+    assert_difference('Bookmark.count', -1) do
+      delete :destroy, :id => 3, :user_id => users(:user1).username
+    end
     
     assert_redirected_to user_bookmarks_url(users(:user1).username)
   end
 
   def test_user_should_not_destroy_other_bookmark
     sign_in users(:user1)
-    old_count = Bookmark.count
-    delete :destroy, :id => 1, :user_id => users(:admin).username
-    assert_equal old_count, Bookmark.count
+    assert_no_difference('Bookmark.count', -1) do
+      delete :destroy, :id => 1, :user_id => users(:admin).username
+    end
     
     assert_response :forbidden
   end

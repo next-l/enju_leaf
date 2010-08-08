@@ -54,45 +54,45 @@ class FormOfWorksControllerTest < ActionController::TestCase
   end
   
   def test_guest_should_not_create_form_of_work
-    old_count = FormOfWork.count
-    post :create, :form_of_work => { }
-    assert_equal old_count, FormOfWork.count
+    assert_no_difference('FormOfWork.count') do
+      post :create, :form_of_work => { }
+    end
     
     assert_redirected_to new_user_session_url
   end
 
   def test_user_should_not_create_form_of_work
     sign_in users(:user1)
-    old_count = FormOfWork.count
-    post :create, :form_of_work => { }
-    assert_equal old_count, FormOfWork.count
+    assert_no_difference('FormOfWork.count') do
+      post :create, :form_of_work => { }
+    end
     
     assert_response :forbidden
   end
 
   def test_librarian_should_not_create_form_of_work
     sign_in users(:librarian1)
-    old_count = FormOfWork.count
-    post :create, :form_of_work => { }
-    assert_equal old_count, FormOfWork.count
+    assert_no_difference('FormOfWork.count') do
+      post :create, :form_of_work => { }
+    end
     
     assert_response :forbidden
   end
 
   def test_admin_should_not_create_form_of_work_without_name
     sign_in users(:admin)
-    old_count = FormOfWork.count
-    post :create, :form_of_work => { }
-    assert_equal old_count, FormOfWork.count
+    assert_no_difference('FormOfWork.count') do
+      post :create, :form_of_work => { }
+    end
     
     assert_response :success
   end
 
   def test_admin_should_create_form_of_work
     sign_in users(:admin)
-    old_count = FormOfWork.count
-    post :create, :form_of_work => {:name => 'test1'}
-    assert_equal old_count+1, FormOfWork.count
+    assert_difference('FormOfWork.count') do
+      post :create, :form_of_work => {:name => 'test1'}
+    end
     
     assert_redirected_to form_of_work_url(assigns(:form_of_work))
   end
@@ -173,36 +173,36 @@ class FormOfWorksControllerTest < ActionController::TestCase
   end
   
   def test_guest_should_not_destroy_form_of_work
-    old_count = FormOfWork.count
-    delete :destroy, :id => 1
-    assert_equal old_count, FormOfWork.count
+    assert_no_difference('FormOfWork.count') do
+      delete :destroy, :id => 1
+    end
     
     assert_redirected_to new_user_session_url
   end
 
   def test_user_should_not_destroy_form_of_work
     sign_in users(:user1)
-    old_count = FormOfWork.count
-    delete :destroy, :id => 1
-    assert_equal old_count, FormOfWork.count
+    assert_no_difference('FormOfWork.count') do
+      delete :destroy, :id => 1
+    end
     
     assert_response :forbidden
   end
 
   def test_librarian_should_not_destroy_form_of_work
     sign_in users(:librarian1)
-    old_count = FormOfWork.count
-    delete :destroy, :id => 1
-    assert_equal old_count, FormOfWork.count
+    assert_no_difference('FormOfWork.count') do
+      delete :destroy, :id => 1
+    end
     
     assert_response :forbidden
   end
 
   def test_admin_should_destroy_form_of_work
     sign_in users(:admin)
-    old_count = FormOfWork.count
-    delete :destroy, :id => 1
-    assert_equal old_count-1, FormOfWork.count
+    assert_difference('FormOfWork.count', -1) do
+      delete :destroy, :id => 1
+    end
     
     assert_redirected_to form_of_works_url
   end

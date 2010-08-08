@@ -125,7 +125,6 @@ class PictureFilesControllerTest < ActionController::TestCase
 
   def test_librarian_should_create_picture_file
     sign_in users(:librarian1)
-    old_count = PictureFile.count
     assert_difference('PictureFile.count', 1) do
       post :create, :picture_file => {:picture_attachable_type => 'Shelf', :picture_attachable_id => 1, :picture => fixture_file_upload("spinner.gif", "image/gif")}
     end

@@ -78,9 +78,9 @@ class QuestionsControllerTest < ActionController::TestCase
   end
   
   def test_guest_should_not_create_question
-    old_count = Question.count
-    post :create, :question => { }
-    assert_equal old_count, Question.count
+    assert_no_difference('Question.count') do
+      post :create, :question => { }
+    end
     
     assert_redirected_to new_user_session_url
   end
@@ -88,18 +88,18 @@ class QuestionsControllerTest < ActionController::TestCase
 
   def test_user_should_not_create_question_without_body
     sign_in users(:user1)
-    old_count = Question.count
-    post :create, :question => { }
-    assert_equal old_count, Question.count
+    assert_no_difference('Question.count') do
+      post :create, :question => { }
+    end
     
     assert_response :success
   end
 
   def test_user_should_create_question_with_body
     sign_in users(:user1)
-    old_count = Question.count
-    post :create, :question => {:body => 'test'}
-    assert_equal old_count+1, Question.count
+    assert_difference('Question.count') do
+      post :create, :question => {:body => 'test'}
+    end
     
     assert_redirected_to user_question_url(users(:user1).username, assigns(:question))
   end
@@ -200,9 +200,9 @@ class QuestionsControllerTest < ActionController::TestCase
   end
   
   def test_guest_should_not_destroy_question
-    old_count = Question.count
-    delete :destroy, :id => 1
-    assert_equal old_count, Question.count
+    assert_no_difference('Question.count') do
+      delete :destroy, :id => 1
+    end
     
     assert_response :redirect
     assert_redirected_to new_user_session_url
@@ -210,27 +210,27 @@ class QuestionsControllerTest < ActionController::TestCase
 
   def test_user_should_destroy_my_question
     sign_in users(:user1)
-    old_count = Question.count
-    delete :destroy, :id => 3
-    assert_equal old_count-1, Question.count
+    assert_difference('Question.count', -1) do
+      delete :destroy, :id => 3
+    end
     
     assert_redirected_to user_questions_url(assigns(:question).user.username)
   end
 
   def test_user_should_not_destroy_other_question
     sign_in users(:user1)
-    old_count = Question.count
-    delete :destroy, :id => 5, :user_id => users(:user2).username
-    assert_equal old_count, Question.count
+    assert_no_difference('Question.count') do
+      delete :destroy, :id => 5, :user_id => users(:user2).username
+    end
     
     assert_response :forbidden
   end
 
   def test_user_should_not_destroy_missing_question
     sign_in users(:user1)
-    old_count = Question.count
-    delete :destroy, :id => 100, :user_id => users(:user1).username
-    assert_equal old_count, Question.count
+    assert_no_difference('Question.count') do
+      delete :destroy, :id => 100, :user_id => users(:user1).username
+    end
     
     assert_response :missing
   end

@@ -168,36 +168,36 @@ class UserGroupHasCheckoutTypesControllerTest < ActionController::TestCase
   end
   
   def test_guest_should_not_destroy_user_group_has_checkout_type
-    old_count = UserGroupHasCheckoutType.count
-    delete :destroy, :id => 1
-    assert_equal old_count, UserGroupHasCheckoutType.count
+    assert_no_difference('UserGroupHasCheckoutType.count') do
+      delete :destroy, :id => 1
+    end
     
     assert_redirected_to new_user_session_url
   end
 
   def test_user_should_not_destroy_user_group_has_checkout_type
     sign_in users(:user1)
-    old_count = UserGroupHasCheckoutType.count
-    delete :destroy, :id => 1
-    assert_equal old_count, UserGroupHasCheckoutType.count
+    assert_no_difference('UserGroupHasCheckoutType.count') do
+      delete :destroy, :id => 1
+    end
     
     assert_response :forbidden
   end
 
   def test_librarian_should_not_destroy_user_group_has_checkout_type
     sign_in users(:librarian1)
-    old_count = UserGroupHasCheckoutType.count
-    delete :destroy, :id => 1
-    assert_equal old_count, UserGroupHasCheckoutType.count
+    assert_no_difference('UserGroupHasCheckoutType.count') do
+      delete :destroy, :id => 1
+    end
     
     assert_response :forbidden
   end
 
   def test_admin_should_destroy_user_group_has_checkout_type
     sign_in users(:admin)
-    old_count = UserGroupHasCheckoutType.count
-    delete :destroy, :id => 1
-    assert_equal old_count-1, UserGroupHasCheckoutType.count
+    assert_difference('UserGroupHasCheckoutType.count', -1) do
+      delete :destroy, :id => 1
+    end
     
     assert_redirected_to user_group_has_checkout_types_url
   end

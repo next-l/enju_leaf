@@ -54,45 +54,45 @@ class ExtentsControllerTest < ActionController::TestCase
   end
   
   def test_guest_should_not_create_extent
-    old_count = Extent.count
-    post :create, :extent => { }
-    assert_equal old_count, Extent.count
+    assert_no_difference('Extent.count') do
+      post :create, :extent => { }
+    end
     
     assert_redirected_to new_user_session_url
   end
 
   def test_user_should_not_create_extent
     sign_in users(:user1)
-    old_count = Extent.count
-    post :create, :extent => { }
-    assert_equal old_count, Extent.count
+    assert_no_difference('Extent.count') do
+      post :create, :extent => { }
+    end
     
     assert_response :forbidden
   end
 
   def test_librarian_should_not_create_extent
     sign_in users(:librarian1)
-    old_count = Extent.count
-    post :create, :extent => { }
-    assert_equal old_count, Extent.count
+    assert_no_difference('Extent.count') do
+      post :create, :extent => { }
+    end
     
     assert_response :forbidden
   end
 
   def test_admin_should_not_create_extent_without_name
     sign_in users(:admin)
-    old_count = Extent.count
-    post :create, :extent => { }
-    assert_equal old_count, Extent.count
+    assert_no_difference('Extent.count') do
+      post :create, :extent => { }
+    end
     
     assert_response :success
   end
 
   def test_admin_should_create_extent
     sign_in users(:admin)
-    old_count = Extent.count
-    post :create, :extent => {:name => 'test'}
-    assert_equal old_count+1, Extent.count
+    assert_difference('Extent.count') do
+      post :create, :extent => {:name => 'test'}
+    end
     
     assert_redirected_to extent_url(assigns(:extent))
   end
@@ -173,36 +173,36 @@ class ExtentsControllerTest < ActionController::TestCase
   end
   
   def test_guest_should_not_destroy_extent
-    old_count = Extent.count
-    delete :destroy, :id => 1
-    assert_equal old_count, Extent.count
+    assert_no_difference('Extent.count') do
+      delete :destroy, :id => 1
+    end
     
     assert_redirected_to new_user_session_url
   end
 
   def test_user_should_not_destroy_extent
     sign_in users(:user1)
-    old_count = Extent.count
-    delete :destroy, :id => 1
-    assert_equal old_count, Extent.count
+    assert_no_difference('Extent.count') do
+      delete :destroy, :id => 1
+    end
     
     assert_response :forbidden
   end
 
   def test_librarian_should_not_destroy_extent
     sign_in users(:librarian1)
-    old_count = Extent.count
-    delete :destroy, :id => 1
-    assert_equal old_count, Extent.count
+    assert_no_difference('Extent.count') do
+      delete :destroy, :id => 1
+    end
     
     assert_response :forbidden
   end
 
   def test_admin_should_destroy_extent
     sign_in users(:admin)
-    old_count = Extent.count
-    delete :destroy, :id => 1
-    assert_equal old_count-1, Extent.count
+    assert_difference('Extent.count', -1) do
+      delete :destroy, :id => 1
+    end
     
     assert_redirected_to extents_url
   end

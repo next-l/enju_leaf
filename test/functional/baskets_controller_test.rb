@@ -50,9 +50,9 @@ class BasketsControllerTest < ActionController::TestCase
   end
 
   def test_guest_should_not_create_basket
-    old_count = Basket.count
-    post :create, :basket => { }
-    assert_equal old_count, Basket.count
+    assert_no_difference('Basket.count') do
+      post :create, :basket => { }
+    end
     
     assert_response :redirect
     assert_redirected_to new_user_session_url
@@ -60,38 +60,38 @@ class BasketsControllerTest < ActionController::TestCase
 
   def test_user_should_not_create_basket
     sign_in users(:user1)
-    old_count = Basket.count
-    post :create, :basket => {:user_number => users(:user1).user_number }
-    assert_equal old_count, Basket.count
+    assert_no_difference('Basket.count') do
+      post :create, :basket => {:user_number => users(:user1).user_number }
+    end
     
     assert_response :forbidden
   end
 
   def test_librarian_should_not_create_basket_without_user_number
     sign_in users(:librarian1)
-    old_count = Basket.count
-    post :create, :basket => { }
-    assert_equal old_count, Basket.count
+    assert_no_difference('Basket.count') do
+      post :create, :basket => { }
+    end
     
     assert_response :success
   end
 
   def test_librarian_should_create_basket
     sign_in users(:librarian1)
-    old_count = Basket.count
-    post :create, :basket => {:user_number => users(:user1).user_number }
-    assert_equal old_count+1, Basket.count
+    assert_difference('Basket.count') do
+      post :create, :basket => {:user_number => users(:user1).user_number }
+    end
     
     assert_redirected_to user_basket_checked_items_url(users(:user1).username, assigns(:basket))
   end
 
   def test_librarian_should_not_create_basket_when_user_is_suspended
     sign_in users(:librarian1)
-    old_count = Basket.count
-    post :create, :basket => {:user_number => users(:user3).user_number }
-    assert_equal old_count, Basket.count
+    assert_no_difference('Basket.count') do
+      post :create, :basket => {:user_number => users(:user3).user_number }
+    end
     
-    assert assigns(:basket).errors["base"].include?('This account is suspended.')
+    assert assigns(:basket).errors["base"].include?(I18n.t('basket.this_account_is_suspended'))
     assert_response :success
   end
 
@@ -177,9 +177,9 @@ class BasketsControllerTest < ActionController::TestCase
   end
 
   def test_guest_should_not_destroy_basket
-    old_count = Basket.count
-    delete :destroy, :id => 1, :user_id => users(:admin).username
-    assert_equal old_count, Basket.count
+    assert_no_difference('Basket.count') do
+      delete :destroy, :id => 1, :user_id => users(:admin).username
+    end
     
     assert_response :redirect
     assert_redirected_to new_user_session_url
@@ -187,9 +187,9 @@ class BasketsControllerTest < ActionController::TestCase
 
   def test_everyone_should_not_destroy_basket_without_user_id
     sign_in users(:admin)
-    old_count = Basket.count
-    delete :destroy, :id => 1
-    assert_equal old_count, Basket.count
+    assert_no_difference('Basket.count') do
+      delete :destroy, :id => 1
+    end
     
     #assert_response :forbidden
     assert_response :missing
@@ -197,9 +197,9 @@ class BasketsControllerTest < ActionController::TestCase
   
   def test_user_should_not_destroy_basket
     sign_in users(:user1)
-    old_count = Basket.count
-    delete :destroy, :id => 3, :user_id => users(:user1).username
-    assert_equal old_count, Basket.count
+    assert_no_difference('Basket.count') do
+      delete :destroy, :id => 3, :user_id => users(:user1).username
+    end
     
     assert_response :forbidden
   end
@@ -223,10 +223,10 @@ class BasketsControllerTest < ActionController::TestCase
 
   #def test_system_should_show_notice_when_other_patron_reserved
   #  sign_in users(:librarian1)
-  #  old_count = Basket.count
-  #  put :update, :id => 2, :user_id => users(:librarian1).username
-  #  #assert_equal 'Reserved item included!', flash[:reserved]
-  #  assert_equal old_count, Basket.count
+  #  assert_no_difference('Basket.count') do
+  #   put :update, :id => 2, :user_id => users(:librarian1).username
+  #  end
+  #  assert_equal 'Reserved item included!', flash[:reserved]
   #  
   #  assert_redirected_to user_basket_checked_items_url(assigns(:user).username, assigns(:basket))
   #end

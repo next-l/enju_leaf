@@ -41,9 +41,9 @@ class SubscribesControllerTest < ActionController::TestCase
   end
   
   def test_guest_should_not_create_subscribe
-    old_count = Subscribe.count
-    post :create, :subscribe => { :work_id => 1, :subscription_id => 1 }
-    assert_equal old_count, Subscribe.count
+    assert_no_difference('Subscribe.count') do
+      post :create, :subscribe => { :work_id => 1, :subscription_id => 1 }
+    end
     
     assert_response :redirect
     assert_redirected_to new_user_session_url
@@ -51,45 +51,45 @@ class SubscribesControllerTest < ActionController::TestCase
 
   def test_user_should_not_create_subscribe
     sign_in users(:user1)
-    old_count = Subscribe.count
-    post :create, :subscribe => { :work_id => 1, :subscription_id => 1 }
-    assert_equal old_count, Subscribe.count
+    assert_no_difference('Subscribe.count') do
+      post :create, :subscribe => { :work_id => 1, :subscription_id => 1 }
+    end
     
     assert_response :forbidden
   end
 
   def test_librarian_should_not_create_create_without_work_id
     sign_in users(:librarian1)
-    old_count = Subscribe.count
-    post :create, :subscribe => { :subscription_id => 1 }
-    assert_equal old_count, Subscribe.count
+    assert_no_difference('Subscribe.count') do
+      post :create, :subscribe => { :subscription_id => 1 }
+    end
     
     assert_response :success
   end
 
   def test_librarian_should_not_create_create_without_subscription_id
     sign_in users(:librarian1)
-    old_count = Subscribe.count
-    post :create, :subscribe => { :work_id => 1 }
-    assert_equal old_count, Subscribe.count
+    assert_no_difference('Subscribe.count') do
+      post :create, :subscribe => { :work_id => 1 }
+    end
     
     assert_response :success
   end
 
   def test_librarian_should_not_create_create_already_created
     sign_in users(:librarian1)
-    old_count = Subscribe.count
-    post :create, :subscribe => { :start_at => Time.zone.now.to_s, :end_at => 1.day.from_now.to_s, :work_id => 1, :subscription_id => 1 }
-    assert_equal old_count, Subscribe.count
+    assert_no_difference('Subscribe.count') do
+      post :create, :subscribe => { :start_at => Time.zone.now.to_s, :end_at => 1.day.from_now.to_s, :work_id => 1, :subscription_id => 1 }
+    end
     
     assert_response :success
   end
 
   def test_librarian_should_create_subscribe_not_created_yet
     sign_in users(:librarian1)
-    old_count = Subscribe.count
-    post :create, :subscribe => { :start_at => Time.zone.now.to_s, :end_at => 1.day.from_now.to_s, :work_id => 3, :subscription_id => 1 }
-    assert_equal old_count+1, Subscribe.count
+    assert_difference('Subscribe.count') do
+      post :create, :subscribe => { :start_at => Time.zone.now.to_s, :end_at => 1.day.from_now.to_s, :work_id => 3, :subscription_id => 1 }
+    end
     
     assert_redirected_to subscribe_url(assigns(:subscribe))
   end
@@ -161,27 +161,27 @@ class SubscribesControllerTest < ActionController::TestCase
   end
   
   def test_guest_should_not_destroy_subscribe
-    old_count = Subscribe.count
-    delete :destroy, :id => 1
-    assert_equal old_count, Subscribe.count
+    assert_no_difference('Subscribe.count') do
+      delete :destroy, :id => 1
+    end
     
     assert_redirected_to new_user_session_url
   end
 
   def test_user_should_not_destroy_subscribe
     sign_in users(:user1)
-    old_count = Subscribe.count
-    delete :destroy, :id => 1
-    assert_equal old_count, Subscribe.count
+    assert_no_difference('Subscribe.count') do
+      delete :destroy, :id => 1
+    end
     
     assert_response :forbidden
   end
 
   def test_librarian_should_destroy_subscribe
     sign_in users(:librarian1)
-    old_count = Subscribe.count
-    delete :destroy, :id => 1
-    assert_equal old_count-1, Subscribe.count
+    assert_difference('Subscribe.count', -1) do
+      delete :destroy, :id => 1
+    end
     
     assert_redirected_to subscribes_url
   end

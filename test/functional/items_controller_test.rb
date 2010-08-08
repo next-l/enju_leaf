@@ -1,7 +1,7 @@
 require 'test_helper'
 
 class ItemsControllerTest < ActionController::TestCase
-    fixtures :items, :circulation_statuses, :shelves, :orders, :resources,
+  fixtures :items, :circulation_statuses, :shelves, :orders, :resources,
       :carrier_types, :languages, :reserves,
       :libraries, :patrons, :users, :inventories, :inventory_files,
       :user_groups, :lending_policies
@@ -113,27 +113,27 @@ class ItemsControllerTest < ActionController::TestCase
   end
   
   def test_guest_should_not_create_item
-    old_count = Item.count
-    post :create, :item => { :circulation_status_id => 1, :manifestation_id => 1}
-    assert_equal old_count, Item.count
+    assert_no_difference('Item.count') do
+      post :create, :item => { :circulation_status_id => 1, :manifestation_id => 1}
+    end
     
     assert_redirected_to new_user_session_url
   end
 
   def test_everyone_should_not_create_item_without_manifestation_id
     sign_in users(:admin)
-    old_count = Item.count
-    post :create, :item => { :circulation_status_id => 1 }
-    assert_equal old_count, Item.count
+    assert_no_difference('Item.count') do
+      post :create, :item => { :circulation_status_id => 1 }
+    end
     
     assert_response :missing
   end
 
   def test_everyone_should_not_create_item_already_created
     sign_in users(:admin)
-    old_count = Item.count
-    post :create, :item => { :circulation_status_id => 1, :item_identifier => "00001", :manifestation_id => 1}
-    assert_equal old_count, Item.count
+    assert_no_difference('Item.count') do
+      post :create, :item => { :circulation_status_id => 1, :item_identifier => "00001", :manifestation_id => 1}
+    end
     
     assert_response :success
   end
@@ -149,7 +149,6 @@ class ItemsControllerTest < ActionController::TestCase
 
   def test_librarian_should_create_item
     sign_in users(:librarian1)
-    old_count = Item.count
     old_lending_policy_count = LendingPolicy.count
     assert_difference('Item.count') do
       post :create, :item => { :circulation_status_id => 1, :manifestation_id => 1}
@@ -269,45 +268,45 @@ class ItemsControllerTest < ActionController::TestCase
   end
   
   def test_guest_should_not_destroy_item
-    old_count = Item.count
-    delete :destroy, :id => 1
-    assert_equal old_count, Item.count
+    assert_no_difference('Item.count') do
+      delete :destroy, :id => 1
+    end
     
     assert_redirected_to new_user_session_url
   end
 
   def test_everyone_should_not_destroy_missing_item
     sign_in users(:admin)
-    old_count = Item.count
-    delete :destroy, :id => 100
-    assert_equal old_count, Item.count
+    assert_no_difference('Item.count') do
+      delete :destroy, :id => 100
+    end
     
     assert_response :missing
   end
 
   def test_user_should_not_destroy_item
     sign_in users(:user1)
-    old_count = Item.count
-    delete :destroy, :id => 1
-    assert_equal old_count, Item.count
+    assert_no_difference('Item.count') do
+      delete :destroy, :id => 1
+    end
     
     assert_response :forbidden
   end
 
   def test_librarian_should_destroy_item
     sign_in users(:librarian1)
-    old_count = Item.count
-    delete :destroy, :id => 1
-    assert_equal old_count-1, Item.count
+    assert_difference('Item.count', -1) do
+      delete :destroy, :id => 1
+    end
     
     assert_redirected_to resource_items_url(assigns(:item).manifestation)
   end
 
   def test_admin_should_destroy_item
     sign_in users(:admin)
-    old_count = Item.count
-    delete :destroy, :id => 1
-    assert_equal old_count-1, Item.count
+    assert_difference('Item.count', -1) do
+      delete :destroy, :id => 1
+    end
     
     assert_redirected_to resource_items_url(assigns(:item).manifestation)
   end

@@ -54,45 +54,45 @@ class ClassificationsControllerTest < ActionController::TestCase
   end
   
   def test_guest_should_not_create_classification
-    old_count = Classification.count
-    post :create, :classification => { }
-    assert_equal old_count, Classification.count
+    assert_no_difference('Classification.count') do
+      post :create, :classification => { }
+    end
     
     assert_redirected_to new_user_session_url
   end
 
   def test_user_should_not_create_classification
     sign_in users(:user1)
-    old_count = Classification.count
-    post :create, :classification => { }
-    assert_equal old_count, Classification.count
+    assert_no_difference('Classification.count') do
+      post :create, :classification => { }
+    end
     
     assert_response :forbidden
   end
 
   def test_librarian_should_not_create_classification
     sign_in users(:librarian1)
-    old_count = Classification.count
-    post :create, :classification => { }
-    assert_equal old_count, Classification.count
+    assert_no_difference('Classification.count') do
+      post :create, :classification => { }
+    end
     
     assert_response :forbidden
   end
 
   def test_admin_should_create_classification
     sign_in users(:admin)
-    old_count = Classification.count
-    post :create, :classification => {:category => '000.0', :classification_type_id => '1'}
-    assert_equal old_count+1, Classification.count
+    assert_difference('Classification.count') do
+      post :create, :classification => {:category => '000.0', :classification_type_id => '1'}
+    end
     
     assert_redirected_to classification_url(assigns(:classification))
   end
 
   def test_admin_should_not_create_classification_already_created
     sign_in users(:admin)
-    old_count = Classification.count
-    post :create, :classification => {:category => '000', :classification_type_id => '1'}
-    assert_equal old_count, Classification.count
+    assert_no_difference('Classification.count') do
+      post :create, :classification => {:category => '000', :classification_type_id => '1'}
+    end
     
     assert_response :success
   end
@@ -167,36 +167,36 @@ class ClassificationsControllerTest < ActionController::TestCase
   end
   
   def test_guest_should_not_destroy_classification
-    old_count = Classification.count
-    delete :destroy, :id => 1
-    assert_equal old_count, Classification.count
+    assert_no_difference('Classification.count') do
+      delete :destroy, :id => 1
+    end
     
     assert_redirected_to new_user_session_url
   end
 
   def test_user_should_not_destroy_classification
     sign_in users(:user1)
-    old_count = Classification.count
-    delete :destroy, :id => 1
-    assert_equal old_count, Classification.count
+    assert_no_difference('Classification.count') do
+      delete :destroy, :id => 1
+    end
     
     assert_response :forbidden
   end
 
   def test_librarian_should_not_destroy_classification
     sign_in users(:librarian1)
-    old_count = Classification.count
-    delete :destroy, :id => 1
-    assert_equal old_count, Classification.count
+    assert_no_difference('Classification.count') do
+      delete :destroy, :id => 1
+    end
     
     assert_response :forbidden
   end
 
   def test_admin_should_destroy_classification
     sign_in users(:admin)
-    old_count = Classification.count
-    delete :destroy, :id => 1
-    assert_equal old_count-1, Classification.count
+    assert_difference('Classification.count', -1) do
+      delete :destroy, :id => 1
+    end
     
     assert_redirected_to classifications_url
   end

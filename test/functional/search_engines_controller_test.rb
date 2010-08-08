@@ -54,45 +54,45 @@ class SearchEnginesControllerTest < ActionController::TestCase
   end
   
   def test_guest_should_not_create_search_engine
-    old_count = SearchEngine.count
-    post :create, :search_engine => { }
-    assert_equal old_count, SearchEngine.count
+    assert_no_difference('SearchEngine.count') do
+      post :create, :search_engine => { }
+    end
     
     assert_redirected_to new_user_session_url
   end
 
   def test_user_should_not_create_search_engine
     sign_in users(:user1)
-    old_count = SearchEngine.count
-    post :create, :search_engine => { }
-    assert_equal old_count, SearchEngine.count
+    assert_no_difference('SearchEngine.count') do
+      post :create, :search_engine => { }
+    end
     
     assert_response :forbidden
   end
 
   def test_librarian_should_not_create_search_engine
     sign_in users(:librarian1)
-    old_count = SearchEngine.count
-    post :create, :search_engine => { }
-    assert_equal old_count, SearchEngine.count
+    assert_no_difference('SearchEngine.count') do
+      post :create, :search_engine => { }
+    end
     
     assert_response :forbidden
   end
 
   def test_admin_should_not_create_search_engine_without_name
     sign_in users(:admin)
-    old_count = SearchEngine.count
-    post :create, :search_engine => { }
-    assert_equal old_count, SearchEngine.count
+    assert_no_difference('SearchEngine.count') do
+      post :create, :search_engine => { }
+    end
     
     assert_response :success
   end
 
   def test_admin_should_create_search_engine
     sign_in users(:admin)
-    old_count = SearchEngine.count
-    post :create, :search_engine => {:name => 'test', :url => 'http://www.example.com/', :base_url => 'http://www.example.com/search', :http_method => 'get', :query_param => 'test'}
-    assert_equal old_count+1, SearchEngine.count
+    assert_difference('SearchEngine.count') do
+      post :create, :search_engine => {:name => 'test', :url => 'http://www.example.com/', :base_url => 'http://www.example.com/search', :http_method => 'get', :query_param => 'test'}
+    end
     
     assert_redirected_to search_engine_url(assigns(:search_engine))
   end
@@ -174,36 +174,36 @@ class SearchEnginesControllerTest < ActionController::TestCase
   end
   
   def test_guest_should_not_destroy_search_engine
-    old_count = SearchEngine.count
-    delete :destroy, :id => 1
-    assert_equal old_count, SearchEngine.count
+    assert_no_difference('SearchEngine.count') do
+      delete :destroy, :id => 1
+    end
     
     assert_redirected_to new_user_session_url
   end
 
   def test_user_should_not_destroy_search_engine
     sign_in users(:user1)
-    old_count = SearchEngine.count
-    delete :destroy, :id => 1
-    assert_equal old_count, SearchEngine.count
+    assert_no_difference('SearchEngine.count') do
+      delete :destroy, :id => 1
+    end
     
     assert_response :forbidden
   end
 
   def test_librarian_should_not_destroy_search_engine
     sign_in users(:librarian1)
-    old_count = SearchEngine.count
-    delete :destroy, :id => 1
-    assert_equal old_count, SearchEngine.count
+    assert_no_difference('SearchEngine.count') do
+      delete :destroy, :id => 1
+    end
     
     assert_response :forbidden
   end
 
   def test_admin_should_destroy_search_engine
     sign_in users(:admin)
-    old_count = SearchEngine.count
-    delete :destroy, :id => 1
-    assert_equal old_count-1, SearchEngine.count
+    assert_difference('SearchEngine.count', -1) do
+      delete :destroy, :id => 1
+    end
     
     assert_redirected_to search_engines_url
   end

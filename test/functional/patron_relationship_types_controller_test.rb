@@ -173,9 +173,9 @@ class PatronRelationshipTypesControllerTest < ActionController::TestCase
   end
   
   def test_guest_should_not_destroy_patron_relationship_type
-    old_count = PatronRelationshipType.count
-    delete :destroy, :id => 1
-    assert_equal old_count, PatronRelationshipType.count
+    assert_no_difference('PatronRelationshipType.count') do
+      delete :destroy, :id => 1
+    end
     
     assert_redirected_to new_user_session_url
   end

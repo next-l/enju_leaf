@@ -7,7 +7,7 @@ require 'rake'
 require 'rake/testtask'
 require 'rake/rdoctask'
 
-Rails::Application.load_tasks
+EnjuLeaf::Application.load_tasks
 
 #require 'vendor/plugins/sunspot_rails/lib/sunspot/rails/tasks'
 require 'sunspot/rails/tasks'

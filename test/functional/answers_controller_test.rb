@@ -111,27 +111,27 @@ class AnswersControllerTest < ActionController::TestCase
   end
   
   def test_guest_should_not_create_answer
-    old_count = Answer.count
-    post :create, :answer => { }
-    assert_equal old_count, Answer.count
+    assert_no_difference('Answer.count') do
+      post :create, :answer => { }
+    end
     
     assert_redirected_to new_user_session_url
   end
 
   def test_user_should_create_answer_without_user_id
     sign_in users(:user1)
-    old_count = Answer.count
-    post :create, :answer => {:question_id => 1, :body => 'hoge'}
-    assert_equal old_count+1, Answer.count
+    assert_difference('Answer.count') do
+      post :create, :answer => {:question_id => 1, :body => 'hoge'}
+    end
     
     assert_redirected_to user_question_answer_url(assigns(:answer).question.user.username, assigns(:answer).question, assigns(:answer))
   end
 
   def test_user_should_not_create_answer_without_question_id
     sign_in users(:user1)
-    old_count = Answer.count
-    post :create, :answer => {:body => 'hoge'}
-    assert_equal old_count, Answer.count
+    assert_no_difference('Answer.count') do
+      post :create, :answer => {:body => 'hoge'}
+    end
     
     assert_response :redirect
     assert_redirected_to questions_url
@@ -139,9 +139,9 @@ class AnswersControllerTest < ActionController::TestCase
 
   def test_user_should_create_answer_with_question_id
     sign_in users(:user1)
-    old_count = Answer.count
-    post :create, :answer => {:question_id => 1, :body => 'hoge'}
-    assert_equal old_count+1, Answer.count
+    assert_difference('Answer.count') do
+      post :create, :answer => {:question_id => 1, :body => 'hoge'}
+    end
     
     assert_redirected_to user_question_answer_url(assigns(:answer).question.user.username, assigns(:answer).question, assigns(:answer))
   end
@@ -286,9 +286,9 @@ class AnswersControllerTest < ActionController::TestCase
   end
   
   def test_guest_should_not_destroy_answer
-    old_count = Answer.count
-    delete :destroy, :id => 1
-    assert_equal old_count, Answer.count
+    assert_no_difference('Answer.count') do
+      delete :destroy, :id => 1
+    end
     
     assert_response :redirect
     assert_redirected_to new_user_session_url
@@ -296,27 +296,27 @@ class AnswersControllerTest < ActionController::TestCase
 
   def test_user_should_destroy_my_answer
     sign_in users(:user1)
-    old_count = Answer.count
-    delete :destroy, :id => 3, :user_id => users(:user1).username
-    assert_equal old_count-1, Answer.count
+    assert_difference('Answer.count', -1) do
+      delete :destroy, :id => 3, :user_id => users(:user1).username
+    end
     
     assert_redirected_to user_question_answers_url(assigns(:answer).question.user.username, assigns(:answer).question)
   end
 
   def test_user_should_not_destroy_other_answer
     sign_in users(:user1)
-    old_count = Answer.count
-    delete :destroy, :id => 5, :user_id => users(:user2).username
-    assert_equal old_count, Answer.count
+    assert_no_difference('Answer.count') do
+      delete :destroy, :id => 5, :user_id => users(:user2).username
+    end
     
     assert_response :forbidden
   end
 
   #def test_everyone_should_not_destroy_missing_answer
   #  sign_in users(:admin)
-  #  old_count = Answer.count
-  #  delete :destroy, :id => 100, :user_id => users(:user1).username
-  #  assert_equal old_count, Answer.count
+  #  assert_no_difference('Answer.count') do
+  #   delete :destroy, :id => 100, :user_id => users(:user1).username
+  #  end
   #  
   #  assert_response :missing
   #end

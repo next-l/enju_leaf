@@ -54,45 +54,45 @@ class CirculationStatusesControllerTest < ActionController::TestCase
   end
   
   def test_guest_should_not_create_circulation_status
-    old_count = CirculationStatus.count
-    post :create, :circulation_status => { }
-    assert_equal old_count, CirculationStatus.count
+    assert_no_difference('CirculationStatus.count') do
+      post :create, :circulation_status => { }
+    end
     
     assert_redirected_to new_user_session_url
   end
 
   def test_user_should_not_create_circulation_status
     sign_in users(:user1)
-    old_count = CirculationStatus.count
-    post :create, :circulation_status => { }
-    assert_equal old_count, CirculationStatus.count
+    assert_no_difference('CirculationStatus.count') do
+      post :create, :circulation_status => { }
+    end
     
     assert_response :forbidden
   end
 
   def test_librarian_should_not_create_circulation_status
     sign_in users(:librarian1)
-    old_count = CirculationStatus.count
-    post :create, :circulation_status => { }
-    assert_equal old_count, CirculationStatus.count
+    assert_no_difference('CirculationStatus.count') do
+      post :create, :circulation_status => { }
+    end
     
     assert_response :forbidden
   end
 
   def test_admin_should_not_create_circulation_status_without_name
     sign_in users(:admin)
-    old_count = CirculationStatus.count
-    post :create, :circulation_status => { }
-    assert_equal old_count, CirculationStatus.count
+    assert_no_difference('CirculationStatus.count') do
+      post :create, :circulation_status => { }
+    end
     
     assert_response :success
   end
 
   def test_admin_should_create_circulation_status
     sign_in users(:admin)
-    old_count = CirculationStatus.count
-    post :create, :circulation_status => {:name => 'test'}
-    assert_equal old_count+1, CirculationStatus.count
+    assert_difference('CirculationStatus.count') do
+      post :create, :circulation_status => {:name => 'test'}
+    end
     
     assert_redirected_to circulation_status_url(assigns(:circulation_status))
   end
@@ -173,36 +173,36 @@ class CirculationStatusesControllerTest < ActionController::TestCase
   end
   
   def test_guest_should_not_destroy_circulation_status
-    old_count = CirculationStatus.count
-    delete :destroy, :id => 1
-    assert_equal old_count, CirculationStatus.count
+    assert_no_difference('CirculationStatus.count') do
+      delete :destroy, :id => 1
+    end
     
     assert_redirected_to new_user_session_url
   end
 
   def test_user_should_not_destroy_circulation_status
     sign_in users(:user1)
-    old_count = CirculationStatus.count
-    delete :destroy, :id => 1
-    assert_equal old_count, CirculationStatus.count
+    assert_no_difference('CirculationStatus.count') do
+      delete :destroy, :id => 1
+    end
     
     assert_response :forbidden
   end
 
   def test_librarian_should_not_destroy_circulation_status
     sign_in users(:librarian1)
-    old_count = CirculationStatus.count
-    delete :destroy, :id => 1
-    assert_equal old_count, CirculationStatus.count
+    assert_no_difference('CirculationStatus.count') do
+      delete :destroy, :id => 1
+    end
     
     assert_response :forbidden
   end
 
   def test_admin_should_destroy_circulation_status
     sign_in users(:admin)
-    old_count = CirculationStatus.count
-    delete :destroy, :id => 1
-    assert_equal old_count-1, CirculationStatus.count
+    assert_difference('CirculationStatus.count', -1) do
+      delete :destroy, :id => 1
+    end
     
     assert_redirected_to circulation_statuses_url
   end

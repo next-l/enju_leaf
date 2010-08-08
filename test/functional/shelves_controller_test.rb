@@ -66,45 +66,45 @@ class ShelvesControllerTest < ActionController::TestCase
   end
   
   def test_guest_should_not_create_shelf
-    old_count = Shelf.count
-    post :create, :shelf => { :name => 'My shelf' }, :library_id => 'kamata'
-    assert_equal old_count, Shelf.count
+    assert_no_difference('Shelf.count') do
+      post :create, :shelf => { :name => 'My shelf' }, :library_id => 'kamata'
+    end
     
     assert_redirected_to new_user_session_url
   end
 
   def test_user_should_not_create_shelf
     sign_in users(:user1)
-    old_count = Shelf.count
-    post :create, :shelf => { :name => 'My shelf' }, :library_id => 'kamata'
-    assert_equal old_count, Shelf.count
+    assert_no_difference('Shelf.count') do
+      post :create, :shelf => { :name => 'My shelf' }, :library_id => 'kamata'
+    end
     
     assert_response :forbidden
   end
 
   def test_librarian_should_not_create_shelf
     sign_in users(:librarian1)
-    old_count = Shelf.count
-    post :create, :shelf => { :name => 'My shelf' }, :library_id => 'kamata'
-    assert_equal old_count, Shelf.count
+    assert_no_difference('Shelf.count') do
+      post :create, :shelf => { :name => 'My shelf' }, :library_id => 'kamata'
+    end
     
     assert_response :forbidden
   end
 
   def test_admin_should_not_create_shelf_without_name
     sign_in users(:admin)
-    old_count = Shelf.count
-    post :create, :shelf => { :name => nil }, :library_id => 'kamata'
-    assert_equal old_count, Shelf.count
+    assert_no_difference('Shelf.count') do
+      post :create, :shelf => { :name => nil }, :library_id => 'kamata'
+    end
     
     assert_response :success
   end
 
   def test_admin_should_create_shelf
     sign_in users(:admin)
-    old_count = Shelf.count
-    post :create, :shelf => { :name => 'My shelf' }
-    assert_equal old_count+1, Shelf.count
+    assert_difference('Shelf.count') do
+      post :create, :shelf => { :name => 'My shelf' }
+    end
     assert_equal 'web', assigns(:shelf).library.name
     
     assert_redirected_to shelf_url(assigns(:shelf))
@@ -112,9 +112,9 @@ class ShelvesControllerTest < ActionController::TestCase
 
   def test_admin_should_create_shelf_with_library
     sign_in users(:admin)
-    old_count = Shelf.count
-    post :create, :shelf => { :name => 'My shelf' }, :library_id => 'kamata'
-    assert_equal old_count+1, Shelf.count
+    assert_difference('Shelf.count') do
+      post :create, :shelf => { :name => 'My shelf' }, :library_id => 'kamata'
+    end
     assert_equal 'kamata', assigns(:shelf).library.name
     
     assert_redirected_to shelf_url(assigns(:shelf))
@@ -196,45 +196,45 @@ class ShelvesControllerTest < ActionController::TestCase
   end
   
   def test_guest_should_not_destroy_shelf
-    old_count = Shelf.count
-    delete :destroy, :id => 2
-    assert_equal old_count, Shelf.count
+    assert_no_difference('Shelf.count') do
+      delete :destroy, :id => 2
+    end
     
     assert_redirected_to new_user_session_url
   end
 
   def test_user_should_not_destroy_shelf
     sign_in users(:user1)
-    old_count = Shelf.count
-    delete :destroy, :id => 2
-    assert_equal old_count, Shelf.count
+    assert_no_difference('Shelf.count') do
+      delete :destroy, :id => 2
+    end
     
     assert_response :forbidden
   end
 
   def test_librarian_should_not_destroy_shelf
     sign_in users(:librarian1)
-    old_count = Shelf.count
-    delete :destroy, :id => 2
-    assert_equal old_count, Shelf.count
+    assert_no_difference('Shelf.count') do
+      delete :destroy, :id => 2
+    end
     
     assert_response :forbidden
   end
 
   def test_everyone_should_not_destroy_shelf_id_1
     sign_in users(:admin)
-    old_count = Shelf.count
-    delete :destroy, :id => 1
-    assert_equal old_count, Shelf.count
+    assert_no_difference('Shelf.count') do
+      delete :destroy, :id => 1
+    end
     
     assert_response :forbidden
   end
 
   def test_admin_should_destroy_shelf
     sign_in users(:admin)
-    old_count = Shelf.count
-    delete :destroy, :id => 2
-    assert_equal old_count-1, Shelf.count
+    assert_difference('Shelf.count', -1) do
+      delete :destroy, :id => 2
+    end
     
     assert_redirected_to library_shelves_url(assigns(:shelf).library.name)
   end

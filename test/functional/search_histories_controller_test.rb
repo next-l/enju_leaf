@@ -44,9 +44,9 @@ class SearchHistoriesControllerTest < ActionController::TestCase
   end
   
   def test_guest_should_not_create_search_history
-    old_count = SearchHistory.count
-    post :create, :search_history => { }
-    assert_equal old_count, SearchHistory.count
+    assert_no_difference('SearchHistory.count') do
+      post :create, :search_history => { }
+    end
     
     assert_redirected_to new_user_session_url
   end
@@ -54,9 +54,9 @@ class SearchHistoriesControllerTest < ActionController::TestCase
   def test_everyone_should_not_create_search_history
     # 履歴を直接作成することはできない
     sign_in users(:admin)
-    old_count = SearchHistory.count
-    post :create, :search_history => {:query => 'test', :user_id => users(:admin).username}
-    assert_equal old_count, SearchHistory.count
+    assert_no_difference('SearchHistory.count') do
+      post :create, :search_history => {:query => 'test', :user_id => users(:admin).username}
+    end
     
     #assert_redirected_to search_history_url(assigns(:search_history))
     assert_response :forbidden
@@ -116,18 +116,18 @@ class SearchHistoriesControllerTest < ActionController::TestCase
   end
 
   def test_guest_should_not_destroy_search_history
-    old_count = SearchHistory.count
-    delete :destroy, :id => 1
-    assert_equal old_count, SearchHistory.count
+    assert_no_difference('SearchHistory.count') do
+      delete :destroy, :id => 1
+    end
     
     assert_redirected_to new_user_session_url
   end
 
   def test_owner_should_destroy_search_history
     sign_in users(:user1)
-    old_count = SearchHistory.count
-    delete :destroy, :id => 3
-    assert_equal old_count-1, SearchHistory.count
+    assert_difference('SearchHistory.count', -1) do
+      delete :destroy, :id => 3
+    end
     
     assert_response :redirect
     assert_redirected_to search_histories_url
@@ -135,9 +135,9 @@ class SearchHistoriesControllerTest < ActionController::TestCase
 
   def test_admin_should_destroy_search_history
     sign_in users(:admin)
-    old_count = SearchHistory.count
-    delete :destroy, :id => 3
-    assert_equal old_count-1, SearchHistory.count
+    assert_difference('SearchHistory.count', -1) do
+      delete :destroy, :id => 3
+    end
     
     assert_response :redirect
     assert_redirected_to search_histories_url
@@ -145,18 +145,18 @@ class SearchHistoriesControllerTest < ActionController::TestCase
 
   def test_other_user_should_not_destroy_search_history
     sign_in users(:user1)
-    old_count = SearchHistory.count
-    delete :destroy, :id => 1
-    assert_equal old_count, SearchHistory.count
+    assert_no_difference('SearchHistory.count') do
+      delete :destroy, :id => 1
+    end
     
     assert_response :forbidden
   end
 
   def test_everyone_should_not_destroy_missing_search_history
     sign_in users(:admin)
-    old_count = SearchHistory.count
-    delete :destroy, :id => 100
-    assert_equal old_count, SearchHistory.count
+    assert_no_difference('SearchHistory.count') do
+      delete :destroy, :id => 100
+    end
     
     assert_response :missing
   end

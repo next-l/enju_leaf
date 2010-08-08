@@ -88,27 +88,27 @@ class TagsControllerTest < ActionController::TestCase
   #end
   
   def test_guest_should_not_destroy_tag
-    old_count = Tag.count
-    delete :destroy, :id => 'next-l'
-    assert_equal old_count, Tag.count
+    assert_no_difference('Tag.count') do
+      delete :destroy, :id => 'next-l'
+    end
     
     assert_redirected_to new_user_session_url
   end
 
   def test_user_should_not_destroy_tag
     sign_in users(:user1)
-    old_count = Tag.count
-    delete :destroy, :id => 'next-l'
-    assert_equal old_count, Tag.count
+    assert_no_difference('Tag.count') do
+      delete :destroy, :id => 'next-l'
+    end
     
     assert_response :forbidden
   end
 
   def test_librarian_should_destroy_tag
     sign_in users(:librarian1)
-    old_count = Tag.count
-    delete :destroy, :id => 'next-l'
-    assert_equal old_count-1, Tag.count
+    assert_difference('Tag.count', -1) do
+      delete :destroy, :id => 'next-l'
+    end
     
     assert_redirected_to tags_url
   end

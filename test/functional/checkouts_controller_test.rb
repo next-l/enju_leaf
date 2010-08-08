@@ -140,19 +140,19 @@ class CheckoutsControllerTest < ActionController::TestCase
   end
   
   def test_guest_should_not_create_checkout
-    old_count = Checkout.count
-    post :create, :user_id => users(:admin).username, :checkout => {:item_id => 6}
+    assert_no_difference('Checkout.count') do
+      post :create, :user_id => users(:admin).username, :checkout => {:item_id => 6}
+    end
     assert_nil flash[:notice]
-    assert_equal old_count, Checkout.count
     
     assert_redirected_to new_user_session_url
   end
 
   def test_user_should_not_create_my_checkout
     sign_in users(:user1)
-    old_count = Checkout.count
-    post :create, :user_id => users(:user1).username, :checkout => {:item_id => 6}
-    assert_equal old_count, Checkout.count
+    assert_no_difference('Checkout.count') do
+      post :create, :user_id => users(:user1).username, :checkout => {:item_id => 6}
+    end
     
     #assert_redirected_to checkout_url(assigns(:checkout))
     assert_response :forbidden
@@ -160,9 +160,9 @@ class CheckoutsControllerTest < ActionController::TestCase
 
   def test_user_should_not_create_other_checkout
     sign_in users(:user1)
-    old_count = Checkout.count
-    post :create, :user_id => users(:admin).username, :checkout => {:item_id => 6}
-    assert_equal old_count, Checkout.count
+    assert_no_difference('Checkout.count') do
+      post :create, :user_id => users(:admin).username, :checkout => {:item_id => 6}
+    end
     
     #assert_redirected_to checkout_url(assigns(:checkout))
     assert_response :forbidden
@@ -171,9 +171,9 @@ class CheckoutsControllerTest < ActionController::TestCase
   def test_librarian_should_not_create_checkout
     # 直接追加はできない。Basket経由のみ
     sign_in users(:librarian1)
-    old_count = Checkout.count
-    post :create, :user_id => users(:user1).username, :checkout => {:item_id => 6}
-    assert_equal old_count, Checkout.count
+    assert_no_difference('Checkout.count') do
+      post :create, :user_id => users(:user1).username, :checkout => {:item_id => 6}
+    end
     
     assert_response :forbidden
     #assert_redirected_to user_checkouts_url(assigns(:user))
@@ -182,9 +182,9 @@ class CheckoutsControllerTest < ActionController::TestCase
   def test_admin_should_not_create_checkout
     # 直接追加はできない。Basket経由のみ
     sign_in users(:admin)
-    old_count = Checkout.count
-    post :create, :user_id => users(:user1).username, :checkout => {:item_id => 6}
-    assert_equal old_count, Checkout.count
+    assert_no_difference('Checkout.count') do
+      post :create, :user_id => users(:user1).username, :checkout => {:item_id => 6}
+    end
     
     assert_response :forbidden
     #assert_redirected_to user_checkouts_url(assigns(:user))
@@ -301,7 +301,7 @@ class CheckoutsControllerTest < ActionController::TestCase
   def test_user_should_not_update_already_renewed_checkout
     sign_in users(:user1)
     put :update, :id => 9, :user_id => users(:user1).username, :checkout => { }
-    assert_equal 'Excessed checkout renewal limit.', flash[:notice]
+    assert_equal I18n.t('checkout.excessed_renewal_limit'), flash[:notice]
     assert_response :redirect
     assert_redirected_to edit_user_checkout_url(assigns(:checkout).user.username, assigns(:checkout))
   end
@@ -309,7 +309,7 @@ class CheckoutsControllerTest < ActionController::TestCase
   def test_librarian_should_update_checkout_item_is_reserved
     sign_in users(:librarian1)
     put :update, :id => 8, :user_id => users(:librarian1).username, :checkout => { }
-    assert_equal 'This item is reserved.', flash[:notice]
+    assert_equal I18n.t('checkout.this_item_is_reserved'), flash[:notice]
     assert_response :redirect
     assert_redirected_to edit_user_checkout_url(assigns(:checkout).user.username, assigns(:checkout))
   end
@@ -327,18 +327,18 @@ class CheckoutsControllerTest < ActionController::TestCase
   end
   
   def test_guest_should_not_destroy_checkout
-    old_count = Checkout.count
-    delete :destroy, :id => 3, :user_id => users(:user1).username
-    assert_equal old_count, Checkout.count
+    assert_no_difference('Checkout.count') do
+      delete :destroy, :id => 3, :user_id => users(:user1).username
+    end
     
     assert_redirected_to new_user_session_url 
   end
 
   def test_everyone_should_not_destroy_checkout_without_user_id
     sign_in users(:admin)
-    old_count = Checkout.count
-    delete :destroy, :id => 3
-    assert_equal old_count, Checkout.count
+    assert_no_difference('Checkout.count') do
+      delete :destroy, :id => 3
+    end
     
     #assert_response :forbidden
     assert_response :missing
@@ -346,27 +346,27 @@ class CheckoutsControllerTest < ActionController::TestCase
 
   def test_everyone_should_not_destroy_missing_checkout
     sign_in users(:admin)
-    old_count = Checkout.count
-    delete :destroy, :id => 100, :user_id => users(:admin).username
-    assert_equal old_count, Checkout.count
+    assert_no_difference('Checkout.count') do
+      delete :destroy, :id => 100, :user_id => users(:admin).username
+    end
     
     assert_response :missing
   end
 
   def test_user_should_destroy_my_checkout
     sign_in users(:user1)
-    old_count = Checkout.count
-    delete :destroy, :id => 3, :user_id => users(:user1).username
-    assert_equal old_count-1, Checkout.count
+    assert_difference('Checkout.count', -1) do
+      delete :destroy, :id => 3, :user_id => users(:user1).username
+    end
     
     assert_redirected_to user_checkouts_url(users(:user1).username)
   end
   
   def test_librarian_should_destroy_other_checkout
     sign_in users(:librarian1)
-    old_count = Checkout.count
-    delete :destroy, :id => 1, :user_id => users(:admin).username
-    assert_equal old_count-1, Checkout.count
+    assert_difference('Checkout.count', -1) do
+      delete :destroy, :id => 1, :user_id => users(:admin).username
+    end
     
     #assert_response :forbidden
     assert_redirected_to user_checkouts_url(users(:admin).username)
@@ -374,9 +374,9 @@ class CheckoutsControllerTest < ActionController::TestCase
 
   def test_admin_should_destroy_other_checkout
     sign_in users(:admin)
-    old_count = Checkout.count
-    delete :destroy, :id => 3, :user_id => users(:user1).username
-    assert_equal old_count-1, Checkout.count
+    assert_difference('Checkout.count', -1) do
+      delete :destroy, :id => 3, :user_id => users(:user1).username
+    end
     
     #assert_response :forbidden
     assert_redirected_to user_checkouts_url(users(:user1).username)

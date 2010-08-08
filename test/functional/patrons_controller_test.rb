@@ -58,18 +58,18 @@ class PatronsControllerTest < ActionController::TestCase
   end
   
   def test_guest_should_not_create_patron
-    old_count = Patron.count
-    post :create, :patron => { :full_name => 'test' }
-    assert_equal old_count, Patron.count
+    assert_no_difference('Patron.count') do
+      post :create, :patron => { :full_name => 'test' }
+    end
     
     assert_redirected_to new_user_session_url
   end
 
   def test_user_should_create_patron_myself
     sign_in users(:user1)
-    #assert_difference('Patron.count') do
+    assert_difference('Patron.count') do
       post :create, :patron => { :full_name => 'test', :user_username => users(:user1).username }
-    #end
+    end
     
     assert_response :redirect
     assert_equal assigns(:patron).user, users(:user1)
@@ -265,45 +265,45 @@ class PatronsControllerTest < ActionController::TestCase
   end
   
   def test_guest_should_not_destroy_patron
-    old_count = Patron.count
-    delete :destroy, :id => 1
-    assert_equal old_count, Patron.count
+    assert_no_difference('Patron.count') do
+      delete :destroy, :id => 1
+    end
     
     assert_redirected_to new_user_session_url
   end
 
   def test_user_should_not_destroy_patron
     sign_in users(:user1)
-    old_count = Patron.count
-    delete :destroy, :id => users(:user1).patron
-    assert_equal old_count, Patron.count
+    assert_no_difference('Patron.count') do
+      delete :destroy, :id => users(:user1).patron
+    end
     
     assert_response :forbidden
   end
 
   def test_librarian_should_destroy_patron
     sign_in users(:librarian1)
-    old_count = Patron.count
-    delete :destroy, :id => users(:user1).patron
-    assert_equal old_count-1, Patron.count
+    assert_difference('Patron.count', -1) do
+      delete :destroy, :id => users(:user1).patron
+    end
     
     assert_redirected_to patrons_url
   end
 
   def test_librarian_should_not_destroy_librarian
     sign_in users(:librarian1)
-    old_count = Patron.count
-    delete :destroy, :id => users(:librarian1).patron
-    assert_equal old_count, Patron.count
+    assert_no_difference('Patron.count') do
+      delete :destroy, :id => users(:librarian1).patron
+    end
     
     assert_response :forbidden
   end
 
   def test_admin_should_destroy_librarian
     sign_in users(:admin)
-    old_count = Patron.count
-    delete :destroy, :id => users(:librarian1).patron
-    assert_equal old_count-1, Patron.count
+    assert_difference('Patron.count', -1) do
+      delete :destroy, :id => users(:librarian1).patron
+    end
     
     assert_redirected_to patrons_url
   end

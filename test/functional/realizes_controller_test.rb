@@ -175,45 +175,45 @@ class RealizesControllerTest < ActionController::TestCase
   end
   
   def test_guest_should_not_destroy_realize
-    old_count = Realize.count
-    delete :destroy, :id => 1
-    assert_equal old_count, Realize.count
+    assert_no_difference('Realize.count') do
+      delete :destroy, :id => 1
+    end
     
     assert_redirected_to new_user_session_url
   end
 
   def test_user_should_not_destroy_realize
     sign_in users(:user1)
-    old_count = Realize.count
-    delete :destroy, :id => 1
-    assert_equal old_count, Realize.count
+    assert_no_difference('Realize.count') do
+      delete :destroy, :id => 1
+    end
     
     assert_response :forbidden
   end
 
   def test_librarian_should_destroy_realize
     sign_in users(:librarian1)
-    old_count = Realize.count
-    delete :destroy, :id => 1
-    assert_equal old_count-1, Realize.count
+    assert_difference('Realize.count', -1) do
+      delete :destroy, :id => 1
+    end
     
     assert_redirected_to realizes_url
   end
 
   def test_librarian_should_destroy_realize_with_patron_id
     sign_in users(:librarian1)
-    old_count = Realize.count
-    delete :destroy, :id => 1, :patron_id => 1
-    assert_equal old_count-1, Realize.count
+    assert_difference('Realize.count', -1) do
+      delete :destroy, :id => 1, :patron_id => 1
+    end
     
     assert_redirected_to patron_expressions_url(assigns(:patron))
   end
 
   def test_librarian_should_destroy_realize_with_expression_id
     sign_in users(:librarian1)
-    old_count = Realize.count
-    delete :destroy, :id => 1, :expression_id => 1
-    assert_equal old_count-1, Realize.count
+    assert_difference('Realize.count', -1) do
+      delete :destroy, :id => 1, :expression_id => 1
+    end
     
     assert_redirected_to expression_patrons_url(assigns(:expression))
   end

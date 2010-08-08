@@ -173,9 +173,9 @@ class ResourceRelationshipTypesControllerTest < ActionController::TestCase
   end
   
   def test_guest_should_not_destroy_resource_relationship_type
-    old_count = ResourceRelationshipType.count
-    delete :destroy, :id => 1
-    assert_equal old_count, ResourceRelationshipType.count
+    assert_no_difference('ResourceRelationshipType.count') do
+      delete :destroy, :id => 1
+    end
     
     assert_redirected_to new_user_session_url
   end

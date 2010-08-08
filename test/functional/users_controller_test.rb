@@ -193,74 +193,74 @@ class UsersControllerTest < ActionController::TestCase
   end
 
   def test_guest_should_not_destroy_user
-    old_count = User.count
-    delete :destroy, :id => 1
-    assert_equal old_count, User.count
+    assert_no_difference('User.count') do
+      delete :destroy, :id => 1
+    end
     assert_response :redirect
     assert_redirected_to new_user_session_url
   end
 
   def test_user_should_not_destroy_myself
     sign_in users(:user1)
-    old_count = User.count
-    delete :destroy, :id => users(:user1).username
-    assert_equal old_count, User.count
+    assert_no_difference('User.count') do
+      delete :destroy, :id => users(:user1).username
+    end
     assert_response :forbidden
   end
 
   def test_user_should_not_destroy_other_user
     sign_in users(:user1)
-    old_count = User.count
-    delete :destroy, :id => users(:user2).username
-    assert_equal old_count, User.count
+    assert_no_difference('User.count') do
+      delete :destroy, :id => users(:user2).username
+    end
     assert_response :forbidden
   end
 
   def test_librarian_should_not_destroy_myself
     sign_in users(:librarian1)
-    old_count = User.count
-    delete :destroy, :id => users(:librarian1).username
-    assert_equal old_count, User.count
+    assert_no_difference('User.count') do
+      delete :destroy, :id => users(:librarian1).username
+    end
     assert_response :forbidden
   end
 
   def test_librarian_should_destroy_user
     sign_in users(:librarian1)
-    old_count = User.count
-    delete :destroy, :id => users(:user2).username
-    assert_equal old_count-1, User.count
+    assert_difference('User.count', -1) do
+      delete :destroy, :id => users(:user2).username
+    end
     assert_redirected_to users_url
   end
 
   def test_librarian_should_not_destroy_user_who_has_items_not_checked_in
     sign_in users(:librarian1)
-    old_count = User.count
-    delete :destroy, :id => users(:user1).username
-    assert_equal old_count, User.count
+    assert_no_difference('User.count') do
+      delete :destroy, :id => users(:user1).username
+    end
     assert_response :forbidden
   end
 
   def test_librarian_should_not_destroy_librarian
     sign_in users(:librarian1)
-    old_count = User.count
-    delete :destroy, :id => users(:librarian2).username
-    assert_equal old_count, User.count
+    assert_no_difference('User.count') do
+      delete :destroy, :id => users(:librarian2).username
+    end
     assert_response :forbidden
   end
 
   def test_librarian_should_not_destroy_admin
     sign_in users(:librarian1)
-    old_count = User.count
-    delete :destroy, :id => users(:admin).username
-    assert_equal old_count, User.count
+    assert_no_difference('User.count') do
+      delete :destroy, :id => users(:admin).username
+    end
     assert_response :forbidden
   end
 
   def test_admin_should_destroy_librarian
     sign_in users(:admin)
-    old_count = User.count
-    delete :destroy, :id => users(:librarian2).username
-    assert_equal old_count-1, User.count
+    assert_difference('User.count', -1) do
+      delete :destroy, :id => users(:librarian2).username
+    end
     assert_redirected_to users_url
   end
 

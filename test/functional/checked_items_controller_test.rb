@@ -71,9 +71,9 @@ class CheckedItemsControllerTest < ActionController::TestCase
   end
 
   def test_guest_should_not_create_checked_item
-    old_count = CheckedItem.count
-    post :create, :checked_item => {:item_identifier => '00004'}, :basket_id => 1
-    assert_equal old_count, CheckedItem.count
+    assert_no_difference('CheckedItem.count') do
+      post :create, :checked_item => {:item_identifier => '00004'}, :basket_id => 1
+    end
     
     assert_response :redirect
     assert_redirected_to new_user_session_url
@@ -81,9 +81,9 @@ class CheckedItemsControllerTest < ActionController::TestCase
 
   def test_everyone_should_not_create_checked_item_without_item_id
     sign_in users(:admin)
-    old_count = CheckedItem.count
-    post :create, :checked_item => { }, :basket_id => 1
-    assert_equal old_count, CheckedItem.count
+    assert_no_difference('CheckedItem.count') do
+      post :create, :checked_item => { }, :basket_id => 1
+    end
     
     assert_response :success
     #assert_redirected_to user_basket_checked_items_url(assigns(:basket).user.username, assigns(:basket))
@@ -91,70 +91,70 @@ class CheckedItemsControllerTest < ActionController::TestCase
 
   def test_everyone_should_not_create_checked_item_with_missing_item
     sign_in users(:admin)
-    old_count = CheckedItem.count
-    post :create, :checked_item => {:item_identifier => 'not found'}, :basket_id => 1
-    assert_equal old_count, CheckedItem.count
+    assert_no_difference('CheckedItem.count') do
+      post :create, :checked_item => {:item_identifier => 'not found'}, :basket_id => 1
+    end
     
     assert_response :success
     #assert_redirected_to user_basket_checked_items_url(assigns(:basket).user.username, assigns(:basket))
-    assert_equal ['Item not found.'], assigns(:checked_item).errors["base"]
+    assert_equal [I18n.t('checked_item.item_not_found')], assigns(:checked_item).errors["base"]
   end
 
   def test_everyone_should_not_create_checked_item_with_item_not_for_checkout
     sign_in users(:admin)
-    old_count = CheckedItem.count
-    post :create, :checked_item => {:item_identifier => '00017'}, :basket_id => 1
-    assert_equal old_count, CheckedItem.count
+    assert_no_difference('CheckedItem.count') do
+      post :create, :checked_item => {:item_identifier => '00017'}, :basket_id => 1
+    end
     
     assert_response :success
     #assert_redirected_to user_basket_checked_items_url(assigns(:basket).user.username, assigns(:basket))
     #assert flash[:message].include?('This item is not available for checkout.')
-    assert assigns(:checked_item).errors["base"].include?('This item is not available for checkout.')
+    assert assigns(:checked_item).errors["base"].include?(I18n.t('checked_item.not_available_for_checkout'))
   end
 
   def test_everyone_should_not_create_checked_item_already_checked_out
     sign_in users(:admin)
-    old_count = CheckedItem.count
-    post :create, :checked_item => {:item_identifier => '00013'}, :basket_id => 8
-    assert_equal old_count, CheckedItem.count
+    assert_no_difference('CheckedItem.count') do
+      post :create, :checked_item => {:item_identifier => '00013'}, :basket_id => 8
+    end
     
     assert_response :success
-    assert assigns(:checked_item).errors["base"].include?('This item is already checked out.')
+    assert assigns(:checked_item).errors["base"].include?(I18n.t('checked_item.already_checked_out'))
   end
 
   def test_everyone_should_not_create_checked_item_in_transaction
     sign_in users(:admin)
-    old_count = CheckedItem.count
-    post :create, :checked_item => {:item_identifier => '00006'}, :basket_id => 9
-    assert_equal old_count, CheckedItem.count
+    assert_no_difference('CheckedItem.count') do
+      post :create, :checked_item => {:item_identifier => '00006'}, :basket_id => 9
+    end
     
     assert_response :success
-    assert assigns(:checked_item).errors["base"].include?('In transaction.')
+    assert assigns(:checked_item).errors["base"].include?(I18n.t('activerecord.errors.messages.checked_item.in_transcation'))
   end
 
   def test_everyone_should_not_create_checked_item_without_basket_id
     sign_in users(:admin)
-    old_count = CheckedItem.count
-    post :create, :checked_item => {:item_identifier => '00004'}
-    assert_equal old_count, CheckedItem.count
+    assert_no_difference('CheckedItem.count') do
+      post :create, :checked_item => {:item_identifier => '00004'}
+    end
     
     assert_response :forbidden
   end
 
   def test_user_should_not_create_checked_item
     sign_in users(:user1)
-    old_count = CheckedItem.count
-    post :create, :checked_item => {:item_identifier => '00004'}, :basket_id => 3
-    assert_equal old_count, CheckedItem.count
+    assert_no_difference('CheckedItem.count') do
+      post :create, :checked_item => {:item_identifier => '00004'}, :basket_id => 3
+    end
     
     assert_response :forbidden
   end
 
   def test_librarian_should_create_checked_item
     sign_in users(:librarian1)
-    old_count = CheckedItem.count
-    post :create, :checked_item => {:item_identifier => '00011'}, :basket_id => 3
-    assert_equal old_count+1, CheckedItem.count
+    assert_difference('CheckedItem.count') do
+      post :create, :checked_item => {:item_identifier => '00011'}, :basket_id => 3
+    end
     assert_not_nil assigns(:checked_item).due_date
     
     assert_redirected_to user_basket_checked_items_url(assigns(:checked_item).basket.user.username, assigns(:checked_item).basket)
@@ -162,9 +162,9 @@ class CheckedItemsControllerTest < ActionController::TestCase
   
   def test_librarian_should_create_checked_item_with_list
     sign_in users(:librarian1)
-    old_count = CheckedItem.count
-    post :create, :checked_item => {:item_identifier => '00011'}, :basket_id => 3, :mode => 'list'
-    assert_equal old_count+1, CheckedItem.count
+    assert_difference('CheckedItem.count') do
+      post :create, :checked_item => {:item_identifier => '00011'}, :basket_id => 3, :mode => 'list'
+    end
     assert_not_nil assigns(:checked_item).due_date
     
     assert_redirected_to user_basket_checked_items_url(assigns(:checked_item).basket.user.username, assigns(:checked_item).basket, :mode => 'list')
@@ -172,30 +172,32 @@ class CheckedItemsControllerTest < ActionController::TestCase
   
   def test_system_should_show_message_when_item_includes_supplements
     sign_in users(:librarian1)
-    old_count = CheckedItem.count
-    post :create, :checked_item => {:item_identifier => '00006'}, :basket_id => 3
-    assert_equal old_count+1, CheckedItem.count
+    assert_difference('CheckedItem.count') do
+      post :create, :checked_item => {:item_identifier => '00006'}, :basket_id => 3
+    end
     assert_not_nil assigns(:checked_item).due_date
     
     assert_redirected_to user_basket_checked_items_url(assigns(:checked_item).basket.user.username, assigns(:checked_item).basket)
-    assert flash[:message].index('This item includes supplements.')
+    assert flash[:message].index(I18n.t('item.this_item_include_supplement'))
     #assert_nil assigns(:checked_item).errors
   end
   
   def test_librarian_should_not_create_checked_item_when_over_checkout_limit
     sign_in users(:librarian1)
-    post :create, :checked_item => {:item_identifier => '00011'}, :basket_id => 1
+    assert_no_difference('CheckedItem.count') do
+      post :create, :checked_item => {:item_identifier => '00011'}, :basket_id => 1
+    end
     
     assert_response :success
     #assert_redirected_to user_basket_checked_items_path(assigns(:basket).user.username, assigns(:basket))
-    assert assigns(:checked_item).errors["base"].include?('Excessed checkout limit.')
+    assert assigns(:checked_item).errors["base"].include?(I18n.t('activerecord.errors.messages.checked_item.excessed_checkout_limit'))
   end
 
   def test_librarian_should_create_checked_item_when_ignore_restriction_is_enabled
     sign_in users(:librarian1)
-    old_count = CheckedItem.count
-    post :create, :checked_item => {:item_identifier => '00011', :ignore_restriction => "1"}, :basket_id => 2, :mode => 'list'
-    assert_equal old_count+1, CheckedItem.count
+    assert_difference('CheckedItem.count') do
+      post :create, :checked_item => {:item_identifier => '00011', :ignore_restriction => "1"}, :basket_id => 2, :mode => 'list'
+    end
     assert_not_nil assigns(:checked_item).due_date
     
     assert_redirected_to user_basket_checked_items_url(assigns(:checked_item).basket.user.username, assigns(:checked_item).basket, :mode => 'list')
@@ -281,9 +283,9 @@ class CheckedItemsControllerTest < ActionController::TestCase
   end
 
   def test_guest_should_not_destroy_checked_item
-    old_count = CheckedItem.count
-    delete :destroy, :id => 1, :basket_id => 1
-    assert_equal old_count, CheckedItem.count
+    assert_no_difference('CheckedItem.count') do
+      delete :destroy, :id => 1, :basket_id => 1
+    end
     
     assert_response :redirect
     assert_redirected_to new_user_session_url
@@ -291,27 +293,27 @@ class CheckedItemsControllerTest < ActionController::TestCase
 
   def test_everyone_should_not_destroy_checked_item_without_basket_id
     sign_in users(:admin)
-    old_count = CheckedItem.count
-    delete :destroy, :id => 1
-    assert_equal old_count, CheckedItem.count
+    assert_no_difference('CheckedItem.count') do
+      delete :destroy, :id => 1
+    end
     
     assert_response :forbidden
   end
   
   def test_user_should_not_destroy_checked_item
     sign_in users(:user1)
-    old_count = CheckedItem.count
-    delete :destroy, :id => 3, :basket_id => 3
-    assert_equal old_count, CheckedItem.count
+    assert_no_difference('CheckedItem.count') do
+      delete :destroy, :id => 3, :basket_id => 3
+    end
     
     assert_response :forbidden
   end
   
   def test_librarian_should_destroy_checked_item
     sign_in users(:librarian1)
-    old_count = CheckedItem.count
-    delete :destroy, :id => 1, :basket_id => 1
-    assert_equal old_count-1, CheckedItem.count
+    assert_difference('CheckedItem.count', -1) do
+      delete :destroy, :id => 1, :basket_id => 1
+    end
     
     assert_redirected_to user_basket_checked_items_url(assigns(:checked_item).basket.user.username, assigns(:checked_item).basket)
   end

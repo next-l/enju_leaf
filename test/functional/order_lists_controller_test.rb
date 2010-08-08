@@ -53,54 +53,54 @@ class OrderListsControllerTest < ActionController::TestCase
   end
   
   def test_guest_should_not_create_order_list
-    old_count = OrderList.count
-    post :create, :order_list => { :title => 'test' }
-    assert_equal old_count, OrderList.count
+    assert_no_difference('OrderList.count') do
+      post :create, :order_list => { :title => 'test' }
+    end
     
     assert_redirected_to new_user_session_url
   end
 
   def test_user_should_not_create_order_list
     sign_in users(:user1)
-    old_count = OrderList.count
-    post :create, :order_list => { :title => 'test' }
-    assert_equal old_count, OrderList.count
+    assert_no_difference('OrderList.count') do
+      post :create, :order_list => { :title => 'test' }
+    end
     
     assert_response :forbidden
   end
 
   def test_librarian_should_not_create_order_list_without_title
     sign_in users(:librarian1)
-    old_count = OrderList.count
-    post :create, :order_list => { }
-    assert_equal old_count, OrderList.count
+    assert_no_difference('OrderList.count') do
+      post :create, :order_list => { }
+    end
     
     assert_response :success
   end
 
   def test_librarian_should_create_order_list_without_bookstore_id
     sign_in users(:librarian1)
-    old_count = OrderList.count
-    post :create, :order_list => { :title => 'test' }
-    assert_equal old_count, OrderList.count
+    assert_no_difference('OrderList.count') do
+      post :create, :order_list => { :title => 'test' }
+    end
     
     assert_response :success
   end
 
   def test_librarian_should_create_order_list_with_bookstore_id
     sign_in users(:librarian1)
-    old_count = OrderList.count
-    post :create, :order_list => { :title => 'test', :bookstore_id => 1 }
-    assert_equal old_count+1, OrderList.count
+    assert_difference('OrderList.count') do
+      post :create, :order_list => { :title => 'test', :bookstore_id => 1 }
+    end
     
     assert_redirected_to order_list_url(assigns(:order_list))
   end
 
   def test_admin_should_create_order_list
     sign_in users(:admin)
-    old_count = OrderList.count
-    post :create, :order_list => { :title => 'test', :bookstore_id => 1 }
-    assert_equal old_count+1, OrderList.count
+    assert_difference('OrderList.count') do
+      post :create, :order_list => { :title => 'test', :bookstore_id => 1 }
+    end
     
     assert_redirected_to order_list_url(assigns(:order_list))
   end
@@ -183,36 +183,36 @@ class OrderListsControllerTest < ActionController::TestCase
   end
   
   def test_guest_should_not_destroy_order_list
-    old_count = OrderList.count
-    delete :destroy, :id => 1
-    assert_equal old_count, OrderList.count
+    assert_no_difference('OrderList.count') do
+      delete :destroy, :id => 1
+    end
     
     assert_redirected_to new_user_session_url
   end
 
   def test_user_should_not_destroy_order_list
     sign_in users(:user1)
-    old_count = OrderList.count
-    delete :destroy, :id => 1
-    assert_equal old_count, OrderList.count
+    assert_no_difference('OrderList.count') do
+      delete :destroy, :id => 1
+    end
     
     assert_response :forbidden
   end
 
   def test_librarian_should_destroy_order_list
     sign_in users(:librarian1)
-    old_count = OrderList.count
-    delete :destroy, :id => 1
-    assert_equal old_count-1, OrderList.count
+    assert_difference('OrderList.count', -1) do
+      delete :destroy, :id => 1
+    end
     
     assert_redirected_to order_lists_url
   end
 
   def test_admin_should_destroy_order_list
     sign_in users(:admin)
-    old_count = OrderList.count
-    delete :destroy, :id => 1
-    assert_equal old_count-1, OrderList.count
+    assert_difference('OrderList.count', -1) do
+      delete :destroy, :id => 1
+    end
     
     assert_redirected_to order_lists_url
   end

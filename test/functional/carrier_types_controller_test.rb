@@ -54,45 +54,45 @@ class CarrierTypesControllerTest < ActionController::TestCase
   end
   
   def test_guest_should_not_create_carrier_type
-    old_count = CarrierType.count
-    post :create, :carrier_type => { }
-    assert_equal old_count, CarrierType.count
+    assert_no_difference('CarrierType.count') do
+      post :create, :carrier_type => { }
+    end
     
     assert_redirected_to new_user_session_url
   end
 
   def test_user_should_not_create_carrier_type
     sign_in users(:user1)
-    old_count = CarrierType.count
-    post :create, :carrier_type => { }
-    assert_equal old_count, CarrierType.count
+    assert_no_difference('CarrierType.count') do
+      post :create, :carrier_type => { }
+    end
     
     assert_response :forbidden
   end
 
   def test_librarian_should_not_create_carrier_type
     sign_in users(:librarian1)
-    old_count = CarrierType.count
-    post :create, :carrier_type => { }
-    assert_equal old_count, CarrierType.count
+    assert_no_difference('CarrierType.count') do
+      post :create, :carrier_type => { }
+    end
     
     assert_response :forbidden
   end
 
   def test_admin_should_not_create_carrier_type_without_name
     sign_in users(:admin)
-    old_count = CarrierType.count
-    post :create, :carrier_type => { }
-    assert_equal old_count, CarrierType.count
+    assert_no_difference('CarrierType.count') do
+      post :create, :carrier_type => { }
+    end
     
     assert_response :success
   end
 
   def test_admin_should_create_carrier_type
     sign_in users(:admin)
-    old_count = CarrierType.count
-    post :create, :carrier_type => {:name => 'test'}
-    assert_equal old_count+1, CarrierType.count
+    assert_difference('CarrierType.count') do
+      post :create, :carrier_type => {:name => 'test'}
+    end
     
     assert_redirected_to carrier_type_url(assigns(:carrier_type))
   end
@@ -173,36 +173,36 @@ class CarrierTypesControllerTest < ActionController::TestCase
   end
   
   def test_guest_should_not_destroy_carrier_type
-    old_count = CarrierType.count
-    delete :destroy, :id => 1
-    assert_equal old_count, CarrierType.count
+    assert_no_difference('CarrierType.count') do
+      delete :destroy, :id => 1
+    end
     
     assert_redirected_to new_user_session_url
   end
 
   def test_user_should_not_destroy_carrier_type
     sign_in users(:user1)
-    old_count = CarrierType.count
-    delete :destroy, :id => 1
-    assert_equal old_count, CarrierType.count
+    assert_no_difference('CarrierType.count') do
+      delete :destroy, :id => 1
+    end
     
     assert_response :forbidden
   end
 
   def test_librarian_should_not_destroy_carrier_type
     sign_in users(:librarian1)
-    old_count = CarrierType.count
-    delete :destroy, :id => 1
-    assert_equal old_count, CarrierType.count
+    assert_no_difference('CarrierType.count') do
+      delete :destroy, :id => 1
+    end
     
     assert_response :forbidden
   end
 
   def test_admin_should_destroy_carrier_type
     sign_in users(:admin)
-    old_count = CarrierType.count
-    delete :destroy, :id => 1
-    assert_equal old_count-1, CarrierType.count
+    assert_difference('CarrierType.count', -1) do
+      delete :destroy, :id => 1
+    end
     
     assert_redirected_to carrier_types_url
   end

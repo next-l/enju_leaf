@@ -51,45 +51,45 @@ class LibraryGroupsControllerTest < ActionController::TestCase
   end
   
   def test_guest_should_not_create_library_group
-    old_count = LibraryGroup.count
-    post :create, :library_group => { }
-    assert_equal old_count, LibraryGroup.count
+    assert_no_difference('LibraryGroup.count') do
+      post :create, :library_group => { }
+    end
     
     assert_redirected_to new_user_session_url
   end
 
   def test_user_should_not_create_library_group
     sign_in users(:user1)
-    old_count = LibraryGroup.count
-    post :create, :library_group => { }
-    assert_equal old_count, LibraryGroup.count
+    assert_no_difference('LibraryGroup.count') do
+      post :create, :library_group => { }
+    end
     
     assert_response :forbidden
   end
 
   def test_librarian_should_not_create_library_group
     sign_in users(:librarian1)
-    old_count = LibraryGroup.count
-    post :create, :library_group => { }
-    assert_equal old_count, LibraryGroup.count
+    assert_no_difference('LibraryGroup.count') do
+      post :create, :library_group => { }
+    end
     
     assert_response :forbidden
   end
 
   def test_admin_should_not_create_library_group_without_name
     sign_in users(:admin)
-    old_count = LibraryGroup.count
-    post :create, :library_group => { }
-    assert_equal old_count, LibraryGroup.count
+    assert_no_difference('LibraryGroup.count') do
+      post :create, :library_group => { }
+    end
     
     assert_response :forbidden
   end
 
   def test_admin_should_not_create_library_group
     sign_in users(:admin)
-    old_count = LibraryGroup.count
-    post :create, :library_group => {:name => 'test'}
-    assert_equal old_count, LibraryGroup.count
+    assert_no_difference('LibraryGroup.count') do
+      post :create, :library_group => {:name => 'test'}
+    end
     
     assert_response :forbidden
     #assert_redirected_to library_group_url(assigns(:library_group))
@@ -171,36 +171,36 @@ class LibraryGroupsControllerTest < ActionController::TestCase
   end
   
   def test_guest_should_not_destroy_library_group
-    old_count = LibraryGroup.count
-    delete :destroy, :id => 1
-    assert_equal old_count, LibraryGroup.count
+    assert_no_difference('LibraryGroup.count') do
+      delete :destroy, :id => 1
+    end
     
     assert_redirected_to new_user_session_url
   end
 
   def test_user_should_not_destroy_library_group
     sign_in users(:user1)
-    old_count = LibraryGroup.count
-    delete :destroy, :id => 1
-    assert_equal old_count, LibraryGroup.count
+    assert_no_difference('LibraryGroup.count') do
+      delete :destroy, :id => 1
+    end
     
     assert_response :forbidden
   end
 
   def test_librarian_should_not_destroy_library_group
     sign_in users(:librarian1)
-    old_count = LibraryGroup.count
-    delete :destroy, :id => 1
-    assert_equal old_count, LibraryGroup.count
+    assert_no_difference('LibraryGroup.count') do
+      delete :destroy, :id => 1
+    end
     
     assert_response :forbidden
   end
 
   def test_admin_should_not_destroy_library_group
     sign_in users(:admin)
-    old_count = LibraryGroup.count
-    delete :destroy, :id => 1
-    assert_equal old_count, LibraryGroup.count
+    assert_no_difference('LibraryGroup.count') do
+      delete :destroy, :id => 1
+    end
     
     assert_response :forbidden
     #assert_redirected_to library_groups_url

@@ -54,45 +54,45 @@ class LanguagesControllerTest < ActionController::TestCase
   end
   
   def test_guest_should_not_create_language
-    old_count = Language.count
-    post :create, :language => { }
-    assert_equal old_count, Language.count
+    assert_no_difference('Language.count') do
+      post :create, :language => { }
+    end
     
     assert_redirected_to new_user_session_url
   end
 
   def test_user_should_not_create_language
     sign_in users(:user1)
-    old_count = Language.count
-    post :create, :language => { }
-    assert_equal old_count, Language.count
+    assert_no_difference('Language.count') do
+      post :create, :language => { }
+    end
     
     assert_response :forbidden
   end
 
   def test_librarian_should_not_create_language
     sign_in users(:librarian1)
-    old_count = Language.count
-    post :create, :language => { }
-    assert_equal old_count, Language.count
+    assert_no_difference('Language.count') do
+      post :create, :language => { }
+    end
     
     assert_response :forbidden
   end
 
   def test_admin_should_not_create_language_without_name
     sign_in users(:admin)
-    old_count = Language.count
-    post :create, :language => { }
-    assert_equal old_count, Language.count
+    assert_no_difference('Language.count') do
+      post :create, :language => { }
+    end
     
     assert_response :success
   end
 
   def test_admin_should_create_language
     sign_in users(:admin)
-    old_count = Language.count
-    post :create, :language => {:name => 'test'}
-    assert_equal old_count+1, Language.count
+    assert_difference('Language.count') do
+      post :create, :language => {:name => 'test'}
+    end
     
     assert_redirected_to language_url(assigns(:language))
   end
@@ -173,36 +173,36 @@ class LanguagesControllerTest < ActionController::TestCase
   end
   
   def test_guest_should_not_destroy_language
-    old_count = Language.count
-    delete :destroy, :id => 1
-    assert_equal old_count, Language.count
+    assert_no_difference('Language.count') do
+      delete :destroy, :id => 1
+    end
     
     assert_redirected_to new_user_session_url
   end
 
   def test_user_should_not_destroy_language
     sign_in users(:user1)
-    old_count = Language.count
-    delete :destroy, :id => 1
-    assert_equal old_count, Language.count
+    assert_no_difference('Language.count') do
+      delete :destroy, :id => 1
+    end
     
     assert_response :forbidden
   end
 
   def test_librarian_should_not_destroy_language
     sign_in users(:librarian1)
-    old_count = Language.count
-    delete :destroy, :id => 1
-    assert_equal old_count, Language.count
+    assert_no_difference('Language.count') do
+      delete :destroy, :id => 1
+    end
     
     assert_response :forbidden
   end
 
   def test_admin_should_destroy_language
     sign_in users(:admin)
-    old_count = Language.count
-    delete :destroy, :id => 1
-    assert_equal old_count-1, Language.count
+    assert_difference('Language.count', -1) do
+      delete :destroy, :id => 1
+    end
     
     assert_redirected_to languages_url
   end
