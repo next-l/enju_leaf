@@ -7,7 +7,9 @@
     <%= link_to t('page.report_bugs'), "http://github.com/nabeta/enju_leaf/issues" -%>
     <br />
     Developed by <a href="http://mwr.mediacom.keio.ac.jp/~tanabe/">Kosuke Tanabe</a> and <a href="http://www.next-l.jp/">Project Next-L</a> |
-    Powered by <a href="http://www.rubyonrails.org/">Ruby on Rails</a>,
+    Powered by 
+    <a href="http://www.ruby-lang.org/">Ruby <%= RUBY_VERSION %></a>,
+    <a href="http://www.rubyonrails.org/">Ruby on Rails</a>,
     <%= database_adapter -%>
     and <a href="http://lucene.apache.org/solr/">Solr</a>
     <%- if Resource.respond_to?(:enju_worldcat) -%>
