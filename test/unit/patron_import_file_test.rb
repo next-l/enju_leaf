@@ -1,4 +1,4 @@
-require File.dirname(__FILE__) + '/../test_helper'
+require 'test_helper'
 
 class PatronImportFileTest < ActiveSupport::TestCase
   fixtures :patron_import_files, :patrons, :users

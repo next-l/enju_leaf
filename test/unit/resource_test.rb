@@ -1,4 +1,4 @@
-require File.dirname(__FILE__) + '/../test_helper'
+require 'test_helper'
 
 class ResourceTest < ActiveSupport::TestCase
   fixtures :resources, :items,
@@ -193,7 +193,4 @@ class ResourceTest < ActiveSupport::TestCase
     assert_equal false, resources(:manifestation_00008).reservable?
   end
 
-  def test test_manifestation_should_has_question
-    assert resources(:manifestation_00001).has_question?
-  end
 end

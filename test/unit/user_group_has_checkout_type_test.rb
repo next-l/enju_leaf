@@ -8,7 +8,7 @@ class UserGroupHasCheckoutTypeTest < ActiveSupport::TestCase
   def test_should_create_lending_policy
     old_lending_policy_count = LendingPolicy.count
     assert user_group_has_checkout_types(:user_group_has_checkout_type_00001).create_lending_policy
-    assert old_lending_policy_count + 20, LendingPolicy.count
+    assert old_lending_policy_count + 7, LendingPolicy.count
   end
 
   def test_should_update_lending_policy

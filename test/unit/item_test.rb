@@ -1,4 +1,4 @@
-require File.dirname(__FILE__) + '/../test_helper'
+require 'test_helper'
 
 class ItemTest < ActiveSupport::TestCase
   fixtures :items, :circulation_statuses, :checkouts, :shelves, :resources, :carrier_types,

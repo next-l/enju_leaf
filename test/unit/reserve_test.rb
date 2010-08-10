@@ -1,4 +1,4 @@
-require File.dirname(__FILE__) + '/../test_helper'
+require 'test_helper'
 
 class ReserveTest < ActiveSupport::TestCase
   fixtures :reserves, :request_status_types, :message_requests

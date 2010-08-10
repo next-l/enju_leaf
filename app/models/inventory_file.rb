@@ -17,7 +17,7 @@ class InventoryFile < ActiveRecord::Base
     self.reload
     file = File.open(self.inventory.path)
     reader = file.read
-    reader.each do |row|
+    reader.split.each do |row|
       begin
         item = Item.find_by_sql(['SELECT * FROM items WHERE item_identifier = ?', row.to_s.strip])
         self.items << item if item
