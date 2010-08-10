@@ -13,7 +13,6 @@ gem 'delayed_job', :git => 'git://github.com/collectiveidea/delayed_job.git'
 gem 'exception_notification', :git => 'git://github.com/rails/exception_notification.git'
 gem 'state_machine' #, :git => 'git://github.com/pluginaweek/state_machine.git'
 gem 'prawn' #, :git => 'git://github.com/sandal/prawn.git'
-#gem 'fastercsv'
 gem 'friendly_id'
 gem 'inherited_resources'
 gem 'nokogiri'
@@ -48,7 +47,6 @@ gem 'whenever', :require => false
 gem 'amazon-ecs', :require => 'amazon/ecs'
 gem 'aws-s3', :require => 'aws/s3'
 gem 'formatize'
-#gem 'system_timer'
 
 # Use unicorn as the web server
 gem 'unicorn'
