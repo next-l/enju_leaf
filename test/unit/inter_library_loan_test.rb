@@ -1,4 +1,4 @@
-require File.dirname(__FILE__) + '/../test_helper'
+require 'test_helper'
 
 class InterLibraryLoanTest < ActiveSupport::TestCase
   fixtures :inter_library_loans

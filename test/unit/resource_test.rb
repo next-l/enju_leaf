@@ -1,4 +1,5 @@
-require File.dirname(__FILE__) + '/../test_helper'
+# -*- encoding: utf-8 -*-
+require 'test_helper'
 
 class ResourceTest < ActiveSupport::TestCase
   fixtures :resources, :items,
@@ -170,7 +171,7 @@ class ResourceTest < ActiveSupport::TestCase
   end
 
   def test_manifestation_should_respond_to_pickup
-    assert Resource.pickup
+    assert Resource.pickup.title
   end
 
   def test_manifestation_should_respond_to_title
@@ -193,7 +194,4 @@ class ResourceTest < ActiveSupport::TestCase
     assert_equal false, resources(:manifestation_00008).reservable?
   end
 
-  def test test_manifestation_should_has_question
-    assert resources(:manifestation_00001).has_question?
-  end
 end

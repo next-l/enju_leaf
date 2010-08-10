@@ -47,8 +47,8 @@ class PatronImportFile < ActiveRecord::Base
     self.reload
     num = {:success => 0, :failure => 0, :activated => 0}
     record = 2
-    file = FasterCSV.open(self.patron_import.path, :col_sep => "\t")
-    rows = FasterCSV.open(self.patron_import.path, :headers => file.first, :col_sep => "\t")
+    file = CSV.open(self.patron_import.path, :col_sep => "\t")
+    rows = CSV.open(self.patron_import.path, :headers => file.first, :col_sep => "\t")
     file.close
     field = rows.first
     if [field['first_name'], field['last_name'], field['full_name']].reject{|field| field.to_s.strip == ""}.empty?

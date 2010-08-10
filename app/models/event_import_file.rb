@@ -44,8 +44,8 @@ class EventImportFile < ActiveRecord::Base
     self.reload
     num = {:success => 0, :failure => 0}
     record = 2
-    file = FasterCSV.open(self.event_import.path, :col_sep => "\t")
-    rows = FasterCSV.open(self.event_import.path, :headers => file.first, :col_sep => "\t")
+    file = CSV.open(self.event_import.path, :col_sep => "\t")
+    rows = CSV.open(self.event_import.path, :headers => file.first, :col_sep => "\t")
     file.close
     field = rows.first
     if [field['name']].reject{|f| f.to_s.strip == ""}.empty?

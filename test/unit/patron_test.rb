@@ -1,4 +1,4 @@
-require File.dirname(__FILE__) + '/../test_helper'
+require 'test_helper'
 
 class PatronTest < ActiveSupport::TestCase
   fixtures :patrons, :realizes, :produces, :resources, :patron_types, :languages, :countries

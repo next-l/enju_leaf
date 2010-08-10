@@ -172,8 +172,8 @@ class ResourceImportFile < ActiveRecord::Base
   #end
 
   def open_import_file
-    file = FasterCSV.open(self.resource_import.path, :col_sep => "\t")
-    rows = FasterCSV.open(self.resource_import.path, :headers => file.first, :col_sep => "\t")
+    file = CSV.open(self.resource_import.path, :col_sep => "\t")
+    rows = CSV.open(self.resource_import.path, :headers => file.first, :col_sep => "\t")
     file.close
     rows
   end

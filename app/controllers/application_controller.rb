@@ -1,3 +1,4 @@
+# -*- encoding: utf-8 -*-
 #require "ruby-prof"
 # Filters added to this controller apply to all controllers in the application.
 # Likewise, all the methods added will be available for all controllers.
@@ -49,8 +50,10 @@ class ApplicationController < ActionController::Base
   end
 
   def set_locale
-    unless I18n.available_locales.include?(params[:locale].intern)
-      raise InvalidLocaleError
+    if params[:locale]
+      unless I18n.available_locales.include?(params[:locale].to_s.intern)
+        raise InvalidLocaleError
+      end
     end
     if Rails.env == 'test'
       locale = 'en'

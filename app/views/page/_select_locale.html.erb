@@ -3,12 +3,12 @@
   <form method="get" action="<%= url_for -%>">
     <%- params.merge!(:controller => nil, :action => nil, :locale => nil, :commit => nil) -%>
     <%- params.reject{|key, value| value.nil?}.each do |param, value| -%>
-      <%= hidden_field_tag h(param), h(value) -%>
+      <%= hidden_field_tag param, value -%>
     <%- end -%>
     <% cache(:page => 'select_locale', :locale => @locale) do %>
-      <%= select_tag 'locale', options_from_collection_for_select(@available_languages, 'iso_639_1', 'native_name', @locale) -%>
+      <%= select_tag 'locale', options_from_collection_for_select(Language.available_languages, 'iso_639_1', 'native_name', @locale) -%>
       <%= submit_tag t('page.set_locale') -%>
-    <% end %>
+    <%- end -%>
   </form>
 <%- end -%>
 </div>

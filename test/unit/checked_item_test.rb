@@ -1,4 +1,4 @@
-require File.dirname(__FILE__) + '/../test_helper'
+require 'test_helper'
 
 class CheckedItemTest < ActiveSupport::TestCase
   fixtures :users, :patrons, :patron_types, :languages, :countries,

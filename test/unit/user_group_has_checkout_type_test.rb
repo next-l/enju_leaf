@@ -3,12 +3,11 @@ require 'test_helper'
 class UserGroupHasCheckoutTypeTest < ActiveSupport::TestCase
   fixtures :user_group_has_checkout_types, :user_groups, :checkout_types,
     :lending_policies, :items
-  # Replace this with your real tests.
   
   def test_should_create_lending_policy
-    old_lending_policy_count = LendingPolicy.count
-    assert user_group_has_checkout_types(:user_group_has_checkout_type_00001).create_lending_policy
-    assert old_lending_policy_count + 20, LendingPolicy.count
+    assert_difference('LendingPolicy.count', user_group_has_checkout_types(:user_group_has_checkout_type_00001).checkout_type.items.count) do
+      user_group_has_checkout_types(:user_group_has_checkout_type_00001).create_lending_policy
+    end
   end
 
   def test_should_update_lending_policy
