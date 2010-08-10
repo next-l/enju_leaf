@@ -3,7 +3,7 @@ class BasketSweeper < ActionController::Caching::Sweeper
 
   def after_save(record)
     record.items.each do |item|
-      expire_editable_fragment(item, 'holding')
+      expire_editable_fragment(item, ['holding'])
       I18n.available_locales.each do |locale|
         Rails.cache.fetch('role_all'){Role.all}.each do |role|
           [nil, 'html'].each do |page|
