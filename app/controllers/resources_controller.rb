@@ -59,11 +59,11 @@ class ResourcesController < ApplicationController
         end
       end
 
-      case params[:reservable]
+      case params[:reservable].to_s
       when 'true'
-        @reservable = 'true'
+        @reservable = true
       when 'false'
-        @reservable = 'false'
+        @reservable = false
       else
         @reservable = nil
       end
