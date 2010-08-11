@@ -55,18 +55,14 @@ class ApplicationController < ActionController::Base
         raise InvalidLocaleError
       end
     end
-    if Rails.env == 'test'
-      locale = 'en'
+    if user_signed_in?
+      locale = params[:locale] || session[:locale] || current_user.locale || I18n.default_locale.to_s
     else
-      if user_signed_in?
-        locale = params[:locale] || session[:locale] || current_user.locale || I18n.default_locale.to_s
-      else
-        locale = params[:locale] || session[:locale] || I18n.default_locale.to_s
-      end
+      locale = params[:locale] || session[:locale] || I18n.default_locale.to_s
     end
     I18n.locale = locale
     @locale = session[:locale] = locale
-  rescue
+  rescue InvalidLocaleError
     I18n.locale = I18n.default_locale
     @locale = I18n.locale.to_s
   end
