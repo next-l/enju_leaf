@@ -1,3 +1,4 @@
+# -*- encoding: utf-8 -*-
 require 'test_helper'
 
 class ResourceTest < ActiveSupport::TestCase
@@ -170,7 +171,7 @@ class ResourceTest < ActiveSupport::TestCase
   end
 
   def test_manifestation_should_respond_to_pickup
-    assert Resource.pickup
+    assert Resource.pickup.title
   end
 
   def test_manifestation_should_respond_to_title

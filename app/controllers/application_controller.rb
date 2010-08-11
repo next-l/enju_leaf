@@ -1,3 +1,4 @@
+# -*- encoding: utf-8 -*-
 #require "ruby-prof"
 # Filters added to this controller apply to all controllers in the application.
 # Likewise, all the methods added will be available for all controllers.
@@ -49,8 +50,8 @@ class ApplicationController < ActionController::Base
   end
 
   def set_locale
-    if paramsp[:locale]
-      unless I18n.available_locales.include?(params[:locale].intern)
+    if params[:locale]
+      unless I18n.available_locales.include?(params[:locale].to_s.intern)
         raise InvalidLocaleError
       end
     end
@@ -316,7 +317,7 @@ class ApplicationController < ActionController::Base
       search.build do
         with(:publisher_ids).equal_to patron.id if patron
         with(:original_resource_ids).equal_to resource.id if resource
-        with(:reservable).equal_to true if reservable
+        with(:reservable).equal_to reservable unless reservable.nil?
         unless carrier_type.blank?
           with(:carrier_type).equal_to carrier_type
           with(:carrier_type).equal_to carrier_type

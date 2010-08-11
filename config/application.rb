@@ -43,8 +43,9 @@ end
 
 require 'mathn'
 require 'rss'
-require 'bookmark_url'
+require 'nkf'
 require 'ipaddr'
+require 'bookmark_url'
 require 'localized_name'
 require 'porta_cql'
 require 'master_model'
