@@ -1052,7 +1052,7 @@ en:
     statistics: "Statistics"
     request: "Request"
     librarian_circulation: "Circulation"
-    user_circulation: "Borrow and reserve"
+    user_circulation: "Circulation"
     reset: "Reset"
     account: "Account"
     form: "Form"
