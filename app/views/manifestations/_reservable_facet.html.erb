@@ -9,7 +9,7 @@
       <%- if @reservable == facet_reservable -%></strong><%- end -%>
     </li>
   <%- end -%>
-  <%- if @reservable -%>
+  <%- unless @reservable.nil? -%>
     <li><%= link_to t('page.remove_this_facet'), params.merge(:reservable => nil, :page => nil, :view => nil) -%></li>
   <%- end -%>
 </ul>
