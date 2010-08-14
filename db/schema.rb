@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100704131155) do
+ActiveRecord::Schema.define(:version => 20100814091104) do
 
   create_table "answer_has_items", :force => true do |t|
     t.integer  "answer_id"
@@ -509,7 +509,7 @@ ActiveRecord::Schema.define(:version => 20100704131155) do
     t.integer  "resource_has_subjects_count", :default => 0,     :null => false
     t.text     "note"
     t.string   "url"
-    t.integer  "price"
+    t.decimal  "price"
     t.integer  "lock_version",                :default => 0,     :null => false
     t.integer  "required_role_id",            :default => 1,     :null => false
     t.string   "state"
@@ -539,12 +539,12 @@ ActiveRecord::Schema.define(:version => 20100704131155) do
   add_index "languages", ["name"], :name => "index_languages_on_name", :unique => true
 
   create_table "lending_policies", :force => true do |t|
-    t.integer  "item_id",                                                      :null => false
-    t.integer  "user_group_id",                                                :null => false
-    t.integer  "loan_period",                                   :default => 0, :null => false
+    t.integer  "item_id",                         :null => false
+    t.integer  "user_group_id",                   :null => false
+    t.integer  "loan_period",    :default => 0,   :null => false
     t.datetime "fixed_due_date"
-    t.integer  "renewal",                                       :default => 0, :null => false
-    t.decimal  "fine",           :precision => 10, :scale => 0, :default => 0, :null => false
+    t.integer  "renewal",        :default => 0,   :null => false
+    t.decimal  "fine",           :default => 0.0, :null => false
     t.text     "note"
     t.integer  "position"
     t.datetime "created_at"
@@ -578,8 +578,8 @@ ActiveRecord::Schema.define(:version => 20100704131155) do
     t.datetime "updated_at"
     t.datetime "deleted_at"
     t.text     "opening_hour"
-    t.float    "latitude"
-    t.float    "longitude"
+    t.decimal  "latitude"
+    t.decimal  "longitude"
     t.string   "calil_systemid"
     t.text     "calil_neighborhood_systemid"
   end
@@ -835,6 +835,7 @@ ActiveRecord::Schema.define(:version => 20100704131155) do
     t.integer  "patron_relationship_type_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "position"
   end
 
   add_index "patron_relationships", ["child_id"], :name => "index_patron_relationships_on_child_id"
@@ -949,7 +950,7 @@ ActiveRecord::Schema.define(:version => 20100704131155) do
     t.text     "publisher"
     t.string   "isbn"
     t.datetime "date_of_publication"
-    t.integer  "price"
+    t.decimal  "price"
     t.string   "url"
     t.text     "note"
     t.datetime "accepted_at"
@@ -1090,13 +1091,14 @@ ActiveRecord::Schema.define(:version => 20100704131155) do
     t.integer  "resource_relationship_type_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "position"
   end
 
   add_index "resource_relationships", ["child_id"], :name => "index_resource_relationships_on_child_id"
   add_index "resource_relationships", ["parent_id"], :name => "index_resource_relationships_on_parent_id"
 
   create_table "resources", :force => true do |t|
-    t.text     "original_title",                                                                    :null => false
+    t.text     "original_title",                                     :null => false
     t.text     "title_alternative"
     t.text     "title_transcription"
     t.string   "classification_number"
@@ -1107,14 +1109,14 @@ ActiveRecord::Schema.define(:version => 20100704131155) do
     t.datetime "updated_at"
     t.datetime "deleted_at"
     t.string   "access_address"
-    t.integer  "language_id",                                                    :default => 1,     :null => false
-    t.integer  "carrier_type_id",                                                :default => 1,     :null => false
-    t.integer  "extent_id",                                                      :default => 1,     :null => false
+    t.integer  "language_id",                     :default => 1,     :null => false
+    t.integer  "carrier_type_id",                 :default => 1,     :null => false
+    t.integer  "extent_id",                       :default => 1,     :null => false
     t.integer  "start_page"
     t.integer  "end_page"
-    t.decimal  "height",                          :precision => 10, :scale => 0
-    t.decimal  "width",                           :precision => 10, :scale => 0
-    t.decimal  "depth",                           :precision => 10, :scale => 0
+    t.decimal  "height"
+    t.decimal  "width"
+    t.decimal  "depth"
     t.string   "isbn"
     t.string   "isbn10"
     t.string   "wrong_isbn"
@@ -1122,24 +1124,24 @@ ActiveRecord::Schema.define(:version => 20100704131155) do
     t.string   "lccn"
     t.string   "oclc_number"
     t.string   "issn"
-    t.integer  "price"
+    t.decimal  "price"
     t.text     "fulltext"
     t.string   "volume_number_list"
     t.string   "issue_number_list"
     t.string   "serial_number_list"
     t.integer  "edition"
     t.text     "note"
-    t.integer  "produces_count",                                                 :default => 0,     :null => false
-    t.integer  "exemplifies_count",                                              :default => 0,     :null => false
-    t.integer  "embodies_count",                                                 :default => 0,     :null => false
-    t.integer  "resource_has_subjects_count",                                    :default => 0,     :null => false
-    t.boolean  "repository_content",                                             :default => false, :null => false
-    t.integer  "lock_version",                                                   :default => 0,     :null => false
-    t.integer  "required_role_id",                                               :default => 1,     :null => false
+    t.integer  "produces_count",                  :default => 0,     :null => false
+    t.integer  "exemplifies_count",               :default => 0,     :null => false
+    t.integer  "embodies_count",                  :default => 0,     :null => false
+    t.integer  "resource_has_subjects_count",     :default => 0,     :null => false
+    t.boolean  "repository_content",              :default => false, :null => false
+    t.integer  "lock_version",                    :default => 0,     :null => false
+    t.integer  "required_role_id",                :default => 1,     :null => false
     t.string   "state"
-    t.integer  "required_score",                                                 :default => 0,     :null => false
-    t.integer  "frequency_id",                                                   :default => 1,     :null => false
-    t.boolean  "subscription_master",                                            :default => false, :null => false
+    t.integer  "required_score",                  :default => 0,     :null => false
+    t.integer  "frequency_id",                    :default => 1,     :null => false
+    t.boolean  "subscription_master",             :default => false, :null => false
     t.integer  "series_statement_id"
     t.integer  "ipaper_id"
     t.string   "ipaper_access_key"
