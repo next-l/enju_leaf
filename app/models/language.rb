@@ -12,12 +12,10 @@ class Language < ActiveRecord::Base
   after_destroy :clear_available_languages_cache
 
   def clear_available_languages_cache
-    #Rails.cache.delete('available_languages')
     Rails.cache.delete('language_all')
   end
   
   def self.available_languages
-    #Rails.cache.fetch('available_languages'){Language.all(:conditions => {:iso_639_1 => I18n.available_locales.map{|l| l.to_s}})}
     Language.all(:conditions => {:iso_639_1 => I18n.available_locales.map{|l| l.to_s}})
   end
 end

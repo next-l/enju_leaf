@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100704131155) do
+ActiveRecord::Schema.define(:version => 20100814091104) do
 
   create_table "answer_has_items", :force => true do |t|
     t.integer  "answer_id"
@@ -835,6 +835,7 @@ ActiveRecord::Schema.define(:version => 20100704131155) do
     t.integer  "patron_relationship_type_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "position"
   end
 
   add_index "patron_relationships", ["child_id"], :name => "index_patron_relationships_on_child_id"
@@ -1090,6 +1091,7 @@ ActiveRecord::Schema.define(:version => 20100704131155) do
     t.integer  "resource_relationship_type_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "position"
   end
 
   add_index "resource_relationships", ["child_id"], :name => "index_resource_relationships_on_child_id"

@@ -33,8 +33,13 @@ gem 'rails-geocoder', :require => 'geocoder'
 gem 'RedCloth'
 gem 'isbn-tools', :require => 'isbn/tools'
 gem 'rack-openid', :require => 'rack/openid'
+<<<<<<< HEAD
 gem 'sunspot' #, :git => 'git://github.com/outoftime/sunspot.git'
 gem 'sunspot_rails', :require => 'sunspot/rails'
+=======
+gem 'sunspot', :git => 'git://github.com/outoftime/sunspot.git'
+gem 'sunspot_rails', :git => 'git://github.com/outoftime/sunspot.git', :require => 'sunspot/rails'
+>>>>>>> master
 gem 'attribute_normalizer'
 gem 'configatron'
 gem 'extractcontent'
