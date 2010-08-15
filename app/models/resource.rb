@@ -438,6 +438,6 @@ class Resource < ActiveRecord::Base
   end
 
   def sort_title
-    NKF.nkf('--katakana', title_transcription) if title_transcription
+    NKF.nkf('-w --katakana', title_transcription) if title_transcription
   end
 end

@@ -15,7 +15,11 @@ module EnjuMozshot
         url = "http://mozshot.nemui.org/shot?#{access_address}"
         thumb = Rails.cache.fetch("manifestation_mozshot_#{id}"){open(url).read}
         file = Tempfile.new('thumb')
-        file.puts thumb.dup.force_encoding('UTF-8')
+        if RUBY_VERSION > '1.9'
+          file.puts thumb.dup.force_encoding('UTF-8')
+        else
+          file.puts thumb
+        end
         file.close
         return file
       end

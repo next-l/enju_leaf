@@ -18,3 +18,7 @@
 # end
 
 # Learn more: http://github.com/javan/whenever
+
+set :path, '/path/to/enju_leaf'
+set :environment, :production
+set :output, "#{path}/log/cron_log.log"
