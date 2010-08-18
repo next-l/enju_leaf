@@ -1,22 +1,9 @@
 # -*- encoding: utf-8 -*-
-#require "ruby-prof"
-# Filters added to this controller apply to all controllers in the application.
-# Likewise, all the methods added will be available for all controllers.
-
 class ApplicationController < ActionController::Base
   helper :all # include all helpers, all the time
-  protect_from_forgery # See ActionController::RequestForgeryProtection for details
-  #helper_method :user_signed_in?
+  protect_from_forgery
 
-  # Scrub sensitive parameters from your log
-  # filter_parameter_logging :password
-  
-  # Pick a unique cookie name to distinguish our session data from others'
-  #include AuthenticatedSystem
-  # You can move this into a different controller, if you wish.  This module gives you the require_role helpers, and others.
   include SslRequirement
-
-#  include ExceptionNotification::Notifiable
 
   rescue_from CanCan::AccessDenied, :with => :render_403
   rescue_from ActiveRecord::RecordNotFound, :with => :render_404
@@ -56,15 +43,14 @@ class ApplicationController < ActionController::Base
       end
     end
     if user_signed_in?
-      locale = params[:locale] || session[:locale] || current_user.locale || I18n.default_locale.to_s
+      locale = params[:locale] || session[:locale] || current_user.locale
     else
-      locale = params[:locale] || session[:locale] || I18n.default_locale.to_s
+      locale = params[:locale] || session[:locale]
     end
-    I18n.locale = locale
-    @locale = session[:locale] = locale
+    I18n.locale = locale.to_sym if locale
+    @locale = session[:locale] = locale ||= I18n.default_locale.to_s
   rescue InvalidLocaleError
-    I18n.locale = I18n.default_locale
-    @locale = I18n.locale.to_s
+    @locale = I18n.default_locale.to_s
   end
 
   def default_url_options(options={})

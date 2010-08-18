@@ -127,7 +127,7 @@ class ResourcesController < ApplicationController
         facet :reservable
       end
       search = make_internal_query(search)
-      all_result = search.execute!
+      all_result = search.execute
       @count[:query_result] = all_result.total
       @reservable_facet = all_result.facet(:reservable).rows
 
@@ -145,12 +145,12 @@ class ResourcesController < ApplicationController
       unless session[:resource_ids]
         resource_ids = search.build do
           paginate :page => 1, :per_page => configatron.max_number_of_results
-        end.execute!.raw_results.collect(&:primary_key).map{|id| id.to_i}
+        end.execute.raw_results.collect(&:primary_key).map{|id| id.to_i}
         session[:resource_ids] = resource_ids
       end
         
       if session[:resource_ids]
-        bookmark_ids = Bookmark.all(:select => :id, :conditions => {:manifestation_id => session[:resource_ids]}).collect(&:id)
+        bookmark_ids = Bookmark.all(:select => :id, :conditions => {:manifestation_id => session[:resource_ids]}, :limit => 1000).collect(&:id)
         @tags = Tag.bookmarked(bookmark_ids)
         if params[:view] == 'tag_cloud'
           render :partial => 'manifestations/tag_cloud'
@@ -172,7 +172,7 @@ class ResourcesController < ApplicationController
           paginate :page => page.to_i, :per_page => per_page || Resource.per_page
         end
       end
-      search_result = search.execute!
+      search_result = search.execute
       @resources = search_result.results
       @resources.total_entries = configatron.max_number_of_results if @count[:query_result] > configatron.max_number_of_results
 
