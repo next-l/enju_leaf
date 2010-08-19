@@ -16,11 +16,11 @@ module ManifestationsHelper
       unless item.shelf.web_shelf?
         # TODO 請求記号の区切り文字
         numbers = item.call_number.split(item.shelf.library.call_number_delimiter)
-        @call_numbers = []
+        call_numbers = []
         numbers.each do |number|
-          @call_numbers << h(number.to_s)
+          call_numbers << h(number.to_s)
         end
-        render :partial => 'manifestations/call_number', :locals => {:item => item}
+        render :partial => 'manifestations/call_number', :locals => {:item => item, :call_numbers => call_numbers}
       end
     end
   end
