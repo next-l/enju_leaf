@@ -5,12 +5,9 @@ class PageSweeper < ActionController::Caching::Sweeper
 
   def after_save(record)
     case
-    when record.is_a?(Role)
-      expire_page_fragment
     when record.is_a?(Library)
       #expire_fragment(:controller => :libraries, :action => :index, :page => 'menu')
       expire_menu
-      expire_page_fragment
     when record.is_a?(Shelf)
       # TODO: 書架情報が更新されたときのキャッシュはバッチで削除する
       #record.items.each do |item|

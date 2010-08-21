@@ -3,9 +3,7 @@ class BookmarkSweeper < ActionController::Caching::Sweeper
   observe Bookmark
 
   def after_save(record)
-    # Not supported by Memcache
-    # expire_fragment(%r{manifestations/\d*})
-    expire_editable_fragment(record.manifestation)
+    expire_editable_fragment(record.manifestation, ['show_list', 'detail'])
     expire_tag_cloud(record)
   end
 

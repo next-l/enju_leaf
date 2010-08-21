@@ -1,5 +1,5 @@
 <div id="navibar">
-  <% cache(:role => current_user_role_name, :controller => 'page', :page => 'menu', :locale => @locale) do %>
+  <% cache(:controller => 'page', :page => 'menu', :role => current_user_role_name, :locale => @locale) do %>
   <a tabindex="0" href="#circulation_menu" class="fg-button fg-button-icon-right ui-widget ui-state-default ui-corner-all" id="fg_circulation"><span class="ui-icon ui-icon-triangle-1-s"></span>
     <% if current_user.try(:has_role?, 'Librarian') %>
       <%= t('page.librarian_circulation') -%>

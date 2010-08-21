@@ -2,7 +2,7 @@ module ManifestationsHelper
   include EnjuAmazonHelper
   def back_to_manifestation_index
     if session[:params]
-      params = session[:params].merge(:view => nil, :controller => 'manifestations')
+      params = session[:params].merge(:view => nil, :controller => 'resources')
       link_to t('page.back_to_search_results'), url_for(params)
     else
       link_to t('page.back'), :back

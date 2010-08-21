@@ -171,7 +171,7 @@ class BookmarksControllerTest < ActionController::TestCase
   def test_user_should_not_create_bookmark_without_url
     sign_in users(:user1)
     assert_no_difference('Bookmark.count') do
-      post :create, :bookmark => {}, :user_id => users(:user1).username
+      post :create, :bookmark => {:title => 'test'}
     end
     
     assert_response :success

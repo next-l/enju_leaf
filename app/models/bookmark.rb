@@ -16,7 +16,7 @@ class Bookmark < ActiveRecord::Base
   validate :bookmarkable_url?
   before_save :replace_space_in_tags
   after_create :create_frbr_object
-  after_save :save_tagger, :save_manifestation
+  after_save :save_manifestation
   after_destroy :save_manifestation
 
   acts_as_taggable_on :tags

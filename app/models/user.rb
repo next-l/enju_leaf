@@ -65,7 +65,7 @@ class User < ActiveRecord::Base
   after_destroy :index_patron
 
   has_friendly_id :username
-  acts_as_tagger
+  #acts_as_tagger
   has_paper_trail
   normalize_attributes :username, :user_number #, :email
 

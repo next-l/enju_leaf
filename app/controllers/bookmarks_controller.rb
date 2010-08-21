@@ -165,7 +165,7 @@ class BookmarksController < ApplicationController
     respond_to do |format|
       if @bookmark.update_attributes(params[:bookmark])
         flash[:notice] = t('controller.successfully_updated', :model => t('activerecord.models.bookmark'))
-        @bookmark.manifestation.save
+        @bookmark.manifestation.index!
         @bookmark.create_tag_index
         case params[:mode]
         when 'remove_tag'
