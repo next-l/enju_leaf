@@ -11,14 +11,14 @@ module EnjuNdl
 
     def import_isbn(isbn)
       isbn = ISBN_Tools.cleanup(isbn)
-      raise 'invalid ISBN' unless ISBN_Tools.is_valid?(isbn)
+      raise EnjuNdl::RecordNotFound unless ISBN_Tools.is_valid?(isbn)
 
       if manifestation = Resource.first(:conditions => {:isbn => isbn})
       #  raise 'already imported'
       end
 
       doc = return_xml(isbn)
-      raise "not found" if doc.at('//openSearch:totalResults').content.to_i == 0
+      raise EnjuNdl::RecordNotFound if doc.at('//openSearch:totalResults').content.to_i == 0
 
       date_of_publication, language, nbn = nil, nil, nil
 
@@ -210,5 +210,11 @@ module EnjuNdl
         end
       end
     end
+  end
+
+  class RecordNotFound < StandardError
+  end
+
+  class InvalidIsbn < StandardError
   end
 end

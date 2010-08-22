@@ -56,6 +56,12 @@ class ImportRequestsController < ApplicationController
         format.xml  { render :xml => @import_request.errors, :status => :unprocessable_entity }
       end
     end
+  rescue EnjuNdl::RecordNotFound
+    flash[:notice] = t('import_request.record_not_found')
+    redirect_to new_import_request_url
+  #rescue EnjuNdl::InvalidIsbn
+  #  flash[:errors] = t('import_request.invalid_isbn')
+  #  redirect_to new_import_request_url
   end
 
   # PUT /import_requests/1

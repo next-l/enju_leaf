@@ -1450,3 +1450,6 @@ ja:
     add_derivation: "派生資料を追加"
   news_feed:
     failed_to_fetch_feed: フィードの読み込みに失敗しました。
+  import_request:
+    record_not_found: 書誌レコードが見つかりませんでした。
+    invalid_isbn: ISBNが正しくありません。
