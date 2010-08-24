@@ -1,0 +1,6 @@
+<tr>
+  <td style="width: 200px"><%= t('page.picture') -%>:</td>
+  <td style="width: 500px">
+    <object width="400" height="300"> <param name="flashvars" value="&offsite=true&amp;lang=en-us&page_show_url=<%= URI.encode(URI.parse(manifestation.access_address).path) -%>%2Fshow%2F&page_show_back_url=<%= URI.encode(URI.parse(manifestation.access_address).path) -%>&set_id=<%= manifestation.flickr[:set_id] -%>&jump_to="></param> <param name="movie" value="http://www.flickr.com/apps/slideshow/show.swf?v=67348"></param> <param name="allowFullScreen" value="true"></param><embed type="application/x-shockwave-flash" src="http://www.flickr.com/apps/slideshow/show.swf?v=67348" allowFullScreen="true" flashvars="&offsite=true&amp;lang=en-us&page_show_url=<%= URI.encode(URI.parse(manifestation.access_address).path) -%>%2Fshow%2F&page_show_back_url=<%= URI.encode(URI.parse(manifestation.access_address).path) -%>&set_id=<%= manifestation.flickr[:set_id] -%>&jump_to=" width="400" height="300"></embed></object>
+  </td>
+</tr>

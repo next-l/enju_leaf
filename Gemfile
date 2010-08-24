@@ -12,6 +12,7 @@ if defined?(JRUBY_VERSION)
 else
   gem 'pg'
   gem 'formatize'
+  gem 'zipruby'
 end
 #gem 'mysql'
 gem 'will_paginate', :git => 'git://github.com/mislav/will_paginate.git', :branch => 'rails3'
@@ -19,14 +20,16 @@ gem 'delayed_job', :git => 'git://github.com/collectiveidea/delayed_job.git'
 gem 'exception_notification', :git => 'git://github.com/rails/exception_notification.git', :require => 'exception_notifier'
 gem 'state_machine' #, :git => 'git://github.com/pluginaweek/state_machine.git'
 gem 'prawn' #, :git => 'git://github.com/sandal/prawn.git'
-if RUBY_VERSION > '1.9'
+if RUBY_VERSION > '1.9' or defined?(JRUBY_VERSION)
   gem 'sunspot'
   gem 'sunspot_rails', :require => 'sunspot/rails'
 else
-  gem 'fastercsv'
-  gem 'system_timer' unless defined?(JRUBY_VERSION)
   gem 'sunspot', :git => 'git://github.com/outoftime/sunspot.git'
   gem 'sunspot_rails', :require => 'sunspot/rails', :git => 'git://github.com/outoftime/sunspot.git'
+end
+unless RUBY_VERSION > '1.9'
+  gem 'fastercsv'
+  gem 'system_timer' unless defined?(JRUBY_VERSION)
 end
 gem 'friendly_id'
 gem 'inherited_resources'
