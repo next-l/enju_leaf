@@ -6,7 +6,7 @@
   <%= form_for :resources, :url => resources_path, :html => {:method => 'get'} do -%>
     <p>
       <%= t('page.search_term') -%>:
-      <%= text_field_tag 'query', h(@query), {:id => 'search_form_top', :class => 'search_form'} -%>
+      <%= search_field_tag 'query', h(@query), {:id => 'search_form_top', :class => 'search_form'} -%>
       <%= hidden_field_tag 'reservable', h(@reservable) if @reservable -%>
       <%= hidden_field_tag 'resource_id', @resource.id if @resource -%>
       <%= submit_tag t('page.search') -%>
@@ -29,7 +29,7 @@
 
   <%- if @resources.total_entries > 0 -%>
     <p>
-      <%= t('page.number_of_search_results', :count => @resources.total_entries, :numdocs => Resource.cached_numdocs, :seconds => sprintf("%.3f", @seconds)) -%>
+      <%= t('page.number_of_search_results', :count => @count[:query_result], :numdocs => Resource.cached_numdocs, :seconds => sprintf("%.3f", @seconds)) -%>
       <%- if @count[:query_result] > configatron.max_number_of_results -%>
         <br />
         <%= t('page.limit_exceeded', :count => configatron.max_number_of_results) -%>

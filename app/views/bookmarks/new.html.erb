@@ -16,7 +16,7 @@
       <%= link_to h(@bookmark.url), @bookmark.url -%>
       <%= f.hidden_field :url, :class => 'resource_url' -%>
     <%- else -%>
-      <%= f.text_field :url, :class => 'resource_url' -%>
+      <%= f.url_field :url, :class => 'resource_url' -%>
     <%- end -%>
   </p>
 

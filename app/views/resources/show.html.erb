@@ -6,7 +6,7 @@
         <%= raw paginate_id_link(@resource) -%>
         <%= back_to_manifestation_index -%>
         <%= t('page.search_term') -%>:
-        <%= text_field_tag 'query', session[:query], {:id => 'search_form_top', :class => 'search_form_short'} -%>
+        <%= search_field_tag 'query', session[:query], {:id => 'search_form_top', :class => 'search_form_short'} -%>
         <%= submit_tag t('page.search') -%>
         <%= link_to t('page.advanced_search'), '/page/advanced_search' -%>
       </div>

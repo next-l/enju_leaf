@@ -65,12 +65,12 @@
 
   <p>
     <%= f.label t('activerecord.attributes.patron.email') -%><br />
-    <%= f.text_field :email, :class => 'resource_email'  -%>
+    <%= f.email_field :email, :class => 'resource_email'  -%>
   </p>
 
   <p>
     <%= f.label t('activerecord.attributes.patron.url') -%><br />
-    <%= f.text_field :url, :class => 'resource_url' -%>
+    <%= f.url_field :url, :class => 'resource_url' -%>
   </p>
 
   <p>
@@ -99,7 +99,7 @@
   <div id="address_1">
   <p>
     <%= f.label t('activerecord.attributes.patron.zip_code_1') -%><br />
-    <%= f.text_field :zip_code_1, :class => 'resource_title' -%>
+    <%= f.text_field :zip_code_1, :class => 'resource_zip_code' -%>
   </p>
 
   <p>
@@ -109,12 +109,12 @@
 
   <p>
     <%= f.label t('activerecord.attributes.patron.telephone_number_1') -%><br />
-    <%= f.text_field :telephone_number_1, :class => 'resource_telephone_number' -%>
+    <%= f.phone_field :telephone_number_1, :class => 'resource_telephone_number' -%>
   </p>
 
   <p>
     <%= f.label t('activerecord.attributes.patron.fax_number_1') -%><br />
-    <%= f.text_field :fax_number_1, :class => 'resource_telephone_number' -%>
+    <%= f.phone_field :fax_number_1, :class => 'resource_telephone_number' -%>
   </p>
 
   <p>
@@ -128,7 +128,7 @@
   <hr />
   <p>
     <%= f.label t('activerecord.attributes.patron.zip_code_2') -%><br />
-    <%= f.text_field :zip_code_2, :class => 'resource_title' -%>
+    <%= f.text_field :zip_code_2, :class => 'resource_zip_code' -%>
   </p>
 
   <p>
@@ -138,12 +138,12 @@
 
   <p>
     <%= f.label t('activerecord.attributes.patron.telephone_number_2') -%><br />
-    <%= f.text_field :telephone_number_2, :class => 'resource_telephone_number' -%>
+    <%= f.phone_field :telephone_number_2, :class => 'resource_telephone_number' -%>
   </p>
 
   <p>
     <%= f.label t('activerecord.attributes.patron.fax_number_2') -%><br />
-    <%= f.text_field :fax_number_2, :class => 'resource_telephone_number' -%>
+    <%= f.phone_field :fax_number_2, :class => 'resource_telephone_number' -%>
   </p>
 
   <p>

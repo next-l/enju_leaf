@@ -18,16 +18,16 @@
   </p>
   <p>
     <label for="email"><%= t('activerecord.attributes.user.email') -%></label>
-    <%= f.text_field :email, :class => 'resource_email' -%>
+    <%= f.email_field :email, :class => 'resource_email' -%>
   </p>
   <p>
     <label for="email_confirmation"><%= t('activerecord.attributes.user.email_confirmation') -%></label>
-    <%= f.text_field :email_confirmation, :class => 'resource_email' -%>
+    <%= f.email_field :email_confirmation, :class => 'resource_email' -%>
   </p>
   <!--
   <p>
     <label for="openid_identifier"><%= t('activerecord.attributes.user.openid_identifier') -%></label>
-    <%= f.text_field :openid_identifier, :class => 'resource_url' -%>
+    <%= f.url_field :openid_identifier, :class => 'resource_url' -%>
   </p>
   -->
 

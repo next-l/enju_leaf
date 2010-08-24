@@ -332,6 +332,10 @@ input.resource_email{
   ime-mode: disabled;
 }
 
+input.resource_zip_code{
+  width: 15em;
+}
+
 input.resource_url{
   width: 40em;
 }

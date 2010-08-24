@@ -4,6 +4,8 @@ class ApplicationController < ActionController::Base
   protect_from_forgery
 
   include SslRequirement
+  include Oink::MemoryUsageLogger
+  include Oink::InstanceTypeCounter
 
   rescue_from CanCan::AccessDenied, :with => :render_403
   rescue_from ActiveRecord::RecordNotFound, :with => :render_404

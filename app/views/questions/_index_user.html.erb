@@ -3,7 +3,7 @@
 <div id="content_list">
   <%= form_for :questions, :url => user_questions_path(@user.username), :html => {:method => 'get'} do -%>
     <p>
-      <%= t('page.search_term') -%>: <%= text_field_tag 'query', h(@query), {:id => 'search_form_top', :class => 'search_form'} -%>
+      <%= t('page.search_term') -%>: <%= search_field_tag 'query', h(@query), {:id => 'search_form_top', :class => 'search_form'} -%>
       <%= submit_tag t('page.search') -%>
     </p>
     <%= javascript_tag("$('#search_form_top').focus()") -%>

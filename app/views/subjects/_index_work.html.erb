@@ -8,7 +8,7 @@
 
 <%= form_for :subjects, :url => work_subjects_path(@work), :html => {:method => 'get'} do -%>
   <p>
-    <%= t('page.search_term') -%>: <%= text_field_tag 'query', h(@query), {:id => 'search_form_top', :class => 'search_form'} -%>
+    <%= t('page.search_term') -%>: <%= search_field_tag 'query', h(@query), {:id => 'search_form_top', :class => 'search_form'} -%>
     <%= submit_tag t('page.search') -%>
     <%- if can? :create, WorkHasSubject -%>
       <%- if params[:mode] == 'add' -%>

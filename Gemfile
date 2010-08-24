@@ -1,22 +1,32 @@
 source 'http://rubygems.org'
 
-gem 'rails', '3.0.0.rc'
-gem 'oink'
+gem 'rails', '3.0.0.rc2'
 
 # Bundle edge Rails instead:
 #gem 'rails', :git => 'git://github.com/rails/rails.git'
 
-gem 'pg'
-#gem 'activerecord-jdbcpostgresql-adapter'
+if defined?(JRUBY_VERSION)
+  gem 'jruby-openssl'
+  gem 'activerecord-jdbc-adapter'
+  gem 'jdbc-postgres', :require => false
+else
+  gem 'pg'
+  gem 'formatize'
+end
 #gem 'mysql'
 gem 'will_paginate', :git => 'git://github.com/mislav/will_paginate.git', :branch => 'rails3'
 gem 'delayed_job', :git => 'git://github.com/collectiveidea/delayed_job.git'
 gem 'exception_notification', :git => 'git://github.com/rails/exception_notification.git', :require => 'exception_notifier'
 gem 'state_machine' #, :git => 'git://github.com/pluginaweek/state_machine.git'
 gem 'prawn' #, :git => 'git://github.com/sandal/prawn.git'
-if RUBY_VERSION < '1.9'
+if RUBY_VERSION > '1.9'
+  gem 'sunspot'
+  gem 'sunspot_rails', :require => 'sunspot/rails'
+else
   gem 'fastercsv'
   gem 'system_timer' unless defined?(JRUBY_VERSION)
+  gem 'sunspot', :git => 'git://github.com/outoftime/sunspot.git'
+  gem 'sunspot_rails', :require => 'sunspot/rails', :git => 'git://github.com/outoftime/sunspot.git'
 end
 gem 'friendly_id'
 gem 'inherited_resources'
@@ -38,23 +48,22 @@ gem 'rails-geocoder', :require => 'geocoder'
 gem 'RedCloth'
 gem 'isbn-tools', :require => 'isbn/tools'
 gem 'rack-openid', :require => 'rack/openid'
-gem 'sunspot' #, :git => 'git://github.com/outoftime/sunspot.git'
-gem 'sunspot_rails', :require => 'sunspot/rails'
 gem 'attribute_normalizer'
 gem 'configatron'
 gem 'extractcontent'
 gem 'cancan'
-gem 'scribd_fu'
+gem 'scribd_fu', :git => 'git://github.com/nabeta/scribd_fu.git'
 gem 'devise'
 gem 'paperclip'
 gem 'bcrypt-ruby', :require => 'bcrypt'
-gem 'whenever'
+gem 'whenever', :require => false
 gem 'amazon-ecs', :require => 'amazon/ecs'
 gem 'aws-s3', :require => 'aws/s3'
-gem 'formatize'
+gem 'oink'
+gem 'astrails-safe'
 
 # Use unicorn as the web server
-gem 'unicorn'
+gem 'unicorn' unless defined?(JRUBY_VERSION)
 
 # Deploy with Capistrano
 # gem 'capistrano'
