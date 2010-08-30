@@ -1,6 +1,6 @@
 <div class="column" id="col1">
   <div class="portlet" id="search">
-  <h1 class="title"><%= t('page.catalog_search') -%></h1>
+  <h2 class="title"><%= t('page.catalog_search') -%></h2>
   <div id="user_search_form">
     <%= render 'search_form' -%>
     <p><%= t('page.number_of_manifestations', :numdocs => Resource.cached_numdocs, :count => Resource.cached_numdocs) -%></p>
