@@ -22,3 +22,28 @@
 set :path, '/path/to/enju_leaf'
 set :environment, :production
 set :output, "#{path}/log/cron_log.log"
+
+every 5.minute do
+  runner "Session.expire; MessageRequest.send_messages"
+end
+
+every 1.day, :at => '0:00 am' do
+  runner "Reserve.expire; Basket.expire; User.lock_expired_users"
+end
+
+every 1.day, :at => '1:00 am' do
+  runner "UserCheckoutStat.calculate_stat; UserReserveStat.calculate_stat; ManifestationCheckoutStat.calculate_stat; ManifestationReserveStat.calculate_stat; BookmarkStat.calculate_stat"
+end
+
+every 1.hour do
+  runner "PatronImportFile.import; EventImportFile.import; ResourceImportFile.import; Rails.cache.delete('Manifestation.search.total')"
+end
+
+#every 1.day, :at => '3:00 am' do
+#  rake "sunspot:reindex"
+#  rake "sitemap:refresh:no_ping"
+#end
+
+every 1.day, :at => '9:00 am' do
+  runner "Checkout.send_due_date_notification(1); Checkout.send_overdue_notification"
+end

@@ -6,17 +6,24 @@
 #   cities = City.create([{ :name => 'Chicago' }, { :name => 'Copenhagen' }])
 #   Mayor.create(:name => 'Daley', :city => cities.first)
 
+# Change the following
 username = 'admin'
 email = 'admin@example.jp'
 password = 'adminpassword'
 
-#Don't edit!
-unless Library.real.first and Role.first and Patron.first
-  raise 'You should run "rake enju:setup"'
-end
+# Don't edit!
+require 'active_record/fixtures'
+
 unless solr = Sunspot.commit rescue nil
   raise "Solr is not running."
 end
+
+Dir.glob(Rails.root.to_s + '/db/fixtures/*.yml').each do |file|
+  Fixtures.create_fixtures('db/fixtures', File.basename(file, '.*'))
+end
+
+Patron.reindex
+Library.reindex
 
 user = User.new
 user.username = username

@@ -1,6 +1,7 @@
 class ImportRequest < ActiveRecord::Base
-  belongs_to :user
+  default_scope :order => 'id DESC'
   belongs_to :manifestation, :class_name => 'Resource'
+  belongs_to :user
   validates_presence_of :isbn
   validate :check_isbn
   validate :check_imported, :on => :create
@@ -51,5 +52,4 @@ class ImportRequest < ActiveRecord::Base
       sm_fail!
     end
   end
-
 end

@@ -134,11 +134,6 @@ class UsersController < ApplicationController
       @user = current_user
     end
     @user.operator = current_user
-    if @user != current_user
-       if !current_user.has_role?('Librarian')
-         access_denied; return
-       end
-    end
 
     if params[:user]
       #@user.username = params[:user][:login]
@@ -263,16 +258,13 @@ class UsersController < ApplicationController
       flash[:notice] = t('user.this_user_has_checked_out_item')
     end
 
-    # 管理者以外のユーザが図書館員を削除しようとした。図書館員の削除は管理者しかできない
     if @user.has_role?('Librarian')
+      # 管理者以外のユーザが図書館員を削除しようとした。図書館員の削除は管理者しかできない
       unless current_user.has_role?('Administrator')
         raise 'Only administrators can destroy users'
         flash[:notice] = t('user.only_administrator_can_destroy')
       end
-    end
-
-    # 最後の図書館員を削除しようとした
-    if @user.has_role?('Librarian')
+      # 最後の図書館員を削除しようとした
       if @user.last_librarian?
         raise 'This user is the last librarian in this system'
         flash[:notice] = t('user.last_librarian')
