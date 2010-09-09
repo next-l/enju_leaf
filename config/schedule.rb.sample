@@ -22,6 +22,7 @@
 set :path, '/path/to/enju_leaf'
 set :environment, :production
 set :output, "#{path}/log/cron_log.log"
+job_type :runner, 'cd :path && rails runner -e :environment ":task"'
 
 every 5.minute do
   runner "Session.expire; MessageRequest.send_messages"
@@ -36,7 +37,7 @@ every 1.day, :at => '1:00 am' do
 end
 
 every 1.hour do
-  runner "PatronImportFile.import; EventImportFile.import; ResourceImportFile.import; Rails.cache.delete('Manifestation.search.total')"
+  runner "PatronImportFile.import_start; EventImportFile.import_start; ResourceImportFile.import_start"
 end
 
 #every 1.day, :at => '3:00 am' do
