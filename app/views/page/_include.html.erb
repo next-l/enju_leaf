@@ -2,17 +2,17 @@
   'yui/cssfonts/fonts-min',
   'yui/cssbase/base-min',
   'scaffold_modified', 'enju', 'acts_as_taggable_stylesheet',
-  'formtastic', 'formtastic_changes', 'colorbox', 'pagination',
-  :cache => 'include'
+  'formtastic', 'formtastic_changes', 'colorbox', 'pagination' #,
+   #:cache => 'include'
 %>
 <%= stylesheet_link_tag 'smoothness/jquery-ui-1.8.2.custom',
-  'smoothness/fg.menu', 'smoothness/fg.menu.button',
-  :cache => 'include_jquery'
+  'smoothness/fg.menu', 'smoothness/fg.menu.button' #,
+  #:cache => 'include_jquery'
 %>
 <%= javascript_include_tag 'jquery-1.4.2.min', 'jquery-ui-1.8.2.custom.min',
   'jquery.highlight-3', 'jquery.colorbox-min', 'jquery.hotkeys',
-  'jquery.cookie', 'fg.menu', 'fg.menu.enju', 'pagination', 'rails',
-  :cache => 'include'
+  'jquery.cookie', 'fg.menu', 'fg.menu.enju', 'pagination', 'rails' #,
+  #:cache => 'include'
 %>
 <%= csrf_meta_tag %>
 <% if controller_name == 'resources' %>
