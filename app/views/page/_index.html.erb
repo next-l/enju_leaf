@@ -1,0 +1,39 @@
+<div class="column" id="col1">
+  <div class="portlet" id="search">
+    <h2 class="title">
+      <% if user_signed_in? %>
+        <%= t('page.user_title', :login_name => current_user.username) -%>
+      <% else %>
+        <%= t('page.catalog_search') -%>
+      <% end %>
+    </h2>
+    <div id="user_search_form">
+      <%= render 'page/search_form' -%>
+      <p><%= t('page.number_of_manifestations', :numdocs => Resource.cached_numdocs, :count => Resource.cached_numdocs) -%></p>
+      <h3><%= link_to t('page.new_resource'), resources_path(:mode => 'recent') -%></h3>
+    </div>
+  </div>
+</div>
+
+<div class="column" id="col2">
+  <div class="portlet" id="pickup">
+    <h3 class="title"><%= t('manifestation.pickup') -%></h3>
+    <div id="picked_up_box">
+      <%= render :partial => 'manifestations/pickup', :locals => {:manifestation => @manifestation} -%>
+    </div>
+  </div>
+
+  <div class="portlet" id="tag_cloud">
+    <h3 class="title">
+      <% if user_signed_in? %>
+        <%= t('tag.my_tag') -%>
+      <% else %>
+        <%= t('tag.popular_tag') -%>
+      <% end %>
+    </h3>
+    <div id="tag_cloud_box">
+      <%= render :partial => 'bookmarks/tag_cloud', :locals => {:tags => @tags} -%>
+      <p>(<%= link_to t('page.listing', :model => t('activerecord.models.tag')), tags_path -%>)</p>
+    </div>
+  </div>
+</div>

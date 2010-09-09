@@ -59,38 +59,29 @@ class ResourcesController < ApplicationController
         end
       end
 
-      case params[:reservable].to_s
-      when 'true'
-        @reservable = true
-      when 'false'
-        @reservable = false
-      else
-        @reservable = nil
-      end
+      set_reservable
 
       if params[:format] == 'csv'
         per_page = 65534
       end
 
-      resources = {}
-      @count = {}
+      resources, sort, @count = {}, {}, {}
       query = ""
-      sort = {}
 
 			case
       when params[:format] == 'sru'
         if params[:operation] == 'searchRetrieve'
-          @sru = Sru.new(params)
-          query = @sru.cql.to_sunspot
-          sort = @sru.sort_by
+          sru = Sru.new(params)
+          query = sru.cql.to_sunspot
+          sort = sru.sort_by
         else
           render :template => 'resources/explain', :layout => false
           return
         end
       when params[:api] == 'openurl' 
-        @openurl = Openurl.new(params)
-        @resources = @openurl.search
-        query = @openurl.query_text
+        openurl = Openurl.new(params)
+        @resources = openurl.search
+        query = openurl.query_text
         sort = set_search_result_order(params[:sort_by], params[:order])
       else
         query = make_query(params[:query], params)
@@ -608,4 +599,14 @@ class ResourcesController < ApplicationController
     patron
   end
 
+  def set_reservable
+    case params[:reservable].to_s
+    when 'true'
+      @reservable = true
+    when 'false'
+      @reservable = false
+    else
+      @reservable = nil
+    end
+  end
 end

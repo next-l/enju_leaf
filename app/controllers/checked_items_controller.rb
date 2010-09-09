@@ -77,8 +77,7 @@ class CheckedItemsController < ApplicationController
     flash[:message] = []
     item_identifier = @checked_item.item_identifier.to_s.strip
     unless item_identifier.blank?
-      #item = Item.first(:conditions => {:item_identifier => item_identifier})
-      item = Item.find_by_sql(['SELECT * FROM items WHERE item_identifier = ? LIMIT 1', item_identifier]).first
+      item = Item.first(:conditions => {:item_identifier => item_identifier})
     end
 
     @checked_item.item = item unless item.blank?

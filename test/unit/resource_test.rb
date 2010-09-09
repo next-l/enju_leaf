@@ -171,7 +171,7 @@ class ResourceTest < ActiveSupport::TestCase
   end
 
   def test_manifestation_should_respond_to_pickup
-    assert Resource.pickup.title
+    assert Resource.pickup
   end
 
   def test_manifestation_should_respond_to_title

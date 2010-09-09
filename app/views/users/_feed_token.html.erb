@@ -4,11 +4,11 @@
 <%- end -%>
 <br />
 <%- if @user.checkout_icalendar_token.present? -%>
-  <%= button_to_remote t('page.delete'), :update => 'feed_token', :url => edit_user_path(@user.username, :mode => 'feed_token', :disable => true), :method => :get -%>
+  <%= button_to t('page.delete'), :update => 'feed_token', :url => edit_user_path(@user.username, :mode => 'feed_token', :disable => true), :method => :get, :remote => true -%>
   <br />
   <%= t('user.you_have_to_save_profile_to_activate_feed_url') -%>
 <%- else -%>
-  <%= button_to_remote t('page.reset'), :update => 'feed_token', :url => edit_user_path(@user.username, :mode => 'feed_token'), :method => :get -%>
+  <%= button_to t('page.reset'), :update => 'feed_token', :url => edit_user_path(@user.username, :mode => 'feed_token'), :method => :get, :remote => true -%>
   <br />
   <%= t('user.you_have_to_save_profile_to_deactivate_feed_url') -%>
 <%- end -%>

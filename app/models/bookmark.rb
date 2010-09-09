@@ -6,7 +6,6 @@ class Bookmark < ActiveRecord::Base
   belongs_to :user #, :counter_cache => true, :validate => true
 
   validates_presence_of :user, :title, :url
-  #validates_presence_of :url, :on => :create
   validates_associated :user, :manifestation
   validates_uniqueness_of :manifestation_id, :scope => :user_id
   validates_length_of :url, :maximum => 255, :allow_blank => true

@@ -98,8 +98,8 @@ class LibrariesController < ApplicationController
     respond_to do |format|
       if @library.save
         flash[:notice] = t('controller.successfully_created', :model => t('activerecord.models.library'))
-        format.html { redirect_to library_url(@library.name) }
-        format.xml  { render :xml => @library, :status => :created, :location => library_url(@library.name) }
+        format.html { redirect_to(@library) }
+        format.xml  { render :xml => @library, :status => :created }
       else
         prepare_options
         format.html { render :action => "new" }

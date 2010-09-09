@@ -10,7 +10,6 @@ class EventImportFile < ActiveRecord::Base
   #after_create :set_digest
 
   state_machine :initial => :pending do
-    before_transition :pending => :started, :do => :import_start
     before_transition :started => :completed, :do => :import
 
     event :sm_import_start do

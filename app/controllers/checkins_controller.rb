@@ -57,8 +57,7 @@ class CheckinsController < ApplicationController
     if @checkin.item_identifier.blank?
       flash[:message] << t('checkin.enter_item_identifier') if @checkin.item_identifier.blank?
     else
-      #item = Item.first(:conditions => {:item_identifier => item_identifier})
-      item = Item.find_by_sql(['SELECT * FROM items WHERE item_identifier = ? LIMIT 1', @checkin.item_identifier.to_s.strip]).first
+      item = Item.first(:conditions => {:item_identifier => @checkin.item_identifier.to_s.strip})
     end
 
     unless item.blank?
@@ -139,8 +138,7 @@ class CheckinsController < ApplicationController
     @checkin = Checkin.find(params[:id])
     @checkin.item_identifier = params[:checkin][:item_identifier] rescue nil
     unless @checkin.item_identifier.blank?
-      #item = Item.first(:conditions => {:item_identifier => item_identifier})
-      item = Item.find_by_sql(['SELECT * FROM items WHERE item_identifier = ? LIMIT 1', @checkin.item_identifier.to_s.strip]).first
+      item = Item.first(:conditions => {:item_identifier => @checkin.item_identifier.to_s.strip})
     end
     @checkin.item = item
 

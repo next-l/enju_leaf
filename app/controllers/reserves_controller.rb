@@ -77,9 +77,6 @@ class ReservesController < ApplicationController
       if user.try(:user_number).blank?
         access_denied; return
       end
-    end
-
-    unless current_user.has_role?('Librarian')
       if user.blank? or user != current_user
         access_denied
         return

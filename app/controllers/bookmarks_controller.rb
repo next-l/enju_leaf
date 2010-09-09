@@ -4,29 +4,13 @@ class BookmarksController < ApplicationController
   load_and_authorize_resource
   before_filter :get_user, :only => :new
   before_filter :get_user_if_nil, :except => :new
+  before_filter :check_user, :only => :index
   after_filter :solr_commit, :only => [:create, :update, :destroy]
   cache_sweeper :bookmark_sweeper, :only => [:create, :update, :destroy]
 
   # GET /bookmarks
   # GET /bookmarks.xml
   def index
-    if user_signed_in?
-      begin
-        if !current_user.has_role?('Librarian')
-          raise unless @user.share_bookmarks?
-        end
-      rescue
-        if @user
-          unless current_user == @user
-            access_denied; return
-          end
-        else
-          redirect_to user_bookmarks_path(current_user.username)
-          return
-        end
-      end
-    end
-
     search = Bookmark.search(:include => [:manifestation])
     query = params[:query].to_s.strip
     unless query.blank?
@@ -211,4 +195,23 @@ class BookmarksController < ApplicationController
     end
   end
 
+  private
+  def check_user
+    if user_signed_in?
+      begin
+        if !current_user.has_role?('Librarian')
+          raise unless @user.share_bookmarks?
+        end
+      rescue
+        if @user
+          unless current_user == @user
+            access_denied; return
+          end
+        else
+          redirect_to user_bookmarks_path(current_user.username)
+          return
+        end
+      end
+    end
+  end
 end
