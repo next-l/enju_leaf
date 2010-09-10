@@ -37,7 +37,7 @@ every 1.day, :at => '1:00 am' do
 end
 
 every 1.hour do
-  runner "PatronImportFile.import_start; EventImportFile.import_start; ResourceImportFile.import_start"
+  runner "PatronImportFile.import; EventImportFile.import; ResourceImportFile.import"
 end
 
 #every 1.day, :at => '3:00 am' do

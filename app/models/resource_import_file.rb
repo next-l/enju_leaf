@@ -72,6 +72,7 @@ class ResourceImportFile < ActiveRecord::Base
     self.update_attribute(:imported_at, Time.zone.now)
     Sunspot.commit
     rows.close
+    Rails.cache.write("resource_search_total", Resource.search.total)
     return num
   end
 

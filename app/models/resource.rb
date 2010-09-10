@@ -195,11 +195,7 @@ class Resource < ActiveRecord::Base
   end
 
   def self.cached_numdocs
-    if Rails.env == 'production'
-      Rails.cache.fetch("resource_search_total"){self.search.total}
-    else
-      self.search.total
-    end
+    Rails.cache.fetch("resource_search_total"){self.search.total}
   end
 
   def next_reservation
