@@ -5,3 +5,6 @@
 	"test"						"test2"	"test"													
 	"test"						"test"	"test3"													
 	"テスト"						"test"	"test4"						1000	0		"first_shelf"	11111			
+												0					"first_shelf"	1			
+	"item_identifier重複"																	11111			
+												9999999999999						2			
