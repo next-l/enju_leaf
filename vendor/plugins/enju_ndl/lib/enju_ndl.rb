@@ -11,10 +11,10 @@ module EnjuNdl
 
     def import_isbn(isbn)
       isbn = ISBN_Tools.cleanup(isbn)
-      raise EnjuNdl::RecordNotFound unless ISBN_Tools.is_valid?(isbn)
+      raise EnjuNdl::InvalidIsbn unless ISBN_Tools.is_valid?(isbn)
 
       if manifestation = Resource.first(:conditions => {:isbn => isbn})
-      #  raise 'already imported'
+        return manifestation
       end
 
       doc = return_xml(isbn)
@@ -32,6 +32,7 @@ module EnjuNdl
 
       language = get_language(doc)
       nbn = doc.at('//dc:identifier[@xsi:type="dcndl:JPNO"]').content
+      ndc = doc.at('//dc:subject[@xsi:type="dcndl:NDC"]').content
 
       Patron.transaction do
         publisher_patrons = Patron.import_patrons(publishers)
