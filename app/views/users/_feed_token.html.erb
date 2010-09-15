@@ -4,11 +4,11 @@
 <%- end -%>
 <br />
 <%- if @user.checkout_icalendar_token.present? -%>
-  <%= button_to t('page.delete'), :update => 'feed_token', :url => edit_user_path(@user.username, :mode => 'feed_token', :disable => true), :method => :get, :remote => true -%>
+  <input onclick="$.ajax({data:'authenticity_token=' + encodeURIComponent('<%= form_authenticity_token %>'), success:function(request){$('#feed_token').html(request);}, type:'get', url:'/users/<%= @user.username %>/edit?disable=true&amp;mode=feed_token'});" type="button" value="<%= t('page.delete') %>" />
   <br />
   <%= t('user.you_have_to_save_profile_to_activate_feed_url') -%>
 <%- else -%>
-  <%= button_to t('page.reset'), :update => 'feed_token', :url => edit_user_path(@user.username, :mode => 'feed_token'), :method => :get, :remote => true -%>
+  <input onclick="$.ajax({data:'authenticity_token=' + encodeURIComponent('<%= form_authenticity_token %>'), success:function(request){$('#feed_token').html(request);}, type:'get', url:'/users/<%= @user.username %>/edit?mode=feed_token'});" type="button" value="<%= t('page.reset') %>" />
   <br />
   <%= t('user.you_have_to_save_profile_to_deactivate_feed_url') -%>
 <%- end -%>

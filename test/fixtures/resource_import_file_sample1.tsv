@@ -8,3 +8,6 @@
 												0					"first_shelf"	1			
 	"item_identifier重複"																	11111			
 												9999999999999						2			
+	"ISBN重複、item_identifierなし"											4798002062									
+	"ISBN重複、item_identifier非重複"											4798002062						11112			
+	"ISBN重複、item_identifier重複"											4798002062						11111			
