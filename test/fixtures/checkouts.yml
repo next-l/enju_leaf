@@ -7,7 +7,7 @@ checkout_00001:
   id: 1
   librarian_id: 1
   checkout_renewal_count: 0
-  due_date: 2010-09-15 00:00:00 +09:00
+  due_date: <%= 2.day.from_now.beginning_of_day %>
   created_at: 2007-09-08 01:19:02.285850 +09:00
   basket_id: 1
 checkout_00002: 
@@ -18,7 +18,7 @@ checkout_00002:
   id: 2
   librarian_id: 1
   checkout_renewal_count: 0
-  due_date: 2010-09-15 00:00:00 +09:00
+  due_date: <%= 2.day.from_now.beginning_of_day %>
   created_at: 2007-09-08 01:34:07.363023 +09:00
   basket_id: 1
 checkout_00003: 
@@ -29,7 +29,7 @@ checkout_00003:
   id: 3
   librarian_id: 1
   checkout_renewal_count: 0
-  due_date: 2010-09-15 00:00:00 +09:00
+  due_date: <%= 2.day.from_now.beginning_of_day %>
   created_at: 2007-09-08 01:39:03.210081 +09:00
   basket_id: 2
 checkout_00004: 
@@ -40,7 +40,7 @@ checkout_00004:
   id: 4
   librarian_id: 1
   checkout_renewal_count: 0
-  due_date: 2010-09-15 00:00:00 +09:00
+  due_date: <%= 2.day.from_now.beginning_of_day %>
   created_at: 2007-09-08 01:39:03.210081 +09:00
   basket_id: 3
 checkout_00005: 
@@ -51,7 +51,7 @@ checkout_00005:
   id: 5
   librarian_id: 1
   checkout_renewal_count: 0
-  due_date: 2010-09-15 00:00:00 +09:00
+  due_date: <%= 2.day.from_now.beginning_of_day %>
   created_at: 2007-09-08 01:39:03.210081 +09:00
   basket_id: 4
 checkout_00006:
@@ -62,6 +62,7 @@ checkout_00006:
   id: 6
   librarian_id: 2
   checkout_renewal_count: 0
+  due_date: <%= 2.day.from_now.beginning_of_day %>
   due_date: 2010-09-15 00:00:00 +09:00
   created_at: 2007-09-08 01:39:03.210081 +09:00
 checkout_00007: 
@@ -72,7 +73,7 @@ checkout_00007:
   id: 7
   librarian_id: 1
   checkout_renewal_count: 0
-  due_date: 2010-09-15 00:00:00 +09:00
+  due_date: <%= 2.day.from_now.beginning_of_day %>
   created_at: 2007-09-08 01:39:03.210081 +09:00
   basket_id: 5
 checkout_00008: 
@@ -83,7 +84,7 @@ checkout_00008:
   id: 8
   librarian_id: 1
   checkout_renewal_count: 0
-  due_date: 2010-09-15 00:00:00 +09:00
+  due_date: <%= 2.day.from_now.beginning_of_day %>
   created_at: 2007-09-08 01:39:03.210081 +09:00
   basket_id: 6
 checkout_00009: 
@@ -94,7 +95,7 @@ checkout_00009:
   id: 9
   librarian_id: 1
   checkout_renewal_count: 1
-  due_date: 2010-09-15 00:00:00 +09:00
+  due_date: <%= 2.day.from_now.beginning_of_day %>
   created_at: 2007-09-08 01:39:03.210081 +09:00
   basket_id: 7
 checkout_00010: 
@@ -105,7 +106,7 @@ checkout_00010:
   id: 10
   librarian_id: 1
   checkout_renewal_count: 1
-  due_date: 2010-09-15 00:00:00 +09:00
+  due_date: <%= 2.day.from_now.beginning_of_day %>
   created_at: 2007-09-08 01:39:03.210081 +09:00
   basket_id: 7
 checkout_00011: 
