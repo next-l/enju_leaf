@@ -20,13 +20,7 @@ gem 'delayed_job', :git => 'git://github.com/collectiveidea/delayed_job.git'
 gem 'exception_notification', :git => 'git://github.com/rails/exception_notification.git', :require => 'exception_notifier'
 gem 'state_machine' #, :git => 'git://github.com/pluginaweek/state_machine.git'
 gem 'prawn' #, :git => 'git://github.com/sandal/prawn.git'
-if RUBY_VERSION > '1.9' or defined?(JRUBY_VERSION)
-  gem 'sunspot', '1.1.0'
-  gem 'sunspot_rails', '1.1.0', :require => 'sunspot/rails'
-else
-  gem 'sunspot', '1.2.rc3'
-  gem 'sunspot_rails', '1.2.rc3', :require => 'sunspot/rails'
-end
+gem 'sunspot_rails', '1.2.rc4' #, :git => 'git://github.com/outoftime/sunspot.git'
 unless RUBY_VERSION > '1.9'
   gem 'fastercsv'
   gem 'system_timer' unless defined?(JRUBY_VERSION)
