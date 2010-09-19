@@ -8,6 +8,3 @@ require 'rake/testtask'
 require 'rake/rdoctask'
 
 EnjuLeaf::Application.load_tasks
-
-#require 'vendor/plugins/sunspot_rails/lib/sunspot/rails/tasks'
-require 'sunspot/rails/tasks'
