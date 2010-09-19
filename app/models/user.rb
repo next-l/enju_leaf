@@ -42,7 +42,7 @@ class User < ActiveRecord::Base
 
   validates_presence_of :username
   validates_uniqueness_of :username
-  validates_uniqueness_of :email, :scope => authentication_keys[1..-1], :allow_blank => true
+  validates_uniqueness_of :email, :scope => authentication_keys[1..-1], :case_sensitive => false, :allow_blank => true
   EMAIL_REGEX = /^([\w\.%\+\-]+)@([\w\-]+\.)+([\w]{2,})$/i
   validates_format_of     :email, :with  => EMAIL_REGEX, :allow_blank => true
 

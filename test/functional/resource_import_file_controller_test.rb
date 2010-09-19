@@ -71,17 +71,20 @@ class ResourceImportFilesControllerTest < ActionController::TestCase
       post :create, :resource_import_file => {:resource_import => fixture_file_upload("resource_import_file_sample1.tsv", 'text/plain') }
     end
     # 後でバッチで処理する
-    assigns(:resource_import_file).import_start
-    assert_equal old_manifestations_count + 6, Resource.count
-    assert_equal old_items_count + 2, Item.count
+    assigns(:resource_import_file).import
+    assert_equal old_manifestations_count + 5, Resource.count
+    assert_equal old_items_count + 5, Item.count
     assert_equal old_patrons_count + 5, Patron.count
 
     assert_equal 'librarian1', assigns(:resource_import_file).user.username
     assert_redirected_to resource_import_file_path(assigns(:resource_import_file))
+    assert_equal 2, Item.find_by_item_identifier('10101').manifestation.creators.size
+    assert_nil Item.find_by_item_identifier('10104')
     item = Item.find_by_item_identifier('11111')
     assert_equal Shelf.find_by_name('first_shelf'), item.shelf
     assert_equal 1000, item.manifestation.price
     assert_equal 0, item.price
+    assert_equal 2, item.manifestation.publishers.size
     #assert assigns(:resource_import_file).file_hash
   end
 

@@ -9,18 +9,19 @@ if defined?(JRUBY_VERSION)
   gem 'jruby-openssl'
   gem 'activerecord-jdbc-adapter'
   gem 'jdbc-postgres', :require => false
+  #gem 'jdbc-mysql', :require => false
 else
   gem 'pg'
+  #gem 'mysql'
   gem 'formatize'
   gem 'zipruby'
 end
-#gem 'mysql'
 gem 'will_paginate', :git => 'git://github.com/mislav/will_paginate.git', :branch => 'rails3'
 gem 'delayed_job', :git => 'git://github.com/collectiveidea/delayed_job.git'
 gem 'exception_notification', :git => 'git://github.com/rails/exception_notification.git', :require => 'exception_notifier'
 gem 'state_machine' #, :git => 'git://github.com/pluginaweek/state_machine.git'
 gem 'prawn' #, :git => 'git://github.com/sandal/prawn.git'
-gem 'sunspot_rails', '1.2.rc4' #, :git => 'git://github.com/outoftime/sunspot.git'
+gem 'sunspot_rails', '1.2.rc4'
 unless RUBY_VERSION > '1.9'
   gem 'fastercsv'
   gem 'system_timer' unless defined?(JRUBY_VERSION)

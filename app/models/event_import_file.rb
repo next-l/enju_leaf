@@ -10,8 +10,8 @@ class EventImportFile < ActiveRecord::Base
   #after_create :set_digest
 
   state_machine :initial => :pending do
-    event :sm_import_start do
-      transition :pending => :started
+    event :sm_start do
+      transition [:pending, :started] => :started
     end
 
     event :sm_complete do
@@ -29,9 +29,8 @@ class EventImportFile < ActiveRecord::Base
   end
 
   def import_start
-    sm_import_start!
+    sm_start!
     import
-    sm_complete!
   end
 
   def import
@@ -92,6 +91,7 @@ class EventImportFile < ActiveRecord::Base
     self.update_attribute(:imported_at, Time.zone.now)
     Sunspot.commit
     rows.close
+    sm_complete!
     return num
   end
 
