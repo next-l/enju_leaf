@@ -13,7 +13,7 @@ class PatronImportFile < ActiveRecord::Base
   #after_create :set_digest
 
   state_machine :initial => :pending do
-    event :sm_import_start do
+    event :sm_start do
       transition :pending => :started
     end
 
@@ -32,9 +32,8 @@ class PatronImportFile < ActiveRecord::Base
   end
 
   def import_start
-    sm_import_start!
+    sm_start!
     import
-    sm_complete!
   end
 
   def import
@@ -97,28 +96,29 @@ class PatronImportFile < ActiveRecord::Base
       end
 
       unless row['username'].blank?
-        #begin
+        begin
           user = User.new
           user.patron = patron
-          user.username = row['username'].to_s.chomp
-          user.email = row['email'].to_s.chomp
-          user.email_confirmation = row['email'].to_s.chomp
-          user_number = row['user_number'].to_s.chomp
-          user.password = row['password'].to_s.chomp
-          user.password_confirmation = row['password'].to_s.chomp
+          user.username = row['username'].to_s.strip
+          user.email = row['email'].to_s.strip
+          user.email_confirmation = row['email'].to_s.strip
+          user.user_number = row['user_number'].to_s.strip
+          user.password = row['password'].to_s.strip
+          user.password_confirmation = row['password'].to_s.strip
           if user.password.blank?
             user.set_auto_generated_password
           end
-          library = Library.first(:conditions => {:name => row['library_short_name'].to_s.chomp}) || Library.web
+          user.operator = User.find(1)
+          library = Library.first(:conditions => {:name => row['library_short_name'].to_s.strip}) || Library.web
           user_group = UserGroup.first(:conditions => {:name => row['user_group_name']}) || UserGroup.first
           user.library = library
           user.save!
           role = Role.first(:conditions => {:name => row['role']}) || Role.find(2)
           user.role = role
           num[:activated] += 1
-        #rescue
-        #  Rails.logger.info("user import failed: column #{record}")
-        #end
+        rescue ActiveRecord::RecordInvalid
+          Rails.logger.info("user import failed: column #{record}")
+        end
       end
 
       record += 1
@@ -126,6 +126,7 @@ class PatronImportFile < ActiveRecord::Base
     self.update_attribute(:imported_at, Time.zone.now)
     Sunspot.commit
     rows.close
+    sm_complete!
     return num
   end
 

@@ -10,8 +10,8 @@ class ResourceImportFile < ActiveRecord::Base
   #after_create :set_digest
 
   state_machine :initial => :pending do
-    event :sm_import_start do
-      transition :pending => :started
+    event :sm_start do
+      transition [:pending, :started] => :started
     end
 
     event :sm_complete do
@@ -29,9 +29,8 @@ class ResourceImportFile < ActiveRecord::Base
   end
 
   def import_start
-    sm_import_start!
+    sm_start!
     import
-    sm_complete!
   end
 
   def import
@@ -70,6 +69,7 @@ class ResourceImportFile < ActiveRecord::Base
     self.update_attribute(:imported_at, Time.zone.now)
     Sunspot.commit
     rows.close
+    sm_complete!
     Rails.cache.write("resource_search_total", Resource.search.total)
     return num
   end
@@ -89,9 +89,11 @@ class ResourceImportFile < ActiveRecord::Base
 
   def self.import_manifestation(expression, patrons, options = {})
     manifestation = expression
-    manifestation.update_attributes(options)
+    manifestation.update_attributes!(options)
     manifestation.publishers << patrons
     manifestation
+  rescue ActiveRecord::RecordInvalid
+    nil
   end
 
   def self.import_item(manifestation, options)
@@ -138,7 +140,7 @@ class ResourceImportFile < ActiveRecord::Base
       expression.save
       work.expressions << expression
 
-      manifestation = Manifestation.new(:original_title => expression.original_title)
+      manifestation = Resource.new(:original_title => expression.original_title)
       manifestation.carrier_type = CarrierType.find(1)
       manifestation.frequency = Frequency.find(1)
       manifestation.language = Language.find(1)
@@ -222,14 +224,20 @@ class ResourceImportFile < ActiveRecord::Base
   def fetch(row)
     shelf = Shelf.first(:conditions => {:name => row['shelf'].to_s.strip}) || Shelf.web
 
-    if row['isbn']
-      isbn = ISBN_Tools.cleanup(row['isbn'])
-      unless manifestation = Manifestation.find_by_isbn(isbn)
-        manifestation = Manifestation.import_isbn!(isbn) rescue nil
-        save_imported_object(manifestation) if manifestation
-        #num[:success] += 1 if manifestation
+    unless row['manifestation_identifier'].blank?
+      if manifestation = Resource.first(:conditions => {:manifestation_identifier => row['manifestation_identifier'].to_s.strip})
         return manifestation
       end
+    end
+
+    unless row['isbn'].blank?
+      isbn = ISBN_Tools.cleanup(row['isbn'])
+      unless manifestation = Resource.find_by_isbn(isbn)
+        manifestation = Resource.import_isbn!(isbn) rescue nil
+        save_imported_object(manifestation) if manifestation
+        #num[:success] += 1 if manifestation
+      end
+      return manifestation if manifestation
     end
 
     title = {}
@@ -291,7 +299,7 @@ class ResourceImportFile < ActiveRecord::Base
           :end_page => end_page,
           :manifestation_identifier => row['manifestation_identifier']
         })
-        save_imported_object(manifestation)
+        save_imported_object(manifestation) if manifestation
       end
     end
     manifestation

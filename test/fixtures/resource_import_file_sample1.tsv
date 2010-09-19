@@ -1,13 +1,14 @@
-"manifestation_identifier"	"original_title"	"title_transcription"	"title_alternative"	"series_statement_identifier"	"series_statement_original_title"	"series_statement_title_transcription"	"author"	"publisher"	"date_of_publication"	"volume_number_list"	"edition"	"isbn"	"issn"	"manifestation_price"	"item_price"	"height"	"shelf"	"item_identifier"	"nbn"	"lccn"	"subject"
-	"test"						"test"	"test1"		"invalid"											
-	"test"						"test"	"test2"													
-	"test"						"test1"	"test"													
-	"test"						"test2"	"test"													
-	"test"						"test"	"test3"													
-	"テスト"						"test"	"test4"						1000	0		"first_shelf"	11111			
-												0					"first_shelf"	1			
-	"item_identifier重複"																	11111			
-												9999999999999						2			
-	"ISBN重複、item_identifierなし"											4798002062									
-	"ISBN重複、item_identifier非重複"											4798002062						11112			
-	"ISBN重複、item_identifier重複"											4798002062						11111			
+"manifestation_identifier"	"original_title"	"note"	"title_transcription"	"title_alternative"	"series_statement_identifier"	"series_statement_original_title"	"series_statement_title_transcription"	"author"	"publisher"	"date_of_publication"	"volume_number_list"	"edition"	"isbn"	"issn"	"manifestation_price"	"item_price"	"height"	"shelf"	"item_identifier"	"nbn"	"lccn"	"subject"
+	"test"	"manifestation_identifierなし、item_identifierなし"						"test"	"test2"		"invalid"											
+	"test"	"manifestation_identifierなし、item_identifierあり"						"test;test1"											10101			
+101	"test"	"manifestation_identifierあり、item_identifierなし"						"test"	"test2"													
+102	"test"	"manifestation_identifierあり、item_identifierあり"						"test1"	"test"										10102			
+101	"test"	"manifestation_identifier重複、item_identifier非重複"						"test1;test2"	"test"										10103			
+102	"test"	"manifestation_identifier重複、item_identifier重複"						"test"	"test3"										10101			
+	"test"	"ISBN不正、タイトルあり、所蔵情報あり"											9000000000000					"first_shelf"	10104			
+		"ISBN不正、タイトルなし"											9999999999999						10105			
+	"test"	"ISBNなし、所蔵情報あり"						"test"	"test4;test5"						1000	0		"first_shelf"	11111			
+	"test"	"item_identifier重複"																	11111			
+		"ISBN重複、item_identifierなし"											4798002062									
+		"ISBN重複、item_identifier非重複"											4798002062						11112			
+		"ISBN重複、item_identifier重複"											4798002062						11111			
