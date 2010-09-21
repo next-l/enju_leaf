@@ -89,16 +89,8 @@ class ProducesController < ApplicationController
     respond_to do |format|
       if @produce.update_attributes(params[:produce])
         flash[:notice] = t('controller.successfully_updated', :model => t('activerecord.models.produce'))
-        if @patron
-          format.html { redirect_to patron_manifestations_url(@patron) }
-          format.xml  { head :ok }
-        elsif @manifestation
-          format.html { redirect_to manifestation_patrons_url(@manifestation) }
-          format.xml  { head :ok }
-        else
-          format.html { redirect_to produce_url(@produce) }
-          format.xml  { head :ok }
-        end
+        format.html { redirect_to produce_url(@produce) }
+        format.xml  { head :ok }
       else
         format.html { render :action => "edit" }
         format.xml  { render :xml => @produce.errors, :status => :unprocessable_entity }

@@ -9,11 +9,29 @@ class QuestionsControllerTest < ActionController::TestCase
     assert assigns(:questions)
   end
 
+  def test_guest_should_get_solved_question_index
+    get :index, :solved => 'true'
+    assert_response :success
+    assert assigns(:questions)
+  end
+
+  def test_guest_should_get_unsolved_question_index
+    get :index, :solved => 'false'
+    assert_response :success
+    assert assigns(:questions)
+  end
+
   def test_guest_should_get_index_with_query
     get :index, :query => 'Yahoo'
     assert_response :success
     assert assigns(:questions)
     assert assigns(:crd_results)
+  end
+
+  def test_guest_should_render_crd_xml_template
+    get :index, :query => 'Yahoo', :mode => 'crd', :format => 'xml'
+    assert_response :success
+    assert_template 'questions/index_crd'
   end
 
   def test_user_should_get_my_index
@@ -107,6 +125,12 @@ class QuestionsControllerTest < ActionController::TestCase
   def test_guest_should_show_question
     get :show, :id => 1
     assert_response :success
+  end
+
+  def test_guest_should_show_crd_xml
+    get :show, :id => 1, :mode => 'crd', :format => :xml
+    assert_response :success
+    assert_template 'questions/show_crd'
   end
 
   def test_user_should_show_question_without_user_id

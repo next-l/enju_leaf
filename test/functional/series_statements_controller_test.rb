@@ -9,6 +9,12 @@ class SeriesStatementsControllerTest < ActionController::TestCase
     assert assigns(:series_statements)
   end
 
+  def test_guest_should_get_index_with_query
+    get :index, :query => 'title1'
+    assert_response :success
+    assert assigns(:series_statements)
+  end
+
   def test_user_should_get_index
     sign_in users(:user1)
     get :index
