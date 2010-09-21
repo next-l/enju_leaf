@@ -7,7 +7,7 @@ class MediumOfPerformancesController < InheritedResources::Base
     @medium_of_performance = MediumOfPerformance.find(params[:id])
     if params[:position]
       @medium_of_performance.insert_at(params[:position])
-      redirect_to countries_url
+      redirect_to medium_of_performances_url
       return
     end
     update!

@@ -171,6 +171,12 @@ class CreatesControllerTest < ActionController::TestCase
     assert_redirected_to create_url(assigns(:create))
   end
   
+  def test_librarian_should_update_create_with_position
+    sign_in users(:librarian1)
+    put :update, :id => 1, :create => { }, :position => 2, :work_id => 1
+    assert_redirected_to work_creates_url(assigns(:work))
+  end
+  
   def test_guest_should_not_destroy_create
     assert_no_difference('Create.count') do
       delete :destroy, :id => 1

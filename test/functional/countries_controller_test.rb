@@ -172,6 +172,12 @@ class CountriesControllerTest < ActionController::TestCase
     assert_redirected_to country_url(assigns(:country))
   end
   
+  test "admin should update country with position" do
+    sign_in users(:admin)
+    put :update, :id => countries(:country_00001), :country => { }, :position => 2
+    assert_redirected_to countries_path
+  end
+
   def test_guest_should_not_destroy_country
     assert_no_difference('Country.count') do
       delete :destroy, :id => 1

@@ -172,6 +172,12 @@ class NiiTypesControllerTest < ActionController::TestCase
     assert_redirected_to nii_type_url(assigns(:nii_type))
   end
   
+  test "admin should update nii_type with position" do
+    sign_in users(:admin)
+    put :update, :id => 1, :nii_type => { }, :position => 2
+    assert_redirected_to nii_types_path
+  end
+
   def test_guest_should_not_destroy_nii_type
     assert_no_difference('NiiType.count') do
       delete :destroy, :id => 1

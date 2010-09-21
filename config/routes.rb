@@ -55,6 +55,7 @@ EnjuLeaf::Application.routes.draw do
     resources :expressions, :controller => 'resources'
     resources :resource_relationships
     resources :resources
+    resources :exemplifies
   end
 
   resources :creators, :controller => 'patrons' do
@@ -256,6 +257,8 @@ EnjuLeaf::Application.routes.draw do
     resources :item_has_use_restrictions
     resources :lending_policies
     resources :patrons
+    resources :owns
+    resource :exemplify
   end
 
   resources :owns

@@ -172,6 +172,12 @@ class EventCategoriesControllerTest < ActionController::TestCase
     assert_redirected_to event_category_url(assigns(:event_category))
   end
   
+  def test_admin_should_update_event_category_with_position
+    sign_in users(:admin)
+    put :update, :id => 1, :event_category => { }, :position => 2
+    assert_redirected_to event_categories_url
+  end
+
   def test_guest_should_not_destroy_event_category
     assert_no_difference('EventCategory.count') do
       delete :destroy, :id => 1

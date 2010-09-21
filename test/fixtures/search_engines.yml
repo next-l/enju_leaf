@@ -7,6 +7,7 @@ search_engine_00001:
   base_url: http://catalog.lib.keio.ac.jp/
   http_method: post
   query_param: query
+  additional_param: "submit=Search\nlocale=ja\nkeyword={query}"
   note: 
   position: 1
 

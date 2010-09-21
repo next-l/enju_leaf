@@ -172,6 +172,12 @@ class LanguagesControllerTest < ActionController::TestCase
     assert_redirected_to language_url(assigns(:language))
   end
   
+  test "admin should update language with position" do
+    sign_in users(:admin)
+    put :update, :id => languages(:language_00001), :language => { }, :position => 2
+    assert_redirected_to languages_path
+  end
+
   def test_guest_should_not_destroy_language
     assert_no_difference('Language.count') do
       delete :destroy, :id => 1

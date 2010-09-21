@@ -175,6 +175,12 @@ class PatronTypesControllerTest < ActionController::TestCase
     assert_redirected_to patron_type_url(assigns(:patron_type))
   end
   
+  def test_admin_should_update_patron_type_with_position
+    sign_in users(:admin)
+    put :update, :id => 1, :patron_type => { }, :position => 2
+    assert_redirected_to patron_types_url
+  end
+
   def test_guest_should_not_destroy_patron_type
     assert_no_difference('PatronType.count') do
       delete :destroy, :id => patron_types(:patron_type_00001)

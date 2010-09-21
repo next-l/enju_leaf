@@ -195,6 +195,12 @@ class ShelvesControllerTest < ActionController::TestCase
     assert_redirected_to library_shelf_url(assigns(:shelf).library.name, assigns(:shelf))
   end
   
+  def test_admin_should_update_shelf_with_position
+    sign_in users(:admin)
+    put :update, :id => 2, :shelf => { }, :position => 2, :library_id => 'kamata'
+    assert_redirected_to library_shelves_url(assigns(:library))
+  end
+  
   def test_guest_should_not_destroy_shelf
     assert_no_difference('Shelf.count') do
       delete :destroy, :id => 2

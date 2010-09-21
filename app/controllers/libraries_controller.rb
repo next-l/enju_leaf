@@ -7,7 +7,6 @@ class LibrariesController < ApplicationController
   # GET /libraries
   # GET /libraries.xml
   def index
-    @library_groups = LibraryGroup.all
     sort = {:sort_by => 'position', :order => 'asc'}
     case params[:sort_by]
     when 'name'
@@ -20,7 +19,7 @@ class LibrariesController < ApplicationController
 
     if query.present?
       begin
-        @libraries = Library.search(:include => [:shelf]) do
+        @libraries = Library.search(:include => [:shelves]) do
           fulltext query
           paginate :page => page.to_i, :per_page => Tag.per_page
           order_by sort[:sort_by], sort[:order]

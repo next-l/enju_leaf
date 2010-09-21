@@ -7,7 +7,7 @@ class SearchEnginesController < InheritedResources::Base
     @search_engine = SearchEngine.find(params[:id])
     if params[:position]
       @search_engine.insert_at(params[:position])
-      redirect_to countries_url
+      redirect_to search_engines_url
       return
     end
     update!

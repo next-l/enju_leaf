@@ -7,7 +7,7 @@ class BookstoresController < InheritedResources::Base
     @bookstore = Bookstore.find(params[:id])
     if params[:position]
       @bookstore.insert_at(params[:position])
-      redirect_to countries_url
+      redirect_to bookstores_url
       return
     end
     update!

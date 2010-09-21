@@ -99,6 +99,12 @@ class SeriesStatementsController < ApplicationController
   def update
     @series_statement = SeriesStatement.find(params[:id])
 
+    if params[:position]
+      @series_statement.insert_at(params[:position])
+      redirect_to series_statements_url
+      return
+    end
+
     respond_to do |format|
       if @series_statement.update_attributes(params[:series_statement])
         flash[:notice] = t('controller.successfully_updated', :model => t('activerecord.models.series_statement'))

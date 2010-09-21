@@ -82,7 +82,7 @@ class ProducesController < ApplicationController
 
     if @manifestation and params[:position]
       @produce.insert_at(params[:position])
-      redirect_to manifestation_patrons_url(@manifestation)
+      redirect_to manifestation_produces_url(@manifestation)
       return
     end
 

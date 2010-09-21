@@ -1,7 +1,7 @@
 # -*- encoding: utf-8 -*-
 class Event < ActiveRecord::Base
   scope :closing_days, :include => :event_category, :conditions => ['event_categories.name = ?', 'closed']
-  scope :on, lambda {|datetime| {:conditions => ['start_at >= ? AND end_at < ?', Time.zone.parse(datetime).beginning_of_day, Time.zone.parse(datetime).tomorrow.beginning_of_day + 1]}}
+  scope :on, lambda {|datetime| {:conditions => ['start_at >= ? AND start_at < ?', Time.zone.parse(datetime).beginning_of_day, Time.zone.parse(datetime).tomorrow.beginning_of_day + 1]}}
   scope :past, lambda {|datetime| {:conditions => ['end_at <= ?', Time.zone.parse(datetime).beginning_of_day]}}
   scope :upcoming, lambda {|datetime| {:conditions => ['start_at >= ?', Time.zone.parse(datetime).beginning_of_day]}}
   scope :at, lambda {|library| {:conditions => {:library_id => library.id}}}

@@ -177,6 +177,12 @@ class UseRestrictionsControllerTest < ActionController::TestCase
     assert_redirected_to use_restriction_url(assigns(:use_restriction))
   end
 
+  test "admin should update use_restriction with position" do
+    sign_in users(:admin)
+    put :update, :id => use_restrictions(:use_restriction_00001).id, :use_restriction => {}, :position => 2
+    assert_redirected_to use_restrictions_path
+  end
+
   def test_guest_should_not_destroy_use_restriction
     assert_no_difference('UseRestriction.count') do
       delete :destroy, :id => use_restrictions(:use_restriction_00001).id

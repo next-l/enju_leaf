@@ -144,6 +144,41 @@ class UsersControllerTest < ActionController::TestCase
     assert_response :success
   end
 
+  def test_guest_should_not_create_user
+    assert_no_difference('User.count') do
+      post :create, :user => { :username => 'test10' }
+    end
+
+    assert_redirected_to new_user_session_url
+  end
+
+  def test_user_should_not_create_user
+    sign_in users(:user1)
+    assert_no_difference('User.count') do
+      post :create, :user => { :username => 'test10' }
+    end
+
+    assert_response :forbidden
+  end
+
+  def test_librarian_should_not_create_user_without_username
+    sign_in users(:librarian1)
+    assert_no_difference('User.count') do
+      post :create, :user => { :username => '' }
+    end
+
+    assert_response :success
+  end
+
+  def test_librarian_should_create_user
+    sign_in users(:librarian1)
+    assert_difference('User.count') do
+      post :create, :user => { :username => 'test10' }
+    end
+
+    assert_redirected_to user_url(assigns(:user))
+  end
+
   def test_guest_should_not_show_user
     get :show, :id => users(:user1).username
     assert_response :redirect

@@ -173,6 +173,12 @@ class SearchEnginesControllerTest < ActionController::TestCase
     assert_redirected_to search_engine_url(assigns(:search_engine))
   end
   
+  def test_admin_should_update_search_engine_with_position
+    sign_in users(:admin)
+    put :update, :id => 1, :search_engine => { }, :position => 2
+    assert_redirected_to search_engines_url
+  end
+
   def test_guest_should_not_destroy_search_engine
     assert_no_difference('SearchEngine.count') do
       delete :destroy, :id => 1

@@ -172,6 +172,12 @@ class CarrierTypesControllerTest < ActionController::TestCase
     assert_redirected_to carrier_type_url(assigns(:carrier_type))
   end
   
+  test "admin should update carrier_type with position" do
+    sign_in users(:admin)
+    put :update, :id => 1, :carrier_type => { }, :position => 2
+    assert_redirected_to carrier_types_path
+  end
+
   def test_guest_should_not_destroy_carrier_type
     assert_no_difference('CarrierType.count') do
       delete :destroy, :id => 1

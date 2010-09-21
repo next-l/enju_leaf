@@ -172,6 +172,12 @@ class FormOfWorksControllerTest < ActionController::TestCase
     assert_redirected_to form_of_work_url(assigns(:form_of_work))
   end
   
+  test "admin should update form_of_work with position" do
+    sign_in users(:admin)
+    put :update, :id => 1, :form_of_work => { }, :position => 2
+    assert_redirected_to form_of_works_path
+  end
+
   def test_guest_should_not_destroy_form_of_work
     assert_no_difference('FormOfWork.count') do
       delete :destroy, :id => 1

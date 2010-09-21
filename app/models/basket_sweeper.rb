@@ -1,5 +1,6 @@
 class BasketSweeper < ActionController::Caching::Sweeper
   observe Basket
+  include ExpireEditableFragment
 
   def after_save(record)
     record.items.each do |item|
@@ -17,19 +18,6 @@ class BasketSweeper < ActionController::Caching::Sweeper
 
   def after_destroy(record)
     after_save(record)
-  end
-
-  def expire_editable_fragment(record, fragments = nil)
-    I18n.available_locales.each do |locale|
-      Rails.cache.fetch('role_all'){Role.all}.each do |role|
-        expire_fragment(:controller => record.class.to_s.pluralize.downcase, :action => :show, :id => record.id, :role => role.name, :locale => locale.to_s)
-        if fragments
-          fragments.each do |fragment|
-            expire_fragment(:controller => record.class.to_s.pluralize.downcase, :action => :show, :id => record.id, :page => fragment, :role => role.name, :locale => locale.to_s)
-          end
-        end
-      end
-    end
   end
 
 end

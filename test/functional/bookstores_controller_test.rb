@@ -165,6 +165,12 @@ class BookstoresControllerTest < ActionController::TestCase
     assert_redirected_to bookstore_url(assigns(:bookstore))
   end
 
+  test "admin should update bookstore with position" do
+    sign_in users(:admin)
+    put :update, :id => bookstores(:bookstore_00001), :bookstore => { }, :position => 2
+    assert_redirected_to bookstores_path
+  end
+
   def test_guest_should_not_destroy_bookstore
     assert_no_difference('Bookstore.count') do
       delete :destroy, :id => bookstores(:bookstore_00001).id

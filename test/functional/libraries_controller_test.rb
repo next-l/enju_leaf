@@ -10,6 +10,12 @@ class LibrariesControllerTest < ActionController::TestCase
     assert assigns(:libraries)
   end
 
+  def test_guest_should_get_index_with_query
+    get :index, :query => 'kamata'
+    assert_response :success
+    assert assigns(:libraries)
+  end
+
   def test_user_should_get_index
     sign_in users(:user1)
     get :index
@@ -201,6 +207,12 @@ class LibrariesControllerTest < ActionController::TestCase
     sign_in users(:admin)
     put :update, :id => 'kamata', :library => { }
     assert_redirected_to library_url(assigns(:library).name)
+  end
+  
+  def test_admin_should_update_library_with_position
+    sign_in users(:admin)
+    put :update, :id => 'kamata', :library => { }, :position => 2
+    assert_redirected_to libraries_url
   end
   
   def test_guest_should_not_destroy_library

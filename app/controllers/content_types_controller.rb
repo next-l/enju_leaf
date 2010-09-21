@@ -7,7 +7,7 @@ class ContentTypesController < InheritedResources::Base
     @content_type = ContentType.find(params[:id])
     if params[:position]
       @content_type.insert_at(params[:position])
-      redirect_to countries_url
+      redirect_to content_types_url
       return
     end
     update!

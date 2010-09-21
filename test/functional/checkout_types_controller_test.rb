@@ -175,6 +175,12 @@ class CheckoutTypesControllerTest < ActionController::TestCase
     assert_redirected_to checkout_type_url(assigns(:checkout_type))
   end
   
+  test "admin should update checkout_type with position" do
+    sign_in users(:admin)
+    put :update, :id => checkout_types(:checkout_type_00001), :checkout_type => { }, :position => 2
+    assert_redirected_to checkout_types_path
+  end
+
   def test_guest_should_not_destroy_checkout_type
     assert_no_difference('CheckoutType.count') do
       delete :destroy, :id => checkout_types(:checkout_type_00001)

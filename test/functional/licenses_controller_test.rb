@@ -172,6 +172,12 @@ class LicensesControllerTest < ActionController::TestCase
     assert_redirected_to license_url(assigns(:license))
   end
   
+  def test_admin_should_update_license_with_position
+    sign_in users(:admin)
+    put :update, :id => 1, :license => { }, :position => 2
+    assert_redirected_to licenses_url
+  end
+  
   def test_guest_should_not_destroy_license
     assert_no_difference('License.count') do
       delete :destroy, :id => 1

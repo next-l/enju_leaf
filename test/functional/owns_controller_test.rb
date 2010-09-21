@@ -165,6 +165,12 @@ class OwnsControllerTest < ActionController::TestCase
     assert_redirected_to own_url(assigns(:own))
   end
   
+  def test_librarian_should_update_own_with_position
+    sign_in users(:librarian1)
+    put :update, :id => 1, :own => { }, :position => 2, :item_id => 1
+    assert_redirected_to item_owns_url(assigns(:item))
+  end
+  
   def test_guest_should_not_destroy_own
     assert_no_difference('Own.count') do
       delete :destroy, :id => 1
