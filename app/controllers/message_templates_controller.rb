@@ -7,7 +7,7 @@ class MessageTemplatesController < InheritedResources::Base
     @message_template = MessageTemplate.find(params[:id])
     if params[:position]
       @message_template.insert_at(params[:position])
-      redirect_to countries_url
+      redirect_to message_templates_url
       return
     end
     update!

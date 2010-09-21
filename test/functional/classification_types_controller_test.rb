@@ -172,6 +172,12 @@ class ClassificationTypesControllerTest < ActionController::TestCase
     assert_redirected_to classification_type_url(assigns(:classification_type))
   end
   
+  test "admin should update classification_type with position" do
+    sign_in users(:admin)
+    put :update, :id => 1, :classification_type => { }, :position => 2
+    assert_redirected_to classification_types_path
+  end
+
   def test_guest_should_not_destroy_classification_type
     assert_no_difference('ClassificationType.count') do
       delete :destroy, :id => 1

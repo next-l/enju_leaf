@@ -57,8 +57,10 @@ gem 'bcrypt-ruby', :require => 'bcrypt'
 gem 'whenever', :require => false
 gem 'amazon-ecs', :require => 'amazon/ecs'
 gem 'aws-s3', :require => 'aws/s3'
-gem 'oink'
 gem 'astrails-safe'
+
+gem 'oink'
+gem 'simplecov', :require => false if RUBY_VERSION > '1.9'
 
 # Use unicorn as the web server
 gem 'unicorn' unless defined?(JRUBY_VERSION)

@@ -7,7 +7,7 @@ class ExtentsController < InheritedResources::Base
     @extent = Extent.find(params[:id])
     if params[:position]
       @extent.insert_at(params[:position])
-      redirect_to countries_url
+      redirect_to extents_url
       return
     end
     update!

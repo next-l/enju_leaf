@@ -21,6 +21,7 @@ class Library < ActiveRecord::Base
     text :name, :display_name, :note, :address
     time :created_at
     time :updated_at
+    integer :position
   end
 
   #validates_associated :library_group, :holding_patron

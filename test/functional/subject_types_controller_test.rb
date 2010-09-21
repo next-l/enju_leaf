@@ -175,6 +175,12 @@ class SubjectTypesControllerTest < ActionController::TestCase
     assert_redirected_to subject_type_url(assigns(:subject_type))
   end
   
+  test "admin should update subject_type with position" do
+    sign_in users(:admin)
+    put :update, :id => subject_types(:subject_type_00001), :subject_type => { }, :position => 2
+    assert_redirected_to subject_types_path
+  end
+
   def test_guest_should_not_destroy_subject_type
     assert_no_difference('SubjectType.count') do
       delete :destroy, :id => subject_types(:subject_type_00001)

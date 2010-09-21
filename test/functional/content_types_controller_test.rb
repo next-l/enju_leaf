@@ -172,6 +172,12 @@ class ContentTypesControllerTest < ActionController::TestCase
     assert_redirected_to content_type_url(assigns(:content_type))
   end
   
+  test "admin should update content_type with position" do
+    sign_in users(:admin)
+    put :update, :id => 1, :content_type => { }, :position => 2
+    assert_redirected_to content_types_path
+  end
+
   def test_guest_should_not_destroy_content_type
     assert_no_difference('ContentType.count') do
       delete :destroy, :id => 1

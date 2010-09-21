@@ -172,6 +172,12 @@ class CirculationStatusesControllerTest < ActionController::TestCase
     assert_redirected_to circulation_status_url(assigns(:circulation_status))
   end
   
+  test "admin should update circulation_status with position" do
+    sign_in users(:admin)
+    put :update, :id => 1, :circulation_status => { }, :position => 2
+    assert_redirected_to circulation_statuses_path
+  end
+
   def test_guest_should_not_destroy_circulation_status
     assert_no_difference('CirculationStatus.count') do
       delete :destroy, :id => 1

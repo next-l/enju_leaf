@@ -172,6 +172,12 @@ class MediumOfPerformancesControllerTest < ActionController::TestCase
     assert_redirected_to medium_of_performance_url(assigns(:medium_of_performance))
   end
   
+  test "admin should update medium_of_performance with position" do
+    sign_in users(:admin)
+    put :update, :id => 1, :medium_of_performance => { }, :position => 2
+    assert_redirected_to medium_of_performances_path
+  end
+
   def test_guest_should_not_destroy_medium_of_performance
     assert_no_difference('MediumOfPerformance.count') do
       delete :destroy, :id => 1

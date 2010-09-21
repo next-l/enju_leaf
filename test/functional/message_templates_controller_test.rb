@@ -159,6 +159,12 @@ class MessageTemplatesControllerTest < ActionController::TestCase
     assert_redirected_to message_template_url(assigns(:message_template))
   end
 
+  test "librarian should update message_template with position" do
+    sign_in users(:librarian1)
+    put :update, :id => message_templates(:message_template_00001), :message_template => { }, :position => 2
+    assert_redirected_to message_templates_path
+  end
+
   def test_guest_should_not_destroy_message_template
     assert_no_difference('MessageTemplate.count') do
       delete :destroy, :id => message_templates(:message_template_00001).id

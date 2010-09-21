@@ -173,8 +173,8 @@ class ExemplifiesControllerTest < ActionController::TestCase
   
   def test_librarian_should_update_exemplify_with_position
     sign_in users(:librarian1)
-    put :update, :id => 1, :exemplify => { }, :item_id => 1, :position => 1
-    assert_redirected_to item_url(assigns(:item))
+    put :update, :id => 1, :exemplify => { }, :manifestation_id => 1, :position => 1
+    assert_redirected_to manifestation_exemplifies_url(assigns(:manifestation))
   end
   
   def test_guest_should_not_destroy_exemplify

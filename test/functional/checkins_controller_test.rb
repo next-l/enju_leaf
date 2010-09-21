@@ -27,6 +27,12 @@ class CheckinsControllerTest < ActionController::TestCase
     assert_redirected_to user_basket_checkins_url(assigns(:basket).user.username, assigns(:basket))
   end
 
+  def test_librarian_should_get_index_with_basket_id
+    sign_in users(:librarian1)
+    get :index, :basket_id => 1
+    assert_response :success
+  end
+
   def test_guest_should_not_get_new
     get :new
     assert_response :redirect

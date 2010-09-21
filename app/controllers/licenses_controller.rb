@@ -7,7 +7,7 @@ class LicensesController < InheritedResources::Base
     @license = License.find(params[:id])
     if params[:position]
       @license.insert_at(params[:position])
-      redirect_to countries_url
+      redirect_to licenses_url
       return
     end
     update!

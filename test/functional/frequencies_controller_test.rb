@@ -171,6 +171,12 @@ class FrequenciesControllerTest < ActionController::TestCase
     assert_redirected_to frequency_url(assigns(:frequency))
   end
   
+  def test_admin_should_update_frequency_with_position
+    sign_in users(:admin)
+    put :update, :id => 1, :frequency => { }, :position => 2
+    assert_redirected_to frequencies_url
+  end
+  
   def test_guest_should_not_destroy_frequencies
     assert_no_difference('Frequency.count') do
       delete :destroy, :id => 1

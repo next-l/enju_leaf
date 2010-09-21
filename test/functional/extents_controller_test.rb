@@ -172,6 +172,12 @@ class ExtentsControllerTest < ActionController::TestCase
     assert_redirected_to extent_url(assigns(:extent))
   end
   
+  test "admin should update extent with position" do
+    sign_in users(:admin)
+    put :update, :id => 1, :extent => { }, :position => 2
+    assert_redirected_to extents_path
+  end
+
   def test_guest_should_not_destroy_extent
     assert_no_difference('Extent.count') do
       delete :destroy, :id => 1

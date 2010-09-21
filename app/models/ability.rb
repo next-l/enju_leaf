@@ -82,6 +82,7 @@ class Ability
         search_history.try(:user) == user
       end
       can :manage, [PatronMerge, PatronMergeList]
+      can :manage, SeriesStatement
     when 'User'
       can :read, [Resource, Item]
       can :edit, Resource
@@ -156,6 +157,7 @@ class Ability
         search_history.try(:user) == user
       end
       can :read, [PatronRelationshipType, ResourceRelationshipType]
+      can :read, SeriesStatement
     else
       can :read, Resource
       can :read, Item
@@ -195,6 +197,7 @@ class Ability
       can :read, SubjectHeadingTypeHasSubject
       can :index, Checkout
       can :read, [PatronRelationshipType, ResourceRelationshipType]
+      can :read, SeriesStatement
     end
   end
 end

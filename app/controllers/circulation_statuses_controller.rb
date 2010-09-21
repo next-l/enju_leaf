@@ -7,7 +7,7 @@ class CirculationStatusesController < InheritedResources::Base
     @circulation_status = CirculationStatus.find(params[:id])
     if params[:position]
       @circulation_status.insert_at(params[:position])
-      redirect_to circulation_statuss_url
+      redirect_to circulation_statuses_url
       return
     end
     update!

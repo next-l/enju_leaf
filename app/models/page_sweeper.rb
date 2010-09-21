@@ -1,7 +1,8 @@
 class PageSweeper < ActionController::Caching::Sweeper
-    include ExpireEditableFragment
-    observe Create, Realize, Produce, Own, Patron, Language, Checkin,
-    SeriesStatement, SubjectHeadingType, PictureFile, Shelf, Tag, Answer
+  include ExpireEditableFragment
+  observe Create, Realize, Produce, Own, Patron, Language, Checkin,
+    SeriesStatement, SubjectHeadingType, PictureFile, Shelf, Tag, Answer,
+    Subject, Classification, Library, SubjectHeadingTypeHasSubject
 
   def after_save(record)
     case
@@ -21,9 +22,6 @@ class PageSweeper < ActionController::Caching::Sweeper
       expire_editable_fragment(record)
       record.works.each do |work|
         expire_editable_fragment(work)
-        work.manifestations.each do |manifestation|
-          expire_editable_fragment(manifestation)
-        end
       end
       record.classifications.each do |classification|
         expire_editable_fragment(classification)

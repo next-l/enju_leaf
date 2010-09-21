@@ -7,7 +7,7 @@ class LanguagesController < InheritedResources::Base
     @language = Language.find(params[:id])
     if params[:position]
       @language.insert_at(params[:position])
-      redirect_to countries_url
+      redirect_to languages_url
       return
     end
     update!

@@ -177,6 +177,12 @@ class RequestStatusTypesControllerTest < ActionController::TestCase
     assert_redirected_to request_status_type_url(assigns(:request_status_type))
   end
 
+  test "admin should update request_status_type with position" do
+    sign_in users(:admin)
+    put :update, :id => request_status_types(:request_status_type_00001).id, :request_status_type => { }, :position => 2
+    assert_redirected_to request_status_types_path
+  end
+
   def test_guest_should_not_destroy_request_status_type
     assert_no_difference('RequestStatusType.count') do
       delete :destroy, :id => request_status_types(:request_status_type_00001).id

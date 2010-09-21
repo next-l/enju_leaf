@@ -66,6 +66,12 @@ class ExemplifiesController < ApplicationController
   def update
     @exemplify = Exemplify.find(params[:id])
 
+    if @manifestation and params[:position]
+      @exemplify.insert_at(params[:position])
+      redirect_to manifestation_exemplifies_url(@manifestation)
+      return
+    end
+
     respond_to do |format|
       if @exemplify.update_attributes(params[:exemplify])
         flash[:notice] = t('controller.successfully_updated', :model => t('activerecord.models.exemplify'))
