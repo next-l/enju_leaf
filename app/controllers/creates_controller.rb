@@ -85,16 +85,8 @@ class CreatesController < ApplicationController
     respond_to do |format|
       if @create.update_attributes(params[:create])
         flash[:notice] = t('controller.successfully_updated', :model => t('activerecord.models.create'))
-        if @patron
-          format.html { redirect_to patron_works_url(@patron) }
-          format.xml  { head :ok }
-        elsif @work
-          format.html { redirect_to work_patrons_url(@work) }
-          format.xml  { head :ok }
-        else
-          format.html { redirect_to create_url(@create) }
-          format.xml  { head :ok }
-        end
+        format.html { redirect_to create_url(@create) }
+        format.xml  { head :ok }
       else
         format.html { render :action => "edit" }
         format.xml  { render :xml => @create.errors, :status => :unprocessable_entity }

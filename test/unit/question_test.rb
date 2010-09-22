@@ -15,4 +15,8 @@ class QuestionTest < ActiveSupport::TestCase
     assert result
     assert result.total_entries > 0
   end
+
+  test "should respond to last_updated_at" do
+    assert questions(:question_00001).last_updated_at
+  end
 end

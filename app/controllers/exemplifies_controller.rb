@@ -75,16 +75,8 @@ class ExemplifiesController < ApplicationController
     respond_to do |format|
       if @exemplify.update_attributes(params[:exemplify])
         flash[:notice] = t('controller.successfully_updated', :model => t('activerecord.models.exemplify'))
-        case when @manifestation
-          format.html { redirect_to manifestation_items_path(@exemplify.manifestation) }
-          format.xml  { head :ok }
-        when @item
-          format.html { redirect_to @exemplify.item }
-          format.xml  { head :ok }
-        else
-          format.html { redirect_to(@exemplify) }
-          format.xml  { head :ok }
-        end
+        format.html { redirect_to(@exemplify) }
+        format.xml  { head :ok }
       else
         format.html { render :action => "edit" }
         format.xml  { render :xml => @exemplify.errors, :status => :unprocessable_entity }

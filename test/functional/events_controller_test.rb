@@ -84,6 +84,19 @@ class EventsControllerTest < ActionController::TestCase
     assert_response :success
   end
   
+  def test_librarian_should_get_new_with_date
+    sign_in users(:librarian1)
+    get :new, :date => '2010/09/01'
+    assert_response :success
+  end
+  
+  def test_librarian_should_get_new_with_invalid_date
+    sign_in users(:librarian1)
+    get :new, :date => '2010/13/01'
+    assert_response :success
+    assert_equal flash[:notice], I18n.t('page.invalid_date')
+  end
+  
   def test_admin_should_get_new
     sign_in users(:admin)
     get :new

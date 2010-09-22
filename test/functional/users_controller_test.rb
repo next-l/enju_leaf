@@ -26,6 +26,20 @@ class UsersControllerTest < ActionController::TestCase
     assert assigns(:users)
   end
 
+  def test_librarian_should_get_index_with_query
+    sign_in users(:librarian1)
+    get :index, :query => 'user1'
+    assert_response :success
+    assert assigns(:users)
+  end
+
+  def test_librarian_should_get_sorted_index
+    sign_in users(:librarian1)
+    get :index, :query => 'user1', :sort_by => 'username', :order => 'desc'
+    assert_response :success
+    assert assigns(:users)
+  end
+
   def test_guest_should_not_update_user
     put :update, :id => 'admin', :user => { }
     assert_response :redirect

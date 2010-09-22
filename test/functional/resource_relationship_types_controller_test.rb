@@ -171,6 +171,12 @@ class ResourceRelationshipTypesControllerTest < ActionController::TestCase
     put :update, :id => 1, :resource_relationship_type => { }
     assert_redirected_to resource_relationship_type_url(assigns(:resource_relationship_type))
   end
+
+  def test_admin_should_update_resource_relationship_type_with_position
+    sign_in users(:admin)
+    put :update, :id => 1, :resource_relationship_type => { }, :position => 2
+    assert_redirected_to resource_relationship_types_url
+  end
   
   def test_guest_should_not_destroy_resource_relationship_type
     assert_no_difference('ResourceRelationshipType.count') do
