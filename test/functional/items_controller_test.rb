@@ -4,7 +4,7 @@ class ItemsControllerTest < ActionController::TestCase
   fixtures :items, :circulation_statuses, :shelves, :orders, :resources,
       :carrier_types, :languages, :reserves,
       :libraries, :patrons, :users, :inventories, :inventory_files,
-      :user_groups, :lending_policies
+      :user_groups, :lending_policies, :exemplifies
 
   def test_guest_should_get_index
     get :index
@@ -157,6 +157,19 @@ class ItemsControllerTest < ActionController::TestCase
     
     assert_redirected_to item_url(assigns(:item))
     assert assigns(:item).manifestation
+    assigns(:item).remove_from_index!
+  end
+
+  def test_librarian_should_create_reserved_item
+    sign_in users(:librarian1)
+    assert_difference('Item.count') do
+      post :create, :item => { :circulation_status_id => 1, :manifestation_id => 2}
+    end
+   
+    assert_redirected_to item_url(assigns(:item))
+    assert_equal flash[:message], I18n.t('item.this_item_is_reserved')
+    assert assigns(:item).manifestation
+    assert_equal assigns(:item).manifestation.next_reservation.state, 'retained'
     assigns(:item).remove_from_index!
   end
 

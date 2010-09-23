@@ -57,24 +57,24 @@ module OaiController
     resumption = Rails.cache.read(token) rescue nil
   end
 
-  def set_resumption_token(resources, from_time, until_time, per_page = nil)
-    if params[:format] == 'oai'
-      if params[:resumptionToken]
-        if resumption = Rails.cache.read(params[:resumptionToken]) rescue nil
-          @cursor = resumption[:cursor] + per_page ||= resources.per_page
-        end
-      end
-      @cursor ||= 0
-      yml = YAML.load_file("#{Rails.root.to_s}/config/oai_cache.yml")
-      ttl = yml["#{Rails.env}"]["ttl"] || yml["defaults"]["ttl"]
-      resumption = {
-        :token => "f(#{from_time.utc.iso8601.to_s}).u(#{until_time.utc.iso8601.to_s}):#{@cursor}",
-        :cursor => @cursor,
-        # memcachedの使用が前提
-        :expired_at => ttl.seconds.from_now.utc.iso8601
-      }
-      @resumption = Rails.cache.fetch(resumption[:token]){resumption}
+  def set_resumption_token(token, from_time, until_time, per_page = 0)
+    if resumption = Rails.cache.read(token)
+      @cursor = resumption[:cursor] + per_page ||= resources.per_page
     end
+    @cursor ||= 0
+    yml = YAML.load_file("#{Rails.root.to_s}/config/oai_cache.yml")
+    if yml["#{Rails.env}"]
+      ttl = yml["#{Rails.env}"]["ttl"] 
+    else
+      ttl = yml["defaults"]["ttl"]
+    end
+    resumption = {
+      :token => "f(#{from_time.utc.iso8601.to_s}).u(#{until_time.utc.iso8601.to_s}):#{@cursor}",
+      :cursor => @cursor,
+      # memcachedの使用が前提
+      :expired_at => ttl.seconds.from_now.utc.iso8601
+    }
+    @resumption = Rails.cache.fetch(resumption[:token]){resumption}
   end
 
   def set_from_and_until(klass, from_t, until_t)

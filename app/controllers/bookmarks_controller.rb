@@ -152,9 +152,6 @@ class BookmarksController < ApplicationController
         @bookmark.manifestation.index!
         @bookmark.create_tag_index
         case params[:mode]
-        when 'remove_tag'
-          format.html { redirect_to resource_url(@bookmark.manifestation) }
-          format.xml  { head :ok }
         when 'tag_edit'
           format.html { redirect_to resource_url(@bookmark.manifestation) }
           format.xml  { head :ok }

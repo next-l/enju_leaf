@@ -202,6 +202,12 @@ class PictureFilesControllerTest < ActionController::TestCase
     assert_redirected_to picture_file_url(assigns(:picture_file))
   end
 
+  test "librarian should update content_type with position" do
+    sign_in users(:librarian1)
+    put :update, :id => picture_files(:picture_file_00001), :picture_file => { }, :position => 2
+    assert_redirected_to shelf_picture_files_path(picture_files(:picture_file_00001).picture_attachable)
+  end
+
   def test_guest_should_not_destroy_picture_file
     assert_no_difference('PictureFile.count') do
       delete :destroy, :id => picture_files(:picture_file_00001)
