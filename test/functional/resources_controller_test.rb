@@ -79,6 +79,41 @@ class ResourcesControllerTest < ActionController::TestCase
     assert assigns(:resources)
   end
 
+  def test_guest_should_get_index_oai_without_resumption_token
+    get :index, :format => 'oai'
+    assert_response :success
+    assert_template('resources/index')
+    assert assigns(:resources)
+  end
+
+  def test_guest_should_get_index_oai_list_identifiers
+    get :index, :format => 'oai', :verb => 'ListIdentifiers'
+    assert_response :success
+    assert_template('resources/list_identifiers')
+    assert assigns(:resources)
+  end
+
+  def test_guest_should_get_index_oai_list_records
+    get :index, :format => 'oai', :verb => 'ListRecords'
+    assert_response :success
+    assert_template('resources/list_records')
+    assert assigns(:resources)
+  end
+
+  def test_guest_should_get_index_oai_get_record_without_identifier
+    get :index, :format => 'oai', :verb => 'GetRecord'
+    assert_response :success
+    assert_template('resources/index')
+    assert_nil assigns(:resource)
+  end
+
+  def test_guest_should_get_index_oai_get_record
+    get :index, :format => 'oai', :verb => 'GetRecord', :identifier => 'oai:localhost:resources-1'
+    assert_response :success
+    assert_template('resources/show')
+    assert assigns(:resource)
+  end
+
   def test_user_should_not_create_search_history_if_log_is_written_to_file
     sign_in users(:user1)
     if configatron.write_search_log_to_file
@@ -132,6 +167,13 @@ class ResourcesControllerTest < ActionController::TestCase
     get :index, :query => '2005'
     assert_response :success
     assert assigns(:resources)
+  end
+
+  def test_guest_should_get_index_with_page_number
+    get :index, :query => '2005', :number_of_pages_at_least => 1, :number_of_pages_at_most => 100
+    assert_response :success
+    assert assigns(:resources)
+    assert_equal '2005 number_of_pages_i: [1 TO 100]', assigns(:query)
   end
 
   def test_guest_should_get_index_all_facet
@@ -398,10 +440,26 @@ class ResourcesControllerTest < ActionController::TestCase
     assert_response :missing
   end
 
+  def test_guest_should_not_send_resource_detail_email
+    get :show, :id => 1, :mode => 'send_email'
+    assert_redirected_to new_user_session_url
+  end
+
+  def test_guest_should_generate_fragment_cache
+    get :show, :id => 1, :mode => 'generate_cache'
+    assert_response :success
+  end
+
   def test_user_should_show_resource
     sign_in users(:user1)
     get :show, :id => 1
     assert_response :success
+  end
+
+  def test_user_should_send_resource_detail_email
+    sign_in users(:user1)
+    get :show, :id => 1, :mode => 'send_email'
+    assert_redirected_to resource_url(assigns(:resource))
   end
 
   def test_librarian_should_show_resource

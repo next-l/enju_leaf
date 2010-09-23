@@ -200,14 +200,6 @@ class ApplicationController < ActionController::Base
     @series_statement = SeriesStatement.find(params[:series_statement_id]) if params[:series_statement_id]
   end
 
-  def librarian_authorized?
-    return false unless user_signed_in?
-    user = get_user_if_nil
-    return true if user == current_user
-    return true if current_user.has_role?('Librarian')
-    false
-  end
-
   def convert_charset
     #if params[:format] == 'ics'
     #  response.body = NKF::nkf('-w -Lw', response.body)
@@ -344,10 +336,6 @@ class ApplicationController < ActionController::Base
 
   def api_request?
     true unless params[:format].nil? or params[:format] == 'html'
-  end
-
-  def current_user_role_name
-    current_user.role.name || Role.find(1).name
   end
 
 end

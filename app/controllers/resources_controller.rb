@@ -184,7 +184,7 @@ class ResourcesController < ApplicationController
       save_search_history(query, @resources.offset, @count[:query_result], current_user)
       if params[:format] == 'oai'
         unless @resources.empty?
-          set_resumption_token(@resources, @from_time || Resource.last.updated_at, @until_time || Resource.first.updated_at)
+          set_resumption_token(params[:resumptionToken], @from_time || Resource.last.updated_at, @until_time || Resource.first.updated_at)
         else
           @oai[:errors] << 'noRecordsMatch'
         end
@@ -269,10 +269,11 @@ class ResourcesController < ApplicationController
         flash[:notice] = t('page.sent_email')
         redirect_to resource_url(@resource)
         return
+      else
+        access_denied; return
       end
     when 'generate_cache'
       check_client_ip_address
-      return
     end
 
     return if render_mode(params[:mode])
@@ -313,17 +314,15 @@ class ResourcesController < ApplicationController
     @resource = Resource.new
     @original_manifestation = get_manifestation
     @resource.series_statement = @series_statement
-    unless params[:mode] == 'import_isbn'
-      if @resource.series_statement
-        @resource.original_title = @resource.series_statement.original_title
-        @resource.title_transcription = @resource.series_statement.title_transcription
-      elsif @original_manifestation
-        @resource.original_title = @original_manifestation.original_title
-        @resource.title_transcription = @original_manifestation.title_transcription
-      elsif @expression
-        @resource.original_title = @expression.original_title
-        @resource.title_transcription = @expression.title_transcription
-      end
+    if @resource.series_statement
+      @resource.original_title = @resource.series_statement.original_title
+      @resource.title_transcription = @resource.series_statement.title_transcription
+    elsif @original_manifestation
+      @resource.original_title = @original_manifestation.original_title
+      @resource.title_transcription = @original_manifestation.title_transcription
+    elsif @expression
+      @resource.original_title = @expression.original_title
+      @resource.title_transcription = @expression.title_transcription
     end
     @resource.language = Language.first(:conditions => {:iso_639_1 => @locale})
     @resource = @resource.set_serial_number unless params[:mode] == 'attachment'
