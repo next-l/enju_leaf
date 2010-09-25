@@ -1,0 +1,29 @@
+<h1>Listing patron_import_results</h1>
+
+<table>
+  <tr>
+    <th>Patron import file</th>
+    <th>Patron</th>
+    <th>User</th>
+    <th>Body</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @patron_import_results.each do |patron_import_result| %>
+  <tr>
+    <td><%= patron_import_result.patron_import_file_id %></td>
+    <td><%= patron_import_result.patron_id %></td>
+    <td><%= patron_import_result.user_id %></td>
+    <td><%= patron_import_result.body %></td>
+    <td><%= link_to 'Show', patron_import_result %></td>
+    <td><%= link_to 'Edit', edit_patron_import_result_path(patron_import_result) %></td>
+    <td><%= link_to 'Destroy', patron_import_result, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Patron import result', new_patron_import_result_path %>

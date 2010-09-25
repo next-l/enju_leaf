@@ -1,0 +1,27 @@
+<h1>Listing event_import_results</h1>
+
+<table>
+  <tr>
+    <th>Event import file</th>
+    <th>Event</th>
+    <th>Body</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @event_import_results.each do |event_import_result| %>
+  <tr>
+    <td><%= event_import_result.event_import_file_id %></td>
+    <td><%= event_import_result.event_id %></td>
+    <td><%= event_import_result.body %></td>
+    <td><%= link_to 'Show', event_import_result %></td>
+    <td><%= link_to 'Edit', edit_event_import_result_path(event_import_result) %></td>
+    <td><%= link_to 'Destroy', event_import_result, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Event import result', new_event_import_result_path %>

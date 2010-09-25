@@ -144,6 +144,9 @@ ja:
       user_has_role: 利用者と権限
       patron_relationship: 著者・編者・出版社の関係
       resource_relationship: 資料の関係
+      resource_import_result: 資料情報インポートの結果
+      patron_import_result: 人物・団体情報インポートの結果
+      event_import_result: 催し物情報インポートの結果
 
     attributes:
       library:

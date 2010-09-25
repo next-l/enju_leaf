@@ -20,21 +20,17 @@ div.field, div.actions {
   margin-bottom: 10px;
 }
 
-.notice {
+#notice {
   color: green;
 }
 
-.alert {
-  color: red;
-}
-
-.fieldWithErrors {
+.field_with_errors {
   padding: 2px;
   background-color: red;
   display: table;
 }
 
-#errorExplanation {
+#error_explanation {
   width: 450px;
   border: 2px solid red;
   padding: 7px;
@@ -43,7 +39,7 @@ div.field, div.actions {
   background-color: #f0f0f0;
 }
 
-#errorExplanation h2 {
+#error_explanation h2 {
   text-align: left;
   font-weight: bold;
   padding: 5px 5px 5px 15px;
@@ -54,7 +50,7 @@ div.field, div.actions {
   color: #fff;
 }
 
-#errorExplanation ul li {
+#error_explanation ul li {
   font-size: 12px;
   list-style: square;
 }

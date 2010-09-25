@@ -12,6 +12,7 @@ class Event < ActiveRecord::Base
   has_many :picture_files, :as => :picture_attachable
   has_many :participates, :dependent => :destroy
   has_many :patrons, :through => :participates
+  has_one :event_import_result
 
   #acts_as_taggable_on :tags
   #acts_as_soft_deletable

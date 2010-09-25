@@ -24,6 +24,7 @@ class Resource < ActiveRecord::Base
   belongs_to :resource_relationship_type
   belongs_to :frequency
   belongs_to :required_role, :class_name => 'Role', :foreign_key => 'required_role_id', :validate => true
+  has_one :resource_import_result
 
   searchable do
     text :title, :default_boost => 2 do

@@ -4,7 +4,7 @@ class ResourceImportFilesControllerTest < ActionController::TestCase
   fixtures :resource_import_files, :users, :roles, :patrons,
     :user_groups, :libraries, :library_groups, :patron_types, :languages,
     :events, :event_categories, :circulation_statuses,
-    :imported_objects, :series_statements
+    :series_statements
 
   def test_guest_should_not_get_index
     get :index
@@ -67,6 +67,7 @@ class ResourceImportFilesControllerTest < ActionController::TestCase
     old_manifestations_count = Resource.count
     old_items_count = Item.count
     old_patrons_count = Patron.count
+    old_import_results_count = ResourceImportResult.count
     assert_difference('ResourceImportFile.count') do
       post :create, :resource_import_file => {:resource_import => fixture_file_upload("resource_import_file_sample1.tsv", 'text/plain') }
     end
@@ -75,6 +76,7 @@ class ResourceImportFilesControllerTest < ActionController::TestCase
     assert_equal old_manifestations_count + 5, Resource.count
     assert_equal old_items_count + 5, Item.count
     assert_equal old_patrons_count + 5, Patron.count
+    assert_equal old_import_results_count + 14, ResourceImportResult.count
 
     assert_equal 'librarian1', assigns(:resource_import_file).user.username
     assert_redirected_to resource_import_file_path(assigns(:resource_import_file))

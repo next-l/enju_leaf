@@ -66,7 +66,7 @@ class Ability
       can :manage, [CheckoutStatHasManifestation, CheckoutStatHasUser]
       can :manage, [ReserveStatHasManifestation, ReserveStatHasUser]
       can :read, [CirculationStatus, UseRestriction]
-      can :manage, ImportedObject
+      can :read, [ResourceImportResult, PatronImportResult, EventImportResult]
       can :read, Shelf
       can :read, [RequestStatusType, RequestType]
       can :manage, PictureFile

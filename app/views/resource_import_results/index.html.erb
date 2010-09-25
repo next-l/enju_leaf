@@ -1,0 +1,27 @@
+<h1>Listing resource_import_results</h1>
+
+<table>
+  <tr>
+    <th>Manifestation</th>
+    <th>Item</th>
+    <th>Body</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @resource_import_results.each do |resource_import_result| %>
+  <tr>
+    <td><%= resource_import_result.manifestation_id %></td>
+    <td><%= resource_import_result.item_id %></td>
+    <td><%= resource_import_result.body %></td>
+    <td><%= link_to 'Show', resource_import_result %></td>
+    <td><%= link_to 'Edit', edit_resource_import_result_path(resource_import_result) %></td>
+    <td><%= link_to 'Destroy', resource_import_result, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Import result', new_resource_import_result_path %>

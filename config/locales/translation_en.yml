@@ -143,6 +143,9 @@ en:
       user_has_role: User and roles
       patron_relationship: Patron relationship
       resource_relationship: Resource relationship
+      resource_import_result: Resource Import Result
+      patron_import_result: Patron Import Result
+      event_import_result: Event Import Result
 
     attributes:
       library:

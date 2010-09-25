@@ -1,0 +1,20 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Manifestation:</b>
+  <%= @resource_import_result.manifestation_id %>
+</p>
+
+<p>
+  <b>Item:</b>
+  <%= @resource_import_result.item_id %>
+</p>
+
+<p>
+  <b>Body:</b>
+  <%= @resource_import_result.body %>
+</p>
+
+
+<%= link_to 'Edit', edit_resource_import_result_path(@resource_import_result) %> |
+<%= link_to 'Back', resource_import_results_path %>

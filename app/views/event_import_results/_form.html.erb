@@ -1,0 +1,29 @@
+<%= form_for(@event_import_result) do |f| %>
+  <% if @event_import_result.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@event_import_result.errors.count, "error") %> prohibited this event_import_result from being saved:</h2>
+
+      <ul>
+      <% @event_import_result.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :event_import_file_id %><br />
+    <%= f.text_field :event_import_file_id %>
+  </div>
+  <div class="field">
+    <%= f.label :event_id %><br />
+    <%= f.text_field :event_id %>
+  </div>
+  <div class="field">
+    <%= f.label :body %><br />
+    <%= f.text_area :body %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

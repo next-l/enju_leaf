@@ -1,0 +1,25 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Patron import file:</b>
+  <%= @patron_import_result.patron_import_file_id %>
+</p>
+
+<p>
+  <b>Patron:</b>
+  <%= @patron_import_result.patron_id %>
+</p>
+
+<p>
+  <b>User:</b>
+  <%= @patron_import_result.user_id %>
+</p>
+
+<p>
+  <b>Body:</b>
+  <%= @patron_import_result.body %>
+</p>
+
+
+<%= link_to 'Edit', edit_patron_import_result_path(@patron_import_result) %> |
+<%= link_to 'Back', patron_import_results_path %>
