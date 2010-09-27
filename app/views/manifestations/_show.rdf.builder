@@ -1,4 +1,4 @@
-  xml.rdf(:Description, 'rdf:about' => resource_url(manifestation)) do
+  xml.rdf(:Description, 'rdf:about' => manifestation_url(manifestation)) do
     xml.title h(manifestation.original_title)
     #xml.description(manifestation.original_title)
     xml.tag! 'dc:date', h(manifestation.created_at.utc.iso8601)
@@ -33,7 +33,7 @@
     end
     xml.tag! 'dc:identifier', "urn:ISBN:#{manifestation.isbn}" if manifestation.isbn.present?
     xml.tag! 'dc:description', manifestation.description
-    xml.link resource_url(manifestation)
+    xml.link manifestation_url(manifestation)
     manifestation.subjects.each do |subject|
       xml.tag! "foaf:topic", "rdf:resource" => subject_url(subject)
     end

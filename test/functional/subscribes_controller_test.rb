@@ -2,7 +2,7 @@ require 'test_helper'
 
 class SubscribesControllerTest < ActionController::TestCase
     fixtures :subscribes, :subscriptions, :users, :patrons, :patron_types,
-      :languages, :roles, :resources, :carrier_types, :form_of_works
+      :languages, :roles, :manifestations, :carrier_types, :form_of_works
 
   def test_guest_should_not_get_index
     get :index

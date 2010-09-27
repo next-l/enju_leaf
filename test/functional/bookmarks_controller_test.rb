@@ -4,7 +4,7 @@ require 'test_helper'
 class BookmarksControllerTest < ActionController::TestCase
     fixtures :bookmarks, :form_of_works, :content_types, :frequencies,
       :languages, :circulation_statuses, :users, :roles,
-      :resources, :carrier_types, :tags, :taggings, :shelves, :items,
+      :manifestations, :carrier_types, :tags, :taggings, :shelves, :items,
       :creates, :realizes, :produces, :owns, :patrons, :patron_types
 
   def test_guest_should_not_get_index
@@ -85,7 +85,7 @@ class BookmarksControllerTest < ActionController::TestCase
     get :new, :user_id => users(:user1).username, :bookmark => {:url => 'http://www.slis.keio.ac.jp/'}
     assert_response :redirect
     assert_equal I18n.t('bookmark.already_bookmarked'), flash[:notice]
-    assert_redirected_to resource_url(assigns(:bookmark).get_manifestation)
+    assert_redirected_to manifestation_url(assigns(:bookmark).get_manifestation)
   end
   
   def test_user_should_get_my_new_with_external_url
@@ -96,7 +96,7 @@ class BookmarksControllerTest < ActionController::TestCase
   
   def test_user_should_get_my_new_with_internal_url
     sign_in users(:user1)
-    get :new, :user_id => users(:user1).username, :bookmark => {:url => "#{LibraryGroup.url}/resources/1"}
+    get :new, :user_id => users(:user1).username, :bookmark => {:url => "#{LibraryGroup.url}/manifestations/1"}
     assert_response :success
   end
   
@@ -120,7 +120,7 @@ class BookmarksControllerTest < ActionController::TestCase
   def test_user_should_create_bookmark_with_local_url
     sign_in users(:user1)
     assert_difference('Bookmark.count') do
-      post :create, :bookmark => {:title => 'example', :url => "#{LibraryGroup.url}resources/10"}
+      post :create, :bookmark => {:title => 'example', :url => "#{LibraryGroup.url}manifestations/10"}
     end
     
     assert_redirected_to bookmark_url(assigns(:bookmark))

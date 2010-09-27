@@ -18,7 +18,7 @@ picture_file_00002:
   id: 2
   height: 1280
   picture_file_name: test_00001_geometry.jpg
-  picture_attachable_type: Resource
+  picture_attachable_type: Manifestation
   picture_attachable_id: 1
   width: 960
   created_at: 2007-12-22 14:06:10.870393 +09:00

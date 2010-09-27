@@ -1,6 +1,6 @@
 class WorkHasSubject < ActiveRecord::Base
   belongs_to :subject
-  belongs_to :work, :class_name => 'Resource'
+  belongs_to :work, :class_name => 'Manifestation'
 
   validates_presence_of :work, :subject #, :subject_type
   validates_associated :work, :subject

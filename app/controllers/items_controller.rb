@@ -128,7 +128,7 @@ class ItemsController < ApplicationController
     end
     unless @manifestation
       flash[:notice] = t('item.specify_manifestation')
-      redirect_to resources_url
+      redirect_to manifestations_url
       return
     end
     @item = Item.new
@@ -152,7 +152,7 @@ class ItemsController < ApplicationController
   # POST /items.xml
   def create
     @item = Item.new(params[:item])
-    manifestation = Resource.find(@item.manifestation_id)
+    manifestation = Manifestation.find(@item.manifestation_id)
     @item.manifestation = manifestation
 
     respond_to do |format|
@@ -221,7 +221,7 @@ class ItemsController < ApplicationController
     respond_to do |format|
       flash[:notice] = t('controller.successfully_deleted', :model => t('activerecord.models.item'))
       if @item.manifestation
-        format.html { redirect_to resource_items_url(@item.manifestation) }
+        format.html { redirect_to manifestation_items_url(@item.manifestation) }
         format.xml  { head :ok }
       else
         format.html { redirect_to items_url }

@@ -1,7 +1,7 @@
 require 'test_helper'
 
 class ItemsControllerTest < ActionController::TestCase
-  fixtures :items, :circulation_statuses, :shelves, :orders, :resources,
+  fixtures :items, :circulation_statuses, :shelves, :orders, :manifestations,
       :carrier_types, :languages, :reserves,
       :libraries, :patrons, :users, :inventories, :inventory_files,
       :user_groups, :lending_policies, :exemplifies
@@ -91,7 +91,7 @@ class ItemsControllerTest < ActionController::TestCase
   def test_everyone_should_not_get_new_without_manifestation_id
     sign_in users(:admin)
     get :new
-    assert_redirected_to resources_url
+    assert_redirected_to manifestations_url
   end
   
   def test_user_should_not_get_new
@@ -312,7 +312,7 @@ class ItemsControllerTest < ActionController::TestCase
       delete :destroy, :id => 1
     end
     
-    assert_redirected_to resource_items_url(assigns(:item).manifestation)
+    assert_redirected_to manifestation_items_url(assigns(:item).manifestation)
   end
 
   def test_admin_should_destroy_item
@@ -321,6 +321,6 @@ class ItemsControllerTest < ActionController::TestCase
       delete :destroy, :id => 1
     end
     
-    assert_redirected_to resource_items_url(assigns(:item).manifestation)
+    assert_redirected_to manifestation_items_url(assigns(:item).manifestation)
   end
 end

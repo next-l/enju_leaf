@@ -1,7 +1,7 @@
 module ExpireEditableFragment
   def expire_editable_fragment(record, fragments = nil)
     if record
-      if record.is_a?(Resource)
+      if record.is_a?(Manifestation)
         expire_manifestation_cache(record, fragments)
       else
         I18n.available_locales.each do |locale|

@@ -13,7 +13,7 @@ module EnjuNdl
       isbn = ISBN_Tools.cleanup(isbn)
       raise EnjuNdl::InvalidIsbn unless ISBN_Tools.is_valid?(isbn)
 
-      if manifestation = Resource.first(:conditions => {:isbn => isbn})
+      if manifestation = Manifestation.first(:conditions => {:isbn => isbn})
         return manifestation
       end
 
@@ -38,7 +38,7 @@ module EnjuNdl
         publisher_patrons = Patron.import_patrons(publishers)
         #language_id = Language.first(:conditions => {:iso_639_2 => language}).id || 1
 
-        manifestation = Resource.new(
+        manifestation = Manifestation.new(
           :original_title => title[:manifestation],
           :title_transcription => title[:transcription],
           # TODO: PORTAに入っている図書以外の資料を調べる

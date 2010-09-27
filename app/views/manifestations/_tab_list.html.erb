@@ -1,4 +1,4 @@
-<%- if manifestation.original_resources.first or manifestation.derived_resources.first -%>
+<%- if manifestation.original_manifestations.first or manifestation.derived_manifestations.first -%>
   <%= render :partial => 'manifestations/manifestation_list', :locals => {:manifestation => manifestation} -%>
 <%- end -%>
 <%- unless manifestation.questions(:user => current_user).empty? -%>

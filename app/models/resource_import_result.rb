@@ -4,7 +4,7 @@ class ResourceImportResult < ActiveRecord::Base
   scope :failed, {:conditions => {:manifestation_id => nil}}
 
   belongs_to :resource_import_file
-  belongs_to :manifestation, :class_name => 'Resource'
+  belongs_to :manifestation, :class_name => 'Manifestation'
   belongs_to :item
 
   validates_presence_of :resource_import_file_id

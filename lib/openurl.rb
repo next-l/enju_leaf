@@ -53,7 +53,7 @@ class Openurl
 
   # 検索
   def search
-    search = Sunspot.new_search(Resource)
+    search = Sunspot.new_search(Manifestation)
     @query_text = build_query
     query = @query_text
     search.build{ fulltext query }

@@ -12,11 +12,22 @@ module BookmarkUrl
   def bookmarkable?
     if self.my_host?
       url = URI.parse(self)
-      unless url.path.split("/").reverse[1] == "resources"
+      unless url.path.split("/").reverse[1] == "manifestations"
         return false
       end
     end
     true
+  end
+
+  def bookmarkable_id
+    if self.my_host?
+      path = URI.parse(self).path.split("/").reverse
+      unless path[1] == "manifestations"
+        nil
+      else
+        path[0]
+      end
+    end
   end
 end
 

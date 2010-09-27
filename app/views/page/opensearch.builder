@@ -6,8 +6,8 @@ xml.OpenSearchDescription(
   xml.Description h(@library_group.display_name.localize)
   xml.Tags 'Library Catalog'
   xml.Contact h(@library_group.email)
-  xml.Url :type => 'text/html', :template => "#{resources_url}?query={searchTerms}&pages={startPage?}"
-  xml.Url :type => 'application/rss+xml', :template => "#{resources_url(:format => :rss)}?query={searchTerms}&pages={startPage?}"
+  xml.Url :type => 'text/html', :template => "#{manifestations_url}?query={searchTerms}&pages={startPage?}"
+  xml.Url :type => 'application/rss+xml', :template => "#{manifestations_url(:format => :rss)}?query={searchTerms}&pages={startPage?}"
   xml.Query :role => 'example', :searchTerms => 'enju'
   xml.Language @locale
   xml.OutputEncoding 'UTF-8'

@@ -80,5 +80,5 @@
     xml.recordInfo{
       xml.recordCreationDate manifestation.created_at
       xml.recordChangeDate manifestation.updated_at
-      xml.recordIdentifier resource_url(manifestation)
+      xml.recordIdentifier manifestation_url(manifestation)
     }

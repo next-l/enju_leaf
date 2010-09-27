@@ -1,0 +1,2 @@
+module ManifestationRelationshipTypesHelper
+end

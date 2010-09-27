@@ -1,7 +1,7 @@
 require 'test_helper'
 
 class ExemplifiesControllerTest < ActionController::TestCase
-  fixtures :exemplifies, :items, :resources, :patrons, :users,
+  fixtures :exemplifies, :items, :manifestations, :patrons, :users,
     :carrier_types, :circulation_statuses
 
   def test_guest_should_get_index

@@ -28,7 +28,7 @@
   
 <%- @search_histories.each_with_index do |search_history, i| -%>
   <tr class="line<%= cycle("0", "1") -%>">
-    <td><%= link_to h(search_history.query), resources_path(:query => search_history.query) -%></td>
+    <td><%= link_to h(search_history.query), manifestations_path(:query => search_history.query) -%></td>
     <td><%= search_history.number_of_records -%></td>
     <%- unless params[:mode] == 'not_found' -%>
       <td><%= search_history.start_record -%></td>

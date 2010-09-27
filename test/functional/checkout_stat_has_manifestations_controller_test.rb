@@ -1,7 +1,7 @@
 require 'test_helper'
 
 class CheckoutStatHasManifestationsControllerTest < ActionController::TestCase
-    fixtures :checkout_stat_has_manifestations, :users, :resources, :manifestation_checkout_stats
+    fixtures :checkout_stat_has_manifestations, :users, :manifestations, :manifestation_checkout_stats
 
   test "guest should not get index" do
     get :index

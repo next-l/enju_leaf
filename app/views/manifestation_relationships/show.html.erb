@@ -1,0 +1,23 @@
+<div id="content_detail" class="ui-corner-all">
+<h1 class="title"><%= t('page.showing', :model => t('activerecord.models.manifestation_relationship')) -%></h1>
+<div id="content_list">
+
+<p>
+  <b>Parent:</b>
+  <%= link_to @manifestation_relationship.parent.original_title, @manifestation_relationship.parent %>
+</p>
+
+<p>
+  <b>Child:</b>
+  <%= link_to @manifestation_relationship.child.original_title, @manifestation_relationship.child %>
+</p>
+
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all">
+  <ul>
+    <li><%= link_to 'Edit', edit_manifestation_relationship_path(@manifestation_relationship) %></li>
+    <li><%= link_to 'Back', manifestation_relationships_path %></li>
+  </ul>
+</div>

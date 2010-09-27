@@ -64,7 +64,7 @@ class ResourceImportFilesControllerTest < ActionController::TestCase
 
   def test_librarian_should_create_resource_import_file
     sign_in users(:librarian1)
-    old_manifestations_count = Resource.count
+    old_manifestations_count = Manifestation.count
     old_items_count = Item.count
     old_patrons_count = Patron.count
     old_import_results_count = ResourceImportResult.count
@@ -73,7 +73,7 @@ class ResourceImportFilesControllerTest < ActionController::TestCase
     end
     # 後でバッチで処理する
     assigns(:resource_import_file).import_start
-    assert_equal old_manifestations_count + 5, Resource.count
+    assert_equal old_manifestations_count + 5, Manifestation.count
     assert_equal old_items_count + 5, Item.count
     assert_equal old_patrons_count + 5, Patron.count
     assert_equal old_import_results_count + 14, ResourceImportResult.count
@@ -92,13 +92,13 @@ class ResourceImportFilesControllerTest < ActionController::TestCase
 
   def test_librarian_should_create_resource_import_file_only_isbn
     sign_in users(:librarian1)
-    old_manifestations_count = Resource.count
+    old_manifestations_count = Manifestation.count
     old_patrons_count = Patron.count
     assert_difference('ResourceImportFile.count') do
       post :create, :resource_import_file => {:resource_import => fixture_file_upload("isbn_sample.txt", 'text/plain') }
     end
     # 後でバッチで処理する
-    #assert_equal old_manifestations_count + 1, Resource.count
+    #assert_equal old_manifestations_count + 1, Manifestation.count
     #assert_equal old_patrons_count + 5, Patron.count
 
     assert_redirected_to resource_import_file_path(assigns(:resource_import_file))

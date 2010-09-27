@@ -19,7 +19,7 @@ class Reserve < ActiveRecord::Base
   scope :not_sent_cancel_notice_to_library, :conditions => {:state => 'canceled', :expiration_notice_to_library => false}
 
   belongs_to :user, :validate => true
-  belongs_to :manifestation, :class_name => 'Resource', :validate => true
+  belongs_to :manifestation, :class_name => 'Manifestation', :validate => true
   belongs_to :librarian, :class_name => 'User', :validate => true
   belongs_to :item, :validate => true
   has_one :inter_library_loan

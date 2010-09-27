@@ -6,7 +6,7 @@ class Item < ActiveRecord::Base
   scope :not_for_checkout, :conditions => ['item_identifier IS NULL']
   scope :on_shelf, :conditions => ['shelf_id != 1']
   scope :on_web, :conditions => ['shelf_id = 1']
-  #belongs_to :manifestation, :class_name => 'Resource'
+  #belongs_to :manifestation, :class_name => 'Manifestation'
   has_one :exemplify
   has_one :manifestation, :through => :exemplify
   has_many :checkouts

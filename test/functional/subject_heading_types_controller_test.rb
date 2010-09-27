@@ -2,7 +2,7 @@ require 'test_helper'
 
 class SubjectHeadingTypesControllerTest < ActionController::TestCase
   fixtures :subject_heading_types, :users, :subjects, :subject_types,
-    :subject_heading_type_has_subjects, :resources, :carrier_types
+    :subject_heading_type_has_subjects, :manifestations, :carrier_types
 
   def test_guest_should_not_get_index
     get :index

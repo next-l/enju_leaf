@@ -1,7 +1,7 @@
 require 'test_helper'
 
 class OwnsControllerTest < ActionController::TestCase
-    fixtures :owns, :users, :resources, :items, :patrons
+    fixtures :owns, :users, :manifestations, :items, :patrons
 
   def test_guest_should_get_index
     get :index

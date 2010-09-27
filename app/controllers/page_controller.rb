@@ -7,11 +7,11 @@ class PageController < ApplicationController
   before_filter :check_librarian, :except => [:index, :advanced_search, :about, :add_on, :msie_acceralator, :opensearch]
 
   def index
-    @numdocs = Resource.search.total
+    @numdocs = Manifestation.search.total
     # TODO: タグ下限の設定
     #@tags = Tag.all(:limit => 50, :order => 'taggings_count DESC')
     @tags = Bookmark.tag_counts.sort{|a,b| a.count <=> b.count}.reverse[0..49]
-    @manifestation = Resource.pickup rescue nil
+    @manifestation = Manifestation.pickup rescue nil
   end
 
   def msie_acceralator

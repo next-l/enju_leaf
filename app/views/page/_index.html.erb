@@ -9,8 +9,8 @@
     </h2>
     <div id="user_search_form">
       <%= render 'page/search_form' -%>
-      <p><%= t('page.number_of_manifestations', :numdocs => Resource.cached_numdocs, :count => Resource.cached_numdocs) -%></p>
-      <h3><%= link_to t('page.new_resource'), resources_path(:mode => 'recent') -%></h3>
+      <p><%= t('page.number_of_manifestations', :numdocs => Manifestation.cached_numdocs, :count => Manifestation.cached_numdocs) -%></p>
+      <h3><%= link_to t('page.new_resource'), manifestations_path(:mode => 'recent') -%></h3>
     </div>
   </div>
 </div>

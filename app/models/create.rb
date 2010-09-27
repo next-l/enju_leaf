@@ -1,6 +1,6 @@
 class Create < ActiveRecord::Base
   belongs_to :patron
-  belongs_to :work, :class_name => 'Resource', :foreign_key => 'work_id'
+  belongs_to :work, :class_name => 'Manifestation', :foreign_key => 'work_id'
 
   validates_associated :patron, :work
   validates_presence_of :patron_id, :work_id

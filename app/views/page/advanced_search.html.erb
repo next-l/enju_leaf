@@ -3,7 +3,7 @@
 <div id="content_list">
 
 <%- cache :controller => 'page', :action => 'advanced_search', :locale => @locale do -%>
-<%= form_tag({:controller => 'resources'}, {:method => 'get'}) do -%>
+<%= form_tag({:controller => 'manifestations'}, {:method => 'get'}) do -%>
   <table style="width: 100%">
     <tr>
       <td><label><%= t('page.search_term') -%>:</label></td>

@@ -1,0 +1,28 @@
+<div id="content_detail" class="ui-corner-all">
+<h1 class="title"><%= t('page.editing', :model => t('activerecord.models.manifestation_relationship_type')) -%></h1>
+<div id="content_list">
+
+<%= form_for(@manifestation_relationship_type) do |f| -%>
+  <%= f.error_messages -%>
+  <p>
+    <%= f.label t('activerecord.attributes.manifestation_relationship_type.display_name') -%><br />
+    <%= f.text_area :display_name, :class => 'manifestation_textarea' -%>
+  </p>
+  <p>
+    <%= f.label t('activerecord.attributes.manifestation_relationship_type.note') -%><br />
+    <%= f.text_area :note, :class => 'manifestation_textarea' -%>
+  </p>
+  <p>
+    <%= f.submit %>
+  </p>
+<%- end -%>
+
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all">
+  <ul>
+    <li><%= link_to t('page.show'), @manifestation_relationship_type -%></li>
+    <li><%= link_to t('page.back'), manifestation_relationship_types_path -%></li>
+  </ul>
+</div>

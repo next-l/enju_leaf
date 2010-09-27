@@ -1,6 +1,6 @@
 class Subscribe < ActiveRecord::Base
   belongs_to :subscription, :counter_cache => true, :validate => true
-  belongs_to :work, :class_name => 'Resource', :validate => true
+  belongs_to :work, :class_name => 'Manifestation', :validate => true
 
   validates_associated :subscription, :work
   validates_presence_of :subscription, :work, :start_at, :end_at

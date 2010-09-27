@@ -7,7 +7,7 @@ EnjuLeaf::Application.routes.draw do
 
   devise_for :users
 
-  resources :resources do
+  resources :manifestations do
     resources :patrons
     resources :creators, :controller => 'patrons'
     resources :contributors, :controller => 'patrons'
@@ -18,62 +18,48 @@ EnjuLeaf::Application.routes.draw do
     resources :picture_files
     resources :items
     resources :work_has_subjects
-    resources :resource_relationships
-    resources :resources
+    resources :manifestation_relationships
+    resources :manifestations
   end
 
   resources :patrons do
-    resources :works, :controller => 'resources'
-    resources :expressions, :controller => 'resources'
-    resources :manifestations, :controller => 'resources'
+    resources :works, :controller => 'manifestations'
+    resources :expressions, :controller => 'manifestations'
+    resources :manifestations
     resources :items
     resources :picture_files
-    resources :resources
     resources :patrons
     resources :patron_merges
     resources :patron_merge_lists
     resources :patron_relationships
   end
 
-  resources :works, :controller => 'resources' do
+  resources :works, :controller => 'manifestations' do
     resources :patrons
     resources :creates
     resources :subjects
     resources :work_has_subjects
-    resources :expressions, :controller => 'resources'
-    resources :resource_relationships
-    resources :resources
+    resources :expressions, :controller => 'manifestations'
+    resources :manifestation_relationships
+    resources :manifestations
   end
 
-  resources :expressions, :controller => 'resources' do
+  resources :expressions, :controller => 'manifestations' do
     resources :patrons
     resources :realizes
-    resources :manifestations, :controller => 'resources'
-    resources :resource_relationships
-    resources :resources
+    resources :manifestations
+    resources :manifestation_relationships
   end
 
-  resources :manifestations, :controller => 'resources' do
+  resources :manifestations do
     resources :produces
     resources :patrons
     resources :items
     resources :picture_files
-    resources :expressions, :controller => 'resources'
-    resources :resource_relationships
-    resources :resources
+    resources :expressions, :controller => 'manifestations'
+    resources :manifestation_relationships
+    resources :manifestations
     resources :exemplifies
-  end
-
-  resources :creators, :controller => 'patrons' do
-    resources :resources
-  end
-
-  resources :contributors, :controller => 'patrons' do
-    resources :resources
-  end
-
-  resources :publishers, :controller => 'patrons' do
-    resources :resources
   end
 
   resources :users do
@@ -107,7 +93,7 @@ EnjuLeaf::Application.routes.draw do
   resources :user_reserve_stats
   resources :manifestation_checkout_stats
   resources :manifestation_reserve_stats
-  resources :resource_relationship_types
+  resources :manifestation_relationship_types
   resources :patron_relationship_types
   resources :licenses
   resources :medium_of_performances
@@ -255,7 +241,7 @@ EnjuLeaf::Application.routes.draw do
 
   resources :languages
 
-  resources :resource_relationships
+  resources :manifestation_relationships
 
   resources :items do
     resources :checked_items
@@ -334,7 +320,7 @@ EnjuLeaf::Application.routes.draw do
   # This is a legacy wild controller route that's not recommended for RESTful applications.
   # Note: This route will make all actions in every controller accessible via GET requests.
   # match ':controller(/:action(/:id(.:format)))'
-  match '/isbn/:isbn' => 'resources#show'
+  match '/isbn/:isbn' => 'manifestations#show'
   match '/calendar(/:year(/:month))' => 'calendar#index', :as => :calendar, :constraints => {:year => /\d{4}/, :month => /\d{1,2}/}
   match "/calendar/:year/:month/:day" => "calendar#show"
   match '/page/about' => 'page#about'

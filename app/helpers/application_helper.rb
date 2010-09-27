@@ -51,7 +51,7 @@ module ApplicationHelper
   end
 
   def link_to_tag(tag)
-    link_to h(tag), resources_path(:tag => tag.name)
+    link_to h(tag), manifestations_path(:tag => tag.name)
   end
 
   def render_tag_cloud(tags, options = {})
@@ -77,7 +77,7 @@ module ApplicationHelper
     html <<   %(  <ul class="popularity">\n)
     tags.each do |tag|
       html << %(  <li>)
-      html << link_to(h(tag.name), resources_path(:tag => tag.name), :class => classes[(tag.taggings.size - min).div(divisor)]) 
+      html << link_to(h(tag.name), manifestations_path(:tag => tag.name), :class => classes[(tag.taggings.size - min).div(divisor)]) 
       html << %(  </li>\n) # FIXME: IEのために文末の空白を入れている
     end
     html <<   %(  </ul>\n)
@@ -107,7 +107,7 @@ module ApplicationHelper
         #link_to image_tag("http://api.thumbalizr.com/?url=#{manifestation.access_address}&width=180", :width => 180, :height => 144, :alt => manifestation.original_title, :border => 0), manifestation.access_address
         #link_to image_tag("http://capture.heartrails.com/medium?#{manifestation.access_address}", :width => 200, :height => 150, :alt => manifestation.original_title, :border => 0), manifestation.access_address
         # TODO: Project Next-L 専用のMozshotサーバを作る
-          link_to image_tag(resource_path(manifestation, :mode => 'screen_shot'), :width => 128, :height => 128, :alt => manifestation.original_title, :class => 'screen_shot'), manifestation.access_address
+          link_to image_tag(manifestation_path(manifestation, :mode => 'screen_shot'), :width => 128, :height => 128, :alt => manifestation.original_title, :class => 'screen_shot'), manifestation.access_address
         else
           if picture_file = manifestation.picture_files.first and picture_file.extname
             link_to image_tag(picture_file_path(picture_file, :format => :download, :size => 'thumb')), picture_file_path(picture_file, :format => picture_file.extname), :rel => "manifestation_#{manifestation.id}"

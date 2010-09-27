@@ -1,7 +1,7 @@
 require 'test_helper'
 
 class ReservesControllerTest < ActionController::TestCase
-  fixtures :reserves, :items, :resources, :carrier_types,
+  fixtures :reserves, :items, :manifestations, :carrier_types,
     :users, :user_groups, :roles, :checkout_types,
     :user_group_has_checkout_types, :carrier_type_has_checkout_types,
     :request_status_types, :message_templates, :message_requests

@@ -1,7 +1,7 @@
 require 'test_helper'
 
 class SubjectsControllerTest < ActionController::TestCase
-  fixtures :subjects, :users, :resources, :work_has_subjects
+  fixtures :subjects, :users, :manifestations, :work_has_subjects
 
   def test_guest_should_get_index
     get :index
@@ -9,10 +9,10 @@ class SubjectsControllerTest < ActionController::TestCase
     assert assigns(:subjects)
   end
 
-  def test_guest_should_get_index_with_resource_id
-    get :index, :resource_id => 1
+  def test_guest_should_get_index_with_work_id
+    get :index, :work_id => 1
     assert_response :success
-    assert assigns(:resource)
+    assert assigns(:work)
     assert assigns(:subjects)
   end
 
@@ -109,11 +109,11 @@ class SubjectsControllerTest < ActionController::TestCase
     assert_response :success
   end
 
-  def test_guest_should_show_subject_with_resource
-    get :show, :id => subjects(:subject_00001).to_param, :resource_id => 1
+  def test_guest_should_show_subject_with_work_id
+    get :show, :id => subjects(:subject_00001).to_param, :work_id => 1
     assert_response :success
     assert assigns(:subject)
-    assert assigns(:resource)
+    assert assigns(:work)
   end
 
   def test_user_should_show_subject
@@ -159,13 +159,13 @@ class SubjectsControllerTest < ActionController::TestCase
   
   def test_admin_should_get_edit_with_work
     sign_in users(:admin)
-    get :edit, :id => subjects(:subject_00001).to_param, :resource_id => 1
+    get :edit, :id => subjects(:subject_00001).to_param, :work_id => 1
     assert_response :success
   end
   
   def test_admin_should_not_get_edit_with_missing_work
     sign_in users(:admin)
-    get :edit, :id => subjects(:subject_00001).to_param, :resource_id => 100
+    get :edit, :id => subjects(:subject_00001).to_param, :work_id => 100
     assert_response :missing
   end
   

@@ -8,8 +8,8 @@ class WorkHasSubjectsController < ApplicationController
   # GET /work_has_subjects
   # GET /work_has_subjects.xml
   def index
-    if @resource
-      @work_has_subjects = @resource.work_has_subjects.paginate(:all, :page => params[:page])
+    if @work
+      @work_has_subjects = @work.work_has_subjects.paginate(:all, :page => params[:page])
     elsif @subject
       @work_has_subjects = @subject.work_has_subjects.paginate(:all, :page => params[:page])
     else
@@ -37,7 +37,7 @@ class WorkHasSubjectsController < ApplicationController
   # GET /work_has_subjects/new.xml
   def new
     @work_has_subject = WorkHasSubject.new
-    @work_has_subject.work = @resource
+    @work_has_subject.work = @work
     @work_has_subject.subject = @subject
 
     respond_to do |format|

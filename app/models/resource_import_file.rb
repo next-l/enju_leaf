@@ -84,12 +84,12 @@ class ResourceImportFile < ActiveRecord::Base
     Sunspot.commit
     rows.close
     sm_complete!
-    Rails.cache.write("resource_search_total", Resource.search.total)
+    Rails.cache.write("resource_search_total", Manifestation.search.total)
     return num
   end
 
   def self.import_work(title, patrons, series_statement_id)
-    work = Resource.new(title)
+    work = Manifestation.new(title)
     if series_statement = SeriesStatement.find(series_statement_id) rescue nil
       work.series_statement = series_statement
     end
@@ -148,7 +148,7 @@ class ResourceImportFile < ActiveRecord::Base
       expression.save
       work.expressions << expression
 
-      manifestation = Resource.new(:original_title => expression.original_title)
+      manifestation = Manifestation.new(:original_title => expression.original_title)
       manifestation.carrier_type = CarrierType.find(1)
       manifestation.frequency = Frequency.find(1)
       manifestation.language = Language.find(1)
@@ -235,15 +235,15 @@ class ResourceImportFile < ActiveRecord::Base
     shelf = Shelf.first(:conditions => {:name => row['shelf'].to_s.strip}) || Shelf.web
 
     unless row['manifestation_identifier'].blank?
-      if manifestation = Resource.first(:conditions => {:manifestation_identifier => row['manifestation_identifier'].to_s.strip})
+      if manifestation = Manifestation.first(:conditions => {:manifestation_identifier => row['manifestation_identifier'].to_s.strip})
         return manifestation
       end
     end
 
     unless row['isbn'].blank?
       isbn = ISBN_Tools.cleanup(row['isbn'])
-      unless manifestation = Resource.find_by_isbn(isbn)
-        manifestation = Resource.import_isbn!(isbn) rescue nil
+      unless manifestation = Manifestation.find_by_isbn(isbn)
+        manifestation = Manifestation.import_isbn!(isbn) rescue nil
         #num[:success] += 1 if manifestation
       end
       return manifestation if manifestation

@@ -1,7 +1,7 @@
 require 'test_helper'
 
 class CheckedItemsControllerTest < ActionController::TestCase
-  fixtures :checked_items, :baskets, :items, :resources,
+  fixtures :checked_items, :baskets, :items, :manifestations,
     :realizes, :carrier_types,
     :item_has_use_restrictions, :use_restrictions,
     :checkout_types, :user_group_has_checkout_types,

@@ -1,7 +1,7 @@
 require 'test_helper'
 
 class PatronsControllerTest < ActionController::TestCase
-  fixtures :patrons, :users, :patron_types, :resources, :carrier_types,
+  fixtures :patrons, :users, :patron_types, :manifestations, :carrier_types,
     :roles, :creates, :realizes, :produces, :owns, :languages, :countries,
     :patron_relationships, :patron_relationship_types
 
@@ -23,7 +23,7 @@ class PatronsControllerTest < ActionController::TestCase
   end
 
   def test_guest_should_get_index_with_resource
-    get :index, :resource_id => 1
+    get :index, :manifestation_id => 1
     assert_response :success
   end
 
