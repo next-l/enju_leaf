@@ -5,7 +5,7 @@ class UsersControllerTest < ActionController::TestCase
   # Then, you can remove it from this and the units test.
 
   fixtures :users, :roles, :patrons, :libraries, :checkouts, :checkins, :patron_types, :tags, :taggings,
-    :resources, :carrier_types, :creates, :realizes, :produces, :owns
+    :manifestations, :carrier_types, :creates, :realizes, :produces, :owns
 
   def test_guest_should_not_get_index
     get :index

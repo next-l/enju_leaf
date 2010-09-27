@@ -80,28 +80,23 @@ class ApplicationController < ActionController::Base
   end
 
   def get_work
-    @work = Resource.find(params[:work_id]) if params[:work_id]
+    @work = Manifestation.find(params[:work_id]) if params[:work_id]
     authorize! :show, @work if @work
   end
 
   def get_expression
-    @expression = Resource.find(params[:expression_id]) if params[:expression_id]
+    @expression = Manifestation.find(params[:expression_id]) if params[:expression_id]
     authorize! :show, @expression if @expression
   end
 
   def get_manifestation
-    @manifestation = Resource.find(params[:manifestation_id]) if params[:manifestation_id]
+    @manifestation = Manifestation.find(params[:manifestation_id]) if params[:manifestation_id]
     authorize! :show, @manifestation if @manifestation
   end
 
   def get_item
     @item = Item.find(params[:item_id]) if params[:item_id]
     authorize! :show, @item if @item
-  end
-
-  def get_resource
-    @resource = Resource.find(params[:resource_id]) if params[:resource_id]
-    authorize! :show, @resource if @resource
   end
 
   def get_carrier_type

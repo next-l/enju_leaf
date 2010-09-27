@@ -1,0 +1,5 @@
+<%- case params[:mode] when 'attachment' -%>
+  <%= render :partial => 'manifestations/new_attachment', :locals => {:manifestation => @manifestation} -%>
+<%- else -%>
+  <%= render :partial => 'manifestations/new', :locals => {:manifestation => @manifestation} -%>
+<%- end -%>

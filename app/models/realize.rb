@@ -1,6 +1,6 @@
 class Realize < ActiveRecord::Base
   belongs_to :patron
-  belongs_to :expression, :class_name => 'Resource', :foreign_key => 'expression_id'
+  belongs_to :expression, :class_name => 'Manifestation', :foreign_key => 'expression_id'
 
   validates_associated :patron, :expression
   validates_presence_of :patron, :expression

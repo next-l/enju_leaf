@@ -1,7 +1,7 @@
 require 'test_helper'
 
 class RealizesControllerTest < ActionController::TestCase
-    fixtures :realizes, :resources, :patrons, :users
+    fixtures :realizes, :manifestations, :patrons, :users
 
   def test_guest_should_get_index
     get :index

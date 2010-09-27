@@ -1,7 +1,7 @@
 require 'test_helper'
 
 class BookmarkStatHasManifestationsControllerTest < ActionController::TestCase
-    fixtures :bookmark_stat_has_manifestations, :users, :resources, :bookmark_stats
+    fixtures :bookmark_stat_has_manifestations, :users, :manifestations, :bookmark_stats
 
   test "guest should not get index" do
     get :index

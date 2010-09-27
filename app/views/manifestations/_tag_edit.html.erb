@@ -17,7 +17,7 @@
       <div>
         <%= f.text_field :tag_list, :class => 'editable_text_field' -%>
         <%= f.hidden_field :title, :value => h(manifestation.original_title) -%>
-        <%= f.hidden_field :url, :value => resource_url(manifestation) -%>
+        <%= f.hidden_field :url, :value => manifestation_url(manifestation) -%>
         <%= submit_tag t('page.create') -%>
         (<a onclick="$.ajax({data:'authenticity_token=' + encodeURIComponent('<%= form_authenticity_token %>'), success:function(request){$('#tag_list').html(request);}, type:'get', url:'/resources/<%= manifestation.id %>?mode=tag_list'}); return false;" href="#"><%= t('page.cancel') %></a>)
         <br />

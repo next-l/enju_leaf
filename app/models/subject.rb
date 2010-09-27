@@ -1,6 +1,6 @@
 class Subject < ActiveRecord::Base
   has_many :work_has_subjects, :dependent => :destroy
-  has_many :works, :through => :work_has_subjects, :class_name => 'Resource'
+  has_many :works, :through => :work_has_subjects, :class_name => 'Manifestation'
   belongs_to :subject_type
   has_many :subject_has_classifications, :dependent => :destroy
   has_many :classifications, :through => :subject_has_classifications
@@ -18,5 +18,6 @@ class Subject < ActiveRecord::Base
     text :term
     time :created_at
     integer :required_role_id
+    integer :work_ids, :multiple => true
   end
 end

@@ -17,6 +17,6 @@
 <div id="submenu" class="ui-corner-all">
   <ul>
     <li><%= link_to t('page.back_to', :model => t('activerecord.models.patron')), work_patrons_path(@create.work) -%></li>
-    <li><%= link_to t('page.back_to', :model => t('activerecord.models.work')), creator_resources_path(@create.patron) -%></li>
+    <li><%= link_to t('page.back_to', :model => t('activerecord.models.work')), patron_works_path(@create.patron) -%></li>
   </ul>
 </div>

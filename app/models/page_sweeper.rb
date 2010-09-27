@@ -60,7 +60,7 @@ class PageSweeper < ActionController::Caching::Sweeper
       expire_editable_fragment(record.subject)
     when record.is_a?(PictureFile)
       case
-      when record.picture_attachable.is_a?(Resource)
+      when record.picture_attachable.is_a?(Manifestation)
         expire_editable_fragment(record.picture_attachable, ['picture_file', 'book_jacket'])
       when record.picture_attachable.is_a?(Patron)
         expire_editable_fragment(record.picture_attachable, ['picture_file'])

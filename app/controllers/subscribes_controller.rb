@@ -1,7 +1,7 @@
 class SubscribesController < ApplicationController
   before_filter :check_client_ip_address
   load_and_authorize_resource
-  before_filter :get_subscription, :get_manifestation
+  before_filter :get_subscription, :get_work
 
   # GET /subscribes
   # GET /subscribes.xml
@@ -30,7 +30,7 @@ class SubscribesController < ApplicationController
   def new
     @subscribe = Subscribe.new
     @subscribe.subscription = @subscription if @subscription
-    @subscribe.work = @resource if @resource
+    @subscribe.work = @work if @work
 
     respond_to do |format|
       format.html # new.html.erb

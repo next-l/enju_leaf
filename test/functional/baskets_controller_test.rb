@@ -2,7 +2,7 @@ require 'test_helper'
 
 class BasketsControllerTest < ActionController::TestCase
   fixtures :baskets, :checked_items, :checkouts, :reserves,
-    :items, :circulation_statuses, :resources, :carrier_types,
+    :items, :circulation_statuses, :manifestations, :carrier_types,
     :languages, :users, :roles
 
   def test_guest_should_not_get_index

@@ -3,7 +3,7 @@ require 'test_helper'
 class CheckinsControllerTest < ActionController::TestCase
     fixtures :checkins, :checkouts, :users, :patrons, :roles, :user_groups, :reserves, :baskets, :library_groups, :checkout_types, :patron_types,
     :user_group_has_checkout_types, :carrier_type_has_checkout_types,
-    :resources, :carrier_types,
+    :manifestations, :carrier_types,
     :items, :circulation_statuses,
     :shelves, :request_status_types,
     :content_types, :languages, :message_templates

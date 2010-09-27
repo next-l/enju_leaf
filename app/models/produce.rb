@@ -1,6 +1,6 @@
 class Produce < ActiveRecord::Base
   belongs_to :patron
-  belongs_to :manifestation, :class_name => 'Resource'
+  belongs_to :manifestation, :class_name => 'Manifestation'
 
   validates_associated :patron, :manifestation
   validates_presence_of :patron, :manifestation

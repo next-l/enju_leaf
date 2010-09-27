@@ -1,0 +1,107 @@
+<div id="content_detail" class="ui-corner-all">
+<h1 class="title"><%= t('page.search_resource', :model => t('page.resource')) -%></h1>
+<div id="content_list">
+  <%= render :partial => 'manifestations/title', :locals => {:manifestation => @manifestation} if @manifestation -%>
+
+  <%= form_for :manifestations, :html => {:method => 'get'} do -%>
+    <p>
+      <%= t('page.search_term') -%>:
+      <%= search_field_tag 'query', h(@query), {:id => 'search_form_top', :class => 'search_form'} -%>
+      <%= hidden_field_tag 'reservable', h(@reservable) if @reservable -%>
+      <%= hidden_field_tag 'manifestation_id', @manifestation.id if @manifestation -%>
+      <%= submit_tag t('page.search') -%>
+      <% if @manifestation %>
+        <%- if can? :destroy, @manifestation -%>
+          <%- if params[:mode] == 'add' -%>
+            <%= radio_button_tag 'mode', 'show' -%> <%= t('page.show') -%>
+            <%= radio_button_tag 'mode', 'add', :checked => true -%> <%= t('page.add') -%>
+          <%- else -%>
+            <%= radio_button_tag 'mode', 'show', :checked => true -%> <%= t('page.show') -%>
+            <%= radio_button_tag 'mode', 'add' -%> <%= t('page.add') -%>
+          <%- end -%>
+        <%- end -%>
+      <%- end -%>
+      <br />
+      <%= link_to t('page.advanced_search'), '/page/advanced_search' -%>
+    </p>
+    <%= javascript_tag("$('#search_form_top').focus()") -%>
+  <%- end -%>
+
+  <%- if @manifestations.total_entries > 0 -%>
+    <p>
+      <%= t('page.number_of_search_results', :count => @count[:query_result], :numdocs => Manifestation.cached_numdocs, :seconds => sprintf("%.3f", @seconds)) -%>
+      <%- if @count[:query_result] > configatron.max_number_of_results -%>
+        <br />
+        <%= t('page.limit_exceeded', :count => configatron.max_number_of_results) -%>
+      <%- end -%>
+    </p>
+
+    <p>
+      <%= t('page.sort_by') -%>:
+      <%- if params[:sort_by].blank? -%>
+        <strong><%= t('manifestation.date_of_acquisition') -%></strong>
+      <%- else -%>
+        <%= link_to t('manifestation.date_of_acquisition'), params.merge(:sort_by => nil) -%>
+      <%- end -%>
+      <%- if params[:sort_by] == 'pubdate' -%>
+        <strong><%= t('activerecord.attributes.manifestation.date_of_publication') -%></strong>
+      <%- else -%>
+        <%= link_to t('activerecord.attributes.manifestation.date_of_publication'), params.merge(:sort_by => 'date') -%>
+      <%- end -%>
+      <%- if params[:sort_by] == 'title' -%>
+        <strong><%= t('page.title') -%></strong>
+      <%- else -%>
+        <%= link_to t('page.title'), params.merge(:sort_by => 'title') -%>
+      <%- end -%>
+    </p>
+
+    <div class="autopagerize_page_element" id="list">
+      <%= render :partial => 'manifestations/list', :locals => {:manifestations => @manifestations} -%>
+    </div>
+
+    <div id="tag_cloud">
+      <h3><%= t('activerecord.models.tag') -%></h3>
+      <div id="tag_cloud_list"></div>
+      <%= image_tag 'spinner.gif', :id => 'spinner_tag_cloud',
+        :style => 'padding-bottom: 15px; padding-left: 40px;' -%>
+    </div>
+  <%- else -%>
+    <!-- TODO: 検索結果が少ない場合にも表示させる -->
+    <%- if @suggested_tag -%>
+      <p><%= t('page.did_you_mean') -%>: <%= link_to h(@suggested_tag.name), manifestations_path(:tag => @suggested_tag.name) -%></p>
+    <%- end -%>
+    <%= render :partial => 'manifestations/not_found' -%>
+  <%- end -%>
+
+    <div class="autopagerize_insert_before"></div>
+
+  </div>
+</div>
+
+<div id="submenu" class="ui-corner-all">
+    <h3><%= link_to h("#{t('page.total')}: #{@count[:query_result]}"), url_for(params.merge(:action => 'index', :view => nil, :carrier_type => nil, :library => nil, :language => nil, :subject => nil))  -%></h3>
+    <%- if @manifestations.total_entries > 0 -%>
+      <%= render 'manifestations/all_facet' -%>
+    <%- end -%>
+  <div>
+    <%- if params[:library_id].blank? -%>
+      <%= link_to (image_tag 'feed-icon-14x14.png', :size => '14x14', :alt => t('page.feed'), :border => 0), url_for(params.merge(:format => 'rss', :page => nil, :library_id => nil)) -%> <%= link_to t('page.search_result_feed'), url_for(params.merge(:format => 'rss', :page => nil, :library_id => nil, :commit => nil)) -%>
+    <%- else -%>
+      <%= link_to (image_tag 'feed-icon-14x14.png', :size => '14x14', :alt => t('page.feed'), :border => 0), url_for(params.merge(:format => 'rss', :page => nil)) -%> <%= link_to t('page.search_result_feed'), url_for(params.merge(:format => 'rss', :page => nil, :commit => nil)) -%>
+    <%- end -%>
+  </div>
+</div>
+
+<script type="text/javascript">
+  window.onload = function() {
+    $("#tag_cloud_list").load('<%= url_for(params.merge(:view => "tag_cloud")) -%>', null, hideTagCloudSpinner);
+  }
+
+  function hideTagCloudSpinner(){
+    $("#spinner_tag_cloud").hide();
+  }
+
+<% if @query.present? %>
+  $('td').highlight('<%= @query -%>');
+<% end %>
+</script>

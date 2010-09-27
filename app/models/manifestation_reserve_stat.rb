@@ -17,7 +17,7 @@ class ManifestationReserveStat < ActiveRecord::Base
 
   def calculate_count
     self.started_at = Time.zone.now
-    Resource.find_each do |manifestation|
+    Manifestation.find_each do |manifestation|
       daily_count = manifestation.reserves.created(self.start_date, self.end_date).size
       #manifestation.update_attributes({:daily_reserves_count => daily_count, :total_count => manifestation.total_count + daily_count})
       if daily_count > 0

@@ -1,42 +1,42 @@
-        <table class="index" id="resource_list">
-          <%- manifestations.each_with_index do |resource, i| -%>
+        <table class="index" id="manifestation_list">
+          <%- manifestations.each_with_index do |manifestation, i| -%>
             <tr class="line<%= cycle("0", "1") -%>">
               <td style="width: 30px"><%= itemnum = manifestations.offset + 1 + i -%></td>
               <td style="480px">
-              <% cache(:controller => :resources, :action => :show, :id => resource.id, :page => 'show_list', :role => current_user_role_name, :locale => @locale) do %>
-                <%= render :partial => 'manifestations/show_index', :locals => {:manifestation => resource} -%>
+              <% cache(:controller => :manifestations, :action => :show, :id => manifestation.id, :page => 'show_list', :role => current_user_role_name, :locale => @locale) do %>
+                <%= render :partial => 'manifestations/show_index', :locals => {:manifestation => manifestation} -%>
                 <div id="access_address">
-                  <%= link_to h(resource.access_address), resource.access_address if resource.access_address.present? -%>
+                  <%= link_to h(manifestation.access_address), manifestation.access_address if manifestation.access_address.present? -%>
                 </div>
-                <%- if resource.items.on_shelf.first -%>
-                  (<%= link_to_function t('page.holding'), "$('#holding_#{resource.id}').toggle()" -%>)
+                <%- if manifestation.items.on_shelf.first -%>
+                  (<%= link_to_function t('page.holding'), "$('#holding_#{manifestation.id}').toggle()" -%>)
                 <%- end -%>
-                <%- if resource.tags.first -%>
-                  (<%= link_to_function t('activerecord.models.tag'), "$('#tag_#{resource.id}').toggle()" -%>)
+                <%- if manifestation.tags.first -%>
+                  (<%= link_to_function t('activerecord.models.tag'), "$('#tag_#{manifestation.id}').toggle()" -%>)
                 <%- end -%>
-                <%= render :partial => 'manifestations/show_tag', :locals => {:manifestation => resource} -%>
-                <%= render :partial => 'manifestations/holding', :locals => {:manifestation => resource} -%>
+                <%= render :partial => 'manifestations/show_tag', :locals => {:manifestation => manifestation} -%>
+                <%= render :partial => 'manifestations/holding', :locals => {:manifestation => manifestation} -%>
                 <%# グループ表示の部分テンプレート %>
-                <%= render :partial => 'manifestations/show_group', :locals => {:manifestation => resource} -%>
+                <%= render :partial => 'manifestations/show_group', :locals => {:manifestation => manifestation} -%>
               <% end %>
               </td>
               <%- if user_signed_in? -%>
                 <td>
-                  <% if resource.reservable? %>
-                    <%- if reserve = resource.is_reserved_by(current_user) -%>
+                  <% if manifestation.reservable? %>
+                    <%- if reserve = manifestation.is_reserved_by(current_user) -%>
                       <%= link_to t('reserve.show'), user_reserve_path(reserve.user, reserve) -%>
                     <%- else -%>
-                      <%= link_to t('activerecord.models.reserve'), new_user_reserve_path(current_user, :manifestation_id => resource.id) -%>
+                      <%= link_to t('activerecord.models.reserve'), new_user_reserve_path(current_user, :manifestation_id => manifestation.id) -%>
                     <%- end -%>
                   <%- end -%>
                 </td>
-                <%- if can? :destroy, resource -%>
+                <%- if can? :destroy, manifestation -%>
                   <td id="edit_icons">
-                    <%= link_to image_tag('/icons/book_edit.png', :size => '16x16', :alt => t('page.edit')), edit_resource_path(resource) -%>
-                    <% if @resource %>
-                      <%= link_to t('page.add'), new_resource_resource_relationship_path(@resource, :child_id => resource.id) -%>
+                    <%= link_to image_tag('/icons/book_edit.png', :size => '16x16', :alt => t('page.edit')), edit_manifestation_path(manifestation) -%>
+                    <% if @manifestation %>
+                      <%= link_to t('page.add'), new_manifestation_manifestation_relationship_path(@manifestation, :child_id => manifestation.id) -%>
                     <% else %>
-                      <%= link_to image_tag('/icons/arrow_divide.png', :size => '16x16', :alt => t('resource.add_derivation')), resource_resources_path(resource, :mode => 'add') -%>
+                      <%= link_to image_tag('/icons/arrow_divide.png', :size => '16x16', :alt => t('manifestation.add_derivation')), manifestation_manifestations_path(manifestation, :mode => 'add') -%>
                     <% end %>
                   </td>
                 <%- end -%>
@@ -49,8 +49,8 @@
 <br />
 
 <div>
-  <%- if manifestations and manifestations.size > Resource.per_page.div(2) -%>
-    <%= form_for :resources, :url => resources_path, :html => {:method => 'get'} do -%>
+  <%- if manifestations and manifestations.size > Manifestation.per_page.div(2) -%>
+    <%= form_for :manifestations, :url => manifestations_path, :html => {:method => 'get'} do -%>
       <p>
         <%= t('page.search_term') -%>: <%= search_field_tag 'query', h(@query), {:id => 'search_form_bottom', :class => 'search_form'} -%>
         <%= submit_tag t('page.search') -%>

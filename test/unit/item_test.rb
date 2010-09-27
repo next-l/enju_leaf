@@ -1,7 +1,7 @@
 require 'test_helper'
 
 class ItemTest < ActiveSupport::TestCase
-  fixtures :items, :circulation_statuses, :checkouts, :shelves, :resources, :carrier_types,
+  fixtures :items, :circulation_statuses, :checkouts, :shelves, :manifestations, :carrier_types,
     :creates, :realizes, :produces, :owns,
     :languages, :libraries, :users, :patrons, :user_groups, :reserves,
     :content_types, :form_of_works, :library_groups, :bookstores, :patron_types,

@@ -1,6 +1,6 @@
 class ImportRequest < ActiveRecord::Base
   default_scope :order => 'id DESC'
-  belongs_to :manifestation, :class_name => 'Resource'
+  belongs_to :manifestation, :class_name => 'Manifestation'
   belongs_to :user
   validates_presence_of :isbn
   validate :check_isbn
@@ -25,7 +25,7 @@ class ImportRequest < ActiveRecord::Base
 
   def check_imported
     if isbn.present?
-      errors.add(:isbn) if Resource.first(:conditions => {:isbn => isbn})
+      errors.add(:isbn) if Manifestation.first(:conditions => {:isbn => isbn})
     end
   end
 

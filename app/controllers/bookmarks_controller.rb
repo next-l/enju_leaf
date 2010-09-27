@@ -115,7 +115,7 @@ class BookmarksController < ApplicationController
         @bookmark.manifestation.reload
         @bookmark.manifestation.index!
         if params[:mode] == 'tag_edit'
-          format.html { redirect_to resource_url(@bookmark.manifestation) }
+          format.html { redirect_to(@bookmark.manifestation) }
           format.xml  { render :xml => @bookmark, :status => :created, :location => user_bookmark_url(@bookmark.user.username, @bookmark) }
         else
           format.html { redirect_to(@bookmark) }
@@ -153,7 +153,7 @@ class BookmarksController < ApplicationController
         @bookmark.create_tag_index
         case params[:mode]
         when 'tag_edit'
-          format.html { redirect_to resource_url(@bookmark.manifestation) }
+          format.html { redirect_to(@bookmark.manifestation) }
           format.xml  { head :ok }
         else
           format.html { redirect_to user_bookmark_url(@bookmark.user.username, @bookmark) }

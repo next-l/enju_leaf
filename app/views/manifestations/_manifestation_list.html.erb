@@ -1,30 +1,30 @@
-<div id="resource">
+<div id="manifestation">
   <ul>
-    <%- manifestation.original_resources.each do |resource| -%>
+    <%- manifestation.original_manifestations.each do |manifestation| -%>
         <li>
           [M]
-          <%= link_to h(resource.original_title), resource -%>
-          <%= form_icon(resource.carrier_type) -%>
-          <%= link_to image_tag('/icons/world_go.png', :size => '16x16', :alt => ('Web')), h(resource.access_address) unless resource.access_address.blank? -%>
+          <%= link_to h(manifestation.original_title), manifestation -%>
+          <%= form_icon(manifestation.carrier_type) -%>
+          <%= link_to image_tag('/icons/world_go.png', :size => '16x16', :alt => ('Web')), h(manifestation.access_address) unless manifestation.access_address.blank? -%>
           <%= raw patrons_list(manifestation.creators, current_user) -%>
           <%= raw patrons_list(manifestation.contributors, current_user) -%>
           <%= raw patrons_list(manifestation.publishers, current_user) -%>
-          <%- if resource.date_of_publication -%>
-            (<%= resource.date_of_publication.strftime('%Y') -%>)
+          <%- if manifestation.date_of_publication -%>
+            (<%= manifestation.date_of_publication.strftime('%Y') -%>)
           <%- end -%>
         </li>
     <%- end -%>
-    <%- manifestation.derived_resources.each do |resource| -%>
+    <%- manifestation.derived_manifestations.each do |manifestation| -%>
         <li>
           [M]
-          <%= link_to h(resource.original_title), resource -%>
-          <%= form_icon(resource.carrier_type) -%>
-          <%= link_to image_tag('/icons/world_go.png', :size => '16x16', :alt => ('Web')), h(resource.access_address) unless resource.access_address.blank? -%>
+          <%= link_to h(manifestation.original_title), manifestation -%>
+          <%= form_icon(manifestation.carrier_type) -%>
+          <%= link_to image_tag('/icons/world_go.png', :size => '16x16', :alt => ('Web')), h(manifestation.access_address) unless manifestation.access_address.blank? -%>
           <%= raw patrons_list(manifestation.creators, current_user) -%>
           <%= raw patrons_list(manifestation.contributors, current_user) -%>
           <%= raw patrons_list(manifestation.publishers, current_user) -%>
-          <%- if resource.date_of_publication -%>
-            (<%= resource.date_of_publication.strftime('%Y') -%>)
+          <%- if manifestation.date_of_publication -%>
+            (<%= manifestation.date_of_publication.strftime('%Y') -%>)
           <%- end -%>
         </li>
     <%- end -%>

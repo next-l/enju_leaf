@@ -2,7 +2,7 @@
 class Bookmark < ActiveRecord::Base
   scope :bookmarked, lambda {|start_date, end_date| {:conditions => ['created_at >= ? AND created_at < ?', start_date, end_date]}}
   scope :user_bookmarks, lambda {|user| {:conditions => {:user_id => user.id}}}
-  belongs_to :manifestation, :class_name => 'Resource'
+  belongs_to :manifestation, :class_name => 'Manifestation'
   belongs_to :user #, :counter_cache => true, :validate => true
 
   validates_presence_of :user, :title, :url
@@ -84,12 +84,9 @@ class Bookmark < ActiveRecord::Base
 
   def self.get_title_from_url(url)
     return if url.blank?
-    if url.my_host?
-      path = URI.parse(url).path.split('/').reverse
-      if path[1] == 'resources' and Resource.find(path[0])
-        manifestation = Resource.find(path[0])
-        return manifestation.original_title
-      end
+    if manifestation_id = url.bookmarkable_id
+      manifestation = Manifestation.find(manifestation_id)
+      return manifestation.original_title
     end
     unless manifestation
       doc = Nokogiri::HTML(open(url))
@@ -121,17 +118,14 @@ class Bookmark < ActiveRecord::Base
   end
 
   def my_host_resource
-    if url.my_host?
-      path = URI.parse(url).path.split('/').reverse
-      if path[1] == 'resources' and Resource.find(path[0])
-        manifestation = Resource.find(path[0])
-      end
+    if url.bookmarkable_id
+      manifestation = Manifestation.find(url.bookmarkable_id)
     end
   end
 
   def bookmarkable_url?
     if url.try(:my_host?)
-      unless my_host_resource
+      unless url.try(:bookmarkable_id)
         errors[:base] << I18n.t('bookmark.not_our_holding')
       end
     end
@@ -143,7 +137,7 @@ class Bookmark < ActiveRecord::Base
       manifestation = self.my_host_resource
     else
       if LibraryGroup.site_config.allow_bookmark_external_url
-        manifestation = Resource.first(:conditions => {:access_address => self.url}) if self.url.present?
+        manifestation = Manifestation.first(:conditions => {:access_address => self.url}) if self.url.present?
       end
     end
     manifestation
@@ -152,7 +146,7 @@ class Bookmark < ActiveRecord::Base
   def create_manifestation
     manifestation = get_manifestation
     unless manifestation
-      manifestation = Resource.new(:access_address => url)
+      manifestation = Manifestation.new(:access_address => url)
       manifestation.carrier_type = CarrierType.first(:conditions => {:name => 'file'})
     end
     # OTC start

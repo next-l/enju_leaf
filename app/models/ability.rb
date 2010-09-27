@@ -6,7 +6,7 @@ class Ability
     when 'Administrator'
       can :manage, :all
     when 'Librarian'
-      can :manage, [Resource, Item]
+      can :manage, [Manifestation, Item]
       can :manage, [Create, Realize, Produce, Own, Exemplify]
       can :index, Patron
       can :show, Patron do |patron|
@@ -29,7 +29,7 @@ class Ability
       can :manage, [Subscribe, Subscription]
       can :manage, [Reserve, PurchaseRequest]
       can :manage, PictureFile
-      can :manage, [PatronRelationship, ResourceRelationship]
+      can :manage, [PatronRelationship, ManifestationRelationship]
       can :manage, [Order, OrderList]
       can :read, [Country, Language]
       can :read, Library
@@ -39,7 +39,7 @@ class Ability
       can :manage, [Inventory, InventoryFile]
       can :read, [License, Extent, Frequency, FormOfWork]
       can :read, [
-        PatronRelationshipType, ResourceRelationshipType
+        PatronRelationshipType, ManifestationRelationshipType
       ]
       can :read, UserGroup
       can :manage, BookmarkStat
@@ -83,8 +83,8 @@ class Ability
       can :manage, [PatronMerge, PatronMergeList]
       can :manage, SeriesStatement
     when 'User'
-      can :read, [Resource, Item]
-      can :edit, Resource
+      can :read, [Manifestation, Item]
+      can :edit, Manifestation
       can :read, [Create, Realize, Produce, Own, Exemplify]
       can :index, Patron
       can :create, Patron
@@ -119,7 +119,7 @@ class Ability
       can :read, [Country, Language, License]
       can :read, UserGroup
       can :read, WorkHasSubject
-      can :read, [PatronRelationshipType, ResourceRelationshipType]
+      can :read, [PatronRelationshipType, ManifestationRelationshipType]
       can :read, [SubjectHeadingType, SubjectHasClassification]
       can [:update, :destroy, :show], [
         Bookmark, Checkout, PurchaseRequest, Reserve
@@ -155,10 +155,10 @@ class Ability
       can [:show, :destroy], SearchHistory do |search_history|
         search_history.try(:user) == user
       end
-      can :read, [PatronRelationshipType, ResourceRelationshipType]
+      can :read, [PatronRelationshipType, ManifestationRelationshipType]
       can :read, SeriesStatement
     else
-      can :read, Resource
+      can :read, Manifestation
       can :read, Item
       can :index, Patron
       can :show, Patron do |patron|
@@ -192,10 +192,10 @@ class Ability
       can :read, [CirculationStatus, Classification, ClassificationType]
       can :read, CarrierType
       can :read, BookmarkStat
-      can :read, Resource
+      can :read, Manifestation
       can :read, SubjectHeadingTypeHasSubject
       can :index, Checkout
-      can :read, [PatronRelationshipType, ResourceRelationshipType]
+      can :read, [PatronRelationshipType, ManifestationRelationshipType]
       can :read, SeriesStatement
     end
   end

@@ -89,7 +89,7 @@ class ImportRequestsControllerTest < ActionController::TestCase
   test "librarian should not create import_request already imported" do
     sign_in users(:librarian1)
     assert_no_difference('ImportRequest.count') do
-      post :create, :import_request => {:isbn => resources(:manifestation_00001).isbn}
+      post :create, :import_request => {:isbn => manifestations(:manifestation_00001).isbn}
     end
 
     assert_response :success

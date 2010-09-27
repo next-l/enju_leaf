@@ -1,7 +1,7 @@
 require 'test_helper'
 
 class ReserveStatHasManifestationsControllerTest < ActionController::TestCase
-    fixtures :reserve_stat_has_manifestations, :users, :resources, :manifestation_reserve_stats
+    fixtures :reserve_stat_has_manifestations, :users, :manifestations, :manifestation_reserve_stats
 
   test "guest should not get index" do
     get :index

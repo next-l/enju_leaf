@@ -1,7 +1,7 @@
 # -*- encoding: utf-8 -*-
 class SubjectsController < ApplicationController
   load_and_authorize_resource
-  before_filter :get_resource, :get_subject_heading_type, :get_classification
+  before_filter :get_work, :get_subject_heading_type, :get_classification
   before_filter :prepare_options, :only => :new
   after_filter :solr_commit, :only => [:create, :update, :destroy]
   cache_sweeper :page_sweeper, :only => [:create, :update, :destroy]
@@ -77,18 +77,18 @@ class SubjectsController < ApplicationController
       return
     end
 
-    if @resource
-      @subject = @resource.subjects.find(params[:id])
+    if @work
+      @subject = @work.subjects.find(params[:id])
     else
       @subject = Subject.find(params[:id])
     end
-    search = Sunspot.new_search(Resource)
+    search = Sunspot.new_search(Manifestation)
     subject = @subject
     search.build do
       with(:subject_ids).equal_to subject.id if subject
     end
     page = params[:work_page] || 1
-    search.query.paginate(page.to_i, Resource.per_page)
+    search.query.paginate(page.to_i, Manifestation.per_page)
     begin
       @works = search.execute!.results
     rescue RSolr::RequestError
@@ -116,8 +116,8 @@ class SubjectsController < ApplicationController
 
   # GET /subjects/1;edit
   def edit
-    if @resource
-      @subject = @resource.subjects.find(params[:id])
+    if @work
+      @subject = @work.subjects.find(params[:id])
     else
       @subject = Subject.find(params[:id])
     end
@@ -127,8 +127,8 @@ class SubjectsController < ApplicationController
   # POST /subjects
   # POST /subjects.xml
   def create
-    if @resource
-      @subject = @resource.subjects.new(params[:subject])
+    if @work
+      @subject = @work.subjects.new(params[:subject])
     else
       @subject = Subject.new(params[:subject])
     end
@@ -155,8 +155,8 @@ class SubjectsController < ApplicationController
   # PUT /subjects/1
   # PUT /subjects/1.xml
   def update
-    if @resource
-      @subject = @resource.subjects.find(params[:id])
+    if @work
+      @subject = @work.subjects.find(params[:id])
     else
       @subject = Subject.find(params[:id])
     end
@@ -177,8 +177,8 @@ class SubjectsController < ApplicationController
   # DELETE /subjects/1
   # DELETE /subjects/1.xml
   def destroy
-    if @resource
-      @subject = @resource.subjects.find(params[:id])
+    if @work
+      @subject = @work.subjects.find(params[:id])
     else
       @subject = Subject.find(params[:id])
     end

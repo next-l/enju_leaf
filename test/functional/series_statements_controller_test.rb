@@ -1,7 +1,7 @@
 require 'test_helper'
 
 class SeriesStatementsControllerTest < ActionController::TestCase
-    fixtures :series_statements, :resources
+    fixtures :series_statements, :manifestations
 
   def test_guest_should_get_index
     get :index

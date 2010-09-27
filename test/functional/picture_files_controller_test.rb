@@ -1,7 +1,7 @@
 require 'test_helper'
 
 class PictureFilesControllerTest < ActionController::TestCase
-    fixtures :picture_files, :resources, :carrier_types, :events, :languages, :users, :user_groups, :patrons, :patron_types, :event_categories, :libraries, :reserves, :library_groups, :countries, :shelves
+    fixtures :picture_files, :manifestations, :carrier_types, :events, :languages, :users, :user_groups, :patrons, :patron_types, :event_categories, :libraries, :reserves, :library_groups, :countries, :shelves
 
   def test_guest_should_get_index
     get :index
@@ -78,7 +78,7 @@ class PictureFilesControllerTest < ActionController::TestCase
 
   def test_guest_should_not_create_picture_file
     assert_no_difference('PictureFile.count') do
-      post :create, :picture_file => {:picture_attachable_type => 'Resource', :picture_attachable_id => 1, :picture => 'test upload'}
+      post :create, :picture_file => {:picture_attachable_type => 'Manifestation', :picture_attachable_id => 1, :picture => 'test upload'}
     end
 
     assert_response :redirect
@@ -88,7 +88,7 @@ class PictureFilesControllerTest < ActionController::TestCase
   def test_user_should_not_create_picture_file
     sign_in users(:user1)
     assert_no_difference('PictureFile.count') do
-      post :create, :picture_file => {:picture_attachable_type => 'Resource', :picture_attachable_id => 1}
+      post :create, :picture_file => {:picture_attachable_type => 'Manifestation', :picture_attachable_id => 1}
     end
 
     assert_response :forbidden
@@ -107,7 +107,7 @@ class PictureFilesControllerTest < ActionController::TestCase
   def test_librarian_should_not_create_picture_file_without_picture_attachable_id
     sign_in users(:librarian1)
     assert_no_difference('PictureFile.count') do
-      post :create, :picture_file => {:picture_attachable_type => 'Resource', :picture => fixture_file_upload("spinner.gif", "image/gif")}
+      post :create, :picture_file => {:picture_attachable_type => 'Manifestation', :picture => fixture_file_upload("spinner.gif", "image/gif")}
     end
 
     assert_response :success
@@ -117,7 +117,7 @@ class PictureFilesControllerTest < ActionController::TestCase
   def test_librarian_should_not_create_picture_file_without_attachment
     sign_in users(:librarian1)
     assert_no_difference('PictureFile.count') do
-      post :create, :picture_file => {:picture_attachable_type => 'Resource', :picture_attachable_id => 1}
+      post :create, :picture_file => {:picture_attachable_type => 'Manifestation', :picture_attachable_id => 1}
     end
 
     assert_response :success

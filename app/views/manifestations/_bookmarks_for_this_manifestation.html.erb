@@ -4,7 +4,7 @@
     <%- if bookmark.user.share_bookmarks -%>
       <li><%= link_to h(bookmark.user.username), user_bookmark_path(bookmark.user, bookmark) -%>
       <%- bookmark.tags.each do |tag| -%>
-        [<%= link_to h(tag.name), resources_path(:tag => tag.name) -%>]
+        [<%= link_to h(tag.name), manifestations_path(:tag => tag.name) -%>]
       <%- end -%>
       <%= bookmark.note -%>
       <%- if user_signed_in? and current_user == bookmark.user -%>
@@ -18,7 +18,7 @@
   <p>
     <%= t('bookmark.not_bookmarked') -%>
     <%- if user_signed_in? -%>
-      <%= link_to t('bookmark.add_to_my_bookmark'), new_user_bookmark_path(current_user, :bookmark => {:url => resource_url(manifestation)}) -%>
+      <%= link_to t('bookmark.add_to_my_bookmark'), new_user_bookmark_path(current_user, :bookmark => {:url => manifestation_url(manifestation)}) -%>
     <%- end -%>
   </p>
 <%- end -%>

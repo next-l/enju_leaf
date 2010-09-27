@@ -1,7 +1,7 @@
 require 'test_helper'
 
 class WorkHasSubjectsControllerTest < ActionController::TestCase
-  fixtures :work_has_subjects, :resources, :subject_heading_types, :users, :subjects, :subject_types, :roles
+  fixtures :work_has_subjects, :manifestations, :subject_heading_types, :users, :subjects, :subject_types, :roles
 
   def test_guest_should_get_index
     get :index
@@ -217,6 +217,6 @@ class WorkHasSubjectsControllerTest < ActionController::TestCase
       delete :destroy, :id => 1, :work_id => 1
     end
     
-    assert_redirected_to work_work_has_subjects_url(assigns(:resource))
+    assert_redirected_to work_work_has_subjects_url(assigns(:manifestation))
   end
 end

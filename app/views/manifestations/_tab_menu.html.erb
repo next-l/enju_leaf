@@ -1,7 +1,7 @@
 <ul>
   <li class="selected"><a href="#detail"><em><%= t('page.detail') -%></em></a></li>
-  <%- if manifestation.original_resources.first or manifestation.derived_resources.first -%>
-    <li><a href="#resource"><em><%= t('page.related_manifestation') -%> (<%= manifestation.original_resources.size + manifestation.derived_resources.size -%>)</em></a></li>
+  <%- if manifestation.original_manifestations.first or manifestation.derived_manifestations.first -%>
+    <li><a href="#resource"><em><%= t('page.related_manifestation') -%> (<%= manifestation.original_manifestations.size + manifestation.derived_manifestations.size -%>)</em></a></li>
   <%- end -%>
   <%- unless manifestation.questions(:user => current_user).empty? -%>
     <li><a href="#question"><em><%= t('resource.question') -%></em></a></li>

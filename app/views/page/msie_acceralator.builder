@@ -6,8 +6,8 @@ xml.openServiceDescription("xmlns" => "http://www.microsoft.com/schemas/openserv
   end
   xml.activity("category" => t('page.search')) do
     xml.activityAction do
-      xml.preview("action" => resources_url)
-      xml.execute("action" => resources_url) do
+      xml.preview("action" => manifestations_url)
+      xml.execute("action" => manifestations_url) do
         xml.parameter("name" => "query", "value" => "{selection}")
       end
     end
