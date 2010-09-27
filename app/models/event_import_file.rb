@@ -42,12 +42,14 @@ class EventImportFile < ActiveRecord::Base
     record = 2
     if RUBY_VERSION > '1.9'
       file = CSV.open(self.event_import.path, :col_sep => "\t")
-      rows = CSV.open(self.event_import.path, :headers => file.first, :col_sep => "\t")
+      header = file.first
+      rows = CSV.open(self.event_import.path, :headers => header, :col_sep => "\t")
     else
       file = FasterCSV.open(self.event_import.path, :col_sep => "\t")
-      rows = FasterCSV.open(self.event_import.path, :headers => file.first, :col_sep => "\t")
+      header = file.first
+      rows = FasterCSV.open(self.event_import.path, :headers => header, :col_sep => "\t")
     end
-    EventImportResult.create!(:event_import_file => self, :body => file.first.join("\t"))
+    EventImportResult.create!(:event_import_file => self, :body => header.join("\t"))
     file.close
     field = rows.first
     if [field['name']].reject{|f| f.to_s.strip == ""}.empty?

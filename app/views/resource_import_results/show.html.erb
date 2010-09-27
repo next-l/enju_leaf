@@ -1,13 +1,16 @@
+<div id="content_detail">
+<h1 class="title"><%= t('page.showing', :model => t('activerecord.models.resource_import_result')) -%></h1>
+<div id="content_list">
 <p id="notice"><%= notice %></p>
 
 <p>
   <b>Manifestation:</b>
-  <%= @resource_import_result.manifestation_id %>
+  <%= link_to @resource_import_result.manifestation.original_title, @resource_import_result.manifestation if @resource_import_result.manifestation %>
 </p>
 
 <p>
   <b>Item:</b>
-  <%= @resource_import_result.item_id %>
+  <%= link_to @resource_import_result.item.item_identifier, @resource_import_result.item if @resource_import_result.item %>
 </p>
 
 <p>
@@ -15,6 +18,12 @@
   <%= @resource_import_result.body %>
 </p>
 
+</div>
+</div>
 
-<%= link_to 'Edit', edit_resource_import_result_path(@resource_import_result) %> |
-<%= link_to 'Back', resource_import_results_path %>
+<div id="submenu">
+  <ul>
+    <li><%= link_to t('page.edit'), edit_resource_import_result_path(@resource_import_result) %></li>
+    <li><%= link_to t('page.back'), resource_import_results_path %></li>
+  </ul>
+</div>

@@ -32,7 +32,6 @@ class Ability
       can :manage, [PatronRelationship, ResourceRelationship]
       can :manage, [Order, OrderList]
       can :read, [Country, Language]
-      can :read, CirculationStatus
       can :read, Library
       can :manage, Event
       can :read, EventCategory

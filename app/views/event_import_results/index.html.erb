@@ -1,10 +1,11 @@
-<h1>Listing event_import_results</h1>
+<div id="content_detail">
+<h1 class="title"><%= t('page.listing', :model => t('activerecord.models.event_import_file')) -%></h1>
+<div id="content_list">
 
-<table>
+<table class="index">
   <tr>
-    <th>Event import file</th>
-    <th>Event</th>
-    <th>Body</th>
+    <th><%= t('activerecord.models.event_import_file') %></th>
+    <th><%= t('activerecord.models.event') %></th>
     <th></th>
     <th></th>
     <th></th>
@@ -12,16 +13,22 @@
 
 <% @event_import_results.each do |event_import_result| %>
   <tr>
-    <td><%= event_import_result.event_import_file_id %></td>
-    <td><%= event_import_result.event_id %></td>
-    <td><%= event_import_result.body %></td>
-    <td><%= link_to 'Show', event_import_result %></td>
-    <td><%= link_to 'Edit', edit_event_import_result_path(event_import_result) %></td>
-    <td><%= link_to 'Destroy', event_import_result, :confirm => 'Are you sure?', :method => :delete %></td>
+    <td><%= link_to event_import_result.event_import_file.id, event_import_result.event_import_file %></td>
+    <td><%= link_to event_import_result.event.name, event_import_result.event if event_import_result.event %></td>
+    <td><%= link_to t('page.show'), event_import_result %></td>
+    <td><%= link_to t('page.edit'), edit_event_import_result_path(event_import_result) %></td>
+    <td><%= link_to t('page.destroy'), event_import_result, :confirm => 'Are you sure?', :method => :delete %></td>
   </tr>
 <% end %>
 </table>
 
-<br />
+<%= will_paginate(@event_import_results) %>
 
-<%= link_to 'New Event import result', new_event_import_result_path %>
+</div>
+</div>
+
+<div id="submenu">
+  <ul>
+    <li><%= link_to t('page.new', :model => t('activerecord.models.event_import_result')), new_event_import_result_path -%></li>
+  </ul>
+</div>

@@ -182,12 +182,14 @@ class ResourceImportFile < ActiveRecord::Base
   def open_import_file
     if RUBY_VERSION > '1.9'
       file = CSV.open(self.resource_import.path, :col_sep => "\t")
-      rows = CSV.open(self.resource_import.path, :headers => file.first, :col_sep => "\t")
+      header = file.first
+      rows = CSV.open(self.resource_import.path, :headers => header, :col_sep => "\t")
     else
       file = FasterCSV.open(self.resource_import.path, :col_sep => "\t")
-      rows = FasterCSV.open(self.resource_import.path, :headers => file.first, :col_sep => "\t")
+      header = file.first
+      rows = FasterCSV.open(self.resource_import.path, :headers => header, :col_sep => "\t")
     end
-    ResourceImportResult.create(:resource_import_file => self, :body => file.first.join("\t"))
+    ResourceImportResult.create(:resource_import_file => self, :body => header.join("\t"))
     file.close
     rows
   end

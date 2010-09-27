@@ -28,6 +28,7 @@ unless RUBY_VERSION > '1.9'
 end
 gem 'friendly_id'
 gem 'inherited_resources'
+gem 'has_scope'
 gem 'nokogiri'
 gem 'marc'
 gem 'strongbox'
