@@ -1,0 +1,36 @@
+<div id="content_detail">
+<h1 class="title"><%= t('page.listing', :model => t('activerecord.models.patron_import_file')) -%></h1>
+<div id="content_list">
+
+<table class="index">
+  <tr>
+    <th><%= t('activerecord.models.patron_import_file') %></th>
+    <th><%= t('activerecord.models.patron') %></th>
+    <th><%= t('activerecord.models.user') %></th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @patron_import_results.each do |patron_import_result| %>
+  <tr>
+    <td><%= link_to patron_import_result.patron_import_file.id, patron_import_result.patron_import_file %></td>
+    <td><%= link_to patron_import_result.patron.full_name, patron_import_result.patron if patron_import_result.patron %></td>
+    <td><%= link_to patron_import_result.user.username, patron_import_result.user if patron_import_result.user %></td>
+    <td><%= link_to t('page.show'), patron_import_result %></td>
+    <td><%= link_to t('page.edit'), edit_patron_import_result_path(patron_import_result) %></td>
+    <td><%= link_to t('page.destroy'), patron_import_result, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<%= will_paginate(@patron_import_results) %>
+
+</div>
+</div>
+
+<div id="submenu">
+  <ul>
+    <li><%= link_to t('page.new', :model => t('activerecord.models.patron_import_result')), new_patron_import_result_path -%></li>
+  </ul>
+</div>

@@ -1,0 +1,20 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Event import file:</b>
+  <%= @event_import_result.event_import_file_id %>
+</p>
+
+<p>
+  <b>Event:</b>
+  <%= @event_import_result.event_id %>
+</p>
+
+<p>
+  <b>Body:</b>
+  <%= @event_import_result.body %>
+</p>
+
+
+<%= link_to 'Edit', edit_event_import_result_path(@event_import_result) %> |
+<%= link_to 'Back', event_import_results_path %>

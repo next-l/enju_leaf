@@ -4,8 +4,7 @@ require 'test_helper'
 class PatronImportFilesControllerTest < ActionController::TestCase
     fixtures :patron_import_files, :users, :roles, :patrons,
     :user_groups, :libraries, :library_groups, :patron_types, :languages,
-    :events, :event_categories,
-    :imported_objects
+    :events, :event_categories
 
   def test_guest_should_not_get_index
     get :index
@@ -66,6 +65,7 @@ class PatronImportFilesControllerTest < ActionController::TestCase
   def test_librarian_should_create_patron_import_file
     sign_in users(:librarian1)
     old_patrons_count = Patron.count
+    old_import_results_count = PatronImportResult.count
     assert_difference('PatronImportFile.count') do
       post :create, :patron_import_file => {:patron_import => fixture_file_upload("patron_import_file_sample1.tsv", 'text/csv') }
     end
@@ -73,10 +73,11 @@ class PatronImportFilesControllerTest < ActionController::TestCase
       assigns(:patron_import_file).import_start
     end
     assert_equal '田辺浩介', Patron.find(:first, :order => 'id DESC').full_name
+    assert_equal old_patrons_count + 2, Patron.count
+    assert_equal old_import_results_count + 3, PatronImportResult.count
 
     assert_equal 'librarian1', assigns(:patron_import_file).user.username
     assert_redirected_to patron_import_file_path(assigns(:patron_import_file))
-    #assert assigns(:patron_import_file).file_hash
   end
 
   def test_librarian_should_import_user

@@ -39,6 +39,7 @@ class User < ActiveRecord::Base
   belongs_to :library, :validate => true
   belongs_to :user_group
   belongs_to :required_role, :class_name => 'Role', :foreign_key => 'required_role_id' #, :validate => true
+  has_one :patron_import_result
 
   validates_presence_of :username
   validates_uniqueness_of :username

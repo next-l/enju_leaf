@@ -32,7 +32,6 @@ class Ability
       can :manage, [PatronRelationship, ResourceRelationship]
       can :manage, [Order, OrderList]
       can :read, [Country, Language]
-      can :read, CirculationStatus
       can :read, Library
       can :manage, Event
       can :read, EventCategory
@@ -66,7 +65,7 @@ class Ability
       can :manage, [CheckoutStatHasManifestation, CheckoutStatHasUser]
       can :manage, [ReserveStatHasManifestation, ReserveStatHasUser]
       can :read, [CirculationStatus, UseRestriction]
-      can :manage, ImportedObject
+      can :read, [ResourceImportResult, PatronImportResult, EventImportResult]
       can :read, Shelf
       can :read, [RequestStatusType, RequestType]
       can :manage, PictureFile

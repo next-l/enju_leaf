@@ -6,7 +6,6 @@ class EventImportFile < ActiveRecord::Base
   validates_attachment_content_type :event_import, :content_type => ['text/csv', 'text/plain', 'text/tab-separated-values', 'application/octet-stream']
   validates_attachment_presence :event_import
   belongs_to :user, :validate => true
-  has_many :imported_objects, :as => :imported_file, :dependent => :destroy
   #after_create :set_digest
 
   state_machine :initial => :pending do
@@ -43,11 +42,14 @@ class EventImportFile < ActiveRecord::Base
     record = 2
     if RUBY_VERSION > '1.9'
       file = CSV.open(self.event_import.path, :col_sep => "\t")
-      rows = CSV.open(self.event_import.path, :headers => file.first, :col_sep => "\t")
+      header = file.first
+      rows = CSV.open(self.event_import.path, :headers => header, :col_sep => "\t")
     else
       file = FasterCSV.open(self.event_import.path, :col_sep => "\t")
-      rows = FasterCSV.open(self.event_import.path, :headers => file.first, :col_sep => "\t")
+      header = file.first
+      rows = FasterCSV.open(self.event_import.path, :headers => header, :col_sep => "\t")
     end
+    EventImportResult.create!(:event_import_file => self, :body => header.join("\t"))
     file.close
     field = rows.first
     if [field['name']].reject{|f| f.to_s.strip == ""}.empty?
@@ -58,6 +60,8 @@ class EventImportFile < ActiveRecord::Base
     end
     #rows.shift
     rows.each do |row|
+      import_result = EventImportResult.create!(:event_import_file => self, :body => row.fields.join("\t"))
+
       event = Event.new
       event.name = row['name']
       event.note = row['note']
@@ -76,16 +80,18 @@ class EventImportFile < ActiveRecord::Base
 
       begin
         if event.save!
-          imported_object = ImportedObject.new
-          imported_object.importable = event
-          self.imported_objects << imported_object
+          import_result.event = event
           num[:success] += 1
-          GC.start if record % 50 == 0
+          if record % 50 == 0
+            Sunspot.commit
+            GC.start
+          end
         end
       rescue
         Rails.logger.info("event import failed: column #{record}")
         num[:failure] += 1
       end
+      import_result.save!
       record += 1
     end
     self.update_attribute(:imported_at, Time.zone.now)

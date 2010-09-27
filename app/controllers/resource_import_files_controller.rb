@@ -17,7 +17,6 @@ class ResourceImportFilesController < ApplicationController
   # GET /resource_import_files/1.xml
   def show
     @resource_import_file = ResourceImportFile.find(params[:id])
-    @imported_objects = @resource_import_file.imported_objects.paginate(:page => params[:object_page], :per_page => ImportedObject.per_page)
 
     respond_to do |format|
       format.html # show.html.erb

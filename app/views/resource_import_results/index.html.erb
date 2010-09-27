@@ -1,0 +1,36 @@
+<div id="content_detail">
+<h1 class="title"><%= t('page.listing', :model => t('activerecord.models.resource_import_file')) -%></h1>
+<div id="content_list">
+
+<table class="index">
+  <tr>
+    <th><%= t('activerecord.models.resource_import_file') %></th>
+    <th><%= t('activerecord.models.manifestation') %></th>
+    <th><%= t('activerecord.models.item') %></th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @resource_import_results.each do |resource_import_result| %>
+  <tr>
+    <td><%= link_to resource_import_result.resource_import_file.id, resource_import_result.resource_import_file %></td>
+    <td><%= link_to resource_import_result.manifestation.original_title, resource_import_result.manifestation if resource_import_result.manifestation %></td>
+    <td><%= link_to resource_import_result.item.item_identifier, resource_import_result.item if resource_import_result.item %></td>
+    <td><%= link_to t('page.show'), resource_import_result %></td>
+    <td><%= link_to t('page.edit'), edit_resource_import_result_path(resource_import_result) %></td>
+    <td><%= link_to t('page.destroy'), resource_import_result, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<%= will_paginate(@resource_import_results) %>
+
+</div>
+</div>
+
+<div id="submenu">
+  <ul>
+    <li><%= link_to t('page.new', :model => t('activerecord.models.resource_import_result')), new_resource_import_result_path -%></li>
+  </ul>
+</div>

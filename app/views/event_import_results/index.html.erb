@@ -1,0 +1,34 @@
+<div id="content_detail">
+<h1 class="title"><%= t('page.listing', :model => t('activerecord.models.event_import_file')) -%></h1>
+<div id="content_list">
+
+<table class="index">
+  <tr>
+    <th><%= t('activerecord.models.event_import_file') %></th>
+    <th><%= t('activerecord.models.event') %></th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @event_import_results.each do |event_import_result| %>
+  <tr>
+    <td><%= link_to event_import_result.event_import_file.id, event_import_result.event_import_file %></td>
+    <td><%= link_to event_import_result.event.name, event_import_result.event if event_import_result.event %></td>
+    <td><%= link_to t('page.show'), event_import_result %></td>
+    <td><%= link_to t('page.edit'), edit_event_import_result_path(event_import_result) %></td>
+    <td><%= link_to t('page.destroy'), event_import_result, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<%= will_paginate(@event_import_results) %>
+
+</div>
+</div>
+
+<div id="submenu">
+  <ul>
+    <li><%= link_to t('page.new', :model => t('activerecord.models.event_import_result')), new_event_import_result_path -%></li>
+  </ul>
+</div>
