@@ -1,4 +1,4 @@
-<%- cache(:controller => :resources, :action => :show, :id => manifestation.id, :page => 'title', :role => current_user_role_name, :locale => @locale) do %>
+<%- cache(:controller => :manifestations, :action => :show, :id => manifestation.id, :page => 'title', :role => current_user_role_name, :locale => @locale) do %>
   <h2 class="resource_title">
     [M]
     <%= link_to h(manifestation.original_title), manifestation -%>

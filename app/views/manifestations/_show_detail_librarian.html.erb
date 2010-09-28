@@ -1,6 +1,6 @@
   <%= render 'page/tabview' -%>
   <div id="tabs">
-    <% cache(:controller => :resources, :action => :show, :id => manifestation.id, :role => current_user_role_name, :locale => @locale, :page => 'detail') do %>
+    <% cache(:controller => :manifestations, :action => :show, :id => manifestation.id, :role => current_user_role_name, :locale => @locale, :page => 'detail') do %>
     <%= render :partial => 'manifestations/tab_menu', :locals => {:manifestation => manifestation} %>
     <div id="detail">
       <%- if manifestation.isbn -%>
