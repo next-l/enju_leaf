@@ -2,7 +2,8 @@ class EventImportFile < ActiveRecord::Base
   default_scope :order => 'id DESC'
   scope :not_imported, :conditions => {:state => 'pending', :imported_at => nil}
 
-  has_attached_file :event_import, :path => ":rails_root/private:url"
+  has_attached_file :event_import, :storage => :s3, :s3_credentials => "#{Rails.root.to_s}/config/s3.yml",
+    :path => "event_import_files/:id/:filename"
   validates_attachment_content_type :event_import, :content_type => ['text/csv', 'text/plain', 'text/tab-separated-values', 'application/octet-stream']
   validates_attachment_presence :event_import
   belongs_to :user, :validate => true
@@ -23,7 +24,7 @@ class EventImportFile < ActiveRecord::Base
   end
 
   def set_digest(options = {:type => 'sha1'})
-    self.file_hash = Digest::SHA1.hexdigest(File.open(self.event_import.path, 'rb').read)
+    self.file_hash = Digest::SHA1.hexdigest(File.open(self.event_import.url, 'rb').read)
     save(:validate => false)
   end
 
@@ -33,21 +34,33 @@ class EventImportFile < ActiveRecord::Base
   end
 
   def import
-    unless /text\/.+/ =~ FileWrapper.get_mime(event_import.path)
-      sm_fail!
-      raise 'Invalid format'
-    end
+    #unless /text\/.+/ =~ FileWrapper.get_mime(event_import.path)
+    #  sm_fail!
+    #  raise 'Invalid format'
+    #end
     self.reload
     num = {:success => 0, :failure => 0}
     record = 2
     if RUBY_VERSION > '1.9'
-      file = CSV.open(self.event_import.path, :col_sep => "\t")
-      header = file.first
-      rows = CSV.open(self.event_import.path, :headers => header, :col_sep => "\t")
+      if configatron.uploaded_file.storage == :s3
+        file = CSV.open(open(self.event_import.url).path, :col_sep => "\t")
+        header = file.first
+        rows = CSV.open(open(self.event_import.url).path, :headers => header, :col_sep => "\t")
+      else
+        file = CSV.open(self.event_import.path, :col_sep => "\t")
+        header = file.first
+        rows = CSV.open(self.event_import.path, :headers => header, :col_sep => "\t")
+      end
     else
-      file = FasterCSV.open(self.event_import.path, :col_sep => "\t")
-      header = file.first
-      rows = FasterCSV.open(self.event_import.path, :headers => header, :col_sep => "\t")
+      if configatron.uploaded_file.storage == :s3
+        file = FasterCSV.open(open(self.event_import.url).path, :col_sep => "\t")
+        header = file.first
+        rows = FasterCSV.open(open(self.event_import.url).path, :headers => header, :col_sep => "\t")
+      else
+        file = FasterCSV.open(self.event_import.path, :col_sep => "\t")
+        header = file.first
+        rows = FasterCSV.open(self.event_import.path, :headers => header, :col_sep => "\t")
+      end
     end
     EventImportResult.create!(:event_import_file => self, :body => header.join("\t"))
     file.close

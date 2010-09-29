@@ -51,13 +51,7 @@ class ResourceImportFilesController < ApplicationController
 
     respond_to do |format|
       if @resource_import_file.save
-        # TODO: 他の形式
-        #num = @resource_import_file.import_csv
-        #flash[:notice] = n('%{num} resource is imported.', '%{num} resources are imported', num) % {:num => num}
         flash[:notice] = t('controller.successfully_created', :model => t('activerecord.models.resource_import_file'))
-        #flash[:notice] << t('import.will_be_imported', :minute => 60).to_s # TODO: インポートまでの時間表記
-
-        #@resource_import_file.import
         format.html { redirect_to(@resource_import_file) }
         format.xml  { render :xml => @resource_import_file, :status => :created, :location => @resource_import_file }
       else

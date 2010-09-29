@@ -205,8 +205,8 @@
     <%- end -%>
   </ul>
   <ul>
-    <li><%= link_to t('page.listing', :model => t('activerecord.models.work')), patron_works_path(@patron) -%></li>
-    <li><%= link_to t('page.listing', :model => t('activerecord.models.expression')), patron_expressions_path(@patron) -%></li>
-    <li><%= link_to t('page.listing', :model => t('activerecord.models.manifestation')), patron_manifestations_path(@patron) -%></li>
+    <li><%= link_to t('page.listing', :model => t('activerecord.models.work')), creator_manifestations_path(@patron) -%></li>
+    <li><%= link_to t('page.listing', :model => t('activerecord.models.expression')), contributor_manifestations_path(@patron) -%></li>
+    <li><%= link_to t('page.listing', :model => t('activerecord.models.manifestation')), publisher_manifestations_path(@patron) -%></li>
   </ul>
 </div>

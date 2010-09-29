@@ -2,7 +2,8 @@ class PatronImportFile < ActiveRecord::Base
   default_scope :order => 'id DESC'
   scope :not_imported, :conditions => {:state => 'pending', :imported_at => nil}
 
-  has_attached_file :patron_import, :path => ":rails_root/private:url"
+  has_attached_file :patron_import, :storage => :s3, :s3_credentials => "#{Rails.root.to_s}/config/s3.yml",
+    :path => "patron_import_files/:id/:filename"
   validates_attachment_content_type :patron_import, :content_type => ['text/csv', 'text/plain', 'text/tab-separated-values', 'application/octet-stream']
   validates_attachment_presence :patron_import
   belongs_to :user, :validate => true
@@ -26,7 +27,7 @@ class PatronImportFile < ActiveRecord::Base
   end
 
   def set_digest(options = {:type => 'sha1'})
-    self.file_hash = Digest::SHA1.hexdigest(File.open(self.patron_import.path, 'rb').read)
+    self.file_hash = Digest::SHA1.hexdigest(File.open(self.patron_import.url, 'rb').read)
     save(:validate => false)
   end
 
@@ -36,21 +37,34 @@ class PatronImportFile < ActiveRecord::Base
   end
 
   def import
-    unless /text\/.+/ =~ FileWrapper.get_mime(patron_import.path)
-      sm_fail!
-      raise 'Invalid format'
-    end
+    #unless /text\/.+/ =~ FileWrapper.get_mime(patron_import.path)
+    #  sm_fail!
+    #  raise 'Invalid format'
+    #end
     self.reload
     num = {:success => 0, :failure => 0, :activated => 0}
     row_num = 2
     if RUBY_VERSION > '1.9'
-      file = CSV.open(self.patron_import.path, :col_sep => "\t")
-      header = file.first
-      rows = CSV.open(self.patron_import.path, :headers => header, :col_sep => "\t")
+      if configatron.uploaded_file.storage == :s3
+        file = CSV.open(open(self.patron_import.url).path, :col_sep => "\t")
+        header = file.first
+        rows = CSV.open(open(self.patron_import.url).path, :headers => header, :col_sep => "\t")
+
+      else
+        file = CSV.open(self.patron_import.url, :col_sep => "\t")
+        header = file.first
+        rows = CSV.open(self.patron_import.url, :headers => header, :col_sep => "\t")
+      end
     else
-      file = FasterCSV.open(self.patron_import.path, :col_sep => "\t")
-      header = file.first
-      rows = FasterCSV.open(self.patron_import.path, :headers => header, :col_sep => "\t")
+      if configatron.uploaded_file.storage == :s3
+        file = FasterCSV.open(open(self.patron_import.url).path, :col_sep => "\t")
+        header = file.first
+        rows = FasterCSV.open(open(self.patron_import.url).path, :headers => header, :col_sep => "\t")
+      else
+        file = FasterCSV.open(self.patron_import.url, :col_sep => "\t")
+        header = file.first
+        rows = FasterCSV.open(self.patron_import.url, :headers => header, :col_sep => "\t")
+      end
     end
     PatronImportResult.create!(:patron_import_file => self, :body => header.join("\t"))
     file.close

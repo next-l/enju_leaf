@@ -36,7 +36,7 @@
 <div id="submenu" class="ui-corner-all">
   <ul>
     <%- if @realize.patron -%>
-      <li><%= link_to t('page.listing', :model => t('activerecord.models.expression')), patron_expressions_path(@realize.patron) -%></li>
+      <li><%= link_to t('page.listing', :model => t('activerecord.models.expression')), contributor_manifestations_path(@realize.patron) -%></li>
     <%- end -%>
     <%- if @realize.expression -%>
       <li><%= link_to t('page.listing', :model => t('activerecord.models.patron')), expression_patrons_path(@realize.expression) -%></li>

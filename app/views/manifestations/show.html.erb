@@ -116,7 +116,7 @@
           <%- case when @expression -%>
             <li><%= link_to t('page.edit'), edit_expression_manifestation_path(@expression, @manifestation) -%></li>
           <%- when @patron -%>
-            <li><%= link_to t('page.edit'), edit_patron_manifestation_path(@patron, @manifestation) -%></li>
+            <li><%= link_to t('page.edit'), edit_publisher_manifestation_path(@patron, @manifestation) -%></li>
           <%- else -%>
             <li><%= link_to t('page.edit'), edit_manifestation_path(@manifestation) -%></li>
           <%- end -%>
