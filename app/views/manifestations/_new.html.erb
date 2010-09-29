@@ -125,7 +125,7 @@
 <div id="submenu" class="ui-corner-all">
   <ul>
     <%- if @patron -%>
-      <li><%= link_to t('page.back'), patron_manifestations_path(@patron) -%></li>
+      <li><%= link_to t('page.back'), publisher_manifestations_path(@patron) -%></li>
     <%- else -%>
       <li><%= link_to t('page.back'), manifestations_path -%></li>
     <%- end -%>

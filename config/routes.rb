@@ -22,6 +22,18 @@ EnjuLeaf::Application.routes.draw do
     resources :manifestations
   end
 
+  resources :creators, :controller => 'patrons' do
+    resources :manifestations
+  end
+
+  resources :contributors, :controller => 'patrons' do
+    resources :manifestations
+  end
+
+  resources :publishers, :controller => 'patrons' do
+    resources :manifestations
+  end
+
   resources :patrons do
     resources :works, :controller => 'manifestations'
     resources :expressions, :controller => 'manifestations'

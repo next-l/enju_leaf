@@ -35,7 +35,7 @@
 <div id="submenu" class="ui-corner-all">
   <ul>
     <%- if @produce.patron -%>
-      <li><%= link_to t('page.listing', :model => t('activerecord.models.patron')), patron_manifestations_path(@produce.patron) -%></li>
+      <li><%= link_to t('page.listing', :model => t('activerecord.models.patron')), publisher_manifestations_path(@produce.patron) -%></li>
     <%- end -%>
     <%- if @produce.manifestation -%>
       <li><%= link_to t('page.listing', :model => t('activerecord.models.manifestation')), manifestation_patrons_path(@produce.manifestation) -%></li>

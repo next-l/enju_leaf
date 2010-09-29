@@ -5,10 +5,8 @@
     <%- params.reject{|key, value| value.nil?}.each do |param, value| -%>
       <%= hidden_field_tag param, value -%>
     <%- end -%>
-    <% cache(:page => 'select_locale', :locale => @locale) do %>
-      <%= select_tag 'locale', options_from_collection_for_select(@available_languages, 'iso_639_1', 'native_name', @locale) -%>
-      <%= submit_tag t('page.set_locale') -%>
-    <% end %>
+    <%= select_tag 'locale', options_from_collection_for_select(@available_languages, 'iso_639_1', 'native_name', @locale) -%>
+    <%= submit_tag t('page.set_locale') -%>
   </form>
 <%- end -%>
 </div>

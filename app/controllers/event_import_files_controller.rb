@@ -49,11 +49,7 @@ class EventImportFilesController < ApplicationController
 
     respond_to do |format|
       if @event_import_file.save!
-        #flash[:notice] = n('%{num} event is imported.', '%{num} events are imported.', num) % {:num => num[:success]}
-        #flash[:notice] += n('%{num} event is imported.', '%{num} events are imported.', num) % {:num => num[:failure]} if num[:failure] > 0
         flash[:notice] = t('controller.successfully_created', :model => t('activerecord.models.event_import_file'))
-        #flash[:notice] << t('import.will_be_imported', :minute => 60).to_s # TODO: インポートまでの時間表記
-        #@event_import_file.import
         format.html { redirect_to(@event_import_file) }
         format.xml  { render :xml => @event_import_file, :status => :created, :location => @event_import_file }
       else
