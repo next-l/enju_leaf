@@ -1213,6 +1213,7 @@ en:
     send_email: "Email this information"
     attachment_file: "Attachment file"
     question: "Question"
+    add_derivation: "Add a derivation"
   item:
     current_checkout: "Current checkout"
     donor: "Donors"
@@ -1461,7 +1462,6 @@ en:
     published: Published
     reject: Reject
     withdraw: Withdraw
-    add_derivation: "Add a derivation"
   news_feed:
     failed_to_fetch_feed: Failed to fetch feeds.
   import_request:
