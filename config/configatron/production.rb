@@ -2,3 +2,4 @@
 # 
 # Example:
 #   configatron.file.storage = :s3
+#configatron.uploaded_file.storage = :s3

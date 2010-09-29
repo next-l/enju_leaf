@@ -49,14 +49,7 @@ class PatronImportFilesController < ApplicationController
 
     respond_to do |format|
       if @patron_import_file.save
-        #num = @patron_import_file.import_patrons
-        #flash[:notice] = n('%{num} patron is imported.', '%{num} patrons are imported.', num) % {:num => num[:success]}
-        #flash[:notice] += n('%{num} patron is not imported.', '%{num} patrons are not imported.', num) % {:num => num[:failure]} if num[:failure] > 0
-        #flash[:notice] = n('%{num} user is activated.', '%{num} users are activated.', num) % {:num => num[:activated]} if num[:activated] > 0
-        #flash[:notice] = t('controller.successfully_created', :model => t('activerecord.models.patron_import_file'))
         flash[:notice] = t('controller.successfully_created', :model => t('activerecord.models.patron_import_file'))
-        #flash[:notice] << t('import.will_be_imported', :minute => 60).to_s # TODO: インポートまでの時間表記
-        #@patron_import_file.import
         format.html { redirect_to(@patron_import_file) }
         format.xml  { render :xml => @patron_import_file, :status => :created, :location => @patron_import_file }
       else

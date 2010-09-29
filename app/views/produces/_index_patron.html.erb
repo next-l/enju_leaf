@@ -35,7 +35,7 @@
 
 <div id="submenu" class="ui-corner-all">
   <ul>
-    <li><%= link_to t('page.listing', :model => t('activerecord.models.manifestation')), patron_manifestations_path(@patron) -%></li>
+    <li><%= link_to t('page.listing', :model => t('activerecord.models.manifestation')), publisher_manifestations_path(@patron) -%></li>
     <%- if can? :create, Produce -%>
       <li><%= link_to t('page.new', :model => t('activerecord.models.produce')), new_patron_produce_path(@patron) -%></li>
     <%- end -%>

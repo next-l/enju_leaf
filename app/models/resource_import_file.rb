@@ -2,7 +2,12 @@ class ResourceImportFile < ActiveRecord::Base
   default_scope :order => 'id DESC'
   scope :not_imported, :conditions => {:state => 'pending', :imported_at => nil}
 
-  has_attached_file :resource_import, :path => ":rails_root/private:url"
+  if configatron.uploaded_file.storage == :s3
+    has_attached_file :resource_import, :storage => :s3, :s3_credentials => "#{Rails.root.to_s}/config/s3.yml",
+      :path => "resource_import_files/:id/:filename"
+  else
+    has_attached_file :resource_import, :path => ":rails_root/private:url"
+  end
   validates_attachment_content_type :resource_import, :content_type => ['text/csv', 'text/plain', 'text/tab-separated-values', 'application/octet-stream']
   validates_attachment_presence :resource_import
   belongs_to :user, :validate => true
@@ -23,7 +28,11 @@ class ResourceImportFile < ActiveRecord::Base
   end
 
   def set_digest(options = {:type => 'sha1'})
-    self.file_hash = Digest::SHA1.hexdigest(File.open(self.resource_import.path, 'rb').read)
+    if configatron.uploaded_file.storage == :s3
+      self.file_hash = Digest::SHA1.hexdigest(open(self.resource_import.url).read)
+    else
+      self.file_hash = Digest::SHA1.hexdigest(File.open(self.resource_import.path, 'rb').read)
+    end
     save(:validate => false)
   end
 
@@ -33,7 +42,12 @@ class ResourceImportFile < ActiveRecord::Base
   end
 
   def import
-    unless /text\/.+/ =~ FileWrapper.get_mime(resource_import.path)
+    if configatron.uploaded_file.storage == :s3
+      mime_type = FileWrapper.get_mime(open(resource_import.url).path)
+    else
+      mime_type = FileWrapper.get_mime(resource_import.path)
+    end
+    unless /text\/.+/ =~ mime_type
       sm_fail!
       raise 'Invalid format'
     end
@@ -65,8 +79,12 @@ class ResourceImportFile < ActiveRecord::Base
           Rails.logger.info("resource registration succeeded: column #{row_num}"); next
           num[:success] += 1
         else
-          Rails.logger.info("item found: isbn #{row['isbn']}")
-          num[:found] += 1
+          if manifestation
+            Rails.logger.info("item found: isbn #{row['isbn']}")
+            num[:found] += 1
+          else
+            num[:failure] += 1
+          end
         end
       rescue Exception => e
         Rails.logger.info("resource registration failed: column #{row_num}: #{e.message}")
@@ -181,13 +199,25 @@ class ResourceImportFile < ActiveRecord::Base
 
   def open_import_file
     if RUBY_VERSION > '1.9'
-      file = CSV.open(self.resource_import.path, :col_sep => "\t")
-      header = file.first
-      rows = CSV.open(self.resource_import.path, :headers => header, :col_sep => "\t")
+      if configatron.uploaded_file.storage == :s3
+        file = CSV.open(open(self.resource_import.url).path, :col_sep => "\t")
+        header = file.first
+        rows = CSV.open(open(self.resource_import.url).path, :headers => header, :col_sep => "\t")
+      else
+        file = CSV.open(self.resource_import.path, :col_sep => "\t")
+        header = file.first
+        rows = CSV.open(self.resource_import.path, :headers => header, :col_sep => "\t")
+      end
     else
-      file = FasterCSV.open(self.resource_import.path, :col_sep => "\t")
-      header = file.first
-      rows = FasterCSV.open(self.resource_import.path, :headers => header, :col_sep => "\t")
+      if configatron.uploaded_file.storage == :s3
+        file = FasterCSV.open(open(self.resource_import.url).path, :col_sep => "\t")
+        header = file.first
+        rows = FasterCSV.open(open(self.resource_import.url).path, :headers => header, :col_sep => "\t")
+      else
+        file = FasterCSV.open(self.resource_import.path, :col_sep => "\t")
+        header = file.first
+        rows = FasterCSV.open(self.resource_import.path, :headers => header, :col_sep => "\t")
+      end
     end
     ResourceImportResult.create(:resource_import_file => self, :body => header.join("\t"))
     file.close
