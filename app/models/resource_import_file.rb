@@ -11,6 +11,7 @@ class ResourceImportFile < ActiveRecord::Base
   validates_attachment_content_type :resource_import, :content_type => ['text/csv', 'text/plain', 'text/tab-separated-values', 'application/octet-stream']
   validates_attachment_presence :resource_import
   belongs_to :user, :validate => true
+  has_many :resource_import_results
   #after_create :set_digest
 
   state_machine :initial => :pending do
@@ -112,7 +113,7 @@ class ResourceImportFile < ActiveRecord::Base
       work.series_statement = series_statement
     end
     work.creators << patrons
-    return work
+    work
   end
 
   def self.import_expression(work)
@@ -197,6 +198,17 @@ class ResourceImportFile < ActiveRecord::Base
   #  end
   #end
 
+  def remove
+    rows = self.open_import_file
+    field = rows.first
+    rows.each do |row|
+      item_identifier = row['item_identifier'].to_s.strip
+      if item = Item.first(:conditions => {:item_identifier => item_identifier})
+        item.destroy
+      end
+    end
+  end
+
   def open_import_file
     if RUBY_VERSION > '1.9'
       if configatron.uploaded_file.storage == :s3
@@ -222,17 +234,6 @@ class ResourceImportFile < ActiveRecord::Base
     ResourceImportResult.create(:resource_import_file => self, :body => header.join("\t"))
     file.close
     rows
-  end
-
-  def remove
-    rows = self.open_import_file
-    field = rows.first
-    rows.each do |row|
-      item_identifier = row['item_identifier'].to_s.strip
-      if item = Item.first(:conditions => {:item_identifier => item_identifier})
-        item.destroy
-      end
-    end
   end
 
   private
