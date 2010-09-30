@@ -2,8 +2,12 @@ class PatronImportFile < ActiveRecord::Base
   default_scope :order => 'id DESC'
   scope :not_imported, :conditions => {:state => 'pending', :imported_at => nil}
 
-  has_attached_file :patron_import, :storage => :s3, :s3_credentials => "#{Rails.root.to_s}/config/s3.yml",
-    :path => "patron_import_files/:id/:filename"
+  if configatron.uploaded_file.storage == :s3
+    has_attached_file :patron_import, :storage => :s3, :s3_credentials => "#{Rails.root.to_s}/config/s3.yml",
+      :path => "patron_import_files/:id/:filename"
+  else
+    has_attached_file :patron_import, :path => ":rails_root/private:url"
+  end
   validates_attachment_content_type :patron_import, :content_type => ['text/csv', 'text/plain', 'text/tab-separated-values', 'application/octet-stream']
   validates_attachment_presence :patron_import
   belongs_to :user, :validate => true
@@ -51,9 +55,9 @@ class PatronImportFile < ActiveRecord::Base
         rows = CSV.open(open(self.patron_import.url).path, :headers => header, :col_sep => "\t")
 
       else
-        file = CSV.open(self.patron_import.url, :col_sep => "\t")
+        file = CSV.open(self.patron_import.path, :col_sep => "\t")
         header = file.first
-        rows = CSV.open(self.patron_import.url, :headers => header, :col_sep => "\t")
+        rows = CSV.open(self.patron_import.path, :headers => header, :col_sep => "\t")
       end
     else
       if configatron.uploaded_file.storage == :s3
@@ -61,9 +65,9 @@ class PatronImportFile < ActiveRecord::Base
         header = file.first
         rows = FasterCSV.open(open(self.patron_import.url).path, :headers => header, :col_sep => "\t")
       else
-        file = FasterCSV.open(self.patron_import.url, :col_sep => "\t")
+        file = FasterCSV.open(self.patron_import.path, :col_sep => "\t")
         header = file.first
-        rows = FasterCSV.open(self.patron_import.url, :headers => header, :col_sep => "\t")
+        rows = FasterCSV.open(self.patron_import.path, :headers => header, :col_sep => "\t")
       end
     end
     PatronImportResult.create!(:patron_import_file => self, :body => header.join("\t"))

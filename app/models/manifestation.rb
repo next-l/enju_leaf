@@ -151,7 +151,11 @@ class Manifestation < ActiveRecord::Base
   enju_oai
   enju_calil_check
   has_paper_trail
-  has_attached_file :attachment
+  if configatron.uploaded_file.storage == :s3
+    has_attached_file :attachment, :storage => :s3, :s3_credentials => "#{Rails.root.to_s}/config/s3.yml"
+  else
+    has_attached_file :attachment
+  end
 
   validates_presence_of :original_title, :carrier_type, :language
   validates_associated :carrier_type, :language
