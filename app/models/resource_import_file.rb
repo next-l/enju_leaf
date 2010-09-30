@@ -102,7 +102,7 @@ class ResourceImportFile < ActiveRecord::Base
     Sunspot.commit
     rows.close
     sm_complete!
-    Rails.cache.write("resource_search_total", Manifestation.search.total)
+    Rails.cache.write("manifestation_search_total", Manifestation.search.total)
     return num
   end
 
