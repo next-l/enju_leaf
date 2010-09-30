@@ -2,8 +2,12 @@ class EventImportFile < ActiveRecord::Base
   default_scope :order => 'id DESC'
   scope :not_imported, :conditions => {:state => 'pending', :imported_at => nil}
 
-  has_attached_file :event_import, :storage => :s3, :s3_credentials => "#{Rails.root.to_s}/config/s3.yml",
-    :path => "event_import_files/:id/:filename"
+  if configatron.uploaded_file.storage == :s3
+    has_attached_file :event_import, :storage => :s3, :s3_credentials => "#{Rails.root.to_s}/config/s3.yml",
+      :path => "event_import_files/:id/:filename"
+  else
+    has_attached_file :event_import, :path => ":rails_root/private:url"
+  end
   validates_attachment_content_type :event_import, :content_type => ['text/csv', 'text/plain', 'text/tab-separated-values', 'application/octet-stream']
   validates_attachment_presence :event_import
   belongs_to :user, :validate => true
