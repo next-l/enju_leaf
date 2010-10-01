@@ -637,6 +637,7 @@ en:
         subscribes_count: Count
       message_template:
         status: Status
+        locale: Locale
         title: Title
         body: Body
         position: Position

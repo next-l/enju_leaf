@@ -6,6 +6,7 @@
   <tr>
     <th id="position"></th>
     <th><%= t('activerecord.attributes.message_template.status') -%></th>
+    <th><%= t('activerecord.attributes.message_template.locale') -%></th>
     <th><%= t('activerecord.attributes.message_template.title') -%></th>
     <th></th>
   </tr>
@@ -18,6 +19,7 @@
       <%- end -%>
     </td>
     <td><%= link_to h(message_template.status), message_template -%></td>
+    <td><%= message_template.locale -%></td>
     <td><%= message_template.title -%></td>
     <td>
       <%- if can? :destroy, message_template -%>

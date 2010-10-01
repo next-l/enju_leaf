@@ -11,6 +11,11 @@
   </p>
 
   <p>
+    <%= f.label t('activerecord.attributes.message_template.locale') -%><br />
+    <%= f.text_field :locale, :class => 'resource_locale' -%>
+  </p>
+
+  <p>
     <%= f.label t('activerecord.attributes.message_template.title') -%><br />
     <%= f.text_field :title, :class => 'resource_title' -%>
   </p>

@@ -9,4 +9,16 @@ class MessageTemplate < ActiveRecord::Base
   def self.per_page
     10
   end
+
+  def embed_body(options = {})
+    template = Erubis::Eruby.new(body)
+    context = {
+      :library_group => LibraryGroup.site_config
+    }.merge(options)
+    template.evaluate(context)
+  end
+
+  def self.localized_template(status, locale)
+    MessageTemplate.first(:conditions => {:status => status, :locale => locale}) || MessageTemplate.first(:conditions => {:status => status})
+  end
 end
