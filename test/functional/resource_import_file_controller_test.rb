@@ -76,7 +76,7 @@ class ResourceImportFilesControllerTest < ActionController::TestCase
     assert_equal old_manifestations_count + 5, Manifestation.count
     assert_equal old_items_count + 5, Item.count
     assert_equal old_patrons_count + 5, Patron.count
-    assert_equal old_import_results_count + 14, ResourceImportResult.count
+    assert_equal old_import_results_count + 15, ResourceImportResult.count
 
     assert_equal 'librarian1', assigns(:resource_import_file).user.username
     assert_redirected_to resource_import_file_path(assigns(:resource_import_file))

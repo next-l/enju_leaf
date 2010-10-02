@@ -31,6 +31,9 @@ class Manifestation < ActiveRecord::Base
       titles
     end
     text :fulltext, :note, :creator, :contributor, :publisher, :description
+    text :subject do
+      subjects.collect(&:term) + subjects.collect(&:term_transcription)
+    end
     string :title, :multiple => true
     # text フィールドだと区切りのない文字列の index が上手く作成
     #できなかったので。 downcase することにした。
@@ -47,7 +50,6 @@ class Manifestation < ActiveRecord::Base
     text :tag do
       tags.collect(&:name)
     end
-    time :created_at
     string :isbn, :multiple => true do
       [isbn, isbn10, wrong_isbn]
     end
@@ -58,7 +60,10 @@ class Manifestation < ActiveRecord::Base
       tags.collect(&:name)
     end
     string :subject, :multiple => true do
-      subjects.collect(&:term)
+      subjects.collect(&:term) + subjects.collect(&:term_transcription)
+    end
+    string :classification, :multiple => true do
+      classifications.collect(&:category)
     end
     string :carrier_type do
       carrier_type.name
@@ -71,6 +76,11 @@ class Manifestation < ActiveRecord::Base
     end
     string :item_identifier, :multiple => true do
       items.collect(&:item_identifier)
+    end
+    string :shelf, :multiple => true do
+      items.collect{|i| "#{i.shelf.library.name}_#{i.shelf.name}"}
+    end
+    string :user, :multiple => true do
     end
     time :created_at
     time :updated_at
@@ -94,7 +104,7 @@ class Manifestation < ActiveRecord::Base
     integer :number_of_pages
     float :price
     boolean :reservable do
-     self.reservable?
+      self.reservable?
     end
     integer :series_statement_id
     boolean :repository_content
@@ -145,11 +155,14 @@ class Manifestation < ActiveRecord::Base
     string :sort_title
   end
 
-  enju_amazon
   enju_manifestation_viewer
-  enju_mozshot
+  enju_amazon
   enju_oai
+  enju_mozshot
   enju_calil_check
+  #enju_cinii
+  #enju_scribd
+  #has_ipaper_and_uses 'Paperclip'
   has_paper_trail
   if configatron.uploaded_file.storage == :s3
     has_attached_file :attachment, :storage => :s3, :s3_credentials => "#{Rails.root.to_s}/config/s3.yml"
@@ -166,8 +179,13 @@ class Manifestation < ActiveRecord::Base
   validates_uniqueness_of :manifestation_identifier, :allow_blank => true
   validates_format_of :access_address, :with => URI::regexp(%w(http https)) , :allow_blank => true
   validate :check_isbn
-  before_validation :convert_isbn
+  before_validation :convert_isbn, :on => :create
+  before_validation :convert_isbn, :on => :update
   normalize_attributes :manifestation_identifier, :date_of_publication, :isbn, :issn, :nbn, :lccn
+
+  def self.per_page
+    10
+  end
 
   def check_isbn
     if isbn.present?
@@ -183,24 +201,23 @@ class Manifestation < ActiveRecord::Base
   end
 
   def convert_isbn
-    isbn = ISBN_Tools.cleanup(isbn) if isbn
-    if isbn
-      if isbn.length == 10
-        isbn10 = isbn.dup
-        isbn = ISBN_Tools.isbn10_to_isbn13(isbn)
-        isbn10 = isbn10
-      elsif isbn.length == 13
-        isbn10 = ISBN_Tools.isbn13_to_isbn10(isbn)
+    num = ISBN_Tools.cleanup(isbn) if isbn
+    if num
+      if num.length == 10
+        self.isbn10 = num
+        self.isbn = ISBN_Tools.isbn10_to_isbn13(num)
+      elsif num.length == 13
+        self.isbn10 = ISBN_Tools.isbn13_to_isbn10(num)
       end
     end
   end
 
-  def self.per_page
-    10
+  def self.cached_numdocs
+    Rails.cache.fetch("manifestation_search_total"){Manifestation.search.total}
   end
 
-  def self.cached_numdocs
-    Rails.cache.fetch("manifestation_search_total"){self.search.total}
+  def parent_of_series
+    original_manifestations
   end
 
   def next_reservation
@@ -213,28 +230,6 @@ class Manifestation < ActiveRecord::Base
       return true if works.first.original_title == original_title
     end
     false
-  end
-
-  def questions(options = {})
-    id = self.id
-    options = {:page => 1, :per_page => Question.per_page}.merge(options)
-    page = options[:page]
-    per_page = options[:per_page]
-    user = options[:user]
-    Question.search do
-      with(:manifestation_id).equal_to id
-      any_of do
-        unless user.try(:has_role?, 'Librarian')
-          with(:shared).equal_to true
-        #  with(:username).equal_to user.try(:username)
-        end
-      end
-      paginate :page => page, :per_page => per_page
-    end.results
-  end
-
-  def web_item
-    items.first(:conditions => {:shelf_id => Shelf.web.id})
   end
 
   def serial?
@@ -251,7 +246,7 @@ class Manifestation < ActiveRecord::Base
   end
 
   def tags
-    unless self.bookmarks.empty?
+    if self.bookmarks.first
       self.bookmarks.tag_counts
     else
       []
@@ -287,11 +282,6 @@ class Manifestation < ActiveRecord::Base
 0
  end
   
-  def reservable?
-    return false if self.items.for_checkout.empty?
-    true
-  end
-
   def patrons
     (creators + contributors + publishers).flatten
   end
@@ -328,6 +318,11 @@ class Manifestation < ActiveRecord::Base
     self
   end
 
+  def reservable?
+    return false if self.items.for_checkout.empty?
+    true
+  end
+
   def is_reserved_by(user = nil)
     if user
       Reserve.waiting.first(:conditions => {:user_id => user.id, :manifestation_id => self.id})
@@ -349,19 +344,23 @@ class Manifestation < ActiveRecord::Base
   end
 
   def creator
-    creators.collect(&:full_name)
+    creators.collect(&:name).flatten
   end
 
   def contributor
-    contributors.collect(&:full_name)
+    contributors.collect(&:name).flatten
   end
 
   def publisher
-    publishers.collect(&:full_name)
+    publishers.collect(&:name).flatten
   end
 
   def title
     titles
+  end
+
+  def hyphenated_isbn
+    ISBN_Tools.hyphenate(isbn)
   end
 
   # TODO: よりよい推薦方法
@@ -404,10 +403,6 @@ class Manifestation < ActiveRecord::Base
     text.close
   end
 
-  def parent_of_series
-    original_manifestations
-  end
-
   def created(patron)
     creates.first(:conditions => {:patron_id => patron.id})
   end
@@ -418,6 +413,14 @@ class Manifestation < ActiveRecord::Base
 
   def produced(patron)
     produces.first(:conditions => {:patron_id => patron.id})
+  end
+
+  def sort_title
+    NKF.nkf('-w --katakana', title_transcription) if title_transcription
+  end
+
+  def classifications
+    subjects.collect(&:classifications).flatten
   end
 
   def volume_number
@@ -432,7 +435,36 @@ class Manifestation < ActiveRecord::Base
     serial_number_list.gsub(/\D/, ' ').split(" ") if serial_number_list
   end
 
-  def sort_title
-    NKF.nkf('-w --katakana', title_transcription) if title_transcription
+  def questions(options = {})
+    id = self.id
+    options = {:page => 1, :per_page => Question.per_page}.merge(options)
+    page = options[:page]
+    per_page = options[:per_page]
+    user = options[:user]
+    Question.search do
+      with(:manifestation_id).equal_to id
+      any_of do
+        unless user.try(:has_role?, 'Librarian')
+          with(:shared).equal_to true
+        #  with(:username).equal_to user.try(:username)
+        end
+      end
+      paginate :page => page, :per_page => per_page
+    end.results
+  end
+
+  def web_item
+    items.first(:conditions => {:shelf_id => Shelf.web.id})
+  end
+
+  def self.find_by_isbn(isbn)
+    if ISBN_Tools.is_valid?(isbn)
+      ISBN_Tools.cleanup!(isbn)
+      if isbn.size == 10
+        Manifestation.first(:conditions => {:isbn => ISBN_Tools.isbn10_to_isbn13(isbn)}) || Manifestation.first(:conditions => {:isbn => isbn})
+      else
+        Manifestation.first(:conditions => {:isbn => isbn}) || Manifestation.first(:conditions => {:isbn => ISBN_Tools.isbn13_to_isbn10(isbn)})
+      end
+    end
   end
 end
