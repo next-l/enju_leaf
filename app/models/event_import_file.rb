@@ -11,6 +11,7 @@ class EventImportFile < ActiveRecord::Base
   validates_attachment_content_type :event_import, :content_type => ['text/csv', 'text/plain', 'text/tab-separated-values', 'application/octet-stream']
   validates_attachment_presence :event_import
   belongs_to :user, :validate => true
+  has_many :event_import_results
   #after_create :set_digest
 
   state_machine :initial => :pending do

@@ -327,6 +327,10 @@ input.resource_title{
   width: 30em;
 }
 
+input.resource_locale{
+  width: 10em;
+}
+
 input.resource_email{
   width: 20em;
   ime-mode: disabled;

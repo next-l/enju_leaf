@@ -53,17 +53,12 @@ class MessageRequest < ActiveRecord::Base
     self.message_template.title
   end
 
-  def embed_body(options = {})
-    # TODO: ERBで書き直す
-    # テンプレートに実際の本文を組み込む
-    # :manifestations を指定する
-    template = Erubis::Eruby.new(self.message_template.body)
-    context = {
+  def save_message_body(options = {})
+    options = {
       :receiver => self.receiver.patron,
-      :manifestations => options[:manifestations],
-      :library_system => LibraryGroup.site_config
-    }
-    self.update_attributes!({:body => template.evaluate(context)})
+      :locale => self.receiver.locale
+    }.merge(options)
+    self.update_attributes!({:body => self.message_template.embed_body(options)})
   end
 
   def self.send_messages
