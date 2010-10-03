@@ -24,7 +24,7 @@ class User < ActiveRecord::Base
   has_one :role, :through => :user_has_role
   has_many :bookmarks, :dependent => :destroy
   has_many :reserves, :dependent => :destroy
-  has_many :reserved_manifestations, :through => :reserves, :source => :resource
+  has_many :reserved_manifestations, :through => :reserves, :source => :manifestation
   has_many :questions
   has_many :answers
   has_many :search_histories, :dependent => :destroy
@@ -241,9 +241,8 @@ class User < ActiveRecord::Base
       request = MessageRequest.new
       request.sender = User.find(1) # TODO: システムからのメッセージ送信者
       request.receiver = self
-      request.message_template = MessageTemplate.find_by_status(status)
-      request.embed_body(options)
-      request.save!
+      request.message_template = MessageTemplate.localized_template(status, self.locale)
+      request.save_message_body(options)
       request.sm_send_message!
     end
   end

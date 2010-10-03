@@ -138,7 +138,7 @@ class Item < ActiveRecord::Base
         reservation.sm_retain!
         reservation.update_attributes({:request_status_type => RequestStatusType.find_by_name('Available For Pickup')})
         request = MessageRequest.new(:sender_id => librarian.id, :receiver_id => reservation.user_id)
-        message_template = MessageTemplate.find_by_status('item_received')
+        message_template = MessageTemplate.localized_template('item_received', reservation.user.locale)
         request.message_template = message_template
         request.save!
       end

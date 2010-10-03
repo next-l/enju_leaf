@@ -637,6 +637,7 @@ ja:
         subscribes_count: 購読数
       message_template:
         status: 状態
+        locale: 言語
         title: タイトル
         body: 本文
         position: 位置
