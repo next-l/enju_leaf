@@ -266,7 +266,7 @@ class Manifestation < ActiveRecord::Base
 
   def url
     #access_address
-    "#{LibraryGroup.url}#{self.to_s.tablelize}/#{self.id}"
+    "#{LibraryGroup.url}#{self.class.to_s.tableize}/#{self.id}"
   end
 
   def available_checkout_types(user)
