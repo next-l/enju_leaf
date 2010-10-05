@@ -3,7 +3,7 @@
 	"test2"	"manifestation_identifierなし、item_identifierあり"						"test;test1"											10101			
 101	"test3"	"manifestation_identifierあり、item_identifierなし"						"test"	"test2"													
 102	"test4"	"manifestation_identifierあり、item_identifierあり"						"test1"	"test"										10102			
-101	"test5"	"manifestation_identifier重複、item_identifier非重複"						"test1;test2"	"test"										10103			
+101	"“test 5”"	"manifestation_identifier重複、item_identifier非重複"						"test1;test2"	"test"										10103			
 102	"test6"	"manifestation_identifier重複、item_identifier重複"						"test"	"test3"										10101			
 	"test7"	"ISBN不正、タイトルあり、所蔵情報あり"											9000000000000					"first_shelf"	10104			
 		"ISBN不正、タイトルなし"											22222222						10105			
@@ -13,3 +13,4 @@
 		"ISBN重複、item_identifier非重複"											4798002062						11112			
 		"ISBN重複、item_identifier重複"											4798002062						11111			
 		"ISBN重複（13桁）、item_identifierなし"											"978-4798002064"									
+103	"ダブル""クォート""を含む資料"	"ダブルクォートを含む資料"																				
