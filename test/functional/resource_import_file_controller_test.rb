@@ -73,14 +73,15 @@ class ResourceImportFilesControllerTest < ActionController::TestCase
     end
     # 後でバッチで処理する
     assigns(:resource_import_file).import_start
-    assert_equal old_manifestations_count + 5, Manifestation.count
+    assert_equal old_manifestations_count + 6, Manifestation.count
     assert_equal old_items_count + 5, Item.count
     assert_equal old_patrons_count + 5, Patron.count
-    assert_equal old_import_results_count + 15, ResourceImportResult.count
+    assert_equal old_import_results_count + 16, ResourceImportResult.count
 
     assert_equal 'librarian1', assigns(:resource_import_file).user.username
     assert_redirected_to resource_import_file_path(assigns(:resource_import_file))
     assert_equal 2, Item.find_by_item_identifier('10101').manifestation.creators.size
+    assert_equal 'ダブル"クォート"を含む資料', Manifestation.find_by_manifestation_identifier('103').original_title
     assert_nil Item.find_by_item_identifier('10104')
     item = Item.find_by_item_identifier('11111')
     assert_equal Shelf.find_by_name('first_shelf'), item.shelf
