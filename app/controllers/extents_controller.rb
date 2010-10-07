@@ -13,9 +13,8 @@ class ExtentsController < InheritedResources::Base
     update!
   end
 
-  protected
-  def collection
-    @extents ||= end_of_association_chain.paginate(:page => params[:page])
+  def index
+    @extents = @extents.paginate(:page => params[:page])
   end
 
   private

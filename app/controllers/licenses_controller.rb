@@ -13,9 +13,8 @@ class LicensesController < InheritedResources::Base
     update!
   end
 
-  protected
-  def collection
-    @licenses ||= end_of_association_chain.paginate(:page => params[:page])
+  def index
+    @licenses = @licenses.paginate(:page => params[:page])
   end
 
   private

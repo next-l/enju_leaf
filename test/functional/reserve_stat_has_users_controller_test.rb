@@ -7,14 +7,14 @@ class ReserveStatHasUsersControllerTest < ActionController::TestCase
     get :index
     assert_response :redirect
     assert_redirected_to new_user_session_url
-    assert_nil assigns(:reserve_stat_has_users)
+    assert_equal assigns(:reserve_stat_has_users), []
   end
 
   test "user should not get index" do
     sign_in users(:user1)
     get :index
     assert_response :forbidden
-    assert_nil assigns(:reserve_stat_has_users)
+    assert_equal assigns(:reserve_stat_has_users), []
   end
 
   test "librarian should get index" do

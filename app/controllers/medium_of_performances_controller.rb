@@ -13,9 +13,8 @@ class MediumOfPerformancesController < InheritedResources::Base
     update!
   end
 
-  protected
-  def collection
-    @medium_of_performances ||= end_of_association_chain.paginate(:page => params[:page])
+  def index
+    @medium_of_performances = @medium_of_performances.paginate(:page => params[:page])
   end
 
   private

@@ -179,8 +179,7 @@ class Manifestation < ActiveRecord::Base
   validates_uniqueness_of :manifestation_identifier, :allow_blank => true
   validates_format_of :access_address, :with => URI::regexp(%w(http https)) , :allow_blank => true
   validate :check_isbn
-  before_validation :convert_isbn, :on => :create
-  before_validation :convert_isbn, :on => :update
+  before_validation :convert_isbn
   normalize_attributes :manifestation_identifier, :date_of_publication, :isbn, :issn, :nbn, :lccn
 
   def self.per_page

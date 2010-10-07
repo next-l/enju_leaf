@@ -5,8 +5,7 @@ class PatronImportResultsController < InheritedResources::Base
   load_and_authorize_resource
   has_scope :file_id
 
-  protected
-  def collection
-    @patron_import_results ||= end_of_association_chain.paginate(:page => params[:page])
+  def index
+    @patron_import_results = @patron_import_results.paginate(:page => params[:page])
   end
 end

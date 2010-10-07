@@ -11,14 +11,14 @@ class PatronImportResultsControllerTest < ActionController::TestCase
     get :index
     assert_response :redirect
     assert_redirected_to new_user_session_url
-    assert_nil assigns(:patron_import_results)
+    assert_equal assigns(:patron_import_results), []
   end
 
   test "user should not get index" do
     sign_in users(:user1)
     get :index
     assert_response :forbidden
-    assert_nil assigns(:patron_import_results)
+    assert_equal assigns(:patron_import_results), []
   end
 
   test "librarian should not get index" do

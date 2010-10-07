@@ -13,9 +13,8 @@ class SearchEnginesController < InheritedResources::Base
     update!
   end
 
-  protected
-  def collection
-    @search_engines ||= end_of_association_chain.paginate(:page => params[:page])
+  def index
+    @search_engines = @search_engines.paginate(:page => params[:page])
   end
 
   private

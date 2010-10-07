@@ -1,7 +1,7 @@
 class Ability
   include CanCan::Ability
 
-  def initialize(user)
+  def initialize(user, ip_address)
     case user.try(:role).try(:name)
     when 'Administrator'
       can :manage, :all
@@ -18,7 +18,7 @@ class Ability
         patron.user.role.name != 'Administrator' if patron.user
       end
       can :manage, User
-      can :read, [Bookstore, Donate]
+      can :read, Bookstore
       can :manage, [Basket, Checkout, Checkin]
       can :read, Subject
       can :manage, Bookmark

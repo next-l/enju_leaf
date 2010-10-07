@@ -26,6 +26,11 @@ class PatronsController < ApplicationController
       end
     end
     query = params[:query].to_s.strip
+
+    if query.size == 1
+      query = "#{query}*"
+    end
+
     @query = query.dup
     query = query.gsub('　', ' ')
     order = nil
@@ -98,9 +103,12 @@ class PatronsController < ApplicationController
     when @item
       @patron = @item.patrons.find(params[:id])
     else
-      @patron = Patron.find(params[:id])
+      if @version
+        @patron = @patron.versions.find(@version).item if @version
+      else
+        @patron = Patron.find(params[:id])
+      end
     end
-    @patron = @patron.versions.find(@version).item if @version
 
     @works = @patron.works.paginate(:page => params[:work_list_page], :per_page => Manifestation.per_page)
     @expressions = @patron.expressions.paginate(:page => params[:expression_list_page], :per_page => Manifestation.per_page)

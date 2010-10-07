@@ -7,7 +7,7 @@ class PurchaseRequestsControllerTest < ActionController::TestCase
     get :index
     assert_response :redirect
     assert_redirected_to new_user_session_url
-    assert_nil assigns(:purchase_requests)
+    assert_equal assigns(:purchase_requests), []
   end
 
   def test_user_should_be_redirected_to_my_index_without_user_id
@@ -42,7 +42,7 @@ class PurchaseRequestsControllerTest < ActionController::TestCase
     sign_in users(:user1)
     get :index, :user_id => users(:librarian1).username
     assert_response :forbidden
-    assert_nil assigns(:purchase_requests)
+    assert_equal assigns(:purchase_requests), []
   end
 
   def test_librarian_should_get_other_index_without_user_id
