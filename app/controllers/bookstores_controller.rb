@@ -13,9 +13,8 @@ class BookstoresController < InheritedResources::Base
     update!
   end
 
-  protected
-  def collection
-    @bookstores ||= end_of_association_chain.paginate(:page => params[:page])
+  def index
+    @bookstores = Bookstore.paginate(:page => params[:page])
   end
 
   private

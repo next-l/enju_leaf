@@ -5,8 +5,7 @@ class EventImportResultsController < InheritedResources::Base
   load_and_authorize_resource
   has_scope :file_id
 
-  protected
-  def collection
-    @event_import_results ||= end_of_association_chain.paginate(:page => params[:page])
+  def index
+    @event_import_results = @event_import_results.paginate(:page => params[:page])
   end
 end

@@ -16,7 +16,7 @@ class Bookmark < ActiveRecord::Base
   before_save :replace_space_in_tags
   after_create :create_frbr_object
   after_save :save_manifestation
-  after_destroy :save_manifestation
+  after_destroy :reindex_manifestation
 
   acts_as_taggable_on :tags
   normalize_attributes :url
@@ -54,6 +54,9 @@ class Bookmark < ActiveRecord::Base
 
   def save_manifestation
     self.manifestation.save
+  end
+
+  def reindex_manifestation
     self.manifestation.index!
   end
 

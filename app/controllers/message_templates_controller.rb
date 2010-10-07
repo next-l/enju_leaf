@@ -13,9 +13,8 @@ class MessageTemplatesController < InheritedResources::Base
     update!
   end
 
-  protected
-  def collection
-    @message_templates ||= end_of_association_chain.paginate(:page => params[:page])
+  def index
+    @message_templates = MessageTemplate.paginate(:page => params[:page])
   end
 
   private

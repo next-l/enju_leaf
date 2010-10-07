@@ -13,9 +13,8 @@ class EventCategoriesController < InheritedResources::Base
     update!
   end
 
-  protected
-  def collection
-    @event_categories ||= end_of_association_chain.paginate(:page => params[:page])
+  def index
+    @event_categories = @event_categories.paginate(:page => params[:page])
   end
 
   private

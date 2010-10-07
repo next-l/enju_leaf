@@ -13,9 +13,8 @@ class CountriesController < InheritedResources::Base
     update!
   end
 
-  protected
-  def collection
-    @countries ||= end_of_association_chain.paginate(:page => params[:page])
+  def index
+    @countries = @countries.paginate(:page => params[:page])
   end
 
   private
