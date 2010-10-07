@@ -257,9 +257,12 @@ class ManifestationsController < ApplicationController
         raise ActiveRecord::RecordNotFound if @manifestation.nil?
       end
     else
-      @manifestation = Manifestation.find(params[:id], :include => [:creators, :contributors, :publishers, :items])
+      if @version
+        @manifestation = @manifestation.versions.find(@version).item if @version
+      else
+        @manifestation = Manifestation.find(params[:id], :include => [:creators, :contributors, :publishers, :items])
+      end
     end
-    @manifestation = @manifestation.versions.find(@version).item if @version
 
     case params[:mode]
     when 'send_email'
@@ -418,6 +421,11 @@ class ManifestationsController < ApplicationController
   def make_query(query, options = {})
     # TODO: integerやstringもqfに含める
     query = query.to_s.strip
+
+    if query.size == 1
+      query = "#{query}*"
+    end
+
     if options[:mode] == 'recent'
       query = "#{query} created_at_d: [NOW-1MONTH TO NOW]"
     end

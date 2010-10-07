@@ -7,14 +7,14 @@ class BookmarkStatHasManifestationsControllerTest < ActionController::TestCase
     get :index
     assert_response :redirect
     assert_redirected_to new_user_session_url
-    assert_nil assigns(:bookmark_stat_has_manifestations)
+    assert_equal assigns(:bookmark_stat_has_manifestations), []
   end
 
   test "user should not get index" do
     sign_in users(:user1)
     get :index
     assert_response :forbidden
-    assert_nil assigns(:bookmark_stat_has_manifestations)
+    assert_equal assigns(:bookmark_stat_has_manifestations), []
   end
 
   test "librarian should get index" do

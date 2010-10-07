@@ -5,8 +5,7 @@ class ResourceImportResultsController < InheritedResources::Base
   load_and_authorize_resource
   has_scope :file_id
 
-  protected
-  def collection
-    @resource_import_results ||= end_of_association_chain.paginate(:page => params[:page])
+  def index
+    @resource_import_results = @resource_import_results.paginate(:page => params[:page])
   end
 end

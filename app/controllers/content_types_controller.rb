@@ -13,9 +13,8 @@ class ContentTypesController < InheritedResources::Base
     update!
   end
 
-  protected
-  def collection
-    @content_types ||= end_of_association_chain.paginate(:page => params[:page])
+  def index
+    @content_types = @content_types.paginate(:page => params[:page])
   end
 
   private

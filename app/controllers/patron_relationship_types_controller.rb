@@ -13,11 +13,6 @@ class PatronRelationshipTypesController < InheritedResources::Base
     update!
   end
 
-  protected
-  def collection
-    @patron_relationship_types ||= end_of_association_chain.paginate(:page => params[:page])
-  end
-
   private
   def interpolation_options
     {:resource_name => t('activerecord.models.patron_relationship_type')}

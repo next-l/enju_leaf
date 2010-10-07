@@ -13,9 +13,8 @@ class PatronTypesController < InheritedResources::Base
     update!
   end
 
-  protected
-  def collection
-    @patron_types ||= end_of_association_chain.paginate(:page => params[:page])
+  def index
+    @patron_types = @patron_types.paginate(:page => params[:page])
   end
 
   private

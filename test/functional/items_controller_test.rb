@@ -45,7 +45,7 @@ class ItemsControllerTest < ActionController::TestCase
     assert_response :redirect
     assert_redirected_to new_user_session_url
     assert assigns(:inventory_file)
-    assert_nil assigns(:items)
+    assert_not_nil assigns(:items)
   end
 
   def test_user_should_get_index

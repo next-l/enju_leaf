@@ -42,8 +42,8 @@ class Item < ActiveRecord::Base
   validates_format_of :item_identifier, :with=>/\A\w+\Z/, :allow_blank => true
   before_validation :set_circulation_status, :on => :create
   #after_create :create_lending_policy
-  after_save :save_manifestation
-  after_destroy :save_manifestation
+  #after_save :save_manifestation
+  #after_destroy :save_manifestation
 
   #enju_union_catalog
   has_paper_trail

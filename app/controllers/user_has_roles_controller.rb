@@ -3,9 +3,8 @@ class UserHasRolesController < InheritedResources::Base
   before_filter :check_client_ip_address
   load_and_authorize_resource
 
-  protected
-  def collection
-    @user_has_roles ||= end_of_association_chain.paginate(:page => params[:page])
+  def index
+    @user_has_roles = @user_has_roles.paginate(:page => params[:page])
   end
 
   private

@@ -51,7 +51,7 @@ class BookmarksControllerTest < ActionController::TestCase
     sign_in users(:user2)
     get :index, :user_id => users(:user1).username
     assert_response :forbidden
-    assert_nil assigns(:bookmarks)
+    assert_equal assigns(:bookmarks), []
   end
 
   def test_guest_should_not_get_new

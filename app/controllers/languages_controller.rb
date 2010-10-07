@@ -13,9 +13,8 @@ class LanguagesController < InheritedResources::Base
     update!
   end
 
-  protected
-  def collection
-    @languages ||= end_of_association_chain.paginate(:page => params[:page])
+  def index
+    @languages = @languages.paginate(:page => params[:page])
   end
 
   private
