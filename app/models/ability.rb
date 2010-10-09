@@ -155,7 +155,7 @@ class Ability
       can [:show, :destroy], SearchHistory do |search_history|
         search_history.try(:user) == user
       end
-      can :read, [PatronRelationshipType, ManifestationRelationshipType]
+      can :read, [PatronRelationship, ManifestationRelationship]
       can :read, SeriesStatement
     else
       can :read, Manifestation
@@ -197,6 +197,7 @@ class Ability
       can :index, Checkout
       can :read, [PatronRelationshipType, ManifestationRelationshipType]
       can :read, SeriesStatement
+      can :read, [PatronRelationship, ManifestationRelationship]
     end
   end
 end
