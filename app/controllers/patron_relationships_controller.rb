@@ -1,4 +1,5 @@
 class PatronRelationshipsController < InheritedResources::Base
+  load_and_authorize_resource
   before_filter :prepare_options, :except => [:index, :destroy]
 
   def prepare_options
