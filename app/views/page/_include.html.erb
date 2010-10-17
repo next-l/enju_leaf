@@ -9,10 +9,17 @@
   'smoothness/fg.menu', 'smoothness/fg.menu.button',
   #:cache => 'include_jquery'
 %>
+<<<<<<< HEAD
 <%= javascript_include_tag 'jquery-1.4.2.min', 'jquery-ui-1.8.5.custom.min',
   'jquery.highlight-3', 'jquery.colorbox-min', 'jquery.hotkeys',
   'jquery.cookie', 'fg.menu', 'fg.menu.enju', 'pagination', 'rails' #,
   #:cache => 'include'
+=======
+<%= javascript_include_tag 'jquery-1.4.3.min', 'jquery-ui-1.8.5.custom.min',
+  'jquery.highlight-3', 'jquery.hotkeys', 'jquery.colorbox-min',
+  'jquery.cookie', 'fg.menu', 'fg.menu.enju', 'pagination', 'rails',
+  :cache => 'include'
+>>>>>>> eee4f041bc67248933763efd182021f1bdc857eb
 %>
 <%= csrf_meta_tag %>
 <% if controller_name == 'manifestations' %>

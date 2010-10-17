@@ -14,11 +14,7 @@ module ManifestationsHelper
 
   def back_to_manifestation_index
     if session[:params]
-<<<<<<< HEAD
-      params = session[:params].merge(:view => nil, :controller => :manifestation)
-=======
       params = session[:params].merge(:view => nil, :controller => :manifestations)
->>>>>>> 8bd269c5ef79b76efe6c5f56b85c5e2d58c86909
       link_to t('page.back_to_search_results'), url_for(params)
     else
       link_to t('page.back'), :back
