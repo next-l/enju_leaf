@@ -132,12 +132,12 @@ EnjuLeaf::Application.routes.draw do
   resources :inventories
   resources :donates
   resources :subscriptions do
-    resources :resources
+    resources :manifestations
   end
   resources :subscribes
   resources :picture_files
   resources :series_statements do
-    resources :manifestations, :controller => :resources
+    resources :manifestations, :controller => :manifestations
   end
   resources :barcodes
   resources :message_requests

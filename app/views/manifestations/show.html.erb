@@ -128,7 +128,7 @@
               <li><%= link_to t('manifestation.add_next_issue'), new_series_statement_manifestation_path(@manifestation.series_statement) if @manifestation.series_statement -%></li>
             <%- end -%>
           </ul>
-          <li><%= link_to t('resource.add_derivation'), manifestation_manifestations_path(@manifestation, :mode => 'add') -%></li>
+          <li><%= link_to t('manifestation.add_derivation'), manifestation_manifestations_path(@manifestation, :mode => 'add') -%></li>
           <li><%= link_to t('manifestation.edit_item'), manifestation_items_path(@manifestation) -%></li>
         </ul>
       <%- end -%>

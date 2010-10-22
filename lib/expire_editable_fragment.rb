@@ -20,7 +20,7 @@ module ExpireEditableFragment
 
   def expire_manifestation_cache(manifestation, fragments)
     fragments = %w[detail pickup book_jacket title picture_file title_reserve show_list edit_list reserve_list] if fragments.nil?
-    expire_fragment(:controller => :resources, :action => :index, :page => 'numdocs')
+    expire_fragment(:controller => :manifestations, :action => :index, :page => 'numdocs')
     fragments.each do |fragment|
       expire_manifestation_fragment(manifestation, fragment)
     end
@@ -35,7 +35,7 @@ module ExpireEditableFragment
       I18n.available_locales.each do |locale|
         Rails.cache.fetch('role_all'){Role.all}.each do |role|
           formats.each do |format|
-            expire_fragment(:controller => :resources, :action => :show, :id => manifestation.id, :role => role.name, :locale => locale.to_s, :page => fragment, :format => format)
+            expire_fragment(:controller => :manifestations, :action => :show, :id => manifestation.id, :role => role.name, :locale => locale.to_s, :page => fragment, :format => format)
           end
         end
       end

@@ -128,7 +128,7 @@ ja:
       medium_of_performance: 演奏手段
       content_type: 内容の種類
       patron_relationship_type: 人物・団体の関係の種類
-      resource_relationship_type: 資料の関係の種類
+      manifestation_relationship_type: 資料の関係の種類
       lending_policy: 貸出規則
       nii_type: NIIメタデータタイプ
       license: ライセンス
@@ -143,7 +143,7 @@ ja:
       resource: 資料
       user_has_role: 利用者と権限
       patron_relationship: 著者・編者・出版社の関係
-      resource_relationship: 資料の関係
+      manifestation_relationship: 資料の関係
       resource_import_result: 資料情報インポートの結果
       patron_import_result: 人物・団体情報インポートの結果
       event_import_result: 催し物情報インポートの結果
@@ -599,8 +599,8 @@ ja:
         wrong_isbn: 間違ったISBNコード
         nbn: Nbn
         price: 価格
-        volume_number_list: 巻号
-        issue_number_list: 号数
+        volume_number_list: 巻
+        issue_number_list: 号
         serial_number_list: 通号
         edition: 版
         note: 注記
@@ -976,10 +976,10 @@ ja:
         parent_id: 派生元の人物・団体
         child_id: 派生先の人物・団体
         patron_relationship_type_id: 人物・団体の関係の種類
-      resource_relationship:
+      manifestation_relationship:
         parent_id: 派生元の資料
         child_id: 派生先の資料
-        resource_relationship_type_id: 資料の関係の種類
+        manifestation_relationship_type_id: 資料の関係の種類
 
   page:
     user_title: "ようこそ %{login_name} さん"

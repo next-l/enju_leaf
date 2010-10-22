@@ -1,8 +1,8 @@
 <p>
-  <%= f.label t('activerecord.attributes.manifestation.edition') -%>
-  <%= f.text_field :edition, :class => 'resource_integer' -%>
   <%= f.label t('activerecord.attributes.manifestation.volume_number_list') -%>
   <%= f.text_field :volume_number_list, :class => 'resource_integer' -%>
+  <%= f.label t('activerecord.attributes.manifestation.issue_number_list') -%>
+  <%= f.text_field :issue_number_list, :class => 'resource_integer' -%>
   <%= f.label t('activerecord.attributes.manifestation.serial_number_list') -%>
   <%= f.text_field :serial_number_list, :class => 'resource_integer', :style => 'ime-mode: disabled' -%>
 </p>

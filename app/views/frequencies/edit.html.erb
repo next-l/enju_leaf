@@ -7,7 +7,12 @@
 
   <p>
     <%= f.label t('activerecord.attributes.frequency.name') -%><br />
-    <%= f.text_area :name, :class => 'resource_textarea' -%>
+    <%= f.text_field :name, :class => 'resource_title' -%>
+  </p>
+
+  <p>
+    <%= f.label t('activerecord.attributes.frequency.display_name') -%><br />
+    <%= f.text_area :display_name, :class => 'resource_textarea' -%>
   </p>
 
   <p>
