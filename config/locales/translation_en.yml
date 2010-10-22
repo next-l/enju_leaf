@@ -127,7 +127,7 @@ en:
       medium_of_performance: Medium of performance
       content_type: Content type
       patron_relationship_type: Patron relationship type
-      resource_relationship_type: Resource relationship type
+      manifestation_relationship_type: Resource relationship type
       lending_policy: Lending policy
       nii_type: NII metadata type
       license: License
@@ -142,7 +142,7 @@ en:
       resource: Resource
       user_has_role: User and roles
       patron_relationship: Patron relationship
-      resource_relationship: Resource relationship
+      manifestation_relationship: Resource relationship
       resource_import_result: Resource Import Result
       patron_import_result: Patron Import Result
       event_import_result: Event Import Result

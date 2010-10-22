@@ -16,8 +16,8 @@ class User < ActiveRecord::Base
   has_many :import_requests
   has_many :sent_messages, :foreign_key => 'sender_id', :class_name => 'Message'
   has_many :received_messages, :foreign_key => 'receiver_id', :class_name => 'Message'
-  has_many :user_has_shelves
-  has_many :shelves, :through => :user_has_shelves
+  #has_many :user_has_shelves
+  #has_many :shelves, :through => :user_has_shelves
   has_many :picture_files, :as => :picture_attachable, :dependent => :destroy
   has_many :import_requests
   has_one :user_has_role
@@ -164,7 +164,7 @@ class User < ActiveRecord::Base
   end
 
   def set_auto_generated_password
-    password = Devise.friendly_token
+    password = Devise.friendly_token[0..7]
     self.reset_password!(password, password)
   end
 

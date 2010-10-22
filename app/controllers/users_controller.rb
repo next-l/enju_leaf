@@ -229,6 +229,7 @@ class UsersController < ApplicationController
       if @user.save
         #self.current_user = @user
         flash[:notice] = t('controller.successfully_created.', :model => t('activerecord.models.user'))
+        flash[:temporary_password] = @user.password
         format.html { redirect_to user_url(@user.username) }
         #format.html { redirect_to new_user_patron_url(@user.username) }
         format.xml  { head :ok }
