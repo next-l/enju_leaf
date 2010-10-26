@@ -163,7 +163,6 @@ module EnjuNdl
         :transcription => doc.xpath('//item[1]/dcndl:titleTranscription').collect(&:content).join(' '), #.tr('ａ-ｚＡ-Ｚ０-９　', 'a-zA-Z0-9 ').squeeze(' ')
         :original => doc.xpath('//dcterms:alternative').collect(&:content).join(' ') #.tr('ａ-ｚＡ-Ｚ０-９　', 'a-zA-Z0-9 ').squeeze(' ')
       }
-      return title
     end
 
     def get_authors(doc)
