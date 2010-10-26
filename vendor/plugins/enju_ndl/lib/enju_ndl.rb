@@ -114,20 +114,22 @@ module EnjuNdl
       xml = get_crd_response(params)
       doc = Nokogiri::XML(xml)
 
-      response = {}
-      response[:results_num] = doc.at('//xmlns:hit_num').try(:content).to_i
-      response[:results] = []
+      response = {
+        :results_num => doc.at('//xmlns:hit_num').try(:content).to_i,
+        :results => []
+      }
       doc.xpath('//xmlns:result').each do |result|
-        set = {}
-        set[:question] = result.at('QUESTION').try(:content)
-        set[:reg_id] = result.at('REG-ID').try(:content)
-        set[:answer] = result.at('ANSWER').try(:content)
-        set[:crt_date] = result.at('CRT-DATE').try(:content)
-        set[:solution] = result.at('SOLUTION').try(:content)
-        set[:lib_id] = result.at('LIB-ID').try(:content)
-        set[:lib_name] = result.at('LIB-NAME').try(:content)
-        set[:url] = result.at('URL').try(:content)
-        set[:ndc] = result.at('NDC').try(:content)
+        set = {
+          :question => result.at('QUESTION').try(:content),
+          :reg_id => result.at('REG-ID').try(:content),
+          :answer => result.at('ANSWER').try(:content),
+          :crt_date => result.at('CRT-DATE').try(:content),
+          :solution => result.at('SOLUTION').try(:content),
+          :lib_id => result.at('LIB-ID').try(:content),
+          :lib_name => result.at('LIB-NAME').try(:content),
+          :url => result.at('URL').try(:content),
+          :ndc => result.at('NDC').try(:content)
+        }
         begin
           set[:keyword] = result.xpath('xmlns:KEYWORD').collect(&:content)
         rescue NoMethodError
@@ -156,10 +158,11 @@ module EnjuNdl
     end
 
     def get_title(doc)
-      title = {}
-      title[:manifestation] = doc.xpath('//item[1]/title').collect(&:content).join(' ') #.tr('ａ-ｚＡ-Ｚ０-９　', 'a-zA-Z0-9 ').squeeze(' ')
-      title[:transcription] = doc.xpath('//item[1]/dcndl:titleTranscription').collect(&:content).join(' ') #.tr('ａ-ｚＡ-Ｚ０-９　', 'a-zA-Z0-9 ').squeeze(' ')
-      title[:original] = doc.xpath('//dcterms:alternative').collect(&:content).join(' ') #.tr('ａ-ｚＡ-Ｚ０-９　', 'a-zA-Z0-9 ').squeeze(' ')
+      title = {
+        :manifestation => doc.xpath('//item[1]/title').collect(&:content).join(' '), #.tr('ａ-ｚＡ-Ｚ０-９　', 'a-zA-Z0-9 ').squeeze(' ')
+        :transcription => doc.xpath('//item[1]/dcndl:titleTranscription').collect(&:content).join(' '), #.tr('ａ-ｚＡ-Ｚ０-９　', 'a-zA-Z0-9 ').squeeze(' ')
+        :original => doc.xpath('//dcterms:alternative').collect(&:content).join(' ') #.tr('ａ-ｚＡ-Ｚ０-９　', 'a-zA-Z0-9 ').squeeze(' ')
+      }
       return title
     end
 

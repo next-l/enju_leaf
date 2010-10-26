@@ -52,19 +52,20 @@ module EnjuAmazon
     def amazon_book_jacket
       response = amazon
       doc = Nokogiri::XML(response)
-      bookjacket = {}
-      bookjacket['url'] = doc.at('Item/MediumImage/URL').inner_text
-      bookjacket['width'] = doc.at('Item/MediumImage/Width').inner_text.to_i
-      bookjacket['height'] = doc.at('Item/MediumImage/Height').inner_text.to_i
-      bookjacket['asin'] = doc.at('Item/ASIN').inner_text
+      bookjacket = {
+        :url => doc.at('Item/MediumImage/URL').inner_text,
+        :width => doc.at('Item/MediumImage/Width').inner_text.to_i,
+        :height => doc.at('Item/MediumImage/Height').inner_text.to_i,
+        :asin => doc.at('Item/ASIN').inner_text
+      }
 
-      if bookjacket['url'].blank?
+      if bookjacket[:url].blank?
         raise "Can't get bookjacket"
       end
       return bookjacket
 
     rescue
-      bookjacket = {'url' => 'unknown_resource.png', 'width' => '100', 'height' => '100'}
+      bookjacket = {:url => 'unknown_resource.png', :width => '100', :height => '100'}
     end
 
     def amazon_customer_reviews
@@ -72,10 +73,11 @@ module EnjuAmazon
         doc = Nokogiri::XML(self.amazon)
         reviews = []
         doc.xpath('//xmlns:Review').each do |item|
-          r = {}
-          r[:date] = item.at('Date').inner_text
-          r[:summary] = item.at('Summary').inner_text
-          r[:content] = item.at('Content').inner_text
+          r = {
+            :date => item.at('Date').inner_text,
+            :summary => item.at('Summary').inner_text,
+            :content => item.at('Content').inner_text
+          }
           reviews << r
         end
         reviews
