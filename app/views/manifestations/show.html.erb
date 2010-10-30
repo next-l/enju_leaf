@@ -1,4 +1,4 @@
-  <div id="content_detail" class="ui-corner-all">
+<div id="content_detail" class="ui-corner-all">
   <h1 class="title"><%= t('page.showing', :model => t('activerecord.models.resource')) -%></h1>
   <div id="content_list">
     <%= form_for :resources, :url => manifestations_path, :html => {:method => 'get'} do -%>
@@ -19,7 +19,7 @@
     <%- end -%>
     <% if current_user.try(:has_role?, 'Librarian') %>
       <%= render :partial => 'manifestations/show_detail_librarian', :locals => {:manifestation => @manifestation} %>
-  < % else %>
+    <% else %>
       <%= render :partial => 'manifestations/show_detail_user', :locals => {:manifestation => @manifestation} %>
     <% end %>
 

@@ -1,5 +1,3 @@
-LIBRARY_WEB_HOSTNAME = 'localhost'
-LIBRARY_WEB_PORT_NUMBER = 3000
 EnjuLeaf::Application.configure do
   # Settings specified here will take precedence over those in config/environment.rb
 
@@ -22,5 +20,7 @@ EnjuLeaf::Application.configure do
   # Print deprecation notices to the Rails logger
   config.active_support.deprecation = :log
 
-  config.action_mailer.default_url_options = { :host => 'localhost:3000' }
+  # Only use best-standards-support built into browsers
+  config.action_dispatch.best_standards_support = :builtin
 end
+
