@@ -101,11 +101,11 @@ div#submenu{
 div#manifestation_book_jacket{
   text-align: center;
   margin-top: 10px;
-  width: 200px;
+  width: 150px;
 }
 
 div#pickup_book_jacket{
-  width: 200px;
+  width: 150px;
   float: left;
   text-align: center;
 }

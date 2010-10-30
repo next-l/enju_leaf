@@ -11,12 +11,12 @@ module EnjuCalilCheck
 
   module InstanceMethods
     def access_calil(systemid, format = 'xml')
-      if CALIL_APP_KEY == 'REPLACE_WITH_YOUR_CALIL_APP_KEY'
+      if configatron.calil.app_key == 'REPLACE_WITH_YOUR_CALIL_APP_KEY'
         Rails.logger.error "Calil access key is not set"
         return nil
       end
       if self.isbn.present?
-        open( "http://api.calil.jp/check?appkey=#{CALIL_APP_KEY}&isbn=#{self.isbn}&systemid=#{systemid.join(',')}&format=#{format}") do |f|
+        open( "http://api.calil.jp/check?appkey=#{configatron.calil.app_key}&isbn=#{self.isbn}&systemid=#{systemid.join(',')}&format=#{format}") do |f|
           f.read
         end
       end
@@ -29,8 +29,8 @@ module EnjuCalilCheck
     end
 
     def access_calil_polling(session, format = 'xml')
-      url = "http://api.calil.jp/check?appkey=#{CALIL_APP_KEY}&session=#{session}&format=#{format}"
-      open("http://api.calil.jp/check?appkey=#{CALIL_APP_KEY}&session=#{session}&format=#{format}") do |f|
+      url = "http://api.calil.jp/check?appkey=#{configatron.calil.app_key}&session=#{session}&format=#{format}"
+      open("http://api.calil.jp/check?appkey=#{configatron.calil.app_key}&session=#{session}&format=#{format}") do |f|
         f.read
       end
     end

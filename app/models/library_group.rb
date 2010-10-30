@@ -21,7 +21,7 @@ class LibraryGroup < ActiveRecord::Base
   end
 
   def self.url
-    URI.parse("http://#{LIBRARY_WEB_HOSTNAME}:#{LIBRARY_WEB_PORT_NUMBER}").normalize.to_s
+    URI.parse("http://#{configatron.enju.web.hostname}:#{configatron.enju.web.port_number}").normalize.to_s
   end
 
   def config?

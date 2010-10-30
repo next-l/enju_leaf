@@ -11,7 +11,7 @@ module EnjuAmazon
 
   module InstanceMethods
     def amazon
-      if AMAZON_ACCESS_KEY == 'REPLACE_WITH_YOUR_AMAZON_KEY'
+      if configatron.amazon.access_key == 'REPLACE_WITH_YOUR_AMAZON_KEY'
         Rails.logger.error "Amazon access key is not set"
         return nil
       end
@@ -21,14 +21,14 @@ module EnjuAmazon
     end
 
     def access_amazon
-      if AMAZON_ACCESS_KEY == 'REPLACE_WITH_YOUR_AMAZON_KEY'
+      if configatron.amazon.access_key == 'REPLACE_WITH_YOUR_AMAZON_KEY'
         Rails.logger.error "Amazon access key is not set"
         return nil
       end
       unless self.isbn.blank?
         timestamp = CGI.escape(Time.now.utc.iso8601)
         query = [
-          "AWSAccessKeyId=#{AMAZON_ACCESS_KEY}",
+          "AWSAccessKeyId=#{configatron.amazon.access_key}",
           "IdType=ISBN",
           "ItemId=#{self.isbn}",
           "Operation=ItemLookup",
@@ -38,10 +38,10 @@ module EnjuAmazon
           "Timestamp=#{timestamp}",
           "Version=2009-01-06"
           ].join("&")
-        message = ["GET", AMAZON_AWS_HOSTNAME, "/onca/xml", query].join("\n")
-        hash = OpenSSL::HMAC::digest(OpenSSL::Digest::SHA256.new, AMAZON_SECRET_ACCESS_KEY, message)
+        message = ["GET", configatron.amazon.aws_hostname, "/onca/xml", query].join("\n")
+        hash = OpenSSL::HMAC::digest(OpenSSL::Digest::SHA256.new, configatron.amazon.secret_access_key, message)
         encoded_hash = CGI.escape(Base64.encode64(hash).strip)
-        amazon_url = "http://#{AMAZON_AWS_HOSTNAME}/onca/xml?#{query}&Signature=#{encoded_hash}"
+        amazon_url = "http://#{configatron.amazon.aws_hostname}/onca/xml?#{query}&Signature=#{encoded_hash}"
 
         open(amazon_url) do |f|
           f.read

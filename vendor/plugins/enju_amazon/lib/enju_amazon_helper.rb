@@ -1,6 +1,6 @@
 module EnjuAmazonHelper
   def amazon_link(asin)
     return nil if asin.blank?
-    "http://#{AMAZON_HOSTNAME}/dp/#{asin}"
+    "http://#{configatron.amazon.hostname}/dp/#{asin}"
   end
 end
