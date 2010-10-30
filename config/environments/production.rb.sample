@@ -47,8 +47,11 @@ EnjuLeaf::Application.configure do
   # Send deprecation notices to registered listeners
   config.active_support.deprecation = :notify
 
+<<<<<<< HEAD
   config.action_mailer.default_url_options = { :host => "#{configatron.enju.web_hostname}:#{configatron.enju.web_port_number}" }
 
+=======
+>>>>>>> bd8fcfa6394c5e987b37a023937fd9cd3f5cb542
   #config.action_mailer.delivery_method = :smtp
   #config.action_mailer.smtp_settings = {
   #  :address              => "smtp.example.jp",
