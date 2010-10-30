@@ -6,8 +6,8 @@
 # 
 #   configatron.file.storage = :s3
 
-configatron.enju.web.hostname = 'localhost'
-configatron.enju.web.port_number = 3000
+configatron.enju.web_hostname = 'localhost'
+configatron.enju.web_port_number = 3000
 
 # パトロンの名前を入力する際、姓を先に表示する
 configatron.family_name_first = true
