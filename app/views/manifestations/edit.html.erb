@@ -68,7 +68,7 @@
     <p>
       <%= f.label t('activerecord.attributes.manifestation.isbn') -%>
       <%= f.text_field :isbn, :class => 'resource_isbn_issn', :style => 'ime-mode: disabled' -%>
-      <%= link_to_function t('activerecord.attributes.manifestation.wrong_isbn'), "$('#resource_wrong_isbn').toggle()" -%>
+      <%= link_to_function t('activerecord.attributes.manifestation.wrong_isbn'), "$('#manifestation_wrong_isbn').toggle()" -%>
       <%= f.text_field :wrong_isbn, :class => 'resource_isbn_issn', :style => 'ime-mode: disabled; display: none' -%>
     </p>
     <p>
