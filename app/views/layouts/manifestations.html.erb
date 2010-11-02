@@ -7,6 +7,9 @@
     <%= auto_discovery_link_tag(:rss, url_for(params.merge(:format => 'rss', :page => nil, :commit => nil)), :title => (t('patron.library_group_patron', :library_group_name => @library_group.display_name.localize) + " (RSS)")) %>
     <%= auto_discovery_link_tag(:atom, url_for(params.merge(:format => 'atom', :page => nil, :commit => nil)), :title => (t('patron.library_group_patron', :library_group_name => @library_group.display_name.localize) + " (Atom)")) %>
   <%- end -%>
+  <% if controller.action_name == 'show' %>
+    <script type="text/javascript" src="http://books.google.com/books/previewlib.js" />
+  <% end %>
 </head>
 <body>
 
