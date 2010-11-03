@@ -28,7 +28,7 @@ class CheckinsController < ApplicationController
   # GET /checkins/1
   # GET /checkins/1.xml
   def show
-    @checkin = Checkin.find(params[:id])
+    #@checkin = Checkin.find(params[:id])
 
     respond_to do |format|
       format.html # show.rhtml
@@ -44,7 +44,7 @@ class CheckinsController < ApplicationController
 
   # GET /checkins/1;edit
   def edit
-    @checkin = Checkin.find(params[:id])
+    #@checkin = Checkin.find(params[:id])
   end
 
   # POST /checkins
@@ -135,7 +135,7 @@ class CheckinsController < ApplicationController
   # PUT /checkins/1
   # PUT /checkins/1.xml
   def update
-    @checkin = Checkin.find(params[:id])
+    #@checkin = Checkin.find(params[:id])
     @checkin.item_identifier = params[:checkin][:item_identifier] rescue nil
     unless @checkin.item_identifier.blank?
       item = Item.first(:conditions => {:item_identifier => @checkin.item_identifier.to_s.strip})
@@ -157,7 +157,7 @@ class CheckinsController < ApplicationController
   # DELETE /checkins/1
   # DELETE /checkins/1.xml
   def destroy
-    @checkin = Checkin.find(params[:id])
+    #@checkin = Checkin.find(params[:id])
     @checkin.destroy
 
     respond_to do |format|

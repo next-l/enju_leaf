@@ -1457,3 +1457,4 @@ ja:
   import_request:
     record_not_found: 書誌レコードが見つかりませんでした。
     invalid_isbn: ISBNが正しくありません。
+    isbn_taken: はすでに登録されています。
