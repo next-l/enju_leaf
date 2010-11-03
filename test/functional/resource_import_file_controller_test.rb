@@ -82,7 +82,7 @@ class ResourceImportFilesControllerTest < ActionController::TestCase
     assert_equal 'librarian1', assigns(:resource_import_file).user.username
     assert_redirected_to resource_import_file_path(assigns(:resource_import_file))
     assert_equal 2, Item.find_by_item_identifier('10101').manifestation.creators.size
-    assert_equal 'ダブル"クォート"を含む資料', Manifestation.find_by_manifestation_identifier('103').original_title
+    assert_equal 'ダブル"クォート"を含む資料', Manifestation.find_by_identifier('103').original_title
     assert_nil Item.find_by_item_identifier('10104')
     item = Item.find_by_item_identifier('11111')
     assert_equal Shelf.find_by_name('first_shelf'), item.shelf

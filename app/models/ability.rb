@@ -6,7 +6,14 @@ class Ability
     when 'Administrator'
       can :manage, :all
     when 'Librarian'
-      can :manage, [Manifestation, Item]
+      can [:read, :create, :update], Manifestation
+      can :destroy, Manifestation do |manifestation|
+        manifestation.items.empty?
+      end
+      can [:read, :create, :update], Item
+      can :destroy, Item do |item|
+        item.checkouts.not_returned.empty?
+      end
       can :manage, [Create, Realize, Produce, Own, Exemplify]
       can :index, Patron
       can :show, Patron do |patron|
@@ -17,7 +24,10 @@ class Ability
         patron.required_role_id <= 3 #'Librarian'
         patron.user.role.name != 'Administrator' if patron.user
       end
-      can :manage, User
+      can [:read, :create, :update], User
+      can :destroy, User do |user|
+        user.checkouts.not_returned.empty?
+      end
       can :read, Bookstore
       can :manage, [Basket, Checkout, Checkin]
       can :read, Subject
@@ -68,7 +78,6 @@ class Ability
       can :read, [ResourceImportResult, PatronImportResult, EventImportResult]
       can :read, Shelf
       can :read, [RequestStatusType, RequestType]
-      can :manage, PictureFile
       can :manage, Participate
       can :manage, MessageTemplate
       can :manage, ItemHasUseRestriction
@@ -127,6 +136,10 @@ class Ability
         object.try(:user) == user
       end
       can :index, Question
+      can :create, Question
+      can [:update, :destroy], [Question, Answer] do |object|
+        object.user == user
+      end
       can :show, [Question, Answer] do |object|
         object.user == user or object.shared
       end
@@ -179,9 +192,11 @@ class Ability
       end
       can :read, [ManifestationCheckoutStat, ManifestationReserveStat]
       can :read, [UserCheckoutStat, UserReserveStat]
+      can :read, [PatronRelationshipType, ManifestationRelationshipType]
       can :read, [SubjectHeadingType, SubjectHasClassification]
       can :read, UserGroup
       can :read, WorkHasSubject
+      can :read, [PatronRelationship, ManifestationRelationship]
       can :read, PictureFile
       can :read, NiiType
       can :read, MediumOfPerformance
@@ -192,12 +207,9 @@ class Ability
       can :read, [CirculationStatus, Classification, ClassificationType]
       can :read, CarrierType
       can :read, BookmarkStat
-      can :read, Manifestation
-      can :read, SubjectHeadingTypeHasSubject
+      can :read, [SubjectHeadingTypeHasSubject, SubjectHasClassification]
       can :index, Checkout
-      can :read, [PatronRelationshipType, ManifestationRelationshipType]
       can :read, SeriesStatement
-      can :read, [PatronRelationship, ManifestationRelationship]
     end
   end
 end

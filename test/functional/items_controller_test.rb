@@ -306,10 +306,19 @@ class ItemsControllerTest < ActionController::TestCase
     assert_response :forbidden
   end
 
+  def test_librarian_should_not_destroy_item_if_not_checked_in
+    sign_in users(:librarian1)
+    assert_no_difference('Item.count') do
+      delete :destroy, :id => 1
+    end
+    
+    assert_response :forbidden
+  end
+
   def test_librarian_should_destroy_item
     sign_in users(:librarian1)
     assert_difference('Item.count', -1) do
-      delete :destroy, :id => 1
+      delete :destroy, :id => 6
     end
     
     assert_redirected_to manifestation_items_url(assigns(:item).manifestation)
