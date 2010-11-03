@@ -6,7 +6,7 @@ manifestation_00001:
   updated_at: 2007-11-19 16:59:00.293393 +09:00
   original_title: "\xE3\x82\x88\xE3\x81\x8F\xE3\x82\x8F\xE3\x81\x8B\xE3\x82\x8B\xE6\x9C\x80\xE6\x96\xB0Web\xE3\x82\xB5\xE3\x83\xBC\xE3\x83\x93\xE3\x82\xB9\xE6\x8A\x80\xE8\xA1\x93"
   price: 
-  manifestation_identifier: 
+  identifier: 
   depth: 
   date_of_publication: 
   access_address: 
@@ -25,7 +25,7 @@ manifestation_00002:
   updated_at: 2007-11-19 16:59:00.991512 +09:00
   original_title: "\xE6\x83\x85\xE5\xA0\xB1\xE9\x80\x9A\xE4\xBF\xA1\xE3\x83\x8F\xE3\x83\xB3\xE3\x83\x89\xE3\x83\x96\xE3\x83\x83\xE3\x82\xAF2005"
   price: 
-  manifestation_identifier: 
+  identifier: 
   depth: 
   date_of_publication: 
   access_address: 
@@ -45,7 +45,7 @@ manifestation_00003:
     44Gu44OQ44Kk44Kq54m56Kix5YWl6ZaA6Kyb5bqn
 
   price: 
-  manifestation_identifier: 
+  identifier: 
   depth: 
   date_of_publication: 
   access_address: "http://www.slis.keio.ac.jp/"
@@ -61,7 +61,7 @@ manifestation_00004:
   updated_at: 2007-11-19 16:59:02.275738 +09:00
   original_title: THE BIOTECH INVESTOR'S BIBLE
   price: 
-  manifestation_identifier: 
+  identifier: 
   depth: 
   date_of_publication: 
   access_address: 
@@ -79,7 +79,7 @@ manifestation_00005:
     6aGn5a6i5rqA6Laz5Z6L44Oe44O844Kx44OG44Kj44Oz44Kw44Gu5qeL5Zuz
 
   price: 
-  manifestation_identifier: 
+  identifier: 
   depth: 
   date_of_publication: 
   access_address: 
@@ -97,7 +97,7 @@ manifestation_00006:
     5LuV57WE44G/6Z2p5paw44Gu5pmC5Luj
 
   price: 
-  manifestation_identifier: 
+  identifier: 
   depth: 
   date_of_publication: 
   access_address: 
@@ -113,7 +113,7 @@ manifestation_00007:
   updated_at: 2007-11-19 16:58:56.892741 +09:00
   original_title: dictionary of e-business
   price: 
-  manifestation_identifier: 
+  identifier: 
   depth: 
   date_of_publication: 
   access_address: 
@@ -129,7 +129,7 @@ manifestation_00008:
   updated_at: 2007-11-19 16:58:57.463333 +09:00
   original_title: "Web\xE3\x82\xB5\xE3\x83\xBC\xE3\x83\x93\xE3\x82\xB9\xE5\xAE\x8C\xE5\x85\xA8\xE8\xA7\xA3\xE8\xAA\xAC"
   price: 
-  manifestation_identifier: 
+  identifier: 
   depth: 
   date_of_publication: 
   access_address: 
@@ -147,7 +147,7 @@ manifestation_00009:
     6YCQ5p2h6Kej6Kqs5LiN5q2j56u25LqJ6Ziy5q2i5rOV
 
   price: 
-  manifestation_identifier: 
+  identifier: 
   depth: 
   date_of_publication: 
   access_address: 
@@ -163,7 +163,7 @@ manifestation_00010:
   updated_at: 2007-11-19 16:58:58.799724 +09:00
   original_title: "Apache Lucene入門 : Java・オープンソース・全文検索システムの構築"
   price: 
-  manifestation_identifier: 
+  identifier: 
   depth: 
   date_of_publication: 
   access_address: 
@@ -178,7 +178,7 @@ manifestation_00021:
   updated_at: 2007-11-19 16:58:58.799724 +09:00
   original_title: "Web\xE3\x82\xB5\xE3\x83\xBC\xE3\x83\x93\xE3\x82\xB9\xE5\xAE\x8C\xE5\x85\xA8\xE6\xA7\x8B\xE7\xAF\x89\xE3\x82\xAC\xE3\x82\xA4\xE3\x83\x89"
   price: 
-  manifestation_identifier: 
+  identifier: 
   depth: 
   date_of_publication: 
   access_address: 
@@ -194,7 +194,7 @@ manifestation_00022:
   updated_at: 2007-11-19 16:58:58.799724 +09:00
   original_title: "YouTube - Open Source ILS Song"
   price: 
-  manifestation_identifier: 
+  identifier: 
   depth: 
   date_of_publication: 
   access_address: "http://jp.youtube.com/watch?v=BSHBzd9ftDE"
@@ -210,7 +210,7 @@ manifestation_00023:
   created_at: 2008-04-17 00:34:01 +09:00
   original_title: "世界の美しい図書館集めてみた【第一弾】"
   price: 
-  manifestation_identifier: 
+  identifier: 
   depth: 
   date_of_publication: 
   access_address: "http://www.nicovideo.jp/watch/sm3015373"
@@ -227,7 +227,7 @@ manifestation_00101:
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "CGI基礎講座 : Perl・プログラミング・日本語処理"
   price:
-  manifestation_identifier:
+  identifier:
   depth:
   date_of_publication:
   access_address:
@@ -243,7 +243,7 @@ manifestation_00102:
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "CGIレスキュー実践Perlプログラミング : Web裏技"
   price:
-  manifestation_identifier:
+  identifier:
   depth:
   date_of_publication:
   access_address:
@@ -259,7 +259,7 @@ manifestation_00103:
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "Perlクックブック. v．2"
   price:
-  manifestation_identifier:
+  identifier:
   depth:
   date_of_publication:
   access_address:
@@ -275,7 +275,7 @@ manifestation_00104:
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "Perlクックブック. v．1"
   price:
-  manifestation_identifier:
+  identifier:
   depth:
   date_of_publication:
   access_address:
@@ -291,7 +291,7 @@ manifestation_00105:
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "初めてのPerl. 続"
   price:
-  manifestation_identifier:
+  identifier:
   depth:
   date_of_publication:
   access_address:
@@ -307,7 +307,7 @@ manifestation_00106:
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "Perl ＆ XML"
   price:
-  manifestation_identifier:
+  identifier:
   depth:
   date_of_publication:
   access_address:
@@ -323,7 +323,7 @@ manifestation_00107:
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "はじめてのPerlモジュール : 厳選実用モジュール集"
   price:
-  manifestation_identifier:
+  identifier:
   depth:
   date_of_publication:
   access_address:
@@ -339,7 +339,7 @@ manifestation_00108:
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "Perl 5パワフルテクニック大全集"
   price:
-  manifestation_identifier:
+  identifier:
   depth:
   date_of_publication:
   access_address:
@@ -355,7 +355,7 @@ manifestation_00109:
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "CGI／Perlパワープログラミング"
   price:
-  manifestation_identifier:
+  identifier:
   depth:
   date_of_publication:
   access_address:
@@ -371,7 +371,7 @@ manifestation_00110:
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "Ruby／GTKプログラミング入門 : Rubyで作って遊ぶGUIプログラミング"
   price:
-  manifestation_identifier:
+  identifier:
   depth:
   date_of_publication:
   access_address:
@@ -387,7 +387,7 @@ manifestation_00111:
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "すぐわかるPerl"
   price:
-  manifestation_identifier:
+  identifier:
   depth:
   date_of_publication:
   access_address:
@@ -403,7 +403,7 @@ manifestation_00112:
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "CGIのための実践入門Perl : 対話的・動きのあるWebページを作ろう"
   price:
-  manifestation_identifier:
+  identifier:
   depth:
   date_of_publication:
   access_address:
@@ -419,7 +419,7 @@ manifestation_00113:
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "プログラミングは難しくない！ : ウェブではじめるJavaScript／Perl／Java"
   price:
-  manifestation_identifier:
+  identifier:
   depth:
   date_of_publication:
   access_address:
@@ -435,7 +435,7 @@ manifestation_00114:
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "Rubyを256倍使うための本. 魔道編"
   price:
-  manifestation_identifier:
+  identifier:
   depth:
   date_of_publication: 2001-03-20
   access_address:
@@ -451,7 +451,7 @@ manifestation_00115:
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "入門Perl"
   price:
-  manifestation_identifier:
+  identifier:
   depth:
   date_of_publication:
   access_address:
@@ -467,7 +467,7 @@ manifestation_00116:
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "sed ＆ awkプログラミング : UNIX power tools"
   price:
-  manifestation_identifier:
+  identifier:
   depth:
   date_of_publication: 1991-12-24
   access_address:
@@ -483,7 +483,7 @@ manifestation_00117:
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "Perlの達人"
   price:
-  manifestation_identifier:
+  identifier:
   depth:
   date_of_publication:
   access_address:
@@ -499,7 +499,7 @@ manifestation_00118:
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "ナチ強制・絶滅収容所 : 18施設内の生と死"
   price:
-  manifestation_identifier:
+  identifier:
   depth:
   date_of_publication:
   access_address:
@@ -515,7 +515,7 @@ manifestation_00119:
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "Perl基礎講座"
   price:
-  manifestation_identifier:
+  identifier:
   depth:
   date_of_publication:
   access_address:
@@ -531,7 +531,7 @@ manifestation_00120:
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "Rubyプログラミング入門"
   price:
-  manifestation_identifier:
+  identifier:
   depth:
   date_of_publication: 2000-10-01
   access_address:
@@ -547,7 +547,7 @@ manifestation_00121:
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "Django×Python"
   price:
-  manifestation_identifier:
+  identifier:
   depth:
   date_of_publication:
   access_address:
@@ -563,7 +563,7 @@ manifestation_00122:
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "みんなのPython"
   price:
-  manifestation_identifier:
+  identifier:
   depth:
   date_of_publication:
   access_address:
@@ -579,7 +579,7 @@ manifestation_00123:
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "Rubyでgroonga使って全文検索 - ラングバ"
   price:
-  manifestation_identifier:
+  identifier:
   depth:
   date_of_publication:
   access_address:
@@ -595,7 +595,7 @@ manifestation_00124:
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "まちづくり三鷹図書館（Ruby図書館情報システム デモサイト）"
   price:
-  manifestation_identifier:
+  identifier:
   depth:
   date_of_publication:
   access_address:
@@ -611,7 +611,7 @@ manifestation_00125:
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "Ruby on Rails入門 : 優しいRailsの育て方"
   price:
-  manifestation_identifier:
+  identifier:
   depth:
   date_of_publication:
   access_address:
@@ -627,7 +627,7 @@ manifestation_00126:
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "Ruby Cookbook"
   price:
-  manifestation_identifier:
+  identifier:
   depth:
   date_of_publication:
   access_address:
@@ -643,7 +643,7 @@ manifestation_00127:
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "CGI programming on the World Wide Web"
   price:
-  manifestation_identifier:
+  identifier:
   depth:
   date_of_publication:
   access_address:
@@ -659,7 +659,7 @@ manifestation_00128:
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "Genomic Perl"
   price:
-  manifestation_identifier:
+  identifier:
   depth:
   date_of_publication:
   access_address:
@@ -675,7 +675,7 @@ manifestation_00129:
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "Indians of the Pacific Northwest"
   price:
-  manifestation_identifier:
+  identifier:
   depth:
   date_of_publication:
   access_address:
@@ -691,7 +691,7 @@ manifestation_00130:
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "Massachusetts acid rain monitoring project / Massachusetts acid rain monitoring project A.R.M"
   price:
-  manifestation_identifier:
+  identifier:
   depth:
   date_of_publication:
   access_address:
@@ -707,7 +707,7 @@ manifestation_00131:
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "International Symposium Genes and Chromosomes Structure and Function"
   price:
-  manifestation_identifier:
+  identifier:
   depth:
   date_of_publication:
   access_address:
@@ -723,7 +723,7 @@ manifestation_00132:
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "Perl black book, 2nd edition"
   price:
-  manifestation_identifier:
+  identifier:
   depth:
   date_of_publication:
   access_address:
@@ -739,7 +739,7 @@ manifestation_00133:
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "Python scripting for computational science"
   price:
-  manifestation_identifier:
+  identifier:
   depth:
   date_of_publication:
   access_address:
@@ -755,7 +755,7 @@ manifestation_00134:
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "Tests on a gold ore from the Ruby Basin, Black Hills"
   price:
-  manifestation_identifier:
+  identifier:
   depth:
   date_of_publication:
   access_address:
@@ -771,7 +771,7 @@ manifestation_00135:
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "Official guide to programming with CGI.pm / Programming with CGI.pm / Official guide to programming with CGI.pm"
   price:
-  manifestation_identifier:
+  identifier:
   depth:
   date_of_publication:
   access_address:
@@ -787,7 +787,7 @@ manifestation_00136:
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "Three little words [sound recording] / Nevertheless (I'm in love with you) / I love you so much / All alone Monday / Where did you get that girl? / Thinking of you / I wanna be loved by you / Who's sorry now? / My sunny Tennessee / So long Oolong / Three little words"
   price:
-  manifestation_identifier:
+  identifier:
   depth:
   date_of_publication:
   access_address:
@@ -803,7 +803,7 @@ manifestation_00137:
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "Femtosecond time-resolved spectroscopy of organic molecular crystals / Time-resolved spectroscopy of organic molecular crystals, Femtosecond"
   price:
-  manifestation_identifier:
+  identifier:
   depth:
   date_of_publication:
   access_address:
@@ -819,7 +819,7 @@ manifestation_00138:
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "CGI programming with Perl"
   price:
-  manifestation_identifier:
+  identifier:
   depth:
   date_of_publication:
   access_address:
@@ -835,7 +835,7 @@ manifestation_00139:
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "Python and XML / Python &amp; XML / XML processing with Python"
   price:
-  manifestation_identifier:
+  identifier:
   depth:
   date_of_publication:
   access_address:
@@ -851,7 +851,7 @@ manifestation_00140:
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "Perl cookbook / Solutions and examples for Perl programmers"
   price:
-  manifestation_identifier:
+  identifier:
   depth:
   date_of_publication:
   access_address:
@@ -867,7 +867,7 @@ manifestation_00141:
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "Mastering Perl/Tk / Perl/Tk"
   price:
-  manifestation_identifier:
+  identifier:
   depth:
   date_of_publication:
   access_address:
@@ -883,7 +883,7 @@ manifestation_00142:
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "Mastering algorithms with Perl / Practical programming through computer science"
   price:
-  manifestation_identifier:
+  identifier:
   depth:
   date_of_publication:
   access_address:
@@ -899,7 +899,7 @@ manifestation_00143:
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "Programming Perl"
   price:
-  manifestation_identifier:
+  identifier:
   depth:
   date_of_publication:
   access_address:
@@ -915,7 +915,7 @@ manifestation_00144:
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "Fort Worth &amp; Tarrant County / Fort Worth and Tarrant County"
   price:
-  manifestation_identifier:
+  identifier:
   depth:
   date_of_publication:
   access_address:
@@ -931,7 +931,7 @@ manifestation_00145:
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "Monty Python's Spamalot [sound recording] / Spamalot / Spamalot / Monty Python and the Holy Grail (Motion picture)"
   price:
-  manifestation_identifier:
+  identifier:
   depth:
   date_of_publication:
   access_address:
@@ -947,7 +947,7 @@ manifestation_00146:
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "AWK programming language"
   price:
-  manifestation_identifier:
+  identifier:
   depth:
   date_of_publication:
   access_address:
@@ -963,7 +963,7 @@ manifestation_00147:
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "Toting the lead row"
   price:
-  manifestation_identifier:
+  identifier:
   depth:
   date_of_publication:
   access_address:
@@ -979,7 +979,7 @@ manifestation_00148:
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "Afro-American blues and game songs"
   price:
-  manifestation_identifier:
+  identifier:
   depth:
   date_of_publication:
   access_address:
@@ -995,7 +995,7 @@ manifestation_00149:
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "Perl/Tk pocket reference"
   price:
-  manifestation_identifier:
+  identifier:
   depth:
   date_of_publication:
   access_address:
@@ -1011,7 +1011,7 @@ manifestation_00150:
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "politics of improving urban air quality"
   price:
-  manifestation_identifier:
+  identifier:
   depth:
   date_of_publication:
   access_address:
@@ -1027,7 +1027,7 @@ manifestation_00151:
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "Perl developer's dictionary"
   price:
-  manifestation_identifier:
+  identifier:
   depth:
   date_of_publication:
   access_address:
@@ -1043,7 +1043,7 @@ manifestation_00152:
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "Andrテδゥ Poitiers"
   price:
-  manifestation_identifier:
+  identifier:
   depth:
   date_of_publication:
   access_address:
@@ -1059,7 +1059,7 @@ manifestation_00153:
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "PERL and CGI for the World Wide Web [electronic resource] / Visual QuickStart guide"
   price:
-  manifestation_identifier:
+  identifier:
   depth:
   date_of_publication:
   access_address:
@@ -1075,7 +1075,7 @@ manifestation_00154:
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "Python tutorial"
   price:
-  manifestation_identifier:
+  identifier:
   depth:
   date_of_publication:
   access_address:
@@ -1091,7 +1091,7 @@ manifestation_00155:
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "Line shapes of paramagnetic resonances in ruby"
   price:
-  manifestation_identifier:
+  identifier:
   depth:
   date_of_publication:
   access_address:
@@ -1107,7 +1107,7 @@ manifestation_00156:
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "Perl programmer's reference"
   price:
-  manifestation_identifier:
+  identifier:
   depth:
   date_of_publication:
   access_address:
@@ -1123,7 +1123,7 @@ manifestation_00157:
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "Technological capabilities in developing countries"
   price:
-  manifestation_identifier:
+  identifier:
   depth:
   date_of_publication:
   access_address:
@@ -1139,7 +1139,7 @@ manifestation_00158:
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "phenomena of vagueness"
   price:
-  manifestation_identifier:
+  identifier:
   depth:
   date_of_publication:
   access_address:
@@ -1155,7 +1155,7 @@ manifestation_00159:
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "theory of consumer's demand"
   price:
-  manifestation_identifier:
+  identifier:
   depth:
   date_of_publication:
   access_address:
@@ -1171,7 +1171,7 @@ manifestation_00160:
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "theory of consumer's demand"
   price:
-  manifestation_identifier:
+  identifier:
   depth:
   date_of_publication:
   access_address:
@@ -1187,7 +1187,7 @@ manifestation_00161:
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "Monty Python, Shakespeare, and English Renaissance drama"
   price:
-  manifestation_identifier:
+  identifier:
   depth:
   date_of_publication:
   access_address:
@@ -1203,7 +1203,7 @@ manifestation_00162:
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "Analyzing computer system performance with PERL::PDQ"
   price:
-  manifestation_identifier:
+  identifier:
   depth:
   date_of_publication:
   access_address:
@@ -1219,7 +1219,7 @@ manifestation_00163:
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "equilibrium of the reaction between the manganate, permanganate, and hydroxide of potassium, and manganese dioxide"
   price:
-  manifestation_identifier:
+  identifier:
   depth:
   date_of_publication:
   access_address:
@@ -1235,7 +1235,7 @@ manifestation_00164:
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "Stimulated optical emission in ruby"
   price:
-  manifestation_identifier:
+  identifier:
   depth:
   date_of_publication:
   access_address:
@@ -1251,7 +1251,7 @@ manifestation_00165:
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "Strategic planning and risk analysis"
   price:
-  manifestation_identifier:
+  identifier:
   depth:
   date_of_publication:
   access_address:
@@ -1267,7 +1267,7 @@ manifestation_00166:
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "Performance assertion checking"
   price:
-  manifestation_identifier:
+  identifier:
   depth:
   date_of_publication:
   access_address:
@@ -1283,7 +1283,7 @@ manifestation_00167:
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "Spin-lattice relaxation time of ruby"
   price:
-  manifestation_identifier:
+  identifier:
   depth:
   date_of_publication:
   access_address:
@@ -1299,7 +1299,7 @@ manifestation_00168:
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "Mourning Ruby"
   price:
-  manifestation_identifier:
+  identifier:
   depth:
   date_of_publication:
   access_address:
@@ -1315,7 +1315,7 @@ manifestation_00169:
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "statistical analysis of banking performance in the Eastern Caribbean Currency Union in the 1990s"
   price:
-  manifestation_identifier:
+  identifier:
   depth:
   date_of_publication:
   access_address:
@@ -1331,7 +1331,7 @@ manifestation_00170:
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "Professional Perl programming / Perl programming"
   price:
-  manifestation_identifier:
+  identifier:
   depth:
   date_of_publication:
   access_address:
@@ -1347,7 +1347,7 @@ manifestation_00171:
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "Perl in a nutshell"
   price:
-  manifestation_identifier:
+  identifier:
   depth:
   date_of_publication:
   access_address:
@@ -1363,7 +1363,7 @@ manifestation_00172:
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "Programming Web services with Perl"
   price:
-  manifestation_identifier:
+  identifier:
   depth:
   date_of_publication:
   access_address:
@@ -1379,7 +1379,7 @@ manifestation_00173:
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "Proceedings of the Trieste Workshop on the search for New Elementary Particles / International journal of modern physics / Search for new elementary particles"
   price:
-  manifestation_identifier:
+  identifier:
   depth:
   date_of_publication:
   access_address:
@@ -1395,7 +1395,7 @@ manifestation_00174:
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "Europeras 3 &amp; 4 / Europera"
   price:
-  manifestation_identifier:
+  identifier:
   depth:
   date_of_publication:
   access_address:
@@ -1411,7 +1411,7 @@ manifestation_00175:
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "Retreats from realism in recent English drama"
   price:
-  manifestation_identifier:
+  identifier:
   depth:
   date_of_publication:
   access_address:
@@ -1427,7 +1427,7 @@ manifestation_00176:
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "Python programming patterns"
   price:
-  manifestation_identifier:
+  identifier:
   depth:
   date_of_publication:
   access_address:
@@ -1443,7 +1443,7 @@ manifestation_00177:
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "Beginning Perl for bioinformatics"
   price:
-  manifestation_identifier:
+  identifier:
   depth:
   date_of_publication:
   access_address:
@@ -1459,7 +1459,7 @@ manifestation_00178:
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "Learning Perl"
   price:
-  manifestation_identifier:
+  identifier:
   depth:
   date_of_publication:
   access_address:
@@ -1475,7 +1475,7 @@ manifestation_00179:
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "Effective awk programming"
   price:
-  manifestation_identifier:
+  identifier:
   depth:
   date_of_publication:
   access_address:
@@ -1491,7 +1491,7 @@ manifestation_00180:
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "Python standard library / Annotated reference for Python 2.0"
   price:
-  manifestation_identifier:
+  identifier:
   depth:
   date_of_publication:
   access_address:
@@ -1507,7 +1507,7 @@ manifestation_00181:
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "Programming Python"
   price:
-  manifestation_identifier:
+  identifier:
   depth:
   date_of_publication:
   access_address:
@@ -1523,7 +1523,7 @@ manifestation_00182:
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "Perl CD bookshelf"
   price:
-  manifestation_identifier:
+  identifier:
   depth:
   date_of_publication:
   access_address:
@@ -1539,7 +1539,7 @@ manifestation_00183:
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "Programming Perl"
   price:
-  manifestation_identifier:
+  identifier:
   depth:
   date_of_publication:
   access_address:
@@ -1555,7 +1555,7 @@ manifestation_00184:
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "Sed &amp; awk pocket reference / Sed and awk pocket reference"
   price:
-  manifestation_identifier:
+  identifier:
   depth:
   date_of_publication:
   access_address:
@@ -1571,7 +1571,7 @@ manifestation_00185:
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "Perl power!"
   price:
-  manifestation_identifier:
+  identifier:
   depth:
   date_of_publication:
   access_address:
@@ -1587,7 +1587,7 @@ manifestation_00186:
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "ATOKダイレクト API for Perl / Ruby?|?さらに使いこなす?|?ATOK.com"
   price:
-  manifestation_identifier:
+  identifier:
   depth:
   date_of_publication:
   access_address:
@@ -1603,7 +1603,7 @@ manifestation_00187:
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "Welcome ― Ruby Enterprise Edition"
   price:
-  manifestation_identifier:
+  identifier:
   depth:
   date_of_publication:
   access_address:
@@ -1619,7 +1619,7 @@ manifestation_00188:
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "Pythonクックブック"
   price:
-  manifestation_identifier:
+  identifier:
   depth:
   date_of_publication:
   access_address:
@@ -1635,7 +1635,7 @@ manifestation_00189:
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "みんなのPython インデントの世界へようこそ！　object oriented-lightweight language Python"
   price:
-  manifestation_identifier:
+  identifier:
   depth:
   date_of_publication:
   access_address:
@@ -1651,7 +1651,7 @@ manifestation_00190:
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "Django | The Web framework for perfectionists with deadlines"
   price:
-  manifestation_identifier:
+  identifier:
   depth:
   date_of_publication:
   access_address:
@@ -1667,7 +1667,7 @@ manifestation_00191:
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "fac-back-opac - Google Code"
   price:
-  manifestation_identifier:
+  identifier:
   depth:
   date_of_publication:
   access_address:
@@ -1683,7 +1683,7 @@ manifestation_00192:
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "Rubyクックブック"
   price:
-  manifestation_identifier:
+  identifier:
   depth:
   date_of_publication: 2007-04-27
   access_address:
@@ -1700,7 +1700,7 @@ manifestation_00193:
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "Rubyレシピブック"
   price:
-  manifestation_identifier:
+  identifier:
   depth:
   date_of_publication: 2007-02-01
   access_address:
@@ -1716,7 +1716,7 @@ manifestation_00194:
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "初めてのPerl 第3版"
   price:
-  manifestation_identifier:
+  identifier:
   depth:
   date_of_publication:
   access_address:
@@ -1732,7 +1732,7 @@ manifestation_00195:
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "続・初めてのPerl 改訂版"
   price:
-  manifestation_identifier:
+  identifier:
   depth:
   date_of_publication:
   access_address:
@@ -1748,7 +1748,7 @@ manifestation_00196:
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "たのしいRuby 第2版 Rubyではじめる気軽なプログラミング"
   price:
-  manifestation_identifier:
+  identifier:
   depth:
   date_of_publication: 2006-08-05
   access_address:
@@ -1764,7 +1764,7 @@ manifestation_00197:
   updated_at: 2010-03-15 16:14:18 +09:00
   original_title: "Ruby"
   price:
-  manifestation_identifier:
+  identifier:
   depth:
   date_of_publication:
   access_address:
@@ -1780,7 +1780,7 @@ manifestation_00198:
   updated_at: 2010-03-15 16:14:18 +09:00
   original_title: "紅玉の本"
   price:
-  manifestation_identifier:
+  identifier:
   depth:
   date_of_publication:
   access_address:
@@ -1796,7 +1796,7 @@ manifestation_00201:
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "テスト雑誌１月号"
   price:
-  manifestation_identifier:
+  identifier:
   depth:
   date_of_publication: 
   access_address:
@@ -1814,7 +1814,7 @@ manifestation_00202:
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "テスト雑誌２月号"
   price:
-  manifestation_identifier:
+  identifier:
   depth:
   date_of_publication: 
   access_address:
@@ -1832,7 +1832,7 @@ manifestation_00203:
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "テスト単行本記事"
   price:
-  manifestation_identifier:
+  identifier:
   depth:
   date_of_publication: 
   access_address:
@@ -1849,7 +1849,7 @@ manifestation_00204:
   updated_at: 2010-03-03 20:00:00 +09:00
   original_title: "テスト雑誌１月号の記事１"
   price:
-  manifestation_identifier:
+  identifier:
   depth:
   date_of_publication:
   access_address:
@@ -1865,7 +1865,7 @@ manifestation_00205:
   updated_at: 2010-03-03 20:00:00 +09:00
   original_title: "テスト雑誌１月号の記事２"
   price:
-  manifestation_identifier:
+  identifier:
   depth:
   date_of_publication:
   access_address:
@@ -1881,7 +1881,7 @@ manifestation_00206:
   updated_at: 2010-03-03 20:00:00 +09:00
   original_title: "テスト雑誌２月号の記事１"
   price:
-  manifestation_identifier:
+  identifier:
   depth:
   date_of_publication:
   access_address:
@@ -1897,7 +1897,7 @@ manifestation_00207:
   updated_at: 2010-03-03 20:00:00 +09:00
   original_title: "試験単行本"
   price:
-  manifestation_identifier:
+  identifier:
   depth:
   date_of_publication:
   access_address:
@@ -1913,7 +1913,7 @@ manifestation_00208:
   updated_at: 2010-03-16 11:00:00 +09:00
   original_title: "ある出版物"
   price:
-  manifestation_identifier:
+  identifier:
   depth:
   date_of_publication:
   access_address:
@@ -1929,7 +1929,7 @@ manifestation_00209:
   updated_at: 2010-03-19 13:00:00 +09:00
   original_title: "権限確認Admin専用１"
   price:
-  manifestation_identifier:
+  identifier:
   depth:
   date_of_publication:
   access_address:
@@ -1946,7 +1946,7 @@ manifestation_00210:
   updated_at: 2010-03-19 13:00:00 +09:00
   original_title: "権限確認Admin専用２"
   price:
-  manifestation_identifier:
+  identifier:
   depth:
   date_of_publication:
   access_address:
@@ -1964,7 +1964,7 @@ manifestation_00211:
   updated_at: 2010-03-19 13:00:00 +09:00
   original_title: "権限確認Librarian以上用１"
   price:
-  manifestation_identifier:
+  identifier:
   depth:
   date_of_publication:
   access_address:
@@ -1982,7 +1982,7 @@ manifestation_00212:
   updated_at: 2010-03-19 13:00:00 +09:00
   original_title: "権限確認Librarian以上用２"
   price:
-  manifestation_identifier:
+  identifier:
   depth:
   date_of_publication:
   access_address:
@@ -2000,7 +2000,7 @@ manifestation_00213:
   updated_at: 2010-03-19 13:00:00 +09:00
   original_title: "権限確認User以上用１"
   price:
-  manifestation_identifier:
+  identifier:
   depth:
   date_of_publication:
   access_address:
@@ -2018,7 +2018,7 @@ manifestation_00214:
   updated_at: 2010-03-19 13:00:00 +09:00
   original_title: "権限確認User以上用２"
   price:
-  manifestation_identifier:
+  identifier:
   depth:
   date_of_publication:
   access_address:
@@ -2036,7 +2036,7 @@ manifestation_00215:
   updated_at: 2010-03-19 13:00:00 +09:00
   original_title: "権限確認"
   price:
-  manifestation_identifier:
+  identifier:
   depth:
   date_of_publication:
   access_address:
@@ -2054,7 +2054,7 @@ manifestation_00216:
   updated_at: 2010-03-19 13:00:00 +09:00
   original_title: "権限確認"
   price:
-  manifestation_identifier:
+  identifier:
   depth:
   date_of_publication:
   access_address:

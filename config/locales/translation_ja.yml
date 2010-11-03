@@ -585,7 +585,7 @@ ja:
         title_alternative: 代替タイトル
         title_transcription: タイトルよみ
         classification_number: 分類番号
-        manifestation_identifier: 出版した資料の識別子
+        identifier: 出版した資料の識別子
         date_of_publication: 出版日
         deleted_at: 削除時刻
         access_address: アクセスアドレス

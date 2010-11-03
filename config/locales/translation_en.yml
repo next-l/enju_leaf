@@ -585,7 +585,7 @@ en:
         title_alternative: Titlte alternative
         title_transcription: Title transcription
         classification_number: Classification number
-        manifestation_identifier: Manifestation identifier
+        identifier: Manifestation identifier
         date_of_publication: Date of publication
         deleted_at: Deleted at
         access_address: Access address

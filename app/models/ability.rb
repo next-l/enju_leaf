@@ -78,7 +78,6 @@ class Ability
       can :read, [ResourceImportResult, PatronImportResult, EventImportResult]
       can :read, Shelf
       can :read, [RequestStatusType, RequestType]
-      can :manage, PictureFile
       can :manage, Participate
       can :manage, MessageTemplate
       can :manage, ItemHasUseRestriction
@@ -137,6 +136,10 @@ class Ability
         object.try(:user) == user
       end
       can :index, Question
+      can :create, Question
+      can [:update, :destroy], [Question, Answer] do |object|
+        object.user == user
+      end
       can :show, [Question, Answer] do |object|
         object.user == user or object.shared
       end
@@ -189,9 +192,11 @@ class Ability
       end
       can :read, [ManifestationCheckoutStat, ManifestationReserveStat]
       can :read, [UserCheckoutStat, UserReserveStat]
+      can :read, [PatronRelationshipType, ManifestationRelationshipType]
       can :read, [SubjectHeadingType, SubjectHasClassification]
       can :read, UserGroup
       can :read, WorkHasSubject
+      can :read, [PatronRelationship, ManifestationRelationship]
       can :read, PictureFile
       can :read, NiiType
       can :read, MediumOfPerformance
@@ -202,12 +207,9 @@ class Ability
       can :read, [CirculationStatus, Classification, ClassificationType]
       can :read, CarrierType
       can :read, BookmarkStat
-      can :read, Manifestation
-      can :read, SubjectHeadingTypeHasSubject
+      can :read, [SubjectHeadingTypeHasSubject, SubjectHasClassification]
       can :index, Checkout
-      can :read, [PatronRelationshipType, ManifestationRelationshipType]
       can :read, SeriesStatement
-      can :read, [PatronRelationship, ManifestationRelationship]
     end
   end
 end
