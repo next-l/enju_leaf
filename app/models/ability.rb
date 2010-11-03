@@ -6,7 +6,14 @@ class Ability
     when 'Administrator'
       can :manage, :all
     when 'Librarian'
-      can :manage, [Manifestation, Item]
+      can [:read, :create, :update], Manifestation
+      can :destroy, Manifestation do |manifestation|
+        manifestation.items.empty?
+      end
+      can [:read, :create, :update], Item
+      can :destroy, Item do |item|
+        item.checkouts.not_returned.empty?
+      end
       can :manage, [Create, Realize, Produce, Own, Exemplify]
       can :index, Patron
       can :show, Patron do |patron|
@@ -17,7 +24,10 @@ class Ability
         patron.required_role_id <= 3 #'Librarian'
         patron.user.role.name != 'Administrator' if patron.user
       end
-      can :manage, User
+      can [:read, :create, :update], User
+      can :destroy, User do |user|
+        user.checkouts.not_returned.empty?
+      end
       can :read, Bookstore
       can :manage, [Basket, Checkout, Checkin]
       can :read, Subject

@@ -62,6 +62,7 @@ gem 'aws-s3', :require => 'aws/s3'
 gem 'astrails-safe'
 
 gem 'oink'
+gem "parallel_tests", :group => :development
 if RUBY_VERSION > '1.9'
   gem 'simplecov', :require => false, :group => :test
 end
