@@ -17,7 +17,7 @@ class LibraryGroupsController < ApplicationController
   # GET /library_groups/1
   # GET /library_groups/1.xml
   def show
-    @library_group = LibraryGroup.find(params[:id])
+    #@library_group = LibraryGroup.find(params[:id])
 
     respond_to do |format|
       format.html # show.rhtml
@@ -32,7 +32,7 @@ class LibraryGroupsController < ApplicationController
 
   # GET /library_groups/1;edit
   def edit
-    @library_group = LibraryGroup.find(params[:id])
+    #@library_group = LibraryGroup.find(params[:id])
     @countries = Country.all
   end
 

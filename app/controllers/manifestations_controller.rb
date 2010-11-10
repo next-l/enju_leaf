@@ -259,8 +259,8 @@ class ManifestationsController < ApplicationController
     else
       if @version
         @manifestation = @manifestation.versions.find(@version).item if @version
-      else
-        @manifestation = Manifestation.find(params[:id], :include => [:creators, :contributors, :publishers, :items])
+      #else
+      #  @manifestation = Manifestation.find(params[:id], :include => [:creators, :contributors, :publishers, :items])
       end
     end
 

@@ -1468,3 +1468,4 @@ en:
   import_request:
     record_not_found: Record not found.
     invalid_isbn: Invalid ISBN.
+    isbn_taken: has already been taken.

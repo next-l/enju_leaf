@@ -43,7 +43,7 @@ class TagsController < ApplicationController
   end
 
   def show
-    @tag = Tag.find(params[:id])
+    #@tag = Tag.find(params[:id])
     raise ActiveRecord::RecordNotFound if @tag.blank?
 
     respond_to do |format|
@@ -53,11 +53,11 @@ class TagsController < ApplicationController
   end
 
   def edit
-    @tag = Tag.find(params[:id])
+    #@tag = Tag.find(params[:id])
   end
 
   def update
-    @tag = Tag.find(params[:id])
+    #@tag = Tag.find(params[:id])
   
     respond_to do |format|
       if @tag.update_attributes(params[:tag])
@@ -74,7 +74,7 @@ class TagsController < ApplicationController
   # DELETE /tags/1
   # DELETE /tags/1.xml
   def destroy
-    @tag = Tag.find(params[:id])
+    #@tag = Tag.find(params[:id])
     @tag.destroy
 
     respond_to do |format|

@@ -60,6 +60,7 @@ gem 'whenever', :require => false
 gem 'amazon-ecs', :require => 'amazon/ecs'
 gem 'aws-s3', :require => 'aws/s3'
 gem 'astrails-safe'
+gem 'dynamic_form'
 
 gem 'oink'
 gem "parallel_tests", :group => :development

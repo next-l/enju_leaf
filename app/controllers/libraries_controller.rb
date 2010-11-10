@@ -44,8 +44,8 @@ class LibrariesController < ApplicationController
   # GET /libraries/1
   # GET /libraries/1.xml
   def show
-    @library = Library.first(:conditions => {:name => params[:id]}, :include => :shelves)
-    raise ActiveRecord::RecordNotFound if @library.nil?
+    #@library = Library.first(:conditions => {:name => params[:id]}, :include => :shelves)
+    #raise ActiveRecord::RecordNotFound if @library.nil?
 
     search = Sunspot.new_search(Event)
     library = @library.dup
@@ -83,7 +83,7 @@ class LibrariesController < ApplicationController
 
   # GET /libraries/1;edit
   def edit
-    @library = Library.first(:conditions => {:name => params[:id]})
+    #@library = Library.first(:conditions => {:name => params[:id]})
     raise ActiveRecord::RecordNotFound if @library.nil?
     prepare_options
   end
@@ -110,8 +110,8 @@ class LibrariesController < ApplicationController
   # PUT /libraries/1
   # PUT /libraries/1.xml
   def update
-    @library = Library.first(:conditions => {:name => params[:id]})
-    raise ActiveRecord::RecordNotFound if @library.nil?
+    #@library = Library.first(:conditions => {:name => params[:id]})
+    #raise ActiveRecord::RecordNotFound if @library.nil?
 
     if @library and params[:position]
       @library.insert_at(params[:position])
@@ -136,8 +136,8 @@ class LibrariesController < ApplicationController
   # DELETE /libraries/1
   # DELETE /libraries/1.xml
   def destroy
-    @library = Library.first(:conditions => {:name => params[:id]})
-    raise ActiveRecord::RecordNotFound if @library.blank?
+    #@library = Library.first(:conditions => {:name => params[:id]})
+    #raise ActiveRecord::RecordNotFound if @library.blank?
     raise if @library.web?
 
     @library.destroy

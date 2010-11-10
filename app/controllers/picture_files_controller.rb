@@ -21,7 +21,7 @@ class PictureFilesController < ApplicationController
   # GET /picture_files/1
   # GET /picture_files/1.xml
   def show
-    @picture_file = PictureFile.find(params[:id])
+    #@picture_file = PictureFile.find(params[:id])
     case params[:size]
     when 'original'
       size = 'original'
@@ -56,7 +56,7 @@ class PictureFilesController < ApplicationController
 
   # GET /picture_files/1/edit
   def edit
-    @picture_file = PictureFile.find(params[:id])
+    #@picture_file = PictureFile.find(params[:id])
   end
 
   # POST /picture_files
@@ -81,7 +81,7 @@ class PictureFilesController < ApplicationController
   # PUT /picture_files/1
   # PUT /picture_files/1.xml
   def update
-    @picture_file = PictureFile.find(params[:id])
+    #@picture_file = PictureFile.find(params[:id])
 
     # 並べ替え
     if params[:position]
@@ -112,7 +112,7 @@ class PictureFilesController < ApplicationController
   # DELETE /picture_files/1
   # DELETE /picture_files/1.xml
   def destroy
-    @picture_file = PictureFile.find(params[:id])
+    #@picture_file = PictureFile.find(params[:id])
     @picture_file.destroy
 
     respond_to do |format|
