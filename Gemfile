@@ -1,6 +1,6 @@
 source 'http://rubygems.org'
 
-gem 'rails', '3.0.1'
+gem 'rails', '3.0.3'
 
 # Bundle edge Rails instead:
 #gem 'rails', :git => 'git://github.com/rails/rails.git'
@@ -37,7 +37,7 @@ gem 'warden_oauth'
 gem 'acts-as-taggable-on'
 gem 'memcache-client'
 #gem 'dalli'
-gem 'sitemap_generator', '1.2.3'
+gem 'sitemap_generator'
 gem 'ri_cal'
 gem 'file_wrapper'
 gem 'paper_trail'
