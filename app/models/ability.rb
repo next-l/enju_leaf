@@ -26,7 +26,7 @@ class Ability
       end
       can [:read, :create, :update], User
       can :destroy, User do |user|
-        user.checkouts.not_returned.empty?
+        user.checkouts.not_returned.empty? and user.role.name == 'User'
       end
       can :read, Bookstore
       can :manage, [Basket, Checkout, Checkin]
