@@ -1365,6 +1365,7 @@ ja:
     this_item_is_not_reserved: "この資料は予約されていません。"
     invalid_item: "無効な所蔵情報です。"
     show: "予約の詳細"
+    invalid_date: "無効な日付です。"
   purchase_request:
     user_purchase_request: "%{login_name} さんの購入依頼資料"
     library_group_purchase_request: "%{library_group_name} での購入依頼資料"
