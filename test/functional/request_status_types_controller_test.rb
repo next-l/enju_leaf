@@ -48,10 +48,10 @@ class RequestStatusTypesControllerTest < ActionController::TestCase
     assert_response :forbidden
   end
 
-  def test_admin_should_get_new
+  def test_admin_should_not_get_new
     sign_in users(:admin)
     get :new
-    assert_response :success
+    assert_response :forbidden
   end
 
   def test_guest_should_not_create_request_status_type
@@ -81,22 +81,13 @@ class RequestStatusTypesControllerTest < ActionController::TestCase
     assert_response :forbidden
   end
 
-  def test_admin_should_not_create_request_status_type_without_name
+  def test_admin_should_not_create_request_status_type
     sign_in users(:admin)
     assert_no_difference('RequestStatusType.count') do
-      post :create, :request_status_type => { }
-    end
-
-    assert_response :success
-  end
-
-  def test_admin_should_create_request_status_type
-    sign_in users(:admin)
-    assert_difference('RequestStatusType.count') do
       post :create, :request_status_type => {:name => 'test'}
     end
 
-    assert_redirected_to request_status_type_url(assigns(:request_status_type))
+    assert_response :forbidden
   end
 
   def test_guest_should_not_show_request_status_type
@@ -212,10 +203,10 @@ class RequestStatusTypesControllerTest < ActionController::TestCase
 
   def test_admin_should_destroy_request_status_type
     sign_in users(:admin)
-    assert_difference('RequestStatusType.count', -1) do
+    assert_no_difference('RequestStatusType.count') do
       delete :destroy, :id => request_status_types(:request_status_type_00001).id
     end
 
-    assert_redirected_to request_status_types_url
+    assert_response :forbidden
   end
 end

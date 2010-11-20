@@ -47,10 +47,10 @@ class CirculationStatusesControllerTest < ActionController::TestCase
     assert_response :forbidden
   end
   
-  def test_admin_should_get_new
+  def test_admin_should_not_get_new
     sign_in users(:admin)
     get :new
-    assert_response :success
+    assert_response :forbidden
   end
   
   def test_guest_should_not_create_circulation_status
@@ -79,22 +79,13 @@ class CirculationStatusesControllerTest < ActionController::TestCase
     assert_response :forbidden
   end
 
-  def test_admin_should_not_create_circulation_status_without_name
+  def test_admin_should_not_create_circulation_status
     sign_in users(:admin)
     assert_no_difference('CirculationStatus.count') do
-      post :create, :circulation_status => { }
-    end
-    
-    assert_response :success
-  end
-
-  def test_admin_should_create_circulation_status
-    sign_in users(:admin)
-    assert_difference('CirculationStatus.count') do
       post :create, :circulation_status => {:name => 'test'}
     end
     
-    assert_redirected_to circulation_status_url(assigns(:circulation_status))
+    assert_response :forbidden
   end
 
   def test_guest_should_show_circulation_status
@@ -204,12 +195,12 @@ class CirculationStatusesControllerTest < ActionController::TestCase
     assert_response :forbidden
   end
 
-  def test_admin_should_destroy_circulation_status
+  def test_admin_should_not_destroy_circulation_status
     sign_in users(:admin)
-    assert_difference('CirculationStatus.count', -1) do
+    assert_no_difference('CirculationStatus.count') do
       delete :destroy, :id => 1
     end
     
-    assert_redirected_to circulation_statuses_url
+    assert_response :forbidden
   end
 end

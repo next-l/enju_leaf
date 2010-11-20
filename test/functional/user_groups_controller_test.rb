@@ -41,7 +41,7 @@ class UserGroupsControllerTest < ActionController::TestCase
     assert_response :forbidden
   end
   
-  def test_librarian_should_get_new
+  def test_librarian_should_not_get_new
     sign_in users(:librarian1)
     get :new
     assert_response :forbidden
@@ -208,10 +208,19 @@ class UserGroupsControllerTest < ActionController::TestCase
     assert_response :forbidden
   end
 
-  def test_admin_should_destroy_user_group
+  def test_admin_should_not_destroy_user_group_contains_users
+    sign_in users(:admin)
+    assert_no_difference('UserGroup.count') do
+      delete :destroy, :id => 1
+    end
+    
+    assert_response :forbidden
+  end
+
+  def test_admin_should_destroy_user_group_not_contains_users
     sign_in users(:admin)
     assert_difference('UserGroup.count', -1) do
-      delete :destroy, :id => 1
+      delete :destroy, :id => 3
     end
     
     assert_redirected_to user_groups_url

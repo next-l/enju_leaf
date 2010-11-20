@@ -41,16 +41,16 @@ class ExtentsControllerTest < ActionController::TestCase
     assert_response :forbidden
   end
   
-  def test_librarian_should_get_new
+  def test_librarian_should_not_get_new
     sign_in users(:librarian1)
     get :new
     assert_response :forbidden
   end
   
-  def test_admin_should_get_new
+  def test_admin_should_not_get_new
     sign_in users(:admin)
     get :new
-    assert_response :success
+    assert_response :forbidden
   end
   
   def test_guest_should_not_create_extent
@@ -79,22 +79,13 @@ class ExtentsControllerTest < ActionController::TestCase
     assert_response :forbidden
   end
 
-  def test_admin_should_not_create_extent_without_name
+  def test_admin_should_not_create_extent
     sign_in users(:admin)
     assert_no_difference('Extent.count') do
-      post :create, :extent => { }
-    end
-    
-    assert_response :success
-  end
-
-  def test_admin_should_create_extent
-    sign_in users(:admin)
-    assert_difference('Extent.count') do
       post :create, :extent => {:name => 'test'}
     end
     
-    assert_redirected_to extent_url(assigns(:extent))
+    assert_response :forbidden
   end
 
   def test_guest_should_show_extent
@@ -204,12 +195,12 @@ class ExtentsControllerTest < ActionController::TestCase
     assert_response :forbidden
   end
 
-  def test_admin_should_destroy_extent
+  def test_admin_should_not_destroy_extent
     sign_in users(:admin)
-    assert_difference('Extent.count', -1) do
+    assert_no_difference('Extent.count') do
       delete :destroy, :id => 1
     end
     
-    assert_redirected_to extents_url
+    assert_response :forbidden
   end
 end

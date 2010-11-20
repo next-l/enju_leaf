@@ -48,10 +48,10 @@ class RequestTypesControllerTest < ActionController::TestCase
     assert_response :forbidden
   end
 
-  def test_admin_should_get_new
+  def test_admin_should_not_get_new
     sign_in users(:admin)
     get :new
-    assert_response :success
+    assert_response :forbidden
   end
 
   def test_guest_should_not_create_request_type
@@ -81,22 +81,13 @@ class RequestTypesControllerTest < ActionController::TestCase
     assert_response :forbidden
   end
 
-  def test_admin_should_not_create_request_type_without_name
+  def test_admin_should_not_create_request_type
     sign_in users(:admin)
     assert_no_difference('RequestType.count') do
-      post :create, :request_type => { }
-    end
-
-    assert_response :success
-  end
-
-  def test_admin_should_create_request_type
-    sign_in users(:admin)
-    assert_difference('RequestType.count') do
       post :create, :request_type => {:name => 'test'}
     end
 
-    assert_redirected_to request_type_url(assigns(:request_type))
+    assert_response :forbidden
   end
 
   def test_guest_should_not_show_request_type

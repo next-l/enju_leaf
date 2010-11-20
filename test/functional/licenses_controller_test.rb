@@ -41,16 +41,16 @@ class LicensesControllerTest < ActionController::TestCase
     assert_response :forbidden
   end
   
-  def test_librarian_should_get_new
+  def test_librarian_should_not_get_new
     sign_in users(:librarian1)
     get :new
     assert_response :forbidden
   end
   
-  def test_admin_should_get_new
+  def test_admin_should_not_get_new
     sign_in users(:admin)
     get :new
-    assert_response :success
+    assert_response :forbidden
   end
   
   def test_guest_should_not_create_license
@@ -79,22 +79,13 @@ class LicensesControllerTest < ActionController::TestCase
     assert_response :forbidden
   end
 
-  def test_admin_should_not_create_license_without_name
+  def test_admin_should_not_create_license
     sign_in users(:admin)
     assert_no_difference('License.count') do
-      post :create, :license => { }
-    end
-    
-    assert_response :success
-  end
-
-  def test_admin_should_create_license
-    sign_in users(:admin)
-    assert_difference('License.count') do
       post :create, :license => {:name => 'test'}
     end
     
-    assert_redirected_to license_url(assigns(:license))
+    assert_response :forbidden
   end
 
   def test_guest_should_show_license

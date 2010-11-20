@@ -47,10 +47,10 @@ class CarrierTypesControllerTest < ActionController::TestCase
     assert_response :forbidden
   end
   
-  def test_admin_should_get_new
+  def test_admin_should_not_get_new
     sign_in users(:admin)
     get :new
-    assert_response :success
+    assert_response :forbidden
   end
   
   def test_guest_should_not_create_carrier_type
@@ -79,22 +79,13 @@ class CarrierTypesControllerTest < ActionController::TestCase
     assert_response :forbidden
   end
 
-  def test_admin_should_not_create_carrier_type_without_name
+  def test_admin_should_not_create_carrier_type
     sign_in users(:admin)
     assert_no_difference('CarrierType.count') do
-      post :create, :carrier_type => { }
-    end
-    
-    assert_response :success
-  end
-
-  def test_admin_should_create_carrier_type
-    sign_in users(:admin)
-    assert_difference('CarrierType.count') do
       post :create, :carrier_type => {:name => 'test'}
     end
     
-    assert_redirected_to carrier_type_url(assigns(:carrier_type))
+    assert_response :forbidden
   end
 
   def test_guest_should_show_carrier_type
@@ -204,12 +195,12 @@ class CarrierTypesControllerTest < ActionController::TestCase
     assert_response :forbidden
   end
 
-  def test_admin_should_destroy_carrier_type
+  def test_admin_should_not_destroy_carrier_type
     sign_in users(:admin)
-    assert_difference('CarrierType.count', -1) do
+    assert_no_difference('CarrierType.count') do
       delete :destroy, :id => 1
     end
     
-    assert_redirected_to carrier_types_url
+    assert_response :forbidden
   end
 end

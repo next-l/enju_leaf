@@ -5,7 +5,7 @@ class ManifestationRelationshipsControllerTest < ActionController::TestCase
     @manifestation_relationship = manifestation_relationships(:one)
   end
 
-  test "should get index" do
+  test "guest should get index" do
     get :index
     assert_response :success
     assert_not_nil assigns(:manifestation_relationships)

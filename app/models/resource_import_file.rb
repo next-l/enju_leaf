@@ -319,6 +319,7 @@ class ResourceImportFile < ActiveRecord::Base
           :original_title => title[:original_title],
           :title_transcription => title[:title_transcription],
           :title_alternative => title[:title_alternative],
+          :title_alternative_transcription => title[:title_alternative_transcription],
           :isbn => isbn,
           :wrong_isbn => row['wrong_isbn'],
           :issn => row['issn'],
