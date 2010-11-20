@@ -216,12 +216,13 @@ class ItemsController < ApplicationController
   # DELETE /items/1.xml
   def destroy
     #@item = Item.find(params[:id])
+    manifestation = @item.manifestation
     @item.destroy
 
     respond_to do |format|
       flash[:notice] = t('controller.successfully_deleted', :model => t('activerecord.models.item'))
       if @item.manifestation
-        format.html { redirect_to manifestation_items_url(@item.manifestation) }
+        format.html { redirect_to manifestation_items_url(manifestation) }
         format.xml  { head :ok }
       else
         format.html { redirect_to items_url }

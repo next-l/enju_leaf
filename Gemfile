@@ -1,6 +1,6 @@
 source 'http://rubygems.org'
 
-gem 'rails', '3.0.1'
+gem 'rails', '3.0.3'
 
 # Bundle edge Rails instead:
 #gem 'rails', :git => 'git://github.com/rails/rails.git'
@@ -40,7 +40,7 @@ gem 'memcache-client'
 gem 'sitemap_generator'
 gem 'ri_cal'
 gem 'file_wrapper'
-gem 'paper_trail'
+gem 'paper_trail', '>=1.6.4'
 gem 'recurrence'
 gem 'prism'
 gem 'money'
