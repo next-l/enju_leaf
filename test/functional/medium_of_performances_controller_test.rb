@@ -41,16 +41,16 @@ class MediumOfPerformancesControllerTest < ActionController::TestCase
     assert_response :forbidden
   end
   
-  def test_librarian_should_get_new
+  def test_librarian_should_not_get_new
     sign_in users(:librarian1)
     get :new
     assert_response :forbidden
   end
   
-  def test_admin_should_get_new
+  def test_admin_should_not_get_new
     sign_in users(:admin)
     get :new
-    assert_response :success
+    assert_response :forbidden
   end
   
   def test_guest_should_not_create_medium_of_performance
@@ -79,22 +79,13 @@ class MediumOfPerformancesControllerTest < ActionController::TestCase
     assert_response :forbidden
   end
 
-  def test_admin_should_not_create_medium_of_performance_without_name
+  def test_admin_should_not_create_medium_of_performance
     sign_in users(:admin)
     assert_no_difference('MediumOfPerformance.count') do
-      post :create, :medium_of_performance => { }
-    end
-    
-    assert_response :success
-  end
-
-  def test_admin_should_create_medium_of_performance
-    sign_in users(:admin)
-    assert_difference('MediumOfPerformance.count') do
       post :create, :medium_of_performance => {:name => 'test'}
     end
     
-    assert_redirected_to medium_of_performance_url(assigns(:medium_of_performance))
+    assert_response :forbidden
   end
 
   def test_guest_should_show_medium_of_performance
@@ -204,12 +195,12 @@ class MediumOfPerformancesControllerTest < ActionController::TestCase
     assert_response :forbidden
   end
 
-  def test_admin_should_destroy_medium_of_performance
+  def test_admin_should_not_destroy_medium_of_performance
     sign_in users(:admin)
-    assert_difference('MediumOfPerformance.count', -1) do
+    assert_no_difference('MediumOfPerformance.count') do
       delete :destroy, :id => 1
     end
     
-    assert_redirected_to medium_of_performances_url
+    assert_response :forbidden
   end
 end

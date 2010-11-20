@@ -48,10 +48,10 @@ class UseRestrictionsControllerTest < ActionController::TestCase
     assert_response :forbidden
   end
 
-  def test_admin_should_get_new
+  def test_admin_should_not_get_new
     sign_in users(:admin)
     get :new
-    assert_response :success
+    assert_response :forbidden
   end
 
   def test_guest_should_not_create_use_restriction
@@ -81,22 +81,13 @@ class UseRestrictionsControllerTest < ActionController::TestCase
     assert_response :forbidden
   end
 
-  def test_admin_should_not_create_use_restriction_without_name
+  def test_admin_should_not_create_use_restriction
     sign_in users(:admin)
     assert_no_difference('UseRestriction.count') do
-      post :create, :use_restriction => { }
-    end
-
-    assert_response :success
-  end
-
-  def test_admin_should_create_use_restriction
-    sign_in users(:admin)
-    assert_difference('UseRestriction.count') do
       post :create, :use_restriction => {:name => 'test'}
     end
 
-    assert_redirected_to use_restriction_url(assigns(:use_restriction))
+    assert_response :forbidden
   end
 
   def test_guest_should_not_show_use_restriction
@@ -210,12 +201,12 @@ class UseRestrictionsControllerTest < ActionController::TestCase
     assert_response :forbidden
   end
 
-  def test_admin_should_destroy_use_restriction
+  def test_admin_should_not_destroy_use_restriction
     sign_in users(:admin)
-    assert_difference('UseRestriction.count', -1) do
+    assert_no_difference('UseRestriction.count') do
       delete :destroy, :id => use_restrictions(:use_restriction_00001).id
     end
 
-    assert_redirected_to use_restrictions_url
+    assert_response :forbidden
   end
 end

@@ -584,8 +584,8 @@ class ManifestationsControllerTest < ActionController::TestCase
     assert_response :forbidden
   end
 
-  def test_librarian_should_not_destroy_manifestation_contain_items
-    sign_in users(:librarian1)
+  def test_everyone_should_not_destroy_manifestation_contain_items
+    sign_in users(:admin)
     assert_no_difference('Manifestation.count') do
       delete :destroy, :id => 1
     end
@@ -605,7 +605,7 @@ class ManifestationsControllerTest < ActionController::TestCase
   def test_admin_should_destroy_manifestation
     sign_in users(:admin)
     assert_difference('Manifestation.count', -1) do
-      delete :destroy, :id => 1
+      delete :destroy, :id => 10
     end
     
     assert_redirected_to manifestations_url

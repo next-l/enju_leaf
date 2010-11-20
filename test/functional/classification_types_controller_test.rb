@@ -41,7 +41,7 @@ class ClassificationTypesControllerTest < ActionController::TestCase
     assert_response :forbidden
   end
   
-  def test_librarian_should_get_new
+  def test_librarian_should_not_get_new
     sign_in users(:librarian1)
     get :new
     assert_response :forbidden
@@ -79,22 +79,13 @@ class ClassificationTypesControllerTest < ActionController::TestCase
     assert_response :forbidden
   end
 
-  def test_admin_should_not_create_classification_type_without_name
-    sign_in users(:admin)
-    assert_no_difference('ClassificationType.count') do
-      post :create, :classification_type => { }
-    end
-    
-    assert_response :success
-  end
-
   def test_admin_should_create_classification_type
     sign_in users(:admin)
     assert_difference('ClassificationType.count') do
       post :create, :classification_type => {:name => 'test'}
     end
     
-    assert_redirected_to classification_type_url(assigns(:classification_type))
+    assert_redirected_to assigns(:classification_type)
   end
 
   def test_guest_should_show_classification_type
@@ -204,10 +195,19 @@ class ClassificationTypesControllerTest < ActionController::TestCase
     assert_response :forbidden
   end
 
+  def test_admin_should_not_destroy_classification_type_contains_classifications
+    sign_in users(:admin)
+    assert_no_difference('ClassificationType.count') do
+      delete :destroy, :id => 1
+    end
+    
+    assert_response :forbidden
+  end
+
   def test_admin_should_destroy_classification_type
     sign_in users(:admin)
     assert_difference('ClassificationType.count', -1) do
-      delete :destroy, :id => 1
+      delete :destroy, :id => 3
     end
     
     assert_redirected_to classification_types_url
