@@ -221,7 +221,6 @@ class Ability
         ManifestationCheckoutStat,
         ManifestationRelationship,
         ManifestationReserveStat,
-        Message,
         Order,
         OrderList,
         Own,

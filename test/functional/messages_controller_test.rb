@@ -34,10 +34,10 @@ class MessagesControllerTest < ActionController::TestCase
     assert_response :forbidden
   end
   
-  def test_user_should_get_new_with_valid_parent_id
+  def test_user_should_not_get_new_with_valid_parent_id
     sign_in users(:user1)
     get :new, :parent_id => 2
-    assert_response :success
+    assert_response :forbidden
   end
   
   def test_librarian_should_get_new
@@ -72,13 +72,12 @@ class MessagesControllerTest < ActionController::TestCase
     assert_response :forbidden
   end
   
-  def test_user_should_create_message_with_parent_id
+  def test_user_should_not_create_message_with_parent_id
     sign_in users(:user1)
-    assert_difference('Message.count') do
+    assert_no_difference('Message.count') do
       post :create, :message => {:recipient => 'user2', :subject => "test", :body => "test", :parent_id => 2}
     end
-    assert_response :redirect
-    assert_redirected_to user_messages_path(users(:user1))
+    assert_response :forbidden
   end
   
   def test_librarian_should_create_message_without_parent_id
