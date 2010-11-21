@@ -14,7 +14,7 @@
 <%- @extents.each do |extent| -%>
   <tr class="line<%= cycle("0", "1") -%>">
     <td>
-      <%- if can? :destroy, extent -%>
+      <%- if can? :update, extent -%>
         <%= move_position(extent) -%>
       <%- end -%>
     </td>
@@ -25,8 +25,10 @@
     </td>
     <td><%= extent.note -%></td>
     <td>
-      <%- if can? :destroy, extent -%>
+      <%- if can? :update, extent -%>
         <%= link_to t('page.edit'), edit_extent_path(extent) -%>
+      <% end %>
+      <%- if can? :destroy, extent -%>
         <%= link_to t('page.destroy'), extent, :confirm => t('page.are_you_sure'), :method => :delete -%>
       <%- end -%>
     </td>

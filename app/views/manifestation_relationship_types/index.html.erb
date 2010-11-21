@@ -14,7 +14,7 @@
 <%- @manifestation_relationship_types.each do |manifestation_relationship_type| -%>
   <tr class="line<%= cycle("0", "1") -%>">
     <td>
-      <%- if can? :destroy, manifestation_relationship_type -%>
+      <%- if can? :update, manifestation_relationship_type -%>
         <%= move_position(manifestation_relationship_type) -%>
       <%- end -%>
     </td>
@@ -22,8 +22,10 @@
     <td><%= link_to h(manifestation_relationship_type.display_name.localize), manifestation_relationship_type -%></td>
     <td><%= manifestation_relationship_type.note -%></td>
     <td>
-      <%- if can? :destroy, manifestation_relationship_type -%>
+      <%- if can? :update, manifestation_relationship_type -%>
         <%= link_to t('page.edit'), edit_manifestation_relationship_type_path(manifestation_relationship_type) -%>
+      <% end %>
+      <%- if can? :destroy, manifestation_relationship_type -%>
         <%= link_to t('page.destroy'), manifestation_relationship_type, :confirm => t('page.are_you_sure'), :method => :delete -%>
       <% end %>
     </td>

@@ -197,10 +197,19 @@ class BookstoresControllerTest < ActionController::TestCase
     assert_response :forbidden
   end
 
-  def test_admin_should_destroy_bookstore
+  def test_admin_should_not_destroy_bookstore_contains_order_lists
+    sign_in users(:admin)
+    assert_no_difference('Bookstore.count') do
+      delete :destroy, :id => bookstores(:bookstore_00001).id
+    end
+
+    assert_response :forbidden
+  end
+
+  def test_admin_should_destroy_bookstore_which_doesnt_contain_order_lists
     sign_in users(:admin)
     assert_difference('Bookstore.count', -1) do
-      delete :destroy, :id => bookstores(:bookstore_00001).id
+      delete :destroy, :id => bookstores(:bookstore_00004).id
     end
 
     assert_redirected_to bookstores_url

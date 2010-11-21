@@ -14,7 +14,7 @@
 <%- @subject_heading_types.each do |subject_heading_type| -%>
   <tr class="line<%= cycle("0", "1") -%>">
     <td>
-      <%- if can? :destroy, subject_heading_type -%>
+      <%- if can? :update, subject_heading_type -%>
         <%= move_position(subject_heading_type) -%>
       <%- end -%>
     </td>
@@ -22,8 +22,10 @@
     <td><%= link_to h(subject_heading_type.display_name.localize), subject_heading_type -%></td>
     <td><%= subject_heading_type.note -%></td>
     <td>
-      <%- if can? :destroy, subject_heading_type -%>
+      <%- if can? :update, subject_heading_type -%>
         <%= link_to t('page.edit'), edit_subject_heading_type_path(subject_heading_type) -%>
+      <% end %>
+      <%- if can? :destroy, subject_heading_type -%>
         <%= link_to t('page.destroy'), subject_heading_type, :confirm => t('page.are_you_sure'), :method => :delete -%>
       <%- end -%>
     </td>

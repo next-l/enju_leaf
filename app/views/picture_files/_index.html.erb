@@ -22,9 +22,11 @@
       <td><%= picture_file.picture_content_type -%></td>
       <td><%= link_to h(picture_file.picture_file_name), picture_file_path(picture_file, :format => :download, :size => 'original') -%></td>
       <td>
-        <%- if can? :destroy, picture_file -%>
-          <%= link_to t('page.show'), picture_file -%>
+        <%= link_to t('page.show'), picture_file -%>
+        <%- if can? :update, picture_file -%>
           <%= link_to t('page.edit'), edit_picture_file_path(picture_file) -%>
+        <% end %>
+        <%- if can? :destroy, picture_file -%>
           <%= link_to t('page.destroy'), picture_file, :confirm => t('page.are_you_sure'), :method => :delete -%>
         <%- end -%>
       </td>

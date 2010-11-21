@@ -13,15 +13,17 @@
 <%- @user_groups.each do |user_group| -%>
   <tr class="line<%= cycle("0", "1") -%>">
     <td>
-      <%- if can? :destroy, user_group -%>
+      <%- if can? :update, user_group -%>
         <%= move_position(user_group) -%>
       <%- end -%>
     </td>
     <td><%= link_to h(user_group.display_name.localize), user_group -%></td>
     <td><%= user_group.note -%></td>
     <td>
-      <%- if can? :destroy, user_group -%>
+      <%- if can? :update, user_group -%>
         <%= link_to t('page.edit'), edit_user_group_path(user_group) -%>
+      <% end %>
+      <%- if can? :destroy, user_group -%>
         <%= link_to t('page.destroy'), user_group_path(user_group), :confirm => t('page.are_you_sure'), :method => :delete -%>
       <% end %>
     </td>

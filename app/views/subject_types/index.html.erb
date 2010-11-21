@@ -14,7 +14,7 @@
 <%- @subject_types.each do |subject_type| -%>
   <tr class="line<%= cycle("0", "1") -%>">
     <td>
-      <%- if can? :destroy, subject_type -%>
+      <%- if can? :update, subject_type -%>
         <%= move_position(subject_type) -%>
       <%- end -%>
     </td>
@@ -22,8 +22,10 @@
     <td><%= link_to h(subject_type.display_name.localize), subject_type -%></td>
     <td><%= subject_type.note -%></td>
     <td>
-      <%- if can? :destroy, subject_type -%>
+      <%- if can? :update, subject_type -%>
         <%= link_to t('page.edit'), edit_subject_type_path(subject_type) -%>
+      <% end %>
+      <%- if can? :destroy, subject_type -%>
         <%= link_to t('page.destroy'), subject_type, :confirm => t('page.are_you_sure'), :method => :delete -%>
       <%- end -%>
     </td>

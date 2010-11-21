@@ -15,7 +15,7 @@
 <%- @countries.each do |country| -%>
   <tr class="line<%= cycle("0", "1") -%>">
     <td>
-      <%- if can? :destroy, country -%>
+      <%- if can? :update, country -%>
         <%= move_position(country) -%>
       <%- end -%>
     </td>
@@ -24,7 +24,7 @@
     <td><%= country.alpha_3 -%></td>
     <td><%= country.numeric_3 -%></td>
     <td>
-      <%- if can? :destroy, country -%>
+      <%- if can? :update, country -%>
         <%= link_to t('page.edit'), edit_country_path(country) -%>
       <%- end -%>
     </td>

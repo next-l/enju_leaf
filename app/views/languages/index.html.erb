@@ -17,7 +17,7 @@
 <%- @languages.each do |language| -%>
   <tr class="line<%= cycle("0", "1") -%>">
     <td>
-      <%- if can? :destroy, language -%>
+      <%- if can? :update, language -%>
         <%= move_position(language) -%>
       <%- end -%>
     </td>
@@ -28,7 +28,7 @@
     <td><%= language.iso_639_2 -%></td>
     <td><%= language.iso_639_3 -%></td>
     <td>
-      <%- if can? :destroy, language -%>
+      <%- if can? :update, language -%>
         <%= link_to t('page.edit'), edit_language_path(language) -%>
       <%- end -%>
     </td>

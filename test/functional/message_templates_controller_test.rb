@@ -168,7 +168,7 @@ class MessageTemplatesControllerTest < ActionController::TestCase
       delete :destroy, :id => message_templates(:message_template_00001).id
     end
 
-    assert_redirected_to message_templates_url
+    assert_response :forbidden
   end
 
   def test_admin_should_not_destroy_message_template

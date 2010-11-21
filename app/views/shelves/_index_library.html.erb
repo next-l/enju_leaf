@@ -12,14 +12,16 @@
 <%- @shelves.each_with_index do |shelf, i| -%>
   <tr class="line<%= cycle("0", "1") -%>">
     <td>
-      <%- if can? :destroy, shelf -%>
+      <%- if can? :update, shelf -%>
         <%= move_position(shelf) -%>
       <%- end -%>
     </td>
     <td><%= link_to h(shelf.display_name.localize), shelf -%></td>
     <td><%= link_to h(shelf.library.display_name.localize), library_path(shelf.library.name) -%></td>
-    <%- if can? :destroy, shelf -%>
+    <%- if can? :update, shelf -%>
       <td><%= link_to t('page.edit'), edit_library_shelf_path(shelf.library.name, shelf) -%></td>
+    <% end %>
+    <%- if can? :destroy, shelf -%>
       <td><%= link_to t('page.destroy'), shelf_path(shelf), :confirm => t('page.are_you_sure'), :method => :delete -%></td>
     <%- end -%>
   </tr>

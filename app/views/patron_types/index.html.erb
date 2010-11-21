@@ -14,7 +14,7 @@
 <%- @patron_types.each do |patron_type| -%>
   <tr class="line<%= cycle("0", "1") -%>">
     <td>
-      <%- if can? :destroy, patron_type -%>
+      <%- if can? :update, patron_type -%>
         <%= move_position(patron_type) -%>
       <%- end -%>
     </td>
@@ -22,8 +22,10 @@
     <td><%= link_to h(patron_type.display_name.localize), patron_type -%></td>
     <td><%= patron_type.note -%></td>
     <td>
-      <%- if can? :destroy, patron_type -%>
+      <%- if can? :update, patron_type -%>
         <%= link_to t('page.edit'), edit_patron_type_path(patron_type) -%>
+      <% end %>
+      <%- if can? :destroy, patron_type -%>
         <%= link_to t('page.destroy'), patron_type, :confirm => t('page.are_you_sure'), :method => :delete -%>
       <%- end -%>
     </td>

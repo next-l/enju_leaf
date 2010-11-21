@@ -175,10 +175,10 @@ class AnswersControllerTest < ActionController::TestCase
     assert_response :success
   end
 
-  def test_user_should_show_other_public_answer
+  def test_user_should_not_show_other_public_answer_if_queston_is_private
     sign_in users(:user1)
     get :show, :id => 5, :user_id => users(:user2).username
-    assert_response :success
+    assert_response :forbidden
   end
 
   def test_user_should_not_show_private_answer
