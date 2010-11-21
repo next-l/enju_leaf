@@ -22,7 +22,7 @@
     <td><%= link_to h(event_category.display_name.localize), event_category -%></td>
     <td><%= event_category.note -%></td>
     <td>
-      <%- if can? :updatey, event_category -%>
+      <%- if can? :update, event_category -%>
         <%= link_to t('page.edit'), edit_event_category_path(event_category) -%>
       <% end %>
       <%- if can? :destroy, event_category -%>
