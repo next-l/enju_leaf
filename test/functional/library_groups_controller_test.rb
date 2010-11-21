@@ -38,16 +38,16 @@ class LibraryGroupsControllerTest < ActionController::TestCase
     assert_response :forbidden
   end
   
-  def test_librarian_should_get_new
+  def test_librarian_should_not_get_new
     sign_in users(:librarian1)
     get :new
     assert_response :forbidden
   end
   
-  def test_admin_should_get_new
+  def test_admin_should_not_get_new
     sign_in users(:admin)
     get :new
-    assert_response :success
+    assert_response :forbidden
   end
   
   def test_guest_should_not_create_library_group

@@ -195,12 +195,12 @@ class LicensesControllerTest < ActionController::TestCase
     assert_response :forbidden
   end
 
-  def test_admin_should_destroy_license
+  def test_admin_should_not_destroy_license
     sign_in users(:admin)
-    assert_difference('License.count', -1) do
+    assert_no_difference('License.count') do
       delete :destroy, :id => 1
     end
     
-    assert_redirected_to licenses_url
+    assert_response :forbidden
   end
 end

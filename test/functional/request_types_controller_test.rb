@@ -201,12 +201,12 @@ class RequestTypesControllerTest < ActionController::TestCase
     assert_response :forbidden
   end
 
-  def test_admin_should_destroy_request_type
+  def test_admin_should_not_destroy_request_type
     sign_in users(:admin)
-    assert_difference('RequestType.count', -1) do
+    assert_no_difference('RequestType.count') do
       delete :destroy, :id => request_types(:request_type_00001).id
     end
 
-    assert_redirected_to request_types_url
+    assert_response :forbidden
   end
 end

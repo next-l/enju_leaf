@@ -81,7 +81,7 @@ class CountriesControllerTest < ActionController::TestCase
 
   def test_admin_should_not_create_country
     sign_in users(:admin)
-    assert_difference('Country.count') do
+    assert_no_difference('Country.count') do
       post :create, :country => {:name => 'test', :alpha_2 => '000', :alpha_3 => '000', :numeric_3 => '000'}
     end
     

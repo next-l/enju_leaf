@@ -16,8 +16,10 @@
     <td><%= link_to h(shelf.display_name.localize), shelf_path(shelf) -%></td>
     <td><%= link_to h(shelf.library.display_name.localize), library_path(shelf.library.name) -%></td>
     <td>
-      <%- if can? :destroy, shelf -%>
+      <%- if can? :update, shelf -%>
         <%= link_to t('page.edit'), edit_shelf_path(shelf) -%>
+      <% end %>
+      <%- if can? :destroy, shelf -%>
         <%= link_to t('page.destroy'), shelf_path(shelf), :confirm => t('page.are_you_sure'), :method => :delete -%>
       <%- end -%>
     </td>

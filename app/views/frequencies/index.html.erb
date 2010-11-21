@@ -13,15 +13,17 @@
 <%- @frequencies.each do |frequency| -%>
   <tr class="line<%= cycle("0", "1") -%>">
     <td>
-      <%- if can? :destroy, frequency -%>
+      <%- if can? :update, frequency -%>
         <%= move_position(frequency) -%>
       <%- end -%>
     </td>
     <td><%= link_to h(frequency.name), frequency -%></td>
     <td><%= link_to h(frequency.display_name.localize), frequency -%></td>
     <td>
-      <%- if can? :destroy, frequency -%>
+      <%- if can? :update, frequency -%>
         <%= link_to t('page.edit'), edit_frequency_path(frequency) -%>
+      <% end %>
+      <%- if can? :destroy, frequency -%>
         <%= link_to t('page.destroy'), frequency, :confirm => t('page.are_you_sure'), :method => :delete -%>
       <%- end -%>
     </td>

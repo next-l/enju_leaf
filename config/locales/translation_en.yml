@@ -1142,6 +1142,8 @@ en:
     not_found: "Page not found"
     access_denied: "Access denied"
     last_updated: "Last updated"
+    remember_me: "Remember me"
+    forgot_your_password: "Forgot your password?"
   title:
     index: "index"
     show: "show"

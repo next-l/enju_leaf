@@ -15,7 +15,7 @@
   <tr class="line<%= cycle("0", "1") -%>">
     <td>
       <%- unless @user_group -%>
-        <%- if can? :destroy, checkout_type -%>
+        <%- if can? :update, checkout_type -%>
           <%= move_position(checkout_type) -%>
         <%- end -%>
       <%- end -%>
@@ -24,8 +24,10 @@
     <td><%= link_to h(checkout_type.display_name.localize), checkout_type -%></td>
     <td><%= checkout_type.note -%></td>
     <td>
-      <%- if can? :destroy, checkout_type -%>
+      <%- if can? :update, checkout_type -%>
         <%= link_to t('page.edit'), edit_checkout_type_path(checkout_type) -%>
+      <% end %>
+      <%- if can? :destroy, checkout_type -%>
         <%= link_to t('page.destroy'), checkout_type, :confirm => t('page.are_you_sure'), :method => :delete -%>
       <% end %>
     </td>

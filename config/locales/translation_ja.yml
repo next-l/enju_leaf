@@ -1134,6 +1134,8 @@ ja:
     not_found: "ページが見つかりませんでした"
     access_denied: "アクセスが拒否されました"
     last_updated: "最終更新日"
+    remember_me: "ウインドウを閉じてもログインしたままにする"
+    forgot_your_password: "パスワードを忘れましたか?"
   title:
     index: "一覧"
     show: "表示"
