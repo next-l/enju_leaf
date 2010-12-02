@@ -33,7 +33,7 @@ class Library < ActiveRecord::Base
   before_validation :set_patron, :on => :create
   before_validation :set_display_name
   before_save :set_calil_neighborhood_library
-  #after_validation :fetch_coordinates
+  after_validation :fetch_coordinates
   after_create :create_shelf
   after_create :clear_all_cache
   after_destroy :clear_all_cache
