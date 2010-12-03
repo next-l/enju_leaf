@@ -14,7 +14,7 @@
 <%- @event_categories.each do |event_category| -%>
   <tr class="line<%= cycle("0", "1") -%>">
     <td>
-      <%- if can? :destroy, event_category -%>
+      <%- if can? :update, event_category -%>
         <%= move_position(event_category) -%>
       <%- end -%>
     </td>
@@ -22,8 +22,10 @@
     <td><%= link_to h(event_category.display_name.localize), event_category -%></td>
     <td><%= event_category.note -%></td>
     <td>
-      <%- if can? :destroy, event_category -%>
+      <%- if can? :update, event_category -%>
         <%= link_to t('page.edit'), edit_event_category_path(event_category) -%>
+      <% end %>
+      <%- if can? :destroy, event_category -%>
         <%= link_to t('page.destroy'), event_category, :confirm => t('page.are_you_sure'), :method => :delete -%>
       <%- end -%>
     </td>

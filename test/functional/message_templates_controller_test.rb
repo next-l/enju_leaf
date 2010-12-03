@@ -36,10 +36,16 @@ class MessageTemplatesControllerTest < ActionController::TestCase
     assert_response :forbidden
   end
 
-  def test_librarian_should_get_new
+  def test_librarian_should_not_get_new
     sign_in users(:librarian1)
     get :new
-    assert_response :success
+    assert_response :forbidden
+  end
+
+  def test_admin_should_not_get_new
+    sign_in users(:admin)
+    get :new
+    assert_response :forbidden
   end
 
   def test_guest_should_not_create_message_template
@@ -51,42 +57,6 @@ class MessageTemplatesControllerTest < ActionController::TestCase
     assert_redirected_to new_user_session_url
   end
 
-  def test_everyone_should_not_create_message_template_without_status
-    sign_in users(:admin)
-    assert_no_difference('MessageTemplate.count') do
-      post :create, :message_template => {:title => 'test4', :body => 'test'}
-    end
-
-    assert_response :success
-  end
-
-  def test_everyone_should_not_create_message_template_without_title
-    sign_in users(:admin)
-    assert_no_difference('MessageTemplate.count') do
-      post :create, :message_template => {:status => 'test4', :body => 'test'}
-    end
-
-    assert_response :success
-  end
-
-  def test_everyone_should_not_create_message_template_without_body
-    sign_in users(:admin)
-    assert_no_difference('MessageTemplate.count') do
-      post :create, :message_template => {:status => 'test4', :title => 'test'}
-    end
-
-    assert_response :success
-  end
-
-  def test_everyone_should_not_create_message_template_which_has_same_status
-    sign_in users(:admin)
-    assert_no_difference('MessageTemplate.count') do
-      post :create, :message_template => {:status => 'reservation_accepted', :body => 'test', :title => 'test'}
-    end
-
-    assert_response :success
-  end
-
   def test_user_should_not_create_message_template
     sign_in users(:user1)
     assert_no_difference('MessageTemplate.count') do
@@ -96,13 +66,22 @@ class MessageTemplatesControllerTest < ActionController::TestCase
     assert_response :forbidden
   end
 
-  def test_librarian_should_create_message_template
+  def test_librarian_should_not_create_message_template
     sign_in users(:librarian1)
-    assert_difference('MessageTemplate.count') do
+    assert_no_difference('MessageTemplate.count') do
       post :create, :message_template => {:status => 'test4', :title => 'example', :body => 'example'}
     end
 
-    assert_redirected_to message_template_url(assigns(:message_template))
+    assert_response :forbidden
+  end
+
+  def test_admin_should_not_create_message_template
+    sign_in users(:admin)
+    assert_no_difference('MessageTemplate.count') do
+      post :create, :message_template => {:status => 'test4', :title => 'example', :body => 'example'}
+    end
+
+    assert_response :forbidden
   end
 
   def test_guest_should_not_show_message_template
@@ -183,12 +162,21 @@ class MessageTemplatesControllerTest < ActionController::TestCase
     assert_response :forbidden
   end
 
-  def test_librarian_should_destroy_message_template
+  def test_librarian_should_not_destroy_message_template
     sign_in users(:librarian1)
-    assert_difference('MessageTemplate.count', -1) do
+    assert_no_difference('MessageTemplate.count') do
       delete :destroy, :id => message_templates(:message_template_00001).id
     end
 
-    assert_redirected_to message_templates_url
+    assert_response :forbidden
+  end
+
+  def test_admin_should_not_destroy_message_template
+    sign_in users(:admin)
+    assert_no_difference('MessageTemplate.count') do
+      delete :destroy, :id => message_templates(:message_template_00001).id
+    end
+
+    assert_response :forbidden
   end
 end

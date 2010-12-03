@@ -47,18 +47,18 @@
       <li>
         <% facet.value ? facet_mode = 'read' : facet_mode = 'unread' %>
         <%- if facet_mode == mode -%><strong><%- end -%>
-          <%= link_to t("message.#{facet_mode}"), url_for(:params => params.merge(:page => nil, :mode => facet_mode)) -%>
+          <%= link_to t("message.#{facet_mode}"), url_for(params.merge(:page => nil, :mode => facet_mode)) -%>
         (<%= facet.count -%>)
         <%- if facet_mode == mode -%></strong><%- end -%>
       </li>
     <%- end -%>
     <% if mode.present? %>
-      <li><%= link_to t('page.remove_this_facet'), params.merge(:mode => nil, :page => nil) -%></li>
+      <li><%= link_to t('page.remove_this_facet'), url_for(params.merge(:mode => nil, :page => nil)) -%></li>
     <% end %>
   </ul>
 
   <ul>
-    <% if current_user.has_role?('Librarian') %>
+    <% if can? :create, Message %>
       <li><%= link_to t('page.new', :model => t('activerecord.models.message')), new_user_message_path(current_user) -%></li>
     <% end %>
   </ul>

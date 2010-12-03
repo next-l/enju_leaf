@@ -10,7 +10,7 @@ class ManifestationsController < ApplicationController
   before_filter :get_version, :only => [:show]
   after_filter :solr_commit, :only => [:create, :update, :destroy]
   after_filter :convert_charset, :only => :index
-  cache_sweeper :resource_sweeper, :only => [:create, :update, :destroy]
+  cache_sweeper :manifestation_sweeper, :only => [:create, :update, :destroy]
   #include WorldcatController
   include OaiController
 
@@ -259,8 +259,8 @@ class ManifestationsController < ApplicationController
     else
       if @version
         @manifestation = @manifestation.versions.find(@version).item if @version
-      else
-        @manifestation = Manifestation.find(params[:id], :include => [:creators, :contributors, :publishers, :items])
+      #else
+      #  @manifestation = Manifestation.find(params[:id], :include => [:creators, :contributors, :publishers, :items])
       end
     end
 
@@ -490,8 +490,8 @@ class ManifestationsController < ApplicationController
     end
 
     unless options[:pubdate_from].blank? and options[:pubdate_to].blank?
-      options[:pubdate_from].gsub!(/\D/, '')
-      options[:pubdate_to].gsub!(/\D/, '')
+      options[:pubdate_from].to_s.gsub!(/\D/, '')
+      options[:pubdate_to].to_s.gsub!(/\D/, '')
 
       pubdate = {}
       if options[:pubdate_from].blank?
@@ -506,7 +506,7 @@ class ManifestationsController < ApplicationController
       if options[:pubdate_to].blank?
         pubdate[:to] = "*"
       else
-        pubdate[:from] = Time.zone.parse(options[:pubdate_from]).beginning_of_day.utc.iso8601 rescue nil
+        pubdate[:to] = Time.zone.parse(options[:pubdate_to]).beginning_of_day.utc.iso8601 rescue nil
         unless pubdate[:to]
           pubdate[:to] = Time.zone.parse(Time.mktime(options[:pubdate_to]).to_s).beginning_of_day.utc.iso8601
         end

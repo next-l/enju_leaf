@@ -147,7 +147,7 @@ class PatronsController < ApplicationController
 
   # GET /patrons/1;edit
   def edit
-    @patron = Patron.find(params[:id])
+    #@patron = Patron.find(params[:id])
     prepare_options
   end
 
@@ -199,7 +199,7 @@ class PatronsController < ApplicationController
   # PUT /patrons/1
   # PUT /patrons/1.xml
   def update
-    @patron = Patron.find(params[:id])
+    #@patron = Patron.find(params[:id])
 
     respond_to do |format|
       if @patron.update_attributes(params[:patron])
@@ -217,7 +217,7 @@ class PatronsController < ApplicationController
   # DELETE /patrons/1
   # DELETE /patrons/1.xml
   def destroy
-    @patron = Patron.find(params[:id])
+    #@patron = Patron.find(params[:id])
 
     if @patron.user.try(:has_role?, 'Librarian')
       unless current_user.has_role?('Administrator')

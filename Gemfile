@@ -1,6 +1,6 @@
 source 'http://rubygems.org'
 
-gem 'rails', '3.0.1'
+gem 'rails', '3.0.3'
 
 # Bundle edge Rails instead:
 #gem 'rails', :git => 'git://github.com/rails/rails.git'
@@ -13,14 +13,13 @@ if defined?(JRUBY_VERSION)
 else
   gem 'pg'
   #gem 'mysql'
-  gem 'formatize'
   gem 'zipruby'
 end
 gem 'will_paginate', :git => 'git://github.com/mislav/will_paginate.git', :branch => 'rails3'
-gem 'delayed_job', :git => 'git://github.com/collectiveidea/delayed_job.git'
 gem 'exception_notification', :git => 'git://github.com/rails/exception_notification.git', :require => 'exception_notifier'
-gem 'state_machine' #, :git => 'git://github.com/pluginaweek/state_machine.git'
-gem 'prawn' #, :git => 'git://github.com/sandal/prawn.git'
+gem 'delayed_job', '>=2.1.1'
+gem 'state_machine'
+gem 'prawn'
 gem 'sunspot_rails', '1.2.rc4'
 unless RUBY_VERSION > '1.9'
   gem 'fastercsv'
@@ -40,7 +39,7 @@ gem 'memcache-client'
 gem 'sitemap_generator'
 gem 'ri_cal'
 gem 'file_wrapper'
-gem 'paper_trail'
+gem 'paper_trail', '>=1.6.4'
 gem 'recurrence'
 gem 'prism'
 gem 'money'
@@ -60,9 +59,14 @@ gem 'whenever', :require => false
 gem 'amazon-ecs', :require => 'amazon/ecs'
 gem 'aws-s3', :require => 'aws/s3'
 gem 'astrails-safe'
+gem 'dynamic_form'
 
 gem 'oink'
-gem 'simplecov', :require => false if RUBY_VERSION > '1.9'
+gem "parallel_tests", :group => :development
+gem "ruby-prof", :group => [:development, :test] unless defined?(JRUBY_VERSION)
+if RUBY_VERSION > '1.9'
+  gem 'simplecov', :require => false, :group => :test
+end
 
 # Use unicorn as the web server
 gem 'unicorn' unless defined?(JRUBY_VERSION)

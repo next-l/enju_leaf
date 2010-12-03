@@ -41,16 +41,16 @@ class CountriesControllerTest < ActionController::TestCase
     assert_response :forbidden
   end
   
-  def test_librarian_should_get_new
+  def test_librarian_should_not_get_new
     sign_in users(:librarian1)
     get :new
     assert_response :forbidden
   end
   
-  def test_admin_should_get_new
+  def test_admin_should_not_get_new
     sign_in users(:admin)
     get :new
-    assert_response :success
+    assert_response :forbidden
   end
   
   def test_guest_should_not_create_country
@@ -79,22 +79,13 @@ class CountriesControllerTest < ActionController::TestCase
     assert_response :forbidden
   end
 
-  def test_admin_should_not_create_country_without_name
+  def test_admin_should_not_create_country
     sign_in users(:admin)
     assert_no_difference('Country.count') do
-      post :create, :country => { }
-    end
-    
-    assert_response :success
-  end
-
-  def test_admin_should_create_country
-    sign_in users(:admin)
-    assert_difference('Country.count') do
       post :create, :country => {:name => 'test', :alpha_2 => '000', :alpha_3 => '000', :numeric_3 => '000'}
     end
     
-    assert_redirected_to country_url(assigns(:country))
+    assert_response :forbidden
   end
 
   def test_guest_should_show_country
@@ -204,12 +195,12 @@ class CountriesControllerTest < ActionController::TestCase
     assert_response :forbidden
   end
 
-  def test_admin_should_destroy_country
+  def test_admin_should_not_destroy_country
     sign_in users(:admin)
-    assert_difference('Country.count', -1) do
+    assert_no_difference('Country.count') do
       delete :destroy, :id => 1
     end
     
-    assert_redirected_to countries_url
+    assert_response :forbidden
   end
 end

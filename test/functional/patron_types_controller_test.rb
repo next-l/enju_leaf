@@ -48,10 +48,10 @@ class PatronTypesControllerTest < ActionController::TestCase
     assert_response :forbidden
   end
   
-  def test_admin_should_get_new
+  def test_admin_should_not_get_new
     sign_in users(:admin)
     get :new
-    assert_response :success
+    assert_response :forbidden
   end
   
   def test_guest_should_not_create_patron_type
@@ -81,22 +81,13 @@ class PatronTypesControllerTest < ActionController::TestCase
     assert_response :forbidden
   end
 
-  def test_admin_should_not_create_patron_type_without_name
+  def test_admin_should_not_create_patron_type
     sign_in users(:admin)
     assert_no_difference('PatronType.count') do
-      post :create, :patron_type => { }
-    end
-    
-    assert_response :success
-  end
-
-  def test_admin_should_create_patron_type
-    sign_in users(:admin)
-    assert_difference('PatronType.count') do
       post :create, :patron_type => {:name => 'test'}
     end
     
-    assert_redirected_to patron_type_url(assigns(:patron_type))
+    assert_response :forbidden
   end
 
   def test_guest_should_not_show_patron_type
@@ -207,12 +198,12 @@ class PatronTypesControllerTest < ActionController::TestCase
     assert_response :forbidden
   end
 
-  def test_admin_should_destroy_patron_type
+  def test_admin_should_not_destroy_patron_type
     sign_in users(:admin)
-    assert_difference('PatronType.count', -1) do
+    assert_no_difference('PatronType.count') do
       delete :destroy, :id => patron_types(:patron_type_00001)
     end
     
-    assert_redirected_to patron_types_url
+    assert_response :forbidden
   end
 end

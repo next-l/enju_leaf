@@ -5,7 +5,7 @@ class PatronRelationshipsControllerTest < ActionController::TestCase
     @patron_relationship = patron_relationships(:one)
   end
 
-  test "should get index" do
+  test "guest should get index" do
     get :index
     assert_response :success
     assert_not_nil assigns(:patron_relationships)

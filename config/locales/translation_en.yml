@@ -585,7 +585,7 @@ en:
         title_alternative: Titlte alternative
         title_transcription: Title transcription
         classification_number: Classification number
-        manifestation_identifier: Manifestation identifier
+        identifier: Manifestation identifier
         date_of_publication: Date of publication
         deleted_at: Deleted at
         access_address: Access address
@@ -1142,6 +1142,8 @@ en:
     not_found: "Page not found"
     access_denied: "Access denied"
     last_updated: "Last updated"
+    remember_me: "Remember me"
+    forgot_your_password: "Forgot your password?"
   title:
     index: "index"
     show: "show"
@@ -1376,6 +1378,7 @@ en:
     this_item_is_not_reserved: "This item is not reserved."
     invalid_item: "Invalid item."
     show: "Show reservation"
+    invalid_date: "Invalid date."
   purchase_request:
     user_purchase_request: "%{login_name} 's purchase requests"
     library_group_purchase_request: "Purchase requests in %{library_group_name}"
@@ -1468,3 +1471,4 @@ en:
   import_request:
     record_not_found: Record not found.
     invalid_isbn: Invalid ISBN.
+    isbn_taken: has already been taken.

@@ -41,16 +41,16 @@ class ContentTypesControllerTest < ActionController::TestCase
     assert_response :forbidden
   end
   
-  def test_librarian_should_get_new
+  def test_librarian_should_not_get_new
     sign_in users(:librarian1)
     get :new
     assert_response :forbidden
   end
   
-  def test_admin_should_get_new
+  def test_admin_should_not_get_new
     sign_in users(:admin)
     get :new
-    assert_response :success
+    assert_response :forbidden
   end
   
   def test_guest_should_not_create_content_type
@@ -79,22 +79,13 @@ class ContentTypesControllerTest < ActionController::TestCase
     assert_response :forbidden
   end
 
-  def test_admin_should_not_create_content_type_without_name
+  def test_admin_should_not_create_content_type
     sign_in users(:admin)
     assert_no_difference('ContentType.count') do
-      post :create, :content_type => { }
-    end
-    
-    assert_response :success
-  end
-
-  def test_admin_should_create_content_type
-    sign_in users(:admin)
-    assert_difference('ContentType.count') do
       post :create, :content_type => {:name => 'test'}
     end
     
-    assert_redirected_to content_type_url(assigns(:content_type))
+    assert_response :forbidden
   end
 
   def test_guest_should_show_content_type
@@ -204,12 +195,12 @@ class ContentTypesControllerTest < ActionController::TestCase
     assert_response :forbidden
   end
 
-  def test_admin_should_destroy_content_type
+  def test_admin_should_not_destroy_content_type
     sign_in users(:admin)
-    assert_difference('ContentType.count', -1) do
+    assert_no_difference('ContentType.count') do
       delete :destroy, :id => 1
     end
     
-    assert_redirected_to content_types_url
+    assert_response :forbidden
   end
 end

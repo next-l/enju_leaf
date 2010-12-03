@@ -103,7 +103,7 @@ class RolesControllerTest < ActionController::TestCase
     assert_redirected_to new_user_session_url
   end
 
-  def test_user_should_show_role
+  def test_user_should_not_show_role
     sign_in users(:user1)
     get :show, :id => 1
     assert_response :forbidden

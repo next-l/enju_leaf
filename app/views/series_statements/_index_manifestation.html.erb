@@ -28,7 +28,7 @@
 <% @series_statements.each do |series_statement| %>
   <tr class="line<%= cycle("0", "1") -%>">
     <td>
-      <%- if can? :destroy, series_statement -%>
+      <%- if can? :update, series_statement -%>
         <%= move_position(series_statement) -%>
       <%- end -%>
     </td>

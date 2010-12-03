@@ -25,7 +25,9 @@ class ImportRequest < ActiveRecord::Base
 
   def check_imported
     if isbn.present?
-      errors.add(:isbn) if Manifestation.first(:conditions => {:isbn => isbn})
+      if Manifestation.first(:conditions => {:isbn => isbn})
+        errors.add(:isbn, I18n.t('import_request.isbn_taken'))
+      end
     end
   end
 

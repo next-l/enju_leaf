@@ -79,8 +79,8 @@ class SubjectsController < ApplicationController
 
     if @work
       @subject = @work.subjects.find(params[:id])
-    else
-      @subject = Subject.find(params[:id])
+    #else
+    #  @subject = Subject.find(params[:id])
     end
     search = Sunspot.new_search(Manifestation)
     subject = @subject
@@ -118,8 +118,8 @@ class SubjectsController < ApplicationController
   def edit
     if @work
       @subject = @work.subjects.find(params[:id])
-    else
-      @subject = Subject.find(params[:id])
+    #else
+    #  @subject = Subject.find(params[:id])
     end
     @subject_types = SubjectType.all
   end
@@ -157,8 +157,8 @@ class SubjectsController < ApplicationController
   def update
     if @work
       @subject = @work.subjects.find(params[:id])
-    else
-      @subject = Subject.find(params[:id])
+    #else
+    #  @subject = Subject.find(params[:id])
     end
 
     respond_to do |format|
@@ -179,8 +179,8 @@ class SubjectsController < ApplicationController
   def destroy
     if @work
       @subject = @work.subjects.find(params[:id])
-    else
-      @subject = Subject.find(params[:id])
+    #else
+    #  @subject = Subject.find(params[:id])
     end
     @subject.destroy
 

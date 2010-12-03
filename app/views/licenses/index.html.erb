@@ -13,7 +13,7 @@
 <%- @licenses.each do |license| -%>
   <tr class="line<%= cycle("0", "1") -%>">
     <td>
-      <%- if can? :destroy, license -%>
+      <%- if can? :update, license -%>
         <%= move_position(license) -%>
       <%- end -%>
     </td>
@@ -24,8 +24,10 @@
     </td>
     <td><%= license.note -%></td>
     <td>
-      <%- if can? :destroy, license -%>
+      <%- if can? :update, license -%>
         <%= link_to t('page.edit'), edit_license_path(license) -%>
+      <% end %>
+      <%- if can? :destroy, license -%>
         <%= link_to t('page.destroy'), license, :confirm => t('page.are_you_sure'), :method => :delete -%>
       <%- end -%>
     </td>

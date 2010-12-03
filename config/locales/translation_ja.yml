@@ -585,7 +585,7 @@ ja:
         title_alternative: 代替タイトル
         title_transcription: タイトルよみ
         classification_number: 分類番号
-        manifestation_identifier: 出版した資料の識別子
+        identifier: 出版した資料の識別子
         date_of_publication: 出版日
         deleted_at: 削除時刻
         access_address: アクセスアドレス
@@ -1134,6 +1134,8 @@ ja:
     not_found: "ページが見つかりませんでした"
     access_denied: "アクセスが拒否されました"
     last_updated: "最終更新日"
+    remember_me: "ウインドウを閉じてもログインしたままにする"
+    forgot_your_password: "パスワードを忘れましたか?"
   title:
     index: "一覧"
     show: "表示"
@@ -1365,6 +1367,7 @@ ja:
     this_item_is_not_reserved: "この資料は予約されていません。"
     invalid_item: "無効な所蔵情報です。"
     show: "予約の詳細"
+    invalid_date: "無効な日付です。"
   purchase_request:
     user_purchase_request: "%{login_name} さんの購入依頼資料"
     library_group_purchase_request: "%{library_group_name} での購入依頼資料"
@@ -1457,3 +1460,4 @@ ja:
   import_request:
     record_not_found: 書誌レコードが見つかりませんでした。
     invalid_isbn: ISBNが正しくありません。
+    isbn_taken: はすでに登録されています。

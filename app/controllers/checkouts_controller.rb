@@ -77,7 +77,7 @@ class CheckoutsController < ApplicationController
   # GET /checkouts/1
   # GET /checkouts/1.xml
   def show
-    @checkout = @user.checkouts.find(params[:id])
+    #@checkout = @user.checkouts.find(params[:id])
 
     respond_to do |format|
       format.html # show.rhtml
@@ -92,7 +92,7 @@ class CheckoutsController < ApplicationController
 
   # GET /checkouts/1;edit
   def edit
-    @checkout = @user.checkouts.find(params[:id])
+    #@checkout = @user.checkouts.find(params[:id])
     @renew_due_date = @checkout.set_renew_due_date(@user)
   end
 
@@ -117,7 +117,7 @@ class CheckoutsController < ApplicationController
   # PUT /checkouts/1
   # PUT /checkouts/1.xml
   def update
-    @checkout = @user.checkouts.find(params[:id])
+    #@checkout = @user.checkouts.find(params[:id])
     if @checkout.reserved?
       flash[:notice] = t('checkout.this_item_is_reserved')
       redirect_to edit_user_checkout_url(@checkout.user.username, @checkout)
@@ -155,7 +155,7 @@ class CheckoutsController < ApplicationController
   # DELETE /checkouts/1
   # DELETE /checkouts/1.xml
   def destroy
-    @checkout = @user.checkouts.find(params[:id])
+    #@checkout = @user.checkouts.find(params[:id])
     @checkout.destroy
 
     respond_to do |format|

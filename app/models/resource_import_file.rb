@@ -265,8 +265,8 @@ class ResourceImportFile < ActiveRecord::Base
   def fetch(row)
     shelf = Shelf.first(:conditions => {:name => row['shelf'].to_s.strip}) || Shelf.web
 
-    unless row['manifestation_identifier'].blank?
-      if manifestation = Manifestation.first(:conditions => {:manifestation_identifier => row['manifestation_identifier'].to_s.strip})
+    unless row['identifier'].blank?
+      if manifestation = Manifestation.first(:conditions => {:identifier => row['identifier'].to_s.strip})
         return manifestation
       end
     end
@@ -319,6 +319,7 @@ class ResourceImportFile < ActiveRecord::Base
           :original_title => title[:original_title],
           :title_transcription => title[:title_transcription],
           :title_alternative => title[:title_alternative],
+          :title_alternative_transcription => title[:title_alternative_transcription],
           :isbn => isbn,
           :wrong_isbn => row['wrong_isbn'],
           :issn => row['issn'],
@@ -335,7 +336,7 @@ class ResourceImportFile < ActiveRecord::Base
           :height => height,
           :start_page => start_page,
           :end_page => end_page,
-          :manifestation_identifier => row['manifestation_identifier']
+          :identifier => row['identifier']
         })
       end
     end

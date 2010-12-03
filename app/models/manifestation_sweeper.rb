@@ -1,4 +1,4 @@
-class ResourceSweeper < ActionController::Caching::Sweeper
+class ManifestationSweeper < ActionController::Caching::Sweeper
   include ExpireEditableFragment
   observe Manifestation
 

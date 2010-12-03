@@ -41,16 +41,16 @@ class LanguagesControllerTest < ActionController::TestCase
     assert_response :forbidden
   end
   
-  def test_librarian_should_get_new
+  def test_librarian_should_not_get_new
     sign_in users(:librarian1)
     get :new
     assert_response :forbidden
   end
   
-  def test_admin_should_get_new
+  def test_admin_should_not_get_new
     sign_in users(:admin)
     get :new
-    assert_response :success
+    assert_response :forbidden
   end
   
   def test_guest_should_not_create_language
@@ -79,22 +79,13 @@ class LanguagesControllerTest < ActionController::TestCase
     assert_response :forbidden
   end
 
-  def test_admin_should_not_create_language_without_name
+  def test_admin_should_not_create_language
     sign_in users(:admin)
     assert_no_difference('Language.count') do
-      post :create, :language => { }
-    end
-    
-    assert_response :success
-  end
-
-  def test_admin_should_create_language
-    sign_in users(:admin)
-    assert_difference('Language.count') do
       post :create, :language => {:name => 'test'}
     end
     
-    assert_redirected_to language_url(assigns(:language))
+    assert_response :forbidden
   end
 
   def test_guest_should_show_language
@@ -204,12 +195,12 @@ class LanguagesControllerTest < ActionController::TestCase
     assert_response :forbidden
   end
 
-  def test_admin_should_destroy_language
+  def test_admin_should_not_destroy_language
     sign_in users(:admin)
-    assert_difference('Language.count', -1) do
+    assert_no_difference('Language.count') do
       delete :destroy, :id => 1
     end
     
-    assert_redirected_to languages_url
+    assert_response :forbidden
   end
 end

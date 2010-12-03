@@ -14,7 +14,7 @@
 <%- @medium_of_performances.each do |medium_of_performance| -%>
   <tr class="line<%= cycle("0", "1") -%>">
     <td>
-      <%- if can? :destroy, medium_of_performance -%>
+      <%- if can? :update, medium_of_performance -%>
         <%= move_position(medium_of_performance) -%>
       <%- end -%>
     </td>
@@ -22,8 +22,10 @@
     <td><%= link_to h(medium_of_performance.display_name.localize), medium_of_performance -%></td>
     <td><%= medium_of_performance.note -%></td>
     <td>
-      <%- if can? :destroy, medium_of_performance -%>
+      <%- if can? :update, medium_of_performance -%>
         <%= link_to t('page.edit'), edit_medium_of_performance_path(medium_of_performance) -%>
+      <% end %>
+      <%- if can? :destroy, medium_of_performance -%>
         <%= link_to t('page.destroy'), medium_of_performance, :confirm => t('page.are_you_sure'), :method => :delete -%>
       <%- end -%>
     </td>

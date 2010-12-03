@@ -250,10 +250,19 @@ class LibrariesControllerTest < ActionController::TestCase
     assert_response :forbidden
   end
 
+  def test_everyone_should_not_destroy_library_contains_shelves
+    sign_in users(:admin)
+    assert_no_difference('Library.count') do
+      delete :destroy, :id => 'kamata'
+    end
+    
+    assert_response :forbidden
+  end
+
   def test_admin_should_destroy_library
     sign_in users(:admin)
     assert_difference('Library.count', -1) do
-      delete :destroy, :id => 'kamata'
+      delete :destroy, :id => 'mita'
     end
     
     assert_redirected_to libraries_url
