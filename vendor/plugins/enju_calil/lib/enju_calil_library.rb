@@ -65,5 +65,9 @@ module EnjuCalilLibrary
       end
     end
 
+    def set_calil_neighborhood_library
+      self.calil_neighborhood_systemid = self.calil_library(self.access_calil).collect{|l| l[:systemid]}.uniq.join(',')
+    end
+
   end
 end

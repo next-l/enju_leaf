@@ -1,3 +1,12 @@
+/*
+ * jquery-ujs
+ *
+ * http://github.com/rails/jquery-ujs/blob/master/src/rails.js
+ *
+ * This rails.js file supports jQuery 1.4, 1.4.1 and 1.4.2 .
+ *
+ */ 
+
 jQuery(function ($) {
     var csrf_token = $('meta[name=csrf-token]').attr('content'),
         csrf_param = $('meta[name=csrf-param]').attr('content');
@@ -19,7 +28,14 @@ jQuery(function ($) {
         },
 
         /**
-         * Handles execution of remote calls firing overridable events along the way
+         * Handles execution of remote calls. Provides following callbacks:
+         *
+         * - ajax:before   - is execute before the whole thing begings
+         * - ajax:loading  - is executed before firing ajax call
+         * - ajax:success  - is executed when status is success
+         * - ajax:complete - is execute when status is complete
+         * - ajax:failure  - is execute in case of error
+         * - ajax:after    - is execute every single time at the end of ajax call 
          */
         callRemote: function () {
             var el      = this,
@@ -60,7 +76,7 @@ jQuery(function ($) {
     /**
      *  confirmation handler
      */
-    $('a[data-confirm],input[data-confirm]').live('click', function () {
+    $('a[data-confirm], button[data-confirm], input[data-confirm]').live('click', function () {
         var el = $(this);
         if (el.triggerAndReturn('confirm')) {
             if (!confirm(el.attr('data-confirm'))) {
@@ -68,6 +84,7 @@ jQuery(function ($) {
             }
         }
     });
+  
 
 
     /**
@@ -105,23 +122,33 @@ jQuery(function ($) {
     /**
      * disable-with handlers
      */
-    var disable_with_input_selector = 'input[data-disable-with]';
-    var disable_with_form_selector = 'form[data-remote]:has(' + disable_with_input_selector + ')';
+    var disable_with_input_selector           = 'input[data-disable-with]',
+        disable_with_form_remote_selector     = 'form[data-remote]:has('       + disable_with_input_selector + ')',
+        disable_with_form_not_remote_selector = 'form:not([data-remote]):has(' + disable_with_input_selector + ')';
 
-    $(disable_with_form_selector).live('ajax:before', function () {
+    var disable_with_input_function = function () {
         $(this).find(disable_with_input_selector).each(function () {
             var input = $(this);
             input.data('enable-with', input.val())
-                 .attr('value', input.attr('data-disable-with'))
-                 .attr('disabled', 'disabled');
+                .attr('value', input.attr('data-disable-with'))
+                .attr('disabled', 'disabled');
         });
-    });
+    };
 
-    $(disable_with_form_selector).live('ajax:complete', function () {
+    $(disable_with_form_remote_selector).live('ajax:before', disable_with_input_function);
+    $(disable_with_form_not_remote_selector).live('submit', disable_with_input_function);
+
+    $(disable_with_form_remote_selector).live('ajax:complete', function () {
         $(this).find(disable_with_input_selector).each(function () {
             var input = $(this);
             input.removeAttr('disabled')
                  .val(input.data('enable-with'));
         });
     });
+
+    var jqueryVersion = $().jquery;
+    if (!( (jqueryVersion === '1.4') || (jqueryVersion === '1.4.1') || (jqueryVersion === '1.4.2') )){
+      alert('This rails.js does not support the jQuery version you are using. Please read documentation.')
+    }
+
 });
