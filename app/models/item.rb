@@ -37,7 +37,7 @@ class Item < ActiveRecord::Base
   
   validates_associated :circulation_status, :shelf, :bookstore, :checkout_type
   validates_presence_of :circulation_status #, :checkout_type
-  validates_uniqueness_of :item_identifier, :allow_blank => true, :if => proc{|item| !item.item_identifier.blank?}
+  validates_uniqueness_of :item_identifier, :allow_blank => true, :if => proc{|item| !item.item_identifier.blank? and !item.manifestation.series_statement}
   validates_length_of :url, :maximum => 255, :allow_blank => true
   validates_format_of :item_identifier, :with=>/\A\w+\Z/, :allow_blank => true
   before_validation :set_circulation_status, :on => :create
