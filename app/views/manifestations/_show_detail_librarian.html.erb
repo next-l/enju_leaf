@@ -24,10 +24,10 @@
                 <%= t('activerecord.attributes.manifestation.volume_number_list') -%>: <%= manifestation.volume_number.join("/") -%>
               <%- end -%>
               <%- unless manifestation.issue_number_list.blank? -%>
-                <%= t('resource.issue_number') -%>: <%= manifestation.issue_number.join("/") -%>
+                <%= t('manifestation.issue_number') -%>: <%= manifestation.issue_number.join("/") -%>
               <%- end -%>
               <%- unless manifestation.serial_number_list.blank? -%>
-                <%= t('resource.serial_number') -%>: <%= manifestation.serial_number.join("/") -%>
+                <%= t('manifestation.serial_number') -%>: <%= manifestation.serial_number.join("/") -%>
               <%- end -%>
             </td>
           </tr>
