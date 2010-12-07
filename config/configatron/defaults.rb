@@ -20,3 +20,6 @@ configatron.csv_charset_conversion = true
 #AMAZON_AWS_HOSTNAME = 'ecs.amazonaws.com'
 configatron.amazon.aws_hostname = 'ecs.amazonaws.jp'
 configatron.amazon.hostname = 'www.amazon.co.jp'
+
+configatron.amazon.access_key == 'REPLACE_WITH_YOUR_AMAZON_KEY'
+configatron.amazon.secret_access_key == 'REPLACE_WITH_YOUR_SECRET_AMAZON_KEY'
