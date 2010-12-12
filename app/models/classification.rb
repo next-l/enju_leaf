@@ -1,3 +1,4 @@
+#!/usr/bin/env ruby
 # -*- encoding: utf-8 -*-
 class Classification < ActiveRecord::Base
   has_many :subject_has_classifications, :dependent => :destroy
@@ -15,6 +16,7 @@ class Classification < ActiveRecord::Base
   end
   acts_as_tree
   #acts_as_taggable_on :tags
+  normalize_attributes :category
 
   def self.per_page
     10
