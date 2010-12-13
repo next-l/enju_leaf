@@ -20,4 +20,6 @@ class Subject < ActiveRecord::Base
     integer :required_role_id
     integer :work_ids, :multiple => true
   end
+
+  normalize_attributes :term
 end

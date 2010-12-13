@@ -22,18 +22,6 @@ EnjuLeaf::Application.routes.draw do
     resources :manifestations
   end
 
-  resources :creators, :controller => 'patrons' do
-    resources :manifestations
-  end
-
-  resources :contributors, :controller => 'patrons' do
-    resources :manifestations
-  end
-
-  resources :publishers, :controller => 'patrons' do
-    resources :manifestations
-  end
-
   resources :patrons do
     resources :works, :controller => 'manifestations'
     resources :expressions, :controller => 'manifestations'
@@ -44,6 +32,18 @@ EnjuLeaf::Application.routes.draw do
     resources :patron_merges
     resources :patron_merge_lists
     resources :patron_relationships
+  end
+
+  resources :creators, :controller => 'patrons' do
+    resources :manifestations
+  end
+
+  resources :contributors, :controller => 'patrons' do
+    resources :manifestations
+  end
+
+  resources :publishers, :controller => 'patrons' do
+    resources :manifestations
   end
 
   resources :works, :controller => 'manifestations' do

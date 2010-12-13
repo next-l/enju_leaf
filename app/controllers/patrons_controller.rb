@@ -4,7 +4,7 @@ class PatronsController < ApplicationController
   before_filter :get_user_if_nil
   before_filter :get_manifestation, :get_item
   before_filter :get_resources, :only => [:index, :show]
-  before_filter :get_work, :get_expression, :get_manifestation
+  before_filter :get_work, :get_expression
   before_filter :get_patron, :only => :index
   before_filter :get_patron_merge_list
   before_filter :prepare_options, :only => [:new, :edit]

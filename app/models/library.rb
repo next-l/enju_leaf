@@ -15,7 +15,7 @@ class Library < ActiveRecord::Base
   #acts_as_soft_deletable
   has_friendly_id :name
   geocoded_by :address
-  enju_calil_library
+  #enju_calil_library
 
   searchable do
     text :name, :display_name, :note, :address
@@ -32,7 +32,7 @@ class Library < ActiveRecord::Base
   validates_format_of :name, :with => /^[a-z][0-9a-z]{2,254}$/
   before_validation :set_patron, :on => :create
   before_validation :set_display_name
-  before_save :set_calil_neighborhood_library
+  #before_save :set_calil_neighborhood_library
   after_validation :fetch_coordinates
   after_create :create_shelf
   after_create :clear_all_cache
