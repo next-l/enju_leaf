@@ -4,7 +4,7 @@ require 'rubygems'
 gem 'activerecord', '>= 1.15.4.7794'
 require 'active_record'
 
-require "#{File.dirname(__FILE__)}/../init"
+require "lib/acts_as_list"
 
 ActiveRecord::Base.establish_connection(:adapter => "sqlite3", :database => ":memory:")
 

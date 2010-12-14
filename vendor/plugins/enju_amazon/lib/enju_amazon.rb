@@ -11,17 +11,13 @@ module EnjuAmazon
 
   module InstanceMethods
     def amazon
-      if configatron.amazon.access_key == 'REPLACE_WITH_YOUR_AMAZON_KEY'
-        Rails.logger.error "Amazon access key is not set"
-        return nil
-      end
       unless self.isbn.blank?
         response = access_amazon_proxy
       end
     end
 
     def access_amazon
-      if configatron.amazon.access_key == 'REPLACE_WITH_YOUR_AMAZON_KEY'
+      if configatron.amazon.access_key == 'REPLACE_WITH_YOUR_AMAZON_ACCESS_KEY'
         Rails.logger.error "Amazon access key is not set"
         return nil
       end
@@ -43,8 +39,12 @@ module EnjuAmazon
         encoded_hash = CGI.escape(Base64.encode64(hash).strip)
         amazon_url = "http://#{configatron.amazon.aws_hostname}/onca/xml?#{query}&Signature=#{encoded_hash}"
 
-        open(amazon_url) do |f|
-          f.read
+        begin
+          open(amazon_url) do |f|
+            f.read
+          end
+        rescue OpenURI::HTTPError
+          nil
         end
       end
     end
