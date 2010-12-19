@@ -117,6 +117,18 @@ class ManifestationsController < ApplicationController
         facet :reservable
       end
       search = make_internal_query(search)
+      search.data_accessor_for(Manifestation).select = [
+        :id,
+        :original_title,
+        :title_transcription,
+        :required_role_id,
+        :carrier_type_id,
+        :access_address,
+        :volume_number_list,
+        :issue_number_list,
+        :serial_number_list,
+        :date_of_publication
+      ] if params[:format] == 'html' or params[:format].nil?
       all_result = search.execute
       @count[:query_result] = all_result.total
       @reservable_facet = all_result.facet(:reservable).rows
