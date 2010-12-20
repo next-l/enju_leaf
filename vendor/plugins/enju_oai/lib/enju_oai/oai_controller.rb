@@ -54,12 +54,19 @@ module OaiController
   end
 
   def get_resumption_token(token)
-    resumption = Rails.cache.read(token) rescue nil
+    if token.present?
+      resumption = Rails.cache.read(token)
+    end
+  rescue
+    nil
   end
 
   def set_resumption_token(token, from_time, until_time, per_page = 0)
-    if resumption = Rails.cache.read(token)
-      @cursor = resumption[:cursor] + per_page ||= resources.per_page
+    if token.present?
+      resumption = Rails.cache.read(token)
+      if resumption
+        @cursor = resumption[:cursor] + per_page ||= resources.per_page
+      end
     end
     @cursor ||= 0
     yml = YAML.load_file("#{Rails.root.to_s}/config/oai_cache.yml")
