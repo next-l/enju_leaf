@@ -5,6 +5,10 @@
 <%= form_for(@manifestation_relationship_type) do |f| -%>
   <%= f.error_messages -%>
   <p>
+    <%= f.label t('activerecord.attributes.manifestation_relationship_type.name') -%><br />
+    <%= f.text_field :name -%>
+  </p>
+  <p>
     <%= f.label t('activerecord.attributes.manifestation_relationship_type.display_name') -%><br />
     <%= f.text_area :display_name, :class => 'manifestation_textarea' -%>
   </p>
