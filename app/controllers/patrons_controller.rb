@@ -37,6 +37,13 @@ class PatronsController < ApplicationController
     @count = {}
 
     search = Patron.search(:include => [:patron_type, :required_role])
+    search.data_accessor_for(Patron).select = [
+      :id,
+      :full_name,
+      :full_name_transcription,
+      :patron_type_id,
+      :required_role_id
+    ]
     set_role_query(current_user, search)
 
     if params[:mode] == 'recent'
