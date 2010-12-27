@@ -6,7 +6,7 @@ class User < ActiveRecord::Base
          :lockable, :lock_strategy => :none, :unlock_strategy => :none
 
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :email, :password, :password_confirmation, :username, :current_password, :user_number
+  attr_accessible :email, :password, :password_confirmation, :username, :current_password, :user_number, :remember_me
 
   scope :administrators, :include => ['role'], :conditions => ['roles.name = ?', 'Administrator']
   scope :librarians, :include => ['role'], :conditions => ['roles.name = ? OR roles.name = ?', 'Administrator', 'Librarian']

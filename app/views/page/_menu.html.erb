@@ -51,7 +51,6 @@
           <li><%= link_to t('page.import_from_file'), '/page/import' -%></li>
           <li><%= link_to t('page.upload_file'), new_manifestation_path(:mode => 'attachment') -%></li>
         <%- end -%>
-        <li><%= link_to t('page.search_resource', :model => t('activerecord.models.subject')), subjects_path -%></li>
       </ul>
     </div>
   <%- else -%>
