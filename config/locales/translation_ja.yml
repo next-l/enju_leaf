@@ -987,6 +987,7 @@ ja:
     edit_user_profile: "%{login_name} さんのプロフィールの編集"
     sign_in: "ログイン"
     sign_out: "ログアウト"
+    sign_up: "新規登録"
     login_name: "ユーザ名"
     password: "パスワード"
     email_and_password: "電子メールとパスワード"
@@ -1134,8 +1135,6 @@ ja:
     not_found: "ページが見つかりませんでした"
     access_denied: "アクセスが拒否されました"
     last_updated: "最終更新日"
-    remember_me: "ウインドウを閉じてもログインしたままにする"
-    forgot_your_password: "パスワードを忘れましたか?"
   title:
     index: "一覧"
     show: "表示"
@@ -1350,9 +1349,11 @@ ja:
     reset_checkout_icalendar_url: "貸出期限通知用のiCalendarファイルのURLをリセットする"
     you_have_to_save_profile_to_activate_feed_url: "新しいURLを有効にするには、プロフィールを更新する必要があります。"
     you_have_to_save_profile_to_deactivate_feed_url: "URLを無効にするには、プロフィールを更新する必要があります。"
-    sign_up: "新規登録"
     could_not_setup_account: "利用者のアカウントを作成できませんでした。もう一度やり直すか、管理者に連絡してください。"
     resend_confirmation_instruction: '確認手順をもう一度取り寄せる'
+    remember_me: "ウインドウを閉じてもログインしたままにする"
+    forgot_your_password: "パスワードを忘れましたか?"
+    send_me_reset_password_instruction: "パスワードを再発行する"
   news_post:
     library_group_news_post: "%{library_group_name} からのお知らせ"
   reserve:

@@ -16,7 +16,7 @@
   </p>
 
   <p>
-    <%= f.label t('page.password') %><br />
+    <%= f.label t('activerecord.attributs.user.password') %><br />
     <%= f.password_field :password, :class => 'login_password' %>
   </p>
 
@@ -24,7 +24,7 @@
   <p class="alert"><%= alert %></p>
 
   <% if devise_mapping.rememberable? -%>
-    <p><%= f.check_box :remember_me %> <%= f.label t('page.remember_me') %></p>
+    <p><%= f.check_box :remember_me %> <%= f.label t('user.remember_me') %></p>
   <% end -%>
 
   <p><%= f.submit t('page.sign_in') %></p>

@@ -1,5 +1,5 @@
 <div id="content_detail" class="ui-corner-all">
-<h2 class="title">Forgot your password?</h2>
+<h1 class="title"><%= t('user.forgot_your_password') %></h1>
 <div id="content_list">
 
 <%= form_for(resource, :as => resource_name, :url => password_path(resource_name)) do |f| %>
@@ -8,7 +8,7 @@
   <p><%= f.label :email %></p>
   <p><%= f.text_field :email %></p>
 
-  <p><%= f.submit "Send me reset password instructions" %></p>
+  <p><%= f.submit t("user.send_me_reset_password_instruction") %></p>
 <% end %>
 
 </div>

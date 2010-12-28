@@ -979,6 +979,7 @@ en:
     user_title: "Welcome %{login_name}"
     sign_in: "Sign in"
     sign_out: "Sign out"
+    sign_up: "Sign up"
     logged_in_as: "logged in as %{login_name}"
     edit_user_profile: "Edit %{login_name}'s profile"
     user_bookmark_title: "%{login_name}'s bookmark"
@@ -1142,8 +1143,6 @@ en:
     not_found: "Page not found"
     access_denied: "Access denied"
     last_updated: "Last updated"
-    remember_me: "Remember me"
-    forgot_your_password: "Forgot your password?"
   title:
     index: "index"
     show: "show"
@@ -1361,9 +1360,11 @@ en:
     reset_checkout_icalendar_url: "Reset checkout iCalendar URL"
     you_have_to_save_profile_to_activate_feed_url: "You have to save your profile to activate this url."
     you_have_to_save_profile_to_deactivate_feed_url: "You have to save your profile to deactivate this url."
-    sign_up: "Sign up"
-    resend_confirmation_instruction: "Resend confirmation instructions"
     could_not_setup_account: "We couldn't set up that account, sorry.  Please try again, or contact an admin."
+    resend_confirmation_instruction: "Resend confirmation instructions"
+    remember_me: "Remember me"
+    forgot_your_password: "Forgot your password?"
+    send_me_reset_password_instruction: "Send me reset password instruction"
   news_post:
     library_group_news_post: "News from %{library_group_name}"
   reserve:
