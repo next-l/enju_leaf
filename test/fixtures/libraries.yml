@@ -8,7 +8,7 @@ library_00001:
   telephone_number_1: 
   telephone_number_2: 
   id: 1
-  postal_code: 
+  zip_code: 
   region: 
   locality: 
   street: 
@@ -26,7 +26,7 @@ library_00002:
   telephone_number_1: 81-3-3732-5111
   telephone_number_2: ""
   id: 2
-  postal_code: 144-8535
+  zip_code: 144-8535
   region: Tokyo
   locality: 
   street: 
@@ -44,7 +44,7 @@ library_00003:
   telephone_number_1: 042-637-2033
   telephone_number_2: ""
   id: 3
-  postal_code: 192-0982
+  zip_code: 192-0982
   region: Tokyo
   locality: Hachioji
   street: 
@@ -62,7 +62,7 @@ library_00004:
   telephone_number_1: ""
   telephone_number_2: ""
   id: 4
-  postal_code: 108-8345
+  zip_code: 108-8345
   region: Tokyo
   locality: Minato
   street: 

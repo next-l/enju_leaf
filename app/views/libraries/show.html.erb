@@ -7,7 +7,7 @@
 
   <%- unless @library.web? -%>
   <p>
-    <%= t('library.address') -%>: <%= @library.postal_code -%> <%= @library.address -%>
+    <%= t('library.address') -%>: <%= @library.zip_code -%> <%= @library.address -%>
     <br />
     <%= t('activerecord.attributes.library.telephone_number_1') -%>: <%= @library.telephone_number_1 -%>
     <%= t('activerecord.attributes.library.telephone_number_2') -%>: <%= @library.telephone_number_2 -%>

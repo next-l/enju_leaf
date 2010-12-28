@@ -153,7 +153,7 @@ ja:
         name: 名前
         display_name: 表示名
         short_display_name: 短縮表示名
-        postal_code: 郵便番号
+        zip_code: 郵便番号
         region: 都道府県
         locality: 市区町村
         street: 番地

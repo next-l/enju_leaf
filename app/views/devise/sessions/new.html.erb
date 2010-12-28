@@ -1,4 +1,4 @@
-<%= form_for resource_name, resource, :url => session_path(resource_name) do |f| -%>
+<%= form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f| %>
 <div id="content_detail" class="ui-corner-all">
 <h1 class="title"><%= t('page.sign_in') -%> : Next-L Enju</h1>
 <div id="content_list">

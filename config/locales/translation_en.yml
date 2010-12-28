@@ -152,7 +152,7 @@ en:
         name: Name
         display_name: Display name
         short_display_name: Short display name
-        postal_code: Postal code
+        zip_code: Zip code
         region: Region
         locality: Locality
         street: Street
