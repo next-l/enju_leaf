@@ -11,6 +11,7 @@
   <p><%= f.submit t("user.send_me_reset_password_instruction") %></p>
 <% end %>
 
+<%= javascript_tag("$('#user_email').focus()") -%>
 </div>
 </div>
 
