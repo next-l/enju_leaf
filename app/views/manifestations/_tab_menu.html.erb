@@ -1,13 +1,10 @@
 <ul>
   <li class="selected"><a href="#detail"><em><%= t('page.detail') -%></em></a></li>
   <%- if manifestation.original_manifestations.first or manifestation.derived_manifestations.first -%>
-    <li><a href="#resource"><em><%= t('page.related_manifestation') -%> (<%= manifestation.original_manifestations.size + manifestation.derived_manifestations.size -%>)</em></a></li>
+    <li><a href="#related_manifestation"><em><%= t('page.related_manifestation') -%> (<%= manifestation.original_manifestations.size + manifestation.derived_manifestations.size -%>)</em></a></li>
   <%- end -%>
   <%- unless manifestation.questions(:user => current_user).empty? -%>
     <li><a href="#question"><em><%= t('resource.question') -%></em></a></li>
-  <%- end -%>
-  <%- unless manifestation.amazon_customer_reviews.blank? -%>
-    <li><a href="#amazon"><em><%= t('page.amazon_review') -%></em></a></li>
   <%- end -%>
   <%- if current_user.try(:has_role?, 'Librarian') -%>
     <li><a href="#history"><em><%= t('page.history') -%></em></a></li>
