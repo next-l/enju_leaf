@@ -54,7 +54,7 @@
       <p>
         <%= t('page.search_term') -%>: <%= search_field_tag 'query', h(@query), {:id => 'search_form_bottom', :class => 'search_form'} -%>
         <%= submit_tag t('page.search') -%>
-        <%= link_to t('page.advanced_search'), '/page/advanced_search' -%>
+        <%= link_to t('page.advanced_search'), page_advanced_search_path -%>
       </p>
     <%- end -%>
   <%- end -%>

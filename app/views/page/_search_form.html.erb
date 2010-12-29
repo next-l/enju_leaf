@@ -3,7 +3,7 @@
     <%= t('page.search_term') -%>:
     <%= search_field_tag 'query', nil, :class => 'search_form_short' -%>
     <%= submit_tag t('page.search') -%><br />
-    (<%= link_to t('page.advanced_search'), '/page/advanced_search' -%>)
+    (<%= link_to t('page.advanced_search'), page_advanced_search_path -%>)
   </p>
 <%- end -%>
 <%= javascript_tag("$('#query').focus()") -%>
