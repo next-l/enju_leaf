@@ -106,7 +106,7 @@ module ApplicationHelper
           link = link_to image_tag(book_jacket[:url], :width => book_jacket[:width], :height => book_jacket[:height], :alt => manifestation.original_title, :class => 'book_jacket'), "http://#{configatron.amazon.hostname}/dp/#{book_jacket[:asin]}"
         end
       else
-        if manifestation.access_address
+        if manifestation.access_address.present?
           # TODO: thumbalizerはプラグインに移動
           if configatron.thumbalizr.api_key
             link = link_to image_tag("http://api.thumbalizr.com/?url=#{manifestation.access_address}&width=128", :width => 128, :height => 144, :alt => manifestation.original_title, :border => 0), manifestation.access_address

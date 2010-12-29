@@ -22,7 +22,6 @@
 set :path, '/path/to/enju_leaf'
 set :environment, :production
 set :output, "#{path}/log/cron_log.log"
-job_type :runner, 'cd :path && rails runner -e :environment ":task"'
 
 every 5.minute do
   runner "Session.expire; MessageRequest.send_messages"
