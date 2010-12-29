@@ -65,7 +65,8 @@ module EnjuAmazon
       return bookjacket
 
     rescue
-      bookjacket = {:url => 'unknown_resource.png', :width => '100', :height => '100'}
+      #bookjacket = {:url => 'unknown_resource.png', :width => '100', :height => '100'}
+      nil
     end
 
     def amazon_customer_reviews

@@ -8,45 +8,45 @@ module ApplicationHelper
   def form_icon(carrier_type)
     case carrier_type.name
     when 'print'
-      image_tag('/icons/book.png', :size => '16x16', :alt => carrier_type.display_name.localize)
+      image_tag('icons/book.png', :size => '16x16', :alt => carrier_type.display_name.localize)
     when 'CD'
-      image_tag('/icons/cd.png', :size => '16x16', :alt => carrier_type.display_name.localize)
+      image_tag('icons/cd.png', :size => '16x16', :alt => carrier_type.display_name.localize)
     when 'DVD'
-      image_tag('/icons/dvd.png', :size => '16x16', :alt => carrier_type.display_name.localize)
+      image_tag('icons/dvd.png', :size => '16x16', :alt => carrier_type.display_name.localize)
     when 'file'
-      image_tag('/icons/monitor.png', :size => '16x16', :alt => carrier_type.display_name.localize)
+      image_tag('icons/monitor.png', :size => '16x16', :alt => carrier_type.display_name.localize)
     else
-      image_tag('/icons/help.png', :size => '16x16', :alt => 'unknown')
+      image_tag('icons/help.png', :size => '16x16', :alt => 'unknown')
     end
   rescue NoMethodError
-    image_tag('/icons/help.png', :size => '16x16', :alt => 'unknown')
+    image_tag('icons/help.png', :size => '16x16', :alt => 'unknown')
   end
 
   def content_type_icon(content_type)
     case content_type.name
     when 'text'
-      image_tag('/icons/page_white_text.png', :size => '16x16', :alt => content_type.display_name.localize)
+      image_tag('icons/page_white_text.png', :size => '16x16', :alt => content_type.display_name.localize)
     when 'picture'
-      image_tag('/icons/picture.png', :size => '16x16', :alt => content_type.display_name.localize)
+      image_tag('icons/picture.png', :size => '16x16', :alt => content_type.display_name.localize)
     when 'sound'
-      image_tag('/icons/sound.png', :size => '16x16', :alt => content_type.display_name.localize)
+      image_tag('icons/sound.png', :size => '16x16', :alt => content_type.display_name.localize)
     when 'video'
-      image_tag('/icons/film.png', :size => '16x16', :alt => content_type.display_name.localize)
+      image_tag('icons/film.png', :size => '16x16', :alt => content_type.display_name.localize)
     else
-      image_tag('/icons/help.png', :size => '16x16', :alt => ('unknown'))
+      image_tag('icons/help.png', :size => '16x16', :alt => ('unknown'))
     end
   rescue NoMethodError
-    image_tag('/icons/help.png', :size => '16x16', :alt => ('unknown'))
+    image_tag('icons/help.png', :size => '16x16', :alt => ('unknown'))
   end
 
   def patron_type_icon(patron_type)
     case patron_type
     when 'Person'
-      image_tag('/icons/user.png', :size => '16x16', :alt => ('Person'))
+      image_tag('icons/user.png', :size => '16x16', :alt => ('Person'))
     when 'CorporateBody'
-      image_tag('/icons/group.png', :size => '16x16', :alt => ('CorporateBody'))
+      image_tag('icons/group.png', :size => '16x16', :alt => ('CorporateBody'))
     else
-      image_tag('/icons/help.png', :size => '16x16', :alt => ('unknown'))
+      image_tag('icons/help.png', :size => '16x16', :alt => ('unknown'))
     end
   end
 
@@ -96,27 +96,32 @@ module ApplicationHelper
   end
 
   def book_jacket(manifestation)
-    return nil if manifestation.nil?
-    # TODO: Amazon優先でよい？
-    book_jacket = manifestation.amazon_book_jacket
-    unless book_jacket.blank?
-      unless book_jacket[:asin].blank?
-        link_to image_tag(book_jacket[:url], :width => book_jacket[:width], :height => book_jacket[:height], :alt => manifestation.original_title, :class => 'book_jacket'), "http://#{configatron.amazon.hostname}/dp/#{book_jacket[:asin]}"
+    if picture_file = manifestation.picture_files.first and picture_file.extname
+      link = link_to image_tag(picture_file_path(picture_file, :format => :download, :size => 'thumb')), picture_file_path(picture_file, :format => picture_file.extname), :rel => "manifestation_#{manifestation.id}"
+    else
+      # TODO: Amazon優先でよい？
+      book_jacket = manifestation.amazon_book_jacket
+      if book_jacket
+        unless book_jacket[:asin].blank?
+          link = link_to image_tag(book_jacket[:url], :width => book_jacket[:width], :height => book_jacket[:height], :alt => manifestation.original_title, :class => 'book_jacket'), "http://#{configatron.amazon.hostname}/dp/#{book_jacket[:asin]}"
+        end
       else
-        if manifestation.screen_shot.present?
-        #link_to image_tag("http://api.thumbalizr.com/?url=#{manifestation.access_address}&width=180", :width => 180, :height => 144, :alt => manifestation.original_title, :border => 0), manifestation.access_address
-        #link_to image_tag("http://capture.heartrails.com/medium?#{manifestation.access_address}", :width => 200, :height => 150, :alt => manifestation.original_title, :border => 0), manifestation.access_address
-        # TODO: Project Next-L 専用のMozshotサーバを作る
-          link_to image_tag(manifestation_path(manifestation, :mode => 'screen_shot'), :width => 128, :height => 128, :alt => manifestation.original_title, :class => 'screen_shot'), manifestation.access_address
-        else
-          if picture_file = manifestation.picture_files.first and picture_file.extname
-            link_to image_tag(picture_file_path(picture_file, :format => :download, :size => 'thumb')), picture_file_path(picture_file, :format => picture_file.extname), :rel => "manifestation_#{manifestation.id}"
-          else
-            image_tag(book_jacket[:url], :width => book_jacket[:width], :height => book_jacket[:height], :alt => ('no image'), :class => 'book_jacket')
+        if manifestation.access_address
+          if configatron.thumbalizr.api_key
+            link = link_to image_tag("http://api.thumbalizr.com/?url=#{manifestation.access_address}&width=150&api_key=#{configatron.thumbalizr.api_key}", :width => 150, :height => 144, :alt => manifestation.original_title, :border => 0), manifestation.access_address
+          elsif manifestation.mozshot.present?
+            #link = link_to image_tag("http://capture.heartrails.com/medium?#{manifestation.access_address}", :width => 200, :height => 150, :alt => manifestation.original_title, :border => 0), manifestation.access_address
+            # TODO: Project Next-L 専用のMozshotサーバを作る
+            link = link_to image_tag(manifestation_path(manifestation, :mode => 'screen_shot'), :width => 128, :height => 128, :alt => manifestation.original_title, :class => 'screen_shot'), manifestation.access_address
           end
         end
       end
     end
+
+    unless link
+      link = link_to image_tag('unknown_resource.png', :width => '100', :height => '100', :alt => '*')
+    end
+    link
   #rescue NoMethodError
   #  nil
   end
