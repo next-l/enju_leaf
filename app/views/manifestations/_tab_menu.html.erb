@@ -6,9 +6,6 @@
   <%- unless manifestation.questions(:user => current_user).empty? -%>
     <li><a href="#question"><em><%= t('resource.question') -%></em></a></li>
   <%- end -%>
-  <%- unless manifestation.amazon_customer_reviews.blank? -%>
-    <li><a href="#amazon"><em><%= t('page.amazon_review') -%></em></a></li>
-  <%- end -%>
   <%- if current_user.try(:has_role?, 'Librarian') -%>
     <li><a href="#history"><em><%= t('page.history') -%></em></a></li>
   <%- end -%>

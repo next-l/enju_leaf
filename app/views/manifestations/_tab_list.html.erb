@@ -4,12 +4,6 @@
 <%- unless manifestation.questions(:user => current_user).empty? -%>
   <%= render :partial => 'manifestations/question_list', :locals => {:manifestation => manifestation} -%>
 <%- end -%>
-<%- if manifestation.amazon_customer_reviews.size > 0 -%>
-  <%= render :partial => 'manifestations/amazon_review', :locals => {:manifestation => manifestation, :amazon_reviews => @amazon_reviews} -%>
-<%- end -%>
-<%- unless @xisbn_resources.blank? -%>
-  <%= render 'manifestations/show_xisbn' -%>
-<%- end -%>
 <%- if current_user.try(:has_role?, 'Librarian') -%>
   <%= render :partial => 'manifestations/history_list', :locals => {:manifestation => manifestation} -%>
 <%- end -%>
