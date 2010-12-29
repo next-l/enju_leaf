@@ -120,7 +120,7 @@ module ApplicationHelper
     end
 
     unless link
-      link = link_to image_tag('unknown_resource.png', :width => '100', :height => '100', :alt => '*')
+      link = link_to image_tag('unknown_resource.png', :width => '100', :height => '100', :alt => '*'), manifestation
     end
     link
   #rescue NoMethodError
