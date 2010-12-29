@@ -36,7 +36,7 @@
       </td>
       <td><%= purchase_request.price -%></td>
       <td>
-        <%= link_to image_tag('/icons/page_white_edit.png', :size => '16x16', :alt => t('page.edit')), edit_user_purchase_request_path(purchase_request.user.username, purchase_request) -%>
+        <%= link_to image_tag('icons/page_white_edit.png', :size => '16x16', :alt => t('page.edit')), edit_user_purchase_request_path(purchase_request.user.username, purchase_request) -%>
         <%- if can? :destroy, purchase_request -%>
           <%- if params[:mode] == "add" -%>
             <%= link_to t('page.add'), new_order_list_purchase_request_path(@order_list, :purchase_request_id => purchase_request.id, :mode => 'add') -%>

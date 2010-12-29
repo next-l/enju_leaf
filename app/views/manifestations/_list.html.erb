@@ -30,16 +30,16 @@
                     <%- end -%>
                   <%- end -%>
                 </td>
-                <%- if can? :destroy, manifestation -%>
-                  <td id="edit_icons">
-                    <%= link_to image_tag('/icons/book_edit.png', :size => '16x16', :alt => t('page.edit')), edit_manifestation_path(manifestation) -%>
+                <td id="edit_icons">
+                  <%- if can? :update, manifestation -%>
+                    <%= link_to image_tag('icons/book_edit.png', :size => '16x16', :alt => t('page.edit')), edit_manifestation_path(manifestation) -%>
                     <% if @manifestation %>
                       <%= link_to t('page.add'), new_manifestation_manifestation_relationship_path(@manifestation, :child_id => manifestation.id) -%>
                     <% else %>
-                      <%= link_to image_tag('/icons/arrow_divide.png', :size => '16x16', :alt => t('manifestation.add_derivation')), manifestation_manifestations_path(manifestation, :mode => 'add') -%>
+                      <%= link_to image_tag('icons/arrow_divide.png', :size => '16x16', :alt => t('manifestation.add_derivation')), manifestation_manifestations_path(manifestation, :mode => 'add') -%>
                     <% end %>
-                  </td>
-                <%- end -%>
+                  <%- end -%>
+                </td>
               <%- end -%>
             </tr>
           <%- end -%>

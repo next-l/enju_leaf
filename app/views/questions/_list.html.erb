@@ -41,7 +41,7 @@
         <%= t('question.last_answered_at') %>: <%= l(question.answers.last.updated_at) if question.answers.last -%>
       </td>
       <td>
-        <%= link_to image_tag('/icons/comments.png', :alt => t('answer.count'), :size => '16x16'), question %>
+        <%= link_to image_tag('icons/comments.png', :alt => t('answer.count'), :size => '16x16'), question %>
         <%= link_to question.answers.size, question -%>
         <%- if question.solved %>
           <%= t('question.solved') %>
@@ -51,10 +51,10 @@
       </td>
       <td>
         <%- if can? :update, question -%>
-          <%= link_to image_tag('/icons/page_white_edit.png', :alt => t('page.edit'), :size => '16x16'), edit_user_question_path(question.user.username, question), :confirm => t('page.are_you_sure'), :method => :delete -%>
+          <%= link_to image_tag('icons/page_white_edit.png', :alt => t('page.edit'), :size => '16x16'), edit_user_question_path(question.user.username, question), :confirm => t('page.are_you_sure'), :method => :delete -%>
         <% end %>
         <%- if can? :destroy, question -%>
-          <%= link_to image_tag('/icons/delete.png', :alt => t('page.destroy'), :size => '16x16'), user_question_path(question.user.username, question), :confirm => t('page.are_you_sure'), :method => :delete -%>
+          <%= link_to image_tag('icons/delete.png', :alt => t('page.destroy'), :size => '16x16'), user_question_path(question.user.username, question), :confirm => t('page.are_you_sure'), :method => :delete -%>
         <%- end -%>
       </td>
     </tr>

@@ -107,9 +107,10 @@ module ApplicationHelper
         end
       else
         if manifestation.access_address
+          # TODO: thumbalizerはプラグインに移動
           if configatron.thumbalizr.api_key
-            link = link_to image_tag("http://api.thumbalizr.com/?url=#{manifestation.access_address}&width=150&api_key=#{configatron.thumbalizr.api_key}", :width => 150, :height => 144, :alt => manifestation.original_title, :border => 0), manifestation.access_address
-          elsif manifestation.mozshot.present?
+            link = link_to image_tag("http://api.thumbalizr.com/?url=#{manifestation.access_address}&width=128", :width => 128, :height => 144, :alt => manifestation.original_title, :border => 0), manifestation.access_address
+          elsif manifestation.screen_shot.present?
             #link = link_to image_tag("http://capture.heartrails.com/medium?#{manifestation.access_address}", :width => 200, :height => 150, :alt => manifestation.original_title, :border => 0), manifestation.access_address
             # TODO: Project Next-L 専用のMozshotサーバを作る
             link = link_to image_tag(manifestation_path(manifestation, :mode => 'screen_shot'), :width => 128, :height => 128, :alt => manifestation.original_title, :class => 'screen_shot'), manifestation.access_address

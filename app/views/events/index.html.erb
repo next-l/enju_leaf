@@ -56,8 +56,8 @@
     </td>
     <td>
       <%- if can? :destroy, event -%>
-        <%= link_to image_tag('/icons/page_white_edit.png', :size => '16x16', :alt => t('page.edit')), edit_event_path(event) -%>
-        <%= link_to image_tag('/icons/delete.png', :size => '16x16', :alt => t('page.destroy')), event, :confirm => t('page.are_you_sure'), :method => :delete -%>
+        <%= link_to image_tag('icons/page_white_edit.png', :size => '16x16', :alt => t('page.edit')), edit_event_path(event) -%>
+        <%= link_to image_tag('icons/delete.png', :size => '16x16', :alt => t('page.destroy')), event, :confirm => t('page.are_you_sure'), :method => :delete -%>
       <%- end -%>
     </td>
   </tr>

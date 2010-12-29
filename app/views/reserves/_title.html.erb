@@ -22,5 +22,5 @@
     <%- unless reserve.manifestation.access_address.blank? -%>
       <br />
       <%= link_to h(reserve.manifestation.access_address), h(manifestation.access_address) -%>
-      <%= link_to image_tag('/icons/world_go.png', :size => '16x16', :alt => ('Web')), h(reserve.manifestation.access_address) -%>
+      <%= link_to image_tag('icons/world_go.png', :size => '16x16', :alt => ('Web')), h(reserve.manifestation.access_address) -%>
     <%- end -%>

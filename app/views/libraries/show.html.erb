@@ -61,7 +61,7 @@
               <td>
                 <%= link_to h(shelf.display_name.localize), library_shelf_path(@library.name, shelf) -%>
                 <%- shelf.picture_files.each do |picture_file| -%>
-                  <%= link_to image_tag('/icons/picture.png', :size => '16x16', :alt => t('page.picture')), picture_file_path(picture_file, :format => FileWrapper.get_mime(picture_file.picture.path).split('/')[1]), :rel => "shelf_#{h(shelf.id)}" if File.exist?(picture_file.picture.path) -%>
+                  <%= link_to image_tag('icons/picture.png', :size => '16x16', :alt => t('page.picture')), picture_file_path(picture_file, :format => FileWrapper.get_mime(picture_file.picture.path).split('/')[1]), :rel => "shelf_#{h(shelf.id)}" if File.exist?(picture_file.picture.path) -%>
                 <%- end -%>
                 <script type="text/javascript">
                   $(document).ready(function(){

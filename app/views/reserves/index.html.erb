@@ -25,11 +25,11 @@
     <td><%= l(reserve.expired_at, :format => :only_date) -%></td>
     <%- if can? :destroy, reserve -%>
       <td>
-        <%= link_to image_tag('/icons/page_white_edit.png', :size => '16x16', :alt => t('page.edit')), edit_user_reserve_path(reserve.user, reserve) -%>
+        <%= link_to image_tag('icons/page_white_edit.png', :size => '16x16', :alt => t('page.edit')), edit_user_reserve_path(reserve.user, reserve) -%>
         <%- if reserve.user.reserves.waiting.include?(reserve) -%>
-          <%= link_to image_tag('/icons/cancel.png', :size => '16x16', :alt => t('page.cancel')), user_reserve_path(reserve.user, reserve, :mode => 'cancel'), :confirm => t('page.are_you_sure'), :method => :put -%>
+          <%= link_to image_tag('icons/cancel.png', :size => '16x16', :alt => t('page.cancel')), user_reserve_path(reserve.user, reserve, :mode => 'cancel'), :confirm => t('page.are_you_sure'), :method => :put -%>
         <%- else -%>
-          <%= link_to image_tag('/icons/delete.png', :size => '16x16', :alt => t('page.destroy')), user_reserve_path(reserve.user, reserve), :confirm => t('page.are_you_sure'), :method => :delete -%>
+          <%= link_to image_tag('icons/delete.png', :size => '16x16', :alt => t('page.destroy')), user_reserve_path(reserve.user, reserve), :confirm => t('page.are_you_sure'), :method => :delete -%>
         <%- end -%>
       </td>
     <%- end -%>

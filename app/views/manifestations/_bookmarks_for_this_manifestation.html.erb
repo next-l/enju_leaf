@@ -8,7 +8,7 @@
       <%- end -%>
       <%= bookmark.note -%>
       <%- if user_signed_in? and current_user == bookmark.user -%>
-        <%= link_to image_tag('/icons/page_edit.png', :alt => t('page.edit')), edit_user_bookmark_path(bookmark.user, bookmark) -%>
+        <%= link_to image_tag('icons/page_edit.png', :alt => t('page.edit')), edit_user_bookmark_path(bookmark.user, bookmark) -%>
       <%- end -%>
       </li>
     <%- end -%>
