@@ -30,7 +30,7 @@
         <%- if current_user.has_role?('Librarian') -%>
           <li><%= link_to t('activerecord.models.inter_library_loan'), inter_library_loans_path -%></li>
           <!--
-          <li><%= link_to 'NACSIS ILL', '/page/under_construction' -%></li>
+          <li><%= link_to 'NACSIS ILL', 'page/under_construction' -%></li>
           -->
         <%- end -%>
         <li><%= link_to t('page.checkout_history'), user_checkouts_path(current_user) -%></li>
@@ -48,7 +48,7 @@
       <ul>
         <%- if current_user.has_role?('Librarian') -%>
           <li><%= link_to t('page.add_manually'), new_import_request_path -%></li>
-          <li><%= link_to t('page.import_from_file'), '/page/import' -%></li>
+          <li><%= link_to t('page.import_from_file'), page_import_path -%></li>
           <li><%= link_to t('page.upload_file'), new_manifestation_path(:mode => 'attachment') -%></li>
         <%- end -%>
       </ul>
@@ -104,18 +104,18 @@
         <ul>
           <li><%= link_to t('page.new', :model => t('activerecord.models.user')), new_user_path -%></li>
           <li><%= link_to t('page.patron_management'), patrons_path -%></li>
-          <li><%= link_to t('page.import'), '/page/import' -%></li>
+          <li><%= link_to t('page.import'), page_import_path -%></li>
           <!--
-          <li><%= link_to t('page.export'), '/page/export' -%></li>
+          <li><%= link_to t('page.export'), 'page/export' -%></li>
           -->
           <li><%= link_to t('activerecord.models.order_list'), order_lists_path -%></li>
-          <li><%= link_to t('page.statistics'), '/page/statistics' -%></li>
+          <li><%= link_to t('page.statistics'), page_statistics_path -%></li>
           <li><%= link_to t('activerecord.models.search_history'), search_histories_path -%></li>
           <!--
-          <li><%= link_to t('page.recommendation'), '/page/under_construction' -%></li>
-          <li><%= link_to 'Send questions and answers to CRD', '/page/under_construction' -%></li>
+          <li><%= link_to t('page.recommendation'), 'page/under_construction' -%></li>
+          <li><%= link_to 'Send questions and answers to CRD', 'page/under_construction' -%></li>
           -->
-          <li><%= link_to t('page.configuration'), '/page/configuration' -%></li>
+          <li><%= link_to t('page.configuration'), page_configuration_path -%></li>
         </ul>
       <%- else -%>
         <ul>
