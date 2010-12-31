@@ -22,7 +22,7 @@ gem 'exception_notification', :git => 'git://github.com/rails/exception_notifica
 gem 'delayed_job', '>=2.1.1'
 gem 'state_machine'
 gem 'prawn'
-gem 'sunspot_rails', '1.2.rc4'
+gem 'sunspot_rails', '>=1.2.1'
 unless RUBY_VERSION > '1.9'
   gem 'fastercsv'
   gem 'system_timer' unless defined?(JRUBY_VERSION)
