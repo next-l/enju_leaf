@@ -11,7 +11,6 @@
         <%= link_to t('page.advanced_search'), page_advanced_search_path -%>
       </div>
     <%- end -%>
-    <%= javascript_tag("$('#search_form_top').focus()") -%>
 
     <%= render :partial => 'manifestations/title', :locals => {:manifestation => @manifestation} -%>
     <%- if @version -%>
