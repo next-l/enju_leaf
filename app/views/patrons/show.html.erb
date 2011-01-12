@@ -1,5 +1,5 @@
 <div id="content_detail" class="ui-corner-all">
-<% cache(:controller => :patrons, :action => :show, :id => @patron.id, :role => current_user_role_name, :locale => @locale) do %>
+<% cache(:controller => :patrons, :action => :show, :id => @patron.id, :page => 'detail', :role => current_user_role_name, :locale => @locale) do %>
 <h1 class="title"><%= t('page.showing', :model => t('activerecord.models.patron')) -%></h1>
 <div id="content_list">
   <h2 class="resource_title">

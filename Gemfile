@@ -63,6 +63,7 @@ gem 'aws-s3', :require => 'aws/s3'
 gem 'astrails-safe'
 gem 'dynamic_form'
 gem 'formtastic'
+gem 'jquery-rails'
 
 gem 'oink'
 gem "parallel_tests", :group => :development
