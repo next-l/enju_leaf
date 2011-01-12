@@ -49,9 +49,9 @@ class ApplicationController < ActionController::Base
       locale = params[:locale] || session[:locale]
     end
     if locale
-      @locale = session[:locale] = locale.to_sym
+      I18n.locale = @locale = session[:locale] = locale.to_sym
     else
-      @locale = session[:locale] = I18n.locale
+      I18n.locale = @locale = session[:locale] = I18n.default_locale
     end
   rescue InvalidLocaleError
     @locale = I18n.default_locale
