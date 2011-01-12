@@ -48,9 +48,7 @@ class PageSweeper < ActionController::Caching::Sweeper
       expire_editable_fragment(record.item, ['holding'])
     when record.is_a?(Language)
       Rails.cache.fetch('language_all'){Language.all}.each do |language|
-        expire_fragment(:page => 'header', :locale => language.iso_639_1)
-        expire_fragment(:page => 'select_locale', :locale => language.iso_639_1)
-        expire_fragment(:controller => 'page', :locale => language.iso_639_1)
+        expire_fragment(:controller => 'page', :locale => language.iso_639_1.to_sym)
       end
     when record.is_a?(SeriesStatement)
       record.manifestations.each do |manifestation|
@@ -79,7 +77,7 @@ class PageSweeper < ActionController::Caching::Sweeper
   def expire_menu
     I18n.available_locales.each do |locale|
       Rails.cache.fetch('role_all'){Role.all}.each do |role|
-        expire_fragment(:controller => :page, :page => 'menu', :role => role.name, :locale => locale.to_s)
+        expire_fragment(:controller => :page, :page => 'menu', :role => role.name, :locale => locale)
       end
     end
   end

@@ -1,16 +1,14 @@
 module ExpireEditableFragment
-  def expire_editable_fragment(record, fragments = nil)
+  def expire_editable_fragment(record, fragments = [])
+    fragments.push('detail').uniq!
     if record
       if record.is_a?(Manifestation)
         expire_manifestation_cache(record, fragments)
       else
         I18n.available_locales.each do |locale|
           Rails.cache.fetch('role_all'){Role.all}.each do |role|
-            expire_fragment(:controller => record.class.to_s.pluralize.downcase, :action => :show, :id => record.id, :role => role.name, :locale => locale.to_s)
-            if fragments
-              fragments.each do |fragment|
-                expire_fragment(:controller => record.class.to_s.pluralize.downcase, :action => :show, :id => record.id, :page => fragment, :role => role.name, :locale => locale.to_s)
-              end
+            fragments.each do |fragment|
+              expire_fragment(:controller => record.class.to_s.pluralize.downcase, :action => :show, :id => record.id, :page => fragment, :role => role.name, :locale => locale)
             end
           end
         end
@@ -18,10 +16,10 @@ module ExpireEditableFragment
     end
   end
 
-  def expire_manifestation_cache(manifestation, fragments)
-    fragments = %w[detail pickup book_jacket title picture_file title_reserve show_list edit_list reserve_list] if fragments.nil?
+  def expire_manifestation_cache(manifestation, fragments = [])
+    fragments = %w[detail pickup book_jacket title picture_file title_reserve show_list edit_list reserve_list] if fragments.empty?
     expire_fragment(:controller => :manifestations, :action => :index, :page => 'numdocs')
-    fragments.each do |fragment|
+    fragments.uniq.each do |fragment|
       expire_manifestation_fragment(manifestation, fragment)
     end
     manifestation.bookmarks.each do |bookmark|
@@ -29,13 +27,14 @@ module ExpireEditableFragment
     end
   end
 
-  def expire_manifestation_fragment(manifestation, fragment, formats = [nil, 'html'])
+  def expire_manifestation_fragment(manifestation, fragment, formats = [])
     formats = ['atom', 'csv', 'html', 'mods', 'oai_list_identifiers', 'oai_list_records', 'rdf', 'rss'] if formats.empty?
     if manifestation
       I18n.available_locales.each do |locale|
         Rails.cache.fetch('role_all'){Role.all}.each do |role|
+          expire_fragment(:controller => :manifestations, :action => :show, :id => manifestation.id, :page => fragment, :role => role.name, :locale => locale)
           formats.each do |format|
-            expire_fragment(:controller => :manifestations, :action => :show, :id => manifestation.id, :role => role.name, :locale => locale.to_s, :page => fragment, :format => format)
+            expire_fragment(:controller => :manifestations, :action => :show, :id => manifestation.id, :page => fragment, :role => role.name, :locale => locale, :format => format)
           end
         end
       end

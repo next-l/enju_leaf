@@ -21,7 +21,7 @@
       <li><a href="#classification"><em><%= t('activerecord.models.classification') -%></em></a></li>
     </ul>
     <%= render :partial => 'subjects/show_work_list' -%>
-    <%- cache(:controller => :subjects, :action => :show, :id => @subject.id, :role => current_user_role_name, :locale => @locale) do -%>
+    <%- cache(:controller => :subjects, :action => :show, :id => @subject.id, :page => 'detail', :role => current_user_role_name, :locale => @locale) do -%>
     <div id="classification">
       <table class="index">
         <tr>

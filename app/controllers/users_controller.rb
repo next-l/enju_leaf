@@ -65,7 +65,6 @@ class UsersController < ApplicationController
 
   def show
     session[:return_to] = nil
-    session[:params] = nil
     #@user = User.first(:conditions => {:username => params[:id]})
     #@user = User.find(params[:id])
     raise ActiveRecord::RecordNotFound if @user.blank?
