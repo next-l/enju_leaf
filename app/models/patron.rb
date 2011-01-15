@@ -1,3 +1,4 @@
+# -*- encoding: utf-8 -*-
 class Patron < ActiveRecord::Base
   has_many :creates, :dependent => :destroy
   has_many :works, :through => :creates
@@ -26,6 +27,7 @@ class Patron < ActiveRecord::Base
   validates_presence_of :full_name, :language, :patron_type, :country
   validates_associated :language, :patron_type, :country
   validates_length_of :full_name, :maximum => 255
+  validates_uniqueness_of :user_id, :allow_nil => true
   before_validation :set_role_and_name, :on => :create
 
   has_paper_trail

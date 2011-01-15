@@ -31,7 +31,6 @@ class Library < ActiveRecord::Base
   validates_uniqueness_of :display_name
   validates_format_of :name, :with => /^[a-z][0-9a-z]{2,254}$/
   before_validation :set_patron, :on => :create
-  before_validation :set_display_name
   #before_save :set_calil_neighborhood_library
   after_validation :fetch_coordinates
   after_create :create_shelf
