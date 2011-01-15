@@ -39,6 +39,7 @@ class Ability
       can [:read, :create, :update], User
       can :destroy, User do |user|
         user.checkouts.not_returned.first.nil?
+        user.username != 'admin'
       end
       can [:read, :create, :update], UserGroup
       can :destroy, UserGroup do |user_group|

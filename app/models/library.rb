@@ -46,7 +46,7 @@ class Library < ActiveRecord::Base
   end
 
   def set_patron
-    patron = Patron.create!(:full_name => self.name)
+    patron = Patron.new(:full_name => self.name)
     self.patron = patron
   end
 

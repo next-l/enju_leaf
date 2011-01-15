@@ -132,7 +132,7 @@ class PatronImportFile < ActiveRecord::Base
           if user.password.blank?
             user.set_auto_generated_password
           end
-          user.operator = User.find(1)
+          user.operator = User.find('admin')
           library = Library.first(:conditions => {:name => row['library_short_name'].to_s.strip}) || Library.web
           user_group = UserGroup.first(:conditions => {:name => row['user_group_name']}) || UserGroup.first
           user.library = library

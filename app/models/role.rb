@@ -6,6 +6,8 @@ class Role < ActiveRecord::Base
   after_save :clear_all_cache
   after_destroy :clear_all_cache
 
+  has_friendly_id :name
+
   def localized_name
     display_name.localize
   end
@@ -15,6 +17,6 @@ class Role < ActiveRecord::Base
   end
 
   def self.default_role
-    Rails.cache.fetch('default_role'){Role.find(1)}
+    Rails.cache.fetch('default_role'){Role.find('Guest')}
   end
 end
