@@ -37,9 +37,8 @@ class Ability
         shelf.items.first.nil?
       end
       can [:read, :create, :update], User
-      can :destroy, User do |user|
-        user.checkouts.not_returned.first.nil?
-        user.username != 'admin'
+      can :destroy, User do |u|
+        u.checkouts.not_returned.first.nil? and u.username != 'admin' and u != user
       end
       can [:read, :create, :update], UserGroup
       can :destroy, UserGroup do |user_group|
@@ -195,8 +194,8 @@ class Ability
         search_history.user == user
       end
       can [:read, :create, :update], User
-      can :destroy, User do |user|
-        user.checkouts.not_returned.first.nil? and user.role.name == 'User'
+      can :destroy, User do |u|
+        u.checkouts.not_returned.first.nil? and u.role.name == 'User' and u != user
       end
       can :manage, [
         Answer,

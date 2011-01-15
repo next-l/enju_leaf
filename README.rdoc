@@ -1,6 +1,6 @@
 = Next-L Enju Leaf
 
-Next-L Enju Leaf は、{Project Next-L}[http://www.next-l.jp] で開発している書誌管理システムです。
+Next-L Enju Leaf は、{Project Next-L}[http://www.next-l.jp] で開発している図書館管理システムです。
 
 Next-L Enju Leaf is an integrated library system developed by {Project Next-L}[http://www.next-l.jp].
 

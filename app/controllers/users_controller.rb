@@ -292,13 +292,4 @@ class UsersController < ApplicationController
     @libraries = Rails.cache.fetch('library_all'){Library.all}
     @languages = Language.all
   end
-
-  def set_operator
-    @user.operator = current_user
-  end
-
-  def last_request_update_allowed?
-    true if %w[create update].include?(action_name)
-  end
-
 end
