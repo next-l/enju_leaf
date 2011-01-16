@@ -1355,6 +1355,7 @@ ja:
     forgot_your_password: "パスワードを忘れましたか?"
     send_me_reset_password_instruction: "パスワードを再発行する"
     change_my_password: "パスワードを変更する"
+    management: "利用者の管理"
   news_post:
     library_group_news_post: "%{library_group_name} からのお知らせ"
   reserve:

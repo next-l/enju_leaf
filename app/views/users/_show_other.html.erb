@@ -1,25 +1,36 @@
-<div id="left_pane">
-  <h1 class="title"><%= @user.username -%></h1>
-  <div id="user_box">
-    <%- if flash[:temporary_password] -%>
-      <p><%= t('user.your_temporary_password_is') -%>: </p>
-      <p style="font-size: 200%"><%= flash[:temporary_password] -%></p>
-    <%- end -%>
-    <ul>
-      <%- if can? :destroy, @user -%>
-        <li><%= link_to t('user.edit_profile'), edit_patron_path(@user.patron) -%></li>
-        <li><%= link_to t('user.edit_account'), edit_user_path(@user.username) -%></li>
-      <%- end -%>
-      <li><%= link_to t('message.send'), new_user_message_path(current_user, :recipient => @user.username) -%></li>
-    </ul>
-  </div>
+<div id="content_detail" class="ui-corner-all">
+<h1 class="title"><%= t('page.showing', :model => t('activerecord.models.user')) -%></h1>
+<div id="content_list">
+  <h2 class="resource_title">
+    [U]
+    <%= @user.username -%>
+    <% if can? :read, @user.patron %>
+      (<%= link_to @user.patron.full_name, @user.patron %>)
+    <% end %>
+  </h2>
+
+  <%- if flash[:temporary_password] -%>
+    <p><%= t('user.your_temporary_password_is') -%>: </p>
+    <p style="font-size: 200%"><%= flash[:temporary_password] -%></p>
+  <%- end -%>
+
+</div>
 </div>
 
-<div id="right_pane">
-  <h3 class="title"><%= t('tag.user_tag', :login_name => @user.username) -%></h3>
-  <div id="tag_cloud_box">
-    <%= render :partial => 'bookmarks/tag_cloud', :locals => {:tags => @tags} -%>
-    <p>(<%= link_to t('page.listing', :model => t('activerecord.models.tag')), tags_path -%>)</p>
-  </div>
-
+<div id="submenu" class="ui-corner-all">
+  <ul>
+    <li><%= link_to t('page.back'), users_path -%></li>
+    <% if user_signed_in? %>
+      <% if can? :update, @user %>
+        <li><%= link_to t('page.edit'), edit_user_path(@user) -%></li>
+      <% end %>
+      <li><%= link_to t('message.send'), new_user_message_path(current_user, :recipient => @user.username) -%></li>
+      <%- if can? :create, @user -%>
+        <li><%= link_to t('page.new', :model => t('activerecord.models.user')), new_user_path -%></li>
+      <% end %>
+      <%- if can? :destroy, @user -%>
+        <li><%= link_to t('page.destroy'), @user, :confirm => t('page.are_you_sure'), :method => :delete -%></li>
+      <% end %>
+    <%- end -%>
+  </ul>
 </div>

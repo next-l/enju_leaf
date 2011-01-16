@@ -102,7 +102,7 @@
     <%- if user_signed_in? -%>
       <%- if current_user.has_role?('Librarian') -%>
         <ul>
-          <li><%= link_to t('page.new', :model => t('activerecord.models.user')), new_user_path -%></li>
+          <li><%= link_to t('user.management'), users_path -%></li>
           <li><%= link_to t('page.patron_management'), patrons_path -%></li>
           <li><%= link_to t('page.import'), page_import_path -%></li>
           <!--

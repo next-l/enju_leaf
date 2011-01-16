@@ -154,7 +154,7 @@ div#right_pane{
 div#left_pane_detail{
   margin-top: 5px;
   float: left;
-  width: 340px;
+  width: 330px;
   word-break: break-all;
 }
 
@@ -162,7 +162,7 @@ div#right_pane_detail{
   margin-top: 5px;
   float: left;
   margin-left: 10px;
-  width: 340px;
+  width: 330px;
   word-break: break-all;
 }
 
