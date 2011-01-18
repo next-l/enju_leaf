@@ -2,9 +2,9 @@ class PageController < ApplicationController
   before_filter :redirect_user, :only => :index
   before_filter :clear_search_sessions, :only => [:index, :advanced_search]
   before_filter :store_location, :only => [:advanced_search, :about, :add_on, :msie_acceralator, :statistics]
-  before_filter :authenticate_user!, :except => [:index, :advanced_search, :about, :add_on, :msie_acceralator, :opensearch, :statistics]
+  before_filter :authenticate_user!, :except => [:index, :advanced_search, :about, :add_on, :msie_acceralator, :opensearch, :statistics, :routing_error]
   before_filter :get_libraries, :only => [:advanced_search]
-  before_filter :check_librarian, :except => [:index, :advanced_search, :about, :add_on, :msie_acceralator, :opensearch]
+  before_filter :check_librarian, :except => [:index, :advanced_search, :about, :add_on, :msie_acceralator, :opensearch,:routing_error]
 
   def index
     @numdocs = Manifestation.search.total
@@ -54,6 +54,10 @@ class PageController < ApplicationController
     @title = t('page.under_construction')
   end
 
+  def routing_error
+    render_404
+  end
+
   private
   def check_librarian
     unless current_user.has_role?('Librarian')
@@ -63,7 +67,7 @@ class PageController < ApplicationController
  
   def redirect_user
     if user_signed_in?
-      redirect_to user_url(current_user.username)
+      redirect_to user_url(current_user)
       return
     end
   end

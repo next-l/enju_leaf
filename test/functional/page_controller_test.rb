@@ -70,4 +70,9 @@ class PageControllerTest < ActionController::TestCase
     assert_response :success
   end
 
+  test "guest_should_get_routing_error" do
+    get :routing_error
+    assert_response :missing
+    assert_template 'page/404'
+  end
 end
