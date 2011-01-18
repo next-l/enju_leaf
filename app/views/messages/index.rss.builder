@@ -11,7 +11,7 @@ xml.rss('version' => "2.0",
       xml.link messages_url(:format => :rss)
     end
     xml.description "Next-L Enju, an open source integrated library system developed by Project Next-L"
-    xml.language @locale
+    xml.language @locale.to_s
     xml.ttl "60"
     if @user
       xml.tag! "atom:link", :rel => 'self', :href => messages_url(:format => :rss)
@@ -32,7 +32,7 @@ xml.rss('version' => "2.0",
         xml.title message.subject
         #xml.description(message.title)
         # rfc822
-        xml.pubDate message.created_at.utc.iso8601
+        xml.pubDate message.created_at.utc.rfc822
         xml.link user_message_url(message.receiver.username, message)
         xml.guid user_message_url(message.receiver.username, message), :isPermaLink => "true"
       end

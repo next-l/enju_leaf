@@ -11,7 +11,7 @@ xml.rss('version' => "2.0",
       xml.link reserves_url(:format => :rss)
     end
     xml.description "Next-L Enju, an open source integrated library system developed by Project Next-L"
-    xml.language @locale
+    xml.language @locale.to_s
     xml.ttl "60"
     if @user
       xml.tag! "atom:link", :rel => 'self', :href => user_reserves_url(@user.username, :format => :rss)
@@ -32,7 +32,7 @@ xml.rss('version' => "2.0",
         xml.title reserve.manifestation.original_title
         #xml.description(reserve.title)
         # rfc822
-        xml.pubDate reserve.created_at.utc.iso8601
+        xml.pubDate reserve.created_at.utc.rfc822
         xml.link user_reserve_url(reserve.user.username, reserve)
         xml.guid user_reserve_url(reserve.user.username, reserve), :isPermaLink => "true"
       end

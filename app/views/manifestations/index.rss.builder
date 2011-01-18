@@ -7,7 +7,7 @@ xml.rss('version' => "2.0",
     xml.title t('manifestation.query_search_result', :query => @query, :library_group_name => @library_group.display_name.localize)
     xml.link "#{request.protocol}#{request.host_with_port}#{url_for(params.merge(:format => nil))}"
     xml.description "Next-L Enju, an open source integrated library system developed by Project Next-L"
-    xml.language @locale
+    xml.language @locale.to_s
     xml.ttl "60"
     xml.tag! "atom:link", :rel => 'self', :href => "#{request.protocol}#{request.host_with_port}#{url_for(params.merge(:format => "rss"))}"
     xml.tag! "atom:link", :rel => 'alternate', :href => manifestations_url
@@ -27,7 +27,7 @@ xml.rss('version' => "2.0",
             manifestation.creators.each do |creator|
               xml.tag! "dc:creator", creator.full_name
             end
-            xml.pubDate h(manifestation.date_of_publication.try(:utc).try(:iso8601))
+            xml.pubDate manifestation.date_of_publication.try(:utc).try(:rfc822)
             xml.link manifestation_url(manifestation)
             xml.guid manifestation_url(manifestation), :isPermaLink => "true"
             manifestation.tags.each do |tag|

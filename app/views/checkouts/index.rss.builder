@@ -15,7 +15,7 @@ xml.rss('version' => "2.0",
       xml.tag! "atom:link", :rel => 'alternate', :href => checkouts_url
     end
     xml.description "Next-L Enju, an open source integrated library system developed by Project Next-L"
-    xml.language @locale
+    xml.language @locale.to_s
     xml.ttl "60"
     #xml.tag! "atom:link", :rel => 'search', :type => 'application/opensearchdescription+xml', :href => "http://#{request.host_with_port}/page/opensearch"
     unless params[:query].blank?
@@ -29,7 +29,7 @@ xml.rss('version' => "2.0",
         xml.title h(checkout.item.manifestation.original_title)
         #xml.description(checkout.title)
         # rfc822
-        xml.pubDate checkout.created_at.utc.iso8601
+        xml.pubDate checkout.created_at.utc.rfc822
         xml.link user_checkout_url(checkout.user.username, checkout)
         xml.guid user_checkout_url(checkout.user.username, checkout), :isPermaLink => "true"
       end

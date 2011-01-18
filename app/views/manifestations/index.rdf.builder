@@ -10,7 +10,7 @@ xml.rdf(:RDF,
     xml.title t('manifestation.query_search_result', :query => @query, :library_group_name => @library_group.display_name.localize)
     xml.link "#{request.protocol}#{request.host_with_port}#{url_for(params.merge(:format => nil))}"
     xml.description "Next-L Enju, an open source integrated library system developed by Project Next-L"
-    xml.language @locale
+    xml.language @locale.to_s
     xml.ttl "60"
     if @manifestations
       xml.items do

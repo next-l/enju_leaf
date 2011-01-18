@@ -6,7 +6,7 @@ xml.rss('version' => "2.0",
     xml.title t('answer.user_answer', :login_name => @user.username)
     xml.link "#{request.protocol}#{request.host_with_port}" + user_answers_path(@user.username)
     xml.description "Next-L Enju, an open source integrated library system developed by Project Next-L"
-    xml.language @locale
+    xml.language @locale.to_s
     xml.ttl "60"
     xml.tag! "atom:link", :rel => 'self', :href => "#{request.protocol}#{request.host_with_port}#{url_for(params.merge(:format => "rss"))}"
     xml.tag! "atom:link", :rel => 'alternate', :href => "#{request.protocol}#{request.host_with_port}"
@@ -22,7 +22,7 @@ xml.rss('version' => "2.0",
         xml.title answer.body
         #xml.description(answer.title)
         # rfc822
-        xml.pubDate answer.created_at.utc.iso8601
+        xml.pubDate answer.created_at.utc.rfc822
         xml.link "#{request.protocol}#{request.host_with_port}" + user_answer_path(@user.username, answer)
         xml.guid "#{request.protocol}#{request.host_with_port}" + user_answer_path(answer.user.username, answer), :isPermaLink => "true"
       end

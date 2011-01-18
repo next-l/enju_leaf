@@ -15,7 +15,7 @@ xml.rss('version' => "2.0",
       xml.tag! "atom:link", :rel => 'self', :href => purchase_requests_url(:format => "rss")
       xml.tag! "atom:link", :rel => 'alternate', :href => purchase_requests_url
     end
-    xml.language @locale
+    xml.language @locale.to_s
     xml.ttl "60"
     #xml.tag! "atom:link", :rel => 'search', :type => 'application/opensearchdescription+xml', :href => "http://#{request.host_with_port}/page/opensearch"
     unless params[:query].blank?
@@ -29,7 +29,7 @@ xml.rss('version' => "2.0",
         xml.title purchase_request.title
         #xml.description(purchase_request.title)
         # rfc822
-        xml.pubDate purchase_request.created_at.utc.iso8601
+        xml.pubDate purchase_request.created_at.utc.rfc822
         xml.link user_purchase_request_url(purchase_request.user.username, purchase_request)
         xml.guid user_purchase_request_url(purchase_request.user.username, purchase_request), :isPermaLink => "true"
       end

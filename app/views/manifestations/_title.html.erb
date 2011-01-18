@@ -13,9 +13,9 @@
     <%- end -%>
     <%- if manifestation.publishers.first -%>
       <%= t('patron.publisher') -%>: <%= raw patrons_list(manifestation.publishers, current_user) -%>
-      <%- if manifestation.date_of_publication -%>
-        (<%= manifestation.date_of_publication.strftime('%Y') -%>)
-      <%- end -%>
+    <% end %>
+    <%- if manifestation.date_of_publication -%>
+      (<%= manifestation.date_of_publication.strftime('%Y') -%>)
     <%- end -%>
     <%- unless manifestation.access_address.blank? -%>
       <br />
