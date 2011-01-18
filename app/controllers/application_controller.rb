@@ -11,6 +11,7 @@ class ApplicationController < ActionController::Base
 
   before_filter :get_library_group, :set_locale, :set_available_languages
 
+  private
   def render_403
     if user_signed_in?
       respond_to do |format|
@@ -32,7 +33,6 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  private
   def get_library_group
     @library_group = LibraryGroup.site_config
   end

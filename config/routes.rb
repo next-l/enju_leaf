@@ -331,10 +331,10 @@ EnjuLeaf::Application.routes.draw do
 
   # This is a legacy wild controller route that's not recommended for RESTful applications.
   # Note: This route will make all actions in every controller accessible via GET requests.
-  # match ':controller(/:action(/:id(.:format)))'
   match '/isbn/:isbn' => 'manifestations#show'
   match '/calendar(/:year(/:month))' => 'calendar#index', :as => :calendar, :constraints => {:year => /\d{4}/, :month => /\d{1,2}/}
   match "/calendar/:year/:month/:day" => "calendar#show"
+  match ':controller(/:action(/:id(.:format)))'
   match '/page/about' => 'page#about'
   match '/page/configuration' => 'page#configuration'
   match '/page/advanced_search' => 'page#advanced_search'
@@ -344,4 +344,8 @@ EnjuLeaf::Application.routes.draw do
   match '/page/msie_acceralator' => 'page#msie_acceralator'
   match '/page/opensearch' => 'page#opensearch'
   match '/page/statistics' => 'page#statistics'
+  match '/page/routing_error' => 'page#routing_error'
+
+  # http://techoctave.com/c7/posts/36-rails-3-0-rescue-from-routing-error-solution
+  match '*a', :to => 'page#routing_error' unless Rails.application.config.consider_all_requests_local
 end

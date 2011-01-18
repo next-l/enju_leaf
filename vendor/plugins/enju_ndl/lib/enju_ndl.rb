@@ -213,6 +213,39 @@ module EnjuNdl
         end
       end
     end
+
+    def rss_import(url)
+      doc = Nokogiri::XML(open(url))
+      ns = {"dc" => "http://purl.org/dc/elements/1.1/", "xsi" => "http://www.w3.org/2001/XMLSchema-instance", "dcndl" => "http://ndl.go.jp/dcndl/terms/"}
+      doc.xpath('//item', ns).each do |item|
+        isbn = item.at('./dc:identifier[@xsi:type="dcndl:ISBN"]').try(:content)
+        ndl_bib_id = item.at('./dc:identifier[@xsi:type="dcndl:NDLBibID"]').try(:content)
+        manifestation = Manifestation.find_by_ndl_bib_id(ndl_bib_id)
+        manifestation = Manifestation.find_by_isbn(isbn) unless manifestation
+        unless manifestation
+          manifestation = self.create(
+            :original_title => item.at('./dc:title').content,
+            :title_transcription => item.at('./dcndl:titleTranscription').try(:content),
+            :isbn => isbn,
+            :ndl_bib_id => ndl_bib_id,
+            :description => item.at('./dc:description').try(:content),
+            :date_of_publication => item.at('./pubDate').try(:content)
+          )
+          item.xpath('./dc:creator').each_with_index do |creator, i|
+            next if i == 0
+            patron = Patron.first(:conditions => {:full_name => creator.try(:content)})
+            patron =  Patron.new(:full_name => creator.try(:content)) unless patron
+            manifestation.creators << patron if patron.valid?
+          end
+          item.xpath('./dc:publisher').each_with_index do |publisher, i|
+            patron = Patron.first(:conditions => {:full_name => publisher.try(:content)})
+            patron =  Patron.new(:full_name => publisher.try(:content)) unless patron
+            manifestation.publishers << patron if patron.valid?
+          end
+        end
+      end
+      Sunspot.commit
+    end
   end
 
   class RecordNotFound < StandardError
