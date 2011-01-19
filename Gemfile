@@ -13,7 +13,7 @@ if defined?(JRUBY_VERSION)
   #gem 'jdbc-mysql', :require => false
 else
   gem 'pg'
-  #gem 'mysql'
+  #gem 'mysql2'
   gem 'zipruby'
   gem 'formatize'
 end
