@@ -46,8 +46,9 @@ class Library < ActiveRecord::Base
   end
 
   def set_patron
-    patron = Patron.new(:full_name => self.name)
-    self.patron = patron
+    self.patron = Patron.new(
+      :full_name => self.name
+    )
   end
 
   def create_shelf

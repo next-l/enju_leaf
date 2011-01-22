@@ -1,0 +1,21 @@
+--- 
+patron_type_00001:
+  id: 1
+  name: Person
+  display_name: Person
+  note: 
+  position: 1
+
+patron_type_00002:
+  id: 2
+  name: CorporateBody
+  display_name: CorporateBody
+  note: 
+  position: 2
+
+patron_type_00003:
+  id: 3
+  name: Conference
+  display_name: Conference
+  note: 
+  position: 3

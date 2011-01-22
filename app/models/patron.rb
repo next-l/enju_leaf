@@ -168,12 +168,6 @@ class Patron < ActiveRecord::Base
     owns.first(:conditions => {:item_id => item.id})
   end
 
-  def is_readable_by(user, parent = nil)
-    true if self.required_role.id == 1 || user.role.id >= self.required_role.id || user == self.user
-  rescue NoMethodError
-    false
-  end
-
   def self.import_patrons(patron_lists)
     list = []
     patron_lists.each do |patron_list|

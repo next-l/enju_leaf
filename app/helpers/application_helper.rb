@@ -88,9 +88,9 @@ module ApplicationHelper
     return nil if patrons.blank?
     patrons_list = []
     if options[:nolink]
-      patrons_list = patrons.map{|patron| h(patron.full_name) if patron.is_readable_by(user)}
+      patrons_list = patrons.map{|patron| h(patron.full_name) if can?(:read, patron)}
     else
-      patrons_list = patrons.map{|patron| link_to(h(patron.full_name), patron) if patron.is_readable_by(user)}
+      patrons_list = patrons.map{|patron| link_to(h(patron.full_name), patron) if can?(:read, patron)}
     end
     patrons_list.join(" ")
   end

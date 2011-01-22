@@ -105,15 +105,16 @@ class User < ActiveRecord::Base
   end
 
   def has_role?(role_in_question)
-    if role
-      return true if role.name == 'Administrator'
-      return true if role.name == role_in_question
-    end
-    if role == 'Librarian'
+    return false unless role
+    return true if role.name == role_in_question
+    case role.name
+    when 'Administrator'
+      return true
+    when 'Librarian'
       return true if role_in_question == 'User'
+    else
+      false
     end
-    return true if role_in_question == 'Guest'
-    false
   end
 
   def set_role_and_patron

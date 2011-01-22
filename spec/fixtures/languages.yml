@@ -1,0 +1,1885 @@
+--- 
+language_00001: 
+  position: 1
+  name: unknown  
+  display_name: unknown
+  iso_639_1: "??"
+  iso_639_2: "???"
+  iso_639_3: "???"
+  id: 1
+  note: 
+  native_name: 
+language_00086: 
+  position: 86
+  name: Kinyarwanda  
+  display_name: Kinyarwanda
+  iso_639_1: rw
+  iso_639_2: kin
+  iso_639_3: kin
+  id: 86
+  note: 
+  native_name: 
+language_00141: 
+  position: 141
+  name: Scottish Gaelic  
+  display_name: Scottish Gaelic
+  iso_639_1: gd
+  iso_639_2: gla
+  iso_639_3: gla
+  id: 141
+  note: 
+  native_name: 
+language_00058: 
+  position: 58
+  name: "Guaran\xC3\xAD"  
+  display_name: "Guaran\xC3\xAD"
+  iso_639_1: gn
+  iso_639_2: grn
+  iso_639_3: grn
+  id: 58
+  note: 
+  native_name: 
+language_00113: 
+  position: 113
+  name: Nauru  
+  display_name: Nauru
+  iso_639_1: na
+  iso_639_2: nau
+  iso_639_3: nau
+  id: 113
+  note: 
+  native_name: 
+language_00087: 
+  position: 87
+  name: Kirghiz  
+  display_name: Kirghiz
+  iso_639_1: ky
+  iso_639_2: kir
+  iso_639_3: kir
+  id: 87
+  note: 
+  native_name: 
+language_00142: 
+  position: 142
+  name: Serbian  
+  display_name: Serbian
+  iso_639_1: sr
+  iso_639_2: srp
+  iso_639_3: srp
+  id: 142
+  note: 
+  native_name: 
+language_00059: 
+  position: 59
+  name: Gujarati  
+  display_name: Gujarati
+  iso_639_1: gu
+  iso_639_2: guj
+  iso_639_3: guj
+  id: 59
+  note: 
+  native_name: 
+language_00114: 
+  position: 114
+  name: Navajo  
+  display_name: Navajo
+  iso_639_1: nv
+  iso_639_2: nav
+  iso_639_3: nav
+  id: 114
+  note: 
+  native_name: 
+language_00170: 
+  position: 170
+  name: Turkish  
+  display_name: Turkish
+  iso_639_1: tr
+  iso_639_2: tur
+  iso_639_3: tur
+  id: 170
+  note: 
+  native_name: 
+language_00088: 
+  position: 88
+  name: Kirundi  
+  display_name: Kirundi
+  iso_639_1: rn
+  iso_639_2: run
+  iso_639_3: run
+  id: 88
+  note: 
+  native_name: 
+language_00143: 
+  position: 143
+  name: Serbo-Croatian  
+  display_name: Serbo-Croatian
+  iso_639_1: sh
+  iso_639_2: XXX
+  iso_639_3: hbs
+  id: 143
+  note: 
+  native_name: 
+language_00115: 
+  position: 115
+  name: Ndonga  
+  display_name: Ndonga
+  iso_639_1: ng
+  iso_639_2: ndo
+  iso_639_3: ndo
+  id: 115
+  note: 
+  native_name: 
+language_00171: 
+  position: 171
+  name: Turkmen  
+  display_name: Turkmen
+  iso_639_1: tk
+  iso_639_2: tuk
+  iso_639_3: tuk
+  id: 171
+  note: 
+  native_name: 
+language_00144: 
+  position: 144
+  name: Shona  
+  display_name: Shona
+  iso_639_1: sn
+  iso_639_2: sna
+  iso_639_3: sna
+  id: 144
+  note: 
+  native_name: 
+language_00002: 
+  position: 2
+  name: Abkhazian  
+  display_name: Abkhazian
+  iso_639_1: ab
+  iso_639_2: abk
+  iso_639_3: abk
+  id: 2
+  note: 
+  native_name: 
+language_00116: 
+  position: 116
+  name: Nepali  
+  display_name: Nepali
+  iso_639_1: ne
+  iso_639_2: nep
+  iso_639_3: nep
+  id: 116
+  note: 
+  native_name: 
+language_00172: 
+  position: 172
+  name: Twi  
+  display_name: Twi
+  iso_639_1: tw
+  iso_639_2: twi
+  iso_639_3: twi
+  id: 172
+  note: 
+  native_name: 
+language_00030: 
+  position: 30
+  name: Chichewa  
+  display_name: Chichewa
+  iso_639_1: ny
+  iso_639_2: nya
+  iso_639_3: nya
+  id: 30
+  note: 
+  native_name: 
+language_00089: 
+  position: 89
+  name: Komi  
+  display_name: Komi
+  iso_639_1: kv
+  iso_639_2: kom
+  iso_639_3: kom
+  id: 89
+  note: 
+  native_name: 
+language_00145: 
+  position: 145
+  name: Sichuan Yi  
+  display_name: Sichuan Yi
+  iso_639_1: ii
+  iso_639_2: iii
+  iso_639_3: iii
+  id: 145
+  note: 
+  native_name: 
+language_00003: 
+  position: 3
+  name: Afar  
+  display_name: Afar
+  iso_639_1: aa
+  iso_639_2: aar
+  iso_639_3: aar
+  id: 3
+  note: 
+  native_name: 
+language_00117: 
+  position: 117
+  name: North Ndebele  
+  display_name: North Ndebele
+  iso_639_1: nd
+  iso_639_2: nde
+  iso_639_3: nde
+  id: 117
+  note: 
+  native_name: 
+language_00173: 
+  position: 173
+  name: Uighur  
+  display_name: Uighur
+  iso_639_1: ug
+  iso_639_2: uig
+  iso_639_3: uig
+  id: 173
+  note: 
+  native_name: 
+language_00031: 
+  position: 31
+  name: Chinese  
+  display_name: Chinese
+  iso_639_1: zh
+  iso_639_2: chi
+  iso_639_3: zho
+  id: 31
+  note: 
+  native_name: 
+language_00004: 
+  position: 4
+  name: Afrikaans  
+  display_name: Afrikaans
+  iso_639_1: af
+  iso_639_2: afr
+  iso_639_3: afr
+  id: 4
+  note: 
+  native_name: 
+language_00118: 
+  position: 118
+  name: Northern Sami  
+  display_name: Northern Sami
+  iso_639_1: se
+  iso_639_2: sme
+  iso_639_3: sme
+  id: 118
+  note: 
+  native_name: 
+language_00060: 
+  position: 60
+  name: Haitian  
+  display_name: Haitian
+  iso_639_1: ht
+  iso_639_2: hat
+  iso_639_3: hat
+  id: 60
+  note: 
+  native_name: 
+language_00174: 
+  position: 174
+  name: Ukrainian  
+  display_name: Ukrainian
+  iso_639_1: uk
+  iso_639_2: ukr
+  iso_639_3: ukr
+  id: 174
+  note: 
+  native_name: 
+language_00032: 
+  position: 32
+  name: Church Slavic  
+  display_name: Church Slavic
+  iso_639_1: cu
+  iso_639_2: chu
+  iso_639_3: chu
+  id: 32
+  note: 
+  native_name: 
+language_00146: 
+  position: 146
+  name: Sindhi  
+  display_name: Sindhi
+  iso_639_1: sd
+  iso_639_2: snd
+  iso_639_3: snd
+  id: 146
+  note: 
+  native_name: 
+language_00119: 
+  position: 119
+  name: Norwegian  
+  display_name: Norwegian
+  iso_639_1: f
+  iso_639_2: nor
+  iso_639_3: nor
+  id: 119
+  note: 
+  native_name: 
+language_00061: 
+  position: 61
+  name: Hausa  
+  display_name: Hausa
+  iso_639_1: ha
+  iso_639_2: hau
+  iso_639_3: hau
+  id: 61
+  note: 
+  native_name: 
+language_00175: 
+  position: 175
+  name: Urdu  
+  display_name: Urdu
+  iso_639_1: ur
+  iso_639_2: urd
+  iso_639_3: urd
+  id: 175
+  note: 
+  native_name: 
+language_00033: 
+  position: 33
+  name: Chuvash  
+  display_name: Chuvash
+  iso_639_1: cv
+  iso_639_2: chv
+  iso_639_3: chv
+  id: 33
+  note: 
+  native_name: 
+language_00147: 
+  position: 147
+  name: Sinhala  
+  display_name: Sinhala
+  iso_639_1: si
+  iso_639_2: sin
+  iso_639_3: sin
+  id: 147
+  note: 
+  native_name: 
+language_00005: 
+  position: 5
+  name: Akan  
+  display_name: Akan
+  iso_639_1: ak
+  iso_639_2: aka
+  iso_639_3: aka
+  id: 5
+  note: 
+  native_name: 
+language_00062: 
+  position: 62
+  name: Hebrew  
+  display_name: Hebrew
+  iso_639_1: he
+  iso_639_2: heb
+  iso_639_3: heb
+  id: 62
+  note: 
+  native_name: 
+language_00176: 
+  position: 176
+  name: Uzbek  
+  display_name: Uzbek
+  iso_639_1: uz
+  iso_639_2: uzb
+  iso_639_3: uzb
+  id: 176
+  note: 
+  native_name: 
+language_00034: 
+  position: 34
+  name: Cornish  
+  display_name: Cornish
+  iso_639_1: kw
+  iso_639_2: cor
+  iso_639_3: cor
+  id: 34
+  note: 
+  native_name: 
+language_00148: 
+  position: 148
+  name: Slovak  
+  display_name: Slovak
+  iso_639_1: sk
+  iso_639_2: slo
+  iso_639_3: slk
+  id: 148
+  note: 
+  native_name: 
+language_00006: 
+  position: 6
+  name: Albanian  
+  display_name: Albanian
+  iso_639_1: sq
+  iso_639_2: alb
+  iso_639_3: sqi
+  id: 6
+  note: 
+  native_name: 
+language_00090: 
+  position: 90
+  name: Kongo  
+  display_name: Kongo
+  iso_639_1: kg
+  iso_639_2: kon
+  iso_639_3: kon
+  id: 90
+  note: 
+  native_name: 
+language_00063: 
+  position: 63
+  name: Herero  
+  display_name: Herero
+  iso_639_1: hz
+  iso_639_2: her
+  iso_639_3: her
+  id: 63
+  note: 
+  native_name: 
+language_00177: 
+  position: 177
+  name: Venda  
+  display_name: Venda
+  iso_639_1: ve
+  iso_639_2: ven
+  iso_639_3: ven
+  id: 177
+  note: 
+  native_name: 
+language_00035: 
+  position: 35
+  name: Corsican  
+  display_name: Corsican
+  iso_639_1: co
+  iso_639_2: cos
+  iso_639_3: cos
+  id: 35
+  note: 
+  native_name: 
+language_00149: 
+  position: 149
+  name: Slovenian  
+  display_name: Slovenian
+  iso_639_1: sl
+  iso_639_2: slv
+  iso_639_3: slv
+  id: 149
+  note: 
+  native_name: 
+language_00007: 
+  position: 7
+  name: Amharic  
+  display_name: Amharic
+  iso_639_1: am
+  iso_639_2: amh
+  iso_639_3: amh
+  id: 7
+  note: 
+  native_name: 
+language_00091: 
+  position: 91
+  name: Korean  
+  display_name: Korean
+  iso_639_1: ko
+  iso_639_2: kor
+  iso_639_3: kor
+  id: 91
+  note: 
+  native_name: 
+language_00064: 
+  position: 64
+  name: Hindi  
+  display_name: Hindi
+  iso_639_1: hi
+  iso_639_2: hin
+  iso_639_3: hin
+  id: 64
+  note: 
+  native_name: 
+language_00178: 
+  position: 178
+  name: Vietnamese  
+  display_name: Vietnamese
+  iso_639_1: vi
+  iso_639_2: vie
+  iso_639_3: vie
+  id: 178
+  note: 
+  native_name: 
+language_00036: 
+  position: 36
+  name: Cree  
+  display_name: Cree
+  iso_639_1: cr
+  iso_639_2: cre
+  iso_639_3: cre
+  id: 36
+  note: 
+  native_name: 
+language_00008: 
+  position: 8
+  name: Arabic  
+  display_name: Arabic
+  iso_639_1: ar
+  iso_639_2: ara
+  iso_639_3: ara
+  id: 8
+  note: 
+  native_name: 
+language_00092: 
+  position: 92
+  name: Kurdish  
+  display_name: Kurdish
+  iso_639_1: ku
+  iso_639_2: kur
+  iso_639_3: kur
+  id: 92
+  note: 
+  native_name: 
+language_00065: 
+  position: 65
+  name: Hiri Motu  
+  display_name: Hiri Motu
+  iso_639_1: ho
+  iso_639_2: hmo
+  iso_639_3: hmo
+  id: 65
+  note: 
+  native_name: 
+language_00120: 
+  position: 120
+  name: "Norwegian Bokm\xC3\xA5l"  
+  display_name: "Norwegian Bokm\xC3\xA5l"
+  iso_639_1: nb
+  iso_639_2: nob
+  iso_639_3: nob
+  id: 120
+  note: 
+  native_name: 
+language_00179: 
+  position: 179
+  name: "Volap\xC3\xBCk"  
+  display_name: "Volap\xC3\xBCk"
+  iso_639_1: vo
+  iso_639_2: vol
+  iso_639_3: vol
+  id: 179
+  note: 
+  native_name: 
+language_00037: 
+  position: 37
+  name: Croatian  
+  display_name: Croatian
+  iso_639_1: hr
+  iso_639_2: hrv
+  iso_639_3: hrv
+  id: 37
+  note: 
+  native_name: 
+language_00009: 
+  position: 9
+  name: Aragonese  
+  display_name: Aragonese
+  iso_639_1: an
+  iso_639_2: arg
+  iso_639_3: arg
+  id: 9
+  note: 
+  native_name: 
+language_00093: 
+  position: 93
+  name: Kwanyama  
+  display_name: Kwanyama
+  iso_639_1: kj
+  iso_639_2: kua
+  iso_639_3: kua
+  id: 93
+  note: 
+  native_name: 
+language_00066: 
+  position: 66
+  name: Hungarian  
+  display_name: Hungarian
+  iso_639_1: hu
+  iso_639_2: hun
+  iso_639_3: hun
+  id: 66
+  note: 
+  native_name: 
+language_00121: 
+  position: 121
+  name: Norwegian Nynorsk  
+  display_name: Norwegian Nynorsk
+  iso_639_1: nn
+  iso_639_2: nno
+  iso_639_3: nno
+  id: 121
+  note: 
+  native_name: 
+language_00038: 
+  position: 38
+  name: Czech  
+  display_name: Czech
+  iso_639_1: cs
+  iso_639_2: cze
+  iso_639_3: ces
+  id: 38
+  note: 
+  native_name: 
+language_00094: 
+  position: 94
+  name: Lao  
+  display_name: Lao
+  iso_639_1: lo
+  iso_639_2: lao
+  iso_639_3: lao
+  id: 94
+  note: 
+  native_name: 
+language_00067: 
+  position: 67
+  name: Icelandic  
+  display_name: Icelandic
+  iso_639_1: is
+  iso_639_2: ice
+  iso_639_3: isl
+  id: 67
+  note: 
+  native_name: 
+language_00122: 
+  position: 122
+  name: Occitan  
+  display_name: Occitan
+  iso_639_1: oc
+  iso_639_2: oci
+  iso_639_3: oci
+  id: 122
+  note: 
+  native_name: 
+language_00039: 
+  position: 39
+  name: Danish  
+  display_name: Danish
+  iso_639_1: da
+  iso_639_2: dan
+  iso_639_3: dan
+  id: 39
+  note: 
+  native_name: 
+language_00095: 
+  position: 95
+  name: Latin  
+  display_name: Latin
+  iso_639_1: la
+  iso_639_2: lat
+  iso_639_3: lat
+  id: 95
+  note: 
+  native_name: 
+language_00150: 
+  position: 150
+  name: Somali  
+  display_name: Somali
+  iso_639_1: so
+  iso_639_2: som
+  iso_639_3: som
+  id: 150
+  note: 
+  native_name: 
+language_00123: 
+  position: 123
+  name: Ojibwa  
+  display_name: Ojibwa
+  iso_639_1: oj
+  iso_639_2: oji
+  iso_639_3: oji
+  id: 123
+  note: 
+  native_name: 
+language_00096: 
+  position: 96
+  name: Latvian  
+  display_name: Latvian
+  iso_639_1: lv
+  iso_639_2: lav
+  iso_639_3: lav
+  id: 96
+  note: 
+  native_name: 
+language_00151: 
+  position: 151
+  name: Sotho  
+  display_name: Sotho
+  iso_639_1: st
+  iso_639_2: sot
+  iso_639_3: sot
+  id: 151
+  note: 
+  native_name: 
+language_00068: 
+  position: 68
+  name: Ido  
+  display_name: Ido
+  iso_639_1: io
+  iso_639_2: ido
+  iso_639_3: ido
+  id: 68
+  note: 
+  native_name: 
+language_00124: 
+  position: 124
+  name: Oriya  
+  display_name: Oriya
+  iso_639_1: or
+  iso_639_2: ori
+  iso_639_3: ori
+  id: 124
+  note: 
+  native_name: 
+language_00180: 
+  position: 180
+  name: Walloon  
+  display_name: Walloon
+  iso_639_1: wa
+  iso_639_2: wln
+  iso_639_3: wln
+  id: 180
+  note: 
+  native_name: 
+language_00097: 
+  position: 97
+  name: Limburgish  
+  display_name: Limburgish
+  iso_639_1: li
+  iso_639_2: lim
+  iso_639_3: lim
+  id: 97
+  note: 
+  native_name: 
+language_00152: 
+  position: 152
+  name: South Ndebele  
+  display_name: South Ndebele
+  iso_639_1: nr
+  iso_639_2: nbl
+  iso_639_3: nbl
+  id: 152
+  note: 
+  native_name: 
+language_00010: 
+  position: 10
+  name: Armenian  
+  display_name: Armenian
+  iso_639_1: hy
+  iso_639_2: arm
+  iso_639_3: hye
+  id: 10
+  note: 
+  native_name: 
+language_00069: 
+  position: 69
+  name: Igbo  
+  display_name: Igbo
+  iso_639_1: ig
+  iso_639_2: ibo
+  iso_639_3: ibo
+  id: 69
+  note: 
+  native_name: 
+language_00181: 
+  position: 181
+  name: Welsh  
+  display_name: Welsh
+  iso_639_1: cy
+  iso_639_2: wel
+  iso_639_3: cym
+  id: 181
+  note: 
+  native_name: 
+language_00098: 
+  position: 98
+  name: Lingala  
+  display_name: Lingala
+  iso_639_1: ln
+  iso_639_2: lin
+  iso_639_3: lin
+  id: 98
+  note: 
+  native_name: 
+language_00153: 
+  position: 153
+  name: Spanish  
+  display_name: Spanish
+  iso_639_1: es
+  iso_639_2: spa
+  iso_639_3: spa
+  id: 153
+  note: 
+  native_name: 
+language_00011: 
+  position: 11
+  name: Assamese  
+  display_name: Assamese
+  iso_639_1: as
+  iso_639_2: asm
+  iso_639_3: asm
+  id: 11
+  note: 
+  native_name: 
+language_00125: 
+  position: 125
+  name: Oromo  
+  display_name: Oromo
+  iso_639_1: om
+  iso_639_2: orm
+  iso_639_3: orm
+  id: 125
+  note: 
+  native_name: 
+language_00182: 
+  position: 182
+  name: Western Frisian  
+  display_name: Western Frisian
+  iso_639_1: fy
+  iso_639_2: fry
+  iso_639_3: fry
+  id: 182
+  note: 
+  native_name: 
+language_00040: 
+  position: 40
+  name: Divehi  
+  display_name: Divehi
+  iso_639_1: dv
+  iso_639_2: div
+  iso_639_3: div
+  id: 40
+  note: 
+  native_name: 
+language_00099: 
+  position: 99
+  name: Lithuanian  
+  display_name: Lithuanian
+  iso_639_1: lt
+  iso_639_2: lit
+  iso_639_3: lit
+  id: 99
+  note: 
+  native_name: 
+language_00154: 
+  position: 154
+  name: Sundanese  
+  display_name: Sundanese
+  iso_639_1: su
+  iso_639_2: sun
+  iso_639_3: sun
+  id: 154
+  note: 
+  native_name: 
+language_00012: 
+  position: 12
+  name: Avaric  
+  display_name: Avaric
+  iso_639_1: av
+  iso_639_2: ava
+  iso_639_3: ava
+  id: 12
+  note: 
+  native_name: 
+language_00126: 
+  position: 126
+  name: Ossetian  
+  display_name: Ossetian
+  iso_639_1: os
+  iso_639_2: oss
+  iso_639_3: oss
+  id: 126
+  note: 
+  native_name: 
+language_00183: 
+  position: 183
+  name: Wolof  
+  display_name: Wolof
+  iso_639_1: wo
+  iso_639_2: wol
+  iso_639_3: wol
+  id: 183
+  note: 
+  native_name: 
+language_00041: 
+  position: 41
+  name: Dutch  
+  display_name: Dutch
+  iso_639_1: nl
+  iso_639_2: dut
+  iso_639_3: nld
+  id: 41
+  note: 
+  native_name: 
+language_00155: 
+  position: 155
+  name: Swahili  
+  display_name: Swahili
+  iso_639_1: sw
+  iso_639_2: swa
+  iso_639_3: swa
+  id: 155
+  note: 
+  native_name: 
+language_00013: 
+  position: 13
+  name: Avestan  
+  display_name: Avestan
+  iso_639_1: ae
+  iso_639_2: ave
+  iso_639_3: ave
+  id: 13
+  note: 
+  native_name: 
+language_00127: 
+  position: 127
+  name: Panjabi  
+  display_name: Panjabi
+  iso_639_1: pa
+  iso_639_2: pan
+  iso_639_3: pan
+  id: 127
+  note: 
+  native_name: 
+language_00128: 
+  position: 128
+  name: Pashto  
+  display_name: Pashto
+  iso_639_1: ps
+  iso_639_2: pus
+  iso_639_3: pus
+  id: 128
+  note: 
+  native_name: 
+language_00184: 
+  position: 184
+  name: Xhosa  
+  display_name: Xhosa
+  iso_639_1: xh
+  iso_639_2: xho
+  iso_639_3: xho
+  id: 184
+  note: 
+  native_name: 
+language_00042: 
+  position: 42
+  name: Dzongkha  
+  display_name: Dzongkha
+  iso_639_1: dz
+  iso_639_2: dzo
+  iso_639_3: dzo
+  id: 42
+  note: 
+  native_name: 
+language_00156: 
+  position: 156
+  name: Swati  
+  display_name: Swati
+  iso_639_1: ss
+  iso_639_2: ssw
+  iso_639_3: ssw
+  id: 156
+  note: 
+  native_name: 
+language_00014: 
+  position: 14
+  name: Aymara  
+  display_name: Aymara
+  iso_639_1: ay
+  iso_639_2: aym
+  iso_639_3: aym
+  id: 14
+  note: 
+  native_name: 
+language_00070: 
+  position: 70
+  name: Indonesian  
+  display_name: Indonesian
+  iso_639_1: id
+  iso_639_2: ind
+  iso_639_3: ind
+  id: 70
+  note: 
+  native_name: 
+language_00185: 
+  position: 185
+  name: Yiddish  
+  display_name: Yiddish
+  iso_639_1: yi
+  iso_639_2: yid
+  iso_639_3: yid
+  id: 185
+  note: 
+  native_name: 
+language_00043: 
+  position: 43
+  name: English  
+  display_name: English
+  iso_639_1: en
+  iso_639_2: eng
+  iso_639_3: eng
+  id: 43
+  note: 
+  native_name: 
+language_00157: 
+  position: 157
+  name: Swedish  
+  display_name: Swedish
+  iso_639_1: sv
+  iso_639_2: swe
+  iso_639_3: swe
+  id: 157
+  note: 
+  native_name: 
+language_00015: 
+  position: 15
+  name: Azerbaijani  
+  display_name: Azerbaijani
+  iso_639_1: az
+  iso_639_2: aze
+  iso_639_3: aze
+  id: 15
+  note: 
+  native_name: 
+language_00129: 
+  position: 129
+  name: Persian  
+  display_name: Persian
+  iso_639_1: fa
+  iso_639_2: per
+  iso_639_3: fas
+  id: 129
+  note: 
+  native_name: 
+language_00071: 
+  position: 71
+  name: Interlingua  
+  display_name: Interlingua
+  iso_639_1: ia
+  iso_639_2: ina
+  iso_639_3: ina
+  id: 71
+  note: 
+  native_name: 
+language_00186: 
+  position: 186
+  name: Yoruba  
+  display_name: Yoruba
+  iso_639_1: yo
+  iso_639_2: yor
+  iso_639_3: yor
+  id: 186
+  note: 
+  native_name: 
+language_00044: 
+  position: 44
+  name: Esperanto  
+  display_name: Esperanto
+  iso_639_1: eo
+  iso_639_2: epo
+  iso_639_3: epo
+  id: 44
+  note: 
+  native_name: 
+language_00158: 
+  position: 158
+  name: Tagalog  
+  display_name: Tagalog
+  iso_639_1: tl
+  iso_639_2: tgl
+  iso_639_3: tgl
+  id: 158
+  note: 
+  native_name: 
+language_00016: 
+  position: 16
+  name: Bambara  
+  display_name: Bambara
+  iso_639_1: bm
+  iso_639_2: bam
+  iso_639_3: bam
+  id: 16
+  note: 
+  native_name: 
+language_00072: 
+  position: 72
+  name: Interlingue  
+  display_name: Interlingue
+  iso_639_1: ie
+  iso_639_2: ile
+  iso_639_3: ile
+  id: 72
+  note: 
+  native_name: 
+language_00017: 
+  position: 17
+  name: Bashkir  
+  display_name: Bashkir
+  iso_639_1: ba
+  iso_639_2: bak
+  iso_639_3: bak
+  id: 17
+  note: 
+  native_name: 
+language_00159: 
+  position: 159
+  name: Tahitian  
+  display_name: Tahitian
+  iso_639_1: ty
+  iso_639_2: tah
+  iso_639_3: tah
+  id: 159
+  note: 
+  native_name: 
+language_00187: 
+  position: 187
+  name: Zhuang  
+  display_name: Zhuang
+  iso_639_1: za
+  iso_639_2: zha
+  iso_639_3: zha
+  id: 187
+  note: 
+  native_name: 
+language_00045: 
+  position: 45
+  name: Estonian  
+  display_name: Estonian
+  iso_639_1: et
+  iso_639_2: est
+  iso_639_3: est
+  id: 45
+  note: 
+  native_name: 
+language_00100: 
+  position: 100
+  name: Luba-Katanga  
+  display_name: Luba-Katanga
+  iso_639_1: lu
+  iso_639_2: lub
+  iso_639_3: lub
+  id: 100
+  note: 
+  native_name: 
+language_00073: 
+  position: 73
+  name: Inuktitut  
+  display_name: Inuktitut
+  iso_639_1: iu
+  iso_639_2: iku
+  iso_639_3: iku
+  id: 73
+  note: 
+  native_name: 
+language_00188: 
+  position: 188
+  name: Zulu  
+  display_name: Zulu
+  iso_639_1: zu
+  iso_639_2: zul
+  iso_639_3: zul
+  id: 188
+  note: 
+  native_name: 
+language_00101: 
+  position: 101
+  name: Luxembourgish  
+  display_name: Luxembourgish
+  iso_639_1: lb
+  iso_639_2: ltz
+  iso_639_3: ltz
+  id: 101
+  note: 
+  native_name: 
+language_00046: 
+  position: 46
+  name: Ewe  
+  display_name: Ewe
+  iso_639_1: ee
+  iso_639_2: ewe
+  iso_639_3: ewe
+  id: 46
+  note: 
+  native_name: 
+language_00018: 
+  position: 18
+  name: Basque  
+  display_name: Basque
+  iso_639_1: eu
+  iso_639_2: baq
+  iso_639_3: eus
+  id: 18
+  note: 
+  native_name: 
+language_00074: 
+  position: 74
+  name: Inupiaq  
+  display_name: Inupiaq
+  iso_639_1: ik
+  iso_639_2: ipk
+  iso_639_3: ipk
+  id: 74
+  note: 
+  native_name: 
+language_00130: 
+  position: 130
+  name: Polish  
+  display_name: Polish
+  iso_639_1: pl
+  iso_639_2: pol
+  iso_639_3: pol
+  id: 130
+  note: 
+  native_name: 
+language_00075: 
+  position: 75
+  name: Irish  
+  display_name: Irish
+  iso_639_1: ga
+  iso_639_2: gle
+  iso_639_3: gle
+  id: 75
+  note: 
+  native_name: 
+language_00102: 
+  position: 102
+  name: Macedonian  
+  display_name: Macedonian
+  iso_639_1: mk
+  iso_639_2: mac
+  iso_639_3: mkd
+  id: 102
+  note: 
+  native_name: 
+language_00019: 
+  position: 19
+  name: Belarusian  
+  display_name: Belarusian
+  iso_639_1: be
+  iso_639_2: bel
+  iso_639_3: bel
+  id: 19
+  note: 
+  native_name: 
+language_00047: 
+  position: 47
+  name: Fanti  
+  display_name: Fanti
+  iso_639_1: ak
+  iso_639_2: aka
+  iso_639_3: fat
+  id: 47
+  note: 
+  native_name: 
+language_00131: 
+  position: 131
+  name: Portuguese  
+  display_name: Portuguese
+  iso_639_1: pt
+  iso_639_2: por
+  iso_639_3: por
+  id: 131
+  note: 
+  native_name: 
+language_00076: 
+  position: 76
+  name: Italian  
+  display_name: Italian
+  iso_639_1: it
+  iso_639_2: ita
+  iso_639_3: ita
+  id: 76
+  note: 
+  native_name: 
+language_00103: 
+  position: 103
+  name: Malagasy  
+  display_name: Malagasy
+  iso_639_1: mg
+  iso_639_2: mlg
+  iso_639_3: mlg
+  id: 103
+  note: 
+  native_name: 
+language_00048: 
+  position: 48
+  name: Faroese  
+  display_name: Faroese
+  iso_639_1: fo
+  iso_639_2: fao
+  iso_639_3: fao
+  id: 48
+  note: 
+  native_name: 
+language_00104: 
+  position: 104
+  name: Malay  
+  display_name: Malay
+  iso_639_1: ms
+  iso_639_2: may
+  iso_639_3: msa
+  id: 104
+  note: 
+  native_name: 
+language_00132: 
+  position: 132
+  name: !binary |  
+  display_name: !binary |
+    UMSBbGk=
+
+  iso_639_1: pi
+  iso_639_2: pli
+  iso_639_3: pli
+  id: 132
+  note: 
+  native_name: 
+language_00160: 
+  position: 160
+  name: Tajik  
+  display_name: Tajik
+  iso_639_1: tg
+  iso_639_2: tgk
+  iso_639_3: tgk
+  id: 160
+  note: 
+  native_name: 
+language_00077: 
+  position: 77
+  name: Japanese  
+  display_name: Japanese
+  iso_639_1: ja
+  iso_639_2: jpn
+  iso_639_3: jpn
+  id: 77
+  note: 
+  native_name: 
+language_00049: 
+  position: 49
+  name: Fijian  
+  display_name: Fijian
+  iso_639_1: fj
+  iso_639_2: fij
+  iso_639_3: fij
+  id: 49
+  note: 
+  native_name: 
+language_00133: 
+  position: 133
+  name: Quechua  
+  display_name: Quechua
+  iso_639_1: qu
+  iso_639_2: que
+  iso_639_3: que
+  id: 133
+  note: 
+  native_name: 
+language_00105: 
+  position: 105
+  name: Malayalam  
+  display_name: Malayalam
+  iso_639_1: ml
+  iso_639_2: mal
+  iso_639_3: mal
+  id: 105
+  note: 
+  native_name: 
+language_00161: 
+  position: 161
+  name: Tamil  
+  display_name: Tamil
+  iso_639_1: ta
+  iso_639_2: tam
+  iso_639_3: tam
+  id: 161
+  note: 
+  native_name: 
+language_00078: 
+  position: 78
+  name: Javanese  
+  display_name: Javanese
+  iso_639_1: jv
+  iso_639_2: jav
+  iso_639_3: jav
+  id: 78
+  note: 
+  native_name: 
+language_00106: 
+  position: 106
+  name: Maltese  
+  display_name: Maltese
+  iso_639_1: mt
+  iso_639_2: mlt
+  iso_639_3: mlt
+  id: 106
+  note: 
+  native_name: 
+language_00134: 
+  position: 134
+  name: Raeto-Romance  
+  display_name: Raeto-Romance
+  iso_639_1: rm
+  iso_639_2: roh
+  iso_639_3: roh
+  id: 134
+  note: 
+  native_name: 
+language_00020: 
+  position: 20
+  name: Bengali  
+  display_name: Bengali
+  iso_639_1: bn
+  iso_639_2: ben
+  iso_639_3: ben
+  id: 20
+  note: 
+  native_name: 
+language_00079: 
+  position: 79
+  name: Kalaallisut  
+  display_name: Kalaallisut
+  iso_639_1: kl
+  iso_639_2: kal
+  iso_639_3: kal
+  id: 79
+  note: 
+  native_name: 
+language_00162: 
+  position: 162
+  name: Tatar  
+  display_name: Tatar
+  iso_639_1: tt
+  iso_639_2: tat
+  iso_639_3: tat
+  id: 162
+  note: 
+  native_name: 
+language_00107: 
+  position: 107
+  name: Manx  
+  display_name: Manx
+  iso_639_1: gv
+  iso_639_2: glv
+  iso_639_3: glv
+  id: 107
+  note: 
+  native_name: 
+language_00163: 
+  position: 163
+  name: Telugu  
+  display_name: Telugu
+  iso_639_1: te
+  iso_639_2: tel
+  iso_639_3: tel
+  id: 163
+  note: 
+  native_name: 
+language_00135: 
+  position: 135
+  name: Romanian  
+  display_name: Romanian
+  iso_639_1: ro
+  iso_639_2: rum
+  iso_639_3: ron
+  id: 135
+  note: 
+  native_name: 
+language_00021: 
+  position: 21
+  name: Bihari  
+  display_name: Bihari
+  iso_639_1: bh
+  iso_639_2: bih
+  iso_639_3: XXX
+  id: 21
+  note: 
+  native_name: 
+language_00164: 
+  position: 164
+  name: Thai  
+  display_name: Thai
+  iso_639_1: th
+  iso_639_2: tha
+  iso_639_3: tha
+  id: 164
+  note: 
+  native_name: 
+language_00022: 
+  position: 22
+  name: Bislama  
+  display_name: Bislama
+  iso_639_1: bi
+  iso_639_2: bis
+  iso_639_3: bis
+  id: 22
+  note: 
+  native_name: 
+language_00050: 
+  position: 50
+  name: Finnish  
+  display_name: Finnish
+  iso_639_1: fi
+  iso_639_2: fin
+  iso_639_3: fin
+  id: 50
+  note: 
+  native_name: 
+language_00108: 
+  position: 108
+  name: Marathi  
+  display_name: Marathi
+  iso_639_1: mr
+  iso_639_2: mar
+  iso_639_3: mar
+  id: 108
+  note: 
+  native_name: 
+language_00136: 
+  position: 136
+  name: Russian  
+  display_name: Russian
+  iso_639_1: ru
+  iso_639_2: rus
+  iso_639_3: rus
+  id: 136
+  note: 
+  native_name: 
+language_00137: 
+  position: 137
+  name: Samoan  
+  display_name: Samoan
+  iso_639_1: sm
+  iso_639_2: smo
+  iso_639_3: smo
+  id: 137
+  note: 
+  native_name: 
+language_00051: 
+  position: 51
+  name: French  
+  display_name: French
+  iso_639_1: fr
+  iso_639_2: fre
+  iso_639_3: fra
+  id: 51
+  note: 
+  native_name: 
+language_00165: 
+  position: 165
+  name: Tibetan  
+  display_name: Tibetan
+  iso_639_1: bo
+  iso_639_2: tib
+  iso_639_3: bod
+  id: 165
+  note: 
+  native_name: 
+language_00023: 
+  position: 23
+  name: Bosnian  
+  display_name: Bosnian
+  iso_639_1: bs
+  iso_639_2: bos
+  iso_639_3: bos
+  id: 23
+  note: 
+  native_name: 
+language_00109: 
+  position: 109
+  name: Marshallese  
+  display_name: Marshallese
+  iso_639_1: mh
+  iso_639_2: mah
+  iso_639_3: mah
+  id: 109
+  note: 
+  native_name: 
+language_00166: 
+  position: 166
+  name: Tigrinya  
+  display_name: Tigrinya
+  iso_639_1: ti
+  iso_639_2: tir
+  iso_639_3: tir
+  id: 166
+  note: 
+  native_name: 
+language_00138: 
+  position: 138
+  name: Sango  
+  display_name: Sango
+  iso_639_1: sg
+  iso_639_2: sag
+  iso_639_3: sag
+  id: 138
+  note: 
+  native_name: 
+language_00080: 
+  position: 80
+  name: Kannada  
+  display_name: Kannada
+  iso_639_1: kn
+  iso_639_2: kan
+  iso_639_3: kan
+  id: 80
+  note: 
+  native_name: 
+language_00024: 
+  position: 24
+  name: Breton  
+  display_name: Breton
+  iso_639_1: br
+  iso_639_2: bre
+  iso_639_3: bre
+  id: 24
+  note: 
+  native_name: 
+language_00052: 
+  position: 52
+  name: Fulah  
+  display_name: Fulah
+  iso_639_1: ff
+  iso_639_2: ful
+  iso_639_3: ful
+  id: 52
+  note: 
+  native_name: 
+language_00025: 
+  position: 25
+  name: Bulgarian  
+  display_name: Bulgarian
+  iso_639_1: bg
+  iso_639_2: bul
+  iso_639_3: bul
+  id: 25
+  note: 
+  native_name: 
+language_00139: 
+  position: 139
+  name: Sanskrit  
+  display_name: Sanskrit
+  iso_639_1: sa
+  iso_639_2: san
+  iso_639_3: san
+  id: 139
+  note: 
+  native_name: 
+language_00167: 
+  position: 167
+  name: Tonga  
+  display_name: Tonga
+  iso_639_1: to
+  iso_639_2: ton
+  iso_639_3: ton
+  id: 167
+  note: 
+  native_name: 
+language_00053: 
+  position: 53
+  name: Galician  
+  display_name: Galician
+  iso_639_1: gl
+  iso_639_2: glg
+  iso_639_3: glg
+  id: 53
+  note: 
+  native_name: 
+language_00081: 
+  position: 81
+  name: Kanuri  
+  display_name: Kanuri
+  iso_639_1: kr
+  iso_639_2: kau
+  iso_639_3: kau
+  id: 81
+  note: 
+  native_name: 
+language_00168: 
+  position: 168
+  name: Tsonga  
+  display_name: Tsonga
+  iso_639_1: ts
+  iso_639_2: tso
+  iso_639_3: tso
+  id: 168
+  note: 
+  native_name: 
+language_00054: 
+  position: 54
+  name: Ganda  
+  display_name: Ganda
+  iso_639_1: lg
+  iso_639_2: lug
+  iso_639_3: lug
+  id: 54
+  note: 
+  native_name: 
+language_00082: 
+  position: 82
+  name: Kashmiri  
+  display_name: Kashmiri
+  iso_639_1: ks
+  iso_639_2: kas
+  iso_639_3: kas
+  id: 82
+  note: 
+  native_name: 
+language_00026: 
+  position: 26
+  name: Burmese  
+  display_name: Burmese
+  iso_639_1: my
+  iso_639_2: bur
+  iso_639_3: mya
+  id: 26
+  note: 
+  native_name: 
+language_00110: 
+  position: 110
+  name: Moldavian  
+  display_name: Moldavian
+  iso_639_1: mo
+  iso_639_2: mol
+  iso_639_3: mol
+  id: 110
+  note: 
+  native_name: 
+language_00055: 
+  position: 55
+  name: Georgian  
+  display_name: Georgian
+  iso_639_1: ka
+  iso_639_2: geo
+  iso_639_3: kat
+  id: 55
+  note: 
+  native_name: 
+language_00083: 
+  position: 83
+  name: Kazakh  
+  display_name: Kazakh
+  iso_639_1: kk
+  iso_639_2: kaz
+  iso_639_3: kaz
+  id: 83
+  note: 
+  native_name: 
+language_00027: 
+  position: 27
+  name: Catalan  
+  display_name: Catalan
+  iso_639_1: ca
+  iso_639_2: cat
+  iso_639_3: cat
+  id: 27
+  note: 
+  native_name: 
+language_00169: 
+  position: 169
+  name: Tswana  
+  display_name: Tswana
+  iso_639_1: tn
+  iso_639_2: tsn
+  iso_639_3: tsn
+  id: 169
+  note: 
+  native_name: 
+language_00111: 
+  position: 111
+  name: Mongolian  
+  display_name: Mongolian
+  iso_639_1: mn
+  iso_639_2: mon
+  iso_639_3: mon
+  id: 111
+  note: 
+  native_name: 
+language_00056: 
+  position: 56
+  name: German  
+  display_name: German
+  iso_639_1: de
+  iso_639_2: ger
+  iso_639_3: deu
+  id: 56
+  note: 
+  native_name: 
+language_00084: 
+  position: 84
+  name: Khmer  
+  display_name: Khmer
+  iso_639_1: km
+  iso_639_2: khm
+  iso_639_3: khm
+  id: 84
+  note: 
+  native_name: 
+language_00028: 
+  position: 28
+  name: Chamorro  
+  display_name: Chamorro
+  iso_639_1: ch
+  iso_639_2: cha
+  iso_639_3: cha
+  id: 28
+  note: 
+  native_name: 
+language_00112: 
+  position: 112
+  name: Māori
+  display_name: !binary |
+    TcSBb3Jp
+
+  iso_639_1: mi
+  iso_639_2: mao
+  iso_639_3: mri
+  id: 112
+  note: 
+  native_name: 
+language_00057: 
+  position: 57
+  name: Greek  
+  display_name: Greek
+  iso_639_1: el
+  iso_639_2: gre
+  iso_639_3: ell
+  id: 57
+  note: 
+  native_name: 
+language_00085: 
+  position: 85
+  name: Kikuyu  
+  display_name: Kikuyu
+  iso_639_1: ki
+  iso_639_2: kik
+  iso_639_3: kik
+  id: 85
+  note: 
+  native_name: 
+language_00029: 
+  position: 29
+  name: Chechen  
+  display_name: Chechen
+  iso_639_1: ce
+  iso_639_2: che
+  iso_639_3: che
+  id: 29
+  note: 
+  native_name: 
+language_00140: 
+  position: 140
+  name: Sardinian  
+  display_name: Sardinian
+  iso_639_1: sc
+  iso_639_2: srd
+  iso_639_3: srd
+  id: 140
+  note: 
+  native_name: 
