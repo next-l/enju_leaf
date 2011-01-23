@@ -46,10 +46,10 @@ class PictureFilesController < ApplicationController
         format.gif  { send_data data, :filename => @picture_file.picture_file_name, :type => 'image/gif', :disposition => 'inline' }
         format.png  { send_data data, :filename => @picture_file.picture_file_name, :type => 'image/png', :disposition => 'inline' }
       else
-        format.download  { send_file file, :filename => @picture_file.picture_file_name, :type => @picture_file.picture_content_type, :disposition => 'inline' }
-        format.jpeg  { send_file file, :filename => @picture_file.picture_file_name, :type => 'image/jpeg', :disposition => 'inline' }
-        format.gif  { send_file file, :filename => @picture_file.picture_file_name, :type => 'image/gif', :disposition => 'inline' }
-        format.png  { send_file file, :filename => @picture_file.picture_file_name, :type => 'image/png', :disposition => 'inline' }
+        format.download  { send_file @picture_file.picture.path, :filename => @picture_file.picture_file_name, :type => @picture_file.picture_content_type, :disposition => 'inline' }
+        format.jpeg  { send_file @picture_file.picture.path, :filename => @picture_file.picture_file_name, :type => 'image/jpeg', :disposition => 'inline' }
+        format.gif  { send_file @picture_file.picture.path, :filename => @picture_file.picture_file_name, :type => 'image/gif', :disposition => 'inline' }
+        format.png  { send_file @picture_file.picture.path, :filename => @picture_file.picture_file_name, :type => 'image/png', :disposition => 'inline' }
       end
     end
   end
