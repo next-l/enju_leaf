@@ -31,13 +31,26 @@ class PictureFilesController < ApplicationController
       size = 'medium'
     end
 
+    if configatron.uploaded_file.storage == :s3
+      data = open(@picture_file.picture.url(size)).read.force_encoding('UTF-8')
+    else
+      file = @picture_file.picture.path
+    end
+
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @picture_file }
-      format.download  { send_file @picture_file.picture.url(size), :filename => @picture_file.picture_file_name, :type => @picture_file.picture_content_type, :disposition => 'inline' }
-      format.jpeg  { send_file @picture_file.picture.url(size), :filename => @picture_file.picture_file_name, :type => 'image/jpeg', :disposition => 'inline' }
-      format.gif  { send_file @picture_file.picture.url(size), :filename => @picture_file.picture_file_name, :type => 'image/gif', :disposition => 'inline' }
-      format.png  { send_file @picture_file.picture.url(size), :filename => @picture_file.picture_file_name, :type => 'image/png', :disposition => 'inline' }
+      if configatron.uploaded_file.storage == :s3
+        format.download  { send_data data, :filename => @picture_file.picture_file_name, :type => @picture_file.picture_content_type, :disposition => 'inline' }
+        format.jpeg  { send_data data, :filename => @picture_file.picture_file_name, :type => 'image/jpeg', :disposition => 'inline' }
+        format.gif  { send_data data, :filename => @picture_file.picture_file_name, :type => 'image/gif', :disposition => 'inline' }
+        format.png  { send_data data, :filename => @picture_file.picture_file_name, :type => 'image/png', :disposition => 'inline' }
+      else
+        format.download  { send_file @picture_file.picture.path, :filename => @picture_file.picture_file_name, :type => @picture_file.picture_content_type, :disposition => 'inline' }
+        format.jpeg  { send_file @picture_file.picture.path, :filename => @picture_file.picture_file_name, :type => 'image/jpeg', :disposition => 'inline' }
+        format.gif  { send_file @picture_file.picture.path, :filename => @picture_file.picture_file_name, :type => 'image/gif', :disposition => 'inline' }
+        format.png  { send_file @picture_file.picture.path, :filename => @picture_file.picture_file_name, :type => 'image/png', :disposition => 'inline' }
+      end
     end
   end
 
