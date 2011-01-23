@@ -40,10 +40,6 @@ class EventImportFile < ActiveRecord::Base
   end
 
   def import
-    #unless /text\/.+/ =~ FileWrapper.get_mime(event_import.path)
-    #  sm_fail!
-    #  raise 'Invalid format'
-    #end
     self.reload
     num = {:success => 0, :failure => 0}
     record = 2

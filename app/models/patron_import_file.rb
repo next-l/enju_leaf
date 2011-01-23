@@ -43,10 +43,6 @@ class PatronImportFile < ActiveRecord::Base
   end
 
   def import
-    #unless /text\/.+/ =~ FileWrapper.get_mime(patron_import.path)
-    #  sm_fail!
-    #  raise 'Invalid format'
-    #end
     self.reload
     num = {:success => 0, :failure => 0, :activated => 0}
     row_num = 2

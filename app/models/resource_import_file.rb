@@ -40,15 +40,6 @@ class ResourceImportFile < ActiveRecord::Base
   end
 
   def import
-    if configatron.uploaded_file.storage == :s3
-      mime_type = FileWrapper.get_mime(open(resource_import.url).path)
-    else
-      mime_type = FileWrapper.get_mime(resource_import.path)
-    end
-    unless /text\/.+/ =~ mime_type
-      sm_fail!
-      raise 'Invalid format'
-    end
     self.reload
     num = {:found => 0, :success => 0, :failure => 0}
     row_num = 2
