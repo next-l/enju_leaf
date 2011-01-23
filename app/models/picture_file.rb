@@ -32,8 +32,8 @@ class PictureFile < ActiveRecord::Base
     file = picture.queued_for_write[:original]
     if File.exists?(file)
       dimensions = Paperclip::Geometry.from_file(file)
-      self.width = dimensions.width.to_i
-      self.height = dimensions.height.to_i
+      self.width = dimensions.width
+      self.height = dimensions.height
     end
   end
 

@@ -172,14 +172,14 @@
       </div>
       <ul>
         <%- @patron.picture_files.each_with_index do |picture_file, i| -%>
-          <%- next if i == 0 -%>
-          <%- if i == 1 -%>
-            <li><%= link_to_custom_book_jacket(@patron, picture_file) -%></li>
-          <%- else -%>
+          <% if i > 0 %>
             <li style="display: none"><%= link_to_custom_book_jacket(@patron, picture_file) -%></li>
-          <%- end -%>
+          <% end %>
         <%- end -%>
         <li><%= link_to t('page.listing', :model => t('activerecord.models.picture_file')), patron_picture_files_path(@patron) -%></li>
+        <%- if can? :create, PictureFile -%>
+          <li><%= link_to t('page.new', :model => t('activerecord.models.picture_file')), new_patron_picture_file_path(@patron) -%></li>
+        <% end %>
       </ul>
       <script type="text/javascript">
         $(document).ready(function(){
@@ -197,7 +197,6 @@
       <%- end -%>
       <li><%= link_to t('page.edit'), edit_patron_path(@patron) -%></li>
       <li><%= link_to t('patron.add_derivation'), patron_patrons_path(@patron, :mode => 'add') -%></li>
-      <li><%= link_to t('page.add_picture'), new_patron_picture_file_path(@patron) -%></li>
     <%- end -%>
     <%- if can? :destroy, @patron -%>
       <li><%= link_to t('page.new', :model => t('activerecord.models.patron')), new_patron_path -%></li>

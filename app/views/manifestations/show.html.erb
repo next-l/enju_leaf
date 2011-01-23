@@ -41,16 +41,13 @@
               <li style="display: none"><%= link_to_custom_book_jacket(@manifestation, picture_file) -%></li>
             <%- end -%>
           <%- else -%>
-            <%- next if i == 0 -%>
-            <%- if i == 1 -%>
-              <li><%= link_to_custom_book_jacket(@manifestation, picture_file) -%></li>
-            <%- else -%>
+            <%- if i > 0 -%>
               <li style="display: none"><%= link_to_custom_book_jacket(@manifestation, picture_file) -%></li>
-            <%- end -%>
+            <% end %>
           <%- end -%>
         <%- end -%>
         <li><%= link_to t('page.listing', :model => t('activerecord.models.picture_file')), manifestation_picture_files_path(@manifestation) -%></li>
-        <%- if current_user.try(:has_role?, 'Librarian') -%>
+        <%- if can? :create, PictureFile -%>
           <li><%= link_to t('page.new', :model => t('activerecord.models.picture_file')), new_manifestation_picture_file_path(@manifestation) -%></li>
         <%- end -%>
       </ul>
@@ -60,7 +57,7 @@
         })
       </script>
     <%- else -%>
-      <%- if current_user.try(:has_role?, 'Librarian') -%>
+      <%- if can? :create, PictureFile -%>
         <ul>
           <li><%= link_to t('page.new', :model => t('activerecord.models.picture_file')), new_manifestation_picture_file_path(@manifestation) -%></li>
         </ul>
