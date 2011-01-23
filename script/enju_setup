@@ -1,0 +1,37 @@
+#!/usr/bin/env ruby
+require File.expand_path(File.join(File.dirname(__FILE__), '..', 'config', 'environment'))
+#require 'rubygems'
+#require 'fileutils'
+
+case ARGV[0]
+when 'pgsql'
+  adapter = 'pgsql'
+when 'mysql'
+  adapter = 'mysql'
+when 'sqlite'
+  adapter = 'sqlite'
+else
+  raise 'please choose one from pgsql, mysql and sqlite.'
+end
+
+sample_files = [
+  "#{Rails.root.to_s}/config/initializers/devise.rb.sample",
+  "#{Rails.root.to_s}/config/initializers/secret_token.rb.sample",
+  "#{Rails.root.to_s}/config/configatron/production.rb.sample",
+  "#{Rails.root.to_s}/config/environments/production.rb.sample",
+  "#{Rails.root.to_s}/config/sunspot.yml.sample",
+  "#{Rails.root.to_s}/db/seeds.rb.sample"
+]
+  
+
+unless File.exists?("#{Rails.root.to_s}/config/database.yml")
+  FileUtils.cp "#{Rails.root.to_s}/config/database.yml.sample-#{adapter}", "#{Rails.root.to_s}/config/database.yml"
+end
+
+sample_files.each do |file|
+  dist = file.gsub(/\.sample$/, '')
+  unless File.exists?(dist)
+    FileUtils.cp file, dist
+    puts "copied #{file}"
+  end
+end
