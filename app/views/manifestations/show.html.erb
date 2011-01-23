@@ -56,7 +56,7 @@
       </ul>
       <script type="text/javascript">
         $(document).ready(function(){
-          $("a[rel='resource_<%= @manifestation.id -%>']").colorbox({transition:"none"});
+          $("a[rel='manifestation_<%= @manifestation.id -%>']").colorbox({transition:"none"});
         })
       </script>
     <%- else -%>
@@ -127,7 +127,7 @@
             <%- end -%>
           </ul>
           <li><%= link_to t('manifestation.add_derivation'), manifestation_manifestations_path(@manifestation, :mode => 'add') -%></li>
-          <li><%= link_to t('page.listing', :model => t('activerecord.models.subject')), work_subjects_path(@manifestation) -%></h1>
+          <li><%= link_to t('page.listing', :model => t('activerecord.models.subject')), work_subjects_path(@manifestation) -%></li>
           <li><%= link_to t('manifestation.edit_item'), manifestation_items_path(@manifestation) -%></li>
         </ul>
       <%- end -%>

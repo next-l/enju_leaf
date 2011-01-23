@@ -12,7 +12,7 @@ class ResourceImportFile < ActiveRecord::Base
   validates_attachment_presence :resource_import
   belongs_to :user, :validate => true
   has_many :resource_import_results
-  #after_create :set_digest
+  before_create :set_digest
 
   state_machine :initial => :pending do
     event :sm_start do
@@ -29,12 +29,9 @@ class ResourceImportFile < ActiveRecord::Base
   end
 
   def set_digest(options = {:type => 'sha1'})
-    if configatron.uploaded_file.storage == :s3
-      self.file_hash = Digest::SHA1.hexdigest(open(self.resource_import.url).read)
-    else
-      self.file_hash = Digest::SHA1.hexdigest(File.open(self.resource_import.path, 'rb').read)
+    if File.exists?(resource_import.queued_for_write[:original])
+      self.file_hash = Digest::SHA1.hexdigest(File.open(resource_import.queued_for_write[:original], 'rb').read)
     end
-    save(:validate => false)
   end
 
   def import_start

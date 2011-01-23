@@ -11,7 +11,7 @@
 <%- when @patron -%>
   <%= render 'new_patron' -%>
 <%- else -%>
-  <%= form_for(:picture_file, :url => picture_files_path, :html => { :multipart => true, :method => :post }) do |f| -%>
+  <%= form_for(@picture_file, :url => picture_files_path, :html => { :multipart => true, :method => :post }) do |f| -%>
   <%= f.error_messages -%>
   <p>
     <%= f.label t('page.title') -%><br />

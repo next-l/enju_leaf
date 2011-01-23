@@ -1,4 +1,4 @@
-<%= form_for(:picture_file, :url => manifestation_picture_files_path(@manifestation), :html => { :multipart => true, :method => :post }) do |f| -%>
+<%= form_for(@picture_file, :url => manifestation_picture_files_path(@manifestation), :html => { :multipart => true, :method => :post }) do |f| -%>
   <%= f.error_messages -%>
   <p>
     <%= f.label t('page.attachable') -%><br />

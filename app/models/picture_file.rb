@@ -11,16 +11,17 @@ class PictureFile < ActiveRecord::Base
   default_scope :order => 'position'
   # http://railsforum.com/viewtopic.php?id=11615
   acts_as_list :scope => 'picture_attachable_id=#{picture_attachable_id} AND picture_attachable_type=\'#{picture_attachable_type}\''
-  after_create :set_digest
+  before_create :set_digest
 
   def self.per_page
     10
   end
 
   def set_digest(options = {:type => 'sha1'})
-    if File.exists?(picture.path)
-      self.file_hash = Digest::SHA1.hexdigest(File.open(picture.path, 'rb').read)
-      save(:validate => false)
+    if File.exists?(picture.queued_for_write[:original])
+      self.file_hash = Digest::SHA1.hexdigest(File.open(picture.queued_for_write[:original], 'rb').read)
+    else
+      raise picture.queued_for_write[:original].to_s
     end
   end
 
