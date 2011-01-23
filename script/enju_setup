@@ -19,6 +19,7 @@ sample_files = [
   "#{Rails.root.to_s}/config/initializers/secret_token.rb.sample",
   "#{Rails.root.to_s}/config/configatron/production.rb.sample",
   "#{Rails.root.to_s}/config/environments/production.rb.sample",
+  "#{Rails.root.to_s}/config/schedule.rb.sample",
   "#{Rails.root.to_s}/config/sunspot.yml.sample",
   "#{Rails.root.to_s}/db/seeds.rb.sample"
 ]
