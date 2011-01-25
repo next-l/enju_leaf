@@ -130,10 +130,8 @@ class UsersController < ApplicationController
       @user.checkout_icalendar_token = params[:user][:checkout_icalendar_token]
       @user.email = params[:user][:email]
       #@user.note = params[:user][:note]
-    end
 
-    if current_user.has_role?('Librarian')
-      if params[:user]
+      if current_user.has_role?('Librarian')
         @user.note = params[:user][:note]
         @user.user_group_id = params[:user][:user_group_id] || 1
         @user.library_id = params[:user][:library_id] || 1
@@ -151,13 +149,8 @@ class UsersController < ApplicationController
         end
       end
       if params[:user][:auto_generated_password] == "1"
-        @user.password = Devise.friendly_token
-      else
-        params.delete(:password) if params[:password].blank?
-        params.delete(:password_confirmation) if params[:password_confirmation].blank?
-        @user.current_password = params[:current_password]
-        @user.password = params[:password]
-        @user.password_confirmation = params[:password_confirmation]
+        @user.set_auto_generated_password
+        flash[:temporary_password] = @user.password
       end
     end
     if current_user.has_role?('Administrator')
@@ -169,11 +162,12 @@ class UsersController < ApplicationController
 
     #@user.save do |result|
     respond_to do |format|
-      #if @user.update_attributes(params[:user])
-      if @user.save!
+      if params[:user][:current_password].present? or params[:user][:password].present? or params[:user][:password_confirmation].present?
         @user.update_with_password(params[:user])
-        flash[:temporary_password] = @user.password
-
+      else
+        @user.save
+      end
+      if @user.errors.empty?
         flash[:notice] = t('controller.successfully_updated', :model => t('activerecord.models.user'))
         format.html { redirect_to user_url(@user.username) }
         format.xml  { head :ok }
