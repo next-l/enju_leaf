@@ -59,8 +59,9 @@ class User < ActiveRecord::Base
   validates_uniqueness_of :user_number, :with=>/\A[0-9A-Za-z_]+\Z/, :allow_blank => true
   validates_confirmation_of :email, :email_confirmation, :on => :create, :if => proc{|user| !user.operator.try(:has_role?, 'Librarian')}
   before_validation :set_role_and_patron, :on => :create
+  before_validation :set_lock_information
   before_destroy :check_item_before_destroy, :check_role_before_destroy
-  before_save :set_expiration, :deactivate
+  before_save :set_expiration
   after_destroy :remove_from_index
   after_create :set_confirmation
   after_save :index_patron
@@ -94,7 +95,7 @@ class User < ActiveRecord::Base
     :zip_code, :address, :telephone_number, :fax_number, :address_note,
     :role_id, :patron_id, :operator, :password_not_verified,
     :update_own_account, :auto_generated_password, :current_password,
-    :deactivated
+    :locked
 
   def self.per_page
     10
@@ -125,9 +126,11 @@ class User < ActiveRecord::Base
     end
   end
 
-  def deactivate
-    if self.deactivated
-      lock
+  def set_lock_information
+    if self.locked == '1' and self.active?
+      lock_access!
+    elsif self.locked == '0' and !self.active?
+      unlock_access!
     end
   end
 
@@ -147,7 +150,7 @@ class User < ActiveRecord::Base
   def set_expiration
     return if self.has_role?('Administrator')
     unless self.expired_at.blank?
-      self.lock! if self.expired_at.beginning_of_day < Time.zone.now.beginning_of_day
+      self.lock_access! if self.expired_at.beginning_of_day < Time.zone.now.beginning_of_day
     end
   end
 
@@ -187,7 +190,7 @@ class User < ActiveRecord::Base
 
   def self.lock_expired_users
     User.find_each do |user|
-      user.lock! if user.expired?
+      user.lock_access! if user.expired?
     end
   end
 

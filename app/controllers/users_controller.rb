@@ -139,6 +139,7 @@ class UsersController < ApplicationController
         @user.required_role_id = params[:user][:required_role_id] || 1
         @user.user_number = params[:user][:user_number]
         @user.locale = params[:user][:locale]
+        @user.locked = params[:user][:locked]
         expired_at_array = [params[:user]["expired_at(1i)"], params[:user]["expired_at(2i)"], params[:user]["expired_at(3i)"]]
         begin
           @user.expired_at = Time.zone.parse(expired_at_array.join("-"))
@@ -277,6 +278,11 @@ class UsersController < ApplicationController
     @user_groups = UserGroup.all
     @roles = Rails.cache.fetch('role_all'){Role.all}
     @libraries = Rails.cache.fetch('library_all'){Library.all}
-    @languages = Language.all
+    @languages = Rails.cache.fetch('language_all'){Language.all}
+    if @user.active?
+      @user.locked = '0'
+    else
+      @user.locked = '1'
+    end
   end
 end

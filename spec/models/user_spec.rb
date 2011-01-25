@@ -32,4 +32,19 @@ describe User do
     user.has_role?('Librarian').should be_false
     user.has_role?('User').should be_true
   end
+
+  it 'should lock an user' do
+    user = Factory.create(:user)
+    user.locked = '1'
+    user.save
+    user.active?.should be_false
+  end
+
+  it 'should unlock an user' do
+    user = Factory.create(:user)
+    user.lock_access!
+    user.locked = '0'
+    user.save
+    user.active?.should be_true
+  end
 end

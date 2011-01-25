@@ -301,7 +301,7 @@ ja:
         activation_code: 活性化コード
         activated_at: 登録時刻
         expired_at: 有効期限
-        deactivated: 利用不可
+        locked: 利用不可
         confirmed: 確認済み
         approved: 承認済み
         checkout_icalendar_token: 貸出iCalendarのトークン

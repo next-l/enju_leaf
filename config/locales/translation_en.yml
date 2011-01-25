@@ -301,7 +301,7 @@ en:
         activation_code: Activation code
         activated_at: Activated at
         expired_at: Expired at
-        deactivated: Deactivated
+        locked: Locked
         confirmed: Confirmed
         approved: Approved
         checkout_icalendar_token: Checkout iCalendar token
