@@ -65,6 +65,7 @@ gem 'dynamic_form'
 gem 'formtastic'
 gem 'jquery-rails'
 gem 'sanitize'
+gem 'jpmobile'
 
 gem 'oink'
 gem "parallel_tests", :group => :development

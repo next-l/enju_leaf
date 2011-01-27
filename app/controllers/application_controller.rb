@@ -256,12 +256,9 @@ class ApplicationController < ActionController::Base
   end
 
   def store_location
-    session[:return_to] = request.fullpath
-  end
-
-  def redirect_back_or_default(default = '/')
-    redirect_to(session[:return_to] || default)
-    session[:return_to] = nil
+    if request.get? and request.format.html? and !request.xhr?
+      session[:user_return_to] = request.fullpath
+    end
   end
 
   def set_role_query(user, search)

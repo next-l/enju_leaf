@@ -75,8 +75,8 @@ ja:
       search_engine: 検索エンジン
       bookmark: ブックマーク
       create: 著作関係
-      carrier_type: 出版した資料の形態
-      manifestation: 出版した資料
+      carrier_type: 資料の形態
+      manifestation: 資料
       user_group: 利用者グループ
       resource_import_file: インポートされる資料のファイル
       checkout: 貸出
@@ -94,11 +94,11 @@ ja:
       checkout_type: 貸出区分
       classification_type: 分類型
       country: 国と地域
-      manifestation_api_response: 出版した資料APIの応答
+      manifestation_api_response: 資料APIの応答
       request_type: 依頼の種類
       inventory_file: 蔵書点検ファイル
       user_group_has_checkout_type: 利用者グループと貸出区分の関係
-      carrier_type_has_checkout_type: 出版した資料の種類と貸出区分の関係
+      carrier_type_has_checkout_type: 資料の種類と貸出区分の関係
       tag: タグ
       bookmark_stat: ブックマーク統計
       manifestation_checkout_stat: 資料別貸出統計
@@ -107,10 +107,10 @@ ja:
       user_reserve_stat: 利用者別予約統計
       work_has_work: 書いた資料間の関係
       expression_has_expression: 協力した資料間の関係
-      manifestation_has_manifestation: 出版した資料間の関係
+      manifestation_has_manifestation: 資料間の関係
       item_has_item: 所蔵情報間の関係
-      bookmark_stat_has_manifestation: ブックマーク統計と出版した資料の関係
-      reserve_stat_has_manifestation: 予約統計と出版した資料の関係
+      bookmark_stat_has_manifestation: ブックマーク統計と資料の関係
+      reserve_stat_has_manifestation: 予約統計と資料の関係
       reserve_stat_has_user: 予約統計と利用者の関係
       concept: 概念
       place: 場所
@@ -123,7 +123,7 @@ ja:
       user_has_shelf: 利用者と書棚の関係
       participate: 参加
       patron_has_patron: 人物・団体間の関係
-      shelf_has_manifestation: 書棚と出版した資料の関係
+      shelf_has_manifestation: 書棚と資料の関係
       extent: 大きさ
       medium_of_performance: 演奏手段
       content_type: 内容の種類
@@ -572,6 +572,7 @@ ja:
         position: 位置
       bookmark:
         note: 注記
+        shared: 共有する
         url: URL
       create:
         position: 位置
@@ -585,7 +586,7 @@ ja:
         title_alternative: 代替タイトル
         title_transcription: タイトルよみ
         classification_number: 分類番号
-        identifier: 出版した資料の識別子
+        identifier: 識別子
         date_of_publication: 出版日
         deleted_at: 削除時刻
         access_address: アクセスアドレス
@@ -606,7 +607,7 @@ ja:
         note: 注記
         repository_content: リポジトリのコンテンツ
         lock_version: ロックバージョン
-        carrier_type: 出版した資料の形態
+        carrier_type: 資料の形態
         language: 言語
         lccn: LCCN
         issn: ISSN
@@ -874,7 +875,7 @@ ja:
         to_patron: 終点
       shelf_has_manifestation:
         shelf: 書棚
-        manifestation: 出版した資料
+        manifestation: 資料
         position: 位置
       medium_of_performance:
         name: 名前
@@ -965,7 +966,7 @@ ja:
         state: 状態
       resource:
         iss_token: トークン
-        manifestation_id: 出版した資料
+        manifestation_id: 資料
         dcndl_xml: DCNDL XML
         work_token: 著作トークン
         approve: 修正承認
@@ -1026,7 +1027,7 @@ ja:
     feed: "フィード"
     back_to_index: "一覧に戻る"
     import: "インポート"
-    import_from_file: "ファイルからのインポート"
+    import_from_file: "TSVファイルからのインポート"
     import_record: "書誌レコードのインポート"
     export: "エクスポート"
     detail: "詳細"
@@ -1063,7 +1064,7 @@ ja:
     total: "合計"
     sort_by: "次の項目で並べ替える"
     bookmarklet: "ブックマークレット"
-    upload_file: "ファイルをアップロード"
+    add_file: "ファイルを登録"
     telephone_number: "電話番号"
     about_this_system: "このシステムについて"
     report_bugs: "不具合を報告する"
@@ -1158,7 +1159,7 @@ ja:
     specify_title_and_url: "タイトルとURLを指定してください。"
     already_bookmarked: "すでにブックマークに登録されています。"
     user_bookmark: "%{login_name} さんのブックマーク"
-    only_manifestation_should_be_bookmarked: "サイト内のブックマークは出版した資料に対してのみ行えます。"
+    only_manifestation_should_be_bookmarked: "サイト内のブックマークは資料に対してのみ行えます。"
     not_our_holding: "当館の所蔵資料ではありません。"
   work:
     patron_work: "%{patron_name} の書いた資料"
@@ -1170,7 +1171,7 @@ ja:
     library_group_expression: "%{library_group_name} にある協力した資料"
     add: "協力した資料を追加する"
     specify_work: "書いた資料を指定してください。"
-    specify_manifestation: "出版した資料を指定してください。"
+    specify_manifestation: "資料を指定してください。"
   manifestation:
     date_of_acquisition: "受入日"
     physical_description: "ページ数と大きさ"
@@ -1180,9 +1181,9 @@ ja:
     edit_publisher: "出版者を編集"
     edit_expression: "協力した資料を編集"
     edit_item: "所蔵を編集"
-    patron_manifestation: "%{patron_name} の出版した資料"
+    patron_manifestation: "%{patron_name} の資料"
     expressions_manifestation: "%{expression_title} の出版した資料"
-    library_group_manifestation: "%{library_group_name} にある出版した資料"
+    library_group_manifestation: "%{library_group_name} にある資料"
     reserve_this: "この資料を予約する"
     cancel_reservation: "この資料の予約を解除する"
     user_who_bookmark_this_resource: "この資料をブックマークしている利用者"
@@ -1194,7 +1195,7 @@ ja:
     invalid_isbn: "無効なISBNです。"
     already_imported: "すでにインポートされています。"
     record_not_found: "資料が見つかりませんでした。"
-    add: "出版した資料を追加する"
+    add: "資料を追加する"
     specify_expression: "協力した資料を指定してください。"
     pickup: "ピックアップ"
     showing_all_record: "すべての資料を表示しています。"
@@ -1214,13 +1215,13 @@ ja:
     donor: "寄贈者"
     library_group_item: "%{library_group_name}にある所蔵情報"
     add: "所蔵情報を追加する"
-    specify_manifestation: "出版した資料を指定してください。"
+    specify_manifestation: "資料を指定してください。"
     this_item_is_reserved: "この資料は予約されています！"
     create_shelf_first: "最初に書棚を作成してください。"
     this_item_include_supplement: "この資料は付録を含んでいます。"
     all_item: "全ての所蔵情報"
     add_new_copy: "複本を追加"
-    no_manifestation: "出版した資料なし"
+    no_manifestation: "資料なし"
     no_number: "番号なし"
     add_lending_policy: "貸出規則の追加"
   patron:
@@ -1464,3 +1465,4 @@ ja:
     record_not_found: 書誌レコードが見つかりませんでした。
     invalid_isbn: ISBNが正しくありません。
     isbn_taken: はすでに登録されています。
+    enter_isbn: ISBNを入力する

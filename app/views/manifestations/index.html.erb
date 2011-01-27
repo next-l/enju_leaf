@@ -11,7 +11,7 @@
       <%= hidden_field_tag 'manifestation_id', @manifestation.id if @manifestation -%>
       <%= submit_tag t('page.search') -%>
       <% if @manifestation %>
-        <%- if can? :destroy, @manifestation -%>
+        <%- if can? :update, @manifestation -%>
           <%- if params[:mode] == 'add' -%>
             <%= radio_button_tag 'mode', 'show' -%> <%= t('page.show') -%>
             <%= radio_button_tag 'mode', 'add', :checked => true -%> <%= t('page.add') -%>

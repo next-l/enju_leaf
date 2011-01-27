@@ -57,6 +57,7 @@
 
 <div id="submenu" class="ui-corner-all">
   <ul>
+    <li><%= link_to t('page.listing', :model => t('activerecord.models.user')), users_path -%></li>
     <%- if @user.patron -%>
       <li><%= link_to t('user.patron_profile'), @user.patron -%></li>
     <%- else -%>

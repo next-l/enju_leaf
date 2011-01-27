@@ -47,9 +47,10 @@
     <div id="acquisition_menu" class="hidden">
       <ul>
         <%- if current_user.has_role?('Librarian') -%>
-          <li><%= link_to t('page.add_manually'), new_import_request_path -%></li>
+          <li><%= link_to t('import_request.enter_isbn'), new_import_request_path -%></li>
+          <li><%= link_to t('page.add_manually'), new_manifestation_path -%></li>
           <li><%= link_to t('page.import_from_file'), page_import_path -%></li>
-          <li><%= link_to t('page.upload_file'), new_manifestation_path(:mode => 'attachment') -%></li>
+          <li><%= link_to t('page.add_file'), new_manifestation_path(:mode => 'attachment') -%></li>
         <%- end -%>
       </ul>
     </div>
