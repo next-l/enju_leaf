@@ -379,7 +379,7 @@ class Manifestation < ActiveRecord::Base
   def set_digest(options = {:type => 'sha1'})
     if attachment.queued_for_write[:original]
       if File.exists?(attachment.queued_for_write[:original])
-        self.file_hash = Digest::SHA1.hexdigest(File.open(attachment.queued_for_write[:original], 'rb').read)
+        self.file_hash = Digest::SHA1.hexdigest(File.open(attachment.queued_for_write[:original].path, 'rb').read)
       end
     end
   end

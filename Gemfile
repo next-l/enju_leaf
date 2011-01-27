@@ -5,28 +5,32 @@ gem 'rails', '3.0.3'
 # Bundle edge Rails instead:
 #gem 'rails', :git => 'git://github.com/rails/rails.git'
 
-if defined?(JRUBY_VERSION)
-  gem 'jruby-openssl'
-  gem 'activerecord-jdbc-adapter'
-  gem 'activerecord-jdbcpostgresql-adapter'
-  #gem 'jdbc-postgres', :require => false
-  #gem 'jdbc-mysql', :require => false
-else
+platforms :ruby do
   gem 'pg'
-  #gem 'mysql2'
-  gem 'zipruby'
-  gem 'formatize'
+  gem "ruby-prof", :group => [:development, :test]
 end
+
+platforms :ruby_19 do
+  gem 'simplecov', :require => false, :group => :test
+end
+
+platforms :ruby_18 do
+  gem 'fastercsv'
+end
+
+platforms :jruby do
+  gem 'activerecord-jdbc-adapter'
+  gem 'jdbc-postgres', :require => false
+  #gem 'jdbc-mysql', :require => false
+  gem 'fastercsv'
+end
+
 gem 'will_paginate', :git => 'git://github.com/mislav/will_paginate.git', :branch => 'rails3'
 gem 'exception_notification', :git => 'git://github.com/rails/exception_notification.git', :require => 'exception_notifier'
 gem 'delayed_job', '>=2.1.3'
 gem 'state_machine'
 gem 'prawn'
 gem 'sunspot_rails', '>=1.2.1'
-unless RUBY_VERSION > '1.9'
-  gem 'fastercsv'
-  gem 'system_timer' unless defined?(JRUBY_VERSION)
-end
 gem 'friendly_id'
 gem 'inherited_resources'
 gem 'has_scope'
@@ -62,13 +66,11 @@ gem 'dynamic_form'
 gem 'formtastic'
 gem 'jquery-rails'
 gem 'sanitize'
+gem 'zipruby'
+gem 'formatize'
 
 gem 'oink'
 gem "parallel_tests", :group => :development
-gem "ruby-prof", :group => [:development, :test] unless defined?(JRUBY_VERSION)
-if RUBY_VERSION > '1.9'
-  gem 'simplecov', :require => false, :group => :test
-end
 
 group :development, :test do
   gem 'rspec'
