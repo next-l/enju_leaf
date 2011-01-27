@@ -32,7 +32,7 @@ module EnjuNdl
 
       language = get_language(doc)
       nbn = doc.at('//dc:identifier[@xsi:type="dcndl:JPNO"]').content
-      ndc = doc.at('//dc:subject[@xsi:type="dcndl:NDC"]').content
+      ndc = doc.at('//dc:subject[@xsi:type="dcndl:NDC"]').try(:content)
 
       Patron.transaction do
         publisher_patrons = Patron.import_patrons(publishers)
