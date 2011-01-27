@@ -149,7 +149,7 @@ class User < ActiveRecord::Base
 
   def set_expiration
     return if self.has_role?('Administrator')
-    unless self.expired_at.blank?
+    unless self.expired_at.blank? and self.active?
       self.lock_access! if self.expired_at.beginning_of_day < Time.zone.now.beginning_of_day
     end
   end
@@ -190,7 +190,7 @@ class User < ActiveRecord::Base
 
   def self.lock_expired_users
     User.find_each do |user|
-      user.lock_access! if user.expired?
+      user.lock_access! if user.expired? and user.active?
     end
   end
 

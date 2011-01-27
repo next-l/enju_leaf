@@ -240,4 +240,4 @@ user4:
   answers_count: 0
   locked_at: <%= 1.day.ago %>
   email: user4@kamata.lib.teu.ac.jp
-
+  locale: "ja"
