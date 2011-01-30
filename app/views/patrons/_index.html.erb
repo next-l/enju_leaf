@@ -24,7 +24,7 @@
         <%= patron.full_name_transcription -%>
       </td>
       <td>
-        <%= link_to h(patron.user.username), edit_user_path(patron.user.username) if patron.user -%>
+        <%= link_to h(patron.user.username), edit_user_path(patron.user) if patron.user -%>
       </td>
       <td><%= patron.patron_type.display_name.localize -%></td>
       <td><%=l patron.date_of_birth if patron.date_of_birth -%></td>
