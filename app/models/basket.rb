@@ -7,7 +7,7 @@ class Basket < ActiveRecord::Base
   has_many :checkouts
   has_many :checkins
 
-  validates_associated :user
+  validates_associated :user, :on => :create
   # 貸出完了後にかごのユーザidは破棄する
   validates_presence_of :user, :on => :create
   validate :check_suspended

@@ -2,8 +2,8 @@ class CheckedItem < ActiveRecord::Base
   belongs_to :item #, :validate => true
   belongs_to :basket #, :validate => true
 
-  validates_associated :item, :basket
-  validates_presence_of :item, :basket, :due_date
+  validates_associated :item, :basket, :on => :update
+  validates_presence_of :item, :basket, :due_date, :on => :update
   validates_uniqueness_of :item_id, :scope => :basket_id
   validate :available_for_checkout?, :on => :create
   
