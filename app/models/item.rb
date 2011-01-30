@@ -27,7 +27,6 @@ class Item < ActiveRecord::Base
   has_many :inter_library_loans, :dependent => :destroy
   belongs_to :required_role, :class_name => 'Role', :foreign_key => 'required_role_id', :validate => true
   belongs_to :checkout_type
-  has_one :barcode, :as => :barcodable, :dependent => :destroy
   has_many :inventories, :dependent => :destroy
   has_many :inventory_files, :through => :inventories
   has_many :lending_policies, :dependent => :destroy
@@ -189,18 +188,6 @@ class Item < ActiveRecord::Base
     end
   rescue
     nil
-  end
-
-  def create_barcode
-    unless self.item_identifier.blank?
-      barcode = Barcode.first(:conditions => {:code_word => self.item_identifier})
-      if barcode.nil?
-        barcode = Barcode.create(:code_word => self.item_identifier)
-      end
-
-      self.barcode = barcode
-      self.barcode.save(:validate => false)
-    end
   end
 
   def lending_rule(user)

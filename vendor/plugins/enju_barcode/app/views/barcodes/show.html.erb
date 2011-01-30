@@ -1,4 +1,4 @@
-<div id="content_detail">
+<div id="content_detail" class="ui-corner-all">
 <h1 class="title"><%= t('page.showing', :model => t('activerecord.models.barcode')) -%></h1>
 <div id="content_list">
 <p>
@@ -13,13 +13,13 @@
 
 <p>
   <strong><%= t('activerecord.attributes.barcode.data') -%>:</strong>
-  <%= image_tag(barcode_path(@barcode) + '.png') -%>
+  <%= image_tag(barcode_path(@barcode, :format => :svg), :alt => @barcode.code_word) -%>
 </p>
 
 </div>
 </div>
 
-<div id="submenu">
+<div id="submenu" class="ui-corner-all">
   <ul>
     <li><%= link_to t('page.edit'), edit_barcode_path(@barcode) -%></li>
     <li><%= link_to t('page.back'), barcodes_path -%></li>

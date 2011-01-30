@@ -46,6 +46,7 @@ class Ability
       end
       can :manage, [
         Answer,
+        Barcode,
         Basket,
         Bookmark,
         BookmarkStat,

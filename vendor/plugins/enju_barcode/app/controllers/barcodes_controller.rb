@@ -4,7 +4,9 @@ class BarcodesController < ApplicationController
   # GET /barcodes
   # GET /barcodes.xml
   def index
-    @barcodes = Barcode.paginate(:all, :page => params[:page])
+    @barcodes = Barcode.paginate(:page => params[:page])
+    @start_rows = params[:start_rows]
+    @start_cols = params[:start_cols]
 
     if params[:mode] == 'barcode'
       render :action => 'barcode', :layout => false
@@ -25,7 +27,7 @@ class BarcodesController < ApplicationController
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @barcode }
-      format.png
+      format.svg { send_data @barcode.data, :type => 'image/svg+xml', :disposition => 'inline' }
     end
   end
 

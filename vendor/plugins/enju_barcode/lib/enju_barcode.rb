@@ -1,2 +1,2 @@
 # EnjuBarcode
-require 'barby/outputter/png_outputter'
+require 'barby/outputter/svg_outputter'

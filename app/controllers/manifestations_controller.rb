@@ -565,7 +565,7 @@ class ManifestationsController < ApplicationController
     case mode
     when 'barcode'
       barcode = Barby::QrCode.new(@manifestation.id)
-      send_data(barcode.to_png.to_blob, :disposition => 'inline', :type => 'image/png')
+      send_data(barcode.to_svg, :disposition => 'inline', :type => 'image/svg+xml')
     when 'holding'
       render :partial => 'manifestations/show_holding', :locals => {:manifestation => @manifestation}
     when 'tag_edit'

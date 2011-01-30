@@ -112,6 +112,7 @@ class ItemsController < ApplicationController
   def show
     #@item = Item.find(params[:id])
     @item = @item.versions.find(@version).item if @version
+    @barcode = Barby::Code128B.new(@item.item_identifier).to_svg(:width => 150, :height => 70) if @item.item_identifier
 
     respond_to do |format|
       format.html # show.rhtml

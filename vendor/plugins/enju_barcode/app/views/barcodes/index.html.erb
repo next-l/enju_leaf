@@ -1,20 +1,22 @@
-<div id="content_detail">
+<div id="content_detail" class="ui-corner-all">
 <h1 class="title"><%= t('page.listing', :model => t('activerecord.models.barcode')) -%></h1>
 <div id="content_list">
 
 <table class="index">
   <tr>
+    <th><%= t('activerecord.attributes.barcode.code_word') -%></th>
     <th><%= t('activerecord.attributes.barcode.barcode_type') -%></th>
-    <th><%= t('activerecord.attributes.barcode.barcodable') -%></th>
+    <th></th>
   </tr>
 
 <%- for barcode in @barcodes -%>
   <tr class="line<%= cycle("0", "1") -%>">
+    <td><%= link_to barcode.code_word, barcode -%></td>
     <td><%= barcode.barcode_type -%></td>
-    <td><%= link_to h("#{barcode.barcodable_type} / #{barcode.barcodable_id}"), barcode.barcodable if barcode.barcodable -%></td>
-    <td><%= link_to t('page.show'), barcode -%></td>
-    <td><%= link_to t('page.edit'), edit_barcode_path(barcode) -%></td>
-    <td><%= link_to t('page.destroy'), barcode, :confirm => t('page.are_you_sure'), :method => :delete -%></td>
+    <td>
+      <%= link_to t('page.edit'), edit_barcode_path(barcode) -%>
+      <%= link_to t('page.destroy'), barcode, :confirm => t('page.are_you_sure'), :method => :delete -%>
+    </td>
   </tr>
 <%- end -%>
 </table>
@@ -23,7 +25,7 @@
 </div>
 </div>
 
-<div id="submenu">
+<div id="submenu" class="ui-corner-all">
   <ul>
     <li><%= link_to t('page.new', :model => t('activerecord.models.barcode')), new_barcode_path -%></li>
   </ul>
