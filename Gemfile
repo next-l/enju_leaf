@@ -7,7 +7,7 @@ gem 'rails', '3.0.3'
 
 platforms :ruby do
   gem 'pg'
-  gem "ruby-prof", :group => [:development, :test]
+  gem 'ruby-prof', :group => [:development, :test]
 end
 
 platforms :ruby_19 do
@@ -16,6 +16,7 @@ end
 
 platforms :ruby_18 do
   gem 'fastercsv'
+  gem 'system_timer'
 end
 
 platforms :jruby do
@@ -72,7 +73,7 @@ gem 'barby'
 gem 'prawnto'
 
 gem 'oink'
-gem "parallel_tests", :group => :development
+gem 'parallel_tests', :group => :development
 
 group :development, :test do
   gem 'rspec'
