@@ -1,6 +1,7 @@
 <!DOCTYPE html>
-<html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="<%= @locale.to_s -%>" lang="<%= @locale.to_s -%>">
 <head>
+  <meta charset="UTF-8" />
   <title><%= title(controller.controller_name) %></title>
   <%= render :partial => 'page/include' %>
   <%- if controller.action_name == 'index' -%>

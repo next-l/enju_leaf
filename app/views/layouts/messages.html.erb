@@ -1,6 +1,7 @@
 <!DOCTYPE html>
-<html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="<%= @locale.to_s -%>" lang="<%= @locale.to_s -%>">
 <head>
+  <meta charset="UTF-8" />
   <title><%= t('message.user_message', :login_name => current_user.username) -%></title>
   <%= render :partial => 'page/include' -%>
   <%= auto_discovery_link_tag(:rss, user_messages_url(current_user.username, :format => :rss), :title => (t('message.user_message', :login_name => current_user.username) + " (RSS)")) %>
