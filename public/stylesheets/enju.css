@@ -447,4 +447,8 @@ td#edit_icons, th#edit_icons{
   width: 50px;
 }
 
+img.icon{
+  border: 0;
+}
+
 /* .yui-skin-sam .yui-navset .yui-content{background:white;} */

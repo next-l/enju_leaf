@@ -29,11 +29,11 @@
   </ul>
   <p>
     <%- if params[:view] == 'overdue' -%>
-      <%= link_to (image_tag 'feed-icon-14x14.png', :size => '14x14', :alt => 'RSS', :border => 0), user_checkouts_path(@user, :format => :rss, :view => 'overdue') -%>
+      <%= link_to (image_tag 'feed-icon-14x14.png', :size => '14x14', :alt => 'RSS', :class => 'icon'), user_checkouts_path(@user, :format => :rss, :view => 'overdue') -%>
       (<%= link_to 'RSS', user_checkouts_path(@user, :format => :rss, :view => 'overdue') -%>)
       (<%= link_to 'CSV', user_checkouts_path(@user, :format => :csv, :view => 'overdue', :locale => @locale) -%>)
     <%- else -%>
-      <%= link_to (image_tag 'feed-icon-14x14.png', :size => '14x14', :alt => 'RSS', :border => 0), user_checkouts_path(@user, :format => :rss) -%>
+      <%= link_to (image_tag 'feed-icon-14x14.png', :size => '14x14', :alt => 'RSS', :class => 'icon'), user_checkouts_path(@user, :format => :rss) -%>
       (<%= link_to 'RSS', user_checkouts_path(@user, :format => :rss) -%>)
       (<%= link_to 'CSV', user_checkouts_path(@user, :format => :csv, :locale => @locale) -%>)
     <%- end -%>

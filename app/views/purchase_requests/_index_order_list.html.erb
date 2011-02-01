@@ -63,7 +63,7 @@
     <li><%= link_to t('purchase_request.all_request'), purchase_requests_path -%></li>
   </ul>
   <p>
-    <%= link_to (image_tag 'feed-icon-14x14.png', :size => '14x14', :alt => t('page.feed'), :border => 0), :format => :rss -%>
+    <%= link_to (image_tag 'feed-icon-14x14.png', :size => '14x14', :alt => t('page.feed'), :class => 'icon'), :format => :rss -%>
     (<%= link_to 'RSS', purchase_requests_path(:format => :rss) -%>)
     (<%= link_to 'CSV', purchase_requests_path(:format => :csv, :locale => @locale) -%>)
   </p>

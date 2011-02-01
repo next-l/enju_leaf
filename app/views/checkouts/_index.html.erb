@@ -15,7 +15,7 @@
     <li><%= link_to t('page.overdue'), checkouts_path(:view => 'overdue') -%></li>
   </ul>
   <p>
-    <%= link_to (image_tag 'feed-icon-14x14.png', :size => '14x14', :alt => 'RSS', :border => 0), checkouts_path(:format => :rss, :view => 'overdue') -%>
+    <%= link_to (image_tag 'feed-icon-14x14.png', :size => '14x14', :alt => 'RSS', :class => 'icon'), checkouts_path(:format => :rss, :view => 'overdue') -%>
     (<%= link_to 'RSS', checkouts_path(:format => :rss) -%>)
     (<%= link_to 'CSV', checkouts_path(:format => :csv, :locale => @locale) -%>)
   </p>

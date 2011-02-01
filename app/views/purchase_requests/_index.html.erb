@@ -65,11 +65,11 @@
   </ul>
 <p>
   <%- if @user -%>
-    <%= link_to (image_tag 'feed-icon-14x14.png', :size => '14x14', :alt => t('page.feed'), :border => 0), :user_id => @user.username, :format => :rss -%>
+    <%= link_to (image_tag 'feed-icon-14x14.png', :size => '14x14', :alt => t('page.feed'), :class => 'icon'), :user_id => @user.username, :format => :rss -%>
     (<%= link_to 'RSS', user_purchase_requests_path(@user, :format => :rss) -%>)
     (<%= link_to 'CSV', user_purchase_requests_path(@user, :format => :csv, :locale => @locale) -%>)
   <%- else -%>
-    <%= link_to (image_tag 'feed-icon-14x14.png', :size => '14x14', :alt => t('page.feed'), :border => 0), :format => :rss -%>
+    <%= link_to (image_tag 'feed-icon-14x14.png', :size => '14x14', :alt => t('page.feed'), :class => 'icon'), :format => :rss -%>
     (<%= link_to 'RSS', purchase_requests_path(:format => :rss) -%>)
     (<%= link_to 'CSV', purchase_requests_path(:format => :csv, :locale => @locale) -%>)
   <%- end -%>
