@@ -58,7 +58,7 @@ class CheckedItem < ActiveRecord::Base
       end
     end
     
-    return false unless errors["base"]
+    return false unless errors[:base]
   end
 
   def item_checkout_type

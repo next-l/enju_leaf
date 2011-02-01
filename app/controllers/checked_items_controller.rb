@@ -101,12 +101,12 @@ class CheckedItemsController < ApplicationController
             redirect_to(user_basket_checked_items_url(@basket.user.username, @basket, :mode => 'list'))
           }
         else
-          flash[:message] << @checked_item.errors["base"]
+          flash[:message] << @checked_item.errors[:base]
           format.html { redirect_to(user_basket_checked_items_url(@basket.user.username, @basket)) }
           format.xml  { render :xml => @checked_item, :status => :created, :location => @checked_item }
         end
       else
-        flash[:message] << @checked_item.errors["base"]
+        flash[:message] << @checked_item.errors[:base]
         if params[:mode] == 'list'
           #format.html { render :action => "new" }
           #format.xml  { render :xml => @checked_item.errors, :status => :unprocessable_entity }
