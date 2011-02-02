@@ -131,15 +131,3 @@
     <%- end -%>
   </div>
 </div>
-
-<% if user_signed_in? and @manifestation.isbn.present? %>
-<script type="text/javascript">
-  window.onload = function() {
-    $("#calil_list").load('<%= manifestation_path(@manifestation, :mode => 'calil_list') -%>', null, hideCalilSpinner);
-  }
-
-  function hideCalilSpinner(){
-    $("#spinner_calil_list").hide();
-  }
-</script>
-<% end %>

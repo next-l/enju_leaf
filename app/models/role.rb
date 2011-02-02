@@ -12,6 +12,10 @@ class Role < ActiveRecord::Base
     display_name.localize
   end
 
+  def self.all_cache
+    Rails.cache.fetch('role_all'){Role.all}
+  end
+  
   def clear_all_cache
     Rails.cache.delete('role_all')
   end

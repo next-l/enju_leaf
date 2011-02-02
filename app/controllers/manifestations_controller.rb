@@ -3,10 +3,10 @@ class ManifestationsController < ApplicationController
   load_and_authorize_resource
   before_filter :authenticate_user!, :only => :edit
   before_filter :get_patron
-  before_filter :get_manifestation, :only => :index
+  helper_method :get_manifestation
   before_filter :get_series_statement, :only => [:index, :new, :edit]
   before_filter :prepare_options, :only => [:new, :edit]
-  before_filter :get_libraries, :only => :index
+  helper_method :get_libraries
   before_filter :get_version, :only => [:show]
   after_filter :solr_commit, :only => [:create, :update, :destroy]
   after_filter :convert_charset, :only => :index
@@ -103,6 +103,7 @@ class ManifestationsController < ApplicationController
         reservable = nil
       end
       unless params[:mode] == 'add'
+        get_manifestation
         manifestation = @manifestation if @manifestation
       end
       patron = get_index_patron
@@ -177,6 +178,7 @@ class ManifestationsController < ApplicationController
       search_result = search.execute
       @manifestations = search_result.results
       @manifestations.total_entries = configatron.max_number_of_results if @count[:query_result] > configatron.max_number_of_results
+      get_libraries
 
       if params[:format].blank? or params[:format] == 'html'
         @carrier_type_facet = search_result.facet(:carrier_type).rows
@@ -594,8 +596,8 @@ class ManifestationsController < ApplicationController
 
   def prepare_options
     @carrier_types = CarrierType.all
-    @roles = Rails.cache.fetch('role_all'){Role.all}
-    @languages = Rails.cache.fetch('language_all'){Language.all}
+    @roles = Role.all_cache
+    @languages = Language.all_cache
     @frequencies = Frequency.all
     @nii_types = NiiType.all
   end

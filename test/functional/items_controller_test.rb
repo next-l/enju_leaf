@@ -19,13 +19,6 @@ class ItemsControllerTest < ActionController::TestCase
     assert assigns(:items)
   end
 
-  def test_guest_should_get_index_with_item_id
-    get :index, :item_id => 1
-    assert_response :success
-    assert assigns(:item)
-    assert assigns(:items)
-  end
-
   def test_guest_should_get_index_with_manifestation_id
     get :index, :manifestation_id => 1
     assert_response :success

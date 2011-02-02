@@ -1,13 +1,13 @@
 class WorkHasSubjectsController < ApplicationController
   load_and_authorize_resource
-  before_filter :get_work, :get_subject
-  before_filter :get_patron
+  helper_method :get_work, :get_subject
   after_filter :solr_commit, :only => [:create, :update, :destroy]
   cache_sweeper :page_sweeper, :only => [:create, :update, :destroy]
 
   # GET /work_has_subjects
   # GET /work_has_subjects.xml
   def index
+    get_work; get_subject
     if @work
       @work_has_subjects = @work.work_has_subjects.paginate(:all, :page => params[:page])
     elsif @subject
@@ -36,9 +36,7 @@ class WorkHasSubjectsController < ApplicationController
   # GET /work_has_subjects/new
   # GET /work_has_subjects/new.xml
   def new
-    @work_has_subject = WorkHasSubject.new
-    @work_has_subject.work = @work
-    @work_has_subject.subject = @subject
+    @work_has_subject = WorkHasSubject.new(:work => get_work, :subject => get_subject)
 
     respond_to do |format|
       format.html # new.html.erb
@@ -88,6 +86,7 @@ class WorkHasSubjectsController < ApplicationController
   # DELETE /work_has_subjects/1
   # DELETE /work_has_subjects/1.xml
   def destroy
+    get_work; get_subject
     @work_has_subject = WorkHasSubject.find(params[:id])
     @work_has_subject.destroy
 

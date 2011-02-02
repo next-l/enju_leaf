@@ -4,13 +4,13 @@
 
 <p>
 <strong><%= t('activerecord.models.user') -%>:</strong>
-  <%= link_to h(@purchase_request.user.username), @purchase_request.user -%>
+  <%= link_to @purchase_request.user.username, @purchase_request.user -%>
 </p>
 
 <p>
 <strong><%= t('activerecord.models.order_list') -%>:</strong>
   <%- if @purchase_request.order_list -%>
-    <%= link_to h(@purchase_request.order_list.title), order_list_purchase_requests_path(@purchase_request.order_list) -%>
+    <%= link_to @purchase_request.order_list.title, order_list_purchase_requests_path(@purchase_request.order_list) -%>
   <%- else -%>
     <%= t('purchase_request.not_ordered') -%>
   <%- end -%>
@@ -82,12 +82,12 @@
       <li><%= link_to t('purchase_request.add_to_order_list'), new_purchase_request_order_path(@purchase_request) -%></li>
     <%- end -%>
     <%- if @user -%>
-      <li><%= link_to t('page.new', :model => t('activerecord.models.purchase_request')), new_user_purchase_request_path(@user.username)%></li>
+      <li><%= link_to t('page.new', :model => t('activerecord.models.purchase_request')), new_user_purchase_request_path(@user)%></li>
     <%- end -%>
-    <li><%= link_to t('page.edit'), edit_user_purchase_request_path(@purchase_request.user.username, @purchase_request) -%></li>
+    <li><%= link_to t('page.edit'), edit_user_purchase_request_path(@purchase_request.user, @purchase_request) -%></li>
     <%- if current_user.has_role?('Librarian') -%>
-      <li><%= link_to t('page.destroy'), user_purchase_request_path(@purchase_request.user.username, @purchase_request), :confirm => t('page.are_you_sure'), :method => :delete -%></li>
+      <li><%= link_to t('page.destroy'), user_purchase_request_path(@purchase_request.user, @purchase_request), :confirm => t('page.are_you_sure'), :method => :delete -%></li>
     <%- end -%>
-    <li><%= link_to t('page.back'), user_purchase_requests_path(@purchase_request.user.username, :page => flash[:page] ||= nil) -%></li>
+    <li><%= link_to t('page.back'), user_purchase_requests_path(@purchase_request.user, :page => flash[:page] ||= nil) -%></li>
   </ul>
 </div>

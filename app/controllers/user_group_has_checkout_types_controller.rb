@@ -1,8 +1,7 @@
 class UserGroupHasCheckoutTypesController < ApplicationController
   before_filter :check_client_ip_address
   load_and_authorize_resource
-  before_filter :get_user_group
-  before_filter :get_checkout_type
+  helper_method :get_user_group, :get_checkout_type
   before_filter :prepare_options, :only => [:new, :edit]
 
   # GET /user_group_has_checkout_types
@@ -30,9 +29,10 @@ class UserGroupHasCheckoutTypesController < ApplicationController
   # GET /user_group_has_checkout_types/new
   # GET /user_group_has_checkout_types/new.xml
   def new
-    @user_group_has_checkout_type = UserGroupHasCheckoutType.new
-    @user_group_has_checkout_type.checkout_type = @checkout_type
-    @user_group_has_checkout_type.user_group = @user_group
+    @user_group_has_checkout_type = UserGroupHasCheckoutType.new(
+      :checkout_type => get_checkout_type,
+      :user_group => get_user_group
+    )
 
     respond_to do |format|
       format.html # new.html.erb

@@ -85,7 +85,7 @@
     <%- end -%>
   </ul>
   <ul>
-    <%- Library.all.each do |library| -%>
+    <%- @libraries.each do |library| -%>
       <li><%= link_to h(library.display_name.localize), library_events_path(library.name) -%></li>
     <%- end -%>
   </ul>

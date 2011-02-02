@@ -2,7 +2,7 @@
 <h1 class="title"><%= t('page.editing', :model => t('activerecord.models.bookmark')) -%></h1>
 <div id="content_list">
 
-<%= form_for(@bookmark, :url => user_bookmark_path(@bookmark.user.username, @bookmark)) do |f| -%>
+<%= form_for(@bookmark, :url => user_bookmark_path(@bookmark.user, @bookmark)) do |f| -%>
   <%= f.error_messages -%>
 
   <p>
@@ -39,7 +39,7 @@
 <div id="submenu" class="ui-corner-all">
   <ul>
     <li><%= link_to t('page.showing', :model => t('activerecord.models.manifestation')), @bookmark.manifestation -%></li>
-    <li><%= link_to t('page.show'), user_bookmark_path(@bookmark.user.username, @bookmark) -%></li>
-    <li><%= link_to t('page.back'), user_bookmarks_path(@bookmark.user.username) -%></li>
+    <li><%= link_to t('page.show'), user_bookmark_path(@bookmark.user, @bookmark) -%></li>
+    <li><%= link_to t('page.back'), user_bookmarks_path(@bookmark.user) -%></li>
   </ul>
 </div>

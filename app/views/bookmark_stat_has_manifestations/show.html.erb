@@ -3,12 +3,12 @@
 <div id="content_list">
 <p>
   <strong><%= t('activerecord.models.bookmark_stat') -%>:</strong>
-  <%= link_to h(@bookmark_stat_has_manifestation.bookmark_stat.id), @bookmark_stat_has_manifestation.bookmark_stat -%>
+  <%= link_to @bookmark_stat_has_manifestation.bookmark_stat.id, @bookmark_stat_has_manifestation.bookmark_stat -%>
 </p>
 
 <p>
   <strong><%= t('activerecord.models.manifestation') -%>:</strong>
-  <%= link_to h(@bookmark_stat_has_manifestation.manifestation.original_title), @bookmark_stat_has_manifestation.manifestation -%>
+  <%= link_to @bookmark_stat_has_manifestation.manifestation.original_title, @bookmark_stat_has_manifestation.manifestation -%>
 </p>
 
 <p>

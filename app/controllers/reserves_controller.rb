@@ -4,27 +4,21 @@ class ReservesController < ApplicationController
   load_and_authorize_resource
   before_filter :get_user_if_nil
   #, :only => [:show, :edit, :create, :update, :destroy]
-  before_filter :get_manifestation, :only => [:new]
-  before_filter :get_item, :only => [:new]
+  helper_method :get_manifestation
+  helper_method :get_item
   before_filter :store_page, :only => :index
 
   # GET /reserves
   # GET /reserves.xml
   def index
-    if user_signed_in?
-      begin
-        if !current_user.has_role?('Librarian')
-          raise unless current_user == @user
+    unless current_user.has_role?('Librarian')
+      if @user
+        unless current_user == @user
+          access_denied; return
         end
-      rescue
-        if @user
-          unless current_user == @user
-            access_denied; return
-          end
-        else
-          redirect_to user_reserves_path(current_user.username)
-          return
-        end
+      else
+        redirect_to user_reserves_path(current_user)
+        return
       end
     end
 
@@ -89,7 +83,7 @@ class ReservesController < ApplicationController
       @reserve = Reserve.new
     end
 
-    if @manifestation
+    if get_manifestation
       @reserve.manifestation = @manifestation
       if user
         @reserve.expired_at = @manifestation.reservation_expired_period(user).days.from_now.end_of_day
@@ -159,8 +153,8 @@ class ReservesController < ApplicationController
 
         flash[:notice] = t('controller.successfully_created', :model => t('activerecord.models.reserve'))
         #format.html { redirect_to reserve_url(@reserve) }
-        format.html { redirect_to user_reserve_url(@reserve.user.username, @reserve) }
-        format.xml  { render :xml => @reserve, :status => :created, :location => user_reserve_url(@reserve.user.username, @reserve) }
+        format.html { redirect_to user_reserve_url(@reserve.user, @reserve) }
+        format.xml  { render :xml => @reserve, :status => :created, :location => user_reserve_url(@reserve.user, @reserve) }
       else
         format.html { render :action => "new" }
         format.xml  { render :xml => @reserve.errors.to_xml }
@@ -199,7 +193,7 @@ class ReservesController < ApplicationController
         else
           flash[:notice] = t('controller.successfully_updated', :model => t('activerecord.models.reserve'))
         end
-        format.html { redirect_to user_reserve_url(@user.username, @reserve) }
+        format.html { redirect_to user_reserve_url(@reserve.user, @reserve) }
         format.xml  { head :ok }
       else
         format.html { render :action => "edit" }
@@ -229,7 +223,7 @@ class ReservesController < ApplicationController
     end
 
     respond_to do |format|
-      format.html { redirect_to user_reserves_url(@user.username) }
+      format.html { redirect_to user_reserves_url(@user) }
       format.xml  { head :ok }
     end
   end

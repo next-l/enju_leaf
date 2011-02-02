@@ -8,7 +8,7 @@ class MessagesController < ApplicationController
   # GET /messages.xml
   def index
     unless @user
-      redirect_to user_messages_url(current_user.username)
+      redirect_to user_messages_url(current_user)
       return
     end
     query = params[:query].to_s.strip
@@ -84,7 +84,7 @@ class MessagesController < ApplicationController
     respond_to do |format|
       if @message.save
         flash[:notice] = t('controller.successfully_created', :model => t('activerecord.models.message'))
-        format.html { redirect_to user_messages_url(current_user.username) }
+        format.html { redirect_to user_messages_url(current_user) }
         format.xml  { render :xml => @message, :status => :created, :location => @message }
       else
         format.html { render :action => "new" }

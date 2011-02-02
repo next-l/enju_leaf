@@ -15,4 +15,15 @@ class Country < ActiveRecord::Base
   
   # Validations
   validates_presence_of :alpha_2, :alpha_3, :numeric_3
+
+  after_save :clear_all_cache
+  after_destroy :clear_all_cache
+
+  def self.all_cache
+    Rails.cache.fetch('country_all'){Country.all}
+  end
+  
+  def clear_all_cache
+    Rails.cache.delete('country_all')
+  end
 end

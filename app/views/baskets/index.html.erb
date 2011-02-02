@@ -14,7 +14,7 @@
     <td><%= basket.user.username -%></td>
     <td><%= basket.note -%></td>
     <td><%= basket.updated_at -%></td>
-    <td><%= link_to t('page.show'), user_basket_path(basket.user.username, basket) -%></td>
+    <td><%= link_to t('page.show'), user_basket_path(basket.user, basket) -%></td>
   </tr>
 <%- end -%>
 </table>
@@ -26,6 +26,6 @@
 
 <div id="submenu" class="ui-corner-all">
   <ul>
-    <li><%= link_to t('page.new', :model => t('activerecord.models.basket')), new_user_basket_path(@user.username) -%></li>
+    <li><%= link_to t('page.new', :model => t('activerecord.models.basket')), new_user_basket_path(@user) -%></li>
   </ul>
 </div>

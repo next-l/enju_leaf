@@ -2,11 +2,10 @@
 class PatronsController < ApplicationController
   load_and_authorize_resource
   before_filter :get_user_if_nil
-  before_filter :get_manifestation, :get_item
-  before_filter :get_resources, :only => [:index, :show]
-  before_filter :get_work, :get_expression
-  before_filter :get_patron, :only => :index
-  before_filter :get_patron_merge_list
+  helper_method :get_work, :get_expression
+  helper_method :get_manifestation, :get_item
+  helper_method :get_patron
+  helper_method :get_patron_merge_list
   before_filter :prepare_options, :only => [:new, :edit]
   before_filter :store_location
   before_filter :get_version, :only => [:show]
@@ -56,11 +55,11 @@ class PatronsController < ApplicationController
     end
     unless params[:mode] == 'add'
       user = @user
-      work = @work
-      expression = @expression
-      manifestation = @manifestation
-      patron = @patron
-      patron_merge_list = @patron_merge_list
+      work = get_work
+      expression = get_expression
+      manifestation = get_manifestation
+      patron = get_patron
+      patron_merge_list = get_patron_merge_list
       search.build do
         with(:user).equal_to user.username if user
         with(:work_ids).equal_to work.id if work
@@ -100,6 +99,7 @@ class PatronsController < ApplicationController
   # GET /patrons/1
   # GET /patrons/1.xml
   def show
+    get_work; get_expression; get_manifestation; get_item
     case
     when @work
       @patron = @work.creators.find(params[:id])
@@ -244,17 +244,10 @@ class PatronsController < ApplicationController
 
   private
   def prepare_options
-    @countries = Country.all
+    @countries = Country.all_cache
     @patron_types = PatronType.all
-    @roles = Rails.cache.fetch('role_all'){Role.all}
-    @languages = Rails.cache.fetch('language_all'){Language.all}
-  end
-
-  def get_resources
-    get_work
-    get_expression
-    get_manifestation
-    get_item
+    @roles = Role.all_cache
+    @languages = Language.all_cache
   end
 
 end

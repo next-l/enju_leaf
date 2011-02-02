@@ -4,7 +4,7 @@ xml.rss('version' => "2.0",
   'xmlns:atom' => "http://www.w3.org/2005/Atom"){
   xml.channel{
     xml.title t('answer.user_answer', :login_name => @user.username)
-    xml.link "#{request.protocol}#{request.host_with_port}" + user_answers_path(@user.username)
+    xml.link "#{request.protocol}#{request.host_with_port}" + user_answers_path(@user)
     xml.description "Next-L Enju, an open source integrated library system developed by Project Next-L"
     xml.language @locale.to_s
     xml.ttl "60"
@@ -23,8 +23,8 @@ xml.rss('version' => "2.0",
         #xml.description(answer.title)
         # rfc822
         xml.pubDate answer.created_at.utc.rfc822
-        xml.link "#{request.protocol}#{request.host_with_port}" + user_answer_path(@user.username, answer)
-        xml.guid "#{request.protocol}#{request.host_with_port}" + user_answer_path(answer.user.username, answer), :isPermaLink => "true"
+        xml.link "#{request.protocol}#{request.host_with_port}" + user_answer_path(answer.user, answer)
+        xml.guid "#{request.protocol}#{request.host_with_port}" + user_answer_path(answer.user, answer), :isPermaLink => "true"
       end
     end
   }

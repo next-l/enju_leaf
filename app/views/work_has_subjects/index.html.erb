@@ -10,9 +10,9 @@
 
 <%- @work_has_subjects.each do |work_has_subject| -%>
   <tr class="line<%= cycle("0", "1") -%>">
-    <td><%= link_to h(work_has_subject.subject.term), work_has_subject.subject -%></td>
+    <td><%= link_to work_has_subject.subject.term, work_has_subject.subject -%></td>
     <!-- TODO: Manifestation以外 -->
-    <td><%= link_to h(work_has_subject.work.original_title), work_has_subject.work -%></td>
+    <td><%= link_to work_has_subject.work.original_title, work_has_subject.work -%></td>
     <td><%= link_to t('page.show'), work_has_subject -%></td>
     <td><%= link_to t('page.edit'), edit_work_has_subject_path(work_has_subject) -%></td>
     <td><%= link_to t('page.destroy'), work_has_subject, :confirm => t('page.are_you_sure'), :method => :delete -%></td>

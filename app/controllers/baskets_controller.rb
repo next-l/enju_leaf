@@ -1,13 +1,13 @@
 class BasketsController < ApplicationController
   before_filter :check_client_ip_address
   load_and_authorize_resource
-  before_filter :get_user, :except => [:new, :create]
+  helper_method :get_user
   cache_sweeper :basket_sweeper, :only => [:create, :update, :destroy]
 
   # GET /baskets
   # GET /baskets.xml
   def index
-    @baskets = @user.baskets.paginate(:all, :page => params[:page])
+    @baskets = get_user.baskets.paginate(:all, :page => params[:page])
 
     respond_to do |format|
       format.html # index.html.erb
@@ -57,7 +57,7 @@ class BasketsController < ApplicationController
     respond_to do |format|
       if @basket.save
         flash[:notice] = t('controller.successfully_created', :model => t('activerecord.models.basket'))
-        format.html { redirect_to user_basket_checked_items_url(@user.username, @basket) }
+        format.html { redirect_to user_basket_checked_items_url(@basket.user, @basket) }
         format.xml  { render :xml => @basket, :status => :created, :location => @basket }
       else
         format.html { render :action => "new" }
@@ -73,7 +73,7 @@ class BasketsController < ApplicationController
     #if params[:mode] == 'checkout'
     librarian = current_user
     unless @basket.basket_checkout(librarian)
-      redirect_to user_basket_checked_items_url(@basket.user.username, @basket)
+      redirect_to user_basket_checked_items_url(@basket.user, @basket)
       return
     end
 
@@ -83,10 +83,10 @@ class BasketsController < ApplicationController
       if @basket.save(:validate => false)
         # 貸出完了時
         flash[:notice] = t('basket.checkout_completed')
-        format.html { redirect_to(user_checkouts_url(@basket.user.username)) }
+        format.html { redirect_to(user_checkouts_url(@basket.user)) }
         format.xml  { head :ok }
       else
-        format.html { redirect_to(user_basket_checked_items_url(@basket.user.username, @basket)) }
+        format.html { redirect_to(user_basket_checked_items_url(@basket.user, @basket)) }
         format.xml  { head :ok }
       end
     end
@@ -101,7 +101,7 @@ class BasketsController < ApplicationController
 
     respond_to do |format|
       #format.html { redirect_to(user_baskets_url(@user)) }
-      format.html { redirect_to(user_checkouts_url(@basket.user.username)) }
+      format.html { redirect_to(user_checkouts_url(@basket.user)) }
       format.xml  { head :ok }
     end
   end

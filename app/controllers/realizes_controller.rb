@@ -42,9 +42,7 @@ class RealizesController < ApplicationController
       redirect_to patron_resources_url(@patron)
       return
     else
-      @realize = Realize.new
-      @realize.expression = @expression
-      @realize.patron = @patron
+      @realize = Realize.new(:expression => @expression, :patron => @patron)
     end
   end
 

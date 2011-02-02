@@ -2,7 +2,7 @@
 class UserGroupsController < ApplicationController
   before_filter :check_client_ip_address
   load_and_authorize_resource
-  before_filter :get_library, :only => :create
+  helper_method :get_library
 
   # GET /user_groups
   # GET /user_groups.xml
@@ -39,12 +39,7 @@ class UserGroupsController < ApplicationController
   # POST /user_groups
   # POST /user_groups.xml
   def create
-    UserGroup.transaction do
-      @user_group = UserGroup.create(params[:user_group])
-      #if @library
-      #  @library.user_group << @user_group
-      #end
-    end
+    @user_group = UserGroup.new(params[:user_group])
 
     respond_to do |format|
       if @user_group.save

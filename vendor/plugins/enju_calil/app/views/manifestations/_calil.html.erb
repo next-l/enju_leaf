@@ -1,7 +1,15 @@
 <%- if user_signed_in? and manifestation.isbn.present? %>
+  <script type="text/javascript">
+    window.onload = function() {
+      $("#calil_list").load('<%= manifestation_path(manifestation, :mode => 'calil_list') -%>', null, hideCalilSpinner);
+    }
+    function hideCalilSpinner(){
+      $("#spinner_calil_list").hide();
+    }
+  </script>
   <div id="calil_list">
     <span id="spinner_calil_list">
-      近隣の図書館を検索中… <img src="/images/spinner.gif" />
+      近隣の図書館を検索中… <%= image_tag('spinner.gif', :size => '16x16') %>
     </span>
   </div>
 <% end %>

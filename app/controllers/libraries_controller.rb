@@ -153,6 +153,6 @@ class LibrariesController < ApplicationController
   private
   def prepare_options
     @library_groups = LibraryGroup.all
-    @countries = Country.all
+    @countries = Country.all_cache
   end
 end

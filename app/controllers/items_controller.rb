@@ -3,9 +3,9 @@ class ItemsController < ApplicationController
   load_and_authorize_resource
   before_filter :get_user_if_nil
   before_filter :get_patron, :get_manifestation, :get_inventory_file
-  before_filter :get_shelf, :only => [:index]
-  before_filter :get_library, :only => [:new]
-  before_filter :get_item, :only => :index
+  helper_method :get_shelf
+  helper_method :get_library
+  helper_method :get_item
   before_filter :prepare_options, :only => [:new, :edit]
   before_filter :get_version, :only => [:show]
   #before_filter :store_location
@@ -61,7 +61,7 @@ class ItemsController < ApplicationController
 
       patron = @patron
       manifestation = @manifestation
-      shelf = @shelf
+      shelf = get_shelf
       unless params[:mode] == 'add'
         search.build do
           with(:patron_ids).equal_to patron.id if patron
@@ -244,7 +244,7 @@ class ItemsController < ApplicationController
     else
       @checkout_types = CheckoutType.all
     end
-    @roles = Rails.cache.fetch('role_all'){Role.all}
+    @roles = Role.all_cache
   end
 
 end

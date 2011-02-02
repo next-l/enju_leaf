@@ -6,7 +6,7 @@
 
 <p>
   <strong><%= t('activerecord.models.user') -%>:</strong>
-  <%= link_to h(@reserve.user.username), user_path(@reserve.user.username) -%>
+  <%= link_to @reserve.user.username, @reserve.user -%>
   (<%= @reserve.user.user_number %>)
 </p>
 
@@ -41,13 +41,13 @@
 <div id="submenu" class="ui-corner-all">
   <%= render :partial => 'manifestations/book_jacket', :locals => {:manifestation => @reserve.manifestation} -%>
   <ul>
-    <li><%= link_to t('page.edit'), edit_user_reserve_path(@reserve.user.username, @reserve) -%></li>
+    <li><%= link_to t('page.edit'), edit_user_reserve_path(@reserve.user, @reserve) -%></li>
     <%- if @reserve.user.reserves.waiting.include?(@reserve) -%>
-      <li><%= link_to t('page.cancel'), user_reserve_path(@reserve.user.username, @reserve, :mode => 'cancel'), :confirm => t('page.are_you_sure'), :method => :put -%></li>
+      <li><%= link_to t('page.cancel'), user_reserve_path(@reserve.user, @reserve, :mode => 'cancel'), :confirm => t('page.are_you_sure'), :method => :put -%></li>
     <%- else -%>
-      <li><%= link_to t('page.destroy'), user_reserve_path(@reserve.user.username, @reserve), :confirm => t('page.are_you_sure'), :method => :delete -%></li>
+      <li><%= link_to t('page.destroy'), user_reserve_path(@reserve.user, @reserve), :confirm => t('page.are_you_sure'), :method => :delete -%></li>
     <%- end -%>
-    <li><%= link_to t('page.back'), user_reserves_path(@reserve.user.username) -%></li>
+    <li><%= link_to t('page.back'), user_reserves_path(@reserve.user) -%></li>
   </ul>
   <!--
   <p>TODO: 予約取り消し時に、次の予約者に連絡する</p>

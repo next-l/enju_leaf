@@ -3,7 +3,7 @@ class PageController < ApplicationController
   before_filter :clear_search_sessions, :only => [:index, :advanced_search]
   before_filter :store_location, :only => [:advanced_search, :about, :add_on, :msie_acceralator, :statistics]
   before_filter :authenticate_user!, :except => [:index, :advanced_search, :about, :add_on, :msie_acceralator, :opensearch, :statistics, :routing_error]
-  before_filter :get_libraries, :only => [:advanced_search]
+  helper_method :get_libraries
   before_filter :check_librarian, :except => [:index, :advanced_search, :about, :add_on, :msie_acceralator, :opensearch,:routing_error]
 
   def index
@@ -23,6 +23,7 @@ class PageController < ApplicationController
   end
 
   def advanced_search
+    get_libraries
     @title = t('page.advanced_search')
   end
 

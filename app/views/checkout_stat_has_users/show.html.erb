@@ -3,12 +3,12 @@
 <div id="content_list">
 <p>
   <strong><%= t('activerecord.models.user_checkout_stat') -%>:</strong>
-  <%= link_to h(@checkout_stat_has_user.user_checkout_stat.id), @checkout_stat_has_user.user_checkout_stat -%>
+  <%= link_to @checkout_stat_has_user.user_checkout_stat.id, @checkout_stat_has_user.user_checkout_stat -%>
 </p>
 
 <p>
   <strong><%= t('activerecord.models.user') -%>:</strong>
-  <%= link_to h(@checkout_stat_has_user.user.username), users_path(@checkout_stat_has_user.user.username) -%>
+  <%= link_to @checkout_stat_has_user.user.username, @checkout_stat_has_user.user -%>
 </p>
 
 <p>

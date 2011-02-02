@@ -142,7 +142,7 @@ class ApplicationController < ActionController::Base
   end
 
   def get_libraries
-    @libraries = Rails.cache.fetch('library_all'){Library.all}
+    @libraries = Library.all_cache
   end
 
   def get_library_group

@@ -1,5 +1,5 @@
 class CalendarController < ApplicationController
-  before_filter :get_library
+  helper_method :get_library, :get_libraries
   
   def index
     params[:month] ||= Time.zone.now.month
@@ -11,11 +11,12 @@ class CalendarController < ApplicationController
     @shown_month = Time.zone.local(@year, @month, 1) rescue Time.zone.now
 
     # TODO: Solrを使って取得
-    if @library
+    if get_library
       @event_strips = Event.at(@library).event_strips_for_month(@shown_month)
     else
       @event_strips = Event.event_strips_for_month(@shown_month)
     end
+    get_libraries
   end
 
   def show

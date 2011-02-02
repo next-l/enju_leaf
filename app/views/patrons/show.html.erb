@@ -50,7 +50,7 @@
       <%- if @patron.user -%>
         <tr>
           <td><strong><%= t('activerecord.attributes.user.username') -%>:</strong></td>
-          <td><%= link_to h(@patron.user.username), @patron.user -%></td>
+          <td><%= link_to @patron.user.username, @patron.user -%></td>
         </tr>
       <%- end -%>
       <tr>
@@ -60,13 +60,13 @@
       <tr>
         <td><strong><%= t('activerecord.attributes.patron.email') -%>:</strong></td>
         <td>
-          <%= mail_to h(@patron.email), nil, :class => 'email' -%>
+          <%= mail_to @patron.email, nil, :class => 'email' -%>
         </td>
       </tr>
       <tr>
         <td><strong><%= t('activerecord.attributes.patron.url') -%>:</strong></td>
         <td>
-          <%= link_to h(@patron.url), @patron.url, :class => 'url' -%>
+          <%= link_to @patron.url, @patron.url, :class => 'url' -%>
         </td>
       </tr>
       <tr>
@@ -193,7 +193,7 @@
       <%- if @patron.user.blank? -%>
         <li><%= link_to t('patron.activate_as_user'), new_user_path(:patron_id => @patron.id) -%></li>
       <%- else -%>
-        <li><%= link_to t('page.editing', :model => t('activerecord.models.user')), edit_user_path(@patron.user.username) -%></li>
+        <li><%= link_to t('page.editing', :model => t('activerecord.models.user')), edit_user_path(@patron.user) -%></li>
       <%- end -%>
       <li><%= link_to t('page.edit'), edit_patron_path(@patron) -%></li>
       <li><%= link_to t('patron.add_derivation'), patron_patrons_path(@patron, :mode => 'add') -%></li>

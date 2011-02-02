@@ -5,7 +5,7 @@ xml.rss('version' => "2.0",
   xml.channel{
     if @user
       xml.title t('reserve.user_reserve', :login_name => @user.username)
-      xml.link user_reserves_url(@user.username, :format => :rss)
+      xml.link user_reserves_url(@user, :format => :rss)
     else
       xml.title t('reserve.library_group_reserve', :library_group_name => @library_group.display_name.localize)
       xml.link reserves_url(:format => :rss)
@@ -14,8 +14,8 @@ xml.rss('version' => "2.0",
     xml.language @locale.to_s
     xml.ttl "60"
     if @user
-      xml.tag! "atom:link", :rel => 'self', :href => user_reserves_url(@user.username, :format => :rss)
-      xml.tag! "atom:link", :rel => 'alternate', :href => user_reserves_url(@user.username)
+      xml.tag! "atom:link", :rel => 'self', :href => user_reserves_url(@user, :format => :rss)
+      xml.tag! "atom:link", :rel => 'alternate', :href => user_reserves_url(@user)
     else
       xml.tag! "atom:link", :rel => 'self', :href => reserves_url(:format => :rss)
       xml.tag! "atom:link", :rel => 'alternate', :href => reserves_url
@@ -33,8 +33,8 @@ xml.rss('version' => "2.0",
         #xml.description(reserve.title)
         # rfc822
         xml.pubDate reserve.created_at.utc.rfc822
-        xml.link user_reserve_url(reserve.user.username, reserve)
-        xml.guid user_reserve_url(reserve.user.username, reserve), :isPermaLink => "true"
+        xml.link user_reserve_url(reserve.user, reserve)
+        xml.guid user_reserve_url(reserve.user, reserve), :isPermaLink => "true"
       end
     end
   }

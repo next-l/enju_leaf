@@ -8,7 +8,7 @@
   <p>
     <%= f.label t('activerecord.attributes.work_has_subject.work') -%><br />
     <%- if @work_has_subject.work -%>
-      <%= link_to h(@work_has_subject.work.original_title), @work_has_subject.work -%>
+      <%= link_to @work_has_subject.work.original_title, @work_has_subject.work -%>
       <%= f.hidden_field :work_id -%>
     <%- else -%>
       <%= f.text_field :work_id -%>
@@ -17,7 +17,7 @@
   <p>
     <%= f.label t('activerecord.attributes.work_has_subject.subject') -%><br />
     <%- if @work_has_subject.subject -%>
-      <%= link_to h(@work_has_subject.subject.term), @work_has_subject.subject -%>
+      <%= link_to @work_has_subject.subject.term, @work_has_subject.subject -%>
       <%= f.hidden_field :subject_id -%>
     <%- else -%>
       <%= f.text_field :subject_id -%>

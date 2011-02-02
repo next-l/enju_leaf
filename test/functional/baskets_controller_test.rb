@@ -101,13 +101,6 @@ class BasketsControllerTest < ActionController::TestCase
     assert_redirected_to new_user_session_url
   end
 
-  def test_guest_should_not_show_basket_without_user_number
-    sign_in users(:admin)
-    get :show, :id => 1
-    #assert_response :forbidden
-    assert_response :missing
-  end
-
   def test_user_should_not_show_basket
     sign_in users(:user1)
     get :show, :id => 3, :user_id => users(:user1).username
@@ -126,13 +119,6 @@ class BasketsControllerTest < ActionController::TestCase
     assert_redirected_to new_user_session_url
   end
   
-  def test_everyone_should_not_get_edit_without_user_id
-    sign_in users(:admin)
-    get :edit, :id => 1
-    #assert_response :forbidden
-    assert_response :missing
-  end
-  
   def test_user_should_not_get_edit
     sign_in users(:user1)
     get :edit, :id => 3, :user_id => users(:user1).username
@@ -149,12 +135,6 @@ class BasketsControllerTest < ActionController::TestCase
     delete :destroy, :id => 1, :basket => { }, :user_id => users(:user1).username
     assert_response :redirect
     assert_redirected_to new_user_session_url
-  end
-
-  def test_everyone_should_not_destroy_basket_without_user_id
-    sign_in users(:admin)
-    delete :destroy, :id => 1, :basket => { }
-    assert_response :forbidden
   end
 
   def test_user_should_not_destroy_basket
@@ -185,16 +165,6 @@ class BasketsControllerTest < ActionController::TestCase
     assert_redirected_to new_user_session_url
   end
 
-  def test_everyone_should_not_destroy_basket_without_user_id
-    sign_in users(:admin)
-    assert_no_difference('Basket.count') do
-      delete :destroy, :id => 1
-    end
-    
-    #assert_response :forbidden
-    assert_response :missing
-  end
-  
   def test_user_should_not_destroy_basket
     sign_in users(:user1)
     assert_no_difference('Basket.count') do
@@ -209,7 +179,7 @@ class BasketsControllerTest < ActionController::TestCase
     put :update, :id => 8, :user_id => users(:user1).username
     assert_equal 'On Loan', assigns(:basket).checkouts.first.item.circulation_status.name
     
-    assert_redirected_to user_checkouts_url(assigns(:user).username)
+    assert_redirected_to user_checkouts_url(assigns(:basket).user)
   end
 
   #def test_system_should_show_notice_when_patron_reserved_checkout_items

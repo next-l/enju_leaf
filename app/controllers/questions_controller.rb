@@ -155,8 +155,8 @@ class QuestionsController < ApplicationController
     respond_to do |format|
       if @question.save
         flash[:notice] = t('controller.successfully_created', :model => t('activerecord.models.question'))
-        format.html { redirect_to user_question_url(@question.user.username, @question) }
-        format.xml  { render :xml => @question, :status => :created, :location => user_question_url(@question.user.username, @question) }
+        format.html { redirect_to user_question_url(@question.user, @question) }
+        format.xml  { render :xml => @question, :status => :created, :location => user_question_url(@question.user, @question) }
       else
         format.html { render :action => "new" }
         format.xml  { render :xml => @question.errors.to_xml }
@@ -172,7 +172,7 @@ class QuestionsController < ApplicationController
     respond_to do |format|
       if @question.update_attributes(params[:question])
         flash[:notice] = t('controller.successfully_updated', :model => t('activerecord.models.question'))
-        format.html { redirect_to user_question_url(@question.user.username, @question) }
+        format.html { redirect_to user_question_url(@question.user, @question) }
         format.xml  { head :ok }
       else
         format.html { render :action => "edit" }
@@ -192,7 +192,7 @@ class QuestionsController < ApplicationController
     @question.destroy
 
     respond_to do |format|
-      format.html { redirect_to user_questions_url(@question.user.username) }
+      format.html { redirect_to user_questions_url(@question.user) }
       format.xml  { head :ok }
     end
   end

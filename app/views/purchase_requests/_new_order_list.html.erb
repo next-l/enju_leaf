@@ -8,9 +8,9 @@
   <p>
     <%= f.label t('activerecord.models.user') -%><br />
     <%- if @user -%>
-      <%= link_to h(@user.username), @user -%>
+      <%= link_to @user.username, @user -%>
     <%- else -%>
-      <%= link_to h(current_user.username), current_user -%>
+      <%= link_to current_user.username, current_user -%>
     <%- end -%>
   </p>
 

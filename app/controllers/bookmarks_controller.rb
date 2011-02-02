@@ -116,10 +116,10 @@ class BookmarksController < ApplicationController
         @bookmark.manifestation.index!
         if params[:mode] == 'tag_edit'
           format.html { redirect_to(@bookmark.manifestation) }
-          format.xml  { render :xml => @bookmark, :status => :created, :location => user_bookmark_url(@bookmark.user.username, @bookmark) }
+          format.xml  { render :xml => @bookmark, :status => :created, :location => user_bookmark_url(@bookmark.user, @bookmark) }
         else
           format.html { redirect_to(@bookmark) }
-          format.xml  { render :xml => @bookmark, :status => :created, :location => user_bookmark_url(@bookmark.user.username, @bookmark) }
+          format.xml  { render :xml => @bookmark, :status => :created, :location => user_bookmark_url(@bookmark.user, @bookmark) }
         end
       else
         @user = current_user
@@ -156,7 +156,7 @@ class BookmarksController < ApplicationController
           format.html { redirect_to(@bookmark.manifestation) }
           format.xml  { head :ok }
         else
-          format.html { redirect_to user_bookmark_url(@bookmark.user.username, @bookmark) }
+          format.html { redirect_to user_bookmark_url(@bookmark.user, @bookmark) }
           format.xml  { head :ok }
         end
       else
@@ -181,12 +181,12 @@ class BookmarksController < ApplicationController
 
     if @user
       respond_to do |format|
-        format.html { redirect_to user_bookmarks_url(@user.username) }
+        format.html { redirect_to user_bookmarks_url(@user) }
         format.xml  { head :ok }
       end
     else
       respond_to do |format|
-        format.html { redirect_to user_bookmarks_url(current_user.username) }
+        format.html { redirect_to user_bookmarks_url(current_user) }
         format.xml  { head :ok }
       end
     end
@@ -205,7 +205,7 @@ class BookmarksController < ApplicationController
             access_denied; return
           end
         else
-          redirect_to user_bookmarks_path(current_user.username)
+          redirect_to user_bookmarks_path(current_user)
           return
         end
       end

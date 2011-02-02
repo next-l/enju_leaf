@@ -10,20 +10,14 @@ class PurchaseRequestsController < ApplicationController
   # GET /purchase_requests
   # GET /purchase_requests.xml
   def index
-    if user_signed_in?
-      begin
-        if !current_user.has_role?('Librarian')
-          raise unless current_user == @user
+    unless current_user.has_role?('Librarian')
+      if @user
+        unless current_user == @user
+          access_denied; return
         end
-      rescue
-        if @user
-          unless current_user == @user
-            access_denied; return
-          end
-        else
-          redirect_to user_purchase_requests_path(current_user.username)
-          return
-        end
+      else
+        redirect_to user_purchase_requests_path(current_user)
+        return
       end
     end
 
@@ -95,12 +89,10 @@ class PurchaseRequestsController < ApplicationController
   # GET /purchase_requests/new
   # GET /purchase_requests/new.xml
   def new
-    begin
-      if !current_user.has_role?('Librarian')
-        raise unless current_user == @user
+    if !current_user.has_role?('Librarian')
+      unless current_user == @user
+        access_denied; return
       end
-    rescue
-      access_denied; return
     end
 
     @purchase_request = PurchaseRequest.new(params[:purchase_request])
@@ -135,7 +127,7 @@ class PurchaseRequestsController < ApplicationController
       if @purchase_request.save
         @order_list.purchase_requests << @purchase_request if @order_list
         flash[:notice] = t('controller.successfully_created', :model => t('activerecord.models.purchase_request'))
-        format.html { redirect_to user_purchase_request_url(@purchase_request.user.username, @purchase_request) }
+        format.html { redirect_to user_purchase_request_url(@purchase_request.user, @purchase_request) }
         format.xml  { render :xml => @purchase_request, :status => :created, :location => @purchase_request }
       else
         format.html { render :action => "new" }
@@ -163,7 +155,7 @@ class PurchaseRequestsController < ApplicationController
       if @purchase_request.update_attributes(params[:purchase_request])
         @order_list.purchase_requests << @purchase_request if @order_list
         flash[:notice] = t('controller.successfully_updated', :model => t('activerecord.models.purchase_request'))
-        format.html { redirect_to user_purchase_request_url(@purchase_request.user.username, @purchase_request) }
+        format.html { redirect_to user_purchase_request_url(@purchase_request.user, @purchase_request) }
         format.xml  { head :ok }
       else
         format.html { render :action => "edit" }
@@ -187,7 +179,7 @@ class PurchaseRequestsController < ApplicationController
         format.html { redirect_to(purchase_requests_url) }
         format.xml  { head :ok }
       else
-        format.html { redirect_to(user_purchase_requests_url(@user.username)) }
+        format.html { redirect_to(user_purchase_requests_url(@user)) }
         format.xml  { head :ok }
       end
     end

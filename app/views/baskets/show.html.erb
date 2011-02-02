@@ -15,7 +15,7 @@
 
 <div id="submenu" class="ui-corner-all">
   <ul>
-    <li><%= link_to t('page.edit'), edit_user_basket_path(@basket.user.username, @basket) -%></li>
-    <li><%= link_to t('page.back'), user_baskets_path(@basket.user.username) -%></li>
+    <li><%= link_to t('page.edit'), edit_user_basket_path(@basket.user, @basket) -%></li>
+    <li><%= link_to t('page.back'), user_baskets_path(@basket.user) -%></li>
   </ul>
 </div>

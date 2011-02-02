@@ -2,16 +2,16 @@ class CheckinsController < ApplicationController
   before_filter :check_client_ip_address
   load_and_authorize_resource
   before_filter :get_user_if_nil
-  before_filter :get_basket
+  helper_method :get_basket
   cache_sweeper :page_sweeper, :only => [:create, :update, :destroy]
   
   # GET /checkins
   # GET /checkins.xml
   def index
     # かごがない場合、自動的に作成する
-    unless @basket
+    unless get_basket
       @basket = Basket.create!(:user => current_user)
-      redirect_to user_basket_checkins_url(@basket.user.username, @basket)
+      redirect_to user_basket_checkins_url(@basket.user, @basket)
       return
     end
     @checkins = @basket.checkins.all(:order => ['checkins.created_at DESC'])
@@ -51,7 +51,7 @@ class CheckinsController < ApplicationController
   # POST /checkins.xml
   def create
     @second = Benchmark.realtime do
-    @checkin = @basket.checkins.new(params[:checkin])
+    @checkin = get_basket.checkins.new(params[:checkin])
 
     flash[:message] = []
     if @checkin.item_identifier.blank?
@@ -62,7 +62,7 @@ class CheckinsController < ApplicationController
 
     unless item.blank?
       if @basket.checkins.collect(&:item).include?(item)
-        redirect_to user_basket_checkins_url(@basket.user.username, @basket, :mode => 'list')
+        redirect_to user_basket_checkins_url(@basket.user, @basket, :mode => 'list')
         flash[:message] << t('checkin.already_checked_in')
         return
       end
@@ -101,19 +101,19 @@ class CheckinsController < ApplicationController
 
             # メールとメッセージの送信
             #ReservationNotifier.deliver_reserved(@checkin.item.manifestation.reserves.first.user, @checkin.item.manifestation)
-            #Message.create(:sender => current_user, :receiver => @checkin.item.manifestation.next_reservation.user, :subject => message_template.title, :body => message_template.body, :recipient => @checkin.item.manifestation.next_reservation.user.usernamea
+            #Message.create(:sender => current_user, :receiver => @checkin.item.manifestation.next_reservation.user, :subject => message_template.title, :body => message_template.body, :recipient => @checkin.item.manifestation.next_reservation.user)
           end
         
           if params[:mode] == 'list'
-            redirect_to(user_basket_checkins_url(@checkin.basket.user.username, @checkin.basket, :mode => 'list'))
+            redirect_to(user_basket_checkins_url(@checkin.basket.user, @checkin.basket, :mode => 'list'))
             return
           else
-            format.html { redirect_to user_basket_checkins_url(@checkin.basket.user.username, @checkin.basket) }
-            format.xml  { render :xml => @checkin, :status => :created, :location => user_basket_checkin_url(@checkin.basket.user.username, @checkin.basket, @checkin) }
+            format.html { redirect_to user_basket_checkins_url(@checkin.basket.user, @checkin.basket) }
+            format.xml  { render :xml => @checkin, :status => :created, :location => user_basket_checkin_url(@checkin.basket.user, @checkin.basket, @checkin) }
           end
         else
           if params[:mode] == 'list'
-            redirect_to user_basket_checkins_url(@basket.user.username, @basket, :mode => 'list')
+            redirect_to user_basket_checkins_url(@basket.user, @basket, :mode => 'list')
             return
           else
             format.html { render :action => "new" }
@@ -124,9 +124,9 @@ class CheckinsController < ApplicationController
     else
       flash[:message] << t('checkin.item_not_found')
       if params[:mode] == 'list'
-        redirect_to user_basket_checkins_url(@basket.user.username, @basket, :mode => 'list')
+        redirect_to user_basket_checkins_url(@basket.user, @basket, :mode => 'list')
       else
-        redirect_to user_basket_checkins_url(@basket.user.username, @basket)
+        redirect_to user_basket_checkins_url(@basket.user, @basket)
       end
     end
     end

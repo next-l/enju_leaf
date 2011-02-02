@@ -36,7 +36,7 @@
   <ul>
     <li><%= link_to t('page.listing', :model => t('activerecord.models.event')), events_path -%></li>
     <li><%= link_to t('page.show_all'), :controller => :calendar, :action => :index -%></li>
-    <%- Library.all.each do |library| -%>
+    <%- @libraries.each do |library| -%>
       <li><%= link_to h(library.display_name.localize), :controller => :calendar, :action => :index, :library_id => library.name -%></li>
     <%- end -%>
   </ul>

@@ -7,7 +7,7 @@
 
   <p>
     <%= f.label t('activerecord.models.user') -%><br />
-    <%= link_to h(@purchase_request.user.username), @purchase_request.user -%>
+    <%= link_to @purchase_request.user.username, @purchase_request.user -%>
     <%= f.hidden_field :user_id -%>
   </p>
 
@@ -60,7 +60,7 @@
 
 <div id="submenu" class="ui-corner-all">
   <ul>
-    <li><%= link_to t('page.show'), user_purchase_request_path(@purchase_request.user.username, @purchase_request) -%></li>
-    <li><%= link_to t('page.back'), user_purchase_requests_path(@purchase_request.user.username, :page => flash[:page] ||= nil) -%></li>
+    <li><%= link_to t('page.show'), user_purchase_request_path(@purchase_request.user, @purchase_request) -%></li>
+    <li><%= link_to t('page.back'), user_purchase_requests_path(@purchase_request.user, :page => flash[:page] ||= nil) -%></li>
   </ul>
 </div>

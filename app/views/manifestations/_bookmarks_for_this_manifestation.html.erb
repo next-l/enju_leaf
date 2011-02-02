@@ -2,7 +2,7 @@
   <ul>
     <%- manifestation.bookmarks.each do |bookmark| -%>
       <% if bookmark.shared? %>
-        <li><%= link_to h(bookmark.user.username), user_bookmark_path(bookmark.user, bookmark) -%>
+        <li><%= link_to bookmark.user.username, user_bookmark_path(bookmark.user, bookmark) -%>
           <%- bookmark.tags.each do |tag| -%>
             [<%= link_to h(tag.name), manifestations_path(:tag => tag.name) -%>]
           <%- end -%>

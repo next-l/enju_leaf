@@ -406,6 +406,7 @@ class Ability
       can :show, Answer do |answer|
         answer.user == user or answer.shared
       end
+      can :index, Checkout
       can :index, Patron
       can :show, Patron do |patron|
         patron.required_role_id == 1 #name == 'Guest'
@@ -417,7 +418,6 @@ class Ability
       can :read, [
         BookmarkStat,
         CarrierType,
-        Checkout,
         CirculationStatus,
         Classification,
         ClassificationType,

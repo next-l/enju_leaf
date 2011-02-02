@@ -1,7 +1,7 @@
 <%- if user_signed_in? -%>
   <%- unless @bookmark.blank? -%>
     <!-- bookmarked_by_me -->
-    <%= form_for(:bookmark, :url => user_bookmark_path(current_user.username, @bookmark, :mode => 'tag_edit'), :html => { :method => :put }) do |f| -%>
+    <%= form_for(:bookmark, :url => user_bookmark_path(current_user, @bookmark, :mode => 'tag_edit'), :html => { :method => :put }) do |f| -%>
       <div>
         <%= f.text_field :tag_list, :value => @bookmark.tag_list.join(' '), :class => 'editable_text_field' -%>
         <%= submit_tag t('page.update') -%>
@@ -13,7 +13,7 @@
     <%= javascript_tag("$('#bookmark_tag_list').focus()") -%>
   <%- else -%>
     <!-- bookmarked_by_other_patron_or_not_bookmarked -->
-    <%= form_for(:bookmark, :url => user_bookmarks_path(current_user.username, :mode => 'tag_edit'), :html => { :method => :post }) do |f| -%>
+    <%= form_for(:bookmark, :url => user_bookmarks_path(current_user, :mode => 'tag_edit'), :html => { :method => :post }) do |f| -%>
       <div>
         <%= f.text_field :tag_list, :class => 'editable_text_field' -%>
         <%= f.hidden_field :title, :value => h(manifestation.original_title) -%>

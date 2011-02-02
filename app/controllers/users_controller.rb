@@ -2,7 +2,7 @@
 class UsersController < ApplicationController
   #before_filter :reset_params_session
   load_and_authorize_resource
-  before_filter :get_patron, :only => :new
+  helper_method :get_patron
   before_filter :store_location, :only => [:index]
   before_filter :clear_search_sessions, :only => [:show]
   after_filter :solr_commit, :only => [:create, :update, :destroy]
@@ -68,7 +68,7 @@ class UsersController < ApplicationController
     #@user = User.find(params[:id])
     raise ActiveRecord::RecordNotFound if @user.blank?
     unless @user.patron
-      redirect_to new_user_patron_url(@user.username); return
+      redirect_to new_user_patron_url(@user); return
     end
     #@tags = @user.owned_tags_by_solr
     @tags = @user.bookmarks.tag_counts.sort{|a,b| a.count <=> b.count}.reverse
@@ -91,7 +91,7 @@ class UsersController < ApplicationController
     #@user.openid_identifier = flash[:openid_identifier]
     prepare_options
     @user_groups = UserGroup.all
-    if @patron.try(:user)
+    if get_patron.try(:user)
       redirect_to patron_url(@patron)
       flash[:notice] = t('page.already_activated')
       return
@@ -145,7 +145,7 @@ class UsersController < ApplicationController
           @user.expired_at = Time.zone.parse(expired_at_array.join("-"))
         rescue ArgumentError
           flash[:notice] = t('page.invalid_date')
-          redirect_to edit_user_url(@user.username)
+          redirect_to edit_user_url(@user)
           return
         end
       end
@@ -170,7 +170,7 @@ class UsersController < ApplicationController
       end
       if @user.errors.empty?
         flash[:notice] = t('controller.successfully_updated', :model => t('activerecord.models.user'))
-        format.html { redirect_to user_url(@user.username) }
+        format.html { redirect_to user_url(@user) }
         format.xml  { head :ok }
       else
         prepare_options
@@ -182,7 +182,7 @@ class UsersController < ApplicationController
     #unless performed?
     #  # OpenIDでの認証後
     #  flash[:notice] = t('user_session.login_failed')
-    #  redirect_to edit_user_url(@user.username)
+    #  redirect_to edit_user_url(@user)
     #end
 
   end
@@ -213,8 +213,8 @@ class UsersController < ApplicationController
         #self.current_user = @user
         flash[:notice] = t('controller.successfully_created.', :model => t('activerecord.models.user'))
         flash[:temporary_password] = @user.password
-        format.html { redirect_to user_url(@user.username) }
-        #format.html { redirect_to new_user_patron_url(@user.username) }
+        format.html { redirect_to user_url(@user) }
+        #format.html { redirect_to new_user_patron_url(@user) }
         format.xml  { head :ok }
       else
         prepare_options
@@ -276,9 +276,9 @@ class UsersController < ApplicationController
   private
   def prepare_options
     @user_groups = UserGroup.all
-    @roles = Rails.cache.fetch('role_all'){Role.all}
-    @libraries = Rails.cache.fetch('library_all'){Library.all}
-    @languages = Rails.cache.fetch('language_all'){Language.all}
+    @roles = Role.all_cache
+    @libraries = Library.all_cache
+    @languages = Language.all_cache
     if @user.active?
       @user.locked = '0'
     else

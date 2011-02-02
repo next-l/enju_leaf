@@ -4,12 +4,12 @@
 <p>
   <strong><%= t('activerecord.attributes.work_has_subject.work') -%>:</strong>
   <!-- TODO: Manifestation以外 -->
-  <%= link_to h(@work_has_subject.work.original_title), @work_has_subject.work if @work_has_subject.work -%>
+  <%= link_to @work_has_subject.work.original_title, @work_has_subject.work if @work_has_subject.work -%>
 </p>
 
 <p>
   <strong><%= t('activerecord.attributes.work_has_subject.subject') -%>:</strong>
-  <%= link_to h(@work_has_subject.subject.term), @work_has_subject.subject -%>
+  <%= link_to @work_has_subject.subject.term, @work_has_subject.subject -%>
 </p>
 
 </div>
