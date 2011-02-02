@@ -1,9 +1,9 @@
 <%=h @user.patron.full_name -%> :
 
 Title: <%=h @manifestation.original_title %>
-Creator(s): <%=h @manifestation.creators.collect(&:full_name).join("/") %>
-Contributor(s): <%=h @manifestation.contributors.collect(&:full_name).join("/") %> 
-Publisher(s): <%=h @manifestation.publishers.collect(&:full_name).join("/") %>
+Creator(s): <%=h @manifestation.creators.readable_by(@user).collect(&:full_name).join("/") %>
+Contributor(s): <%=h @manifestation.contributors.readable_by(@user).collect(&:full_name).join("/") %> 
+Publisher(s): <%=h @manifestation.publishers.readable_by(@user).collect(&:full_name).join("/") %>
 ISBN: <%=h @manifestation.isbn %>
 URL: <%=h @manifestation.access_address %>
 Holding:

@@ -145,22 +145,11 @@ class ResourceImportFile < ActiveRecord::Base
 
     # TODO
     for record in reader
-      work = Work.new(:original_title => record['245']['a'])
-      work.form_of_work = FormOfWork.find(1)
-      work.save
-
-      expression = Expression.new(:original_title => work.original_title)
-      expression.content_type = ContentType.find(1)
-      expression.language = Language.find(1)
-      expression.save
-      work.expressions << expression
-
       manifestation = Manifestation.new(:original_title => expression.original_title)
       manifestation.carrier_type = CarrierType.find(1)
       manifestation.frequency = Frequency.find(1)
       manifestation.language = Language.find(1)
       manifestation.save
-      expression.manifestations << manifestation
 
       full_name = record['700']['a']
       publisher = Patron.find_by_full_name(record['700']['a'])
@@ -168,7 +157,7 @@ class ResourceImportFile < ActiveRecord::Base
         publisher = Patron.new(:full_name => full_name)
         publisher.save
       end
-      manifestation.patrons << publisher
+      manifestation.publishers << publisher
     end
   end
 

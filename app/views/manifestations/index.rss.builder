@@ -24,7 +24,7 @@ xml.rss('version' => "2.0",
             xml.title h(manifestation.original_title)
             #xml.description(manifestation.original_title)
             # rfc822
-            manifestation.creators.each do |creator|
+            manifestation.creators.readable_by(current_user).each do |creator|
               xml.tag! "dc:creator", creator.full_name
             end
             xml.pubDate manifestation.date_of_publication.try(:utc).try(:rfc822)

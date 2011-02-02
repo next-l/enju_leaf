@@ -20,7 +20,7 @@
       <td>
         <strong><%= link_to h(work.original_title), work -%></strong>
         <br />
-        <%= raw patrons_list(work.patrons, current_user) -%>
+        <%= raw patrons_list(work.creators.readable_by(current_user)) -%>
       </td>
     </tr>
   <%- end -%>

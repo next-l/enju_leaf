@@ -2,7 +2,7 @@
     xml.title h(manifestation.original_title)
     #xml.description(manifestation.original_title)
     xml.tag! 'dc:date', h(manifestation.created_at.utc.iso8601)
-    manifestation.creators.each do |creator|
+    manifestation.creators.readable_by(current_user).each do |creator|
       xml.tag! 'foaf:maker' do
         xml.tag! 'foaf:Person' do
           xml.tag! 'foaf:name', creator.full_name
@@ -12,21 +12,21 @@
     end
     xml.tag! 'dc:creator' do
       xml.tag! 'rdf:Seq' do
-        manifestation.creators.each do |creator|
+        manifestation.creators.readable_by(current_user).each do |creator|
           xml.tag! 'rdf:li', creator.full_name
         end
       end
     end
     xml.tag! 'dc:creator' do
       xml.tag! 'rdf:Seq' do
-        manifestation.contributors.each do |contributor|
+        manifestation.contributors.readable_by(current_user).each do |contributor|
           xml.tag! 'rdf:li', contributor.full_name
         end
       end
     end
     xml.tag! 'dc:publisher' do
       xml.tag! 'rdf:Seq' do
-        manifestation.publishers.each do |publisher|
+        manifestation.publishers.readable_by(current_user).each do |publisher|
           xml.tag! 'rdf:li', publisher.full_name
         end
       end

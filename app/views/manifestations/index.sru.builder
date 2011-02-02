@@ -71,7 +71,7 @@ def get_record(manifestation)
     'xsi:schemaLocation' => "info:srw/schema/1/dc-v1.1 http://www.loc.gov/standards/sru/dc-schema.xsd" do
     cache(:controller => :manifestations, :action => :show, :id => manifestation.id, :page => 'sru', :role => current_user_role_name, :locale => @locale) do
       xml.tag! 'dc:title', manifestation.original_title
-      manifestation.creators.each do |patron|
+      manifestation.creators.readable_by(current_user).each do |patron|
         xml.tag! 'dc:creator', patron.full_name
       end
       manifestation.contributors.each do |patron|

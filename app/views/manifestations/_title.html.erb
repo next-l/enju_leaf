@@ -5,14 +5,14 @@
     <%= link_to form_icon(manifestation.carrier_type), manifestation -%>
   </h2>
   <p>
-    <%- if manifestation.creators.first -%>
-      <%= t('patron.creator') -%>: <%= raw patrons_list(manifestation.creators, current_user) -%>
+    <%- if manifestation.creators.readable_by(current_user).first -%>
+      <%= t('patron.creator') -%>: <%= raw patrons_list(manifestation.creators.readable_by(current_user)) -%>
     <%- end -%>
-    <%- if manifestation.contributors.first -%>
-      <%= t('patron.contributor') -%>: <%= raw patrons_list(manifestation.contributors, current_user) -%>
+    <%- if manifestation.contributors.readable_by(current_user).first -%>
+      <%= t('patron.contributor') -%>: <%= raw patrons_list(manifestation.contributors.readable_by(current_user)) -%>
     <%- end -%>
-    <%- if manifestation.publishers.first -%>
-      <%= t('patron.publisher') -%>: <%= raw patrons_list(manifestation.publishers, current_user) -%>
+    <%- if manifestation.publishers.readable_by(current_user).first -%>
+      <%= t('patron.publisher') -%>: <%= raw patrons_list(manifestation.publishers.readable_by(current_user)) -%>
     <% end %>
     <%- if manifestation.date_of_publication -%>
       (<%= manifestation.date_of_publication.strftime('%Y') -%>)

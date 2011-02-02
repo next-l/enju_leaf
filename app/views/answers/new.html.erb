@@ -2,7 +2,7 @@
 <h1 class="title"><%= t('page.new', :model => t('activerecord.models.answer')) -%></h1>
 <div id="content_list">
 
-<%= form_for(:answer, :url => user_question_answers_path(@answer.question.user.username, @answer.question)) do |f| -%>
+<%= form_for(:answer, :url => user_question_answers_path(@answer.question.user, @answer.question)) do |f| -%>
   <%= f.error_messages -%>
   <p>
     <%= f.label t('activerecord.models.question') -%><br />
@@ -26,7 +26,7 @@
   </p>
 
   <p>
-    <%= f.submit %>
+    <%= f.submit t('page.create') -%>
   </p>
 <%- end -%>
 </div>
@@ -35,7 +35,7 @@
 <div id="submenu" class="ui-corner-all">
   <ul>
     <%- if @answer.question -%>
-      <li><%= link_to t('page.back'), user_question_answers_path(@answer.question.user.username, @answer.question) -%></li>
+      <li><%= link_to t('page.back'), user_question_answers_path(@answer.question.user, @answer.question) -%></li>
     <%- end -%>
   </ul>
 </div>

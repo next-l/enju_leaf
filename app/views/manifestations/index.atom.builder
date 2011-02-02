@@ -7,7 +7,7 @@ atom_feed(:url => manifestations_url(:format => :atom)) do |feed|
         entry.title(manifestation.original_title)
         entry.content(manifestation.tags.join(' '), :type => 'html')
 
-        manifestation.creators.each do |patron|
+        manifestation.creators.readable_by(current_user).each do |patron|
           entry.author do |author|
             author.name(patron.full_name)
           end

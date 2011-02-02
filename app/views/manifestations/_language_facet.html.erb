@@ -6,7 +6,7 @@
     <%- language = Language.first(:conditions => {:name => facet.value}) -%>
     <%- if language -%>
       <li>
-      <%= language_facet(language, current_languages, facet) %>
+		<%= language_facet(language, current_languages, facet) %>
       </li>
     <%- end -%>
   <%- end -%>

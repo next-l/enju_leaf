@@ -5,7 +5,7 @@
       <li>
         [W]
         <%= link_to h(work.original_title), work -%>
-        <%= raw patrons_list(work.creators, current_user) -%>
+        <%= raw patrons_list(work.creators.readable_by(current_user)) -%>
       </li>
     <%- end -%>
   </ul>

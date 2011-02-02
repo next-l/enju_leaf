@@ -1,23 +1,17 @@
   <%- if params[:mode] == 'show_all_authors' -%>
-      <%- manifestation.creators.each do |patron| -%>
-        <%= link_to h(patron.full_name), patron -%>
-      <%- end -%>
-      <%- if manifestation.creators.size > 5 -%>
-        (<a href="#" onclick="$.ajax({data:'authenticity_token=' + encodeURIComponent('<%= form_authenticity_token %>'), success:function(request){$('#author_list_<%= manifestation.id %>').html(request);}, type:'get', url:'/manifestations/<%= manifestation.id %>?index_num=<%= manifestation.id %>&amp;mode=show_authors'}); return false;"><%= t('page.hide') %></a>)
-      <%- end -%>
+    <%= raw patrons_list(manifestation.creators.readable_by(current_user)) %>
+    <%- if manifestation.creators.readable_by(current_user).size > 5 -%>
+      (<a href="#" onclick="$.ajax({data:'authenticity_token=' + encodeURIComponent('<%= form_authenticity_token %>'), success:function(request){$('#author_list_<%= manifestation.id %>').html(request);}, type:'get', url:'/manifestations/<%= manifestation.id %>?index_num=<%= manifestation.id %>&amp;mode=show_authors'}); return false;"><%= t('page.hide') %></a>)
+    <%- end -%>
   <%- else -%>
-      <%- manifestation.creators[0..2].each do |patron| -%>
-        <%= link_to h(patron.full_name), patron -%>
-      <%- end -%>
-      <%- if manifestation.creators.size > 5 -%>
-        (<a href="#" onclick="$.ajax({data:'authenticity_token=' + encodeURIComponent('<%= form_authenticity_token %>'), success:function(request){$('#author_list_<%= manifestation.id %>').html(request);}, type:'get', url:'/manifestations/<%= manifestation.id %>?index_num=<%= manifestation.id %>&amp;mode=show_all_authors'}); return false;"><%= t('page.show_all') %></a>)
-      <%- end -%>
+    <%= raw patrons_list(manifestation.creators.readable_by(current_user)[0..2]) %>
+    <%- if manifestation.creators.readable_by(current_user).size > 5 -%>
+      (<a href="#" onclick="$.ajax({data:'authenticity_token=' + encodeURIComponent('<%= form_authenticity_token %>'), success:function(request){$('#author_list_<%= manifestation.id %>').html(request);}, type:'get', url:'/manifestations/<%= manifestation.id %>?index_num=<%= manifestation.id %>&amp;mode=show_all_authors'}); return false;"><%= t('page.show_all') %></a>)
+    <%- end -%>
   <%- end -%>
 
-  <%- manifestation.contributors.each do |patron| -%>
-    <%= link_to h(patron.full_name), patron -%>
-  <%- end -%>
-
-  <%- manifestation.publishers.each do |publisher| -%>
-    <%= link_to h(publisher.full_name), publisher -%>
+  <%= raw patrons_list(manifestation.contributors.readable_by(current_user)) %>
+  <%= raw patrons_list(manifestation.publishers.readable_by(current_user)) %>
+  <%- if manifestation.date_of_publication -%>
+    (<%= manifestation.date_of_publication.strftime('%Y') -%>)
   <%- end -%>

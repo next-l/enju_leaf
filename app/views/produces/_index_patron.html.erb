@@ -16,9 +16,9 @@
     <td>
       <%= link_to h(produce.manifestation.original_title), produce.manifestation -%>
       <%= form_icon(produce.manifestation.carrier_type) -%><br />
-      <%= raw patrons_list(produce.manifestation.creators, current_user) -%>
-      <%= raw patrons_list(produce.manifestation.contributors, current_user) -%>
-      <%= raw patrons_list(produce.manifestation.patrons, current_user) -%>
+      <%= raw patrons_list(produce.manifestation.creators.readable_by(current_user)) -%>
+      <%= raw patrons_list(produce.manifestation.contributors.readable_by(current_user)) -%>
+      <%= raw patrons_list(produce.manifestation.publishers.readable_by(current_user)) -%>
     </td>
     <td>
       <%- if can? :destroy, produce -%>

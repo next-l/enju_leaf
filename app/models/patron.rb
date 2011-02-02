@@ -1,5 +1,6 @@
 # -*- encoding: utf-8 -*-
 class Patron < ActiveRecord::Base
+  scope :readable_by, lambda{|user| {:conditions => ['required_role_id <= ?', user.try(:user_has_role).try(:role_id) || Role.find_by_name('Guest').id]}}
   has_many :creates, :dependent => :destroy
   has_many :works, :through => :creates
   has_many :realizes, :dependent => :destroy

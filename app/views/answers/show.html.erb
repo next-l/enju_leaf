@@ -8,9 +8,7 @@
 
 <p>
   <strong><%= t('activerecord.models.question') -%>:</strong>
-  <%= auto_link(textilize_without_paragraph(h(@answer.question.body))) -%>
-  (<%= link_to t('page.show'), @answer.question %>)<br />
-  (<%= link_to h(@answer.question.user.username), @answer.question.user -%>, <%= l(@answer.question.created_at) -%>)
+  <%= link_to h(@answer.question.user.username), @answer.question.user -%>: <%= auto_link(textilize_without_paragraph(h(@answer.question.body))) -%>
 </p>
 
 <p>

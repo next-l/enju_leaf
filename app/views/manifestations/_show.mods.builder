@@ -4,7 +4,7 @@
     xml.titleInfo('type' => 'alternative'){
       xml.title manifestation.title_alternative
     }
-    manifestation.creators.each do |creator|
+    manifestation.creators.readable_by(current_user).each do |creator|
       case creator.patron_type.name
       when "Person"
         xml.name('type' => 'personal'){
@@ -30,7 +30,7 @@
         }
       end
     end
-    manifestation.contributors.each do |contributor|
+    manifestation.contributors.readable_by(current_user).each do |contributor|
       case contributor.patron_type.name
       when "Person"
         xml.name('type' => 'personal'){
@@ -49,7 +49,7 @@
     end
     xml.typeOfResource manifestation.carrier_type.mods_type
     xml.originInfo{
-      manifestation.publishers.each do |patron|
+      manifestation.publishers.readable_by(current_user).each do |patron|
         xml.publisher patron.full_name
       end
       xml.dateIssued manifestation.date_of_publication
