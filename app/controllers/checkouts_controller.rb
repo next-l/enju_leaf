@@ -18,37 +18,45 @@ class CheckoutsController < ApplicationController
       else
         @checkouts = icalendar_user.checkouts.not_returned.all(:order => 'created_at DESC')
       end
-    elsif current_user.try(:has_role?, 'Librarian')
-      if @user
-        @checkouts = @user.checkouts.not_returned.all(:order => 'created_at DESC')
-      else
-        if params[:view] == 'overdue'
-          if params[:days_overdue]
-            date = params[:days_overdue].to_i.days.ago.beginning_of_day
-          else
-            date = 1.days.ago.beginning_of_day
-          end
-          @checkouts = Checkout.overdue(date).all(:order => 'created_at DESC')
-        else
-          @checkouts = Checkout.not_returned.all(:order => 'created_at DESC')
-        end
-      end
     else
-      # 一般ユーザ
-      if current_user == @user
-        @checkouts = current_user.checkouts.not_returned.all(:order => 'created_at DESC')
-      else
+      unless current_user
+        access_denied; return
+      end
+    end
+
+    unless icalendar_user
+      if current_user.try(:has_role?, 'Librarian')
         if @user
-          access_denied
-          return
+          @checkouts = @user.checkouts.not_returned.all(:order => 'created_at DESC')
         else
-          redirect_to user_checkouts_path(current_user)
-          return
+          if params[:view] == 'overdue'
+            if params[:days_overdue]
+              date = params[:days_overdue].to_i.days.ago.beginning_of_day
+            else
+              date = 1.days.ago.beginning_of_day
+            end
+            @checkouts = Checkout.overdue(date).all(:order => 'created_at DESC')
+          else
+            @checkouts = Checkout.not_returned.all(:order => 'created_at DESC')
+          end
+        end
+      else
+        # 一般ユーザ
+        if current_user == @user
+          @checkouts = current_user.checkouts.not_returned.all(:order => 'created_at DESC')
+        else
+          if @user
+            access_denied
+            return
+          else
+            redirect_to user_checkouts_path(current_user)
+            return
+          end
         end
       end
     end
 
-     @days_overdue = params[:days_overdue] ||= 1
+    @days_overdue = params[:days_overdue] ||= 1
 
     respond_to do |format|
       format.html # index.rhtml

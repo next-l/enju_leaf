@@ -21,16 +21,16 @@
 <div id="tabs">
   <ul>
     <li title="active" class="selected"><a href="#detail"><em><%= t('page.detail') -%></em></a></li>
-    <%- if @patron.derived_patrons.first or @patron.original_patrons.first -%>
+    <%- if @patron.derived_patrons.exists? or @patron.original_patrons.exists? -%>
       <li><a href="#related"><em><%= t('page.related') -%></em></a></li>
     <%- end -%>
-    <%- if @patron.works.first -%>
+    <%- if @patron.works.exists? -%>
       <li><a href="#work"><em><%= t('activerecord.models.work') -%></em></a></li>
     <%- end -%>
-    <%- if @patron.expressions.first -%>
+    <%- if @patron.expressions.exists? -%>
       <li><a href="#expression"><em><%= t('activerecord.models.expression') -%></em></a></li>
     <%- end -%>
-    <%- if @patron.manifestations.first -%>
+    <%- if @patron.manifestations.exists? -%>
       <li><a href="#manifestation"><em><%= t('activerecord.models.manifestation') -%></em></a></li>
     <%- end -%>
     <li><a href="#history"><em><%= t('page.history') -%></em></a></li>
@@ -148,7 +148,7 @@
     </table>
   </div>
 <% end %>
-  <%- if @patron.derived_patrons.first or @patron.original_patrons.first -%>
+  <%- if @patron.derived_patrons.exists? or @patron.original_patrons.exists? -%>
     <%= render 'patrons/patron_list' -%>
   <%- end -%>
   <%- unless @works.blank? -%>
@@ -166,7 +166,7 @@
 </div>
 
 <div id="submenu" class="ui-corner-all">
-    <%- if @patron.picture_files.first -%>
+    <%- if @patron.picture_files.exists? -%>
       <div id="manifestation_book_jacket">
         <%= patron_custom_book_jacket(@patron) -%>
       </div>

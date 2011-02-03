@@ -119,7 +119,7 @@
           </td>
         </tr>
       </table>
-      <%- if manifestation.items.on_shelf.first -%>
+      <%- if manifestation.items.on_shelf.exists? -%>
         <%= render :partial => 'manifestations/show_holding', :locals => {:manifestation => manifestation} -%>
       <%- end -%>
 

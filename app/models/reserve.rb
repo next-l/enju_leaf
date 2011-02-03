@@ -68,7 +68,7 @@ class Reserve < ActiveRecord::Base
   end
 
   def set_item_and_manifestation
-    item = Item.first(:conditions => {:item_identifier => item_identifier})
+    item = Item.where(:item_identifier => item_identifier).first
     manifestation = item.manifestation if item
   end
 

@@ -1,7 +1,7 @@
 class CreateFrequencies < ActiveRecord::Migration
   def self.up
     create_table :frequencies do |t|
-      t.string :name
+      t.string :name, :null => false
       t.text :display_name
       t.text :note
       t.integer :position

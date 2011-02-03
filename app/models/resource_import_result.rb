@@ -1,7 +1,7 @@
 class ResourceImportResult < ActiveRecord::Base
   default_scope :order => 'resource_import_results.id'
-  scope :file_id, proc{|file_id| {:conditions => {:resource_import_file_id => file_id}}}
-  scope :failed, {:conditions => {:manifestation_id => nil}}
+  scope :file_id, proc{|file_id| where(:resource_import_file_id => file_id)}
+  scope :failed, where(:manifestation_id => nil)
 
   belongs_to :resource_import_file
   belongs_to :manifestation, :class_name => 'Manifestation'

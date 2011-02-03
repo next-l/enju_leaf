@@ -1,4 +1,4 @@
-<%- if manifestation.bookmarks.first -%>
+<%- if manifestation.bookmarks.exists? -%>
   <ul>
     <%- manifestation.bookmarks.each do |bookmark| -%>
       <% if bookmark.shared? %>

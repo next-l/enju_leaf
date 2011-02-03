@@ -11,6 +11,11 @@ class CheckoutsControllerTest < ActionController::TestCase
     assert_response :redirect
     assert_redirected_to new_user_session_url
   end
+  def test_guest_should_not_get_index_without_user_id
+    get :index
+    assert_response :redirect
+    assert_redirected_to new_user_session_url
+  end
 
   def test_everyone_should_not_get_index_without_user_id
     sign_in users(:user1)
