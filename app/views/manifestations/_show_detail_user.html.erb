@@ -55,20 +55,22 @@
             <%- end -%>
           </td>
         </tr>
-        <tr>
-          <td><%= t('activerecord.attributes.manifestation.price') -%></td>
-          <td><%= manifestation.price -%></td>
-        </tr>
-        <tr>
-          <td><%= t('activerecord.models.subject') -%>:</td>
-          <td>
-            <%- unless manifestation.subjects.empty? -%>
+        <% if manifestation.price.present? %>
+          <tr>
+            <td><%= t('activerecord.attributes.manifestation.price') -%></td>
+            <td><%= manifestation.price -%></td>
+          </tr>
+        <% end %>
+        <%- unless manifestation.subjects.empty? -%>
+          <tr>
+            <td><%= t('activerecord.models.subject') -%>:</td>
+            <td>
               <%- manifestation.subjects.each do |subject| -%>
                 <%= link_to h(subject.term), subject -%>
               <%- end -%>
-            <%- end -%>
-          </td>
-        </tr>
+            </td>
+          </tr>
+        <%- end -%>
         <tr>
           <td><%= t('activerecord.models.tag') -%>:</td>
           <td>
@@ -106,18 +108,22 @@
           <td><%= t('page.updated_at') -%>:</td>
           <td><%=l manifestation.updated_at if manifestation.updated_at -%></td>
         </tr>
-        <tr>
-          <td><%= t('activerecord.attributes.manifestation.description') -%>:</td>
-          <td>
-            <%= raw simple_format(h(manifestation.description)) -%>
-          </td>
-        </tr>
-        <tr>
-          <td><%= t('activerecord.attributes.manifestation.note') -%>:</td>
-          <td>
-            <%= raw simple_format(h(manifestation.note)) -%>
-          </td>
-        </tr>
+        <% if manifestation.description.present? %>
+          <tr>
+            <td><%= t('activerecord.attributes.manifestation.description') -%>:</td>
+            <td>
+              <%= raw simple_format(h(manifestation.description)) -%>
+            </td>
+          </tr>
+        <% end %>
+        <% if manifestation.note.present? %>
+          <tr>
+            <td><%= t('activerecord.attributes.manifestation.note') -%>:</td>
+            <td>
+              <%= raw simple_format(h(manifestation.note)) -%>
+            </td>
+          </tr>
+        <% end %>
       </table>
       <%- if manifestation.items.on_shelf.first -%>
         <%= render :partial => 'manifestations/show_holding', :locals => {:manifestation => manifestation} -%>
