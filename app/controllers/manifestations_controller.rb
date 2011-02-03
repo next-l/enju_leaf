@@ -153,7 +153,7 @@ class ManifestationsController < ApplicationController
       end
         
       if session[:manifestation_ids]
-        bookmark_ids = Bookmark.all(:select => :id, :conditions => {:manifestation_id => session[:manifestation_ids]}, :limit => 1000).collect(&:id)
+        bookmark_ids = Bookmark.where(:manifestation_id => session[:manifestation_ids]).limit(1000).select(:id).collect(&:id)
         @tags = Tag.bookmarked(bookmark_ids)
         if params[:view] == 'tag_cloud'
           render :partial => 'manifestations/tag_cloud'

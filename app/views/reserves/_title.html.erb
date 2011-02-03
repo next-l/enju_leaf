@@ -7,13 +7,13 @@
       <%= reserve.manifestation.serial_number_list -%>
     <%- end -%>
     <br />
-    <%- if reserve.manifestation.creators.readable_by(current_user).first -%>
+    <%- if reserve.manifestation.creators.readable_by(current_user).exists? -%>
       <%= t('patron.creator') -%>: <%= raw patrons_list(reserve.manifestation.creators.readable_by(current_user)) -%>
     <%- end -%>
-    <%- if reserve.manifestation.contributors.readable_by(current_user).first -%>
+    <%- if reserve.manifestation.contributors.readable_by(current_user).exists? -%>
       <%= t('patron.contributor') -%>: <%= raw patrons_list(reserve.manifestation.contributors.readable_by(current_user)) -%>
     <%- end -%>
-    <%- if reserve.manifestation.publishers.readable_by(current_user).first -%>
+    <%- if reserve.manifestation.publishers.readable_by(current_user).exists? -%>
       <%= t('patron.publisher') -%>: <%= raw patrons_list(reserve.manifestation.publishers.readable_by(current_user)) -%>
       <%- if reserve.manifestation.date_of_publication -%>
         (<%= reserve.manifestation.date_of_publication.strftime('%Y') -%>)

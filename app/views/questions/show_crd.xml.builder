@@ -27,7 +27,7 @@ xml.CRD('version' => "1.0"){
     xml.tag! 'PRE-RES'
     xml.NOTE h(@question.note)
     xml.tag! 'PTN-TYPE'
-    if @question.answers.first
+    if @question.answers.exists?
       xml.CONTRI @question.answers.collect(&:user).collect(&:username).uniq.join(' ')
     end
   }

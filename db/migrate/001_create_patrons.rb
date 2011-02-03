@@ -49,7 +49,7 @@ class CreatePatrons < ActiveRecord::Migration
       t.text :email
       t.text :url
     end
-    add_index :patrons, :user_id
+    add_index :patrons, :user_id, :unique => true
     add_index :patrons, :patron_type_id
     add_index :patrons, :language_id
     add_index :patrons, :country_id

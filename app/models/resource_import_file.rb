@@ -53,7 +53,7 @@ class ResourceImportFile < ActiveRecord::Base
       import_result = ResourceImportResult.create!(:resource_import_file => self, :body => row.fields.join("\t"))
 
       item_identifier = row['item_identifier'].to_s.strip
-      if item = Item.first(:conditions => {:item_identifier => item_identifier})
+      if item = Item.where(:item_identifier => item_identifier).first
         import_result.item = item
         import_result.save!
         next
@@ -180,7 +180,7 @@ class ResourceImportFile < ActiveRecord::Base
     field = rows.first
     rows.each do |row|
       item_identifier = row['item_identifier'].to_s.strip
-      if item = Item.first(:conditions => {:item_identifier => item_identifier})
+      if item = Item.where(:item_identifier => item_identifier).first
         item.destroy
       end
     end
