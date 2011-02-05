@@ -158,8 +158,4 @@ class CheckedItemsController < ApplicationController
       format.xml  { head :ok }
     end
   end
-
-  private
-  def validate_checked_item
-  end
 end

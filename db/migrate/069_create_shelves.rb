@@ -1,7 +1,7 @@
 class CreateShelves < ActiveRecord::Migration
   def self.up
     create_table :shelves do |t|
-      t.string :name
+      t.string :name, :null => false
       t.text :display_name
       t.text :note
       t.integer :library_id, :default => 1, :null => false

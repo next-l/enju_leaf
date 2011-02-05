@@ -232,14 +232,6 @@ class User < ActiveRecord::Base
     end
   end
 
-  def self.secure_digest(*args)
-    Digest::SHA1.hexdigest(args.flatten.join('--'))
-  end
-
-  def self.make_token
-    secure_digest(Time.now, (1..10).map{ rand.to_s })
-  end
-
   def send_message(status, options = {})
     MessageRequest.transaction do
       request = MessageRequest.new
@@ -268,19 +260,10 @@ class User < ActiveRecord::Base
     false
   end
 
-  def has_no_credentials?
-    crypted_password.blank? && openid_identifier.blank?
-  end
-        
   def send_confirmation_instructions
     unless self.operator
       Devise::Mailer.confirmation_instructions(self).deliver if self.email.present?
     end
-  end
-
-  private
-  def validate_password_with_openid?
-    require_password?
   end
 
 end
