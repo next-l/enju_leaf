@@ -9,7 +9,8 @@ class ApplicationController < ActionController::Base
   rescue_from CanCan::AccessDenied, :with => :render_403
   rescue_from ActiveRecord::RecordNotFound, :with => :render_404
 
-  before_filter :get_library_group, :set_locale, :set_available_languages
+  before_filter :get_library_group, :set_locale, :set_available_languages, :prepare_for_mobile
+  helper_method :mobile_device?
 
   private
   def render_403
@@ -337,6 +338,18 @@ class ApplicationController < ActionController::Base
     @current_ability ||= Ability.new(current_user, request.remote_ip)
   end
 
+  def mobile_device?
+    if session[:mobile_param]
+      session[:mobile_param] == "1"
+    else
+      request.user_agent =~ /Mobile|webOS/
+    end
+  end
+
+  def prepare_for_mobile
+    session[:mobile_param] = params[:mobile] if params[:mobile]
+    request.format = :mobile if mobile_device?
+  end
 end
 
 class InvalidLocaleError < StandardError
