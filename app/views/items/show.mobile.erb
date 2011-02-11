@@ -1,0 +1,88 @@
+<div data-role="header"> 
+<h1 class="title"><%= t('page.showing', :model => t('activerecord.models.item')) -%></h1>
+</div>
+<div data-role="content">
+  <%- if @item.manifestation -%>
+    <%= render :partial => 'manifestations/title', :locals => {:manifestation => @item.manifestation} -%>
+  <%- end -%>
+  <div id="detail">
+<p>
+  <strong><%= t('activerecord.models.shelf') -%>:</strong>
+  <%= link_to h(@item.shelf.display_name.localize), shelf_path(@item.shelf_id) -%>
+  <%= render :partial => 'items/shelf_picture', :locals => {:item => @item} -%>
+  (<%= link_to h(@item.shelf.library.display_name.localize), library_path(@item.shelf.library.name) -%>)
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.item.checkout_type') -%>:</strong>
+  <%= link_to h(@item.checkout_type.display_name.localize), @item.checkout_type -%>
+</p>
+
+<p>
+  <strong><%= t('activerecord.models.lending_policy') -%>:</strong>
+  <ul>
+    <%- @item.lending_policies.each do |lending_policy| -%>
+      <li><%= link_to h(lending_policy.user_group.display_name.localize), lending_policy -%></li>
+    <%- end -%>
+  </ul>
+</p>
+
+<p>
+  <strong><%= t('activerecord.models.circulation_status') -%>:</strong>
+  <%= link_to h(@item.circulation_status.display_name.localize), @item.circulation_status -%>
+  <%- if user_signed_in? -%>
+    <%- if current_user.has_role?('Librarian') -%>
+      <%- unless @item.checkouts.not_returned.blank? -%>
+        (<%= link_to t('item.current_checkout'), user_checkout_path(@item.checkouts.not_returned.first.user, @item.checkouts.not_returned.first) -%>)
+      <%- end -%>
+    <%- end -%>
+  <%- end -%>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.item.call_number') -%>:</strong>
+  <%= @item.call_number -%>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.item.item_identifier') -%>:</strong>
+  <%= @item.item_identifier -%>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.item.price') -%>:</strong>
+  <%= @item.price -%>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.item.url') -%>:</strong>
+  <%= @item.url -%>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.item.include_supplements') -%>:</strong>
+  <%= localized_boolean(@item.include_supplements) -%>
+</p>
+
+<!--
+<p>
+  <strong><%= t('activerecord.models.use_restriction') -%>:</strong>
+  <ul>
+    <%- @item.use_restrictions.each do |use_restriction| -%>
+      <li><%= link_to h(use_restriction.display_name.localize), use_restriction_path(use_restriction) -%></li>
+    <%- end -%>
+  </ul>
+</p>
+-->
+
+<p>
+  <strong><%= t('page.created_at') -%>:</strong>
+  <%= l(@item.created_at) -%>
+</p>
+
+<p>
+  <strong><%= t('page.updated_at') -%>:</strong>
+  <%= l(@item.updated_at) -%>
+</p>
+</div>
+</div>

@@ -1,0 +1,53 @@
+<div data-role="header"> 
+<h1 class="title"><%= t('page.listing', :model => t('activerecord.models.item')) -%></h1>
+</div>
+<div data-role="content">
+<%= render :partial => 'manifestations/title', :locals => {:manifestation => @resource} if @resource -%>
+<div data-role="detail">
+<%= form_for :items, :url => items_path, :html => {:method => 'get'} do -%>
+  <p>
+    <%= t('page.search_term') -%>: <%= search_field_tag 'query', h(@query), {:id => 'search_form_top', :class => 'search_form'} -%>
+    <%= submit_tag t('page.search') -%>
+  </p>
+  <%= javascript_tag("$('#search_form_top').focus()") -%>
+<%- end -%>
+
+<table class="index">
+  <tr>
+    <th><%= t('activerecord.attributes.item.item_identifier') -%></th>
+    <th><%= t('activerecord.attributes.item.call_number') -%></th>
+    <th><%= t('activerecord.models.manifestation') -%></th>
+    <th><%= t('activerecord.models.library') -%></th>
+    <th><%= t('activerecord.models.shelf') -%></th>
+    <th><%= t('activerecord.models.circulation_status') -%></th>
+    <%- if user_signed_in? -%>
+      <th></th>
+    <%- end -%>
+  </tr>
+  
+  <%- @items.each do |item| -%>
+    <tr class="line<%= cycle("0", "1") -%>">
+      <td>
+        <%- if item.item_identifier.blank? -%>
+          (<%= link_to t('item.no_number'), item -%>)
+        <%- else -%>
+          <%= link_to h(item.item_identifier), item -%>
+        <%- end -%>
+      </td>
+      <td><%= item.call_number -%></td>
+      <td>
+        <%= render :partial => 'manifestations/show_index', :locals => {:manifestation => item.manifestation} -%>
+      </td>
+      <td><%= link_to h(item.shelf.library.display_name.localize), library_path(item.shelf.library.name) -%></td>
+      <td><%= link_to h(item.shelf.display_name.localize), item.shelf -%></td>
+      <td><%= item.circulation_status.display_name.localize -%></td>
+      <%- if can? :destroy, item -%>
+        <td><%= link_to t('page.edit'), edit_item_path(item) -%></td>
+      <%- end -%>
+  </tr>
+<%- end -%>
+</table>
+
+<%= will_paginate(@items) -%>
+</div>
+</div>
