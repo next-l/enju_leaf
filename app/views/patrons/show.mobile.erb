@@ -37,7 +37,7 @@
       <tr>
         <td><strong><%= t('activerecord.attributes.patron.url') -%>:</strong></td>
         <td>
-          <%= link_to @patron.url, @patron.url, :class => 'url' -%>
+          <%= link_to @patron.url, @patron.url, :class => 'url' if @patron.url.present? -%>
         </td>
       </tr>
       <tr>

@@ -17,11 +17,13 @@ class ApplicationController < ActionController::Base
     if user_signed_in?
       respond_to do |format|
         format.html {render :template => 'page/403', :status => 403}
+        format.mobile {render :template => 'page/403', :status => 403}
         format.xml {render :template => 'page/403', :status => 403}
       end
     else
       respond_to do |format|
         format.html {redirect_to new_user_session_url}
+        format.mobile {redirect_to new_user_session_url}
         format.xml {render :template => 'page/403', :status => 403}
       end
     end
@@ -30,6 +32,7 @@ class ApplicationController < ActionController::Base
   def render_404
     respond_to do |format|
       format.html {render :template => 'page/404', :status => 404}
+      format.mobile {render :template => 'page/404', :status => 404}
       format.xml {render :template => 'page/404', :status => 404}
     end
   end
