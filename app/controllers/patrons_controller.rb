@@ -89,6 +89,7 @@ class PatronsController < ApplicationController
       format.rss  { render :layout => false }
       format.atom
       format.json { render :json => @patrons }
+      format.mobile
     end
   rescue RSolr::RequestError
     flash[:notice] = t('page.error_occured')
@@ -125,6 +126,7 @@ class PatronsController < ApplicationController
       format.html # show.rhtml
       format.xml  { render :xml => @patron }
       format.js
+      format.mobile
     end
   end
 

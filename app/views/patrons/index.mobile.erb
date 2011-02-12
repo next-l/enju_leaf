@@ -1,0 +1,23 @@
+<div data-role="header">
+<h1 class="title"><%= t('page.listing', :model => t('activerecord.models.patron')) -%></h1>
+</div>
+
+<div data-role="content">
+  <div data-role="fieldcontain">
+    <%= form_for :patrons, :url => patrons_path, :html => {:method => 'get'} do -%>
+      <p>
+        <%= t('page.search_term') -%>: <%= search_field_tag 'query', h(@query), {:id => 'search_form_top', :class => 'search_form'} -%>
+        <%= submit_tag t('page.search') -%>
+      </p>
+      <%= javascript_tag("$('#search_form_top').focus()") -%>
+    <%- end -%>
+  </div>
+</div>
+
+<ul data-role="listview">
+  <%- @patrons.each do |patron| -%>
+    <li><%= link_to patron.full_name, patron %></li>
+  <%- end -%>
+</ul>
+
+<%= will_paginate(@patrons, :renderer => WillPaginateJqueryMobileRenderer) %>
