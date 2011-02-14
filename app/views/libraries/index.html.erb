@@ -40,7 +40,7 @@
       <%- end -%>
     </td>
     <td>
-      <%= link_to h(library.display_name.localize), library_path(library.name) -%>
+      <%= link_to library.display_name.localize, library -%>
       <br />
       <%= library.zip_code -%>
       <%= library.address -%>

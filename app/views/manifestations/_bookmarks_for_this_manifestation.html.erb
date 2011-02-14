@@ -4,7 +4,7 @@
       <% if bookmark.shared? %>
         <li><%= link_to bookmark.user.username, user_bookmark_path(bookmark.user, bookmark) -%>
           <%- bookmark.tags.each do |tag| -%>
-            [<%= link_to h(tag.name), manifestations_path(:tag => tag.name) -%>]
+            [<%= link_to tag.name, manifestations_path(:tag => tag.name) -%>]
           <%- end -%>
           <%= bookmark.note -%>
           <%- if user_signed_in? and current_user == bookmark.user -%>

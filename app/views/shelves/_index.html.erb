@@ -14,7 +14,7 @@
   <tr class="line<%= cycle("0", "1") -%>">
     <td></td>
     <td><%= link_to shelf.display_name.localize, shelf_path(shelf) -%></td>
-    <td><%= link_to shelf.library.display_name.localize, library_path(shelf.library.name) -%></td>
+    <td><%= link_to shelf.library.display_name.localize, library_path(shelf.library) -%></td>
     <td>
       <%- if can? :update, shelf -%>
         <%= link_to t('page.edit'), edit_shelf_path(shelf) -%>

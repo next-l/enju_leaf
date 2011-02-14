@@ -67,7 +67,7 @@
 
 <ul>
   <%- @library_group.real_libraries.each do |library| -%>
-    <li><%= link_to h(library.display_name.localize), library_path(library.name) -%></li>
+    <li><%= link_to h(library.display_name.localize), library -%></li>
   <%- end -%>
 </ul>
 

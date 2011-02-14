@@ -7,7 +7,7 @@
 
 <div id="submenu" class="ui-corner-all">
   <ul>
-    <li><%= link_to t('page.show'), library_shelf_path(@shelf.library.name) -%></li>
-    <li><%= link_to t('page.back'), library_shelves_path(@shelf.library.name) -%></li>
+    <li><%= link_to t('page.show'), library_shelf_path(@shelf.library) -%></li>
+    <li><%= link_to t('page.back'), library_shelves_path(@shelf.library) -%></li>
   </ul>
 </div>

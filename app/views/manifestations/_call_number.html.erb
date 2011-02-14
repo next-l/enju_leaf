@@ -3,7 +3,7 @@
     <td class="call_number_table">
       <%= item.shelf.library.display_name.localize -%>
       <br />
-      <%= link_to h(item.shelf.display_name.localize), library_shelf_path(item.shelf.library.name, item.shelf) -%>
+      <%= link_to item.shelf.display_name.localize, library_shelf_path(item.shelf.library, item.shelf) -%>
       <br />
       <%= item.circulation_status.display_name.localize if item.circulation_status -%>
 

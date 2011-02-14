@@ -50,7 +50,7 @@
 <div id="submenu" class="ui-corner-all">
   <ul>
     <%- if @library -%>
-      <li><%= link_to t('page.back'), library_events_path(@library.name) -%></li>
+      <li><%= link_to t('page.back'), library_events_path(@library) -%></li>
     <%- else -%>
       <li><%= link_to t('page.back'), events_path -%></li>
     <%- end -%>

@@ -31,7 +31,7 @@
 
 <%- @classifications.each do |classification| -%>
   <tr class="line<%= cycle("0", "1") -%>">
-    <td><%= link_to h(classification.category), subject_classification_path(@subject, classification) -%></td>
+    <td><%= link_to classification.category, subject_classification_path(@subject, classification) -%></td>
     <td><%= classification.note -%></td>
     <td><%= classification.classification_type.display_name.localize -%></td>
     <td>

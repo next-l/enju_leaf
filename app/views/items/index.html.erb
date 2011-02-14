@@ -38,7 +38,7 @@
       <td>
         <%= render :partial => 'manifestations/show_index', :locals => {:manifestation => item.manifestation} -%>
       </td>
-      <td><%= link_to item.shelf.library.display_name.localize, library_path(item.shelf.library.name) -%></td>
+      <td><%= link_to item.shelf.library.display_name.localize, item.shelf.library -%></td>
       <td><%= link_to item.shelf.display_name.localize, item.shelf -%></td>
       <td><%= item.circulation_status.display_name.localize -%></td>
       <%- if can? :destroy, item -%>

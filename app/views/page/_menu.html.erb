@@ -84,7 +84,7 @@
         <li><%= link_to t('page.calendar'), '/calendar' -%></li>
         <li><%= link_to t('event.all'), events_path -%></li>
         <%- @library_group.real_libraries.each do |library| -%>
-          <li><%= link_to h(library.display_name.localize), library_events_path(library.name) -%></li>
+          <li><%= link_to library.display_name.localize, library_events_path(library) -%></li>
         <%- end -%>
         <%- if can? :create, Event -%>
           <li><%= link_to t('page.import'), new_event_import_file_path -%></li>

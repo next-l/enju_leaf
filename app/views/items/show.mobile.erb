@@ -10,7 +10,7 @@
   <strong><%= t('activerecord.models.shelf') -%>:</strong>
   <%= link_to @item.shelf.display_name.localize, shelf_path(@item.shelf_id) -%>
   <%= render :partial => 'items/shelf_picture', :locals => {:item => @item} -%>
-  (<%= link_to @item.shelf.library.display_name.localize, library_path(@item.shelf.library.name) -%>)
+  (<%= link_to @item.shelf.library.display_name.localize, @item.shelf.library -%>)
 </p>
 
 <p>
@@ -69,7 +69,7 @@
   <strong><%= t('activerecord.models.use_restriction') -%>:</strong>
   <ul>
     <%- @item.use_restrictions.each do |use_restriction| -%>
-      <li><%= link_to h(use_restriction.display_name.localize), use_restriction_path(use_restriction) -%></li>
+      <li><%= link_to use_restriction.display_name.localize, use_restriction_path(use_restriction) -%></li>
     <%- end -%>
   </ul>
 </p>

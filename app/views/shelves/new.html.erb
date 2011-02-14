@@ -9,7 +9,7 @@
   <ul>
     <li>
       <%- if @shelf.library -%>
-        <%= link_to t('page.back'), library_shelves_path(@shelf.library.name) -%>
+        <%= link_to t('page.back'), library_shelves_path(@shelf.library) -%>
       <%- else -%>
         <%= link_to t('page.back'), shelves_path -%>
       <%- end -%>

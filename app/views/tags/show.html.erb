@@ -28,9 +28,9 @@
   <ul>
     <li><%= link_to t('page.back'), :back -%></li>
     <li><%= link_to t('page.edit'), edit_tag_path(@tag.name) -%></li>
-    <li><%= link_to t('page.search_resource', :model => t('activerecord.models.resource')), manifestations_path(:tag => h(@tag.name)) -%></li>
+    <li><%= link_to t('page.search_resource', :model => t('activerecord.models.resource')), manifestations_path(:tag => @tag.name) -%></li>
     <%- if user_signed_in? -%>
-      <li><%= link_to t('page.search_resource', :model => t('activerecord.models.bookmark')), user_bookmarks_path(current_user, :tag => h(@tag.name)) -%></li>
+      <li><%= link_to t('page.search_resource', :model => t('activerecord.models.bookmark')), user_bookmarks_path(current_user, :tag => @tag.name) -%></li>
     <%- end -%>
   </ul>
 </div>

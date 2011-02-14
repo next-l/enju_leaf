@@ -18,7 +18,7 @@
 
 <p>
   <strong><%= t('activerecord.attributes.picture_file.picture_file_name') -%>:</strong>
-  <%= link_to h(@picture_file.picture_file_name), picture_file_path(@picture_file, :format => :download, :size => 'original') -%><br />
+  <%= link_to @picture_file.picture_file_name, picture_file_path(@picture_file, :format => :download, :size => 'original') -%><br />
   <%= render :partial => 'picture_files/link', :locals => {:picture_file => @picture_file} %>
 </p>
 

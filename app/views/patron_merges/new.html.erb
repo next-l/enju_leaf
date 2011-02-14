@@ -17,7 +17,7 @@
   <p>
     <%= f.label t('activerecord.models.patron_merge_list') -%><br />
     <%- if @patron_merge_list -%>
-      <%= link_to h(@patron_merge_list.title), patron_merge_list_path(@patron_merge_list) -%>
+      <%= link_to @patron_merge_list.title, patron_merge_list_path(@patron_merge_list) -%>
       <%= f.hidden_field :patron_merge_list_id, :value => @patron_merge_list.id -%>
     <%- else -%>
       <%= f.text_field :patron_merge_list_id, :value => params[:patron_merge_list_id] -%>

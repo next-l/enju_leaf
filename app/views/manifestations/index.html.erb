@@ -68,7 +68,7 @@
   <%- else -%>
     <!-- TODO: 検索結果が少ない場合にも表示させる -->
     <%- if @suggested_tag -%>
-      <p><%= t('page.did_you_mean') -%>: <%= link_to h(@suggested_tag.name), manifestations_path(:tag => @suggested_tag.name) -%></p>
+      <p><%= t('page.did_you_mean') -%>: <%= link_to @suggested_tag.name, manifestations_path(:tag => @suggested_tag.name) -%></p>
     <%- end -%>
     <%= render :partial => 'manifestations/not_found' -%>
   <%- end -%>

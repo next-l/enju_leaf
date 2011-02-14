@@ -9,10 +9,10 @@
   <%- manifestation.items.on_shelf.each do |item| -%>
     <tr>
       <td>
-        <%= link_to item.shelf.library.display_name.localize, library_path(item.shelf.library.name)%>
+        <%= link_to item.shelf.library.display_name.localize, item.shelf.library %>
       </td>
       <td>
-        <%= link_to item.shelf.display_name.localize, shelf_path(item.shelf) -%>
+        <%= link_to item.shelf.display_name.localize, item.shelf -%>
         <%= render :partial => 'items/shelf_picture', :locals => {:item => item} -%>
       </td>
       <td>

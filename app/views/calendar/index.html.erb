@@ -12,7 +12,7 @@
   <div id="content_list">
     <%- if @library -%>
       <h2 class="resource_title">
-        <%= link_to @library.display_name.localize, library_path(@library.name) -%>
+        <%= link_to @library.display_name.localize, @library -%>
       </h2>
     <%- else -%>
       <h2 class="resource_title">
@@ -22,7 +22,7 @@
 
     <p>
       <%- if @library -%>
-        (<%= link_to 'iCalendar', library_events_path(@library.name, :format => :ics) -%>)
+        (<%= link_to 'iCalendar', library_events_path(@library, :format => :ics) -%>)
       <%- else -%>
         (<%= link_to 'iCalendar', events_path(:format => :ics) -%>)
       <%- end -%>

@@ -7,13 +7,13 @@
     <p>
     <strong><%= t('activerecord.models.subject') -%>:</strong>
     <%- manifestation.subjects.each do |subject| -%>
-      <%= link_to h(subject.term), manifestations_path(:query => "subject_sm: #{h(subject.term)}") -%>
+      <%= link_to subject.term, manifestations_path(:query => "subject_sm: #{h(subject.term)}") -%>
     <%- end -%>
     </p>
     <p>
       <strong><%= t('page.tag') -%>:</strong>
       <%- manifestation.tags.each do |tag| -%>
-        <%= link_to h(tag.name), manifestations_path(:tag => tag.name) -%>
+        <%= link_to tag.name, manifestations_path(:tag => tag.name) -%>
       <%- end -%>
     </p>
   </div>

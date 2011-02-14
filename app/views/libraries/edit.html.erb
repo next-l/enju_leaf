@@ -2,7 +2,7 @@
 <h1 class="title"><%= t('page.editing', :model => t('activerecord.models.library')) -%></h1>
 <div id="content_list">
 
-<%= form_for(@library, :url => library_path(@library.name)) do |f| -%>
+<%= form_for(@library, :url => library_path(@library)) do |f| -%>
   <%= f.error_messages -%>
 
   <p>
@@ -93,7 +93,7 @@
 
 <div id="submenu" class="ui-corner-all">
   <ul>
-    <li><%= link_to t('page.show'), library_path(@library.name) -%></li>
+    <li><%= link_to t('page.show'), library_path(@library) -%></li>
     <li><%= link_to t('page.back'), libraries_path -%></li>
   </ul>
 </div>
