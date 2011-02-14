@@ -176,7 +176,7 @@ EnjuLeaf::Application.routes.draw do
   resources :questions
 
   resources :purchase_requests do
-    resources :order
+    resource :order
   end
 
   resources :bookmarks

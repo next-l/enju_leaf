@@ -432,7 +432,6 @@ class Ability
         FormOfWork,
         Item,
         Language,
-        LendingPolicy,
         Library,
         LibraryGroup,
         License,

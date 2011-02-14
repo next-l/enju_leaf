@@ -149,8 +149,10 @@ class User < ActiveRecord::Base
 
   def set_expiration
     return if self.has_role?('Administrator')
-    unless self.expired_at.blank? and self.active?
-      self.lock_access! if self.expired_at.beginning_of_day < Time.zone.now.beginning_of_day
+    if expired_at
+      unless expired_at.beggning_of_day < Time.zone.now.beginning_of_day
+        lock_access! if self.active?
+      end
     end
   end
 
@@ -227,7 +229,7 @@ class User < ActiveRecord::Base
 
   def last_librarian?
     if self.has_role?('Librarian')
-      role = Role.first(:conditions => {:name => 'Librarian'})
+      role = Role.where(:name => 'Librarian').first
       true if role.users.size == 1
     end
   end

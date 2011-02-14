@@ -1,5 +1,6 @@
 class ManifestationRelationshipsController < InheritedResources::Base
   load_and_authorize_resource
+  helper_method :get_manifestation
   before_filter :prepare_options, :except => [:index, :destroy]
 
   def prepare_options
@@ -7,8 +8,8 @@ class ManifestationRelationshipsController < InheritedResources::Base
   end
 
   def new
-    @manifestation_relationship = ManifestationRelationship.new(params[:resource_relationship])
-    @manifestation_relationship.parent = Manifestation.find(params[:resource_id]) rescue nil
-    @manifestation_relationship.child = Manifestation.find(params[:child_id]) rescue nil
+    @manifestation_relationship = ManifestationRelationship.new(params[:manifestation_relationship])
+    @manifestation_relationship.parent = Manifestation.find(params[:manifestation_id])
+    @manifestation_relationship.child = Manifestation.find(params[:child_id])
   end
 end

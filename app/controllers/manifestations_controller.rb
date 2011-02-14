@@ -102,11 +102,14 @@ class ManifestationsController < ApplicationController
       else
         reservable = nil
       end
+
+      get_manifestation
       unless params[:mode] == 'add'
-        get_manifestation
         manifestation = @manifestation if @manifestation
       end
+
       patron = get_index_patron
+
       search.build do
         fulltext query unless query.blank?
         with(:original_manifestation_ids).equal_to manifestation.id if manifestation
