@@ -18,9 +18,9 @@
   <p>
     <%= f.label t('activerecord.models.item') -%><br />
     <%- if @item -%>
-      <%= link_to h(@item.shelf.library.display_name.localize), library_path(@item.shelf.library.name) -%>
-      <%= link_to h(@item.item_identifier), @item -%>
-      (<%= link_to h(@item.manifestation.original_title), @item.manifestation -%>)
+      <%= link_to @item.shelf.library.display_name.localize, @item.shelf.library -%>
+      <%= link_to @item.item_identifier, @item -%>
+      (<%= link_to @item.manifestation.original_title, @item.manifestation -%>)
       <%= f.hidden_field :item_identifier, :value => @item.item_identifier -%>
     <%- else -%>
       <%= f.text_field :item_identifier, :class => 'resource_item_identifier' -%>

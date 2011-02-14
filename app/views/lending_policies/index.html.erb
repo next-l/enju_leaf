@@ -15,10 +15,10 @@
 <%- @lending_policies.each do |lending_policy| -%>
   <tr class="line<%= cycle("0", "1") -%>">
     <td>
-      <%= link_to h(lending_policy.item.item_identifier), lending_policy.item -%><br />
-      (<%= link_to h(lending_policy.item.manifestation.original_title), lending_policy.item.manifestation -%>)
+      <%= link_to lending_policy.item.item_identifier, lending_policy.item -%><br />
+      (<%= link_to lending_policy.item.manifestation.original_title, lending_policy.item.manifestation -%>)
     </td>
-    <td><%= link_to h(lending_policy.user_group.display_name.localize), lending_policy.user_group -%></td>
+    <td><%= link_to lending_policy.user_group.display_name.localize, lending_policy.user_group -%></td>
     <td><%= lending_policy.loan_period -%></td>
     <td><%= lending_policy.fixed_due_date -%></td>
     <td><%= lending_policy.renewal -%></td>

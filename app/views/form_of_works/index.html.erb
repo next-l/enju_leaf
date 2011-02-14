@@ -18,8 +18,8 @@
         <%= move_position(form_of_work) -%>
       <%- end -%>
     </td>
-    <td><%= link_to h(form_of_work.name), form_of_work -%></td>
-    <td><%= link_to h(form_of_work.display_name.localize), form_of_work -%></td>
+    <td><%= link_to form_of_work.name, form_of_work -%></td>
+    <td><%= link_to form_of_work.display_name.localize, form_of_work -%></td>
     <td><%= form_of_work.note -%></td>
     <td>
       <%- if can? :update, form_of_work -%>

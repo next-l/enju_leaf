@@ -13,12 +13,12 @@
 <%- @inter_library_loans.each do |inter_library_loan| -%>
   <tr class="line<%= cycle("0", "1") -%>">
     <td>
-      <%= link_to h(inter_library_loan.item.item_identifier), inter_library_loan.item -%>
+      <%= link_to inter_library_loan.item.item_identifier, inter_library_loan.item -%>
       <br />
-      (<%= link_to h(inter_library_loan.item.manifestation.original_title), inter_library_loan.item.manifestation -%>)
+      (<%= link_to inter_library_loan.item.manifestation.original_title, inter_library_loan.item.manifestation -%>)
     </td>
-    <td><%= link_to h(inter_library_loan.item.shelf.library.display_name.localize), library_path(inter_library_loan.item.shelf.library.name) -%></td>
-    <td><%= link_to h(inter_library_loan.borrowing_library.display_name.localize), library_path(inter_library_loan.borrowing_library.name) -%></td>
+    <td><%= link_to inter_library_loan.item.shelf.library.display_name.localize, library_path(inter_library_loan.item.shelf.library.name) -%></td>
+    <td><%= link_to inter_library_loan.borrowing_library.display_name.localize, library_path(inter_library_loan.borrowing_library.name) -%></td>
     <td><%= l(inter_library_loan.shipped_at) if inter_library_loan.shipped_at -%></td>
     <td><%= l(inter_library_loan.received_at) if inter_library_loan.received_at -%></td>
     <%- if can? :destroy, inter_library_loan -%>

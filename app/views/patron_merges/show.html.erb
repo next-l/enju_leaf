@@ -3,12 +3,12 @@
 <div id="content_list">
 <p>
   <strong><%= t('activerecord.models.patron') -%>:</strong>
-  <%= link_to h(@patron_merge.patron.full_name), @patron_merge.patron -%>
+  <%= link_to @patron_merge.patron.full_name, @patron_merge.patron -%>
 </p>
 
 <p>
   <strong><%= t('activerecord.models.patron_merge_list') -%>:</strong>
-  <%= link_to h(@patron_merge.patron_merge_list.title), patron_merge_list_path(@patron_merge.patron_merge_list) -%>
+  <%= link_to @patron_merge.patron_merge_list.title, patron_merge_list_path(@patron_merge.patron_merge_list) -%>
 </p>
 
 </div>

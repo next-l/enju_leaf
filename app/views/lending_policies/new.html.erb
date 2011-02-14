@@ -8,8 +8,8 @@
   <p>
     <%- if @item -%>
       <%= f.label :item_id, t('activerecord.models.item') -%><br />
-      <%= link_to h(@item.item_identifier), @item -%>
-      (<%= link_to h(@item.manifestation.original_title), @item.manifestation -%>)
+      <%= link_to @item.item_identifier, @item -%>
+      (<%= link_to @item.manifestation.original_title, @item.manifestation -%>)
       <%= f.hidden_field :item_id -%>
     <%- else -%>
       <%= f.label :item_id, t('activerecord.models.item') -%><br />

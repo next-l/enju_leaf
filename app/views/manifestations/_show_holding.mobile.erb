@@ -9,10 +9,10 @@
   <%- manifestation.items.on_shelf.each do |item| -%>
     <tr>
       <td>
-        <%= link_to h(item.shelf.library.display_name.localize), library_path(item.shelf.library.name)%>
+        <%= link_to item.shelf.library.display_name.localize, library_path(item.shelf.library.name)%>
       </td>
       <td>
-        <%= link_to h(item.shelf.display_name.localize), shelf_path(item.shelf) -%>
+        <%= link_to item.shelf.display_name.localize, shelf_path(item.shelf) -%>
         <%= render :partial => 'items/shelf_picture', :locals => {:item => item} -%>
       </td>
       <td>
@@ -20,7 +20,7 @@
       </td>
       <td>
         <%- unless item.item_identifier.blank? -%>
-          <%= link_to h(item.item_identifier), item -%>
+          <%= link_to item.item_identifier, item -%>
         <%- else -%>
           (<%= link_to t('item.no_number'), item -%>)
         <%- end -%>

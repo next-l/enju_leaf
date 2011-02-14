@@ -20,7 +20,7 @@
     <%= f.label t('user.reset_checkout_icalendar_url') -%><br />
     <div id="feed_token">
       <%- if @user.checkout_icalendar_token -%>
-        <%= link_to h(checkouts_url(:icalendar_token => @user.checkout_icalendar_token, :format => :ics)), checkouts_url(:icalendar_token => @user.checkout_icalendar_token, :format => :ics) -%>
+        <%= link_to checkouts_url(:icalendar_token => @user.checkout_icalendar_token, :format => :ics), checkouts_url(:icalendar_token => @user.checkout_icalendar_token, :format => :ics) -%>
         <%= f.hidden_field :checkout_icalendar_token -%>
       <%- end -%>
       <br />

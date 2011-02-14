@@ -3,12 +3,12 @@
 <div id="content_list">
 <p>
   <strong><%= t('activerecord.models.manifestation_reserve_stat') -%></strong>
-  <%= link_to h(@reserve_stat_has_manifestation.manifestation_reserve_stat.id), @reserve_stat_has_manifestation.manifestation_reserve_stat -%>
+  <%= link_to @reserve_stat_has_manifestation.manifestation_reserve_stat.id, @reserve_stat_has_manifestation.manifestation_reserve_stat -%>
 </p>
 
 <p>
   <strong><%= t('activerecord.models.manifestation') -%>:</strong>
-  <%= link_to h(@reserve_stat_has_manifestation.manifestation.original_title), @reserve_stat_has_manifestation.manifestation -%>
+  <%= link_to @reserve_stat_has_manifestation.manifestation.original_title, @reserve_stat_has_manifestation.manifestation -%>
 </p>
 
 <p>

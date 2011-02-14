@@ -5,7 +5,7 @@
   <p>
     <%= f.label t('activerecord.models.item') -%><br />
     <%- if @item -%>
-      <%= link_to h(@item.item_identifier), @item -%> (<%= link_to h(@item.manifestation.original_title), @item.manifestation -%>)
+      <%= link_to @item.item_identifier, @item -%> (<%= link_to @item.manifestation.original_title, @item.manifestation -%>)
       <%= f.hidden_field :item_id, :value => @item.id -%>
     <%- else -%>
       <%= f.text_field :item_id -%>

@@ -10,8 +10,8 @@
 
 <%- @exemplifies.each do |exemplify| -%>
   <tr class="line<%= cycle("0", "1") -%>">
-    <td><%= link_to h(exemplify.manifestation.original_title), exemplify.manifestation -%></td>
-    <td><%= link_to h(exemplify.item.item_identifier), exemplify.item -%></td>
+    <td><%= link_to exemplify.manifestation.original_title, exemplify.manifestation -%></td>
+    <td><%= link_to exemplify.item.item_identifier, exemplify.item -%></td>
     <%- if can? :destroy, exemplify -%>
       <td><%= link_to t('page.show'), exemplify -%></td>
       <td><%= link_to t('page.destroy'), exemplify, :confirm => t('page.are_you_sure'), :method => :delete -%></td>

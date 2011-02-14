@@ -3,13 +3,13 @@
 <div id="content_list">
 <p>
   <strong><%= t('activerecord.models.patron') -%>:</strong>
-  <%= link_to h(@donate.patron.full_name), @donate.patron -%>
+  <%= link_to @donate.patron.full_name, @donate.patron -%>
 </p>
 
 <p>
   <strong><%= t('activerecord.models.item') -%>:</strong>
-  <%= link_to h(@donate.item.manifestation.original_title), @donate.item.manifestation -%>
-  (<%= link_to h(@donate.item.item_identifier), @donate.item -%>)
+  <%= link_to @donate.item.manifestation.original_title, @donate.item.manifestation -%>
+  (<%= link_to @donate.item.item_identifier, @donate.item -%>)
 </p>
 
 </div>

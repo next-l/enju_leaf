@@ -7,7 +7,7 @@
   <p>
     <%= f.label t('activerecord.models.subscription') -%><br />
     <%- if @subscription -%>
-		  <%= link_to h(@subscription.title), @subscription -%>
+		  <%= link_to @subscription.title, @subscription -%>
       <%= f.hidden_field :subscription_id, :value => @subscription.id -%>
     <%- else -%>
       <%= f.text_field :subscription_id, :value => params[:subscription_id] -%>
@@ -17,7 +17,7 @@
   <p>
     <%= f.label t('activerecord.models.work') -%><br />
     <%- if @work -%>
-		  <%= link_to h(@work.original_title), @work -%>
+		  <%= link_to @work.original_title, @work -%>
       <%= f.hidden_field :work_id, :value => @work.id -%>
     <%- else -%>
       <%= f.text_field :work_id, :value => params[:work_id] -%>

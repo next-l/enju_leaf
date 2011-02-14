@@ -2,7 +2,7 @@
 <h1 class="title"><%= t('page.listing', :model => t('activerecord.models.bookmark')) -%></h1>
 <div id="content_list">
   <h2 class="resource_title">
-    <%= t('bookmark.user_bookmark', :login_name => h(@user.username)) -%>
+    <%= t('bookmark.user_bookmark', :login_name => @user.username) -%>
   </h2>
   <%= form_for :bookmarks, :url => user_bookmarks_path(@user), :html => {:method => 'get'} do -%>
     <p>
@@ -22,7 +22,7 @@
 
 <%- @bookmarks.each do |bookmark| -%>
   <tr class="line<%= cycle("0", "1") -%>">
-    <td><%= link_to h(bookmark.user.username), bookmark.user -%></td>
+    <td><%= link_to bookmark.user.username, bookmark.user -%></td>
     <td>
       <%= render :partial => 'manifestations/show_index', :locals => {:manifestation => bookmark.manifestation} -%>
       <%= render :partial => 'manifestations/holding', :locals => {:manifestation => bookmark.manifestation} -%>

@@ -12,8 +12,8 @@
 
 <%- @carrier_type_has_checkout_types.each do |carrier_type_has_checkout_type| -%>
   <tr class="line<%= cycle("0", "1") -%>">
-    <td><%= link_to h(carrier_type_has_checkout_type.carrier_type.display_name.localize), carrier_type_has_checkout_type.carrier_type -%></td>
-    <td><%= link_to h(carrier_type_has_checkout_type.checkout_type.display_name.localize), carrier_type_has_checkout_type.checkout_type -%></td>
+    <td><%= link_to carrier_type_has_checkout_type.carrier_type.display_name.localize, carrier_type_has_checkout_type.carrier_type -%></td>
+    <td><%= link_to carrier_type_has_checkout_type.checkout_type.display_name.localize, carrier_type_has_checkout_type.checkout_type -%></td>
     <td><%= carrier_type_has_checkout_type.note -%></td>
     <td>
       <%= link_to t('page.edit'), edit_carrier_type_has_checkout_type_path(carrier_type_has_checkout_type) -%>

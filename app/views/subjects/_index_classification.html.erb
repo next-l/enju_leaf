@@ -1,7 +1,7 @@
 <div id="content_detail" class="ui-corner-all">
 <h1 class="title"><%= t('page.listing', :model => t('activerecord.models.subject')) -%></h1>
 <div id="content_list">
-  <h2 class="resource_title"><%= link_to h(@classification.category), @classification -%></h2>
+  <h2 class="resource_title"><%= link_to @classification.category, @classification -%></h2>
 <%= form_for :subjects, :url => classification_subjects_path(@classification), :html => {:method => 'get'} do -%>
   <p>
     <%= t('page.search_term') -%>: <%= search_field_tag 'query', h(@query), {:id => 'search_form_top', :class => 'search_form'} -%>
@@ -27,7 +27,7 @@
   </tr>
   <%- subjects.each do |subject| -%>
     <tr class="line<%= cycle("0", "1") -%>">
-      <td><%= link_to h(subject.term), subject -%></td>
+      <td><%= link_to subject.term, subject -%></td>
       <td><%= subject.note -%></td>
       <%- if can? :destroy, subject -%>
         <td>

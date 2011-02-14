@@ -31,15 +31,15 @@
         <%- if item.item_identifier.blank? -%>
           (<%= link_to t('item.no_number'), item -%>)
         <%- else -%>
-          <%= link_to h(item.item_identifier), item -%>
+          <%= link_to item.item_identifier, item -%>
         <%- end -%>
       </td>
       <td><%= item.call_number -%></td>
       <td>
         <%= render :partial => 'manifestations/show_index', :locals => {:manifestation => item.manifestation} -%>
       </td>
-      <td><%= link_to h(item.shelf.library.display_name.localize), library_path(item.shelf.library.name) -%></td>
-      <td><%= link_to h(item.shelf.display_name.localize), item.shelf -%></td>
+      <td><%= link_to item.shelf.library.display_name.localize, library_path(item.shelf.library.name) -%></td>
+      <td><%= link_to item.shelf.display_name.localize, item.shelf -%></td>
       <td><%= item.circulation_status.display_name.localize -%></td>
       <%- if can? :destroy, item -%>
         <td><%= link_to t('page.edit'), edit_item_path(item) -%></td>

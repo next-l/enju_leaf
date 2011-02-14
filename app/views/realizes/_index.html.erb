@@ -10,8 +10,8 @@
 
   <%- @realizes.each do |realize| -%>
   <tr class="line<%= cycle("0", "1") -%>">
-    <td><%= link_to h(realize.patron.full_name), realize.patron -%></td>
-    <td><%= link_to h(realize.expression.original_title), realize.expression -%></td>
+    <td><%= link_to realize.patron.full_name, realize.patron -%></td>
+    <td><%= link_to realize.expression.original_title, realize.expression -%></td>
     <%- if can? :destroy, realize -%>
       <td><%= link_to t('page.show'), realize -%></td>
       <td><%= link_to t('page.destroy'), realize, :confirm => t('page.are_you_sure'), :method => :delete -%></td>

@@ -10,8 +10,8 @@
 
 <%- @creates.each do |create| -%>
   <tr class="line<%= cycle("0", "1") -%>">
-    <td><%= link_to h(create.patron.full_name), create.patron -%></td>
-    <td><%= link_to h(create.work.original_title), create.work -%></td>
+    <td><%= link_to create.patron.full_name, create.patron -%></td>
+    <td><%= link_to create.work.original_title, create.work -%></td>
     <%- if can? :destroy, create -%>
       <td><%= link_to t('page.show'), create -%></td>
       <td><%= link_to t('page.destroy'), create, :confirm => t('page.are_you_sure'), :method => :delete -%></td>

@@ -4,13 +4,13 @@
   
 <p>
   <strong><%= t('activerecord.models.item') -%>:</strong>
-  <%= link_to h(@lending_policy.item.item_identifier), @lending_policy.item -%>
-  (<%= link_to h(@lending_policy.item.manifestation.original_title), @lending_policy.item.manifestation -%>)
+  <%= link_to @lending_policy.item.item_identifier, @lending_policy.item -%>
+  (<%= link_to @lending_policy.item.manifestation.original_title, @lending_policy.item.manifestation -%>)
 </p>
 
 <p>
   <strong><%= t('activerecord.models.user_group') -%>:</strong>
-  <%= link_to h(@lending_policy.user_group.display_name.localize), @lending_policy.user_group -%>
+  <%= link_to @lending_policy.user_group.display_name.localize, @lending_policy.user_group -%>
 </p>
 
 <p>

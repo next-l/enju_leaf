@@ -13,7 +13,7 @@
   <p>
     <%= f.label t('activerecord.attributes.bookmark.url') -%><br />
     <%- if @bookmark.url -%>
-      <%= link_to h(@bookmark.url), @bookmark.url -%>
+      <%= link_to @bookmark.url, @bookmark.url -%>
       <%= f.hidden_field :url, :class => 'resource_url' -%>
     <%- else -%>
       <%= f.url_field :url, :class => 'resource_url' -%>

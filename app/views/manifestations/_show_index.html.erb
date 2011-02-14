@@ -1,4 +1,4 @@
-  <strong><%= link_to h(manifestation.original_title), manifestation -%></strong>
+  <strong><%= link_to manifestation.original_title, manifestation -%></strong>
   <%- if manifestation.serial? -%>
     <%= manifestation.volume_number_list -%>
     <%- unless manifestation.issue_number_list.blank? -%>

@@ -8,7 +8,7 @@
   <p>
     <%- if @item -%>
       <%= render :partial => 'manifestations/title', :locals => {:manifestation => @reserve.manifestation} -%>
-      (<%= link_to h(@item.item_identifier), @item -%>)
+      (<%= link_to @item.item_identifier, @item -%>)
       <%= f.hidden_field :manifestation_id, :value => @item.manifestation.id -%>
       <%= f.hidden_field :item_id, :value => @item.id -%>
     <%- elsif @manifestation -%>
@@ -24,7 +24,7 @@
 
   <p>
     <%= f.label t('activerecord.models.user') -%>
-    <%= link_to h(@reserve.user.username), @reserve.user -%>
+    <%= link_to @reserve.user.username, @reserve.user -%>
     (<%= @reserve.user.user_number %>)
   </p>
 

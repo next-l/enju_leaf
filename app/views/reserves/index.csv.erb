@@ -1,0 +1,4 @@
+title,isbn,item_identifier,call_number,created_at
+<%- @reserves.each do |reserve| -%>
+"<%=h reserve.manifestation.original_title.gsub(/"/, '""') -%>",<%=h reserve.manifestation.isbn %>,<%=h reserve.item.try(:item_identifier) -%>,<%=h reserve.item.try(:call_number) -%>,<%=h reserve.item.try(:created_at) %><%= "\n" -%>
+<%- end -%>

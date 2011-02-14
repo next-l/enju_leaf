@@ -11,7 +11,7 @@
 
   <p>
     <%- @subject.subject_heading_types.uniq.each do |subject_heading_type| -%>
-      <%= link_to h(subject_heading_type.display_name.localize), subject_heading_type -%>
+      <%= link_to subject_heading_type.display_name.localize, subject_heading_type -%>
     <%- end -%>
   </p>
 
@@ -30,8 +30,8 @@
         </tr>
         <%- @subject.classifications.each do |classification| -%>
           <tr class="line<%= cycle("0", "1") -%>">
-            <td><%= link_to h(classification.category), classification -%></td>
-            <td><%= link_to h(classification.classification_type.name), classification.classification_type -%></td>
+            <td><%= link_to classification.category, classification -%></td>
+            <td><%= link_to classification.classification_type.name, classification.classification_type -%></td>
           </tr>
         <%- end -%>
       </table>

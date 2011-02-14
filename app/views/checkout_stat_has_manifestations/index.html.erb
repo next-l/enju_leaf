@@ -11,8 +11,8 @@
 
 <%- @checkout_stat_has_manifestations.each do |checkout_stat_has_manifestation| -%>
   <tr class="line<%= cycle("0", "1") -%>">
-    <td><%= link_to h(checkout_stat_has_manifestation.manifestation_checkout_stat.id), checkout_stat_has_manifestation.manifestation_checkout_stat -%></td>
-    <td><%= link_to h(checkout_stat_has_manifestation.manifestation.original_title), checkout_stat_has_manifestation.manifestation -%></td>
+    <td><%= link_to checkout_stat_has_manifestation.manifestation_checkout_stat.id, checkout_stat_has_manifestation.manifestation_checkout_stat -%></td>
+    <td><%= link_to checkout_stat_has_manifestation.manifestation.original_title, checkout_stat_has_manifestation.manifestation -%></td>
     <td><%= checkout_stat_has_manifestation.checkouts_count -%></td>
     <td><%= link_to t('page.show'), checkout_stat_has_manifestation -%></td>
     <td><%= link_to t('page.edit'), edit_checkout_stat_has_manifestation_path(checkout_stat_has_manifestation) -%></td>

@@ -3,7 +3,7 @@
 <div id="content_list">
 
 <h2 class="resource_title">
-  [M] <%= link_to h(@manifestation.original_title), @manifestation -%>
+  [M] <%= link_to @manifestation.original_title, @manifestation -%>
 </h2>
 
 <table class="index">
@@ -27,7 +27,7 @@
       </td>
       <td><%= picture_file.picture_file_size -%></td>
       <td><%= picture_file.picture_content_type -%></td>
-      <td><%= link_to h(picture_file.picture_file_name), picture_file_path(picture_file, :format => :download, :size => 'original') -%></td>
+      <td><%= link_to picture_file.picture_file_name, picture_file_path(picture_file, :format => :download, :size => 'original') -%></td>
       <td>
         <%= link_to t('page.show'), picture_file -%>
         <%- if can? :update, picture_file -%>

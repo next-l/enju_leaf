@@ -18,7 +18,7 @@
         <%= move_position(message_template) -%>
       <%- end -%>
     </td>
-    <td><%= link_to h(message_template.status), message_template -%></td>
+    <td><%= link_to message_template.status, message_template -%></td>
     <td><%= message_template.locale -%></td>
     <td><%= message_template.title -%></td>
     <td>

@@ -17,8 +17,8 @@
         <%= move_position(request_type) -%>
       <%- end -%>
     </td>
-    <td><%= link_to h(request_type.name), request_type -%></td>
-    <td><%= link_to h(request_type.display_name.localize), request_type -%></td>
+    <td><%= link_to request_type.name, request_type -%></td>
+    <td><%= link_to request_type.display_name.localize, request_type -%></td>
     <td>
       <%- if can? :update, request_type -%>
         <%= link_to t('page.edit'), edit_request_type_path(request_type) -%>

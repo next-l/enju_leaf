@@ -10,8 +10,8 @@
 
 <%- @subject_heading_type_has_subjects.each do |subject_heading_type_has_subject| %>
   <tr class="line<%= cycle("0", "1") -%>">
-    <td><%= link_to h(subject_heading_type_has_subject.subject.term), subject_heading_type_has_subject.subject %></td>
-    <td><%= link_to h(subject_heading_type_has_subject.subject_heading_type.display_name.localize), subject_heading_type_has_subject.subject_heading_type %></td>
+    <td><%= link_to subject_heading_type_has_subject.subject.term, subject_heading_type_has_subject.subject %></td>
+    <td><%= link_to subject_heading_type_has_subject.subject_heading_type.display_name.localize, subject_heading_type_has_subject.subject_heading_type %></td>
     <td><%= link_to t('page.show'), subject_heading_type_has_subject %></td>
     <td><%= link_to t('page.edit'), edit_subject_heading_type_has_subject_path(subject_heading_type_has_subject) %></td>
     <td><%= link_to t('page.destroy'), subject_heading_type_has_subject, :confirm => t('page.are_you_sure'), :method => :delete %></td>

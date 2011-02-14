@@ -4,7 +4,7 @@
   <%= render :partial => 'manifestations/title', :locals => {:manifestation => @checkout.item.manifestation} -%>
   <p>
     <strong><%= t('activerecord.attributes.item.item_identifier') -%></strong><br />
-    <%= link_to h(@checkout.item.item_identifier), @checkout.item -%>
+    <%= link_to @checkout.item.item_identifier, @checkout.item -%>
   </p>
   <p>
     <strong><%= t('activerecord.attributes.checkout.due_date') -%></strong><br />
@@ -13,7 +13,7 @@
   <%- if can? :destroy, @checkout -%>
     <p>
       <strong><%= t('checkout.current_user') -%></strong><br />
-      <%= link_to h(@checkout.user.username), @checkout.user -%>
+      <%= link_to @checkout.user.username, @checkout.user -%>
     </p>
   <%- end -%>
 </div>

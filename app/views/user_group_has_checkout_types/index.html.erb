@@ -13,8 +13,8 @@
 
 <%- @user_group_has_checkout_types.each do |user_group_has_checkout_type| -%>
   <tr class="line<%= cycle("0", "1") -%>">
-    <td><%= link_to h(user_group_has_checkout_type.user_group.display_name.localize.localize), user_group_has_checkout_type.user_group -%></td>
-    <td><%= link_to h(user_group_has_checkout_type.checkout_type.display_name.localize.localize), user_group_has_checkout_type.checkout_type -%></td>
+    <td><%= link_to user_group_has_checkout_type.user_group.display_name.localize.localize, user_group_has_checkout_type.user_group -%></td>
+    <td><%= link_to user_group_has_checkout_type.checkout_type.display_name.localize.localize, user_group_has_checkout_type.checkout_type -%></td>
     <td><%= user_group_has_checkout_type.note -%></td>
     <td><%= link_to t('page.show'), user_group_has_checkout_type -%></td>
     <td>

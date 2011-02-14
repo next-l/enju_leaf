@@ -17,7 +17,7 @@
   </tr>
   <%- subjects.each do |subject| -%>
     <tr class="line<%= cycle("0", "1") -%>">
-      <td><%= link_to h(subject.term), subject -%></td>
+      <td><%= link_to subject.term, subject -%></td>
       <td><%= subject.note -%></td>
       <td>
         <%- if can? :destroy, subject -%>

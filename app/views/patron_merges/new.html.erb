@@ -7,7 +7,7 @@
   <p>
     <%= f.label t('activerecord.models.patron') -%><br />
     <%- if @patron -%>
-      <%= link_to h(@patron.full_name), @patron -%>
+      <%= link_to @patron.full_name, @patron -%>
       <%= f.hidden_field :patron_id -%>
     <%- else -%>
       <%= f.text_field :patron_id -%>

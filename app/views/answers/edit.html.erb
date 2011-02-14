@@ -7,12 +7,12 @@
 
   <p>
     <%= f.label t('activerecord.models.user') -%><br />
-    <%= link_to h(@answer.user), @answer.user -%>
+    <%= link_to @answer.user.username, @answer.user -%>
   </p>
 
   <p>
     <%= f.label t('activerecord.models.question') -%><br />
-    <%= link_to h(@answer.question.body), question_path(@answer.question) -%>
+    <%= link_to @answer.question.body, question_path(@answer.question) -%>
   </p>
 
   <p>

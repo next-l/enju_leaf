@@ -12,15 +12,15 @@
   <%- @checkouts.each_with_index do |checkout, i| -%>
   <tr class="line<%= cycle("0", "1") -%>">
     <td>
-      <%= link_to h(checkout.user.username), checkout.user -%>
+      <%= link_to checkout.user.username, checkout.user -%>
       <br>
-      (<%= link_to h(checkout.user.user_number), checkout.user -%>)
+      (<%= link_to checkout.user.user_number, checkout.user -%>)
     </td>
     <td>
       <%= render :partial => 'manifestations/show_index', :locals => {:manifestation => checkout.item.manifestation} -%>
       <%= render :partial => 'manifestations/holding', :locals => {:manifestation => checkout.item.manifestation} -%>
     </td>
-    <td><%= link_to h(checkout.item.item_identifier), item_path(checkout.item) -%></td>
+    <td><%= link_to checkout.item.item_identifier, item_path(checkout.item) -%></td>
     <td><%= l(checkout.due_date, :format => :only_date) -%></td>
     <td><%= link_to t('page.show'), user_checkout_path(checkout.user, checkout) -%>
     <td>

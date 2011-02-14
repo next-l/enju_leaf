@@ -32,10 +32,10 @@
 <%- @users.each_with_index do |user, i| -%>
   <tr class="line<%= cycle("0", "1") -%>">
     <td>
-      <%= link_to h(user.username), user -%>
+      <%= link_to user.username, user -%>
       <br />
       <%- if user.patron -%>
-        <%= link_to h(user.patron.full_name), user.patron if current_user.has_role?('Librarian') -%>
+        <%= link_to user.patron.full_name, user.patron if current_user.has_role?('Librarian') -%>
       <%- end -%>
     </td>
     <td><%= user.user_number -%></td>

@@ -14,8 +14,8 @@
   
 <%- @roles.each do |role| -%>
   <tr class="line<%= cycle("0", "1") -%>">
-    <td><%= link_to h(role.name), role -%></td>
-    <td><%= link_to h(role.display_name.localize), role -%></td>
+    <td><%= link_to role.name, role -%></td>
+    <td><%= link_to role.display_name.localize, role -%></td>
     <td><%= role.score -%></td>
     <td><%= role.note -%></td>
     <td><%= link_to t('page.edit'), edit_role_path(role) -%></td>

@@ -3,26 +3,26 @@
 <div id="content_list">
 <p>
   <strong><%= t('activerecord.models.user') -%>:</strong>
-  <%= link_to h(@answer.user.username), @answer.user -%>
+  <%= link_to @answer.user.username, @answer.user -%>
 </p>
 
 <p>
   <strong><%= t('activerecord.models.question') -%>:</strong>
-  <%= link_to h(@answer.question.user.username), @answer.question.user -%>: <%= auto_link(textilize_without_paragraph(h(@answer.question.body))) -%>
+  <%= link_to @answer.question.user.username, @answer.question.user -%>: <%= auto_link(textilize_without_paragraph(@answer.question.body)) -%>
 </p>
 
 <p>
   <strong><%= t('activerecord.attributes.answer.body') -%>:</strong>
-  <%= auto_link(textilize_without_paragraph(h(@answer.body)))  -%>
+  <%= auto_link(textilize_without_paragraph(@answer.body))  -%>
 </p>
 
 <p>
   <ul>
     <%- @answer.items.each do |item| -%>
       <li>
-        <%= link_to h(item.manifestation.original_title), item.manifestation -%>
+        <%= link_to item.manifestation.original_title, item.manifestation -%>
         <% if item.item_identifier.present? %>
-          (<%= link_to h(item.item_identifier), item -%>)
+          (<%= link_to item.item_identifier, item -%>)
         <% end %>
       </li>
     <%- end -%>

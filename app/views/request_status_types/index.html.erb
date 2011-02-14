@@ -17,8 +17,8 @@
         <%= move_position(request_status_type) -%>
       <%- end -%>
     </td>
-    <td><%= link_to h(request_status_type.name), request_status_type -%></td>
-    <td><%= link_to h(request_status_type.display_name.localize), request_status_type -%></td>
+    <td><%= link_to request_status_type.name, request_status_type -%></td>
+    <td><%= link_to request_status_type.display_name.localize, request_status_type -%></td>
     <td>
       <%- if can? :update, request_status_type -%>
         <%= link_to t('page.edit'), edit_request_status_type_path(request_status_type) -%>

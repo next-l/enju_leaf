@@ -3,12 +3,12 @@
 <div id="content_list">
 <p>
   <strong><%= t('activerecord.models.user') -%>:</strong>
-  <%= link_to h(@question.user.username), @question.user -%>
+  <%= link_to @question.user.username, @question.user -%>
 </p>
 
 <p>
   <strong><%= t('activerecord.attributes.question.body') -%>:</strong>
-  <%= auto_link(textilize_without_paragraph(h(@question.body))) -%>
+  <%= auto_link(textilize_without_paragraph(@question.body)) -%>
 </p>
 
 <p>
@@ -37,13 +37,13 @@
 
 <ul>
   <%- @question.answers.public_answers.each do |answer| -%>
-    <li><%= link_to h(answer.user.username), answer.user -%>
+    <li><%= link_to answer.user.username, answer.user -%>
     (<%=l answer.updated_at %>)<br />
-    <%= raw auto_link(textilize_without_paragraph(h(answer.body))) -%><br />
+    <%= raw auto_link(textilize_without_paragraph(answer.body)) -%><br />
     <% unless answer.items.empty? %>
       <ul>
         <% answer.items.each do |item| %>
-          <li><%= link_to h(item.manifestation.original_title), item.manifestation %><br /></li>
+          <li><%= link_to item.manifestation.original_title, item.manifestation %><br /></li>
         <% end %>
       </ul>
     <% end %>

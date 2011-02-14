@@ -3,12 +3,12 @@
 <div id="content_list">
 <p>
   <strong><%= t('activerecord.models.user_group') -%>:</strong>
-  <%= link_to h(@user_group_has_checkout_type.user_group.display_name.localize), @user_group_has_checkout_type.user_group -%>
+  <%= link_to @user_group_has_checkout_type.user_group.display_name.localize, @user_group_has_checkout_type.user_group -%>
 </p>
 
 <p>
   <strong><%= t('activerecord.models.checkout_type') -%>:</strong>
-  <%= link_to h(@user_group_has_checkout_type.checkout_type.display_name.localize), @user_group_has_checkout_type.checkout_type -%>
+  <%= link_to @user_group_has_checkout_type.checkout_type.display_name.localize, @user_group_has_checkout_type.checkout_type -%>
 </p>
 
 <p>

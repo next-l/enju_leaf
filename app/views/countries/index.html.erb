@@ -19,7 +19,7 @@
         <%= move_position(country) -%>
       <%- end -%>
     </td>
-    <td><%= link_to h(country.display_name.localize), country -%></td>
+    <td><%= link_to country.display_name.localize, country -%></td>
     <td><%= country.alpha_2 -%></td>
     <td><%= country.alpha_3 -%></td>
     <td><%= country.numeric_3 -%></td>

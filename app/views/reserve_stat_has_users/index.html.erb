@@ -11,8 +11,8 @@
 
 <%- @reserve_stat_has_users.each do |reserve_stat_has_user| -%>
   <tr class="line<%= cycle("0", "1") -%>">
-    <td><%= link_to h(reserve_stat_has_user.user_reserve_stat.id), reserve_stat_has_user.user_reserve_stat -%></td>
-    <td><%= link_to h(reserve_stat_has_user.user.username), reserve_stat_has_user.user -%></td>
+    <td><%= link_to reserve_stat_has_user.user_reserve_stat.id, reserve_stat_has_user.user_reserve_stat -%></td>
+    <td><%= link_to reserve_stat_has_user.user.username, reserve_stat_has_user.user -%></td>
     <td><%= reserve_stat_has_user.reserves_count -%></td>
     <td><%= link_to t('page.show'), reserve_stat_has_user -%></td>
     <td><%= link_to t('page.edit'), edit_reserve_stat_has_user_path(reserve_stat_has_user) -%></td>

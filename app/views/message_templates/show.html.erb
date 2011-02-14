@@ -18,7 +18,7 @@
 
 <p>
   <strong><%= t('activerecord.attributes.message_template.body') -%>:</strong><br />
-  <%= h(@message_template.body).gsub("\n", '<br />') -%>
+  <%= @message_template.body.gsub("\n", '<br />') -%>
 </p>
 </div>
 </div>

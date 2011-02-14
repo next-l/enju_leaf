@@ -3,12 +3,12 @@
 <div id="content_list">
 <p>
   <strong><%= t('message.sender') -%>:</strong>
-  <%= link_to h(@message_request.sender.username), @message_request.sender -%>
+  <%= link_to @message_request.sender.username, @message_request.sender -%>
 </p>
 
 <p>
   <strong><%= t('message.receiver') -%>:</strong>
-  <%= link_to h(@message_request.receiver.username), @message_request.receiver -%>
+  <%= link_to @message_request.receiver.username, @message_request.receiver -%>
 </p>
 
 <p>
@@ -28,7 +28,7 @@
 
 <p>
   <strong><%= t('activerecord.models.message_template') -%>:</strong>
-  <%= link_to h(@message_request.message_template.status), message_template_path( @message_request.message_template) -%>
+  <%= link_to @message_request.message_template.status, message_template_path( @message_request.message_template) -%>
 </p>
 
 <p>
@@ -38,7 +38,7 @@
 
 <div>
   <strong><%= t('activerecord.attributes.message.body') -%>:</strong>
-  <%= auto_link(textilize(h(@message_request.body))) -%>
+  <%= auto_link(textilize(@message_request.body)) -%>
 </div>
 
 </div>

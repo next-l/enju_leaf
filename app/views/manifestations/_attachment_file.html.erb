@@ -1,6 +1,6 @@
 <%- if can? :show, @manifestation -%>
   <tr>
     <td><%= t('manifestation.attachment_file') -%>:</td>
-    <td><%= link_to h(@manifestation.attachment_file_name), @manifestation.attachment.url -%></td>
+    <td><%= link_to @manifestation.attachment_file_name, @manifestation.attachment.url -%></td>
   </tr>
 <%- end -%>

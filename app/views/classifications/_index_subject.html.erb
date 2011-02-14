@@ -1,7 +1,7 @@
 <div id="content_detail" class="ui-corner-all">
 <h1 class="title"><%= t('page.listing', :model => t('activerecord.models.classification')) -%></h1>
 <div id="content_list">
-  <h2><%= link_to h(@subject.term), @subject -%></h2>
+  <h2><%= link_to @subject.term, @subject -%></h2>
 
   <%= form_for :classifications, :url => subject_classifications_path(@subject), :html => {:method => 'get'} do -%>
     <p>

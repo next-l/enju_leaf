@@ -13,7 +13,7 @@
         <%= render :partial => 'manifestations/show_index', :locals => {:manifestation => checkout.item.manifestation} -%>
         <%= render :partial => 'manifestations/holding', :locals => {:manifestation => checkout.item.manifestation} -%>
       </td>
-      <td><%= link_to h(checkout.item.item_identifier), checkout.item -%></td>
+      <td><%= link_to checkout.item.item_identifier, checkout.item -%></td>
       <td><%= l(checkout.due_date, :format => :only_date) -%></td>
     </tr>
   <%- end -%>

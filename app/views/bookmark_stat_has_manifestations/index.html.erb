@@ -11,8 +11,8 @@
 
 <%- @bookmark_stat_has_manifestations.each do |bookmark_stat_has_manifestation| -%>
   <tr class="line<%= cycle("0", "1") -%>">
-    <td><%= link_to h(bookmark_stat_has_manifestation.bookmark_stat.id), bookmark_stat_has_manifestation.bookmark_stat -%></td>
-    <td><%= link_to h(bookmark_stat_has_manifestation.manifestation.original_title), bookmark_stat_has_manifestation.manifestation -%></td>
+    <td><%= link_to bookmark_stat_has_manifestation.bookmark_stat.id, bookmark_stat_has_manifestation.bookmark_stat -%></td>
+    <td><%= link_to bookmark_stat_has_manifestation.manifestation.original_title, bookmark_stat_has_manifestation.manifestation -%></td>
     <td><%= bookmark_stat_has_manifestation.bookmarks_count -%></td>
     <td><%= link_to t('page.show'), bookmark_stat_has_manifestation -%></td>
     <td><%= link_to t('page.edit'), edit_bookmark_stat_has_manifestation_path(bookmark_stat_has_manifestation) -%></td>

@@ -39,7 +39,7 @@
           <ul>
             <%- @library.users.librarians.each do |librarian| -%>
               <li>
-                <%= link_to h(librarian.username), librarian.patron -%>
+                <%= link_to librarian.username, librarian.patron -%>
                 <%- unless librarian.note.blank? -%>
                   <br />
                   <%= librarian.note -%>

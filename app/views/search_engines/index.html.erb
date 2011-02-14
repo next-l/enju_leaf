@@ -18,7 +18,7 @@
         <%= move_position(search_engine) -%>
       <%- end -%>
     </td>
-    <td><%= link_to h(search_engine.name), search_engine.url -%></td>
+    <td><%= link_to search_engine.name, search_engine.url -%></td>
     <td><%= search_engine.note -%></td>
     <td><%= link_to t('page.show'), search_engine -%></td>
     <td>

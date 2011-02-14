@@ -3,7 +3,7 @@
 <div id="content_list">
 
 <%- if @library -%>
-  <h2><%= link_to h(@library.display_name.localize), library_path(@library.name) -%></h2>
+  <h2><%= link_to @library.display_name.localize, library_path(@library.name) -%></h2>
 <%- else -%>
   <h2><%= t('event.all_libraries') -%></h2>
 <%- end -%>
@@ -43,12 +43,12 @@
 <%- @events.each_with_index do |event, i| -%>
   <tr class="line<%= cycle("0", "1") -%>">
     <td>
-      <%= link_to h(event.library.display_name.localize), library_path(event.library.name) -%>
+      <%= link_to event.library.display_name.localize, library_path(event.library.name) -%>
       <br />
       <%= event.event_category.display_name.localize -%>
     </td>
     <td>
-      <%= link_to h(event.name.localize), event -%>
+      <%= link_to event.name.localize, event -%>
       <br />
       <%= l(event.start_at, :format => :short) -%>
       -

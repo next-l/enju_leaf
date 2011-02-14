@@ -7,11 +7,11 @@
 
   <p>
     <%= f.label t('message.sender') -%><br />
-    <%= link_to h(@message_request.sender.username), @message_request.sender -%>
+    <%= link_to @message_request.sender.username, @message_request.sender -%>
   </p>
   <p>
     <%= f.label t('message.receiver') -%><br />
-    <%= link_to h(@message_request.receiver.username), @message_request.receiver -%>
+    <%= link_to @message_request.receiver.username, @message_request.receiver -%>
   </p>
   <p>
     <%= f.label t('activerecord.models.message_template') -%><br />
@@ -23,7 +23,7 @@
   </p>
   <p>
     <%= f.label t('activerecord.attributes.message.body') -%><br />
-    <%= textilize(h(@message_request.body)) -%>
+    <%= textilize(@message_request.body) -%>
   </p>
   <p>
     <%= f.submit %>

@@ -3,18 +3,18 @@
 <div id="content_list">
 <p>
   <strong><%= t('activerecord.models.library') -%>:</strong>
-  <%= link_to h(@inter_library_loan.item.shelf.library.display_name.localize), library_path(@inter_library_loan.item.shelf.library.name) -%>
+  <%= link_to @inter_library_loan.item.shelf.library.display_name.localize, @inter_library_loan.item.shelf.library -%>
 </p>
 
 <p>
   <strong><%= t('inter_library_loan.borrowing_library') -%>:</strong>
-  <%= link_to h(@inter_library_loan.borrowing_library.display_name.localize), library_path(@inter_library_loan.borrowing_library.name) -%>
+  <%= link_to @inter_library_loan.borrowing_library.display_name.localize, @inter_library_loan.borrowing_library -%>
 </p>
 
 <p>
   <strong><%= t('activerecord.models.item') -%>:</strong>
-  <%= link_to h(@inter_library_loan.item.item_identifier), @inter_library_loan.item -%>
-  (<%= link_to h(@inter_library_loan.item.manifestation.original_title), @inter_library_loan.item.manifestation -%>)
+  <%= link_to @inter_library_loan.item.item_identifier, @inter_library_loan.item -%>
+  (<%= link_to @inter_library_loan.item.manifestation.original_title, @inter_library_loan.item.manifestation -%>)
 </p>
 
 <p>

@@ -2,7 +2,7 @@
 <h1 class="title"><%= t('page.listing', :model => t('activerecord.models.realize')) -%></h1>
 <div id="content_list">
   <h2 class="resource_title">
-    <%= link_to h(@expression.original_title), @expression -%>
+    <%= link_to @expression.original_title, @expression -%>
   </h2>
 
 <table class="index">
@@ -21,7 +21,7 @@
       <%- end -%>
     </td>
     <td>
-      <%= link_to h(realize.expression.original_title), realize.expression -%>
+      <%= link_to realize.expression.original_title, realize.expression -%>
       <%= content_type_icon(@expression.content_type) -%>
       <br />
       <%= raw patrons_list(@expression.creators.readable_by(current_user)) -%>

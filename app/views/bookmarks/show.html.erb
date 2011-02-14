@@ -4,23 +4,23 @@
 
 <p>
   <strong><%= t('activerecord.models.user') -%>:</strong>
-  <%= link_to h(@bookmark.user.username), @bookmark.user -%>
+  <%= link_to @bookmark.user.username, @bookmark.user -%>
 </p>
 
 <p>
   <strong><%= t('activerecord.models.manifestation') -%>:</strong>
-  <%= link_to h(@bookmark.manifestation.original_title), @bookmark.manifestation -%>
+  <%= link_to @bookmark.manifestation.original_title, @bookmark.manifestation -%>
 </p>
 
 <p>
   <strong><%= t('activerecord.attributes.bookmark.url') -%>:</strong>
-  <%= link_to h(@bookmark.url), @bookmark.url -%>
+  <%= link_to @bookmark.url, @bookmark.url -%>
 </p>
 
 <p>
   <strong><%= t('page.tag') -%>:</strong>
   <%- @bookmark.tag_counts.collect {|tag| -%>
-  <%= link_to h(tag.name), manifestations_path(:tag => tag.name) -%>
+  <%= link_to tag.name, manifestations_path(:tag => tag.name) -%>
   <%- } -%>
 </p>
 

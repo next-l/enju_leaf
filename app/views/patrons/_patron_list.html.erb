@@ -3,15 +3,15 @@
     <%- @patron.parents.each do |patron_relationship| -%>
       <li>
         [P]
-        (<%= h(patron_relationship.patron_relationship_type.display_name.localize) -%>)
-        <%= link_to h(patron_relationship.parent.full_name), patron_relationship.parent -%>
+        (<%= patron_relationship.patron_relationship_type.display_name.localize -%>)
+        <%= link_to patron_relationship.parent.full_name, patron_relationship.parent -%>
       </li>
     <%- end -%>
     <%- @patron.children.each do |patron_relationship| -%>
       <li>
         [P]
-        (<%= h(patron_relationship.patron_relationship_type.display_name.localize) -%>)
-        <%= link_to h(patron_relationship.child.full_name), patron_relationship.child -%>
+        (<%= patron_relationship.patron_relationship_type.display_name.localize -%>)
+        <%= link_to patron_relationship.child.full_name, patron_relationship.child -%>
       </li>
     <%- end -%>
   </ul>

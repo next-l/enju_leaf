@@ -16,10 +16,10 @@
 
 <%- @patron_import_files.each do |patron_import_file| -%>
   <tr class="line<%= cycle("0", "1") -%>">
-    <td><%= link_to h(patron_import_file.id), patron_import_file -%></td>
+    <td><%= link_to patron_import_file.id, patron_import_file -%></td>
     <td><%= patron_import_file.patron_import_file_name -%></td>
     <td><%= l(patron_import_file.imported_at) if patron_import_file.imported_at -%></td>
-    <td><%= link_to h(patron_import_file.user.username), patron_import_file.user -%></td>
+    <td><%= link_to patron_import_file.user.username, patron_import_file.user -%></td>
     <td><%= localized_state(patron_import_file.state) -%></td>
     <td><%= link_to t('page.show'), patron_import_file -%></td>
     <td><%= link_to t('page.edit'), edit_patron_import_file_path(patron_import_file) -%></td>

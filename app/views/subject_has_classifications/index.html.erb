@@ -12,8 +12,8 @@
 
 <%- @subject_has_classifications.each do |subject_has_classification| -%>
   <tr class="line<%= cycle("0", "1") -%>">
-    <td><%= link_to h(subject_has_classification.subject.term), subject_has_classification.subject -%></td>
-    <td><%= link_to h(subject_has_classification.classification.category), subject_has_classification.classification -%></td>
+    <td><%= link_to subject_has_classification.subject.term, subject_has_classification.subject -%></td>
+    <td><%= link_to subject_has_classification.classification.category, subject_has_classification.classification -%></td>
     <td><%= link_to t('page.show'), subject_has_classification -%></td>
     <td>
       <% if can? :destroy, subject_has_classification %>

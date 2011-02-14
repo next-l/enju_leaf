@@ -8,7 +8,7 @@
   <p>
     <%= f.label t('activerecord.models.user') -%><br />
     <%- if @user_has_role.user -%>
-      <%= link_to h(@user_has_role.user.username), @user_has_role.user -%>
+      <%= link_to @user_has_role.user.username, @user_has_role.user -%>
       <%= f.hidden_field :user_id -%>
     <%- else -%>
       <%= f.text_field :user_id -%>
@@ -17,7 +17,7 @@
   <p>
     <%= f.label t('activerecord.models.role') -%><br />
     <%- if @user_has_role.role -%>
-      <%= link_to h(@user_has_role.role.display_name.localize), @user_has_role.role -%>
+      <%= link_to @user_has_role.role.display_name.localize, @user_has_role.role -%>
       <%= f.hidden_field :role_id -%>
     <%- else -%>
       <%= f.text_field :role_id -%>

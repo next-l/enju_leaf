@@ -8,7 +8,7 @@
   <%- if @manifestation.series_statement -%>
     <p>
       <%= f.label t('activerecord.models.series_statement') -%>
-      <%= link_to h(@manifestation.series_statement.original_title), @manifestation.series_statement -%>
+      <%= link_to @manifestation.series_statement.original_title, @manifestation.series_statement -%>
       (<%= link_to t('series_statement.edit'), series_statements_path(:manifestation_id => @manifestation.id) -%>)
       <%= f.hidden_field :series_statement_id -%>
     </p>

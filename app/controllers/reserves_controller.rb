@@ -39,6 +39,7 @@ class ReservesController < ApplicationController
       format.xml  { render :xml => @reserves.to_xml }
       format.rss  { render :layout => false }
       format.atom
+      format.csv
     end
   end
 

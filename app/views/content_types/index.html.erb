@@ -18,8 +18,8 @@
         <%= move_position(content_type) -%>
       <%- end -%>
     </td>
-    <td><%= link_to h(content_type.name), content_type -%></td>
-    <td><%= link_to h(content_type.display_name.localize), content_type -%></td>
+    <td><%= link_to content_type.name, content_type -%></td>
+    <td><%= link_to content_type.display_name.localize, content_type -%></td>
     <td><%= content_type.note -%></td>
     <td>
       <%- if can? :update, content_type -%>

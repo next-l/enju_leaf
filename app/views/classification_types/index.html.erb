@@ -18,8 +18,8 @@
         <%= move_position(classification_type) -%>
       <%- end -%>
     </td>
-    <td><%= link_to h(classification_type.name), classification_type -%></td>
-    <td><%= link_to h(classification_type.display_name.localize), classification_type -%></td>
+    <td><%= link_to classification_type.name, classification_type -%></td>
+    <td><%= link_to classification_type.display_name.localize, classification_type -%></td>
     <td><%= classification_type.note -%></td>
     <td>
       <%- if can? :update, classification_type -%>

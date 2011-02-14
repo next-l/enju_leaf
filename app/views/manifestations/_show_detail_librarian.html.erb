@@ -11,7 +11,7 @@
         <%- if manifestation.serial? -%>
           <tr>
             <td style="width: 200px"><%= t('manifestation.serial') -%>:</td>
-            <td style="width: 490px"><%= link_to h(manifestation.series_statement.original_title), manifestation.series_statement -%>
+            <td style="width: 490px"><%= link_to manifestation.series_statement.original_title, manifestation.series_statement -%>
             <%- if manifestation.issn.present? -%>
               (<%= t('activerecord.attributes.manifestation.issn') -%>: <%= manifestation.issn -%>)
             <%- end -%>
@@ -66,11 +66,11 @@
               <ul>
                 <%- manifestation.subjects.each do |subject| -%>
                   <li>
-                    <%= link_to h(subject.term), subject -%>
+                    <%= link_to subject.term, subject -%>
                     <%- unless subject.classifications.empty? -%>
                       (
                       <%- subject.classifications.each do |classification| -%>
-                        <%= classification.classification_type.name -%>: <%= link_to h(classification.category), classification -%>
+                        <%= classification.classification_type.name -%>: <%= link_to classification.category, classification -%>
                       <%- end -%>
                       )
                     <%- end -%>

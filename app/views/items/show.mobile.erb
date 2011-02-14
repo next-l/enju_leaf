@@ -8,28 +8,28 @@
   <div id="detail">
 <p>
   <strong><%= t('activerecord.models.shelf') -%>:</strong>
-  <%= link_to h(@item.shelf.display_name.localize), shelf_path(@item.shelf_id) -%>
+  <%= link_to @item.shelf.display_name.localize, shelf_path(@item.shelf_id) -%>
   <%= render :partial => 'items/shelf_picture', :locals => {:item => @item} -%>
-  (<%= link_to h(@item.shelf.library.display_name.localize), library_path(@item.shelf.library.name) -%>)
+  (<%= link_to @item.shelf.library.display_name.localize, library_path(@item.shelf.library.name) -%>)
 </p>
 
 <p>
   <strong><%= t('activerecord.attributes.item.checkout_type') -%>:</strong>
-  <%= link_to h(@item.checkout_type.display_name.localize), @item.checkout_type -%>
+  <%= link_to @item.checkout_type.display_name.localize, @item.checkout_type -%>
 </p>
 
 <p>
   <strong><%= t('activerecord.models.lending_policy') -%>:</strong>
   <ul>
     <%- @item.lending_policies.each do |lending_policy| -%>
-      <li><%= link_to h(lending_policy.user_group.display_name.localize), lending_policy -%></li>
+      <li><%= link_to lending_policy.user_group.display_name.localize, lending_policy -%></li>
     <%- end -%>
   </ul>
 </p>
 
 <p>
   <strong><%= t('activerecord.models.circulation_status') -%>:</strong>
-  <%= link_to h(@item.circulation_status.display_name.localize), @item.circulation_status -%>
+  <%= link_to @item.circulation_status.display_name.localize, @item.circulation_status -%>
   <%- if user_signed_in? -%>
     <%- if current_user.has_role?('Librarian') -%>
       <%- unless @item.checkouts.not_returned.blank? -%>

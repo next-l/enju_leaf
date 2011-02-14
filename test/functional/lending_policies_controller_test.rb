@@ -3,10 +3,10 @@ require 'test_helper'
 class LendingPoliciesControllerTest < ActionController::TestCase
     fixtures :lending_policies, :users, :items, :user_groups
 
-  test "guest should get index" do
+  test "guest should not get index" do
     get :index
-    assert_response :success
-    assert_not_nil assigns(:lending_policies)
+    assert_response :redirect
+    assert_redirected_to new_user_session_url
   end
 
   test "guest should not get new" do
@@ -49,9 +49,10 @@ class LendingPoliciesControllerTest < ActionController::TestCase
     assert_redirected_to lending_policy_url(assigns(:lending_policy))
   end
 
-  test "guest should show lending_policy" do
+  test "guest should not show lending_policy" do
     get :show, :id => lending_policies(:lending_policy_00001).to_param
-    assert_response :success
+    assert_response :redirect
+    assert_redirected_to new_user_session_url
   end
 
   test "guest should not get edit" do

@@ -18,8 +18,8 @@
         <%= move_position(carrier_type) -%>
       <%- end -%>
     </td>
-    <td><%= link_to h(carrier_type.name), carrier_type -%></td>
-    <td><%= link_to h(carrier_type.display_name.localize), carrier_type -%></td>
+    <td><%= link_to carrier_type.name, carrier_type -%></td>
+    <td><%= link_to carrier_type.display_name.localize, carrier_type -%></td>
     <td><%= carrier_type.note -%></td>
     <td>
       <%- if can? :update, carrier_type -%>

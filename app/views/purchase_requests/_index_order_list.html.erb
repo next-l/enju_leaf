@@ -1,11 +1,11 @@
 <div id="content_detail" class="ui-corner-all">
 <h1 class="title"><%= t('page.listing', :model => t('activerecord.models.purchase_request')) -%></h1>
 <div id="content_list">
-<h2 class="resource_title"><%= link_to h(@order_list.title), @order_list -%></h2>
+<h2 class="resource_title"><%= link_to @order_list.title, @order_list -%></h2>
 <p>
   <% if @order_list.ordered_at -%>
     <%= t('activerecord.attributes.order_list.ordered_at') -%>: <%= l(@order_list.ordered_at) if @order_list.ordered_at -%>
-    (<%= link_to h(@order_list.bookstore.name), @order_list.bookstore %>)
+    (<%= link_to @order_list.bookstore.name, @order_list.bookstore %>)
   <% end %>
   <%= t('order_list.total_price') -%>: <%= @order_list.total_price -%>
 </p>
@@ -28,7 +28,7 @@
   <%- @purchase_requests.each_with_index do |purchase_request, i| -%>
     <tr class="line<%= cycle("0", "1") -%>">
       <td>
-        <%= link_to h(purchase_request.title), purchase_request -%>
+        <%= link_to purchase_request.title, purchase_request -%>
         <br />
         <%= purchase_request.author -%>
         <%= purchase_request.publisher -%>

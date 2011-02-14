@@ -7,13 +7,13 @@
 
   <p>
     <%= f.label t('activerecord.models.subject') -%><br />
-    <%= link_to h(@subject_has_classification.subject.term), @subject_has_classification.subject if @subject_has_classification.subject -%>
+    <%= link_to @subject_has_classification.subject.term, @subject_has_classification.subject if @subject_has_classification.subject -%>
     <%= f.hidden_field :subject_id -%>
   </p>
 
   <p>
     <%= f.label t('activerecord.models.classification') -%><br />
-    <%= link_to h(@subject_has_classification.classification.category), @subject_has_classification.classification if @subject_has_classification.classification -%>
+    <%= link_to @subject_has_classification.classification.category, @subject_has_classification.classification if @subject_has_classification.classification -%>
     <%= f.hidden_field :classification_id -%>
   </p>
 

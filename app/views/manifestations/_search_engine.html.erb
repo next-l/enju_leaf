@@ -1,7 +1,7 @@
 <%- @search_engines.each do |search_engine| -%>
   <p>
     <%= form_tag search_engine.base_url, :method => search_engine.http_method -%>
-      <%= link_to h(search_engine.name), h(search_engine.url) -%>
+      <%= link_to search_engine.name, search_engine.url -%>
       <%= submit_tag t('page.search') -%>
       <br />
       <%= search_engine.note -%>

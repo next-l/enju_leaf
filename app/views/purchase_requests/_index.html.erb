@@ -21,7 +21,7 @@
   <%- @purchase_requests.each_with_index do |purchase_request, i| -%>
     <tr class="line<%= cycle("0", "1") -%>">
       <td>
-        <%= link_to h(purchase_request.title), purchase_request -%>
+        <%= link_to purchase_request.title, purchase_request -%>
         <br />
         <%= purchase_request.author -%>
         <%= purchase_request.publisher -%>

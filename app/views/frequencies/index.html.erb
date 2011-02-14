@@ -17,8 +17,8 @@
         <%= move_position(frequency) -%>
       <%- end -%>
     </td>
-    <td><%= link_to h(frequency.name), frequency -%></td>
-    <td><%= link_to h(frequency.display_name.localize), frequency -%></td>
+    <td><%= link_to frequency.name, frequency -%></td>
+    <td><%= link_to frequency.display_name.localize, frequency -%></td>
     <td>
       <%- if can? :update, frequency -%>
         <%= link_to t('page.edit'), edit_frequency_path(frequency) -%>

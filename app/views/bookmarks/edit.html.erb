@@ -8,7 +8,7 @@
   <p>
     <%= f.label t('page.title') -%><br />
     <%- if @bookmark.manifestation -%>
-      <%= link_to h(@bookmark.manifestation.original_title), h(@bookmark.manifestation.access_address) -%>
+      <%= link_to @bookmark.manifestation.original_title, @bookmark.manifestation.access_address -%>
     <%- else -%>
       <%= f.text_field :manifestation_id -%>
     <%- end -%>

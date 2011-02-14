@@ -3,7 +3,7 @@
     <ul>
       <% manifestation.questions(:user => current_user).each do |question| %>
         <li>
-          <%= link_to h(question.body), question %>
+          <%= link_to question.body, question %>
           (<%= t('page.last_updated') %>: <%=l question.updated_at %>)
         </li>
       <% end %>

@@ -13,12 +13,12 @@
 
 <%- @donates.each do |donate| -%>
   <tr class="line<%= cycle("0", "1") -%>">
-    <td><%= link_to h(donate.patron.full_name), donate.patron -%></td>
+    <td><%= link_to donate.patron.full_name, donate.patron -%></td>
     <td>
       <%= render :partial => 'manifestations/show_index', :locals => {:manifestation => donate.item.manifestation} -%>
     </td>
     <td>
-      <%= link_to h(donate.item.item_identifier), donate.item -%>
+      <%= link_to donate.item.item_identifier, donate.item -%>
     </td>
     <td><%= link_to t('page.show'), donate -%></td>
     <td>

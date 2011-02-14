@@ -8,7 +8,7 @@
   <p>
     <%= f.label t('activerecord.models.patron') -%><br />
     <%- if @produce.patron -%>
-      <%= link_to h(@produce.patron.full_name), @produce.patron -%>
+      <%= link_to @produce.patron.full_name, @produce.patron -%>
       <%= f.hidden_field :patron_id -%>
     <%- else -%>
       <%= f.text_field :patron_id -%>
@@ -18,7 +18,7 @@
   <p>
     <%= f.label t('activerecord.models.manifestation') -%><br />
     <%- if @produce.manifestation -%>
-      <%= link_to h(@produce.manifestation.original_title), @produce.manifestation -%>
+      <%= link_to @produce.manifestation.original_title, @produce.manifestation -%>
       <%= f.hidden_field :manifestation_id -%>
     <%- else -%>
       <%= f.text_field :manifestation_id -%>

@@ -2,7 +2,7 @@
 <h1 class="title"><%= t('page.listing', :model => t('activerecord.models.produce')) -%></h1>
 <div id="content_list">
   <h2 class="resource_title">
-    <%= link_to h(@patron.full_name), @patron -%>
+    <%= link_to @patron.full_name, @patron -%>
   </h2>
 
 <table class="index">
@@ -14,7 +14,7 @@
 <%- @produces.each do |produce| -%>
   <tr class="line<%= cycle("0", "1") -%>">
     <td>
-      <%= link_to h(produce.manifestation.original_title), produce.manifestation -%>
+      <%= link_to produce.manifestation.original_title, produce.manifestation -%>
       <%= form_icon(produce.manifestation.carrier_type) -%><br />
       <%= raw patrons_list(produce.manifestation.creators.readable_by(current_user)) -%>
       <%= raw patrons_list(produce.manifestation.contributors.readable_by(current_user)) -%>

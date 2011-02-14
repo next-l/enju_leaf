@@ -3,7 +3,7 @@
 <div id="content_list">
 <p>
   <strong><%= t('activerecord.models.user') -%>:</strong>
-  <%= link_to h(@order_list.user.username), @order_list.user -%>
+  <%= link_to @order_list.user.username, @order_list.user -%>
 </p>
 
 <p>
@@ -13,7 +13,7 @@
 
 <p>
   <strong><%= t('activerecord.models.bookstore') -%>:</strong>
-  <%= link_to h(@order_list.bookstore.name), @order_list.bookstore -%>
+  <%= link_to @order_list.bookstore.name, @order_list.bookstore -%>
 </p>
 
 <p>

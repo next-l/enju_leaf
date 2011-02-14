@@ -3,12 +3,12 @@
 <div id="content_list">
 <p>
   <strong><%= t('activerecord.models.subject') %></strong>
-  <%= link_to h(@subject_heading_type_has_subject.subject.term), @subject_heading_type_has_subject.subject %>
+  <%= link_to @subject_heading_type_has_subject.subject.term, @subject_heading_type_has_subject.subject %>
 </p>
 
 <p>
   <strong><%= t('activerecord.models.subject_heading_type') %></strong>
-  <%= link_to h(@subject_heading_type_has_subject.subject_heading_type.display_name.localize), @subject_heading_type_has_subject.subject_heading_type %>
+  <%= link_to @subject_heading_type_has_subject.subject_heading_type.display_name.localize, @subject_heading_type_has_subject.subject_heading_type %>
 </p>
 </div>
 </div>

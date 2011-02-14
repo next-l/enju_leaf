@@ -18,8 +18,8 @@
         <%= move_position(patron_relationship_type) -%>
       <%- end -%>
     </td>
-    <td><%= link_to h(patron_relationship_type.name), patron_relationship_type -%></td>
-    <td><%= link_to h(patron_relationship_type.display_name.localize), patron_relationship_type -%></td>
+    <td><%= link_to patron_relationship_type.name, patron_relationship_type -%></td>
+    <td><%= link_to patron_relationship_type.display_name.localize, patron_relationship_type -%></td>
     <td><%= patron_relationship_type.note -%></td>
     <td>
       <%- if can? :update, patron_relationship_type -%>

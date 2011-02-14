@@ -3,12 +3,12 @@
 <div id="content_list">
 <p>
   <strong><%= t('activerecord.models.user') -%>:</strong>
-  <%= link_to h(@user_has_role.user.username), @user_has_role.user -%>
+  <%= link_to @user_has_role.user.username, @user_has_role.user -%>
 </p>
 
 <p>
   <strong><%= t('activerecord.models.role') -%>:</strong>
-  <%= link_to h(@user_has_role.role.display_name.localize), @user_has_role.role -%>
+  <%= link_to @user_has_role.role.display_name.localize, @user_has_role.role -%>
 </p>
 
 </div>

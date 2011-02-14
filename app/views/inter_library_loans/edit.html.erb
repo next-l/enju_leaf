@@ -12,9 +12,9 @@
 
   <p>
     <%= f.label t('activerecord.models.item') -%><br />
-    <%= link_to h(@inter_library_loan.item.shelf.library.display_name.localize), library_path(@inter_library_loan.item.shelf.library.name) -%>
-    <%= link_to h(@inter_library_loan.item.item_identifier), @inter_library_loan.item -%>
-    (<%= link_to h(@inter_library_loan.item.manifestation.original_title), @inter_library_loan.item.manifestation -%>)
+    <%= link_to @inter_library_loan.item.shelf.library.display_name.localize, @inter_library_loan.item.shelf.library -%>
+    <%= link_to @inter_library_loan.item.item_identifier, @inter_library_loan.item -%>
+    (<%= link_to @inter_library_loan.item.manifestation.original_title, @inter_library_loan.item.manifestation -%>)
     <%= f.hidden_field :item_id -%>
   </p>
 

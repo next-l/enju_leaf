@@ -1,4 +1,4 @@
-    <strong><%= link_to h(reserve.manifestation.original_title), reserve -%></strong>
+    <strong><%= link_to reserve.manifestation.original_title, reserve -%></strong>
     <%- if reserve.manifestation.serial? -%>
       <%= reserve.manifestation.volume_number_list -%>
       <%- unless reserve.manifestation.issue_number_list.blank? -%>
@@ -21,6 +21,6 @@
     <%- end -%>
     <%- unless reserve.manifestation.access_address.blank? -%>
       <br />
-      <%= link_to h(reserve.manifestation.access_address), h(manifestation.access_address) -%>
-      <%= link_to image_tag('icons/world_go.png', :size => '16x16', :alt => ('Web')), h(reserve.manifestation.access_address) -%>
+      <%= link_to reserve.manifestation.access_address, manifestation.access_address -%>
+      <%= link_to image_tag('icons/world_go.png', :size => '16x16', :alt => ('Web')), reserve.manifestation.access_address -%>
     <%- end -%>

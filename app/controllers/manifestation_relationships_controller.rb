@@ -9,7 +9,7 @@ class ManifestationRelationshipsController < InheritedResources::Base
 
   def new
     @manifestation_relationship = ManifestationRelationship.new(params[:manifestation_relationship])
-    @manifestation_relationship.parent = Manifestation.find(params[:manifestation_id])
-    @manifestation_relationship.child = Manifestation.find(params[:child_id])
+    @manifestation_relationship.parent = Manifestation.find(params[:manifestation_id]) rescue nil
+    @manifestation_relationship.child = Manifestation.find(params[:child_id]) rescue nil
   end
 end

@@ -4,9 +4,9 @@
 
   <h2 class="resource_title">
     [W]
-    <%= link_to h(@work.original_title), @work -%>
+    <%= link_to @work.original_title, @work -%>
     <%- if @work.series_statement -%>
-      (<%= link_to h(@work.series_statement.original_title), @work.series_statement -%>)
+      (<%= link_to @work.series_statement.original_title, @work.series_statement -%>)
     <%- end -%>
   </h2>
 
@@ -38,7 +38,7 @@
   
   <%- @patrons.each do |patron| -%>
     <tr class="line<%= cycle("0", "1") -%>">
-      <td><%= link_to h(patron.full_name), patron -%></td>
+      <td><%= link_to patron.full_name, patron -%></td>
       <td><%= patron.patron_type.display_name.localize -%></td>
       <td><%=l patron.date_of_birth if patron.date_of_birth -%></td>
       <td>

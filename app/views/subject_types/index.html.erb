@@ -18,8 +18,8 @@
         <%= move_position(subject_type) -%>
       <%- end -%>
     </td>
-    <td><%= link_to h(subject_type.name), subject_type -%></td>
-    <td><%= link_to h(subject_type.display_name.localize), subject_type -%></td>
+    <td><%= link_to subject_type.name, subject_type -%></td>
+    <td><%= link_to subject_type.display_name.localize, subject_type -%></td>
     <td><%= subject_type.note -%></td>
     <td>
       <%- if can? :update, subject_type -%>

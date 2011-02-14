@@ -20,8 +20,8 @@
         <%- end -%>
       <%- end -%>
     </td>
-    <td><%= link_to h(checkout_type.name), checkout_type -%></td>
-    <td><%= link_to h(checkout_type.display_name.localize), checkout_type -%></td>
+    <td><%= link_to checkout_type.name, checkout_type -%></td>
+    <td><%= link_to checkout_type.display_name.localize, checkout_type -%></td>
     <td><%= checkout_type.note -%></td>
     <td>
       <%- if can? :update, checkout_type -%>

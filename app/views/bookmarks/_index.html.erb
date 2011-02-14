@@ -19,7 +19,7 @@
 
 <%- @bookmarks.each do |bookmark| -%>
   <tr class="line<%= cycle("0", "1") -%>">
-    <td><%= link_to h(bookmark.user.username), bookmark.user -%></td>
+    <td><%= link_to bookmark.user.username, bookmark.user -%></td>
     <td>
       <%= render :partial => 'manifestations/show_index', :locals => {:manifestation => bookmark.manifestation} -%>
       <%= render :partial => 'manifestations/holding', :locals => {:manifestation => bookmark.manifestation} -%>

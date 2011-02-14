@@ -17,8 +17,8 @@
   
 <%- @answers.each_with_index do |answer, i| -%>
   <tr class="line<%= cycle("0", "1") -%>">
-    <td><%= link_to h(answer.user.username), answer.user -%></td>
-    <td><%= link_to truncate(h(answer.body), :length => 20), user_question_answer_path(answer.question.user, answer.question, answer) -%></td>
+    <td><%= link_to answer.user.username, answer.user -%></td>
+    <td><%= link_to truncate(answer.body, :length => 20), user_question_answer_path(answer.question.user, answer.question, answer) -%></td>
     <td><%= l(answer.created_at) -%></td>
     <td><%= l(answer.updated_at) -%></td>
     <td>

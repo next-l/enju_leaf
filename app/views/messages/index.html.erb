@@ -24,10 +24,10 @@
       </td>
       <td>
         <% unless message.read? %><strong><% end %>
-          <%= link_to h(message.subject), message -%>
+          <%= link_to message.subject, message -%>
         <% unless message.read? %></strong><% end %>
       </td>
-      <td><%= link_to h(message.sender.username), message.sender -%></td>
+      <td><%= link_to message.sender.username, message.sender -%></td>
       <td><%= l(message.created_at) -%></td>  
     </tr>
   <%- end -%>

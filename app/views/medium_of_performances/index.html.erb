@@ -18,8 +18,8 @@
         <%= move_position(medium_of_performance) -%>
       <%- end -%>
     </td>
-    <td><%= link_to h(medium_of_performance.name), medium_of_performance -%></td>
-    <td><%= link_to h(medium_of_performance.display_name.localize), medium_of_performance -%></td>
+    <td><%= link_to medium_of_performance.name, medium_of_performance -%></td>
+    <td><%= link_to medium_of_performance.display_name.localize, medium_of_performance -%></td>
     <td><%= medium_of_performance.note -%></td>
     <td>
       <%- if can? :update, medium_of_performance -%>

@@ -9,7 +9,7 @@
 
   <ul>
     <%- @patron_merge_list.patrons.each do |patron| -%>
-      <li><%= radio_button_tag 'selected_patron_id', patron.id -%><%= link_to h(patron.full_name), patron -%></li>
+      <li><%= radio_button_tag 'selected_patron_id', patron.id -%><%= link_to patron.full_name, patron -%></li>
     <%- end -%>
   </ul>
   <%- if @patron_merge_list.patrons.size > 1 -%>

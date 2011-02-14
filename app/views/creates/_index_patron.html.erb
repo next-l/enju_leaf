@@ -2,7 +2,7 @@
 <h1 class="title"><%= t('page.listing', :model => t('activerecord.models.create')) -%></h1>
 <div id="content_list">
   <h2 class="resource_title">
-    <%= link_to h(@patron.full_name), @patron -%>
+    <%= link_to @patron.full_name, @patron -%>
   </h2>
 
 <table class="index">
@@ -22,7 +22,7 @@
         <%= create.last? ? image_tag('cross.png', :size => '16x16') : link_to(image_tag('arrow_down.png', :size => '16x16', :alt => t('page.desc')), {:action => 'update', :position => (create.position + 1), :id => create.id, :patron_id => @patron.id}, :method => :put) -%>
       <%- end -%>
     </td>
-    <td><%= link_to h(create.work.original_title), create.work -%></td>
+    <td><%= link_to create.work.original_title, create.work -%></td>
     <td><%= l(create.created_at) -%></td>
     <td><%= l(create.updated_at) -%></td>
     <td>

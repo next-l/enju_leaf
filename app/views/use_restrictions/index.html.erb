@@ -17,8 +17,8 @@
         <%= move_position(use_restriction) -%>
       <%- end -%>
     </td>
-    <td><%= link_to h(use_restriction.name), use_restriction -%></td>
-    <td><%= link_to h(use_restriction.display_name.localize), use_restriction -%></td>
+    <td><%= link_to use_restriction.name, use_restriction -%></td>
+    <td><%= link_to use_restriction.display_name.localize, use_restriction -%></td>
     <td>
       <%- if can? :update, use_restriction -%>
         <%= link_to t('page.edit'), edit_use_restriction_path(use_restriction) -%>

@@ -10,8 +10,8 @@
 
 <%- @subscribes.each do |subscribe| -%>
   <tr class="line<%= cycle("0", "1") -%>">
-    <td><%= link_to h(subscribe.subscription.title), subscribe.subscription -%></td>
-    <td><%= link_to h(subscribe.work.original_title), subscribe.work -%></td>
+    <td><%= link_to subscribe.subscription.title, subscribe.subscription -%></td>
+    <td><%= link_to subscribe.work.original_title, subscribe.work -%></td>
     <td><%= link_to t('page.show'), subscribe -%></td>
     <td><%= link_to t('page.edit'), edit_subscribe_path(subscribe) -%></td>
     <td><%= link_to t('page.destroy'), subscribe, :confirm => t('page.are_you_sure'), :method => :delete -%></td>

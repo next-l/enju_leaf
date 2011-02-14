@@ -6,11 +6,11 @@
   <fieldset>
 	    <p>
         <label for="message_receiver_name" ><strong><%= t('message.receiver') -%>:</strong></label>
-        <%= link_to h(@message.receiver.username), @message.receiver -%>
+        <%= link_to @message.receiver.username, @message.receiver -%>
       </p>
       <p>
         <label for="message_sender_name" ><strong><%= t('message.sender') -%>:</strong></label>
-        <%= link_to h(@message.sender.username), @message.sender -%>
+        <%= link_to @message.sender.username, @message.sender -%>
       </p>
     
       <p>

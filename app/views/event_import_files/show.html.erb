@@ -8,7 +8,7 @@
 
 <p>
   <strong><%= t('activerecord.attributes.event_import_file.event_import_file_name') -%>:</strong>
-  <%= link_to h(@event_import_file.event_import_file_name), event_import_file_path(@event_import_file, :format => :download) -%>
+  <%= link_to @event_import_file.event_import_file_name, event_import_file_path(@event_import_file, :format => :download) -%>
 </p>
 
 <p>
@@ -43,7 +43,7 @@
 
 <p>
   <strong><%= t('activerecord.models.user') -%>:</strong>
-  <%= link_to h(@event_import_file.user.username), @event_import_file.user -%>
+  <%= link_to @event_import_file.user.username, @event_import_file.user -%>
 </p>
 
 </div>

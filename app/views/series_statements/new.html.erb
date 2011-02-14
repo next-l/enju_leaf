@@ -7,7 +7,7 @@
 
   <%- if @manifestation -%>
     <p>
-      <%= link_to h(@manifestation.original_title), @manifestation -%>
+      <%= link_to @manifestation.original_title, @manifestation -%>
       <%= f.hidden_field :manifestation_id %>
     </p>
   <%- end -%>

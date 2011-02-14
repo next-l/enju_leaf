@@ -2,7 +2,7 @@
   <%= f.error_messages -%>
   <p>
     <%= f.label t('page.attachable') -%><br />
-    <%= link_to h(@manifestation.original_title), @manifestation -%>
+    <%= link_to @manifestation.original_title, @manifestation -%>
     <%= f.hidden_field :picture_attachable_id -%>
     <%= f.hidden_field :picture_attachable_type -%>
   </p>

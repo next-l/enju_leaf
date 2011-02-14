@@ -2,17 +2,17 @@
 <div id="content_list">
 <p>
   <strong><%= t('activerecord.models.item') -%>:</strong>
-  <%= link_to h(@item_has_use_restriction.item.item_identifier), @item_has_use_restriction.item -%>
+  <%= link_to @item_has_use_restriction.item.item_identifier, @item_has_use_restriction.item -%>
 </p>
 
 <p>
   <strong><%= t('activerecord.attributes.item.item_identifier') -%>:</strong>
-  <%= link_to h(@item_has_use_restriction.item.item_identifier), @item_has_use_restriction.item -%> (<%= link_to h(@item_has_use_restriction.item.manifestation.original_title), @item_has_use_restriction.item.manifestation -%>)
+  <%= link_to @item_has_use_restriction.item.item_identifier, @item_has_use_restriction.item -%> (<%= link_to @item_has_use_restriction.item.manifestation.original_title, @item_has_use_restriction.item.manifestation -%>)
 </p>
 
 <p>
   <strong><%= t('activerecord.models.use_restriction') -%>:</strong>
-  <%= link_to h(@item_has_use_restriction.use_restriction.display_name.localize), @item_has_use_restriction.use_restriction -%>
+  <%= link_to @item_has_use_restriction.use_restriction.display_name.localize, @item_has_use_restriction.use_restriction -%>
 </p>
 
 </div>

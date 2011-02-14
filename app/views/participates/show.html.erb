@@ -4,12 +4,12 @@
   
 <p>
   <strong><%= t('activerecord.models.patron') -%>:</strong>
-  <%= link_to h(@participate.patron.full_name), @participate.patron %>
+  <%= link_to @participate.patron.full_name, @participate.patron %>
 </p>
 
 <p>
   <strong><%= t('activerecord.models.event') -%>:</strong>
-  <%= link_to h(@participate.event.name), @participate.event %>
+  <%= link_to @participate.event.name, @participate.event %>
 </p>
 
 </div>

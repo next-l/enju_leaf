@@ -2,7 +2,7 @@
 <h1 class="title"><%= t('page.listing', :model => t('activerecord.models.realize')) -%></h1>
 <div id="content_list">
   <h2 class="resource_title">
-    <%= link_to h(@patron.full_name), @patron -%>
+    <%= link_to @patron.full_name, @patron -%>
   </h2>
 <table class="index">
   <tr>
@@ -14,7 +14,7 @@
 
 <%- @realizes.each do |realize| -%>
   <tr class="line<%= cycle("0", "1") -%>">
-    <td><%= link_to h(realize.expression.original_title), realize.expression -%></td>
+    <td><%= link_to realize.expression.original_title, realize.expression -%></td>
     <td><%= l(realize.created_at) -%></td>
     <td><%= l(realize.updated_at) -%></td>
     <td>

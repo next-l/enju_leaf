@@ -12,7 +12,7 @@
   <div id="content_list">
     <%- if @library -%>
       <h2 class="resource_title">
-        <%= link_to h(@library.display_name.localize), library_path(@library.name) -%>
+        <%= link_to @library.display_name.localize, library_path(@library.name) -%>
       </h2>
     <%- else -%>
       <h2 class="resource_title">
@@ -37,7 +37,7 @@
     <li><%= link_to t('page.listing', :model => t('activerecord.models.event')), events_path -%></li>
     <li><%= link_to t('page.show_all'), :controller => :calendar, :action => :index -%></li>
     <%- @libraries.each do |library| -%>
-      <li><%= link_to h(library.display_name.localize), :controller => :calendar, :action => :index, :library_id => library.name -%></li>
+      <li><%= link_to library.display_name.localize, :controller => :calendar, :action => :index, :library_id => library.name -%></li>
     <%- end -%>
   </ul>
 </div>

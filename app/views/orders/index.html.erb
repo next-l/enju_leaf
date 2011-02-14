@@ -12,8 +12,8 @@
 
 <%- @orders.each do |order| -%>
   <tr class="line<%= cycle("0", "1") -%>">
-    <td><%= link_to h(order.order_list.title), order.order_list -%></td>
-    <td><%= link_to h(order.purchase_request.title), purchase_request_path(order.purchase_request) -%></td>
+    <td><%= link_to order.order_list.title, order.order_list -%></td>
+    <td><%= link_to order.purchase_request.title, purchase_request_path(order.purchase_request) -%></td>
     <td><%= l(order.created_at) -%></td>
     <td><%= l(order.updated_at) -%></td>
     <%- if can? :destroy, order -%>

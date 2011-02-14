@@ -17,7 +17,7 @@
 
   <p>
     <%= f.label t('activerecord.models.user') -%>
-    <%= link_to h(@reserve.user.username), @reserve.user -%>
+    <%= link_to @reserve.user.username, @reserve.user -%>
     (<%= @reserve.user.user_number %>)
   </p>
 

@@ -3,12 +3,12 @@
 <div id='content_list'>
 <p>
   <strong><%= t('activerecord.models.subscription') -%>:</strong>
-  <%= link_to h(@subscribe.subscription.title), @subscribe.subscription -%>
+  <%= link_to @subscribe.subscription.title, @subscribe.subscription -%>
 </p>
 
 <p>
   <strong><%= t('activerecord.models.work') -%>:</strong>
-  <%= link_to h(@subscribe.work.original_title), @subscribe.work -%>
+  <%= link_to @subscribe.work.original_title, @subscribe.work -%>
 </p>
 
 <p>

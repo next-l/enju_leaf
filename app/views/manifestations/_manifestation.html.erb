@@ -4,7 +4,7 @@
               <% cache(:controller => :manifestations, :action => :show, :id => manifestation.id, :page => 'show_list', :role => current_user_role_name, :locale => @locale) do %>
                 <%= render :partial => 'manifestations/show_index', :locals => {:manifestation => manifestation} -%>
                 <div class="access_address">
-                  <%= link_to h(manifestation.access_address), manifestation.access_address if manifestation.access_address.present? -%>
+                  <%= link_to manifestation.access_address, manifestation.access_address if manifestation.access_address.present? -%>
                 </div>
                 <%- if manifestation.items.on_shelf.exists? -%>
                   (<%= link_to_function t('page.holding'), "$('#holding_#{manifestation.id}').toggle()" -%>)

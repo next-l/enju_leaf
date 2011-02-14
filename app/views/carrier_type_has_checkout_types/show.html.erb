@@ -3,12 +3,12 @@
 <div id="content_list">
 <p>
   <strong><%= t('activerecord.models.carrier_type') -%>:</strong>
-  <%= link_to h(@carrier_type_has_checkout_type.carrier_type.display_name.localize), @carrier_type_has_checkout_type.carrier_type -%>
+  <%= link_to @carrier_type_has_checkout_type.carrier_type.display_name.localize, @carrier_type_has_checkout_type.carrier_type -%>
 </p>
 
 <p>
   <strong><%= t('activerecord.models.checkout_type') -%>:</strong>
-  <%= link_to h(@carrier_type_has_checkout_type.checkout_type.display_name.localize), @carrier_type_has_checkout_type.checkout_type -%>
+  <%= link_to @carrier_type_has_checkout_type.checkout_type.display_name.localize, @carrier_type_has_checkout_type.checkout_type -%>
 </p>
 
 <p>

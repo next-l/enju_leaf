@@ -18,8 +18,8 @@
         <%= move_position(patron_type) -%>
       <%- end -%>
     </td>
-    <td><%= link_to h(patron_type.name), patron_type -%></td>
-    <td><%= link_to h(patron_type.display_name.localize), patron_type -%></td>
+    <td><%= link_to patron_type.name, patron_type -%></td>
+    <td><%= link_to patron_type.display_name.localize, patron_type -%></td>
     <td><%= patron_type.note -%></td>
     <td>
       <%- if can? :update, patron_type -%>

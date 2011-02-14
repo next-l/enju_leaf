@@ -15,12 +15,12 @@
 
 <%- @import_requests.each do |import_request| -%>
   <tr class="line<%= cycle("0", "1") -%>">
-    <td><%= link_to h(import_request.id), import_request -%></td>
-    <td><%= link_to h(import_request.user.username), import_request.user -%></td>
+    <td><%= link_to import_request.id, import_request -%></td>
+    <td><%= link_to import_request.user.username, import_request.user -%></td>
     <td><%= import_request.isbn -%></td>
     <td><%=l import_request.created_at -%></td>
     <td><%= localized_state(import_request.state) -%></td>
-    <td><%= link_to h(import_request.manifestation.original_title), import_request.manifestation if import_request.manifestation -%></td>
+    <td><%= link_to import_request.manifestation.original_title, import_request.manifestation if import_request.manifestation -%></td>
     <td>
       <%- if can? :destroy, import_request -%>
         <%= link_to image_tag('icons/delete.png', :size => '16x16', :alt => t('page.destroy')), import_request, :confirm => t('page.are_you_sure'), :method => :delete -%>

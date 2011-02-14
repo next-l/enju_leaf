@@ -15,7 +15,7 @@
 <strong><%= t('activerecord.models.user_group') -%></strong>
 <ul>
   <%- @checkout_type.user_group_has_checkout_types.each do |available_user_group| -%>
-    <li><%= link_to h(available_user_group.user_group.display_name.localize), available_user_group.user_group -%></li>
+    <li><%= link_to available_user_group.user_group.display_name.localize, available_user_group.user_group -%></li>
   <%- end -%>
 </ul>
 

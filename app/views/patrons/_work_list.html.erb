@@ -4,7 +4,7 @@
     <%- @works.each do |work| -%>
       <li>
         [W]
-        <%= link_to h(work.original_title), work -%>
+        <%= link_to work.original_title, work -%>
         <%= raw patrons_list(work.creators.readable_by(current_user)) -%>
       </li>
     <%- end -%>

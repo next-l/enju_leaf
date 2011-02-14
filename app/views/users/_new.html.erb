@@ -7,7 +7,7 @@
   <%- if @patron -%>
     <h2 class="resource_title">
       [P]
-      <%= link_to h(@patron.full_name), @patron -%>
+      <%= link_to @patron.full_name, @patron -%>
     </h2>
     <%= f.hidden_field :patron_id -%>
   <%- end -%>
