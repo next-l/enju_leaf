@@ -1,0 +1,50 @@
+<div data-role="header">
+<h1 class="title"><%= t('page.listing', :model => t('activerecord.models.event')) -%></h1>
+</div>
+
+<div data-role="content">
+<%- if @library -%>
+  <h2><%= link_to @library.display_name.localize, @library -%></h2>
+<%- else -%>
+  <h2><%= t('event.all_libraries') -%></h2>
+<%- end -%>
+
+  <div data-role="fieldcontain">
+    <%= form_for :events, :url => events_path, :html => {:method => 'get'} do -%>
+      <p>
+        <%= t('page.search_term') -%>: <%= search_field_tag 'query', h(@query), {:id => 'search_form_top', :class => 'search_form'} -%>
+        <%= submit_tag t('page.search') -%>
+      </p>
+      <%= javascript_tag("$('#search_form_top').focus()") -%>
+    <%- end -%>
+  </div>
+
+<p>
+  <%- case params[:mode]
+      when 'upcoming' -%>
+    <%= link_to t('event.all'), params.merge(:mode => nil) -%>
+    <strong><%= t('event.upcoming') -%></strong>
+    <%= link_to t('event.past'), params.merge(:mode => 'past') -%>
+  <%- when 'past' -%>
+    <%= link_to t('event.all'), params.merge(:mode => nil) -%>
+    <%= link_to t('event.upcoming'), params.merge(:mode => 'upcoming') -%>
+    <strong><%= t('event.past') -%></strong>
+  <%- else -%>
+    <strong><%= t('event.all') -%></strong>
+    <%= link_to t('event.upcoming'), params.merge(:mode => 'upcoming') -%>
+    <%= link_to t('event.past'), params.merge(:mode => 'past') -%>
+  <%- end -%>
+</p>
+</div>
+
+<ul data-role="listview">
+  <%- @events.each_with_index do |event, i| -%>
+    <li>
+      <%= link_to event.name.localize, event -%>
+      <br />
+      <%= l(event.start_at, :format => :short) -%>
+      -
+      <%= l(event.end_at, :format => :short) -%>
+    </li>
+  <%- end -%>
+</ul>
