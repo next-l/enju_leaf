@@ -2,7 +2,7 @@
   <h1 class="title"><%= t('page.listing', :model => t('activerecord.models.picture_file')) -%></h1>
 <div id="content_list">
 
-<h2 class="resource_title"><%= link_to h(@shelf.display_name.localize), @shelf -%></h2>
+<h2 class="resource_title"><%= link_to @shelf.display_name.localize, @shelf -%></h2>
 
 <table class="index">
   <tr>
@@ -25,7 +25,7 @@
       </td>
       <td><%= picture_file.picture_file_size -%></td>
       <td><%= picture_file.picture_content_type -%></td>
-      <td><%= link_to h(picture_file.picture_file_name), picture_file_path(picture_file, :format => :download, :size => 'original') -%></td>
+      <td><%= link_to picture_file.picture_file_name, picture_file_path(picture_file, :format => :download, :size => 'original') -%></td>
       <td>
         <%= link_to t('page.show'), picture_file -%>
         <%- if can? :update, picture_file -%>
