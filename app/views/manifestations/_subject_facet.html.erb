@@ -5,7 +5,7 @@
     <%- subject = Subject.first(:conditions => {:id => facet.value}) -%>
     <%- if subject -%>
       <li>
-        <%= link_to "#{h(subject.term)} (#{facet.count})", url_for(params.merge(:page => nil, :subject => h(subject.term), :view => nil)) -%>
+        <%= link_to "#{subject.term} (#{facet.count})", url_for(params.merge(:page => nil, :subject => h(subject.term), :view => nil)) -%>
       </li>
     <%- end -%>
   <%- end -%>

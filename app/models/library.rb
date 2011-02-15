@@ -32,7 +32,7 @@ class Library < ActiveRecord::Base
   validates_format_of :name, :with => /^[a-z][0-9a-z]{2,254}$/
   before_validation :set_patron, :on => :create
   #before_save :set_calil_neighborhood_library
-  after_validation :fetch_coordinates
+  after_validation :set_coordinates
   after_create :create_shelf
   after_create :clear_all_cache
   after_destroy :clear_all_cache
@@ -57,6 +57,10 @@ class Library < ActiveRecord::Base
 
   def create_shelf
     Shelf.create!(:name => "#{self.name}_default", :library => self)
+  end
+
+  def set_coordinates
+    fetch_coordinates rescue nil
   end
 
   def closed?(date)
