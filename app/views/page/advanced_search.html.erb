@@ -26,6 +26,14 @@
       <td><%= text_field_tag 'isbn' -%></td>
     </tr>
     <tr>
+      <td><label><%= t('activerecord.attributes.manifestation.issn') -%>:</label></td>
+      <td><%= text_field_tag 'issn' -%></td>
+    </tr>
+    <tr>
+      <td><label><%= t('activerecord.attributes.item.item_identifier') -%>:</label></td>
+      <td><%= text_field_tag 'item_identifier' -%></td>
+    </tr>
+    <tr>
       <td><label><%= t('activerecord.attributes.manifestation.date_of_publication') -%>:</label></td>
       <td><%= t('advanced_search.from') -%> <%= text_field_tag 'pubdate_from', nil, :size => 5 -%>
         <%= t('advanced_search.to') -%> <%= text_field_tag 'pubdate_to', nil, :size => 5 -%></td>
