@@ -150,7 +150,7 @@ class User < ActiveRecord::Base
   def set_expiration
     return if self.has_role?('Administrator')
     if expired_at
-      unless expired_at.beggning_of_day < Time.zone.now.beginning_of_day
+      unless expired_at.beginning_of_day < Time.zone.now.beginning_of_day
         lock_access! if self.active?
       end
     end
