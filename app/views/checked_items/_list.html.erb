@@ -1,6 +1,6 @@
 <div style="color: red"><%= flash[:message].try(:join) -%></div>
 
-<%= form_for @checked_item, :url => user_basket_checked_items_path(@basket.user, @basket, :mode => 'list'), :remote => true do |f| -%>
+<%= form_for @checked_item, :html => {:method => :post}, :url => user_basket_checked_items_path(@basket.user, @basket, :mode => 'list'), :remote => true do |f| -%>
   <%= f.error_messages -%>
   <p>
     <%= t('activerecord.attributes.item.item_identifier') -%>: <%= f.text_field :item_identifier -%>

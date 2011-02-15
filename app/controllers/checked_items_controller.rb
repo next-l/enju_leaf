@@ -97,9 +97,9 @@ class CheckedItemsController < ApplicationController
         flash[:notice] = t('controller.successfully_created', :model => t('activerecord.models.checked_item'))
 
         if params[:mode] == 'list'
-          format.html{
-            redirect_to(user_basket_checked_items_url(@basket.user, @basket, :mode => 'list'))
-          }
+          format.html { redirect_to(user_basket_checked_items_url(@basket.user, @basket)) }
+          format.xml  { render :xml => @checked_item, :status => :created, :location => @checked_item }
+          format.js { redirect_to(user_basket_checked_items_url(@basket.user, @basket, :format => :js)) }
         else
           flash[:message] << @checked_item.errors[:base]
           format.html { redirect_to(user_basket_checked_items_url(@basket.user, @basket)) }
@@ -108,10 +108,9 @@ class CheckedItemsController < ApplicationController
       else
         flash[:message] << @checked_item.errors[:base]
         if params[:mode] == 'list'
-          #format.html { render :action => "new" }
-          #format.xml  { render :xml => @checked_item.errors, :status => :unprocessable_entity }
-          redirect_to(user_basket_checked_items_url(@basket.user, @basket, :mode => 'list'))
-          return
+          format.html { redirect_to(user_basket_checked_items_url(@basket.user, @basket)) }
+          format.xml  { render :xml => @checked_item, :status => :created, :location => @checked_item }
+          format.js { redirect_to(user_basket_checked_items_url(@basket.user, @basket, :format => :js)) }
         else
           format.html { render :action => "new" }
           format.xml  { render :xml => @checked_item.errors, :status => :unprocessable_entity }
