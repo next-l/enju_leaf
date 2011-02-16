@@ -3,7 +3,7 @@ class ManifestationsController < ApplicationController
   load_and_authorize_resource
   before_filter :authenticate_user!, :only => :edit
   before_filter :get_patron
-  helper_method :get_manifestation
+  helper_method :get_manifestation, :get_subject
   before_filter :get_series_statement, :only => [:index, :new, :edit]
   before_filter :prepare_options, :only => [:new, :edit]
   helper_method :get_libraries
@@ -103,9 +103,10 @@ class ManifestationsController < ApplicationController
         reservable = nil
       end
 
-      get_manifestation
+      get_manifestation; get_subject
       unless params[:mode] == 'add'
         manifestation = @manifestation if @manifestation
+        subject = @subject if @subject
       end
 
       patron = get_index_patron
@@ -118,6 +119,7 @@ class ManifestationsController < ApplicationController
         with(:creator_ids).equal_to patron[:creator].id if patron[:creator]
         with(:contributor_ids).equal_to patron[:contributor].id if patron[:contributor]
         with(:publisher_ids).equal_to patron[:publisher].id if patron[:publisher]
+        with(:subject_ids).equal_to subject.id if subject
         facet :reservable
       end
       search = make_internal_query(search)
