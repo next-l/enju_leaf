@@ -1,8 +1,8 @@
 # -*- encoding: utf-8 -*-
 class Answer < ActiveRecord::Base
   default_scope :order => 'id ASC'
-  scope :public_answers, :conditions => {:shared => true}
-  scope :private_answers, :conditions => {:shared => false}
+  scope :public_answers, where(:shared => true)
+  scope :private_answers, where(:shared => false)
   belongs_to :user, :counter_cache => true, :validate => true
   belongs_to :question, :counter_cache => true, :validate => true
   has_many :answer_has_items, :dependent => :destroy

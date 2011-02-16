@@ -20,7 +20,7 @@ class Subscription < ActiveRecord::Base
   end
 
   def subscribed(work)
-    subscribes.first(:conditions => {:work_id => work.id})
+    subscribes.where(:work_id => work.id).first
   end
 
 end

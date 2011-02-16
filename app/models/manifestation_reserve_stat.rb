@@ -1,6 +1,6 @@
 class ManifestationReserveStat < ActiveRecord::Base
   include CalculateStat
-  scope :not_calculated, :conditions => {:state => 'pending'}
+  scope :not_calculated, where(:state => 'pending')
   has_many :reserve_stat_has_manifestations
   has_many :manifestations, :through => :reserve_stat_has_manifestations
 

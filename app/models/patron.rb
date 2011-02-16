@@ -64,7 +64,7 @@ class Patron < ActiveRecord::Base
   end
 
   def set_role_and_name
-    self.required_role = Role.first(:conditions => {:name => 'Librarian'}) if self.required_role_id.nil?
+    self.required_role = Role.where(:name => 'Librarian').first if self.required_role_id.nil?
     set_full_name
   end
 
@@ -154,27 +154,27 @@ class Patron < ActiveRecord::Base
   end
 
   def created(work)
-    creates.first(:conditions => {:work_id => work.id})
+    creates.where(:work_id => work.id).first
   end
 
   def realized(expression)
-    realizes.first(:conditions => {:expression_id => expression.id})
+    realizes.where(:expression_id => expression.id).first
   end
 
   def produced(manifestation)
-    produces.first(:conditions => {:manifestation_id => manifestation.id})
+    produces.where(:manifestation_id => manifestation.id).first
   end
 
   def owned(item)
-    owns.first(:conditions => {:item_id => item.id})
+    owns.where(:item_id => item.id)
   end
 
   def self.import_patrons(patron_lists)
     list = []
     patron_lists.each do |patron_list|
-      unless patron = Patron.first(:conditions => {:full_name => patron_list})
+      unless patron = Patron.where(:full_name => patron_list).first
         patron = Patron.new(:full_name => patron_list, :language_id => 1)
-        patron.required_role = Role.first(:conditions => {:name => 'Guest'})
+        patron.required_role = Role.where(:name => 'Guest').first
         patron.save
       end
       list << patron

@@ -1,6 +1,6 @@
 class BookmarkStat < ActiveRecord::Base
   include CalculateStat
-  scope :not_calculated, :conditions => {:state => 'pending'}
+  scope :not_calculated, where(:state => 'pending')
   has_many :bookmark_stat_has_manifestations
   has_many :manifestations, :through => :bookmark_stat_has_manifestations
 

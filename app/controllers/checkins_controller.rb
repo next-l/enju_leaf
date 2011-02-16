@@ -57,7 +57,7 @@ class CheckinsController < ApplicationController
     if @checkin.item_identifier.blank?
       flash[:message] << t('checkin.enter_item_identifier') if @checkin.item_identifier.blank?
     else
-      item = Item.first(:conditions => {:item_identifier => @checkin.item_identifier.to_s.strip})
+      item = Item.where(:item_identifier => @checkin.item_identifier.to_s.strip).first
     end
 
     unless item.blank?
@@ -74,7 +74,7 @@ class CheckinsController < ApplicationController
           #flash[:message] << t('controller.successfully_created', :model => t('activerecord.models.checkin'))
           flash[:message] << t('checkin.successfully_checked_in', :model => t('activerecord.models.checkin'))
           Checkin.transaction do
-            checkout = Checkout.not_returned.first(:conditions => {:item_id => @checkin.item.id})
+            checkout = Checkout.not_returned.where(:item_id => @checkin.item.id).first
             # TODO: 貸出されていない本の処理
             # TODO: ILL時の処理
             @checkin.item.checkin!
@@ -138,7 +138,7 @@ class CheckinsController < ApplicationController
     #@checkin = Checkin.find(params[:id])
     @checkin.item_identifier = params[:checkin][:item_identifier] rescue nil
     unless @checkin.item_identifier.blank?
-      item = Item.first(:conditions => {:item_identifier => @checkin.item_identifier.to_s.strip})
+      item = Item.where(:item_identifier => @checkin.item_identifier.to_s.strip).first
     end
     @checkin.item = item
 

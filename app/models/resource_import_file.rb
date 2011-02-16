@@ -1,6 +1,6 @@
 class ResourceImportFile < ActiveRecord::Base
   default_scope :order => 'id DESC'
-  scope :not_imported, :conditions => {:state => 'pending', :imported_at => nil}
+  scope :not_imported, where(:state => 'pending', :imported_at => nil)
 
   if configatron.uploaded_file.storage == :s3
     has_attached_file :resource_import, :storage => :s3, :s3_credentials => "#{Rails.root.to_s}/config/s3.yml",
@@ -217,7 +217,7 @@ class ResourceImportFile < ActiveRecord::Base
   def import_subject(row)
     subjects = []
     row['subject'].to_s.split(';').each do |s|
-      unless subject = Subject.first(:conditions => {:term => s.to_s.strip})
+      unless subject = Subject.where(:term => s.to_s.strip).first
         # TODO: Subject typeの設定
         subject = Subject.create(:term => s.to_s.strip, :subject_type_id => 1)
       end
@@ -227,8 +227,8 @@ class ResourceImportFile < ActiveRecord::Base
   end
 
   def create_item(row, manifestation)
-    circulation_status = CirculationStatus.first(:conditions => {:name => row['circulation_status'].to_s.strip}) || CirculationStatus.first(:conditions => {:name => 'In Process'})
-    shelf = Shelf.first(:conditions => {:name => row['shelf'].to_s.strip}) || Shelf.web
+    circulation_status = CirculationStatus.where(:name => row['circulation_status'].to_s.strip).first || CirculationStatus.where(:name => 'In Process').first
+    shelf = Shelf.where(:name => row['shelf'].to_s.strip).first || Shelf.web
     item = self.class.import_item(manifestation, {
       :item_identifier => row['item_identifier'],
       :price => row['item_price'],
@@ -240,10 +240,10 @@ class ResourceImportFile < ActiveRecord::Base
   end
 
   def fetch(row)
-    shelf = Shelf.first(:conditions => {:name => row['shelf'].to_s.strip}) || Shelf.web
+    shelf = Shelf.where(:name => row['shelf'].to_s.strip).first || Shelf.web
 
     unless row['identifier'].blank?
-      if manifestation = Manifestation.first(:conditions => {:identifier => row['identifier'].to_s.strip})
+      if manifestation = Manifestation.where(:identifier => row['identifier'].to_s.strip).first
         return manifestation
       end
     end
@@ -321,7 +321,7 @@ class ResourceImportFile < ActiveRecord::Base
   end
 
   def import_series_statement(row)
-    unless series_statement = SeriesStatement.first(:conditions => {:series_statement_identifier => row['series_statement_identifier'].to_s.strip})
+    unless series_statement = SeriesStatement.where(:series_statement_identifier => row['series_statement_identifier'].to_s.strip).first
       if row['series_statement_original_title'].to_s.strip.present?
         series_statement = SeriesStatement.create(
           :original_title => row['series_statement_original_title'].to_s.strip,

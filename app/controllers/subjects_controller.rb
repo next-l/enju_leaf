@@ -72,7 +72,7 @@ class SubjectsController < ApplicationController
   # GET /subjects/1.xml
   def show
     if params[:term]
-      subject = Subject.first(:conditions => {:term => params[:term]})
+      subject = Subject.where(:term => params[:term]).first
       redirected_to subject
       return
     end
@@ -132,8 +132,8 @@ class SubjectsController < ApplicationController
     else
       @subject = Subject.new(params[:subject])
     end
-    classification = Classification.first(:conditions => {:id => @subject.classification_id}) if @subject.classification_id.present?
-    subject_heading_type = SubjectHeadingType.first(:conditions => {:id => @subject.subject_heading_type_id}) if @subject.subject_heading_type_id.present?
+    classification = Classification.find(@subject.classification_id) if @subject.classification_id.present?
+    subject_heading_type = SubjectHeadingType.find(@subject.subject_heading_type_id) if @subject.subject_heading_type_id.present?
 
     respond_to do |format|
       if @subject.save

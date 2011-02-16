@@ -77,7 +77,7 @@ class CheckedItemsController < ApplicationController
     flash[:message] = []
     item_identifier = @checked_item.item_identifier.to_s.strip
     unless item_identifier.blank?
-      item = Item.first(:conditions => {:item_identifier => item_identifier})
+      item = Item.where(:item_identifier => item_identifier).first
     end
 
     @checked_item.item = item unless item.blank?
@@ -86,7 +86,7 @@ class CheckedItemsController < ApplicationController
       if @checked_item.save
         if @checked_item.item.reserved?
           if @checked_item.item.manifestation.is_reserved_by(@basket.user)
-            reserve = Reserve.first(:conditions => {:user_id => @basket.user.id, :manifestation_id => @checked_item.item.manifestation.id})
+            reserve = Reserve.where(:user_id => @basket.user.id, :manifestation_id => @checked_item.item.manifestation.id).first
             reserve.destroy
           end
         end

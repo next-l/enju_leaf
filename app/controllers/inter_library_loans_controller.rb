@@ -56,7 +56,7 @@ class InterLibraryLoansController < ApplicationController
   # POST /inter_library_loans.xml
   def create
     @inter_library_loan = InterLibraryLoan.new(params[:inter_library_loan])
-    item = Item.first(:conditions => {:item_identifier => params[:inter_library_loan][:item_identifier]})
+    item = Item.where(:item_identifier => params[:inter_library_loan][:item_identifier]).first
     @inter_library_loan.item = item
 
     respond_to do |format|

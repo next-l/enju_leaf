@@ -55,7 +55,7 @@ class PatronsController < ApplicationController
     end
     unless params[:mode] == 'add'
       user = @user
-      get_work; get_expressionl get_manifestation; get_patron; get_patron_merge_list;
+      get_work; get_expression; get_manifestation; get_patron; get_patron_merge_list;
       work = @work
       expression = @expression
       manifestation = @manifestation
@@ -145,7 +145,7 @@ class PatronsController < ApplicationController
     else
       @patron.required_role = Role.find_by_name('Guest')
     end
-    @patron.language = Language.first(:conditions => {:iso_639_1 => I18n.default_locale.to_s}) || Language.first
+    @patron.language = Language.where(:iso_639_1 => I18n.default_locale.to_s).first || Language.first
     @patron.country = current_user.library.country
     prepare_options
 

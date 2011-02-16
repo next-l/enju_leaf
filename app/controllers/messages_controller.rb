@@ -148,7 +148,7 @@ class MessagesController < ApplicationController
 
   private
   def get_parent(id)
-    parent = Message.first(:conditions => {:id => id})
+    parent = Message.where(:id => id).first
     unless current_user.has_role?('Librarian')
       unless parent.try(:receiver) == current_user
         access_denied; return

@@ -2,7 +2,7 @@
 class Bookmark < ActiveRecord::Base
   scope :bookmarked, lambda {|start_date, end_date| {:conditions => ['created_at >= ? AND created_at < ?', start_date, end_date]}}
   scope :user_bookmarks, lambda {|user| where(:user_id => user.id)}
-  scope :shared, :conditions => {:shared => true}
+  scope :shared, where(:shared => true)
   belongs_to :manifestation, :class_name => 'Manifestation'
   belongs_to :user #, :counter_cache => true, :validate => true
 
@@ -142,7 +142,7 @@ class Bookmark < ActiveRecord::Base
       manifestation = self.my_host_resource
     else
       if LibraryGroup.site_config.allow_bookmark_external_url
-        manifestation = Manifestation.first(:conditions => {:access_address => self.url}) if self.url.present?
+        manifestation = Manifestation.where(:access_address => self.url).first if self.url.present?
       end
     end
     manifestation
@@ -152,7 +152,7 @@ class Bookmark < ActiveRecord::Base
     manifestation = get_manifestation
     unless manifestation
       manifestation = Manifestation.new(:access_address => url)
-      manifestation.carrier_type = CarrierType.first(:conditions => {:name => 'file'})
+      manifestation.carrier_type = CarrierType.where(:name => 'file').first
     end
     # OTC start
     # get_manifestationで自館のmanifestation以外ならば例外とし登録させないよう修正した。
@@ -180,7 +180,7 @@ class Bookmark < ActiveRecord::Base
   end
 
   def create_bookmark_item
-    circulation_status = CirculationStatus.first(:conditions => {:name => 'Not Available'})
+    circulation_status = CirculationStatus.where(:name => 'Not Available').first
     item = Item.new(:shelf => Shelf.web, :circulation_status => circulation_status)
     manifestation.items << item
   end

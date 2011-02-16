@@ -11,12 +11,12 @@ class Reserve < ActiveRecord::Base
   scope :created, lambda {|start_date, end_date| {:conditions => ['created_at >= ? AND created_at < ?', start_date, end_date]}}
   #scope :expired_not_notified, :conditions => {:state => 'expired_not_notified'}
   #scope :expired_notified, :conditions => {:state => 'expired'}
-  scope :not_sent_expiration_notice_to_patron, :conditions => {:state => 'expired', :expiration_notice_to_patron => false}
-  scope :not_sent_expiration_notice_to_library, :conditions => {:state => 'expired', :expiration_notice_to_library => false}
-  scope :sent_expiration_notice_to_patron, :conditions => {:state => 'expired', :expiration_notice_to_patron => true}
-  scope :sent_expiration_notice_to_library, :conditions => {:state => 'expired', :expiration_notice_to_library => true}
-  scope :not_sent_cancel_notice_to_patron, :conditions => {:state => 'canceled', :expiration_notice_to_patron => false}
-  scope :not_sent_cancel_notice_to_library, :conditions => {:state => 'canceled', :expiration_notice_to_library => false}
+  scope :not_sent_expiration_notice_to_patron, where(:state => 'expired', :expiration_notice_to_patron => false)
+  scope :not_sent_expiration_notice_to_library, where(:state => 'expired', :expiration_notice_to_library => false)
+  scope :sent_expiration_notice_to_patron, where(:state => 'expired', :expiration_notice_to_patron => true)
+  scope :sent_expiration_notice_to_library, where(:state => 'expired', :expiration_notice_to_library => true)
+  scope :not_sent_cancel_notice_to_patron, where(:state => 'canceled', :expiration_notice_to_patron => false)
+  scope :not_sent_cancel_notice_to_library, where(:state => 'canceled', :expiration_notice_to_library => false)
 
   belongs_to :user, :validate => true
   belongs_to :manifestation, :validate => true
@@ -73,7 +73,7 @@ class Reserve < ActiveRecord::Base
   end
 
   def set_expired_at
-    self.request_status_type = RequestStatusType.first(:conditions => {:name => 'In Process'})
+    self.request_status_type = RequestStatusType.where(:name => 'In Process').first
     if self.user and self.manifestation
       if self.expired_at.blank?
         expired_period = self.manifestation.reservation_expired_period(self.user)
@@ -85,7 +85,7 @@ class Reserve < ActiveRecord::Base
   end
 
   def do_request
-    self.update_attributes({:request_status_type => RequestStatusType.first(:conditions => {:name => 'In Process'})})
+    self.update_attributes({:request_status_type => RequestStatusType.where(:name => 'In Process').first})
   end
 
   def manifestation_must_include_item
@@ -106,20 +106,20 @@ class Reserve < ActiveRecord::Base
 
   def retain
     # TODO: 「取り置き中」の状態を正しく表す
-    self.update_attributes!({:request_status_type => RequestStatusType.first(:conditions => {:name => 'In Process'}), :checked_out_at => Time.zone.now})
+    self.update_attributes!({:request_status_type => RequestStatusType.where(:name => 'In Process').first, :checked_out_at => Time.zone.now})
   end
 
   def expire
-    self.update_attributes!({:request_status_type => RequestStatusType.first(:conditions => {:name => 'Expired'}), :canceled_at => Time.zone.now})
+    self.update_attributes!({:request_status_type => RequestStatusType.where(:name => 'Expired').first, :canceled_at => Time.zone.now})
     logger.info "#{Time.zone.now} reserve_id #{self.id} expired!"
   end
 
   def cancel
-    self.update_attributes!({:request_status_type => RequestStatusType.first(:conditions => {:name => 'Cannot Fulfill Request'}), :canceled_at => Time.zone.now})
+    self.update_attributes!({:request_status_type => RequestStatusType.where(:name => 'Cannot Fulfill Request').first, :canceled_at => Time.zone.now})
   end
 
   def checkout
-    self.update_attributes!({:request_status_type => RequestStatusType.first(:conditions => {:name => 'Available For Pickup'}), :checked_out_at => Time.zone.now})
+    self.update_attributes!({:request_status_type => RequestStatusType.where(:name => 'Available For Pickup').first, :checked_out_at => Time.zone.now})
   end
 
   def send_message(status)

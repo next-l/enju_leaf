@@ -99,7 +99,7 @@ module ManifestationsHelper
 
   def carrier_type_facet(facet)
     string = ''
-    carrier_type = CarrierType.first(:conditions => {:name => facet.value})
+    carrier_type = CarrierType.where(:name => facet.value).first
     if carrier_type
       string << form_icon(carrier_type)
       current = true if params[:carrier_type] == carrier_type.name

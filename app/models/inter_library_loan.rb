@@ -1,5 +1,5 @@
 class InterLibraryLoan < ActiveRecord::Base
-  scope :completed, :conditions => {:state => 'return_received'}
+  scope :completed, where(:state => 'return_received')
   #scope :processing, lambda {|item, borrowing_library| {:conditions => ['item_id = ? AND borrowing_library_id = ? AND state != ?', item.id, borrowing_library.id, 'return_received']}}
   scope :processing, lambda {|item, borrowing_library| {:conditions => ['item_id = ? AND borrowing_library_id = ?', item.id, borrowing_library.id]}}
 

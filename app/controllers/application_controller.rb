@@ -123,7 +123,7 @@ class ApplicationController < ActionController::Base
   end
 
   def get_user
-    @user = User.first(:conditions => {:username => params[:user_id]}) if params[:user_id]
+    @user = User.where(:username => params[:user_id]).first if params[:user_id]
     if @user
       authorize! :show, @user
     else
@@ -133,7 +133,7 @@ class ApplicationController < ActionController::Base
   end
 
   def get_user_if_nil
-    @user = User.first(:conditions => {:username => params[:user_id]}) if params[:user_id]
+    @user = User.where(:username => params[:user_id]).first if params[:user_id]
     #authorize! :show, @user if @user
   end
   
@@ -285,7 +285,7 @@ class ApplicationController < ActionController::Base
       library = params[:library]
       language = params[:language]
       subject = params[:subject]
-      subject_by_term = Subject.first(:conditions => {:term => params[:subject]})
+      subject_by_term = Subject.where(:term => params[:subject]).first
       @subject_by_term = subject_by_term
 
       search.build do

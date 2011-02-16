@@ -12,7 +12,7 @@ class CheckoutsController < ApplicationController
 
   def index
     if params[:icalendar_token].present?
-      icalendar_user = User.first(:conditions => {:checkout_icalendar_token => params[:icalendar_token]})
+      icalendar_user = User.where(:checkout_icalendar_token => params[:icalendar_token]).first
       if icalendar_user.blank?
         raise ActiveRecord::RecordNotFound
       else

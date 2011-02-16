@@ -207,7 +207,7 @@ class UsersController < ApplicationController
       @user.patron = Patron.find(@user.patron_id) rescue nil
     end
     @user.set_auto_generated_password
-    @user.role = Role.first(:conditions => {:name => 'User'})
+    @user.role = Role.where(:name => 'User').first
 
     respond_to do |format|
       if @user.save
@@ -258,7 +258,7 @@ class UsersController < ApplicationController
 
     # 最後の管理者を削除しようとした
     if @user.has_role?('Administrator')
-      if Role.first(:conditions => {:name => 'Administrator'}).users.size == 1
+      if Role.where(:name => 'Administrator').first.users.size == 1
         raise 'This user is the last administrator in this system'
         flash[:notice] = t('user.last_administrator')
       end

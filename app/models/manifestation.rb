@@ -325,7 +325,7 @@ class Manifestation < ActiveRecord::Base
 
   def is_reserved_by(user = nil)
     if user
-      Reserve.waiting.first(:conditions => {:user_id => user.id, :manifestation_id => self.id})
+      Reserve.waiting.where(:user_id => user.id, :manifestation_id => self.id).first
     else
       false
     end
@@ -340,7 +340,7 @@ class Manifestation < ActiveRecord::Base
   end
 
   def checkouts(start_date, end_date)
-    Checkout.completed(start_date, end_date).all(:conditions => {:item_id => self.items.collect(&:id)})
+    Checkout.completed(start_date, end_date).where(:item_id => self.items.collect(&:id))
   end
 
   def creator
@@ -412,15 +412,15 @@ class Manifestation < ActiveRecord::Base
   end
 
   def created(patron)
-    creates.first(:conditions => {:patron_id => patron.id})
+    creates.where(:patron_id => patron.id).first
   end
 
   def realized(patron)
-    realizes.first(:conditions => {:patron_id => patron.id})
+    realizes.where(:patron_id => patron.id).first
   end
 
   def produced(patron)
-    produces.first(:conditions => {:patron_id => patron.id})
+    produces.where(:patron_id => patron.id).first
   end
 
   def sort_title

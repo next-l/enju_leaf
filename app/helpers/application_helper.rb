@@ -172,11 +172,11 @@ module ApplicationHelper
   end
 
   def locale_display_name(locale)
-    h(Language.first(:conditions => {:iso_639_1 => locale}).display_name)
+    h(Language.where(:iso_639_1 => locale).first.display_name)
   end
 
   def locale_native_name(locale)
-    h(Language.first(:conditions => {:iso_639_1 => locale}).native_name)
+    h(Language.where(:iso_639_1 => locale).first.native_name)
   end
 
   def move_position(object)
