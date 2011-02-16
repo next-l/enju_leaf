@@ -333,7 +333,7 @@ class ManifestationsController < ApplicationController
   # GET /manifestations/new
   def new
     @manifestation = Manifestation.new
-    @original_manifestation = get_manifestation
+    @original_manifestation = Manifestation.first(:id => params[:manifestation_id])
     @manifestation.series_statement = @series_statement
     if @manifestation.series_statement
       @manifestation.original_title = @manifestation.series_statement.original_title
@@ -362,7 +362,7 @@ class ManifestationsController < ApplicationController
       end
     end
     @manifestation = Manifestation.find(params[:id])
-    @original_manifestation = get_manifestation
+    @original_manifestation = Manifestation.first(:id => params[:manifestation_id])
     @manifestation.series_statement = @series_statement if @series_statement
     if params[:mode] == 'tag_edit'
       @bookmark = current_user.bookmarks.first(:conditions => {:manifestation_id => @manifestation.id}) if @manifestation rescue nil
@@ -375,6 +375,7 @@ class ManifestationsController < ApplicationController
   # POST /manifestations.xml
   def create
     @manifestation = Manifestation.new(params[:manifestation])
+    @original_manifestation = Manifestation.first(:id => params[:manifestation_id])
     if @manifestation.respond_to?(:post_to_scribd)
       @manifestation.post_to_scribd = true if params[:manifestation][:post_to_scribd] == "1"
     end
@@ -385,7 +386,7 @@ class ManifestationsController < ApplicationController
     respond_to do |format|
       if @manifestation.save
         Manifestation.transaction do
-          if @original_manifestation = get_manifestation
+          if @original_manifestation
             @manifestation.derived_manifestations << @original_manifestation
           end
         end

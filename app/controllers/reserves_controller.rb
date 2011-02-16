@@ -84,7 +84,8 @@ class ReservesController < ApplicationController
       @reserve = Reserve.new
     end
 
-    if get_manifestation
+    get_manifestation
+    if @manifestation
       @reserve.manifestation = @manifestation
       if user
         @reserve.expired_at = @manifestation.reservation_expired_period(user).days.from_now.end_of_day
