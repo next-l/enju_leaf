@@ -498,6 +498,10 @@ class ManifestationsController < ApplicationController
       query = "#{query} publisher_text: #{options[:publisher]}"
     end
 
+    unless options[:item_identifier].blank?
+      query = "#{query} item_identifier_sm: #{options[:item_identifier]}"
+    end
+
     unless options[:number_of_pages_at_least].blank? and options[:number_of_pages_at_most].blank?
       number_of_pages = {}
       number_of_pages[:at_least] = options[:number_of_pages_at_least].to_i
