@@ -36,7 +36,8 @@ class WorkHasSubjectsController < ApplicationController
   # GET /work_has_subjects/new
   # GET /work_has_subjects/new.xml
   def new
-    @work_has_subject = WorkHasSubject.new(:work => get_work, :subject => get_subject)
+    get_work; get_subject
+    @work_has_subject = WorkHasSubject.new(:work => @work, :subject => @subject)
 
     respond_to do |format|
       format.html # new.html.erb

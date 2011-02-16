@@ -218,7 +218,7 @@ EnjuLeaf::Application.routes.draw do
   resources :work_has_subjects
 
   resources :subjects do
-    resources :works
+    resources :works, :controller => 'manifestations'
     resources :subject_heading_types
     resources :subject_has_classifications
     resources :work_has_subjects
