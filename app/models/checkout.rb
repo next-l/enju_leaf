@@ -1,8 +1,8 @@
 class Checkout < ActiveRecord::Base
   default_scope :order => 'id DESC'
-  scope :not_returned, :conditions => ['checkin_id IS NULL']
+  scope :not_returned, where(:checkin_id => nil)
   scope :overdue, lambda {|date| {:conditions => ['checkin_id IS NULL AND due_date < ?', date]}}
-  scope :due_date_on, lambda {|date| {:conditions => ['checkin_id IS NULL AND due_date = ?', date]}}
+  scope :due_date_on, lambda {|date| where(:checkin_id => nil, :due_date => date)}
   scope :completed, lambda {|start_date, end_date| {:conditions => ['created_at >= ? AND created_at < ?', start_date, end_date]}}
   
   belongs_to :user #, :counter_cache => true #, :validate => true

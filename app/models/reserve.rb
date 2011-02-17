@@ -1,7 +1,7 @@
 # -*- encoding: utf-8 -*-
 class Reserve < ActiveRecord::Base
   scope :hold, :conditions => ['item_id IS NOT NULL']
-  scope :not_hold, :conditions => ['item_id IS NULL']
+  scope :not_hold, where(:item_id => nil)
   scope :waiting, :conditions => ['canceled_at IS NULL AND expired_at > ?', Time.zone.now], :order => 'id DESC'
   scope :completed, :conditions => ['checked_out_at IS NOT NULL']
   scope :canceled, :conditions => ['canceled_at IS NOT NULL']

@@ -9,7 +9,8 @@ class CheckinsController < ApplicationController
   # GET /checkins.xml
   def index
     # かごがない場合、自動的に作成する
-    unless get_basket
+    get_basket
+    unless @basket
       @basket = Basket.create!(:user => current_user)
       redirect_to user_basket_checkins_url(@basket.user, @basket)
       return
@@ -50,8 +51,11 @@ class CheckinsController < ApplicationController
   # POST /checkins
   # POST /checkins.xml
   def create
-    @second = Benchmark.realtime do
-    @checkin = get_basket.checkins.new(params[:checkin])
+    get_basket
+    unless @basket
+      @basket = Basket.create!(:user => current_user)
+    end
+    @checkin = @basket.checkins.new(params[:checkin])
 
     flash[:message] = []
     if @checkin.item_identifier.blank?
@@ -128,7 +132,6 @@ class CheckinsController < ApplicationController
       else
         redirect_to user_basket_checkins_url(@basket.user, @basket)
       end
-    end
     end
   end
 
