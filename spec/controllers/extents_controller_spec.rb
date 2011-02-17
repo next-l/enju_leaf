@@ -1,11 +1,11 @@
 require 'spec_helper'
 
-describe LicensesController do
+describe ExtentsController do
   fixtures :all
 
   describe "GET index" do
     before(:each) do
-      Factory.create(:license)
+      Factory.create(:extent)
     end
 
     describe "When logged in as Administrator" do
@@ -13,9 +13,9 @@ describe LicensesController do
         sign_in Factory(:admin)
       end
 
-      it "assigns all licenses as @licenses" do
+      it "assigns all extents as @extents" do
         get :index
-        assigns(:licenses).should eq(License.all)
+        assigns(:extents).should eq(Extent.all)
       end
     end
 
@@ -24,16 +24,16 @@ describe LicensesController do
         sign_in Factory(:user)
       end
 
-      it "assigns all licenses as @licenses" do
+      it "assigns all extents as @extents" do
         get :index
-        assigns(:licenses).should eq(License.all)
+        assigns(:extents).should eq(Extent.all)
       end
     end
 
     describe "When not logged in" do
-      it "assigns all licenses as @licenses" do
+      it "assigns all extents as @extents" do
         get :index
-        assigns(:licenses).should eq(License.all)
+        assigns(:extents).should eq(Extent.all)
       end
     end
   end
@@ -44,10 +44,10 @@ describe LicensesController do
         sign_in Factory(:admin)
       end
 
-      it "assigns the requested license as @license" do
-        license = Factory.create(:license)
-        get :show, :id => license.id
-        assigns(:license).should eq(license)
+      it "assigns the requested extent as @extent" do
+        extent = Factory.create(:extent)
+        get :show, :id => extent.id
+        assigns(:extent).should eq(extent)
       end
     end
 
@@ -56,10 +56,10 @@ describe LicensesController do
         sign_in Factory(:librarian)
       end
 
-      it "assigns the requested license as @license" do
-        license = Factory.create(:license)
-        get :show, :id => license.id
-        assigns(:license).should eq(license)
+      it "assigns the requested extent as @extent" do
+        extent = Factory.create(:extent)
+        get :show, :id => extent.id
+        assigns(:extent).should eq(extent)
       end
     end
 
@@ -68,18 +68,18 @@ describe LicensesController do
         sign_in Factory(:user)
       end
 
-      it "assigns the requested license as @license" do
-        license = Factory.create(:license)
-        get :show, :id => license.id
-        assigns(:license).should eq(license)
+      it "assigns the requested extent as @extent" do
+        extent = Factory.create(:extent)
+        get :show, :id => extent.id
+        assigns(:extent).should eq(extent)
       end
     end
 
     describe "When not logged in" do
-      it "assigns the requested license as @license" do
-        license = Factory.create(:license)
-        get :show, :id => license.id
-        assigns(:license).should eq(license)
+      it "assigns the requested extent as @extent" do
+        extent = Factory.create(:extent)
+        get :show, :id => extent.id
+        assigns(:extent).should eq(extent)
       end
     end
   end
@@ -90,9 +90,9 @@ describe LicensesController do
         sign_in Factory(:admin)
       end
 
-      it "assigns the requested license as @license" do
+      it "assigns the requested extent as @extent" do
         get :new
-        assigns(:license).should_not be_valid
+        assigns(:extent).should_not be_valid
         response.should be_forbidden
       end
     end
@@ -102,9 +102,9 @@ describe LicensesController do
         sign_in Factory(:librarian)
       end
 
-      it "should not assign the requested license as @license" do
+      it "should not assign the requested extent as @extent" do
         get :new
-        assigns(:license).should_not be_valid
+        assigns(:extent).should_not be_valid
         response.should be_forbidden
       end
     end
@@ -114,17 +114,17 @@ describe LicensesController do
         sign_in Factory(:user)
       end
 
-      it "should not assign the requested license as @license" do
+      it "should not assign the requested extent as @extent" do
         get :new
-        assigns(:license).should_not be_valid
+        assigns(:extent).should_not be_valid
         response.should be_forbidden
       end
     end
 
     describe "When not logged in" do
-      it "should not assign the requested license as @license" do
+      it "should not assign the requested extent as @extent" do
         get :new
-        assigns(:license).should_not be_valid
+        assigns(:extent).should_not be_valid
         response.should redirect_to(new_user_session_url)
       end
     end
@@ -136,10 +136,10 @@ describe LicensesController do
         sign_in Factory(:admin)
       end
 
-      it "assigns the requested license as @license" do
-        license = Factory.create(:license)
-        get :edit, :id => license.id
-        assigns(:license).should eq(license)
+      it "assigns the requested extent as @extent" do
+        extent = Factory.create(:extent)
+        get :edit, :id => extent.id
+        assigns(:extent).should eq(extent)
       end
     end
 
@@ -148,9 +148,9 @@ describe LicensesController do
         sign_in Factory(:librarian)
       end
 
-      it "assigns the requested license as @license" do
-        license = Factory.create(:license)
-        get :edit, :id => license.id
+      it "assigns the requested extent as @extent" do
+        extent = Factory.create(:extent)
+        get :edit, :id => extent.id
         response.should be_forbidden
       end
     end
@@ -160,17 +160,17 @@ describe LicensesController do
         sign_in Factory(:user)
       end
 
-      it "assigns the requested license as @license" do
-        license = Factory.create(:license)
-        get :edit, :id => license.id
+      it "assigns the requested extent as @extent" do
+        extent = Factory.create(:extent)
+        get :edit, :id => extent.id
         response.should be_forbidden
       end
     end
 
     describe "When not logged in" do
-      it "should not assign the requested license as @license" do
-        license = Factory.create(:license)
-        get :edit, :id => license.id
+      it "should not assign the requested extent as @extent" do
+        extent = Factory.create(:extent)
+        get :edit, :id => extent.id
         response.should redirect_to(new_user_session_url)
       end
     end
@@ -178,7 +178,7 @@ describe LicensesController do
 
   describe "POST create" do
     before(:each) do
-      @attrs = Factory.attributes_for(:license)
+      @attrs = Factory.attributes_for(:extent)
       @invalid_attrs = {:name => ''}
     end
 
@@ -188,25 +188,25 @@ describe LicensesController do
       end
 
       describe "with valid params" do
-        it "assigns a newly created license as @license" do
-          post :create, :license => @attrs
-          assigns(:license).should be_valid
+        it "assigns a newly created extent as @extent" do
+          post :create, :extent => @attrs
+          assigns(:extent).should be_valid
         end
 
         it "should be forbidden" do
-          post :create, :license => @attrs
+          post :create, :extent => @attrs
           response.should be_forbidden
         end
       end
 
       describe "with invalid params" do
-        it "assigns a newly created but unsaved license as @license" do
-          post :create, :license => @invalid_attrs
-          assigns(:license).should_not be_valid
+        it "assigns a newly created but unsaved extent as @extent" do
+          post :create, :extent => @invalid_attrs
+          assigns(:extent).should_not be_valid
         end
 
         it "should be forbidden" do
-          post :create, :license => @invalid_attrs
+          post :create, :extent => @invalid_attrs
           response.should be_forbidden
         end
       end
@@ -214,25 +214,25 @@ describe LicensesController do
 
     describe "When not logged in" do
       describe "with valid params" do
-        it "assigns a newly created license as @license" do
-          post :create, :license => @attrs
-          assigns(:license).should be_valid
+        it "assigns a newly created extent as @extent" do
+          post :create, :extent => @attrs
+          assigns(:extent).should be_valid
         end
 
         it "should be forbidden" do
-          post :create, :license => @attrs
+          post :create, :extent => @attrs
           response.should redirect_to(new_user_session_url)
         end
       end
 
       describe "with invalid params" do
-        it "assigns a newly created but unsaved license as @license" do
-          post :create, :license => @invalid_attrs
-          assigns(:license).should_not be_valid
+        it "assigns a newly created but unsaved extent as @extent" do
+          post :create, :extent => @invalid_attrs
+          assigns(:extent).should_not be_valid
         end
 
         it "should be forbidden" do
-          post :create, :license => @invalid_attrs
+          post :create, :extent => @invalid_attrs
           response.should redirect_to(new_user_session_url)
         end
       end
@@ -241,8 +241,8 @@ describe LicensesController do
 
   describe "PUT update" do
     before(:each) do
-      @license = Factory(:license)
-      @attrs = Factory.attributes_for(:license)
+      @extent = Factory(:extent)
+      @attrs = Factory.attributes_for(:extent)
       @invalid_attrs = {:name => ''}
     end
 
@@ -252,19 +252,19 @@ describe LicensesController do
       end
 
       describe "with valid params" do
-        it "updates the requested license" do
-          put :update, :id => @license.id, :license => @attrs
+        it "updates the requested extent" do
+          put :update, :id => @extent.id, :extent => @attrs
         end
 
-        it "assigns the requested license as @license" do
-          put :update, :id => @license.id, :license => @attrs
-          assigns(:license).should eq(@license)
+        it "assigns the requested extent as @extent" do
+          put :update, :id => @extent.id, :extent => @attrs
+          assigns(:extent).should eq(@extent)
         end
       end
 
       describe "with invalid params" do
-        it "assigns the requested license as @license" do
-          put :update, :id => @license.id, :license => @invalid_attrs
+        it "assigns the requested extent as @extent" do
+          put :update, :id => @extent.id, :extent => @invalid_attrs
           response.should render_template("edit")
         end
       end
@@ -276,20 +276,20 @@ describe LicensesController do
       end
 
       describe "with valid params" do
-        it "updates the requested license" do
-          put :update, :id => @license.id, :license => @attrs
+        it "updates the requested extent" do
+          put :update, :id => @extent.id, :extent => @attrs
         end
 
-        it "assigns the requested license as @license" do
-          put :update, :id => @license.id, :license => @attrs
-          assigns(:license).should eq(@license)
+        it "assigns the requested extent as @extent" do
+          put :update, :id => @extent.id, :extent => @attrs
+          assigns(:extent).should eq(@extent)
           response.should be_forbidden
         end
       end
 
       describe "with invalid params" do
-        it "assigns the requested license as @license" do
-          put :update, :id => @license.id, :license => @invalid_attrs
+        it "assigns the requested extent as @extent" do
+          put :update, :id => @extent.id, :extent => @invalid_attrs
           response.should be_forbidden
         end
       end
@@ -301,20 +301,20 @@ describe LicensesController do
       end
 
       describe "with valid params" do
-        it "updates the requested license" do
-          put :update, :id => @license.id, :license => @attrs
+        it "updates the requested extent" do
+          put :update, :id => @extent.id, :extent => @attrs
         end
 
-        it "assigns the requested license as @license" do
-          put :update, :id => @license.id, :license => @attrs
-          assigns(:license).should eq(@license)
+        it "assigns the requested extent as @extent" do
+          put :update, :id => @extent.id, :extent => @attrs
+          assigns(:extent).should eq(@extent)
           response.should be_forbidden
         end
       end
 
       describe "with invalid params" do
-        it "assigns the requested license as @license" do
-          put :update, :id => @license.id, :license => @invalid_attrs
+        it "assigns the requested extent as @extent" do
+          put :update, :id => @extent.id, :extent => @invalid_attrs
           response.should be_forbidden
         end
       end
@@ -322,19 +322,19 @@ describe LicensesController do
 
     describe "When not logged in" do
       describe "with valid params" do
-        it "updates the requested license" do
-          put :update, :id => @license.id, :license => @attrs
+        it "updates the requested extent" do
+          put :update, :id => @extent.id, :extent => @attrs
         end
 
         it "should be forbidden" do
-          put :update, :id => @license.id, :license => @attrs
+          put :update, :id => @extent.id, :extent => @attrs
           response.should redirect_to(new_user_session_url)
         end
       end
 
       describe "with invalid params" do
-        it "assigns the requested license as @license" do
-          put :update, :id => @license.id, :license => @invalid_attrs
+        it "assigns the requested extent as @extent" do
+          put :update, :id => @extent.id, :extent => @invalid_attrs
           response.should redirect_to(new_user_session_url)
         end
       end
@@ -343,7 +343,7 @@ describe LicensesController do
 
   describe "DELETE destroy" do
     before(:each) do
-      @license = Factory(:license)
+      @extent = Factory(:extent)
     end
 
     describe "When logged in as Administrator" do
@@ -351,12 +351,12 @@ describe LicensesController do
         sign_in Factory(:admin)
       end
 
-      it "destroys the requested license" do
-        delete :destroy, :id => @license.id
+      it "destroys the requested extent" do
+        delete :destroy, :id => @extent.id
       end
 
       it "should be forbidden" do
-        delete :destroy, :id => @license.id
+        delete :destroy, :id => @extent.id
         response.should be_forbidden
       end
     end
@@ -366,12 +366,12 @@ describe LicensesController do
         sign_in Factory(:librarian)
       end
 
-      it "destroys the requested license" do
-        delete :destroy, :id => @license.id
+      it "destroys the requested extent" do
+        delete :destroy, :id => @extent.id
       end
 
       it "should be forbidden" do
-        delete :destroy, :id => @license.id
+        delete :destroy, :id => @extent.id
         response.should be_forbidden
       end
     end
@@ -381,23 +381,23 @@ describe LicensesController do
         sign_in Factory(:user)
       end
 
-      it "destroys the requested license" do
-        delete :destroy, :id => @license.id
+      it "destroys the requested extent" do
+        delete :destroy, :id => @extent.id
       end
 
       it "should be forbidden" do
-        delete :destroy, :id => @license.id
+        delete :destroy, :id => @extent.id
         response.should be_forbidden
       end
     end
 
     describe "When not logged in" do
-      it "destroys the requested license" do
-        delete :destroy, :id => @license.id
+      it "destroys the requested extent" do
+        delete :destroy, :id => @extent.id
       end
 
       it "should be forbidden" do
-        delete :destroy, :id => @license.id
+        delete :destroy, :id => @extent.id
         response.should redirect_to(new_user_session_url)
       end
     end

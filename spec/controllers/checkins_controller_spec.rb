@@ -44,7 +44,7 @@ describe CheckinsController do
     before(:each) do
       sign_in Factory(:admin)
       Factory(:library)
-      @attrs = Factory.attributes_for(:item)
+      @attrs = {:item_identifier => Factory.attributes_for(:item)[:item_identifier]}
       @invalid_attrs = {:item_identifier => 'invalid'}
     end
 

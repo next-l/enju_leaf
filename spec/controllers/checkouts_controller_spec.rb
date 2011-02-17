@@ -3,12 +3,6 @@ require 'spec_helper'
 describe CheckoutsController do
   fixtures :all
 
-  def mock_user(stubs={})
-    (@mock_user ||= mock_model(Checkout).as_null_object).tap do |user|
-      user.stub(stubs) unless stubs.empty?
-    end
-  end
-
   describe "GET index" do
     before(:each) do
       Factory.create(:admin)

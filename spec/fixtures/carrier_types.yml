@@ -1,0 +1,37 @@
+--- 
+carrier_type_00004: 
+  name: file
+  display_name: file
+  updated_at: 2007-12-24 01:30:50.637433 +09:00
+  id: 4
+  note: !binary |
+    44Kz44Oz44OU44Ol44O844K/44Gu44OV44Kh44Kk44Or44Gn44GZ44CC
+
+  created_at: 2007-12-24 01:30:50.637433 +09:00
+  position: 4
+carrier_type_00001: 
+  name: print
+  display_name: print
+  updated_at: 2007-11-20 16:04:29.853828 +09:00
+  id: 1
+  note: !binary |
+    5pys44Gn44GZ44CC
+
+  created_at: 2007-11-20 15:47:03.641530 +09:00
+  position: 1
+carrier_type_00002: 
+  name: CD
+  display_name: CD
+  updated_at: 2007-12-19 01:45:26.040674 +09:00
+  id: 2
+  note: "\xE9\x9F\xB3\xE6\xA5\xBDCD\xE3\x81\xA7\xE3\x81\x99\xE3\x80\x82"
+  created_at: 2007-12-19 01:45:26.040674 +09:00
+  position: 2
+carrier_type_00003: 
+  name: DVD
+  display_name: DVD
+  updated_at: 2007-12-23 04:24:23.151410 +09:00
+  id: 3
+  note: "DVD\xE3\x81\xA7\xE3\x81\x99\xE3\x80\x82"
+  created_at: 2007-12-23 04:24:23.151410 +09:00
+  position: 3

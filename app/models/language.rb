@@ -7,7 +7,7 @@ class Language < ActiveRecord::Base
   # alias_attribute :iso3, :iso_639_3
 
   # Validations
-  # validates_presence_of :iso_639_1, iso_639_2, iso_639_3
+  validates_presence_of :iso_639_1, :iso_639_2, :iso_639_3
   after_save :clear_available_languages_cache
   after_destroy :clear_available_languages_cache
 
