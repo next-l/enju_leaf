@@ -267,5 +267,4 @@ class User < ActiveRecord::Base
       Devise::Mailer.confirmation_instructions(self).deliver if self.email.present?
     end
   end
-
 end

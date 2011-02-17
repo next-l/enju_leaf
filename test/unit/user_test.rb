@@ -147,9 +147,17 @@ class UserTest < ActiveSupport::TestCase
     assert_equal [], users(:librarian1).reserves.not_sent_expiration_notice_to_patron
   end
 
-  def test_should_lock_expired_users
+  def test_should_lock_all_expired_users
     User.lock_expired_users
     assert_equal false, users(:user4).active?
+  end
+
+  def test_should_lock_expired_users
+    user = users(:user1)
+    assert_equal true, users(:user1).active?
+    user.expired_at = 1.day.ago
+    user.save
+    assert_equal false, users(:user1).active?
   end
 
   protected

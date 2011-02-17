@@ -16,12 +16,17 @@ platforms :ruby_19 do
   gem 'simplecov', :require => false, :group => :test
 end
 
+platforms :ruby_18 do
+  gem 'system_timer'
+end
+
 platforms :jruby do
+  gem 'jruby-openssl'
   gem 'activerecord-jdbc-adapter'
   gem 'jdbc-postgres', :require => false
   #gem 'jdbc-mysql', :require => false
   gem 'rubyzip'
-  #gem 'glassfish'
+  gem 'glassfish'
 end
 
 gem 'fastercsv' if RUBY_VERSION < '1.9'
@@ -58,7 +63,6 @@ gem 'scribd_fu', :git => 'git://github.com/nabeta/scribd_fu.git'
 gem 'devise'
 gem 'omniauth'
 gem 'paperclip'
-#gem 'bcrypt-ruby', :require => 'bcrypt'
 gem 'whenever', :require => false
 gem 'amazon-ecs', :require => 'amazon/ecs'
 gem 'aws-s3', :require => 'aws/s3'
