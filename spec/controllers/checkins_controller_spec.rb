@@ -61,7 +61,7 @@ describe CheckinsController do
     end
 
     describe "with invalid params" do
-      it "assigns a newly created but unsaved user as @checkin" do
+      it "assigns a newly created but unsaved checkin as @checkin" do
         post :create, :checkin => @invalid_attrs
         assigns(:checkin).should be_valid
       end
