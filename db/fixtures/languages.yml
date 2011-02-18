@@ -4,9 +4,9 @@ language_00001:
   name: unknown  
   display_name: "en:unknown\r\n\
     ja:不明"
-  iso_639_1: 
-  iso_639_2: 
-  iso_639_3: 
+  iso_639_1: unknown
+  iso_639_2: unknown
+  iso_639_3: unknown
   id: 1
   note: 
   native_name: 
