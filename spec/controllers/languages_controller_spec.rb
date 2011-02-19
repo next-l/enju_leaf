@@ -18,6 +18,17 @@ describe LanguagesController do
       end
     end
 
+    describe "When logged in as Librarian" do
+      before(:each) do
+        sign_in Factory(:librarian)
+      end
+
+      it "assigns all languages as @languages" do
+        get :index
+        assigns(:languages).should eq(Language.paginate(:page => 1))
+      end
+    end
+
     describe "When logged in as User" do
       before(:each) do
         sign_in Factory(:user)
@@ -138,6 +149,66 @@ describe LanguagesController do
       end
     end
 
+    describe "When logged in as Librarian" do
+      before(:each) do
+        sign_in Factory(:librarian)
+      end
+
+      describe "with valid params" do
+        it "assigns a newly created language as @language" do
+          post :create, :language => @attrs
+          assigns(:language).should be_valid
+        end
+
+        it "should be forbidden" do
+          post :create, :language => @attrs
+          response.should be_forbidden
+        end
+      end
+
+      describe "with invalid params" do
+        it "assigns a newly created but unsaved language as @language" do
+          post :create, :language => @invalid_attrs
+          assigns(:language).should_not be_valid
+        end
+
+        it "should be forbidden" do
+          post :create, :language => @invalid_attrs
+          response.should be_forbidden
+        end
+      end
+    end
+
+    describe "When logged in as User" do
+      before(:each) do
+        sign_in Factory(:user)
+      end
+
+      describe "with valid params" do
+        it "assigns a newly created language as @language" do
+          post :create, :language => @attrs
+          assigns(:language).should be_valid
+        end
+
+        it "should be forbidden" do
+          post :create, :language => @attrs
+          response.should be_forbidden
+        end
+      end
+
+      describe "with invalid params" do
+        it "assigns a newly created but unsaved language as @language" do
+          post :create, :language => @invalid_attrs
+          assigns(:language).should_not be_valid
+        end
+
+        it "should be forbidden" do
+          post :create, :language => @invalid_attrs
+          response.should be_forbidden
+        end
+      end
+    end
+
     describe "When not logged in" do
       describe "with valid params" do
         it "assigns a newly created language as @language" do
@@ -185,6 +256,11 @@ describe LanguagesController do
         it "assigns the requested language as @language" do
           put :update, :id => @language.id, :language => @attrs
           assigns(:language).should eq(@language)
+        end
+
+        it "moves its position when specified" do
+          put :update, :id => @language.id, :language => @attrs, :position => 2
+          response.should redirect_to(languages_url)
         end
       end
 

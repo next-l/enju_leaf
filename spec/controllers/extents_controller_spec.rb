@@ -19,6 +19,17 @@ describe ExtentsController do
       end
     end
 
+    describe "When logged in as Librarian" do
+      before(:each) do
+        sign_in Factory(:librarian)
+      end
+
+      it "assigns all extents as @extents" do
+        get :index
+        assigns(:extents).should eq(Extent.all)
+      end
+    end
+
     describe "When logged in as User" do
       before(:each) do
         sign_in Factory(:user)
@@ -212,6 +223,66 @@ describe ExtentsController do
       end
     end
 
+    describe "When logged in as Librarian" do
+      before(:each) do
+        sign_in Factory(:librarian)
+      end
+
+      describe "with valid params" do
+        it "assigns a newly created extent as @extent" do
+          post :create, :extent => @attrs
+          assigns(:extent).should be_valid
+        end
+
+        it "should be forbidden" do
+          post :create, :extent => @attrs
+          response.should be_forbidden
+        end
+      end
+
+      describe "with invalid params" do
+        it "assigns a newly created but unsaved extent as @extent" do
+          post :create, :extent => @invalid_attrs
+          assigns(:extent).should_not be_valid
+        end
+
+        it "should be forbidden" do
+          post :create, :extent => @invalid_attrs
+          response.should be_forbidden
+        end
+      end
+    end
+
+    describe "When logged in as User" do
+      before(:each) do
+        sign_in Factory(:user)
+      end
+
+      describe "with valid params" do
+        it "assigns a newly created extent as @extent" do
+          post :create, :extent => @attrs
+          assigns(:extent).should be_valid
+        end
+
+        it "should be forbidden" do
+          post :create, :extent => @attrs
+          response.should be_forbidden
+        end
+      end
+
+      describe "with invalid params" do
+        it "assigns a newly created but unsaved extent as @extent" do
+          post :create, :extent => @invalid_attrs
+          assigns(:extent).should_not be_valid
+        end
+
+        it "should be forbidden" do
+          post :create, :extent => @invalid_attrs
+          response.should be_forbidden
+        end
+      end
+    end
+
     describe "When not logged in" do
       describe "with valid params" do
         it "assigns a newly created extent as @extent" do
@@ -259,6 +330,11 @@ describe ExtentsController do
         it "assigns the requested extent as @extent" do
           put :update, :id => @extent.id, :extent => @attrs
           assigns(:extent).should eq(@extent)
+        end
+
+        it "moves its position when specified" do
+          put :update, :id => @extent.id, :extent => @attrs, :position => 2
+          response.should redirect_to(extents_url)
         end
       end
 

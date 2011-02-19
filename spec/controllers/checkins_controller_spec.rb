@@ -10,13 +10,6 @@ describe CheckinsController do
   end
 
   describe "GET index" do
-    before(:each) do
-      Factory.create(:admin)
-      5.times do
-        Factory.create(:user)
-      end
-    end
-
     describe "When logged in as Administrator" do
       before(:each) do
         sign_in Factory(:admin)
@@ -25,6 +18,19 @@ describe CheckinsController do
       it "assigns all checkins as @checkins" do
         get :index
         assigns(:checkins).should eq(Checkin.all)
+        response.should redirect_to(user_basket_checkins_url(assigns(:basket).user, assigns(:basket)))
+      end
+    end
+
+    describe "When logged in as Librarian" do
+      before(:each) do
+        sign_in Factory(:librarian)
+      end
+
+      it "assigns all checkins as @checkins" do
+        get :index
+        assigns(:checkins).should eq(Checkin.all)
+        response.should redirect_to(user_basket_checkins_url(assigns(:basket).user, assigns(:basket)))
       end
     end
 
@@ -33,9 +39,10 @@ describe CheckinsController do
         sign_in Factory(:user)
       end
 
-      it "assigns all checkins as @checkins" do
+      it "should not assign all checkins as @checkins" do
         get :index
-        assigns(:checkins).should eq(Checkin.all)
+        assigns(:checkins).should be_empty
+        response.should be_forbidden
       end
     end
   end

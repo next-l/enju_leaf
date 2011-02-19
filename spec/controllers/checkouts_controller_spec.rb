@@ -18,18 +18,19 @@ describe CheckoutsController do
 
       it "assigns all checkouts as @checkouts" do
         get :index
-        assigns(:checkouts).should eq(Checkout.all)
+        assigns(:checkouts).should eq(Checkout.not_returned.paginate(:page => 1))
       end
     end
 
     describe "When logged in as User" do
       before(:each) do
-        sign_in Factory(:user)
+        @user = Factory(:user)
+        sign_in @user
       end
 
       it "assigns all checkouts as @checkouts" do
         get :index
-        assigns(:checkouts).should eq(Checkout.all)
+        assigns(:checkouts).should eq(@user.checkouts.not_returned.paginate(:page => 1))
       end
     end
   end

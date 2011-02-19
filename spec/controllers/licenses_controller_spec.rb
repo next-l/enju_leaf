@@ -19,6 +19,17 @@ describe LicensesController do
       end
     end
 
+    describe "When logged in as Librarian" do
+      before(:each) do
+        sign_in Factory(:librarian)
+      end
+
+      it "assigns all licenses as @licenses" do
+        get :index
+        assigns(:licenses).should eq(License.all)
+      end
+    end
+
     describe "When logged in as User" do
       before(:each) do
         sign_in Factory(:user)
@@ -212,6 +223,66 @@ describe LicensesController do
       end
     end
 
+    describe "When logged in as Librarian" do
+      before(:each) do
+        sign_in Factory(:librarian)
+      end
+
+      describe "with valid params" do
+        it "assigns a newly created license as @license" do
+          post :create, :license => @attrs
+          assigns(:license).should be_valid
+        end
+
+        it "should be forbidden" do
+          post :create, :license => @attrs
+          response.should be_forbidden
+        end
+      end
+
+      describe "with invalid params" do
+        it "assigns a newly created but unsaved license as @license" do
+          post :create, :license => @invalid_attrs
+          assigns(:license).should_not be_valid
+        end
+
+        it "should be forbidden" do
+          post :create, :license => @invalid_attrs
+          response.should be_forbidden
+        end
+      end
+    end
+
+    describe "When logged in as User" do
+      before(:each) do
+        sign_in Factory(:user)
+      end
+
+      describe "with valid params" do
+        it "assigns a newly created license as @license" do
+          post :create, :license => @attrs
+          assigns(:license).should be_valid
+        end
+
+        it "should be forbidden" do
+          post :create, :license => @attrs
+          response.should be_forbidden
+        end
+      end
+
+      describe "with invalid params" do
+        it "assigns a newly created but unsaved license as @license" do
+          post :create, :license => @invalid_attrs
+          assigns(:license).should_not be_valid
+        end
+
+        it "should be forbidden" do
+          post :create, :license => @invalid_attrs
+          response.should be_forbidden
+        end
+      end
+    end
+
     describe "When not logged in" do
       describe "with valid params" do
         it "assigns a newly created license as @license" do
@@ -259,6 +330,11 @@ describe LicensesController do
         it "assigns the requested license as @license" do
           put :update, :id => @license.id, :license => @attrs
           assigns(:license).should eq(@license)
+        end
+
+        it "moves its position when specified" do
+          put :update, :id => @license.id, :license => @attrs, :position => 2
+          response.should redirect_to(licenses_url)
         end
       end
 
