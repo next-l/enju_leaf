@@ -1,5 +1,16 @@
-<%- case params[:mode] when 'attachment' -%>
-  <%= render :partial => 'manifestations/new_attachment', :locals => {:manifestation => @manifestation} -%>
-<%- else -%>
-  <%= render :partial => 'manifestations/new', :locals => {:manifestation => @manifestation} -%>
-<%- end -%>
+<div id="content_detail" class="ui-corner-all">
+<h1 class="title"><%= t('page.new', :model => t('activerecord.models.resource')) -%></h1>
+<div id="content_list">
+  <%= render 'manifestations/form' %>
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all">
+  <ul>
+    <%- if @patron -%>
+      <li><%= link_to t('page.back'), publisher_manifestations_path(@patron) -%></li>
+    <%- else -%>
+      <li><%= link_to t('page.back'), manifestations_path -%></li>
+    <%- end -%>
+  </ul>
+</div>

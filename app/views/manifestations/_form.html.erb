@@ -1,24 +1,122 @@
-<%= form_for(@manifestation) do |f| %>
-  <% if @manifestation.errors.any? %>
-  <div id="errorExplanation">
-    <h2><%= pluralize(@manifestation.errors.count, "error") %> prohibited this resource from being saved:</h2>
-    <ul>
-    <% @manifestation.errors.full_messages.each do |msg| %>
-      <li><%= msg %></li>
-    <% end %>
-    </ul>
-  </div>
-  <% end %>
+<%= form_for(@manifestation, :html => { :multipart => true }) do |f| -%>
+  <%= f.error_messages -%>
+  <p>
+    <%- if @manifestation.series_statement -%>
+      <%= f.label t('activerecord.models.series_statement') -%>
+      <%= link_to @manifestation.series_statement.original_title, @manifestation.series_statement -%>
+      (<%= link_to t('series_statement.edit'), manifestation_series_statements_path(@manifestation) -%>)
+      <%= f.hidden_field :series_statement_id -%>
+    <%- else -%>
+      <%= f.label t('activerecord.models.series_statement') -%>
+      (<%= link_to t('page.listing', :model => t('activerecord.models.series_statement')), series_statements_path -%>)
+    <%- end -%>
+  </p>
 
-  <div class="field">
-    <%= f.label :original_title %><br />
-    <%= f.text_area :original_title %>
-  </div>
-  <div class="field">
-    <%= f.label :isbn %><br />
-    <%= f.text_field :isbn %>
-  </div>
-  <div class="actions">
+  <p>
+    <%= f.label t('page.title') -%><br />
+    <%= f.text_field :original_title, :class => 'resource_title' -%>
+  </p>
+  <p>
+    <%= f.label t('activerecord.attributes.manifestation.title_transcription') -%><br />
+    <%= f.text_field :title_transcription, :class => 'resource_title' -%>
+  </p>
+  <p>
+    <%= f.label t('activerecord.attributes.manifestation.title_alternative') -%><br />
+    <%= f.text_field :title_alternative, :class => 'resource_title' -%>
+  </p>
+  
+  <p>
+    <%= f.label t('page.file') -%><br />
+    <%= f.file_field :attachment -%>
+  </p>
+
+  <p>
+    <%= f.label t('activerecord.models.carrier_type') -%>
+    <%= f.select(:carrier_type_id, @carrier_types.collect{|m| [m.display_name.localize, m.id]}) -%>
+    <!-- TODO: Formの切り替え時に入力項目をAjaxで書き換える -->
+  </p>
+
+  <p>
+    <%= f.label t('activerecord.models.frequency') -%>
+    <%= f.select(:frequency_id, @frequencies.collect{|frequency| [frequency.display_name.localize, frequency.id]}) -%>
+  </p>
+  <p>
+    <%= f.label t('activerecord.attributes.manifestation.date_of_publication') -%>
+    <%= f.text_field :date_of_publication, :value => @manifestation.date_of_publication.try(:strftime, "%Y-%m-%d"), :class => 'date_field' -%>
+  </p>
+
+  <%- if @manifestation.series_statement -%>
+    <%= render :partial => 'manifestations/serial_form', :locals => {:f => f, :manifestation => @manifestation} -%>
+  <%- else -%>
+    <p>
+      <%= f.label t('activerecord.attributes.manifestation.edition') -%>
+      <%= f.text_field :edition, :class => 'resource_integer' -%>
+      <%= f.label t('activerecord.attributes.manifestation.volume_number_list') -%>
+      <%= f.text_field :volume_number_list, :class => 'resource_integer' -%>
+    </p>
+
+    <p>
+      <%= f.label t('activerecord.attributes.manifestation.isbn') -%>
+      <%= f.text_field :isbn, :class => 'resource_isbn_issn', :style => 'ime-mode: disabled' -%>
+      <%= link_to_function t('activerecord.attributes.manifestation.wrong_isbn'), "$('#manifestation_wrong_isbn').toggle()" -%>
+      <%= f.text_field :wrong_isbn, :class => 'resource_isbn_issn', :style => 'ime-mode: disabled; display: none' -%>
+    </p>
+    <p>
+      <%= f.label t('activerecord.attributes.manifestation.lccn') -%>
+      <%= f.text_field :lccn, :class => 'resource_isbn_issn', :style => 'ime-mode: disabled' -%>
+    </p>
+  <%- end -%>
+
+  <p>
+    <%= f.label t('activerecord.attributes.manifestation.start_page') -%>
+    <%= f.text_field :start_page, :class => 'resource_integer' -%>
+    <%= f.label t('activerecord.attributes.manifestation.end_page') -%>
+    <%= f.text_field :end_page, :class => 'resource_integer' -%>
+  </p>
+
+  <p>
+    <%= f.label t('activerecord.attributes.manifestation.height') -%>(cm)
+    <%= f.text_field :height, :class => 'resource_integer' -%>
+    <%= f.label t('activerecord.attributes.manifestation.width') -%>(cm)
+    <%= f.text_field :width, :class => 'resource_integer' -%>
+    <%= f.label t('activerecord.attributes.manifestation.depth') -%>(cm)
+    <%= f.text_field :depth, :class => 'resource_integer' -%>
+  </p>
+
+  <p>
+    <%= f.label t('activerecord.attributes.manifestation.price') -%>
+    <%= f.text_field :price, :class => 'resource_integer' -%>
+  </p>
+
+  <p>
+    <%= f.label t('activerecord.attributes.manifestation.access_address') -%><br />
+    <%= f.url_field :access_address, :class => 'resource_url' -%>
+  </p>
+
+  <p>
+    <%= f.label t('activerecord.attributes.manifestation.repository_content') -%>
+    <%= f.check_box :repository_content -%>
+  </p>
+  
+  <p>
+    <%= f.label t('role.required_role') -%>
+    <%= f.select(:required_role_id, @roles.collect{|r| [r.display_name.localize, r.id]}) -%>
+  </p>
+
+  <p>
+    <%= f.label t('activerecord.attributes.manifestation.description') -%><br />
+    <%= f.text_area :description, :class => 'resource_textarea' -%>
+  </p>
+
+  <p>
+    <%= f.label t('activerecord.attributes.manifestation.note') -%><br />
+    <%= f.text_area :note, :class => 'resource_textarea' -%>
+  </p>
+
+  <p>
+    <%= hidden_field_tag :patron_id, @patron.id if @patron -%>
+    <%= hidden_field_tag :manifestation_id, @original_manifestation.id if @original_manifestation -%>
     <%= f.submit %>
-  </div>
-<% end %>
+  </p>
+  <%= javascript_tag("$('#manifestation_original_title').focus()") -%>
+<%- end -%>

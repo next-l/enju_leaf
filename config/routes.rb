@@ -20,6 +20,7 @@ EnjuLeaf::Application.routes.draw do
     resources :work_has_subjects
     resources :manifestation_relationships
     resources :manifestations
+    resources :series_statements
   end
 
   resources :patrons do
