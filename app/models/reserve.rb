@@ -5,12 +5,9 @@ class Reserve < ActiveRecord::Base
   scope :waiting, :conditions => ['canceled_at IS NULL AND expired_at > ?', Time.zone.now], :order => 'id DESC'
   scope :completed, :conditions => ['checked_out_at IS NOT NULL']
   scope :canceled, :conditions => ['canceled_at IS NOT NULL']
-  #scope :expired, lambda {|start_date, end_date| {:conditions => ['checked_out_at IS NULL AND expired_at > ? AND expired_at <= ?', start_date, end_date], :order => 'expired_at'}}
   scope :will_expire_retained, lambda {|datetime| {:conditions => ['checked_out_at IS NULL AND canceled_at IS NULL AND expired_at <= ? AND state = ?', datetime, 'retained'], :order => 'expired_at'}}
   scope :will_expire_pending, lambda {|datetime| {:conditions => ['checked_out_at IS NULL AND canceled_at IS NULL AND expired_at <= ? AND state = ?', datetime, 'pending'], :order => 'expired_at'}}
   scope :created, lambda {|start_date, end_date| {:conditions => ['created_at >= ? AND created_at < ?', start_date, end_date]}}
-  #scope :expired_not_notified, :conditions => {:state => 'expired_not_notified'}
-  #scope :expired_notified, :conditions => {:state => 'expired'}
   scope :not_sent_expiration_notice_to_patron, where(:state => 'expired', :expiration_notice_to_patron => false)
   scope :not_sent_expiration_notice_to_library, where(:state => 'expired', :expiration_notice_to_library => false)
   scope :sent_expiration_notice_to_patron, where(:state => 'expired', :expiration_notice_to_patron => true)
@@ -25,7 +22,6 @@ class Reserve < ActiveRecord::Base
   has_one :inter_library_loan
   belongs_to :request_status_type
 
-  #acts_as_soft_deletable
   validates_associated :user, :librarian, :item, :request_status_type, :manifestation
   validates_presence_of :user, :manifestation, :request_status_type #, :expired_at
   #validates_uniqueness_of :manifestation_id, :scope => :user_id

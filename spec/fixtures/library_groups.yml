@@ -9,3 +9,4 @@ one:
   note: 
   my_networks: 0.0.0.0/0
   allow_bookmark_external_url: true
+  url: http://localhost:3000/

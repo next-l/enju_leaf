@@ -1,5 +1,5 @@
 xml.openServiceDescription("xmlns" => "http://www.microsoft.com/schemas/openservicedescription/1.0") do
-  xml.homepageUrl h(LibraryGroup.url)
+  xml.homepageUrl h(LibraryGroup.site_config.url)
   xml.display do
     xml.name h(LibraryGroup.site_config.display_name.localize)
     xml.description t('page.search_catalog_at', :library_name => h(LibraryGroup.site_config.display_name.localize))

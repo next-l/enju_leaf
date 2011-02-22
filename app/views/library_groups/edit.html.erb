@@ -1,77 +1,7 @@
 <div id="content_detail" class="ui-corner-all">
 <h1 class="title"><%= t('page.editing', :model => t('activerecord.models.library_group')) -%></h1>
 <div id="content_list">
-
-<%= form_for(@library_group) do |f| -%>
-  <%= f.error_messages -%>
-
-  <p>
-    <%= f.label t('activerecord.attributes.library_group.name') -%><br />
-    <%= f.text_field :name, :class => 'short_name' -%>
-  </p>
-
-  <p>
-    <%= f.label t('activerecord.attributes.library_group.display_name') -%><br />
-    <%= f.text_area :display_name, :class => 'resource_textarea' -%>
-  </p>
-
-  <p>
-    <%= f.label t('activerecord.attributes.library_group.email') -%><br />
-    <%= f.email_field :email, :class => 'resource_email' -%>
-  </p>
-
-  <p>
-    <%= f.label t('activerecord.attributes.library_group.valid_period_for_new_user') -%><br />
-    <%= f.text_field :valid_period_for_new_user, :class => 'resource_integer' -%>
-  </p>
-
-  <p>
-    <%= f.label t('activerecord.attributes.library_group.login_banner') -%><br />
-    <%= f.text_area :login_banner -%>
-  </p>
-
-  <p>
-    <%= f.label t('activerecord.attributes.library_group.allow_bookmark_external_url') -%>
-    <%= f.check_box :allow_bookmark_external_url -%>
-  </p>
-
-  <p>
-    <%= f.label t('activerecord.attributes.library_group.post_to_union_catalog') -%>
-    <%= f.check_box :post_to_union_catalog -%>
-  </p>
-
-  <p>
-    <%= f.label t('activerecord.attributes.library_group.my_networks') -%><br />
-    <%= f.text_area :my_networks -%>
-  </p>
-
-  <p>
-    <%= f.label t('activerecord.attributes.library_group.admin_networks') -%><br />
-    <%= f.text_area :admin_networks -%>
-  </p>
-
-  <p>
-    <%= f.label t('activerecord.attributes.library_group.use_dsbl') -%>
-    <%= f.check_box :use_dsbl -%>
-  </p>
-
-  <p>
-    <%= f.label t('activerecord.attributes.library_group.dsbl_list') -%><br />
-    <%= f.text_area :dsbl_list -%>
-  </p>
-
-  <p>
-    <%= f.label t('activerecord.attributes.library_group.note') -%><br />
-    <%= f.text_area :note -%>
-  </p>
-
-  <p>
-    <%= f.label t('activerecord.models.country') -%><br />
-    <%= f.select(:country_id, @countries.collect{|c| [c.display_name.localize, c.id]}) -%>
-  </p>
-
-  <%= f.submit %>
-<%- end -%>
+  <%= render 'form' %>
 </div>
 </div>
 

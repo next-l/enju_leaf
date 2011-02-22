@@ -16,7 +16,7 @@ module EnjuOai
   
   module InstanceMethods
     def oai_identifier
-      "oai:#{configatron.enju.web_hostname}:#{self.class.to_s.tableize}-#{self.id}"
+      "oai:#{URI.parse(LibraryGroup.site_config.url).host}:#{self.class.to_s.tableize}-#{self.id}"
     end
   end
 end

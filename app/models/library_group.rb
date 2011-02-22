@@ -20,10 +20,6 @@ class LibraryGroup < ActiveRecord::Base
     Rails.cache.fetch('library_site_config'){LibraryGroup.find(1)}
   end
 
-  def self.url
-    URI.parse("http://#{configatron.enju.web_hostname}:#{configatron.enju.web_port_number}").normalize.to_s
-  end
-
   def config?
     true if self == LibraryGroup.site_config
   end

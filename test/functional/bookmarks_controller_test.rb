@@ -96,7 +96,7 @@ class BookmarksControllerTest < ActionController::TestCase
   
   def test_user_should_get_my_new_with_internal_url
     sign_in users(:user1)
-    get :new, :user_id => users(:user1).username, :bookmark => {:url => "#{LibraryGroup.url}/manifestations/1"}
+    get :new, :user_id => users(:user1).username, :bookmark => {:url => "#{LibraryGroup.site_config.url}/manifestations/1"}
     assert_response :success
   end
   
@@ -120,7 +120,7 @@ class BookmarksControllerTest < ActionController::TestCase
   def test_user_should_create_bookmark_with_local_url
     sign_in users(:user1)
     assert_difference('Bookmark.count') do
-      post :create, :bookmark => {:title => 'example', :url => "#{LibraryGroup.url}manifestations/10"}
+      post :create, :bookmark => {:title => 'example', :url => "#{LibraryGroup.site_config.url}manifestations/10"}
     end
     
     assert_redirected_to bookmark_url(assigns(:bookmark))
