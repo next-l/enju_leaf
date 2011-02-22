@@ -8,9 +8,7 @@ class WorkHasSubject < ActiveRecord::Base
   after_save :reindex
   after_destroy :reindex
 
-  def self.per_page
-    10
-  end
+  paginates_per 10
 
   def reindex
     work.index

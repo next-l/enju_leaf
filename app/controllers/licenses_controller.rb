@@ -14,7 +14,7 @@ class LicensesController < InheritedResources::Base
   end
 
   def index
-    @licenses = @licenses.paginate(:page => params[:page])
+    @licenses = @licenses.page(params[:page])
   end
 
   private

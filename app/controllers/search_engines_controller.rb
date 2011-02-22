@@ -14,7 +14,7 @@ class SearchEnginesController < InheritedResources::Base
   end
 
   def index
-    @search_engines = @search_engines.paginate(:page => params[:page])
+    @search_engines = @search_engines.page(params[:page])
   end
 
   private

@@ -6,6 +6,6 @@ class ResourceImportResultsController < InheritedResources::Base
   has_scope :file_id
 
   def index
-    @resource_import_results = @resource_import_results.paginate(:page => params[:page])
+    @resource_import_results = @resource_import_results.page(params[:page])
   end
 end

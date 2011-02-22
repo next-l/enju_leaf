@@ -18,9 +18,7 @@ class PictureFile < ActiveRecord::Base
   acts_as_list :scope => 'picture_attachable_id=#{picture_attachable_id} AND picture_attachable_type=\'#{picture_attachable_type}\''
   before_create :set_digest, :set_dimensions
 
-  def self.per_page
-    10
-  end
+  paginates_per 10
 
   def set_digest(options = {:type => 'sha1'})
     if File.exists?(picture.queued_for_write[:original])

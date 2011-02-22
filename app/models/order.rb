@@ -11,9 +11,7 @@ class Order < ActiveRecord::Base
   
   acts_as_list :scope => :order_list
 
-  def self.per_page
-    10
-  end
+  paginates_per 10
 
   def reindex
     purchase_request.index

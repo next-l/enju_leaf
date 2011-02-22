@@ -4,7 +4,5 @@ class ReserveStatHasUser < ActiveRecord::Base
 
   validates_uniqueness_of :user_id, :scope => :user_reserve_stat_id
 
-  def self.per_page
-    10
-  end
+  paginates_per 10
 end

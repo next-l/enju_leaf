@@ -7,7 +7,12 @@ class BasketsController < ApplicationController
   # GET /baskets
   # GET /baskets.xml
   def index
-    @baskets = get_user.baskets.paginate(:all, :page => params[:page])
+    get_user
+    if @user
+      @baskets = @user.baskets.page(params[:page])
+    else
+      redirect_to new_basket_url
+    end
 
     respond_to do |format|
       format.html # index.html.erb

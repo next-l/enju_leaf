@@ -4,7 +4,5 @@ class BookmarkStatHasManifestation < ActiveRecord::Base
 
   validates_uniqueness_of :manifestation_id, :scope => :bookmark_stat_id
 
-  def self.per_page
-    10
-  end
+  paginates_per 10
 end

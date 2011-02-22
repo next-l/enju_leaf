@@ -18,9 +18,7 @@ class OrderList < ActiveRecord::Base
     end
   end
 
-  def self.per_page
-    10
-  end
+  paginates_per 10
 
   def total_price
     self.purchase_requests.sum(:price)
