@@ -27,6 +27,7 @@
   <p>
     <%= link_to (image_tag 'feed-icon-14x14.png', :size => '14x14', :alt => 'RSS', :class => 'icon'), checkouts_path(:format => :rss, :view => 'overdue') -%>
     (<%= link_to 'RSS', checkouts_path(:format => :rss, :view => 'overdue') -%>)
+    <%= link_to (image_tag 'icons/page_white_excel.png', :size => '16x16', :alt => 'CSV', :class => 'icon'), checkouts_path(:format => :csv, :view => 'overdue', :locale => @locale) -%>
     (<%= link_to 'CSV', checkouts_path(:format => :csv, :view => 'overdue', :locale => @locale) -%>)
   </p>
 </div>
