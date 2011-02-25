@@ -32,7 +32,7 @@
       <td style="width: 30px"><%= question.id -%></td>
       <td>
         <%= link_to truncate(question.body, :length => 60), user_question_path(question.user, question) -%>
-        (<%= link_to question.user, question.user -%>)
+        (<%= link_to question.user.username, question.user -%>)
         <br />
         <!--
         <%= t('question.updated_at') %>: <%= l(question.updated_at) -%>

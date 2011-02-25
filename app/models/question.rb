@@ -46,7 +46,7 @@ class Question < ActiveRecord::Base
   end
 
   def username
-    self.user.username
+    self.user.try(:username)
   end
 
   def last_updated_at
