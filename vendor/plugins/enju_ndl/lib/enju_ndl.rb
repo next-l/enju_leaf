@@ -157,43 +157,6 @@ module EnjuNdl
       end
     end
 
-    def get_title(doc)
-      title = {
-        :manifestation => doc.xpath('//item[1]/title').collect(&:content).join(' '), #.tr('ａ-ｚＡ-Ｚ０-９　', 'a-zA-Z0-9 ').squeeze(' ')
-        :transcription => doc.xpath('//item[1]/dcndl:titleTranscription').collect(&:content).join(' '), #.tr('ａ-ｚＡ-Ｚ０-９　', 'a-zA-Z0-9 ').squeeze(' ')
-        :original => doc.xpath('//dcterms:alternative').collect(&:content).join(' ') #.tr('ａ-ｚＡ-Ｚ０-９　', 'a-zA-Z0-9 ').squeeze(' ')
-      }
-    end
-
-    def get_authors(doc)
-      authors = []
-      doc.xpath('//item[1]/dc:creator[@xsi:type="dcndl:NDLNH"]').each do |creator|
-        authors << creator.content #.tr('ａ-ｚＡ-Ｚ０-９　‖', 'a-zA-Z0-9 ')
-      end
-      return authors
-    end
-
-    def get_subjects(doc)
-      subjects = []
-      doc.xpath('//item[1]/dc:subject[@xsi:type="dcndl:NDLSH"]').each do |subject|
-        subjects << subject.content #.tr('ａ-ｚＡ-Ｚ０-９　‖', 'a-zA-Z0-9 ')
-      end
-      return subjects
-    end
-
-    def get_language(doc)
-      # TODO: 言語が複数ある場合
-      language = doc.xpath('//item[1]/dc:language[@xsi:type="dcterms:ISO639-2"]').first.content.downcase
-    end
-
-    def get_publishers(doc)
-      publishers = []
-      doc.xpath('//item[1]/dc:publisher').each do |publisher|
-        publishers << publisher.content #.tr('ａ-ｚＡ-Ｚ０-９　‖', 'a-zA-Z0-9 ')
-      end
-      return publishers
-    end
-  
     def create_frbr_instance(doc, manifestation)
       title = get_title(doc)
       authors = get_authors(doc)
@@ -245,6 +208,44 @@ module EnjuNdl
         end
       end
       Sunspot.commit
+    end
+
+    private
+    def get_title(doc)
+      title = {
+        :manifestation => doc.xpath('//item[1]/title').collect(&:content).join(' '), #.tr('ａ-ｚＡ-Ｚ０-９　', 'a-zA-Z0-9 ').squeeze(' ')
+        :transcription => doc.xpath('//item[1]/dcndl:titleTranscription').collect(&:content).join(' '), #.tr('ａ-ｚＡ-Ｚ０-９　', 'a-zA-Z0-9 ').squeeze(' ')
+        :original => doc.xpath('//dcterms:alternative').collect(&:content).join(' ') #.tr('ａ-ｚＡ-Ｚ０-９　', 'a-zA-Z0-9 ').squeeze(' ')
+      }
+    end
+
+    def get_authors(doc)
+      authors = []
+      doc.xpath('//item[1]/dc:creator[@xsi:type="dcndl:NDLNH"]').each do |creator|
+        authors << creator.content #.tr('ａ-ｚＡ-Ｚ０-９　‖', 'a-zA-Z0-9 ')
+      end
+      return authors
+    end
+
+    def get_subjects(doc)
+      subjects = []
+      doc.xpath('//item[1]/dc:subject[@xsi:type="dcndl:NDLSH"]').each do |subject|
+        subjects << subject.content #.tr('ａ-ｚＡ-Ｚ０-９　‖', 'a-zA-Z0-9 ')
+      end
+      return subjects
+    end
+
+    def get_language(doc)
+      # TODO: 言語が複数ある場合
+      language = doc.xpath('//item[1]/dc:language[@xsi:type="dcterms:ISO639-2"]').first.content.downcase
+    end
+
+    def get_publishers(doc)
+      publishers = []
+      doc.xpath('//item[1]/dc:publisher').each do |publisher|
+        publishers << publisher.content #.tr('ａ-ｚＡ-Ｚ０-９　‖', 'a-zA-Z0-9 ')
+      end
+      return publishers
     end
   end
 

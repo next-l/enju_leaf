@@ -1,5 +1,5 @@
 class OrderList < ActiveRecord::Base
-  scope :not_ordered, :conditions => ['state = ?', 'pending']
+  scope :not_ordered, where(:state => 'pending')
 
   has_many :orders, :dependent => :destroy
   has_many :purchase_requests, :through => :orders
