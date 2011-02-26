@@ -14,21 +14,15 @@
 <p>
   <strong><%= t('activerecord.attributes.question.shared') -%>:</strong>
   <%= localized_boolean(@question.shared) -%>
+  <strong><%= t('activerecord.attributes.question.solved') -%>:</strong>
+  <%= localized_boolean(@question.solved) -%>
 </p>
 
 <p>
   <strong><%= t('page.created_at') -%>:</strong>
   <%= l(@question.created_at) -%>
-</p>
-
-<p>
   <strong><%= t('page.updated_at') -%>:</strong>
   <%= l(@question.updated_at) -%>
-</p>
-
-<p>
-  <strong><%= t('activerecord.attributes.question.solved') -%>:</strong>
-  <%= localized_boolean(@question.solved) -%>
 </p>
 
 <p>

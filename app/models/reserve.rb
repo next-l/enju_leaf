@@ -128,7 +128,7 @@ class Reserve < ActiveRecord::Base
         request.save_message_body(:manifestations => Array[self.manifestation])
         request.sm_send_message! # 受付時は即時送信
         message_template_to_library = MessageTemplate.localized_template('reservation_accepted', self.user.locale)
-        request = MessageRequest.create!(:sender => system_user, :receiver => self.user, :message_template => message_template_to_library)
+        request = MessageRequest.create!(:sender => system_user, :receiver => system_user, :message_template => message_template_to_library)
         request.save_message_body(:manifestations => Array[self.manifestation])
         request.sm_send_message! # 受付時は即時送信
       when 'canceled'
