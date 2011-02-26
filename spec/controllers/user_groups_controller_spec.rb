@@ -216,9 +216,9 @@ describe UserGroupsController do
           assigns(:user_group).should_not be_valid
         end
 
-        it "should be successful" do
+        it "re-renders the 'new' template" do
           post :create, :user_group => @invalid_attrs
-          response.should be_success
+          response.should render_template("new")
         end
       end
     end

@@ -2,10 +2,8 @@
 require 'spec_helper'
 
 describe Reserve do
-  #pending "add some examples to (or delete) #{__FILE__}"
   fixtures :all
 
-  # Replace this with your real tests.
   it "should have next reservation" do
     reserves(:reserve_00001).next_reservation.should be_true
   end

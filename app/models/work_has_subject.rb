@@ -8,6 +8,8 @@ class WorkHasSubject < ActiveRecord::Base
   after_save :reindex
   after_destroy :reindex
 
+  acts_as_list :scope => :work_id
+
   def self.per_page
     10
   end

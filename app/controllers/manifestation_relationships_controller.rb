@@ -12,4 +12,14 @@ class ManifestationRelationshipsController < InheritedResources::Base
     @manifestation_relationship.parent = Manifestation.find(params[:manifestation_id]) rescue nil
     @manifestation_relationship.child = Manifestation.find(params[:child_id]) rescue nil
   end
+
+  def update
+    @manifestation_relationship = ManifestationRelationship.find(params[:id])
+    if params[:position]
+      @manifestation_relationship.insert_at(params[:position])
+      redirect_to manifestation_relationships_url
+      return
+    end
+    update!
+  end
 end

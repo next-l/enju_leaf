@@ -35,7 +35,7 @@ describe UseRestrictionsController do
         sign_in Factory(:user)
       end
 
-      it "assigns all use_restrictions as @use_restrictions" do
+      it "should be forbidden" do
         get :index
         assigns(:use_restrictions).should be_empty
         response.should be_forbidden
@@ -103,7 +103,7 @@ describe UseRestrictionsController do
         sign_in Factory(:admin)
       end
 
-      it "assigns the requested use_restriction as @use_restriction" do
+      it "should be forbidden" do
         get :new
         assigns(:use_restriction).should_not be_valid
         response.should be_forbidden
@@ -115,7 +115,7 @@ describe UseRestrictionsController do
         sign_in Factory(:librarian)
       end
 
-      it "should not assign the requested use_restriction as @use_restriction" do
+      it "should be forbidden" do
         get :new
         assigns(:use_restriction).should_not be_valid
         response.should be_forbidden
@@ -127,7 +127,7 @@ describe UseRestrictionsController do
         sign_in Factory(:user)
       end
 
-      it "should not assign the requested use_restriction as @use_restriction" do
+      it "should be forbidden" do
         get :new
         assigns(:use_restriction).should_not be_valid
         response.should be_forbidden
@@ -135,7 +135,7 @@ describe UseRestrictionsController do
     end
 
     describe "When not logged in" do
-      it "should not assign the requested use_restriction as @use_restriction" do
+      it "should be redirected" do
         get :new
         assigns(:use_restriction).should_not be_valid
         response.should redirect_to(new_user_session_url)

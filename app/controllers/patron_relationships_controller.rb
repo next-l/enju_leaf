@@ -11,4 +11,14 @@ class PatronRelationshipsController < InheritedResources::Base
     @patron_relationship.parent = Patron.find(params[:patron_id]) rescue nil
     @patron_relationship.child = Patron.find(params[:child_id]) rescue nil
   end
+
+  def update
+    @patron_relationship = PatronRelationship.find(params[:id])
+    if params[:position]
+      @patron_relationship.insert_at(params[:position])
+      redirect_to patron_relationships_url
+      return
+    end
+    update!
+  end
 end
