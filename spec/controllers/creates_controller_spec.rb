@@ -42,7 +42,7 @@ describe CreatesController do
     end
 
     describe "When not logged in" do
-      it "should not assign creates as @creates" do
+      it "assigns all creates as @creates" do
         get :index
         assigns(:creates).should eq(Create.all)
       end

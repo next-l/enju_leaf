@@ -13,7 +13,7 @@ class ProducesController < ApplicationController
     when @manifestation
       @produces = @manifestation.produces.paginate(:page => params[:page], :order => ['position'])
     else
-      @produces = Produce.paginate(:all, :page => params[:page], :order => ['position'])
+      @produces = Produce.paginate(:page => params[:page])
     end
       
     respond_to do |format|

@@ -249,7 +249,7 @@ class PatronsController < ApplicationController
   def prepare_options
     @countries = Country.all_cache
     @patron_types = PatronType.all
-    @roles = Role.all_cache
+    @roles = Role.all
     @languages = Language.all_cache
   end
 

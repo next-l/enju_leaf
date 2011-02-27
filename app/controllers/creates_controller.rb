@@ -13,7 +13,7 @@ class CreatesController < ApplicationController
     when @work
       @creates = @work.creates.paginate(:page => params[:page], :order => ['position'])
     else
-      @creates = Create.paginate(:all, :page => params[:page], :order => :id)
+      @creates = Create.paginate(:page => params[:page])
     end
 
     respond_to do |format|

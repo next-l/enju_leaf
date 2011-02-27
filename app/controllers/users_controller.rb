@@ -277,7 +277,7 @@ class UsersController < ApplicationController
   private
   def prepare_options
     @user_groups = UserGroup.all
-    @roles = Role.all_cache
+    @roles = Role.all
     @libraries = Library.all_cache
     @languages = Language.all_cache
     if @user.active?

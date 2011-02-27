@@ -244,7 +244,7 @@ class ItemsController < ApplicationController
     else
       @checkout_types = CheckoutType.all
     end
-    @roles = Role.all_cache
+    @roles = Role.all
   end
 
 end

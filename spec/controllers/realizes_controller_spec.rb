@@ -1,13 +1,7 @@
 require 'spec_helper'
 
 describe RealizesController do
-  fixtures :all
-
   describe "GET index" do
-    before(:each) do
-      Factory.create(:realize)
-    end
-
     describe "When logged in as Administrator" do
       before(:each) do
         sign_in Factory(:admin)
@@ -42,7 +36,7 @@ describe RealizesController do
     end
 
     describe "When not logged in" do
-      it "should not assign realizes as @realizes" do
+      it "assigns all realizes as @realizes" do
         get :index
         assigns(:realizes).should eq(Realize.all)
       end

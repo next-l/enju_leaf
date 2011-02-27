@@ -6,7 +6,7 @@ class BasketSweeper < ActionController::Caching::Sweeper
     record.items.each do |item|
       expire_editable_fragment(item, ['holding'])
       I18n.available_locales.each do |locale|
-        Rails.cache.fetch('role_all'){Role.all}.each do |role|
+        Role.all_cache.each do |role|
           [nil, 'html'].each do |page|
             expire_fragment(:controller => :resources, :action => :show, :id => item.manifestation.id, :locale => locale.to_s, :role => role.name, :page => 'detail', :user_id => nil)
           end
