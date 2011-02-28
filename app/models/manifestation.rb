@@ -402,7 +402,7 @@ class Manifestation < ActiveRecord::Base
       self.fulltext = extractor.analyse(text.read)
     when "text/html"
       # TODO: 日本語以外
-      system("elinks --dump 1 #{attachment(:path)} 2> /dev/null | nkf -w > #{text.path}")
+      system("w3m -dump #{attachment(:path)} 2> /dev/null | nkf -w > #{text.path}")
       self.fulltext = extractor.analyse(text.read)
     end
 
