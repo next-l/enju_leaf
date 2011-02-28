@@ -14,7 +14,6 @@
     <%= f.text_area :note %>
   </div>
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit :confirm => t('page.are_you_sure') %>
   </div>
-  <%= javascript_tag("$('#role_name').focus()") -%>
 <% end %>
