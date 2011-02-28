@@ -1,35 +1,7 @@
 <div id="content_detail" class="ui-corner-all">
 <h1 class="title"><%= t('page.editing', :model => t('activerecord.models.series_statement')) -%></h1>
 <div id="content_list">
-
-<%= form_for(@series_statement) do |f| %>
-  <%= f.error_messages %>
-
-  <p>
-    <%= f.label t('activerecord.attributes.series_statement.original_title') -%><br />
-    <%= f.text_field :original_title %>
-  </p>
-  <p>
-    <%= f.label t('activerecord.attributes.series_statement.numbering') -%><br />
-    <%= f.text_field :numbering %>
-  </p>
-  <p>
-    <%= f.label t('activerecord.attributes.series_statement.title_subseries') -%><br />
-    <%= f.text_field :title_subseries %>
-  </p>
-  <p>
-    <%= f.label t('activerecord.attributes.series_statement.numbering_subseries') -%><br />
-    <%= f.text_field :numbering_subseries %>
-  </p>
-  <p>
-    <%= f.label t('activerecord.attributes.series_statement.series_statement_identifier') -%><br />
-    <%= f.text_field :series_statement_identifier, :class => 'resource_item_identifier' %>
-  </p>
-  <p>
-    <%= f.submit %>
-  </p>
-<% end %>
-
+  <%= render 'form' %>
 </div>
 </div>
 

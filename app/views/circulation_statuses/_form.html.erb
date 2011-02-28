@@ -1,4 +1,4 @@
-<%= form_for(@patron_relationship_type) do |f| %>
+<%= form_for(@circulation_status) do |f| %>
   <%= f.error_messages %>
 
   <div class="field">
@@ -16,5 +16,5 @@
   <div class="actions">
     <%= f.submit %>
   </div>
-  <%= javascript_tag("$('#patron_relationship_type_name').focus()") -%>
+  <%= javascript_tag("$('#circulation_status_name').focus()") -%>
 <% end %>
