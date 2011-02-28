@@ -1,14 +1,5 @@
 <%= form_for(@classification_type) do |f| %>
-  <% if @classification_type.errors.any? %>
-  <div id="errorExplanation">
-    <h2><%= pluralize(@classification_type.errors.count, "error") %> prohibited this classification_type from being saved:</h2>
-    <ul>
-    <% @classification_type.errors.full_messages.each do |msg| %>
-      <li><%= msg %></li>
-    <% end %>
-    </ul>
-  </div>
-  <% end %>
+  <%= f.error_messages %>
 
   <div class="field">
     <%= f.label :name %><br />

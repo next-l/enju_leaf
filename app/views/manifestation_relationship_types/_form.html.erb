@@ -1,15 +1,5 @@
 <%= form_for(@manifestation_relationship_type) do |f| %>
-  <% if @manifestation_relationship_type.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@manifestation_relationship_type.errors.count, "error") %> prohibited this manifestation_relationship_type from being saved:</h2>
-
-      <ul>
-      <% @manifestation_relationship_type.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
+  <%= f.error_messages %>
 
   <div class="field">
     <%= f.label :name %><br />
@@ -22,10 +12,6 @@
   <div class="field">
     <%= f.label :note %><br />
     <%= f.text_area :note %>
-  </div>
-  <div class="field">
-    <%= f.label :position %><br />
-    <%= f.text_field :position %>
   </div>
   <div class="actions">
     <%= f.submit %>
