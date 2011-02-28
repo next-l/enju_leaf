@@ -4,7 +4,7 @@ class ManifestationsController < ApplicationController
   before_filter :authenticate_user!, :only => :edit
   before_filter :get_patron
   helper_method :get_manifestation, :get_subject
-  before_filter :get_series_statement, :only => [:index, :new, :edit]
+  before_filter :get_series_statement
   before_filter :prepare_options, :only => [:new, :edit]
   helper_method :get_libraries
   before_filter :get_version, :only => [:show]
@@ -384,6 +384,7 @@ class ManifestationsController < ApplicationController
     if @manifestation.original_title.blank?
       @manifestation.original_title = @manifestation.attachment_file_name
     end
+    @manifestation.series_statement = @series_statement
 
     respond_to do |format|
       if @manifestation.save

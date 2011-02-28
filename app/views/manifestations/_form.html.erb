@@ -1,7 +1,7 @@
 <%= form_for(@manifestation, :html => { :multipart => true }) do |f| -%>
   <%= f.error_messages -%>
   <p>
-    <%- if @manifestation.series_statement -%>
+    <%- if !@manifestation.new_record? and @manifestation.series_statement -%>
       <%= f.label t('activerecord.models.series_statement') -%>
       <%= link_to @manifestation.series_statement.original_title, @manifestation.series_statement -%>
       (<%= link_to t('series_statement.edit'), manifestation_series_statements_path(@manifestation) -%>)
