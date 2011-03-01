@@ -42,7 +42,7 @@
   </p>
   <p>
     <%= f.label t('activerecord.attributes.manifestation.date_of_publication') -%>
-    <%= f.text_field :date_of_publication, :value => @manifestation.date_of_publication.try(:strftime, "%Y-%m-%d"), :class => 'date_field' -%>
+    <%= f.text_field :pub_date, :class => 'date_field' -%>
   </p>
 
   <%- if @manifestation.series_statement -%>

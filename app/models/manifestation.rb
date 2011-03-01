@@ -178,10 +178,13 @@ class Manifestation < ActiveRecord::Base
   validates_uniqueness_of :nbn, :allow_blank => true
   validates_uniqueness_of :identifier, :allow_blank => true
   validates_format_of :access_address, :with => URI::regexp(%w(http https)) , :allow_blank => true
+  validates_format_of :pub_date, :with => /^\d+(-\d{0,2}){0,2}$/, :allow_blank => true
   validate :check_isbn
   before_validation :convert_isbn
   before_create :set_digest
+  before_save :set_date_of_publication
   normalize_attributes :identifier, :date_of_publication, :isbn, :issn, :nbn, :lccn, :original_title
+  attr_accessor :pub_date
 
   def self.per_page
     10
@@ -210,6 +213,20 @@ class Manifestation < ActiveRecord::Base
         self.isbn10 = ISBN_Tools.isbn13_to_isbn10(num)
       end
     end
+  end
+
+  def set_date_of_publication
+    return if pub_date.blank?
+    begin
+      date = Time.zone.parse(pub_date)
+    rescue ArgumentError
+      begin
+        date = Time.zone.parse("#{pub_date}-01")
+      rescue ArgumentError
+        date = Time.zone.parse("#{pub_date}-01-01")
+      end
+    end
+    self.date_of_publication = date
   end
 
   def self.cached_numdocs

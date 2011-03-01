@@ -16,8 +16,8 @@
   <%- end -%>
 
   <p>
-    <%= f.label t('activerecord.attributes.reserve.expired_at') -%><br />
-    <%= f.text_field :expired_at, :value => @reserve.expired_at.try(:strftime, "%Y-%m-%d"), :class => 'date_field' -%>
+    <%= f.label :expired_at -%><br />
+    <%= f.text_field :expire_date, :class => 'date_field' -%>
   </p>
 
   <p>
