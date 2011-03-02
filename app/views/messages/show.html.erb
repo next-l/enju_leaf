@@ -19,12 +19,12 @@
       </p>
     
       <p>
-        <label for="message_subject" ><strong><%= t('activerecord.attributes.message.subject') -%>:</strong></label>  
+        <%= f.label :subject -%>:
         <%= @message.subject -%>
       </p>
       
       <p>
-        <label for="message_body" ><strong><%= t('activerecord.attributes.message.body') -%>:</strong></label>  
+        <%= f.label :body -%>:
         <%= raw auto_link(simple_format(h(@message.body))) -%>
       </p>
 

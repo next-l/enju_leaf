@@ -14,37 +14,37 @@
     <%= f.select(:checkout_type_id, @checkout_types.collect{|c| [c.display_name.localize, c.id]}) -%>
   </p>
   <p>
-    <%= f.label t('activerecord.attributes.user_group_has_checkout_type.checkout_limit') -%><br />
+    <%= f.label :checkout_limit -%><br />
     <%= f.text_field :checkout_limit, :class => 'resource_integer' -%>
   </p>
 
   <p>
-    <%= f.label t('activerecord.attributes.user_group_has_checkout_type.checkout_period') -%><br />
+    <%= f.label :checkout_period -%><br />
     <%= f.text_field :checkout_period, :class => 'resource_integer' -%>
   </p>
 
   <p>
-    <%= f.label t('activerecord.attributes.user_group_has_checkout_type.checkout_renewal_limit') -%><br />
+    <%= f.label :checkout_renewal_limit -%><br />
     <%= f.text_field :checkout_renewal_limit, :class => 'resource_integer' -%>
   </p>
 
   <p>
-    <%= f.label t('activerecord.attributes.user_group_has_checkout_type.reservation_limit') -%><br />
+    <%= f.label :reservation_limit -%><br />
     <%= f.text_field :reservation_limit, :class => 'resource_integer' -%>
   </p>
 
   <p>
-    <%= f.label t('activerecord.attributes.user_group_has_checkout_type.reservation_expired_period') -%><br />
+    <%= f.label :reservation_expired_period -%><br />
     <%= f.text_field :reservation_expired_period, :class => 'resource_integer' -%>
   </p>
 
   <p>
-    <%= f.label t('activerecord.attributes.user_group_has_checkout_type.set_due_date_before_closing_day') -%>
+    <%= f.label :set_due_date_before_closing_day -%>
     <%= f.check_box :set_due_date_before_closing_day -%>
   </p>
 
   <p>
-  <%= f.label t('activerecord.attributes.user_group_has_checkout_type.note') -%><br />
+  <%= f.label :note -%><br />
     <%= f.text_area :note, :class => 'resource_textarea' -%>
   </p>
   <p>

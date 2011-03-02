@@ -1,8 +1,8 @@
 <div id="content_detail" class="ui-corner-all">
-<h1 class="title"><%= t('page.editing', :model => t('activerecord.models.bookmark_stat')) -%></h1>
+<h1 class="title"><%= t('page.editing', :model => t('activerecord.models.user_reserve_stat')) -%></h1>
 <div id="content_list">
 
-<%= form_for(@bookmark_stat) do |f| -%>
+<%= form_for(@user_reserve_stat) do |f| -%>
   <%= f.error_messages -%>
 
   <p>
@@ -10,7 +10,7 @@
     <%= f.datetime_select :start_date -%>
   </p>
   <p>
-    <%= f.label :end_date -%><br />
+  <%= f.label :end_date -%><br />
     <%= f.datetime_select :end_date -%>
   </p>
   <p>
@@ -27,7 +27,7 @@
 
 <div id="submenu" class="ui-corner-all">
   <ul>
-    <li><%= link_to t('page.show'), @bookmark_stat -%></li>
-    <li><%= link_to t('page.back'), bookmark_stats_path -%></li>
+    <li><%= link_to t('page.show'), @user_reserve_stat -%></li>
+    <li><%= link_to t('page.back'), user_reserve_stats_path -%></li>
   </ul>
 </div>

@@ -13,15 +13,15 @@
   </p>
 
   <p>
-    <%= f.label t('page.title') -%><br />
+    <%= f.label :original_title -%><br />
     <%= f.text_field :original_title, :class => 'resource_title' -%>
   </p>
   <p>
-    <%= f.label t('activerecord.attributes.manifestation.title_transcription') -%><br />
+    <%= f.label :title_transcription -%><br />
     <%= f.text_field :title_transcription, :class => 'resource_title' -%>
   </p>
   <p>
-    <%= f.label t('activerecord.attributes.manifestation.title_alternative') -%><br />
+    <%= f.label :title_alternative -%><br />
     <%= f.text_field :title_alternative, :class => 'resource_title' -%>
   </p>
   
@@ -41,7 +41,7 @@
     <%= f.select(:frequency_id, @frequencies.collect{|frequency| [frequency.display_name.localize, frequency.id]}) -%>
   </p>
   <p>
-    <%= f.label t('activerecord.attributes.manifestation.date_of_publication') -%>
+    <%= f.label :date_of_publication -%>
     <%= f.text_field :pub_date, :class => 'date_field' -%>
   </p>
 
@@ -49,52 +49,52 @@
     <%= render :partial => 'manifestations/serial_form', :locals => {:f => f, :manifestation => @manifestation} -%>
   <%- else -%>
     <p>
-      <%= f.label t('activerecord.attributes.manifestation.edition') -%>
+      <%= f.label :edition -%>
       <%= f.text_field :edition, :class => 'resource_integer' -%>
-      <%= f.label t('activerecord.attributes.manifestation.volume_number_list') -%>
+      <%= f.label :volume_number_list -%>
       <%= f.text_field :volume_number_list, :class => 'resource_integer' -%>
     </p>
 
     <p>
-      <%= f.label t('activerecord.attributes.manifestation.isbn') -%>
+      <%= f.label :isbn -%>
       <%= f.text_field :isbn, :class => 'resource_isbn_issn', :style => 'ime-mode: disabled' -%>
-      <%= link_to_function t('activerecord.attributes.manifestation.wrong_isbn'), "$('#manifestation_wrong_isbn').toggle()" -%>
+      <%= link_to_function :wrong_isbn, "$('#manifestation_wrong_isbn').toggle()" -%>
       <%= f.text_field :wrong_isbn, :class => 'resource_isbn_issn', :style => 'ime-mode: disabled; display: none' -%>
     </p>
     <p>
-      <%= f.label t('activerecord.attributes.manifestation.lccn') -%>
+      <%= f.label :lccn -%>
       <%= f.text_field :lccn, :class => 'resource_isbn_issn', :style => 'ime-mode: disabled' -%>
     </p>
   <%- end -%>
 
   <p>
-    <%= f.label t('activerecord.attributes.manifestation.start_page') -%>
+    <%= f.label :start_page -%>
     <%= f.text_field :start_page, :class => 'resource_integer' -%>
-    <%= f.label t('activerecord.attributes.manifestation.end_page') -%>
+    <%= f.label :end_page -%>
     <%= f.text_field :end_page, :class => 'resource_integer' -%>
   </p>
 
   <p>
-    <%= f.label t('activerecord.attributes.manifestation.height') -%>(cm)
+    <%= f.label :height -%>(cm)
     <%= f.text_field :height, :class => 'resource_integer' -%>
-    <%= f.label t('activerecord.attributes.manifestation.width') -%>(cm)
+    <%= f.label :width -%>(cm)
     <%= f.text_field :width, :class => 'resource_integer' -%>
-    <%= f.label t('activerecord.attributes.manifestation.depth') -%>(cm)
+    <%= f.label :depth -%>(cm)
     <%= f.text_field :depth, :class => 'resource_integer' -%>
   </p>
 
   <p>
-    <%= f.label t('activerecord.attributes.manifestation.price') -%>
+    <%= f.label :price -%>
     <%= f.text_field :price, :class => 'resource_integer' -%>
   </p>
 
   <p>
-    <%= f.label t('activerecord.attributes.manifestation.access_address') -%><br />
+    <%= f.label :access_address -%><br />
     <%= f.url_field :access_address, :class => 'resource_url' -%>
   </p>
 
   <p>
-    <%= f.label t('activerecord.attributes.manifestation.repository_content') -%>
+    <%= f.label :repository_content -%>
     <%= f.check_box :repository_content -%>
   </p>
   
@@ -104,12 +104,12 @@
   </p>
 
   <p>
-    <%= f.label t('activerecord.attributes.manifestation.description') -%><br />
+    <%= f.label :description -%><br />
     <%= f.text_area :description, :class => 'resource_textarea' -%>
   </p>
 
   <p>
-    <%= f.label t('activerecord.attributes.manifestation.note') -%><br />
+    <%= f.label :note -%><br />
     <%= f.text_area :note, :class => 'resource_textarea' -%>
   </p>
 

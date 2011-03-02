@@ -6,7 +6,7 @@
   <%= f.error_messages -%>
 
   <p>
-    <%= f.label t('activerecord.attributes.order_list.title') -%><br />
+    <%= f.label :title -%><br />
     <%= f.text_field :title, :class => 'resource_title' -%>
   </p>
   <p>
@@ -14,11 +14,11 @@
     <%= f.select(:bookstore_id, @bookstores.collect{|b| [b.name, b.id]}, :include_blank => true) -%>
   </p>
   <p>
-    <%= f.label t('activerecord.attributes.order_list.ordered_at') -%><br />
+    <%= f.label :ordered_at -%><br />
     <%= f.text_field :ordered_at, :value => @order_list.ordered_at.try(:strftime, "%Y-%m-%d"), :class => 'date_field' -%>
   </p>
   <p>
-    <%= f.label t('activerecord.attributes.order_list.note') -%><br />
+    <%= f.label :note -%><br />
     <%= f.text_area :note, :class => 'resource_textarea' -%>
   </p>
   <p>

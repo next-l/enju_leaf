@@ -11,23 +11,23 @@
   </p>
 
   <p>
-    <%= f.label t('activerecord.attributes.answer.body') -%><br />
+    <%= f.label :body -%><br />
     <%= f.text_area :body, :class => 'resource_textarea' -%>
   </p>
 
   <p>
-    <%= f.label t('activerecord.attributes.answer.item_identifier_list') -%><br />
+    <%= f.label :item_identifier_list -%><br />
     <%= f.text_area :item_identifier_list, :class => 'resource_textarea' -%>
   </p>
 
   <p>
-    <%= f.label t('activerecord.attributes.answer.url_list') -%><br />
+    <%= f.label :url_list -%><br />
     <%= f.text_area :url_list, :class => 'resource_textarea' -%>
   </p>
 
-  <p>
+  <div class="actions">
     <%= f.submit %>
-  </p>
+  </div>
   <%= javascript_tag("$('#answer_body').focus()") -%>
 <%- end -%>
 </div>

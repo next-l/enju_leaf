@@ -5,7 +5,7 @@
 <%= form_for(@import_request) do |f| -%>
   <%= f.error_messages -%>
   <p>
-    <%= f.label t('activerecord.attributes.import_request.isbn') -%><br />
+    <%= f.label :isbn -%><br />
     <%= f.text_field :isbn, :class => 'resource_isbn_issn' -%>
   </p>
   <p>

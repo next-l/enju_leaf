@@ -1,49 +1,8 @@
 <div id="content_detail" class="ui-corner-all">
 <h1 class="title"><%= t('page.editing', :model => t('activerecord.models.event')) -%></h1>
 <div id="content_list">
-
-<%= form_for(@event) do |f| -%>
-  <%= f.error_messages -%>
-
-  <p>
-    <%= f.label t('activerecord.models.event_category') -%><br />
-    <%= f.select(:event_category_id, @event_categories.collect{|e| [e.display_name.localize, e.id]}) -%>
-  </p>
-
-  <p>
-    <%= f.label t('activerecord.models.library') -%><br />
-    <%= f.select(:library_id, @libraries.collect{|l| [l.display_name.localize, l.id]}) -%>
-  </p>
-
-  <p>
-    <%= f.label t('activerecord.attributes.event.name') -%><br />
-    <%= f.text_field :name, :class => 'resource_title' -%>
-  </p>
-
-  <p>
-    <%= f.label t('activerecord.attributes.event.start_at') -%><br />
-    <%= f.datetime_select :start_at, :use_month_numbers => true -%>
-    <%= f.label t('activerecord.attributes.event.all_day') -%>
-    <%= f.check_box :all_day -%>
-  </p>
-
-  <p>
-    <%= f.label t('activerecord.attributes.event.end_at') -%><br />
-    <%= f.datetime_select :end_at, :use_month_numbers => true -%>
-  </p>
-
-  <p>
-    <%= f.label t('activerecord.attributes.event.note') -%><br />
-    <%= f.text_area :note, :class => 'resource_textarea' -%>
-  </p>
-
-  <p>
-    <%= f.submit %>
-  </p>
-<%- end -%>
-
-<%= render 'all_day' %>
-
+  <%= render 'form' %>
+  <%= render 'all_day' %>
 </div>
 </div>
 

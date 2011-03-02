@@ -22,7 +22,7 @@
   <%= f.error_messages -%>
 
   <p>
-    <label for="checkout_due_date"><%= t('activerecord.attributes.checkout.due_date') -%></label>
+    <%= f.label :due_date -%>
     <%= f.hidden_field :user_id -%>
     <%= f.hidden_field :item_id -%>
     <%= f.text_field :due_date, :value => @checkout.due_date.try(:strftime, "%Y-%m-%d"), :class => 'date_field' -%>
@@ -31,9 +31,9 @@
     <%= t('checkout.renewal_count') -%>: <%= f.text_field :checkout_renewal_count, :class => 'resource_integer' -%>
   </p>
 
-  <p>
+  <div class="actions">
     <%= f.submit %>
-  </p>
+  </div>
 <%- end -%>
 </div>
 </div>

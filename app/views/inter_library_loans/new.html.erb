@@ -11,7 +11,7 @@
   </p>
 
   <p>
-    <%= f.label t('activerecord.attributes.inter_library_loan.requested_at') -%><br />
+    <%= f.label :requested_at -%><br />
     <%= f.text_field :requested_at, :class => 'date_field' -%>
   </p>
 
@@ -27,9 +27,9 @@
     <%- end -%>
   </p>
 
-  <p>
+  <div class="actions">
     <%= f.submit %>
-  </p>
+  </div>
 <%- end -%>
 
 </div>

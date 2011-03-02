@@ -5,7 +5,7 @@
 <%= form_for(@patron_merge_list) do |f| -%>
   <%= f.error_messages -%>
   <p>
-    <%= f.label t('activerecord.attributes.patron_merge_list.title') -%><br />
+    <%= f.label :title -%><br />
     <%= f.text_field :title -%>
   </p>
 

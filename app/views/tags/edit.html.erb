@@ -5,7 +5,7 @@
 <%= form_for(@tag, :url => tag_path(@tag.name)) do |f| -%>
   <%= f.error_messages -%>
   <p>
-    <%= f.label t('activerecord.attributes.tag.name') -%><br />
+    <%= f.label :name -%><br />
     <%= f.text_field :name, :value => @tag.name -%>
   </p>
 

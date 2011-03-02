@@ -1,34 +1,7 @@
 <div id="content_detail" class="ui-corner-all">
 <h1 class="title"><%= t('page.editing', :model => t('activerecord.models.message_template')) -%></h1>
 <div id="content_list">
-
-<%= form_for(@message_template) do |f| -%>
-  <%= f.error_messages -%>
-
-  <p>
-    <%= f.label t('activerecord.attributes.message_template.status') -%><br />
-    <%= f.text_field :status, :class => 'resource_title' -%>
-  </p>
-
-  <p>
-    <%= f.label t('activerecord.attributes.message_template.locale') -%><br />
-    <%= f.text_field :locale, :class => 'resource_locale' -%>
-  </p>
-
-  <p>
-    <%= f.label t('activerecord.attributes.message_template.title') -%><br />
-    <%= f.text_field :title, :class => 'resource_title' -%>
-  </p>
-
-  <p>
-    <%= f.label t('activerecord.attributes.message_template.body') -%><br />
-    <%= f.text_area :body, :class => 'resource_textarea' -%>
-  </p>
-
-  <p>
-    <%= f.submit %>
-  </p>
-<%- end -%>
+  <%= render 'form' %>
 </div>
 </div>
 
