@@ -285,6 +285,7 @@ class Ability
         Subject,
         SubjectType,
         SubjectHeadingType,
+        SubjectHeadingTypeHasSubject,
         UseRestriction,
         UserGroup,
         UserGroupHasCheckoutType
@@ -401,7 +402,6 @@ class Ability
         Subject,
         SubjectHasClassification,
         SubjectHeadingType,
-        SubjectHeadingTypeHasSubject,
         Tag,
         UserCheckoutStat,
         UserReserveStat,
@@ -460,7 +460,6 @@ class Ability
         Subject,
         SubjectHasClassification,
         SubjectHeadingType,
-        SubjectHeadingTypeHasSubject,
         Tag,
         UserCheckoutStat,
         UserGroup,
