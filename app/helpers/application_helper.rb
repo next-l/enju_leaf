@@ -4,7 +4,7 @@ module ApplicationHelper
   def library_system_name
     h(LibraryGroup.site_config.name)
   end
-  
+ 
   def form_icon(carrier_type)
     case carrier_type.name
     when 'print'

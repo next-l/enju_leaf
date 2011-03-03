@@ -11,7 +11,7 @@ class OrdersController < ApplicationController
     when @order_list
       @orders = @order_list.orders.paginate(:page => params[:page])
     else
-      @orders = Order.paginate(:all, :page => params[:page])
+      @orders = Order.paginate(:page => params[:page])
     end
     @count = {}
     @count[:query_result] = @orders.size

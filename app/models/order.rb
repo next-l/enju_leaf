@@ -8,7 +8,7 @@ class Order < ActiveRecord::Base
 
   after_save :reindex
   after_destroy :reindex
-  
+ 
   acts_as_list :scope => :order_list
 
   def self.per_page

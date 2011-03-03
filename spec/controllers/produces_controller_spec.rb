@@ -1,6 +1,9 @@
 require 'spec_helper'
+require 'sunspot/rails/spec_helper'
 
 describe ProducesController do
+  disconnect_sunspot
+
   def mock_produce(stubs={})
     @mock_produce ||= mock_model(Produce, stubs).as_null_object
   end

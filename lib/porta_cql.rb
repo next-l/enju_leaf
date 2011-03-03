@@ -17,7 +17,7 @@ class Cql
   end
 
   attr_reader :query, :from, :until, :sort_by, :logic
-  
+
   def ==(other)
     instance_variables.all? do |val|
       instance_variable_get(val) == other.instance_variable_get(val)
@@ -61,7 +61,7 @@ class Cql
     element, rest = arr.partition{|c| reg =~ c.index }
     [element.last, rest]
   end
-  
+
   def date_range(from_date, until_date)
     unless from_date == '*' and until_date == '*'
       ["date_of_publication_d:[#{from_date} TO #{until_date}]"]

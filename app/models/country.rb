@@ -7,7 +7,7 @@ class Country < ActiveRecord::Base
   #has_many :families
   has_many :libraries
   has_one :library_group
-  
+ 
   # If you wish to change the field names for brevity, feel free to enable/modify these.
   # alias_attribute :iso, :alpha_2
   # alias_attribute :iso3, :alpha_3

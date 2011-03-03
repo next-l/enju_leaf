@@ -44,7 +44,7 @@ class Library < ActiveRecord::Base
   def self.all_cache
     Rails.cache.fetch('library_all'){Library.all}
   end
-  
+ 
   def clear_all_cache
     Rails.cache.delete('library_all')
   end

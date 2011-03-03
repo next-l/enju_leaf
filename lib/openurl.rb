@@ -15,7 +15,7 @@ class Openurl
   # ある項目に対して複数語指定時の検索方法ごとの分類
   LOGIC_MULTI_AND = [:au, :title, :atitle, :jtitle, :btitle, :pub] # AND検索
   LOGIC_MULTI_OR = [:ndl_dpid] # OR検索
-  
+
   # 桁チェックが必要な項目
   NUM_CHECK = {:issn =>8, :isbn => 13}
 
@@ -48,7 +48,7 @@ class Openurl
     end
     @manifestations = []
   end
-  
+
   attr_reader :openurl_query, :manifestations, :query_text
 
   # 検索

@@ -100,7 +100,7 @@ class User < ActiveRecord::Base
   def self.per_page
     10
   end
-  
+ 
   def password_required?
     !persisted? || !password.nil? || !password_confirmation.nil?
   end

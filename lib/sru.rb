@@ -25,7 +25,7 @@ class Sru
 
   attr_reader :version, :cql, :start, :maximum, :packing, :schema, :path, :ascending
   attr_reader :manifestations, :extra_response_data, :number_of_records, :next_record_position
-  
+
   def sort_by
     sort = {:sort_by => 'created_at', :order => 'desc'}
     unless '1.1' == @version
@@ -61,7 +61,7 @@ class Sru
     @manifestations = search.execute!.results
     @extra_response_data = get_extra_response_data
     @number_of_records, @next_record_position = get_number_of_records
-    
+
     @manifestations
   end
 

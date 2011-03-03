@@ -62,5 +62,4 @@ class Message < ActiveRecord::Base
     return true if state == 'read'
     false
   end
-  
 end

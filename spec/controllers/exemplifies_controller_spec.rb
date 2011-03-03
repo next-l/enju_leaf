@@ -1,6 +1,8 @@
 require 'spec_helper'
+require 'sunspot/rails/spec_helper'
 
 describe ExemplifiesController do
+  disconnect_sunspot
 
   def mock_exemplify(stubs={})
     @mock_exemplify ||= mock_model(Exemplify, stubs).as_null_object

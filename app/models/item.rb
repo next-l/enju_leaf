@@ -31,7 +31,7 @@ class Item < ActiveRecord::Base
   has_many :answer_has_items, :dependent => :destroy
   has_many :answers, :through => :answer_has_items
   has_one :resource_import_result
-  
+
   validates_associated :circulation_status, :shelf, :bookstore, :checkout_type
   validates_presence_of :circulation_status #, :checkout_type
   validates_uniqueness_of :item_identifier, :allow_blank => true, :if => proc{|item| !item.item_identifier.blank? and !item.manifestation.try(:series_statement)}

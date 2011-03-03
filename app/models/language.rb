@@ -14,7 +14,7 @@ class Language < ActiveRecord::Base
   def self.all_cache
     Rails.cache.fetch('language_all'){Language.all}
   end
-  
+ 
   def clear_available_languages_cache
     Rails.cache.delete('language_all')
   end

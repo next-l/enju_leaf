@@ -143,13 +143,10 @@ class Ability
         bookmark.user == user
       end
       can [:read, :create, :update], BookmarkStat
-      can [:read, :create, :update], BookmarkStatHasManifestation
       can [:index, :create], Checkout
       can [:update, :destroy, :show], Checkout do |checkout|
         checkout.user == user
       end
-      can [:read, :create, :update], CheckoutStatHasManifestation
-      can [:read, :create, :update], CheckoutStatHasUser
       can [:read, :create, :update], Item
       can :destroy, Item do |item|
         item.checkouts.not_returned.first.nil?
@@ -238,8 +235,6 @@ class Ability
         Question,
         Realize,
         Reserve,
-        ReserveStatHasManifestation,
-        ReserveStatHasUser,
         ResourceImportFile,
         SearchHistory,
         SeriesStatement,
@@ -250,10 +245,13 @@ class Ability
         WorkHasSubject
       ]
       can :read, [
+        BookmarkStatHasManifestation,
         Bookstore,
         CarrierType,
         CarrierTypeHasCheckoutType,
         CheckoutType,
+        CheckoutStatHasManifestation,
+        CheckoutStatHasUser,
         CirculationStatus,
         Classification,
         ClassificationType,
@@ -278,6 +276,8 @@ class Ability
         PatronType,
         RequestStatusType,
         RequestType,
+        ReserveStatHasManifestation,
+        ReserveStatHasUser,
         ResourceImportResult,
         Role,
         SearchEngine,

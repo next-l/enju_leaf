@@ -1,6 +1,8 @@
 require 'spec_helper'
+require 'sunspot/rails/spec_helper'
 
 describe LanguagesController do
+  disconnect_sunspot
 
   describe "GET index" do
     before(:each) do

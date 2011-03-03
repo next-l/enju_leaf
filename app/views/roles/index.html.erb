@@ -10,7 +10,7 @@
     <th></th>
     <th></th>
   </tr>
-  
+
 <%- @roles.each do |role| -%>
   <tr class="line<%= cycle("0", "1") -%>">
     <td><%= link_to role.name, role -%></td>
