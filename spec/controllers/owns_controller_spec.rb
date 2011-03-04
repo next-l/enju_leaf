@@ -17,7 +17,7 @@ describe OwnsController do
 
       it "assigns all owns as @owns" do
         get :index
-        assigns(:owns).should eq(Own.all)
+        assigns(:owns).should eq(Own.paginate(:page => 1, :order => ['owns.position']))
       end
     end
 
@@ -28,7 +28,7 @@ describe OwnsController do
 
       it "assigns all owns as @owns" do
         get :index
-        assigns(:owns).should eq(Own.all)
+        assigns(:owns).should eq(Own.paginate(:page => 1, :order => ['owns.position']))
       end
     end
 
@@ -39,14 +39,14 @@ describe OwnsController do
 
       it "assigns all owns as @owns" do
         get :index
-        assigns(:owns).should eq(Own.all)
+        assigns(:owns).should eq(Own.paginate(:page => 1, :order => ['owns.position']))
       end
     end
 
     describe "When not logged in" do
       it "assigns all owns as @owns" do
         get :index
-        assigns(:owns).should eq(Own.all)
+        assigns(:owns).should eq(Own.paginate(:page => 1, :order => ['owns.position']))
       end
     end
   end

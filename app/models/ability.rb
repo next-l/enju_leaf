@@ -163,7 +163,6 @@ class Ability
         message.receiver == user
       end
       can [:read, :update, :destroy], MessageRequest
-      can [:read, :update], MessageTemplate
       can [:index, :create], Patron
       can :show, Patron do |patron|
         patron.required_role_id <= 3
@@ -217,7 +216,6 @@ class Ability
         InterLibraryLoan,
         Inventory,
         InventoryFile,
-        ItemHasUseRestriction,
         ManifestationCheckoutStat,
         ManifestationRelationship,
         ManifestationReserveStat,
@@ -262,6 +260,7 @@ class Ability
         Extent,
         Frequency,
         FormOfWork,
+        ItemHasUseRestriction,
         Language,
         LendingPolicy,
         Library,

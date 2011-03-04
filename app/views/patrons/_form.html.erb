@@ -18,7 +18,7 @@
     <%= f.text_field :full_name, :class => 'resource_title' -%><br />
     <%= f.label :full_name_transcription -%><br />
     <%= f.text_field :full_name_transcription, :class => 'resource_title' -%><br />
-    <%= link_to_function :full_name_alternative, "$('#full_name_alternative').toggle()" -%>
+    <%= link_to_function t('activerecord.attributes.patron.full_name_alternative'), "$('#full_name_alternative').toggle()" -%>
     <span id="full_name_alternative" style="display: none">
       <br />
       <%= f.text_area :full_name_alternative, :class => 'resource_textarea' -%>
