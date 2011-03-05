@@ -53,9 +53,10 @@ class PatronsController < ApplicationController
         fulltext query
       end
     end
+
+    get_work; get_expression; get_manifestation; get_patron; get_patron_merge_list;
     unless params[:mode] == 'add'
       user = @user
-      get_work; get_expression; get_manifestation; get_patron; get_patron_merge_list;
       work = @work
       expression = @expression
       manifestation = @manifestation
