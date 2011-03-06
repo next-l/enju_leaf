@@ -233,6 +233,10 @@ class Manifestation < ActiveRecord::Base
     Rails.cache.fetch("manifestation_search_total"){Manifestation.search.total}
   end
 
+  def clear_cached_numdocs
+    Rails.cache.delete("manifestation_search_total")
+  end
+
   def parent_of_series
     original_manifestations
   end

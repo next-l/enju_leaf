@@ -10,11 +10,9 @@ class ManifestationSweeper < ActionController::Caching::Sweeper
     record.patrons.each do |patron|
       expire_editable_fragment(patron)
     end
-    Rails.cache.write("manifestation_search_total", Manifestation.search.total)
   end
 
   def after_destroy(record)
     after_save(record)
   end
-
 end
