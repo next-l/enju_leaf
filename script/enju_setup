@@ -15,7 +15,7 @@ end
 
 unless File.exists?("config/database.yml")
   FileUtils.cp "config/database.yml.sample-#{adapter}", "config/database.yml"
-  puts "copied config/database.yml"
+  puts "copied config/database.yml.sample"
 end
 
 sample_files = [
