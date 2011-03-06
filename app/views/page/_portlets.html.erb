@@ -26,7 +26,7 @@ function saveOrder() {
 function restoreOrder() {
     $(".column").each(function(index, value) {
         var columnId = value.id;
-        var cookieName = "cookie-" + columnId
+        var cookieName = "listOrder" + columnId
         var cookie = $.cookie(cookieName);
         if ( cookie == null ) { return; }
         var IDs = cookie.split(",");
