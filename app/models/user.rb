@@ -264,7 +264,7 @@ class User < ActiveRecord::Base
 
   def send_confirmation_instructions
     unless self.operator
-      Devise::Mailer.confirmation_instructions(self).deliver if self.email.present?
+      Devise::Mailer.delay.confirmation_instructions(self) if self.email.present?
     end
   end
 end

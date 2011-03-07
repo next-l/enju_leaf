@@ -1,0 +1,14 @@
+<%= form_for :manifestations, :url => manifestation_manifestations_path(@manifestation), :html => {:method => 'get'} do -%>
+  <p>
+    <%= t('page.search_term') -%>:
+    <%= search_field_tag 'query', h(@query), {:id => 'search_form_top', :class => 'search_form'} -%>
+    <%= hidden_field_tag 'reservable', h(@reservable) if @reservable -%>
+    <% if can? :create, ManifestationRelationship %>
+      <%= render :partial => 'page/add' %>
+    <% end %>
+    <%= submit_tag t('page.search') -%>
+    <br />
+    <%= link_to t('page.advanced_search'), page_advanced_search_path -%>
+  </p>
+  <%= javascript_tag("$('#search_form_top').focus()") -%>
+<%- end -%>

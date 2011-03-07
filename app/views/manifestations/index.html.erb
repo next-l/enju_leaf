@@ -3,29 +3,18 @@
 <div id="content_list">
   <%= render :partial => 'manifestations/title', :locals => {:manifestation => @manifestation} if @manifestation -%>
 
-  <%= form_for :manifestations, :html => {:method => 'get'} do -%>
-    <p>
-      <%= t('page.search_term') -%>:
-      <%= search_field_tag 'query', h(@query), {:id => 'search_form_top', :class => 'search_form'} -%>
-      <%= hidden_field_tag 'reservable', h(@reservable) if @reservable -%>
-      <%= hidden_field_tag 'manifestation_id', @manifestation.id if @manifestation -%>
-      <%= submit_tag t('page.search') -%>
-      <% if @manifestation %>
-        <%- if can? :update, @manifestation -%>
-          <%- if params[:mode] == 'add' -%>
-            <%= radio_button_tag 'mode', 'show' -%> <%= t('page.show') -%>
-            <%= radio_button_tag 'mode', 'add', :checked => true -%> <%= t('page.add') -%>
-          <%- else -%>
-            <%= radio_button_tag 'mode', 'show', :checked => true -%> <%= t('page.show') -%>
-            <%= radio_button_tag 'mode', 'add' -%> <%= t('page.add') -%>
-          <%- end -%>
-        <%- end -%>
-      <%- end -%>
-      <br />
-      <%= link_to t('page.advanced_search'), page_advanced_search_path -%>
-    </p>
-    <%= javascript_tag("$('#search_form_top').focus()") -%>
-  <%- end -%>
+  <% case %>
+  <% when @index_patron[:creator] %>
+    <%= render 'index_form_creator' %>
+  <% when @index_patron[:contributor] %>
+    <%= render 'index_form_contributor' %>
+  <% when @index_patron[:publisher] %>
+    <%= render 'index_form_publisher' %>
+  <% when @manifestation %>
+    <%= render 'index_form_manifestation' %>
+  <% else %>
+    <%= render 'index_form' %>
+  <% end %>
 
   <%- if @manifestations.total_entries > 0 -%>
     <p>

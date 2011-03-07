@@ -4,7 +4,7 @@ class ManifestationsController < ApplicationController
   before_filter :authenticate_user!, :only => :edit
   before_filter :get_patron
   helper_method :get_manifestation, :get_subject
-  before_filter :get_series_statement
+  before_filter :get_series_statement, :only => [:index, :new, :edit]
   before_filter :prepare_options, :only => [:new, :edit]
   helper_method :get_libraries
   before_filter :get_version, :only => [:show]
@@ -104,21 +104,24 @@ class ManifestationsController < ApplicationController
       end
 
       get_manifestation; get_subject
+      patron = get_index_patron
+      @index_patron = patron
+
       unless params[:mode] == 'add'
         manifestation = @manifestation if @manifestation
         subject = @subject if @subject
+        search.build do
+          with(:creator_ids).equal_to patron[:creator].id if patron[:creator]
+          with(:contributor_ids).equal_to patron[:contributor].id if patron[:contributor]
+          with(:publisher_ids).equal_to patron[:publisher].id if patron[:publisher]
+          with(:original_manifestation_ids).equal_to manifestation.id if manifestation
+        end
       end
-
-      patron = get_index_patron
 
       search.build do
         fulltext query unless query.blank?
-        with(:original_manifestation_ids).equal_to manifestation.id if manifestation
         order_by sort[:sort_by], sort[:order] unless oai_search
         order_by :updated_at, :desc if oai_search
-        with(:creator_ids).equal_to patron[:creator].id if patron[:creator]
-        with(:contributor_ids).equal_to patron[:contributor].id if patron[:contributor]
-        with(:publisher_ids).equal_to patron[:publisher].id if patron[:publisher]
         with(:subject_ids).equal_to subject.id if subject
         facet :reservable
       end
@@ -287,7 +290,7 @@ class ManifestationsController < ApplicationController
     case params[:mode]
     when 'send_email'
       if user_signed_in?
-        Notifier.manifestation_info(current_user, @manifestation).deliver
+        Notifier.delay.manifestation_info(current_user, @manifestation)
         flash[:notice] = t('page.sent_email')
         redirect_to manifestation_url(@manifestation)
         return
@@ -384,7 +387,6 @@ class ManifestationsController < ApplicationController
     if @manifestation.original_title.blank?
       @manifestation.original_title = @manifestation.attachment_file_name
     end
-    @manifestation.series_statement = @series_statement
 
     respond_to do |format|
       if @manifestation.save

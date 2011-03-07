@@ -33,6 +33,9 @@ EnjuLeaf::Application.routes.draw do
     resources :patron_merges
     resources :patron_merge_lists
     resources :patron_relationships
+    resources :creates
+    resources :realizes
+    resources :produces
   end
 
   resources :creators, :controller => 'patrons' do
