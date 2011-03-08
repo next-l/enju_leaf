@@ -4,14 +4,14 @@ module Wakati
     m = MeCab::Tagger.new("-O wakati")
     m.parse(self).strip
   rescue
-    nil
+    self
   end
 
   def yomi
     m = MeCab::Tagger.new("-O yomi")
     m.parse(self).strip
   rescue
-    nil
+    self
   end
 end
 

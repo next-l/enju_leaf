@@ -28,7 +28,7 @@ class Reserve < ActiveRecord::Base
   validates_format_of :expire_date, :with => /^\d+(-\d{0,2}){0,2}$/, :allow_blank => true
   validate :manifestation_must_include_item
   before_validation :set_item_and_manifestation, :on => :create
-  before_save :set_expired_at
+  before_validation :set_expired_at
   before_validation :set_request_status, :on => :create
 
   attr_accessor :user_number, :item_identifier
@@ -87,7 +87,7 @@ class Reserve < ActiveRecord::Base
           date = Time.zone.parse("#{expire_date}-01-01")
         end
       end
-      self.date_of_publication = date
+      self.expired_at = date
     end
 
     if self.user and self.manifestation
