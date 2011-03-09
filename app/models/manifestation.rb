@@ -159,7 +159,7 @@ class Manifestation < ActiveRecord::Base
   enju_amazon
   enju_oai
   enju_mozshot
-  enju_calil_check
+  #enju_calil_check
   #enju_cinii
   #enju_scribd
   #has_ipaper_and_uses 'Paperclip'
