@@ -1,7 +1,7 @@
 <%= form_for :manifestations, :url => creator_manifestations_path(@index_patron[:creator]), :html => {:method => 'get'} do -%>
   <p>
     <%= t('page.search_term') -%>:
-    <%= search_field_tag 'query', h(@query), {:id => 'search_form_top', :class => 'search_form'} -%>
+    <%= search_field_tag 'query', h(@query), {:id => 'search_form_top', :class => 'search_form', :placeholder => t('page.search_term')} -%>
     <%= hidden_field_tag 'reservable', h(@reservable) if @reservable -%>
     <% if can? :create, Create %>
       <%= render :partial => 'page/add' %>
