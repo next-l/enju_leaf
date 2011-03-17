@@ -42,7 +42,6 @@ class PurchaseRequestsControllerTest < ActionController::TestCase
     sign_in users(:user1)
     get :index, :user_id => users(:librarian1).username
     assert_response :forbidden
-    assert_equal assigns(:purchase_requests), []
   end
 
   def test_librarian_should_get_other_index_without_user_id
