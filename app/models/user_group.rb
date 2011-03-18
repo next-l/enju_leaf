@@ -9,8 +9,9 @@ class UserGroup < ActiveRecord::Base
   has_many :checkout_types, :through => :user_group_has_checkout_types, :order => :position
   has_many :lending_policies
 
+  validates_numericality_of :valid_period_for_new_user, :greater_than_or_equal_to => 0
+
   def self.per_page
     10
   end
-
 end

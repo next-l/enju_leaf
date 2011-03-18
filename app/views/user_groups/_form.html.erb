@@ -10,6 +10,10 @@
     <%= f.text_area :display_name %>
   </div>
   <div class="field">
+    <%= f.label :valid_period_for_new_user %><br />
+    <%= f.text_field :valid_period_for_new_user, :class => 'resource_integer' %>
+  </div>
+  <div class="field">
     <%= f.label :note %><br />
     <%= f.text_area :note %>
   </div>

@@ -16,11 +16,6 @@
   <%= @library_group.email -%>
 </p>
 
-<p>
-  <strong><%= t('activerecord.attributes.library_group.valid_period_for_new_user') -%>:</strong>
-  <%= @library_group.valid_period_for_new_user -%>
-</p>
-
 <div>
   <strong><%= t('activerecord.attributes.library_group.login_banner') -%>:</strong>
   <%= raw textilize(h(@library_group.login_banner)) -%>

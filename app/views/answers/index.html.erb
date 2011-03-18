@@ -3,7 +3,7 @@
 <div id="content_list">
 
 <%- if @question -%>
-  <p><%= link_to textilize_without_paragraph(h(@question.body)), user_question_path(@question.user, @question) -%></p>
+  <p><%= link_to textilize(h(@question.body)), user_question_path(@question.user, @question) -%></p>
 <%- end -%>
 
 <table class="index">
