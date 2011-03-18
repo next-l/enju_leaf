@@ -91,11 +91,13 @@ class Reserve < ActiveRecord::Base
     end
 
     if self.user and self.manifestation
-      if self.expired_at.blank?
-        expired_period = self.manifestation.reservation_expired_period(self.user)
-        self.expired_at = (expired_period + 1).days.from_now.beginning_of_day
-      elsif self.expired_at.beginning_of_day < Time.zone.now
-        errors[:base] << I18n.t('reserve.invalid_date')
+      if self.canceled_at.blank?
+        if self.expired_at.blank?
+          expired_period = self.manifestation.reservation_expired_period(self.user)
+          self.expired_at = (expired_period + 1).days.from_now.beginning_of_day
+        elsif self.expired_at.beginning_of_day < Time.zone.now
+          errors[:base] << I18n.t('reserve.invalid_date')
+        end
       end
     end
   end

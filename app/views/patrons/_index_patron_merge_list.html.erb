@@ -3,14 +3,14 @@
 <div id="content_list">
 
 <%= form_for :patrons, :url => patron_merge_list_patrons_path(@patron_merge_list), :html => {:method => 'get'} do -%>
-<p>
-  <%= t('page.search_term') -%>: <%= search_field_tag 'query', h(@query), {:class => 'search_form'} -%>
-  <%- if can? :update, @patron_merge_list -%>
-    <%= render :partial => 'page/add' %>
-  <%- end -%>
-  <%= submit_tag t('page.search') -%>
-  <%= link_to t('page.back_to_index'), patron_merge_list_patrons_path(@patron_merge_list) -%>
-</p>
+  <p>
+    <%= t('page.search_term') -%>: <%= search_field_tag 'query', h(@query), {:id => 'search_form_top', :class => 'search_form', :placeholder => t('page.search_term')} -%>
+    <%- if can? :update, @patron_merge_list -%>
+      <%= render :partial => 'page/add' %>
+    <%- end -%>
+    <%= submit_tag t('page.search') -%>
+    <%= link_to t('page.back_to_index'), patron_merge_list_patrons_path(@patron_merge_list) -%>
+  </p>
 <%- end -%>
 
   <table class="index">
