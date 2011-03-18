@@ -1,7 +1,7 @@
 <div id="content_detail" class="ui-corner-all">
   <h2 class="title"><%= t('page.not_found') -%></h2>
   <div id="content_list">
-  <%= form_for :manifestations_path, :html => {:method => 'get'} do -%>
+  <%= form_for :manifestations, :url => manifestation_path, :html => {:method => 'get'} do -%>
     <p>
       <%= t('page.search_term') -%>:
       <%= search_field_tag 'query', h(@query), {:id => 'search_form_top', :class => 'search_form', :placeholder => t('page.search_term')} -%>
