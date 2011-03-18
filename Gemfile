@@ -3,13 +3,12 @@ source 'http://rubygems.org'
 gem 'rails', '3.0.5'
 
 # Bundle edge Rails instead:
-#gem 'rails', :git => 'git://github.com/rails/rails.git'
+# gem 'rails', :git => 'git://github.com/rails/rails.git'
 
 platforms :ruby do
   gem 'pg'
   gem 'ruby-prof', :group => [:development, :test]
   gem 'zipruby'
-  gem 'formatize'
 end
 
 platforms :ruby_19 do
