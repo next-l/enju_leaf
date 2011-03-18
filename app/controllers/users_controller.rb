@@ -142,7 +142,7 @@ class UsersController < ApplicationController
         @user.locked = params[:user][:locked]
         expired_at_array = [params[:user]["expired_at(1i)"], params[:user]["expired_at(2i)"], params[:user]["expired_at(3i)"]]
         begin
-          @user.expired_at = Time.zone.parse(expired_at_array.join("-")).end_of_day
+          @user.expired_at = Time.zone.parse(expired_at_array.join("-")).try(:end_of_day)
         rescue ArgumentError
           flash[:notice] = t('page.invalid_date')
           redirect_to edit_user_url(@user)
