@@ -47,4 +47,16 @@ describe User do
     user.save
     user.active?.should be_true
   end
+
+  it 'should not set expired_at if its user group does not have valid period' do
+    user = Factory.create(:user)
+    user.expired_at.should be_nil
+  end
+
+  it 'should not set expired_at if its user group does not have valid period' do
+    user = Factory.build(:user)
+    user.user_group = Factory.create(:user_group, :valid_period_for_new_user => 10)
+    user.save
+    user.expired_at.should eq 10.days.from_now.end_of_day
+  end
 end

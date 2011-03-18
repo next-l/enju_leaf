@@ -270,8 +270,8 @@ class User < ActiveRecord::Base
   end
 
   def set_expired_at
-    if self.user_group.valid_period_for_new_user.days > 0
-      self.expired_at = self.user_group.valid_period_for_new_user.days.from_now
+    if self.user_group.valid_period_for_new_user > 0
+      self.expired_at = self.user_group.valid_period_for_new_user.days.from_now.end_of_day
     end
   end
 end
