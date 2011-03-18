@@ -98,7 +98,6 @@ class UsersController < ApplicationController
       return
     end
     @user.patron_id = @patron.id if @patron
-    @user.expired_at = LibraryGroup.site_config.valid_period_for_new_user.days.from_now
     @user.library = current_user.library
     @user.locale = current_user.locale
   end
@@ -198,7 +197,6 @@ class UsersController < ApplicationController
       @user.library_id = params[:user][:library_id] ||= 1
       @user.role_id = params[:user][:role_id] ||= 1
       @user.required_role_id = params[:user][:required_role_id] ||= 1
-      @user.expired_at = Time.zone.local(params[:user]["expired_at(1i)"], params[:user]["expired_at(2i)"], params[:user]["expired_at(3i)"]) rescue nil
       @user.keyword_list = params[:user][:keyword_list]
       @user.user_number = params[:user][:user_number]
       @user.locale = params[:user][:locale]

@@ -619,6 +619,7 @@ en:
         note: Note
         position: Position
         deleted_at: Deleted at
+        valid_period_for_new_user: Valid period for new user
       resource_import_file:
         resource_import_file_name: Filename
         resource_import_content_type: Content type
@@ -656,7 +657,6 @@ en:
         note: Note
         login_banner: Login banner
         post_to_union_catalog: Post to union catalog
-        valid_period_for_new_user: Valid period for new user
         allow_bookmark_external_url: Allow bookmark external url
       event_import_file:
         event_import_file_name: Filename

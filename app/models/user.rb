@@ -61,7 +61,8 @@ class User < ActiveRecord::Base
   before_validation :set_role_and_patron, :on => :create
   before_validation :set_lock_information
   before_destroy :check_item_before_destroy, :check_role_before_destroy
-  before_save :set_expiration
+  before_save :check_expiration
+  before_create :set_expired_at
   after_destroy :remove_from_index
   after_create :set_confirmation
   after_save :index_patron
@@ -147,7 +148,7 @@ class User < ActiveRecord::Base
     end
   end
 
-  def set_expiration
+  def check_expiration
     return if self.has_role?('Administrator')
     if expired_at
       if expired_at.beginning_of_day < Time.zone.now.beginning_of_day
@@ -265,6 +266,12 @@ class User < ActiveRecord::Base
   def send_confirmation_instructions
     unless self.operator
       Devise::Mailer.delay.confirmation_instructions(self) if self.email.present?
+    end
+  end
+
+  def set_expired_at
+    if self.user_group.valid_period_for_new_user.days > 0
+      self.expired_at = self.user_group.valid_period_for_new_user.days.from_now
     end
   end
 end

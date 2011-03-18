@@ -619,6 +619,7 @@ ja:
         note: 注記
         position: 位置
         deleted_at: 削除時刻
+        valid_period_for_new_user: 新規ユーザの有効日数
       resource_import_file:
         resource_import_file_name: ファイル名
         resource_import_content_type: Content-Type
@@ -656,7 +657,6 @@ ja:
         note: 注記
         login_banner: ログイン画面でのメッセージ
         post_to_union_catalog: 総合目録に登録する
-        valid_period_for_new_user: 新規ユーザの有効日数
         allow_bookmark_external_url: 外部サイトのURLをブックマークできるようにする
       event_import_file:
         event_import_file_name: ファイル名
