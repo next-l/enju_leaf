@@ -1,5 +1,6 @@
 class UserCheckoutStat < ActiveRecord::Base
   include CalculateStat
+  default_scope :order => 'id DESC'
   scope :not_calculated, where(:state => 'pending')
   has_many :checkout_stat_has_users
   has_many :users, :through => :checkout_stat_has_users

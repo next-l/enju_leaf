@@ -142,6 +142,7 @@ class Ability
       can [:update, :destroy, :show], Bookmark do |bookmark|
         bookmark.user == user
       end
+      can [:read, :create, :update], BookmarkStat
       can [:index, :create], Checkout
       can [:update, :destroy, :show], Checkout do |checkout|
         checkout.user == user
@@ -162,7 +163,6 @@ class Ability
         message.receiver == user
       end
       can [:read, :update, :destroy], MessageRequest
-      can [:read, :update], MessageTemplate
       can [:index, :create], Patron
       can :show, Patron do |patron|
         patron.required_role_id <= 3
@@ -198,17 +198,15 @@ class Ability
       can :destroy, User do |u|
         u.checkouts.not_returned.first.nil? and u.role.name == 'User' and u != user
       end
+      can [:read, :create, :update], UserCheckoutStat
+      can [:read, :create, :update], UserReserveStat
       can :manage, [
         Answer,
         Basket,
         Bookmark,
-        BookmarkStat,
-        BookmarkStatHasManifestation,
         CheckedItem,
         Checkin,
         Checkout,
-        CheckoutStatHasManifestation,
-        CheckoutStatHasUser,
         Create,
         Donate,
         Event,
@@ -218,7 +216,6 @@ class Ability
         InterLibraryLoan,
         Inventory,
         InventoryFile,
-        ItemHasUseRestriction,
         ManifestationCheckoutStat,
         ManifestationRelationship,
         ManifestationReserveStat,
@@ -236,8 +233,6 @@ class Ability
         Question,
         Realize,
         Reserve,
-        ReserveStatHasManifestation,
-        ReserveStatHasUser,
         ResourceImportFile,
         SearchHistory,
         SeriesStatement,
@@ -245,15 +240,16 @@ class Ability
         Subscribe,
         Subscription,
         Tag,
-        UserCheckoutStat,
-        UserReserveStat,
         WorkHasSubject
       ]
       can :read, [
+        BookmarkStatHasManifestation,
         Bookstore,
         CarrierType,
         CarrierTypeHasCheckoutType,
         CheckoutType,
+        CheckoutStatHasManifestation,
+        CheckoutStatHasUser,
         CirculationStatus,
         Classification,
         ClassificationType,
@@ -264,6 +260,7 @@ class Ability
         Extent,
         Frequency,
         FormOfWork,
+        ItemHasUseRestriction,
         Language,
         LendingPolicy,
         Library,
@@ -278,6 +275,8 @@ class Ability
         PatronType,
         RequestStatusType,
         RequestType,
+        ReserveStatHasManifestation,
+        ReserveStatHasUser,
         ResourceImportResult,
         Role,
         SearchEngine,
@@ -285,6 +284,7 @@ class Ability
         Subject,
         SubjectType,
         SubjectHeadingType,
+        SubjectHeadingTypeHasSubject,
         UseRestriction,
         UserGroup,
         UserGroupHasCheckoutType
@@ -367,6 +367,7 @@ class Ability
         u == user
       end
       can :read, [
+        BookmarkStat,
         CarrierType,
         CirculationStatus,
         Classification,
@@ -384,10 +385,14 @@ class Ability
         Library,
         LibraryGroup,
         License,
+        ManifestationRelationship,
         ManifestationRelationshipType,
+        ManifestationCheckoutStat,
+        ManifestationReserveStat,
         MediumOfPerformance,
         NiiType,
         Own,
+        PatronRelationship,
         PatronRelationshipType,
         Produce,
         Realize,
@@ -396,8 +401,9 @@ class Ability
         Subject,
         SubjectHasClassification,
         SubjectHeadingType,
-        SubjectHeadingTypeHasSubject,
         Tag,
+        UserCheckoutStat,
+        UserReserveStat,
         UserGroup,
         WorkHasSubject
       ]
@@ -453,7 +459,6 @@ class Ability
         Subject,
         SubjectHasClassification,
         SubjectHeadingType,
-        SubjectHeadingTypeHasSubject,
         Tag,
         UserCheckoutStat,
         UserGroup,

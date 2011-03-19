@@ -13,9 +13,13 @@ class Role < ActiveRecord::Base
   end
 
   def self.all_cache
-    Rails.cache.fetch('role_all'){Role.all}
+    if Rails.env == 'production'
+      Rails.cache.fetch('role_all'){Role.select(:name).all}
+    else
+      Role.select(:name)
+    end
   end
-  
+ 
   def clear_all_cache
     Rails.cache.delete('role_all')
   end

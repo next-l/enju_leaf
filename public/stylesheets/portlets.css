@@ -1,7 +1,7 @@
-.column { width: 463px; float: left; padding-bottom: 0px; }
+.column { width: 463px; min-height: 100px; float: left; padding-bottom: 0px; }
 .portlet { margin: 0 11px 10px 0; }
 .portlet-header { margin: 0.3em; padding-bottom: 4px; padding-left: 0.2em; }
 .portlet-header .ui-icon { float: right; }
 .portlet-content { padding: 0.4em; }
-.ui-sortable-placeholder { border: 1px dotted black; visibility: visible !important; height: 200px !important; }
+.ui-sortable-placeholder { border: 1px dotted black; visibility: visible !important; height: 100px !important; }
 .ui-sortable-placeholder * { visibility: hidden; }

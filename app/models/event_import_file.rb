@@ -86,11 +86,11 @@ class EventImportFile < ActiveRecord::Base
       unless row['all_day'].to_s.strip.blank?
         all_day = true
       end
-      library = Library.first(:conditions => {:name => row['library_short_name']})
+      library = Library.where(:name => row['library_short_name']).first
       library = Library.web if library.blank?
       event.library = library
       if category == "closed"
-        event.event_category = EventCagetory.first(:conditions => {:name => 'closed'})
+        event.event_category = EventCagetory.where(:name => 'closed').first
       end
 
       begin

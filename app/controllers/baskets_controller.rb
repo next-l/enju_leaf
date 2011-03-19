@@ -12,6 +12,7 @@ class BasketsController < ApplicationController
       @baskets = @user.baskets.page(params[:page])
     else
       redirect_to new_basket_url
+      return
     end
 
     respond_to do |format|

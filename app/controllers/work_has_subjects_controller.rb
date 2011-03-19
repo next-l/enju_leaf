@@ -72,6 +72,13 @@ class WorkHasSubjectsController < ApplicationController
   def update
     @work_has_subject = WorkHasSubject.find(params[:id])
 
+    get_work
+    if @work and params[:position]
+      @work_has_subject.insert_at(params[:position])
+      redirect_to work_work_has_subjects_url(@work)
+      return
+    end
+
     respond_to do |format|
       if @work_has_subject.update_attributes(params[:work_has_subject])
         flash[:notice] = t('controller.successfully_updated', :model => t('activerecord.models.work_has_subject'))

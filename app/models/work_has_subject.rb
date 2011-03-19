@@ -9,6 +9,7 @@ class WorkHasSubject < ActiveRecord::Base
   after_destroy :reindex
 
   paginates_per 10
+  acts_as_list :scope => :work_id
 
   def reindex
     work.index

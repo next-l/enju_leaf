@@ -1,0 +1,27 @@
+<%= form_for(@message_template) do |f| -%>
+  <%= f.error_messages -%>
+
+  <div class="field">
+    <%= f.label :status -%><br />
+    <%= f.text_field :status, :class => 'resource_title' -%>
+  </div>
+
+  <div class="field">
+    <%= f.label :locale -%><br />
+    <%= f.text_field :locale, :class => 'resource_locale' -%>
+  </div>
+
+  <div class="field">
+    <%= f.label :title -%><br />
+    <%= f.text_field :title, :class => 'resource_title' -%>
+  </div>
+
+  <div class="field">
+    <%= f.label :body -%><br />
+    <%= f.text_area :body, :class => 'resource_textarea' -%>
+  </div>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<%- end -%>

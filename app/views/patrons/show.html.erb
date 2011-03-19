@@ -66,7 +66,7 @@
       <tr>
         <td><strong><%= t('activerecord.attributes.patron.url') -%>:</strong></td>
         <td>
-          <%= link_to @patron.url, @patron.url, :class => 'url' -%>
+          <%= link_to @patron.url, @patron.url, :class => 'url' if @patron.url-%>
         </td>
       </tr>
       <tr>
@@ -122,14 +122,14 @@
           <td><strong><%= t('activerecord.attributes.patron.address_2_note') -%>:</strong></td>
           <td><%= @patron.address_2_note -%></td>
         </tr>
-        <tr>
-          <td><strong><%= t('activerecord.attributes.patron.date_of_birth') -%>:</strong></td>
-          <td><%= l(@patron.date_of_birth) if @patron.date_of_birth -%></td>
-        </tr>
-        <%- if @patron.user and current_user.try(:has_role?, 'Administrator') %>
+        <%- if !@patron.user or (@patron.user and current_user.try(:has_role?, 'Administrator')) %>
+          <tr>
+            <td><strong><%= t('activerecord.attributes.patron.date_of_birth') -%>:</strong></td>
+            <td><%= l(@patron.date_of_birth, :format => :only_date) if @patron.date_of_birth -%></td>
+          </tr>
           <tr>
             <td><strong><%= t('activerecord.attributes.patron.date_of_death') -%>:</strong></td>
-            <td><%= l(@patron.date_of_death) if @patron.date_of_death -%></td>
+            <td><%= l(@patron.date_of_death, :format => :only_date) if @patron.date_of_death -%></td>
           </tr>
         <% end %>
       <%- end -%>

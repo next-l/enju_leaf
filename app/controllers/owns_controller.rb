@@ -12,7 +12,7 @@ class OwnsController < ApplicationController
     elsif @item
       @owns = @item.owns.paginate(:page => params[:page], :order => ['owns.position'])
     else
-      @owns = Own.paginate(:all, :page => params[:page], :order => ['owns.position'])
+      @owns = Own.paginate(:page => params[:page], :order => ['owns.position'])
     end
 
     respond_to do |format|

@@ -1,0 +1,105 @@
+--- 
+purchase_request_00001: 
+  date_of_publication: 
+  isbn: ""
+  accepted_at: 
+  url: ""
+  updated_at: 2008-02-09 18:53:28.893662 +09:00
+  denied_at: 
+  title: !binary |
+    44Gq44KT44Go44GL44GL44KT44Go44GL
+
+  price: 
+  deleted_at: 
+  author: !binary |
+    44Gq44KT44Gf44KJ44GL44KT44Gf44KJ
+
+  id: 1
+  publisher: ""
+  note: ""
+  user_id: 1
+  created_at: 2008-02-09 18:53:28.893662 +09:00
+purchase_request_00002: 
+  date_of_publication: 
+  isbn: ""
+  accepted_at: 
+  url: ""
+  updated_at: 2008-02-09 19:26:43.085258 +09:00
+  denied_at: 
+  title: !binary |
+    44G744GS44G744GS
+
+  price: 
+  deleted_at: 
+  author: !binary |
+    44Gq44KT44Go44GL
+
+  id: 2
+  publisher: !binary |
+    44GL44KT44Go44GL
+
+  note: !binary |
+    44OG44K544OI55So
+
+  user_id: 2
+  created_at: 2008-02-09 19:21:11.162568 +09:00
+purchase_request_00003: 
+  date_of_publication: 
+  isbn: ""
+  accepted_at: 
+  url: ""
+  updated_at: 2008-02-11 13:36:48.698469 +09:00
+  denied_at: 
+  title: "\xE3\x83\x86\xE3\x82\xB9\xE3\x83\x88\r\n"
+  price: 
+  deleted_at: 
+  author: !binary |
+    44Gq44KT44Gf44KJ44GL44KT44Gf44KJ
+
+  id: 3
+  publisher: !binary |
+    44G744GS44G744GS
+
+  note: ""
+  user_id: 3
+  created_at: 2008-02-11 13:36:48.698469 +09:00
+purchase_request_00004: 
+  date_of_publication: 
+  isbn: ""
+  accepted_at: 
+  url: ""
+  updated_at: 2008-02-11 13:36:48.698469 +09:00
+  denied_at: 
+  title: "\xE3\x83\x86\xE3\x82\xB9\xE3\x83\x88\r\n"
+  price: 
+  deleted_at: 
+  author: !binary |
+    44Gq44KT44Gf44KJ44GL44KT44Gf44KJ
+
+  id: 4
+  publisher: !binary |
+    44G744GS44G744GS
+
+  note: ""
+  user_id: 1
+  created_at: 2008-02-11 13:36:48.698469 +09:00
+purchase_request_00005: 
+  date_of_publication: 
+  isbn: ""
+  accepted_at: 
+  url: ""
+  updated_at: 2008-02-11 13:36:48.698469 +09:00
+  denied_at: 
+  title: "\xE3\x83\x86\xE3\x82\xB9\xE3\x83\x88\r\n"
+  price: 
+  deleted_at: 
+  author: !binary |
+    44Gq44KT44Gf44KJ44GL44KT44Gf44KJ
+
+  id: 5
+  publisher: !binary |
+    44G744GS44G744GS
+
+  note: ""
+  user_id: 2
+  created_at: 2008-02-11 13:36:48.698469 +09:00

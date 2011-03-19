@@ -1,22 +1,20 @@
-<%= form_for(@subject_heading_type) do |f| -%>
-  <%= f.error_messages -%>
+<%= form_for(@subject_heading_type) do |f| %>
+  <%= f.error_messages %>
 
   <div class="field">
-    <%= f.label t('activerecord.attributes.subject_heading_type.name') -%><br />
-    <%= f.text_field :name, :class => 'short_name' -%>
+    <%= f.label :name %><br />
+    <%= f.text_field :name %>
   </div>
-
   <div class="field">
-    <%= f.label t('activerecord.attributes.subject_heading_type.display_name') -%><br />
-    <%= f.text_area :display_name, :class => 'resource_textarea' -%>
+    <%= f.label :display_name %><br />
+    <%= f.text_area :display_name %>
   </div>
-
   <div class="field">
-    <%= f.label t('activerecord.attributes.subject_heading_type.note') -%><br />
-    <%= f.text_area :note, :class => 'resource_textarea' -%>
+    <%= f.label :note %><br />
+    <%= f.text_area :note %>
   </div>
-
-  <div class="field">
-    <%= f.submit -%>
+  <div class="actions">
+    <%= f.submit %>
   </div>
-<%- end -%>
+  <%= javascript_tag("$('#subject_heading_type_name').focus()") -%>
+<% end %>

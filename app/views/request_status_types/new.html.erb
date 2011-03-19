@@ -1,30 +1,7 @@
 <div id="content_detail" class="ui-corner-all">
 <h1 class="title"><%= t('page.new', :model => t('activerecord.models.request_status_type')) -%></h1>
 <div id="content_list">
-
-<%= form_for(@request_status_type) do |f| -%>
-  <%= f.error_messages -%>
-
-  <p>
-    <%= f.label t('activerecord.attributes.request_status_type.name') -%><br />
-    <%= f.text_field :name, :class => 'short_name' -%>
-  </p>
-
-  <p>
-    <%= f.label t('activerecord.attributes.request_status_type.display_name') -%><br />
-    <%= f.text_area :display_name, :class => 'resource_textarea' -%>
-  </p>
-
-  <p>
-    <%= f.label t('activerecord.attributes.request_status_type.note') -%><br />
-    <%= f.text_area :note, :class => 'resource_textarea' -%>
-  </p>
-
-  <p>
-    <%= f.submit %>
-  </p>
-<%- end -%>
-
+  <%= render 'form' %>
 </div>
 </div>
 

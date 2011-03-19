@@ -27,25 +27,25 @@
   </p>
 
   <p>
-    <%= f.label t('activerecord.attributes.item.call_number') -%><br />
+    <%= f.label :call_number -%><br />
     <%= f.text_field :call_number -%>
   </p>
 
   <p>
-    <%= f.label t('activerecord.attributes.item.price') -%><br />
+    <%= f.label :price -%><br />
     <%= f.text_field :price -%>
   </p>
 
   <p>
-    <%= f.label t('activerecord.attributes.item.url') -%><br />
+    <%= f.label :url -%><br />
     <%= f.url_field :url, :class => 'resource_url' -%>
   </p>
- 
+
   <p>
-    <%= f.label t('activerecord.attributes.item.include_supplements') -%>
+    <%= f.label :include_supplements -%>
     <%= f.check_box :include_supplements -%>
   </p>
- 
+
   <!--
   <p>
   <%= f.label t('activerecord.models.use_restriction') -%>:<br />
@@ -62,13 +62,13 @@
   </p>
 
   <p>
-    <%= f.label t('activerecord.attributes.item.item_identifier') -%><br />
+    <%= f.label :item_identifier -%><br />
     <%= f.text_field :item_identifier, :class => 'resource_item_identifier' -%>
   </p>
  
-  <p>
+  <div class="actions">
     <%= f.submit %>
-  </p>
+  </div>
   <%= javascript_tag("$('#library_id').focus()") -%>
 <%- end -%>
 </div>

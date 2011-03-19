@@ -1,0 +1,35 @@
+<%= form_for(@series_statement) do |f| %>
+  <%= f.error_messages %>
+
+  <%- if !@series_statement.new_record? and @manifestation -%>
+    <p>
+      <%= link_to @manifestation.original_title, @manifestation -%>
+      <%= f.hidden_field :manifestation_id %>
+    </p>
+  <%- end -%>
+  
+  <div class="field">
+    <%= f.label :original_title %><br />
+    <%= f.text_field :original_title %>
+  </div>
+  <div class="field">
+    <%= f.label :numbering %><br />
+    <%= f.text_field :numbering %>
+  </div>
+  <div class="field">
+    <%= f.label :title_subseries %><br />
+    <%= f.text_field :title_subseries %>
+  </div>
+  <div class="field">
+    <%= f.label :numbering_subseries -%><br />
+    <%= f.text_field :numbering_subseries %>
+  </div>
+  <div class="field">
+    <%= f.label :series_statement_identifier -%><br />
+    <%= f.text_field :series_statement_identifier, :class => 'resource_item_identifier' %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+  <%= javascript_tag("$('#series_statement_original_title').focus()") -%>
+<% end %>

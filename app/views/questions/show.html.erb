@@ -8,27 +8,21 @@
 
 <p>
   <strong><%= t('activerecord.attributes.question.body') -%>:</strong>
-  <%= auto_link(textilize_without_paragraph(@question.body)) -%>
+  <%= auto_link(textilize(@question.body)) -%>
 </p>
 
 <p>
   <strong><%= t('activerecord.attributes.question.shared') -%>:</strong>
   <%= localized_boolean(@question.shared) -%>
+  <strong><%= t('activerecord.attributes.question.solved') -%>:</strong>
+  <%= localized_boolean(@question.solved) -%>
 </p>
 
 <p>
   <strong><%= t('page.created_at') -%>:</strong>
   <%= l(@question.created_at) -%>
-</p>
-
-<p>
   <strong><%= t('page.updated_at') -%>:</strong>
   <%= l(@question.updated_at) -%>
-</p>
-
-<p>
-  <strong><%= t('activerecord.attributes.question.solved') -%>:</strong>
-  <%= localized_boolean(@question.solved) -%>
 </p>
 
 <p>
@@ -39,7 +33,7 @@
   <%- @question.answers.public_answers.each do |answer| -%>
     <li><%= link_to answer.user.username, answer.user -%>
     (<%=l answer.updated_at %>)<br />
-    <%= raw auto_link(textilize_without_paragraph(answer.body)) -%><br />
+    <%= raw auto_link(textilize(answer.body)) -%><br />
     <% unless answer.items.empty? %>
       <ul>
         <% answer.items.each do |item| %>

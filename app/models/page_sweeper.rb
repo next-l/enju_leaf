@@ -75,7 +75,7 @@ class PageSweeper < ActionController::Caching::Sweeper
 
   def expire_menu
     I18n.available_locales.each do |locale|
-      Rails.cache.fetch('role_all'){Role.all}.each do |role|
+      Role.all_cache.each do |role|
         expire_fragment(:controller => :page, :page => 'menu', :role => role.name, :locale => locale)
       end
     end

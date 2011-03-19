@@ -18,10 +18,6 @@
       <p class="notice"><%= notice %></p>
       <p class="alert"><%= alert %></p>
 
-      <% if devise_mapping.rememberable? -%>
-        <p><%= f.check_box :remember_me %> <%= f.label 'remember_me', t('user.remember_me') %></p>
-      <% end -%>
-
       <p><%= f.submit t('page.sign_in') %></p>
     </div>
 

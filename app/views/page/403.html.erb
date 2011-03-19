@@ -1,10 +1,10 @@
 <div id="content_detail" class="ui-corner-all">
   <h2 class="title"><%= t('page.access_denied') -%></h2>
   <div id="content_list">
-  <%= form_for :manifestations, :html => {:method => 'get'} do -%>
+  <%= form_for :manifestations, :url => manifestations_path, :html => {:method => 'get'} do -%>
     <p>
       <%= t('page.search_term') -%>:
-      <%= search_field_tag 'query', h(@query), {:id => 'search_form_top', :class => 'search_form'} -%>
+      <%= search_field_tag 'query', h(@query), {:id => 'search_form_top', :class => 'search_form', :placeholder => t('page.search_term')} -%>
       <%= hidden_field_tag 'reservable', h(@reservable) if @reservable -%>
       <%= submit_tag t('page.search') -%>
       <%= link_to t('page.advanced_search'), page_advanced_search_path -%>

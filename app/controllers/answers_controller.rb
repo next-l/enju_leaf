@@ -1,6 +1,7 @@
 # -*- encoding: utf-8 -*-
 class AnswersController < ApplicationController
   load_and_authorize_resource
+  before_filter :store_location, :only => [:index, :show, :new, :edit]
   before_filter :get_user_if_nil, :except => [:edit]
   before_filter :get_question
   cache_sweeper :page_sweeper, :only => [:create, :update, :destroy]
@@ -111,11 +112,13 @@ class AnswersController < ApplicationController
     respond_to do |format|
       if @answer.save
         flash[:notice] = t('controller.successfully_created', :model => t('activerecord.models.answer'))
-        format.html { redirect_to user_question_answer_url(@answer.question.user.username, @answer.question, @answer) }
-        format.xml  { render :xml => @answer, :status => :created, :location => user_question_answer_url(@answer.question.user.username, @answer.question, @answer) }
+        format.html { redirect_to user_question_answer_url(@answer.question.user, @answer.question, @answer) }
+        format.xml  { render :xml => @answer, :status => :created, :location => user_question_answer_url(@answer.question.user, @answer.question, @answer) }
+        format.mobile { redirect_to question_url(@answer.question) }
       else
         format.html { render :action => "new" }
         format.xml  { render :xml => @answer.errors.to_xml }
+        format.mobile { render :action => "new" }
       end
     end
   end

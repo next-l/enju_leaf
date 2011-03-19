@@ -14,28 +14,28 @@
     <%= f.select :user_group_id, @user_groups.collect{|u| [u.display_name.localize, u.id]} -%>
   </p>
   <p>
-    <%= f.label :loan_period, t('activerecord.attributes.lending_policy.loan_period') -%><br />
+    <%= f.label :loan_period -%><br />
     <%= f.text_field :loan_period -%>
   </p>
   <p>
-    <%= f.label :fixed_due_date, t('activerecord.attributes.lending_policy.fixed_due_date') -%><br />
+    <%= f.label :fixed_due_date -%><br />
     <%= f.text_field :fixed_due_date -%>
   </p>
   <p>
-    <%= f.label :renewal, t('activerecord.attributes.lending_policy.renewal') -%><br />
+    <%= f.label :renewal -%><br />
     <%= f.text_field :renewal -%>
   </p>
   <p>
-    <%= f.label :fine, t('activerecord.attributes.lending_policy.fine') -%><br />
+    <%= f.label :fine -%><br />
     <%= f.text_field :fine -%>
   </p>
   <p>
-    <%= f.label :note, t('activerecord.attributes.lending_policy.note') -%><br />
+    <%= f.label :note -%><br />
     <%= f.text_area :note -%>
   </p>
-  <p>
+  <div class="actions">
     <%= f.submit %>
-  </p>
+  </div>
 <%- end -%>
 
 </div>

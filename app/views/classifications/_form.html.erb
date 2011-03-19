@@ -2,12 +2,12 @@
   <%= f.error_messages -%>
 
   <div class="field">
-    <%= f.label t('activerecord.attributes.classification.category') -%><br />
+    <%= f.label :category -%><br />
     <%= f.text_field :category -%>
   </div>
 
   <div class="field">
-    <%= f.label t('activerecord.attributes.classification.note') -%><br />
+    <%= f.label :note -%><br />
     <%= f.text_area :note, :class => 'resource_textarea' -%>
   </div>
 
@@ -16,7 +16,8 @@
     <%= f.select(:classification_type_id, @classification_types.collect{|c| [c.name, c.id]}) -%>
   </div>
 
-  <div class="field">
+  <div class="actions">
     <%= f.submit -%>
   </div>
+  <%= javascript_tag("$('#classification_category').focus()") -%>
 <%- end -%>

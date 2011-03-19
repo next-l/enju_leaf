@@ -4,6 +4,8 @@ class Question < ActiveRecord::Base
   default_scope :order => 'id DESC'
   scope :public_questions, where(:shared => true)
   scope :private_questions, where(:shared => false)
+  scope :solved, where(:solved => true)
+  scope :unsolved, where(:solved => false)
   belongs_to :user, :counter_cache => true, :validate => true
   has_many :answers, :dependent => :destroy
 
@@ -46,7 +48,7 @@ class Question < ActiveRecord::Base
   end
 
   def username
-    self.user.username
+    self.user.try(:username)
   end
 
   def last_updated_at

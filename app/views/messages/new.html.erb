@@ -15,12 +15,12 @@
       </p>
     
       <p>
-        <label for="message_subject"><%= t('activerecord.attributes.message.subject') -%>:</label>
+        <%= f.label :subject -%>:
         <%= f.text_field :subject, :class => 'resource_title' -%>
       </p>
       
       <p>
-        <label for="message_body"><%= t('activerecord.attributes.message.body') -%>:</label><br />
+        <%= f.label :body -%>:<br />
         <%= f.text_area :body, :id => 'message_body' -%>
       </p>
 

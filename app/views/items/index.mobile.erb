@@ -1,4 +1,4 @@
-<div data-role="header"> 
+<div data-role="header">
 <h1 class="title"><%= t('page.listing', :model => t('activerecord.models.item')) -%></h1>
 </div>
 <div data-role="content">
@@ -6,7 +6,8 @@
 <div data-role="detail">
 <%= form_for :items, :url => items_path, :html => {:method => 'get'} do -%>
   <p>
-    <%= t('page.search_term') -%>: <%= search_field_tag 'query', h(@query), {:id => 'search_form_top', :class => 'search_form'} -%>
+    <label for="search_form_top"><%= t('page.search_term') -%>:</label>
+    <%= search_field_tag 'query', h(@query), {:id => 'search_form_top', :class => 'search_form', :placeholder => t('page.search_term')} -%>
     <%= submit_tag t('page.search') -%>
   </p>
   <%= javascript_tag("$('#search_form_top').focus()") -%>

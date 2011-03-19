@@ -1,7 +1,6 @@
 #!/usr/bin/env ruby
-require File.expand_path(File.join(File.dirname(__FILE__), '..', 'config', 'environment'))
-#require 'rubygems'
-#require 'fileutils'
+require 'rubygems'
+require 'fileutils'
 
 case ARGV[0]
 when 'pgsql'
@@ -14,21 +13,21 @@ else
   raise 'please choose one from pgsql, mysql and sqlite.'
 end
 
-sample_files = [
-  "#{Rails.root.to_s}/config/initializers/devise.rb.sample",
-  "#{Rails.root.to_s}/config/initializers/secret_token.rb.sample",
-  "#{Rails.root.to_s}/config/configatron/production.rb.sample",
-  "#{Rails.root.to_s}/config/environments/production.rb.sample",
-  "#{Rails.root.to_s}/config/schedule.rb.sample",
-  "#{Rails.root.to_s}/config/sunspot.yml.sample",
-  "#{Rails.root.to_s}/db/seeds.rb.sample"
-]
-  
-
-unless File.exists?("#{Rails.root.to_s}/config/database.yml")
-  FileUtils.cp "#{Rails.root.to_s}/config/database.yml.sample-#{adapter}", "#{Rails.root.to_s}/config/database.yml"
+unless File.exists?("config/database.yml")
+  FileUtils.cp "config/database.yml.sample-#{adapter}", "config/database.yml"
+  puts "copied config/database.yml.sample"
 end
 
+sample_files = [
+  "config/initializers/devise.rb.sample",
+  "config/initializers/secret_token.rb.sample",
+  "config/configatron/production.rb.sample",
+  "config/environments/production.rb.sample",
+  "config/schedule.rb.sample",
+  "config/sunspot.yml.sample",
+  "db/seeds.rb.sample"
+]
+  
 sample_files.each do |file|
   dist = file.gsub(/\.sample$/, '')
   unless File.exists?(dist)

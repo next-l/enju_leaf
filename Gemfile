@@ -1,15 +1,14 @@
 source 'http://rubygems.org'
 
-gem 'rails', '3.0.4'
+gem 'rails', '3.0.5'
 
 # Bundle edge Rails instead:
-#gem 'rails', :git => 'git://github.com/rails/rails.git'
+# gem 'rails', :git => 'git://github.com/rails/rails.git'
 
 platforms :ruby do
   gem 'pg'
   gem 'ruby-prof', :group => [:development, :test]
   gem 'zipruby'
-  gem 'formatize'
 end
 
 platforms :ruby_19 do
@@ -43,23 +42,23 @@ gem 'inherited_resources'
 gem 'has_scope'
 gem 'nokogiri'
 gem 'marc'
-gem 'strongbox', '>=0.4.1'
+gem 'strongbox', '>=0.4.5'
 gem 'acts-as-taggable-on'
 gem 'dalli'
 gem 'sitemap_generator'
 gem 'ri_cal'
 gem 'file_wrapper'
-gem 'paper_trail', '>=2.0.0'
+gem 'paper_trail', '>=2.0.2'
 gem 'recurrence'
 gem 'prism'
 gem 'money'
-gem 'rails-geocoder', :require => 'geocoder'
+gem 'geocoder', '>=0.9.10'
 gem 'RedCloth', '>=4.2.7'
 gem 'isbn-tools', :git => 'git://github.com/nabeta/isbn-tools.git', :require => 'isbn/tools'
 gem 'attribute_normalizer'
 gem 'configatron'
 gem 'extractcontent'
-gem 'cancan', '>=1.5.1'
+gem 'cancan', '>=1.6.2'
 gem 'scribd_fu', :git => 'git://github.com/nabeta/scribd_fu.git'
 gem 'devise'
 gem 'omniauth'
@@ -81,9 +80,9 @@ gem 'parallel_tests', :group => :development
 group :development, :test do
   gem 'rspec'
   gem 'rspec-rails'
-  gem 'autotest'
-  gem 'autotest-rails'
+  gem 'guard-rspec'
   gem 'factory_girl_rails'
+  gem 'spork', '~> 0.9.0.rc4'
 end
 
 # Use unicorn as the web server

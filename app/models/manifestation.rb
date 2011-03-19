@@ -159,7 +159,7 @@ class Manifestation < ActiveRecord::Base
   enju_amazon
   enju_oai
   enju_mozshot
-  enju_calil_check
+  #enju_calil_check
   #enju_cinii
   #enju_scribd
   #has_ipaper_and_uses 'Paperclip'
@@ -178,10 +178,13 @@ class Manifestation < ActiveRecord::Base
   validates_uniqueness_of :nbn, :allow_blank => true
   validates_uniqueness_of :identifier, :allow_blank => true
   validates_format_of :access_address, :with => URI::regexp(%w(http https)) , :allow_blank => true
+  validates_format_of :pub_date, :with => /^\d+(-\d{0,2}){0,2}$/, :allow_blank => true
   validate :check_isbn
   before_validation :convert_isbn
   before_create :set_digest
+  before_save :set_date_of_publication
   normalize_attributes :identifier, :date_of_publication, :isbn, :issn, :nbn, :lccn, :original_title
+  attr_accessor :pub_date
 
   def self.per_page
     10
@@ -212,8 +215,26 @@ class Manifestation < ActiveRecord::Base
     end
   end
 
+  def set_date_of_publication
+    return if pub_date.blank?
+    begin
+      date = Time.zone.parse(pub_date)
+    rescue ArgumentError
+      begin
+        date = Time.zone.parse("#{pub_date}-01")
+      rescue ArgumentError
+        date = Time.zone.parse("#{pub_date}-01-01")
+      end
+    end
+    self.date_of_publication = date
+  end
+
   def self.cached_numdocs
     Rails.cache.fetch("manifestation_search_total"){Manifestation.search.total}
+  end
+
+  def clear_cached_numdocs
+    Rails.cache.delete("manifestation_search_total")
   end
 
   def parent_of_series
@@ -402,7 +423,7 @@ class Manifestation < ActiveRecord::Base
       self.fulltext = extractor.analyse(text.read)
     when "text/html"
       # TODO: 日本語以外
-      system("elinks --dump 1 #{attachment(:path)} 2> /dev/null | nkf -w > #{text.path}")
+      system("w3m -dump #{attachment(:path)} 2> /dev/null | nkf -w > #{text.path}")
       self.fulltext = extractor.analyse(text.read)
     end
 

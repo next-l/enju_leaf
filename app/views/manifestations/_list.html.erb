@@ -9,7 +9,7 @@
   <%- if manifestations and manifestations.size > Manifestation.per_page.div(2) -%>
     <%= form_for :manifestations, :url => manifestations_path, :html => {:method => 'get'} do -%>
       <p>
-        <%= t('page.search_term') -%>: <%= search_field_tag 'query', h(@query), {:id => 'search_form_bottom', :class => 'search_form'} -%>
+      <%= t('page.search_term') -%>: <%= search_field_tag 'query', h(@query), {:id => 'search_form_bottom', :class => 'search_form', :placeholder => t('page.search_term')} -%>
         <%= submit_tag t('page.search') -%>
         <%= link_to t('page.advanced_search'), page_advanced_search_path -%>
       </p>

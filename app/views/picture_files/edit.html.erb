@@ -6,7 +6,7 @@
   <%= f.error_messages -%>
 
   <p>
-    <%= f.label t('activerecord.attributes.picture_file.picture_attachable_type') -%><br />
+    <%= f.label :picture_attachable_type -%><br />
     <%= f.text_field :picture_attachable_type -%>
   </p>
 
@@ -16,33 +16,33 @@
   </p>
 
   <p>
-    <%= f.label t('activerecord.attributes.picture_file.picture_file_size') -%><br />
+    <%= f.label :picture_file_size -%><br />
     <%= f.text_field :picture_file_size -%>
   </p>
 
   <p>
-    <%= f.label t('activerecord.attributes.picture_file.picture_content_type') -%><br />
+    <%= f.label :picture_content_type -%><br />
     <%= f.text_field :picture_content_type -%>
   </p>
 
   <p>
-    <%= f.label t('activerecord.attributes.picture_file.picture_file_name') -%><br />
+    <%= f.label :picture_file_name -%><br />
     <%= f.text_field :picture_file_name -%>
   </p>
 
   <p>
-    <%= f.label t('activerecord.attributes.picture_file.width') -%><br />
+    <%= f.label :width -%><br />
     <%= f.text_field :width -%>
   </p>
 
   <p>
-    <%= f.label t('activerecord.attributes.picture_file.height') -%><br />
+    <%= f.label :height -%><br />
     <%= f.text_field :height -%>
   </p>
 
-  <p>
+  <div class="actions">
     <%= f.submit %>
-  </p>
+  </div>
 <%- end -%>
 
 </div>

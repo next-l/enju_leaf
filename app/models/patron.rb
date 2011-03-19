@@ -29,10 +29,15 @@ class Patron < ActiveRecord::Base
   validates_associated :language, :patron_type, :country
   validates_length_of :full_name, :maximum => 255
   validates_uniqueness_of :user_id, :allow_nil => true
+  validates_format_of :birth_date, :with => /^\d+(-\d{0,2}){0,2}$/, :allow_blank => true
+  validates_format_of :death_date, :with => /^\d+(-\d{0,2}){0,2}$/, :allow_blank => true
+  validate :check_birth_date
   before_validation :set_role_and_name, :on => :create
+  before_save :set_date_of_birth, :set_date_of_death
 
   has_paper_trail
   attr_accessor :user_username
+  attr_accessor :birth_date, :death_date
 
   searchable do
     text :name, :place, :address_1, :address_2, :other_designation, :note
@@ -80,6 +85,52 @@ class Patron < ActiveRecord::Base
       self.full_name_transcription = [last_name_transcription, middle_name_transcription, first_name_transcription].join(" ").to_s.strip
     end
     [self.full_name, self.full_name_transcription]
+  end
+
+  def set_date_of_birth
+    return if birth_date.blank?
+    begin
+      date = Time.zone.parse(birth_date)
+    rescue ArgumentError
+      begin
+        date = Time.zone.parse("#{birth_date}-01")
+      rescue ArgumentError
+        begin
+          date = Time.zone.parse("#{birth_date}-01-01")
+        rescue
+          nil
+        end
+      end
+    end
+    self.date_of_birth = date
+  end
+
+  def set_date_of_death
+    return if death_date.blank?
+    begin
+      date = Time.zone.parse(death_date)
+    rescue ArgumentError
+      begin
+        date = Time.zone.parse("#{death_date}-01")
+      rescue ArgumentError
+        begin
+          date = Time.zone.parse("#{death_date}-01-01")
+        rescue
+          nil
+        end
+      end
+    end
+
+    self.date_of_death = date
+  end
+
+  def check_birth_date
+    if date_of_birth.present? and date_of_death.present?
+      if date_of_birth > date_of_death
+        errors.add(:birth_date)
+        errors.add(:death_date)
+      end
+    end
   end
 
   #def full_name_generate

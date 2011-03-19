@@ -1,6 +1,6 @@
 # -*- encoding: utf-8 -*-
 class Message < ActiveRecord::Base
-  scope :unread, :conditions => ['state = ?', 'unread']
+  scope :unread, where(:state => 'unread')
   belongs_to :message_request
   belongs_to :sender, :class_name => 'User'
   belongs_to :receiver, :class_name => 'User'
@@ -50,7 +50,7 @@ class Message < ActiveRecord::Base
   end
 
   def send_notification
-    Notifier.message_notification(self.receiver).deliver if self.receiver.try(:email).present?
+    Notifier.delay.message_notification(self.receiver) if self.receiver.try(:email).present?
   end
 
   def read
@@ -62,5 +62,4 @@ class Message < ActiveRecord::Base
     return true if state == 'read'
     false
   end
-  
 end

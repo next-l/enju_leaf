@@ -7,6 +7,7 @@ user_group_00001:
   note: ""
   created_at: 2007-12-13 21:00:01.674976 +09:00
   position: 1
+  valid_period_for_new_user: 0
 user_group_00002: 
   name: User
   display_name: User
@@ -15,6 +16,7 @@ user_group_00002:
   note: ""
   created_at: 2007-12-23 03:14:40.173954 +09:00
   position: 2
+  valid_period_for_new_user: 365
 user_group_00003: 
   name: Faculty
   display_name: Faculty
@@ -23,3 +25,4 @@ user_group_00003:
   note: ""
   created_at: 2007-12-23 03:15:05.126457 +09:00
   position: 3
+  valid_period_for_new_user: 730

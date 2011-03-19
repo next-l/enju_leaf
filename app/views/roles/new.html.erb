@@ -1,45 +1,7 @@
 <div id="content_detail" class="ui-corner-all">
 <h1 class="title"><%= t('page.new', :model => t('activerecord.models.role')) -%></h1>
 <div id="content_list">
-
-<%= form_for(@role) do |f| -%>
-  <%= f.error_messages -%>
-
-  <p>
-    <%= f.label t('activerecord.attributes.role.name') -%><br />
-    <%= f.text_field :name, :class => 'short_name' -%>
-  </p>
-
-  <p>
-    <%= f.label t('activerecord.attributes.role.display_name') -%><br />
-    <%= f.text_area :display_name, :class => 'resource_textarea' -%>
-  </p>
-
-  <p>
-    <%= f.label t('activerecord.attributes.role.score') -%><br />
-    <%= f.text_field :score -%>
-  </p>
-
-  <p>
-    <%= f.label t('activerecord.attributes.role.note') -%><br />
-    <%= f.text_area :note, :class => 'resource_textarea' -%>
-  </p>
-
-  <p>
-    <%= f.label t('page.created_at') -%><br />
-    <%= f.datetime_select :created_at -%>
-  </p>
-
-  <p>
-    <%= f.label t('page.updated_at') -%><br />
-    <%= f.datetime_select :updated_at -%>
-  </p>
-
-  <p>
-    <%= f.submit %>
-  </p>
-<%- end -%>
-
+  <%= render 'form' %>
 </div>
 </div>
 

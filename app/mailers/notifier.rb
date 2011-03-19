@@ -1,7 +1,12 @@
 class Notifier < ActionMailer::Base
-  uri = URI.parse(LibraryGroup.site_config.url)
-  default_url_options[:host] = uri.host
-  default_url_options[:port] = uri.port if uri.port != 80
+  if LibraryGroup.site_config.try(:url)
+    uri = URI.parse(LibraryGroup.site_config.url)
+    default_url_options[:host] = uri.host
+    default_url_options[:port] = uri.port if configatron.enju.web_port_number != 80
+  else
+    default_url_options[:host] = configatron.enju.web_hostname
+    default_url_options[:port] = configatron.enju.web_port_number if configatron.enju.web_port_number != 80
+  end
 
   def message_notification(user)
     from = "#{LibraryGroup.site_config.display_name.localize} <#{LibraryGroup.site_config.email}>"

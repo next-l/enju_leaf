@@ -31,16 +31,13 @@ class Item < ActiveRecord::Base
   has_many :answer_has_items, :dependent => :destroy
   has_many :answers, :through => :answer_has_items
   has_one :resource_import_result
-  
+
   validates_associated :circulation_status, :shelf, :bookstore, :checkout_type
   validates_presence_of :circulation_status #, :checkout_type
   validates_uniqueness_of :item_identifier, :allow_blank => true, :if => proc{|item| !item.item_identifier.blank? and !item.manifestation.try(:series_statement)}
   validates_length_of :url, :maximum => 255, :allow_blank => true
   validates_format_of :item_identifier, :with=>/\A\w+\Z/, :allow_blank => true
   before_validation :set_circulation_status, :on => :create
-  #after_create :create_lending_policy
-  #after_save :save_manifestation
-  #after_destroy :save_manifestation
 
   #enju_union_catalog
   has_paper_trail
@@ -66,10 +63,6 @@ class Item < ActiveRecord::Base
 
   def self.per_page
     10
-  end
-
-  def save_manifestation
-    #self.manifestation.save(:validation => false) if self.manifestation
   end
 
   def set_circulation_status

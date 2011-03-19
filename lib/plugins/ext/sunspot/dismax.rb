@@ -10,7 +10,7 @@ module Sunspot
         @highlights = []
       end
 
-      # 
+      #
       # The query as Solr parameters
       #
       def to_params
@@ -44,7 +44,7 @@ module Sunspot
         params
       end
 
-      # 
+      #
       # Assign a new boost query and return it.
       #
       def create_boost_query(factor)
@@ -52,7 +52,7 @@ module Sunspot
         boost_query
       end
 
-      # 
+      #
       # Add a fulltext field to be searched, with optional boost
       #
       def add_fulltext_field(field, boost = nil)

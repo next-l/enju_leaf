@@ -2,67 +2,64 @@
   <%= f.error_messages -%>
 
   <p>
-    <%= f.label t('activerecord.attributes.library_group.name') -%><br />
+    <%= f.label :name -%><br />
     <%= f.text_field :name, :class => 'short_name' -%>
   </p>
 
   <p>
-    <%= f.label t('activerecord.attributes.library_group.display_name') -%><br />
+    <%= f.label :display_name -%><br />
     <%= f.text_area :display_name, :class => 'resource_textarea' -%>
   </p>
 
   <p>
-    <%= f.label t('activerecord.attributes.library_group.email') -%><br />
+    <%= f.label :email -%><br />
     <%= f.email_field :email, :class => 'resource_email' -%>
   </p>
 
   <p>
-    <%= f.label t('activerecord.attributes.library_group.url') -%><br />
+    <%= f.label :url -%><br />
     <%= f.url_field :url, :class => 'resource_url' -%>
   </p>
 
   <p>
-    <%= f.label t('activerecord.attributes.library_group.valid_period_for_new_user') -%><br />
-    <%= f.text_field :valid_period_for_new_user, :class => 'resource_integer' -%>
-  </p>
-
-  <p>
-    <%= f.label t('activerecord.attributes.library_group.login_banner') -%><br />
+    <%= f.label :login_banner -%><br />
     <%= f.text_area :login_banner -%>
   </p>
 
   <p>
-    <%= f.label t('activerecord.attributes.library_group.allow_bookmark_external_url') -%>
+    <%= f.label :allow_bookmark_external_url -%>
     <%= f.check_box :allow_bookmark_external_url -%>
   </p>
 
+  <!--
   <p>
-    <%= f.label t('activerecord.attributes.library_group.post_to_union_catalog') -%>
+    <%= f.label :post_to_union_catalog -%>
     <%= f.check_box :post_to_union_catalog -%>
   </p>
+  -->
 
   <p>
-    <%= f.label t('activerecord.attributes.library_group.my_networks') -%><br />
+    <%= f.label :my_networks -%><br />
     <%= f.text_area :my_networks -%>
   </p>
 
   <p>
-    <%= f.label t('activerecord.attributes.library_group.admin_networks') -%><br />
+    <%= f.label :admin_networks -%><br />
     <%= f.text_area :admin_networks -%>
   </p>
 
   <p>
-    <%= f.label t('activerecord.attributes.library_group.use_dsbl') -%>
+    <%= f.label :use_dsbl -%>
     <%= f.check_box :use_dsbl -%>
   </p>
 
   <p>
-    <%= f.label t('activerecord.attributes.library_group.dsbl_list') -%><br />
+    <%= f.label :dsbl_list -%><br />
     <%= f.text_area :dsbl_list -%>
   </p>
 
   <p>
-    <%= f.label t('activerecord.attributes.library_group.note') -%><br />
+    <%= f.label :note -%><br />
     <%= f.text_area :note -%>
   </p>
 

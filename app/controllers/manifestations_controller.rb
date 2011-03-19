@@ -104,21 +104,24 @@ class ManifestationsController < ApplicationController
       end
 
       get_manifestation; get_subject
+      patron = get_index_patron
+      @index_patron = patron
+
       unless params[:mode] == 'add'
         manifestation = @manifestation if @manifestation
         subject = @subject if @subject
+        search.build do
+          with(:creator_ids).equal_to patron[:creator].id if patron[:creator]
+          with(:contributor_ids).equal_to patron[:contributor].id if patron[:contributor]
+          with(:publisher_ids).equal_to patron[:publisher].id if patron[:publisher]
+          with(:original_manifestation_ids).equal_to manifestation.id if manifestation
+        end
       end
-
-      patron = get_index_patron
 
       search.build do
         fulltext query unless query.blank?
-        with(:original_manifestation_ids).equal_to manifestation.id if manifestation
         order_by sort[:sort_by], sort[:order] unless oai_search
         order_by :updated_at, :desc if oai_search
-        with(:creator_ids).equal_to patron[:creator].id if patron[:creator]
-        with(:contributor_ids).equal_to patron[:contributor].id if patron[:contributor]
-        with(:publisher_ids).equal_to patron[:publisher].id if patron[:publisher]
         with(:subject_ids).equal_to subject.id if subject
         facet :reservable
       end
@@ -287,7 +290,7 @@ class ManifestationsController < ApplicationController
     case params[:mode]
     when 'send_email'
       if user_signed_in?
-        Notifier.manifestation_info(current_user, @manifestation).deliver
+        Notifier.delay.manifestation_info(current_user, @manifestation)
         flash[:notice] = t('page.sent_email')
         redirect_to manifestation_url(@manifestation)
         return
@@ -606,7 +609,7 @@ class ManifestationsController < ApplicationController
 
   def prepare_options
     @carrier_types = CarrierType.all
-    @roles = Role.all_cache
+    @roles = Role.all
     @languages = Language.all_cache
     @frequencies = Frequency.all
     @nii_types = NiiType.all

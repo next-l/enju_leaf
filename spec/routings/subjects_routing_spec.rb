@@ -8,7 +8,7 @@ describe SubjectsController do
     end
 
     it "recognizes and generates #index" do
-      { :get => "/works/1//subjects" }.should route_to(:controller => "subjects", :action => "index", :work_id => "1")
+      { :get => "/works/1/subjects" }.should route_to(:controller => "subjects", :action => "index", :work_id => "1")
     end
 
     it "recognizes and generates #new" do

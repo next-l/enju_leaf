@@ -26,13 +26,13 @@
       <th></th>
       <th id="edit_icons"></th>
     </tr>
-  
+ 
   <%- @questions.each_with_index do |question, i| -%>
     <tr class="line<%= cycle("0", "1") -%>">
       <td style="width: 30px"><%= question.id -%></td>
       <td>
         <%= link_to truncate(question.body, :length => 60), user_question_path(question.user, question) -%>
-        (<%= link_to question.user, question.user -%>)
+        (<%= link_to question.user.username, question.user -%>)
         <br />
         <!--
         <%= t('question.updated_at') %>: <%= l(question.updated_at) -%>

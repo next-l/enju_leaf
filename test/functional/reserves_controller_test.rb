@@ -135,7 +135,7 @@ class ReservesControllerTest < ActionController::TestCase
   def test_everyone_should_not_create_reserve_with_past_date
     sign_in users(:admin)
     assert_no_difference('Reserve.count') do
-      post :create, :reserve => {:user_number => users(:user1).user_number, :manifestation_id => 5, :expired_at => Date.yesterday.to_s}
+      post :create, :reserve => {:user_number => users(:user1).user_number, :manifestation_id => 5, :expired_at => '1901-01-01'}
     end
     
     assert_response :success

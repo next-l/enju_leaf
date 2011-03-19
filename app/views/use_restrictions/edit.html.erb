@@ -1,29 +1,7 @@
 <div id="content_detail" class="ui-corner-all">
 <h1 class="title"><%= t('page.editing', :model => t('activerecord.models.use_restriction')) -%></h1>
 <div id="content_list">
-
-<%= form_for(@use_restriction) do |f| -%>
-  <%= f.error_messages -%>
-  <p>
-    <%= f.label t('activerecord.attributes.use_restriction.name') -%><br />
-    <%= @use_restriction.name -%>
-  </p>
-
-  <p>
-    <%= f.label t('activerecord.attributes.use_restriction.display_name') -%><br />
-    <%= f.text_area :display_name, :class => 'resource_textarea' -%>
-  </p>
-
-  <p>
-    <%= f.label t('activerecord.attributes.use_restriction.note') -%><br />
-    <%= f.text_area :note, :class => 'resource_textarea' -%>
-  </p>
-
-  <p>
-    <%= f.submit %>
-  </p>
-<%- end -%>
-
+  <%= render 'form' %>
 </div>
 </div>
 

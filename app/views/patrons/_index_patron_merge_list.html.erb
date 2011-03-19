@@ -3,20 +3,14 @@
 <div id="content_list">
 
 <%= form_for :patrons, :url => patron_merge_list_patrons_path(@patron_merge_list), :html => {:method => 'get'} do -%>
-<p>
-  <%= t('page.search_term') -%>: <%= search_field_tag 'query', h(@query), {:class => 'search_form'} -%>
-  <%- if can? :update, @patron_merge_list -%>
-    <%- if params[:mode] == 'add' -%>
-      <%= radio_button_tag 'mode', 'show' -%> <%= t('page.show') -%>
-      <%= radio_button_tag 'mode', 'add', :checked => true -%> <%= t('page.add') -%>
-    <%- else -%>
-      <%= radio_button_tag 'mode', 'show', :checked => true -%> <%= t('page.show') -%>
-      <%= radio_button_tag 'mode', 'add' -%> <%= t('page.add') -%>
+  <p>
+    <%= t('page.search_term') -%>: <%= search_field_tag 'query', h(@query), {:id => 'search_form_top', :class => 'search_form', :placeholder => t('page.search_term')} -%>
+    <%- if can? :update, @patron_merge_list -%>
+      <%= render :partial => 'page/add' %>
     <%- end -%>
-  <%- end -%>
-  <%= submit_tag t('page.search') -%>
-  <%= link_to t('page.back_to_index'), patron_merge_list_patrons_path(@patron_merge_list) -%>
-</p>
+    <%= submit_tag t('page.search') -%>
+    <%= link_to t('page.back_to_index'), patron_merge_list_patrons_path(@patron_merge_list) -%>
+  </p>
 <%- end -%>
 
   <table class="index">

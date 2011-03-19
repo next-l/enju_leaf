@@ -25,11 +25,14 @@ class Reserve < ActiveRecord::Base
   validates_associated :user, :librarian, :item, :request_status_type, :manifestation
   validates_presence_of :user, :manifestation, :request_status_type #, :expired_at
   #validates_uniqueness_of :manifestation_id, :scope => :user_id
+  validates_format_of :expire_date, :with => /^\d+(-\d{0,2}){0,2}$/, :allow_blank => true
   validate :manifestation_must_include_item
-  before_validation :set_expired_at, :on => :create
   before_validation :set_item_and_manifestation, :on => :create
+  before_validation :set_expired_at
+  before_validation :set_request_status, :on => :create
 
   attr_accessor :user_number, :item_identifier
+  attr_accessor :expire_date
 
   state_machine :initial => :pending do
     before_transition :pending => :requested, :do => :do_request
@@ -68,14 +71,33 @@ class Reserve < ActiveRecord::Base
     manifestation = item.manifestation if item
   end
 
-  def set_expired_at
+  def set_request_status
     self.request_status_type = RequestStatusType.where(:name => 'In Process').first
+  end
+
+  def set_expired_at
+    if expire_date.present?
+      begin
+        date = Time.zone.parse(expire_date)
+      rescue ArgumentError
+        # TODO: 月日の省略時の既定値を決める
+        begin
+          date = Time.zone.parse("#{expire_date}-01")
+        rescue ArgumentError
+          date = Time.zone.parse("#{expire_date}-01-01")
+        end
+      end
+      self.expired_at = date
+    end
+
     if self.user and self.manifestation
-      if self.expired_at.blank?
-        expired_period = self.manifestation.reservation_expired_period(self.user)
-        self.expired_at = (expired_period + 1).days.from_now.beginning_of_day
-      elsif self.expired_at.beginning_of_day < Time.zone.now
-        errors[:base] << I18n.t('reserve.invalid_date')
+      if self.canceled_at.blank?
+        if self.expired_at.blank?
+          expired_period = self.manifestation.reservation_expired_period(self.user)
+          self.expired_at = (expired_period + 1).days.from_now.beginning_of_day
+        elsif self.expired_at.beginning_of_day < Time.zone.now
+          errors[:base] << I18n.t('reserve.invalid_date')
+        end
       end
     end
   end
@@ -128,7 +150,7 @@ class Reserve < ActiveRecord::Base
         request.save_message_body(:manifestations => Array[self.manifestation])
         request.sm_send_message! # 受付時は即時送信
         message_template_to_library = MessageTemplate.localized_template('reservation_accepted', self.user.locale)
-        request = MessageRequest.create!(:sender => system_user, :receiver => self.user, :message_template => message_template_to_library)
+        request = MessageRequest.create!(:sender => system_user, :receiver => system_user, :message_template => message_template_to_library)
         request.save_message_body(:manifestations => Array[self.manifestation])
         request.sm_send_message! # 受付時は即時送信
       when 'canceled'

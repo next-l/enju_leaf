@@ -2,7 +2,7 @@
 <h1 class="title"><%= t('page.new', :model => t('activerecord.models.question')) -%></h1>
 <div id="content_list">
 
-<%= form_for(:question, :url => user_questions_path(@question.user)) do |f| -%>
+<%= form_for(@question, :url => user_questions_path(@question.user)) do |f| -%>
   <%= f.error_messages -%>
 
   <p>
@@ -12,18 +12,19 @@
   </p>
 
   <p>
-    <%= f.label t('activerecord.attributes.question.body') -%><br />
+    <%= f.label :body -%><br />
     <%= f.text_area :body, :class => 'resource_textarea' -%>
   </p>
 
   <p>
-    <%= f.label t('activerecord.attributes.question.shared') -%>
+    <%= f.label :shared -%>
     <%= f.check_box :shared -%>
   </p>
 
   <p>
     <%= f.submit %>
   </p>
+  <%= javascript_tag("$('#question_body').focus()") -%>
 <%- end -%>
 
 </div>

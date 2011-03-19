@@ -12,16 +12,10 @@
 
 <%= form_for :patrons, :url => work_patrons_path(@work), :html => {:method => 'get'} do -%>
   <p>
-    <%= t('page.search_term') -%>: <%= search_field_tag 'query', h(@query), {:id => 'search_form_top', :class => 'search_form'} -%>
+    <%= t('page.search_term') -%>: <%= search_field_tag 'query', h(@query), {:id => 'search_form_top', :class => 'search_form', :placeholder => t('page.search_term')} -%>
     <%- if can? :update, @work -%>
-      <%- if params[:mode] == 'add' -%>
-        <%= radio_button_tag 'mode', 'show' -%> <%= t('page.show') -%>
-        <%= radio_button_tag 'mode', 'add', :checked => true -%> <%= t('page.add') -%>
-      <%- else -%>
-        <%= radio_button_tag 'mode', 'show', :checked => true -%> <%= t('page.show') -%>
-        <%= radio_button_tag 'mode', 'add' -%> <%= t('page.add') -%>
-      <%- end -%>
-    <%- end -%>
+      <%= render :partial => 'page/add' %>
+    <% end %>
     <%= submit_tag t('page.search') -%>
     <%= link_to t('page.back_to_index'), work_patrons_path(@work) -%>
   </p>
@@ -35,7 +29,7 @@
     <th><%= t('activerecord.attributes.patron.date_of_birth') -%></th>
     <th id="edit_icons"></th>
   </tr>
-  
+ 
   <%- @patrons.each do |patron| -%>
     <tr class="line<%= cycle("0", "1") -%>">
       <td><%= link_to patron.full_name, patron -%></td>

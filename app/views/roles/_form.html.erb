@@ -1,15 +1,5 @@
 <%= form_for(@role) do |f| %>
-  <% if @role.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@role.errors.count, "error") %> prohibited this role from being saved:</h2>
-
-      <ul>
-      <% @role.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
+  <%= f.error_messages %>
 
   <div class="field">
     <%= f.label :name %><br />
@@ -24,6 +14,6 @@
     <%= f.text_area :note %>
   </div>
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit :confirm => t('page.are_you_sure') %>
   </div>
 <% end %>
