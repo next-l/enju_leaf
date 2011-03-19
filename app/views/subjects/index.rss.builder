@@ -8,7 +8,7 @@ xml.rss('version' => "2.0",
     xml.description "Next-L Enju, an open source integrated library system developed by Project Next-L"
     xml.language @locale.to_s
     xml.ttl "60"
-    xml.tag! "atom:link", :rel => 'self', :href => "#{request.protocol}#{request.host_with_port}#{url_for(params.merge(:format => "rss"))}"
+    xml.tag! "atom:link", :rel => 'self', :href => "#{request.protocol}#{request.host_with_port}#{url_for(params.merge(:format => :rss))}"
     xml.tag! "atom:link", :rel => 'alternate', :href => subjects_url
     xml.tag! "atom:link", :rel => 'search', :type => 'application/opensearchdescription+xml', :href => page_opensearch_url
     unless params[:query].blank?

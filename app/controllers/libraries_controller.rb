@@ -21,7 +21,7 @@ class LibrariesController < ApplicationController
       begin
         @libraries = Library.search(:include => [:shelves]) do
           fulltext query
-          paginate :page => page.to_i, :per_page => Tag.per_page
+          paginate :page => page.to_i, :per_page => Library.per_page
           order_by sort[:sort_by], sort[:order]
         end.results
       rescue RSolr::RequestError

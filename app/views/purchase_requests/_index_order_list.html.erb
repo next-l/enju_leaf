@@ -65,8 +65,8 @@
   <p>
     <%= link_to (image_tag 'feed-icon-14x14.png', :size => '14x14', :alt => t('page.feed'), :class => 'icon'), purchase_requests_path(:format => :rss) -%>
     (<%= link_to 'RSS', purchase_requests_path(:format => :rss) -%>)
-    <%= link_to (image_tag 'icons/page_white_excel.png', :size => '16x16', :alt => 'CSV', :class => 'icon'), purchase_requests_path(:format => :csv, :locale => @locale) -%>
-    (<%= link_to 'CSV', purchase_requests_path(:format => :csv, :locale => @locale) -%>)
+    <%= link_to (image_tag 'icons/page_white_excel.png', :size => '16x16', :alt => 'CSV', :class => 'icon'), purchase_requests_path(:format => :csv, :locale => @locale.to_s) -%>
+    (<%= link_to 'CSV', purchase_requests_path(:format => :csv, :locale => @locale.to_s) -%>)
   </p>
   <h4><%= t('page.bookmarklet') -%></h4>
   <ul>

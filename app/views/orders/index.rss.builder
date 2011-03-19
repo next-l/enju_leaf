@@ -5,9 +5,9 @@ xml.rss('version' => "2.0",
   xml.channel{
     if @user
       xml.title "#{@user.username}'s orders at #{@library_group.display_name.localize}"
-      xml.link user_orders_url(@user.username)
-      xml.tag! "atom:link", :rel => 'self', :href => user_orders_url(@user.username, :format => :rss)
-      xml.tag! "atom:link", :rel => 'alternate', :href => user_orders_url(@user.username)
+      xml.link user_orders_url(@user)
+      xml.tag! "atom:link", :rel => 'self', :href => user_orders_url(@user, :format => :rss)
+      xml.tag! "atom:link", :rel => 'alternate', :href => user_orders_url(@user)
     else
       xml.title "Orders at #{@library_group.display_name.localize}"
       xml.link orders_url

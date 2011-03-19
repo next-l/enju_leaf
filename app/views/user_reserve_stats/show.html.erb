@@ -42,6 +42,6 @@
   </ul>
   <h4><%= t('page.export') -%></h4>
   <ul>
-    <li><%= link_to 'CSV', user_reserve_stat_path(@user_reserve_stat, :format => :csv, :locale => @locale) -%></li>
+    <li><%= link_to 'CSV', user_reserve_stat_path(@user_reserve_stat, :format => :csv, :locale => @locale.to_s) -%></li>
   </ul>
 </div>

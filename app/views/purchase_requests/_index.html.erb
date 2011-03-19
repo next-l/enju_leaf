@@ -67,13 +67,13 @@
   <%- if @user -%>
     <%= link_to (image_tag 'feed-icon-14x14.png', :size => '14x14', :alt => t('page.feed'), :class => 'icon'), :user_id => @user.username, :format => :rss -%>
     (<%= link_to 'RSS', user_purchase_requests_path(@user, :format => :rss) -%>)
-    <%= link_to (image_tag 'icons/page_white_excel.png', :size => '16x16', :alt => 'CSV', :class => 'icon'), user_purchase_requests_path(@user, :format => :csv, :locale => @locale) -%>
-    (<%= link_to 'CSV', user_purchase_requests_path(@user, :format => :csv, :locale => @locale) -%>)
+    <%= link_to (image_tag 'icons/page_white_excel.png', :size => '16x16', :alt => 'CSV', :class => 'icon'), user_purchase_requests_path(@user, :format => :csv, :locale => @locale.to_s) -%>
+    (<%= link_to 'CSV', user_purchase_requests_path(@user, :format => :csv, :locale => @locale.to_s) -%>)
   <%- else -%>
     <%= link_to (image_tag 'feed-icon-14x14.png', :size => '14x14', :alt => t('page.feed'), :class => 'icon'), :format => :rss -%>
     (<%= link_to 'RSS', purchase_requests_path(:format => :rss) -%>)
-    <%= link_to (image_tag 'icons/page_white_excel.png', :size => '16x16', :alt => 'CSV', :class => 'icon'), purchase_requests_path(:format => :csv, :locale => @locale) -%>
-    (<%= link_to 'CSV', purchase_requests_path(:format => :csv, :locale => @locale) -%>)
+    <%= link_to (image_tag 'icons/page_white_excel.png', :size => '16x16', :alt => 'CSV', :class => 'icon'), purchase_requests_path(:format => :csv, :locale => @locale.to_s) -%>
+    (<%= link_to 'CSV', purchase_requests_path(:format => :csv, :locale => @locale.to_s) -%>)
   <%- end -%>
 </p>
 

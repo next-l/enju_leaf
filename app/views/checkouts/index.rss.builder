@@ -5,9 +5,9 @@ xml.rss('version' => "2.0",
   xml.channel{
     if @user
       xml.title t('checkout.user_checkout', :login_name => @user.username)
-      xml.link user_checkouts_url(@user.username)
+      xml.link user_checkouts_url(@user)
       xml.tag! "atom:link", :rel => 'self', :href => "#{request.protocol}#{request.host_with_port}#{url_for(params.merge(:format => :rss))}"
-      xml.tag! "atom:link", :rel => 'alternate', :href => user_checkouts_url(@user.username)
+      xml.tag! "atom:link", :rel => 'alternate', :href => user_checkouts_url(@user)
     else
       xml.title t('checkout.library_group_checkout', :library_group_name => @library_group.display_name.localize)
       xml.link checkouts_url
@@ -30,8 +30,8 @@ xml.rss('version' => "2.0",
         #xml.description(checkout.title)
         # rfc822
         xml.pubDate checkout.created_at.utc.rfc822
-        xml.link user_checkout_url(checkout.user.username, checkout)
-        xml.guid user_checkout_url(checkout.user.username, checkout), :isPermaLink => "true"
+        xml.link user_checkout_url(checkout.user, checkout)
+        xml.guid user_checkout_url(checkout.user, checkout), :isPermaLink => "true"
       end
     end
   }

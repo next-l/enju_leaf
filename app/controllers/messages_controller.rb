@@ -35,7 +35,6 @@ class MessagesController < ApplicationController
     page = params[:page] || 1
     search.query.paginate(page.to_i, Message.per_page)
     @messages = search.execute!.results
-    current_user.received_messages.paginate(:all, :page => params[:page])
 
     respond_to do |format|
       format.html # index.rhtml
