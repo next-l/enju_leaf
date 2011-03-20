@@ -17,7 +17,7 @@ class ManifestationReserveStatsController < ApplicationController
   # GET /manifestation_reserve_stats/1.xml
   def show
     @manifestation_reserve_stat = ManifestationReserveStat.find(params[:id])
-    ReserveStatHasManifestation.per_page = 65534 if params[:format] == 'csv'
+    per_page = 65534 if params[:format] == 'csv'
     @stats = @manifestation_reserve_stat.reserve_stat_has_manifestations.page(params[:page]).order('reserves_count DESC, manifestation_id')
 
     respond_to do |format|

@@ -124,6 +124,7 @@ class ManifestationsController < ApplicationController
         order_by :updated_at, :desc if oai_search
         with(:subject_ids).equal_to subject.id if subject
         facet :reservable
+        paginate :page => 1, :per_page => configatron.max_number_of_results
       end
       search = make_internal_query(search)
       search.data_accessor_for(Manifestation).select = [
@@ -154,9 +155,7 @@ class ManifestationsController < ApplicationController
       end
 
       unless session[:manifestation_ids]
-        manifestation_ids = search.build do
-          paginate :page => 1, :per_page => configatron.max_number_of_results
-        end.execute.raw_results.collect(&:primary_key).map{|id| id.to_i}
+        manifestation_ids = search.execute.raw_results.collect(&:primary_key).map{|id| id.to_i}
         session[:manifestation_ids] = manifestation_ids
       end
         
@@ -180,7 +179,6 @@ class ManifestationsController < ApplicationController
           facet :library
           facet :language
           facet :subject_ids
-          paginate :page => page.to_i, :per_page => per_page || configatron.max_number_of_results
         end
       end
       search_result = search.execute

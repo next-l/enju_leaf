@@ -17,7 +17,7 @@ class BookmarkStatsController < ApplicationController
   # GET /bookmark_stats/1.xml
   def show
     @bookmark_stat = BookmarkStat.find(params[:id])
-    BookmarkStatHasManifestation.per_page = 1 if params[:format] == 'csv'
+    per_page = 65534 if params[:format] == 'csv'
     @stats = @bookmark_stat.bookmark_stat_has_manifestations.page(params[:page]).order('bookmarks_count DESC, manifestation_id')
 
     respond_to do |format|

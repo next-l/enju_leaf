@@ -20,7 +20,7 @@ class LibrariesController < ApplicationController
     if query.present?
       search = Library.search(:include => [:shelves]) do
         fulltext query
-        paginate :page => page.to_i, :per_page => configatron.max_number_of_results
+        paginate :page => 1, :per_page => configatron.max_number_of_results
         order_by sort[:sort_by], sort[:order]
       end
       @libraries = Library.where(:id => search.execute.raw_results.collect(&:primary_keys)).page(page)

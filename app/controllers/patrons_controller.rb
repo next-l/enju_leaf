@@ -76,7 +76,7 @@ class PatronsController < ApplicationController
     page = params[:page] || 1
     search.build do
       with(:required_role_id).less_than role.id
-      paginate :page => page.to_i, :per_page => configatron.max_number_of_results
+      paginate :page => 1, :per_page => configatron.max_number_of_results
     end
 
     @patrons = Patron.where(:id => search.execute.raw_results.collect(&:primary_key)).page(page)

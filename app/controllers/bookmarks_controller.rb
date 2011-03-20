@@ -23,7 +23,7 @@ class BookmarksController < ApplicationController
       with(:user_id).equal_to user.id if user
     end
     page = params[:page] || 1
-    search.query.paginate(page.to_i, Bookmark.per_page)
+    search.query.paginate(page.to_i, configatron.max_number_of_results)
     @bookmarks = Bookmark.where(:id => search.execute.raw_results.collect(&:primary_key)).page(page)
     
     respond_to do |format|
