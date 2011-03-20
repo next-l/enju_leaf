@@ -46,4 +46,5 @@ module EnjuLeaf
   end
 end
 
+ActiveSupport::XmlMini.backend = 'Nokogiri'
 require 'enju_leaf'

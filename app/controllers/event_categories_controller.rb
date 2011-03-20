@@ -14,7 +14,7 @@ class EventCategoriesController < InheritedResources::Base
   end
 
   def index
-    @event_categories = @event_categories.paginate(:page => params[:page])
+    @event_categories = @event_categories.page(params[:page])
   end
 
   private

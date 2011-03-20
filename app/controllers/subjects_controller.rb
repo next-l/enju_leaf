@@ -47,12 +47,8 @@ class SubjectsController < ApplicationController
     end
 
     page = params[:page] || 1
-    search.query.paginate(page.to_i, Subject.per_page)
-    begin
-      @subjects = search.execute!.results
-    rescue RSolr::RequestError
-      @subjects = WillPaginate::Collection.create(1,1,0) do end
-    end
+    search.query.paginate(page.to_i, Subject.default_per_page)
+    @subjects = Subject.where(:id => search.execute.raw_results.collect(&:primary_key)).page(page)
     session[:params] = {} unless session[:params]
     session[:params][:subject] = params
 
@@ -62,10 +58,6 @@ class SubjectsController < ApplicationController
       format.rss
       format.atom
     end
-  rescue RSolr::RequestError
-    flash[:notice] = t('page.error_occured')
-    redirect_to subjects_url
-    return
   end
 
   # GET /subjects/1
@@ -88,12 +80,8 @@ class SubjectsController < ApplicationController
       with(:subject_ids).equal_to subject.id if subject
     end
     page = params[:work_page] || 1
-    search.query.paginate(page.to_i, Manifestation.per_page)
-    begin
-      @works = search.execute!.results
-    rescue RSolr::RequestError
-      @works = WillPaginate::Collection.create(1,1,0) do end
-    end
+    search.query.paginate(page.to_i, configatron.max_number_of_results)
+    @works = Manifestation.where(:id => search.execute.raw_results.collect(&:primary_key)).page(page)
 
     respond_to do |format|
       format.html # show.rhtml

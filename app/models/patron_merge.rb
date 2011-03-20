@@ -4,7 +4,5 @@ class PatronMerge < ActiveRecord::Base
   validates_presence_of :patron, :patron_merge_list
   validates_associated :patron, :patron_merge_list
 
-  def self.per_page
-    10
-  end
+  paginates_per 10
 end

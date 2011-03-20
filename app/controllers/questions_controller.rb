@@ -65,11 +65,7 @@ class QuestionsController < ApplicationController
       facet :solved
     end
 
-    begin
-      @question_facet = search.execute!.facet(:solved).rows
-    rescue RSolr::RequestError
-      @question_facet = []
-    end
+    @question_facet = search.execute!.facet(:solved).rows
 
     if @solved
       search.build do
@@ -78,14 +74,9 @@ class QuestionsController < ApplicationController
     end
 
     page = params[:page] || 1
-    search.query.paginate(page.to_i, Question.per_page)
-    begin
-      result = search.execute!
-      @questions = result.results
-    rescue RSolr::RequestError
-      @questions = WillPaginate::Collection.create(1,1,0) do end
-    end
-    @count[:query_result] = @questions.total_entries
+    search.query.paginate(page.to_i, Question.default_per_page)
+    @questions = Question.where(:id => search.execute.raw_results.collect(&:primary_key)).page(page)
+    @count[:query_result] = @questions.total_count
 
     if query.present?
       @crd_results = Question.search_crd(:query_01 => query, :page => params[:crd_page])
@@ -105,10 +96,6 @@ class QuestionsController < ApplicationController
       format.atom
       format.js
     end
-  rescue RSolr::RequestError
-    flash[:notice] = t('page.error_occured')
-    redirect_to questions_url
-    return
   end
 
   # GET /questions/1

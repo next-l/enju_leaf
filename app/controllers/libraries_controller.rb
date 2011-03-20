@@ -18,27 +18,20 @@ class LibrariesController < ApplicationController
     page = params[:page] || 1
 
     if query.present?
-      begin
-        @libraries = Library.search(:include => [:shelves]) do
-          fulltext query
-          paginate :page => page.to_i, :per_page => Tag.per_page
-          order_by sort[:sort_by], sort[:order]
-        end.results
-      rescue RSolr::RequestError
-        @libraries = WillPaginate::Collection.create(1,1,0) do end
+      search = Library.search(:include => [:shelves]) do
+        fulltext query
+        paginate :page => page.to_i, :per_page => configatron.max_number_of_results
+        order_by sort[:sort_by], sort[:order]
       end
+      @libraries = Library.where(:id => search.execute.raw_results.collect(&:primary_keys)).page(page)
     else
-      @libraries = Library.paginate(:page => page, :order => "#{sort[:sort_by]} #{sort[:order]}")
+      @libraries = Library.page(page).order("#{sort[:sort_by]} #{sort[:order]}")
     end
 
     respond_to do |format|
       format.html # index.rhtml
       format.xml  { render :xml => @libraries }
     end
-  rescue RSolr::RequestError
-    flash[:notice] = t('page.error_occured')
-    redirect_to libraries_url
-    return
   end
 
   # GET /libraries/1
@@ -54,12 +47,8 @@ class LibrariesController < ApplicationController
       order_by(:start_at, :desc)
     end
     page = params[:event_page] || 1
-    search.query.paginate(page.to_i, Event.per_page)
-    begin
-      @events = search.execute!.results
-    rescue RSolr::RequestError
-      @events = WillPaginate::Collection.create(1,1,0) do end
-    end
+    search.query.paginate(page.to_i, Event.default_per_page)
+    @events = search.execute!.results
 
     respond_to do |format|
       format.html # show.rhtml

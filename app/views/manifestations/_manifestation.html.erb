@@ -1,5 +1,5 @@
             <tr class="line<%= cycle("0", "1") -%>">
-              <td style="width: 30px"><%= itemnum = @manifestations.offset + 1 + manifestation_counter -%></td>
+              <td style="width: 30px"><%= itemnum = @manifestations.offset_value + 1 + manifestation_counter -%></td>
               <td style="480px">
               <% cache(:controller => :manifestations, :action => :show, :id => manifestation.id, :page => 'show_list', :role => current_user_role_name, :locale => @locale) do %>
                 <%= render :partial => 'manifestations/show_index', :locals => {:manifestation => manifestation} -%>

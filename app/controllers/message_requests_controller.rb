@@ -8,11 +8,11 @@ class MessageRequestsController < ApplicationController
   def index
     case params[:mode]
     when 'sent'
-      @message_requests = MessageRequest.sent.paginate(:all, :page => params[:page], :order => 'created_at DESC')
+      @message_requests = MessageRequest.sent.page(params[:page]).order('created_at DESC')
     when 'all'
-      @message_requests = MessageRequest.paginate(:all, :page => params[:page], :order => 'created_at DESC')
+      @message_requests = MessageRequest.page(params[:page]).order('created_at DESC')
     else
-      @message_requests = MessageRequest.not_sent.paginate(:all, :page => params[:page], :order => 'created_at DESC')
+      @message_requests = MessageRequest.not_sent.page(params[:page]).order('created_at DESC')
     end
 
     respond_to do |format|

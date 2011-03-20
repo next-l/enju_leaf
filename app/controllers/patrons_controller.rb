@@ -73,17 +73,13 @@ class PatronsController < ApplicationController
     end
 
     role = current_user.try(:role) || Role.default_role
+    page = params[:page] || 1
     search.build do
       with(:required_role_id).less_than role.id
+      paginate :page => page.to_i, :per_page => configatron.max_number_of_results
     end
 
-    page = params[:page] || 1
-    begin
-      search.query.paginate(page.to_i, Patron.per_page)
-      @patrons = search.execute!.results
-    rescue RSolr::RequestError
-      @patrons = WillPaginate::Collection.create(1,1,0) do end
-    end
+    @patrons = Patron.where(:id => search.execute.raw_results.collect(&:primary_key)).page(page)
 
     respond_to do |format|
       format.html # index.rhtml
@@ -93,10 +89,6 @@ class PatronsController < ApplicationController
       format.json { render :json => @patrons }
       format.mobile
     end
-  rescue RSolr::RequestError
-    flash[:notice] = t('page.error_occured')
-    redirect_to patrons_url
-    return
   end
 
   # GET /patrons/1
@@ -120,9 +112,9 @@ class PatronsController < ApplicationController
       end
     end
 
-    @works = @patron.works.paginate(:page => params[:work_list_page], :per_page => Manifestation.per_page)
-    @expressions = @patron.expressions.paginate(:page => params[:expression_list_page], :per_page => Manifestation.per_page)
-    @manifestations = @patron.manifestations.paginate(:page => params[:manifestation_list_page], :order => 'date_of_publication DESC', :per_page => Manifestation.per_page)
+    @works = @patron.works.paginate(:page => params[:work_list_page], :per_page => Manifestation.default_per_page)
+    @expressions = @patron.expressions.paginate(:page => params[:expression_list_page], :per_page => Manifestation.default_per_page)
+    @manifestations = @patron.manifestations.paginate(:page => params[:manifestation_list_page], :order => 'date_of_publication DESC', :per_page => Manifestation.default_per_page)
 
     respond_to do |format|
       format.html # show.rhtml

@@ -32,9 +32,7 @@ class Event < ActiveRecord::Base
   validate :check_date
   before_validation :set_date
 
-  def self.per_page
-    10
-  end
+  paginates_per 10
 
   def set_date
     if self.start_at.blank?

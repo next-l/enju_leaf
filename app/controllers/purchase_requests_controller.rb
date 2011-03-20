@@ -50,11 +50,7 @@ class PurchaseRequestsController < ApplicationController
 
     page = params[:page] || 1
     search.query.paginate(page.to_i, per_page)
-    begin
-      @purchase_requests = search.execute!.results
-    rescue RSolr::RequestError
-      @purchase_requests = WillPaginate::Collection.create(1,1,0) do end
-    end
+    @purchase_requests = PurchaseRequest.where(:id => search.execute.raw_results.collect(&:primary_key)).page(page)
 
     @count[:query_result] = @purchase_requests.size
 
@@ -65,10 +61,6 @@ class PurchaseRequestsController < ApplicationController
       format.atom
       format.csv
     end
-  rescue RSolr::RequestError
-    flash[:notice] = t('page.error_occured')
-    redirect_to purchase_requests_url
-    return
   end
 
   # GET /purchase_requests/1

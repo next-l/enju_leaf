@@ -5,7 +5,7 @@ class UserCheckoutStatsController < ApplicationController
   # GET /user_checkout_stats
   # GET /user_checkout_stats.xml
   def index
-    @user_checkout_stats = UserCheckoutStat.paginate(:all, :page => params[:page], :order => 'id DESC')
+    @user_checkout_stats = UserCheckoutStat.page(params[:page]).order('id DESC')
 
     respond_to do |format|
       format.html # index.html.erb
@@ -17,8 +17,8 @@ class UserCheckoutStatsController < ApplicationController
   # GET /user_checkout_stats/1.xml
   def show
     @user_checkout_stat = UserCheckoutStat.find(params[:id])
-    CheckoutStatHasUser.per_page = 65534 if params[:format] == 'csv'
-    @stats = @user_checkout_stat.checkout_stat_has_users.paginate(:all, :order => 'checkouts_count DESC, user_id', :page => params[:page])
+    per_page = 65534 if params[:format] == 'csv'
+    @stats = @user_checkout_stat.checkout_stat_has_users.page(params[:page]).per(per_page).order('checkouts_count DESC, user_id')
 
     respond_to do |format|
       format.html # show.html.erb

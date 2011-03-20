@@ -32,11 +32,8 @@ class PurchaseRequest < ActiveRecord::Base
       order_list.try(:ordered_at).present? ? true : false
     end
   end
-  #acts_as_soft_deletable
 
-  def self.per_page
-    10
-  end
+  paginates_per 10
 
   def pubdate
     self.date_of_publication
@@ -45,5 +42,4 @@ class PurchaseRequest < ActiveRecord::Base
   def check_price
     errors.add(:price) unless self.price.nil? || self.price > 0.0
   end
-
 end

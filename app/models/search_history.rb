@@ -2,9 +2,8 @@ class SearchHistory < ActiveRecord::Base
   scope :not_found, where(:number_of_records => 0)
 
   belongs_to :user
-  def self.per_page
-    10
-  end
+
+  paginates_per 10
 
   # http://d.hatena.ne.jp/rubyco/20070528
   def self.not_found_query(number, duration = 1.year.ago)

@@ -6,6 +6,6 @@ class PatronImportResultsController < InheritedResources::Base
   has_scope :file_id
 
   def index
-    @patron_import_results = @patron_import_results.paginate(:page => params[:page])
+    @patron_import_results = @patron_import_results.page(params[:page])
   end
 end

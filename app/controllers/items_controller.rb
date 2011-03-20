@@ -17,7 +17,7 @@ class ItemsController < ApplicationController
   # GET /items.xml
   def index
     query = params[:query].to_s.strip
-    per_page = Item.per_page
+    per_page = Item.default_per_page
     @count = {}
     if user_signed_in?
       if current_user.has_role?('Librarian')
@@ -39,7 +39,7 @@ class ItemsController < ApplicationController
             mode = 'not_in_catalog'
           end
           order = 'id'
-          @items = Item.inventory_items(@inventory_file, mode).paginate(:page => params[:page], :order => order, :per_page => per_page) rescue [].paginate
+          @items = Item.inventory_items(@inventory_file, mode).page(params[:page]).order(order).per(per_page)
         else
           access_denied
           return
@@ -81,13 +81,8 @@ class ItemsController < ApplicationController
 
       page = params[:page] || 1
       search.query.paginate(page.to_i, per_page)
-      begin
-        @items = search.execute!.results
-        @count[:total] = @items.total_entries
-      rescue
-        @items = WillPaginate::Collection.create(1,1,0) do end
-        @count[:total] = 0
-      end
+      @items = Item.where(:id => search.execute.raw_results.collect(&:primary_key)).page(page)
+      @count[:total] = @items.total_count
     end
 
     if params[:mode] == 'barcode'
@@ -101,10 +96,6 @@ class ItemsController < ApplicationController
       format.csv  { render :layout => false }
       format.atom
     end
-  rescue RSolr::RequestError
-    flash[:notice] = t('page.error_occured')
-    redirect_to items_url
-    return
   end
 
   # GET /items/1

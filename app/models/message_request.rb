@@ -23,9 +23,7 @@ class MessageRequest < ActiveRecord::Base
     end
   end
 
-  def self.per_page
-    10
-  end
+  paginates_per 10
 
   def start_sending_message
     sm_start!

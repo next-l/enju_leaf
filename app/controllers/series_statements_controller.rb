@@ -27,21 +27,13 @@ class SeriesStatementsController < ApplicationController
       end
     end
     page = params[:page] || 1
-    search.query.paginate(page.to_i, SeriesStatement.per_page)
-    begin
-      @series_statements = search.execute!.results
-    rescue RSolr::RequestError
-      @series_statements = WillPaginate::Collection.create(1,1,0) do end
-    end
+    search.query.paginate(page.to_i, SeriesStatement.default_per_page)
+    @series_statements = SeriesStatement.where(:id => search.execute.raw_results.collect(&:primary_key)).page(page)
 
     respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @series_statements }
     end
-  rescue RSolr::RequestError
-    flash[:notice] = t('page.error_occured')
-    redirect_to series_statements_url
-    return
   end
 
   # GET /series_statements/1

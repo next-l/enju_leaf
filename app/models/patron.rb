@@ -60,9 +60,7 @@ class Patron < ActiveRecord::Base
     integer :patron_type_id
   end
 
-  def self.per_page
-    10
-  end
+  paginates_per 10
 
   def full_name_without_space
     full_name.gsub(/\s/, "")

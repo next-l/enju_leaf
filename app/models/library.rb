@@ -37,9 +37,7 @@ class Library < ActiveRecord::Base
   after_create :clear_all_cache
   after_destroy :clear_all_cache
 
-  def self.per_page
-    10
-  end
+  paginates_per 10
 
   def self.all_cache
     Rails.cache.fetch('library_all'){Library.all}

@@ -18,8 +18,8 @@ xml.tag! "OAI-PMH", :xmlns => "http://www.openarchives.org/OAI/2.0/",
       end
     end
     if @resumption.present?
-      if @resumption[:cursor].to_i + @manifestations.per_page < @manifestations.total_entries
-        xml.resumptionToken @resumption[:token], :completeListSize => @manifestations.total_entries, :cursor => @resumption[:cursor], :expirationDate => @resumption[:expired_at]
+      if @resumption[:cursor].to_i + @manifestations.per_page < @manifestations.total_count
+        xml.resumptionToken @resumption[:token], :completeListSize => @manifestations.total_count, :cursor => @resumption[:cursor], :expirationDate => @resumption[:expired_at]
       end
     end
   end

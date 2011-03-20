@@ -180,12 +180,11 @@ class ManifestationsController < ApplicationController
           facet :library
           facet :language
           facet :subject_ids
-          paginate :page => page.to_i, :per_page => per_page || Manifestation.per_page
+          paginate :page => page.to_i, :per_page => per_page || configatron.max_number_of_results
         end
       end
       search_result = search.execute
-      @manifestations = search_result.results
-      @manifestations.total_entries = configatron.max_number_of_results if @count[:query_result] > configatron.max_number_of_results
+      @manifestations = Manifestation.where(:id => search_result.raw_results.collect(&:primary_key)).page(page)
       get_libraries
 
       if params[:format].blank? or params[:format] == 'html'
@@ -202,7 +201,7 @@ class ManifestationsController < ApplicationController
           @suggested_tag = query.suggest_tags.first
         end
       end
-      save_search_history(query, @manifestations.offset, @count[:query_result], current_user)
+      save_search_history(query, @manifestations.offset_value, @count[:query_result], current_user)
       if params[:format] == 'oai'
         unless @manifestations.empty?
           set_resumption_token(params[:resumptionToken], @from_time || Manifestation.last.updated_at, @until_time || Manifestation.first.updated_at)
@@ -248,16 +247,6 @@ class ManifestationsController < ApplicationController
           :inline => true
       }
     end
-  #rescue RSolr::RequestError
-  #  unless params[:format] == 'sru'
-  #    flash[:notice] = t('page.error_occured')
-  #    redirect_to manifestations_url
-  #    return
-  #  else
-  #    render :template => 'manifestations/error.xml', :layout => false
-  #    return
-  #  end
-  #  return
   rescue QueryError => e
   #  render :template => 'manifestations/error.xml', :layout => false
     Rails.logger.info "#{Time.zone.now}\t#{query}\t\t#{current_user.try(:username)}\t#{e}"

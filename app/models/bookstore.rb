@@ -8,7 +8,5 @@ class Bookstore < ActiveRecord::Base
   validates_presence_of :name
   validates_length_of :url, :maximum => 255, :allow_blank => true
 
-  def self.per_page
-    10
-  end
+  paginates_per 10
 end

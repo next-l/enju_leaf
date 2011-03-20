@@ -11,9 +11,7 @@ class Exemplify < ActiveRecord::Base
 
   acts_as_list :scope => :manifestation_id
 
-  def self.per_page
-    10
-  end
+  paginates_per 10
 
   def reindex
     manifestation.index
@@ -25,5 +23,4 @@ class Exemplify < ActiveRecord::Base
       LendingPolicy.create(:item_id => item.id, :user_group_id => rule.user_group_id, :fixed_due_date => rule.fixed_due_date, :loan_period => rule.checkout_period, :renewal => rule.checkout_renewal_limit)
     end
   end
-
 end
