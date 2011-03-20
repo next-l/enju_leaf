@@ -1,8 +1,6 @@
 class ResourceImportFile < ActiveRecord::Base
-  include ImportFile
   default_scope :order => 'id DESC'
   scope :not_imported, where(:state => 'pending', :imported_at => nil)
-  scope :stucked, where('created_at < ? AND state = ?', 1.hour.ago, 'pending')
 
   if configatron.uploaded_file.storage == :s3
     has_attached_file :resource_import, :storage => :s3, :s3_credentials => "#{Rails.root.to_s}/config/s3.yml",
@@ -43,7 +41,7 @@ class ResourceImportFile < ActiveRecord::Base
 
   def import
     self.reload
-    num = {:found => 0, :success => 0, :failure => 0, :deleted => 0}
+    num = {:found => 0, :success => 0, :failure => 0}
     row_num = 2
     rows = self.open_import_file
     field = rows.first
@@ -61,16 +59,7 @@ class ResourceImportFile < ActiveRecord::Base
         next
       end
 
-      manifestation = find_by_identifier(row)
-      if manifestation
-        if row['delete'] == 'true'
-          manifestation.destroy
-          num[:deleted] += 1
-          next
-        end
-      else
-        manifestation = fetch(row)
-      end
+      manifestation = fetch(row)
       import_result.manifestation = manifestation
 
       begin
@@ -250,11 +239,12 @@ class ResourceImportFile < ActiveRecord::Base
     item
   end
 
-  def find_by_identifier(row)
+  def fetch(row)
+    shelf = Shelf.where(:name => row['shelf'].to_s.strip).first || Shelf.web
+
     unless row['identifier'].blank?
-      if manifestation = Manifestation.where(:identifier => row['identifier'].to_s.strip).first
-        return manifestation
-      end
+      manifestation = Manifestation.where(:identifier => row['identifier'].to_s.strip).first
+      return manifestation if manifestation
     end
 
     unless row['isbn'].blank?
@@ -265,10 +255,6 @@ class ResourceImportFile < ActiveRecord::Base
       end
       return manifestation if manifestation
     end
-  end
-
-  def fetch(row)
-    shelf = Shelf.where(:name => row['shelf'].to_s.strip).first || Shelf.web
 
     title = {}
     title[:original_title] = row['original_title']
@@ -278,55 +264,57 @@ class ResourceImportFile < ActiveRecord::Base
     return nil if title[:original_title].blank?
 
     ResourceImportFile.transaction do
-      authors = row['author'].to_s.split(';')
-      publishers = row['publisher'].to_s.split(';')
-      author_patrons = Patron.import_patrons(authors)
-      publisher_patrons = Patron.import_patrons(publishers)
-      #classification = Classification.first(:conditions => {:category => row['classification'].to_s.strip)
-      subjects = import_subject(row)
-      series_statement = import_series_statement(row)
+      if manifestation.nil?
+        authors = row['author'].to_s.split(';')
+        publishers = row['publisher'].to_s.split(';')
+        author_patrons = Patron.import_patrons(authors)
+        publisher_patrons = Patron.import_patrons(publishers)
+        #classification = Classification.first(:conditions => {:category => row['classification'].to_s.strip)
+        subjects = import_subject(row)
+        series_statement = import_series_statement(row)
 
-      work = self.class.import_work(title, author_patrons, row['series_statment_id'])
-      work.subjects << subjects
-      expression = self.class.import_expression(work)
+        work = self.class.import_work(title, author_patrons, row['series_statment_id'])
+        work.subjects << subjects
+        expression = self.class.import_expression(work)
 
-      if ISBN_Tools.is_valid?(row['isbn'].to_s.strip)
-        isbn = ISBN_Tools.cleanup(row['isbn'])
+        if ISBN_Tools.is_valid?(row['isbn'].to_s.strip)
+          isbn = ISBN_Tools.cleanup(row['isbn'])
+        end
+        date_of_publication = Time.zone.parse(row['date_of_publication']) rescue nil
+        # TODO: 小数点以下の表現
+        height = NKF.nkf('-eZ1', row['height'].to_s).gsub(/\D/, '').to_i
+        end_page = NKF.nkf('-eZ1', row['number_of_pages'].to_s).gsub(/\D/, '').to_i
+        if end_page >= 1
+          start_page = 1
+        else
+          start_page = nil
+          end_page = nil
+        end
+
+        manifestation = self.class.import_manifestation(expression, publisher_patrons, {
+          :original_title => title[:original_title],
+          :title_transcription => title[:title_transcription],
+          :title_alternative => title[:title_alternative],
+          :title_alternative_transcription => title[:title_alternative_transcription],
+          :isbn => isbn,
+          :wrong_isbn => row['wrong_isbn'],
+          :issn => row['issn'],
+          :lccn => row['lccn'],
+          :nbn => row['nbn'],
+          :date_of_publication => date_of_publication,
+          :volume_number_list => row['volume_number_list'],
+          :edition => row['edition'],
+          :height => row['height'],
+          :price => row['manifestation_price'],
+          :description => row['description'],
+          :note => row['note'],
+          :series_statement => series_statement,
+          :height => height,
+          :start_page => start_page,
+          :end_page => end_page,
+          :identifier => row['identifier']
+        })
       end
-      date_of_publication = Time.zone.parse(row['date_of_publication']) rescue nil
-      # TODO: 小数点以下の表現
-      height = NKF.nkf('-eZ1', row['height'].to_s).gsub(/\D/, '').to_i
-      end_page = NKF.nkf('-eZ1', row['number_of_pages'].to_s).gsub(/\D/, '').to_i
-      if end_page >= 1
-        start_page = 1
-      else
-        start_page = nil
-        end_page = nil
-      end
-
-      manifestation = self.class.import_manifestation(expression, publisher_patrons, {
-        :original_title => title[:original_title],
-        :title_transcription => title[:title_transcription],
-        :title_alternative => title[:title_alternative],
-        :title_alternative_transcription => title[:title_alternative_transcription],
-        :isbn => isbn,
-        :wrong_isbn => row['wrong_isbn'],
-        :issn => row['issn'],
-        :lccn => row['lccn'],
-        :nbn => row['nbn'],
-        :date_of_publication => date_of_publication,
-        :volume_number_list => row['volume_number_list'],
-        :edition => row['edition'],
-        :height => row['height'],
-        :price => row['manifestation_price'],
-        :description => row['description'],
-        :note => row['note'],
-        :series_statement => series_statement,
-        :height => height,
-        :start_page => start_page,
-        :end_page => end_page,
-        :identifier => row['identifier']
-      })
     end
     manifestation
   end

@@ -1135,6 +1135,7 @@ ja:
     not_found: "ページが見つかりませんでした"
     access_denied: "アクセスが拒否されました"
     last_updated: "最終更新日"
+    connection_failed: "ネットワーク接続に失敗しました。"
   title:
     index: "一覧"
     show: "表示"

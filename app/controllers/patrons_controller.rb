@@ -78,12 +78,8 @@ class PatronsController < ApplicationController
     end
 
     page = params[:page] || 1
-    begin
-      search.query.paginate(page.to_i, Patron.per_page)
-      @patrons = search.execute!.results
-    rescue RSolr::RequestError
-      @patrons = WillPaginate::Collection.create(1,1,0) do end
-    end
+    search.query.paginate(page.to_i, Patron.per_page)
+    @patrons = search.execute!.results
 
     respond_to do |format|
       format.html # index.rhtml
@@ -93,10 +89,6 @@ class PatronsController < ApplicationController
       format.json { render :json => @patrons }
       format.mobile
     end
-  rescue RSolr::RequestError
-    flash[:notice] = t('page.error_occured')
-    redirect_to patrons_url
-    return
   end
 
   # GET /patrons/1

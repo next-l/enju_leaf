@@ -1144,6 +1144,7 @@ en:
     not_found: "Page not found"
     access_denied: "Access denied"
     last_updated: "Last updated"
+    connection_faild: "Connection failed."
   title:
     index: "index"
     show: "show"

@@ -32,6 +32,18 @@ describe CheckoutsController do
         get :index, :user_id => @user.username
         assigns(:checkouts).should eq(@user.checkouts.not_returned.paginate(:page => 1))
       end
+
+      it "should be redirected if an username is not specified" do
+        get :index
+        assigns(:checkouts).should eq(Checkout.not_returned.paginate(:page => 1))
+        response.should redirect_to(user_checkouts_url(@user))
+      end
+
+      it "should be forbidden if other's username is specified" do
+        get :index, :user_id => Factory(:user).username
+        assigns(:checkouts).should eq(Checkout.not_returned.paginate(:page => 1))
+        response.should be_forbidden
+      end
     end
   end
 

@@ -20,15 +20,11 @@ class TagsController < ApplicationController
     query = @query = params[:query].to_s.strip
     page = params[:page] || 1
 
-    begin
-      @tags = Tag.search do
-        fulltext query if query.present?
-        paginate :page => page.to_i, :per_page => Tag.per_page
-        order_by sort[:sort_by], sort[:order]
-      end.results
-    rescue RSolr::RequestError
-      @tags = WillPaginate::Collection.create(1,1,0) do end
-    end
+    @tags = Tag.search do
+      fulltext query if query.present?
+      paginate :page => page.to_i, :per_page => Tag.per_page
+      order_by sort[:sort_by], sort[:order]
+    end.results
 
     respond_to do |format|
       format.html # index.html.erb
@@ -36,10 +32,6 @@ class TagsController < ApplicationController
       format.rss
       format.atom
     end
-  rescue RSolr::RequestError
-    flash[:notice] = t('page.error_occured')
-    redirect_to tags_url
-    return
   end
 
   def show

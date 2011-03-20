@@ -101,10 +101,6 @@ class ItemsController < ApplicationController
       format.csv  { render :layout => false }
       format.atom
     end
-  rescue RSolr::RequestError
-    flash[:notice] = t('page.error_occured')
-    redirect_to items_url
-    return
   end
 
   # GET /items/1

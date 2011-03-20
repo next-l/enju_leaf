@@ -32,15 +32,11 @@ class UsersController < ApplicationController
     role = current_user.try(:role) || Role.default_role
 
     unless query.blank?
-      begin
-        @users = User.search do
-          fulltext query
-          order_by sort[:sort_by], sort[:order]
-          with(:required_role_id).less_than role.id
-        end.results
-      rescue RSolr::RequestError
-        @users = WillPaginate::Collection.create(1,1,0) do end
-      end
+      @users = User.search do
+        fulltext query
+        order_by sort[:sort_by], sort[:order]
+        with(:required_role_id).less_than role.id
+      end.results
     else
       @users = User.paginate(:all, :page => page, :order => "#{sort[:sort_by]} #{sort[:order]}")
     end
@@ -56,10 +52,6 @@ class UsersController < ApplicationController
         :inline => true
       }
     end
-  rescue RSolr::RequestError
-    flash[:notice] = t('page.error_occured')
-    redirect_to users_url
-    return
   end
 
   def show

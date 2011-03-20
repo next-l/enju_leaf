@@ -7,6 +7,8 @@ class ApplicationController < ActionController::Base
   #include Oink::InstanceTypeCounter
 
   rescue_from CanCan::AccessDenied, :with => :render_403
+  rescue_from Errno::ECONNREFUSED, :with => :render_403_disconnected
+  rescue_from RSolr::RequestError, :with => :render_403_disconnected
   rescue_from ActiveRecord::RecordNotFound, :with => :render_404
 
   before_filter :get_library_group, :set_locale, :set_available_languages, :prepare_for_mobile
@@ -14,6 +16,7 @@ class ApplicationController < ActionController::Base
 
   private
   def render_403
+    return if performed?
     if user_signed_in?
       respond_to do |format|
         format.html {render :template => 'page/403', :status => 403}
@@ -29,7 +32,18 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def render_403_disconnected
+    return if performed?
+    flash[:notice] = t('page.connection_failed')
+    respond_to do |format|
+      format.html {render :template => 'page/403', :status => 403}
+      format.mobile {render :template => 'page/403', :status => 403}
+      format.xml {render :template => 'page/403', :status => 403}
+    end
+  end
+
   def render_404
+    return if performed?
     respond_to do |format|
       format.html {render :template => 'page/404', :status => 404}
       format.mobile {render :template => 'page/404', :status => 404}

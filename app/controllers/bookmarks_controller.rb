@@ -31,10 +31,6 @@ class BookmarksController < ApplicationController
       format.html # index.rhtml
       format.xml  { render :xml => @bookmarks }
     end
-  rescue RSolr::RequestError
-    flash[:notice] = t('page.error_occured')
-    redirect_to bookmarks_url
-    return
   end
 
   # GET /bookmarks/1

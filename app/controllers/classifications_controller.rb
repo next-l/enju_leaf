@@ -26,12 +26,8 @@ class ClassificationsController < ApplicationController
     end
 
     page = params[:page] || 1
-    begin
-      search.query.paginate(page.to_i, Classification.per_page)
-      @classifications = search.execute!.results
-    rescue RSolr::RequestError
-      @classifications = WillPaginate::Collection.create(1,1,0) do end
-    end
+    search.query.paginate(page.to_i, Classification.per_page)
+    @classifications = search.execute!.results
 
     session[:params] = {} unless session[:params]
     session[:params][:classification] = params
@@ -40,10 +36,6 @@ class ClassificationsController < ApplicationController
       format.html # index.html.erb
       format.xml  { render :xml => @classifications }
     end
-  rescue RSolr::RequestError
-    flash[:notice] = t('page.error_occured')
-    redirect_to classifications_url
-    return
   end
 
   # GET /classifications/1

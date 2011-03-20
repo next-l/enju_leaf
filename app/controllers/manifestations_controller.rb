@@ -248,16 +248,6 @@ class ManifestationsController < ApplicationController
           :inline => true
       }
     end
-  #rescue RSolr::RequestError
-  #  unless params[:format] == 'sru'
-  #    flash[:notice] = t('page.error_occured')
-  #    redirect_to manifestations_url
-  #    return
-  #  else
-  #    render :template => 'manifestations/error.xml', :layout => false
-  #    return
-  #  end
-  #  return
   rescue QueryError => e
   #  render :template => 'manifestations/error.xml', :layout => false
     Rails.logger.info "#{Time.zone.now}\t#{query}\t\t#{current_user.try(:username)}\t#{e}"
