@@ -39,7 +39,7 @@ class EventsController < ApplicationController
     end
 
     page = params[:page] || 1
-    search.query.paginate(page.to_i, configatron.max_number_of_results)
+    search.query.paginate(1, configatron.max_number_of_results)
     @events = Event.where(:id => search.execute.raw_results.collect(&:primary_key)).page(page)
     @count[:query_result] = @events.total_count
 

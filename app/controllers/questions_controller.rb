@@ -74,7 +74,7 @@ class QuestionsController < ApplicationController
     end
 
     page = params[:page] || 1
-    search.query.paginate(page.to_i, Question.default_per_page)
+    search.query.paginate(1, configatron.max_number_of_results)
     @questions = Question.where(:id => search.execute.raw_results.collect(&:primary_key)).page(page)
     @count[:query_result] = @questions.total_count
 

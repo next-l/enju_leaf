@@ -27,7 +27,7 @@ class SeriesStatementsController < ApplicationController
       end
     end
     page = params[:page] || 1
-    search.query.paginate(page.to_i, SeriesStatement.default_per_page)
+    search.query.paginate(1, configatron.max_number_of_results)
     @series_statements = SeriesStatement.where(:id => search.execute.raw_results.collect(&:primary_key)).page(page)
 
     respond_to do |format|

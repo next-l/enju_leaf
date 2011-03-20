@@ -49,7 +49,7 @@ class PurchaseRequestsController < ApplicationController
     end
 
     page = params[:page] || 1
-    search.query.paginate(page.to_i, per_page)
+    search.query.paginate(1, per_page)
     @purchase_requests = PurchaseRequest.where(:id => search.execute.raw_results.collect(&:primary_key)).page(page)
 
     @count[:query_result] = @purchase_requests.size

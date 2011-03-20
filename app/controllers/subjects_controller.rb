@@ -47,7 +47,7 @@ class SubjectsController < ApplicationController
     end
 
     page = params[:page] || 1
-    search.query.paginate(page.to_i, Subject.default_per_page)
+    search.query.paginate(1, configatron.max_number_of_results)
     @subjects = Subject.where(:id => search.execute.raw_results.collect(&:primary_key)).page(page)
     session[:params] = {} unless session[:params]
     session[:params][:subject] = params
@@ -80,7 +80,7 @@ class SubjectsController < ApplicationController
       with(:subject_ids).equal_to subject.id if subject
     end
     page = params[:work_page] || 1
-    search.query.paginate(page.to_i, configatron.max_number_of_results)
+    search.query.paginate(1, configatron.max_number_of_results)
     @works = Manifestation.where(:id => search.execute.raw_results.collect(&:primary_key)).page(page)
 
     respond_to do |format|

@@ -22,7 +22,7 @@ class TagsController < ApplicationController
 
     search = Tag.search do
       fulltext query if query.present?
-      paginate :page => page.to_i, :per_page => configatron.max_number_of_results
+      paginate :page => 1, :per_page => configatron.max_number_of_results
       order_by sort[:sort_by], sort[:order]
     end
     @tags = Tag.where(:id => search.execute.raw_results.collect(&:primary_key)).page(page)

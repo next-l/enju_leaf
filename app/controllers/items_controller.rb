@@ -80,7 +80,7 @@ class ItemsController < ApplicationController
       end
 
       page = params[:page] || 1
-      search.query.paginate(page.to_i, per_page)
+      search.query.paginate(1, per_page)
       @items = Item.where(:id => search.execute.raw_results.collect(&:primary_key)).page(page)
       @count[:total] = @items.total_count
     end
