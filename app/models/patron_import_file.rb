@@ -1,6 +1,8 @@
 class PatronImportFile < ActiveRecord::Base
+  include ImportFile
   default_scope :order => 'id DESC'
   scope :not_imported, where(:state => 'pending', :imported_at => nil)
+  scope :stucked, where('created_at < ? AND state = ?', 1.hour.ago, 'pending')
 
   if configatron.uploaded_file.storage == :s3
     has_attached_file :patron_import, :storage => :s3, :s3_credentials => "#{Rails.root.to_s}/config/s3.yml",
@@ -44,7 +46,7 @@ class PatronImportFile < ActiveRecord::Base
 
   def import
     self.reload
-    num = {:success => 0, :failure => 0, :activated => 0}
+    num = {:success => 0, :failure => 0, :activated => 0, :deleted => 0}
     row_num = 2
     if RUBY_VERSION > '1.9'
       if configatron.uploaded_file.storage == :s3

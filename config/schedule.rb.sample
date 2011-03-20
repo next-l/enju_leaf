@@ -37,6 +37,7 @@ end
 
 every 1.hour do
   runner "PatronImportFile.import; EventImportFile.import; ResourceImportFile.import"
+  runner "PatronImportFile.expire; EventImportFile.expire; ResourceImportFile.expire"
 end
 
 #every 1.day, :at => '3:00 am' do

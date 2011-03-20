@@ -12,14 +12,19 @@ class Language < ActiveRecord::Base
   after_destroy :clear_available_languages_cache
 
   def self.all_cache
-    Rails.cache.fetch('language_all'){Language.all}
+    if Rails.env == 'production'
+      Rails.cache.fetch('language_all'){Language.all}
+    else
+      Language.all
+    end
   end
  
   def clear_available_languages_cache
     Rails.cache.delete('language_all')
+    Rails.cache.delete('available_languages')
   end
   
   def self.available_languages
-    Language.all(:conditions => {:iso_639_1 => I18n.available_locales.map{|l| l.to_s}})
+    Language.where(:iso_639_1 => I18n.available_locales.map{|l| l.to_s})
   end
 end

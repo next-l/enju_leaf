@@ -29,7 +29,7 @@ describe CheckoutsController do
       end
 
       it "assigns all checkouts as @checkouts" do
-        get :index
+        get :index, :user_id => @user.username
         assigns(:checkouts).should eq(@user.checkouts.not_returned.paginate(:page => 1))
       end
     end
