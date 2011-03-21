@@ -1,8 +1,8 @@
 xml.openServiceDescription("xmlns" => "http://www.microsoft.com/schemas/openservicedescription/1.0") do
   xml.homepageUrl h(LibraryGroup.site_config.url)
   xml.display do
-    xml.name h(LibraryGroup.system_name)
-    xml.description t('page.search_catalog_at', :library_name => h(LibraryGroup.system_name))
+    xml.name h(LibraryGroup.system_name(@locale))
+    xml.description t('page.search_catalog_at', :library_name => h(LibraryGroup.system_name(@locale)))
   end
   xml.activity("category" => t('page.search')) do
     xml.activityAction do

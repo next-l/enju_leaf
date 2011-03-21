@@ -25,7 +25,7 @@ class LibraryGroup < ActiveRecord::Base
   end
 
   def self.system_name(locale = I18n.locale)
-    Sanitize.clean(LibraryGroup.site_config.display_name.localize(locale))
+    LibraryGroup.site_config.display_name.localize(locale)
   end
 
   def config?
