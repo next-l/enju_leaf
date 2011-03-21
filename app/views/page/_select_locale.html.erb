@@ -1,12 +1,19 @@
 <div id="header_select_locale">
-<%- if request.get? -%>
-  <form method="get" action="<%= url_for -%>">
-    <%- params.merge!(:controller => nil, :action => nil, :locale => nil, :commit => nil) -%>
-    <%- params.reject{|key, value| value.nil?}.each do |param, value| -%>
-      <%= hidden_field_tag param, value -%>
-    <%- end -%>
-    <%= select_tag 'locale', options_from_collection_for_select(@selectable_languages, 'iso_639_1', 'native_name', @locale) -%>
-    <%= submit_tag t('page.set_locale') -%>
-  </form>
-<%- end -%>
+  <%- if request.get? -%>
+    <a href="#select_locale" id="select_locale_menu">Other languages</a>
+    <div id="select_locale">
+      <% @available_languages.each do |language| %>
+        <%= link_to "#{language.native_name || language.name}", url_for(params.merge(:locale => language.iso_639_1)) %>
+      <% end %>
+    </div>
+    <script>
+      $("body").click(function(event){
+        $("#select_locale").hide();
+      });
+      $("#select_locale_menu").click(function(event) {
+        $("#select_locale").toggle();
+        event.stopPropagation();
+      });
+    </script>
+  <%- end -%>
 </div>

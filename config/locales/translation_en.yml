@@ -1124,7 +1124,7 @@ en:
     under_construction: "Under construction"
     sent_email: "Sent email."
     identifier: "Identifier"
-    set_locale: "Set locale"
+    select_locale: "Select locale"
     local_record: "Local record"
     search_catalog_at: "Search catalog at %{library_name}"
     add_on: "Add-ons"
@@ -1145,6 +1145,7 @@ en:
     access_denied: "Access denied"
     last_updated: "Last updated"
     connection_faild: "Connection failed."
+    timed_out: "Operation timed out."
   title:
     index: "index"
     show: "show"

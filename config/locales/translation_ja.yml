@@ -1115,7 +1115,7 @@ ja:
     under_construction: "開発中"
     sent_email: "電子メールを送信しました。"
     identifier: "識別子"
-    set_locale: "言語を設定"
+    select_locale: "言語を設定"
     local_record: "自館の情報"
     search_catalog_at: "%{library_name}の目録を検索"
     add_on: "アドオン"
@@ -1136,6 +1136,7 @@ ja:
     access_denied: "アクセスが拒否されました"
     last_updated: "最終更新日"
     connection_failed: "ネットワーク接続に失敗しました。"
+    timed_out: "タイムアウトしました。"
   title:
     index: "一覧"
     show: "表示"

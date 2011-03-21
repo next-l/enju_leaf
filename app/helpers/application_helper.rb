@@ -2,10 +2,6 @@
 module ApplicationHelper
   include WillPaginate::ViewHelpers::ActionView
 
-  def library_system_name
-    h(LibraryGroup.site_config.name)
-  end
- 
   def form_icon(carrier_type)
     case carrier_type.name
     when 'print'
@@ -229,7 +225,7 @@ module ApplicationHelper
     unless model_name == 'page'
       string << t("activerecord.models.#{model_name.singularize}") + ' - '
     end
-    string << LibraryGroup.site_config.display_name.localize + ' - Next-L Enju Leaf'
+    string << LibraryGroup.system_name + ' - Next-L Enju Leaf'
     string.html_safe
   end
 

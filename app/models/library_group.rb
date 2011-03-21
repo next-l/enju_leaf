@@ -24,6 +24,10 @@ class LibraryGroup < ActiveRecord::Base
     end
   end
 
+  def self.system_name(locale = I18n.locale)
+    Sanitize.clean(LibraryGroup.site_config.display_name.localize(locale))
+  end
+
   def config?
     true if self == LibraryGroup.site_config
   end
