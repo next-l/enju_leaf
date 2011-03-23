@@ -1,6 +1,6 @@
 <div id="header_select_locale">
   <%- if request.get? -%>
-    <a href="#select_locale" id="select_locale_menu">Other languages</a>
+    <a href="#" id="select_locale_menu">Other languages</a>
     <div id="select_locale">
       <% @available_languages.each do |language| %>
         <%= link_to "#{language.native_name || language.name}", url_for(params.merge(:locale => language.iso_639_1)) %>
