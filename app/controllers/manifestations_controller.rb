@@ -579,10 +579,10 @@ class ManifestationsController < ApplicationController
       render :partial => 'manifestations/tag_list', :locals => {:manifestation => @manifestation}
     when 'show_index'
       render :partial => 'manifestations/show_index', :locals => {:manifestation => @manifestation}
-    when 'show_authors'
-      render :partial => 'manifestations/show_authors', :locals => {:manifestation => @manifestation}
-    when 'show_all_authors'
-      render :partial => 'manifestations/show_authors', :locals => {:manifestation => @manifestation}
+    when 'show_creators'
+      render :partial => 'manifestations/show_creators', :locals => {:manifestation => @manifestation}
+    when 'show_all_creators'
+      render :partial => 'manifestations/show_creators', :locals => {:manifestation => @manifestation}
     when 'pickup'
       render :partial => 'manifestations/pickup', :locals => {:manifestation => @manifestation}
     when 'screen_shot'

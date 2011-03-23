@@ -265,15 +265,15 @@ class ResourceImportFile < ActiveRecord::Base
 
     ResourceImportFile.transaction do
       if manifestation.nil?
-        authors = row['author'].to_s.split(';')
+        creators = row['creator'].to_s.split(';')
         publishers = row['publisher'].to_s.split(';')
-        author_patrons = Patron.import_patrons(authors)
+        creator_patrons = Patron.import_patrons(creators)
         publisher_patrons = Patron.import_patrons(publishers)
         #classification = Classification.first(:conditions => {:category => row['classification'].to_s.strip)
         subjects = import_subject(row)
         series_statement = import_series_statement(row)
 
-        work = self.class.import_work(title, author_patrons, row['series_statment_id'])
+        work = self.class.import_work(title, creator_patrons, row['series_statment_id'])
         work.subjects << subjects
         expression = self.class.import_expression(work)
 
@@ -282,7 +282,9 @@ class ResourceImportFile < ActiveRecord::Base
         end
         date_of_publication = Time.zone.parse(row['date_of_publication']) rescue nil
         # TODO: 小数点以下の表現
+        width = NKF.nkf('-eZ1', row['width'].to_s).gsub(/\D/, '').to_i
         height = NKF.nkf('-eZ1', row['height'].to_s).gsub(/\D/, '').to_i
+        depth = NKF.nkf('-eZ1', row['depth'].to_s).gsub(/\D/, '').to_i
         end_page = NKF.nkf('-eZ1', row['number_of_pages'].to_s).gsub(/\D/, '').to_i
         if end_page >= 1
           start_page = 1
@@ -304,14 +306,16 @@ class ResourceImportFile < ActiveRecord::Base
           :date_of_publication => date_of_publication,
           :volume_number_list => row['volume_number_list'],
           :edition => row['edition'],
-          :height => row['height'],
+          :width => width,
+          :depth => depth,
+          :height => height,
           :price => row['manifestation_price'],
           :description => row['description'],
           :note => row['note'],
           :series_statement => series_statement,
-          :height => height,
           :start_page => start_page,
           :end_page => end_page,
+          :access_address => row['access_addres'],
           :identifier => row['identifier']
         })
       end

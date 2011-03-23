@@ -1,19 +1,14 @@
 <div id="header_select_locale">
   <%- if request.get? -%>
-    <a href="#select_locale" id="select_locale_menu">Other languages</a>
+    <a href="#" id="select_locale_menu">Other languages</a>
     <div id="select_locale">
       <% @available_languages.each do |language| %>
-        <%= link_to "#{language.native_name || language.name}", url_for(params.merge(:locale => language.iso_639_1)) %>
+        <% if language.iso_639_1 == I18n.locale.to_s %>
+          <strong><%= language.native_name || language.name %></strong>
+        <% else %>
+          <%= link_to "#{language.native_name || language.name}", url_for(params.merge(:locale => language.iso_639_1)) %>
+        <% end %>
       <% end %>
     </div>
-    <script>
-      $("body").click(function(event){
-        $("#select_locale").hide();
-      });
-      $("#select_locale_menu").click(function(event) {
-        $("#select_locale").toggle();
-        event.stopPropagation();
-      });
-    </script>
   <%- end -%>
 </div>

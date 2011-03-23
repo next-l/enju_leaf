@@ -16,7 +16,11 @@
             <li><%= link_to t('activerecord.models.carrier_type_has_checkout_type'), carrier_type_has_checkout_types_path -%></li>
           </ul>
         </li>
-        <li><%= link_to t('activerecord.models.event_category'), event_categories_path -%></li>
+        <li><%= link_to t('activerecord.models.event_category'), event_categories_path -%>
+          <ul>
+            <li><%= link_to t('page.new', :model => t('activerecord.models.event_import_file')), new_event_import_file_path %></li>
+          </ul>
+        </li>
         <li><%= link_to t('activerecord.models.bookstore'), bookstores_path -%></li>
         <li><%= link_to t('activerecord.models.message_template'), message_templates_path -%></li>
         <li><%= link_to t('activerecord.models.message_request'), message_requests_path -%></li>

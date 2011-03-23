@@ -186,7 +186,7 @@ class Patron < ActiveRecord::Base
     end
   end
 
-  def author?(resource)
+  def creator?(resource)
     resource.creators.include?(self)
   end
 

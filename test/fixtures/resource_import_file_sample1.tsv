@@ -1,4 +1,4 @@
-"identifier"	"original_title"	"note"	"title_transcription"	"title_alternative"	"series_statement_identifier"	"series_statement_original_title"	"series_statement_title_transcription"	"author"	"publisher"	"date_of_publication"	"volume_number_list"	"edition"	"isbn"	"issn"	"manifestation_price"	"item_price"	"height"	"shelf"	"item_identifier"	"nbn"	"lccn"	"subject"
+"identifier"	"original_title"	"note"	"title_transcription"	"title_alternative"	"series_statement_identifier"	"series_statement_original_title"	"series_statement_title_transcription"	"creator"	"publisher"	"date_of_publication"	"volume_number_list"	"edition"	"isbn"	"issn"	"manifestation_price"	"item_price"	"height"	"shelf"	"item_identifier"	"nbn"	"lccn"	"subject"
 	"test1"	"identifierなし、item_identifierなし"						"test"	"test2"		"invalid"											
 	"test2"	"identifierなし、item_identifierあり"						"test;test1"											10101			
 101	"test3"	"identifierあり、item_identifierなし"						"test"	"test2"													

@@ -102,6 +102,11 @@ class PatronImportFile < ActiveRecord::Base
         patron.fax_number_1 = row['fax_number_1']
         patron.fax_number_2 = row['fax_number_2']
         patron.note = row['note']
+        patron.date_of_birth = Time.zone.parse(row['date_of_birth']) rescue nil
+        patron.date_of_death = Time.zone.parse(row['date_of_death']) rescue nil
+        patron.required_role = Role.find_by_name(row['required_role_name']) || Role.find('Librarian')
+        language = Language.find_by_name(row['language'])
+        patron.language = language if language.present?
         country = Country.find_by_name(row['country'])
         patron.country = country if country.present?
 
@@ -132,11 +137,13 @@ class PatronImportFile < ActiveRecord::Base
             user.set_auto_generated_password
           end
           user.operator = User.find('admin')
-          library = Library.first(:conditions => {:name => row['library_short_name'].to_s.strip}) || Library.web
-          user_group = UserGroup.first(:conditions => {:name => row['user_group_name']}) || UserGroup.first
+          library = Library.where(:name => row['library_short_name'].to_s.strip).first || Library.web
+          user_group = UserGroup.where(:name => row['user_group_name']).first || UserGroup.first
           user.library = library
-          role = Role.first(:conditions => {:name => row['role']}) || Role.find(2)
+          role = Role.where(:name => row['role']).first || Role.find('User')
           user.role = role
+          user.required_role = patron.required_role
+          user.locale = patron.language.try(:iso_639_1) || I18n.default_locale.to_s
           if user.save!
             import_result.user = user
           end
