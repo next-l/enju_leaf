@@ -184,7 +184,6 @@ class Manifestation < ActiveRecord::Base
   before_create :set_digest
   before_save :set_date_of_publication
   normalize_attributes :identifier, :date_of_publication, :isbn, :issn, :nbn, :lccn, :original_title
-  attr_accessor :pub_date
 
   def self.per_page
     10

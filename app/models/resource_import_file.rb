@@ -187,28 +187,30 @@ class ResourceImportFile < ActiveRecord::Base
   end
 
   def open_import_file
-    if RUBY_VERSION > '1.9'
-      if configatron.uploaded_file.storage == :s3
-        file = CSV.open(open(self.resource_import.url).path, :col_sep => "\t")
-        header = file.first
-        rows = CSV.open(open(self.resource_import.url).path, :headers => header, :col_sep => "\t")
-      else
-        file = CSV.open(self.resource_import.path, :col_sep => "\t")
-        header = file.first
-        rows = CSV.open(self.resource_import.path, :headers => header, :col_sep => "\t")
-      end
+    tempfile = Tempfile.new('patron_import_file')
+    if configatron.uploaded_file.storage == :s3
+      uploaded_file_path = open(self.resource_import.url).path
     else
-      if configatron.uploaded_file.storage == :s3
-        file = FasterCSV.open(open(self.resource_import.url).path, :col_sep => "\t")
-        header = file.first
-        rows = FasterCSV.open(open(self.resource_import.url).path, :headers => header, :col_sep => "\t")
-      else
-        file = FasterCSV.open(self.resource_import.path, :col_sep => "\t")
-        header = file.first
-        rows = FasterCSV.open(self.resource_import.path, :headers => header, :col_sep => "\t")
-      end
+      uploaded_file_path = self.resource_import.path
+    end
+    open(uploaded_file_path){|f|
+      f.each{|line|
+        tempfile.puts(NKF.nkf('-w -Lu', line))
+      }
+    }
+
+    tempfile.open
+    if RUBY_VERSION > '1.9'
+      file = CSV.open(tempfile, :col_sep => "\t")
+      header = file.first
+      rows = CSV.open(tempfile, :headers => header, :col_sep => "\t")
+    else
+      file = FasterCSV.open(tempfile, :col_sep => "\t")
+      header = file.first
+      rows = FasterCSV.open(tempfile, :headers => header, :col_sep => "\t")
     end
     ResourceImportResult.create(:resource_import_file => self, :body => header.join("\t"))
+    tempfile.close
     file.close
     rows
   end
@@ -280,7 +282,6 @@ class ResourceImportFile < ActiveRecord::Base
         if ISBN_Tools.is_valid?(row['isbn'].to_s.strip)
           isbn = ISBN_Tools.cleanup(row['isbn'])
         end
-        date_of_publication = Time.zone.parse(row['date_of_publication']) rescue nil
         # TODO: 小数点以下の表現
         width = NKF.nkf('-eZ1', row['width'].to_s).gsub(/\D/, '').to_i
         height = NKF.nkf('-eZ1', row['height'].to_s).gsub(/\D/, '').to_i
@@ -303,7 +304,7 @@ class ResourceImportFile < ActiveRecord::Base
           :issn => row['issn'],
           :lccn => row['lccn'],
           :nbn => row['nbn'],
-          :date_of_publication => date_of_publication,
+          :pub_date => row['pub_date'],
           :volume_number_list => row['volume_number_list'],
           :edition => row['edition'],
           :width => width,

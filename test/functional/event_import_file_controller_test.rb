@@ -1,3 +1,4 @@
+# -*- encoding: utf-8 -*-
 require 'test_helper'
 
 class EventImportFilesControllerTest < ActionController::TestCase
@@ -66,13 +67,32 @@ class EventImportFilesControllerTest < ActionController::TestCase
     old_import_results_count = EventImportResult.count
     sign_in users(:librarian1)
     assert_difference('EventImportFile.count') do
-      post :create, :event_import_file => {:event_import => fixture_file_upload("event_import_file_sample1.tsv", 'text/csv') }
+      post :create, :event_import_file => {:event_import => fixture_file_upload("../../examples/event_import_file_sample1.tsv", 'text/csv') }
     end
 
     assigns(:event_import_file).import_start
     assert_equal old_event_count + 2, Event.count
     assert_equal old_import_results_count + 3, EventImportResult.count
     assert_equal 'librarian1', assigns(:event_import_file).user.username
+    assert_redirected_to event_import_file_url(assigns(:event_import_file))
+    #assert assigns(:event_import_file).file_hash
+  end
+
+  def test_librarian_should_create_event_import_file_written_in_shift_jis
+    old_event_count = Event.count
+    old_import_results_count = EventImportResult.count
+    sign_in users(:librarian1)
+    assert_difference('EventImportFile.count') do
+      post :create, :event_import_file => {:event_import => fixture_file_upload("../../examples/event_import_file_sample2.tsv", 'text/csv') }
+    end
+
+    assigns(:event_import_file).import_start
+    assert_equal Event.order('id DESC').first.name, '日本語の催し物2'
+    assert_equal old_event_count + 2, Event.count
+    assert_equal old_import_results_count + 3, EventImportResult.count
+    assert_equal 'librarian1', assigns(:event_import_file).user.username
+    assert_equal Time.zone.parse('2011-03-26').beginning_of_day, Event.order('id DESC').first.start_at
+    assert_equal Time.zone.parse('2011-03-27').end_of_day.to_s, Event.order('id DESC').first.end_at.to_s
     assert_redirected_to event_import_file_url(assigns(:event_import_file))
     #assert assigns(:event_import_file).file_hash
   end

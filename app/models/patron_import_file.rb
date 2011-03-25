@@ -48,28 +48,30 @@ class PatronImportFile < ActiveRecord::Base
     self.reload
     num = {:success => 0, :failure => 0, :activated => 0, :deleted => 0}
     row_num = 2
-    if RUBY_VERSION > '1.9'
-      if configatron.uploaded_file.storage == :s3
-        file = CSV.open(open(self.patron_import.url).path, :col_sep => "\t")
-        header = file.first
-        rows = CSV.open(open(self.patron_import.url).path, :headers => header, :col_sep => "\t")
-
-      else
-        file = CSV.open(self.patron_import.path, :col_sep => "\t")
-        header = file.first
-        rows = CSV.open(self.patron_import.path, :headers => header, :col_sep => "\t")
-      end
+    tempfile = Tempfile.new('patron_import_file')
+    if configatron.uploaded_file.storage == :s3
+      uploaded_file_path = open(self.patron_import.url).path
     else
-      if configatron.uploaded_file.storage == :s3
-        file = FasterCSV.open(open(self.patron_import.url).path, :col_sep => "\t")
-        header = file.first
-        rows = FasterCSV.open(open(self.patron_import.url).path, :headers => header, :col_sep => "\t")
-      else
-        file = FasterCSV.open(self.patron_import.path, :col_sep => "\t")
-        header = file.first
-        rows = FasterCSV.open(self.patron_import.path, :headers => header, :col_sep => "\t")
-      end
+      uploaded_file_path = self.patron_import.path
     end
+    open(uploaded_file_path){|f|
+      f.each{|line|
+        tempfile.puts(NKF.nkf('-w -Lu', line))
+      }
+    }
+
+    tempfile.open
+    if RUBY_VERSION > '1.9'
+      file = CSV.open(tempfile, "r:utf-8", :col_sep => "\t")
+      header = file.first
+      rows = CSV.open(tempfile, "r:utf-8", :headers => header, :col_sep => "\t")
+    else
+      file = FasterCSV.open(tempfile, "r:utf-8", :col_sep => "\t")
+      header = file.first
+      rows = FasterCSV.open(tempfile, "r:utf-8", :headers => header, :col_sep => "\t")
+    end
+    tempfile.close
+
     PatronImportResult.create!(:patron_import_file => self, :body => header.join("\t"))
     file.close
     field = rows.first
@@ -91,7 +93,6 @@ class PatronImportFile < ActiveRecord::Base
 
         patron.full_name = row['full_name']
         patron.full_name_transcription = row['full_name_transcription']
-        patron.full_name = row['last_name'] + row['middle_name'] + row['first_name'] if patron.full_name.blank?
 
         patron.address_1 = row['address_1']
         patron.address_2 = row['address_2']
@@ -102,8 +103,8 @@ class PatronImportFile < ActiveRecord::Base
         patron.fax_number_1 = row['fax_number_1']
         patron.fax_number_2 = row['fax_number_2']
         patron.note = row['note']
-        patron.date_of_birth = Time.zone.parse(row['date_of_birth']) rescue nil
-        patron.date_of_death = Time.zone.parse(row['date_of_death']) rescue nil
+        patron.birth_date = row['birth_date']
+        patron.death_date = row['death_date']
         patron.required_role = Role.find_by_name(row['required_role_name']) || Role.find('Librarian')
         language = Language.find_by_name(row['language'])
         patron.language = language if language.present?

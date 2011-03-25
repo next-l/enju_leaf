@@ -37,7 +37,6 @@ class Patron < ActiveRecord::Base
 
   has_paper_trail
   attr_accessor :user_username
-  attr_accessor :birth_date, :death_date
 
   searchable do
     text :name, :place, :address_1, :address_2, :other_designation, :note
@@ -76,9 +75,9 @@ class Patron < ActiveRecord::Base
   def set_full_name
     if self.full_name.blank?
       if self.last_name.to_s.strip and self.first_name.to_s.strip and configatron.family_name_first == true
-        self.full_name = [last_name, middle_name, first_name].compact.join(", ").to_s.strip
+        self.full_name = [last_name, middle_name, first_name].compact.join(" ").to_s.strip
       else
-        self.full_name = [first_name, middle_name, middle_name].compact.join(" ").to_s.strip
+        self.full_name = [first_name, last_name, middle_name].compact.join(" ").to_s.strip
       end
     end
     if self.full_name_transcription.blank?

@@ -83,18 +83,19 @@
 	}
 
 	function disableFormElements(form) {
-		form.find('input[data-disable-with]').each(function() {
-			var input = $(this);
-			input.data('ujs:enable-with', input.val())
-				.val(input.data('disable-with'))
-				.attr('disabled', 'disabled');
+		form.find('input[data-disable-with], button[data-disable-with]').each(function() {
+			var element = $(this), method = element.is('button') ? 'html' : 'val';
+			element.data('ujs:enable-with', element[method]());
+			element[method](element.data('disable-with'));
+			element.attr('disabled', 'disabled');
 		});
 	}
 
 	function enableFormElements(form) {
-		form.find('input[data-disable-with]').each(function() {
-			var input = $(this);
-			input.val(input.data('ujs:enable-with')).removeAttr('disabled');
+		form.find('input[data-disable-with]:disabled, button[data-disable-with]:disabled').each(function() {
+			var element = $(this), method = element.is('button') ? 'html' : 'val';
+			if (element.data('ujs:enable-with')) element[method](element.data('ujs:enable-with'));
+			element.removeAttr('disabled');
 		});
 	}
 
@@ -140,7 +141,7 @@
 		}
 	});
 
-	$('form input[type=submit], form button[type=submit], form button:not([type])').live('click.rails', function() {
+	$('form input[type=submit], form input[type=image], form button[type=submit], form button:not([type])').live('click.rails', function() {
 		var button = $(this);
 		if (!allowAction(button)) return false;
 		// register the pressed submit button

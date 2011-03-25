@@ -14,8 +14,6 @@ class Event < ActiveRecord::Base
   has_many :patrons, :through => :participates
   has_one :event_import_result
 
-  #acts_as_taggable_on :tags
-  #acts_as_soft_deletable
   has_event_calendar
 
   searchable do
@@ -31,6 +29,7 @@ class Event < ActiveRecord::Base
   validates_associated :library, :event_category
   validate :check_date
   before_validation :set_date
+  before_validation :set_display_name, :on => :create
 
   def self.per_page
     10
@@ -63,4 +62,7 @@ class Event < ActiveRecord::Base
     end
   end
 
+  def set_display_name
+    self.display_name = self.name if self.display_name.blank?
+  end
 end

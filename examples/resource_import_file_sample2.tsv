@@ -1,0 +1,16 @@
+"identifier"	"original_title"	"note"	"title_transcription"	"title_alternative"	"series_statement_identifier"	"series_statement_original_title"	"series_statement_title_transcription"	"creator"	"publisher"	"pub_date"	"volume_number_list"	"edition"	"isbn"	"issn"	"manifestation_price"	"item_price"	"height"	"shelf"	"item_identifier"	"nbn"	"lccn"	"subject"
+	"test1"	"identifierなし、item_identifierなし"						"test"	"test2"		"invalid"											
+	"test2"	"identifierなし、item_identifierあり"						"test;test1"											10101			
+101	"test3"	"identifierあり、item_identifierなし"						"test"	"test2"													
+102	"test4"	"identifierあり、item_identifierあり"						"test1"	"test"										10102			
+101	"“test 5”"	"identifier重複、item_identifier非重複"						"test1;test2"	"test"										10103			
+102	"test6"	"identifier重複、item_identifier重複"						"test"	"test3"										10101			
+	"test7"	"ISBN不正、タイトルあり、所蔵情報あり"											9000000000000					"first_shelf"	10104			
+		"ISBN不正、タイトルなし"											22222222						10105			
+	"test8"	"ISBNなし、所蔵情報あり"						"test"	"test4;test5"						1000	0		"first_shelf"	11111			
+	"test9"	"item_identifier重複"																	11111			
+		"ISBN重複、item_identifierなし"											4798002062									
+		"ISBN重複、item_identifier非重複"											4798002062						11112			
+		"ISBN重複、item_identifier重複"											4798002062						11111			
+		"ISBN重複（13桁）、item_identifierなし"											"978-4798002064"									
+103	"ダブル""クォート""を含む資料"	"ダブルクォートを含む資料"																				
