@@ -270,7 +270,7 @@ class UsersController < ApplicationController
     @roles = Role.all
     @libraries = Library.all_cache
     @languages = Language.all_cache
-    if @user.active?
+    if @user.active_for_authentication?
       @user.locked = '0'
     else
       @user.locked = '1'

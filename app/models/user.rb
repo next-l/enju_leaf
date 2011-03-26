@@ -85,7 +85,7 @@ class User < ActiveRecord::Base
     time :created_at
     time :updated_at
     boolean :active do
-      active?
+      active_for_authentication?
     end
     time :confirmed_at
   end
@@ -128,9 +128,9 @@ class User < ActiveRecord::Base
   end
 
   def set_lock_information
-    if self.locked == '1' and self.active?
+    if self.locked == '1' and self.active_for_authentication?
       lock_access!
-    elsif self.locked == '0' and !self.active?
+    elsif self.locked == '0' and !self.active_for_authentication?
       unlock_access!
     end
   end
@@ -152,7 +152,7 @@ class User < ActiveRecord::Base
     return if self.has_role?('Administrator')
     if expired_at
       if expired_at.beginning_of_day < Time.zone.now.beginning_of_day
-        lock_access! if self.active?
+        lock_access! if self.active_for_authentication?
       end
     end
   end
@@ -193,7 +193,7 @@ class User < ActiveRecord::Base
 
   def self.lock_expired_users
     User.find_each do |user|
-      user.lock_access! if user.expired? and user.active?
+      user.lock_access! if user.expired? and user.active_for_authentication?
     end
   end
 

@@ -179,11 +179,13 @@ class Manifestation < ActiveRecord::Base
   validates_uniqueness_of :identifier, :allow_blank => true
   validates_format_of :access_address, :with => URI::regexp(%w(http https)) , :allow_blank => true
   validates_format_of :pub_date, :with => /^\d+(-\d{0,2}){0,2}$/, :allow_blank => true
-  validate :check_isbn
+  validate :check_isbn, :unless => :during_import
+  before_validation :set_wrong_isbn, :if => :during_import
   before_validation :convert_isbn
   before_create :set_digest
   before_save :set_date_of_publication
   normalize_attributes :identifier, :date_of_publication, :isbn, :issn, :nbn, :lccn, :original_title
+  attr_accessor :during_import
 
   def self.per_page
     10
@@ -191,14 +193,18 @@ class Manifestation < ActiveRecord::Base
 
   def check_isbn
     if isbn.present?
-      errors.add(:isbn) unless ISBN_Tools.is_valid?(isbn)
-      #set_wrong_isbn
+      unless ISBN_Tools.is_valid?(isbn)
+        errors.add(:isbn)
+      end
     end
   end
 
   def set_wrong_isbn
     if isbn.present?
-      wrong_isbn = isbn unless ISBN_Tools.is_valid?(isbn)
+      unless ISBN_Tools.is_valid?(isbn)
+        self.wrong_isbn
+        self.isbn = nil
+      end
     end
   end
 

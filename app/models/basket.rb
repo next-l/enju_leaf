@@ -16,7 +16,7 @@ class Basket < ActiveRecord::Base
 
   def check_suspended
     if self.user
-      errors[:base] << I18n.t('basket.this_account_is_suspended') unless self.user.active?
+      errors[:base] << I18n.t('basket.this_account_is_suspended') unless self.user.active_for_authentication?
     end
   end
   

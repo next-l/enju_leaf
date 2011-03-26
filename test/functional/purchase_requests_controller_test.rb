@@ -111,7 +111,7 @@ class PurchaseRequestsControllerTest < ActionController::TestCase
     assert_redirected_to user_purchase_request_url(users(:user1).username, assigns(:purchase_request))
   end
 
-  def test_librarian_should_create_purchase_request_without_user_id
+  def test_librarian_should_create_purchase_request_with_other_user_id
     sign_in users(:librarian1)
     assert_difference('PurchaseRequest.count') do
       post :create, :purchase_request => {:title => 'test', :user_id => users(:user1).id}

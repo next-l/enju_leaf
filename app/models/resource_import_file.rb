@@ -62,7 +62,7 @@ class ResourceImportFile < ActiveRecord::Base
       manifestation = fetch(row)
       import_result.manifestation = manifestation
 
-      begin
+      #begin
         if manifestation and item_identifier.present?
           import_result.item = create_item(row, manifestation)
           Rails.logger.info("resource registration succeeded: column #{row_num}"); next
@@ -75,9 +75,9 @@ class ResourceImportFile < ActiveRecord::Base
             num[:failure] += 1
           end
         end
-      rescue Exception => e
-        Rails.logger.info("resource registration failed: column #{row_num}: #{e.message}")
-      end
+      #rescue Exception => e
+      #  Rails.logger.info("resource registration failed: column #{row_num}: #{e.message}")
+      #end
 
       import_result.save!
       if row_num % 50 == 0
@@ -110,11 +110,11 @@ class ResourceImportFile < ActiveRecord::Base
 
   def self.import_manifestation(expression, patrons, options = {})
     manifestation = expression
-    manifestation.update_attributes!(options)
+    manifestation.update_attributes!(options.merge(:during_import => true))
     manifestation.publishers << patrons
     manifestation
-  rescue ActiveRecord::RecordInvalid
-    nil
+  #rescue ActiveRecord::RecordInvalid
+  #  nil
   end
 
   def self.import_item(manifestation, options)
@@ -124,7 +124,7 @@ class ResourceImportFile < ActiveRecord::Base
       manifestation.items << item
       item.patrons << options[:shelf].library.patron
     #end
-    return item
+    item
   end
 
   def import_marc(marc_type)
@@ -266,60 +266,58 @@ class ResourceImportFile < ActiveRecord::Base
     return nil if title[:original_title].blank?
 
     ResourceImportFile.transaction do
-      if manifestation.nil?
-        creators = row['creator'].to_s.split(';')
-        publishers = row['publisher'].to_s.split(';')
-        creator_patrons = Patron.import_patrons(creators)
-        publisher_patrons = Patron.import_patrons(publishers)
-        #classification = Classification.first(:conditions => {:category => row['classification'].to_s.strip)
-        subjects = import_subject(row)
-        series_statement = import_series_statement(row)
+      creators = row['creator'].to_s.split(';')
+      publishers = row['publisher'].to_s.split(';')
+      creator_patrons = Patron.import_patrons(creators)
+      publisher_patrons = Patron.import_patrons(publishers)
+      #classification = Classification.first(:conditions => {:category => row['classification'].to_s.strip)
+      subjects = import_subject(row)
+      series_statement = import_series_statement(row)
 
-        work = self.class.import_work(title, creator_patrons, row['series_statment_id'])
-        work.subjects << subjects
-        expression = self.class.import_expression(work)
+      work = self.class.import_work(title, creator_patrons, row['series_statment_id'])
+      work.subjects << subjects
+      expression = self.class.import_expression(work)
 
-        if ISBN_Tools.is_valid?(row['isbn'].to_s.strip)
-          isbn = ISBN_Tools.cleanup(row['isbn'])
-        end
-        # TODO: 小数点以下の表現
-        width = NKF.nkf('-eZ1', row['width'].to_s).gsub(/\D/, '').to_i
-        height = NKF.nkf('-eZ1', row['height'].to_s).gsub(/\D/, '').to_i
-        depth = NKF.nkf('-eZ1', row['depth'].to_s).gsub(/\D/, '').to_i
-        end_page = NKF.nkf('-eZ1', row['number_of_pages'].to_s).gsub(/\D/, '').to_i
-        if end_page >= 1
-          start_page = 1
-        else
-          start_page = nil
-          end_page = nil
-        end
-
-        manifestation = self.class.import_manifestation(expression, publisher_patrons, {
-          :original_title => title[:original_title],
-          :title_transcription => title[:title_transcription],
-          :title_alternative => title[:title_alternative],
-          :title_alternative_transcription => title[:title_alternative_transcription],
-          :isbn => isbn,
-          :wrong_isbn => row['wrong_isbn'],
-          :issn => row['issn'],
-          :lccn => row['lccn'],
-          :nbn => row['nbn'],
-          :pub_date => row['pub_date'],
-          :volume_number_list => row['volume_number_list'],
-          :edition => row['edition'],
-          :width => width,
-          :depth => depth,
-          :height => height,
-          :price => row['manifestation_price'],
-          :description => row['description'],
-          :note => row['note'],
-          :series_statement => series_statement,
-          :start_page => start_page,
-          :end_page => end_page,
-          :access_address => row['access_addres'],
-          :identifier => row['identifier']
-        })
+      if ISBN_Tools.is_valid?(row['isbn'].to_s.strip)
+        isbn = ISBN_Tools.cleanup(row['isbn'])
       end
+      # TODO: 小数点以下の表現
+      width = NKF.nkf('-eZ1', row['width'].to_s).gsub(/\D/, '').to_i
+      height = NKF.nkf('-eZ1', row['height'].to_s).gsub(/\D/, '').to_i
+      depth = NKF.nkf('-eZ1', row['depth'].to_s).gsub(/\D/, '').to_i
+      end_page = NKF.nkf('-eZ1', row['number_of_pages'].to_s).gsub(/\D/, '').to_i
+      if end_page >= 1
+        start_page = 1
+      else
+        start_page = nil
+        end_page = nil
+      end
+
+      manifestation = self.class.import_manifestation(expression, publisher_patrons, {
+        :original_title => title[:original_title],
+        :title_transcription => title[:title_transcription],
+        :title_alternative => title[:title_alternative],
+        :title_alternative_transcription => title[:title_alternative_transcription],
+        :isbn => isbn,
+        :wrong_isbn => row['wrong_isbn'],
+        :issn => row['issn'],
+        :lccn => row['lccn'],
+        :nbn => row['nbn'],
+        :pub_date => row['pub_date'],
+        :volume_number_list => row['volume_number_list'],
+        :edition => row['edition'],
+        :width => width,
+        :depth => depth,
+        :height => height,
+        :price => row['manifestation_price'],
+        :description => row['description'],
+        :note => row['note'],
+        :series_statement => series_statement,
+        :start_page => start_page,
+        :end_page => end_page,
+        :access_address => row['access_addres'],
+        :identifier => row['identifier']
+      })
     end
     manifestation
   end
