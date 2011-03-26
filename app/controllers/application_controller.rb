@@ -3,13 +3,11 @@ class ApplicationController < ActionController::Base
   protect_from_forgery
 
   include SslRequirement
-  #include Oink::MemoryUsageLogger
-  #include Oink::InstanceTypeCounter
 
   rescue_from CanCan::AccessDenied, :with => :render_403
+  rescue_from ActiveRecord::RecordNotFound, :with => :render_404
   rescue_from Errno::ECONNREFUSED, :with => :render_500
   rescue_from RSolr::RequestError, :with => :render_500
-  rescue_from ActiveRecord::RecordNotFound, :with => :render_404
 
   before_filter :get_library_group, :set_locale, :set_available_languages, :prepare_for_mobile
   helper_method :mobile_device?
@@ -32,21 +30,21 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  def render_500
-    return if performed?
-    #flash[:notice] = t('page.connection_failed')
-    respond_to do |format|
-      format.html {render :file => "#{Rails.root.to_s}/public/500.html", :layout => false, :status => 500}
-      format.mobile {render :file => "#{Rails.root.to_s}/public/500.html", :layout => false, :status => 500}
-    end
-  end
-
   def render_404
     return if performed?
     respond_to do |format|
       format.html {render :template => 'page/404', :status => 404}
       format.mobile {render :template => 'page/404', :status => 404}
       format.xml {render :template => 'page/404', :status => 404}
+    end
+  end
+
+  def render_500
+    return if performed?
+    #flash[:notice] = t('page.connection_failed')
+    respond_to do |format|
+      format.html {render :file => "#{Rails.root.to_s}/public/500.html", :layout => false, :status => 500}
+      format.mobile {render :file => "#{Rails.root.to_s}/public/500.html", :layout => false, :status => 500}
     end
   end
 
@@ -299,7 +297,7 @@ class ApplicationController < ActionController::Base
     unless params[:mode] == "add"
       expression = @expression
       patron = @patron
-      resource = @resource
+      manifestation = @manifestation
       reservable = @reservable
       carrier_type = params[:carrier_type]
       library = params[:library]
@@ -310,7 +308,7 @@ class ApplicationController < ActionController::Base
 
       search.build do
         with(:publisher_ids).equal_to patron.id if patron
-        with(:original_resource_ids).equal_to resource.id if resource
+        with(:original_manifestation_ids).equal_to manifestation.id if manifestation
         with(:reservable).equal_to reservable unless reservable.nil?
         unless carrier_type.blank?
           with(:carrier_type).equal_to carrier_type

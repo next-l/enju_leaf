@@ -43,6 +43,7 @@ module EnjuLeaf
     #  :email_prefix => "[Whatever] ",
     #  :sender_address => %{"notifier" <notifier@example.com>},
     #  :exception_recipients => %w{exceptions@example.com}
+    #config.middleware.use "Oink::Middleware"
   end
 end
 

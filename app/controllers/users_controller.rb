@@ -108,7 +108,6 @@ class UsersController < ApplicationController
       return
     end
     prepare_options
-
   end
 
   def update

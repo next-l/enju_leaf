@@ -73,7 +73,7 @@ gem 'sanitize'
 gem 'barby'
 gem 'prawnto'
 
-#gem 'oink'
+#gem 'oink', '>=0.9.1'
 gem 'parallel_tests', :group => :development
 
 group :development, :test do

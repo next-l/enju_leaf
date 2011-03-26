@@ -39,7 +39,7 @@ class RealizesController < ApplicationController
       redirect_to expression_patrons_url(@expression)
       return
     elsif @patron and @expression.blank?
-      redirect_to patron_resources_url(@patron)
+      redirect_to patron_expressions_url(@patron)
       return
     else
       @realize = Realize.new(:expression => @expression, :patron => @patron)
