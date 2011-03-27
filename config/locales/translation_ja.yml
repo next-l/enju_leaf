@@ -538,6 +538,7 @@ ja:
         end_at: 終了時刻
         deleted_at: 削除時刻
         all_day: 終日
+        display_name: 表示名
       embody:
         position: 位置
       item_has_use_restriction:

@@ -47,7 +47,7 @@
       <%= event.event_category.display_name.localize -%>
     </td>
     <td>
-      <%= link_to event.name.localize, event -%>
+      <%= link_to event.display_name.localize, event -%>
       <br />
       <%= l(event.start_at, :format => :short) -%>
       -

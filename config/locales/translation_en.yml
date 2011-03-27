@@ -538,6 +538,7 @@ en:
         end_at: End at
         deleted_at: Deleted at
         all_day: All day
+        display_name: Display name
       embody:
         position: Position
       item_has_use_restriction:

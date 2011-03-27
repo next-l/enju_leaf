@@ -228,7 +228,11 @@ class Manifestation < ActiveRecord::Base
       begin
         date = Time.zone.parse("#{pub_date}-01")
       rescue ArgumentError
-        date = Time.zone.parse("#{pub_date}-01-01")
+        begin
+          date = Time.zone.parse("#{pub_date}-01-01")
+        rescue ArgumentError
+          nil
+        end
       end
     end
     self.date_of_publication = date
