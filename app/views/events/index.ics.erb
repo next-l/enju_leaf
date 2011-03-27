@@ -3,7 +3,7 @@ events = @events
 RiCal.Calendar do
   events.each do |event|
     event do
-      description event.display_name
+      description event.display_name.localize
       dtstart     event.start_at
       dtend       event.end_at
       location    event.library.address
