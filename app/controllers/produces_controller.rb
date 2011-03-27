@@ -47,9 +47,7 @@ class ProducesController < ApplicationController
       redirect_to manifestation_patrons_url(@manifestation)
       return
     else
-      @produce = Produce.new
-      @produce.patron = @patron
-      @produce.manifestation = @manifestation
+      @produce = Produce.new(:manifestation => @manifestation, :patron => @patron)
     end
   end
 
