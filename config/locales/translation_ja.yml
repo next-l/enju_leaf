@@ -589,6 +589,7 @@ ja:
         classification_number: 分類番号
         identifier: 識別子
         date_of_publication: 出版日
+        pub_date: 出版日
         deleted_at: 削除時刻
         access_address: アクセスアドレス
         start_page: 最初のページ
@@ -749,6 +750,7 @@ ja:
         position: 位置
         user_group_id: 利用者グループ
         checkout_type_id: 貸出種別
+        current_checkout_count: 現在の貸出数
       carrier_type_has_checkout_type:
         note: 注記
         position: 位置

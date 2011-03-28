@@ -43,7 +43,7 @@
     <%= f.select(:frequency_id, @frequencies.collect{|frequency| [frequency.display_name.localize, frequency.id]}) -%>
   </p>
   <p>
-    <%= f.label :date_of_publication -%>
+    <%= f.label :pub_date -%>
     <%= f.text_field :pub_date, :class => 'date_field' -%>
   </p>
 

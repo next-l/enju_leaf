@@ -14,8 +14,8 @@
     <%- if manifestation.publishers.readable_by(current_user).exists? -%>
       <%= t('patron.publisher') -%>: <%= raw patrons_list(manifestation.publishers.readable_by(current_user)) -%>
     <% end %>
-    <%- if manifestation.date_of_publication -%>
-      (<%= manifestation.date_of_publication.strftime('%Y') -%>)
+    <%- if manifestation.pub_date.present? -%>
+      (<%= t('activerecord.attributes.manifestation.pub_date') %>: <%= manifestation.pub_date -%>)
     <%- end -%>
     <%- unless manifestation.access_address.blank? -%>
       <br />

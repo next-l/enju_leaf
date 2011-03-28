@@ -589,6 +589,7 @@ en:
         classification_number: Classification number
         identifier: Manifestation identifier
         date_of_publication: Date of publication
+        pub_date: Date of publication
         deleted_at: Deleted at
         access_address: Access address
         start_page: Start page
@@ -749,6 +750,7 @@ en:
         position: Position
         user_group_id: User group
         checkout_type_id: Checkout type
+        current_checkout_count: Current checkout count
       carrier_type_has_checkout_type:
         note: Note
         position: Position

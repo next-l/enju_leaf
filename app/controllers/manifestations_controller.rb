@@ -136,7 +136,8 @@ class ManifestationsController < ApplicationController
         :volume_number_list,
         :issue_number_list,
         :serial_number_list,
-        :date_of_publication
+        :date_of_publication,
+        :pub_date
       ] if params[:format] == 'html' or params[:format].nil?
       all_result = search.execute
       @count[:query_result] = all_result.total

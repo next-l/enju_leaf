@@ -46,6 +46,11 @@
   <%= localized_boolean(@user_group_has_checkout_type.set_due_date_before_closing_day) -%>
 </p>
 
+<p>
+  <strong><%= t('activerecord.attributes.user_group_has_checkout_type.current_checkout_count') -%>:</strong>
+  <%= @user_group_has_checkout_type.current_checkout_count.to_i -%>
+</p>
+
 </div>
 </div>
 

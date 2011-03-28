@@ -9,8 +9,8 @@
         <%= raw patrons_list(manifestation.creators.readable_by(current_user)) -%>
         <%= raw patrons_list(manifestation.contributors.readable_by(current_user)) -%>
         <%= raw patrons_list(manifestation.publishers.readable_by(current_user)) -%>
-        <%- if manifestation.date_of_publication -%>
-          (<%= manifestation.date_of_publication.strftime('%Y') -%>)
+        <%- if manifestation.pub_date.present? -%>
+          (<%= manifestation.pub_date -%>)
         <%- end -%>
       </li>
     <%- end -%>
