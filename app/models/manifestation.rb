@@ -223,7 +223,7 @@ class Manifestation < ActiveRecord::Base
   def set_date_of_publication
     return if pub_date.blank?
     begin
-      date = Time.zone.parse(pub_date)
+      date = Time.zone.parse("#{pub_date}")
     rescue ArgumentError
       begin
         date = Time.zone.parse("#{pub_date}-01")

@@ -8,6 +8,6 @@
     <%- end -%>
   <%- end -%>
   <%- if user_signed_in? -%>
-    (<a href="#" onclick="$.ajax({data:'authenticity_token=' + encodeURIComponent('<%= form_authenticity_token %>'), success:function(request){$('#tag_list').html(request);}, type:'get', url:'/manifestations/<%= manifestation.id %>/edit?mode=tag_edit'}); return false;"><%= t('page.edit') %></a>)
+    (<a href="#" onclick="$.ajax({data:'authenticity_token=' + encodeURIComponent('<%= form_authenticity_token %>'), success:function(request){$('#tag_list').html(request);}, type:'get', url:'<%= edit_manifestation_path(manifestation, :mode => 'tag_edit') %>'}); return false;"><%= t('page.edit') %></a>)
   <%- end -%>
 </div>

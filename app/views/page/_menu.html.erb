@@ -80,7 +80,7 @@
   <div id="event_menu" class="hidden">
     <%- if @library_group.real_libraries.first -%>
       <ul>
-        <li><%= link_to t('page.calendar'), '/calendar' -%></li>
+        <li><%= link_to t('page.calendar'), calendar_path -%></li>
         <li><%= link_to t('event.all'), events_path -%></li>
         <%- @library_group.real_libraries.each do |library| -%>
           <li><%= link_to library.display_name.localize, library_events_path(library) -%></li>

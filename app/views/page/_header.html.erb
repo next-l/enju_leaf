@@ -1,9 +1,7 @@
 <div class="header_and_footer">
   <div id="header_left">
     <div id="library_system_name">
-      <% cache("library_group_header_#{@locale.to_s}") do %>
-        <h1 class="resource_title"><a href="/" title="<%= LibraryGroup.system_name(@locale) -%>"><%= LibraryGroup.system_name(@locale) %></a></h1>
-      <% end %>
+      <h1 class="resource_title"><%= link_to LibraryGroup.system_name(@locale), root_path, :title => LibraryGroup.system_name(@locale) %></a></h1>
     </div>
     <div id="header_micro_advertisement"></div>
   </div>

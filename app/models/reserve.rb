@@ -78,7 +78,7 @@ class Reserve < ActiveRecord::Base
   def set_expired_at
     if expire_date.present?
       begin
-        date = Time.zone.parse(expire_date)
+        date = Time.zone.parse("#{expire_date}")
       rescue ArgumentError
         # TODO: 月日の省略時の既定値を決める
         begin

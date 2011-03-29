@@ -24,8 +24,8 @@
         <%= f.hidden_field :checkout_icalendar_token -%>
       <%- end -%>
       <br />
-      <input onclick="$.ajax({data:'authenticity_token=' + encodeURIComponent('<%= form_authenticity_token %>'), success:function(request){$('#feed_token').html(request);}, type:'get', url:'/users/<%= @user.username %>/edit?mode=feed_token'});" type="button" value="<%= t('page.reset') %>" />
-      <input onclick="$.ajax({data:'authenticity_token=' + encodeURIComponent('<%= form_authenticity_token %>'), success:function(request){$('#feed_token').html(request);}, type:'get', url:'/users/<%= @user.username %>/edit?disable=true&amp;mode=feed_token'});" type="button" value="<%= t('page.delete') %>" />
+      <input onclick="$.ajax({data:'authenticity_token=' + encodeURIComponent('<%= form_authenticity_token %>'), success:function(request){$('#feed_token').html(request);}, type:'get', url:'<%= edit_user_path(@user, :mode => 'feed_token') %>'});" type="button" value="<%= t('page.reset') %>" />
+      <input onclick="$.ajax({data:'authenticity_token=' + encodeURIComponent('<%= form_authenticity_token %>'), success:function(request){$('#feed_token').html(request);}, type:'get', url:'<%= edit_user_path(@user, :disable => true, :mode => 'feed_token') %>'});" type="button" value="<%= t('page.delete') %>" />
     </div>
     <br />
   </p>
