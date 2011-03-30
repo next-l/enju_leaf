@@ -34,7 +34,7 @@ class Library < ActiveRecord::Base
   #before_save :set_calil_neighborhood_library
   after_validation :geocode
   after_create :create_shelf
-  after_create :clear_all_cache
+  after_save :clear_all_cache
   after_destroy :clear_all_cache
 
   def self.per_page
