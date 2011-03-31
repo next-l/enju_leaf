@@ -992,7 +992,8 @@ en:
     email_and_password: "Email and password"
     catalog_search: "Catalog search"
     search: "Search"
-    search_term: "Search term"
+    search_term: "Search term(s)"
+    search_result: "Search result"
     number_of_manifestations:
       one: "1 record in this library."
       other: "%{numdocs} records in this library."
@@ -1147,6 +1148,8 @@ en:
     not_found: "Page not found"
     access_denied: "Access denied"
     last_updated: "Last updated"
+    unknown: "Unknown"
+    more: "More"
     connection_faild: "Connection failed."
     timed_out: "Operation timed out."
   title:
@@ -1373,6 +1376,7 @@ en:
     send_me_reset_password_instruction: "Send me reset password instruction"
     change_my_password: "Change my password"
     management: "User management"
+    not_found: "User not found."
   news_post:
     library_group_news_post: "News from %{library_group_name}"
   reserve:
@@ -1482,3 +1486,7 @@ en:
     invalid_isbn: Invalid ISBN.
     isbn_taken: has already been taken.
     enter_isbn: Enter ISBN
+  sort:
+    date_of_acquisition: Date of acquisition
+    date_of_publication: Date of publication
+    title: Title

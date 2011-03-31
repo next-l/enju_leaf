@@ -58,6 +58,10 @@ class BasketsController < ApplicationController
       unless @user.user_number.blank?
         @basket.user = @user
       end
+    else
+      flash[:notice] = t('user.not_found')
+      redirect_to new_basket_url
+      return
     end
 
     respond_to do |format|

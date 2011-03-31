@@ -1,7 +1,13 @@
-<%=h @user.patron.full_name -%> :
+<%=h @message.receiver.patron.full_name -%> :
 
-A new message arrived from <%=h LibraryGroup.system_name(@locale) -%>.
-<%=h user_messages_url(@user) %>
+A new message arrived from <%=h @sender_name -%>.
+<%=h user_messages_url(@message.receiver) %>
+
+-----
+
+<%= @message.body %>
+
+-----
 
 -- 
 <%=h LibraryGroup.system_name(@locale) %>
