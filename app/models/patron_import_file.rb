@@ -102,6 +102,7 @@ class PatronImportFile < ActiveRecord::Base
         patron.telephone_number_2 = row['telephone_number_2']
         patron.fax_number_1 = row['fax_number_1']
         patron.fax_number_2 = row['fax_number_2']
+        patron.email = row['email'].to_s.strip
         patron.note = row['note']
         patron.birth_date = row['birth_date']
         patron.death_date = row['death_date']
@@ -129,8 +130,8 @@ class PatronImportFile < ActiveRecord::Base
           user = User.new
           user.patron = patron
           user.username = row['username'].to_s.strip
-          user.email = row['email'].to_s.strip
-          user.email_confirmation = row['email'].to_s.strip
+          user.email = patron.email
+          user.email_confirmation = patron.email
           user.user_number = row['user_number'].to_s.strip
           user.password = row['password'].to_s.strip
           user.password_confirmation = row['password'].to_s.strip
