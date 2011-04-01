@@ -89,13 +89,15 @@ class PatronImportFilesControllerTest < ActionController::TestCase
     assert_difference('PatronImportFile.count') do
       post :create, :patron_import_file => {:patron_import => fixture_file_upload("../../examples/patron_import_file_sample3.tsv", 'text/csv') }
     end
-    assert_difference('Patron.count', 3) do
+    assert_difference('Patron.count', 4) do
       assigns(:patron_import_file).import_start
     end
     assert_equal '原田 ushi 隆史', Patron.order('id DESC')[0].full_name
     assert_equal '田辺浩介', Patron.order('id DESC')[1].full_name
-    assert_equal old_patrons_count + 3, Patron.count
-    assert_equal old_import_results_count + 4, PatronImportResult.count
+    assert_equal 'fugafuga@example.jp', Patron.order('id DESC')[2].email
+    assert_equal Role.find_by_name('Guest'), Patron.order('id DESC')[3].required_role
+    assert_nil Patron.order('id DESC')[1].email
+    assert_equal old_import_results_count + 5, PatronImportResult.count
 
     assert_equal 'librarian1', assigns(:patron_import_file).user.username
     assert_redirected_to patron_import_file_path(assigns(:patron_import_file))

@@ -102,11 +102,15 @@ class PatronImportFile < ActiveRecord::Base
         patron.telephone_number_2 = row['telephone_number_2']
         patron.fax_number_1 = row['fax_number_1']
         patron.fax_number_2 = row['fax_number_2']
-        patron.email = row['email'].to_s.strip
+        if row['username'].to_s.strip.blank?
+          patron.email = row['email'].to_s.strip
+          patron.required_role = Role.find_by_name(row['required_role_name']) || Role.find('Guest')
+        else
+          patron.required_role = Role.find_by_name(row['required_role_name']) || Role.find('Librarian')
+        end
         patron.note = row['note']
         patron.birth_date = row['birth_date']
         patron.death_date = row['death_date']
-        patron.required_role = Role.find_by_name(row['required_role_name']) || Role.find('Librarian')
         language = Language.find_by_name(row['language'])
         patron.language = language if language.present?
         country = Country.find_by_name(row['country'])
@@ -125,13 +129,13 @@ class PatronImportFile < ActiveRecord::Base
         num[:failure] += 1
       end
 
-      unless row['username'].blank?
+      unless row['username'].to_s.strip.blank?
         begin
           user = User.new
           user.patron = patron
           user.username = row['username'].to_s.strip
-          user.email = patron.email
-          user.email_confirmation = patron.email
+          user.email = row['email'].to_s.strip
+          user.email_confirmation = user.email
           user.user_number = row['user_number'].to_s.strip
           user.password = row['password'].to_s.strip
           user.password_confirmation = row['password'].to_s.strip
