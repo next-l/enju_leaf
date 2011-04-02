@@ -978,6 +978,14 @@ en:
         approve: Approve
         publish: Publish
         deleted_at: Deleted at
+      patron_relationship:
+        parent_id: Parent
+        child_id: Child
+        patron_relationship_type_id: Patron relationship type
+      manifestation_relationship:
+        parent_id: Parent
+        child_id: Child
+        manifestation_relationship_type_id: Manifestation relationship type
 
   page:
     user_title: "Welcome %{login_name}"
