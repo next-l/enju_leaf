@@ -45,6 +45,6 @@ end
 #  rake "sitemap:refresh:no_ping"
 #end
 
-every 1.day, :at => '9:00 am' do
+every 1.day, :at => '5:00 am' do
   runner "Checkout.send_due_date_notification(1); Checkout.send_overdue_notification"
 end
