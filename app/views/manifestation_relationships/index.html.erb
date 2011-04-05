@@ -4,8 +4,8 @@
 
 <table class="index">
   <tr>
-    <th>Parent</th>
-    <th>Child</th>
+    <th><%= t('activerecord.attributes.manifestation_relationship.parent_id') -%>:</th>
+    <th><%= t('activerecord.attributes.manifestation_relationship.child_id') -%>:</th>
     <th></th>
     <th></th>
     <th></th>
@@ -29,6 +29,6 @@
 
 <div id="submenu" class="ui-corner-all">
   <ul>
-    <li><%= link_to 'New Patron relationship', new_manifestation_relationship_path %></li>
+    <li><%= link_to t('page.new', :model => t('activerecord.models.manifestation_relationship')), new_manifestation_relationship_path -%></li>
   </ul>
 </div>
