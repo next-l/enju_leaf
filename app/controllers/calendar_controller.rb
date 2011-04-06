@@ -28,5 +28,4 @@ class CalendarController < ApplicationController
       redirect_to new_event_path(:date => date_string)
     end
   end
-  
 end

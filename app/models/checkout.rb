@@ -100,5 +100,4 @@ class Checkout < ActiveRecord::Base
     end
     queues.size
   end
-
 end

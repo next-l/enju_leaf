@@ -1,0 +1,81 @@
+--- 
+classification_00006: 
+  updated_at: 2008-03-02 19:25:19.555182 +09:00
+  classification_type_id: 2
+  category: "500"
+  id: 6
+  note: 
+  parent_id: 
+  created_at: 2008-03-02 19:25:19.555182 +09:00
+classification_00007: 
+  updated_at: 2008-03-02 19:25:31.846101 +09:00
+  classification_type_id: 2
+  category: "600"
+  id: 7
+  note: 
+  parent_id: 
+  created_at: 2008-03-02 19:25:31.846101 +09:00
+classification_00008: 
+  updated_at: 2008-03-02 19:25:42.485981 +09:00
+  classification_type_id: 2
+  category: "700"
+  id: 8
+  note: 
+  parent_id: 
+  created_at: 2008-03-02 19:25:42.485981 +09:00
+classification_00009: 
+  updated_at: 2008-03-02 19:25:54.879049 +09:00
+  classification_type_id: 2
+  category: "800"
+  id: 9
+  note: 
+  parent_id: 
+  created_at: 2008-03-02 19:25:54.879049 +09:00
+classification_00010: 
+  updated_at: 2008-03-02 19:26:03.099902 +09:00
+  classification_type_id: 2
+  category: "900"
+  id: 10
+  note: 
+  parent_id: 
+  created_at: 2008-03-02 19:26:03.099902 +09:00
+classification_00001: 
+  updated_at: 2008-03-02 19:23:02.050270 +09:00
+  classification_type_id: 1
+  category: "000"
+  id: 1
+  note: ""
+  parent_id: 
+  created_at: 2008-03-02 19:21:50.689538 +09:00
+classification_00002: 
+  updated_at: 2008-03-02 19:23:55.187964 +09:00
+  classification_type_id: 1
+  category: "100"
+  id: 2
+  note: 
+  parent_id: 
+  created_at: 2008-03-02 19:23:55.187964 +09:00
+classification_00003: 
+  updated_at: 2008-03-02 19:24:44.271616 +09:00
+  classification_type_id: 1
+  category: "200"
+  id: 3
+  note: 
+  parent_id: 
+  created_at: 2008-03-02 19:24:44.271616 +09:00
+classification_00004: 
+  updated_at: 2008-03-02 19:24:56.797259 +09:00
+  classification_type_id: 1
+  category: "300"
+  id: 4
+  note: 
+  parent_id: 
+  created_at: 2008-03-02 19:24:56.797259 +09:00
+classification_00005: 
+  updated_at: 2008-03-02 19:25:08.317117 +09:00
+  classification_type_id: 1
+  category: "400"
+  id: 5
+  note: 
+  parent_id: 
+  created_at: 2008-03-02 19:25:08.317117 +09:00

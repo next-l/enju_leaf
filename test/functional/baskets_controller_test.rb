@@ -95,6 +95,16 @@ class BasketsControllerTest < ActionController::TestCase
     assert_response :success
   end
 
+  def test_librarian_should_not_create_basket_when_user_is_not_found
+    sign_in users(:librarian1)
+    assert_no_difference('Basket.count') do
+      post :create, :basket => {:user_number => 'not found' }
+    end
+    
+    assert assigns(:basket).errors["base"].include?(I18n.t('user.not_found'))
+    assert_response :success
+  end
+
   def test_guest_should_not_show_basket
     get :show, :id => 1, :user_id => users(:admin).username
     assert_response :redirect

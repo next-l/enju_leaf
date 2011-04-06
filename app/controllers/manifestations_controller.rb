@@ -231,7 +231,7 @@ class ManifestationsController < ApplicationController
         when 'ListMetadataFormats'
           render :template => 'manifestations/list_metadata_formats'
         when 'ListSets'
-          @series_statements = SeriesStatement.all
+          @series_statements = SeriesStatement.select([:id, :original_title])
           render :template => 'manifestations/list_sets'
         when 'ListIdentifiers'
           render :template => 'manifestations/list_identifiers'
