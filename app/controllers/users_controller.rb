@@ -222,45 +222,23 @@ class UsersController < ApplicationController
 
     # 自分自身を削除しようとした
     if current_user == @user
-      raise 'Cannot destroy myself'
-      flash[:notice] = t('user.cannot_destroy_myself')
+      flash[:notice] = I18n.t('user.cannot_destroy_myself')
+      redirect_to current_user
+      return
     end
 
-    # 未返却の資料のあるユーザを削除しようとした
-    if @user.checkouts.count > 0
-      raise 'This user has items not checked in'
-      flash[:notice] = t('user.this_user_has_checked_out_item')
+    if @user.deletable_by(current_user)
+      @user.destroy
+    else
+      flash[:notice] = @user.errors[:base].join(' ')
+      redirect_to current_user
+      return
     end
-
-    if @user.has_role?('Librarian')
-      # 管理者以外のユーザが図書館員を削除しようとした。図書館員の削除は管理者しかできない
-      unless current_user.has_role?('Administrator')
-        raise 'Only administrators can destroy users'
-        flash[:notice] = t('user.only_administrator_can_destroy')
-      end
-      # 最後の図書館員を削除しようとした
-      if @user.last_librarian?
-        raise 'This user is the last librarian in this system'
-        flash[:notice] = t('user.last_librarian')
-      end
-    end
-
-    # 最後の管理者を削除しようとした
-    if @user.has_role?('Administrator')
-      if Role.where(:name => 'Administrator').first.users.size == 1
-        raise 'This user is the last administrator in this system'
-        flash[:notice] = t('user.last_administrator')
-      end
-    end
-
-    @user.destroy
 
     respond_to do |format|
       format.html { redirect_to(users_url) }
       format.xml  { head :ok }
     end
-  rescue
-    access_denied
   end
 
   private

@@ -11,14 +11,14 @@ describe ManifestationsController do
 
       it "assigns all manifestations as @manifestations" do
         get :index
-        assigns(:manifestations).should be_empty
+        assigns(:manifestations).should_not be_nil
       end
     end
 
     describe "When not logged in" do
       it "assigns all manifestations as @manifestations" do
         get :index
-        assigns(:manifestations).should be_empty
+        assigns(:manifestations).should_not be_nil
       end
     end
   end

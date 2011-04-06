@@ -15,13 +15,11 @@ class PatronImportFile < ActiveRecord::Base
   belongs_to :user, :validate => true
   has_many :patron_import_results
 
-  validates_associated :user
-  validates_presence_of :user
   before_create :set_digest
 
   state_machine :initial => :pending do
     event :sm_start do
-      transition :pending => :started
+      transition [:pending, :started] => :started
     end
 
     event :sm_complete do
@@ -46,7 +44,7 @@ class PatronImportFile < ActiveRecord::Base
 
   def import
     self.reload
-    num = {:success => 0, :failure => 0, :activated => 0, :deleted => 0}
+    num = {:patron_imported => 0, :user_imported => 0, :failed => 0}
     row_num = 2
     tempfile = Tempfile.new('patron_import_file')
     if configatron.uploaded_file.storage == :s3
@@ -80,6 +78,7 @@ class PatronImportFile < ActiveRecord::Base
     end
     #rows.shift
     rows.each do |row|
+      next if row['dummy'].to_s.strip.present?
       import_result = PatronImportResult.create!(:patron_import_file => self, :body => row.fields.join("\t"))
 
       begin
@@ -118,7 +117,7 @@ class PatronImportFile < ActiveRecord::Base
 
         if patron.save!
           import_result.patron = patron
-          num[:success] += 1
+          num[:patron_imported] += 1
           if row_num % 50 == 0
             Sunspot.commit
             GC.start
@@ -126,7 +125,7 @@ class PatronImportFile < ActiveRecord::Base
         end
       rescue
         Rails.logger.info("patron import failed: column #{row_num}")
-        num[:failure] += 1
+        num[:failed] += 1
       end
 
       unless row['username'].to_s.strip.blank?
@@ -153,7 +152,7 @@ class PatronImportFile < ActiveRecord::Base
           if user.save!
             import_result.user = user
           end
-          num[:activated] += 1
+          num[:user_imported] += 1
         rescue ActiveRecord::RecordInvalid
           Rails.logger.info("user import failed: column #{row_num}")
         end

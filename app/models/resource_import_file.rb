@@ -41,7 +41,7 @@ class ResourceImportFile < ActiveRecord::Base
 
   def import
     self.reload
-    num = {:found => 0, :success => 0, :failure => 0}
+    num = {:manifestation_imported => 0, :item_imported => 0, :manifestation_found => 0, :item_found => 0, :failed => 0}
     row_num = 2
     rows = self.open_import_file
     field = rows.first
@@ -50,36 +50,58 @@ class ResourceImportFile < ActiveRecord::Base
     end
 
     rows.each do |row|
+      next if row['dummy'].to_s.strip.present?
       import_result = ResourceImportResult.create!(:resource_import_file => self, :body => row.fields.join("\t"))
 
       item_identifier = row['item_identifier'].to_s.strip
-      if item = Item.where(:item_identifier => item_identifier).first
+      item = Item.where(:item_identifier => item_identifier).first
+      if item
         import_result.item = item
         import_result.save!
+        num[:item_found] += 1
         next
       end
 
-      manifestation = fetch(row)
+      if row['identifier'].present?
+        manifestation = Manifestation.where(:identifier => row['identifier'].to_s.strip).first
+      end
+
+      if row['nbn'].present?
+        manifestation = Manifestation.where(:nbn => row['nbn'].to_s.strip).first
+      end
+
+      unless manifestation
+        if row['isbn'].present?
+          isbn = ISBN_Tools.cleanup(row['isbn'])
+          manifestation = Manifestation.find_by_isbn(isbn)
+        end
+      end
+      num[:manifestation_found] += 1 if manifestation
+
+      unless manifestation
+        manifestation = Manifestation.import_isbn!(isbn) rescue nil
+        num[:manifestation_imported] += 1 if manifestation
+      end
+
+      unless manifestation
+        manifestation = fetch(row)
+        num[:manifestation_imported] += 1 if manifestation
+      end
       import_result.manifestation = manifestation
 
       #begin
         if manifestation and item_identifier.present?
           import_result.item = create_item(row, manifestation)
-          Rails.logger.info("resource registration succeeded: column #{row_num}"); next
-          num[:success] += 1
         else
-          if manifestation
-            Rails.logger.info("item found: isbn #{row['isbn']}")
-            num[:found] += 1
-          else
-            num[:failure] += 1
-          end
+          num[:failed] += 1
         end
       #rescue Exception => e
       #  Rails.logger.info("resource registration failed: column #{row_num}: #{e.message}")
       #end
 
       import_result.save!
+      num[:item_imported] +=1 if import_result.item
+
       if row_num % 50 == 0
         Sunspot.commit
         GC.start
@@ -243,20 +265,7 @@ class ResourceImportFile < ActiveRecord::Base
 
   def fetch(row)
     shelf = Shelf.where(:name => row['shelf'].to_s.strip).first || Shelf.web
-
-    unless row['identifier'].blank?
-      manifestation = Manifestation.where(:identifier => row['identifier'].to_s.strip).first
-      return manifestation if manifestation
-    end
-
-    unless row['isbn'].blank?
-      isbn = ISBN_Tools.cleanup(row['isbn'])
-      unless manifestation = Manifestation.find_by_isbn(isbn)
-        manifestation = Manifestation.import_isbn!(isbn) rescue nil
-        #num[:success] += 1 if manifestation
-      end
-      return manifestation if manifestation
-    end
+    manifestation = nil
 
     title = {}
     title[:original_title] = row['original_title']
@@ -305,6 +314,8 @@ class ResourceImportFile < ActiveRecord::Base
         :nbn => row['nbn'],
         :pub_date => row['pub_date'],
         :volume_number_list => row['volume_number_list'],
+        :issue_number_list => row['issue_number_list'],
+        :serial_number_list => row['serial_number_list'],
         :edition => row['edition'],
         :width => width,
         :depth => depth,

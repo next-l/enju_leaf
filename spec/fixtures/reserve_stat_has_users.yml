@@ -1,0 +1,11 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  user_reserve_stat_id: 1
+  user_id: 1
+  reserves_count: 1
+
+two:
+  user_reserve_stat_id: 1
+  user_id: 2
+  reserves_count: 1

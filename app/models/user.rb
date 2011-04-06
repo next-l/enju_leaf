@@ -274,4 +274,35 @@ class User < ActiveRecord::Base
       self.expired_at = self.user_group.valid_period_for_new_user.days.from_now.end_of_day
     end
   end
+
+  def deletable_by(current_user)
+    # 未返却の資料のあるユーザを削除しようとした
+    if self.checkouts.count > 0
+      errors[:base] << I18n.t('user.this_user_has_checked_out_item')
+    end
+
+    if self.has_role?('Librarian')
+      # 管理者以外のユーザが図書館員を削除しようとした。図書館員の削除は管理者しかできない
+      unless current_user.has_role?('Administrator')
+        errors[:base] << I18n.t('user.only_administrator_can_destroy')
+      end
+      # 最後の図書館員を削除しようとした
+      if self.last_librarian?
+        errors[:base] << I18n.t('user.last_librarian')
+      end
+    end
+
+    # 最後の管理者を削除しようとした
+    if self.has_role?('Administrator')
+      if Role.where(:name => 'Administrator').first.users.size == 1
+        errors[:base] << I18n.t('user.last_administrator')
+      end
+    end
+
+    if errors[:base] == []
+      true
+    else
+      false
+    end
+  end
 end

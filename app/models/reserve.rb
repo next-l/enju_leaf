@@ -27,6 +27,7 @@ class Reserve < ActiveRecord::Base
   #validates_uniqueness_of :manifestation_id, :scope => :user_id
   validates_format_of :expire_date, :with => /^\d+(-\d{0,2}){0,2}$/, :allow_blank => true
   validate :manifestation_must_include_item
+  validate :available_for_reservation?, :on => :create
   before_validation :set_item_and_manifestation, :on => :create
   before_validation :set_expired_at
   before_validation :set_request_status, :on => :create
@@ -215,5 +216,21 @@ class Reserve < ActiveRecord::Base
     end
   #rescue
   #  logger.info "#{Time.zone.now} expiring reservations failed!"
+  end
+
+  def available_for_reservation?
+    if self.manifestation
+      if self.manifestation.is_reserved_by(self.user)
+        errors[:base] << I18n.t('reserve.this_manifestation_is_already_reserved')
+      end
+      if self.user.try(:reached_reservation_limit?, self.manifestation)
+        errors[:base] << I18n.t('reserve.excessed_reservation_limit')
+      end
+
+      expired_period = self.manifestation.try(:reservation_expired_period, self.user)
+      if expired_period.nil?
+        errors[:base] << I18n.t('reserve.this_patron_cannot_reserve')
+      end
+    end
   end
 end

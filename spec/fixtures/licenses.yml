@@ -1,0 +1,15 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  id: 1
+  name: unknown
+  display_name: unknown
+  note: unknown
+  position: 1
+
+two:
+  id: 2
+  name: mit
+  display_name: MIT
+  note: MIT
+  position: 2

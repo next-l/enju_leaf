@@ -1,0 +1,11 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  user_checkout_stat_id: 1
+  user_id: 1
+  checkouts_count: 1
+
+two:
+  user_checkout_stat_id: 2
+  user_id: 1
+  checkouts_count: 1

@@ -11,14 +11,14 @@ describe SubjectsController do
 
       it "assigns all subjects as @subjects" do
         get :index
-        assigns(:subjects).should be_empty
+        assigns(:subjects).should_not be_empty
       end
     end
 
     describe "When not logged in" do
       it "assigns all subjects as @subjects" do
         get :index
-        assigns(:subjects).should be_empty
+        assigns(:subjects).should_not be_empty
       end
     end
   end

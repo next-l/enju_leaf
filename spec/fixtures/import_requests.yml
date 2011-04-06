@@ -1,0 +1,13 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  isbn: '978-4774142043'
+  state: pending
+  manifestation_id: 1
+  user_id: 1
+
+two:
+  isbn: '978-4774141640'
+  state: pending
+  manifestation_id: 2
+  user_id: 1

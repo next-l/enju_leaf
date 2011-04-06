@@ -43,7 +43,7 @@ class EventImportFile < ActiveRecord::Base
 
   def import
     self.reload
-    num = {:success => 0, :failure => 0, :deleted => 0}
+    num = {:imported => 0, :failed => 0}
     record = 2
 
     tempfile = Tempfile.new('event_import_file')
@@ -81,6 +81,7 @@ class EventImportFile < ActiveRecord::Base
     end
     #rows.shift
     rows.each do |row|
+      next if row['dummy'].to_s.strip.present?
       import_result = EventImportResult.create!(:event_import_file => self, :body => row.fields.join("\t"))
 
       event = Event.new
@@ -100,7 +101,7 @@ class EventImportFile < ActiveRecord::Base
       begin
         if event.save!
           import_result.event = event
-          num[:success] += 1
+          num[:imported] += 1
           if record % 50 == 0
             Sunspot.commit
             GC.start
@@ -108,7 +109,7 @@ class EventImportFile < ActiveRecord::Base
         end
       rescue
         Rails.logger.info("event import failed: column #{record}")
-        num[:failure] += 1
+        num[:failed] += 1
       end
       import_result.save!
       record += 1

@@ -122,29 +122,6 @@ class ReservesController < ApplicationController
     @reserve = Reserve.new(params[:reserve])
     @reserve.user = user
 
-    if @reserve.user and @reserve.manifestation
-      begin
-        if @reserve.manifestation.is_reserved_by(@reserve.user)
-          flash[:notice] = t('reserve.this_manifestation_is_already_reserved')
-          raise
-        end
-        if @reserve.user.reached_reservation_limit?(@reserve.manifestation)
-          flash[:notice] = t('reserve.excessed_reservation_limit')
-          raise
-        end
-        expired_period = @reserve.manifestation.reservation_expired_period(@reserve.user)
-        if expired_period.nil?
-          flash[:notice] = t('reserve.this_patron_cannot_reserve')
-          raise
-        end
-
-      rescue
-        flash[:notice] = t('page.error_occured') if flash[:notice].nil?
-        redirect_to @reserve.manifestation
-        return
-      end
-    end
-
     respond_to do |format|
       if @reserve.save
         # 予約受付のメール送信
