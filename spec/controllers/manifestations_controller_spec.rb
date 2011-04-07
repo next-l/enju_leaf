@@ -20,6 +20,16 @@ describe ManifestationsController do
         get :index
         assigns(:manifestations).should_not be_nil
       end
+
+      it "assigns all manifestations as @manifestations in oai format" do
+        get :index, :format => 'oai', :verb => 'ListRecords'
+        assigns(:manifestations).should_not be_nil
+      end
+
+      it "assigns all manifestations as @manifestations in sru format" do
+        get :index, :format => 'sru'
+        assigns(:manifestations).should be_nil
+      end
     end
   end
 

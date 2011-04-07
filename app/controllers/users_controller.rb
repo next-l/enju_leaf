@@ -200,7 +200,6 @@ class UsersController < ApplicationController
 
     respond_to do |format|
       if @user.save
-        #self.current_user = @user
         flash[:notice] = t('controller.successfully_created.', :model => t('activerecord.models.user'))
         flash[:temporary_password] = @user.password
         format.html { redirect_to user_url(@user) }
@@ -208,7 +207,6 @@ class UsersController < ApplicationController
         format.xml  { head :ok }
       else
         prepare_options
-        #flash[:notice] = ('The record is invalid.')
         flash[:error] = t('user.could_not_setup_account')
         format.html { render :action => "new" }
         format.xml  { render :xml => @user.errors, :status => :unprocessable_entity }

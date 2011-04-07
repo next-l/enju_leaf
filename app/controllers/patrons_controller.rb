@@ -1,6 +1,7 @@
 # -*- encoding: utf-8 -*-
 class PatronsController < ApplicationController
-  load_and_authorize_resource
+  load_and_authorize_resource :except => :index
+  authorize_resource :only => :index
   before_filter :get_user_if_nil
   helper_method :get_work, :get_expression
   helper_method :get_manifestation, :get_item

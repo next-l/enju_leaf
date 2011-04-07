@@ -141,8 +141,6 @@ class CheckoutsController < ApplicationController
         return
       #end
     end
-    # もう一度取得しないとvalidationが有効にならない？
-    #@checkout = @user.checkouts.find(params[:id])
     @checkout.reload
     @checkout.checkout_renewal_count += 1
 

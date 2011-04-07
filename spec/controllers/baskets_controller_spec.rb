@@ -78,4 +78,28 @@ describe BasketsController do
       end
     end
   end
+
+  describe "PUT update" do
+    before(:each) do
+      @attrs = {:user_id => users(:user1).username}
+    end
+
+    describe "When logged in as Librarian" do
+      before(:each) do
+        sign_in Factory(:librarian)
+      end
+
+      describe "with valid params" do
+        it "updates the requested basket" do
+          put :update, :id => 8, :basket => @attrs
+        end
+
+        it "assigns the requested basket as @basket" do
+          put :update, :id => 8, :basket => @attrs
+          assigns(:basket).checkouts.first.item.circulation_status.name.should eq 'On Loan'
+          response.should redirect_to(user_checkouts_url(assigns(:basket).user))
+        end
+      end
+    end
+  end
 end

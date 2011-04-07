@@ -78,6 +78,5 @@ describe CheckoutsController do
         response.should be_forbidden
       end
     end
-
   end
 end

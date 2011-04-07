@@ -1,6 +1,7 @@
 # -*- encoding: utf-8 -*-
 class ManifestationsController < ApplicationController
-  load_and_authorize_resource
+  load_and_authorize_resource :except => :index
+  authorize_resource :only => :index
   before_filter :authenticate_user!, :only => :edit
   before_filter :get_patron
   helper_method :get_manifestation, :get_subject
@@ -60,15 +61,14 @@ class ManifestationsController < ApplicationController
 
       set_reservable
 
+      manifestations, sort, @count = {}, {}, {}
+      query = ""
+
       if params[:format] == 'csv'
         per_page = 65534
       end
 
-      manifestations, sort, @count = {}, {}, {}
-      query = ""
-
-			case
-      when params[:format] == 'sru'
+      if params[:format] == 'sru'
         if params[:operation] == 'searchRetrieve'
           sru = Sru.new(params)
           query = sru.cql.to_sunspot
@@ -77,14 +77,16 @@ class ManifestationsController < ApplicationController
           render :template => 'manifestations/explain', :layout => false
           return
         end
-      when params[:api] == 'openurl' 
-        openurl = Openurl.new(params)
-        @manifestations = openurl.search
-        query = openurl.query_text
-        sort = set_search_result_order(params[:sort_by], params[:order])
       else
-        query = make_query(params[:query], params)
-        sort = set_search_result_order(params[:sort_by], params[:order])
+        if params[:api] == 'openurl' 
+          openurl = Openurl.new(params)
+          @manifestations = openurl.search
+          query = openurl.query_text
+          sort = set_search_result_order(params[:sort_by], params[:order])
+        else
+          query = make_query(params[:query], params)
+          sort = set_search_result_order(params[:sort_by], params[:order])
+        end
       end
 
       # 絞り込みを行わない状態のクエリ
