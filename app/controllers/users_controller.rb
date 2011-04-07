@@ -169,13 +169,6 @@ class UsersController < ApplicationController
         format.xml  { render :xml => @user.errors, :status => :unprocessable_entity }
       end
     end
-
-    #unless performed?
-    #  # OpenIDでの認証後
-    #  flash[:notice] = t('user_session.login_failed')
-    #  redirect_to edit_user_url(@user)
-    #end
-
   end
 
   def create

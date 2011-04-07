@@ -193,9 +193,9 @@ EnjuLeaf::Application.routes.draw do
     resources :order_lists
   end
 
-  resources :user_has_roles
+  resources :user_has_roles, :only => [:index, :show]
 
-  resources :roles
+  resources :roles, :except => [:new, :create, :destroy]
 
   resources :messages
 

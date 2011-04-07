@@ -103,6 +103,7 @@ describe ReservesController do
         it "redirects to the list" do
           post :create, :reserve => @invalid_attrs, :user_id => users(:user1).username
           assigns(:reserve).expired_at.should be_nil
+          response.should render_template("new")
           response.should be_success
         end
       end

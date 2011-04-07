@@ -3,4 +3,5 @@ class UserHasRole < ActiveRecord::Base
   belongs_to :role
 
   validates_uniqueness_of :role_id, :scope => :user_id
+  validates_presence_of :role_id, :user_id
 end

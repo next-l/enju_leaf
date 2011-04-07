@@ -164,11 +164,11 @@ class Ability
       end
       can [:read, :update, :destroy], MessageRequest
       can [:index, :create], Patron
-      can :show, Patron do |patron|
+      can [:show, :update, :destroy], Patron do |patron|
         patron.required_role_id <= 3
       end
       can [:index, :create], PurchaseRequest
-      can [:update, :destroy, :show], PurchaseRequest do |purchase_request|
+      can [:show, :update, :destroy], PurchaseRequest do |purchase_request|
         purchase_request.user == user
       end
       can [:index, :create], Question

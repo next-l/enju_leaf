@@ -208,7 +208,7 @@ class PatronsController < ApplicationController
     respond_to do |format|
       if @patron.update_attributes(params[:patron])
         flash[:notice] = t('controller.successfully_updated', :model => t('activerecord.models.patron'))
-        format.html { redirect_to patron_url(@patron) }
+        format.html { redirect_to(@patron) }
         format.xml  { head :ok }
       else
         prepare_options
