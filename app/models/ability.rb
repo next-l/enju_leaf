@@ -24,6 +24,7 @@ class Ability
       can :destroy, Manifestation do |manifestation|
         manifestation.items.first.nil?
       end
+      can [:read, :update, :destroy], MessageRequest
       can [:read, :create, :update], Patron
       can :destroy, Patron do |patron|
         if patron.user
@@ -123,7 +124,6 @@ class Ability
         LibraryGroup,
         License,
         MediumOfPerformance,
-        MessageRequest,
         MessageTemplate,
         NiiType,
         PatronType,
@@ -143,10 +143,6 @@ class Ability
         bookmark.user == user
       end
       can [:read, :create, :update], BookmarkStat
-      can [:index, :create], Checkout
-      can [:update, :destroy, :show], Checkout do |checkout|
-        checkout.user == user
-      end
       can [:read, :create, :update], Item
       can :destroy, Item do |item|
         item.checkouts.not_returned.first.nil?
@@ -164,9 +160,19 @@ class Ability
       end
       can [:read, :update, :destroy], MessageRequest
       can [:index, :create], Patron
-      can [:show, :update, :destroy], Patron do |patron|
-        patron.required_role_id <= 3
+      can [:show], Patron do |patron|
+        if patron.required_role_id <= 3
+          true
+        end
       end
+      can [:show, :update, :destroy], Patron do |patron|
+        if patron.user.try(:role).try(:name) != 'Administrator'
+          if patron.required_role_id <= 3
+            true
+          end
+        end
+      end
+      can [:index, :create], PurchaseRequest
       can [:index, :create], PurchaseRequest
       can [:show, :update, :destroy], PurchaseRequest do |purchase_request|
         purchase_request.user == user

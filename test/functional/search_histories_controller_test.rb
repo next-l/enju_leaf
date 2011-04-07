@@ -32,36 +32,6 @@ class SearchHistoriesControllerTest < ActionController::TestCase
     assert_response :success
   end
 
-  def test_guest_should_not_get_new
-    get :new, :user_id => 1
-    assert_redirected_to new_user_session_url
-  end
-  
-  def test_everyone_should_not_get_new
-    sign_in users(:admin)
-    get :new
-    assert_response :forbidden
-  end
-  
-  def test_guest_should_not_create_search_history
-    assert_no_difference('SearchHistory.count') do
-      post :create, :search_history => { }
-    end
-    
-    assert_redirected_to new_user_session_url
-  end
-
-  def test_everyone_should_not_create_search_history
-    # 履歴を直接作成することはできない
-    sign_in users(:admin)
-    assert_no_difference('SearchHistory.count') do
-      post :create, :search_history => {:query => 'test', :user_id => users(:admin).username}
-    end
-    
-    #assert_redirected_to search_history_url(assigns(:search_history))
-    assert_response :forbidden
-  end
-
   def test_guest_should_not_show_search_history
     get :show, :id => 1
     assert_response :redirect
@@ -90,29 +60,6 @@ class SearchHistoriesControllerTest < ActionController::TestCase
     sign_in users(:admin)
     get :show, :id => 100
     assert_response :missing
-  end
-
-  def test_guest_should_not_get_edit
-    get :edit, :id => 1
-    assert_response :redirect
-    assert_redirected_to new_user_session_url
-  end
-  
-  def test_everyone_should_not_get_edit
-    sign_in users(:admin)
-    get :edit, :id => 3
-    assert_response :forbidden
-  end
-  
-  def test_guest_should_not_update_search_history
-    put :update, :id => 1, :search_history => { }
-    assert_redirected_to new_user_session_url
-  end
-
-  def test_everyone_should_not_update_search_history
-    sign_in users(:admin)
-    put :update, :id => 1, :search_history => { }
-    assert_response :forbidden
   end
 
   def test_guest_should_not_destroy_search_history

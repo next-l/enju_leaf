@@ -7,7 +7,7 @@ class Library < ActiveRecord::Base
   belongs_to :library_group, :validate => true
   has_many :events, :include => :event_category
   #belongs_to :holding_patron, :polymorphic => true, :validate => true
-  belongs_to :patron, :validate => true
+  belongs_to :patron #, :validate => true
   has_many :inter_library_loans, :foreign_key => 'borrowing_library_id'
   has_many :users
   belongs_to :country

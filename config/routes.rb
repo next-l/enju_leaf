@@ -144,14 +144,14 @@ EnjuLeaf::Application.routes.draw do
     resources :manifestations, :controller => :manifestations
   end
   resources :barcodes
-  resources :message_requests
+  resources :message_requests, :except => [:new, :create]
   resources :message_templates
   resources :carrier_type_has_checkout_types
   resources :user_group_has_checkout_types
   resources :checkout_types do
     resources :user_group_has_checkout_types
   end
-  resources :search_histories
+  resources :search_histories, :only => [:index, :show, :destroy]
 
   resources :order_lists do
     resource :order
