@@ -80,4 +80,18 @@ describe Manifestation do
     lambda{Openurl.new({:issn => "1234abcd"})}.should raise_error(OpenurlQuerySyntaxError)
     lambda{Openurl.new({:aufirst => "テスト 名称"})}.should raise_error(OpenurlQuerySyntaxError)
   end
+
+  it "should accept sort_by in sru" do
+    sru = Sru.new({:query => "title=Ruby"})
+    sru.sort_by.should eq ({:sort_by => 'created_at', :order => 'desc'})
+    sru = Sru.new({:query => 'title=Ruby AND sortBy="title/sort.ascending"', :sortKeys => 'creator,0', :version => '1.2'})
+    sru.sort_by.should eq ({:sort_by => 'sort_title', :order => 'asc'})
+    sru = Sru.new({:query => 'title=Ruby AND sortBy="title/sort.ascending"', :sortKeys => 'creator,0', :version => '1.1'})
+    sru.sort_by.should eq ({:sort_by => 'creator', :order => 'desc'})
+    sru = Sru.new({:query => 'title=Ruby AND sortBy="title/sort.ascending"', :sortKeys => 'creator,1', :version => '1.1'})
+    sru.sort_by.should eq ({:sort_by => 'creator', :order => 'asc'})
+    sru = Sru.new({:query => 'title=Ruby AND sortBy="title'})
+    sru.sort_by.should eq ({:sort_by => 'sort_title', :order => 'asc'})
+    #TODO ソート基準が入手しやすさの場合の処理
+  end
 end

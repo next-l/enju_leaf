@@ -2,7 +2,6 @@
 require 'spec_helper'
 
 describe ResourceImportFile do
-  #pending "add some examples to (or delete) #{__FILE__}"
   before(:each) do
     @file = ResourceImportFile.create :resource_import => File.new("#{Rails.root.to_s}/examples/resource_import_file_sample1.tsv")
   end

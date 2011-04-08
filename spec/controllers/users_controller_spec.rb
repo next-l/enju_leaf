@@ -88,4 +88,52 @@ describe UsersController do
       end
     end
   end
+
+  describe "GET edit" do
+    describe "When logged in as Administrator" do
+      before(:each) do
+        sign_in Factory(:admin)
+      end
+
+      it "assigns the requested user as @user" do
+        user = Factory.create(:user)
+        get :edit, :id => user.id
+        assigns(:user).should eq(user)
+      end
+    end
+
+    describe "When logged in as Librarian" do
+      before(:each) do
+        sign_in Factory(:librarian)
+      end
+
+      it "should assign the requested user as @user" do
+        user = Factory.create(:user)
+        get :edit, :id => user.id
+        assigns(:user).should eq(user)
+      end
+    end
+
+    describe "When logged in as User" do
+      before(:each) do
+        sign_in Factory(:user)
+      end
+
+      it "should not assign the requested user as @user" do
+        user = Factory.create(:user)
+        get :edit, :id => user.id
+        assigns(:user).should eq(user)
+        response.should be_forbidden
+      end
+    end
+
+    describe "When not logged in" do
+      it "should not assign the requested user as @user" do
+        user = Factory.create(:user)
+        get :edit, :id => user.id
+        assigns(:user).should eq(user)
+        response.should redirect_to(new_user_session_url)
+      end
+    end
+  end
 end

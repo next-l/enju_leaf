@@ -7,20 +7,6 @@ class ManifestationTest < ActiveSupport::TestCase
     :frequencies, :form_of_works, :content_types, :carrier_types, :countries, :patron_types,
     :answer_has_items
 
-  def test_sru_sort_by
-    sru = Sru.new({:query => "title=Ruby"})
-    assert_equal( {:sort_by => 'created_at', :order => 'desc'}, sru.sort_by)
-    sru = Sru.new({:query => 'title=Ruby AND sortBy="title/sort.ascending"', :sortKeys => 'creator,0', :version => '1.2'})
-    assert_equal( {:sort_by => 'sort_title', :order => 'asc'}, sru.sort_by)
-    sru = Sru.new({:query => 'title=Ruby AND sortBy="title/sort.ascending"', :sortKeys => 'creator,0', :version => '1.1'})
-    assert_equal( {:sort_by => 'creator', :order => 'desc'}, sru.sort_by)
-    sru = Sru.new({:query => 'title=Ruby AND sortBy="title/sort.ascending"', :sortKeys => 'creator,1', :version => '1.1'})
-    assert_equal( {:sort_by => 'creator', :order => 'asc'}, sru.sort_by)
-    sru = Sru.new({:query => 'title=Ruby AND sortBy="title'})
-    assert_equal( {:sort_by => 'sort_title', :order => 'asc'}, sru.sort_by)
-    #TODO ソート基準が入手しやすさの場合の処理
-  end
-
   def test_sru_search 
     sru = Sru.new({:query => "title=Ruby"})
     sru.search

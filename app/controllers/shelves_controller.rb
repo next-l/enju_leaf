@@ -79,7 +79,6 @@ class ShelvesController < ApplicationController
   # PUT /shelves/1
   # PUT /shelves/1.xml
   def update
-    @shelf = Shelf.find(params[:id])
     @shelf.library = @library if @library
 
     if params[:position]
@@ -104,7 +103,6 @@ class ShelvesController < ApplicationController
   # DELETE /shelves/1
   # DELETE /shelves/1.xml
   def destroy
-    @shelf = Shelf.find(params[:id])
     if @shelf.id == 1
       access_denied; return
     end
