@@ -82,6 +82,7 @@ group :development, :test do
   gem 'guard-rspec'
   gem 'factory_girl_rails'
   gem 'spork', '~> 0.9.0.rc4'
+  gem 'metric_fu'
 end
 
 # Use unicorn as the web server
