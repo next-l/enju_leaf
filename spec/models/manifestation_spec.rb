@@ -81,6 +81,42 @@ describe Manifestation do
     lambda{Openurl.new({:aufirst => "テスト 名称"})}.should raise_error(OpenurlQuerySyntaxError)
   end
 
+  it "should search in sru" do
+    sru = Sru.new({:query => "title=Ruby"})
+    sru.search
+    sru.manifestations.size.should eq 18
+    sru.manifestations.first.titles.first.should eq 'Ruby'
+    sru = Sru.new({:query => "title=^ruby"})
+    sru.search
+    sru.manifestations.size.should eq 9
+    sru = Sru.new({:query => 'title ALL "awk sed"'})
+    sru.search
+    sru.manifestations.size.should eq 2
+    sru.manifestations.collect{|m| m.id}.should eq [184, 116]
+    sru = Sru.new({:query => 'title ANY "ruby awk sed"'})
+    sru.search
+    sru.manifestations.size.should eq 22
+    sru = Sru.new({:query => 'isbn=9784756137470'})
+    sru.search
+    sru.manifestations.first.id.should eq 114
+    sru = Sru.new({:query => "creator=テスト"})
+    sru.search
+    sru.manifestations.size.should eq 1
+  end
+
+  it "should search date in sru" do
+    sru = Sru.new({:query => "from = 2000-09 AND until = 2000-11-01"})
+    sru.search
+    sru.manifestations.size.should eq 1
+    sru.manifestations.first.id.should eq 120
+    sru = Sru.new({:query => "from = 1993-02-24"})
+    sru.search
+    sru.manifestations.size.should eq 5
+    sru = Sru.new({:query => "until = 2006-08-06"})
+    sru.search
+    sru.manifestations.size.should eq 4
+  end
+
   it "should accept sort_by in sru" do
     sru = Sru.new({:query => "title=Ruby"})
     sru.sort_by.should eq ({:sort_by => 'created_at', :order => 'desc'})
@@ -93,5 +129,20 @@ describe Manifestation do
     sru = Sru.new({:query => 'title=Ruby AND sortBy="title'})
     sru.sort_by.should eq ({:sort_by => 'sort_title', :order => 'asc'})
     #TODO ソート基準が入手しやすさの場合の処理
+  end
+
+  it "should accept rangs in sru" do
+    sru = Sru.new({:query => "from = 1993-02-24 AND until = 2006-08-06 AND title=プログラミング"})
+    sru.search
+    sru.manifestations.size.should eq 2
+    sru = Sru.new({:query => "until = 2000 AND title=プログラミング"})
+    sru.search
+    sru.manifestations.size.should eq 1
+    sru = Sru.new({:query => "from = 2006 AND title=プログラミング"})
+    sru.search
+    sru.manifestations.size.should eq 1
+    sru = Sru.new({:query => "from = 2007 OR title=awk"})
+    sru.search
+    sru.manifestations.size.should eq 6
   end
 end

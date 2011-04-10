@@ -7,57 +7,6 @@ class ManifestationTest < ActiveSupport::TestCase
     :frequencies, :form_of_works, :content_types, :carrier_types, :countries, :patron_types,
     :answer_has_items
 
-  def test_sru_search 
-    sru = Sru.new({:query => "title=Ruby"})
-    sru.search
-    assert_equal 18, sru.manifestations.size
-    assert_equal 'Ruby', sru.manifestations.first.titles.first
-    sru = Sru.new({:query => "title=^ruby"})
-    sru.search
-    assert_equal 9, sru.manifestations.size
-    sru = Sru.new({:query => 'title ALL "awk sed"'})
-    sru.search
-    assert_equal 2, sru.manifestations.size
-    assert_equal [184, 116], sru.manifestations.collect{|m| m.id}
-    sru = Sru.new({:query => 'title ANY "ruby awk sed"'})
-    sru.search
-    assert_equal 22, sru.manifestations.size
-    sru = Sru.new({:query => 'isbn=9784756137470'})
-    sru.search
-    assert_equal 114, sru.manifestations.first.id
-    sru = Sru.new({:query => "creator=テスト"})
-    sru.search
-    assert_equal 1, sru.manifestations.size
-  end
-
-  def test_sru_search_date
-    sru = Sru.new({:query => "from = 2000-09 AND until = 2000-11-01"})
-    sru.search
-    assert_equal 1, sru.manifestations.size
-    assert_equal 120, sru.manifestations.first.id
-    sru = Sru.new({:query => "from = 1993-02-24"})
-    sru.search
-    assert_equal 5, sru.manifestations.size    
-    sru = Sru.new({:query => "until = 2006-08-06"})
-    sru.search
-    assert_equal 4, sru.manifestations.size
-  end
-
-  def test_sru_search_relation
-    sru = Sru.new({:query => "from = 1993-02-24 AND until = 2006-08-06 AND title=プログラミング"})
-    sru.search
-    assert_equal 2, sru.manifestations.size
-    sru = Sru.new({:query => "until = 2000 AND title=プログラミング"})
-    sru.search
-    assert_equal 1, sru.manifestations.size
-    sru = Sru.new({:query => "from = 2006 AND title=プログラミング"})
-    sru.search
-    assert_equal 1, sru.manifestations.size
-    sru = Sru.new({:query => "from = 2007 OR title=awk"})
-    sru.search
-    assert_equal 6, sru.manifestations.size
-  end
-
   def test_reserved
     assert manifestations(:manifestation_00007).is_reserved_by(users(:admin))
   end
