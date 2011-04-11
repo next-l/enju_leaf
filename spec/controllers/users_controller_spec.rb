@@ -136,4 +136,71 @@ describe UsersController do
       end
     end
   end
+
+  describe "POST create" do
+    before(:each) do
+      @attrs = Factory.attributes_for(:user)
+      @invalid_attrs = {:username => ''}
+    end
+
+    describe "When logged in as Administrator" do
+      before(:each) do
+        sign_in Factory(:admin)
+      end
+
+      describe "with valid params" do
+        it "assigns a newly created user as @user" do
+          post :create, :user => @attrs
+          assigns(:user).should be_valid
+        end
+
+        it "redirects to the created user" do
+          post :create, :user => @attrs
+          response.should redirect_to(user_url(assigns(:user)))
+        end
+      end
+
+      describe "with invalid params" do
+        it "assigns a newly created but unsaved user as @user" do
+          post :create, :user => @invalid_attrs
+          assigns(:user).should_not be_valid
+        end
+
+        it "re-renders the 'new' template" do
+          post :create, :user => @invalid_attrs
+          response.should render_template("new")
+        end
+      end
+    end
+
+    describe "When logged in as Librarian" do
+      before(:each) do
+        sign_in Factory(:librarian)
+      end
+
+      describe "with valid params" do
+        it "assigns a newly created user as @user" do
+          post :create, :user => @attrs
+          assigns(:user).should be_valid
+        end
+
+        it "redirects to the created user" do
+          post :create, :user => @attrs
+          response.should redirect_to(user_url(assigns(:user)))
+        end
+      end
+
+      describe "with invalid params" do
+        it "assigns a newly created but unsaved user as @user" do
+          post :create, :user => @invalid_attrs
+          assigns(:user).should_not be_valid
+        end
+
+        it "re-renders the 'new' template" do
+          post :create, :user => @invalid_attrs
+          response.should render_template("new")
+        end
+      end
+    end
+  end
 end

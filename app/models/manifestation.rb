@@ -184,7 +184,7 @@ class Manifestation < ActiveRecord::Base
   before_validation :convert_isbn
   before_create :set_digest
   before_save :set_date_of_publication
-  normalize_attributes :identifier, :date_of_publication, :isbn, :issn, :nbn, :lccn, :original_title
+  normalize_attributes :identifier, :pub_date, :isbn, :issn, :nbn, :lccn, :original_title
   attr_accessor :during_import
 
   def self.per_page

@@ -14,7 +14,7 @@ class PurchaseRequest < ActiveRecord::Base
   after_destroy :index!
   before_save :set_date_of_publication
 
-  normalize_attributes :url
+  normalize_attributes :url, :pub_date
 
   searchable do
     text :title, :author, :publisher, :url
