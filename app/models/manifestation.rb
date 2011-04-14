@@ -254,14 +254,6 @@ class Manifestation < ActiveRecord::Base
     self.reserves.first(:order => ['reserves.created_at'])
   end
 
-  def has_single_work?
-    return true if works.size == 0
-    if works.size == 1
-      return true if works.first.original_title == original_title
-    end
-    false
-  end
-
   def serial?
     return true if series_statement
     #return true if parent_of_series

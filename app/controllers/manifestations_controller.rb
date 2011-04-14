@@ -260,11 +260,6 @@ class ManifestationsController < ApplicationController
   # GET /manifestations/1
   # GET /manifestations/1.xml
   def show
-    if params[:api] or params[:mode] == 'generate_cache'
-      unless my_networks?
-        access_denied; return
-      end
-    end
     if params[:isbn]
       if @manifestation = Manifestation.find_by_isbn(params[:isbn])
         redirect_to @manifestation
@@ -290,8 +285,6 @@ class ManifestationsController < ApplicationController
       else
         access_denied; return
       end
-    when 'generate_cache'
-      check_client_ip_address
     end
 
     return if render_mode(params[:mode])

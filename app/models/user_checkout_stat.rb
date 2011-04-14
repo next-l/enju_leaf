@@ -29,14 +29,5 @@ class UserCheckoutStat < ActiveRecord::Base
       end
     end
     self.completed_at = Time.zone.now
-
-    UserGroupHasCheckoutType.find_each do |rule|
-      rule.current_checkout_count = 0
-      rule.user_group.users.find_each do |user|
-        user.checkouts.not_returned.each do |checkout|
-          checkout
-        end
-      end
-    end
   end
 end

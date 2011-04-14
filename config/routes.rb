@@ -199,7 +199,7 @@ EnjuLeaf::Application.routes.draw do
 
   resources :messages
 
-  resources :library_groups
+  resources :library_groups, :except => [:new, :create, :destroy]
 
   resources :classifications do
     resources :subject_has_classifications

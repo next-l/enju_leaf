@@ -53,7 +53,8 @@ class CheckinsController < ApplicationController
   def create
     get_basket
     unless @basket
-      @basket = Basket.create!(:user => current_user)
+      @basket = Basket.new(:user => current_user)
+      @basket.save(:validate => false)
     end
     @checkin = @basket.checkins.new(params[:checkin])
 

@@ -214,7 +214,7 @@ class ReservesController < ApplicationController
     #elsif params[:reserve][:user_id]
     #  user = User.first(:conditions => {:id => params[:reserve][:user_id]})
     end
-  rescue
+  rescue NoMethodError
     nil
   end
 end

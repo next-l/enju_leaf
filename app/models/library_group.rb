@@ -10,6 +10,8 @@ class LibraryGroup < ActiveRecord::Base
   belongs_to :country
 
   validates_presence_of :email
+  EMAIL_REGEX = /^([\w\.%\+\-]+)@([\w\-]+\.)+([\w]{2,})$/i
+  validates_format_of :email, :with => EMAIL_REGEX
   after_save :clear_site_config_cache
 
   def clear_site_config_cache

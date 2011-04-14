@@ -81,7 +81,7 @@ group :development, :test do
   gem 'rspec-rails'
   gem 'guard-rspec'
   gem 'factory_girl_rails'
-  gem 'spork', '~> 0.9.0.rc4'
+  gem 'spork', '~> 0.9.0.rc5'
   gem 'metric_fu'
 end
 

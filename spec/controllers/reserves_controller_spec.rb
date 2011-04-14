@@ -26,6 +26,52 @@ describe ReservesController do
     end
   end
 
+  describe "GET show" do
+    describe "When logged in as Administrator" do
+      before(:each) do
+        sign_in Factory(:admin)
+      end
+
+      it "assigns the requested reserve as @reserve" do
+        reserve = Factory.create(:reserve)
+        get :show, :id => reserve.id
+        assigns(:reserve).should eq(reserve)
+      end
+    end
+
+    describe "When logged in as Librarian" do
+      before(:each) do
+        sign_in Factory(:librarian)
+      end
+
+      it "assigns the requested reserve as @reserve" do
+        reserve = Factory.create(:reserve)
+        get :show, :id => reserve.id
+        assigns(:reserve).should eq(reserve)
+      end
+    end
+
+    describe "When logged in as User" do
+      before(:each) do
+        sign_in Factory(:user)
+      end
+
+      it "assigns the requested reserve as @reserve" do
+        reserve = Factory.create(:reserve)
+        get :show, :id => reserve.id
+        assigns(:reserve).should eq(reserve)
+      end
+    end
+
+    describe "When not logged in" do
+      it "assigns the requested reserve as @reserve" do
+        reserve = Factory.create(:reserve)
+        get :show, :id => reserve.id
+        assigns(:reserve).should eq(reserve)
+      end
+    end
+  end
+
   describe "GET new" do
     describe "When logged in as Administrator" do
       before(:each) do
@@ -65,6 +111,52 @@ describe ReservesController do
       it "should not assign the requested reserve as @reserve" do
         get :new
         assigns(:reserve).should_not be_valid
+        response.should redirect_to(new_user_session_url)
+      end
+    end
+  end
+
+  describe "GET edit" do
+    describe "When logged in as Administrator" do
+      before(:each) do
+        sign_in Factory(:admin)
+      end
+
+      it "assigns the requested reserve as @reserve" do
+        reserve = Factory.create(:reserve)
+        get :edit, :id => reserve.id
+        assigns(:reserve).should eq(reserve)
+      end
+    end
+
+    describe "When logged in as Librarian" do
+      before(:each) do
+        sign_in Factory(:librarian)
+      end
+
+      it "assigns the requested reserve as @reserve" do
+        reserve = Factory.create(:reserve)
+        get :edit, :id => reserve.id
+        assigns(:reserve).should eq(reserve)
+      end
+    end
+
+    describe "When logged in as User" do
+      before(:each) do
+        sign_in Factory(:user)
+      end
+
+      it "assigns the requested reserve as @reserve" do
+        reserve = Factory.create(:reserve)
+        get :edit, :id => reserve.id
+        assigns(:reserve).should eq(reserve)
+      end
+    end
+
+    describe "When not logged in" do
+      it "should not assign the requested reserve as @reserve" do
+        reserve = Factory.create(:reserve)
+        get :edit, :id => reserve.id
         response.should redirect_to(new_user_session_url)
       end
     end

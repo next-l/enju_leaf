@@ -31,6 +31,8 @@ class Patron < ActiveRecord::Base
   validates_uniqueness_of :user_id, :allow_nil => true
   validates_format_of :birth_date, :with => /^\d+(-\d{0,2}){0,2}$/, :allow_blank => true
   validates_format_of :death_date, :with => /^\d+(-\d{0,2}){0,2}$/, :allow_blank => true
+  EMAIL_REGEX = /^([\w\.%\+\-]+)@([\w\-]+\.)+([\w]{2,})$/i
+  validates_format_of :email, :with => EMAIL_REGEX, :allow_blank => true
   validate :check_birth_date
   before_validation :set_role_and_name, :on => :create
   before_save :set_date_of_birth, :set_date_of_death

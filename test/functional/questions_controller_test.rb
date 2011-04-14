@@ -119,7 +119,7 @@ class QuestionsControllerTest < ActionController::TestCase
       post :create, :question => {:body => 'test'}
     end
     
-    assert_redirected_to user_question_url(users(:user1).username, assigns(:question))
+    assert_redirected_to question_url(assigns(:question))
   end
 
   def test_guest_should_show_question
@@ -202,7 +202,7 @@ class QuestionsControllerTest < ActionController::TestCase
   def test_user_should_update_my_question
     sign_in users(:user1)
     put :update, :id => 3, :question => { }, :user_id => users(:user1).username
-    assert_redirected_to user_question_url(users(:user1).username, assigns(:question))
+    assert_redirected_to question_url(assigns(:question))
   end
   
   def test_user_should_not_update_missing_question
