@@ -2,7 +2,7 @@
 <h1 class="title"><%= t('page.new', :model => t('activerecord.models.reserve')) -%></h1>
 <div id="content_list">
 
-<%= form_for(@reserve) do |f| -%>
+<%= form_for(@reserve, :url => user_reserves_path(@user)) do |f| -%>
   <%= f.error_messages -%>
 
   <p>
@@ -34,7 +34,7 @@
   </p>
 
   <p>
-    <%= f.hidden_field :user_id -%>
+    <%= f.hidden_field :user_number, :value => @user.user_number -%>
     <%= submit_tag t('page.create') -%>
   </p>
 <%- end -%>
