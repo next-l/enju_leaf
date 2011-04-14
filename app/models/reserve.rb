@@ -118,11 +118,6 @@ class Reserve < ActiveRecord::Base
     self.manifestation.reserves.first(:conditions => ['reserves.id != ?', self.id], :order => ['reserves.created_at'])
   end
 
-  #def self.reached_reservation_limit?(user, manifestation)
-  #  return true if user.user_group.user_group_has_checkout_types.available_for_carrier_type(manifestation.carrier_type).all(:conditions => {:user_group_id => user.user_group.id}).collect(&:reservation_limit).max <= user.reserves.waiting.size
-  #  false
-  #end
-
   def retain
     # TODO: 「取り置き中」の状態を正しく表す
     self.update_attributes!({:request_status_type => RequestStatusType.where(:name => 'In Process').first, :checked_out_at => Time.zone.now})

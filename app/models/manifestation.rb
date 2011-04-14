@@ -300,8 +300,7 @@ class Manifestation < ActiveRecord::Base
   end
   
   def reservation_expired_period(user)
-    available_checkout_types(user).collect(&:reservation_expired_period).max || 
-0
+    available_checkout_types(user).collect(&:reservation_expired_period).max || 0
  end
   
   def patrons

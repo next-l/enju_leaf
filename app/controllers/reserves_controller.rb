@@ -110,7 +110,7 @@ class ReservesController < ApplicationController
   # POST /reserves
   # POST /reserves.xml
   def create
-    user = get_user_number
+    user = get_user_number ||= @user
     # 図書館員以外は自分の予約しか作成できない
     unless current_user.has_role?('Librarian')
       unless user == current_user

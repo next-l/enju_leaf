@@ -220,7 +220,7 @@ class User < ActiveRecord::Base
   end
 
   def reached_reservation_limit?(manifestation)
-    return true if self.user_group.user_group_has_checkout_types.available_for_carrier_type(manifestation.carrier_type).where(:user_group_id => self.user_group.id).collect(&:reservation_limit).max <= self.reserves.waiting.size
+    return true if self.user_group.user_group_has_checkout_types.available_for_carrier_type(manifestation.carrier_type).where(:user_group_id => self.user_group.id).collect(&:reservation_limit).max.to_i <= self.reserves.waiting.size
     false
   end
 
