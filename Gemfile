@@ -72,6 +72,7 @@ gem 'jquery-rails'
 gem 'sanitize'
 gem 'barby'
 gem 'prawnto'
+gem 'event-calendar', :require => 'event_calendar'
 
 #gem 'oink', '>=0.9.1'
 gem 'parallel_tests', :group => :development

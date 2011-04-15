@@ -27,8 +27,13 @@ describe ManifestationsController do
       end
 
       it "assigns all manifestations as @manifestations in sru format" do
-        get :index, :format => 'sru', :query => 'ruby'
-        assigns(:manifestations).should be_nil
+        get :index, :format => 'sru', :operation => 'searchRetrieve', :query => 'ruby'
+        assigns(:manifestations).should_not be_nil
+      end
+
+      it "assigns all manifestations as @manifestations in openurl" do
+        get :index, :api => 'openurl', :title => 'ruby'
+        assigns(:manifestations).should_not be_nil
       end
 
       it "assigns all manifestations as @manifestations when pubdate_from and pubdate_to are specified" do

@@ -139,15 +139,17 @@ class Clause
 
     if ss.scan(INDEX) or ss.scan(SORT_BY)
       index = ss[0]
-    else
-      raise ScannerError, "index or the sortBy is requested in '#{text}'"
     end
+    #else
+    #  raise ScannerError, "index or the sortBy is requested in '#{text}'"
+    #end
     ss.scan(/\s+/)
     if ss.scan(RELATION)
       relation = ss[0].upcase
-    else
-      raise ScannerError, "relation is requested in '#{text}'"
     end
+    #else
+    #  raise ScannerError, "relation is requested in '#{text}'"
+    #end
     ss.scan(/\s+/)
     if ss.scan(/.+/)
       terms = ss[0].gsub(/(\A\"|\"\Z)/, '').split
@@ -193,7 +195,7 @@ class Clause
     when MATCH_ANYWHERE.include?(@index)
       to_sunspot_match_anywhere
     when @index.empty?
-      ''
+      @terms.join(' ')
     end
   end
 

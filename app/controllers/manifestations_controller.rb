@@ -251,9 +251,9 @@ class ManifestationsController < ApplicationController
           :inline => true
       }
     end
-  rescue QueryError => e
+  #rescue QueryError => e
   #  render :template => 'manifestations/error.xml', :layout => false
-    Rails.logger.info "#{Time.zone.now}\t#{query}\t\t#{current_user.try(:username)}\t#{e}"
+  #  Rails.logger.info "#{Time.zone.now}\t#{query}\t\t#{current_user.try(:username)}\t#{e}"
   #  return
   end
 

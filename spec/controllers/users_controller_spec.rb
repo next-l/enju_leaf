@@ -326,4 +326,66 @@ describe UsersController do
       end
     end
   end
+
+  describe "DELETE destroy" do
+    before(:each) do
+      @user = Factory(:user)
+    end
+
+    describe "When logged in as Administrator" do
+      before(:each) do
+        sign_in Factory(:admin)
+      end
+
+      it "destroys the requested user" do
+        delete :destroy, :id => @user.id
+      end
+
+      it "redirects to the users list" do
+        delete :destroy, :id => @user.id
+        response.should redirect_to(users_url)
+      end
+    end
+
+    describe "When logged in as Librarian" do
+      before(:each) do
+        sign_in Factory(:librarian)
+      end
+
+      it "destroys the requested user" do
+        delete :destroy, :id => @user.id
+      end
+
+      it "redirects to the users list" do
+        delete :destroy, :id => @user.id
+        response.should redirect_to(users_url)
+      end
+    end
+
+    describe "When logged in as User" do
+      before(:each) do
+        sign_in Factory(:user)
+      end
+
+      it "destroys the requested user" do
+        delete :destroy, :id => @user.id
+      end
+
+      it "should be forbidden" do
+        delete :destroy, :id => @user.id
+        response.should be_forbidden
+      end
+    end
+
+    describe "When not logged in" do
+      it "destroys the requested user" do
+        delete :destroy, :id => @user.id
+      end
+
+      it "should be forbidden" do
+        delete :destroy, :id => @user.id
+        response.should redirect_to(new_user_session_url)
+      end
+    end
+  end
 end

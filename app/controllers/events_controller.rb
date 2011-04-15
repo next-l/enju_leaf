@@ -26,8 +26,8 @@ class EventsController < ApplicationController
       with(:library_id).equal_to library.id if library
       #with(:tag).equal_to tag
       if date
-        with(:start_at).greater_than Time.zone.parse(date).beginning_of_day
-        with(:start_at).less_than Time.zone.parse(date).tomorrow.beginning_of_day
+        with(:start_at).less_than Time.zone.parse(date)
+        with(:end_at).greater_than Time.zone.parse(date)
       end
       case mode
       when 'upcoming'

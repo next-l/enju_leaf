@@ -93,14 +93,19 @@ describe ItemsController do
   end
 
   describe "GET new" do
+    before(:each) do
+      @manifestation = Factory(:manifestation)
+    end
+
     describe "When logged in as Administrator" do
       before(:each) do
         sign_in Factory(:admin)
       end
 
       it "assigns the requested item as @item" do
-        get :new
+        get :new, :manifestation_id => @manifestation.id
         assigns(:item).should be_valid
+        response.should be_success
       end
     end
 
@@ -110,8 +115,9 @@ describe ItemsController do
       end
 
       it "assigns the requested item as @item" do
-        get :new
+        get :new, :manifestation_id => @manifestation.id
         assigns(:item).should be_valid
+        response.should be_success
       end
     end
 
@@ -121,7 +127,7 @@ describe ItemsController do
       end
 
       it "should not assign the requested item as @item" do
-        get :new
+        get :new, :manifestation_id => @manifestation.id
         assigns(:item).should be_valid
         response.should be_forbidden
       end
@@ -129,7 +135,7 @@ describe ItemsController do
 
     describe "When not logged in" do
       it "should not assign the requested item as @item" do
-        get :new
+        get :new, :manifestation_id => @manifestation.id
         assigns(:item).should be_valid
         response.should redirect_to(new_user_session_url)
       end

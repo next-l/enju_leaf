@@ -159,13 +159,17 @@ module ActiveRecord
         # Return the next higher item in the list.
         def higher_item
           return nil unless in_list?
-          acts_as_list_class.where("#{scope_condition} AND #{position_column} < #{send(position_column).to_s}").except(:order).order("#{position_column} DESC").first
+          acts_as_list_class.find(:first, :conditions =>
+            "#{scope_condition} AND #{position_column} = #{(send(position_column).to_i - 1).to_s}"
+          )
         end
 
         # Return the next lower item in the list.
         def lower_item
           return nil unless in_list?
-          acts_as_list_class.where("#{scope_condition} AND #{position_column} > #{send(position_column).to_s}").except(:order).order("#{position_column} ASC").first
+          acts_as_list_class.find(:first, :conditions =>
+            "#{scope_condition} AND #{position_column} = #{(send(position_column).to_i + 1).to_s}"
+          )
         end
 
         # Test if this record is in a list
@@ -179,7 +183,11 @@ module ActiveRecord
           end
 
           def add_to_list_bottom
-            self[position_column] = bottom_position_in_list.to_i + 1
+            if self[position_column].nil?
+              self[position_column] = bottom_position_in_list.to_i + 1 
+            else
+              increment_positions_on_lower_items(self[position_column])
+            end
           end
 
           # Overwrite this method to define the scope of the list changes
@@ -196,7 +204,7 @@ module ActiveRecord
           def bottom_item(except = nil)
             conditions = scope_condition
             conditions = "#{conditions} AND #{self.class.primary_key} != #{except.id}" if except
-            acts_as_list_class.where(conditions).except(:order).order("#{position_column} DESC").first
+            acts_as_list_class.find(:first, :conditions => conditions, :order => "#{position_column} DESC")
           end
 
           # Forces item to assume the bottom position in the list.

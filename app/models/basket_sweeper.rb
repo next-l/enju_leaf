@@ -19,5 +19,4 @@ class BasketSweeper < ActionController::Caching::Sweeper
   def after_destroy(record)
     after_save(record)
   end
-
 end

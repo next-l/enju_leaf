@@ -4,7 +4,7 @@ require 'rubygems'
 gem 'activerecord', '>= 1.15.4.7794'
 require 'active_record'
 
-require "lib/acts_as_list"
+require "#{File.dirname(__FILE__)}/../init"
 
 ActiveRecord::Base.establish_connection(:adapter => "sqlite3", :database => ":memory:")
 
@@ -234,7 +234,7 @@ class ListTest < Test::Unit::TestCase
     # the record.
     list = ListMixin.find(2)
     if list.respond_to?(:run_callbacks)
-      list.run_callbacks(:destroy)
+      list.run_callbacks(:before_destroy)
     else
       list.send(:callback, :before_destroy)
     end
@@ -246,6 +246,35 @@ class ListTest < Test::Unit::TestCase
     assert_equal 2, ListMixin.find(3).pos
     assert_equal 3, ListMixin.find(4).pos
   end
+  
+  def test_before_create_callback_adds_to_bottom
+    assert_equal [1, 2, 3, 4], ListMixin.find(:all, :conditions => 'parent_id = 5', :order => 'pos').map(&:id)
+
+    new = ListMixin.create(:parent_id => 5)
+    assert_equal 5, new.pos
+    assert !new.first?
+    assert new.last?
+  
+    assert_equal [1, 2, 3, 4, 5], ListMixin.find(:all, :conditions => 'parent_id = 5', :order => 'pos').map(&:id)
+  end 
+
+  def test_before_create_callback_adds_to_given_position
+    assert_equal [1, 2, 3, 4], ListMixin.find(:all, :conditions => 'parent_id = 5', :order => 'pos').map(&:id)
+
+    new = ListMixin.create(:pos => 1, :parent_id => 5)
+    assert_equal 1, new.pos
+    assert new.first?
+    assert !new.last?
+  
+    assert_equal [5, 1, 2, 3, 4], ListMixin.find(:all, :conditions => 'parent_id = 5', :order => 'pos').map(&:id)
+
+    new = ListMixin.create(:pos => 3, :parent_id => 5)
+    assert_equal 3, new.pos
+    assert !new.first?
+    assert !new.last?
+
+    assert_equal [5, 1, 6, 2, 3, 4], ListMixin.find(:all, :conditions => 'parent_id = 5', :order => 'pos').map(&:id)
+  end 
 
 end
 

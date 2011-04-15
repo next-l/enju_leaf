@@ -201,4 +201,178 @@ describe ReservesController do
       end
     end
   end
+
+  describe "PUT update" do
+    before(:each) do
+      @reserve = Factory(:reserve)
+      @attrs = Factory.attributes_for(:reserve)
+      @invalid_attrs = {:manifestation_id => ''}
+    end
+
+    describe "When logged in as Administrator" do
+      before(:each) do
+        sign_in Factory(:admin)
+      end
+
+      describe "with valid params" do
+        it "updates the requested reserve" do
+          put :update, :id => @reserve.id, :reserve => @attrs, :user_id => @reserve.user.username
+        end
+
+        it "assigns the requested reserve as @reserve" do
+          put :update, :id => @reserve.id, :reserve => @attrs, :user_id => @reserve.user.username
+          assigns(:reserve).should eq(@reserve)
+          response.should redirect_to(user_reserve_url(assigns(:reserve).user, assigns(:reserve)))
+        end
+      end
+
+      describe "with invalid params" do
+        it "assigns the requested reserve as @reserve" do
+          put :update, :id => @reserve.id, :reserve => @invalid_attrs, :user_id => @reserve.user.username
+        end
+
+        it "re-renders the 'edit' template" do
+          put :update, :id => @reserve.id, :reserve => @invalid_attrs, :user_id => @reserve.user.username
+          response.should render_template("edit")
+        end
+      end
+    end
+
+    describe "When logged in as Librarian" do
+      before(:each) do
+        sign_in Factory(:librarian)
+      end
+
+      describe "with valid params" do
+        it "updates the requested reserve" do
+          put :update, :id => @reserve.id, :reserve => @attrs, :user_id => @reserve.user.username
+        end
+
+        it "assigns the requested reserve as @reserve" do
+          put :update, :id => @reserve.id, :reserve => @attrs, :user_id => @reserve.user.username
+          assigns(:reserve).should eq(@reserve)
+          response.should redirect_to(user_reserve_url(assigns(:reserve).user, assigns(:reserve)))
+        end
+      end
+
+      describe "with invalid params" do
+        it "assigns the reserve as @reserve" do
+          put :update, :id => @reserve.id, :reserve => @invalid_attrs, :user_id => @reserve.user.username
+          assigns(:reserve).should_not be_valid
+        end
+
+        it "re-renders the 'edit' template" do
+          put :update, :id => @reserve.id, :reserve => @invalid_attrs, :user_id => @reserve.user.username
+          response.should render_template("edit")
+        end
+      end
+    end
+
+    describe "When logged in as User" do
+      before(:each) do
+        sign_in Factory(:user)
+      end
+
+      describe "with valid params" do
+        it "updates the requested reserve" do
+          put :update, :id => @reserve.id, :reserve => @attrs, :user_id => @reserve.user.username
+        end
+
+        it "assigns the requested reserve as @reserve" do
+          put :update, :id => @reserve.id, :reserve => @attrs, :user_id => @reserve.user.username
+          assigns(:reserve).should eq(@reserve)
+          response.should be_forbidden
+        end
+      end
+
+      describe "with invalid params" do
+        it "assigns the requested reserve as @reserve" do
+          put :update, :id => @reserve.id, :reserve => @invalid_attrs, :user_id => @reserve.user.username
+          response.should be_forbidden
+        end
+      end
+    end
+
+    describe "When not logged in" do
+      describe "with valid params" do
+        it "updates the requested reserve" do
+          put :update, :id => @reserve.id, :reserve => @attrs, :user_id => @reserve.user.username
+        end
+
+        it "should be forbidden" do
+          put :update, :id => @reserve.id, :reserve => @attrs, :user_id => @reserve.user.username
+          response.should redirect_to(new_user_session_url)
+        end
+      end
+
+      describe "with invalid params" do
+        it "assigns the requested reserve as @reserve" do
+          put :update, :id => @reserve.id, :reserve => @invalid_attrs, :user_id => @reserve.user.username
+          response.should redirect_to(new_user_session_url)
+        end
+      end
+    end
+  end
+
+  describe "DELETE destroy" do
+    before(:each) do
+      @reserve = Factory(:reserve)
+    end
+
+    describe "When logged in as Administrator" do
+      before(:each) do
+        sign_in Factory(:admin)
+      end
+
+      it "destroys the requested reserve" do
+        delete :destroy, :id => @reserve.id, :user_id => @reserve.user.username
+      end
+
+      it "redirects to the reserves list" do
+        delete :destroy, :id => @reserve.id, :user_id => @reserve.user.username
+        response.should redirect_to(user_reserves_url(assigns(:reserve).user))
+      end
+    end
+
+    describe "When logged in as Librarian" do
+      before(:each) do
+        sign_in Factory(:librarian)
+      end
+
+      it "destroys the requested reserve" do
+        delete :destroy, :id => @reserve.id, :user_id => @reserve.user.username
+      end
+
+      it "redirects to the reserves list" do
+        delete :destroy, :id => @reserve.id, :user_id => @reserve.user.username
+        response.should redirect_to(user_reserves_url(assigns(:reserve).user))
+      end
+    end
+
+    describe "When logged in as User" do
+      before(:each) do
+        sign_in Factory(:user)
+      end
+
+      it "destroys the requested reserve" do
+        delete :destroy, :id => @reserve.id, :user_id => @reserve.user.username
+      end
+
+      it "should be forbidden" do
+        delete :destroy, :id => @reserve.id, :user_id => @reserve.user.username
+        response.should be_forbidden
+      end
+    end
+
+    describe "When not logged in" do
+      it "destroys the requested reserve" do
+        delete :destroy, :id => @reserve.id, :user_id => @reserve.user.username
+      end
+
+      it "should be forbidden" do
+        delete :destroy, :id => @reserve.id, :user_id => @reserve.user.username
+        response.should redirect_to(new_user_session_url)
+      end
+    end
+  end
 end
