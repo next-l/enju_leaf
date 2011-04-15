@@ -4,62 +4,12 @@ require 'test_helper'
 class LibrariesControllerTest < ActionController::TestCase
   fixtures :libraries, :users
 
-  def test_guest_should_get_index
-    get :index
-    assert_response :success
-    assert assigns(:libraries)
-  end
-
   def test_guest_should_get_index_with_query
     get :index, :query => 'kamata'
     assert_response :success
     assert assigns(:libraries)
   end
 
-  def test_user_should_get_index
-    sign_in users(:user1)
-    get :index
-    assert_response :success
-    assert assigns(:libraries)
-  end
-
-  def test_librarian_should_get_index
-    sign_in users(:librarian1)
-    get :index
-    assert_response :success
-    assert assigns(:libraries)
-  end
-
-  def test_admin_should_get_index
-    sign_in users(:admin)
-    get :index
-    assert_response :success
-    assert assigns(:libraries)
-  end
-
-  def test_guest_should_not_get_new
-    get :new
-    assert_redirected_to new_user_session_url
-  end
-  
-  def test_user_should_not_get_new
-    sign_in users(:user1)
-    get :new
-    assert_response :forbidden
-  end
-  
-  def test_librarian_should_get_new
-    sign_in users(:librarian1)
-    get :new
-    assert_response :forbidden
-  end
-  
-  def test_admin_should_get_new
-    sign_in users(:admin)
-    get :new
-    assert_response :success
-  end
-  
   def test_guest_should_not_create_library
     assert_no_difference('Library.count') do
       post :create, :library => { :name => 'Fujisawa Library', :name => 'fujisawa' }

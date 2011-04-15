@@ -8,25 +8,6 @@ class CheckinsControllerTest < ActionController::TestCase
     :shelves, :request_status_types,
     :content_types, :languages, :message_templates
 
-  def test_guest_should_not_get_index
-    get :index
-    assert_response :redirect
-    assert_redirected_to new_user_session_url
-  end
-
-  def test_user_should_not_get_index
-    sign_in users(:user1)
-    get :index
-    assert_response :forbidden
-  end
-
-  def test_librarian_should_get_index
-    sign_in users(:librarian1)
-    get :index
-    assert_response :redirect
-    assert_redirected_to user_basket_checkins_url(assigns(:basket).user.username, assigns(:basket))
-  end
-
   def test_librarian_should_get_index_with_basket_id
     sign_in users(:librarian1)
     get :index, :basket_id => 1

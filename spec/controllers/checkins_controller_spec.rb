@@ -20,6 +20,14 @@ describe CheckinsController do
         assigns(:checkins).should eq(Checkin.all)
         response.should redirect_to(user_basket_checkins_url(assigns(:basket).user, assigns(:basket)))
       end
+
+      describe "When basket_id is specified" do
+        it "assigns all checkins as @checkins" do
+          get :index, :basket_id => 1
+          assigns(:checkins).should eq(assigns(:basket).checkins)
+          response.should be_success
+        end
+      end
     end
 
     describe "When logged in as Librarian" do
@@ -31,6 +39,14 @@ describe CheckinsController do
         get :index
         assigns(:checkins).should eq(Checkin.all)
         response.should redirect_to(user_basket_checkins_url(assigns(:basket).user, assigns(:basket)))
+      end
+
+      describe "When basket_id is specified" do
+        it "assigns all checkins as @checkins" do
+          get :index, :basket_id => 1
+          assigns(:checkins).should eq(assigns(:basket).checkins)
+          response.should be_success
+        end
       end
     end
 
@@ -60,9 +76,18 @@ describe CheckinsController do
         assigns(:checkin).should be_valid
       end
 
-      it "redirects to the created checkin" do
+      it "redirects to index" do
         post :create, :checkin => @attrs
         response.should redirect_to(user_basket_checkins_url(assigns(:basket).user, assigns(:basket)))
+        assigns(:checkin).item.circulation_status.name.should eq 'Available On Shelf'
+      end
+
+      describe "When basket_id is specified" do
+        it "redirects to the created checkin" do
+          post :create, :checkin => @attrs, :basket_id => 9
+          response.should redirect_to(user_basket_checkins_url(assigns(:basket).user, assigns(:basket)))
+          assigns(:checkin).item.circulation_status.name.should eq 'Available On Shelf'
+        end
       end
     end
 
@@ -77,6 +102,5 @@ describe CheckinsController do
         response.should redirect_to(user_basket_checkins_url(assigns(:basket).user, assigns(:basket)))
       end
     end
-
   end
 end

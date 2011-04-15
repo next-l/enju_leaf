@@ -292,7 +292,9 @@ class Manifestation < ActiveRecord::Base
   end
 
   def available_checkout_types(user)
-    user.user_group.user_group_has_checkout_types.available_for_carrier_type(self.carrier_type)
+    if user
+      user.user_group.user_group_has_checkout_types.available_for_carrier_type(self.carrier_type)
+    end
   end
 
   def checkout_period(user)
