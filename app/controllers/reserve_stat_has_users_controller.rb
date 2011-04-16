@@ -15,8 +15,6 @@ class ReserveStatHasUsersController < ApplicationController
   # GET /reserve_stat_has_users/1
   # GET /reserve_stat_has_users/1.xml
   def show
-    @reserve_stat_has_user = ReserveStatHasUser.find(params[:id])
-
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @reserve_stat_has_user }
@@ -36,7 +34,6 @@ class ReserveStatHasUsersController < ApplicationController
 
   # GET /reserve_stat_has_users/1/edit
   def edit
-    @reserve_stat_has_user = ReserveStatHasUser.find(params[:id])
   end
 
   # POST /reserve_stat_has_users
@@ -59,8 +56,6 @@ class ReserveStatHasUsersController < ApplicationController
   # PUT /reserve_stat_has_users/1
   # PUT /reserve_stat_has_users/1.xml
   def update
-    @reserve_stat_has_user = ReserveStatHasUser.find(params[:id])
-
     respond_to do |format|
       if @reserve_stat_has_user.update_attributes(params[:reserve_stat_has_user])
         flash[:notice] = t('controller.successfully_updated', :model => t('activerecord.models.reserve_stat_has_user'))
@@ -76,7 +71,6 @@ class ReserveStatHasUsersController < ApplicationController
   # DELETE /reserve_stat_has_users/1
   # DELETE /reserve_stat_has_users/1.xml
   def destroy
-    @reserve_stat_has_user = ReserveStatHasUser.find(params[:id])
     @reserve_stat_has_user.destroy
 
     respond_to do |format|

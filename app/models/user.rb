@@ -63,6 +63,7 @@ class User < ActiveRecord::Base
   before_destroy :check_item_before_destroy, :check_role_before_destroy
   before_save :check_expiration
   before_create :set_expired_at
+  before_save :check_expired_at
   after_destroy :remove_from_index
   after_create :set_confirmation
   after_save :index_patron
@@ -96,12 +97,12 @@ class User < ActiveRecord::Base
     :zip_code, :address, :telephone_number, :fax_number, :address_note,
     :role_id, :patron_id, :operator, :password_not_verified,
     :update_own_account, :auto_generated_password, :current_password,
-    :locked
+    :locked, :expire_date
 
   def self.per_page
     10
   end
- 
+
   def password_required?
     !persisted? || !password.nil? || !password_confirmation.nil?
   end
@@ -275,6 +276,14 @@ class User < ActiveRecord::Base
     end
   end
 
+  def check_expired_at
+    if self.expire_date
+      self.expired_at = Time.zone.parse(self.expire_date).try(:end_of_day)
+    end
+  rescue
+    errors[:base] << I18n.t('page.invalid_date')
+  end
+
   def deletable_by(current_user)
     # 未返却の資料のあるユーザを削除しようとした
     if self.checkouts.count > 0
@@ -304,5 +313,49 @@ class User < ActiveRecord::Base
     else
       false
     end
+  end
+
+  def self.create_with_params(params, current_user)
+    user = User.new(params)
+    user.operator = current_user
+    if params[:user]
+      #self.username = params[:user][:login]
+      user.note = params[:note]
+      user.user_group_id = params[:user_group_id] ||= 1
+      user.library_id = params[:library_id] ||= 1
+      user.role_id = params[:role_id] ||= 1
+      user.required_role_id = params[:required_role_id] ||= 1
+      user.keyword_list = params[:keyword_list]
+      user.user_number = params[:user_number]
+      user.locale = params[:locale]
+    end
+    if user.patron_id
+      user.patron = Patron.find(user.patron_id) rescue nil
+    end
+    user
+  end
+
+  def update_with_params(params, current_user)
+    self.operator = current_user
+    #self.username = params[:login]
+    self.openid_identifier = params[:openid_identifier]
+    self.keyword_list = params[:keyword_list]
+    self.checkout_icalendar_token = params[:checkout_icalendar_token]
+    self.email = params[:email]
+    #self.note = params[:note]
+
+    if current_user.has_role?('Librarian')
+      self.note = params[:note]
+      self.user_group_id = params[:user_group_id] || 1
+      self.library_id = params[:library_id] || 1
+      self.role_id = params[:role_id]
+      self.required_role_id = params[:required_role_id] || 1
+      self.user_number = params[:user_number]
+      self.locale = params[:locale]
+      self.locked = params[:locked]
+      expired_at_array = [params["expired_at(1i)"], params["expired_at(2i)"], params["expired_at(3i)"]]
+      self.expire_date = expired_at_array.join("-")
+    end
+    self
   end
 end

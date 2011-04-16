@@ -7,6 +7,7 @@ class Checkout < ActiveRecord::Base
   scope :on, lambda {|date| {:conditions => ['created_at >= ? AND created_at < ?', date.beginning_of_day, date.tomorrow.beginning_of_day]}}
   
   belongs_to :user #, :counter_cache => true #, :validate => true
+  delegate :username, :user_number, :to => :user, :prefix => true
   belongs_to :item #, :counter_cache => true #, :validate => true
   belongs_to :checkin #, :validate => true
   belongs_to :librarian, :class_name => 'User' #, :validate => true

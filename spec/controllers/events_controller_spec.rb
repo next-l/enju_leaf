@@ -15,7 +15,7 @@ describe EventsController do
 
       it "assigns all events as @events" do
         get :index
-        assigns(:events).should_not be_empty
+        assigns(:events).should_not be_nil
       end
     end
 
@@ -26,7 +26,7 @@ describe EventsController do
 
       it "assigns all events as @events" do
         get :index
-        assigns(:events).should_not be_empty
+        assigns(:events).should_not be_nil
       end
     end
 
@@ -37,14 +37,14 @@ describe EventsController do
 
       it "assigns all events as @events" do
         get :index
-        assigns(:events).should_not be_empty
+        assigns(:events).should_not be_nil
       end
     end
 
     describe "When not logged in" do
       it "assigns all events as @events" do
         get :index
-        assigns(:events).should_not be_empty
+        assigns(:events).should_not be_nil
       end
     end
   end

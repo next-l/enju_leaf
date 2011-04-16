@@ -9,7 +9,7 @@
     <th><%= t('activerecord.models.manifestation') -%></th>
     <th></th>
   </tr>
- 
+
 <%- @owns.each do |own| -%>
   <tr class="line<%= cycle("0", "1") -%>">
     <td><%= link_to own.patron.full_name, own.patron -%></td>

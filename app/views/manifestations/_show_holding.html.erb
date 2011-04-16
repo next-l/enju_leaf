@@ -12,14 +12,14 @@
         <%= link_to item.shelf.library.display_name.localize, item.shelf.library %>
       </td>
       <td>
-        <%= link_to item.shelf.display_name.localize, item.shelf -%>
+        <%= link_to item.shelf_display_name.localize, item.shelf -%>
         <%= render :partial => 'items/shelf_picture', :locals => {:item => item} -%>
       </td>
       <td>
         <%= item.call_number -%>
       </td>
       <td>
-        <%- unless item.item_identifier.blank? -%>
+        <%- if item.item_identifier? -%>
           <%= link_to item.item_identifier, item -%>
         <%- else -%>
           (<%= link_to t('item.no_number'), item -%>)

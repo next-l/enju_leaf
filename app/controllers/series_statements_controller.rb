@@ -39,7 +39,6 @@ class SeriesStatementsController < ApplicationController
   # GET /series_statements/1
   # GET /series_statements/1.xml
   def show
-    @series_statement = SeriesStatement.find(params[:id])
     @manifestations = @series_statement.manifestations.paginate(:page => params[:manifestation_page])
 
     respond_to do |format|
@@ -62,7 +61,6 @@ class SeriesStatementsController < ApplicationController
 
   # GET /series_statements/1/edit
   def edit
-    @series_statement = SeriesStatement.find(params[:id])
     @series_statement.work = @work if @work
   end
 
@@ -88,8 +86,6 @@ class SeriesStatementsController < ApplicationController
   # PUT /series_statements/1
   # PUT /series_statements/1.xml
   def update
-    @series_statement = SeriesStatement.find(params[:id])
-
     if params[:position]
       @series_statement.insert_at(params[:position])
       redirect_to series_statements_url
@@ -111,7 +107,6 @@ class SeriesStatementsController < ApplicationController
   # DELETE /series_statements/1
   # DELETE /series_statements/1.xml
   def destroy
-    @series_statement = SeriesStatement.find(params[:id])
     @series_statement.destroy
 
     respond_to do |format|

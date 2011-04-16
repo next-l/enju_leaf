@@ -55,7 +55,7 @@ class BasketsController < ApplicationController
     @basket = Basket.new
     @user = User.where(:user_number => params[:basket][:user_number]).first rescue nil
     if @user
-      unless @user.user_number.blank?
+      if @user.user_number?
         @basket.user = @user
       end
     end

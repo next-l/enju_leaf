@@ -16,7 +16,6 @@ class UserCheckoutStatsController < ApplicationController
   # GET /user_checkout_stats/1
   # GET /user_checkout_stats/1.xml
   def show
-    @user_checkout_stat = UserCheckoutStat.find(params[:id])
     CheckoutStatHasUser.per_page = 65534 if params[:format] == 'csv'
     @stats = @user_checkout_stat.checkout_stat_has_users.paginate(:all, :order => 'checkouts_count DESC, user_id', :page => params[:page])
 
@@ -40,7 +39,6 @@ class UserCheckoutStatsController < ApplicationController
 
   # GET /user_checkout_stats/1/edit
   def edit
-    @user_checkout_stat = UserCheckoutStat.find(params[:id])
   end
 
   # POST /user_checkout_stats
@@ -63,8 +61,6 @@ class UserCheckoutStatsController < ApplicationController
   # PUT /user_checkout_stats/1
   # PUT /user_checkout_stats/1.xml
   def update
-    @user_checkout_stat = UserCheckoutStat.find(params[:id])
-
     respond_to do |format|
       if @user_checkout_stat.update_attributes(params[:user_checkout_stat])
         flash[:notice] = t('controller.successfully_updated', :model => t('activerecord.models.user_checkout_stat'))
@@ -80,7 +76,6 @@ class UserCheckoutStatsController < ApplicationController
   # DELETE /user_checkout_stats/1
   # DELETE /user_checkout_stats/1.xml
   def destroy
-    @user_checkout_stat = UserCheckoutStat.find(params[:id])
     @user_checkout_stat.destroy
 
     respond_to do |format|

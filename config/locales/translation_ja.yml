@@ -1143,6 +1143,7 @@ ja:
     more: "さらに表示"
     connection_failed: "ネットワーク接続に失敗しました。"
     timed_out: "タイムアウトしました。"
+    example: "例"
   title:
     index: "一覧"
     show: "表示"

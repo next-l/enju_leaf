@@ -18,8 +18,6 @@ class UserGroupsController < ApplicationController
   # GET /user_groups/1
   # GET /user_groups/1.xml
   def show
-    @user_group = UserGroup.find(params[:id])
-
     respond_to do |format|
       format.html # show.rhtml
       format.xml  { render :xml => @user_group.to_xml }
@@ -33,7 +31,6 @@ class UserGroupsController < ApplicationController
 
   # GET /user_groups/1;edit
   def edit
-    @user_group = UserGroup.find(params[:id])
   end
 
   # POST /user_groups
@@ -56,8 +53,6 @@ class UserGroupsController < ApplicationController
   # PUT /user_groups/1
   # PUT /user_groups/1.xml
   def update
-    @user_group = UserGroup.find(params[:id])
-
     if params[:position]
       @user_group.insert_at(params[:position])
       redirect_to user_groups_url
@@ -79,7 +74,6 @@ class UserGroupsController < ApplicationController
   # DELETE /user_groups/1
   # DELETE /user_groups/1.xml
   def destroy
-    @user_group = UserGroup.find(params[:id])
     @user_group.destroy
 
     respond_to do |format|

@@ -16,8 +16,6 @@ class PatronImportFilesController < ApplicationController
   # GET /patron_import_files/1
   # GET /patron_import_files/1.xml
   def show
-    @patron_import_file = PatronImportFile.find(params[:id])
-
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @patron_import_file }
@@ -38,7 +36,6 @@ class PatronImportFilesController < ApplicationController
 
   # GET /patron_import_files/1/edit
   def edit
-    @patron_import_file = PatronImportFile.find(params[:id])
   end
 
   # POST /patron_import_files
@@ -65,8 +62,6 @@ class PatronImportFilesController < ApplicationController
   # PUT /patron_import_files/1
   # PUT /patron_import_files/1.xml
   def update
-    @patron_import_file = PatronImportFile.find(params[:id])
-
     respond_to do |format|
       if @patron_import_file.update_attributes(params[:patron_import_file])
         flash[:notice] = t('controller.successfully_updated', :model => t('activerecord.models.patron_import_file'))
@@ -82,7 +77,6 @@ class PatronImportFilesController < ApplicationController
   # DELETE /patron_import_files/1
   # DELETE /patron_import_files/1.xml
   def destroy
-    @patron_import_file = PatronImportFile.find(params[:id])
     @patron_import_file.destroy
 
     respond_to do |format|

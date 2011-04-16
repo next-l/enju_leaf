@@ -1160,6 +1160,7 @@ en:
     more: "More"
     connection_faild: "Connection failed."
     timed_out: "Operation timed out."
+    example: "Example"
   title:
     index: "index"
     show: "show"

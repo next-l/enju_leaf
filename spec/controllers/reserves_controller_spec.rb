@@ -17,10 +17,32 @@ describe ReservesController do
       end
     end
 
-    describe "When not logged in" do
+    describe "When logged in as Librarian" do
+      before(:each) do
+        sign_in Factory(:librarian)
+      end
+
       it "assigns all reserves as @reserves" do
         get :index
-        assigns(:reserves).should be_empty
+        assigns(:reserves).should eq(Reserve.paginate(:page => 1, :order => ['reserves.expired_at DESC']))
+      end
+    end
+
+    describe "When logged in as User" do
+      before(:each) do
+        sign_in Factory(:user)
+      end
+
+      it "assigns empty as @reserves" do
+        get :index
+        assigns(:reserves).should be_nil
+      end
+    end
+
+    describe "When not logged in" do
+      it "assigns empty as @reserves" do
+        get :index
+        assigns(:reserves).should be_nil
         response.should redirect_to(new_user_session_url)
       end
     end

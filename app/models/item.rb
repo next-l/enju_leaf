@@ -13,6 +13,7 @@ class Item < ActiveRecord::Base
   has_many :owns
   has_many :patrons, :through => :owns
   belongs_to :shelf, :counter_cache => true, :validate => true
+  delegate :display_name, :to => :shelf, :prefix => true
   has_many :checked_items, :dependent => :destroy
   has_many :baskets, :through => :checked_items
   belongs_to :circulation_status, :validate => true

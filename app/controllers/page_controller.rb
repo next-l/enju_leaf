@@ -30,7 +30,7 @@ class PageController < ApplicationController
   def statistics
     @title = t('page.statistics')
   end
-  
+ 
   def configuration
     @title = t('page.configuration')
   end
@@ -38,7 +38,7 @@ class PageController < ApplicationController
   def import
     @title = t('page.import')
   end
-  
+ 
   def export
     @title = t('page.export')
   end

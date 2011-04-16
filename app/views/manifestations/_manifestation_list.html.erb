@@ -5,11 +5,11 @@
           [M]
           <%= link_to manifestation.original_title, manifestation -%>
           <%= form_icon(manifestation.carrier_type) -%>
-          <%= link_to image_tag('icons/world_go.png', :size => '16x16', :alt => ('Web')), manifestation.access_address unless manifestation.access_address.blank? -%>
+          <%= link_to image_tag('icons/world_go.png', :size => '16x16', :alt => ('Web')), manifestation.access_address if manifestation.access_address? -%>
           <%= raw patrons_list(manifestation.creators.readable_by(current_user)) -%>
           <%= raw patrons_list(manifestation.contributors.readable_by(current_user)) -%>
           <%= raw patrons_list(manifestation.publishers.readable_by(current_user)) -%>
-          <%- if manifestation.pub_date.present? -%>
+          <%- if manifestation.pub_date? -%>
             (<%= manifestation.pub_date -%>)
           <%- end -%>
         </li>
@@ -19,11 +19,11 @@
           [M]
           <%= link_to manifestation.original_title, manifestation -%>
           <%= form_icon(manifestation.carrier_type) -%>
-          <%= link_to image_tag('icons/world_go.png', :size => '16x16', :alt => ('Web')), manifestation.access_address unless manifestation.access_address.blank? -%>
+          <%= link_to image_tag('icons/world_go.png', :size => '16x16', :alt => ('Web')), manifestation.access_address if manifestation.access_address? -%>
           <%= raw patrons_list(manifestation.creators.readable_by(current_user)) -%>
           <%= raw patrons_list(manifestation.contributors.readable_by(current_user)) -%>
           <%= raw patrons_list(manifestation.publishers.readable_by(current_user)) -%>
-          <%- if manifestation.pub_date.present? -%>
+          <%- if manifestation.pub_date? -%>
             (<%= manifestation.pub_date -%>)
           <%- end -%>
         </li>

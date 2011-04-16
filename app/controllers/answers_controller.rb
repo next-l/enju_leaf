@@ -66,10 +66,6 @@ class AnswersController < ApplicationController
   def show
     if @question
       @answer = @question.answers.find(params[:id])
-    elsif @user
-      @answer = @user.answers.find(params[:id])
-    else
-      @answer = Answer.find(params[:id])
     end
 
     respond_to do |format|
@@ -93,10 +89,6 @@ class AnswersController < ApplicationController
   def edit
     if @question
       @answer = @question.answers.find(params[:id])
-    elsif @user
-      @answer = @user.answers.find(params[:id])
-    else
-      @answer = Answer.find(params[:id])
     end
   end
 
@@ -128,10 +120,6 @@ class AnswersController < ApplicationController
   def update
     if @question
       @answer = @question.answers.find(params[:id])
-    elsif @user
-      @answer = @user.answers.find(params[:id])
-    else
-      @answer = Answer.find(params[:id])
     end
 
     respond_to do |format|
@@ -151,10 +139,6 @@ class AnswersController < ApplicationController
   def destroy
     if @question
       @answer = @question.answers.find(params[:id])
-    elsif @user
-      @answer = @user.answers.find(params[:id])
-    else
-      @answer = Answer.find(params[:id])
     end
     @answer.destroy
 

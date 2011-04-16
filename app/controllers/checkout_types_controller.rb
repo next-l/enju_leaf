@@ -22,8 +22,6 @@ class CheckoutTypesController < ApplicationController
   def show
     if @user_group
       @checkout_type = @user_group.checkout_types.find(params[:id])
-    else
-      @checkout_type = CheckoutType.find(params[:id])
     end
 
     respond_to do |format|
@@ -51,8 +49,6 @@ class CheckoutTypesController < ApplicationController
   def edit
     if @user_group
       @checkout_type = @user_group.checkout_types.find(params[:id])
-    else
-      @checkout_type = CheckoutType.find(params[:id])
     end
   end
 
@@ -82,8 +78,6 @@ class CheckoutTypesController < ApplicationController
   def update
     if @user_group
       @checkout_type = @user_group.checkout_types.find(params[:id])
-    else
-      @checkout_type = CheckoutType.find(params[:id])
     end
 
     if params[:position]
@@ -109,8 +103,6 @@ class CheckoutTypesController < ApplicationController
   def destroy
     if @user_group
       @checkout_type = @user_group.checkout_types.find(params[:id])
-    else
-      @checkout_type = CheckoutType.find(params[:id])
     end
     @checkout_type.destroy
 

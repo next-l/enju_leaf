@@ -1,7 +1,7 @@
 <div id="content_detail" class="ui-corner-all">
 <h1 class="title"><%= t('page.showing', :model => t('activerecord.models.order')) -%></h1>
 <div id="content_list">
- 
+
 <p>
   <strong><%= t('activerecord.models.order_list') -%>:</strong>
   <%= link_to @order.order_list.title, order_list_purchase_requests_path(@order.order_list) -%>

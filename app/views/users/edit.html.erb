@@ -5,8 +5,8 @@
 <%= form_for(@user) do |f| -%>
   <%= f.error_messages -%>
 
-  <%= render :partial => 'users/edit_credential', :locals => {:f => f} -%>
-  
+  <%= render :partial => 'users/edit_credential', :locals => {:f => f, :user => @user} -%>
+
   <p>
     <%= f.submit %>
   </p>

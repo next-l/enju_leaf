@@ -19,7 +19,7 @@ class Role < ActiveRecord::Base
       Role.select(:name)
     end
   end
- 
+
   def clear_all_cache
     Rails.cache.delete('role_all')
   end

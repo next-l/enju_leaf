@@ -15,8 +15,6 @@ class ReserveStatHasManifestationsController < ApplicationController
   # GET /reserve_stat_has_manifestations/1
   # GET /reserve_stat_has_manifestations/1.xml
   def show
-    @reserve_stat_has_manifestation = ReserveStatHasManifestation.find(params[:id])
-
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @reserve_stat_has_manifestation }
@@ -36,7 +34,6 @@ class ReserveStatHasManifestationsController < ApplicationController
 
   # GET /reserve_stat_has_manifestations/1/edit
   def edit
-    @reserve_stat_has_manifestation = ReserveStatHasManifestation.find(params[:id])
   end
 
   # POST /reserve_stat_has_manifestations
@@ -59,8 +56,6 @@ class ReserveStatHasManifestationsController < ApplicationController
   # PUT /reserve_stat_has_manifestations/1
   # PUT /reserve_stat_has_manifestations/1.xml
   def update
-    @reserve_stat_has_manifestation = ReserveStatHasManifestation.find(params[:id])
-
     respond_to do |format|
       if @reserve_stat_has_manifestation.update_attributes(params[:reserve_stat_has_manifestation])
         flash[:notice] = t('controller.successfully_updated', :model => t('activerecord.models.reserve_stat_has_manifestation'))
@@ -76,7 +71,6 @@ class ReserveStatHasManifestationsController < ApplicationController
   # DELETE /reserve_stat_has_manifestations/1
   # DELETE /reserve_stat_has_manifestations/1.xml
   def destroy
-    @reserve_stat_has_manifestation = ReserveStatHasManifestation.find(params[:id])
     @reserve_stat_has_manifestation.destroy
 
     respond_to do |format|

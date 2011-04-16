@@ -33,7 +33,6 @@ class Reserve < ActiveRecord::Base
   before_validation :set_request_status, :on => :create
 
   attr_accessor :user_number, :item_identifier
-  attr_accessor :expire_date
 
   state_machine :initial => :pending do
     before_transition :pending => :requested, :do => :do_request
@@ -53,7 +52,7 @@ class Reserve < ActiveRecord::Base
     event :sm_cancel do
       transition [:pending, :requested, :retained] => :canceled
     end
-  
+
     event :sm_expire do
       transition [:pending, :requested, :retained] => :expired
     end

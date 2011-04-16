@@ -16,7 +16,7 @@ if @sru
   @number_of_records = @manifestations.total_entries
   @next_record_position = @sru.start + @manifestations.size
 end
-  
+ 
 def search_retrieve_response!(xml)
   xml.searchRetrieveResponse :xmlns => "http://www.loc.gov/zing/srw/" do
     xml.version @version

@@ -41,7 +41,7 @@ class UsersController < ApplicationController
       @users = User.paginate(:all, :page => page, :order => "#{sort[:sort_by]} #{sort[:order]}")
     end
     @count[:query_result] = @users.total_entries
-    
+
     respond_to do |format|
       format.html # index.rhtml
       format.xml  { render :xml => @users }
@@ -56,9 +56,6 @@ class UsersController < ApplicationController
 
   def show
     session[:user_return_to] = nil
-    #@user = User.first(:conditions => {:username => params[:id]})
-    #@user = User.find(params[:id])
-    raise ActiveRecord::RecordNotFound if @user.blank?
     unless @user.patron
       redirect_to new_user_patron_url(@user); return
     end
@@ -95,7 +92,6 @@ class UsersController < ApplicationController
   end
 
   def edit
-    #@user = User.first(:conditions => {:login => params[:id]})
     @user.role_id = @user.role.id
 
     if params[:mode] == 'feed_token'
@@ -110,41 +106,34 @@ class UsersController < ApplicationController
     prepare_options
   end
 
-  def update
-    #@user = User.first(:conditions => {:login => params[:id]})
-    @user.operator = current_user
+  def create
+    @user = User.create_with_params(params[:user], current_user)
+    @user.set_auto_generated_password
+    @user.role = Role.where(:name => 'User').first
 
-    if params[:user]
-      #@user.username = params[:user][:login]
-      @user.openid_identifier = params[:user][:openid_identifier]
-      @user.keyword_list = params[:user][:keyword_list]
-      @user.checkout_icalendar_token = params[:user][:checkout_icalendar_token]
-      @user.email = params[:user][:email]
-      #@user.note = params[:user][:note]
-
-      if current_user.has_role?('Librarian')
-        @user.note = params[:user][:note]
-        @user.user_group_id = params[:user][:user_group_id] || 1
-        @user.library_id = params[:user][:library_id] || 1
-        @user.role_id = params[:user][:role_id]
-        @user.required_role_id = params[:user][:required_role_id] || 1
-        @user.user_number = params[:user][:user_number]
-        @user.locale = params[:user][:locale]
-        @user.locked = params[:user][:locked]
-        expired_at_array = [params[:user]["expired_at(1i)"], params[:user]["expired_at(2i)"], params[:user]["expired_at(3i)"]]
-        begin
-          @user.expired_at = Time.zone.parse(expired_at_array.join("-")).try(:end_of_day)
-        rescue ArgumentError
-          flash[:notice] = t('page.invalid_date')
-          redirect_to edit_user_url(@user)
-          return
-        end
-      end
-      if params[:user][:auto_generated_password] == "1"
-        @user.set_auto_generated_password
+    respond_to do |format|
+      if @user.save
+        flash[:notice] = t('controller.successfully_created.', :model => t('activerecord.models.user'))
         flash[:temporary_password] = @user.password
+        format.html { redirect_to user_url(@user) }
+        #format.html { redirect_to new_user_patron_url(@user) }
+        format.xml  { head :ok }
+      else
+        prepare_options
+        flash[:error] = t('user.could_not_setup_account')
+        format.html { render :action => "new" }
+        format.xml  { render :xml => @user.errors, :status => :unprocessable_entity }
       end
     end
+  end
+
+  def update
+    @user.update_with_params(params[:user], current_user)
+    if params[:user][:auto_generated_password] == "1"
+      @user.set_auto_generated_password
+      flash[:temporary_password] = self.password
+    end
+
     if current_user.has_role?('Administrator')
       if @user.role_id
         role = Role.find(@user.role_id)
@@ -171,46 +160,7 @@ class UsersController < ApplicationController
     end
   end
 
-  def create
-    @user = User.new(params[:user])
-    @user.operator = current_user
-    if params[:user]
-      #@user.username = params[:user][:login]
-      @user.note = params[:user][:note]
-      @user.user_group_id = params[:user][:user_group_id] ||= 1
-      @user.library_id = params[:user][:library_id] ||= 1
-      @user.role_id = params[:user][:role_id] ||= 1
-      @user.required_role_id = params[:user][:required_role_id] ||= 1
-      @user.keyword_list = params[:user][:keyword_list]
-      @user.user_number = params[:user][:user_number]
-      @user.locale = params[:user][:locale]
-    end
-    if @user.patron_id
-      @user.patron = Patron.find(@user.patron_id) rescue nil
-    end
-    @user.set_auto_generated_password
-    @user.role = Role.where(:name => 'User').first
-
-    respond_to do |format|
-      if @user.save
-        flash[:notice] = t('controller.successfully_created.', :model => t('activerecord.models.user'))
-        flash[:temporary_password] = @user.password
-        format.html { redirect_to user_url(@user) }
-        #format.html { redirect_to new_user_patron_url(@user) }
-        format.xml  { head :ok }
-      else
-        prepare_options
-        flash[:error] = t('user.could_not_setup_account')
-        format.html { render :action => "new" }
-        format.xml  { render :xml => @user.errors, :status => :unprocessable_entity }
-      end
-    end
-  end
-
   def destroy
-    #@user = User.first(:conditions => {:username => params[:id]})
-    #@user = User.find(params[:id])
-
     # 自分自身を削除しようとした
     if current_user == @user
       flash[:notice] = I18n.t('user.cannot_destroy_myself')

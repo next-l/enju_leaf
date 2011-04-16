@@ -69,7 +69,7 @@ class Cql
       []
     end
   end
-  
+
   def comp_date(date)
     if date
       text = date.terms[0]
@@ -181,7 +181,7 @@ class Clause
       raise AdapterError if @terms.size > 1
     end
   end
-      
+
   def to_sunspot
     case
     when MATCH_ALL.include?(@index)
@@ -271,7 +271,7 @@ class Clause
     boolean = relation == :any ? ' OR ' : ' AND '
     "#{terms.map{|t| trim_ahead(t)}.join(boolean)}"
   end
-  
+
   def trim_ahead(term)
     term.sub(/\A\^+/,'')
   end

@@ -47,39 +47,6 @@ describe CheckoutsController do
     end
   end
 
-  describe "POST create" do
-    before(:each) do
-      sign_in Factory(:admin)
-      Factory(:library)
-      @attrs = Factory.attributes_for(:item)
-      @invalid_attrs = {:item_identifier => 'invalid'}
-    end
-
-    describe "with valid params" do
-      it "assigns a newly created checkout as @checkout" do
-        post :create, :checkout => @attrs
-        assigns(:checkout).should be_nil
-      end
-
-      it "redirects to the created checkout" do
-        post :create, :checkout => @attrs
-        response.should be_forbidden
-      end
-    end
-
-    describe "with invalid params" do
-      it "assigns a newly created but unsaved checkout as @checkout" do
-        post :create, :checkout => @invalid_attrs
-        assigns(:checkout).should be_nil
-      end
-
-      it "should be forbidden" do
-        post :create, :checkout => @invalid_attrs
-        response.should be_forbidden
-      end
-    end
-  end
-
   describe "PUT update" do
     before(:each) do
       @checkout = checkouts(:checkout_00003)

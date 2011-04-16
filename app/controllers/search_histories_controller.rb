@@ -28,8 +28,6 @@ class SearchHistoriesController < ApplicationController
   # GET /search_histories/1
   # GET /search_histories/1.xml
   def show
-    @search_history = SearchHistory.find(params[:id])
-
     respond_to do |format|
       format.html # show.rhtml
       format.xml  { render :xml => @search_history.to_xml }
@@ -87,7 +85,6 @@ class SearchHistoriesController < ApplicationController
   # DELETE /search_histories/1
   # DELETE /search_histories/1.xml
   def destroy
-    @search_history = SearchHistory.find(params[:id])
     @search_history.destroy
 
     respond_to do |format|

@@ -13,12 +13,12 @@
           <%= f.text_field :recipient, :class => 'resource_title', :value => @message.recipient -%>
         <%- end -%>
       </p>
-    
+
       <p>
         <%= f.label :subject -%>:
         <%= f.text_field :subject, :class => 'resource_title' -%>
       </p>
-      
+
       <p>
         <%= f.label :body -%>:<br />
         <%= f.text_area :body, :id => 'message_body' -%>
@@ -28,7 +28,7 @@
       <%= submit_tag t('message.send') -%>
     <%- end -%>
   </fieldset>
-  
+
 </div>
 </div>
 

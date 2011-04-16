@@ -67,27 +67,6 @@ describe RolesController do
     end
   end
 
-  describe "GET new" do
-    describe "When logged in as Administrator" do
-      before(:each) do
-        sign_in Factory(:admin)
-      end
-
-      it "assigns the requested role as @role" do
-        get :new
-        assigns(:role).should_not be_valid
-      end
-    end
-
-    describe "When not logged in" do
-      it "should not assign the requested role as @role" do
-        get :new
-        assigns(:role).should_not be_valid
-        response.should redirect_to(new_user_session_url)
-      end
-    end
-  end
-
   describe "GET edit" do
     describe "When logged in as Administrator" do
       before(:each) do

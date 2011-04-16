@@ -15,8 +15,6 @@ class CheckoutStatHasManifestationsController < ApplicationController
   # GET /checkout_stat_has_manifestations/1
   # GET /checkout_stat_has_manifestations/1.xml
   def show
-    @checkout_stat_has_manifestation = CheckoutStatHasManifestation.find(params[:id])
-
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @checkout_stat_has_manifestation }
@@ -36,7 +34,6 @@ class CheckoutStatHasManifestationsController < ApplicationController
 
   # GET /checkout_stat_has_manifestations/1/edit
   def edit
-    @checkout_stat_has_manifestation = CheckoutStatHasManifestation.find(params[:id])
   end
 
   # POST /checkout_stat_has_manifestations
@@ -59,8 +56,6 @@ class CheckoutStatHasManifestationsController < ApplicationController
   # PUT /checkout_stat_has_manifestations/1
   # PUT /checkout_stat_has_manifestations/1.xml
   def update
-    @checkout_stat_has_manifestation = CheckoutStatHasManifestation.find(params[:id])
-
     respond_to do |format|
       if @checkout_stat_has_manifestation.update_attributes(params[:checkout_stat_has_manifestation])
         flash[:notice] = t('controller.successfully_updated', :model => t('activerecord.models.checkout_stat_has_manifestation'))
@@ -76,7 +71,6 @@ class CheckoutStatHasManifestationsController < ApplicationController
   # DELETE /checkout_stat_has_manifestations/1
   # DELETE /checkout_stat_has_manifestations/1.xml
   def destroy
-    @checkout_stat_has_manifestation = CheckoutStatHasManifestation.find(params[:id])
     @checkout_stat_has_manifestation.destroy
 
     respond_to do |format|

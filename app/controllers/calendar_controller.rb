@@ -1,6 +1,6 @@
 class CalendarController < ApplicationController
   helper_method :get_library, :get_libraries
-  
+
   def index
     params[:month] ||= Time.zone.now.month
     params[:year] ||= Time.zone.now.year

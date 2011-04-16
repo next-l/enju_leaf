@@ -1,7 +1,7 @@
-<%- if @patron -%>
-  <%= render :partial => 'index_patron' -%>
-<%- elsif @work -%>
-  <%= render :partial => 'index_work' -%>
-<%- else -%>
-  <%= render :partial => 'index' -%>
-<%- end -%>
+<% if @patron %>
+  <%= render :partial => 'index_patron', :locals => {:patron => @patron} %>
+<% elsif @work %>
+  <%= render :partial => 'index_work', :locals => {:work => @work} %>
+<% else %>
+  <%= render :partial => 'index' %>
+<% end %>

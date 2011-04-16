@@ -25,8 +25,6 @@ class WorkHasSubjectsController < ApplicationController
   # GET /work_has_subjects/1
   # GET /work_has_subjects/1.xml
   def show
-    @work_has_subject = WorkHasSubject.find(params[:id])
-
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @work_has_subject }
@@ -47,7 +45,6 @@ class WorkHasSubjectsController < ApplicationController
 
   # GET /work_has_subjects/1/edit
   def edit
-    @work_has_subject = WorkHasSubject.find(params[:id])
   end
 
   # POST /work_has_subjects
@@ -70,8 +67,6 @@ class WorkHasSubjectsController < ApplicationController
   # PUT /work_has_subjects/1
   # PUT /work_has_subjects/1.xml
   def update
-    @work_has_subject = WorkHasSubject.find(params[:id])
-
     get_work
     if @work and params[:position]
       @work_has_subject.insert_at(params[:position])
@@ -95,7 +90,6 @@ class WorkHasSubjectsController < ApplicationController
   # DELETE /work_has_subjects/1.xml
   def destroy
     get_work; get_subject
-    @work_has_subject = WorkHasSubject.find(params[:id])
     @work_has_subject.destroy
 
     respond_to do |format|

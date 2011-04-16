@@ -1,26 +1,73 @@
 require 'spec_helper'
-require 'sunspot/rails/spec_helper'
 
 describe MessagesController do
   fixtures :all
-  disconnect_sunspot
 
   describe "GET index" do
     describe "When logged in as Administrator" do
       before(:each) do
-        sign_in Factory(:admin)
+        @user = Factory(:admin)
+        sign_in @user
       end
 
-      it "assigns all messages as @messages" do
+      it "should redirect to its own messages" do
         get :index
-        assigns(:messages).should_not be_nil
+        assigns(:messages).should be_nil
+        response.should redirect_to(user_messages_url(@user))
+      end
+
+      describe "When user_id is specified" do
+        it "assigns all messages as @messages" do
+          get :index, :user_id => @user.username
+          assigns(:messages).should_not be_nil
+        end
+      end
+    end
+
+    describe "When logged in as Librarian" do
+      before(:each) do
+        @user = Factory(:librarian)
+        sign_in @user
+      end
+
+      it "should redirect to its own messages" do
+        get :index
+        assigns(:messages).should be_nil
+        response.should redirect_to(user_messages_url(@user))
+      end
+
+      describe "When user_id is specified" do
+        it "assigns all messages as @messages" do
+          get :index, :user_id => @user.username
+          assigns(:messages).should_not be_nil
+        end
+      end
+    end
+
+    describe "When logged in as User" do
+      before(:each) do
+        @user = Factory(:user)
+        sign_in @user
+      end
+
+      it "should redirect to its own messages" do
+        get :index
+        assigns(:messages).should be_nil
+        response.should redirect_to(user_messages_url(@user))
+      end
+
+      describe "When user_id is specified" do
+        it "assigns all messages as @messages" do
+          get :index, :user_id => @user.username
+          assigns(:messages).should_not be_nil
+        end
       end
     end
 
     describe "When not logged in" do
       it "assigns all messages as @messages" do
         get :index
-        assigns(:messages).should be_empty
+        assigns(:messages).should be_nil
         response.should redirect_to(new_user_session_url)
       end
     end

@@ -21,7 +21,7 @@ class Basket < ActiveRecord::Base
       errors[:base] << I18n.t('user.not_found')
     end
   end
-  
+
   def basket_checkout(librarian)
     return nil if self.checked_items.size == 0
     Item.transaction do

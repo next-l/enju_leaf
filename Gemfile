@@ -59,7 +59,7 @@ gem 'configatron'
 gem 'extractcontent'
 gem 'cancan', '>=1.6.3'
 gem 'scribd_fu', :git => 'git://github.com/nabeta/scribd_fu.git'
-gem 'devise', '>=1.2.1'
+gem 'devise', '>=1.3.0'
 gem 'omniauth'
 gem 'paperclip'
 gem 'whenever', :require => false

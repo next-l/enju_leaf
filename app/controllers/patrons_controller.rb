@@ -12,7 +12,7 @@ class PatronsController < ApplicationController
   before_filter :get_version, :only => [:show]
   after_filter :solr_commit, :only => [:create, :update, :destroy]
   cache_sweeper :patron_sweeper, :only => [:create, :update, :destroy]
-  
+ 
   # GET /patrons
   # GET /patrons.xml
   def index
@@ -108,8 +108,6 @@ class PatronsController < ApplicationController
     else
       if @version
         @patron = @patron.versions.find(@version).item if @version
-      else
-        @patron = Patron.find(params[:id])
       end
     end
 
@@ -151,7 +149,6 @@ class PatronsController < ApplicationController
 
   # GET /patrons/1;edit
   def edit
-    #@patron = Patron.find(params[:id])
     prepare_options
   end
 
@@ -203,8 +200,6 @@ class PatronsController < ApplicationController
   # PUT /patrons/1
   # PUT /patrons/1.xml
   def update
-    #@patron = Patron.find(params[:id])
-
     respond_to do |format|
       if @patron.update_attributes(params[:patron])
         flash[:notice] = t('controller.successfully_updated', :model => t('activerecord.models.patron'))
@@ -221,15 +216,6 @@ class PatronsController < ApplicationController
   # DELETE /patrons/1
   # DELETE /patrons/1.xml
   def destroy
-    #@patron = Patron.find(params[:id])
-
-    if @patron.user.try(:has_role?, 'Librarian')
-      unless current_user.has_role?('Administrator')
-        access_denied
-        return
-      end
-    end
-
     @patron.destroy
 
     respond_to do |format|
@@ -246,5 +232,4 @@ class PatronsController < ApplicationController
     @roles = Role.all
     @languages = Language.all_cache
   end
-
 end

@@ -213,10 +213,10 @@ class ReservesControllerTest < ActionController::TestCase
     assert_response :missing
   end
 
-  def test_user_should_not_show_reserve_without_user_id
+  def test_user_should_show_reserve_without_user_id
     sign_in users(:user1)
     get :show, :id => 3
-    assert_response :forbidden
+    assert_response :success
   end
 
   def test_user_should_show_my_reserve

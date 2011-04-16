@@ -160,17 +160,11 @@ class Ability
       end
       can [:read, :update, :destroy], MessageRequest
       can [:index, :create], Patron
-      can [:show], Patron do |patron|
-        if patron.required_role_id <= 3
-          true
-        end
+      can :show, Patron do |patron|
+        patron.required_role_id <= 3
       end
-      can [:show, :update, :destroy], Patron do |patron|
-        if patron.user.try(:role).try(:name) != 'Administrator'
-          if patron.required_role_id <= 3
-            true
-          end
-        end
+      can [:update, :destroy], Patron do |patron|
+        !patron.user.try(:has_role?, 'Librarian') and patron.required_role_id <= 3
       end
       can [:index, :create], PurchaseRequest
       can [:index, :create], PurchaseRequest
@@ -183,14 +177,6 @@ class Ability
       end
       can :show, Question do |question|
         question.user == user or question.shared
-      end
-      can [:index, :create], Patron
-      can :show, Patron do |patron|
-        patron.required_role_id <= 3 #'Librarian'
-      end
-      can [:update, :destroy], Patron do |patron|
-        patron.required_role_id <= 3 #'Librarian'
-        patron.user.role.name != 'Administrator' if patron.user
       end
       can [:index, :create], Reserve
       can [:update, :destroy, :show], Reserve do |reserve|

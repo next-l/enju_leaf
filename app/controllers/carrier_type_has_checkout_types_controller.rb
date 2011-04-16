@@ -17,8 +17,6 @@ class CarrierTypeHasCheckoutTypesController < ApplicationController
   # GET /carrier_type_has_checkout_types/1
   # GET /carrier_type_has_checkout_types/1.xml
   def show
-    @carrier_type_has_checkout_type = CarrierTypeHasCheckoutType.find(params[:id])
-
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @carrier_type_has_checkout_type }
@@ -40,7 +38,6 @@ class CarrierTypeHasCheckoutTypesController < ApplicationController
 
   # GET /carrier_type_has_checkout_types/1/edit
   def edit
-    @carrier_type_has_checkout_type = CarrierTypeHasCheckoutType.find(params[:id])
   end
 
   # POST /carrier_type_has_checkout_types
@@ -64,8 +61,6 @@ class CarrierTypeHasCheckoutTypesController < ApplicationController
   # PUT /carrier_type_has_checkout_types/1
   # PUT /carrier_type_has_checkout_types/1.xml
   def update
-    @carrier_type_has_checkout_type = CarrierTypeHasCheckoutType.find(params[:id])
-
     respond_to do |format|
       if @carrier_type_has_checkout_type.update_attributes(params[:carrier_type_has_checkout_type])
         flash[:notice] = t('controller.successfully_updated', :model => t('activerecord.models.carrier_type_has_checkout_type'))
@@ -82,7 +77,6 @@ class CarrierTypeHasCheckoutTypesController < ApplicationController
   # DELETE /carrier_type_has_checkout_types/1
   # DELETE /carrier_type_has_checkout_types/1.xml
   def destroy
-    @carrier_type_has_checkout_type = CarrierTypeHasCheckoutType.find(params[:id])
     @carrier_type_has_checkout_type.destroy
 
     respond_to do |format|

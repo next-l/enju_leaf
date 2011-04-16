@@ -6,7 +6,7 @@ class PurchaseRequestsController < ApplicationController
   before_filter :store_page, :only => :index
   after_filter :solr_commit, :only => [:create, :update, :destroy]
   after_filter :convert_charset, :only => :index
- 
+
   # GET /purchase_requests
   # GET /purchase_requests.xml
   def index
@@ -89,7 +89,7 @@ class PurchaseRequestsController < ApplicationController
 
     @purchase_request = PurchaseRequest.new(params[:purchase_request])
     @purchase_request.user = @user if @user
-    @purchase_request.title = Bookmark.get_title_from_url(@purchase_request.url) if @purchase_request.title.blank?
+    @purchase_request.title = Bookmark.get_title_from_url(@purchase_request.url) unless @purchase_request.title?
 
     respond_to do |format|
       format.html # new.html.erb

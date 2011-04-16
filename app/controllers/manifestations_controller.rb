@@ -18,18 +18,15 @@ class ManifestationsController < ApplicationController
   # GET /manifestations
   # GET /manifestations.xml
   def index
-    @seconds = Benchmark.realtime do
-      if params[:mode] == 'add'
-        unless current_user.try(:has_role?, 'Librarian')
-          access_denied; return
-        end
+    if params[:mode] == 'add'
+      unless current_user.try(:has_role?, 'Librarian')
+        access_denied; return
       end
+    end
+
+    @seconds = Benchmark.realtime do
       @oai = check_oai_params(params)
       next if @oai[:need_not_to_search]
-	    if user_signed_in?
-	      @user = current_user unless @user
-	    end
-
       if params[:format] == 'oai'
         from_and_until_times = set_from_and_until(Manifestation, params[:from], params[:until])
         from_time = @from_time = from_and_until_times[:from]
@@ -78,7 +75,7 @@ class ManifestationsController < ApplicationController
           return
         end
       else
-        if params[:api] == 'openurl' 
+        if params[:api] == 'openurl'
           openurl = Openurl.new(params)
           @manifestations = openurl.search
           query = openurl.query_text
@@ -352,7 +349,6 @@ class ManifestationsController < ApplicationController
         access_denied; return
       end
     end
-    @manifestation = Manifestation.find(params[:id])
     @original_manifestation = Manifestation.where(:id => params[:manifestation_id]).first
     @manifestation.series_statement = @series_statement if @series_statement
     if params[:mode] == 'tag_edit'
@@ -370,7 +366,7 @@ class ManifestationsController < ApplicationController
     if @manifestation.respond_to?(:post_to_scribd)
       @manifestation.post_to_scribd = true if params[:manifestation][:post_to_scribd] == "1"
     end
-    if @manifestation.original_title.blank?
+    unless @manifestation.original_title?
       @manifestation.original_title = @manifestation.attachment_file_name
     end
 
@@ -396,8 +392,6 @@ class ManifestationsController < ApplicationController
   # PUT /manifestations/1
   # PUT /manifestations/1.xml
   def update
-    @manifestation = Manifestation.find(params[:id])
-    
     respond_to do |format|
       if @manifestation.update_attributes(params[:manifestation])
         flash[:notice] = t('controller.successfully_updated', :model => t('activerecord.models.manifestation'))
@@ -417,7 +411,6 @@ class ManifestationsController < ApplicationController
   # DELETE /manifestations/1
   # DELETE /manifestations/1.xml
   def destroy
-    @manifestation = Manifestation.find(params[:id])
     @manifestation.destroy
     flash[:notice] = t('controller.successfully_deleted', :model => t('activerecord.models.manifestation'))
 

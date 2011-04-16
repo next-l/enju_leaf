@@ -80,7 +80,7 @@ class CheckinsControllerTest < ActionController::TestCase
     end
     
     assert_equal 'Available On Shelf', assigns(:checkin).item.circulation_status.name
-    assert flash[:message].index(I18n.t('item.this_item_include_supplement'))
+    assert flash[:message].to_s.index(I18n.t('item.this_item_include_supplement'))
     assert_redirected_to user_basket_checkins_url(assigns(:basket).user.username, assigns(:basket))
   end
 
@@ -89,7 +89,7 @@ class CheckinsControllerTest < ActionController::TestCase
     assert_difference('Checkin.count') do
       post :create, :checkin => {:item_identifier => '00009'}, :basket_id => 9
     end
-    assert flash[:message].index(I18n.t('checkin.other_library_item'))
+    assert flash[:message].to_s.index(I18n.t('checkin.other_library_item'))
     
     assert_redirected_to user_basket_checkins_url(assigns(:basket).user.username, assigns(:basket))
   end
@@ -99,7 +99,7 @@ class CheckinsControllerTest < ActionController::TestCase
     assert_difference('Checkin.count') do
       post :create, :checkin => {:item_identifier => '00008'}, :basket_id => 9
     end
-    assert flash[:message].index(I18n.t('item.this_item_is_reserved'))
+    assert flash[:message].to_s.index(I18n.t('item.this_item_is_reserved'))
     assert_equal 'retained', assigns(:checkin).item.next_reservation.state
     
     assert_redirected_to user_basket_checkins_url(assigns(:basket).user.username, assigns(:basket))

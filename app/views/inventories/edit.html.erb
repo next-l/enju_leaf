@@ -2,32 +2,32 @@
 <h1 class="title"><%= t('page.editing', :model => t('activerecord.models.inventory')) -%> </h1>
 <div id="content_list">
 
-<%= form_for(@inventory) do |f| -%> 
-  <%= f.error_messages -%> 
+<%= form_for(@inventory) do |f| -%>
+  <%= f.error_messages -%>
 
   <p>
-    <%= f.label :item_id -%> <br />
-    <%= f.text_field :item_id -%> 
+    <%= f.label :item_id -%><br />
+    <%= f.text_field :item_id -%>
   </p>
   <p>
-    <%= f.label :inventory_file_id -%> <br />
-    <%= f.text_field :inventory_file_id -%> 
+    <%= f.label :inventory_file_id -%><br />
+    <%= f.text_field :inventory_file_id -%>
   </p>
   <p>
-    <%= f.label :note -%> <br />
-    <%= f.text_area :note -%> 
+    <%= f.label :note -%><br />
+    <%= f.text_area :note -%>
   </p>
   <p>
-    <%= f.submit %> 
+    <%= f.submit %>
   </p>
-<%- end -%> 
+<%- end -%>
 
 </div>
 </div>
 
 <div id="submenu" class="ui-corner-all">
   <ul>
-    <li><%= link_to t('page.show'), @inventory -%> </li>
-    <li><%= link_to t('page.back'), inventories_path -%> </li>
+    <li><%= link_to t('page.show'), @inventory -%></li>
+    <li><%= link_to t('page.back'), inventories_path -%></li>
   </ul>
 </div>

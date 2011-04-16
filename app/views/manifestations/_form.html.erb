@@ -26,7 +26,7 @@
     <%= f.label :title_alternative -%><br />
     <%= f.text_field :title_alternative, :class => 'resource_title' -%>
   </p>
- 
+
   <p>
     <%= f.label t('page.file') -%><br />
     <%= f.file_field :attachment -%>
@@ -99,7 +99,7 @@
     <%= f.label :repository_content -%>
     <%= f.check_box :repository_content -%>
   </p>
-  
+
   <p>
     <%= f.label t('role.required_role') -%>
     <%= f.select(:required_role_id, @roles.collect{|r| [r.display_name.localize, r.id]}) -%>

@@ -154,11 +154,11 @@ class ApplicationController < ActionController::Base
     @user = User.where(:username => params[:user_id]).first if params[:user_id]
     #authorize! :show, @user if @user
   end
-  
+
   def get_user_group
     @user_group = UserGroup.find(params[:user_group_id]) if params[:user_group_id]
   end
-                    
+
   def get_library
     @library = Library.find(params[:library_id]) if params[:library_id]
   end

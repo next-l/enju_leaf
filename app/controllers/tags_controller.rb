@@ -50,7 +50,7 @@ class TagsController < ApplicationController
 
   def update
     #@tag = Tag.find(params[:id])
-  
+
     respond_to do |format|
       if @tag.update_attributes(params[:tag])
         flash[:notice] = t('controller.successfully_updated', :model => t('activerecord.models.tag'))

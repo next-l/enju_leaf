@@ -1,7 +1,8 @@
 # -*- encoding: utf-8 -*-
 class ReservesController < ApplicationController
   before_filter :store_location, :only => :index
-  load_and_authorize_resource
+  load_and_authorize_resource :except => :index
+  authorize_resource :only => :index
   before_filter :get_user_if_nil
   #, :only => [:show, :edit, :create, :update, :destroy]
   helper_method :get_manifestation
@@ -48,13 +49,6 @@ class ReservesController < ApplicationController
   def show
     if @user
       @reserve = @user.reserves.find(params[:id])
-    else
-      if current_user.has_role?('Librarian')
-        @reserve = Reserve.find(params[:id]) if current_user.has_role?('Librarian')
-      else
-        access_denied
-        return
-      end
     end
     #@manifestation = @reserve.manifestation
 
@@ -66,8 +60,10 @@ class ReservesController < ApplicationController
 
   # GET /reserves/new
   def new
-    get_user_if_nil
-    user = get_user_number ||= @user
+    if params[:reserve]
+      user = User.where(:user_number => params[:reserve][:user_number]).first
+    end
+    user = @user if @user
     unless current_user.has_role?('Librarian')
       if user.try(:user_number).blank?
         access_denied; return
@@ -102,15 +98,15 @@ class ReservesController < ApplicationController
   def edit
     if @user
       @reserve = @user.reserves.find(params[:id])
-    else
-      @reserve = Reserve.find(params[:id])
     end
   end
 
   # POST /reserves
   # POST /reserves.xml
   def create
-    user = get_user_number ||= @user
+    if params[:reserve]
+      user = User.where(:user_number => params[:reserve][:user_number]).first
+    end
     # 図書館員以外は自分の予約しか作成できない
     unless current_user.has_role?('Librarian')
       unless user == current_user
@@ -118,6 +114,7 @@ class ReservesController < ApplicationController
         return
       end
     end
+    user = @user if @user
 
     @reserve = Reserve.new(params[:reserve])
     @reserve.user = user
@@ -144,20 +141,18 @@ class ReservesController < ApplicationController
   # PUT /reserves/1
   # PUT /reserves/1.xml
   def update
-    @user = get_user_number
-    if @user.blank?
-      get_user_if_nil
+    if params[:reserve]
+      user = User.where(:user_number => params[:reserve][:user_number]).first
     end
+    user = @user if @user
 
-    if @user.blank?
+    if user.blank?
       access_denied
       return
     end
 
-    if @user
-      @reserve = @user.reserves.find(params[:id])
-    else
-      @reserve = Reserve.find(params[:id])
+    if user
+      @reserve = user.reserves.find(params[:id])
     end
 
     if params[:mode] == 'cancel'
@@ -186,8 +181,6 @@ class ReservesController < ApplicationController
   def destroy
     if @user
       @reserve = @user.reserves.find(params[:id])
-    else
-      @reserve = Reserve.find(params[:id])
     end
     @reserve.destroy
     #flash[:notice] = t('reserve.reservation_was_canceled')
@@ -205,16 +198,5 @@ class ReservesController < ApplicationController
       format.html { redirect_to user_reserves_url(@user) }
       format.xml  { head :ok }
     end
-  end
-
-  private
-  def get_user_number
-    if params[:reserve][:user_number]
-      user = User.where(:user_number => params[:reserve][:user_number]).first
-    #elsif params[:reserve][:user_id]
-    #  user = User.first(:conditions => {:id => params[:reserve][:user_id]})
-    end
-  rescue NoMethodError
-    nil
   end
 end

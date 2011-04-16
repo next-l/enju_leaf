@@ -84,13 +84,7 @@ class CheckedItemsController < ApplicationController
 
     respond_to do |format|
       if @checked_item.save
-        if @checked_item.item.reserved?
-          if @checked_item.item.manifestation.is_reserved_by(@basket.user)
-            reserve = Reserve.where(:user_id => @basket.user.id, :manifestation_id => @checked_item.item.manifestation.id).first
-            reserve.destroy
-          end
-        end
-
+        @checked_item.destroy_reservation(@basket)
         if @checked_item.item.include_supplements
           flash[:message] << t('item.this_item_include_supplement')
         end
