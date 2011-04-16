@@ -67,7 +67,7 @@ class ShelvesController < ApplicationController
       if @shelf.save
         flash[:notice] = t('controller.successfully_created', :model => t('activerecord.models.shelf'))
         format.html { redirect_to shelf_url(@shelf) }
-        format.xml  { render :xml => @shelf, :status => :created, :location => library_shelf_url(@shelf.library.name, @shelf) }
+        format.xml  { render :xml => @shelf, :status => :created, :location => library_shelf_url(@shelf.library, @shelf) }
       else
         @library = Library.first if @shelf.library.nil?
         format.html { render :action => "new" }
@@ -83,14 +83,14 @@ class ShelvesController < ApplicationController
 
     if params[:position]
       @shelf.insert_at(params[:position])
-      redirect_to library_shelves_url(@shelf.library.name)
+      redirect_to library_shelves_url(@shelf.library)
       return
     end
 
     respond_to do |format|
       if @shelf.update_attributes(params[:shelf])
         flash[:notice] = t('controller.successfully_updated', :model => t('activerecord.models.shelf'))
-        format.html { redirect_to library_shelf_url(@shelf.library.name, @shelf) }
+        format.html { redirect_to library_shelf_url(@shelf.library, @shelf) }
         format.xml  { head :ok }
       else
         @library = Library.first if @library.nil?
@@ -113,5 +113,4 @@ class ShelvesController < ApplicationController
       format.xml  { head :ok }
     end
   end
-
 end
