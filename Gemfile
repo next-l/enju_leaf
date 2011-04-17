@@ -12,7 +12,7 @@ platforms :ruby do
 end
 
 platforms :ruby_19 do
-  gem 'cover_me', '>=1.0.0.rc6', :group => :test
+  gem 'simplecov', '>= 0.4.0', :require => false, :group => :test
 end
 
 platforms :ruby_18 do
