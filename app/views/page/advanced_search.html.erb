@@ -35,8 +35,8 @@
     </tr>
     <tr>
       <td><label><%= t('activerecord.attributes.manifestation.date_of_publication') -%>:</label></td>
-      <td><%= t('advanced_search.from') -%> <%= text_field_tag 'pubdate_from', nil, :size => 5 -%>
-        <%= t('advanced_search.to') -%> <%= text_field_tag 'pubdate_to', nil, :size => 5 -%></td>
+      <td><%= t('advanced_search.from') -%> <%= text_field_tag 'pubdate_from', nil, :size => 5, :placeholder => "#{t('page.example')}: 1978, 1078-04, 1978-04-12" -%>
+        <%= t('advanced_search.to') -%> <%= text_field_tag 'pubdate_to', nil, :size => 5, :placeholder => "#{t('page.example')}: 2011, 2011-04, 2011-04-12"-%></td>
     </tr>
     <tr>
       <td><label><%= t('page.number_of_pages') -%>:</label></td>
