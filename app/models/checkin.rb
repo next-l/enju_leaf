@@ -16,11 +16,10 @@ class Checkin < ActiveRecord::Base
   def item_checkin(current_user)
     message = ''
     Checkin.transaction do
-      checkout = Checkout.not_returned.where(:item_id => self.item_id).first
-      # TODO: 貸出されていない本の処理
-      # TODO: ILL時の処理
+      checkouts = Checkout.not_returned.where(:item_id => self.item_id)
       self.item.checkin!
-      if checkout
+      checkouts.each do |checkout|
+        # TODO: ILL時の処理
         checkout.checkin = self
         checkout.save(:validate => false)
         unless checkout.item.shelf.library == current_user.library
