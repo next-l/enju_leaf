@@ -6,6 +6,7 @@
     <th><%= t('activerecord.attributes.item.item_identifier') -%></th>
     <th><%= t('activerecord.models.circulation_status') -%></th>
   </tr>
+  <% cache(:controller => :manifestations, :action => :show, :id => manifestation.id, :page => 'holding', :role => current_user_role_name, :locale => @locale) do %>
   <%- manifestation.items.on_shelf.each do |item| -%>
     <tr>
       <td>
@@ -35,5 +36,6 @@
         <%- end -%>
       </td>
     </tr>
+  <%- end -%>
   <%- end -%>
 </table>

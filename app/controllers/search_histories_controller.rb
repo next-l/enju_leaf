@@ -34,54 +34,6 @@ class SearchHistoriesController < ApplicationController
     end
   end
 
-  # GET /search_histories/new
-  def new
-  #  @search_history = SearchHistory.new
-  end
-
-  # GET /search_histories/1;edit
-  def edit
-  #  @search_history = @user.search_histories.find(params[:id])
-  end
-
-  # POST /search_histories
-  # POST /search_histories.xml
-  def create
-  #  if @user
-  #    @search_history = @user.search_histories.new(params[:search_history])
-  #  else
-  #    @search_history = SearchHistory.new(params[:search_history])
-  #  end
-  #
-  #  respond_to do |format|
-  #    if @search_history.save
-  #      flash[:notice] = t('controller.successfully_created', :model => t('activerecord.models.search_history'))
-  #      format.html { redirect_to search_history_url(@search_history) }
-  #      format.xml  { head :created, :location => search_history_url(@search_history) }
-  #    else
-  #      format.html { render :action => "new" }
-  #      format.xml  { render :xml => @search_history.errors.to_xml }
-  #    end
-  #  end
-  end
-
-  # PUT /search_histories/1
-  # PUT /search_histories/1.xml
-  def update
-  #  @search_history = @user.search_histories.find(params[:id])
-  #
-  #  respond_to do |format|
-  #    if @search_history.update_attributes(params[:search_history])
-  #      flash[:notice] = t('controller.successfully_updated', :model => t('activerecord.models.search_history'))
-  #      format.html { redirect_to user_search_history_url(@user, @search_history) }
-  #      format.xml  { head :ok }
-  #    else
-  #      format.html { render :action => "edit" }
-  #      format.xml  { render :xml => @search_history.errors.to_xml }
-  #    end
-  #  end
-  end
-
   # DELETE /search_histories/1
   # DELETE /search_histories/1.xml
   def destroy

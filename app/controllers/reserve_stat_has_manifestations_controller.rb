@@ -4,7 +4,7 @@ class ReserveStatHasManifestationsController < ApplicationController
   # GET /reserve_stat_has_manifestations
   # GET /reserve_stat_has_manifestations.xml
   def index
-    @reserve_stat_has_manifestations = ReserveStatHasManifestation.paginate(:all, :page => params[:page])
+    @reserve_stat_has_manifestations = ReserveStatHasManifestation.paginate(:page => params[:page])
 
     respond_to do |format|
       format.html # index.html.erb

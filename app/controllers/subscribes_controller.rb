@@ -6,7 +6,7 @@ class SubscribesController < ApplicationController
   # GET /subscribes
   # GET /subscribes.xml
   def index
-    @subscribes = Subscribe.paginate(:all, :page => params[:page])
+    @subscribes = Subscribe.paginate(:page => params[:page])
 
     respond_to do |format|
       format.html # index.html.erb

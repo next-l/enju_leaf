@@ -8,11 +8,11 @@ class SubjectHasClassificationsController < ApplicationController
   # GET /subject_has_classifications.xml
   def index
     case when @subject
-      @subject_has_classifications = @subject.subject_has_classifications.paginate(:all, :page => params[:page])
+      @subject_has_classifications = @subject.subject_has_classifications.paginate(:page => params[:page])
     when @classification
-      @subject_has_classifications = @classification.subject_has_classifications.paginate(:all, :page => params[:page])
+      @subject_has_classifications = @classification.subject_has_classifications.paginate(:page => params[:page])
     else
-      @subject_has_classifications = SubjectHasClassification.paginate(:all, :page => params[:page])
+      @subject_has_classifications = SubjectHasClassification.paginate(:page => params[:page])
     end
 
     respond_to do |format|

@@ -4,7 +4,7 @@ class InventoryFilesController < ApplicationController
   # GET /inventory_files
   # GET /inventory_files.xml
   def index
-    @inventory_files = InventoryFile.paginate(:all, :page => params[:page])
+    @inventory_files = InventoryFile.paginate(:page => params[:page])
 
     respond_to do |format|
       format.html # index.html.erb
@@ -15,8 +15,6 @@ class InventoryFilesController < ApplicationController
   # GET /inventory_files/1
   # GET /inventory_files/1.xml
   def show
-    @inventory_file = InventoryFile.find(params[:id])
-
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @inventory_file }
@@ -36,7 +34,6 @@ class InventoryFilesController < ApplicationController
 
   # GET /inventory_files/1/edit
   def edit
-    @inventory_file = InventoryFile.find(params[:id])
   end
 
   # POST /inventory_files
@@ -61,8 +58,6 @@ class InventoryFilesController < ApplicationController
   # PUT /inventory_files/1
   # PUT /inventory_files/1.xml
   def update
-    @inventory_file = InventoryFile.find(params[:id])
-
     respond_to do |format|
       if @inventory_file.update_attributes(params[:inventory_file])
         flash[:notice] = t('controller.successfully_updated', :model => t('activerecord.models.inventory_file'))
@@ -78,7 +73,6 @@ class InventoryFilesController < ApplicationController
   # DELETE /inventory_files/1
   # DELETE /inventory_files/1.xml
   def destroy
-    @inventory_file = InventoryFile.find(params[:id])
     @inventory_file.destroy
 
     respond_to do |format|

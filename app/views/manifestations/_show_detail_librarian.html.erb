@@ -1,11 +1,11 @@
   <%= render 'page/tabview' -%>
   <div id="tabs">
-    <% cache(:controller => :manifestations, :action => :show, :id => manifestation.id, :page => 'detail', :role => current_user_role_name, :locale => @locale) do %>
     <%= render :partial => 'manifestations/tab_menu', :locals => {:manifestation => manifestation} %>
     <div id="detail">
       <%- if manifestation.isbn -%>
         <%= google_book_search_preview(manifestation.isbn) -%>
       <%- end -%>
+    <% cache(:controller => :manifestations, :action => :show, :id => manifestation.id, :page => 'detail', :role => current_user_role_name, :locale => @locale) do %>
       <table id="resource_detail">
         <%= embed_content(manifestation) -%>
         <%- if manifestation.serial? -%>
@@ -130,6 +130,7 @@
           </td>
         </tr>
       </table>
+    <% end %>
       <%- if manifestation.items.on_shelf.exists? -%>
         <%= render :partial => 'manifestations/show_holding', :locals => {:manifestation => manifestation} -%>
       <%- end -%>
@@ -138,6 +139,5 @@
       <%= render :partial => 'manifestations/bookmarks_for_this_manifestation', :locals => {:manifestation => manifestation} -%>
 
     </div>
-    <% end %>
     <%= render :partial => 'manifestations/tab_list', :locals => {:manifestation => manifestation} %>
   </div>

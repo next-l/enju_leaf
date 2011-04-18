@@ -31,7 +31,7 @@ class ReservesController < ApplicationController
         @reserves = @user.reserves.paginate(:page => params[:page], :order => ['reserves.expired_at DESC'])
       else
         # 管理者
-        @reserves = Reserve.paginate(:all, :page => params[:page], :order => ['reserves.expired_at DESC'], :include => :manifestation)
+        @reserves = Reserve.paginate(:page => params[:page], :order => ['reserves.expired_at DESC'], :include => :manifestation)
       end
     end
 

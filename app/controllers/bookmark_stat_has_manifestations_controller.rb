@@ -4,7 +4,7 @@ class BookmarkStatHasManifestationsController < ApplicationController
   # GET /bookmark_stat_has_manifestations
   # GET /bookmark_stat_has_manifestations.xml
   def index
-    @bookmark_stat_has_manifestations = BookmarkStatHasManifestation.paginate(:all, :page => params[:page])
+    @bookmark_stat_has_manifestations = BookmarkStatHasManifestation.paginate(:page => params[:page])
 
     respond_to do |format|
       format.html # index.html.erb

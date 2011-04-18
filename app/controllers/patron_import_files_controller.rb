@@ -5,7 +5,7 @@ class PatronImportFilesController < ApplicationController
   # GET /patron_import_files
   # GET /patron_import_files.xml
   def index
-    @patron_import_files = PatronImportFile.paginate(:all, :page => params[:page])
+    @patron_import_files = PatronImportFile.paginate(:page => params[:page])
 
     respond_to do |format|
       format.html # index.html.erb

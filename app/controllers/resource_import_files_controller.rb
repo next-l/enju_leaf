@@ -5,7 +5,7 @@ class ResourceImportFilesController < ApplicationController
   # GET /resource_import_files
   # GET /resource_import_files.xml
   def index
-    @resource_import_files = ResourceImportFile.paginate(:all, :page => params[:page])
+    @resource_import_files = ResourceImportFile.paginate(:page => params[:page])
 
     respond_to do |format|
       format.html # index.html.erb

@@ -5,7 +5,7 @@ class PatronMergeListsController < ApplicationController
   # GET /patron_merge_lists
   # GET /patron_merge_lists.xml
   def index
-    @patron_merge_lists = PatronMergeList.paginate(:all, :page => params[:page])
+    @patron_merge_lists = PatronMergeList.paginate(:page => params[:page])
 
     respond_to do |format|
       format.html # index.html.erb

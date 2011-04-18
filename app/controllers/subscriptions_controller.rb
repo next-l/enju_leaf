@@ -10,7 +10,7 @@ class SubscriptionsController < ApplicationController
     if @work
       @subscriptions = @work.subscriptions.paginate(:page => params[:page])
     else
-      @subscriptions = Subscription.paginate(:all, :page => params[:page])
+      @subscriptions = Subscription.paginate(:page => params[:page])
     end
 
     respond_to do |format|

@@ -5,7 +5,7 @@ class SubjectHeadingTypeHasSubjectsController < ApplicationController
   # GET /subject_heading_type_has_subjects
   # GET /subject_heading_type_has_subjects.xml
   def index
-    @subject_heading_type_has_subjects = SubjectHeadingTypeHasSubject.paginate(:all, :page => params[:page])
+    @subject_heading_type_has_subjects = SubjectHeadingTypeHasSubject.paginate(:page => params[:page])
 
     respond_to do |format|
       format.html # index.html.erb

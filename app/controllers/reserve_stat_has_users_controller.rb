@@ -4,7 +4,7 @@ class ReserveStatHasUsersController < ApplicationController
   # GET /reserve_stat_has_users
   # GET /reserve_stat_has_users.xml
   def index
-    @reserve_stat_has_users = ReserveStatHasUser.paginate(:all, :page => params[:page])
+    @reserve_stat_has_users = ReserveStatHasUser.paginate(:page => params[:page])
 
     respond_to do |format|
       format.html # index.html.erb

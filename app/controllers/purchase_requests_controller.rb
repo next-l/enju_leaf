@@ -68,8 +68,6 @@ class PurchaseRequestsController < ApplicationController
   def show
     if @user
       @purchase_request = @user.purchase_requests.find(params[:id])
-    else
-      @purchase_request = PurchaseRequest.find(params[:id])
     end
 
     respond_to do |format|
@@ -101,8 +99,6 @@ class PurchaseRequestsController < ApplicationController
   def edit
     if @user
       @purchase_request = @user.purchase_requests.find(params[:id])
-    else
-      @purchase_request = PurchaseRequest.find(params[:id])
     end
   end
 
@@ -133,8 +129,6 @@ class PurchaseRequestsController < ApplicationController
   def update
     if @user
       @purchase_request = @user.purchase_requests.find(params[:id])
-    else
-      @purchase_request = PurchaseRequest.find(params[:id])
     end
 
     if @purchase_request.url
@@ -161,8 +155,6 @@ class PurchaseRequestsController < ApplicationController
   def destroy
     if @user
       @purchase_request = @user.purchase_requests.find(params[:id])
-    else
-      @purchase_request = PurchaseRequest.find(params[:id])
     end
     @purchase_request.destroy
 

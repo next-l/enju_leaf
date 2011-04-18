@@ -5,7 +5,7 @@ class ManifestationReserveStatsController < ApplicationController
   # GET /manifestation_reserve_stats
   # GET /manifestation_reserve_stats.xml
   def index
-    @manifestation_reserve_stats = ManifestationReserveStat.paginate(:all, :page => params[:page])
+    @manifestation_reserve_stats = ManifestationReserveStat.paginate(:page => params[:page])
 
     respond_to do |format|
       format.html # index.html.erb
@@ -17,7 +17,7 @@ class ManifestationReserveStatsController < ApplicationController
   # GET /manifestation_reserve_stats/1.xml
   def show
     ReserveStatHasManifestation.per_page = 65534 if params[:format] == 'csv'
-    @stats = @manifestation_reserve_stat.reserve_stat_has_manifestations.paginate(:all, :order => 'reserves_count DESC, manifestation_id', :page => params[:page])
+    @stats = @manifestation_reserve_stat.reserve_stat_has_manifestations.paginate(:order => 'reserves_count DESC, manifestation_id', :page => params[:page])
 
     respond_to do |format|
       format.html # show.html.erb

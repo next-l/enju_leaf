@@ -5,7 +5,7 @@ class UserReserveStatsController < ApplicationController
   # GET /user_reserve_stats
   # GET /user_reserve_stats.xml
   def index
-    @user_reserve_stats = UserReserveStat.paginate(:all, :page => params[:page], :order => 'id DESC')
+    @user_reserve_stats = UserReserveStat.paginate(:page => params[:page], :order => 'id DESC')
 
     respond_to do |format|
       format.html # index.html.erb
@@ -17,7 +17,7 @@ class UserReserveStatsController < ApplicationController
   # GET /user_reserve_stats/1.xml
   def show
     ReserveStatHasUser.per_page = 65534 if params[:format] == 'csv'
-    @stats = @user_reserve_stat.reserve_stat_has_users.paginate(:all, :order => 'reserves_count DESC, user_id', :page => params[:page])
+    @stats = @user_reserve_stat.reserve_stat_has_users.paginate(:order => 'reserves_count DESC, user_id', :page => params[:page])
 
     respond_to do |format|
       format.html # show.html.erb

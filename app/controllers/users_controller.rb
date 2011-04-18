@@ -38,7 +38,7 @@ class UsersController < ApplicationController
         with(:required_role_id).less_than role.id
       end.results
     else
-      @users = User.paginate(:all, :page => page, :order => "#{sort[:sort_by]} #{sort[:order]}")
+      @users = User.paginate(:page => page, :order => "#{sort[:sort_by]} #{sort[:order]}")
     end
     @count[:query_result] = @users.total_entries
 

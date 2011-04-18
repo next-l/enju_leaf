@@ -9,7 +9,7 @@ class PictureFilesController < ApplicationController
     if @attachable
       @picture_files = @attachable.picture_files.attached.paginate(:page => params[:page])
     else
-      @picture_files = PictureFile.attached.paginate(:all, :page => params[:page])
+      @picture_files = PictureFile.attached.paginate(:page => params[:page])
     end
 
     respond_to do |format|

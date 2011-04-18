@@ -7,11 +7,11 @@ class PatronMergesController < ApplicationController
   # GET /patron_merges.xml
   def index
     if @patron
-      @patron_merges = @patron.patron_merges.paginate(:all, :page => params[:page], :order => ['patron_merges.id'])
+      @patron_merges = @patron.patron_merges.paginate(:page => params[:page], :order => ['patron_merges.id'])
     elsif @patron_merge_list
-      @patron_merges = @patron_merge_list.patron_merges.paginate(:all, :page => params[:page], :include => 'patron', :order => ['patron_merges.id'])
+      @patron_merges = @patron_merge_list.patron_merges.paginate(:page => params[:page], :include => 'patron', :order => ['patron_merges.id'])
     else
-      @patron_merges = PatronMerge.paginate(:all, :page => params[:page])
+      @patron_merges = PatronMerge.paginate(:page => params[:page])
     end
 
     respond_to do |format|
