@@ -108,7 +108,7 @@ class Item < ActiveRecord::Base
   end
 
   def checkout!(user)
-    self.circulation_status = CirculationStatus.first(:conditions => {:name => 'On Loan'})
+    self.circulation_status = CirculationStatus.where(:name => 'On Loan').first
     if self.reserved_by_user?(user)
       self.next_reservation.update_attributes(:checked_out_at => Time.zone.now)
       self.next_reservation.sm_complete!
@@ -117,7 +117,7 @@ class Item < ActiveRecord::Base
   end
 
   def checkin!
-    self.circulation_status = CirculationStatus.first(:conditions => {:name => 'Available On Shelf'})
+    self.circulation_status = CirculationStatus.where(:name => 'Available On Shelf').first
     save(:validate => false)
   end
 

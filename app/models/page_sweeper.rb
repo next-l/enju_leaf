@@ -45,7 +45,7 @@ class PageSweeper < ActionController::Caching::Sweeper
       expire_editable_fragment(record.item)
       expire_editable_fragment(record.item.manifestation)
     when record.is_a?(Checkin)
-      expire_editable_fragment(record.item.manifestation, ['holding', 'show_list'])
+      expire_editable_fragment(record.item.manifestation, ['holding', 'show_list'], ['html', 'mobile'])
     when record.is_a?(SeriesStatement)
       record.manifestations.each do |manifestation|
         expire_editable_fragment(manifestation, ['detail'])

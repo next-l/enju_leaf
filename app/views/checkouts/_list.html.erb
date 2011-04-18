@@ -2,9 +2,7 @@
   <tr>
     <th><%= t('activerecord.models.user') %></th>
     <th class="checked_item_title"><%= t('page.title') %></th>
-    <th><%= t('activerecord.attributes.item.item_identifier') %></th>
     <th><%= t('activerecord.attributes.checkout.due_date') %></th>
-    <th></th>
     <th></th>
   </tr>
 
@@ -19,11 +17,13 @@
     <td>
       <%= render :partial => 'manifestations/show_index', :locals => {:manifestation => checkout.item.manifestation} -%>
       <%= render :partial => 'manifestations/holding', :locals => {:manifestation => checkout.item.manifestation} -%>
+      <br />
+      (<%= link_to checkout.item.item_identifier, item_path(checkout.item) -%>)
     </td>
-    <td><%= link_to checkout.item.item_identifier, item_path(checkout.item) -%></td>
     <td><%= l(checkout.due_date, :format => :only_date) -%></td>
-    <td><%= link_to t('page.show'), user_checkout_path(checkout.user, checkout) -%>
     <td>
+      <%= link_to t('page.show'), user_checkout_path(checkout.user, checkout) -%>
+      <br />
       <%- if can? :update, checkout -%>
         <%= link_to t('checkout.extend'), edit_user_checkout_path(checkout.user, checkout) -%>
       <%- end -%>

@@ -18,5 +18,4 @@ class Realize < ActiveRecord::Base
     patron.index
     expression.index
   end
-
 end

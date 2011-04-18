@@ -19,5 +19,4 @@ class Produce < ActiveRecord::Base
     patron.index
     manifestation.index
   end
-
 end

@@ -5,7 +5,7 @@
       <%- if manifestation.isbn -%>
         <%= google_book_search_preview(manifestation.isbn) -%>
       <%- end -%>
-    <% cache(:controller => :manifestations, :action => :show, :id => manifestation.id, :page => 'detail', :role => current_user_role_name, :locale => @locale) do %>
+    <% cache(:controller => :manifestations, :action => :show, :id => manifestation.id, :page => 'detail', :role => current_user_role_name, :locale => @locale, :manifestation_id => nil) do %>
       <table id="resource_detail">
         <%= embed_content(manifestation) -%>
         <%- if manifestation.serial? -%>

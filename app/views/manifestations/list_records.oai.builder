@@ -18,7 +18,7 @@ xml.tag! "OAI-PMH", :xmlns => "http://www.openarchives.org/OAI/2.0/",
   end
   xml.ListRecords do
     @manifestations.each do |manifestation|
-      cache({:controller => :manifestations, :action => :show, :id => manifestation.id, :page => 'oai_pmh_list_records', :role => current_user_role_name, :locale => @locale}, :expires_in => @ttl.seconds) do
+      cache({:controller => :manifestations, :action => :show, :id => manifestation.id, :page => 'oai_pmh_list_records', :role => current_user_role_name, :locale => @locale, :manifestation_id => nil}, :expires_in => @ttl.seconds) do
         xml.record do
           xml.header do
             xml.identifier manifestation.oai_identifier

@@ -19,5 +19,4 @@ class Own < ActiveRecord::Base
     patron.index
     item.index
   end
-
 end

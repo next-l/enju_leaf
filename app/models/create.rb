@@ -18,5 +18,4 @@ class Create < ActiveRecord::Base
     patron.index
     work.index
   end
-
 end
