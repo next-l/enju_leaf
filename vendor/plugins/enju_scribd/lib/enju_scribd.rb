@@ -12,10 +12,8 @@ module EnjuScribd
   module InstanceMethods
     attr_accessor :post_to_scribd
 
-    def post_to_scribd!
-      if self.respond_to?(:post_to_scribd) and self.post_to_scribd
-        self.delay.upload_to_scribd
-      end
+    def scribdable?
+      ScribdFu::ContentTypes.include?(get_content_type) && ipaper_id.blank? && post_to_scribd
     end
   end
 end
