@@ -25,7 +25,7 @@ class PurchaseRequestsController < ApplicationController
     if params[:format] == 'csv'
       per_page = 65534
     else
-      per_page = PurchaseRequest.per_page
+      per_page = configatron.max_number_of_results
     end
 
     query = params[:query].to_s.strip
@@ -49,12 +49,8 @@ class PurchaseRequestsController < ApplicationController
     end
 
     page = params[:page] || 1
-    search.query.paginate(page.to_i, per_page)
-    begin
-      @purchase_requests = search.execute!.results
-    rescue RSolr::RequestError
-      @purchase_requests = WillPaginate::Collection.create(1,1,0) do end
-    end
+    search.query.paginate(1, per_page)
+    @purchase_requests = PurchaseRequest.where(:id => search.execute.raw_results.collect(&:primary_key)).page(page)
 
     @count[:query_result] = @purchase_requests.size
 
@@ -65,10 +61,6 @@ class PurchaseRequestsController < ApplicationController
       format.atom
       format.csv
     end
-  rescue RSolr::RequestError
-    flash[:notice] = t('page.error_occured')
-    redirect_to purchase_requests_url
-    return
   end
 
   # GET /purchase_requests/1

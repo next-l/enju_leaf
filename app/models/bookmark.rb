@@ -39,9 +39,7 @@ class Bookmark < ActiveRecord::Base
     boolean :shared
   end
 
-  def self.per_page
-    10
-  end
+  paginates_per 10
 
   def set_url
     self.url = URI.parse(self.url).normalize.to_s

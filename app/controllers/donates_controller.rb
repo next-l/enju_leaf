@@ -5,7 +5,7 @@ class DonatesController < ApplicationController
   # GET /donates
   # GET /donates.xml
   def index
-    @donates = Donate.paginate(:all, :order => ['id DESC'], :page => params[:page])
+    @donates = Donate.page(params[:page]).order('id DESC')
 
     respond_to do |format|
       format.html # index.html.erb

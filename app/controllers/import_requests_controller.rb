@@ -4,7 +4,7 @@ class ImportRequestsController < ApplicationController
   # GET /import_requests
   # GET /import_requests.xml
   def index
-    @import_requests = ImportRequest.paginate(:page => params[:page], :per_page => 10)
+    @import_requests = ImportRequest.page(params[:page])
 
     respond_to do |format|
       format.html # index.html.erb

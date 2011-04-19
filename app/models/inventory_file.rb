@@ -9,9 +9,7 @@ class InventoryFile < ActiveRecord::Base
   validates_attachment_presence :inventory
   validates_presence_of :user
 
-  def self.per_page
-    10
-  end
+  paginates_per 10
 
   def import
     self.reload

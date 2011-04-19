@@ -1,0 +1,14 @@
+en:
+  views:
+    pagination:
+      previous: "&laquo; Prev"
+      next: "Next &raquo;"
+      truncate: "..."
+
+ja:
+  views:
+    pagination:
+      previous: "&laquo; 前へ"
+      next: "次へ &raquo;"
+      truncate: "..."
+

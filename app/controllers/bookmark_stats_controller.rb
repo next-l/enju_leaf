@@ -5,7 +5,7 @@ class BookmarkStatsController < ApplicationController
   # GET /bookmark_stats
   # GET /bookmark_stats.xml
   def index
-    @bookmark_stats = BookmarkStat.paginate(:all, :page => params[:page])
+    @bookmark_stats = BookmarkStat.page(params[:page])
 
     respond_to do |format|
       format.html # index.html.erb
@@ -17,8 +17,8 @@ class BookmarkStatsController < ApplicationController
   # GET /bookmark_stats/1.xml
   def show
     @bookmark_stat = BookmarkStat.find(params[:id])
-    BookmarkStatHasManifestation.per_page = 1 if params[:format] == 'csv'
-    @stats = @bookmark_stat.bookmark_stat_has_manifestations.paginate(:all, :order => 'bookmarks_count DESC, manifestation_id', :page => params[:page])
+    per_page = 65534 if params[:format] == 'csv'
+    @stats = @bookmark_stat.bookmark_stat_has_manifestations.page(params[:page]).order('bookmarks_count DESC, manifestation_id')
 
     respond_to do |format|
       format.html # show.html.erb

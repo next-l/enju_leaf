@@ -4,7 +4,5 @@ class Participate < ActiveRecord::Base
 
   acts_as_list :scope => :event_id
 
-  def self.per_page
-    10
-  end
+  paginates_per 10
 end

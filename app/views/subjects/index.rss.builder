@@ -13,8 +13,8 @@ xml.rss('version' => "2.0",
     xml.tag! "atom:link", :rel => 'search', :type => 'application/opensearchdescription+xml', :href => page_opensearch_url
     unless params[:query].blank?
       xml.tag! "opensearch:totalResults", @count[:query_result]
-      xml.tag! "opensearch:startIndex", @subjects.offset + 1
-      xml.tag! "opensearch:itemsPerPage", @subjects.per_page
+      xml.tag! "opensearch:startIndex", @subjects.offset_value + 1
+      xml.tag! "opensearch:itemsPerPage", @subjects.default_per_page
       xml.tag! "opensearch:Query", :role => 'request', :searchTerms => h(params[:query]), :startPage => (h(params[:page]) || 1)
     end
     @subjects.each do |subject|

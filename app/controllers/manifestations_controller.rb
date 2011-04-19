@@ -124,6 +124,7 @@ class ManifestationsController < ApplicationController
         order_by :updated_at, :desc if oai_search
         with(:subject_ids).equal_to subject.id if subject
         facet :reservable
+        paginate :page => 1, :per_page => configatron.max_number_of_results
       end
       search = make_internal_query(search)
       search.data_accessor_for(Manifestation).select = [
@@ -154,9 +155,7 @@ class ManifestationsController < ApplicationController
       end
 
       unless session[:manifestation_ids]
-        manifestation_ids = search.build do
-          paginate :page => 1, :per_page => configatron.max_number_of_results
-        end.execute.raw_results.collect(&:primary_key).map{|id| id.to_i}
+        manifestation_ids = search.execute.raw_results.collect(&:primary_key).map{|id| id.to_i}
         session[:manifestation_ids] = manifestation_ids
       end
         
@@ -180,12 +179,10 @@ class ManifestationsController < ApplicationController
           facet :library
           facet :language
           facet :subject_ids
-          paginate :page => page.to_i, :per_page => per_page || Manifestation.per_page
         end
       end
       search_result = search.execute
-      @manifestations = search_result.results
-      @manifestations.total_entries = configatron.max_number_of_results if @count[:query_result] > configatron.max_number_of_results
+      @manifestations = Manifestation.where(:id => search_result.raw_results.collect(&:primary_key)).page(page)
       get_libraries
 
       if params[:format].blank? or params[:format] == 'html'
@@ -202,7 +199,7 @@ class ManifestationsController < ApplicationController
           @suggested_tag = query.suggest_tags.first
         end
       end
-      save_search_history(query, @manifestations.offset, @count[:query_result], current_user)
+      save_search_history(query, @manifestations.offset_value, @count[:query_result], current_user)
       if params[:format] == 'oai'
         unless @manifestations.empty?
           set_resumption_token(params[:resumptionToken], @from_time || Manifestation.last.updated_at, @until_time || Manifestation.first.updated_at)
@@ -248,16 +245,6 @@ class ManifestationsController < ApplicationController
           :inline => true
       }
     end
-  #rescue RSolr::RequestError
-  #  unless params[:format] == 'sru'
-  #    flash[:notice] = t('page.error_occured')
-  #    redirect_to manifestations_url
-  #    return
-  #  else
-  #    render :template => 'manifestations/error.xml', :layout => false
-  #    return
-  #  end
-  #  return
   rescue QueryError => e
   #  render :template => 'manifestations/error.xml', :layout => false
     Rails.logger.info "#{Time.zone.now}\t#{query}\t\t#{current_user.try(:username)}\t#{e}"

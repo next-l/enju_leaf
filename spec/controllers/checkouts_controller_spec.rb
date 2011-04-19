@@ -18,7 +18,18 @@ describe CheckoutsController do
 
       it "assigns all checkouts as @checkouts" do
         get :index
-        assigns(:checkouts).should eq(Checkout.not_returned.paginate(:page => 1))
+        assigns(:checkouts).should eq(Checkout.not_returned.order('created_at DESC').page(1))
+      end
+    end
+
+    describe "When logged in as Librarian" do
+      before(:each) do
+        sign_in Factory(:librarian)
+      end
+
+      it "assigns all checkouts as @checkouts" do
+        get :index
+        assigns(:checkouts).should eq(Checkout.not_returned.order('created_at DESC').page(1))
       end
     end
 
@@ -29,8 +40,8 @@ describe CheckoutsController do
       end
 
       it "assigns all checkouts as @checkouts" do
-        get :index
-        assigns(:checkouts).should eq(@user.checkouts.not_returned.paginate(:page => 1))
+        get :index, :user_id => @user.username
+        assigns(:checkouts).should eq(@user.checkouts.not_returned.order('created_at DESC').page(1))
       end
     end
   end

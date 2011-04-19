@@ -62,9 +62,7 @@ class Reserve < ActiveRecord::Base
     end
   end
 
-  def self.per_page
-    10
-  end
+  paginates_per 10
 
   def set_item_and_manifestation
     item = Item.where(:item_identifier => item_identifier).first

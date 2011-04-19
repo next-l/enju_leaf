@@ -39,13 +39,9 @@ class EventsController < ApplicationController
     end
 
     page = params[:page] || 1
-    search.query.paginate(page.to_i, Event.per_page)
-    begin
-      @events = search.execute!.results
-    rescue RSolr::RequestError
-      @events = WillPaginate::Collection.create(1,1,0) do end
-    end
-    @count[:query_result] = @events.total_entries
+    search.query.paginate(1, configatron.max_number_of_results)
+    @events = Event.where(:id => search.execute.raw_results.collect(&:primary_key)).page(page)
+    @count[:query_result] = @events.total_count
 
     respond_to do |format|
       format.html # index.html.erb
@@ -55,10 +51,6 @@ class EventsController < ApplicationController
       format.atom
       format.ics
     end
-  rescue RSolr::RequestError
-    flash[:notice] = t('page.error_occured')
-    redirect_to events_url
-    return
   end
 
   # GET /events/1

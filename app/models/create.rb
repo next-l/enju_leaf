@@ -10,9 +10,7 @@ class Create < ActiveRecord::Base
 
   acts_as_list :scope => :work
 
-  def self.per_page
-    10
-  end
+  paginates_per 10
 
   def reindex
     patron.index

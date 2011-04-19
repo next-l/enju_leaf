@@ -186,9 +186,7 @@ class Manifestation < ActiveRecord::Base
   normalize_attributes :identifier, :date_of_publication, :isbn, :issn, :nbn, :lccn, :original_title
   attr_accessor :pub_date
 
-  def self.per_page
-    10
-  end
+  paginates_per 10
 
   def check_isbn
     if isbn.present?
@@ -466,7 +464,7 @@ class Manifestation < ActiveRecord::Base
 
   def questions(options = {})
     id = self.id
-    options = {:page => 1, :per_page => Question.per_page}.merge(options)
+    options = {:page => 1, :per_page => Question.default_per_page}.merge(options)
     page = options[:page]
     per_page = options[:per_page]
     user = options[:user]

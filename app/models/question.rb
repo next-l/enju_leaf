@@ -30,9 +30,7 @@ class Question < ActiveRecord::Base
   acts_as_taggable_on :tags
   enju_ndl
  
-  def self.per_page
-    10
-  end
+  paginates_per 10
 
   def self.crd_per_page
     5

@@ -32,19 +32,17 @@ class UsersController < ApplicationController
     role = current_user.try(:role) || Role.default_role
 
     unless query.blank?
-      begin
-        @users = User.search do
-          fulltext query
-          order_by sort[:sort_by], sort[:order]
-          with(:required_role_id).less_than role.id
-        end.results
-      rescue RSolr::RequestError
-        @users = WillPaginate::Collection.create(1,1,0) do end
+      search = User.search do
+        fulltext query
+        order_by sort[:sort_by], sort[:order]
+        with(:required_role_id).less_than role.id
+        paginate :page => 1, :per_page => configatron.max_number_of_results
       end
+      @users = User.where(:id => search.execute.raw_results.collect(&:primary_key)).page(page)
     else
-      @users = User.paginate(:all, :page => page, :order => "#{sort[:sort_by]} #{sort[:order]}")
+      @users = User.page(page).order("#{sort[:sort_by]} #{sort[:order]}")
     end
-    @count[:query_result] = @users.total_entries
+    @count[:query_result] = @users.total_count
     
     respond_to do |format|
       format.html # index.rhtml
@@ -56,10 +54,6 @@ class UsersController < ApplicationController
         :inline => true
       }
     end
-  rescue RSolr::RequestError
-    flash[:notice] = t('page.error_occured')
-    redirect_to users_url
-    return
   end
 
   def show

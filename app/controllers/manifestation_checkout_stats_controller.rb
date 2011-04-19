@@ -5,7 +5,7 @@ class ManifestationCheckoutStatsController < ApplicationController
   # GET /manifestation_checkout_stats
   # GET /manifestation_checkout_stats.xml
   def index
-    @manifestation_checkout_stats = ManifestationCheckoutStat.paginate(:all, :page => params[:page])
+    @manifestation_checkout_stats = ManifestationCheckoutStat.page(params[:page])
 
     respond_to do |format|
       format.html # index.html.erb
@@ -17,8 +17,12 @@ class ManifestationCheckoutStatsController < ApplicationController
   # GET /manifestation_checkout_stats/1.xml
   def show
     @manifestation_checkout_stat = ManifestationCheckoutStat.find(params[:id])
-    CheckoutStatHasManifestation.per_page = 65534 if params[:format] == 'csv'
-    @stats = @manifestation_checkout_stat.checkout_stat_has_manifestations.paginate(:all, :order => 'checkouts_count DESC, manifestation_id', :page => params[:page])
+    if params[:format] == 'csv'
+      per_page = 65534
+    else
+      per_page = ManifestationCheckoutStat.default_per_page
+    end
+    @stats = @manifestation_checkout_stat.checkout_stat_has_manifestations.page(params[:page]).order('checkouts_count DESC, manifestation_id').per(per_page)
 
     respond_to do |format|
       format.html # show.html.erb

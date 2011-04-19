@@ -7,9 +7,9 @@ class LendingPoliciesController < ApplicationController
   # GET /lending_policies.xml
   def index
     if @item
-      @lending_policies = @item.lending_policies.paginate(:page => params[:page])
+      @lending_policies = @item.lending_policies.page(params[:page])
     else
-      @lending_policies = LendingPolicy.paginate(:page => params[:page])
+      @lending_policies = LendingPolicy.page(params[:page])
     end
 
     respond_to do |format|

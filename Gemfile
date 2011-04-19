@@ -31,6 +31,7 @@ end
 gem 'fastercsv' if RUBY_VERSION < '1.9'
 
 gem 'will_paginate', :git => 'git://github.com/mislav/will_paginate.git', :branch => 'rails3'
+gem 'kaminari'
 gem 'exception_notification', :git => 'git://github.com/rails/exception_notification.git', :require => 'exception_notifier'
 gem 'delayed_job', '>=2.1.3'
 gem 'state_machine'

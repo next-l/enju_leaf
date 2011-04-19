@@ -23,18 +23,13 @@ class BookmarksController < ApplicationController
       with(:user_id).equal_to user.id if user
     end
     page = params[:page] || 1
-    search.query.paginate(page.to_i, Bookmark.per_page)
-    #@bookmarks = @user.bookmarks.paginate(:all, :page => params[:page], :order => ['id DESC'])
-    @bookmarks = search.execute!.results
+    search.query.paginate(1, configatron.max_number_of_results)
+    @bookmarks = Bookmark.where(:id => search.execute.raw_results.collect(&:primary_key)).page(page)
     
     respond_to do |format|
       format.html # index.rhtml
       format.xml  { render :xml => @bookmarks }
     end
-  rescue RSolr::RequestError
-    flash[:notice] = t('page.error_occured')
-    redirect_to bookmarks_url
-    return
   end
 
   # GET /bookmarks/1

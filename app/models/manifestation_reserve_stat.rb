@@ -11,9 +11,7 @@ class ManifestationReserveStat < ActiveRecord::Base
     end
   end
 
-  def self.per_page
-    10
-  end
+  paginates_per 10
 
   def calculate_count
     self.started_at = Time.zone.now

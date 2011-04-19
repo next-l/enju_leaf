@@ -16,7 +16,7 @@ class CheckoutsController < ApplicationController
       if icalendar_user.blank?
         raise ActiveRecord::RecordNotFound
       else
-        checkouts = icalendar_user.checkouts.not_returned.all(:order => 'created_at DESC')
+        checkouts = icalendar_user.checkouts.not_returned.order('created_at DESC')
       end
     else
       unless current_user
@@ -27,7 +27,7 @@ class CheckoutsController < ApplicationController
     unless icalendar_user
       if current_user.try(:has_role?, 'Librarian')
         if @user
-          checkouts = @user.checkouts.not_returned.all(:order => 'created_at DESC')
+          checkouts = @user.checkouts.not_returned.order('created_at DESC')
         else
           if params[:view] == 'overdue'
             if params[:days_overdue]
@@ -35,15 +35,15 @@ class CheckoutsController < ApplicationController
             else
               date = 1.days.ago.beginning_of_day
             end
-            checkouts = Checkout.overdue(date).all(:order => 'created_at DESC')
+            checkouts = Checkout.overdue(date).order('created_at DESC')
           else
-            checkouts = Checkout.not_returned.all(:order => 'created_at DESC')
+            checkouts = Checkout.not_returned.order('created_at DESC')
           end
         end
       else
         # 一般ユーザ
         if current_user == @user
-          checkouts = current_user.checkouts.not_returned.all(:order => 'created_at DESC')
+          checkouts = current_user.checkouts.not_returned.order('created_at DESC')
         else
           if @user
             access_denied
@@ -60,7 +60,7 @@ class CheckoutsController < ApplicationController
     if params[:format] == 'csv'
       @checkouts = checkouts
     else
-      @checkouts = checkouts.paginate(:page => params[:page])
+      @checkouts = checkouts.page(params[:page])
     end
 
     respond_to do |format|
@@ -77,7 +77,6 @@ class CheckoutsController < ApplicationController
         :inline => true
       }
     end
-
   end
 
   # GET /checkouts/1
