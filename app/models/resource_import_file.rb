@@ -1,4 +1,5 @@
 class ResourceImportFile < ActiveRecord::Base
+  include ImportFile
   default_scope :order => 'id DESC'
   scope :not_imported, where(:state => 'pending', :imported_at => nil)
 

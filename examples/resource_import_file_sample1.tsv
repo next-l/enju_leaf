@@ -1,4 +1,5 @@
 "identifier"	"original_title"	"note"	"title_transcription"	"title_alternative"	"series_statement_identifier"	"series_statement_original_title"	"series_statement_title_transcription"	"creator"	"publisher"	"pub_date"	"volume_number_list"	"edition"	"isbn"	"issn"	"manifestation_price"	"item_price"	"height"	"shelf"	"item_identifier"	"nbn"	"lccn"	"subject"	"dummy"
+"資料ID"	"タイトル"	"注記"	"タイトルよみ"	"代替タイトル"	"シリーズ番号"	"シリーズタイトル"	"シリーズタイトルよみ"	"著者"	"出版者"	"出版日"	"巻"	"版"	"isbn"	"高さ"	"販売価格"	"受入価格"	"高さ"	"書架名"	"個別資料ID"	"nbn"	"lccn"	"件名"	"インポート省略"
 	"test1"	"○ identifierなし、item_identifierなし"						"test"	"test2"		"invalid"												
 	"test2"	"○ identifierなし、item_identifierあり"						"test;test1"		2001									10101				
 101	"test3"	"× ダミー"						"test"	"test2"														"適当な値"
