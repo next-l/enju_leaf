@@ -35,7 +35,6 @@ class PurchaseRequest < ActiveRecord::Base
       order_list.try(:ordered_at).present? ? true : false
     end
   end
-  #acts_as_soft_deletable
 
   def self.per_page
     10

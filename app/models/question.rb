@@ -11,7 +11,7 @@ class Question < ActiveRecord::Base
 
   validates_associated :user
   validates_presence_of :user, :body
-  #acts_as_soft_deletable
+
   searchable do
     text :body, :answer_body
     string :username

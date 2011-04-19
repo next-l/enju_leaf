@@ -13,8 +13,7 @@ class Library < ActiveRecord::Base
   belongs_to :country
 
   has_friendly_id :name
-  acts_as_mappable :auto_geocode => true, :lat_column_name => :latitude, :lng_column_name => :longitude
-  before_validation :auto_geocode_address, :on => :update, :unless => :skip_geocode
+  geocoded_by :address
   #enju_calil_library
 
   searchable do
@@ -24,6 +23,7 @@ class Library < ActiveRecord::Base
     integer :position
   end
 
+  #validates_associated :library_group, :holding_patron
   validates_associated :library_group, :patron
   validates_presence_of :short_display_name, :library_group, :patron
   validates_uniqueness_of :short_display_name, :case_sensitive => false
@@ -31,6 +31,7 @@ class Library < ActiveRecord::Base
   validates_format_of :name, :with => /^[a-z][0-9a-z]{2,254}$/
   before_validation :set_patron, :on => :create
   #before_save :set_calil_neighborhood_library
+  after_validation :geocode, :unless => :skip_geocode
   after_create :create_shelf
   after_save :clear_all_cache
   after_destroy :clear_all_cache

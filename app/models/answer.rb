@@ -8,7 +8,6 @@ class Answer < ActiveRecord::Base
   has_many :answer_has_items, :dependent => :destroy
   has_many :items, :through => :answer_has_items
 
-  #acts_as_soft_deletable
   after_save :save_questions
   before_save :add_items
 

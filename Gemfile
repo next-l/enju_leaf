@@ -73,7 +73,8 @@ gem 'barby'
 gem 'prawnto'
 gem 'event-calendar', :require => 'event_calendar'
 gem 'jpmobile', '>=1.0.0.pre.4'
-gem 'geokit-rails3'
+gem 'geokit'
+gem 'geocoder'
 
 #gem 'oink', '>=0.9.1'
 gem 'parallel_tests', :group => :development
