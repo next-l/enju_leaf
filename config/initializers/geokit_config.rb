@@ -1,1 +1,1 @@
-Geokit::Geocoders::google = configatron.google.google_maps_api_key
+#Geokit::Geocoders::google = configatron.google.google_maps_api_key
