@@ -9,7 +9,9 @@ class InventoryFile < ActiveRecord::Base
   validates_attachment_presence :inventory
   validates_presence_of :user
 
-  paginates_per 10
+  def self.per_page
+    10
+  end
 
   def import
     self.reload
@@ -19,11 +21,11 @@ class InventoryFile < ActiveRecord::Base
       begin
         item = Item.find_by_sql(['SELECT * FROM items WHERE item_identifier = ?', row.to_s.strip])
         self.items << item if item
-      rescue
-        nil
+      rescue ActiveRecord::RecordInvalid
+        next
       end
     end
     file.close
+    true
   end
-
 end

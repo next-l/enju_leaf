@@ -12,5 +12,7 @@ class CheckoutType < ActiveRecord::Base
   #has_many :items, :through => :item_has_checkout_types
   has_many :items
 
-  paginates_per 10
+  def self.per_page
+    10
+  end
 end

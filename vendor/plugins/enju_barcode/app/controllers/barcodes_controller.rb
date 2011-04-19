@@ -4,7 +4,7 @@ class BarcodesController < ApplicationController
   # GET /barcodes
   # GET /barcodes.xml
   def index
-    @barcodes = Barcode.page(params[:page])
+    @barcodes = Barcode.paginate(:page => params[:page])
     @start_rows = params[:start_rows]
     @start_cols = params[:start_cols]
 

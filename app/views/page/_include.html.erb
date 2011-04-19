@@ -5,7 +5,7 @@
   'formtastic', 'formtastic_changes', 'colorbox', 'pagination',
   :cache => 'include'
 %>
-<%= stylesheet_link_tag 'smoothness/jquery-ui-1.8.10.custom',
+<%= stylesheet_link_tag 'smoothness/jquery-ui-1.8.11.custom',
   'smoothness/fg.menu', 'smoothness/fg.menu.button',
   :cache => 'include_jquery'
 %>
@@ -16,3 +16,4 @@
   :cache => 'include'
 %>
 <%= csrf_meta_tag %>
+<%= render :partial => 'page/locale_menu' %>

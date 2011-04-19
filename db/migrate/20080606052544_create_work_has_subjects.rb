@@ -8,7 +8,6 @@ class CreateWorkHasSubjects < ActiveRecord::Migration
       t.timestamps
     end
     add_index :work_has_subjects, :subject_id
-    #add_index :work_has_subjects, :subjectable_id
     add_index :work_has_subjects, :work_id
   end
 

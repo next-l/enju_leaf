@@ -12,8 +12,9 @@ class PurchaseRequest < ActiveRecord::Base
   validate :check_price
   after_save :index!
   after_destroy :index!
+  before_save :set_date_of_publication
 
-  normalize_attributes :url
+  normalize_attributes :url, :pub_date
 
   searchable do
     text :title, :author, :publisher, :url
@@ -24,7 +25,9 @@ class PurchaseRequest < ActiveRecord::Base
     integer :order_list_id do
       order_list.id if order_list
     end
-    time :pubdate
+    time :pub_date do
+      date_of_publication
+    end
     time :created_at
     time :accepted_at
     time :denied_at
@@ -32,14 +35,31 @@ class PurchaseRequest < ActiveRecord::Base
       order_list.try(:ordered_at).present? ? true : false
     end
   end
+  #acts_as_soft_deletable
 
-  paginates_per 10
-
-  def pubdate
-    self.date_of_publication
+  def self.per_page
+    10
   end
 
   def check_price
     errors.add(:price) unless self.price.nil? || self.price > 0.0
+  end
+
+  def set_date_of_publication
+    return if pub_date.blank?
+    begin
+      date = Time.zone.parse("#{pub_date}")
+    rescue ArgumentError
+      begin
+        date = Time.zone.parse("#{pub_date}-01")
+      rescue ArgumentError
+        begin
+          date = Time.zone.parse("#{pub_date}-01-01")
+        rescue ArgumentError
+          nil
+        end
+      end
+    end
+    self.date_of_publication = date
   end
 end

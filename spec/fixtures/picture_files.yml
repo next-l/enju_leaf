@@ -1,0 +1,49 @@
+--- 
+picture_file_00001: 
+  picture_content_type: image/x-png
+  updated_at: 2007-12-22 16:53:25.166728 +09:00
+  picture_file_size: 2353
+  id: 1
+  height: 33
+  picture_file_name: test_00001.jpg
+  picture_attachable_type: Shelf
+  picture_attachable_id: 2
+  width: 446
+  created_at: 2007-12-22 13:47:41.486807 +09:00
+  position: 1
+picture_file_00002: 
+  picture_content_type: image/pjpeg
+  updated_at: 2007-12-22 14:06:40.293209 +09:00
+  picture_file_size: 157914
+  id: 2
+  height: 1280
+  picture_file_name: test_00001_geometry.jpg
+  picture_attachable_type: Manifestation
+  picture_attachable_id: 1
+  width: 960
+  created_at: 2007-12-22 14:06:10.870393 +09:00
+  position: 2
+picture_file_00003: 
+  picture_content_type: image/gif
+  updated_at: 2007-12-22 15:06:30.464930 +09:00
+  picture_file_size: 7028
+  id: 3
+  height: 36
+  picture_file_name: overlay_spinner.gif
+  picture_attachable_type: Shelf
+  picture_attachable_id: 2
+  width: 36
+  created_at: 2007-12-22 15:06:30.464930 +09:00
+  position: 3
+picture_file_00004: 
+  picture_content_type: image/gif
+  updated_at: 2007-12-22 15:06:30.464930 +09:00
+  picture_file_size: 7028
+  id: 4
+  height: 36
+  picture_file_name: overlay_spinner_geometry.gif
+  picture_attachable_type: Patron
+  picture_attachable_id: 1
+  width: 36
+  created_at: 2007-12-22 15:06:30.464930 +09:00
+  position: 4

@@ -10,13 +10,13 @@ class Own < ActiveRecord::Base
 
   acts_as_list :scope => :item
 
-  paginates_per 10
-
+  def self.per_page
+    10
+  end
   attr_accessor :item_identifier
 
   def reindex
     patron.index
     item.index
   end
-
 end

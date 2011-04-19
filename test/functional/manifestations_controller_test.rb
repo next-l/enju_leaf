@@ -459,11 +459,6 @@ class ManifestationsControllerTest < ActionController::TestCase
     assert_redirected_to new_user_session_url
   end
 
-  def test_guest_should_generate_fragment_cache
-    get :show, :id => 1, :mode => 'generate_cache'
-    assert_response :success
-  end
-
   def test_user_should_show_manifestation
     sign_in users(:user1)
     get :show, :id => 1

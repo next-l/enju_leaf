@@ -18,7 +18,7 @@
   <p>
     <%= f.label t('activerecord.models.manifestation') -%><br />
     <%- if @produce.manifestation -%>
-      <%= link_to @produce.manifestation.original_title, @produce.manifestation -%>
+      <%= link_to @produce.manifestation_original_title, @produce.manifestation -%>
       <%= f.hidden_field :manifestation_id -%>
     <%- else -%>
       <%= f.text_field :manifestation_id -%>

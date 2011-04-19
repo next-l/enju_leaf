@@ -1,6 +1,7 @@
 class Produce < ActiveRecord::Base
   belongs_to :patron
   belongs_to :manifestation, :class_name => 'Manifestation'
+  delegate :original_title, :to => :manifestation, :prefix => true
 
   validates_associated :patron, :manifestation
   validates_presence_of :patron, :manifestation
@@ -10,11 +11,12 @@ class Produce < ActiveRecord::Base
 
   acts_as_list :scope => :manifestation
 
-  paginates_per 10
+  def self.per_page
+    10
+  end
 
   def reindex
     patron.index
     manifestation.index
   end
-
 end

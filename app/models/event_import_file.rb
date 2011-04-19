@@ -1,6 +1,8 @@
 class EventImportFile < ActiveRecord::Base
+  include ImportFile
   default_scope :order => 'id DESC'
   scope :not_imported, where(:state => 'pending', :imported_at => nil)
+  scope :stucked, where('created_at < ? AND state = ?', 1.hour.ago, 'pending')
 
   if configatron.uploaded_file.storage == :s3
     has_attached_file :event_import, :storage => :s3, :s3_credentials => "#{Rails.root.to_s}/config/s3.yml",
@@ -41,40 +43,45 @@ class EventImportFile < ActiveRecord::Base
 
   def import
     self.reload
-    num = {:success => 0, :failure => 0}
+    num = {:imported => 0, :failed => 0}
     record = 2
-    if RUBY_VERSION > '1.9'
-      if configatron.uploaded_file.storage == :s3
-        file = CSV.open(open(self.event_import.url).path, :col_sep => "\t")
-        header = file.first
-        rows = CSV.open(open(self.event_import.url).path, :headers => header, :col_sep => "\t")
-      else
-        file = CSV.open(self.event_import.path, :col_sep => "\t")
-        header = file.first
-        rows = CSV.open(self.event_import.path, :headers => header, :col_sep => "\t")
-      end
+
+    tempfile = Tempfile.new('event_import_file')
+    if configatron.uploaded_file.storage == :s3
+      uploaded_file_path = open(self.event_import.url).path
     else
-      if configatron.uploaded_file.storage == :s3
-        file = FasterCSV.open(open(self.event_import.url).path, :col_sep => "\t")
-        header = file.first
-        rows = FasterCSV.open(open(self.event_import.url).path, :headers => header, :col_sep => "\t")
-      else
-        file = FasterCSV.open(self.event_import.path, :col_sep => "\t")
-        header = file.first
-        rows = FasterCSV.open(self.event_import.path, :headers => header, :col_sep => "\t")
-      end
+      uploaded_file_path = self.event_import.path
+    end
+    open(uploaded_file_path){|f|
+      f.each{|line|
+        tempfile.puts(NKF.nkf('-w -Lu', line))
+      }
+    }
+
+    tempfile.open
+    if RUBY_VERSION > '1.9'
+      file = CSV.open(tempfile, :col_sep => "\t")
+      header = file.first
+      rows = CSV.open(tempfile, :headers => header, :col_sep => "\t")
+    else
+      file = FasterCSV.open(tempfile, :col_sep => "\t")
+      header = file.first
+      rows = FasterCSV.open(tempfile, :headers => header, :col_sep => "\t")
     end
     EventImportResult.create!(:event_import_file => self, :body => header.join("\t"))
+    tempfile.close
     file.close
+
     field = rows.first
     if [field['name']].reject{|f| f.to_s.strip == ""}.empty?
       raise "You should specify a name in the first line"
     end
-    if [field['start_at'], field['end_at'], field['all_day']].reject{|field| field.to_s.strip == ""}.empty?
+    if [field['start_at'], field['end_at']].reject{|field| field.to_s.strip == ""}.empty?
       raise "You should specify dates in the first line"
     end
     #rows.shift
     rows.each do |row|
+      next if row['dummy'].to_s.strip.present?
       import_result = EventImportResult.create!(:event_import_file => self, :body => row.fields.join("\t"))
 
       event = Event.new
@@ -83,9 +90,7 @@ class EventImportFile < ActiveRecord::Base
       event.start_at = row['start_at']
       event.end_at = row['end_at']
       category = row['category']
-      unless row['all_day'].to_s.strip.blank?
-        all_day = true
-      end
+      event.all_day = true
       library = Library.where(:name => row['library_short_name']).first
       library = Library.web if library.blank?
       event.library = library
@@ -96,7 +101,7 @@ class EventImportFile < ActiveRecord::Base
       begin
         if event.save!
           import_result.event = event
-          num[:success] += 1
+          num[:imported] += 1
           if record % 50 == 0
             Sunspot.commit
             GC.start
@@ -104,7 +109,7 @@ class EventImportFile < ActiveRecord::Base
         end
       rescue
         Rails.logger.info("event import failed: column #{record}")
-        num[:failure] += 1
+        num[:failed] += 1
       end
       import_result.save!
       record += 1

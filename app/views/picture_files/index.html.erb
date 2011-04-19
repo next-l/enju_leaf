@@ -1,9 +1,11 @@
 <%- case when @shelf -%>
-  <%= render 'index_shelf' -%>
+  <%= render 'index_shelf', :locals => {:shelf => @shelf} -%>
 <%- when @manifestation -%>
-  <%= render 'index_manifestation' -%>
+  <%= render 'index_manifestation', :locals => {:manifestation => @manifestation} -%>
 <%- when @patron -%>
-  <%= render 'index_patron' -%>
+  <%= render 'index_patron', :locals => {:patron => @patron} -%>
+<%- when @event -%>
+  <%= render 'index_event', :locals => {:event => @event} -%>
 <%- else -%>
   <%= render 'index' -%>
 <%- end -%>

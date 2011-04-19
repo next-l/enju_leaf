@@ -31,13 +31,14 @@ class Patron < ActiveRecord::Base
   validates_uniqueness_of :user_id, :allow_nil => true
   validates_format_of :birth_date, :with => /^\d+(-\d{0,2}){0,2}$/, :allow_blank => true
   validates_format_of :death_date, :with => /^\d+(-\d{0,2}){0,2}$/, :allow_blank => true
+  EMAIL_REGEX = /^([\w\.%\+\-]+)@([\w\-]+\.)+([\w]{2,})$/i
+  validates_format_of :email, :with => EMAIL_REGEX, :allow_blank => true
   validate :check_birth_date
   before_validation :set_role_and_name, :on => :create
   before_save :set_date_of_birth, :set_date_of_death
 
   has_paper_trail
   attr_accessor :user_username
-  attr_accessor :birth_date, :death_date
 
   searchable do
     text :name, :place, :address_1, :address_2, :other_designation, :note
@@ -60,7 +61,9 @@ class Patron < ActiveRecord::Base
     integer :patron_type_id
   end
 
-  paginates_per 10
+  def self.per_page
+    10
+  end
 
   def full_name_without_space
     full_name.gsub(/\s/, "")
@@ -74,9 +77,9 @@ class Patron < ActiveRecord::Base
   def set_full_name
     if self.full_name.blank?
       if self.last_name.to_s.strip and self.first_name.to_s.strip and configatron.family_name_first == true
-        self.full_name = [last_name, middle_name, first_name].compact.join(", ").to_s.strip
+        self.full_name = [last_name, middle_name, first_name].compact.join(" ").to_s.strip
       else
-        self.full_name = [first_name, middle_name, middle_name].compact.join(" ").to_s.strip
+        self.full_name = [first_name, last_name, middle_name].compact.join(" ").to_s.strip
       end
     end
     if self.full_name_transcription.blank?
@@ -88,7 +91,7 @@ class Patron < ActiveRecord::Base
   def set_date_of_birth
     return if birth_date.blank?
     begin
-      date = Time.zone.parse(birth_date)
+      date = Time.zone.parse("#{birth_date}")
     rescue ArgumentError
       begin
         date = Time.zone.parse("#{birth_date}-01")
@@ -106,7 +109,7 @@ class Patron < ActiveRecord::Base
   def set_date_of_death
     return if death_date.blank?
     begin
-      date = Time.zone.parse(death_date)
+      date = Time.zone.parse("#{death_date}")
     rescue ArgumentError
       begin
         date = Time.zone.parse("#{death_date}-01")
@@ -184,7 +187,7 @@ class Patron < ActiveRecord::Base
     end
   end
 
-  def author?(resource)
+  def creator?(resource)
     resource.creators.include?(self)
   end
 

@@ -144,14 +144,14 @@ EnjuLeaf::Application.routes.draw do
     resources :manifestations, :controller => :manifestations
   end
   resources :barcodes
-  resources :message_requests
+  resources :message_requests, :except => [:new, :create]
   resources :message_templates
   resources :carrier_type_has_checkout_types
   resources :user_group_has_checkout_types
   resources :checkout_types do
     resources :user_group_has_checkout_types
   end
-  resources :search_histories
+  resources :search_histories, :only => [:index, :show, :destroy]
 
   resources :order_lists do
     resource :order
@@ -193,13 +193,13 @@ EnjuLeaf::Application.routes.draw do
     resources :order_lists
   end
 
-  resources :user_has_roles
+  resources :user_has_roles, :only => [:index, :show]
 
-  resources :roles
+  resources :roles, :except => [:new, :create, :destroy]
 
   resources :messages
 
-  resources :library_groups
+  resources :library_groups, :except => [:new, :create, :destroy]
 
   resources :classifications do
     resources :subject_has_classifications
@@ -338,7 +338,7 @@ EnjuLeaf::Application.routes.draw do
   match '/isbn/:isbn' => 'manifestations#show'
   match '/calendar(/:year(/:month))' => 'calendar#index', :as => :calendar, :constraints => {:year => /\d{4}/, :month => /\d{1,2}/}
   match "/calendar/:year/:month/:day" => "calendar#show"
-  match ':controller(/:action(/:id(.:format)))'
+  #match ':controller(/:action(/:id(.:format)))'
   match '/page/about' => 'page#about'
   match '/page/configuration' => 'page#configuration'
   match '/page/advanced_search' => 'page#advanced_search'

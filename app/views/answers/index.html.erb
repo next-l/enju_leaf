@@ -14,7 +14,7 @@
     <th><%= t('page.updated_at') -%></th>
     <th></th>
   </tr>
-  
+
 <%- @answers.each_with_index do |answer, i| -%>
   <tr class="line<%= cycle("0", "1") -%>">
     <td><%= link_to answer.user.username, answer.user -%></td>
@@ -31,7 +31,7 @@
 <%- end -%>
 </table>
 
-<%= paginate(@answers) -%>
+<%= will_paginate(@answers) -%>
 </div>
 </div>
 

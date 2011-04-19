@@ -1,0 +1,15 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  id: 1
+  name: Unaccompanied
+  display_name: Unaccompanied
+  note: MyText
+  position: 1
+
+two:
+  id: 2
+  name: Accompanied
+  display_name: Accompanied
+  note: MyText
+  position: 2

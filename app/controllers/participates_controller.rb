@@ -4,7 +4,7 @@ class ParticipatesController < ApplicationController
   # GET /participates
   # GET /participates.xml
   def index
-    @participates = Participate.page(params[:page])
+    @participates = Participate.paginate(:page => params[:page])
 
     respond_to do |format|
       format.html # index.html.erb
@@ -15,8 +15,6 @@ class ParticipatesController < ApplicationController
   # GET /participates/1
   # GET /participates/1.xml
   def show
-    @participate = Participate.find(params[:id])
-
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @participate }
@@ -36,7 +34,6 @@ class ParticipatesController < ApplicationController
 
   # GET /participates/1/edit
   def edit
-    @participate = Participate.find(params[:id])
   end
 
   # POST /participates
@@ -59,8 +56,6 @@ class ParticipatesController < ApplicationController
   # PUT /participates/1
   # PUT /participates/1.xml
   def update
-    @participate = Participate.find(params[:id])
-
     respond_to do |format|
       if @participate.update_attributes(params[:participate])
         flash[:notice] = 'Participate was successfully updated.'
@@ -76,7 +71,6 @@ class ParticipatesController < ApplicationController
   # DELETE /participates/1
   # DELETE /participates/1.xml
   def destroy
-    @participate = Participate.find(params[:id])
     @participate.destroy
 
     respond_to do |format|

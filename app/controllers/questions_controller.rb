@@ -74,12 +74,17 @@ class QuestionsController < ApplicationController
     end
 
     page = params[:page] || 1
-    search.query.paginate(1, configatron.max_number_of_results)
-    @questions = Question.where(:id => search.execute.raw_results.collect(&:primary_key)).page(page)
-    @count[:query_result] = @questions.total_count
+    search.query.paginate(page.to_i, Question.per_page)
+    result = search.execute!
+    @questions = result.results
+    @count[:query_result] = @questions.total_entries
 
     if query.present?
-      @crd_results = Question.search_crd(:query_01 => query, :page => params[:crd_page])
+      begin
+        @crd_results = Question.search_crd(:query_01 => query, :page => params[:crd_page])
+      rescue Timeout::Error
+        @crd_results = WillPaginate::Collection.create(1,1,0) do end
+      end
     end
 
     respond_to do |format|
@@ -142,7 +147,7 @@ class QuestionsController < ApplicationController
     respond_to do |format|
       if @question.save
         flash[:notice] = t('controller.successfully_created', :model => t('activerecord.models.question'))
-        format.html { redirect_to user_question_url(@question.user, @question) }
+        format.html { redirect_to @question }
         format.xml  { render :xml => @question, :status => :created, :location => user_question_url(@question.user, @question) }
       else
         format.html { render :action => "new" }
@@ -159,7 +164,7 @@ class QuestionsController < ApplicationController
     respond_to do |format|
       if @question.update_attributes(params[:question])
         flash[:notice] = t('controller.successfully_updated', :model => t('activerecord.models.question'))
-        format.html { redirect_to user_question_url(@question.user, @question) }
+        format.html { redirect_to @question }
         format.xml  { head :ok }
       else
         format.html { render :action => "edit" }
@@ -183,5 +188,4 @@ class QuestionsController < ApplicationController
       format.xml  { head :ok }
     end
   end
-
 end

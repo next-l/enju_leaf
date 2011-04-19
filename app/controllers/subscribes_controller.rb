@@ -6,7 +6,7 @@ class SubscribesController < ApplicationController
   # GET /subscribes
   # GET /subscribes.xml
   def index
-    @subscribes = Subscribe.page(params[:page])
+    @subscribes = Subscribe.paginate(:page => params[:page])
 
     respond_to do |format|
       format.html # index.html.erb
@@ -17,8 +17,6 @@ class SubscribesController < ApplicationController
   # GET /subscribes/1
   # GET /subscribes/1.xml
   def show
-    @subscribe = Subscribe.find(params[:id])
-
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @subscribe }
@@ -40,7 +38,6 @@ class SubscribesController < ApplicationController
 
   # GET /subscribes/1/edit
   def edit
-    @subscribe = Subscribe.find(params[:id])
   end
 
   # POST /subscribes
@@ -63,8 +60,6 @@ class SubscribesController < ApplicationController
   # PUT /subscribes/1
   # PUT /subscribes/1.xml
   def update
-    @subscribe = Subscribe.find(params[:id])
-
     respond_to do |format|
       if @subscribe.update_attributes(params[:subscribe])
         flash[:notice] = t('controller.successfully_updated', :model => t('activerecord.models.subscribe'))
@@ -80,7 +75,6 @@ class SubscribesController < ApplicationController
   # DELETE /subscribes/1
   # DELETE /subscribes/1.xml
   def destroy
-    @subscribe = Subscribe.find(params[:id])
     @subscribe.destroy
 
     respond_to do |format|

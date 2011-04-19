@@ -14,7 +14,7 @@ class MessageTemplatesController < InheritedResources::Base
   end
 
   def index
-    @message_templates = MessageTemplate.page(params[:page])
+    @message_templates = MessageTemplate.paginate(:page => params[:page])
   end
 
   private

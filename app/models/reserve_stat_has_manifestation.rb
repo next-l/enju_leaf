@@ -5,5 +5,7 @@ class ReserveStatHasManifestation < ActiveRecord::Base
   validates_uniqueness_of :manifestation_id, :scope => :manifestation_reserve_stat_id
   validates_presence_of :manifestation_reserve_stat_id, :manifestation_id
 
-  paginates_per 10
+  def self.per_page
+    10
+  end
 end

@@ -1,6 +1,7 @@
 # -*- encoding: utf-8 -*-
 class SubjectsController < ApplicationController
-  load_and_authorize_resource
+  load_and_authorize_resource :except => :index
+  authorize_resource :only => :index
   before_filter :get_work, :get_subject_heading_type, :get_classification
   before_filter :prepare_options, :only => :new
   after_filter :solr_commit, :only => [:create, :update, :destroy]
@@ -47,8 +48,8 @@ class SubjectsController < ApplicationController
     end
 
     page = params[:page] || 1
-    search.query.paginate(1, configatron.max_number_of_results)
-    @subjects = Subject.where(:id => search.execute.raw_results.collect(&:primary_key)).page(page)
+    search.query.paginate(page.to_i, Subject.per_page)
+    @subjects = search.execute!.results
     session[:params] = {} unless session[:params]
     session[:params][:subject] = params
 
@@ -80,8 +81,8 @@ class SubjectsController < ApplicationController
       with(:subject_ids).equal_to subject.id if subject
     end
     page = params[:work_page] || 1
-    search.query.paginate(1, configatron.max_number_of_results)
-    @works = Manifestation.where(:id => search.execute.raw_results.collect(&:primary_key)).page(page)
+    search.query.paginate(page.to_i, Manifestation.per_page)
+    @works = search.execute!.results
 
     respond_to do |format|
       format.html # show.rhtml

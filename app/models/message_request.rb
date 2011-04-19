@@ -23,7 +23,9 @@ class MessageRequest < ActiveRecord::Base
     end
   end
 
-  paginates_per 10
+  def self.per_page
+    10
+  end
 
   def start_sending_message
     sm_start!
@@ -45,7 +47,7 @@ class MessageRequest < ActiveRecord::Base
     end
     return message
   end
-  
+
   def subject
     self.message_template.title
   end

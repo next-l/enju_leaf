@@ -3,7 +3,9 @@ class PatronMergeList < ActiveRecord::Base
   has_many :patrons, :through => :patron_merges
   validates_presence_of :title
 
-  paginates_per 10
+  def self.per_page
+    10
+  end
 
   def merge_patrons(selected_patron)
     self.patrons.each do |patron|

@@ -15,9 +15,12 @@ class Subscription < ActiveRecord::Base
   end
   #acts_as_soft_deletable
 
-  paginates_per 10
+  def self.per_page
+    10
+  end
 
   def subscribed(work)
     subscribes.where(:work_id => work.id).first
   end
+
 end

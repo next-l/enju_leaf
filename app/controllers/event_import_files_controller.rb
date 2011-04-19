@@ -5,7 +5,7 @@ class EventImportFilesController < ApplicationController
   # GET /event_import_files
   # GET /event_import_files.xml
   def index
-    @event_import_files = EventImportFile.page(params[:page])
+    @event_import_files = EventImportFile.paginate(:page => params[:page])
 
     respond_to do |format|
       format.html # index.html.erb
@@ -16,8 +16,6 @@ class EventImportFilesController < ApplicationController
   # GET /event_import_files/1
   # GET /event_import_files/1.xml
   def show
-    @event_import_file = EventImportFile.find(params[:id])
-
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @event_import_file }
@@ -38,7 +36,6 @@ class EventImportFilesController < ApplicationController
 
   # GET /event_import_files/1/edit
   def edit
-    @event_import_file = EventImportFile.find(params[:id])
   end
 
   # POST /event_import_files
@@ -65,8 +62,6 @@ class EventImportFilesController < ApplicationController
   # PUT /event_import_files/1
   # PUT /event_import_files/1.xml
   def update
-    @event_import_file = EventImportFile.find(params[:id])
-
     respond_to do |format|
       if @event_import_file.update_attributes(params[:event_import_file])
         flash[:notice] = t('controller.successfully_updated', :model => t('activerecord.models.event_import_file'))
@@ -82,7 +77,6 @@ class EventImportFilesController < ApplicationController
   # DELETE /event_import_files/1
   # DELETE /event_import_files/1.xml
   def destroy
-    @event_import_file = EventImportFile.find(params[:id])
     @event_import_file.destroy
 
     respond_to do |format|

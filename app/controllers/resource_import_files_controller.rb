@@ -5,7 +5,7 @@ class ResourceImportFilesController < ApplicationController
   # GET /resource_import_files
   # GET /resource_import_files.xml
   def index
-    @resource_import_files = ResourceImportFile.page(params[:page])
+    @resource_import_files = ResourceImportFile.paginate(:page => params[:page])
 
     respond_to do |format|
       format.html # index.html.erb
@@ -16,8 +16,6 @@ class ResourceImportFilesController < ApplicationController
   # GET /resource_import_files/1
   # GET /resource_import_files/1.xml
   def show
-    @resource_import_file = ResourceImportFile.find(params[:id])
-
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @resource_import_file }
@@ -39,7 +37,6 @@ class ResourceImportFilesController < ApplicationController
 
   # GET /resource_import_files/1/edit
   def edit
-    @resource_import_file = ResourceImportFile.find(params[:id])
   end
 
   # POST /resource_import_files
@@ -67,8 +64,6 @@ class ResourceImportFilesController < ApplicationController
   # PUT /resource_import_files/1
   # PUT /resource_import_files/1.xml
   def update
-    @resource_import_file = ResourceImportFile.find(params[:id])
-
     respond_to do |format|
       if @resource_import_file.update_attributes(params[:resource_import_file])
         flash[:notice] = t('controller.successfully_updated', :model => t('activerecord.models.resource_import_file'))
@@ -84,7 +79,6 @@ class ResourceImportFilesController < ApplicationController
   # DELETE /resource_import_files/1
   # DELETE /resource_import_files/1.xml
   def destroy
-    @resource_import_file = ResourceImportFile.find(params[:id])
     @resource_import_file.destroy
 
     respond_to do |format|

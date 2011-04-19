@@ -13,7 +13,6 @@
     <%= t('page.search_term') -%>: <%= search_field_tag 'query', h(@query), {:id => 'search_form_top', :class => 'search_form', :placeholder => t('page.search_term')} -%>
     <%= submit_tag t('page.search') -%>
   </p>
-  <%= javascript_tag("$('#search_form_top').focus()") -%>
 <%- end -%>
 
 <p>
@@ -48,7 +47,7 @@
       <%= event.event_category.display_name.localize -%>
     </td>
     <td>
-      <%= link_to event.name.localize, event -%>
+      <%= link_to event.display_name.localize, event -%>
       <br />
       <%= l(event.start_at, :format => :short) -%>
       -
@@ -64,7 +63,7 @@
 <%- end -%>
 </table>
 
-<%= paginate(@events) -%>
+<%= will_paginate(@events) -%>
 </div>
 </div>
 

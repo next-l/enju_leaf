@@ -16,7 +16,7 @@ describe ProducesController do
 
       it "assigns all produces as @produces" do
         get :index
-        assigns(:produces).should eq(Produce.page(1))
+        assigns(:produces).should eq(Produce.paginate(:page => 1))
       end
     end
 
@@ -27,7 +27,7 @@ describe ProducesController do
 
       it "assigns all produces as @produces" do
         get :index
-        assigns(:produces).should eq(Produce.page(1))
+        assigns(:produces).should eq(Produce.paginate(:page => 1))
       end
     end
 
@@ -38,14 +38,14 @@ describe ProducesController do
 
       it "assigns all produces as @produces" do
         get :index
-        assigns(:produces).should eq(Produce.page(1))
+        assigns(:produces).should eq(Produce.paginate(:page => 1))
       end
     end
 
     describe "When not logged in" do
       it "assigns all produces as @produces" do
         get :index
-        assigns(:produces).should eq(Produce.page(1))
+        assigns(:produces).should eq(Produce.paginate(:page => 1))
       end
     end
   end

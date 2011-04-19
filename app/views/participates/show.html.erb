@@ -9,7 +9,7 @@
 
 <p>
   <strong><%= t('activerecord.models.event') -%>:</strong>
-  <%= link_to @participate.event.name, @participate.event %>
+  <%= link_to @participate.event.display_name.localize, @participate.event %>
 </p>
 
 </div>

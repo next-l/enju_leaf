@@ -51,7 +51,8 @@ div.header_and_footer{
 }
 
 div#header_left{
-  width: 300px;
+  width: 400px;
+  height: 65px;
   float: left;
   padding-left: 2px;
   padding-right: 2px;
@@ -59,8 +60,27 @@ div#header_left{
   padding-bottom: 5px;
 }
 
+div#library_system_name{
+  width: 400px;
+  height: 30px;
+  padding-left: 2px;
+  padding-right: 2px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+div#header_micro_advertisement{
+  width: 400px;
+  height: 35px;
+  padding-left: 5px;
+  padding-right: 5px;
+  padding-top: 0.5em;
+  padding-bottom: 0.5em;
+}
+
 div#header_advertisement{
-  width: 210px;
+  width: 240px;
+  height: 65px;
   float: left;
   padding-left: 5px;
   padding-right: 5px;
@@ -69,16 +89,16 @@ div#header_advertisement{
 }
 
 div#header_select_locale{
-  width: 180px;
-  float: left;
+  width: 150px;
   padding-left: 5px;
   padding-right: 5px;
   padding-top: 0.5em;
   padding-bottom: 0.5em;
+  display: inline-block;
 }
 
 div#header_right{
-  width: 200px;
+  width: 250px;
   float: left;
   padding-left: 5px;
   padding-right: 5px;
@@ -178,12 +198,17 @@ h1{
   font-size: 180%;
   margin-top: 5px;
   margin-bottom: 10px;
+  line-height: 120%;
 }
 
 h2{
   font-size: 160%;
   margin-top: 5px;
   margin-bottom: 10px;
+}
+
+h1.resource_title{
+  line-height: 140%;
 }
 
 h2.resource_title{
@@ -271,8 +296,6 @@ div#tag_cloud_box{
 
 div.config_box{
   padding: 10px;
-  border: 1px solid #5970B2;
-  margin-bottom: 10px;
 }
 
 img{
@@ -449,6 +472,24 @@ td#edit_icons, th#edit_icons{
 
 img.icon{
   border: 0;
+}
+
+#select_locale{
+  display: none;
+  z-index: 1;
+  position: absolute;
+  background-color: white;
+  padding: 10px;
+  border: 1px solid #5970B2;
+  max-width: 250px;
+}
+
+#user_account{
+  height: 40px;
+  padding-left: 5px;
+  padding-right: 5px;
+  padding-top: 0.5em;
+  padding-bottom: 0.5em;
 }
 
 /* .yui-skin-sam .yui-navset .yui-content{background:white;} */

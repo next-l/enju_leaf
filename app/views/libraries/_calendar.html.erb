@@ -3,7 +3,7 @@
   <ul>
     <%- @events.each do |event| -%>
       <li>
-        <%= link_to event.name, event -%>
+        <%= link_to event.display_name.localize, event -%>
         (<%= l(event.start_at) -%> - <%= l(event.end_at) -%>)
       </li>
     <%- end -%>

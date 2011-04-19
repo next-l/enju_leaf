@@ -1,0 +1,56 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+lending_policy_00001:
+  item_id: 1
+  user_group_id: 1
+  loan_period: 1
+  fixed_due_date: 
+  renewal: 1
+  fine: 9.99
+  note: MyText
+  position: 1
+lending_policy_00002:
+  item_id: 1
+  user_group_id: 2
+  loan_period: 1
+  fixed_due_date: 
+  renewal: 1
+  fine: 9.99
+  note: MyText
+  position: 2
+lending_policy_00003:
+  item_id: 10
+  user_group_id: 2
+  loan_period: 1
+  fixed_due_date: 
+  renewal: 1
+  fine: 9.99
+  note: MyText
+  position: 1
+lending_policy_00004:
+  item_id: 6
+  user_group_id: 1
+  loan_period: 1
+  fixed_due_date: 
+  renewal: 1
+  fine: 9.99
+  note: MyText
+  position: 1
+lending_policy_00005:
+  item_id: 6
+  user_group_id: 2
+  loan_period: 1
+  fixed_due_date: 
+  renewal: 1
+  fine: 9.99
+  note: MyText
+  position: 1
+lending_policy_00006:
+  item_id: 11
+  user_group_id: 1
+  loan_period: 1
+  fixed_due_date: 
+  renewal: 1
+  fine: 9.99
+  note: MyText
+  position: 1

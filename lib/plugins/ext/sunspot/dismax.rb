@@ -67,7 +67,7 @@ module Sunspot
         @phrase_fields << TextFieldBoost.new(field, boost)
       end
 
-      # 
+      #
       # Set highlighting options for the query. If fields is empty, the
       # Highlighting object won't pass field names at all, which means
       # the dismax's :qf parameter will be used by Solr.
@@ -76,7 +76,7 @@ module Sunspot
         @highlights << Highlighting.new(fields, options)
       end
 
-      # 
+      #
       # Determine if a given field is being searched. Used by DSL to avoid
       # overwriting boost parameters when injecting defaults.
       #

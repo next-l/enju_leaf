@@ -325,11 +325,16 @@ describe RealizesController do
         it "assigns the requested realize as @realize" do
           put :update, :id => @realize.id, :realize => @attrs
           assigns(:realize).should eq(@realize)
+          response.should redirect_to(@realize)
         end
       end
 
       describe "with invalid params" do
         it "assigns the requested realize as @realize" do
+          put :update, :id => @realize.id, :realize => @invalid_attrs
+        end
+
+        it "re-renders the 'edit' template" do
           put :update, :id => @realize.id, :realize => @invalid_attrs
           response.should render_template("edit")
         end
@@ -355,12 +360,12 @@ describe RealizesController do
 
       describe "with invalid params" do
         it "assigns the realize as @realize" do
-          put :update, :id => @realize, :realize => @invalid_attrs
+          put :update, :id => @realize.id, :realize => @invalid_attrs
           assigns(:realize).should_not be_valid
         end
 
         it "re-renders the 'edit' template" do
-          put :update, :id => @realize, :realize => @invalid_attrs
+          put :update, :id => @realize.id, :realize => @invalid_attrs
           response.should render_template("edit")
         end
       end
@@ -441,7 +446,7 @@ describe RealizesController do
         delete :destroy, :id => @realize.id
       end
 
-      it "should be forbidden" do
+      it "redirects to the realizes list" do
         delete :destroy, :id => @realize.id
         response.should redirect_to(realizes_url)
       end

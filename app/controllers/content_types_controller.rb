@@ -14,7 +14,7 @@ class ContentTypesController < InheritedResources::Base
   end
 
   def index
-    @content_types = @content_types.page(params[:page])
+    @content_types = @content_types.paginate(:page => params[:page])
   end
 
   private

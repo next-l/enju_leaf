@@ -16,7 +16,7 @@ describe ExemplifiesController do
 
       it "assigns all exemplifies as @exemplifies" do
         get :index
-        assigns(:exemplifies).should eq(Exemplify.page(1))
+        assigns(:exemplifies).should eq(Exemplify.paginate(:page => 1))
       end
     end
 
@@ -27,7 +27,7 @@ describe ExemplifiesController do
 
       it "assigns all exemplifies as @exemplifies" do
         get :index
-        assigns(:exemplifies).should eq(Exemplify.page(1))
+        assigns(:exemplifies).should eq(Exemplify.paginate(:page => 1))
       end
     end
 
@@ -38,14 +38,14 @@ describe ExemplifiesController do
 
       it "assigns all exemplifies as @exemplifies" do
         get :index
-        assigns(:exemplifies).should eq(Exemplify.page(1))
+        assigns(:exemplifies).should eq(Exemplify.paginate(:page => 1))
       end
     end
 
     describe "When not logged in" do
       it "assigns all exemplifies as @exemplifies" do
         get :index
-        assigns(:exemplifies).should eq(Exemplify.page(1))
+        assigns(:exemplifies).should eq(Exemplify.paginate(:page => 1))
       end
     end
   end

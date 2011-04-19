@@ -10,7 +10,6 @@
       <%= render :partial => 'page/add' %>
     <%- end -%>
   </p>
-  <%= javascript_tag("$('#search_form_top').focus()") -%>
 <%- end -%>
 
 <table class="index">
@@ -40,7 +39,7 @@
   <%- end -%>
 </table>
 
-<%= paginate(subjects) -%>
+<%= will_paginate(subjects) -%>
 </div>
 </div>
 

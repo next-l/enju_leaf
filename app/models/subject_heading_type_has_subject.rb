@@ -6,5 +6,7 @@ class SubjectHeadingTypeHasSubject < ActiveRecord::Base
   validates_associated :subject, :subject_heading_type
   validates_uniqueness_of :subject_id, :scope => :subject_heading_type_id
 
-  paginates_per 10
+  def self.per_page
+    10
+  end
 end

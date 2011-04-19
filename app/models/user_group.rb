@@ -11,5 +11,7 @@ class UserGroup < ActiveRecord::Base
 
   validates_numericality_of :valid_period_for_new_user, :greater_than_or_equal_to => 0
 
-  paginates_per 10
+  def self.per_page
+    10
+  end
 end

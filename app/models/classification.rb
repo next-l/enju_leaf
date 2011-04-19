@@ -18,9 +18,12 @@ class Classification < ActiveRecord::Base
   #acts_as_taggable_on :tags
   normalize_attributes :category
 
-  paginates_per 10
+  def self.per_page
+    10
+  end
 
   def subject
     self.subjects.collect(&:term) + self.subjects.collect(&:term_transcription)
   end
+
 end

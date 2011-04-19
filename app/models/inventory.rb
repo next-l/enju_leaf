@@ -6,5 +6,7 @@ class Inventory < ActiveRecord::Base
   validates_presence_of :item, :inventory_file
   validates_uniqueness_of :item_id, :scope => :inventory_file_id
 
-  paginates_per 10
+  def self.per_page
+    10
+  end
 end

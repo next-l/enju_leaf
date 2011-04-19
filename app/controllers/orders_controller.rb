@@ -9,9 +9,9 @@ class OrdersController < ApplicationController
   def index
     case
     when @order_list
-      @orders = @order_list.orders.page(params[:page])
+      @orders = @order_list.orders.paginate(:page => params[:page])
     else
-      @orders = Order.page(params[:page])
+      @orders = Order.paginate(:page => params[:page])
     end
     @count = {}
     @count[:query_result] = @orders.size

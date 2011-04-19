@@ -5,7 +5,7 @@ class PatronMergeListsController < ApplicationController
   # GET /patron_merge_lists
   # GET /patron_merge_lists.xml
   def index
-    @patron_merge_lists = PatronMergeList.page(params[:page])
+    @patron_merge_lists = PatronMergeList.paginate(:page => params[:page])
 
     respond_to do |format|
       format.html # index.html.erb
@@ -16,8 +16,6 @@ class PatronMergeListsController < ApplicationController
   # GET /patron_merge_lists/1
   # GET /patron_merge_lists/1.xml
   def show
-    @patron_merge_list = PatronMergeList.find(params[:id])
-
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @patron_merge_list }
@@ -37,7 +35,6 @@ class PatronMergeListsController < ApplicationController
 
   # GET /patron_merge_lists/1/edit
   def edit
-    @patron_merge_list = PatronMergeList.find(params[:id])
   end
 
   # POST /patron_merge_lists
@@ -60,8 +57,6 @@ class PatronMergeListsController < ApplicationController
   # PUT /patron_merge_lists/1
   # PUT /patron_merge_lists/1.xml
   def update
-    @patron_merge_list = PatronMergeList.find(params[:id])
-
     respond_to do |format|
       if @patron_merge_list.update_attributes(params[:patron_merge_list])
         if params[:mode] == 'merge'
@@ -89,7 +84,6 @@ class PatronMergeListsController < ApplicationController
   # DELETE /patron_merge_lists/1
   # DELETE /patron_merge_lists/1.xml
   def destroy
-    @patron_merge_list = PatronMergeList.find(params[:id])
     @patron_merge_list.destroy
 
     respond_to do |format|

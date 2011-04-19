@@ -8,7 +8,7 @@
   <%= auto_discovery_link_tag(:atom, user_messages_url(current_user, :format => :atom), :title => (t('message.user_message', :login_name => current_user.username) + " (Atom)")) %>
 </head>
 <body>
-  
+
 <%= render :partial => 'page/header' -%>
 <%= render :partial => 'page/menu' -%>
 

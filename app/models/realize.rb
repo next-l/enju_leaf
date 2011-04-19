@@ -10,11 +10,12 @@ class Realize < ActiveRecord::Base
 
   acts_as_list :scope => :expression
 
-  paginates_per 10
+  def self.per_page
+    10
+  end
 
   def reindex
     patron.index
     expression.index
   end
-
 end

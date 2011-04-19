@@ -1,0 +1,26 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+patron_import_file_00001:
+  id: 1
+  patron_import_file_name: MyString
+  patron_import_file_size: 1
+  file_hash: MyString
+  user_id: 1
+  patron_import_content_type: text/csv
+  state: completed
+patron_import_file_00002:
+  id: 2
+  patron_import_file_name: MyString
+  patron_import_file_size: 1
+  file_hash: MyString
+  user_id: 1
+  patron_import_content_type: text/csv
+  state: pending
+patron_import_file_00003:
+  id: 3
+  patron_import_file_name: MyString
+  patron_import_file_size: 1
+  file_hash: MyString
+  user_id: 1
+  patron_import_content_type: text/csv
+  state: pending

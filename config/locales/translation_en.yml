@@ -538,6 +538,7 @@ en:
         end_at: End at
         deleted_at: Deleted at
         all_day: All day
+        display_name: Display name
       embody:
         position: Position
       item_has_use_restriction:
@@ -588,6 +589,7 @@ en:
         classification_number: Classification number
         identifier: Manifestation identifier
         date_of_publication: Date of publication
+        pub_date: Date of publication
         deleted_at: Deleted at
         access_address: Access address
         start_page: Start page
@@ -748,6 +750,7 @@ en:
         position: Position
         user_group_id: User group
         checkout_type_id: Checkout type
+        current_checkout_count: Current checkout count
       carrier_type_has_checkout_type:
         note: Note
         position: Position
@@ -975,6 +978,14 @@ en:
         approve: Approve
         publish: Publish
         deleted_at: Deleted at
+      patron_relationship:
+        parent_id: Parent
+        child_id: Child
+        patron_relationship_type_id: Patron relationship type
+      manifestation_relationship:
+        parent_id: Parent
+        child_id: Child
+        manifestation_relationship_type_id: Manifestation relationship type
 
   page:
     user_title: "Welcome %{login_name}"
@@ -989,7 +1000,8 @@ en:
     email_and_password: "Email and password"
     catalog_search: "Catalog search"
     search: "Search"
-    search_term: "Search term"
+    search_term: "Search term(s)"
+    search_result: "Search result"
     number_of_manifestations:
       one: "1 record in this library."
       other: "%{numdocs} records in this library."
@@ -1124,7 +1136,7 @@ en:
     under_construction: "Under construction"
     sent_email: "Sent email."
     identifier: "Identifier"
-    set_locale: "Set locale"
+    select_locale: "Select locale"
     local_record: "Local record"
     search_catalog_at: "Search catalog at %{library_name}"
     add_on: "Add-ons"
@@ -1144,6 +1156,11 @@ en:
     not_found: "Page not found"
     access_denied: "Access denied"
     last_updated: "Last updated"
+    unknown: "Unknown"
+    more: "More"
+    connection_faild: "Connection failed."
+    timed_out: "Operation timed out."
+    example: "Example"
   title:
     index: "index"
     show: "show"
@@ -1368,6 +1385,7 @@ en:
     send_me_reset_password_instruction: "Send me reset password instruction"
     change_my_password: "Change my password"
     management: "User management"
+    not_found: "User not found."
   news_post:
     library_group_news_post: "News from %{library_group_name}"
   reserve:
@@ -1477,3 +1495,7 @@ en:
     invalid_isbn: Invalid ISBN.
     isbn_taken: has already been taken.
     enter_isbn: Enter ISBN
+  sort:
+    date_of_acquisition: Date of acquisition
+    date_of_publication: Date of publication
+    title: Title

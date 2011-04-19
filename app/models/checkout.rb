@@ -4,8 +4,10 @@ class Checkout < ActiveRecord::Base
   scope :overdue, lambda {|date| {:conditions => ['checkin_id IS NULL AND due_date < ?', date]}}
   scope :due_date_on, lambda {|date| where(:checkin_id => nil, :due_date => date.beginning_of_day .. date.end_of_day)}
   scope :completed, lambda {|start_date, end_date| {:conditions => ['created_at >= ? AND created_at < ?', start_date, end_date]}}
+  scope :on, lambda {|date| {:conditions => ['created_at >= ? AND created_at < ?', date.beginning_of_day, date.tomorrow.beginning_of_day]}}
   
   belongs_to :user #, :counter_cache => true #, :validate => true
+  delegate :username, :user_number, :to => :user, :prefix => true
   belongs_to :item #, :counter_cache => true #, :validate => true
   belongs_to :checkin #, :validate => true
   belongs_to :librarian, :class_name => 'User' #, :validate => true
@@ -18,7 +20,9 @@ class Checkout < ActiveRecord::Base
   validates_uniqueness_of :item_id, :scope => [:basket_id, :user_id]
   validate :is_not_checked?, :on => :create
 
-  paginates_per 10
+  def self.per_page
+    10
+  end
 
   def is_not_checked?
     checkout = Checkout.not_returned.find(self.item) rescue nil
@@ -98,5 +102,4 @@ class Checkout < ActiveRecord::Base
     end
     queues.size
   end
-
 end

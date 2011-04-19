@@ -55,7 +55,6 @@ Disallow: medium_of_performances
 Disallow: message_requests
 Disallow: message_templates
 Disallow: messages
-Disallow: nii_types
 Disallow: notifier
 Disallow: order_lists
 Disallow: orders
@@ -82,7 +81,6 @@ Disallow: reserve_stat_has_users
 Disallow: reserves
 Disallow: resource_import_files
 Disallow: resource_import_results
-Disallow: resources
 Disallow: roles
 Disallow: search_engines
 Disallow: search_histories

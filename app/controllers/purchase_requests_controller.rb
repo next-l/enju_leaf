@@ -6,7 +6,7 @@ class PurchaseRequestsController < ApplicationController
   before_filter :store_page, :only => :index
   after_filter :solr_commit, :only => [:create, :update, :destroy]
   after_filter :convert_charset, :only => :index
- 
+
   # GET /purchase_requests
   # GET /purchase_requests.xml
   def index
@@ -25,7 +25,7 @@ class PurchaseRequestsController < ApplicationController
     if params[:format] == 'csv'
       per_page = 65534
     else
-      per_page = configatron.max_number_of_results
+      per_page = PurchaseRequest.per_page
     end
 
     query = params[:query].to_s.strip
@@ -49,8 +49,8 @@ class PurchaseRequestsController < ApplicationController
     end
 
     page = params[:page] || 1
-    search.query.paginate(1, per_page)
-    @purchase_requests = PurchaseRequest.where(:id => search.execute.raw_results.collect(&:primary_key)).page(page)
+    search.query.paginate(page.to_i, per_page)
+    @purchase_requests = search.execute!.results
 
     @count[:query_result] = @purchase_requests.size
 
@@ -68,8 +68,6 @@ class PurchaseRequestsController < ApplicationController
   def show
     if @user
       @purchase_request = @user.purchase_requests.find(params[:id])
-    else
-      @purchase_request = PurchaseRequest.find(params[:id])
     end
 
     respond_to do |format|
@@ -89,7 +87,7 @@ class PurchaseRequestsController < ApplicationController
 
     @purchase_request = PurchaseRequest.new(params[:purchase_request])
     @purchase_request.user = @user if @user
-    @purchase_request.title = Bookmark.get_title_from_url(@purchase_request.url) if @purchase_request.title.blank?
+    @purchase_request.title = Bookmark.get_title_from_url(@purchase_request.url) unless @purchase_request.title?
 
     respond_to do |format|
       format.html # new.html.erb
@@ -101,8 +99,6 @@ class PurchaseRequestsController < ApplicationController
   def edit
     if @user
       @purchase_request = @user.purchase_requests.find(params[:id])
-    else
-      @purchase_request = PurchaseRequest.find(params[:id])
     end
   end
 
@@ -133,8 +129,6 @@ class PurchaseRequestsController < ApplicationController
   def update
     if @user
       @purchase_request = @user.purchase_requests.find(params[:id])
-    else
-      @purchase_request = PurchaseRequest.find(params[:id])
     end
 
     if @purchase_request.url
@@ -161,8 +155,6 @@ class PurchaseRequestsController < ApplicationController
   def destroy
     if @user
       @purchase_request = @user.purchase_requests.find(params[:id])
-    else
-      @purchase_request = PurchaseRequest.find(params[:id])
     end
     @purchase_request.destroy
 

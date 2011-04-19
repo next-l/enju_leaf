@@ -12,24 +12,24 @@
         <label for="message_sender_name" ><strong><%= t('message.sender') -%>:</strong></label>
         <%= link_to @message.sender.username, @message.sender -%>
       </p>
-    
+
       <p>
         <label for="message_sent_at" ><strong><%= t('message.sent_at') -%>:</strong></label>
         <%= l(@message.created_at) -%>
       </p>
-    
+
       <p>
         <label for="message_subject" ><strong><%= t('activerecord.attributes.message.subject') -%>:</strong></label>:
         <%= @message.subject -%>
       </p>
-      
+
       <p>
         <label for="message_body" ><strong><%= t('activerecord.attributes.message.body') -%>:</strong></label>:
         <%= raw auto_link(simple_format(h(@message.body))) -%>
       </p>
 
   </fieldset>
-  
+
 </div>
 </div>
 

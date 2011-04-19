@@ -1,7 +1,7 @@
 # -*- encoding: utf-8 -*-
 class Event < ActiveRecord::Base
   scope :closing_days, :include => :event_category, :conditions => ['event_categories.name = ?', 'closed']
-  scope :on, lambda {|datetime| where('start_at >= ? AND start_at < ?', Time.zone.parse(datetime).beginning_of_day, Time.zone.parse(datetime).tomorrow.beginning_of_day + 1)}
+  scope :on, lambda {|datetime| where('start_at >= ? AND start_at < ?', datetime.beginning_of_day, datetime.tomorrow.beginning_of_day + 1)}
   scope :past, lambda {|datetime| where('end_at <= ?', Time.zone.parse(datetime).beginning_of_day)}
   scope :upcoming, lambda {|datetime| where('start_at >= ?', Time.zone.parse(datetime).beginning_of_day)}
   scope :at, lambda {|library| where(:library_id => library.id)}
@@ -14,8 +14,6 @@ class Event < ActiveRecord::Base
   has_many :patrons, :through => :participates
   has_one :event_import_result
 
-  #acts_as_taggable_on :tags
-  #acts_as_soft_deletable
   has_event_calendar
 
   searchable do
@@ -31,8 +29,11 @@ class Event < ActiveRecord::Base
   validates_associated :library, :event_category
   validate :check_date
   before_validation :set_date
+  before_validation :set_display_name, :on => :create
 
-  paginates_per 10
+  def self.per_page
+    10
+  end
 
   def set_date
     if self.start_at.blank?
@@ -61,4 +62,7 @@ class Event < ActiveRecord::Base
     end
   end
 
+  def set_display_name
+    self.display_name = self.name if self.display_name.blank?
+  end
 end

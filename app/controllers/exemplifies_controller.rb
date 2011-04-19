@@ -7,7 +7,7 @@ class ExemplifiesController < ApplicationController
   # GET /exemplifies
   # GET /exemplifies.xml
   def index
-    @exemplifies = Exemplify.page(params[:page])
+    @exemplifies = Exemplify.paginate(:page => params[:page])
 
     respond_to do |format|
       format.html # index.html.erb
@@ -29,13 +29,14 @@ class ExemplifiesController < ApplicationController
   # GET /exemplifies/new
   # GET /exemplifies/new.xml
   def new
-    @exemplify = Exemplify.new
-    @exemplify.manifestation = @manifestation
-    @exemplify.item = @item
-
-    respond_to do |format|
-      format.html # new.html.erb
-      format.xml  { render :xml => @exemplify }
+    if @manifestation and @item.blank?
+      redirect_to manifestation_items_url(@manifestation)
+      return
+    elsif @item and @manifestation.blank?
+      redirect_to manifestations_url
+      return
+    else
+      @exemplify = Exemplify.new(:manifestation => @manifestation, :item => @item)
     end
   end
 

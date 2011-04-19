@@ -21,11 +21,6 @@
     <% else %>
       <%= render :partial => 'manifestations/show_detail_user', :locals => {:manifestation => @manifestation} %>
     <% end %>
-
-    <%- if params[:mode] == 'generate_cache' -%>
-      <%= render :partial => 'manifestations/show_index', :locals => {:manifestation => @manifestation} -%>
-      <%= render :partial => 'manifestations/pickup', :locals => {:manifestation => @manifestation} -%>
-    <%- end -%>
   </div>
 </div>
 

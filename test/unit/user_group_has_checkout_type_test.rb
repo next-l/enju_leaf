@@ -18,4 +18,7 @@ class UserGroupHasCheckoutTypeTest < ActiveSupport::TestCase
     assert_not_equal old_updated_at, lending_policies(:lending_policy_00004).updated_at
   end
 
+  test "should respond to update_current_checkout_count" do
+    assert UserGroupHasCheckoutType.update_current_checkout_count
+  end
 end

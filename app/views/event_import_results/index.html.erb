@@ -12,9 +12,9 @@
   </tr>
 
 <% @event_import_results.each do |event_import_result| %>
-  <tr>
+  <tr class="line<%= cycle("0", "1") -%>">
     <td><%= link_to event_import_result.event_import_file.id, event_import_result.event_import_file %></td>
-    <td><%= link_to event_import_result.event.name, event_import_result.event if event_import_result.event %></td>
+    <td><%= link_to event_import_result.event.display_name.localize, event_import_result.event if event_import_result.event %></td>
     <td><%= link_to t('page.show'), event_import_result %></td>
     <td><%= link_to t('page.edit'), edit_event_import_result_path(event_import_result) %></td>
     <td><%= link_to t('page.destroy'), event_import_result, :confirm => 'Are you sure?', :method => :delete %></td>
@@ -22,7 +22,7 @@
 <% end %>
 </table>
 
-<%= paginate(@event_import_results) %>
+<%= will_paginate(@event_import_results) %>
 
 </div>
 </div>

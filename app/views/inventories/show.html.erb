@@ -3,17 +3,17 @@
 <div id="content_list">
 <p>
   <strong><%= t('activerecord.models.item') -%>:</strong>
-  <%= @inventory.item_id -%> 
+  <%= @inventory.item_id -%>
 </p>
 
 <p>
   <strong><%= t('activerecord.models.inventory_file') -%>:</strong>
-  <%= @inventory.inventory_file_id -%> 
+  <%= @inventory.inventory_file_id -%>
 </p>
 
 <p>
   <strong><%= t('activerecord.attributes.inventory.note') -%>:</strong>
-  <%= @inventory.note -%> 
+  <%= @inventory.note -%>
 </p>
 
 </div>
@@ -21,7 +21,7 @@
 
 <div id="submenu" class="ui-corner-all">
   <ul>
-    <li><%= link_to t('page.edit'), edit_inventory_path(@inventory) -%> </li>
-    <li><%= link_to t('page.back'), inventories_path -%> </li>
+    <li><%= link_to t('page.edit'), edit_inventory_path(@inventory) -%></li>
+    <li><%= link_to t('page.back'), inventories_path -%></li>
   </ul>
 </div>

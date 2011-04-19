@@ -1,0 +1,11 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  patron_id: 1
+  event_id: 1
+  position: 1
+
+two:
+  patron_id: 2
+  event_id: 1
+  position: 2

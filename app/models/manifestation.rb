@@ -179,25 +179,32 @@ class Manifestation < ActiveRecord::Base
   validates_uniqueness_of :identifier, :allow_blank => true
   validates_format_of :access_address, :with => URI::regexp(%w(http https)) , :allow_blank => true
   validates_format_of :pub_date, :with => /^\d+(-\d{0,2}){0,2}$/, :allow_blank => true
-  validate :check_isbn
+  validate :check_isbn, :unless => :during_import
+  before_validation :set_wrong_isbn, :if => :during_import
   before_validation :convert_isbn
   before_create :set_digest
   before_save :set_date_of_publication
-  normalize_attributes :identifier, :date_of_publication, :isbn, :issn, :nbn, :lccn, :original_title
-  attr_accessor :pub_date
+  normalize_attributes :identifier, :pub_date, :isbn, :issn, :nbn, :lccn, :original_title
+  attr_accessor :during_import
 
-  paginates_per 10
+  def self.per_page
+    10
+  end
 
   def check_isbn
     if isbn.present?
-      errors.add(:isbn) unless ISBN_Tools.is_valid?(isbn)
-      #set_wrong_isbn
+      unless ISBN_Tools.is_valid?(isbn)
+        errors.add(:isbn)
+      end
     end
   end
 
   def set_wrong_isbn
     if isbn.present?
-      wrong_isbn = isbn unless ISBN_Tools.is_valid?(isbn)
+      unless ISBN_Tools.is_valid?(isbn)
+        self.wrong_isbn
+        self.isbn = nil
+      end
     end
   end
 
@@ -216,12 +223,16 @@ class Manifestation < ActiveRecord::Base
   def set_date_of_publication
     return if pub_date.blank?
     begin
-      date = Time.zone.parse(pub_date)
+      date = Time.zone.parse("#{pub_date}")
     rescue ArgumentError
       begin
         date = Time.zone.parse("#{pub_date}-01")
       rescue ArgumentError
-        date = Time.zone.parse("#{pub_date}-01-01")
+        begin
+          date = Time.zone.parse("#{pub_date}-01-01")
+        rescue ArgumentError
+          nil
+        end
       end
     end
     self.date_of_publication = date
@@ -241,14 +252,6 @@ class Manifestation < ActiveRecord::Base
 
   def next_reservation
     self.reserves.first(:order => ['reserves.created_at'])
-  end
-
-  def has_single_work?
-    return true if works.size == 0
-    if works.size == 1
-      return true if works.first.original_title == original_title
-    end
-    false
   end
 
   def serial?
@@ -289,18 +292,23 @@ class Manifestation < ActiveRecord::Base
   end
 
   def available_checkout_types(user)
-    user.user_group.user_group_has_checkout_types.available_for_carrier_type(self.carrier_type)
+    if user
+      user.user_group.user_group_has_checkout_types.available_for_carrier_type(self.carrier_type)
+    end
   end
 
   def checkout_period(user)
-    available_checkout_types(user).collect(&:checkout_period).max || 0
+    if available_checkout_types(user)
+      available_checkout_types(user).collect(&:checkout_period).max || 0
+    end
   end
-  
+
   def reservation_expired_period(user)
-    available_checkout_types(user).collect(&:reservation_expired_period).max || 
-0
- end
-  
+    if available_checkout_types(user)
+      available_checkout_types(user).collect(&:reservation_expired_period).max || 0
+    end
+  end
+
   def patrons
     (creators + contributors + publishers).flatten
   end
@@ -464,7 +472,7 @@ class Manifestation < ActiveRecord::Base
 
   def questions(options = {})
     id = self.id
-    options = {:page => 1, :per_page => Question.default_per_page}.merge(options)
+    options = {:page => 1, :per_page => Question.per_page}.merge(options)
     page = options[:page]
     per_page = options[:per_page]
     user = options[:user]

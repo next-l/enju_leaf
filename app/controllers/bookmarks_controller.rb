@@ -23,9 +23,10 @@ class BookmarksController < ApplicationController
       with(:user_id).equal_to user.id if user
     end
     page = params[:page] || 1
-    search.query.paginate(1, configatron.max_number_of_results)
-    @bookmarks = Bookmark.where(:id => search.execute.raw_results.collect(&:primary_key)).page(page)
-    
+    search.query.paginate(page.to_i, Bookmark.per_page)
+    #@bookmarks = @user.bookmarks.paginate(:page => params[:page], :order => ['id DESC'])
+    @bookmarks = search.execute!.results
+
     respond_to do |format|
       format.html # index.rhtml
       format.xml  { render :xml => @bookmarks }
@@ -71,7 +72,7 @@ class BookmarksController < ApplicationController
       end
       @bookmark.title = manifestation.original_title
     else
-      @bookmark.title = Bookmark.get_title_from_url(@bookmark.url) if @bookmark.title.nil?
+      @bookmark.title = Bookmark.get_title_from_url(@bookmark.url) unless @bookmark.title?
     end
   end
   

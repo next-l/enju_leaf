@@ -4,5 +4,7 @@ class Donate < ActiveRecord::Base
   validates_associated :patron, :item
   validates_presence_of :patron, :item
 
-  paginates_per 10
+  def self.per_page
+    10
+  end
 end

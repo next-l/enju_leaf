@@ -71,15 +71,15 @@ module OaiController
     @cursor ||= 0
     yml = YAML.load_file("#{Rails.root.to_s}/config/oai_cache.yml")
     if yml["#{Rails.env}"]
-      ttl = yml["#{Rails.env}"]["ttl"] 
+      @ttl = yml["#{Rails.env}"]["ttl"].to_i
     else
-      ttl = yml["defaults"]["ttl"]
+      @ttl = yml["defaults"]["ttl"].to_i
     end
     resumption = {
       :token => "f(#{from_time.utc.iso8601.to_s}).u(#{until_time.utc.iso8601.to_s}):#{@cursor}",
       :cursor => @cursor,
       # memcachedの使用が前提
-      :expired_at => ttl.seconds.from_now.utc.iso8601
+      :expired_at => @ttl.seconds.from_now.utc.iso8601
     }
     @resumption = Rails.cache.fetch(resumption[:token]){resumption}
   end

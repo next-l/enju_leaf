@@ -7,9 +7,9 @@ class PictureFilesController < ApplicationController
   # GET /picture_files.xml
   def index
     if @attachable
-      @picture_files = @attachable.picture_files.attached.page(params[:page])
+      @picture_files = @attachable.picture_files.attached.paginate(:page => params[:page])
     else
-      @picture_files = PictureFile.attached.page(params[:page])
+      @picture_files = PictureFile.attached.paginate(:page => params[:page])
     end
 
     respond_to do |format|
@@ -21,7 +21,6 @@ class PictureFilesController < ApplicationController
   # GET /picture_files/1
   # GET /picture_files/1.xml
   def show
-    #@picture_file = PictureFile.find(params[:id])
     case params[:size]
     when 'original'
       size = 'original'
@@ -69,15 +68,12 @@ class PictureFilesController < ApplicationController
 
   # GET /picture_files/1/edit
   def edit
-    #@picture_file = PictureFile.find(params[:id])
   end
 
   # POST /picture_files
   # POST /picture_files.xml
   def create
     @picture_file = PictureFile.new(params[:picture_file])
-    @picture_file.picture_attachable_id = params[:picture_file][:picture_attachable_id]
-    @picture_file.picture_attachable_type = params[:picture_file][:picture_attachable_type]
 
     respond_to do |format|
       if @picture_file.save
@@ -94,8 +90,6 @@ class PictureFilesController < ApplicationController
   # PUT /picture_files/1
   # PUT /picture_files/1.xml
   def update
-    #@picture_file = PictureFile.find(params[:id])
-
     # 並べ替え
     if params[:position]
       @picture_file.insert_at(params[:position])
@@ -125,7 +119,6 @@ class PictureFilesController < ApplicationController
   # DELETE /picture_files/1
   # DELETE /picture_files/1.xml
   def destroy
-    #@picture_file = PictureFile.find(params[:id])
     @picture_file.destroy
 
     respond_to do |format|

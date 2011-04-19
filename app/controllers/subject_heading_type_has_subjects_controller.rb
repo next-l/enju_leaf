@@ -5,7 +5,7 @@ class SubjectHeadingTypeHasSubjectsController < ApplicationController
   # GET /subject_heading_type_has_subjects
   # GET /subject_heading_type_has_subjects.xml
   def index
-    @subject_heading_type_has_subjects = SubjectHeadingTypeHasSubject.page(params[:page])
+    @subject_heading_type_has_subjects = SubjectHeadingTypeHasSubject.paginate(:page => params[:page])
 
     respond_to do |format|
       format.html # index.html.erb
@@ -16,8 +16,6 @@ class SubjectHeadingTypeHasSubjectsController < ApplicationController
   # GET /subject_heading_type_has_subjects/1
   # GET /subject_heading_type_has_subjects/1.xml
   def show
-    @subject_heading_type_has_subject = SubjectHeadingTypeHasSubject.find(params[:id])
-
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @subject_heading_type_has_subject }
@@ -37,7 +35,6 @@ class SubjectHeadingTypeHasSubjectsController < ApplicationController
 
   # GET /subject_heading_type_has_subjects/1/edit
   def edit
-    @subject_heading_type_has_subject = SubjectHeadingTypeHasSubject.find(params[:id])
   end
 
   # POST /subject_heading_type_has_subjects
@@ -60,8 +57,6 @@ class SubjectHeadingTypeHasSubjectsController < ApplicationController
   # PUT /subject_heading_type_has_subjects/1
   # PUT /subject_heading_type_has_subjects/1.xml
   def update
-    @subject_heading_type_has_subject = SubjectHeadingTypeHasSubject.find(params[:id])
-
     respond_to do |format|
       if @subject_heading_type_has_subject.update_attributes(params[:subject_heading_type_has_subject])
         flash[:notice] = 'SubjectHeadingTypeHasSubject was successfully updated.'
@@ -77,7 +72,6 @@ class SubjectHeadingTypeHasSubjectsController < ApplicationController
   # DELETE /subject_heading_type_has_subjects/1
   # DELETE /subject_heading_type_has_subjects/1.xml
   def destroy
-    @subject_heading_type_has_subject = SubjectHeadingTypeHasSubject.find(params[:id])
     @subject_heading_type_has_subject.destroy
 
     respond_to do |format|

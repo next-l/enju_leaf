@@ -14,7 +14,7 @@ class BookstoresController < InheritedResources::Base
   end
 
   def index
-    @bookstores = Bookstore.page(params[:page])
+    @bookstores = Bookstore.paginate(:page => params[:page])
   end
 
   private

@@ -1,0 +1,13 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  resource_import_file_id: 1
+  manifestation_id: 1
+  item_id: 1
+  body: MyText
+
+two:
+  resource_import_file_id: 1
+  manifestation_id: 1
+  item_id: 1
+  body: MyText

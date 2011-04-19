@@ -22,5 +22,4 @@ class Subject < ActiveRecord::Base
   end
 
   normalize_attributes :term
-  paginates_per 10
 end

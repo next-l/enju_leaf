@@ -15,7 +15,9 @@ class Answer < ActiveRecord::Base
   validates_associated :user, :question
   validates_presence_of :user, :question, :body
 
-  paginates_per 10
+  def self.per_page
+    10
+  end
 
   def save_questions
     self.question.save

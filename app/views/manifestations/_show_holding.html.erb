@@ -6,20 +6,21 @@
     <th><%= t('activerecord.attributes.item.item_identifier') -%></th>
     <th><%= t('activerecord.models.circulation_status') -%></th>
   </tr>
+  <% cache(:controller => :manifestations, :action => :show, :id => manifestation.id, :page => 'holding', :role => current_user_role_name, :locale => @locale, :manifestation_id => nil) do %>
   <%- manifestation.items.on_shelf.each do |item| -%>
     <tr>
       <td>
         <%= link_to item.shelf.library.display_name.localize, item.shelf.library %>
       </td>
       <td>
-        <%= link_to item.shelf.display_name.localize, item.shelf -%>
+        <%= link_to item.shelf_display_name.localize, item.shelf -%>
         <%= render :partial => 'items/shelf_picture', :locals => {:item => item} -%>
       </td>
       <td>
         <%= item.call_number -%>
       </td>
       <td>
-        <%- unless item.item_identifier.blank? -%>
+        <%- if item.item_identifier? -%>
           <%= link_to item.item_identifier, item -%>
         <%- else -%>
           (<%= link_to t('item.no_number'), item -%>)
@@ -35,5 +36,6 @@
         <%- end -%>
       </td>
     </tr>
+  <%- end -%>
   <%- end -%>
 </table>

@@ -14,7 +14,7 @@ class LanguagesController < InheritedResources::Base
   end
 
   def index
-    @languages = @languages.page(params[:page])
+    @languages = @languages.paginate(:page => params[:page])
   end
 
   private

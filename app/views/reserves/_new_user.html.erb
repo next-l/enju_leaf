@@ -2,7 +2,7 @@
 <h1 class="title"><%= t('page.new', :model => t('activerecord.models.reserve')) -%></h1>
 <div id="content_list">
 
-<%= form_for(@reserve) do |f| -%>
+<%= form_for(@reserve, :url => user_reserves_path(@user)) do |f| -%>
   <%= f.error_messages -%>
 
   <p>
@@ -30,11 +30,11 @@
 
   <p>
     <%= f.label :expired_at -%><br />
-    <%= f.text_field :expire_date, :class => 'date_field' -%>
+    <%= f.text_field :expire_date, :class => 'date_field', :placeholder => "#{t('page.example')}: 2011-04-12" -%>
   </p>
 
   <p>
-    <%= f.hidden_field :user_number, :class => 'resource_user_number', :value => @reserve.user.user_number -%>
+    <%= f.hidden_field :user_number, :value => @user.user_number -%>
     <%= submit_tag t('page.create') -%>
   </p>
 <%- end -%>

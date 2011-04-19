@@ -538,6 +538,7 @@ ja:
         end_at: 終了時刻
         deleted_at: 削除時刻
         all_day: 終日
+        display_name: 表示名
       embody:
         position: 位置
       item_has_use_restriction:
@@ -588,6 +589,7 @@ ja:
         classification_number: 分類番号
         identifier: 識別子
         date_of_publication: 出版日
+        pub_date: 出版日
         deleted_at: 削除時刻
         access_address: アクセスアドレス
         start_page: 最初のページ
@@ -748,6 +750,7 @@ ja:
         position: 位置
         user_group_id: 利用者グループ
         checkout_type_id: 貸出種別
+        current_checkout_count: 現在の貸出数
       carrier_type_has_checkout_type:
         note: 注記
         position: 位置
@@ -995,6 +998,7 @@ ja:
     catalog_search: "資料の検索"
     search: "検索"
     search_term: "検索語"
+    search_result: "検索結果"
     number_of_manifestations: "%{numdocs} 件の資料があります。"
     number_of_unread_messages: "%{numdocs} 件の未読メッセージがあります。"
     number_of_search_results: "%{count} 件の資料が %{numdocs} 件の資料から %{seconds} 秒で見つかりました。"
@@ -1115,7 +1119,7 @@ ja:
     under_construction: "開発中"
     sent_email: "電子メールを送信しました。"
     identifier: "識別子"
-    set_locale: "言語を設定"
+    select_locale: "言語を設定"
     local_record: "自館の情報"
     search_catalog_at: "%{library_name}の目録を検索"
     add_on: "アドオン"
@@ -1135,6 +1139,11 @@ ja:
     not_found: "ページが見つかりませんでした"
     access_denied: "アクセスが拒否されました"
     last_updated: "最終更新日"
+    unknown: "不明"
+    more: "さらに表示"
+    connection_failed: "ネットワーク接続に失敗しました。"
+    timed_out: "タイムアウトしました。"
+    example: "例"
   title:
     index: "一覧"
     show: "表示"
@@ -1356,6 +1365,7 @@ ja:
     send_me_reset_password_instruction: "パスワードを再発行する"
     change_my_password: "パスワードを変更する"
     management: "利用者の管理"
+    not_found: "利用者が見つかりません。"
   news_post:
     library_group_news_post: "%{library_group_name} からのお知らせ"
   reserve:
@@ -1465,3 +1475,7 @@ ja:
     invalid_isbn: ISBNが正しくありません。
     isbn_taken: はすでに登録されています。
     enter_isbn: ISBNを入力する
+  sort:
+    date_of_acquisition: 新着図書優先
+    date_of_publication: 出版日優先
+    title: タイトル優先

@@ -20,7 +20,9 @@ class InterLibraryLoan < ActiveRecord::Base
     end
   end
 
-  paginates_per 10
+  def self.per_page
+    10
+  end
 
   attr_accessor :item_identifier
 

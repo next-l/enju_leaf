@@ -2,7 +2,7 @@
 <h1 class="title"><%= t('page.listing', :model => t('activerecord.models.produce')) -%></h1>
 <div id="content_list">
   <h2 class="resource_title">
-    <%= link_to @patron.full_name, @patron -%>
+    <%= link_to patron.full_name, patron -%>
   </h2>
 
 <table class="index">
@@ -10,11 +10,11 @@
     <th><%= t('activerecord.models.manifestation') -%></th>
     <th></th>
   </tr>
- 
+
 <%- @produces.each do |produce| -%>
   <tr class="line<%= cycle("0", "1") -%>">
     <td>
-      <%= link_to produce.manifestation.original_title, produce.manifestation -%>
+      <%= link_to produce.manifestation_original_title, produce.manifestation -%>
       <%= form_icon(produce.manifestation.carrier_type) -%><br />
       <%= raw patrons_list(produce.manifestation.creators.readable_by(current_user)) -%>
       <%= raw patrons_list(produce.manifestation.contributors.readable_by(current_user)) -%>
@@ -29,15 +29,15 @@
 <%- end -%>
 </table>
 
-<%= paginate(@produces) -%>
+<%= will_paginate(@produces) -%>
 </div>
 </div>
 
 <div id="submenu" class="ui-corner-all">
   <ul>
-    <li><%= link_to t('page.listing', :model => t('activerecord.models.manifestation')), publisher_manifestations_path(@patron) -%></li>
+    <li><%= link_to t('page.listing', :model => t('activerecord.models.manifestation')), publisher_manifestations_path(patron) -%></li>
     <%- if can? :create, Produce -%>
-      <li><%= link_to t('page.new', :model => t('activerecord.models.produce')), new_patron_produce_path(@patron) -%></li>
+      <li><%= link_to t('page.new', :model => t('activerecord.models.produce')), new_patron_produce_path(patron) -%></li>
     <%- end -%>
   </ul>
 </div>

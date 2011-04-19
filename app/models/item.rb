@@ -13,6 +13,7 @@ class Item < ActiveRecord::Base
   has_many :owns
   has_many :patrons, :through => :owns
   belongs_to :shelf, :counter_cache => true, :validate => true
+  delegate :display_name, :to => :shelf, :prefix => true
   has_many :checked_items, :dependent => :destroy
   has_many :baskets, :through => :checked_items
   belongs_to :circulation_status, :validate => true
@@ -33,7 +34,7 @@ class Item < ActiveRecord::Base
   has_one :resource_import_result
 
   validates_associated :circulation_status, :shelf, :bookstore, :checkout_type
-  validates_presence_of :circulation_status #, :checkout_type
+  validates_presence_of :circulation_status, :checkout_type
   validates_uniqueness_of :item_identifier, :allow_blank => true, :if => proc{|item| !item.item_identifier.blank? and !item.manifestation.try(:series_statement)}
   validates_length_of :url, :maximum => 255, :allow_blank => true
   validates_format_of :item_identifier, :with=>/\A\w+\Z/, :allow_blank => true
@@ -61,7 +62,9 @@ class Item < ActiveRecord::Base
 
   attr_accessor :library_id, :manifestation_id
 
-  paginates_per 10
+  def self.per_page
+    10
+  end
 
   def set_circulation_status
     self.circulation_status = CirculationStatus.first(:conditions => {:name => 'In Process'}) if self.circulation_status.nil?
@@ -105,7 +108,7 @@ class Item < ActiveRecord::Base
   end
 
   def checkout!(user)
-    self.circulation_status = CirculationStatus.first(:conditions => {:name => 'On Loan'})
+    self.circulation_status = CirculationStatus.where(:name => 'On Loan').first
     if self.reserved_by_user?(user)
       self.next_reservation.update_attributes(:checked_out_at => Time.zone.now)
       self.next_reservation.sm_complete!
@@ -114,7 +117,7 @@ class Item < ActiveRecord::Base
   end
 
   def checkin!
-    self.circulation_status = CirculationStatus.first(:conditions => {:name => 'Available On Shelf'})
+    self.circulation_status = CirculationStatus.where(:name => 'Available On Shelf').first
     save(:validate => false)
   end
 

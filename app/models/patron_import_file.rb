@@ -1,6 +1,8 @@
 class PatronImportFile < ActiveRecord::Base
+  include ImportFile
   default_scope :order => 'id DESC'
   scope :not_imported, where(:state => 'pending', :imported_at => nil)
+  scope :stucked, where('created_at < ? AND state = ?', 1.hour.ago, 'pending')
 
   if configatron.uploaded_file.storage == :s3
     has_attached_file :patron_import, :storage => :s3, :s3_credentials => "#{Rails.root.to_s}/config/s3.yml",
@@ -13,13 +15,11 @@ class PatronImportFile < ActiveRecord::Base
   belongs_to :user, :validate => true
   has_many :patron_import_results
 
-  validates_associated :user
-  validates_presence_of :user
   before_create :set_digest
 
   state_machine :initial => :pending do
     event :sm_start do
-      transition :pending => :started
+      transition [:pending, :started] => :started
     end
 
     event :sm_complete do
@@ -44,30 +44,32 @@ class PatronImportFile < ActiveRecord::Base
 
   def import
     self.reload
-    num = {:success => 0, :failure => 0, :activated => 0}
+    num = {:patron_imported => 0, :user_imported => 0, :failed => 0}
     row_num = 2
-    if RUBY_VERSION > '1.9'
-      if configatron.uploaded_file.storage == :s3
-        file = CSV.open(open(self.patron_import.url).path, :col_sep => "\t")
-        header = file.first
-        rows = CSV.open(open(self.patron_import.url).path, :headers => header, :col_sep => "\t")
-
-      else
-        file = CSV.open(self.patron_import.path, :col_sep => "\t")
-        header = file.first
-        rows = CSV.open(self.patron_import.path, :headers => header, :col_sep => "\t")
-      end
+    tempfile = Tempfile.new('patron_import_file')
+    if configatron.uploaded_file.storage == :s3
+      uploaded_file_path = open(self.patron_import.url).path
     else
-      if configatron.uploaded_file.storage == :s3
-        file = FasterCSV.open(open(self.patron_import.url).path, :col_sep => "\t")
-        header = file.first
-        rows = FasterCSV.open(open(self.patron_import.url).path, :headers => header, :col_sep => "\t")
-      else
-        file = FasterCSV.open(self.patron_import.path, :col_sep => "\t")
-        header = file.first
-        rows = FasterCSV.open(self.patron_import.path, :headers => header, :col_sep => "\t")
-      end
+      uploaded_file_path = self.patron_import.path
     end
+    open(uploaded_file_path){|f|
+      f.each{|line|
+        tempfile.puts(NKF.nkf('-w -Lu', line))
+      }
+    }
+
+    tempfile.open
+    if RUBY_VERSION > '1.9'
+      file = CSV.open(tempfile, "r:utf-8", :col_sep => "\t")
+      header = file.first
+      rows = CSV.open(tempfile, "r:utf-8", :headers => header, :col_sep => "\t")
+    else
+      file = FasterCSV.open(tempfile, "r:utf-8", :col_sep => "\t")
+      header = file.first
+      rows = FasterCSV.open(tempfile, "r:utf-8", :headers => header, :col_sep => "\t")
+    end
+    tempfile.close
+
     PatronImportResult.create!(:patron_import_file => self, :body => header.join("\t"))
     file.close
     field = rows.first
@@ -76,6 +78,7 @@ class PatronImportFile < ActiveRecord::Base
     end
     #rows.shift
     rows.each do |row|
+      next if row['dummy'].to_s.strip.present?
       import_result = PatronImportResult.create!(:patron_import_file => self, :body => row.fields.join("\t"))
 
       begin
@@ -89,7 +92,6 @@ class PatronImportFile < ActiveRecord::Base
 
         patron.full_name = row['full_name']
         patron.full_name_transcription = row['full_name_transcription']
-        patron.full_name = row['last_name'] + row['middle_name'] + row['first_name'] if patron.full_name.blank?
 
         patron.address_1 = row['address_1']
         patron.address_2 = row['address_2']
@@ -99,13 +101,23 @@ class PatronImportFile < ActiveRecord::Base
         patron.telephone_number_2 = row['telephone_number_2']
         patron.fax_number_1 = row['fax_number_1']
         patron.fax_number_2 = row['fax_number_2']
+        if row['username'].to_s.strip.blank?
+          patron.email = row['email'].to_s.strip
+          patron.required_role = Role.find_by_name(row['required_role_name']) || Role.find('Guest')
+        else
+          patron.required_role = Role.find_by_name(row['required_role_name']) || Role.find('Librarian')
+        end
         patron.note = row['note']
+        patron.birth_date = row['birth_date']
+        patron.death_date = row['death_date']
+        language = Language.find_by_name(row['language'])
+        patron.language = language if language.present?
         country = Country.find_by_name(row['country'])
         patron.country = country if country.present?
 
         if patron.save!
           import_result.patron = patron
-          num[:success] += 1
+          num[:patron_imported] += 1
           if row_num % 50 == 0
             Sunspot.commit
             GC.start
@@ -113,16 +125,16 @@ class PatronImportFile < ActiveRecord::Base
         end
       rescue
         Rails.logger.info("patron import failed: column #{row_num}")
-        num[:failure] += 1
+        num[:failed] += 1
       end
 
-      unless row['username'].blank?
+      unless row['username'].to_s.strip.blank?
         begin
           user = User.new
           user.patron = patron
           user.username = row['username'].to_s.strip
           user.email = row['email'].to_s.strip
-          user.email_confirmation = row['email'].to_s.strip
+          user.email_confirmation = user.email
           user.user_number = row['user_number'].to_s.strip
           user.password = row['password'].to_s.strip
           user.password_confirmation = row['password'].to_s.strip
@@ -130,15 +142,17 @@ class PatronImportFile < ActiveRecord::Base
             user.set_auto_generated_password
           end
           user.operator = User.find('admin')
-          library = Library.first(:conditions => {:name => row['library_short_name'].to_s.strip}) || Library.web
-          user_group = UserGroup.first(:conditions => {:name => row['user_group_name']}) || UserGroup.first
+          library = Library.where(:name => row['library_short_name'].to_s.strip).first || Library.web
+          user_group = UserGroup.where(:name => row['user_group_name']).first || UserGroup.first
           user.library = library
-          role = Role.first(:conditions => {:name => row['role']}) || Role.find(2)
+          role = Role.where(:name => row['role']).first || Role.find('User')
           user.role = role
+          user.required_role = patron.required_role
+          user.locale = patron.language.try(:iso_639_1) || I18n.default_locale.to_s
           if user.save!
             import_result.user = user
           end
-          num[:activated] += 1
+          num[:user_imported] += 1
         rescue ActiveRecord::RecordInvalid
           Rails.logger.info("user import failed: column #{row_num}")
         end

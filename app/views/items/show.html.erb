@@ -9,7 +9,7 @@
 
 <p>
   <strong><%= t('activerecord.models.shelf') -%>:</strong>
-  <%= link_to @item.shelf.display_name.localize, shelf_path(@item.shelf_id) -%>
+  <%= link_to @item.shelf_display_name.localize, @item.shelf -%>
   <%= render :partial => 'items/shelf_picture', :locals => {:item => @item} -%>
   (<%= link_to @item.shelf.library.display_name.localize, @item.shelf.library -%>)
 </p>
@@ -76,7 +76,7 @@
 </p>
 -->
 
-<%- cache(:controller => :items, :action => :show, :id => @item.id, :page => 'detail', :role => current_user_role_name, :locale => @locale) do -%>
+<%- cache(:controller => :items, :action => :show, :id => @item.id, :page => 'detail', :role => current_user_role_name, :locale => @locale, :item_id => nil) do -%>
 <%- if can? :update, @item -%>
   <p>
     <strong><%= t('item.donor') -%>:</strong>

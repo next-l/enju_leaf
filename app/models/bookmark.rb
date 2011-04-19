@@ -39,7 +39,9 @@ class Bookmark < ActiveRecord::Base
     boolean :shared
   end
 
-  paginates_per 10
+  def self.per_page
+    10
+  end
 
   def set_url
     self.url = URI.parse(self.url).normalize.to_s
@@ -179,8 +181,7 @@ class Bookmark < ActiveRecord::Base
 
   def create_bookmark_item
     circulation_status = CirculationStatus.where(:name => 'Not Available').first
-    item = Item.new(:shelf => Shelf.web, :circulation_status => circulation_status)
-    manifestation.items << item
+    item = Item.create!(:shelf => Shelf.web, :circulation_status => circulation_status, :manifestation => manifestation)
   end
 
   def self.manifestations_count(start_date, end_date, manifestation)

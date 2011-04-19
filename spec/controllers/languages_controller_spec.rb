@@ -16,7 +16,7 @@ describe LanguagesController do
 
       it "assigns all languages as @languages" do
         get :index
-        assigns(:languages).should eq(Language.page(1))
+        assigns(:languages).should eq(Language.paginate(:page => 1))
       end
     end
 
@@ -27,7 +27,7 @@ describe LanguagesController do
 
       it "assigns all languages as @languages" do
         get :index
-        assigns(:languages).should eq(Language.page(1))
+        assigns(:languages).should eq(Language.paginate(:page => 1))
       end
     end
 
@@ -38,14 +38,14 @@ describe LanguagesController do
 
       it "assigns all languages as @languages" do
         get :index
-        assigns(:languages).should eq(Language.page(1))
+        assigns(:languages).should eq(Language.paginate(:page => 1))
       end
     end
 
     describe "When not logged in" do
       it "assigns all languages as @languages" do
         get :index
-        assigns(:languages).should eq(Language.page(1))
+        assigns(:languages).should eq(Language.paginate(:page => 1))
       end
     end
   end

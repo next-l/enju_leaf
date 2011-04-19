@@ -13,7 +13,7 @@
   </tr>
 
 <% @patron_import_results.each do |patron_import_result| %>
-  <tr>
+  <tr class="line<%= cycle("0", "1") -%>">
     <td><%= link_to patron_import_result.patron_import_file.id, patron_import_result.patron_import_file %></td>
     <td><%= link_to patron_import_result.patron.full_name, patron_import_result.patron if patron_import_result.patron %></td>
     <td><%= link_to patron_import_result.user.username, patron_import_result.user if patron_import_result.user %></td>
@@ -24,7 +24,7 @@
 <% end %>
 </table>
 
-<%= paginate(@patron_import_results) %>
+<%= will_paginate(@patron_import_results) %>
 
 </div>
 </div>

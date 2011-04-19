@@ -1,7 +1,9 @@
 require 'spec_helper'
+require 'sunspot/rails/spec_helper'
 
 describe ContentTypesController do
   fixtures :all
+  disconnect_sunspot
 
   describe "GET index" do
     before(:each) do
@@ -101,7 +103,7 @@ describe ContentTypesController do
         sign_in Factory(:admin)
       end
 
-      it "assigns the requested content_type as @content_type" do
+      it "should not assign the requested content_type as @content_type" do
         get :new
         assigns(:content_type).should_not be_valid
         response.should be_forbidden
@@ -159,7 +161,7 @@ describe ContentTypesController do
         sign_in Factory(:librarian)
       end
 
-      it "assigns the requested content_type as @content_type" do
+      it "should not assign the requested content_type as @content_type" do
         content_type = Factory.create(:content_type)
         get :edit, :id => content_type.id
         response.should be_forbidden
@@ -171,7 +173,7 @@ describe ContentTypesController do
         sign_in Factory(:user)
       end
 
-      it "assigns the requested content_type as @content_type" do
+      it "should not assign the requested content_type as @content_type" do
         content_type = Factory.create(:content_type)
         get :edit, :id => content_type.id
         response.should be_forbidden

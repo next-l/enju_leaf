@@ -2,11 +2,11 @@
   <%= render manifestations %>
 </table>
 
-<%= paginate(manifestations) -%>
+<%= will_paginate(manifestations) -%>
 <br />
 
 <div>
-  <%- if manifestations and manifestations.size > Manifestation.default_per_page.div(2) -%>
+  <%- if manifestations and manifestations.size > Manifestation.per_page.div(2) -%>
     <%= form_for :manifestations, :url => manifestations_path, :html => {:method => 'get'} do -%>
       <p>
       <%= t('page.search_term') -%>: <%= search_field_tag 'query', h(@query), {:id => 'search_form_bottom', :class => 'search_form', :placeholder => t('page.search_term')} -%>

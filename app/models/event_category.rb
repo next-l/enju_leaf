@@ -3,5 +3,7 @@ class EventCategory < ActiveRecord::Base
   default_scope :order => "position"
   has_many :events
 
-  paginates_per 10
+  def self.per_page
+    10
+  end
 end

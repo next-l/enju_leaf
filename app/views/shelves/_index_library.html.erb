@@ -9,7 +9,7 @@
     <th><%= t('activerecord.models.library') -%></th>
     <th></th>
   </tr>
-  
+
 <%- @shelves.each_with_index do |shelf, i| -%>
   <tr class="line<%= cycle("0", "1") -%>">
     <td>
@@ -31,7 +31,7 @@
 <%- end -%>
 </table>
 
-<%= paginate(@shelves) -%>
+<%= will_paginate(@shelves) -%>
 </div>
 </div>
 

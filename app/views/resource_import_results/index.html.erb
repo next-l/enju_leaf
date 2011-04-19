@@ -13,7 +13,7 @@
   </tr>
 
 <% @resource_import_results.each do |resource_import_result| %>
-  <tr>
+  <tr class="line<%= cycle("0", "1") -%>">
     <td><%= link_to resource_import_result.resource_import_file.id, resource_import_result.resource_import_file %></td>
     <td><%= link_to resource_import_result.manifestation.original_title, resource_import_result.manifestation if resource_import_result.manifestation %></td>
     <td><%= link_to resource_import_result.item.item_identifier, resource_import_result.item if resource_import_result.item %></td>
@@ -24,7 +24,7 @@
 <% end %>
 </table>
 
-<%= paginate(@resource_import_results) %>
+<%= will_paginate(@resource_import_results) %>
 
 </div>
 </div>

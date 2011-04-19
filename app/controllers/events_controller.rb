@@ -26,8 +26,8 @@ class EventsController < ApplicationController
       with(:library_id).equal_to library.id if library
       #with(:tag).equal_to tag
       if date
-        with(:start_at).greater_than Time.zone.parse(date).beginning_of_day
-        with(:start_at).less_than Time.zone.parse(date).tomorrow.beginning_of_day
+        with(:start_at).less_than Time.zone.parse(date)
+        with(:end_at).greater_than Time.zone.parse(date)
       end
       case mode
       when 'upcoming'
@@ -39,9 +39,9 @@ class EventsController < ApplicationController
     end
 
     page = params[:page] || 1
-    search.query.paginate(1, configatron.max_number_of_results)
-    @events = Event.where(:id => search.execute.raw_results.collect(&:primary_key)).page(page)
-    @count[:query_result] = @events.total_count
+    search.query.paginate(page.to_i, Event.per_page)
+    @events = search.execute!.results
+    @count[:query_result] = @events.total_entries
 
     respond_to do |format|
       format.html # index.html.erb

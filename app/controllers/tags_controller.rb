@@ -20,12 +20,11 @@ class TagsController < ApplicationController
     query = @query = params[:query].to_s.strip
     page = params[:page] || 1
 
-    search = Tag.search do
+    @tags = Tag.search do
       fulltext query if query.present?
-      paginate :page => 1, :per_page => configatron.max_number_of_results
+      paginate :page => page.to_i, :per_page => Tag.per_page
       order_by sort[:sort_by], sort[:order]
-    end
-    @tags = Tag.where(:id => search.execute.raw_results.collect(&:primary_key)).page(page)
+    end.results
 
     respond_to do |format|
       format.html # index.html.erb
@@ -51,7 +50,7 @@ class TagsController < ApplicationController
 
   def update
     #@tag = Tag.find(params[:id])
-  
+
     respond_to do |format|
       if @tag.update_attributes(params[:tag])
         flash[:notice] = t('controller.successfully_updated', :model => t('activerecord.models.tag'))

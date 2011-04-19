@@ -5,5 +5,7 @@ class CheckoutStatHasManifestation < ActiveRecord::Base
   validates_uniqueness_of :manifestation_id, :scope => :manifestation_checkout_stat_id
   validates_presence_of :manifestation_checkout_stat_id, :manifestation_id
 
-  paginates_per 10
+  def self.per_page
+    10
+  end
 end

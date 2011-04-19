@@ -8,6 +8,7 @@ Factory.define :admin, :class => User do |f|
   f.password_confirmation 'adminpassword'
   f.user_group {UserGroup.first}
   f.required_role {Role.find_by_name('User')}
+  f.locale 'ja'
 end
 
 Factory.define :librarian, :class => User do |f|
@@ -20,6 +21,7 @@ Factory.define :librarian, :class => User do |f|
   f.password_confirmation 'librarianpassword'
   f.user_group {UserGroup.first}
   f.required_role {Role.find_by_name('User')}
+  f.locale 'ja'
 end
 
 Factory.define :user, :class => User do |f|
@@ -32,6 +34,7 @@ Factory.define :user, :class => User do |f|
   f.password_confirmation 'userpassword'
   f.user_group {UserGroup.first}
   f.required_role {Role.find_by_name('User')}
+  f.locale 'ja'
 end
 
 Factory.define :invalid_user, :class => User do |f|

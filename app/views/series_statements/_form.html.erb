@@ -7,11 +7,12 @@
       <%= f.hidden_field :manifestation_id %>
     </p>
   <%- end -%>
-  
+
   <div class="field">
     <%= f.label :original_title %><br />
     <%= f.text_field :original_title %>
   </div>
+  <!--
   <div class="field">
     <%= f.label :numbering %><br />
     <%= f.text_field :numbering %>
@@ -24,6 +25,7 @@
     <%= f.label :numbering_subseries -%><br />
     <%= f.text_field :numbering_subseries %>
   </div>
+  -->
   <div class="field">
     <%= f.label :series_statement_identifier -%><br />
     <%= f.text_field :series_statement_identifier, :class => 'resource_item_identifier' %>
@@ -31,5 +33,4 @@
   <div class="actions">
     <%= f.submit %>
   </div>
-  <%= javascript_tag("$('#series_statement_original_title').focus()") -%>
 <% end %>

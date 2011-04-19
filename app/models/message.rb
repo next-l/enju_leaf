@@ -4,7 +4,7 @@ class Message < ActiveRecord::Base
   belongs_to :message_request
   belongs_to :sender, :class_name => 'User'
   belongs_to :receiver, :class_name => 'User'
-  validates_presence_of :subject, :body, :sender
+  validates_presence_of :subject, :body #, :sender
   validates_presence_of :recipient, :on => :create
   validates_presence_of :receiver, :on => :update
   before_save :set_receiver
@@ -39,7 +39,9 @@ class Message < ActiveRecord::Base
     end
   end
 
-  paginates_per 10
+  def self.per_page
+    10
+  end
 
   def set_receiver
     if self.recipient
@@ -48,7 +50,7 @@ class Message < ActiveRecord::Base
   end
 
   def send_notification
-    Notifier.delay.message_notification(self.receiver) if self.receiver.try(:email).present?
+    Notifier.delay.message_notification(self) if receiver.try(:email).present?
   end
 
   def read

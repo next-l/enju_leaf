@@ -1,6 +1,7 @@
 # -*- encoding: utf-8 -*-
 class ManifestationsController < ApplicationController
-  load_and_authorize_resource
+  load_and_authorize_resource :except => :index
+  authorize_resource :only => :index
   before_filter :authenticate_user!, :only => :edit
   before_filter :get_patron
   helper_method :get_manifestation, :get_subject
@@ -17,18 +18,15 @@ class ManifestationsController < ApplicationController
   # GET /manifestations
   # GET /manifestations.xml
   def index
-    @seconds = Benchmark.realtime do
-      if params[:mode] == 'add'
-        unless current_user.try(:has_role?, 'Librarian')
-          access_denied; return
-        end
+    if params[:mode] == 'add'
+      unless current_user.try(:has_role?, 'Librarian')
+        access_denied; return
       end
+    end
+
+    @seconds = Benchmark.realtime do
       @oai = check_oai_params(params)
       next if @oai[:need_not_to_search]
-	    if user_signed_in?
-	      @user = current_user unless @user
-	    end
-
       if params[:format] == 'oai'
         from_and_until_times = set_from_and_until(Manifestation, params[:from], params[:until])
         from_time = @from_time = from_and_until_times[:from]
@@ -60,15 +58,14 @@ class ManifestationsController < ApplicationController
 
       set_reservable
 
+      manifestations, sort, @count = {}, {}, {}
+      query = ""
+
       if params[:format] == 'csv'
         per_page = 65534
       end
 
-      manifestations, sort, @count = {}, {}, {}
-      query = ""
-
-			case
-      when params[:format] == 'sru'
+      if params[:format] == 'sru'
         if params[:operation] == 'searchRetrieve'
           sru = Sru.new(params)
           query = sru.cql.to_sunspot
@@ -77,14 +74,16 @@ class ManifestationsController < ApplicationController
           render :template => 'manifestations/explain', :layout => false
           return
         end
-      when params[:api] == 'openurl' 
-        openurl = Openurl.new(params)
-        @manifestations = openurl.search
-        query = openurl.query_text
-        sort = set_search_result_order(params[:sort_by], params[:order])
       else
-        query = make_query(params[:query], params)
-        sort = set_search_result_order(params[:sort_by], params[:order])
+        if params[:api] == 'openurl'
+          openurl = Openurl.new(params)
+          @manifestations = openurl.search
+          query = openurl.query_text
+          sort = set_search_result_order(params[:sort_by], params[:order])
+        else
+          query = make_query(params[:query], params)
+          sort = set_search_result_order(params[:sort_by], params[:order])
+        end
       end
 
       # 絞り込みを行わない状態のクエリ
@@ -124,7 +123,6 @@ class ManifestationsController < ApplicationController
         order_by :updated_at, :desc if oai_search
         with(:subject_ids).equal_to subject.id if subject
         facet :reservable
-        paginate :page => 1, :per_page => configatron.max_number_of_results
       end
       search = make_internal_query(search)
       search.data_accessor_for(Manifestation).select = [
@@ -137,7 +135,8 @@ class ManifestationsController < ApplicationController
         :volume_number_list,
         :issue_number_list,
         :serial_number_list,
-        :date_of_publication
+        :date_of_publication,
+        :pub_date
       ] if params[:format] == 'html' or params[:format].nil?
       all_result = search.execute
       @count[:query_result] = all_result.total
@@ -155,7 +154,9 @@ class ManifestationsController < ApplicationController
       end
 
       unless session[:manifestation_ids]
-        manifestation_ids = search.execute.raw_results.collect(&:primary_key).map{|id| id.to_i}
+        manifestation_ids = search.build do
+          paginate :page => 1, :per_page => configatron.max_number_of_results
+        end.execute.raw_results.collect(&:primary_key).map{|id| id.to_i}
         session[:manifestation_ids] = manifestation_ids
       end
         
@@ -179,10 +180,12 @@ class ManifestationsController < ApplicationController
           facet :library
           facet :language
           facet :subject_ids
+          paginate :page => page.to_i, :per_page => per_page || Manifestation.per_page
         end
       end
       search_result = search.execute
-      @manifestations = Manifestation.where(:id => search_result.raw_results.collect(&:primary_key)).page(page)
+      @manifestations = search_result.results
+      @manifestations.total_entries = configatron.max_number_of_results if @count[:query_result] > configatron.max_number_of_results
       get_libraries
 
       if params[:format].blank? or params[:format] == 'html'
@@ -199,7 +202,7 @@ class ManifestationsController < ApplicationController
           @suggested_tag = query.suggest_tags.first
         end
       end
-      save_search_history(query, @manifestations.offset_value, @count[:query_result], current_user)
+      save_search_history(query, @manifestations.offset, @count[:query_result], current_user)
       if params[:format] == 'oai'
         unless @manifestations.empty?
           set_resumption_token(params[:resumptionToken], @from_time || Manifestation.last.updated_at, @until_time || Manifestation.first.updated_at)
@@ -227,7 +230,7 @@ class ManifestationsController < ApplicationController
         when 'ListMetadataFormats'
           render :template => 'manifestations/list_metadata_formats'
         when 'ListSets'
-          @series_statements = SeriesStatement.all
+          @series_statements = SeriesStatement.select([:id, :original_title])
           render :template => 'manifestations/list_sets'
         when 'ListIdentifiers'
           render :template => 'manifestations/list_identifiers'
@@ -245,20 +248,15 @@ class ManifestationsController < ApplicationController
           :inline => true
       }
     end
-  rescue QueryError => e
+  #rescue QueryError => e
   #  render :template => 'manifestations/error.xml', :layout => false
-    Rails.logger.info "#{Time.zone.now}\t#{query}\t\t#{current_user.try(:username)}\t#{e}"
+  #  Rails.logger.info "#{Time.zone.now}\t#{query}\t\t#{current_user.try(:username)}\t#{e}"
   #  return
   end
 
   # GET /manifestations/1
   # GET /manifestations/1.xml
   def show
-    if params[:api] or params[:mode] == 'generate_cache'
-      unless my_networks?
-        access_denied; return
-      end
-    end
     if params[:isbn]
       if @manifestation = Manifestation.find_by_isbn(params[:isbn])
         redirect_to @manifestation
@@ -284,8 +282,6 @@ class ManifestationsController < ApplicationController
       else
         access_denied; return
       end
-    when 'generate_cache'
-      check_client_ip_address
     end
 
     return if render_mode(params[:mode])
@@ -353,7 +349,6 @@ class ManifestationsController < ApplicationController
         access_denied; return
       end
     end
-    @manifestation = Manifestation.find(params[:id])
     @original_manifestation = Manifestation.where(:id => params[:manifestation_id]).first
     @manifestation.series_statement = @series_statement if @series_statement
     if params[:mode] == 'tag_edit'
@@ -371,7 +366,7 @@ class ManifestationsController < ApplicationController
     if @manifestation.respond_to?(:post_to_scribd)
       @manifestation.post_to_scribd = true if params[:manifestation][:post_to_scribd] == "1"
     end
-    if @manifestation.original_title.blank?
+    unless @manifestation.original_title?
       @manifestation.original_title = @manifestation.attachment_file_name
     end
 
@@ -397,8 +392,6 @@ class ManifestationsController < ApplicationController
   # PUT /manifestations/1
   # PUT /manifestations/1.xml
   def update
-    @manifestation = Manifestation.find(params[:id])
-    
     respond_to do |format|
       if @manifestation.update_attributes(params[:manifestation])
         flash[:notice] = t('controller.successfully_updated', :model => t('activerecord.models.manifestation'))
@@ -418,7 +411,6 @@ class ManifestationsController < ApplicationController
   # DELETE /manifestations/1
   # DELETE /manifestations/1.xml
   def destroy
-    @manifestation = Manifestation.find(params[:id])
     @manifestation.destroy
     flash[:notice] = t('controller.successfully_deleted', :model => t('activerecord.models.manifestation'))
 
@@ -576,10 +568,10 @@ class ManifestationsController < ApplicationController
       render :partial => 'manifestations/tag_list', :locals => {:manifestation => @manifestation}
     when 'show_index'
       render :partial => 'manifestations/show_index', :locals => {:manifestation => @manifestation}
-    when 'show_authors'
-      render :partial => 'manifestations/show_authors', :locals => {:manifestation => @manifestation}
-    when 'show_all_authors'
-      render :partial => 'manifestations/show_authors', :locals => {:manifestation => @manifestation}
+    when 'show_creators'
+      render :partial => 'manifestations/show_creators', :locals => {:manifestation => @manifestation}
+    when 'show_all_creators'
+      render :partial => 'manifestations/show_creators', :locals => {:manifestation => @manifestation}
     when 'pickup'
       render :partial => 'manifestations/pickup', :locals => {:manifestation => @manifestation}
     when 'screen_shot'

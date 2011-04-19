@@ -1,6 +1,7 @@
 # -*- encoding: utf-8 -*-
 class PatronsController < ApplicationController
-  load_and_authorize_resource
+  load_and_authorize_resource :except => :index
+  authorize_resource :only => :index
   before_filter :get_user_if_nil
   helper_method :get_work, :get_expression
   helper_method :get_manifestation, :get_item
@@ -11,7 +12,7 @@ class PatronsController < ApplicationController
   before_filter :get_version, :only => [:show]
   after_filter :solr_commit, :only => [:create, :update, :destroy]
   cache_sweeper :patron_sweeper, :only => [:create, :update, :destroy]
-  
+ 
   # GET /patrons
   # GET /patrons.xml
   def index
@@ -73,13 +74,13 @@ class PatronsController < ApplicationController
     end
 
     role = current_user.try(:role) || Role.default_role
-    page = params[:page] || 1
     search.build do
       with(:required_role_id).less_than role.id
-      paginate :page => 1, :per_page => configatron.max_number_of_results
     end
 
-    @patrons = Patron.where(:id => search.execute.raw_results.collect(&:primary_key)).page(page)
+    page = params[:page] || 1
+    search.query.paginate(page.to_i, Patron.per_page)
+    @patrons = search.execute!.results
 
     respond_to do |format|
       format.html # index.rhtml
@@ -107,14 +108,12 @@ class PatronsController < ApplicationController
     else
       if @version
         @patron = @patron.versions.find(@version).item if @version
-      else
-        @patron = Patron.find(params[:id])
       end
     end
 
-    @works = @patron.works.paginate(:page => params[:work_list_page], :per_page => Manifestation.default_per_page)
-    @expressions = @patron.expressions.paginate(:page => params[:expression_list_page], :per_page => Manifestation.default_per_page)
-    @manifestations = @patron.manifestations.paginate(:page => params[:manifestation_list_page], :order => 'date_of_publication DESC', :per_page => Manifestation.default_per_page)
+    @works = @patron.works.paginate(:page => params[:work_list_page], :per_page => Manifestation.per_page)
+    @expressions = @patron.expressions.paginate(:page => params[:expression_list_page], :per_page => Manifestation.per_page)
+    @manifestations = @patron.manifestations.paginate(:page => params[:manifestation_list_page], :order => 'date_of_publication DESC', :per_page => Manifestation.per_page)
 
     respond_to do |format|
       format.html # show.rhtml
@@ -150,7 +149,6 @@ class PatronsController < ApplicationController
 
   # GET /patrons/1;edit
   def edit
-    #@patron = Patron.find(params[:id])
     prepare_options
   end
 
@@ -202,12 +200,10 @@ class PatronsController < ApplicationController
   # PUT /patrons/1
   # PUT /patrons/1.xml
   def update
-    #@patron = Patron.find(params[:id])
-
     respond_to do |format|
       if @patron.update_attributes(params[:patron])
         flash[:notice] = t('controller.successfully_updated', :model => t('activerecord.models.patron'))
-        format.html { redirect_to patron_url(@patron) }
+        format.html { redirect_to(@patron) }
         format.xml  { head :ok }
       else
         prepare_options
@@ -220,15 +216,6 @@ class PatronsController < ApplicationController
   # DELETE /patrons/1
   # DELETE /patrons/1.xml
   def destroy
-    #@patron = Patron.find(params[:id])
-
-    if @patron.user.try(:has_role?, 'Librarian')
-      unless current_user.has_role?('Administrator')
-        access_denied
-        return
-      end
-    end
-
     @patron.destroy
 
     respond_to do |format|
@@ -245,5 +232,4 @@ class PatronsController < ApplicationController
     @roles = Role.all
     @languages = Language.all_cache
   end
-
 end

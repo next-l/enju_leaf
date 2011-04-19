@@ -1,4 +1,4 @@
-<div data-role="header"> 
+<div data-role="header">
 <h1 class="title"><%= t('page.showing', :model => t('activerecord.models.item')) -%></h1>
 </div>
 <div data-role="content">
@@ -8,7 +8,7 @@
   <div id="detail">
 <p>
   <strong><%= t('activerecord.models.shelf') -%>:</strong>
-  <%= link_to @item.shelf.display_name.localize, shelf_path(@item.shelf_id) -%>
+  <%= link_to @item.shelf_display_name.localize, @item.shelf -%>
   <%= render :partial => 'items/shelf_picture', :locals => {:item => @item} -%>
   (<%= link_to @item.shelf.library.display_name.localize, @item.shelf.library -%>)
 </p>

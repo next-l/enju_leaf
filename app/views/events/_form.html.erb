@@ -17,6 +17,11 @@
   </p>
 
   <p>
+    <%= f.label :display_name -%><br />
+    <%= f.text_area :display_name, :class => 'resource_textarea' -%>
+  </p>
+
+  <p>
     <%= f.label :start_at -%><br />
     <%= f.datetime_select :start_at, :use_month_numbers => true -%>
     <%= f.label :all_day -%>

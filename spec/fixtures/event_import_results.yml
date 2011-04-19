@@ -1,0 +1,11 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  event_import_file_id: 1
+  event_id: 1
+  body: MyText
+
+two:
+  event_import_file_id: 1
+  event_id: 1
+  body: MyText

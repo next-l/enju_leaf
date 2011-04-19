@@ -20,7 +20,7 @@
     <th><%= t('activerecord.attributes.patron.date_of_birth') -%></th>
     <th id="edit_icons"></th>
   </tr>
-  
+
 <%- @patrons.each do |patron| -%>
   <tr class="line<%= cycle("0", "1") -%>">
     <td><%= link_to patron.full_name, patron_merge_list_patron_path(@patron_merge_list, patron) -%></td>
@@ -40,7 +40,7 @@
 <%- end -%>
 </table>
 
-<%= paginate(@patrons) -%>
+<%= will_paginate(@patrons) -%>
 </div>
 </div>
 

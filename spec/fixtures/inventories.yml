@@ -1,0 +1,13 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+inventory_00001:
+  id: 1
+  item_id: 1
+  inventory_file_id: 1
+  note: MyText
+
+inventory_00002:
+  id: 2
+  item_id: 2
+  inventory_file_id: 1
+  note: MyText

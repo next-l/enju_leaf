@@ -7,14 +7,14 @@ class Library < ActiveRecord::Base
   belongs_to :library_group, :validate => true
   has_many :events, :include => :event_category
   #belongs_to :holding_patron, :polymorphic => true, :validate => true
-  belongs_to :patron, :validate => true
+  belongs_to :patron #, :validate => true
   has_many :inter_library_loans, :foreign_key => 'borrowing_library_id'
   has_many :users
   belongs_to :country
 
-  #acts_as_soft_deletable
   has_friendly_id :name
-  geocoded_by :address
+  acts_as_mappable :auto_geocode => true, :lat_column_name => :latitude, :lng_column_name => :longitude
+  before_validation :auto_geocode_address, :on => :update, :unless => :skip_geocode
   #enju_calil_library
 
   searchable do
@@ -24,7 +24,6 @@ class Library < ActiveRecord::Base
     integer :position
   end
 
-  #validates_associated :library_group, :holding_patron
   validates_associated :library_group, :patron
   validates_presence_of :short_display_name, :library_group, :patron
   validates_uniqueness_of :short_display_name, :case_sensitive => false
@@ -32,17 +31,18 @@ class Library < ActiveRecord::Base
   validates_format_of :name, :with => /^[a-z][0-9a-z]{2,254}$/
   before_validation :set_patron, :on => :create
   #before_save :set_calil_neighborhood_library
-  after_validation :geocode
   after_create :create_shelf
-  after_create :clear_all_cache
+  after_save :clear_all_cache
   after_destroy :clear_all_cache
 
-  paginates_per 10
+  def self.per_page
+    10
+  end
 
   def self.all_cache
     Rails.cache.fetch('library_all'){Library.all}
   end
- 
+
   def clear_all_cache
     Rails.cache.delete('library_all')
   end
@@ -76,4 +76,9 @@ class Library < ActiveRecord::Base
     nil
   end
 
+  private
+  def skip_geocode
+    return true if Rails.env == 'test'
+    return true if configatron.google.google_maps_api_key.nil?
+  end
 end

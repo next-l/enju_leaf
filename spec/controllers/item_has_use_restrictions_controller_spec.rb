@@ -17,7 +17,7 @@ describe ItemHasUseRestrictionsController do
 
       it "assigns all item_has_use_restrictions as @item_has_use_restrictions" do
         get :index
-        assigns(:item_has_use_restrictions).should eq(ItemHasUseRestriction.all)
+        assigns(:item_has_use_restrictions).should eq(ItemHasUseRestriction.all(:order => 'id DESC'))
       end
     end
 
@@ -28,7 +28,7 @@ describe ItemHasUseRestrictionsController do
 
       it "assigns all item_has_use_restrictions as @item_has_use_restrictions" do
         get :index
-        assigns(:item_has_use_restrictions).should eq(ItemHasUseRestriction.all)
+        assigns(:item_has_use_restrictions).should eq(ItemHasUseRestriction.all(:order => 'id DESC'))
       end
     end
 
