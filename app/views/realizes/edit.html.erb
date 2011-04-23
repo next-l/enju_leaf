@@ -5,19 +5,19 @@
 <%= form_for(@realize) do |f| -%>
   <%= f.error_messages -%>
 
-  <p>
-  <%= f.label t('activerecord.models.patron') -%><br />
+  <div class="field">
+    <%= f.label t('activerecord.models.patron') -%><br />
     <%= f.text_field :patron_id -%>
-  </p>
+  </div>
 
-  <p>
+  <div class="field">
     <%= f.label t('activerecord.models.expression') -%><br />
     <%= f.text_field :expression_id -%>
-  </p>
+  </div>
 
-  <p>
+  <div class="actions">
     <%= f.submit %>
-  </p>
+  </div>
 <%- end -%>
 
 </div>

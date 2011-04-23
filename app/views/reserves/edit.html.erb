@@ -5,30 +5,30 @@
 <%= form_for(@reserve, :url => user_reserve_path(@reserve.user, @reserve)) do |f| -%>
   <%= f.error_messages -%>
 
-  <%- if @reserve.manifestation -%>
-    <%= render :partial => 'manifestations/title', :locals => {:manifestation => @reserve.manifestation} -%>
-    <%= f.hidden_field :manifestation_id -%>
-  <%- else -%>
-    <p>
+  <div class="field">
+    <%- if @reserve.manifestation -%>
+      <%= render :partial => 'manifestations/title', :locals => {:manifestation => @reserve.manifestation} -%>
+      <%= f.hidden_field :manifestation_id -%>
+    <%- else -%>
       <%= f.label t('activerecord.models.manifestation') -%><br />
       <%= f.text_field :manifestation_id -%>
-    </p>
-  <%- end -%>
+    <%- end -%>
+  </div>
 
-  <p>
+  <div class="field">
     <%= f.label t('activerecord.models.user') -%>
     <%= link_to @reserve.user.username, @reserve.user -%>
     (<%= @reserve.user.user_number %>)
-  </p>
+  </div>
 
-  <p>
+  <div class="field">
     <%= f.label :expired_at -%><br />
     <%= f.text_field :expire_date, :class => 'date_field' -%>
-  </p>
+  </div>
 
-  <p>
+  <div class="actions">
     <%= f.submit %>
-  </p>
+  </div>
 <%- end -%>
 
 </div>

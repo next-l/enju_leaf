@@ -24,7 +24,7 @@ platforms :jruby do
   gem 'activerecord-jdbc-adapter'
   gem 'jdbc-postgres', :require => false
   #gem 'jdbc-mysql', :require => false
-  gem 'rubyzip'
+  gem 'rubyzip2'
   gem 'glassfish'
 end
 
@@ -58,7 +58,7 @@ gem 'configatron'
 gem 'extractcontent'
 gem 'cancan', '>=1.6.4'
 gem 'scribd_fu'
-gem 'devise', '>=1.3.1'
+gem 'devise', '>=1.3.3'
 gem 'omniauth'
 gem 'paperclip'
 gem 'whenever', :require => false

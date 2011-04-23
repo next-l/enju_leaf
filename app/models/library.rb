@@ -41,7 +41,11 @@ class Library < ActiveRecord::Base
   end
 
   def self.all_cache
-    Rails.cache.fetch('library_all'){Library.all}
+    if Rails.env == 'production'
+      Rails.cache.fetch('library_all'){Library.all}
+    else
+      Library.all
+    end
   end
 
   def clear_all_cache

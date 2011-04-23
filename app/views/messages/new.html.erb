@@ -4,7 +4,7 @@
   <fieldset>
 
     <%= form_for :message, :url => user_messages_path(current_user) do |f| -%>
-      <p>
+      <div class="field">
         <label for="message_recepient"><%= t('message.recipient') -%>:</label>
         <%- if @message.recipient -%>
           <%= link_to @message.recipient, user_path(@message.recipient) -%>
@@ -12,20 +12,22 @@
         <%- else -%>
           <%= f.text_field :recipient, :class => 'resource_title', :value => @message.recipient -%>
         <%- end -%>
-      </p>
+      </div>
 
-      <p>
+      <div class="field">
         <%= f.label :subject -%>:
         <%= f.text_field :subject, :class => 'resource_title' -%>
-      </p>
+      </div>
 
-      <p>
+      <div class="field">
         <%= f.label :body -%>:<br />
         <%= f.text_area :body, :id => 'message_body' -%>
-      </p>
+      </div>
 
-      <%= f.hidden_field :parent_id -%>
-      <%= submit_tag t('message.send') -%>
+      <div class="field">
+        <%= f.hidden_field :parent_id -%>
+        <%= f.submit t('message.send') -%>
+      </div>
     <%- end -%>
   </fieldset>
 

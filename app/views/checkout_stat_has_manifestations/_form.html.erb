@@ -1,0 +1,15 @@
+<%= form_for(@checkout_stat_has_manifestation) do |f| -%>
+  <%= f.error_messages -%>
+
+  <div class="field">
+    <%= f.label t('activerecord.models.manifestation_checkout_stat') -%><br />
+    <%= f.text_field :manifestation_checkout_stat_id -%>
+  </div>
+  <div class="field">
+    <%= f.label t('activerecord.models.manifestation') -%><br />
+    <%= f.text_field :manifestation_id -%>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<%- end -%>

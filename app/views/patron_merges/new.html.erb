@@ -4,7 +4,7 @@
 
 <%= form_for(@patron_merge) do |f| -%>
   <%= f.error_messages -%>
-  <p>
+  <div class="field">
     <%= f.label t('activerecord.models.patron') -%><br />
     <%- if @patron -%>
       <%= link_to @patron.full_name, @patron -%>
@@ -12,9 +12,9 @@
     <%- else -%>
       <%= f.text_field :patron_id -%>
     <%- end -%>
-  </p>
+  </div>
 
-  <p>
+  <div class="field">
     <%= f.label t('activerecord.models.patron_merge_list') -%><br />
     <%- if @patron_merge_list -%>
       <%= link_to @patron_merge_list.title, patron_merge_list_path(@patron_merge_list) -%>
@@ -22,11 +22,11 @@
     <%- else -%>
       <%= f.text_field :patron_merge_list_id, :value => params[:patron_merge_list_id] -%>
     <%- end -%>
-  </p>
+  </div>
 
-  <p>
+  <div class="actions">
     <%= f.submit %>
-  </p>
+  </div>
 <%- end -%>
 
 </div>

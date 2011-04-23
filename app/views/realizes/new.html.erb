@@ -5,7 +5,7 @@
 <%= form_for(@realize) do |f| -%>
   <%= f.error_messages -%>
 
-  <p>
+  <div class="field">
     <%= f.label t('activerecord.models.patron') -%><br />
     <%- if @realize.patron -%>
 		  <%= link_to @realize.patron.full_name, @realize.patron -%>
@@ -13,9 +13,9 @@
     <%- else -%>
       <%= f.text_field :patron_id -%>
     <%- end -%>
-  </p>
+  </div>
 
-  <p>
+  <div class="field">
     <%= f.label t('activerecord.models.expression') -%><br />
     <%- if @realize.expression -%>
 		  <%= link_to @realize.expression.original_title, @realize.expression -%>
@@ -23,11 +23,11 @@
     <%- else -%>
       <%= f.text_field :expression_id -%>
     <%- end -%>
-  </p>
+  </div>
 
-  <p>
+  <div class="actions">
     <%= f.submit %>
-  </p>
+  </div>
 <%- end -%>
 
 </div>

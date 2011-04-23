@@ -1161,6 +1161,7 @@ en:
     connection_faild: "Connection failed."
     timed_out: "Operation timed out."
     example: "Example"
+    saving: "Saving..."
   title:
     index: "index"
     show: "show"

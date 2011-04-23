@@ -1,81 +1,81 @@
 <%= form_for(@library) do |f| -%>
   <%= f.error_messages -%>
 
-  <p>
+  <div class="field">
     <%= f.label :name -%><br />
     <%= f.text_field :name, :class => 'short_name' -%>
-  </p>
+  </div>
 
-  <p>
+  <div class="field">
     <%= f.label :short_display_name -%><br />
     <%= f.text_area :short_display_name, :class => 'resource_textarea' -%>
-  </p>
+  </div>
 
-  <p>
+  <div class="field">
     <%= f.label :display_name -%><br />
     <%= f.text_area :display_name, :class => 'resource_textarea' -%>
-  </p>
+  </div>
 
   <% unless @library.web? %>
-  <p>
+  <div class="field">
     <%= f.label t('activerecord.models.country') -%><br />
     <%= f.select(:country_id, @countries.collect{|c| [c.display_name.localize, c.id]}) -%>
-  </p>
+  </div>
 
-  <p>
+  <div class="field">
     <%= f.label :zip_code -%><br />
     <%= f.text_field :zip_code -%>
-  </p>
+  </div>
 
-  <p>
+  <div class="field">
     <%= f.label :region -%><br />
     <%= f.text_field :region -%>
-  </p>
+  </div>
 
-  <p>
+  <div class="field">
     <%= f.label :locality -%><br />
     <%= f.text_field :locality -%>
-  </p>
+  </div>
 
-  <p>
+  <div class="field">
     <%= f.label :street -%><br />
     <%= f.text_area :street, :class => 'resource_textarea' -%>
-  </p>
+  </div>
 
-  <p>
+  <div class="field">
     <%= f.label :telephone_number_1 -%><br />
     <%= f.phone_field :telephone_number_1 -%>
-  </p>
+  </div>
 
-  <p>
+  <div class="field">
     <%= f.label :telephone_number_2 -%><br />
     <%= f.phone_field :telephone_number_2 -%>
-  </p>
+  </div>
 
-  <p>
+  <div class="field">
     <%= f.label :fax_number -%><br />
     <%= f.phone_field :fax_number -%>
-  </p>
+  </div>
 
-  <p>
+  <div class="field">
     <%= f.label :call_number_rows -%><br />
     <%= f.text_field :call_number_rows, :class => 'resource_integer' -%>
-  </p>
+  </div>
 
-  <p>
+  <div class="field">
     <%= f.label :call_number_delimiter -%><br />
     <%= f.text_field :call_number_delimiter, :class => 'resource_integer' -%>
-  </p>
+  </div>
 
-  <p>
+  <div class="field">
     <%= f.label :opening_hour -%><br />
     <%= f.text_area :opening_hour, :class => 'resource_textarea' -%>
-  </p>
+  </div>
 
-  <p>
+  <div class="field">
     <%= f.label :note -%><br />
     <%= f.text_area :note, :class => 'resource_textarea' -%>
-  </p>
+  </div>
   <% end %>
 
   <div class="actions">

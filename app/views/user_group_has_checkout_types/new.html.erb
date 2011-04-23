@@ -5,51 +5,51 @@
 <%= form_for(@user_group_has_checkout_type) do |f| -%>
   <%= f.error_messages -%>
 
-  <p>
+  <div class="field">
     <%= f.label t('activerecord.models.user_group') -%><br />
     <%= f.select(:user_group_id, @user_groups.collect{|u| [u.display_name.localize, u.id]}, :include_blank => true) -%>
-  </p>
-  <p>
+  </div>
+  <div class="field">
     <%= f.label t('activerecord.models.checkout_type') -%><br />
     <%= f.select(:checkout_type_id, @checkout_types.collect{|c| [c.display_name.localize, c.id]}, :include_blank => true) -%>
-  </p>
-  <p>
+  </div>
+  <div class="field">
     <%= f.label :checkout_limit -%><br />
     <%= f.text_field :checkout_limit, :class => 'resource_integer' -%>
-  </p>
+  </div>
 
-  <p>
+  <div class="field">
     <%= f.label :checkout_period -%><br />
     <%= f.text_field :checkout_period, :class => 'resource_integer' -%>
-  </p>
+  </div>
 
-  <p>
+  <div class="field">
     <%= f.label :checkout_renewal_limit -%><br />
     <%= f.text_field :checkout_renewal_limit, :class => 'resource_integer' -%>
-  </p>
+  </div>
 
-  <p>
+  <div class="field">
     <%= f.label :reservation_limit -%><br />
     <%= f.text_field :reservation_limit, :class => 'resource_integer' -%>
-  </p>
+  </div>
 
-  <p>
+  <div class="field">
     <%= f.label :reservation_expired_period -%><br />
     <%= f.text_field :reservation_expired_period, :class => 'resource_integer' -%>
-  </p>
+  </div>
 
-  <p>
+  <div class="field">
     <%= f.label :set_due_date_before_closing_day -%>
     <%= f.check_box :set_due_date_before_closing_day -%>
-  </p>
+  </div>
 
-  <p>
+  <div class="field">
     <%= f.label :note -%><br />
     <%= f.text_area :note, :class => 'resource_textarea' -%>
-  </p>
-  <p>
+  </div>
+  <div class="actions">
     <%= f.submit %>
-  </p>
+  </div>
 <%- end -%>
 
 </div>

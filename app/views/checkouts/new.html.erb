@@ -3,18 +3,18 @@
 <%= form_for(@checkout) do |f| -%>
   <%= f.error_messages -%>
 
-  <p>
+  <div class="field">
     <%= f.label t('activerecord.models.user') -%><br />
     <%= f.text_field :user_id -%>
-  </p>
-  <p>
+  </div>
+  <div class="field">
     <%= f.label t('activerecord.models.item') -%><br />
     <%= f.text_field :item_id -%>
-  </p>
+  </div>
 
-  <p>
+  <div class="actions">
     <%= f.submit %>
-  </p>
+  </div>
 <%- end -%>
 
 <%= link_to t('page.back'), user_checkouts_path(@user) -%>

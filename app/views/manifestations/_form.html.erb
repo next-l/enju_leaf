@@ -1,6 +1,6 @@
 <%= form_for(@manifestation, :html => { :multipart => true }) do |f| -%>
   <%= f.error_messages -%>
-  <p>
+  <div class="field">
     <%- if !@manifestation.new_record? and @manifestation.series_statement -%>
       <%= f.label t('activerecord.models.series_statement') -%>
       <%= f.hidden_field :series_statement_id -%>
@@ -12,113 +12,113 @@
       <%= f.hidden_field :series_statement_id -%>
       (<%= link_to t('page.listing', :model => t('activerecord.models.series_statement')), series_statements_path -%>)
     <%- end -%>
-  </p>
+  </div>
 
-  <p>
+  <div class="field">
     <%= f.label :original_title -%><br />
     <%= f.text_field :original_title, :class => 'resource_title' -%>
-  </p>
-  <p>
+  </div>
+  <div class="field">
     <%= f.label :title_transcription -%><br />
     <%= f.text_field :title_transcription, :class => 'resource_title' -%>
-  </p>
-  <p>
+  </div>
+  <div class="field">
     <%= f.label :title_alternative -%><br />
     <%= f.text_field :title_alternative, :class => 'resource_title' -%>
-  </p>
+  </div>
 
-  <p>
+  <div class="field">
     <%= f.label t('page.file') -%><br />
     <%= f.file_field :attachment -%>
-  </p>
+  </div>
 
-  <p>
+  <div class="field">
     <%= f.label t('activerecord.models.carrier_type') -%>
     <%= f.select(:carrier_type_id, @carrier_types.collect{|m| [m.display_name.localize, m.id]}) -%>
     <!-- TODO: Formの切り替え時に入力項目をAjaxで書き換える -->
-  </p>
+  </div>
 
-  <p>
+  <div class="field">
     <%= f.label t('activerecord.models.frequency') -%>
     <%= f.select(:frequency_id, @frequencies.collect{|frequency| [frequency.display_name.localize, frequency.id]}) -%>
-  </p>
-  <p>
+  </div>
+  <div class="field">
     <%= f.label :pub_date -%>
     <%= f.text_field :pub_date, :class => 'date_field' -%>
-  </p>
+  </div>
 
   <%- if @manifestation.series_statement -%>
     <%= render :partial => 'manifestations/serial_form', :locals => {:f => f, :manifestation => @manifestation} -%>
   <%- else -%>
-    <p>
+    <div class="field">
       <%= f.label :edition -%>
       <%= f.text_field :edition, :class => 'resource_integer' -%>
       <%= f.label :volume_number_list -%>
       <%= f.text_field :volume_number_list, :class => 'resource_integer' -%>
-    </p>
+    </div>
 
-    <p>
+    <div class="field">
       <%= f.label :isbn -%>
       <%= f.text_field :isbn, :class => 'resource_isbn_issn', :style => 'ime-mode: disabled' -%>
       <%= link_to_function t('activerecord.attributes.manifestation.wrong_isbn'), "$('#manifestation_wrong_isbn').toggle()" -%>
       <%= f.text_field :wrong_isbn, :class => 'resource_isbn_issn', :style => 'ime-mode: disabled; display: none' -%>
-    </p>
-    <p>
+    </div>
+    <div class="field">
       <%= f.label :lccn -%>
       <%= f.text_field :lccn, :class => 'resource_isbn_issn', :style => 'ime-mode: disabled' -%>
-    </p>
+    </div>
   <%- end -%>
 
-  <p>
+  <div class="field">
     <%= f.label :start_page -%>
     <%= f.text_field :start_page, :class => 'resource_integer' -%>
     <%= f.label :end_page -%>
     <%= f.text_field :end_page, :class => 'resource_integer' -%>
-  </p>
+  </div>
 
-  <p>
+  <div class="field">
     <%= f.label :height -%>(cm)
     <%= f.text_field :height, :class => 'resource_integer' -%>
     <%= f.label :width -%>(cm)
     <%= f.text_field :width, :class => 'resource_integer' -%>
     <%= f.label :depth -%>(cm)
     <%= f.text_field :depth, :class => 'resource_integer' -%>
-  </p>
+  </div>
 
-  <p>
+  <div class="field">
     <%= f.label :price -%>
     <%= f.text_field :price, :class => 'resource_integer' -%>
-  </p>
+  </div>
 
-  <p>
+  <div class="field">
     <%= f.label :access_address -%><br />
     <%= f.url_field :access_address, :class => 'resource_url' -%>
-  </p>
+  </div>
 
-  <p>
+  <div class="field">
     <%= f.label :repository_content -%>
     <%= f.check_box :repository_content -%>
-  </p>
+  </div>
 
-  <p>
+  <div class="field">
     <%= f.label t('role.required_role') -%>
     <%= f.select(:required_role_id, @roles.collect{|r| [r.display_name.localize, r.id]}) -%>
-  </p>
+  </div>
 
-  <p>
+  <div class="field">
     <%= f.label :description -%><br />
     <%= f.text_area :description, :class => 'resource_textarea' -%>
-  </p>
+  </div>
 
-  <p>
+  <div class="field">
     <%= f.label :note -%><br />
     <%= f.text_area :note, :class => 'resource_textarea' -%>
-  </p>
+  </div>
 
-  <p>
+  <div class="actions">
     <%= hidden_field_tag :patron_id, @patron.id if @patron -%>
     <%= hidden_field_tag :manifestation_id, @original_manifestation.id if @original_manifestation -%>
     <%= f.submit %>
-  </p>
+  </div>
   <%= javascript_tag("$('#manifestation_original_title').focus()") -%>
 <%- end -%>

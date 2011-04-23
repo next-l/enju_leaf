@@ -5,33 +5,33 @@
 <%= form_for(@question, :url => user_question_path(@question.user, @question)) do |f| -%>
   <%= f.error_messages -%>
 
-  <p>
+  <div class="field">
     <%= f.label t('activerecord.models.user') -%><br />
     <%= link_to @question.user.username, @question.user -%>
-  </p>
+  </div>
 
-  <p>
+  <div class="field">
     <%= f.label :body -%><br />
     <%= f.text_area :body, :class => 'resource_textarea' -%>
-  </p>
+  </div>
 
-  <p>
+  <div class="field">
     <%= f.label :shared -%>
     <%= f.check_box :shared -%>
-  </p>
+  </div>
 
-  <p>
+  <div class="field">
     <%= f.label :solved -%>
     <%- if @question.user == current_user -%>
       <%= f.check_box :solved -%>
     <%- else -%>
       <%= f.check_box :solved, :disabled => 'disabled' -%>
     <%- end -%>
-  </p>
+  </div>
 
-  <p>
+  <div class="actions">
     <%= f.submit %>
-  </p>
+  </div>
 <%- end -%>
 </div>
 </div>

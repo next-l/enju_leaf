@@ -5,13 +5,13 @@
 <%= form_for(@patron_import_file) do |f| -%>
   <%= f.error_messages -%>
 
-  <p>
+  <div class="field">
     <%= f.label :patron_import_file_name -%><br />
     <%= f.text_field :patron_import_file_name -%>
-  </p>
-  <p>
+  </div>
+  <div class="actions">
     <%= f.submit %>
-  </p>
+  </div>
 <%- end -%>
 
 </div>

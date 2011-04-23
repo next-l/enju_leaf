@@ -4,19 +4,19 @@
 
 <%= form_for(@subject_has_classification) do |f| -%>
   <%= f.error_messages -%>
-  <p>
+  <div class="field">
     <%= f.label t('activerecord.models.subject') -%><br />
     <%= f.text_field :subject_id -%>
-  </p>
+  </div>
 
-  <p>
+  <div class="field">
     <%= f.label t('activerecord.models.classification') -%><br />
     <%= f.text_field :classification_id -%>
-  </p>
+  </div>
 
-  <p>
+  <div class="actions">
     <%= f.submit %>
-  </p>
+  </div>
 <%- end -%>
 
 </div>

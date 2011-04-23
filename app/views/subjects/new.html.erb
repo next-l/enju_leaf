@@ -4,36 +4,36 @@
 
 <%= form_for(@subject) do |f| -%>
   <%= f.error_messages -%>
-  <p>
+  <div class="field">
     <%= f.label t('activerecord.models.subject_type') -%>
     <%= f.select(:subject_type_id, @subject_types.collect{|s| [s.display_name.localize, s.id]}) -%>
-  </p>
+  </div>
 
-  <p>
+  <div class="field">
     <%= f.label :term -%><br />
     <%= f.text_area :term -%>
-  </p>
-  <p>
+  </div>
+  <div class="field">
     <%= f.label :note -%><br />
     <%= f.text_area :note -%>
-  </p>
+  </div>
   <%- if @classification -%>
-    <p>
+    <div class="field">
       <%= f.label t('activerecord.models.classification') -%>
       <%= link_to @classification.category, @classification -%>
       <%= f.hidden_field :classification_id -%>
-    </p>
+    </div>
   <%- end -%>
   <%- if @subject_heading_type -%>
-    <p>
+    <div class="field">
       <%= f.label t('activerecord.models.subject_heading_type') -%>
       <%= link_to @subject_heading_type.display_name.localize, @subject_heading_type -%>
       <%= f.hidden_field :subject_heading_type_id -%>
-    </p>
+    </div>
   <%- end -%>
-  <p>
+  <div class="actions">
     <%= f.submit %>
-  </p>
+  </div>
 <%- end -%>
 </div>
 </div>

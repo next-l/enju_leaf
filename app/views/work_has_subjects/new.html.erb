@@ -5,7 +5,7 @@
 <%= form_for(@work_has_subject) do |f| -%>
   <%= f.error_messages -%>
 
-  <p>
+  <div class="field">
     <%= f.label :work -%><br />
     <%- if @work_has_subject.work -%>
       <%= link_to @work_has_subject.work.original_title, @work_has_subject.work -%>
@@ -13,8 +13,8 @@
     <%- else -%>
       <%= f.text_field :work_id -%>
     <%- end -%>
-  </p>
-  <p>
+  </div>
+  <div class="field">
     <%= f.label :subject -%><br />
     <%- if @work_has_subject.subject -%>
       <%= link_to @work_has_subject.subject.term, @work_has_subject.subject -%>
@@ -22,10 +22,10 @@
     <%- else -%>
       <%= f.text_field :subject_id -%>
     <%- end -%>
-  </p>
-  <p>
+  </div>
+  <div class="actions">
     <%= f.submit %>
-  </p>
+  </div>
 <%- end -%>
 
 </div>

@@ -5,7 +5,7 @@
 <%= form_for(@reserve, :url => user_reserves_path(@user)) do |f| -%>
   <%= f.error_messages -%>
 
-  <p>
+  <div class="field">
     <%- if @item -%>
       <%= render :partial => 'manifestations/title', :locals => {:manifestation => @reserve.manifestation} -%>
       (<%= link_to @item.item_identifier, @item -%>)
@@ -15,28 +15,26 @@
       <%= render :partial => 'manifestations/title', :locals => {:manifestation => @manifestation} -%>
       <%= f.hidden_field :manifestation_id -%>
     <%- else -%>
-      <p>
-        <%= f.label t('activerecord.models.manifestation') -%><br />
-        <%= f.text_field :manifestation_id -%>
-      </p>
+      <%= f.label t('activerecord.models.manifestation') -%><br />
+      <%= f.text_field :manifestation_id -%>
     <%- end -%>
-  </p>
+  </div>
 
-  <p>
+  <div class="field">
     <%= f.label t('activerecord.models.user') -%>
     <%= link_to @reserve.user.username, @reserve.user -%>
     (<%= @reserve.user.user_number %>)
-  </p>
+  </div>
 
-  <p>
+  <div class="field">
     <%= f.label :expired_at -%><br />
     <%= f.text_field :expire_date, :class => 'date_field', :placeholder => "#{t('page.example')}: 2011-04-12" -%>
-  </p>
+  </div>
 
-  <p>
+  <div class="field">
     <%= f.hidden_field :user_number, :value => @user.user_number -%>
-    <%= submit_tag t('page.create') -%>
-  </p>
+    <%= f.submit t('page.create') -%>
+  </div>
 <%- end -%>
 </div>
 </div>

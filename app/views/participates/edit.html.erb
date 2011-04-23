@@ -5,17 +5,17 @@
 <%= form_for(@participate) do |f| %>
   <%= f.error_messages %>
 
-  <p>
+  <div class="field">
     <%= f.label t('activerecord.models.patron') -%><br />
     <%= f.text_field :patron_id %>
-  </p>
-  <p>
+  </div>
+  <div class="field">
     <%= f.label t('activerecord.models.event') -%><br />
     <%= f.text_field :event_id %>
-  </p>
-  <p>
+  </div>
+  <div class="actions">
     <%= f.submit %>
-  </p>
+  </div>
 <%- end %>
 </div>
 </div>

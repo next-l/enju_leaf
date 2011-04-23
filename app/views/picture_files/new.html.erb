@@ -13,23 +13,23 @@
 <%- else -%>
   <%= form_for(@picture_file, :url => picture_files_path, :html => { :multipart => true, :method => :post }) do |f| -%>
   <%= f.error_messages -%>
-  <p>
+  <div class="field">
     <%= f.label t('page.title') -%><br />
     <%= f.text_field :title -%>
-  </p>
+  </div>
 
   <%= f.hidden_field :picture_attachable_id -%>
 
   <%= f.hidden_field :picture_attachable_type -%>
 
-  <p>
+  <div class="field">
     <%= f.label t('page.file') -%><br />
     <%= f.file_field :picture -%>
-  </p>
+  </div>
 
-  <p>
+  <div class="actions">
     <%= f.submit %>
-  </p>
+  </div>
 <%- end -%>
 
 <%- end -%>

@@ -2,10 +2,10 @@
   <%= f.error_messages %>
 
   <%- if !@series_statement.new_record? and @manifestation -%>
-    <p>
+    <div class="field">
       <%= link_to @manifestation.original_title, @manifestation -%>
       <%= f.hidden_field :manifestation_id %>
-    </p>
+    </div>
   <%- end -%>
 
   <div class="field">

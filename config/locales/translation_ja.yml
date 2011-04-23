@@ -1144,6 +1144,7 @@ ja:
     connection_failed: "ネットワーク接続に失敗しました。"
     timed_out: "タイムアウトしました。"
     example: "例"
+    saving: "保存中..."
   title:
     index: "一覧"
     show: "表示"

@@ -4,22 +4,22 @@
 
 <%= form_for(@subject) do |f| -%>
   <%= f.error_messages -%>
-  <p>
+  <div class="field">
     <%= f.label t('activerecord.models.subject_type') -%>
     <%= f.select(:subject_type_id, @subject_types.collect{|p| [p.display_name.localize, p.id]}) -%>
-  </p>
+  </div>
 
-  <p>
+  <div class="field">
     <%= f.label :term -%><br />
     <%= f.text_area :term -%>
-  </p>
-  <p>
+  </div>
+  <div class="field">
     <%= f.label :note -%><br />
     <%= f.text_area :note -%>
-  </p>
-  <p>
+  </div>
+  <div class="actions">
     <%= f.submit %>
-  </p>
+  </div>
 <%- end -%>
 </div>
 </div>

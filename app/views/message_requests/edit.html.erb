@@ -5,29 +5,29 @@
 <%= form_for(@message_request) do |f| -%>
   <%= f.error_messages -%>
 
-  <p>
+  <div class="field">
     <%= f.label t('message.sender') -%><br />
     <%= link_to @message_request.sender.username, @message_request.sender -%>
-  </p>
-  <p>
+  </div>
+  <div class="field">
     <%= f.label t('message.receiver') -%><br />
     <%= link_to @message_request.receiver.username, @message_request.receiver -%>
-  </p>
-  <p>
+  </div>
+  <div class="field">
     <%= f.label t('activerecord.models.message_template') -%><br />
     <%= f.select(:message_template_id, @message_templates.collect{|m| [m.title, m.id]}) -%>
-  </p>
-  <p>
+  </div>
+  <div class="field">
     <%= f.label t('activerecord.attributes.message.subject') -%><br />
     <%= @message_request.subject -%>
-  </p>
-  <p>
+  </div>
+  <div class="field">
     <%= f.label t('activerecord.attributes.message.body') -%><br />
     <%= textilize(@message_request.body) -%>
-  </p>
-  <p>
+  </div>
+  <div class="actions">
     <%= f.submit %>
-  </p>
+  </div>
 <%- end -%>
 </div>
 </div>
