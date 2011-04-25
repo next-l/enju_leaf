@@ -963,8 +963,9 @@ en:
         numbering: Numbering
         title_subseries: Title subseries
         numbering_subseries: Numbering subseries
-        series_statement_identifier: Series statement identifier
         work: Work
+        series_statement_identifier: Series statement identifier
+        issn: ISSN
       import_request:
         isbn: ISBN
         state: State
