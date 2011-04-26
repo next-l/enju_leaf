@@ -31,6 +31,7 @@ class LibraryGroupsController < ApplicationController
   # PUT /library_groups/1
   # PUT /library_groups/1.xml
   def update
+    @library_group = LibraryGroup.find(params[:id])
     respond_to do |format|
       if @library_group.update_attributes(params[:library_group])
         expire_page '/page/opensearch'

@@ -964,6 +964,7 @@ ja:
         numbering_subseries: 副シリーズ番号
         work: 書いた資料
         series_statement_identifier: シリーズ識別子
+        issn: ISSN
       import_request:
         isbn: ISBN
         state: 状態

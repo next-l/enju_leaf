@@ -326,6 +326,7 @@ class ManifestationsController < ApplicationController
     if @manifestation.series_statement
       @manifestation.original_title = @manifestation.series_statement.original_title
       @manifestation.title_transcription = @manifestation.series_statement.title_transcription
+      @manifestation.issn = @manifestation.series_statement.issn
     elsif @original_manifestation
       @manifestation.original_title = @original_manifestation.original_title
       @manifestation.title_transcription = @original_manifestation.title_transcription
