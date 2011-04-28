@@ -9,62 +9,62 @@
   <%= f.error_messages -%>
   <%= f.hidden_field :manifestation_id %>
 
-  <p>
+  <div class="field">
     <%= f.label t('activerecord.models.library') -%> / <%= t('activerecord.models.shelf') -%><br />
     <%= f.select :library_id, @libraries.map{|l| [l.display_name.localize, l.id]} %>
     <%= f.select :shelf_id, @shelves.map{|s| [s.display_name.localize, s.id]} %>
     <%= render :partial => 'observe_field' %>
-  </p>
+  </div>
 
-  <p>
+  <div class="field">
     <%= f.label t('activerecord.models.checkout_type') -%><br />
     <%= f.select(:checkout_type_id, @checkout_types.collect{|c| [c.display_name.localize, c.id]}) -%>
-  </p>
+  </div>
 
-  <p>
+  <div class="field">
     <%= f.label t('activerecord.models.circulation_status') -%><br />
     <%= f.select(:circulation_status_id, @circulation_statuses.collect{|c| [c.display_name.localize, c.id]}) -%>
-  </p>
+  </div>
 
-  <p>
+  <div class="field">
     <%= f.label :call_number -%><br />
     <%= f.text_field :call_number -%>
-  </p>
+  </div>
 
-  <p>
+  <div class="field">
     <%= f.label :price -%><br />
     <%= f.text_field :price -%>
-  </p>
+  </div>
 
-  <p>
+  <div class="field">
     <%= f.label :url -%><br />
     <%= f.url_field :url, :class => 'resource_url' -%>
-  </p>
- 
-  <p>
+  </div>
+
+  <div class="field">
     <%= f.label :include_supplements -%>
     <%= f.check_box :include_supplements -%>
-  </p>
+  </div>
 
 <!--
-  <p>
+  <div class="field">
   <%= f.label t('activerecord.models.use_restriction') -%> # TODO: 互いに矛盾する利用制限を指定させない<br />
     <%- @use_restrictions.each do |use_restriction| -%>
       <%= check_box_tag "use_restriction_id[]", use_restriction.id, @item.use_restrictions.include?(use_restriction), :id => "use_restriction_id_#{use_restriction.id}" -%>
       <%= use_restriction.display_name.localize -%><br />
     <%- end -%>
-  </p>
+  </div>
   -->
 
-  <p>
+  <div class="field">
     <%= f.label t('role.required_role') -%>
     <%= f.select(:required_role_id, @roles.collect{|r| [r.display_name.localize, r.id]}) -%>
-  </p>
+  </div>
 
-  <p>
+  <div class="field">
     <%= f.label :item_identifier -%><br />
     <%= f.text_field :item_identifier, :class => 'resource_item_identifier' -%>
-  </p>
+  </div>
 
   <div class="actions">
     <%= f.submit %>

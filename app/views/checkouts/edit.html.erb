@@ -3,7 +3,7 @@
 <div id="content_list">
 
   <%= render :partial => 'manifestations/title', :locals => {:manifestation => @checkout.item.manifestation} if @checkout.item -%>
-  
+
 <h3><%= t('checkout.renewal') -%></h3>
 <%- if @checkout.checkout_renewable? -%>
   <%= form_for(@checkout, :url => user_checkout_path(@checkout.user, @checkout)) do |f| -%>
@@ -13,7 +13,7 @@
     <%= f.submit %>
   <%- end -%>
 <%- else -%>
-  <p><%= t('checkout.this_item_cant_be_renewed') -%></p>
+  <div class="field"><%= t('checkout.this_item_cant_be_renewed') -%></div>
 <%- end -%>
 
 <h3><%= t('checkout.editing_due_date') -%></h3>
@@ -21,15 +21,15 @@
 <%= form_for(@checkout, :url => user_checkout_path(@checkout.user, @checkout)) do |f| -%>
   <%= f.error_messages -%>
 
-  <p>
+  <div class="field">
     <%= f.label :due_date -%>
     <%= f.hidden_field :user_id -%>
     <%= f.hidden_field :item_id -%>
     <%= f.text_field :due_date, :value => @checkout.due_date.try(:strftime, "%Y-%m-%d"), :class => 'date_field' -%>
-  </p>
-  <p>
+  </div>
+  <div class="field">
     <%= t('checkout.renewal_count') -%>: <%= f.text_field :checkout_renewal_count, :class => 'resource_integer' -%>
-  </p>
+  </div>
 
   <div class="actions">
     <%= f.submit %>

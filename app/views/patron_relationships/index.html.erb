@@ -4,8 +4,8 @@
 
 <table class="index">
   <tr>
-    <th>Parent</th>
-    <th>Child</th>
+    <th><%= t('activerecord.attributes.patron_relationship.parent_id') -%>:</th>
+    <th><%= t('activerecord.attributes.patron_relationship.child_id') -%>:</th>
     <th></th>
     <th></th>
     <th></th>
@@ -13,8 +13,8 @@
 
 <% @patron_relationships.each do |patron_relationship| %>
   <tr>
-    <td><%= patron_relationship.parent_id %></td>
-    <td><%= patron_relationship.child_id %></td>
+    <td><%= link_to patron_relationship.parent.full_name, patron_relationship.parent %></td>
+    <td><%= link_to patron_relationship.child.full_name, patron_relationship.child %></td>
     <td><%= link_to t('page.show'), patron_relationship %></td>
     <td><%= link_to t('page.edit'), edit_patron_relationship_path(patron_relationship) %></td>
     <td><%= link_to t('page.destroy'), patron_relationship, :confirm => t('page.are_you_sure'), :method => :delete %></td>
@@ -29,6 +29,6 @@
 
 <div id="submenu" class="ui-corner-all">
   <ul>
-    <li><%= link_to 'New Patron relationship', new_patron_relationship_path %></li>
+    <li><%= link_to t('page.new', :model => t('activerecord.models.patron_relationship')), new_patron_relationship_path -%></li>
   </ul>
 </div>

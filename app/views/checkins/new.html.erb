@@ -3,10 +3,10 @@
 <%= form_for(@checkin) do |f| -%>
   <%= f.error_messages -%>
 
-  <p>
+  <div class="field">
     <%= f.label t('activerecord.models.item') -%><br />
     <%= f.text_field :item_id -%>
-  </p>
+  </div>
 
   <%= f.submit %>
 <%- end -%>

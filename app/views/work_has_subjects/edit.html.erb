@@ -5,17 +5,17 @@
 <%= form_for(@work_has_subject) do |f| -%>
   <%= f.error_messages -%>
 
-  <p>
+  <div class="field">
     <%= f.label :work -%><br />
     <%= f.text_field :work_id -%>
-  </p>
-  <p>
+  </div>
+  <div class="field">
     <%= f.label :subject -%><br />
     <%= f.text_field :subject_id -%>
-  </p>
-  <p>
+  </div>
+  <div class="actions">
     <%= f.submit %>
-  </p>
+  </div>
 <%- end -%>
 
 </div>

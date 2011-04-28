@@ -5,10 +5,10 @@ class CreateMessages < ActiveRecord::Migration
       t.integer  :receiver_id, :sender_id
       t.string   :subject, :null => false
       t.text     :body
-      t.timestamps 
+      t.timestamps
       t.integer :message_request_id
     end
-    
+
     add_index :messages, :sender_id
     add_index :messages, :receiver_id
     add_index :messages, :message_request_id

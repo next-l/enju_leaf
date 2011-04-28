@@ -11,7 +11,7 @@
     var map = new google.maps.Map(document.getElementById("library_map"), options);
     var marker = new google.maps.Marker({
 position: latlng,
-      map: map, 
+      map: map,
       title: '<%= library.display_name.localize %>'
     });
     var infowindow = new google.maps.InfoWindow({

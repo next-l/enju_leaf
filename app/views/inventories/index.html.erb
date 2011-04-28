@@ -9,16 +9,16 @@
     <th><%= t('activerecord.attributes.inventory.note') -%> </th>
   </tr>
 
-<%- @inventories.each do |inventory| -%> 
+<%- @inventories.each do |inventory| -%>
   <tr class="line<%= cycle("0", "1") -%>">
-    <td><%= inventory.inventory_file_id -%> </td>
-    <td><%= inventory.item_id -%> </td>
-    <td><%= inventory.note -%> </td>
-    <td><%= link_to t('page.show'), inventory -%> </td>
-    <td><%= link_to t('page.edit'), edit_inventory_path(inventory) -%> </td>
+    <td><%= inventory.inventory_file_id -%></td>
+    <td><%= inventory.item_id -%></td>
+    <td><%= inventory.note -%></td>
+    <td><%= link_to t('page.show'), inventory -%></td>
+    <td><%= link_to t('page.edit'), edit_inventory_path(inventory) -%></td>
     <td><%= link_to t('page.destroy'), inventory, :confirm => t('page.are_you_sure'), :method => :delete -%> </td>
   </tr>
-<%- end -%> 
+<%- end -%>
 </table>
 
 <%= will_paginate(@inventories) -%>

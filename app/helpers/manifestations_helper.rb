@@ -24,7 +24,7 @@ module ManifestationsHelper
   end
 
   def call_number_label(item)
-    unless item.call_number.blank?
+    if item.call_number?
       unless item.shelf.web_shelf?
         # TODO 請求記号の区切り文字
         numbers = item.call_number.split(item.shelf.library.call_number_delimiter)

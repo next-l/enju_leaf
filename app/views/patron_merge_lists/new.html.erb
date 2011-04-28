@@ -4,14 +4,14 @@
 
 <%= form_for(@patron_merge_list) do |f| -%>
   <%= f.error_messages -%>
-  <p>
+  <div class="field">
     <%= f.label t('page.title') -%><br />
     <%= f.text_field :title -%>
-  </p>
+  </div>
 
-  <p>
+  <div class="actions">
     <%= f.submit %>
-  </p>
+  </div>
 <%- end -%>
 
 </div>

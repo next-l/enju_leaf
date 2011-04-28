@@ -1,10 +1,10 @@
-<div data-role="header"> 
+<div data-role="header">
   <h1 class="title"><%= t('page.showing', :model => t('activerecord.models.event')) -%></h1>
 </div>
 
 <div data-role="content">
 <h2 class="resource_title">
-  <%= @event.name.localize -%>
+  <%= @event.display_name.localize -%>
 </h2>
 
 <p>

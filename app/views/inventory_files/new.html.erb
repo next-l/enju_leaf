@@ -2,17 +2,17 @@
 <h1 class="title"><%= t('page.new', :model => t('activerecord.models.inventory_file')) -%> </h1>
 <div id="content_list">
 
-<%= form_for(@inventory_file, :html => {:multipart => true}) do |f| -%> 
-  <%= f.error_messages -%> 
+<%= form_for(@inventory_file, :html => {:multipart => true}) do |f| -%>
+  <%= f.error_messages -%>
 
-  <p>
+  <div class="field">
     <%= f.label t('page.file') -%><br />
     <%= f.file_field :inventory -%>
-  </p>
+  </div>
 
-  <p>
+  <div class="actions">
     <%= f.submit %>
-  </p>
+  </div>
 <%- end -%>
 
 </div>

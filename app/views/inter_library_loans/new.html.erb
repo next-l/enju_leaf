@@ -5,17 +5,17 @@
 <%= form_for(@inter_library_loan) do |f| -%>
   <%= f.error_messages -%>
 
-  <p>
+  <div class="field">
     <%= f.label t('inter_library_loan.borrowing_library') -%><br />
     <%= f.select(:borrowing_library_id, @libraries.collect{|l| [l.display_name.localize, l.id]}) -%>
-  </p>
+  </div>
 
-  <p>
+  <div class="field">
     <%= f.label :requested_at -%><br />
     <%= f.text_field :requested_at, :class => 'date_field' -%>
-  </p>
+  </div>
 
-  <p>
+  <div class="field">
     <%= f.label t('activerecord.models.item') -%><br />
     <%- if @item -%>
       <%= link_to @item.shelf.library.display_name.localize, @item.shelf.library -%>
@@ -25,7 +25,7 @@
     <%- else -%>
       <%= f.text_field :item_identifier, :class => 'resource_item_identifier' -%>
     <%- end -%>
-  </p>
+  </div>
 
   <div class="actions">
     <%= f.submit %>

@@ -1,19 +1,19 @@
 <%= form_for(@picture_file, :url => shelf_picture_files_path(@shelf), :html => { :multipart => true, :method => :post }) do |f| -%>
   <%= f.error_messages -%>
-  <p>
+  <div class="field">
     <%= f.label t('page.attachable') -%><br />
     <%= link_to @shelf.library.display_name.localize, library_path(@shelf.library) -%>
     <%= link_to @shelf.display_name.localize, @shelf -%>
     <%= f.hidden_field :picture_attachable_id -%>
     <%= f.hidden_field :picture_attachable_type -%>
-  </p>
+  </div>
 
-  <p>
+  <div class="field">
     <%= f.label t('page.file') -%><br />
     <%= f.file_field :picture -%>
-  </p>
+  </div>
 
-  <p>
+  <div class="actions">
     <%= f.submit %>
-  </p>
+  </div>
 <%- end -%>

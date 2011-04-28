@@ -1,29 +1,29 @@
 <table class="index">
   <tr>
-    <th><%= t('activerecord.models.user') -%></th>
-    <th class="checked_item_title"><%= t('page.title') -%></th>
-    <th><%= t('activerecord.attributes.item.item_identifier') -%></th>
-    <th><%= t('activerecord.attributes.checkout.due_date') -%></th>
-    <th></th>
+    <th><%= t('activerecord.models.user') %></th>
+    <th class="checked_item_title"><%= t('page.title') %></th>
+    <th><%= t('activerecord.attributes.checkout.due_date') %></th>
     <th></th>
   </tr>
-  
+
 <%- if @checkouts -%>
-  <%- @checkouts.each_with_index do |checkout, i| -%>
+  <%- @checkouts.each_with_index do |checkout, i| %>
   <tr class="line<%= cycle("0", "1") -%>">
     <td>
-      <%= link_to checkout.user.username, checkout.user -%>
-      <br>
-      (<%= link_to checkout.user.user_number, checkout.user -%>)
+      <%= link_to checkout.user_username, checkout.user %>
+      <br />
+      (<%= link_to checkout.user_user_number, checkout.user %>)
     </td>
     <td>
       <%= render :partial => 'manifestations/show_index', :locals => {:manifestation => checkout.item.manifestation} -%>
       <%= render :partial => 'manifestations/holding', :locals => {:manifestation => checkout.item.manifestation} -%>
+      <br />
+      (<%= link_to checkout.item.item_identifier, item_path(checkout.item) -%>)
     </td>
-    <td><%= link_to checkout.item.item_identifier, item_path(checkout.item) -%></td>
     <td><%= l(checkout.due_date, :format => :only_date) -%></td>
-    <td><%= link_to t('page.show'), user_checkout_path(checkout.user, checkout) -%>
     <td>
+      <%= link_to t('page.show'), user_checkout_path(checkout.user, checkout) -%>
+      <br />
       <%- if can? :update, checkout -%>
         <%= link_to t('checkout.extend'), edit_user_checkout_path(checkout.user, checkout) -%>
       <%- end -%>

@@ -9,7 +9,7 @@ class BasketsController < ApplicationController
   def index
     get_user
     if @user
-      @baskets = @user.baskets.page(params[:page])
+      @baskets = @user.baskets.paginate(:page => params[:page])
     else
       redirect_to new_basket_url
       return
@@ -55,7 +55,7 @@ class BasketsController < ApplicationController
     @basket = Basket.new
     @user = User.where(:user_number => params[:basket][:user_number]).first rescue nil
     if @user
-      unless @user.user_number.blank?
+      if @user.user_number?
         @basket.user = @user
       end
     end

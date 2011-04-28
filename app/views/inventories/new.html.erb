@@ -3,30 +3,30 @@
 <div id="content_list">
 
 <%= form_for(@inventory) do |f| -%>
-  <%= f.error_messages -%> 
+  <%= f.error_messages -%>
 
-  <p>
+  <div class="field">
     <%= f.label :item_id -%> <br />
-    <%= f.text_field :item_id -%> 
-  </p>
-  <p>
+    <%= f.text_field :item_id -%>
+  </div>
+  <div class="field">
     <%= f.label :inventory_file_id -%> <br />
-    <%= f.text_field :inventory_file_id -%> 
-  </p>
-  <p>
+    <%= f.text_field :inventory_file_id -%>
+  </div>
+  <div class="field">
     <%= f.label :note -%> <br />
-    <%= f.text_area :note -%> 
-  </p>
-  <p>
-    <%= f.submit %> 
-  </p>
-<%- end -%> 
+    <%= f.text_area :note -%>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<%- end -%>
 
 </div>
 </div>
 
 <div id="submenu" class="ui-corner-all">
   <ul>
-    <li><%= link_to t('page.back'), inventories_path -%> </li>
+    <li><%= link_to t('page.back'), inventories_path -%></li>
   </ul>
 </div>

@@ -37,7 +37,7 @@ describe User do
     user = Factory.create(:user)
     user.locked = '1'
     user.save
-    user.active?.should be_false
+    user.active_for_authentication?.should be_false
   end
 
   it 'should unlock an user' do
@@ -45,7 +45,7 @@ describe User do
     user.lock_access!
     user.locked = '0'
     user.save
-    user.active?.should be_true
+    user.active_for_authentication?.should be_true
   end
 
   it 'should not set expired_at if its user group does not have valid period' do

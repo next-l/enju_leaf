@@ -4,13 +4,13 @@
 
 <%= form_for(@import_request) do |f| -%>
   <%= f.error_messages -%>
-  <p>
+  <div class="field">
     <%= f.label :isbn -%><br />
     <%= f.text_field :isbn, :class => 'resource_isbn_issn' -%>
-  </p>
-  <p>
+  </div>
+  <div class="actions">
     <%= f.submit %>
-  </p>
+  </div>
 <%- end -%>
 
 </div>

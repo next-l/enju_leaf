@@ -10,7 +10,7 @@ class InterLibraryLoansController < ApplicationController
     if @item
       @inter_library_loans = @item.inter_library_loans.paginate(:page => params[:page])
     else
-      @inter_library_loans = InterLibraryLoan.paginate(:all, :page => params[:page])
+      @inter_library_loans = InterLibraryLoan.paginate(:page => params[:page])
     end
 
     respond_to do |format|

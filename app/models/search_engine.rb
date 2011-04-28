@@ -10,7 +10,9 @@ class SearchEngine < ActiveRecord::Base
   after_save :clear_all_cache
   after_destroy :clear_all_cache
 
-  paginates_per 10
+  def self.per_page
+    10
+  end
 
   def clear_all_cache
     Rails.cache.delete('search_engine_all')

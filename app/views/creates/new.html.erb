@@ -5,7 +5,7 @@
 <%= form_for(@create) do |f| -%>
   <%= f.error_messages -%>
 
-  <p>
+  <div class="field">
     <%= f.label t('activerecord.models.patron') -%><br />
     <%- if @create.patron -%>
 		  <%= link_to @create.patron.full_name, @create.patron -%>
@@ -13,9 +13,9 @@
     <%- else -%>
       <%= f.text_field :patron_id -%>
     <%- end -%>
-  </p>
+  </div>
 
-  <p>
+  <div class="field">
     <%= f.label t('activerecord.models.work') -%><br />
     <%- if @create.work -%>
 		  <%= link_to @create.work.original_title, @create.work -%>
@@ -23,11 +23,11 @@
     <%- else -%>
       <%= f.text_field :work_id -%>
     <%- end -%>
-  </p>
+  </div>
 
-  <p>
+  <div class="actions">
     <%= f.submit %>
-  </p>
+  </div>
 <%- end -%>
 
 </div>

@@ -6,6 +6,9 @@ event_00001:
   name: !binary |
     5LuV5LqL5aeL44KB
 
+  display_name: !binary |
+    5LuV5LqL5aeL44KB
+
   deleted_at: 
   start_at: 2008-01-13 02:54:00 +09:00
   id: 1
@@ -19,6 +22,9 @@ event_00002:
   event_category_id: 2
   end_at: 2008-01-14 02:54:00 +09:00
   name: !binary |
+    44OG44K544OI
+
+  display_name: !binary |
     44OG44K544OI
 
   deleted_at: 
@@ -36,6 +42,9 @@ event_00003:
   name: !binary |
     44Of44O844OG44Kj44Oz44Kw
 
+  display_name: !binary |
+    44Of44O844OG44Kj44Oz44Kw
+
   deleted_at: 
   start_at: 2008-01-13 00:00:00 +09:00
   id: 3
@@ -47,6 +56,9 @@ event_00004:
   event_category_id: 4
   end_at: 2008-02-06 00:00:00 +09:00
   name: !binary |
+    44OG44K544OI
+
+  display_name: !binary |
     44OG44K544OI
 
   deleted_at: 
@@ -62,6 +74,7 @@ event_00005:
   event_category_id: 1
   end_at: 2008-02-08 00:00:00 +09:00
   name: test
+  display_name: test
   deleted_at: 
   start_at: 2008-02-05 00:00:00 +09:00
   id: 5
@@ -75,6 +88,9 @@ event_00006:
   name: !binary |
     44Gq44KT44Go44GL44GL44KT44Go44GL
 
+  display_name: !binary |
+    44Gq44KT44Go44GL44GL44KT44Go44GL
+
   deleted_at: 
   start_at: 2008-02-05 00:00:00 +09:00
   id: 6
@@ -86,6 +102,7 @@ event_00007:
   event_category_id: 1
   end_at: 2008-02-08 00:00:00 +09:00
   name: test
+  display_name: test
   deleted_at: 
   start_at: 2008-02-05 00:00:00 +09:00
   id: 7
@@ -97,6 +114,7 @@ event_00008:
   event_category_id: 1
   end_at: 2008-02-05 15:00:00 +09:00
   name: test
+  display_name: test
   deleted_at: 
   start_at: 2008-02-05 15:00:00 +09:00
   id: 8

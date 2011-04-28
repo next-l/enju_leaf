@@ -5,18 +5,18 @@
 <%= form_for(@user) do |f| -%>
   <%= f.error_messages -%>
 
-  <%= render :partial => 'users/edit_credential', :locals => {:f => f} -%>
-  
-  <p>
+  <%= render :partial => 'users/edit_credential', :locals => {:f => f, :user => @user} -%>
+
+  <div class="actions">
     <%= f.submit %>
-  </p>
+  </div>
 <div style="clear: both">
-  <p>
+  <div class="field">
     <%= f.label :keyword_list -%><br />
     <%= f.text_area :keyword_list, :class => 'resource_textarea' -%>
-  </p>
+  </div>
 
-  <p>
+  <div class="field">
     <%= f.label t('user.reset_checkout_icalendar_url') -%><br />
     <div id="feed_token">
       <%- if @user.checkout_icalendar_token -%>
@@ -24,30 +24,30 @@
         <%= f.hidden_field :checkout_icalendar_token -%>
       <%- end -%>
       <br />
-      <input onclick="$.ajax({data:'authenticity_token=' + encodeURIComponent('<%= form_authenticity_token %>'), success:function(request){$('#feed_token').html(request);}, type:'get', url:'/users/<%= @user.username %>/edit?mode=feed_token'});" type="button" value="<%= t('page.reset') %>" />
-      <input onclick="$.ajax({data:'authenticity_token=' + encodeURIComponent('<%= form_authenticity_token %>'), success:function(request){$('#feed_token').html(request);}, type:'get', url:'/users/<%= @user.username %>/edit?disable=true&amp;mode=feed_token'});" type="button" value="<%= t('page.delete') %>" />
+      <input onclick="$.ajax({data:'authenticity_token=' + encodeURIComponent('<%= form_authenticity_token %>'), success:function(request){$('#feed_token').html(request);}, type:'get', url:'<%= edit_user_path(@user, :mode => 'feed_token') %>'});" type="button" value="<%= t('page.reset') %>" />
+      <input onclick="$.ajax({data:'authenticity_token=' + encodeURIComponent('<%= form_authenticity_token %>'), success:function(request){$('#feed_token').html(request);}, type:'get', url:'<%= edit_user_path(@user, :disable => true, :mode => 'feed_token') %>'});" type="button" value="<%= t('page.delete') %>" />
     </div>
     <br />
-  </p>
+  </div>
 
-  <p>
+  <div class="field">
     <%= f.label :note -%><br />
     <%= f.text_area :note, :class => 'resource_textarea' -%>
-  </p>
+  </div>
 
   <!--
   <h1 class="title"><%= t('page.history') -%></h1>
-  <p>
+  <div class="field">
     <%= f.check_box :save_search_history -%> <%= ('Save search history') -%>
-  </p>
+  </div>
 
-  <p>
+  <div class="field">
     <%= f.check_box :save_checkout_history -%> <%= ('Save checkout history') -%>
-  </p>
+  </div>
   -->
-  <p>
+  <div class="actions">
     <%= f.submit %>
-  </p>
+  </div>
 
   <%- end -%>
 

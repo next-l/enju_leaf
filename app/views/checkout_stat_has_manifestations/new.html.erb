@@ -1,22 +1,7 @@
 <div id="content_detail" class="ui-corner-all">
 <h1 class="title"><%= t('page.new', :model => t('activerecord.models.checkout_stat_has_manifestation')) -%></h1>
 <div id="content_list">
-
-<%= form_for(@checkout_stat_has_manifestation) do |f| -%>
-  <%= f.error_messages -%>
-
-  <p>
-    <%= f.label t('activerecord.models.manifestation_checkout_stat') -%><br />
-    <%= f.text_field :manifestation_checkout_stat_id -%>
-  </p>
-  <p>
-    <%= f.label t('activerecord.models.manifestation') -%><br />
-    <%= f.text_field :manifestation_id -%>
-  </p>
-  <p>
-    <%= f.submit %>
-  </p>
-<%- end -%>
+  <%= render 'form' %>
 </div>
 </div>
 

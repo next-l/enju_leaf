@@ -31,4 +31,28 @@ class UserGroupHasCheckoutType < ActiveRecord::Base
     end
   end
 
+  def self.update_current_checkout_count
+    sql = [
+      'SELECT count(checkouts.id) as current_checkout_count,
+        users.user_group_id,
+        items.checkout_type_id
+        FROM checkouts LEFT OUTER JOIN items
+        ON (checkouts.item_id = items.id)
+        LEFT OUTER JOIN users
+        ON (users.id = checkouts.user_id)
+        WHERE checkouts.checkin_id IS NULL
+        GROUP BY user_group_id, checkout_type_id;'
+    ]
+    UserGroupHasCheckoutType.find_by_sql(sql).each do |result|
+      update_sql = [
+        'UPDATE user_group_has_checkout_types
+          SET current_checkout_count = ?
+          WHERE user_group_id = ? AND checkout_type_id = ?;',
+          result.current_checkout_count, result.user_group_id, result.checkout_type_id
+      ]
+      ActiveRecord::Base.connection.execute(
+        self.send(:sanitize_sql_array, update_sql)
+      )
+    end
+  end
 end

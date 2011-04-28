@@ -1,4 +1,4 @@
-<%- cache(:controller => :manifestations, :action => :show, :id => manifestation.id, :page => 'title', :role => current_user_role_name, :locale => @locale) do %>
+<%- cache(:controller => :manifestations, :action => :show, :id => manifestation.id, :page => 'title', :role => current_user_role_name, :locale => @locale, :manifestation_id => nil) do %>
   <h2 class="resource_title">
     [M]
     <%= link_to manifestation.original_title, manifestation -%>
@@ -14,8 +14,8 @@
     <%- if manifestation.publishers.readable_by(current_user).exists? -%>
       <%= t('patron.publisher') -%>: <%= raw patrons_list(manifestation.publishers.readable_by(current_user)) -%>
     <% end %>
-    <%- if manifestation.date_of_publication -%>
-      (<%= manifestation.date_of_publication.strftime('%Y') -%>)
+    <%- if manifestation.pub_date.present? -%>
+      (<%= t('activerecord.attributes.manifestation.pub_date') %>: <%= manifestation.pub_date -%>)
     <%- end -%>
     <%- unless manifestation.access_address.blank? -%>
       <br />

@@ -30,5 +30,4 @@ class UserCheckoutStat < ActiveRecord::Base
     end
     self.completed_at = Time.zone.now
   end
-
 end

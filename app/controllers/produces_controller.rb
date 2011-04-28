@@ -9,13 +9,13 @@ class ProducesController < ApplicationController
   def index
     case
     when @patron
-      @produces = @patron.produces.order(:position).page(params[:page])
+      @produces = Produce.paginate(:page => params[:page], :conditions => {:patron_id => @patron.id}, :order => ['position'])
     when @manifestation
-      @produces = @manifestation.produces.order(:position).page(params[:page])
+      @produces = Produce.paginate(:page => params[:page], :conditions => {:manifestation_id => @manifestation.id}, :order => ['position'])
     else
-      @produces = Produce.page(params[:page])
+      @produces = Produce.paginate(:page => params[:page])
     end
-      
+
     respond_to do |format|
       format.html # index.rhtml
       format.xml  { render :xml => @produces }
@@ -47,9 +47,7 @@ class ProducesController < ApplicationController
       redirect_to manifestation_patrons_url(@manifestation)
       return
     else
-      @produce = Produce.new
-      @produce.patron = @patron
-      @produce.manifestation = @manifestation
+      @produce = Produce.new(:manifestation => @manifestation, :patron => @patron)
     end
   end
 

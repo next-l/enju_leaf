@@ -11,7 +11,7 @@ class Question < ActiveRecord::Base
 
   validates_associated :user
   validates_presence_of :user, :body
-  #acts_as_soft_deletable
+
   searchable do
     text :body, :answer_body
     string :username
@@ -29,7 +29,7 @@ class Question < ActiveRecord::Base
 
   acts_as_taggable_on :tags
   enju_ndl
- 
+
   def self.per_page
     10
   end

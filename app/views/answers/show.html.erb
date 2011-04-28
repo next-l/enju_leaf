@@ -21,7 +21,7 @@
     <%- @answer.items.each do |item| -%>
       <li>
         <%= link_to item.manifestation.original_title, item.manifestation -%>
-        <% if item.item_identifier.present? %>
+        <% if item.item_identifier? %>
           (<%= link_to item.item_identifier, item -%>)
         <% end %>
       </li>

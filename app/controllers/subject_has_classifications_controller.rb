@@ -8,11 +8,11 @@ class SubjectHasClassificationsController < ApplicationController
   # GET /subject_has_classifications.xml
   def index
     case when @subject
-      @subject_has_classifications = @subject.subject_has_classifications.page(params[:page])
+      @subject_has_classifications = @subject.subject_has_classifications.paginate(:page => params[:page])
     when @classification
-      @subject_has_classifications = @classification.subject_has_classifications.page(params[:page])
+      @subject_has_classifications = @classification.subject_has_classifications.paginate(:page => params[:page])
     else
-      @subject_has_classifications = SubjectHasClassification.page(params[:page])
+      @subject_has_classifications = SubjectHasClassification.paginate(:page => params[:page])
     end
 
     respond_to do |format|
@@ -24,8 +24,6 @@ class SubjectHasClassificationsController < ApplicationController
   # GET /subject_has_classifications/1
   # GET /subject_has_classifications/1.xml
   def show
-    @subject_has_classification = SubjectHasClassification.find(params[:id])
-
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @subject_has_classification }
@@ -47,7 +45,6 @@ class SubjectHasClassificationsController < ApplicationController
 
   # GET /subject_has_classifications/1/edit
   def edit
-    @subject_has_classification = SubjectHasClassification.find(params[:id])
   end
 
   # POST /subject_has_classifications
@@ -70,8 +67,6 @@ class SubjectHasClassificationsController < ApplicationController
   # PUT /subject_has_classifications/1
   # PUT /subject_has_classifications/1.xml
   def update
-    @subject_has_classification = SubjectHasClassification.find(params[:id])
-
     respond_to do |format|
       if @subject_has_classification.update_attributes(params[:subject_has_classification])
         flash[:notice] = t('controller.successfully_updated', :model => t('activerecord.models.subject_has_classification'))
@@ -87,7 +82,6 @@ class SubjectHasClassificationsController < ApplicationController
   # DELETE /subject_has_classifications/1
   # DELETE /subject_has_classifications/1.xml
   def destroy
-    @subject_has_classification = SubjectHasClassification.find(params[:id])
     @subject_has_classification.destroy
 
     respond_to do |format|

@@ -4,7 +4,7 @@ class BookmarkStatHasManifestationsController < ApplicationController
   # GET /bookmark_stat_has_manifestations
   # GET /bookmark_stat_has_manifestations.xml
   def index
-    @bookmark_stat_has_manifestations = BookmarkStatHasManifestation.page(params[:page])
+    @bookmark_stat_has_manifestations = BookmarkStatHasManifestation.paginate(:page => params[:page])
 
     respond_to do |format|
       format.html # index.html.erb
@@ -15,8 +15,6 @@ class BookmarkStatHasManifestationsController < ApplicationController
   # GET /bookmark_stat_has_manifestations/1
   # GET /bookmark_stat_has_manifestations/1.xml
   def show
-    @bookmark_stat_has_manifestation = BookmarkStatHasManifestation.find(params[:id])
-
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @bookmark_stat_has_manifestation }
@@ -36,7 +34,6 @@ class BookmarkStatHasManifestationsController < ApplicationController
 
   # GET /bookmark_stat_has_manifestations/1/edit
   def edit
-    @bookmark_stat_has_manifestation = BookmarkStatHasManifestation.find(params[:id])
   end
 
   # POST /bookmark_stat_has_manifestations
@@ -59,8 +56,6 @@ class BookmarkStatHasManifestationsController < ApplicationController
   # PUT /bookmark_stat_has_manifestations/1
   # PUT /bookmark_stat_has_manifestations/1.xml
   def update
-    @bookmark_stat_has_manifestation = BookmarkStatHasManifestation.find(params[:id])
-
     respond_to do |format|
       if @bookmark_stat_has_manifestation.update_attributes(params[:bookmark_stat_has_manifestation])
         flash[:notice] = t('controller.successfully_updated', :model => t('activerecord.models.bookmark_stat_has_manifestation'))
@@ -76,7 +71,6 @@ class BookmarkStatHasManifestationsController < ApplicationController
   # DELETE /bookmark_stat_has_manifestations/1
   # DELETE /bookmark_stat_has_manifestations/1.xml
   def destroy
-    @bookmark_stat_has_manifestation = BookmarkStatHasManifestation.find(params[:id])
     @bookmark_stat_has_manifestation.destroy
 
     respond_to do |format|

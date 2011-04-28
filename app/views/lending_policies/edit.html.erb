@@ -5,34 +5,34 @@
 <%= form_for(@lending_policy) do |f| -%>
   <%= f.error_messages -%>
 
-  <p>
+  <div class="field">
     <%= f.label :item_id, t('activerecord.models.item') -%><br />
     <%= f.text_field :item_id -%>
-  </p>
-  <p>
+  </div>
+  <div class="field">
     <%= f.label :user_group_id, t('activerecord.models.user_group') -%><br />
     <%= f.select :user_group_id, @user_groups.collect{|u| [u.display_name.localize, u.id]} -%>
-  </p>
-  <p>
+  </div>
+  <div class="field">
     <%= f.label :loan_period -%><br />
     <%= f.text_field :loan_period -%>
-  </p>
-  <p>
+  </div>
+  <div class="field">
     <%= f.label :fixed_due_date -%><br />
     <%= f.text_field :fixed_due_date -%>
-  </p>
-  <p>
+  </div>
+  <div class="field">
     <%= f.label :renewal -%><br />
     <%= f.text_field :renewal -%>
-  </p>
-  <p>
+  </div>
+  <div class="field">
     <%= f.label :fine -%><br />
     <%= f.text_field :fine -%>
-  </p>
-  <p>
+  </div>
+  <div class="field">
     <%= f.label :note -%><br />
     <%= f.text_area :note -%>
-  </p>
+  </div>
   <div class="actions">
     <%= f.submit %>
   </div>

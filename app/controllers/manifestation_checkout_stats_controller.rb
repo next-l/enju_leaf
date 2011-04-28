@@ -5,7 +5,7 @@ class ManifestationCheckoutStatsController < ApplicationController
   # GET /manifestation_checkout_stats
   # GET /manifestation_checkout_stats.xml
   def index
-    @manifestation_checkout_stats = ManifestationCheckoutStat.paginate(:all, :page => params[:page])
+    @manifestation_checkout_stats = ManifestationCheckoutStat.paginate(:page => params[:page])
 
     respond_to do |format|
       format.html # index.html.erb
@@ -16,9 +16,8 @@ class ManifestationCheckoutStatsController < ApplicationController
   # GET /manifestation_checkout_stats/1
   # GET /manifestation_checkout_stats/1.xml
   def show
-    @manifestation_checkout_stat = ManifestationCheckoutStat.find(params[:id])
     CheckoutStatHasManifestation.per_page = 65534 if params[:format] == 'csv'
-    @stats = @manifestation_checkout_stat.checkout_stat_has_manifestations.paginate(:all, :order => 'checkouts_count DESC, manifestation_id', :page => params[:page])
+    @stats = @manifestation_checkout_stat.checkout_stat_has_manifestations.paginate(:order => 'checkouts_count DESC, manifestation_id', :page => params[:page])
 
     respond_to do |format|
       format.html # show.html.erb
@@ -40,7 +39,6 @@ class ManifestationCheckoutStatsController < ApplicationController
 
   # GET /manifestation_checkout_stats/1/edit
   def edit
-    @manifestation_checkout_stat = ManifestationCheckoutStat.find(params[:id])
   end
 
   # POST /manifestation_checkout_stats
@@ -63,8 +61,6 @@ class ManifestationCheckoutStatsController < ApplicationController
   # PUT /manifestation_checkout_stats/1
   # PUT /manifestation_checkout_stats/1.xml
   def update
-    @manifestation_checkout_stat = ManifestationCheckoutStat.find(params[:id])
-
     respond_to do |format|
       if @manifestation_checkout_stat.update_attributes(params[:manifestation_checkout_stat])
         flash[:notice] = t('controller.successfully_updated', :model => t('activerecord.models.manifestation_checkout_stat'))
@@ -80,7 +76,6 @@ class ManifestationCheckoutStatsController < ApplicationController
   # DELETE /manifestation_checkout_stats/1
   # DELETE /manifestation_checkout_stats/1.xml
   def destroy
-    @manifestation_checkout_stat = ManifestationCheckoutStat.find(params[:id])
     @manifestation_checkout_stat.destroy
 
     respond_to do |format|

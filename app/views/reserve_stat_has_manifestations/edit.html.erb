@@ -1,22 +1,7 @@
 <div id="content_detail" class="ui-corner-all">
 <h1 class="title"><%= t('page.editing', :model => t('activerecord.models.reserve_stat_has_manifestation')) -%></h1>
 <div id="content_list">
-
-<%= form_for(@reserve_stat_has_manifestation) do |f| -%>
-  <%= f.error_messages -%>
-
-  <p>
-    <%= f.label t('activerecord.models.manifestation_reserve_stat') -%><br />
-    <%= f.text_field :manifestation_reserve_stat_id -%>
-  </p>
-  <p>
-    <%= f.label t('activerecord.models.manifestation') -%><br />
-    <%= f.text_field :manifestation_id -%>
-  </p>
-  <p>
-    <%= f.submit %>
-  </p>
-<%- end -%>
+  <%= render 'form' %>
 </div>
 </div>
 

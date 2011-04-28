@@ -65,11 +65,7 @@ class QuestionsController < ApplicationController
       facet :solved
     end
 
-    begin
-      @question_facet = search.execute!.facet(:solved).rows
-    rescue RSolr::RequestError
-      @question_facet = []
-    end
+    @question_facet = search.execute!.facet(:solved).rows
 
     if @solved
       search.build do
@@ -79,16 +75,16 @@ class QuestionsController < ApplicationController
 
     page = params[:page] || 1
     search.query.paginate(page.to_i, Question.per_page)
-    begin
-      result = search.execute!
-      @questions = result.results
-    rescue RSolr::RequestError
-      @questions = WillPaginate::Collection.create(1,1,0) do end
-    end
+    result = search.execute!
+    @questions = result.results
     @count[:query_result] = @questions.total_entries
 
     if query.present?
-      @crd_results = Question.search_crd(:query_01 => query, :page => params[:crd_page])
+      begin
+        @crd_results = Question.search_crd(:query_01 => query, :page => params[:crd_page])
+      rescue Timeout::Error
+        @crd_results = WillPaginate::Collection.create(1,1,0) do end
+      end
     end
 
     respond_to do |format|
@@ -105,10 +101,6 @@ class QuestionsController < ApplicationController
       format.atom
       format.js
     end
-  rescue RSolr::RequestError
-    flash[:notice] = t('page.error_occured')
-    redirect_to questions_url
-    return
   end
 
   # GET /questions/1
@@ -155,7 +147,7 @@ class QuestionsController < ApplicationController
     respond_to do |format|
       if @question.save
         flash[:notice] = t('controller.successfully_created', :model => t('activerecord.models.question'))
-        format.html { redirect_to user_question_url(@question.user, @question) }
+        format.html { redirect_to @question }
         format.xml  { render :xml => @question, :status => :created, :location => user_question_url(@question.user, @question) }
       else
         format.html { render :action => "new" }
@@ -172,7 +164,7 @@ class QuestionsController < ApplicationController
     respond_to do |format|
       if @question.update_attributes(params[:question])
         flash[:notice] = t('controller.successfully_updated', :model => t('activerecord.models.question'))
-        format.html { redirect_to user_question_url(@question.user, @question) }
+        format.html { redirect_to @question }
         format.xml  { head :ok }
       else
         format.html { render :action => "edit" }
@@ -196,5 +188,4 @@ class QuestionsController < ApplicationController
       format.xml  { head :ok }
     end
   end
-
 end

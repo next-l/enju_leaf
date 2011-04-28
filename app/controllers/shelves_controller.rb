@@ -19,7 +19,7 @@ class ShelvesController < ApplicationController
       if @library
         @shelves = @library.shelves.paginate(:page => params[:page], :include => :library, :order => ['shelves.position'])
       else
-        @shelves = Shelf.paginate(:all, :page => params[:page], :include => :library, :order => ['shelves.position'])
+        @shelves = Shelf.paginate(:page => params[:page], :include => :library, :order => ['shelves.position'])
       end
     end
 
@@ -67,7 +67,7 @@ class ShelvesController < ApplicationController
       if @shelf.save
         flash[:notice] = t('controller.successfully_created', :model => t('activerecord.models.shelf'))
         format.html { redirect_to shelf_url(@shelf) }
-        format.xml  { render :xml => @shelf, :status => :created, :location => library_shelf_url(@shelf.library.name, @shelf) }
+        format.xml  { render :xml => @shelf, :status => :created, :location => library_shelf_url(@shelf.library, @shelf) }
       else
         @library = Library.first if @shelf.library.nil?
         format.html { render :action => "new" }
@@ -79,19 +79,18 @@ class ShelvesController < ApplicationController
   # PUT /shelves/1
   # PUT /shelves/1.xml
   def update
-    @shelf = Shelf.find(params[:id])
     @shelf.library = @library if @library
 
     if params[:position]
       @shelf.insert_at(params[:position])
-      redirect_to library_shelves_url(@shelf.library.name)
+      redirect_to library_shelves_url(@shelf.library)
       return
     end
 
     respond_to do |format|
       if @shelf.update_attributes(params[:shelf])
         flash[:notice] = t('controller.successfully_updated', :model => t('activerecord.models.shelf'))
-        format.html { redirect_to library_shelf_url(@shelf.library.name, @shelf) }
+        format.html { redirect_to library_shelf_url(@shelf.library, @shelf) }
         format.xml  { head :ok }
       else
         @library = Library.first if @library.nil?
@@ -104,7 +103,6 @@ class ShelvesController < ApplicationController
   # DELETE /shelves/1
   # DELETE /shelves/1.xml
   def destroy
-    @shelf = Shelf.find(params[:id])
     if @shelf.id == 1
       access_denied; return
     end
@@ -115,5 +113,4 @@ class ShelvesController < ApplicationController
       format.xml  { head :ok }
     end
   end
-
 end

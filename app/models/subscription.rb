@@ -13,7 +13,6 @@ class Subscription < ActiveRecord::Base
     time :updated_at
     integer :work_ids, :multiple => true
   end
-  #acts_as_soft_deletable
 
   def self.per_page
     10

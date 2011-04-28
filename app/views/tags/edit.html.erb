@@ -4,14 +4,14 @@
 
 <%= form_for(@tag, :url => tag_path(@tag.name)) do |f| -%>
   <%= f.error_messages -%>
-  <p>
+  <div class="field">
     <%= f.label :name -%><br />
     <%= f.text_field :name, :value => @tag.name -%>
-  </p>
+  </div>
 
-  <p>
+  <div class="actions">
     <%= f.submit %>
-  </p>
+  </div>
 <%- end -%>
 </div>
 </div>

@@ -7,9 +7,8 @@
     <%= t('page.search_term') -%>: <%= search_field_tag 'query', h(@query), {:id => 'search_form_top', :class => 'search_form', :placeholder => t('page.search_term')} -%>
     <%= submit_tag t('page.search') -%>
   </p>
-  <%= javascript_tag("$('#search_form_top').focus()") -%>
 <%- end -%>
-        
+
 <table class="index">
   <tr>
     <th><%= t('activerecord.attributes.classification.category') -%></th>

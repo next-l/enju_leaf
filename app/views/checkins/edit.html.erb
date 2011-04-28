@@ -5,14 +5,14 @@
 <%= form_for(@checkin) do |f| -%>
   <%= f.error_messages -%>
 
-  <p>
+  <div class="field">
   <%= f.label t('activerecord.models.item') -%><br />
     <%= f.text_field :item_identifier -%>
-  </p>
+  </div>
 
-  <p>
+  <div class="actions">
     <%= f.submit %>
-  </p>
+  </div>
 <%- end -%>
 
 </div>

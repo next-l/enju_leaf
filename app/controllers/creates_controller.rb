@@ -9,11 +9,11 @@ class CreatesController < ApplicationController
   def index
     case
     when @patron
-      @creates = @patron.creates.order(:position).page(params[:page])
+      @creates = Create.paginate(:page => params[:page], :conditions => {:patron_id => @patron.id}, :order => ['position'])
     when @work
-      @creates = @work.creates.order(:position).page(params[:page])
+      @creates = Create.paginate(:page => params[:page], :conditions => {:work_id => @work.id}, :order => ['position'])
     else
-      @creates = Create.page(params[:page])
+      @creates = Create.paginate(:page => params[:page])
     end
 
     respond_to do |format|
@@ -42,9 +42,7 @@ class CreatesController < ApplicationController
       redirect_to work_patrons_url(@work)
       return
     else
-      @create = Create.new
-      @create.patron = @patron
-      @create.work = @work
+      @create = Create.new(:work => @work, :patron => @patron)
     end
   end
 

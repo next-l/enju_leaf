@@ -21,11 +21,11 @@ class InventoryFile < ActiveRecord::Base
       begin
         item = Item.find_by_sql(['SELECT * FROM items WHERE item_identifier = ?', row.to_s.strip])
         self.items << item if item
-      rescue
-        nil
+      rescue ActiveRecord::RecordInvalid
+        next
       end
     end
     file.close
+    true
   end
-
 end

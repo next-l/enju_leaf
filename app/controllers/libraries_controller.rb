@@ -18,15 +18,11 @@ class LibrariesController < ApplicationController
     page = params[:page] || 1
 
     if query.present?
-      begin
-        @libraries = Library.search(:include => [:shelves]) do
-          fulltext query
-          paginate :page => page.to_i, :per_page => Tag.per_page
-          order_by sort[:sort_by], sort[:order]
-        end.results
-      rescue RSolr::RequestError
-        @libraries = WillPaginate::Collection.create(1,1,0) do end
-      end
+      @libraries = Library.search(:include => [:shelves]) do
+        fulltext query
+        paginate :page => page.to_i, :per_page => Library.per_page
+        order_by sort[:sort_by], sort[:order]
+      end.results
     else
       @libraries = Library.paginate(:page => page, :order => "#{sort[:sort_by]} #{sort[:order]}")
     end
@@ -35,18 +31,11 @@ class LibrariesController < ApplicationController
       format.html # index.rhtml
       format.xml  { render :xml => @libraries }
     end
-  rescue RSolr::RequestError
-    flash[:notice] = t('page.error_occured')
-    redirect_to libraries_url
-    return
   end
 
   # GET /libraries/1
   # GET /libraries/1.xml
   def show
-    #@library = Library.first(:conditions => {:name => params[:id]}, :include => :shelves)
-    #raise ActiveRecord::RecordNotFound if @library.nil?
-
     search = Sunspot.new_search(Event)
     library = @library.dup
     search.build do
@@ -55,11 +44,7 @@ class LibrariesController < ApplicationController
     end
     page = params[:event_page] || 1
     search.query.paginate(page.to_i, Event.per_page)
-    begin
-      @events = search.execute!.results
-    rescue RSolr::RequestError
-      @events = WillPaginate::Collection.create(1,1,0) do end
-    end
+    @events = search.execute!.results
 
     respond_to do |format|
       format.html # show.rhtml
@@ -70,12 +55,6 @@ class LibrariesController < ApplicationController
 
   # GET /libraries/new
   def new
-    #@patron = Patron.find(params[:patron_id]) rescue nil
-    #unless @patron
-    #  flash[:notice] = ('Specify patron id.')
-    #  redirect_to patrons_url
-    #  return
-    #end
     @library = Library.new
     @library.country = LibraryGroup.site_config.country
     prepare_options
@@ -83,8 +62,6 @@ class LibrariesController < ApplicationController
 
   # GET /libraries/1;edit
   def edit
-    #@library = Library.first(:conditions => {:name => params[:id]})
-    raise ActiveRecord::RecordNotFound if @library.nil?
     prepare_options
   end
 
@@ -110,9 +87,6 @@ class LibrariesController < ApplicationController
   # PUT /libraries/1
   # PUT /libraries/1.xml
   def update
-    #@library = Library.first(:conditions => {:name => params[:id]})
-    #raise ActiveRecord::RecordNotFound if @library.nil?
-
     if @library and params[:position]
       @library.insert_at(params[:position])
       redirect_to libraries_url
@@ -136,8 +110,6 @@ class LibrariesController < ApplicationController
   # DELETE /libraries/1
   # DELETE /libraries/1.xml
   def destroy
-    #@library = Library.first(:conditions => {:name => params[:id]})
-    #raise ActiveRecord::RecordNotFound if @library.blank?
     raise if @library.web?
 
     @library.destroy

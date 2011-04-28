@@ -1,5 +1,5 @@
 <%- if @user -%>
-  <%= render :partial => 'index_user' -%>
+  <%= render :partial => 'index_user', :locals => {:user => @user} -%>
 <%- else -%>
   <%- if params[:view] == 'overdue' -%>
     <%= render :partial => 'index_overdue' -%>

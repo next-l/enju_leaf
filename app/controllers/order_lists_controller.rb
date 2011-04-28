@@ -7,9 +7,9 @@ class OrderListsController < ApplicationController
   # GET /order_lists.xml
   def index
     if @bookstore
-      @order_lists = @bookstore.order_lists.page(params[:page])
+      @order_lists = @bookstore.order_lists.paginate(:page => params[:page])
     else
-      @order_lists = OrderList.page(params[:page])
+      @order_lists = OrderList.paginate(:page => params[:page])
     end
 
     respond_to do |format|
@@ -23,8 +23,6 @@ class OrderListsController < ApplicationController
   # GET /order_lists/1
   # GET /order_lists/1.xml
   def show
-    @order_list = OrderList.find(params[:id])
-
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @order_list }
@@ -45,7 +43,6 @@ class OrderListsController < ApplicationController
 
   # GET /order_lists/1/edit
   def edit
-    @order_list = OrderList.find(params[:id])
     @bookstores = Bookstore.all
   end
 
@@ -71,8 +68,6 @@ class OrderListsController < ApplicationController
   # PUT /order_lists/1
   # PUT /order_lists/1.xml
   def update
-    @order_list = OrderList.find(params[:id])
-
     respond_to do |format|
       if @order_list.update_attributes(params[:order_list])
         @order_list.sm_order! if params[:mode] == 'order'
@@ -90,7 +85,6 @@ class OrderListsController < ApplicationController
   # DELETE /order_lists/1
   # DELETE /order_lists/1.xml
   def destroy
-    @order_list = OrderList.find(params[:id])
     @order_list.destroy
 
     respond_to do |format|

@@ -1,6 +1,7 @@
 # -*- encoding: utf-8 -*-
 class ManifestationsController < ApplicationController
-  load_and_authorize_resource
+  load_and_authorize_resource :except => :index
+  authorize_resource :only => :index
   before_filter :authenticate_user!, :only => :edit
   before_filter :get_patron
   helper_method :get_manifestation, :get_subject
@@ -17,18 +18,15 @@ class ManifestationsController < ApplicationController
   # GET /manifestations
   # GET /manifestations.xml
   def index
-    @seconds = Benchmark.realtime do
-      if params[:mode] == 'add'
-        unless current_user.try(:has_role?, 'Librarian')
-          access_denied; return
-        end
+    if params[:mode] == 'add'
+      unless current_user.try(:has_role?, 'Librarian')
+        access_denied; return
       end
+    end
+
+    @seconds = Benchmark.realtime do
       @oai = check_oai_params(params)
       next if @oai[:need_not_to_search]
-	    if user_signed_in?
-	      @user = current_user unless @user
-	    end
-
       if params[:format] == 'oai'
         from_and_until_times = set_from_and_until(Manifestation, params[:from], params[:until])
         from_time = @from_time = from_and_until_times[:from]
@@ -60,15 +58,14 @@ class ManifestationsController < ApplicationController
 
       set_reservable
 
+      manifestations, sort, @count = {}, {}, {}
+      query = ""
+
       if params[:format] == 'csv'
         per_page = 65534
       end
 
-      manifestations, sort, @count = {}, {}, {}
-      query = ""
-
-			case
-      when params[:format] == 'sru'
+      if params[:format] == 'sru'
         if params[:operation] == 'searchRetrieve'
           sru = Sru.new(params)
           query = sru.cql.to_sunspot
@@ -77,14 +74,16 @@ class ManifestationsController < ApplicationController
           render :template => 'manifestations/explain', :layout => false
           return
         end
-      when params[:api] == 'openurl' 
-        openurl = Openurl.new(params)
-        @manifestations = openurl.search
-        query = openurl.query_text
-        sort = set_search_result_order(params[:sort_by], params[:order])
       else
-        query = make_query(params[:query], params)
-        sort = set_search_result_order(params[:sort_by], params[:order])
+        if params[:api] == 'openurl'
+          openurl = Openurl.new(params)
+          @manifestations = openurl.search
+          query = openurl.query_text
+          sort = set_search_result_order(params[:sort_by], params[:order])
+        else
+          query = make_query(params[:query], params)
+          sort = set_search_result_order(params[:sort_by], params[:order])
+        end
       end
 
       # 絞り込みを行わない状態のクエリ
@@ -136,7 +135,8 @@ class ManifestationsController < ApplicationController
         :volume_number_list,
         :issue_number_list,
         :serial_number_list,
-        :date_of_publication
+        :date_of_publication,
+        :pub_date
       ] if params[:format] == 'html' or params[:format].nil?
       all_result = search.execute
       @count[:query_result] = all_result.total
@@ -230,7 +230,7 @@ class ManifestationsController < ApplicationController
         when 'ListMetadataFormats'
           render :template => 'manifestations/list_metadata_formats'
         when 'ListSets'
-          @series_statements = SeriesStatement.all
+          @series_statements = SeriesStatement.select([:id, :original_title])
           render :template => 'manifestations/list_sets'
         when 'ListIdentifiers'
           render :template => 'manifestations/list_identifiers'
@@ -248,30 +248,15 @@ class ManifestationsController < ApplicationController
           :inline => true
       }
     end
-  #rescue RSolr::RequestError
-  #  unless params[:format] == 'sru'
-  #    flash[:notice] = t('page.error_occured')
-  #    redirect_to manifestations_url
-  #    return
-  #  else
-  #    render :template => 'manifestations/error.xml', :layout => false
-  #    return
-  #  end
-  #  return
-  rescue QueryError => e
+  #rescue QueryError => e
   #  render :template => 'manifestations/error.xml', :layout => false
-    Rails.logger.info "#{Time.zone.now}\t#{query}\t\t#{current_user.try(:username)}\t#{e}"
+  #  Rails.logger.info "#{Time.zone.now}\t#{query}\t\t#{current_user.try(:username)}\t#{e}"
   #  return
   end
 
   # GET /manifestations/1
   # GET /manifestations/1.xml
   def show
-    if params[:api] or params[:mode] == 'generate_cache'
-      unless my_networks?
-        access_denied; return
-      end
-    end
     if params[:isbn]
       if @manifestation = Manifestation.find_by_isbn(params[:isbn])
         redirect_to @manifestation
@@ -297,8 +282,6 @@ class ManifestationsController < ApplicationController
       else
         access_denied; return
       end
-    when 'generate_cache'
-      check_client_ip_address
     end
 
     return if render_mode(params[:mode])
@@ -343,6 +326,7 @@ class ManifestationsController < ApplicationController
     if @manifestation.series_statement
       @manifestation.original_title = @manifestation.series_statement.original_title
       @manifestation.title_transcription = @manifestation.series_statement.title_transcription
+      @manifestation.issn = @manifestation.series_statement.issn
     elsif @original_manifestation
       @manifestation.original_title = @original_manifestation.original_title
       @manifestation.title_transcription = @original_manifestation.title_transcription
@@ -366,7 +350,6 @@ class ManifestationsController < ApplicationController
         access_denied; return
       end
     end
-    @manifestation = Manifestation.find(params[:id])
     @original_manifestation = Manifestation.where(:id => params[:manifestation_id]).first
     @manifestation.series_statement = @series_statement if @series_statement
     if params[:mode] == 'tag_edit'
@@ -384,7 +367,7 @@ class ManifestationsController < ApplicationController
     if @manifestation.respond_to?(:post_to_scribd)
       @manifestation.post_to_scribd = true if params[:manifestation][:post_to_scribd] == "1"
     end
-    if @manifestation.original_title.blank?
+    unless @manifestation.original_title?
       @manifestation.original_title = @manifestation.attachment_file_name
     end
 
@@ -410,8 +393,6 @@ class ManifestationsController < ApplicationController
   # PUT /manifestations/1
   # PUT /manifestations/1.xml
   def update
-    @manifestation = Manifestation.find(params[:id])
-    
     respond_to do |format|
       if @manifestation.update_attributes(params[:manifestation])
         flash[:notice] = t('controller.successfully_updated', :model => t('activerecord.models.manifestation'))
@@ -431,7 +412,6 @@ class ManifestationsController < ApplicationController
   # DELETE /manifestations/1
   # DELETE /manifestations/1.xml
   def destroy
-    @manifestation = Manifestation.find(params[:id])
     @manifestation.destroy
     flash[:notice] = t('controller.successfully_deleted', :model => t('activerecord.models.manifestation'))
 
@@ -589,10 +569,10 @@ class ManifestationsController < ApplicationController
       render :partial => 'manifestations/tag_list', :locals => {:manifestation => @manifestation}
     when 'show_index'
       render :partial => 'manifestations/show_index', :locals => {:manifestation => @manifestation}
-    when 'show_authors'
-      render :partial => 'manifestations/show_authors', :locals => {:manifestation => @manifestation}
-    when 'show_all_authors'
-      render :partial => 'manifestations/show_authors', :locals => {:manifestation => @manifestation}
+    when 'show_creators'
+      render :partial => 'manifestations/show_creators', :locals => {:manifestation => @manifestation}
+    when 'show_all_creators'
+      render :partial => 'manifestations/show_creators', :locals => {:manifestation => @manifestation}
     when 'pickup'
       render :partial => 'manifestations/pickup', :locals => {:manifestation => @manifestation}
     when 'screen_shot'

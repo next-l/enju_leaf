@@ -4,7 +4,7 @@ class CheckoutStatHasUsersController < ApplicationController
   # GET /checkout_stat_has_users
   # GET /checkout_stat_has_users.xml
   def index
-    @checkout_stat_has_users = CheckoutStatHasUser.paginate(:all, :page => params[:page])
+    @checkout_stat_has_users = CheckoutStatHasUser.paginate(:page => params[:page])
 
     respond_to do |format|
       format.html # index.html.erb
@@ -15,8 +15,6 @@ class CheckoutStatHasUsersController < ApplicationController
   # GET /checkout_stat_has_users/1
   # GET /checkout_stat_has_users/1.xml
   def show
-    @checkout_stat_has_user = CheckoutStatHasUser.find(params[:id])
-
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @checkout_stat_has_user }
@@ -36,7 +34,6 @@ class CheckoutStatHasUsersController < ApplicationController
 
   # GET /checkout_stat_has_users/1/edit
   def edit
-    @checkout_stat_has_user = CheckoutStatHasUser.find(params[:id])
   end
 
   # POST /checkout_stat_has_users
@@ -59,8 +56,6 @@ class CheckoutStatHasUsersController < ApplicationController
   # PUT /checkout_stat_has_users/1
   # PUT /checkout_stat_has_users/1.xml
   def update
-    @checkout_stat_has_user = CheckoutStatHasUser.find(params[:id])
-
     respond_to do |format|
       if @checkout_stat_has_user.update_attributes(params[:checkout_stat_has_user])
         flash[:notice] = t('controller.successfully_updated', :model => t('activerecord.models.checkout_stat_has_user'))
@@ -76,7 +71,6 @@ class CheckoutStatHasUsersController < ApplicationController
   # DELETE /checkout_stat_has_users/1
   # DELETE /checkout_stat_has_users/1.xml
   def destroy
-    @checkout_stat_has_user = CheckoutStatHasUser.find(params[:id])
     @checkout_stat_has_user.destroy
 
     respond_to do |format|

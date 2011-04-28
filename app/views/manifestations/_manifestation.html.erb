@@ -1,7 +1,7 @@
             <tr class="line<%= cycle("0", "1") -%>">
               <td style="width: 30px"><%= itemnum = @manifestations.offset + 1 + manifestation_counter -%></td>
               <td style="480px">
-              <% cache(:controller => :manifestations, :action => :show, :id => manifestation.id, :page => 'show_list', :role => current_user_role_name, :locale => @locale) do %>
+                <% cache(:controller => :manifestations, :action => :show, :id => manifestation.id, :page => 'show_list', :role => current_user_role_name, :locale => @locale, :manifestation_id => nil) do %>
                 <%= render :partial => 'manifestations/show_index', :locals => {:manifestation => manifestation} -%>
                 <div class="access_address">
                   <%= link_to manifestation.access_address, manifestation.access_address if manifestation.access_address.present? -%>
@@ -39,7 +39,7 @@
                     <% when @index_patron[:publisher] %>
                       <%= link_to t('page.add'), new_patron_produce_path(@index_patron[:publisher], :manifestation_id => manifestation.id) unless manifestation.publishers.include?(@index_patron[:publisher]) -%>
                     <% when @manifestation %>
-                      <%= link_to t('page.add'), new_manifestation_manifestation_relationship_path(@manifestation, :parent_id => manifestation.id) unless manifestation.children.include?(@manifestation) -%>
+                      <%= link_to t('page.add'), new_manifestation_manifestation_relationship_path(@manifestation, :child_id => manifestation.id) unless manifestation.children.include?(@manifestation) -%>
                     <% else %>
                       <%= link_to image_tag('icons/arrow_divide.png', :size => '16x16', :alt => t('manifestation.add_derivation')), manifestation_manifestations_path(manifestation, :mode => 'add') -%>
                     <% end %>

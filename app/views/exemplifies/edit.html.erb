@@ -5,17 +5,17 @@
 <%= form_for(@exemplify) do |f| -%>
   <%= f.error_messages -%>
 
-  <p>
+  <div class="field">
     <%= f.label t('activerecord.models.manifestation') -%><br />
     <%= f.text_field :manifestation_id -%>
-  </p>
-  <p>
+  </div>
+  <div class="field">
     <%= f.label t('activerecord.models.item') -%><br />
     <%= f.text_field :item_id -%>
-  </p>
-  <p>
+  </div>
+  <div class="actions">
     <%= f.submit %>
-  </p>
+  </div>
 <%- end -%>
 
 </div>

@@ -7,11 +7,11 @@ class PatronMergesController < ApplicationController
   # GET /patron_merges.xml
   def index
     if @patron
-      @patron_merges = @patron.patron_merges.paginate(:all, :page => params[:page], :order => ['patron_merges.id'])
+      @patron_merges = @patron.patron_merges.paginate(:page => params[:page], :order => ['patron_merges.id'])
     elsif @patron_merge_list
-      @patron_merges = @patron_merge_list.patron_merges.paginate(:all, :page => params[:page], :include => 'patron', :order => ['patron_merges.id'])
+      @patron_merges = @patron_merge_list.patron_merges.paginate(:page => params[:page], :include => 'patron', :order => ['patron_merges.id'])
     else
-      @patron_merges = PatronMerge.paginate(:all, :page => params[:page])
+      @patron_merges = PatronMerge.paginate(:page => params[:page])
     end
 
     respond_to do |format|
@@ -23,8 +23,6 @@ class PatronMergesController < ApplicationController
   # GET /patron_merges/1
   # GET /patron_merges/1.xml
   def show
-    @patron_merge = PatronMerge.find(params[:id])
-
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @patron_merge }
@@ -45,7 +43,6 @@ class PatronMergesController < ApplicationController
 
   # GET /patron_merges/1/edit
   def edit
-    @patron_merge = PatronMerge.find(params[:id])
   end
 
   # POST /patron_merges
@@ -68,7 +65,6 @@ class PatronMergesController < ApplicationController
   # PUT /patron_merges/1
   # PUT /patron_merges/1.xml
   def update
-    @patron_merge = PatronMerge.find(params[:id])
     #selected_patron = Patron.find(params[:selected_patron_id])
     #@patron_merge.patrons.each do |patron|
     #  Create.update_all(['patron_id = ?', selected_patron.id], ['patron_id = ?', patron.id])
@@ -94,7 +90,6 @@ class PatronMergesController < ApplicationController
   # DELETE /patron_merges/1
   # DELETE /patron_merges/1.xml
   def destroy
-    @patron_merge = PatronMerge.find(params[:id])
     @patron_merge.destroy
 
     respond_to do |format|

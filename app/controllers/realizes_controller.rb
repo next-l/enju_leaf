@@ -9,11 +9,11 @@ class RealizesController < ApplicationController
   def index
     case
     when @patron
-      @realizes = @patron.realizes.page(params[:page])
+      @realizes = Realize.paginate(:page => params[:page], :conditions => {:patron_id => @patron.id}, :order => ['position'])
     when @expression
-      @realizes = @expression.realizes.order(:position).page(params[:page])
+      @realizes = Realize.paginate(:page => params[:page], :conditions => {:expression_id => @expression.id}, :order => ['position'])
     else
-      @realizes = Realize.page(params[:page])
+      @realizes = Realize.paginate(:page => params[:page])
     end
 
     respond_to do |format|
@@ -25,8 +25,6 @@ class RealizesController < ApplicationController
   # GET /realizes/1
   # GET /realizes/1.xml
   def show
-    @realize = Realize.find(params[:id])
-
     respond_to do |format|
       format.html # show.rhtml
       format.xml  { render :xml => @realize }
@@ -39,7 +37,7 @@ class RealizesController < ApplicationController
       redirect_to expression_patrons_url(@expression)
       return
     elsif @patron and @expression.blank?
-      redirect_to patron_resources_url(@patron)
+      redirect_to patron_expressions_url(@patron)
       return
     else
       @realize = Realize.new(:expression => @expression, :patron => @patron)
@@ -48,7 +46,6 @@ class RealizesController < ApplicationController
 
   # GET /realizes/1;edit
   def edit
-    @realize = Realize.find(params[:id])
   end
 
   # POST /realizes
@@ -71,8 +68,6 @@ class RealizesController < ApplicationController
   # PUT /realizes/1
   # PUT /realizes/1.xml
   def update
-    @realize = Realize.find(params[:id])
-    
     # 並べ替え
     if @expression and params[:position]
       @realize.insert_at(params[:position])
@@ -95,7 +90,6 @@ class RealizesController < ApplicationController
   # DELETE /realizes/1
   # DELETE /realizes/1.xml
   def destroy
-    @realize = Realize.find(params[:id])
     @realize.destroy
 
     respond_to do |format|

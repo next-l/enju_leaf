@@ -67,14 +67,37 @@ class PatronImportFilesControllerTest < ActionController::TestCase
     old_patrons_count = Patron.count
     old_import_results_count = PatronImportResult.count
     assert_difference('PatronImportFile.count') do
-      post :create, :patron_import_file => {:patron_import => fixture_file_upload("patron_import_file_sample1.tsv", 'text/csv') }
+      post :create, :patron_import_file => {:patron_import => fixture_file_upload("../../examples/patron_import_file_sample1.tsv", 'text/csv') }
     end
-    assert_difference('Patron.count', 2) do
+    assert_difference('Patron.count', 3) do
       assigns(:patron_import_file).import_start
     end
-    assert_equal '田辺浩介', Patron.find(:first, :order => 'id DESC').full_name
-    assert_equal old_patrons_count + 2, Patron.count
-    assert_equal old_import_results_count + 3, PatronImportResult.count
+    assert_equal '原田 ushi 隆史', Patron.order('id DESC')[0].full_name
+    assert_equal '田辺浩介', Patron.order('id DESC')[1].full_name
+    assert_equal Time.zone.parse('1978-01-01'), Patron.order('id DESC')[2].date_of_birth
+    assert_equal old_patrons_count + 3, Patron.count
+    assert_equal old_import_results_count + 4, PatronImportResult.count
+
+    assert_equal 'librarian1', assigns(:patron_import_file).user.username
+    assert_redirected_to patron_import_file_path(assigns(:patron_import_file))
+  end
+
+  def test_librarian_should_create_patron_import_file_written_in_shift_jis
+    sign_in users(:librarian1)
+    old_patrons_count = Patron.count
+    old_import_results_count = PatronImportResult.count
+    assert_difference('PatronImportFile.count') do
+      post :create, :patron_import_file => {:patron_import => fixture_file_upload("../../examples/patron_import_file_sample3.tsv", 'text/csv') }
+    end
+    assert_difference('Patron.count', 4) do
+      assigns(:patron_import_file).import_start
+    end
+    assert_equal '原田 ushi 隆史', Patron.order('id DESC')[0].full_name
+    assert_equal '田辺浩介', Patron.order('id DESC')[1].full_name
+    assert_equal 'fugafuga@example.jp', Patron.order('id DESC')[2].email
+    assert_equal Role.find_by_name('Guest'), Patron.order('id DESC')[3].required_role
+    assert_nil Patron.order('id DESC')[1].email
+    assert_equal old_import_results_count + 5, PatronImportResult.count
 
     assert_equal 'librarian1', assigns(:patron_import_file).user.username
     assert_redirected_to patron_import_file_path(assigns(:patron_import_file))
@@ -84,7 +107,7 @@ class PatronImportFilesControllerTest < ActionController::TestCase
     sign_in users(:librarian1)
     old_patrons_count = Patron.count
     assert_difference('PatronImportFile.count') do
-      post :create, :patron_import_file => {:patron_import => fixture_file_upload("patron_import_file_sample2.tsv", 'text/csv') }
+      post :create, :patron_import_file => {:patron_import => fixture_file_upload("../../examples/patron_import_file_sample2.tsv", 'text/csv') }
     end
     assert_difference('User.count', 4) do
       assigns(:patron_import_file).import_start

@@ -28,26 +28,17 @@ class SeriesStatementsController < ApplicationController
     end
     page = params[:page] || 1
     search.query.paginate(page.to_i, SeriesStatement.per_page)
-    begin
-      @series_statements = search.execute!.results
-    rescue RSolr::RequestError
-      @series_statements = WillPaginate::Collection.create(1,1,0) do end
-    end
+    @series_statements = search.execute!.results
 
     respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @series_statements }
     end
-  rescue RSolr::RequestError
-    flash[:notice] = t('page.error_occured')
-    redirect_to series_statements_url
-    return
   end
 
   # GET /series_statements/1
   # GET /series_statements/1.xml
   def show
-    @series_statement = SeriesStatement.find(params[:id])
     @manifestations = @series_statement.manifestations.paginate(:page => params[:manifestation_page])
 
     respond_to do |format|
@@ -61,7 +52,6 @@ class SeriesStatementsController < ApplicationController
   # GET /series_statements/new.xml
   def new
     @series_statement = SeriesStatement.new
-    @series_statement.resource = @manifestation if @manifestation
 
     respond_to do |format|
       format.html # new.html.erb
@@ -71,7 +61,6 @@ class SeriesStatementsController < ApplicationController
 
   # GET /series_statements/1/edit
   def edit
-    @series_statement = SeriesStatement.find(params[:id])
     @series_statement.work = @work if @work
   end
 
@@ -97,8 +86,6 @@ class SeriesStatementsController < ApplicationController
   # PUT /series_statements/1
   # PUT /series_statements/1.xml
   def update
-    @series_statement = SeriesStatement.find(params[:id])
-
     if params[:position]
       @series_statement.insert_at(params[:position])
       redirect_to series_statements_url
@@ -120,7 +107,6 @@ class SeriesStatementsController < ApplicationController
   # DELETE /series_statements/1
   # DELETE /series_statements/1.xml
   def destroy
-    @series_statement = SeriesStatement.find(params[:id])
     @series_statement.destroy
 
     respond_to do |format|

@@ -4,12 +4,12 @@
 
 <%= form_for(@order) do |f| -%>
   <%= f.error_messages -%>
-  <p>
+  <div class="field">
     <%= f.label t('activerecord.models.order_list') -%><br />
     <%= f.select(:order_list_id, @order_lists.collect{|l| [l.title, l.id]}) -%>
-  </p>
+  </div>
 
-  <p>
+  <div class="field">
     <%= f.label t('activerecord.models.purchase_request') -%><br />
     <%- if @purchase_request -%>
       <%= link_to @purchase_request.title, @purchase_request -%>
@@ -17,11 +17,11 @@
     <%- else -%>
       <%= f.text_field :purchase_request_id -%>
     <%- end -%>
-  </p>
+  </div>
 
-  <p>
+  <div class="actions">
     <%= f.submit %>
-  </p>
+  </div>
 <%- end -%>
 
 </div>

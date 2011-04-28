@@ -5,7 +5,7 @@ class BookmarkStatsController < ApplicationController
   # GET /bookmark_stats
   # GET /bookmark_stats.xml
   def index
-    @bookmark_stats = BookmarkStat.paginate(:all, :page => params[:page])
+    @bookmark_stats = BookmarkStat.paginate(:page => params[:page])
 
     respond_to do |format|
       format.html # index.html.erb
@@ -16,9 +16,8 @@ class BookmarkStatsController < ApplicationController
   # GET /bookmark_stats/1
   # GET /bookmark_stats/1.xml
   def show
-    @bookmark_stat = BookmarkStat.find(params[:id])
-    BookmarkStatHasManifestation.per_page = 1 if params[:format] == 'csv'
-    @stats = @bookmark_stat.bookmark_stat_has_manifestations.paginate(:all, :order => 'bookmarks_count DESC, manifestation_id', :page => params[:page])
+    BookmarkStatHasManifestation.per_page = 65534 if params[:format] == 'csv'
+    @stats = @bookmark_stat.bookmark_stat_has_manifestations.paginate(:order => 'bookmarks_count DESC, manifestation_id', :page => params[:page])
 
     respond_to do |format|
       format.html # show.html.erb
@@ -40,7 +39,6 @@ class BookmarkStatsController < ApplicationController
 
   # GET /bookmark_stats/1/edit
   def edit
-    @bookmark_stat = BookmarkStat.find(params[:id])
   end
 
   # POST /bookmark_stats
@@ -63,8 +61,6 @@ class BookmarkStatsController < ApplicationController
   # PUT /bookmark_stats/1
   # PUT /bookmark_stats/1.xml
   def update
-    @bookmark_stat = BookmarkStat.find(params[:id])
-
     respond_to do |format|
       if @bookmark_stat.update_attributes(params[:bookmark_stat])
         flash[:notice] = t('controller.successfully_updated', :model => t('activerecord.models.bookmark_stat'))
@@ -80,7 +76,6 @@ class BookmarkStatsController < ApplicationController
   # DELETE /bookmark_stats/1
   # DELETE /bookmark_stats/1.xml
   def destroy
-    @bookmark_stat = BookmarkStat.find(params[:id])
     @bookmark_stat.destroy
 
     respond_to do |format|

@@ -29,43 +29,195 @@ describe CheckoutsController do
       end
 
       it "assigns all checkouts as @checkouts" do
-        get :index
+        get :index, :user_id => @user.username
         assigns(:checkouts).should eq(@user.checkouts.not_returned.paginate(:page => 1))
+      end
+
+      it "should be redirected if an username is not specified" do
+        get :index
+        assigns(:checkouts).should eq(Checkout.not_returned.paginate(:page => 1))
+        response.should redirect_to(user_checkouts_url(@user))
+      end
+
+      it "should be forbidden if other's username is specified" do
+        get :index, :user_id => Factory(:user).username
+        assigns(:checkouts).should eq(Checkout.not_returned.paginate(:page => 1))
+        response.should be_forbidden
       end
     end
   end
 
-  describe "POST create" do
+  describe "PUT update" do
     before(:each) do
-      sign_in Factory(:admin)
-      Factory(:library)
-      @attrs = Factory.attributes_for(:item)
-      @invalid_attrs = {:item_identifier => 'invalid'}
+      @checkout = checkouts(:checkout_00003)
+      @attrs = {:due_date => 1.day.from_now}
+      @invalid_attrs = {:item_id => ''}
     end
 
-    describe "with valid params" do
-      it "assigns a newly created checkout as @checkout" do
-        post :create, :checkout => @attrs
-        assigns(:checkout).should be_nil
+    describe "When logged in as Administrator" do
+      before(:each) do
+        sign_in Factory(:admin)
       end
 
-      it "redirects to the created checkout" do
-        post :create, :checkout => @attrs
-        response.should be_forbidden
+      describe "with valid params" do
+        it "updates the requested checkout" do
+          put :update, :id => @checkout.id, :checkout => @attrs, :user_id => @checkout.user.username
+        end
+
+        it "assigns the requested checkout as @checkout" do
+          put :update, :id => @checkout.id, :checkout => @attrs, :user_id => @checkout.user.username
+          assigns(:checkout).should eq(@checkout)
+          response.should redirect_to(user_checkout_url(@checkout.user, @checkout))
+        end
+      end
+
+      describe "with invalid params" do
+        it "assigns the requested checkout as @checkout" do
+          put :update, :id => @checkout.id, :checkout => @invalid_attrs, :user_id => @checkout.user.username
+        end
+
+        it "re-renders the 'edit' template" do
+          put :update, :id => @checkout.id, :checkout => @invalid_attrs, :user_id => @checkout.user.username
+          response.should render_template("edit")
+        end
       end
     end
 
-    describe "with invalid params" do
-      it "assigns a newly created but unsaved checkout as @checkout" do
-        post :create, :checkout => @invalid_attrs
-        assigns(:checkout).should be_nil
+    describe "When logged in as Librarian" do
+      before(:each) do
+        sign_in Factory(:librarian)
+      end
+
+      describe "with valid params" do
+        it "updates the requested checkout" do
+          put :update, :id => @checkout.id, :checkout => @attrs, :user_id => @checkout.user.username
+        end
+
+        it "assigns the requested checkout as @checkout" do
+          put :update, :id => @checkout.id, :checkout => @attrs, :user_id => @checkout.user.username
+          assigns(:checkout).should eq(@checkout)
+          response.should redirect_to(user_checkout_url(@checkout.user, @checkout))
+        end
+      end
+
+      describe "with invalid params" do
+        it "assigns the checkout as @checkout" do
+          put :update, :id => @checkout.id, :checkout => @invalid_attrs, :user_id => @checkout.user.username
+          assigns(:checkout).should_not be_valid
+        end
+
+        it "re-renders the 'edit' template" do
+          put :update, :id => @checkout.id, :checkout => @invalid_attrs, :user_id => @checkout.user.username
+          response.should render_template("edit")
+        end
+      end
+    end
+
+    describe "When logged in as User" do
+      before(:each) do
+        sign_in Factory(:user)
+      end
+
+      describe "with valid params" do
+        it "updates the requested checkout" do
+          put :update, :id => @checkout.id, :checkout => @attrs, :user_id => @checkout.user.username
+        end
+
+        it "assigns the requested checkout as @checkout" do
+          put :update, :id => @checkout.id, :checkout => @attrs, :user_id => @checkout.user.username
+          assigns(:checkout).should eq(@checkout)
+          response.should be_forbidden
+        end
+      end
+
+      describe "with invalid params" do
+        it "assigns the requested checkout as @checkout" do
+          put :update, :id => @checkout.id, :checkout => @invalid_attrs, :user_id => @checkout.user.username
+          response.should be_forbidden
+        end
+      end
+    end
+
+    describe "When not logged in" do
+      describe "with valid params" do
+        it "updates the requested checkout" do
+          put :update, :id => @checkout.id, :checkout => @attrs, :user_id => @checkout.user.username
+        end
+
+        it "should be forbidden" do
+          put :update, :id => @checkout.id, :checkout => @attrs, :user_id => @checkout.user.username
+          response.should redirect_to(new_user_session_url)
+        end
+      end
+
+      describe "with invalid params" do
+        it "assigns the requested checkout as @checkout" do
+          put :update, :id => @checkout.id, :checkout => @invalid_attrs, :user_id => @checkout.user.username
+          response.should redirect_to(new_user_session_url)
+        end
+      end
+    end
+  end
+
+  describe "DELETE destroy" do
+    before(:each) do
+      @checkout = checkouts(:checkout_00003)
+    end
+
+    describe "When logged in as Administrator" do
+      before(:each) do
+        sign_in Factory(:admin)
+      end
+
+      it "destroys the requested checkout" do
+        delete :destroy, :id => @checkout.id, :user_id => @checkout.user.username
+      end
+
+      it "redirects to the checkouts list" do
+        delete :destroy, :id => @checkout.id, :user_id => @checkout.user.username
+        response.should redirect_to(user_checkouts_url(@checkout.user))
+      end
+    end
+
+    describe "When logged in as Librarian" do
+      before(:each) do
+        sign_in Factory(:librarian)
+      end
+
+      it "destroys the requested checkout" do
+        delete :destroy, :id => @checkout.id, :user_id => @checkout.user.username
+      end
+
+      it "redirects to the checkouts list" do
+        delete :destroy, :id => @checkout.id, :user_id => @checkout.user.username
+        response.should redirect_to(user_checkouts_url(@checkout.user))
+      end
+    end
+
+    describe "When logged in as User" do
+      before(:each) do
+        sign_in Factory(:user)
+      end
+
+      it "destroys the requested checkout" do
+        delete :destroy, :id => @checkout.id, :user_id => @checkout.user.username
       end
 
       it "should be forbidden" do
-        post :create, :checkout => @invalid_attrs
+        delete :destroy, :id => @checkout.id, :user_id => @checkout.user.username
         response.should be_forbidden
       end
     end
 
+    describe "When not logged in" do
+      it "destroys the requested checkout" do
+        delete :destroy, :id => @checkout.id, :user_id => @checkout.user.username
+      end
+
+      it "should be forbidden" do
+        delete :destroy, :id => @checkout.id, :user_id => @checkout.user.username
+        response.should redirect_to(new_user_session_url)
+      end
+    end
   end
 end

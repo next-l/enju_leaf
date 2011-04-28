@@ -1,0 +1,15 @@
+<%= form_for(@reserve_stat_has_user) do |f| -%>
+  <%= f.error_messages -%>
+
+  <div class="field">
+    <%= f.label t('activerecord.models.user_reserve_stat') -%><br />
+    <%= f.text_field :user_reserve_stat_id -%>
+  </div>
+  <div class="field">
+    <%= f.label t('activerecord.models.user') -%><br />
+    <%= f.text_field :user_id -%>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<%- end -%>

@@ -14,13 +14,13 @@ xml.rss('version' => "2.0",
     unless params[:query].blank?
       xml.tag! "opensearch:totalResults", @count[:query_result]
       xml.tag! "opensearch:startIndex", @events.offset + 1
-      xml.tag! "opensearch:itemsPerPage", @works.per_page
+      xml.tag! "opensearch:itemsPerPage", @events.per_page
       #xml.tag! "opensearch:Query", :role => 'request', :searchTerms => params[:query], :startPage => (params[:page] || 1)
     end
     @events.each do |event|
       xml.item do
-        xml.title event.name
-        #xml.description(event.name)
+        xml.title event.display_name.localize
+        xml.description event.note
         # rfc822
         xml.pubDate event.created_at.rfc2822
         xml.link event_url(event)

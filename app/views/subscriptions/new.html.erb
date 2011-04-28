@@ -5,17 +5,17 @@
 <%= form_for(@subscription) do |f| -%>
   <%= f.error_messages -%>
 
-  <p>
+  <div class="field">
     <%= f.label :title -%><br />
     <%= f.text_field :title, :class => 'resource_title' -%>
-  </p>
-  <p>
+  </div>
+  <div class="field">
     <%= f.label :note -%><br />
     <%= f.text_area :note, :class => 'resource_textarea' -%>
-  </p>
-  <p>
+  </div>
+  <div class="actions">
     <%= f.submit %>
-  </p>
+  </div>
 <%- end -%>
 
 </div>

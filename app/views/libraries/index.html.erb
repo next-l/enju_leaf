@@ -7,7 +7,6 @@
     <%= t('page.search_term') -%>: <%= search_field_tag 'query', h(@query), {:id => 'search_form_top', :class => 'search_form', :placeholder => t('page.search_term')} -%>
     <%= submit_tag t('page.search') -%>
   </p>
-  <%= javascript_tag("$('#search_form_top').focus()") -%>
 <%- end -%>
 
 <p>
@@ -30,7 +29,7 @@
     </th>
     <th id="edit_icons"></th>
   </tr>
-  
+
 <%- @libraries.each_with_index do |library, i| -%>
   <tr class="line<%= cycle("0", "1") -%>">
     <td>

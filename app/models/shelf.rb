@@ -5,17 +5,12 @@ class Shelf < ActiveRecord::Base
   belongs_to :library, :validate => true
   has_many :items, :include => [:use_restrictions, :circulation_status]
   has_many :picture_files, :as => :picture_attachable, :dependent => :destroy
-  #has_many :shelf_has_manifestations, :dependent => :destroy
-  #has_many :manifestations, :through => :shelf_has_manifestations
-  #has_one :user_has_shelf, :dependent => :destroy
-  #has_one :user, :through => :user_has_shelf
 
   validates_associated :library
   validates_presence_of :library
   validates_uniqueness_of :display_name
- 
+
   acts_as_list :scope => :library
-  #acts_as_soft_deletable
 
   def self.per_page
     10
@@ -39,5 +34,4 @@ class Shelf < ActiveRecord::Base
   def localized_display_name
     display_name.localize
   end
-
 end

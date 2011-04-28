@@ -1,0 +1,11 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  parent_id: 1
+  child_id: 2
+  patron_relationship_type_id: 1
+
+two:
+  parent_id: 2
+  child_id: 3
+  patron_relationship_type_id: 1

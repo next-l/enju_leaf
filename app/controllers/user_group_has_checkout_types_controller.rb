@@ -7,7 +7,7 @@ class UserGroupHasCheckoutTypesController < ApplicationController
   # GET /user_group_has_checkout_types
   # GET /user_group_has_checkout_types.xml
   def index
-    @user_group_has_checkout_types = UserGroupHasCheckoutType.all(:include => [:user_group, :checkout_type], :order => ['user_groups.position, checkout_types.position'])
+    @user_group_has_checkout_types = UserGroupHasCheckoutType.paginate(:page => params[:page], :include => [:user_group, :checkout_type], :order => ['user_groups.position, checkout_types.position'])
 
     respond_to do |format|
       format.html # index.html.erb
@@ -18,8 +18,6 @@ class UserGroupHasCheckoutTypesController < ApplicationController
   # GET /user_group_has_checkout_types/1
   # GET /user_group_has_checkout_types/1.xml
   def show
-    @user_group_has_checkout_type = UserGroupHasCheckoutType.find(params[:id])
-
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @user_group_has_checkout_type }
@@ -42,7 +40,6 @@ class UserGroupHasCheckoutTypesController < ApplicationController
 
   # GET /user_group_has_checkout_types/1/edit
   def edit
-    @user_group_has_checkout_type = UserGroupHasCheckoutType.find(params[:id])
   end
 
   # POST /user_group_has_checkout_types
@@ -66,8 +63,6 @@ class UserGroupHasCheckoutTypesController < ApplicationController
   # PUT /user_group_has_checkout_types/1
   # PUT /user_group_has_checkout_types/1.xml
   def update
-    @user_group_has_checkout_type = UserGroupHasCheckoutType.find(params[:id])
-
     respond_to do |format|
       if @user_group_has_checkout_type.update_attributes(params[:user_group_has_checkout_type])
         flash[:notice] = t('controller.successfully_updated', :model => t('activerecord.models.user_group_has_checkout_type'))
@@ -84,7 +79,6 @@ class UserGroupHasCheckoutTypesController < ApplicationController
   # DELETE /user_group_has_checkout_types/1
   # DELETE /user_group_has_checkout_types/1.xml
   def destroy
-    @user_group_has_checkout_type = UserGroupHasCheckoutType.find(params[:id])
     @user_group_has_checkout_type.destroy
 
     respond_to do |format|

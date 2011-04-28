@@ -1,5 +1,6 @@
 class MessagesController < ApplicationController
-  load_and_authorize_resource
+  load_and_authorize_resource :except => :index
+  authorize_resource :only => :index
   before_filter :get_user_if_nil, :only => :index
   after_filter :solr_commit, :only => [:create, :update, :destroy, :destroy_selected]
   cache_sweeper :page_sweeper, :only => [:create, :update, :destroy]
@@ -35,7 +36,6 @@ class MessagesController < ApplicationController
     page = params[:page] || 1
     search.query.paginate(page.to_i, Message.per_page)
     @messages = search.execute!.results
-    current_user.received_messages.paginate(:all, :page => params[:page])
 
     respond_to do |format|
       format.html # index.rhtml
@@ -97,7 +97,7 @@ class MessagesController < ApplicationController
   # PUT /messages/1.xml
   def update
     @message = current_user.received_messages.find(params[:id])
-    
+
     if @message.update_attributes(params[:message])
       flash[:notice] = t('controller.successfully_updated', :model => t('activerecord.models.message'))
       format.html { redirect_to message_url(@message) }

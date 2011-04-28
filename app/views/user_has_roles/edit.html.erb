@@ -1,23 +1,7 @@
 <div id="content_detail" class="ui-corner-all">
 <h1 class="title"><%= t('page.editing', :model => t('activerecord.models.user_has_role')) -%></h1>
 <div id="content_list">
-
-<%= form_for(@user_has_role) do |f| -%>
-  <%= f.error_messages -%>
-
-  <p>
-    <%= f.label t('activerecord.models.user') -%><br />
-    <%= f.text_field :user_id -%>
-  </p>
-  <p>
-    <%= f.label t('activerecord.models.role') -%><br />
-    <%= f.text_field :role_id -%>
-  </p>
-  <p>
-    <%= f.submit %>
-  </p>
-<%- end -%>
-
+  <%= render 'form' %>
 </div>
 </div>
 

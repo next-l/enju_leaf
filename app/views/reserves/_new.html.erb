@@ -5,29 +5,29 @@
 <%= form_for(@reserve) do |f| -%>
   <%= f.error_messages -%>
 
-  <%- if @reserve.manifestation -%>
-    <%= render :partial => 'manifestations/title', :locals => {:manifestation => @reserve.manifestation} -%>
-    <%= f.hidden_field :manifestation_id -%>
-  <%- else -%>
-    <p>
+  <div class="field">
+    <%- if @reserve.manifestation -%>
+      <%= render :partial => 'manifestations/title', :locals => {:manifestation => @reserve.manifestation} -%>
+      <%= f.hidden_field :manifestation_id -%>
+    <%- else -%>
       <%= f.label t('activerecord.models.manifestation') -%><br />
       <%= f.text_field :manifestation_id -%>
-    </p>
-  <%- end -%>
+    <%- end -%>
+  </div>
 
-  <p>
+  <div class="field">
     <%= f.label :expired_at -%><br />
-    <%= f.text_field :expire_date, :class => 'date_field' -%>
-  </p>
+    <%= f.text_field :expire_date, :class => 'date_field', :placeholder => "#{t('page.example')}: 2011-04-12" -%>
+  </div>
 
-  <p>
+  <div class="field">
     <%= f.label t('activerecord.attributes.user.user_number') -%><br />
     <%= f.text_field :user_number, :class => 'resource_user_number' -%>
-  </p>
+  </div>
 
-  <p>
-    <%= submit_tag t('page.create') -%>
-  </p>
+  <div class="actions">
+    <%= f.submit t('page.create') -%>
+  </div>
 <%- end -%>
 <%= javascript_tag("$('#reserve_user_number').focus()") -%>
 </div>

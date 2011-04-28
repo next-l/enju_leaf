@@ -196,8 +196,7 @@ class ReservesControllerTest < ActionController::TestCase
     assert_no_difference('Reserve.count') do
       post :create, :user_id => users(:admin).username, :reserve => {:user_number => users(:admin).user_number, :manifestation_id => 5}
     end
-    assert_equal I18n.t('reserve.excessed_reservation_limit'), flash[:notice]
-    assert_nil assigns(:reserve).expired_at
+    assert assigns(:reserve).errors[:base].include? I18n.t('reserve.excessed_reservation_limit')
     
     #assert_redirected_to resource_url(assigns(:manifestation))
   end
@@ -214,10 +213,10 @@ class ReservesControllerTest < ActionController::TestCase
     assert_response :missing
   end
 
-  def test_user_should_not_show_reserve_without_user_id
+  def test_user_should_show_reserve_without_user_id
     sign_in users(:user1)
     get :show, :id => 3
-    assert_response :forbidden
+    assert_response :success
   end
 
   def test_user_should_show_my_reserve

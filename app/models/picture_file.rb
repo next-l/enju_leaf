@@ -18,7 +18,9 @@ class PictureFile < ActiveRecord::Base
   acts_as_list :scope => 'picture_attachable_id=#{picture_attachable_id} AND picture_attachable_type=\'#{picture_attachable_type}\''
   before_create :set_digest, :set_dimensions
 
-  paginates_per 10
+  def self.per_page
+    10
+  end
 
   def set_digest(options = {:type => 'sha1'})
     if File.exists?(picture.queued_for_write[:original])
@@ -29,7 +31,7 @@ class PictureFile < ActiveRecord::Base
   def set_dimensions
     file = picture.queued_for_write[:original]
     if File.exists?(file)
-      dimensions = Paperclip::Geometry.from_file(file)
+      dimensions = ::Paperclip::Geometry.from_file(file)
       self.width = dimensions.width
       self.height = dimensions.height
     end

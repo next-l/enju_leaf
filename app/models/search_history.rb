@@ -10,5 +10,4 @@ class SearchHistory < ActiveRecord::Base
   def self.not_found_query(number, duration = 1.year.ago)
     self.not_found.all(:conditions => ['created_at > ?', duration]).collect(&:query).inject(Hash.new(0)){|r,e|r[e]+=1;r}.to_a.collect{|q| q if q[1] >= number.to_i}.compact
   end
-
 end

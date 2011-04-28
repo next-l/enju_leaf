@@ -149,15 +149,15 @@ class UserTest < ActiveSupport::TestCase
 
   def test_should_lock_all_expired_users
     User.lock_expired_users
-    assert_equal false, users(:user4).active?
+    assert_equal false, users(:user4).active_for_authentication?
   end
 
   def test_should_lock_expired_users
     user = users(:user1)
-    assert_equal true, users(:user1).active?
+    assert_equal true, users(:user1).active_for_authentication?
     user.expired_at = 1.day.ago
     user.save
-    assert_equal false, users(:user1).active?
+    assert_equal false, users(:user1).active_for_authentication?
   end
 
   protected

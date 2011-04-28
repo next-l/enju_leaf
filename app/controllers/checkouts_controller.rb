@@ -1,12 +1,11 @@
 class CheckoutsController < ApplicationController
-  before_filter :access_denied, :only => [:new, :create]
   before_filter :store_location, :only => :index
   load_and_authorize_resource
   before_filter :get_user_if_nil, :only => :index
   before_filter :get_user, :except => :index
   helper_method :get_item
   after_filter :convert_charset, :only => :index
-  
+
   # GET /checkouts
   # GET /checkouts.xml
 
@@ -83,47 +82,20 @@ class CheckoutsController < ApplicationController
   # GET /checkouts/1
   # GET /checkouts/1.xml
   def show
-    #@checkout = @user.checkouts.find(params[:id])
-
     respond_to do |format|
       format.html # show.rhtml
       format.xml  { render :xml => @checkout.to_xml }
     end
   end
 
-  # GET /checkouts/new
-  def new
-  #  @checkout = @user.checkouts.new
-  end
-
   # GET /checkouts/1;edit
   def edit
-    #@checkout = @user.checkouts.find(params[:id])
     @renew_due_date = @checkout.set_renew_due_date(@user)
-  end
-
-  # POST /checkouts
-  # POST /checkouts.xml
-  def create
-  #  @checkout = @user.checkouts.new(params[:checkout])
-  #
-  #  respond_to do |format|
-  #    if @checkout.id
-  #      flash[:notice] = t('controller.successfully_created', :model => t('activerecord.models.checkout'))
-  #      format.html { redirect_to user_checkouts_url(@user) }
-  #      format.xml  { head :created, :location => checkout_url(@checkout) }
-  #    else
-  #      #format.html { render :action => "new" }
-  #      format.html { redirect_to user_checkouts_url(@user) }
-  #      format.xml  { render :xml => @checkout.errors.to_xml }
-  #    end
-  #  end
   end
 
   # PUT /checkouts/1
   # PUT /checkouts/1.xml
   def update
-    #@checkout = @user.checkouts.find(params[:id])
     if @checkout.reserved?
       flash[:notice] = t('checkout.this_item_is_reserved')
       redirect_to edit_user_checkout_url(@checkout.user, @checkout)
@@ -141,8 +113,6 @@ class CheckoutsController < ApplicationController
         return
       #end
     end
-    # もう一度取得しないとvalidationが有効にならない？
-    #@checkout = @user.checkouts.find(params[:id])
     @checkout.reload
     @checkout.checkout_renewal_count += 1
 
@@ -161,7 +131,6 @@ class CheckoutsController < ApplicationController
   # DELETE /checkouts/1
   # DELETE /checkouts/1.xml
   def destroy
-    #@checkout = @user.checkouts.find(params[:id])
     @checkout.destroy
 
     respond_to do |format|

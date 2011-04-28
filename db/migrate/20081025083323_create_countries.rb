@@ -1,6 +1,6 @@
 class CreateCountries < ActiveRecord::Migration
 
-  # ISO 3166 is the International Standard for country codes. 
+  # ISO 3166 is the International Standard for country codes.
   #
   # ISO 3166-1:2006 Codes for the representation of names of countries and their subdivisions - Part 1: 
   # Country codes which is what most users know as ISO's country codes. First published in 1974, it is has since 

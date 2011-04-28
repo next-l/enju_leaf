@@ -87,9 +87,10 @@ class PurchaseRequestsControllerTest < ActionController::TestCase
   def test_user_should_create_purchase_request_without_user_id
     sign_in users(:user1)
     assert_difference('PurchaseRequest.count') do
-      post :create, :purchase_request => {:title => 'test', :user_id => users(:user1).id}
+      post :create, :purchase_request => {:title => 'test', :user_id => users(:user1).id, :pub_date => 2010}
     end
 
+    assert_equal assigns(:purchase_request).date_of_publication, Time.zone.parse('2010-01-01')
     assert_redirected_to user_purchase_request_url(users(:user1).username, assigns(:purchase_request))
   end
 
@@ -111,7 +112,7 @@ class PurchaseRequestsControllerTest < ActionController::TestCase
     assert_redirected_to user_purchase_request_url(users(:user1).username, assigns(:purchase_request))
   end
 
-  def test_librarian_should_create_purchase_request_without_user_id
+  def test_librarian_should_create_purchase_request_with_other_user_id
     sign_in users(:librarian1)
     assert_difference('PurchaseRequest.count') do
       post :create, :purchase_request => {:title => 'test', :user_id => users(:user1).id}

@@ -1,33 +1,7 @@
 <div id="content_detail" class="ui-corner-all">
 <h1 class="title"><%= t('page.new', :model => t('activerecord.models.user_has_role')) -%></h1>
 <div id="content_list">
-
-<%= form_for(@user_has_role) do |f| -%>
-  <%= f.error_messages -%>
-
-  <p>
-    <%= f.label t('activerecord.models.user') -%><br />
-    <%- if @user_has_role.user -%>
-      <%= link_to @user_has_role.user.username, @user_has_role.user -%>
-      <%= f.hidden_field :user_id -%>
-    <%- else -%>
-      <%= f.text_field :user_id -%>
-    <%- end -%>
-  </p>
-  <p>
-    <%= f.label t('activerecord.models.role') -%><br />
-    <%- if @user_has_role.role -%>
-      <%= link_to @user_has_role.role.display_name.localize, @user_has_role.role -%>
-      <%= f.hidden_field :role_id -%>
-    <%- else -%>
-      <%= f.text_field :role_id -%>
-    <%- end -%>
-  </p>
-  <p>
-    <%= f.submit %>
-  </p>
-<%- end -%>
-
+  <%= render 'form' %>
 </div>
 </div>
 

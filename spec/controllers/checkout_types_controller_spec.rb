@@ -1,7 +1,9 @@
 require 'spec_helper'
+require 'sunspot/rails/spec_helper'
 
 describe CheckoutTypesController do
   fixtures :all
+  disconnect_sunspot
 
   describe "GET index" do
     before(:each) do
@@ -35,7 +37,7 @@ describe CheckoutTypesController do
         sign_in Factory(:user)
       end
 
-      it "should not assign all checkout_types as @checkout_types" do
+      it "assigns all checkout_types as @checkout_types" do
         get :index
         assigns(:checkout_types).should be_empty
         response.should be_forbidden
@@ -43,7 +45,7 @@ describe CheckoutTypesController do
     end
 
     describe "When not logged in" do
-      it "should not assign all checkout_types as @checkout_types" do
+      it "assigns all checkout_types as @checkout_types" do
         get :index
         assigns(:checkout_types).should be_empty
         response.should redirect_to(new_user_session_url)

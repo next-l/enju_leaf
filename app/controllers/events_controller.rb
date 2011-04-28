@@ -26,8 +26,8 @@ class EventsController < ApplicationController
       with(:library_id).equal_to library.id if library
       #with(:tag).equal_to tag
       if date
-        with(:start_at).greater_than Time.zone.parse(date).beginning_of_day
-        with(:start_at).less_than Time.zone.parse(date).tomorrow.beginning_of_day
+        with(:start_at).less_than Time.zone.parse(date)
+        with(:end_at).greater_than Time.zone.parse(date)
       end
       case mode
       when 'upcoming'
@@ -40,11 +40,7 @@ class EventsController < ApplicationController
 
     page = params[:page] || 1
     search.query.paginate(page.to_i, Event.per_page)
-    begin
-      @events = search.execute!.results
-    rescue RSolr::RequestError
-      @events = WillPaginate::Collection.create(1,1,0) do end
-    end
+    @events = search.execute!.results
     @count[:query_result] = @events.total_entries
 
     respond_to do |format|
@@ -55,10 +51,6 @@ class EventsController < ApplicationController
       format.atom
       format.ics
     end
-  rescue RSolr::RequestError
-    flash[:notice] = t('page.error_occured')
-    redirect_to events_url
-    return
   end
 
   # GET /events/1

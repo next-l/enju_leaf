@@ -3,7 +3,7 @@
 <div id="content_list">
 
 <h2 class="resource_title">
-  [P] <%= link_to @patron.full_name, @patron -%>
+  [P] <%= link_to patron.full_name, patron -%>
 </h2>
 
 <table class="index">
@@ -41,14 +41,14 @@
   <%- end -%>
 </table>
 
-<%= paginate(@picture_files) -%>
+<%= will_paginate(@picture_files) -%>
 </div>
 </div>
 
 <div id="submenu" class="ui-corner-all">
   <%- if can? :create, PictureFile -%>
     <ul>
-      <li><%= link_to t('page.new', :model => t('activerecord.models.picture_file')), new_patron_picture_file_path(@patron) -%></li>
+      <li><%= link_to t('page.new', :model => t('activerecord.models.picture_file')), new_patron_picture_file_path(patron) -%></li>
     </ul>
   <%- end -%>
 </div>

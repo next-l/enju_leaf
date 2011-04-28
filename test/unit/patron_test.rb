@@ -4,12 +4,12 @@ class PatronTest < ActiveSupport::TestCase
   fixtures :patrons, :realizes, :produces, :manifestations, :patron_types, :languages, :countries
 
   # Replace this with your real tests.
-  def test_patron_should_be_author
-    assert patrons(:patron_00001).author?(manifestations(:manifestation_00001))
+  def test_patron_should_be_creator
+    assert patrons(:patron_00001).creator?(manifestations(:manifestation_00001))
   end
 
-  def test_patron_should_not_be_author
-    assert !patrons(:patron_00010).author?(manifestations(:manifestation_00001))
+  def test_patron_should_not_be_creator
+    assert !patrons(:patron_00010).creator?(manifestations(:manifestation_00001))
   end
 
   def test_patron_should_be_publisher

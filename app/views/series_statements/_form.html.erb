@@ -2,16 +2,21 @@
   <%= f.error_messages %>
 
   <%- if !@series_statement.new_record? and @manifestation -%>
-    <p>
+    <div class="field">
       <%= link_to @manifestation.original_title, @manifestation -%>
       <%= f.hidden_field :manifestation_id %>
-    </p>
+    </div>
   <%- end -%>
-  
+
   <div class="field">
     <%= f.label :original_title %><br />
     <%= f.text_field :original_title %>
   </div>
+  <div class="field">
+    <%= f.label :issn %><br />
+    <%= f.text_field :issn %>
+  </div>
+  <!--
   <div class="field">
     <%= f.label :numbering %><br />
     <%= f.text_field :numbering %>
@@ -24,6 +29,7 @@
     <%= f.label :numbering_subseries -%><br />
     <%= f.text_field :numbering_subseries %>
   </div>
+  -->
   <div class="field">
     <%= f.label :series_statement_identifier -%><br />
     <%= f.text_field :series_statement_identifier, :class => 'resource_item_identifier' %>
@@ -31,5 +37,4 @@
   <div class="actions">
     <%= f.submit %>
   </div>
-  <%= javascript_tag("$('#series_statement_original_title').focus()") -%>
 <% end %>

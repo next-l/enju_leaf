@@ -27,12 +27,12 @@ class Reserve < ActiveRecord::Base
   #validates_uniqueness_of :manifestation_id, :scope => :user_id
   validates_format_of :expire_date, :with => /^\d+(-\d{0,2}){0,2}$/, :allow_blank => true
   validate :manifestation_must_include_item
+  validate :available_for_reservation?, :on => :create
   before_validation :set_item_and_manifestation, :on => :create
   before_validation :set_expired_at
   before_validation :set_request_status, :on => :create
 
   attr_accessor :user_number, :item_identifier
-  attr_accessor :expire_date
 
   state_machine :initial => :pending do
     before_transition :pending => :requested, :do => :do_request
@@ -52,7 +52,7 @@ class Reserve < ActiveRecord::Base
     event :sm_cancel do
       transition [:pending, :requested, :retained] => :canceled
     end
-  
+
     event :sm_expire do
       transition [:pending, :requested, :retained] => :expired
     end
@@ -78,7 +78,7 @@ class Reserve < ActiveRecord::Base
   def set_expired_at
     if expire_date.present?
       begin
-        date = Time.zone.parse(expire_date)
+        date = Time.zone.parse("#{expire_date}")
       rescue ArgumentError
         # TODO: 月日の省略時の既定値を決める
         begin
@@ -116,11 +116,6 @@ class Reserve < ActiveRecord::Base
   def next_reservation
     self.manifestation.reserves.first(:conditions => ['reserves.id != ?', self.id], :order => ['reserves.created_at'])
   end
-
-  #def self.reached_reservation_limit?(user, manifestation)
-  #  return true if user.user_group.user_group_has_checkout_types.available_for_carrier_type(manifestation.carrier_type).all(:conditions => {:user_group_id => user.user_group.id}).collect(&:reservation_limit).max <= user.reserves.waiting.size
-  #  false
-  #end
 
   def retain
     # TODO: 「取り置き中」の状態を正しく表す
@@ -215,5 +210,21 @@ class Reserve < ActiveRecord::Base
     end
   #rescue
   #  logger.info "#{Time.zone.now} expiring reservations failed!"
+  end
+
+  def available_for_reservation?
+    if self.manifestation
+      if self.manifestation.is_reserved_by(self.user)
+        errors[:base] << I18n.t('reserve.this_manifestation_is_already_reserved')
+      end
+      if self.user.try(:reached_reservation_limit?, self.manifestation)
+        errors[:base] << I18n.t('reserve.excessed_reservation_limit')
+      end
+
+      expired_period = self.manifestation.try(:reservation_expired_period, self.user)
+      if expired_period.nil?
+        errors[:base] << I18n.t('reserve.this_patron_cannot_reserve')
+      end
+    end
   end
 end

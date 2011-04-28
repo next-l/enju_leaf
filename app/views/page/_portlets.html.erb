@@ -8,12 +8,12 @@ function saveOrder() {
     $(".column").each(function(index, value){
         var columnId = value.id;
         var cookieName = "listOrder" + columnId;
-        // Get the order for this column. 
+        // Get the order for this column.
         var order = $('#' + columnId).sortable("toArray");
-        // For each portlet in the column 
+        // For each portlet in the column
         for ( var i = 0, n = order.length; i < n; i++ ) {
             var v = $('#' + order[i] ).find('.portlet-content').is(':visible');
-            // Modify the array we're saving to indicate what's open and 
+            // Modify the array we're saving to indicate what's open and
             //  what's not. 
             order[i] = order[i] + ":" + v;
         }
@@ -22,7 +22,7 @@ function saveOrder() {
     });
 }
 
-// function that restores the list order from a cookie 
+// function that restores the list order from a cookie
 function restoreOrder() {
     $(".column").each(function(index, value) {
         var columnId = value.id;
@@ -74,7 +74,7 @@ $(document).ready( function () {
         $(this).toggleClass("ui-icon-plus");
         $(this).parents(".portlet:first").find(".portlet-content").toggle();
       <% if user_signed_in? %>
-        saveOrder(); // This is important 
+        saveOrder(); // This is important
       <% end %>
     });
     $(".portlet-header .ui-icon").hover(

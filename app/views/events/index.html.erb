@@ -13,7 +13,6 @@
     <%= t('page.search_term') -%>: <%= search_field_tag 'query', h(@query), {:id => 'search_form_top', :class => 'search_form', :placeholder => t('page.search_term')} -%>
     <%= submit_tag t('page.search') -%>
   </p>
-  <%= javascript_tag("$('#search_form_top').focus()") -%>
 <%- end -%>
 
 <p>
@@ -48,7 +47,7 @@
       <%= event.event_category.display_name.localize -%>
     </td>
     <td>
-      <%= link_to event.name.localize, event -%>
+      <%= link_to event.display_name.localize, event -%>
       <br />
       <%= l(event.start_at, :format => :short) -%>
       -
@@ -93,13 +92,13 @@
     <%- if @library -%>
       <%= link_to (image_tag 'feed-icon-14x14.png', :size => '14x14', :alt => t('page.feed'), :class => 'icon'), library_events_path(@library, :format => :rss) -%>
       (<%= link_to 'RSS', library_events_path(@library, :format => :rss) -%>)
-      <%= link_to (image_tag 'icons/page_white_excel.png', :size => '16x16', :alt => 'CSV', :class => 'icon'), library_events_path(@library, :format => :csv, :locale => @locale) -%>
-      (<%= link_to 'CSV', library_events_path(@library, :format => :csv, :locale => @locale) -%>)
+      <%= link_to (image_tag 'icons/page_white_excel.png', :size => '16x16', :alt => 'CSV', :class => 'icon'), library_events_path(@library, :format => :csv, :locale => @locale.to_s) -%>
+      (<%= link_to 'CSV', library_events_path(@library, :format => :csv, :locale => @locale.to_s) -%>)
     <%- else -%>
       <%= link_to (image_tag 'feed-icon-14x14.png', :size => '14x14', :alt => t('page.feed'), :class => 'icon'), events_path(:format => :rss) -%>
       (<%= link_to 'RSS', events_path(:format => :rss) -%>)
-      <%= link_to (image_tag 'icons/page_white_excel.png', :size => '16x16', :alt => 'CSV', :class => 'icon'), events_path(:format => :csv, :locale => @locale) -%>
-      (<%= link_to 'CSV', events_path(:format => :csv, :locale => @locale) -%>)
+      <%= link_to (image_tag 'icons/page_white_excel.png', :size => '16x16', :alt => 'CSV', :class => 'icon'), events_path(:format => :csv, :locale => @locale.to_s) -%>
+      (<%= link_to 'CSV', events_path(:format => :csv, :locale => @locale.to_s) -%>)
     <%- end -%>
   </p>
   <%= render 'page/login' unless current_user -%>

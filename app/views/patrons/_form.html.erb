@@ -1,12 +1,12 @@
 <%= form_for(@patron) do |f| -%>
   <%= f.error_messages -%>
 
-  <p>
+  <div class="field">
     <%= f.label t('activerecord.models.patron_type') -%>
     <%= f.select(:patron_type_id, @patron_types.collect{|p| [p.display_name.localize, p.id]}) -%>
-  </p>
+  </div>
 
-  <p>
+  <div class="field">
     <span id="name_person">
       <%- if configatron.family_name_first == true -%>
         <%= render :partial => 'patrons/form_family_name_first', :locals => {:f => f} -%>
@@ -23,7 +23,7 @@
       <br />
       <%= f.text_area :full_name_alternative, :class => 'resource_textarea' -%>
     </span>
-  </p>
+  </div>
 
   <script>
     $("select#patron_patron_type_id").change(function(){
@@ -105,7 +105,7 @@
     <%= f.label :address_1_note -%><br />
     <%= f.text_area :address_1_note, :class => 'resource_textarea' -%>
   </div>
-  <p><%= link_to_function t('patron.other_address'), "$('#address_2').toggle()" -%></p>
+  <div class="field"><%= link_to_function t('patron.other_address'), "$('#address_2').toggle()" -%></div>
   </div>
 
   <div id="address_2" style="display: none">
@@ -150,5 +150,4 @@
     <%= f.hidden_field :user_username -%>
     <%= f.submit %>
   </div>
-  <%= javascript_tag("$('#patron_patron_type_id').focus()") -%>
 <%- end -%>

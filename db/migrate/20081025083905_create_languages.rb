@@ -20,7 +20,7 @@ class CreateLanguages < ActiveRecord::Migration
     add_index :languages, :iso_639_2
     add_index :languages, :iso_639_3
   end
-  
+
   def self.down
     drop_table :languages
   end

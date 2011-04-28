@@ -5,7 +5,7 @@ class WillPaginateJqueryMobileRenderer < WillPaginate::ViewHelpers::LinkRenderer
   def container_attributes
     super.merge({:'data-role' => 'navbar'})
   end
-      
+
   protected
   def pagination
     [:previous_page, current_page, :next_page]

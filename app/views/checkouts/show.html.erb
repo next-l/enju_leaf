@@ -13,7 +13,7 @@
   <%- if can? :destroy, @checkout -%>
     <p>
       <strong><%= t('checkout.current_user') -%></strong><br />
-      <%= link_to @checkout.user.username, @checkout.user -%>
+      <%= link_to @checkout.user_username, @checkout.user -%>
     </p>
   <%- end -%>
 </div>

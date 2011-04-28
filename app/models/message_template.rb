@@ -6,7 +6,9 @@ class MessageTemplate < ActiveRecord::Base
 
   acts_as_list
 
-  paginates_per 10
+  def self.per_page
+    10
+  end
 
   def embed_body(options = {})
     template = Erubis::Eruby.new(body)

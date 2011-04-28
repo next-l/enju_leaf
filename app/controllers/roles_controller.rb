@@ -6,8 +6,6 @@ class RolesController < ApplicationController
   # GET /roles
   # GET /roles.xml
   def index
-    @roles = Role.all
-
     respond_to do |format|
       format.html # index.rhtml
       format.xml  { render :xml => @roles.to_xml }
@@ -17,8 +15,6 @@ class RolesController < ApplicationController
   # GET /roles/1
   # GET /roles/1.xml
   def show
-    @role = Role.find(params[:id])
-
     respond_to do |format|
       format.html # show.rhtml
       format.xml  { render :xml => @role.to_xml }
@@ -32,7 +28,6 @@ class RolesController < ApplicationController
 
   # GET /roles/1;edit
   def edit
-    @role = Role.find(params[:id])
   end
 
   # POST /roles
@@ -55,7 +50,11 @@ class RolesController < ApplicationController
   # PUT /roles/1
   # PUT /roles/1.xml
   def update
-    @role = Role.find(params[:id])
+    if params[:position]
+      @role.insert_at(params[:position])
+      redirect_to roles_url
+      return
+    end
 
     respond_to do |format|
       if @role.update_attributes(params[:role])

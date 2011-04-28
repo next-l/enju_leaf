@@ -24,6 +24,7 @@ class Ability
       can :destroy, Manifestation do |manifestation|
         manifestation.items.first.nil?
       end
+      can [:read, :update, :destroy], MessageRequest
       can [:read, :create, :update], Patron
       can :destroy, Patron do |patron|
         if patron.user
@@ -123,7 +124,6 @@ class Ability
         LibraryGroup,
         License,
         MediumOfPerformance,
-        MessageRequest,
         MessageTemplate,
         NiiType,
         PatronType,
@@ -143,10 +143,6 @@ class Ability
         bookmark.user == user
       end
       can [:read, :create, :update], BookmarkStat
-      can [:index, :create], Checkout
-      can [:update, :destroy, :show], Checkout do |checkout|
-        checkout.user == user
-      end
       can [:read, :create, :update], Item
       can :destroy, Item do |item|
         item.checkouts.not_returned.first.nil?
@@ -167,8 +163,12 @@ class Ability
       can :show, Patron do |patron|
         patron.required_role_id <= 3
       end
+      can [:update, :destroy], Patron do |patron|
+        !patron.user.try(:has_role?, 'Librarian') and patron.required_role_id <= 3
+      end
       can [:index, :create], PurchaseRequest
-      can [:update, :destroy, :show], PurchaseRequest do |purchase_request|
+      can [:index, :create], PurchaseRequest
+      can [:show, :update, :destroy], PurchaseRequest do |purchase_request|
         purchase_request.user == user
       end
       can [:index, :create], Question
@@ -177,14 +177,6 @@ class Ability
       end
       can :show, Question do |question|
         question.user == user or question.shared
-      end
-      can [:index, :create], Patron
-      can :show, Patron do |patron|
-        patron.required_role_id <= 3 #'Librarian'
-      end
-      can [:update, :destroy], Patron do |patron|
-        patron.required_role_id <= 3 #'Librarian'
-        patron.user.role.name != 'Administrator' if patron.user
       end
       can [:index, :create], Reserve
       can [:update, :destroy, :show], Reserve do |reserve|

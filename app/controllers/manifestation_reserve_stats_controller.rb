@@ -5,7 +5,7 @@ class ManifestationReserveStatsController < ApplicationController
   # GET /manifestation_reserve_stats
   # GET /manifestation_reserve_stats.xml
   def index
-    @manifestation_reserve_stats = ManifestationReserveStat.paginate(:all, :page => params[:page])
+    @manifestation_reserve_stats = ManifestationReserveStat.paginate(:page => params[:page])
 
     respond_to do |format|
       format.html # index.html.erb
@@ -16,9 +16,8 @@ class ManifestationReserveStatsController < ApplicationController
   # GET /manifestation_reserve_stats/1
   # GET /manifestation_reserve_stats/1.xml
   def show
-    @manifestation_reserve_stat = ManifestationReserveStat.find(params[:id])
     ReserveStatHasManifestation.per_page = 65534 if params[:format] == 'csv'
-    @stats = @manifestation_reserve_stat.reserve_stat_has_manifestations.paginate(:all, :order => 'reserves_count DESC, manifestation_id', :page => params[:page])
+    @stats = @manifestation_reserve_stat.reserve_stat_has_manifestations.paginate(:order => 'reserves_count DESC, manifestation_id', :page => params[:page])
 
     respond_to do |format|
       format.html # show.html.erb
@@ -40,7 +39,6 @@ class ManifestationReserveStatsController < ApplicationController
 
   # GET /manifestation_reserve_stats/1/edit
   def edit
-    @manifestation_reserve_stat = ManifestationReserveStat.find(params[:id])
   end
 
   # POST /manifestation_reserve_stats
@@ -63,8 +61,6 @@ class ManifestationReserveStatsController < ApplicationController
   # PUT /manifestation_reserve_stats/1
   # PUT /manifestation_reserve_stats/1.xml
   def update
-    @manifestation_reserve_stat = ManifestationReserveStat.find(params[:id])
-
     respond_to do |format|
       if @manifestation_reserve_stat.update_attributes(params[:manifestation_reserve_stat])
         flash[:notice] = t('controller.successfully_created', :model => t('activerecord.models.manifestation_reserve_stat'))
@@ -80,7 +76,6 @@ class ManifestationReserveStatsController < ApplicationController
   # DELETE /manifestation_reserve_stats/1
   # DELETE /manifestation_reserve_stats/1.xml
   def destroy
-    @manifestation_reserve_stat = ManifestationReserveStat.find(params[:id])
     @manifestation_reserve_stat.destroy
 
     respond_to do |format|

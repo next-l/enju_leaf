@@ -1,7 +1,7 @@
 <%- if @patron -%>
-  <%= render :partial => 'index_patron' -%>
+  <%= render :partial => 'index_patron', :locals => {:patron => @patron} -%>
 <%- elsif @manifestation -%>
-  <%= render :partial => 'index_manifestation' -%>
+  <%= render :partial => 'index_manifestation', :locals => {:manifestation => @manifestation} -%>
 <%- else -%>
   <%= render :partial => 'index' -%>
 <%- end -%>

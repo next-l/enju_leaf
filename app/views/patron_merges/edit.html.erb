@@ -5,19 +5,19 @@
 <%= form_for(@patron_merge) do |f| -%>
   <%= f.error_messages -%>
 
-  <p>
+  <div class="field">
     <%= f.label t('activerecord.models.patron') -%><br />
     <%= f.text_field :patron_id, :value => @patron_merge.patron_id -%>
-  </p>
+  </div>
 
-  <p>
+  <div class="field">
     <%= f.label t('activerecord.models.patron_merge_list') -%><br />
     <%= f.text_field :patron_merge_list_id, :value => @patron_merge.patron_merge_list_id -%>
-  </p>
+  </div>
 
-  <p>
+  <div class="actions">
     <%= f.submit %>
-  </p>
+  </div>
 <%- end -%>
 
 </div>

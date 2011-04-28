@@ -1,10 +1,7 @@
 # Methods added to this helper will be available to all templates in the application.
 module ApplicationHelper
+  include WillPaginate::ViewHelpers::ActionView
 
-  def library_system_name
-    h(LibraryGroup.site_config.name)
-  end
- 
   def form_icon(carrier_type)
     case carrier_type.name
     when 'print'
@@ -58,10 +55,10 @@ module ApplicationHelper
     return nil if tags.nil?
     # TODO: add options to specify different limits and sorts
     #tags = Tag.all(:limit => 100, :order => 'taggings_count DESC').sort_by(&:name)
-    
+
     # TODO: add option to specify which classes you want and overide this if you want?
     classes = %w(popular v-popular vv-popular vvv-popular vvvv-popular)
-    
+
     max, min = 0, 0
     tags.each do |tag|
       #if options[:max] or options[:min]
@@ -72,12 +69,12 @@ module ApplicationHelper
       min = tag.taggings.size if tag.taggings.size < min
     end
     divisor = ((max - min).div(classes.size)) + 1
-    
+
     html =    %(<div class="hTagcloud">\n)
     html <<   %(  <ul class="popularity">\n)
     tags.each do |tag|
       html << %(  <li>)
-      html << link_to(h(tag.name), manifestations_path(:tag => tag.name), :class => classes[(tag.taggings.size - min).div(divisor)]) 
+      html << link_to(h(tag.name), manifestations_path(:tag => tag.name), :class => classes[(tag.taggings.size - min).div(divisor)])
       html << %(  </li>\n) # FIXME: IEのために文末の空白を入れている
     end
     html <<   %(  </ul>\n)
@@ -106,11 +103,11 @@ module ApplicationHelper
           link = link_to image_tag(book_jacket[:url], :width => book_jacket[:width], :height => book_jacket[:height], :alt => manifestation.original_title, :class => 'book_jacket'), "http://#{configatron.amazon.hostname}/dp/#{book_jacket[:asin]}"
         end
       else
-        if manifestation.access_address.present?
+        if manifestation.access_address?
           # TODO: thumbalizerはプラグインに移動
           if configatron.thumbalizr.api_key
             link = link_to image_tag("http://api.thumbalizr.com/?url=#{manifestation.access_address}&width=128", :width => 128, :height => 144, :alt => manifestation.original_title, :border => 0), manifestation.access_address
-          elsif manifestation.screen_shot.present?
+          elsif manifestation.screen_shot?
             #link = link_to image_tag("http://capture.heartrails.com/medium?#{manifestation.access_address}", :width => 200, :height => 150, :alt => manifestation.original_title, :border => 0), manifestation.access_address
             # TODO: Project Next-L 専用のMozshotサーバを作る
             link = link_to image_tag(manifestation_path(manifestation, :mode => 'screen_shot'), :width => 128, :height => 128, :alt => manifestation.original_title, :class => 'screen_shot'), manifestation.access_address
@@ -186,9 +183,9 @@ module ApplicationHelper
   def link_to_custom_book_jacket(object, picture_file)
     case
     when object.is_a?(Manifestation)
-      link_to t('page.other_view'), manifestation_picture_file_path(object, picture_file, :format => picture_file.extname), :rel => "manifestation_#{object.id}" 
+      link_to t('page.other_view'), manifestation_picture_file_path(object, picture_file, :format => picture_file.extname), :rel => "manifestation_#{object.id}"
     when object.is_a?(Patron)
-      link_to t('page.other_view'), patron_picture_file_path(object, picture_file, :format => picture_file.extname), :rel => "patron_#{object.id}" 
+      link_to t('page.other_view'), patron_picture_file_path(object, picture_file, :format => picture_file.extname), :rel => "patron_#{object.id}"
     end
   end
 
@@ -228,7 +225,13 @@ module ApplicationHelper
     unless model_name == 'page'
       string << t("activerecord.models.#{model_name.singularize}") + ' - '
     end
-    string << LibraryGroup.site_config.display_name.localize + ' - Next-L Enju Leaf'
+    string << LibraryGroup.system_name + ' - Next-L Enju Leaf'
     string.html_safe
   end
+
+  def will_paginate_with_i18n(collection, options = {})
+    will_paginate_without_i18n(collection, options.merge(:previous_label => I18n.t('page.previous'), :next_label => I18n.t('page.next')))
+  end
+
+  alias_method_chain :will_paginate, :i18n
 end
