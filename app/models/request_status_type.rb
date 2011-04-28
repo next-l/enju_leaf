@@ -1,5 +1,4 @@
 class RequestStatusType < ActiveRecord::Base
   include MasterModel
-  default_scope :order => 'position'
   has_many :reserves
 end

@@ -1,5 +1,4 @@
 class SearchEngine < ActiveRecord::Base
-  default_scope :order => "position"
   belongs_to :library_group, :validate => true
   acts_as_list
 
