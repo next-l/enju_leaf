@@ -1,32 +1,21 @@
 class Devise::SessionsController < ApplicationController
   prepend_before_filter :require_no_authentication, :only => [ :new, :create ]
+  prepend_before_filter :clear_locale, :only => [:create]
   include Devise::Controllers::InternalHelpers
-  ssl_allowed :new, :create, :destroy
 
   # GET /resource/sign_in
   def new
-    clean_up_passwords(build_resource)
-    render_with_scope :new
+    resource = build_resource
+    clean_up_passwords(resource)
+    respond_with_navigational(resource, stub_options(resource)){ render_with_scope :new }
   end
 
   # POST /resource/sign_in
   def create
     resource = warden.authenticate!(:scope => resource_name, :recall => "#{controller_path}#new")
-
-    # In the running app, the previous line would actually cause this method to
-    # exit by throwing `:warden` if the authentication failed. Unfortunately,
-    # this doesn't happen in the Rails test environment if you have included the
-    # Devise::TestHelpers (see `Devise::TestHelpers::TestWarden#authenticate!`),
-    # which makes it difficult to unit test extensions to this controller. Since
-    # the resource is nil if authentication fails, just short-circuit the method
-    # in that case. This should not affect the running app.
-    
-    return if resource.nil?
-
     set_flash_message(:notice, :signed_in) if is_navigational_format?
     sign_in(resource_name, resource)
     respond_with resource, :location => redirect_location(resource_name, resource)
-    session[:locale] = nil
   end
 
   # GET /resource/sign_out
@@ -45,5 +34,18 @@ class Devise::SessionsController < ApplicationController
         render :text => text, :status => :ok
       end
     end
+  end
+
+  protected
+
+  def stub_options(resource)
+    array = resource_class.authentication_keys.dup
+    array << :password if resource.respond_to?(:password)
+    { :methods => array, :only => [:password] }
+  end
+
+  private
+  def clear_locale
+    session[:locale] = nil
   end
 end
