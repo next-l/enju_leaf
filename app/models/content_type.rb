@@ -1,4 +1,5 @@
 class ContentType < ActiveRecord::Base
   include MasterModel
-  has_many :manifestations
+  default_scope :order => "position"
+  has_many :resources
 end

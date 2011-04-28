@@ -1,5 +1,6 @@
 class Shelf < ActiveRecord::Base
   include MasterModel
+  default_scope :order => "position"
   scope :real, :conditions => ['library_id != 1']
   belongs_to :library, :validate => true
   has_many :items, :include => [:use_restrictions, :circulation_status]

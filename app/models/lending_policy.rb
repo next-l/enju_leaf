@@ -1,4 +1,5 @@
 class LendingPolicy < ActiveRecord::Base
+  default_scope :order => 'position'
   belongs_to :item
   belongs_to :user_group
 

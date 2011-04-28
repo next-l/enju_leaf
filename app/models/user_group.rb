@@ -1,6 +1,7 @@
 # -*- encoding: utf-8 -*-
 class UserGroup < ActiveRecord::Base
   include MasterModel
+  default_scope :order => "position"
   has_many :users
   #has_many :available_carrier_types
   #has_many :carrier_types, :through => :available_carrier_types, :order => :position

@@ -1,11 +1,11 @@
 <%- case @attachable.class.to_s when 'Shelf' -%>
-  <%= render 'index_shelf', :locals => {:shelf => @attachable} -%>
+  <%= render :partial => 'index_shelf', :locals => {:shelf => @attachable} -%>
 <%- when 'Manifestation' -%>
-  <%= render 'index_manifestation', :locals => {:manifestation => @attachable} -%>
+  <%= render :partial => 'index_manifestation', :locals => {:manifestation => @attachable} -%>
 <%- when 'Patron' -%>
-  <%= render 'index_patron', :locals => {:patron => @attachable} -%>
+  <%= render :partial => 'index_patron', :locals => {:patron => @attachable} -%>
 <%- when 'Event' -%>
-  <%= render 'index_event', :locals => {:event => @attachable} -%>
+  <%= render :partial => 'index_event', :locals => {:event => @attachable} -%>
 <%- else -%>
-  <%= render 'index' -%>
+  <%= render :partial => 'index' -%>
 <%- end -%>
