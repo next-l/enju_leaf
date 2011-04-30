@@ -18,7 +18,7 @@ function saveOrder() {
             order[i] = order[i] + ":" + v;
         }
         <% expire_date = 1.month.from_now %>
-        $.cookie(cookieName, order, { path: "/", expiry: new Date(<%= expire_date.year %>, <%= expire_date.month %>, <%= expire_date.day %>)});
+        $.cookie(cookieName, order, { path: "<%= root_path %>", expiry: new Date(<%= expire_date.year %>, <%= expire_date.month %>, <%= expire_date.day %>)});
     });
 }
 

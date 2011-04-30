@@ -57,7 +57,7 @@
             <th><%= t('activerecord.attributes.shelf.note') -%></th>
           </tr>
           <%- @library.shelves.each do |shelf| -%>
-            <tr>
+            <tr class="line<%= cycle("0", "1") -%>">
               <td>
                 <%= link_to shelf.display_name.localize, library_shelf_path(@library, shelf) -%>
                 <%- shelf.picture_files.each do |picture_file| -%>
