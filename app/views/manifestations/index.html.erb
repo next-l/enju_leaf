@@ -89,8 +89,4 @@
   function hideTagCloudSpinner(){
     $("#spinner_tag_cloud").hide();
   }
-
-<% if @query.present? %>
-  $('td').highlight('<%= @query -%>');
-<% end %>
 </script>
