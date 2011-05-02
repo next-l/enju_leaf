@@ -15,7 +15,7 @@ class PictureFile < ActiveRecord::Base
   #validates_presence_of :picture_attachable, :picture_attachable_type #, :unless => :parent_id, :on => :create
   default_scope :order => 'position'
   # http://railsforum.com/viewtopic.php?id=11615
-  acts_as_list :scope => 'picture_attachable_id=#{picture_attachable_id} AND picture_attachable_type=\'#{picture_attachable_type}\''
+  acts_as_list :scope => 'picture_attachable_type=\'#{picture_attachable_type}\''
   before_create :set_digest, :set_dimensions
 
   def self.per_page
