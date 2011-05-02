@@ -45,6 +45,9 @@ class Bookmark < ActiveRecord::Base
 
   def check_url
     parsed_url = Addressable::URI.parse(self.url)
+    unless parsed_url
+      return
+    end
     if parsed_url.host and ['http', 'https'].index(parsed_url.scheme)
       self.url = parsed_url.to_s
     else

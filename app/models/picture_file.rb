@@ -12,6 +12,7 @@ class PictureFile < ActiveRecord::Base
   validates_attachment_content_type :picture, :content_type => %r{image/.*}
 
   validates_associated :picture_attachable
+  validates_presence_of :picture_attachable_type, :allow_blank => true
   #validates_presence_of :picture_attachable, :picture_attachable_type #, :unless => :parent_id, :on => :create
   default_scope :order => 'position'
   # http://railsforum.com/viewtopic.php?id=11615

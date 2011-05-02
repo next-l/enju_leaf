@@ -310,7 +310,7 @@ describe PictureFilesController do
     before(:each) do
       @picture_file = picture_files(:picture_file_00001)
       @attrs = {:filename => 'new filename.txt'}
-      @invalid_attrs = {:picture_attachable_id => nil}
+      @invalid_attrs = {:picture_attachable_type => nil}
     end
 
     describe "When logged in as Administrator" do
