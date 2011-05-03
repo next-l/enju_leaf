@@ -14,8 +14,4 @@ class ManifestationTest < ActiveSupport::TestCase
   def test_manifestation_should_respond_to_pickup
     assert Manifestation.pickup
   end
-
-  def test_manifestation_should_respond_to_title
-    assert manifestations(:manifestation_00001).title
-  end
 end

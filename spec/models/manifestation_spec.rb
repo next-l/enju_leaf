@@ -181,4 +181,8 @@ describe Manifestation do
   it "should not be reserved it it has no item" do
     manifestations(:manifestation_00008).reservable?.should be_false
   end
+
+  it "should respond to title" do
+    manifestations(:manifestation_00001).title.should be_true
+  end
 end
