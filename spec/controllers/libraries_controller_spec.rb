@@ -53,7 +53,7 @@ describe LibrariesController do
 
       it "assigns the requested library as @library" do
         get :show, :id => 1
-        assigns(:library).should eq(Library.find(1))
+        assigns(:library).should eq(libraries(:library_00001))
       end
     end
 
@@ -64,7 +64,7 @@ describe LibrariesController do
 
       it "assigns the requested library as @library" do
         get :show, :id => 1
-        assigns(:library).should eq(Library.find(1))
+        assigns(:library).should eq(libraries(:library_00001))
       end
     end
 
@@ -75,14 +75,14 @@ describe LibrariesController do
 
       it "assigns the requested library as @library" do
         get :show, :id => 1
-        assigns(:library).should eq(Library.find(1))
+        assigns(:library).should eq(libraries(:library_00001))
       end
     end
 
     describe "When not logged in" do
       it "assigns the requested library as @library" do
         get :show, :id => 1
-        assigns(:library).should eq(Library.find(1))
+        assigns(:library).should eq(libraries(:library_00001))
       end
     end
   end
@@ -302,7 +302,7 @@ describe LibrariesController do
 
   describe "PUT update" do
     before(:each) do
-      @library = Library.find(1)
+      @library = libraries(:library_00001)
       @attrs = {:name => 'example'}
       @invalid_attrs = {:name => ''}
     end
@@ -321,12 +321,65 @@ describe LibrariesController do
           put :update, :id => @library.id, :library => @attrs
           assigns(:library).should eq(@library)
         end
+
+        it "moves its position when specified" do
+          put :update, :id => @library.id, :library => @attrs, :position => 2
+          response.should redirect_to(libraries_url)
+        end
       end
 
       describe "with invalid params" do
         it "assigns the requested library as @library" do
           put :update, :id => @library.id, :library => @invalid_attrs
           response.should render_template("edit")
+        end
+      end
+    end
+
+    describe "When logged in as Librarian" do
+      before(:each) do
+        sign_in Factory(:librarian)
+      end
+
+      describe "with valid params" do
+        it "updates the requested library" do
+          put :update, :id => @library.id, :library => @attrs
+        end
+
+        it "should be forbidden" do
+          put :update, :id => @library.id, :library => @attrs
+          response.should be_forbidden
+        end
+      end
+
+      describe "with invalid params" do
+        it "should be forbidden" do
+          put :update, :id => @library.id, :library => @invalid_attrs
+          response.should be_forbidden
+        end
+      end
+    end
+
+    describe "When logged in as User" do
+      before(:each) do
+        sign_in Factory(:user)
+      end
+
+      describe "with valid params" do
+        it "updates the requested library" do
+          put :update, :id => @library.id, :library => @attrs
+        end
+
+        it "should be forbidden" do
+          put :update, :id => @library.id, :library => @attrs
+          response.should be_forbidden
+        end
+      end
+
+      describe "with invalid params" do
+        it "should be forbidden" do
+          put :update, :id => @library.id, :library => @invalid_attrs
+          response.should be_forbidden
         end
       end
     end
@@ -353,33 +406,128 @@ describe LibrariesController do
   end
 
   describe "DELETE destroy" do
-    before(:each) do
-      @library = Library.find(1)
-    end
-
-    describe "When logged in as Administrator" do
+    describe "Web" do
       before(:each) do
-        sign_in Factory(:admin)
+        @library = libraries(:library_00001)
       end
 
-      it "destroys the requested library" do
-        delete :destroy, :id => @library.id
+      describe "When logged in as Administrator" do
+        before(:each) do
+          sign_in Factory(:admin)
+        end
+
+        it "destroys the requested library" do
+          delete :destroy, :id => @library.id
+        end
+
+        it "should be forbidden" do
+          delete :destroy, :id => @library.id
+          response.should be_forbidden
+        end
       end
 
-      it "should be forbidden" do
-        delete :destroy, :id => @library.id
-        response.should be_forbidden
+      describe "When logged in as Librarian" do
+        before(:each) do
+          sign_in Factory(:librarian)
+        end
+
+        it "destroys the requested library" do
+          delete :destroy, :id => @library.id
+        end
+
+        it "should be forbidden" do
+          delete :destroy, :id => @library.id
+          response.should be_forbidden
+        end
+      end
+
+      describe "When logged in as User" do
+        before(:each) do
+          sign_in Factory(:user)
+        end
+
+        it "destroys the requested library" do
+          delete :destroy, :id => @library.id
+        end
+
+        it "should be forbidden" do
+          delete :destroy, :id => @library.id
+          response.should be_forbidden
+        end
+      end
+
+      describe "When not logged in" do
+        it "destroys the requested library" do
+          delete :destroy, :id => @library.id
+        end
+
+        it "should be forbidden" do
+          delete :destroy, :id => @library.id
+          response.should redirect_to(new_user_session_url)
+        end
       end
     end
 
-    describe "When not logged in" do
-      it "destroys the requested library" do
-        delete :destroy, :id => @library.id
+    describe "Library" do
+      before(:each) do
+        @library = Factory(:library)
+        @library.shelves.first.destroy
       end
 
-      it "should be forbidden" do
-        delete :destroy, :id => @library.id
-        response.should redirect_to(new_user_session_url)
+      describe "When logged in as Administrator" do
+        before(:each) do
+          sign_in Factory(:admin)
+        end
+
+        it "destroys the requested library" do
+          delete :destroy, :id => @library.id
+        end
+
+        it "redirects to the libraries list" do
+          delete :destroy, :id => @library.id
+          response.should redirect_to(libraries_url)
+        end
+      end
+
+      describe "When logged in as Librarian" do
+        before(:each) do
+          sign_in Factory(:librarian)
+        end
+
+        it "destroys the requested library" do
+          delete :destroy, :id => @library.id
+        end
+
+        it "should be forbidden" do
+          delete :destroy, :id => @library.id
+          response.should be_forbidden
+        end
+      end
+
+      describe "When logged in as User" do
+        before(:each) do
+          sign_in Factory(:user)
+        end
+
+        it "destroys the requested library" do
+          delete :destroy, :id => @library.id
+        end
+
+        it "should be forbidden" do
+          delete :destroy, :id => @library.id
+          response.should be_forbidden
+        end
+      end
+
+      describe "When not logged in" do
+        it "destroys the requested library" do
+          delete :destroy, :id => @library.id
+        end
+
+        it "should be forbidden" do
+          delete :destroy, :id => @library.id
+          response.should redirect_to(new_user_session_url)
+        end
       end
     end
   end

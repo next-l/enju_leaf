@@ -110,16 +110,12 @@ class LibrariesController < ApplicationController
   # DELETE /libraries/1
   # DELETE /libraries/1.xml
   def destroy
-    raise if @library.web?
-
     @library.destroy
 
     respond_to do |format|
       format.html { redirect_to libraries_url }
       format.xml  { head :ok }
     end
-  rescue
-    access_denied
   end
 
   private

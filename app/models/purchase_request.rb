@@ -8,8 +8,8 @@ class PurchaseRequest < ActiveRecord::Base
 
   validates_associated :user
   validates_presence_of :user, :title
-  validates_length_of :url, :maximum => 255, :allow_blank => true
   validate :check_price
+  validates :url, :url => true, :allow_blank => true, :length => {:maximum => 255}
   after_save :index!
   after_destroy :index!
   before_save :set_date_of_publication
@@ -20,7 +20,7 @@ class PurchaseRequest < ActiveRecord::Base
     text :title, :author, :publisher, :url
     string :isbn
     string :url
-    float :price
+    integer :price
     integer :user_id
     integer :order_list_id do
       order_list.id if order_list
@@ -41,7 +41,7 @@ class PurchaseRequest < ActiveRecord::Base
   end
 
   def check_price
-    errors.add(:price) unless self.price.nil? || self.price > 0.0
+    errors.add(:price) unless self.price.nil? || self.price > 0
   end
 
   def set_date_of_publication

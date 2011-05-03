@@ -25,7 +25,7 @@ class Reserve < ActiveRecord::Base
   validates_associated :user, :librarian, :item, :request_status_type, :manifestation
   validates_presence_of :user, :manifestation, :request_status_type #, :expired_at
   #validates_uniqueness_of :manifestation_id, :scope => :user_id
-  validates_format_of :expire_date, :with => /^\d+(-\d{0,2}){0,2}$/, :allow_blank => true
+  validates :expire_date, :format => {:with => /^\d+(-\d{0,2}){0,2}$/}, :allow_blank => true
   validate :manifestation_must_include_item
   validate :available_for_reservation?, :on => :create
   before_validation :set_item_and_manifestation, :on => :create

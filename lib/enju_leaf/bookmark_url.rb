@@ -1,8 +1,8 @@
 module BookmarkUrl
   def my_host?
-    url = URI.parse(self)
-    config_url = URI.parse(LibraryGroup.site_config.url)
-    if url.host == config_url.host and url.port == config_url.port
+    url = ::Addressable::URI.parse(self)
+    config_url = ::Addressable::URI.parse(LibraryGroup.site_config.url)
+    if url.host == config_url.host and url.port == config_url.port and ['http', 'https'].include?(url.scheme)
       true
     else
       false
@@ -11,7 +11,7 @@ module BookmarkUrl
 
   def bookmarkable?
     if self.my_host?
-      url = URI.parse(self)
+      url = ::Addressable::URI.parse(self)
       unless url.path.split("/").reverse[1] == "manifestations"
         return false
       end
@@ -21,7 +21,7 @@ module BookmarkUrl
 
   def bookmarkable_id
     if self.my_host?
-      path = URI.parse(self).path.split("/").reverse
+      path = ::Addressable::URI.parse(self).path.split("/").reverse
       unless path[1] == "manifestations"
         nil
       else

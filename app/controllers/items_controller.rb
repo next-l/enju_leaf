@@ -81,13 +81,8 @@ class ItemsController < ApplicationController
 
       page = params[:page] || 1
       search.query.paginate(page.to_i, per_page)
-      begin
-        @items = search.execute!.results
-        @count[:total] = @items.total_entries
-      rescue
-        @items = WillPaginate::Collection.create(1,1,0) do end
-        @count[:total] = 0
-      end
+      @items = search.execute!.results
+      @count[:total] = @items.total_entries
     end
 
     if params[:mode] == 'barcode'
@@ -242,5 +237,4 @@ class ItemsController < ApplicationController
     end
     @roles = Role.all
   end
-
 end

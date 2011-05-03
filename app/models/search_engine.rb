@@ -3,10 +3,11 @@ class SearchEngine < ActiveRecord::Base
   belongs_to :library_group, :validate => true
   acts_as_list
 
-  validates_presence_of :name, :url, :base_url, :query_param, :http_method
-  validates_inclusion_of :http_method, :in => %w(get post)
-  validates_length_of :url, :maximum => 255
-  validate :check_url
+  validates :name, :presence => true
+  validates :query_param, :presence => true
+  validates :http_method, :presence => true, :inclusion => %w(get post)
+  validates :url, :presence => true, :url => true, :length => {:maximum => 255}
+  validates :base_url, :presence => true, :url => true, :length => {:maximum => 255}
   after_save :clear_all_cache
   after_destroy :clear_all_cache
 
@@ -16,11 +17,6 @@ class SearchEngine < ActiveRecord::Base
 
   def clear_all_cache
     Rails.cache.delete('search_engine_all')
-  end
-
-  def check_url
-    errors.add(:url) unless (URI(read_attribute(:url)) rescue false)
-    errors.add(:base_url) unless (URI(read_attribute(:base_url)) rescue false)
   end
 
   def search_params(query)
@@ -33,5 +29,4 @@ class SearchEngine < ActiveRecord::Base
       return params
     end
   end
-
 end

@@ -18,7 +18,7 @@ class Ability
       end
       can [:read, :create, :update], Library
       can :destroy, Library do |library|
-        library.shelves.first.nil?
+        library.shelves.first.nil? and !library.web?
       end
       can [:read, :create, :update], Manifestation
       can :destroy, Manifestation do |manifestation|

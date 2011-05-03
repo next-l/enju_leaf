@@ -14,7 +14,7 @@
     <th><%= t('activerecord.attributes.checkout.due_date') -%></th>
     <th><%= t('activerecord.models.user') -%></th>
   </tr>
-  
+
 <%- @checkins.each_with_index do |checkin, i| -%>
   <tr class="line<%= cycle("0", "1") -%>">
     <td>

@@ -111,5 +111,4 @@ class BasketsController < ApplicationController
       format.xml  { head :ok }
     end
   end
-
 end

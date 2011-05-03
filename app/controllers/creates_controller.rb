@@ -25,8 +25,6 @@ class CreatesController < ApplicationController
   # GET /creates/1
   # GET /creates/1.xml
   def show
-    @create = Create.find(params[:id])
-
     respond_to do |format|
       format.html # show.rhtml
       format.xml  { render :xml => @create }
@@ -48,7 +46,6 @@ class CreatesController < ApplicationController
 
   # GET /creates/1;edit
   def edit
-    @create = Create.find(params[:id])
   end
 
   # POST /creates
@@ -71,8 +68,6 @@ class CreatesController < ApplicationController
   # PUT /creates/1
   # PUT /creates/1.xml
   def update
-    @create = Create.find(params[:id])
-
     # 並べ替え
     if @work and params[:position]
       @create.insert_at(params[:position])
@@ -95,7 +90,6 @@ class CreatesController < ApplicationController
   # DELETE /creates/1
   # DELETE /creates/1.xml
   def destroy
-    @create = Create.find(params[:id])
     @create.destroy
 
     respond_to do |format|

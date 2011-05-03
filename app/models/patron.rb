@@ -25,14 +25,13 @@ class Patron < ActiveRecord::Base
   belongs_to :country
   has_one :patron_import_result
 
-  validates_presence_of :full_name, :language, :patron_type, :country
+  validates_presence_of :language, :patron_type, :country
   validates_associated :language, :patron_type, :country
-  validates_length_of :full_name, :maximum => 255
-  validates_uniqueness_of :user_id, :allow_nil => true
-  validates_format_of :birth_date, :with => /^\d+(-\d{0,2}){0,2}$/, :allow_blank => true
-  validates_format_of :death_date, :with => /^\d+(-\d{0,2}){0,2}$/, :allow_blank => true
-  EMAIL_REGEX = /^([\w\.%\+\-]+)@([\w\-]+\.)+([\w]{2,})$/i
-  validates_format_of :email, :with => EMAIL_REGEX, :allow_blank => true
+  validates :full_name, :presence => true, :length => {:maximum => 255}
+  validates :user_id, :uniqueness => true, :allow_nil => true
+  validates :birth_date, :format => {:with => /^\d+(-\d{0,2}){0,2}$/}, :allow_blank => true
+  validates :death_date, :format => {:with => /^\d+(-\d{0,2}){0,2}$/}, :allow_blank => true
+  validates :email, :format => {:with => /^([\w\.%\+\-]+)@([\w\-]+\.)+([\w]{2,})$/i}, :allow_blank => true
   validate :check_birth_date
   before_validation :set_role_and_name, :on => :create
   before_save :set_date_of_birth, :set_date_of_death

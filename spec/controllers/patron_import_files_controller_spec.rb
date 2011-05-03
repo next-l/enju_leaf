@@ -136,4 +136,66 @@ describe PatronImportFilesController do
       end
     end
   end
+
+  describe "DELETE destroy" do
+    before(:each) do
+      @patron_import_file = patron_import_files(:patron_import_file_00001)
+    end
+
+    describe "When logged in as Administrator" do
+      before(:each) do
+        sign_in Factory(:admin)
+      end
+
+      it "destroys the requested patron_import_file" do
+        delete :destroy, :id => @patron_import_file.id
+      end
+
+      it "redirects to the patron_import_files list" do
+        delete :destroy, :id => @patron_import_file.id
+        response.should redirect_to(patron_import_files_url)
+      end
+    end
+
+    describe "When logged in as Librarian" do
+      before(:each) do
+        sign_in Factory(:librarian)
+      end
+
+      it "destroys the requested patron_import_file" do
+        delete :destroy, :id => @patron_import_file.id
+      end
+
+      it "redirects to the patron_import_files list" do
+        delete :destroy, :id => @patron_import_file.id
+        response.should redirect_to(patron_import_files_url)
+      end
+    end
+
+    describe "When logged in as User" do
+      before(:each) do
+        sign_in Factory(:user)
+      end
+
+      it "destroys the requested patron_import_file" do
+        delete :destroy, :id => @patron_import_file.id
+      end
+
+      it "should be forbidden" do
+        delete :destroy, :id => @patron_import_file.id
+        response.should be_forbidden
+      end
+    end
+
+    describe "When not logged in" do
+      it "destroys the requested patron_import_file" do
+        delete :destroy, :id => @patron_import_file.id
+      end
+
+      it "should be forbidden" do
+        delete :destroy, :id => @patron_import_file.id
+        response.should redirect_to(new_user_session_url)
+      end
+    end
+  end
 end

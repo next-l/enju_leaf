@@ -43,7 +43,6 @@ class ResourceImportFilesController < ApplicationController
   def create
     @resource_import_file = ResourceImportFile.new(params[:resource_import_file])
     @resource_import_file.user = current_user
-    #@resource_import_file.file_hash = Digest::SHA1.hexdigest(params[:resource_import_file][:uploaded_data])
 
     respond_to do |format|
       if @resource_import_file.save
@@ -55,9 +54,6 @@ class ResourceImportFilesController < ApplicationController
         format.xml  { render :xml => @resource_import_file.errors, :status => :unprocessable_entity }
       end
     end
-  #rescue
-  #  flash[:notice] = ('Invalid file.')
-  #  redirect_to new_resource_import_file_url
   end
 
   # PUT /resource_import_files/1

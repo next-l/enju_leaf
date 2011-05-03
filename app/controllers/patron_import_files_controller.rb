@@ -54,9 +54,6 @@ class PatronImportFilesController < ApplicationController
         format.xml  { render :xml => @patron_import_file.errors, :status => :unprocessable_entity }
       end
     end
-  #rescue
-  #  flash[:notice] = ('Invalid file.')
-  #  redirect_to new_resource_import_file_url
   end
 
   # PUT /patron_import_files/1

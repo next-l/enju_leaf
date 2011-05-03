@@ -12,7 +12,7 @@ class PatronsController < ApplicationController
   before_filter :get_version, :only => [:show]
   after_filter :solr_commit, :only => [:create, :update, :destroy]
   cache_sweeper :patron_sweeper, :only => [:create, :update, :destroy]
- 
+
   # GET /patrons
   # GET /patrons.xml
   def index

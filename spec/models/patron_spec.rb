@@ -24,4 +24,20 @@ describe Patron do
     patron = Factory(:patron, :birth_date => '2010', :death_date => '2000')
     patron.should_not be_valid
   end
+
+  it "should be creator" do
+    patrons(:patron_00001).creator?(manifestations(:manifestation_00001)).should be_true
+  end
+
+  it "should not be creator" do
+    patrons(:patron_00010).creator?(manifestations(:manifestation_00001)).should be_false
+  end
+
+  it "should be publisher" do
+    patrons(:patron_00001).publisher?(manifestations(:manifestation_00001)).should be_true
+  end
+
+  it "should not be publisher" do
+    patrons(:patron_00010).publisher?(manifestations(:manifestation_00001)).should be_false
+  end
 end

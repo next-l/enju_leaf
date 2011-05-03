@@ -221,8 +221,6 @@ class ApplicationController < ActionController::Base
   end
 
   def convert_charset
-    #if params[:format] == 'ics'
-    #  response.body = NKF::nkf('-w -Lw', response.body)
     case params[:format]
     when 'csv'
       return unless configatron.csv_charset_conversion

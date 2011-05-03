@@ -327,6 +327,11 @@ describe PictureFilesController do
           put :update, :id => @picture_file.id, :picture_file => @attrs
           assigns(:picture_file).should eq(@picture_file)
         end
+
+        it "moves its position when specified" do
+          put :update, :id => @picture_file.id, :position => 2
+          response.should redirect_to(shelf_picture_files_url(@picture_file.picture_attachable))
+        end
       end
 
       describe "with invalid params" do

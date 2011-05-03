@@ -13,7 +13,7 @@ module EnjuManifestationViewer
 
     def youtube_id
       if access_address
-        url = URI.parse(access_address)
+        url = ::Addressable::URI.parse(access_address)
         if url.host =~ /youtube\.com$/ and url.path == "/watch"
           return CGI.parse(url.query)["v"][0]
         end
@@ -22,7 +22,7 @@ module EnjuManifestationViewer
 
     def nicovideo_id
       if access_address
-        url = URI.parse(access_address)
+        url = ::Addressable::URI.parse(access_address)
         if url.host =~ /nicovideo\.jp$/ and url.path =~ /^\/watch/
           return url.path.split("/")[2]
         end
@@ -31,7 +31,7 @@ module EnjuManifestationViewer
 
     def flickr
       if access_address
-        url = URI.parse(access_address)
+        url = ::Addressable::URI.parse(access_address)
         paths = url.path.split('/')
         if url.host =~ /^www\.flickr\.com$/ and paths[1] == 'photos' and paths[2]
           info = {}

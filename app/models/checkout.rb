@@ -5,7 +5,7 @@ class Checkout < ActiveRecord::Base
   scope :due_date_on, lambda {|date| where(:checkin_id => nil, :due_date => date.beginning_of_day .. date.end_of_day)}
   scope :completed, lambda {|start_date, end_date| {:conditions => ['created_at >= ? AND created_at < ?', start_date, end_date]}}
   scope :on, lambda {|date| {:conditions => ['created_at >= ? AND created_at < ?', date.beginning_of_day, date.tomorrow.beginning_of_day]}}
-  
+ 
   belongs_to :user #, :counter_cache => true #, :validate => true
   delegate :username, :user_number, :to => :user, :prefix => true
   belongs_to :item #, :counter_cache => true #, :validate => true
