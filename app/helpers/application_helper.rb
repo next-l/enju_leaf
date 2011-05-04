@@ -193,8 +193,8 @@ module ApplicationHelper
     case state
     when 'pending'
       t('state.pending')
-    when 'cancaled'
-      t('state.cancaled')
+    when 'canceled'
+      t('state.canceled')
     when 'started'
       t('state.started')
     when 'failed'

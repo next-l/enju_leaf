@@ -1448,7 +1448,7 @@ ja:
     you_should_specify_work: "シリーズ情報には書いた資料を指定しなければなりません。"
   state:
     pending: "処理待ち"
-    cancaled: "中止"
+    canceled: "中止"
     completed: "完了"
     started: "開始"
     failed: "失敗"

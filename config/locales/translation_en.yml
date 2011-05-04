@@ -1468,7 +1468,7 @@ en:
     you_should_specify_work: "You should specify a work in the series statement."
   state:
     pending: "Pending"
-    cancaled: "Cancaled"
+    canceled: "Cancaled"
     completed: "Completed"
     started: "Started"
     failed: "Failed"
