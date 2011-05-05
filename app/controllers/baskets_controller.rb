@@ -24,8 +24,6 @@ class BasketsController < ApplicationController
   # GET /baskets/1
   # GET /baskets/1.xml
   def show
-    @basket = Basket.find(params[:id])
-
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @basket }
@@ -46,7 +44,6 @@ class BasketsController < ApplicationController
 
   # GET /baskets/1/edit
   def edit
-    @basket = Basket.find(params[:id])
   end
 
   # POST /baskets
@@ -75,8 +72,6 @@ class BasketsController < ApplicationController
   # PUT /baskets/1
   # PUT /baskets/1.xml
   def update
-    @basket = Basket.find(params[:id])
-    #if params[:mode] == 'checkout'
     librarian = current_user
     unless @basket.basket_checkout(librarian)
       redirect_to user_basket_checked_items_url(@basket.user, @basket)
@@ -102,7 +97,6 @@ class BasketsController < ApplicationController
   # DELETE /baskets/1
   # DELETE /baskets/1.xml
   def destroy
-    @basket = Basket.find(params[:id])
     @basket.destroy
 
     respond_to do |format|

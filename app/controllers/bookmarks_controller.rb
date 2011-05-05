@@ -36,12 +36,6 @@ class BookmarksController < ApplicationController
   # GET /bookmarks/1
   # GET /bookmarks/1.xml
   def show
-    if @user
-      @bookmark = @user.bookmarks.find(params[:id])
-    else
-      @bookmark = Bookmark.find(params[:id])
-    end
-
     respond_to do |format|
       format.html # show.rhtml
       format.xml  { render :xml => @bookmark }
@@ -114,7 +108,7 @@ class BookmarksController < ApplicationController
           format.html { redirect_to(@bookmark.manifestation) }
           format.xml  { render :xml => @bookmark, :status => :created, :location => user_bookmark_url(@bookmark.user, @bookmark) }
         else
-          format.html { redirect_to(@bookmark) }
+          format.html { redirect_to user_bookmark_url(@bookmark.user, @bookmark) }
           format.xml  { render :xml => @bookmark, :status => :created, :location => user_bookmark_url(@bookmark.user, @bookmark) }
         end
       else
@@ -165,12 +159,6 @@ class BookmarksController < ApplicationController
   # DELETE /bookmarks/1
   # DELETE /bookmarks/1.xml
   def destroy
-    if @user
-      @bookmark = @user.bookmarks.find(params[:id])
-    else
-      @bookmark = Bookmark.find(params[:id])
-    end
-    
     @bookmark.destroy
     flash[:notice] = t('controller.successfully_deleted', :model => t('activerecord.models.bookmark'))
     @bookmark.create_tag_index
@@ -182,7 +170,7 @@ class BookmarksController < ApplicationController
       end
     else
       respond_to do |format|
-        format.html { redirect_to user_bookmarks_url(current_user) }
+        format.html { redirect_to user_bookmarks_url(@bookmark.user) }
         format.xml  { head :ok }
       end
     end

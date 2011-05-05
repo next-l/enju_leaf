@@ -17,6 +17,7 @@ class Bookmark < ActiveRecord::Base
   after_create :create_frbr_object
   after_save :save_manifestation
   after_destroy :reindex_manifestation
+  attr_protected :user
 
   acts_as_taggable_on :tags
   normalize_attributes :url

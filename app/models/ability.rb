@@ -139,7 +139,7 @@ class Ability
       ]
     when 'Librarian'
       can [:index, :create], Bookmark
-      can [:update, :destroy, :show], Bookmark do |bookmark|
+      can [:show, :update, :destroy], Bookmark do |bookmark|
         bookmark.user == user
       end
       can [:read, :create, :update], BookmarkStat
