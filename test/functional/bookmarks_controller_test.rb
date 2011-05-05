@@ -112,7 +112,7 @@ class BookmarksControllerTest < ActionController::TestCase
       post :create, :bookmark => {:title => 'example', :url => 'http://example.com/'}, :user_id => users(:user1).username
     end
     
-    assert_redirected_to bookmark_url(assigns(:bookmark))
+    assert_redirected_to user_bookmark_url(assigns(:bookmark).user, assigns(:bookmark))
     assigns(:bookmark).remove_from_index!
   end
 
@@ -122,7 +122,7 @@ class BookmarksControllerTest < ActionController::TestCase
       post :create, :bookmark => {:title => 'example', :url => "#{LibraryGroup.site_config.url}manifestations/10"}
     end
     
-    assert_redirected_to bookmark_url(assigns(:bookmark))
+    assert_redirected_to user_bookmark_url(assigns(:bookmark).user, assigns(:bookmark))
     assigns(:bookmark).remove_from_index!
   end
 
@@ -148,7 +148,7 @@ class BookmarksControllerTest < ActionController::TestCase
     assert_equal 1, assigns(:bookmark).taggings.size
     assert_equal old_tag_count+1, Tag.count
     #assert_equal 1, assigns(:bookmark).manifestation.items.size
-    assert_redirected_to bookmark_url(assigns(:bookmark))
+    assert_redirected_to user_bookmark_url(assigns(:bookmark).user, assigns(:bookmark))
     assigns(:bookmark).remove_from_index!
   end
 
@@ -163,7 +163,7 @@ class BookmarksControllerTest < ActionController::TestCase
     #assert_nil assigns(:bookmark).manifestation.items.first.item_identifier
     #assert_equal 1, assigns(:bookmark).manifestation.items.size
     assert_equal old_tag_count+2, Tag.count
-    assert_redirected_to bookmark_url(assigns(:bookmark))
+    assert_redirected_to user_bookmark_url(assigns(:bookmark).user, assigns(:bookmark))
     assigns(:bookmark).remove_from_index!
   end
 
