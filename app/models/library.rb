@@ -27,8 +27,8 @@ class Library < ActiveRecord::Base
   validates_associated :library_group, :patron
   validates_presence_of :short_display_name, :library_group, :patron
   validates_uniqueness_of :short_display_name, :case_sensitive => false
-  validates_uniqueness_of :display_name
-  validates_format_of :name, :with => /^[a-z][0-9a-z]{2,254}$/
+  validates :display_name, :uniqueness => true
+  validates :name, :format => {:with => /^[a-z][0-9a-z]{2,254}$/}
   before_validation :set_patron, :on => :create
   #before_save :set_calil_neighborhood_library
   after_validation :geocode, :unless => :skip_geocode

@@ -103,21 +103,23 @@
 
       <%- if current_user.has_role?('Librarian') -%>
         <ul>
-          <%- case when @expression -%>
-            <li><%= link_to t('page.edit'), edit_expression_manifestation_path(@expression, @manifestation) -%></li>
-          <%- when @patron -%>
-            <li><%= link_to t('page.edit'), edit_publisher_manifestation_path(@patron, @manifestation) -%></li>
-          <%- else -%>
-            <li><%= link_to t('page.edit'), edit_manifestation_path(@manifestation) -%></li>
-          <%- end -%>
-          <ul>
-            <li><%= link_to t('manifestation.edit_creator'), work_patrons_path(@manifestation) -%></li>
-            <li><%= link_to t('manifestation.edit_contributor'), expression_patrons_path(@manifestation) -%></li>
-            <li><%= link_to t('manifestation.edit_publisher'), manifestation_patrons_path(@manifestation) -%></li>
-            <%- if @manifestation.serial? -%>
-              <li><%= link_to t('manifestation.add_next_issue'), new_series_statement_manifestation_path(@manifestation.series_statement) if @manifestation.series_statement -%></li>
+          <li>
+            <%- case when @expression -%>
+              <%= link_to t('page.edit'), edit_expression_manifestation_path(@expression, @manifestation) -%>
+            <%- when @patron -%>
+              <%= link_to t('page.edit'), edit_publisher_manifestation_path(@patron, @manifestation) -%>
+            <%- else -%>
+              <%= link_to t('page.edit'), edit_manifestation_path(@manifestation) -%>
             <%- end -%>
-          </ul>
+            <ul>
+              <li><%= link_to t('manifestation.edit_creator'), work_patrons_path(@manifestation) -%></li>
+              <li><%= link_to t('manifestation.edit_contributor'), expression_patrons_path(@manifestation) -%></li>
+              <li><%= link_to t('manifestation.edit_publisher'), manifestation_patrons_path(@manifestation) -%></li>
+              <%- if @manifestation.serial? -%>
+                <li><%= link_to t('manifestation.add_next_issue'), new_series_statement_manifestation_path(@manifestation.series_statement) if @manifestation.series_statement -%></li>
+              <%- end -%>
+            </ul>
+          </li>
           <li><%= link_to t('manifestation.add_derivation'), manifestation_manifestations_path(@manifestation, :mode => 'add') -%></li>
           <li><%= link_to t('page.listing', :model => t('activerecord.models.subject')), work_subjects_path(@manifestation) -%></li>
           <li><%= link_to t('manifestation.edit_item'), manifestation_items_path(@manifestation) -%></li>

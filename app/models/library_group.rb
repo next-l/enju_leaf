@@ -9,9 +9,8 @@ class LibraryGroup < ActiveRecord::Base
   has_many :news_feeds
   belongs_to :country
 
-  validates_presence_of :email, :url
-  EMAIL_REGEX = /^([\w\.%\+\-]+)@([\w\-]+\.)+([\w]{2,})$/i
-  validates_format_of :email, :with => EMAIL_REGEX
+  validates :email, :presence => true, :format => {:with => /^([\w\.%\+\-]+)@([\w\-]+\.)+([\w]{2,})$/i}
+  validates :url, :presence => true, :url => true
   after_save :clear_site_config_cache
 
   def clear_site_config_cache

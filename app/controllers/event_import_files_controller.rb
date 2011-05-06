@@ -54,9 +54,6 @@ class EventImportFilesController < ApplicationController
         format.xml  { render :xml => @event_import_file.errors, :status => :unprocessable_entity }
       end
     end
-  #rescue
-  #  flash[:notice] = t('attachment_file.invalid_file')
-  #  redirect_to new_event_import_file_url
   end
 
   # PUT /event_import_files/1

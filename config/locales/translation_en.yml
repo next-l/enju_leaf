@@ -1231,7 +1231,6 @@ en:
     reservable_list: "Reservable list"
     post_to_twitter: "post to Twitter"
     web: "Web"
-    serial: "Serial"
     send_email: "Email this information"
     attachment_file: "Attachment file"
     question: "Question"
@@ -1469,7 +1468,7 @@ en:
     you_should_specify_work: "You should specify a work in the series statement."
   state:
     pending: "Pending"
-    cancaled: "Cancaled"
+    canceled: "Cancaled"
     completed: "Completed"
     started: "Started"
     failed: "Failed"

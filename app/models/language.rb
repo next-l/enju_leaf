@@ -23,7 +23,7 @@ class Language < ActiveRecord::Base
     Rails.cache.delete('language_all')
     Rails.cache.delete('available_languages')
   end
-  
+
   def self.available_languages
     Language.where(:iso_639_1 => I18n.available_locales.map{|l| l.to_s}).order(:position)
   end

@@ -20,23 +20,4 @@ class CheckoutTest < ActiveSupport::TestCase
   def test_send_overdue_notification
     assert_equal Checkout.send_overdue_notification, 0
   end
-
-  test "should respond to checkout_renewable?" do
-    assert checkouts(:checkout_00001).checkout_renewable?
-    assert !checkouts(:checkout_00002).checkout_renewable?
-  end
-
-  test "should respond to reserved?" do
-    assert !checkouts(:checkout_00001).reserved?
-    assert checkouts(:checkout_00002).reserved?
-  end
-
-  test "should respond to overdue?" do
-    assert !checkouts(:checkout_00001).overdue?
-    assert checkouts(:checkout_00006).overdue?
-  end
-
-  test "should respond to is_today_due_date?" do
-    assert !checkouts(:checkout_00001).is_today_due_date?
-  end
 end

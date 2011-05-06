@@ -5,7 +5,7 @@ class Bookstore < ActiveRecord::Base
 
   acts_as_list
   validates_presence_of :name
-  validates_length_of :url, :maximum => 255, :allow_blank => true
+  validates :url, :url => true, :allow_blank => true, :length => {:maximum => 255}
 
   def self.per_page
     10

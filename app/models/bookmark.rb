@@ -6,18 +6,18 @@ class Bookmark < ActiveRecord::Base
   belongs_to :manifestation, :class_name => 'Manifestation'
   belongs_to :user #, :counter_cache => true, :validate => true
 
-  validates_presence_of :user, :title, :url
+  validates_presence_of :user, :title
   validates_associated :user, :manifestation
   validates_uniqueness_of :manifestation_id, :scope => :user_id
-  validates_length_of :url, :maximum => 255, :allow_blank => true
+  validates :url, :url => true, :presence => true, :length => {:maximum => 255}
   #validate :get_manifestation
   before_validation :create_manifestation, :on => :create
-  before_validation :set_url
   validate :bookmarkable_url?
   before_save :replace_space_in_tags
   after_create :create_frbr_object
   after_save :save_manifestation
   after_destroy :reindex_manifestation
+  attr_protected :user
 
   acts_as_taggable_on :tags
   normalize_attributes :url
@@ -41,12 +41,6 @@ class Bookmark < ActiveRecord::Base
 
   def self.per_page
     10
-  end
-
-  def set_url
-    self.url = URI.parse(self.url).normalize.to_s
-  rescue URI::InvalidURIError
-    nil
   end
 
   def replace_space_in_tags
@@ -89,6 +83,7 @@ class Bookmark < ActiveRecord::Base
 
   def self.get_title_from_url(url)
     return if url.blank?
+    return unless Addressable::URI.parse(url).host
     if manifestation_id = url.bookmarkable_id
       manifestation = Manifestation.find(manifestation_id)
       return manifestation.original_title
@@ -117,7 +112,7 @@ class Bookmark < ActiveRecord::Base
     doc = Nokogiri::HTML(open(url))
     canonical_url = doc.search("/html/head/link[@rel='canonical']").first['href']
     # TODO: URLを相対指定している時
-    URI.parse(canonical_url).normalize.to_s
+    Addressable::URI.parse(canonical_url).normalize.to_s
   rescue
     nil
   end

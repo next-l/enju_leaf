@@ -145,4 +145,44 @@ describe Manifestation do
     sru.search
     sru.manifestations.size.should eq 6
   end
+
+  it "should be reserved" do
+    manifestations(:manifestation_00007).is_reserved_by(users(:admin)).should be_true
+  end
+
+  it "should not be reserved" do
+    manifestations(:manifestation_00007).is_reserved_by(users(:user1)).should be_nil
+  end
+
+  it "should_get_number_of_pages" do
+    manifestations(:manifestation_00001).number_of_pages.should eq 100
+  end
+
+  it "should get youtube_id" do
+    manifestations(:manifestation_00022).youtube_id.should eq 'BSHBzd9ftDE'
+  end
+
+  it "should get nicovideo_id" do
+    manifestations(:manifestation_00023).nicovideo_id.should eq 'sm3015373'
+  end
+
+  it "should have screen_shot" do
+    manifestations(:manifestation_00003).screen_shot.should be_true
+  end
+
+  it "should have parent_of_series" do
+    manifestations(:manifestation_00001).parent_of_series.should be_true
+  end
+
+  it "should respond to extract_text" do
+    manifestations(:manifestation_00001).extract_text.should be_nil
+  end
+
+  it "should not be reserved it it has no item" do
+    manifestations(:manifestation_00008).reservable?.should be_false
+  end
+
+  it "should respond to title" do
+    manifestations(:manifestation_00001).title.should be_true
+  end
 end

@@ -159,7 +159,7 @@ class ManifestationsController < ApplicationController
         end.execute.raw_results.collect(&:primary_key).map{|id| id.to_i}
         session[:manifestation_ids] = manifestation_ids
       end
-        
+
       if session[:manifestation_ids]
         bookmark_ids = Bookmark.where(:manifestation_id => session[:manifestation_ids]).limit(1000).select(:id).collect(&:id)
         @tags = Tag.bookmarked(bookmark_ids)

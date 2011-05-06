@@ -310,7 +310,7 @@ describe PictureFilesController do
     before(:each) do
       @picture_file = picture_files(:picture_file_00001)
       @attrs = {:filename => 'new filename.txt'}
-      @invalid_attrs = {:picture_attachable_id => nil}
+      @invalid_attrs = {:picture_attachable_type => nil}
     end
 
     describe "When logged in as Administrator" do
@@ -326,6 +326,11 @@ describe PictureFilesController do
         it "assigns the requested picture_file as @picture_file" do
           put :update, :id => @picture_file.id, :picture_file => @attrs
           assigns(:picture_file).should eq(@picture_file)
+        end
+
+        it "moves its position when specified" do
+          put :update, :id => @picture_file.id, :position => 2
+          response.should redirect_to(shelf_picture_files_url(@picture_file.picture_attachable))
         end
       end
 

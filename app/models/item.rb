@@ -35,9 +35,8 @@ class Item < ActiveRecord::Base
 
   validates_associated :circulation_status, :shelf, :bookstore, :checkout_type
   validates_presence_of :circulation_status, :checkout_type
-  validates_uniqueness_of :item_identifier, :allow_blank => true, :if => proc{|item| !item.item_identifier.blank? and !item.manifestation.try(:series_statement)}
-  validates_length_of :url, :maximum => 255, :allow_blank => true
-  validates_format_of :item_identifier, :with=>/\A\w+\Z/, :allow_blank => true
+  validates :item_identifier, :allow_blank => true, :uniqueness => {:if => proc{|item| !item.item_identifier.blank? and !item.manifestation.try(:series_statement)}}, :format => {:with => /\A\w+\Z/}
+  validates :url, :url => true, :allow_blank => true, :length => {:maximum => 255}
   before_validation :set_circulation_status, :on => :create
 
   #enju_union_catalog
@@ -195,7 +194,7 @@ class Item < ActiveRecord::Base
   end
 
   def manifestation_url
-    URI.parse("#{LibraryGroup.site_config.url}manifestations/#{self.manifestation.id}").normalize.to_s if self.manifestation
+    Addressable::URI.parse("#{LibraryGroup.site_config.url}manifestations/#{self.manifestation.id}").normalize.to_s if self.manifestation
   end
 
   #def create_lending_policy

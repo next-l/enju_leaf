@@ -161,13 +161,6 @@ class UsersController < ApplicationController
   end
 
   def destroy
-    # 自分自身を削除しようとした
-    if current_user == @user
-      flash[:notice] = I18n.t('user.cannot_destroy_myself')
-      redirect_to current_user
-      return
-    end
-
     if @user.deletable_by(current_user)
       @user.destroy
     else

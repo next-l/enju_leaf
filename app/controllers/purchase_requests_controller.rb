@@ -168,5 +168,4 @@ class PurchaseRequestsController < ApplicationController
       end
     end
   end
-
 end

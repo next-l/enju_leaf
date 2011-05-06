@@ -136,4 +136,66 @@ describe EventImportFilesController do
       end
     end
   end
+
+  describe "DELETE destroy" do
+    before(:each) do
+      @event_import_file = event_import_files(:event_import_file_00001)
+    end
+
+    describe "When logged in as Administrator" do
+      before(:each) do
+        sign_in Factory(:admin)
+      end
+
+      it "destroys the requested event_import_file" do
+        delete :destroy, :id => @event_import_file.id
+      end
+
+      it "redirects to the event_import_files list" do
+        delete :destroy, :id => @event_import_file.id
+        response.should redirect_to(event_import_files_url)
+      end
+    end
+
+    describe "When logged in as Librarian" do
+      before(:each) do
+        sign_in Factory(:librarian)
+      end
+
+      it "destroys the requested event_import_file" do
+        delete :destroy, :id => @event_import_file.id
+      end
+
+      it "redirects to the event_import_files list" do
+        delete :destroy, :id => @event_import_file.id
+        response.should redirect_to(event_import_files_url)
+      end
+    end
+
+    describe "When logged in as User" do
+      before(:each) do
+        sign_in Factory(:user)
+      end
+
+      it "destroys the requested event_import_file" do
+        delete :destroy, :id => @event_import_file.id
+      end
+
+      it "should be forbidden" do
+        delete :destroy, :id => @event_import_file.id
+        response.should be_forbidden
+      end
+    end
+
+    describe "When not logged in" do
+      it "destroys the requested event_import_file" do
+        delete :destroy, :id => @event_import_file.id
+      end
+
+      it "should be forbidden" do
+        delete :destroy, :id => @event_import_file.id
+        response.should redirect_to(new_user_session_url)
+      end
+    end
+  end
 end

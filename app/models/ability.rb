@@ -18,7 +18,7 @@ class Ability
       end
       can [:read, :create, :update], Library
       can :destroy, Library do |library|
-        library.shelves.first.nil?
+        library.shelves.first.nil? and !library.web?
       end
       can [:read, :create, :update], Manifestation
       can :destroy, Manifestation do |manifestation|
@@ -139,7 +139,7 @@ class Ability
       ]
     when 'Librarian'
       can [:index, :create], Bookmark
-      can [:update, :destroy, :show], Bookmark do |bookmark|
+      can [:show, :update, :destroy], Bookmark do |bookmark|
         bookmark.user == user
       end
       can [:read, :create, :update], BookmarkStat

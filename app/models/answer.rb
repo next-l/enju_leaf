@@ -29,7 +29,7 @@ class Answer < ActiveRecord::Base
   end
 
   def add_urls
-    list = url_list.to_s.strip.split.map{|u| Manifestation.first(:conditions => {:access_address => URI.parse(u).normalize.to_s})}.compact.map{|m| m.web_item}.compact.uniq
+    list = url_list.to_s.strip.split.map{|u| Manifestation.first(:conditions => {:access_address => Addressable::URI.parse(u).normalize.to_s})}.compact.map{|m| m.web_item}.compact.uniq
   end
 
 end

@@ -167,5 +167,4 @@ class UserTest < ActiveSupport::TestCase
     user.save
     user
   end
-
 end

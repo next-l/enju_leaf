@@ -172,13 +172,13 @@ class Manifestation < ActiveRecord::Base
 
   validates_presence_of :original_title, :carrier_type, :language
   validates_associated :carrier_type, :language
-  validates_numericality_of :start_page, :end_page, :allow_blank => true
-  validates_length_of :access_address, :maximum => 255, :allow_blank => true
-  validates_uniqueness_of :isbn, :allow_blank => true
-  validates_uniqueness_of :nbn, :allow_blank => true
-  validates_uniqueness_of :identifier, :allow_blank => true
-  validates_format_of :access_address, :with => URI::regexp(%w(http https)) , :allow_blank => true
-  validates_format_of :pub_date, :with => /^\d+(-\d{0,2}){0,2}$/, :allow_blank => true
+  validates :start_page, :numericality => true, :allow_blank => true
+  validates :end_page, :numericality => true, :allow_blank => true
+  validates :isbn, :uniqueness => true, :allow_blank => true
+  validates :nbn, :uniqueness => true, :allow_blank => true
+  validates :identifier, :uniqueness => true, :allow_blank => true
+  validates :pub_date, :format => {:with => /^\d+(-\d{0,2}){0,2}$/}, :allow_blank => true
+  validates :access_address, :url => true, :allow_blank => true, :length => {:maximum => 255}
   validate :check_isbn, :unless => :during_import
   before_validation :set_wrong_isbn, :if => :during_import
   before_validation :convert_isbn

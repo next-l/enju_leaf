@@ -323,6 +323,11 @@ describe SeriesStatementsController do
           put :update, :id => @series_statement.id, :series_statement => @attrs
           assigns(:series_statement).should eq(@series_statement)
         end
+
+        it "moves its position when specified" do
+          put :update, :id => @series_statement.id, :position => 2
+          response.should redirect_to(series_statements_url)
+        end
       end
 
       describe "with invalid params" do

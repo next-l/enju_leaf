@@ -106,5 +106,4 @@ class RealizesController < ApplicationController
       end
     end
   end
-
 end

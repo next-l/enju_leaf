@@ -30,7 +30,7 @@ div#narrow_search, div#narrow_library_search{
 }
 
 div#navibar, div#bd{
-  padding-left: 2px;
+  padding-left: 1px;
 }
 
 div#navibar{
@@ -490,6 +490,14 @@ img.icon{
   padding-right: 5px;
   padding-top: 0.5em;
   padding-bottom: 0.5em;
+}
+
+li{
+  margin-left: 20px;
+}
+
+p{
+  line-height: 2em;
 }
 
 /* .yui-skin-sam .yui-navset .yui-content{background:white;} */
