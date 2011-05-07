@@ -179,8 +179,8 @@ class Manifestation < ActiveRecord::Base
   validates :identifier, :uniqueness => true, :allow_blank => true
   validates :pub_date, :format => {:with => /^\d+(-\d{0,2}){0,2}$/}, :allow_blank => true
   validates :access_address, :url => true, :allow_blank => true, :length => {:maximum => 255}
-  validate :check_isbn, :unless => :during_import
-  before_validation :set_wrong_isbn, :if => :during_import
+  validate :check_isbn, :check_issn, :check_lccn, :unless => :during_import
+  before_validation :set_wrong_isbn, :check_issn, :check_lccn, :if => :during_import
   before_validation :convert_isbn
   before_create :set_digest
   before_save :set_date_of_publication
@@ -195,6 +195,22 @@ class Manifestation < ActiveRecord::Base
     if isbn.present?
       unless ISBN_Tools.is_valid?(isbn)
         errors.add(:isbn)
+      end
+    end
+  end
+
+  def check_issn
+    if issn.present?
+      unless StdNum::ISSN.valid?(issn)
+        errors.add(:issn)
+      end
+    end
+  end
+
+  def check_lccn
+    if lccn.present?
+      unless StdNum::LCCN.valid?(issn)
+        errors.add(:issn)
       end
     end
   end
