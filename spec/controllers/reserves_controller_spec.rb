@@ -30,12 +30,43 @@ describe ReservesController do
 
     describe "When logged in as User" do
       before(:each) do
-        sign_in Factory(:user)
+        @user = Factory(:user)
+        sign_in @user
       end
 
       it "assigns empty as @reserves" do
         get :index
         assigns(:reserves).should be_nil
+      end
+
+      it "should be redirected to its own index" do
+        get :index
+        response.should redirect_to user_reserves_url(@user)
+      end
+
+      describe "When my user_id is specified" do
+        it "assigns my reserves as @reserves" do
+          get :index, :user_id => @user.username
+          assigns(:reserves).should be_empty
+          response.should be_success
+        end
+
+        it "assigns my reservation feed as @reserves" do
+          get :index, :user_id => @user.username, :format => :rss
+          assigns(:reserves).should be_empty
+          response.should be_success
+        end
+      end
+
+      describe "When other user_id is specified" do
+        before(:each) do
+          @user = Factory(:user)
+        end
+
+        it "should not get any reserve as @reserves" do
+          get :index, :user_id => @user.username
+          response.should be_forbidden
+        end
       end
     end
 
@@ -219,6 +250,98 @@ describe ReservesController do
           assigns(:reserve).expired_at.should be_nil
           response.should render_template("new")
           response.should be_success
+        end
+      end
+    end
+
+    describe "When logged in as Librarian" do
+      before(:each) do
+        sign_in Factory(:librarian)
+      end
+
+      describe "with valid params" do
+        it "assigns a newly created reserve as @reserve" do
+          post :create, :reserve => @attrs, :user_id => users(:user1).username
+          assigns(:reserve).should be_valid
+        end
+
+        it "redirects to the created reserve" do
+          post :create, :reserve => @attrs, :user_id => users(:user1).username
+          response.should redirect_to(user_reserve_url(assigns(:reserve).user, assigns(:reserve)))
+          assigns(:reserve).expired_at.should be_true
+        end
+      end
+
+      describe "with invalid params" do
+        it "assigns a newly created but unsaved reserve as @reserve" do
+          post :create, :reserve => @invalid_attrs, :user_id => users(:user1).username
+          assigns(:reserve).should_not be_valid
+        end
+
+        it "redirects to the list" do
+          post :create, :reserve => @invalid_attrs, :user_id => users(:user1).username
+          assigns(:reserve).expired_at.should be_nil
+          response.should render_template("new")
+          response.should be_success
+        end
+      end
+    end
+
+    describe "When logged in as User" do
+      before(:each) do
+        @user = Factory(:user)
+        sign_in @user
+      end
+
+      describe "with valid params" do
+        it "assigns a newly created reserve as @reserve" do
+          post :create, :reserve => @attrs, :user_id => @user.username
+          assigns(:reserve).should_not be_valid
+        end
+
+        it "should be forbidden" do
+          post :create, :reserve => @attrs, :user_id => @user.username
+          response.should be_forbidden
+        end
+      end
+
+      describe "with invalid params" do
+        it "assigns a newly created but unsaved reserve as @reserve" do
+          post :create, :reserve => @invalid_attrs, :user_id => @user.username
+          assigns(:reserve).should_not be_valid
+        end
+
+        it "should be forbidden" do
+          post :create, :reserve => @invalid_attrs, :user_id => @user.username
+          assigns(:reserve).expired_at.should be_nil
+          response.should be_forbidden
+        end
+      end
+    end
+
+    describe "When not logged in" do
+      describe "with valid params" do
+        it "assigns a newly created reserve as @reserve" do
+          post :create, :reserve => @attrs
+          assigns(:reserve).should_not be_valid
+        end
+
+        it "redirects to the login page" do
+          post :create, :reserve => @attrs
+          response.should redirect_to new_user_session_url
+        end
+      end
+
+      describe "with invalid params" do
+        it "assigns a newly created but unsaved reserve as @reserve" do
+          post :create, :reserve => @invalid_attrs, :user_id => users(:user1).username
+          assigns(:reserve).should_not be_valid
+        end
+
+        it "redirects to the login page" do
+          post :create, :reserve => @invalid_attrs, :user_id => users(:user1).username
+          assigns(:reserve).expired_at.should be_nil
+          response.should redirect_to new_user_session_url
         end
       end
     end
