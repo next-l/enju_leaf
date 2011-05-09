@@ -32,44 +32,6 @@ class CheckedItemsControllerTest < ActionController::TestCase
     assert_response :forbidden
   end
 
-  def test_librarian_should_get_index
-    sign_in users(:librarian1)
-    get :index, :basket_id => 3, :item_id => 3
-    assert_response :success
-    assert assigns(:checked_items)
-  end
-
-  def test_librarian_should_get_index_with_list
-    sign_in users(:librarian1)
-    get :index, :basket_id => 3, :item_id => 3, :mode => 'list'
-    assert_response :success
-    assert assigns(:checked_items)
-  end
-
-  def test_guest_should_not_get_new
-    get :new, :basket_id => 1
-    assert_response :redirect
-    assert_redirected_to new_user_session_url
-  end
-  
-  def test_everyone_should_not_get_new_without_basket_id
-    sign_in users(:admin)
-    get :new
-    assert_response :forbidden
-  end
-
-  def test_user_should_not_get_new
-    sign_in users(:user1)
-    get :new, :basket_id => 3
-    assert_response :forbidden
-  end
-
-  def test_librarian_should_get_new
-    sign_in users(:librarian1)
-    get :new, :basket_id => 3
-    assert_response :success
-  end
-
   def test_guest_should_not_create_checked_item
     assert_no_difference('CheckedItem.count') do
       post :create, :checked_item => {:item_identifier => '00004'}, :basket_id => 1
@@ -87,49 +49,6 @@ class CheckedItemsControllerTest < ActionController::TestCase
     
     assert_response :success
     #assert_redirected_to user_basket_checked_items_url(assigns(:basket).user.username, assigns(:basket))
-  end
-
-  def test_everyone_should_not_create_checked_item_with_missing_item
-    sign_in users(:admin)
-    assert_no_difference('CheckedItem.count') do
-      post :create, :checked_item => {:item_identifier => 'not found'}, :basket_id => 1
-    end
-    
-    assert_response :success
-    #assert_redirected_to user_basket_checked_items_url(assigns(:basket).user.username, assigns(:basket))
-    assert_equal [I18n.t('checked_item.item_not_found')], assigns(:checked_item).errors["base"]
-  end
-
-  def test_everyone_should_not_create_checked_item_with_item_not_for_checkout
-    sign_in users(:admin)
-    assert_no_difference('CheckedItem.count') do
-      post :create, :checked_item => {:item_identifier => '00017'}, :basket_id => 1
-    end
-    
-    assert_response :success
-    #assert_redirected_to user_basket_checked_items_url(assigns(:basket).user.username, assigns(:basket))
-    #assert flash[:message].include?('This item is not available for checkout.')
-    assert assigns(:checked_item).errors["base"].include?(I18n.t('checked_item.not_available_for_checkout'))
-  end
-
-  def test_everyone_should_not_create_checked_item_already_checked_out
-    sign_in users(:admin)
-    assert_no_difference('CheckedItem.count') do
-      post :create, :checked_item => {:item_identifier => '00013'}, :basket_id => 8
-    end
-    
-    assert_response :success
-    assert assigns(:checked_item).errors["base"].include?(I18n.t('checked_item.already_checked_out'))
-  end
-
-  def test_everyone_should_not_create_checked_item_in_transaction
-    sign_in users(:admin)
-    assert_no_difference('CheckedItem.count') do
-      post :create, :checked_item => {:item_identifier => '00006'}, :basket_id => 9
-    end
-    
-    assert_response :success
-    assert assigns(:checked_item).errors["base"].include?(I18n.t('activerecord.errors.messages.checked_item.in_transcation'))
   end
 
   def test_everyone_should_not_create_checked_item_without_basket_id

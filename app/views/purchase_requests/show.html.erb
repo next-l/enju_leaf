@@ -48,7 +48,7 @@
 
 <p>
   <strong><%= t('activerecord.attributes.purchase_request.url') -%>:</strong>
-  <%= link_to @purchase_request.url, @purchase_request.url -%>
+  <%= link_to @purchase_request.url, @purchase_request.url if @purchase_request.url? -%>
 </p>
 
 <p>

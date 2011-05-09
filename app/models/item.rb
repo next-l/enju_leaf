@@ -74,7 +74,7 @@ class Item < ActiveRecord::Base
   end
 
   def next_reservation
-    Reserve.waiting.first(:conditions => {:manifestation_id => self.manifestation.id})
+    Reserve.waiting.where(:manifestation_id => self.manifestation.id).first
   end
 
   def reserved?

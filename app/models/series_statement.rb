@@ -1,6 +1,7 @@
 class SeriesStatement < ActiveRecord::Base
   has_many :manifestations
   validates_presence_of :original_title
+  validate :check_issn
   acts_as_list
   searchable do
     text :title do
@@ -14,5 +15,13 @@ class SeriesStatement < ActiveRecord::Base
 
   def last_issue
     manifestations.first(:conditions => 'date_of_publication IS NOT NULL', :order => 'date_of_publication DESC') || manifestations.first
+  end
+
+  def check_issn
+    if issn.present?
+      unless StdNum::ISSN.valid?(issn)
+        errors.add(:issn)
+      end
+    end
   end
 end

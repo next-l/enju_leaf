@@ -19,31 +19,10 @@ class ReservesControllerTest < ActionController::TestCase
     assert assigns(:reserves)
   end
 
-  def test_user_should_be_redirected_to_my_index
-    sign_in users(:user1)
-    get :index
-    assert_response :redirect
-    assert_redirected_to user_reserves_url(users(:user1).username)
-  end
-
-  def test_user_should_get_my_index_feed
-    sign_in users(:user1)
-    get :index, :user_id => users(:user1).username, :format => 'rss'
-    assert_response :success
-    assert assigns(:reserves)
-  end
-
   def test_user_should_not_get_other_index
     sign_in users(:user1)
     get :index, :user_id => users(:user2).username
     assert_response :forbidden
-  end
-
-  def test_librarian_should_get_index_without_user_id
-    sign_in users(:librarian1)
-    get :index
-    assert_response :success
-    assert assigns(:reserves)
   end
 
   def test_librarian_should_get_index_feed_without_user_id

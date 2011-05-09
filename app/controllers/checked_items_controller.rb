@@ -79,12 +79,10 @@ class CheckedItemsController < ApplicationController
     unless item_identifier.blank?
       item = Item.where(:item_identifier => item_identifier).first
     end
-
     @checked_item.item = item unless item.blank?
 
     respond_to do |format|
       if @checked_item.save
-        @checked_item.destroy_reservation(@basket)
         if @checked_item.item.include_supplements
           flash[:message] << t('item.this_item_include_supplement')
         end

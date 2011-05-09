@@ -75,6 +75,7 @@ gem 'jpmobile', '>=1.0.0.pre.4'
 #gem 'geokit'
 gem 'geocoder'
 gem 'acts_as_list', :git => 'git://github.com/haihappen/acts_as_list.git'
+gem 'library_stdnums'
 
 #gem 'oink', '>=0.9.1'
 group :development do

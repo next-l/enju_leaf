@@ -54,3 +54,12 @@ lending_policy_00006:
   fine: 9.99
   note: MyText
   position: 1
+lending_policy_00007:
+  item_id: 21
+  user_group_id: 1
+  loan_period: 1
+  fixed_due_date: 
+  renewal: 1
+  fine: 9.99
+  note: MyText
+  position: 1
