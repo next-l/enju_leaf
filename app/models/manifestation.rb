@@ -267,7 +267,7 @@ class Manifestation < ActiveRecord::Base
   end
 
   def next_reservation
-    self.reserves.first(:order => ['reserves.created_at'])
+    self.reserves.waiting.first
   end
 
   def serial?

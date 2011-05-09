@@ -242,17 +242,12 @@ describe CheckedItemsController do
           assigns(:checked_item).errors[:base].include?(I18n.t('activerecord.errors.messages.checked_item.in_transcation')).should be_true
         end
       end
-    end
 
-    describe "When logged in as Librarian" do
-      before(:each) do
-        sign_in Factory(:librarian)
-      end
-
-      describe "with valid params" do
+      describe "When the item is reserved" do
         it "assigns a newly created checked_item as @checked_item" do
-          post :create, :checked_item => @attrs, :basket_id => 3
+          post :create, :checked_item => {:item_identifier => '00021'} , :basket_id => 11
           assigns(:checked_item).should be_valid
+          assigns(:checked_item).item.manifestation.reserves.waiting.should be_empty
         end
       end
     end

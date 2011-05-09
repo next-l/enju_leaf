@@ -19,13 +19,6 @@ class ReservesControllerTest < ActionController::TestCase
     assert assigns(:reserves)
   end
 
-  def test_user_should_get_my_index_feed
-    sign_in users(:user1)
-    get :index, :user_id => users(:user1).username, :format => 'rss'
-    assert_response :success
-    assert assigns(:reserves)
-  end
-
   def test_user_should_not_get_other_index
     sign_in users(:user1)
     get :index, :user_id => users(:user2).username

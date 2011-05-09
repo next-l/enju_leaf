@@ -44,8 +44,9 @@ class CheckedItem < ActiveRecord::Base
     end
 
     if self.item.reserved?
-      reserving_user = self.item.manifestation.reserving_users.first(:conditions => {:id => user.id}, :order => :created_at) rescue nil
-      unless reserving_user
+      if self.item.manifestation.next_reservation.user == self.basket.user
+        self.item.manifestation.next_reservation.sm_complete
+      else
         errors[:base] << I18n.t('activerecord.errors.messages.checked_item.reserved_item_included')
       end
     end
@@ -92,7 +93,7 @@ class CheckedItem < ActiveRecord::Base
   end
 
   def in_transaction?
-    true if CheckedItem.first(:conditions => {:basket_id => self.basket.id, :item_id => self.item_id})
+    true if CheckedItem.where(:basket_id => self.basket.id, :item_id => self.item_id).first
   end
 
   def destroy_reservation(basket)

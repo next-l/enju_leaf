@@ -2,7 +2,7 @@
 class Reserve < ActiveRecord::Base
   scope :hold, :conditions => ['item_id IS NOT NULL']
   scope :not_hold, where(:item_id => nil)
-  scope :waiting, :conditions => ['canceled_at IS NULL AND expired_at > ?', Time.zone.now], :order => 'id DESC'
+  scope :waiting, :conditions => ['canceled_at IS NULL AND expired_at > ? AND state != ?', Time.zone.now, 'completed'], :order => 'id DESC'
   scope :completed, :conditions => ['checked_out_at IS NOT NULL']
   scope :canceled, :conditions => ['canceled_at IS NOT NULL']
   scope :will_expire_retained, lambda {|datetime| {:conditions => ['checked_out_at IS NULL AND canceled_at IS NULL AND expired_at <= ? AND state = ?', datetime, 'retained'], :order => 'expired_at'}}
@@ -58,7 +58,7 @@ class Reserve < ActiveRecord::Base
     end
 
     event :sm_complete do
-      transition :retained => :completed
+      transition [:requested, :retained] => :completed
     end
   end
 

@@ -199,3 +199,13 @@ item_00020:
   id: 20
   include_supplements: false
   created_at: 2007-08-24 23:46:56.484813 +09:00
+item_00021: 
+  updated_at: 2007-08-24 23:46:56.484813 +09:00
+  item_identifier: '00021'
+  circulation_status_id: 2
+  checkout_type_id: 3
+  shelf_id: 1
+  call_number: 
+  id: 21
+  include_supplements: false
+  created_at: 2007-08-24 23:46:56.484813 +09:00

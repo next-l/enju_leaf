@@ -108,3 +108,12 @@ reserve_00012:
   created_at: 2007-09-01 14:20:05.530854 +09:00
   expired_at: <%= 1.day.ago %>
   state: retained
+reserve_00013: 
+  updated_at: 2007-09-01 14:20:05.530854 +09:00
+  manifestation_id: 11
+  user_id: 4
+  request_status_type_id: 3
+  id: 13
+  created_at: 2007-09-01 14:20:05.530854 +09:00
+  expired_at: <%= 1.day.ago %>
+  state: requested
