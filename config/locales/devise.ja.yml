@@ -14,7 +14,7 @@ ja:
       unauthenticated: 'You need to sign in or sign up before continuing.'
       unconfirmed: 'You have to confirm your account before continuing.'
       locked: 'アカウントは停止されています。'
-      invalid: 'メールアドレスかパスワードが正しくありません。'
+      invalid: 'ユーザ名かパスワードが正しくありません。'
       invalid_token: 'Invalid authentication token.'
       timeout: 'Your session expired, please sign in again to continue.'
       inactive: 'アカウントが有効になっていません。'

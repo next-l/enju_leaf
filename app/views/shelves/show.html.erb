@@ -13,7 +13,7 @@
 <p>
   <strong><%= t('activerecord.models.picture_file') -%>:</strong><br />
   <%- @shelf.picture_files.each do |picture_file| -%>
-    <%= link_to image_tag(picture_file_path(picture_file, :format => :download)), picture_file_path(picture_file, :format => :download, :size => 'original') -%>
+    <%= render :partial => 'picture_files/link', :locals => {:picture_file => picture_file} %>
   <%- end -%>
 </p>
 

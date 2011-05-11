@@ -62,7 +62,7 @@ gem 'devise', '>=1.3.3'
 gem 'omniauth'
 gem 'paperclip'
 gem 'whenever', :require => false
-gem 'amazon-ecs', :require => 'amazon/ecs'
+gem 'amazon-ecs', '>=2.0.0', :require => 'amazon/ecs'
 gem 'aws-s3', :require => 'aws/s3'
 gem 'astrails-safe'
 gem 'dynamic_form'

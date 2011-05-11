@@ -7,7 +7,7 @@
     <th style="width: 30px"><%= 'Id' -%></th>
     <th><%= t('activerecord.models.user') -%></th>
     <th><%= t('activerecord.models.manifestation') -%></th>
-    <th><%= t('activerecord.models.request_status_type') -%></th>
+    <th><%= t('activerecord.attributes.reserve.state') -%></th>
     <th><%= t('activerecord.attributes.reserve.expired_at') -%></th>
     <%- if can? :update, @reserves.first -%>
       <th id="edit_icons"></th>
@@ -21,7 +21,7 @@
     <td>
       <%= render :partial => 'title', :locals => {:reserve => reserve} -%>
     </td>
-    <td><%= reserve.request_status_type.display_name.localize -%></td>
+    <td><%= i18n_state(reserve.state) -%></td>
     <td><%= l(reserve.expired_at, :format => :only_date) -%></td>
     <%- if can? :destroy, reserve -%>
       <td>

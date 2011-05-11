@@ -50,11 +50,8 @@ class BookmarksController < ApplicationController
     end
     @bookmark = Bookmark.new(params[:bookmark])
     unless @bookmark.url.try(:bookmarkable?)
-      if @bookmark.url
-        redirect_to @bookmark.url
-      else
-        redirect_to user_bookmarks_url(current_user)
-      end
+        flash[:notice] = t('bookmark.invalid_url')
+      redirect_to user_bookmarks_url(current_user)
       return
     end
     manifestation = @bookmark.get_manifestation

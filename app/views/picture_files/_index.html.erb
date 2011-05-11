@@ -41,7 +41,10 @@
 <div id="submenu" class="ui-corner-all">
   <%- if can? :create, PictureFile -%>
     <ul>
-      <li><%= link_to t('page.new', :model => t('activerecord.models.picture_file')), new_picture_file_path -%></li>
+      <li><%= link_to t('page.listing', :model => t('activerecord.models.manifestation')), manifestations_path -%></li>
+      <li><%= link_to t('page.listing', :model => t('activerecord.models.shelf')), shelves_path -%></li>
+      <li><%= link_to t('page.listing', :model => t('activerecord.models.event')), events_path -%></li>
+      <li><%= link_to t('page.listing', :model => t('activerecord.models.patron')), patrons_path -%></li>
     </ul>
   <%- end -%>
 </div>

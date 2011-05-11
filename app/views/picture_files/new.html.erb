@@ -2,17 +2,15 @@
 <h1 class="title"><%= t('page.new', :model => t('activerecord.models.picture_file')) -%></h1>
 <div id="content_list">
 
-<%- case when @manifestation -%>
-  <%= render 'new_manifestation' -%>
-<%- when @event -%>
-  <%= render 'new_event' -%>
-<%- when @shelf -%>
-  <%= render 'new_shelf' -%>
-<%- when @patron -%>
-  <%= render 'new_patron' -%>
-<%- else -%>
-  <%= form_for(@picture_file, :url => picture_files_path, :html => { :multipart => true, :method => :post }) do |f| -%>
-  <%= f.error_messages -%>
+<%= form_for(@picture_file, :url => picture_files_path, :html => { :multipart => true, :method => :post }) do |f| -%>
+  <% if @picture_file.errors.any? %>
+    <div id="error_explanation">
+      <ul>
+        <li><%= t('picture_file.invalid_file') %></li>
+      </ul>
+    </div>
+  <% end %>
+
   <div class="field">
     <%= f.label t('page.title') -%><br />
     <%= f.text_field :title -%>
@@ -30,8 +28,6 @@
   <div class="actions">
     <%= f.submit %>
   </div>
-<%- end -%>
-
 <%- end -%>
 </div>
 </div>

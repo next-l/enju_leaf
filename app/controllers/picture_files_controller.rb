@@ -41,14 +41,16 @@ class PictureFilesController < ApplicationController
       format.xml  { render :xml => @picture_file }
       if configatron.uploaded_file.storage == :s3
         format.download  { send_data data, :filename => @picture_file.picture_file_name, :type => @picture_file.picture_content_type, :disposition => 'inline' }
-        format.jpeg  { send_data data, :filename => @picture_file.picture_file_name, :type => 'image/jpeg', :disposition => 'inline' }
-        format.gif  { send_data data, :filename => @picture_file.picture_file_name, :type => 'image/gif', :disposition => 'inline' }
-        format.png  { send_data data, :filename => @picture_file.picture_file_name, :type => 'image/png', :disposition => 'inline' }
+        format.jpeg { send_data data, :filename => @picture_file.picture_file_name, :type => 'image/jpeg', :disposition => 'inline' }
+        format.gif { send_data data, :filename => @picture_file.picture_file_name, :type => 'image/gif', :disposition => 'inline' }
+        format.png { send_data data, :filename => @picture_file.picture_file_name, :type => 'image/png', :disposition => 'inline' }
+        format.svg { send_data data, :filename => @picture_file.picture_file_name, :type => 'image/svg+xml', :disposition => 'inline' }
       else
         format.download  { send_file file, :filename => @picture_file.picture_file_name, :type => @picture_file.picture_content_type, :disposition => 'inline' }
-        format.jpeg  { send_file file, :filename => @picture_file.picture_file_name, :type => 'image/jpeg', :disposition => 'inline' }
-        format.gif  { send_file file, :filename => @picture_file.picture_file_name, :type => 'image/gif', :disposition => 'inline' }
-        format.png  { send_file file, :filename => @picture_file.picture_file_name, :type => 'image/png', :disposition => 'inline' }
+        format.jpeg { send_file file, :filename => @picture_file.picture_file_name, :type => 'image/jpeg', :disposition => 'inline' }
+        format.gif { send_file file, :filename => @picture_file.picture_file_name, :type => 'image/gif', :disposition => 'inline' }
+        format.png { send_file file, :filename => @picture_file.picture_file_name, :type => 'image/png', :disposition => 'inline' }
+        format.svg { send_file file, :filename => @picture_file.picture_file_name, :type => 'image/svg+xml', :disposition => 'inline' }
       end
     end
   end
@@ -56,6 +58,10 @@ class PictureFilesController < ApplicationController
   # GET /picture_files/new
   # GET /picture_files/new.xml
   def new
+    unless @attachable
+      redirect_to picture_files_url
+      return
+    end
     #raise unless @event or @manifestation or @shelf or @patron
     @picture_file = PictureFile.new
     @picture_file.picture_attachable = @attachable

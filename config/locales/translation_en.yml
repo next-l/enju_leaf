@@ -1402,6 +1402,12 @@ en:
     invalid_item: "Invalid item."
     show: "Show reservation"
     invalid_date: "Invalid date."
+    pending: "Pending"
+    requested: "Requested"
+    retained: "Retained"
+    canceled: "Canceled"
+    expired: "Expired"
+    completed: "Completed"
   purchase_request:
     user_purchase_request: "%{login_name} 's purchase requests"
     library_group_purchase_request: "Purchase requests in %{library_group_name}"
@@ -1500,3 +1506,5 @@ en:
     date_of_acquisition: Date of acquisition
     date_of_publication: Date of publication
     title: Title
+  picture_file:
+    invalid_file: Invalid file. You can upload gif, jpeg, png and svg files.
