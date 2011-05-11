@@ -1382,6 +1382,12 @@ ja:
     invalid_item: "無効な所蔵情報です。"
     show: "予約の詳細"
     invalid_date: "無効な日付です。"
+    pending: "受付待ち"
+    requested: "受付済み"
+    retained: "取置済み"
+    canceled: "取消済み"
+    expired: "期限切れ"
+    completed: "貸出済み"
   purchase_request:
     user_purchase_request: "%{login_name} さんの購入依頼資料"
     library_group_purchase_request: "%{library_group_name} での購入依頼資料"

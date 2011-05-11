@@ -89,7 +89,8 @@ class Bookmark < ActiveRecord::Base
       return manifestation.original_title
     end
     unless manifestation
-      doc = Nokogiri::HTML(open(url))
+      normalized_url = Addressable::URI.parse(url).normalize.to_s
+      doc = Nokogiri::HTML(open(normalized_url))
       # TODO: 日本語以外
       #charsets = ['iso-2022-jp', 'euc-jp', 'shift_jis', 'iso-8859-1']
       #if charsets.include?(page.charset.downcase)

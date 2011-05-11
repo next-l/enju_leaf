@@ -11,8 +11,8 @@
 </p>
 
 <p>
-  <strong><%= t('activerecord.models.request_status_type') -%>:</strong>
-  <%= @reserve.request_status_type.display_name.localize -%>
+  <strong><%= t('activerecord.attributes.reserve.state') -%>:</strong>
+  <%= i18n_state(@reserve.state) -%>
 </p>
 
 <p>
