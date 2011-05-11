@@ -1,2 +1,3 @@
-<a href="<%= picture_file_path(picture_file, :format => :download, :size => 'original') -%>"><img src="<%= picture_file_path(picture_file, :format => :download) %>" alt="*" width="<%= picture_file.width %>" height="<%= picture_file.height %>" /></a>
-
+<a href="<%= picture_file_path(picture_file, :format => :download, :size => 'original') -%>">
+  <%= show_image(picture_file) %>
+</a>

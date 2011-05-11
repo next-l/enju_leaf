@@ -1480,3 +1480,5 @@ ja:
     date_of_acquisition: 新着図書優先
     date_of_publication: 出版日優先
     title: タイトル優先
+  picture_file:
+    invalid_file: 無効なファイルです。アップロードできるのはgif, jpeg, png, svg形式のファイルです。

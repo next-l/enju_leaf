@@ -131,12 +131,6 @@ class PurchaseRequestsController < ApplicationController
       @purchase_request = @user.purchase_requests.find(params[:id])
     end
 
-    if @purchase_request.url
-      unless @purchase_request.url.bookmarkable?
-        access_denied; return
-      end
-    end
-
     respond_to do |format|
       if @purchase_request.update_attributes(params[:purchase_request])
         @order_list.purchase_requests << @purchase_request if @order_list

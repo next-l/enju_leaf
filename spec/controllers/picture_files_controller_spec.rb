@@ -102,6 +102,7 @@ describe PictureFilesController do
       it "assigns the requested picture_file as @picture_file" do
         get :new
         assigns(:picture_file).should_not be_valid
+        response.should redirect_to picture_files_url
       end
     end
 
@@ -113,6 +114,7 @@ describe PictureFilesController do
       it "assigns the requested picture_file as @picture_file" do
         get :new
         assigns(:picture_file).should_not be_valid
+        response.should redirect_to picture_files_url
       end
     end
 

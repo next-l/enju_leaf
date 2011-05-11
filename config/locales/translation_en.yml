@@ -1500,3 +1500,5 @@ en:
     date_of_acquisition: Date of acquisition
     date_of_publication: Date of publication
     title: Title
+  picture_file:
+    invalid_file: Invalid file. You can upload gif, jpeg, png and svg files.
