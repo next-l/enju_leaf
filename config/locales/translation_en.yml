@@ -1508,3 +1508,4 @@ en:
     title: Title
   picture_file:
     invalid_file: Invalid file. You can upload gif, jpeg, png and svg files.
+    all_picture: All pictures

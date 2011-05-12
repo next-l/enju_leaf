@@ -1488,3 +1488,4 @@ ja:
     title: タイトル優先
   picture_file:
     invalid_file: 無効なファイルです。アップロードできるのはgif, jpeg, png, svg形式のファイルです。
+    all_picture: すべての画像

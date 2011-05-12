@@ -47,6 +47,7 @@
   <%- if can? :create, PictureFile -%>
     <ul>
       <li><%= link_to t('page.new', :model => t('activerecord.models.picture_file')), new_event_picture_file_path(event) -%></li>
+      <li><%= link_to t('picture_file.all_picture'), picture_files_path -%></li>
     </ul>
   <%- end -%>
 </div>
