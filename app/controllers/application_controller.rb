@@ -8,6 +8,7 @@ class ApplicationController < ActionController::Base
   rescue_from ActiveRecord::RecordNotFound, :with => :render_404
   rescue_from Errno::ECONNREFUSED, :with => :render_500
   rescue_from RSolr::RequestError, :with => :render_500
+  rescue_from ActionView::MissingTemplate, :with => :render_404_invalid_format
 
   before_filter :get_library_group, :set_locale, :set_available_languages, :prepare_for_mobile
   helper_method :mobile_device?
@@ -37,6 +38,11 @@ class ApplicationController < ActionController::Base
       format.mobile {render :template => 'page/404', :status => 404}
       format.xml {render :template => 'page/404', :status => 404}
     end
+  end
+
+  def render_404_invalid_format
+    return if performed?
+    render :file => "#{Rails.root}/public/404.html"
   end
 
   def render_500
@@ -276,7 +282,7 @@ class ApplicationController < ActionController::Base
   end
 
   def store_location
-    if request.get? and request.format.html? and !request.xhr?
+    if request.get? and request.format.try(:html?) and !request.xhr?
       session[:user_return_to] = request.fullpath
     end
   end

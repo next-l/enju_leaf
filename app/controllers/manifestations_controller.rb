@@ -291,6 +291,14 @@ class ManifestationsController < ApplicationController
 
     store_location
 
+    if @manifestation.attachment
+      if configatron.uploaded_file.storage == :s3
+        data = open(@manifestation.attachment.url).read.force_encoding('UTF-8')
+      else
+        file = @manifestation.attachment.path
+      end
+    end
+
     respond_to do |format|
       format.html # show.rhtml
       format.mobile
@@ -314,6 +322,17 @@ class ManifestationsController < ApplicationController
           :page_layout => :portrait,
           :page_size => "A4"},
           :inline => true
+      }
+      format.download {
+        if @manifestation.attachment_file_name
+          if configatron.uploaded_file.storage == :s3
+            send_data @manifestation.attachment.data, :filename => @manifestation.attachment_file_name, :type => 'application/octet-stream'
+          else
+            send_file file, :filename => @manifestation.attachment_file_name, :type => 'application/octet-stream'
+          end
+        else
+          render :template => 'page/404', :status => 404
+        end
       }
     end
   end
