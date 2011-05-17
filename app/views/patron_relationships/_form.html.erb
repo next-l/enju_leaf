@@ -1,33 +1,23 @@
 <%= form_for(@patron_relationship) do |f| %>
-  <% if @patron_relationship.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@patron_relationship.errors.count, "error") %> prohibited this patron_relationship from being saved:</h2>
-
-      <ul>
-      <% @patron_relationship.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
+  <%= f.error_messages -%>
 
   <div class="field">
     <% if @patron_relationship.try(:parent) %>
-      <%= f.label :parent_id %><br />
+      <%= f.label :parent %><br />
       <%= link_to @patron_relationship.parent.full_name, @patron_relationship.parent %>
       <%= f.hidden_field :parent_id %>
     <% else %>
-      <%= f.label :parent_id %><br />
+      <%= f.label :parent %><br />
       <%= f.text_field :parent_id %>
     <% end %>
   </div>
   <div class="field">
     <% if @patron_relationship.child.try(:full_name) %>
-      <%= f.label :child_id %><br />
+      <%= f.label :child %><br />
       <%= link_to @patron_relationship.child.full_name, @patron_relationship.child %>
       <%= f.hidden_field :child_id %>
     <% else %>
-      <%= f.label :child_id %><br />
+      <%= f.label :child %><br />
       <%= f.text_field :child_id %>
     <% end %>
   </div>

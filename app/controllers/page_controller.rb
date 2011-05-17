@@ -30,7 +30,7 @@ class PageController < ApplicationController
   def statistics
     @title = t('page.statistics')
   end
- 
+
   def configuration
     @title = t('page.configuration')
   end

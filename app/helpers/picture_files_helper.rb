@@ -14,5 +14,7 @@ module PictureFilesHelper
       end
     end
     image_tag picture_file_path(picture_file, :format => picture_file.extname, :size => :original), :alt => "*", :width => geometry.width.to_i, :height => geometry.height.to_i
+  rescue
+    nil
   end
 end

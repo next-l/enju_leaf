@@ -13,6 +13,7 @@ class Answer < ActiveRecord::Base
 
   validates_associated :user, :question
   validates_presence_of :user, :question, :body
+  validate :check_url_list
 
   def self.per_page
     10
@@ -32,4 +33,9 @@ class Answer < ActiveRecord::Base
     list = url_list.to_s.strip.split.map{|u| Manifestation.first(:conditions => {:access_address => Addressable::URI.parse(u).normalize.to_s})}.compact.map{|m| m.web_item}.compact.uniq
   end
 
+  def check_url_list
+    url_list.to_s.strip.split.each do |url|
+      errors.add(:url_list) unless Addresable::URI.parse(url).host
+    end
+  end
 end

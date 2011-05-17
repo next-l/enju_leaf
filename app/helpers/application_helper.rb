@@ -1,6 +1,7 @@
 # Methods added to this helper will be available to all templates in the application.
 module ApplicationHelper
   include WillPaginate::ViewHelpers::ActionView
+  include PictureFilesHelper
 
   def form_icon(carrier_type)
     case carrier_type.name
@@ -94,7 +95,7 @@ module ApplicationHelper
 
   def book_jacket(manifestation)
     if picture_file = manifestation.picture_files.first and picture_file.extname
-      link = link_to image_tag(picture_file_path(picture_file, :format => :download, :size => 'thumb')), picture_file_path(picture_file, :format => picture_file.extname), :rel => "manifestation_#{manifestation.id}"
+      link = link_to show_image(picture_file, :size => :thumb), picture_file_path(picture_file, :format => picture_file.extname), :rel => "manifestation_#{manifestation.id}"
     else
       # TODO: Amazon優先でよい？
       book_jacket = manifestation.amazon_book_jacket
