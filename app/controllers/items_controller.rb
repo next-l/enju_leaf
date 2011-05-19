@@ -125,7 +125,7 @@ class ItemsController < ApplicationController
     @item = Item.new
     @item.manifestation_id = @manifestation.id
     @circulation_statuses = CirculationStatus.all(:conditions => {:name => ['In Process', 'Available For Pickup', 'Available On Shelf', 'Claimed Returned Or Never Borrowed', 'Not Available']}, :order => :position)
-    @item.circulation_status = CirculationStatus.first(:conditions => {:name => 'In Process'})
+    @item.circulation_status = CirculationStatus.where(:name => 'In Process').first
     @item.checkout_type = @manifestation.carrier_type.checkout_types.first
 
     respond_to do |format|

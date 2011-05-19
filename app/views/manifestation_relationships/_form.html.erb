@@ -1,33 +1,23 @@
 <%= form_for(@manifestation_relationship) do |f| %>
-  <% if @manifestation_relationship.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@manifestation_relationship.errors.count, "error") %> prohibited this manifestation_relationship from being saved:</h2>
-
-      <ul>
-      <% @manifestation_relationship.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
+  <%= f.error_messages -%>
 
   <div class="field">
     <% if @manifestation_relationship.try(:parent) %>
-      <%= f.label :parent_id %><br />
+      <%= f.label :parent %><br />
       <%= link_to @manifestation_relationship.parent.original_title, @manifestation_relationship.parent %>
       <%= f.hidden_field :parent_id %>
     <% else %>
-      <%= f.label :parent_id %><br />
+      <%= f.label :parent %><br />
       <%= f.text_field :parent_id %>
     <% end %>
   </div>
   <div class="field">
     <% if @manifestation_relationship.child.try(:original_title) %>
-      <%= f.label :child_id %><br />
+      <%= f.label :child %><br />
       <%= link_to @manifestation_relationship.child.original_title, @manifestation_relationship.child %>
       <%= f.hidden_field :child_id %>
     <% else %>
-      <%= f.label :child_id %><br />
+      <%= f.label :child %><br />
       <%= f.text_field :child_id %>
     <% end %>
   </div>
