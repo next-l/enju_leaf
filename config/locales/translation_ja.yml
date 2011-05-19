@@ -468,7 +468,7 @@ ja:
         title: タイトル
         author: 著者
         publisher: 出版社
-        isbn: ISBNコード
+        isbn: ISBN
         date_of_publication: 出版日
         price: 価格
         url: URL
@@ -597,9 +597,9 @@ ja:
         height: 高さ
         width: 幅
         depth: 奥行き
-        isbn: ISBNコード
+        isbn: ISBN
         isbn10: 10桁のISBN
-        wrong_isbn: 間違ったISBNコード
+        wrong_isbn: 間違ったISBN
         nbn: Nbn
         price: 価格
         volume_number_list: 巻
