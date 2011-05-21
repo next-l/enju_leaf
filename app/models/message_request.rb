@@ -67,5 +67,4 @@ class MessageRequest < ActiveRecord::Base
     end
     logger.info "#{Time.zone.now} sent #{count} messages!"
   end
-
 end

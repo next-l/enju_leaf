@@ -1,4 +1,5 @@
 class MessageTemplate < ActiveRecord::Base
+  default_scope :order => "position"
   has_many :message_requests
 
   validates_uniqueness_of :status
