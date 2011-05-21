@@ -45,6 +45,22 @@ describe CheckoutsController do
         response.should be_forbidden
       end
     end
+
+    describe "When not logged in" do
+      it "assigns empty as @checkouts" do
+        get :index
+        assigns(:checkouts).should_not be_empty
+        response.should redirect_to(new_user_session_url)
+      end
+
+      it "assigns his own checkouts as @checkouts" do
+        token = "AVRjefcBcey6f1WyYXDl"
+        user = User.where(:checkout_icalendar_token => token).first
+        get :index, :icalendar_token => token
+        assigns(:checkouts).should eq user.checkouts
+        response.should be_success
+      end
+    end
   end
 
   describe "PUT update" do
