@@ -62,3 +62,10 @@ frequency_00005:
   id: 5
   created_at: 2007-12-31 21:40:31.247081 +09:00
   position: 5
+frequency_00006: 
+  name: other
+  display_name: Other
+  updated_at: 2007-12-31 21:40:31.247081 +09:00
+  id: 6
+  created_at: 2007-12-31 21:40:31.247081 +09:00
+  position: 6

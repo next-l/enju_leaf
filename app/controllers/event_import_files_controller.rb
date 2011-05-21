@@ -19,7 +19,7 @@ class EventImportFilesController < ApplicationController
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @event_import_file }
-      format.download  { send_file @event_import_file.event_import.path, :filename => @event_import_file.event_import_file_name, :type => @event_import_file.event_import_content_type, :disposition => 'inline' }
+      format.download  { send_file @event_import_file.event_import.path, :filename => @event_import_file.event_import_file_name, :type => @event_import_file.event_import_content_type, :disposition => 'attachment' }
     end
   end
 

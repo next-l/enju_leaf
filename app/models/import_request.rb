@@ -5,6 +5,7 @@ class ImportRequest < ActiveRecord::Base
   validates_presence_of :isbn
   validate :check_isbn
   validate :check_imported, :on => :create
+  validates_uniqueness_of :isbn, :if => Proc.new{|request| ImportRequest.where("created_at > ?", 1.day.ago).collect(&:isbn).include?(request.isbn)}
   enju_ndl
 
   state_machine :initial => :pending do
@@ -47,11 +48,17 @@ class ImportRequest < ActiveRecord::Base
   def import!
     unless manifestation
       manifestation = self.class.import_isbn!(isbn)
-      self.manifestation = manifestation
-      sm_complete!
-      manifestation.index!
+      if manifestation
+        self.manifestation = manifestation
+        sm_complete!
+        manifestation.index!
+      else
+        sm_fail!
+      end
     else
       sm_fail!
     end
+  rescue ActiveRecord::RecordInvalid
+    sm_fail!
   end
 end

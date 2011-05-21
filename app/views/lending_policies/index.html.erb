@@ -10,6 +10,7 @@
     <th><%= t('activerecord.attributes.lending_policy.fixed_due_date') -%></th>
     <th><%= t('activerecord.attributes.lending_policy.renewal') -%></th>
     <th><%= t('activerecord.attributes.lending_policy.fine') -%></th>
+    <th></th>
   </tr>
 
 <%- @lending_policies.each do |lending_policy| -%>
@@ -23,9 +24,11 @@
     <td><%= lending_policy.fixed_due_date -%></td>
     <td><%= lending_policy.renewal -%></td>
     <td><%= lending_policy.fine -%></td>
-    <td><%= link_to t('page.show'), lending_policy -%></td>
-    <td><%= link_to t('page.edit'), edit_lending_policy_path(lending_policy) -%></td>
-    <td><%= link_to t('page.destroy'), lending_policy, :confirm => t('page.are_you_sure'), :method => :delete -%></td>
+    <td>
+      <%= link_to t('page.show'), lending_policy -%>
+      <%= link_to t('page.edit'), edit_lending_policy_path(lending_policy) -%>
+      <%= link_to t('page.destroy'), lending_policy, :confirm => t('page.are_you_sure'), :method => :delete -%>
+    </td>
   </tr>
 <%- end -%>
 </table>

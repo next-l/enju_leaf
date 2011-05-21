@@ -166,27 +166,27 @@
 </div>
 
 <div id="submenu" class="ui-corner-all">
-    <%- if @patron.picture_files.exists? -%>
-      <div id="manifestation_book_jacket">
-        <%= patron_custom_book_jacket(@patron) -%>
-      </div>
-      <ul>
-        <%- @patron.picture_files.each_with_index do |picture_file, i| -%>
-          <% if i > 0 %>
-            <li style="display: none"><%= link_to_custom_book_jacket(@patron, picture_file) -%></li>
-          <% end %>
-        <%- end -%>
-        <li><%= link_to t('page.listing', :model => t('activerecord.models.picture_file')), patron_picture_files_path(@patron) -%></li>
-        <%- if can? :create, PictureFile -%>
-          <li><%= link_to t('page.new', :model => t('activerecord.models.picture_file')), new_patron_picture_file_path(@patron) -%></li>
+  <%- if @patron.picture_files.exists? -%>
+    <div id="manifestation_book_jacket">
+      <%= patron_custom_book_jacket(@patron) -%>
+    </div>
+    <ul>
+      <%- @patron.picture_files.each_with_index do |picture_file, i| -%>
+        <% if i > 0 %>
+          <li style="display: none"><%= link_to_custom_book_jacket(@patron, picture_file) -%></li>
         <% end %>
-      </ul>
-      <script type="text/javascript">
-        $(document).ready(function(){
-          $("a[rel='patron_<%= @patron.id -%>']").colorbox({transition:"none"});
-        })
-      </script>
-    <%- end -%>
+      <%- end -%>
+      <li><%= link_to t('page.listing', :model => t('activerecord.models.picture_file')), patron_picture_files_path(@patron) -%></li>
+      <%- if can? :create, PictureFile -%>
+        <li><%= link_to t('page.new', :model => t('activerecord.models.picture_file')), new_patron_picture_file_path(@patron) -%></li>
+      <% end %>
+    </ul>
+    <script type="text/javascript">
+      $(document).ready(function(){
+        $("a[rel='patron_<%= @patron.id -%>']").colorbox({transition:"none"});
+      })
+    </script>
+  <%- end -%>
   <ul>
     <li><%= link_to t('page.back'), patrons_path -%></li>
     <%- if can? :create, User -%>

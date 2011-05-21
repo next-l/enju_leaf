@@ -58,7 +58,7 @@ class Reserve < ActiveRecord::Base
     end
 
     event :sm_complete do
-      transition [:requested, :retained] => :completed
+      transition [:pending, :requested, :retained] => :completed
     end
   end
 

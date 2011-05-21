@@ -9,7 +9,7 @@ class PictureFile < ActiveRecord::Base
     has_attached_file :picture, :styles => { :medium => "600x600>", :thumb => "100x100>" }, :path => ":rails_root/private:url"
   end
   validates_attachment_presence :picture
-  validates_attachment_content_type :picture, :content_type =>  ["image/jpeg", "image/png", "image/gif", "image/svg+xml"], :on => :create
+  validates_attachment_content_type :picture, :content_type => ["image/jpeg", "image/pjpeg", "image/png", "image/gif", "image/svg+xml"], :on => :create
 
   validates :picture_attachable_type, :presence => true, :inclusion => {:in => ['Event', 'Manifestation', 'Patron', 'Shelf']}
   validates_associated :picture_attachable
@@ -39,7 +39,7 @@ class PictureFile < ActiveRecord::Base
   end
 
   def extname
-    picture.content_type.split('/')[1] if picture.content_type
+    picture.content_type.split('/')[1].gsub('+xml', '') if picture.content_type
   end
 
   def content_type

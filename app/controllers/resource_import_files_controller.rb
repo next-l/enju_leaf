@@ -19,7 +19,7 @@ class ResourceImportFilesController < ApplicationController
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @resource_import_file }
-      format.download  { send_file @resource_import_file.resource_import.path, :filename => @resource_import_file.resource_import_file_name, :type => @resource_import_file.resource_import_content_type, :disposition => 'inline' }
+      format.download  { send_file @resource_import_file.resource_import.path, :filename => @resource_import_file.resource_import_file_name, :type => @resource_import_file.resource_import_content_type, :disposition => 'attachment' }
     end
   end
 

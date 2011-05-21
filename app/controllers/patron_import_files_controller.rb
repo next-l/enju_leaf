@@ -19,7 +19,7 @@ class PatronImportFilesController < ApplicationController
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @patron_import_file }
-      format.download  { send_file @patron_import_file.patron_import.path, :filename => @patron_import_file.patron_import_file_name, :type => @patron_import_file.patron_import_content_type, :disposition => 'inline' }
+      format.download  { send_file @patron_import_file.patron_import.path, :filename => @patron_import_file.patron_import_file_name, :type => @patron_import_file.patron_import_content_type, :disposition => 'attachment' }
     end
   end
 
