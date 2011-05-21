@@ -1,6 +1,7 @@
 class MessageTemplatesController < InheritedResources::Base
   respond_to :html, :xml
   before_filter :check_client_ip_address
+  before_filter :prepare_options
   load_and_authorize_resource
 
   def update

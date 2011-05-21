@@ -16,10 +16,22 @@ class EventImportFilesController < ApplicationController
   # GET /event_import_files/1
   # GET /event_import_files/1.xml
   def show
+    if @event_import_file.event_import
+      unless configatron.uploaded_file.storage == :s3
+        file = @event_import_file.event_import.path
+      end
+    end
+
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @event_import_file }
-      format.download  { send_file @event_import_file.event_import.path, :filename => @event_import_file.event_import_file_name, :type => @event_import_file.event_import_content_type, :disposition => 'attachment' }
+      format.download {
+        if configatron.uploaded_file.storage == :s3
+          send_data @event_import_file.event_import.data, :filename => @event_import_file.event_import_file_name, :type => 'application/octet-stream'
+        else
+          send_file file, :filename => @event_import_file.event_import_file_name, :type => 'application/octet-stream'
+        end
+      }
     end
   end
 
@@ -45,7 +57,7 @@ class EventImportFilesController < ApplicationController
     @event_import_file.user = current_user
 
     respond_to do |format|
-      if @event_import_file.save!
+      if @event_import_file.save
         flash[:notice] = t('controller.successfully_created', :model => t('activerecord.models.event_import_file'))
         format.html { redirect_to(@event_import_file) }
         format.xml  { render :xml => @event_import_file, :status => :created, :location => @event_import_file }

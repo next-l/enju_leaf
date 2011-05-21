@@ -16,10 +16,22 @@ class ResourceImportFilesController < ApplicationController
   # GET /resource_import_files/1
   # GET /resource_import_files/1.xml
   def show
+    if @resource_import_file.resource_import
+      unless configatron.uploaded_file.storage == :s3
+        file = @resource_import_file.resource_import.path
+      end
+    end
+
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @resource_import_file }
-      format.download  { send_file @resource_import_file.resource_import.path, :filename => @resource_import_file.resource_import_file_name, :type => @resource_import_file.resource_import_content_type, :disposition => 'attachment' }
+      format.download {
+        if configatron.uploaded_file.storage == :s3
+          send_data @resource_import_file.resource_import.data, :filename => @resource_import_file.resource_import_file_name, :type => 'application/octet-stream'
+        else
+          send_file file, :filename => @resource_import_file.resource_import_file_name, :type => 'application/octet-stream'
+        end
+      }
     end
   end
 

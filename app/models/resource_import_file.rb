@@ -2,6 +2,7 @@ class ResourceImportFile < ActiveRecord::Base
   include ImportFile
   default_scope :order => 'id DESC'
   scope :not_imported, where(:state => 'pending', :imported_at => nil)
+  scope :stucked, where('created_at < ? AND state = ?', 1.hour.ago, 'pending')
 
   if configatron.uploaded_file.storage == :s3
     has_attached_file :resource_import, :storage => :s3, :s3_credentials => "#{Rails.root.to_s}/config/s3.yml",
@@ -275,6 +276,23 @@ class ResourceImportFile < ActiveRecord::Base
     #title[:title_transcription_alternative] = row['title_transcription_alternative']
     return nil if title[:original_title].blank?
 
+    if ISBN_Tools.is_valid?(row['isbn'].to_s.strip)
+      isbn = ISBN_Tools.cleanup(row['isbn'])
+    end
+    # TODO: 小数点以下の表現
+    width = NKF.nkf('-eZ1', row['width'].to_s).gsub(/\D/, '').to_i
+    height = NKF.nkf('-eZ1', row['height'].to_s).gsub(/\D/, '').to_i
+    depth = NKF.nkf('-eZ1', row['depth'].to_s).gsub(/\D/, '').to_i
+    end_page = NKF.nkf('-eZ1', row['number_of_pages'].to_s).gsub(/\D/, '').to_i
+    language = Language.where(row['language'].to_s.strip).first
+
+    if end_page >= 1
+      start_page = 1
+    else
+      start_page = nil
+      end_page = nil
+    end
+
     ResourceImportFile.transaction do
       creators = row['creator'].to_s.split(';')
       publishers = row['publisher'].to_s.split(';')
@@ -287,21 +305,6 @@ class ResourceImportFile < ActiveRecord::Base
       work = self.class.import_work(title, creator_patrons, row['series_statment_id'])
       work.subjects << subjects
       expression = self.class.import_expression(work)
-
-      if ISBN_Tools.is_valid?(row['isbn'].to_s.strip)
-        isbn = ISBN_Tools.cleanup(row['isbn'])
-      end
-      # TODO: 小数点以下の表現
-      width = NKF.nkf('-eZ1', row['width'].to_s).gsub(/\D/, '').to_i
-      height = NKF.nkf('-eZ1', row['height'].to_s).gsub(/\D/, '').to_i
-      depth = NKF.nkf('-eZ1', row['depth'].to_s).gsub(/\D/, '').to_i
-      end_page = NKF.nkf('-eZ1', row['number_of_pages'].to_s).gsub(/\D/, '').to_i
-      if end_page >= 1
-        start_page = 1
-      else
-        start_page = nil
-        end_page = nil
-      end
 
       manifestation = self.class.import_manifestation(expression, publisher_patrons, {
         :original_title => title[:original_title],
@@ -331,6 +334,7 @@ class ResourceImportFile < ActiveRecord::Base
         :identifier => row['identifier']
       })
     end
+    manifestation.language = language
     manifestation
   end
 
