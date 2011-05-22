@@ -136,7 +136,7 @@ class ItemsController < ApplicationController
 
   # GET /items/1;edit
   def edit
-    #@item = Item.find(params[:id])
+    @item.library_id = @item.shelf.library_id
   end
 
   # POST /items
@@ -225,7 +225,11 @@ class ItemsController < ApplicationController
   private
   def prepare_options
     @libraries = Library.real
-    @library = Library.real.first(:order => :position, :include => :shelves) if @library.blank?
+    unless @item.shelf_id?
+      @library = Library.real.first(:order => :position, :include => :shelves) unless @item.shelf?
+    else
+      @library = @item.shelf.library
+    end
     @shelves = @library.shelves
     @circulation_statuses = CirculationStatus.all
     @bookstores = Bookstore.all

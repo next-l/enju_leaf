@@ -1,7 +1,7 @@
 <script type="text/javascript">
   function displayVals() {
     var libraryValue = $("#item_library_id").val();
-    $("#item_shelf_id").load('/shelves?mode=select&library_id=' + libraryValue);
+    $("#item_shelf_id").load('<%= shelves_path %>?mode=select&library_id=' + libraryValue);
   }
   $("#item_library_id").change(displayVals);
 </script>

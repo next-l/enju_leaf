@@ -20,6 +20,6 @@ class MessageTemplate < ActiveRecord::Base
   end
 
   def self.localized_template(status, locale)
-    MessageTemplate.first(:conditions => {:status => status, :locale => locale}) || MessageTemplate.first(:conditions => {:status => status})
+    MessageTemplate.where(:status => status, :locale => locale).first || MessageTemplate.where(:status => status).first
   end
 end

@@ -1,1 +1,1 @@
-<%= options_for_select @shelves.collect{|s| [s.name, s.id]} %>
+<%= options_for_select @shelves.collect{|s| [s.display_name.localize, s.id]} %>

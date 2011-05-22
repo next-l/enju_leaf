@@ -11,12 +11,14 @@ class SeriesStatementsController < ApplicationController
   def index
     search = Sunspot.new_search(SeriesStatement)
     query = params[:query].to_s.strip
+    page = params[:page] || 1
     unless query.blank?
       @query = query.dup
       query = query.gsub('　', ' ')
-      search.build do
-        fulltext query
-      end
+    end
+    search.build do
+      fulltext query if query.present?
+      paginate :page => page.to_i, :per_page => SeriesStatement.per_page
     end
     #work = @work
     manifestation = @manifestation

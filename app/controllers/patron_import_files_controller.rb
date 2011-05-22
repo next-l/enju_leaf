@@ -16,10 +16,22 @@ class PatronImportFilesController < ApplicationController
   # GET /patron_import_files/1
   # GET /patron_import_files/1.xml
   def show
+    if @patron_import_file.patron_import
+      unless configatron.uploaded_file.storage == :s3
+        file = @patron_import_file.patron_import.path
+      end
+    end
+
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @patron_import_file }
-      format.download  { send_file @patron_import_file.patron_import.path, :filename => @patron_import_file.patron_import_file_name, :type => @patron_import_file.patron_import_content_type, :disposition => 'attachment' }
+      format.download {
+        if configatron.uploaded_file.storage == :s3
+          send_data @patron_import_file.patron_import.data, :filename => @patron_import_file.patron_import_file_name, :type => 'application/octet-stream'
+        else
+          send_file file, :filename => @patron_import_file.patron_import_file_name, :type => 'application/octet-stream'
+        end
+      }
     end
   end
 

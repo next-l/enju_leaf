@@ -7,4 +7,14 @@ require 'rake'
 require 'rake/testtask'
 require 'rake/rdoctask'
 
+module ::EnjuLeaf
+  class Application
+    include Rake::DSL
+  end
+end
+
+module ::RakeFileUtils
+  extend Rake::FileUtilsExt
+end
+
 EnjuLeaf::Application.load_tasks
