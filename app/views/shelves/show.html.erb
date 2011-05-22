@@ -6,8 +6,16 @@
     <%= @shelf.display_name.localize -%>
   </h2>
 
+<% if current_user.try(:has_role?, 'Librarian') %>
+  <p>
+    <strong><%= t('activerecord.attributes.shelf.name') -%>:</strong>
+    <%= @shelf.name %>
+  </p>
+<% end %>
+
 <p>
-  <%= @shelf.note -%><br />
+  <strong><%= t('activerecord.attributes.shelf.note') -%>:</strong>
+  <%= @shelf.note -%>
 </p>
 
 <p>
