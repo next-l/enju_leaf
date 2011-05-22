@@ -223,8 +223,13 @@ class Patron < ActiveRecord::Base
   def self.import_patrons(patron_lists)
     list = []
     patron_lists.each do |patron_list|
-      unless patron = Patron.where(:full_name => patron_list).first
-        patron = Patron.new(:full_name => patron_list, :language_id => 1)
+      patron = Patron.where(:full_name => patron_list[:full_name]).first
+      unless patron
+        patron = Patron.new(
+          :full_name => patron_list[:full_name],
+          :full_name_transcription => patron_list[:full_name_transcription],
+          :language_id => 1
+        )
         patron.required_role = Role.where(:name => 'Guest').first
         patron.save
       end
@@ -236,5 +241,4 @@ class Patron < ActiveRecord::Base
   def patrons
     self.original_patrons + self.derived_patrons
   end
-
 end

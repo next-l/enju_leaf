@@ -295,9 +295,13 @@ class ResourceImportFile < ActiveRecord::Base
 
     ResourceImportFile.transaction do
       creators = row['creator'].to_s.split(';')
+      creator_transcriptions = row['creator_transcription'].to_s.split(';')
+      creators_list = creators.zip(creator_transcriptions).map{|f,t| {:full_name => f, :full_name_transcription => t}}
       publishers = row['publisher'].to_s.split(';')
-      creator_patrons = Patron.import_patrons(creators)
-      publisher_patrons = Patron.import_patrons(publishers)
+      publisher_transcriptions = row['publisher_transcription'].to_s.split(';')
+      publishers_list = publishers.zip(publisher_transcriptions).map{|f,t| {:full_name => f, :full_name_transcription => t}}
+      creator_patrons = Patron.import_patrons(creators_list)
+      publisher_patrons = Patron.import_patrons(publishers_list)
       #classification = Classification.first(:conditions => {:category => row['classification'].to_s.strip)
       subjects = import_subject(row)
       series_statement = import_series_statement(row)
@@ -339,14 +343,14 @@ class ResourceImportFile < ActiveRecord::Base
   end
 
   def import_series_statement(row)
-    unless series_statement = SeriesStatement.where(:series_statement_identifier => row['series_statement_identifier'].to_s.strip).first
-      if row['series_statement_original_title'].to_s.strip.present?
-        series_statement = SeriesStatement.create(
-          :original_title => row['series_statement_original_title'].to_s.strip,
-          :title_transcription => row['series_statement_title_transcription'].to_s.strip,
-          :series_statement_identifier => row['series_statement_identifier'].to_s.strip
-        )
-      end
+    series_statement = SeriesStatement.where(:issn => ISBN_Tools.cleanup(row['issn'].to_s.strip)).first
+    series_statement = SeriesStatement.where(:series_statement_identifier => row['series_statement_identifier'].to_s.strip).first unless series_statement
+    if row['series_statement_original_title'].to_s.strip.present?
+      series_statement = SeriesStatement.create(
+        :original_title => row['series_statement_original_title'].to_s.strip,
+        :title_transcription => row['series_statement_title_transcription'].to_s.strip,
+        :series_statement_identifier => row['series_statement_identifier'].to_s.strip
+      )
     end
   end
 end

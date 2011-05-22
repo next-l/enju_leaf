@@ -2,6 +2,8 @@ class SeriesStatement < ActiveRecord::Base
   has_many :manifestations
   validates_presence_of :original_title
   validate :check_issn
+  validates :issn, :format => {:with => /\d{8}/}, :allow_blank => true
+
   acts_as_list
   searchable do
     text :title do
