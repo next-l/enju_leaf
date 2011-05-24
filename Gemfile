@@ -1,6 +1,6 @@
 source 'http://rubygems.org'
 
-gem 'rails', '3.0.7'
+gem 'rails', '3.1.0.rc1'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
@@ -30,7 +30,7 @@ end
 
 gem 'fastercsv' if RUBY_VERSION < '1.9'
 
-gem 'will_paginate', :git => 'git://github.com/mislav/will_paginate.git', :branch => 'rails3'
+gem 'will_paginate', :git => 'git://github.com/wantful/will_paginate.git', :branch => 'rails3'
 gem 'exception_notification', :require => 'exception_notifier'
 gem 'delayed_job', '>=2.1.4'
 gem 'state_machine'
@@ -85,7 +85,7 @@ end
 
 group :development, :test do
   gem 'rspec'
-  gem 'rspec-rails'
+  gem 'rspec-rails', :git => 'git://github.com/rspec/rspec-rails.git'
   gem 'guard-rspec'
   gem 'factory_girl_rails'
   gem 'spork', '~> 0.9.0.rc5'

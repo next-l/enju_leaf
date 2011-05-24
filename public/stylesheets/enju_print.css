@@ -1,0 +1,9 @@
+div.header_and_footer, ul.ui-tabs-nav{
+  display: none;
+}
+div#navibar, div#submenu, div#related_manifestation, div#history{
+  display: none;
+}
+td, th{
+  border: 1px solid;
+}
