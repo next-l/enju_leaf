@@ -16,7 +16,7 @@ class EventImportFilesController < ApplicationController
   # GET /event_import_files/1
   # GET /event_import_files/1.xml
   def show
-    if @event_import_file.event_import
+    if @event_import_file.event_import.path
       unless configatron.uploaded_file.storage == :s3
         file = @event_import_file.event_import.path
       end

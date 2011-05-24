@@ -30,28 +30,62 @@ class PictureFilesController < ApplicationController
       size = 'medium'
     end
 
-    if configatron.uploaded_file.storage == :s3
-      data = open(@picture_file.picture.url(size)).read.force_encoding('UTF-8')
-    else
-      file = @picture_file.picture.path(size)
+    if @picture_file.picture.path
+      if configatron.uploaded_file.storage == :s3
+        data = open(@picture_file.picture.url(size)).read.force_encoding('UTF-8')
+      else
+        file = @picture_file.picture.path(size)
+      end
     end
 
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @picture_file }
-      if configatron.uploaded_file.storage == :s3
-        format.download { send_data data, :filename => @picture_file.picture_file_name, :type => @picture_file.picture_content_type, :disposition => 'attachment' }
-        format.jpeg { send_data data, :filename => @picture_file.picture_file_name, :type => 'image/jpeg', :disposition => 'inline' }
-        format.gif { send_data data, :filename => @picture_file.picture_file_name, :type => 'image/gif', :disposition => 'inline' }
-        format.png { send_data data, :filename => @picture_file.picture_file_name, :type => 'image/png', :disposition => 'inline' }
-        format.svg { send_data data, :filename => @picture_file.picture_file_name, :type => 'image/svg+xml', :disposition => 'inline' }
-      else
-        format.download { send_file file, :filename => @picture_file.picture_file_name, :type => @picture_file.picture_content_type, :disposition => 'attachment' }
-        format.jpeg { send_file file, :filename => @picture_file.picture_file_name, :type => 'image/jpeg', :disposition => 'inline' }
-        format.gif { send_file file, :filename => @picture_file.picture_file_name, :type => 'image/gif', :disposition => 'inline' }
-        format.png { send_file file, :filename => @picture_file.picture_file_name, :type => 'image/png', :disposition => 'inline' }
-        format.svg { send_file file, :filename => @picture_file.picture_file_name, :type => 'image/svg+xml', :disposition => 'inline' }
-      end
+      format.download {
+        if @picture_file.picture.path
+          if configatron.uploaded_file.storage == :s3
+            send_data data, :filename => @picture_file.picture_file_name, :type => @picture_file.picture_content_type, :disposition => 'attachment'
+          else
+            send_file file, :filename => @picture_file.picture_file_name, :type => @picture_file.picture_content_type, :disposition => 'attachment'
+          end
+        end
+      }
+      format.jpeg {
+        if @picture_file.picture.path
+          if configatron.uploaded_file.storage == :s3
+            send_data data, :filename => @picture_file.picture_file_name, :type => 'image/jpeg', :disposition => 'inline'
+          else
+            send_file file, :filename => @picture_file.picture_file_name, :type => 'image/jpeg', :disposition => 'inline'
+          end
+        end
+      }
+      format.gif {
+        if @picture_file.picture.path
+          if configatron.uploaded_file.storage == :s3
+            send_data data, :filename => @picture_file.picture_file_name, :type => 'image/gif', :disposition => 'inline'
+          else
+            send_file file, :filename => @picture_file.picture_file_name, :type => 'image/gif', :disposition => 'inline'
+          end
+        end
+      }
+      format.png {
+        if @picture_file.picture.path
+          if configatron.uploaded_file.storage == :s3
+            send_data data, :filename => @picture_file.picture_file_name, :type => 'image/png', :disposition => 'inline'
+          else
+            send_file file, :filename => @picture_file.picture_file_name, :type => 'image/png', :disposition => 'inline'
+          end
+        end
+      }
+      format.svg {
+        if @picture_file.picture.path
+          if configatron.uploaded_file.storage == :s3
+            send_data data, :filename => @picture_file.picture_file_name, :type => 'image/svg+xml', :disposition => 'inline'
+          else
+            send_file file, :filename => @picture_file.picture_file_name, :type => 'image/svg+xml', :disposition => 'inline'
+          end
+        end
+      }
     end
   end
 
