@@ -1,6 +1,6 @@
 source 'http://rubygems.org'
 
-gem 'rails', '3.0.7'
+gem 'rails', '3.0.8.rc4'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
@@ -76,6 +76,7 @@ gem 'jpmobile', '>=1.0.0.pre.4'
 gem 'geocoder'
 gem 'acts_as_list', :git => 'git://github.com/haihappen/acts_as_list.git'
 gem 'library_stdnums'
+gem 'client_side_validations'
 
 #gem 'oink', '>=0.9.1'
 group :development do
