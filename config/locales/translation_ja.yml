@@ -476,6 +476,7 @@ ja:
         accepted_at: 受理時刻
         denied_at: 拒絶時刻
         deleted_at: 削除時刻
+        pub_date: 出版日
       realize:
         position: 位置
       reify:
@@ -524,7 +525,7 @@ ja:
         position: 位置
         state: 状態
       order_list:
-        title: タイトル
+        title: 発注リスト名
         note: 注記
         ordered_at: 発注時刻
         deleted_at: 削除時刻

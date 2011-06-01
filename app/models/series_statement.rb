@@ -2,7 +2,6 @@ class SeriesStatement < ActiveRecord::Base
   has_many :manifestations
   validates_presence_of :original_title
   validate :check_issn
-  validates :issn, :format => {:with => /\d{8}/}, :allow_blank => true
 
   acts_as_list
   searchable do
@@ -11,6 +10,7 @@ class SeriesStatement < ActiveRecord::Base
     end
     text :numbering, :title_subseries, :numbering_subseries
     integer :manifestation_ids, :multiple => true
+    integer :position
   end
 
   normalize_attributes :original_title, :issn
@@ -20,6 +20,7 @@ class SeriesStatement < ActiveRecord::Base
   end
 
   def check_issn
+    self.issn = ISBN_Tools.cleanup(issn)
     if issn.present?
       unless StdNum::ISSN.valid?(issn)
         errors.add(:issn)

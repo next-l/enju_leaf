@@ -94,17 +94,6 @@ class CheckinsControllerTest < ActionController::TestCase
     assert_redirected_to user_basket_checkins_url(assigns(:basket).user.username, assigns(:basket))
   end
 
-  def test_system_should_show_notice_when_reserved
-    sign_in users(:librarian1)
-    assert_difference('Checkin.count') do
-      post :create, :checkin => {:item_identifier => '00008'}, :basket_id => 9
-    end
-    assert flash[:message].to_s.index(I18n.t('item.this_item_is_reserved'))
-    assert_equal 'retained', assigns(:checkin).item.next_reservation.state
-    
-    assert_redirected_to user_basket_checkins_url(assigns(:basket).user.username, assigns(:basket))
-  end
-
   def test_guest_should_not_show_checkin
     get :show, :id => 1
     assert_response :redirect

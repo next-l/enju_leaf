@@ -200,42 +200,62 @@ describe CheckinsController do
   end
 
   describe "POST create" do
-    before(:each) do
-      sign_in Factory(:admin)
-      @attrs = {:item_identifier => '00003'}
-      @invalid_attrs = {:item_identifier => 'invalid'}
-    end
-
-    describe "with valid params" do
-      it "assigns a newly created checkin as @checkin" do
-        post :create, :checkin => @attrs
-        assigns(:checkin).should be_valid
+    describe "When logged in as Administrator" do
+      before(:each) do
+        sign_in Factory(:admin)
+        @attrs = {:item_identifier => '00003'}
+        @invalid_attrs = {:item_identifier => 'invalid'}
       end
 
-      it "redirects to index" do
-        post :create, :checkin => @attrs
-        response.should redirect_to(user_basket_checkins_url(assigns(:basket).user, assigns(:basket)))
-        assigns(:checkin).item.circulation_status.name.should eq 'Available On Shelf'
-      end
+      describe "with valid params" do
+        it "assigns a newly created checkin as @checkin" do
+          post :create, :checkin => @attrs
+          assigns(:checkin).should be_valid
+        end
 
-      describe "When basket_id is specified" do
-        it "redirects to the created checkin" do
-          post :create, :checkin => @attrs, :basket_id => 9
+        it "redirects to index" do
+          post :create, :checkin => @attrs
           response.should redirect_to(user_basket_checkins_url(assigns(:basket).user, assigns(:basket)))
           assigns(:checkin).item.circulation_status.name.should eq 'Available On Shelf'
+        end
+
+        describe "When basket_id is specified" do
+          it "redirects to the created checkin" do
+            post :create, :checkin => @attrs, :basket_id => 9
+            response.should redirect_to(user_basket_checkins_url(assigns(:basket).user, assigns(:basket)))
+            assigns(:checkin).item.circulation_status.name.should eq 'Available On Shelf'
+          end
+        end
+      end
+
+      describe "with invalid params" do
+        it "assigns a newly created but unsaved checkin as @checkin" do
+          post :create, :checkin => @invalid_attrs
+          assigns(:checkin).should be_valid
+        end
+
+        it "redirects to the list" do
+          post :create, :checkin => @invalid_attrs
+          response.should redirect_to(user_basket_checkins_url(assigns(:basket).user, assigns(:basket)))
         end
       end
     end
 
-    describe "with invalid params" do
-      it "assigns a newly created but unsaved checkin as @checkin" do
-        post :create, :checkin => @invalid_attrs
-        assigns(:checkin).should be_valid
+    describe "When logged in as Librarian" do
+      before(:each) do
+        sign_in Factory(:admin)
+        @attrs = {:item_identifier => '00003'}
+        @invalid_attrs = {:item_identifier => 'invalid'}
       end
 
-      it "redirects to the list" do
-        post :create, :checkin => @invalid_attrs
-        response.should redirect_to(user_basket_checkins_url(assigns(:basket).user, assigns(:basket)))
+      describe "with valid params" do
+        it "should show notification when it is reserved" do
+          post :create, :checkin => {:item_identifier => '00008'}, :basket_id => 9
+          flash[:message].to_s.index(I18n.t('item.this_item_is_reserved')).should be_true
+          assigns(:checkin).item.next_reservation.state.should eq 'retained'
+          assigns(:checkin).item.circulation_status.name.should eq 'In Process'
+          response.should redirect_to user_basket_checkins_url(assigns(:basket).user.username, assigns(:basket))
+        end
       end
     end
   end

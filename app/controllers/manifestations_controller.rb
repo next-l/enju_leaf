@@ -291,7 +291,7 @@ class ManifestationsController < ApplicationController
 
     store_location
 
-    if @manifestation.attachment
+    if @manifestation.attachment.path
       if configatron.uploaded_file.storage == :s3
         data = open(@manifestation.attachment.url).read.force_encoding('UTF-8')
       else
@@ -324,7 +324,7 @@ class ManifestationsController < ApplicationController
           :inline => true
       }
       format.download {
-        if @manifestation.attachment_file_name
+        if @manifestation.attachment.path
           if configatron.uploaded_file.storage == :s3
             send_data @manifestation.attachment.data, :filename => @manifestation.attachment_file_name, :type => 'application/octet-stream'
           else

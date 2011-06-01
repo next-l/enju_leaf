@@ -116,7 +116,11 @@ class Item < ActiveRecord::Base
   end
 
   def checkin!
-    self.circulation_status = CirculationStatus.where(:name => 'Available On Shelf').first
+    if self.reserved?
+      self.circulation_status = CirculationStatus.where(:name => 'In Process').first
+    else
+      self.circulation_status = CirculationStatus.where(:name => 'Available On Shelf').first
+    end
     save(:validate => false)
   end
 
@@ -126,7 +130,7 @@ class Item < ActiveRecord::Base
       unless reservation.nil?
         reservation.item = self
         reservation.sm_retain!
-        reservation.update_attributes({:request_status_type => RequestStatusType.find_by_name('Available For Pickup')})
+        reservation.update_attributes({:request_status_type => RequestStatusType.find_by_name('In Process')})
         request = MessageRequest.new(:sender_id => librarian.id, :receiver_id => reservation.user_id)
         message_template = MessageTemplate.localized_template('item_received', reservation.user.locale)
         request.message_template = message_template

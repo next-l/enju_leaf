@@ -16,7 +16,7 @@ class PatronImportFilesController < ApplicationController
   # GET /patron_import_files/1
   # GET /patron_import_files/1.xml
   def show
-    if @patron_import_file.patron_import
+    if @patron_import_file.patron_import.path
       unless configatron.uploaded_file.storage == :s3
         file = @patron_import_file.patron_import.path
       end

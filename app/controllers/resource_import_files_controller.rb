@@ -16,7 +16,7 @@ class ResourceImportFilesController < ApplicationController
   # GET /resource_import_files/1
   # GET /resource_import_files/1.xml
   def show
-    if @resource_import_file.resource_import
+    if @resource_import_file.resource_import.path
       unless configatron.uploaded_file.storage == :s3
         file = @resource_import_file.resource_import.path
       end

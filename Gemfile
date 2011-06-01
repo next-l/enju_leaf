@@ -76,6 +76,7 @@ gem 'jpmobile', '>=1.0.0.pre.4'
 gem 'geocoder'
 gem 'acts_as_list', :git => 'git://github.com/haihappen/acts_as_list.git'
 gem 'library_stdnums'
+gem 'client_side_validations'
 
 #gem 'oink', '>=0.9.1'
 group :development do
@@ -88,7 +89,7 @@ group :development, :test do
   gem 'rspec-rails', :git => 'git://github.com/rspec/rspec-rails.git'
   gem 'guard-rspec'
   gem 'factory_girl_rails'
-  gem 'spork', '~> 0.9.0.rc5'
+  gem 'spork', '~> 0.9.0.rc8'
   gem 'metric_fu'
 end
 
