@@ -6,17 +6,18 @@
   <tr>
     <th><%= t('activerecord.models.inventory_file') -%> </th>
     <th><%= t('activerecord.models.item') -%> </th>
-    <th><%= t('activerecord.attributes.inventory.note') -%> </th>
+    <th></th>
   </tr>
 
 <%- @inventories.each do |inventory| -%>
   <tr class="line<%= cycle("0", "1") -%>">
-    <td><%= inventory.inventory_file_id -%></td>
-    <td><%= inventory.item_id -%></td>
-    <td><%= inventory.note -%></td>
-    <td><%= link_to t('page.show'), inventory -%></td>
-    <td><%= link_to t('page.edit'), edit_inventory_path(inventory) -%></td>
-    <td><%= link_to t('page.destroy'), inventory, :confirm => t('page.are_you_sure'), :method => :delete -%> </td>
+    <td><%= link_to inventory.inventory_file_id, inventory.inventory_file_id -%></td>
+    <td><%= link_to inventory.item.item_identifier, inventory.item -%></td>
+    <td>
+      <%= link_to t('page.show'), inventory -%>
+      <%= link_to t('page.edit'), edit_inventory_path(inventory) -%>
+      <%= link_to t('page.destroy'), inventory, :confirm => t('page.are_you_sure'), :method => :delete -%>
+    </td>
   </tr>
 <%- end -%>
 </table>
