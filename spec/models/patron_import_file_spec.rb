@@ -9,6 +9,6 @@ describe PatronImportFile do
 
   it "should be imported" do
     @file.state.should eq 'pending'
-    @file.import_start.should eq({:patron_imported=>3, :user_imported=>2, :failed=>0})
+    @file.import_start.should eq({:patron_imported => 3, :user_imported => 2, :failed => 0})
   end
 end

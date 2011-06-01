@@ -11,7 +11,7 @@
 
 <%- @inventories.each do |inventory| -%>
   <tr class="line<%= cycle("0", "1") -%>">
-    <td><%= link_to inventory.inventory_file_id, inventory.inventory_file_id -%></td>
+    <td><%= link_to inventory.inventory_file_id, inventory.inventory_file -%></td>
     <td><%= link_to inventory.item.item_identifier, inventory.item -%></td>
     <td>
       <%= link_to t('page.show'), inventory -%>
