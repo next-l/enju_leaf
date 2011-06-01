@@ -10,8 +10,6 @@
     <th><%= t('activerecord.models.user') -%></th>
     <th><%= t('activerecord.attributes.event_import_file.state') -%></th>
     <th></th>
-    <th></th>
-    <th></th>
   </tr>
 
 <%- @event_import_files.each do |event_import_file| -%>
@@ -21,9 +19,11 @@
     <td><%= l(event_import_file.imported_at) if event_import_file.imported_at -%></td>
     <td><%= link_to event_import_file.user.username, event_import_file.user -%></td>
     <td><%= localized_state(event_import_file.state) -%></td>
-    <td><%= link_to t('page.show'), event_import_file -%></td>
-    <td><%= link_to t('page.edit'), edit_event_import_file_path(event_import_file) -%></td>
-    <td><%= link_to t('page.destroy'), event_import_file, :confirm => t('page.are_you_sure'), :method => :delete -%></td>
+    <td>
+      <%= link_to t('page.show'), event_import_file -%>
+      <%= link_to t('page.edit'), edit_event_import_file_path(event_import_file) -%>
+      <%= link_to t('page.destroy'), event_import_file, :confirm => t('page.are_you_sure'), :method => :delete -%>
+    </td>
   </tr>
 <%- end -%>
 </table>

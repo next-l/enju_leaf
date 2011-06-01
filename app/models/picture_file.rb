@@ -39,7 +39,12 @@ class PictureFile < ActiveRecord::Base
   end
 
   def extname
-    picture.content_type.split('/')[1].gsub('+xml', '') if picture.content_type
+    ext = picture.content_type.split('/')[1].gsub('+xml', '') if picture.content_type
+    if ext == 'pjpeg'
+      ext = 'jpeg'
+    else
+      ext
+    end
   end
 
   def content_type

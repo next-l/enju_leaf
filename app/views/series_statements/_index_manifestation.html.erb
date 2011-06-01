@@ -12,9 +12,9 @@
   <tr>
     <th id="position"></th>
     <th><%= t('activerecord.attributes.series_statement.original_title') -%></th>
-    <th><%= t('activerecord.attributes.series_statement.numbering') -%></th>
-    <th><%= t('activerecord.attributes.series_statement.title_subseries') -%></th>
-    <th><%= t('activerecord.attributes.series_statement.numbering_subseries') -%></th>
+    <th><%= t('activerecord.attributes.series_statement.issn') -%></th>
+    <th><%= t('activerecord.attributes.series_statement.series_statement_identifier') -%></th>
+    <th></th>
   </tr>
 
 <% @series_statements.each do |series_statement| %>
@@ -25,9 +25,8 @@
       <%- end -%>
     </td>
     <td><%= link_to series_statement.original_title, series_statement %></td>
-    <td><%= series_statement.numbering %></td>
-    <td><%= series_statement.title_subseries %></td>
-    <td><%= series_statement.numbering_subseries %></td>
+    <td><%= series_statement.issn %></td>
+    <td><%= series_statement.series_statement_identifier %></td>
     <td>
       <%= link_to t('page.select'), edit_manifestation_path(@manifestation, :series_statement_id => series_statement.id) %>
     </td>

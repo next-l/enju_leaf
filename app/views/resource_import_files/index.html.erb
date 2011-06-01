@@ -10,8 +10,6 @@
     <th><%= t('activerecord.models.user') -%></th>
     <th><%= t('activerecord.attributes.resource_import_file.state') -%></th>
     <th></th>
-    <th></th>
-    <th></th>
   </tr>
 
 <%- @resource_import_files.each do |resource_import_file| -%>
@@ -21,9 +19,11 @@
     <td><%= l(resource_import_file.imported_at) if resource_import_file.imported_at -%></td>
     <td><%= link_to resource_import_file.user.username, resource_import_file.user -%></td>
     <td><%= localized_state(resource_import_file.state) -%></td>
-    <td><%= link_to t('page.show'), resource_import_file -%></td>
-    <td><%= link_to t('page.edit'), edit_resource_import_file_path(resource_import_file) -%></td>
-    <td><%= link_to t('page.destroy'), resource_import_file, :confirm => t('page.are_you_sure'), :method => :delete -%></td>
+    <td>
+      <%= link_to t('page.show'), resource_import_file -%>
+      <%= link_to t('page.edit'), edit_resource_import_file_path(resource_import_file) -%>
+      <%= link_to t('page.destroy'), resource_import_file, :confirm => t('page.are_you_sure'), :method => :delete -%>
+    </td>
   </tr>
 <%- end -%>
 </table>

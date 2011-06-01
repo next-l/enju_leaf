@@ -11,10 +11,8 @@
   <tr>
     <th id="position"></th>
     <th><%= t('activerecord.attributes.series_statement.original_title') -%></th>
-    <th><%= t('activerecord.attributes.series_statement.numbering') -%></th>
-    <th><%= t('activerecord.attributes.series_statement.title_subseries') -%></th>
-    <th><%= t('activerecord.attributes.series_statement.numbering_subseries') -%></th>
-    <th></th>
+    <th><%= t('activerecord.attributes.series_statement.issn') -%></th>
+    <th><%= t('activerecord.attributes.series_statement.series_statement_identifier') -%></th>
     <th></th>
     <th></th>
   </tr>
@@ -27,14 +25,15 @@
       <%- end -%>
     </td>
     <td><%= link_to series_statement.original_title, series_statement %></td>
-    <td><%= series_statement.numbering %></td>
-    <td><%= series_statement.title_subseries %></td>
-    <td><%= series_statement.numbering_subseries %></td>
+    <td><%= series_statement.issn %></td>
+    <td><%= series_statement.series_statement_identifier %></td>
     <td>
       <%= link_to t('page.new', :model => t('activerecord.models.manifestation')), new_series_statement_manifestation_path(series_statement) -%>
     </td>
-    <td><%= link_to t('page.edit'), edit_series_statement_path(series_statement) %></td>
-    <td><%= link_to t('page.destroy'), series_statement, :confirm => t('page.are_you_sure'), :method => :delete %></td>
+    <td>
+      <%= link_to t('page.edit'), edit_series_statement_path(series_statement) %>
+      <%= link_to t('page.destroy'), series_statement, :confirm => t('page.are_you_sure'), :method => :delete %>
+    </td>
   </tr>
 <% end %>
 </table>
