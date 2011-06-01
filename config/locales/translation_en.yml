@@ -758,22 +758,27 @@ en:
         start_date: Start date
         end_date: End date
         note: Note
+        state: State
       manifestation_checkout_stat:
         start_date: Start date
         end_date: End date
         note: Note
+        state: State
       user_checkout_stat:
         start_date: Start date
         end_date: End date
         note: Note
+        state: State
       manifestation_reserve_stat:
         start_date: Start date
         end_date: End date
         note: Note
+        state: State
       user_reserve_stat:
         start_date: Start date
         end_date: End date
         note: Note
+        state: State
       tag:
         name: Name
         synonym: Synonym
