@@ -32,7 +32,11 @@
     <h2 class="title"><%= t('page.resource') -%></h2>
     <div class="config_box">
       <ul>
-        <li><%= link_to t('activerecord.models.manifestation'), manifestations_path -%></li>
+        <li><%= link_to t('activerecord.models.manifestation'), manifestations_path -%>
+        <ul>
+          <li><%= link_to t('page.item.list'), items_path %></li>
+        </ul>
+        </li>
         <li><%= link_to t('activerecord.models.bookmark'), bookmarks_path -%></li>
         <li><%= link_to t('activerecord.models.import_request'), import_requests_path -%></li>
         <li><%= link_to t('activerecord.models.series_statement'), series_statements_path -%></li>

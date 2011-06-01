@@ -476,6 +476,7 @@ ja:
         accepted_at: 受理時刻
         denied_at: 拒絶時刻
         deleted_at: 削除時刻
+        pub_date: 出版日
       realize:
         position: 位置
       reify:
@@ -524,7 +525,7 @@ ja:
         position: 位置
         state: 状態
       order_list:
-        title: タイトル
+        title: 発注リスト名
         note: 注記
         ordered_at: 発注時刻
         deleted_at: 削除時刻
@@ -1233,6 +1234,7 @@ ja:
     no_manifestation: "資料なし"
     no_number: "番号なし"
     add_lending_policy: "貸出規則の追加"
+    list: "所蔵一覧"
   patron:
     library_group_patron: "%{library_group_name} の人物・団体"
     work_patron: "%{work_title} の著作者"
