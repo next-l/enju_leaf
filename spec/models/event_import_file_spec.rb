@@ -8,6 +8,8 @@ describe EventImportFile do
   end
 
   it "should be imported" do
-    @file.import_start.should eq({:imported=>2, :failed=>0})
+    closing_days_size = Event.closing_days.size
+    @file.import_start.should eq({:imported => 3, :failed => 0})
+    Event.closing_days.size.should eq closing_days_size + 1
   end
 end

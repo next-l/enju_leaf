@@ -89,14 +89,16 @@ class EventImportFile < ActiveRecord::Base
       event.note = row['note']
       event.start_at = row['start_at']
       event.end_at = row['end_at']
-      category = row['category']
+      category = row['category'].to_s.strip
       event.all_day = true
       library = Library.where(:name => row['library_short_name']).first
       library = Library.web if library.blank?
       event.library = library
-      if category == "closed"
-        event.event_category = EventCagetory.where(:name => 'closed').first
+      event_category = EventCategory.where(:name => 'closed').first
+      unless event_category
+        event_category = EventCategory.create!(:name => category) unless category.blank?
       end
+      event.event_category = event_category if event_category
 
       begin
         if event.save!

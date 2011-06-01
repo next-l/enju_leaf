@@ -71,8 +71,8 @@ class EventImportFilesControllerTest < ActionController::TestCase
     end
 
     assigns(:event_import_file).import_start
-    assert_equal old_event_count + 2, Event.count
-    assert_equal old_import_results_count + 3, EventImportResult.count
+    assert_equal old_event_count + 3, Event.count
+    assert_equal old_import_results_count + 4, EventImportResult.count
     assert_equal 'librarian1', assigns(:event_import_file).user.username
     assert_redirected_to event_import_file_url(assigns(:event_import_file))
     #assert assigns(:event_import_file).file_hash

@@ -7,7 +7,7 @@ describe ResourceImportFile do
   end
 
   it "should be imported" do
-    @file.import_start.should eq({:manifestation_imported=>7, :item_imported=>6, :manifestation_found=>4, :item_found=>3, :failed=>6})
+    @file.import_start.should eq({:manifestation_imported => 7, :item_imported => 6, :manifestation_found => 4, :item_found => 3, :failed => 6})
     manifestation = Item.where(:item_identifier => '11111').first.manifestation
     manifestation.publishers.first.full_name.should eq 'test4'
     manifestation.publishers.first.full_name_transcription.should eq 'てすと4'

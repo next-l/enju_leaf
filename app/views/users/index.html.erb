@@ -47,7 +47,7 @@
     <td>
       <%= link_to t('user.edit_account'), edit_user_path(user) -%>
       <br />
-      <%= link_to t('user.edit_profile'), edit_patron_path(user.patron) -%>
+      <%= link_to t('user.edit_profile'), edit_patron_path(user.patron) if can? :update, user.patron-%>
     </td>
   </tr>
 <%- end -%>
