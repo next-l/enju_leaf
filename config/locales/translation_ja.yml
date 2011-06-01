@@ -759,22 +759,27 @@ ja:
         start_date: 開始日
         end_date: 終了日
         note: 注記
+        state: 状態
       manifestation_checkout_stat:
         start_date: 開始日
         end_date: 終了日
         note: 注記
+        state: 状態
       user_checkout_stat:
         start_date: 開始日
         end_date: 終了日
         note: 注記
+        state: 状態
       manifestation_reserve_stat:
         start_date: 開始日
         end_date: 終了日
         note: 注記
+        state: 状態
       user_reserve_stat:
         start_date: 開始日
         end_date: 終了日
         note: 注記
+        state: 状態
       tag:
         name: 名前
         synonym: 同義語
