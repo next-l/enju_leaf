@@ -78,14 +78,14 @@ ja:
       carrier_type: 資料の形態
       manifestation: 資料
       user_group: 利用者グループ
-      resource_import_file: インポートされる資料のファイル
+      resource_import_file: 資料のインポート用ファイル
       checkout: 貸出
       subscription: 購読
       message_template: メッセージテンプレート
       patron_merge: 人物・団体の併合
       subject_related_term: 件名の関連語
       library_group: 図書館全体の設定
-      event_import_file: 催し物ファイルのインポート
+      event_import_file: 催し物のインポート用ファイル
       attachment_file: 添付ファイル
       reserve: 予約
       message_request: メッセージの送信リクエスト
@@ -139,14 +139,14 @@ ja:
       checkout_stat_has_user: 利用者別貸出統計
       reserve_stat_has_manifestation: 資料別予約統計
       reserve_stat_has_user: 利用者別予約統計
-      import_request: インポートのリクエスト
+      import_request: ISBNインポートのリクエスト
       resource: 資料
       user_has_role: 利用者と権限
       patron_relationship: 著者・編者・出版社の関係
       manifestation_relationship: 資料の関係
-      resource_import_result: 資料情報インポートの結果
-      patron_import_result: 人物・団体情報インポートの結果
-      event_import_result: 催し物情報インポートの結果
+      resource_import_result: 資料インポートの結果
+      patron_import_result: 人物・団体インポートの結果
+      event_import_result: 催し物インポートの結果
 
     attributes:
       library:

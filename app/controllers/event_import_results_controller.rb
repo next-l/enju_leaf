@@ -6,6 +6,11 @@ class EventImportResultsController < InheritedResources::Base
   has_scope :file_id
 
   def index
-    @event_import_results = @event_import_results.paginate(:page => params[:page])
+    @event_import_file = EventImportFile.where(:id => params[:event_import_file_id]).first
+    if @event_import_file
+      @event_import_results = @event_import_file.event_import_results.paginate(:page => params[:page])
+    else
+      @event_import_results = @event_import_results.paginate(:page => params[:page])
+    end
   end
 end

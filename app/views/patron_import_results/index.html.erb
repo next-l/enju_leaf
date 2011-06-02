@@ -1,5 +1,5 @@
-<div id="content_detail">
-<h1 class="title"><%= t('page.listing', :model => t('activerecord.models.patron_import_file')) -%></h1>
+<div id="content_detail" class="ui-corner-all">
+<h1 class="title"><%= t('page.listing', :model => t('activerecord.models.patron_import_result')) -%></h1>
 <div id="content_list">
 
 <table class="index">
@@ -8,18 +8,21 @@
     <th><%= t('activerecord.models.patron') %></th>
     <th><%= t('activerecord.models.user') %></th>
     <th></th>
-    <th></th>
-    <th></th>
   </tr>
 
 <% @patron_import_results.each do |patron_import_result| %>
   <tr class="line<%= cycle("0", "1") -%>">
-    <td><%= link_to patron_import_result.patron_import_file.patron_import_file_name, patron_import_result.patron_import_file %></td>
+    <td>
+      <%= link_to patron_import_result.patron_import_file.patron_import_file_name, patron_import_result.patron_import_file %>
+      <br />
+      <%=l patron_import_result.created_at %>
+    </td>
     <td><%= link_to patron_import_result.patron.full_name, patron_import_result.patron if patron_import_result.patron %></td>
     <td><%= link_to patron_import_result.user.username, patron_import_result.user if patron_import_result.user %></td>
-    <td><%= link_to t('page.show'), patron_import_result %></td>
-    <td><%= link_to t('page.edit'), edit_patron_import_result_path(patron_import_result) %></td>
-    <td><%= link_to t('page.destroy'), patron_import_result, :confirm => 'Are you sure?', :method => :delete %></td>
+    <td>
+      <%= link_to t('page.show'), patron_import_result %>
+      <%= link_to t('page.destroy'), patron_import_result, :confirm => t('page.are_you_sure') :method => :delete %>
+    </td>
   </tr>
 <% end %>
 </table>
@@ -29,8 +32,5 @@
 </div>
 </div>
 
-<div id="submenu">
-  <ul>
-    <li><%= link_to t('page.new', :model => t('activerecord.models.patron_import_result')), new_patron_import_result_path -%></li>
-  </ul>
+<div id="submenu" class="ui-corner-all">
 </div>
