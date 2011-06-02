@@ -1,10 +1,4 @@
 EnjuLeaf::Application.routes.draw do
-  resources :event_import_results
-
-  resources :patron_import_results
-
-  resources :resource_import_results
-
   devise_for :users, :path => 'accounts'
 
   resources :manifestations do
@@ -165,11 +159,20 @@ EnjuLeaf::Application.routes.draw do
     resources :checked_items
   end
 
-  resources :resource_import_files
+  resources :resource_import_files do
+    resources :resource_import_results, :only => [:index, :show, :destroy]
+  end
 
-  resources :patron_import_files
+  resources :patron_import_files do
+    resources :patron_import_results, :only => [:index, :show, :destroy]
+  end
 
-  resources :event_import_files
+  resources :event_import_files do
+    resources :event_import_results, :only => [:index, :show, :destroy]
+  end
+  resources :event_import_results, :only => [:index, :show, :destroy]
+  resources :patron_import_results, :only => [:index, :show, :destroy]
+  resources :resource_import_results, :only => [:index, :show, :destroy]
 
   resources :events do
     resources :picture_files

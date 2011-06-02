@@ -992,6 +992,12 @@ en:
         parent_id: Parent
         child_id: Child
         manifestation_relationship_type_id: Manifestation relationship type
+      resource_import_result:
+        body: Body
+      patron_import_result:
+        body: Body
+      event_import_result:
+        body: Body
 
   page:
     user_title: "Welcome %{login_name}"

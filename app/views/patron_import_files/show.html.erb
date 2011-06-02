@@ -51,7 +51,8 @@
 
 <div id="submenu" class="ui-corner-all">
   <ul>
+    <li><%= link_to t('activerecord.models.patron_import_result'), patron_import_file_patron_import_results_path(@patron_import_file) -%></li>
     <li><%= link_to t('page.edit'), edit_patron_import_file_path(@patron_import_file) -%></li>
-    <li><%= link_to t('page.back'), patron_import_files_path -%></li>
+    <li><%= link_to t('page.back_to_index'), patron_import_files_path -%></li>
   </ul>
 </div>

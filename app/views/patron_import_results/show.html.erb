@@ -1,25 +1,31 @@
-<p id="notice"><%= notice %></p>
+<div id="content_detail" class="ui-corner-all">
+<h1 class="title"><%= t('page.showing', :model => t('activerecord.models.patron_import_result')) -%></h1>
+<div id="content_list">
 
 <p>
-  <b>Patron import file:</b>
-  <%= @patron_import_result.patron_import_file_id %>
+  <b><%= t('activerecord.models.patron_import_file') %></b>
+  <%= @patron_import_result.patron_import_file.patron_import_file_name %>
 </p>
 
 <p>
-  <b>Patron:</b>
+  <b><%= t('activerecord.models.patron') %></b>
   <%= @patron_import_result.patron_id %>
 </p>
 
 <p>
-  <b>User:</b>
+  <b><%= t('activerecord.models.user') %></b>
   <%= @patron_import_result.user_id %>
 </p>
 
 <p>
-  <b>Body:</b>
+  <b><%= t('activerecord.attributes.patron_import_result.body') %></b>
   <%= @patron_import_result.body %>
 </p>
+</div>
+</div>
 
-
-<%= link_to 'Edit', edit_patron_import_result_path(@patron_import_result) %> |
-<%= link_to 'Back', patron_import_results_path %>
+<div id="submenu" class="ui-corner-all">
+  <ul>
+    <li><%= link_to t('page.back'), patron_import_results_path %></li>
+  </ul>
+</div>

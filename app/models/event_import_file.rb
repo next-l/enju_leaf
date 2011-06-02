@@ -94,11 +94,8 @@ class EventImportFile < ActiveRecord::Base
       library = Library.where(:name => row['library_short_name']).first
       library = Library.web if library.blank?
       event.library = library
-      event_category = EventCategory.where(:name => 'closed').first
-      unless event_category
-        event_category = EventCategory.create!(:name => category) unless category.blank?
-      end
-      event.event_category = event_category if event_category
+      event_category = EventCategory.where(:name => category).first || EventCategory.where(:name => 'unknown').first
+      event.event_category = event_category
 
       begin
         if event.save!

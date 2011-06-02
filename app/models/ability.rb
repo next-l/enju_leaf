@@ -12,6 +12,10 @@ class Ability
       can :destroy, ClassificationType do |classification_type|
         classification_type.classifications.first.nil?
       end
+      can [:read, :create], EventCategory
+      can [:update, :destroy], EventCategory do |event_category|
+        !['unknown', 'closed'].include?(event_category.name)
+      end
       can [:read, :create, :update], Item
       can :destroy, Item do |item|
         item.checkouts.not_returned.first.nil?
@@ -63,7 +67,6 @@ class Ability
         Create,
         Donate,
         Event,
-        EventCategory,
         Exemplify,
         EventImportFile,
         ImportRequest,

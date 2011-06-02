@@ -1,20 +1,26 @@
-<p id="notice"><%= notice %></p>
+<div id="content_detail" class="ui-corner-all">
+<h1 class="title"><%= t('page.showing', :model => t('activerecord.models.event_import_result')) -%></h1>
+<div id="content_list">
 
 <p>
-  <b>Event import file:</b>
-  <%= @event_import_result.event_import_file_id %>
+  <b><%= t('activerecord.models.event_import_file') %></b>
+  <%= @event_import_result.event_import_file.event_import_file_name %>
 </p>
 
 <p>
-  <b>Event:</b>
+  <b><%= t('activerecord.models.event') %></b>
   <%= @event_import_result.event_id %>
 </p>
 
 <p>
-  <b>Body:</b>
+  <b><%= t('activerecord.attributes.patron_import_result.body') %></b>
   <%= @event_import_result.body %>
 </p>
+</div>
+</div>
 
-
-<%= link_to 'Edit', edit_event_import_result_path(@event_import_result) %> |
-<%= link_to 'Back', event_import_results_path %>
+<div id="submenu" class="ui-corner-all">
+  <ul>
+    <li><%= link_to t('page.back'), event_import_results_path %></li>
+  </ul>
+</div>
