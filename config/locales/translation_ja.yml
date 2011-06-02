@@ -991,6 +991,12 @@ ja:
         parent: 派生元の資料
         child: 派生先の資料
         manifestation_relationship_type_id: 資料の関係の種類
+      resource_import_result:
+        body: 本文
+      patron_import_result:
+        body: 本文
+      event_import_result:
+        body: 本文
 
   page:
     user_title: "ようこそ %{login_name} さん"

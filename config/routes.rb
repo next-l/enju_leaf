@@ -1,9 +1,9 @@
 EnjuLeaf::Application.routes.draw do
-  resources :event_import_results
+  resources :event_import_results, :only => [:index, :show, :destroy]
 
-  resources :patron_import_results
+  resources :patron_import_results, :only => [:index, :show, :destroy]
 
-  resources :resource_import_results
+  resources :resource_import_results, :only => [:index, :show, :destroy]
 
   devise_for :users, :path => 'accounts'
 
