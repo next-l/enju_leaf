@@ -1,6 +1,11 @@
 <div id="content_detail" class="ui-corner-all">
 <h1 class="title"><%= t('page.listing', :model => t('activerecord.models.patron_import_result')) -%></h1>
 <div id="content_list">
+  <% if @patron_import_file %>
+    <h2 class="patron_title">
+      <%= link_to @patron_import_file.patron_import_file_name, @patron_import_file %>
+    </h2>
+  <% end %>
 
 <table class="index">
   <tr>
@@ -21,7 +26,7 @@
     <td><%= link_to patron_import_result.user.username, patron_import_result.user if patron_import_result.user %></td>
     <td>
       <%= link_to t('page.show'), patron_import_result %>
-      <%= link_to t('page.destroy'), patron_import_result, :confirm => t('page.are_you_sure') :method => :delete %>
+      <%= link_to t('page.destroy'), patron_import_result, :confirm => t('page.are_you_sure'), :method => :delete %>
     </td>
   </tr>
 <% end %>
@@ -33,4 +38,15 @@
 </div>
 
 <div id="submenu" class="ui-corner-all">
+  <ul>
+    <li>
+    <% if @patron_import_file %>
+      <%= link_to (image_tag 'icons/page_white_excel.png', :size => '16x16', :alt => 'CSV', :class => 'icon'), patron_import_file_patron_import_results_path(@patron_import_file, :format => :csv, :locale => @locale.to_s) -%>
+      (<%= link_to 'CSV', patron_import_file_patron_import_results_path(:format => :csv, :locale => @locale.to_s) -%>)
+    <% else %>
+      <%= link_to (image_tag 'icons/page_white_excel.png', :size => '16x16', :alt => 'CSV', :class => 'icon'), patron_import_results_path(:format => :csv, :locale => @locale.to_s) -%>
+      (<%= link_to 'CSV', patron_import_results_path(:format => :csv, :locale => @locale.to_s) -%>)
+    <% end %>
+    </li>
+  </ul>
 </div>

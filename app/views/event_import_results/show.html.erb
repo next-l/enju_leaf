@@ -16,6 +16,12 @@
   <b><%= t('activerecord.attributes.patron_import_result.body') %></b>
   <%= @event_import_result.body %>
 </p>
+
+<p>
+  <b><%= t('page.created_at') %></b>
+  <%=l @event_import_result.created_at %>
+</p>
+
 </div>
 </div>
 
