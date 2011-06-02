@@ -94,7 +94,7 @@ class EventImportFilesControllerTest < ActionController::TestCase
     assert_equal Time.zone.parse('2011-03-26').beginning_of_day, Event.order('id DESC').first.start_at
     assert_equal Time.zone.parse('2011-03-27').end_of_day.to_s, Event.order('id DESC').first.end_at.to_s
     assert_redirected_to event_import_file_url(assigns(:event_import_file))
-    #assert assigns(:event_import_file).file_hash
+    assert assigns(:event_import_file).file_hash
   end
 
   def test_guest_should_not_show_event_import_file
