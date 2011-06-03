@@ -500,4 +500,7 @@ p{
   line-height: 2em;
 }
 
-/* .yui-skin-sam .yui-navset .yui-content{background:white;} */
+table#resource_detail, table#holding{
+  background-color: white;
+  width: 100%;
+}

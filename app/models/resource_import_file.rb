@@ -38,7 +38,15 @@ class ResourceImportFile < ActiveRecord::Base
 
   def import_start
     sm_start!
-    import
+    case edit_mode
+    when 'create'
+      import
+    when 'update'
+    when 'destroy'
+      remove
+    else
+      import
+    end
   end
 
   def import

@@ -8,6 +8,7 @@
     <th><%= t('activerecord.attributes.resource_import_file.resource_import_file_name') -%></th>
     <th><%= t('activerecord.attributes.resource_import_file.imported_at') -%></th>
     <th><%= t('activerecord.models.user') -%></th>
+    <th><%= t('activerecord.attributes.resource_import_file.edit_mode') -%></th>
     <th><%= t('activerecord.attributes.resource_import_file.state') -%></th>
     <th></th>
   </tr>
@@ -18,6 +19,7 @@
     <td><%= link_to resource_import_file.resource_import_file_name, resource_import_file -%></td>
     <td><%= l(resource_import_file.imported_at) if resource_import_file.imported_at -%></td>
     <td><%= link_to resource_import_file.user.username, resource_import_file.user -%></td>
+    <td><%= resource_import_file.edit_mode -%></td>
     <td><%= localized_state(resource_import_file.state) -%></td>
     <td>
       <%= link_to t('page.show'), resource_import_file -%>
