@@ -134,7 +134,7 @@ ja:
       license: ライセンス
       work_to_expression_rel_type: 書いた資料と協力した資料の関係の種類
       expression_to_manifestation_rel_type: 協力した資料と出版した資料の関係の種類
-      series_statement: 定期刊行物の記述
+      series_statement: 定期刊行物
       checkout_stat_has_manifestation: 資料別貸出統計
       checkout_stat_has_user: 利用者別貸出統計
       reserve_stat_has_manifestation: 資料別予約統計
@@ -183,6 +183,7 @@ ja:
         imported_at: インポート時刻
         patron_import_updated_at: 更新時刻
         state: 状態
+        edit_mode: 編集モード
       circulation_status:
         name: 名前
         display_name: 表示名
@@ -632,6 +633,7 @@ ja:
         imported_at: インポート時刻
         resource_import_updated_at: 更新時刻
         state: 状態
+        edit_mode: 編集モード
       checkout:
         due_date: 期日
         lock_version: ロックバージョン
@@ -670,6 +672,7 @@ ja:
         imported_at: インポート時刻
         event_import_updated_at: 更新時刻
         state: 状態
+        edit_mode: 編集モード
       attachment_file:
         attachable_type: 添付可能な種類
         size: ファイルサイズ

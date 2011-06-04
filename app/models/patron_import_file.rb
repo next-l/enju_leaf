@@ -39,39 +39,23 @@ class PatronImportFile < ActiveRecord::Base
 
   def import_start
     sm_start!
-    import
+    case edit_mode
+    when 'create'
+      import
+    when 'update'
+      modify
+    when 'destroy'
+      remove
+    else
+      import
+    end
   end
 
   def import
     self.reload
     num = {:patron_imported => 0, :user_imported => 0, :failed => 0}
     row_num = 2
-    tempfile = Tempfile.new('patron_import_file')
-    if configatron.uploaded_file.storage == :s3
-      uploaded_file_path = open(self.patron_import.url).path
-    else
-      uploaded_file_path = self.patron_import.path
-    end
-    open(uploaded_file_path){|f|
-      f.each{|line|
-        tempfile.puts(NKF.nkf('-w -Lu', line))
-      }
-    }
-
-    tempfile.open
-    if RUBY_VERSION > '1.9'
-      file = CSV.open(tempfile, "r:utf-8", :col_sep => "\t")
-      header = file.first
-      rows = CSV.open(tempfile, "r:utf-8", :headers => header, :col_sep => "\t")
-    else
-      file = FasterCSV.open(tempfile, "r:utf-8", :col_sep => "\t")
-      header = file.first
-      rows = FasterCSV.open(tempfile, "r:utf-8", :headers => header, :col_sep => "\t")
-    end
-    tempfile.close
-
-    PatronImportResult.create!(:patron_import_file => self, :body => header.join("\t"))
-    file.close
+    rows = open_import_file
     field = rows.first
     if [field['first_name'], field['last_name'], field['full_name']].reject{|field| field.to_s.strip == ""}.empty?
       raise "You should specify first_name, last_name or full_name in the first line"
@@ -83,37 +67,7 @@ class PatronImportFile < ActiveRecord::Base
 
       begin
         patron = Patron.new
-        patron.first_name = row['first_name']
-        patron.middle_name = row['middle_name']
-        patron.last_name = row['last_name']
-        patron.first_name_transcription = row['first_name_transcription']
-        patron.middle_name_transcription = row['middle_name_transcription']
-        patron.last_name_transcription = row['last_name_transcription']
-
-        patron.full_name = row['full_name']
-        patron.full_name_transcription = row['full_name_transcription']
-
-        patron.address_1 = row['address_1']
-        patron.address_2 = row['address_2']
-        patron.zip_code_1 = row['zip_code_1']
-        patron.zip_code_2 = row['zip_code_2']
-        patron.telephone_number_1 = row['telephone_number_1']
-        patron.telephone_number_2 = row['telephone_number_2']
-        patron.fax_number_1 = row['fax_number_1']
-        patron.fax_number_2 = row['fax_number_2']
-        if row['username'].to_s.strip.blank?
-          patron.email = row['email'].to_s.strip
-          patron.required_role = Role.find_by_name(row['required_role_name']) || Role.find('Guest')
-        else
-          patron.required_role = Role.find_by_name(row['required_role_name']) || Role.find('Librarian')
-        end
-        patron.note = row['note']
-        patron.birth_date = row['birth_date']
-        patron.death_date = row['death_date']
-        language = Language.find_by_name(row['language'])
-        patron.language = language if language.present?
-        country = Country.find_by_name(row['country'])
-        patron.country = country if country.present?
+        patron = set_value(patron, row)
 
         if patron.save!
           import_result.patron = patron
@@ -174,5 +128,94 @@ class PatronImportFile < ActiveRecord::Base
     end
   rescue
     logger.info "#{Time.zone.now} importing patrons failed!"
+  end
+
+  def modify
+    rows = self.open_import_file
+    field = rows.first
+    rows.each do |row|
+      patron = Patron.where(:id => row['patron_id'].to_s.strip).first
+      if patron
+        set_value(patron, row)
+        patron.save
+      end
+    end
+  end
+
+  def remove
+    rows = self.open_import_file
+    field = rows.first
+    rows.each do |row|
+      patron = Patron.where(:id => row['patron_id'].to_s.strip).first
+      if patron
+        patron.destroy
+      end
+    end
+  end
+
+  private
+  def open_import_file
+    tempfile = Tempfile.new('patron_import_file')
+    if configatron.uploaded_file.storage == :s3
+      uploaded_file_path = open(self.patron_import.url).path
+    else
+      uploaded_file_path = self.patron_import.path
+    end
+    open(uploaded_file_path){|f|
+      f.each{|line|
+        tempfile.puts(NKF.nkf('-w -Lu', line))
+      }
+    }
+
+    tempfile.open
+    if RUBY_VERSION > '1.9'
+      file = CSV.open(tempfile, :col_sep => "\t")
+      header = file.first
+      rows = CSV.open(tempfile, :headers => header, :col_sep => "\t")
+    else
+      file = FasterCSV.open(tempfile, :col_sep => "\t")
+      header = file.first
+      rows = FasterCSV.open(tempfile, :headers => header, :col_sep => "\t")
+    end
+    PatronImportResult.create(:patron_import_file => self, :body => header.join("\t"))
+    tempfile.close
+    file.close
+    rows
+  end
+
+  def set_value(patron, row)
+    patron.first_name = row['first_name']
+    patron.middle_name = row['middle_name']
+    patron.last_name = row['last_name']
+    patron.first_name_transcription = row['first_name_transcription']
+    patron.middle_name_transcription = row['middle_name_transcription']
+    patron.last_name_transcription = row['last_name_transcription']
+
+    patron.full_name = row['full_name']
+    patron.full_name_transcription = row['full_name_transcription']
+
+    patron.address_1 = row['address_1']
+    patron.address_2 = row['address_2']
+    patron.zip_code_1 = row['zip_code_1']
+    patron.zip_code_2 = row['zip_code_2']
+    patron.telephone_number_1 = row['telephone_number_1']
+    patron.telephone_number_2 = row['telephone_number_2']
+    patron.fax_number_1 = row['fax_number_1']
+    patron.fax_number_2 = row['fax_number_2']
+    patron.note = row['note']
+    patron.birth_date = row['birth_date']
+    patron.death_date = row['death_date']
+
+    if row['username'].to_s.strip.blank?
+      patron.email = row['email'].to_s.strip
+      patron.required_role = Role.where(row['required_role_name']).first || Role.find('Guest')
+    else
+      patron.required_role = Role.where(row['required_role_name']).first || Role.find('Librarian')
+    end
+    language = Language.where(:name => row['language'].to_s.strip).first
+    patron.language = language if language
+    country = Country.where(:name => row['country'].to_s.strip).first
+    patron.country = country if country
+    patron
   end
 end

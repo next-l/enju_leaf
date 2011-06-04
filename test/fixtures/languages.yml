@@ -2,10 +2,11 @@
 language_00001: 
   position: 1
   name: unknown  
-  display_name: unknown
-  iso_639_1: "??"
-  iso_639_2: "???"
-  iso_639_3: "???"
+  display_name: "en:unknown\r\n\
+    ja:不明"
+  iso_639_1: unknown
+  iso_639_2: unknown
+  iso_639_3: unknown
   id: 1
   note: 
   native_name: 
@@ -1028,7 +1029,7 @@ language_00043:
   iso_639_3: eng
   id: 43
   note: 
-  native_name: 
+  native_name: English
 language_00157: 
   position: 157
   name: Swedish  
@@ -1331,7 +1332,7 @@ language_00104:
   native_name: 
 language_00132: 
   position: 132
-  name: !binary |  
+  name: Pali
   display_name: !binary |
     UMSBbGk=
 
@@ -1354,13 +1355,14 @@ language_00160:
 language_00077: 
   position: 77
   name: Japanese  
-  display_name: Japanese
+  display_name: "en:Japanese\r\n\
+    ja:日本語"
   iso_639_1: ja
   iso_639_2: jpn
   iso_639_3: jpn
   id: 77
   note: 
-  native_name: 
+  native_name: 日本語
 language_00049: 
   position: 49
   name: Fijian  
@@ -1833,10 +1835,8 @@ language_00028:
   native_name: 
 language_00112: 
   position: 112
-  name: Māori
-  display_name: !binary |
-    TcSBb3Jp
-
+  name: Maori
+  display_name: Māorii
   iso_639_1: mi
   iso_639_2: mao
   iso_639_3: mri

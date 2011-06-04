@@ -8,6 +8,7 @@
     <th><%= t('activerecord.attributes.patron_import_file.patron_import_file_name') -%></th>
     <th><%= t('activerecord.attributes.patron_import_file.imported_at') -%></th>
     <th><%= t('activerecord.models.user') -%></th>
+    <th><%= t('activerecord.attributes.patron_import_file.edit_mode') -%></th>
     <th><%= t('activerecord.attributes.patron_import_file.state') -%></th>
     <th></th>
   </tr>
@@ -18,6 +19,7 @@
     <td><%= link_to patron_import_file.patron_import_file_name, patron_import_file -%></td>
     <td><%= l(patron_import_file.imported_at) if patron_import_file.imported_at -%></td>
     <td><%= link_to patron_import_file.user.username, patron_import_file.user -%></td>
+    <td><%= patron_import_file.edit_mode -%></td>
     <td><%= localized_state(patron_import_file.state) -%></td>
     <td>
       <%= link_to t('page.show'), patron_import_file -%>

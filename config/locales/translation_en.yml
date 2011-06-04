@@ -183,6 +183,7 @@ en:
         imported_at: Imported at
         patron_import_updated_at: Updated at
         state: State
+        edit_mode: Edit mode
       circulation_status:
         name: Name
         display_name: Display name
@@ -631,6 +632,7 @@ en:
         imported_at: Imported at
         resource_import_updated_at: Updated at
         state: State
+        edit_mode: Edit mode
       checkout:
         due_date: Due date
         lock_version: Lock version
@@ -669,6 +671,7 @@ en:
         imported_at: Imported at
         event_import_updated_at: Updated at
         state: State
+        edit_mode: Edit mode
       attachment_file:
         attachable_type: Attachable type
         size: Size
