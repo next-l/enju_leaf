@@ -134,7 +134,7 @@ ja:
       license: ライセンス
       work_to_expression_rel_type: 書いた資料と協力した資料の関係の種類
       expression_to_manifestation_rel_type: 協力した資料と出版した資料の関係の種類
-      series_statement: 定期刊行物の記述
+      series_statement: 定期刊行物
       checkout_stat_has_manifestation: 資料別貸出統計
       checkout_stat_has_user: 利用者別貸出統計
       reserve_stat_has_manifestation: 資料別予約統計

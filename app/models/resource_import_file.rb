@@ -53,7 +53,7 @@ class ResourceImportFile < ActiveRecord::Base
     self.reload
     num = {:manifestation_imported => 0, :item_imported => 0, :manifestation_found => 0, :item_found => 0, :failed => 0}
     row_num = 2
-    rows = self.open_import_file
+    rows = open_import_file
     field = rows.first
     if [field['isbn'], field['original_title']].reject{|field| field.to_s.strip == ""}.empty?
       raise "You should specify isbn or original_tile in the first line"
@@ -212,12 +212,14 @@ class ResourceImportFile < ActiveRecord::Base
     field = rows.first
     rows.each do |row|
       item_identifier = row['item_identifier'].to_s.strip
-      if item = Item.where(:item_identifier => item_identifier).first
+      item = Item.where(:item_identifier => item_identifier).first
+      if item
         item.destroy
       end
     end
   end
 
+  private
   def open_import_file
     tempfile = Tempfile.new('patron_import_file')
     if configatron.uploaded_file.storage == :s3
@@ -247,7 +249,6 @@ class ResourceImportFile < ActiveRecord::Base
     rows
   end
 
-  private
   def import_subject(row)
     subjects = []
     row['subject'].to_s.split(';').each do |s|

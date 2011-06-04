@@ -53,32 +53,7 @@ class EventImportFile < ActiveRecord::Base
     num = {:imported => 0, :failed => 0}
     record = 2
 
-    tempfile = Tempfile.new('event_import_file')
-    if configatron.uploaded_file.storage == :s3
-      uploaded_file_path = open(self.event_import.url).path
-    else
-      uploaded_file_path = self.event_import.path
-    end
-    open(uploaded_file_path){|f|
-      f.each{|line|
-        tempfile.puts(NKF.nkf('-w -Lu', line))
-      }
-    }
-
-    tempfile.open
-    if RUBY_VERSION > '1.9'
-      file = CSV.open(tempfile, :col_sep => "\t")
-      header = file.first
-      rows = CSV.open(tempfile, :headers => header, :col_sep => "\t")
-    else
-      file = FasterCSV.open(tempfile, :col_sep => "\t")
-      header = file.first
-      rows = FasterCSV.open(tempfile, :headers => header, :col_sep => "\t")
-    end
-    EventImportResult.create!(:event_import_file => self, :body => header.join("\t"))
-    tempfile.close
-    file.close
-
+    rows = open_import_file
     field = rows.first
     if [field['name']].reject{|f| f.to_s.strip == ""}.empty?
       raise "You should specify a name in the first line"
@@ -135,4 +110,33 @@ class EventImportFile < ActiveRecord::Base
     logger.info "#{Time.zone.now} importing events failed!"
   end
 
+  private
+  def open_import_file
+    tempfile = Tempfile.new('event_import_file')
+    if configatron.uploaded_file.storage == :s3
+      uploaded_file_path = open(self.event_import.url).path
+    else
+      uploaded_file_path = self.event_import.path
+    end
+    open(uploaded_file_path){|f|
+      f.each{|line|
+        tempfile.puts(NKF.nkf('-w -Lu', line))
+      }
+    }
+
+    tempfile.open
+    if RUBY_VERSION > '1.9'
+      file = CSV.open(tempfile, :col_sep => "\t")
+      header = file.first
+      rows = CSV.open(tempfile, :headers => header, :col_sep => "\t")
+    else
+      file = FasterCSV.open(tempfile, :col_sep => "\t")
+      header = file.first
+      rows = FasterCSV.open(tempfile, :headers => header, :col_sep => "\t")
+    end
+    EventImportResult.create!(:event_import_file => self, :body => header.join("\t"))
+    tempfile.close
+    file.close
+    rows
+  end
 end
