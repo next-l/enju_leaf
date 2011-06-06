@@ -37,7 +37,7 @@ class Reserve < ActiveRecord::Base
   state_machine :initial => :pending do
     before_transition :pending => :requested, :do => :do_request
     before_transition [:pending, :requested, :retained] => :retained, :do => :retain
-    before_transition [:pending ,:requested,  :retained] => :canceled, :do => :cancel
+    before_transition [:pending ,:requested, :retained] => :canceled, :do => :cancel
     before_transition [:pending, :requested, :retained] => :expired, :do => :expire
     before_transition :retained => :completed, :do => :checkout
 
