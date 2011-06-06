@@ -293,7 +293,9 @@ class ResourceImportFile < ActiveRecord::Base
     height = NKF.nkf('-eZ1', row['height'].to_s).gsub(/\D/, '').to_i
     depth = NKF.nkf('-eZ1', row['depth'].to_s).gsub(/\D/, '').to_i
     end_page = NKF.nkf('-eZ1', row['number_of_pages'].to_s).gsub(/\D/, '').to_i
-    language = Language.where(row['language'].to_s.strip).first
+    language = Language.where(:name => row['language'].to_s.strip.camelize).first
+    language = Language.where(:iso_639_2 => row['language'].to_s.strip.downcase).first unless language
+    language = Language.where(:iso_639_1 => row['language'].to_s.strip.downcase).first unless language
 
     if end_page >= 1
       start_page = 1
@@ -347,6 +349,7 @@ class ResourceImportFile < ActiveRecord::Base
         :identifier => row['identifier']
       })
     end
+    manifestation.required_role = Role.where(:name => row['required_role_name'].to_s.strip.camelize).first || Role.find('Guest')
     manifestation.language = language
     manifestation
   end

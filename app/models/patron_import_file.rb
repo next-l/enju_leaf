@@ -99,7 +99,7 @@ class PatronImportFile < ActiveRecord::Base
           library = Library.where(:name => row['library_short_name'].to_s.strip).first || Library.web
           user_group = UserGroup.where(:name => row['user_group_name']).first || UserGroup.first
           user.library = library
-          role = Role.where(:name => row['role']).first || Role.find('User')
+          role = Role.where(:name => row['role'].to_s.strip.camelize).first || Role.find('User')
           user.role = role
           user.required_role = patron.required_role
           user.locale = patron.language.try(:iso_639_1) || I18n.default_locale.to_s
@@ -208,11 +208,13 @@ class PatronImportFile < ActiveRecord::Base
 
     if row['username'].to_s.strip.blank?
       patron.email = row['email'].to_s.strip
-      patron.required_role = Role.where(row['required_role_name']).first || Role.find('Guest')
+      patron.required_role = Role.where(:name => row['required_role_name'].to_s.strip.camelize).first || Role.find('Guest')
     else
-      patron.required_role = Role.where(row['required_role_name']).first || Role.find('Librarian')
+      patron.required_role = Role.where(:name => row['required_role_name'].to_s.strip.camelize).first || Role.find('Librarian')
     end
-    language = Language.where(:name => row['language'].to_s.strip).first
+    language = Language.where(:name => row['language'].to_s.strip.camelize).first
+    language = Language.where(:iso_639_2 => row['language'].to_s.strip.downcase).first unless language
+    language = Language.where(:iso_639_1 => row['language'].to_s.strip.downcase).first unless language
     patron.language = language if language
     country = Country.where(:name => row['country'].to_s.strip).first
     patron.country = country if country
