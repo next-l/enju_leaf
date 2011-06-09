@@ -87,6 +87,11 @@
 <%- end -%>
 
 <p>
+  <strong><%= t('activerecord.attributes.item.acquired_at') -%>:</strong>
+  <%= l(@item.acquired_at, :format => :only_date) if @item.acquired_at -%>
+</p>
+
+<p>
   <strong><%= t('page.created_at') -%>:</strong>
   <%= l(@item.created_at) -%>
 </p>
