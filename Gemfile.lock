@@ -24,7 +24,7 @@ GIT
 
 GIT
   remote: git://github.com/rspec/rspec-rails.git
-  revision: b4560ebc5e04acff1221dc52cd33f42517252d2a
+  revision: 6506f5adc6f8ca02b84e140f3f2d4f5b8df80a57
   specs:
     rspec-rails (2.6.1)
       actionpack (~> 3.0)
@@ -47,36 +47,36 @@ GEM
     RedCloth (4.2.7-java)
     Saikuro (1.1.0)
     aaronh-chronic (0.3.9)
-    actionmailer (3.1.0.rc1)
-      actionpack (= 3.1.0.rc1)
+    actionmailer (3.1.0.rc3)
+      actionpack (= 3.1.0.rc3)
       mail (~> 2.3.0)
-    actionpack (3.1.0.rc1)
-      activemodel (= 3.1.0.rc1)
-      activesupport (= 3.1.0.rc1)
+    actionpack (3.1.0.rc3)
+      activemodel (= 3.1.0.rc3)
+      activesupport (= 3.1.0.rc3)
       builder (~> 3.0.0)
       erubis (~> 2.7.0)
-      i18n (~> 0.6.0beta1)
-      rack (~> 1.3.0.beta2)
+      i18n (~> 0.6)
+      rack (~> 1.3.0)
       rack-cache (~> 1.0.1)
       rack-mount (~> 0.8.1)
       rack-test (~> 0.6.0)
-      sprockets (~> 2.0.0.beta.5)
+      sprockets (~> 2.0.0.beta.10)
       tzinfo (~> 0.3.27)
-    activemodel (3.1.0.rc1)
-      activesupport (= 3.1.0.rc1)
+    activemodel (3.1.0.rc3)
+      activesupport (= 3.1.0.rc3)
       bcrypt-ruby (~> 2.1.4)
       builder (~> 3.0.0)
-      i18n (~> 0.6.0beta1)
-    activerecord (3.1.0.rc1)
-      activemodel (= 3.1.0.rc1)
-      activesupport (= 3.1.0.rc1)
+      i18n (~> 0.6)
+    activerecord (3.1.0.rc3)
+      activemodel (= 3.1.0.rc3)
+      activesupport (= 3.1.0.rc3)
       arel (~> 2.1.1)
       tzinfo (~> 0.3.27)
     activerecord-jdbc-adapter (1.1.1)
-    activeresource (3.1.0.rc1)
-      activemodel (= 3.1.0.rc1)
-      activesupport (= 3.1.0.rc1)
-    activesupport (3.1.0.rc1)
+    activeresource (3.1.0.rc3)
+      activemodel (= 3.1.0.rc3)
+      activesupport (= 3.1.0.rc3)
+    activesupport (3.1.0.rc3)
       multi_json (~> 1.0)
     acts-as-taggable-on (2.0.6)
     addressable (2.2.4)
@@ -94,7 +94,7 @@ GEM
       builder
       mime-types
       xml-simple
-    babosa (0.3.4)
+    babosa (0.3.5)
     barby (0.4.3)
     bcrypt-ruby (2.1.4)
     bcrypt-ruby (2.1.4-java)
@@ -157,11 +157,11 @@ GEM
     geocoder (1.0.1)
     glassfish (1.0.3-java)
       rack (>= 0.4.0)
-    guard (0.4.0)
+    guard (0.4.2)
       thor (~> 0.14.6)
     guard-rspec (0.4.0)
       guard (>= 0.4.0)
-    haml (3.1.1)
+    haml (3.1.2)
     has_scope (0.5.0)
     hike (1.0.0)
     hirb (0.4.5)
@@ -283,14 +283,16 @@ GEM
       rack
     rack-test (0.6.0)
       rack (>= 1.0)
-    rails (3.1.0.rc1)
-      actionmailer (= 3.1.0.rc1)
-      actionpack (= 3.1.0.rc1)
-      activerecord (= 3.1.0.rc1)
-      activeresource (= 3.1.0.rc1)
-      activesupport (= 3.1.0.rc1)
+    rails (3.1.0.rc3)
+      actionmailer (= 3.1.0.rc3)
+      actionpack (= 3.1.0.rc3)
+      activerecord (= 3.1.0.rc3)
+      activeresource (= 3.1.0.rc3)
+      activesupport (= 3.1.0.rc3)
       bundler (~> 1.0)
-      railties (= 3.1.0.rc1)
+      railties (= 3.1.0.rc3)
+    rails_autolink (1.0.1)
+      rails (~> 3.1.0.a)
     rails_best_practices (0.9.0)
       activesupport
       colored
@@ -299,9 +301,9 @@ GEM
       i18n
       ruby-progressbar
       ruby_parser
-    railties (3.1.0.rc1)
-      actionpack (= 3.1.0.rc1)
-      activesupport (= 3.1.0.rc1)
+    railties (3.1.0.rc3)
+      actionpack (= 3.1.0.rc3)
+      activesupport (= 3.1.0.rc3)
       rack-ssl (~> 1.3.2)
       rake (>= 0.8.7)
       thor (~> 0.14.6)
@@ -355,7 +357,7 @@ GEM
     simplecov-html (0.4.5)
     sitemap_generator (2.0.1)
     spork (0.9.0.rc8)
-    sprockets (2.0.0.beta.9)
+    sprockets (2.0.0.beta.10)
       hike (~> 1.0)
       rack (~> 1.0)
       tilt (!= 1.3.0, ~> 1.1)
@@ -431,7 +433,8 @@ DEPENDENCIES
   prawn
   prawnto
   prism
-  rails (= 3.1.0.rc1)
+  rails (= 3.1.0.rc3)
+  rails_autolink
   recurrence
   ri_cal
   rspec

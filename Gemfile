@@ -1,6 +1,6 @@
 source 'http://rubygems.org'
 
-gem 'rails', '3.1.0.rc1'
+gem 'rails', '3.1.0.rc3'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
@@ -77,6 +77,7 @@ gem 'geocoder'
 gem 'acts_as_list', :git => 'git://github.com/haihappen/acts_as_list.git'
 gem 'library_stdnums'
 gem 'client_side_validations'
+gem 'rails_autolink'
 
 #gem 'oink', '>=0.9.1'
 group :development do
