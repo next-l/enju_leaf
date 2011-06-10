@@ -450,6 +450,7 @@ ja:
         price: 購入価格
         lock_version: ロックバージョン
         checkout_type: 貸出種別
+        acquired_at: 受入日
       barcode:
         barcode_type: バーコードの種類
         barcodable_type: バーコード付与対象の種類
