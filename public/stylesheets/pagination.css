@@ -1,4 +1,5 @@
 .digg_pagination {
+  margin-top: 10px;
   background: white;
   /* self-clearing method: */ }
   .digg_pagination a, .digg_pagination span, .digg_pagination em {
