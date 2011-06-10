@@ -1,6 +1,6 @@
 message_template_00001:
   id: 1
-  status: reservation_accepted
+  status: reservation_accepted_for_patron
   title: Reservation accepted
   body: Reservation accepted
   position: 1
@@ -46,3 +46,9 @@ message_template_00008:
   title: Recall overdue item
   body: Recall overdue item
   position: 8
+message_template_00009:
+  id: 9
+  status: reservation_accepted_for_library
+  title: Reservation accepted
+  body: Reservation accepted
+  position: 9

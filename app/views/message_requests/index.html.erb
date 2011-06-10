@@ -13,6 +13,7 @@
     <th><%= t('activerecord.attributes.message.subject') -%></th>
     <th><%= t('page.created_at') -%></th>
     <th><%= t('activerecord.attributes.message_request.sent_at') -%></th>
+    <th></th>
   </tr>
 
 <%- @message_requests.each do |message_request| -%>
@@ -27,9 +28,11 @@
     <td><%= message_request.subject -%></td>
     <td><%= l(message_request.created_at) -%></td>
     <td><%= l(message_request.sent_at) if message_request.sent_at -%></td>
-    <td><%= link_to t('page.show'), message_request -%></td>
-    <td><%= link_to t('page.edit'), edit_message_request_path(message_request) -%></td>
-    <td><%= link_to t('page.destroy'), message_request, :confirm => t('page.are_you_sure'), :method => :delete -%></td>
+    <td>
+      <%= link_to t('page.show'), message_request -%>
+      <%= link_to t('page.edit'), edit_message_request_path(message_request) -%>
+      <%= link_to t('page.destroy'), message_request, :confirm => t('page.are_you_sure'), :method => :delete -%>
+    </td>
   </tr>
 <%- end -%>
 </table>
