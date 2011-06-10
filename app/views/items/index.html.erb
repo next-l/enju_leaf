@@ -42,6 +42,8 @@
       <td><%= item.circulation_status.display_name.localize -%></td>
       <%- if can? :destroy, item -%>
         <td><%= link_to t('page.edit'), edit_item_path(item) -%></td>
+      <%- else -%>
+        <td></td>
       <%- end -%>
   </tr>
 <%- end -%>

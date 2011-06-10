@@ -415,7 +415,7 @@ th.checked_item_title{
   color: red;
 }
 
-div.holding{
+div.holding_index{
   margin-top: 10px;
 }
 
@@ -500,7 +500,16 @@ p{
   line-height: 2em;
 }
 
-table#resource_detail, table#holding{
+table#resource_detail{
+  background-color: white;
+  width: 100%;
+}
+
+div#holding{
+  margin-top: 10px;
+}
+
+table.holding{
   background-color: white;
   width: 100%;
 }

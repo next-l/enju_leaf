@@ -123,6 +123,7 @@ class ItemsController < ApplicationController
       return
     end
     @item = Item.new
+    @item.shelf_id = @library.shelves.first.id
     @item.manifestation_id = @manifestation.id
     @circulation_statuses = CirculationStatus.all(:conditions => {:name => ['In Process', 'Available For Pickup', 'Available On Shelf', 'Claimed Returned Or Never Borrowed', 'Not Available']}, :order => :position)
     @item.circulation_status = CirculationStatus.where(:name => 'In Process').first
@@ -225,8 +226,8 @@ class ItemsController < ApplicationController
   private
   def prepare_options
     @libraries = Library.real
-    unless @item.shelf_id?
-      @library = Library.real.first(:order => :position, :include => :shelves) unless @item.shelf?
+    if @item.new_record?
+      @library = Library.real.first(:order => :position, :include => :shelves)
     else
       @library = @item.shelf.library
     end
