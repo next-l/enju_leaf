@@ -116,11 +116,7 @@ class Item < ActiveRecord::Base
   end
 
   def checkin!
-    if self.reserved?
-      self.circulation_status = CirculationStatus.where(:name => 'In Process').first
-    else
-      self.circulation_status = CirculationStatus.where(:name => 'Available On Shelf').first
-    end
+    self.circulation_status = CirculationStatus.where(:name => 'Available On Shelf').first
     save(:validate => false)
   end
 
