@@ -203,4 +203,7 @@ class Item < ActiveRecord::Base
   #  end
   #end
 
+  def deletable?
+    checkouts.not_returned.first.nil?
+  end
 end

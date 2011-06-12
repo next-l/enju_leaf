@@ -5,6 +5,11 @@
 <%= render :partial => 'manifestations/title', :locals => {:manifestation => @reserve.manifestation} -%>
 
 <p>
+  <strong><%= t('activerecord.models.manifestation') -%>:</strong>
+  <%= link_to @reserve.manifestation.original_title, @reserve.manifestation -%>
+</p>
+
+<p>
   <strong><%= t('activerecord.models.user') -%>:</strong>
   <%= link_to @reserve.user.username, @reserve.user -%>
   (<%= @reserve.user.user_number %>)

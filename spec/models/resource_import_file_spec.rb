@@ -2,15 +2,28 @@
 require 'spec_helper'
 
 describe ResourceImportFile do
-  before(:each) do
-    @file = ResourceImportFile.create :resource_import => File.new("#{Rails.root.to_s}/examples/resource_import_file_sample1.tsv")
+  fixtures :all
+
+  describe "when its mode is 'create'" do
+    before(:each) do
+      @file = ResourceImportFile.create :resource_import => File.new("#{Rails.root.to_s}/examples/resource_import_file_sample1.tsv")
+    end
+
+    it "should be imported" do
+      @file.import_start.should eq({:manifestation_imported => 7, :item_imported => 6, :manifestation_found => 4, :item_found => 3, :failed => 6})
+      manifestation = Item.where(:item_identifier => '11111').first.manifestation
+      manifestation.publishers.first.full_name.should eq 'test4'
+      manifestation.publishers.first.full_name_transcription.should eq 'てすと4'
+      manifestation.publishers.second.full_name_transcription.should eq 'てすと5'
+    end
   end
 
-  it "should be imported" do
-    @file.import_start.should eq({:manifestation_imported => 7, :item_imported => 6, :manifestation_found => 4, :item_found => 3, :failed => 6})
-    manifestation = Item.where(:item_identifier => '11111').first.manifestation
-    manifestation.publishers.first.full_name.should eq 'test4'
-    manifestation.publishers.first.full_name_transcription.should eq 'てすと4'
-    manifestation.publishers.second.full_name_transcription.should eq 'てすと5'
+  describe "when its mode is 'destroy'" do
+    it "should remove items" do
+      old_count = Item.count
+      @file = ResourceImportFile.create :resource_import => File.new("#{Rails.root.to_s}/examples/item_delete_file.tsv")
+      @file.remove
+      Item.count.should eq old_count - 2
+    end
   end
 end
