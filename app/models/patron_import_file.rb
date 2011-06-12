@@ -132,7 +132,6 @@ class PatronImportFile < ActiveRecord::Base
 
   def modify
     rows = self.open_import_file
-    field = rows.first
     rows.each do |row|
       patron = Patron.where(:id => row['patron_id'].to_s.strip).first
       if patron
@@ -143,12 +142,11 @@ class PatronImportFile < ActiveRecord::Base
   end
 
   def remove
-    rows = self.open_import_file
-    field = rows.first
+    rows = open_import_file
     rows.each do |row|
-      patron = Patron.where(:id => row['patron_id'].to_s.strip).first
-      if patron
-        patron.destroy
+      user = User.where(:user_number => row['user_number'].to_s.strip).first
+      if user.try(:deletable?)
+        user.destroy
       end
     end
   end

@@ -88,7 +88,7 @@ class BasketsControllerTest < ActionController::TestCase
   def test_librarian_should_not_create_basket_when_user_is_suspended
     sign_in users(:librarian1)
     assert_no_difference('Basket.count') do
-      post :create, :basket => {:user_number => users(:user3).user_number }
+      post :create, :basket => {:user_number => users(:user4).user_number }
     end
     
     assert assigns(:basket).errors["base"].include?(I18n.t('basket.this_account_is_suspended'))

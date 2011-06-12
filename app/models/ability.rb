@@ -18,7 +18,7 @@ class Ability
       end
       can [:read, :create, :update], Item
       can :destroy, Item do |item|
-        item.checkouts.not_returned.first.nil?
+        item.deletable?
       end
       can [:read, :create, :update], Library
       can :destroy, Library do |library|
@@ -43,7 +43,7 @@ class Ability
       end
       can [:read, :create, :update], User
       can :destroy, User do |u|
-        u.checkouts.not_returned.first.nil? and u.username != 'admin' and u != user
+        u.deletable? and u != user
       end
       can [:read, :create, :update], UserGroup
       can :destroy, UserGroup do |user_group|

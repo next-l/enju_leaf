@@ -208,13 +208,12 @@ class ResourceImportFile < ActiveRecord::Base
   #end
 
   def remove
-    rows = self.open_import_file
-    field = rows.first
+    rows = open_import_file
     rows.each do |row|
       item_identifier = row['item_identifier'].to_s.strip
       item = Item.where(:item_identifier => item_identifier).first
       if item
-        item.destroy
+        item.destroy if item.deletable?
       end
     end
   end
