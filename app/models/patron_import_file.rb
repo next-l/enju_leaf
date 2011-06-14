@@ -67,7 +67,7 @@ class PatronImportFile < ActiveRecord::Base
 
       begin
         patron = Patron.new
-        patron = set_value(patron, row)
+        patron = set_patron_value(patron, row)
 
         if patron.save!
           import_result.patron = patron
@@ -86,23 +86,10 @@ class PatronImportFile < ActiveRecord::Base
         begin
           user = User.new
           user.patron = patron
-          user.username = row['username'].to_s.strip
-          user.email = row['email'].to_s.strip
-          user.email_confirmation = user.email
-          user.user_number = row['user_number'].to_s.strip
-          user.password = row['password'].to_s.strip
-          user.password_confirmation = row['password'].to_s.strip
+          set_user_value(user, row)
           if user.password.blank?
             user.set_auto_generated_password
           end
-          user.operator = User.find('admin')
-          library = Library.where(:name => row['library_short_name'].to_s.strip).first || Library.web
-          user_group = UserGroup.where(:name => row['user_group_name']).first || UserGroup.first
-          user.library = library
-          role = Role.where(:name => row['role'].to_s.strip.camelize).first || Role.find('User')
-          user.role = role
-          user.required_role = patron.required_role
-          user.locale = patron.language.try(:iso_639_1) || I18n.default_locale.to_s
           if user.save!
             import_result.user = user
           end
@@ -131,12 +118,14 @@ class PatronImportFile < ActiveRecord::Base
   end
 
   def modify
-    rows = self.open_import_file
+    rows = open_import_file
     rows.each do |row|
-      patron = Patron.where(:id => row['patron_id'].to_s.strip).first
-      if patron
-        set_value(patron, row)
-        patron.save
+      user = User.where(:user_number => row['user_number'].to_s.strip).first
+      if user.try(:patron)
+        set_patron_value(user.patron, row)
+        user.patron.save!
+        set_user_value(user, row)
+        user.save!
       end
     end
   end
@@ -181,28 +170,28 @@ class PatronImportFile < ActiveRecord::Base
     rows
   end
 
-  def set_value(patron, row)
-    patron.first_name = row['first_name']
-    patron.middle_name = row['middle_name']
-    patron.last_name = row['last_name']
-    patron.first_name_transcription = row['first_name_transcription']
-    patron.middle_name_transcription = row['middle_name_transcription']
-    patron.last_name_transcription = row['last_name_transcription']
-
-    patron.full_name = row['full_name']
-    patron.full_name_transcription = row['full_name_transcription']
-
-    patron.address_1 = row['address_1']
-    patron.address_2 = row['address_2']
-    patron.zip_code_1 = row['zip_code_1']
-    patron.zip_code_2 = row['zip_code_2']
-    patron.telephone_number_1 = row['telephone_number_1']
-    patron.telephone_number_2 = row['telephone_number_2']
-    patron.fax_number_1 = row['fax_number_1']
-    patron.fax_number_2 = row['fax_number_2']
-    patron.note = row['note']
-    patron.birth_date = row['birth_date']
-    patron.death_date = row['death_date']
+  def set_patron_value(patron, row)
+    patron.first_name = row['first_name'] if row['first_name']
+    patron.middle_name = row['middle_name'] if row['middle_name']
+    patron.last_name = row['last_name'] if row['last_name']
+    patron.first_name_transcription = row['first_name_transcription'] if row['first_name_transcription']
+    patron.middle_name_transcription = row['middle_name_transcription'] if row['middle_name_transcription']
+    patron.last_name_transcription = row['last_name_transcription'] if row['last_name_transcription']
+    
+    patron.full_name = row['full_name'] if row['full_name']
+    patron.full_name_transcription = row['full_name_transcription'] if row['full_name_transcription']
+   
+    patron.address_1 = row['address_1'] if row['address_1']
+    patron.address_2 = row['address_2'] if row['address_2']
+    patron.zip_code_1 = row['zip_code_1'] if row['zip_code_1']
+    patron.zip_code_2 = row['zip_code_2'] if row['zip_code_2']
+    patron.telephone_number_1 = row['telephone_number_1'] if row['telephone_number_1']
+    patron.telephone_number_2 = row['telephone_number_2'] if row['telephone_number_2']
+    patron.fax_number_1 = row['fax_number_1'] if row['fax_number_1']
+    patron.fax_number_2 = row['fax_number_2'] if row['fax_number_2']
+    patron.note = row['note'] if row['note']
+    patron.birth_date = row['birth_date'] if row['birth_date']
+    patron.death_date = row['death_date'] if row['death_date']
 
     if row['username'].to_s.strip.blank?
       patron.email = row['email'].to_s.strip
@@ -217,5 +206,31 @@ class PatronImportFile < ActiveRecord::Base
     country = Country.where(:name => row['country'].to_s.strip).first
     patron.country = country if country
     patron
+  end
+
+  def set_user_value(user, row)
+    user.operator = User.find('admin')
+    email = row['email'].to_s.strip
+    if email.present?
+      user.email = email
+      user.email_confirmation = email
+    end
+    password = row['password'].to_s.strip
+    if password.present?
+      user.password = password
+      user.password_confirmation = password
+    end
+    user.username = row['username'] if row['username']
+    user.user_number = row['user_number'] if row['user_number']
+    library = Library.where(:name => row['library_short_name'].to_s.strip).first || Library.web
+    user_group = UserGroup.where(:name => row['user_group_name']).first || UserGroup.first
+    user.library = library
+    role = Role.where(:name => row['role'].to_s.strip.camelize).first || Role.find('User')
+    user.role = role
+    required_role = Role.where(:name => row['required_role'].to_s.strip.camelize).first || Role.find('Librarian')
+    user.required_role = required_role
+    locale = Language.where(:iso_639_1 => row['locale'].to_s.strip).first
+    user.locale = locale || I18n.default_locale.to_s
+    user
   end
 end
