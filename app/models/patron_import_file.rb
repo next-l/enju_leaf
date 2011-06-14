@@ -209,7 +209,7 @@ class PatronImportFile < ActiveRecord::Base
   end
 
   def set_user_value(user, row)
-    user.operator = User.find('admin')
+    user.operator = User.find(1)
     email = row['email'].to_s.strip
     if email.present?
       user.email = email
