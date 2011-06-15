@@ -16,9 +16,4 @@ class MessageTemplatesController < InheritedResources::Base
   def index
     @message_templates = MessageTemplate.paginate(:page => params[:page])
   end
-
-  private
-  def interpolation_options
-    {:resource_name => t('activerecord.models.message_template')}
-  end
 end

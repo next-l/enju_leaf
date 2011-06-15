@@ -6,9 +6,4 @@ class UserHasRolesController < InheritedResources::Base
   def index
     @user_has_roles = @user_has_roles.paginate(:page => params[:page])
   end
-
-  private
-  def interpolation_options
-    {:resource_name => t('activerecord.models.user_has_role')}
-  end
 end

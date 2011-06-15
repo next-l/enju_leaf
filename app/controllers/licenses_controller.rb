@@ -16,9 +16,4 @@ class LicensesController < InheritedResources::Base
   def index
     @licenses = @licenses.paginate(:page => params[:page])
   end
-
-  private
-  def interpolation_options
-    {:resource_name => t('activerecord.models.license')}
-  end
 end

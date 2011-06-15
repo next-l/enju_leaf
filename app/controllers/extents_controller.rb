@@ -16,9 +16,4 @@ class ExtentsController < InheritedResources::Base
   def index
     @extents = @extents.paginate(:page => params[:page])
   end
-
-  private
-  def interpolation_options
-    {:resource_name => t('activerecord.models.extent')}
-  end
 end

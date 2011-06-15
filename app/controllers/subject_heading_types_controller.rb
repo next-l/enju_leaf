@@ -12,9 +12,4 @@ class SubjectHeadingTypesController < InheritedResources::Base
     end
     update!
   end
-
-  private
-  def interpolation_options
-    {:resource_name => t('activerecord.models.subject_heading_type')}
-  end
 end

@@ -12,9 +12,4 @@ class CirculationStatusesController < InheritedResources::Base
     end
     update!
   end
-
-  private
-  def interpolation_options
-    {:resource_name => t('activerecord.models.circulation_status')}
-  end
 end

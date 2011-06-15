@@ -12,9 +12,4 @@ class CarrierTypesController < InheritedResources::Base
     end
     update!
   end
-
-  private
-  def interpolation_options
-    {:resource_name => t('activerecord.models.carrier_type')}
-  end
 end

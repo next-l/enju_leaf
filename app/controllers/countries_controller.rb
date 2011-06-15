@@ -16,9 +16,4 @@ class CountriesController < InheritedResources::Base
   def index
     @countries = @countries.paginate(:page => params[:page])
   end
-
-  private
-  def interpolation_options
-    {:resource_name => t('activerecord.models.country')}
-  end
 end

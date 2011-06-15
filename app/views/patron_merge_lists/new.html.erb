@@ -1,19 +1,7 @@
 <div id="content_detail" class="ui-corner-all">
   <h1 class="title"><%= t('page.new', :model => t('activerecord.models.patron_merge_list')) -%></h1>
 <div id="content_list">
-
-<%= form_for(@patron_merge_list) do |f| -%>
-  <%= f.error_messages -%>
-  <div class="field">
-    <%= f.label t('page.title') -%><br />
-    <%= f.text_field :title -%>
-  </div>
-
-  <div class="actions">
-    <%= f.submit %>
-  </div>
-<%- end -%>
-
+  <%= render 'form' %>
 </div>
 </div>
 
