@@ -127,26 +127,41 @@ class ResourceImportFile < ActiveRecord::Base
     return num
   end
 
-  def self.import_work(title, patrons, series_statement_id)
+  def self.import_work(title, patrons, series_statement_id, options = {:edit_mode => 'create'})
     work = Manifestation.new(title)
     if series_statement = SeriesStatement.find(series_statement_id) rescue nil
       work.series_statement = series_statement
     end
-    work.creators << patrons
+    case options[:edit_mode]
+    when 'create'
+      work.creators << patrons
+    when 'update'
+      work.creators = patrons
+    end
     work
   end
 
-  def self.import_expression(work)
+  def self.import_expression(work, patrons, options = {:edit_mode => 'create'})
     expression = work
+    case options[:edit_mode]
+    when 'create'
+      expression.contributors << patrons
+    when 'update'
+      expression.contributors = patrons
+    end
+    expression
   end
 
-  def self.import_manifestation(expression, patrons, options = {})
+  def self.import_manifestation(expression, patrons, options = {}, edit_options = {:edit_mode => 'create'})
     manifestation = expression
     manifestation.update_attributes!(options.merge(:during_import => true))
-    manifestation.publishers << patrons
+    case edit_options[:edit_mode]
+    when 'create'
+      manifestation.publishers << patrons
+    when 'update'
+      manifestation.publishers = patrons
+    end
     manifestation
-  #rescue ActiveRecord::RecordInvalid
-  #  nil
   end
 
   def self.import_item(manifestation, options)
@@ -207,14 +222,24 @@ class ResourceImportFile < ActiveRecord::Base
   #  end
   #end
 
+  def modify
+    rows = open_import_file
+    rows.each do |row|
+      item_identifier = row['item_identifier'].to_s.strip
+      item = Item.where(:item_identifier => item_identifier).first
+      if item.try(:manifestation)
+        fetch(row, :edit_mode => 'update')
+      end
+    end
+  end
+
   def remove
-    rows = self.open_import_file
-    field = rows.first
+    rows = open_import_file
     rows.each do |row|
       item_identifier = row['item_identifier'].to_s.strip
       item = Item.where(:item_identifier => item_identifier).first
       if item
-        item.destroy
+        item.destroy if item.deletable?
       end
     end
   end
@@ -274,16 +299,28 @@ class ResourceImportFile < ActiveRecord::Base
     item
   end
 
-  def fetch(row)
+  def fetch(row, options = {:edit_mode => 'create'})
     shelf = Shelf.where(:name => row['shelf'].to_s.strip).first || Shelf.web
-    manifestation = nil
+    case options[:edit_mode]
+    when 'create'
+      manifestation = nil
+    when 'update'
+      manifestation = Item.where(:item_identifier => row['item_identifier'].to_s.strip).first.try(:manifestation)
+    end
 
     title = {}
-    title[:original_title] = row['original_title']
-    title[:title_transcription] = row['title_transcription']
-    title[:title_alternative] = row['title_alternative']
+    title[:original_title] = row['original_title'].to_s.strip
+    title[:title_transcription] = row['title_transcription'].to_s.strip
+    title[:title_alternative] = row['title_alternative'].to_s.strip
+    if options[:edit_mode] == 'update'
+      title[:original_title] = manifestation.original_title if row['original_title'].to_s.strip.blank?
+      title[:title_transcription] = manifestation.title_transcription if row['title_transcription'].to_s.strip.blank?
+      title[:title_alternative] = manifestation.title_alternative if row['title_alternative'].to_s.strip.blank?
+    end
     #title[:title_transcription_alternative] = row['title_transcription_alternative']
-    return nil if title[:original_title].blank?
+    if title[:original_title].blank? and options[:edit_mode] == 'create'
+      return nil
+    end
 
     if ISBN_Tools.is_valid?(row['isbn'].to_s.strip)
       isbn = ISBN_Tools.cleanup(row['isbn'])
@@ -307,19 +344,33 @@ class ResourceImportFile < ActiveRecord::Base
     ResourceImportFile.transaction do
       creators = row['creator'].to_s.split(';')
       creator_transcriptions = row['creator_transcription'].to_s.split(';')
-      creators_list = creators.zip(creator_transcriptions).map{|f,t| {:full_name => f, :full_name_transcription => t}}
+      creators_list = creators.zip(creator_transcriptions).map{|f,t| {:full_name => f.to_s.strip, :full_name_transcription => t.to_s.strip}}
+      contributors = row['contributor'].to_s.split(';')
+      contributor_transcriptions = row['contributor_transcription'].to_s.split(';')
+      contributors_list = contributors.zip(contributor_transcriptions).map{|f,t| {:full_name => f.to_s.strip, :full_name_transcription => t.to_s.strip}}
       publishers = row['publisher'].to_s.split(';')
       publisher_transcriptions = row['publisher_transcription'].to_s.split(';')
-      publishers_list = publishers.zip(publisher_transcriptions).map{|f,t| {:full_name => f, :full_name_transcription => t}}
+      publishers_list = publishers.zip(publisher_transcriptions).map{|f,t| {:full_name => f.to_s.strip, :full_name_transcription => t.to_s.strip}}
       creator_patrons = Patron.import_patrons(creators_list)
+      contributor_patrons = Patron.import_patrons(contributors_list)
       publisher_patrons = Patron.import_patrons(publishers_list)
       #classification = Classification.first(:conditions => {:category => row['classification'].to_s.strip)
       subjects = import_subject(row)
       series_statement = import_series_statement(row)
-
-      work = self.class.import_work(title, creator_patrons, row['series_statment_id'])
-      work.subjects << subjects
-      expression = self.class.import_expression(work)
+      case options[:edit_mode]
+      when 'create'
+        work = self.class.import_work(title, creator_patrons, row['series_statment_id'], options)
+        work.series_statement = series_statement
+        work.subjects << subjects
+        expression = self.class.import_expression(work, contributor_patrons)
+      when 'update'
+        expression = manifestation
+        work = expression
+        work.series_statement = series_statement
+        work.subjects = subjects
+        work.creators = creator_patrons
+        expression.contributors = contributor_patrons
+      end
 
       manifestation = self.class.import_manifestation(expression, publisher_patrons, {
         :original_title => title[:original_title],
@@ -347,6 +398,9 @@ class ResourceImportFile < ActiveRecord::Base
         :end_page => end_page,
         :access_address => row['access_addres'],
         :identifier => row['identifier']
+      },
+      {
+        :edit_mode => options[:edit_mode]
       })
     end
     manifestation.required_role = Role.where(:name => row['required_role_name'].to_s.strip.camelize).first || Role.find('Guest')

@@ -237,7 +237,7 @@ class User < ActiveRecord::Base
   def send_message(status, options = {})
     MessageRequest.transaction do
       request = MessageRequest.new
-      request.sender = User.find('admin')
+      request.sender = User.find(1)
       request.receiver = self
       request.message_template = MessageTemplate.localized_template(status, self.locale)
       request.save_message_body(options)
@@ -355,5 +355,9 @@ class User < ActiveRecord::Base
       self.expire_date = expired_at_array.join("-")
     end
     self
+  end
+
+  def deletable?
+    true if checkouts.not_returned.first.nil? and id != 1
   end
 end
