@@ -124,6 +124,7 @@ EnjuLeaf::Application.routes.draw do
   resources :subject_heading_type_has_subjects
   resources :patron_merge_lists do
     resources :patrons
+    resources :patron_merges
   end
   resources :patron_merges
   resources :inventory_files
