@@ -19,7 +19,9 @@
   <%- @messages.each do |message| -%>
     <tr class="line<%= cycle("0", "1") -%>">
       <td>
-        <input id="delete_<%=h message.id -%>" name="delete[]" type="checkbox" value="<%=h message.id %>" class="checkbox" />
+        <% if can? :delete, message %>
+          <input id="delete_<%=h message.id -%>" name="delete[]" type="checkbox" value="<%=h message.id %>" class="checkbox" />
+        <% end %>
       </td>
       <td>
         <% unless message.read? %><strong><% end %>

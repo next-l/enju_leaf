@@ -3,7 +3,7 @@ class PictureFile < ActiveRecord::Base
   belongs_to :picture_attachable, :polymorphic => true, :validate => true
 
   if configatron.uploaded_file.storage == :s3
-    has_attached_file :picture, :storage => :s3, :styles => { :medium => "500x500>", :thumb => "100x100>" },
+    has_attached_file :picture, :storage => :s3, :styles => { :medium => "600x600>", :thumb => "100x100>" },
       :s3_credentials => "#{Rails.root.to_s}/config/s3.yml", :path => "picture_files/:id/:filename"
   else
     has_attached_file :picture, :styles => { :medium => "600x600>", :thumb => "100x100>" }, :path => ":rails_root/private:url"
