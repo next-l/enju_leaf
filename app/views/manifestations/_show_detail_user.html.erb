@@ -40,13 +40,13 @@
         </tr>
         <tr>
           <td><%= t('activerecord.models.language') -%>:</td>
-          <td><%= manifestation.language.display_name.localize -%></td>
+          <td><span itemprop="inLanguage"><%= manifestation.language.display_name.localize -%></span></td>
         </tr>
         <tr>
           <td><%= t('manifestation.physical_description') -%>:</td>
           <td>
             <%- if manifestation.number_of_pages -%>
-              <%= manifestation.number_of_pages -%> p.
+              <span itemprop="numPages"><%= manifestation.number_of_pages -%></span> p.
               (<%= manifestation.start_page -%> - <%= manifestation.end_page -%>)
             <%- end -%>
             <!-- TODO: センチメートル以外の単位 -->
@@ -82,7 +82,7 @@
             <td><%= t('page.identifier') -%>:</td>
             <td>
               <%- if manifestation.isbn.present? -%>
-                ISBN: <%= manifestation.isbn -%>
+                ISBN: <span itemprop="isbn"><%= manifestation.isbn -%></span>
                 <%- if manifestation.isbn10.present? -%>
                   ( <%= manifestation.isbn10 -%> )
                 <%- end -%>

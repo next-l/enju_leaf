@@ -1,5 +1,5 @@
 <%- cache(:controller => :manifestations, :action => :show, :id => manifestation.id, :page => 'title', :role => current_user_role_name, :locale => @locale, :manifestation_id => nil) do %>
-  <h2 class="resource_title">
+  <h2 class="resource_title" itemprop="name">
     [M]
     <%= link_to manifestation.original_title, manifestation -%>
     <%= link_to form_icon(manifestation.carrier_type), manifestation -%>

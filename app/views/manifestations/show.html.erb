@@ -1,4 +1,4 @@
-<div id="content_detail" class="ui-corner-all">
+<div id="content_detail" class="ui-corner-all" itemscope itemtype="http://schema.org/Book">
   <h1 class="title"><%= t('page.showing', :model => t('activerecord.models.manifestation')) -%></h1>
   <div id="content_list">
     <%= form_for :manifestations, :url => manifestations_path, :html => {:method => 'get'} do -%>
