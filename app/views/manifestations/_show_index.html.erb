@@ -1,5 +1,5 @@
   <strong><%= link_to manifestation.original_title, manifestation -%></strong>
-  <%- if manifestation.series_statement.first_issue and manifestation.series_statement.latest_issue -%>
+  <%- if manifestation.series_statement.try(:first_issue) and manifestation.series_statement.try(:latest_issue) -%>
     <%= manifestation.series_statement.first_issue.date_of_publication.try(:year) -%>
     -
     <%= manifestation.series_statement.latest_issue.date_of_publication.try(:year) -%>
