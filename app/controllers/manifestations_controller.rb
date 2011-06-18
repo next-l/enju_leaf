@@ -122,6 +122,7 @@ class ManifestationsController < ApplicationController
         order_by sort[:sort_by], sort[:order] unless oai_search
         order_by :updated_at, :desc if oai_search
         with(:subject_ids).equal_to subject.id if subject
+        with(:periodical).equal_to false
         facet :reservable
       end
       search = make_internal_query(search)
@@ -517,30 +518,8 @@ class ManifestationsController < ApplicationController
       query = "#{query} number_of_pages_i: [#{number_of_pages[:at_least]} TO #{number_of_pages[:at_most]}]"
     end
 
-    unless options[:pubdate_from].blank? and options[:pubdate_to].blank?
-      options[:pubdate_from].to_s.gsub!(/\D/, '')
-      options[:pubdate_to].to_s.gsub!(/\D/, '')
-
-      pubdate = {}
-      if options[:pubdate_from].blank?
-        pubdate[:from] = "*"
-      else
-        pubdate[:from] = Time.zone.parse(options[:pubdate_from]).beginning_of_day.utc.iso8601 rescue nil
-        unless pubdate[:from]
-          pubdate[:from] = Time.zone.parse(Time.mktime(options[:pubdate_from]).to_s).beginning_of_day.utc.iso8601
-        end
-      end
-
-      if options[:pubdate_to].blank?
-        pubdate[:to] = "*"
-      else
-        pubdate[:to] = Time.zone.parse(options[:pubdate_to]).beginning_of_day.utc.iso8601 rescue nil
-        unless pubdate[:to]
-          pubdate[:to] = Time.zone.parse(Time.mktime(options[:pubdate_to]).to_s).beginning_of_day.utc.iso8601
-        end
-      end
-      query = "#{query} date_of_publication_d: [#{pubdate[:from]} TO #{pubdate[:to]}]"
-    end
+    query = set_pubdate(query, options)
+    query = set_acquisition_date(query, options)
 
     query = query.strip
     if query == '[* TO *]'
@@ -651,5 +630,61 @@ class ManifestationsController < ApplicationController
     else
       @reservable = nil
     end
+  end
+
+  def set_pubdate(query, options)
+    unless options[:pubdate_from].blank? and options[:pubdate_to].blank?
+      options[:pubdate_from].to_s.gsub!(/\D/, '')
+      options[:pubdate_to].to_s.gsub!(/\D/, '')
+
+      pubdate = {}
+      if options[:pubdate_from].blank?
+        pubdate[:from] = "*"
+      else
+        pubdate[:from] = Time.zone.parse(options[:pubdate_from]).beginning_of_day.utc.iso8601 rescue nil
+        unless pubdate[:from]
+          pubdate[:from] = Time.zone.parse(Time.mktime(options[:pubdate_from]).to_s).beginning_of_day.utc.iso8601
+        end
+      end
+
+      if options[:pubdate_to].blank?
+        pubdate[:to] = "*"
+      else
+        pubdate[:to] = Time.zone.parse(options[:pubdate_to]).beginning_of_day.utc.iso8601 rescue nil
+        unless pubdate[:to]
+          pubdate[:to] = Time.zone.parse(Time.mktime(options[:pubdate_to]).to_s).beginning_of_day.utc.iso8601
+        end
+      end
+      query = "#{query} date_of_publication_d: [#{pubdate[:from]} TO #{pubdate[:to]}]"
+    end
+    query
+  end
+
+  def set_acquisition_date(query, options)
+    unless options[:acquired_from].blank? and options[:acquired_to].blank?
+      options[:acquired_from].to_s.gsub!(/\D/, '')
+      options[:acquired_to].to_s.gsub!(/\D/, '')
+
+      acquisition_date = {}
+      if options[:acquired_from].blank?
+        acquisition_date[:from] = "*"
+      else
+        acquisition_date[:from] = Time.zone.parse(options[:acquired_from]).beginning_of_day.utc.iso8601 rescue nil
+        unless acquisition_date[:from]
+          pubdate[:from] = Time.zone.parse(Time.mktime(options[:acquired_from]).to_s).beginning_of_day.utc.iso8601
+        end
+      end
+
+      if options[:acquired_to].blank?
+        acquisition_date[:to] = "*"
+      else
+        acquisition_date[:to] = Time.zone.parse(options[:acquired_to]).beginning_of_day.utc.iso8601 rescue nil
+        unless acquisition_date[:to]
+          acquisition_date[:to] = Time.zone.parse(Time.mktime(options[:acquired_to]).to_s).beginning_of_day.utc.iso8601
+        end
+      end
+      query = "#{query} acquired_at_dm: [#{acquisition_date[:from]} TO #{acquisiton_date[:to]}]"
+    end
+    query
   end
 end

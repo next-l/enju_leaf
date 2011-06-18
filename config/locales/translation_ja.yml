@@ -134,7 +134,7 @@ ja:
       license: ライセンス
       work_to_expression_rel_type: 書いた資料と協力した資料の関係の種類
       expression_to_manifestation_rel_type: 協力した資料と出版した資料の関係の種類
-      series_statement: 定期刊行物
+      series_statement: シリーズ情報
       checkout_stat_has_manifestation: 資料別貸出統計
       checkout_stat_has_user: 利用者別貸出統計
       reserve_stat_has_manifestation: 資料別予約統計
@@ -975,6 +975,7 @@ ja:
         work: 書いた資料
         series_statement_identifier: シリーズ識別子
         issn: ISSN
+        periodical: 定期刊行物
       import_request:
         isbn: ISBN
         state: 状態

@@ -91,7 +91,7 @@ GEM
     colored (1.2)
     configatron (2.8.1)
       yamler (>= 0.1.0)
-    daemons (1.1.3)
+    daemons (1.1.4)
     dalli (1.0.5)
     delayed_job (2.1.4)
       activesupport (~> 3.0)

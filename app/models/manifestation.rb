@@ -1,4 +1,5 @@
 class Manifestation < ActiveRecord::Base
+  scope :periodical_master, where(:periodical_master => true)
   has_many :creates, :dependent => :destroy, :foreign_key => 'work_id'
   has_many :creators, :through => :creates, :source => :patron
   has_many :realizes, :dependent => :destroy, :foreign_key => 'expression_id'
@@ -153,6 +154,12 @@ class Manifestation < ActiveRecord::Base
     end
     # OTC end
     string :sort_title
+    boolean :periodical do
+      serial?
+    end
+    time :acquired_at do
+      items.order(:acquired_at).last.try(:acquired_at)
+    end
   end
 
   enju_manifestation_viewer
@@ -186,6 +193,7 @@ class Manifestation < ActiveRecord::Base
   before_save :set_date_of_publication
   normalize_attributes :identifier, :pub_date, :isbn, :issn, :nbn, :lccn, :original_title
   attr_accessor :during_import
+  attr_protected :periodical_master
 
   def self.per_page
     10
@@ -272,7 +280,7 @@ class Manifestation < ActiveRecord::Base
   end
 
   def serial?
-    return true if series_statement
+    return true if series_statement.try(:periodical) and !periodical_master
     #return true if parent_of_series
     #return true if frequency_id > 1
     false

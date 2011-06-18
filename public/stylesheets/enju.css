@@ -385,6 +385,10 @@ input.date_field{
   ime-mode: disabled;
 }
 
+input.date_text_field{
+  width: 80px;
+}
+
 input.short_name{
   ime-mode: disabled;
 }
