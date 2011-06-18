@@ -16,9 +16,4 @@ class BookstoresController < InheritedResources::Base
   def index
     @bookstores = Bookstore.paginate(:page => params[:page])
   end
-
-  private
-  def interpolation_options
-    {:resource_name => t('activerecord.models.bookstore')}
-  end
 end

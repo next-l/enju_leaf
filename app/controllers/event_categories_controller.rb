@@ -16,9 +16,4 @@ class EventCategoriesController < InheritedResources::Base
   def index
     @event_categories = @event_categories.paginate(:page => params[:page])
   end
-
-  private
-  def interpolation_options
-    {:resource_name => t('activerecord.models.event_category')}
-  end
 end

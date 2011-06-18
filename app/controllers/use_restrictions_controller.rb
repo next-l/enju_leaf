@@ -12,9 +12,4 @@ class UseRestrictionsController < InheritedResources::Base
     end
     update!
   end
-
-  private
-  def interpolation_options
-    {:resource_name => t('activerecord.models.use_restriction')}
-  end
 end

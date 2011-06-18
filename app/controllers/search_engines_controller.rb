@@ -16,9 +16,4 @@ class SearchEnginesController < InheritedResources::Base
   def index
     @search_engines = @search_engines.paginate(:page => params[:page])
   end
-
-  private
-  def interpolation_options
-    {:resource_name => t('activerecord.models.search_engine')}
-  end
 end

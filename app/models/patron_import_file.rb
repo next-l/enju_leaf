@@ -225,9 +225,9 @@ class PatronImportFile < ActiveRecord::Base
     library = Library.where(:name => row['library_short_name'].to_s.strip).first || Library.web
     user_group = UserGroup.where(:name => row['user_group_name']).first || UserGroup.first
     user.library = library
-    role = Role.where(:name => row['role'].to_s.strip.camelize).first || Role.find('User')
+    role = Role.where(:name => row['role_name'].to_s.strip.camelize).first || Role.find('User')
     user.role = role
-    required_role = Role.where(:name => row['required_role'].to_s.strip.camelize).first || Role.find('Librarian')
+    required_role = Role.where(:name => row['required_role_name'].to_s.strip.camelize).first || Role.find('Librarian')
     user.required_role = required_role
     locale = Language.where(:iso_639_1 => row['locale'].to_s.strip).first
     user.locale = locale || I18n.default_locale.to_s

@@ -2,6 +2,7 @@ class SeriesStatement < ActiveRecord::Base
   has_many :manifestations
   validates_presence_of :original_title
   validate :check_issn
+  after_create :create_initial_manifestation
 
   acts_as_list
   searchable do
@@ -26,5 +27,27 @@ class SeriesStatement < ActiveRecord::Base
         errors.add(:issn)
       end
     end
+  end
+
+  def create_initial_manifestation
+    return nil if initial_manifestation
+    return nil unless periodical
+    manifestation = Manifestation.new(
+      :original_title => original_title
+    )
+    manifestation.periodical_master = true
+    self.manifestations << manifestation
+  end
+
+  def initial_manifestation
+    manifestations.where(:periodical_master => true).first
+  end
+
+  def first_issue
+    manifestations.order(:date_of_publication).first
+  end
+
+  def latest_issue
+    manifestations.order(:date_of_publication).last
   end
 end

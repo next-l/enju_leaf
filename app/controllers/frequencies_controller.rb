@@ -12,9 +12,4 @@ class FrequenciesController < InheritedResources::Base
     end
     update!
   end
-
-  private
-  def interpolation_options
-    {:resource_name => t('activerecord.models.frequency')}
-  end
 end

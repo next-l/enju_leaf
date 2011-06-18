@@ -124,6 +124,7 @@ EnjuLeaf::Application.routes.draw do
   resources :subject_heading_type_has_subjects
   resources :patron_merge_lists do
     resources :patrons
+    resources :patron_merges
   end
   resources :patron_merges
   resources :inventory_files
@@ -341,7 +342,7 @@ EnjuLeaf::Application.routes.draw do
   match '/isbn/:isbn' => 'manifestations#show'
   match '/calendar(/:year(/:month))' => 'calendar#index', :as => :calendar, :constraints => {:year => /\d{4}/, :month => /\d{1,2}/}
   match "/calendar/:year/:month/:day" => "calendar#show"
-  #match ':controller(/:action(/:id(.:format)))'
+  # match ':controller(/:action(/:id(.:format)))'
   match '/page/about' => 'page#about'
   match '/page/configuration' => 'page#configuration'
   match '/page/advanced_search' => 'page#advanced_search'

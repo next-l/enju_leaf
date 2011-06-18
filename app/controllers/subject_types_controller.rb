@@ -12,9 +12,4 @@ class SubjectTypesController < InheritedResources::Base
     end
     update!
   end
-
-  private
-  def interpolation_options
-    {:resource_name => t('activerecord.models.subject_type')}
-  end
 end

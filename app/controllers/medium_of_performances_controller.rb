@@ -16,9 +16,4 @@ class MediumOfPerformancesController < InheritedResources::Base
   def index
     @medium_of_performances = @medium_of_performances.paginate(:page => params[:page])
   end
-
-  private
-  def interpolation_options
-    {:resource_name => t('activerecord.models.medium_of_performance')}
-  end
 end

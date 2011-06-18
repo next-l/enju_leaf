@@ -12,9 +12,4 @@ class ClassificationTypesController < InheritedResources::Base
     end
     update!
   end
-
-  private
-  def interpolation_options
-    {:resource_name => t('activerecord.models.classification_type')}
-  end
 end

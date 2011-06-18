@@ -12,9 +12,4 @@ class RequestTypesController < InheritedResources::Base
     end
     update!
   end
-
-  private
-  def interpolation_options
-    {:resource_name => t('activerecord.models.request_type')}
-  end
 end

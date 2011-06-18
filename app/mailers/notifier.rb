@@ -22,6 +22,7 @@ class Notifier < ActionMailer::Base
       @sender_name = LibraryGroup.system_name(message.receiver.locale)
     end
     @message = message
+    @locale = message.receiver.locale
     mail(:from => from, :to => message.receiver.email, :subject => subject)
   end
 

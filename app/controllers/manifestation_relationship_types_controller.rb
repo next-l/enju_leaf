@@ -12,9 +12,4 @@ class ManifestationRelationshipTypesController < InheritedResources::Base
     end
     update!
   end
-
-  private
-  def interpolation_options
-    {:resource_name => t('activerecord.models.resource_relationship_type')}
-  end
 end

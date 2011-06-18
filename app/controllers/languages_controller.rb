@@ -16,9 +16,4 @@ class LanguagesController < InheritedResources::Base
   def index
     @languages = @languages.paginate(:page => params[:page])
   end
-
-  private
-  def interpolation_options
-    {:resource_name => t('activerecord.models.language')}
-  end
 end

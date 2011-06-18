@@ -16,9 +16,4 @@ class ContentTypesController < InheritedResources::Base
   def index
     @content_types = @content_types.paginate(:page => params[:page])
   end
-
-  private
-  def interpolation_options
-    {:resource_name => t('activerecord.models.content_type')}
-  end
 end

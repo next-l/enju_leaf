@@ -16,9 +16,4 @@ class PatronTypesController < InheritedResources::Base
   def index
     @patron_types = @patron_types.paginate(:page => params[:page])
   end
-
-  private
-  def interpolation_options
-    {:resource_name => t('activerecord.models.patron_type')}
-  end
 end

@@ -975,6 +975,7 @@ en:
         work: Work
         series_statement_identifier: Series statement identifier
         issn: ISSN
+        periodical: Periodical
       import_request:
         isbn: ISBN
         state: State

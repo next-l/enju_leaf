@@ -12,9 +12,4 @@ class FormOfWorksController < InheritedResources::Base
     end
     update!
   end
-
-  private
-  def interpolation_options
-    {:resource_name => t('activerecord.models.form_of_work')}
-  end
 end

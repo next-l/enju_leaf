@@ -31,8 +31,8 @@
       <%= link_to t('page.new', :model => t('activerecord.models.manifestation')), new_series_statement_manifestation_path(series_statement) -%>
     </td>
     <td>
-      <%= link_to t('page.edit'), edit_series_statement_path(series_statement) %>
-      <%= link_to t('page.destroy'), series_statement, :confirm => t('page.are_you_sure'), :method => :delete %>
+      <%= link_to t('page.edit'), edit_series_statement_path(series_statement) if can? :update, series_statement -%>
+      <%= link_to t('page.destroy'), series_statement, :confirm => t('page.are_you_sure'), :method => :delete if can? :destroy, series_statement -%>
     </td>
   </tr>
 <% end %>

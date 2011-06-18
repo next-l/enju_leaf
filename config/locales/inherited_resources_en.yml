@@ -2,6 +2,6 @@ en:
   flash:
     actions:
       create:
-        notice: "{{resource_name}} was successfully created."
+        notice: "%{resource_name} was successfully created."
       update:
-        notice: "{{resource_name}} was successfully updated."
+        notice: "%{resource_name} was successfully updated."

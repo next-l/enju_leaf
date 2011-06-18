@@ -8,11 +8,7 @@ class LendingPoliciesController < InheritedResources::Base
   end
 
   private
-  def interpolation_options
-    {:resource_name => t('activerecord.models.lending_policy')}
-  end
-
   def prepare_options
-    @user_groups = UserGroup.all(:order => :position)
+    @user_groups = UserGroup.order(:position)
   end
 end
