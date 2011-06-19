@@ -51,6 +51,11 @@
 </p>
 
 <p>
+  <strong><%= t('activerecord.models.bookstore') -%>:</strong>
+  <%= @item.bookstore.name -%>
+</p>
+
+<p>
   <strong><%= t('activerecord.attributes.item.price') -%>:</strong>
   <%= @item.price -%>
 </p>
@@ -65,16 +70,12 @@
   <%= localized_boolean(@item.include_supplements) -%>
 </p>
 
-<!--
 <p>
   <strong><%= t('activerecord.models.use_restriction') -%>:</strong>
   <ul>
-    <%- @item.use_restrictions.each do |use_restriction| -%>
-      <li><%= link_to use_restriction.display_name.localize, use_restriction_path(use_restriction) -%></li>
-    <%- end -%>
+    <li><%= @item.use_restriction.display_name.localize %></li>
   </ul>
 </p>
--->
 
 <%- cache(:controller => :items, :action => :show, :id => @item.id, :page => 'detail', :role => current_user_role_name, :locale => @locale, :item_id => nil) do -%>
 <%- if can? :update, @item -%>

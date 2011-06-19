@@ -17,7 +17,11 @@
         <%= move_position(shelf) -%>
       <%- end -%>
     </td>
-    <td><%= link_to shelf.display_name.localize, shelf -%></td>
+    <td>
+      <%= link_to shelf.display_name.localize, shelf -%>
+      <br />
+      <%= shelf.name if can? :update, shelf %>
+    </td>
     <td><%= link_to shelf.library.display_name.localize, library_path(shelf.library) -%></td>
     <td>
       <%- if can? :update, shelf -%>

@@ -138,6 +138,7 @@ class ItemsController < ApplicationController
   # GET /items/1;edit
   def edit
     @item.library_id = @item.shelf.library_id
+    @item.use_restriction_id = @item.use_restriction.id
   end
 
   # POST /items
@@ -190,9 +191,6 @@ class ItemsController < ApplicationController
           #  @item.owns.first.update_attribute(:patron_id, @item.shelf.library.patron_id)
           #end
         end
-        use_restrictions = UseRestriction.all(:conditions => ['id IN (?)', params[:use_restriction_id]])
-        ItemHasUseRestriction.delete_all(['item_id = ?', @item.id])
-        @item.use_restrictions << use_restrictions
         flash[:notice] = t('controller.successfully_updated', :model => t('activerecord.models.item'))
         format.html { redirect_to item_url(@item) }
         format.xml  { head :ok }

@@ -20,8 +20,8 @@ class Item < ActiveRecord::Base
   belongs_to :bookstore, :validate => true
   has_many :donates
   has_many :donors, :through => :donates, :source => :patron
-  has_many :item_has_use_restrictions, :dependent => :destroy
-  has_many :use_restrictions, :through => :item_has_use_restrictions
+  has_one :item_has_use_restriction, :dependent => :destroy
+  has_one :use_restriction, :through => :item_has_use_restriction
   has_many :reserves
   has_many :inter_library_loans, :dependent => :destroy
   belongs_to :required_role, :class_name => 'Role', :foreign_key => 'required_role_id', :validate => true
@@ -38,6 +38,7 @@ class Item < ActiveRecord::Base
   validates :item_identifier, :allow_blank => true, :uniqueness => {:if => proc{|item| !item.item_identifier.blank? and !item.manifestation.try(:series_statement)}}, :format => {:with => /\A\w+\Z/}
   validates :url, :url => true, :allow_blank => true, :length => {:maximum => 255}
   before_validation :set_circulation_status, :on => :create
+  before_save :set_use_restriction
 
   #enju_union_catalog
   has_paper_trail
@@ -59,14 +60,22 @@ class Item < ActiveRecord::Base
     time :updated_at
   end
 
-  attr_accessor :library_id, :manifestation_id
+  attr_accessor :library_id, :manifestation_id, :use_restriction_id
 
   def self.per_page
     10
   end
 
   def set_circulation_status
-    self.circulation_status = CirculationStatus.first(:conditions => {:name => 'In Process'}) if self.circulation_status.nil?
+    self.circulation_status = CirculationStatus.where(:name => 'In Process').first if self.circulation_status.nil?
+  end
+
+  def set_use_restriction
+    if self.use_restriction_id
+      self.use_restriction = UseRestriction.where(:id => self.use_restriction_id).first
+    else
+      self.use_restriction = UseRestriction.where(:name => 'Term Loan').first
+    end
   end
 
   def checkout_status(user)
@@ -205,5 +214,13 @@ class Item < ActiveRecord::Base
 
   def deletable?
     checkouts.not_returned.first.nil?
+  end
+
+  def not_for_loan?
+    if use_restriction.try(:name) == 'Not For Loan'
+      true
+    else
+      false
+    end
   end
 end
