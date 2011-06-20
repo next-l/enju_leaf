@@ -127,11 +127,8 @@ class ResourceImportFile < ActiveRecord::Base
     return num
   end
 
-  def self.import_work(title, patrons, series_statement_id, options = {:edit_mode => 'create'})
+  def self.import_work(title, patrons, options = {:edit_mode => 'create'})
     work = Manifestation.new(title)
-    if series_statement = SeriesStatement.find(series_statement_id) rescue nil
-      work.series_statement = series_statement
-    end
     case options[:edit_mode]
     when 'create'
       work.creators << patrons
@@ -226,7 +223,7 @@ class ResourceImportFile < ActiveRecord::Base
     rows = open_import_file
     rows.each do |row|
       item_identifier = row['item_identifier'].to_s.strip
-      item = Item.where(:item_identifier => item_identifier).first
+      item = Item.where(:item_identifier => item_identifier).first if item_identifier.present?
       if item.try(:manifestation)
         fetch(row, :edit_mode => 'update')
       end
@@ -257,19 +254,19 @@ class ResourceImportFile < ActiveRecord::Base
         tempfile.puts(NKF.nkf('-w -Lu', line))
       }
     }
+    tempfile.close
 
-    tempfile.open
     if RUBY_VERSION > '1.9'
-      file = CSV.open(tempfile, :col_sep => "\t")
+      file = CSV.open(tempfile.path, :col_sep => "\t")
       header = file.first
-      rows = CSV.open(tempfile, :headers => header, :col_sep => "\t")
+      rows = CSV.open(tempfile.path, :headers => header, :col_sep => "\t")
     else
-      file = FasterCSV.open(tempfile, :col_sep => "\t")
+      file = FasterCSV.open(tempfile.path, :col_sep => "\t")
       header = file.first
-      rows = FasterCSV.open(tempfile, :headers => header, :col_sep => "\t")
+      rows = FasterCSV.open(tempfile.path, :headers => header, :col_sep => "\t")
     end
     ResourceImportResult.create(:resource_import_file => self, :body => header.join("\t"))
-    tempfile.close
+    tempfile.close(true)
     file.close
     rows
   end
@@ -289,12 +286,19 @@ class ResourceImportFile < ActiveRecord::Base
   def create_item(row, manifestation)
     circulation_status = CirculationStatus.where(:name => row['circulation_status'].to_s.strip).first || CirculationStatus.where(:name => 'In Process').first
     shelf = Shelf.where(:name => row['shelf'].to_s.strip).first || Shelf.web
+    bookstore = Bookstore.where(:name => row['bookstore'].to_s.strip).first
+    acquired_at = Time.zone.parse(row['acquired_at']) rescue nil
+    use_restriction = UseRestriction.where(:name => row['use_restriction'].to_s.strip).first
+    use_restriction_id = use_restriction.id if use_restriction
     item = self.class.import_item(manifestation, {
       :item_identifier => row['item_identifier'],
       :price => row['item_price'],
       :call_number => row['call_number'].to_s.strip,
       :circulation_status => circulation_status,
-      :shelf => shelf
+      :shelf => shelf,
+      :acquired_at => acquired_at,
+      :bookstore => bookstore,
+      :use_restriction_id => use_restriction_id
     })
     item
   end
@@ -359,7 +363,7 @@ class ResourceImportFile < ActiveRecord::Base
       series_statement = import_series_statement(row)
       case options[:edit_mode]
       when 'create'
-        work = self.class.import_work(title, creator_patrons, row['series_statment_id'], options)
+        work = self.class.import_work(title, creator_patrons, options)
         work.series_statement = series_statement
         work.subjects << subjects
         expression = self.class.import_expression(work, contributor_patrons)
@@ -409,14 +413,40 @@ class ResourceImportFile < ActiveRecord::Base
   end
 
   def import_series_statement(row)
-    series_statement = SeriesStatement.where(:issn => ISBN_Tools.cleanup(row['issn'].to_s.strip)).first
-    series_statement = SeriesStatement.where(:series_statement_identifier => row['series_statement_identifier'].to_s.strip).first unless series_statement
-    if row['series_statement_original_title'].to_s.strip.present?
-      series_statement = SeriesStatement.create(
-        :original_title => row['series_statement_original_title'].to_s.strip,
-        :title_transcription => row['series_statement_title_transcription'].to_s.strip,
-        :series_statement_identifier => row['series_statement_identifier'].to_s.strip
-      )
+    issn = ISBN_Tools.cleanup(row['issn'].to_s)
+    series_statement_identifier = row['series_statement_identifier'].to_s.strip
+    series_statement = SeriesStatement.where(:issn => issn).first if issn.present?
+    unless series_statement
+      series_statement = SeriesStatement.where(:series_statement_identifier => series_statement_identifier).first if series_statement_identifier.present?
+    end
+    series_statement = SeriesStatement.where(:original_title => row['series_statement_original_title'].to_s.strip).first unless series_statement
+    unless series_statement
+      if row['series_statement_original_title'].to_s.strip.present?
+        series_statement = SeriesStatement.new(
+          :original_title => row['series_statement_original_title'].to_s.strip,
+          :title_transcription => row['series_statement_title_transcription'].to_s.strip,
+          :series_statement_identifier => row['series_statement_identifier'].to_s.strip
+        )
+        if issn.present?
+          series_statement.issn = issn
+          series_statement.periodical = true
+        end
+        series_statement.save!
+        if series_statement.periodical
+          SeriesStatement.transaction do
+            creators = row['series_statement_creator'].to_s.split(';')
+            creator_transcriptions = row['series_statement_creator_transcription'].to_s.split(';')
+            creators_list = creators.zip(creator_transcriptions).map{|f,t| {:full_name => f.to_s.strip, :full_name_transcription => t.to_s.strip}}
+            creator_patrons = Patron.import_patrons(creators_list)
+            series_statement.initial_manifestation.creators << creator_patrons
+          end
+        end
+      end
+    end
+    if series_statement
+      series_statement
+    else
+      nil
     end
   end
 end

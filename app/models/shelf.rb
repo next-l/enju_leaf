@@ -3,12 +3,12 @@ class Shelf < ActiveRecord::Base
   default_scope :order => "position"
   scope :real, :conditions => ['library_id != 1']
   belongs_to :library, :validate => true
-  has_many :items, :include => [:use_restrictions, :circulation_status]
+  has_many :items, :include => [:circulation_status]
   has_many :picture_files, :as => :picture_attachable, :dependent => :destroy
 
   validates_associated :library
   validates_presence_of :library
-  validates_uniqueness_of :display_name
+  validates_uniqueness_of :display_name, :scope => :library_id
 
   acts_as_list :scope => :library
 

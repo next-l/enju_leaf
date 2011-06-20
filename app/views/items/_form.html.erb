@@ -28,6 +28,11 @@
   </div>
 
   <div class="field">
+    <%= f.label t('activerecord.models.bookstore') -%>
+    <%= f.select(:bookstore_id, @bookstores.collect{|b| [b.name, b.id]}, :include_blank => true) -%>
+  </div>
+
+  <div class="field">
     <%= f.label :price -%><br />
     <%= f.text_field :price -%>
   </div>
@@ -42,15 +47,10 @@
     <%= f.check_box :include_supplements -%>
   </div>
 
-<!--
   <div class="field">
-  <%= f.label t('activerecord.models.use_restriction') -%> # TODO: 互いに矛盾する利用制限を指定させない<br />
-    <%- @use_restrictions.each do |use_restriction| -%>
-      <%= check_box_tag "use_restriction_id[]", use_restriction.id, @item.use_restrictions.include?(use_restriction), :id => "use_restriction_id_#{use_restriction.id}" -%>
-      <%= use_restriction.display_name.localize -%><br />
-    <%- end -%>
+    <%= f.label t('activerecord.models.use_restriction') -%>
+    <%= f.select(:use_restriction_id, @use_restrictions.collect{|u| [u.display_name.localize, u.id]}) -%>
   </div>
-  -->
 
   <div class="field">
     <%= f.label t('role.required_role') -%>

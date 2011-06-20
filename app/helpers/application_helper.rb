@@ -49,7 +49,7 @@ module ApplicationHelper
   end
 
   def link_to_tag(tag)
-    link_to h(tag), manifestations_path(:tag => tag.name)
+    link_to tag, manifestations_path(:tag => tag.name)
   end
 
   def render_tag_cloud(tags, options = {})
@@ -75,7 +75,7 @@ module ApplicationHelper
     html <<   %(  <ul class="popularity">\n)
     tags.each do |tag|
       html << %(  <li>)
-      html << link_to(h(tag.name), manifestations_path(:tag => tag.name), :class => classes[(tag.taggings.size - min).div(divisor)])
+      html << link_to(tag.name, manifestations_path(:tag => tag.name), :class => classes[(tag.taggings.size - min).div(divisor)])
       html << %(  </li>\n) # FIXME: IEのために文末の空白を入れている
     end
     html <<   %(  </ul>\n)
@@ -86,53 +86,43 @@ module ApplicationHelper
     return nil if patrons.blank?
     patrons_list = []
     if options[:nolink]
-      patrons_list = patrons.map{|patron| h(patron.full_name)}
+      patrons_list = patrons.map{|patron| patron.full_name}
     else
-      patrons_list = patrons.map{|patron| link_to(h(patron.full_name), patron)}
+      patrons_list = patrons.map{|patron| link_to(patron.full_name, patron, options)}
     end
     patrons_list.join(" ")
   end
 
   def book_jacket(manifestation)
     if picture_file = manifestation.picture_files.first and picture_file.extname
-      link = link_to show_image(picture_file, :size => :thumb), picture_file_path(picture_file, :format => picture_file.extname), :rel => "manifestation_#{manifestation.id}"
+      link = link_to show_image(picture_file, :size => :thumb, :itemprop => 'image'), picture_file_path(picture_file, :format => picture_file.extname), :rel => "manifestation_#{manifestation.id}"
     else
       # TODO: Amazon優先でよい？
       book_jacket = manifestation.amazon_book_jacket
       if book_jacket
         unless book_jacket[:asin].blank?
-          link = link_to image_tag(book_jacket[:url], :width => book_jacket[:width], :height => book_jacket[:height], :alt => manifestation.original_title, :class => 'book_jacket'), "http://#{configatron.amazon.hostname}/dp/#{book_jacket[:asin]}"
+          link = link_to image_tag(book_jacket[:url], :width => book_jacket[:width], :height => book_jacket[:height], :alt => manifestation.original_title, :class => 'book_jacket', :itemprop => 'image'), "http://#{configatron.amazon.hostname}/dp/#{book_jacket[:asin]}"
         end
       else
         if manifestation.access_address?
           # TODO: thumbalizerはプラグインに移動
           if configatron.thumbalizr.api_key
-            link = link_to image_tag("http://api.thumbalizr.com/?url=#{manifestation.access_address}&width=128", :width => 128, :height => 144, :alt => manifestation.original_title, :border => 0), manifestation.access_address
-          elsif manifestation.screen_shot?
+            link = link_to image_tag("http://api.thumbalizr.com/?url=#{manifestation.access_address}&width=128", :width => 128, :height => 144, :alt => manifestation.original_title, :border => 0, :itemprop => 'image'), manifestation.access_address
+          elsif manifestation.screen_shot.present?
             #link = link_to image_tag("http://capture.heartrails.com/medium?#{manifestation.access_address}", :width => 200, :height => 150, :alt => manifestation.original_title, :border => 0), manifestation.access_address
             # TODO: Project Next-L 専用のMozshotサーバを作る
-            link = link_to image_tag(manifestation_path(manifestation, :mode => 'screen_shot'), :width => 128, :height => 128, :alt => manifestation.original_title, :class => 'screen_shot'), manifestation.access_address
+            link = link_to image_tag(manifestation_path(manifestation, :mode => 'screen_shot'), :width => 128, :height => 128, :alt => manifestation.original_title, :class => 'screen_shot', :itemprop => 'image'), manifestation.access_address
           end
         end
       end
     end
 
     unless link
-      link = link_to image_tag('unknown_resource.png', :width => '100', :height => '100', :alt => '*'), manifestation
+      link = link_to image_tag('unknown_resource.png', :width => '100', :height => '100', :alt => '*', :itemprop => 'image'), manifestation
     end
     link
   #rescue NoMethodError
   #  nil
-  end
-
-  def advertisement_pickup(advertisement)
-    if advertisement
-      if advertisement.url.present?
-        link_to h(advertisement.body), advertisement.url
-      else
-        h(advertisement.body)
-      end
-    end
   end
 
   def database_adapter
@@ -170,11 +160,11 @@ module ApplicationHelper
   end
 
   def locale_display_name(locale)
-    h(Language.where(:iso_639_1 => locale).first.display_name)
+    Language.where(:iso_639_1 => locale).first.display_name
   end
 
   def locale_native_name(locale)
-    h(Language.where(:iso_639_1 => locale).first.native_name)
+    Language.where(:iso_639_1 => locale).first.native_name
   end
 
   def move_position(object)

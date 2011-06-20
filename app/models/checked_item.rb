@@ -35,7 +35,7 @@ class CheckedItem < ActiveRecord::Base
 
     return true if self.ignore_restriction == "1"
 
-    if self.item.use_restrictions.detect{|r| r.name == 'Not For Loan'}
+    if self.item.not_for_loan?
       errors[:base] << I18n.t('activerecord.errors.messages.checked_item.not_available_for_checkout')
     end
 

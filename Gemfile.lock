@@ -72,7 +72,7 @@ GEM
       activesupport (= 3.1.0.rc4)
       arel (~> 2.1.1)
       tzinfo (~> 0.3.27)
-    activerecord-jdbc-adapter (1.1.1)
+    activerecord-jdbc-adapter (1.1.2)
     activeresource (3.1.0.rc4)
       activemodel (= 3.1.0.rc4)
       activesupport (= 3.1.0.rc4)
@@ -109,8 +109,7 @@ GEM
       main
       ruby_parser (~> 2.0.4)
       sexp_processor (~> 3.0.3)
-    client_side_validations (3.0.5)
-      activesupport
+    client_side_validations (3.0.10)
     cloudfiles (1.4.17)
       mime-types (>= 1.16)
     colored (1.2)
@@ -176,7 +175,7 @@ GEM
       thor (~> 0.14)
     jruby-openssl (0.7.4)
       bouncy-castle-java
-    json_pure (1.5.2)
+    json_pure (1.5.3)
     library_stdnums (1.0.1)
     mail (2.3.0)
       i18n (>= 0.4.0)
@@ -208,8 +207,8 @@ GEM
     net-sftp (2.0.5)
       net-ssh (>= 2.0.9)
     net-ssh (2.1.4)
-    nokogiri (1.4.5)
-    nokogiri (1.4.5-java)
+    nokogiri (1.4.6)
+    nokogiri (1.4.6-java)
       weakling (>= 0.0.3)
     oa-basic (0.2.6)
       oa-core (= 0.2.6)
@@ -380,7 +379,7 @@ GEM
     whenever (0.6.8)
       aaronh-chronic (>= 0.3.9)
       activesupport (>= 2.3.4)
-    xml-simple (1.0.16)
+    xml-simple (1.1.0)
     yamler (0.1.0)
     zipruby (0.3.6)
 

@@ -671,7 +671,7 @@ class ManifestationsController < ApplicationController
       else
         acquisition_date[:from] = Time.zone.parse(options[:acquired_from]).beginning_of_day.utc.iso8601 rescue nil
         unless acquisition_date[:from]
-          pubdate[:from] = Time.zone.parse(Time.mktime(options[:acquired_from]).to_s).beginning_of_day.utc.iso8601
+          acquisition_date[:from] = Time.zone.parse(Time.mktime(options[:acquired_from]).to_s).beginning_of_day.utc.iso8601
         end
       end
 
@@ -683,7 +683,7 @@ class ManifestationsController < ApplicationController
           acquisition_date[:to] = Time.zone.parse(Time.mktime(options[:acquired_to]).to_s).beginning_of_day.utc.iso8601
         end
       end
-      query = "#{query} acquired_at_dm: [#{acquisition_date[:from]} TO #{acquisiton_date[:to]}]"
+      query = "#{query} acquired_at_d: [#{acquisition_date[:from]} TO #{acquisition_date[:to]}]"
     end
     query
   end

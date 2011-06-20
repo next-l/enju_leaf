@@ -153,19 +153,19 @@ class PatronImportFile < ActiveRecord::Base
         tempfile.puts(NKF.nkf('-w -Lu', line))
       }
     }
+    tempfile.close
 
-    tempfile.open
     if RUBY_VERSION > '1.9'
       file = CSV.open(tempfile, :col_sep => "\t")
       header = file.first
       rows = CSV.open(tempfile, :headers => header, :col_sep => "\t")
     else
-      file = FasterCSV.open(tempfile, :col_sep => "\t")
+      file = FasterCSV.open(tempfile.path, :col_sep => "\t")
       header = file.first
-      rows = FasterCSV.open(tempfile, :headers => header, :col_sep => "\t")
+      rows = FasterCSV.open(tempfile.path, :headers => header, :col_sep => "\t")
     end
     PatronImportResult.create(:patron_import_file => self, :body => header.join("\t"))
-    tempfile.close
+    tempfile.close(true)
     file.close
     rows
   end
