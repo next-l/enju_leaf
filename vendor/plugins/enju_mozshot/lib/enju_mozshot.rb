@@ -11,7 +11,7 @@ module EnjuMozshot
 
   module InstanceMethods
     def screen_shot
-      if access_address.present?
+      if access_address?
         url = "http://mozshot.nemui.org/shot?#{access_address}"
         thumb = Rails.cache.fetch("manifestation_mozshot_#{id}"){open(url).read}
         file = Tempfile.new('thumb')

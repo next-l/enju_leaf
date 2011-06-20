@@ -8,7 +8,7 @@ class Shelf < ActiveRecord::Base
 
   validates_associated :library
   validates_presence_of :library
-  validates_uniqueness_of :display_name
+  validates_uniqueness_of :display_name, :scope => :library_id
 
   acts_as_list :scope => :library
 
