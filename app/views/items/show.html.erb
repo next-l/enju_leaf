@@ -52,7 +52,7 @@
 
 <p>
   <strong><%= t('activerecord.models.bookstore') -%>:</strong>
-  <%= @item.bookstore.name -%>
+  <%= @item.bookstore.try(:name) -%>
 </p>
 
 <p>

@@ -29,7 +29,7 @@
 
   <div class="field">
     <%= f.label t('activerecord.models.bookstore') -%>
-    <%= f.select(:bookstore_id, @bookstores.collect{|b| [b.name, b.id]}) -%>
+    <%= f.select(:bookstore_id, @bookstores.collect{|b| [b.name, b.id]}, :include_blank => true) -%>
   </div>
 
   <div class="field">

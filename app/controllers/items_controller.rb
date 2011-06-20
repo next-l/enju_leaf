@@ -138,7 +138,7 @@ class ItemsController < ApplicationController
   # GET /items/1;edit
   def edit
     @item.library_id = @item.shelf.library_id
-    @item.use_restriction_id = @item.use_restriction.id
+    @item.use_restriction_id = @item.use_restriction.id if @item.use_restriction
   end
 
   # POST /items
@@ -231,8 +231,8 @@ class ItemsController < ApplicationController
     end
     @shelves = @library.shelves
     @circulation_statuses = CirculationStatus.all
-    @bookstores = Bookstore.all
     @use_restrictions = UseRestriction.all
+    @bookstores = Bookstore.all
     if @manifestation
       @checkout_types = CheckoutType.available_for_carrier_type(@manifestation.carrier_type)
     else
