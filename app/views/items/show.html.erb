@@ -78,6 +78,7 @@
 </p>
 
 <%- cache(:controller => :items, :action => :show, :id => @item.id, :page => 'detail', :role => current_user_role_name, :locale => @locale, :item_id => nil) do -%>
+<!--
 <%- if can? :update, @item -%>
   <p>
     <strong><%= t('item.donor') -%>:</strong>
@@ -86,10 +87,16 @@
     <%- end -%>
   </p>
 <%- end -%>
+-->
 
 <p>
   <strong><%= t('activerecord.attributes.item.acquired_at') -%>:</strong>
   <%= l(@item.acquired_at, :format => :only_date) if @item.acquired_at -%>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.item.note') -%>:</strong>
+  <%= @item.note %>
 </p>
 
 <p>

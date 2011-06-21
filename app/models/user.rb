@@ -44,6 +44,7 @@ class User < ActiveRecord::Base
   validates :username, :presence => true, :uniqueness => true
   validates_uniqueness_of :email, :scope => authentication_keys[1..-1], :case_sensitive => false, :allow_blank => true
   validates :email, :format => {:with => /^([\w\.%\+\-]+)@([\w\-]+\.)+([\w]{2,})$/i}, :allow_blank => true
+  validates_date :expired_at, :allow_blank => true
 
   with_options :if => :password_required? do |v|
     v.validates_presence_of     :password
@@ -61,7 +62,6 @@ class User < ActiveRecord::Base
   before_destroy :check_item_before_destroy, :check_role_before_destroy
   before_save :check_expiration
   before_create :set_expired_at
-  before_save :check_expired_at
   after_destroy :remove_from_index
   after_create :set_confirmation
   after_save :index_patron
@@ -95,7 +95,7 @@ class User < ActiveRecord::Base
     :zip_code, :address, :telephone_number, :fax_number, :address_note,
     :role_id, :patron_id, :operator, :password_not_verified,
     :update_own_account, :auto_generated_password, :current_password,
-    :locked, :expire_date
+    :locked
 
   def self.per_page
     10
@@ -274,14 +274,6 @@ class User < ActiveRecord::Base
     end
   end
 
-  def check_expired_at
-    if self.expire_date
-      self.expired_at = Time.zone.parse(self.expire_date).try(:end_of_day)
-    end
-  rescue
-    errors[:base] << I18n.t('page.invalid_date')
-  end
-
   def deletable_by(current_user)
     # 未返却の資料のあるユーザを削除しようとした
     if self.checkouts.count > 0
@@ -351,8 +343,7 @@ class User < ActiveRecord::Base
       self.user_number = params[:user_number]
       self.locale = params[:locale]
       self.locked = params[:locked]
-      expired_at_array = [params["expired_at(1i)"], params["expired_at(2i)"], params["expired_at(3i)"]]
-      self.expire_date = expired_at_array.join("-")
+      self.expired_at = params[:expired_at]
     end
     self
   end

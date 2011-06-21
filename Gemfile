@@ -77,6 +77,7 @@ gem 'acts_as_list', :git => 'git://github.com/haihappen/acts_as_list.git'
 gem 'library_stdnums'
 gem 'client_side_validations'
 gem 'simple_form'
+gem 'validates_timeliness'
 
 #gem 'oink', '>=0.9.1'
 group :development do
