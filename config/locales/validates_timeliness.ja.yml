@@ -9,3 +9,8 @@ ja:
       on_or_before: "は次の日時以前でなければなりません。 %{restriction}"
       after: "は次の日時より後でなければなりません。 %{restriction}"
       on_or_after: "は次の日時以降でなければなりません。 %{restriction}"
+  validates_timeliness:
+    error_value_formats:
+      date: '%Y-%m-%d'
+      time: '%H:%M:%S'
+      datetime: '%Y-%m-%d %H:%M:%S'
