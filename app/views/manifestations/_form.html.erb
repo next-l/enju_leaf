@@ -1,4 +1,4 @@
-<%= form_for(@manifestation, :html => { :multipart => true }) do |f| -%>
+<%= simple_form_for(@manifestation, :html => { :multipart => true }) do |f| -%>
   <%= f.error_messages -%>
   <div class="field">
     <%- if !@manifestation.new_record? and @manifestation.series_statement -%>

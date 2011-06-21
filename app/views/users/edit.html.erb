@@ -2,7 +2,7 @@
 <h1 class="title"><%= t('page.edit_user_profile', :login_name => @user.username) -%></h1>
 <div id="content_list">
 
-<%= form_for(@user) do |f| -%>
+<%= simple_form_for(@user) do |f| -%>
   <%= f.error_messages -%>
 
   <%= render :partial => 'users/edit_credential', :locals => {:f => f, :user => @user} -%>
