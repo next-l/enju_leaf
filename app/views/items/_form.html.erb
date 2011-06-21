@@ -1,7 +1,7 @@
 <%- if @item.manifestation -%>
   <%= render :partial => 'manifestations/title', :locals => {:manifestation => @item.manifestation} -%>
 <%- end -%>
-<%= form_for(@item) do |f| -%>
+<%= simple_form_for(@item) do |f| -%>
   <%= f.error_messages -%>
   <%= f.hidden_field :manifestation_id %>
 
