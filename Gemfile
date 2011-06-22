@@ -79,7 +79,7 @@ gem 'client_side_validations'
 gem 'simple_form'
 gem 'validates_timeliness'
 
-#gem 'oink', '>=0.9.1'
+#gem 'oink', '>=0.9.2'
 group :development do
   gem 'parallel_tests'
   gem 'jquery-rails'
