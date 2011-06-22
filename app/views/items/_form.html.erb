@@ -1,6 +1,8 @@
 <%- if @item.manifestation -%>
   <%= render :partial => 'manifestations/title', :locals => {:manifestation => @item.manifestation} -%>
 <%- end -%>
+
+<%= render :partial => 'page/required_field' %>
 <%= simple_form_for(@item) do |f| -%>
   <%= f.error_messages -%>
   <%= f.hidden_field :manifestation_id %>

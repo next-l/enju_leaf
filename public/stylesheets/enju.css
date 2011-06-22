@@ -517,3 +517,7 @@ table.holding{
   background-color: white;
   width: 100%;
 }
+
+abbr[title="required"]{
+  color: red;
+}

@@ -3,8 +3,9 @@ ja:
     "yes": 'はい'
     "no": 'いいえ'
     required:
-      text: '必須'
+      text: 'required'
       mark: '*'
+      message: '印のついている項目は入力が必須です。'
       # You can uncomment the line below if you need to overwrite the whole required html.
       # When using html, text and mark won't be used.
       # html: '<abbr title="required">*</abbr>'
