@@ -38,7 +38,7 @@
 
 <div>
   <strong><%= t('activerecord.attributes.message.body') -%>:</strong>
-  <%= auto_link(textilize(@message_request.body)) -%>
+  <%= raw auto_link(simple_format(h(@message_request.body))) -%>
 </div>
 
 </div>
