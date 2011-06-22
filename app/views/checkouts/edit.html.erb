@@ -26,7 +26,7 @@
       <%= f.label :due_date -%>
       <%= f.hidden_field :user_id -%>
       <%= f.hidden_field :item_id -%>
-      <%= f.text_field :due_date, :value => @checkout.due_date.try(:strftime, "%Y-%m-%d"), :class => 'date_field' -%>
+      <%= f.text_field :due_date, :value => @checkout.due_date.try(:strftime, "%Y-%m-%d"), :class => 'date_field', :placeholder => "#{t('page.example')}: 2011-04-12"-%>
     </div>
     <div class="field">
       <%= t('checkout.renewal_count') -%>: <%= f.text_field :checkout_renewal_count, :class => 'resource_integer' -%>

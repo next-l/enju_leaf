@@ -128,6 +128,7 @@ class ItemsController < ApplicationController
     @circulation_statuses = CirculationStatus.all(:conditions => {:name => ['In Process', 'Available For Pickup', 'Available On Shelf', 'Claimed Returned Or Never Borrowed', 'Not Available']}, :order => :position)
     @item.circulation_status = CirculationStatus.where(:name => 'In Process').first
     @item.checkout_type = @manifestation.carrier_type.checkout_types.first
+    @item.use_restriction_id = UseRestriction.where(:name => 'Limited Circulation, Normal Loan Period').first.id
 
     respond_to do |format|
       format.html # new.html.erb
@@ -184,13 +185,6 @@ class ItemsController < ApplicationController
 
     respond_to do |format|
       if @item.update_attributes(params[:item])
-        if @item.shelf
-          #if @item.owns.blank?
-          #  @item.owns.create(:patron_id => @item.shelf.library.patron_id)
-          #else
-          #  @item.owns.first.update_attribute(:patron_id, @item.shelf.library.patron_id)
-          #end
-        end
         flash[:notice] = t('controller.successfully_updated', :model => t('activerecord.models.item'))
         format.html { redirect_to item_url(@item) }
         format.xml  { head :ok }
@@ -223,7 +217,7 @@ class ItemsController < ApplicationController
 
   private
   def prepare_options
-    @libraries = Library.real
+    @libraries = Library.real << Library.web
     if @item.new_record?
       @library = Library.real.first(:order => :position, :include => :shelves)
     else
@@ -231,7 +225,7 @@ class ItemsController < ApplicationController
     end
     @shelves = @library.shelves
     @circulation_statuses = CirculationStatus.all
-    @use_restrictions = UseRestriction.all
+    @use_restrictions = UseRestriction.available
     @bookstores = Bookstore.all
     if @manifestation
       @checkout_types = CheckoutType.available_for_carrier_type(@manifestation.carrier_type)

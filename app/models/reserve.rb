@@ -25,7 +25,7 @@ class Reserve < ActiveRecord::Base
   validates_associated :user, :librarian, :item, :request_status_type, :manifestation
   validates_presence_of :user, :manifestation, :request_status_type #, :expired_at
   #validates_uniqueness_of :manifestation_id, :scope => :user_id
-  validates :expire_date, :format => {:with => /^\d+(-\d{0,2}){0,2}$/}, :allow_blank => true
+  validates_date :expired_at, :allow_blank => true
   validate :manifestation_must_include_item
   validate :available_for_reservation?, :on => :create
   before_validation :set_item_and_manifestation, :on => :create
@@ -76,20 +76,6 @@ class Reserve < ActiveRecord::Base
   end
 
   def set_expired_at
-    if expire_date.present?
-      begin
-        date = Time.zone.parse("#{expire_date}")
-      rescue ArgumentError
-        # TODO: 月日の省略時の既定値を決める
-        begin
-          date = Time.zone.parse("#{expire_date}-01")
-        rescue ArgumentError
-          date = Time.zone.parse("#{expire_date}-01-01")
-        end
-      end
-      self.expired_at = date
-    end
-
     if self.user and self.manifestation
       if self.canceled_at.blank?
         if self.expired_at.blank?

@@ -72,12 +72,15 @@
 
 <p>
   <strong><%= t('activerecord.models.use_restriction') -%>:</strong>
-  <ul>
-    <li><%= @item.use_restriction.display_name.localize %></li>
-  </ul>
+  <% if @item.use_restriction %>
+    <ul>
+      <li><%= @item.use_restriction.display_name.localize %></li>
+    </ul>
+  <% end %>
 </p>
 
 <%- cache(:controller => :items, :action => :show, :id => @item.id, :page => 'detail', :role => current_user_role_name, :locale => @locale, :item_id => nil) do -%>
+<!--
 <%- if can? :update, @item -%>
   <p>
     <strong><%= t('item.donor') -%>:</strong>
@@ -86,10 +89,16 @@
     <%- end -%>
   </p>
 <%- end -%>
+-->
 
 <p>
   <strong><%= t('activerecord.attributes.item.acquired_at') -%>:</strong>
   <%= l(@item.acquired_at, :format => :only_date) if @item.acquired_at -%>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.item.note') -%>:</strong>
+  <%= @item.note %>
 </p>
 
 <p>
@@ -115,7 +124,9 @@
     <%- end -%>
     <li><%= link_to t('page.listing', :model => t('activerecord.models.inter_library_loan')), item_inter_library_loans_path(@item) -%></li>
     <li><%= link_to t('page.back'), items_path -%></li>
-    <li><%= link_to t('page.destroy'), @item, :confirm => t('page.are_you_sure'), :method => :delete -%></li>
+    <% if can? :destroy, @item %>
+      <li><%= link_to t('page.destroy'), @item, :confirm => t('page.are_you_sure'), :method => :delete -%></li>
+    <% end %>
     <%- if @item.inter_library_loans.empty? -%>
       <li><%= link_to t('item.add_new_copy'), new_manifestation_item_path(@item.manifestation) -%></li>
     <%- end -%>

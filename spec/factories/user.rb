@@ -35,6 +35,7 @@ Factory.define :user, :class => User do |f|
   f.user_group {UserGroup.first}
   f.required_role {Role.find_by_name('User')}
   f.locale 'ja'
+  f.sequence(:user_number){|n| "user_number_#{n}"}
 end
 
 Factory.define :invalid_user, :class => User do |f|

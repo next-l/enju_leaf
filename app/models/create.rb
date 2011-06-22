@@ -15,7 +15,7 @@ class Create < ActiveRecord::Base
   end
 
   def reindex
-    patron.index
-    work.index
+    patron.try(:index)
+    work.try(:index)
   end
 end

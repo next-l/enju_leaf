@@ -185,4 +185,12 @@ describe Manifestation do
   it "should respond to title" do
     manifestations(:manifestation_00001).title.should be_true
   end
+
+  it "should import isbn" do
+    Manifestation.import_isbn('4797327030').should be_valid
+  end
+
+  it "should respond to pickup" do
+    Manifestation.pickup.should be_true
+  end
 end

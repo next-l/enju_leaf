@@ -49,11 +49,11 @@ class Bookmark < ActiveRecord::Base
   end
 
   def save_manifestation
-    self.manifestation.save
+    self.manifestation.try(:save)
   end
 
   def reindex_manifestation
-    self.manifestation.index!
+    self.manifestation.try(:index!)
   end
 
   def save_tagger

@@ -16,7 +16,7 @@ class Produce < ActiveRecord::Base
   end
 
   def reindex
-    patron.index
-    manifestation.index
+    patron.try(:index)
+    manifestation.try(:index)
   end
 end

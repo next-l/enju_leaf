@@ -13,7 +13,7 @@
 
 <p>
   <strong><%= t('activerecord.attributes.answer.body') -%>:</strong>
-  <%= auto_link(textilize(@answer.body))  -%>
+  <%= raw auto_link(textilize(h(@answer.body)))  -%>
 </p>
 
 <p>

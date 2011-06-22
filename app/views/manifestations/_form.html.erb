@@ -1,5 +1,7 @@
+<%= render :partial => 'page/required_field' %>
 <%= simple_form_for(@manifestation, :html => { :multipart => true }) do |f| -%>
   <%= f.error_messages -%>
+
   <div class="field">
     <%- if !@manifestation.new_record? and @manifestation.series_statement -%>
       <%= f.label t('activerecord.models.series_statement') -%>

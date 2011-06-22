@@ -1,6 +1,8 @@
 <%- if @item.manifestation -%>
   <%= render :partial => 'manifestations/title', :locals => {:manifestation => @item.manifestation} -%>
 <%- end -%>
+
+<%= render :partial => 'page/required_field' %>
 <%= simple_form_for(@item) do |f| -%>
   <%= f.error_messages -%>
   <%= f.hidden_field :manifestation_id %>
@@ -59,7 +61,12 @@
 
   <div class="field">
     <%= f.label :acquired_at -%>
-    <%= f.date_select(:acquired_at, :include_blank => true) -%>
+    <%= f.text_field :acquired_at, :value => @item.acquired_at.try(:strftime, "%Y-%m-%d"), :class => 'date_field', :placeholder => "#{t('page.example')}: 2011-04-12"-%>
+  </div>
+
+  <div class="field">
+    <%= f.label :note -%><br />
+    <%= f.text_area :note, :class => 'resource_textarea' -%>
   </div>
 
   <div class="field">

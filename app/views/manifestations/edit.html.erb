@@ -9,7 +9,9 @@
   <%= render :partial => 'manifestations/book_jacket', :locals => {:manifestation => @manifestation} -%>
   <ul>
     <li><%= link_to t('page.show'), @manifestation -%></li>
-    <li><%= link_to t('page.destroy'), @manifestation, :confirm => t('page.are_you_sure'), :method => :delete -%></li>
+    <% if can? :destroy, @manifestation %>
+      <li><%= link_to t('page.destroy'), @manifestation, :confirm => t('page.are_you_sure'), :method => :delete -%></li>
+    <% end %>
     <%- case when @patron -%>
       <li><%= link_to t('page.back'), publisher_manifestations_path(@patron) -%></li>
     <%- else -%>
