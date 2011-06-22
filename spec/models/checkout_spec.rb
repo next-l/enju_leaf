@@ -23,4 +23,21 @@ describe Checkout do
   it "should respond to is_today_due_date?" do
     checkouts(:checkout_00001).is_today_due_date?.should be_false
   end
+
+  it "should respond to not_returned" do
+    Checkout.not_returned.size.should > 0
+  end
+
+  it "should respond to overdue" do
+    Checkout.overdue(Time.zone.now).size.should > 0
+    Checkout.not_returned.size.should > Checkout.overdue(Time.zone.now).size
+  end
+
+  it "should respond to send_due_date_notification" do
+    Checkout.send_due_date_notification.should be_true
+  end
+
+  it "should respond to send_overdue_notification" do
+    Checkout.send_overdue_notification.should eq 0
+  end
 end

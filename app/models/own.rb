@@ -16,7 +16,7 @@ class Own < ActiveRecord::Base
   attr_accessor :item_identifier
 
   def reindex
-    patron.index
-    item.index
+    patron.try(:index)
+    item.try(:index)
   end
 end

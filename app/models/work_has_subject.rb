@@ -15,7 +15,7 @@ class WorkHasSubject < ActiveRecord::Base
   end
 
   def reindex
-    work.index
-    subject.index
+    work.try(:index)
+    subject.try(:index)
   end
 end

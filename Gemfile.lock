@@ -220,7 +220,7 @@ GEM
       oa-oauth (= 0.2.6)
       oa-openid (= 0.2.6)
     orm_adapter (0.0.5)
-    paper_trail (2.2.4)
+    paper_trail (2.2.5)
       rails (~> 3)
     paperclip (2.3.11)
       activerecord (>= 2.3.0)

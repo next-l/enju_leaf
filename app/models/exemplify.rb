@@ -16,8 +16,8 @@ class Exemplify < ActiveRecord::Base
   end
 
   def reindex
-    manifestation.index
-    item.index
+    manifestation.try(:index)
+    item.try(:index)
   end
 
   def create_lending_policy

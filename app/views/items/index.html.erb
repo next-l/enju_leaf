@@ -2,7 +2,7 @@
 <h1 class="title"><%= t('page.listing', :model => t('activerecord.models.item')) -%></h1>
 <div id="content_list">
 
-<%= render :partial => 'manifestations/title', :locals => {:manifestation => @resource} if @resource -%>
+<%= render :partial => 'manifestations/title', :locals => {:manifestation => @manifestation} if @manifestation -%>
 
 <%= form_for :items, :url => items_path, :html => {:method => 'get'} do -%>
   <p>
@@ -54,6 +54,7 @@
 </div>
 
 <div id="submenu" class="ui-corner-all">
+  <%= render :partial => 'manifestations/book_jacket', :locals => {:manifestation => @manifestation} if @manifestation -%>
   <ul>
     <%- if can?(:create, Item) and @manifestation -%>
       <li><%= link_to t('page.new', :model => t('activerecord.models.item')), new_manifestation_item_path(@manifestation) -%></li>

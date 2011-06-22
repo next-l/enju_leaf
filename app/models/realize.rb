@@ -15,7 +15,7 @@ class Realize < ActiveRecord::Base
   end
 
   def reindex
-    patron.index
-    expression.index
+    patron.try(:index)
+    expression.try(:index)
   end
 end

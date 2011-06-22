@@ -2,7 +2,7 @@
 <h1 class="title"><%= t('page.listing', :model => t('activerecord.models.item')) -%></h1>
 </div>
 <div data-role="content">
-<%= render :partial => 'manifestations/title', :locals => {:manifestation => @resource} if @resource -%>
+<%= render :partial => 'manifestations/title', :locals => {:manifestation => @manifestation} if @manifestation -%>
 <div data-role="detail">
 <%= form_for :items, :url => items_path, :html => {:method => 'get'} do -%>
   <p>

@@ -110,6 +110,9 @@
               <%= link_to t('page.edit'), edit_publisher_manifestation_path(@patron, @manifestation) -%>
             <%- else -%>
               <%= link_to t('page.edit'), edit_manifestation_path(@manifestation) -%>
+              <% if can? :destroy, @manifestation %>
+                <li><%= link_to t('page.destroy'), @manifestation, :confirm => t('page.are_you_sure'), :method => :delete -%></li>
+              <% end %>
             <%- end -%>
             <ul>
               <li><%= link_to t('manifestation.edit_creator'), work_patrons_path(@manifestation) -%></li>

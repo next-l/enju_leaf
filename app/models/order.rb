@@ -16,6 +16,6 @@ class Order < ActiveRecord::Base
   end
 
   def reindex
-    purchase_request.index
+    purchase_request.try(:index)
   end
 end
