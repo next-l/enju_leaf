@@ -185,13 +185,6 @@ class ItemsController < ApplicationController
 
     respond_to do |format|
       if @item.update_attributes(params[:item])
-        if @item.shelf
-          #if @item.owns.blank?
-          #  @item.owns.create(:patron_id => @item.shelf.library.patron_id)
-          #else
-          #  @item.owns.first.update_attribute(:patron_id, @item.shelf.library.patron_id)
-          #end
-        end
         flash[:notice] = t('controller.successfully_updated', :model => t('activerecord.models.item'))
         format.html { redirect_to item_url(@item) }
         format.xml  { head :ok }

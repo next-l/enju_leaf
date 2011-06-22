@@ -402,7 +402,7 @@ DEPENDENCIES
   money
   nokogiri
   omniauth
-  paper_trail (>= 2.2.4)
+  paper_trail (>= 2.2.5)
   paperclip
   parallel_tests
   pg
