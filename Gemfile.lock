@@ -393,7 +393,7 @@ DEPENDENCIES
   inherited_resources
   isbn-tools!
   jdbc-postgres
-  jpmobile (>= 1.0.0.pre.4)
+  jpmobile (>= 1.0.0.pre.5)
   jquery-rails
   jruby-openssl
   library_stdnums
