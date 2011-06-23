@@ -43,7 +43,7 @@ class User < ActiveRecord::Base
 
   validates :username, :presence => true, :uniqueness => true
   validates_uniqueness_of :email, :scope => authentication_keys[1..-1], :case_sensitive => false, :allow_blank => true
-  validates :email, :format => {:with => /^([\w\.%\+\-]+)@([\w\-]+\.)+([\w]{2,})$/i}, :allow_blank => true
+  validates :email, :format => {:with => /\A([\w\.%\+\-]+)@([\w\-]+\.)+([\w]{2,})\z/i}, :allow_blank => true
   validates_date :expired_at, :allow_blank => true
 
   with_options :if => :password_required? do |v|
