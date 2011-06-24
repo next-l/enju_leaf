@@ -1,7 +1,7 @@
 Factory.define :admin, :class => User do |f|
   f.sequence(:username){|n| "admin_#{n}"}
   f.sequence(:email){|n| "admin_#{n}@example.jp"}
-  f.sequence(:email_confirmation){|n| "admin_#{n}@example.jp"}
+  f.email_confirmation{|u| u.email}
   f.role {Role.find_by_name('Administrator')}
   f.library {Factory(:library)}
   f.password 'adminpassword'
@@ -14,7 +14,7 @@ end
 Factory.define :librarian, :class => User do |f|
   f.sequence(:username){|n| "librarian_#{n}"}
   f.sequence(:email){|n| "librarian_#{n}@example.jp"}
-  f.sequence(:email_confirmation){|n| "librarian_#{n}@example.jp"}
+  f.email_confirmation{|u| u.email}
   f.role {Role.find_by_name('Librarian')}
   f.library {Factory(:library)}
   f.password 'librarianpassword'
@@ -27,7 +27,7 @@ end
 Factory.define :user, :class => User do |f|
   f.sequence(:username){|n| "user_#{n}"}
   f.sequence(:email){|n| "user_#{n}@example.jp"}
-  f.sequence(:email_confirmation){|n| "user_#{n}@example.jp"}
+  f.email_confirmation{|u| u.email}
   f.role {Role.find_by_name('User')}
   f.library {Factory(:library)}
   f.password 'userpassword'
