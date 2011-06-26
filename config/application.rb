@@ -44,7 +44,7 @@ module EnjuLeaf
     #  :sender_address => %{"notifier" <notifier@example.com>},
     #  :exception_recipients => %w{exceptions@example.com}
     #config.middleware.use "Oink::Middleware"
-    config.middleware.use Rack::Protection, :except => :escaped_params
+    config.middleware.use Rack::Protection, :except => [:escaped_params, :json_csrf]
   end
 end
 

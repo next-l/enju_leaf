@@ -42,6 +42,7 @@ class ResourceImportFile < ActiveRecord::Base
     when 'create'
       import
     when 'update'
+      modify
     when 'destroy'
       remove
     else
