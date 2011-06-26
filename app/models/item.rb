@@ -179,24 +179,24 @@ class Item < ActiveRecord::Base
   end
 
   def self.inventory_items(inventory_file, mode = 'not_on_shelf')
-    item_ids = Item.all(:select => :id).collect(&:id)
-    inventory_item_ids = inventory_file.items.all(:select => ['items.id']).collect(&:id)
+    item_ids = Item.select(:id).collect(&:id)
+    inventory_item_ids = inventory_file.items.select('items.id').collect(&:id)
     case mode
     when 'not_on_shelf'
-      Item.find(item_ids - inventory_item_ids)
+      Item.where(:id => (item_ids - inventory_item_ids))
     when 'not_in_catalog'
-      Item.find(inventory_item_ids - item_ids)
+      Item.where(:id => (inventory_item_ids - item_ids))
     end
   rescue
     nil
   end
 
   def lending_rule(user)
-    lending_policies.first(:conditions => {:user_group_id => user.user_group.id})
+    lending_policies.where(:user_group_id => user.user_group.id).first
   end
 
   def owned(patron)
-    owns.first(:conditions => {:patron_id => patron.id})
+    owns.where(:patron_id => patron.id).first
   end
 
   def library_url

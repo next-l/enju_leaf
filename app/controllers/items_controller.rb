@@ -33,13 +33,13 @@ class ItemsController < ApplicationController
       if user_signed_in?
         if current_user.has_role?('Librarian')
           case params[:inventory]
-          when 'not_on_shelf'
-            mode = 'not_on_shelf'
           when 'not_in_catalog'
             mode = 'not_in_catalog'
+          else
+            mode = 'not_on_shelf'
           end
           order = 'id'
-          @items = Item.inventory_items(@inventory_file, mode).paginate(:page => params[:page], :order => order, :per_page => per_page) rescue [].paginate
+          @items = Item.inventory_items(@inventory_file, mode).paginate(:page => params[:page], :order => order, :per_page => per_page)
         else
           access_denied
           return
@@ -125,10 +125,10 @@ class ItemsController < ApplicationController
     @item = Item.new
     @item.shelf_id = @library.shelves.first.id
     @item.manifestation_id = @manifestation.id
-    @circulation_statuses = CirculationStatus.all(:conditions => {:name => ['In Process', 'Available For Pickup', 'Available On Shelf', 'Claimed Returned Or Never Borrowed', 'Not Available']}, :order => :position)
+    @circulation_statuses = CirculationStatus.where(:name => ['In Process', 'Available For Pickup', 'Available On Shelf', 'Claimed Returned Or Never Borrowed', 'Not Available']).order(:position)
     @item.circulation_status = CirculationStatus.where(:name => 'In Process').first
     @item.checkout_type = @manifestation.carrier_type.checkout_types.first
-    @item.use_restriction_id = UseRestriction.where(:name => 'Limited Circulation, Normal Loan Period').first.id
+    @item.use_restriction_id = UseRestriction.where(:name => 'Limited Circulation, Normal Loan Period').select(:id).first.id
 
     respond_to do |format|
       format.html # new.html.erb

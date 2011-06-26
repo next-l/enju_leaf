@@ -182,7 +182,7 @@ class Bookmark < ActiveRecord::Base
 
   def self.manifestations_count(start_date, end_date, manifestation)
     if manifestation
-      self.bookmarked(start_date, end_date).count(:all, :conditions => {:manifestation_id => manifestation.id})
+      self.bookmarked(start_date, end_date).where(:manifestation_id => manifestation.id).count
     else
       0
     end
