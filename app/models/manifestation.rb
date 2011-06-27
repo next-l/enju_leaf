@@ -181,7 +181,7 @@ class Manifestation < ActiveRecord::Base
   validates_associated :carrier_type, :language
   validates :start_page, :numericality => true, :allow_blank => true
   validates :end_page, :numericality => true, :allow_blank => true
-  validates :isbn, :uniqueness => true, :allow_blank => true
+  validates :isbn, :uniqueness => true, :allow_blank => true, :unless => proc{|manifestation| manifestation.series_statement}
   validates :nbn, :uniqueness => true, :allow_blank => true
   validates :identifier, :uniqueness => true, :allow_blank => true
   validates :pub_date, :format => {:with => /^\d+(-\d{0,2}){0,2}$/}, :allow_blank => true
@@ -514,16 +514,16 @@ class Manifestation < ActiveRecord::Base
   end
 
   def web_item
-    items.first(:conditions => {:shelf_id => Shelf.web.id})
+    items.where(:shelf_id => Shelf.web.id).first
   end
 
   def self.find_by_isbn(isbn)
     if ISBN_Tools.is_valid?(isbn)
       ISBN_Tools.cleanup!(isbn)
       if isbn.size == 10
-        Manifestation.first(:conditions => {:isbn => ISBN_Tools.isbn10_to_isbn13(isbn)}) || Manifestation.first(:conditions => {:isbn => isbn})
+        Manifestation.where(:isbn => ISBN_Tools.isbn10_to_isbn13(isbn)).first || Manifestation.where(:isbn => isbn).first
       else
-        Manifestation.first(:conditions => {:isbn => isbn}) || Manifestation.first(:conditions => {:isbn => ISBN_Tools.isbn13_to_isbn10(isbn)})
+        Manifestation.where(:isbn => isbn).first || Manifestation.(:isbn => ISBN_Tools.isbn13_to_isbn10(isbn)).first
       end
     end
   end

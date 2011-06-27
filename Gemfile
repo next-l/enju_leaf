@@ -79,6 +79,7 @@ gem 'client_side_validations'
 gem 'rails_autolink'
 gem 'simple_form'
 gem 'validates_timeliness'
+gem 'rack-protection'
 
 #gem 'oink', '>=0.9.2'
 group :development do

@@ -4,7 +4,7 @@ class ItemsControllerTest < ActionController::TestCase
   fixtures :items, :circulation_statuses, :shelves, :orders, :manifestations,
       :carrier_types, :languages, :reserves,
       :libraries, :patrons, :users, :inventories, :inventory_files,
-      :user_groups, :lending_policies, :exemplifies
+      :user_groups, :lending_policies, :exemplifies, :library_groups
 
   def test_guest_should_get_index_with_patron_id
     get :index, :patron_id => 1

@@ -15,6 +15,29 @@ describe PatronImportFilesController do
       end
     end
 
+    describe "When logged in as Librarian" do
+      before(:each) do
+        sign_in Factory(:librarian)
+      end
+
+      it "assigns all patron_import_files as @patron_import_files" do
+        get :index
+        assigns(:patron_import_files).should eq(PatronImportFile.paginate(:page => 1))
+      end
+    end
+
+    describe "When logged in as User" do
+      before(:each) do
+        sign_in Factory(:user)
+      end
+
+      it "assigns all patron_import_files as @patron_import_files" do
+        get :index
+        response.should be_forbidden
+        assigns(:patron_import_files).should eq(PatronImportFile.paginate(:page => 1))
+      end
+    end
+
     describe "When not logged in" do
       it "assigns all patron_import_files as @patron_import_files" do
         get :index
@@ -28,6 +51,28 @@ describe PatronImportFilesController do
     describe "When logged in as Administrator" do
       before(:each) do
         sign_in Factory(:admin)
+      end
+
+      it "assigns the requested patron_import_file as @patron_import_file" do
+        get :show, :id => 1
+        assigns(:patron_import_file).should eq(PatronImportFile.find(1))
+      end
+    end
+
+    describe "When logged in as Librarian" do
+      before(:each) do
+        sign_in Factory(:librarian)
+      end
+
+      it "assigns the requested patron_import_file as @patron_import_file" do
+        get :show, :id => 1
+        assigns(:patron_import_file).should eq(PatronImportFile.find(1))
+      end
+    end
+
+    describe "When logged in as User" do
+      before(:each) do
+        sign_in Factory(:user)
       end
 
       it "assigns the requested patron_import_file as @patron_import_file" do
