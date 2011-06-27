@@ -7,45 +7,6 @@ class ResourceImportFilesControllerTest < ActionController::TestCase
     :events, :event_categories, :circulation_statuses,
     :series_statements
 
-  def test_guest_should_not_get_index
-    get :index
-    assert_response :redirect
-    assert_redirected_to new_user_session_url
-    assert_equal assigns(:resource_import_files), []
-  end
-
-  def test_user_should_not_get_index
-    sign_in users(:user1)
-    get :index
-    assert_response :forbidden
-    assert_equal assigns(:resource_import_files), []
-  end
-
-  def test_librarian_should_get_index
-    sign_in users(:librarian1)
-    get :index
-    assert_response :success
-    assert_not_nil assigns(:resource_import_files)
-  end
-
-  def test_guest_should_not_get_new
-    get :new
-    assert_response :redirect
-    assert_redirected_to new_user_session_url
-  end
-
-  def test_user_should_not_get_new
-    sign_in users(:user1)
-    get :new
-    assert_response :forbidden
-  end
-
-  def test_librarian_should_get_new
-    sign_in users(:librarian1)
-    get :new
-    assert_response :success
-  end
-
   def test_guest_should_not_create_resource_import_file
     assert_no_difference('ResourceImportFile.count') do
       post :create, :resource_import_file => { }
@@ -154,24 +115,6 @@ class ResourceImportFilesControllerTest < ActionController::TestCase
     assert_response :success
   end
 
-  def test_guest_should_not_get_edit
-    get :edit, :id => resource_import_files(:resource_import_file_00003).id
-    assert_response :redirect
-    assert_redirected_to new_user_session_url
-  end
-
-  def test_user_should_not_get_edit
-    sign_in users(:user1)
-    get :edit, :id => resource_import_files(:resource_import_file_00003).id
-    assert_response :forbidden
-  end
-
-  def test_librarian_should_get_edit
-    sign_in users(:librarian1)
-    get :edit, :id => resource_import_files(:resource_import_file_00003).id
-    assert_response :success
-  end
-
   def test_guest_should_not_update_resource_import_file
     put :update, :id => resource_import_files(:resource_import_file_00003).id, :resource_import_file => { }
     assert_redirected_to new_user_session_url
@@ -187,31 +130,5 @@ class ResourceImportFilesControllerTest < ActionController::TestCase
     sign_in users(:librarian1)
     put :update, :id => resource_import_files(:resource_import_file_00003).id, :resource_import_file => { }
     assert_redirected_to resource_import_file_path(assigns(:resource_import_file))
-  end
-
-  def test_guest_should_not_destroy_resource_import_file
-    assert_no_difference('ResourceImportFile.count') do
-      delete :destroy, :id => resource_import_files(:resource_import_file_00003).id
-    end
-
-    assert_redirected_to new_user_session_url
-  end
-
-  def test_user_should_not_destroy_resource_import_file
-    sign_in users(:user1)
-    assert_no_difference('ResourceImportFile.count') do
-      delete :destroy, :id => resource_import_files(:resource_import_file_00003).id
-    end
-
-    assert_response :forbidden
-  end
-
-  def test_librarian_should_destroy_resource_import_file
-    sign_in users(:librarian1)
-    assert_difference('ResourceImportFile.count', -1) do
-      delete :destroy, :id => resource_import_files(:resource_import_file_00003).id
-    end
-
-    assert_redirected_to resource_import_files_path
   end
 end

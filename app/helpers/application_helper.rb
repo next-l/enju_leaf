@@ -90,7 +90,7 @@ module ApplicationHelper
     else
       patrons_list = patrons.map{|patron| link_to(patron.full_name, patron, options)}
     end
-    patrons_list.join(" ")
+    patrons_list.join(" ").html_safe
   end
 
   def book_jacket(manifestation)

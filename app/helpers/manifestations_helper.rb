@@ -83,7 +83,7 @@ module ManifestationsHelper
     languages = current_languages.dup
     current = true if languages.include?(language.name)
     string << "<strong>" if current
-    string << link_to("#{language.display_name.localize} (" + facet.count.to_s + ")", url_for(params.merge(:page => nil, :language => (current_languages << language.name).uniq.join(' '), :carrier_type => nil, :view => nil)))
+    string << link_to("#{language.display_name.localize} (" + facet.count.to_s + ")", url_for(params.merge(:page => nil, :language => language.name, :carrier_type => nil, :view => nil)))
     string << "</strong>" if current
     string.html_safe
   end

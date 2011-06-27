@@ -976,6 +976,7 @@ en:
         series_statement_identifier: Series statement identifier
         issn: ISSN
         periodical: Periodical
+        title_transcription: Title transcription
       import_request:
         isbn: ISBN
         state: State
