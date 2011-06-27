@@ -5,17 +5,27 @@ GIT
     acts_as_list (0.0.3)
 
 GIT
-  remote: git://github.com/mislav/will_paginate.git
-  revision: b1a5beeec9f56ecbe3594fcdca76d92b6767ce50
-  branch: rails3
-  specs:
-    will_paginate (3.0.pre3)
-
-GIT
   remote: git://github.com/nabeta/isbn-tools.git
   revision: 05e31384f167aa7d1e560f76c1c3faf104d64709
   specs:
     isbn-tools (0.2.0)
+
+GIT
+  remote: git://github.com/rspec/rspec-rails.git
+  revision: 465cb3e9dfefb33c210d6146a650fa1c01968c3c
+  specs:
+    rspec-rails (2.6.1)
+      actionpack (~> 3.0)
+      activesupport (~> 3.0)
+      railties (~> 3.0)
+      rspec (~> 2.6.0)
+
+GIT
+  remote: git://github.com/wantful/will_paginate.git
+  revision: f9825e371a516ef2662ab1743dc586002d64825d
+  branch: rails3
+  specs:
+    will_paginate (3.0.pre3)
 
 GEM
   remote: http://rubygems.org/
@@ -304,11 +314,6 @@ GEM
     rspec-expectations (2.6.0)
       diff-lcs (~> 1.1.2)
     rspec-mocks (2.6.0)
-    rspec-rails (2.6.1)
-      actionpack (~> 3.0)
-      activesupport (~> 3.0)
-      railties (~> 3.0)
-      rspec (~> 2.6.0)
     ruby-hmac (0.4.0)
     ruby-openid (2.1.8)
     ruby-openid-apps-discovery (1.2.0)
@@ -418,7 +423,7 @@ DEPENDENCIES
   recurrence
   ri_cal
   rspec
-  rspec-rails
+  rspec-rails!
   ruby-prof
   rubyzip2
   sanitize

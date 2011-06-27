@@ -1,4 +1,8 @@
 EnjuLeaf::Application.routes.draw do
+  resources :series_statement_merges
+
+  resources :series_statement_merge_lists
+
   devise_for :users, :path => 'accounts'
 
   resources :manifestations do

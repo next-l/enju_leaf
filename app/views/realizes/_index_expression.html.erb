@@ -24,7 +24,7 @@
       <%= link_to realize.expression.original_title, realize.expression -%>
       <%= content_type_icon(expression.content_type) -%>
       <br />
-      <%= raw patrons_list(expression.creators.readable_by(current_user)) -%>
+      <%= patrons_list(expression.creators.readable_by(current_user)) -%>
     </td>
     <td>
       <%- if can? :destroy, realize -%>

@@ -47,11 +47,6 @@ class ReservesController < ApplicationController
   # GET /reserves/1
   # GET /reserves/1.xml
   def show
-    if @user
-      @reserve = @user.reserves.find(params[:id])
-    end
-    #@manifestation = @reserve.manifestation
-
     respond_to do |format|
       format.html # show.rhtml
       format.xml  { render :xml => @reserve.to_xml }
@@ -96,9 +91,6 @@ class ReservesController < ApplicationController
 
   # GET /reserves/1;edit
   def edit
-    if @user
-      @reserve = @user.reserves.find(params[:id])
-    end
   end
 
   # POST /reserves
@@ -179,9 +171,6 @@ class ReservesController < ApplicationController
   # DELETE /reserves/1
   # DELETE /reserves/1.xml
   def destroy
-    if @user
-      @reserve = @user.reserves.find(params[:id])
-    end
     @reserve.destroy
     #flash[:notice] = t('reserve.reservation_was_canceled')
 

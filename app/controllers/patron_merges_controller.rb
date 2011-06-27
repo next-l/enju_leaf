@@ -65,16 +65,6 @@ class PatronMergesController < ApplicationController
   # PUT /patron_merges/1
   # PUT /patron_merges/1.xml
   def update
-    #selected_patron = Patron.find(params[:selected_patron_id])
-    #@patron_merge.patrons.each do |patron|
-    #  Create.update_all(['patron_id = ?', selected_patron.id], ['patron_id = ?', patron.id])
-    #  Realize.update_all(['patron_id = ?', selected_patron.id], ['patron_id = ?', patron.id])
-    #  Produce.update_all(['patron_id = ?', selected_patron.id], ['patron_id = ?', patron.id])
-    #  Own.update_all(['patron_id = ?', selected_patron.id], ['patron_id = ?', patron.id])
-    #  PatronOwnsLibrary.update_all(['patron_id = ?', selected_patron.id], ['patron_id = ?', patron.id])
-    #  Donation.update_all(['patron_id = ?', selected_patron.id], ['patron_id = ?', patron.id])
-    #end
-
     respond_to do |format|
       if @patron_merge.update_attributes(params[:patron_merge])
         flash[:notice] = t('controller.successfully_updated', :model => t('activerecord.models.patron_merge'))
