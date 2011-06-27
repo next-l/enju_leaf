@@ -31,15 +31,15 @@ describe EventImportFilesController do
         sign_in Factory(:user)
       end
 
-      it "assigns all event_import_files as @event_import_files" do
+      it "assigns empty as @event_import_files" do
         get :index
-        response.should be_forbidden
         assigns(:event_import_files).should eq(EventImportFile.paginate(:page => 1))
+        response.should be_forbidden
       end
     end
 
     describe "When not logged in" do
-      it "assigns all event_import_files as @event_import_files" do
+      it "assigns empty as @event_import_files" do
         get :index
         assigns(:event_import_files).should be_empty
         response.should redirect_to(new_user_session_url)

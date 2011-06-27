@@ -146,6 +146,8 @@ en:
       resource_import_result: Resource Import Result
       patron_import_result: Patron Import Result
       event_import_result: Event Import Result
+      series_statement_merge: Series statement merge
+      series_statement_merge_list: Series statement merge list
 
     attributes:
       library:

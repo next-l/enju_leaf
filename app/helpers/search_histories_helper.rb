@@ -27,5 +27,6 @@ module SearchHistoriesHelper
     end
     html <<   %(  </ul>\n)
     html <<   %(</div>\n)
+    html.html_safe
   end
 end

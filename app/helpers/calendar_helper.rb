@@ -24,7 +24,7 @@ module CalendarHelper
       html = %(<a href="#{event_path(event)}" title="#{h(event.display_name.localize)}">)
       html << display_event_time(event, day)
       html << %(#{h(event.display_name.localize)}</a>)
-      html
+      html.html_safe
     end
   end
 end

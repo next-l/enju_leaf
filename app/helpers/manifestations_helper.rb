@@ -62,7 +62,7 @@ module ManifestationsHelper
         end
       end
     end
-    links.join(" ")
+    links.join(" ").html_safe
   end
 
   def embed_content(manifestation)

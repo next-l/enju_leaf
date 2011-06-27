@@ -80,6 +80,7 @@ module ApplicationHelper
     end
     html <<   %(  </ul>\n)
     html <<   %(</div>\n)
+    html.html_safe
   end
 
   def patrons_list(patrons = [], options = {})

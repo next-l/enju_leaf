@@ -3,7 +3,7 @@
 <div id="content_list">
   <% if current_user.try(:has_role?, 'Librarian') %>
     <%- if params[:mode] == 'not_found' -%>
-      <%= raw reverse_tag_cloud(SearchHistory.not_found_query(2, 6.month.ago)) -%>
+      <%= reverse_tag_cloud(SearchHistory.not_found_query(2, 6.month.ago)) -%>
       <p>
         <%= link_to t('search_history.all_history'), search_histories_path -%>
       </p>
