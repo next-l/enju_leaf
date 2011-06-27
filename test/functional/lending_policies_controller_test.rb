@@ -1,13 +1,7 @@
 require 'test_helper'
 
 class LendingPoliciesControllerTest < ActionController::TestCase
-    fixtures :lending_policies, :users, :items, :user_groups
-
-  test "guest should not get index" do
-    get :index
-    assert_response :redirect
-    assert_redirected_to new_user_session_url
-  end
+  fixtures :lending_policies, :users, :items, :user_groups
 
   test "guest should not get new" do
     get :new

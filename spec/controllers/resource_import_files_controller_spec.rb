@@ -15,8 +15,31 @@ describe ResourceImportFilesController do
       end
     end
 
-    describe "When not logged in" do
+    describe "When logged in as Librarian" do
+      before(:each) do
+        sign_in Factory(:librarian)
+      end
+
       it "assigns all resource_import_files as @resource_import_files" do
+        get :index
+        assigns(:resource_import_files).should eq(ResourceImportFile.paginate(:page => 1))
+      end
+    end
+
+    describe "When logged in as User" do
+      before(:each) do
+        sign_in Factory(:user)
+      end
+
+      it "assigns empty as @resource_import_files" do
+        get :index
+        assigns(:resource_import_files).should be_empty
+        response.should be_forbidden
+      end
+    end
+
+    describe "When not logged in" do
+      it "assigns empty as @resource_import_files" do
         get :index
         assigns(:resource_import_files).should be_empty
         response.should redirect_to(new_user_session_url)
@@ -28,6 +51,28 @@ describe ResourceImportFilesController do
     describe "When logged in as Administrator" do
       before(:each) do
         sign_in Factory(:admin)
+      end
+
+      it "assigns the requested resource_import_file as @resource_import_file" do
+        get :show, :id => 1
+        assigns(:resource_import_file).should eq(ResourceImportFile.find(1))
+      end
+    end
+
+    describe "When logged in as Librarian" do
+      before(:each) do
+        sign_in Factory(:librarian)
+      end
+
+      it "assigns the requested resource_import_file as @resource_import_file" do
+        get :show, :id => 1
+        assigns(:resource_import_file).should eq(ResourceImportFile.find(1))
+      end
+    end
+
+    describe "When logged in as User" do
+      before(:each) do
+        sign_in Factory(:user)
       end
 
       it "assigns the requested resource_import_file as @resource_import_file" do

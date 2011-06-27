@@ -4,7 +4,7 @@
 <%- @manifestations.each do |manifestation| -%>
   <tr class="line<%= cycle("0", "1") -%>">
     <td>
-      <%= link_to manifestation.original_title, manifestation -%><br />
+      <%= render :partial => 'manifestations/show_index', :locals => {:manifestation => manifestation} %>
     </td>
   </tr>
 <%- end -%>

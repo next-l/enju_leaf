@@ -12,6 +12,7 @@ class SeriesStatement < ActiveRecord::Base
     text :numbering, :title_subseries, :numbering_subseries
     integer :manifestation_ids, :multiple => true
     integer :position
+    boolean :periodical
   end
 
   normalize_attributes :original_title, :issn

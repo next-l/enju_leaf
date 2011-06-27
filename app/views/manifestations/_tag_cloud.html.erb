@@ -1,5 +1,5 @@
 <%- if @tags.blank? -%>
   <p><%= t('page.no_tag') -%></p>
 <%- else -%>
-  <%= raw render_tag_cloud(@tags) -%>
+  <%= render_tag_cloud(@tags) -%>
 <%- end -%>

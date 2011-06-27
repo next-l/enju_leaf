@@ -6,10 +6,10 @@ class LibraryGroup < ActiveRecord::Base
 
   has_many :libraries
   has_many :search_engines
-  has_many :news_feeds
+  #has_many :news_feeds
   belongs_to :country
 
-  validates :email, :presence => true, :format => {:with => /^([\w\.%\+\-]+)@([\w\-]+\.)+([\w]{2,})$/i}
+  validates :email, :format => {:with => /\A([\w\.%\+\-]+)@([\w\-]+\.)+([\w]{2,})\z/i}, :presence => true
   validates :url, :presence => true, :url => true
   after_save :clear_site_config_cache
 

@@ -76,7 +76,7 @@ class Checkout < ActiveRecord::Base
   end
 
   def self.manifestations_count(start_date, end_date, manifestation)
-    self.completed(start_date, end_date).count(:all, :conditions => {:item_id => manifestation.items.collect(&:id)})
+    self.completed(start_date, end_date).where(:item_id => manifestation.items.collect(&:id)).count
   end
 
   def self.send_due_date_notification(day = 1)

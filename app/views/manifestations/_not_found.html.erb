@@ -1,5 +1,7 @@
 <p>
   <%= t('page.no_record_found') -%>
-  <%= t('page.you_can_search_following_database') -%>
-  <%= render 'manifestations/search_engine' -%>
+  <% unless @search_engines.empty? %>
+    <%= t('page.you_can_search_following_database') -%>
+    <%= render 'manifestations/search_engine' -%>
+  <% end %>
 </p>

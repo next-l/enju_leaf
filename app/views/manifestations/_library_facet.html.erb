@@ -3,7 +3,7 @@
   <%- libraries = params[:library].to_s.split -%>
   <%- @library_facet.each do |facet| -%>
     <%- current_libraries = libraries.dup -%>
-    <%- library = Library.first(:conditions => {:name => facet.value}) -%>
+    <%- library = Library.where(:name => facet.value).first -%>
     <%- if library -%>
       <li>
         <%= library_facet(library, current_libraries, facet) %>

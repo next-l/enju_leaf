@@ -3,7 +3,7 @@
   <div id="content_list">
     <%= form_for :manifestations, :url => manifestations_path, :html => {:method => 'get'} do -%>
       <div>
-        <%= raw paginate_id_link(@manifestation) -%>
+        <%= paginate_id_link(@manifestation) -%>
         <%= back_to_manifestation_index -%>
         <%= t('page.search_term') -%>:
         <%= search_field_tag 'query', session[:query], {:id => 'search_form_top', :class => 'search_form_short', :placeholder => t('page.search_term')} -%>
@@ -75,7 +75,7 @@
           <li><%= link_to t('manifestation.send_email'), manifestation_path(:mode => 'send_email'), :confirm => t('page.are_you_sure') -%></li>
         <%- end -%>
         <%- if @manifestation.bookmarked?(current_user) -%>
-          <li><%= link_to t('bookmark.remove_from_my_bookmark'), bookmark_path(Bookmark.first(:conditions => {:user_id => current_user.id, :manifestation_id => @manifestation.id})), :confirm => t('page.are_you_sure'), :method => :delete -%></li>
+          <li><%= link_to t('bookmark.remove_from_my_bookmark'), bookmark_path(Bookmark.where(:user_id => current_user.id, :manifestation_id => @manifestation.id).first), :confirm => t('page.are_you_sure'), :method => :delete -%></li>
         <%- else -%>
           <li><%= link_to t('bookmark.add_to_my_bookmark'), new_user_bookmark_path(current_user, :bookmark => {:url => manifestation_url(@manifestation)}) -%></li>
         <%- end -%>

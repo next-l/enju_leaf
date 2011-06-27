@@ -287,7 +287,7 @@ class ManifestationsController < ApplicationController
 
     return if render_mode(params[:mode])
 
-    @reserved_count = Reserve.waiting.count(:all, :conditions => {:manifestation_id => @manifestation.id, :checked_out_at => nil})
+    @reserved_count = Reserve.waiting.where(:manifestation_id => @manifestation.id, :checked_out_at => nil).count
     @reserve = current_user.reserves.where(:manifestation_id => @manifestation.id).first if user_signed_in?
 
     store_location

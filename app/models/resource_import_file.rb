@@ -42,6 +42,7 @@ class ResourceImportFile < ActiveRecord::Base
     when 'create'
       import
     when 'update'
+      modify
     when 'destroy'
       remove
     else
@@ -429,6 +430,8 @@ class ResourceImportFile < ActiveRecord::Base
         )
         if issn.present?
           series_statement.issn = issn
+        end
+        if row['periodical'].to_s.strip.present?
           series_statement.periodical = true
         end
         series_statement.save!
