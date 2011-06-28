@@ -1,0 +1,11 @@
+<%= simple_form_for(@series_statement_merge_list) do |f| %>
+  <%= f.error_messages %>
+
+  <div class="inputs">
+    <%= f.input :title %>
+  </div>
+
+  <div class="actions">
+    <%= f.button :submit %>
+  </div>
+<% end %>

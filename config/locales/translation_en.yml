@@ -1006,6 +1006,8 @@ en:
         body: Body
       event_import_result:
         body: Body
+      series_statement_merge_list:
+        title: Title
 
   page:
     user_title: "Welcome %{login_name}"
@@ -1528,3 +1530,6 @@ en:
   picture_file:
     invalid_file: Invalid file. You can upload gif, jpeg, png and svg files.
     all_picture: All pictures
+  merge_list:
+    successfully_merged: "%{model} were merged successfully."
+    specify_id: "Specify %{model} ID."
