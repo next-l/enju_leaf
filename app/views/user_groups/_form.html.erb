@@ -14,6 +14,18 @@
     <%= f.text_field :valid_period_for_new_user, :class => 'resource_integer' %>
   </div>
   <div class="field">
+    <%= f.label :number_of_day_to_notify_due_date %><br />
+    <%= f.text_field :number_of_day_to_notify_due_date, :class => 'resource_integer' %>
+  </div>
+  <div class="field">
+    <%= f.label :number_of_day_to_notify_overdue %><br />
+    <%= f.text_field :number_of_day_to_notify_overdue, :class => 'resource_integer' %>
+  </div>
+  <div class="field">
+    <%= f.label :number_of_time_to_send_overdue_notification %><br />
+    <%= f.text_field :number_of_time_to_send_overdue_notification, :class => 'resource_integer' %>
+  </div>
+  <div class="field">
     <%= f.label :note %><br />
     <%= f.text_area :note %>
   </div>

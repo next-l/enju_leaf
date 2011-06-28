@@ -79,23 +79,23 @@ class Checkout < ActiveRecord::Base
     self.completed(start_date, end_date).where(:item_id => manifestation.items.collect(&:id)).count
   end
 
-  def self.send_due_date_notification(day = 1)
+  def self.send_due_date_notification
     template = 'recall_item'
     User.find_each do |user|
       # 未来の日時を指定する
-      checkouts = user.checkouts.due_date_on(day.days.from_now.beginning_of_day)
+      checkouts = user.checkouts.due_date_on(user.user_group.number_of_day_to_notify_due_date.days.from_now.beginning_of_day)
       unless checkouts.empty?
         user.send_message(template, :manifestations => checkouts.collect(&:item).collect(&:manifestation))
       end
     end
   end
 
-  def self.send_overdue_notification(notification_duration = 1, number = 1)
+  def self.send_overdue_notification
     template = 'recall_overdue_item'
     queues = []
-    number.times do |i|
-      User.find_each do |user|
-        checkouts = user.checkouts.due_date_on((notification_duration * (i + 1)).days.ago.beginning_of_day)
+    User.find_each do |user|
+      user.user_group.number_of_time_to_send_overdue_notification.times do |i|
+        checkouts = user.checkouts.due_date_on((user.user_group.number_of_day_to_notify_overdue * (i + 1)).days.ago.beginning_of_day)
         unless checkouts.empty?
           queues << user.send_message(template, :manifestations => checkouts.collect(&:item).collect(&:manifestation))
         end

@@ -70,7 +70,7 @@ gem 'sanitize'
 gem 'barby'
 gem 'prawnto'
 gem 'event-calendar', :require => 'event_calendar'
-gem 'jpmobile', '>=1.0.0.pre.5'
+gem 'jpmobile', '>=1.0.0.pre.6'
 #gem 'geokit'
 gem 'geocoder'
 gem 'acts_as_list', :git => 'git://github.com/haihappen/acts_as_list.git'
@@ -88,7 +88,7 @@ end
 
 group :development, :test do
   gem 'rspec'
-  gem 'rspec-rails', :git => 'git://github.com/rspec/rspec-rails.git'
+  gem 'rspec-rails'
   gem 'guard-rspec'
   gem 'factory_girl_rails'
   gem 'spork', '~> 0.9.0.rc8'
