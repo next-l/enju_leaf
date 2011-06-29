@@ -84,7 +84,10 @@ class ResourceImportFile < ActiveRecord::Base
       unless manifestation
         if row['isbn'].present?
           isbn = ISBN_Tools.cleanup(row['isbn'])
-          manifestation = Manifestation.find_by_isbn(isbn)
+          m = Manifestation.find_by_isbn(isbn)
+          if m.try(:series_statement)
+            manifestation = m
+          end
         end
       end
       num[:manifestation_found] += 1 if manifestation
