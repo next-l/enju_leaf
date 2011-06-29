@@ -93,6 +93,7 @@ group :development, :test do
   gem 'factory_girl_rails'
   gem 'spork', '~> 0.9.0.rc8'
   gem 'metric_fu'
+  gem 'timecop'
 end
 
 # Use unicorn as the web server

@@ -34,10 +34,10 @@ describe Checkout do
   end
 
   it "should respond to send_due_date_notification" do
-    Checkout.send_due_date_notification.should be_true
+    Checkout.send_due_date_notification.should eq 2
   end
 
   it "should respond to send_overdue_notification" do
-    Checkout.send_overdue_notification.should eq 0
+    Checkout.send_overdue_notification.should eq 1
   end
 end

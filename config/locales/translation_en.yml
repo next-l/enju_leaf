@@ -628,7 +628,7 @@ en:
         valid_period_for_new_user: Valid period for new user
         number_of_day_to_notify_due_date: Number of day to notify due date
         number_of_day_to_notify_overdue: Number of day to notify overdue
-        number_of_time_to_send_overdue_notification: Number of time to send overdue notification
+        number_of_time_to_notify_overdue: Number of time to notify overdue
       resource_import_file:
         resource_import_file_name: Filename
         resource_import_content_type: Content type
