@@ -523,7 +523,7 @@ class Manifestation < ActiveRecord::Base
       if isbn.size == 10
         Manifestation.where(:isbn => ISBN_Tools.isbn10_to_isbn13(isbn)).first || Manifestation.where(:isbn => isbn).first
       else
-        Manifestation.where(:isbn => isbn).first || Manifestation.(:isbn => ISBN_Tools.isbn13_to_isbn10(isbn)).first
+        Manifestation.where(:isbn => isbn).first || Manifestation.where(:isbn => ISBN_Tools.isbn13_to_isbn10(isbn)).first
       end
     end
   end

@@ -236,7 +236,7 @@ class ReservesControllerTest < ActionController::TestCase
   
   def test_everyone_should_not_get_missing_edit
     sign_in users(:admin)
-    get :edit, :id => 1, :user_id => users(:user1).username
+    get :edit, :id => 100
     assert_response :missing
   end
   

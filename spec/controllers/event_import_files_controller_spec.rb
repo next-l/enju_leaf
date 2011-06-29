@@ -33,7 +33,7 @@ describe EventImportFilesController do
 
       it "assigns empty as @event_import_files" do
         get :index
-        assigns(:event_import_files).should eq(EventImportFile.paginate(:page => 1))
+        assigns(:event_import_files).should be_empty
         response.should be_forbidden
       end
     end

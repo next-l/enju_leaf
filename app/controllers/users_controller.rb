@@ -143,11 +143,8 @@ class UsersController < ApplicationController
 
     #@user.save do |result|
     respond_to do |format|
-      if params[:user][:current_password].present? or params[:user][:password].present? or params[:user][:password_confirmation].present?
-        @user.update_with_password(params[:user])
-      else
-        @user.save
-      end
+      @user.update_without_password(params[:user])
+      sign_in(@user, :bypass => true)
       if @user.errors.empty?
         flash[:notice] = t('controller.successfully_updated', :model => t('activerecord.models.user'))
         format.html { redirect_to user_url(@user) }
