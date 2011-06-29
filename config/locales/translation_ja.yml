@@ -627,6 +627,9 @@ ja:
         position: 位置
         deleted_at: 削除時刻
         valid_period_for_new_user: 新規ユーザの有効日数
+        number_of_day_to_notify_due_date: 貸出期限の何日前に督促を送るか
+        number_of_day_to_notify_overdue: 貸出期限の何日後に督促を送るか
+        number_of_day_to_send_overdue_notification: 貸出期限が切れた後に何回督促を送るか
       resource_import_file:
         resource_import_file_name: ファイル名
         resource_import_content_type: Content-Type
