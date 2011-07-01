@@ -58,7 +58,7 @@ gem 'configatron'
 gem 'extractcontent'
 gem 'cancan', '>=1.6.5'
 gem 'scribd_fu'
-gem 'devise', '>=1.4.0'
+gem 'devise', '>=1.4.2'
 gem 'omniauth'
 gem 'paperclip'
 gem 'whenever', :require => false
@@ -91,7 +91,7 @@ group :development, :test do
   gem 'rspec-rails'
   gem 'guard-rspec'
   gem 'factory_girl_rails'
-  gem 'spork', '~> 0.9.0.rc8'
+  gem 'spork', '~> 0.9.0.rc9'
   gem 'metric_fu'
   gem 'timecop'
 end
