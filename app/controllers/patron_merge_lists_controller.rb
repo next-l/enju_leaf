@@ -63,9 +63,9 @@ class PatronMergeListsController < ApplicationController
           selected_patron = Patron.find(params[:selected_patron_id]) rescue nil
           if selected_patron
             @patron_merge_list.merge_patrons(selected_patron)
-            flash[:notice] = ('Patrons are merged successfully.')
+            flash[:notice] = t('merge_list.successfully_merged', :model => t('activerecord.models.patron'))
           else
-            flash[:notice] = ('Specify patron id.')
+            flash[:notice] = t('merge_list.specify_id', :model => t('activerecord.models.patron'))
             redirect_to patron_merge_list_url(@patron_merge_list)
             return
           end

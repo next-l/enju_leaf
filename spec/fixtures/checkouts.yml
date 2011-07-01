@@ -117,6 +117,6 @@ checkout_00011:
   id: 11
   librarian_id: 1
   checkout_renewal_count: 1
-  due_date: <%= 1.years.ago %>
+  due_date: <%= 180.days.ago %>
   created_at: 2007-09-08 01:39:03.210081 +09:00
   basket_id: 7

@@ -14,9 +14,7 @@
 <table class="index">
   <tr>
     <th><%= t('activerecord.attributes.item.item_identifier') -%></th>
-    <th><%= t('activerecord.attributes.item.call_number') -%></th>
     <th><%= t('activerecord.models.manifestation') -%></th>
-    <th><%= t('activerecord.models.library') -%></th>
     <th><%= t('activerecord.models.shelf') -%></th>
     <th><%= t('activerecord.models.circulation_status') -%></th>
     <%- if user_signed_in? -%>
@@ -32,13 +30,19 @@
         <%- else -%>
           <%= link_to item.item_identifier, item -%>
         <%- end -%>
+        <% if item.call_number.present? %>
+          <br />
+          <%= item.call_number %>
+        <% end %>
       </td>
-      <td><%= item.call_number -%></td>
       <td>
         <%= render :partial => 'manifestations/show_index', :locals => {:manifestation => item.manifestation} -%>
       </td>
-      <td><%= link_to item.shelf.library.display_name.localize, item.shelf.library -%></td>
-      <td><%= link_to item.shelf_display_name.localize, item.shelf -%></td>
+      <td>
+        <%= link_to item.shelf.library.display_name.localize, item.shelf.library -%>
+        <br />
+        <%= link_to item.shelf_display_name.localize, item.shelf -%>
+      </td>
       <td><%= item.circulation_status.display_name.localize -%></td>
       <%- if can? :destroy, item -%>
         <td><%= link_to t('page.edit'), edit_item_path(item) -%></td>

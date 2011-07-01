@@ -58,7 +58,7 @@ gem 'configatron'
 gem 'extractcontent'
 gem 'cancan', '>=1.6.5'
 gem 'scribd_fu'
-gem 'devise', '>=1.4.0'
+gem 'devise', '>=1.4.2'
 gem 'omniauth'
 gem 'paperclip'
 gem 'whenever', :require => false
@@ -70,13 +70,12 @@ gem 'sanitize'
 gem 'barby'
 gem 'prawnto'
 gem 'event-calendar', :require => 'event_calendar'
-gem 'jpmobile', '>=1.0.0.pre.5'
+gem 'jpmobile', '1.0.0.pre.6'
 #gem 'geokit'
 gem 'geocoder'
 gem 'acts_as_list', :git => 'git://github.com/haihappen/acts_as_list.git'
 gem 'library_stdnums'
 gem 'client_side_validations'
-gem 'rails_autolink'
 gem 'simple_form'
 gem 'validates_timeliness'
 gem 'rack-protection'
@@ -89,11 +88,12 @@ end
 
 group :development, :test do
   gem 'rspec'
-  gem 'rspec-rails', :git => 'git://github.com/rspec/rspec-rails.git'
+  gem 'rspec-rails'
   gem 'guard-rspec'
   gem 'factory_girl_rails'
-  gem 'spork', '~> 0.9.0.rc8'
+  gem 'spork', '~> 0.9.0.rc9'
   gem 'metric_fu'
+  gem 'timecop'
 end
 
 # Use unicorn as the web server

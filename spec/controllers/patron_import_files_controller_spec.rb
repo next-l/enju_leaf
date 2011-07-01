@@ -31,15 +31,15 @@ describe PatronImportFilesController do
         sign_in Factory(:user)
       end
 
-      it "assigns all patron_import_files as @patron_import_files" do
+      it "assigns empty as @patron_import_files" do
         get :index
+        assigns(:patron_import_files).should be_empty
         response.should be_forbidden
-        assigns(:patron_import_files).should eq(PatronImportFile.paginate(:page => 1))
       end
     end
 
     describe "When not logged in" do
-      it "assigns all patron_import_files as @patron_import_files" do
+      it "assigns empty as @patron_import_files" do
         get :index
         assigns(:patron_import_files).should be_empty
         response.should redirect_to(new_user_session_url)

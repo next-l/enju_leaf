@@ -84,13 +84,23 @@ class ResourceImportFile < ActiveRecord::Base
       unless manifestation
         if row['isbn'].present?
           isbn = ISBN_Tools.cleanup(row['isbn'])
-          manifestation = Manifestation.find_by_isbn(isbn)
+          m = Manifestation.find_by_isbn(isbn)
+          unless m.try(:series_statement)
+            manifestation = m
+          end
         end
       end
       num[:manifestation_found] += 1 if manifestation
 
       unless manifestation
-        manifestation = Manifestation.import_isbn!(isbn) rescue nil
+        series_statement = find_series_statement(row)
+        begin
+          manifestation = Manifestation.import_isbn(isbn)
+          manifestation.series_statement = series_statement
+          manifestation.save
+        rescue EnjuNdl::InvalidIsbn
+          manifestation = nil
+        end
         num[:manifestation_imported] += 1 if manifestation
       end
 
@@ -415,12 +425,7 @@ class ResourceImportFile < ActiveRecord::Base
 
   def import_series_statement(row)
     issn = ISBN_Tools.cleanup(row['issn'].to_s)
-    series_statement_identifier = row['series_statement_identifier'].to_s.strip
-    series_statement = SeriesStatement.where(:issn => issn).first if issn.present?
-    unless series_statement
-      series_statement = SeriesStatement.where(:series_statement_identifier => series_statement_identifier).first if series_statement_identifier.present?
-    end
-    series_statement = SeriesStatement.where(:original_title => row['series_statement_original_title'].to_s.strip).first unless series_statement
+    series_statement = find_series_statement(row)
     unless series_statement
       if row['series_statement_original_title'].to_s.strip.present?
         series_statement = SeriesStatement.new(
@@ -451,5 +456,16 @@ class ResourceImportFile < ActiveRecord::Base
     else
       nil
     end
+  end
+
+  def find_series_statement(row)
+    issn = ISBN_Tools.cleanup(row['issn'].to_s)
+    series_statement_identifier = row['series_statement_identifier'].to_s.strip
+    series_statement = SeriesStatement.where(:issn => issn).first if issn.present?
+    unless series_statement
+      series_statement = SeriesStatement.where(:series_statement_identifier => series_statement_identifier).first if series_statement_identifier.present?
+    end
+    series_statement = SeriesStatement.where(:original_title => row['series_statement_original_title'].to_s.strip).first unless series_statement
+    series_statement
   end
 end

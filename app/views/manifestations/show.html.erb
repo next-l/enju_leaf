@@ -3,7 +3,7 @@
   <div id="content_list">
     <%= form_for :manifestations, :url => manifestations_path, :html => {:method => 'get'} do -%>
       <div>
-        <%= raw paginate_id_link(@manifestation) -%>
+        <%= paginate_id_link(@manifestation) -%>
         <%= back_to_manifestation_index -%>
         <%= t('page.search_term') -%>:
         <%= search_field_tag 'query', session[:query], {:id => 'search_form_top', :class => 'search_form_short', :placeholder => t('page.search_term')} -%>

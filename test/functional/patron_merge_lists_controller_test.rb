@@ -1,46 +1,7 @@
 require 'test_helper'
 
 class PatronMergeListsControllerTest < ActionController::TestCase
-    fixtures :patron_merge_lists, :users
-
-  def test_guest_should_not_get_index
-    get :index
-    assert_response :redirect
-    assert_redirected_to new_user_session_url
-    assert_equal assigns(:patron_merge_lists), []
-  end
-
-  def test_user_should_not_get_index
-    sign_in users(:user1)
-    get :index
-    assert_response :forbidden
-    assert_equal assigns(:patron_merge_lists), []
-  end
-
-  def test_librarian_should_not_get_index
-    sign_in users(:librarian1)
-    get :index
-    assert_response :success
-    assert_not_nil assigns(:patron_merge_lists)
-  end
-
-  def test_guest_should_not_get_new
-    get :new
-    assert_response :redirect
-    assert_redirected_to new_user_session_url
-  end
-
-  def test_user_should_not_get_new
-    sign_in users(:user1)
-    get :new
-    assert_response :forbidden
-  end
-
-  def test_librarian_should_get_new
-    sign_in users(:librarian1)
-    get :new
-    assert_response :success
-  end
+  fixtures :patron_merge_lists, :users
 
   def test_guest_should_not_create_patron_merge_list
     assert_no_difference('PatronMergeList.count') do
@@ -142,7 +103,7 @@ class PatronMergeListsControllerTest < ActionController::TestCase
     sign_in users(:librarian1)
     put :update, :id => patron_merge_lists(:patron_merge_list_00001).id, :mode => 'merge'
 
-    assert_equal 'Specify patron id.', flash[:notice]
+    assert_equal I18n.t('merge_list.specify_id', :model => I18n.t('activerecord.models.patron')), flash[:notice]
     assert_redirected_to patron_merge_list_url(assigns(:patron_merge_list))
   end
 
@@ -150,35 +111,7 @@ class PatronMergeListsControllerTest < ActionController::TestCase
     sign_in users(:librarian1)
     put :update, :id => patron_merge_lists(:patron_merge_list_00001).id, :selected_patron_id => 3, :mode => 'merge'
 
-    assert_equal 'Patrons are merged successfully.', flash[:notice]
+    assert_equal I18n.t('merge_list.successfully_merged', :model => I18n.t('activerecord.models.patron')), flash[:notice]
     assert_redirected_to patron_merge_list_url(assigns(:patron_merge_list))
   end
-
-  def test_guest_should_not_destroy_patron_merge_list
-    assert_no_difference('PatronMergeList.count') do
-      delete :destroy, :id => patron_merge_lists(:patron_merge_list_00001).id
-    end
-
-    assert_response :redirect
-    assert_redirected_to new_user_session_url
-  end
-
-  def test_user_should_not_destroy_patron_merge_list
-    sign_in users(:user1)
-    assert_no_difference('PatronMergeList.count') do
-      delete :destroy, :id => patron_merge_lists(:patron_merge_list_00001).id
-    end
-
-    assert_response :forbidden
-  end
-
-  def test_librarian_should_destroy_patron_merge_list
-    sign_in users(:librarian1)
-    assert_difference('PatronMergeList.count', -1) do
-      delete :destroy, :id => patron_merge_lists(:patron_merge_list_00001).id
-    end
-
-    assert_redirected_to patron_merge_lists_url
-  end
-
 end

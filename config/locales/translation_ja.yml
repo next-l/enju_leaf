@@ -18,7 +18,7 @@ ja:
       subject_has_classification: 件名と分類の関係
       expression: 協力した資料
       language: 言語
-      patron_merge_list: 人物・団体の併合リスト
+      patron_merge_list: 人物・団体の統合リスト
       user: 利用者
       work_has_subject: 資料と件名の関係
       picture_file: 画像ファイル
@@ -54,21 +54,21 @@ ja:
       reify: 具体化
       subject_as_concept: 件名概念として
       frequency: 発行頻度
-      expression_merge_list: 協力した資料の併合リスト
+      expression_merge_list: 協力した資料の統合リスト
       use_restriction: 利用制限
       subject: 件名
       content_type: 協力した資料の形態
-      work_merge: 書いた資料の併合
+      work_merge: 書いた資料の統合
       aaws_response: Aawsの応答
       patron_type: 人物・団体の種類
-      work_merge_list: 書いた資料の併合リスト
+      work_merge_list: 書いた資料の統合リスト
       order: 発注
       order_list: 発注リスト
       advertise: 広告
       event: 開館日と催し物
       embody: 具体化
       item_has_use_restriction: 項目を制限している
-      expression_merge: 協力した資料の併合
+      expression_merge: 協力した資料の統合
       request_status_type: 依頼の状態の種類
       news_feed: お知らせのフィード
       news_post: 図書館からのお知らせ
@@ -82,7 +82,7 @@ ja:
       checkout: 貸出
       subscription: 購読
       message_template: メッセージテンプレート
-      patron_merge: 人物・団体の併合
+      patron_merge: 人物・団体の統合
       subject_related_term: 件名の関連語
       library_group: 図書館全体の設定
       event_import_file: 催し物のインポート用ファイル
@@ -147,6 +147,8 @@ ja:
       resource_import_result: 資料インポートの結果
       patron_import_result: 人物・団体インポートの結果
       event_import_result: 催し物インポートの結果
+      series_statement_merge: シリーズ情報の統合
+      series_statement_merge_list: シリーズ情報統合リスト
 
     attributes:
       library:
@@ -625,6 +627,9 @@ ja:
         position: 位置
         deleted_at: 削除時刻
         valid_period_for_new_user: 新規ユーザの有効日数
+        number_of_day_to_notify_due_date: 貸出期限の何日前に督促を送るか
+        number_of_day_to_notify_overdue: 貸出期限の何日後に督促を送るか
+        number_of_time_to_notify_overdue: 貸出期限が切れた後に何回督促を送るか
       resource_import_file:
         resource_import_file_name: ファイル名
         resource_import_content_type: Content-Type
@@ -1003,6 +1008,8 @@ ja:
         body: 本文
       event_import_result:
         body: 本文
+      series_statement_merge_list:
+        title: タイトル
 
   page:
     user_title: "ようこそ %{login_name} さん"
@@ -1132,8 +1139,8 @@ ja:
     number_of_days: "%{count} 日"
     require_login_as_librarian: "操作を進めるには、図書館員としてログインする必要があります。"
     read: "読み込み"
-    merge: "併合する（取り消しはできません）"
-    merge_resource: "%{model}を併合する"
+    merge: "統合する（取り消しはできません）"
+    merge_resource: "%{model}を統合する"
     attachable: "添付先"
     under_construction: "開発中"
     sent_email: "電子メールを送信しました。"
@@ -1507,3 +1514,6 @@ ja:
   picture_file:
     invalid_file: 無効なファイルです。アップロードできるのはgif, jpeg, png, svg形式のファイルです。
     all_picture: すべての画像
+  merge_list:
+    successfully_merged: "%{model}は正常に統合されました。"
+    specify_id: "%{model}のIDを指定してください。"

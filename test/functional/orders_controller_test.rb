@@ -3,25 +3,6 @@ require 'test_helper'
 class OrdersControllerTest < ActionController::TestCase
   fixtures :orders, :purchase_requests, :order_lists, :patrons, :users
 
-  def test_guest_should_not_get_index
-    get :index
-    assert_response :redirect
-    assert_redirected_to new_user_session_url
-  end
-
-  def test_user_should_not_get_index
-    sign_in users(:user1)
-    get :index
-    assert_response :forbidden
-  end
-
-  def test_librarian_should_get_index
-    sign_in users(:librarian1)
-    get :index
-    assert_response :success
-    assert assigns(:orders)
-  end
-
   def test_librarian_should_get_index_feed
     sign_in users(:librarian1)
     get :index, :format => 'rss'
@@ -43,17 +24,6 @@ class OrdersControllerTest < ActionController::TestCase
     assert assigns(:orders)
   end
 
-  def test_guest_should_not_get_new
-    get :new
-    assert_redirected_to new_user_session_url
-  end
-  
-  def test_user_should_not_get_new
-    sign_in users(:user1)
-    get :new
-    assert_response :forbidden
-  end
-  
   def test_librarian_should_not_get_new_without_purchase_request_id
     sign_in users(:librarian1)
     get :new

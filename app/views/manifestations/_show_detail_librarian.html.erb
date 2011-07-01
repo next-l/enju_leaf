@@ -21,7 +21,7 @@
         <tr>
           <td><%= t('page.number') -%>:</td>
           <td>
-            <%- unless manifestation.edition? -%>
+            <%- if manifestation.edition? -%>
               <%= t('activerecord.attributes.manifestation.edition') -%>: <%= manifestation.edition -%>
             <%- end -%>
             <%- if manifestation.series_statement -%>
