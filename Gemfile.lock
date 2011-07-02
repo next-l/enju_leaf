@@ -130,7 +130,7 @@ GEM
     geocoder (1.0.2)
     glassfish (1.0.3-java)
       rack (>= 0.4.0)
-    guard (0.4.2)
+    guard (0.5.0)
       thor (~> 0.14.6)
     guard-rspec (0.4.0)
       guard (>= 0.4.0)
@@ -183,8 +183,8 @@ GEM
     net-sftp (2.0.5)
       net-ssh (>= 2.0.9)
     net-ssh (2.1.4)
-    nokogiri (1.4.6)
-    nokogiri (1.4.6-java)
+    nokogiri (1.4.7)
+    nokogiri (1.4.7-java)
       weakling (>= 0.0.3)
     oa-basic (0.2.6)
       oa-core (= 0.2.6)
@@ -233,7 +233,7 @@ GEM
     parallel (0.5.5)
     parallel_tests (0.4.21)
       parallel
-    pdf-reader (0.9.2)
+    pdf-reader (0.9.3)
       Ascii85 (>= 0.9)
     pg (0.11.0)
     polyglot (0.3.1)
@@ -326,8 +326,8 @@ GEM
       sexp_processor (~> 3.0)
     rubyntlm (0.1.1)
     rubyzip2 (2.0.1)
-    sanitize (2.0.2)
-      nokogiri (~> 1.4.4)
+    sanitize (2.0.3)
+      nokogiri (< 1.6, >= 1.4.4)
     scribd_fu (2.0.11)
       rscribd
     sexp_processor (3.0.5)
@@ -389,7 +389,7 @@ DEPENDENCIES
   configatron
   dalli
   delayed_job (>= 2.1.4)
-  devise (>= 1.4.0)
+  devise (>= 1.4.2)
   dynamic_form
   event-calendar
   exception_notification
@@ -412,7 +412,7 @@ DEPENDENCIES
   metric_fu
   money
   nokogiri
-  omniauth
+  omniauth (>= 0.2.6)
   paper_trail (>= 2.2.5)
   paperclip
   parallel_tests
@@ -433,7 +433,7 @@ DEPENDENCIES
   simple_form
   simplecov (>= 0.4.0)
   sitemap_generator (>= 2.0.1)
-  spork (~> 0.9.0.rc8)
+  spork (~> 0.9.0.rc9)
   state_machine
   strongbox (>= 0.4.7)
   sunspot_rails (>= 1.2.1)

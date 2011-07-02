@@ -59,7 +59,7 @@ gem 'extractcontent'
 gem 'cancan', '>=1.6.5'
 gem 'scribd_fu'
 gem 'devise', '>=1.4.2'
-gem 'omniauth'
+gem 'omniauth', '>=0.2.6'
 gem 'paperclip'
 gem 'whenever', :require => false
 gem 'amazon-ecs', '>=2.0.0', :require => 'amazon/ecs'
