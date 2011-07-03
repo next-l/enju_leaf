@@ -215,7 +215,7 @@ module ApplicationHelper
 
   def title(model_name)
     string = ''
-    unless model_name == 'page'
+    unless model_name == 'page' or 'my_account'
       string << t("activerecord.models.#{model_name.singularize}") + ' - '
     end
     string << LibraryGroup.system_name + ' - Next-L Enju Leaf'
