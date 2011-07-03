@@ -7,6 +7,7 @@ gem 'rails', '3.0.9'
 
 platforms :ruby do
   gem 'pg'
+  #gem 'mysql2', '~>0.2.11'
   gem 'ruby-prof', :group => [:development, :test]
   gem 'zipruby'
 end
