@@ -3,10 +3,10 @@
   <%- languages = params[:language].to_s.split -%>
   <%- current_languages = languages.dup -%>
   <%- @language_facet.each do |facet| -%>
-    <%- language = Language.where(:name => facet.value).first -%>
+    <%- language = Language.where(:name => facet.value).select([:name, :display_name]).first -%>
     <%- if language -%>
       <li>
-		<%= language_facet(language, current_languages, facet) %>
+    		<%= language_facet(language, current_languages, facet) %>
       </li>
     <%- end -%>
   <%- end -%>

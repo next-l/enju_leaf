@@ -6,11 +6,11 @@ class Ability
     when 'Administrator'
       can [:read, :create, :update], Bookstore
       can :destroy, Bookstore do |bookstore|
-        bookstore.order_lists.first.nil?
+        bookstore.order_lists.empty?
       end
       can [:read, :create, :update], ClassificationType
       can :destroy, ClassificationType do |classification_type|
-        classification_type.classifications.first.nil?
+        classification_type.classifications.empty?
       end
       can [:read, :create], EventCategory
       can [:update, :destroy], EventCategory do |event_category|
@@ -22,24 +22,24 @@ class Ability
       end
       can [:read, :create, :update], Library
       can :destroy, Library do |library|
-        library.shelves.first.nil? and !library.web?
+        library.shelves.empty? and !library.web?
       end
       can [:read, :create, :update], Manifestation
       can :destroy, Manifestation do |manifestation|
-        manifestation.items.first.nil?
+        manifestation.items.empty?
       end
       can [:read, :update, :destroy], MessageRequest
       can [:read, :create, :update], Patron
       can :destroy, Patron do |patron|
         if patron.user
-          patron.user.checkouts.not_returned.first.nil?
+          patron.user.checkouts.not_returned.empty?
         else
           true
         end
       end
       can [:read, :create, :update], Shelf
       can :destroy, Shelf do |shelf|
-        shelf.items.first.nil?
+        shelf.items.empty?
       end
       can [:read, :create, :update], User
       can :destroy, User do |u|
@@ -47,7 +47,7 @@ class Ability
       end
       can [:read, :create, :update], UserGroup
       can :destroy, UserGroup do |user_group|
-        user_group.users.first.nil?
+        user_group.users.empty?
       end
       can :manage, [
         Answer,
@@ -150,11 +150,11 @@ class Ability
       can [:read, :create, :update], BookmarkStat
       can [:read, :create, :update], Item
       can :destroy, Item do |item|
-        item.checkouts.not_returned.first.nil?
+        item.checkouts.not_returned.empty?
       end
       can [:read, :create, :update], Manifestation
       can :destroy, Manifestation do |manifestation|
-        manifestation.items.first.nil?
+        manifestation.items.empty?
       end
       can [:index, :create], Message
       can [:update], Message do |message|
@@ -193,7 +193,7 @@ class Ability
       end
       can [:read, :create, :update], User
       can :destroy, User do |u|
-        u.checkouts.not_returned.first.nil? and u.role.name == 'User' and u != user
+        u.checkouts.not_returned.empty? and u.role.name == 'User' and u != user
       end
       can [:read, :create, :update], UserCheckoutStat
       can [:read, :create, :update], UserReserveStat

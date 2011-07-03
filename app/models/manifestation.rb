@@ -371,7 +371,7 @@ class Manifestation < ActiveRecord::Base
   end
 
   def reservable?
-    return false if self.items.for_checkout.empty?
+    return false if self.items.not_for_checkout.exists?
     true
   end
 

@@ -95,7 +95,8 @@ module ApplicationHelper
   end
 
   def book_jacket(manifestation)
-    if picture_file = manifestation.picture_files.first and picture_file.extname
+    picture_file = manifestation.picture_files.first
+    if picture_file and picture_file.extname
       link = link_to show_image(picture_file, :size => :thumb, :itemprop => 'image'), picture_file_path(picture_file, :format => picture_file.extname), :rel => "manifestation_#{manifestation.id}"
     else
       # TODO: Amazon優先でよい？

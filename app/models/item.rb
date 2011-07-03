@@ -214,7 +214,7 @@ class Item < ActiveRecord::Base
   #end
 
   def deletable?
-    checkouts.not_returned.first.nil?
+    checkouts.not_returned.empty?
   end
 
   def not_for_loan?

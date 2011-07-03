@@ -349,6 +349,6 @@ class User < ActiveRecord::Base
   end
 
   def deletable?
-    true if checkouts.not_returned.first.nil? and id != 1
+    true if checkouts.not_returned.empty? and id != 1
   end
 end
