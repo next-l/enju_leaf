@@ -1,3 +1,4 @@
+# -*- encoding: utf-8 -*-
 require 'spec_helper'
 
 describe EventImportFilesController do
@@ -136,6 +137,49 @@ describe EventImportFilesController do
     end
   end
 
+  describe "POST create" do
+    describe "When logged in as Librarian" do
+      before(:each) do
+        @user = Factory(:librarian)
+        sign_in @user
+      end
+
+      it "should create event_import_file" do
+        post :create, :event_import_file => {:event_import => fixture_file_upload("#{Rails.root.to_s}/examples/event_import_file_sample1.tsv", 'text/csv') }
+        assigns(:event_import_file).should be_valid
+        assigns(:event_import_file).user.username.should eq @user.username
+        response.should redirect_to event_import_file_url(assigns(:event_import_file))
+      end
+
+      it "should import user" do
+        old_events_count = Event.count
+        post :create, :event_import_file => {:event_import => fixture_file_upload("#{Rails.root.to_s}/examples/event_import_file_sample2.tsv", 'text/csv') }
+        assigns(:event_import_file).import_start
+        Event.count.should eq old_events_count + 2
+        response.should redirect_to event_import_file_url(assigns(:event_import_file))
+      end
+    end
+
+    describe "When logged in as User" do
+      before(:each) do
+        @user = Factory(:user)
+        sign_in @user
+      end
+
+      it "should be forbidden" do
+        post :create, :event_import_file => {:event_import => fixture_file_upload("#{Rails.root.to_s}/examples/event_import_file_sample1.tsv", 'text/csv') }
+        response.should be_forbidden
+      end
+    end
+
+    describe "When not logged in" do
+      it "should be redirect to new session url" do
+        post :create, :event_import_file => {:event_import => fixture_file_upload("#{Rails.root.to_s}/examples/event_import_file_sample1.tsv", 'text/csv') }
+        response.should redirect_to new_user_session_url
+      end
+    end
+  end
+
   describe "GET edit" do
     describe "When logged in as Administrator" do
       before(:each) do
@@ -178,6 +222,37 @@ describe EventImportFilesController do
         event_import_file = event_import_files(:event_import_file_00001)
         get :edit, :id => event_import_file.id
         response.should redirect_to(new_user_session_url)
+      end
+    end
+  end
+
+  describe "PUT update" do
+    describe "When logged in as Librarian" do
+      before(:each) do
+        sign_in Factory(:librarian)
+      end
+
+      it "should update event_import_file" do
+        put :update, :id => event_import_files(:event_import_file_00003).id, :event_import_file => { }
+        response.should redirect_to event_import_file_url(assigns(:event_import_file))
+      end
+    end
+
+    describe "When logged in as User" do
+      before(:each) do
+        sign_in Factory(:user)
+      end
+
+      it "should not update event_import_file" do
+        put :update, :id => event_import_files(:event_import_file_00003).id, :event_import_file => { }
+        response.should be_forbidden
+      end
+    end
+
+    describe "When not logged in" do
+      it "should not update event_import_file" do
+        put :update, :id => event_import_files(:event_import_file_00003).id, :event_import_file => { }
+        response.should redirect_to new_user_session_url
       end
     end
   end

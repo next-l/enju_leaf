@@ -3,30 +3,6 @@ require 'test_helper'
 class EventsControllerTest < ActionController::TestCase
     fixtures :events, :event_categories, :libraries, :patrons, :users
 
-  def test_guest_should_get_index
-    get :index
-    assert_response :success
-    assert assigns(:events)
-  end
-
-  def test_guest_should_get_index_csv
-    get :index, :format => 'csv'
-    assert_response :success
-    assert assigns(:events)
-  end
-
-  def test_guest_should_get_index_rss
-    get :index, :format => 'rss'
-    assert_response :success
-    assert assigns(:events)
-  end
-
-  def test_guest_should_get_index_ics
-    get :index, :format => 'ics'
-    assert_response :success
-    assert assigns(:events)
-  end
-
   def test_guest_should_get_index_with_library_id
     get :index, :library_id => 'kamata'
     assert_response :success
@@ -46,44 +22,6 @@ class EventsControllerTest < ActionController::TestCase
     assert assigns(:events)
   end
 
-  def test_user_should_get_index
-    sign_in users(:user1)
-    get :index
-    assert_response :success
-    assert assigns(:events)
-  end
-
-  def test_librarian_should_get_index
-    sign_in users(:librarian1)
-    get :index
-    assert_response :success
-    assert assigns(:events)
-  end
-
-  def test_admin_should_get_index
-    sign_in users(:admin)
-    get :index
-    assert_response :success
-    assert assigns(:events)
-  end
-
-  def test_guest_should_not_get_new
-    get :new
-    assert_redirected_to new_user_session_url
-  end
-  
-  def test_user_should_not_get_new
-    sign_in users(:user1)
-    get :new
-    assert_response :forbidden
-  end
-  
-  def test_librarian_should_get_new
-    sign_in users(:librarian1)
-    get :new
-    assert_response :success
-  end
-  
   def test_librarian_should_get_new_with_date
     sign_in users(:librarian1)
     get :new, :date => '2010/09/01'
@@ -95,12 +33,6 @@ class EventsControllerTest < ActionController::TestCase
     get :new, :date => '2010/13/01'
     assert_response :success
     assert_equal flash[:notice], I18n.t('page.invalid_date')
-  end
-  
-  def test_admin_should_get_new
-    sign_in users(:admin)
-    get :new
-    assert_response :success
   end
   
   def test_guest_should_not_create_event
@@ -169,53 +101,6 @@ class EventsControllerTest < ActionController::TestCase
     assigns(:event).remove_from_index!
   end
 
-  def test_guest_should_show_event
-    get :show, :id => 1
-    assert_response :success
-  end
-
-  def test_user_should_show_event
-    sign_in users(:user1)
-    get :show, :id => 1
-    assert_response :success
-  end
-
-  def test_librarian_should_show_event
-    sign_in users(:librarian1)
-    get :show, :id => 1
-    assert_response :success
-  end
-
-  def test_admin_should_show_event
-    sign_in users(:admin)
-    get :show, :id => 1
-    assert_response :success
-  end
-
-  def test_guest_should_not_get_edit
-    get :edit, :id => 1
-    assert_response :redirect
-    assert_redirected_to new_user_session_url
-  end
-  
-  def test_user_should_not_get_edit
-    sign_in users(:user1)
-    get :edit, :id => 1
-    assert_response :forbidden
-  end
-  
-  def test_librarian_should_get_edit
-    sign_in users(:librarian1)
-    get :edit, :id => 1
-    assert_response :success
-  end
-  
-  def test_admin_should_get_edit
-    sign_in users(:admin)
-    get :edit, :id => 1
-    assert_response :success
-  end
-  
   def test_guest_should_not_update_event
     put :update, :id => 1, :event => { }
     assert_redirected_to new_user_session_url
@@ -259,40 +144,5 @@ class EventsControllerTest < ActionController::TestCase
     put :update, :id => 1, :event => { }
     assert_redirected_to event_url(assigns(:event))
     assigns(:event).remove_from_index!
-  end
-  
-  def test_guest_should_not_destroy_event
-    assert_no_difference('Event.count') do
-      delete :destroy, :id => 1
-    end
-    
-    assert_redirected_to new_user_session_url
-  end
-
-  def test_user_should_not_destroy_event
-    sign_in users(:user1)
-    assert_no_difference('Event.count') do
-      delete :destroy, :id => 1
-    end
-    
-    assert_response :forbidden
-  end
-
-  def test_librarian_should_destroy_event
-    sign_in users(:librarian1)
-    assert_difference('Event.count', -1) do
-      delete :destroy, :id => 1
-    end
-    
-    assert_redirected_to events_url
-  end
-
-  def test_admin_should_destroy_event
-    sign_in users(:admin)
-    assert_difference('Event.count', -1) do
-      delete :destroy, :id => 1
-    end
-    
-    assert_redirected_to events_url
   end
 end

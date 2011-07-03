@@ -10,18 +10,6 @@ class ManifestationsControllerTest < ActionController::TestCase
     :subscriptions, :subscribes, :search_histories
 
 
-  def test_api_sru_template
-    get :index, :format => 'sru', :query => 'title=ruby', :operation => 'searchRetrieve'
-    assert_response :success
-    assert_template('manifestations/index')
-  end
-
-  def test_api_sru_error
-    get :index, :format => 'sru'
-    assert_response :success
-    assert_template('manifestations/explain')
-  end
-
   def test_guest_should_get_index
     if configatron.write_search_log_to_file
       assert_no_difference('SearchHistory.count') do
@@ -63,55 +51,6 @@ class ManifestationsControllerTest < ActionController::TestCase
     end
     assert_response :success
     assert assigns(:manifestations)
-  end
-
-  def test_guest_should_get_index_mods
-    get :index, :format => 'mods'
-    assert_response :success
-    assert_template('manifestations/index')
-    assert assigns(:manifestations)
-  end
-
-  def test_guest_should_get_index_rdf
-    get :index, :format => 'rdf'
-    assert_response :success
-    assert_template('manifestations/index')
-    assert assigns(:manifestations)
-  end
-
-  def test_guest_should_get_index_oai_without_resumption_token
-    get :index, :format => 'oai'
-    assert_response :success
-    assert_template('manifestations/index')
-    assert assigns(:manifestations)
-  end
-
-  def test_guest_should_get_index_oai_list_identifiers
-    get :index, :format => 'oai', :verb => 'ListIdentifiers'
-    assert_response :success
-    assert_template('manifestations/list_identifiers')
-    assert assigns(:manifestations)
-  end
-
-  def test_guest_should_get_index_oai_list_records
-    get :index, :format => 'oai', :verb => 'ListRecords'
-    assert_response :success
-    assert_template('manifestations/list_records')
-    assert assigns(:manifestations)
-  end
-
-  def test_guest_should_get_index_oai_get_record_without_identifier
-    get :index, :format => 'oai', :verb => 'GetRecord'
-    assert_response :success
-    assert_template('manifestations/index')
-    assert_nil assigns(:manifestation)
-  end
-
-  def test_guest_should_get_index_oai_get_record
-    get :index, :format => 'oai', :verb => 'GetRecord', :identifier => 'oai:localhost:manifestations-1'
-    assert_response :success
-    assert_template('manifestations/show')
-    assert assigns(:manifestation)
   end
 
   def test_user_should_not_create_search_history_if_log_is_written_to_file
@@ -238,13 +177,6 @@ class ManifestationsControllerTest < ActionController::TestCase
   #  assert_equal old_search_history_count + 1, SearchHistory.count
   #end
 
-  def test_user_should_get_index
-    sign_in users(:user1)
-    get :index
-    assert_response :success
-    assert assigns(:manifestations)
-  end
-
   #def test_user_should_not_save_search_history_when_not_allowed
   #  old_search_history_count = SearchHistory.count
   #  sign_in users(:user1)
@@ -254,36 +186,11 @@ class ManifestationsControllerTest < ActionController::TestCase
   #  assert_equal old_search_history_count, SearchHistory.count
   #end
 
-  def test_librarian_should_get_index
-    sign_in users(:librarian1)
-    get :index
-    assert_response :success
-    assert assigns(:manifestations)
-  end
-
-  def test_admin_should_get_index
-    sign_in users(:admin)
-    get :index
-    assert_response :success
-    assert assigns(:manifestations)
-  end
-
-  def test_guest_should_not_get_new
-    get :new
-    assert_redirected_to new_user_session_url
-  end
-  
   #def test_user_should_not_get_new
   #  sign_in users(:user1)
   #  get :new
   #  assert_response :forbidden
   #end
-  
-  def test_user_should_not_get_new
-    sign_in users(:user1)
-    get :new
-    assert_response :forbidden
-  end
   
   #def test_librarian_should_not_get_new_without_expression_id
   #  sign_in users(:librarian1)
@@ -396,28 +303,6 @@ class ManifestationsControllerTest < ActionController::TestCase
     assigns(:manifestation).remove_from_index!
   end
 
-  def test_guest_should_show_manifestation
-    get :show, :id => 1
-    assert_response :success
-  end
-
-  test 'guest shoud show manifestation screen shot' do
-    get :show, :id => 22, :mode => 'screen_shot'
-    assert_response :success
-  end
-
-  test 'guest shoud show manifestation mods template' do
-    get :show, :id => 22, :format => 'mods'
-    assert_response :success
-    assert_template 'manifestations/show'
-  end
-
-  test 'guest shoud show manifestation rdf template' do
-    get :show, :id => 22, :format => 'rdf'
-    assert_response :success
-    assert_template 'manifestations/show'
-  end
-
   def test_guest_should_show_manifestation_with_holding
     get :show, :id => 1, :mode => 'holding'
     assert_response :success
@@ -443,38 +328,15 @@ class ManifestationsControllerTest < ActionController::TestCase
     assert_response :success
   end
 
-  def test_guest_should_show_manifestation_with_isbn
-    get :show, :isbn => "4798002062"
-    assert_response :redirect
-    assert_redirected_to manifestation_url(assigns(:manifestation))
-  end
-
-  def test_guest_should_not_show_manifestation_with_invalid_isbn
-    get :show, :isbn => "47980020620"
-    assert_response :missing
-  end
-
   def test_guest_should_not_send_manifestation_detail_email
     get :show, :id => 1, :mode => 'send_email'
     assert_redirected_to new_user_session_url
-  end
-
-  def test_user_should_show_manifestation
-    sign_in users(:user1)
-    get :show, :id => 1
-    assert_response :success
   end
 
   def test_user_should_send_manifestation_detail_email
     sign_in users(:user1)
     get :show, :id => 1, :mode => 'send_email'
     assert_redirected_to manifestation_url(assigns(:manifestation))
-  end
-
-  def test_librarian_should_show_manifestation
-    sign_in users(:librarian1)
-    get :show, :id => 1
-    assert_response :success
   end
 
   def test_librarian_should_show_manifestation_with_expression_not_embodied
@@ -489,45 +351,9 @@ class ManifestationsControllerTest < ActionController::TestCase
     assert_response :success
   end
 
-  def test_admin_should_show_manifestation
-    sign_in users(:admin)
-    get :show, :id => 1
-    assert_response :success
-  end
-
-  def test_guest_should_not_get_edit
-    get :edit, :id => 1
-    assert_response :redirect
-    assert_redirected_to new_user_session_url
-  end
-  
-  def test_user_should_not_get_edit
-    sign_in users(:user1)
-    get :edit, :id => 1
-    assert_response :forbidden
-  end
-  
   def test_user_should_get_edit_with_tag_edit
     sign_in users(:user1)
     get :edit, :id => 1, :mode => 'tag_edit'
-    assert_response :success
-  end
-  
-  def test_librarian_should_get_edit
-    sign_in users(:librarian1)
-    get :edit, :id => 1
-    assert_response :success
-  end
-  
-  def test_librarian_should_get_edit_upload
-    sign_in users(:librarian1)
-    get :edit, :id => 1, :upload => true
-    assert_response :success
-  end
-  
-  def test_admin_should_get_edit
-    sign_in users(:admin)
-    get :edit, :id => 1
     assert_response :success
   end
   

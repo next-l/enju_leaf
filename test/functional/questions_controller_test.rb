@@ -3,24 +3,6 @@ require 'test_helper'
 class QuestionsControllerTest < ActionController::TestCase
   fixtures :questions, :users, :user_groups, :roles, :patrons, :libraries
 
-  def test_guest_should_get_index
-    get :index
-    assert_response :success
-    assert assigns(:questions)
-  end
-
-  def test_guest_should_get_solved_question_index
-    get :index, :solved => 'true'
-    assert_response :success
-    assert assigns(:questions)
-  end
-
-  def test_guest_should_get_unsolved_question_index
-    get :index, :solved => 'false'
-    assert_response :success
-    assert assigns(:questions)
-  end
-
   def test_guest_should_get_index_with_query
     get :index, :query => 'Yahoo'
     assert_response :success
@@ -48,13 +30,6 @@ class QuestionsControllerTest < ActionController::TestCase
     assert assigns(:questions)
   end
 
-  def test_user_should_get_index_without_user_id
-    sign_in users(:user1)
-    get :index
-    assert_response :success
-    assert assigns(:questions)
-  end
-
   def test_user_should_get_other_index
     sign_in users(:user1)
     get :index, :user_id => users(:user2).username
@@ -69,32 +44,6 @@ class QuestionsControllerTest < ActionController::TestCase
     assert assigns(:questions)
   end
 
-  def test_librarian_should_get_index_without_user_id
-    sign_in users(:librarian1)
-    get :index
-    assert_response :success
-    assert assigns(:questions)
-  end
-
-  def test_librarian_should_get_index_feed_without_user_id
-    sign_in users(:librarian1)
-    get :index, :format => 'rss'
-    assert_response :success
-    assert assigns(:questions)
-  end
-
-  def test_guest_should_not_get_new
-    get :new
-    assert_response :redirect
-    assert_redirected_to new_user_session_url
-  end
-  
-  def test_user_should_get_new
-    sign_in users(:user1)
-    get :new
-    assert_response :success
-  end
-  
   def test_guest_should_not_create_question
     assert_no_difference('Question.count') do
       post :create, :question => { }
@@ -122,21 +71,10 @@ class QuestionsControllerTest < ActionController::TestCase
     assert_redirected_to question_url(assigns(:question))
   end
 
-  def test_guest_should_show_question
-    get :show, :id => 1
-    assert_response :success
-  end
-
   def test_guest_should_show_crd_xml
     get :show, :id => 1, :mode => 'crd', :format => :xml
     assert_response :success
     assert_template 'questions/show_crd'
-  end
-
-  def test_user_should_show_question_without_user_id
-    sign_in users(:user1)
-    get :show, :id => 1
-    assert_response :success
   end
 
   def test_user_should_show_other_question
@@ -163,12 +101,6 @@ class QuestionsControllerTest < ActionController::TestCase
     assert_response :success
   end
 
-  def test_guest_should_not_get_edit
-    get :edit, :id => 1
-    assert_response :redirect
-    assert_redirected_to new_user_session_url
-  end
-  
   def test_user_should_not_get_edit_other_question
     sign_in users(:user1)
     get :edit, :id => 5

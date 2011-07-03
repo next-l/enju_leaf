@@ -46,6 +46,21 @@ describe EventsController do
         get :index
         assigns(:events).should_not be_nil
       end
+
+      it "assigns all events as @events in rss format" do
+        get :index, :format => 'rss'
+        assigns(:events).should_not be_nil
+      end
+
+      it "assigns all events as @events in ics format" do
+        get :index, :format => 'ics'
+        assigns(:events).should_not be_nil
+      end
+
+      it "assigns all events as @events in csv format" do
+        get :index, :format => 'csv'
+        assigns(:events).should_not be_nil
+      end
     end
   end
 

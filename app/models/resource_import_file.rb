@@ -285,7 +285,8 @@ class ResourceImportFile < ActiveRecord::Base
   def import_subject(row)
     subjects = []
     row['subject'].to_s.split(';').each do |s|
-      unless subject = Subject.where(:term => s.to_s.strip).first
+      subject = Subject.where(:term => s.to_s.strip).first
+      unless subject
         # TODO: Subject typeの設定
         subject = Subject.create(:term => s.to_s.strip, :subject_type_id => 1)
       end

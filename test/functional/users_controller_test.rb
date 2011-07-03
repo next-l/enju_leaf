@@ -7,25 +7,6 @@ class UsersControllerTest < ActionController::TestCase
   fixtures :users, :roles, :patrons, :libraries, :checkouts, :checkins, :patron_types, :tags, :taggings,
     :manifestations, :carrier_types, :creates, :realizes, :produces, :owns
 
-  def test_guest_should_not_get_index
-    get :index
-    assert_response :redirect
-    assert_redirected_to new_user_session_url
-  end
-
-  def test_user_should_not_get_index
-    sign_in users(:user1)
-    get :index
-    assert_response :forbidden
-  end
-
-  def test_librarian_should_get_index
-    sign_in users(:librarian1)
-    get :index
-    assert_response :success
-    assert assigns(:users)
-  end
-
   def test_librarian_should_get_index_with_query
     sign_in users(:librarian1)
     get :index, :query => 'user1'
@@ -134,27 +115,9 @@ class UsersControllerTest < ActionController::TestCase
     assigns(:user).remove_from_index!
   end
 
-  def test_guest_should_not_get_new
-    get :new, :patron_id => 6
-    assert_response :redirect
-    assert_redirected_to new_user_session_url
-  end
-
   def test_librarian_should_get_new_without_patron_id
     sign_in users(:librarian1)
     get :new
-    assert_response :success
-  end
-
-  def test_user_should_not_get_new
-    sign_in users(:user1)
-    get :new, :patron_id => 6
-    assert_response :forbidden
-  end
-
-  def test_librarian_should_get_new
-    sign_in users(:librarian1)
-    get :new, :patron_id => 6
     assert_response :success
   end
 
@@ -328,5 +291,4 @@ class UsersControllerTest < ActionController::TestCase
     post :create, :user => { :username => 'quire', :email => 'quire@example.com',
       :email_confirmation => 'quire@example.com', :password => 'quirequire', :password_confirmation => 'quirequire', :user_number => '00008', :first_name => 'quire', :last_name => 'quire' }.merge(options)
   end
-
 end

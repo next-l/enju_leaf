@@ -15,10 +15,45 @@ describe ShelvesController do
       end
     end
 
+    describe "When logged in as Librarian" do
+      before(:each) do
+        sign_in Factory(:librarian)
+      end
+
+      it "assigns all shelves as @shelves" do
+        get :index
+        assigns(:shelves).should eq(Shelf.paginate(:page => 1))
+      end
+    end
+
+    describe "When logged in as User" do
+      before(:each) do
+        sign_in Factory(:user)
+      end
+
+      it "assigns all shelves as @shelves" do
+        get :index
+        assigns(:shelves).should eq(Shelf.paginate(:page => 1))
+      end
+    end
+
     describe "When not logged in" do
       it "assigns all shelves as @shelves" do
         get :index
         assigns(:shelves).should eq(Shelf.paginate(:page => 1))
+        response.should be_success
+      end
+
+      it "assigns all shelves as @shelves with library_id" do
+        get :index, :library_id => 'kamata'
+        assigns(:shelves).should eq(Library.find('kamata').shelves.paginate(:page => 1))
+        response.should be_success
+      end
+
+      it "assigns all shelves as @shelves with select mode" do
+        get :index, :mode => 'select'
+        assigns(:shelves).should eq(Shelf.real)
+        response.should be_success
       end
     end
   end

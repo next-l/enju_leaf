@@ -42,6 +42,11 @@ describe SubjectsController do
         get :index
         assigns(:subjects).should_not be_nil
       end
+
+      it "assigns all subjects as @subjects with work_id" do
+        get :index, :work_id => 1
+        assigns(:subjects).should_not be_nil
+      end
     end
   end
 

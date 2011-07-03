@@ -24,65 +24,6 @@ class ResourceImportFilesControllerTest < ActionController::TestCase
     assert_response :forbidden
   end
 
-  def test_librarian_should_create_resource_import_file
-    sign_in users(:librarian1)
-    old_manifestations_count = Manifestation.count
-    old_items_count = Item.count
-    old_patrons_count = Patron.count
-    old_import_results_count = ResourceImportResult.count
-    assert_difference('ResourceImportFile.count') do
-      post :create, :resource_import_file => {:resource_import => fixture_file_upload("../../examples/resource_import_file_sample1.tsv", 'text/plain') }
-    end
-    # 後でバッチで処理する
-    assigns(:resource_import_file).import_start
-    assert_equal old_manifestations_count + 7, Manifestation.count
-    assert_equal old_items_count + 6, Item.count
-    assert_equal old_patrons_count + 5, Patron.count
-    assert_equal old_import_results_count + 16, ResourceImportResult.count
-
-    assert_equal 'librarian1', assigns(:resource_import_file).user.username
-    assert_redirected_to resource_import_file_path(assigns(:resource_import_file))
-    assert_equal 2, Item.find_by_item_identifier('10101').manifestation.creators.size
-    assert_equal Time.zone.parse('2001-01-01'), Item.find_by_item_identifier('10101').manifestation.date_of_publication
-    assert_equal Time.zone.parse('2001-01-01'), Item.find_by_item_identifier('10102').manifestation.date_of_publication
-    assert_equal Time.zone.parse('2001-01-01'), Item.find_by_item_identifier('10104').manifestation.date_of_publication
-    assert_equal 'ダブル"クォート"を含む資料', Manifestation.find_by_identifier('103').original_title
-    item = Item.find_by_item_identifier('11111')
-    assert_equal Shelf.find_by_name('first_shelf'), item.shelf
-    assert_equal 1000, item.manifestation.price
-    assert_equal 0, item.price
-    assert_equal 2, item.manifestation.publishers.size
-    assert assigns(:resource_import_file).file_hash
-  end
-
-  def test_librarian_should_create_resource_import_file_written_in_shift_jis
-    sign_in users(:librarian1)
-    old_manifestations_count = Manifestation.count
-    old_items_count = Item.count
-    old_patrons_count = Patron.count
-    old_import_results_count = ResourceImportResult.count
-    assert_difference('ResourceImportFile.count') do
-      post :create, :resource_import_file => {:resource_import => fixture_file_upload("../../examples/resource_import_file_sample2.tsv", 'text/plain') }
-    end
-    # 後でバッチで処理する
-    assigns(:resource_import_file).import_start
-    assert_equal old_manifestations_count + 7, Manifestation.count
-    assert_equal old_items_count + 6, Item.count
-    assert_equal old_patrons_count + 5, Patron.count
-    assert_equal old_import_results_count + 16, ResourceImportResult.count
-
-    assert_equal 'librarian1', assigns(:resource_import_file).user.username
-    assert_redirected_to resource_import_file_path(assigns(:resource_import_file))
-    assert_equal 2, Item.find_by_item_identifier('10101').manifestation.creators.size
-    assert_equal 'ダブル"クォート"を含む資料', Manifestation.find_by_identifier('103').original_title
-    item = Item.find_by_item_identifier('11111')
-    assert_equal Shelf.find_by_name('first_shelf'), item.shelf
-    assert_equal 1000, item.manifestation.price
-    assert_equal 0, item.price
-    assert_equal 2, item.manifestation.publishers.size
-    #assert assigns(:resource_import_file).file_hash
-  end
-
   def test_librarian_should_create_resource_import_file_only_isbn
     sign_in users(:librarian1)
     old_manifestations_count = Manifestation.count
@@ -95,24 +36,6 @@ class ResourceImportFilesControllerTest < ActionController::TestCase
     #assert_equal old_patrons_count + 5, Patron.count
 
     assert_redirected_to resource_import_file_path(assigns(:resource_import_file))
-  end
-
-  def test_guest_should_not_show_resource_import_file
-    get :show, :id => resource_import_files(:resource_import_file_00003).id
-    assert_response :redirect
-    assert_redirected_to new_user_session_url
-  end
-
-  def test_user_should_not_show_resource_import_file
-    sign_in users(:user1)
-    get :show, :id => resource_import_files(:resource_import_file_00003).id
-    assert_response :forbidden
-  end
-
-  def test_librarian_should_show_resource_import_file
-    sign_in users(:librarian1)
-    get :show, :id => resource_import_files(:resource_import_file_00003).id
-    assert_response :success
   end
 
   def test_guest_should_not_update_resource_import_file

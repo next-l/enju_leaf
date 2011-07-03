@@ -54,8 +54,9 @@ describe ResourceImportFilesController do
       end
 
       it "assigns the requested resource_import_file as @resource_import_file" do
-        get :show, :id => 1
-        assigns(:resource_import_file).should eq(ResourceImportFile.find(1))
+        get :show, :id => resource_import_files(:resource_import_file_00003).id
+        assigns(:resource_import_file).should eq(resource_import_files(:resource_import_file_00003))
+        response.should be_success
       end
     end
 
@@ -65,8 +66,9 @@ describe ResourceImportFilesController do
       end
 
       it "assigns the requested resource_import_file as @resource_import_file" do
-        get :show, :id => 1
-        assigns(:resource_import_file).should eq(ResourceImportFile.find(1))
+        get :show, :id => resource_import_files(:resource_import_file_00003).id
+        assigns(:resource_import_file).should eq(resource_import_files(:resource_import_file_00003))
+        response.should be_success
       end
     end
 
@@ -76,15 +78,16 @@ describe ResourceImportFilesController do
       end
 
       it "assigns the requested resource_import_file as @resource_import_file" do
-        get :show, :id => 1
-        assigns(:resource_import_file).should eq(ResourceImportFile.find(1))
+        get :show, :id => resource_import_files(:resource_import_file_00003).id
+        assigns(:resource_import_file).should eq(resource_import_files(:resource_import_file_00003))
+        response.should be_forbidden
       end
     end
 
     describe "When not logged in" do
       it "assigns the requested resource_import_file as @resource_import_file" do
-        get :show, :id => 1
-        assigns(:resource_import_file).should eq(ResourceImportFile.find(1))
+        get :show, :id => resource_import_files(:resource_import_file_00003).id
+        assigns(:resource_import_file).should eq(resource_import_files(:resource_import_file_00003))
         response.should redirect_to(new_user_session_url)
       end
     end
@@ -132,6 +135,43 @@ describe ResourceImportFilesController do
         get :new
         assigns(:resource_import_file).should_not be_valid
         response.should redirect_to(new_user_session_url)
+      end
+    end
+  end
+
+  describe "POST create" do
+    describe "When logged in as Librarian" do
+      before(:each) do
+        @user = Factory(:librarian)
+        sign_in @user
+      end
+
+      it "should create patron_import_file" do
+        post :create, :resource_import_file => {:resource_import => fixture_file_upload("#{Rails.root.to_s}/examples/resource_import_file_sample1.tsv", 'text/csv') }
+        assigns(:resource_import_file).should be_valid
+        assigns(:resource_import_file).user.username.should eq @user.username
+        response.should redirect_to resource_import_file_url(assigns(:resource_import_file))
+      end
+    end
+
+    describe "When logged in as User" do
+      before(:each) do
+        @user = Factory(:user)
+        sign_in @user
+      end
+
+      it "should be forbidden" do
+        post :create, :resource_import_file => {:resource_import => fixture_file_upload("#{Rails.root.to_s}/examples/resource_import_file_sample1.tsv", 'text/csv') }
+        assigns(:resource_import_file).user.should be_nil
+        response.should be_forbidden
+      end
+    end
+
+    describe "When not logged in" do
+      it "should be redirected to new session url" do
+        post :create, :resource_import_file => {:resource_import => fixture_file_upload("#{Rails.root.to_s}/examples/resource_import_file_sample1.tsv", 'text/csv') }
+        assigns(:resource_import_file).user.should be_nil
+        response.should redirect_to new_user_session_url
       end
     end
   end

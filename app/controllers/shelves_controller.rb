@@ -11,7 +11,7 @@ class ShelvesController < ApplicationController
       if @library
         @shelves = @library.shelves
       else
-        @shelves = Library.real.shelves
+        @shelves = Shelf.real
       end
       render :partial => 'select_form'
       return

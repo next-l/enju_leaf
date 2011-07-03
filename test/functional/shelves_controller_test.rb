@@ -3,24 +3,6 @@ require 'test_helper'
 class ShelvesControllerTest < ActionController::TestCase
   fixtures :shelves, :users
 
-  def test_guest_should_get_index
-    get :index
-    assert_response :success
-    assert assigns(:shelves)
-  end
-
-  def test_guest_should_get_index_with_library_id
-    get :index, :library_id => 'kamata'
-    assert_response :success
-    assert assigns(:shelves)
-  end
-
-  def test_guest_should_get_index_select
-    get :index, :select => true
-    assert_response :success
-    assert assigns(:shelves)
-  end
-
   def test_guest_should_not_create_shelf
     assert_no_difference('Shelf.count') do
       post :create, :shelf => { :name => 'My shelf' }, :library_id => 'kamata'
@@ -81,32 +63,6 @@ class ShelvesControllerTest < ActionController::TestCase
     put :update, :id => 2, :shelf => { }, :position => 2, :library_id => 'kamata'
     assert_redirected_to library_shelves_url(assigns(:library))
   end
-  
-  def test_guest_should_not_destroy_shelf
-    assert_no_difference('Shelf.count') do
-      delete :destroy, :id => 2
-    end
-    
-    assert_redirected_to new_user_session_url
-  end
-
-  def test_user_should_not_destroy_shelf
-    sign_in users(:user1)
-    assert_no_difference('Shelf.count') do
-      delete :destroy, :id => 2
-    end
-    
-    assert_response :forbidden
-  end
-
-  def test_librarian_should_not_destroy_shelf
-    sign_in users(:librarian1)
-    assert_no_difference('Shelf.count') do
-      delete :destroy, :id => 2
-    end
-    
-    assert_response :forbidden
-  end
 
   def test_everyone_should_not_destroy_shelf_id_1
     sign_in users(:admin)
@@ -115,14 +71,5 @@ class ShelvesControllerTest < ActionController::TestCase
     end
     
     assert_response :forbidden
-  end
-
-  def test_admin_should_destroy_shelf
-    sign_in users(:admin)
-    assert_difference('Shelf.count', -1) do
-      delete :destroy, :id => 2
-    end
-    
-    assert_redirected_to library_shelves_url(assigns(:shelf).library.name)
   end
 end

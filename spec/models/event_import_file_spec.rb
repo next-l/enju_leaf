@@ -9,7 +9,9 @@ describe EventImportFile do
 
   it "should be imported" do
     closing_days_size = Event.closing_days.size
+    old_import_results_count = EventImportResult.count
     @file.import_start.should eq({:imported => 3, :failed => 0})
     Event.closing_days.size.should eq closing_days_size + 1
+    EventImportResult.count.should eq old_import_results_count + 4
   end
 end

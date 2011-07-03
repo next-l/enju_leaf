@@ -144,51 +144,6 @@ class ItemsControllerTest < ActionController::TestCase
     assert_response :missing
   end
 
-  def test_guest_should_not_update_item
-    put :update, :id => 1, :item => { }
-    assert_redirected_to new_user_session_url
-  end
-  
-  def test_everyone_should_not_update_missing_item
-    sign_in users(:admin)
-    put :update, :id => 100, :item => { }
-    assert_response :missing
-  end
-  
-  def test_user_should_not_update_item
-    sign_in users(:user1)
-    put :update, :id => 1, :item => { }
-    assert_response :forbidden
-  end
-  
-  def test_librarian_should_not_update_item_without_circulation_status_id
-    sign_in users(:librarian1)
-    put :update, :id => 1, :item => {:circulation_status_id => nil}
-    assert_response :success
-  end
-  
-  def test_librarian_should_update_item
-    sign_in users(:librarian1)
-    put :update, :id => 1, :item => { :circulation_status_id => 1, :manifestation_id => 1}
-    assert_redirected_to item_url(assigns(:item))
-    assigns(:item).remove_from_index!
-  end
-  
-  def test_admin_should_update_item
-    sign_in users(:admin)
-    put :update, :id => 1, :item => { :circulation_status_id => 1, :manifestation_id => 1}
-    assert_redirected_to item_url(assigns(:item))
-    assigns(:item).remove_from_index!
-  end
-  
-  def test_guest_should_not_destroy_item
-    assert_no_difference('Item.count') do
-      delete :destroy, :id => 1
-    end
-    
-    assert_redirected_to new_user_session_url
-  end
-
   def test_everyone_should_not_destroy_missing_item
     sign_in users(:admin)
     assert_no_difference('Item.count') do
@@ -196,15 +151,6 @@ class ItemsControllerTest < ActionController::TestCase
     end
     
     assert_response :missing
-  end
-
-  def test_user_should_not_destroy_item
-    sign_in users(:user1)
-    assert_no_difference('Item.count') do
-      delete :destroy, :id => 1
-    end
-    
-    assert_response :forbidden
   end
 
   def test_everyone_should_not_destroy_item_if_not_checked_in

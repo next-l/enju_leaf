@@ -15,6 +15,28 @@ describe AnswersController do
       end
     end
 
+    describe "When logged in as Librarian" do
+      before(:each) do
+        sign_in Factory(:admin)
+      end
+
+      it "assigns all answers as @answers" do
+        get :index
+        assigns(:answers).should_not be_empty
+      end
+    end
+
+    describe "When logged in as User" do
+      before(:each) do
+        sign_in Factory(:admin)
+      end
+
+      it "assigns all answers as @answers" do
+        get :index
+        assigns(:answers).should_not be_empty
+      end
+    end
+
     describe "When not logged in" do
       it "assigns all answers as @answers" do
         get :index

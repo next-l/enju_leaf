@@ -259,11 +259,11 @@ describe TagsController do
       end
 
       it "destroys the requested tag" do
-        delete :destroy, :id => @tag.id
+        delete :destroy, :id => @tag.name
       end
 
       it "redirects to the tags list" do
-        delete :destroy, :id => @tag.id
+        delete :destroy, :id => @tag.name
         response.should redirect_to(tags_url)
       end
     end
@@ -274,11 +274,11 @@ describe TagsController do
       end
 
       it "destroys the requested tag" do
-        delete :destroy, :id => @tag.id
+        delete :destroy, :id => @tag.name
       end
 
       it "redirects to the tags list" do
-        delete :destroy, :id => @tag.id
+        delete :destroy, :id => @tag.name
         response.should redirect_to(tags_url)
       end
     end
@@ -289,22 +289,22 @@ describe TagsController do
       end
 
       it "destroys the requested tag" do
-        delete :destroy, :id => @tag.id
+        delete :destroy, :id => @tag.name
       end
 
       it "should be forbidden" do
-        delete :destroy, :id => @tag.id
+        delete :destroy, :id => @tag.name
         response.should be_forbidden
       end
     end
 
     describe "When not logged in" do
       it "destroys the requested tag" do
-        delete :destroy, :id => @tag.id
+        delete :destroy, :id => @tag.name
       end
 
       it "should be forbidden" do
-        delete :destroy, :id => @tag.id
+        delete :destroy, :id => @tag.name
         response.should redirect_to(new_user_session_url)
       end
     end

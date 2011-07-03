@@ -56,6 +56,7 @@ describe PatronMergeListsController do
         patron_merge_list = Factory.create(:patron_merge_list)
         get :show, :id => patron_merge_list.id
         assigns(:patron_merge_list).should eq(patron_merge_list)
+        response.should be_success
       end
     end
 
@@ -68,6 +69,7 @@ describe PatronMergeListsController do
         patron_merge_list = Factory.create(:patron_merge_list)
         get :show, :id => patron_merge_list.id
         assigns(:patron_merge_list).should eq(patron_merge_list)
+        response.should be_success
       end
     end
 
@@ -80,6 +82,7 @@ describe PatronMergeListsController do
         patron_merge_list = Factory.create(:patron_merge_list)
         get :show, :id => patron_merge_list.id
         assigns(:patron_merge_list).should eq(patron_merge_list)
+        response.should be_forbidden
       end
     end
 
@@ -88,6 +91,7 @@ describe PatronMergeListsController do
         patron_merge_list = Factory.create(:patron_merge_list)
         get :show, :id => patron_merge_list.id
         assigns(:patron_merge_list).should eq(patron_merge_list)
+        response.should redirect_to new_user_session_url
       end
     end
   end
