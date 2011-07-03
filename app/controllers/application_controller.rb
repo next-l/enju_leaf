@@ -90,7 +90,6 @@ class ApplicationController < ActionController::Base
     else
       @available_languages = Language.where(:iso_639_1 => I18n.available_locales.map{|l| l.to_s})
     end
-    @selectable_languages = @available_languages - Language.where(:iso_639_1 => @locale.to_s)
   end
 
   def reset_params_session
