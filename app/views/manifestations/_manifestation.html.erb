@@ -1,12 +1,12 @@
             <tr class="line<%= cycle("0", "1") -%>">
               <td style="width: 30px"><%= itemnum = @manifestations.offset + 1 + manifestation_counter -%></td>
               <td style="480px">
-                <% cache(:controller => :manifestations, :action => :show, :id => manifestation.id, :page => 'show_list', :role => current_user_role_name, :locale => @locale, :manifestation_id => nil) do %>
+              <% cache(:controller => :manifestations, :action => :show, :id => manifestation.id, :page => 'show_list', :role => current_user_role_name, :locale => @locale, :manifestation_id => nil) do %>
                 <%= render :partial => 'manifestations/show_index', :locals => {:manifestation => manifestation} -%>
                 <div class="access_address">
                   <%= link_to manifestation.access_address, manifestation.access_address if manifestation.access_address.present? -%>
                 </div>
-                <%- if manifestation.items.on_shelf.exists? -%>
+                <%- unless manifestation.items.on_shelf.empty? -%>
                   (<%= link_to_function t('page.holding'), "$('#holding_#{manifestation.id}').toggle()" -%>)
                 <%- end -%>
                 <%- if manifestation.tags.first -%>

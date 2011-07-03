@@ -20,8 +20,10 @@
   <tr class="line<%= cycle("0", "1") -%>">
     <td><%= link_to bookmark.user.username, bookmark.user -%></td>
     <td>
-      <%= render :partial => 'manifestations/show_index', :locals => {:manifestation => bookmark.manifestation} -%>
-      <%= render :partial => 'manifestations/holding', :locals => {:manifestation => bookmark.manifestation} -%>
+      <% cache(:controller => :manifestations, :action => :show, :id => bookmark.manifestation.id, :page => 'bookmark_list', :role => current_user_role_name, :locale => @locale, :manifestation_id => nil) do %>
+        <%= render :partial => 'manifestations/show_index', :locals => {:manifestation => bookmark.manifestation} -%>
+        <%= render :partial => 'manifestations/holding', :locals => {:manifestation => bookmark.manifestation} -%>
+      <% end %>
     </td>
     <td><%= l(bookmark.created_at) -%></td>
     <td>
