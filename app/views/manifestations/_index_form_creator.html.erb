@@ -4,7 +4,7 @@
     <%= search_field_tag 'query', h(@query), {:id => 'search_form_top', :class => 'search_form', :placeholder => t('page.search_term')} -%>
     <%= hidden_field_tag 'reservable', h(@reservable) if @reservable -%>
     <% if can? :create, Create %>
-      <%= render :partial => 'page/add' %>
+      <%= render 'page/add' %>
     <% end %>
     <%= submit_tag t('page.search') -%>
     <br />

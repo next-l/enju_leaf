@@ -1,5 +1,5 @@
 <%- if current_user == @user -%>
   <%= render 'users/show' -%>
 <%- else -%>
-  <%= render :partial => 'users/show_other', :locals => {:user => @user} -%>
+  <%= render 'users/show_other', :user => @user -%>
 <%- end -%>

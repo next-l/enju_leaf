@@ -23,6 +23,6 @@ xml.rdf(:RDF,
     end
   }
   @manifestations.each do |manifestation|
-    xml << render(:partial => 'manifestations/show', :locals => {:manifestation => manifestation})
+    xml << render('manifestations/show', :manifestation => manifestation)
   end
 }

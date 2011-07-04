@@ -32,7 +32,7 @@
         <%- end -%>
       </ul>
       <div id="tab1">
-        <%= render :partial => 'libraries/map', :locals => {:library => @library} if @library.latitude and @library.longitude -%>
+        <%= render 'libraries/map', :library => @library if @library.latitude and @library.longitude -%>
       </div>
       <div id="tab2">
         <%- if @library.users.librarians.exists? -%>

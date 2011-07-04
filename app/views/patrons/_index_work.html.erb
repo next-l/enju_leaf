@@ -14,7 +14,7 @@
   <p>
     <%= t('page.search_term') -%>: <%= search_field_tag 'query', h(@query), {:id => 'search_form_top', :class => 'search_form', :placeholder => t('page.search_term')} -%>
     <%- if can? :update, work -%>
-      <%= render :partial => 'page/add' %>
+      <%= render 'page/add' %>
     <% end %>
     <%= submit_tag t('page.search') -%>
     <%= link_to t('page.back_to_index'), work_patrons_path(work) -%>

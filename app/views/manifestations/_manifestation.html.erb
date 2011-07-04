@@ -1,7 +1,7 @@
             <tr class="line<%= cycle("0", "1") -%>">
               <td style="width: 30px"><%= itemnum = @manifestations.offset + 1 + manifestation_counter -%></td>
               <td style="480px">
-                <%= render :partial => 'manifestations/show_index', :locals => {:manifestation => manifestation} -%>
+                <%= render 'manifestations/show_index', :manifestation => manifestation -%>
                 <div class="access_address">
                   <%= link_to manifestation.access_address, manifestation.access_address if manifestation.access_address.present? -%>
                 </div>
@@ -12,10 +12,10 @@
                 <%- if manifestation.tags.first -%>
                   (<%= link_to_function t('activerecord.models.tag'), "$('#tag_#{manifestation.id}').toggle()" -%>)
                 <%- end -%>
-                <%= render :partial => 'manifestations/show_tag', :locals => {:manifestation => manifestation} -%>
-                <%= render :partial => 'manifestations/holding', :locals => {:manifestation => manifestation} -%>
+                <%= render 'manifestations/show_tag', :manifestation => manifestation -%>
+                <%= render 'manifestations/holding', :manifestation => manifestation -%>
                 <%# グループ表示の部分テンプレート %>
-                <%= render :partial => 'manifestations/show_group', :locals => {:manifestation => manifestation} -%>
+                <%= render 'manifestations/show_group', :manifestation => manifestation -%>
               <% end %>
               </td>
               <%- if user_signed_in? -%>

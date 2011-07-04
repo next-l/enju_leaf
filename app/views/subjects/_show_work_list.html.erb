@@ -5,7 +5,7 @@
   <tr class="line<%= cycle("0", "1") -%>">
     <td>
       [W]
-      <%= render :partial => 'manifestations/show_index', :locals => {:manifestation => work} -%>
+      <%= render 'manifestations/show_index', :manifestation => work -%>
     </td>
   </tr>
 <%- end -%>

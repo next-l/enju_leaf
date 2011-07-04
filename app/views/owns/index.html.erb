@@ -21,7 +21,7 @@
       <%- end -%>
     </td>
     <td>
-      <%= render :partial => 'manifestations/show_index', :locals => {:manifestation => own.item.manifestation} -%>
+      <%= render 'manifestations/show_index', :manifestation => own.item.manifestation -%>
     </td>
     <td>
       <%- if can? :destroy, own -%>

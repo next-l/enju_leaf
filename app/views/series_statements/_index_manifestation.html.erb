@@ -5,7 +5,7 @@
   <p>
     <%= t('page.search_term') -%>: <%= search_field_tag 'query', h(@query), {:id => 'search_form_top', :class => 'search_form', :placeholder => t('page.search_term')} -%>
     <%= hidden_field_tag 'manifestation_id', @manifestation.id -%>
-    <%= render :partial => 'page/add' %>
+    <%= render 'page/add' %>
   </p>
 <%- end -%>
 <table class="index">

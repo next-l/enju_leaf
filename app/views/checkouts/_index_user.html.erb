@@ -2,7 +2,7 @@
 <h1 class="title"><%= t('page.listing', :model => t('activerecord.models.checkout')) -%></h1>
 <div id="content_list">
 
-<%= render :partial => 'list' -%>
+<%= render 'list' -%>
 
 <%- if @checkouts.size == 0 -%>
   <p><%= t('checkout.no_checkout') -%></p>

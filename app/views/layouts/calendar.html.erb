@@ -7,7 +7,7 @@
   <%- else -%>
     <title><%= t('calendar.calendar') -%> - <%= LibraryGroup.system_name(@locale) -%></title>
   <%- end -%>
-  <%= render :partial => 'page/include' -%>
+  <%= render 'page/include' -%>
   <%= auto_discovery_link_tag(:rss, events_url(:format => :rss), :title => (t('event.library_group_event', :library_group_name => @library_group.display_name.localize) + " (RSS)")) %>
   <%= auto_discovery_link_tag(:atom, events_url(:format => :atom), :title => (t('event.library_group_event', :library_group_name => @library_group.display_name.localize) + " (Atom)")) %>
   <link rel="search" type="application/opensearchdescription+xml" href="<%= page_opensearch_url -%>" title="<%= @library_group.display_name.localize -%>" />
@@ -16,8 +16,8 @@
 </head>
 <body>
 
-<%= render :partial => 'page/header' -%>
-<%= render :partial => 'page/menu' -%>
+<%= render 'page/header' -%>
+<%= render 'page/menu' -%>
 
 <div id="content">
 
@@ -27,7 +27,7 @@
 
 </div>
 
-<%= render :partial => 'page/footer' -%>
+<%= render 'page/footer' -%>
 
 </body>
 </html>

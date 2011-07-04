@@ -7,7 +7,7 @@
 
   <div class="field">
     <%- if @reserve.manifestation -%>
-      <%= render :partial => 'manifestations/title', :locals => {:manifestation => @reserve.manifestation} -%>
+      <%= render 'manifestations/title', :manifestation => @reserve.manifestation -%>
       <%= f.hidden_field :manifestation_id -%>
     <%- else -%>
       <%= f.label t('activerecord.models.manifestation') -%><br />

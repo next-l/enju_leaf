@@ -1,9 +1,9 @@
 <%- if manifestation.original_manifestations.first or manifestation.derived_manifestations.first -%>
-  <%= render :partial => 'manifestations/manifestation_list', :locals => {:manifestation => manifestation} -%>
+  <%= render 'manifestations/manifestation_list', :manifestation => manifestation -%>
 <%- end -%>
 <%- unless manifestation.questions(:user => current_user).empty? -%>
-  <%= render :partial => 'manifestations/question_list', :locals => {:manifestation => manifestation} -%>
+  <%= render 'manifestations/question_list', :manifestation => manifestation -%>
 <%- end -%>
 <%- if current_user.try(:has_role?, 'Librarian') -%>
-  <%= render :partial => 'manifestations/history_list', :locals => {:manifestation => manifestation} -%>
+  <%= render 'manifestations/history_list', :manifestation => manifestation -%>
 <%- end -%>

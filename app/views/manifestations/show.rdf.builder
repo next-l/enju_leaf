@@ -6,5 +6,5 @@ xml.rdf(:RDF,
         'xmlns:foaf' => "http://xmlns.com/foaf/0.1/",
         'xmlns:prism' => "http://prismstandard.org/namespaces/basic/2.0/",
         'xmlns:rdfs' =>"http://www.w3.org/2000/01/rdf-schema#") do
-  xml << render(:partial => 'manifestations/show', :locals => {:manifestation => @manifestation})
+  xml << render('manifestations/show', :manifestation => @manifestation)
 end

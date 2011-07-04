@@ -1,7 +1,7 @@
 <div id="content_detail" class="ui-corner-all">
 <h1 class="title"><%= t('page.search_resource', :model => t('page.resource')) -%></h1>
 <div id="content_list">
-  <%= render :partial => 'manifestations/title', :locals => {:manifestation => @manifestation} if @manifestation -%>
+  <%= render 'manifestations/title', :manifestation => @manifestation if @manifestation -%>
 
   <% case %>
   <% when @index_patron[:creator] %>
@@ -45,7 +45,7 @@
     </p>
 
     <div class="autopagerize_page_element" id="list">
-      <%= render :partial => 'manifestations/list', :locals => {:manifestations => @manifestations} -%>
+      <%= render 'manifestations/list', :manifestations => @manifestations -%>
     </div>
 
     <div id="tag_cloud">
@@ -59,7 +59,7 @@
     <%- if @suggested_tag -%>
       <p><%= t('page.did_you_mean') -%>: <%= link_to @suggested_tag.name, manifestations_path(:tag => @suggested_tag.name) -%></p>
     <%- end -%>
-    <%= render :partial => 'manifestations/not_found' -%>
+    <%= render 'manifestations/not_found' -%>
   <%- end -%>
 
     <div class="autopagerize_insert_before"></div>
