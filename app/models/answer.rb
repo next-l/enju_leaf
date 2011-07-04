@@ -24,13 +24,13 @@ class Answer < ActiveRecord::Base
   end
 
   def add_items
-    item_list = item_identifier_list.to_s.strip.split.map{|i| Item.first(:conditions => {:item_identifier => i})}.compact.uniq
+    item_list = item_identifier_list.to_s.strip.split.map{|i| Item.where(:item_identifier => i).first}.compact.uniq
     url_list = add_urls
     self.items = item_list + url_list
   end
 
   def add_urls
-    list = url_list.to_s.strip.split.map{|u| Manifestation.first(:conditions => {:access_address => Addressable::URI.parse(u).normalize.to_s})}.compact.map{|m| m.web_item}.compact.uniq
+    list = url_list.to_s.strip.split.map{|u| Manifestation.where(:access_address => Addressable::URI.parse(u).normalize.to_s).first}.compact.map{|m| m.web_item}.compact.uniq
   end
 
   def check_url_list

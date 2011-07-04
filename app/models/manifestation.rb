@@ -276,7 +276,7 @@ class Manifestation < ActiveRecord::Base
   end
 
   def next_reservation
-    self.reserves.waiting.first
+    self.reserves.waiting.order('reserves.created_at ASC').first
   end
 
   def serial?
@@ -371,7 +371,7 @@ class Manifestation < ActiveRecord::Base
   end
 
   def reservable?
-    return false if self.items.for_checkout.empty?
+    return false if items.for_checkout.empty?
     true
   end
 
@@ -420,7 +420,7 @@ class Manifestation < ActiveRecord::Base
     return nil if self.cached_numdocs < 5
     manifestation = nil
     # TODO: ヒット件数が0件のキーワードがあるときに指摘する
-    response = Manifestation.search(:include => [:creators, :contributors, :publishers, :subjects]) do
+    response = Manifestation.search(:include => [:creators, :contributors, :publishers, :subjects, :items]) do
       fulltext keyword if keyword
       order_by(:random)
       paginate :page => 1, :per_page => 1

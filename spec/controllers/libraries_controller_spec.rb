@@ -42,6 +42,12 @@ describe LibrariesController do
         get :index
         assigns(:libraries).should_not be_empty
       end
+
+      it "should get index with query" do
+        get :index, :query => 'kamata'
+        response.should be_success
+        assigns(:libraries).include?(Library.find('kamata')).should be_true
+      end
     end
   end
 
@@ -54,6 +60,12 @@ describe LibrariesController do
       it "assigns the requested library as @library" do
         get :show, :id => 1
         assigns(:library).should eq(libraries(:library_00001))
+      end
+
+      it "assigns nil as @library if id is missing" do
+        get :show, :id => 'missing'
+        assigns(:library).should be_nil
+        response.should be_missing
       end
     end
 
@@ -280,7 +292,7 @@ describe LibrariesController do
           assigns(:library).should be_valid
         end
 
-        it "should be forbidden" do
+        it "should be redirected to new session url" do
           post :create, :library => @attrs
           response.should redirect_to(new_user_session_url)
         end
@@ -292,7 +304,7 @@ describe LibrariesController do
           assigns(:library).should_not be_valid
         end
 
-        it "should be forbidden" do
+        it "should be redirected to new session url" do
           post :create, :library => @invalid_attrs
           response.should redirect_to(new_user_session_url)
         end

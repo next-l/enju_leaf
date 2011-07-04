@@ -304,7 +304,7 @@ describe LicensesController do
           assigns(:license).should_not be_valid
         end
 
-        it "should be forbidden" do
+        it "should be redirect to new session url" do
           post :create, :license => @invalid_attrs
           response.should redirect_to(new_user_session_url)
         end

@@ -217,6 +217,18 @@ describe ImportRequestsController do
           response.should render_template("new")
         end
       end
+
+      describe "with isbn which is already imported" do
+        it "assigns a newly created but unsaved import_request as @import_request" do
+          post :create, :import_request => {:isbn => manifestations(:manifestation_00001).isbn}
+          assigns(:import_request).should_not be_valid
+        end
+
+        it "re-renders the 'new' template" do
+          post :create, :import_request => @invalid_attrs
+          response.should render_template("new")
+        end
+      end
     end
 
     describe "When logged in as Librarian" do
@@ -398,7 +410,7 @@ describe ImportRequestsController do
           put :update, :id => @import_request.id, :import_request => @attrs
         end
 
-        it "should be forbidden" do
+        it "should be redirected to new session url" do
           put :update, :id => @import_request.id, :import_request => @attrs
           response.should redirect_to(new_user_session_url)
         end

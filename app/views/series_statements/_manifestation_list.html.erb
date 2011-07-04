@@ -6,7 +6,7 @@
       <% next if manifestation.periodical_master? %>
       <tr class="line<%= cycle("0", "1") -%>">
         <td>
-          <%= render :partial => 'manifestations/show_index', :locals => {:manifestation => manifestation} %>
+          <%= render 'manifestations/show_index', :manifestation => manifestation %>
         </td>
       </tr>
     <%- end -%>

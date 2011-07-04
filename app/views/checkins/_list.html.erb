@@ -18,8 +18,7 @@
 <%- @checkins.each_with_index do |checkin, i| -%>
   <tr class="line<%= cycle("0", "1") -%>">
     <td>
-      <%= render :partial => 'manifestations/show_index', :locals => {:manifestation => checkin.item.manifestation} -%>
-      <%= render :partial => 'manifestations/holding', :locals => {:manifestation => checkin.item.manifestation} -%>
+      <%= render 'manifestations/show_index', :manifestation => checkin.item.manifestation -%>
     </td>
     <td>
       <%= link_to checkin.item.item_identifier, checkin.item -%>

@@ -3,13 +3,13 @@
 </div>
 <div data-role="content">
   <%- if @item.manifestation -%>
-    <%= render :partial => 'manifestations/title', :locals => {:manifestation => @item.manifestation} -%>
+    <%= render 'manifestations/title', :manifestation => @item.manifestation -%>
   <%- end -%>
   <div id="detail">
 <p>
   <strong><%= t('activerecord.models.shelf') -%>:</strong>
   <%= link_to @item.shelf_display_name.localize, @item.shelf -%>
-  <%= render :partial => 'items/shelf_picture', :locals => {:item => @item} -%>
+  <%= render 'items/shelf_picture', :item => @item -%>
   (<%= link_to @item.shelf.library.display_name.localize, @item.shelf.library -%>)
 </p>
 

@@ -97,6 +97,7 @@ describe CheckinsController do
         checkin = checkins(:checkin_00001)
         get :show, :id => checkin.id
         assigns(:checkin).should eq(checkin)
+        response.should be_forbidden
       end
     end
 
@@ -105,6 +106,7 @@ describe CheckinsController do
         checkin = checkins(:checkin_00001)
         get :show, :id => checkin.id
         assigns(:checkin).should eq(checkin)
+        response.should redirect_to new_user_session_url
       end
     end
   end

@@ -2,7 +2,7 @@
   <h1 class="title"><%= t('page.showing', :model => t('activerecord.models.resource')) -%></h1>
 </div>
 <div data-role="content">
-<%= render :partial => 'title', :locals => {:manifestation => @manifestation} %>
+<%= render 'title', :manifestation => @manifestation %>
 <table>
 <tr>
 <th>ISBN</th>
@@ -14,6 +14,6 @@
 </tr>
 </table>
 <%- if @manifestation.items.on_shelf.exists? -%>
-  <%= render :partial => 'manifestations/show_holding', :locals => {:manifestation => @manifestation} -%>
+  <%= render 'manifestations/show_holding', :manifestation => @manifestation -%>
 <%- end -%>
 </div>

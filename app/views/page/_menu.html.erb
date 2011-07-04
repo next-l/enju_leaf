@@ -79,7 +79,7 @@
   <%- end -%>
   <a tabindex="3" href="#event_menu" class="fg-button fg-button-icon-right ui-widget ui-state-default ui-corner-all" id="fg_event"><span class="ui-icon ui-icon-triangle-1-s"></span><%= t('activerecord.models.event') -%></a>
   <div id="event_menu" class="hidden">
-    <%- if @library_group.real_libraries.first -%>
+    <%- unless @library_group.real_libraries.empty? -%>
       <ul>
         <li><%= link_to t('page.calendar'), calendar_path -%></li>
         <li><%= link_to t('event.all'), events_path -%></li>

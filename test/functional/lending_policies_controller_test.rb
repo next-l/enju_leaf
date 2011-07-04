@@ -49,29 +49,6 @@ class LendingPoliciesControllerTest < ActionController::TestCase
     assert_redirected_to new_user_session_url
   end
 
-  test "guest should not get edit" do
-    get :edit, :id => lending_policies(:lending_policy_00001).to_param
-    assert_redirected_to new_user_session_url
-  end
-
-  test "user should not get edit" do
-    sign_in users(:user1)
-    get :edit, :id => lending_policies(:lending_policy_00001).to_param
-    assert_response :forbidden
-  end
-
-  test "librarian should not get edit" do
-    sign_in users(:librarian1)
-    get :edit, :id => lending_policies(:lending_policy_00001).to_param
-    assert_response :forbidden
-  end
-
-  test "administrator should not get edit" do
-    sign_in users(:admin)
-    get :edit, :id => lending_policies(:lending_policy_00001).to_param
-    assert_response :success
-  end
-
   test "guest should not update lending_policy" do
     put :update, :id => lending_policies(:lending_policy_00001).to_param, :lending_policy => { }
     assert_redirected_to new_user_session_url

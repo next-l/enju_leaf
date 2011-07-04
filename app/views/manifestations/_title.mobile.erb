@@ -5,13 +5,13 @@
     <%= link_to form_icon(manifestation.carrier_type), manifestation -%>
   </h2>
   <p>
-    <%- if manifestation.creators.readable_by(current_user).exists? -%>
+    <%- unless manifestation.creators.readable_by(current_user).empty? -%>
       <%= t('patron.creator') -%>: <%= patrons_list(manifestation.creators.readable_by(current_user)) -%>
     <%- end -%>
-    <%- if manifestation.contributors.readable_by(current_user).exists? -%>
+    <%- unless manifestation.contributors.readable_by(current_user).empty? -%>
       <%= t('patron.contributor') -%>: <%= patrons_list(manifestation.contributors.readable_by(current_user)) -%>
     <%- end -%>
-    <%- if manifestation.publishers.readable_by(current_user).exists? -%>
+    <%- unless manifestation.publishers.readable_by(current_user).empty? -%>
       <%= t('patron.publisher') -%>: <%= patrons_list(manifestation.publishers.readable_by(current_user)) -%>
     <% end %>
     <%- if manifestation.pub_date.present? -%>

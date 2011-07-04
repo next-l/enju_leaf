@@ -4,13 +4,13 @@
 <h1 class="title"><%= t('page.showing', :model => t('activerecord.models.item')) -%></h1>
 <div id="content_list">
   <%- if @item.manifestation -%>
-    <%= render :partial => 'manifestations/title', :locals => {:manifestation => @item.manifestation} -%>
+    <%= render 'manifestations/title', :manifestation => @item.manifestation -%>
   <%- end -%>
 
 <p>
   <strong><%= t('activerecord.models.shelf') -%>:</strong>
   <%= link_to @item.shelf_display_name.localize, @item.shelf -%>
-  <%= render :partial => 'items/shelf_picture', :locals => {:item => @item} -%>
+  <%= render 'items/shelf_picture', :item => @item -%>
   (<%= link_to @item.shelf.library.display_name.localize, @item.shelf.library -%>)
 </p>
 
@@ -115,7 +115,7 @@
 </div>
 
 <div id="submenu" class="ui-corner-all">
-  <%= render :partial => 'manifestations/book_jacket', :locals => {:manifestation => @item.manifestation} -%>
+  <%= render 'manifestations/book_jacket', :manifestation => @item.manifestation -%>
   <ul>
     <%- if @shelf -%>
       <li><%= link_to t('page.edit'), edit_library_shelf_item_path(@shelf.library, @shelf, @item) -%></li>

@@ -14,25 +14,6 @@ class CheckinsControllerTest < ActionController::TestCase
     assert_response :success
   end
 
-  def test_guest_should_not_get_new
-    get :new
-    assert_response :redirect
-    assert_redirected_to new_user_session_url
-  end
-  
-  def test_user_should_not_get_new
-    sign_in users(:user1)
-    get :new
-    assert_response :forbidden
-  end
-  
-  def test_librarian_should_not_get_new
-    sign_in users(:librarian1)
-    get :new
-    assert_response :redirect
-    assert_redirected_to checkins_url
-  end
-  
   def test_guest_should_not_create_checkin
     assert_no_difference('Checkin.count') do
       post :create, :checkin => {:item_id => 3}, :basket => 9

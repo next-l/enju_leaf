@@ -7,7 +7,7 @@
     <%= t('page.search_term') -%>: <%= search_field_tag 'query', h(@query), {:id => 'search_form_top', :class => 'search_form', :placeholder => t('page.search_term')} -%>
     <%= submit_tag t('page.search') -%>
     <%- if can? :create, WorkHasSubject -%>
-      <%= render :partial => 'page/add' %>
+      <%= render 'page/add' %>
     <%- end -%>
   </p>
 <%- end -%>
@@ -15,26 +15,28 @@
 <table class="index">
   <tr>
     <th><%= t('activerecord.attributes.subject.term') -%></th>
-    <th><%= t('activerecord.attributes.subject.note') -%></th>
     <th></th>
   </tr>
   <%- subjects.each do |subject| -%>
     <tr class="line<%= cycle("0", "1") -%>">
       <td><%= link_to subject.term, subject -%></td>
-      <td><%= subject.note -%></td>
-      <%- if can? :destroy, subject -%>
-        <td>
+      <td>
+        <%- if can? :update, subject -%>
           <%= link_to t('page.edit'), edit_subject_path(subject) -%>
-        </td>
-        <td>
-          <%- if params[:mode] == 'add' -%>
+        <% end %>
+      </td>
+      <td>
+        <%- if params[:mode] == 'add' -%>
+          <%- if can? :update, subject -%>
             <%= link_to t('page.add'), new_classification_subject_has_classification_path(@classification, :subject_id => subject.id) unless @classification.subjects.include?(subject) -%>
-          <%- else -%>
-            <%- has_classification = @classification.subject_has_classifications.find_by_subject_id(subject) -%>
+          <% end %>
+        <%- else -%>
+          <%- has_classification = @classification.subject_has_classifications.find_by_subject_id(subject) -%>
+          <% if can? :delete, has_classification %>
             <%= link_to t('page.destroy'), classification_subject_has_classification_path(@classification, has_classification), :confirm => t('page.are_you_sure'), :method => :delete if has_classification -%>
-          <%- end -%>
-        </td>
-      <%- end -%>
+          <% end %>
+        <%- end -%>
+      </td>
     </tr>
   <%- end -%>
 </table>

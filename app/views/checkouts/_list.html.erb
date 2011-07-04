@@ -15,9 +15,7 @@
       (<%= link_to checkout.user_user_number, checkout.user %>)
     </td>
     <td>
-      <%= render :partial => 'manifestations/show_index', :locals => {:manifestation => checkout.item.manifestation} -%>
-      <%= render :partial => 'manifestations/holding', :locals => {:manifestation => checkout.item.manifestation} -%>
-      <br />
+      <%= render 'manifestations/show_index', :manifestation => checkout.item.manifestation -%>
       (<%= link_to checkout.item.item_identifier, item_path(checkout.item) -%>)
     </td>
     <td><%= l(checkout.due_date, :format => :only_date) -%></td>

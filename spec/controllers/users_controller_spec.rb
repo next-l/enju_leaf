@@ -15,6 +15,29 @@ describe UsersController do
       end
     end
 
+    describe "When logged in as Librarian" do
+      before(:each) do
+        sign_in Factory(:librarian)
+      end
+
+      it "assigns all users as @users" do
+        get :index
+        assigns(:users).should_not be_empty
+      end
+    end
+
+    describe "When logged in as User" do
+      before(:each) do
+        sign_in Factory(:user)
+      end
+
+      it "assigns all users as @users" do
+        get :index
+        assigns(:users).should be_empty
+        response.should be_forbidden
+      end
+    end
+
     describe "When not logged in" do
       it "assigns all users as @users" do
         get :index

@@ -6,7 +6,7 @@ class CheckedItem < ActiveRecord::Base
   validates_presence_of :item, :basket, :due_date, :on => :update
   validates_uniqueness_of :item_id, :scope => :basket_id
   validate :available_for_checkout?, :on => :create
-  
+ 
   before_validation :set_due_date, :on => :create
   normalize_attributes :item_identifier
 

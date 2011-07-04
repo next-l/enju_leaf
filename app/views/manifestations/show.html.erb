@@ -12,20 +12,20 @@
       </div>
     <%- end -%>
 
-    <%= render :partial => 'manifestations/title', :locals => {:manifestation => @manifestation} -%>
+    <%= render 'manifestations/title', :manifestation => @manifestation -%>
     <%- if @version -%>
       <p>(<%= l(@manifestation.versions.find(@version).created_at) -%>)</p>
     <%- end -%>
     <% if current_user.try(:has_role?, 'Librarian') %>
-      <%= render :partial => 'manifestations/show_detail_librarian', :locals => {:manifestation => @manifestation} %>
+      <%= render 'manifestations/show_detail_librarian', :manifestation => @manifestation %>
     <% else %>
-      <%= render :partial => 'manifestations/show_detail_user', :locals => {:manifestation => @manifestation} %>
+      <%= render 'manifestations/show_detail_user', :manifestation => @manifestation %>
     <% end %>
   </div>
 </div>
 
 <div id="submenu" class="ui-corner-all">
-  <%= render :partial => 'manifestations/book_jacket', :locals => {:manifestation => @manifestation} -%>
+  <%= render 'manifestations/book_jacket', :manifestation => @manifestation -%>
     <%- unless @manifestation.picture_files.empty? -%>
       <ul>
         <%- @manifestation.picture_files.each_with_index do |picture_file, i| -%>

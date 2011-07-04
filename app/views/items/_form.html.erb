@@ -1,8 +1,8 @@
 <%- if @item.manifestation -%>
-  <%= render :partial => 'manifestations/title', :locals => {:manifestation => @item.manifestation} -%>
+  <%= render 'manifestations/title', :manifestation => @item.manifestation -%>
 <%- end -%>
 
-<%= render :partial => 'page/required_field' %>
+<%= render 'page/required_field' %>
 <%= simple_form_for(@item) do |f| -%>
   <%= f.error_messages -%>
   <%= f.hidden_field :manifestation_id %>
@@ -11,7 +11,7 @@
     <%= f.label t('activerecord.models.library') -%> / <%= t('activerecord.models.shelf') -%><br />
     <%= f.select :library_id, @libraries.map{|l| [l.display_name.localize, l.id]} %>
     <%= f.select :shelf_id, @shelves.map{|s| [s.display_name.localize, s.id]} %>
-    <%= render :partial => 'observe_field' %>
+    <%= render 'observe_field' %>
   </div>
 
   <div class="field">

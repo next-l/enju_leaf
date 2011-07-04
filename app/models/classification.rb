@@ -22,8 +22,8 @@ class Classification < ActiveRecord::Base
     10
   end
 
+  private
   def subject
     self.subjects.collect(&:term) + self.subjects.collect(&:term_transcription)
   end
-
 end

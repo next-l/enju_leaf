@@ -42,6 +42,12 @@ describe ClassificationsController do
         get :index
         assigns(:classifications).should_not be_empty
       end
+
+      it "should get index with query" do
+        get :index, :query => '500'
+        response.should be_success
+        assigns(:classifications).should_not be_empty
+      end
     end
   end
 

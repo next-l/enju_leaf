@@ -29,7 +29,7 @@
   <%- @stats.each do |stat| -%>
     <tr class="line<%= cycle("0", "1") -%>">
       <td>
-        <%= render :partial => 'manifestations/show_index', :locals => {:manifestation => stat.manifestation} -%>
+        <%= render 'manifestations/show_index', :manifestation => stat.manifestation -%>
       </td>
       <td><%= stat.reserves_count -%></td>
     </tr>

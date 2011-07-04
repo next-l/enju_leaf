@@ -1,6 +1,6 @@
   <%= render 'page/tabview' -%>
   <div id="tabs">
-    <%= render :partial => 'manifestations/tab_menu', :locals => {:manifestation => manifestation} %>
+    <%= render 'manifestations/tab_menu', :manifestation => manifestation %>
     <div id="detail">
       <%- if manifestation.isbn -%>
         <%= google_book_search_preview(manifestation.isbn) -%>
@@ -88,7 +88,7 @@
         <tr>
           <td><%= t('activerecord.models.tag') -%>:</td>
           <td>
-            <%= render :partial => 'manifestations/tag_list', :locals => {:manifestation => manifestation} -%>
+            <%= render 'manifestations/tag_list', :manifestation => manifestation -%>
           </td>
         </tr>
         <%- unless manifestation.serial? -%>
@@ -112,7 +112,7 @@
           </tr>
         <%- end -%>
         <%- unless manifestation.attachment_file_name.blank? -%>
-          <%= render :partial => 'manifestations/attachment_file', :locals => {:manifestation => manifestation} -%>
+          <%= render 'manifestations/attachment_file', :manifestation => manifestation -%>
         <%- end -%>
         <tr>
           <td><%= t('manifestation.date_of_acquisition') -%>:</td>
@@ -137,12 +137,8 @@
       </table>
     <% end %>
       <%- if manifestation.items.on_shelf.exists? -%>
-        <%= render :partial => 'manifestations/show_holding', :locals => {:manifestation => manifestation} -%>
+        <%= render 'manifestations/show_holding', :manifestation => manifestation -%>
       <%- end -%>
-
-      <h4><%= t('manifestation.user_who_bookmark_this_resource') -%></h4>
-      <%= render :partial => 'manifestations/bookmarks_for_this_manifestation', :locals => {:manifestation => manifestation} -%>
-
     </div>
-    <%= render :partial => 'manifestations/tab_list', :locals => {:manifestation => manifestation} %>
+    <%= render 'manifestations/tab_list', :manifestation => manifestation %>
   </div>

@@ -15,20 +15,51 @@ describe ManifestationsController do
       end
     end
 
+    describe "When logged in as Librarian" do
+      before(:each) do
+        sign_in Factory(:librarian)
+      end
+
+      it "assigns all manifestations as @manifestations" do
+        get :index
+        assigns(:manifestations).should_not be_nil
+      end
+    end
+
+    describe "When logged in as User" do
+      before(:each) do
+        sign_in Factory(:user)
+      end
+
+      it "assigns all manifestations as @manifestations" do
+        get :index
+        assigns(:manifestations).should_not be_nil
+      end
+    end
+
     describe "When not logged in" do
       it "assigns all manifestations as @manifestations" do
         get :index
         assigns(:manifestations).should_not be_nil
       end
 
-      it "assigns all manifestations as @manifestations in oai format" do
-        get :index, :format => 'oai', :verb => 'ListRecords'
-        assigns(:manifestations).should_not be_nil
+      it "assigns all manifestations as @manifestations in sru format without operation" do
+        get :index, :format => 'sru'
+        assert_response :success
+        assigns(:manifestations).should be_nil
+        response.should render_template('manifestations/explain')
       end
 
-      it "assigns all manifestations as @manifestations in sru format" do
+      it "assigns all manifestations as @manifestations in sru format with operation" do
         get :index, :format => 'sru', :operation => 'searchRetrieve', :query => 'ruby'
         assigns(:manifestations).should_not be_nil
+        response.should render_template('manifestations/index')
+      end
+
+      it "assigns all manifestations as @manifestations in sru format with operation and title" do
+        get :index, :format => 'sru', :query => 'title=ruby', :operation => 'searchRetrieve'
+        assigns(:manifestations).should_not be_nil
+        response.should render_template('manifestations/index')
       end
 
       it "assigns all manifestations as @manifestations in openurl" do
@@ -52,6 +83,50 @@ describe ManifestationsController do
         get :index, :number_of_pages_at_least => '100', :number_of_pages_at_least => '200'
         assigns(:manifestations).should_not be_nil
       end
+
+      it "assigns all manifestations as @manifestations in mods format" do
+        get :index, :format => 'mods'
+        assigns(:manifestations).should_not be_nil
+        response.should render_template("manifestations/index")
+      end
+
+      it "assigns all manifestations as @manifestations in rdf format" do
+        get :index, :format => 'rdf'
+        assigns(:manifestations).should_not be_nil
+        response.should render_template("manifestations/index")
+      end
+
+      it "assigns all manifestations as @manifestations in oai format without verb" do
+        get :index, :format => 'oai'
+        assigns(:manifestations).should_not be_nil
+        response.should render_template("manifestations/index")
+      end
+
+      it "assigns all manifestations as @manifestations in oai format with ListRecords" do
+        get :index, :format => 'oai', :verb => 'ListRecords'
+        assigns(:manifestations).should_not be_nil
+        response.should render_template("manifestations/list_records")
+      end
+
+      it "assigns all manifestations as @manifestations in oai format with ListIdentifiers" do
+        get :index, :format => 'oai', :verb => 'ListIdentifiers'
+        assigns(:manifestations).should_not be_nil
+        response.should render_template("manifestations/list_identifiers")
+      end
+
+      it "assigns all manifestations as @manifestations in oai format with GetRecord without identifier" do
+        get :index, :format => 'oai', :verb => 'GetRecord'
+        assigns(:manifestations).should be_nil
+        assigns(:manifestation).should be_nil
+        response.should render_template('manifestations/index')
+      end
+
+      it "assigns all manifestations as @manifestations in oai format with GetRecord with identifier" do
+        get :index, :format => 'oai', :verb => 'GetRecord', :identifier => 'oai:localhost:manifestations-1'
+        assigns(:manifestations).should be_nil
+        assigns(:manifestation).should_not be_nil
+        response.should render_template('manifestations/show')
+      end
     end
   end
 
@@ -67,10 +142,60 @@ describe ManifestationsController do
       end
     end
 
+    describe "When logged in as Librarian" do
+      before(:each) do
+        sign_in Factory(:librarian)
+      end
+
+      it "assigns the requested manifestation as @manifestation" do
+        get :show, :id => 1
+        assigns(:manifestation).should eq(Manifestation.find(1))
+      end
+    end
+
+    describe "When logged in as User" do
+      before(:each) do
+        sign_in Factory(:user)
+      end
+
+      it "assigns the requested manifestation as @manifestation" do
+        get :show, :id => 1
+        assigns(:manifestation).should eq(Manifestation.find(1))
+      end
+    end
+
     describe "When not logged in" do
       it "assigns the requested manifestation as @manifestation" do
         get :show, :id => 1
         assigns(:manifestation).should eq(Manifestation.find(1))
+      end
+
+      it "should show manifestation screen shot" do
+        get :show, :id => 22, :mode => 'screen_shot'
+        assigns(:manifestation).should eq Manifestation.find(22)
+        response.should be_success
+      end
+
+      it "guest should show manifestation mods template" do
+        get :show, :id => 22, :format => 'mods'
+        assigns(:manifestation).should eq Manifestation.find(22)
+        response.should render_template("manifestations/show")
+      end
+
+      it "should show manifestation rdf template" do
+        get :show, :id => 22, :format => 'rdf'
+        assigns(:manifestation).should eq Manifestation.find(22)
+        response.should render_template("manifestations/show")
+      end
+
+      it "should_show_manifestation_with_isbn" do
+        get :show, :isbn => "4798002062"
+        response.should redirect_to manifestation_url(assigns(:manifestation))
+      end
+
+      it "should_show_manifestation_with_isbn" do
+        get :show, :isbn => "47980020620"
+        response.should be_missing
       end
     end
   end

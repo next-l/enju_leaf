@@ -20,7 +20,7 @@
 <%- @checked_items.each_with_index do |checked_item, i| -%>
   <tr class="line<%= cycle("0", "1") -%>">
     <td>
-      <%= link_to checked_item.item.manifestation.original_title, checked_item.item.manifestation -%>
+      <%= render 'manifestations/show_index', :manifestation => checked_item.item.manifestation -%>
     </td>
     <td><%= link_to checked_item.item.item_identifier, checked_item.item -%></td>
     <td><%= l(checked_item.due_date, :format => :only_date) -%></td>

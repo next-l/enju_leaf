@@ -177,10 +177,10 @@ class PatronImportFile < ActiveRecord::Base
     patron.first_name_transcription = row['first_name_transcription'] if row['first_name_transcription']
     patron.middle_name_transcription = row['middle_name_transcription'] if row['middle_name_transcription']
     patron.last_name_transcription = row['last_name_transcription'] if row['last_name_transcription']
-    
+
     patron.full_name = row['full_name'] if row['full_name']
     patron.full_name_transcription = row['full_name_transcription'] if row['full_name_transcription']
-   
+
     patron.address_1 = row['address_1'] if row['address_1']
     patron.address_2 = row['address_2'] if row['address_2']
     patron.zip_code_1 = row['zip_code_1'] if row['zip_code_1']

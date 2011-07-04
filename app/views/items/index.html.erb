@@ -2,7 +2,7 @@
 <h1 class="title"><%= t('page.listing', :model => t('activerecord.models.item')) -%></h1>
 <div id="content_list">
 
-<%= render :partial => 'manifestations/title', :locals => {:manifestation => @manifestation} if @manifestation -%>
+<%= render 'manifestations/title', :manifestation => @manifestation if @manifestation -%>
 
 <%= form_for :items, :url => items_path, :html => {:method => 'get'} do -%>
   <p>
@@ -36,7 +36,7 @@
         <% end %>
       </td>
       <td>
-        <%= render :partial => 'manifestations/show_index', :locals => {:manifestation => item.manifestation} -%>
+        <%= render 'manifestations/show_index', :manifestation => item.manifestation -%>
       </td>
       <td>
         <%= link_to item.shelf.library.display_name.localize, item.shelf.library -%>
@@ -58,7 +58,7 @@
 </div>
 
 <div id="submenu" class="ui-corner-all">
-  <%= render :partial => 'manifestations/book_jacket', :locals => {:manifestation => @manifestation} if @manifestation -%>
+  <%= render 'manifestations/book_jacket', :manifestation => @manifestation if @manifestation -%>
   <ul>
     <%- if can?(:create, Item) and @manifestation -%>
       <li><%= link_to t('page.new', :model => t('activerecord.models.item')), new_manifestation_item_path(@manifestation) -%></li>

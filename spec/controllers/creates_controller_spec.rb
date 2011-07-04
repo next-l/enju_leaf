@@ -302,7 +302,7 @@ describe CreatesController do
           assigns(:create).should_not be_valid
         end
 
-        it "should be forbidden" do
+        it "should be redirected to new session url" do
           post :create, :create => @invalid_attrs
           response.should redirect_to(new_user_session_url)
         end

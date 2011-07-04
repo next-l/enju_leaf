@@ -24,6 +24,11 @@ describe QuestionsController do
         get :index
         assigns(:questions).should_not be_nil
       end
+
+      it "assigns all questions as @questionsin rss format" do
+        get :index, :format => 'rss'
+        assigns(:questions).should_not be_nil
+      end
     end
 
     describe "When logged in as User" do

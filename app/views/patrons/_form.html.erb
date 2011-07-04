@@ -1,4 +1,4 @@
-<%= render :partial => 'page/required_field' %>
+<%= render 'page/required_field' %>
 <%= simple_form_for(@patron) do |f| -%>
   <%= f.error_messages -%>
 
@@ -10,9 +10,9 @@
   <div class="field">
     <span id="name_person">
       <%- if configatron.family_name_first == true -%>
-        <%= render :partial => 'patrons/form_family_name_first', :locals => {:f => f} -%>
+        <%= render 'patrons/form_family_name_first', :f => f -%>
       <%- else -%>
-        <%= render :partial => 'patrons/form_family_name_last', :locals => {:f => f} -%>
+        <%= render 'patrons/form_family_name_last', :f => f -%>
       <%- end -%>
     </span>
     <%= f.label :full_name -%><br />

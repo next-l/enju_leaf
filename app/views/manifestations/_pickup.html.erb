@@ -19,8 +19,8 @@
   </div>
   <div style="clear: both"></div>
   <div style="margin-top: 5px">
-    <%= render :partial => 'manifestations/show_index', :locals => {:manifestation => manifestation} -%>
-    <%= render :partial => 'manifestations/holding', :locals => {:manifestation => manifestation} -%>
+    <%= render 'manifestations/show_index', :manifestation => manifestation -%>
+    <%= render 'manifestations/holding', :manifestation => manifestation -%>
   </div>
   <% end %>
 <% end %>

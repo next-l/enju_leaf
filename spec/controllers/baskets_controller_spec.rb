@@ -36,6 +36,29 @@ describe BasketsController do
       end
     end
 
+    describe "When logged in as Librarian" do
+      before(:each) do
+        sign_in Factory(:librarian)
+      end
+
+      it "assigns the requested basket as @basket" do
+        get :show, :id => 1, :user_id => users(:admin).username
+        assigns(:basket).should eq(Basket.find(1))
+      end
+    end
+
+    describe "When logged in as User" do
+      before(:each) do
+        sign_in Factory(:user)
+      end
+
+      it "assigns the requested basket as @basket" do
+        get :show, :id => 1, :user_id => users(:admin).username
+        assigns(:basket).should eq(Basket.find(1))
+        response.should be_forbidden
+      end
+    end
+
     describe "When not logged in" do
       it "assigns the requested basket as @basket" do
         get :show, :id => 1, :user_id => users(:admin).username

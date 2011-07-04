@@ -1,7 +1,7 @@
 <div id="content_detail" class="ui-corner-all">
 <h1 class="title"><%= t('page.listing', :model => t('activerecord.models.produce')) -%></h1>
 <div id="content_list">
-  <%= render :partial => 'manifestations/title', :locals => {:manifestation => manifestation} -%>
+  <%= render 'manifestations/title', :manifestation => manifestation -%>
 <table class="index">
   <tr>
     <th id="position"></th>

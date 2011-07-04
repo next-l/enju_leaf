@@ -6,7 +6,7 @@
 </div>
 
 <div id="submenu" class="ui-corner-all">
-  <%= render :partial => 'manifestations/book_jacket', :locals => {:manifestation => @manifestation} -%>
+  <%= render 'manifestations/book_jacket', :manifestation => @manifestation -%>
   <ul>
     <li><%= link_to t('page.show'), @manifestation -%></li>
     <% if can? :destroy, @manifestation %>

@@ -40,7 +40,7 @@ module ManifestationsHelper
   def language_list(languages)
     list = []
     languages.each do |language|
-      list << h(language.display_name.localize) if language.name != 'unknown'
+      list << language.display_name.localize if language.name != 'unknown'
     end
     list.join("; ")
   end
@@ -99,7 +99,7 @@ module ManifestationsHelper
 
   def carrier_type_facet(facet)
     string = ''
-    carrier_type = CarrierType.where(:name => facet.value).first
+    carrier_type = CarrierType.where(:name => facet.value).select([:name, :display_name]).first
     if carrier_type
       string << form_icon(carrier_type)
       current = true if params[:carrier_type] == carrier_type.name

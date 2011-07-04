@@ -1,40 +1,7 @@
 <div id="content_detail" class="ui-corner-all">
 <h1 class="title"><%= t('page.new', :model => t('activerecord.models.subject')) -%></h1>
 <div id="content_list">
-
-<%= form_for(@subject) do |f| -%>
-  <%= f.error_messages -%>
-  <div class="field">
-    <%= f.label t('activerecord.models.subject_type') -%>
-    <%= f.select(:subject_type_id, @subject_types.collect{|s| [s.display_name.localize, s.id]}) -%>
-  </div>
-
-  <div class="field">
-    <%= f.label :term -%><br />
-    <%= f.text_area :term -%>
-  </div>
-  <div class="field">
-    <%= f.label :note -%><br />
-    <%= f.text_area :note -%>
-  </div>
-  <%- if @classification -%>
-    <div class="field">
-      <%= f.label t('activerecord.models.classification') -%>
-      <%= link_to @classification.category, @classification -%>
-      <%= f.hidden_field :classification_id -%>
-    </div>
-  <%- end -%>
-  <%- if @subject_heading_type -%>
-    <div class="field">
-      <%= f.label t('activerecord.models.subject_heading_type') -%>
-      <%= link_to @subject_heading_type.display_name.localize, @subject_heading_type -%>
-      <%= f.hidden_field :subject_heading_type_id -%>
-    </div>
-  <%- end -%>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
-<%- end -%>
+  <%= render 'form' %>
 </div>
 </div>
 

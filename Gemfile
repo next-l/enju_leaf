@@ -7,6 +7,7 @@ gem 'rails', '3.1.0.rc4'
 
 platforms :ruby do
   gem 'pg'
+  #gem 'mysql2', '~>0.2.11'
   gem 'ruby-prof', :group => [:development, :test]
   gem 'zipruby'
 end
@@ -59,7 +60,7 @@ gem 'extractcontent'
 gem 'cancan', '>=1.6.5'
 gem 'scribd_fu'
 gem 'devise', '>=1.4.2'
-gem 'omniauth'
+gem 'omniauth', '>=0.2.6'
 gem 'paperclip'
 gem 'whenever', :require => false
 gem 'amazon-ecs', '>=2.0.0', :require => 'amazon/ecs'

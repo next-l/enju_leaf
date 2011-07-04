@@ -22,7 +22,7 @@
   <div class="portlet" id="pickup">
     <h3 class="title"><%= t('manifestation.pickup') -%></h3>
     <div id="picked_up_box">
-      <%= render :partial => 'manifestations/pickup', :locals => {:manifestation => @manifestation} -%>
+      <%= render 'manifestations/pickup', :manifestation => @manifestation -%>
     </div>
   </div>
 
@@ -35,7 +35,7 @@
       <% end %>
     </h3>
     <div id="tag_cloud_box">
-      <%= render :partial => 'bookmarks/tag_cloud', :locals => {:tags => @tags} -%>
+      <%= render 'bookmarks/tag_cloud', :tags => @tags -%>
       <p>(<%= link_to t('page.listing', :model => t('activerecord.models.tag')), tags_path -%>)</p>
     </div>
   </div>

@@ -15,7 +15,7 @@ class CheckinsController < ApplicationController
       redirect_to user_basket_checkins_url(@basket.user, @basket)
       return
     end
-    @checkins = @basket.checkins.all(:order => ['checkins.created_at DESC'])
+    @checkins = @basket.checkins.order('checkins.created_at DESC').all
 
     @checkin = @basket.checkins.new
 

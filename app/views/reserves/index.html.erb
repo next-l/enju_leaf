@@ -19,7 +19,7 @@
     <td><%= link_to reserve.id, user_reserve_path(reserve.user, reserve) -%></td>
     <td><%= link_to reserve.user.username, reserve.user -%></td>
     <td>
-      <%= render :partial => 'title', :locals => {:reserve => reserve} -%>
+      <%= render 'title', :reserve => reserve -%>
     </td>
     <td><%= i18n_state(reserve.state) -%></td>
     <td><%= l(reserve.expired_at, :format => :only_date) -%></td>
