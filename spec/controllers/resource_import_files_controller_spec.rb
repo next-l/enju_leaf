@@ -222,6 +222,37 @@ describe ResourceImportFilesController do
     end
   end
 
+  describe "PUT update" do
+    describe "When logged in as Librarian" do
+      before(:each) do
+        sign_in Factory(:librarian)
+      end
+
+      it "should update resource_import_file" do
+        put :update, :id => resource_import_files(:resource_import_file_00003).id, :resource_import_file => { }
+        response.should redirect_to resource_import_file_url(assigns(:resource_import_file))
+      end
+    end
+
+    describe "When logged in as User" do
+      before(:each) do
+        sign_in Factory(:user)
+      end
+
+      it "should not update resource_import_file" do
+        put :update, :id => resource_import_files(:resource_import_file_00003).id, :resource_import_file => { }
+        response.should be_forbidden
+      end
+    end
+
+    describe "When not logged in" do
+      it "should not update resource_import_file" do
+        put :update, :id => resource_import_files(:resource_import_file_00003).id, :resource_import_file => { }
+        response.should redirect_to new_user_session_url
+      end
+    end
+  end
+
   describe "DELETE destroy" do
     before(:each) do
       @resource_import_file = resource_import_files(:resource_import_file_00001)

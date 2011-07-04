@@ -7,7 +7,7 @@
   <div class="field">
     <%= f.label t('activerecord.models.subscription') -%><br />
     <%- if @subscription -%>
-		  <%= link_to @subscription.title, @subscription -%>
+      <%= link_to @subscription.title, @subscription -%>
       <%= f.hidden_field :subscription_id, :value => @subscription.id -%>
     <%- else -%>
       <%= f.text_field :subscription_id, :value => params[:subscription_id] -%>

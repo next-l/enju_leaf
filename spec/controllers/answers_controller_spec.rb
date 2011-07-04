@@ -41,6 +41,7 @@ describe AnswersController do
       it "assigns all answers as @answers" do
         get :index
         assigns(:answers).should_not be_empty
+        response.should redirect_to new_user_session_url
       end
     end
   end

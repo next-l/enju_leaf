@@ -66,7 +66,7 @@ class BookmarksController < ApplicationController
       @bookmark.title = Bookmark.get_title_from_url(@bookmark.url) unless @bookmark.title?
     end
   end
- 
+
   # GET /bookmarks/1;edit
   def edit
     if @user

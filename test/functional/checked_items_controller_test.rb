@@ -236,5 +236,4 @@ class CheckedItemsControllerTest < ActionController::TestCase
     
     assert_redirected_to user_basket_checked_items_url(assigns(:checked_item).basket.user.username, assigns(:checked_item).basket)
   end
-
 end

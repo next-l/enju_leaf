@@ -15,6 +15,11 @@
     <%- end -%>
   </p>
 
+  <p>
+    <strong><%= t('activerecord.attributes.subject.term_transcription') -%>:</strong>
+    <%= @subject.term_transcription -%>
+  </p>
+
   <div id="tabs">
     <ul>
       <li title="active" class="selected"><a href="#work"><em><%= t('activerecord.models.work') -%></em></a></li>

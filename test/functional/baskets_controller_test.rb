@@ -31,24 +31,6 @@ class BasketsControllerTest < ActionController::TestCase
     assert assigns(:baskets)
   end
 
-  def test_guest_should_not_get_new
-    get :new, :user_id => users(:user1).username
-    assert_response :redirect
-    assert_redirected_to new_user_session_url
-  end
-  
-  def test_user_should_not_get_new
-    sign_in users(:user1)
-    get :new
-    assert_response :forbidden
-  end
-
-  def test_librarian_should_get_new
-    sign_in users(:librarian1)
-    get :new
-    assert_response :success
-  end
-
   def test_guest_should_not_create_basket
     assert_no_difference('Basket.count') do
       post :create, :basket => { }
@@ -102,24 +84,6 @@ class BasketsControllerTest < ActionController::TestCase
     end
     
     assert assigns(:basket).errors["base"].include?(I18n.t('user.not_found'))
-    assert_response :success
-  end
-
-  def test_guest_should_not_show_basket
-    get :show, :id => 1, :user_id => users(:admin).username
-    assert_response :redirect
-    assert_redirected_to new_user_session_url
-  end
-
-  def test_user_should_not_show_basket
-    sign_in users(:user1)
-    get :show, :id => 3, :user_id => users(:user1).username
-    assert_response :forbidden
-  end
-
-  def test_librarian_should_show_basket
-    sign_in users(:librarian1)
-    get :show, :id => 3, :user_id => users(:user1).username
     assert_response :success
   end
 

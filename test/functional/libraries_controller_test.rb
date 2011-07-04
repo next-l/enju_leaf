@@ -7,7 +7,7 @@ class LibrariesControllerTest < ActionController::TestCase
   def test_admin_should_not_create_library_without_short_display_name
     sign_in users(:admin)
     assert_no_difference('Library.count') do
-      post :create, :library => { :name => 'Fujisawa Library', :short_name => 'fujisawa' }
+      post :create, :library => { :name => 'Fujisawa Library', :short_display_name => 'fujisawa' }
     end
     
     assert_response :success

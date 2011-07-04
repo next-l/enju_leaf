@@ -5,12 +5,6 @@ class AnswersControllerTest < ActionController::TestCase
       :user_groups, :users, :roles, :library_groups, :libraries, :countries,
       :manifestations, :items
 
-  def test_guest_should_not_get_index
-    get :index
-    assert_response :redirect
-    assert_redirected_to new_user_session_url
-  end
-
   def test_guest_should_not_get_other_index_without_question_id
     get :index, :user_id => users(:user1).username
     assert_response :redirect
@@ -34,13 +28,6 @@ class AnswersControllerTest < ActionController::TestCase
     sign_in users(:user1)
     get :index, :user_id => users(:user2).username
     assert_response :forbidden
-  end
-
-  def test_librarian_should_get_index_without_user_id
-    sign_in users(:librarian1)
-    get :index
-    assert_response :success
-    assert assigns(:answers)
   end
 
   def test_user_should_get_my_index_without_question_id
@@ -91,12 +78,6 @@ class AnswersControllerTest < ActionController::TestCase
     assert assigns(:answers)
   end
 
-  def test_guest_should_not_get_new
-    get :new
-    assert_response :redirect
-    assert_redirected_to new_user_session_url
-  end
-  
   def test_user_should_get_new_without_question_id
     sign_in users(:user1)
     get :new

@@ -19,27 +19,30 @@
 <table class="index">
   <tr>
     <th><%= t('activerecord.attributes.subject.term') -%></th>
-    <th><%= t('activerecord.attributes.subject.note') -%></th>
     <th></th>
     <th></th>
   </tr>
   <%- subjects.each do |subject| -%>
     <tr class="line<%= cycle("0", "1") -%>">
       <td><%= link_to subject.term, subject -%></td>
-      <td><%= subject.note -%></td>
-      <%- if can? :destroy, subject -%>
-        <td>
+      <td>
+        <%- if can? :update, subject -%>
           <%= link_to t('page.edit'), edit_subject_path(subject) -%>
-        </td>
-        <td>
-          <%- if params[:mode] == 'add' -%>
+        <% end %>
+      </td>
+      <td>
+        <%- if params[:mode] == 'add' -%>
+          <%- if can? :update, subject -%>
+            <%= link_to t('page.edit'), edit_subject_path(subject) -%>
             <%= link_to t('page.add'), new_work_work_has_subject_path(@work, :subject_id => subject.id) unless @work.subjects.include?(subject) -%>
-          <%- else -%>
-            <%- has_subject = @work.work_has_subjects.find_by_subject_id(subject) -%>
+          <% end %>
+        <%- else -%>
+          <%- has_subject = @work.work_has_subjects.find_by_subject_id(subject) -%>
+          <%- if can? :delete, has_subject -%>
             <%= link_to t('page.destroy'), work_work_has_subject_path(@work, has_subject), :confirm => t('page.are_you_sure'), :method => :delete -%>
-          <%- end -%>
-        </td>
-      <%- end -%>
+          <% end %>
+        <%- end -%>
+      </td>
     </tr>
   <%- end -%>
 </table>

@@ -139,10 +139,6 @@
       <%- if manifestation.items.on_shelf.exists? -%>
         <%= render :partial => 'manifestations/show_holding', :locals => {:manifestation => manifestation} -%>
       <%- end -%>
-
-      <h4><%= t('manifestation.user_who_bookmark_this_resource') -%></h4>
-      <%= render :partial => 'manifestations/bookmarks_for_this_manifestation', :locals => {:manifestation => manifestation} -%>
-
     </div>
     <%= render :partial => 'manifestations/tab_list', :locals => {:manifestation => manifestation} %>
   </div>

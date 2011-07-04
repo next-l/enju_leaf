@@ -22,7 +22,7 @@ class Country < ActiveRecord::Base
   def self.all_cache
     Rails.cache.fetch('country_all'){Country.all}
   end
- 
+
   def clear_all_cache
     Rails.cache.delete('country_all')
   end

@@ -1,3 +1,4 @@
+<% cache(:controller => :manifestations, :action => :show, :id => manifestation.id, :page => 'show_index', :role => current_user_role_name, :locale => @locale, :manifestation_id => nil) do %>
   <strong><%= link_to manifestation.original_title, manifestation -%></strong>
   <%- if manifestation.series_statement.try(:first_issue) and manifestation.series_statement.try(:latest_issue) -%>
     <%= manifestation.series_statement.first_issue.date_of_publication.try(:year) -%>
@@ -11,3 +12,4 @@
   <div id="creator_list_<%= manifestation.id -%>">
     <%= render :partial => 'manifestations/show_creators', :locals => {:manifestation => manifestation} -%>
   </div>
+<% end %>

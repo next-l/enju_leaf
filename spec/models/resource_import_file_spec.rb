@@ -5,11 +5,11 @@ describe ResourceImportFile do
   fixtures :all
 
   describe "when its mode is 'create'" do
-    before(:each) do
-      @file = ResourceImportFile.create :resource_import => File.new("#{Rails.root.to_s}/examples/resource_import_file_sample1.tsv")
-    end
-
     describe "when it is written in utf-8" do
+      before(:each) do
+        @file = ResourceImportFile.create :resource_import => File.new("#{Rails.root.to_s}/examples/resource_import_file_sample1.tsv")
+      end
+
       it "should be imported" do
         old_manifestations_count = Manifestation.count
         old_items_count = Item.count
@@ -39,6 +39,10 @@ describe ResourceImportFile do
     end
 
     describe "when it is written in shift_jis" do
+      before(:each) do
+        @file = ResourceImportFile.create :resource_import => File.new("#{Rails.root.to_s}/examples/resource_import_file_sample2.tsv")
+      end
+
       it "should be imported" do
         old_manifestations_count = Manifestation.count
         old_items_count = Item.count
@@ -64,6 +68,20 @@ describe ResourceImportFile do
         item.price.should eq 0
         item.manifestation.publishers.size.should eq 2
         @file.file_hash.should be_true
+      end
+    end
+
+    describe "when it has only isbn" do
+      before(:each) do
+        @file = ResourceImportFile.create :resource_import => File.new("#{Rails.root.to_s}/examples/isbn_sample.txt")
+      end
+
+      it "should be imported" do
+        old_manifestations_count = Manifestation.count
+        old_patrons_count = Patron.count
+        @file.import_start
+        Manifestation.count.should eq old_manifestations_count + 1
+        Patron.count.should eq old_patrons_count + 5
       end
     end
   end

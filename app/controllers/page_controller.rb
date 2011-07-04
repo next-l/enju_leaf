@@ -3,8 +3,8 @@ class PageController < ApplicationController
   before_filter :clear_search_sessions, :only => [:index, :advanced_search]
   before_filter :store_location, :only => [:advanced_search, :about, :add_on, :msie_acceralator, :statistics]
   before_filter :authenticate_user!, :except => [:index, :advanced_search, :about, :add_on, :msie_acceralator, :opensearch, :statistics, :routing_error]
+  before_filter :check_librarian, :except => [:index, :advanced_search, :about, :add_on, :msie_acceralator, :opensearch, :statistics, :routing_error]
   helper_method :get_libraries
-  before_filter :check_librarian, :except => [:index, :advanced_search, :about, :add_on, :msie_acceralator, :opensearch,:routing_error]
 
   def index
     @numdocs = Manifestation.search.total
@@ -38,11 +38,11 @@ class PageController < ApplicationController
   def import
     @title = t('page.import')
   end
- 
+
   def export
     @title = t('page.export')
   end
-  
+ 
   def about
     @title = t('page.about_this_system')
   end
