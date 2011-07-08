@@ -148,7 +148,7 @@
     </table>
   </div>
 <% end %>
-  <%- if @patron.derived_patrons.exists? or @patron.original_patrons.exists? -%>
+  <%- unless @patron.derived_patrons.empty? and @patron.original_patrons.empty? -%>
     <%= render 'patrons/patron_list' -%>
   <%- end -%>
   <%- unless @works.blank? -%>

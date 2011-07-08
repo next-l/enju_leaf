@@ -226,15 +226,16 @@ GEM
     orm_adapter (0.0.5)
     paper_trail (2.2.5)
       rails (~> 3)
-    paperclip (2.3.12)
+    paperclip (2.3.14)
       activerecord (>= 2.3.0)
       activesupport (>= 2.3.2)
       cocaine (>= 0.0.2)
+      mime-types
     parallel (0.5.5)
     parallel_tests (0.5.0)
       parallel
-    pdf-reader (0.9.3)
-      Ascii85 (>= 0.9)
+    pdf-reader (0.10.0)
+      Ascii85 (~> 1.0.0)
     pg (0.11.0)
     polyglot (0.3.1)
     pr_geohash (1.0.0)
@@ -266,7 +267,7 @@ GEM
       activesupport (= 3.0.9)
       bundler (~> 1.0)
       railties (= 3.0.9)
-    rails_best_practices (0.9.0)
+    rails_best_practices (0.10.0)
       activesupport
       colored
       erubis
@@ -296,7 +297,7 @@ GEM
     ri_cal (0.8.8)
     roodi (2.1.0)
       ruby_parser
-    rscribd (1.2.0)
+    rscribd (1.3.0)
       mime-types
     rsolr (0.12.1)
       builder (>= 2.1.2)
@@ -317,7 +318,7 @@ GEM
     ruby-openid (2.1.8)
     ruby-openid-apps-discovery (1.2.0)
       ruby-openid (>= 2.1.7)
-    ruby-prof (0.10.7)
+    ruby-prof (0.10.8)
     ruby-progressbar (0.0.10)
     ruby2ruby (1.2.5)
       ruby_parser (~> 2.0)

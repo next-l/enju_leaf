@@ -109,6 +109,7 @@ class ManifestationsController < ApplicationController
       unless params[:mode] == 'add'
         manifestation = @manifestation if @manifestation
         subject = @subject if @subject
+        series_statement = @series_statement if @series_statement
         search.build do
           with(:creator_ids).equal_to patron[:creator].id if patron[:creator]
           with(:contributor_ids).equal_to patron[:contributor].id if patron[:contributor]
@@ -122,7 +123,12 @@ class ManifestationsController < ApplicationController
         order_by sort[:sort_by], sort[:order] unless oai_search
         order_by :updated_at, :desc if oai_search
         with(:subject_ids).equal_to subject.id if subject
-        with(:periodical).equal_to false
+        if series_statement
+          with(:series_statement_id).equal_to series_statement.id
+          with(:periodical).equal_to true
+        else
+          with(:periodical).equal_to false
+        end
         facet :reservable
       end
       search = make_internal_query(search)
@@ -290,6 +296,11 @@ class ManifestationsController < ApplicationController
     @reserved_count = Reserve.waiting.where(:manifestation_id => @manifestation.id, :checked_out_at => nil).count
     @reserve = current_user.reserves.where(:manifestation_id => @manifestation.id).first if user_signed_in?
 
+    if @manifestation.periodical_master?
+      redirect_to series_statement_manifestations_url(@manifestation.series_statement)
+      return
+    end
+
     store_location
 
     if @manifestation.attachment.path
@@ -317,7 +328,7 @@ class ManifestationsController < ApplicationController
       format.json { render :json => @manifestation }
       #format.atom { render :template => 'manifestations/oai_ore' }
       #format.xml  { render :action => 'mods', :layout => false }
-      format.js
+      #format.js
       format.pdf {
         prawnto :prawn => {
           :page_layout => :portrait,
