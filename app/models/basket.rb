@@ -41,3 +41,17 @@ class Basket < ActiveRecord::Base
   end
 
 end
+
+# == Schema Information
+#
+# Table name: baskets
+#
+#  id           :integer         not null, primary key
+#  user_id      :integer
+#  note         :text
+#  type         :string(255)
+#  lock_version :integer         default(0), not null
+#  created_at   :datetime
+#  updated_at   :datetime
+#
+

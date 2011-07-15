@@ -10,3 +10,16 @@ class Participate < ActiveRecord::Base
     10
   end
 end
+
+# == Schema Information
+#
+# Table name: participates
+#
+#  id         :integer         not null, primary key
+#  patron_id  :integer         not null
+#  event_id   :integer         not null
+#  position   :integer
+#  created_at :datetime
+#  updated_at :datetime
+#
+

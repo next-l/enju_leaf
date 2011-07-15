@@ -10,3 +10,16 @@ class SubjectHeadingTypeHasSubject < ActiveRecord::Base
     10
   end
 end
+
+# == Schema Information
+#
+# Table name: subject_heading_type_has_subjects
+#
+#  id                      :integer         not null, primary key
+#  subject_id              :integer         not null
+#  subject_type            :string(255)
+#  subject_heading_type_id :integer         not null
+#  created_at              :datetime
+#  updated_at              :datetime
+#
+

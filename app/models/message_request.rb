@@ -68,3 +68,20 @@ class MessageRequest < ActiveRecord::Base
     logger.info "#{Time.zone.now} sent #{count} messages!"
   end
 end
+
+# == Schema Information
+#
+# Table name: message_requests
+#
+#  id                  :integer         not null, primary key
+#  sender_id           :integer
+#  receiver_id         :integer
+#  message_template_id :integer
+#  sent_at             :datetime
+#  deleted_at          :datetime
+#  body                :text
+#  state               :string(255)
+#  created_at          :datetime
+#  updated_at          :datetime
+#
+

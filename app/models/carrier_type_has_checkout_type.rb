@@ -11,3 +11,17 @@ class CarrierTypeHasCheckoutType < ActiveRecord::Base
 
   acts_as_list :scope => :carrier_type_id
 end
+
+# == Schema Information
+#
+# Table name: carrier_type_has_checkout_types
+#
+#  id               :integer         not null, primary key
+#  carrier_type_id  :integer         not null
+#  checkout_type_id :integer         not null
+#  note             :text
+#  position         :integer
+#  created_at       :datetime
+#  updated_at       :datetime
+#
+

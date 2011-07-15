@@ -35,3 +35,17 @@ carrier_type_00003:
   note: "DVD\xE3\x81\xA7\xE3\x81\x99\xE3\x80\x82"
   created_at: 2007-12-23 04:24:23.151410 +09:00
   position: 3
+
+# == Schema Information
+#
+# Table name: carrier_types
+#
+#  id           :integer         not null, primary key
+#  name         :string(255)     not null
+#  display_name :text
+#  note         :text
+#  position     :integer
+#  created_at   :datetime
+#  updated_at   :datetime
+#
+

@@ -106,3 +106,16 @@ class CheckedItem < ActiveRecord::Base
     end
   end
 end
+
+# == Schema Information
+#
+# Table name: checked_items
+#
+#  id         :integer         not null, primary key
+#  item_id    :integer         not null
+#  basket_id  :integer         not null
+#  due_date   :datetime        not null
+#  created_at :datetime
+#  updated_at :datetime
+#
+

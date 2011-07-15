@@ -58,6 +58,7 @@ GEM
     amazon-ecs (2.0.0)
       nokogiri (>= 1.4.0)
       ruby-hmac (>= 0.3.2)
+    annotate (2.4.0)
     arel (2.0.10)
     arrayfields (4.7.4)
     astrails-safe (0.2.7)
@@ -130,7 +131,7 @@ GEM
     geocoder (1.0.2)
     glassfish (1.0.3-java)
       rack (>= 0.4.0)
-    guard (0.5.0)
+    guard (0.5.1)
       thor (~> 0.14.6)
     guard-rspec (0.4.0)
       guard (>= 0.4.0)
@@ -224,7 +225,7 @@ GEM
       oa-oauth (= 0.2.6)
       oa-openid (= 0.2.6)
     orm_adapter (0.0.5)
-    paper_trail (2.2.5)
+    paper_trail (2.2.8)
       rails (~> 3)
     paperclip (2.3.15)
       activerecord (>= 2.3.0)
@@ -381,6 +382,7 @@ DEPENDENCIES
   acts-as-taggable-on
   acts_as_list!
   amazon-ecs (>= 2.0.0)
+  annotate
   astrails-safe
   attribute_normalizer
   aws-s3

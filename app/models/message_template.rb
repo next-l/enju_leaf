@@ -23,3 +23,18 @@ class MessageTemplate < ActiveRecord::Base
     MessageTemplate.where(:status => status, :locale => locale).first || MessageTemplate.where(:status => status).first
   end
 end
+
+# == Schema Information
+#
+# Table name: message_templates
+#
+#  id         :integer         not null, primary key
+#  status     :string(255)     not null
+#  title      :text            not null
+#  body       :text            not null
+#  position   :integer
+#  created_at :datetime
+#  updated_at :datetime
+#  locale     :string(255)     default("ja")
+#
+
