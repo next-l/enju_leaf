@@ -85,6 +85,7 @@ gem 'rack-protection'
 group :development do
   gem 'parallel_tests'
   gem 'jquery-rails'
+  gem 'annotate'
 end
 
 group :development, :test do

@@ -29,3 +29,17 @@ subscription_00005:
   work_id: 3
   start_at: 2008-01-08 01:23:15.995345 +09:00
   end_at: 2009-01-08 01:23:15.995345 +09:00
+
+# == Schema Information
+#
+# Table name: subscribes
+#
+#  id              :integer         not null, primary key
+#  subscription_id :integer         not null
+#  work_id         :integer         not null
+#  start_at        :datetime        not null
+#  end_at          :datetime        not null
+#  created_at      :datetime
+#  updated_at      :datetime
+#
+

@@ -36,3 +36,21 @@ describe Message do
     message.state.should eq 'read'
   end
 end
+
+# == Schema Information
+#
+# Table name: messages
+#
+#  id                 :integer         not null, primary key
+#  read_at            :datetime
+#  receiver_id        :integer
+#  sender_id          :integer
+#  subject            :string(255)     not null
+#  body               :text
+#  created_at         :datetime
+#  updated_at         :datetime
+#  message_request_id :integer
+#  state              :string(255)
+#  parent_id          :integer
+#
+

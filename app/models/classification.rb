@@ -27,3 +27,17 @@ class Classification < ActiveRecord::Base
     self.subjects.collect(&:term) + self.subjects.collect(&:term_transcription)
   end
 end
+
+# == Schema Information
+#
+# Table name: classifications
+#
+#  id                     :integer         not null, primary key
+#  parent_id              :integer
+#  category               :string(255)     not null
+#  note                   :text
+#  classification_type_id :integer         not null
+#  created_at             :datetime
+#  updated_at             :datetime
+#
+

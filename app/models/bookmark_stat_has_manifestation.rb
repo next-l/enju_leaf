@@ -9,3 +9,16 @@ class BookmarkStatHasManifestation < ActiveRecord::Base
     10
   end
 end
+
+# == Schema Information
+#
+# Table name: bookmark_stat_has_manifestations
+#
+#  id               :integer         not null, primary key
+#  bookmark_stat_id :integer         not null
+#  manifestation_id :integer         not null
+#  bookmarks_count  :integer
+#  created_at       :datetime
+#  updated_at       :datetime
+#
+

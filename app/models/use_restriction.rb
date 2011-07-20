@@ -6,3 +6,17 @@ class UseRestriction < ActiveRecord::Base
   has_many :items, :through => :item_has_use_restrictions
   attr_protected :name
 end
+
+# == Schema Information
+#
+# Table name: use_restrictions
+#
+#  id           :integer         not null, primary key
+#  name         :string(255)     not null
+#  display_name :text
+#  note         :text
+#  position     :integer
+#  created_at   :datetime
+#  updated_at   :datetime
+#
+

@@ -58,6 +58,7 @@ GEM
     amazon-ecs (2.0.0)
       nokogiri (>= 1.4.0)
       ruby-hmac (>= 0.3.2)
+    annotate (2.4.0)
     arel (2.0.10)
     arrayfields (4.7.4)
     astrails-safe (0.2.7)
@@ -381,6 +382,7 @@ DEPENDENCIES
   acts-as-taggable-on
   acts_as_list!
   amazon-ecs (>= 2.0.0)
+  annotate
   astrails-safe
   attribute_normalizer
   aws-s3

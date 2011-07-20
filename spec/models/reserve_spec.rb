@@ -54,3 +54,24 @@ describe Reserve do
     assert Reserve.expire.should be_true
   end
 end
+
+# == Schema Information
+#
+# Table name: reserves
+#
+#  id                           :integer         not null, primary key
+#  user_id                      :integer         not null
+#  manifestation_id             :integer         not null
+#  item_id                      :integer
+#  request_status_type_id       :integer         not null
+#  checked_out_at               :datetime
+#  created_at                   :datetime
+#  updated_at                   :datetime
+#  canceled_at                  :datetime
+#  expired_at                   :datetime
+#  deleted_at                   :datetime
+#  state                        :string(255)
+#  expiration_notice_to_patron  :boolean         default(FALSE)
+#  expiration_notice_to_library :boolean         default(FALSE)
+#
+

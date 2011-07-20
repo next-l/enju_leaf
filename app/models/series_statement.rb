@@ -52,3 +52,23 @@ class SeriesStatement < ActiveRecord::Base
     manifestations.order(:date_of_publication).last
   end
 end
+
+# == Schema Information
+#
+# Table name: series_statements
+#
+#  id                          :integer         not null, primary key
+#  original_title              :text
+#  numbering                   :text
+#  title_subseries             :text
+#  numbering_subseries         :text
+#  position                    :integer
+#  created_at                  :datetime
+#  updated_at                  :datetime
+#  title_transcription         :text
+#  title_alternative           :text
+#  series_statement_identifier :string(255)
+#  issn                        :string(255)
+#  periodical                  :boolean
+#
+

@@ -111,3 +111,17 @@ circulation_status_00004:
   note: ""
   created_at: 2008-02-15 17:31:35.786404 +09:00
   position: 4
+
+# == Schema Information
+#
+# Table name: circulation_statuses
+#
+#  id           :integer         not null, primary key
+#  name         :string(255)     not null
+#  display_name :text
+#  note         :text
+#  position     :integer
+#  created_at   :datetime
+#  updated_at   :datetime
+#
+

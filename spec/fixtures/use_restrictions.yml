@@ -77,3 +77,17 @@ use_restriction_00013:
   id: 13
   position: 13
   note: ""
+
+# == Schema Information
+#
+# Table name: use_restrictions
+#
+#  id           :integer         not null, primary key
+#  name         :string(255)     not null
+#  display_name :text
+#  note         :text
+#  position     :integer
+#  created_at   :datetime
+#  updated_at   :datetime
+#
+

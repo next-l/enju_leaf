@@ -59,3 +59,16 @@ subject_has_classification_00010:
   subject_id: 1
   id: 10
   created_at: 2008-01-11 02:44:37.135721 +09:00
+
+# == Schema Information
+#
+# Table name: subject_has_classifications
+#
+#  id                :integer         not null, primary key
+#  subject_id        :integer
+#  subject_type      :string(255)
+#  classification_id :integer         not null
+#  created_at        :datetime
+#  updated_at        :datetime
+#
+

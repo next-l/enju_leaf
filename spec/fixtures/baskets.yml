@@ -65,3 +65,17 @@ basket_00011:
   note: 
   user_id: 4
   created_at: 2008-01-21 17:26:14.585596 +09:00
+
+# == Schema Information
+#
+# Table name: baskets
+#
+#  id           :integer         not null, primary key
+#  user_id      :integer
+#  note         :text
+#  type         :string(255)
+#  lock_version :integer         default(0), not null
+#  created_at   :datetime
+#  updated_at   :datetime
+#
+
