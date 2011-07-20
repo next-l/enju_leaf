@@ -280,9 +280,9 @@ class Manifestation < ActiveRecord::Base
   end
 
   def serial?
-    return true if series_statement.try(:periodical) and !periodical_master
-    #return true if parent_of_series
-    #return true if frequency_id > 1
+    if series_statement.try(:periodical) and !periodical_master
+      return true unless  series_statement.initial_manifestation == self
+    end
     false
   end
 
