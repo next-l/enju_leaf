@@ -113,6 +113,7 @@ class ResourceImportFile < ActiveRecord::Base
       #begin
         if manifestation and item_identifier.present?
           import_result.item = create_item(row, manifestation)
+          manifestation.index
         else
           num[:failed] += 1
         end
