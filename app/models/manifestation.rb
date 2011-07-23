@@ -73,7 +73,7 @@ class Manifestation < ActiveRecord::Base
       items.map{|i| i.shelf.library.name}
     end
     string :language do
-      language.name
+      language.try(:name)
     end
     string :item_identifier, :multiple => true do
       items.collect(&:item_identifier)
