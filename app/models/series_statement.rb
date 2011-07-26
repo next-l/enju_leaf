@@ -17,6 +17,10 @@ class SeriesStatement < ActiveRecord::Base
 
   normalize_attributes :original_title, :issn
 
+  def self.per_page
+    10
+  end
+
   def last_issue
     manifestations.first(:conditions => 'date_of_publication IS NOT NULL', :order => 'date_of_publication DESC') || manifestations.first
   end
