@@ -20,3 +20,17 @@ class Own < ActiveRecord::Base
     item.try(:index)
   end
 end
+
+# == Schema Information
+#
+# Table name: owns
+#
+#  id         :integer         not null, primary key
+#  patron_id  :integer         not null
+#  item_id    :integer         not null
+#  position   :integer
+#  type       :string(255)
+#  created_at :datetime
+#  updated_at :datetime
+#
+

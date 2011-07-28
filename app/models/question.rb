@@ -67,3 +67,21 @@ class Question < ActiveRecord::Base
   end
 
 end
+
+# == Schema Information
+#
+# Table name: questions
+#
+#  id            :integer         not null, primary key
+#  user_id       :integer         not null
+#  body          :text
+#  shared        :boolean         default(TRUE), not null
+#  answers_count :integer         default(0), not null
+#  created_at    :datetime
+#  updated_at    :datetime
+#  deleted_at    :datetime
+#  state         :string(255)
+#  solved        :boolean         default(FALSE), not null
+#  note          :text
+#
+

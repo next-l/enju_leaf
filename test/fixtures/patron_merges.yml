@@ -17,3 +17,15 @@ patron_merge_00003:
   patron_merge_list_id: 1
   id: 3
   created_at: 2008-02-17 19:19:19.265557 +09:00
+
+# == Schema Information
+#
+# Table name: patron_merges
+#
+#  id                   :integer         not null, primary key
+#  patron_id            :integer         not null
+#  patron_merge_list_id :integer         not null
+#  created_at           :datetime
+#  updated_at           :datetime
+#
+

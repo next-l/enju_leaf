@@ -41,3 +41,19 @@ bookmark_00005:
   url: "http://www.example.co.jp"
   note: ""
   created_at: 2007-11-21 21:40:28.457279 +09:00
+
+# == Schema Information
+#
+# Table name: bookmarks
+#
+#  id               :integer         not null, primary key
+#  user_id          :integer         not null
+#  manifestation_id :integer
+#  title            :text
+#  url              :string(255)
+#  note             :text
+#  created_at       :datetime
+#  updated_at       :datetime
+#  shared           :boolean
+#
+

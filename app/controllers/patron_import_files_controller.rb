@@ -27,7 +27,7 @@ class PatronImportFilesController < ApplicationController
       format.xml  { render :xml => @patron_import_file }
       format.download {
         if configatron.uploaded_file.storage == :s3
-          send_data @patron_import_file.patron_import.data, :filename => @patron_import_file.patron_import_file_name, :type => 'application/octet-stream'
+          redirect_to @patron_import_file.patron_import.expiring_url(10)
         else
           send_file file, :filename => @patron_import_file.patron_import_file_name, :type => 'application/octet-stream'
         end

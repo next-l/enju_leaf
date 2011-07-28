@@ -13,3 +13,14 @@ class SeriesStatementMergeList < ActiveRecord::Base
     end
   end
 end
+
+# == Schema Information
+#
+# Table name: series_statement_merge_lists
+#
+#  id         :integer         not null, primary key
+#  title      :string(255)
+#  created_at :datetime
+#  updated_at :datetime
+#
+

@@ -1,6 +1,6 @@
 source 'http://rubygems.org'
 
-gem 'rails', '3.1.0.rc4'
+gem 'rails', '3.1.0.rc5'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
@@ -31,11 +31,10 @@ end
 
 gem 'fastercsv' if RUBY_VERSION < '1.9'
 
-gem 'will_paginate', :git => 'git://github.com/wantful/will_paginate.git', :branch => 'rails3'
+gem 'will_paginate', '3.0.pre4'
 gem 'exception_notification', :require => 'exception_notifier'
 gem 'delayed_job', '>=2.1.4'
 gem 'state_machine'
-gem 'prawn'
 gem 'sunspot_rails', :git => 'git://github.com/outoftime/sunspot.git'
 gem 'friendly_id'
 gem 'inherited_resources'
@@ -69,9 +68,8 @@ gem 'astrails-safe'
 gem 'dynamic_form'
 gem 'sanitize'
 gem 'barby'
-gem 'prawnto'
 gem 'event-calendar', :require => 'event_calendar'
-gem 'jpmobile', '1.0.0.pre.6'
+gem 'jpmobile', '~>2.0.0.pre.2'
 #gem 'geokit'
 gem 'geocoder'
 gem 'acts_as_list', :git => 'git://github.com/haihappen/acts_as_list.git'
@@ -80,11 +78,13 @@ gem 'client_side_validations'
 gem 'simple_form'
 gem 'validates_timeliness'
 gem 'rack-protection'
+gem 'rails_autolink'
 
 #gem 'oink', '>=0.9.2'
 group :development do
   gem 'parallel_tests'
   gem 'jquery-rails'
+  gem 'annotate'
 end
 
 group :development, :test do

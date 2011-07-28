@@ -56,6 +56,7 @@ class CheckedItem < ActiveRecord::Base
       #carrier_type = self.item.manifestation.carrier_type
       if checkout_count[:"#{checkout_type.name}"] + self.basket.checked_items.size >= self.item_checkout_type.checkout_limit
         errors[:base] << I18n.t('activerecord.errors.messages.checked_item.excessed_checkout_limit')
+        break
       end
     end
     
@@ -105,3 +106,16 @@ class CheckedItem < ActiveRecord::Base
     end
   end
 end
+
+# == Schema Information
+#
+# Table name: checked_items
+#
+#  id         :integer         not null, primary key
+#  item_id    :integer         not null
+#  basket_id  :integer         not null
+#  due_date   :datetime        not null
+#  created_at :datetime
+#  updated_at :datetime
+#
+

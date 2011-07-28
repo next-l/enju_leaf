@@ -66,3 +66,22 @@ class Event < ActiveRecord::Base
     self.display_name = self.name if self.display_name.blank?
   end
 end
+
+# == Schema Information
+#
+# Table name: events
+#
+#  id                :integer         not null, primary key
+#  library_id        :integer         default(1), not null
+#  event_category_id :integer         default(1), not null
+#  name              :string(255)
+#  note              :text
+#  start_at          :datetime
+#  end_at            :datetime
+#  all_day           :boolean         default(FALSE), not null
+#  deleted_at        :datetime
+#  created_at        :datetime
+#  updated_at        :datetime
+#  display_name      :text
+#
+

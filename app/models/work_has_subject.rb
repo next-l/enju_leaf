@@ -19,3 +19,17 @@ class WorkHasSubject < ActiveRecord::Base
     subject.try(:index)
   end
 end
+
+# == Schema Information
+#
+# Table name: work_has_subjects
+#
+#  id           :integer         not null, primary key
+#  subject_id   :integer
+#  subject_type :string(255)
+#  work_id      :integer
+#  created_at   :datetime
+#  updated_at   :datetime
+#  position     :integer
+#
+

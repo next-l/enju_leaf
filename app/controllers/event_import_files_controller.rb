@@ -27,7 +27,7 @@ class EventImportFilesController < ApplicationController
       format.xml  { render :xml => @event_import_file }
       format.download {
         if configatron.uploaded_file.storage == :s3
-          send_data @event_import_file.event_import.data, :filename => @event_import_file.event_import_file_name, :type => 'application/octet-stream'
+          redirect_to @event_import_file.event_import.expiring_url(10)
         else
           send_file file, :filename => @event_import_file.event_import_file_name, :type => 'application/octet-stream'
         end

@@ -47,3 +47,17 @@ classification_type_00002:
   note: ""
   created_at: 2008-03-02 22:53:51.394954 +09:00
   position: 2
+
+# == Schema Information
+#
+# Table name: classification_types
+#
+#  id           :integer         not null, primary key
+#  name         :string(255)     not null
+#  display_name :text
+#  note         :text
+#  position     :integer
+#  created_at   :datetime
+#  updated_at   :datetime
+#
+

@@ -183,7 +183,7 @@ module EnjuNdl
       doc.xpath('//item', ns).each do |item|
         isbn = item.at('./dc:identifier[@xsi:type="dcndl:ISBN"]').try(:content)
         ndl_bib_id = item.at('./dc:identifier[@xsi:type="dcndl:NDLBibID"]').try(:content)
-        manifestation = Manifestation.find_by_ndl_bib_id(ndl_bib_id)
+        manifestation = Manifestation.where(:ndl_bib_id => ndl_bib_id).first
         manifestation = Manifestation.find_by_isbn(isbn) unless manifestation
         unless manifestation
           manifestation = self.create(

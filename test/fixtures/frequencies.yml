@@ -69,3 +69,17 @@ frequency_00006:
   id: 6
   created_at: 2007-12-31 21:40:31.247081 +09:00
   position: 6
+
+# == Schema Information
+#
+# Table name: frequencies
+#
+#  id           :integer         not null, primary key
+#  name         :string(255)     not null
+#  display_name :text
+#  note         :text
+#  position     :integer
+#  created_at   :datetime
+#  updated_at   :datetime
+#
+

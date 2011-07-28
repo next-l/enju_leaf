@@ -45,12 +45,6 @@ class UsersController < ApplicationController
     respond_to do |format|
       format.html # index.rhtml
       format.xml  { render :xml => @users }
-      format.pdf {
-        prawnto :prawn => {
-          :page_layout => :portrait,
-          :page_size => "A4"},
-        :inline => true
-      }
     end
   end
 
