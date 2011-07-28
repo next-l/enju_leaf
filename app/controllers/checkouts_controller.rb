@@ -26,7 +26,7 @@ class CheckoutsController < ApplicationController
     unless icalendar_user
       if current_user.try(:has_role?, 'Librarian')
         if @user
-          checkouts = @user.checkouts.not_returned.order('created_at DESC')
+          checkouts = @user.checkouts.not_returned.order('created_at DESC').paginate(:page => params[:page])
         else
           if params[:view] == 'overdue'
             if params[:days_overdue]
@@ -34,9 +34,9 @@ class CheckoutsController < ApplicationController
             else
               date = 1.days.ago.beginning_of_day
             end
-            checkouts = Checkout.overdue(date).order('created_at DESC')
+            checkouts = Checkout.overdue(date).order('created_at DESC').paginate(:page => params[:page])
           else
-            checkouts = Checkout.not_returned.order('created_at DESC')
+            checkouts = Checkout.not_returned.order('created_at DESC').paginate(:page => params[:page])
           end
         end
       else
@@ -48,7 +48,7 @@ class CheckoutsController < ApplicationController
             access_denied
             return
           else
-            redirect_to user_checkouts_path(current_user)
+            redirect_to user_checkouts_url(current_user)
             return
           end
         end
