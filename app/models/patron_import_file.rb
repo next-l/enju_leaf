@@ -6,7 +6,8 @@ class PatronImportFile < ActiveRecord::Base
 
   if configatron.uploaded_file.storage == :s3
     has_attached_file :patron_import, :storage => :s3, :s3_credentials => "#{Rails.root.to_s}/config/s3.yml",
-      :path => "patron_import_files/:id/:filename"
+      :path => "patron_import_files/:id/:filename",
+      :s3_permissions => :private
   else
     has_attached_file :patron_import, :path => ":rails_root/private:url"
   end
@@ -234,3 +235,26 @@ class PatronImportFile < ActiveRecord::Base
     user
   end
 end
+
+# == Schema Information
+#
+# Table name: patron_import_files
+#
+#  id                         :integer         not null, primary key
+#  parent_id                  :integer
+#  content_type               :string(255)
+#  size                       :integer
+#  file_hash                  :string(255)
+#  user_id                    :integer
+#  note                       :text
+#  imported_at                :datetime
+#  state                      :string(255)
+#  patron_import_file_name    :string(255)
+#  patron_import_content_type :string(255)
+#  patron_import_file_size    :integer
+#  patron_import_updated_at   :datetime
+#  created_at                 :datetime
+#  updated_at                 :datetime
+#  edit_mode                  :string(255)
+#
+

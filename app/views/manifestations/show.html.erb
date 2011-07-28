@@ -16,10 +16,14 @@
     <%- if @version -%>
       <p>(<%= l(@manifestation.versions.find(@version).created_at) -%>)</p>
     <%- end -%>
-    <% if current_user.try(:has_role?, 'Librarian') %>
-      <%= render 'manifestations/show_detail_librarian', :manifestation => @manifestation %>
+    <% if @manifestation.periodical_master? %>
+      <%= render 'manifestations/show_periodical', :manifestation => @manifestation %>
     <% else %>
-      <%= render 'manifestations/show_detail_user', :manifestation => @manifestation %>
+      <% if current_user.try(:has_role?, 'Librarian') %>
+        <%= render 'manifestations/show_detail_librarian', :manifestation => @manifestation %>
+      <% else %>
+        <%= render 'manifestations/show_detail_user', :manifestation => @manifestation %>
+      <% end %>
     <% end %>
   </div>
 </div>

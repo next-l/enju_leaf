@@ -106,3 +106,26 @@ describe ResourceImportFile do
     end
   end
 end
+
+# == Schema Information
+#
+# Table name: resource_import_files
+#
+#  id                           :integer         not null, primary key
+#  parent_id                    :integer
+#  content_type                 :string(255)
+#  size                         :integer
+#  file_hash                    :string(255)
+#  user_id                      :integer
+#  note                         :text
+#  imported_at                  :datetime
+#  state                        :string(255)
+#  resource_import_file_name    :string(255)
+#  resource_import_content_type :string(255)
+#  resource_import_file_size    :integer
+#  resource_import_updated_at   :datetime
+#  created_at                   :datetime
+#  updated_at                   :datetime
+#  edit_mode                    :string(255)
+#
+

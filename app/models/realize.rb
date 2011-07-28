@@ -19,3 +19,17 @@ class Realize < ActiveRecord::Base
     expression.try(:index)
   end
 end
+
+# == Schema Information
+#
+# Table name: realizes
+#
+#  id            :integer         not null, primary key
+#  patron_id     :integer         not null
+#  expression_id :integer         not null
+#  position      :integer
+#  type          :string(255)
+#  created_at    :datetime
+#  updated_at    :datetime
+#
+

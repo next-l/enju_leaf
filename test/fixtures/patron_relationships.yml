@@ -9,3 +9,17 @@ two:
   parent_id: 2
   child_id: 3
   patron_relationship_type_id: 1
+
+# == Schema Information
+#
+# Table name: patron_relationships
+#
+#  id                          :integer         not null, primary key
+#  parent_id                   :integer
+#  child_id                    :integer
+#  patron_relationship_type_id :integer
+#  created_at                  :datetime
+#  updated_at                  :datetime
+#  position                    :integer
+#
+

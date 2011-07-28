@@ -12,6 +12,8 @@
     <%= render 'index_form_publisher' %>
   <% when @manifestation %>
     <%= render 'index_form_manifestation' %>
+  <% when @series_statement %>
+    <%= render 'index_form_series_statement' %>
   <% else %>
     <%= render 'index_form' %>
   <% end %>

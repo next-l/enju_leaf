@@ -38,6 +38,8 @@
                       <%= link_to t('page.add'), new_patron_realize_path(@index_patron[:contributor], :expression_id => manifestation.id) unless manifestation.contributors.include?(@index_patron[:contributor]) -%>
                     <% when @index_patron[:publisher] %>
                       <%= link_to t('page.add'), new_patron_produce_path(@index_patron[:publisher], :manifestation_id => manifestation.id) unless manifestation.publishers.include?(@index_patron[:publisher]) -%>
+                    <% when @series_statement %>
+                      <%= link_to t('page.add'), edit_series_statement_manifestation_path(@series_statement, manifestation) -%>
                     <% when @manifestation %>
                       <%= link_to t('page.add'), new_manifestation_manifestation_relationship_path(@manifestation, :child_id => manifestation.id) unless @manifestation.derived_manifestations.include?(manifestation) or @manifestation == manifestation -%>
                     <% else %>

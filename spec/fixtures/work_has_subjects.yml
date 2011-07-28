@@ -17,3 +17,17 @@ work_has_subject_00003:
   updated_at: 2008-06-06 15:11:37.290715 +09:00
   subject_id: 3
   id: 3
+
+# == Schema Information
+#
+# Table name: work_has_subjects
+#
+#  id           :integer         not null, primary key
+#  subject_id   :integer
+#  subject_type :string(255)
+#  work_id      :integer
+#  created_at   :datetime
+#  updated_at   :datetime
+#  position     :integer
+#
+

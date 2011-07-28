@@ -19,3 +19,17 @@ patron_type_00003:
   display_name: Conference
   note: 
   position: 3
+
+# == Schema Information
+#
+# Table name: patron_types
+#
+#  id           :integer         not null, primary key
+#  name         :string(255)     not null
+#  display_name :text
+#  note         :text
+#  position     :integer
+#  created_at   :datetime
+#  updated_at   :datetime
+#
+

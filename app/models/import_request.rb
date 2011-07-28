@@ -51,3 +51,17 @@ class ImportRequest < ActiveRecord::Base
     sm_fail!
   end
 end
+
+# == Schema Information
+#
+# Table name: import_requests
+#
+#  id               :integer         not null, primary key
+#  isbn             :string(255)
+#  state            :string(255)
+#  manifestation_id :integer
+#  user_id          :integer
+#  created_at       :datetime
+#  updated_at       :datetime
+#
+

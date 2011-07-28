@@ -17,3 +17,15 @@ donate_00003:
   patron_id: 2
   id: 3
   created_at: 2008-02-10 13:24:14.793431 +09:00
+
+# == Schema Information
+#
+# Table name: donates
+#
+#  id         :integer         not null, primary key
+#  patron_id  :integer         not null
+#  item_id    :integer         not null
+#  created_at :datetime
+#  updated_at :datetime
+#
+

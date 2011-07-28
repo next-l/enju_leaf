@@ -35,3 +35,20 @@ class Shelf < ActiveRecord::Base
     display_name.localize
   end
 end
+
+# == Schema Information
+#
+# Table name: shelves
+#
+#  id           :integer         not null, primary key
+#  name         :string(255)     not null
+#  display_name :text
+#  note         :text
+#  library_id   :integer         default(1), not null
+#  items_count  :integer         default(0), not null
+#  position     :integer
+#  created_at   :datetime
+#  updated_at   :datetime
+#  deleted_at   :datetime
+#
+

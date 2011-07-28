@@ -39,3 +39,19 @@ describe Bookmark do
     assert_equal old_item_count, Item.count
   end
 end
+
+# == Schema Information
+#
+# Table name: bookmarks
+#
+#  id               :integer         not null, primary key
+#  user_id          :integer         not null
+#  manifestation_id :integer
+#  title            :text
+#  url              :string(255)
+#  note             :text
+#  created_at       :datetime
+#  updated_at       :datetime
+#  shared           :boolean
+#
+

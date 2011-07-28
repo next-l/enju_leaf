@@ -15,3 +15,17 @@ subject_heading_type_00002:
   note: ""
   created_at: 2008-03-03 00:44:58.685360 +09:00
   position: 2
+
+# == Schema Information
+#
+# Table name: subject_heading_types
+#
+#  id           :integer         not null, primary key
+#  name         :string(255)     not null
+#  display_name :text
+#  note         :text
+#  position     :integer
+#  created_at   :datetime
+#  updated_at   :datetime
+#
+

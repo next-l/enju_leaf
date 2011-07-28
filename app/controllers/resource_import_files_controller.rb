@@ -27,7 +27,7 @@ class ResourceImportFilesController < ApplicationController
       format.xml  { render :xml => @resource_import_file }
       format.download {
         if configatron.uploaded_file.storage == :s3
-          send_data @resource_import_file.resource_import.data, :filename => @resource_import_file.resource_import_file_name, :type => 'application/octet-stream'
+          redirect_to @resource_import_file.resource_import.expiring_url(10)
         else
           send_file file, :filename => @resource_import_file.resource_import_file_name, :type => 'application/octet-stream'
         end
