@@ -1,10 +1,10 @@
 # -*- encoding: utf-8 -*-
 class Reserve < ActiveRecord::Base
-  scope :hold, :conditions => ['item_id IS NOT NULL']
+  scope :hold, where('item_id IS NOT NULL')
   scope :not_hold, where(:item_id => nil)
-  scope :waiting, :conditions => ['canceled_at IS NULL AND expired_at > ? AND state != ?', Time.zone.now, 'completed'], :order => 'id DESC'
-  scope :completed, :conditions => ['checked_out_at IS NOT NULL']
-  scope :canceled, :conditions => ['canceled_at IS NOT NULL']
+  scope :waiting, where('canceled_at IS NULL AND expired_at > ? AND state != ?', Time.zone.now, 'completed').order('id DESC')
+  scope :completed, where('checked_out_at IS NOT NULL')
+  scope :canceled, where('canceled_at IS NOT NULL')
   scope :will_expire_retained, lambda {|datetime| {:conditions => ['checked_out_at IS NULL AND canceled_at IS NULL AND expired_at <= ? AND state = ?', datetime, 'retained'], :order => 'expired_at'}}
   scope :will_expire_pending, lambda {|datetime| {:conditions => ['checked_out_at IS NULL AND canceled_at IS NULL AND expired_at <= ? AND state = ?', datetime, 'pending'], :order => 'expired_at'}}
   scope :created, lambda {|start_date, end_date| {:conditions => ['created_at >= ? AND created_at < ?', start_date, end_date]}}
@@ -100,7 +100,7 @@ class Reserve < ActiveRecord::Base
   end
 
   def next_reservation
-    self.manifestation.reserves.first(:conditions => ['reserves.id != ?', self.id], :order => ['reserves.created_at'])
+    manifestation.reserves.where('reserves.id != ?', self.id).order('reserves.created_at').first
   end
 
   def retain

@@ -1,7 +1,7 @@
 class Shelf < ActiveRecord::Base
   include MasterModel
   default_scope :order => "position"
-  scope :real, :conditions => ['library_id != 1']
+  scope :real, where('library_id != 1')
   belongs_to :library, :validate => true
   has_many :items, :include => [:circulation_status]
   has_many :picture_files, :as => :picture_attachable, :dependent => :destroy

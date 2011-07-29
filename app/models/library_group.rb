@@ -35,7 +35,7 @@ class LibraryGroup < ActiveRecord::Base
 
   def real_libraries
     # 物理的な図書館 = IDが1以外
-    self.libraries.where('id != 1').all
+    libraries.where('id != 1').all
   end
 
   def network_access_allowed?(ip_address, options = {})
