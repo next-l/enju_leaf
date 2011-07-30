@@ -1,5 +1,6 @@
 <div style="color: red"><%= flash[:message] -%></div>
-<%= form_for @checkin, :html => {:method => :post}, :update => :checkin_list, :url => user_basket_checkins_path(@basket.user, @basket, :mode => 'list'), :remote => true do |f| -%>
+
+<%= form_for @checkin, :html => {:method => :post}, :url => user_basket_checkins_path(@basket.user, @basket, :mode => 'list'), :remote => true do |f| -%>
 
   <p><%= t('activerecord.attributes.item.item_identifier') -%>:
     <%= f.text_field :item_identifier, :class => 'resource_item_identifier' -%>

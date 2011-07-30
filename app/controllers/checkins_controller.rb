@@ -89,22 +89,21 @@ class CheckinsController < ApplicationController
         flash[:message] << t('checkin.successfully_checked_in', :model => t('activerecord.models.checkin'))
         message = @checkin.item_checkin(current_user)
         flash[:message] << message if message
-
-        if params[:mode] == 'list'
-          redirect_to(user_basket_checkins_url(@checkin.basket.user, @checkin.basket, :mode => 'list'))
-          return
-        else
-          format.html { redirect_to user_basket_checkins_url(@checkin.basket.user, @checkin.basket) }
-          format.xml  { render :xml => @checkin, :status => :created, :location => user_basket_checkin_url(@checkin.basket.user, @checkin.basket, @checkin) }
-        end
+        format.html { redirect_to user_basket_checkins_url(@checkin.basket.user, @checkin.basket) }
+        format.xml  { render :xml => @checkin, :status => :created, :location => user_basket_checkin_url(@checkin.basket.user, @checkin.basket, @checkin) }
+        format.js {
+          if params[:mode] == 'list'
+            redirect_to user_basket_checkins_url(@checkin.basket.user, @checkin.basket, :mode => 'list', :format => :js)
+          end
+        }
       else
-        if params[:mode] == 'list'
-          redirect_to user_basket_checkins_url(@basket.user, @basket, :mode => 'list')
-          return
-        else
-          format.html { render :action => "new" }
-          format.xml  { render :xml => @checkin.errors.to_xml }
-        end
+        format.html { render :action => "new" }
+        format.xml  { render :xml => @checkin.errors.to_xml }
+        format.js {
+          if params[:mode] == 'list'
+            redirect_to user_basket_checkins_url(@basket.user, @basket, :mode => 'list', :format => :js)
+          end
+        }
       end
     end
   end
