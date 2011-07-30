@@ -67,43 +67,37 @@ class CheckinsController < ApplicationController
 
     if item.blank?
       flash[:message] << t('checkin.item_not_found')
-      if params[:mode] == 'list'
-        redirect_to user_basket_checkins_url(@basket.user, @basket, :mode => 'list')
-      else
-        redirect_to user_basket_checkins_url(@basket.user, @basket)
-      end
-      return
     end
 
     if @basket.checkins.collect(&:item).include?(item)
       flash[:message] << t('checkin.already_checked_in')
-      redirect_to user_basket_checkins_url(@basket.user, @basket, :mode => 'list')
-      return
     end
-    @checkin.item = item
 
     respond_to do |format|
-      # 速度を上げるためvalidationを省略している
-      if @checkin.save(:validate => false)
-        #flash[:message] << t('controller.successfully_created', :model => t('activerecord.models.checkin'))
-        flash[:message] << t('checkin.successfully_checked_in', :model => t('activerecord.models.checkin'))
-        message = @checkin.item_checkin(current_user)
-        flash[:message] << message if message
-        format.html { redirect_to user_basket_checkins_url(@checkin.basket.user, @checkin.basket) }
-        format.xml  { render :xml => @checkin, :status => :created, :location => user_basket_checkin_url(@checkin.basket.user, @checkin.basket, @checkin) }
+      unless item
         format.js {
-          if params[:mode] == 'list'
-            redirect_to user_basket_checkins_url(@checkin.basket.user, @checkin.basket, :mode => 'list', :format => :js)
-          end
+          redirect_to user_basket_checkins_url(@checkin.basket.user, @checkin.basket, :mode => 'list', :format => :js)
         }
       else
-        format.html { render :action => "new" }
-        format.xml  { render :xml => @checkin.errors.to_xml }
-        format.js {
-          if params[:mode] == 'list'
+        @checkin.item = item
+        if @checkin.save(:validate => false)
+        # 速度を上げるためvalidationを省略している
+          #flash[:message] << t('controller.successfully_created', :model => t('activerecord.models.checkin'))
+          flash[:message] << t('checkin.successfully_checked_in', :model => t('activerecord.models.checkin'))
+          message = @checkin.item_checkin(current_user)
+          flash[:message] << message if message
+          format.html { redirect_to user_basket_checkins_url(@checkin.basket.user, @checkin.basket) }
+          format.xml  { render :xml => @checkin, :status => :created, :location => user_basket_checkin_url(@checkin.basket.user, @checkin.basket, @checkin) }
+          format.js {
+            redirect_to user_basket_checkins_url(@checkin.basket.user, @checkin.basket, :mode => 'list', :format => :js)
+          }
+        else
+          format.html { render :action => "new" }
+          format.xml  { render :xml => @checkin.errors.to_xml }
+          format.js {
             redirect_to user_basket_checkins_url(@basket.user, @basket, :mode => 'list', :format => :js)
-          end
-        }
+          }
+        end
       end
     end
   end
