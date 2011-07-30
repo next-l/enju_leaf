@@ -99,7 +99,7 @@ class Item < ActiveRecord::Base
   end
 
   def rent?
-    return true if self.checkouts.not_returned.detect{|checkout| checkout.item_id == self.id}
+    return true if self.checkouts.not_returned.select(:item_id).detect{|checkout| checkout.item_id == self.id}
     false
   end
 
@@ -111,7 +111,7 @@ class Item < ActiveRecord::Base
   end
 
   def available_for_checkout?
-    circulation_statuses = CirculationStatus.available_for_checkout
+    circulation_statuses = CirculationStatus.available_for_checkout.select(:id)
     return true if circulation_statuses.include?(self.circulation_status)
     false
   end
