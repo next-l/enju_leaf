@@ -372,7 +372,7 @@ class ResourceImportFile < ActiveRecord::Base
       creator_patrons = Patron.import_patrons(creators_list)
       contributor_patrons = Patron.import_patrons(contributors_list)
       publisher_patrons = Patron.import_patrons(publishers_list)
-      #classification = Classification.first(:conditions => {:category => row['classification'].to_s.strip)
+      #classification = Classification.where(:category => row['classification'].to_s.strip).first
       subjects = import_subject(row)
       series_statement = import_series_statement(row)
       case options[:edit_mode]

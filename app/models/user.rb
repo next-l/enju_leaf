@@ -8,9 +8,9 @@ class User < ActiveRecord::Base
   # Setup accessible (or protected) attributes for your model
   attr_accessible :email, :password, :password_confirmation, :username, :current_password, :user_number, :remember_me
 
-  scope :administrators, :include => ['role'], :conditions => ['roles.name = ?', 'Administrator']
-  scope :librarians, :include => ['role'], :conditions => ['roles.name = ? OR roles.name = ?', 'Administrator', 'Librarian']
-  scope :suspended, :conditions => ['locked_at IS NOT NULL']
+  scope :administrators, where('roles.name = ?', 'Administrator').includes(:role)
+  scope :librarians, where('roles.name = ? OR roles.name = ?', 'Administrator', 'Librarian').includes(:role)
+  scope :suspended, where('locked_at IS NOT NULL')
   has_one :patron
   has_many :checkouts
   has_many :import_requests

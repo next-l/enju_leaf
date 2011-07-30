@@ -492,7 +492,7 @@ class ManifestationsController < ApplicationController
     end
 
     unless options[:issn].blank?
-      query = "#{query} issn_s: #{options[:issn]}"
+      query = "#{query} issn_sm: #{options[:issn]}"
     end
 
     unless options[:lccn].blank?
