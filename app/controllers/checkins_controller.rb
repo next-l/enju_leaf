@@ -75,6 +75,8 @@ class CheckinsController < ApplicationController
 
     respond_to do |format|
       unless item
+        format.html { redirect_to user_basket_checkins_url(@checkin.basket.user, @checkin.basket) }
+        format.xml  { render :xml => @checkin.errors.to_xml }
         format.js {
           redirect_to user_basket_checkins_url(@checkin.basket.user, @checkin.basket, :mode => 'list', :format => :js)
         }

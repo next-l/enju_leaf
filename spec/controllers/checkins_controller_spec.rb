@@ -224,7 +224,7 @@ describe CheckinsController do
         describe "When basket_id is specified" do
           it "redirects to the created checkin" do
             post :create, :checkin => @attrs, :basket_id => 9
-            response.should redirect_to(user_basket_checkins_url(assigns(:basket).user, assigns(:basket)))
+            response.should redirect_to(user_basket_checkins_url(assigns(:checkin).basket.user, assigns(:checkin).basket))
             assigns(:checkin).item.circulation_status.name.should eq 'Available On Shelf'
           end
         end
@@ -238,7 +238,7 @@ describe CheckinsController do
 
         it "redirects to the list" do
           post :create, :checkin => @invalid_attrs
-          response.should redirect_to(user_basket_checkins_url(assigns(:basket).user, assigns(:basket)))
+          response.should redirect_to(user_basket_checkins_url(assigns(:checkin).basket.user, assigns(:checkin).basket))
         end
       end
     end
