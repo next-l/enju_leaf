@@ -22,7 +22,7 @@ class SeriesStatement < ActiveRecord::Base
   end
 
   def last_issue
-    manifestations.first(:conditions => 'date_of_publication IS NOT NULL', :order => 'date_of_publication DESC') || manifestations.first
+    manifestations.where('date_of_publication IS NOT NULL').order('date_of_publication DESC').first || manifestations.first
   end
 
   def check_issn

@@ -1,5 +1,5 @@
 class PictureFile < ActiveRecord::Base
-  scope :attached, :conditions => ['picture_attachable_id > 0']
+  scope :attached, where('picture_attachable_id > 0')
   belongs_to :picture_attachable, :polymorphic => true, :validate => true
 
   if configatron.uploaded_file.storage == :s3

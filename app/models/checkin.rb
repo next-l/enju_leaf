@@ -16,7 +16,7 @@ class Checkin < ActiveRecord::Base
   def item_checkin(current_user)
     message = ''
     Checkin.transaction do
-      checkouts = Checkout.not_returned.where(:item_id => self.item_id)
+      checkouts = Checkout.not_returned.where(:item_id => self.item_id).select([:id, :item_id, :lock_version])
       self.item.checkin!
       checkouts.each do |checkout|
         # TODO: ILL時の処理

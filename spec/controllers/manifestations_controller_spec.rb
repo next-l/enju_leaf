@@ -75,7 +75,7 @@ describe ManifestationsController do
 
       it "assigns all manifestations as @manifestations when acquired_from and pubdate_to are specified" do
         get :index, :acquired_from => '2000', :acquired_to => '2007'
-        assigns(:query).should eq "acquired_at_d: [#{Time.zone.parse('2000-01-01').utc.iso8601} TO #{Time.zone.parse('2007-01-01').utc.iso8601}]"
+        assigns(:query).should eq "acquired_at_d: [#{Time.zone.parse('2000-01-01').utc.iso8601} TO #{Time.zone.parse('2007-12-31').end_of_day.utc.iso8601}]"
         assigns(:manifestations).should_not be_nil
       end
 

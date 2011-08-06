@@ -13,7 +13,7 @@ describe MessageRequestsController do
 
       it "assigns all message_requests as @message_requests" do
         get :index
-        assigns(:message_requests).should eq(MessageRequest.not_sent.paginate(:page => 1))
+        assigns(:message_requests).should eq(MessageRequest.not_sent.paginate(:page => 1, :order => 'created_at DESC'))
       end
     end
 
@@ -24,7 +24,7 @@ describe MessageRequestsController do
 
       it "assigns all message_requests as @message_requests" do
         get :index
-        assigns(:message_requests).should eq(MessageRequest.not_sent.paginate(:page => 1))
+        assigns(:message_requests).should eq(MessageRequest.not_sent.paginate(:page => 1, :order => 'created_at DESC'))
       end
     end
 
