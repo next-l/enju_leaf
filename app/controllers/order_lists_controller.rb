@@ -7,9 +7,9 @@ class OrderListsController < ApplicationController
   # GET /order_lists.xml
   def index
     if @bookstore
-      @order_lists = @bookstore.order_lists.paginate(:page => params[:page])
+      @order_lists = @bookstore.order_lists.page(params[:page])
     else
-      @order_lists = OrderList.paginate(:page => params[:page])
+      @order_lists = OrderList.page(params[:page])
     end
 
     respond_to do |format|

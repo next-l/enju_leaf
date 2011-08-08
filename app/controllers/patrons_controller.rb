@@ -111,9 +111,9 @@ class PatronsController < ApplicationController
       end
     end
 
-    @works = @patron.works.paginate(:page => params[:work_list_page], :per_page => Manifestation.per_page)
-    @expressions = @patron.expressions.paginate(:page => params[:expression_list_page], :per_page => Manifestation.per_page)
-    @manifestations = @patron.manifestations.paginate(:page => params[:manifestation_list_page], :order => 'date_of_publication DESC', :per_page => Manifestation.per_page)
+    @works = @patron.works.page(params[:work_list_page]).per_page(Manifestation.per_page)
+    @expressions = @patron.expressions.page(params[:expression_list_page]).per_page(Manifestation.per_page)
+    @manifestations = @patron.manifestations.order('date_of_publication DESC').page(params[:manifestation_list_page]).per_page(Manifestation.per_page)
 
     respond_to do |format|
       format.html # show.rhtml

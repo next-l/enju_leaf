@@ -7,7 +7,7 @@ class ExemplifiesController < ApplicationController
   # GET /exemplifies
   # GET /exemplifies.xml
   def index
-    @exemplifies = Exemplify.paginate(:page => params[:page])
+    @exemplifies = Exemplify.page(params[:page])
 
     respond_to do |format|
       format.html # index.html.erb

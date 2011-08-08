@@ -12,7 +12,7 @@ describe InterLibraryLoansController do
 
       it "assigns all inter_library_loans as @inter_library_loans" do
         get :index
-        assigns(:inter_library_loans).should eq(InterLibraryLoan.paginate(:page => 1))
+        assigns(:inter_library_loans).should eq(InterLibraryLoan.page(1))
       end
     end
 
@@ -23,7 +23,7 @@ describe InterLibraryLoansController do
 
       it "assigns all inter_library_loans as @inter_library_loans" do
         get :index
-        assigns(:inter_library_loans).should eq(InterLibraryLoan.paginate(:page => 1))
+        assigns(:inter_library_loans).should eq(InterLibraryLoan.page(1))
       end
     end
 

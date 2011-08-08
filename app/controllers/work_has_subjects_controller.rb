@@ -9,11 +9,11 @@ class WorkHasSubjectsController < ApplicationController
   def index
     get_work; get_subject
     if @work
-      @work_has_subjects = @work.work_has_subjects.paginate(:page => params[:page])
+      @work_has_subjects = @work.work_has_subjects.page(params[:page])
     elsif @subject
-      @work_has_subjects = @subject.work_has_subjects.paginate(:page => params[:page])
+      @work_has_subjects = @subject.work_has_subjects.page(params[:page])
     else
-      @work_has_subjects = WorkHasSubject.paginate(:page => params[:page])
+      @work_has_subjects = WorkHasSubject.page(params[:page])
     end
 
     respond_to do |format|

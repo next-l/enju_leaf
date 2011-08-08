@@ -39,7 +39,7 @@ class ItemsController < ApplicationController
             mode = 'not_on_shelf'
           end
           order = 'id'
-          @items = Item.inventory_items(@inventory_file, mode).paginate(:page => params[:page], :order => order, :per_page => per_page)
+          @items = Item.inventory_items(@inventory_file, mode).order(order).page(params[:page]).per_page(per_page)
         else
           access_denied
           return

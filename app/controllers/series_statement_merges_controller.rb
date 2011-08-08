@@ -7,11 +7,11 @@ class SeriesStatementMergesController < ApplicationController
   # GET /series_statement_merges.xml
   def index
     if @series_statement
-      @series_statement_merges = @series_statement.series_statement_merges.paginate(:page => params[:page], :order => ['series_statement_merges.id'])
+      @series_statement_merges = @series_statement.series_statement_merges.order('series_statement_merges.id').page(params[:page])
     elsif @series_statement_merge_list
-      @series_statement_merges = @series_statement_merge_list.series_statement_merges.paginate(:page => params[:page], :include => 'series_statement', :order => ['series_statement_merges.id'])
+      @series_statement_merges = @series_statement_merge_list.series_statement_merges.order('series_statement_merges.id').includes(:series_statement).page(params[:page])
     else
-      @series_statement_merges = SeriesStatementMerge.paginate(:page => params[:page])
+      @series_statement_merges = SeriesStatementMerge.page(params[:page])
     end
 
     respond_to do |format|

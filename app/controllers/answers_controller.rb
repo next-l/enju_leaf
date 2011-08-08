@@ -25,31 +25,31 @@ class AnswersController < ApplicationController
     if user_signed_in?
       if current_user.has_role?('Librarian')
         if @question
-          @answers = @question.answers.paginate(:page => params[:page], :order => ['answers.id'])
+          @answers = @question.answers.order('answers.id').page(params[:page])
         elsif @user
-          @answers = @user.answers.paginate(:page => params[:page], :order => ['answers.id'])
+          @answers = @user.answers.order('answers.id').page(params[:page])
         else
-          @answers = Answer.paginate(:page => params[:page], :order => ['answers.id'])
+          @answers = Answer.order('answers.id').page(params[:page])
         end
       else
         if @question
           if @question.user == current_user
-            @answers = @question.answers.paginate(:page => params[:page], :order => ['answers.id'])
+            @answers = @question.answers.order('answers.id').page(params[:page])
           else
-            @answers = @question.answers.public_answers.paginate(:page => params[:page], :order => ['answers.id'])
+            @answers = @question.answers.public_answers.order('answers.id').page(params[:page])
           end
         elsif @user
           if @user == current_user
-            @answers = @user.answers.paginate(:page => params[:page], :order => ['answers.id'])
+            @answers = @user.answers.order('answers.id').page(params[:page])
           else
-            @answers = @user.answers.public_answers.paginate(:page => params[:page], :order => ['answers.id'])
+            @answers = @user.answers.public_answers.order('answers.id').page(params[:page])
           end
         else
-          @answers = Answer.public_answers.paginate(:page => params[:page], :order => ['answers.id'])
+          @answers = Answer.public_answers.order('answers.id').page(params[:page])
         end
       end
     else
-      @answers = Answer.public_answers.paginate(:page => params[:page], :order => ['answers.id'])
+      @answers = Answer.public_answers.order('answers.id').page(params[:page])
     end
     @count[:query_result] = @answers.size
 

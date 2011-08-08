@@ -14,6 +14,6 @@ class MediumOfPerformancesController < InheritedResources::Base
   end
 
   def index
-    @medium_of_performances = @medium_of_performances.paginate(:page => params[:page])
+    @medium_of_performances = @medium_of_performances.page(params[:page])
   end
 end

@@ -14,6 +14,6 @@ class ExtentsController < InheritedResources::Base
   end
 
   def index
-    @extents = @extents.paginate(:page => params[:page])
+    @extents = @extents.page(params[:page])
   end
 end

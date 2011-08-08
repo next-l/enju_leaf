@@ -7,7 +7,7 @@ class UserGroupHasCheckoutTypesController < ApplicationController
   # GET /user_group_has_checkout_types
   # GET /user_group_has_checkout_types.xml
   def index
-    @user_group_has_checkout_types = UserGroupHasCheckoutType.paginate(:page => params[:page], :include => [:user_group, :checkout_type], :order => ['user_groups.position, checkout_types.position'])
+    @user_group_has_checkout_types = UserGroupHasCheckoutType.includes([:user_group, :checkout_type]).order('user_groups.position, checkout_types.position').page(params[:page])
 
     respond_to do |format|
       format.html # index.html.erb

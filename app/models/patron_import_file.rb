@@ -145,7 +145,7 @@ class PatronImportFile < ActiveRecord::Base
   def open_import_file
     tempfile = Tempfile.new('patron_import_file')
     if configatron.uploaded_file.storage == :s3
-      uploaded_file_path = open(self.patron_import.url).path
+      uploaded_file_path = open(self.patron_import.expiring_url(10)).path
     else
       uploaded_file_path = self.patron_import.path
     end

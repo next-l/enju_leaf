@@ -12,7 +12,7 @@ describe PatronMergeListsController do
 
       it "assigns all patron_merge_lists as @patron_merge_lists" do
         get :index
-        assigns(:patron_merge_lists).should eq(PatronMergeList.paginate(:page => 1))
+        assigns(:patron_merge_lists).should eq(PatronMergeList.page(1))
       end
     end
 
@@ -23,7 +23,7 @@ describe PatronMergeListsController do
 
       it "assigns all patron_merge_lists as @patron_merge_lists" do
         get :index
-        assigns(:patron_merge_lists).should eq(PatronMergeList.paginate(:page => 1))
+        assigns(:patron_merge_lists).should eq(PatronMergeList.page(1))
       end
     end
 

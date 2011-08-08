@@ -4,6 +4,6 @@ class InventoriesController < InheritedResources::Base
   load_and_authorize_resource
 
   def index
-    @inventories = @inventories.paginate(:page => params[:page])
+    @inventories = @inventories.page(params[:page])
   end
 end

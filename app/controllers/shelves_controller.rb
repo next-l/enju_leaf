@@ -17,9 +17,9 @@ class ShelvesController < ApplicationController
       return
     else
       if @library
-        @shelves = @library.shelves.order('shelves.position').includes(:library).paginate(:page => params[:page])
+        @shelves = @library.shelves.order('shelves.position').includes(:library).page(params[:page])
       else
-        @shelves = Shelf.order('shelves.position').includes(:library).paginate(:page => params[:page])
+        @shelves = Shelf.order('shelves.position').includes(:library).page(params[:page])
       end
     end
 

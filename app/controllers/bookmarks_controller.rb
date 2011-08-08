@@ -24,7 +24,6 @@ class BookmarksController < ApplicationController
     end
     page = params[:page] || 1
     search.query.paginate(page.to_i, Bookmark.per_page)
-    #@bookmarks = @user.bookmarks.paginate(:page => params[:page], :order => ['id DESC'])
     @bookmarks = search.execute!.results
 
     respond_to do |format|

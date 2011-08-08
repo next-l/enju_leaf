@@ -16,7 +16,7 @@ describe CountriesController do
 
       it "assigns all countries as @countries" do
         get :index
-        assigns(:countries).should eq(Country.paginate(:page => 1))
+        assigns(:countries).should eq(Country.page(1))
       end
     end
 
@@ -27,7 +27,7 @@ describe CountriesController do
 
       it "assigns all countries as @countries" do
         get :index
-        assigns(:countries).should eq(Country.paginate(:page => 1))
+        assigns(:countries).should eq(Country.page(1))
       end
     end
 
@@ -38,14 +38,14 @@ describe CountriesController do
 
       it "assigns all countries as @countries" do
         get :index
-        assigns(:countries).should eq(Country.paginate(:page => 1))
+        assigns(:countries).should eq(Country.page(1))
       end
     end
 
     describe "When not logged in" do
       it "assigns all countries as @countries" do
         get :index
-        assigns(:countries).should eq(Country.paginate(:page => 1))
+        assigns(:countries).should eq(Country.page(1))
       end
     end
   end

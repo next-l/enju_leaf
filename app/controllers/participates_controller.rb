@@ -4,7 +4,7 @@ class ParticipatesController < ApplicationController
   # GET /participates
   # GET /participates.xml
   def index
-    @participates = Participate.paginate(:page => params[:page])
+    @participates = Participate.page(params[:page])
 
     respond_to do |format|
       format.html # index.html.erb

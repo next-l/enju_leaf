@@ -12,7 +12,7 @@ describe PatronImportFilesController do
 
       it "assigns all patron_import_files as @patron_import_files" do
         get :index
-        assigns(:patron_import_files).should eq(PatronImportFile.paginate(:page => 1))
+        assigns(:patron_import_files).should eq(PatronImportFile.page(1))
       end
     end
 
@@ -23,7 +23,7 @@ describe PatronImportFilesController do
 
       it "assigns all patron_import_files as @patron_import_files" do
         get :index
-        assigns(:patron_import_files).should eq(PatronImportFile.paginate(:page => 1))
+        assigns(:patron_import_files).should eq(PatronImportFile.page(1))
       end
     end
 

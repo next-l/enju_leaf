@@ -4,6 +4,6 @@ class UserHasRolesController < InheritedResources::Base
   load_and_authorize_resource
 
   def index
-    @user_has_roles = @user_has_roles.paginate(:page => params[:page])
+    @user_has_roles = @user_has_roles.page(params[:page])
   end
 end

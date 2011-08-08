@@ -11,7 +11,7 @@ describe ShelvesController do
 
       it "assigns all shelves as @shelves" do
         get :index
-        assigns(:shelves).should eq(Shelf.order('shelves.position').includes(:library).paginate(:page => 1))
+        assigns(:shelves).should eq(Shelf.order('shelves.position').includes(:library).page(1))
       end
     end
 
@@ -22,7 +22,7 @@ describe ShelvesController do
 
       it "assigns all shelves as @shelves" do
         get :index
-        assigns(:shelves).should eq(Shelf.order('shelves.position').includes(:library).paginate(:page => 1))
+        assigns(:shelves).should eq(Shelf.order('shelves.position').includes(:library).page(1))
       end
     end
 
@@ -33,20 +33,20 @@ describe ShelvesController do
 
       it "assigns all shelves as @shelves" do
         get :index
-        assigns(:shelves).should eq(Shelf.order('shelves.position').includes(:library).paginate(:page => 1))
+        assigns(:shelves).should eq(Shelf.order('shelves.position').includes(:library).page(1))
       end
     end
 
     describe "When not logged in" do
       it "assigns all shelves as @shelves" do
         get :index
-        assigns(:shelves).should eq(Shelf.order('shelves.position').includes(:library).paginate(:page => 1))
+        assigns(:shelves).should eq(Shelf.order('shelves.position').includes(:library).page(1))
         response.should be_success
       end
 
       it "assigns all shelves as @shelves with library_id" do
         get :index, :library_id => 'kamata'
-        assigns(:shelves).should eq(Library.find('kamata').shelves.paginate(:page => 1))
+        assigns(:shelves).should eq(Library.find('kamata').shelves.page(1))
         response.should be_success
       end
 

@@ -6,9 +6,9 @@ class CheckoutTypesController < ApplicationController
   # GET /checkout_types.xml
   def index
     if @user_group
-      @checkout_types = @user_group.checkout_types.paginate(:page => params[:page], :order => ['checkout_types.position'])
+      @checkout_types = @user_group.checkout_types.order('checkout_types.position').page(params[:page])
     else
-      @checkout_types = CheckoutType.paginate(:page => params[:page], :order => :position)
+      @checkout_types = CheckoutType.order(:position).page(params[:page])
     end
 
     respond_to do |format|

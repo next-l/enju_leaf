@@ -12,7 +12,7 @@ describe ParticipatesController do
 
       it "assigns all participates as @participates" do
         get :index
-        assigns(:participates).should eq(Participate.paginate(:page => 1))
+        assigns(:participates).should eq(Participate.page(1))
       end
     end
 
@@ -23,7 +23,7 @@ describe ParticipatesController do
 
       it "assigns all participates as @participates" do
         get :index
-        assigns(:participates).should eq(Participate.paginate(:page => 1))
+        assigns(:participates).should eq(Participate.page(1))
       end
     end
 

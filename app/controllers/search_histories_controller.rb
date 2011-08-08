@@ -7,15 +7,15 @@ class SearchHistoriesController < ApplicationController
   def index
     if params[:mode] == 'not_found'
       if current_user.has_role?('Administrator')
-        @search_histories = SearchHistory.not_found.paginate(:page => params[:page], :order => ['created_at DESC'])
+        @search_histories = SearchHistory.not_found.order('created_at DESC').page(params[:page])
       else
-        @search_histories = current_user.search_histories.not_found.paginate(:page => params[:page], :order => ['created_at DESC'])
+        @search_histories = current_user.search_histories.not_found.order('created_at DESC').page(params[:page])
       end
     else
       if current_user.has_role?('Administrator')
-        @search_histories = SearchHistory.paginate(:page => params[:page], :order => ['created_at DESC'])
+        @search_histories = SearchHistory.order('created_at DESC').page(params[:page])
       else
-        @search_histories = current_user.search_histories.paginate(:page => params[:page], :order => ['created_at DESC'])
+        @search_histories = current_user.search_histories.order('created_at DESC').page(params[:page])
       end
     end
 

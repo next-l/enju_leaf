@@ -42,7 +42,7 @@ class SeriesStatementsController < ApplicationController
   # GET /series_statements/1
   # GET /series_statements/1.xml
   def show
-    @manifestations = @series_statement.manifestations.periodical_children.paginate(:page => params[:manifestation_page], :per_page => Manifestation.per_page)
+    @manifestations = @series_statement.manifestations.periodical_children.page(params[:manifestation_page]).per_page(Manifestation.per_page)
 
     respond_to do |format|
       format.html # show.html.erb

@@ -13,7 +13,7 @@ describe UserGroupHasCheckoutTypesController do
 
       it "assigns all user_group_has_checkout_types as @user_group_has_checkout_types" do
         get :index
-        assigns(:user_group_has_checkout_types).should eq(UserGroupHasCheckoutType.paginate(:page => 1, :include => [:user_group, :checkout_type], :order => ['user_groups.position, checkout_types.position']))
+        assigns(:user_group_has_checkout_types).should eq(UserGroupHasCheckoutType.includes([:user_group, :checkout_type]).order('user_groups.position, checkout_types.position').page(1))
       end
     end
 
@@ -24,7 +24,7 @@ describe UserGroupHasCheckoutTypesController do
 
       it "assigns all user_group_has_checkout_types as @user_group_has_checkout_types" do
         get :index
-        assigns(:user_group_has_checkout_types).should eq(UserGroupHasCheckoutType.paginate(:page => 1, :include => [:user_group, :checkout_type], :order => ['user_groups.position, checkout_types.position']))
+        assigns(:user_group_has_checkout_types).should eq(UserGroupHasCheckoutType.includes([:user_group, :checkout_type]).order('user_groups.position, checkout_types.position').page(1))
       end
     end
 
