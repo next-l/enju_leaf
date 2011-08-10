@@ -225,7 +225,7 @@ GEM
       cocaine (>= 0.0.2)
       mime-types
     parallel (0.5.7)
-    parallel_tests (0.5.0)
+    parallel_tests (0.6.0)
       parallel
     pg (0.11.0)
     polyglot (0.3.2)
@@ -326,7 +326,7 @@ GEM
     simplecov-html (0.4.5)
     sitemap_generator (2.0.1)
     spork (0.9.0.rc9)
-    state_machine (1.0.1)
+    state_machine (1.0.2)
     strongbox (0.4.8)
       activerecord
     sunspot (1.2.1)
@@ -353,7 +353,7 @@ GEM
     whenever (0.6.8)
       aaronh-chronic (>= 0.3.9)
       activesupport (>= 2.3.4)
-    will_paginate (3.0.pre4)
+    will_paginate (3.0.0)
     xml-simple (1.1.0)
     yamler (0.1.0)
     zipruby (0.3.6)
@@ -427,5 +427,5 @@ DEPENDENCIES
   timecop
   validates_timeliness
   whenever
-  will_paginate (= 3.0.pre4)
+  will_paginate (~> 3.0)
   zipruby
