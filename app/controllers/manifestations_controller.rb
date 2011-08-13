@@ -653,9 +653,9 @@ class ManifestationsController < ApplicationController
       if options[:pubdate_to].blank?
         pubdate[:to] = "*"
       else
-        pubdate[:to] = Time.zone.parse(options[:pubdate_to]).beginning_of_day.utc.iso8601 rescue nil
+        pubdate[:to] = Time.zone.parse(options[:pubdate_to]).end_of_day.utc.iso8601 rescue nil
         unless pubdate[:to]
-          pubdate[:to] = Time.zone.parse(Time.mktime(options[:pubdate_to]).to_s).beginning_of_day.utc.iso8601
+          pubdate[:to] = Time.zone.parse(Time.mktime(options[:pubdate_to]).to_s).end_of_year.utc.iso8601
         end
       end
       query = "#{query} date_of_publication_d: [#{pubdate[:from]} TO #{pubdate[:to]}]"
