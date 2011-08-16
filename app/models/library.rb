@@ -75,8 +75,13 @@ class Library < ActiveRecord::Base
     Library.find(1)
   end
 
-  def address
-    self.region.to_s + self.locality.to_s + " " + self.street.to_s
+  def address(locale = I18n.locale)
+    case locale.to_sym
+    when :ja
+      "#{self.region.to_s.localize(locale)}#{self.locality.to_s.localize(locale)}#{self.street.to_s.localize(locale)}"
+    else
+      "#{self.street.to_s.localize(locale)} #{self.locality.to_s.localize(locale)} #{self.region.to_s.localize(locale)}"
+    end
   rescue
     nil
   end
