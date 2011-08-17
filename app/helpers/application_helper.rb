@@ -1,6 +1,5 @@
 # Methods added to this helper will be available to all templates in the application.
 module ApplicationHelper
-  include WillPaginate::ViewHelpers::ActionView
   include PictureFilesHelper
 
   def form_icon(carrier_type)
@@ -221,10 +220,4 @@ module ApplicationHelper
     string << LibraryGroup.system_name + ' - Next-L Enju Leaf'
     string.html_safe
   end
-
-  def will_paginate_with_i18n(collection, options = {})
-    will_paginate_without_i18n(collection, options.merge(:previous_label => I18n.t('page.previous'), :next_label => I18n.t('page.next')))
-  end
-
-  alias_method_chain :will_paginate, :i18n
 end

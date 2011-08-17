@@ -4,7 +4,7 @@ atom_feed(:url => orders_url(:format => :atom)) do |feed|
 
   @orders.each do |order|
     feed.entry(order) do |entry|
-      entry.title h(order.order_list.title)
+      entry.title order.order_list.title
       entry.author(@library_group.display_name.localize)
     end
   end

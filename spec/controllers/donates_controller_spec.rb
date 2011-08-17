@@ -13,7 +13,7 @@ describe DonatesController do
 
       it "assigns all donates as @donates" do
         get :index
-        assigns(:donates).should eq(Donate.paginate(:page => 1, :order => 'id DESC'))
+        assigns(:donates).should eq(Donate.order('id DESC').page(1))
       end
     end
 
@@ -24,7 +24,7 @@ describe DonatesController do
 
       it "assigns all donates as @donates" do
         get :index
-        assigns(:donates).should eq(Donate.paginate(:page => 1, :order => 'id DESC'))
+        assigns(:donates).should eq(Donate.order('id DESC').page(1))
       end
     end
 

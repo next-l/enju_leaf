@@ -13,7 +13,7 @@ describe ReservesController do
 
       it "assigns all reserves as @reserves" do
         get :index
-        assigns(:reserves).should eq(Reserve.paginate(:page => 1, :order => ['reserves.expired_at DESC']))
+        assigns(:reserves).should eq(Reserve.order('reserves.expired_at DESC').page(1))
       end
     end
 
@@ -24,7 +24,7 @@ describe ReservesController do
 
       it "assigns all reserves as @reserves" do
         get :index
-        assigns(:reserves).should eq(Reserve.paginate(:page => 1, :order => ['reserves.expired_at DESC']))
+        assigns(:reserves).should eq(Reserve.order('reserves.expired_at DESC').page(1))
       end
     end
 

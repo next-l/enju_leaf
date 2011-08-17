@@ -12,7 +12,7 @@ describe SeriesStatementMergeListsController do
 
       it "assigns all series_statement_merge_lists as @series_statement_merge_lists" do
         get :index
-        assigns(:series_statement_merge_lists).should eq(SeriesStatementMergeList.paginate(:page => 1))
+        assigns(:series_statement_merge_lists).should eq(SeriesStatementMergeList.page(1))
       end
     end
 
@@ -23,7 +23,7 @@ describe SeriesStatementMergeListsController do
 
       it "assigns all series_statement_merge_lists as @series_statement_merge_lists" do
         get :index
-        assigns(:series_statement_merge_lists).should eq(SeriesStatementMergeList.paginate(:page => 1))
+        assigns(:series_statement_merge_lists).should eq(SeriesStatementMergeList.page(1))
       end
     end
 

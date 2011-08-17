@@ -11,7 +11,7 @@ describe InventoryFilesController do
 
       it "assigns all inventory_files as @inventory_files" do
         get :index
-        assigns(:inventory_files).should eq(InventoryFile.paginate(:page => 1))
+        assigns(:inventory_files).should eq(InventoryFile.page(1))
       end
     end
 

@@ -4,7 +4,7 @@ atom_feed(:url => inter_library_loans_url(:format => :atom)) do |feed|
 
   @inter_library_loans.each do |inter_library_loan|
     feed.entry(inter_library_loan) do |entry|
-      entry.title h(inter_library_loan.item.manifestation.original_title)
+      entry.title inter_library_loan.item.manifestation.original_title
       entry.author(@library_group.display_name.localize)
     end
   end

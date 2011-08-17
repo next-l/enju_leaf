@@ -14,6 +14,6 @@ class CountriesController < InheritedResources::Base
   end
 
   def index
-    @countries = @countries.paginate(:page => params[:page])
+    @countries = @countries.page(params[:page])
   end
 end

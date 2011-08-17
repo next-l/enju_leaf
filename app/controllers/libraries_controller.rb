@@ -24,7 +24,7 @@ class LibrariesController < ApplicationController
         order_by sort[:sort_by], sort[:order]
       end.results
     else
-      @libraries = Library.paginate(:page => page, :order => "#{sort[:sort_by]} #{sort[:order]}")
+      @libraries = Library.order("#{sort[:sort_by]} #{sort[:order]}").page(page)
     end
 
     respond_to do |format|

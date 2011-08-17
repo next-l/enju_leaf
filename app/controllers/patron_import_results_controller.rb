@@ -8,9 +8,9 @@ class PatronImportResultsController < InheritedResources::Base
   def index
     @patron_import_file = PatronImportFile.where(:id => params[:patron_import_file_id]).first
     if @patron_import_file
-      @patron_import_results = @patron_import_file.patron_import_results.paginate(:page => params[:page])
+      @patron_import_results = @patron_import_file.patron_import_results.page(params[:page])
     else
-      @patron_import_results = @patron_import_results.paginate(:page => params[:page])
+      @patron_import_results = @patron_import_results.page(params[:page])
     end
   end
 end

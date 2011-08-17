@@ -12,7 +12,7 @@ describe EventImportFilesController do
 
       it "assigns all event_import_files as @event_import_files" do
         get :index
-        assigns(:event_import_files).should eq(EventImportFile.paginate(:page => 1))
+        assigns(:event_import_files).should eq(EventImportFile.page(1))
       end
     end
 
@@ -23,7 +23,7 @@ describe EventImportFilesController do
 
       it "assigns all event_import_files as @event_import_files" do
         get :index
-        assigns(:event_import_files).should eq(EventImportFile.paginate(:page => 1))
+        assigns(:event_import_files).should eq(EventImportFile.page(1))
       end
     end
 

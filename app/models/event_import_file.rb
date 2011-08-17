@@ -115,7 +115,7 @@ class EventImportFile < ActiveRecord::Base
   def open_import_file
     tempfile = Tempfile.new('event_import_file')
     if configatron.uploaded_file.storage == :s3
-      uploaded_file_path = open(self.event_import.url).path
+      uploaded_file_path = open(self.event_import.expiring_url(10)).path
     else
       uploaded_file_path = self.event_import.path
     end

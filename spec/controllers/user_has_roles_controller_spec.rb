@@ -13,7 +13,7 @@ describe UserHasRolesController do
 
       it "assigns all user_has_roles as @user_has_roles" do
         get :index
-        assigns(:user_has_roles).should eq(UserHasRole.paginate(:page => 1))
+        assigns(:user_has_roles).should eq(UserHasRole.page(1))
       end
     end
 

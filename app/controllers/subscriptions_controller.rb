@@ -8,9 +8,9 @@ class SubscriptionsController < ApplicationController
   # GET /subscriptions.xml
   def index
     if @work
-      @subscriptions = @work.subscriptions.paginate(:page => params[:page])
+      @subscriptions = @work.subscriptions.page(params[:page])
     else
-      @subscriptions = Subscription.paginate(:page => params[:page])
+      @subscriptions = Subscription.page(params[:page])
     end
 
     respond_to do |format|

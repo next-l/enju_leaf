@@ -34,10 +34,10 @@
       <%- else -%>
         <%= link_to t('manifestation.date_of_acquisition'), params.merge(:sort_by => nil) -%>
       <%- end -%>
-      <%- if params[:sort_by] == 'pubdate' -%>
+      <%- if params[:sort_by] == 'pub_date' -%>
         <strong><%= t('activerecord.attributes.manifestation.date_of_publication') -%></strong>
       <%- else -%>
-        <%= link_to t('activerecord.attributes.manifestation.date_of_publication'), params.merge(:sort_by => 'date') -%>
+        <%= link_to t('activerecord.attributes.manifestation.date_of_publication'), params.merge(:sort_by => 'pub_date') -%>
       <%- end -%>
       <%- if params[:sort_by] == 'title' -%>
         <strong><%= t('page.title') -%></strong>
@@ -76,9 +76,9 @@
     <%- end -%>
   <div>
     <%- if params[:library_id].blank? -%>
-      <%= link_to (image_tag 'feed-icon-14x14.png', :size => '14x14', :alt => t('page.feed'), :class => 'icon'), url_for(params.merge(:format => 'rss', :page => nil, :library_id => nil)) -%> <%= link_to t('page.search_result_feed'), url_for(params.merge(:format => 'rss', :page => nil, :library_id => nil, :commit => nil)) -%>
+      <%= link_to (image_tag 'feed-icon-14x14.png', :size => '14x14', :alt => t('page.feed'), :class => 'icon'), url_for(params.merge(:format => :rss, :page => nil, :library_id => nil)) -%> <%= link_to t('page.search_result_feed'), url_for(params.merge(:format => 'rss', :page => nil, :library_id => nil, :commit => nil)) -%>
     <%- else -%>
-      <%= link_to (image_tag 'feed-icon-14x14.png', :size => '14x14', :alt => t('page.feed'), :class => 'icon'), url_for(params.merge(:format => 'rss', :page => nil)) -%> <%= link_to t('page.search_result_feed'), url_for(params.merge(:format => 'rss', :page => nil, :commit => nil)) -%>
+      <%= link_to (image_tag 'feed-icon-14x14.png', :size => '14x14', :alt => t('page.feed'), :class => 'icon'), url_for(params.merge(:format => :rss, :page => nil)) -%> <%= link_to t('page.search_result_feed'), url_for(params.merge(:format => 'rss', :page => nil, :commit => nil)) -%>
     <%- end -%>
   </div>
 </div>

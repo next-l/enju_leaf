@@ -18,7 +18,7 @@ describe CheckoutsController do
 
       it "assigns all checkouts as @checkouts" do
         get :index
-        assigns(:checkouts).should eq(Checkout.not_returned.order('created_at DESC').paginate(:page => 1))
+        assigns(:checkouts).should eq(Checkout.not_returned.order('created_at DESC').page(1))
       end
     end
 
@@ -30,7 +30,7 @@ describe CheckoutsController do
 
       it "assigns all checkouts as @checkouts" do
         get :index, :user_id => @user.username
-        assigns(:checkouts).should eq(@user.checkouts.not_returned.order('created_at DESC').paginate(:page => 1))
+        assigns(:checkouts).should eq(@user.checkouts.not_returned.order('created_at DESC').page(1))
       end
 
       it "should be redirected if an username is not specified" do
@@ -58,7 +58,7 @@ describe CheckoutsController do
         token = "AVRjefcBcey6f1WyYXDl"
         user = User.where(:checkout_icalendar_token => token).first
         get :index, :icalendar_token => token
-        assigns(:checkouts).should eq user.checkouts.not_returned.order('created_at DESC').paginate(:page => 1)
+        assigns(:checkouts).should eq user.checkouts.not_returned.order('created_at DESC').page(1)
         response.should be_success
       end
     end

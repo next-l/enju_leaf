@@ -21,7 +21,7 @@ xml.rss('version' => "2.0",
     if @manifestations
       @manifestations.each do |manifestation|
           xml.item do
-            xml.title h(manifestation.original_title)
+            xml.title manifestation.original_title
             #xml.description(manifestation.original_title)
             # rfc822
             manifestation.creators.readable_by(current_user).each do |creator|
@@ -31,7 +31,7 @@ xml.rss('version' => "2.0",
             xml.link manifestation_url(manifestation)
             xml.guid manifestation_url(manifestation), :isPermaLink => "true"
             manifestation.tags.each do |tag|
-              xml.category h(tag)
+              xml.category tag
             end
             xml.tag! "dc:Identifier", manifestation.isbn
           end

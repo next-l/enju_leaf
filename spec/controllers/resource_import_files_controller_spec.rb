@@ -11,7 +11,7 @@ describe ResourceImportFilesController do
 
       it "assigns all resource_import_files as @resource_import_files" do
         get :index
-        assigns(:resource_import_files).should eq(ResourceImportFile.paginate(:page => 1))
+        assigns(:resource_import_files).should eq(ResourceImportFile.page(1))
       end
     end
 
@@ -22,7 +22,7 @@ describe ResourceImportFilesController do
 
       it "assigns all resource_import_files as @resource_import_files" do
         get :index
-        assigns(:resource_import_files).should eq(ResourceImportFile.paginate(:page => 1))
+        assigns(:resource_import_files).should eq(ResourceImportFile.page(1))
       end
     end
 

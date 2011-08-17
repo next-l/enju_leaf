@@ -12,7 +12,7 @@ describe SubscriptionsController do
 
       it "assigns all subscriptions as @subscriptions" do
         get :index
-        assigns(:subscriptions).should eq(Subscription.paginate(:page => 1))
+        assigns(:subscriptions).should eq(Subscription.page(1))
       end
     end
 
@@ -23,7 +23,7 @@ describe SubscriptionsController do
 
       it "assigns all subscriptions as @subscriptions" do
         get :index
-        assigns(:subscriptions).should eq(Subscription.paginate(:page => 1))
+        assigns(:subscriptions).should eq(Subscription.page(1))
       end
     end
 

@@ -1,7 +1,7 @@
   xml.rdf(:Description, 'rdf:about' => manifestation_url(manifestation)) do
-    xml.title h(manifestation.original_title)
+    xml.title manifestation.original_title
     #xml.description(manifestation.original_title)
-    xml.tag! 'dc:date', h(manifestation.created_at.utc.iso8601)
+    xml.tag! 'dc:date', manifestation.created_at.utc.iso8601
     manifestation.creators.readable_by(current_user).each do |creator|
       xml.tag! 'foaf:maker' do
         xml.tag! 'foaf:Person' do

@@ -1,6 +1,6 @@
 source 'http://rubygems.org'
 
-gem 'rails', '3.1.0.rc5'
+gem 'rails', '3.1.0.rc6'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
@@ -31,7 +31,7 @@ end
 
 gem 'fastercsv' if RUBY_VERSION < '1.9'
 
-gem 'will_paginate', '3.0.pre4'
+gem 'will_paginate', '~>3.0'
 gem 'exception_notification', :require => 'exception_notifier'
 gem 'delayed_job', '>=2.1.4'
 gem 'state_machine'
@@ -67,7 +67,8 @@ gem 'aws-s3', :require => 'aws/s3'
 gem 'astrails-safe'
 gem 'dynamic_form'
 gem 'sanitize'
-gem 'barby'
+gem 'barby', '>=0.4.4'
+gem 'rqrcode'
 gem 'event-calendar', :require => 'event_calendar'
 gem 'jpmobile', '~>2.0.0.pre.2'
 #gem 'geokit'
@@ -88,7 +89,6 @@ group :development do
 end
 
 group :development, :test do
-  gem 'rspec'
   gem 'rspec-rails'
   gem 'guard-rspec'
   gem 'factory_girl_rails'

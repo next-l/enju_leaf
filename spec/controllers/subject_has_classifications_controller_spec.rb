@@ -17,7 +17,7 @@ describe SubjectHasClassificationsController do
 
       it "assigns all subject_has_classifications as @subject_has_classifications" do
         get :index
-        assigns(:subject_has_classifications).should eq(SubjectHasClassification.paginate(:page => 1))
+        assigns(:subject_has_classifications).should eq(SubjectHasClassification.page(1))
       end
     end
 
@@ -28,7 +28,7 @@ describe SubjectHasClassificationsController do
 
       it "assigns all subject_has_classifications as @subject_has_classifications" do
         get :index
-        assigns(:subject_has_classifications).should eq(SubjectHasClassification.paginate(:page => 1))
+        assigns(:subject_has_classifications).should eq(SubjectHasClassification.page(1))
       end
     end
 
@@ -39,14 +39,14 @@ describe SubjectHasClassificationsController do
 
       it "assigns all subject_has_classifications as @subject_has_classifications" do
         get :index
-        assigns(:subject_has_classifications).should eq(SubjectHasClassification.paginate(:page => 1))
+        assigns(:subject_has_classifications).should eq(SubjectHasClassification.page(1))
       end
     end
 
     describe "When not logged in" do
       it "should not assign subject_has_classifications as @subject_has_classifications" do
         get :index
-        assigns(:subject_has_classifications).should eq(SubjectHasClassification.paginate(:page => 1))
+        assigns(:subject_has_classifications).should eq(SubjectHasClassification.page(1))
       end
     end
   end

@@ -115,18 +115,18 @@ class ManifestationsControllerTest < ActionController::TestCase
     assert_equal '2005 number_of_pages_i: [1 TO 100]', assigns(:query)
   end
 
-  def test_guest_should_get_index_with_pubdate_from
-    get :index, :query => '2005', :pubdate_from => '2000'
+  def test_guest_should_get_index_with_pub_date_from
+    get :index, :query => '2005', :pub_date_from => '2000'
     assert_response :success
     assert assigns(:manifestations)
     assert_equal '2005 date_of_publication_d: [1999-12-31T15:00:00Z TO *]', assigns(:query)
   end
 
-  def test_guest_should_get_index_with_pubdate_to
-    get :index, :query => '2005', :pubdate_to => '2000'
+  def test_guest_should_get_index_with_pub_date_to
+    get :index, :query => '2005', :pub_date_to => '2000'
     assert_response :success
     assert assigns(:manifestations)
-    assert_equal '2005 date_of_publication_d: [* TO 1999-12-31T15:00:00Z]', assigns(:query)
+    assert_equal '2005 date_of_publication_d: [* TO 2000-12-31T14:59:59Z]', assigns(:query)
   end
 
   def test_guest_should_get_index_all_facet

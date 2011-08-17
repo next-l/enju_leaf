@@ -14,6 +14,6 @@ class PatronTypesController < InheritedResources::Base
   end
 
   def index
-    @patron_types = @patron_types.paginate(:page => params[:page])
+    @patron_types = @patron_types.page(params[:page])
   end
 end

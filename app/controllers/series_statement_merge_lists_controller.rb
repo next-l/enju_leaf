@@ -5,7 +5,7 @@ class SeriesStatementMergeListsController < ApplicationController
   # GET /series_statement_merge_lists
   # GET /series_statement_merge_lists.xml
   def index
-    @series_statement_merge_lists = SeriesStatementMergeList.paginate(:page => params[:page])
+    @series_statement_merge_lists = SeriesStatementMergeList.page(params[:page])
 
     respond_to do |format|
       format.html # index.html.erb

@@ -19,8 +19,8 @@ xml.rss('version' => "2.0",
     end
     @subjects.each do |subject|
       xml.item do
-        xml.title h(subject.term)
-        xml.pubDate h(subject.created_at.utc.rfc822)
+        xml.title subject.term
+        xml.pubDate subject.created_at.utc.rfc822
         xml.link subject_url(subject)
         xml.guid subject_url(subject), :isPermaLink => "true"
       end

@@ -521,7 +521,7 @@ class ManifestationsController < ApplicationController
       query = "#{query} number_of_pages_i: [#{number_of_pages[:at_least]} TO #{number_of_pages[:at_most]}]"
     end
 
-    query = set_pubdate(query, options)
+    query = set_pub_date(query, options)
     query = set_acquisition_date(query, options)
 
     query = query.strip
@@ -541,7 +541,7 @@ class ManifestationsController < ApplicationController
     when 'title'
       sort[:sort_by] = 'sort_title'
       sort[:order] = 'asc'
-    when 'pubdate'
+    when 'pub_date'
       sort[:sort_by] = 'date_of_publication'
       sort[:order] = 'desc'
     else
@@ -635,30 +635,30 @@ class ManifestationsController < ApplicationController
     end
   end
 
-  def set_pubdate(query, options)
-    unless options[:pubdate_from].blank? and options[:pubdate_to].blank?
-      options[:pubdate_from].to_s.gsub!(/\D/, '')
-      options[:pubdate_to].to_s.gsub!(/\D/, '')
+  def set_pub_date(query, options)
+    unless options[:pub_date_from].blank? and options[:pub_date_to].blank?
+      options[:pub_date_from].to_s.gsub!(/\D/, '')
+      options[:pub_date_to].to_s.gsub!(/\D/, '')
 
-      pubdate = {}
-      if options[:pubdate_from].blank?
-        pubdate[:from] = "*"
+      pub_date = {}
+      if options[:pub_date_from].blank?
+        pub_date[:from] = "*"
       else
-        pubdate[:from] = Time.zone.parse(options[:pubdate_from]).beginning_of_day.utc.iso8601 rescue nil
-        unless pubdate[:from]
-          pubdate[:from] = Time.zone.parse(Time.mktime(options[:pubdate_from]).to_s).beginning_of_day.utc.iso8601
+        pub_date[:from] = Time.zone.parse(options[:pub_date_from]).beginning_of_day.utc.iso8601 rescue nil
+        unless pub_date[:from]
+          pub_date[:from] = Time.zone.parse(Time.mktime(options[:pub_date_from]).to_s).beginning_of_day.utc.iso8601
         end
       end
 
-      if options[:pubdate_to].blank?
-        pubdate[:to] = "*"
+      if options[:pub_date_to].blank?
+        pub_date[:to] = "*"
       else
-        pubdate[:to] = Time.zone.parse(options[:pubdate_to]).beginning_of_day.utc.iso8601 rescue nil
-        unless pubdate[:to]
-          pubdate[:to] = Time.zone.parse(Time.mktime(options[:pubdate_to]).to_s).beginning_of_day.utc.iso8601
+        pub_date[:to] = Time.zone.parse(options[:pub_date_to]).end_of_day.utc.iso8601 rescue nil
+        unless pub_date[:to]
+          pub_date[:to] = Time.zone.parse(Time.mktime(options[:pub_date_to]).to_s).end_of_year.utc.iso8601
         end
       end
-      query = "#{query} date_of_publication_d: [#{pubdate[:from]} TO #{pubdate[:to]}]"
+      query = "#{query} date_of_publication_d: [#{pub_date[:from]} TO #{pub_date[:to]}]"
     end
     query
   end

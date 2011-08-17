@@ -17,7 +17,7 @@ describe SearchEnginesController do
 
       it "assigns all search_engines as @search_engines" do
         get :index
-        assigns(:search_engines).should eq(SearchEngine.paginate(:page => 1))
+        assigns(:search_engines).should eq(SearchEngine.page(1))
       end
     end
 
@@ -28,7 +28,7 @@ describe SearchEnginesController do
 
       it "assigns all search_engines as @search_engines" do
         get :index
-        assigns(:search_engines).should eq(SearchEngine.paginate(:page => 1))
+        assigns(:search_engines).should eq(SearchEngine.page(1))
       end
     end
 
