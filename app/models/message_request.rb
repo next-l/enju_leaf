@@ -1,6 +1,6 @@
 require 'erubis'
 class MessageRequest < ActiveRecord::Base
-  scope :not_sent, :conditions => ['sent_at IS NULL AND state = ?', 'pending']
+  scope :not_sent, where('sent_at IS NULL AND state = ?', 'pending')
   scope :sent, where(:state => 'sent')
   scope :started, where(:state => 'started')
   belongs_to :message_template, :validate => true

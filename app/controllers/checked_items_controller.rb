@@ -79,7 +79,7 @@ class CheckedItemsController < ApplicationController
     unless item_identifier.blank?
       item = Item.where(:item_identifier => item_identifier).first
     end
-    @checked_item.item = item unless item.blank?
+    @checked_item.item = item if item
 
     respond_to do |format|
       if @checked_item.save

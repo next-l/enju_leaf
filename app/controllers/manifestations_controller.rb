@@ -492,7 +492,7 @@ class ManifestationsController < ApplicationController
     end
 
     unless options[:issn].blank?
-      query = "#{query} issn_s: #{options[:issn]}"
+      query = "#{query} issn_sm: #{options[:issn]}"
     end
 
     unless options[:lccn].blank?
@@ -681,9 +681,9 @@ class ManifestationsController < ApplicationController
       if options[:acquired_to].blank?
         acquisition_date[:to] = "*"
       else
-        acquisition_date[:to] = Time.zone.parse(options[:acquired_to]).beginning_of_day.utc.iso8601 rescue nil
+        acquisition_date[:to] = Time.zone.parse(options[:acquired_to]).end_of_day.utc.iso8601 rescue nil
         unless acquisition_date[:to]
-          acquisition_date[:to] = Time.zone.parse(Time.mktime(options[:acquired_to]).to_s).beginning_of_day.utc.iso8601
+          acquisition_date[:to] = Time.zone.parse(Time.mktime(options[:acquired_to]).to_s).end_of_year.utc.iso8601
         end
       end
       query = "#{query} acquired_at_d: [#{acquisition_date[:from]} TO #{acquisition_date[:to]}]"
