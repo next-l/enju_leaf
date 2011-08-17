@@ -26,7 +26,7 @@ xml.rss('version' => "2.0",
     end
     @checkouts.each do |checkout|
       xml.item do
-        xml.title h(checkout.item.manifestation.original_title)
+        xml.title checkout.item.manifestation.original_title
         #xml.description(checkout.title)
         # rfc822
         xml.pubDate checkout.created_at.utc.rfc822

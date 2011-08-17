@@ -19,7 +19,7 @@ xml.rss('version' => "2.0",
     #end
     @inter_library_loans.each do |inter_library_loan|
       xml.item do
-        xml.title h(inter_library_loan.item.manifestation.original_title)
+        xml.title inter_library_loan.item.manifestation.original_title
         #xml.description(inter_library_loan.title)
         # rfc822
         xml.pubDate inter_library_loan.created_at.utc.rfc822

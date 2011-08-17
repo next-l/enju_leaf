@@ -34,10 +34,10 @@
       <%- else -%>
         <%= link_to t('manifestation.date_of_acquisition'), params.merge(:sort_by => nil) -%>
       <%- end -%>
-      <%- if params[:sort_by] == 'pubdate' -%>
+      <%- if params[:sort_by] == 'pub_date' -%>
         <strong><%= t('activerecord.attributes.manifestation.date_of_publication') -%></strong>
       <%- else -%>
-        <%= link_to t('activerecord.attributes.manifestation.date_of_publication'), params.merge(:sort_by => 'date') -%>
+        <%= link_to t('activerecord.attributes.manifestation.date_of_publication'), params.merge(:sort_by => 'pub_date') -%>
       <%- end -%>
       <%- if params[:sort_by] == 'title' -%>
         <strong><%= t('page.title') -%></strong>
