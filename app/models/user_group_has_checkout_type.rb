@@ -24,7 +24,7 @@ class UserGroupHasCheckoutType < ActiveRecord::Base
 
   def update_lending_policy
     self.checkout_type.items.each do |item|
-      sql = ['UPDATE lending_policies SET loan_period = ?, renewal = ?, updated_at = ? WHERE user_group_id = ? AND item_id = ?', self.user_group_id, self.checkout_period, Time.zone.now, self.checkout_renewal_limit, item.id]
+      sql = ['UPDATE lending_policies SET loan_period = ?, renewal = ?, updated_at = ? WHERE user_group_id = ? AND item_id = ?', self.checkout_period, self.checkout_renewal_limit, Time.zone.now, self.user_group_id, item.id]
       ActiveRecord::Base.connection.execute(
         self.class.send(:sanitize_sql_array, sql)
       )
