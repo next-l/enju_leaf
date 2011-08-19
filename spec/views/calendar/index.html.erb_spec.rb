@@ -4,8 +4,8 @@ describe "calendar/index.html.erb" do
   fixtures :libraries
 
   before(:each) do
-    Factory(:event, :start_at => 1.day.ago, :end_at => 1.day.from_now)
-    Factory(:event, :start_at => 1.day.ago, :end_at => 1.day.from_now, :all_day => true)
+    FactoryGirl.create(:event, :start_at => 1.day.ago, :end_at => 1.day.from_now)
+    FactoryGirl.create(:event, :start_at => 1.day.ago, :end_at => 1.day.from_now, :all_day => true)
     time = Time.zone.now
     assign(:month, time.month)
     assign(:year, time.year)

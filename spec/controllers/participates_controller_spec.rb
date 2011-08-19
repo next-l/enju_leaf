@@ -7,7 +7,7 @@ describe ParticipatesController do
   describe "GET index" do
     describe "When logged in as Administrator" do
       before(:each) do
-        sign_in Factory(:admin)
+        sign_in FactoryGirl.create(:admin)
       end
 
       it "assigns all participates as @participates" do
@@ -18,7 +18,7 @@ describe ParticipatesController do
 
     describe "When logged in as Librarian" do
       before(:each) do
-        sign_in Factory(:librarian)
+        sign_in FactoryGirl.create(:librarian)
       end
 
       it "assigns all participates as @participates" do
@@ -29,7 +29,7 @@ describe ParticipatesController do
 
     describe "When logged in as User" do
       before(:each) do
-        sign_in Factory(:user)
+        sign_in FactoryGirl.create(:user)
       end
 
       it "assigns empty as @participates" do
@@ -49,11 +49,11 @@ describe ParticipatesController do
   describe "GET show" do
     describe "When logged in as Administrator" do
       before(:each) do
-        sign_in Factory(:admin)
+        sign_in FactoryGirl.create(:admin)
       end
 
       it "assigns the requested participate as @participate" do
-        participate = Factory.create(:participate)
+        participate = FactoryGirl.create(:participate)
         get :show, :id => participate.id
         assigns(:participate).should eq(participate)
       end
@@ -61,11 +61,11 @@ describe ParticipatesController do
 
     describe "When logged in as Librarian" do
       before(:each) do
-        sign_in Factory(:librarian)
+        sign_in FactoryGirl.create(:librarian)
       end
 
       it "assigns the requested participate as @participate" do
-        participate = Factory.create(:participate)
+        participate = FactoryGirl.create(:participate)
         get :show, :id => participate.id
         assigns(:participate).should eq(participate)
       end
@@ -73,11 +73,11 @@ describe ParticipatesController do
 
     describe "When logged in as User" do
       before(:each) do
-        sign_in Factory(:user)
+        sign_in FactoryGirl.create(:user)
       end
 
       it "assigns the requested participate as @participate" do
-        participate = Factory.create(:participate)
+        participate = FactoryGirl.create(:participate)
         get :show, :id => participate.id
         assigns(:participate).should eq(participate)
       end
@@ -85,7 +85,7 @@ describe ParticipatesController do
 
     describe "When not logged in" do
       it "assigns the requested participate as @participate" do
-        participate = Factory.create(:participate)
+        participate = FactoryGirl.create(:participate)
         get :show, :id => participate.id
         assigns(:participate).should eq(participate)
       end
@@ -95,7 +95,7 @@ describe ParticipatesController do
   describe "GET new" do
     describe "When logged in as Administrator" do
       before(:each) do
-        sign_in Factory(:admin)
+        sign_in FactoryGirl.create(:admin)
       end
 
       it "assigns the requested participate as @participate" do
@@ -106,7 +106,7 @@ describe ParticipatesController do
 
     describe "When logged in as Librarian" do
       before(:each) do
-        sign_in Factory(:librarian)
+        sign_in FactoryGirl.create(:librarian)
       end
 
       it "assigns the requested participate as @participate" do
@@ -117,7 +117,7 @@ describe ParticipatesController do
 
     describe "When logged in as User" do
       before(:each) do
-        sign_in Factory(:user)
+        sign_in FactoryGirl.create(:user)
       end
 
       it "should not assign the requested participate as @participate" do
@@ -139,11 +139,11 @@ describe ParticipatesController do
   describe "GET edit" do
     describe "When logged in as Administrator" do
       before(:each) do
-        sign_in Factory(:admin)
+        sign_in FactoryGirl.create(:admin)
       end
 
       it "assigns the requested participate as @participate" do
-        participate = Factory.create(:participate)
+        participate = FactoryGirl.create(:participate)
         get :edit, :id => participate.id
         assigns(:participate).should eq(participate)
       end
@@ -151,11 +151,11 @@ describe ParticipatesController do
 
     describe "When logged in as Librarian" do
       before(:each) do
-        sign_in Factory(:librarian)
+        sign_in FactoryGirl.create(:librarian)
       end
 
       it "assigns the requested participate as @participate" do
-        participate = Factory.create(:participate)
+        participate = FactoryGirl.create(:participate)
         get :edit, :id => participate.id
         assigns(:participate).should eq(participate)
       end
@@ -163,11 +163,11 @@ describe ParticipatesController do
 
     describe "When logged in as User" do
       before(:each) do
-        sign_in Factory(:user)
+        sign_in FactoryGirl.create(:user)
       end
 
       it "assigns the requested participate as @participate" do
-        participate = Factory.create(:participate)
+        participate = FactoryGirl.create(:participate)
         get :edit, :id => participate.id
         response.should be_forbidden
       end
@@ -175,7 +175,7 @@ describe ParticipatesController do
 
     describe "When not logged in" do
       it "should not assign the requested participate as @participate" do
-        participate = Factory.create(:participate)
+        participate = FactoryGirl.create(:participate)
         get :edit, :id => participate.id
         response.should redirect_to(new_user_session_url)
       end
@@ -184,13 +184,13 @@ describe ParticipatesController do
 
   describe "POST create" do
     before(:each) do
-      @attrs = Factory.attributes_for(:participate)
+      @attrs = FactoryGirl.attributes_for(:participate)
       @invalid_attrs = {:event_id => ''}
     end
 
     describe "When logged in as Administrator" do
       before(:each) do
-        sign_in Factory(:admin)
+        sign_in FactoryGirl.create(:admin)
       end
 
       describe "with valid params" do
@@ -220,7 +220,7 @@ describe ParticipatesController do
 
     describe "When logged in as Librarian" do
       before(:each) do
-        sign_in Factory(:librarian)
+        sign_in FactoryGirl.create(:librarian)
       end
 
       describe "with valid params" do
@@ -250,7 +250,7 @@ describe ParticipatesController do
 
     describe "When logged in as User" do
       before(:each) do
-        sign_in Factory(:user)
+        sign_in FactoryGirl.create(:user)
       end
 
       describe "with valid params" do
@@ -307,14 +307,14 @@ describe ParticipatesController do
 
   describe "PUT update" do
     before(:each) do
-      @participate = Factory(:participate)
-      @attrs = Factory.attributes_for(:participate)
+      @participate = FactoryGirl.create(:participate)
+      @attrs = FactoryGirl.attributes_for(:participate)
       @invalid_attrs = {:event_id => ''}
     end
 
     describe "When logged in as Administrator" do
       before(:each) do
-        sign_in Factory(:admin)
+        sign_in FactoryGirl.create(:admin)
       end
 
       describe "with valid params" do
@@ -343,7 +343,7 @@ describe ParticipatesController do
 
     describe "When logged in as Librarian" do
       before(:each) do
-        sign_in Factory(:librarian)
+        sign_in FactoryGirl.create(:librarian)
       end
 
       describe "with valid params" do
@@ -373,7 +373,7 @@ describe ParticipatesController do
 
     describe "When logged in as User" do
       before(:each) do
-        sign_in Factory(:user)
+        sign_in FactoryGirl.create(:user)
       end
 
       describe "with valid params" do
@@ -419,12 +419,12 @@ describe ParticipatesController do
 
   describe "DELETE destroy" do
     before(:each) do
-      @participate = Factory(:participate)
+      @participate = FactoryGirl.create(:participate)
     end
 
     describe "When logged in as Administrator" do
       before(:each) do
-        sign_in Factory(:admin)
+        sign_in FactoryGirl.create(:admin)
       end
 
       it "destroys the requested participate" do
@@ -439,7 +439,7 @@ describe ParticipatesController do
 
     describe "When logged in as Librarian" do
       before(:each) do
-        sign_in Factory(:librarian)
+        sign_in FactoryGirl.create(:librarian)
       end
 
       it "destroys the requested participate" do
@@ -454,7 +454,7 @@ describe ParticipatesController do
 
     describe "When logged in as User" do
       before(:each) do
-        sign_in Factory(:user)
+        sign_in FactoryGirl.create(:user)
       end
 
       it "destroys the requested participate" do

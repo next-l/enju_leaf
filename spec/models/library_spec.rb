@@ -3,7 +3,7 @@ require 'spec_helper'
 
 describe Library do
   before(:each) do
-    @library = Factory(:library)
+    @library = FactoryGirl.create(:library)
   end
 
   it "should should create default shelf" do

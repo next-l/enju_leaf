@@ -7,12 +7,12 @@ describe LendingPoliciesController do
 
   describe "GET index" do
     before(:each) do
-      Factory.create(:lending_policy)
+      FactoryGirl.create(:lending_policy)
     end
 
     describe "When logged in as Administrator" do
       before(:each) do
-        sign_in Factory(:admin)
+        sign_in FactoryGirl.create(:admin)
       end
 
       it "assigns all lending_policies as @lending_policies" do
@@ -23,7 +23,7 @@ describe LendingPoliciesController do
 
     describe "When logged in as Librarian" do
       before(:each) do
-        sign_in Factory(:librarian)
+        sign_in FactoryGirl.create(:librarian)
       end
 
       it "assigns all lending_policies as @lending_policies" do
@@ -34,7 +34,7 @@ describe LendingPoliciesController do
 
     describe "When logged in as User" do
       before(:each) do
-        sign_in Factory(:user)
+        sign_in FactoryGirl.create(:user)
       end
 
       it "assigns empty as @lending_policies" do
@@ -54,11 +54,11 @@ describe LendingPoliciesController do
   describe "GET show" do
     describe "When logged in as Administrator" do
       before(:each) do
-        sign_in Factory(:admin)
+        sign_in FactoryGirl.create(:admin)
       end
 
       it "assigns the requested lending_policy as @lending_policy" do
-        lending_policy = Factory.create(:lending_policy)
+        lending_policy = FactoryGirl.create(:lending_policy)
         get :show, :id => lending_policy.id
         assigns(:lending_policy).should eq(lending_policy)
       end
@@ -66,11 +66,11 @@ describe LendingPoliciesController do
 
     describe "When logged in as Librarian" do
       before(:each) do
-        sign_in Factory(:librarian)
+        sign_in FactoryGirl.create(:librarian)
       end
 
       it "assigns the requested lending_policy as @lending_policy" do
-        lending_policy = Factory.create(:lending_policy)
+        lending_policy = FactoryGirl.create(:lending_policy)
         get :show, :id => lending_policy.id
         assigns(:lending_policy).should eq(lending_policy)
       end
@@ -78,11 +78,11 @@ describe LendingPoliciesController do
 
     describe "When logged in as User" do
       before(:each) do
-        sign_in Factory(:user)
+        sign_in FactoryGirl.create(:user)
       end
 
       it "assigns the requested lending_policy as @lending_policy" do
-        lending_policy = Factory.create(:lending_policy)
+        lending_policy = FactoryGirl.create(:lending_policy)
         get :show, :id => lending_policy.id
         assigns(:lending_policy).should eq(lending_policy)
       end
@@ -90,7 +90,7 @@ describe LendingPoliciesController do
 
     describe "When not logged in" do
       it "assigns the requested lending_policy as @lending_policy" do
-        lending_policy = Factory.create(:lending_policy)
+        lending_policy = FactoryGirl.create(:lending_policy)
         get :show, :id => lending_policy.id
         assigns(:lending_policy).should eq(lending_policy)
       end
@@ -100,7 +100,7 @@ describe LendingPoliciesController do
   describe "GET new" do
     describe "When logged in as Administrator" do
       before(:each) do
-        sign_in Factory(:admin)
+        sign_in FactoryGirl.create(:admin)
       end
 
       it "assigns the requested lending_policy as @lending_policy" do
@@ -111,7 +111,7 @@ describe LendingPoliciesController do
 
     describe "When logged in as Librarian" do
       before(:each) do
-        sign_in Factory(:librarian)
+        sign_in FactoryGirl.create(:librarian)
       end
 
       it "should not assign the requested lending_policy as @lending_policy" do
@@ -123,7 +123,7 @@ describe LendingPoliciesController do
 
     describe "When logged in as User" do
       before(:each) do
-        sign_in Factory(:user)
+        sign_in FactoryGirl.create(:user)
       end
 
       it "should not assign the requested lending_policy as @lending_policy" do
@@ -145,11 +145,11 @@ describe LendingPoliciesController do
   describe "GET edit" do
     describe "When logged in as Administrator" do
       before(:each) do
-        sign_in Factory(:admin)
+        sign_in FactoryGirl.create(:admin)
       end
 
       it "assigns the requested lending_policy as @lending_policy" do
-        lending_policy = Factory.create(:lending_policy)
+        lending_policy = FactoryGirl.create(:lending_policy)
         get :edit, :id => lending_policy.id
         assigns(:lending_policy).should eq(lending_policy)
       end
@@ -157,11 +157,11 @@ describe LendingPoliciesController do
 
     describe "When logged in as Librarian" do
       before(:each) do
-        sign_in Factory(:librarian)
+        sign_in FactoryGirl.create(:librarian)
       end
 
       it "assigns the requested lending_policy as @lending_policy" do
-        lending_policy = Factory.create(:lending_policy)
+        lending_policy = FactoryGirl.create(:lending_policy)
         get :edit, :id => lending_policy.id
         response.should be_forbidden
       end
@@ -169,11 +169,11 @@ describe LendingPoliciesController do
 
     describe "When logged in as User" do
       before(:each) do
-        sign_in Factory(:user)
+        sign_in FactoryGirl.create(:user)
       end
 
       it "assigns the requested lending_policy as @lending_policy" do
-        lending_policy = Factory.create(:lending_policy)
+        lending_policy = FactoryGirl.create(:lending_policy)
         get :edit, :id => lending_policy.id
         response.should be_forbidden
       end
@@ -181,7 +181,7 @@ describe LendingPoliciesController do
 
     describe "When not logged in" do
       it "should not assign the requested lending_policy as @lending_policy" do
-        lending_policy = Factory.create(:lending_policy)
+        lending_policy = FactoryGirl.create(:lending_policy)
         get :edit, :id => lending_policy.id
         response.should redirect_to(new_user_session_url)
       end
@@ -190,13 +190,13 @@ describe LendingPoliciesController do
 
   describe "POST create" do
     before(:each) do
-      @attrs = Factory.attributes_for(:lending_policy)
+      @attrs = FactoryGirl.attributes_for(:lending_policy)
       @invalid_attrs = {:item_id => ''}
     end
 
     describe "When logged in as Administrator" do
       before(:each) do
-        sign_in Factory(:admin)
+        sign_in FactoryGirl.create(:admin)
       end
 
       describe "with valid params" do
@@ -226,7 +226,7 @@ describe LendingPoliciesController do
 
     describe "When logged in as Librarian" do
       before(:each) do
-        sign_in Factory(:librarian)
+        sign_in FactoryGirl.create(:librarian)
       end
 
       describe "with valid params" do
@@ -256,7 +256,7 @@ describe LendingPoliciesController do
 
     describe "When logged in as User" do
       before(:each) do
-        sign_in Factory(:user)
+        sign_in FactoryGirl.create(:user)
       end
 
       describe "with valid params" do
@@ -313,14 +313,14 @@ describe LendingPoliciesController do
 
   describe "PUT update" do
     before(:each) do
-      @lending_policy = Factory(:lending_policy)
-      @attrs = Factory.attributes_for(:lending_policy)
+      @lending_policy = FactoryGirl.create(:lending_policy)
+      @attrs = FactoryGirl.attributes_for(:lending_policy)
       @invalid_attrs = {:item_id => ''}
     end
 
     describe "When logged in as Administrator" do
       before(:each) do
-        sign_in Factory(:admin)
+        sign_in FactoryGirl.create(:admin)
       end
 
       describe "with valid params" do
@@ -344,7 +344,7 @@ describe LendingPoliciesController do
 
     describe "When logged in as Librarian" do
       before(:each) do
-        sign_in Factory(:librarian)
+        sign_in FactoryGirl.create(:librarian)
       end
 
       describe "with valid params" do
@@ -369,7 +369,7 @@ describe LendingPoliciesController do
 
     describe "When logged in as User" do
       before(:each) do
-        sign_in Factory(:user)
+        sign_in FactoryGirl.create(:user)
       end
 
       describe "with valid params" do
@@ -415,12 +415,12 @@ describe LendingPoliciesController do
 
   describe "DELETE destroy" do
     before(:each) do
-      @lending_policy = Factory(:lending_policy)
+      @lending_policy = FactoryGirl.create(:lending_policy)
     end
 
     describe "When logged in as Administrator" do
       before(:each) do
-        sign_in Factory(:admin)
+        sign_in FactoryGirl.create(:admin)
       end
 
       it "destroys the requested lending_policy" do
@@ -435,7 +435,7 @@ describe LendingPoliciesController do
 
     describe "When logged in as Librarian" do
       before(:each) do
-        sign_in Factory(:librarian)
+        sign_in FactoryGirl.create(:librarian)
       end
 
       it "destroys the requested lending_policy" do
@@ -450,7 +450,7 @@ describe LendingPoliciesController do
 
     describe "When logged in as User" do
       before(:each) do
-        sign_in Factory(:user)
+        sign_in FactoryGirl.create(:user)
       end
 
       it "destroys the requested lending_policy" do

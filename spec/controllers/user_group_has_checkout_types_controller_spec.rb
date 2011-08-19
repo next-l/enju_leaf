@@ -8,7 +8,7 @@ describe UserGroupHasCheckoutTypesController do
   describe "GET index" do
     describe "When logged in as Administrator" do
       before(:each) do
-        sign_in Factory(:admin)
+        sign_in FactoryGirl.create(:admin)
       end
 
       it "assigns all user_group_has_checkout_types as @user_group_has_checkout_types" do
@@ -19,7 +19,7 @@ describe UserGroupHasCheckoutTypesController do
 
     describe "When logged in as Librarian" do
       before(:each) do
-        sign_in Factory(:librarian)
+        sign_in FactoryGirl.create(:librarian)
       end
 
       it "assigns all user_group_has_checkout_types as @user_group_has_checkout_types" do
@@ -30,7 +30,7 @@ describe UserGroupHasCheckoutTypesController do
 
     describe "When logged in as User" do
       before(:each) do
-        sign_in Factory(:user)
+        sign_in FactoryGirl.create(:user)
       end
 
       it "assigns all user_group_has_checkout_types as @user_group_has_checkout_types" do
@@ -52,11 +52,11 @@ describe UserGroupHasCheckoutTypesController do
   describe "GET show" do
     describe "When logged in as Administrator" do
       before(:each) do
-        sign_in Factory(:admin)
+        sign_in FactoryGirl.create(:admin)
       end
 
       it "assigns the requested user_group_has_checkout_type as @user_group_has_checkout_type" do
-        user_group_has_checkout_type = Factory.create(:user_group_has_checkout_type)
+        user_group_has_checkout_type = FactoryGirl.create(:user_group_has_checkout_type)
         get :show, :id => user_group_has_checkout_type.id
         assigns(:user_group_has_checkout_type).should eq(user_group_has_checkout_type)
       end
@@ -64,11 +64,11 @@ describe UserGroupHasCheckoutTypesController do
 
     describe "When logged in as Librarian" do
       before(:each) do
-        sign_in Factory(:librarian)
+        sign_in FactoryGirl.create(:librarian)
       end
 
       it "assigns the requested user_group_has_checkout_type as @user_group_has_checkout_type" do
-        user_group_has_checkout_type = Factory.create(:user_group_has_checkout_type)
+        user_group_has_checkout_type = FactoryGirl.create(:user_group_has_checkout_type)
         get :show, :id => user_group_has_checkout_type.id
         assigns(:user_group_has_checkout_type).should eq(user_group_has_checkout_type)
       end
@@ -76,11 +76,11 @@ describe UserGroupHasCheckoutTypesController do
 
     describe "When logged in as User" do
       before(:each) do
-        sign_in Factory(:user)
+        sign_in FactoryGirl.create(:user)
       end
 
       it "assigns the requested user_group_has_checkout_type as @user_group_has_checkout_type" do
-        user_group_has_checkout_type = Factory.create(:user_group_has_checkout_type)
+        user_group_has_checkout_type = FactoryGirl.create(:user_group_has_checkout_type)
         get :show, :id => user_group_has_checkout_type.id
         assigns(:user_group_has_checkout_type).should eq(user_group_has_checkout_type)
       end
@@ -88,7 +88,7 @@ describe UserGroupHasCheckoutTypesController do
 
     describe "When not logged in" do
       it "assigns the requested user_group_has_checkout_type as @user_group_has_checkout_type" do
-        user_group_has_checkout_type = Factory.create(:user_group_has_checkout_type)
+        user_group_has_checkout_type = FactoryGirl.create(:user_group_has_checkout_type)
         get :show, :id => user_group_has_checkout_type.id
         assigns(:user_group_has_checkout_type).should eq(user_group_has_checkout_type)
       end
@@ -98,7 +98,7 @@ describe UserGroupHasCheckoutTypesController do
   describe "GET new" do
     describe "When logged in as Administrator" do
       before(:each) do
-        sign_in Factory(:admin)
+        sign_in FactoryGirl.create(:admin)
       end
 
       it "assigns the requested user_group_has_checkout_type as @user_group_has_checkout_type" do
@@ -110,7 +110,7 @@ describe UserGroupHasCheckoutTypesController do
 
     describe "When logged in as Librarian" do
       before(:each) do
-        sign_in Factory(:librarian)
+        sign_in FactoryGirl.create(:librarian)
       end
 
       it "should not assign the requested user_group_has_checkout_type as @user_group_has_checkout_type" do
@@ -122,7 +122,7 @@ describe UserGroupHasCheckoutTypesController do
 
     describe "When logged in as User" do
       before(:each) do
-        sign_in Factory(:user)
+        sign_in FactoryGirl.create(:user)
       end
 
       it "should not assign the requested user_group_has_checkout_type as @user_group_has_checkout_type" do
@@ -144,11 +144,11 @@ describe UserGroupHasCheckoutTypesController do
   describe "GET edit" do
     describe "When logged in as Administrator" do
       before(:each) do
-        sign_in Factory(:admin)
+        sign_in FactoryGirl.create(:admin)
       end
 
       it "assigns the requested user_group_has_checkout_type as @user_group_has_checkout_type" do
-        user_group_has_checkout_type = Factory.create(:user_group_has_checkout_type)
+        user_group_has_checkout_type = FactoryGirl.create(:user_group_has_checkout_type)
         get :edit, :id => user_group_has_checkout_type.id
         assigns(:user_group_has_checkout_type).should eq(user_group_has_checkout_type)
       end
@@ -156,11 +156,11 @@ describe UserGroupHasCheckoutTypesController do
 
     describe "When logged in as Librarian" do
       before(:each) do
-        sign_in Factory(:librarian)
+        sign_in FactoryGirl.create(:librarian)
       end
 
       it "assigns the requested user_group_has_checkout_type as @user_group_has_checkout_type" do
-        user_group_has_checkout_type = Factory.create(:user_group_has_checkout_type)
+        user_group_has_checkout_type = FactoryGirl.create(:user_group_has_checkout_type)
         get :edit, :id => user_group_has_checkout_type.id
         response.should be_forbidden
       end
@@ -168,11 +168,11 @@ describe UserGroupHasCheckoutTypesController do
 
     describe "When logged in as User" do
       before(:each) do
-        sign_in Factory(:user)
+        sign_in FactoryGirl.create(:user)
       end
 
       it "assigns the requested user_group_has_checkout_type as @user_group_has_checkout_type" do
-        user_group_has_checkout_type = Factory.create(:user_group_has_checkout_type)
+        user_group_has_checkout_type = FactoryGirl.create(:user_group_has_checkout_type)
         get :edit, :id => user_group_has_checkout_type.id
         response.should be_forbidden
       end
@@ -180,7 +180,7 @@ describe UserGroupHasCheckoutTypesController do
 
     describe "When not logged in" do
       it "should not assign the requested user_group_has_checkout_type as @user_group_has_checkout_type" do
-        user_group_has_checkout_type = Factory.create(:user_group_has_checkout_type)
+        user_group_has_checkout_type = FactoryGirl.create(:user_group_has_checkout_type)
         get :edit, :id => user_group_has_checkout_type.id
         response.should redirect_to(new_user_session_url)
       end
@@ -189,13 +189,13 @@ describe UserGroupHasCheckoutTypesController do
 
   describe "POST create" do
     before(:each) do
-      @attrs = Factory.attributes_for(:user_group_has_checkout_type)
+      @attrs = FactoryGirl.attributes_for(:user_group_has_checkout_type)
       @invalid_attrs = {:user_group_id => ''}
     end
 
     describe "When logged in as Administrator" do
       before(:each) do
-        sign_in Factory(:admin)
+        sign_in FactoryGirl.create(:admin)
       end
 
       describe "with valid params" do
@@ -225,7 +225,7 @@ describe UserGroupHasCheckoutTypesController do
 
     describe "When logged in as Librarian" do
       before(:each) do
-        sign_in Factory(:librarian)
+        sign_in FactoryGirl.create(:librarian)
       end
 
       describe "with valid params" do
@@ -255,7 +255,7 @@ describe UserGroupHasCheckoutTypesController do
 
     describe "When logged in as User" do
       before(:each) do
-        sign_in Factory(:user)
+        sign_in FactoryGirl.create(:user)
       end
 
       describe "with valid params" do
@@ -312,14 +312,14 @@ describe UserGroupHasCheckoutTypesController do
 
   describe "PUT update" do
     before(:each) do
-      @user_group_has_checkout_type = Factory(:user_group_has_checkout_type)
-      @attrs = Factory.attributes_for(:user_group_has_checkout_type)
+      @user_group_has_checkout_type = FactoryGirl.create(:user_group_has_checkout_type)
+      @attrs = FactoryGirl.attributes_for(:user_group_has_checkout_type)
       @invalid_attrs = {:user_group_id => ''}
     end
 
     describe "When logged in as Administrator" do
       before(:each) do
-        sign_in Factory(:admin)
+        sign_in FactoryGirl.create(:admin)
       end
 
       describe "with valid params" do
@@ -343,7 +343,7 @@ describe UserGroupHasCheckoutTypesController do
 
     describe "When logged in as Librarian" do
       before(:each) do
-        sign_in Factory(:librarian)
+        sign_in FactoryGirl.create(:librarian)
       end
 
       describe "with valid params" do
@@ -368,7 +368,7 @@ describe UserGroupHasCheckoutTypesController do
 
     describe "When logged in as User" do
       before(:each) do
-        sign_in Factory(:user)
+        sign_in FactoryGirl.create(:user)
       end
 
       describe "with valid params" do
@@ -414,12 +414,12 @@ describe UserGroupHasCheckoutTypesController do
 
   describe "DELETE destroy" do
     before(:each) do
-      @user_group_has_checkout_type = Factory(:user_group_has_checkout_type)
+      @user_group_has_checkout_type = FactoryGirl.create(:user_group_has_checkout_type)
     end
 
     describe "When logged in as Administrator" do
       before(:each) do
-        sign_in Factory(:admin)
+        sign_in FactoryGirl.create(:admin)
       end
 
       it "destroys the requested user_group_has_checkout_type" do
@@ -434,7 +434,7 @@ describe UserGroupHasCheckoutTypesController do
 
     describe "When logged in as Librarian" do
       before(:each) do
-        sign_in Factory(:librarian)
+        sign_in FactoryGirl.create(:librarian)
       end
 
       it "destroys the requested user_group_has_checkout_type" do
@@ -449,7 +449,7 @@ describe UserGroupHasCheckoutTypesController do
 
     describe "When logged in as User" do
       before(:each) do
-        sign_in Factory(:user)
+        sign_in FactoryGirl.create(:user)
       end
 
       it "destroys the requested user_group_has_checkout_type" do

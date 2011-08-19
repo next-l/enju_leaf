@@ -128,25 +128,25 @@ class Reserve < ActiveRecord::Base
       when 'accepted'
         message_template_to_patron = MessageTemplate.localized_template('reservation_accepted', self.user.locale)
         request = MessageRequest.create!(:sender => system_user, :receiver => self.user, :message_template => message_template_to_patron)
-        request.save_message_body(:manifestations => Array[self.manifestation])
+        request.save_message_body(:manifestations => Array[self.manifestation], :user => self.user)
         request.sm_send_message! # 受付時は即時送信
         message_template_to_library = MessageTemplate.localized_template('reservation_accepted', self.user.locale)
         request = MessageRequest.create!(:sender => system_user, :receiver => system_user, :message_template => message_template_to_library)
-        request.save_message_body(:manifestations => Array[self.manifestation])
+        request.save_message_body(:manifestations => Array[self.manifestation], :user => self.user)
         request.sm_send_message! # 受付時は即時送信
       when 'canceled'
         message_template_to_patron = MessageTemplate.localized_template('reservation_canceled_for_patron', self.user.locale)
         request = MessageRequest.create!(:sender => system_user, :receiver => self.user, :message_template => message_template_to_patron)
-        request.save_message_body(:manifestations => Array[self.manifestation])
+        request.save_message_body(:manifestations => Array[self.manifestation], :user => self.user)
         request.sm_send_message! # キャンセル時は即時送信
         message_template_to_library = MessageTemplate.localized_template('reservation_canceled_for_library', self.user.locale)
         request = MessageRequest.create!(:sender => system_user, :receiver => system_user, :message_template => message_template_to_library)
-        request.save_message_body(:manifestations => Array[self.manifestation])
+        request.save_message_body(:manifestations => Array[self.manifestation], :user => self.user)
         request.sm_send_message! # キャンセル時は即時送信
       when 'expired'
         message_template_to_patron = MessageTemplate.localized_template('reservation_expired_for_patron', self.user.locale)
         request = MessageRequest.create!(:sender => system_user, :receiver => self.user, :message_template => message_template_to_patron)
-        request.save_message_body(:manifestations => Array[self.manifestation])
+        request.save_message_body(:manifestations => Array[self.manifestation], :user => self.user)
         request.sm_send_message! # 期限切れ時は利用者にのみ即時送信
         self.update_attribute(:expiration_notice_to_patron, true)
       else

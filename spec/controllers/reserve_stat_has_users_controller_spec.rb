@@ -7,12 +7,12 @@ describe ReserveStatHasUsersController do
 
   describe "GET index" do
     before(:each) do
-      Factory.create(:reserve_stat_has_user)
+      FactoryGirl.create(:reserve_stat_has_user)
     end
 
     describe "When logged in as Administrator" do
       before(:each) do
-        sign_in Factory(:admin)
+        sign_in FactoryGirl.create(:admin)
       end
 
       it "assigns all reserve_stat_has_users as @reserve_stat_has_users" do
@@ -23,7 +23,7 @@ describe ReserveStatHasUsersController do
 
     describe "When logged in as Librarian" do
       before(:each) do
-        sign_in Factory(:librarian)
+        sign_in FactoryGirl.create(:librarian)
       end
 
       it "assigns all reserve_stat_has_users as @reserve_stat_has_users" do
@@ -34,7 +34,7 @@ describe ReserveStatHasUsersController do
 
     describe "When logged in as User" do
       before(:each) do
-        sign_in Factory(:user)
+        sign_in FactoryGirl.create(:user)
       end
 
       it "assigns all reserve_stat_has_users as @reserve_stat_has_users" do
@@ -56,11 +56,11 @@ describe ReserveStatHasUsersController do
   describe "GET show" do
     describe "When logged in as Administrator" do
       before(:each) do
-        sign_in Factory(:admin)
+        sign_in FactoryGirl.create(:admin)
       end
 
       it "assigns the requested reserve_stat_has_user as @reserve_stat_has_user" do
-        reserve_stat_has_user = Factory.create(:reserve_stat_has_user)
+        reserve_stat_has_user = FactoryGirl.create(:reserve_stat_has_user)
         get :show, :id => reserve_stat_has_user.id
         assigns(:reserve_stat_has_user).should eq(reserve_stat_has_user)
       end
@@ -68,11 +68,11 @@ describe ReserveStatHasUsersController do
 
     describe "When logged in as Librarian" do
       before(:each) do
-        sign_in Factory(:librarian)
+        sign_in FactoryGirl.create(:librarian)
       end
 
       it "assigns the requested reserve_stat_has_user as @reserve_stat_has_user" do
-        reserve_stat_has_user = Factory.create(:reserve_stat_has_user)
+        reserve_stat_has_user = FactoryGirl.create(:reserve_stat_has_user)
         get :show, :id => reserve_stat_has_user.id
         assigns(:reserve_stat_has_user).should eq(reserve_stat_has_user)
       end
@@ -80,11 +80,11 @@ describe ReserveStatHasUsersController do
 
     describe "When logged in as User" do
       before(:each) do
-        sign_in Factory(:user)
+        sign_in FactoryGirl.create(:user)
       end
 
       it "assigns the requested reserve_stat_has_user as @reserve_stat_has_user" do
-        reserve_stat_has_user = Factory.create(:reserve_stat_has_user)
+        reserve_stat_has_user = FactoryGirl.create(:reserve_stat_has_user)
         get :show, :id => reserve_stat_has_user.id
         assigns(:reserve_stat_has_user).should eq(reserve_stat_has_user)
       end
@@ -92,7 +92,7 @@ describe ReserveStatHasUsersController do
 
     describe "When not logged in" do
       it "assigns the requested reserve_stat_has_user as @reserve_stat_has_user" do
-        reserve_stat_has_user = Factory.create(:reserve_stat_has_user)
+        reserve_stat_has_user = FactoryGirl.create(:reserve_stat_has_user)
         get :show, :id => reserve_stat_has_user.id
         assigns(:reserve_stat_has_user).should eq(reserve_stat_has_user)
       end
@@ -102,7 +102,7 @@ describe ReserveStatHasUsersController do
   describe "GET new" do
     describe "When logged in as Administrator" do
       before(:each) do
-        sign_in Factory(:admin)
+        sign_in FactoryGirl.create(:admin)
       end
 
       it "assigns the requested reserve_stat_has_user as @reserve_stat_has_user" do
@@ -114,7 +114,7 @@ describe ReserveStatHasUsersController do
 
     describe "When logged in as Librarian" do
       before(:each) do
-        sign_in Factory(:librarian)
+        sign_in FactoryGirl.create(:librarian)
       end
 
       it "should not assign the requested reserve_stat_has_user as @reserve_stat_has_user" do
@@ -126,7 +126,7 @@ describe ReserveStatHasUsersController do
 
     describe "When logged in as User" do
       before(:each) do
-        sign_in Factory(:user)
+        sign_in FactoryGirl.create(:user)
       end
 
       it "should not assign the requested reserve_stat_has_user as @reserve_stat_has_user" do
@@ -148,11 +148,11 @@ describe ReserveStatHasUsersController do
   describe "GET edit" do
     describe "When logged in as Administrator" do
       before(:each) do
-        sign_in Factory(:admin)
+        sign_in FactoryGirl.create(:admin)
       end
 
       it "assigns the requested reserve_stat_has_user as @reserve_stat_has_user" do
-        reserve_stat_has_user = Factory.create(:reserve_stat_has_user)
+        reserve_stat_has_user = FactoryGirl.create(:reserve_stat_has_user)
         get :edit, :id => reserve_stat_has_user.id
         assigns(:reserve_stat_has_user).should eq(reserve_stat_has_user)
       end
@@ -160,11 +160,11 @@ describe ReserveStatHasUsersController do
 
     describe "When logged in as Librarian" do
       before(:each) do
-        sign_in Factory(:librarian)
+        sign_in FactoryGirl.create(:librarian)
       end
 
       it "assigns the requested reserve_stat_has_user as @reserve_stat_has_user" do
-        reserve_stat_has_user = Factory.create(:reserve_stat_has_user)
+        reserve_stat_has_user = FactoryGirl.create(:reserve_stat_has_user)
         get :edit, :id => reserve_stat_has_user.id
         assigns(:reserve_stat_has_user).should eq(reserve_stat_has_user)
       end
@@ -172,11 +172,11 @@ describe ReserveStatHasUsersController do
 
     describe "When logged in as User" do
       before(:each) do
-        sign_in Factory(:user)
+        sign_in FactoryGirl.create(:user)
       end
 
       it "assigns the requested reserve_stat_has_user as @reserve_stat_has_user" do
-        reserve_stat_has_user = Factory.create(:reserve_stat_has_user)
+        reserve_stat_has_user = FactoryGirl.create(:reserve_stat_has_user)
         get :edit, :id => reserve_stat_has_user.id
         response.should be_forbidden
       end
@@ -184,7 +184,7 @@ describe ReserveStatHasUsersController do
 
     describe "When not logged in" do
       it "should not assign the requested reserve_stat_has_user as @reserve_stat_has_user" do
-        reserve_stat_has_user = Factory.create(:reserve_stat_has_user)
+        reserve_stat_has_user = FactoryGirl.create(:reserve_stat_has_user)
         get :edit, :id => reserve_stat_has_user.id
         response.should redirect_to(new_user_session_url)
       end
@@ -193,13 +193,13 @@ describe ReserveStatHasUsersController do
 
   describe "POST create" do
     before(:each) do
-      @attrs = Factory.attributes_for(:reserve_stat_has_user)
+      @attrs = FactoryGirl.attributes_for(:reserve_stat_has_user)
       @invalid_attrs = {:user_reserve_stat_id => ''}
     end
 
     describe "When logged in as Administrator" do
       before(:each) do
-        sign_in Factory(:admin)
+        sign_in FactoryGirl.create(:admin)
       end
 
       describe "with valid params" do
@@ -229,7 +229,7 @@ describe ReserveStatHasUsersController do
 
     describe "When logged in as Librarian" do
       before(:each) do
-        sign_in Factory(:librarian)
+        sign_in FactoryGirl.create(:librarian)
       end
 
       describe "with valid params" do
@@ -259,7 +259,7 @@ describe ReserveStatHasUsersController do
 
     describe "When logged in as User" do
       before(:each) do
-        sign_in Factory(:user)
+        sign_in FactoryGirl.create(:user)
       end
 
       describe "with valid params" do
@@ -316,14 +316,14 @@ describe ReserveStatHasUsersController do
 
   describe "PUT update" do
     before(:each) do
-      @reserve_stat_has_user = Factory(:reserve_stat_has_user)
-      @attrs = Factory.attributes_for(:reserve_stat_has_user)
+      @reserve_stat_has_user = FactoryGirl.create(:reserve_stat_has_user)
+      @attrs = FactoryGirl.attributes_for(:reserve_stat_has_user)
       @invalid_attrs = {:user_reserve_stat_id => ''}
     end
 
     describe "When logged in as Administrator" do
       before(:each) do
-        sign_in Factory(:admin)
+        sign_in FactoryGirl.create(:admin)
       end
 
       describe "with valid params" do
@@ -348,7 +348,7 @@ describe ReserveStatHasUsersController do
 
     describe "When logged in as Librarian" do
       before(:each) do
-        sign_in Factory(:librarian)
+        sign_in FactoryGirl.create(:librarian)
       end
 
       describe "with valid params" do
@@ -377,7 +377,7 @@ describe ReserveStatHasUsersController do
 
     describe "When logged in as User" do
       before(:each) do
-        sign_in Factory(:user)
+        sign_in FactoryGirl.create(:user)
       end
 
       describe "with valid params" do
@@ -423,12 +423,12 @@ describe ReserveStatHasUsersController do
 
   describe "DELETE destroy" do
     before(:each) do
-      @reserve_stat_has_user = Factory(:reserve_stat_has_user)
+      @reserve_stat_has_user = FactoryGirl.create(:reserve_stat_has_user)
     end
 
     describe "When logged in as Administrator" do
       before(:each) do
-        sign_in Factory(:admin)
+        sign_in FactoryGirl.create(:admin)
       end
 
       it "destroys the requested reserve_stat_has_user" do
@@ -443,7 +443,7 @@ describe ReserveStatHasUsersController do
 
     describe "When logged in as Librarian" do
       before(:each) do
-        sign_in Factory(:librarian)
+        sign_in FactoryGirl.create(:librarian)
       end
 
       it "destroys the requested reserve_stat_has_user" do
@@ -458,7 +458,7 @@ describe ReserveStatHasUsersController do
 
     describe "When logged in as User" do
       before(:each) do
-        sign_in Factory(:user)
+        sign_in FactoryGirl.create(:user)
       end
 
       it "destroys the requested reserve_stat_has_user" do

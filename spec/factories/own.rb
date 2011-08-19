@@ -1,4 +1,6 @@
-Factory.define :own do |f|
-  f.item{Factory(:item)}
-  f.patron{Factory(:patron)}
+FactoryGirl.define do
+  factory :own do |f|
+    f.item{FactoryGirl.create(:item)}
+    f.patron{FactoryGirl.create(:patron)}
+  end
 end

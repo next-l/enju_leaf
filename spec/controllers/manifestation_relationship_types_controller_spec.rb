@@ -7,12 +7,12 @@ describe ManifestationRelationshipTypesController do
 
   describe "GET index" do
     before(:each) do
-      Factory.create(:manifestation_relationship_type)
+      FactoryGirl.create(:manifestation_relationship_type)
     end
 
     describe "When logged in as Administrator" do
       before(:each) do
-        sign_in Factory(:admin)
+        sign_in FactoryGirl.create(:admin)
       end
 
       it "assigns all manifestation_relationship_types as @manifestation_relationship_types" do
@@ -23,7 +23,7 @@ describe ManifestationRelationshipTypesController do
 
     describe "When logged in as Librarian" do
       before(:each) do
-        sign_in Factory(:librarian)
+        sign_in FactoryGirl.create(:librarian)
       end
 
       it "assigns all manifestation_relationship_types as @manifestation_relationship_types" do
@@ -34,7 +34,7 @@ describe ManifestationRelationshipTypesController do
 
     describe "When logged in as User" do
       before(:each) do
-        sign_in Factory(:user)
+        sign_in FactoryGirl.create(:user)
       end
 
       it "assigns all manifestation_relationship_types as @manifestation_relationship_types" do
@@ -54,11 +54,11 @@ describe ManifestationRelationshipTypesController do
   describe "GET show" do
     describe "When logged in as Administrator" do
       before(:each) do
-        sign_in Factory(:admin)
+        sign_in FactoryGirl.create(:admin)
       end
 
       it "assigns the requested manifestation_relationship_type as @manifestation_relationship_type" do
-        manifestation_relationship_type = Factory.create(:manifestation_relationship_type)
+        manifestation_relationship_type = FactoryGirl.create(:manifestation_relationship_type)
         get :show, :id => manifestation_relationship_type.id
         assigns(:manifestation_relationship_type).should eq(manifestation_relationship_type)
       end
@@ -66,11 +66,11 @@ describe ManifestationRelationshipTypesController do
 
     describe "When logged in as Librarian" do
       before(:each) do
-        sign_in Factory(:librarian)
+        sign_in FactoryGirl.create(:librarian)
       end
 
       it "assigns the requested manifestation_relationship_type as @manifestation_relationship_type" do
-        manifestation_relationship_type = Factory.create(:manifestation_relationship_type)
+        manifestation_relationship_type = FactoryGirl.create(:manifestation_relationship_type)
         get :show, :id => manifestation_relationship_type.id
         assigns(:manifestation_relationship_type).should eq(manifestation_relationship_type)
       end
@@ -78,11 +78,11 @@ describe ManifestationRelationshipTypesController do
 
     describe "When logged in as User" do
       before(:each) do
-        sign_in Factory(:user)
+        sign_in FactoryGirl.create(:user)
       end
 
       it "assigns the requested manifestation_relationship_type as @manifestation_relationship_type" do
-        manifestation_relationship_type = Factory.create(:manifestation_relationship_type)
+        manifestation_relationship_type = FactoryGirl.create(:manifestation_relationship_type)
         get :show, :id => manifestation_relationship_type.id
         assigns(:manifestation_relationship_type).should eq(manifestation_relationship_type)
       end
@@ -90,7 +90,7 @@ describe ManifestationRelationshipTypesController do
 
     describe "When not logged in" do
       it "assigns the requested manifestation_relationship_type as @manifestation_relationship_type" do
-        manifestation_relationship_type = Factory.create(:manifestation_relationship_type)
+        manifestation_relationship_type = FactoryGirl.create(:manifestation_relationship_type)
         get :show, :id => manifestation_relationship_type.id
         assigns(:manifestation_relationship_type).should eq(manifestation_relationship_type)
       end
@@ -100,7 +100,7 @@ describe ManifestationRelationshipTypesController do
   describe "GET new" do
     describe "When logged in as Administrator" do
       before(:each) do
-        sign_in Factory(:admin)
+        sign_in FactoryGirl.create(:admin)
       end
 
       it "assigns the requested manifestation_relationship_type as @manifestation_relationship_type" do
@@ -112,7 +112,7 @@ describe ManifestationRelationshipTypesController do
 
     describe "When logged in as Librarian" do
       before(:each) do
-        sign_in Factory(:librarian)
+        sign_in FactoryGirl.create(:librarian)
       end
 
       it "should not assign the requested manifestation_relationship_type as @manifestation_relationship_type" do
@@ -124,7 +124,7 @@ describe ManifestationRelationshipTypesController do
 
     describe "When logged in as User" do
       before(:each) do
-        sign_in Factory(:user)
+        sign_in FactoryGirl.create(:user)
       end
 
       it "should not assign the requested manifestation_relationship_type as @manifestation_relationship_type" do
@@ -146,11 +146,11 @@ describe ManifestationRelationshipTypesController do
   describe "GET edit" do
     describe "When logged in as Administrator" do
       before(:each) do
-        sign_in Factory(:admin)
+        sign_in FactoryGirl.create(:admin)
       end
 
       it "assigns the requested manifestation_relationship_type as @manifestation_relationship_type" do
-        manifestation_relationship_type = Factory.create(:manifestation_relationship_type)
+        manifestation_relationship_type = FactoryGirl.create(:manifestation_relationship_type)
         get :edit, :id => manifestation_relationship_type.id
         assigns(:manifestation_relationship_type).should eq(manifestation_relationship_type)
       end
@@ -158,11 +158,11 @@ describe ManifestationRelationshipTypesController do
 
     describe "When logged in as Librarian" do
       before(:each) do
-        sign_in Factory(:librarian)
+        sign_in FactoryGirl.create(:librarian)
       end
 
       it "assigns the requested manifestation_relationship_type as @manifestation_relationship_type" do
-        manifestation_relationship_type = Factory.create(:manifestation_relationship_type)
+        manifestation_relationship_type = FactoryGirl.create(:manifestation_relationship_type)
         get :edit, :id => manifestation_relationship_type.id
         response.should be_forbidden
       end
@@ -170,11 +170,11 @@ describe ManifestationRelationshipTypesController do
 
     describe "When logged in as User" do
       before(:each) do
-        sign_in Factory(:user)
+        sign_in FactoryGirl.create(:user)
       end
 
       it "assigns the requested manifestation_relationship_type as @manifestation_relationship_type" do
-        manifestation_relationship_type = Factory.create(:manifestation_relationship_type)
+        manifestation_relationship_type = FactoryGirl.create(:manifestation_relationship_type)
         get :edit, :id => manifestation_relationship_type.id
         response.should be_forbidden
       end
@@ -182,7 +182,7 @@ describe ManifestationRelationshipTypesController do
 
     describe "When not logged in" do
       it "should not assign the requested manifestation_relationship_type as @manifestation_relationship_type" do
-        manifestation_relationship_type = Factory.create(:manifestation_relationship_type)
+        manifestation_relationship_type = FactoryGirl.create(:manifestation_relationship_type)
         get :edit, :id => manifestation_relationship_type.id
         response.should redirect_to(new_user_session_url)
       end
@@ -191,13 +191,13 @@ describe ManifestationRelationshipTypesController do
 
   describe "POST create" do
     before(:each) do
-      @attrs = Factory.attributes_for(:manifestation_relationship_type)
+      @attrs = FactoryGirl.attributes_for(:manifestation_relationship_type)
       @invalid_attrs = {:name => ''}
     end
 
     describe "When logged in as Administrator" do
       before(:each) do
-        sign_in Factory(:admin)
+        sign_in FactoryGirl.create(:admin)
       end
 
       describe "with valid params" do
@@ -227,7 +227,7 @@ describe ManifestationRelationshipTypesController do
 
     describe "When logged in as Librarian" do
       before(:each) do
-        sign_in Factory(:librarian)
+        sign_in FactoryGirl.create(:librarian)
       end
 
       describe "with valid params" do
@@ -257,7 +257,7 @@ describe ManifestationRelationshipTypesController do
 
     describe "When logged in as User" do
       before(:each) do
-        sign_in Factory(:user)
+        sign_in FactoryGirl.create(:user)
       end
 
       describe "with valid params" do
@@ -314,14 +314,14 @@ describe ManifestationRelationshipTypesController do
 
   describe "PUT update" do
     before(:each) do
-      @manifestation_relationship_type = Factory(:manifestation_relationship_type)
-      @attrs = Factory.attributes_for(:manifestation_relationship_type)
+      @manifestation_relationship_type = FactoryGirl.create(:manifestation_relationship_type)
+      @attrs = FactoryGirl.attributes_for(:manifestation_relationship_type)
       @invalid_attrs = {:name => ''}
     end
 
     describe "When logged in as Administrator" do
       before(:each) do
-        sign_in Factory(:admin)
+        sign_in FactoryGirl.create(:admin)
       end
 
       describe "with valid params" do
@@ -350,7 +350,7 @@ describe ManifestationRelationshipTypesController do
 
     describe "When logged in as Librarian" do
       before(:each) do
-        sign_in Factory(:librarian)
+        sign_in FactoryGirl.create(:librarian)
       end
 
       describe "with valid params" do
@@ -375,7 +375,7 @@ describe ManifestationRelationshipTypesController do
 
     describe "When logged in as User" do
       before(:each) do
-        sign_in Factory(:user)
+        sign_in FactoryGirl.create(:user)
       end
 
       describe "with valid params" do
@@ -421,12 +421,12 @@ describe ManifestationRelationshipTypesController do
 
   describe "DELETE destroy" do
     before(:each) do
-      @manifestation_relationship_type = Factory(:manifestation_relationship_type)
+      @manifestation_relationship_type = FactoryGirl.create(:manifestation_relationship_type)
     end
 
     describe "When logged in as Administrator" do
       before(:each) do
-        sign_in Factory(:admin)
+        sign_in FactoryGirl.create(:admin)
       end
 
       it "destroys the requested manifestation_relationship_type" do
@@ -441,7 +441,7 @@ describe ManifestationRelationshipTypesController do
 
     describe "When logged in as Librarian" do
       before(:each) do
-        sign_in Factory(:librarian)
+        sign_in FactoryGirl.create(:librarian)
       end
 
       it "destroys the requested manifestation_relationship_type" do
@@ -456,7 +456,7 @@ describe ManifestationRelationshipTypesController do
 
     describe "When logged in as User" do
       before(:each) do
-        sign_in Factory(:user)
+        sign_in FactoryGirl.create(:user)
       end
 
       it "destroys the requested manifestation_relationship_type" do

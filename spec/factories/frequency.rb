@@ -1,3 +1,5 @@
-Factory.define :frequency do |f|
-  f.sequence(:name){|n| "frequency_#{n}"}
+FactoryGirl.define do
+  factory :frequency do |f|
+    f.sequence(:name){|n| "frequency_#{n}"}
+  end
 end

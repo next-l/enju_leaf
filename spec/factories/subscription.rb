@@ -1,4 +1,6 @@
-Factory.define :subscription do |f|
-  f.sequence(:title){|n| "subscription_#{n}"}
-  f.user{Factory(:user)}
+FactoryGirl.define do
+  factory :subscription do |f|
+    f.sequence(:title){|n| "subscription_#{n}"}
+    f.user{FactoryGirl.create(:user)}
+  end
 end

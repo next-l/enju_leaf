@@ -7,12 +7,12 @@ describe CarrierTypeHasCheckoutTypesController do
 
   describe "GET index" do
     before(:each) do
-      Factory.create(:carrier_type_has_checkout_type)
+      FactoryGirl.create(:carrier_type_has_checkout_type)
     end
 
     describe "When logged in as Administrator" do
       before(:each) do
-        sign_in Factory(:admin)
+        sign_in FactoryGirl.create(:admin)
       end
 
       it "assigns all carrier_type_has_checkout_types as @carrier_type_has_checkout_types" do
@@ -23,7 +23,7 @@ describe CarrierTypeHasCheckoutTypesController do
 
     describe "When logged in as Librarian" do
       before(:each) do
-        sign_in Factory(:librarian)
+        sign_in FactoryGirl.create(:librarian)
       end
 
       it "assigns all carrier_type_has_checkout_types as @carrier_type_has_checkout_types" do
@@ -34,7 +34,7 @@ describe CarrierTypeHasCheckoutTypesController do
 
     describe "When logged in as Subject" do
       before(:each) do
-        sign_in Factory(:user)
+        sign_in FactoryGirl.create(:user)
       end
 
       it "assigns all carrier_type_has_checkout_types as @carrier_type_has_checkout_types" do
@@ -56,11 +56,11 @@ describe CarrierTypeHasCheckoutTypesController do
   describe "GET show" do
     describe "When logged in as Administrator" do
       before(:each) do
-        sign_in Factory(:admin)
+        sign_in FactoryGirl.create(:admin)
       end
 
       it "assigns the requested carrier_type_has_checkout_type as @carrier_type_has_checkout_type" do
-        carrier_type_has_checkout_type = Factory.create(:carrier_type_has_checkout_type)
+        carrier_type_has_checkout_type = FactoryGirl.create(:carrier_type_has_checkout_type)
         get :show, :id => carrier_type_has_checkout_type.id
         assigns(:carrier_type_has_checkout_type).should eq(carrier_type_has_checkout_type)
       end
@@ -68,11 +68,11 @@ describe CarrierTypeHasCheckoutTypesController do
 
     describe "When logged in as Librarian" do
       before(:each) do
-        sign_in Factory(:librarian)
+        sign_in FactoryGirl.create(:librarian)
       end
 
       it "assigns the requested carrier_type_has_checkout_type as @carrier_type_has_checkout_type" do
-        carrier_type_has_checkout_type = Factory.create(:carrier_type_has_checkout_type)
+        carrier_type_has_checkout_type = FactoryGirl.create(:carrier_type_has_checkout_type)
         get :show, :id => carrier_type_has_checkout_type.id
         assigns(:carrier_type_has_checkout_type).should eq(carrier_type_has_checkout_type)
       end
@@ -80,11 +80,11 @@ describe CarrierTypeHasCheckoutTypesController do
 
     describe "When logged in as Subject" do
       before(:each) do
-        sign_in Factory(:user)
+        sign_in FactoryGirl.create(:user)
       end
 
       it "assigns the requested carrier_type_has_checkout_type as @carrier_type_has_checkout_type" do
-        carrier_type_has_checkout_type = Factory.create(:carrier_type_has_checkout_type)
+        carrier_type_has_checkout_type = FactoryGirl.create(:carrier_type_has_checkout_type)
         get :show, :id => carrier_type_has_checkout_type.id
         assigns(:carrier_type_has_checkout_type).should eq(carrier_type_has_checkout_type)
       end
@@ -92,7 +92,7 @@ describe CarrierTypeHasCheckoutTypesController do
 
     describe "When not logged in" do
       it "assigns the requested carrier_type_has_checkout_type as @carrier_type_has_checkout_type" do
-        carrier_type_has_checkout_type = Factory.create(:carrier_type_has_checkout_type)
+        carrier_type_has_checkout_type = FactoryGirl.create(:carrier_type_has_checkout_type)
         get :show, :id => carrier_type_has_checkout_type.id
         assigns(:carrier_type_has_checkout_type).should eq(carrier_type_has_checkout_type)
       end
@@ -102,7 +102,7 @@ describe CarrierTypeHasCheckoutTypesController do
   describe "GET new" do
     describe "When logged in as Administrator" do
       before(:each) do
-        sign_in Factory(:admin)
+        sign_in FactoryGirl.create(:admin)
       end
 
       it "assigns the requested carrier_type_has_checkout_type as @carrier_type_has_checkout_type" do
@@ -114,7 +114,7 @@ describe CarrierTypeHasCheckoutTypesController do
 
     describe "When logged in as Librarian" do
       before(:each) do
-        sign_in Factory(:librarian)
+        sign_in FactoryGirl.create(:librarian)
       end
 
       it "should not assign the requested carrier_type_has_checkout_type as @carrier_type_has_checkout_type" do
@@ -126,7 +126,7 @@ describe CarrierTypeHasCheckoutTypesController do
 
     describe "When logged in as Subject" do
       before(:each) do
-        sign_in Factory(:user)
+        sign_in FactoryGirl.create(:user)
       end
 
       it "should not assign the requested carrier_type_has_checkout_type as @carrier_type_has_checkout_type" do
@@ -148,11 +148,11 @@ describe CarrierTypeHasCheckoutTypesController do
   describe "GET edit" do
     describe "When logged in as Administrator" do
       before(:each) do
-        sign_in Factory(:admin)
+        sign_in FactoryGirl.create(:admin)
       end
 
       it "assigns the requested carrier_type_has_checkout_type as @carrier_type_has_checkout_type" do
-        carrier_type_has_checkout_type = Factory.create(:carrier_type_has_checkout_type)
+        carrier_type_has_checkout_type = FactoryGirl.create(:carrier_type_has_checkout_type)
         get :edit, :id => carrier_type_has_checkout_type.id
         assigns(:carrier_type_has_checkout_type).should eq(carrier_type_has_checkout_type)
       end
@@ -160,11 +160,11 @@ describe CarrierTypeHasCheckoutTypesController do
 
     describe "When logged in as Librarian" do
       before(:each) do
-        sign_in Factory(:librarian)
+        sign_in FactoryGirl.create(:librarian)
       end
 
       it "assigns the requested carrier_type_has_checkout_type as @carrier_type_has_checkout_type" do
-        carrier_type_has_checkout_type = Factory.create(:carrier_type_has_checkout_type)
+        carrier_type_has_checkout_type = FactoryGirl.create(:carrier_type_has_checkout_type)
         get :edit, :id => carrier_type_has_checkout_type.id
         assigns(:carrier_type_has_checkout_type).should eq(carrier_type_has_checkout_type)
       end
@@ -172,11 +172,11 @@ describe CarrierTypeHasCheckoutTypesController do
 
     describe "When logged in as Subject" do
       before(:each) do
-        sign_in Factory(:user)
+        sign_in FactoryGirl.create(:user)
       end
 
       it "assigns the requested carrier_type_has_checkout_type as @carrier_type_has_checkout_type" do
-        carrier_type_has_checkout_type = Factory.create(:carrier_type_has_checkout_type)
+        carrier_type_has_checkout_type = FactoryGirl.create(:carrier_type_has_checkout_type)
         get :edit, :id => carrier_type_has_checkout_type.id
         response.should be_forbidden
       end
@@ -184,7 +184,7 @@ describe CarrierTypeHasCheckoutTypesController do
 
     describe "When not logged in" do
       it "should not assign the requested carrier_type_has_checkout_type as @carrier_type_has_checkout_type" do
-        carrier_type_has_checkout_type = Factory.create(:carrier_type_has_checkout_type)
+        carrier_type_has_checkout_type = FactoryGirl.create(:carrier_type_has_checkout_type)
         get :edit, :id => carrier_type_has_checkout_type.id
         response.should redirect_to(new_user_session_url)
       end
@@ -193,13 +193,13 @@ describe CarrierTypeHasCheckoutTypesController do
 
   describe "POST create" do
     before(:each) do
-      @attrs = Factory.attributes_for(:carrier_type_has_checkout_type)
+      @attrs = FactoryGirl.attributes_for(:carrier_type_has_checkout_type)
       @invalid_attrs = {:carrier_type_id => ''}
     end
 
     describe "When logged in as Administrator" do
       before(:each) do
-        sign_in Factory(:admin)
+        sign_in FactoryGirl.create(:admin)
       end
 
       describe "with valid params" do
@@ -229,7 +229,7 @@ describe CarrierTypeHasCheckoutTypesController do
 
     describe "When logged in as Librarian" do
       before(:each) do
-        sign_in Factory(:librarian)
+        sign_in FactoryGirl.create(:librarian)
       end
 
       describe "with valid params" do
@@ -259,7 +259,7 @@ describe CarrierTypeHasCheckoutTypesController do
 
     describe "When logged in as Subject" do
       before(:each) do
-        sign_in Factory(:user)
+        sign_in FactoryGirl.create(:user)
       end
 
       describe "with valid params" do
@@ -316,14 +316,14 @@ describe CarrierTypeHasCheckoutTypesController do
 
   describe "PUT update" do
     before(:each) do
-      @carrier_type_has_checkout_type = Factory(:carrier_type_has_checkout_type)
-      @attrs = Factory.attributes_for(:carrier_type_has_checkout_type)
+      @carrier_type_has_checkout_type = FactoryGirl.create(:carrier_type_has_checkout_type)
+      @attrs = FactoryGirl.attributes_for(:carrier_type_has_checkout_type)
       @invalid_attrs = {:carrier_type_id => ''}
     end
 
     describe "When logged in as Administrator" do
       before(:each) do
-        sign_in Factory(:admin)
+        sign_in FactoryGirl.create(:admin)
       end
 
       describe "with valid params" do
@@ -348,7 +348,7 @@ describe CarrierTypeHasCheckoutTypesController do
 
     describe "When logged in as Librarian" do
       before(:each) do
-        sign_in Factory(:librarian)
+        sign_in FactoryGirl.create(:librarian)
       end
 
       describe "with valid params" do
@@ -377,7 +377,7 @@ describe CarrierTypeHasCheckoutTypesController do
 
     describe "When logged in as Subject" do
       before(:each) do
-        sign_in Factory(:user)
+        sign_in FactoryGirl.create(:user)
       end
 
       describe "with valid params" do
@@ -423,12 +423,12 @@ describe CarrierTypeHasCheckoutTypesController do
 
   describe "DELETE destroy" do
     before(:each) do
-      @carrier_type_has_checkout_type = Factory(:carrier_type_has_checkout_type)
+      @carrier_type_has_checkout_type = FactoryGirl.create(:carrier_type_has_checkout_type)
     end
 
     describe "When logged in as Administrator" do
       before(:each) do
-        sign_in Factory(:admin)
+        sign_in FactoryGirl.create(:admin)
       end
 
       it "destroys the requested carrier_type_has_checkout_type" do
@@ -443,7 +443,7 @@ describe CarrierTypeHasCheckoutTypesController do
 
     describe "When logged in as Librarian" do
       before(:each) do
-        sign_in Factory(:librarian)
+        sign_in FactoryGirl.create(:librarian)
       end
 
       it "destroys the requested carrier_type_has_checkout_type" do
@@ -458,7 +458,7 @@ describe CarrierTypeHasCheckoutTypesController do
 
     describe "When logged in as Subject" do
       before(:each) do
-        sign_in Factory(:user)
+        sign_in FactoryGirl.create(:user)
       end
 
       it "destroys the requested carrier_type_has_checkout_type" do

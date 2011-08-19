@@ -7,7 +7,7 @@ describe SeriesStatementMergeListsController do
   describe "GET index" do
     describe "When logged in as Administrator" do
       before(:each) do
-        sign_in Factory(:admin)
+        sign_in FactoryGirl.create(:admin)
       end
 
       it "assigns all series_statement_merge_lists as @series_statement_merge_lists" do
@@ -18,7 +18,7 @@ describe SeriesStatementMergeListsController do
 
     describe "When logged in as Librarian" do
       before(:each) do
-        sign_in Factory(:librarian)
+        sign_in FactoryGirl.create(:librarian)
       end
 
       it "assigns all series_statement_merge_lists as @series_statement_merge_lists" do
@@ -29,7 +29,7 @@ describe SeriesStatementMergeListsController do
 
     describe "When logged in as User" do
       before(:each) do
-        sign_in Factory(:user)
+        sign_in FactoryGirl.create(:user)
       end
 
       it "assigns empty as @series_statement_merge_lists" do
@@ -49,11 +49,11 @@ describe SeriesStatementMergeListsController do
   describe "GET show" do
     describe "When logged in as Administrator" do
       before(:each) do
-        sign_in Factory(:admin)
+        sign_in FactoryGirl.create(:admin)
       end
 
       it "assigns the requested series_statement_merge_list as @series_statement_merge_list" do
-        series_statement_merge_list = Factory.create(:series_statement_merge_list)
+        series_statement_merge_list = FactoryGirl.create(:series_statement_merge_list)
         get :show, :id => series_statement_merge_list.id
         assigns(:series_statement_merge_list).should eq(series_statement_merge_list)
       end
@@ -61,11 +61,11 @@ describe SeriesStatementMergeListsController do
 
     describe "When logged in as Librarian" do
       before(:each) do
-        sign_in Factory(:librarian)
+        sign_in FactoryGirl.create(:librarian)
       end
 
       it "assigns the requested series_statement_merge_list as @series_statement_merge_list" do
-        series_statement_merge_list = Factory.create(:series_statement_merge_list)
+        series_statement_merge_list = FactoryGirl.create(:series_statement_merge_list)
         get :show, :id => series_statement_merge_list.id
         assigns(:series_statement_merge_list).should eq(series_statement_merge_list)
       end
@@ -73,11 +73,11 @@ describe SeriesStatementMergeListsController do
 
     describe "When logged in as User" do
       before(:each) do
-        sign_in Factory(:user)
+        sign_in FactoryGirl.create(:user)
       end
 
       it "assigns the requested series_statement_merge_list as @series_statement_merge_list" do
-        series_statement_merge_list = Factory.create(:series_statement_merge_list)
+        series_statement_merge_list = FactoryGirl.create(:series_statement_merge_list)
         get :show, :id => series_statement_merge_list.id
         assigns(:series_statement_merge_list).should eq(series_statement_merge_list)
       end
@@ -85,7 +85,7 @@ describe SeriesStatementMergeListsController do
 
     describe "When not logged in" do
       it "assigns the requested series_statement_merge_list as @series_statement_merge_list" do
-        series_statement_merge_list = Factory.create(:series_statement_merge_list)
+        series_statement_merge_list = FactoryGirl.create(:series_statement_merge_list)
         get :show, :id => series_statement_merge_list.id
         assigns(:series_statement_merge_list).should eq(series_statement_merge_list)
       end
@@ -95,7 +95,7 @@ describe SeriesStatementMergeListsController do
   describe "GET new" do
     describe "When logged in as Administrator" do
       before(:each) do
-        sign_in Factory(:admin)
+        sign_in FactoryGirl.create(:admin)
       end
 
       it "assigns the requested series_statement_merge_list as @series_statement_merge_list" do
@@ -106,7 +106,7 @@ describe SeriesStatementMergeListsController do
 
     describe "When logged in as Librarian" do
       before(:each) do
-        sign_in Factory(:librarian)
+        sign_in FactoryGirl.create(:librarian)
       end
 
       it "assigns the requested series_statement_merge_list as @series_statement_merge_list" do
@@ -117,7 +117,7 @@ describe SeriesStatementMergeListsController do
 
     describe "When logged in as User" do
       before(:each) do
-        sign_in Factory(:user)
+        sign_in FactoryGirl.create(:user)
       end
 
       it "should not assign the requested series_statement_merge_list as @series_statement_merge_list" do
@@ -139,11 +139,11 @@ describe SeriesStatementMergeListsController do
   describe "GET edit" do
     describe "When logged in as Administrator" do
       before(:each) do
-        sign_in Factory(:admin)
+        sign_in FactoryGirl.create(:admin)
       end
 
       it "assigns the requested series_statement_merge_list as @series_statement_merge_list" do
-        series_statement_merge_list = Factory.create(:series_statement_merge_list)
+        series_statement_merge_list = FactoryGirl.create(:series_statement_merge_list)
         get :edit, :id => series_statement_merge_list.id
         assigns(:series_statement_merge_list).should eq(series_statement_merge_list)
       end
@@ -151,11 +151,11 @@ describe SeriesStatementMergeListsController do
 
     describe "When logged in as Librarian" do
       before(:each) do
-        sign_in Factory(:librarian)
+        sign_in FactoryGirl.create(:librarian)
       end
 
       it "assigns the requested series_statement_merge_list as @series_statement_merge_list" do
-        series_statement_merge_list = Factory.create(:series_statement_merge_list)
+        series_statement_merge_list = FactoryGirl.create(:series_statement_merge_list)
         get :edit, :id => series_statement_merge_list.id
         assigns(:series_statement_merge_list).should eq(series_statement_merge_list)
       end
@@ -163,11 +163,11 @@ describe SeriesStatementMergeListsController do
 
     describe "When logged in as User" do
       before(:each) do
-        sign_in Factory(:user)
+        sign_in FactoryGirl.create(:user)
       end
 
       it "assigns the requested series_statement_merge_list as @series_statement_merge_list" do
-        series_statement_merge_list = Factory.create(:series_statement_merge_list)
+        series_statement_merge_list = FactoryGirl.create(:series_statement_merge_list)
         get :edit, :id => series_statement_merge_list.id
         response.should be_forbidden
       end
@@ -175,7 +175,7 @@ describe SeriesStatementMergeListsController do
 
     describe "When not logged in" do
       it "should not assign the requested series_statement_merge_list as @series_statement_merge_list" do
-        series_statement_merge_list = Factory.create(:series_statement_merge_list)
+        series_statement_merge_list = FactoryGirl.create(:series_statement_merge_list)
         get :edit, :id => series_statement_merge_list.id
         response.should redirect_to(new_user_session_url)
       end
@@ -184,13 +184,13 @@ describe SeriesStatementMergeListsController do
 
   describe "POST create" do
     before(:each) do
-      @attrs = Factory.attributes_for(:series_statement_merge_list)
+      @attrs = FactoryGirl.attributes_for(:series_statement_merge_list)
       @invalid_attrs = {:title => ''}
     end
 
     describe "When logged in as Administrator" do
       before(:each) do
-        sign_in Factory(:admin)
+        sign_in FactoryGirl.create(:admin)
       end
 
       describe "with valid params" do
@@ -220,7 +220,7 @@ describe SeriesStatementMergeListsController do
 
     describe "When logged in as Librarian" do
       before(:each) do
-        sign_in Factory(:librarian)
+        sign_in FactoryGirl.create(:librarian)
       end
 
       describe "with valid params" do
@@ -250,7 +250,7 @@ describe SeriesStatementMergeListsController do
 
     describe "When logged in as User" do
       before(:each) do
-        sign_in Factory(:user)
+        sign_in FactoryGirl.create(:user)
       end
 
       describe "with valid params" do
@@ -307,14 +307,14 @@ describe SeriesStatementMergeListsController do
 
   describe "PUT update" do
     before(:each) do
-      @series_statement_merge_list = Factory(:series_statement_merge_list)
-      @attrs = Factory.attributes_for(:series_statement_merge_list)
+      @series_statement_merge_list = FactoryGirl.create(:series_statement_merge_list)
+      @attrs = FactoryGirl.attributes_for(:series_statement_merge_list)
       @invalid_attrs = {:title => ''}
     end
 
     describe "When logged in as Administrator" do
       before(:each) do
-        sign_in Factory(:admin)
+        sign_in FactoryGirl.create(:admin)
       end
 
       describe "with valid params" do
@@ -343,7 +343,7 @@ describe SeriesStatementMergeListsController do
 
     describe "When logged in as Librarian" do
       before(:each) do
-        sign_in Factory(:librarian)
+        sign_in FactoryGirl.create(:librarian)
       end
 
       describe "with valid params" do
@@ -373,7 +373,7 @@ describe SeriesStatementMergeListsController do
 
     describe "When logged in as User" do
       before(:each) do
-        sign_in Factory(:user)
+        sign_in FactoryGirl.create(:user)
       end
 
       describe "with valid params" do
@@ -419,12 +419,12 @@ describe SeriesStatementMergeListsController do
 
   describe "DELETE destroy" do
     before(:each) do
-      @series_statement_merge_list = Factory(:series_statement_merge_list)
+      @series_statement_merge_list = FactoryGirl.create(:series_statement_merge_list)
     end
 
     describe "When logged in as Administrator" do
       before(:each) do
-        sign_in Factory(:admin)
+        sign_in FactoryGirl.create(:admin)
       end
 
       it "destroys the requested series_statement_merge_list" do
@@ -439,7 +439,7 @@ describe SeriesStatementMergeListsController do
 
     describe "When logged in as Librarian" do
       before(:each) do
-        sign_in Factory(:librarian)
+        sign_in FactoryGirl.create(:librarian)
       end
 
       it "destroys the requested series_statement_merge_list" do
@@ -454,7 +454,7 @@ describe SeriesStatementMergeListsController do
 
     describe "When logged in as User" do
       before(:each) do
-        sign_in Factory(:user)
+        sign_in FactoryGirl.create(:user)
       end
 
       it "destroys the requested series_statement_merge_list" do

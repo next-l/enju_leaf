@@ -1,3 +1,5 @@
-Factory.define :subject_type do |f|
-  f.sequence(:name){|n| "subject_type_#{n}"}
+FactoryGirl.define do
+  factory :subject_type do |f|
+    f.sequence(:name){|n| "subject_type_#{n}"}
+  end
 end

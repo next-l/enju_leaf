@@ -25,8 +25,7 @@ GIT
 GEM
   remote: http://rubygems.org/
   specs:
-    RedCloth (4.2.7)
-    RedCloth (4.2.7-java)
+    RedCloth (4.2.8)
     Saikuro (1.1.0)
     aaronh-chronic (0.3.9)
     actionmailer (3.1.0.rc6)
@@ -61,7 +60,7 @@ GEM
       multi_json (~> 1.0)
     acts-as-taggable-on (2.0.6)
     addressable (2.2.4)
-    amazon-ecs (2.0.0)
+    amazon-ecs (2.1.0)
       nokogiri (>= 1.4.0)
       ruby-hmac (>= 0.3.2)
     annotate (2.4.0)
@@ -76,7 +75,7 @@ GEM
       mime-types
       xml-simple
     babosa (0.3.5)
-    barby (0.4.4)
+    barby (0.5.0)
     bcrypt-ruby (2.1.4)
     bcrypt-ruby (2.1.4-java)
     bouncy-castle-java (1.5.0146.1)
@@ -182,7 +181,7 @@ GEM
     net-ldap (0.2.2)
     net-sftp (2.0.5)
       net-ssh (>= 2.0.9)
-    net-ssh (2.1.4)
+    net-ssh (2.2.0)
     nokogiri (1.4.7)
     nokogiri (1.4.7-java)
       weakling (>= 0.0.3)
@@ -231,7 +230,7 @@ GEM
       activesupport (>= 2.3.2)
       cocaine (>= 0.0.2)
       mime-types
-    parallel (0.5.7)
+    parallel (0.5.8)
     parallel_tests (0.6.1)
       parallel
     pg (0.11.0)
@@ -396,7 +395,7 @@ DEPENDENCIES
   event-calendar
   exception_notification
   extractcontent
-  factory_girl_rails
+  factory_girl_rails (~> 1.1)
   file_wrapper
   friendly_id
   geocoder

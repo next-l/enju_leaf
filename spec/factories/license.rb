@@ -1,3 +1,5 @@
-Factory.define :license do |f|
-  f.sequence(:name){|n| "license_#{n}"}
+FactoryGirl.define do
+  factory :license do |f|
+    f.sequence(:name){|n| "license_#{n}"}
+  end
 end

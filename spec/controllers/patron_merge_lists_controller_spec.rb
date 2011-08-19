@@ -7,7 +7,7 @@ describe PatronMergeListsController do
   describe "GET index" do
     describe "When logged in as Administrator" do
       before(:each) do
-        sign_in Factory(:admin)
+        sign_in FactoryGirl.create(:admin)
       end
 
       it "assigns all patron_merge_lists as @patron_merge_lists" do
@@ -18,7 +18,7 @@ describe PatronMergeListsController do
 
     describe "When logged in as Librarian" do
       before(:each) do
-        sign_in Factory(:librarian)
+        sign_in FactoryGirl.create(:librarian)
       end
 
       it "assigns all patron_merge_lists as @patron_merge_lists" do
@@ -29,7 +29,7 @@ describe PatronMergeListsController do
 
     describe "When logged in as User" do
       before(:each) do
-        sign_in Factory(:user)
+        sign_in FactoryGirl.create(:user)
       end
 
       it "assigns empty as @patron_merge_lists" do
@@ -49,11 +49,11 @@ describe PatronMergeListsController do
   describe "GET show" do
     describe "When logged in as Administrator" do
       before(:each) do
-        sign_in Factory(:admin)
+        sign_in FactoryGirl.create(:admin)
       end
 
       it "assigns the requested patron_merge_list as @patron_merge_list" do
-        patron_merge_list = Factory.create(:patron_merge_list)
+        patron_merge_list = FactoryGirl.create(:patron_merge_list)
         get :show, :id => patron_merge_list.id
         assigns(:patron_merge_list).should eq(patron_merge_list)
         response.should be_success
@@ -62,11 +62,11 @@ describe PatronMergeListsController do
 
     describe "When logged in as Librarian" do
       before(:each) do
-        sign_in Factory(:librarian)
+        sign_in FactoryGirl.create(:librarian)
       end
 
       it "assigns the requested patron_merge_list as @patron_merge_list" do
-        patron_merge_list = Factory.create(:patron_merge_list)
+        patron_merge_list = FactoryGirl.create(:patron_merge_list)
         get :show, :id => patron_merge_list.id
         assigns(:patron_merge_list).should eq(patron_merge_list)
         response.should be_success
@@ -75,11 +75,11 @@ describe PatronMergeListsController do
 
     describe "When logged in as User" do
       before(:each) do
-        sign_in Factory(:user)
+        sign_in FactoryGirl.create(:user)
       end
 
       it "assigns the requested patron_merge_list as @patron_merge_list" do
-        patron_merge_list = Factory.create(:patron_merge_list)
+        patron_merge_list = FactoryGirl.create(:patron_merge_list)
         get :show, :id => patron_merge_list.id
         assigns(:patron_merge_list).should eq(patron_merge_list)
         response.should be_forbidden
@@ -88,7 +88,7 @@ describe PatronMergeListsController do
 
     describe "When not logged in" do
       it "assigns the requested patron_merge_list as @patron_merge_list" do
-        patron_merge_list = Factory.create(:patron_merge_list)
+        patron_merge_list = FactoryGirl.create(:patron_merge_list)
         get :show, :id => patron_merge_list.id
         assigns(:patron_merge_list).should eq(patron_merge_list)
         response.should redirect_to new_user_session_url
@@ -99,7 +99,7 @@ describe PatronMergeListsController do
   describe "GET new" do
     describe "When logged in as Administrator" do
       before(:each) do
-        sign_in Factory(:admin)
+        sign_in FactoryGirl.create(:admin)
       end
 
       it "assigns the requested patron_merge_list as @patron_merge_list" do
@@ -110,7 +110,7 @@ describe PatronMergeListsController do
 
     describe "When logged in as Librarian" do
       before(:each) do
-        sign_in Factory(:librarian)
+        sign_in FactoryGirl.create(:librarian)
       end
 
       it "assigns the requested patron_merge_list as @patron_merge_list" do
@@ -121,7 +121,7 @@ describe PatronMergeListsController do
 
     describe "When logged in as User" do
       before(:each) do
-        sign_in Factory(:user)
+        sign_in FactoryGirl.create(:user)
       end
 
       it "should not assign the requested patron_merge_list as @patron_merge_list" do
@@ -143,11 +143,11 @@ describe PatronMergeListsController do
   describe "GET edit" do
     describe "When logged in as Administrator" do
       before(:each) do
-        sign_in Factory(:admin)
+        sign_in FactoryGirl.create(:admin)
       end
 
       it "assigns the requested patron_merge_list as @patron_merge_list" do
-        patron_merge_list = Factory.create(:patron_merge_list)
+        patron_merge_list = FactoryGirl.create(:patron_merge_list)
         get :edit, :id => patron_merge_list.id
         assigns(:patron_merge_list).should eq(patron_merge_list)
       end
@@ -155,11 +155,11 @@ describe PatronMergeListsController do
 
     describe "When logged in as Librarian" do
       before(:each) do
-        sign_in Factory(:librarian)
+        sign_in FactoryGirl.create(:librarian)
       end
 
       it "assigns the requested patron_merge_list as @patron_merge_list" do
-        patron_merge_list = Factory.create(:patron_merge_list)
+        patron_merge_list = FactoryGirl.create(:patron_merge_list)
         get :edit, :id => patron_merge_list.id
         assigns(:patron_merge_list).should eq(patron_merge_list)
       end
@@ -167,11 +167,11 @@ describe PatronMergeListsController do
 
     describe "When logged in as User" do
       before(:each) do
-        sign_in Factory(:user)
+        sign_in FactoryGirl.create(:user)
       end
 
       it "assigns the requested patron_merge_list as @patron_merge_list" do
-        patron_merge_list = Factory.create(:patron_merge_list)
+        patron_merge_list = FactoryGirl.create(:patron_merge_list)
         get :edit, :id => patron_merge_list.id
         response.should be_forbidden
       end
@@ -179,7 +179,7 @@ describe PatronMergeListsController do
 
     describe "When not logged in" do
       it "should not assign the requested patron_merge_list as @patron_merge_list" do
-        patron_merge_list = Factory.create(:patron_merge_list)
+        patron_merge_list = FactoryGirl.create(:patron_merge_list)
         get :edit, :id => patron_merge_list.id
         response.should redirect_to(new_user_session_url)
       end
@@ -188,13 +188,13 @@ describe PatronMergeListsController do
 
   describe "POST create" do
     before(:each) do
-      @attrs = Factory.attributes_for(:patron_merge_list)
+      @attrs = FactoryGirl.attributes_for(:patron_merge_list)
       @invalid_attrs = {:title => ''}
     end
 
     describe "When logged in as Administrator" do
       before(:each) do
-        sign_in Factory(:admin)
+        sign_in FactoryGirl.create(:admin)
       end
 
       describe "with valid params" do
@@ -224,7 +224,7 @@ describe PatronMergeListsController do
 
     describe "When logged in as Librarian" do
       before(:each) do
-        sign_in Factory(:librarian)
+        sign_in FactoryGirl.create(:librarian)
       end
 
       describe "with valid params" do
@@ -254,7 +254,7 @@ describe PatronMergeListsController do
 
     describe "When logged in as User" do
       before(:each) do
-        sign_in Factory(:user)
+        sign_in FactoryGirl.create(:user)
       end
 
       describe "with valid params" do
@@ -311,14 +311,14 @@ describe PatronMergeListsController do
 
   describe "PUT update" do
     before(:each) do
-      @patron_merge_list = Factory(:patron_merge_list)
-      @attrs = Factory.attributes_for(:patron_merge_list)
+      @patron_merge_list = FactoryGirl.create(:patron_merge_list)
+      @attrs = FactoryGirl.attributes_for(:patron_merge_list)
       @invalid_attrs = {:title => ''}
     end
 
     describe "When logged in as Administrator" do
       before(:each) do
-        sign_in Factory(:admin)
+        sign_in FactoryGirl.create(:admin)
       end
 
       describe "with valid params" do
@@ -347,7 +347,7 @@ describe PatronMergeListsController do
 
     describe "When logged in as Librarian" do
       before(:each) do
-        sign_in Factory(:librarian)
+        sign_in FactoryGirl.create(:librarian)
       end
 
       describe "with valid params" do
@@ -377,7 +377,7 @@ describe PatronMergeListsController do
 
     describe "When logged in as User" do
       before(:each) do
-        sign_in Factory(:user)
+        sign_in FactoryGirl.create(:user)
       end
 
       describe "with valid params" do
@@ -423,12 +423,12 @@ describe PatronMergeListsController do
 
   describe "DELETE destroy" do
     before(:each) do
-      @patron_merge_list = Factory(:patron_merge_list)
+      @patron_merge_list = FactoryGirl.create(:patron_merge_list)
     end
 
     describe "When logged in as Administrator" do
       before(:each) do
-        sign_in Factory(:admin)
+        sign_in FactoryGirl.create(:admin)
       end
 
       it "destroys the requested patron_merge_list" do
@@ -443,7 +443,7 @@ describe PatronMergeListsController do
 
     describe "When logged in as Librarian" do
       before(:each) do
-        sign_in Factory(:librarian)
+        sign_in FactoryGirl.create(:librarian)
       end
 
       it "destroys the requested patron_merge_list" do
@@ -458,7 +458,7 @@ describe PatronMergeListsController do
 
     describe "When logged in as User" do
       before(:each) do
-        sign_in Factory(:user)
+        sign_in FactoryGirl.create(:user)
       end
 
       it "destroys the requested patron_merge_list" do

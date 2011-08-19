@@ -8,7 +8,7 @@ describe MessageRequestsController do
   describe "GET index" do
     describe "When logged in as Administrator" do
       before(:each) do
-        sign_in Factory(:admin)
+        sign_in FactoryGirl.create(:admin)
       end
 
       it "assigns all message_requests as @message_requests" do
@@ -19,7 +19,7 @@ describe MessageRequestsController do
 
     describe "When logged in as Librarian" do
       before(:each) do
-        sign_in Factory(:librarian)
+        sign_in FactoryGirl.create(:librarian)
       end
 
       it "assigns all message_requests as @message_requests" do
@@ -30,7 +30,7 @@ describe MessageRequestsController do
 
     describe "When logged in as User" do
       before(:each) do
-        sign_in Factory(:user)
+        sign_in FactoryGirl.create(:user)
       end
 
       it "assigns all message_requests as @message_requests" do
@@ -50,11 +50,11 @@ describe MessageRequestsController do
   describe "GET show" do
     describe "When logged in as Administrator" do
       before(:each) do
-        sign_in Factory(:admin)
+        sign_in FactoryGirl.create(:admin)
       end
 
       it "assigns the requested message_request as @message_request" do
-        message_request = Factory.create(:message_request)
+        message_request = FactoryGirl.create(:message_request)
         get :show, :id => message_request.id
         assigns(:message_request).should eq(message_request)
       end
@@ -62,11 +62,11 @@ describe MessageRequestsController do
 
     describe "When logged in as Librarian" do
       before(:each) do
-        sign_in Factory(:librarian)
+        sign_in FactoryGirl.create(:librarian)
       end
 
       it "assigns the requested message_request as @message_request" do
-        message_request = Factory.create(:message_request)
+        message_request = FactoryGirl.create(:message_request)
         get :show, :id => message_request.id
         assigns(:message_request).should eq(message_request)
       end
@@ -74,11 +74,11 @@ describe MessageRequestsController do
 
     describe "When logged in as User" do
       before(:each) do
-        sign_in Factory(:user)
+        sign_in FactoryGirl.create(:user)
       end
 
       it "assigns the requested message_request as @message_request" do
-        message_request = Factory.create(:message_request)
+        message_request = FactoryGirl.create(:message_request)
         get :show, :id => message_request.id
         assigns(:message_request).should eq(message_request)
       end
@@ -86,7 +86,7 @@ describe MessageRequestsController do
 
     describe "When not logged in" do
       it "assigns the requested message_request as @message_request" do
-        message_request = Factory.create(:message_request)
+        message_request = FactoryGirl.create(:message_request)
         get :show, :id => message_request.id
         assigns(:message_request).should eq(message_request)
       end
@@ -96,11 +96,11 @@ describe MessageRequestsController do
   describe "GET edit" do
     describe "When logged in as Administrator" do
       before(:each) do
-        sign_in Factory(:admin)
+        sign_in FactoryGirl.create(:admin)
       end
 
       it "assigns the requested message_request as @message_request" do
-        message_request = Factory.create(:message_request)
+        message_request = FactoryGirl.create(:message_request)
         get :edit, :id => message_request.id
         assigns(:message_request).should eq(message_request)
       end
@@ -108,11 +108,11 @@ describe MessageRequestsController do
 
     describe "When logged in as Librarian" do
       before(:each) do
-        sign_in Factory(:librarian)
+        sign_in FactoryGirl.create(:librarian)
       end
 
       it "assigns the requested message_request as @message_request" do
-        message_request = Factory.create(:message_request)
+        message_request = FactoryGirl.create(:message_request)
         get :edit, :id => message_request.id
         assigns(:message_request).should eq(message_request)
       end
@@ -120,11 +120,11 @@ describe MessageRequestsController do
 
     describe "When logged in as User" do
       before(:each) do
-        sign_in Factory(:user)
+        sign_in FactoryGirl.create(:user)
       end
 
       it "assigns the requested message_request as @message_request" do
-        message_request = Factory.create(:message_request)
+        message_request = FactoryGirl.create(:message_request)
         get :edit, :id => message_request.id
         response.should be_forbidden
       end
@@ -132,7 +132,7 @@ describe MessageRequestsController do
 
     describe "When not logged in" do
       it "should not assign the requested message_request as @message_request" do
-        message_request = Factory.create(:message_request)
+        message_request = FactoryGirl.create(:message_request)
         get :edit, :id => message_request.id
         response.should redirect_to(new_user_session_url)
       end
@@ -141,14 +141,14 @@ describe MessageRequestsController do
 
   describe "PUT update" do
     before(:each) do
-      @message_request = Factory(:message_request)
-      @attrs = Factory.attributes_for(:message_request)
+      @message_request = FactoryGirl.create(:message_request)
+      @attrs = FactoryGirl.attributes_for(:message_request)
       @invalid_attrs = {:sender_id => ''}
     end
 
     describe "When logged in as Administrator" do
       before(:each) do
-        sign_in Factory(:admin)
+        sign_in FactoryGirl.create(:admin)
       end
 
       describe "with valid params" do
@@ -172,7 +172,7 @@ describe MessageRequestsController do
 
     describe "When logged in as Librarian" do
       before(:each) do
-        sign_in Factory(:librarian)
+        sign_in FactoryGirl.create(:librarian)
       end
 
       describe "with valid params" do
@@ -197,7 +197,7 @@ describe MessageRequestsController do
 
     describe "When logged in as User" do
       before(:each) do
-        sign_in Factory(:user)
+        sign_in FactoryGirl.create(:user)
       end
 
       describe "with valid params" do
@@ -243,12 +243,12 @@ describe MessageRequestsController do
 
   describe "DELETE destroy" do
     before(:each) do
-      @message_request = Factory(:message_request)
+      @message_request = FactoryGirl.create(:message_request)
     end
 
     describe "When logged in as Administrator" do
       before(:each) do
-        sign_in Factory(:admin)
+        sign_in FactoryGirl.create(:admin)
       end
 
       it "destroys the requested message_request" do
@@ -263,7 +263,7 @@ describe MessageRequestsController do
 
     describe "When logged in as Librarian" do
       before(:each) do
-        sign_in Factory(:librarian)
+        sign_in FactoryGirl.create(:librarian)
       end
 
       it "destroys the requested message_request" do
@@ -278,7 +278,7 @@ describe MessageRequestsController do
 
     describe "When logged in as User" do
       before(:each) do
-        sign_in Factory(:user)
+        sign_in FactoryGirl.create(:user)
       end
 
       it "destroys the requested message_request" do

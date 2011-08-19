@@ -5,7 +5,7 @@ describe Exemplify do
   fixtures :all
 
   before(:each) do
-    @exemplify = Factory(:exemplify)
+    @exemplify = FactoryGirl.create(:exemplify)
   end
 
   it 'should create lending policy' do

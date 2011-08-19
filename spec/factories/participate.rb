@@ -1,4 +1,6 @@
-Factory.define :participate do |f|
-  f.event{Factory(:event)}
-  f.patron{Factory(:patron)}
+FactoryGirl.define do
+  factory :participate do |f|
+    f.event{FactoryGirl.create(:event)}
+    f.patron{FactoryGirl.create(:patron)}
+  end
 end
