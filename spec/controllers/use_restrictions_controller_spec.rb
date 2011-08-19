@@ -7,12 +7,12 @@ describe UseRestrictionsController do
 
   describe "GET index" do
     before(:each) do
-      Factory.create(:use_restriction)
+      FactoryGirl.create(:use_restriction)
     end
 
     describe "When logged in as Administrator" do
       before(:each) do
-        sign_in Factory(:admin)
+        sign_in FactoryGirl.create(:admin)
       end
 
       it "assigns all use_restrictions as @use_restrictions" do
@@ -23,7 +23,7 @@ describe UseRestrictionsController do
 
     describe "When logged in as Librarian" do
       before(:each) do
-        sign_in Factory(:librarian)
+        sign_in FactoryGirl.create(:librarian)
       end
 
       it "assigns all use_restrictions as @use_restrictions" do
@@ -34,7 +34,7 @@ describe UseRestrictionsController do
 
     describe "When logged in as User" do
       before(:each) do
-        sign_in Factory(:user)
+        sign_in FactoryGirl.create(:user)
       end
 
       it "should be forbidden" do
@@ -56,11 +56,11 @@ describe UseRestrictionsController do
   describe "GET show" do
     describe "When logged in as Administrator" do
       before(:each) do
-        sign_in Factory(:admin)
+        sign_in FactoryGirl.create(:admin)
       end
 
       it "assigns the requested use_restriction as @use_restriction" do
-        use_restriction = Factory.create(:use_restriction)
+        use_restriction = FactoryGirl.create(:use_restriction)
         get :show, :id => use_restriction.id
         assigns(:use_restriction).should eq(use_restriction)
       end
@@ -68,11 +68,11 @@ describe UseRestrictionsController do
 
     describe "When logged in as Librarian" do
       before(:each) do
-        sign_in Factory(:librarian)
+        sign_in FactoryGirl.create(:librarian)
       end
 
       it "assigns the requested use_restriction as @use_restriction" do
-        use_restriction = Factory.create(:use_restriction)
+        use_restriction = FactoryGirl.create(:use_restriction)
         get :show, :id => use_restriction.id
         assigns(:use_restriction).should eq(use_restriction)
       end
@@ -80,11 +80,11 @@ describe UseRestrictionsController do
 
     describe "When logged in as User" do
       before(:each) do
-        sign_in Factory(:user)
+        sign_in FactoryGirl.create(:user)
       end
 
       it "assigns the requested use_restriction as @use_restriction" do
-        use_restriction = Factory.create(:use_restriction)
+        use_restriction = FactoryGirl.create(:use_restriction)
         get :show, :id => use_restriction.id
         assigns(:use_restriction).should eq(use_restriction)
       end
@@ -92,7 +92,7 @@ describe UseRestrictionsController do
 
     describe "When not logged in" do
       it "assigns the requested use_restriction as @use_restriction" do
-        use_restriction = Factory.create(:use_restriction)
+        use_restriction = FactoryGirl.create(:use_restriction)
         get :show, :id => use_restriction.id
         assigns(:use_restriction).should eq(use_restriction)
       end
@@ -102,7 +102,7 @@ describe UseRestrictionsController do
   describe "GET new" do
     describe "When logged in as Administrator" do
       before(:each) do
-        sign_in Factory(:admin)
+        sign_in FactoryGirl.create(:admin)
       end
 
       it "should be forbidden" do
@@ -114,7 +114,7 @@ describe UseRestrictionsController do
 
     describe "When logged in as Librarian" do
       before(:each) do
-        sign_in Factory(:librarian)
+        sign_in FactoryGirl.create(:librarian)
       end
 
       it "should be forbidden" do
@@ -126,7 +126,7 @@ describe UseRestrictionsController do
 
     describe "When logged in as User" do
       before(:each) do
-        sign_in Factory(:user)
+        sign_in FactoryGirl.create(:user)
       end
 
       it "should be forbidden" do
@@ -148,11 +148,11 @@ describe UseRestrictionsController do
   describe "GET edit" do
     describe "When logged in as Administrator" do
       before(:each) do
-        sign_in Factory(:admin)
+        sign_in FactoryGirl.create(:admin)
       end
 
       it "assigns the requested use_restriction as @use_restriction" do
-        use_restriction = Factory.create(:use_restriction)
+        use_restriction = FactoryGirl.create(:use_restriction)
         get :edit, :id => use_restriction.id
         assigns(:use_restriction).should eq(use_restriction)
       end
@@ -160,11 +160,11 @@ describe UseRestrictionsController do
 
     describe "When logged in as Librarian" do
       before(:each) do
-        sign_in Factory(:librarian)
+        sign_in FactoryGirl.create(:librarian)
       end
 
       it "assigns the requested use_restriction as @use_restriction" do
-        use_restriction = Factory.create(:use_restriction)
+        use_restriction = FactoryGirl.create(:use_restriction)
         get :edit, :id => use_restriction.id
         response.should be_forbidden
       end
@@ -172,11 +172,11 @@ describe UseRestrictionsController do
 
     describe "When logged in as User" do
       before(:each) do
-        sign_in Factory(:user)
+        sign_in FactoryGirl.create(:user)
       end
 
       it "assigns the requested use_restriction as @use_restriction" do
-        use_restriction = Factory.create(:use_restriction)
+        use_restriction = FactoryGirl.create(:use_restriction)
         get :edit, :id => use_restriction.id
         response.should be_forbidden
       end
@@ -184,7 +184,7 @@ describe UseRestrictionsController do
 
     describe "When not logged in" do
       it "should not assign the requested use_restriction as @use_restriction" do
-        use_restriction = Factory.create(:use_restriction)
+        use_restriction = FactoryGirl.create(:use_restriction)
         get :edit, :id => use_restriction.id
         response.should redirect_to(new_user_session_url)
       end
@@ -193,13 +193,13 @@ describe UseRestrictionsController do
 
   describe "POST create" do
     before(:each) do
-      @attrs = Factory.attributes_for(:use_restriction)
+      @attrs = FactoryGirl.attributes_for(:use_restriction)
       @invalid_attrs = {:name => ''}
     end
 
     describe "When logged in as Administrator" do
       before(:each) do
-        sign_in Factory(:admin)
+        sign_in FactoryGirl.create(:admin)
       end
 
       describe "with valid params" do
@@ -229,7 +229,7 @@ describe UseRestrictionsController do
 
     describe "When logged in as Librarian" do
       before(:each) do
-        sign_in Factory(:librarian)
+        sign_in FactoryGirl.create(:librarian)
       end
 
       describe "with valid params" do
@@ -259,7 +259,7 @@ describe UseRestrictionsController do
 
     describe "When logged in as User" do
       before(:each) do
-        sign_in Factory(:user)
+        sign_in FactoryGirl.create(:user)
       end
 
       describe "with valid params" do
@@ -316,14 +316,14 @@ describe UseRestrictionsController do
 
   describe "PUT update" do
     before(:each) do
-      @use_restriction = Factory(:use_restriction)
-      @attrs = Factory.attributes_for(:use_restriction)
+      @use_restriction = FactoryGirl.create(:use_restriction)
+      @attrs = FactoryGirl.attributes_for(:use_restriction)
       @invalid_attrs = {:display_name => ''}
     end
 
     describe "When logged in as Administrator" do
       before(:each) do
-        sign_in Factory(:admin)
+        sign_in FactoryGirl.create(:admin)
       end
 
       describe "with valid params" do
@@ -352,7 +352,7 @@ describe UseRestrictionsController do
 
     describe "When logged in as Librarian" do
       before(:each) do
-        sign_in Factory(:librarian)
+        sign_in FactoryGirl.create(:librarian)
       end
 
       describe "with valid params" do
@@ -377,7 +377,7 @@ describe UseRestrictionsController do
 
     describe "When logged in as User" do
       before(:each) do
-        sign_in Factory(:user)
+        sign_in FactoryGirl.create(:user)
       end
 
       describe "with valid params" do
@@ -423,12 +423,12 @@ describe UseRestrictionsController do
 
   describe "DELETE destroy" do
     before(:each) do
-      @use_restriction = Factory(:use_restriction)
+      @use_restriction = FactoryGirl.create(:use_restriction)
     end
 
     describe "When logged in as Administrator" do
       before(:each) do
-        sign_in Factory(:admin)
+        sign_in FactoryGirl.create(:admin)
       end
 
       it "destroys the requested use_restriction" do
@@ -443,7 +443,7 @@ describe UseRestrictionsController do
 
     describe "When logged in as Librarian" do
       before(:each) do
-        sign_in Factory(:librarian)
+        sign_in FactoryGirl.create(:librarian)
       end
 
       it "destroys the requested use_restriction" do
@@ -458,7 +458,7 @@ describe UseRestrictionsController do
 
     describe "When logged in as User" do
       before(:each) do
-        sign_in Factory(:user)
+        sign_in FactoryGirl.create(:user)
       end
 
       it "destroys the requested use_restriction" do

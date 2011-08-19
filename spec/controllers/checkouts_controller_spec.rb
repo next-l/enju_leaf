@@ -5,15 +5,15 @@ describe CheckoutsController do
 
   describe "GET index" do
     before(:each) do
-      Factory.create(:admin)
+      FactoryGirl.create(:admin)
       5.times do
-        Factory.create(:user)
+        FactoryGirl.create(:user)
       end
     end
 
     describe "When logged in as Administrator" do
       before(:each) do
-        sign_in Factory(:admin)
+        sign_in FactoryGirl.create(:admin)
       end
 
       it "assigns all checkouts as @checkouts" do
@@ -24,7 +24,7 @@ describe CheckoutsController do
 
     describe "When logged in as User" do
       before(:each) do
-        @user = Factory(:user)
+        @user = FactoryGirl.create(:user)
         sign_in @user
       end
 
@@ -40,7 +40,7 @@ describe CheckoutsController do
       end
 
       it "should be forbidden if other's username is specified" do
-        user = Factory(:user)
+        user = FactoryGirl.create(:user)
         get :index, :user_id => user.username
         assigns(:checkouts).should eq(Checkout.order('created_at DESC').all)
         response.should be_forbidden
@@ -73,7 +73,7 @@ describe CheckoutsController do
 
     describe "When logged in as Administrator" do
       before(:each) do
-        sign_in Factory(:admin)
+        sign_in FactoryGirl.create(:admin)
       end
 
       describe "with valid params" do
@@ -102,7 +102,7 @@ describe CheckoutsController do
 
     describe "When logged in as Librarian" do
       before(:each) do
-        sign_in Factory(:librarian)
+        sign_in FactoryGirl.create(:librarian)
       end
 
       describe "with valid params" do
@@ -132,7 +132,7 @@ describe CheckoutsController do
 
     describe "When logged in as User" do
       before(:each) do
-        sign_in Factory(:user)
+        sign_in FactoryGirl.create(:user)
       end
 
       describe "with valid params" do
@@ -183,7 +183,7 @@ describe CheckoutsController do
 
     describe "When logged in as Administrator" do
       before(:each) do
-        sign_in Factory(:admin)
+        sign_in FactoryGirl.create(:admin)
       end
 
       it "destroys the requested checkout" do
@@ -198,7 +198,7 @@ describe CheckoutsController do
 
     describe "When logged in as Librarian" do
       before(:each) do
-        sign_in Factory(:librarian)
+        sign_in FactoryGirl.create(:librarian)
       end
 
       it "destroys the requested checkout" do
@@ -213,7 +213,7 @@ describe CheckoutsController do
 
     describe "When logged in as User" do
       before(:each) do
-        sign_in Factory(:user)
+        sign_in FactoryGirl.create(:user)
       end
 
       it "destroys the requested checkout" do

@@ -6,7 +6,7 @@ describe AnswersController do
   describe "GET index" do
     describe "When logged in as Administrator" do
       before(:each) do
-        sign_in Factory(:admin)
+        sign_in FactoryGirl.create(:admin)
       end
 
       it "assigns all answers as @answers" do
@@ -17,7 +17,7 @@ describe AnswersController do
 
     describe "When logged in as Librarian" do
       before(:each) do
-        sign_in Factory(:admin)
+        sign_in FactoryGirl.create(:admin)
       end
 
       it "assigns all answers as @answers" do
@@ -28,7 +28,7 @@ describe AnswersController do
 
     describe "When logged in as User" do
       before(:each) do
-        sign_in Factory(:admin)
+        sign_in FactoryGirl.create(:admin)
       end
 
       it "assigns all answers as @answers" do
@@ -49,11 +49,11 @@ describe AnswersController do
   describe "GET show" do
     describe "When logged in as Administrator" do
       before(:each) do
-        sign_in Factory(:admin)
+        sign_in FactoryGirl.create(:admin)
       end
 
       it "assigns the requested answer as @answer" do
-        answer = Factory.create(:answer)
+        answer = FactoryGirl.create(:answer)
         get :show, :id => answer.id
         assigns(:answer).should eq(answer)
       end
@@ -61,11 +61,11 @@ describe AnswersController do
 
     describe "When logged in as Librarian" do
       before(:each) do
-        sign_in Factory(:librarian)
+        sign_in FactoryGirl.create(:librarian)
       end
 
       it "assigns the requested answer as @answer" do
-        answer = Factory.create(:answer)
+        answer = FactoryGirl.create(:answer)
         get :show, :id => answer.id
         assigns(:answer).should eq(answer)
       end
@@ -73,11 +73,11 @@ describe AnswersController do
 
     describe "When logged in as User" do
       before(:each) do
-        sign_in Factory(:user)
+        sign_in FactoryGirl.create(:user)
       end
 
       it "assigns the requested answer as @answer" do
-        answer = Factory.create(:answer)
+        answer = FactoryGirl.create(:answer)
         get :show, :id => answer.id
         assigns(:answer).should eq(answer)
       end
@@ -85,7 +85,7 @@ describe AnswersController do
 
     describe "When not logged in" do
       it "assigns the requested answer as @answer" do
-        answer = Factory.create(:answer)
+        answer = FactoryGirl.create(:answer)
         get :show, :id => answer.id
         assigns(:answer).should eq(answer)
       end
@@ -95,7 +95,7 @@ describe AnswersController do
   describe "GET new" do
     describe "When logged in as Administrator" do
       before(:each) do
-        sign_in Factory(:admin)
+        sign_in FactoryGirl.create(:admin)
       end
 
       it "assigns the requested answer as @answer" do
@@ -106,7 +106,7 @@ describe AnswersController do
 
     describe "When logged in as Librarian" do
       before(:each) do
-        sign_in Factory(:librarian)
+        sign_in FactoryGirl.create(:librarian)
       end
 
       it "assigns the requested answer as @answer" do
@@ -117,7 +117,7 @@ describe AnswersController do
 
     describe "When logged in as User" do
       before(:each) do
-        sign_in Factory(:user)
+        sign_in FactoryGirl.create(:user)
       end
 
       it "should assign the requested answer as @answer" do
@@ -138,11 +138,11 @@ describe AnswersController do
   describe "GET edit" do
     describe "When logged in as Administrator" do
       before(:each) do
-        sign_in Factory(:admin)
+        sign_in FactoryGirl.create(:admin)
       end
 
       it "assigns the requested answer as @answer" do
-        answer = Factory.create(:answer)
+        answer = FactoryGirl.create(:answer)
         get :edit, :id => answer.id
         assigns(:answer).should eq(answer)
       end
@@ -150,11 +150,11 @@ describe AnswersController do
 
     describe "When logged in as Librarian" do
       before(:each) do
-        sign_in Factory(:librarian)
+        sign_in FactoryGirl.create(:librarian)
       end
 
       it "assigns the requested answer as @answer" do
-        answer = Factory.create(:answer)
+        answer = FactoryGirl.create(:answer)
         get :edit, :id => answer.id
         assigns(:answer).should eq(answer)
       end
@@ -162,11 +162,11 @@ describe AnswersController do
 
     describe "When logged in as User" do
       before(:each) do
-        sign_in Factory(:user)
+        sign_in FactoryGirl.create(:user)
       end
 
       it "assigns the requested answer as @answer" do
-        answer = Factory.create(:answer)
+        answer = FactoryGirl.create(:answer)
         get :edit, :id => answer.id
         response.should be_forbidden
       end
@@ -174,7 +174,7 @@ describe AnswersController do
 
     describe "When not logged in" do
       it "should not assign the requested answer as @answer" do
-        answer = Factory.create(:answer)
+        answer = FactoryGirl.create(:answer)
         get :edit, :id => answer.id
         response.should redirect_to(new_user_session_url)
       end

@@ -7,12 +7,12 @@ describe BookmarkStatsController do
 
   describe "GET index" do
     before(:each) do
-      Factory.create(:bookmark_stat)
+      FactoryGirl.create(:bookmark_stat)
     end
 
     describe "When logged in as Administrator" do
       before(:each) do
-        sign_in Factory(:admin)
+        sign_in FactoryGirl.create(:admin)
       end
 
       it "assigns all bookmark_stats as @bookmark_stats" do
@@ -23,7 +23,7 @@ describe BookmarkStatsController do
 
     describe "When logged in as Librarian" do
       before(:each) do
-        sign_in Factory(:librarian)
+        sign_in FactoryGirl.create(:librarian)
       end
 
       it "assigns all bookmark_stats as @bookmark_stats" do
@@ -34,7 +34,7 @@ describe BookmarkStatsController do
 
     describe "When logged in as User" do
       before(:each) do
-        sign_in Factory(:user)
+        sign_in FactoryGirl.create(:user)
       end
 
       it "assigns all bookmark_stats as @bookmark_stats" do
@@ -54,11 +54,11 @@ describe BookmarkStatsController do
   describe "GET show" do
     describe "When logged in as Administrator" do
       before(:each) do
-        sign_in Factory(:admin)
+        sign_in FactoryGirl.create(:admin)
       end
 
       it "assigns the requested bookmark_stat as @bookmark_stat" do
-        bookmark_stat = Factory.create(:bookmark_stat)
+        bookmark_stat = FactoryGirl.create(:bookmark_stat)
         get :show, :id => bookmark_stat.id
         assigns(:bookmark_stat).should eq(bookmark_stat)
       end
@@ -66,11 +66,11 @@ describe BookmarkStatsController do
 
     describe "When logged in as Librarian" do
       before(:each) do
-        sign_in Factory(:librarian)
+        sign_in FactoryGirl.create(:librarian)
       end
 
       it "assigns the requested bookmark_stat as @bookmark_stat" do
-        bookmark_stat = Factory.create(:bookmark_stat)
+        bookmark_stat = FactoryGirl.create(:bookmark_stat)
         get :show, :id => bookmark_stat.id
         assigns(:bookmark_stat).should eq(bookmark_stat)
       end
@@ -78,11 +78,11 @@ describe BookmarkStatsController do
 
     describe "When logged in as User" do
       before(:each) do
-        sign_in Factory(:user)
+        sign_in FactoryGirl.create(:user)
       end
 
       it "assigns the requested bookmark_stat as @bookmark_stat" do
-        bookmark_stat = Factory.create(:bookmark_stat)
+        bookmark_stat = FactoryGirl.create(:bookmark_stat)
         get :show, :id => bookmark_stat.id
         assigns(:bookmark_stat).should eq(bookmark_stat)
       end
@@ -90,7 +90,7 @@ describe BookmarkStatsController do
 
     describe "When not logged in" do
       it "assigns the requested bookmark_stat as @bookmark_stat" do
-        bookmark_stat = Factory.create(:bookmark_stat)
+        bookmark_stat = FactoryGirl.create(:bookmark_stat)
         get :show, :id => bookmark_stat.id
         assigns(:bookmark_stat).should eq(bookmark_stat)
       end
@@ -100,7 +100,7 @@ describe BookmarkStatsController do
   describe "GET new" do
     describe "When logged in as Administrator" do
       before(:each) do
-        sign_in Factory(:admin)
+        sign_in FactoryGirl.create(:admin)
       end
 
       it "assigns the requested bookmark_stat as @bookmark_stat" do
@@ -111,7 +111,7 @@ describe BookmarkStatsController do
 
     describe "When logged in as Librarian" do
       before(:each) do
-        sign_in Factory(:librarian)
+        sign_in FactoryGirl.create(:librarian)
       end
 
       it "assigns the requested bookmark_stat as @bookmark_stat" do
@@ -122,7 +122,7 @@ describe BookmarkStatsController do
 
     describe "When logged in as User" do
       before(:each) do
-        sign_in Factory(:user)
+        sign_in FactoryGirl.create(:user)
       end
 
       it "should not assign the requested bookmark_stat as @bookmark_stat" do
@@ -144,11 +144,11 @@ describe BookmarkStatsController do
   describe "GET edit" do
     describe "When logged in as Administrator" do
       before(:each) do
-        sign_in Factory(:admin)
+        sign_in FactoryGirl.create(:admin)
       end
 
       it "assigns the requested bookmark_stat as @bookmark_stat" do
-        bookmark_stat = Factory.create(:bookmark_stat)
+        bookmark_stat = FactoryGirl.create(:bookmark_stat)
         get :edit, :id => bookmark_stat.id
         assigns(:bookmark_stat).should eq(bookmark_stat)
       end
@@ -156,11 +156,11 @@ describe BookmarkStatsController do
 
     describe "When logged in as Librarian" do
       before(:each) do
-        sign_in Factory(:librarian)
+        sign_in FactoryGirl.create(:librarian)
       end
 
       it "assigns the requested bookmark_stat as @bookmark_stat" do
-        bookmark_stat = Factory.create(:bookmark_stat)
+        bookmark_stat = FactoryGirl.create(:bookmark_stat)
         get :edit, :id => bookmark_stat.id
         assigns(:bookmark_stat).should eq(bookmark_stat)
       end
@@ -168,11 +168,11 @@ describe BookmarkStatsController do
 
     describe "When logged in as User" do
       before(:each) do
-        sign_in Factory(:user)
+        sign_in FactoryGirl.create(:user)
       end
 
       it "assigns the requested bookmark_stat as @bookmark_stat" do
-        bookmark_stat = Factory.create(:bookmark_stat)
+        bookmark_stat = FactoryGirl.create(:bookmark_stat)
         get :edit, :id => bookmark_stat.id
         response.should be_forbidden
       end
@@ -180,7 +180,7 @@ describe BookmarkStatsController do
 
     describe "When not logged in" do
       it "should not assign the requested bookmark_stat as @bookmark_stat" do
-        bookmark_stat = Factory.create(:bookmark_stat)
+        bookmark_stat = FactoryGirl.create(:bookmark_stat)
         get :edit, :id => bookmark_stat.id
         response.should redirect_to(new_user_session_url)
       end
@@ -189,13 +189,13 @@ describe BookmarkStatsController do
 
   describe "POST create" do
     before(:each) do
-      @attrs = Factory.attributes_for(:bookmark_stat)
+      @attrs = FactoryGirl.attributes_for(:bookmark_stat)
       @invalid_attrs = {:start_date => ''}
     end
 
     describe "When logged in as Administrator" do
       before(:each) do
-        sign_in Factory(:admin)
+        sign_in FactoryGirl.create(:admin)
       end
 
       describe "with valid params" do
@@ -225,7 +225,7 @@ describe BookmarkStatsController do
 
     describe "When logged in as Librarian" do
       before(:each) do
-        sign_in Factory(:librarian)
+        sign_in FactoryGirl.create(:librarian)
       end
 
       describe "with valid params" do
@@ -255,7 +255,7 @@ describe BookmarkStatsController do
 
     describe "When logged in as User" do
       before(:each) do
-        sign_in Factory(:user)
+        sign_in FactoryGirl.create(:user)
       end
 
       describe "with valid params" do
@@ -312,14 +312,14 @@ describe BookmarkStatsController do
 
   describe "PUT update" do
     before(:each) do
-      @bookmark_stat = Factory(:bookmark_stat)
-      @attrs = Factory.attributes_for(:bookmark_stat)
+      @bookmark_stat = FactoryGirl.create(:bookmark_stat)
+      @attrs = FactoryGirl.attributes_for(:bookmark_stat)
       @invalid_attrs = {:start_date => ''}
     end
 
     describe "When logged in as Administrator" do
       before(:each) do
-        sign_in Factory(:admin)
+        sign_in FactoryGirl.create(:admin)
       end
 
       describe "with valid params" do
@@ -343,7 +343,7 @@ describe BookmarkStatsController do
 
     describe "When logged in as Librarian" do
       before(:each) do
-        sign_in Factory(:librarian)
+        sign_in FactoryGirl.create(:librarian)
       end
 
       describe "with valid params" do
@@ -373,7 +373,7 @@ describe BookmarkStatsController do
 
     describe "When logged in as User" do
       before(:each) do
-        sign_in Factory(:user)
+        sign_in FactoryGirl.create(:user)
       end
 
       describe "with valid params" do
@@ -419,12 +419,12 @@ describe BookmarkStatsController do
 
   describe "DELETE destroy" do
     before(:each) do
-      @bookmark_stat = Factory(:bookmark_stat)
+      @bookmark_stat = FactoryGirl.create(:bookmark_stat)
     end
 
     describe "When logged in as Administrator" do
       before(:each) do
-        sign_in Factory(:admin)
+        sign_in FactoryGirl.create(:admin)
       end
 
       it "destroys the requested bookmark_stat" do
@@ -439,7 +439,7 @@ describe BookmarkStatsController do
 
     describe "When logged in as Librarian" do
       before(:each) do
-        sign_in Factory(:librarian)
+        sign_in FactoryGirl.create(:librarian)
       end
 
       it "destroys the requested bookmark_stat" do
@@ -454,7 +454,7 @@ describe BookmarkStatsController do
 
     describe "When logged in as User" do
       before(:each) do
-        sign_in Factory(:user)
+        sign_in FactoryGirl.create(:user)
       end
 
       it "destroys the requested bookmark_stat" do

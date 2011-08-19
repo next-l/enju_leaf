@@ -7,7 +7,7 @@ describe OrderListsController do
   describe "GET index" do
     describe "When logged in as Administrator" do
       before(:each) do
-        sign_in Factory(:admin)
+        sign_in FactoryGirl.create(:admin)
       end
 
       it "assigns all order_lists as @order_lists" do
@@ -18,7 +18,7 @@ describe OrderListsController do
 
     describe "When logged in as Librarian" do
       before(:each) do
-        sign_in Factory(:librarian)
+        sign_in FactoryGirl.create(:librarian)
       end
 
       it "assigns all order_lists as @order_lists" do
@@ -29,7 +29,7 @@ describe OrderListsController do
 
     describe "When logged in as User" do
       before(:each) do
-        sign_in Factory(:user)
+        sign_in FactoryGirl.create(:user)
       end
 
       it "assigns empty as @order_lists" do
@@ -49,11 +49,11 @@ describe OrderListsController do
   describe "GET show" do
     describe "When logged in as Administrator" do
       before(:each) do
-        sign_in Factory(:admin)
+        sign_in FactoryGirl.create(:admin)
       end
 
       it "assigns the requested order_list as @order_list" do
-        order_list = Factory.create(:order_list)
+        order_list = FactoryGirl.create(:order_list)
         get :show, :id => order_list.id
         assigns(:order_list).should eq(order_list)
       end
@@ -61,11 +61,11 @@ describe OrderListsController do
 
     describe "When logged in as Librarian" do
       before(:each) do
-        sign_in Factory(:librarian)
+        sign_in FactoryGirl.create(:librarian)
       end
 
       it "assigns the requested order_list as @order_list" do
-        order_list = Factory.create(:order_list)
+        order_list = FactoryGirl.create(:order_list)
         get :show, :id => order_list.id
         assigns(:order_list).should eq(order_list)
       end
@@ -73,11 +73,11 @@ describe OrderListsController do
 
     describe "When logged in as User" do
       before(:each) do
-        sign_in Factory(:user)
+        sign_in FactoryGirl.create(:user)
       end
 
       it "assigns the requested order_list as @order_list" do
-        order_list = Factory.create(:order_list)
+        order_list = FactoryGirl.create(:order_list)
         get :show, :id => order_list.id
         assigns(:order_list).should eq(order_list)
       end
@@ -85,7 +85,7 @@ describe OrderListsController do
 
     describe "When not logged in" do
       it "assigns the requested order_list as @order_list" do
-        order_list = Factory.create(:order_list)
+        order_list = FactoryGirl.create(:order_list)
         get :show, :id => order_list.id
         assigns(:order_list).should eq(order_list)
       end
@@ -95,7 +95,7 @@ describe OrderListsController do
   describe "GET new" do
     describe "When logged in as Administrator" do
       before(:each) do
-        sign_in Factory(:admin)
+        sign_in FactoryGirl.create(:admin)
       end
 
       it "assigns the requested order_list as @order_list" do
@@ -106,7 +106,7 @@ describe OrderListsController do
 
     describe "When logged in as Librarian" do
       before(:each) do
-        sign_in Factory(:librarian)
+        sign_in FactoryGirl.create(:librarian)
       end
 
       it "assigns the requested order_list as @order_list" do
@@ -117,7 +117,7 @@ describe OrderListsController do
 
     describe "When logged in as User" do
       before(:each) do
-        sign_in Factory(:user)
+        sign_in FactoryGirl.create(:user)
       end
 
       it "should not assign the requested order_list as @order_list" do
@@ -139,11 +139,11 @@ describe OrderListsController do
   describe "GET edit" do
     describe "When logged in as Administrator" do
       before(:each) do
-        sign_in Factory(:admin)
+        sign_in FactoryGirl.create(:admin)
       end
 
       it "assigns the requested order_list as @order_list" do
-        order_list = Factory.create(:order_list)
+        order_list = FactoryGirl.create(:order_list)
         get :edit, :id => order_list.id
         assigns(:order_list).should eq(order_list)
       end
@@ -151,11 +151,11 @@ describe OrderListsController do
 
     describe "When logged in as Librarian" do
       before(:each) do
-        sign_in Factory(:librarian)
+        sign_in FactoryGirl.create(:librarian)
       end
 
       it "assigns the requested order_list as @order_list" do
-        order_list = Factory.create(:order_list)
+        order_list = FactoryGirl.create(:order_list)
         get :edit, :id => order_list.id
         assigns(:order_list).should eq(order_list)
       end
@@ -163,11 +163,11 @@ describe OrderListsController do
 
     describe "When logged in as User" do
       before(:each) do
-        sign_in Factory(:user)
+        sign_in FactoryGirl.create(:user)
       end
 
       it "assigns the requested order_list as @order_list" do
-        order_list = Factory.create(:order_list)
+        order_list = FactoryGirl.create(:order_list)
         get :edit, :id => order_list.id
         response.should be_forbidden
       end
@@ -175,7 +175,7 @@ describe OrderListsController do
 
     describe "When not logged in" do
       it "should not assign the requested order_list as @order_list" do
-        order_list = Factory.create(:order_list)
+        order_list = FactoryGirl.create(:order_list)
         get :edit, :id => order_list.id
         response.should redirect_to(new_user_session_url)
       end
@@ -184,13 +184,13 @@ describe OrderListsController do
 
   describe "POST create" do
     before(:each) do
-      @attrs = Factory.attributes_for(:order_list)
+      @attrs = FactoryGirl.attributes_for(:order_list)
       @invalid_attrs = {:bookstore_id => ''}
     end
 
     describe "When logged in as Administrator" do
       before(:each) do
-        sign_in Factory(:admin)
+        sign_in FactoryGirl.create(:admin)
       end
 
       describe "with valid params" do
@@ -220,7 +220,7 @@ describe OrderListsController do
 
     describe "When logged in as Librarian" do
       before(:each) do
-        sign_in Factory(:librarian)
+        sign_in FactoryGirl.create(:librarian)
       end
 
       describe "with valid params" do
@@ -250,7 +250,7 @@ describe OrderListsController do
 
     describe "When logged in as User" do
       before(:each) do
-        sign_in Factory(:user)
+        sign_in FactoryGirl.create(:user)
       end
 
       describe "with valid params" do
@@ -307,14 +307,14 @@ describe OrderListsController do
 
   describe "PUT update" do
     before(:each) do
-      @order_list = Factory(:order_list)
-      @attrs = Factory.attributes_for(:order_list)
+      @order_list = FactoryGirl.create(:order_list)
+      @attrs = FactoryGirl.attributes_for(:order_list)
       @invalid_attrs = {:bookstore_id => ''}
     end
 
     describe "When logged in as Administrator" do
       before(:each) do
-        sign_in Factory(:admin)
+        sign_in FactoryGirl.create(:admin)
       end
 
       describe "with valid params" do
@@ -338,7 +338,7 @@ describe OrderListsController do
 
     describe "When logged in as Librarian" do
       before(:each) do
-        sign_in Factory(:librarian)
+        sign_in FactoryGirl.create(:librarian)
       end
 
       describe "with valid params" do
@@ -368,7 +368,7 @@ describe OrderListsController do
 
     describe "When logged in as User" do
       before(:each) do
-        sign_in Factory(:user)
+        sign_in FactoryGirl.create(:user)
       end
 
       describe "with valid params" do
@@ -414,12 +414,12 @@ describe OrderListsController do
 
   describe "DELETE destroy" do
     before(:each) do
-      @order_list = Factory(:order_list)
+      @order_list = FactoryGirl.create(:order_list)
     end
 
     describe "When logged in as Administrator" do
       before(:each) do
-        sign_in Factory(:admin)
+        sign_in FactoryGirl.create(:admin)
       end
 
       it "destroys the requested order_list" do
@@ -434,7 +434,7 @@ describe OrderListsController do
 
     describe "When logged in as Librarian" do
       before(:each) do
-        sign_in Factory(:librarian)
+        sign_in FactoryGirl.create(:librarian)
       end
 
       it "destroys the requested order_list" do
@@ -449,7 +449,7 @@ describe OrderListsController do
 
     describe "When logged in as User" do
       before(:each) do
-        sign_in Factory(:user)
+        sign_in FactoryGirl.create(:user)
       end
 
       it "destroys the requested order_list" do

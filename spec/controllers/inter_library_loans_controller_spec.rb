@@ -7,7 +7,7 @@ describe InterLibraryLoansController do
   describe "GET index" do
     describe "When logged in as Administrator" do
       before(:each) do
-        sign_in Factory(:admin)
+        sign_in FactoryGirl.create(:admin)
       end
 
       it "assigns all inter_library_loans as @inter_library_loans" do
@@ -18,7 +18,7 @@ describe InterLibraryLoansController do
 
     describe "When logged in as Librarian" do
       before(:each) do
-        sign_in Factory(:librarian)
+        sign_in FactoryGirl.create(:librarian)
       end
 
       it "assigns all inter_library_loans as @inter_library_loans" do
@@ -29,7 +29,7 @@ describe InterLibraryLoansController do
 
     describe "When logged in as User" do
       before(:each) do
-        sign_in Factory(:user)
+        sign_in FactoryGirl.create(:user)
       end
 
       it "assigns empty as @inter_library_loans" do
@@ -49,11 +49,11 @@ describe InterLibraryLoansController do
   describe "GET show" do
     describe "When logged in as Administrator" do
       before(:each) do
-        sign_in Factory(:admin)
+        sign_in FactoryGirl.create(:admin)
       end
 
       it "assigns the requested inter_library_loan as @inter_library_loan" do
-        inter_library_loan = Factory.create(:inter_library_loan)
+        inter_library_loan = FactoryGirl.create(:inter_library_loan)
         get :show, :id => inter_library_loan.id
         assigns(:inter_library_loan).should eq(inter_library_loan)
       end
@@ -61,11 +61,11 @@ describe InterLibraryLoansController do
 
     describe "When logged in as Librarian" do
       before(:each) do
-        sign_in Factory(:librarian)
+        sign_in FactoryGirl.create(:librarian)
       end
 
       it "assigns the requested inter_library_loan as @inter_library_loan" do
-        inter_library_loan = Factory.create(:inter_library_loan)
+        inter_library_loan = FactoryGirl.create(:inter_library_loan)
         get :show, :id => inter_library_loan.id
         assigns(:inter_library_loan).should eq(inter_library_loan)
       end
@@ -73,11 +73,11 @@ describe InterLibraryLoansController do
 
     describe "When logged in as User" do
       before(:each) do
-        sign_in Factory(:user)
+        sign_in FactoryGirl.create(:user)
       end
 
       it "assigns the requested inter_library_loan as @inter_library_loan" do
-        inter_library_loan = Factory.create(:inter_library_loan)
+        inter_library_loan = FactoryGirl.create(:inter_library_loan)
         get :show, :id => inter_library_loan.id
         assigns(:inter_library_loan).should eq(inter_library_loan)
       end
@@ -85,7 +85,7 @@ describe InterLibraryLoansController do
 
     describe "When not logged in" do
       it "assigns the requested inter_library_loan as @inter_library_loan" do
-        inter_library_loan = Factory.create(:inter_library_loan)
+        inter_library_loan = FactoryGirl.create(:inter_library_loan)
         get :show, :id => inter_library_loan.id
         assigns(:inter_library_loan).should eq(inter_library_loan)
       end
@@ -95,7 +95,7 @@ describe InterLibraryLoansController do
   describe "GET new" do
     describe "When logged in as Administrator" do
       before(:each) do
-        sign_in Factory(:admin)
+        sign_in FactoryGirl.create(:admin)
       end
 
       it "assigns the requested inter_library_loan as @inter_library_loan" do
@@ -106,7 +106,7 @@ describe InterLibraryLoansController do
 
     describe "When logged in as Librarian" do
       before(:each) do
-        sign_in Factory(:librarian)
+        sign_in FactoryGirl.create(:librarian)
       end
 
       it "assigns the requested inter_library_loan as @inter_library_loan" do
@@ -117,7 +117,7 @@ describe InterLibraryLoansController do
 
     describe "When logged in as User" do
       before(:each) do
-        sign_in Factory(:user)
+        sign_in FactoryGirl.create(:user)
       end
 
       it "should not assign the requested inter_library_loan as @inter_library_loan" do
@@ -139,11 +139,11 @@ describe InterLibraryLoansController do
   describe "GET edit" do
     describe "When logged in as Administrator" do
       before(:each) do
-        sign_in Factory(:admin)
+        sign_in FactoryGirl.create(:admin)
       end
 
       it "assigns the requested inter_library_loan as @inter_library_loan" do
-        inter_library_loan = Factory.create(:inter_library_loan)
+        inter_library_loan = FactoryGirl.create(:inter_library_loan)
         get :edit, :id => inter_library_loan.id
         assigns(:inter_library_loan).should eq(inter_library_loan)
       end
@@ -151,11 +151,11 @@ describe InterLibraryLoansController do
 
     describe "When logged in as Librarian" do
       before(:each) do
-        sign_in Factory(:librarian)
+        sign_in FactoryGirl.create(:librarian)
       end
 
       it "assigns the requested inter_library_loan as @inter_library_loan" do
-        inter_library_loan = Factory.create(:inter_library_loan)
+        inter_library_loan = FactoryGirl.create(:inter_library_loan)
         get :edit, :id => inter_library_loan.id
         assigns(:inter_library_loan).should eq(inter_library_loan)
       end
@@ -163,11 +163,11 @@ describe InterLibraryLoansController do
 
     describe "When logged in as User" do
       before(:each) do
-        sign_in Factory(:user)
+        sign_in FactoryGirl.create(:user)
       end
 
       it "assigns the requested inter_library_loan as @inter_library_loan" do
-        inter_library_loan = Factory.create(:inter_library_loan)
+        inter_library_loan = FactoryGirl.create(:inter_library_loan)
         get :edit, :id => inter_library_loan.id
         response.should be_forbidden
       end
@@ -175,7 +175,7 @@ describe InterLibraryLoansController do
 
     describe "When not logged in" do
       it "should not assign the requested inter_library_loan as @inter_library_loan" do
-        inter_library_loan = Factory.create(:inter_library_loan)
+        inter_library_loan = FactoryGirl.create(:inter_library_loan)
         get :edit, :id => inter_library_loan.id
         response.should redirect_to(new_user_session_url)
       end

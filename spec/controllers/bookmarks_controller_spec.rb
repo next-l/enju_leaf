@@ -6,7 +6,7 @@ describe BookmarksController do
   describe "GET index" do
     describe "When logged in as Administrator" do
       before(:each) do
-        sign_in Factory(:admin)
+        sign_in FactoryGirl.create(:admin)
       end
 
       it "assigns all bookmarks as @bookmarks" do
@@ -17,7 +17,7 @@ describe BookmarksController do
 
     describe "When logged in as Librarian" do
       before(:each) do
-        sign_in Factory(:librarian)
+        sign_in FactoryGirl.create(:librarian)
       end
 
       it "assigns all bookmarks as @bookmarks" do
@@ -28,7 +28,7 @@ describe BookmarksController do
 
     describe "When logged in as User" do
       before(:each) do
-        sign_in Factory(:user)
+        sign_in FactoryGirl.create(:user)
       end
 
       it "assigns all bookmarks as @bookmarks" do
@@ -48,11 +48,11 @@ describe BookmarksController do
   describe "GET show" do
     describe "When logged in as Administrator" do
       before(:each) do
-        sign_in Factory(:admin)
+        sign_in FactoryGirl.create(:admin)
       end
 
       it "assigns the requested bookmark as @bookmark" do
-        bookmark = Factory(:bookmark)
+        bookmark = FactoryGirl.create(:bookmark)
         get :show, :id => bookmark.id
         assigns(:bookmark).should eq(bookmark)
       end
@@ -60,11 +60,11 @@ describe BookmarksController do
 
     describe "When logged in as Librarian" do
       before(:each) do
-        sign_in Factory(:librarian)
+        sign_in FactoryGirl.create(:librarian)
       end
 
       it "assigns the requested bookmark as @bookmark" do
-        bookmark = Factory(:bookmark)
+        bookmark = FactoryGirl.create(:bookmark)
         get :show, :id => bookmark.id
         assigns(:bookmark).should eq(bookmark)
       end
@@ -72,11 +72,11 @@ describe BookmarksController do
 
     describe "When logged in as User" do
       before(:each) do
-        sign_in Factory(:user)
+        sign_in FactoryGirl.create(:user)
       end
 
       it "assigns the requested bookmark as @bookmark" do
-        bookmark = Factory(:bookmark)
+        bookmark = FactoryGirl.create(:bookmark)
         get :show, :id => bookmark.id
         assigns(:bookmark).should eq(bookmark)
       end
@@ -84,7 +84,7 @@ describe BookmarksController do
 
     describe "When not logged in" do
       it "assigns the requested bookmark as @bookmark" do
-        bookmark = Factory(:bookmark)
+        bookmark = FactoryGirl.create(:bookmark)
         get :show, :id => bookmark.id
         assigns(:bookmark).should eq(bookmark)
       end
@@ -94,13 +94,13 @@ describe BookmarksController do
   describe "PUT update" do
     before(:each) do
       @bookmark = bookmarks(:bookmark_00001)
-      @attrs = Factory.attributes_for(:bookmark)
+      @attrs = FactoryGirl.attributes_for(:bookmark)
       @invalid_attrs = {:url => ''}
     end
 
     describe "When logged in as Administrator" do
       before(:each) do
-        @user = Factory(:admin)
+        @user = FactoryGirl.create(:admin)
         sign_in @user
       end
 
@@ -130,7 +130,7 @@ describe BookmarksController do
 
     describe "When logged in as Librarian" do
       before(:each) do
-        @user = Factory(:librarian)
+        @user = FactoryGirl.create(:librarian)
         sign_in @user
       end
 
@@ -161,7 +161,7 @@ describe BookmarksController do
 
     describe "When logged in as User" do
       before(:each) do
-        @user = Factory(:user)
+        @user = FactoryGirl.create(:user)
         sign_in @user
       end
 
@@ -213,7 +213,7 @@ describe BookmarksController do
 
     describe "When logged in as Administrator" do
       before(:each) do
-        sign_in Factory(:admin)
+        sign_in FactoryGirl.create(:admin)
       end
 
       it "destroys the requested bookmark" do
@@ -228,7 +228,7 @@ describe BookmarksController do
 
     describe "When logged in as Librarian" do
       before(:each) do
-        sign_in Factory(:librarian)
+        sign_in FactoryGirl.create(:librarian)
       end
 
       it "destroys the requested bookmark" do
@@ -243,7 +243,7 @@ describe BookmarksController do
 
     describe "When logged in as User" do
       before(:each) do
-        sign_in Factory(:user)
+        sign_in FactoryGirl.create(:user)
       end
 
       it "destroys the requested bookmark" do

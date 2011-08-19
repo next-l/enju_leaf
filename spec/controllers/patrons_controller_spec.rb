@@ -6,7 +6,7 @@ describe PatronsController do
   describe "GET index" do
     describe "When logged in as Administrator" do
       before(:each) do
-        sign_in Factory(:admin)
+        sign_in FactoryGirl.create(:admin)
       end
 
       it "assigns all patrons as @patrons" do
@@ -17,7 +17,7 @@ describe PatronsController do
 
     describe "When logged in as Librarian" do
       before(:each) do
-        sign_in Factory(:librarian)
+        sign_in FactoryGirl.create(:librarian)
       end
 
       it "assigns all patrons as @patrons" do
@@ -28,7 +28,7 @@ describe PatronsController do
 
     describe "When logged in as User" do
       before(:each) do
-        sign_in Factory(:user)
+        sign_in FactoryGirl.create(:user)
       end
 
       it "assigns all patrons as @patrons" do
@@ -47,12 +47,12 @@ describe PatronsController do
 
   describe "GET show" do
     before(:each) do
-      @patron = Factory(:patron)
+      @patron = FactoryGirl.create(:patron)
     end
 
     describe "When logged in as Administrator" do
       before(:each) do
-        sign_in Factory(:admin)
+        sign_in FactoryGirl.create(:admin)
       end
 
       it "assigns the requested patron as @patron" do
@@ -63,7 +63,7 @@ describe PatronsController do
 
     describe "When logged in as Librarian" do
       before(:each) do
-        sign_in Factory(:librarian)
+        sign_in FactoryGirl.create(:librarian)
       end
 
       it "assigns the requested patron as @patron" do
@@ -74,7 +74,7 @@ describe PatronsController do
 
     describe "When logged in as User" do
       before(:each) do
-        sign_in Factory(:user)
+        sign_in FactoryGirl.create(:user)
       end
 
       it "assigns the requested patron as @patron" do
@@ -94,7 +94,7 @@ describe PatronsController do
   describe "GET new" do
     describe "When logged in as Administrator" do
       before(:each) do
-        sign_in Factory(:admin)
+        sign_in FactoryGirl.create(:admin)
       end
 
       it "assigns the requested patron as @patron" do
@@ -105,7 +105,7 @@ describe PatronsController do
 
     describe "When logged in as Librarian" do
       before(:each) do
-        sign_in Factory(:librarian)
+        sign_in FactoryGirl.create(:librarian)
       end
 
       it "assigns the requested patron as @patron" do
@@ -116,7 +116,7 @@ describe PatronsController do
 
     describe "When logged in as User" do
       before(:each) do
-        sign_in Factory(:user)
+        sign_in FactoryGirl.create(:user)
       end
 
       it "should not assign the requested patron as @patron" do
@@ -138,7 +138,7 @@ describe PatronsController do
   describe "GET edit" do
     describe "When logged in as Administrator" do
       before(:each) do
-        sign_in Factory(:admin)
+        sign_in FactoryGirl.create(:admin)
       end
 
       it "assigns the requested patron as @patron" do
@@ -150,7 +150,7 @@ describe PatronsController do
 
     describe "When logged in as Librarian" do
       before(:each) do
-        sign_in Factory(:librarian)
+        sign_in FactoryGirl.create(:librarian)
       end
 
       it "assigns the requested patron as @patron" do
@@ -162,7 +162,7 @@ describe PatronsController do
 
     describe "When logged in as User" do
       before(:each) do
-        sign_in Factory(:user)
+        sign_in FactoryGirl.create(:user)
       end
 
       it "assigns the requested patron as @patron" do
@@ -183,13 +183,13 @@ describe PatronsController do
 
   describe "POST create" do
     before(:each) do
-      @attrs = Factory.attributes_for(:patron)
-      @invalid_attrs = Factory.attributes_for(:patron, :full_name => '')
+      @attrs = FactoryGirl.attributes_for(:patron)
+      @invalid_attrs = FactoryGirl.attributes_for(:patron, :full_name => '')
     end
 
     describe "When logged in as Administrator" do
       before(:each) do
-        sign_in Factory(:admin)
+        sign_in FactoryGirl.create(:admin)
       end
 
       describe "with valid params" do
@@ -219,7 +219,7 @@ describe PatronsController do
 
     describe "When logged in as Librarian" do
       before(:each) do
-        sign_in Factory(:librarian)
+        sign_in FactoryGirl.create(:librarian)
       end
 
       describe "with valid params" do
@@ -249,7 +249,7 @@ describe PatronsController do
 
     describe "When logged in as User" do
       before(:each) do
-        sign_in Factory(:user)
+        sign_in FactoryGirl.create(:user)
       end
 
       describe "with valid params" do
@@ -306,14 +306,14 @@ describe PatronsController do
 
   describe "PUT update" do
     before(:each) do
-      @patron = Factory(:patron)
-      @attrs = Factory.attributes_for(:patron)
-      @invalid_attrs = Factory.attributes_for(:patron, :full_name => '')
+      @patron = FactoryGirl.create(:patron)
+      @attrs = FactoryGirl.attributes_for(:patron)
+      @invalid_attrs = FactoryGirl.attributes_for(:patron, :full_name => '')
     end
 
     describe "When logged in as Administrator" do
       before(:each) do
-        sign_in Factory(:admin)
+        sign_in FactoryGirl.create(:admin)
       end
 
       describe "with valid params" do
@@ -337,7 +337,7 @@ describe PatronsController do
 
     describe "When logged in as Librarian" do
       before(:each) do
-        sign_in Factory(:librarian)
+        sign_in FactoryGirl.create(:librarian)
       end
 
       describe "with valid params" do
@@ -367,7 +367,7 @@ describe PatronsController do
 
     describe "When logged in as User" do
       before(:each) do
-        sign_in Factory(:user)
+        sign_in FactoryGirl.create(:user)
       end
 
       describe "with valid params" do
@@ -413,12 +413,12 @@ describe PatronsController do
 
   describe "DELETE destroy" do
     before(:each) do
-      @patron = Factory(:patron)
+      @patron = FactoryGirl.create(:patron)
     end
 
     describe "When logged in as Administrator" do
       before(:each) do
-        sign_in Factory(:admin)
+        sign_in FactoryGirl.create(:admin)
       end
 
       it "destroys the requested patron" do
@@ -433,7 +433,7 @@ describe PatronsController do
 
     describe "When logged in as Librarian" do
       before(:each) do
-        sign_in Factory(:librarian)
+        sign_in FactoryGirl.create(:librarian)
       end
 
       it "destroys the requested patron" do
@@ -448,7 +448,7 @@ describe PatronsController do
 
     describe "When logged in as User" do
       before(:each) do
-        sign_in Factory(:user)
+        sign_in FactoryGirl.create(:user)
       end
 
       it "destroys the requested patron" do

@@ -7,12 +7,12 @@ describe SubjectHeadingTypeHasSubjectsController do
 
   describe "GET index" do
     before(:each) do
-      Factory.create(:subject_heading_type_has_subject)
+      FactoryGirl.create(:subject_heading_type_has_subject)
     end
 
     describe "When logged in as Administrator" do
       before(:each) do
-        sign_in Factory(:admin)
+        sign_in FactoryGirl.create(:admin)
       end
 
       it "assigns all subject_heading_type_has_subjects as @subject_heading_type_has_subjects" do
@@ -23,7 +23,7 @@ describe SubjectHeadingTypeHasSubjectsController do
 
     describe "When logged in as Librarian" do
       before(:each) do
-        sign_in Factory(:librarian)
+        sign_in FactoryGirl.create(:librarian)
       end
 
       it "assigns all subject_heading_type_has_subjects as @subject_heading_type_has_subjects" do
@@ -34,7 +34,7 @@ describe SubjectHeadingTypeHasSubjectsController do
 
     describe "When logged in as Subject" do
       before(:each) do
-        sign_in Factory(:user)
+        sign_in FactoryGirl.create(:user)
       end
 
       it "assigns all subject_heading_type_has_subjects as @subject_heading_type_has_subjects" do
@@ -56,11 +56,11 @@ describe SubjectHeadingTypeHasSubjectsController do
   describe "GET show" do
     describe "When logged in as Administrator" do
       before(:each) do
-        sign_in Factory(:admin)
+        sign_in FactoryGirl.create(:admin)
       end
 
       it "assigns the requested subject_heading_type_has_subject as @subject_heading_type_has_subject" do
-        subject_heading_type_has_subject = Factory.create(:subject_heading_type_has_subject)
+        subject_heading_type_has_subject = FactoryGirl.create(:subject_heading_type_has_subject)
         get :show, :id => subject_heading_type_has_subject.id
         assigns(:subject_heading_type_has_subject).should eq(subject_heading_type_has_subject)
       end
@@ -68,11 +68,11 @@ describe SubjectHeadingTypeHasSubjectsController do
 
     describe "When logged in as Librarian" do
       before(:each) do
-        sign_in Factory(:librarian)
+        sign_in FactoryGirl.create(:librarian)
       end
 
       it "assigns the requested subject_heading_type_has_subject as @subject_heading_type_has_subject" do
-        subject_heading_type_has_subject = Factory.create(:subject_heading_type_has_subject)
+        subject_heading_type_has_subject = FactoryGirl.create(:subject_heading_type_has_subject)
         get :show, :id => subject_heading_type_has_subject.id
         assigns(:subject_heading_type_has_subject).should eq(subject_heading_type_has_subject)
       end
@@ -80,11 +80,11 @@ describe SubjectHeadingTypeHasSubjectsController do
 
     describe "When logged in as Subject" do
       before(:each) do
-        sign_in Factory(:user)
+        sign_in FactoryGirl.create(:user)
       end
 
       it "assigns the requested subject_heading_type_has_subject as @subject_heading_type_has_subject" do
-        subject_heading_type_has_subject = Factory.create(:subject_heading_type_has_subject)
+        subject_heading_type_has_subject = FactoryGirl.create(:subject_heading_type_has_subject)
         get :show, :id => subject_heading_type_has_subject.id
         assigns(:subject_heading_type_has_subject).should eq(subject_heading_type_has_subject)
       end
@@ -92,7 +92,7 @@ describe SubjectHeadingTypeHasSubjectsController do
 
     describe "When not logged in" do
       it "assigns the requested subject_heading_type_has_subject as @subject_heading_type_has_subject" do
-        subject_heading_type_has_subject = Factory.create(:subject_heading_type_has_subject)
+        subject_heading_type_has_subject = FactoryGirl.create(:subject_heading_type_has_subject)
         get :show, :id => subject_heading_type_has_subject.id
         assigns(:subject_heading_type_has_subject).should eq(subject_heading_type_has_subject)
       end
@@ -102,7 +102,7 @@ describe SubjectHeadingTypeHasSubjectsController do
   describe "GET new" do
     describe "When logged in as Administrator" do
       before(:each) do
-        sign_in Factory(:admin)
+        sign_in FactoryGirl.create(:admin)
       end
 
       it "assigns the requested subject_heading_type_has_subject as @subject_heading_type_has_subject" do
@@ -114,7 +114,7 @@ describe SubjectHeadingTypeHasSubjectsController do
 
     describe "When logged in as Librarian" do
       before(:each) do
-        sign_in Factory(:librarian)
+        sign_in FactoryGirl.create(:librarian)
       end
 
       it "should not assign the requested subject_heading_type_has_subject as @subject_heading_type_has_subject" do
@@ -126,7 +126,7 @@ describe SubjectHeadingTypeHasSubjectsController do
 
     describe "When logged in as Subject" do
       before(:each) do
-        sign_in Factory(:user)
+        sign_in FactoryGirl.create(:user)
       end
 
       it "should not assign the requested subject_heading_type_has_subject as @subject_heading_type_has_subject" do
@@ -148,11 +148,11 @@ describe SubjectHeadingTypeHasSubjectsController do
   describe "GET edit" do
     describe "When logged in as Administrator" do
       before(:each) do
-        sign_in Factory(:admin)
+        sign_in FactoryGirl.create(:admin)
       end
 
       it "assigns the requested subject_heading_type_has_subject as @subject_heading_type_has_subject" do
-        subject_heading_type_has_subject = Factory.create(:subject_heading_type_has_subject)
+        subject_heading_type_has_subject = FactoryGirl.create(:subject_heading_type_has_subject)
         get :edit, :id => subject_heading_type_has_subject.id
         assigns(:subject_heading_type_has_subject).should eq(subject_heading_type_has_subject)
       end
@@ -160,11 +160,11 @@ describe SubjectHeadingTypeHasSubjectsController do
 
     describe "When logged in as Librarian" do
       before(:each) do
-        sign_in Factory(:librarian)
+        sign_in FactoryGirl.create(:librarian)
       end
 
       it "assigns the requested subject_heading_type_has_subject as @subject_heading_type_has_subject" do
-        subject_heading_type_has_subject = Factory.create(:subject_heading_type_has_subject)
+        subject_heading_type_has_subject = FactoryGirl.create(:subject_heading_type_has_subject)
         get :edit, :id => subject_heading_type_has_subject.id
         assigns(:subject_heading_type_has_subject).should eq(subject_heading_type_has_subject)
       end
@@ -172,11 +172,11 @@ describe SubjectHeadingTypeHasSubjectsController do
 
     describe "When logged in as Subject" do
       before(:each) do
-        sign_in Factory(:user)
+        sign_in FactoryGirl.create(:user)
       end
 
       it "assigns the requested subject_heading_type_has_subject as @subject_heading_type_has_subject" do
-        subject_heading_type_has_subject = Factory.create(:subject_heading_type_has_subject)
+        subject_heading_type_has_subject = FactoryGirl.create(:subject_heading_type_has_subject)
         get :edit, :id => subject_heading_type_has_subject.id
         response.should be_forbidden
       end
@@ -184,7 +184,7 @@ describe SubjectHeadingTypeHasSubjectsController do
 
     describe "When not logged in" do
       it "should not assign the requested subject_heading_type_has_subject as @subject_heading_type_has_subject" do
-        subject_heading_type_has_subject = Factory.create(:subject_heading_type_has_subject)
+        subject_heading_type_has_subject = FactoryGirl.create(:subject_heading_type_has_subject)
         get :edit, :id => subject_heading_type_has_subject.id
         response.should redirect_to(new_user_session_url)
       end
@@ -193,13 +193,13 @@ describe SubjectHeadingTypeHasSubjectsController do
 
   describe "POST create" do
     before(:each) do
-      @attrs = Factory.attributes_for(:subject_heading_type_has_subject)
+      @attrs = FactoryGirl.attributes_for(:subject_heading_type_has_subject)
       @invalid_attrs = {:subject_heading_type_id => ''}
     end
 
     describe "When logged in as Administrator" do
       before(:each) do
-        sign_in Factory(:admin)
+        sign_in FactoryGirl.create(:admin)
       end
 
       describe "with valid params" do
@@ -229,7 +229,7 @@ describe SubjectHeadingTypeHasSubjectsController do
 
     describe "When logged in as Librarian" do
       before(:each) do
-        sign_in Factory(:librarian)
+        sign_in FactoryGirl.create(:librarian)
       end
 
       describe "with valid params" do
@@ -259,7 +259,7 @@ describe SubjectHeadingTypeHasSubjectsController do
 
     describe "When logged in as Subject" do
       before(:each) do
-        sign_in Factory(:user)
+        sign_in FactoryGirl.create(:user)
       end
 
       describe "with valid params" do
@@ -316,14 +316,14 @@ describe SubjectHeadingTypeHasSubjectsController do
 
   describe "PUT update" do
     before(:each) do
-      @subject_heading_type_has_subject = Factory(:subject_heading_type_has_subject)
-      @attrs = Factory.attributes_for(:subject_heading_type_has_subject)
+      @subject_heading_type_has_subject = FactoryGirl.create(:subject_heading_type_has_subject)
+      @attrs = FactoryGirl.attributes_for(:subject_heading_type_has_subject)
       @invalid_attrs = {:subject_heading_type_id => ''}
     end
 
     describe "When logged in as Administrator" do
       before(:each) do
-        sign_in Factory(:admin)
+        sign_in FactoryGirl.create(:admin)
       end
 
       describe "with valid params" do
@@ -348,7 +348,7 @@ describe SubjectHeadingTypeHasSubjectsController do
 
     describe "When logged in as Librarian" do
       before(:each) do
-        sign_in Factory(:librarian)
+        sign_in FactoryGirl.create(:librarian)
       end
 
       describe "with valid params" do
@@ -377,7 +377,7 @@ describe SubjectHeadingTypeHasSubjectsController do
 
     describe "When logged in as Subject" do
       before(:each) do
-        sign_in Factory(:user)
+        sign_in FactoryGirl.create(:user)
       end
 
       describe "with valid params" do
@@ -423,12 +423,12 @@ describe SubjectHeadingTypeHasSubjectsController do
 
   describe "DELETE destroy" do
     before(:each) do
-      @subject_heading_type_has_subject = Factory(:subject_heading_type_has_subject)
+      @subject_heading_type_has_subject = FactoryGirl.create(:subject_heading_type_has_subject)
     end
 
     describe "When logged in as Administrator" do
       before(:each) do
-        sign_in Factory(:admin)
+        sign_in FactoryGirl.create(:admin)
       end
 
       it "destroys the requested subject_heading_type_has_subject" do
@@ -443,7 +443,7 @@ describe SubjectHeadingTypeHasSubjectsController do
 
     describe "When logged in as Librarian" do
       before(:each) do
-        sign_in Factory(:librarian)
+        sign_in FactoryGirl.create(:librarian)
       end
 
       it "destroys the requested subject_heading_type_has_subject" do
@@ -458,7 +458,7 @@ describe SubjectHeadingTypeHasSubjectsController do
 
     describe "When logged in as Subject" do
       before(:each) do
-        sign_in Factory(:user)
+        sign_in FactoryGirl.create(:user)
       end
 
       it "destroys the requested subject_heading_type_has_subject" do

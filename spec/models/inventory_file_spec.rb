@@ -3,7 +3,7 @@ require 'spec_helper'
 
 describe InventoryFile do
   before(:each) do
-    @file = InventoryFile.create :inventory => File.new("#{Rails.root.to_s}/examples/inventory_file_sample.tsv"), :user => Factory(:user)
+    @file = InventoryFile.create :inventory => File.new("#{Rails.root.to_s}/examples/inventory_file_sample.tsv"), :user => FactoryGirl.create(:user)
   end
 
   it "should be imported" do

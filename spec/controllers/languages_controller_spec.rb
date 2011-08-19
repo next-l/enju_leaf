@@ -6,12 +6,12 @@ describe LanguagesController do
 
   describe "GET index" do
     before(:each) do
-      Factory.create(:language)
+      FactoryGirl.create(:language)
     end
 
     describe "When logged in as Administrator" do
       before(:each) do
-        sign_in Factory(:admin)
+        sign_in FactoryGirl.create(:admin)
       end
 
       it "assigns all languages as @languages" do
@@ -22,7 +22,7 @@ describe LanguagesController do
 
     describe "When logged in as Librarian" do
       before(:each) do
-        sign_in Factory(:librarian)
+        sign_in FactoryGirl.create(:librarian)
       end
 
       it "assigns all languages as @languages" do
@@ -33,7 +33,7 @@ describe LanguagesController do
 
     describe "When logged in as User" do
       before(:each) do
-        sign_in Factory(:user)
+        sign_in FactoryGirl.create(:user)
       end
 
       it "assigns all languages as @languages" do
@@ -53,11 +53,11 @@ describe LanguagesController do
   describe "GET show" do
     describe "When logged in as Administrator" do
       before(:each) do
-        sign_in Factory(:admin)
+        sign_in FactoryGirl.create(:admin)
       end
 
       it "assigns the requested language as @language" do
-        language = Factory(:language)
+        language = FactoryGirl.create(:language)
         get :show, :id => language.id
         assigns(:language).should eq(language)
       end
@@ -65,7 +65,7 @@ describe LanguagesController do
 
     describe "When not logged in" do
       it "assigns the requested language as @language" do
-        language = Factory(:language)
+        language = FactoryGirl.create(:language)
         get :show, :id => language.id
         assigns(:language).should eq(language)
       end
@@ -75,7 +75,7 @@ describe LanguagesController do
   describe "GET new" do
     describe "When logged in as Administrator" do
       before(:each) do
-        sign_in Factory(:admin)
+        sign_in FactoryGirl.create(:admin)
       end
 
       it "assigns the requested language as @language" do
@@ -96,11 +96,11 @@ describe LanguagesController do
   describe "GET edit" do
     describe "When logged in as Administrator" do
       before(:each) do
-        sign_in Factory(:admin)
+        sign_in FactoryGirl.create(:admin)
       end
 
       it "assigns the requested language as @language" do
-        language = Factory(:language)
+        language = FactoryGirl.create(:language)
         get :edit, :id => language.id
         assigns(:language).should eq(language)
       end
@@ -108,7 +108,7 @@ describe LanguagesController do
 
     describe "When not logged in" do
       it "should not assign the requested language as @language" do
-        language = Factory(:language)
+        language = FactoryGirl.create(:language)
         get :edit, :id => language.id
         response.should redirect_to(new_user_session_url)
       end
@@ -117,13 +117,13 @@ describe LanguagesController do
 
   describe "POST create" do
     before(:each) do
-      @attrs = Factory.attributes_for(:language)
+      @attrs = FactoryGirl.attributes_for(:language)
       @invalid_attrs = {:name => ''}
     end
 
     describe "When logged in as Administrator" do
       before(:each) do
-        sign_in Factory(:admin)
+        sign_in FactoryGirl.create(:admin)
       end
 
       describe "with valid params" do
@@ -153,7 +153,7 @@ describe LanguagesController do
 
     describe "When logged in as Librarian" do
       before(:each) do
-        sign_in Factory(:librarian)
+        sign_in FactoryGirl.create(:librarian)
       end
 
       describe "with valid params" do
@@ -183,7 +183,7 @@ describe LanguagesController do
 
     describe "When logged in as User" do
       before(:each) do
-        sign_in Factory(:user)
+        sign_in FactoryGirl.create(:user)
       end
 
       describe "with valid params" do
@@ -240,14 +240,14 @@ describe LanguagesController do
 
   describe "PUT update" do
     before(:each) do
-      @language = Factory(:language)
-      @attrs = Factory.attributes_for(:language)
+      @language = FactoryGirl.create(:language)
+      @attrs = FactoryGirl.attributes_for(:language)
       @invalid_attrs = {:name => ''}
     end
 
     describe "When logged in as Administrator" do
       before(:each) do
-        sign_in Factory(:admin)
+        sign_in FactoryGirl.create(:admin)
       end
 
       describe "with valid params" do
@@ -297,12 +297,12 @@ describe LanguagesController do
 
   describe "DELETE destroy" do
     before(:each) do
-      @language = Factory(:language)
+      @language = FactoryGirl.create(:language)
     end
 
     describe "When logged in as Administrator" do
       before(:each) do
-        sign_in Factory(:admin)
+        sign_in FactoryGirl.create(:admin)
       end
 
       it "destroys the requested language" do

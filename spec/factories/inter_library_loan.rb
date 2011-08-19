@@ -1,4 +1,6 @@
-Factory.define :inter_library_loan do |f|
-  f.item{Factory(:item)}
-  f.borrowing_library{Factory(:library)}
+FactoryGirl.define do
+  factory :inter_library_loan do |f|
+    f.item{FactoryGirl.create(:item)}
+    f.borrowing_library{FactoryGirl.create(:library)}
+  end
 end

@@ -8,7 +8,7 @@ describe ReservesController do
   describe "GET index" do
     describe "When logged in as Administrator" do
       before(:each) do
-        sign_in Factory(:admin)
+        sign_in FactoryGirl.create(:admin)
       end
 
       it "assigns all reserves as @reserves" do
@@ -19,7 +19,7 @@ describe ReservesController do
 
     describe "When logged in as Librarian" do
       before(:each) do
-        sign_in Factory(:librarian)
+        sign_in FactoryGirl.create(:librarian)
       end
 
       it "assigns all reserves as @reserves" do
@@ -30,7 +30,7 @@ describe ReservesController do
 
     describe "When logged in as User" do
       before(:each) do
-        @user = Factory(:user)
+        @user = FactoryGirl.create(:user)
         sign_in @user
       end
 
@@ -60,7 +60,7 @@ describe ReservesController do
 
       describe "When other user_id is specified" do
         before(:each) do
-          @user = Factory(:user)
+          @user = FactoryGirl.create(:user)
         end
 
         it "should not get any reserve as @reserves" do
@@ -82,11 +82,11 @@ describe ReservesController do
   describe "GET show" do
     describe "When logged in as Administrator" do
       before(:each) do
-        sign_in Factory(:admin)
+        sign_in FactoryGirl.create(:admin)
       end
 
       it "assigns the requested reserve as @reserve" do
-        reserve = Factory.create(:reserve)
+        reserve = FactoryGirl.create(:reserve)
         get :show, :id => reserve.id
         assigns(:reserve).should eq(reserve)
       end
@@ -94,11 +94,11 @@ describe ReservesController do
 
     describe "When logged in as Librarian" do
       before(:each) do
-        sign_in Factory(:librarian)
+        sign_in FactoryGirl.create(:librarian)
       end
 
       it "assigns the requested reserve as @reserve" do
-        reserve = Factory.create(:reserve)
+        reserve = FactoryGirl.create(:reserve)
         get :show, :id => reserve.id
         assigns(:reserve).should eq(reserve)
       end
@@ -106,11 +106,11 @@ describe ReservesController do
 
     describe "When logged in as User" do
       before(:each) do
-        sign_in Factory(:user)
+        sign_in FactoryGirl.create(:user)
       end
 
       it "assigns the requested reserve as @reserve" do
-        reserve = Factory.create(:reserve)
+        reserve = FactoryGirl.create(:reserve)
         get :show, :id => reserve.id
         assigns(:reserve).should eq(reserve)
       end
@@ -118,7 +118,7 @@ describe ReservesController do
 
     describe "When not logged in" do
       it "assigns the requested reserve as @reserve" do
-        reserve = Factory.create(:reserve)
+        reserve = FactoryGirl.create(:reserve)
         get :show, :id => reserve.id
         assigns(:reserve).should eq(reserve)
       end
@@ -128,7 +128,7 @@ describe ReservesController do
   describe "GET new" do
     describe "When logged in as Administrator" do
       before(:each) do
-        sign_in Factory(:admin)
+        sign_in FactoryGirl.create(:admin)
       end
 
       it "assigns the requested reserve as @reserve" do
@@ -139,7 +139,7 @@ describe ReservesController do
 
     describe "When logged in as Librarian" do
       before(:each) do
-        sign_in Factory(:librarian)
+        sign_in FactoryGirl.create(:librarian)
       end
 
       it "should not assign the requested reserve as @reserve" do
@@ -150,7 +150,7 @@ describe ReservesController do
 
     describe "When logged in as User" do
       before(:each) do
-        sign_in Factory(:user)
+        sign_in FactoryGirl.create(:user)
       end
 
       it "should not assign the requested reserve as @reserve" do
@@ -172,11 +172,11 @@ describe ReservesController do
   describe "GET edit" do
     describe "When logged in as Administrator" do
       before(:each) do
-        sign_in Factory(:admin)
+        sign_in FactoryGirl.create(:admin)
       end
 
       it "assigns the requested reserve as @reserve" do
-        reserve = Factory.create(:reserve)
+        reserve = FactoryGirl.create(:reserve)
         get :edit, :id => reserve.id
         assigns(:reserve).should eq(reserve)
       end
@@ -184,11 +184,11 @@ describe ReservesController do
 
     describe "When logged in as Librarian" do
       before(:each) do
-        sign_in Factory(:librarian)
+        sign_in FactoryGirl.create(:librarian)
       end
 
       it "assigns the requested reserve as @reserve" do
-        reserve = Factory.create(:reserve)
+        reserve = FactoryGirl.create(:reserve)
         get :edit, :id => reserve.id
         assigns(:reserve).should eq(reserve)
       end
@@ -196,11 +196,11 @@ describe ReservesController do
 
     describe "When logged in as User" do
       before(:each) do
-        sign_in Factory(:user)
+        sign_in FactoryGirl.create(:user)
       end
 
       it "assigns the requested reserve as @reserve" do
-        reserve = Factory.create(:reserve)
+        reserve = FactoryGirl.create(:reserve)
         get :edit, :id => reserve.id
         assigns(:reserve).should eq(reserve)
       end
@@ -208,7 +208,7 @@ describe ReservesController do
 
     describe "When not logged in" do
       it "should not assign the requested reserve as @reserve" do
-        reserve = Factory.create(:reserve)
+        reserve = FactoryGirl.create(:reserve)
         get :edit, :id => reserve.id
         response.should redirect_to(new_user_session_url)
       end
@@ -223,7 +223,7 @@ describe ReservesController do
 
     describe "When logged in as Administrator" do
       before(:each) do
-        sign_in Factory(:admin)
+        sign_in FactoryGirl.create(:admin)
       end
 
       describe "with valid params" do
@@ -256,7 +256,7 @@ describe ReservesController do
 
     describe "When logged in as Librarian" do
       before(:each) do
-        sign_in Factory(:librarian)
+        sign_in FactoryGirl.create(:librarian)
       end
 
       describe "with valid params" do
@@ -289,7 +289,7 @@ describe ReservesController do
 
     describe "When logged in as User" do
       before(:each) do
-        @user = Factory(:user)
+        @user = FactoryGirl.create(:user)
         sign_in @user
       end
 
@@ -349,14 +349,14 @@ describe ReservesController do
 
   describe "PUT update" do
     before(:each) do
-      @reserve = Factory(:reserve)
-      @attrs = Factory.attributes_for(:reserve)
+      @reserve = FactoryGirl.create(:reserve)
+      @attrs = FactoryGirl.attributes_for(:reserve)
       @invalid_attrs = {:manifestation_id => ''}
     end
 
     describe "When logged in as Administrator" do
       before(:each) do
-        sign_in Factory(:admin)
+        sign_in FactoryGirl.create(:admin)
       end
 
       describe "with valid params" do
@@ -385,7 +385,7 @@ describe ReservesController do
 
     describe "When logged in as Librarian" do
       before(:each) do
-        sign_in Factory(:librarian)
+        sign_in FactoryGirl.create(:librarian)
       end
 
       describe "with valid params" do
@@ -415,7 +415,7 @@ describe ReservesController do
 
     describe "When logged in as User" do
       before(:each) do
-        sign_in Factory(:user)
+        sign_in FactoryGirl.create(:user)
       end
 
       describe "with valid params" do
@@ -461,12 +461,12 @@ describe ReservesController do
 
   describe "DELETE destroy" do
     before(:each) do
-      @reserve = Factory(:reserve)
+      @reserve = FactoryGirl.create(:reserve)
     end
 
     describe "When logged in as Administrator" do
       before(:each) do
-        sign_in Factory(:admin)
+        sign_in FactoryGirl.create(:admin)
       end
 
       it "destroys the requested reserve" do
@@ -481,7 +481,7 @@ describe ReservesController do
 
     describe "When logged in as Librarian" do
       before(:each) do
-        sign_in Factory(:librarian)
+        sign_in FactoryGirl.create(:librarian)
       end
 
       it "destroys the requested reserve" do
@@ -496,7 +496,7 @@ describe ReservesController do
 
     describe "When logged in as User" do
       before(:each) do
-        sign_in Factory(:user)
+        sign_in FactoryGirl.create(:user)
       end
 
       it "destroys the requested reserve" do

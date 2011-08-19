@@ -1,4 +1,6 @@
-Factory.define :produce do |f|
-  f.manifestation{Factory(:manifestation)}
-  f.patron{Factory(:patron)}
+FactoryGirl.define do
+  factory :produce do |f|
+    f.manifestation{FactoryGirl.create(:manifestation)}
+    f.patron{FactoryGirl.create(:patron)}
+  end
 end

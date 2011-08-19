@@ -12,7 +12,7 @@ describe CheckinsController do
   describe "GET index" do
     describe "When logged in as Administrator" do
       before(:each) do
-        sign_in Factory(:admin)
+        sign_in FactoryGirl.create(:admin)
       end
 
       it "assigns all checkins as @checkins" do
@@ -32,7 +32,7 @@ describe CheckinsController do
 
     describe "When logged in as Librarian" do
       before(:each) do
-        sign_in Factory(:librarian)
+        sign_in FactoryGirl.create(:librarian)
       end
 
       it "assigns all checkins as @checkins" do
@@ -52,7 +52,7 @@ describe CheckinsController do
 
     describe "When logged in as User" do
       before(:each) do
-        sign_in Factory(:user)
+        sign_in FactoryGirl.create(:user)
       end
 
       it "should not assign all checkins as @checkins" do
@@ -66,7 +66,7 @@ describe CheckinsController do
   describe "GET show" do
     describe "When logged in as Administrator" do
       before(:each) do
-        sign_in Factory(:admin)
+        sign_in FactoryGirl.create(:admin)
       end
 
       it "assigns the requested checkin as @checkin" do
@@ -78,7 +78,7 @@ describe CheckinsController do
 
     describe "When logged in as Librarian" do
       before(:each) do
-        sign_in Factory(:librarian)
+        sign_in FactoryGirl.create(:librarian)
       end
 
       it "assigns the requested checkin as @checkin" do
@@ -90,7 +90,7 @@ describe CheckinsController do
 
     describe "When logged in as User" do
       before(:each) do
-        sign_in Factory(:user)
+        sign_in FactoryGirl.create(:user)
       end
 
       it "assigns the requested checkin as @checkin" do
@@ -114,7 +114,7 @@ describe CheckinsController do
   describe "GET new" do
     describe "When logged in as Administrator" do
       before(:each) do
-        sign_in Factory(:admin)
+        sign_in FactoryGirl.create(:admin)
       end
 
       it "assigns the requested checkin as @checkin" do
@@ -125,7 +125,7 @@ describe CheckinsController do
 
     describe "When logged in as Librarian" do
       before(:each) do
-        sign_in Factory(:librarian)
+        sign_in FactoryGirl.create(:librarian)
       end
 
       it "assigns the requested checkin as @checkin" do
@@ -136,7 +136,7 @@ describe CheckinsController do
 
     describe "When logged in as User" do
       before(:each) do
-        sign_in Factory(:user)
+        sign_in FactoryGirl.create(:user)
       end
 
       it "should not assign the requested checkin as @checkin" do
@@ -158,7 +158,7 @@ describe CheckinsController do
   describe "GET edit" do
     describe "When logged in as Administrator" do
       before(:each) do
-        sign_in Factory(:admin)
+        sign_in FactoryGirl.create(:admin)
       end
 
       it "assigns the requested checkin as @checkin" do
@@ -170,7 +170,7 @@ describe CheckinsController do
 
     describe "When logged in as Librarian" do
       before(:each) do
-        sign_in Factory(:librarian)
+        sign_in FactoryGirl.create(:librarian)
       end
 
       it "assigns the requested checkin as @checkin" do
@@ -182,7 +182,7 @@ describe CheckinsController do
 
     describe "When logged in as User" do
       before(:each) do
-        sign_in Factory(:user)
+        sign_in FactoryGirl.create(:user)
       end
 
       it "assigns the requested checkin as @checkin" do
@@ -204,7 +204,7 @@ describe CheckinsController do
   describe "POST create" do
     describe "When logged in as Administrator" do
       before(:each) do
-        sign_in Factory(:admin)
+        sign_in FactoryGirl.create(:admin)
         @attrs = {:item_identifier => '00003'}
         @invalid_attrs = {:item_identifier => 'invalid'}
       end
@@ -245,7 +245,7 @@ describe CheckinsController do
 
     describe "When logged in as Librarian" do
       before(:each) do
-        sign_in Factory(:admin)
+        sign_in FactoryGirl.create(:admin)
         @attrs = {:item_identifier => '00003'}
         @invalid_attrs = {:item_identifier => 'invalid'}
       end
@@ -265,13 +265,13 @@ describe CheckinsController do
   describe "PUT update" do
     before(:each) do
       @checkin = checkins(:checkin_00001)
-      @attrs = {:item_identifier => @checkin.item.item_identifier, :librarian_id => Factory(:librarian).id}
+      @attrs = {:item_identifier => @checkin.item.item_identifier, :librarian_id => FactoryGirl.create(:librarian).id}
       @invalid_attrs = {:basket_id => ''}
     end
 
     describe "When logged in as Administrator" do
       before(:each) do
-        sign_in Factory(:admin)
+        sign_in FactoryGirl.create(:admin)
       end
 
       describe "with valid params" do
@@ -300,7 +300,7 @@ describe CheckinsController do
 
     describe "When logged in as Librarian" do
       before(:each) do
-        sign_in Factory(:librarian)
+        sign_in FactoryGirl.create(:librarian)
       end
 
       describe "with valid params" do
@@ -330,7 +330,7 @@ describe CheckinsController do
 
     describe "When logged in as User" do
       before(:each) do
-        sign_in Factory(:user)
+        sign_in FactoryGirl.create(:user)
       end
 
       describe "with valid params" do
@@ -381,7 +381,7 @@ describe CheckinsController do
 
     describe "When logged in as Administrator" do
       before(:each) do
-        sign_in Factory(:admin)
+        sign_in FactoryGirl.create(:admin)
       end
 
       it "destroys the requested checkin" do
@@ -396,7 +396,7 @@ describe CheckinsController do
 
     describe "When logged in as Librarian" do
       before(:each) do
-        sign_in Factory(:librarian)
+        sign_in FactoryGirl.create(:librarian)
       end
 
       it "destroys the requested checkin" do
@@ -411,7 +411,7 @@ describe CheckinsController do
 
     describe "When logged in as User" do
       before(:each) do
-        sign_in Factory(:user)
+        sign_in FactoryGirl.create(:user)
       end
 
       it "destroys the requested checkin" do

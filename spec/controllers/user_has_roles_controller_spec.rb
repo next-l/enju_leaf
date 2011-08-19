@@ -8,7 +8,7 @@ describe UserHasRolesController do
   describe "GET index" do
     describe "When logged in as Administrator" do
       before(:each) do
-        sign_in Factory(:admin)
+        sign_in FactoryGirl.create(:admin)
       end
 
       it "assigns all user_has_roles as @user_has_roles" do
@@ -19,7 +19,7 @@ describe UserHasRolesController do
 
     describe "When logged in as Librarian" do
       before(:each) do
-        sign_in Factory(:librarian)
+        sign_in FactoryGirl.create(:librarian)
       end
 
       it "assigns empty as @user_has_roles" do
@@ -30,7 +30,7 @@ describe UserHasRolesController do
 
     describe "When logged in as User" do
       before(:each) do
-        sign_in Factory(:user)
+        sign_in FactoryGirl.create(:user)
       end
 
       it "assigns all user_has_roles as @user_has_roles" do
@@ -56,7 +56,7 @@ describe UserHasRolesController do
 
     describe "When logged in as Administrator" do
       before(:each) do
-        sign_in Factory(:admin)
+        sign_in FactoryGirl.create(:admin)
       end
 
       it "assigns the requested user_has_role as @user_has_role" do
@@ -67,7 +67,7 @@ describe UserHasRolesController do
 
     describe "When logged in as Librarian" do
       before(:each) do
-        sign_in Factory(:librarian)
+        sign_in FactoryGirl.create(:librarian)
       end
 
       it "assigns the requested user_has_role as @user_has_role" do
@@ -78,7 +78,7 @@ describe UserHasRolesController do
 
     describe "When logged in as User" do
       before(:each) do
-        sign_in Factory(:user)
+        sign_in FactoryGirl.create(:user)
       end
 
       it "assigns the requested user_has_role as @user_has_role" do

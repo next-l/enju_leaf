@@ -6,7 +6,7 @@ describe ResourceImportFilesController do
   describe "GET index" do
     describe "When logged in as Administrator" do
       before(:each) do
-        sign_in Factory(:admin)
+        sign_in FactoryGirl.create(:admin)
       end
 
       it "assigns all resource_import_files as @resource_import_files" do
@@ -17,7 +17,7 @@ describe ResourceImportFilesController do
 
     describe "When logged in as Librarian" do
       before(:each) do
-        sign_in Factory(:librarian)
+        sign_in FactoryGirl.create(:librarian)
       end
 
       it "assigns all resource_import_files as @resource_import_files" do
@@ -28,7 +28,7 @@ describe ResourceImportFilesController do
 
     describe "When logged in as User" do
       before(:each) do
-        sign_in Factory(:user)
+        sign_in FactoryGirl.create(:user)
       end
 
       it "assigns empty as @resource_import_files" do
@@ -50,7 +50,7 @@ describe ResourceImportFilesController do
   describe "GET show" do
     describe "When logged in as Administrator" do
       before(:each) do
-        sign_in Factory(:admin)
+        sign_in FactoryGirl.create(:admin)
       end
 
       it "assigns the requested resource_import_file as @resource_import_file" do
@@ -62,7 +62,7 @@ describe ResourceImportFilesController do
 
     describe "When logged in as Librarian" do
       before(:each) do
-        sign_in Factory(:librarian)
+        sign_in FactoryGirl.create(:librarian)
       end
 
       it "assigns the requested resource_import_file as @resource_import_file" do
@@ -74,7 +74,7 @@ describe ResourceImportFilesController do
 
     describe "When logged in as User" do
       before(:each) do
-        sign_in Factory(:user)
+        sign_in FactoryGirl.create(:user)
       end
 
       it "assigns the requested resource_import_file as @resource_import_file" do
@@ -96,7 +96,7 @@ describe ResourceImportFilesController do
   describe "GET new" do
     describe "When logged in as Administrator" do
       before(:each) do
-        sign_in Factory(:admin)
+        sign_in FactoryGirl.create(:admin)
       end
 
       it "assigns the requested resource_import_file as @resource_import_file" do
@@ -108,7 +108,7 @@ describe ResourceImportFilesController do
 
     describe "When logged in as Librarian" do
       before(:each) do
-        sign_in Factory(:librarian)
+        sign_in FactoryGirl.create(:librarian)
       end
 
       it "should not assign the requested resource_import_file as @resource_import_file" do
@@ -120,7 +120,7 @@ describe ResourceImportFilesController do
 
     describe "When logged in as User" do
       before(:each) do
-        sign_in Factory(:user)
+        sign_in FactoryGirl.create(:user)
       end
 
       it "should not assign the requested resource_import_file as @resource_import_file" do
@@ -142,7 +142,7 @@ describe ResourceImportFilesController do
   describe "POST create" do
     describe "When logged in as Librarian" do
       before(:each) do
-        @user = Factory(:librarian)
+        @user = FactoryGirl.create(:librarian)
         sign_in @user
       end
 
@@ -156,7 +156,7 @@ describe ResourceImportFilesController do
 
     describe "When logged in as User" do
       before(:each) do
-        @user = Factory(:user)
+        @user = FactoryGirl.create(:user)
         sign_in @user
       end
 
@@ -179,7 +179,7 @@ describe ResourceImportFilesController do
   describe "GET edit" do
     describe "When logged in as Administrator" do
       before(:each) do
-        sign_in Factory(:admin)
+        sign_in FactoryGirl.create(:admin)
       end
 
       it "assigns the requested resource_import_file as @resource_import_file" do
@@ -191,7 +191,7 @@ describe ResourceImportFilesController do
 
     describe "When logged in as Librarian" do
       before(:each) do
-        sign_in Factory(:librarian)
+        sign_in FactoryGirl.create(:librarian)
       end
 
       it "assigns the requested resource_import_file as @resource_import_file" do
@@ -203,7 +203,7 @@ describe ResourceImportFilesController do
 
     describe "When logged in as User" do
       before(:each) do
-        sign_in Factory(:user)
+        sign_in FactoryGirl.create(:user)
       end
 
       it "assigns the requested resource_import_file as @resource_import_file" do
@@ -225,7 +225,7 @@ describe ResourceImportFilesController do
   describe "PUT update" do
     describe "When logged in as Librarian" do
       before(:each) do
-        sign_in Factory(:librarian)
+        sign_in FactoryGirl.create(:librarian)
       end
 
       it "should update resource_import_file" do
@@ -236,7 +236,7 @@ describe ResourceImportFilesController do
 
     describe "When logged in as User" do
       before(:each) do
-        sign_in Factory(:user)
+        sign_in FactoryGirl.create(:user)
       end
 
       it "should not update resource_import_file" do
@@ -260,7 +260,7 @@ describe ResourceImportFilesController do
 
     describe "When logged in as Administrator" do
       before(:each) do
-        sign_in Factory(:admin)
+        sign_in FactoryGirl.create(:admin)
       end
 
       it "destroys the requested resource_import_file" do
@@ -275,7 +275,7 @@ describe ResourceImportFilesController do
 
     describe "When logged in as Librarian" do
       before(:each) do
-        sign_in Factory(:librarian)
+        sign_in FactoryGirl.create(:librarian)
       end
 
       it "destroys the requested resource_import_file" do
@@ -290,7 +290,7 @@ describe ResourceImportFilesController do
 
     describe "When logged in as User" do
       before(:each) do
-        sign_in Factory(:user)
+        sign_in FactoryGirl.create(:user)
       end
 
       it "destroys the requested resource_import_file" do

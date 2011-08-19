@@ -1,4 +1,6 @@
-Factory.define :manifestation_relationship do |f|
-  f.parent{Factory(:manifestation)}
-  f.child{Factory(:manifestation)}
+FactoryGirl.define do
+  factory :manifestation_relationship do |f|
+    f.parent{FactoryGirl.create(:manifestation)}
+    f.child{FactoryGirl.create(:manifestation)}
+  end
 end

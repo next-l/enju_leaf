@@ -6,7 +6,7 @@ describe ShelvesController do
   describe "GET index" do
     describe "When logged in as Administrator" do
       before(:each) do
-        sign_in Factory(:admin)
+        sign_in FactoryGirl.create(:admin)
       end
 
       it "assigns all shelves as @shelves" do
@@ -17,7 +17,7 @@ describe ShelvesController do
 
     describe "When logged in as Librarian" do
       before(:each) do
-        sign_in Factory(:librarian)
+        sign_in FactoryGirl.create(:librarian)
       end
 
       it "assigns all shelves as @shelves" do
@@ -28,7 +28,7 @@ describe ShelvesController do
 
     describe "When logged in as User" do
       before(:each) do
-        sign_in Factory(:user)
+        sign_in FactoryGirl.create(:user)
       end
 
       it "assigns all shelves as @shelves" do
@@ -61,7 +61,7 @@ describe ShelvesController do
   describe "GET show" do
     describe "When logged in as Administrator" do
       before(:each) do
-        sign_in Factory(:admin)
+        sign_in FactoryGirl.create(:admin)
       end
 
       it "assigns the requested shelf as @shelf" do
@@ -81,7 +81,7 @@ describe ShelvesController do
   describe "GET new" do
     describe "When logged in as Administrator" do
       before(:each) do
-        sign_in Factory(:admin)
+        sign_in FactoryGirl.create(:admin)
       end
 
       it "assigns the requested shelf as @shelf" do
@@ -92,7 +92,7 @@ describe ShelvesController do
 
     describe "When logged in as Librarian" do
       before(:each) do
-        sign_in Factory(:librarian)
+        sign_in FactoryGirl.create(:librarian)
       end
 
       it "assigns the requested shelf as @shelf" do
@@ -103,7 +103,7 @@ describe ShelvesController do
 
     describe "When logged in as User" do
       before(:each) do
-        sign_in Factory(:user)
+        sign_in FactoryGirl.create(:user)
       end
 
       it "should not assign the requested shelf as @shelf" do
@@ -125,11 +125,11 @@ describe ShelvesController do
   describe "GET edit" do
     describe "When logged in as Administrator" do
       before(:each) do
-        sign_in Factory(:admin)
+        sign_in FactoryGirl.create(:admin)
       end
 
       it "assigns the requested shelf as @shelf" do
-        shelf = Factory.create(:shelf)
+        shelf = FactoryGirl.create(:shelf)
         get :edit, :id => shelf.id
         assigns(:shelf).should eq(shelf)
       end
@@ -137,11 +137,11 @@ describe ShelvesController do
 
     describe "When logged in as Librarian" do
       before(:each) do
-        sign_in Factory(:librarian)
+        sign_in FactoryGirl.create(:librarian)
       end
 
       it "assigns the requested shelf as @shelf" do
-        shelf = Factory.create(:shelf)
+        shelf = FactoryGirl.create(:shelf)
         get :edit, :id => shelf.id
         assigns(:shelf).should eq(shelf)
       end
@@ -149,11 +149,11 @@ describe ShelvesController do
 
     describe "When logged in as User" do
       before(:each) do
-        sign_in Factory(:user)
+        sign_in FactoryGirl.create(:user)
       end
 
       it "assigns the requested shelf as @shelf" do
-        shelf = Factory.create(:shelf)
+        shelf = FactoryGirl.create(:shelf)
         get :edit, :id => shelf.id
         response.should be_forbidden
       end
@@ -161,7 +161,7 @@ describe ShelvesController do
 
     describe "When not logged in" do
       it "should not assign the requested shelf as @shelf" do
-        shelf = Factory.create(:shelf)
+        shelf = FactoryGirl.create(:shelf)
         get :edit, :id => shelf.id
         response.should redirect_to(new_user_session_url)
       end
@@ -170,13 +170,13 @@ describe ShelvesController do
 
   describe "POST create" do
     before(:each) do
-      @attrs = Factory.attributes_for(:shelf)
+      @attrs = FactoryGirl.attributes_for(:shelf)
       @invalid_attrs = {:name => ''}
     end
 
     describe "When logged in as Administrator" do
       before(:each) do
-        sign_in Factory(:admin)
+        sign_in FactoryGirl.create(:admin)
       end
 
       describe "with valid params" do
@@ -206,7 +206,7 @@ describe ShelvesController do
 
     describe "When logged in as Librarian" do
       before(:each) do
-        sign_in Factory(:librarian)
+        sign_in FactoryGirl.create(:librarian)
       end
 
       describe "with valid params" do
@@ -236,7 +236,7 @@ describe ShelvesController do
 
     describe "When logged in as User" do
       before(:each) do
-        sign_in Factory(:user)
+        sign_in FactoryGirl.create(:user)
       end
 
       describe "with valid params" do
@@ -293,14 +293,14 @@ describe ShelvesController do
 
   describe "PUT update" do
     before(:each) do
-      @shelf = Factory(:shelf)
-      @attrs = Factory.attributes_for(:shelf)
+      @shelf = FactoryGirl.create(:shelf)
+      @attrs = FactoryGirl.attributes_for(:shelf)
       @invalid_attrs = {:name => ''}
     end
 
     describe "When logged in as Administrator" do
       before(:each) do
-        sign_in Factory(:admin)
+        sign_in FactoryGirl.create(:admin)
       end
 
       describe "with valid params" do
@@ -329,7 +329,7 @@ describe ShelvesController do
 
     describe "When logged in as Librarian" do
       before(:each) do
-        sign_in Factory(:librarian)
+        sign_in FactoryGirl.create(:librarian)
       end
 
       describe "with valid params" do
@@ -354,7 +354,7 @@ describe ShelvesController do
 
     describe "When logged in as User" do
       before(:each) do
-        sign_in Factory(:user)
+        sign_in FactoryGirl.create(:user)
       end
 
       describe "with valid params" do
@@ -400,12 +400,12 @@ describe ShelvesController do
 
   describe "DELETE destroy" do
     before(:each) do
-      @shelf = Factory(:shelf)
+      @shelf = FactoryGirl.create(:shelf)
     end
 
     describe "When logged in as Administrator" do
       before(:each) do
-        sign_in Factory(:admin)
+        sign_in FactoryGirl.create(:admin)
       end
 
       it "destroys the requested shelf" do
@@ -420,7 +420,7 @@ describe ShelvesController do
 
     describe "When logged in as Librarian" do
       before(:each) do
-        sign_in Factory(:librarian)
+        sign_in FactoryGirl.create(:librarian)
       end
 
       it "destroys the requested shelf" do
@@ -435,7 +435,7 @@ describe ShelvesController do
 
     describe "When logged in as User" do
       before(:each) do
-        sign_in Factory(:user)
+        sign_in FactoryGirl.create(:user)
       end
 
       it "destroys the requested shelf" do

@@ -61,7 +61,7 @@ GEM
       mime-types
       xml-simple
     babosa (0.3.5)
-    barby (0.4.4)
+    barby (0.5.0)
     bcrypt-ruby (2.1.4)
     bcrypt-ruby (2.1.4-java)
     bouncy-castle-java (1.5.0146.1)
@@ -107,8 +107,7 @@ GEM
     faraday (0.6.1)
       addressable (~> 2.2.4)
       multipart-post (~> 1.1.0)
-      rack (>= 1.1.0, < 2)
-    fastercsv (1.5.4)
+      rack (< 2, >= 1.1.0)
     file_wrapper (0.4.1)
     flay (1.4.3)
       ruby_parser (~> 2.0)
@@ -309,7 +308,7 @@ GEM
     rubyntlm (0.1.1)
     rubyzip2 (2.0.1)
     sanitize (2.0.3)
-      nokogiri (>= 1.4.4, < 1.6)
+      nokogiri (< 1.6, >= 1.4.4)
     scribd_fu (2.0.11)
       rscribd
     sexp_processor (3.0.6)
@@ -378,8 +377,7 @@ DEPENDENCIES
   event-calendar
   exception_notification
   extractcontent
-  factory_girl_rails
-  fastercsv
+  factory_girl_rails (~> 1.1)
   file_wrapper
   friendly_id
   geocoder

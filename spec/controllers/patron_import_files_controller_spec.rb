@@ -7,7 +7,7 @@ describe PatronImportFilesController do
   describe "GET index" do
     describe "When logged in as Administrator" do
       before(:each) do
-        sign_in Factory(:admin)
+        sign_in FactoryGirl.create(:admin)
       end
 
       it "assigns all patron_import_files as @patron_import_files" do
@@ -18,7 +18,7 @@ describe PatronImportFilesController do
 
     describe "When logged in as Librarian" do
       before(:each) do
-        sign_in Factory(:librarian)
+        sign_in FactoryGirl.create(:librarian)
       end
 
       it "assigns all patron_import_files as @patron_import_files" do
@@ -29,7 +29,7 @@ describe PatronImportFilesController do
 
     describe "When logged in as User" do
       before(:each) do
-        sign_in Factory(:user)
+        sign_in FactoryGirl.create(:user)
       end
 
       it "assigns empty as @patron_import_files" do
@@ -51,7 +51,7 @@ describe PatronImportFilesController do
   describe "GET show" do
     describe "When logged in as Administrator" do
       before(:each) do
-        sign_in Factory(:admin)
+        sign_in FactoryGirl.create(:admin)
       end
 
       it "assigns the requested patron_import_file as @patron_import_file" do
@@ -62,7 +62,7 @@ describe PatronImportFilesController do
 
     describe "When logged in as Librarian" do
       before(:each) do
-        sign_in Factory(:librarian)
+        sign_in FactoryGirl.create(:librarian)
       end
 
       it "assigns the requested patron_import_file as @patron_import_file" do
@@ -73,7 +73,7 @@ describe PatronImportFilesController do
 
     describe "When logged in as User" do
       before(:each) do
-        sign_in Factory(:user)
+        sign_in FactoryGirl.create(:user)
       end
 
       it "assigns the requested patron_import_file as @patron_import_file" do
@@ -94,7 +94,7 @@ describe PatronImportFilesController do
   describe "GET new" do
     describe "When logged in as Administrator" do
       before(:each) do
-        sign_in Factory(:admin)
+        sign_in FactoryGirl.create(:admin)
       end
 
       it "assigns the requested patron_import_file as @patron_import_file" do
@@ -106,7 +106,7 @@ describe PatronImportFilesController do
 
     describe "When logged in as Librarian" do
       before(:each) do
-        sign_in Factory(:librarian)
+        sign_in FactoryGirl.create(:librarian)
       end
 
       it "should not assign the requested patron_import_file as @patron_import_file" do
@@ -118,7 +118,7 @@ describe PatronImportFilesController do
 
     describe "When logged in as User" do
       before(:each) do
-        sign_in Factory(:user)
+        sign_in FactoryGirl.create(:user)
       end
 
       it "should not assign the requested patron_import_file as @patron_import_file" do
@@ -140,7 +140,7 @@ describe PatronImportFilesController do
   describe "POST create" do
     describe "When logged in as Librarian" do
       before(:each) do
-        @user = Factory(:librarian)
+        @user = FactoryGirl.create(:librarian)
         sign_in @user
       end
 
@@ -166,7 +166,7 @@ describe PatronImportFilesController do
 
     describe "When logged in as User" do
       before(:each) do
-        @user = Factory(:user)
+        @user = FactoryGirl.create(:user)
         sign_in @user
       end
 
@@ -187,7 +187,7 @@ describe PatronImportFilesController do
   describe "GET edit" do
     describe "When logged in as Administrator" do
       before(:each) do
-        sign_in Factory(:admin)
+        sign_in FactoryGirl.create(:admin)
       end
 
       it "assigns the requested patron_import_file as @patron_import_file" do
@@ -199,7 +199,7 @@ describe PatronImportFilesController do
 
     describe "When logged in as Librarian" do
       before(:each) do
-        sign_in Factory(:librarian)
+        sign_in FactoryGirl.create(:librarian)
       end
 
       it "assigns the requested patron_import_file as @patron_import_file" do
@@ -211,7 +211,7 @@ describe PatronImportFilesController do
 
     describe "When logged in as User" do
       before(:each) do
-        sign_in Factory(:user)
+        sign_in FactoryGirl.create(:user)
       end
 
       it "assigns the requested patron_import_file as @patron_import_file" do
@@ -233,7 +233,7 @@ describe PatronImportFilesController do
   describe "PUT update" do
     describe "When logged in as Librarian" do
       before(:each) do
-        sign_in Factory(:librarian)
+        sign_in FactoryGirl.create(:librarian)
       end
 
       it "should update patron_import_file" do
@@ -244,7 +244,7 @@ describe PatronImportFilesController do
 
     describe "When logged in as User" do
       before(:each) do
-        sign_in Factory(:user)
+        sign_in FactoryGirl.create(:user)
       end
 
       it "should not update patron_import_file" do
@@ -268,7 +268,7 @@ describe PatronImportFilesController do
 
     describe "When logged in as Administrator" do
       before(:each) do
-        sign_in Factory(:admin)
+        sign_in FactoryGirl.create(:admin)
       end
 
       it "destroys the requested patron_import_file" do
@@ -283,7 +283,7 @@ describe PatronImportFilesController do
 
     describe "When logged in as Librarian" do
       before(:each) do
-        sign_in Factory(:librarian)
+        sign_in FactoryGirl.create(:librarian)
       end
 
       it "destroys the requested patron_import_file" do
@@ -298,7 +298,7 @@ describe PatronImportFilesController do
 
     describe "When logged in as User" do
       before(:each) do
-        sign_in Factory(:user)
+        sign_in FactoryGirl.create(:user)
       end
 
       it "destroys the requested patron_import_file" do

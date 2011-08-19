@@ -4,7 +4,7 @@ describe SeriesStatementsController do
   describe "GET index" do
     describe "When logged in as Administrator" do
       before(:each) do
-        sign_in Factory(:admin)
+        sign_in FactoryGirl.create(:admin)
       end
 
       it "assigns all series_statements as @series_statements" do
@@ -15,7 +15,7 @@ describe SeriesStatementsController do
 
     describe "When logged in as Librarian" do
       before(:each) do
-        sign_in Factory(:librarian)
+        sign_in FactoryGirl.create(:librarian)
       end
 
       it "assigns all series_statements as @series_statements" do
@@ -26,7 +26,7 @@ describe SeriesStatementsController do
 
     describe "When logged in as User" do
       before(:each) do
-        sign_in Factory(:user)
+        sign_in FactoryGirl.create(:user)
       end
 
       it "assigns all series_statements as @series_statements" do
@@ -46,11 +46,11 @@ describe SeriesStatementsController do
   describe "GET show" do
     describe "When logged in as Administrator" do
       before(:each) do
-        sign_in Factory(:admin)
+        sign_in FactoryGirl.create(:admin)
       end
 
       it "assigns the requested series_statement as @series_statement" do
-        series_statement = Factory.create(:series_statement)
+        series_statement = FactoryGirl.create(:series_statement)
         get :show, :id => series_statement.id
         assigns(:series_statement).should eq(series_statement)
       end
@@ -58,11 +58,11 @@ describe SeriesStatementsController do
 
     describe "When logged in as Librarian" do
       before(:each) do
-        sign_in Factory(:librarian)
+        sign_in FactoryGirl.create(:librarian)
       end
 
       it "assigns the requested series_statement as @series_statement" do
-        series_statement = Factory.create(:series_statement)
+        series_statement = FactoryGirl.create(:series_statement)
         get :show, :id => series_statement.id
         assigns(:series_statement).should eq(series_statement)
       end
@@ -70,11 +70,11 @@ describe SeriesStatementsController do
 
     describe "When logged in as User" do
       before(:each) do
-        sign_in Factory(:user)
+        sign_in FactoryGirl.create(:user)
       end
 
       it "assigns the requested series_statement as @series_statement" do
-        series_statement = Factory.create(:series_statement)
+        series_statement = FactoryGirl.create(:series_statement)
         get :show, :id => series_statement.id
         assigns(:series_statement).should eq(series_statement)
       end
@@ -82,7 +82,7 @@ describe SeriesStatementsController do
 
     describe "When not logged in" do
       it "assigns the requested series_statement as @series_statement" do
-        series_statement = Factory.create(:series_statement)
+        series_statement = FactoryGirl.create(:series_statement)
         get :show, :id => series_statement.id
         assigns(:series_statement).should eq(series_statement)
       end
@@ -92,7 +92,7 @@ describe SeriesStatementsController do
   describe "GET new" do
     describe "When logged in as Administrator" do
       before(:each) do
-        sign_in Factory(:admin)
+        sign_in FactoryGirl.create(:admin)
       end
 
       it "assigns the requested series_statement as @series_statement" do
@@ -103,7 +103,7 @@ describe SeriesStatementsController do
 
     describe "When logged in as Librarian" do
       before(:each) do
-        sign_in Factory(:librarian)
+        sign_in FactoryGirl.create(:librarian)
       end
 
       it "assigns the requested series_statement as @series_statement" do
@@ -114,7 +114,7 @@ describe SeriesStatementsController do
 
     describe "When logged in as User" do
       before(:each) do
-        sign_in Factory(:user)
+        sign_in FactoryGirl.create(:user)
       end
 
       it "should not assign the requested series_statement as @series_statement" do
@@ -136,11 +136,11 @@ describe SeriesStatementsController do
   describe "GET edit" do
     describe "When logged in as Administrator" do
       before(:each) do
-        sign_in Factory(:admin)
+        sign_in FactoryGirl.create(:admin)
       end
 
       it "assigns the requested series_statement as @series_statement" do
-        series_statement = Factory.create(:series_statement)
+        series_statement = FactoryGirl.create(:series_statement)
         get :edit, :id => series_statement.id
         assigns(:series_statement).should eq(series_statement)
       end
@@ -148,11 +148,11 @@ describe SeriesStatementsController do
 
     describe "When logged in as Librarian" do
       before(:each) do
-        sign_in Factory(:librarian)
+        sign_in FactoryGirl.create(:librarian)
       end
 
       it "assigns the requested series_statement as @series_statement" do
-        series_statement = Factory.create(:series_statement)
+        series_statement = FactoryGirl.create(:series_statement)
         get :edit, :id => series_statement.id
         assigns(:series_statement).should eq(series_statement)
       end
@@ -160,11 +160,11 @@ describe SeriesStatementsController do
 
     describe "When logged in as User" do
       before(:each) do
-        sign_in Factory(:user)
+        sign_in FactoryGirl.create(:user)
       end
 
       it "assigns the requested series_statement as @series_statement" do
-        series_statement = Factory.create(:series_statement)
+        series_statement = FactoryGirl.create(:series_statement)
         get :edit, :id => series_statement.id
         response.should be_forbidden
       end
@@ -172,7 +172,7 @@ describe SeriesStatementsController do
 
     describe "When not logged in" do
       it "should not assign the requested series_statement as @series_statement" do
-        series_statement = Factory.create(:series_statement)
+        series_statement = FactoryGirl.create(:series_statement)
         get :edit, :id => series_statement.id
         response.should redirect_to(new_user_session_url)
       end
@@ -181,13 +181,13 @@ describe SeriesStatementsController do
 
   describe "POST create" do
     before(:each) do
-      @attrs = Factory.attributes_for(:series_statement)
+      @attrs = FactoryGirl.attributes_for(:series_statement)
       @invalid_attrs = {:original_title => ''}
     end
 
     describe "When logged in as Administrator" do
       before(:each) do
-        sign_in Factory(:admin)
+        sign_in FactoryGirl.create(:admin)
       end
 
       describe "with valid params" do
@@ -217,7 +217,7 @@ describe SeriesStatementsController do
 
     describe "When logged in as Librarian" do
       before(:each) do
-        sign_in Factory(:librarian)
+        sign_in FactoryGirl.create(:librarian)
       end
 
       describe "with valid params" do
@@ -247,7 +247,7 @@ describe SeriesStatementsController do
 
     describe "When logged in as User" do
       before(:each) do
-        sign_in Factory(:user)
+        sign_in FactoryGirl.create(:user)
       end
 
       describe "with valid params" do
@@ -304,14 +304,14 @@ describe SeriesStatementsController do
 
   describe "PUT update" do
     before(:each) do
-      @series_statement = Factory(:series_statement)
-      @attrs = Factory.attributes_for(:series_statement)
+      @series_statement = FactoryGirl.create(:series_statement)
+      @attrs = FactoryGirl.attributes_for(:series_statement)
       @invalid_attrs = {:original_title => ''}
     end
 
     describe "When logged in as Administrator" do
       before(:each) do
-        sign_in Factory(:admin)
+        sign_in FactoryGirl.create(:admin)
       end
 
       describe "with valid params" do
@@ -340,7 +340,7 @@ describe SeriesStatementsController do
 
     describe "When logged in as Librarian" do
       before(:each) do
-        sign_in Factory(:librarian)
+        sign_in FactoryGirl.create(:librarian)
       end
 
       describe "with valid params" do
@@ -370,7 +370,7 @@ describe SeriesStatementsController do
 
     describe "When logged in as User" do
       before(:each) do
-        sign_in Factory(:user)
+        sign_in FactoryGirl.create(:user)
       end
 
       describe "with valid params" do
@@ -416,12 +416,12 @@ describe SeriesStatementsController do
 
   describe "DELETE destroy" do
     before(:each) do
-      @series_statement = Factory(:series_statement)
+      @series_statement = FactoryGirl.create(:series_statement)
     end
 
     describe "When logged in as Administrator" do
       before(:each) do
-        sign_in Factory(:admin)
+        sign_in FactoryGirl.create(:admin)
       end
 
       it "destroys the requested series_statement" do
@@ -436,7 +436,7 @@ describe SeriesStatementsController do
 
     describe "When logged in as Librarian" do
       before(:each) do
-        sign_in Factory(:librarian)
+        sign_in FactoryGirl.create(:librarian)
       end
 
       it "destroys the requested series_statement" do
@@ -451,7 +451,7 @@ describe SeriesStatementsController do
 
     describe "When logged in as User" do
       before(:each) do
-        sign_in Factory(:user)
+        sign_in FactoryGirl.create(:user)
       end
 
       it "destroys the requested series_statement" do

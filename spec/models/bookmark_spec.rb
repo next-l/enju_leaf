@@ -13,7 +13,7 @@ describe Bookmark do
     old_manifestation_count = Manifestation.count
     old_item_count = Item.count
     lambda{
-      bookmark = Factory(:user).bookmarks.create(:url => 'http://www.example.com/', :title => 'test')
+      bookmark = FactoryGirl.create(:user).bookmarks.create(:url => 'http://www.example.com/', :title => 'test')
     }.should change(Bookmark, :count)
     Manifestation.count.should eq old_manifestation_count + 1
     Item.count.should eq old_item_count + 1
@@ -23,7 +23,7 @@ describe Bookmark do
     old_manifestation_count = Manifestation.count
     old_item_count = Item.count
     lambda{
-      bookmark = Factory(:user).bookmarks.create(:url => "#{LibraryGroup.site_config.url}manifestations/1", :title => 'test')
+      bookmark = FactoryGirl.create(:user).bookmarks.create(:url => "#{LibraryGroup.site_config.url}manifestations/1", :title => 'test')
     }.should change(Bookmark, :count)
     assert_equal old_manifestation_count, Manifestation.count
     assert_equal old_item_count, Item.count
@@ -33,7 +33,7 @@ describe Bookmark do
     old_manifestation_count = Manifestation.count
     old_item_count = Item.count
     lambda{
-      bookmark = Factory(:user).bookmarks.create(:url => "#{LibraryGroup.site_config.url}libraries/1", :title => 'test')
+      bookmark = FactoryGirl.create(:user).bookmarks.create(:url => "#{LibraryGroup.site_config.url}libraries/1", :title => 'test')
     }.should_not change(Bookmark, :count)
     assert_equal old_manifestation_count, Manifestation.count
     assert_equal old_item_count, Item.count

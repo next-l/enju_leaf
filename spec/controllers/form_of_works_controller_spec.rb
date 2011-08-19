@@ -7,12 +7,12 @@ describe FormOfWorksController do
 
   describe "GET index" do
     before(:each) do
-      Factory.create(:form_of_work)
+      FactoryGirl.create(:form_of_work)
     end
 
     describe "When logged in as Administrator" do
       before(:each) do
-        sign_in Factory(:admin)
+        sign_in FactoryGirl.create(:admin)
       end
 
       it "assigns all form_of_works as @form_of_works" do
@@ -23,7 +23,7 @@ describe FormOfWorksController do
 
     describe "When logged in as Librarian" do
       before(:each) do
-        sign_in Factory(:librarian)
+        sign_in FactoryGirl.create(:librarian)
       end
 
       it "assigns all form_of_works as @form_of_works" do
@@ -34,7 +34,7 @@ describe FormOfWorksController do
 
     describe "When logged in as User" do
       before(:each) do
-        sign_in Factory(:user)
+        sign_in FactoryGirl.create(:user)
       end
 
       it "assigns all form_of_works as @form_of_works" do
@@ -54,11 +54,11 @@ describe FormOfWorksController do
   describe "GET show" do
     describe "When logged in as Administrator" do
       before(:each) do
-        sign_in Factory(:admin)
+        sign_in FactoryGirl.create(:admin)
       end
 
       it "assigns the requested form_of_work as @form_of_work" do
-        form_of_work = Factory.create(:form_of_work)
+        form_of_work = FactoryGirl.create(:form_of_work)
         get :show, :id => form_of_work.id
         assigns(:form_of_work).should eq(form_of_work)
       end
@@ -66,11 +66,11 @@ describe FormOfWorksController do
 
     describe "When logged in as Librarian" do
       before(:each) do
-        sign_in Factory(:librarian)
+        sign_in FactoryGirl.create(:librarian)
       end
 
       it "assigns the requested form_of_work as @form_of_work" do
-        form_of_work = Factory.create(:form_of_work)
+        form_of_work = FactoryGirl.create(:form_of_work)
         get :show, :id => form_of_work.id
         assigns(:form_of_work).should eq(form_of_work)
       end
@@ -78,11 +78,11 @@ describe FormOfWorksController do
 
     describe "When logged in as User" do
       before(:each) do
-        sign_in Factory(:user)
+        sign_in FactoryGirl.create(:user)
       end
 
       it "assigns the requested form_of_work as @form_of_work" do
-        form_of_work = Factory.create(:form_of_work)
+        form_of_work = FactoryGirl.create(:form_of_work)
         get :show, :id => form_of_work.id
         assigns(:form_of_work).should eq(form_of_work)
       end
@@ -90,7 +90,7 @@ describe FormOfWorksController do
 
     describe "When not logged in" do
       it "assigns the requested form_of_work as @form_of_work" do
-        form_of_work = Factory.create(:form_of_work)
+        form_of_work = FactoryGirl.create(:form_of_work)
         get :show, :id => form_of_work.id
         assigns(:form_of_work).should eq(form_of_work)
       end
@@ -100,7 +100,7 @@ describe FormOfWorksController do
   describe "GET new" do
     describe "When logged in as Administrator" do
       before(:each) do
-        sign_in Factory(:admin)
+        sign_in FactoryGirl.create(:admin)
       end
 
       it "assigns the requested form_of_work as @form_of_work" do
@@ -112,7 +112,7 @@ describe FormOfWorksController do
 
     describe "When logged in as Librarian" do
       before(:each) do
-        sign_in Factory(:librarian)
+        sign_in FactoryGirl.create(:librarian)
       end
 
       it "should not assign the requested form_of_work as @form_of_work" do
@@ -124,7 +124,7 @@ describe FormOfWorksController do
 
     describe "When logged in as User" do
       before(:each) do
-        sign_in Factory(:user)
+        sign_in FactoryGirl.create(:user)
       end
 
       it "should not assign the requested form_of_work as @form_of_work" do
@@ -146,11 +146,11 @@ describe FormOfWorksController do
   describe "GET edit" do
     describe "When logged in as Administrator" do
       before(:each) do
-        sign_in Factory(:admin)
+        sign_in FactoryGirl.create(:admin)
       end
 
       it "assigns the requested form_of_work as @form_of_work" do
-        form_of_work = Factory.create(:form_of_work)
+        form_of_work = FactoryGirl.create(:form_of_work)
         get :edit, :id => form_of_work.id
         assigns(:form_of_work).should eq(form_of_work)
       end
@@ -158,11 +158,11 @@ describe FormOfWorksController do
 
     describe "When logged in as Librarian" do
       before(:each) do
-        sign_in Factory(:librarian)
+        sign_in FactoryGirl.create(:librarian)
       end
 
       it "assigns the requested form_of_work as @form_of_work" do
-        form_of_work = Factory.create(:form_of_work)
+        form_of_work = FactoryGirl.create(:form_of_work)
         get :edit, :id => form_of_work.id
         response.should be_forbidden
       end
@@ -170,11 +170,11 @@ describe FormOfWorksController do
 
     describe "When logged in as User" do
       before(:each) do
-        sign_in Factory(:user)
+        sign_in FactoryGirl.create(:user)
       end
 
       it "assigns the requested form_of_work as @form_of_work" do
-        form_of_work = Factory.create(:form_of_work)
+        form_of_work = FactoryGirl.create(:form_of_work)
         get :edit, :id => form_of_work.id
         response.should be_forbidden
       end
@@ -182,7 +182,7 @@ describe FormOfWorksController do
 
     describe "When not logged in" do
       it "should not assign the requested form_of_work as @form_of_work" do
-        form_of_work = Factory.create(:form_of_work)
+        form_of_work = FactoryGirl.create(:form_of_work)
         get :edit, :id => form_of_work.id
         response.should redirect_to(new_user_session_url)
       end
@@ -191,13 +191,13 @@ describe FormOfWorksController do
 
   describe "POST create" do
     before(:each) do
-      @attrs = Factory.attributes_for(:form_of_work)
+      @attrs = FactoryGirl.attributes_for(:form_of_work)
       @invalid_attrs = {:name => ''}
     end
 
     describe "When logged in as Administrator" do
       before(:each) do
-        sign_in Factory(:admin)
+        sign_in FactoryGirl.create(:admin)
       end
 
       describe "with valid params" do
@@ -227,7 +227,7 @@ describe FormOfWorksController do
 
     describe "When logged in as Librarian" do
       before(:each) do
-        sign_in Factory(:librarian)
+        sign_in FactoryGirl.create(:librarian)
       end
 
       describe "with valid params" do
@@ -257,7 +257,7 @@ describe FormOfWorksController do
 
     describe "When logged in as User" do
       before(:each) do
-        sign_in Factory(:user)
+        sign_in FactoryGirl.create(:user)
       end
 
       describe "with valid params" do
@@ -314,14 +314,14 @@ describe FormOfWorksController do
 
   describe "PUT update" do
     before(:each) do
-      @form_of_work = Factory(:form_of_work)
-      @attrs = Factory.attributes_for(:form_of_work)
+      @form_of_work = FactoryGirl.create(:form_of_work)
+      @attrs = FactoryGirl.attributes_for(:form_of_work)
       @invalid_attrs = {:name => ''}
     end
 
     describe "When logged in as Administrator" do
       before(:each) do
-        sign_in Factory(:admin)
+        sign_in FactoryGirl.create(:admin)
       end
 
       describe "with valid params" do
@@ -350,7 +350,7 @@ describe FormOfWorksController do
 
     describe "When logged in as Librarian" do
       before(:each) do
-        sign_in Factory(:librarian)
+        sign_in FactoryGirl.create(:librarian)
       end
 
       describe "with valid params" do
@@ -375,7 +375,7 @@ describe FormOfWorksController do
 
     describe "When logged in as User" do
       before(:each) do
-        sign_in Factory(:user)
+        sign_in FactoryGirl.create(:user)
       end
 
       describe "with valid params" do
@@ -421,12 +421,12 @@ describe FormOfWorksController do
 
   describe "DELETE destroy" do
     before(:each) do
-      @form_of_work = Factory(:form_of_work)
+      @form_of_work = FactoryGirl.create(:form_of_work)
     end
 
     describe "When logged in as Administrator" do
       before(:each) do
-        sign_in Factory(:admin)
+        sign_in FactoryGirl.create(:admin)
       end
 
       it "destroys the requested form_of_work" do
@@ -441,7 +441,7 @@ describe FormOfWorksController do
 
     describe "When logged in as Librarian" do
       before(:each) do
-        sign_in Factory(:librarian)
+        sign_in FactoryGirl.create(:librarian)
       end
 
       it "destroys the requested form_of_work" do
@@ -456,7 +456,7 @@ describe FormOfWorksController do
 
     describe "When logged in as User" do
       before(:each) do
-        sign_in Factory(:user)
+        sign_in FactoryGirl.create(:user)
       end
 
       it "destroys the requested form_of_work" do

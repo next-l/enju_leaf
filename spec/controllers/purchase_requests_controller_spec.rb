@@ -6,7 +6,7 @@ describe PurchaseRequestsController do
   describe "GET index" do
     describe "When logged in as Administrator" do
       before(:each) do
-        sign_in Factory(:admin)
+        sign_in FactoryGirl.create(:admin)
       end
 
       it "assigns all purchase_requests as @purchase_requests" do
@@ -17,7 +17,7 @@ describe PurchaseRequestsController do
 
     describe "When logged in as Librarian" do
       before(:each) do
-        sign_in Factory(:librarian)
+        sign_in FactoryGirl.create(:librarian)
       end
 
       it "assigns all purchase_requests as @purchase_requests" do
@@ -28,7 +28,7 @@ describe PurchaseRequestsController do
 
     describe "When logged in as User" do
       before(:each) do
-        sign_in Factory(:user)
+        sign_in FactoryGirl.create(:user)
       end
 
       it "assigns all purchase_requests as @purchase_requests" do
@@ -49,11 +49,11 @@ describe PurchaseRequestsController do
   describe "GET show" do
     describe "When logged in as Administrator" do
       before(:each) do
-        sign_in Factory(:admin)
+        sign_in FactoryGirl.create(:admin)
       end
 
       it "assigns the requested purchase_request as @purchase_request" do
-        purchase_request = Factory.create(:purchase_request)
+        purchase_request = FactoryGirl.create(:purchase_request)
         get :show, :id => purchase_request.id
         assigns(:purchase_request).should eq(purchase_request)
       end
@@ -61,11 +61,11 @@ describe PurchaseRequestsController do
 
     describe "When logged in as Librarian" do
       before(:each) do
-        sign_in Factory(:librarian)
+        sign_in FactoryGirl.create(:librarian)
       end
 
       it "assigns the requested purchase_request as @purchase_request" do
-        purchase_request = Factory.create(:purchase_request)
+        purchase_request = FactoryGirl.create(:purchase_request)
         get :show, :id => purchase_request.id
         assigns(:purchase_request).should eq(purchase_request)
       end
@@ -73,11 +73,11 @@ describe PurchaseRequestsController do
 
     describe "When logged in as User" do
       before(:each) do
-        sign_in Factory(:user)
+        sign_in FactoryGirl.create(:user)
       end
 
       it "assigns the requested purchase_request as @purchase_request" do
-        purchase_request = Factory.create(:purchase_request)
+        purchase_request = FactoryGirl.create(:purchase_request)
         get :show, :id => purchase_request.id
         assigns(:purchase_request).should eq(purchase_request)
       end
@@ -85,7 +85,7 @@ describe PurchaseRequestsController do
 
     describe "When not logged in" do
       it "assigns the requested purchase_request as @purchase_request" do
-        purchase_request = Factory.create(:purchase_request)
+        purchase_request = FactoryGirl.create(:purchase_request)
         get :show, :id => purchase_request.id
         assigns(:purchase_request).should eq(purchase_request)
       end
@@ -95,7 +95,7 @@ describe PurchaseRequestsController do
   describe "GET new" do
     describe "When logged in as Administrator" do
       before(:each) do
-        sign_in Factory(:admin)
+        sign_in FactoryGirl.create(:admin)
       end
 
       it "assigns the requested purchase_request as @purchase_request" do
@@ -106,7 +106,7 @@ describe PurchaseRequestsController do
 
     describe "When logged in as Librarian" do
       before(:each) do
-        sign_in Factory(:librarian)
+        sign_in FactoryGirl.create(:librarian)
       end
 
       it "should not assign the requested purchase_request as @purchase_request" do
@@ -117,7 +117,7 @@ describe PurchaseRequestsController do
 
     describe "When logged in as User" do
       before(:each) do
-        sign_in Factory(:user)
+        sign_in FactoryGirl.create(:user)
       end
 
       it "should not assign the requested purchase_request as @purchase_request" do
@@ -139,13 +139,13 @@ describe PurchaseRequestsController do
   describe "PUT update" do
     before(:each) do
       @purchase_request = purchase_requests(:purchase_request_00001)
-      @attrs = Factory.attributes_for(:purchase_request)
+      @attrs = FactoryGirl.attributes_for(:purchase_request)
       @invalid_attrs = {:title => ''}
     end
 
     describe "When logged in as Administrator" do
       before(:each) do
-        @user = Factory(:admin)
+        @user = FactoryGirl.create(:admin)
         sign_in @user
       end
 
@@ -175,7 +175,7 @@ describe PurchaseRequestsController do
 
     describe "When logged in as Librarian" do
       before(:each) do
-        @user = Factory(:librarian)
+        @user = FactoryGirl.create(:librarian)
         sign_in @user
       end
 
@@ -206,7 +206,7 @@ describe PurchaseRequestsController do
 
     describe "When logged in as User" do
       before(:each) do
-        @user = Factory(:user)
+        @user = FactoryGirl.create(:user)
         sign_in @user
       end
 
@@ -258,7 +258,7 @@ describe PurchaseRequestsController do
 
     describe "When logged in as Administrator" do
       before(:each) do
-        sign_in Factory(:admin)
+        sign_in FactoryGirl.create(:admin)
       end
 
       it "destroys the requested purchase_request" do
@@ -273,7 +273,7 @@ describe PurchaseRequestsController do
 
     describe "When logged in as Librarian" do
       before(:each) do
-        sign_in Factory(:librarian)
+        sign_in FactoryGirl.create(:librarian)
       end
 
       it "destroys the requested purchase_request" do
@@ -288,7 +288,7 @@ describe PurchaseRequestsController do
 
     describe "When logged in as User" do
       before(:each) do
-        sign_in Factory(:user)
+        sign_in FactoryGirl.create(:user)
       end
 
       it "destroys the requested purchase_request" do

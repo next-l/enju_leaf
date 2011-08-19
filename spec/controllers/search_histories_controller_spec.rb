@@ -6,7 +6,7 @@ describe SearchHistoriesController do
   describe "GET index" do
     describe "When logged in as Administrator" do
       before(:each) do
-        sign_in Factory(:admin)
+        sign_in FactoryGirl.create(:admin)
       end
 
       it "assigns all search_histories as @search_histories" do

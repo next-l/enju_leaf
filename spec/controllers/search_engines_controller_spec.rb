@@ -7,12 +7,12 @@ describe SearchEnginesController do
 
   describe "GET index" do
     before(:each) do
-      Factory.create(:search_engine)
+      FactoryGirl.create(:search_engine)
     end
 
     describe "When logged in as Administrator" do
       before(:each) do
-        sign_in Factory(:admin)
+        sign_in FactoryGirl.create(:admin)
       end
 
       it "assigns all search_engines as @search_engines" do
@@ -23,7 +23,7 @@ describe SearchEnginesController do
 
     describe "When logged in as Librarian" do
       before(:each) do
-        sign_in Factory(:librarian)
+        sign_in FactoryGirl.create(:librarian)
       end
 
       it "assigns all search_engines as @search_engines" do
@@ -34,7 +34,7 @@ describe SearchEnginesController do
 
     describe "When logged in as User" do
       before(:each) do
-        sign_in Factory(:user)
+        sign_in FactoryGirl.create(:user)
       end
 
       it "assigns all search_engines as @search_engines" do
@@ -56,11 +56,11 @@ describe SearchEnginesController do
   describe "GET show" do
     describe "When logged in as Administrator" do
       before(:each) do
-        sign_in Factory(:admin)
+        sign_in FactoryGirl.create(:admin)
       end
 
       it "assigns the requested search_engine as @search_engine" do
-        search_engine = Factory.create(:search_engine)
+        search_engine = FactoryGirl.create(:search_engine)
         get :show, :id => search_engine.id
         assigns(:search_engine).should eq(search_engine)
       end
@@ -68,11 +68,11 @@ describe SearchEnginesController do
 
     describe "When logged in as Librarian" do
       before(:each) do
-        sign_in Factory(:librarian)
+        sign_in FactoryGirl.create(:librarian)
       end
 
       it "assigns the requested search_engine as @search_engine" do
-        search_engine = Factory.create(:search_engine)
+        search_engine = FactoryGirl.create(:search_engine)
         get :show, :id => search_engine.id
         assigns(:search_engine).should eq(search_engine)
       end
@@ -80,11 +80,11 @@ describe SearchEnginesController do
 
     describe "When logged in as User" do
       before(:each) do
-        sign_in Factory(:user)
+        sign_in FactoryGirl.create(:user)
       end
 
       it "assigns the requested search_engine as @search_engine" do
-        search_engine = Factory.create(:search_engine)
+        search_engine = FactoryGirl.create(:search_engine)
         get :show, :id => search_engine.id
         assigns(:search_engine).should eq(search_engine)
       end
@@ -92,7 +92,7 @@ describe SearchEnginesController do
 
     describe "When not logged in" do
       it "assigns the requested search_engine as @search_engine" do
-        search_engine = Factory.create(:search_engine)
+        search_engine = FactoryGirl.create(:search_engine)
         get :show, :id => search_engine.id
         assigns(:search_engine).should eq(search_engine)
       end
@@ -102,7 +102,7 @@ describe SearchEnginesController do
   describe "GET new" do
     describe "When logged in as Administrator" do
       before(:each) do
-        sign_in Factory(:admin)
+        sign_in FactoryGirl.create(:admin)
       end
 
       it "assigns the requested search_engine as @search_engine" do
@@ -114,7 +114,7 @@ describe SearchEnginesController do
 
     describe "When logged in as Librarian" do
       before(:each) do
-        sign_in Factory(:librarian)
+        sign_in FactoryGirl.create(:librarian)
       end
 
       it "should not assign the requested search_engine as @search_engine" do
@@ -126,7 +126,7 @@ describe SearchEnginesController do
 
     describe "When logged in as User" do
       before(:each) do
-        sign_in Factory(:user)
+        sign_in FactoryGirl.create(:user)
       end
 
       it "should not assign the requested search_engine as @search_engine" do
@@ -148,11 +148,11 @@ describe SearchEnginesController do
   describe "GET edit" do
     describe "When logged in as Administrator" do
       before(:each) do
-        sign_in Factory(:admin)
+        sign_in FactoryGirl.create(:admin)
       end
 
       it "assigns the requested search_engine as @search_engine" do
-        search_engine = Factory.create(:search_engine)
+        search_engine = FactoryGirl.create(:search_engine)
         get :edit, :id => search_engine.id
         assigns(:search_engine).should eq(search_engine)
       end
@@ -160,11 +160,11 @@ describe SearchEnginesController do
 
     describe "When logged in as Librarian" do
       before(:each) do
-        sign_in Factory(:librarian)
+        sign_in FactoryGirl.create(:librarian)
       end
 
       it "assigns the requested search_engine as @search_engine" do
-        search_engine = Factory.create(:search_engine)
+        search_engine = FactoryGirl.create(:search_engine)
         get :edit, :id => search_engine.id
         response.should be_forbidden
       end
@@ -172,11 +172,11 @@ describe SearchEnginesController do
 
     describe "When logged in as User" do
       before(:each) do
-        sign_in Factory(:user)
+        sign_in FactoryGirl.create(:user)
       end
 
       it "assigns the requested search_engine as @search_engine" do
-        search_engine = Factory.create(:search_engine)
+        search_engine = FactoryGirl.create(:search_engine)
         get :edit, :id => search_engine.id
         response.should be_forbidden
       end
@@ -184,7 +184,7 @@ describe SearchEnginesController do
 
     describe "When not logged in" do
       it "should not assign the requested search_engine as @search_engine" do
-        search_engine = Factory.create(:search_engine)
+        search_engine = FactoryGirl.create(:search_engine)
         get :edit, :id => search_engine.id
         response.should redirect_to(new_user_session_url)
       end
@@ -193,13 +193,13 @@ describe SearchEnginesController do
 
   describe "POST create" do
     before(:each) do
-      @attrs = Factory.attributes_for(:search_engine)
+      @attrs = FactoryGirl.attributes_for(:search_engine)
       @invalid_attrs = {:name => ''}
     end
 
     describe "When logged in as Administrator" do
       before(:each) do
-        sign_in Factory(:admin)
+        sign_in FactoryGirl.create(:admin)
       end
 
       describe "with valid params" do
@@ -229,7 +229,7 @@ describe SearchEnginesController do
 
     describe "When logged in as Librarian" do
       before(:each) do
-        sign_in Factory(:librarian)
+        sign_in FactoryGirl.create(:librarian)
       end
 
       describe "with valid params" do
@@ -259,7 +259,7 @@ describe SearchEnginesController do
 
     describe "When logged in as User" do
       before(:each) do
-        sign_in Factory(:user)
+        sign_in FactoryGirl.create(:user)
       end
 
       describe "with valid params" do
@@ -316,14 +316,14 @@ describe SearchEnginesController do
 
   describe "PUT update" do
     before(:each) do
-      @search_engine = Factory(:search_engine)
-      @attrs = Factory.attributes_for(:search_engine)
+      @search_engine = FactoryGirl.create(:search_engine)
+      @attrs = FactoryGirl.attributes_for(:search_engine)
       @invalid_attrs = {:name => ''}
     end
 
     describe "When logged in as Administrator" do
       before(:each) do
-        sign_in Factory(:admin)
+        sign_in FactoryGirl.create(:admin)
       end
 
       describe "with valid params" do
@@ -352,7 +352,7 @@ describe SearchEnginesController do
 
     describe "When logged in as Librarian" do
       before(:each) do
-        sign_in Factory(:librarian)
+        sign_in FactoryGirl.create(:librarian)
       end
 
       describe "with valid params" do
@@ -377,7 +377,7 @@ describe SearchEnginesController do
 
     describe "When logged in as User" do
       before(:each) do
-        sign_in Factory(:user)
+        sign_in FactoryGirl.create(:user)
       end
 
       describe "with valid params" do
@@ -423,12 +423,12 @@ describe SearchEnginesController do
 
   describe "DELETE destroy" do
     before(:each) do
-      @search_engine = Factory(:search_engine)
+      @search_engine = FactoryGirl.create(:search_engine)
     end
 
     describe "When logged in as Administrator" do
       before(:each) do
-        sign_in Factory(:admin)
+        sign_in FactoryGirl.create(:admin)
       end
 
       it "destroys the requested search_engine" do
@@ -443,7 +443,7 @@ describe SearchEnginesController do
 
     describe "When logged in as Librarian" do
       before(:each) do
-        sign_in Factory(:librarian)
+        sign_in FactoryGirl.create(:librarian)
       end
 
       it "destroys the requested search_engine" do
@@ -458,7 +458,7 @@ describe SearchEnginesController do
 
     describe "When logged in as User" do
       before(:each) do
-        sign_in Factory(:user)
+        sign_in FactoryGirl.create(:user)
       end
 
       it "destroys the requested search_engine" do

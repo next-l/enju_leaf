@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe "manifestations/show.html.erb" do
   before(:each) do
-    @manifestation = assign(:manifestation, Factory(:manifestation))
+    @manifestation = assign(:manifestation, FactoryGirl.create(:manifestation))
     @ability = Object.new
     @ability.extend(CanCan::Ability)
     controller.stub(:current_ability) { @ability }

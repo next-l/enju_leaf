@@ -6,7 +6,7 @@ describe UsersController do
   describe "GET index" do
     describe "When logged in as Administrator" do
       before(:each) do
-        sign_in Factory(:admin)
+        sign_in FactoryGirl.create(:admin)
       end
 
       it "assigns all users as @users" do
@@ -17,7 +17,7 @@ describe UsersController do
 
     describe "When logged in as Librarian" do
       before(:each) do
-        sign_in Factory(:librarian)
+        sign_in FactoryGirl.create(:librarian)
       end
 
       it "assigns all users as @users" do
@@ -28,7 +28,7 @@ describe UsersController do
 
     describe "When logged in as User" do
       before(:each) do
-        sign_in Factory(:user)
+        sign_in FactoryGirl.create(:user)
       end
 
       it "assigns all users as @users" do
@@ -50,7 +50,7 @@ describe UsersController do
   describe "GET show" do
     describe "When logged in as Administrator" do
       before(:each) do
-        sign_in Factory(:admin)
+        sign_in FactoryGirl.create(:admin)
       end
 
       it "assigns the requested user as @user" do
@@ -71,7 +71,7 @@ describe UsersController do
   describe "GET new" do
     describe "When logged in as Administrator" do
       before(:each) do
-        sign_in Factory(:admin)
+        sign_in FactoryGirl.create(:admin)
       end
 
       it "assigns the requested user as @user" do
@@ -82,7 +82,7 @@ describe UsersController do
 
     describe "When logged in as Librarian" do
       before(:each) do
-        sign_in Factory(:librarian)
+        sign_in FactoryGirl.create(:librarian)
       end
 
       it "should not assign the requested user as @user" do
@@ -93,7 +93,7 @@ describe UsersController do
 
     describe "When logged in as User" do
       before(:each) do
-        sign_in Factory(:user)
+        sign_in FactoryGirl.create(:user)
       end
 
       it "should not assign the requested user as @user" do
@@ -115,11 +115,11 @@ describe UsersController do
   describe "GET edit" do
     describe "When logged in as Administrator" do
       before(:each) do
-        sign_in Factory(:admin)
+        sign_in FactoryGirl.create(:admin)
       end
 
       it "assigns the requested user as @user" do
-        user = Factory.create(:user)
+        user = FactoryGirl.create(:user)
         get :edit, :id => user.id
         assigns(:user).should eq(user)
       end
@@ -127,11 +127,11 @@ describe UsersController do
 
     describe "When logged in as Librarian" do
       before(:each) do
-        sign_in Factory(:librarian)
+        sign_in FactoryGirl.create(:librarian)
       end
 
       it "should assign the requested user as @user" do
-        user = Factory.create(:user)
+        user = FactoryGirl.create(:user)
         get :edit, :id => user.id
         assigns(:user).should eq(user)
       end
@@ -139,11 +139,11 @@ describe UsersController do
 
     describe "When logged in as User" do
       before(:each) do
-        sign_in Factory(:user)
+        sign_in FactoryGirl.create(:user)
       end
 
       it "should not assign the requested user as @user" do
-        user = Factory.create(:user)
+        user = FactoryGirl.create(:user)
         get :edit, :id => user.id
         assigns(:user).should eq(user)
         response.should be_forbidden
@@ -152,7 +152,7 @@ describe UsersController do
 
     describe "When not logged in" do
       it "should not assign the requested user as @user" do
-        user = Factory.create(:user)
+        user = FactoryGirl.create(:user)
         get :edit, :id => user.id
         assigns(:user).should eq(user)
         response.should redirect_to(new_user_session_url)
@@ -162,13 +162,13 @@ describe UsersController do
 
   describe "POST create" do
     before(:each) do
-      @attrs = Factory.attributes_for(:user)
+      @attrs = FactoryGirl.attributes_for(:user)
       @invalid_attrs = {:username => ''}
     end
 
     describe "When logged in as Administrator" do
       before(:each) do
-        sign_in Factory(:admin)
+        sign_in FactoryGirl.create(:admin)
       end
 
       describe "with valid params" do
@@ -198,7 +198,7 @@ describe UsersController do
 
     describe "When logged in as Librarian" do
       before(:each) do
-        sign_in Factory(:librarian)
+        sign_in FactoryGirl.create(:librarian)
       end
 
       describe "with valid params" do
@@ -229,14 +229,14 @@ describe UsersController do
 
   describe "PUT update" do
     before(:each) do
-      @user = Factory(:user)
+      @user = FactoryGirl.create(:user)
       @attrs = {:email => 'newaddress@example.jp', :locale => 'en'}
       @invalid_attrs = {:username => ''}
     end
 
     describe "When logged in as Administrator" do
       before(:each) do
-        sign_in Factory(:admin)
+        sign_in FactoryGirl.create(:admin)
       end
 
       describe "with valid params" do
@@ -271,7 +271,7 @@ describe UsersController do
 
     describe "When logged in as Librarian" do
       before(:each) do
-        sign_in Factory(:librarian)
+        sign_in FactoryGirl.create(:librarian)
       end
 
       describe "with valid params" do
@@ -306,7 +306,7 @@ describe UsersController do
 
     describe "When logged in as User" do
       before(:each) do
-        sign_in Factory(:user)
+        sign_in FactoryGirl.create(:user)
       end
 
       describe "with valid params" do
@@ -352,12 +352,12 @@ describe UsersController do
 
   describe "DELETE destroy" do
     before(:each) do
-      @user = Factory(:user)
+      @user = FactoryGirl.create(:user)
     end
 
     describe "When logged in as Administrator" do
       before(:each) do
-        sign_in Factory(:admin)
+        sign_in FactoryGirl.create(:admin)
       end
 
       it "destroys the requested user" do
@@ -372,7 +372,7 @@ describe UsersController do
 
     describe "When logged in as Librarian" do
       before(:each) do
-        sign_in Factory(:librarian)
+        sign_in FactoryGirl.create(:librarian)
       end
 
       it "destroys the requested user" do
@@ -387,7 +387,7 @@ describe UsersController do
 
     describe "When logged in as User" do
       before(:each) do
-        sign_in Factory(:user)
+        sign_in FactoryGirl.create(:user)
       end
 
       it "destroys the requested user" do

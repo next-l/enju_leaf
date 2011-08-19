@@ -6,7 +6,7 @@ describe LibrariesController do
   describe "GET index" do
     describe "When logged in as Administrator" do
       before(:each) do
-        sign_in Factory(:admin)
+        sign_in FactoryGirl.create(:admin)
       end
 
       it "assigns all libraries as @libraries" do
@@ -17,7 +17,7 @@ describe LibrariesController do
 
     describe "When logged in as Librarian" do
       before(:each) do
-        sign_in Factory(:librarian)
+        sign_in FactoryGirl.create(:librarian)
       end
 
       it "assigns all libraries as @libraries" do
@@ -28,7 +28,7 @@ describe LibrariesController do
 
     describe "When logged in as User" do
       before(:each) do
-        sign_in Factory(:user)
+        sign_in FactoryGirl.create(:user)
       end
 
       it "assigns all libraries as @libraries" do
@@ -54,7 +54,7 @@ describe LibrariesController do
   describe "GET show" do
     describe "When logged in as Administrator" do
       before(:each) do
-        sign_in Factory(:admin)
+        sign_in FactoryGirl.create(:admin)
       end
 
       it "assigns the requested library as @library" do
@@ -71,7 +71,7 @@ describe LibrariesController do
 
     describe "When logged in as Librarian" do
       before(:each) do
-        sign_in Factory(:librarian)
+        sign_in FactoryGirl.create(:librarian)
       end
 
       it "assigns the requested library as @library" do
@@ -82,7 +82,7 @@ describe LibrariesController do
 
     describe "When logged in as User" do
       before(:each) do
-        sign_in Factory(:user)
+        sign_in FactoryGirl.create(:user)
       end
 
       it "assigns the requested library as @library" do
@@ -102,7 +102,7 @@ describe LibrariesController do
   describe "GET new" do
     describe "When logged in as Administrator" do
       before(:each) do
-        sign_in Factory(:admin)
+        sign_in FactoryGirl.create(:admin)
       end
 
       it "assigns the requested library as @library" do
@@ -113,7 +113,7 @@ describe LibrariesController do
 
     describe "When logged in as Librarian" do
       before(:each) do
-        sign_in Factory(:librarian)
+        sign_in FactoryGirl.create(:librarian)
       end
 
       it "assigns the requested library as @library" do
@@ -124,7 +124,7 @@ describe LibrariesController do
 
     describe "When logged in as User" do
       before(:each) do
-        sign_in Factory(:user)
+        sign_in FactoryGirl.create(:user)
       end
 
       it "should not assign the requested library as @library" do
@@ -146,11 +146,11 @@ describe LibrariesController do
   describe "GET edit" do
     describe "When logged in as Administrator" do
       before(:each) do
-        sign_in Factory(:admin)
+        sign_in FactoryGirl.create(:admin)
       end
 
       it "assigns the requested library as @library" do
-        library = Factory.create(:library)
+        library = FactoryGirl.create(:library)
         get :edit, :id => library.id
         assigns(:library).should eq(library)
       end
@@ -158,11 +158,11 @@ describe LibrariesController do
 
     describe "When logged in as Librarian" do
       before(:each) do
-        sign_in Factory(:librarian)
+        sign_in FactoryGirl.create(:librarian)
       end
 
       it "assigns the requested library as @library" do
-        library = Factory.create(:library)
+        library = FactoryGirl.create(:library)
         get :edit, :id => library.id
         response.should be_forbidden
       end
@@ -170,11 +170,11 @@ describe LibrariesController do
 
     describe "When logged in as User" do
       before(:each) do
-        sign_in Factory(:user)
+        sign_in FactoryGirl.create(:user)
       end
 
       it "assigns the requested library as @library" do
-        library = Factory.create(:library)
+        library = FactoryGirl.create(:library)
         get :edit, :id => library.id
         response.should be_forbidden
       end
@@ -182,7 +182,7 @@ describe LibrariesController do
 
     describe "When not logged in" do
       it "should not assign the requested library as @library" do
-        library = Factory.create(:library)
+        library = FactoryGirl.create(:library)
         get :edit, :id => library.id
         response.should redirect_to(new_user_session_url)
       end
@@ -191,13 +191,13 @@ describe LibrariesController do
 
   describe "POST create" do
     before(:each) do
-      @attrs = Factory.attributes_for(:library)
+      @attrs = FactoryGirl.attributes_for(:library)
       @invalid_attrs = {:name => ''}
     end
 
     describe "When logged in as Administrator" do
       before(:each) do
-        sign_in Factory(:admin)
+        sign_in FactoryGirl.create(:admin)
       end
 
       describe "with valid params" do
@@ -227,7 +227,7 @@ describe LibrariesController do
 
     describe "When logged in as Librarian" do
       before(:each) do
-        sign_in Factory(:librarian)
+        sign_in FactoryGirl.create(:librarian)
       end
 
       describe "with valid params" do
@@ -257,7 +257,7 @@ describe LibrariesController do
 
     describe "When logged in as User" do
       before(:each) do
-        sign_in Factory(:user)
+        sign_in FactoryGirl.create(:user)
       end
 
       describe "with valid params" do
@@ -321,7 +321,7 @@ describe LibrariesController do
 
     describe "When logged in as Administrator" do
       before(:each) do
-        sign_in Factory(:admin)
+        sign_in FactoryGirl.create(:admin)
       end
 
       describe "with valid params" do
@@ -350,7 +350,7 @@ describe LibrariesController do
 
     describe "When logged in as Librarian" do
       before(:each) do
-        sign_in Factory(:librarian)
+        sign_in FactoryGirl.create(:librarian)
       end
 
       describe "with valid params" do
@@ -374,7 +374,7 @@ describe LibrariesController do
 
     describe "When logged in as User" do
       before(:each) do
-        sign_in Factory(:user)
+        sign_in FactoryGirl.create(:user)
       end
 
       describe "with valid params" do
@@ -425,7 +425,7 @@ describe LibrariesController do
 
       describe "When logged in as Administrator" do
         before(:each) do
-          sign_in Factory(:admin)
+          sign_in FactoryGirl.create(:admin)
         end
 
         it "destroys the requested library" do
@@ -440,7 +440,7 @@ describe LibrariesController do
 
       describe "When logged in as Librarian" do
         before(:each) do
-          sign_in Factory(:librarian)
+          sign_in FactoryGirl.create(:librarian)
         end
 
         it "destroys the requested library" do
@@ -455,7 +455,7 @@ describe LibrariesController do
 
       describe "When logged in as User" do
         before(:each) do
-          sign_in Factory(:user)
+          sign_in FactoryGirl.create(:user)
         end
 
         it "destroys the requested library" do
@@ -482,13 +482,13 @@ describe LibrariesController do
 
     describe "Library" do
       before(:each) do
-        @library = Factory(:library)
+        @library = FactoryGirl.create(:library)
         @library.shelves.first.destroy
       end
 
       describe "When logged in as Administrator" do
         before(:each) do
-          sign_in Factory(:admin)
+          sign_in FactoryGirl.create(:admin)
         end
 
         it "destroys the requested library" do
@@ -503,7 +503,7 @@ describe LibrariesController do
 
       describe "When logged in as Librarian" do
         before(:each) do
-          sign_in Factory(:librarian)
+          sign_in FactoryGirl.create(:librarian)
         end
 
         it "destroys the requested library" do
@@ -518,7 +518,7 @@ describe LibrariesController do
 
       describe "When logged in as User" do
         before(:each) do
-          sign_in Factory(:user)
+          sign_in FactoryGirl.create(:user)
         end
 
         it "destroys the requested library" do

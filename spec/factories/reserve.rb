@@ -1,4 +1,6 @@
-Factory.define :reserve do |f|
-  f.manifestation{Factory(:manifestation)}
-  f.user{Factory(:user)}
+FactoryGirl.define do
+  factory :reserve do |f|
+    f.manifestation{FactoryGirl.create(:manifestation)}
+    f.user{FactoryGirl.create(:user)}
+  end
 end

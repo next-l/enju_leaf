@@ -7,12 +7,12 @@ describe CirculationStatusesController do
 
   describe "GET index" do
     before(:each) do
-      Factory.create(:circulation_status)
+      FactoryGirl.create(:circulation_status)
     end
 
     describe "When logged in as Administrator" do
       before(:each) do
-        sign_in Factory(:admin)
+        sign_in FactoryGirl.create(:admin)
       end
 
       it "assigns all circulation_statuses as @circulation_statuses" do
@@ -23,7 +23,7 @@ describe CirculationStatusesController do
 
     describe "When logged in as Librarian" do
       before(:each) do
-        sign_in Factory(:librarian)
+        sign_in FactoryGirl.create(:librarian)
       end
 
       it "assigns all circulation_statuses as @circulation_statuses" do
@@ -34,7 +34,7 @@ describe CirculationStatusesController do
 
     describe "When logged in as User" do
       before(:each) do
-        sign_in Factory(:user)
+        sign_in FactoryGirl.create(:user)
       end
 
       it "assigns all circulation_statuses as @circulation_statuses" do
@@ -54,11 +54,11 @@ describe CirculationStatusesController do
   describe "GET show" do
     describe "When logged in as Administrator" do
       before(:each) do
-        sign_in Factory(:admin)
+        sign_in FactoryGirl.create(:admin)
       end
 
       it "assigns the requested circulation_status as @circulation_status" do
-        circulation_status = Factory.create(:circulation_status)
+        circulation_status = FactoryGirl.create(:circulation_status)
         get :show, :id => circulation_status.id
         assigns(:circulation_status).should eq(circulation_status)
       end
@@ -66,11 +66,11 @@ describe CirculationStatusesController do
 
     describe "When logged in as Librarian" do
       before(:each) do
-        sign_in Factory(:librarian)
+        sign_in FactoryGirl.create(:librarian)
       end
 
       it "assigns the requested circulation_status as @circulation_status" do
-        circulation_status = Factory.create(:circulation_status)
+        circulation_status = FactoryGirl.create(:circulation_status)
         get :show, :id => circulation_status.id
         assigns(:circulation_status).should eq(circulation_status)
       end
@@ -78,11 +78,11 @@ describe CirculationStatusesController do
 
     describe "When logged in as User" do
       before(:each) do
-        sign_in Factory(:user)
+        sign_in FactoryGirl.create(:user)
       end
 
       it "assigns the requested circulation_status as @circulation_status" do
-        circulation_status = Factory.create(:circulation_status)
+        circulation_status = FactoryGirl.create(:circulation_status)
         get :show, :id => circulation_status.id
         assigns(:circulation_status).should eq(circulation_status)
       end
@@ -90,7 +90,7 @@ describe CirculationStatusesController do
 
     describe "When not logged in" do
       it "assigns the requested circulation_status as @circulation_status" do
-        circulation_status = Factory.create(:circulation_status)
+        circulation_status = FactoryGirl.create(:circulation_status)
         get :show, :id => circulation_status.id
         assigns(:circulation_status).should eq(circulation_status)
       end
@@ -100,7 +100,7 @@ describe CirculationStatusesController do
   describe "GET new" do
     describe "When logged in as Administrator" do
       before(:each) do
-        sign_in Factory(:admin)
+        sign_in FactoryGirl.create(:admin)
       end
 
       it "should be forbidden" do
@@ -112,7 +112,7 @@ describe CirculationStatusesController do
 
     describe "When logged in as Librarian" do
       before(:each) do
-        sign_in Factory(:librarian)
+        sign_in FactoryGirl.create(:librarian)
       end
 
       it "should be forbidden" do
@@ -124,7 +124,7 @@ describe CirculationStatusesController do
 
     describe "When logged in as User" do
       before(:each) do
-        sign_in Factory(:user)
+        sign_in FactoryGirl.create(:user)
       end
 
       it "should be forbidden" do
@@ -146,11 +146,11 @@ describe CirculationStatusesController do
   describe "GET edit" do
     describe "When logged in as Administrator" do
       before(:each) do
-        sign_in Factory(:admin)
+        sign_in FactoryGirl.create(:admin)
       end
 
       it "assigns the requested circulation_status as @circulation_status" do
-        circulation_status = Factory.create(:circulation_status)
+        circulation_status = FactoryGirl.create(:circulation_status)
         get :edit, :id => circulation_status.id
         assigns(:circulation_status).should eq(circulation_status)
       end
@@ -158,11 +158,11 @@ describe CirculationStatusesController do
 
     describe "When logged in as Librarian" do
       before(:each) do
-        sign_in Factory(:librarian)
+        sign_in FactoryGirl.create(:librarian)
       end
 
       it "assigns the requested circulation_status as @circulation_status" do
-        circulation_status = Factory.create(:circulation_status)
+        circulation_status = FactoryGirl.create(:circulation_status)
         get :edit, :id => circulation_status.id
         response.should be_forbidden
       end
@@ -170,11 +170,11 @@ describe CirculationStatusesController do
 
     describe "When logged in as User" do
       before(:each) do
-        sign_in Factory(:user)
+        sign_in FactoryGirl.create(:user)
       end
 
       it "assigns the requested circulation_status as @circulation_status" do
-        circulation_status = Factory.create(:circulation_status)
+        circulation_status = FactoryGirl.create(:circulation_status)
         get :edit, :id => circulation_status.id
         response.should be_forbidden
       end
@@ -182,7 +182,7 @@ describe CirculationStatusesController do
 
     describe "When not logged in" do
       it "should not assign the requested circulation_status as @circulation_status" do
-        circulation_status = Factory.create(:circulation_status)
+        circulation_status = FactoryGirl.create(:circulation_status)
         get :edit, :id => circulation_status.id
         response.should redirect_to(new_user_session_url)
       end
@@ -191,13 +191,13 @@ describe CirculationStatusesController do
 
   describe "POST create" do
     before(:each) do
-      @attrs = Factory.attributes_for(:circulation_status)
+      @attrs = FactoryGirl.attributes_for(:circulation_status)
       @invalid_attrs = {:name => ''}
     end
 
     describe "When logged in as Administrator" do
       before(:each) do
-        sign_in Factory(:admin)
+        sign_in FactoryGirl.create(:admin)
       end
 
       describe "with valid params" do
@@ -227,7 +227,7 @@ describe CirculationStatusesController do
 
     describe "When logged in as Librarian" do
       before(:each) do
-        sign_in Factory(:librarian)
+        sign_in FactoryGirl.create(:librarian)
       end
 
       describe "with valid params" do
@@ -257,7 +257,7 @@ describe CirculationStatusesController do
 
     describe "When logged in as User" do
       before(:each) do
-        sign_in Factory(:user)
+        sign_in FactoryGirl.create(:user)
       end
 
       describe "with valid params" do
@@ -314,14 +314,14 @@ describe CirculationStatusesController do
 
   describe "PUT update" do
     before(:each) do
-      @circulation_status = Factory(:circulation_status)
-      @attrs = Factory.attributes_for(:circulation_status)
+      @circulation_status = FactoryGirl.create(:circulation_status)
+      @attrs = FactoryGirl.attributes_for(:circulation_status)
       @invalid_attrs = {:display_name => ''}
     end
 
     describe "When logged in as Administrator" do
       before(:each) do
-        sign_in Factory(:admin)
+        sign_in FactoryGirl.create(:admin)
       end
 
       describe "with valid params" do
@@ -350,7 +350,7 @@ describe CirculationStatusesController do
 
     describe "When logged in as Librarian" do
       before(:each) do
-        sign_in Factory(:librarian)
+        sign_in FactoryGirl.create(:librarian)
       end
 
       describe "with valid params" do
@@ -375,7 +375,7 @@ describe CirculationStatusesController do
 
     describe "When logged in as User" do
       before(:each) do
-        sign_in Factory(:user)
+        sign_in FactoryGirl.create(:user)
       end
 
       describe "with valid params" do
@@ -421,12 +421,12 @@ describe CirculationStatusesController do
 
   describe "DELETE destroy" do
     before(:each) do
-      @circulation_status = Factory(:circulation_status)
+      @circulation_status = FactoryGirl.create(:circulation_status)
     end
 
     describe "When logged in as Administrator" do
       before(:each) do
-        sign_in Factory(:admin)
+        sign_in FactoryGirl.create(:admin)
       end
 
       it "destroys the requested circulation_status" do
@@ -441,7 +441,7 @@ describe CirculationStatusesController do
 
     describe "When logged in as Librarian" do
       before(:each) do
-        sign_in Factory(:librarian)
+        sign_in FactoryGirl.create(:librarian)
       end
 
       it "destroys the requested circulation_status" do
@@ -456,7 +456,7 @@ describe CirculationStatusesController do
 
     describe "When logged in as User" do
       before(:each) do
-        sign_in Factory(:user)
+        sign_in FactoryGirl.create(:user)
       end
 
       it "destroys the requested circulation_status" do

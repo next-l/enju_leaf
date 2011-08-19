@@ -5,7 +5,7 @@ describe TagsController do
   describe "GET index" do
     describe "When logged in as Administrator" do
       before(:each) do
-        sign_in Factory(:admin)
+        sign_in FactoryGirl.create(:admin)
       end
 
       it "assigns all tags as @tags" do
@@ -16,7 +16,7 @@ describe TagsController do
 
     describe "When logged in as Librarian" do
       before(:each) do
-        sign_in Factory(:librarian)
+        sign_in FactoryGirl.create(:librarian)
       end
 
       it "assigns all tags as @tags" do
@@ -27,7 +27,7 @@ describe TagsController do
 
     describe "When logged in as User" do
       before(:each) do
-        sign_in Factory(:user)
+        sign_in FactoryGirl.create(:user)
       end
 
       it "assigns all tags as @tags" do
@@ -47,11 +47,11 @@ describe TagsController do
   describe "GET show" do
     describe "When logged in as Administrator" do
       before(:each) do
-        sign_in Factory(:admin)
+        sign_in FactoryGirl.create(:admin)
       end
 
       it "assigns the requested tag as @tag" do
-        tag = Factory.create(:tag)
+        tag = FactoryGirl.create(:tag)
         get :show, :id => tag.id
         assigns(:tag).should eq(tag)
       end
@@ -59,11 +59,11 @@ describe TagsController do
 
     describe "When logged in as Librarian" do
       before(:each) do
-        sign_in Factory(:librarian)
+        sign_in FactoryGirl.create(:librarian)
       end
 
       it "assigns the requested tag as @tag" do
-        tag = Factory.create(:tag)
+        tag = FactoryGirl.create(:tag)
         get :show, :id => tag.id
         assigns(:tag).should eq(tag)
       end
@@ -71,11 +71,11 @@ describe TagsController do
 
     describe "When logged in as User" do
       before(:each) do
-        sign_in Factory(:user)
+        sign_in FactoryGirl.create(:user)
       end
 
       it "assigns the requested tag as @tag" do
-        tag = Factory.create(:tag)
+        tag = FactoryGirl.create(:tag)
         get :show, :id => tag.id
         assigns(:tag).should eq(tag)
       end
@@ -83,7 +83,7 @@ describe TagsController do
 
     describe "When not logged in" do
       it "assigns the requested tag as @tag" do
-        tag = Factory.create(:tag)
+        tag = FactoryGirl.create(:tag)
         get :show, :id => tag.id
         assigns(:tag).should eq(tag)
       end
@@ -93,11 +93,11 @@ describe TagsController do
   describe "GET edit" do
     describe "When logged in as Administrator" do
       before(:each) do
-        sign_in Factory(:admin)
+        sign_in FactoryGirl.create(:admin)
       end
 
       it "assigns the requested tag as @tag" do
-        tag = Factory.create(:tag)
+        tag = FactoryGirl.create(:tag)
         get :edit, :id => tag.id
         assigns(:tag).should eq(tag)
       end
@@ -105,11 +105,11 @@ describe TagsController do
 
     describe "When logged in as Librarian" do
       before(:each) do
-        sign_in Factory(:librarian)
+        sign_in FactoryGirl.create(:librarian)
       end
 
       it "assigns the requested tag as @tag" do
-        tag = Factory.create(:tag)
+        tag = FactoryGirl.create(:tag)
         get :edit, :id => tag.id
         assigns(:tag).should eq(tag)
       end
@@ -117,11 +117,11 @@ describe TagsController do
 
     describe "When logged in as User" do
       before(:each) do
-        sign_in Factory(:user)
+        sign_in FactoryGirl.create(:user)
       end
 
       it "assigns the requested tag as @tag" do
-        tag = Factory.create(:tag)
+        tag = FactoryGirl.create(:tag)
         get :edit, :id => tag.id
         response.should be_forbidden
       end
@@ -129,7 +129,7 @@ describe TagsController do
 
     describe "When not logged in" do
       it "should not assign the requested tag as @tag" do
-        tag = Factory.create(:tag)
+        tag = FactoryGirl.create(:tag)
         get :edit, :id => tag.id
         response.should redirect_to(new_user_session_url)
       end
@@ -138,14 +138,14 @@ describe TagsController do
 
   describe "PUT update" do
     before(:each) do
-      @tag = Factory(:tag)
-      @attrs = Factory.attributes_for(:tag)
+      @tag = FactoryGirl.create(:tag)
+      @attrs = FactoryGirl.attributes_for(:tag)
       @invalid_attrs = {:name => ''}
     end
 
     describe "When logged in as Administrator" do
       before(:each) do
-        sign_in Factory(:admin)
+        sign_in FactoryGirl.create(:admin)
       end
 
       describe "with valid params" do
@@ -174,7 +174,7 @@ describe TagsController do
 
     describe "When logged in as Librarian" do
       before(:each) do
-        sign_in Factory(:librarian)
+        sign_in FactoryGirl.create(:librarian)
       end
 
       describe "with valid params" do
@@ -204,7 +204,7 @@ describe TagsController do
 
     describe "When logged in as User" do
       before(:each) do
-        sign_in Factory(:user)
+        sign_in FactoryGirl.create(:user)
       end
 
       describe "with valid params" do
@@ -250,12 +250,12 @@ describe TagsController do
 
   describe "DELETE destroy" do
     before(:each) do
-      @tag = Factory(:tag)
+      @tag = FactoryGirl.create(:tag)
     end
 
     describe "When logged in as Administrator" do
       before(:each) do
-        sign_in Factory(:admin)
+        sign_in FactoryGirl.create(:admin)
       end
 
       it "destroys the requested tag" do
@@ -270,7 +270,7 @@ describe TagsController do
 
     describe "When logged in as Librarian" do
       before(:each) do
-        sign_in Factory(:librarian)
+        sign_in FactoryGirl.create(:librarian)
       end
 
       it "destroys the requested tag" do
@@ -285,7 +285,7 @@ describe TagsController do
 
     describe "When logged in as User" do
       before(:each) do
-        sign_in Factory(:user)
+        sign_in FactoryGirl.create(:user)
       end
 
       it "destroys the requested tag" do
