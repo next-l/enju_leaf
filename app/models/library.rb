@@ -12,7 +12,8 @@ class Library < ActiveRecord::Base
   has_many :users
   belongs_to :country
 
-  has_friendly_id :name
+  extend FriendlyId
+  friendly_id :name
   geocoded_by :address
   #enju_calil_library
 

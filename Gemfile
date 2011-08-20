@@ -36,7 +36,7 @@ gem 'exception_notification', :require => 'exception_notifier'
 gem 'delayed_job', '>=2.1.4'
 gem 'state_machine'
 gem 'sunspot_rails', :git => 'git://github.com/outoftime/sunspot.git'
-gem 'friendly_id'
+gem "friendly_id", "~> 4.0.0.beta8"
 gem 'inherited_resources'
 gem 'has_scope'
 gem 'nokogiri'

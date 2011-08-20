@@ -23,6 +23,8 @@ class LibraryGroup < ActiveRecord::Base
     #else
       LibraryGroup.find(1)
     #end
+  rescue
+    nil
   end
 
   def self.system_name(locale = I18n.locale)
