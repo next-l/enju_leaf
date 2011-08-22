@@ -2,6 +2,8 @@
 <% cache(:controller => :patrons, :action => :show, :id => @patron.id, :page => 'detail', :role => current_user_role_name, :locale => @locale, :patron_id => nil) do %>
 <h1 class="title"><%= t('page.showing', :model => t('activerecord.models.patron')) -%></h1>
 <div id="content_list">
+  <p id="notice"><%= notice %></p>
+
   <h2 class="resource_title">
     [P]
     <%= @patron.full_name -%>

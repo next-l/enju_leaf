@@ -8,7 +8,15 @@ class SeriesStatementHasManifestation < ActiveRecord::Base
 
   acts_as_list :scope => :series_statement_id
 
+  after_create :reindex
+  after_destroy :reindex
+
   def self.per_page
     10
+  end
+
+  def reindex
+    series_statement.index
+    manifestation.index
   end
 end

@@ -31,7 +31,7 @@
     <td><%= series_statement.issn %></td>
     <td><%= series_statement.series_statement_identifier %></td>
     <td>
-      <%- if can? :destroy, series_statement -%>
+      <%- if can? :create, SeriesStatementHasManifestation -%>
         <%- if params[:mode] == 'add' -%>
           <%= link_to t('page.add'), new_series_statement_series_statement_has_manifestation_path(series_statement, :manifestation_id => @manifestation.id) unless series_statement.manifestations.where(:id => @manifestation.id).first -%>
         <%- else -%>

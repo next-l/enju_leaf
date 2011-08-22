@@ -1,6 +1,8 @@
 <div id="content_detail" class="ui-corner-all">
 <h1 class="title"><%= t('page.showing', :model => t('activerecord.models.carrier_type_has_checkout_type')) -%></h1>
 <div id="content_list">
+<p id="notice"><%= notice %></p>
+
 <p>
   <strong><%= t('activerecord.models.carrier_type') -%>:</strong>
   <%= link_to @carrier_type_has_checkout_type.carrier_type.display_name.localize, @carrier_type_has_checkout_type.carrier_type -%>

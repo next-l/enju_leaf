@@ -1,24 +1,27 @@
-<%= form_for(@create) do |f| %>
-  <% if @create.errors.any? %>
-  <div id="errorExplanation">
-    <h2><%= pluralize(@create.errors.count, "error") %> prohibited this create from being saved:</h2>
-    <ul>
-    <% @create.errors.full_messages.each do |msg| %>
-      <li><%= msg %></li>
-    <% end %>
-    </ul>
-  </div>
-  <% end %>
+<%= form_for(@create) do |f| -%>
+  <%= f.error_messages -%>
 
   <div class="field">
-    <%= f.label :patron_id %><br />
-    <%= f.text_field :patron_id %>
+    <%= f.label t('activerecord.models.patron') -%><br />
+    <%- if @create.patron -%>
+      <%= link_to @create.patron.full_name, @create.patron -%>
+      <%= f.hidden_field :patron_id -%>
+    <%- else -%>
+      <%= f.text_field :patron_id -%>
+    <%- end -%>
   </div>
+
   <div class="field">
-    <%= f.label :work_id %><br />
-    <%= f.text_field :work_id %>
+    <%= f.label t('activerecord.models.work') -%><br />
+    <%- if @create.work -%>
+      <%= link_to @create.work.original_title, @create.work -%>
+      <%= f.hidden_field :work_id -%>
+    <%- else -%>
+      <%= f.text_field :work_id -%>
+    <%- end -%>
   </div>
+
   <div class="actions">
     <%= f.submit %>
   </div>
-<% end %>
+<%- end -%>

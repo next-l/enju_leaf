@@ -1,6 +1,8 @@
 <div id="content_detail" class="ui-corner-all">
 <h1 class="title"><%= t('page.showing', :model => t('activerecord.models.series_statement_merge')) -%></h1>
 <div id="content_list">
+<p id="notice"><%= notice %></p>
+
 <p>
   <strong><%= t('activerecord.models.series_statement') -%>:</strong>
   <%= link_to @series_statement_merge.series_statement.original_title, @series_statement_merge.series_statement -%>

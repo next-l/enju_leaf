@@ -44,7 +44,7 @@ GEM
       activemodel (= 3.0.10)
       activesupport (= 3.0.10)
     activesupport (3.0.10)
-    acts-as-taggable-on (2.1.0)
+    acts-as-taggable-on (2.1.1)
       rails
     addressable (2.2.4)
     amazon-ecs (2.1.0)
@@ -211,7 +211,7 @@ GEM
       oa-oauth (= 0.2.6)
       oa-openid (= 0.2.6)
     orm_adapter (0.0.5)
-    paper_trail (2.2.9)
+    paper_trail (2.3.1)
       rails (~> 3)
     paperclip (2.3.16)
       activerecord (>= 2.3.0)
