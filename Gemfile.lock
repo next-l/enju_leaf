@@ -44,7 +44,8 @@ GEM
       activemodel (= 3.0.10)
       activesupport (= 3.0.10)
     activesupport (3.0.10)
-    acts-as-taggable-on (2.0.6)
+    acts-as-taggable-on (2.1.0)
+      rails
     addressable (2.2.4)
     amazon-ecs (2.1.0)
       nokogiri (>= 1.4.0)

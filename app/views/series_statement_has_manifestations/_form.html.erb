@@ -1,0 +1,14 @@
+<%= simple_form_for(@series_statement_has_manifestation) do |f| %>
+  <%= f.error_notification %>
+
+  <div class="inputs">
+    <%= link_to @series_statement_has_manifestation.series_statement.original_title, @series_statement_has_manifestation.series_statement if @series_statement_has_manifestation.series_statement %>
+    <%= f.hidden_field :series_statement_id %>
+    <%= link_to @series_statement_has_manifestation.manifestation.original_title, @series_statement_has_manifestation.manifestation if @series_statement_has_manifestation.manifestation %>
+    <%= f.hidden_field :manifestation_id %>
+  </div>
+
+  <div class="actions">
+    <%= f.button :submit %>
+  </div>
+<% end %>

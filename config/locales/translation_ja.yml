@@ -149,6 +149,7 @@ ja:
       event_import_result: 催し物インポートの結果
       series_statement_merge: シリーズ情報の統合
       series_statement_merge_list: シリーズ情報統合リスト
+      series_statement_has_manifestation: シリーズ情報と資料の関係
 
     attributes:
       library:

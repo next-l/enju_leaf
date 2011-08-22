@@ -1,11 +1,14 @@
 <div id="content_detail" class="ui-corner-all">
 <h1 class="title"><%= t('page.listing', :model => t('activerecord.models.series_statement')) -%></h1>
 <div id="content_list">
+
+<%= render 'manifestations/title', :manifestation => @manifestation -%>
 <%= form_for :series_statements, :url => series_statements_path, :html => {:method => 'get'} do -%>
   <p>
     <%= t('page.search_term') -%>: <%= search_field_tag 'query', h(@query), {:id => 'search_form_top', :class => 'search_form', :placeholder => t('page.search_term')} -%>
     <%= hidden_field_tag 'manifestation_id', @manifestation.id -%>
     <%= render 'page/add' %>
+    <%= submit_tag t('page.search') -%>
   </p>
 <%- end -%>
 <table class="index">
@@ -28,7 +31,13 @@
     <td><%= series_statement.issn %></td>
     <td><%= series_statement.series_statement_identifier %></td>
     <td>
-      <%= link_to t('page.select'), edit_manifestation_path(@manifestation, :series_statement_id => series_statement.id) if can? :update, series_statement -%>
+      <%- if can? :destroy, series_statement -%>
+        <%- if params[:mode] == 'add' -%>
+          <%= link_to t('page.add'), new_series_statement_series_statement_has_manifestation_path(series_statement, :manifestation_id => @manifestation.id) unless series_statement.manifestations.where(:id => @manifestation.id).first -%>
+        <%- else -%>
+          <%= link_to t('page.destroy'), manifestation_series_statement_has_manifestation_path(@manifestation, series_statement.manifestation_included(@manifestation)), :confirm => t('page.are_you_sure'), :method => :delete -%>
+        <%- end -%>
+      <%- end -%>
     </td>
   </tr>
 <% end %>

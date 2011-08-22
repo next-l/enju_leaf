@@ -22,7 +22,8 @@ class Manifestation < ActiveRecord::Base
   belongs_to :language
   belongs_to :carrier_type
   belongs_to :content_type
-  belongs_to :series_statement
+  has_one :series_statement_has_manifestation
+  has_one :series_statement, :through => :series_statement_has_manifestation
   belongs_to :manifestation_relationship_type
   belongs_to :frequency
   belongs_to :required_role, :class_name => 'Role', :foreign_key => 'required_role_id', :validate => true
@@ -193,6 +194,8 @@ class Manifestation < ActiveRecord::Base
   before_create :set_digest
   after_create :clear_cached_numdocs
   before_save :set_date_of_publication
+  after_save :index_series_statement
+  after_destroy :index_series_statement
   normalize_attributes :identifier, :pub_date, :isbn, :issn, :nbn, :lccn, :original_title
   attr_accessor :during_import
   attr_protected :periodical_master
@@ -528,6 +531,10 @@ class Manifestation < ActiveRecord::Base
         Manifestation.where(:isbn => isbn).first || Manifestation.where(:isbn => ISBN_Tools.isbn13_to_isbn10(isbn)).first
       end
     end
+  end
+
+  def index_series_statement
+    series_statement.try(:index)
   end
 end
 
