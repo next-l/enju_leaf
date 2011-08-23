@@ -148,7 +148,7 @@ en:
       event_import_result: Event Import Result
       series_statement_merge: Series statement merge
       series_statement_merge_list: Series statement merge list
-      series_statement_has_manifestation: Series statement to manifestation
+      series_has_manifestation: Series statement to manifestation
 
     attributes:
       library:

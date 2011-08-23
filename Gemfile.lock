@@ -272,7 +272,7 @@ GEM
       ruby_parser (~> 2.0)
       sexp_processor (~> 3.0)
     responders (0.6.4)
-    rest-client (1.6.3)
+    rest-client (1.6.6)
       mime-types (>= 1.16)
     ri_cal (0.8.8)
     roodi (2.1.0)

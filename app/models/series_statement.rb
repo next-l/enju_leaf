@@ -1,6 +1,6 @@
 class SeriesStatement < ActiveRecord::Base
-  has_many :series_statement_has_manifestations
-  has_many :manifestations, :through => :series_statement_has_manifestations
+  has_many :series_has_manifestations
+  has_many :manifestations, :through => :series_has_manifestations
   validates_presence_of :original_title
   validate :check_issn
   after_create :create_initial_manifestation
@@ -11,7 +11,9 @@ class SeriesStatement < ActiveRecord::Base
       original_title
     end
     text :numbering, :title_subseries, :numbering_subseries
-    integer :manifestation_ids, :multiple => true
+    integer :manifestation_ids, :multiple => true do
+      series_has_manifestations.collect(&:manifestation_id)
+    end
     integer :position
     boolean :periodical
   end
@@ -58,7 +60,7 @@ class SeriesStatement < ActiveRecord::Base
   end
 
   def manifestation_included(manifestation)
-    series_statement_has_manifestations.where(:manifestation_id => manifestation.id).first
+    series_has_manifestations.where(:manifestation_id => manifestation.id).first
   end
 end
 

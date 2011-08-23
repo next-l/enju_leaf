@@ -13,7 +13,6 @@
 <%- end -%>
 <table class="index">
   <tr>
-    <th id="position"></th>
     <th><%= t('activerecord.attributes.series_statement.original_title') -%></th>
     <th><%= t('activerecord.attributes.series_statement.issn') -%></th>
     <th><%= t('activerecord.attributes.series_statement.series_statement_identifier') -%></th>
@@ -22,20 +21,21 @@
 
 <% @series_statements.each do |series_statement| %>
   <tr class="line<%= cycle("0", "1") -%>">
-    <td>
-      <%- if can? :update, series_statement -%>
-        <%= move_position(series_statement) -%>
-      <%- end -%>
-    </td>
     <td><%= link_to series_statement.original_title, series_statement %></td>
     <td><%= series_statement.issn %></td>
     <td><%= series_statement.series_statement_identifier %></td>
     <td>
-      <%- if can? :create, SeriesStatementHasManifestation -%>
+      <%- if can? :create, SeriesHasManifestation -%>
         <%- if params[:mode] == 'add' -%>
-          <%= link_to t('page.add'), new_series_statement_series_statement_has_manifestation_path(series_statement, :manifestation_id => @manifestation.id) unless series_statement.manifestations.where(:id => @manifestation.id).first -%>
+          <% if @manifestation.series_has_manifestation %>
+            <% unless @manifestation.series_statement == series_statement %>
+              <%= link_to t('page.select'), edit_series_has_manifestation_path(@manifestation.series_has_manifestation, :series_statement_id => series_statement.id) -%>
+            <% end %>
+          <% else %>
+            <%= link_to t('page.select'), new_series_has_manifestation_path(:series_statement_id => series_statement.id, :manifestation_id => @manifestation.id) -%>
+          <% end %>
         <%- else -%>
-          <%= link_to t('page.destroy'), manifestation_series_statement_has_manifestation_path(@manifestation, series_statement.manifestation_included(@manifestation)), :confirm => t('page.are_you_sure'), :method => :delete -%>
+          <%= link_to t('page.destroy'), manifestation_series_has_manifestation_path(@manifestation, series_statement.manifestation_included(@manifestation)), :confirm => t('page.are_you_sure'), :method => :delete if series_statement.manifestation_included(@manifestation) -%>
         <%- end -%>
       <%- end -%>
     </td>

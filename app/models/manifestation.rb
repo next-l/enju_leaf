@@ -22,8 +22,8 @@ class Manifestation < ActiveRecord::Base
   belongs_to :language
   belongs_to :carrier_type
   belongs_to :content_type
-  has_one :series_statement_has_manifestation
-  has_one :series_statement, :through => :series_statement_has_manifestation
+  has_one :series_has_manifestation
+  has_one :series_statement, :through => :series_has_manifestation
   belongs_to :manifestation_relationship_type
   belongs_to :frequency
   belongs_to :required_role, :class_name => 'Role', :foreign_key => 'required_role_id', :validate => true
@@ -109,7 +109,9 @@ class Manifestation < ActiveRecord::Base
     boolean :reservable do
       self.reservable?
     end
-    integer :series_statement_id
+    integer :series_statement_id do
+      series_has_manifestation.try(:series_statement_id)
+    end
     boolean :repository_content
     # for OpenURL
     text :aulast do

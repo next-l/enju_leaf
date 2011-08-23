@@ -3,7 +3,7 @@ EnjuLeaf::Application.routes.draw do
 
   resource :my_account
 
-  resources :series_statement_has_manifestations
+  resources :series_has_manifestations
 
   resources :series_statement_merges
 
@@ -26,7 +26,7 @@ EnjuLeaf::Application.routes.draw do
     resources :manifestation_relationships
     resources :manifestations
     resources :series_statements
-    resources :series_statement_has_manifestations
+    resources :series_has_manifestations
   end
 
   resources :patrons do
@@ -149,7 +149,7 @@ EnjuLeaf::Application.routes.draw do
   resources :picture_files
   resources :series_statements do
     resources :manifestations, :controller => :manifestations
-    resources :series_statement_has_manifestations
+    resources :series_has_manifestations
   end
   resources :barcodes
   resources :message_requests, :except => [:new, :create]

@@ -1,4 +1,4 @@
-class SeriesStatementHasManifestation < ActiveRecord::Base
+class SeriesHasManifestation < ActiveRecord::Base
   belongs_to :series_statement
   belongs_to :manifestation
 
