@@ -1163,6 +1163,7 @@ ja:
       "false": "いいえ"
     not_found: "ページが見つかりませんでした"
     access_denied: "アクセスが拒否されました"
+    internal_server_error: "内部エラーが発生しました"
     last_updated: "最終更新日"
     unknown: "不明"
     more: "さらに表示"

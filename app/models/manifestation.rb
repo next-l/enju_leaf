@@ -161,9 +161,7 @@ class Manifestation < ActiveRecord::Base
     boolean :periodical do
       serial?
     end
-    time :acquired_at do
-      items.order(:acquired_at).last.try(:acquired_at)
-    end
+    time :acquired_at
   end
 
   enju_manifestation_viewer
@@ -537,6 +535,10 @@ class Manifestation < ActiveRecord::Base
 
   def index_series_statement
     series_statement.try(:index)
+  end
+
+  def acquired_at
+    items.order(:acquired_at).last.try(:acquired_at)
   end
 end
 

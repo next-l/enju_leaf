@@ -1179,6 +1179,7 @@ en:
       "false": "No"
     not_found: "Page not found"
     access_denied: "Access denied"
+    internal_server_error: "Internal server error"
     last_updated: "Last updated"
     unknown: "Unknown"
     more: "More"
