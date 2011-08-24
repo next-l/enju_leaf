@@ -240,12 +240,12 @@ class ApplicationController < ActionController::Base
     when 'csv'
       return unless configatron.csv_charset_conversion
       # TODO: 他の言語
-      if @locale == 'ja'
+      if @locale.to_sym == :ja
         headers["Content-Type"] = "text/csv; charset=Shift_JIS"
         response.body = NKF::nkf('-Ws', response.body)
       end
     when 'xml'
-      if @locale == 'ja'
+      if @locale.to_sym == :ja
         headers["Content-Type"] = "application/xml; charset=Shift_JIS"
         response.body = NKF::nkf('-Ws', response.body)
       end

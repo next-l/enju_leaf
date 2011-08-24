@@ -95,7 +95,7 @@ class User < ActiveRecord::Base
     :zip_code, :address, :telephone_number, :fax_number, :address_note,
     :role_id, :patron_id, :operator, :password_not_verified,
     :update_own_account, :auto_generated_password,
-    :locked
+    :locked, :current_password
 
   def self.per_page
     10
