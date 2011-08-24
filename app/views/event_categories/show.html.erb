@@ -1,20 +1,29 @@
-<p class="notice"><%= notice %></p>
+<div id="content_detail" class="ui-corner-all">
+<h1 class="title"><%= t('page.showing', :model => t('activerecord.models.event_category')) -%></h1>
+<div id="content_list">
+<p id="notice"><%= notice %></p>
 
 <p>
-  <b>Name:</b>
-  <%= @event_category.name %>
+  <strong><%= t('activerecord.attributes.event_category.name') -%>:</strong>
+  <%= @event_category.name -%>
 </p>
 
 <p>
-  <b>Display name:</b>
-  <%= @event_category.display_name %>
+  <strong><%= t('activerecord.attributes.event_category.display_name') -%>:</strong>
+  <%= @event_category.display_name.localize -%>
 </p>
 
 <p>
-  <b>Note:</b>
-  <%= @event_category.note %>
+  <strong><%= t('activerecord.attributes.event_category.note') -%>:</strong>
+  <%= @event_category.note -%>
 </p>
 
+</div>
+</div>
 
-<%= link_to 'Edit', edit_event_category_path(@event_category) %> |
-<%= link_to 'Back', event_categories_path %>
+<div id="submenu" class="ui-corner-all">
+  <ul>
+    <li><%= link_to t('page.edit'), edit_event_category_path(@event_category) -%></li>
+    <li><%= link_to t('page.back'), event_categorys_path -%></li>
+  </ul>
+</div>

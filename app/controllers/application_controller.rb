@@ -7,7 +7,7 @@ class ApplicationController < ActionController::Base
   rescue_from CanCan::AccessDenied, :with => :render_403
   rescue_from ActiveRecord::RecordNotFound, :with => :render_404
   rescue_from Errno::ECONNREFUSED, :with => :render_500
-  rescue_from RSolr::RequestError, :with => :render_500
+  rescue_from RSolr::RequestError, :with => :render_500_solr
   rescue_from ActionView::MissingTemplate, :with => :render_404_invalid_format
 
   before_filter :get_library_group, :set_locale, :set_available_languages, :prepare_for_mobile
@@ -51,6 +51,16 @@ class ApplicationController < ActionController::Base
     respond_to do |format|
       format.html {render :file => "#{Rails.root.to_s}/public/500.html", :layout => false, :status => 500}
       format.mobile {render :file => "#{Rails.root.to_s}/public/500.html", :layout => false, :status => 500}
+    end
+  end
+
+  def render_500_solr
+    return if performed?
+    #flash[:notice] = t('page.connection_failed')
+    respond_to do |format|
+      format.html {render :template => 'page/500', :status => 500}
+      format.mobile {render :template => 'page/500', :status => 500}
+      format.xml {render :template => 'page/500', :status => 500}
     end
   end
 
@@ -230,12 +240,12 @@ class ApplicationController < ActionController::Base
     when 'csv'
       return unless configatron.csv_charset_conversion
       # TODO: 他の言語
-      if @locale == 'ja'
+      if @locale.to_sym == :ja
         headers["Content-Type"] = "text/csv; charset=Shift_JIS"
         response.body = NKF::nkf('-Ws', response.body)
       end
     when 'xml'
-      if @locale == 'ja'
+      if @locale.to_sym == :ja
         headers["Content-Type"] = "application/xml; charset=Shift_JIS"
         response.body = NKF::nkf('-Ws', response.body)
       end

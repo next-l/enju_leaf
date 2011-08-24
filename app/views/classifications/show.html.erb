@@ -1,25 +1,34 @@
-<p class="notice"><%= notice %></p>
+<div id="content_detail" class="ui-corner-all">
+<h1 class="title"><%= t('page.showing', :model => t('activerecord.models.classification')) -%></h1>
+<div id="content_list">
+<p id="notice"><%= notice %></p>
 
 <p>
-  <b>Parent:</b>
-  <%= @classification.parent_id %>
+  <strong><%= t('activerecord.attributes.classification.parent') -%>:</strong>
+  <%= link_to @classification.parent.category, @classification.parent %>
 </p>
 
 <p>
-  <b>Category:</b>
+  <strong><%= t('activerecord.attributes.classification.category') -%>:</strong>
   <%= @classification.category %>
 </p>
 
 <p>
-  <b>Note:</b>
+  <strong><%= t('activerecord.attributes.classification.note') -%>:</strong>
   <%= @classification.note %>
 </p>
 
 <p>
-  <b>Classification type:</b>
-  <%= @classification.classification_type_id %>
+  <strong><%= t('activerecord.models.classification_type') -%>:</strong>
+  <%= link_to @classification.classification_type.localize, @classification.classification_type %>
 </p>
 
+</div>
+</div>
 
-<%= link_to 'Edit', edit_classification_path(@classification) %> |
-<%= link_to 'Back', classifications_path %>
+<div id="submenu" class="ui-corner-all">
+  <ul>
+    <li><%= link_to t('page.edit'), edit_classification_path(@classification) %></li>
+    <li><%= link_to t('page.back'), classifications_path %></li>
+  </ul>
+</div>

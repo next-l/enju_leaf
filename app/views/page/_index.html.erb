@@ -8,6 +8,8 @@
       <% end %>
     </h2>
     <div id="user_search_form">
+      <p id="notice"><%= notice %></p>
+
       <%= render 'page/search_form' -%>
       <p><%= t('page.number_of_manifestations', :numdocs => Manifestation.cached_numdocs, :count => Manifestation.cached_numdocs) -%></p>
       <h3 style="display: inline"><%= link_to t('page.new_resource'), manifestations_path(:mode => 'recent') -%></h3>

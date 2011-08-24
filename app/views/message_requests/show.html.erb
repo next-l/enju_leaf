@@ -1,6 +1,8 @@
 <div id="content_detail" class="ui-corner-all">
 <h1 class="title"><%= t('page.showing', :model => t('activerecord.models.message_request')) -%></h1>
 <div id="content_list">
+<p id="notice"><%= notice %></p>
+
 <p>
   <strong><%= t('message.sender') -%>:</strong>
   <%= link_to @message_request.sender.username, @message_request.sender -%>

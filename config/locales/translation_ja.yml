@@ -149,6 +149,7 @@ ja:
       event_import_result: 催し物インポートの結果
       series_statement_merge: シリーズ情報の統合
       series_statement_merge_list: シリーズ情報統合リスト
+      series_has_manifestation: シリーズ情報と資料の関係
 
     attributes:
       library:
@@ -605,7 +606,7 @@ ja:
         isbn: ISBN
         isbn10: 10桁のISBN
         wrong_isbn: 間違ったISBN
-        nbn: Nbn
+        nbn: NBN
         price: 価格
         volume_number_list: 巻
         issue_number_list: 号
@@ -1162,6 +1163,7 @@ ja:
       "false": "いいえ"
     not_found: "ページが見つかりませんでした"
     access_denied: "アクセスが拒否されました"
+    internal_server_error: "内部エラーが発生しました"
     last_updated: "最終更新日"
     unknown: "不明"
     more: "さらに表示"
@@ -1169,6 +1171,8 @@ ja:
     timed_out: "タイムアウトしました。"
     example: "例"
     saving: "保存中..."
+    previous: "前へ"
+    next: "次へ"
   title:
     index: "一覧"
     show: "表示"

@@ -10,6 +10,8 @@
   <%- end -%>
 
   <div id="content_list">
+  <p id="notice"><%= notice %></p>
+
     <%- if @library -%>
       <h2 class="resource_title">
         <%= link_to @library.display_name.localize, @library -%>

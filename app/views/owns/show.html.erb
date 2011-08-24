@@ -1,6 +1,8 @@
 <div id="content_detail" class="ui-corner-all">
 <h1 class="title"><%= t('page.showing', :model => t('activerecord.models.own')) -%></h1>
 <div id="content_list">
+<p id="notice"><%= notice %></p>
+
 <p>
   <strong><%= t('activerecord.models.patron') -%>:</strong>
   <%= link_to @own.patron.full_name, @own.patron -%>

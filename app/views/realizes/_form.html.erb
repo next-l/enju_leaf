@@ -1,24 +1,27 @@
-<%= form_for(@realize) do |f| %>
-  <% if @realize.errors.any? %>
-  <div id="errorExplanation">
-    <h2><%= pluralize(@realize.errors.count, "error") %> prohibited this realize from being saved:</h2>
-    <ul>
-    <% @realize.errors.full_messages.each do |msg| %>
-      <li><%= msg %></li>
-    <% end %>
-    </ul>
-  </div>
-  <% end %>
+<%= form_for(@realize) do |f| -%>
+  <%= f.error_messages -%>
 
   <div class="field">
-    <%= f.label :patron_id %><br />
-    <%= f.text_field :patron_id %>
+    <%= f.label t('activerecord.models.patron') -%><br />
+    <%- if @realize.patron -%>
+      <%= link_to @realize.patron.full_name, @realize.patron -%>
+      <%= f.hidden_field :patron_id -%>
+    <%- else -%>
+      <%= f.text_field :patron_id -%>
+    <%- end -%>
   </div>
+
   <div class="field">
-    <%= f.label :expression_id %><br />
-    <%= f.text_field :expression_id %>
+    <%= f.label t('activerecord.models.expression') -%><br />
+    <%- if @realize.expression -%>
+      <%= link_to @realize.expression.original_title, @realize.expression -%>
+      <%= f.hidden_field :expression_id -%>
+    <%- else -%>
+      <%= f.text_field :expression_id -%>
+    <%- end -%>
   </div>
+
   <div class="actions">
     <%= f.submit %>
   </div>
-<% end %>
+<%- end -%>

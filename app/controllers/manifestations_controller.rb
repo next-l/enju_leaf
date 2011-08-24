@@ -282,7 +282,7 @@ class ManifestationsController < ApplicationController
       if user_signed_in?
         Notifier.delay.manifestation_info(current_user, @manifestation)
         flash[:notice] = t('page.sent_email')
-        redirect_to manifestation_url(@manifestation)
+        redirect_to @manifestation
         return
       else
         access_denied; return

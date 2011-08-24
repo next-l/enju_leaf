@@ -18,9 +18,9 @@
     <%= f.label t('activerecord.models.series_statement_merge_list') -%><br />
     <%- if @series_statement_merge_list -%>
       <%= link_to @series_statement_merge_list.title, series_statement_merge_list_path(@series_statement_merge_list) -%>
-      <%= f.hidden_field :series_statement_merge_list_id, :value => @series_statement_merge_list.id -%>
+      <%= f.hidden_field :series_statement_merge_list_id -%>
     <%- else -%>
-      <%= f.text_field :series_statement_merge_list_id, :value => params[:series_statement_merge_list_id] -%>
+      <%= f.text_field :series_statement_merge_list_id -%>
     <%- end -%>
   </div>
 

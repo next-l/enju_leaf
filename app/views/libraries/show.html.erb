@@ -1,6 +1,8 @@
 <div id="content_detail" class="ui-corner-all">
-  <h1 class="title"><%= @library.display_name.localize -%></h1>
-  <div id="content_list">
+<h1 class="title"><%= @library.display_name.localize -%></h1>
+<div id="content_list">
+<p id="notice"><%= notice %></p>
+
   <p>
     <%= t('activerecord.attributes.library.name') -%>: <%= @library.name -%>
   </p>

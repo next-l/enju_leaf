@@ -1,6 +1,7 @@
 <div id="content_detail" class="ui-corner-all">
 <h1 class="title"><%= t('page.showing', :model => t('activerecord.models.patron_import_result')) -%></h1>
 <div id="content_list">
+<p id="notice"><%= notice %></p>
 
 <p>
   <b><%= t('activerecord.models.patron_import_file') %></b>
@@ -9,12 +10,12 @@
 
 <p>
   <b><%= t('activerecord.models.patron') %></b>
-  <%= @patron_import_result.patron_id %>
+  <%= link_to @patron_import_result.patron.full_name, @patron_import_result.patron if @patron_import_result.patron %>
 </p>
 
 <p>
   <b><%= t('activerecord.models.user') %></b>
-  <%= @patron_import_result.user_id %>
+  <%= link_to @patron_import_result.user.username, @patron_import_result.user if @patron_import_result.user %>
 </p>
 
 <p>

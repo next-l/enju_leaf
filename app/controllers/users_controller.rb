@@ -137,9 +137,8 @@ class UsersController < ApplicationController
 
     #@user.save do |result|
     respond_to do |format|
-      @user.update_without_password(params[:user])
-      sign_in(@user, :bypass => true)
-      if @user.errors.empty?
+      if @user.update_with_password(params[:user])
+        sign_in(@user, :bypass => true)
         flash[:notice] = t('controller.successfully_updated', :model => t('activerecord.models.user'))
         format.html { redirect_to user_url(@user) }
         format.xml  { head :ok }
