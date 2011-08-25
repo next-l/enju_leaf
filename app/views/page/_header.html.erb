@@ -19,7 +19,7 @@
         <% else %>
           (<%= current_user.received_messages.unread.size %>)
         <% end %>
-        <%= link_to t('page.account'), edit_user_path(current_user) -%>
+        <%= link_to t('page.account'), edit_my_account_path -%>
         <%= link_to t('page.sign_out'), destroy_user_session_path -%>
         <br />
       <% else %>

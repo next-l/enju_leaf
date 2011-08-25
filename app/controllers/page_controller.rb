@@ -68,7 +68,7 @@ class PageController < ApplicationController
  
   def redirect_user
     if user_signed_in?
-      redirect_to user_url(current_user)
+      redirect_to my_account_url
       return
     end
   end

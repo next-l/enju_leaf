@@ -9,6 +9,7 @@ class MyAccountsController < ApplicationController
     end
     @tags = @user.bookmarks.tag_counts.sort{|a,b| a.count <=> b.count}.reverse
     @manifestation = Manifestation.pickup(@user.keyword_list.to_s.split.sort_by{rand}.first) rescue nil
+    prepare_options
 
     respond_to do |format|
       format.html
@@ -19,22 +20,22 @@ class MyAccountsController < ApplicationController
   def edit
     @user = current_user
     @user.role_id = @user.role.id
-    @roles = Role.all
+    prepare_options
   end
 
   def update
+    current_user.update_with_params(params[:user], current_user)
     @user = current_user
 
     respond_to do |format|
-      if @user.update_with_password(params[:user])
-        sign_in(@user, :bypass => true)
-        @user.role = Role.where(:id => @user.role_id).first if @user.role_id
+      if current_user.update_with_password(params[:user])
+        sign_in(current_user, :bypass => true)
         format.html { redirect_to(my_account_url, :notice => t('controller.successfully_updated', :model => t('activerecord.models.user'))) }
         format.xml  { head :ok }
       else
-        @roles = Role.all
+        prepare_options
         format.html { render :action => "edit" }
-        format.xml  { render :xml => @user.errors, :status => :unprocessable_entity }
+        format.xml  { render :xml => current_user.errors, :status => :unprocessable_entity }
       end
     end
   end
@@ -46,6 +47,18 @@ class MyAccountsController < ApplicationController
     respond_to do |format|
       format.html { redirect_to(root_url, :notice => 'devise.registrations.destroyed') }
       format.xml  { head :ok }
+    end
+  end
+
+  def prepare_options
+    @user_groups = UserGroup.all
+    @roles = Role.all
+    @libraries = Library.all_cache
+    @languages = Language.all_cache
+    if current_user.active_for_authentication?
+      current_user.locked = '0'
+    else
+      current_user.locked = '1'
     end
   end
 end

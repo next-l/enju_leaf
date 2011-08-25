@@ -49,6 +49,11 @@ class UsersController < ApplicationController
   end
 
   def show
+    if @user == current_user
+      redirect_to my_account_url
+      return
+    end
+
     session[:user_return_to] = nil
     unless @user.patron
       redirect_to new_user_patron_url(@user); return
@@ -137,8 +142,12 @@ class UsersController < ApplicationController
 
     #@user.save do |result|
     respond_to do |format|
-      if @user.update_with_password(params[:user])
-        sign_in(@user, :bypass => true)
+      if @user == current_user
+        @user.update_with_password(params[:user])
+      else
+        @user.update_without_password(params[:user])
+      end
+      if @user.errors.empty?
         flash[:notice] = t('controller.successfully_updated', :model => t('activerecord.models.user'))
         format.html { redirect_to user_url(@user) }
         format.xml  { head :ok }
