@@ -212,10 +212,10 @@ module ApplicationHelper
     current_user.try(:role).try(:name) || 'Guest'
   end
 
-  def title(model_name)
+  def title(controller_name)
     string = ''
-    unless model_name == 'page' or model_name == 'my_account'
-      string << t("activerecord.models.#{model_name.singularize}") + ' - '
+    unless controller_name == 'page' or controller_name == 'my_accounts'
+      string << t("activerecord.models.#{controller_name.singularize}") + ' - '
     end
     string << LibraryGroup.system_name + ' - Next-L Enju Leaf'
     string.html_safe
