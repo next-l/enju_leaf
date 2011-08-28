@@ -40,7 +40,7 @@ module EnjuLeaf
     config.filter_parameters += [:password]
 
     #config.middleware.use '::ExceptionNotifier',
-    #  :email_prefix => "[Whatever] ",
+    #  :email_prefix => "[EnjuLeaf] ",
     #  :sender_address => %{"notifier" <notifier@example.com>},
     #  :exception_recipients => %w{exceptions@example.com}
     #config.middleware.use "Oink::Middleware"

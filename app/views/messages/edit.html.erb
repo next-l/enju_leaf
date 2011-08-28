@@ -37,6 +37,6 @@
 <div id="submenu" class="ui-corner-all">
   <ul>
     <li><%= link_to t('page.show'), @message -%></li>
-    <li><%= link_to t('page.listing', :model => t('activerecord.models.message')), user_messages_path(current_user) -%></li>
+    <li><%= link_to t('page.listing', :model => t('activerecord.models.message')), messages_path -%></li>
   </ul>
 </div>

@@ -50,6 +50,6 @@
   <ul>
     <li><%= link_to t('page.edit'), edit_message_request_path(@message_request) -%></li>
     <li><%= link_to t('page.back'), message_requests_path -%></li>
-    <li><%= link_to t('message.send'), new_user_message_path(current_user, :message_request_id => @message_request.id) -%></li>
+    <li><%= link_to t('message.send'), new_message_path(:message_request_id => @message_request.id) -%></li>
   </ul>
 </div>

@@ -1,14 +1,14 @@
 <div id="content_detail" class="ui-corner-all">
 <h1 class="title"><%= t('activerecord.models.message') -%></h1>
 <div id="content_list">
-<%= form_for :messages, :url => user_messages_path(current_user), :html => {:method => 'get'} do -%>
+<%= form_for :messages, :url => messages_path, :html => {:method => 'get'} do -%>
   <p>
     <%= t('page.search_term') -%>: <%= search_field_tag 'query', h(@query), {:id => 'search_form_top', :class => 'search_form', :placeholder => t('page.search_term')} -%>
     <%= submit_tag t('page.search') -%>
    </p>
 <%- end -%>
 
-<%= form_for :message, :url => destroy_selected_user_messages_path do |form| -%>
+<%= form_for :message, :url => destroy_selected_messages_path do |form| -%>
   <table class="index">
     <tr>
       <th></th>
@@ -60,7 +60,7 @@
 
   <ul>
     <% if can? :create, Message %>
-      <li><%= link_to t('page.new', :model => t('activerecord.models.message')), new_user_message_path(current_user) -%></li>
+      <li><%= link_to t('page.new', :model => t('activerecord.models.message')), new_message_path -%></li>
     <% end %>
   </ul>
 </div>
