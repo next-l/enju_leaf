@@ -94,11 +94,6 @@ EnjuLeaf::Application.routes.draw do
     resources :questions do
       resources :answers
     end
-    resources :messages do
-      collection do
-        post :destroy_selected
-      end
-    end
     resources :reserves
     resources :bookmarks
     resources :purchase_requests
@@ -214,7 +209,11 @@ EnjuLeaf::Application.routes.draw do
 
   resources :roles, :except => [:new, :create, :destroy]
 
-  resources :messages
+  resources :messages do
+    collection do
+      post :destroy_selected
+    end
+  end
 
   resources :library_groups, :except => [:new, :create, :destroy]
 

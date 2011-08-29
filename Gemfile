@@ -32,7 +32,7 @@ end
 gem 'fastercsv' if RUBY_VERSION < '1.9'
 
 gem 'will_paginate', '~>3.0'
-gem 'exception_notification', :require => 'exception_notifier'
+gem 'exception_notification', '~>2.5.0'
 gem 'delayed_job', '>=2.1.4'
 gem 'state_machine'
 gem 'sunspot_rails', :git => 'git://github.com/outoftime/sunspot.git'

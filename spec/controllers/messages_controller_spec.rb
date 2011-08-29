@@ -10,10 +10,10 @@ describe MessagesController do
         sign_in @user
       end
 
-      it "should redirect to its own messages" do
+      it "should get its own messages" do
         get :index
-        assigns(:messages).should be_nil
-        response.should redirect_to(user_messages_url(@user))
+        assigns(:messages).should_not be_nil
+        response.should be_success
       end
 
       describe "When user_id is specified" do
@@ -30,10 +30,10 @@ describe MessagesController do
         sign_in @user
       end
 
-      it "should redirect to its own messages" do
+      it "should get its own messages" do
         get :index
-        assigns(:messages).should be_nil
-        response.should redirect_to(user_messages_url(@user))
+        assigns(:messages).should_not be_nil
+        response.should be_success
       end
 
       describe "When user_id is specified" do
@@ -50,10 +50,10 @@ describe MessagesController do
         sign_in @user
       end
 
-      it "should redirect to its own messages" do
+      it "should get its own messages" do
         get :index
-        assigns(:messages).should be_nil
-        response.should redirect_to(user_messages_url(@user))
+        assigns(:messages).should_not be_nil
+        response.should be_success
       end
 
       describe "When user_id is specified" do
@@ -136,7 +136,7 @@ describe MessagesController do
 
         it "redirects to the created message" do
           post :create, :message => @attrs, :user_id => users(:user1).username
-          response.should redirect_to(user_messages_url(assigns(:message).sender))
+          response.should redirect_to(messages_url)
         end
       end
 

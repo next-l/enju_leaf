@@ -3,7 +3,7 @@
 <div id="content_list">
   <fieldset>
 
-    <%= form_for :message, :url => user_messages_path(current_user) do |f| -%>
+    <%= form_for :message, :url => messages_path do |f| -%>
       <div class="field">
         <label for="message_recepient"><%= t('message.recipient') -%>:</label>
         <%- if @message.recipient -%>
@@ -36,6 +36,6 @@
 
 <div id="submenu" class="ui-corner-all">
   <ul>
-    <li><%= link_to t('page.listing', :model => t('activerecord.models.message')), user_messages_path(current_user) -%></li>
+    <li><%= link_to t('page.listing', :model => t('activerecord.models.message')), messages_path -%></li>
   </ul>
 </div>

@@ -8,10 +8,6 @@ class MessagesController < ApplicationController
   # GET /messages
   # GET /messages.xml
   def index
-    unless @user
-      redirect_to user_messages_url(current_user)
-      return
-    end
     query = params[:query].to_s.strip
     search = Sunspot.new_search(Message)
     user = current_user
@@ -84,7 +80,7 @@ class MessagesController < ApplicationController
     respond_to do |format|
       if @message.save
         flash[:notice] = t('controller.successfully_created', :model => t('activerecord.models.message'))
-        format.html { redirect_to user_messages_url(current_user) }
+        format.html { redirect_to messages_url }
         format.xml  { render :xml => @message, :status => :created, :location => @message }
       else
         format.html { render :action => "new" }
@@ -115,7 +111,7 @@ class MessagesController < ApplicationController
     @message.destroy
 
     respond_to do |format|
-      format.html { redirect_to user_messages_url(current_user) }
+      format.html { redirect_to messages_url }
       format.xml  { head :ok }
     end
   end
@@ -138,10 +134,10 @@ class MessagesController < ApplicationController
           message.destroy
         end
         flash[:notice] = t('message.messages_were_deleted')
-        format.html { redirect_to user_messages_url(current_user) }
+        format.html { redirect_to messages_url }
       else
         flash[:notice] = t('message.select_messages')
-        format.html { redirect_to user_messages_url(current_user) }
+        format.html { redirect_to messages_url }
       end
     end
   end
