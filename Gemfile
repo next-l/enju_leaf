@@ -1,6 +1,6 @@
 source 'http://rubygems.org'
 
-gem 'rails', '3.1.0.rc6'
+gem 'rails', '3.1.0.rc8'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
@@ -58,7 +58,7 @@ gem 'configatron'
 gem 'extractcontent'
 gem 'cancan', '>=1.6.5'
 gem 'scribd_fu'
-gem 'devise', '>=1.4.2'
+gem 'devise', :git => 'git://github.com/plataformatec/devise.git'
 gem 'omniauth', '>=0.2.6'
 gem 'paperclip'
 gem 'whenever', :require => false
