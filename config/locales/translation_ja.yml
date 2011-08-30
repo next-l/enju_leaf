@@ -452,7 +452,7 @@ ja:
         url: URL
         price: 購入価格
         lock_version: ロックバージョン
-        checkout_type: 貸出種別
+        checkout_type: 貸出区分
         acquired_at: 受入日
       barcode:
         barcode_type: バーコードの種類
