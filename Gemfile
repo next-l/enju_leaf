@@ -58,7 +58,7 @@ gem 'configatron'
 gem 'extractcontent'
 gem 'cancan', '>=1.6.5'
 gem 'scribd_fu'
-gem 'devise', '>=1.4.2'
+gem 'devise', '>=1.4.3'
 gem 'omniauth', '>=0.2.6'
 gem 'paperclip'
 gem 'whenever', :require => false
