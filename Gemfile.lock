@@ -99,7 +99,7 @@ GEM
     escape (0.0.4)
     escape_utils (0.2.3)
     event-calendar (2.3.3)
-    exception_notification (2.5.0)
+    exception_notification (2.5.2)
       actionmailer (>= 3.0.4)
     extractcontent (0.0.1)
     factory_girl (2.0.5)

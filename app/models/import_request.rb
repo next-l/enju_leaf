@@ -1,6 +1,6 @@
 class ImportRequest < ActiveRecord::Base
   default_scope :order => 'id DESC'
-  belongs_to :manifestation, :class_name => 'Manifestation'
+  belongs_to :manifestation
   belongs_to :user
   validates_presence_of :isbn
   validate :check_isbn

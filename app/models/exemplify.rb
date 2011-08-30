@@ -1,5 +1,5 @@
 class Exemplify < ActiveRecord::Base
-  belongs_to :manifestation, :class_name => 'Manifestation'
+  belongs_to :manifestation
   belongs_to :item
 
   validates_associated :manifestation, :item
