@@ -538,7 +538,7 @@ class Manifestation < ActiveRecord::Base
   end
 
   def acquired_at
-    items.order(:acquired_at).last.try(:acquired_at)
+    items.order(:acquired_at).first.try(:acquired_at)
   end
 end
 

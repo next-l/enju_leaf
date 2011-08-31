@@ -9,7 +9,9 @@ describe Exemplify do
   end
 
   it 'should create lending policy' do
-    @exemplify.create_lending_policy
+    @exemplify.item.lending_policies.size.should eq 3
+    periods = UserGroupHasCheckoutType.available_for_item(@exemplify.item).order('user_group_has_checkout_types.id').collect(&:checkout_period)
+    @exemplify.item.lending_policies.order('lending_policies.id').collect(&:loan_period).should eq periods
   end
 end
 

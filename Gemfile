@@ -1,6 +1,6 @@
 source 'http://rubygems.org'
 
-gem 'rails', '3.1.0.rc8'
+gem 'rails', '3.1.0'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
@@ -43,7 +43,7 @@ gem 'nokogiri'
 gem 'marc'
 gem 'strongbox', '>=0.4.7'
 gem 'acts-as-taggable-on'
-gem 'dalli'
+gem 'dalli', '~>1.1'
 gem 'sitemap_generator', '>=2.0.1'
 gem 'ri_cal'
 gem 'file_wrapper'
@@ -58,7 +58,7 @@ gem 'configatron'
 gem 'extractcontent'
 gem 'cancan', '>=1.6.5'
 gem 'scribd_fu'
-gem 'devise', :git => 'git://github.com/plataformatec/devise.git'
+gem 'devise', '>=1.4.3'
 gem 'omniauth', '>=0.2.6'
 gem 'paperclip'
 gem 'whenever', :require => false

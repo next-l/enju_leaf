@@ -4,7 +4,6 @@ class Item < ActiveRecord::Base
   scope :not_for_checkout, where(:item_identifier => nil)
   scope :on_shelf, where('shelf_id != 1')
   scope :on_web, where(:shelf_id => 1)
-  #belongs_to :manifestation, :class_name => 'Manifestation'
   has_one :exemplify
   has_one :manifestation, :through => :exemplify
   has_many :checkouts
