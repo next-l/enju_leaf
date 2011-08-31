@@ -23,7 +23,6 @@
     <td><%= localized_state(event_import_file.state) -%></td>
     <td>
       <%= link_to t('page.show'), event_import_file -%>
-      <%= link_to t('page.edit'), edit_event_import_file_path(event_import_file) -%>
       <%= link_to t('page.destroy'), event_import_file, :confirm => t('page.are_you_sure'), :method => :delete -%>
     </td>
   </tr>

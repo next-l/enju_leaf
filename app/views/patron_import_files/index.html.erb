@@ -23,7 +23,6 @@
     <td><%= localized_state(patron_import_file.state) -%></td>
     <td>
       <%= link_to t('page.show'), patron_import_file -%>
-      <%= link_to t('page.edit'), edit_patron_import_file_path(patron_import_file) -%>
       <%= link_to t('page.destroy'), patron_import_file, :confirm => t('page.are_you_sure'), :method => :delete -%>
     </td>
   </tr>

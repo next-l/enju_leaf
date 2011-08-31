@@ -84,7 +84,7 @@ GEM
     configatron (2.8.2)
       yamler (>= 0.1.0)
     daemons (1.1.4)
-    dalli (1.0.5)
+    dalli (1.1.1)
     delayed_job (2.1.4)
       activesupport (~> 3.0)
       daemons
@@ -140,7 +140,8 @@ GEM
       thor (~> 0.14)
     jruby-openssl (0.7.4)
       bouncy-castle-java
-    json_pure (1.5.3)
+    json_pure (1.5.4)
+      spruz (~> 0.2.8)
     library_stdnums (1.0.1)
     mail (2.2.19)
       activesupport (>= 2.3.6)
@@ -322,6 +323,7 @@ GEM
     simplecov-html (0.4.5)
     sitemap_generator (2.0.1)
     spork (0.9.0.rc9)
+    spruz (0.2.13)
     state_machine (1.0.2)
     strongbox (0.4.8)
       activerecord
@@ -372,7 +374,7 @@ DEPENDENCIES
   cancan (>= 1.6.5)
   client_side_validations
   configatron
-  dalli
+  dalli (~> 1.1)
   delayed_job (>= 2.1.4)
   devise (>= 1.4.3)
   dynamic_form

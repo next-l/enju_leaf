@@ -38,9 +38,6 @@
 
 <div id="submenu" class="ui-corner-all">
   <ul>
-    <%- if can? :update, @import_request -%>
-      <li><%= link_to t('page.edit'), edit_import_request_path(@import_request) -%></li>
-    <%- end -%>
     <li><%= link_to t('page.back'), import_requests_path -%></li>
   </ul>
 </div>
