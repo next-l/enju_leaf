@@ -101,7 +101,7 @@ GEM
     delayed_job (2.1.4)
       activesupport (~> 3.0)
       daemons
-    devise (1.4.3)
+    devise (1.4.4)
       bcrypt-ruby (~> 3.0)
       orm_adapter (~> 0.0.3)
       warden (~> 1.0.3)
@@ -114,9 +114,9 @@ GEM
     exception_notification (2.5.2)
       actionmailer (>= 3.0.4)
     extractcontent (0.0.1)
-    factory_girl (2.0.5)
-    factory_girl_rails (1.1.0)
-      factory_girl (~> 2.0.0)
+    factory_girl (2.1.0)
+    factory_girl_rails (1.2.0)
+      factory_girl (~> 2.1.0)
       railties (>= 3.0.0)
     faraday (0.6.1)
       addressable (~> 2.2.4)
@@ -133,7 +133,7 @@ GEM
     geocoder (1.0.2)
     glassfish (1.0.3-java)
       rack (>= 0.4.0)
-    guard (0.6.2)
+    guard (0.6.3)
       thor (~> 0.14.6)
     guard-rspec (0.4.3)
       guard (>= 0.4.0)
@@ -141,12 +141,12 @@ GEM
     has_scope (0.5.1)
     hike (1.2.1)
     hirb (0.5.0)
-    i18n (0.6.0)
-    inherited_resources (1.2.2)
+    i18n (0.5.0)
+    inherited_resources (1.3.0)
       has_scope (~> 0.5.0)
       responders (~> 0.6.0)
     jdbc-postgres (9.0.801)
-    jpmobile (2.0.0.pre.2)
+    jpmobile (2.0.0)
     jquery-rails (1.0.13)
       railties (~> 3.0)
       thor (~> 0.14)
@@ -154,6 +154,7 @@ GEM
       bouncy-castle-java
     json_pure (1.5.4)
       spruz (~> 0.2.8)
+    kgio (2.6.0)
     library_stdnums (1.0.1)
     mail (2.3.0)
       i18n (>= 0.4.0)
@@ -224,9 +225,9 @@ GEM
       oa-oauth (= 0.2.6)
       oa-openid (= 0.2.6)
     orm_adapter (0.0.5)
-    paper_trail (2.3.1)
+    paper_trail (2.3.2)
       rails (~> 3)
-    paperclip (2.3.16)
+    paperclip (2.4.0)
       activerecord (>= 2.3.0)
       activesupport (>= 2.3.2)
       cocaine (>= 0.0.2)
@@ -248,7 +249,7 @@ GEM
     rack-openid (1.3.1)
       rack (>= 1.1.0)
       ruby-openid (>= 2.1.8)
-    rack-protection (0.1.0)
+    rack-protection (1.0.0)
       escape_utils
       rack
     rack-ssl (1.3.2)
@@ -297,7 +298,7 @@ GEM
     ri_cal (0.8.8)
     roodi (2.1.0)
       ruby_parser
-    rqrcode (0.4.1)
+    rqrcode (0.4.2)
     rscribd (1.3.0)
       mime-types
     rsolr (0.12.1)
@@ -321,7 +322,7 @@ GEM
       ruby-openid (>= 2.1.7)
     ruby-prof (0.10.8)
     ruby-progressbar (0.0.10)
-    ruby2ruby (1.2.5)
+    ruby2ruby (1.3.0)
       ruby_parser (~> 2.0)
       sexp_processor (~> 3.0)
     ruby_parser (2.0.6)
@@ -339,7 +340,7 @@ GEM
     simplecov (0.4.2)
       simplecov-html (~> 0.4.4)
     simplecov-html (0.4.5)
-    sitemap_generator (2.0.1)
+    sitemap_generator (2.1.0)
     spork (0.9.0.rc9)
     sprockets (2.0.0)
       hike (~> 1.2)
@@ -377,47 +378,48 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  RedCloth (>= 4.2.7)
+  RedCloth (>= 4.2.8)
   activerecord-jdbc-adapter
-  acts-as-taggable-on
+  acts-as-taggable-on (~> 2.1)
   acts_as_list!
   amazon-ecs (>= 2.0.0)
   annotate
   astrails-safe
   attribute_normalizer
   aws-s3
-  barby (>= 0.4.4)
+  barby (~> 0.5)
   cancan (>= 1.6.5)
   client_side_validations
   configatron
   dalli (~> 1.1)
   delayed_job (>= 2.1.4)
-  devise (>= 1.4.3)
+  devise (~> 1.4)
   dynamic_form
   event-calendar
-  exception_notification (~> 2.5.0)
+  exception_notification (~> 2.5.2)
   extractcontent
-  factory_girl_rails (~> 1.1)
+  factory_girl_rails (~> 1.2)
   file_wrapper
   friendly_id (~> 4.0.0.beta8)
   geocoder
   glassfish
   guard-rspec
   has_scope
-  inherited_resources
+  inherited_resources (~> 1.3)
   isbn-tools!
   jdbc-postgres
-  jpmobile (~> 2.0.0.pre.2)
+  jpmobile (~> 2.0)
   jquery-rails
   jruby-openssl
+  kgio
   library_stdnums
   marc
   metric_fu
   money
   nokogiri
   omniauth (>= 0.2.6)
-  paper_trail (>= 2.2.5)
-  paperclip
+  paper_trail (~> 2.3)
+  paperclip (~> 2.4)
   parallel_tests
   pg
   prism
@@ -434,11 +436,16 @@ DEPENDENCIES
   scribd_fu
   simple_form
   simplecov (>= 0.4.0)
-  sitemap_generator (>= 2.0.1)
+  sitemap_generator (~> 2.1)
   spork (~> 0.9.0.rc9)
   state_machine
+<<<<<<< HEAD
   strongbox (>= 0.4.7)
   sunspot_rails!
+=======
+  strongbox (>= 0.4.8)
+  sunspot_rails (>= 1.2.1)
+>>>>>>> 1.0
   system_timer
   timecop
   validates_timeliness
