@@ -2,6 +2,7 @@ require 'will_paginate/view_helpers/action_view'
 
 WillPaginate::ViewHelpers.pagination_options[:class] = "digg_pagination"
 
+# https://gist.github.com/759937
 module JqueryMobileRenderer
   class WillPaginateJqueryMobileRenderer < WillPaginate::ActionView::LinkRenderer
 
@@ -45,7 +46,7 @@ module JqueryMobileRenderer
     def previous_or_next_page(page, text, classname)
       if page
         link(text, page, :class => classname)
-      else
+      #else
       #  tag(:span, text, :class => classname + ' disabled')
       end
     end

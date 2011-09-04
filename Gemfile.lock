@@ -97,7 +97,6 @@ GEM
     erubis (2.6.6)
       abstract (>= 1.0.0)
     escape (0.0.4)
-    escape_utils (0.2.3)
     event-calendar (2.3.3)
     exception_notification (2.5.2)
       actionmailer (>= 3.0.4)
@@ -236,8 +235,7 @@ GEM
     rack-openid (1.3.1)
       rack (>= 1.1.0)
       ruby-openid (>= 2.1.8)
-    rack-protection (1.0.0)
-      escape_utils
+    rack-protection (1.1.0)
       rack
     rack-test (0.5.7)
       rack (>= 1.0)
