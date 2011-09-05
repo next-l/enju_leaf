@@ -42,6 +42,16 @@ describe PatronsController do
         get :index
         assigns(:patrons).should_not be_empty
       end
+
+      it "assigns all patrons as @patrons in rss format" do
+        get :index, :format => :rss
+        assigns(:patrons).should_not be_empty
+      end
+
+      it "assigns all patrons as @patrons in atom format" do
+        get :index, :format => :atom
+        assigns(:patrons).should_not be_empty
+      end
     end
   end
 

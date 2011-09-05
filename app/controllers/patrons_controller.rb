@@ -42,7 +42,8 @@ class PatronsController < ApplicationController
       :full_name,
       :full_name_transcription,
       :patron_type_id,
-      :required_role_id
+      :required_role_id,
+      :created_at
     ]
     set_role_query(current_user, search)
 
