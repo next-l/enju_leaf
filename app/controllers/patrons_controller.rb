@@ -133,7 +133,7 @@ class PatronsController < ApplicationController
     end
     @patron = Patron.new
     if @user
-      @patron.user = @user
+      @patron.user_username = @user.username
       @patron.required_role = Role.find_by_name('Librarian')
     else
       @patron.required_role = Role.find_by_name('Guest')

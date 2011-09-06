@@ -12,7 +12,7 @@ GIT
 
 GIT
   remote: git://github.com/outoftime/sunspot.git
-  revision: f3295f87471e1feaffe97bd82146b84130b6c27d
+  revision: f123f96ed4de8bd6d26bed0f08d865c73101a3d4
   specs:
     sunspot (1.2.1)
       escape (= 0.0.4)
@@ -62,7 +62,7 @@ GEM
     acts-as-taggable-on (2.1.1)
       rails
     addressable (2.2.4)
-    amazon-ecs (2.1.1)
+    amazon-ecs (2.2.0)
       nokogiri (>= 1.4.0)
       ruby-hmac (>= 0.3.2)
     annotate (2.4.0)
