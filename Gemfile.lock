@@ -47,7 +47,7 @@ GEM
     acts-as-taggable-on (2.1.1)
       rails
     addressable (2.2.4)
-    amazon-ecs (2.1.1)
+    amazon-ecs (2.2.0)
       nokogiri (>= 1.4.0)
       ruby-hmac (>= 0.3.2)
     annotate (2.4.0)
@@ -84,7 +84,7 @@ GEM
     configatron (2.8.2)
       yamler (>= 0.1.0)
     daemons (1.1.4)
-    dalli (1.1.1)
+    dalli (1.1.2)
     delayed_job (2.1.4)
       activesupport (~> 3.0)
       daemons
