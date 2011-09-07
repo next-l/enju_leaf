@@ -1,7 +1,5 @@
 require 'will_paginate/view_helpers/action_view'
 
-WillPaginate::ViewHelpers.pagination_options[:class] = "digg_pagination"
-
 # https://gist.github.com/759937
 module JqueryMobileRenderer
   class WillPaginateJqueryMobileRenderer < WillPaginate::ActionView::LinkRenderer
@@ -10,7 +8,7 @@ module JqueryMobileRenderer
       html = pagination.map do |item|
         item.is_a?(Fixnum) ?
           page_number(item) :
-          tag(:li, send(item))
+          tag(:li, send(item), :class => 'mobile_pagination')
       end.join(@options[:link_separator])
 
       @options[:container] ? html_container(html) : html
@@ -40,7 +38,7 @@ module JqueryMobileRenderer
 
       c = (page == current_page) ? 'ui-btn-active' : nil
 
-      tag(:li, link(range, page, :rel => rel_value(page), :class => c))
+      tag(:li, link(range, page, :rel => rel_value(page), :class => c), :class => 'mobile_pagination')
     end
 
     def previous_or_next_page(page, text, classname)
