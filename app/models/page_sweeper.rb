@@ -3,7 +3,7 @@ class PageSweeper < ActionController::Caching::Sweeper
   observe Create, Realize, Produce, Own, Patron, Language, Checkin,
     SeriesStatement, SubjectHeadingType, PictureFile, Shelf, Tag, Answer,
     Subject, Classification, Library, SubjectHeadingTypeHasSubject,
-    WorkHasSubject, SeriesHasManifestation
+    WorkHasSubject, SeriesHasManifestation, InterLibraryLoan
 
   def after_save(record)
     case
@@ -71,6 +71,8 @@ class PageSweeper < ActionController::Caching::Sweeper
       expire_editable_fragment(record.subject)
     when record.is_a?(SeriesHasManifestation)
       expire_editable_fragment(record.manifestation)
+    when record.is_a?(InterLibraryLoan)
+      expire_editable_fragment(record.item.manifestation, ['detail', 'show_list', 'holding'])
     end
   end
 

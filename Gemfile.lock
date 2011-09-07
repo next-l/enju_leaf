@@ -98,7 +98,7 @@ GEM
     configatron (2.8.2)
       yamler (>= 0.1.0)
     daemons (1.1.4)
-    dalli (1.1.1)
+    dalli (1.1.2)
     delayed_job (2.1.4)
       activesupport (~> 3.0)
       daemons
