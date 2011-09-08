@@ -10,32 +10,6 @@ GIT
   specs:
     isbn-tools (0.2.0)
 
-GIT
-  remote: git://github.com/sunspot/sunspot.git
-  revision: f123f96ed4de8bd6d26bed0f08d865c73101a3d4
-  specs:
-    sunspot (1.2.1)
-      escape (= 0.0.4)
-      pr_geohash (~> 1.0)
-      rsolr (= 1.0.2)
-    sunspot_rails (1.2.1)
-      nokogiri
-      progress_bar (= 0.3.4)
-      sunspot (= 1.2.1)
-
-GIT
-  remote: git://github.com/sunspot/sunspot.git
-  revision: f123f96ed4de8bd6d26bed0f08d865c73101a3d4
-  specs:
-    sunspot (1.2.1)
-      escape (= 0.0.4)
-      pr_geohash (~> 1.0)
-      rsolr (= 1.0.2)
-    sunspot_rails (1.2.1)
-      nokogiri
-      progress_bar (= 0.3.4)
-      sunspot (= 1.2.1)
-
 GEM
   remote: http://rubygems.org/
   specs:
@@ -383,6 +357,14 @@ GEM
     state_machine (1.0.2)
     strongbox (0.4.8)
       activerecord
+    sunspot (1.3.0.rc2)
+      escape (= 0.0.4)
+      pr_geohash (~> 1.0)
+      rsolr (= 1.0.2)
+    sunspot_rails (1.3.0.rc2)
+      nokogiri
+      progress_bar (= 0.3.4)
+      sunspot (= 1.3.0.rc2)
     syntax (1.0.0)
     system_timer (1.2.4)
     thor (0.14.6)
@@ -418,7 +400,7 @@ DEPENDENCIES
   activerecord-jdbc-adapter
   acts-as-taggable-on (~> 2.1)
   acts_as_list!
-  amazon-ecs (>= 2.0.0)
+  amazon-ecs (>= 2.2.0)
   annotate
   astrails-safe
   attribute_normalizer
@@ -437,7 +419,7 @@ DEPENDENCIES
   extractcontent
   factory_girl_rails (~> 1.2)
   file_wrapper
-  friendly_id (~> 4.0.0.beta10)
+  friendly_id (~> 4.0.0.beta11)
   geocoder
   glassfish
   guard-rspec
@@ -451,7 +433,7 @@ DEPENDENCIES
   kgio
   library_stdnums
   marc
-  metric_fu
+  metric_fu (~> 2.1)
   money
   nokogiri
   omniauth (>= 0.2.6)
@@ -472,18 +454,17 @@ DEPENDENCIES
   sanitize
   sass-rails (~> 3.1.0)
   scribd_fu
-  simple_form
+  simple_form (~> 1.5)
   simplecov (>= 0.4.0)
   sitemap_generator (~> 2.1)
   spork (~> 0.9.0.rc9)
   state_machine
   strongbox (>= 0.4.8)
-  sunspot!
-  sunspot_rails!
+  sunspot_rails (~> 1.3.rc2)
   system_timer
   timecop
   uglifier
   validates_timeliness
-  whenever
+  whenever (~> 0.6)
   will_paginate (~> 3.0)
   zipruby
