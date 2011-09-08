@@ -11,13 +11,26 @@ GIT
     isbn-tools (0.2.0)
 
 GIT
-  remote: git://github.com/outoftime/sunspot.git
+  remote: git://github.com/sunspot/sunspot.git
   revision: f123f96ed4de8bd6d26bed0f08d865c73101a3d4
   specs:
     sunspot (1.2.1)
       escape (= 0.0.4)
       pr_geohash (~> 1.0)
-      rsolr (= 0.12.1)
+      rsolr (= 1.0.2)
+    sunspot_rails (1.2.1)
+      nokogiri
+      progress_bar (= 0.3.4)
+      sunspot (= 1.2.1)
+
+GIT
+  remote: git://github.com/sunspot/sunspot.git
+  revision: f123f96ed4de8bd6d26bed0f08d865c73101a3d4
+  specs:
+    sunspot (1.2.1)
+      escape (= 0.0.4)
+      pr_geohash (~> 1.0)
+      rsolr (= 1.0.2)
     sunspot_rails (1.2.1)
       nokogiri
       progress_bar (= 0.3.4)
@@ -94,6 +107,13 @@ GEM
     cloudfiles (1.4.17)
       mime-types (>= 1.16)
     cocaine (0.2.0)
+    coffee-rails (3.1.0)
+      coffee-script (>= 2.2.0)
+      railties (~> 3.1.0.rc1)
+    coffee-script (2.2.0)
+      coffee-script-source
+      execjs
+    coffee-script-source (1.1.2)
     colored (1.2)
     configatron (2.8.2)
       yamler (>= 0.1.0)
@@ -113,6 +133,8 @@ GEM
     event-calendar (2.3.3)
     exception_notification (2.5.2)
       actionmailer (>= 3.0.4)
+    execjs (1.2.4)
+      multi_json (~> 1.0)
     extractcontent (0.0.1)
     factory_girl (2.1.0)
     factory_girl_rails (1.2.0)
@@ -130,7 +152,7 @@ GEM
     flog (2.5.2)
       ruby_parser (~> 2.0)
       sexp_processor (~> 3.0)
-    friendly_id (4.0.0.beta10)
+    friendly_id (4.0.0.beta11)
     geocoder (1.0.2)
     glassfish (1.0.3-java)
       rack (>= 0.4.0)
@@ -231,7 +253,7 @@ GEM
     orm_adapter (0.0.5)
     paper_trail (2.3.2)
       rails (~> 3)
-    paperclip (2.4.0)
+    paperclip (2.4.1)
       activerecord (>= 2.3.0)
       activesupport (>= 2.3.2)
       cocaine (>= 0.0.2)
@@ -307,7 +329,7 @@ GEM
     rqrcode (0.4.2)
     rscribd (1.3.0)
       mime-types
-    rsolr (0.12.1)
+    rsolr (1.0.2)
       builder (>= 2.1.2)
     rspec (2.6.0)
       rspec-core (~> 2.6.0)
@@ -337,10 +359,15 @@ GEM
     rubyzip2 (2.0.1)
     sanitize (2.0.3)
       nokogiri (< 1.6, >= 1.4.4)
+    sass (3.1.7)
+    sass-rails (3.1.0)
+      actionpack (~> 3.1.0)
+      railties (~> 3.1.0)
+      sass (>= 3.1.4)
     scribd_fu (2.0.11)
       rscribd
     sexp_processor (3.0.6)
-    simple_form (1.4.2)
+    simple_form (1.5.0)
       actionpack (~> 3.0)
       activemodel (~> 3.0)
     simplecov (0.4.2)
@@ -366,6 +393,9 @@ GEM
       polyglot
       polyglot (>= 0.3.1)
     tzinfo (0.3.29)
+    uglifier (1.0.3)
+      execjs (>= 0.3.0)
+      multi_json (>= 1.0.2)
     validates_timeliness (3.0.6)
       timeliness (~> 0.3.3)
     warden (1.0.5)
@@ -396,6 +426,7 @@ DEPENDENCIES
   barby (~> 0.5)
   cancan (>= 1.6.5)
   client_side_validations
+  coffee-rails (~> 3.1.0)
   configatron
   dalli (~> 1.1)
   delayed_job (>= 2.1.4)
@@ -439,6 +470,7 @@ DEPENDENCIES
   ruby-prof
   rubyzip2
   sanitize
+  sass-rails (~> 3.1.0)
   scribd_fu
   simple_form
   simplecov (>= 0.4.0)
@@ -446,9 +478,11 @@ DEPENDENCIES
   spork (~> 0.9.0.rc9)
   state_machine
   strongbox (>= 0.4.8)
+  sunspot!
   sunspot_rails!
   system_timer
   timecop
+  uglifier
   validates_timeliness
   whenever
   will_paginate (~> 3.0)
