@@ -26,7 +26,7 @@ class Ability
       end
       can [:read, :create, :update], Manifestation
       can :destroy, Manifestation do |manifestation|
-        manifestation.items.empty?
+        manifestation.items.empty? and !manifestation.is_reserved?
       end
       can [:read, :update, :destroy], MessageRequest
       can [:read, :create, :update], Patron
@@ -155,7 +155,7 @@ class Ability
       end
       can [:read, :create, :update], Manifestation
       can :destroy, Manifestation do |manifestation|
-        manifestation.items.empty?
+        manifestation.items.empty? and !manifestation.is_reserved?
       end
       can [:index, :create], Message
       can [:update], Message do |message|

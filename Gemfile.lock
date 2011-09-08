@@ -215,7 +215,7 @@ GEM
     orm_adapter (0.0.5)
     paper_trail (2.3.2)
       rails (~> 3)
-    paperclip (2.4.0)
+    paperclip (2.4.1)
       activerecord (>= 2.3.0)
       activesupport (>= 2.3.2)
       cocaine (>= 0.0.2)
@@ -314,7 +314,7 @@ GEM
     scribd_fu (2.0.11)
       rscribd
     sexp_processor (3.0.6)
-    simple_form (1.4.2)
+    simple_form (1.5.0)
       actionpack (~> 3.0)
       activemodel (~> 3.0)
     simplecov (0.4.2)
@@ -364,7 +364,7 @@ DEPENDENCIES
   activerecord-jdbc-adapter
   acts-as-taggable-on (~> 2.1)
   acts_as_list!
-  amazon-ecs (>= 2.0.0)
+  amazon-ecs (>= 2.2.0)
   annotate
   astrails-safe
   attribute_normalizer
@@ -396,7 +396,7 @@ DEPENDENCIES
   kgio
   library_stdnums
   marc
-  metric_fu
+  metric_fu (~> 2.1)
   money
   nokogiri
   omniauth (>= 0.2.6)
@@ -415,16 +415,16 @@ DEPENDENCIES
   rubyzip2
   sanitize
   scribd_fu
-  simple_form
+  simple_form (~> 1.5)
   simplecov (>= 0.4.0)
   sitemap_generator (~> 2.1)
   spork (~> 0.9.0.rc9)
   state_machine
   strongbox (>= 0.4.8)
-  sunspot_rails (>= 1.2.1)
+  sunspot_rails (~> 1.2)
   system_timer
   timecop
   validates_timeliness
-  whenever
+  whenever (~> 0.6)
   will_paginate (~> 3.0)
   zipruby
