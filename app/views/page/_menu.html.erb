@@ -64,8 +64,8 @@
     <%- if user_signed_in? -%>
       <div id="request_menu" class="hidden">
         <ul>
-          <li><%= link_to t('activerecord.models.purchase_request'), user_purchase_requests_path(current_user) -%></li>
-          <li><%= link_to t('activerecord.models.question'), user_questions_path(current_user) -%></li>
+          <li><%= link_to t('activerecord.models.purchase_request'), purchase_requests_path -%></li>
+          <li><%= link_to t('activerecord.models.question'), questions_path -%></li>
         </ul>
       </div>
     <%- else -%>

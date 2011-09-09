@@ -7,7 +7,7 @@ gem 'rails', '3.0.10'
 
 platforms :ruby do
   gem 'pg'
-  #gem 'mysql2', '~>0.2.11'
+  #gem 'mysql2', '~> 0.2.11'
   gem 'ruby-prof', :group => [:development, :test]
   gem 'zipruby'
   gem 'kgio'
@@ -32,52 +32,53 @@ end
 
 gem 'fastercsv' if RUBY_VERSION < '1.9'
 
-gem 'will_paginate', '~>3.0'
-gem 'exception_notification', '~>2.5.2'
-gem 'delayed_job', '>=2.1.4'
+gem 'will_paginate', '~> 3.0'
+gem 'exception_notification', '~> 2.5.2'
+gem 'delayed_job', '>= 2.1.4'
 gem 'state_machine'
-gem 'sunspot_rails', '~>1.2'
-gem 'friendly_id', '~>3.3'
-gem 'inherited_resources', '~>1.3'
+gem 'sunspot_rails', '~> 1.3.0.rc4'
+gem 'sunspot_solr', '~> 1.3.0.rc4'
+gem "friendly_id", "~> 4.0.0.beta11"
+gem 'inherited_resources', '~> 1.3'
 gem 'has_scope'
 gem 'nokogiri'
 gem 'marc'
-gem 'strongbox', '>=0.4.8'
-gem 'acts-as-taggable-on', '~>2.1'
-gem 'dalli', '~>1.1'
-gem 'sitemap_generator', '~>2.1'
+gem 'strongbox', '>= 0.4.8'
+gem 'acts-as-taggable-on', '~> 2.1'
+gem 'dalli', '~> 1.1'
+gem 'sitemap_generator', '~> 2.1'
 gem 'ri_cal'
 gem 'file_wrapper'
-gem 'paper_trail', '~>2.3'
+gem 'paper_trail', '~> 2.3'
 gem 'recurrence'
 gem 'prism'
 gem 'money'
-gem 'RedCloth', '>=4.2.8'
+gem 'RedCloth', '>= 4.2.8'
 gem 'isbn-tools', :git => 'git://github.com/nabeta/isbn-tools.git', :require => 'isbn/tools'
 gem 'attribute_normalizer'
 gem 'configatron'
 gem 'extractcontent'
-gem 'cancan', '>=1.6.5'
+gem 'cancan', '>= 1.6.5'
 gem 'scribd_fu'
-gem 'devise', '~>1.4'
-gem 'omniauth', '>=0.2.6'
-gem 'paperclip', '~>2.4'
-gem 'whenever', '~>0.6', :require => false
-gem 'amazon-ecs', '>=2.2.0', :require => 'amazon/ecs'
+gem 'devise', '~> 1.4'
+gem 'omniauth', '>= 0.2.6'
+gem 'paperclip', '~> 2.4'
+gem 'whenever', '~> 0.6', :require => false
+gem 'amazon-ecs', '>= 2.2.0', :require => 'amazon/ecs'
 gem 'aws-s3', :require => 'aws/s3'
 gem 'astrails-safe'
 gem 'dynamic_form'
 gem 'sanitize'
-gem 'barby', '~>0.5'
+gem 'barby', '~> 0.5'
 gem 'rqrcode'
 gem 'event-calendar', :require => 'event_calendar'
-gem 'jpmobile', '~>1.0'
+gem 'jpmobile', '~> 1.0'
 #gem 'geokit'
 gem 'geocoder'
-gem 'acts_as_list', :git => 'https://github.com/swanandp/acts_as_list'
+gem 'acts_as_list', :git => 'git://github.com/swanandp/acts_as_list.git'
 gem 'library_stdnums'
 gem 'client_side_validations'
-gem 'simple_form', '~>1.5'
+gem 'simple_form', '~> 1.5'
 gem 'validates_timeliness'
 gem 'rack-protection'
 
@@ -91,11 +92,19 @@ end
 group :development, :test do
   gem 'rspec-rails'
   gem 'guard-rspec'
-  gem 'factory_girl_rails', '~>1.2'
+  gem 'factory_girl_rails', '~> 1.2'
   gem 'spork', '~> 0.9.0.rc9'
-  gem 'metric_fu', '~>2.1'
+  gem 'metric_fu', '~> 2.1'
   gem 'timecop'
 end
+
+# Gems used only for assets and not required
+# in production environments by default.
+#group :assets do
+#  gem 'sass-rails', "  ~> 3.1.0"
+#  gem 'coffee-rails', "~> 3.1.0"
+#  gem 'uglifier'
+#end
 
 # Use unicorn as the web server
 # gem 'unicorn'

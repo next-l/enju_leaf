@@ -3,7 +3,8 @@ class Tag < ActiveRecord::Base
   after_save :save_taggings
   after_destroy :save_taggings
 
-  has_friendly_id :name
+  extend FriendlyId
+  friendly_id :name
 
   searchable do
     text :name
