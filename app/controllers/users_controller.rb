@@ -142,11 +142,7 @@ class UsersController < ApplicationController
 
     #@user.save do |result|
     respond_to do |format|
-      if @user == current_user
-        @user.update_with_password(params[:user])
-      else
-        @user.update_without_password(params[:user])
-      end
+      @user.save
       if @user.errors.empty?
         flash[:notice] = t('controller.successfully_updated', :model => t('activerecord.models.user'))
         format.html { redirect_to user_url(@user) }

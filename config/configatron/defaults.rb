@@ -12,7 +12,7 @@ configatron.enju.web_port_number = 3000
 # パトロンの名前を入力する際、姓を先に表示する
 configatron.family_name_first = true
 
-#configatron.max_number_of_results = 500
+configatron.max_number_of_results = 500
 configatron.write_search_log_to_file = true
 configatron.csv_charset_conversion = true
 

@@ -167,7 +167,7 @@ class ManifestationsController < ApplicationController
 
       unless session[:manifestation_ids]
         manifestation_ids = search.build do
-        #  paginate :page => 1, :per_page => configatron.max_number_of_results
+          paginate :page => 1, :per_page => configatron.max_number_of_results
         end.execute.raw_results.collect(&:primary_key).map{|id| id.to_i}
         session[:manifestation_ids] = manifestation_ids
       end
@@ -186,18 +186,20 @@ class ManifestationsController < ApplicationController
       if params[:format] == 'sru'
         search.query.start_record(params[:startRecord] || 1, params[:maximumRecords] || 200)
       else
+        per_page ||= Manifestation.per_page
         search.build do
           facet :reservable
           facet :carrier_type
           facet :library
           facet :language
           facet :subject_ids
-          paginate :page => page.to_i, :per_page => per_page || Manifestation.per_page
+          paginate :page => page.to_i, :per_page => per_page
         end
       end
       search_result = search.execute
-      @manifestations = search_result.results
-      #@manifestations.total_entries = configatron.max_number_of_results if @count[:query_result] > configatron.max_number_of_results
+      @manifestations = WillPaginate::Collection.create(page, per_page, configatron.max_number_of_results) do |pager|
+        pager.replace(search_result.results)
+      end
       get_libraries
 
       if params[:format].blank? or params[:format] == 'html'

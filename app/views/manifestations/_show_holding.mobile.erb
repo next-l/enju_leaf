@@ -9,11 +9,10 @@
   <%- manifestation.items.on_shelf.each do |item| -%>
     <tr>
       <td>
-        <%= link_to item.shelf.library.display_name.localize, item.shelf.library %>
+        <%= item.shelf.library.display_name.localize %>
       </td>
       <td>
-        <%= link_to item.shelf_display_name.localize, item.shelf -%>
-        <%= render 'items/shelf_picture', :item => item -%>
+        <%= item.shelf_display_name.localize -%>
       </td>
       <td>
         <%= item.call_number -%>

@@ -36,7 +36,8 @@ gem 'will_paginate', '~>3.0'
 gem 'exception_notification', '~>2.5.2'
 gem 'delayed_job', '>=2.1.4'
 gem 'state_machine'
-gem 'sunspot_rails', '~>1.3.rc2'
+gem 'sunspot_rails', '~>1.3.rc4'
+gem 'sunspot_solr', '~>1.3.rc4'
 gem "friendly_id", "~> 4.0.0.beta11"
 gem 'inherited_resources', '~>1.3'
 gem 'has_scope'
@@ -74,7 +75,7 @@ gem 'event-calendar', :require => 'event_calendar'
 gem 'jpmobile', '~>2.0'
 #gem 'geokit'
 gem 'geocoder'
-gem 'acts_as_list', :git => 'git://github.com/haihappen/acts_as_list.git'
+gem 'acts_as_list', :git => 'git://github.com/swanandp/acts_as_list.git'
 gem 'library_stdnums'
 gem 'client_side_validations'
 gem 'simple_form', '~>1.5'
@@ -100,11 +101,11 @@ end
 
 # Gems used only for assets and not required
 # in production environments by default.
-group :assets do
-  gem 'sass-rails', "  ~> 3.1.0"
-  gem 'coffee-rails', "~> 3.1.0"
-  gem 'uglifier'
-end
+#group :assets do
+#  gem 'sass-rails', "  ~> 3.1.0"
+#  gem 'coffee-rails', "~> 3.1.0"
+#  gem 'uglifier'
+#end
 
 # Use unicorn as the web server
 # gem 'unicorn'
