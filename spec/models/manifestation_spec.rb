@@ -166,10 +166,6 @@ describe Manifestation do
     manifestations(:manifestation_00023).nicovideo_id.should eq 'sm3015373'
   end
 
-  it "should have screen_shot" do
-    manifestations(:manifestation_00003).screen_shot.should be_true
-  end
-
   it "should have parent_of_series" do
     manifestations(:manifestation_00001).parent_of_series.should be_true
   end

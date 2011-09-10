@@ -19,7 +19,7 @@
       <p>(<%= l(@manifestation.versions.find(@version).created_at) -%>)</p>
     <%- end -%>
     <% if @manifestation.periodical_master? %>
-      <%= render 'manifestations/show_periodical', :manifestation => @manifestation %>
+      <%= render 'manifestations/periodical_list', :manifestation => @manifestation %>
     <% else %>
       <% if current_user.try(:has_role?, 'Librarian') %>
         <%= render 'manifestations/show_detail_librarian', :manifestation => @manifestation %>
@@ -32,38 +32,20 @@
 
 <div id="submenu" class="ui-corner-all">
   <%= render 'manifestations/book_jacket', :manifestation => @manifestation -%>
-    <%- unless @manifestation.picture_files.empty? -%>
-      <ul>
-        <%- @manifestation.picture_files.each_with_index do |picture_file, i| -%>
-          <%- if @manifestation.amazon -%>
-            <%- if i == 0 -%>
-              <li><%= link_to_custom_book_jacket(@manifestation, picture_file) -%></li>
-            <%- else -%>
-              <li style="display: none"><%= link_to_custom_book_jacket(@manifestation, picture_file) -%></li>
-            <%- end -%>
-          <%- else -%>
-            <%- if i > 0 -%>
-              <li style="display: none"><%= link_to_custom_book_jacket(@manifestation, picture_file) -%></li>
-            <% end %>
-          <%- end -%>
-        <%- end -%>
-        <li><%= link_to t('page.listing', :model => t('activerecord.models.picture_file')), manifestation_picture_files_path(@manifestation) -%></li>
-        <%- if can? :create, PictureFile -%>
-          <li><%= link_to t('page.new', :model => t('activerecord.models.picture_file')), new_manifestation_picture_file_path(@manifestation) -%></li>
-        <%- end -%>
-      </ul>
-      <script type="text/javascript">
-        $(document).ready(function(){
-          $("a[rel='manifestation_<%= @manifestation.id -%>']").colorbox({transition:"none"});
-        })
-      </script>
-    <%- else -%>
-      <%- if can? :create, PictureFile -%>
-        <ul>
-          <li><%= link_to t('page.new', :model => t('activerecord.models.picture_file')), new_manifestation_picture_file_path(@manifestation) -%></li>
-        </ul>
-      <%- end -%>
+  <ul>
+    <%- if @manifestation.picture_files.exists? -%>
+      <li><%= t('page.total') %>: <%= @manifestation.picture_files.count %> <%= t('page.number_of_pictures', :count => @manifestation.picture_files.count) %></li>
+      <li><%= link_to t('page.listing', :model => t('activerecord.models.picture_file')), manifestation_picture_files_path(@manifestation) -%></li>
+    <% end %>
+    <%- if can? :create, PictureFile -%>
+      <li><%= link_to t('page.new', :model => t('activerecord.models.picture_file')), new_manifestation_picture_file_path(@manifestation) -%></li>
+    <script type="text/javascript">
+      $(document).ready(function(){
+        $("a[rel='manifestation_<%= @manifestation.id -%>']").colorbox({transition:"none"});
+      })
+    </script>
     <%- end -%>
+  </ul>
   <%- if user_signed_in? -%>
     <div id="call_number_content">
       <%- @manifestation.items.on_shelf.each do |item| -%>

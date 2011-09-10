@@ -525,3 +525,8 @@ table.holding{
 abbr[title="required"]{
   color: red;
 }
+
+div.book_jacket{
+  text-align: center;
+  width: 190px;
+}

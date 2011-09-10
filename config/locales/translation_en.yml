@@ -1190,6 +1190,9 @@ en:
     previous: "Previous"
     next: "Next"
     my_account: "My account"
+    number_of_pictures:
+      one: "Picture"
+      other: "Pictures"
   title:
     index: "index"
     show: "show"

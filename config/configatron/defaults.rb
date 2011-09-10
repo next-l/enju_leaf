@@ -20,3 +20,9 @@ configatron.csv_charset_conversion = true
 #AMAZON_AWS_HOSTNAME = 'ecs.amazonaws.com'
 configatron.amazon.aws_hostname = 'ecs.amazonaws.jp'
 configatron.amazon.hostname = 'www.amazon.co.jp'
+
+# :google, :amazon
+configatron.book_jacket.source = :google
+
+# :mozshot, :simpleapi, :heartrails, :thumbalizr
+configatron.screenshot.generator = :mozshot

@@ -170,12 +170,6 @@ describe ManifestationsController do
         assigns(:manifestation).should eq(Manifestation.find(1))
       end
 
-      it "should show manifestation screen shot" do
-        get :show, :id => 22, :mode => 'screen_shot'
-        assigns(:manifestation).should eq Manifestation.find(22)
-        response.should be_success
-      end
-
       it "guest should show manifestation mods template" do
         get :show, :id => 22, :format => 'mods'
         assigns(:manifestation).should eq Manifestation.find(22)
