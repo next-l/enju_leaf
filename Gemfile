@@ -14,7 +14,7 @@ platforms :ruby do
 end
 
 platforms :ruby_19 do
-  gem 'simplecov', '>= 0.4.0', :require => false, :group => :test
+  gem 'simplecov', '~> 0.5', :require => false, :group => [:development]
 end
 
 platforms :ruby_18 do
@@ -38,7 +38,7 @@ gem 'delayed_job', '>= 2.1.4'
 gem 'state_machine'
 gem 'sunspot_rails', '~> 1.3.0.rc4'
 gem 'sunspot_solr', '~> 1.3.0.rc4'
-gem "friendly_id", "~> 4.0.0.beta11"
+gem "friendly_id", "~> 3.3"
 gem 'inherited_resources', '~> 1.3'
 gem 'has_scope'
 gem 'nokogiri'

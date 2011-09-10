@@ -48,7 +48,6 @@ class CreateManifestations < ActiveRecord::Migration
       t.integer :required_score, :default => 0, :null => false
       t.integer :frequency_id, :default => 1, :null => false
       t.boolean :subscription_master, :default => false, :null => false
-      t.integer :series_statement_id
     end
     add_index :manifestations, :carrier_type_id
     add_index :manifestations, :required_role_id
@@ -59,7 +58,6 @@ class CreateManifestations < ActiveRecord::Migration
     add_index :manifestations, :issn
     add_index :manifestations, :access_address
     add_index :manifestations, :frequency_id
-    add_index :manifestations, :series_statement_id
     add_index :manifestations, :manifestation_identifier
     add_index :manifestations, :updated_at
   end

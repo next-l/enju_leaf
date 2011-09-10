@@ -183,10 +183,10 @@ class ManifestationsController < ApplicationController
       end
 
       page ||= params[:page] || 1
+      per_page ||= Manifestation.per_page
       if params[:format] == 'sru'
         search.query.start_record(params[:startRecord] || 1, params[:maximumRecords] || 200)
       else
-        per_page ||= Manifestation.per_page
         search.build do
           facet :reservable
           facet :carrier_type

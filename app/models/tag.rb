@@ -1,10 +1,10 @@
 class Tag < ActiveRecord::Base
   has_many :taggings, :dependent => :destroy, :class_name => 'ActsAsTaggableOn::Tagging'
+  validates :name, :presence => true
   after_save :save_taggings
   after_destroy :save_taggings
 
-  extend FriendlyId
-  friendly_id :name
+  has_friendly_id :name
 
   searchable do
     text :name
