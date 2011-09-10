@@ -196,7 +196,12 @@ class ManifestationsController < ApplicationController
         end
       end
       search_result = search.execute
-      @manifestations = WillPaginate::Collection.create(page, per_page, configatron.max_number_of_results) do |pager|
+      if configatron.max_number_of_results > @count[:query_result]
+        max_count = configatron.max_number_of_results
+      else
+        max_count = @count[:query_result]
+      end
+      @manifestations = WillPaginate::Collection.create(page, per_page, max_count) do |pager|
         pager.replace(search_result.results)
       end
       get_libraries
