@@ -538,6 +538,11 @@ describe ManifestationsController do
         delete :destroy, :id => @manifestation.id
         response.should redirect_to(manifestations_url)
       end
+
+      it "should not destroy the reserved manifestation" do
+        delete :destroy, :id => 2
+        response.should be_forbidden
+      end
     end
 
     describe "When logged in as Librarian" do

@@ -38,6 +38,7 @@ gem 'delayed_job', '>= 2.1.4'
 gem 'state_machine'
 gem 'sunspot_rails', '~> 1.3.0.rc4'
 gem 'sunspot_solr', '~> 1.3.0.rc4'
+gem 'progress_bar'
 gem "friendly_id", "~> 3.3"
 gem 'inherited_resources', '~> 1.3'
 gem 'has_scope'
