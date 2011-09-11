@@ -13,14 +13,13 @@ module EnjuNdl
       isbn = ISBN_Tools.cleanup(isbn)
       raise EnjuNdl::InvalidIsbn unless ISBN_Tools.is_valid?(isbn)
 
-      if manifestation = Manifestation.first(:conditions => {:isbn => isbn})
-        return manifestation
-      end
+      manifestation = Manifestation.find_by_isbn(isbn)
+      return manifestation if manifestation
 
       doc = return_xml(isbn)
       raise EnjuNdl::RecordNotFound if doc.at('//openSearch:totalResults').content.to_i == 0
 
-      date_of_publication, language, nbn = nil, nil, nil
+      pub_date, language, nbn = nil, nil, nil
 
       publishers = get_publishers(doc).zip([]).map{|f,t| {:full_name => f, :full_name_transcription => t}}
 
@@ -28,7 +27,7 @@ module EnjuNdl
       title = get_title(doc)
 
       # date of publication
-      date_of_publication = Time.mktime(doc.at('//dcterms:issued[@xsi:type="dcterms:W3CDTF"]').content)
+      pub_date = doc.at('//dcterms:issued').content.try(:tr, '０-９．', '0-9-')
 
       language = get_language(doc)
       nbn = doc.at('//dc:identifier[@xsi:type="dcndl:JPNO"]').content
@@ -36,16 +35,16 @@ module EnjuNdl
 
       Patron.transaction do
         publisher_patrons = Patron.import_patrons(publishers)
-        #language_id = Language.first(:conditions => {:iso_639_2 => language}).id || 1
+        language_id = Language.where(:iso_639_2 => language).first.id rescue 1
 
         manifestation = Manifestation.new(
           :original_title => title[:manifestation],
           :title_transcription => title[:transcription],
           # TODO: PORTAに入っている図書以外の資料を調べる
-          #:carrier_type_id => CarrierType.first(:conditions => {:name => 'print'}).id,
-          #:language_id => language_id,
+          #:carrier_type_id => CarrierType.where(:name => 'print').first.id,
+          :language_id => language_id,
           :isbn => isbn,
-          :date_of_publication => date_of_publication,
+          :pub_date => pub_date,
           :nbn => nbn
         )
         manifestation.publishers << publisher_patrons
@@ -165,14 +164,12 @@ module EnjuNdl
 
       Patron.transaction do
         creator_patrons = Patron.import_patrons(creators)
-        language_id = Language.first(:conditions => {:iso_639_2 => language}).id rescue 1
-        content_type_id = ContentType.first(:conditions => {:name => 'text'}).id rescue 1
+        language_id = Language.where(:iso_639_2 => language).first.id rescue 1
+        content_type_id = ContentType.where(:name => 'text').first.id rescue 1
         manifestation.creators << creator_patrons
         subjects.each do |term|
-          subject = Subject.first(:conditions => {:term => term})
+          subject = Subject.where(:term => term).first
           manifestation.subjects << subject if subject
-          #subject = Tag.first(:conditions => {:name => term})
-          #manifestation.tags << subject if subject
         end
       end
     end
@@ -185,25 +182,30 @@ module EnjuNdl
         ndl_bib_id = item.at('./dc:identifier[@xsi:type="dcndl:NDLBibID"]').try(:content)
         manifestation = Manifestation.where(:ndl_bib_id => ndl_bib_id).first
         manifestation = Manifestation.find_by_isbn(isbn) unless manifestation
+        # FIXME: 日本語決めうち？
+        language_id = Language.where(:iso_639_2 => 'jpn').first.id rescue 1
         unless manifestation
-          manifestation = self.create(
+          manifestation = self.new(
             :original_title => item.at('./dc:title').content,
             :title_transcription => item.at('./dcndl:titleTranscription').try(:content),
             :isbn => isbn,
             :ndl_bib_id => ndl_bib_id,
             :description => item.at('./dc:description').try(:content),
-            :date_of_publication => item.at('./pubDate').try(:content)
+            :pub_date => item.at('./dc:date').try(:content).try(:gsub, '.', '-'),
+            :language_id => language_id
           )
-          item.xpath('./dc:creator').each_with_index do |creator, i|
-            next if i == 0
-            patron = Patron.first(:conditions => {:full_name => creator.try(:content)})
-            patron =  Patron.new(:full_name => creator.try(:content)) unless patron
-            manifestation.creators << patron if patron.valid?
-          end
-          item.xpath('./dc:publisher').each_with_index do |publisher, i|
-            patron = Patron.first(:conditions => {:full_name => publisher.try(:content)})
-            patron =  Patron.new(:full_name => publisher.try(:content)) unless patron
-            manifestation.publishers << patron if patron.valid?
+          if manifestation.valid?
+            item.xpath('./dc:creator').each_with_index do |creator, i|
+              next if i == 0
+              patron = Patron.where(:full_name => creator.try(:content)).first
+              patron =  Patron.new(:full_name => creator.try(:content)) unless patron
+              manifestation.creators << patron if patron.valid?
+            end
+            item.xpath('./dc:publisher').each_with_index do |publisher, i|
+              patron = Patron.where(:full_name => publisher.try(:content)).first
+              patron =  Patron.new(:full_name => publisher.try(:content)) unless patron
+              manifestation.publishers << patron if patron.valid?
+            end
           end
         end
       end
@@ -213,16 +215,16 @@ module EnjuNdl
     private
     def get_title(doc)
       title = {
-        :manifestation => doc.xpath('//item[1]/title').collect(&:content).join(' '), #.tr('ａ-ｚＡ-Ｚ０-９　', 'a-zA-Z0-9 ').squeeze(' ')
-        :transcription => doc.xpath('//item[1]/dcndl:titleTranscription').collect(&:content).join(' '), #.tr('ａ-ｚＡ-Ｚ０-９　', 'a-zA-Z0-9 ').squeeze(' ')
-        :original => doc.xpath('//dcterms:alternative').collect(&:content).join(' ') #.tr('ａ-ｚＡ-Ｚ０-９　', 'a-zA-Z0-9 ').squeeze(' ')
+        :manifestation => doc.xpath('//item[1]/title').collect(&:content).join(' ').tr('ａ-ｚＡ-Ｚ０-９　', 'a-zA-Z0-9 ').squeeze(' '),
+        :transcription => doc.xpath('//item[1]/dcndl:titleTranscription').collect(&:content).join(' ').tr('ａ-ｚＡ-Ｚ０-９　', 'a-zA-Z0-9 ').squeeze(' '),
+        :original => doc.xpath('//dcterms:alternative').collect(&:content).join(' ').tr('ａ-ｚＡ-Ｚ０-９　', 'a-zA-Z0-9 ').squeeze(' ')
       }
     end
 
     def get_creators(doc)
       creators = []
       doc.xpath('//item[1]/dc:creator[@xsi:type="dcndl:NDLNH"]').each do |creator|
-        creators << creator.content #.tr('ａ-ｚＡ-Ｚ０-９　‖', 'a-zA-Z0-9 ')
+        creators << creator.content.gsub('‖', '').tr('ａ-ｚＡ-Ｚ０-９　', 'a-zA-Z0-9 ')
       end
       return creators
     end
@@ -230,7 +232,7 @@ module EnjuNdl
     def get_subjects(doc)
       subjects = []
       doc.xpath('//item[1]/dc:subject[@xsi:type="dcndl:NDLSH"]').each do |subject|
-        subjects << subject.content #.tr('ａ-ｚＡ-Ｚ０-９　‖', 'a-zA-Z0-9 ')
+        subjects << subject.content.tr('ａ-ｚＡ-Ｚ０-９　‖', 'a-zA-Z0-9 ')
       end
       return subjects
     end
