@@ -2,8 +2,8 @@ require 'spec_helper'
 require 'sunspot/rails/spec_helper'
 
 describe SeriesHasManifestationsController do
-  disconnect_sunspot
   fixtures :series_has_manifestations
+  disconnect_sunspot
 
   def mock_series_has_manifestation(stubs={})
     @mock_series_has_manifestation ||= mock_model(SeriesHasManifestation, stubs).as_null_object

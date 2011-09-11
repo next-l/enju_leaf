@@ -1,7 +1,7 @@
 # -*- encoding: utf-8 -*-
 class SeriesHasManifestationsController < ApplicationController
   load_and_authorize_resource
-  before_filter :get_manifestation, :only => [:index, :new, :edit]
+  before_filter :get_manifestation, :only => [:index, :new, :edit, :destroy]
   before_filter :get_series_statement, :only => [:index, :new, :edit]
   cache_sweeper :page_sweeper, :only => [:create, :update, :destroy]
 
