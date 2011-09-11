@@ -196,7 +196,7 @@ class ManifestationsController < ApplicationController
         end
       end
       search_result = search.execute
-      if configatron.max_number_of_results > @count[:query_result]
+      if @count[:query_result] > configatron.max_number_of_results
         max_count = configatron.max_number_of_results
       else
         max_count = @count[:query_result]
