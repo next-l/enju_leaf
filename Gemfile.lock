@@ -214,7 +214,7 @@ GEM
       activesupport (>= 2.3.2)
       cocaine (>= 0.0.2)
       mime-types
-    parallel (0.5.8)
+    parallel (0.5.9)
     parallel_tests (0.6.1)
       parallel
     pg (0.11.0)
