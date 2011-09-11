@@ -19,6 +19,7 @@ unless File.exists?("config/database.yml")
 end
 
 sample_files = [
+  "config/application.rb.sample",
   "config/initializers/devise.rb.sample",
   "config/initializers/secret_token.rb.sample",
   "config/configatron/production.rb.sample",

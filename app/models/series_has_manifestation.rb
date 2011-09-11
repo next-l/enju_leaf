@@ -16,7 +16,7 @@ class SeriesHasManifestation < ActiveRecord::Base
   end
 
   def reindex
-    series_statement.index
-    manifestation.index
+    series_statement.try(:index)
+    manifestation.try(:index)
   end
 end

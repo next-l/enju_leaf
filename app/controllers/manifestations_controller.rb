@@ -144,7 +144,6 @@ class ManifestationsController < ApplicationController
         :serial_number_list,
         :date_of_publication,
         :pub_date,
-        :series_statement_id,
         :periodical_master,
         :language_id,
         :carrier_type_id,
@@ -183,10 +182,10 @@ class ManifestationsController < ApplicationController
       end
 
       page ||= params[:page] || 1
+      per_page ||= Manifestation.per_page
       if params[:format] == 'sru'
         search.query.start_record(params[:startRecord] || 1, params[:maximumRecords] || 200)
       else
-        per_page ||= Manifestation.per_page
         search.build do
           facet :reservable
           facet :carrier_type
@@ -197,7 +196,12 @@ class ManifestationsController < ApplicationController
         end
       end
       search_result = search.execute
-      @manifestations = WillPaginate::Collection.create(page, per_page, configatron.max_number_of_results) do |pager|
+      if @count[:query_result] > configatron.max_number_of_results
+        max_count = configatron.max_number_of_results
+      else
+        max_count = @count[:query_result]
+      end
+      @manifestations = WillPaginate::Collection.create(page, per_page, max_count) do |pager|
         pager.replace(search_result.results)
       end
       get_libraries
@@ -579,11 +583,6 @@ class ManifestationsController < ApplicationController
       render :partial => 'manifestations/show_creators', :locals => {:manifestation => @manifestation}
     when 'pickup'
       render :partial => 'manifestations/pickup', :locals => {:manifestation => @manifestation}
-    when 'screen_shot'
-      if @manifestation.screen_shot
-        mime = FileWrapper.get_mime(@manifestation.screen_shot.path)
-        send_file @manifestation.screen_shot.path, :type => mime, :disposition => 'inline'
-      end
     when 'calil_list'
       render :partial => 'manifestations/calil_list', :locals => {:manifestation => @manifestation}
     else

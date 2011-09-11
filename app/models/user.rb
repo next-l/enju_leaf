@@ -67,8 +67,7 @@ class User < ActiveRecord::Base
   after_save :index_patron
   after_destroy :index_patron
 
-  extend FriendlyId
-  friendly_id :username
+  has_friendly_id :username
   #acts_as_tagger
   has_paper_trail
   normalize_attributes :username, :user_number #, :email

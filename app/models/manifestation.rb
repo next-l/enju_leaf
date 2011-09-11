@@ -167,7 +167,6 @@ class Manifestation < ActiveRecord::Base
   enju_manifestation_viewer
   enju_amazon
   enju_oai
-  enju_mozshot
   #enju_calil_check
   #enju_cinii
   #has_ipaper_and_uses 'Paperclip'
@@ -591,7 +590,6 @@ end
 #  required_score                  :integer         default(0), not null
 #  frequency_id                    :integer         default(1), not null
 #  subscription_master             :boolean         default(FALSE), not null
-#  series_statement_id             :integer
 #  ipaper_id                       :integer
 #  ipaper_access_key               :string(255)
 #  attachment_file_name            :string(255)

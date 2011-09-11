@@ -4,10 +4,6 @@ require 'sunspot/rails/spec_helper'
 describe ProducesController do
   disconnect_sunspot
 
-  def mock_produce(stubs={})
-    @mock_produce ||= mock_model(Produce, stubs).as_null_object
-  end
-
   describe "GET index" do
     describe "When logged in as Administrator" do
       before(:each) do

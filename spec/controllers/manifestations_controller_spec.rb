@@ -170,12 +170,6 @@ describe ManifestationsController do
         assigns(:manifestation).should eq(Manifestation.find(1))
       end
 
-      it "should show manifestation screen shot" do
-        get :show, :id => 22, :mode => 'screen_shot'
-        assigns(:manifestation).should eq Manifestation.find(22)
-        response.should be_success
-      end
-
       it "guest should show manifestation mods template" do
         get :show, :id => 22, :format => 'mods'
         assigns(:manifestation).should eq Manifestation.find(22)
@@ -537,6 +531,11 @@ describe ManifestationsController do
       it "redirects to the manifestations list" do
         delete :destroy, :id => @manifestation.id
         response.should redirect_to(manifestations_url)
+      end
+
+      it "should not destroy the reserved manifestation" do
+        delete :destroy, :id => 2
+        response.should be_forbidden
       end
     end
 
