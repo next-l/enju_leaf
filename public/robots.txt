@@ -55,6 +55,7 @@ Disallow: medium_of_performances
 Disallow: message_requests
 Disallow: message_templates
 Disallow: messages
+Disallow: my_account
 Disallow: notifier
 Disallow: order_lists
 Disallow: orders
@@ -84,6 +85,9 @@ Disallow: resource_import_results
 Disallow: roles
 Disallow: search_engines
 Disallow: search_histories
+Disallow: series_has_manifestations
+Disallow: series_statement_merge_lists
+Disallow: series_statement_merges
 Disallow: series_statements
 Disallow: shelves
 Disallow: subject_has_classifications
