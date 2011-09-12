@@ -57,27 +57,32 @@
     <%= f.select(:language_id, @languages.collect{|language| [language.display_name.localize, language.id]}) -%>
   </div>
 
-  <%- if @manifestation.series_statement -%>
+  <%- if @manifestation.serial? -%>
     <%= render :partial => 'manifestations/serial_form', :locals => {:f => f, :manifestation => @manifestation} -%>
-  <%- else -%>
-    <div class="field">
-      <%= f.label :edition -%>
-      <%= f.text_field :edition, :class => 'resource_integer' -%>
+  <%- end -%>
+  <div class="field">
+    <%= f.label :edition -%>
+    <%= f.text_field :edition, :class => 'resource_integer' -%>
+    <%- unless @manifestation.serial? -%>
       <%= f.label :volume_number_list -%>
       <%= f.text_field :volume_number_list, :class => 'resource_integer' -%>
-    </div>
+    <% end %>
+  </div>
 
-    <div class="field">
-      <%= f.label :isbn -%>
-      <%= f.text_field :isbn, :class => 'resource_isbn_issn', :style => 'ime-mode: disabled' -%>
-      <%= link_to_function t('activerecord.attributes.manifestation.wrong_isbn'), "$('#manifestation_wrong_isbn').toggle()" -%>
-      <%= f.text_field :wrong_isbn, :class => 'resource_isbn_issn', :style => 'ime-mode: disabled; display: none' -%>
-    </div>
-    <div class="field">
-      <%= f.label :lccn -%>
-      <%= f.text_field :lccn, :class => 'resource_isbn_issn', :style => 'ime-mode: disabled' -%>
-    </div>
-  <%- end -%>
+  <div class="field">
+    <%= f.label :isbn -%>
+    <%= f.text_field :isbn, :class => 'resource_isbn_issn', :style => 'ime-mode: disabled' -%>
+    <%= link_to_function t('activerecord.attributes.manifestation.wrong_isbn'), "$('#manifestation_wrong_isbn').toggle()" -%>
+    <%= f.text_field :wrong_isbn, :class => 'resource_isbn_issn', :style => 'ime-mode: disabled; display: none' -%>
+  </div>
+  <div class="field">
+    <%= f.label :lccn -%>
+    <%= f.text_field :lccn, :class => 'resource_isbn_issn', :style => 'ime-mode: disabled' -%>
+    <% if @manifestation.serial? %>
+      <%= f.label :issn -%>
+      <%= f.text_field :issn, :class => 'resource_isbn_issn', :style => 'ime-mode: disabled' -%>
+    <% end %>
+  </div>
 
   <div class="field">
     <%= f.label :start_page -%>
