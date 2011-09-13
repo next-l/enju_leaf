@@ -61,27 +61,23 @@ module OaiController
     nil
   end
 
-  def set_resumption_token(token, from_time, until_time, per_page = 0)
+  def set_resumption_token(token, from_time, until_time, per_page = 10)
+    return nil unless Rails.env.to_s == 'production'
     if token.present?
-      resumption = Rails.cache.read(token)
-      if resumption
-        @cursor = resumption[:cursor] + per_page ||= resources.per_page
+      latest_resumption = Rails.cache.read(token)
+      if latest_resumption
+        cursor = latest_resumption[:cursor] + per_page
       end
     end
-    @cursor ||= 0
-    yml = YAML.load_file("#{Rails.root.to_s}/config/oai_cache.yml")
-    if yml["#{Rails.env}"]
-      @ttl = yml["#{Rails.env}"]["ttl"].to_i
-    else
-      @ttl = yml["defaults"]["ttl"].to_i
-    end
+    cursor ||= 0
+    ttl = EnjuLeaf::Application.config.cache_store.last[:expires_in].to_i
     resumption = {
-      :token => "f(#{from_time.utc.iso8601.to_s}).u(#{until_time.utc.iso8601.to_s}):#{@cursor}",
-      :cursor => @cursor,
+      :token => "f(#{from_time.utc.iso8601.to_s}).u(#{until_time.utc.iso8601.to_s}):#{cursor}",
+      :cursor => cursor,
       # memcachedの使用が前提
-      :expired_at => @ttl.seconds.from_now.utc.iso8601
+      :expired_at => ttl.seconds.from_now.utc.iso8601
     }
-    @resumption = Rails.cache.fetch(resumption[:token]){resumption}
+    Rails.cache.fetch(resumption[:token]){resumption}
   end
 
   def set_from_and_until(klass, from_t, until_t)

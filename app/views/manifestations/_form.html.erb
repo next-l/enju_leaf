@@ -64,6 +64,7 @@
     <%= f.label :edition -%>
     <%= f.text_field :edition, :class => 'resource_integer' -%>
     <%- unless @manifestation.serial? -%>
+      <br />
       <%= f.label :volume_number_list -%>
       <%= f.text_field :volume_number_list, :class => 'resource_integer' -%>
     <% end %>

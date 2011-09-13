@@ -3,7 +3,7 @@ class SeriesStatement < ActiveRecord::Base
   has_many :manifestations, :through => :series_has_manifestations
   validates_presence_of :original_title
   validate :check_issn
-  after_create :create_initial_manifestation
+  after_create :create_root_manifestation
 
   acts_as_list
   searchable do
@@ -37,8 +37,8 @@ class SeriesStatement < ActiveRecord::Base
     end
   end
 
-  def create_initial_manifestation
-    return nil if initial_manifestation
+  def create_root_manifestation
+    return nil if root_manifestation
     return nil unless periodical
     manifestation = Manifestation.new(
       :original_title => original_title
@@ -47,7 +47,7 @@ class SeriesStatement < ActiveRecord::Base
     self.manifestations << manifestation
   end
 
-  def initial_manifestation
+  def root_manifestation
     manifestations.where(:periodical_master => true).first
   end
 

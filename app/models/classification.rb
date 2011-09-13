@@ -14,7 +14,7 @@ class Classification < ActiveRecord::Base
     integer :subject_ids, :multiple => true
     integer :classification_type_id
   end
-  acts_as_tree
+  acts_as_nested_set
   #acts_as_taggable_on :tags
   normalize_attributes :category
 

@@ -82,6 +82,7 @@ gem 'client_side_validations'
 gem 'simple_form', '~> 1.5'
 gem 'validates_timeliness'
 gem 'rack-protection'
+gem 'awesome_nested_set', '~>2.0'
 
 #gem 'oink', '>=0.9.2'
 group :development do

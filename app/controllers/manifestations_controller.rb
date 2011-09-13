@@ -125,10 +125,8 @@ class ManifestationsController < ApplicationController
         with(:subject_ids).equal_to subject.id if subject
         if series_statement
           with(:series_statement_id).equal_to series_statement.id
-          with(:periodical).equal_to true
-        else
-          with(:periodical).equal_to false
         end
+        with(:child_record).equal_to false
         facet :reservable
       end
       search = make_internal_query(search)
@@ -223,7 +221,12 @@ class ManifestationsController < ApplicationController
       save_search_history(query, @manifestations.offset, @count[:query_result], current_user)
       if params[:format] == 'oai'
         unless @manifestations.empty?
-          set_resumption_token(params[:resumptionToken], @from_time || Manifestation.last.updated_at, @until_time || Manifestation.first.updated_at)
+          @resumption_token = set_resumption_token(
+            params[:resumptionToken],
+            @from_time || Manifestation.last.updated_at,
+            @until_time || Manifestation.first.updated_at,
+            @manifestations.per_page
+          )
         else
           @oai[:errors] << 'noRecordsMatch'
         end
@@ -301,9 +304,8 @@ class ManifestationsController < ApplicationController
     @reserved_count = Reserve.waiting.where(:manifestation_id => @manifestation.id, :checked_out_at => nil).count
     @reserve = current_user.reserves.where(:manifestation_id => @manifestation.id).first if user_signed_in?
 
-    if @manifestation.periodical_master?
-      redirect_to series_statement_manifestations_url(@manifestation.series_statement)
-      return
+    if @manifestation.root_of_series?
+      @manifestations = @manifestation.series_statement.manifestations.periodical_children.page(params[:manifestation_page]).per_page(Manifestation.per_page)
     end
 
     store_location
