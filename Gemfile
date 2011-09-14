@@ -39,7 +39,7 @@ gem 'state_machine'
 gem 'sunspot_rails', '~>1.3.rc4'
 gem 'sunspot_solr', '~>1.3.rc4'
 gem 'progress_bar'
-gem "friendly_id", "~> 4.0.0.beta11"
+gem "friendly_id", "~> 4.0.0.beta12"
 gem 'inherited_resources', '~>1.3'
 gem 'has_scope'
 gem 'nokogiri'

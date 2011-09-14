@@ -6,7 +6,8 @@ class Role < ActiveRecord::Base
   after_save :clear_all_cache
   after_destroy :clear_all_cache
 
-  has_friendly_id :name
+  extend FriendlyId
+  friendly_id :name
 
   def localized_name
     display_name.localize
