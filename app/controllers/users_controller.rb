@@ -31,15 +31,14 @@ class UsersController < ApplicationController
     page = params[:page] || 1
     role = current_user.try(:role) || Role.default_role
 
-    unless query.blank?
-      @users = User.search do
-        fulltext query
-        order_by sort[:sort_by], sort[:order]
-        with(:required_role_id).less_than role.id
-      end.results
-    else
-      @users = User.order("#{sort[:sort_by]} #{sort[:order]}").page(page)
+    search = User.search
+    search.build do
+      fulltext query if query
+      order_by sort[:sort_by], sort[:order]
+      with(:required_role_id).less_than role.id
     end
+    search.query.paginate(page.to_i, Patron.per_page)
+    @users = search.execute!.results
     @count[:query_result] = @users.total_entries
 
     respond_to do |format|

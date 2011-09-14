@@ -26,4 +26,9 @@ module EnjuBookJacketHelper
       render :partial => 'manifestations/google_book_thumbnail', :locals => {:manifestation => manifestation}
     end
   end
+
+  def amazon_link(asin)
+    return nil if asin.blank?
+    "http://#{configatron.amazon.hostname}/dp/#{asin}"
+  end
 end

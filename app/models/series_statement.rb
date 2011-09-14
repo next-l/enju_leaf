@@ -1,5 +1,5 @@
 class SeriesStatement < ActiveRecord::Base
-  has_many :series_has_manifestations
+  has_many :series_has_manifestations, :dependent => :destroy
   has_many :manifestations, :through => :series_has_manifestations
   validates_presence_of :original_title
   validate :check_issn
@@ -43,12 +43,11 @@ class SeriesStatement < ActiveRecord::Base
     manifestation = Manifestation.new(
       :original_title => original_title
     )
-    manifestation.periodical_master = true
     self.manifestations << manifestation
   end
 
   def root_manifestation
-    manifestations.where(:parent_id => nil).first
+    manifestations.where(:periodical => false).first
   end
 
   def first_issue

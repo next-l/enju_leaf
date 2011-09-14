@@ -1,6 +1,6 @@
 class Manifestation < ActiveRecord::Base
-  scope :periodical_master, where(:parent_id => nil)
-  scope :periodical_children, where('parent_id IS NOT NULL')
+  scope :periodical_master, where(:periodical => false)
+  scope :periodical_children, where(:periodical => true)
   has_many :creates, :dependent => :destroy, :foreign_key => 'work_id'
   has_many :creators, :through => :creates, :source => :patron
   has_many :realizes, :dependent => :destroy, :foreign_key => 'expression_id'
@@ -22,7 +22,7 @@ class Manifestation < ActiveRecord::Base
   belongs_to :language
   belongs_to :carrier_type
   belongs_to :content_type
-  has_one :series_has_manifestation
+  has_one :series_has_manifestation, :dependent => :destroy
   has_one :series_statement, :through => :series_has_manifestation
   belongs_to :manifestation_relationship_type
   belongs_to :frequency
@@ -158,13 +158,7 @@ class Manifestation < ActiveRecord::Base
     #end
     # OTC end
     string :sort_title
-    boolean :child_record do
-      if parent_id
-        true
-      else
-        false
-      end
-    end
+    boolean :periodical
     time :acquired_at
   end
 
@@ -175,7 +169,6 @@ class Manifestation < ActiveRecord::Base
   #enju_cinii
   #has_ipaper_and_uses 'Paperclip'
   #enju_scribd
-  acts_as_nested_set
   has_paper_trail
   if configatron.uploaded_file.storage == :s3
     has_attached_file :attachment, :storage => :s3, :s3_credentials => "#{Rails.root.to_s}/config/s3.yml"
@@ -198,11 +191,11 @@ class Manifestation < ActiveRecord::Base
   before_create :set_digest
   after_create :clear_cached_numdocs
   before_save :set_date_of_publication
-  before_save :set_parent
+  before_save :set_periodical
   after_save :index_series_statement
   after_destroy :index_series_statement
   normalize_attributes :identifier, :pub_date, :isbn, :issn, :nbn, :lccn, :original_title
-  attr_accessor :during_import
+  attr_accessor :during_import, :series_statement_id
 
   def self.per_page
     10
@@ -289,8 +282,8 @@ class Manifestation < ActiveRecord::Base
   end
 
   def serial?
-    if series_statement.try(:periodical) and !periodical_master
-      return true unless  series_statement.root_manifestation == self
+    if series_statement.try(:periodical) and periodical
+      return true unless series_statement.root_manifestation == self
     end
     false
   end
@@ -545,11 +538,12 @@ class Manifestation < ActiveRecord::Base
     items.order(:acquired_at).first.try(:acquired_at)
   end
 
-  def set_parent
+  def set_periodical
+    unless series_statement
+      series_statement = SeriesStatement.where(:id => series_statement_id).first
+    end
     if series_statement.try(:root_manifestation)
-      self.parent = series_statement.root_manifestation
-    else
-      self.parent = nil
+      self.periodical = true
     end
   end
 
@@ -559,8 +553,10 @@ class Manifestation < ActiveRecord::Base
   end
 
   def periodical_master?
-    return false if parent_id
-    true
+    if series_statement
+      return true if series_statement.periodical and root_of_series?
+    end
+    false
   end
 end
 

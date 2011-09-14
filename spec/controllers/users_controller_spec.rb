@@ -11,7 +11,7 @@ describe UsersController do
 
       it "assigns all users as @users" do
         get :index
-        assigns(:users).should_not be_empty
+        assigns(:users).should_not be_nil
       end
     end
 
@@ -22,7 +22,7 @@ describe UsersController do
 
       it "assigns all users as @users" do
         get :index
-        assigns(:users).should_not be_empty
+        assigns(:users).should_not be_nil
       end
     end
 

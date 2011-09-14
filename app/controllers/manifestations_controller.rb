@@ -126,7 +126,7 @@ class ManifestationsController < ApplicationController
         if series_statement
           with(:series_statement_id).equal_to series_statement.id
         end
-        with(:child_record).equal_to false
+        with(:periodical).equal_to false
         facet :reservable
       end
       search = make_internal_query(search)
@@ -144,7 +144,8 @@ class ManifestationsController < ApplicationController
         :pub_date,
         :language_id,
         :carrier_type_id,
-        :created_at
+        :created_at,
+        :periodical
       ] if params[:format] == 'html' or params[:format].nil?
       all_result = search.execute
       @count[:query_result] = all_result.total
@@ -300,14 +301,19 @@ class ManifestationsController < ApplicationController
 
     return if render_mode(params[:mode])
 
+    store_location
+
+    if @manifestation.periodical_master?
+      redirect_to series_statement_path(@manifestation.series_statement, :manifestation_id => @manifestation.id)
+      return
+    end
+
     @reserved_count = Reserve.waiting.where(:manifestation_id => @manifestation.id, :checked_out_at => nil).count
     @reserve = current_user.reserves.where(:manifestation_id => @manifestation.id).first if user_signed_in?
 
     if @manifestation.root_of_series?
       @manifestations = @manifestation.series_statement.manifestations.periodical_children.page(params[:manifestation_page]).per_page(Manifestation.per_page)
     end
-
-    store_location
 
     if @manifestation.attachment.path
       if configatron.uploaded_file.storage == :s3

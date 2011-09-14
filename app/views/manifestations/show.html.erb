@@ -2,25 +2,16 @@
   <h1 class="title"><%= t('page.showing', :model => t('activerecord.models.manifestation')) -%></h1>
   <div id="content_list">
     <p id="notice"><%= notice %></p>
-    <% if @manifestation.periodical_master? %>
-      <%= render 'paginated_id_link' %>
-      <%= render 'show_periodical_master' %>
-    <% else %>
-      <%= render 'paginated_id_link' %>
+    <%= render 'paginated_id_link' %>
 
     <%= render 'manifestations/title', :manifestation => @manifestation -%>
     <%- if @version -%>
       <p>(<%= l(@manifestation.versions.find(@version).created_at) -%>)</p>
     <%- end -%>
-    <% if @manifestation.periodical_master? %>
-      <%= render 'manifestations/periodical_list', :manifestation => @manifestation %>
+    <% if current_user.try(:has_role?, 'Librarian') %>
+      <%= render 'manifestations/show_detail_librarian', :manifestation => @manifestation %>
     <% else %>
-      <% if current_user.try(:has_role?, 'Librarian') %>
-        <%= render 'manifestations/show_detail_librarian', :manifestation => @manifestation %>
-      <% else %>
-        <%= render 'manifestations/show_detail_user', :manifestation => @manifestation %>
-      <% end %>
-    <% end %>
+      <%= render 'manifestations/show_detail_user', :manifestation => @manifestation %>
     <% end %>
   </div>
 </div>

@@ -2,7 +2,7 @@
 class SeriesStatementsController < ApplicationController
   load_and_authorize_resource
   before_filter :get_work, :only => [:index, :new, :edit]
-  before_filter :get_manifestation, :only => [:index, :new, :edit]
+  before_filter :get_manifestation, :only => [:index, :show, :new, :edit]
   cache_sweeper :page_sweeper, :only => [:create, :update, :destroy]
   after_filter :solr_commit, :only => [:create, :update, :destroy]
 
@@ -43,6 +43,7 @@ class SeriesStatementsController < ApplicationController
   # GET /series_statements/1.xml
   def show
     @manifestations = @series_statement.manifestations.periodical_children.page(params[:manifestation_page]).per_page(Manifestation.per_page)
+    store_location
 
     respond_to do |format|
       format.html # show.html.erb

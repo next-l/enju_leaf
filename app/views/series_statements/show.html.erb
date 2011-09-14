@@ -2,15 +2,21 @@
 <h1 class="title"><%= t('page.showing', :model => t('activerecord.models.series_statement')) -%></h1>
 <div id="content_list">
 <p id="notice"><%= notice %></p>
+<%= render 'manifestations/paginated_id_link', :manifestation => @manifestation if @manifestation %>
 
-<p>
-  <strong><%= t('activerecord.attributes.series_statement.original_title') -%></strong>
+<h2 class="resource_title">
   <%= @series_statement.original_title %>
-</p>
+  <%= image_tag('icons/newspaper.png', :size => '16x16', :alt => t('manifestation.serial')) if @series_statement.periodical -%>
+</h2>
 
 <p>
   <strong><%= t('activerecord.attributes.series_statement.title_transcription') -%></strong>
   <%= @series_statement.title_transcription %>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.series_statement.periodical') -%></strong>
+  <%= localized_boolean(@series_statement.periodical) %>
 </p>
 
 <p>
@@ -46,8 +52,12 @@
 
 <div id="submenu" class="ui-corner-all">
   <ul>
-    <li><%= link_to t('page.new', :model => t('activerecord.models.manifestation')), new_series_statement_manifestation_path(@series_statement) %></li>
-    <li><%= link_to t('page.edit'), edit_series_statement_path(@series_statement) %></li>
+    <% if can? :create, Manifestation %>
+      <li><%= link_to t('page.new', :model => t('activerecord.models.manifestation')), new_series_statement_manifestation_path(@series_statement) %></li>
+    <% end %>
+    <% if can? :update, @series_statement %>
+      <li><%= link_to t('page.edit'), edit_series_statement_path(@series_statement) %></li>
+    <% end %>
     <li><%= link_to t('page.back'), series_statements_path %></li>
   </ul>
 </div>
