@@ -1,6 +1,6 @@
 source 'http://rubygems.org'
 
-gem 'rails', '3.0.10'
+gem 'rails', '3.1.0'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
@@ -73,7 +73,7 @@ gem 'sanitize'
 gem 'barby', '~> 0.5'
 gem 'rqrcode'
 gem 'event-calendar', :require => 'event_calendar'
-gem 'jpmobile', '~> 1.0'
+gem 'jpmobile', '~> 2.0'
 #gem 'geokit'
 gem 'geocoder'
 gem 'acts_as_list', :git => 'git://github.com/swanandp/acts_as_list.git'
