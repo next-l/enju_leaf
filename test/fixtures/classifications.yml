@@ -7,6 +7,8 @@ classification_00006:
   note: 
   parent_id: 
   created_at: 2008-03-02 19:25:19.555182 +09:00
+  lft: 11
+  rgt: 12
 classification_00007: 
   updated_at: 2008-03-02 19:25:31.846101 +09:00
   classification_type_id: 2
@@ -15,6 +17,8 @@ classification_00007:
   note: 
   parent_id: 
   created_at: 2008-03-02 19:25:31.846101 +09:00
+  lft: 13
+  rgt: 14
 classification_00008: 
   updated_at: 2008-03-02 19:25:42.485981 +09:00
   classification_type_id: 2
@@ -23,6 +27,8 @@ classification_00008:
   note: 
   parent_id: 
   created_at: 2008-03-02 19:25:42.485981 +09:00
+  lft: 15
+  rgt: 16
 classification_00009: 
   updated_at: 2008-03-02 19:25:54.879049 +09:00
   classification_type_id: 2
@@ -31,6 +37,8 @@ classification_00009:
   note: 
   parent_id: 
   created_at: 2008-03-02 19:25:54.879049 +09:00
+  lft: 17
+  rgt: 18
 classification_00010: 
   updated_at: 2008-03-02 19:26:03.099902 +09:00
   classification_type_id: 2
@@ -39,6 +47,8 @@ classification_00010:
   note: 
   parent_id: 
   created_at: 2008-03-02 19:26:03.099902 +09:00
+  lft: 19
+  rgt: 20
 classification_00001: 
   updated_at: 2008-03-02 19:23:02.050270 +09:00
   classification_type_id: 1
@@ -47,6 +57,8 @@ classification_00001:
   note: ""
   parent_id: 
   created_at: 2008-03-02 19:21:50.689538 +09:00
+  lft: 1
+  rgt: 2
 classification_00002: 
   updated_at: 2008-03-02 19:23:55.187964 +09:00
   classification_type_id: 1
@@ -55,6 +67,8 @@ classification_00002:
   note: 
   parent_id: 
   created_at: 2008-03-02 19:23:55.187964 +09:00
+  lft: 3
+  rgt: 4
 classification_00003: 
   updated_at: 2008-03-02 19:24:44.271616 +09:00
   classification_type_id: 1
@@ -63,6 +77,8 @@ classification_00003:
   note: 
   parent_id: 
   created_at: 2008-03-02 19:24:44.271616 +09:00
+  lft: 5
+  rgt: 6
 classification_00004: 
   updated_at: 2008-03-02 19:24:56.797259 +09:00
   classification_type_id: 1
@@ -71,6 +87,8 @@ classification_00004:
   note: 
   parent_id: 
   created_at: 2008-03-02 19:24:56.797259 +09:00
+  lft: 7
+  rgt: 8
 classification_00005: 
   updated_at: 2008-03-02 19:25:08.317117 +09:00
   classification_type_id: 1
@@ -79,6 +97,8 @@ classification_00005:
   note: 
   parent_id: 
   created_at: 2008-03-02 19:25:08.317117 +09:00
+  lft: 9
+  rgt: 10
 
 # == Schema Information
 #

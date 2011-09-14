@@ -1,0 +1,40 @@
+<%= render 'manifestations/title', :manifestation => @manifestation.series_statement.root_manifestation -%>
+
+<p>
+  <strong><%= t('activerecord.attributes.series_statement.original_title') -%></strong>
+  <%= @manifestation.series_statement.original_title %>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.series_statement.title_transcription') -%></strong>
+  <%= @manifestation.series_statement.title_transcription %>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.series_statement.issn') -%></strong>
+  <%= @manifestation.series_statement.issn %>
+</p>
+
+<!--
+<p>
+  <strong><%= t('activerecord.attributes.series_statement.numbering') -%></strong>
+  <%= @manifestation.series_statement.numbering %>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.series_statement.title_subseries') -%></strong>
+  <%= @manifestation.series_statement.title_subseries %>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.series_statement.numbering_subseries') -%></strong>
+  <%= @manifestation.series_statement.numbering_subseries %>
+</p>
+-->
+
+<p>
+  <strong><%= t('activerecord.attributes.series_statement.series_statement_identifier') -%></strong>
+  <%= @manifestation.series_statement.series_statement_identifier %>
+</p>
+
+<%= render 'series_statements/manifestation_list', :series_statement => @manifestation.series_statement -%>

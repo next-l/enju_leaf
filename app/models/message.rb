@@ -12,7 +12,7 @@ class Message < ActiveRecord::Base
   after_destroy :remove_from_index
   after_create :send_notification
 
-  acts_as_tree
+  acts_as_nested_set
   attr_accessor :recipient
 
   state_machine :initial => :unread do

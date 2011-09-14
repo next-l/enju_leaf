@@ -1193,6 +1193,9 @@ en:
     number_of_pictures:
       one: "Picture"
       other: "Pictures"
+    status: "Status"
+    enabled: "Enabled"
+    disabled: "Disabled"
   title:
     index: "index"
     show: "show"

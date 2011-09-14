@@ -1175,6 +1175,9 @@ ja:
     next: "次へ"
     my_account: "自分のアカウント"
     number_of_pictures: "枚"
+    status: "状態"
+    enabled: "有効"
+    disabled: "無効"
   title:
     index: "一覧"
     show: "表示"

@@ -453,7 +453,7 @@ class ResourceImportFile < ActiveRecord::Base
             creator_transcriptions = row['series_statement_creator_transcription'].to_s.split(';')
             creators_list = creators.zip(creator_transcriptions).map{|f,t| {:full_name => f.to_s.strip, :full_name_transcription => t.to_s.strip}}
             creator_patrons = Patron.import_patrons(creators_list)
-            series_statement.initial_manifestation.creators << creator_patrons
+            series_statement.root_manifestation.creators << creator_patrons
           end
         end
       end

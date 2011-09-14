@@ -1,18 +1,12 @@
 <div id="content_detail" class="ui-corner-all" itemscope itemtype="http://schema.org/Book">
   <h1 class="title"><%= t('page.showing', :model => t('activerecord.models.manifestation')) -%></h1>
   <div id="content_list">
-  <p id="notice"><%= notice %></p>
-
-    <%= form_for :manifestations, :url => manifestations_path, :html => {:method => 'get'} do -%>
-      <div>
-        <%= paginate_id_link(@manifestation) -%>
-        <%= back_to_manifestation_index -%>
-        <%= t('page.search_term') -%>:
-        <%= search_field_tag 'query', session[:query], {:id => 'search_form_top', :class => 'search_form_short', :placeholder => t('page.search_term')} -%>
-        <%= submit_tag t('page.search') -%>
-        <%= link_to t('page.advanced_search'), page_advanced_search_path -%>
-      </div>
-    <%- end -%>
+    <p id="notice"><%= notice %></p>
+    <% if @manifestation.periodical_master? %>
+      <%= render 'paginated_id_link' %>
+      <%= render 'show_periodical_master' %>
+    <% else %>
+      <%= render 'paginated_id_link' %>
 
     <%= render 'manifestations/title', :manifestation => @manifestation -%>
     <%- if @version -%>
@@ -26,6 +20,7 @@
       <% else %>
         <%= render 'manifestations/show_detail_user', :manifestation => @manifestation %>
       <% end %>
+    <% end %>
     <% end %>
   </div>
 </div>

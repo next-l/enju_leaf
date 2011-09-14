@@ -150,16 +150,20 @@ class Manifestation < ActiveRecord::Base
       [isbn, isbn10, wrong_isbn]
     end
     text :issn  # 前方一致検索のためtext指定を追加
-    text :ndl_jpno do
+    #text :ndl_jpno do
       # TODO 詳細不明
-    end
-    string :ndl_dpid do
+    #end
+    #string :ndl_dpid do
       # TODO 詳細不明
-    end
+    #end
     # OTC end
     string :sort_title
-    boolean :periodical do
-      serial?
+    boolean :child_record do
+      if parent_id
+        false
+      else
+        true
+      end
     end
     time :acquired_at
   end
@@ -193,6 +197,7 @@ class Manifestation < ActiveRecord::Base
   before_create :set_digest
   after_create :clear_cached_numdocs
   before_save :set_date_of_publication
+  before_save :set_parent
   after_save :index_series_statement
   after_destroy :index_series_statement
   normalize_attributes :identifier, :pub_date, :isbn, :issn, :nbn, :lccn, :original_title
@@ -285,7 +290,7 @@ class Manifestation < ActiveRecord::Base
 
   def serial?
     if series_statement.try(:periodical) and !periodical_master
-      return true unless  series_statement.initial_manifestation == self
+      return true unless  series_statement.root_manifestation == self
     end
     false
   end
@@ -538,6 +543,17 @@ class Manifestation < ActiveRecord::Base
 
   def acquired_at
     items.order(:acquired_at).first.try(:acquired_at)
+  end
+
+  def set_parent
+    if series_statement.try(:root_manifestation)
+      self.parent_id = series_statement.root_manifesatation.id
+    end
+  end
+
+  def root_of_series?
+    return true if series_statement.try(:root_manifestation) == self
+    false
   end
 end
 

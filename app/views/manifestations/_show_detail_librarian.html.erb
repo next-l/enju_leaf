@@ -8,6 +8,12 @@
     <% cache(:controller => :manifestations, :action => :show, :id => manifestation.id, :page => 'detail', :role => current_user_role_name, :locale => @locale, :manifestation_id => nil) do %>
       <table id="resource_detail">
         <%= embed_content(manifestation) -%>
+        <% if manifestation.title_alternative? %>
+          <tr>
+            <td style="width: 200px"><%= t('activerecord.attributes.manifestation.title_alternative') -%>:</td>
+            <td style="width: 490px"><%= manifestation.title_alternative -%></td>
+          </tr>
+        <% end %>
         <%- if manifestation.series_statement -%>
           <tr>
             <td style="width: 200px"><%= t('manifestation.serial') -%>:</td>

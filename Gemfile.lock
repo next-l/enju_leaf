@@ -56,12 +56,14 @@ GEM
       cloudfiles
       net-sftp
     attribute_normalizer (0.3.1)
+    awesome_nested_set (2.0.2)
+      activerecord (>= 3.0.0)
     aws-s3 (0.6.2)
       builder
       mime-types
       xml-simple
     barby (0.5.0)
-    bcrypt-ruby (3.0.0)
+    bcrypt-ruby (3.0.1)
     builder (2.1.2)
     cancan (1.6.5)
     chronic (0.3.0)
@@ -113,7 +115,7 @@ GEM
     flog (2.5.2)
       ruby_parser (~> 2.0)
       sexp_processor (~> 3.0)
-    friendly_id (4.0.0.beta11)
+    friendly_id (4.0.0.beta12)
     geocoder (1.0.2)
     guard (0.6.3)
       thor (~> 0.14.6)
@@ -131,8 +133,7 @@ GEM
     jquery-rails (1.0.14)
       railties (~> 3.0)
       thor (~> 0.14)
-    json_pure (1.5.4)
-      spruz (~> 0.2.8)
+    json_pure (1.6.0)
     kgio (2.6.0)
     library_stdnums (1.0.1)
     mail (2.2.19)
@@ -310,12 +311,12 @@ GEM
     simple_form (1.5.0)
       actionpack (~> 3.0)
       activemodel (~> 3.0)
-    simplecov (0.5.0)
-      simplecov-html (~> 0.5.0)
-    simplecov-html (0.5.0)
+    simplecov (0.5.3)
+      multi_json (~> 1.0.3)
+      simplecov-html (~> 0.5.3)
+    simplecov-html (0.5.3)
     sitemap_generator (2.1.0)
     spork (0.9.0.rc9)
-    spruz (0.2.13)
     state_machine (1.0.2)
     strongbox (0.4.8)
       activerecord
@@ -360,6 +361,7 @@ DEPENDENCIES
   annotate
   astrails-safe
   attribute_normalizer
+  awesome_nested_set (~> 2.0)
   aws-s3
   barby (~> 0.5)
   cancan (>= 1.6.5)
@@ -400,6 +402,7 @@ DEPENDENCIES
   progress_bar
   rack-protection
   rails (= 3.0.10)
+  rake (= 0.9.2)
   recurrence
   ri_cal
   rqrcode

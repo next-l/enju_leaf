@@ -6,7 +6,7 @@ class Ability
     when 'Administrator'
       can [:read, :create, :update], Bookstore
       can :destroy, Bookstore do |bookstore|
-        bookstore.order_lists.empty?
+        bookstore.order_lists.empty? and bookstore.items.empty?
       end
       can [:read, :create, :update], ClassificationType
       can :destroy, ClassificationType do |classification_type|
