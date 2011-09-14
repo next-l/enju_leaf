@@ -142,7 +142,6 @@ class ManifestationsController < ApplicationController
         :serial_number_list,
         :date_of_publication,
         :pub_date,
-        :periodical_master,
         :language_id,
         :carrier_type_id,
         :created_at

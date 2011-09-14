@@ -1,6 +1,6 @@
 source 'http://rubygems.org'
 
-gem 'rails', '3.0.10'
+gem 'rails', '3.1.0'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
@@ -40,7 +40,7 @@ gem 'sunspot_rails', '~>1.3.rc4'
 gem 'sunspot_solr', '~>1.3.rc4'
 gem 'progress_bar'
 gem "friendly_id", "~> 4.0.0.beta12"
-gem 'inherited_resources', '~>1.3'
+gem 'inherited_resources', '~> 1.3'
 gem 'has_scope'
 gem 'nokogiri'
 gem 'marc'
@@ -73,7 +73,7 @@ gem 'sanitize'
 gem 'barby', '~> 0.5'
 gem 'rqrcode'
 gem 'event-calendar', :require => 'event_calendar'
-gem 'jpmobile', '~> 1.0'
+gem 'jpmobile', '~> 2.0'
 #gem 'geokit'
 gem 'geocoder'
 gem 'acts_as_list', :git => 'git://github.com/swanandp/acts_as_list.git'
@@ -82,7 +82,7 @@ gem 'client_side_validations'
 gem 'simple_form', '~> 1.5'
 gem 'validates_timeliness'
 gem 'rack-protection'
-gem 'awesome_nested_set', '~>2.0'
+gem 'awesome_nested_set', '~> 2.0'
 gem 'rake', '0.9.2'
 
 #gem 'oink', '>=0.9.2'
@@ -103,11 +103,11 @@ end
 
 # Gems used only for assets and not required
 # in production environments by default.
-#group :assets do
-#  gem 'sass-rails', "  ~> 3.1.0"
-#  gem 'coffee-rails', "~> 3.1.0"
-#  gem 'uglifier'
-#end
+group :assets do
+  gem 'sass-rails', "  ~> 3.1.0"
+  gem 'coffee-rails', "~> 3.1.0"
+  gem 'uglifier'
+end
 
 # Use unicorn as the web server
 # gem 'unicorn'

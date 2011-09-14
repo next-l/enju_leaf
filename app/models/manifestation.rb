@@ -1,6 +1,6 @@
 class Manifestation < ActiveRecord::Base
-  scope :periodical_master, where(:periodical_master => true)
-  scope :periodical_children, where(:periodical_master => false)
+  scope :periodical_master, where(:parent_id => nil)
+  scope :periodical_children, where('parent_id IS NOT NULL')
   has_many :creates, :dependent => :destroy, :foreign_key => 'work_id'
   has_many :creators, :through => :creates, :source => :patron
   has_many :realizes, :dependent => :destroy, :foreign_key => 'expression_id'
@@ -160,9 +160,9 @@ class Manifestation < ActiveRecord::Base
     string :sort_title
     boolean :child_record do
       if parent_id
-        false
-      else
         true
+      else
+        false
       end
     end
     time :acquired_at
@@ -175,6 +175,7 @@ class Manifestation < ActiveRecord::Base
   #enju_cinii
   #has_ipaper_and_uses 'Paperclip'
   #enju_scribd
+  acts_as_nested_set
   has_paper_trail
   if configatron.uploaded_file.storage == :s3
     has_attached_file :attachment, :storage => :s3, :s3_credentials => "#{Rails.root.to_s}/config/s3.yml"
@@ -202,7 +203,6 @@ class Manifestation < ActiveRecord::Base
   after_destroy :index_series_statement
   normalize_attributes :identifier, :pub_date, :isbn, :issn, :nbn, :lccn, :original_title
   attr_accessor :during_import
-  attr_protected :periodical_master
 
   def self.per_page
     10
@@ -547,13 +547,20 @@ class Manifestation < ActiveRecord::Base
 
   def set_parent
     if series_statement.try(:root_manifestation)
-      self.parent_id = series_statement.root_manifesatation.id
+      self.parent = series_statement.root_manifestation
+    else
+      self.parent = nil
     end
   end
 
   def root_of_series?
     return true if series_statement.try(:root_manifestation) == self
     false
+  end
+
+  def periodical_master?
+    return false if parent_id
+    true
   end
 end
 

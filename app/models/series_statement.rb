@@ -3,7 +3,7 @@ class SeriesStatement < ActiveRecord::Base
   has_many :manifestations, :through => :series_has_manifestations
   validates_presence_of :original_title
   validate :check_issn
-  after_create :create_root_manifestation
+  after_save :create_root_manifestation
 
   acts_as_list
   searchable do
@@ -48,7 +48,7 @@ class SeriesStatement < ActiveRecord::Base
   end
 
   def root_manifestation
-    manifestations.where(:periodical_master => true).first
+    manifestations.where(:parent_id => nil).first
   end
 
   def first_issue

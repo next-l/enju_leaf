@@ -257,6 +257,5 @@ end
 #  date_caputured                  :datetime
 #  file_hash                       :string(255)
 #  pub_date                        :string(255)
-#  periodical_master               :boolean         default(FALSE), not null
 #
 
