@@ -9,13 +9,14 @@
       (<%= link_to t('series_statement.edit'), series_statements_path(:manifestation_id => @manifestation.id) -%>)
     <%- else -%>
       <%= f.label t('activerecord.models.series_statement') -%>
-      <%= link_to @manifestation.series_statement.original_title, @manifestation.series_statement if @manifestation.series_statement -%>
+      <%= link_to @series_statement.original_title, @series_statement if @series_statement -%>
       <% if @manifestation.new_record? %>
         (<%= link_to t('page.listing', :model => t('activerecord.models.series_statement')), series_statements_path -%>)
       <% else %>
         (<%= link_to t('page.listing', :model => t('activerecord.models.series_statement')), manifestation_series_statements_path(@manifestation) -%>)
       <%- end -%>
     <%- end -%>
+    <%= f.hidden_field :series_statement_id, :value => @manifestation.series_statement_id %>
   </div>
 
   <div class="field">

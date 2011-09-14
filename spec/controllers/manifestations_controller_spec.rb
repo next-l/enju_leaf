@@ -301,6 +301,11 @@ describe ManifestationsController do
           assigns(:manifestation).should be_valid
         end
 
+        it "assigns a series_statement" do
+          post :create, :manifestation => @attrs.merge(:series_statement_id => 1)
+          assigns(:manifestation).series_statement.should eq SeriesStatement.find(1)
+        end
+
         it "redirects to the created manifestation" do
           post :create, :manifestation => @attrs
           response.should redirect_to(manifestation_url(assigns(:manifestation)))
@@ -410,6 +415,7 @@ describe ManifestationsController do
   describe "PUT update" do
     before(:each) do
       @manifestation = FactoryGirl.create(:manifestation)
+      @manifestation.series_statement = SeriesStatement.find(1)
       @attrs = FactoryGirl.attributes_for(:manifestation)
       @invalid_attrs = {:original_title => ''}
     end
@@ -422,6 +428,11 @@ describe ManifestationsController do
       describe "with valid params" do
         it "updates the requested manifestation" do
           put :update, :id => @manifestation.id, :manifestation => @attrs
+        end
+
+        it "assigns a series_statement" do
+          put :update, :id => @manifestation.id, :manifestation => @attrs.merge(:series_statement_id => 2)
+          assigns(:manifestation).series_statement.should eq SeriesStatement.find(2)
         end
 
         it "assigns the requested manifestation as @manifestation" do

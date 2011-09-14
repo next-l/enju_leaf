@@ -354,11 +354,11 @@ class ManifestationsController < ApplicationController
   def new
     @manifestation = Manifestation.new
     @original_manifestation = Manifestation.where(:id => params[:manifestation_id]).first
-    @manifestation.series_statement = @series_statement
-    if @manifestation.series_statement
-      @manifestation.original_title = @manifestation.series_statement.original_title
-      @manifestation.title_transcription = @manifestation.series_statement.title_transcription
-      @manifestation.issn = @manifestation.series_statement.issn
+    if @series_statement
+      @manifestation.series_statement_id = @series_statement.id
+      @manifestation.original_title = @series_statement.original_title
+      @manifestation.title_transcription = @series_statement.title_transcription
+      @manifestation.issn = @series_statement.issn
     elsif @original_manifestation
       @manifestation.original_title = @original_manifestation.original_title
       @manifestation.title_transcription = @original_manifestation.title_transcription
@@ -383,7 +383,11 @@ class ManifestationsController < ApplicationController
       end
     end
     @original_manifestation = Manifestation.where(:id => params[:manifestation_id]).first
-    @manifestation.series_statement = @series_statement if @series_statement
+    if @manifestation.series_statement
+      @manifestation.series_statement_id = @manifestation.series_statement.id
+    else
+      @manifestation.series_statement_id = @series_statement if @series_statement
+    end
     if params[:mode] == 'tag_edit'
       @bookmark = current_user.bookmarks.where(:manifestation_id => @manifestation.id).first if @manifestation rescue nil
       render :partial => 'manifestations/tag_edit', :locals => {:manifestation => @manifestation}
@@ -406,6 +410,7 @@ class ManifestationsController < ApplicationController
     respond_to do |format|
       if @manifestation.save
         Manifestation.transaction do
+          @manifestation.series_statement = SeriesStatement.where(:id => @manifestation.series_statement_id).first
           if @original_manifestation
             @manifestation.derived_manifestations << @original_manifestation
           end
@@ -427,6 +432,7 @@ class ManifestationsController < ApplicationController
   def update
     respond_to do |format|
       if @manifestation.update_attributes(params[:manifestation])
+        @manifestation.series_statement = SeriesStatement.where(:id => @manifestation.series_statement_id).first
         flash[:notice] = t('controller.successfully_updated', :model => t('activerecord.models.manifestation'))
         format.html { redirect_to @manifestation }
         format.xml  { head :ok }
