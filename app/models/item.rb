@@ -45,7 +45,7 @@ class Item < ActiveRecord::Base
   normalize_attributes :item_identifier
 
   searchable do
-    text :item_identifier, :note, :title, :creator, :contributor, :publisher, :library
+    text :item_identifier, :note, :title, :creator, :contributor, :publisher
     string :item_identifier
     string :library do
       shelf.library.name if shelf
