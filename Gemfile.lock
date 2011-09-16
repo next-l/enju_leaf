@@ -215,7 +215,7 @@ GEM
       cocaine (>= 0.0.2)
       mime-types
     parallel (0.5.9)
-    parallel_tests (0.6.1)
+    parallel_tests (0.6.2)
       parallel
     pg (0.11.0)
     polyglot (0.3.2)
@@ -314,7 +314,7 @@ GEM
     scribd_fu (2.0.11)
       rscribd
     sexp_processor (3.0.6)
-    simple_form (1.5.0)
+    simple_form (1.5.1)
       actionpack (~> 3.0)
       activemodel (~> 3.0)
     simplecov (0.5.3)
