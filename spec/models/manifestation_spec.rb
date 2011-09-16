@@ -192,6 +192,7 @@ describe Manifestation do
 end
 
 
+
 # == Schema Information
 #
 # Table name: manifestations
@@ -225,9 +226,9 @@ end
 #  issn                            :string(255)
 #  price                           :integer
 #  fulltext                        :text
-#  volume_number_list              :string(255)
-#  issue_number_list               :string(255)
-#  serial_number_list              :string(255)
+#  volume_number_string            :string(255)
+#  issue_number_string             :string(255)
+#  serial_number_string            :string(255)
 #  edition                         :integer
 #  note                            :text
 #  produces_count                  :integer         default(0), not null
@@ -241,7 +242,6 @@ end
 #  required_score                  :integer         default(0), not null
 #  frequency_id                    :integer         default(1), not null
 #  subscription_master             :boolean         default(FALSE), not null
-#  series_statement_id             :integer
 #  ipaper_id                       :integer
 #  ipaper_access_key               :string(255)
 #  attachment_file_name            :string(255)
@@ -257,12 +257,13 @@ end
 #  date_submitted                  :datetime
 #  date_accepted                   :datetime
 #  date_caputured                  :datetime
+#  ndl_bib_id                      :string(255)
 #  file_hash                       :string(255)
 #  pub_date                        :string(255)
-#  periodical_master               :boolean         default(FALSE), not null
-#  ndl_bib_id                      :string(255)
-#  parent_id                       :integer
-#  lft                             :integer
-#  rgt                             :integer
+#  periodical                      :boolean         default(FALSE), not null
+#  edition_string                  :string(255)
+#  volume_number                   :integer
+#  issue_number                    :integer
+#  serial_number                   :integer
 #
 

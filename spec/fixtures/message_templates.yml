@@ -48,6 +48,7 @@ message_template_00008:
   position: 8
 
 
+
 # == Schema Information
 #
 # Table name: message_templates
@@ -59,6 +60,6 @@ message_template_00008:
 #  position   :integer
 #  created_at :datetime
 #  updated_at :datetime
-#  locale     :string(255)
+#  locale     :string(255)     default("ja")
 #
 

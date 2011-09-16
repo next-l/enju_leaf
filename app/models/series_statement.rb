@@ -1,6 +1,7 @@
 class SeriesStatement < ActiveRecord::Base
   has_many :series_has_manifestations, :dependent => :destroy
   has_many :manifestations, :through => :series_has_manifestations
+  belongs_to :manifestation
   validates_presence_of :original_title
   validate :check_issn
   after_save :create_root_manifestation
@@ -19,6 +20,7 @@ class SeriesStatement < ActiveRecord::Base
   end
 
   normalize_attributes :original_title, :issn
+  alias_method :root_manifestation, :manifestation
 
   def self.per_page
     10
@@ -38,16 +40,11 @@ class SeriesStatement < ActiveRecord::Base
   end
 
   def create_root_manifestation
-    return nil if root_manifestation
     return nil unless periodical
-    manifestation = Manifestation.new(
+    return nil if root_manifestation
+    self.manifestation = Manifestation.new(
       :original_title => original_title
     )
-    self.manifestations << manifestation
-  end
-
-  def root_manifestation
-    manifestations.where(:periodical => false).first
   end
 
   def first_issue
@@ -62,6 +59,7 @@ class SeriesStatement < ActiveRecord::Base
     series_has_manifestations.where(:manifestation_id => manifestation.id).first
   end
 end
+
 
 # == Schema Information
 #
@@ -80,5 +78,6 @@ end
 #  series_statement_identifier :string(255)
 #  issn                        :string(255)
 #  periodical                  :boolean
+#  manifestation_id            :integer
 #
 
