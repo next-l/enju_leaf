@@ -25,7 +25,7 @@ EnjuLeaf::Application.configure do
   # config.logger = SyslogLogger.new
 
   # Use a different cache store in production
-  config.cache_store = :dalli_store, {:expires_in => 1.day}
+  config.cache_store = :dalli_store, {:compression => true, :expires_in => 1.day}
 
   # Disable Rails's static asset server
   # In production, Apache or nginx will already do this

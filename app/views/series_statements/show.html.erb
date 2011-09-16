@@ -9,42 +9,24 @@
   <%= image_tag('icons/newspaper.png', :size => '16x16', :alt => t('manifestation.serial')) if @series_statement.periodical -%>
 </h2>
 
-<p>
-  <strong><%= t('activerecord.attributes.series_statement.title_transcription') -%></strong>
-  <%= @series_statement.title_transcription %>
-</p>
-
-<p>
-  <strong><%= t('activerecord.attributes.series_statement.periodical') -%></strong>
-  <%= localized_boolean(@series_statement.periodical) %>
-</p>
-
-<p>
-  <strong><%= t('activerecord.attributes.series_statement.issn') -%></strong>
-  <%= @series_statement.issn %>
-</p>
-
-<!--
-<p>
-  <strong><%= t('activerecord.attributes.series_statement.numbering') -%></strong>
-  <%= @series_statement.numbering %>
-</p>
-
-<p>
-  <strong><%= t('activerecord.attributes.series_statement.title_subseries') -%></strong>
-  <%= @series_statement.title_subseries %>
-</p>
-
-<p>
-  <strong><%= t('activerecord.attributes.series_statement.numbering_subseries') -%></strong>
-  <%= @series_statement.numbering_subseries %>
-</p>
--->
-
-<p>
-  <strong><%= t('activerecord.attributes.series_statement.series_statement_identifier') -%></strong>
-  <%= @series_statement.series_statement_identifier %>
-</p>
+<table id="resource_detail">
+  <tr>
+    <td style="width: 200px"><%= t('activerecord.attributes.series_statement.title_transcription') -%></td>
+    <td style="width: 490px"><%= @series_statement.title_transcription %></td>
+  </tr>
+  <tr>
+    <td><%= t('activerecord.attributes.series_statement.periodical') -%></td>
+    <td><%= localized_boolean(@series_statement.periodical) %></td>
+  </tr>
+  <tr>
+    <td><%= t('activerecord.attributes.series_statement.issn') -%></td>
+    <td><%= @series_statement.issn %></td>
+  </tr>
+  <tr>
+    <td><%= t('activerecord.attributes.series_statement.series_statement_identifier') -%></td>
+    <td><%= @series_statement.series_statement_identifier %></td>
+  </tr>
+</table>
 
   <%= render 'manifestation_list' -%>
 </div>

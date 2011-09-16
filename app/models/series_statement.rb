@@ -9,7 +9,7 @@ class SeriesStatement < ActiveRecord::Base
   acts_as_list
   searchable do
     text :title do
-      original_title
+      titles
     end
     text :numbering, :title_subseries, :numbering_subseries
     integer :manifestation_ids, :multiple => true do
@@ -57,6 +57,10 @@ class SeriesStatement < ActiveRecord::Base
 
   def manifestation_included(manifestation)
     series_has_manifestations.where(:manifestation_id => manifestation.id).first
+  end
+
+  def titles
+    [original_title, title_transcription]
   end
 end
 

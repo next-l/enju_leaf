@@ -307,10 +307,11 @@ class Manifestation < ActiveRecord::Base
     title << original_title.to_s.strip
     title << title_transcription.to_s.strip
     title << title_alternative.to_s.strip
+    title << series_statement.titles if series_statement
     #title << original_title.wakati
     #title << title_transcription.wakati rescue nil
     #title << title_alternative.wakati rescue nil
-    title
+    title.flatten
   end
 
   def url
