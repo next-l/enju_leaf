@@ -248,6 +248,7 @@ class Patron < ActiveRecord::Base
   end
 end
 
+
 # == Schema Information
 #
 # Table name: patrons
@@ -303,11 +304,5 @@ end
 #  title                               :string(255)
 #  birth_date                          :string(255)
 #  death_date                          :string(255)
-#  address_1_key                       :binary
-#  address_1_iv                        :binary
-#  address_2_key                       :binary
-#  address_2_iv                        :binary
-#  telephone_number_key                :binary
-#  telephone_number_iv                 :binary
 #
 

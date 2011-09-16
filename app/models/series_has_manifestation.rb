@@ -20,3 +20,16 @@ class SeriesHasManifestation < ActiveRecord::Base
     manifestation.try(:index)
   end
 end
+
+# == Schema Information
+#
+# Table name: series_has_manifestations
+#
+#  id                  :integer         not null, primary key
+#  series_statement_id :integer
+#  manifestation_id    :integer
+#  position            :integer
+#  created_at          :datetime
+#  updated_at          :datetime
+#
+

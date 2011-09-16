@@ -47,6 +47,7 @@ message_template_00008:
   body: Recall overdue item
   position: 8
 
+
 # == Schema Information
 #
 # Table name: message_templates
@@ -58,6 +59,6 @@ message_template_00008:
 #  position   :integer
 #  created_at :datetime
 #  updated_at :datetime
-#  locale     :string(255)     default("ja")
+#  locale     :string(255)
 #
 

@@ -38,6 +38,7 @@ describe Item do
   end
 end
 
+
 # == Schema Information
 #
 # Table name: items
@@ -64,5 +65,6 @@ end
 #  required_score              :integer         default(0), not null
 #  acquired_at                 :datetime
 #  bookstore_id                :integer
+#  donation                    :text
 #
 

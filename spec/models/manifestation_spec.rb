@@ -191,6 +191,7 @@ describe Manifestation do
   end
 end
 
+
 # == Schema Information
 #
 # Table name: manifestations
@@ -240,6 +241,7 @@ end
 #  required_score                  :integer         default(0), not null
 #  frequency_id                    :integer         default(1), not null
 #  subscription_master             :boolean         default(FALSE), not null
+#  series_statement_id             :integer
 #  ipaper_id                       :integer
 #  ipaper_access_key               :string(255)
 #  attachment_file_name            :string(255)
@@ -257,5 +259,10 @@ end
 #  date_caputured                  :datetime
 #  file_hash                       :string(255)
 #  pub_date                        :string(255)
+#  periodical_master               :boolean         default(FALSE), not null
+#  ndl_bib_id                      :string(255)
+#  parent_id                       :integer
+#  lft                             :integer
+#  rgt                             :integer
 #
 

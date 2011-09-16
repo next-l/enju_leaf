@@ -607,9 +607,9 @@ en:
         wrong_isbn: Wrong ISBN
         nbn: NBN
         price: Price
-        volume_number_list: Volume number list
-        issue_number_list: Issue number list
-        serial_number_list: Serial number list
+        volume_number_string: Volume number list
+        issue_number_string: Issue number list
+        serial_number_string: Serial number list
         edition: Edition
         note: Note
         repository_content: Repository content

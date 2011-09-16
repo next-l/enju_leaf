@@ -608,9 +608,9 @@ ja:
         wrong_isbn: 間違ったISBN
         nbn: NBN
         price: 価格
-        volume_number_list: 巻
-        issue_number_list: 号
-        serial_number_list: 通号
+        volume_number_string: 巻
+        issue_number_string: 号
+        serial_number_string: 通号
         edition: 版
         note: 注記
         repository_content: リポジトリのコンテンツ

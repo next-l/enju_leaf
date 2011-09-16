@@ -6,6 +6,7 @@ describe MessageTemplate do
 
 end
 
+
 # == Schema Information
 #
 # Table name: message_templates
@@ -17,6 +18,6 @@ end
 #  position   :integer
 #  created_at :datetime
 #  updated_at :datetime
-#  locale     :string(255)     default("ja")
+#  locale     :string(255)
 #
 

@@ -100,6 +100,7 @@ classification_00005:
   lft: 9
   rgt: 10
 
+
 # == Schema Information
 #
 # Table name: classifications
@@ -111,5 +112,7 @@ classification_00005:
 #  classification_type_id :integer         not null
 #  created_at             :datetime
 #  updated_at             :datetime
+#  lft                    :integer
+#  rgt                    :integer
 #
 

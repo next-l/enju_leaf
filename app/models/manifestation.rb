@@ -350,21 +350,21 @@ class Manifestation < ActiveRecord::Base
       self.title_transcription = m.title_transcription
       self.title_alternative = m.title_alternative
       self.issn = m.issn
-      unless m.serial_number_list.blank?
-        self.serial_number_list = m.serial_number_list.to_i + 1
-        unless m.issue_number_list.blank?
-          self.issue_number_list = m.issue_number_list.split.last.to_i + 1
+      unless m.serial_number_string.blank?
+        self.serial_number_string = m.serial_number_string.to_i + 1
+        unless m.issue_number_string.blank?
+          self.issue_number_string = m.issue_number_string.split.last.to_i + 1
         else
-          self.issue_number_list = m.issue_number_list
+          self.issue_number_string = m.issue_number_string
         end
-        self.volume_number_list = m.volume_number_list
+        self.volume_number_string = m.volume_number_string
       else
-        unless m.issue_number_list.blank?
-          self.issue_number_list = m.issue_number_list.split.last.to_i + 1
-          self.volume_number_list = m.volume_number_list
+        unless m.issue_number_string.blank?
+          self.issue_number_string = m.issue_number_string.split.last.to_i + 1
+          self.volume_number_string = m.volume_number_string
         else
-          unless m.volume_number_list.blank?
-            self.volume_number_list = m.volume_number_list.split.last.to_i + 1
+          unless m.volume_number_string.blank?
+            self.volume_number_string = m.volume_number_string.split.last.to_i + 1
           end
         end
       end
@@ -486,15 +486,15 @@ class Manifestation < ActiveRecord::Base
   end
 
   def volume_number
-    volume_number_list.gsub(/\D/, ' ').split(" ") if volume_number_list
+    volume_number_string.gsub(/\D/, ' ').split(" ") if volume_number_string
   end
 
   def issue_number
-    issue_number_list.gsub(/\D/, ' ').split(" ") if issue_number_list
+    issue_number_string.gsub(/\D/, ' ').split(" ") if issue_number_string
   end
 
   def serial_number
-    serial_number_list.gsub(/\D/, ' ').split(" ") if serial_number_list
+    serial_number_string.gsub(/\D/, ' ').split(" ") if serial_number_string
   end
 
   def questions(options = {})
@@ -560,6 +560,7 @@ class Manifestation < ActiveRecord::Base
   end
 end
 
+
 # == Schema Information
 #
 # Table name: manifestations
@@ -593,9 +594,9 @@ end
 #  issn                            :string(255)
 #  price                           :integer
 #  fulltext                        :text
-#  volume_number_list              :string(255)
-#  issue_number_list               :string(255)
-#  serial_number_list              :string(255)
+#  volume_number_string              :string(255)
+#  issue_number_string               :string(255)
+#  serial_number_string              :string(255)
 #  edition                         :integer
 #  note                            :text
 #  produces_count                  :integer         default(0), not null
@@ -609,6 +610,7 @@ end
 #  required_score                  :integer         default(0), not null
 #  frequency_id                    :integer         default(1), not null
 #  subscription_master             :boolean         default(FALSE), not null
+#  series_statement_id             :integer
 #  ipaper_id                       :integer
 #  ipaper_access_key               :string(255)
 #  attachment_file_name            :string(255)
@@ -627,5 +629,9 @@ end
 #  file_hash                       :string(255)
 #  pub_date                        :string(255)
 #  periodical_master               :boolean         default(FALSE), not null
+#  ndl_bib_id                      :string(255)
+#  parent_id                       :integer
+#  lft                             :integer
+#  rgt                             :integer
 #
 

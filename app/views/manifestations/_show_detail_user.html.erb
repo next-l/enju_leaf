@@ -32,13 +32,13 @@
             <%- end -%>
             <%- if manifestation.series_statement -%>
               <%- unless manifestation.volume_number.blank? -%>
-                <%= t('activerecord.attributes.manifestation.volume_number_list') -%>: <%= manifestation.volume_number_list -%>
+                <%= t('activerecord.attributes.manifestation.volume_number_string') -%>: <%= manifestation.volume_number_string -%>
               <%- end -%>
-              <%- unless manifestation.issue_number_list.blank? -%>
-                <%= t('manifestation.issue_number') -%>: <%= manifestation.issue_number_list -%>
+              <%- unless manifestation.issue_number_string.blank? -%>
+                <%= t('manifestation.issue_number') -%>: <%= manifestation.issue_number_string -%>
               <%- end -%>
-              <%- unless manifestation.serial_number_list.blank? -%>
-                <%= t('manifestation.serial_number') -%>: <%= manifestation.serial_number_list -%>
+              <%- unless manifestation.serial_number_string.blank? -%>
+                <%= t('manifestation.serial_number') -%>: <%= manifestation.serial_number_string -%>
               <%- end -%>
             <%- end -%>
           </td>

@@ -40,6 +40,7 @@ user2_to_catie_1:
   lft: 7
   rgt: 8
 
+
 # == Schema Information
 #
 # Table name: messages
@@ -55,5 +56,7 @@ user2_to_catie_1:
 #  message_request_id :integer
 #  state              :string(255)
 #  parent_id          :integer
+#  lft                :integer
+#  rgt                :integer
 #
 
