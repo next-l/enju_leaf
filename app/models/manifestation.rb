@@ -485,18 +485,6 @@ class Manifestation < ActiveRecord::Base
     subjects.collect(&:classifications).flatten
   end
 
-  def volume_number
-    volume_number_string.gsub(/\D/, ' ').split(" ") if volume_number_string
-  end
-
-  def issue_number
-    issue_number_string.gsub(/\D/, ' ').split(" ") if issue_number_string
-  end
-
-  def serial_number
-    serial_number_string.gsub(/\D/, ' ').split(" ") if serial_number_string
-  end
-
   def questions(options = {})
     id = self.id
     options = {:page => 1, :per_page => Question.per_page}.merge(options)
