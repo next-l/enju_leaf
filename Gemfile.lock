@@ -344,7 +344,7 @@ GEM
     whenever (0.6.8)
       aaronh-chronic (>= 0.3.9)
       activesupport (>= 2.3.4)
-    will_paginate (3.0.0)
+    will_paginate (3.0.1)
     xml-simple (1.1.0)
     yamler (0.1.0)
     zipruby (0.3.6)
