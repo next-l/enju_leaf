@@ -28,6 +28,7 @@ class Classification < ActiveRecord::Base
   end
 end
 
+
 # == Schema Information
 #
 # Table name: classifications
@@ -39,5 +40,7 @@ end
 #  classification_type_id :integer         not null
 #  created_at             :datetime
 #  updated_at             :datetime
+#  lft                    :integer
+#  rgt                    :integer
 #
 

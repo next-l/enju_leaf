@@ -191,6 +191,8 @@ user4:
   user_number: "00007"
   locale: "ja"
 
+
+
 # == Schema Information
 #
 # Table name: users

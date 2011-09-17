@@ -38,6 +38,8 @@ describe Item do
   end
 end
 
+
+
 # == Schema Information
 #
 # Table name: items

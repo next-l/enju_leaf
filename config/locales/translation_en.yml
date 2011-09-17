@@ -607,10 +607,13 @@ en:
         wrong_isbn: Wrong ISBN
         nbn: NBN
         price: Price
-        volume_number_list: Volume number list
-        issue_number_list: Issue number list
-        serial_number_list: Serial number list
-        edition: Edition
+        volume_number: Volume number (integer)
+        volume_number_string: Volume number
+        issue_number: Issue number
+        issue_number_string: Issue number
+        serial_number: Serial number
+        edition: Edition (integer)
+        edition_string: Edition
         note: Note
         repository_content: Repository content
         lock_version: Lock version
@@ -1249,8 +1252,6 @@ en:
     query_search_result: "Search results for %{query} in %{library_group_name}"
     serial: "Serial"
     number: "Number"
-    issue_number: "Issue number"
-    serial_number: "Serial number"
     invalid_isbn: "Invalid ISBN."
     already_imported: "This manifestation is already imporeted."
     record_not_found: "Record not found."

@@ -186,6 +186,10 @@ class Manifestation < ActiveRecord::Base
   validates :pub_date, :format => {:with => /^\d+(-\d{0,2}){0,2}$/}, :allow_blank => true
   validates :access_address, :url => true, :allow_blank => true, :length => {:maximum => 255}
   validate :check_isbn, :check_issn, :check_lccn, :unless => :during_import
+  validates :issue_number, :numericality => {:greater_than => 0}, :allow_blank => true
+  validates :volume_number, :numericality => {:greater_than => 0}, :allow_blank => true
+  validates :serial_number, :numericality => {:greater_than => 0}, :allow_blank => true
+  validates :edition, :numericality => {:greater_than => 0}, :allow_blank => true
   before_validation :set_wrong_isbn, :check_issn, :check_lccn, :if => :during_import
   before_validation :convert_isbn
   before_create :set_digest
@@ -282,8 +286,16 @@ class Manifestation < ActiveRecord::Base
   end
 
   def serial?
-    if series_statement.try(:periodical) and periodical
-      return true unless series_statement.root_manifestation == self
+    if new_record?
+      if SeriesStatement.where(:id => series_statement_id).first.try(:periodical)
+        return true
+      end
+    else
+      if series_statement.try(:periodical)
+        return true
+      elsif periodical
+        return true unless series_statement.root_manifestation == self
+      end
     end
     false
   end
@@ -307,10 +319,11 @@ class Manifestation < ActiveRecord::Base
     title << original_title.to_s.strip
     title << title_transcription.to_s.strip
     title << title_alternative.to_s.strip
+    title << series_statement.titles if series_statement
     #title << original_title.wakati
     #title << title_transcription.wakati rescue nil
     #title << title_alternative.wakati rescue nil
-    title
+    title.flatten
   end
 
   def url
@@ -344,27 +357,35 @@ class Manifestation < ActiveRecord::Base
     self.users.include?(user)
   end
 
-  def set_serial_number
-    if m = series_statement.try(:last_issue)
-      self.original_title = m.original_title
-      self.title_transcription = m.title_transcription
-      self.title_alternative = m.title_alternative
-      self.issn = m.issn
-      unless m.serial_number_list.blank?
-        self.serial_number_list = m.serial_number_list.to_i + 1
-        unless m.issue_number_list.blank?
-          self.issue_number_list = m.issue_number_list.split.last.to_i + 1
+  def set_serial_information
+    return nil unless serial?
+    if new_record?
+      series = SeriesStatement.where(:id => series_statement_id).first
+      manifestation = series.try(:last_issue)
+    else
+      manifestation = series_statement.try(:last_issue)
+    end
+    if manifestation
+      self.original_title = manifestation.original_title
+      self.title_transcription = manifestation.title_transcription
+      self.title_alternative = manifestation.title_alternative
+      self.issn = manifestation.issn
+      # TODO: 雑誌ごとに巻・号・通号のパターンを設定できるようにする
+      if manifestation.serial_number.to_i > 0
+        self.serial_number = manifestation.serial_number.to_i + 1
+        if manifestation.issue_number.to_i > 0
+          self.issue_number = manifestation.issue_number.to_i + 1
         else
-          self.issue_number_list = m.issue_number_list
+          self.issue_number = manifestation.issue_number
         end
-        self.volume_number_list = m.volume_number_list
+        self.volume_number = manifestation.volume_number
       else
-        unless m.issue_number_list.blank?
-          self.issue_number_list = m.issue_number_list.split.last.to_i + 1
-          self.volume_number_list = m.volume_number_list
+        if manifestation.issue_number.to_i > 0
+          self.issue_number = manifestation.issue_number.to_i + 1
+          self.volume_number = manifestation.volume_number
         else
-          unless m.volume_number_list.blank?
-            self.volume_number_list = m.volume_number_list.split.last.to_i + 1
+          if manifestation.volume_number.to_i > 0
+            self.volume_number = manifestation.volume_number.to_i + 1
           end
         end
       end
@@ -485,18 +506,6 @@ class Manifestation < ActiveRecord::Base
     subjects.collect(&:classifications).flatten
   end
 
-  def volume_number
-    volume_number_list.gsub(/\D/, ' ').split(" ") if volume_number_list
-  end
-
-  def issue_number
-    issue_number_list.gsub(/\D/, ' ').split(" ") if issue_number_list
-  end
-
-  def serial_number
-    serial_number_list.gsub(/\D/, ' ').split(" ") if serial_number_list
-  end
-
   def questions(options = {})
     id = self.id
     options = {:page => 1, :per_page => Question.per_page}.merge(options)
@@ -560,6 +569,8 @@ class Manifestation < ActiveRecord::Base
   end
 end
 
+
+
 # == Schema Information
 #
 # Table name: manifestations
@@ -593,9 +604,9 @@ end
 #  issn                            :string(255)
 #  price                           :integer
 #  fulltext                        :text
-#  volume_number_list              :string(255)
-#  issue_number_list               :string(255)
-#  serial_number_list              :string(255)
+#  volume_number_string            :string(255)
+#  issue_number_string             :string(255)
+#  serial_number_string            :string(255)
 #  edition                         :integer
 #  note                            :text
 #  produces_count                  :integer         default(0), not null
@@ -624,8 +635,13 @@ end
 #  date_submitted                  :datetime
 #  date_accepted                   :datetime
 #  date_caputured                  :datetime
+#  ndl_bib_id                      :string(255)
 #  file_hash                       :string(255)
 #  pub_date                        :string(255)
-#  periodical_master               :boolean         default(FALSE), not null
+#  periodical                      :boolean         default(FALSE), not null
+#  edition_string                  :string(255)
+#  volume_number                   :integer
+#  issue_number                    :integer
+#  serial_number                   :integer
 #
 

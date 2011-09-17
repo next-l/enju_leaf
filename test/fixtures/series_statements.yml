@@ -10,6 +10,7 @@ two:
   original_title: title2
   position: 2
 
+
 # == Schema Information
 #
 # Table name: series_statements
@@ -27,5 +28,6 @@ two:
 #  series_statement_identifier :string(255)
 #  issn                        :string(255)
 #  periodical                  :boolean
+#  manifestation_id            :integer
 #
 

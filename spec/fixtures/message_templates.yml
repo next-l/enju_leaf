@@ -47,6 +47,8 @@ message_template_00008:
   body: Recall overdue item
   position: 8
 
+
+
 # == Schema Information
 #
 # Table name: message_templates

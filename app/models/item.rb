@@ -45,9 +45,11 @@ class Item < ActiveRecord::Base
   normalize_attributes :item_identifier
 
   searchable do
-    text :item_identifier, :note, :title, :creator, :contributor, :publisher, :library
+    text :item_identifier, :note, :title, :creator, :contributor, :publisher
     string :item_identifier
-    string :library
+    string :library do
+      shelf.library.name if shelf
+    end
     integer :required_role_id
     integer :circulation_status_id
     integer :manifestation_id do
@@ -164,10 +166,6 @@ class Item < ActiveRecord::Base
     manifestation.try(:publisher)
   end
 
-  def library
-    shelf.library.name if shelf
-  end
-
   def shelf_name
     shelf.name
   end
@@ -218,6 +216,8 @@ class Item < ActiveRecord::Base
     end
   end
 end
+
+
 
 # == Schema Information
 #

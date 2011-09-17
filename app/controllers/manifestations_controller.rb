@@ -137,9 +137,9 @@ class ManifestationsController < ApplicationController
         :required_role_id,
         :carrier_type_id,
         :access_address,
-        :volume_number_list,
-        :issue_number_list,
-        :serial_number_list,
+        :volume_number_string,
+        :issue_number_string,
+        :serial_number_string,
         :date_of_publication,
         :pub_date,
         :language_id,
@@ -361,9 +361,13 @@ class ManifestationsController < ApplicationController
     @original_manifestation = Manifestation.where(:id => params[:manifestation_id]).first
     if @series_statement
       @manifestation.series_statement_id = @series_statement.id
-      @manifestation.original_title = @series_statement.original_title
-      @manifestation.title_transcription = @series_statement.title_transcription
-      @manifestation.issn = @series_statement.issn
+      if @manifestation.serial?
+        @manifestation.set_serial_information
+      else
+        @manifestation.original_title = @series_statement.original_title
+        @manifestation.title_transcription = @series_statement.title_transcription
+        @manifestation.issn = @series_statement.issn
+      end
     elsif @original_manifestation
       @manifestation.original_title = @original_manifestation.original_title
       @manifestation.title_transcription = @original_manifestation.title_transcription
@@ -372,7 +376,6 @@ class ManifestationsController < ApplicationController
       @manifestation.title_transcription = @expression.title_transcription
     end
     @manifestation.language = Language.where(:iso_639_1 => @locale).first
-    @manifestation = @manifestation.set_serial_number unless params[:mode] == 'attachment'
 
     respond_to do |format|
       format.html # new.html.erb

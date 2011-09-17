@@ -24,6 +24,8 @@ class MessageTemplate < ActiveRecord::Base
   end
 end
 
+
+
 # == Schema Information
 #
 # Table name: message_templates

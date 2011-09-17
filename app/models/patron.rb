@@ -248,6 +248,8 @@ class Patron < ActiveRecord::Base
   end
 end
 
+
+
 # == Schema Information
 #
 # Table name: patrons

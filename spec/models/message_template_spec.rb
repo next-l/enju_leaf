@@ -6,6 +6,8 @@ describe MessageTemplate do
 
 end
 
+
+
 # == Schema Information
 #
 # Table name: message_templates

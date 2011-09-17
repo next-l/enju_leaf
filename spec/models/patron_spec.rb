@@ -42,6 +42,8 @@ describe Patron do
   end
 end
 
+
+
 # == Schema Information
 #
 # Table name: patrons

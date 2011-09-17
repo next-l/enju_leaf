@@ -2066,6 +2066,8 @@ manifestation_00216:
   required_role_id: 1
   repository_content: false
 
+
+
 # == Schema Information
 #
 # Table name: manifestations
@@ -2099,9 +2101,9 @@ manifestation_00216:
 #  issn                            :string(255)
 #  price                           :integer
 #  fulltext                        :text
-#  volume_number_list              :string(255)
-#  issue_number_list               :string(255)
-#  serial_number_list              :string(255)
+#  volume_number_string            :string(255)
+#  issue_number_string             :string(255)
+#  serial_number_string            :string(255)
 #  edition                         :integer
 #  note                            :text
 #  produces_count                  :integer         default(0), not null
@@ -2130,7 +2132,13 @@ manifestation_00216:
 #  date_submitted                  :datetime
 #  date_accepted                   :datetime
 #  date_caputured                  :datetime
+#  ndl_bib_id                      :string(255)
 #  file_hash                       :string(255)
 #  pub_date                        :string(255)
+#  periodical                      :boolean         default(FALSE), not null
+#  edition_string                  :string(255)
+#  volume_number                   :integer
+#  issue_number                    :integer
+#  serial_number                   :integer
 #
 

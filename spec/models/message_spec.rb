@@ -37,6 +37,7 @@ describe Message do
   end
 end
 
+
 # == Schema Information
 #
 # Table name: messages
@@ -52,5 +53,7 @@ end
 #  message_request_id :integer
 #  state              :string(255)
 #  parent_id          :integer
+#  lft                :integer
+#  rgt                :integer
 #
 

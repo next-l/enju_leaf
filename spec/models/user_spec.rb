@@ -166,6 +166,8 @@ describe User do
   end
 end
 
+
+
 # == Schema Information
 #
 # Table name: users
