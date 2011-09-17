@@ -1235,8 +1235,6 @@ ja:
     query_search_result: "検索語 %{query} による %{library_group_name} の資料の検索結果"
     serial: "定期刊行物"
     number: "巻号"
-    issue_number: "号数"
-    serial_number: "通号"
     invalid_isbn: "無効なISBNです。"
     already_imported: "すでにインポートされています。"
     record_not_found: "資料が見つかりませんでした。"

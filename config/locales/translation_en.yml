@@ -1252,8 +1252,6 @@ en:
     query_search_result: "Search results for %{query} in %{library_group_name}"
     serial: "Serial"
     number: "Number"
-    issue_number: "Issue number"
-    serial_number: "Serial number"
     invalid_isbn: "Invalid ISBN."
     already_imported: "This manifestation is already imporeted."
     record_not_found: "Record not found."

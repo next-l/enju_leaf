@@ -2,32 +2,39 @@
 <h1 class="title"><%= t('page.showing', :model => t('activerecord.models.series_statement')) -%></h1>
 <div id="content_list">
 <p id="notice"><%= notice %></p>
-<%= render 'manifestations/paginated_id_link', :manifestation => @manifestation if @manifestation %>
+  <%= render 'manifestations/paginated_id_link', :manifestation => @manifestation if @manifestation %>
 
-<h2 class="resource_title">
-  <%= @series_statement.original_title %>
-  <%= image_tag('icons/newspaper.png', :size => '16x16', :alt => t('manifestation.serial')) if @series_statement.periodical -%>
-</h2>
+  <h2 class="resource_title">
+    <%= @series_statement.original_title %>
+    <%= image_tag('icons/newspaper.png', :size => '16x16', :alt => t('manifestation.serial')) if @series_statement.periodical -%>
+  </h2>
 
-<table id="resource_detail">
-  <tr>
-    <td style="width: 200px"><%= t('activerecord.attributes.series_statement.title_transcription') -%></td>
-    <td style="width: 490px"><%= @series_statement.title_transcription %></td>
-  </tr>
-  <tr>
-    <td><%= t('activerecord.attributes.series_statement.periodical') -%></td>
-    <td><%= localized_boolean(@series_statement.periodical) %></td>
-  </tr>
-  <tr>
-    <td><%= t('activerecord.attributes.series_statement.issn') -%></td>
-    <td><%= @series_statement.issn %></td>
-  </tr>
-  <tr>
-    <td><%= t('activerecord.attributes.series_statement.series_statement_identifier') -%></td>
-    <td><%= @series_statement.series_statement_identifier %></td>
-  </tr>
-</table>
+  <%= render 'page/tabview' -%>
+  <div id="tabs">
+    <%= render 'tab_menu', :series_statement => @series_statement %>
+    <div id="detail">
+      <table id="resource_detail">
+        <tr>
+          <td style="width: 200px"><%= t('activerecord.attributes.series_statement.title_transcription') -%></td>
+          <td style="width: 490px"><%= @series_statement.title_transcription %></td>
+        </tr>
+        <tr>
+          <td><%= t('activerecord.attributes.series_statement.periodical') -%></td>
+          <td><%= localized_boolean(@series_statement.periodical) %></td>
+        </tr>
+        <tr>
+          <td><%= t('activerecord.attributes.series_statement.issn') -%></td>
+          <td><%= @series_statement.issn %></td>
+        </tr>
+        <tr>
+          <td><%= t('activerecord.attributes.series_statement.series_statement_identifier') -%></td>
+          <td><%= @series_statement.series_statement_identifier %></td>
+        </tr>
+    </table>
+  </div>
+</div>
 
+  <br />
   <%= render 'manifestation_list' -%>
 </div>
 </div>

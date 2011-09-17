@@ -60,16 +60,19 @@
 
   <%- if @manifestation.serial? -%>
     <%= render :partial => 'manifestations/serial_form', :locals => {:f => f, :manifestation => @manifestation} -%>
-  <%- end -%>
-  <div class="field">
-    <%= f.label :edition -%>
-    <%= f.text_field :edition, :class => 'resource_integer' -%>
-    <%- unless @manifestation.serial? -%>
+  <%- else -%>
+    <div class="field">
+      <%= f.label :edition_string -%>
+      <%= f.text_field :edition_string %>
+      <%= f.label :edition -%>
+      <%= f.text_field :edition, :class => 'resource_integer' -%>
       <br />
       <%= f.label :volume_number_string -%>
-      <%= f.text_field :volume_number_string, :class => 'resource_integer' -%>
-    <% end %>
-  </div>
+      <%= f.text_field :volume_number_string %>
+      <%= f.label :volume_number -%>
+      <%= f.text_field :volume_number, :class => 'resource_integer' -%>
+    </div>
+  <% end %>
 
   <div class="field">
     <%= f.label :isbn -%>

@@ -207,11 +207,7 @@ h2{
   margin-bottom: 10px;
 }
 
-h1.resource_title{
-  line-height: 140%;
-}
-
-h2.resource_title{
+h1.resource_title, h2.resource_title, h3.resource_title{
   line-height: 140%;
 }
 

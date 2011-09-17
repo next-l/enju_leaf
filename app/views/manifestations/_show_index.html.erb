@@ -5,7 +5,7 @@
     <% if manifestation.issue_number_string.present? %>
       (<%= manifestation.issue_number_string %>)
     <% end %>
-    <%= manifestation.serial_number_string %>
+    <%= manifestation.serial_number %>
   <% end %>
   <% if manifestation.periodical_master? %>
     <%- if manifestation.series_statement.try(:first_issue) and manifestation.series_statement.try(:latest_issue) -%>
