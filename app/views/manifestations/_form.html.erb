@@ -32,6 +32,22 @@
     <%= f.text_field :title_alternative, :class => 'resource_title' -%>
   </div>
 
+  <%- if @manifestation.serial? -%>
+    <%= render :partial => 'manifestations/serial_form', :locals => {:f => f, :manifestation => @manifestation} -%>
+  <%- else -%>
+    <div class="field">
+      <%= f.label :edition_string -%>
+      <%= f.text_field :edition_string %>
+      <%= f.label :edition -%>
+      <%= f.text_field :edition, :class => 'resource_integer' -%>
+      <br />
+      <%= f.label :volume_number_string -%>
+      <%= f.text_field :volume_number_string %>
+      <%= f.label :volume_number -%>
+      <%= f.text_field :volume_number, :class => 'resource_integer' -%>
+    </div>
+  <% end %>
+
   <div class="field">
     <%= f.label t('page.file') -%><br />
     <%= f.file_field :attachment -%>
@@ -57,22 +73,6 @@
     <%= f.label t('activerecord.models.language') -%>
     <%= f.select(:language_id, @languages.collect{|language| [language.display_name.localize, language.id]}) -%>
   </div>
-
-  <%- if @manifestation.serial? -%>
-    <%= render :partial => 'manifestations/serial_form', :locals => {:f => f, :manifestation => @manifestation} -%>
-  <%- else -%>
-    <div class="field">
-      <%= f.label :edition_string -%>
-      <%= f.text_field :edition_string %>
-      <%= f.label :edition -%>
-      <%= f.text_field :edition, :class => 'resource_integer' -%>
-      <br />
-      <%= f.label :volume_number_string -%>
-      <%= f.text_field :volume_number_string %>
-      <%= f.label :volume_number -%>
-      <%= f.text_field :volume_number, :class => 'resource_integer' -%>
-    </div>
-  <% end %>
 
   <div class="field">
     <%= f.label :isbn -%>

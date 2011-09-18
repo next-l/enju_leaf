@@ -35,6 +35,6 @@
   <ul>
     <li><%= link_to t('activerecord.models.purchase_request'), order_list_purchase_requests_path(@order_list) -%></li>
     <li><%= link_to t('page.edit'), edit_order_list_path(@order_list) -%></li>
-    <li><%= back_to_index -%></li>
+    <li><%= back_to_index(flash[:page_info]) -%></li>
   </ul>
 </div>

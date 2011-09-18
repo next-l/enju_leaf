@@ -18,7 +18,7 @@ class SubjectsController < ApplicationController
     sort[:order] = 'asc' if params[:order] == 'asc'
 
     search = Subject.search(:include => [:works])
-    query = flash[:query] = params[:query].to_s.strip
+    query = params[:query].to_s.strip
     unless query.blank?
       @query = query.dup
       query = query.gsub('　', ' ')
@@ -52,6 +52,8 @@ class SubjectsController < ApplicationController
     @subjects = search.execute!.results
     session[:params] = {} unless session[:params]
     session[:params][:subject] = params
+
+    flash[:page_info] = {:page => page, :query => query}
 
     respond_to do |format|
       format.html # index.rhtml

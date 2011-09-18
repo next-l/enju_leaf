@@ -54,7 +54,7 @@
       <li><%= link_to t('page.listing', :model => t('activerecord.models.picture_file')), shelf_picture_files_path(@shelf) -%></li>
     <% end %>
     <li>
-      <%= back_to_index -%>
+      <%= back_to_index(flash[:page_info]) -%>
     </li>
   </ul>
 </div>

@@ -16,7 +16,7 @@ class ItemsController < ApplicationController
   # GET /items
   # GET /items.xml
   def index
-    query = flash[:query] = params[:query].to_s.strip
+    query = params[:query].to_s.strip
     per_page = Item.per_page
     @count = {}
     if user_signed_in?
@@ -89,6 +89,8 @@ class ItemsController < ApplicationController
       render :action => 'barcode', :layout => false
       return
     end
+
+    flash[:page_info] = {:page => page, :query => query}
 
     respond_to do |format|
       format.html # index.rhtml

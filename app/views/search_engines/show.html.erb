@@ -44,6 +44,6 @@
 <div id="submenu" class="ui-corner-all">
   <ul>
     <li><%= link_to t('page.edit'), edit_search_engine_path(@search_engine) -%></li>
-    <li><%= back_to_index -%></li>
+    <li><%= back_to_index(flash[:page_info]) -%></li>
   </ul>
 </div>

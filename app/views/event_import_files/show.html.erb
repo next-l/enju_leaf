@@ -54,6 +54,6 @@
 <div id="submenu" class="ui-corner-all">
   <ul>
     <li><%= link_to t('activerecord.models.event_import_result'), event_import_file_event_import_results_path(@event_import_file) -%></li>
-    <li><%= back_to_index -%></li>
+    <li><%= back_to_index(flash[:page_info]) -%></li>
   </ul>
 </div>

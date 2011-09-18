@@ -6,7 +6,9 @@
       <tr class="line<%= cycle("0", "1") -%>">
         <td>
           <%= render 'manifestations/show_index', :manifestation => manifestation %>
-          <%= render 'manifestations/show_holding', :manifestation => manifestation %>
+          <% if manifestation.items.exists? %>
+            <%= render 'manifestations/show_holding', :manifestation => manifestation %>
+          <% end %>
         </td>
       </tr>
     <%- end -%>

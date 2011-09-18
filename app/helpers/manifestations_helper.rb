@@ -107,4 +107,20 @@ module ManifestationsHelper
       string.html_safe
     end
   end
+
+  def title_with_volume_number(manifestation)
+    title = manifestation.original_title
+    if manifestation.volume_number_string?
+      title << " " + manifestation.volume_number_string
+    end
+    if manifestation.serial?
+      if manifestation.issue_number_string.present?
+        title <<  " " + manifestation.issue_number_string
+      end
+      if manifestation.serial_number?
+        title << " " + manifestation.serial_number
+      end
+    end
+    title
+  end
 end

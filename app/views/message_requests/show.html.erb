@@ -49,7 +49,7 @@
 <div id="submenu" class="ui-corner-all">
   <ul>
     <li><%= link_to t('page.edit'), edit_message_request_path(@message_request) -%></li>
-    <li><%= back_to_index -%></li>
+    <li><%= back_to_index(flash[:page_info]) -%></li>
     <li><%= link_to t('message.send'), new_message_path(:message_request_id => @message_request.id) -%></li>
   </ul>
 </div>

@@ -46,7 +46,7 @@
 <div id="submenu" class="ui-corner-all">
   <ul>
     <li><%= link_to t('page.edit'), edit_manifestation_reserve_stat_path(@manifestation_reserve_stat) -%></li>
-    <li><%= back_to_index -%></li>
+    <li><%= back_to_index(flash[:page_info]) -%></li>
   </ul>
   <h4><%= t('page.export') -%></h4>
   <ul>

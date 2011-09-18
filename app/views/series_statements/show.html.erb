@@ -30,6 +30,10 @@
           <td><%= t('activerecord.attributes.series_statement.series_statement_identifier') -%></td>
           <td><%= @series_statement.series_statement_identifier %></td>
         </tr>
+        <tr>
+          <td><%= t('activerecord.attributes.series_statement.note') -%></td>
+          <td><%= @series_statement.note %></td>
+        </tr>
     </table>
   </div>
 </div>
@@ -47,6 +51,6 @@
     <% if can? :update, @series_statement %>
       <li><%= link_to t('page.edit'), edit_series_statement_path(@series_statement) %></li>
     <% end %>
-    <li><%= back_to_index %></li>
+    <li><%= back_to_index(flash[:page_info]) %></li>
   </ul>
 </div>

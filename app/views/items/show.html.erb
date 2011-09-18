@@ -119,17 +119,13 @@
 <div id="submenu" class="ui-corner-all">
   <%= render 'manifestations/book_jacket', :manifestation => @item.manifestation -%>
   <ul>
+    <li><%= back_to_index(flash[:page_info]) -%></li>
     <%- if @shelf -%>
       <li><%= link_to t('page.edit'), edit_library_shelf_item_path(@shelf.library, @shelf, @item) -%></li>
     <%- else -%>
       <li><%= link_to t('page.edit'), edit_item_path(@item) -%></li>
     <%- end -%>
     <li><%= link_to t('page.listing', :model => t('activerecord.models.inter_library_loan')), item_inter_library_loans_path(@item) -%></li>
-    <%- if flash[:query] -%>
-      <li><%= link_to t('page.back'), items_path(:query => flash[:query]) -%></li>
-    <% else %>
-      <li><%= back_to_index -%></li>
-    <% end %>
     <% if can? :destroy, @item %>
       <li><%= link_to t('page.destroy'), @item, :confirm => t('page.are_you_sure'), :method => :delete -%></li>
     <% end %>

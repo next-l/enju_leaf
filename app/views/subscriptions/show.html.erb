@@ -35,6 +35,6 @@
   <ul>
     <li><%= link_to t('page.edit'), edit_subscription_path(@subscription) -%></li>
     <li><%= link_to t('work.add'), subscription_manifestations_path(@subscription) -%></li>
-    <li><%= back_to_index -%></li>
+    <li><%= back_to_index(flash[:page_info]) -%></li>
   </ul>
 </div>
