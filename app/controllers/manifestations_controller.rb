@@ -145,7 +145,15 @@ class ManifestationsController < ApplicationController
         :language_id,
         :carrier_type_id,
         :created_at,
-        :periodical
+        :updated_at,
+        :periodical,
+        :volume_number_string,
+        :volume_number,
+        :issue_number_string,
+        :issue_number,
+        :serial_number,
+        :edition_string,
+        :edition
       ] if params[:format] == 'html' or params[:format].nil?
       all_result = search.execute
       @count[:query_result] = all_result.total
