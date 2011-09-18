@@ -32,7 +32,7 @@
 <div id="submenu" class="ui-corner-all">
   <ul>
     <li><%= link_to t('page.edit'), edit_checkout_type_path(@checkout_type) -%></li>
-    <li><%= link_to t('page.back'), checkout_types_path -%></li>
+    <li><%= back_to_index -%></li>
     <li><%= link_to t('page.new', :model => t('activerecord.models.user_group_has_checkout_type')), new_checkout_type_user_group_has_checkout_type_path(@checkout_type) -%></li>
   </ul>
 </div>

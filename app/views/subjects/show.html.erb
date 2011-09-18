@@ -59,7 +59,7 @@
     <%- if flash[:query] -%>
       <li><%= link_to t('page.back'), subjects_path(:query => flash[:query]) -%></li>
     <%- else -%>
-      <li><%= link_to t('page.back'), subjects_path -%></li>
+      <li><%= back_to_index -%></li>
     <%- end -%>
     <%- if can? :create, SubjectHasClassification -%>
       <li><%= link_to t('page.edit'), edit_subject_path(@subject) -%></li>

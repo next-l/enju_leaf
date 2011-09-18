@@ -19,7 +19,7 @@
 <div id="submenu" class="ui-corner-all">
   <ul>
     <li><%= link_to t('page.edit'), edit_subject_heading_type_path(@subject_heading_type) -%></li>
-    <li><%= link_to t('page.back'), subject_heading_types_path -%></li>
+    <li><%= back_to_index -%></li>
     <%- if can? :create, SubjectHeadingTypeHasSubject -%>
       <li><%= link_to t('page.listing', :model => t('activerecord.models.subject')), subject_heading_type_subjects_path(@subject_heading_type) -%></li>
     <%- end -%>

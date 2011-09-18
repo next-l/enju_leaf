@@ -11,7 +11,7 @@ class UsersController < ApplicationController
   ssl_allowed :index, :show, :new, :edit, :create, :update, :destroy
 
   def index
-    query = params[:query].to_s
+    query = flash[:query] = params[:query].to_s
     @query = query.dup
     @count = {}
 

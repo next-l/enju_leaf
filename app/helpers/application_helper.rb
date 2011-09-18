@@ -205,4 +205,10 @@ module ApplicationHelper
     string << LibraryGroup.system_name + ' - Next-L Enju Leaf'
     string.html_safe
   end
+
+  def back_to_index
+    unless controller_name == 'test'
+      link_to t('page.listing', :model => t("activerecord.models.#{controller_name.singularize}")), :controller => controller_name
+    end
+  end
 end

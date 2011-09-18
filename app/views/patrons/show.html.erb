@@ -187,7 +187,11 @@
     <%- end -%>
   </ul>
   <ul>
-    <li><%= link_to t('page.back'), patrons_path -%></li>
+    <%- if flash[:query] -%>
+      <li><%= link_to t('page.back'), patrons_path(:query => flash[:query]) -%></li>
+    <%- else -%>
+      <li><%= back_to_index -%></li>
+    <% end %>
     <%- if can? :create, User -%>
       <%- if @patron.user.blank? -%>
         <li><%= link_to t('patron.activate_as_user'), new_user_path(:patron_id => @patron.id) -%></li>

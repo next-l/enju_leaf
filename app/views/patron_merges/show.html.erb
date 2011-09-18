@@ -20,8 +20,6 @@
   <ul>
     <li><%= link_to t('page.add', :model => t('activerecord.models.patron')), @patron_merge.patron_merge_list -%></li>
     <li><%= link_to t('page.edit'), edit_patron_merge_path(@patron_merge) -%></li>
-    <!--
-    <li><%= link_to t('page.back'), patron_merges_path -%></li>
-    -->
+    <li><%= back_to_index -%></li>
   </ul>
 </div>

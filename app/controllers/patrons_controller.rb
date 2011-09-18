@@ -25,7 +25,7 @@ class PatronsController < ApplicationController
         access_denied; return
       end
     end
-    query = params[:query].to_s.strip
+    query = flash[:query] = params[:query].to_s.strip
 
     if query.size == 1
       query = "#{query}*"

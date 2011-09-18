@@ -16,7 +16,7 @@ class ItemsController < ApplicationController
   # GET /items
   # GET /items.xml
   def index
-    query = params[:query].to_s.strip
+    query = flash[:query] = params[:query].to_s.strip
     per_page = Item.per_page
     @count = {}
     if user_signed_in?

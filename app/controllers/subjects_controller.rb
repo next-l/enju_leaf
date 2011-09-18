@@ -18,7 +18,7 @@ class SubjectsController < ApplicationController
     sort[:order] = 'asc' if params[:order] == 'asc'
 
     search = Subject.search(:include => [:works])
-    query = params[:query].to_s.strip
+    query = flash[:query] = params[:query].to_s.strip
     unless query.blank?
       @query = query.dup
       query = query.gsub('　', ' ')
