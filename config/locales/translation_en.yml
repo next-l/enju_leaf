@@ -609,7 +609,7 @@ en:
         price: Price
         volume_number: Volume number (integer)
         volume_number_string: Volume number
-        issue_number: Issue number
+        issue_number: Issue number (integer)
         issue_number_string: Issue number
         serial_number: Serial number
         serial_number_string: Serial number (string)
