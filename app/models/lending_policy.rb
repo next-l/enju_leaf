@@ -5,6 +5,7 @@ class LendingPolicy < ActiveRecord::Base
 
   validates_presence_of :item, :user_group
   validates_uniqueness_of :user_group_id, :scope => :item_id
+  validates_date :fixed_due_date, :allow_blank => true
 
   def self.per_page
     10

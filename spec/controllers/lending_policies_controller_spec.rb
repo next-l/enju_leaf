@@ -106,6 +106,7 @@ describe LendingPoliciesController do
       it "assigns the requested lending_policy as @lending_policy" do
         get :new
         assigns(:lending_policy).should_not be_valid
+        response.should be_forbidden
       end
     end
 
@@ -205,9 +206,9 @@ describe LendingPoliciesController do
           assigns(:lending_policy).should be_valid
         end
 
-        it "redirects to the created lending_policy" do
+        it "should be forbidden" do
           post :create, :lending_policy => @attrs
-          response.should redirect_to(lending_policy_url(assigns(:lending_policy)))
+          response.should be_forbidden
         end
       end
 
@@ -217,9 +218,9 @@ describe LendingPoliciesController do
           assigns(:lending_policy).should_not be_valid
         end
 
-        it "re-renders the 'new' template" do
+        it "should be forbidden" do
           post :create, :lending_policy => @invalid_attrs
-          response.should render_template("new")
+          response.should be_forbidden
         end
       end
     end

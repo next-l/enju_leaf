@@ -64,6 +64,7 @@ class SeriesStatement < ActiveRecord::Base
 end
 
 
+
 # == Schema Information
 #
 # Table name: series_statements
@@ -81,6 +82,7 @@ end
 #  series_statement_identifier :string(255)
 #  issn                        :string(255)
 #  periodical                  :boolean
-#  manifestation_id            :integer
+#  root_manifestation_id       :integer
+#  note                        :text
 #
 

@@ -193,6 +193,7 @@ end
 
 
 
+
 # == Schema Information
 #
 # Table name: manifestations
@@ -260,8 +261,8 @@ end
 #  ndl_bib_id                      :string(255)
 #  file_hash                       :string(255)
 #  pub_date                        :string(255)
-#  periodical                      :boolean         default(FALSE), not null
 #  edition_string                  :string(255)
+#  periodical                      :boolean         default(FALSE), not null
 #  volume_number                   :integer
 #  issue_number                    :integer
 #  serial_number                   :integer
