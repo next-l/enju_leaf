@@ -34,12 +34,12 @@ class ManifestationsController < ApplicationController
         # OAI-PMHのデフォルトの件数
         per_page = 200
         if params[:resumptionToken]
-          if current_token = get_resumption_token(params[:resumptionToken])
+          current_token = get_resumption_token(params[:resumptionToken])
+          if current_token
             page = (current_token[:cursor].to_i + per_page).div(per_page) + 1
           else
             @oai[:errors] << 'badResumptionToken'
           end
-        else
         end
         page ||= 1
 
@@ -229,7 +229,7 @@ class ManifestationsController < ApplicationController
       save_search_history(query, @manifestations.offset, @count[:query_result], current_user)
       if params[:format] == 'oai'
         unless @manifestations.empty?
-          @resumption_token = set_resumption_token(
+          @resumption = set_resumption_token(
             params[:resumptionToken],
             @from_time || Manifestation.last.updated_at,
             @until_time || Manifestation.first.updated_at,
@@ -271,10 +271,6 @@ class ManifestationsController < ApplicationController
       format.json { render :json => @manifestations }
       format.js
     end
-  #rescue QueryError => e
-  #  render :template => 'manifestations/error.xml', :layout => false
-  #  Rails.logger.info "#{Time.zone.now}\t#{query}\t\t#{current_user.try(:username)}\t#{e}"
-  #  return
   end
 
   # GET /manifestations/1
@@ -290,8 +286,6 @@ class ManifestationsController < ApplicationController
     else
       if @version
         @manifestation = @manifestation.versions.find(@version).item if @version
-      #else
-      #  @manifestation = Manifestation.find(params[:id], :include => [:creators, :contributors, :publishers, :items])
       end
     end
 

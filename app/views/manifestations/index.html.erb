@@ -17,6 +17,7 @@
   <% else %>
     <%= render 'index_form' %>
   <% end %>
+  <%= set_focus_on_search_form %>
 
   <%- if @manifestations.total_entries > 0 -%>
     <p>

@@ -987,6 +987,7 @@ ja:
         issn: ISSN
         periodical: 定期刊行物
         title_transcription: シリーズ名よみ
+        note: 注記
       import_request:
         isbn: ISBN
         state: 状態

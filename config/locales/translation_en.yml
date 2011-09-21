@@ -987,6 +987,7 @@ en:
         issn: ISSN
         periodical: Periodical
         title_transcription: Title transcription
+        note: Note
       import_request:
         isbn: ISBN
         state: State
