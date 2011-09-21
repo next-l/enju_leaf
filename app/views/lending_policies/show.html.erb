@@ -21,7 +21,7 @@
 
 <p>
   <strong><%= t('activerecord.attributes.lending_policy.fixed_due_date') -%>:</strong>
-  <%= @lending_policy.fixed_due_date -%>
+  <%= l(@lending_policy.fixed_due_date, :format => :only_date) if @lending_policy.fixed_due_date -%>
 </p>
 
 <p>
@@ -45,6 +45,6 @@
 <div id="submenu" class="ui-corner-all">
   <ul>
     <li><%= link_to t('page.edit'), edit_lending_policy_path(@lending_policy) -%></li>
-    <li><%= link_to t('page.back'), lending_policies_path -%></li>
+    <li><%= back_to_index(flash[:page_info]) -%></li>
   </ul>
 </div>

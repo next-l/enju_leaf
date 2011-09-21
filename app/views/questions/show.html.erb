@@ -56,7 +56,7 @@
     <%- if can? :update, @question -%>
       <li><%= link_to t('page.edit'), edit_user_question_path(@question.user, @question) -%></li>
     <%- end -%>
-    <li><%= link_to t('page.back'), questions_path -%></li>
+    <li><%= back_to_index(flash[:page_info]) -%></li>
     <li><%= link_to 'レファレンス協同データベース用XMLファイル', user_question_path(@question.user, @question, :mode => 'crd', :format => 'xml') -%></li>
   </ul>
 </div>

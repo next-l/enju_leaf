@@ -36,7 +36,7 @@
     <%- if @work -%>
       <li><%= link_to t('page.listing', :model => t('activerecord.models.work')), work_subjects_path(@work) -%></li>
     <%- else -%>
-      <li><%= link_to t('page.back_to_index'), work_has_subjects_path -%></li>
+      <li><%= back_to_index -%></li>
     <%- end -%>
   </ul>
 </div>

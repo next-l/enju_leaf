@@ -25,6 +25,6 @@
   <ul>
     <li><%= link_to t('page.listing', :model => t('activerecord.models.classification')), classification_type_classifications_path(@classification_type) -%></li>
     <li><%= link_to t('page.edit'), edit_classification_type_path(@classification_type) -%></li>
-    <li><%= link_to t('page.back'), classification_types_path -%></li>
+    <li><%= back_to_index(flash[:page_info]) -%></li>
   </ul>
 </div>

@@ -54,6 +54,6 @@
 <div id="submenu" class="ui-corner-all">
   <ul>
     <li><%= link_to t('activerecord.models.resource_import_result'), resource_import_file_resource_import_results_path(@resource_import_file) -%></li>
-    <li><%= link_to t('page.back_to_index'), resource_import_files_path -%></li>
+    <li><%= back_to_index(flash[:page_info]) -%></li>
   </ul>
 </div>

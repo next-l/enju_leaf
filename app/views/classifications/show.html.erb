@@ -29,6 +29,6 @@
 <div id="submenu" class="ui-corner-all">
   <ul>
     <li><%= link_to t('page.edit'), edit_classification_path(@classification) %></li>
-    <li><%= link_to t('page.back'), classifications_path %></li>
+    <li><%= back_to_index(flash[:page_info]) -%></li>
   </ul>
 </div>

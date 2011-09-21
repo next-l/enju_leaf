@@ -24,6 +24,6 @@
 <div id="submenu" class="ui-corner-all">
   <ul>
     <li<%= link_to t('page.edit'), edit_form_of_work_path(@form_of_work) -%></li>
-    <li><%= link_to t('page.back'), form_of_works_path -%></li>
+    <li><%= back_to_index(flash[:page_info]) -%></li>
   </ul>
 </div>

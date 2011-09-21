@@ -53,6 +53,8 @@ class SubjectsController < ApplicationController
     session[:params] = {} unless session[:params]
     session[:params][:subject] = params
 
+    flash[:page_info] = {:page => page, :query => query}
+
     respond_to do |format|
       format.html # index.rhtml
       format.xml  { render :xml => @subjects.to_xml }

@@ -79,9 +79,11 @@ class PatronsController < ApplicationController
       with(:required_role_id).less_than role.id
     end
 
-    page = params[:page] || 1
+    page =  params[:page] || 1
     search.query.paginate(page.to_i, Patron.per_page)
     @patrons = search.execute!.results
+
+    flash[:page_info] = {:page => page, :query => query}
 
     respond_to do |format|
       format.html # index.rhtml

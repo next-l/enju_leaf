@@ -1,7 +1,7 @@
 class SeriesStatement < ActiveRecord::Base
   has_many :series_has_manifestations, :dependent => :destroy
   has_many :manifestations, :through => :series_has_manifestations
-  belongs_to :manifestation
+  belongs_to :root_manifestation, :foreign_key => :root_manifestation_id, :class_name => 'Manifestation'
   validates_presence_of :original_title
   validate :check_issn
   after_save :create_root_manifestation
@@ -20,7 +20,6 @@ class SeriesStatement < ActiveRecord::Base
   end
 
   normalize_attributes :original_title, :issn
-  alias_method :root_manifestation, :manifestation
 
   def self.per_page
     10
@@ -65,6 +64,7 @@ class SeriesStatement < ActiveRecord::Base
 end
 
 
+
 # == Schema Information
 #
 # Table name: series_statements
@@ -82,6 +82,7 @@ end
 #  series_statement_identifier :string(255)
 #  issn                        :string(255)
 #  periodical                  :boolean
-#  manifestation_id            :integer
+#  root_manifestation_id       :integer
+#  note                        :text
 #
 

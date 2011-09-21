@@ -56,11 +56,7 @@
 
 <div id="submenu" class="ui-corner-all">
   <ul>
-    <%- if flash[:query] -%>
-      <li><%= link_to t('page.back'), subjects_path(:query => flash[:query]) -%></li>
-    <%- else -%>
-      <li><%= link_to t('page.back'), subjects_path -%></li>
-    <%- end -%>
+    <li><%= back_to_index(flash[:page_info]) -%></li>
     <%- if can? :create, SubjectHasClassification -%>
       <li><%= link_to t('page.edit'), edit_subject_path(@subject) -%></li>
       <li><%= link_to t('page.destroy'), subject_path(@subject), :confirm => t('page.are_you_sure'), :method => :delete -%></li>

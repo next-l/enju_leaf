@@ -90,6 +90,8 @@ class ItemsController < ApplicationController
       return
     end
 
+    flash[:page_info] = {:page => page, :query => query}
+
     respond_to do |format|
       format.html # index.rhtml
       format.xml  { render :xml => @items }

@@ -49,6 +49,7 @@ class PurchaseRequestsController < ApplicationController
     end
 
     page = params[:page] || 1
+    flash[:page] = page if page >= 1
     search.query.paginate(page.to_i, per_page)
     @purchase_requests = search.execute!.results
 

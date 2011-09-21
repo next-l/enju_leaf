@@ -26,6 +26,6 @@
   <ul>
     <li><%= link_to t('page.listing', :model => t('activerecord.models.patron')), patron_merge_list_patrons_path(@patron_merge_list) -%></li>
     <li><%= link_to t('page.edit'), edit_patron_merge_list_path(@patron_merge_list) -%></li>
-    <li><%= link_to t('page.back'), patron_merge_lists_path -%></li>
+    <li><%= back_to_index(flash[:page_info]) -%></li>
   </ul>
 </div>

@@ -53,6 +53,6 @@
     <%- unless @inter_library_loan.item.shelf.library == current_user.library -%>
       <li><%= link_to t('inter_library_loan.return_this_item'), edit_inter_library_loan_path(@inter_library_loan) -%></li>
     <%- end -%>
-    <li><%= link_to t('page.back'), inter_library_loans_path -%></li>
+    <li><%= back_to_index(flash[:page_info]) -%></li>
   </ul>
 </div>

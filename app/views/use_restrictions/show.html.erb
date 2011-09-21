@@ -24,6 +24,6 @@
 <div id="submenu" class="ui-corner-all">
   <ul>
     <li><%= link_to t('page.edit'), edit_use_restriction_path(@use_restriction) -%></li>
-    <li><%= link_to t('page.back'), use_restrictions_path -%></li>
+    <li><%= back_to_index(flash[:page_info]) -%></li>
   </ul>
 </div>

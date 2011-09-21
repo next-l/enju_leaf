@@ -23,6 +23,7 @@ class BookmarksController < ApplicationController
       with(:user_id).equal_to user.id if user
     end
     page = params[:page] || 1
+    flash[:page] = page if page >= 1
     search.query.paginate(page.to_i, Bookmark.per_page)
     @bookmarks = search.execute!.results
 

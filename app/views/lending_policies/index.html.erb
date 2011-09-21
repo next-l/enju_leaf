@@ -39,11 +39,4 @@
 </div>
 
 <div id="submenu" class="ui-corner-all">
-  <ul>
-    <%- if @item -%>
-      <li><%= link_to t('page.new', :model => t('activerecord.models.lending_policy')), new_item_lending_policy_path(@item) -%></li>
-    <%- else -%>
-      <li><%= link_to t('page.new', :model => t('activerecord.models.lending_policy')), new_lending_policy_path -%></li>
-    <%- end -%>
-  </ul>
 </div>

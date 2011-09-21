@@ -39,7 +39,11 @@
 
 <div id="submenu" class="ui-corner-all">
   <ul>
-    <li><%= link_to t('page.back'), users_path -%></li>
+    <%- if flash[:query] -%>
+      <li><%= link_to t('page.back'), users_path(:query => flash[:query]) -%></li>
+    <% else %>
+      <li><%= back_to_index -%></li>
+    <% end %>
     <% if user_signed_in? %>
       <% if can? :update, user %>
         <li><%= link_to t('page.edit'), edit_user_path(user) -%></li>
