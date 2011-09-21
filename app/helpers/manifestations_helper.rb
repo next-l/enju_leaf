@@ -118,7 +118,7 @@ module ManifestationsHelper
         title <<  " " + manifestation.issue_number_string
       end
       if manifestation.serial_number?
-        title << " " + manifestation.serial_number
+        title << " " + manifestation.serial_number.to_s
       end
     end
     title
