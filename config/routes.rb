@@ -103,7 +103,6 @@ EnjuLeaf::Application.routes.draw do
 
   resources :answers
   resources :imported_objects
-  resources :nii_types
   resources :bookmark_stats
   resources :bookmark_stat_has_manifestations
   resources :user_checkout_stats

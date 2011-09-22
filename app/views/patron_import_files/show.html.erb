@@ -39,6 +39,11 @@
 </p>
 
 <p>
+  <strong><%= t('activerecord.attributes.patron_import_file.edit_mode') -%>:</strong>
+  <%= @patron_import_file.edit_mode -%>
+</p>
+
+<p>
   <strong><%= t('activerecord.attributes.manifestation_import_file.state') -%>:</strong>
   <%= localized_state(@patron_import_file.state) -%>
 </p>

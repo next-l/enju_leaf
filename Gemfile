@@ -2,6 +2,9 @@ source 'http://rubygems.org'
 
 gem 'rails', '3.1.1.rc1'
 
+#gem 'enju_nii', :path => '../enju_nii'
+gem 'enju_barcode', :path => '../enju_barcode'
+
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 

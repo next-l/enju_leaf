@@ -217,4 +217,8 @@ module ApplicationHelper
       link_to t('page.listing', :model => t("activerecord.models.#{controller_name.singularize}")), url_for(params.merge(:controller => controller_name, :action => :index, :id => nil).merge(options))
     end
   end
+
+  def set_focus_on_search_form
+    javascript_tag("$('#search_form').focus()") if @query.blank?
+  end
 end

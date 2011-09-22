@@ -123,4 +123,8 @@ module ManifestationsHelper
     end
     title
   end
+
+  def set_focus_on_search_form
+    javascript_tag("$('#search_form_top').focus()") if @query.blank?
+  end
 end
