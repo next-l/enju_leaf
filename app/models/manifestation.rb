@@ -354,19 +354,19 @@ class Manifestation < ActiveRecord::Base
       self.issn = m.issn
       unless m.serial_number_list.blank?
         self.serial_number_list = m.serial_number_list.to_i + 1
-        unless m.issue_number_list.blank?
-          self.issue_number_list = m.issue_number_list.split.last.to_i + 1
+        unless m.issue_number.blank?
+          self.issue_number = m.issue_number.split.last.to_i + 1
         else
-          self.issue_number_list = m.issue_number_list
+          self.issue_number = m.issue_number
         end
-        self.volume_number_list = m.volume_number_list
+        self.volume_number = m.volume_number
       else
-        unless m.issue_number_list.blank?
-          self.issue_number_list = m.issue_number_list.split.last.to_i + 1
-          self.volume_number_list = m.volume_number_list
+        unless m.issue_number.blank?
+          self.issue_number = m.issue_number.split.last.to_i + 1
+          self.volume_number = m.volume_number_list
         else
-          unless m.volume_number_list.blank?
-            self.volume_number_list = m.volume_number_list.split.last.to_i + 1
+          unless m.volume_number.blank?
+            self.volume_number = m.volume_number.split.last.to_i + 1
           end
         end
       end
@@ -487,13 +487,13 @@ class Manifestation < ActiveRecord::Base
     subjects.collect(&:classifications).flatten
   end
 
-  def volume_number
-    volume_number_list.gsub(/\D/, ' ').split(" ") if volume_number_list
-  end
+#  def volume_number
+#    volume_number_list.gsub(/\D/, ' ').split(" ") if volume_number_list
+#  end
 
-  def issue_number
-    issue_number_list.gsub(/\D/, ' ').split(" ") if issue_number_list
-  end
+#  def issue_number
+#    issue_number_list.gsub(/\D/, ' ').split(" ") if issue_number_list
+#  end
 
   def serial_number
     serial_number_list.gsub(/\D/, ' ').split(" ") if serial_number_list
