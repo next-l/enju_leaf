@@ -1,4 +1,18 @@
 GIT
+  remote: git://github.com/nabeta/enju_barcode.git
+  revision: fb3983fe0a82087d9e2f5a0643d85d7d1e7ba6c4
+  specs:
+    enju_barcode (0.0.1)
+      rails (~> 3.1.1.rc1)
+
+GIT
+  remote: git://github.com/nabeta/enju_nii.git
+  revision: 285ae139eac912432d10bbd2bd6ee4bff09665a3
+  specs:
+    enju_nii (0.0.1)
+      rails (~> 3.1.1.rc1)
+
+GIT
   remote: git://github.com/nabeta/isbn-tools.git
   revision: 05e31384f167aa7d1e560f76c1c3faf104d64709
   specs:
@@ -9,12 +23,6 @@ GIT
   revision: ec97d512ba792fa072c55cbb9447d83c067e611f
   specs:
     acts_as_list (0.1.4)
-
-PATH
-  remote: ../enju_barcode
-  specs:
-    enju_barcode (0.0.1)
-      rails (~> 3.1.1.rc1)
 
 GEM
   remote: http://rubygems.org/
@@ -398,6 +406,7 @@ DEPENDENCIES
   devise (~> 1.4.6)
   dynamic_form
   enju_barcode!
+  enju_nii!
   event-calendar
   exception_notification (~> 2.5.2)
   extractcontent
