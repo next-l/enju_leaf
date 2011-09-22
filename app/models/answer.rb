@@ -35,7 +35,7 @@ class Answer < ActiveRecord::Base
 
   def check_url_list
     url_list.to_s.strip.split.each do |url|
-      errors.add(:url_list) unless Addresable::URI.parse(url).host
+      errors.add(:url_list) unless Addressable::URI.parse(url).host
     end
   end
 end
