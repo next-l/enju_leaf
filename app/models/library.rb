@@ -32,7 +32,7 @@ class Library < ActiveRecord::Base
   validates :name, :format => {:with => /^[a-z][0-9a-z]{2,254}$/}
   before_validation :set_patron, :on => :create
   #before_save :set_calil_neighborhood_library
-  after_validation :geocode, :unless => :skip_geocode
+  after_validation :geocode, :if => :address_changed?
   after_create :create_shelf
   after_save :clear_all_cache
   after_destroy :clear_all_cache
@@ -87,10 +87,9 @@ class Library < ActiveRecord::Base
     nil
   end
 
-  private
-  def skip_geocode
-    return true if Rails.env == 'test'
-    return true if configatron.google.google_maps_api_key.nil?
+  def address_changed?
+    return true if region_changed? or locality_changed? or street_changed?
+    false
   end
 end
 

@@ -86,7 +86,7 @@ GEM
     delayed_job (2.1.4)
       activesupport (~> 3.0)
       daemons
-    devise (1.4.6)
+    devise (1.4.7)
       bcrypt-ruby (~> 3.0)
       orm_adapter (~> 0.0.3)
       warden (~> 1.0.3)
@@ -112,7 +112,7 @@ GEM
     flay (1.4.3)
       ruby_parser (~> 2.0)
       sexp_processor (~> 3.0)
-    flog (2.5.2)
+    flog (2.5.3)
       ruby_parser (~> 2.0)
       sexp_processor (~> 3.0)
     friendly_id (4.0.0.beta12)
@@ -307,7 +307,7 @@ GEM
       nokogiri (>= 1.4.4, < 1.6)
     scribd_fu (2.0.11)
       rscribd
-    sexp_processor (3.0.6)
+    sexp_processor (3.0.7)
     simple_form (1.5.1)
       actionpack (~> 3.0)
       activemodel (~> 3.0)
