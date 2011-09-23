@@ -20,6 +20,13 @@ GIT
       rails (>= 3.0.10)
 
 GIT
+  remote: git://github.com/nabeta/enju_oai.git
+  revision: 424c9a00305508cd5bc5f3272e7ef4efd9f71e92
+  specs:
+    enju_oai (0.0.1)
+      rails (>= 3.0.10)
+
+GIT
   remote: git://github.com/nabeta/isbn-tools.git
   revision: 05e31384f167aa7d1e560f76c1c3faf104d64709
   specs:
@@ -119,7 +126,8 @@ GEM
     exception_notification (2.5.2)
       actionmailer (>= 3.0.4)
     extractcontent (0.0.1)
-    factory_girl (2.1.1)
+    factory_girl (2.1.2)
+      activesupport
     factory_girl_rails (1.2.0)
       factory_girl (~> 2.1.0)
       railties (>= 3.0.0)
@@ -328,7 +336,7 @@ GEM
       multi_json (~> 1.0.3)
       simplecov-html (~> 0.5.3)
     simplecov-html (0.5.3)
-    sitemap_generator (2.1.2)
+    sitemap_generator (2.1.3)
     spork (0.9.0.rc9)
     state_machine (1.0.2)
     strongbox (0.4.8)
@@ -388,6 +396,7 @@ DEPENDENCIES
   enju_barcode!
   enju_ndl!
   enju_nii!
+  enju_oai!
   event-calendar
   exception_notification (~> 2.5.2)
   extractcontent

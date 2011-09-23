@@ -163,8 +163,8 @@ class Manifestation < ActiveRecord::Base
   end
 
   enju_manifestation_viewer
-  enju_amazon
-  enju_oai
+  #enju_amazon
+  #enju_oai
   #enju_calil_check
   #enju_cinii
   #has_ipaper_and_uses 'Paperclip'
