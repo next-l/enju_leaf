@@ -6,13 +6,6 @@ GIT
       rails (>= 3.0.10)
 
 GIT
-  remote: git://github.com/nabeta/enju_calil.git
-  revision: 032c6fbfc8acd7d3151a03f97c521d3cd91df813
-  specs:
-    enju_calil (0.0.1)
-      rails (>= 3.0.10)
-
-GIT
   remote: git://github.com/nabeta/enju_ndl.git
   revision: ac0f4c05909f142887bc8bbd8a7a14e0127be589
   specs:
@@ -279,7 +272,7 @@ GEM
       activesupport (= 3.0.10)
       bundler (~> 1.0)
       railties (= 3.0.10)
-    rails_best_practices (1.0.0)
+    rails_best_practices (1.0.1)
       activesupport
       colored
       erubis
@@ -401,7 +394,6 @@ DEPENDENCIES
   devise (~> 1.4.6)
   dynamic_form
   enju_barcode!
-  enju_calil!
   enju_ndl!
   enju_nii!
   enju_oai!
