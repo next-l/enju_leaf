@@ -276,7 +276,7 @@ GEM
       activesupport (= 3.1.1.rc1)
       bundler (~> 1.0)
       railties (= 3.1.1.rc1)
-    rails_best_practices (0.10.1)
+    rails_best_practices (1.0.1)
       activesupport
       colored
       erubis
@@ -334,7 +334,7 @@ GEM
     sanitize (2.0.3)
       nokogiri (>= 1.4.4, < 1.6)
     sexp_processor (3.0.7)
-    simple_form (1.5.1)
+    simple_form (1.5.2)
       actionpack (~> 3.0)
       activemodel (~> 3.0)
     simplecov (0.5.3)

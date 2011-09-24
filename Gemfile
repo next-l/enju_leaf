@@ -8,6 +8,7 @@ gem 'rails', '3.1.1.rc1'
 
 #gem 'enju_amazon', :git => 'git://github.com/nabeta/enju_amazon.git'
 gem 'enju_barcode', :git => 'git://github.com/nabeta/enju_barcode.git'
+#gem 'enju_calil', :git => 'git://github.com/nabeta/enju_calil.git'
 gem 'enju_ndl', :git => 'git://github.com/nabeta/enju_ndl.git'
 gem 'enju_nii', :git => 'git://github.com/nabeta/enju_nii.git'
 gem 'enju_oai', :git => 'git://github.com/nabeta/enju_oai.git'
