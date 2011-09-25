@@ -309,6 +309,7 @@ class ResourceImportFile < ActiveRecord::Base
     use_restriction = UseRestriction.where(:name => row['use_restriction'].to_s.strip).first
     use_restriction_id = use_restriction.id if use_restriction
     item = self.class.import_item(manifestation, {
+      :manifestation_id => manifestation.id,
       :item_identifier => row['item_identifier'],
       :price => row['item_price'],
       :call_number => row['call_number'].to_s.strip,

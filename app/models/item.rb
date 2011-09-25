@@ -34,10 +34,11 @@ class Item < ActiveRecord::Base
 
   validates_associated :circulation_status, :shelf, :bookstore, :checkout_type
   validates_presence_of :circulation_status, :checkout_type
-  validates :item_identifier, :allow_blank => true, :uniqueness => {:if => proc{|item| !item.item_identifier.blank? and !item.manifestation.try(:series_statement)}}, :format => {:with => /\A[0-9A-Za-z_]+\Z/}
+  validates :manifestation_id, :presence => true, :on => :create
+  validates :item_identifier, :allow_blank => true, :uniqueness => true,
+    :format => {:with => /\A[0-9A-Za-z_]+\Z/}
   validates :url, :url => true, :allow_blank => true, :length => {:maximum => 255}
   validates_date :acquired_at, :allow_blank => true
-  before_validation :set_circulation_status, :on => :create
   before_save :set_use_restriction
 
   #enju_union_catalog

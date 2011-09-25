@@ -48,8 +48,15 @@ class ImportRequestsController < ApplicationController
     respond_to do |format|
       if @import_request.save
         @import_request.import!
-        flash[:notice] = t('controller.successfully_created', :model => t('activerecord.models.import_request'))
-        format.html { redirect_to new_import_request_path }
+        format.html {
+          if @import_request.manifestation
+            flash[:notice] = t('controller.successfully_created', :model => t('activerecord.models.import_request'))
+            redirect_to manifestation_items_url(@import_request.manifestation)
+          else
+            flash[:notice] = t('import_request.record_not_found')
+            redirect_to new_import_request_url
+          end
+        }
         format.xml  { render :xml => @import_request, :status => :created, :location => @import_request }
       else
         format.html { render :action => "new" }
