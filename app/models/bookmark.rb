@@ -177,7 +177,13 @@ class Bookmark < ActiveRecord::Base
 
   def create_bookmark_item
     circulation_status = CirculationStatus.where(:name => 'Not Available').first
-    item = Item.create!(:shelf => Shelf.web, :circulation_status => circulation_status, :manifestation => manifestation)
+    if manifestation
+      item = Item.create!(
+        :shelf => Shelf.web,
+        :circulation_status => circulation_status,
+        :manifestation_id => manifestation.id
+      )
+    end
   end
 
   def self.manifestations_count(start_date, end_date, manifestation)

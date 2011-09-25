@@ -128,7 +128,7 @@ describe ItemsController do
 
       it "should not assign the requested item as @item" do
         get :new, :manifestation_id => @manifestation.id
-        assigns(:item).should be_valid
+        assigns(:item).should_not be_valid
         response.should be_forbidden
       end
     end
@@ -136,7 +136,7 @@ describe ItemsController do
     describe "When not logged in" do
       it "should not assign the requested item as @item" do
         get :new, :manifestation_id => @manifestation.id
-        assigns(:item).should be_valid
+        assigns(:item).should_not be_valid
         response.should redirect_to(new_user_session_url)
       end
     end

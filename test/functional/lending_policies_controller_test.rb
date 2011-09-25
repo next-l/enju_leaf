@@ -36,11 +36,11 @@ class LendingPoliciesControllerTest < ActionController::TestCase
 
   test "administrator should not create lending_policy" do
     sign_in users(:admin)
-    assert_difference('LendingPolicy.count') do
+    assert_no_difference('LendingPolicy.count') do
       post :create, :lending_policy => {:item_id => 2, :user_group_id => 1}
     end
 
-    assert_redirected_to lending_policy_url(assigns(:lending_policy))
+    assert_response :forbidden
   end
 
   test "guest should not show lending_policy" do
