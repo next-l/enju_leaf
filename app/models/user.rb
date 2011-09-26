@@ -6,7 +6,7 @@ class User < ActiveRecord::Base
          :lockable, :lock_strategy => :none, :unlock_strategy => :none
 
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :email, :password, :password_confirmation, :username, :current_password, :user_number, :remember_me
+  attr_accessible :email, :email_confirmation, :password, :password_confirmation, :username, :current_password, :user_number, :remember_me
 
   scope :administrators, where('roles.name = ?', 'Administrator').includes(:role)
   scope :librarians, where('roles.name = ? OR roles.name = ?', 'Administrator', 'Librarian').includes(:role)
@@ -52,11 +52,11 @@ class User < ActiveRecord::Base
     v.validates_length_of       :password, :within => 6..20, :allow_blank => true
   end
 
-  validates_presence_of     :email, :email_confirmation, :on => :create, :if => proc{|user| !user.operator.try(:has_role?, 'Librarian')}
+  validates_presence_of :email, :email_confirmation, :on => :create #, :if => proc{|user| !user.operator.try(:has_role?, 'Librarian')}
   validates_associated :patron, :user_group, :library
   validates_presence_of :user_group, :library, :locale #, :user_number
   validates :user_number, :uniqueness => true, :format => {:with => /\A[0-9A-Za-z_]+\Z/}, :allow_blank => true
-  validates_confirmation_of :email, :email_confirmation, :on => :create, :if => proc{|user| !user.operator.try(:has_role?, 'Librarian')}
+  validates_confirmation_of :email, :on => :create #, :if => proc{|user| !user.operator.try(:has_role?, 'Librarian')}
   before_validation :set_role_and_patron, :on => :create
   before_validation :set_lock_information
   before_destroy :check_item_before_destroy, :check_role_before_destroy
