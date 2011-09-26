@@ -983,7 +983,7 @@ ja:
         series_statement_identifier: シリーズ識別子
         issn: ISSN
         periodical: 定期刊行物
-        title_transcription: シリーズ名
+        title_transcription: シリーズ名よみ
       import_request:
         isbn: ISBN
         state: 状態
