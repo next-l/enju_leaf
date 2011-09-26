@@ -45,7 +45,8 @@ class PatronsController < ApplicationController
       :required_role_id,
       :created_at,
       :date_of_birth,
-      :date_of_death
+      :date_of_death,
+      :user_id
     ]
     set_role_query(current_user, search)
 
