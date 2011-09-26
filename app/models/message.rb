@@ -4,8 +4,9 @@ class Message < ActiveRecord::Base
   belongs_to :message_request
   belongs_to :sender, :class_name => 'User'
   belongs_to :receiver, :class_name => 'User'
-  validates_presence_of :subject, :body #, :sender
   validates_presence_of :recipient, :on => :create
+  validate :exist_user, :on => :create
+  validates_presence_of :subject, :body #, :sender
   validates_presence_of :receiver, :on => :update
   before_save :set_receiver
   after_save :index
@@ -45,7 +46,9 @@ class Message < ActiveRecord::Base
 
   def set_receiver
     if self.recipient
-      self.receiver = User.find(self.recipient)
+      user = User.find(:first, :conditions => ["username=?", self.recipient])
+#      self.receiver = User.find(self.recipient)
+      self.receiver = user unless user.nil?
     end
   end
 
@@ -62,8 +65,14 @@ class Message < ActiveRecord::Base
     return true if state == 'read'
     false
   end
-end
 
+  def exist_user
+    unless self.recipient.blank?
+      errors.add(:receiver, I18n.t('activerecord.errors.messages.non_exist_user')) if self.receiver.nil?
+    end
+  end
+ 
+end
 # == Schema Information
 #
 # Table name: messages

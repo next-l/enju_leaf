@@ -360,6 +360,7 @@ ja:
         body: 本文
         sender: 差出人
         receiver: 宛て先
+        recipient: 宛て先
       classification:
         category: カテゴリー
         name: 名前

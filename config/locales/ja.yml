@@ -144,6 +144,7 @@ ja:
         odd: "は奇数にしてください。"
         even: "は偶数にしてください。"
         record_invalid: "バリデーションに失敗しました。 %{errors}"
+        non_exist_user: "に存在しない利用者が指定されています。"
 
       full_messages:
         format: "%{attribute}%{message}"
