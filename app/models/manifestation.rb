@@ -222,8 +222,8 @@ class Manifestation < ActiveRecord::Base
 
   def check_lccn
     if lccn.present?
-      unless StdNum::LCCN.valid?(issn)
-        errors.add(:issn)
+      unless StdNum::LCCN.valid?(lccn, true)
+        errors.add(:lccn)
       end
     end
   end
