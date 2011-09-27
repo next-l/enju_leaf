@@ -105,6 +105,7 @@ class ResourceImportFile < ActiveRecord::Base
           manifestation = nil
         rescue EnjuNdl::RecordNotFound
           manifestation = nil
+          next
         end
         num[:manifestation_imported] += 1 if manifestation
       end
@@ -115,19 +116,19 @@ class ResourceImportFile < ActiveRecord::Base
       end
       import_result.manifestation = manifestation
 
-      #begin
-        if manifestation and item_identifier.present?
+      begin
+        if manifestation.valid? and item_identifier.present?
           import_result.item = create_item(row, manifestation)
           manifestation.index
+          num[:item_imported] +=1 if import_result.item
         else
           num[:failed] += 1
         end
-      #rescue Exception => e
-      #  Rails.logger.info("resource registration failed: column #{row_num}: #{e.message}")
-      #end
+      rescue Exception => e
+        Rails.logger.info("resource registration failed: column #{row_num}: #{e.message}")
+      end
 
       import_result.save!
-      num[:item_imported] +=1 if import_result.item
 
       if row_num % 50 == 0
         Sunspot.commit
@@ -302,7 +303,7 @@ class ResourceImportFile < ActiveRecord::Base
   end
 
   def create_item(row, manifestation)
-    circulation_status = CirculationStatus.where(:name => row['circulation_status'].to_s.strip).first || CirculationStatus.where(:name => 'In Process').first
+    circulation_status = CirculationStatus.where(:name => row['circulation_status'].to_s.strip).first || CirculationStatus.where(:name => 'Available On Shelf').first
     shelf = Shelf.where(:name => row['shelf'].to_s.strip).first || Shelf.web
     bookstore = Bookstore.where(:name => row['bookstore'].to_s.strip).first
     acquired_at = Time.zone.parse(row['acquired_at']) rescue nil

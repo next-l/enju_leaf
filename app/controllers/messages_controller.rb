@@ -118,9 +118,9 @@ class MessagesController < ApplicationController
 
   def destroy_selected
     if current_user
-      unless current_user.has_role?('Librarian')
-        access_denied
-      end
+#      unless current_user.has_role?('Librarian')
+#        access_denied
+#      end
     else
       redirect_to new_user_session_url
       return
@@ -146,9 +146,9 @@ class MessagesController < ApplicationController
   def get_parent(id)
     parent = Message.where(:id => id).first
     unless current_user.has_role?('Librarian')
-      unless parent.try(:receiver) == current_user
-        access_denied; return
-      end
+#      unless parent.try(:receiver) == current_user
+#        access_denied; return
+#      end
     else
       parent
     end

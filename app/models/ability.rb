@@ -157,11 +157,11 @@ class Ability
       can :destroy, Manifestation do |manifestation|
         manifestation.items.empty? and !manifestation.is_reserved?
       end
-      can [:index, :create], Message
+      can [:index, :new, :create], Message
       can [:update], Message do |message|
         message.sender == user
       end
-      can [:show, :destroy], Message do |message|
+      can [:show, :destroy, :delete, :destroy_selected], Message do |message|
         message.receiver == user
       end
       can [:read, :update, :destroy], MessageRequest
@@ -318,11 +318,14 @@ class Ability
         manifestation.required_role_id <= 2
       end
       can :edit, Manifestation
-      can [:read, :destroy], Message do |message|
+      can [:read, :destroy, :delete, :destroy_selected], Message do |message|
         message.receiver == user
       end
-      can :index, Message
-      can :show, Message do |message|
+      can [:index, :new, :create], Message
+      can [:update], Message do |message|
+        message.sender == user
+      end
+      can [:show, :destroy, :delete, :destroy_selected], Message do |message|
         message.receiver == user
       end
       can [:index, :create], Question

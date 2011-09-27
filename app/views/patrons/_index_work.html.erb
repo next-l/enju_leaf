@@ -33,7 +33,7 @@
     <tr class="line<%= cycle("0", "1") -%>">
       <td><%= link_to patron.full_name, patron -%></td>
       <td><%= patron.patron_type.display_name.localize -%></td>
-      <td><%=l patron.date_of_birth if patron.date_of_birth -%></td>
+      <td><%= l(@patron.date_of_birth, :format => :only_date) if @patron.date_of_birth -%></td>
       <td>
         <%- if can? :destroy, patron -%>
           <%- if params[:mode] == 'add' -%>

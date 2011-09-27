@@ -220,7 +220,9 @@ ja:
         other_designation: 他の指定
         place: 場所
         date_of_birth: 生年月日
+        birth_date: 生年月日
         date_of_death: 没年月日
+        death_date: 没年月日
         lock_version: ロックバージョン
         note: 注記
         country: 国籍
@@ -360,6 +362,7 @@ ja:
         body: 本文
         sender: 差出人
         receiver: 宛て先
+        recipient: 宛て先
       classification:
         category: カテゴリー
         name: 名前
@@ -982,7 +985,7 @@ ja:
         series_statement_identifier: シリーズ識別子
         issn: ISSN
         periodical: 定期刊行物
-        title_transcription: シリーズ名
+        title_transcription: シリーズ名よみ
       import_request:
         isbn: ISBN
         state: 状態

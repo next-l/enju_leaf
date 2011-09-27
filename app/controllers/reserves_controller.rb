@@ -117,8 +117,11 @@ class ReservesController < ApplicationController
         #unless user.email.blank?
         #  ReservationNotifier.deliver_accepted(user, @reserve.manifestation)
         #end
-        @reserve.send_message('accepted')
-
+        begin
+          @reserve.send_message('accepted')
+        rescue Exception => e
+          logger.error "Faild to send the reservation message: #{e}"
+        end
         flash[:notice] = t('controller.successfully_created', :model => t('activerecord.models.reserve'))
         #format.html { redirect_to reserve_url(@reserve) }
         format.html { redirect_to user_reserve_url(@reserve.user, @reserve) }

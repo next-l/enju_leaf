@@ -352,21 +352,21 @@ class Manifestation < ActiveRecord::Base
       self.title_transcription = m.title_transcription
       self.title_alternative = m.title_alternative
       self.issn = m.issn
-      unless m.serial_number_list.blank?
-        self.serial_number_list = m.serial_number_list.to_i + 1
-        unless m.issue_number_list.blank?
-          self.issue_number_list = m.issue_number_list.split.last.to_i + 1
+      unless m.serial_number_string.blank?
+        self.serial_number_string = m.serial_number_string.to_i + 1
+        unless m.issue_number.blank?
+          self.issue_number = m.issue_number.split.last.to_i + 1
         else
-          self.issue_number_list = m.issue_number_list
+          self.issue_number = m.issue_number
         end
-        self.volume_number_list = m.volume_number_list
+        self.volume_number = m.volume_number
       else
-        unless m.issue_number_list.blank?
-          self.issue_number_list = m.issue_number_list.split.last.to_i + 1
-          self.volume_number_list = m.volume_number_list
+        unless m.issue_number.blank?
+          self.issue_number = m.issue_number.split.last.to_i + 1
+          self.volume_number = m.volume_number_string
         else
-          unless m.volume_number_list.blank?
-            self.volume_number_list = m.volume_number_list.split.last.to_i + 1
+          unless m.volume_number.blank?
+            self.volume_number = m.volume_number.split.last.to_i + 1
           end
         end
       end
@@ -487,17 +487,17 @@ class Manifestation < ActiveRecord::Base
     subjects.collect(&:classifications).flatten
   end
 
-  def volume_number
-    volume_number_list.gsub(/\D/, ' ').split(" ") if volume_number_list
-  end
+#  def volume_number
+#    volume_number_list.gsub(/\D/, ' ').split(" ") if volume_number_list
+#  end
 
-  def issue_number
-    issue_number_list.gsub(/\D/, ' ').split(" ") if issue_number_list
-  end
+#  def issue_number
+#    issue_number_list.gsub(/\D/, ' ').split(" ") if issue_number_list
+#  end
 
-  def serial_number
-    serial_number_list.gsub(/\D/, ' ').split(" ") if serial_number_list
-  end
+#  def serial_number
+#    serial_number_list.gsub(/\D/, ' ').split(" ") if serial_number_list
+#  end
 
   def questions(options = {})
     id = self.id
@@ -574,9 +574,9 @@ end
 #  issn                            :string(255)
 #  price                           :integer
 #  fulltext                        :text
-#  volume_number_list              :string(255)
-#  issue_number_list               :string(255)
-#  serial_number_list              :string(255)
+#  volume_number_string              :string(255)
+#  issue_number_string               :string(255)
+#  serial_number_string              :string(255)
 #  edition                         :integer
 #  note                            :text
 #  produces_count                  :integer         default(0), not null

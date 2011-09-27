@@ -5,7 +5,7 @@
       <%- if manifestation.isbn -%>
         <%= google_book_search_preview(manifestation.isbn) -%>
       <%- end -%>
-    <% cache(:controller => :manifestations, :action => :show, :id => manifestation.id, :page => 'detail', :role => current_user_role_name, :locale => @locale, :manifestation_id => nil) do %>
+    <%# cache(:controller => :manifestations, :action => :show, :id => manifestation.id, :page => 'detail', :role => current_user_role_name, :locale => @locale, :manifestation_id => nil) do %>
       <table id="resource_detail">
         <%= embed_content(manifestation) -%>
         <%- if manifestation.series_statement -%>
@@ -26,13 +26,13 @@
             <%- end -%>
             <%- if manifestation.series_statement -%>
               <%- unless manifestation.volume_number.blank? -%>
-                <%= t('activerecord.attributes.manifestation.volume_number_list') -%>: <%= manifestation.volume_number_list -%>
+                <%= t('activerecord.attributes.manifestation.volume_number_list') -%>: <%= manifestation.volume_number_string -%>
               <%- end -%>
               <%- unless manifestation.issue_number_list.blank? -%>
-                <%= t('manifestation.issue_number') -%>: <%= manifestation.issue_number_list -%>
+                <%= t('manifestation.issue_number') -%>: <%= manifestation.issue_number_string -%>
               <%- end -%>
               <%- unless manifestation.serial_number_list.blank? -%>
-                <%= t('manifestation.serial_number') -%>: <%= manifestation.serial_number_list -%>
+                <%= t('manifestation.serial_number') -%>: <%= manifestation.serial_number_string -%>
               <%- end -%>
             <%- end -%>
           </td>
@@ -135,7 +135,7 @@
           </td>
         </tr>
       </table>
-    <% end %>
+    <%# end %>
       <%- if manifestation.items.on_shelf.exists? -%>
         <%= render 'manifestations/show_holding', :manifestation => manifestation -%>
       <%- end -%>
