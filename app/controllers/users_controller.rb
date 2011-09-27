@@ -130,7 +130,7 @@ class UsersController < ApplicationController
     @user.update_with_params(params[:user], current_user)
     if params[:user][:auto_generated_password] == "1"
       @user.set_auto_generated_password
-      flash[:temporary_password] = self.password
+      flash[:temporary_password] = @user.password
     end
 
     if current_user.has_role?('Administrator')
