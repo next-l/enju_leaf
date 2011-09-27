@@ -8,7 +8,7 @@ class Message < ActiveRecord::Base
   validate :exist_user, :on => :create
   validates_presence_of :subject, :body #, :sender
   validates_presence_of :receiver, :on => :update
-  before_save :set_receiver
+  before_validation :set_receiver
   after_save :index
   after_destroy :remove_from_index
   after_create :send_notification
