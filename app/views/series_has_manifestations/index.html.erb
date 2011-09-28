@@ -11,8 +11,8 @@
 
 <% @series_has_manifestations.each do |series_has_manifestation| %>
   <tr class="line<%= cycle("0", "1") -%>">
-    <td><%= link_to series_has_manifestation.series_statement.original_title, series_has_manifestation.series_statement %></td>
-    <td><%= link_to series_has_manifestation.manifestation.original_title, series_has_manifestation.manifestation %></td>
+    <td><%= link_to series_has_manifestation.series_statement.original_title, series_has_manifestation.series_statement if series_has_manifestation.series_statement%></td>
+    <td><%= link_to series_has_manifestation.manifestation.original_title, series_has_manifestation.manifestation if series_has_manifestation.manifestation %></td>
     <td>
       <%= link_to t('page.show'), series_has_manifestation %>
       <%= link_to t('page.edit'), edit_series_has_manifestation_path(series_has_manifestation) %>
