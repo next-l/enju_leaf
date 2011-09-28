@@ -16,7 +16,7 @@ class InventoryFile < ActiveRecord::Base
   def import
     self.reload
     file = File.open(self.inventory.path)
-    reader = file.read
+    reader = file.read.encode('UTF-8','Shift_JIS')
     reader.split.each do |row|
       begin
         item = Item.find_by_sql(['SELECT * FROM items WHERE item_identifier = ?', row.to_s.strip])
