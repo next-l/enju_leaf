@@ -5,7 +5,7 @@ class InventoryFile < ActiveRecord::Base
   #has_attachment :content_type => ['text/csv', 'text/plain', 'text/tab-separated-values']
   #validates_as_attachment
   has_attached_file :inventory, :path => ":rails_root/private:url"
-  validates_attachment_content_type :inventory, :content_type => ['text/csv', 'text/plain', 'text/tab-separated-values']
+  validates_attachment_content_type :inventory, :content_type => ['text/csv', 'text/plain', 'text/tab-separated-values'], :message => I18n.t('activerecord.errors.messages.attachment_content_type')
   validates_attachment_presence :inventory
   validates_presence_of :user
 
