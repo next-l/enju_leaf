@@ -769,6 +769,8 @@ ja:
         checkout_type_id: 貸出種別
         current_checkout_count: 現在の貸出数
       carrier_type_has_checkout_type:
+        carrier_type: 資料の形態
+        checkout_type: 貸出区分
         note: 注記
         position: 位置
       bookmark_stat:
