@@ -5,7 +5,7 @@ class InventoryFile < ActiveRecord::Base
   #has_attachment :content_type => ['text/csv', 'text/plain', 'text/tab-separated-values']
   #validates_as_attachment
   has_attached_file :inventory, :path => ":rails_root/private:url"
-  validates_attachment_content_type :inventory, :content_type => ['text/csv', 'text/plain', 'text/tab-separated-values']
+  validates_attachment_content_type :inventory, :content_type => ['text/csv', 'text/plain', 'text/tab-separated-values'], :message => I18n.t('activerecord.errors.messages.attachment_content_type')
   validates_attachment_presence :inventory
   validates_presence_of :user
 
@@ -16,7 +16,7 @@ class InventoryFile < ActiveRecord::Base
   def import
     self.reload
     file = File.open(self.inventory.path)
-    reader = file.read
+    reader = file.read.encode('UTF-8','Shift_JIS')
     reader.split.each do |row|
       begin
         item = Item.find_by_sql(['SELECT * FROM items WHERE item_identifier = ?', row.to_s.strip])

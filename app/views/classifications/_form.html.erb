@@ -13,7 +13,7 @@
 
   <div class="field">
     <%= f.label t('activerecord.models.classification') -%><br />
-    <%= f.select(:classification_type_id, @classification_types.collect{|c| [c.name, c.id]}) -%>
+    <%= f.select(:classification_type_id, @classification_types.collect{|c| [c.display_name, c.id]}) -%>
   </div>
 
   <div class="actions">

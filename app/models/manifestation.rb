@@ -222,8 +222,8 @@ class Manifestation < ActiveRecord::Base
 
   def check_lccn
     if lccn.present?
-      unless StdNum::LCCN.valid?(issn)
-        errors.add(:issn)
+      unless StdNum::LCCN.valid?(lccn, true)
+        errors.add(:lccn)
       end
     end
   end
@@ -487,17 +487,17 @@ class Manifestation < ActiveRecord::Base
     subjects.collect(&:classifications).flatten
   end
 
-#  def volume_number
-#    volume_number_list.gsub(/\D/, ' ').split(" ") if volume_number_list
-#  end
+  def volume_number
+    volume_number_string.gsub(/\D/, ' ').split(" ") if volume_number_string
+  end
 
-#  def issue_number
-#    issue_number_list.gsub(/\D/, ' ').split(" ") if issue_number_list
-#  end
+  def issue_number
+    issue_number_string.gsub(/\D/, ' ').split(" ") if issue_number_string
+  end
 
-#  def serial_number
-#    serial_number_list.gsub(/\D/, ' ').split(" ") if serial_number_list
-#  end
+  def serial_number
+    serial_number_string.gsub(/\D/, ' ').split(" ") if serial_number_string
+  end
 
   def questions(options = {})
     id = self.id

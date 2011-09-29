@@ -5,7 +5,7 @@
 
 <p>
   <strong><%= t('activerecord.attributes.classification.parent') -%>:</strong>
-  <%= link_to @classification.parent.category, @classification.parent %>
+  <%= link_to @classification.parent.category, @classification.parent if @classification.parent %>
 </p>
 
 <p>
@@ -20,7 +20,7 @@
 
 <p>
   <strong><%= t('activerecord.models.classification_type') -%>:</strong>
-  <%= link_to @classification.classification_type.localize, @classification.classification_type %>
+  <%= link_to @classification.classification_type.display_name.localize, @classification.classification_type %>
 </p>
 
 </div>

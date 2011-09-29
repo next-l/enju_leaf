@@ -1,10 +1,10 @@
     <strong><%= link_to reserve.manifestation.original_title, reserve -%></strong>
     <%- if reserve.manifestation.serial? -%>
-      <%= reserve.manifestation.volume_number_list -%>
-      <%- unless reserve.manifestation.issue_number_list.blank? -%>
-        (<%= reserve.manifestation.issue_number_list -%>)
+      <%= reserve.manifestation.volume_number_string -%>
+      <%- unless reserve.manifestation.issue_number_string.blank? -%>
+        (<%= reserve.manifestation.issue_number_string -%>)
       <%- end -%>
-      <%= reserve.manifestation.serial_number_list -%>
+      <%= reserve.manifestation.serial_number_string -%>
     <%- end -%>
     <br />
     <%- if reserve.manifestation.creators.readable_by(current_user).exists? -%>
