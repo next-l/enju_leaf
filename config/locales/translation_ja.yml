@@ -754,6 +754,8 @@ ja:
         file_hash: ファイルのハッシュ
         note: 注記
       user_group_has_checkout_type:
+        user_group: 利用者グループ
+        checkout_type: 貸出区分
         checkout_limit: 貸出数の上限
         checkout_period: 貸出期間
         checkout_renewal_limit: 貸出更新回数の上限
