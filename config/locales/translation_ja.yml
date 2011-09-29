@@ -612,10 +612,14 @@ ja:
         wrong_isbn: 間違ったISBN
         nbn: NBN
         price: 価格
-        volume_number_list: 巻
-        issue_number_list: 号
-        serial_number_list: 通号
-        edition: 版
+        volume_number: 巻（数字）
+        volume_number_string: 巻
+        issue_number: 号（数字）
+        issue_number_string: 号
+        serial_number: 通号
+        serial_number_string: 通号（文字）
+        edition: 版（数字）
+        edition_string: 版
         note: 注記
         repository_content: リポジトリのコンテンツ
         lock_version: ロックバージョン
