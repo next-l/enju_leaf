@@ -10,6 +10,7 @@
     <th><%= t('activerecord.attributes.inventory_file.file_hash') -%> </th>
     <th><%= t('activerecord.models.user') -%> </th>
     <th><%= t('activerecord.attributes.inventory_file.note') -%> </th>
+    <th></th>
   </tr>
 
 <%- @inventory_files.each do |inventory_file| -%>
@@ -20,9 +21,9 @@
     <td><%= inventory_file.file_hash -%> </td>
     <td><%= link_to inventory_file.user.username, inventory_file.user -%> </td>
     <td><%= inventory_file.note -%> </td>
-    <td><%= link_to t('page.show'), inventory_file -%> </td>
-    <td><%= link_to t('page.edit'), edit_inventory_file_path(inventory_file) -%> </td>
-    <td><%= link_to t('page.destroy'), inventory_file, :confirm => t('page.are_you_sure'), :method => :delete -%> </td>
+    <td><%= link_to t('page.show'), inventory_file -%>
+    <%= link_to t('page.edit'), edit_inventory_file_path(inventory_file) -%>
+    <%= link_to t('page.destroy'), inventory_file, :confirm => t('page.are_you_sure'), :method => :delete -%></td>
   </tr>
 <%- end -%> 
 </table>
