@@ -2,7 +2,7 @@
   <%= render 'manifestations/title', :manifestation => @item.manifestation -%>
 <%- end -%>
 
-<%= render 'page/required_field' %>
+<%# = render 'page/required_field' %>
 <%= simple_form_for(@item) do |f| -%>
   <%= f.error_messages -%>
   <%= f.hidden_field :manifestation_id %>
@@ -61,7 +61,11 @@
 
   <div class="field">
     <%= f.label :acquired_at -%>
-    <%= f.text_field :acquired_at, :value => @item.acquired_at.try(:strftime, "%Y-%m-%d"), :class => 'date_field', :placeholder => "#{t('page.example')}: 2011-04-12"-%>
+    <%- if @item.acquired_at -%>
+      <%= f.text_field :acquired_at, :value => @item.acquired_at.try(:strftime, "%Y-%m-%d"), :class => 'date_field' -%>
+    <%- else -%>
+      <%= f.text_field :acquired_at, :class => 'date_field', :placeholder => "#{t('page.example')}: 2011-04-12"-%>
+    <%- end -%>
   </div>
 
   <div class="field">
