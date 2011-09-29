@@ -29,7 +29,7 @@ class SeriesStatement < ActiveRecord::Base
   end
 
   def check_issn
-    self.issn = ISBN_Tools.cleanup(issn)
+#    self.issn = ISBN_Tools.cleanup(issn)
     if issn.present?
       unless StdNum::ISSN.valid?(issn)
         errors.add(:issn)
