@@ -308,7 +308,11 @@ class User < ActiveRecord::Base
 
   def self.create_with_params(params, current_user)
     user = User.new(params)
-    logger.error "USER created: #{user.user_group_id}"
+    user_group = UserGroup.find(params[:user_group_id])
+    user.user_group = user_group if user_group
+    user.locale = params[:locale]
+    library = Library.find(params[:library_id])
+    user.library = library if library
     user.operator = current_user
     if params[:user]
       #self.username = params[:user][:login]
@@ -324,7 +328,6 @@ class User < ActiveRecord::Base
     if user.patron_id
       user.patron = Patron.find(user.patron_id) rescue nil
     end
-    logger.error "EMIKO: user.locale: #{user.locale}"
     user
   end
 
