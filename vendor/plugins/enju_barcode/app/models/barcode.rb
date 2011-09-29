@@ -2,6 +2,7 @@ class Barcode < ActiveRecord::Base
   belongs_to :barcodable, :polymorphic => true
 
   validates_presence_of :code_word
+  validates_format_of :code_word, :with=> /^[0-9A-Za-z]/
   before_save :generate_barcode
 
   attr_accessor :start_rows, :start_cols
