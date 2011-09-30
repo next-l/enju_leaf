@@ -1,6 +1,6 @@
 source 'http://rubygems.org'
 
-gem 'rails', '3.1.1.rc1'
+gem 'rails', '3.1.1.rc2'
 
 #gem 'enju_barcode', :git => 'git://github.com/nabeta/enju_barcode.git'
 #gem 'enju_nii', :git => 'git://github.com/nabeta/enju_nii.git'
@@ -62,7 +62,7 @@ gem 'dalli', '~> 1.1'
 gem 'sitemap_generator', '~> 2.1'
 gem 'ri_cal'
 gem 'file_wrapper'
-gem 'paper_trail', '~> 2.3'
+gem 'paper_trail', '~> 2.4'
 #gem 'recurrence'
 #gem 'prism'
 #gem 'money'

@@ -171,7 +171,6 @@ class Ability
         !patron.user.try(:has_role?, 'Librarian') and patron.required_role_id <= 3
       end
       can [:index, :create], PurchaseRequest
-      can [:index, :create], PurchaseRequest
       can [:show, :update, :destroy], PurchaseRequest do |purchase_request|
         purchase_request.user == user
       end

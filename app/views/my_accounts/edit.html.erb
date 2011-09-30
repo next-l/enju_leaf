@@ -5,7 +5,7 @@
 <%= simple_form_for(@user, :url => my_account_path) do |f| -%>
   <%= f.error_messages -%>
 
-  <%= render :partial => 'users/edit_credential', :locals => {:f => f, :user => @user} -%>
+  <%= render :partial => 'edit_credential', :locals => {:f => f, :user => @user} -%>
 
   <div class="actions">
     <%= f.submit %>

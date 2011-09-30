@@ -43,18 +43,18 @@ module ManifestationsHelper
     list.join("; ")
   end
 
-  def paginate_id_link(manifestation)
+  def paginate_id_link(manifestation, manifestation_ids)
     links = []
-    if session[:manifestation_ids].is_a?(Array)
-      current_seq = session[:manifestation_ids].index(manifestation.id)
+    if manifestation_ids.is_a?(Array)
+      current_seq = manifestation_ids.index(manifestation.id)
       if current_seq
-        unless manifestation.id == session[:manifestation_ids].last
-          links << link_to(t('page.next'), manifestation_path(session[:manifestation_ids][current_seq + 1]))
+        unless manifestation.id == manifestation_ids.last
+          links << link_to(t('page.next'), manifestation_path(manifestation_ids[current_seq + 1]))
         else
           links << t('page.next').to_s
         end
-        unless manifestation.id == session[:manifestation_ids].first
-          links << link_to(t('page.previous'), manifestation_path(session[:manifestation_ids][current_seq - 1]))
+        unless manifestation.id == manifestation_ids.first
+          links << link_to(t('page.previous'), manifestation_path(manifestation_ids[current_seq - 1]))
         else
           links << t('page.previous').to_s
         end
