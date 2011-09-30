@@ -145,7 +145,7 @@ GEM
       sexp_processor (~> 3.0)
     friendly_id (4.0.0.beta12)
     geocoder (1.0.4)
-    guard (0.8.1)
+    guard (0.8.2)
       thor (~> 0.14.6)
     guard-rspec (0.4.5)
       guard (>= 0.4.0)
@@ -245,7 +245,7 @@ GEM
       cocaine (>= 0.0.2)
       mime-types
     parallel (0.5.9)
-    parallel_tests (0.6.3)
+    parallel_tests (0.6.5)
       parallel
     pg (0.11.0)
     polyglot (0.3.2)
@@ -358,7 +358,7 @@ GEM
     treetop (1.4.10)
       polyglot
       polyglot (>= 0.3.1)
-    tzinfo (0.3.29)
+    tzinfo (0.3.30)
     uuid (2.3.4)
       macaddr (~> 1.0)
     validates_timeliness (3.0.7)
