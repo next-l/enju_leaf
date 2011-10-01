@@ -325,6 +325,10 @@ class ManifestationsController < ApplicationController
       end
     end
 
+    if session[:manifestation_ids]
+      @manifestation_ids = session[:manifestation_ids]
+    end
+
     respond_to do |format|
       format.html # show.rhtml
       format.mobile
