@@ -118,6 +118,9 @@ class Openurl
     # 数値でない文字列には空白がある場合も含むので複数指定はエラーとなる
     # このチェックはANY検索の時外す
     if NUM_CHECK.include?(key) then
+      if [:issn, :isbn].include?(key.to_sym)
+        val.gsub!('-', '')
+      end
       raise OpenurlQuerySyntaxError unless /\A\d{1,#{NUM_CHECK[key]}}\Z/ =~ val
     end
     "%s:%s*" % [field, val]
