@@ -92,6 +92,15 @@ class Reserve < ActiveRecord::Base
     self.update_attributes({:request_status_type => RequestStatusType.where(:name => 'In Process').first})
   end
 
+  def new_reserve
+    logger.error "DO REQUEST"
+    if self.available_for_checkout?    
+      self.retain
+    else 
+      self.sm_request
+    end
+  end
+
   def manifestation_must_include_item
     unless item_id.blank?
       item = Item.find(item_id) rescue nil
@@ -119,6 +128,14 @@ class Reserve < ActiveRecord::Base
 
   def checkout
     self.update_attributes!({:request_status_type => RequestStatusType.where(:name => 'Available For Pickup').first, :checked_out_at => Time.zone.now})
+  end
+  
+  def available_for_checkout?
+    items = Manifestation.find(self.manifestation_id).items
+    items.each do |item|
+      return true if item.available_for_checkout?
+    end
+    false
   end
 
   def send_message(status)
