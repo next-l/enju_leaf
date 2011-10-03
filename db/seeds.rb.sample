@@ -28,6 +28,7 @@ Library.reindex
 user = User.new
 user.username = username
 user.email = email
+user.email_confirmation = email
 user.password = password
 user.password_confirmation = password
 user.library = Library.real.first
