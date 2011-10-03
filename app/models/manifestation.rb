@@ -193,10 +193,11 @@ class Manifestation < ActiveRecord::Base
   before_create :set_digest
   after_create :clear_cached_numdocs
   before_save :set_date_of_publication
+  before_save :set_series_statement
   after_save :index_series_statement
   after_destroy :index_series_statement
   normalize_attributes :identifier, :pub_date, :isbn, :issn, :nbn, :lccn, :original_title
-  attr_accessor :during_import
+  attr_accessor :during_import, :series_statement_id
   attr_protected :periodical_master
 
   def self.per_page
@@ -539,6 +540,13 @@ class Manifestation < ActiveRecord::Base
   def acquired_at
     items.order(:acquired_at).first.try(:acquired_at)
   end
+
+  def set_series_statement
+    if self.series_statement_id
+      series_statement = SeriesStatement.find(self.series_statement_id)
+      self.series_statement = series_statement unless series_statement.blank?   
+    end
+  end 
 end
 
 # == Schema Information

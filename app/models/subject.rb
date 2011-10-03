@@ -19,6 +19,8 @@ class Subject < ActiveRecord::Base
     time :created_at
     integer :required_role_id
     integer :work_ids, :multiple => true
+    integer :classification_ids, :multiple => true
+    integer :subject_heading_type_ids, :multiple => true
   end
 
   normalize_attributes :term

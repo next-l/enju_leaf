@@ -352,7 +352,7 @@ class ManifestationsController < ApplicationController
   def new
     @manifestation = Manifestation.new
     @original_manifestation = Manifestation.where(:id => params[:manifestation_id]).first
-    @manifestation.series_statement = @series_statement
+    @manifestation.series_statement = SeriesStatement.find(params[:series_statement_id]) unless params[:series_statement_id].nil?
     if @manifestation.series_statement
       @manifestation.original_title = @manifestation.series_statement.original_title
       @manifestation.title_transcription = @manifestation.series_statement.title_transcription
@@ -399,6 +399,10 @@ class ManifestationsController < ApplicationController
     end
     unless @manifestation.original_title?
       @manifestation.original_title = @manifestation.attachment_file_name
+    end
+    if params[:series_statement_id]
+      series_statement = SeriesStatement.find(params[:series_statement_id])
+      @manifestation.series_statement = series_statement id series_statement
     end
 
     respond_to do |format|
