@@ -37,6 +37,7 @@
     <%- else -%>
       <%= link_to (image_tag 'feed-icon-14x14.png', :size => '14x14', :alt => 'RSS', :class => 'icon'), user_checkouts_path(user, :format => :rss) -%>
       (<%= link_to 'RSS', user_checkouts_path(user, :format => :rss) -%>)
+      <%= link_to (image_tag 'icons/page_white_excel.png', :size => '16x16', :alt => 'CSV', :class => 'icon'), user_checkouts_path(user, :format => :csv, :locale => @locale.to_s) -%>
       (<%= link_to 'CSV', user_checkouts_path(user, :format => :csv, :locale => @locale.to_s) -%>)
     <%- end -%>
   </p>
