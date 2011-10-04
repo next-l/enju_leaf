@@ -2,10 +2,6 @@ source 'http://rubygems.org'
 
 gem 'rails', '3.0.10'
 
-#gem 'enju_barcode', :git => 'git://github.com/nabeta/enju_barcode.git'
-#gem 'enju_nii', :git => 'git://github.com/nabeta/enju_nii.git'
-#gem 'enju_scribd', :git => 'git://github.com/nabeta/enju_scribd.git'
-
 #gem 'enju_amazon', :git => 'git://github.com/nabeta/enju_amazon.git'
 gem 'enju_barcode', :git => 'git://github.com/nabeta/enju_barcode.git'
 #gem 'enju_calil', :git => 'git://github.com/nabeta/enju_calil.git'

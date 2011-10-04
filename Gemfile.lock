@@ -7,7 +7,7 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_ndl.git
-  revision: ac0f4c05909f142887bc8bbd8a7a14e0127be589
+  revision: fe09f5efd4df4136b21151073249b4396ee7dd34
   specs:
     enju_ndl (0.0.1)
       rails (>= 3.0.10)
@@ -106,7 +106,7 @@ GEM
       mime-types (>= 1.16)
     cocaine (0.2.0)
     colored (1.2)
-    configatron (2.8.2)
+    configatron (2.8.3)
       yamler (>= 0.1.0)
     daemons (1.1.4)
     dalli (1.1.2)
@@ -145,7 +145,7 @@ GEM
       sexp_processor (~> 3.0)
     friendly_id (4.0.0.beta12)
     geocoder (1.0.4)
-    guard (0.8.3)
+    guard (0.8.4)
       thor (~> 0.14.6)
     guard-rspec (0.4.5)
       guard (>= 0.4.0)
