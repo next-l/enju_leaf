@@ -6,7 +6,7 @@ class ImportRequest < ActiveRecord::Base
   validate :check_isbn
   validate :check_imported, :on => :create
   validates_uniqueness_of :isbn, :if => Proc.new{|request| ImportRequest.where("created_at > ?", 1.day.ago).collect(&:isbn).include?(request.isbn)}
-  enju_porta
+  enju_ndl_porta
 
   state_machine :initial => :pending do
     event :sm_fail do
