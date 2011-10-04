@@ -406,6 +406,11 @@ ja:
         display_name: 表示名
         note: 注記
         position: 位置
+        checkin_ng: 返却不可
+        checkin_ng_yes: 可
+        checkin_ng_no: 不可
+        checkin_ng_pre: 前日を返却予定日にする
+        checkin_ng_post: 翌日を返却予定日にする
       advertisement:
         title: タイトル
         url: URL
