@@ -107,7 +107,7 @@ class ReservesController < ApplicationController
       end
     end
     user = @user if @user
-
+ 
     @reserve = Reserve.new(params[:reserve])
     @reserve.user = user
 
@@ -118,6 +118,7 @@ class ReservesController < ApplicationController
         #  ReservationNotifier.deliver_accepted(user, @reserve.manifestation)
         #end
         begin
+          @reserve.new_reserve
           @reserve.send_message('accepted')
         rescue Exception => e
           logger.error "Faild to send the reservation message: #{e}"
