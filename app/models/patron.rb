@@ -246,6 +246,12 @@ class Patron < ActiveRecord::Base
   def patrons
     self.original_patrons + self.derived_patrons
   end
+
+  def self.create_with_user(params, user)
+    patron = Patron.new(params)
+    patron.full_name = user.username if patron.full_name.blank?
+    patron
+  end
 end
 
 # == Schema Information

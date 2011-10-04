@@ -76,22 +76,29 @@ class UsersController < ApplicationController
       end
     end
     @user = User.new
+    @patron = Patron.new
+    @patron.required_role = Role.find_by_name('Librarian')
+    @patron.language = Language.where(:iso_639_1 => I18n.default_locale.to_s).first || Language.first
+    @patron.country = current_user.library.country
+
     #@user.openid_identifier = flash[:openid_identifier]
     prepare_options
     @user_groups = UserGroup.all
-    get_patron
-    if @patron.try(:user)
-      flash[:notice] = t('page.already_activated')
-      redirect_to @patron
-      return
-    end
+#    get_patron
+#    if @patron.try(:user)
+#      flash[:notice] = t('page.already_activated')
+#      redirect_to @patron
+#      return
+#    end
     @user.patron_id = @patron.id if @patron
+    logger.error "2: #{@patron.id}"
     @user.library = current_user.library
     @user.locale = current_user.locale
   end
 
   def edit
     @user.role_id = @user.role.id
+    @patron = @user.patron
 
     if params[:mode] == 'feed_token'
       if params[:disable] == 'true'
@@ -106,23 +113,33 @@ class UsersController < ApplicationController
   end
 
   def create
-    @user = User.create_with_params(params[:user], current_user)
-    @user.set_auto_generated_password
-    @user.role = Role.where(:name => 'User').first
-
     respond_to do |format|
-      if @user.save
+    begin
+      Patron.transaction do
+        @user = User.create_with_params(params[:user], current_user)
+        @user.set_auto_generated_password
+        @user.role = Role.where(:name => 'User').first
+        @patron = Patron.create_with_user(params[:patron], @user)
+        if @user.valid?
+          @patron.save!
+          @user.patron = @patron
+        end
+        @user.save!
         flash[:notice] = t('controller.successfully_created.', :model => t('activerecord.models.user'))
         flash[:temporary_password] = @user.password
         format.html { redirect_to user_url(@user) }
         #format.html { redirect_to new_user_patron_url(@user) }
         format.xml  { head :ok }
-      else
-        prepare_options
-        flash[:error] = t('user.could_not_setup_account')
-        format.html { render :action => "new" }
-        format.xml  { render :xml => @user.errors, :status => :unprocessable_entity }
       end
+    rescue ActiveRecord::RecordInvalid
+      prepare_options
+      @patron.errors.each do |e|
+          @user.errors.add(e)
+      end
+#      flash[:error] = t('user.could_not_setup_account')
+      format.html { render :action => "new" }
+      format.xml  { render :xml => @user.errors, :status => :unprocessable_entity }
+    end
     end
   end
 
@@ -176,10 +193,12 @@ class UsersController < ApplicationController
     @roles = Role.all
     @libraries = Library.all_cache
     @languages = Language.all_cache
+    @countries = Country.all_cache
     if @user.active_for_authentication?
       @user.locked = '0'
     else
       @user.locked = '1'
     end
+    @patron_types = PatronType.all
   end
 end

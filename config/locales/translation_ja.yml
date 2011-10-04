@@ -330,6 +330,9 @@ ja:
         current_password: 現在のパスワード
         locale: 言語
         password_confirmation: パスワード（確認）
+        birth_date: 生年月日
+        death_date: 没年月日
+        email: 電子メール
       work_has_subject:
         work: 書いた資料
         subject: 件名
