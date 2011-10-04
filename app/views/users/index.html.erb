@@ -14,10 +14,19 @@
   <tr>
     <th>
       <%= t('activerecord.attributes.user.username') -%>
-      <%= link_to image_tag('arrow_up.png', :size => '16x16', :alt => t('page.asc')), url_for(params.merge(:sort_by => 'login', :order => 'asc')) -%>
-      <%= link_to image_tag('arrow_down.png', :size => '16x16', :alt => t('page.desc')), url_for(params.merge(:sort_by => 'login', :order => 'desc')) -%>
+      <%= link_to image_tag('arrow_up.png', :size => '16x16', :alt => t('page.asc')), url_for(params.merge(:sort_by => 'username', :order => 'asc')) -%>
+      <%= link_to image_tag('arrow_down.png', :size => '16x16', :alt => t('page.desc')), url_for(params.merge(:sort_by => 'username', :order => 'desc')) -%>
     </th>
-    <th><%= t('activerecord.attributes.user.user_number') -%></th>
+    <th>
+      <%= t('activerecord.attributes.user.user_number') -%>
+      <%= link_to image_tag('arrow_up.png', :size => '16x16', :alt => t('page.asc')), url_for(params.merge(:sort_by => 'user_number', :order => 'asc')) -%>
+      <%= link_to image_tag('arrow_down.png', :size => '16x16', :alt => t('page.desc')), url_for(params.merge(:sort_by => 'user_number', :order => 'desc')) -%>
+    </th>
+    <th>
+      <%= t('activerecord.attributes.patron.telephone_number') -%>
+      <%= link_to image_tag('arrow_up.png', :size => '16x16', :alt => t('page.asc')), url_for(params.merge(:sort_by => 'name', :order => 'asc')) -%>
+      <%= link_to image_tag('arrow_down.png', :size => '16x16', :alt => t('page.desc')), url_for(params.merge(:sort_by => 'telephone_number_1', :order => 'desc')) -%>
+    </th>
     <th>
       <%= t('page.created_at') -%>
       <%= link_to image_tag('arrow_up.png', :size => '16x16', :alt => t('page.asc')), url_for(params.merge(:sort_by => 'created_at', :order => 'asc')) -%>
@@ -38,9 +47,17 @@
       <%- end -%>
     </td>
     <td><%= user.user_number -%></td>
+    <td>
+     <%- if user.patron -%>
+       <%= user.patron.telephone_number_1 -%>
+       <br />
+       <%= user.patron.telephone_number_2 -%>
+     <%- end -%>
+    </td>
     <td><%= l(user.created_at) if user.created_at -%></td>
     <td>
       <%= link_to t('activerecord.models.checkout'), new_basket_path(:user_number => user.user_number) unless user.user_number.blank? -%>
+      <br />
       (<%= link_to t('page.checkout_history'), user_checkouts_path(user) -%>)
     </td>
     <td><%= link_to t('activerecord.models.reserve'), user_reserves_path(user) -%></td>
