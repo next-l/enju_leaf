@@ -11,7 +11,6 @@
     <%= image_tag('icons/newspaper.png', :size => '16x16', :alt => t('manifestation.serial')) if @series_statement.periodical -%>
   </h2>
 
-  <%= render 'page/tabview' -%>
   <div id="tabs">
     <%= render 'tab_menu', :series_statement => @series_statement %>
     <div id="detail">
