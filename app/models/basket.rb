@@ -40,10 +40,6 @@ class Basket < ActiveRecord::Base
     logger.info "#{Time.zone.now} baskets expired!"
   end
 
-  def closing_day?
-    return true if self.user.library.closed?(Time.zone.now)
-    false
-  end
 end
 
 # == Schema Information

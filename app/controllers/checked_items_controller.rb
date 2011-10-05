@@ -83,9 +83,11 @@ class CheckedItemsController < ApplicationController
 
     respond_to do |format|
       if @checked_item.save
+        flash[:warn] = t('checked_item.library_closed_today') if @checked_item.item.shelf.library.closed?(Time.zone.now)
         if @checked_item.item.include_supplements
           flash[:message] << t('item.this_item_include_supplement')
         end
+ 
         flash[:notice] = t('controller.successfully_created', :model => t('activerecord.models.checked_item'))
 
         if params[:mode] == 'list'
