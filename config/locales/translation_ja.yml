@@ -1356,6 +1356,7 @@ ja:
   basket:
     this_account_is_suspended: "このアカウントは停止されています。"
     checkout_completed: "貸出が完了しました。"
+    library_closed_today: "今日は休館日です。"
   checkout:
     user_checkout: "%{login_name} さんの貸出資料"
     library_group_checkout: "%{library_group_name} での貸出"
