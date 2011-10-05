@@ -1467,7 +1467,7 @@ ja:
     checkout: "上記の資料を貸し出す"
     ignore_restriction: "制限を無視する"
     already_checked_out: "この資料はすでに貸し出されています。"
-    library_closed_today: "今日は休館日です。"
+    library_closed_today: "この資料の図書館は本日休館日です。"
   checkin:
     item_not_found: "資料が見つかりません。"
     enter_item_identifier: "所蔵情報番号を入力してください。"
