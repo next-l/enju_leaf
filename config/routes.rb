@@ -364,7 +364,4 @@ EnjuLeaf::Application.routes.draw do
   match '/page/opensearch' => 'page#opensearch'
   match '/page/statistics' => 'page#statistics'
   match '/page/routing_error' => 'page#routing_error'
-
-  # http://techoctave.com/c7/posts/36-rails-3-0-rescue-from-routing-error-solution
-  match '*a', :to => 'page#routing_error' unless Rails.application.config.consider_all_requests_local
 end
