@@ -93,9 +93,8 @@ class Reserve < ActiveRecord::Base
   end
 
   def new_reserve
-    logger.error "DO REQUEST"
     if self.available_for_checkout?    
-      self.retain
+      self.sm_retain
     else 
       self.sm_request
     end
@@ -114,7 +113,8 @@ class Reserve < ActiveRecord::Base
 
   def retain
     # TODO: 「取り置き中」の状態を正しく表す
-    self.update_attributes!({:request_status_type => RequestStatusType.where(:name => 'In Process').first, :checked_out_at => Time.zone.now})
+#    self.update_attributes!({:request_status_type => RequestStatusType.where(:name => 'In Process').first, :checked_out_at => Time.zone.now})
+    self.update_attributes!({:request_status_type => RequestStatusType.where(:name => 'In Process').first})
   end
 
   def expire

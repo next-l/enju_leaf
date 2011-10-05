@@ -96,7 +96,7 @@ class User < ActiveRecord::Base
     :zip_code, :address, :telephone_number, :fax_number, :address_note,
     :role_id, :patron_id, :operator, :password_not_verified,
     :update_own_account, :auto_generated_password,
-    :locked, :current_password
+    :locked, :current_password, :birth_date, :death_date, :email
 
   def self.per_page
     10
@@ -123,7 +123,7 @@ class User < ActiveRecord::Base
     self.required_role = Role.find_by_name('Librarian')
 #    self.locale = I18n.default_locale.to_s
     unless self.patron
-      self.patron = Patron.create(:full_name => self.username) if self.username
+#      self.patron = Patron.create(:full_name => self.username) if self.username
     end
   end
 

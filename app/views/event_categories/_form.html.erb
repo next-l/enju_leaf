@@ -6,6 +6,11 @@
     <%= f.text_field :name %>
   </div>
   <div class="field">
+    <%= f.label :checkin_ng %><br />
+    <%= f.check_box :checkin_ng %>
+    <%= f.select :move_checkin_date, select_checkin_date %>
+  </div>
+  <div class="field">
     <%= f.label :display_name %><br />
     <%= f.text_area :display_name %>
   </div>

@@ -83,8 +83,15 @@ class CheckedItem < ActiveRecord::Base
       self.due_date = lending_rule.fixed_due_date
     end
     # 返却期限日が閉館日の場合
+    events = Event.find(:all, :conditions => ['start_at=?', due_date.beginning_of_day])
+    checkin_before = false
+    events.each do |e|
+      checkin_before = true if e.event_category.move_checkin_date == 2
+    end
     while item.shelf.library.closed?(due_date)
       if item_checkout_type.set_due_date_before_closing_day
+        self.due_date = due_date.yesterday.end_of_day
+      elsif checkin_before
         self.due_date = due_date.yesterday.end_of_day
       else
         self.due_date = due_date.tomorrow.end_of_day

@@ -1,6 +1,6 @@
 # -*- encoding: utf-8 -*-
 class Event < ActiveRecord::Base
-  scope :closing_days, includes(:event_category).where('event_categories.name = ?', 'closed')
+  scope :closing_days, :include => :event_category, :conditions => ['event_categories.checkin_ng = ?', true]
   scope :on, lambda {|datetime| where('start_at >= ? AND start_at < ?', datetime.beginning_of_day, datetime.tomorrow.beginning_of_day + 1)}
   scope :past, lambda {|datetime| where('end_at <= ?', Time.zone.parse(datetime).beginning_of_day)}
   scope :upcoming, lambda {|datetime| where('start_at >= ?', Time.zone.parse(datetime).beginning_of_day)}

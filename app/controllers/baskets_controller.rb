@@ -59,6 +59,7 @@ class BasketsController < ApplicationController
 
     respond_to do |format|
       if @basket.save
+        flash[:warn] = t('basket.library_closed_today') if @basket.closing_day? 
         flash[:notice] = t('controller.successfully_created', :model => t('activerecord.models.basket'))
         format.html { redirect_to user_basket_checked_items_url(@basket.user, @basket) }
         format.xml  { render :xml => @basket, :status => :created, :location => @basket }

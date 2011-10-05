@@ -1,5 +1,5 @@
 module EnjuLeaf
-  VERSION = '1.1.0.dev'
+  VERSION = 't.1.1.dev'
 
   def self.version
     VERSION

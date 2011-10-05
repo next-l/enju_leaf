@@ -4,6 +4,13 @@
 <p id="notice"><%= notice %></p>
 
 <p>
+  <strong><%= t('activerecord.attributes.event_category.checkin_ng') -%>:</strong>
+  <% if @event_category.checkin_ng == false %><%= t('activerecord.attributes.event_category.checkin_ng_yes') -%>
+  <% else %><%= t('activerecord.attributes.event_category.checkin_ng_no') -%><% end %>
+  <% if @event_category.move_checkin_date == 2 %><%= t('activerecord.attributes.event_category.checkin_ng_pre') -%>
+  <% else %><%= t('activerecord.attributes.event_category.checkin_ng_post') -%><% end %>
+</p>
+<p>
   <strong><%= t('activerecord.attributes.event_category.name') -%>:</strong>
   <%= @event_category.name -%>
 </p>
