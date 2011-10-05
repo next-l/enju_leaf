@@ -7,7 +7,7 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_ndl.git
-  revision: fe09f5efd4df4136b21151073249b4396ee7dd34
+  revision: 31ca8bc216ed63829eb4ec912436d2e722c88121
   specs:
     enju_ndl (0.0.1)
       rails (>= 3.0.10)
@@ -92,7 +92,7 @@ GEM
     barby (0.5.0)
     bcrypt-ruby (3.0.1)
     builder (2.1.2)
-    cancan (1.6.6)
+    cancan (1.6.7)
     chronic (0.3.0)
     churn (0.0.13)
       chronic (>= 0.2.3)
@@ -131,9 +131,9 @@ GEM
     factory_girl_rails (1.2.0)
       factory_girl (~> 2.1.0)
       railties (>= 3.0.0)
-    faraday (0.7.4)
+    faraday (0.7.5)
       addressable (~> 2.2.6)
-      multipart-post (~> 1.1.0)
+      multipart-post (~> 1.1.3)
       rack (>= 1.1.0, < 2)
     fattr (2.2.0)
     file_wrapper (0.4.1)
@@ -260,7 +260,7 @@ GEM
     rack-openid (1.3.1)
       rack (>= 1.1.0)
       ruby-openid (>= 2.1.8)
-    rack-protection (1.1.2)
+    rack-protection (1.1.4)
       rack
     rack-test (0.5.7)
       rack (>= 1.0)
