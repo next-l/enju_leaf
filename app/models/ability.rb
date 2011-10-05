@@ -12,8 +12,8 @@ class Ability
       can :destroy, ClassificationType do |classification_type|
         classification_type.classifications.empty?
       end
-      can [:read, :create], EventCategory
-      can [:update, :destroy], EventCategory do |event_category|
+      can [:read, :new, :create], EventCategory
+      can [:edit, :update, :destroy], EventCategory do |event_category|
         !['unknown', 'closed'].include?(event_category.name)
       end
       can [:read, :create, :update], Item
@@ -149,6 +149,10 @@ class Ability
         bookmark.user == user
       end
       can [:read, :create, :update], BookmarkStat
+      can [:read, :new, :create], EventCategory
+      can [:edit, :update, :destroy], EventCategory do |event_category|
+        !['unknown', 'closed'].include?(event_category.name)
+      end
       can [:read, :create, :update], Item
       can :destroy, Item do |item|
         item.checkouts.not_returned.empty?
@@ -256,7 +260,6 @@ class Ability
         ClassificationType,
         ContentType,
         Country,
-        EventCategory,
         EventImportResult,
         Extent,
         Frequency,
