@@ -7,9 +7,9 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_ndl.git
-  revision: 31ca8bc216ed63829eb4ec912436d2e722c88121
+  revision: 448d5bbc8ed81f19d4b8572aff3ee461db37980a
   specs:
-    enju_ndl (0.0.1)
+    enju_ndl (0.0.2)
       rails (>= 3.0.10)
 
 GIT
@@ -239,13 +239,13 @@ GEM
     orm_adapter (0.0.5)
     paper_trail (2.4.0)
       rails (~> 3)
-    paperclip (2.4.2)
+    paperclip (2.4.3)
       activerecord (>= 2.3.0)
       activesupport (>= 2.3.2)
       cocaine (>= 0.0.2)
       mime-types
     parallel (0.5.9)
-    parallel_tests (0.6.6)
+    parallel_tests (0.6.7)
       parallel
     pg (0.11.0)
     polyglot (0.3.2)
@@ -363,6 +363,8 @@ GEM
       macaddr (~> 1.0)
     validates_timeliness (3.0.7)
       timeliness (~> 0.3.3)
+    vidibus-routing_error (0.2.1)
+      rails (~> 3.0.0)
     warden (1.0.5)
       rack (>= 1.0)
     whenever (0.6.8)
@@ -444,6 +446,7 @@ DEPENDENCIES
   system_timer
   timecop
   validates_timeliness
+  vidibus-routing_error
   whenever (~> 0.6)
   will_paginate (~> 3.0)
   zipruby

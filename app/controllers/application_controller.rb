@@ -9,6 +9,7 @@ class ApplicationController < ActionController::Base
   rescue_from Errno::ECONNREFUSED, :with => :render_500
   rescue_from RSolr::Error::Http, :with => :render_500_solr
   rescue_from ActionView::MissingTemplate, :with => :render_404_invalid_format
+  rescue_from ActionController::RoutingError, :with => :render_404
 
   before_filter :get_library_group, :set_locale, :set_available_languages, :prepare_for_mobile
   helper_method :mobile_device?

@@ -2,7 +2,7 @@
   <h1 class="title"><%= t('page.showing', :model => t('activerecord.models.manifestation')) -%></h1>
   <div id="content_list">
     <p id="notice"><%= notice %></p>
-    <%= render 'paginate_id_link' %>
+    <%= render 'paginate_id_link', :manifestation => @manifestation, :manifestation_ids => @manifestation_ids %>
 
     <%= render 'manifestations/title', :manifestation => @manifestation -%>
     <%- if @version -%>
