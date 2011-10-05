@@ -144,31 +144,35 @@ class UsersController < ApplicationController
   end
 
   def update
-    @user.update_with_params(params[:user], current_user)
-    if params[:user][:auto_generated_password] == "1"
-      @user.set_auto_generated_password
-      flash[:temporary_password] = @user.password
-    end
-
-    if current_user.has_role?('Administrator')
-      if @user.role_id
-        role = Role.find(@user.role_id)
-        @user.role = role
-      end
-    end
-
-    #@user.save do |result|
     respond_to do |format|
-      @user.save
-      if @user.errors.empty?
-        flash[:notice] = t('controller.successfully_updated', :model => t('activerecord.models.user'))
-        format.html { redirect_to user_url(@user) }
-        format.xml  { head :ok }
-      else
-        prepare_options
-        format.html { render :action => "edit" }
-        format.xml  { render :xml => @user.errors, :status => :unprocessable_entity }
+    begin
+      @user.update_with_params(params[:user], current_user)
+      if params[:user][:auto_generated_password] == "1"
+        @user.set_auto_generated_password
+        flash[:temporary_password] = @user.password
       end
+
+      if current_user.has_role?('Administrator')
+        if @user.role_id
+          role = Role.find(@user.role_id)
+          @user.role = role
+        end
+      end
+ 
+      if @user.valid?
+        @user.patron.update_attributes(params[:patron])
+        @user.patron.save!
+      end      
+      #@user.save do |result|
+      @user.save!
+      flash[:notice] = t('controller.successfully_updated', :model => t('activerecord.models.user'))
+      format.html { redirect_to user_url(@user) }
+      format.xml  { head :ok }
+    rescue ActiveRecord::RecordInvalid
+      prepare_options
+      format.html { render :action => "edit" }
+      format.xml  { render :xml => @user.errors, :status => :unprocessable_entity }
+    end
     end
   end
 
