@@ -535,6 +535,7 @@ en:
         ordered_at: Ordered at
         deleted_at: Deleted at
         state: State
+        ordered_at_annotation: YYYYMMDDHHMMSS (e.g. "201104010900")
       advertise:
         position: Position
       event:
