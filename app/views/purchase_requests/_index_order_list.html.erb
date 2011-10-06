@@ -41,7 +41,7 @@
             <%= link_to t('page.add'), new_order_list_purchase_request_path(@order_list, :purchase_request_id => purchase_request.id, :mode => 'add') -%>
           <%- else -%>
             <%- order = @order_list.orders.find_by_purchase_request_id(purchase_request.id) -%>
-            <%= link_to t('page.destroy'), order_list_order_path(@order_list, order), :confirm => t('page.are_you_sure'), :method => :delete -%>
+            <%= link_to image_tag('icons/delete.png', :size => '16x16', :alt => t('page.destroy')), purchase_request, :confirm => t('page.are_you_sure'), :method => :delete -%>
           <%- end -%>
         <%- end -%>
       </td>
