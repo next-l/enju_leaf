@@ -250,6 +250,9 @@ class Patron < ActiveRecord::Base
   def self.create_with_user(params, user)
     patron = Patron.new(params)
     patron.full_name = user.username if patron.full_name.blank?
+    patron.email = user.email
+    patron.required_role = Role.find(:first, :conditions => ['name=?', "Librarian"]) rescue nil
+    patron.language = Language.find(:first, :conditions => ['iso_639_1=?', user.locale]) rescue nil
     patron
   end
 end
