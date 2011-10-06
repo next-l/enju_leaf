@@ -548,7 +548,7 @@ ja:
         ordered_at_s: 発注時刻
         deleted_at: 削除時刻
         state: 状態
-        ordered_at_annotation: 半角数字で入力してください。　（例）2011年4月1日10時00分なら201104011000と入力
+        ordered_at_annotation: YYYY-MM-DD あるいは YYYY-MM-DD HH:MM (例 "2011-04-01 09:00")
       advertise:
         position: 位置
       event:
