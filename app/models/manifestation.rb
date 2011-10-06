@@ -403,7 +403,8 @@ class Manifestation < ActiveRecord::Base
   end
 
   def is_reserved_by?(user)
-    reserve = Reserve.waiting.where(:user_id => user.id, :manifestation_id => self.id).first
+    return nil unless user
+    reserve = Reserve.waiting.where(:user_id => user.id, :manifestation_id => id).first
     if reserve
       reserve
     else

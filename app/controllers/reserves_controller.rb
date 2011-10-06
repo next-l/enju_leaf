@@ -105,8 +105,9 @@ class ReservesController < ApplicationController
         access_denied
         return
       end
+    else
+      user = @user if @user
     end
-    user = @user if @user
 
     @reserve = Reserve.new(params[:reserve])
     @reserve.user = user

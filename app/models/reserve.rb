@@ -199,15 +199,15 @@ class Reserve < ActiveRecord::Base
   end
 
   def available_for_reservation?
-    if self.manifestation
-      if self.manifestation.is_reserved_by?(self.user)
+    if manifestation
+      if manifestation.is_reserved_by?(user)
         errors[:base] << I18n.t('reserve.this_manifestation_is_already_reserved')
       end
-      if self.user.try(:reached_reservation_limit?, self.manifestation)
+      if user.try(:reached_reservation_limit?, manifestation)
         errors[:base] << I18n.t('reserve.excessed_reservation_limit')
       end
 
-      expired_period = self.manifestation.try(:reservation_expired_period, self.user)
+      expired_period = manifestation.try(:reservation_expired_period, user)
       if expired_period.nil?
         errors[:base] << I18n.t('reserve.this_patron_cannot_reserve')
       end

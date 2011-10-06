@@ -94,10 +94,14 @@ class Item < ActiveRecord::Base
     false
   end
 
-  def reservable?
-    return false if ['Lost', 'Missing', 'Claimed Returned Or Never Borrowed'].include?(self.circulation_status.name)
-    return false if self.item_identifier.blank?
-    true
+  def reservable_by?(user)
+    if manifestation.is_reservable_by?(user)
+      return false if ['Lost', 'Missing', 'Claimed Returned Or Never Borrowed'].include?(self.circulation_status.name)
+      return false if self.item_identifier.blank?
+      true
+    else
+      false
+    end
   end
 
   def rent?
