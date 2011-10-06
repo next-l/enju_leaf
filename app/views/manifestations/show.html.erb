@@ -56,11 +56,11 @@
 
       <%- unless @manifestation.carrier_type.name == 'file' -%>
         <li>
-          <% if @manifestation.reservable? %>
+          <% if @manifestation.is_reservable_by?(current_user) %>
             <%- if current_user.has_role?('Librarian') -%>
               <%= link_to t('manifestation.reserve_this'), new_reserve_path(:manifestation_id => @manifestation.id) -%>
             <%- else -%>
-              <%- if @manifestation.is_reserved_by(current_user) -%>
+              <%- if @manifestation.is_reserved_by?(current_user) -%>
                 <%= link_to t('manifestation.cancel_reservation'), user_reserve_path(@reserve.user, @reserve) -%>
               <%- else -%>
                 <%= link_to t('manifestation.reserve_this'), new_user_reserve_path(current_user, :manifestation_id => @manifestation.id) -%>

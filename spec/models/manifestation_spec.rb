@@ -147,11 +147,11 @@ describe Manifestation do
   end
 
   it "should be reserved" do
-    manifestations(:manifestation_00007).is_reserved_by(users(:admin)).should be_true
+    manifestations(:manifestation_00007).is_reserved_by?(users(:admin)).should be_true
   end
 
   it "should not be reserved" do
-    manifestations(:manifestation_00007).is_reserved_by(users(:user1)).should be_nil
+    manifestations(:manifestation_00007).is_reserved_by?(users(:user1)).should be_nil
   end
 
   it "should_get_number_of_pages" do
@@ -175,7 +175,7 @@ describe Manifestation do
   end
 
   it "should not be reserved it it has no item" do
-    manifestations(:manifestation_00008).reservable?.should be_false
+    manifestations(:manifestation_00008).is_reservable?.should be_false
   end
 
   it "should respond to title" do

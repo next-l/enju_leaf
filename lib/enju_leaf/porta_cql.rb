@@ -1,3 +1,4 @@
+# -*- encoding: utf-8 -*-
 require 'strscan'
 
 class QueryError < RuntimeError; end

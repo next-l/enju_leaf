@@ -24,6 +24,8 @@
     <td>
       <%= link_to checkin.item.item_identifier, checkin.item -%>
       <br />
+      (<%= link_to checkin.item.shelf.library.display_name.localize, checkin.item.shelf.library %>)
+      <br />
       <%- unless checkin.item.shelf.library == current_user.library -%>
         <span style="color: red"><%= link_to t('activerecord.models.inter_library_loan'), item_inter_library_loans_path(checkin.item) -%></span>
       <%- end -%>

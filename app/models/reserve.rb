@@ -200,7 +200,7 @@ class Reserve < ActiveRecord::Base
 
   def available_for_reservation?
     if self.manifestation
-      if self.manifestation.is_reserved_by(self.user)
+      if self.manifestation.is_reserved_by?(self.user)
         errors[:base] << I18n.t('reserve.this_manifestation_is_already_reserved')
       end
       if self.user.try(:reached_reservation_limit?, self.manifestation)

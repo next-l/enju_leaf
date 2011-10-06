@@ -107,7 +107,7 @@ class Manifestation < ActiveRecord::Base
     integer :number_of_pages
     float :price
     boolean :reservable do
-      self.reservable?
+      items.for_checkout.exists?
     end
     integer :series_statement_id do
       series_has_manifestation.try(:series_statement_id)
@@ -394,14 +394,18 @@ class Manifestation < ActiveRecord::Base
     self
   end
 
-  def reservable?
+  def is_reservable_by?(user)
     return false if items.for_checkout.empty?
+    unless items.size == (items.size - user.checkouts.not_returned.collect(&:item).size)
+      return false
+    end
     true
   end
 
-  def is_reserved_by(user = nil)
-    if user
-      Reserve.waiting.where(:user_id => user.id, :manifestation_id => self.id).first
+  def is_reserved_by?(user)
+    reserve = Reserve.waiting.where(:user_id => user.id, :manifestation_id => self.id).first
+    if reserve
+      reserve
     else
       false
     end

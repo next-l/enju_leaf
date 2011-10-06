@@ -80,7 +80,7 @@ class ReservesController < ApplicationController
       @reserve.manifestation = @manifestation
       if user
         @reserve.expired_at = @manifestation.reservation_expired_period(user).days.from_now.end_of_day
-        if @manifestation.is_reserved_by(user)
+        if @manifestation.is_reserved_by?(user)
           flash[:notice] = t('reserve.this_manifestation_is_already_reserved')
           redirect_to @manifestation
           return

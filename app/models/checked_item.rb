@@ -99,7 +99,7 @@ class CheckedItem < ActiveRecord::Base
 
   def destroy_reservation(basket)
     if self.item.reserved?
-      if self.item.manifestation.is_reserved_by(basket.user)
+      if self.item.manifestation.is_reserved_by?(basket.user)
         reserve = Reserve.where(:user_id => basket.user_id, :manifestation_id => self.item.manifestation.id).first
         reserve.destroy
       end
