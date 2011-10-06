@@ -13,7 +13,7 @@
     <%= f.label t('activerecord.models.bookstore') -%><br />
     <%= f.select(:bookstore_id, @bookstores.collect{|b| [b.name, b.id]}) -%>
   </div>
-  <div class="field"><br />
+  <div class="field">
     <%= f.label :ordered_at -%><br />
     <span id="annotation">
       <%= f.label :ordered_at_annotation -%><br />

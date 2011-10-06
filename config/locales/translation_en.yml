@@ -531,6 +531,7 @@ en:
         state: State
       order_list:
         title: Title
+        bookstore: Bookstore
         note: Note
         ordered_at: Ordered at
         deleted_at: Deleted at

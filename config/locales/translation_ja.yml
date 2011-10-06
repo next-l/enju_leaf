@@ -543,6 +543,7 @@ ja:
         state: 状態
       order_list:
         title: 発注リスト名
+        bookstore: 書店
         note: 注記
         ordered_at: 発注時刻
         ordered_at_s: 発注時刻
