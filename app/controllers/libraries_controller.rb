@@ -8,23 +8,25 @@ class LibrariesController < ApplicationController
   # GET /libraries.xml
   def index
     sort = {:sort_by => 'position', :order => 'asc'}
+
     case params[:sort_by]
     when 'name'
-      sort[:sort_by] = 'name'
+      sort[:sort_by] = 'display_name' 
+    when 'created_at'
+      sort[:sort_by] = 'created_at'
     end
     sort[:order] = 'desc' if params[:order] == 'desc'
 
     query = @query = params[:query].to_s.strip
     page = params[:page] || 1
 
-    if query.present?
+    unless query.blank?
       @libraries = Library.search(:include => [:shelves]) do
         fulltext query
         paginate :page => page.to_i, :per_page => Library.per_page
-        order_by sort[:sort_by], sort[:order]
       end.results
     else
-      @libraries = Library.order("#{sort[:sort_by]} #{sort[:order]}").page(page)
+      @libraries = Library.unscoped.order("#{sort[:sort_by]} #{sort[:order]}").page(page)
     end
 
     respond_to do |format|
