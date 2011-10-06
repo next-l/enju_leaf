@@ -9,19 +9,15 @@
 
 <table class="index">
   <tr>
-    <th><%= t('activerecord.models.event_import_file') %></th>
     <th><%= t('activerecord.models.event') %></th>
+    <th><%= t('activerecord.attributes.event_import_result.error_msg') %></th>
     <th></th>
   </tr>
 
 <% @event_import_results.each do |event_import_result| %>
   <tr class="line<%= cycle("0", "1") -%>">
-    <td>
-      <%= link_to event_import_result.event_import_file.event_import_file_name, event_import_result.event_import_file %>
-      <br />
-      <%=l event_import_result.created_at %>
-    </td>
     <td><%= link_to event_import_result.event.display_name.localize, event_import_result.event if event_import_result.event %></td>
+    <td><%= event_import_result.error_msg %></td>
     <td>
       <%= link_to t('page.show'), event_import_result %>
       <%= link_to t('page.destroy'), event_import_result, :confirm => t('page.are_you_sure'), :method => :delete %>
