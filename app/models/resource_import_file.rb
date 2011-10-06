@@ -105,10 +105,9 @@ class ResourceImportFile < ActiveRecord::Base
           manifestation.series_statement = series_statement
           manifestation.save
         rescue EnjuNdl::InvalidIsbn
-          manifestation = nil
+          import_result.error_msg = "FAIL[#{row_num}]: ISBN #{isbn} is invalid"
         rescue EnjuNdl::RecordNotFound
-          manifestation = nil
-          next
+          import_result.error_msg = "FAIL[#{row_num}]: ISBN #{isbn} is not found"
         end
         num[:manifestation_imported] += 1 if manifestation
       end
