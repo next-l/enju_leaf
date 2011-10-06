@@ -797,3 +797,9 @@ div.book_jacket{
 .field_with_errors {
   display: inline;
 }
+
+/* add 20111004 / reiko@opentech.co.jp */
+#annotation {
+	font-weight: normal;
+	font-size: 85%;
+}

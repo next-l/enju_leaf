@@ -531,11 +531,12 @@ en:
         state: State
       order_list:
         title: Title
+        bookstore: Bookstore
         note: Note
         ordered_at: Ordered at
         deleted_at: Deleted at
         state: State
-        ordered_at_annotation: YYYYMMDDHHMMSS (e.g. "201104010900")
+        ordered_at_annotation: YYYY-MM-DD or YYYY-MM-DD HH:MM (e.g. 2011-04-01 09:00)
       advertise:
         position: Position
       event:
