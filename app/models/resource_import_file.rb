@@ -69,8 +69,11 @@ class ResourceImportFile < ActiveRecord::Base
       item = Item.where(:item_identifier => item_identifier).first
       if item
         import_result.item = item
+        import_result.manifestation = item.manifestation
+        import_result.error_msg = "FAIL[#{row_num}]: #{item_identifier} already exists"
         import_result.save!
         num[:item_found] += 1
+        row_num += 1
         next
       end
 
@@ -110,13 +113,14 @@ class ResourceImportFile < ActiveRecord::Base
         num[:manifestation_imported] += 1 if manifestation
       end
 
-      unless manifestation
-        manifestation = fetch(row)
-        num[:manifestation_imported] += 1 if manifestation
-      end
-      import_result.manifestation = manifestation
-
       begin
+        unless manifestation
+          manifestation = fetch(row)
+          num[:manifestation_imported] += 1 if manifestation
+        end
+
+        import_result.manifestation = manifestation
+
         if manifestation.valid? and item_identifier.present?
           import_result.item = create_item(row, manifestation)
           manifestation.index
@@ -125,6 +129,7 @@ class ResourceImportFile < ActiveRecord::Base
           num[:failed] += 1
         end
       rescue Exception => e
+        import_result.error_msg = "FAIL[#{row_num}]: #{e.message}"
         Rails.logger.info("resource registration failed: column #{row_num}: #{e.message}")
       end
 
@@ -244,6 +249,8 @@ class ResourceImportFile < ActiveRecord::Base
       item = Item.where(:item_identifier => item_identifier).first if item_identifier.present?
       if item.try(:manifestation)
         fetch(row, :edit_mode => 'update')
+      else
+        import_result.error_msg = "FAIL[#{row}]: #{item_identifier} does not exist"
       end
     end
   end
@@ -283,7 +290,7 @@ class ResourceImportFile < ActiveRecord::Base
       header = file.first
       rows = FasterCSV.open(tempfile.path, :headers => header, :col_sep => "\t")
     end
-    ResourceImportResult.create(:resource_import_file => self, :body => header.join("\t"))
+    ResourceImportResult.create(:resource_import_file => self, :body => header.join("\t"), :error_msg => "HEADER DATA")
     tempfile.close(true)
     file.close
     rows
@@ -341,9 +348,9 @@ class ResourceImportFile < ActiveRecord::Base
       title[:title_alternative] = manifestation.title_alternative if row['title_alternative'].to_s.strip.blank?
     end
     #title[:title_transcription_alternative] = row['title_transcription_alternative']
-    if title[:original_title].blank? and options[:edit_mode] == 'create'
-      return nil
-    end
+#    if title[:original_title].blank? and options[:edit_mode] == 'create'
+#      return nil
+#    end
 
     if ISBN_Tools.is_valid?(row['isbn'].to_s.strip)
       isbn = ISBN_Tools.cleanup(row['isbn'])
@@ -428,7 +435,12 @@ class ResourceImportFile < ActiveRecord::Base
     end
     manifestation.required_role = Role.where(:name => row['required_role_name'].to_s.strip.camelize).first || Role.find('Guest')
     manifestation.language = language
-    manifestation
+    begin
+      manifestation.save!
+    rescue Exception => e
+      p "error at fetch_new: #{e.message}"
+      raise e
+    end
   end
 
   def import_series_statement(row)

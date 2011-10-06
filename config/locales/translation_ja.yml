@@ -1029,6 +1029,8 @@ ja:
         manifestation_relationship_type_id: 資料の関係の種類
       resource_import_result:
         body: 本文
+        error_msg: エラーメッセージ
+        index: 項番
       patron_import_result:
         body: 本文
       event_import_result:

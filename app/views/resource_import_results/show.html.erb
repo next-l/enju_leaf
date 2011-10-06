@@ -9,6 +9,11 @@
 </p>
 
 <p>
+  <b><%= t('activerecord.attributes.resource_import_result.error_msg') %>:</b>
+  <%= h(@resource_import_result.error_msg) if @resource_import_result.error_msg %>
+</p>
+
+<p>
   <b><%= t('activerecord.models.manifestation') %></b>
   <%= link_to @resource_import_result.manifestation.original_title, @resource_import_result.manifestation if @resource_import_result.manifestation %>
 </p>
@@ -19,8 +24,12 @@
 </p>
 
 <p>
-  <b><%= t('activerecord.attributes.patron_import_result.body') %></b>
-  <%= @resource_import_result.body %>
+  <b><%= t('activerecord.attributes.resource_import_result.body') %>:</b>
+  <%- if @resource_import_result.body -%><br />
+    <% @resource_import_result.body.split("\t").each_with_index do |item, i| %>
+      &nbsp;<%= t('activerecord.attributes.resource_import_result.index') %><%= "#{h(i+1)}:" %>&nbsp;<%= h(item) %><br />
+    <% end %>
+  <%- end -%>
 </p>
 
 <p>
