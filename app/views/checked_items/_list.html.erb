@@ -16,6 +16,7 @@
     <%- end -%>
     <th><%= t('activerecord.attributes.item.item_identifier') -%></th>
     <th><%= t('activerecord.attributes.checkout.due_date') -%></th>
+    <th><%= t('activerecord.attributes.item.note') -%></th>
     <th></th>
   </tr>
 
@@ -28,6 +29,7 @@
     <%- end -%>
     <td><%= link_to checked_item.item.item_identifier, checked_item.item -%></td>
     <td><%= l(checked_item.due_date, :format => :only_date) -%></td>
+    <td><%= checked_item.item.note -%></td>
     <td><%= link_to t('page.destroy'), user_basket_checked_item_path(checked_item.basket.user, checked_item.basket, checked_item), :confirm => t('page.are_you_sure'), :method => :delete -%></td>
   </tr>
 <%- end -%>

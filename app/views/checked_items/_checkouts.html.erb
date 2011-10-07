@@ -6,6 +6,7 @@
       <th class="checked_item_title"><%= t('page.title') -%></th>
     <%- end -%>
     <th><%= t('activerecord.attributes.item.item_identifier') -%></th>
+    <th><%= t('activerecord.attributes.item.note') -%></th>
     <th><%= t('activerecord.attributes.checkout.due_date') -%></th>
   </tr>
 
@@ -18,6 +19,7 @@
         </td>
       <%- end -%>
       <td><%= link_to checkout.item.item_identifier, checkout.item -%></td>
+      <td><%= checkout.item.note -%></td>
       <td><%= l(checkout.due_date, :format => :only_date) -%></td>
     </tr>
   <%- end -%>
