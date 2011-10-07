@@ -26,3 +26,7 @@ configatron.book_jacket.source = :google
 
 # :mozshot, :simpleapi, :heartrails, :thumbalizr
 configatron.screenshot.generator = :mozshot
+
+# disp column of baskets 
+configatron.baskets.disp_title = true
+configatron.baskets.disp_user = true
