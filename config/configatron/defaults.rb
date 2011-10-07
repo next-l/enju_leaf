@@ -27,6 +27,10 @@ configatron.book_jacket.source = :google
 # :mozshot, :simpleapi, :heartrails, :thumbalizr
 configatron.screenshot.generator = :mozshot
 
-# disp column of baskets 
-configatron.baskets.disp_title = true
-configatron.baskets.disp_user = true
+# set disp column of checkins 
+configatron.checkins.disp_title = true
+configatron.checkins.disp_user = true
+
+# set disp column of checked_items
+configatron.checked_items.disp_title = true
+configatron.checked_items.disp_user = true

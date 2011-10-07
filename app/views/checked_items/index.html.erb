@@ -14,9 +14,11 @@
 </div>
 
 <div id="submenu" class="ui-corner-all">
-  <ul>
-    <li><%= link_to @basket.user.username, @basket.user -%></li>
-  </ul>
+  <%- if configatron.checked_items.disp_user == true -%>
+    <ul>
+      <li><%= link_to @basket.user.username, @basket.user -%></li>
+    </ul>
+  <%- end -%>
   <ul>
     <%- @basket.user.user_group.user_group_has_checkout_types.each do |available_checkout_type| -%>
       <li>
