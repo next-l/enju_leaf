@@ -46,6 +46,15 @@ class Patron < ActiveRecord::Base
 
   searchable do
     text :name, :place, :address_1, :address_2, :other_designation, :note
+    string :last_name
+    string :first_name
+    string :last_name_transcription
+    string :first_name_transcription 
+    string :full_name
+    string :full_name_transcription
+    string :full_name_alternative
+    string :telephone_number_1 
+    string :telephone_number_2
     string :zip_code_1
     string :zip_code_2
     string :username do

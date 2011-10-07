@@ -333,6 +333,7 @@ ja:
         birth_date: 生年月日
         death_date: 没年月日
         email: 電子メール
+        adddress: 住所
       work_has_subject:
         work: 書いた資料
         subject: 件名
@@ -1431,6 +1432,7 @@ ja:
     change_my_password: "パスワードを変更する"
     management: "利用者の管理"
     not_found: "利用者が見つかりません。"
+    birth_date_invalid: "生年月日が不正な値です。例: 2011-04-12"
   news_post:
     library_group_news_post: "%{library_group_name} からのお知らせ"
   reserve:
