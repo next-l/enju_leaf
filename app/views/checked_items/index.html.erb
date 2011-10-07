@@ -16,7 +16,12 @@
 <div id="submenu" class="ui-corner-all">
   <%- if configatron.checked_items.disp_user == true -%>
     <ul>
-      <li><%= link_to @basket.user.username, @basket.user -%></li>
+      <li>
+        <%= link_to @basket.user.username, @basket.user -%>
+        <%- if @basket.user.patron -%>
+          (<%= link_to @basket.user.patron.full_name, @basket.user.patron if current_user.has_role?('Librarian') -%>)
+        <%- end -%>
+      </li>
     </ul>
   <%- end -%>
   <ul>
