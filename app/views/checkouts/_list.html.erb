@@ -3,6 +3,7 @@
     <th><%= t('activerecord.models.user') %></th>
     <th class="checked_item_title"><%= t('page.title') %></th>
     <th><%= t('activerecord.attributes.checkout.due_date') %></th>
+    <th><%= t('activerecord.attributes.checkout.renewal_count') %></th>
     <th></th>
   </tr>
 
@@ -19,6 +20,7 @@
       (<%= link_to checkout.item.item_identifier, item_path(checkout.item) -%>)
     </td>
     <td><%= l(checkout.due_date, :format => :only_date) -%></td>
+    <td><%= checkout.checkout_renewal_count -%> / <%= checkout.item.checkout_status(checkout.user).checkout_renewal_limit-%></td>
     <td>
       <%= link_to t('page.show'), user_checkout_path(checkout.user, checkout) -%>
       <br />

@@ -14,6 +14,7 @@
       <th><%= t('page.title') -%></th>
     <%- end -%>
     <th><%= t('activerecord.models.item') -%></th>
+    <th><%= t('activerecord.attributes.item.note') -%></th>
     <th><%= t('activerecord.attributes.checkout.due_date') -%></th>
     <%- if configatron.checkins.disp_user == true -%>
       <th><%= t('activerecord.models.user') -%></th>
@@ -34,6 +35,7 @@
         <span style="color: red"><%= link_to t('activerecord.models.inter_library_loan'), item_inter_library_loans_path(checkin.item) -%></span>
       <%- end -%>
     </td>
+    <td><%= checkin.item.note -%></td>
     <td>
       <%- if checkin.checkout -%>
         <%= l(checkin.checkout.due_date, :format => :only_date) -%>

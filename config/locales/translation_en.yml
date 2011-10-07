@@ -646,6 +646,7 @@ en:
       checkout:
         due_date: Due date
         lock_version: Lock version
+        renewal_count: Checkout renewal count
       subscription:
         title: Title
         note: Note
