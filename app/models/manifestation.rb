@@ -350,10 +350,6 @@ class Manifestation < ActiveRecord::Base
     end
   end
 
-  def patrons
-    (creators + contributors + publishers).flatten
-  end
-
   def bookmarked?(user)
     self.users.include?(user)
   end
