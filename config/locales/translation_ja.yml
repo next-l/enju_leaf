@@ -664,6 +664,7 @@ ja:
       checkout:
         due_date: 期日
         lock_version: ロックバージョン
+        renewal_count: 貸出の更新回数
       subscription:
         title: タイトル
         note: 注記
