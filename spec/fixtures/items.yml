@@ -212,6 +212,7 @@ item_00021:
 
 
 
+
 # == Schema Information
 #
 # Table name: items
@@ -238,5 +239,6 @@ item_00021:
 #  required_score              :integer         default(0), not null
 #  acquired_at                 :datetime
 #  bookstore_id                :integer
+#  missing_since               :datetime
 #
 
