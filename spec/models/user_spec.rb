@@ -168,6 +168,7 @@ end
 
 
 
+
 # == Schema Information
 #
 # Table name: users
@@ -179,7 +180,6 @@ end
 #  confirmed_at             :datetime
 #  confirmation_sent_at     :datetime
 #  reset_password_token     :string(255)
-#  reset_password_sent_at   :datetime
 #  remember_token           :string(255)
 #  remember_created_at      :datetime
 #  sign_in_count            :integer         default(0)
