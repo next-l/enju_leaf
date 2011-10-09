@@ -1,9 +1,0 @@
-<%- if @user -%>
-  <%= render 'index_user', :user => @user -%>
-<%- else -%>
-  <%- if params[:view] == 'overdue' -%>
-    <%= render 'index_overdue' -%>
-  <%- else -%>
-    <%= render 'index' -%>
-  <%- end -%>
-<%- end -%>

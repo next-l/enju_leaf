@@ -1,4 +1,0 @@
-title,author,publisher,created_at,order_list_title,ordered_at,bookstore
-<%- @purchase_requests.each do |purchase_request| -%>
-"<%=h purchase_request.title.gsub(/"/, '""') -%>",<%=h purchase_request.author -%>,<%=h purchase_request.publisher -%>,<%=h purchase_request.created_at -%>,<%=h purchase_request.order_list.title rescue nil -%>,<%=h purchase_request.order_list.ordered_at rescue nil -%>,<%=h purchase_request.order_list.bookstore.name rescue nil%><%= "\n" -%>
-<%- end -%>

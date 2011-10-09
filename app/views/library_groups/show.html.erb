@@ -23,15 +23,19 @@
   <%= raw textilize(h(@library_group.login_banner)) -%>
 </div>
 
-<p>
-  <strong><%= t('activerecord.attributes.library_group.allow_bookmark_external_url') -%>:</strong>
-  <%= localized_boolean(@library_group.allow_bookmark_external_url) -%>
-</p>
+<% if defined?(EnjuBookmark) %>
+  <p>
+    <strong><%= t('activerecord.attributes.library_group.allow_bookmark_external_url') -%>:</strong>
+    <%= localized_boolean(@library_group.allow_bookmark_external_url) -%>
+  </p>
+<% end %>
 
+<!--
 <p>
   <strong><%= t('activerecord.attributes.library_group.post_to_union_catalog') -%>:</strong>
   <%= localized_boolean(@library_group.post_to_union_catalog) -%>
 </p>
+-->
 
 <p>
   <strong><%= t('activerecord.attributes.library_group.my_networks') -%>:</strong>

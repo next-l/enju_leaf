@@ -26,10 +26,12 @@
     <%= f.text_area :login_banner -%>
   </div>
 
-  <div class="field">
-    <%= f.label :allow_bookmark_external_url -%>
-    <%= f.check_box :allow_bookmark_external_url -%>
-  </div>
+  <% if defined?(EnjuBookmark) %>
+    <div class="field">
+      <%= f.label :allow_bookmark_external_url -%>
+      <%= f.check_box :allow_bookmark_external_url -%>
+    </div>
+  <% end %>
 
   <!--
   <div class="field">

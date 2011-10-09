@@ -49,17 +49,6 @@ class ItemsControllerTest < ActionController::TestCase
     assert assigns(:items)
   end
 
-  def test_guest_should_not_get_new
-    get :new
-    assert_redirected_to new_user_session_url
-  end
-  
-  def test_everyone_should_not_get_new_without_manifestation_id
-    sign_in users(:admin)
-    get :new
-    assert_redirected_to manifestations_url
-  end
-  
   def test_guest_should_not_create_item
     assert_no_difference('Item.count') do
       post :create, :item => { :circulation_status_id => 1, :manifestation_id => 1}

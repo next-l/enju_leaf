@@ -109,7 +109,7 @@ class ShelvesController < ApplicationController
     @shelf.destroy
 
     respond_to do |format|
-      format.html { redirect_to library_shelves_url(@shelf.library.name) }
+      format.html { redirect_to library_shelves_url(@shelf.library) }
       format.xml  { head :ok }
     end
   end
