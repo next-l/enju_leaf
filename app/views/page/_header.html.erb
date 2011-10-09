@@ -13,7 +13,9 @@
       <% if user_signed_in? %>
         <%= t('page.logged_in_as', :login_name => current_user.username) -%>
         <br />
-        <%= link_to image_tag('icons/email.png', :size => '16x16', :alt => t('activerecord.models.message')), messages_path %>
+        <% if defined?(EnjuMessage) %>
+          <%= link_to image_tag('icons/email.png', :size => '16x16', :alt => t('activerecord.models.message')), messages_path %>
+        <% end %>
         <% if current_user.received_messages.unread.size > 0 %>
           <%= link_to "(#{h(current_user.received_messages.unread.size)})", messages_path %>
         <% else %>
