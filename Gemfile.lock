@@ -55,6 +55,13 @@ GIT
       rails (>= 3.0.10)
 
 GIT
+  remote: git://github.com/nabeta/enju_resource_merge.git
+  revision: 424b018b614461a07199349ef0b41756c89a4fc1
+  specs:
+    enju_resource_merge (0.0.1)
+      rails (>= 3.0.10)
+
+GIT
   remote: git://github.com/nabeta/enju_subject.git
   revision: 230f7021144d23bf029124c42ba1efd303031b90
   specs:
@@ -438,6 +445,7 @@ DEPENDENCIES
   enju_oai!
   enju_purchase_request!
   enju_question!
+  enju_resource_merge!
   enju_subject!
   event-calendar
   exception_notification (~> 2.5.2)

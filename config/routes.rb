@@ -5,13 +5,6 @@ EnjuLeaf::Application.routes.draw do
 
   resources :series_has_manifestations
 
-  resources :series_statement_merges
-
-  resources :series_statement_merge_lists do
-    resources :series_statements
-    resources :series_statement_merges
-  end
-
   resources :manifestations do
     resources :patrons
     resources :creators, :controller => 'patrons'
@@ -35,8 +28,6 @@ EnjuLeaf::Application.routes.draw do
     resources :items
     resources :picture_files
     resources :patrons
-    resources :patron_merges
-    resources :patron_merge_lists
     resources :patron_relationships
     resources :creates
     resources :realizes
@@ -111,11 +102,6 @@ EnjuLeaf::Application.routes.draw do
   resources :patron_types
   resources :circulation_statuses
   resources :form_of_works
-  resources :patron_merge_lists do
-    resources :patrons
-    resources :patron_merges
-  end
-  resources :patron_merges
   resources :inventory_files
   resources :inventories
   resources :donates

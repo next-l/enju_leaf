@@ -14,6 +14,7 @@ gem 'enju_purchase_request', :git => 'git://github.com/nabeta/enju_purchase_requ
 gem 'enju_question', :git => 'git://github.com/nabeta/enju_question.git'
 gem 'enju_bookmark', :git => 'git://github.com/nabeta/enju_bookmark.git'
 gem 'enju_import', :git => 'git://github.com/nabeta/enju_import.git'
+gem 'enju_resource_merge', :git => 'git://github.com/nabeta/enju_resource_merge.git'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
