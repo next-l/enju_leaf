@@ -96,7 +96,7 @@ class LibrariesController < ApplicationController
     respond_to do |format|
       if @library.update_attributes(params[:library])
         flash[:notice] = t('controller.successfully_updated', :model => t('activerecord.models.library'))
-        format.html { redirect_to library_url(@library.name) }
+        format.html { redirect_to(@library) }
         format.xml  { head :ok }
       else
         @library.name = @library.name_was

@@ -3,25 +3,6 @@ require 'test_helper'
 class EventsControllerTest < ActionController::TestCase
     fixtures :events, :event_categories, :libraries, :patrons, :users
 
-  def test_guest_should_get_index_with_library_id
-    get :index, :library_id => 'kamata'
-    assert_response :success
-    assert assigns(:library)
-    assert assigns(:events)
-  end
-
-  def test_guest_should_get_upcoming_event_index
-    get :index, :mode => 'upcoming'
-    assert_response :success
-    assert assigns(:events)
-  end
-
-  def test_guest_should_get_past_event_index
-    get :index, :mode => 'past'
-    assert_response :success
-    assert assigns(:events)
-  end
-
   def test_librarian_should_get_new_with_date
     sign_in users(:librarian1)
     get :new, :date => '2010/09/01'

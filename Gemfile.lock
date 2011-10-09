@@ -14,7 +14,7 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_import.git
-  revision: 5811cd389b06a9f2c7f968ea6d63ef132187c216
+  revision: 0c350f773bfcffde8a7ce01b3345224c3158ec1c
   specs:
     enju_import (0.0.1)
       rails (>= 3.0.10)
@@ -56,7 +56,7 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_subject.git
-  revision: ac9797e9eebb8825907f710c92a070fb51e59dca
+  revision: 230f7021144d23bf029124c42ba1efd303031b90
   specs:
     enju_subject (0.0.1)
       rails (>= 3.0.10)

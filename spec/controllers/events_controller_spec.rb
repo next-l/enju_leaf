@@ -61,6 +61,25 @@ describe EventsController do
         get :index, :format => 'csv'
         assigns(:events).should_not be_nil
       end
+
+      it "should get index with library_id" do
+        get :index, :library_id => 'kamata'
+        response.should be_success
+        assigns(:library).should eq libraries(:library_00002)
+        assigns(:events).should_not be_nil
+      end
+
+      it "should get upcoming event index" do
+        get :index, :mode => 'upcoming'
+        response.should be_success
+        assigns(:events).should_not be_nil
+      end
+
+      it "should get past event index" do
+        get :index, :mode => 'past'
+        response.should be_success
+        assigns(:events).should_not be_nil
+      end
     end
   end
 
