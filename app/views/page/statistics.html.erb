@@ -32,23 +32,28 @@
       <td><%= SearchHistory.count -%></td>
       <td></td>
     </tr>
-    <tr>
-      <td><%= link_to t('activerecord.models.bookmark'), bookmarks_path -%></td>
-      <td>
-        <%= Bookmark.count -%>
-        (<%= link_to t('activerecord.attributes.bookmark_stat_has_manifestation.bookmarks_count'), bookmark_stats_path -%>)
-      </td>
-      <td></td>
-    </tr>
-    <tr>
-      <td><%= link_to t('activerecord.models.subject'), subjects_path -%></td>
-      <td><%= Subject.count -%></td>
-      <td></td>
-    <tr>
-      <td><%= link_to t('activerecord.models.tag'), tags_path -%></td>
-      <td><%= Tag.count -%></td>
-      <td></td>
-    </tr>
+    <% if defined?(EnjuBookmark) %>
+      <tr>
+        <td><%= link_to t('activerecord.models.bookmark'), bookmarks_path -%></td>
+        <td>
+          <%= Bookmark.count -%>
+          (<%= link_to t('activerecord.attributes.bookmark_stat_has_manifestation.bookmarks_count'), bookmark_stats_path -%>)
+        </td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><%= link_to t('activerecord.models.tag'), tags_path -%></td>
+        <td><%= Tag.count -%></td>
+        <td></td>
+      </tr>
+    <% end %>
+    <% if defined?(EnjuSubject) %>
+      <tr>
+        <td><%= link_to t('activerecord.models.subject'), subjects_path -%></td>
+        <td><%= Subject.count -%></td>
+        <td></td>
+      </tr>
+    <% end %>
     <tr>
       <td><%= link_to t('activerecord.models.checkout'), checkouts_path -%></td>
       <td>
@@ -67,21 +72,25 @@
       </td>
       <td></td>
     </tr>
-    <tr>
-      <td><%= link_to t('activerecord.models.purchase_request'), purchase_requests_path -%></td>
-      <td><%= PurchaseRequest.count -%></td>
-      <td></td>
-    </tr>
-    <tr>
-      <td><%= link_to t('activerecord.models.question'), questions_path -%></td>
-      <td><%= Question.count -%></td>
-      <td></td>
-    </tr>
-    <tr>
-      <td><%= link_to t('activerecord.models.answer'), answers_path -%></td>
-      <td><%= Answer.count -%></td>
-      <td></td>
-    </tr>
+    <% if defined?(EnjuPurchaseRequest) %>
+      <tr>
+        <td><%= link_to t('activerecord.models.purchase_request'), purchase_requests_path -%></td>
+        <td><%= PurchaseRequest.count -%></td>
+        <td></td>
+      </tr>
+    <% end %>
+    <% if defined?(EnjuQuestion) %>
+      <tr>
+        <td><%= link_to t('activerecord.models.question'), questions_path -%></td>
+        <td><%= Question.count -%></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><%= link_to t('activerecord.models.answer'), answers_path -%></td>
+        <td><%= Answer.count -%></td>
+        <td></td>
+      </tr>
+    <% end %>
   </table>
 </div>
 </div>

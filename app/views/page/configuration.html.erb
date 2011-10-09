@@ -24,7 +24,9 @@
         <li><%= link_to t('activerecord.models.bookstore'), bookstores_path -%></li>
         <li><%= link_to t('activerecord.models.message_template'), message_templates_path -%></li>
         <li><%= link_to t('activerecord.models.search_engine'), search_engines_path -%></li>
-        <li><%= link_to t('activerecord.models.barcode'), barcodes_path -%></li>
+        <% if defined?(EnjuBookmark) %>
+          <li><%= link_to t('activerecord.models.barcode'), barcodes_path -%></li>
+        <% end %>
       </ul>
     </div>
   </div>
@@ -37,12 +39,16 @@
           <li><%= link_to t('item.all_item'), items_path %></li>
         </ul>
         </li>
-        <li><%= link_to t('activerecord.models.bookmark'), bookmarks_path -%></li>
+        <% if defined?(EnjuBookmark) %>
+          <li><%= link_to t('activerecord.models.bookmark'), bookmarks_path -%></li>
+        <% end %>
         <li><%= link_to t('activerecord.models.import_request'), import_requests_path -%></li>
         <li><%= link_to t('activerecord.models.series_statement'), series_statements_path -%></li>
         <li><%= link_to t('activerecord.models.picture_file'), picture_files_path -%></li>
-        <li><%= link_to t('activerecord.models.purchase_request'), purchase_requests_path -%></li>
-        <li><%= link_to t('activerecord.models.order_list'), order_lists_path -%></li>
+        <% if defined?(EnjuPurchaseRequest) %>
+          <li><%= link_to t('activerecord.models.purchase_request'), purchase_requests_path -%></li>
+          <li><%= link_to t('activerecord.models.order_list'), order_lists_path -%></li>
+        <% end %>
         <li><%= link_to t('activerecord.models.subscription'), subscriptions_path -%></li>
         <!-- <li><%= link_to t('activerecord.models.donate'), donates_path -%></li> -->
         <li><%= link_to t('activerecord.models.inventory'), inventory_files_path -%></li>

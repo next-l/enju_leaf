@@ -436,6 +436,11 @@ describe LibrariesController do
           delete :destroy, :id => @library.id
           response.should be_forbidden
         end
+
+        it "should not destroy library_id 1" do
+          delete :destroy, :id => 'web'
+          response.should be_forbidden
+        end
       end
 
       describe "When logged in as Librarian" do

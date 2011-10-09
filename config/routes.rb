@@ -22,7 +22,6 @@ EnjuLeaf::Application.routes.draw do
     resources :produces
     resources :picture_files
     resources :items
-    resources :work_has_subjects
     resources :manifestation_relationships
     resources :manifestations
     resources :series_statements
@@ -59,8 +58,6 @@ EnjuLeaf::Application.routes.draw do
   resources :works, :controller => 'manifestations' do
     resources :patrons
     resources :creates
-    resources :subjects
-    resources :work_has_subjects
     resources :expressions, :controller => 'manifestations'
     resources :manifestation_relationships
     resources :manifestations
@@ -85,24 +82,15 @@ EnjuLeaf::Application.routes.draw do
   end
 
   resources :users do
-    resources :answers
     resources :baskets do
       resources :checked_items
       resources :checkins
     end
     resources :checkouts
-    resources :questions do
-      resources :answers
-    end
     resources :reserves
-    resources :bookmarks
-    resources :purchase_requests
-    resources :questions
     resource :patron
   end
 
-  resources :answers
-  resources :imported_objects
   resources :bookmark_stats
   resources :bookmark_stat_has_manifestations
   resources :user_checkout_stats
@@ -123,11 +111,6 @@ EnjuLeaf::Application.routes.draw do
   resources :patron_types
   resources :circulation_statuses
   resources :form_of_works
-  resources :subject_has_classifications
-  resources :subject_heading_types do
-    resources :subjects
-  end
-  resources :subject_heading_type_has_subjects
   resources :patron_merge_lists do
     resources :patrons
     resources :patron_merges
@@ -154,12 +137,6 @@ EnjuLeaf::Application.routes.draw do
     resources :user_group_has_checkout_types
   end
   resources :search_histories, :only => [:index, :show, :destroy]
-
-  resources :order_lists do
-    resource :order
-    resources :purchase_requests
-  end
-  resources :orders
 
   resources :inter_library_loans
 
@@ -188,21 +165,7 @@ EnjuLeaf::Application.routes.draw do
 
   resources :participates
 
-  resources :questions
-
-  resources :purchase_requests do
-    resource :order
-  end
-
-  resources :bookmarks
-
-  resources :tags
-
   resources :patron_relationships
-
-  resources :bookstores do
-    resources :order_lists
-  end
 
   resources :user_has_roles, :only => [:index, :show]
 
@@ -216,14 +179,6 @@ EnjuLeaf::Application.routes.draw do
 
   resources :library_groups, :except => [:new, :create, :destroy]
 
-  resources :classifications do
-    resources :subject_has_classifications
-  end
-
-  resources :classification_types do
-    resource :classifications
-  end
-
   resources :search_engines
 
   resources :reserves
@@ -231,18 +186,6 @@ EnjuLeaf::Application.routes.draw do
   resources :event_categories
 
   resources :events
-
-  resources :subject_types
-
-  resources :work_has_subjects
-
-  resources :subjects do
-    resources :works, :controller => 'manifestations'
-    resources :subject_heading_types
-    resources :subject_has_classifications
-    resources :work_has_subjects
-    resources :classifications
-  end
 
   resources :content_types
 

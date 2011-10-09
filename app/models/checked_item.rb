@@ -96,15 +96,6 @@ class CheckedItem < ActiveRecord::Base
   def in_transaction?
     true if CheckedItem.where(:basket_id => self.basket.id, :item_id => self.item_id).first
   end
-
-  def destroy_reservation(basket)
-    if self.item.reserved?
-      if self.item.manifestation.is_reserved_by?(basket.user)
-        reserve = Reserve.where(:user_id => basket.user_id, :manifestation_id => self.item.manifestation.id).first
-        reserve.destroy
-      end
-    end
-  end
 end
 
 # == Schema Information

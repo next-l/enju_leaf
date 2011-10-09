@@ -151,6 +151,17 @@ describe SubjectsController do
         get :edit, :id => subject.id
         assigns(:subject).should eq(subject)
       end
+
+      it "should get edit with work" do
+        get :edit, :id => subjects(:subject_00001).id, :work_id => 1
+        assigns(:subject).should eq subjects(:subject_00001)
+        response.should be_success
+      end
+
+      it "should not get edit with missing work" do
+        get :edit, :id => subjects(:subject_00001).id, :work_id => 'missing'
+        response.should be_missing
+      end
     end
 
     describe "When logged in as Librarian" do

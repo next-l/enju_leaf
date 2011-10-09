@@ -56,7 +56,9 @@
   <%- else -%>
     <div id="acquisition_menu" class="hidden">
       <ul>
-        <li><%= link_to t('page.listing', :model => t('activerecord.models.bookmark')), bookmarks_path -%></li>
+        <% if defined?(EnjuBookmark) %>
+          <li><%= link_to t('page.listing', :model => t('activerecord.models.bookmark')), bookmarks_path -%></li>
+        <% end %>
       </ul>
     </div>
   <%- end -%>
@@ -64,15 +66,23 @@
     <%- if user_signed_in? -%>
       <div id="request_menu" class="hidden">
         <ul>
-          <li><%= link_to t('activerecord.models.purchase_request'), purchase_requests_path -%></li>
-          <li><%= link_to t('activerecord.models.question'), questions_path -%></li>
+          <% if defined?(EnjuPurchaseRequest) %>
+            <li><%= link_to t('activerecord.models.purchase_request'), purchase_requests_path -%></li>
+          <% end %>
+          <% if defined?(EnjuQuestion) %>
+            <li><%= link_to t('activerecord.models.question'), questions_path -%></li>
+          <% end %>
         </ul>
       </div>
     <%- else -%>
       <div id="request_menu" class="hidden">
         <ul>
-          <li><%= link_to t('activerecord.models.purchase_request'), purchase_requests_path -%></li>
-          <li><%= link_to t('activerecord.models.question'), questions_path -%></li>
+          <% if defined?(EnjuPurchaseRequest) %>
+            <li><%= link_to t('activerecord.models.purchase_request'), purchase_requests_path -%></li>
+          <% end %>
+          <% if defined?(EnjuQuestion) %>
+            <li><%= link_to t('activerecord.models.question'), questions_path -%></li>
+          <% end %>
         </ul>
       </div>
   <%- end -%>

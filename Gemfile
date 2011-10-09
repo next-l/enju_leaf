@@ -9,6 +9,10 @@ gem 'enju_ndl', :git => 'git://github.com/nabeta/enju_ndl.git'
 gem 'enju_nii', :git => 'git://github.com/nabeta/enju_nii.git'
 gem 'enju_oai', :git => 'git://github.com/nabeta/enju_oai.git'
 #gem 'enju_scribd', :git => 'git://github.com/nabeta/enju_scribd.git'
+gem 'enju_subject', :git => 'git://github.com/nabeta/enju_subject.git'
+gem 'enju_purchase_request', :git => 'git://github.com/nabeta/enju_purchase_request.git'
+gem 'enju_question', :git => 'git://github.com/nabeta/enju_question.git'
+gem 'enju_bookmark', :git => 'git://github.com/nabeta/enju_bookmark.git'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'

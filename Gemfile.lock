@@ -6,6 +6,13 @@ GIT
       rails (>= 3.0.10)
 
 GIT
+  remote: git://github.com/nabeta/enju_bookmark.git
+  revision: a65e24cd4d4cc12197dab79d63098727034022c9
+  specs:
+    enju_bookmark (0.0.1)
+      rails (>= 3.0.10)
+
+GIT
   remote: git://github.com/nabeta/enju_ndl.git
   revision: 448d5bbc8ed81f19d4b8572aff3ee461db37980a
   specs:
@@ -24,6 +31,27 @@ GIT
   revision: 424c9a00305508cd5bc5f3272e7ef4efd9f71e92
   specs:
     enju_oai (0.0.1)
+      rails (>= 3.0.10)
+
+GIT
+  remote: git://github.com/nabeta/enju_purchase_request.git
+  revision: 93d4b916c6055b8c84719c049c8c0b83da5af8e9
+  specs:
+    enju_purchase_request (0.0.1)
+      rails (>= 3.0.10)
+
+GIT
+  remote: git://github.com/nabeta/enju_question.git
+  revision: c00156d7ea7145f1c7ac47922e7fb19e09ebc058
+  specs:
+    enju_question (0.0.1)
+      rails (>= 3.0.10)
+
+GIT
+  remote: git://github.com/nabeta/enju_subject.git
+  revision: ac9797e9eebb8825907f710c92a070fb51e59dca
+  specs:
+    enju_subject (0.0.1)
       rails (>= 3.0.10)
 
 GIT
@@ -147,8 +175,8 @@ GEM
     geocoder (1.0.4)
     guard (0.8.4)
       thor (~> 0.14.6)
-    guard-rspec (0.4.5)
-      guard (>= 0.4.0)
+    guard-rspec (0.5.0)
+      guard (>= 0.8.4)
     has_scope (0.5.1)
     highline (1.6.2)
     hirb (0.5.0)
@@ -160,6 +188,7 @@ GEM
     jquery-rails (1.0.14)
       railties (~> 3.0)
       thor (~> 0.14)
+    json (1.6.1)
     json_pure (1.6.1)
     kgio (2.6.0)
     library_stdnums (1.0.1)
@@ -286,8 +315,9 @@ GEM
       rdoc (~> 3.4)
       thor (~> 0.14.4)
     rake (0.9.2)
-    rcov (0.9.10)
-    rdoc (3.9.4)
+    rcov (0.9.11)
+    rdoc (3.10)
+      json (~> 1.4)
     reek (1.2.8)
       ruby2ruby (~> 1.2)
       ruby_parser (~> 2.0)
@@ -363,7 +393,7 @@ GEM
       timeliness (~> 0.3.3)
     vidibus-routing_error (0.2.1)
       rails (~> 3.0.0)
-    warden (1.0.5)
+    warden (1.0.6)
       rack (>= 1.0)
     whenever (0.6.8)
       aaronh-chronic (>= 0.3.9)
@@ -394,9 +424,13 @@ DEPENDENCIES
   devise (~> 1.4.6)
   dynamic_form
   enju_barcode!
+  enju_bookmark!
   enju_ndl!
   enju_nii!
   enju_oai!
+  enju_purchase_request!
+  enju_question!
+  enju_subject!
   event-calendar
   exception_notification (~> 2.5.2)
   extractcontent
