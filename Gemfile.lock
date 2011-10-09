@@ -7,7 +7,7 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_bookmark.git
-  revision: a65e24cd4d4cc12197dab79d63098727034022c9
+  revision: 747d33963d1d9efeceb732d807007a955b4774f8
   specs:
     enju_bookmark (0.0.1)
       rails (>= 3.0.10)
