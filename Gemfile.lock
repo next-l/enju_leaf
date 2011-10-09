@@ -13,6 +13,13 @@ GIT
       rails (>= 3.0.10)
 
 GIT
+  remote: git://github.com/nabeta/enju_import.git
+  revision: 5811cd389b06a9f2c7f968ea6d63ef132187c216
+  specs:
+    enju_import (0.0.1)
+      rails (>= 3.0.10)
+
+GIT
   remote: git://github.com/nabeta/enju_ndl.git
   revision: 448d5bbc8ed81f19d4b8572aff3ee461db37980a
   specs:
@@ -425,6 +432,7 @@ DEPENDENCIES
   dynamic_form
   enju_barcode!
   enju_bookmark!
+  enju_import!
   enju_ndl!
   enju_nii!
   enju_oai!
