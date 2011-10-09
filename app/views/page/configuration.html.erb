@@ -30,7 +30,7 @@
           <li><%= link_to t('activerecord.models.message_template'), message_templates_path -%></li>
         <% end %>
         <li><%= link_to t('activerecord.models.search_engine'), search_engines_path -%></li>
-        <% if defined?(EnjuBookmark) %>
+        <% if defined?(EnjuBarcode) %>
           <li><%= link_to t('activerecord.models.barcode'), barcodes_path -%></li>
         <% end %>
       </ul>
@@ -57,8 +57,12 @@
         <% end %>
         <li><%= link_to t('activerecord.models.subscription'), subscriptions_path -%></li>
         <!-- <li><%= link_to t('activerecord.models.donate'), donates_path -%></li> -->
-        <li><%= link_to t('activerecord.models.inventory'), inventory_files_path -%></li>
-        <li><%= link_to t('activerecord.models.patron_merge_list'), patron_merge_lists_path -%></li>
+        <% if defined?(EnjuInventory) %>
+          <li><%= link_to t('activerecord.models.inventory'), inventory_files_path -%></li>
+        <% end %>
+        <% if defined?(EnjuResourceMerge) %>
+          <li><%= link_to t('activerecord.models.patron_merge_list'), patron_merge_lists_path -%></li>
+        <% end %>
       </ul>
     </div>
   </div>

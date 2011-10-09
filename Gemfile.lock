@@ -7,14 +7,14 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_bookmark.git
-  revision: ab2871e2e03a4b76984ce7b34a91601f57a708b5
+  revision: a529d6d9e34b657b31c8e15705d7e2b6c34a30d7
   specs:
     enju_bookmark (0.0.1)
       rails (>= 3.0.10)
 
 GIT
   remote: git://github.com/nabeta/enju_circulation.git
-  revision: d435bda74d2e054d82f8e0d3ee83a6603a5997b9
+  revision: a1ffdc424ced294aec60873cbc576df0f089179e
   specs:
     enju_circulation (0.0.1)
       rails (>= 3.0.10)
@@ -24,6 +24,20 @@ GIT
   revision: 0c350f773bfcffde8a7ce01b3345224c3158ec1c
   specs:
     enju_import (0.0.1)
+      rails (>= 3.0.10)
+
+GIT
+  remote: git://github.com/nabeta/enju_inter_library_loan
+  revision: f30338a33230b100cd7f7a9e79723df72680521d
+  specs:
+    enju_inter_library_loan (0.0.1)
+      rails (>= 3.0.10)
+
+GIT
+  remote: git://github.com/nabeta/enju_inventory
+  revision: 897b934c39a972badcd5e18f10227effb2e770a2
+  specs:
+    enju_inventory (0.0.1)
       rails (>= 3.0.10)
 
 GIT
@@ -63,7 +77,7 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_question.git
-  revision: c00156d7ea7145f1c7ac47922e7fb19e09ebc058
+  revision: 66bc1df5b60ad28928639c4863be45e6ea675002
   specs:
     enju_question (0.0.1)
       rails (>= 3.0.10)
@@ -77,7 +91,7 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_subject.git
-  revision: 230f7021144d23bf029124c42ba1efd303031b90
+  revision: b88859fc1ba21fc29f7715367915c2bfe25fb4cd
   specs:
     enju_subject (0.0.1)
       rails (>= 3.0.10)
@@ -455,6 +469,8 @@ DEPENDENCIES
   enju_bookmark!
   enju_circulation!
   enju_import!
+  enju_inter_library_loan!
+  enju_inventory!
   enju_message!
   enju_ndl!
   enju_nii!
