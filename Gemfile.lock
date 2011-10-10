@@ -1,55 +1,56 @@
 GIT
   remote: git://github.com/nabeta/enju_barcode.git
-  revision: c0b35ce39efb3f8fba82ca332c3e5f3eb23eeb7b
+  revision: 85a702bfb686ebf6246c79cafffcad29d9b25a66
   specs:
     enju_barcode (0.0.1)
       rails (>= 3.0.10)
 
 GIT
   remote: git://github.com/nabeta/enju_bookmark.git
-  revision: a529d6d9e34b657b31c8e15705d7e2b6c34a30d7
+  revision: 8d4c2dd5a0bc34954ae59c5aed36550ae0be12a2
   specs:
     enju_bookmark (0.0.1)
       rails (>= 3.0.10)
 
 GIT
   remote: git://github.com/nabeta/enju_circulation.git
-  revision: a1ffdc424ced294aec60873cbc576df0f089179e
+  revision: 9576cc12c55af4597e321e395eb164e33cb3a214
   specs:
     enju_circulation (0.0.1)
       rails (>= 3.0.10)
 
 GIT
-  remote: git://github.com/nabeta/enju_import.git
-  revision: 0c350f773bfcffde8a7ce01b3345224c3158ec1c
+  remote: git://github.com/nabeta/enju_event.git
+  revision: fad633fcce1a2ba62079f9996a5c66b170942a05
   specs:
-    enju_import (0.0.1)
+    enju_event (0.0.1)
+      event-calendar (~> 2.3.3)
       rails (>= 3.0.10)
 
 GIT
-  remote: git://github.com/nabeta/enju_inter_library_loan
-  revision: f30338a33230b100cd7f7a9e79723df72680521d
+  remote: git://github.com/nabeta/enju_inter_library_loan.git
+  revision: b212cfd0ac8bee1ee4f94a348fc6e7100c6d1799
   specs:
     enju_inter_library_loan (0.0.1)
       rails (>= 3.0.10)
 
 GIT
-  remote: git://github.com/nabeta/enju_inventory
-  revision: 897b934c39a972badcd5e18f10227effb2e770a2
+  remote: git://github.com/nabeta/enju_inventory.git
+  revision: 8b99138d88ef55507bb7810d1d1ec7ce16d13a5e
   specs:
     enju_inventory (0.0.1)
       rails (>= 3.0.10)
 
 GIT
   remote: git://github.com/nabeta/enju_message.git
-  revision: 55c60874a65f44616e0613176515be6066bd4c63
+  revision: 410d2c358b4b890f9dc22e9359f89b8775b5124b
   specs:
     enju_message (0.0.1)
       rails (>= 3.0.10)
 
 GIT
   remote: git://github.com/nabeta/enju_ndl.git
-  revision: d24f7e148bfed3b282edd60d2b1f7d0de93431dc
+  revision: 5e891499f9c00022959e5c690145eac05ddd2e34
   specs:
     enju_ndl (0.0.2)
       rails (>= 3.0.10)
@@ -91,7 +92,7 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_subject.git
-  revision: b88859fc1ba21fc29f7715367915c2bfe25fb4cd
+  revision: 9ec90ed6ff7217789a100a2226c9df19311a489f
   specs:
     enju_subject (0.0.1)
       rails (>= 3.0.10)
@@ -191,7 +192,7 @@ GEM
     delayed_job (2.1.4)
       activesupport (~> 3.0)
       daemons
-    devise (1.4.7)
+    devise (1.4.8)
       bcrypt-ruby (~> 3.0)
       orm_adapter (~> 0.0.3)
       warden (~> 1.0.3)
@@ -473,17 +474,17 @@ DEPENDENCIES
   attribute_normalizer (~> 1.0)
   awesome_nested_set (~> 2.0)
   barby (~> 0.5)
-  cancan (>= 1.6.5)
+  cancan (>= 1.6.7)
   client_side_validations
   configatron
   dalli (~> 1.1)
   delayed_job (>= 2.1.4)
-  devise (~> 1.4.6)
+  devise (~> 1.4.8)
   dynamic_form
   enju_barcode!
   enju_bookmark!
   enju_circulation!
-  enju_import!
+  enju_event!
   enju_inter_library_loan!
   enju_inventory!
   enju_message!
@@ -515,7 +516,7 @@ DEPENDENCIES
   marc
   metric_fu (~> 2.1)
   nokogiri
-  omniauth (>= 0.2.6)
+  omniauth (~> 0.3)
   paper_trail (~> 2.4)
   paperclip (~> 2.4)
   parallel_tests
