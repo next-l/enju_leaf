@@ -54,8 +54,6 @@ class Ability
         InterLibraryLoan,
         ManifestationRelationship,
         ManifestationRelationshipType,
-        Order,
-        OrderList,
         Own,
         Participate,
         PatronImportFile,
@@ -65,7 +63,6 @@ class Ability
         PatronRelationshipType,
         PictureFile,
         Produce,
-        PurchaseRequest,
         Realize,
         ResourceImportFile,
         SearchEngine,
@@ -115,10 +112,6 @@ class Ability
       can [:update, :destroy], Patron do |patron|
         !patron.user.try(:has_role?, 'Librarian') and patron.required_role_id <= 3
       end
-      can [:index, :create], PurchaseRequest
-      can [:show, :update, :destroy], PurchaseRequest do |purchase_request|
-        purchase_request.user == user
-      end
       can :index, SearchHistory
       can [:show, :destroy], SearchHistory do |search_history|
         search_history.user == user
@@ -136,8 +129,6 @@ class Ability
         ImportRequest,
         InterLibraryLoan,
         ManifestationRelationship,
-        Order,
-        OrderList,
         Own,
         Participate,
         PatronImportFile,
@@ -146,7 +137,6 @@ class Ability
         PatronRelationship,
         PictureFile,
         Produce,
-        PurchaseRequest,
         Realize,
         ResourceImportFile,
         SearchHistory,
@@ -211,10 +201,6 @@ class Ability
         rescue NoMethodError
           true
         end
-      end
-      can [:index, :create], PurchaseRequest
-      can [:show, :update, :destroy], PurchaseRequest do |purchase_request|
-        purchase_request.user == user
       end
       can :index, SearchHistory
       can [:show, :destroy], SearchHistory do |search_history|
@@ -532,6 +518,29 @@ class Ability
           InventoryFile
         ]
       when 'User'
+      else
+      end
+    end
+
+    if defined?(EnjuPurchaseRequest)
+      case user.try(:role).try(:name)
+      when 'Administrator'
+        can :manage, [
+          Order,
+          OrderList,
+          PurchaseRequest
+        ]
+      when 'Librarian'
+        can :manage, [
+          Order,
+          OrderList,
+          PurchaseRequest
+        ]
+      when 'User'
+        can [:index, :create], PurchaseRequest
+        can [:show, :update, :destroy], PurchaseRequest do |purchase_request|
+          purchase_request.user == user
+        end
       else
       end
     end
