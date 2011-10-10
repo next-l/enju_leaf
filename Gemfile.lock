@@ -7,9 +7,16 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_bookmark.git
-  revision: 747d33963d1d9efeceb732d807007a955b4774f8
+  revision: ab2871e2e03a4b76984ce7b34a91601f57a708b5
   specs:
     enju_bookmark (0.0.1)
+      rails (>= 3.0.10)
+
+GIT
+  remote: git://github.com/nabeta/enju_circulation.git
+  revision: d435bda74d2e054d82f8e0d3ee83a6603a5997b9
+  specs:
+    enju_circulation (0.0.1)
       rails (>= 3.0.10)
 
 GIT
@@ -20,8 +27,15 @@ GIT
       rails (>= 3.0.10)
 
 GIT
+  remote: git://github.com/nabeta/enju_message.git
+  revision: 55c60874a65f44616e0613176515be6066bd4c63
+  specs:
+    enju_message (0.0.1)
+      rails (>= 3.0.10)
+
+GIT
   remote: git://github.com/nabeta/enju_ndl.git
-  revision: 448d5bbc8ed81f19d4b8572aff3ee461db37980a
+  revision: d24f7e148bfed3b282edd60d2b1f7d0de93431dc
   specs:
     enju_ndl (0.0.2)
       rails (>= 3.0.10)
@@ -439,7 +453,9 @@ DEPENDENCIES
   dynamic_form
   enju_barcode!
   enju_bookmark!
+  enju_circulation!
   enju_import!
+  enju_message!
   enju_ndl!
   enju_nii!
   enju_oai!

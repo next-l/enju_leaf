@@ -54,24 +54,26 @@
         <td></td>
       </tr>
     <% end %>
-    <tr>
-      <td><%= link_to t('activerecord.models.checkout'), checkouts_path -%></td>
-      <td>
-        <%= Checkout.count -%>
-        (<%= link_to t('activerecord.attributes.checkout_stat_has_user.checkouts_count'), user_checkout_stats_path -%>)
-        (<%= link_to t('activerecord.attributes.checkout_stat_has_manifestation.checkouts_count'), manifestation_checkout_stats_path -%>)
-      </td>
-      <td></td>
-    </tr>
-    <tr>
-      <td><%= link_to t('activerecord.models.reserve'), reserves_path -%></td>
-      <td>
-        <%= Reserve.count -%>
-        (<%= link_to t('activerecord.attributes.reserve_stat_has_user.reserves_count'), user_reserve_stats_path -%>)
-        (<%= link_to t('activerecord.attributes.reserve_stat_has_manifestation.reserves_count'), manifestation_reserve_stats_path -%>)
-      </td>
-      <td></td>
-    </tr>
+    <% if defined?(EnjuCirculation) %>
+      <tr>
+        <td><%= link_to t('activerecord.models.checkout'), checkouts_path -%></td>
+        <td>
+          <%= Checkout.count -%>
+          (<%= link_to t('activerecord.attributes.checkout_stat_has_user.checkouts_count'), user_checkout_stats_path -%>)
+          (<%= link_to t('activerecord.attributes.checkout_stat_has_manifestation.checkouts_count'), manifestation_checkout_stats_path -%>)
+        </td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><%= link_to t('activerecord.models.reserve'), reserves_path -%></td>
+        <td>
+          <%= Reserve.count -%>
+          (<%= link_to t('activerecord.attributes.reserve_stat_has_user.reserves_count'), user_reserve_stats_path -%>)
+          (<%= link_to t('activerecord.attributes.reserve_stat_has_manifestation.reserves_count'), manifestation_reserve_stats_path -%>)
+        </td>
+        <td></td>
+      </tr>
+    <% end %>
     <% if defined?(EnjuPurchaseRequest) %>
       <tr>
         <td><%= link_to t('activerecord.models.purchase_request'), purchase_requests_path -%></td>

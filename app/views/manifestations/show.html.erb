@@ -57,25 +57,27 @@
         <% end %>
 
       <%- unless @manifestation.carrier_type.name == 'file' -%>
-        <li>
-          <% if @manifestation.is_reservable_by?(current_user) %>
-            <%- if current_user.has_role?('Librarian') -%>
-              <%= link_to t('manifestation.reserve_this'), new_reserve_path(:manifestation_id => @manifestation.id) -%>
-            <%- else -%>
-              <%- if @manifestation.is_reserved_by?(current_user) -%>
-                <%= link_to t('manifestation.cancel_reservation'), user_reserve_path(@reserve.user, @reserve) -%>
+        <% if defined?(EnjuCirculation) %>
+          <li>
+            <% if @manifestation.is_reservable_by?(current_user) %>
+              <%- if current_user.has_role?('Librarian') -%>
+                <%= link_to t('manifestation.reserve_this'), new_reserve_path(:manifestation_id => @manifestation.id) -%>
               <%- else -%>
-                <%= link_to t('manifestation.reserve_this'), new_user_reserve_path(current_user, :manifestation_id => @manifestation.id) -%>
+                <%- if @manifestation.is_reserved_by?(current_user) -%>
+                  <%= link_to t('manifestation.cancel_reservation'), user_reserve_path(@reserve.user, @reserve) -%>
+                <%- else -%>
+                  <%= link_to t('manifestation.reserve_this'), new_user_reserve_path(current_user, :manifestation_id => @manifestation.id) -%>
+                <%- end -%>
               <%- end -%>
+              <br />
+              (<%= t('page.number_of_reservations', :count => @reserved_count) -%>)
+            <%- else -%>
+              <% if defined?(EnjuPurchaseRequest) %>
+                <%= link_to t('activerecord.models.purchase_request'), new_user_purchase_request_path(current_user, :purchase_request => {:url => manifestation_url(@manifestation)}) %>
+              <% end %>
             <%- end -%>
-            <br />
-            (<%= t('page.number_of_reservations', :count => @reserved_count) -%>)
-          <%- else -%>
-            <% if defined?(EnjuPurchaseRequest) %>
-              <%= link_to t('activerecord.models.purchase_request'), new_user_purchase_request_path(current_user, :purchase_request => {:url => manifestation_url(@manifestation)}) %>
-            <% end %>
-          <%- end -%>
-        </li>
+          </li>
+        <% end %>
       <%- end -%>
       </ul>
 
