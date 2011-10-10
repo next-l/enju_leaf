@@ -8,10 +8,6 @@ class Ability
       can :destroy, Bookstore do |bookstore|
         bookstore.order_lists.empty? and bookstore.items.empty?
       end
-      can [:read, :create], EventCategory
-      can [:update, :destroy], EventCategory do |event_category|
-        !['unknown', 'closed'].include?(event_category.name)
-      end
       can [:read, :create, :update], Item
       can :destroy, Item do |item|
         item.deletable?
@@ -47,18 +43,13 @@ class Ability
       can :manage, [
         Create,
         Donate,
-        Event,
         Exemplify,
-        EventImportFile,
         ImportRequest,
-        InterLibraryLoan,
         ManifestationRelationship,
         ManifestationRelationshipType,
         Own,
         Participate,
         PatronImportFile,
-        PatronMerge,
-        PatronMergeList,
         PatronRelationship,
         PatronRelationshipType,
         PictureFile,
@@ -69,8 +60,6 @@ class Ability
         SearchHistory,
         SeriesStatement,
         SeriesHasManifestation,
-        SeriesStatementMerge,
-        SeriesStatementMergeList,
         Subscribe,
         Subscription,
         UserHasRole
@@ -92,7 +81,6 @@ class Ability
         Role
       ]
       can :read, [
-        EventImportResult,
         PatronImportResult,
         ResourceImportResult
       ]
@@ -123,17 +111,12 @@ class Ability
       can :manage, [
         Create,
         Donate,
-        Event,
         Exemplify,
-        EventImportFile,
         ImportRequest,
-        InterLibraryLoan,
         ManifestationRelationship,
         Own,
         Participate,
         PatronImportFile,
-        PatronMerge,
-        PatronMergeList,
         PatronRelationship,
         PictureFile,
         Produce,
@@ -142,8 +125,6 @@ class Ability
         SearchHistory,
         SeriesStatement,
         SeriesHasManifestation,
-        SeriesStatementMerge,
-        SeriesStatementMergeList,
         Subscribe,
         Subscription
       ]
@@ -152,8 +133,6 @@ class Ability
         CarrierType,
         ContentType,
         Country,
-        EventCategory,
-        EventImportResult,
         Extent,
         Frequency,
         FormOfWork,
@@ -215,8 +194,6 @@ class Ability
         ContentType,
         Country,
         Create,
-        Event,
-        EventCategory,
         Exemplify,
         Extent,
         Frequency,
@@ -248,8 +225,6 @@ class Ability
         ContentType,
         Country,
         Create,
-        Event,
-        EventCategory,
         Exemplify,
         Extent,
         Frequency,
@@ -517,8 +492,6 @@ class Ability
           Inventory,
           InventoryFile
         ]
-      when 'User'
-      else
       end
     end
 
@@ -541,7 +514,68 @@ class Ability
         can [:show, :update, :destroy], PurchaseRequest do |purchase_request|
           purchase_request.user == user
         end
+      end
+    end
+
+    if defined?(EnjuResourceMerge)
+      case user.try(:role).try(:name)
+      when 'Administrator'
+        can :manage, [
+          PatronMerge,
+          PatronMergeList,
+          SeriesStatementMerge,
+          SeriesStatementMergeList
+        ]
+      when 'Librarian'
+        can :manage, [
+          PatronMerge,
+          PatronMergeList,
+          SeriesStatementMerge,
+          SeriesStatementMergeList
+        ]
+      end
+    end
+
+    if defined?(EnjuEvent)
+      case user.try(:role).try(:name)
+      when 'Administrator'
+        can [:read, :create], EventCategory
+        can [:update, :destroy], EventCategory do |event_category|
+          !['unknown', 'closed'].include?(event_category.name)
+        end
+        can :manage, [
+          Event,
+          EventImportFile
+        ]
+        can :read, EventImportResult
+      when 'Librarian'
+        can :manage, [
+          Event,
+          EventImportFile
+        ]
+        can :read, [
+          EventCategory,
+          EventImportResult
+        ]
+      when 'User'
+        can :read, [
+          Event,
+          EventCategory
+        ]
       else
+        can :read, [
+          Event,
+          EventCategory
+        ]
+      end
+    end
+
+    if defined?(EnjuInterLibraryLoan)
+      case user.try(:role).try(:name)
+      when 'Administrator'
+        can :manage, InterLibraryLoan
+      when 'Librarian'
+        can :manage, InterLibraryLoan
       end
     end
   end
