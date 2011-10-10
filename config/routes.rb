@@ -132,6 +132,21 @@ EnjuLeaf::Application.routes.draw do
 
   resources :manifestation_relationships
 
+  resources :resource_import_files do
+    resources :resource_import_results, :only => [:index, :show, :destroy]
+  end
+
+  resources :patron_import_files do
+    resources :patron_import_results, :only => [:index, :show, :destroy]
+  end
+
+  resources :event_import_files do
+    resources :event_import_results, :only => [:index, :show, :destroy]
+  end
+  resources :event_import_results, :only => [:index, :show, :destroy]
+  resources :patron_import_results, :only => [:index, :show, :destroy]
+  resources :resource_import_results, :only => [:index, :show, :destroy]
+
   resources :items do
     resources :patrons
     resources :owns
