@@ -13,6 +13,13 @@ GIT
       rails (>= 3.0.10)
 
 GIT
+  remote: git://github.com/nabeta/enju_import.git
+  revision: 0c350f773bfcffde8a7ce01b3345224c3158ec1c
+  specs:
+    enju_import (0.0.1)
+      rails (>= 3.0.10)
+
+GIT
   remote: git://github.com/nabeta/enju_ndl.git
   revision: 448d5bbc8ed81f19d4b8572aff3ee461db37980a
   specs:
@@ -48,8 +55,15 @@ GIT
       rails (>= 3.0.10)
 
 GIT
+  remote: git://github.com/nabeta/enju_resource_merge.git
+  revision: 424b018b614461a07199349ef0b41756c89a4fc1
+  specs:
+    enju_resource_merge (0.0.1)
+      rails (>= 3.0.10)
+
+GIT
   remote: git://github.com/nabeta/enju_subject.git
-  revision: ac9797e9eebb8825907f710c92a070fb51e59dca
+  revision: 230f7021144d23bf029124c42ba1efd303031b90
   specs:
     enju_subject (0.0.1)
       rails (>= 3.0.10)
@@ -425,11 +439,13 @@ DEPENDENCIES
   dynamic_form
   enju_barcode!
   enju_bookmark!
+  enju_import!
   enju_ndl!
   enju_nii!
   enju_oai!
   enju_purchase_request!
   enju_question!
+  enju_resource_merge!
   enju_subject!
   event-calendar
   exception_notification (~> 2.5.2)

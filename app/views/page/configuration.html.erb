@@ -17,9 +17,11 @@
           </ul>
         </li>
         <li><%= link_to t('activerecord.models.event_category'), event_categories_path -%>
+        <% if defined?(EnjuImport) %>
           <ul>
             <li><%= link_to t('page.new', :model => t('activerecord.models.event_import_file')), new_event_import_file_path %></li>
           </ul>
+        <% end %>
         </li>
         <li><%= link_to t('activerecord.models.bookstore'), bookstores_path -%></li>
         <li><%= link_to t('activerecord.models.message_template'), message_templates_path -%></li>

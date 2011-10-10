@@ -107,6 +107,11 @@ describe ItemsController do
         assigns(:item).should be_valid
         response.should be_success
       end
+
+      it "should not get new without manifestation_id" do
+        get :new
+        response.should redirect_to(manifestations_url)
+      end
     end
 
     describe "When logged in as Librarian" do
