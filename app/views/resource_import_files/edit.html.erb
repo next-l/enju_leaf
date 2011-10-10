@@ -1,0 +1,25 @@
+<div id="content_detail" class="ui-corner-all">
+<h1 class="title"><%= t('page.editing', :model => t('activerecord.models.resource_import_file')) -%></h1>
+<div id="content_list">
+
+<%= form_for(@resource_import_file) do |f| -%>
+  <%= f.error_messages -%>
+
+  <div class="field">
+    <%= f.label :resource_import_file_name -%><br />
+    <%= f.text_field :resource_import_file_name -%>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<%- end -%>
+
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all">
+  <ul>
+    <li><%= link_to t('page.show'), @resource_import_file -%></li>
+    <li><%= link_to t('page.back'), resource_import_files_path -%></li>
+  </ul>
+</div>

@@ -1,0 +1,52 @@
+<div id="content_detail" class="ui-corner-all">
+<h1 class="title"><%= t('page.listing', :model => t('activerecord.models.resource_import_result')) -%></h1>
+<div id="content_list">
+  <% if @resource_import_file %>
+    <h2 class="resource_title">
+      <%= link_to @resource_import_file.resource_import_file_name, @resource_import_file %>
+    </h2>
+  <% end %>
+
+<table class="index">
+  <tr>
+    <th><%= t('activerecord.models.resource_import_file') %></th>
+    <th><%= t('activerecord.models.manifestation') %></th>
+    <th><%= t('activerecord.models.item') %></th>
+    <th></th>
+  </tr>
+
+<% @resource_import_results.each do |resource_import_result| %>
+  <tr class="line<%= cycle("0", "1") -%>">
+    <td>
+      <%= link_to resource_import_result.resource_import_file.resource_import_file_name, resource_import_result.resource_import_file %>
+      <br />
+      <%=l resource_import_result.created_at %>
+    </td>
+    <td><%= link_to resource_import_result.manifestation.original_title, resource_import_result.manifestation if resource_import_result.manifestation %></td>
+    <td><%= link_to resource_import_result.item.item_identifier, resource_import_result.item if resource_import_result.item %></td>
+    <td>
+      <%= link_to t('page.show'), resource_import_result %>
+      <%= link_to t('page.destroy'), resource_import_result, :confirm => t('page.are_you_sure'), :method => :delete %>
+    </td>
+  </tr>
+<% end %>
+</table>
+
+<%= will_paginate(@resource_import_results) %>
+
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all">
+  <ul>
+    <li>
+    <% if @resource_import_file %>
+      <%= link_to (image_tag 'icons/page_white_excel.png', :size => '16x16', :alt => 'CSV', :class => 'icon'), resource_import_file_resource_import_results_path(@resource_import_file, :format => :csv, :locale => @locale.to_s) -%>
+      (<%= link_to 'CSV', resource_import_file_resource_import_results_path(:format => :csv, :locale => @locale.to_s) -%>)
+    <% else %>
+      <%= link_to (image_tag 'icons/page_white_excel.png', :size => '16x16', :alt => 'CSV', :class => 'icon'), resource_import_results_path(:format => :csv, :locale => @locale.to_s) -%>
+      (<%= link_to 'CSV', resource_import_results_path(:format => :csv, :locale => @locale.to_s) -%>)
+    <% end %>
+    </li>
+  </ul>
+</div>

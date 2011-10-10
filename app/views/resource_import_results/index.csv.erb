@@ -1,0 +1,4 @@
+manifestation_id  item_id
+<%- @resource_import_results.each do |resource_import_result| -%>
+<%= resource_import_result.manifestation_id %>  <%= resource_import_result.item_id %> <%= resource_import_result.body %>
+<%- end -%>
