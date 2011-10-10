@@ -13,7 +13,9 @@
       <%= render 'page/search_form' -%>
       <p><%= t('page.number_of_manifestations', :numdocs => Manifestation.cached_numdocs, :count => Manifestation.cached_numdocs) -%></p>
       <h3 style="display: inline"><%= link_to t('page.new_resource'), manifestations_path(:mode => 'recent') -%></h3>
-      <h4 style="display: inline"><%= link_to t('activerecord.models.question'), questions_path %></h4>
+      <% if defined?(EnjuQuestion) %>
+        <h4 style="display: inline"><%= link_to t('activerecord.models.question'), questions_path %></h4>
+      <% end %>
       <% if defined?(EnjuBookmark) %>
         <% if user_signed_in? %>
           <h4 style="display: inline"><%= link_to t('activerecord.models.bookmark'), user_bookmarks_path(current_user) %></h4>

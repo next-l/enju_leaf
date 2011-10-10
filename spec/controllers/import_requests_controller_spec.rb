@@ -219,14 +219,14 @@ describe ImportRequestsController do
       end
 
       describe "with isbn which is already imported" do
-        it "assigns a newly created but unsaved import_request as @import_request" do
+        it "assigns a newly created import_request as @import_request" do
           post :create, :import_request => {:isbn => manifestations(:manifestation_00001).isbn}
-          assigns(:import_request).should_not be_valid
+          assigns(:import_request).should be_valid
         end
 
-        it "re-renders the 'new' template" do
-          post :create, :import_request => @invalid_attrs
-          response.should render_template("new")
+        it "redirects to the created import_request" do
+          post :create, :import_request => @attrs
+          response.should redirect_to manifestation_items_url(assigns(:import_request).manifestation)
         end
       end
     end
