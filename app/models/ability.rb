@@ -80,7 +80,6 @@ class Ability
       ]
       can [:read, :update], [
         CarrierType,
-        CirculationStatus,
         ContentType,
         Country,
         Extent,
@@ -93,8 +92,7 @@ class Ability
         PatronType,
         RequestStatusType,
         RequestType,
-        Role,
-        UseRestriction
+        Role
       ]
       can :read, [
         EventImportResult,
@@ -150,7 +148,6 @@ class Ability
         Produce,
         PurchaseRequest,
         Realize,
-        Reserve,
         ResourceImportFile,
         SearchHistory,
         SeriesStatement,
@@ -163,11 +160,6 @@ class Ability
       can :read, [
         Bookstore,
         CarrierType,
-        CarrierTypeHasCheckoutType,
-        CheckoutType,
-        CheckoutStatHasManifestation,
-        CheckoutStatHasUser,
-        CirculationStatus,
         ContentType,
         Country,
         EventCategory,
@@ -186,15 +178,11 @@ class Ability
         PatronType,
         RequestStatusType,
         RequestType,
-        ReserveStatHasManifestation,
-        ReserveStatHasUser,
         ResourceImportResult,
         Role,
         SearchEngine,
         Shelf,
-        UseRestriction,
-        UserGroup,
-        UserGroupHasCheckoutType
+        UserGroup
       ]
     when 'User'
       can :index, Item
@@ -238,7 +226,6 @@ class Ability
       end
       can :read, [
         CarrierType,
-        CirculationStatus,
         ContentType,
         Country,
         Create,
@@ -272,7 +259,6 @@ class Ability
       end
       can :read, [
         CarrierType,
-        CirculationStatus,
         ContentType,
         Country,
         Create,
@@ -472,6 +458,10 @@ class Ability
           UserGroupHasCheckoutType,
           UserReserveStat
         ]
+        can [:read, :update], [
+          CirculationStatus,
+          UseRestriction
+        ]
       when 'Librarian'
         can :manage, [
           Basket,
@@ -479,7 +469,8 @@ class Ability
           Checkin,
           Checkout,
           ManifestationCheckoutStat,
-          ManifestationReserveStat
+          ManifestationReserveStat,
+          Reserve
         ]
         can [:index, :create], Reserve
         can [:update, :destroy, :show], Reserve do |reserve|
@@ -488,8 +479,17 @@ class Ability
         can [:read, :create, :update], UserCheckoutStat
         can [:read, :create, :update], UserReserveStat
         can :read, [
+          CarrierTypeHasCheckoutType,
+          CheckoutType,
+          CheckoutStatHasManifestation,
+          CheckoutStatHasUser,
+          CirculationStatus,
           ItemHasUseRestriction,
-          LendingPolicy
+          LendingPolicy,
+          ReserveStatHasManifestation,
+          ReserveStatHasUser,
+          UseRestriction,
+          UserGroupHasCheckoutType
         ]
       when 'User'
         can [:index, :create], Checkout
@@ -501,6 +501,7 @@ class Ability
           reserve.user == user
         end
         can :read, [
+          CirculationStatus,
           ManifestationCheckoutStat,
           ManifestationReserveStat,
           UserCheckoutStat,
@@ -509,6 +510,7 @@ class Ability
       else
         can :index, Checkout
         can :read, [
+          CirculationStatus,
           ManifestationCheckoutStat,
           ManifestationReserveStat,
           UserCheckoutStat,

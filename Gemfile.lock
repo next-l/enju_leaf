@@ -90,14 +90,6 @@ GIT
       rails (>= 3.0.10)
 
 GIT
-  remote: git://github.com/nabeta/enju_scribd.git
-  revision: ad80f2b16f73cb48b61361d708663bee6b14281b
-  specs:
-    enju_scribd (0.0.1)
-      rails (>= 3.0.10)
-      scribd_fu
-
-GIT
   remote: git://github.com/nabeta/enju_subject.git
   revision: 9ec90ed6ff7217789a100a2226c9df19311a489f
   specs:
@@ -379,8 +371,6 @@ GEM
     roodi (2.1.0)
       ruby_parser
     rqrcode (0.4.2)
-    rscribd (1.3.0)
-      mime-types
     rsolr (1.0.2)
       builder (>= 2.1.2)
     rspec (2.6.0)
@@ -408,8 +398,6 @@ GEM
     rubyntlm (0.1.1)
     sanitize (2.0.3)
       nokogiri (>= 1.4.4, < 1.6)
-    scribd_fu (2.0.11)
-      rscribd
     sexp_processor (3.0.7)
     simple_form (1.5.2)
       actionpack (~> 3.0)
@@ -490,7 +478,6 @@ DEPENDENCIES
   enju_purchase_request!
   enju_question!
   enju_resource_merge!
-  enju_scribd!
   enju_subject!
   event-calendar
   exception_notification (~> 2.5.2)
