@@ -207,7 +207,11 @@ class PatronsController < ApplicationController
     respond_to do |format|
       if @patron.update_attributes(params[:patron])
         flash[:notice] = t('controller.successfully_updated', :model => t('activerecord.models.patron'))
-        format.html { redirect_to(@patron) }
+        if params[:checked_item] == 'true'
+          format.html { redirect_to :back }
+        else  
+          format.html { redirect_to(@patron) }
+        end
         format.xml  { head :ok }
       else
         prepare_options
