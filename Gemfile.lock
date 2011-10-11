@@ -1,101 +1,103 @@
 GIT
   remote: git://github.com/nabeta/enju_barcode.git
-  revision: 85a702bfb686ebf6246c79cafffcad29d9b25a66
+  revision: f762b4641fa05b6c000be21899b4bf30f9b5fcfb
   specs:
     enju_barcode (0.0.1)
-      rails (>= 3.0.10)
+      barby (~> 0.5)
+      rails (~> 3.1.1)
+      rqrcode
 
 GIT
   remote: git://github.com/nabeta/enju_bookmark.git
-  revision: 8d4c2dd5a0bc34954ae59c5aed36550ae0be12a2
+  revision: 5c67ba92e7cedb15229b1b62f49659226d0c6364
   specs:
     enju_bookmark (0.0.1)
-      rails (>= 3.0.10)
+      rails (~> 3.1.1)
 
 GIT
   remote: git://github.com/nabeta/enju_circulation.git
-  revision: 9576cc12c55af4597e321e395eb164e33cb3a214
+  revision: 89ce77d24eb6e65f5ae14751efc813026c487d16
   specs:
     enju_circulation (0.0.1)
-      rails (>= 3.0.10)
+      rails (~> 3.1.1)
 
 GIT
   remote: git://github.com/nabeta/enju_event.git
-  revision: fad633fcce1a2ba62079f9996a5c66b170942a05
+  revision: a1d4e074573a8175369a2f1d6e5d6504074e667c
   specs:
     enju_event (0.0.1)
       event-calendar (~> 2.3.3)
-      rails (>= 3.0.10)
+      rails (~> 3.1.1)
 
 GIT
   remote: git://github.com/nabeta/enju_inter_library_loan.git
-  revision: b212cfd0ac8bee1ee4f94a348fc6e7100c6d1799
+  revision: 92150d6e85c612c61e9a582d3e14e6d94a244d24
   specs:
     enju_inter_library_loan (0.0.1)
-      rails (>= 3.0.10)
+      rails (~> 3.1.1)
 
 GIT
   remote: git://github.com/nabeta/enju_inventory.git
-  revision: 8b99138d88ef55507bb7810d1d1ec7ce16d13a5e
+  revision: a2a47a20296c4d42effbc71245486d3a32005779
   specs:
     enju_inventory (0.0.1)
-      rails (>= 3.0.10)
+      rails (~> 3.1.1)
 
 GIT
   remote: git://github.com/nabeta/enju_message.git
-  revision: 410d2c358b4b890f9dc22e9359f89b8775b5124b
+  revision: 74175fdf6974a70325237667565c34ba569cf20d
   specs:
     enju_message (0.0.1)
-      rails (>= 3.0.10)
+      rails (~> 3.1.1)
 
 GIT
   remote: git://github.com/nabeta/enju_ndl.git
-  revision: 5e891499f9c00022959e5c690145eac05ddd2e34
+  revision: 240bdbd45582f05bcb72c8258291de0bc08d7565
   specs:
     enju_ndl (0.0.2)
-      rails (>= 3.0.10)
+      rails (~> 3.1.1)
 
 GIT
   remote: git://github.com/nabeta/enju_nii.git
-  revision: ac89bad41d6a52bae97884aa2660f94e9d6ee49c
+  revision: fd7c35a2c549da63319554019e5dadadf24faf33
   specs:
     enju_nii (0.0.1)
-      rails (>= 3.0.10)
+      rails (~> 3.1.1)
 
 GIT
   remote: git://github.com/nabeta/enju_oai.git
-  revision: 424c9a00305508cd5bc5f3272e7ef4efd9f71e92
+  revision: a80b77a29de29e5022d135b3594338d87df3d916
   specs:
     enju_oai (0.0.1)
-      rails (>= 3.0.10)
+      rails (~> 3.1.1)
 
 GIT
   remote: git://github.com/nabeta/enju_purchase_request.git
-  revision: 93d4b916c6055b8c84719c049c8c0b83da5af8e9
+  revision: 6acd6feaf22301e49fcf0b471bba2bebd7e83fe5
   specs:
     enju_purchase_request (0.0.1)
-      rails (>= 3.0.10)
+      rails (~> 3.1.1)
 
 GIT
   remote: git://github.com/nabeta/enju_question.git
-  revision: 66bc1df5b60ad28928639c4863be45e6ea675002
+  revision: eebcc2e2ec60a1564776034fa5ba4881305c1db3
   specs:
     enju_question (0.0.1)
-      rails (>= 3.0.10)
+      rails (~> 3.1.1)
 
 GIT
   remote: git://github.com/nabeta/enju_resource_merge.git
-  revision: 424b018b614461a07199349ef0b41756c89a4fc1
+  revision: b054afc2c261f19e93dfc9517549b4aa0627b2fd
   specs:
     enju_resource_merge (0.0.1)
-      rails (>= 3.0.10)
+      rails (~> 3.1.1)
 
 GIT
   remote: git://github.com/nabeta/enju_subject.git
-  revision: 9ec90ed6ff7217789a100a2226c9df19311a489f
+  revision: 1765af8e306ed5b4f8fe60cac5149d42e1710824
   specs:
     enju_subject (0.0.1)
-      rails (>= 3.0.10)
+      rails (~> 3.1.1)
 
 GIT
   remote: git://github.com/nabeta/isbn-tools.git
@@ -473,7 +475,6 @@ DEPENDENCIES
   astrails-safe
   attribute_normalizer (~> 1.0)
   awesome_nested_set (~> 2.0)
-  barby (~> 0.5)
   cancan (>= 1.6.7)
   client_side_validations
   configatron
@@ -495,7 +496,6 @@ DEPENDENCIES
   enju_question!
   enju_resource_merge!
   enju_subject!
-  event-calendar
   exception_notification (~> 2.5.2)
   extractcontent
   factory_girl_rails (~> 1.2)
@@ -526,7 +526,6 @@ DEPENDENCIES
   rails (= 3.1.1)
   rake (= 0.9.2)
   ri_cal
-  rqrcode
   rspec-rails
   ruby-prof
   rubyzip2

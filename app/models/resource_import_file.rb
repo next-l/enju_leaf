@@ -364,16 +364,16 @@ class ResourceImportFile < ActiveRecord::Base
       end_page = nil
     end
 
+    creators = row['creator'].to_s.split(';')
+    creator_transcriptions = row['creator_transcription'].to_s.split(';')
+    creators_list = creators.zip(creator_transcriptions).map{|f,t| {:full_name => f.to_s.strip, :full_name_transcription => t.to_s.strip}}
+    contributors = row['contributor'].to_s.split(';')
+    contributor_transcriptions = row['contributor_transcription'].to_s.split(';')
+    contributors_list = contributors.zip(contributor_transcriptions).map{|f,t| {:full_name => f.to_s.strip, :full_name_transcription => t.to_s.strip}}
+    publishers = row['publisher'].to_s.split(';')
+    publisher_transcriptions = row['publisher_transcription'].to_s.split(';')
+    publishers_list = publishers.zip(publisher_transcriptions).map{|f,t| {:full_name => f.to_s.strip, :full_name_transcription => t.to_s.strip}}
     ResourceImportFile.transaction do
-      creators = row['creator'].to_s.split(';')
-      creator_transcriptions = row['creator_transcription'].to_s.split(';')
-      creators_list = creators.zip(creator_transcriptions).map{|f,t| {:full_name => f.to_s.strip, :full_name_transcription => t.to_s.strip}}
-      contributors = row['contributor'].to_s.split(';')
-      contributor_transcriptions = row['contributor_transcription'].to_s.split(';')
-      contributors_list = contributors.zip(contributor_transcriptions).map{|f,t| {:full_name => f.to_s.strip, :full_name_transcription => t.to_s.strip}}
-      publishers = row['publisher'].to_s.split(';')
-      publisher_transcriptions = row['publisher_transcription'].to_s.split(';')
-      publishers_list = publishers.zip(publisher_transcriptions).map{|f,t| {:full_name => f.to_s.strip, :full_name_transcription => t.to_s.strip}}
       creator_patrons = Patron.import_patrons(creators_list)
       contributor_patrons = Patron.import_patrons(contributors_list)
       publisher_patrons = Patron.import_patrons(publishers_list)
@@ -384,13 +384,13 @@ class ResourceImportFile < ActiveRecord::Base
       when 'create'
         work = self.class.import_work(title, creator_patrons, options)
         work.series_statement = series_statement
-        work.subjects << subjects
+        work.subjects << subjects unless subjects.empty?
         expression = self.class.import_expression(work, contributor_patrons)
       when 'update'
         expression = manifestation
         work = expression
         work.series_statement = series_statement
-        work.subjects = subjects
+        work.subjects = subjects unless subjects.empty?
         work.creators = creator_patrons
         expression.contributors = contributor_patrons
       end

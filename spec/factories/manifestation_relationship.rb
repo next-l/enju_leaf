@@ -1,6 +1,6 @@
 FactoryGirl.define do
   factory :manifestation_relationship do |f|
-    f.parent{FactoryGirl.create(:manifestation)}
-    f.child{FactoryGirl.create(:manifestation)}
+    f.parent_id{FactoryGirl.create(:manifestation).id}
+    f.child_id{FactoryGirl.create(:manifestation).id}
   end
 end

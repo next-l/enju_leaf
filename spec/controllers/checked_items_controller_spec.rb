@@ -30,7 +30,7 @@ describe CheckedItemsController do
       describe "When basket and item are specified" do
         it "assigns checked_items as @checked_items" do
           get :index, :basket_id => 3, :item_id => 3
-          assigns(:checked_items).should be_empty
+          assigns(:checked_items).should be_nil #empty
           response.should be_success
         end
       end
