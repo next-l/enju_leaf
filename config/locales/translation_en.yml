@@ -424,6 +424,8 @@ en:
         term: Term
       checked_item:
         due_date: Due date
+        user_comment: User note
+        edit_user_comment: Edit user comment
       produce:
         position: Position
       role:

@@ -436,6 +436,8 @@ ja:
         term: 用語
       checked_item:
         due_date: 期日
+        user_comment: 利用者の注記
+        edit_user_comment: 利用者の注記を編集する
       produce:
         position: 位置
       role:
