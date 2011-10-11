@@ -723,6 +723,8 @@ ja:
         deleted_at: 削除時刻
         created_at: 予約日時
         state: 状態
+        contact: 連絡先
+        zipcode: 〒
       message_request:
         sent_at: 送信時刻
         deleted_at: 削除時刻
