@@ -18,6 +18,11 @@ class ManifestationsController < ApplicationController
   # GET /manifestations
   # GET /manifestations.xml
   def index
+    if current_user.try(:has_role?, 'Librarian') && params[:user_id]
+      @reserve_user = User.find(params[:user_id]) rescue current_user
+    else
+      @reserve_user = current_user
+    end
     if params[:mode] == 'add'
       unless current_user.try(:has_role?, 'Librarian')
         access_denied; return

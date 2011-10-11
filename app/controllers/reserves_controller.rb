@@ -12,6 +12,7 @@ class ReservesController < ApplicationController
   # GET /reserves
   # GET /reserves.xml
   def index
+    @reserve_user_id = params[:user_id] if params[:user_id]
     unless current_user.has_role?('Librarian')
       if @user
         unless current_user == @user
