@@ -803,3 +803,7 @@ div.book_jacket{
 	font-weight: normal;
 	font-size: 85%;
 }
+#user_comment {
+	padding: 5px;
+	border: 1px solid #2779AA;
+}
