@@ -12,7 +12,7 @@ class SeriesStatement < ActiveRecord::Base
     end
     text :numbering, :title_subseries, :numbering_subseries
     integer :manifestation_ids, :multiple => true do
-      series_has_manifestations.collect(&:manifestation_id)
+      manifestations.collect(&:id)
     end
     integer :position
     boolean :periodical
