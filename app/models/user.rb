@@ -78,12 +78,19 @@ class User < ActiveRecord::Base
     text :telephone_number_1 do
       patron.telephone_number_1.gsub("-", "") if patron && patron.telephone_number_1
     end
+    text :telephone_number_1_2 do
+      patron.telephone_number_1 if patron && patron.telephone_number_1
+    end
     text :telephone_number_2 do
       patron.telephone_number_2.gsub("-", "") if patron && patron.telephone_number_2
     end
+    text :telephone_number_2_2 do
+      patron.telephone_number_2 if patron && patron.telephone_number_2
+    end
     text :address do
-      patron.address_1 if patron
-      patron.address_2 if patron
+      addresses = []
+      addresses << patron.address_1 if patron
+      addresses << patron.address_2 if patron
     end
     text :name do
       patron.name if patron
