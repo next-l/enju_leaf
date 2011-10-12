@@ -1370,6 +1370,7 @@ ja:
     count: "回答件数"
   basket:
     my_status: "利用状況"
+    books: "冊"
     number_of_checkout : "貸出冊数"
     number_of_reserve: "予約冊数"
     this_account_is_suspended: "このアカウントは停止されています。"

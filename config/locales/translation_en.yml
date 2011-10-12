@@ -1353,7 +1353,8 @@ en:
     specify_question: "Specify the question."
     count: "Count"
   basket:
-    my_status: Your status
+    my_status: "Your status"
+    bokks: "books"
     number_of_checkout: "Number of checkout"
     number_of_reserve: "Number of reserve"
     this_account_is_suspended: "This account is suspended."
