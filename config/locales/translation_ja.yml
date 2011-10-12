@@ -1369,6 +1369,7 @@ ja:
     specify_question: "質問を指定してください。"
     count: "回答件数"
   basket:
+    my_status: "利用状況"
     this_account_is_suspended: "このアカウントは停止されています。"
     checkout_completed: "貸出が完了しました。"
   checkout:

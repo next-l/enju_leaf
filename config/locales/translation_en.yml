@@ -1353,6 +1353,7 @@ en:
     specify_question: "Specify the question."
     count: "Count"
   basket:
+    my_status: Your status
     this_account_is_suspended: "This account is suspended."
     checkout_completed: "Checkout completed."
   checkout:
