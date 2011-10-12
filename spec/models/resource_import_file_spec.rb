@@ -24,13 +24,13 @@ describe ResourceImportFile do
         Item.count.should eq old_items_count + 6
         Patron.count.should eq old_patrons_count + 5
         ResourceImportResult.count.should eq old_import_results_count + 16
-        Item.find_by_item_identifier('10101').manifestation.creators.size.should eq 2
-        Item.find_by_item_identifier('10101').manifestation.date_of_publication.should eq Time.zone.parse('2001-01-01')
-        Item.find_by_item_identifier('10102').manifestation.date_of_publication.should eq Time.zone.parse('2001-01-01')
-        Item.find_by_item_identifier('10104').manifestation.date_of_publication.should eq Time.zone.parse('2001-01-01')
-        Manifestation.find_by_identifier('103').original_title.should eq 'ダブル"クォート"を含む資料'
-        item = Item.find_by_item_identifier('11111')
-        Shelf.find_by_name('first_shelf').should eq item.shelf
+        Item.where(:item_identifier => '10101').first.manifestation.creators.size.should eq 2
+        Item.where(:item_identifier => '10101').first.manifestation.date_of_publication.should eq Time.zone.parse('2001-01-01')
+        Item.where(:item_identifier => '10102').first.manifestation.date_of_publication.should eq Time.zone.parse('2001-01-01')
+        Item.where(:item_identifier => '10104').first.manifestation.date_of_publication.should eq Time.zone.parse('2001-01-01')
+        Manifestation.where(:identifier => '103').first.original_title.should eq 'ダブル"クォート"を含む資料'
+        item = Item.where(:item_identifier => '11111').first
+        Shelf.where(:name => 'first_shelf').first.should eq item.shelf
         item.manifestation.price.should eq 1000
         item.price.should eq 0
         item.manifestation.publishers.size.should eq 2
@@ -94,6 +94,7 @@ describe ResourceImportFile do
       Item.where(:item_identifier => '00001').first.manifestation.contributors.collect(&:full_name).should eq ['test1']
       Item.where(:item_identifier => '00002').first.manifestation.contributors.collect(&:full_name).should eq ['test2']
       Item.where(:item_identifier => '00003').first.manifestation.original_title.should eq 'テスト3'
+      Item.where(:item_identifier => '00001').first.manifestation.subjects.collect(&:term).should eq ['test1', 'test2']
     end
   end
 

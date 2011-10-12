@@ -9,23 +9,23 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_bookmark.git
-  revision: 5c67ba92e7cedb15229b1b62f49659226d0c6364
+  revision: feff64b23fc893957756492278c0a45776a54e6c
   specs:
-    enju_bookmark (0.0.1)
+    enju_bookmark (0.0.2)
       rails (~> 3.1.1)
 
 GIT
   remote: git://github.com/nabeta/enju_circulation.git
-  revision: 89ce77d24eb6e65f5ae14751efc813026c487d16
+  revision: 5bbec41946f07277eb6319cbc201fd0f22b1e79d
   specs:
-    enju_circulation (0.0.1)
+    enju_circulation (0.0.2)
       rails (~> 3.1.1)
 
 GIT
   remote: git://github.com/nabeta/enju_event.git
-  revision: a1d4e074573a8175369a2f1d6e5d6504074e667c
+  revision: 3411614b72340cbb09fbbd80a65bde38333357a8
   specs:
-    enju_event (0.0.1)
+    enju_event (0.0.2)
       event-calendar (~> 2.3.3)
       rails (~> 3.1.1)
 
@@ -45,9 +45,9 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_message.git
-  revision: 74175fdf6974a70325237667565c34ba569cf20d
+  revision: 8de0272a532718850befa7e0bbf9d7c6508d1c08
   specs:
-    enju_message (0.0.1)
+    enju_message (0.0.2)
       rails (~> 3.1.1)
 
 GIT
@@ -66,30 +66,30 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_purchase_request.git
-  revision: 6acd6feaf22301e49fcf0b471bba2bebd7e83fe5
+  revision: 803486c74c9942fbaea42335be938c5f519b055c
   specs:
-    enju_purchase_request (0.0.1)
+    enju_purchase_request (0.0.2)
       rails (~> 3.1.1)
 
 GIT
   remote: git://github.com/nabeta/enju_question.git
-  revision: eebcc2e2ec60a1564776034fa5ba4881305c1db3
+  revision: e52fb89748fea591867e5b0fda6c21a0212f2087
   specs:
-    enju_question (0.0.1)
+    enju_question (0.0.2)
       rails (~> 3.1.1)
 
 GIT
   remote: git://github.com/nabeta/enju_resource_merge.git
-  revision: b054afc2c261f19e93dfc9517549b4aa0627b2fd
+  revision: 8ddec80f8e03f663e979eac98c85b9ebcefaf7c7
   specs:
-    enju_resource_merge (0.0.1)
+    enju_resource_merge (0.0.2)
       rails (~> 3.1.1)
 
 GIT
   remote: git://github.com/nabeta/enju_subject.git
-  revision: 1765af8e306ed5b4f8fe60cac5149d42e1710824
+  revision: 845a07c738468257efd0f3a3a0bbb11d1b6f64f2
   specs:
-    enju_subject (0.0.1)
+    enju_subject (0.0.2)
       rails (~> 3.1.1)
 
 GIT
@@ -410,7 +410,7 @@ GEM
     simple_form (1.5.2)
       actionpack (~> 3.0)
       activemodel (~> 3.0)
-    simplecov (0.5.3)
+    simplecov (0.5.4)
       multi_json (~> 1.0.3)
       simplecov-html (~> 0.5.3)
     simplecov-html (0.5.3)
