@@ -39,7 +39,6 @@ class CreateManifestations < ActiveRecord::Migration
       t.integer :produces_count, :default => 0, :null => false
       t.integer :exemplifies_count, :default => 0, :null => false
       t.integer :embodies_count, :default => 0, :null => false
-      t.integer :exemplifies_count, :default => 0, :null => false
       t.integer :work_has_subjects_count, :default => 0, :null => false
       t.boolean :repository_content, :default => false, :null => false
       t.integer :lock_version, :default => 0, :null => false

@@ -58,13 +58,6 @@ GIT
       rails (~> 3.1.1)
 
 GIT
-  remote: git://github.com/nabeta/enju_nii.git
-  revision: fd7c35a2c549da63319554019e5dadadf24faf33
-  specs:
-    enju_nii (0.0.1)
-      rails (~> 3.1.1)
-
-GIT
   remote: git://github.com/nabeta/enju_oai.git
   revision: a80b77a29de29e5022d135b3594338d87df3d916
   specs:
@@ -223,7 +216,7 @@ GEM
     flog (2.5.3)
       ruby_parser (~> 2.0)
       sexp_processor (~> 3.0)
-    friendly_id (4.0.0.beta12)
+    friendly_id (4.0.0.beta14)
     geocoder (1.0.4)
     guard (0.8.4)
       thor (~> 0.14.6)
@@ -459,7 +452,7 @@ GEM
       aaronh-chronic (>= 0.3.9)
       activesupport (>= 2.3.4)
     will_paginate (3.0.2)
-    xml-simple (1.1.0)
+    xml-simple (1.1.1)
     yamler (0.1.0)
     zipruby (0.3.6)
 
@@ -490,7 +483,6 @@ DEPENDENCIES
   enju_inventory!
   enju_message!
   enju_ndl!
-  enju_nii!
   enju_oai!
   enju_purchase_request!
   enju_question!
@@ -500,7 +492,7 @@ DEPENDENCIES
   extractcontent
   factory_girl_rails (~> 1.2)
   file_wrapper
-  friendly_id (~> 4.0.0.beta12)
+  friendly_id (~> 4.0.0.beta14)
   geocoder
   glassfish
   guard-rspec
@@ -542,6 +534,6 @@ DEPENDENCIES
   timecop
   validates_timeliness
   vidibus-routing_error!
-  whenever (~> 0.6)
+  whenever (~> 0.6.8)
   will_paginate (~> 3.0)
   zipruby

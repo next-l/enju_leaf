@@ -390,7 +390,7 @@ class ResourceImportFile < ActiveRecord::Base
         expression = manifestation
         work = expression
         work.series_statement = series_statement
-        work.subjects = subjects unless subjects.empty?
+        work.subjects = subjects
         work.creators = creator_patrons
         expression.contributors = contributor_patrons
       end
