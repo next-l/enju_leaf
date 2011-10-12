@@ -54,13 +54,13 @@ class QuestionsController < ApplicationController
     c_user = current_user
 
     search.build do
-       with(:username).equal_to user.username if user
       if c_user
-        unless c_user.has_role?('Librarian')
-          with(:shared).equal_to true
-        end
-      else
-        with(:shared).equal_to true
+         unless c_user.has_role?('Librarian')
+           readable_questions =  Question.find(:all, :conditions => ['shared=? OR user_id=?', true, c_user.id])
+           with readable_questions
+         end
+      else 
+         with(:shared).equal_to true
       end
       facet :solved
     end
@@ -72,8 +72,9 @@ class QuestionsController < ApplicationController
         with(:solved).equal_to solved
       end
     end
-
+    
     page = params[:page] || 1
+    
     search.query.paginate(page.to_i, Question.per_page)
     result = search.execute!
     @questions = result.results

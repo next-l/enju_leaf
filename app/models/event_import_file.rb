@@ -89,7 +89,8 @@ class EventImportFile < ActiveRecord::Base
             GC.start
           end
         end
-      rescue
+      rescue Exception => e
+        import_result.error_msg = "FAIL[#{record}]: #{e}"
         Rails.logger.info("event import failed: column #{record}")
         num[:failed] += 1
       end
@@ -135,7 +136,7 @@ class EventImportFile < ActiveRecord::Base
       header = file.first
       rows = FasterCSV.open(tempfile.path, :headers => header, :col_sep => "\t")
     end
-    EventImportResult.create!(:event_import_file => self, :body => header.join("\t"))
+    EventImportResult.create!(:event_import_file => self, :body => header.join("\t"), :error_msg => 'HEADER DATA')
     tempfile.close(true)
     file.close
     rows

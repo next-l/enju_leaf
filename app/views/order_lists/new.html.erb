@@ -15,7 +15,10 @@
   </div>
   <div class="field">
     <%= f.label :ordered_at -%><br />
-    <%= f.text_field :ordered_at, :value => @order_list.ordered_at.try(:strftime, "%Y-%m-%d"), :class => 'date_field' -%>
+    <span id="annotation">
+      <%= f.label :ordered_at_annotation -%><br />
+    </span>
+    <%= f.text_field :ordered_at_s, :class => 'date_field' -%>
   </div>
   <div class="field">
     <%= f.label :note -%><br />

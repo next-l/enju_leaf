@@ -20,7 +20,11 @@
 
 <p>
   <b><%= t('activerecord.attributes.patron_import_result.body') %></b>
-  <%= @patron_import_result.body %>
+  <%- if @patron_import_result.body -%><br />
+    <% @patron_import_result.body.split("\t").each_with_index do |item, i| %>
+      &nbsp;<%= t('activerecord.attributes.patron_import_result.index') %><%= "#{h(i+1)}:" %>&nbsp;<%= h(item) %><br />
+    <% end %>
+  <%- end -%>
   </p>
 
 <p>

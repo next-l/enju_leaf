@@ -46,6 +46,15 @@ class Patron < ActiveRecord::Base
 
   searchable do
     text :name, :place, :address_1, :address_2, :other_designation, :note
+    string :last_name
+    string :first_name
+    string :last_name_transcription
+    string :first_name_transcription 
+    string :full_name
+    string :full_name_transcription
+    string :full_name_alternative
+    string :telephone_number_1 
+    string :telephone_number_2
     string :zip_code_1
     string :zip_code_2
     string :username do
@@ -250,6 +259,9 @@ class Patron < ActiveRecord::Base
   def self.create_with_user(params, user)
     patron = Patron.new(params)
     patron.full_name = user.username if patron.full_name.blank?
+    patron.email = user.email
+    patron.required_role = Role.find(:first, :conditions => ['name=?', "Librarian"]) rescue nil
+    patron.language = Language.find(:first, :conditions => ['iso_639_1=?', user.locale]) rescue nil
     patron
   end
 end

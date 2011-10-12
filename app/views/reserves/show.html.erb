@@ -16,6 +16,20 @@
   (<%= @reserve.user.user_number %>)
 </p>
 
+<%- if @reserve.user.patron -%> 
+<p>
+  <strong><%= t('activerecord.attributes.reserve.contact') -%>:</strong>
+  <%= link_to @reserve.user.patron.full_name, @reserve.user.patron -%> <%= @reserve.user.patron.email -%></br>
+  <%- unless @reserve.user.patron.address_1.blank? -%>
+    <%- unless @reserve.user.patron.zip_code_1.blank? -%><%= t('activerecord.attributes.reserve.zipcode') -%><%= @reserve.user.patron.zip_code_1 -%><br /><%- end -%>
+    <%= @reserve.user.patron.address_1 -%><br />
+  <%- end -%>
+  <%- unless @reserve.user.patron.telephone_number_1.blank? -%>
+    <%= t('activerecord.attributes.patron.telephone_number') -%>: <%= @reserve.user.patron.telephone_number_1 -%>
+  <%- end -%>
+</p>
+<%- end -%>
+  
 <p>
   <strong><%= t('activerecord.attributes.reserve.state') -%>:</strong>
   <%= i18n_state(@reserve.state) -%>

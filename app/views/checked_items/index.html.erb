@@ -3,6 +3,8 @@
 <div id="content_list">
 <p id="notice"><%= notice %></p>
 
+<%= render 'user_comment' -%>
+
 <div id="checked_item_list">
   <%= render 'list' -%>
 </div>
@@ -14,9 +16,16 @@
 </div>
 
 <div id="submenu" class="ui-corner-all">
-  <ul>
-    <li><%= link_to @basket.user.username, @basket.user -%></li>
-  </ul>
+  <%- if configatron.checked_items.disp_user == true -%>
+    <ul>
+      <li>
+        <%= link_to @basket.user.username, @basket.user -%>
+        <%- if @basket.user.patron -%>
+          (<%= link_to @basket.user.patron.full_name, @basket.user.patron if current_user.has_role?('Librarian') -%>)
+        <%- end -%>
+      </li>
+    </ul>
+  <%- end -%>
   <ul>
     <%- @basket.user.user_group.user_group_has_checkout_types.each do |available_checkout_type| -%>
       <li>

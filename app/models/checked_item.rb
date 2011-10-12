@@ -31,6 +31,14 @@ class CheckedItem < ActiveRecord::Base
       errors[:base] << I18n.t('activerecord.errors.messages.checked_item.this_group_cannot_checkout')
       return false
     end
+
+    if self.item.reserved?
+      unless self.item.manifestation.next_reservation.user == self.basket.user
+        errors[:base] << I18n.t('activerecord.errors.messages.checked_item.reserved_item_included')
+        return false
+      end
+    end
+
     # ここまでは絶対に貸出ができない場合
 
     return true if self.ignore_restriction == "1"
@@ -41,14 +49,6 @@ class CheckedItem < ActiveRecord::Base
 
     if self.in_transaction?
       errors[:base] << I18n.t('activerecord.errors.messages.checked_item.in_transcation')
-    end
-
-    if self.item.reserved?
-      if self.item.manifestation.next_reservation.user == self.basket.user
-        self.item.manifestation.next_reservation.sm_complete
-      else
-        errors[:base] << I18n.t('activerecord.errors.messages.checked_item.reserved_item_included')
-      end
     end
 
     checkout_count = self.basket.user.checked_item_count

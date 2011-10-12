@@ -333,6 +333,7 @@ ja:
         birth_date: 生年月日
         death_date: 没年月日
         email: 電子メール
+        adddress: 住所
       work_has_subject:
         work: 書いた資料
         subject: 件名
@@ -435,6 +436,8 @@ ja:
         term: 用語
       checked_item:
         due_date: 期日
+        user_comment: 利用者の注記
+        edit_user_comment: 利用者の注記を編集する
       produce:
         position: 位置
       role:
@@ -543,11 +546,13 @@ ja:
         state: 状態
       order_list:
         title: 発注リスト名
+        bookstore: 書店
         note: 注記
         ordered_at: 発注時刻
+        ordered_at_s: 発注時刻
         deleted_at: 削除時刻
         state: 状態
-        ordered_at_annotation: 半角数字で入力してください。　（例）2011年4月1日10時00分なら201104011000と入力
+        ordered_at_annotation: YYYY-MM-DD あるいは YYYY-MM-DD HH:MM (例 "2011-04-01 09:00")
       advertise:
         position: 位置
       event:
@@ -662,6 +667,7 @@ ja:
       checkout:
         due_date: 期日
         lock_version: ロックバージョン
+        renewal_count: 貸出の更新回数
       subscription:
         title: タイトル
         note: 注記
@@ -717,6 +723,8 @@ ja:
         deleted_at: 削除時刻
         created_at: 予約日時
         state: 状態
+        contact: 連絡先
+        zipcode: 〒
       message_request:
         sent_at: 送信時刻
         deleted_at: 削除時刻
@@ -1028,10 +1036,16 @@ ja:
         manifestation_relationship_type_id: 資料の関係の種類
       resource_import_result:
         body: 本文
+        error_msg: エラーメッセージ
+        index: 項番
       patron_import_result:
         body: 本文
+        error_msg: エラーメッセージ
+        index: 項番
       event_import_result:
         body: 本文
+        error_msg: エラーメッセージ
+        index: 項番
       series_statement_merge_list:
         title: タイトル
       series_has_manifestation:
@@ -1423,6 +1437,7 @@ ja:
     change_my_password: "パスワードを変更する"
     management: "利用者の管理"
     not_found: "利用者が見つかりません。"
+    birth_date_invalid: "生年月日が不正な値です。例: 2011-04-12"
   news_post:
     library_group_news_post: "%{library_group_name} からのお知らせ"
   reserve:

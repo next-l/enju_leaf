@@ -78,7 +78,8 @@ class PatronImportFile < ActiveRecord::Base
             GC.start
           end
         end
-      rescue
+      rescue Exception => e
+        import_result.error_msg = "FAIL[#{row_num}]: #{e}" 
         Rails.logger.info("patron import failed: column #{row_num}")
         num[:failed] += 1
       end
@@ -95,7 +96,8 @@ class PatronImportFile < ActiveRecord::Base
             import_result.user = user
           end
           num[:user_imported] += 1
-        rescue ActiveRecord::RecordInvalid
+        rescue ActiveRecord::RecordInvalid => e
+          import_result.error_msg = "FAIL[#{row_num}]: #{e}" 
           Rails.logger.info("user import failed: column #{row_num}")
         end
       end
@@ -165,7 +167,7 @@ class PatronImportFile < ActiveRecord::Base
       header = file.first
       rows = FasterCSV.open(tempfile.path, :headers => header, :col_sep => "\t")
     end
-    PatronImportResult.create(:patron_import_file => self, :body => header.join("\t"))
+    PatronImportResult.create(:patron_import_file => self, :body => header.join("\t"), :error_msg => 'HEADER DATA')
     tempfile.close(true)
     file.close
     rows

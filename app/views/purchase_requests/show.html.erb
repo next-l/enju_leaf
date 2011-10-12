@@ -77,11 +77,15 @@
 
 <div id="submenu" class="ui-corner-all">
   <ul>
-    <%- if @purchase_request.order_list -%>
-      <li><%= link_to t('purchase_request.remove_from_order_list'), order_list_order_path(@purchase_request.order_list, @purchase_request.order), :method => :delete, :confirm => t('page.are_you_sure') -%></li>
-    <%- else -%>
-      <li><%= link_to t('purchase_request.add_to_order_list'), new_purchase_request_order_path(@purchase_request) -%></li>
+    <%- if current_user.has_role?('Librarian') -%>
+      <%- if @purchase_request.order_list -%>
+        <li><%= link_to t('purchase_request.remove_from_order_list'), order_path(@purchase_request.order), 
+              :method => :delete, :confirm => t('page.are_you_sure') -%></li>
+      <%- else -%>
+        <li><%= link_to t('purchase_request.add_to_order_list'), new_purchase_request_order_path(@purchase_request) -%></li>
+      <%- end -%>
     <%- end -%>
+
     <%- if @user -%>
       <li><%= link_to t('page.new', :model => t('activerecord.models.purchase_request')), new_user_purchase_request_path(@user)%></li>
     <%- end -%>

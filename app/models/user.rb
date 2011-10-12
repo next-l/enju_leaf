@@ -75,6 +75,23 @@ class User < ActiveRecord::Base
 
   searchable do
     text :username, :email, :note, :user_number
+    text :telephone_number_1 do
+      patron.telephone_number_1.gsub("-", "") if patron && patron.telephone_number_1
+    end
+    text :telephone_number_1_2 do
+      patron.telephone_number_1 if patron && patron.telephone_number_1
+    end
+    text :telephone_number_2 do
+      patron.telephone_number_2.gsub("-", "") if patron && patron.telephone_number_2
+    end
+    text :telephone_number_2_2 do
+      patron.telephone_number_2 if patron && patron.telephone_number_2
+    end
+    text :address do
+      addresses = []
+      addresses << patron.address_1 if patron
+      addresses << patron.address_2 if patron
+    end
     text :name do
       patron.name if patron
     end
@@ -84,6 +101,9 @@ class User < ActiveRecord::Base
     integer :required_role_id
     time :created_at
     time :updated_at
+    time :date_of_birth do
+      patron.date_of_birth if patron
+    end
     boolean :active do
       active_for_authentication?
     end

@@ -32,6 +32,24 @@ class UsersController < ApplicationController
     query = params[:query]
     page = params[:page] || 1
     role = current_user.try(:role) || Role.default_role
+    @date_of_birth = params[:birth_date].to_s.dup
+    birth_date = params[:birth_date].to_s.gsub!(/\D/, '') if params[:birth_date]
+    flash[:message] = nil
+    unless params[:birth_date].blank?
+      begin
+        date_of_birth = Time.zone.parse(birth_date).beginning_of_day.utc.iso8601
+      rescue 
+        flash[:message] = t('user.birth_date_invalid')	
+      end
+    end
+    date_of_birth_end = Time.zone.parse(birth_date).end_of_day.utc.iso8601 rescue nil
+    address = params[:address]
+    @address = address
+
+    query = "#{query} date_of_birth_d: [#{date_of_birth} TO #{date_of_birth_end}]" unless date_of_birth.blank?
+    query = "#{query} address_text: #{address}" unless address.blank?
+
+    logger.error flash[:message]
 
     unless query.blank?
       @users = User.search do
@@ -41,8 +59,7 @@ class UsersController < ApplicationController
       end.results
     else
       @users = User.order("#{sort[:sort_by]} #{sort[:order]}").page(page) unless sort[:sort_by] == 'patrons.telephone_number_1'
-      @users = User.joins(:patron).order("#{sort[:sort_by]} #{sort[:order]}").page(page) if sort[:sort_by] == 
-'patrons.telephone_number_1'
+      @users = User.joins(:patron).order("#{sort[:sort_by]} #{sort[:order]}").page(page) if sort[:sort_by] == 'patrons.telephone_number_1'
     end
     @count[:query_result] = @users.total_entries
 
@@ -165,6 +182,8 @@ class UsersController < ApplicationController
  
       if @user.valid?
         @user.patron.update_attributes(params[:patron])
+        @user.patron.email = params[:user][:email]
+        @user.patron.language = Language.find(:first, :conditions => ['iso_639_1=?', params[:user][:locale]]) rescue nil
         @user.patron.save!
       end      
       #@user.save do |result|

@@ -9,21 +9,17 @@
 
 <table class="index">
   <tr>
-    <th><%= t('activerecord.models.patron_import_file') %></th>
     <th><%= t('activerecord.models.patron') %></th>
     <th><%= t('activerecord.models.user') %></th>
+    <th><%= t('activerecord.attributes.patron_import_result.error_msg') %></th>
     <th></th>
   </tr>
 
 <% @patron_import_results.each do |patron_import_result| %>
   <tr class="line<%= cycle("0", "1") -%>">
-    <td>
-      <%= link_to patron_import_result.patron_import_file.patron_import_file_name, patron_import_result.patron_import_file %>
-      <br />
-      <%=l patron_import_result.created_at %>
-    </td>
     <td><%= link_to patron_import_result.patron.full_name, patron_import_result.patron if patron_import_result.patron %></td>
     <td><%= link_to patron_import_result.user.username, patron_import_result.user if patron_import_result.user %></td>
+    <td><%= patron_import_result.error_msg %></td>
     <td>
       <%= link_to t('page.show'), patron_import_result %>
       <%= link_to t('page.destroy'), patron_import_result, :confirm => t('page.are_you_sure'), :method => :delete %>
