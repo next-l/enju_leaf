@@ -1216,6 +1216,14 @@ ja:
     next: "次へ"
     my_account: "自分のアカウント"
     number_of_pictures: "枚"
+    best_request: "ベストリクエスト"
+    best_reader: "ベストリーダ"
+    exstatistics:
+      ranknumber: 順位
+      count: 回数
+      readercount: 貸出回数
+      requestcount: 予約回数
+   
   title:
     index: "一覧"
     show: "表示"

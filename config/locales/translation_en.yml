@@ -1199,6 +1199,8 @@ en:
     number_of_pictures:
       one: "Picture"
       other: "Pictures"
+    best_request: "best request"
+    best_reader: "best reader"
   title:
     index: "index"
     show: "show"
