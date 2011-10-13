@@ -1,0 +1,40 @@
+<div id="content_detail" class="ui-corner-all">
+<h1 class="title"><%= @title -%></h1>
+<div id="content_list">
+
+<table class="index">
+  <tr>
+    <th>
+      <%= t('page.exstatistics.ranknumber') -%> 
+    </th>
+    <th>
+      <%= t('activerecord.attributes.manifestation.original_title') -%> 
+    </th>
+    <th>
+      <%= t('activerecord.attributes.manifestation.original_title') -%>
+    </th>
+    <th>
+      <%= t('page.exstatistics.count') -%>
+    </th>
+  </tr>
+<%- @manifestations.each_with_index do |m, i| -%>
+  <tr class="line<%= cycle("0", "1") -%>">
+    <td>
+      <%= i+1 -%>
+    </td>
+    <td>
+      <%= link_to m.original_title, m -%>
+    </td>
+    <td>
+      <%= render 'manifestations/show_creators', :manifestation => m -%>
+    </td>
+    <td>
+      <%= 999 -%>
+    </td>
+  </tr>
+<%- end -%>
+</table>
+
+</div>
+</div>
+
