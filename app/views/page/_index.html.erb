@@ -18,6 +18,16 @@
       <% end %>
     </div>
   </div>
+  <% if user_signed_in? %>
+    <%- unless current_user.has_role?('Librarian') -%>
+      <div class="portlet" id="my_basket">
+        <h3 class="title"><%= t('basket.my_status') -%></h3>
+        <div id="picked_up_box">
+          <%= render 'page/my_basket' -%>
+        </div>
+      </div>
+    <%- end -%>
+  <%- end -%>
 </div>
 
 <div class="column" id="col2">
