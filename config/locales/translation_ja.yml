@@ -1369,7 +1369,7 @@ ja:
     specify_question: "質問を指定してください。"
     count: "回答件数"
   basket:
-    my_status: "利用状況"
+    my_status: "現在の利用状況"
     books: "冊"
     number_of_checkout : "貸出冊数"
     number_of_reserve: "予約冊数"
