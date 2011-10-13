@@ -228,6 +228,7 @@ div#content_detail{
 
 div#content_list{
   padding: 10px;
+  word-wrap: break-word;
 }
 
 div#manifestation_footer{
