@@ -54,9 +54,7 @@
           <% end %>
           <li><%= link_to t('page.add_manually'), new_manifestation_path -%></li>
           <li><%= link_to t('page.serial'), series_statements_path -%></li>
-          <% if defined?(EnjuImport) %>
-            <li><%= link_to t('page.import_from_file'), new_resource_import_file_path -%></li>
-          <% end %>
+          <li><%= link_to t('page.import_from_file'), new_resource_import_file_path -%></li>
         <%- end -%>
       </ul>
     </div>
@@ -123,9 +121,7 @@
         <ul>
           <li><%= link_to t('user.management'), users_path -%></li>
           <li><%= link_to t('page.patron_management'), patrons_path -%></li>
-          <% if defined?(EnjuImport) %>
-            <li><%= link_to t('page.import'), page_import_path -%></li>
-          <% end %>
+          <li><%= link_to t('page.import'), page_import_path -%></li>
           <!--
           <li><%= link_to t('page.export'), 'page/export' -%></li>
           -->
