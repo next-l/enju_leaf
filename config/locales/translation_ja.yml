@@ -1564,3 +1564,8 @@ ja:
   merge_list:
     successfully_merged: "%{model}は正常に統合されました。"
     specify_id: "%{model}のIDを指定してください。"
+  family:
+    may_family_with: "家族ですか？"
+    not_select_family: "家族を選択しない"
+    already_family_with: "家族登録済み"
+    out_of_family: "家族登録を解除する"

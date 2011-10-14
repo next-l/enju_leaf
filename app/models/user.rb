@@ -40,6 +40,8 @@ class User < ActiveRecord::Base
   belongs_to :user_group
   belongs_to :required_role, :class_name => 'Role', :foreign_key => 'required_role_id' #, :validate => true
   has_one :patron_import_result
+  has_one :family, :through => :family_user
+  has_one :family_user
 
   validates :username, :presence => true, :uniqueness => true
   validates_uniqueness_of :email, :scope => authentication_keys[1..-1], :case_sensitive => false, :allow_blank => true
@@ -52,7 +54,7 @@ class User < ActiveRecord::Base
     v.validates_length_of       :password, :within => 6..20, :allow_blank => true
   end
 
-  validates_presence_of :email, :email_confirmation, :on => :create #, :if => proc{|user| !user.operator.try(:has_role?, 'Librarian')}
+#  validates_presence_of :email, :email_confirmation, :on => :create #, :if => proc{|user| !user.operator.try(:has_role?, 'Librarian')}
   validates_associated :patron, :user_group, :library
   validates_presence_of :user_group, :library, :locale #, :user_number
   validates :user_number, :uniqueness => true, :format => {:with => /\A[0-9A-Za-z_]+\Z/}, :allow_blank => true
@@ -116,7 +118,7 @@ class User < ActiveRecord::Base
     :zip_code, :address, :telephone_number, :fax_number, :address_note,
     :role_id, :patron_id, :operator, :password_not_verified,
     :update_own_account, :auto_generated_password,
-    :locked, :current_password, :birth_date, :death_date, :email
+    :locked, :current_password, :birth_date, :death_date, :email, :family
 
   def self.per_page
     10
@@ -376,6 +378,27 @@ class User < ActiveRecord::Base
 
   def deletable?
     true if checkouts.not_returned.empty? and id != 1
+  end
+
+  def set_family(user_id)
+    logger.error "User ID: #{user_id}"
+    family = User.find(user_id).family rescue nil    
+    if family
+       self.family = family
+#      family = Family.find(family_user.family_id)
+#      FamilyUser.create(:family_id => family.id, :user_id => self.id)
+    else
+      begin 
+        family = Family.create() 
+        logger.error "Family created: #{family.id}"
+        user = User.find(user_id)
+        user.family = family
+      rescue
+      end
+      self.family = family
+#      FamilyUser.create(:family_id => family.id, :user_id => user_id)
+#      FamilyUser.create(:family_id => family.id, :user_id => self.id)
+    end
   end
 end
 

@@ -1,0 +1,20 @@
+<% unless @family_users.blank? %>
+<div id="family_users">
+  <div><%= t('family.already_family_with') -%></div> 
+  <%= check_box_tag 'out_of_family', "1" -%>
+  <% @family_users.each do |f_users| %>
+    <div><%= f_users -%></div>
+  <% end %>
+</div>
+<% end %>
+
+</ br>
+<% unless @users.blank? || @family_users %>
+<div id="search_family">
+  <div><%= t('family.may_family_with') -%></div>
+  <div><%= radio_button_tag :family, "" %><%=t('family.not_select_family') -%></div>
+  <% @users.each do |user| %>
+    <div><%= radio_button_tag :family, user.id %><%= user.username -%></div>
+  <% end %>
+</div>
+<% end %>

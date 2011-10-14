@@ -263,6 +263,12 @@ div#right_pane_detail{
   word-break: break-all;
 }
 
+div#family{
+  float: right;
+  text_align: left;
+  width: 250px;
+}
+
 div#footer{
   padding-top: 5px;
   padding-left: 2px;

@@ -1,14 +1,14 @@
 # -*- encoding: utf-8 -*-
 class UsersController < ApplicationController
   #before_filter :reset_params_session
-  load_and_authorize_resource
+  load_and_authorize_resource :except => :search_family
   helper_method :get_patron
   before_filter :store_location, :only => [:index]
   before_filter :clear_search_sessions, :only => [:show]
   after_filter :solr_commit, :only => [:create, :update, :destroy]
   cache_sweeper :user_sweeper, :only => [:create, :update, :destroy]
   #ssl_required :new, :edit, :create, :update, :destroy
-  ssl_allowed :index, :show, :new, :edit, :create, :update, :destroy
+  ssl_allowed :index, :show, :new, :edit, :create, :update, :destroy, :search_family
 
   def index
     query = params[:query].to_s
@@ -120,6 +120,8 @@ class UsersController < ApplicationController
   def edit
     @user.role_id = @user.role.id
     @patron = @user.patron
+    family = @user.family
+    @family_users = family.users if family
 
     if params[:mode] == 'feed_token'
       if params[:disable] == 'true'
@@ -146,6 +148,10 @@ class UsersController < ApplicationController
           @user.patron = @patron
         end
         @user.save!
+        unless params[:family].blank?
+          @user.set_family(params[:family])
+          @user.save!
+        end
         flash[:notice] = t('controller.successfully_created.', :model => t('activerecord.models.user'))
         flash[:temporary_password] = @user.password
         format.html { redirect_to user_url(@user) }
@@ -160,6 +166,8 @@ class UsersController < ApplicationController
 #      flash[:error] = t('user.could_not_setup_account')
       format.html { render :action => "new" }
       format.xml  { render :xml => @user.errors, :status => :unprocessable_entity }
+    rescue Exception => e
+      logger.error e
     end
     end
   end
@@ -211,6 +219,17 @@ class UsersController < ApplicationController
     respond_to do |format|
       format.html { redirect_to(users_url) }
       format.xml  { head :ok }
+    end
+  end
+
+  def search_family
+    return nil unless request.xhr?
+    unless params[:keys].blank?
+      @users = User.find(:all, :joins => :patron, :conditions => params[:keys]) rescue nil
+      unless @users.blank? 
+        html = render_to_string :partial => "search_family"
+        render :json => {:success => 1, :html => html}
+      end
     end
   end
 
