@@ -74,6 +74,10 @@ div.field, div.actions {
   list-style: square;
 }
 
+#annotation {
+  font-weight: normal;
+  font-size: 85%;
+}
 
 body{
   margin-left: 5px;
@@ -113,6 +117,10 @@ div#navibar, div#bd{
 div#navibar{
   clear: both;
   width: 100%;
+}
+
+a.fg-4button {
+  width: 184px;
 }
 
 div#content{
@@ -228,6 +236,7 @@ div#content_detail{
 
 div#content_list{
   padding: 10px;
+  word-wrap: break-word;
 }
 
 div#manifestation_footer{
@@ -371,10 +380,66 @@ div#user_search_form, div#message_box, div#news_feed_box, div#user_box{
 
 div#picked_up_box{
   padding: 10px;
+  word-wrap: break-word;
+}
+
+div#my_basket_box{
+  padding: 10px;
+  word-wrap: break-word;
+}
+
+.my_status_button {
+  font-size: 1em;
+  width: 140px;
+  text-align: center;
+  float: right;
+}
+a.my_status_button,  a:visited.my_status_button {
+  color: #333333;
+  border: 1px solid #c0c0c0;
+  background: #e0e0e0 url(images/ui-bg_glass_75_e6e6e6_1x400.png) 50% 50% repeat-x;
+  text-decoration: none;
+}
+a:hover.my_status_button {
+  color: #000000;
+  border: 1px solid #999999;
+  background: #dadada url(images/ui-bg_glass_75_dadada_1x400.png) 50% 50% repeat-x;
+}
+
+div#easy_tools_box{
+  padding: 10px;
+  word-wrap: break-word;
+}
+
+.easy_tools_button {
+  font-size: 1em;
+  width: 210px;
+  text-align: center;
+  margin: 0 0 10px 0;
+  float: left;
+}
+.easy_tools_button_right {
+  margin: 0 5px 0 0;
+}
+a.easy_tools_button,  a:visited.easy_tools_button {
+  color: #333333;
+  border: 1px solid #d3d3d3;
+  background: #e6e6e6 url(images/ui-bg_glass_75_e6e6e6_1x400.png) 50% 50% repeat-x;
+  text-decoration: none;
+}
+a:hover.easy_tools_button {
+  color: #000000;
+  border: 1px solid #999999;
+  background: #dadada url(images/ui-bg_glass_75_dadada_1x400.png) 50% 50% repeat-x;
 }
 
 div#tag_cloud_box{
   padding: 10px;
+  word-wrap: break-word;
+}
+
+div#tag_cloud_list{
+  word-wrap: break-word;
 }
 
 div.config_box{
@@ -502,6 +567,10 @@ th.checked_item_title{
   width: 400px;
 }
 
+#user_comment {
+  padding: 5px;
+  border: 1px solid #2779AA;
+}
 .error_message{
   color: red;
 }
@@ -805,11 +874,23 @@ div.book_jacket{
 }
 
 /* add 20111004 / reiko@opentech.co.jp */
-#annotation {
-	font-weight: normal;
-	font-size: 85%;
+
+/** my_status button **/
+.my_status_button {
+	font-size: 1em;
+	width:140px;
+	text-align: center;
+	float: right;
 }
-#user_comment {
-	padding: 5px;
-	border: 1px solid #2779AA;
+a.my_status_button,  a:visited.my_status_button {
+	color: #555555;
+	border: 1px solid #d3d3d3;
+	background: #e6e6e6 url(images/ui-bg_glass_75_e6e6e6_1x400.png) 50% 50% repeat-x;
+	text-decoration: none;
 }
+a:hover.my_status_button {
+	color: #212121;
+	border: 1px solid #999999;
+	background: #dadada url(images/ui-bg_glass_75_dadada_1x400.png) 50% 50% repeat-x; 
+}
+

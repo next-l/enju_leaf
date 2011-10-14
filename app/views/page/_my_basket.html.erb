@@ -1,0 +1,13 @@
+<p>
+  <h5 style="display: inline"><%= t('basket.number_of_checkout') -%>: <%= @checkouts.size -%><%= t('basket.books') -%> </h5>
+  <span>
+    <%= link_to t('page.listing', :model => t('activerecord.models.checkout')), user_checkouts_path(current_user), :class=>'my_status_button ui-corner-all' -%>
+  </span>
+</p>
+<br />
+<p>
+  <h5 style="display: inline"><%=t ('basket.number_of_reserve') -%>: <%= @reserves.size -%><%=t ('basket.books') -%></h5>
+  <span>
+    <%= link_to t('page.listing', :model => t('activerecord.models.reserve')), user_reserves_path(current_user), :class=>'my_status_button ui-corner-all' -%>
+  </span>
+</p>

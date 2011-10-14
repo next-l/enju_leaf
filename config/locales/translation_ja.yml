@@ -1216,6 +1216,14 @@ ja:
     next: "次へ"
     my_account: "自分のアカウント"
     number_of_pictures: "枚"
+    best_request: "ベストリクエスト"
+    best_reader: "ベストリーダ"
+    exstatistics:
+      ranknumber: 順位
+      count: 回数
+      readercount: 貸出回数
+      requestcount: 予約回数
+   
   title:
     index: "一覧"
     show: "表示"
@@ -1369,6 +1377,10 @@ ja:
     specify_question: "質問を指定してください。"
     count: "回答件数"
   basket:
+    my_status: "現在の利用状況"
+    books: "冊"
+    number_of_checkout : "貸出冊数"
+    number_of_reserve: "予約冊数"
     this_account_is_suspended: "このアカウントは停止されています。"
     checkout_completed: "貸出が完了しました。"
   checkout:

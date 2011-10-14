@@ -115,6 +115,10 @@ EnjuLeaf::Application.routes.draw do
   resources :manifestation_checkout_stats
   resources :manifestation_reserve_stats
   resources :manifestation_relationship_types
+  #resources :manifestation_exstats
+  match '/manifestation_exstats/bestreader' => 'manifestation_exstats#bestreader'
+  match '/manifestation_exstats/bestrequest' => 'manifestation_exstats#bestrequest'
+
   resources :patron_relationship_types
   resources :licenses
   resources :medium_of_performances
@@ -374,6 +378,9 @@ EnjuLeaf::Application.routes.draw do
   match '/page/opensearch' => 'page#opensearch'
   match '/page/statistics' => 'page#statistics'
   match '/page/routing_error' => 'page#routing_error'
+
+  #match '/exstatistics/bestreader' => 'exstatistics#manifestations', :mode=>"bestreader"
+  #match '/exstatistics/bestrequest' => 'exstatistics#manifestations', :mode=>"bestrequest"
 
   # http://techoctave.com/c7/posts/36-rails-3-0-rescue-from-routing-error-solution
   match '*a', :to => 'page#routing_error' unless Rails.application.config.consider_all_requests_local

@@ -1199,6 +1199,8 @@ en:
     number_of_pictures:
       one: "Picture"
       other: "Pictures"
+    best_request: "best request"
+    best_reader: "best reader"
   title:
     index: "index"
     show: "show"
@@ -1353,6 +1355,10 @@ en:
     specify_question: "Specify the question."
     count: "Count"
   basket:
+    my_status: "Your status"
+    books: "records"
+    number_of_checkout: "Number of checkout"
+    number_of_reserve: "Number of reserve"
     this_account_is_suspended: "This account is suspended."
     checkout_completed: "Checkout completed."
   checkout:
