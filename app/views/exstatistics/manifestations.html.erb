@@ -1,7 +1,18 @@
 <div id="content_detail" class="ui-corner-all">
 <h1 class="title"><%= @title -%></h1>
-<div id="content_list">
 
+<%= form_for :manifestations, :html => {:method => 'get'} do -%>
+  <p>
+    <%= t('page.search_term') -%>:
+    <%= t('advanced_search.from') -%> <%= text_field_tag 'number_of_pages_at_least', nil, :size => 5 -%>
+    <%= t('advanced_search.to') -%> <%= text_field_tag 'number_of_pages_at_most', nil, :size => 5 -%></td>
+    <br />
+    <%= link_to t('page.advanced_search'), page_advanced_search_path -%>
+  </p>
+<%- end -%>
+
+
+<div id="content_list">
 <table class="index">
   <tr>
     <th>
