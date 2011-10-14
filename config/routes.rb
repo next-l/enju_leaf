@@ -85,6 +85,8 @@ EnjuLeaf::Application.routes.draw do
   end
 
   resources :users do
+    get :search_family, :on => :collection
+    get :search_family, :on => :member
     resources :answers
     resources :baskets do
       resources :checked_items
@@ -99,6 +101,8 @@ EnjuLeaf::Application.routes.draw do
     resources :purchase_requests
     resources :questions
     resource :patron
+    resource :family
+    resource :family_user
   end
 
   resources :answers
@@ -295,6 +299,11 @@ EnjuLeaf::Application.routes.draw do
   resources :checkout_stat_has_users
   resources :reserve_stat_has_manifestations
   resources :reserve_stat_has_users
+  resources :families do
+    resources :users
+    resources :family_users
+  end
+  resources :family_users
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
