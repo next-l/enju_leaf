@@ -27,7 +27,7 @@ ja:
       message: メッセージ
       classification: 分類
       imported_object: インポートされたオブジェクト
-      exemplify: 例証
+      exemplify: 書誌と所蔵の関係
       own: 所有関係
       search_history: 検索履歴
       shelf: 本棚
@@ -1183,6 +1183,8 @@ ja:
     status: "状態"
     enabled: "有効"
     disabled: "無効"
+    routing_error: "ルーティングエラー"
+    change: "変更"
   title:
     index: "一覧"
     show: "表示"
@@ -1268,6 +1270,7 @@ ja:
     no_manifestation: "資料なし"
     no_number: "番号なし"
     add_lending_policy: "貸出規則の追加"
+    edit_exemplification: "書誌の付け替え"
   patron:
     library_group_patron: "%{library_group_name} の人物・団体"
     work_patron: "%{work_title} の著作者"

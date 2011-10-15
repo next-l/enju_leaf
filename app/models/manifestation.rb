@@ -13,11 +13,6 @@ class Manifestation < ActiveRecord::Base
   has_many :parents, :foreign_key => 'child_id', :class_name => 'ManifestationRelationship', :dependent => :destroy
   has_many :derived_manifestations, :through => :children, :source => :child
   has_many :original_manifestations, :through => :parents, :source => :parent
-  has_many :work_has_subjects, :foreign_key => 'work_id', :dependent => :destroy
-  has_many :subjects, :through => :work_has_subjects
-  has_many :bookmarks, :include => :tags, :dependent => :destroy, :foreign_key => :manifestation_id
-  has_many :users, :through => :bookmarks
-  has_many :reserves, :foreign_key => :manifestation_id
   has_many :picture_files, :as => :picture_attachable, :dependent => :destroy
   belongs_to :language
   belongs_to :carrier_type
@@ -34,9 +29,6 @@ class Manifestation < ActiveRecord::Base
       titles
     end
     text :fulltext, :note, :creator, :contributor, :publisher, :description
-    text :subject do
-      subjects.collect(&:term) + subjects.collect(&:term_transcription)
-    end
     string :title, :multiple => true
     # text フィールドだと区切りのない文字列の index が上手く作成
     #できなかったので。 downcase することにした。
@@ -50,24 +42,12 @@ class Manifestation < ActiveRecord::Base
     string :connect_publisher do
       publisher.join('').gsub(/\s/, '').downcase
     end
-    text :tag do
-      tags.collect(&:name)
-    end
     string :isbn, :multiple => true do
       [isbn, isbn10, wrong_isbn]
     end
     string :issn
     string :lccn
     string :nbn
-    string :tag, :multiple => true do
-      tags.collect(&:name)
-    end
-    string :subject, :multiple => true do
-      subjects.collect(&:term) + subjects.collect(&:term_transcription)
-    end
-    string :classification, :multiple => true do
-      classifications.collect(&:category)
-    end
     string :carrier_type do
       carrier_type.name
     end
@@ -83,8 +63,6 @@ class Manifestation < ActiveRecord::Base
     string :shelf, :multiple => true do
       items.collect{|i| "#{i.shelf.library.name}_#{i.shelf.name}"}
     end
-    string :user, :multiple => true do
-    end
     time :created_at
     time :updated_at
     time :deleted_at
@@ -94,7 +72,6 @@ class Manifestation < ActiveRecord::Base
     integer :publisher_ids, :multiple => true
     integer :item_ids, :multiple => true
     integer :original_manifestation_ids, :multiple => true
-    integer :subject_ids, :multiple => true
     integer :required_role_id
     integer :height
     integer :width
@@ -282,10 +259,6 @@ class Manifestation < ActiveRecord::Base
     original_manifestations
   end
 
-  def next_reservation
-    self.reserves.waiting.order('reserves.created_at ASC').first
-  end
-
   def serial?
     if new_record?
       if SeriesStatement.where(:id => series_statement_id).first.try(:periodical)
@@ -307,14 +280,6 @@ class Manifestation < ActiveRecord::Base
     end
   end
 
-  def tags
-    if self.bookmarks.first
-      self.bookmarks.tag_counts
-    else
-      []
-    end
-  end
-
   def titles
     title = []
     title << original_title.to_s.strip
@@ -330,28 +295,6 @@ class Manifestation < ActiveRecord::Base
   def url
     #access_address
     "#{LibraryGroup.site_config.url}#{self.class.to_s.tableize}/#{self.id}"
-  end
-
-  def available_checkout_types(user)
-    if user
-      user.user_group.user_group_has_checkout_types.available_for_carrier_type(self.carrier_type)
-    end
-  end
-
-  def checkout_period(user)
-    if available_checkout_types(user)
-      available_checkout_types(user).collect(&:checkout_period).max || 0
-    end
-  end
-
-  def reservation_expired_period(user)
-    if available_checkout_types(user)
-      available_checkout_types(user).collect(&:reservation_expired_period).max || 0
-    end
-  end
-
-  def bookmarked?(user)
-    self.users.include?(user)
   end
 
   def set_serial_information
@@ -388,36 +331,6 @@ class Manifestation < ActiveRecord::Base
       end
     end
     self
-  end
-
-  def is_reservable_by?(user)
-    return false if items.for_checkout.empty?
-    unless items.size == (items.size - user.checkouts.not_returned.collect(&:item).size)
-      return false
-    end
-    true
-  end
-
-  def is_reserved_by?(user)
-    return nil unless user
-    reserve = Reserve.waiting.where(:user_id => user.id, :manifestation_id => id).first
-    if reserve
-      reserve
-    else
-      false
-    end
-  end
-
-  def is_reserved?
-    if self.reserves.present?
-      true
-    else
-      false
-    end
-  end
-
-  def checkouts(start_date, end_date)
-    Checkout.completed(start_date, end_date).where(:item_id => self.items.collect(&:id))
   end
 
   def creator
@@ -508,28 +421,6 @@ class Manifestation < ActiveRecord::Base
     subjects.collect(&:classifications).flatten
   end
 
-  def questions(options = {})
-    id = self.id
-    options = {:page => 1, :per_page => Question.per_page}.merge(options)
-    page = options[:page]
-    per_page = options[:per_page]
-    user = options[:user]
-    Question.search do
-      with(:manifestation_id).equal_to id
-      any_of do
-        unless user.try(:has_role?, 'Librarian')
-          with(:shared).equal_to true
-        #  with(:username).equal_to user.try(:username)
-        end
-      end
-      paginate :page => page, :per_page => per_page
-    end.results
-  end
-
-  def web_item
-    items.where(:shelf_id => Shelf.web.id).first
-  end
-
   def self.find_by_isbn(isbn)
     if ISBN_Tools.is_valid?(isbn)
       ISBN_Tools.cleanup!(isbn)
@@ -568,6 +459,130 @@ class Manifestation < ActiveRecord::Base
       return true if series_statement.periodical and root_of_series?
     end
     false
+  end
+
+  def web_item
+    items.where(:shelf_id => Shelf.web.id).first
+  end
+
+  if defined?(EnjuSubject)
+    has_many :work_has_subjects, :foreign_key => 'work_id', :dependent => :destroy
+    has_many :subjects, :through => :work_has_subjects
+
+    searchable do
+      text :subject do
+        subjects.collect(&:term) + subjects.collect(&:term_transcription)
+      end
+      string :subject, :multiple => true do
+        subjects.collect(&:term) + subjects.collect(&:term_transcription)
+      end
+      string :classification, :multiple => true do
+        classifications.collect(&:category)
+      end
+      integer :subject_ids, :multiple => true
+    end
+  end
+
+  if defined?(EnjuCirculation)
+    has_many :reserves, :foreign_key => :manifestation_id
+
+    def next_reservation
+      self.reserves.waiting.order('reserves.created_at ASC').first
+    end
+
+    def available_checkout_types(user)
+      if user
+        user.user_group.user_group_has_checkout_types.available_for_carrier_type(self.carrier_type)
+      end
+    end
+
+    def is_reservable_by?(user)
+      return false if items.for_checkout.empty?
+      unless items.size == (items.size - user.checkouts.not_returned.collect(&:item).size)
+        return false
+      end
+      true
+    end
+
+    def is_reserved_by?(user)
+      return nil unless user
+      reserve = Reserve.waiting.where(:user_id => user.id, :manifestation_id => id).first
+      if reserve
+        reserve
+      else
+        false
+      end
+    end
+
+    def is_reserved?
+      if self.reserves.present?
+        true
+      else
+        false
+      end
+    end
+
+    def checkouts(start_date, end_date)
+      Checkout.completed(start_date, end_date).where(:item_id => self.items.collect(&:id))
+    end
+
+    def checkout_period(user)
+      if available_checkout_types(user)
+        available_checkout_types(user).collect(&:checkout_period).max || 0
+      end
+    end
+
+    def reservation_expired_period(user)
+      if available_checkout_types(user)
+        available_checkout_types(user).collect(&:reservation_expired_period).max || 0
+      end
+    end
+  end
+
+  if defined?(EnjuBookmark)
+    has_many :bookmarks, :include => :tags, :dependent => :destroy, :foreign_key => :manifestation_id
+    has_many :users, :through => :bookmarks
+
+    searchable do
+      string :tag, :multiple => true do
+        tags.collect(&:name)
+      end
+      text :tag do
+        tags.collect(&:name)
+      end
+    end
+
+    def bookmarked?(user)
+      self.users.include?(user)
+    end
+
+    def tags
+      if self.bookmarks.first
+        self.bookmarks.tag_counts
+      else
+        []
+      end
+    end
+  end
+
+  if defined?(EnjuQuestion)
+    def questions(options = {})
+      id = self.id
+      options = {:page => 1, :per_page => Question.per_page}.merge(options)
+      page = options[:page]
+      per_page = options[:per_page]
+      user = options[:user]
+      Question.search do
+        with(:manifestation_id).equal_to id
+        any_of do
+          unless user.try(:has_role?, 'Librarian')
+            with(:shared).equal_to true
+          #  with(:username).equal_to user.try(:username)
+          end
+        end
+        paginate :page => page, :per_page => per_page
+      end.results
+    end
   end
 end
 

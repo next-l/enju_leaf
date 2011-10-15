@@ -22,14 +22,15 @@ class Item < ActiveRecord::Base
   has_one :item_has_use_restriction, :dependent => :destroy
   has_one :use_restriction, :through => :item_has_use_restriction
   has_many :reserves
-  has_many :inter_library_loans, :dependent => :destroy
   belongs_to :required_role, :class_name => 'Role', :foreign_key => 'required_role_id', :validate => true
   belongs_to :checkout_type
   has_many :inventories, :dependent => :destroy
   has_many :inventory_files, :through => :inventories
   has_many :lending_policies, :dependent => :destroy
-  has_many :answer_has_items, :dependent => :destroy
-  has_many :answers, :through => :answer_has_items
+  if defined?(EnjuQuestion)
+    has_many :answer_has_items, :dependent => :destroy
+    has_many :answers, :through => :answer_has_items
+  end
   has_one :resource_import_result
 
   validates_associated :circulation_status, :shelf, :bookstore, :checkout_type
@@ -151,10 +152,6 @@ class Item < ActiveRecord::Base
     end
   end
 
-  def inter_library_loaned?
-    true if self.inter_library_loans.size > 0
-  end
-
   def title
     manifestation.try(:original_title)
   end
@@ -218,6 +215,13 @@ class Item < ActiveRecord::Base
       true
     else
       false
+    end
+  end
+
+  if defined?(EnjuInterLibraryLoan)
+    has_many :inter_library_loans, :dependent => :destroy
+    def inter_library_loaned?
+      true if self.inter_library_loans.size > 0
     end
   end
 end

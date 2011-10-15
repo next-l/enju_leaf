@@ -94,7 +94,9 @@ describe ResourceImportFile do
       Item.where(:item_identifier => '00001').first.manifestation.contributors.collect(&:full_name).should eq ['test1']
       Item.where(:item_identifier => '00002').first.manifestation.contributors.collect(&:full_name).should eq ['test2']
       Item.where(:item_identifier => '00003').first.manifestation.original_title.should eq 'テスト3'
-      Item.where(:item_identifier => '00001').first.manifestation.subjects.collect(&:term).should eq ['test1', 'test2']
+      if defined?(EnjuSubject)
+        Item.where(:item_identifier => '00001').first.manifestation.subjects.collect(&:term).should eq ['test1', 'test2']
+      end
     end
   end
 

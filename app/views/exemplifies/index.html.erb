@@ -6,6 +6,9 @@
   <tr>
     <th><%= t('activerecord.models.manifestation') -%></th>
     <th><%= t('activerecord.models.item') -%></th>
+    <%- if can? :create, Exemplify -%>
+      <th></th>
+    <%- end -%>
   </tr>
 
 <%- @exemplifies.each do |exemplify| -%>
@@ -13,8 +16,10 @@
     <td><%= link_to exemplify.manifestation.original_title, exemplify.manifestation -%></td>
     <td><%= link_to exemplify.item.item_identifier, exemplify.item -%></td>
     <%- if can? :destroy, exemplify -%>
-      <td><%= link_to t('page.show'), exemplify -%></td>
-      <td><%= link_to t('page.destroy'), exemplify, :confirm => t('page.are_you_sure'), :method => :delete -%></td>
+      <td>
+        <%= link_to t('page.show'), exemplify -%>
+        <%= link_to t('page.destroy'), exemplify, :confirm => t('page.are_you_sure'), :method => :delete -%>
+      </td>
     <%- end -%>
   </tr>
 <%- end -%>

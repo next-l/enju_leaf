@@ -129,6 +129,7 @@
     <%- else -%>
       <li><%= link_to t('page.edit'), edit_item_path(@item) -%></li>
     <%- end -%>
+    <li><%= link_to t('item.edit_exemplification'), item_manifestations_path(@item, :mode => 'add') -%></li>
     <% if defined?(EnjuInterLibraryLoan) %>
       <li><%= link_to t('page.listing', :model => t('activerecord.models.inter_library_loan')), item_inter_library_loans_path(@item) -%></li>
     <% end %>

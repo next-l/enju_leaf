@@ -1201,6 +1201,8 @@ en:
     status: "Status"
     enabled: "Enabled"
     disabled: "Disabled"
+    routing_error: "Routing error"
+    change: "Change"
   title:
     index: "index"
     show: "show"
@@ -1285,6 +1287,7 @@ en:
     no_manifestation: "No manifestation"
     no_number: "No number"
     add_lending_policy: "Add a new lending policy"
+    edit_exemplification: "Edit exemplification"
   patron:
     library_group_patron: "Patrons of %{library_group_name}"
     work_patron: "Creaters of %{work_title}"

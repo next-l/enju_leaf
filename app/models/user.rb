@@ -12,30 +12,38 @@ class User < ActiveRecord::Base
   scope :librarians, where('roles.name = ? OR roles.name = ?', 'Administrator', 'Librarian').includes(:role)
   scope :suspended, where('locked_at IS NOT NULL')
   has_one :patron
-  has_many :checkouts
   has_many :import_requests
-  has_many :sent_messages, :foreign_key => 'sender_id', :class_name => 'Message'
-  has_many :received_messages, :foreign_key => 'receiver_id', :class_name => 'Message'
-  #has_many :user_has_shelves
-  #has_many :shelves, :through => :user_has_shelves
+  if defined?(EnjuMessage)
+    has_many :sent_messages, :foreign_key => 'sender_id', :class_name => 'Message'
+    has_many :received_messages, :foreign_key => 'receiver_id', :class_name => 'Message'
+  end
   has_many :picture_files, :as => :picture_attachable, :dependent => :destroy
   has_many :import_requests
   has_one :user_has_role
   has_one :role, :through => :user_has_role
-  has_many :bookmarks, :dependent => :destroy
-  has_many :reserves, :dependent => :destroy
-  has_many :reserved_manifestations, :through => :reserves, :source => :manifestation
-  has_many :questions
-  has_many :answers
+  if defined?(EnjuBookmark)
+    has_many :bookmarks, :dependent => :destroy
+  end
+  if defined?(EnjuCirculation)
+    has_many :checkouts
+    has_many :reserves, :dependent => :destroy
+    has_many :reserved_manifestations, :through => :reserves, :source => :manifestation
+    has_many :checkout_stat_has_users
+    has_many :user_checkout_stats, :through => :checkout_stat_has_users
+    has_many :reserve_stat_has_users
+    has_many :user_reserve_stats, :through => :reserve_stat_has_users
+    has_many :baskets, :dependent => :destroy
+  end
+  if defined?(EnjuQuestion)
+    has_many :questions
+    has_many :answers
+  end
   has_many :search_histories, :dependent => :destroy
-  has_many :baskets, :dependent => :destroy
-  has_many :purchase_requests
-  has_many :order_lists
+  if defined?(EnjuPurchaseRequest)
+    has_many :purchase_requests
+    has_many :order_lists
+  end
   has_many :subscriptions
-  has_many :checkout_stat_has_users
-  has_many :user_checkout_stats, :through => :checkout_stat_has_users
-  has_many :reserve_stat_has_users
-  has_many :user_reserve_stats, :through => :reserve_stat_has_users
   belongs_to :library, :validate => true
   belongs_to :user_group
   belongs_to :required_role, :class_name => 'Role', :foreign_key => 'required_role_id' #, :validate => true

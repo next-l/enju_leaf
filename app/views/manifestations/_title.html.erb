@@ -14,11 +14,11 @@
     <%- unless manifestation.publishers.readable_by(current_user).empty? -%>
       <%= t('patron.publisher') -%>: <%= patrons_list(manifestation.publishers.readable_by(current_user), :itemprop => 'publisher') -%>
     <% end %>
-    <%- if manifestation.date_of_publication -%>
+    <%- if manifestation.date_of_publication? -%>
       <meta itemprop="publishDate" content="<%= manifestation.date_of_publication.iso8601 %>" />
       (<%= t('activerecord.attributes.manifestation.pub_date') %>: <%= manifestation.pub_date -%>)
     <%- end -%>
-    <%- unless manifestation.access_address.blank? -%>
+    <%- if manifestation.access_address? -%>
       <br />
       <%= link_to manifestation.access_address, manifestation.access_address -%>
       <%= link_to image_tag('icons/world_go.png', :size => '16x16', :alt => ('Web')), manifestation.access_address -%>

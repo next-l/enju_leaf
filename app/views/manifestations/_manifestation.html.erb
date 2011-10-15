@@ -1,10 +1,10 @@
-            <tr class="line<%= cycle("0", "1") -%>">
-              <td style="width: 30px"><%= itemnum = @manifestations.offset + 1 + manifestation_counter -%></td>
-              <td style="480px">
-                <%= render 'manifestations/show_index', :manifestation => manifestation -%>
-                <div class="access_address">
-                  <%= link_to manifestation.access_address, manifestation.access_address if manifestation.access_address.present? -%>
-                </div>
+          <tr class="line<%= cycle("0", "1") -%>">
+            <td style="width: 30px"><%= itemnum = @manifestations.offset + 1 + manifestation_counter -%></td>
+            <td style="480px">
+              <%= render 'manifestations/show_index', :manifestation => manifestation -%>
+              <div class="access_address">
+                <%= link_to manifestation.access_address, manifestation.access_address if manifestation.access_address.present? -%>
+              </div>
               <% cache(:controller => :manifestations, :action => :show, :id => manifestation.id, :page => 'show_list', :role => current_user_role_name, :locale => @locale, :manifestation_id => nil) do %>
                 <%- unless manifestation.items.on_shelf.empty? -%>
                   (<%= link_to_function t('page.holding'), "$('#holding_#{manifestation.id}').toggle()" -%>)
@@ -17,8 +17,9 @@
                 <%# グループ表示の部分テンプレート %>
                 <%= render 'manifestations/show_group', :manifestation => manifestation -%>
               <% end %>
-              </td>
-              <%- if user_signed_in? -%>
+            </td>
+            <%- if user_signed_in? -%>
+              <% unless params[:mode] == 'add' %> 
                 <% if defined?(EnjuCirculation) %>
                   <td>
                     <% if manifestation.is_reservable_by?(current_user) %>
@@ -30,9 +31,12 @@
                     <%- end -%>
                   </td>
                 <% end %>
-                <td id="edit_icons">
-                  <%- if can? :update, manifestation -%>
+              <% end %>
+              <td id="edit_icons">
+                <%- if can? :update, manifestation -%>
+                  <% unless params[:mode] == 'add' %>
                     <%= link_to image_tag('icons/book_edit.png', :size => '16x16', :alt => t('page.edit')), edit_manifestation_path(manifestation) -%>
+                  <% else %>
                     <% case %>
                     <% when @index_patron[:creator] %>
                       <%= link_to t('page.add'), new_patron_create_path(@index_patron[:creator], :work_id => manifestation.id) unless manifestation.creators.include?(@index_patron[:creator]) -%>
@@ -44,10 +48,13 @@
                       <%= link_to t('page.add'), edit_series_statement_manifestation_path(@series_statement, manifestation) -%>
                     <% when @manifestation %>
                       <%= link_to t('page.add'), new_manifestation_manifestation_relationship_path(@manifestation, :child_id => manifestation.id) unless @manifestation.derived_manifestations.include?(manifestation) or @manifestation == manifestation -%>
+                    <% when @item %>
+                      <%= link_to t('page.change'), edit_exemplify_path(@item.exemplify, :manifestation_id => manifestation.id) unless @item.manifestation == manifestation -%>
                     <% else %>
                       <%= link_to image_tag('icons/arrow_divide.png', :size => '16x16', :alt => t('manifestation.add_derivation')), manifestation_manifestations_path(manifestation, :mode => 'add') -%>
                     <% end %>
                   <%- end -%>
-                </td>
-              <%- end -%>
-            </tr>
+                <%- end -%>
+              </td>
+            <%- end -%>
+          </tr>

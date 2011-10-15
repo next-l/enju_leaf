@@ -378,19 +378,23 @@ class ResourceImportFile < ActiveRecord::Base
       contributor_patrons = Patron.import_patrons(contributors_list)
       publisher_patrons = Patron.import_patrons(publishers_list)
       #classification = Classification.where(:category => row['classification'].to_s.strip).first
-      subjects = import_subject(row)
+      subjects = import_subject(row) if defined?(EnjuSubject)
       series_statement = import_series_statement(row)
       case options[:edit_mode]
       when 'create'
         work = self.class.import_work(title, creator_patrons, options)
         work.series_statement = series_statement
-        work.subjects << subjects unless subjects.empty?
+        if defined?(EnjuSubject)
+          work.subjects << subjects unless subjects.empty?
+        end
         expression = self.class.import_expression(work, contributor_patrons)
       when 'update'
         expression = manifestation
         work = expression
         work.series_statement = series_statement
-        work.subjects = subjects
+        if defined?(EnjuSubject)
+          work.subjects = subjects
+        end
         work.creators = creator_patrons
         expression.contributors = contributor_patrons
       end
