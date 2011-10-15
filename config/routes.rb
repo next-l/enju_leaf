@@ -73,21 +73,9 @@ EnjuLeaf::Application.routes.draw do
   end
 
   resources :users do
-    resources :baskets do
-      resources :checked_items
-      resources :checkins
-    end
-    resources :checkouts
-    resources :reserves
     resource :patron
   end
 
-  resources :bookmark_stats
-  resources :bookmark_stat_has_manifestations
-  resources :user_checkout_stats
-  resources :user_reserve_stats
-  resources :manifestation_checkout_stats
-  resources :manifestation_reserve_stats
   resources :manifestation_relationship_types
   resources :patron_relationship_types
   resources :licenses
@@ -96,14 +84,8 @@ EnjuLeaf::Application.routes.draw do
   resources :request_status_types
   resources :request_types
   resources :frequencies
-  resources :use_restrictions
-  resources :item_has_use_restrictions
-  resources :lending_policies
   resources :patron_types
-  resources :circulation_statuses
   resources :form_of_works
-  resources :inventory_files
-  resources :inventories
   resources :donates
   resources :subscriptions do
     resources :manifestations
@@ -114,25 +96,7 @@ EnjuLeaf::Application.routes.draw do
     resources :manifestations, :controller => :manifestations
     resources :series_has_manifestations
   end
-  resources :barcodes
-  resources :message_requests, :except => [:new, :create]
-  resources :message_templates
-  resources :carrier_type_has_checkout_types
-  resources :user_group_has_checkout_types
-  resources :checkout_types do
-    resources :user_group_has_checkout_types
-  end
   resources :search_histories, :only => [:index, :show, :destroy]
-
-  resources :inter_library_loans
-
-  resources :baskets do
-    resources :checked_items
-  end
-
-  resources :events do
-    resources :picture_files
-  end
 
   resources :participates
 
@@ -142,21 +106,9 @@ EnjuLeaf::Application.routes.draw do
 
   resources :roles, :except => [:new, :create, :destroy]
 
-  resources :messages do
-    collection do
-      post :destroy_selected
-    end
-  end
-
   resources :library_groups, :except => [:new, :create, :destroy]
 
   resources :search_engines
-
-  resources :reserves
-
-  resources :event_categories
-
-  resources :events
 
   resources :content_types
 
@@ -164,23 +116,15 @@ EnjuLeaf::Application.routes.draw do
 
   resources :import_requests
 
-  resources :user_groups do
-    resources :user_group_has_checkout_types
-  end
+  resources :user_groups
 
   resources :shelves do
     resources :picture_files
   end
 
   resources :libraries do
-    resources :events
     resources :shelves
   end
-
-  resources :checkins
-  resources :checked_items
-
-  resources :checkouts
 
   resources :countries
 
@@ -188,11 +132,22 @@ EnjuLeaf::Application.routes.draw do
 
   resources :manifestation_relationships
 
+  resources :resource_import_files do
+    resources :resource_import_results, :only => [:index, :show, :destroy]
+  end
+
+  resources :patron_import_files do
+    resources :patron_import_results, :only => [:index, :show, :destroy]
+  end
+
+  resources :event_import_files do
+    resources :event_import_results, :only => [:index, :show, :destroy]
+  end
+  resources :event_import_results, :only => [:index, :show, :destroy]
+  resources :patron_import_results, :only => [:index, :show, :destroy]
+  resources :resource_import_results, :only => [:index, :show, :destroy]
+
   resources :items do
-    resources :checked_items
-    resources :inter_library_loans
-    resources :item_has_use_restrictions
-    resources :lending_policies
     resources :patrons
     resources :owns
     resource :exemplify
@@ -203,11 +158,6 @@ EnjuLeaf::Application.routes.draw do
   resources :realizes
   resources :creates
   resources :exemplifies
-
-  resources :checkout_stat_has_manifestations
-  resources :checkout_stat_has_users
-  resources :reserve_stat_has_manifestations
-  resources :reserve_stat_has_users
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

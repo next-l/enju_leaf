@@ -8,14 +8,6 @@ class Ability
       can :destroy, Bookstore do |bookstore|
         bookstore.order_lists.empty? and bookstore.items.empty?
       end
-      can [:read, :create, :update], ClassificationType
-      can :destroy, ClassificationType do |classification_type|
-        classification_type.classifications.empty?
-      end
-      can [:read, :create], EventCategory
-      can [:update, :destroy], EventCategory do |event_category|
-        !['unknown', 'closed'].include?(event_category.name)
-      end
       can [:read, :create, :update], Item
       can :destroy, Item do |item|
         item.deletable?
@@ -28,7 +20,6 @@ class Ability
       can :destroy, Manifestation do |manifestation|
         manifestation.items.empty? and !manifestation.is_reserved? and !manifestation.periodical_master?
       end
-      can [:read, :update, :destroy], MessageRequest
       can [:read, :create, :update], Patron
       can :destroy, Patron do |patron|
         if patron.user
@@ -50,76 +41,31 @@ class Ability
         user_group.users.empty?
       end
       can :manage, [
-        Answer,
-        Basket,
-        Bookmark,
-        BookmarkStat,
-        BookmarkStatHasManifestation,
-        CarrierTypeHasCheckoutType,
-        CheckedItem,
-        Checkin,
-        Checkout,
-        CheckoutStatHasManifestation,
-        CheckoutStatHasUser,
-        CheckoutType,
-        Classification,
         Create,
         Donate,
-        Event,
         Exemplify,
-        EventImportFile,
         ImportRequest,
-        InterLibraryLoan,
-        Inventory,
-        InventoryFile,
-        LendingPolicy,
-        ItemHasUseRestriction,
-        ManifestationCheckoutStat,
         ManifestationRelationship,
         ManifestationRelationshipType,
-        ManifestationReserveStat,
-        Message,
-        Order,
-        OrderList,
         Own,
         Participate,
         PatronImportFile,
-        PatronMerge,
-        PatronMergeList,
         PatronRelationship,
         PatronRelationshipType,
         PictureFile,
         Produce,
-        PurchaseRequest,
-        Question,
         Realize,
-        Reserve,
-        ReserveStatHasManifestation,
-        ReserveStatHasUser,
         ResourceImportFile,
         SearchEngine,
         SearchHistory,
         SeriesStatement,
         SeriesHasManifestation,
-        SeriesStatementMerge,
-        SeriesStatementMergeList,
-        Subject,
-        SubjectHasClassification,
-        SubjectHeadingType,
-        SubjectHeadingTypeHasSubject,
-        SubjectType,
         Subscribe,
         Subscription,
-        Tag,
-        UserCheckoutStat,
-        UserGroupHasCheckoutType,
-        UserHasRole,
-        UserReserveStat,
-        WorkHasSubject
+        UserHasRole
       ]
       can [:read, :update], [
         CarrierType,
-        CirculationStatus,
         ContentType,
         Country,
         Extent,
@@ -129,24 +75,16 @@ class Ability
         LibraryGroup,
         License,
         MediumOfPerformance,
-        MessageTemplate,
         PatronType,
         RequestStatusType,
         RequestType,
-        Role,
-        UseRestriction
+        Role
       ]
       can :read, [
-        EventImportResult,
         PatronImportResult,
         ResourceImportResult
       ]
     when 'Librarian'
-      can [:index, :create], Bookmark
-      can [:show, :update, :destroy], Bookmark do |bookmark|
-        bookmark.user == user
-      end
-      can [:read, :create, :update], BookmarkStat
       can [:read, :create, :update], Item
       can :destroy, Item do |item|
         item.checkouts.not_returned.empty?
@@ -155,35 +93,12 @@ class Ability
       can :destroy, Manifestation do |manifestation|
         manifestation.items.empty? and !manifestation.is_reserved? and !manifestation.periodical_master?
       end
-      can [:index, :create], Message
-      can [:update], Message do |message|
-        message.sender == user
-      end
-      can [:show, :destroy], Message do |message|
-        message.receiver == user
-      end
-      can [:read, :update, :destroy], MessageRequest
       can [:index, :create], Patron
       can :show, Patron do |patron|
         patron.required_role_id <= 3
       end
       can [:update, :destroy], Patron do |patron|
         !patron.user.try(:has_role?, 'Librarian') and patron.required_role_id <= 3
-      end
-      can [:index, :create], PurchaseRequest
-      can [:show, :update, :destroy], PurchaseRequest do |purchase_request|
-        purchase_request.user == user
-      end
-      can [:index, :create], Question
-      can [:update, :destroy], Question do |question|
-        question.user == user
-      end
-      can :show, Question do |question|
-        question.user == user or question.shared
-      end
-      can [:index, :create], Reserve
-      can [:update, :destroy, :show], Reserve do |reserve|
-        reserve.try(:user) == user
       end
       can :index, SearchHistory
       can [:show, :destroy], SearchHistory do |search_history|
@@ -193,119 +108,52 @@ class Ability
       can :destroy, User do |u|
         u.checkouts.not_returned.empty? and u.role.name == 'User' and u != user
       end
-      can [:read, :create, :update], UserCheckoutStat
-      can [:read, :create, :update], UserReserveStat
       can :manage, [
-        Answer,
-        Basket,
-        Bookmark,
-        CheckedItem,
-        Checkin,
-        Checkout,
         Create,
         Donate,
-        Event,
         Exemplify,
-        EventImportFile,
         ImportRequest,
-        InterLibraryLoan,
-        Inventory,
-        InventoryFile,
-        ManifestationCheckoutStat,
         ManifestationRelationship,
-        ManifestationReserveStat,
-        Order,
-        OrderList,
         Own,
         Participate,
         PatronImportFile,
-        PatronMerge,
-        PatronMergeList,
         PatronRelationship,
         PictureFile,
         Produce,
-        PurchaseRequest,
-        Question,
         Realize,
-        Reserve,
         ResourceImportFile,
         SearchHistory,
         SeriesStatement,
         SeriesHasManifestation,
-        SeriesStatementMerge,
-        SeriesStatementMergeList,
-        SubjectHasClassification,
         Subscribe,
-        Subscription,
-        Tag,
-        WorkHasSubject
+        Subscription
       ]
       can :read, [
-        BookmarkStatHasManifestation,
         Bookstore,
         CarrierType,
-        CarrierTypeHasCheckoutType,
-        CheckoutType,
-        CheckoutStatHasManifestation,
-        CheckoutStatHasUser,
-        CirculationStatus,
-        Classification,
-        ClassificationType,
         ContentType,
         Country,
-        EventCategory,
-        EventImportResult,
         Extent,
         Frequency,
         FormOfWork,
-        ItemHasUseRestriction,
         Language,
-        LendingPolicy,
         Library,
         LibraryGroup,
         License,
         ManifestationRelationshipType,
         MediumOfPerformance,
-        MessageTemplate,
         PatronImportResult,
         PatronRelationshipType,
         PatronType,
         RequestStatusType,
         RequestType,
-        ReserveStatHasManifestation,
-        ReserveStatHasUser,
         ResourceImportResult,
         Role,
         SearchEngine,
         Shelf,
-        Subject,
-        SubjectType,
-        SubjectHeadingType,
-        SubjectHeadingTypeHasSubject,
-        UseRestriction,
-        UserGroup,
-        UserGroupHasCheckoutType
+        UserGroup
       ]
     when 'User'
-      can [:index, :create], Answer
-      can :show, Answer do |answer|
-        if answer.user == user
-          true
-        elsif answer.question.shared
-          answer.shared
-        end
-      end
-      can [:update, :destroy], Answer do |answer|
-        answer.user == user
-      end
-      can [:index, :create], Bookmark
-      can [:show, :update, :destroy], Bookmark do |bookmark|
-        bookmark.user == user
-      end
-      can [:index, :create], Checkout
-      can [:show, :update, :destroy], Checkout do |checkout|
-        checkout.user == user
-      end
       can :index, Item
       can :show, Item do |item|
         item.required_role_id <= 2
@@ -314,20 +162,6 @@ class Ability
         manifestation.required_role_id <= 2
       end
       can :edit, Manifestation
-      can [:read, :destroy], Message do |message|
-        message.receiver == user
-      end
-      can :index, Message
-      can :show, Message do |message|
-        message.receiver == user
-      end
-      can [:index, :create], Question
-      can [:update, :destroy], Question do |question|
-        question.user == user
-      end
-      can :show, Question do |question|
-        question.user == user or question.shared
-      end
       can [:index, :create], Patron
       can :update, Patron do |patron|
         patron.user == user
@@ -347,14 +181,6 @@ class Ability
           true
         end
       end
-      can [:index, :create], PurchaseRequest
-      can [:show, :update, :destroy], PurchaseRequest do |purchase_request|
-        purchase_request.user == user
-      end
-      can [:index, :create], Reserve
-      can [:show, :update, :destroy], Reserve do |reserve|
-        reserve.user == user
-      end
       can :index, SearchHistory
       can [:show, :destroy], SearchHistory do |search_history|
         search_history.user == user
@@ -364,16 +190,10 @@ class Ability
         u == user
       end
       can :read, [
-        BookmarkStat,
         CarrierType,
-        CirculationStatus,
-        Classification,
-        ClassificationType,
         ContentType,
         Country,
         Create,
-        Event,
-        EventCategory,
         Exemplify,
         Extent,
         Frequency,
@@ -384,8 +204,6 @@ class Ability
         License,
         ManifestationRelationship,
         ManifestationRelationshipType,
-        ManifestationCheckoutStat,
-        ManifestationReserveStat,
         MediumOfPerformance,
         Own,
         PatronRelationship,
@@ -395,40 +213,18 @@ class Ability
         SeriesStatement,
         SeriesHasManifestation,
         Shelf,
-        Subject,
-        SubjectHasClassification,
-        SubjectHeadingType,
-        Tag,
-        UserCheckoutStat,
-        UserReserveStat,
-        UserGroup,
-        WorkHasSubject
+        UserGroup
       ]
     else
-      can :index, Answer
-      can :show, Answer do |answer|
-        answer.user == user or answer.shared
-      end
-      can :index, Checkout
       can :index, Patron
       can :show, Patron do |patron|
         patron.required_role_id == 1 #name == 'Guest'
       end
-      can :index, Question
-      can :show, Question do |question|
-        question.user == user or question.shared
-      end
       can :read, [
-        BookmarkStat,
         CarrierType,
-        CirculationStatus,
-        Classification,
-        ClassificationType,
         ContentType,
         Country,
         Create,
-        Event,
-        EventCategory,
         Exemplify,
         Extent,
         Frequency,
@@ -439,10 +235,8 @@ class Ability
         LibraryGroup,
         License,
         Manifestation,
-        ManifestationCheckoutStat,
         ManifestationRelationship,
         ManifestationRelationshipType,
-        ManifestationReserveStat,
         MediumOfPerformance,
         Own,
         PatronRelationship,
@@ -453,15 +247,336 @@ class Ability
         SeriesStatement,
         SeriesHasManifestation,
         Shelf,
-        Subject,
-        SubjectHasClassification,
-        SubjectHeadingType,
-        Tag,
-        UserCheckoutStat,
-        UserGroup,
-        UserReserveStat,
-        WorkHasSubject
+        UserGroup
       ]
+    end
+
+    if defined?(EnjuBookmark)
+      case user.try(:role).try(:name)
+      when 'Administrator'
+        can :manage, [
+          Bookmark,
+          BookmarkStat,
+          BookmarkStatHasManifestation,
+          Tag
+        ]
+      when 'Librarian'
+        can [:read, :create, :update], BookmarkStat
+        can :read, BookmarkStatHasManifestation
+        can :manage, [
+          Bookmark,
+          Tag
+        ]
+      when 'User'
+        can [:index, :create], Bookmark
+        can [:show, :update, :destroy], Bookmark do |bookmark|
+          bookmark.user == user
+        end
+        can :read, BookmarkStat
+        can :read, Tag
+      else
+        can :read, BookmarkStat
+        can :read, Tag
+      end
+    end
+
+    if defined?(EnjuMessage)
+      case user.try(:role).try(:name)
+      when 'Administrator'
+        can :manage, Message
+        can [:read, :update, :destroy], MessageRequest
+        can [:read, :update], MessageTemplate
+      when 'Librarian'
+        can [:index, :create], Message
+        can [:update], Message do |message|
+          message.sender == user
+        end
+        can [:show, :destroy], Message do |message|
+          message.receiver == user
+        end
+        can [:read, :update, :destroy], MessageRequest
+        can :read, MessageTemplate
+      when 'User'
+        can [:read, :destroy], Message do |message|
+          message.receiver == user
+        end
+        can :index, Message
+        can :show, Message do |message|
+          message.receiver == user
+        end
+      end
+    end
+
+    if defined?(EnjuQuestion)
+      case user.try(:role).try(:name)
+      when 'Administrator'
+        can :manage, Answer
+        can :manage, Question
+      when 'Librarian'
+        can :manage, Answer
+        can :manage, Question
+      when 'User'
+        can [:index, :create], Answer
+        can :show, Answer do |answer|
+          if answer.user == user
+            true
+          elsif answer.question.shared
+            answer.shared
+          end
+        end
+        can [:update, :destroy], Answer do |answer|
+          answer.user == user
+        end
+        can [:index, :create], Question
+        can [:update, :destroy], Question do |question|
+          question.user == user
+        end
+        can :show, Question do |question|
+          question.user == user or question.shared
+        end
+      else
+        can :index, Answer
+        can :show, Answer do |answer|
+          answer.shared
+        end
+        can :index, Question
+        can :show, Question do |question|
+          question.shared
+        end
+      end
+    end
+
+    if defined?(EnjuSubject)
+      case user.try(:role).try(:name)
+      when 'Administrator'
+        can [:read, :create, :update], ClassificationType
+        can :destroy, ClassificationType do |classification_type|
+          classification_type.classifications.empty?
+        end
+        can :manage, [
+          Classification,
+          Subject,
+          SubjectHasClassification,
+          SubjectHeadingType,
+          SubjectHeadingTypeHasSubject,
+          SubjectType
+        ]
+        can :manage, WorkHasSubject
+      when 'Librarian'
+        can :read, [
+          Classification,
+          ClassificationType,
+          Subject,
+          SubjectType,
+          SubjectHeadingType,
+          SubjectHeadingTypeHasSubject
+        ]
+        can :manage, [
+          SubjectHasClassification,
+          WorkHasSubject
+        ]
+      when 'User'
+        can :read, [
+          Classification,
+          ClassificationType,
+          Subject,
+          SubjectHasClassification,
+          SubjectHeadingType,
+          WorkHasSubject
+        ]
+      else
+        can :read, [
+          Classification,
+          ClassificationType,
+          Subject,
+          SubjectHasClassification,
+          SubjectHeadingType,
+          WorkHasSubject
+        ]
+      end
+    end
+
+    if defined?(EnjuCirculation)
+      case user.try(:role).try(:name)
+      when 'Administrator'
+        can :manage, [
+          Basket,
+          CarrierTypeHasCheckoutType,
+          CheckedItem,
+          Checkin,
+          Checkout,
+          CheckoutStatHasManifestation,
+          CheckoutStatHasUser,
+          CheckoutType,
+          ItemHasUseRestriction,
+          LendingPolicy,
+          ManifestationCheckoutStat,
+          ManifestationReserveStat,
+          Reserve,
+          ReserveStatHasManifestation,
+          ReserveStatHasUser,
+          UserCheckoutStat,
+          UserGroupHasCheckoutType,
+          UserReserveStat
+        ]
+        can [:read, :update], [
+          CirculationStatus,
+          UseRestriction
+        ]
+      when 'Librarian'
+        can :manage, [
+          Basket,
+          CheckedItem,
+          Checkin,
+          Checkout,
+          ManifestationCheckoutStat,
+          ManifestationReserveStat,
+          Reserve
+        ]
+        can [:index, :create], Reserve
+        can [:update, :destroy, :show], Reserve do |reserve|
+          reserve.try(:user) == user
+        end
+        can [:read, :create, :update], UserCheckoutStat
+        can [:read, :create, :update], UserReserveStat
+        can :read, [
+          CarrierTypeHasCheckoutType,
+          CheckoutType,
+          CheckoutStatHasManifestation,
+          CheckoutStatHasUser,
+          CirculationStatus,
+          ItemHasUseRestriction,
+          LendingPolicy,
+          ReserveStatHasManifestation,
+          ReserveStatHasUser,
+          UseRestriction,
+          UserGroupHasCheckoutType
+        ]
+      when 'User'
+        can [:index, :create], Checkout
+        can [:show, :update, :destroy], Checkout do |checkout|
+          checkout.user == user
+        end
+        can [:index, :create], Reserve
+        can [:show, :update, :destroy], Reserve do |reserve|
+          reserve.user == user
+        end
+        can :read, [
+          CirculationStatus,
+          ManifestationCheckoutStat,
+          ManifestationReserveStat,
+          UserCheckoutStat,
+          UserReserveStat,
+        ]
+      else
+        can :index, Checkout
+        can :read, [
+          CirculationStatus,
+          ManifestationCheckoutStat,
+          ManifestationReserveStat,
+          UserCheckoutStat,
+          UserReserveStat
+        ]
+      end
+    end
+
+    if defined?(EnjuInventory)
+      case user.try(:role).try(:name)
+      when 'Administrator'
+        can :manage, [
+          Inventory,
+          InventoryFile
+        ]
+      when 'Librarian'
+        can :manage, [
+          Inventory,
+          InventoryFile
+        ]
+      end
+    end
+
+    if defined?(EnjuPurchaseRequest)
+      case user.try(:role).try(:name)
+      when 'Administrator'
+        can :manage, [
+          Order,
+          OrderList,
+          PurchaseRequest
+        ]
+      when 'Librarian'
+        can :manage, [
+          Order,
+          OrderList,
+          PurchaseRequest
+        ]
+      when 'User'
+        can [:index, :create], PurchaseRequest
+        can [:show, :update, :destroy], PurchaseRequest do |purchase_request|
+          purchase_request.user == user
+        end
+      end
+    end
+
+    if defined?(EnjuResourceMerge)
+      case user.try(:role).try(:name)
+      when 'Administrator'
+        can :manage, [
+          PatronMerge,
+          PatronMergeList,
+          SeriesStatementMerge,
+          SeriesStatementMergeList
+        ]
+      when 'Librarian'
+        can :manage, [
+          PatronMerge,
+          PatronMergeList,
+          SeriesStatementMerge,
+          SeriesStatementMergeList
+        ]
+      end
+    end
+
+    if defined?(EnjuEvent)
+      case user.try(:role).try(:name)
+      when 'Administrator'
+        can [:read, :create], EventCategory
+        can [:update, :destroy], EventCategory do |event_category|
+          !['unknown', 'closed'].include?(event_category.name)
+        end
+        can :manage, [
+          Event,
+          EventImportFile
+        ]
+        can :read, EventImportResult
+      when 'Librarian'
+        can :manage, [
+          Event,
+          EventImportFile
+        ]
+        can :read, [
+          EventCategory,
+          EventImportResult
+        ]
+      when 'User'
+        can :read, [
+          Event,
+          EventCategory
+        ]
+      else
+        can :read, [
+          Event,
+          EventCategory
+        ]
+      end
+    end
+
+    if defined?(EnjuInterLibraryLoan)
+      case user.try(:role).try(:name)
+      when 'Administrator'
+        can :manage, InterLibraryLoan
+      when 'Librarian'
+        can :manage, InterLibraryLoan
+      end
     end
   end
 end
