@@ -1,6 +1,6 @@
 FactoryGirl.define do
   factory :produce do |f|
-    f.manifestation{FactoryGirl.create(:manifestation)}
-    f.patron{FactoryGirl.create(:patron)}
+    f.manifestation_id{FactoryGirl.create(:manifestation).id}
+    f.patron_id{FactoryGirl.create(:patron).id}
   end
 end

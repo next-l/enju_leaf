@@ -1,7 +1,7 @@
 FactoryGirl.define do
   factory :event do |f|
     f.sequence(:name){|n| "event_#{n}"}
-    f.library{FactoryGirl.create(:library)}
-    f.event_category{FactoryGirl.create(:event_category)}
+    f.library_id{FactoryGirl.create(:library).id}
+    f.event_category_id{FactoryGirl.create(:event_category).id}
   end
 end
