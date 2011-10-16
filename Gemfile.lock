@@ -350,6 +350,8 @@ GEM
       activesupport (= 3.1.1)
       bundler (~> 1.0)
       railties (= 3.1.1)
+    rails_autolink (1.0.4)
+      rails (>= 3.1.0)
     rails_best_practices (1.1.0)
       activesupport
       colored
@@ -516,6 +518,7 @@ DEPENDENCIES
   progress_bar
   rack-protection
   rails (= 3.1.1)
+  rails_autolink
   rake (= 0.9.2)
   ri_cal
   rspec-rails
