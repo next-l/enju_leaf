@@ -54,7 +54,6 @@
 <% end %>
 
 <%- cache(:controller => :items, :action => :show, :id => @item.id, :page => 'detail', :role => current_user_role_name, :locale => @locale, :item_id => nil) do -%>
-<% end %>
 
 <p>
   <strong><%= t('activerecord.attributes.item.call_number') -%>:</strong>
