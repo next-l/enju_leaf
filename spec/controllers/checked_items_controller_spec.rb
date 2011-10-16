@@ -21,16 +21,16 @@ describe CheckedItemsController do
         sign_in FactoryGirl.create(:librarian)
       end
 
-      it "should be forbidden" do
+      it "assigns all checked_items as @checked_items" do
         get :index
         assigns(:checked_items).should_not be_empty
         response.should be_forbidden
       end
 
-      describe "When basket is specified" do
+      describe "When basket and item are specified" do
         it "assigns checked_items as @checked_items" do
-          get :index, :basket_id => 1
-          assigns(:checked_items).should_not be_empty
+          get :index, :basket_id => 3, :item_id => 3
+          assigns(:checked_items).should be_empty
           response.should be_success
         end
       end

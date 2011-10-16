@@ -1,4 +1,20 @@
 GIT
+  remote: git://github.com/nabeta/enju_barcode.git
+  revision: f762b4641fa05b6c000be21899b4bf30f9b5fcfb
+  specs:
+    enju_barcode (0.0.1)
+      barby (~> 0.5)
+      rails (~> 3.1.1)
+      rqrcode
+
+GIT
+  remote: git://github.com/nabeta/enju_bookmark.git
+  revision: feff64b23fc893957756492278c0a45776a54e6c
+  specs:
+    enju_bookmark (0.0.2)
+      rails (~> 3.1.1)
+
+GIT
   remote: git://github.com/nabeta/enju_circulation.git
   revision: 5bbec41946f07277eb6319cbc201fd0f22b1e79d
   specs:
@@ -11,6 +27,13 @@ GIT
   specs:
     enju_event (0.0.2)
       event-calendar (~> 2.3.3)
+      rails (~> 3.1.1)
+
+GIT
+  remote: git://github.com/nabeta/enju_inter_library_loan.git
+  revision: 92150d6e85c612c61e9a582d3e14e6d94a244d24
+  specs:
+    enju_inter_library_loan (0.0.1)
       rails (~> 3.1.1)
 
 GIT
@@ -35,10 +58,45 @@ GIT
       rails (~> 3.1.1)
 
 GIT
+  remote: git://github.com/nabeta/enju_nii.git
+  revision: 893c2c674122f15f54ad0e3a80dad0949e4f532c
+  specs:
+    enju_nii (0.0.2)
+      rails (~> 3.1.1)
+
+GIT
   remote: git://github.com/nabeta/enju_oai.git
   revision: a80b77a29de29e5022d135b3594338d87df3d916
   specs:
     enju_oai (0.0.1)
+      rails (~> 3.1.1)
+
+GIT
+  remote: git://github.com/nabeta/enju_purchase_request.git
+  revision: 803486c74c9942fbaea42335be938c5f519b055c
+  specs:
+    enju_purchase_request (0.0.2)
+      rails (~> 3.1.1)
+
+GIT
+  remote: git://github.com/nabeta/enju_question.git
+  revision: e52fb89748fea591867e5b0fda6c21a0212f2087
+  specs:
+    enju_question (0.0.2)
+      rails (~> 3.1.1)
+
+GIT
+  remote: git://github.com/nabeta/enju_resource_merge.git
+  revision: 43ed6517dd2a7c8fe86c41f46267dd46471a8284
+  specs:
+    enju_resource_merge (0.0.2)
+      rails (~> 3.1.1)
+
+GIT
+  remote: git://github.com/nabeta/enju_subject.git
+  revision: f92db099051f2f7990ac2c390a033954ea47ca7a
+  specs:
+    enju_subject (0.0.2)
       rails (~> 3.1.1)
 
 GIT
@@ -112,6 +170,7 @@ GEM
       builder
       mime-types
       xml-simple
+    barby (0.5.0)
     bcrypt-ruby (3.0.1)
     builder (3.0.0)
     cancan (1.6.7)
@@ -326,6 +385,7 @@ GEM
     ri_cal (0.8.8)
     roodi (2.1.0)
       ruby_parser
+    rqrcode (0.4.2)
     rsolr (1.0.2)
       builder (>= 2.1.2)
     rspec (2.6.0)
@@ -422,12 +482,20 @@ DEPENDENCIES
   delayed_job (>= 2.1.4)
   devise (~> 1.4.8)
   dynamic_form
+  enju_barcode!
+  enju_bookmark!
   enju_circulation!
   enju_event!
+  enju_inter_library_loan!
   enju_inventory!
   enju_message!
   enju_ndl!
+  enju_nii!
   enju_oai!
+  enju_purchase_request!
+  enju_question!
+  enju_resource_merge!
+  enju_subject!
   exception_notification (~> 2.5.2)
   extractcontent
   factory_girl_rails (~> 1.2)

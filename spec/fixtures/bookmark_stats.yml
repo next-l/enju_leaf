@@ -1,0 +1,32 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+bookmark_stat_00001:
+  id: 1
+  start_date: 2008-12-13 00:16:14
+  end_date: 2008-12-14 00:16:14
+  note: MyText
+  state: pending
+
+bookmark_stat_00002:
+  id: 2
+  start_date: 2008-12-13 00:16:14
+  end_date: 2008-12-14 00:16:14
+  note: MyText
+  state: pending
+
+
+# == Schema Information
+#
+# Table name: bookmark_stats
+#
+#  id           :integer         not null, primary key
+#  start_date   :datetime
+#  end_date     :datetime
+#  note         :text
+#  state        :string(255)
+#  created_at   :datetime
+#  updated_at   :datetime
+#  started_at   :datetime
+#  completed_at :datetime
+#
+

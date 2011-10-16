@@ -1,0 +1,72 @@
+--- 
+subject_00001: 
+  updated_at: 2008-03-02 03:19:58.534251 +09:00
+  term: next-l
+  scope_note: 
+  subject_type_id: 1
+  term_transcription: next-l
+  id: 1
+  note: 
+  parent_id: 
+  created_at: 2008-03-01 17:53:06.118389 +09:00
+subject_00002: 
+  updated_at: 2008-03-02 03:19:57.946759 +09:00
+  term: test2
+  scope_note: 
+  subject_type_id: 1
+  term_transcription: test2
+  id: 2
+  note: 
+  parent_id: 
+  created_at: 2008-03-01 17:50:34.658349 +09:00
+subject_00003: 
+  updated_at: 2008-03-02 03:19:58.048475 +09:00
+  term: test3
+  scope_note: 
+  subject_type_id: 1
+  term_transcription: test3
+  id: 3
+  note: 
+  parent_id: 
+  created_at: 2008-03-01 17:51:39.448430 +09:00
+subject_00004: 
+  updated_at: 2008-03-02 03:19:58.048475 +09:00
+  term: test4
+  scope_note: 
+  subject_type_id: 1
+  term_transcription: test4
+  id: 4
+  note: 
+  parent_id: 
+  created_at: 2008-03-01 17:51:39.448430 +09:00
+subject_00005: 
+  updated_at: 2008-03-02 03:19:58.048475 +09:00
+  term: test5
+  scope_note: 
+  subject_type_id: 1
+  term_transcription: test5
+  id: 5
+  note: 
+  parent_id: 
+  created_at: 2008-03-01 17:51:39.448430 +09:00
+
+# == Schema Information
+#
+# Table name: subjects
+#
+#  id                      :integer         not null, primary key
+#  parent_id               :integer
+#  use_term_id             :integer
+#  term                    :string(255)
+#  term_transcription      :text
+#  subject_type_id         :integer         not null
+#  scope_note              :text
+#  note                    :text
+#  required_role_id        :integer         default(1), not null
+#  work_has_subjects_count :integer         default(0), not null
+#  lock_version            :integer         default(0), not null
+#  created_at              :datetime
+#  updated_at              :datetime
+#  deleted_at              :datetime
+#
+

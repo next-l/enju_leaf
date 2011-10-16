@@ -1,0 +1,74 @@
+--- 
+subject_has_classification_00001: 
+  updated_at: 2008-01-11 23:28:19.277110 +09:00
+  classification_id: 1
+  subject_id: 2
+  id: 1
+  created_at: 2008-01-11 23:28:19.277110 +09:00
+subject_has_classification_00002: 
+  updated_at: 2008-01-11 23:28:57.068191 +09:00
+  classification_id: 2
+  subject_id: 1
+  id: 2
+  created_at: 2008-01-11 23:28:57.068191 +09:00
+subject_has_classification_00003: 
+  updated_at: 2008-01-11 23:32:03.701425 +09:00
+  classification_id: 3
+  subject_id: 2
+  id: 3
+  created_at: 2008-01-11 23:32:03.701425 +09:00
+subject_has_classification_00004: 
+  updated_at: 2008-01-11 02:34:20.183962 +09:00
+  classification_id: 4
+  subject_id: 2
+  id: 4
+  created_at: 2008-01-11 02:34:20.183962 +09:00
+subject_has_classification_00005: 
+  updated_at: 2008-01-11 02:34:32.352223 +09:00
+  classification_id: 5
+  subject_id: 1
+  id: 5
+  created_at: 2008-01-11 02:34:32.352223 +09:00
+subject_has_classification_00006: 
+  updated_at: 2008-01-11 23:35:36.467584 +09:00
+  classification_id: 1
+  subject_id: 1
+  id: 6
+  created_at: 2008-01-11 23:35:36.467584 +09:00
+subject_has_classification_00007: 
+  updated_at: 2008-01-11 02:40:24.038276 +09:00
+  classification_id: 2
+  subject_id: 2
+  id: 7
+  created_at: 2008-01-11 02:40:24.038276 +09:00
+subject_has_classification_00008: 
+  updated_at: 2008-01-11 02:40:40.316742 +09:00
+  classification_id: 3
+  subject_id: 2
+  id: 8
+  created_at: 2008-01-11 02:40:40.316742 +09:00
+subject_has_classification_00009: 
+  updated_at: 2008-01-11 02:40:55.664604 +09:00
+  classification_id: 4
+  subject_id: 1
+  id: 9
+  created_at: 2008-01-11 02:40:55.664604 +09:00
+subject_has_classification_00010: 
+  updated_at: 2008-01-11 02:44:37.135721 +09:00
+  classification_id: 5
+  subject_id: 1
+  id: 10
+  created_at: 2008-01-11 02:44:37.135721 +09:00
+
+# == Schema Information
+#
+# Table name: subject_has_classifications
+#
+#  id                :integer         not null, primary key
+#  subject_id        :integer
+#  subject_type      :string(255)
+#  classification_id :integer         not null
+#  created_at        :datetime
+#  updated_at        :datetime
+#
+

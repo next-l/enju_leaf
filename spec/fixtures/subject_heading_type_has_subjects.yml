@@ -1,0 +1,24 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  subject_id: 1
+  subject_type: Manifestation
+  subject_heading_type_id: 1
+
+two:
+  subject_id: 2
+  subject_type: Manifestation
+  subject_heading_type_id: 1
+
+# == Schema Information
+#
+# Table name: subject_heading_type_has_subjects
+#
+#  id                      :integer         not null, primary key
+#  subject_id              :integer         not null
+#  subject_type            :string(255)
+#  subject_heading_type_id :integer         not null
+#  created_at              :datetime
+#  updated_at              :datetime
+#
+

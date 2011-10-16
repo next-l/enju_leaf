@@ -1,0 +1,24 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  bookmark_stat_id: 1
+  manifestation_id: 1
+  bookmarks_count: 1
+
+two:
+  bookmark_stat_id: 2
+  manifestation_id: 1
+  bookmarks_count: 1
+
+# == Schema Information
+#
+# Table name: bookmark_stat_has_manifestations
+#
+#  id               :integer         not null, primary key
+#  bookmark_stat_id :integer         not null
+#  manifestation_id :integer         not null
+#  bookmarks_count  :integer
+#  created_at       :datetime
+#  updated_at       :datetime
+#
+

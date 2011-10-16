@@ -1,0 +1,8 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+carrier_type_has_checkout_type_00001:
+  id: 1
+  carrier_type_id: 1
+  checkout_type_id: 1
+  note: 
+  position: 1

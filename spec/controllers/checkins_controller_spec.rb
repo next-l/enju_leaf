@@ -23,8 +23,8 @@ describe CheckinsController do
 
       describe "When basket_id is specified" do
         it "assigns all checkins as @checkins" do
-          get :index, :basket_id => 10
-          assigns(:checkins).should eq Basket.find(10).checkins
+          get :index, :basket_id => 1
+          assigns(:checkins).should eq(assigns(:basket).checkins)
           response.should be_success
         end
       end
@@ -43,8 +43,8 @@ describe CheckinsController do
 
       describe "When basket_id is specified" do
         it "assigns all checkins as @checkins" do
-          get :index, :basket_id => 9
-          assigns(:checkins).should eq Basket.find(9).checkins
+          get :index, :basket_id => 1
+          assigns(:checkins).should eq(assigns(:basket).checkins)
           response.should be_success
         end
       end

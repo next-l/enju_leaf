@@ -1,0 +1,42 @@
+--- 
+subject_type_00001:
+  id: 1
+  name: Concept
+  display_name: Concept
+  note: 
+  position: 1
+
+subject_type_00002:
+  id: 2
+  name: Event
+  display_name: Event
+  note: 
+  position: 2
+
+subject_type_00003:
+  id: 3
+  name: Object
+  display_name: Object
+  note: 
+  position: 3
+
+subject_type_00004:
+  id: 4
+  name: Place
+  display_name: Place
+  note: 
+  position: 4
+
+# == Schema Information
+#
+# Table name: subject_types
+#
+#  id           :integer         not null, primary key
+#  name         :string(255)     not null
+#  display_name :text
+#  note         :text
+#  position     :integer
+#  created_at   :datetime
+#  updated_at   :datetime
+#
+

@@ -1,0 +1,67 @@
+--- 
+answer_00001: 
+  updated_at: 2007-12-26 02:28:47.252993 +09:00
+  body: test
+  question_id: 1
+  id: 1
+  user_id: 1
+  created_at: 2007-12-26 02:28:47.252993 +09:00
+  shared: true
+answer_00002: 
+  updated_at: 2007-12-26 02:28:47.252993 +09:00
+  body: test
+  question_id: 1
+  id: 2
+  user_id: 2
+  created_at: 2007-12-26 02:28:47.252993 +09:00
+  shared: true
+answer_00003: 
+  updated_at: 2007-12-26 02:28:47.252993 +09:00
+  body: test
+  question_id: 1
+  id: 3
+  user_id: 3
+  created_at: 2007-12-26 02:28:47.252993 +09:00
+answer_00004: 
+  shared: true
+  updated_at: 2007-12-26 02:28:47.252993 +09:00
+  body: test
+  question_id: 2
+  id: 4
+  user_id: 4
+  created_at: 2007-12-26 02:28:47.252993 +09:00
+  shared: false
+answer_00005: 
+  updated_at: 2007-12-26 02:28:47.252993 +09:00
+  body: test
+  question_id: 2
+  id: 5
+  user_id: 5
+  created_at: 2007-12-26 02:28:47.252993 +09:00
+  shared: true
+answer_00006: 
+  updated_at: 2007-12-26 02:28:47.252993 +09:00
+  body: test
+  question_id: 2
+  id: 6
+  user_id: 1
+  created_at: 2007-12-26 02:28:47.252993 +09:00
+  shared: true
+
+# == Schema Information
+#
+# Table name: answers
+#
+#  id                   :integer         not null, primary key
+#  user_id              :integer         not null
+#  question_id          :integer         not null
+#  body                 :text
+#  created_at           :datetime
+#  updated_at           :datetime
+#  deleted_at           :datetime
+#  shared               :boolean         default(TRUE), not null
+#  state                :string(255)
+#  item_identifier_list :text
+#  url_list             :text
+#
+

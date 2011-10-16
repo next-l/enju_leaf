@@ -1,0 +1,59 @@
+--- 
+bookmark_00001: 
+  updated_at: 2007-11-21 21:38:47.964470 +09:00
+  manifestation_id: 1
+  user_id: 1
+  id: 1
+  url: "http://www.example.com"
+  note: !binary |
+    44Gq44KT44Go44GL44GL44KT44Go44GL
+
+  created_at: 2007-11-21 21:38:47.964470 +09:00
+bookmark_00002: 
+  updated_at: 2007-11-21 21:43:26.704516 +09:00
+  manifestation_id: 2
+  user_id: 2
+  id: 2
+  url: "http://www.example.jp"
+  note: ""
+  created_at: 2007-11-21 21:40:28.457279 +09:00
+bookmark_00003: 
+  updated_at: 2007-11-21 21:43:26.704516 +09:00
+  manifestation_id: 3
+  user_id: 3
+  id: 3
+  url: "http://www.example.org"
+  note: ""
+  created_at: 2007-11-21 21:40:28.457279 +09:00
+bookmark_00004: 
+  updated_at: 2007-11-21 21:43:26.704516 +09:00
+  manifestation_id: 1
+  user_id: 4
+  id: 4
+  url: "http://www.example.net"
+  note: ""
+  created_at: 2007-11-21 21:40:28.457279 +09:00
+bookmark_00005: 
+  updated_at: 2007-11-21 21:43:26.704516 +09:00
+  manifestation_id: 2
+  user_id: 5
+  id: 5
+  url: "http://www.example.co.jp"
+  note: ""
+  created_at: 2007-11-21 21:40:28.457279 +09:00
+
+# == Schema Information
+#
+# Table name: bookmarks
+#
+#  id               :integer         not null, primary key
+#  user_id          :integer         not null
+#  manifestation_id :integer
+#  title            :text
+#  url              :string(255)
+#  note             :text
+#  created_at       :datetime
+#  updated_at       :datetime
+#  shared           :boolean
+#
+

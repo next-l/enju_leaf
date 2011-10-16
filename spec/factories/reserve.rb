@@ -1,6 +1,6 @@
 FactoryGirl.define do
   factory :reserve do |f|
-    f.manifestation_id{FactoryGirl.create(:manifestation).id}
-    f.user_id{FactoryGirl.create(:user).id}
+    f.manifestation{FactoryGirl.create(:manifestation)}
+    f.user{FactoryGirl.create(:user)}
   end
 end

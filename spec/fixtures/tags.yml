@@ -1,0 +1,31 @@
+--- 
+tag_00001: 
+  name: next-l
+  updated_at: 2008-03-05 18:06:28.203823 +09:00
+  id: 1
+  name_transcription: 
+  created_at: 2008-03-05 18:06:28.203823 +09:00
+tag_00002: 
+  name: tanabe
+  updated_at: 2008-03-05 18:08:44.878260 +09:00
+  id: 2
+  name_transcription: 
+  created_at: 2008-03-05 18:08:44.878260 +09:00
+tag_00003: 
+  name: 日本語
+  updated_at: 2008-03-05 18:08:44.878260 +09:00
+  id: 3
+  name_transcription: 
+  created_at: 2008-03-05 18:08:44.878260 +09:00
+
+# == Schema Information
+#
+# Table name: tags
+#
+#  id                 :integer         not null, primary key
+#  name               :string(255)
+#  name_transcription :string(255)
+#  created_at         :datetime
+#  updated_at         :datetime
+#
+

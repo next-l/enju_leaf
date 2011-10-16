@@ -1,0 +1,50 @@
+--- 
+order_00001: 
+  updated_at: 2008-01-11 23:28:19.277110 +09:00
+  purchase_request_id: 1
+  order_list_id: 1
+  id: 1
+  position: 1
+  created_at: 2008-01-11 23:28:19.277110 +09:00
+order_00002: 
+  updated_at: 2008-01-11 23:28:57.068191 +09:00
+  purchase_request_id: 2
+  order_list_id: 2
+  id: 2
+  position: 1
+  created_at: 2008-01-11 23:28:57.068191 +09:00
+order_00003: 
+  updated_at: 2008-01-11 23:32:03.701425 +09:00
+  purchase_request_id: 3
+  order_list_id: 3
+  id: 3
+  position: 1
+  created_at: 2008-01-11 23:32:03.701425 +09:00
+order_00004: 
+  updated_at: 2008-01-11 02:34:20.183962 +09:00
+  purchase_request_id: 4
+  order_list_id: 1
+  id: 4
+  position: 1
+  created_at: 2008-01-11 02:34:20.183962 +09:00
+order_00005: 
+  updated_at: 2008-01-11 02:34:32.352223 +09:00
+  purchase_request_id: 5
+  order_list_id: 2
+  id: 5
+  position: 2
+  created_at: 2008-01-11 02:34:32.352223 +09:00
+
+# == Schema Information
+#
+# Table name: orders
+#
+#  id                  :integer         not null, primary key
+#  order_list_id       :integer         not null
+#  purchase_request_id :integer         not null
+#  position            :integer
+#  state               :string(255)
+#  created_at          :datetime
+#  updated_at          :datetime
+#
+

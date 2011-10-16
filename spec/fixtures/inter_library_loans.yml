@@ -1,0 +1,84 @@
+inter_library_loan_00001:
+  item_id: 1
+  borrowing_library_id: 1
+  shipped_at: 2008-03-19 13:48:29
+  received_at: 2008-03-19 13:48:29
+  return_shipped_at: 2008-03-19 13:48:29
+  return_received_at: 2008-03-19 13:48:29
+  id: 1
+  state: requested
+inter_library_loan_00002:
+  item_id: 2
+  borrowing_library_id: 1
+  shipped_at: 2008-03-19 13:48:29
+  received_at: 2008-03-19 13:48:29
+  return_shipped_at: 2008-03-19 13:48:29
+  return_received_at: 2008-03-19 13:48:29
+  id: 2
+  state: shipped
+inter_library_loan_00003:
+  item_id: 3
+  borrowing_library_id: 1
+  shipped_at: 2008-03-19 13:48:29
+  received_at: 2008-03-19 13:48:29
+  return_shipped_at: 2008-03-19 13:48:29
+  return_received_at: 2008-03-19 13:48:29
+  id: 3
+  state: received
+inter_library_loan_00004:
+  item_id: 4
+  borrowing_library_id: 2
+  shipped_at: 2008-03-19 13:48:29
+  received_at: 2008-03-19 13:48:29
+  return_shipped_at: 2008-03-19 13:48:29
+  return_received_at: 2008-03-19 13:48:29
+  id: 4
+  state: return_shipped
+inter_library_loan_00005:
+  item_id: 5
+  borrowing_library_id: 3
+  shipped_at: 2008-03-19 13:48:29
+  received_at: 2008-03-19 13:48:29
+  return_shipped_at: 2008-03-19 13:48:29
+  return_received_at: 2008-03-19 13:48:29
+  id: 5
+  state: return_received
+inter_library_loan_00006:
+  item_id: 6
+  borrowing_library_id: 3
+  requested_at: 2008-03-19 13:48:29
+  shipped_at: 
+  received_at: 
+  return_shipped_at: 
+  return_received_at: 
+  id: 6
+  state: requested
+inter_library_loan_00007:
+  item_id: 7
+  borrowing_library_id: 3
+  requested_at: 2008-03-19 13:48:29
+  shipped_at: 2008-03-19 13:48:29
+  received_at: 
+  return_shipped_at: 
+  return_received_at: 
+  id: 7
+  state: shipped
+
+# == Schema Information
+#
+# Table name: inter_library_loans
+#
+#  id                   :integer         not null, primary key
+#  item_id              :integer         not null
+#  borrowing_library_id :integer         not null
+#  requested_at         :datetime
+#  shipped_at           :datetime
+#  received_at          :datetime
+#  return_shipped_at    :datetime
+#  return_received_at   :datetime
+#  deleted_at           :datetime
+#  state                :string(255)
+#  created_at           :datetime
+#  updated_at           :datetime
+#
+
