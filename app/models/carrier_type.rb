@@ -2,8 +2,10 @@ class CarrierType < ActiveRecord::Base
   include MasterModel
   default_scope :order => "position"
   has_many :manifestations
-  has_many :carrier_type_has_checkout_types, :dependent => :destroy
-  has_many :checkout_types, :through => :carrier_type_has_checkout_types
+  if defined?(EnjuCirculation)
+    has_many :carrier_type_has_checkout_types, :dependent => :destroy
+    has_many :checkout_types, :through => :carrier_type_has_checkout_types
+  end
 
   def mods_type
     case name

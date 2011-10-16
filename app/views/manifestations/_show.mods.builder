@@ -65,13 +65,15 @@
       extent << manifestation.height if manifestation.height
       xml.extent extent.join("; ")
     }
-    xml.subject{
-      manifestation.subjects.each do |subject|
-        xml.topic subject.term
+    if defined?(EnjuSubject)
+      xml.subject{
+        manifestation.subjects.each do |subject|
+          xml.topic subject.term
+        end
+      }
+      manifestation.subjects.collect(&:classifications).flatten.each do |classification|
+        xml.classification classification.category, 'authority' => classification.classification_type.name
       end
-    }
-    manifestation.subjects.collect(&:classifications).flatten.each do |classification|
-      xml.classification classification.category, 'authority' => classification.classification_type.name
     end
     xml.abstract manifestation.description
     xml.note manifestation.note

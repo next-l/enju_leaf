@@ -274,13 +274,13 @@ class ResourceImportFile < ActiveRecord::Base
     tempfile.close
 
     if RUBY_VERSION > '1.9'
-      file = CSV.open(tempfile.path, :col_sep => "\t")
+      file = CSV.open(tempfile.path, 'r:utf-8', :col_sep => "\t")
       header = file.first
-      rows = CSV.open(tempfile.path, :headers => header, :col_sep => "\t")
+      rows = CSV.open(tempfile.path, 'r:utf-8', :headers => header, :col_sep => "\t")
     else
-      file = FasterCSV.open(tempfile.path, :col_sep => "\t")
+      file = FasterCSV.open(tempfile.path, 'r:utf-8', :col_sep => "\t")
       header = file.first
-      rows = FasterCSV.open(tempfile.path, :headers => header, :col_sep => "\t")
+      rows = FasterCSV.open(tempfile.path, 'r:utf-8', :headers => header, :col_sep => "\t")
     end
     ResourceImportResult.create(:resource_import_file => self, :body => header.join("\t"))
     tempfile.close(true)

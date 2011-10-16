@@ -39,6 +39,15 @@
       <%- end -%>
     <%- end -%>
   </p>
+
+  <p>
+    <strong><%= t('activerecord.models.use_restriction') -%>:</strong>
+    <% if @item.use_restriction %>
+      <ul>
+        <li><%= link_to @item.use_restriction.display_name.localize, @item.use_restriction -%></li>
+      </ul>
+    <% end %>
+  </p>
 <% end %>
 
 <p>
@@ -64,15 +73,6 @@
 <p>
   <strong><%= t('activerecord.attributes.item.include_supplements') -%>:</strong>
   <%= localized_boolean(@item.include_supplements) -%>
-</p>
-
-<p>
-  <strong><%= t('activerecord.models.use_restriction') -%>:</strong>
-  <% if @item.use_restriction %>
-    <ul>
-      <li><%= link_to @item.use_restriction.display_name.localize, @item.use_restriction -%></li>
-    </ul>
-  <% end %>
 </p>
 
 <p>

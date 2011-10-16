@@ -91,14 +91,16 @@ class UsersController < ApplicationController
   def edit
     @user.role_id = @user.role.id
 
-    if params[:mode] == 'feed_token'
-      if params[:disable] == 'true'
-        @user.delete_checkout_icalendar_token
-      else
-        @user.reset_checkout_icalendar_token
+    if defined?(EnjuCirculation)
+      if params[:mode] == 'feed_token'
+        if params[:disable] == 'true'
+          @user.delete_checkout_icalendar_token
+        else
+          @user.reset_checkout_icalendar_token
+        end
+        render :partial => 'users/feed_token'
+        return
       end
-      render :partial => 'users/feed_token'
-      return
     end
     prepare_options
   end

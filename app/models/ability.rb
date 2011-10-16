@@ -22,12 +22,20 @@ class Ability
       end
       can [:read, :create, :update], Manifestation
       can :destroy, Manifestation do |manifestation|
-        manifestation.items.empty? and !manifestation.is_reserved? and !manifestation.periodical_master?
+        if defined?(EnjuCirculation)
+          manifestation.items.empty? and !manifestation.periodical_master? and !manifestation.is_reserved?
+        else
+          manifestation.items.empty? and !manifestation.periodical_master?
+        end
       end
       can [:read, :create, :update], Patron
       can :destroy, Patron do |patron|
         if patron.user
-          patron.user.checkouts.not_returned.empty?
+          if defined?(EnjuCirculation)
+            patron.user.checkouts.not_returned.empty?
+          else
+            true
+          end
         else
           true
         end
@@ -91,11 +99,19 @@ class Ability
     when 'Librarian'
       can [:read, :create, :update], Item
       can :destroy, Item do |item|
-        item.checkouts.not_returned.empty?
+        if defined?(EnjuCirculation)
+          item.checkouts.not_returned.empty?
+        else
+          true
+        end
       end
       can [:read, :create, :update], Manifestation
       can :destroy, Manifestation do |manifestation|
-        manifestation.items.empty? and !manifestation.is_reserved? and !manifestation.periodical_master?
+        if defined?(EnjuCirculation)
+          manifestation.items.empty? and !manifestation.periodical_master? and !manifestation.is_reserved?
+        else
+          manifestation.items.empty? and !manifestation.periodical_master?
+        end
       end
       can [:index, :create], Patron
       can :show, Patron do |patron|
@@ -110,7 +126,11 @@ class Ability
       end
       can [:read, :create, :update], User
       can :destroy, User do |u|
-        u.checkouts.not_returned.empty? and u.role.name == 'User' and u != user
+        if defined?(EnjuCirculation)
+          u.checkouts.not_returned.empty? and u.role.name == 'User' and u != user
+        else
+          u.role.name == 'User' and u != user
+        end
       end
       can :manage, [
         Create,
