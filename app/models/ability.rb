@@ -602,5 +602,14 @@ class Ability
         can :manage, InterLibraryLoan
       end
     end
+
+    if defined?(EnjuNii)
+      case user.try(:role).try(:name)
+      when 'Administrator'
+        can [:read, :update], NiiType
+      else
+        can :read, NiiType
+      end
+    end
   end
 end

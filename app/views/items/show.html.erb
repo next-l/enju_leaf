@@ -53,9 +53,6 @@
   </p>
 <% end %>
 
-<%- cache(:controller => :items, :action => :show, :id => @item.id, :page => 'detail', :role => current_user_role_name, :locale => @locale, :item_id => nil) do -%>
-<% end %>
-
 <p>
   <strong><%= t('activerecord.attributes.item.call_number') -%>:</strong>
   <%= @item.call_number -%>
@@ -97,6 +94,7 @@
 <%- end -%>
 -->
 
+<%- cache(:controller => :items, :action => :show, :id => @item.id, :page => 'detail', :role => current_user_role_name, :locale => @locale, :item_id => nil) do -%>
 <p>
   <strong><%= t('activerecord.attributes.item.acquired_at') -%>:</strong>
   <%= l(@item.acquired_at, :format => :only_date) if @item.acquired_at -%>
