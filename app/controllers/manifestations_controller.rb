@@ -6,6 +6,7 @@ class ManifestationsController < ApplicationController
   before_filter :get_patron
   helper_method :get_manifestation, :get_subject
   before_filter :get_series_statement, :only => [:index, :new, :edit]
+  before_filter :get_item, :only => :index
   before_filter :prepare_options, :only => [:new, :edit]
   helper_method :get_libraries
   before_filter :get_version, :only => [:show]
@@ -89,7 +90,9 @@ class ManifestationsController < ApplicationController
       @query = query.dup
       query = query.gsub('　', ' ')
 
-      search = Manifestation.search(:include => [:carrier_type, :required_role, :items, :creators, :contributors, :publishers, :bookmarks])
+      includes = [:carrier_type, :required_role, :items, :creators, :contributors, :publishers]
+      includes << :bookmarks if defined?(EnjuBookmark)
+      search = Manifestation.search(:include => includes)
       role = current_user.try(:role) || Role.default_role
       oai_search = true if params[:format] == 'oai'
       case @reservable
@@ -196,7 +199,7 @@ class ManifestationsController < ApplicationController
           facet :carrier_type
           facet :library
           facet :language
-          facet :subject_ids
+          facet :subject_ids if defined?(EnjuSubject)
           paginate :page => page.to_i, :per_page => per_page
         end
       end
@@ -402,11 +405,13 @@ class ManifestationsController < ApplicationController
     else
       @manifestation.series_statement_id = @series_statement if @series_statement
     end
-    if params[:mode] == 'tag_edit'
-      @bookmark = current_user.bookmarks.where(:manifestation_id => @manifestation.id).first if @manifestation rescue nil
-      render :partial => 'manifestations/tag_edit', :locals => {:manifestation => @manifestation}
+    if defined?(EnjuBookmark)
+      if params[:mode] == 'tag_edit'
+        @bookmark = current_user.bookmarks.where(:manifestation_id => @manifestation.id).first if @manifestation rescue nil
+        render :partial => 'manifestations/tag_edit', :locals => {:manifestation => @manifestation}
+      end
+      store_location unless params[:mode] == 'tag_edit'
     end
-    store_location unless params[:mode] == 'tag_edit'
   end
 
   # POST /manifestations

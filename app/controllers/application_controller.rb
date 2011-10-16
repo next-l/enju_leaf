@@ -2,8 +2,6 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
 
-  include SslRequirement
-
   rescue_from CanCan::AccessDenied, :with => :render_403
   rescue_from ActiveRecord::RecordNotFound, :with => :render_404
   rescue_from Errno::ECONNREFUSED, :with => :render_500
@@ -316,9 +314,11 @@ class ApplicationController < ActionController::Base
       carrier_type = params[:carrier_type]
       library = params[:library]
       language = params[:language]
-      subject = params[:subject]
-      subject_by_term = Subject.where(:term => params[:subject]).first
-      @subject_by_term = subject_by_term
+      if defined?(EnjuSubject)
+        subject = params[:subject]
+        subject_by_term = Subject.where(:term => params[:subject]).first
+        @subject_by_term = subject_by_term
+      end
 
       search.build do
         with(:publisher_ids).equal_to patron.id if patron
@@ -341,8 +341,10 @@ class ApplicationController < ActionController::Base
             with(:language).equal_to language
           end
         end
-        unless subject.blank?
-          with(:subject).equal_to subject_by_term.term
+        if defined?(EnjuSubject)
+          unless subject.blank?
+            with(:subject).equal_to subject_by_term.term
+          end
         end
       end
     end

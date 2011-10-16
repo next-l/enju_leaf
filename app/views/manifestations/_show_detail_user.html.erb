@@ -71,16 +71,18 @@
             <td><%= manifestation.price -%></td>
           </tr>
         <% end %>
-        <%- unless manifestation.subjects.empty? -%>
-          <tr>
-            <td><%= t('activerecord.models.subject') -%>:</td>
-            <td>
-              <%- manifestation.subjects.each do |subject| -%>
-                <%= link_to subject.term, subject -%>
-              <%- end -%>
-            </td>
-          </tr>
-        <%- end -%>
+        <% if defined?(EnjuSubject) %>
+          <%- unless manifestation.subjects.empty? -%>
+            <tr>
+              <td><%= t('activerecord.models.subject') -%>:</td>
+              <td>
+                <%- manifestation.subjects.each do |subject| -%>
+                  <%= link_to subject.term, subject -%>
+                <%- end -%>
+              </td>
+            </tr>
+          <%- end -%>
+        <% end %>
         <% if defined?(EnjuBookmark) %>
           <tr>
             <td><%= t('activerecord.models.tag') -%>:</td>

@@ -194,6 +194,7 @@ end
 
 
 
+
 # == Schema Information
 #
 # Table name: manifestations
@@ -232,10 +233,6 @@ end
 #  serial_number_string            :string(255)
 #  edition                         :integer
 #  note                            :text
-#  produces_count                  :integer         default(0), not null
-#  exemplifies_count               :integer         default(0), not null
-#  embodies_count                  :integer         default(0), not null
-#  work_has_subjects_count         :integer         default(0), not null
 #  repository_content              :boolean         default(FALSE), not null
 #  lock_version                    :integer         default(0), not null
 #  required_role_id                :integer         default(1), not null
@@ -249,7 +246,6 @@ end
 #  attachment_content_type         :string(255)
 #  attachment_file_size            :integer
 #  attachment_updated_at           :datetime
-#  nii_type_id                     :integer
 #  title_alternative_transcription :text
 #  description                     :text
 #  abstract                        :text
@@ -266,5 +262,6 @@ end
 #  volume_number                   :integer
 #  issue_number                    :integer
 #  serial_number                   :integer
+#  ndc                             :string(255)
 #
 

@@ -16,8 +16,10 @@ class Patron < ActiveRecord::Base
   has_many :donated_items, :through => :donates, :source => :item
   has_many :owns, :dependent => :destroy
   has_many :items, :through => :owns
-  has_many :patron_merges, :dependent => :destroy
-  has_many :patron_merge_lists, :through => :patron_merges
+  if defined?(EnjuResourceMerge)
+    has_many :patron_merges, :dependent => :destroy
+    has_many :patron_merge_lists, :through => :patron_merges
+  end
   belongs_to :user
   belongs_to :patron_type
   belongs_to :required_role, :class_name => 'Role', :foreign_key => 'required_role_id', :validate => true
@@ -59,7 +61,7 @@ class Patron < ActiveRecord::Base
     integer :work_ids, :multiple => true
     integer :expression_ids, :multiple => true
     integer :manifestation_ids, :multiple => true
-    integer :patron_merge_list_ids, :multiple => true
+    integer :patron_merge_list_ids, :multiple => true if defined?(EnjuResourceMerge)
     integer :original_patron_ids, :multiple => true
     integer :required_role_id
     integer :patron_type_id
@@ -251,6 +253,7 @@ end
 
 
 
+
 # == Schema Information
 #
 # Table name: patrons
@@ -293,10 +296,6 @@ end
 #  patron_type_id                      :integer         default(1), not null
 #  lock_version                        :integer         default(0), not null
 #  note                                :text
-#  creates_count                       :integer         default(0), not null
-#  realizes_count                      :integer         default(0), not null
-#  produces_count                      :integer         default(0), not null
-#  owns_count                          :integer         default(0), not null
 #  required_role_id                    :integer         default(1), not null
 #  required_score                      :integer         default(0), not null
 #  state                               :string(255)

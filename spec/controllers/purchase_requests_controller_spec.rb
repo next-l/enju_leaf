@@ -157,7 +157,7 @@ describe PurchaseRequestsController do
         it "assigns the requested purchase_request as @purchase_request" do
           put :update, :id => @purchase_request.id, :purchase_request => @attrs
           assigns(:purchase_request).should eq(@purchase_request)
-          response.should redirect_to user_purchase_request_url(@purchase_request.user, @purchase_request)
+          response.should redirect_to user_purchase_request_url(assigns(:purchase_request).user, assigns(:purchase_request))
         end
       end
 
@@ -187,7 +187,7 @@ describe PurchaseRequestsController do
         it "assigns the requested purchase_request as @purchase_request" do
           put :update, :id => @purchase_request.id, :purchase_request => @attrs
           assigns(:purchase_request).should eq(@purchase_request)
-          response.should redirect_to user_purchase_request_url(@purchase_request.user, @purchase_request)
+          response.should redirect_to user_purchase_request_url(assigns(:purchase_request).user, assigns(:purchase_request))
         end
       end
 

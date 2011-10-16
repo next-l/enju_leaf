@@ -8,7 +8,6 @@ one:
   use_dsbl: false
   note: 
   my_networks: 0.0.0.0/0
-  allow_bookmark_external_url: true
   url: "http://localhost:3000/"
 
 # == Schema Information
@@ -30,7 +29,6 @@ one:
 #  created_at                  :datetime
 #  updated_at                  :datetime
 #  admin_networks              :text
-#  allow_bookmark_external_url :boolean         default(FALSE), not null
 #  position                    :integer
 #  url                         :string(255)     default("http://localhost:3000/")
 #

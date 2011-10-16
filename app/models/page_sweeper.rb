@@ -1,6 +1,6 @@
 class PageSweeper < ActionController::Caching::Sweeper
   include ExpireEditableFragment
-  observe Create, Realize, Produce, Own, Patron,
+  observe Create, Realize, Produce, Own, Exemplify, Patron,
     SeriesStatement, SeriesHasManifestation, PictureFile, Shelf, Library
 
   def after_save(record)
@@ -26,6 +26,9 @@ class PageSweeper < ActionController::Caching::Sweeper
       expire_editable_fragment(record.patron)
       expire_editable_fragment(record.item)
       expire_editable_fragment(record.item.manifestation)
+    when record.is_a?(Exemplify)
+      expire_editable_fragment(record.manifestation, ['detail', 'show_list', 'holding'])
+      expire_editable_fragment(record.item)
     when record.is_a?(SeriesStatement)
       record.manifestations.each do |manifestation|
         expire_editable_fragment(manifestation, ['detail'])

@@ -126,6 +126,8 @@ EnjuLeaf::Application.routes.draw do
     resources :shelves
   end
 
+  resources :bookstores
+
   resources :countries
 
   resources :languages
@@ -151,6 +153,7 @@ EnjuLeaf::Application.routes.draw do
     resources :patrons
     resources :owns
     resource :exemplify
+    resources :manifestations, :only => [:index]
   end
 
   resources :owns

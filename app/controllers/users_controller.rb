@@ -7,8 +7,6 @@ class UsersController < ApplicationController
   before_filter :clear_search_sessions, :only => [:show]
   after_filter :solr_commit, :only => [:create, :update, :destroy]
   cache_sweeper :user_sweeper, :only => [:create, :update, :destroy]
-  #ssl_required :new, :edit, :create, :update, :destroy
-  ssl_allowed :index, :show, :new, :edit, :create, :update, :destroy
 
   def index
     query = flash[:query] = params[:query].to_s
@@ -57,8 +55,9 @@ class UsersController < ApplicationController
     unless @user.patron
       redirect_to new_user_patron_url(@user); return
     end
-    #@tags = @user.owned_tags_by_solr
-    @tags = @user.bookmarks.tag_counts.sort{|a,b| a.count <=> b.count}.reverse
+    if defined?(EnjuBookmark)
+      @tags = @user.bookmarks.tag_counts.sort{|a,b| a.count <=> b.count}.reverse
+    end
 
     @manifestation = Manifestation.pickup(@user.keyword_list.to_s.split.sort_by{rand}.first) rescue nil
 

@@ -43,6 +43,7 @@ class ExemplifiesController < ApplicationController
   # GET /exemplifies/1/edit
   def edit
     @exemplify = Exemplify.find(params[:id])
+    @exemplify.manifestation = @manifestation if @manifestation
   end
 
   # POST /exemplifies

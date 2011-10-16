@@ -187,7 +187,7 @@ describe PictureFilesController do
 
   describe "POST create" do
     before(:each) do
-      @attrs = {:picture_attachable_type => 'Shelf', :picture_attachable_id => 1, :picture => File.new("#{Rails.root.to_s}/examples/spinner.gif")}
+      @attrs = {:picture_attachable_type => 'Shelf', :picture_attachable_id => 1, :picture => fixture_file_upload("#{Rails.root.to_s}/examples/spinner.gif", 'image/gif')}
       @invalid_attrs = {:filename => ''}
     end
 

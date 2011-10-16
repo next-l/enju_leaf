@@ -6,7 +6,11 @@ class Ability
     when 'Administrator'
       can [:read, :create, :update], Bookstore
       can :destroy, Bookstore do |bookstore|
-        bookstore.order_lists.empty? and bookstore.items.empty?
+        if defined?(EnjuPurchaseRequest)
+          bookstore.order_lists.empty? and bookstore.items.empty?
+        else
+          bookstore.items.empty?
+        end
       end
       can [:read, :create, :update], Item
       can :destroy, Item do |item|

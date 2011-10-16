@@ -45,6 +45,7 @@ end
 
 
 
+
 # == Schema Information
 #
 # Table name: patrons
@@ -87,10 +88,6 @@ end
 #  patron_type_id                      :integer         default(1), not null
 #  lock_version                        :integer         default(0), not null
 #  note                                :text
-#  creates_count                       :integer         default(0), not null
-#  realizes_count                      :integer         default(0), not null
-#  produces_count                      :integer         default(0), not null
-#  owns_count                          :integer         default(0), not null
 #  required_role_id                    :integer         default(1), not null
 #  required_score                      :integer         default(0), not null
 #  state                               :string(255)
