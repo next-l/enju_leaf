@@ -80,8 +80,10 @@ def get_record(manifestation)
       manifestation.publishers.each do |patron|
         xml.tag! 'dc:publisher', patron.full_name
       end
-      manifestation.subjects.each do |subject|
-        xml.tag! "dc:subject", subject.term
+      if defined?(EnjuSubject)
+        manifestation.subjects.each do |subject|
+          xml.tag! "dc:subject", subject.term
+        end
       end
       xml.tag! 'dc:description', manifestation.description
     end

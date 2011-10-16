@@ -5,7 +5,9 @@
     <th><%= t('activerecord.models.library') -%></th>
     <th><%= t('activerecord.models.shelf') -%></th>
     <th><%= t('activerecord.attributes.item.call_number') -%></th>
-    <th><%= t('activerecord.models.circulation_status') -%></th>
+    <% if defined?(EnjuCirculation) %>
+      <th><%= t('activerecord.models.circulation_status') -%></th>
+    <% end %>
   </tr>
   <% cache(:controller => :manifestations, :action => :show, :id => manifestation.id, :page => 'holding', :role => current_user_role_name, :locale => @locale, :manifestation_id => nil) do %>
   <%- manifestation.items.on_shelf.each do |item| -%>
@@ -27,15 +29,17 @@
       <td>
         <%= item.call_number -%>
       </td>
-      <td>
-        <%= item.circulation_status.display_name.localize if item.circulation_status -%>
-        <%- if item.rent? -%>
-          (
-            <%= t('activerecord.attributes.checkout.due_date') -%>:
-            <%= l(item.checkouts.first.due_date, :format => :short) -%>
-          )
-        <%- end -%>
-      </td>
+      <% if defined?(EnjuCirculation) %>
+        <td>
+          <%= item.circulation_status.display_name.localize if item.circulation_status -%>
+          <%- if item.rent? -%>
+            (
+              <%= t('activerecord.attributes.checkout.due_date') -%>:
+              <%= l(item.checkouts.first.due_date, :format => :short) -%>
+            )
+          <%- end -%>
+        </td>
+      <% end %>
     </tr>
   <%- end -%>
   <%- end -%>

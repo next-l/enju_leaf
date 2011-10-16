@@ -34,7 +34,9 @@
     xml.tag! 'dc:identifier', "urn:ISBN:#{manifestation.isbn}" if manifestation.isbn.present?
     xml.tag! 'dc:description', manifestation.description
     xml.link manifestation_url(manifestation)
-    manifestation.subjects.each do |subject|
-      xml.tag! "foaf:topic", "rdf:resource" => subject_url(subject)
+    if defined?(EnjuSubject)
+      manifestation.subjects.each do |subject|
+        xml.tag! "foaf:topic", "rdf:resource" => subject_url(subject)
+      end
     end
   end

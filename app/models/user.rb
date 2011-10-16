@@ -165,13 +165,6 @@ class User < ActiveRecord::Base
     end
   end
 
-  def check_item_before_destroy
-    # TODO: 貸出記録を残す場合
-    if checkouts.size > 0
-      raise 'This user has items still checked out.'
-    end
-  end
-
   def check_role_before_destroy
     if self.has_role?('Administrator')
       raise 'This is the last administrator in this system.' if Role.find_by_name('Administrator').users.size == 1
@@ -181,22 +174,6 @@ class User < ActiveRecord::Base
   def set_auto_generated_password
     password = Devise.friendly_token[0..7]
     self.reset_password!(password, password)
-  end
-
-  def reset_checkout_icalendar_token
-    self.checkout_icalendar_token = Devise.friendly_token
-  end
-
-  def delete_checkout_icalendar_token
-    self.checkout_icalendar_token = nil
-  end
-
-  def reset_answer_feed_token
-    self.answer_feed_token = Devise.friendly_token
-  end
-
-  def delete_answer_feed_token
-    self.answer_feed_token = nil
   end
 
   def self.lock_expired_users
@@ -211,27 +188,6 @@ class User < ActiveRecord::Base
     end
   end
 
-  def checked_item_count
-    checkout_count = {}
-    CheckoutType.all.each do |checkout_type|
-      # 資料種別ごとの貸出中の冊数を計算
-      checkout_count[:"#{checkout_type.name}"] = self.checkouts.count_by_sql(["
-        SELECT count(item_id) FROM checkouts
-          WHERE item_id IN (
-            SELECT id FROM items
-              WHERE checkout_type_id = ?
-          )
-          AND user_id = ? AND checkin_id IS NULL", checkout_type.id, self.id]
-      )
-    end
-    return checkout_count
-  end
-
-  def reached_reservation_limit?(manifestation)
-    return true if self.user_group.user_group_has_checkout_types.available_for_carrier_type(manifestation.carrier_type).where(:user_group_id => self.user_group.id).collect(&:reservation_limit).max.to_i <= self.reserves.waiting.size
-    false
-  end
-
   def is_admin?
     true if self.has_role?('Administrator')
   end
@@ -240,26 +196,6 @@ class User < ActiveRecord::Base
     if self.has_role?('Librarian')
       role = Role.where(:name => 'Librarian').first
       true if role.users.size == 1
-    end
-  end
-
-  def send_message(status, options = {})
-    MessageRequest.transaction do
-      request = MessageRequest.new
-      request.sender = User.find(1)
-      request.receiver = self
-      request.message_template = MessageTemplate.localized_template(status, self.locale)
-      request.save_message_body(options)
-      request.sm_send_message!
-    end
-  end
-
-  def owned_tags_by_solr
-    bookmark_ids = bookmarks.collect(&:id)
-    if bookmark_ids.empty?
-      []
-    else
-      Tag.bookmarked(bookmark_ids)
     end
   end
 
@@ -284,9 +220,11 @@ class User < ActiveRecord::Base
   end
 
   def deletable_by(current_user)
-    # 未返却の資料のあるユーザを削除しようとした
-    if self.checkouts.count > 0
-      errors[:base] << I18n.t('user.this_user_has_checked_out_item')
+    if defined?(EnjuCirculation)
+      # 未返却の資料のあるユーザを削除しようとした
+      if self.checkouts.count > 0
+        errors[:base] << I18n.t('user.this_user_has_checked_out_item')
+      end
     end
 
     if self.has_role?('Librarian')
@@ -358,7 +296,83 @@ class User < ActiveRecord::Base
   end
 
   def deletable?
-    true if checkouts.not_returned.empty? and id != 1
+    if defined?(EnjuCirculation)
+      true if checkouts.not_returned.empty? and id != 1
+    else
+      true if id != 1
+    end
+  end
+
+  if defined?(EnjuQuestion)
+    def reset_answer_feed_token
+      self.answer_feed_token = Devise.friendly_token
+    end
+
+    def delete_answer_feed_token
+      self.answer_feed_token = nil
+    end
+  end
+
+  if defined?(EnjuCirculation)
+    def check_item_before_destroy
+      # TODO: 貸出記録を残す場合
+      if checkouts.size > 0
+        raise 'This user has items still checked out.'
+      end
+    end
+
+    def reset_checkout_icalendar_token
+      self.checkout_icalendar_token = Devise.friendly_token
+    end
+
+    def delete_checkout_icalendar_token
+      self.checkout_icalendar_token = nil
+    end
+
+    def checked_item_count
+      checkout_count = {}
+      CheckoutType.all.each do |checkout_type|
+        # 資料種別ごとの貸出中の冊数を計算
+        checkout_count[:"#{checkout_type.name}"] = self.checkouts.count_by_sql(["
+          SELECT count(item_id) FROM checkouts
+            WHERE item_id IN (
+              SELECT id FROM items
+                WHERE checkout_type_id = ?
+            )
+            AND user_id = ? AND checkin_id IS NULL", checkout_type.id, self.id]
+        )
+      end
+      return checkout_count
+    end
+
+    def reached_reservation_limit?(manifestation)
+      return true if self.user_group.user_group_has_checkout_types.available_for_carrier_type(manifestation.carrier_type).where(:user_group_id => self.user_group.id).collect(&:reservation_limit).max.to_i <= self.reserves.waiting.size
+      false
+    end
+  end
+
+  if defined?(EnjuMessage)
+    def send_message(status, options = {})
+      MessageRequest.transaction do
+        request = MessageRequest.new
+        request.sender = User.find(1)
+        request.receiver = self
+        request.message_template = MessageTemplate.localized_template(status, self.locale)
+        request.save_message_body(options)
+        request.sm_send_message!
+      end
+    end
+  end
+
+  if defined?(EnjuBookmark)
+    def owned_tags_by_solr
+      bookmark_ids = bookmarks.collect(&:id)
+      if bookmark_ids.empty?
+        []
+      else
+        Tag.bookmarked(bookmark_ids)
+      end
+    end
   end
 end
 

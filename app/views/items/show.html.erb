@@ -41,7 +41,19 @@
         <%- end -%>
       <%- end -%>
     <%- end -%>
+    </p>
+
+  <p>
+    <strong><%= t('activerecord.models.use_restriction') -%>:</strong>
+    <% if @item.use_restriction %>
+      <ul>
+        <li><%= @item.use_restriction.display_name.localize %></li>
+      </ul>
+    <% end %>
   </p>
+<% end %>
+
+<%- cache(:controller => :items, :action => :show, :id => @item.id, :page => 'detail', :role => current_user_role_name, :locale => @locale, :item_id => nil) do -%>
 <% end %>
 
 <p>
@@ -74,18 +86,6 @@
   <%= localized_boolean(@item.include_supplements) -%>
 </p>
 
-<% if defined?(EnjuCirculation) %>
-  <p>
-  <strong><%= t('activerecord.models.use_restriction') -%>:</strong>
-    <% if @item.use_restriction %>
-      <ul>
-        <li><%= @item.use_restriction.display_name.localize %></li>
-      </ul>
-    <% end %>
-  </p>
-<% end %>
-
-<%- cache(:controller => :items, :action => :show, :id => @item.id, :page => 'detail', :role => current_user_role_name, :locale => @locale, :item_id => nil) do -%>
 <!--
 <%- if can? :update, @item -%>
   <p>

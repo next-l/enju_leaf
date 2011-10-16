@@ -127,10 +127,19 @@ class ItemsController < ApplicationController
     @item = Item.new
     @item.shelf_id = @library.shelves.first.id
     @item.manifestation_id = @manifestation.id
-    @circulation_statuses = CirculationStatus.where(:name => ['In Process', 'Available For Pickup', 'Available On Shelf', 'Claimed Returned Or Never Borrowed', 'Not Available']).order(:position)
-    @item.circulation_status = CirculationStatus.where(:name => 'In Process').first
-    @item.checkout_type = @manifestation.carrier_type.checkout_types.first
-    @item.use_restriction_id = UseRestriction.where(:name => 'Limited Circulation, Normal Loan Period').select(:id).first.id
+    if defined?(EnjuCirculation)
+      @circulation_statuses = CirculationStatus.where(
+        :name => [
+          'In Process',
+          'Available For Pickup',
+          'Available On Shelf',
+          'Claimed Returned Or Never Borrowed',
+          'Not Available']
+      ).order(:position)
+      @item.circulation_status = CirculationStatus.where(:name => 'In Process').first
+      @item.checkout_type = @manifestation.carrier_type.checkout_types.first
+      @item.use_restriction_id = UseRestriction.where(:name => 'Limited Circulation, Normal Loan Period').select(:id).first.id
+    end
 
     respond_to do |format|
       format.html # new.html.erb

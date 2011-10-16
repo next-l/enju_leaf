@@ -83,9 +83,6 @@ class Manifestation < ActiveRecord::Base
     integer :end_page
     integer :number_of_pages
     float :price
-    boolean :reservable do
-      items.for_checkout.exists?
-    end
     integer :series_statement_id do
       series_has_manifestation.try(:series_statement_id)
     end
@@ -485,6 +482,12 @@ class Manifestation < ActiveRecord::Base
 
   if defined?(EnjuCirculation)
     has_many :reserves, :foreign_key => :manifestation_id
+
+    searchable do
+      boolean :reservable do
+        items.for_checkout.exists?
+      end
+    end
 
     def next_reservation
       self.reserves.waiting.order('reserves.created_at ASC').first

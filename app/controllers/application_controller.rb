@@ -146,14 +146,6 @@ class ApplicationController < ActionController::Base
     @shelf = Shelf.find(params[:shelf_id], :include => :library) if params[:shelf_id]
   end
 
-  def get_basket
-    @basket = Basket.find(params[:basket_id]) if params[:basket_id]
-  end
-
-  def get_patron_merge_list
-    @patron_merge_list = PatronMergeList.find(params[:patron_merge_list_id]) if params[:patron_merge_list_id]
-  end
-
   def get_user
     @user = User.where(:username => params[:user_id]).first if params[:user_id]
     if @user
@@ -185,53 +177,75 @@ class ApplicationController < ActionController::Base
     @library_group = LibraryGroup.site_config
   end
 
-  def get_question
-    @question = Question.find(params[:question_id]) if params[:question_id]
-    authorize! :show, @question if @question
-  end
-
-  def get_event
-    @event = Event.find(params[:event_id]) if params[:event_id]
-  end
-
   def get_bookstore
     @bookstore = Bookstore.find(params[:bookstore_id]) if params[:bookstore_id]
   end
 
-  def get_subject
-    @subject = Subject.find(params[:subject_id]) if params[:subject_id]
-  end
-
-  def get_classification
-    @classification = Classification.find(params[:classification_id]) if params[:classification_id]
+  def get_series_statement
+    @series_statement = SeriesStatement.find(params[:series_statement_id]) if params[:series_statement_id]
   end
 
   def get_subscription
     @subscription = Subscription.find(params[:subscription_id]) if params[:subscription_id]
   end
 
-  def get_order_list
-    @order_list = OrderList.find(params[:order_list_id]) if params[:order_list_id]
+  if defined?(EnjuResourceMerge)
+    def get_patron_merge_list
+      @patron_merge_list = PatronMergeList.find(params[:patron_merge_list_id]) if params[:patron_merge_list_id]
+    end
   end
 
-  def get_purchase_request
-    @purchase_request = PurchaseRequest.find(params[:purchase_request_id]) if params[:purchase_request_id]
+  if defined?(EnjuQuestion)
+    def get_question
+      @question = Question.find(params[:question_id]) if params[:question_id]
+      authorize! :show, @question if @question
+    end
   end
 
-  def get_checkout_type
-    @checkout_type = CheckoutType.find(params[:checkout_type_id]) if params[:checkout_type_id]
+  if defined?(EnjuEvent)
+    def get_event
+      @event = Event.find(params[:event_id]) if params[:event_id]
+    end
   end
 
-  def get_inventory_file
-    @inventory_file = InventoryFile.find(params[:inventory_file_id]) if params[:inventory_file_id]
+  if defined?(EnjuPurchaseRequest)
+    def get_order_list
+      @order_list = OrderList.find(params[:order_list_id]) if params[:order_list_id]
+    end
+
+    def get_purchase_request
+      @purchase_request = PurchaseRequest.find(params[:purchase_request_id]) if params[:purchase_request_id]
+    end
   end
 
-  def get_subject_heading_type
-    @subject_heading_type = SubjectHeadingType.find(params[:subject_heading_type_id]) if params[:subject_heading_type_id]
+  if defined?(EnjuCirculation)
+    def get_basket
+      @basket = Basket.find(params[:basket_id]) if params[:basket_id]
+    end
+
+    def get_checkout_type
+      @checkout_type = CheckoutType.find(params[:checkout_type_id]) if params[:checkout_type_id]
+    end
   end
 
-  def get_series_statement
-    @series_statement = SeriesStatement.find(params[:series_statement_id]) if params[:series_statement_id]
+  if defined?(EnjuInventory)
+    def get_inventory_file
+      @inventory_file = InventoryFile.find(params[:inventory_file_id]) if params[:inventory_file_id]
+    end
+  end
+
+  if defined?(EnjuSubject)
+    def get_subject_heading_type
+      @subject_heading_type = SubjectHeadingType.find(params[:subject_heading_type_id]) if params[:subject_heading_type_id]
+    end
+
+    def get_subject
+      @subject = Subject.find(params[:subject_id]) if params[:subject_id]
+    end
+
+    def get_classification
+      @classification = Classification.find(params[:classification_id]) if params[:classification_id]
+    end
   end
 
   def convert_charset

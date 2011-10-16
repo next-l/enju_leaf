@@ -17,23 +17,24 @@
     <p style="font-size: 200%"><%= flash[:temporary_password] -%></p>
   <%- end -%>
 
-  <h2><%= t('activerecord.models.checkout') %></h2>
-  <table class="index">
-    <tr>
-      <th><%= t('activerecord.models.item') %></th>
-      <th><%= t('activerecord.attributes.checkout.due_date') %></th>
-    </tr>
-    <% user.checkouts.not_returned.each do |checkout| %>
-      <tr class="line<%= cycle("0", "1") -%>">
-        <td>
-          <%= link_to checkout.item.item_identifier, checkout.item %><br />
-          (<%= link_to checkout.item.manifestation.original_title, checkout.item.manifestation %>)
-        </td>
-        <td><%=l checkout.due_date, :format => :only_date %></td>
+  <% if defined?(EnjuCirculation) %>
+    <h2><%= t('activerecord.models.checkout') %></h2>
+    <table class="index">
+      <tr>
+        <th><%= t('activerecord.models.item') %></th>
+        <th><%= t('activerecord.attributes.checkout.due_date') %></th>
       </tr>
-    <% end %>
-  </table>
-
+      <% user.checkouts.not_returned.each do |checkout| %>
+        <tr class="line<%= cycle("0", "1") -%>">
+          <td>
+            <%= link_to checkout.item.item_identifier, checkout.item %><br />
+            (<%= link_to checkout.item.manifestation.original_title, checkout.item.manifestation %>)
+          </td>
+          <td><%=l checkout.due_date, :format => :only_date %></td>
+        </tr>
+      <% end %>
+    </table>
+  <% end %>
 </div>
 </div>
 
