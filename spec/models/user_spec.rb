@@ -104,31 +104,6 @@ describe User do
     users(:user1).valid_password?('new password').should be_true
   end
 
-  it "should reset checkout_icalendar_token" do
-    users(:user1).reset_checkout_icalendar_token
-    users(:user1).checkout_icalendar_token.should be_true
-  end
-
-  it "should reset answer_feed_token" do
-    users(:user1).reset_answer_feed_token
-    users(:user1).answer_feed_token.should be_true
-  end
-
-  it "should delete checkout_icalendar_token" do
-    users(:user1).delete_checkout_icalendar_token
-    users(:user1).checkout_icalendar_token.should be_nil
-  end
-
-  it "should delete answer_feed_token" do
-    users(:user1).delete_answer_feed_token
-    users(:user1).answer_feed_token.should be_nil
-  end
-
-  it "should get checked_item_count" do
-    count = users(:user1).checked_item_count
-    count.should eq({:book=>2, :serial=>1, :cd=>0})
-  end
-
   it "should set temporary_password" do
     user = users(:user1)
     old_password = user.encrypted_password
@@ -138,18 +113,8 @@ describe User do
     user.valid_password?('user1password').should be_false
   end
 
-  it "should get reserves_count" do
-    users(:user1).reserves.waiting.count.should eq 1
-  end
-
   it "should get highest_role" do
     users(:admin).role.name.should eq 'Administrator'
-  end
-
-  it "should send_message" do
-    assert users(:librarian1).send_message('reservation_expired_for_patron', :manifestations => users(:librarian1).reserves.not_sent_expiration_notice_to_patron.collect(&:manifestation))
-    users(:librarian1).reload
-    users(:librarian1).reserves.not_sent_expiration_notice_to_patron.should be_empty
   end
 
   it "should lock all expired users" do
@@ -163,6 +128,47 @@ describe User do
     user.expired_at = 1.day.ago
     user.save
     users(:user1).active_for_authentication?.should be_false
+  end
+
+  if defined?(EnjuQuestion)
+    it "should reset answer_feed_token" do
+      users(:user1).reset_answer_feed_token
+      users(:user1).answer_feed_token.should be_true
+    end
+
+    it "should delete answer_feed_token" do
+      users(:user1).delete_answer_feed_token
+      users(:user1).answer_feed_token.should be_nil
+    end
+  end
+
+  if defined?(EnjuCirculation)
+    it "should reset checkout_icalendar_token" do
+      users(:user1).reset_checkout_icalendar_token
+      users(:user1).checkout_icalendar_token.should be_true
+    end
+
+    it "should delete checkout_icalendar_token" do
+      users(:user1).delete_checkout_icalendar_token
+      users(:user1).checkout_icalendar_token.should be_nil
+    end
+
+    it "should get checked_item_count" do
+      count = users(:user1).checked_item_count
+      count.should eq({:book=>2, :serial=>1, :cd=>0})
+    end
+
+    it "should get reserves_count" do
+      users(:user1).reserves.waiting.count.should eq 1
+    end
+  end
+
+  if defined?(EnjuMessage)
+    it "should send_message" do
+      assert users(:librarian1).send_message('reservation_expired_for_patron', :manifestations => users(:librarian1).reserves.not_sent_expiration_notice_to_patron.collect(&:manifestation))
+      users(:librarian1).reload
+      users(:librarian1).reserves.not_sent_expiration_notice_to_patron.should be_empty
+    end
   end
 end
 
