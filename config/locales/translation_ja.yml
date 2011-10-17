@@ -1450,6 +1450,7 @@ ja:
     management: "利用者の管理"
     not_found: "利用者が見つかりません。"
     birth_date_invalid: "生年月日が不正な値です。例: 2011-04-12"
+    already_in_family: "家族登録済みです。"
   news_post:
     library_group_news_post: "%{library_group_name} からのお知らせ"
   reserve:

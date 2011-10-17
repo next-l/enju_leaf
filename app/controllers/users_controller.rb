@@ -120,8 +120,10 @@ class UsersController < ApplicationController
   def edit
     @user.role_id = @user.role.id
     @patron = @user.patron
-    family = @user.family
-    @family_users = family.users if family
+    family_id = FamilyUser.find(:first, :conditions => ['user_id=?', @user.id]).family_id rescue nil
+    if family_id
+      @family_users = Family.find(family_id).users
+    end
 
     if params[:mode] == 'feed_token'
       if params[:disable] == 'true'
@@ -147,11 +149,10 @@ class UsersController < ApplicationController
           @patron.save!
           @user.patron = @patron
         end
-        @user.save!
         unless params[:family].blank?
           @user.set_family(params[:family])
-          @user.save!
         end
+        @user.save!
         flash[:notice] = t('controller.successfully_created.', :model => t('activerecord.models.user'))
         flash[:temporary_password] = @user.password
         format.html { redirect_to user_url(@user) }
@@ -195,11 +196,20 @@ class UsersController < ApplicationController
         @user.patron.save!
       end      
       #@user.save do |result|
+      @user.out_of_family if params[:out_of_family] == "1"
+      unless params[:family].blank?
+        @user.set_family(params[:family])
+      end
       @user.save!
       flash[:notice] = t('controller.successfully_updated', :model => t('activerecord.models.user'))
       format.html { redirect_to user_url(@user) }
       format.xml  { head :ok }
-    rescue ActiveRecord::RecordInvalid
+    rescue # ActiveRecord::RecordInvalid
+      @patron = @user.patron  
+      family_id = FamilyUser.find(:first, :conditions => ['user_id=?', @user.id]).family_id rescue nil
+      if family_id
+        @family_users = Family.find(family_id).users
+      end
       prepare_options
       format.html { render :action => "edit" }
       format.xml  { render :xml => @user.errors, :status => :unprocessable_entity }

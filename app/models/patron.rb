@@ -27,7 +27,7 @@ class Patron < ActiveRecord::Base
 
   validates_presence_of :language, :patron_type, :country
   validates_associated :language, :patron_type, :country
-  validates :full_name, :presence => true, :length => {:maximum => 255}
+  validates :full_name, :presence => true, :length => {:maximum => 255}, :on => :create
   validates :user_id, :uniqueness => true, :allow_nil => true
   validates :birth_date, :format => {:with => /^\d+(-\d{0,2}){0,2}$/}, :allow_blank => true
   validates :death_date, :format => {:with => /^\d+(-\d{0,2}){0,2}$/}, :allow_blank => true

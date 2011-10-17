@@ -382,23 +382,27 @@ class User < ActiveRecord::Base
 
   def set_family(user_id)
     family = User.find(user_id).family rescue nil    
+    begin
     if family
-        family.users << self
-#       self.family = family
-#      family = Family.find(family_user.family_id)
-#      FamilyUser.create(:family_id => family.id, :user_id => self.id)
+      family.users << self
     else
-      begin 
         family = Family.create() 
         user = User.find(user_id)
+        family.users << self         
         family.users << user
-        family.users << self
-#        user.family = family
-#         self.family = family
-      rescue
-      end
-#      FamilyUser.create(:family_id => family.id, :user_id => user_id)
-#      FamilyUser.create(:family_id => family.id, :user_id => self.id)
+    end
+    rescue Exception => e
+      errors[:base] << I18n.t('user.already_in_family')
+      raise e
+    end
+  end
+  
+  def out_of_family
+    begin
+      family_user = FamilyUser.find(:first, :conditions => ['user_id=?', self.id])
+      family_user.destroy
+    rescue Exception => e
+      logger.error e
     end
   end
 end
