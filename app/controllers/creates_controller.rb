@@ -93,6 +93,7 @@ class CreatesController < ApplicationController
     @create.destroy
 
     respond_to do |format|
+      flash[:notice] = t('controller.successfully_deleted', :model => t('activerecord.models.create'))
       case
       when @patron
         format.html { redirect_to patron_works_url(@patron) }

@@ -5,6 +5,7 @@ class SeriesHasManifestation < ActiveRecord::Base
   validates_associated :series_statement, :manifestation
   validates_presence_of :series_statement_id, :manifestation_id
   validates_uniqueness_of :manifestation_id, :scope => :series_statement_id
+  after_save :reload
   after_save :reindex
   after_destroy :reindex
 

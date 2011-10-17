@@ -122,12 +122,14 @@
   <%= render 'manifestations/book_jacket', :manifestation => @item.manifestation -%>
   <ul>
     <li><%= back_to_index(flash[:page_info]) -%></li>
-    <%- if @shelf -%>
-      <li><%= link_to t('page.edit'), edit_library_shelf_item_path(@shelf.library, @shelf, @item) -%></li>
-    <%- else -%>
-      <li><%= link_to t('page.edit'), edit_item_path(@item) -%></li>
-    <%- end -%>
-    <li><%= link_to t('item.edit_exemplification'), item_manifestations_path(@item, :mode => 'add') -%></li>
+    <% if can? :update, @item %>
+      <%- if @shelf -%>
+        <li><%= link_to t('page.edit'), edit_library_shelf_item_path(@shelf.library, @shelf, @item) -%></li>
+      <%- else -%>
+        <li><%= link_to t('page.edit'), edit_item_path(@item) -%></li>
+      <%- end -%>
+      <li><%= link_to t('item.edit_exemplification'), item_manifestations_path(@item, :mode => 'add') -%></li>
+    <% end %>
     <% if defined?(EnjuInterLibraryLoan) %>
       <li><%= link_to t('page.listing', :model => t('activerecord.models.inter_library_loan')), item_inter_library_loans_path(@item) -%></li>
     <% end %>

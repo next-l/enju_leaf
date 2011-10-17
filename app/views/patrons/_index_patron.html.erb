@@ -5,6 +5,8 @@
     [P]
     <%= link_to patron.full_name, patron -%>
   </h2>
+  
+<div class="search_form">
 <%= form_for :patrons, :url => patron_patrons_path(patron), :html => {:method => 'get'} do -%>
   <p>
     <%= t('page.search_term') -%>: <%= search_field_tag 'query', h(@query), {:id => 'search_form_top', :class => 'search_form', :placeholder => t('page.search_term')} -%>
@@ -14,6 +16,7 @@
     <%= submit_tag t('page.search') -%>
   </p>
 <%- end -%>
+</div>
 
 <table class="index">
   <tr>

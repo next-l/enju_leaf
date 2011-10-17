@@ -93,6 +93,7 @@ class RealizesController < ApplicationController
     @realize.destroy
 
     respond_to do |format|
+      flash[:notice] = t('controller.successfully_deleted', :model => t('activerecord.models.realize'))
       case
       when @expression
         format.html { redirect_to expression_patrons_url(@expression) }

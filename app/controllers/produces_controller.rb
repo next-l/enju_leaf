@@ -30,8 +30,6 @@ class ProducesController < ApplicationController
   # GET /produces/1
   # GET /produces/1.xml
   def show
-    @produce = Produce.find(params[:id])
-
     respond_to do |format|
       format.html # show.rhtml
       format.xml  { render :xml => @produce }
@@ -53,7 +51,6 @@ class ProducesController < ApplicationController
 
   # GET /produces/1;edit
   def edit
-    @produce = Produce.find(params[:id])
   end
 
   # POST /produces
@@ -76,8 +73,6 @@ class ProducesController < ApplicationController
   # PUT /produces/1
   # PUT /produces/1.xml
   def update
-    @produce = Produce.find(params[:id])
-
     if @manifestation and params[:position]
       @produce.insert_at(params[:position])
       redirect_to manifestation_produces_url(@manifestation)
@@ -99,10 +94,10 @@ class ProducesController < ApplicationController
   # DELETE /produces/1
   # DELETE /produces/1.xml
   def destroy
-    @produce = Produce.find(params[:id])
     @produce.destroy
 
     respond_to do |format|
+      flash[:notice] = t('controller.successfully_deleted', :model => t('activerecord.models.produce'))
       case
       when @patron
         format.html { redirect_to patron_manifestations_url(@patron) }

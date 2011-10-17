@@ -9,7 +9,7 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_bookmark.git
-  revision: feff64b23fc893957756492278c0a45776a54e6c
+  revision: e69e7b723c2a1b3cbd1aa1d3b4c6d6ec301b60ff
   specs:
     enju_bookmark (0.0.2)
       rails (~> 3.1.1)
@@ -218,7 +218,7 @@ GEM
       sexp_processor (~> 3.0)
     friendly_id (4.0.0.beta14)
     geocoder (1.0.4)
-    guard (0.8.4)
+    guard (0.8.5)
       thor (~> 0.14.6)
     guard-rspec (0.5.0)
       guard (>= 0.8.4)
@@ -383,19 +383,19 @@ GEM
     rqrcode (0.4.2)
     rsolr (1.0.2)
       builder (>= 2.1.2)
-    rspec (2.6.0)
-      rspec-core (~> 2.6.0)
-      rspec-expectations (~> 2.6.0)
-      rspec-mocks (~> 2.6.0)
-    rspec-core (2.6.4)
-    rspec-expectations (2.6.0)
+    rspec (2.7.0)
+      rspec-core (~> 2.7.0)
+      rspec-expectations (~> 2.7.0)
+      rspec-mocks (~> 2.7.0)
+    rspec-core (2.7.0)
+    rspec-expectations (2.7.0)
       diff-lcs (~> 1.1.2)
-    rspec-mocks (2.6.0)
-    rspec-rails (2.6.1)
+    rspec-mocks (2.7.0)
+    rspec-rails (2.7.0)
       actionpack (~> 3.0)
       activesupport (~> 3.0)
       railties (~> 3.0)
-      rspec (~> 2.6.0)
+      rspec (~> 2.7.0)
     ruby-openid (2.1.8)
     ruby-openid-apps-discovery (1.2.0)
       ruby-openid (>= 2.1.7)

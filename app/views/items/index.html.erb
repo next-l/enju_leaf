@@ -5,13 +5,16 @@
 
 <%= render 'manifestations/title', :manifestation => @manifestation if @manifestation -%>
 
+<div class="search_form">
 <%= form_for :items, :url => items_path, :html => {:method => 'get'} do -%>
   <p>
     <%= t('page.search_term') -%>: <%= search_field_tag 'query', h(@query), {:id => 'search_form_top', :class => 'search_form', :placeholder => t('page.search_term')} -%>
+    <%= hidden_field_tag :manifestation_id, @manifestation.id if @manifestation -%>
     <%= submit_tag t('page.search') -%>
     <%= set_focus_on_search_form -%>
   </p>
 <%- end -%>
+</div>
 
 <table class="index">
   <tr>

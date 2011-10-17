@@ -81,6 +81,7 @@ class SeriesHasManifestationsController < ApplicationController
     @series_has_manifestation.destroy
 
     respond_to do |format|
+      flash[:notice] = t('controller.successfully_deleted', :model => t('activerecord.models.series_has_manifestation'))
       format.html {
         if @series_statement
           redirect_to(series_statement_manifestations_url(@series_statement))

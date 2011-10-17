@@ -147,7 +147,7 @@ describe ResourceImportFilesController do
       end
 
       it "should create patron_import_file" do
-        post :create, :resource_import_file => {:resource_import => fixture_file_upload("#{Rails.root.to_s}/examples/resource_import_file_sample1.tsv", 'text/csv') }
+        post :create, :resource_import_file => {:resource_import => fixture_file_upload("/../../examples/resource_import_file_sample1.tsv", 'text/csv') }
         assigns(:resource_import_file).should be_valid
         assigns(:resource_import_file).user.username.should eq @user.username
         response.should redirect_to resource_import_file_url(assigns(:resource_import_file))
@@ -161,7 +161,7 @@ describe ResourceImportFilesController do
       end
 
       it "should be forbidden" do
-        post :create, :resource_import_file => {:resource_import => fixture_file_upload("#{Rails.root.to_s}/examples/resource_import_file_sample1.tsv", 'text/csv') }
+        post :create, :resource_import_file => {:resource_import => fixture_file_upload("/../../examples/resource_import_file_sample1.tsv", 'text/csv') }
         assigns(:resource_import_file).user.should be_nil
         response.should be_forbidden
       end
@@ -169,7 +169,7 @@ describe ResourceImportFilesController do
 
     describe "When not logged in" do
       it "should be redirected to new session url" do
-        post :create, :resource_import_file => {:resource_import => fixture_file_upload("#{Rails.root.to_s}/examples/resource_import_file_sample1.tsv", 'text/csv') }
+        post :create, :resource_import_file => {:resource_import => fixture_file_upload("/../../examples/resource_import_file_sample1.tsv", 'text/csv') }
         assigns(:resource_import_file).user.should be_nil
         response.should redirect_to new_user_session_url
       end

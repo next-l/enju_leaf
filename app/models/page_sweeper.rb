@@ -4,43 +4,43 @@ class PageSweeper < ActionController::Caching::Sweeper
     SeriesStatement, SeriesHasManifestation, PictureFile, Shelf, Library
 
   def after_save(record)
-    case
-    when record.is_a?(Library)
+    case record.class
+    when Library
       #expire_fragment(:controller => :libraries, :action => :index, :page => 'menu')
       expire_menu
-    when record.is_a?(Shelf)
+    when Shelf
       # TODO: 書架情報が更新されたときのキャッシュはバッチで削除する
       #record.items.each do |item|
       #  expire_editable_fragment(item, ['holding'])
       #end
-    when record.is_a?(Create)
+    when Create
       expire_editable_fragment(record.patron)
       expire_editable_fragment(record.work)
-    when record.is_a?(Realize)
+    when Realize
       expire_editable_fragment(record.patron)
       expire_editable_fragment(record.expression)
-    when record.is_a?(Produce)
+    when Produce
       expire_editable_fragment(record.patron)
       expire_editable_fragment(record.manifestation)
-    when record.is_a?(Own)
+    when Own
       expire_editable_fragment(record.patron)
       expire_editable_fragment(record.item)
       expire_editable_fragment(record.item.manifestation)
-    when record.is_a?(Exemplify)
+    when Exemplify
       expire_editable_fragment(record.manifestation, ['detail', 'show_list', 'holding'])
       expire_editable_fragment(record.item)
     when record.is_a?(SeriesStatement)
       record.manifestations.each do |manifestation|
         expire_editable_fragment(manifestation, ['detail'])
       end
-    when record.is_a?(SeriesHasManifestation)
+    when SeriesHasManifestation
       expire_editable_fragment(record.manifestation)
-    when record.is_a?(PictureFile)
+    when PictureFile
       if record.picture_attachable_type?
-        case
-        when record.picture_attachable.is_a?(Manifestation)
+        case record.picture_attachable.class
+        when Manifestation
           expire_editable_fragment(record.picture_attachable, ['picture_file', 'book_jacket'])
-        when record.picture_attachable.is_a?(Patron)
+        when Patron
           expire_editable_fragment(record.picture_attachable, ['picture_file'])
         end
       end

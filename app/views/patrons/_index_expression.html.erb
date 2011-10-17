@@ -7,6 +7,7 @@
     <%= link_to expression.original_title, expression -%>
   </h2>
 
+<div class="search_form">
 <%= form_for :patrons, :url => expression_patrons_path(expression), :html => {:method => 'get'} do -%>
   <p>
     <%= t('page.search_term') -%>: <%= search_field_tag 'query', h(@query), {:id => 'search_form_top', :class => 'search_form', :placeholder => t('page.search_term')} -%>
@@ -17,6 +18,7 @@
     <%= link_to t('page.back_to_index'), expression_patrons_path(expression) -%>
   </p>
 <%- end -%>
+</div>
 
 <table class="index">
   <tr>

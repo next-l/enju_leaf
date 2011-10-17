@@ -276,11 +276,10 @@ class BookmarksControllerTest < ActionController::TestCase
     assert_response :missing
   end
 
-  def test_user_should_update_without_manifestation_id
+  def test_user_should_not_update_without_manifestation_id
     sign_in users(:user1)
     put :update, :id => 3, :user_id => users(:user1).username, :bookmark => {:manifestation_id => nil}
-    assert_response :redirect
-    assert_redirected_to user_bookmark_url(users(:user1).username, assigns(:bookmark))
+    assert_response :success
   end
 
   def test_user_should_update_bookmark
