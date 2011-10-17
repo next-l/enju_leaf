@@ -96,15 +96,17 @@ class CheckoutsController < ApplicationController
     end
     if @checkout.over_checkout_renewal_limit?
       flash[:notice] = t('checkout.excessed_renewal_limit')
-      redirect_to edit_user_checkout_url(@checkout.user, @checkout)
-      return
+      unless current_user.has_role?('Librarian')
+        redirect_to edit_user_checkout_url(@checkout.user, @checkout)
+        return
+      end
     end
     if @checkout.overdue?
       flash[:notice] = t('checkout.you_have_overdue_item')
-      #unless current_user.has_role?('Librarian')
+      unless current_user.has_role?('Librarian')
         redirect_to edit_user_checkout_url(@checkout.user, @checkout)
         return
-      #end
+      end
     end
     @checkout.reload
     @checkout.checkout_renewal_count += 1
