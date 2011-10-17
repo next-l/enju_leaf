@@ -7,15 +7,23 @@
       <%= render 'list' -%>
     </div>
     <br />
-    <div>
+    <div id="checkouts_list">
       <%= render 'checkouts' -%>
     </div>
-    <br>
-    <div>
-      <%- unless @family_users.blank? -%>
-        <%= render 'checkouts_family' -%>
-      <%- end -%>
+    <br />
+    <div id="reserves_list">
+      <%= render 'reserves'-%>
     </div>
+    <%- unless @family_users.blank? -%>
+      <br />
+      <div id="checkouts_family_list">
+        <%= render 'checkouts_family' -%>
+      </div>
+      <br />
+      <div id="reserves_family_list">
+        <%= render 'reserves_family' -%>
+      </div>
+    <%- end -%>
   </div>
 </div>
 
