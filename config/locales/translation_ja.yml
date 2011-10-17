@@ -667,6 +667,7 @@ ja:
         edit_mode: 編集モード
       checkout:
         due_date: 期日
+        family_name: 家族名
         lock_version: ロックバージョン
         renewal_count: 貸出の更新回数
       subscription:
@@ -1493,6 +1494,7 @@ ja:
     item_not_found: "資料が見つかりません。"
     not_available_for_checkout: "この資料の貸出はできません。"
     previous_checkout: "現在貸出中の資料"
+    previous_checkout_family: "現在家族に貸出中の資料"
     checkout: "上記の資料を貸し出す"
     ignore_restriction: "制限を無視する"
     already_checked_out: "この資料はすでに貸し出されています。"

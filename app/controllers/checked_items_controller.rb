@@ -9,6 +9,11 @@ class CheckedItemsController < ApplicationController
     if @basket
       @checked_items = @basket.checked_items
       @checked_item = @basket.checked_items.new
+
+      family_id = FamilyUser.find(:first, :conditions => ['user_id=?', @basket.user.id]).family_id rescue nil
+      if family_id
+        @family_users = Family.find(family_id).users
+      end
     else
       access_denied
       return

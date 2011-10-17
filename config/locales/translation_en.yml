@@ -647,6 +647,7 @@ en:
         edit_mode: Edit mode
       checkout:
         due_date: Due date
+        family_name: Family name
         lock_version: Lock version
         renewal_count: Checkout renewal count
       subscription:
@@ -1470,6 +1471,7 @@ en:
     item_not_found: "Item not found."
     not_available_for_checkout: "This item is not available for checkout."
     previous_checkout: "Previous checkouts"
+    previous_checkout: "Previous family's checkouts"
     checkout: "Checkout!"
     ignore_restriction: "Ignore restriction"
     already_checked_out: "This item is already checked out."
