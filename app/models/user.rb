@@ -381,21 +381,22 @@ class User < ActiveRecord::Base
   end
 
   def set_family(user_id)
-    logger.error "User ID: #{user_id}"
     family = User.find(user_id).family rescue nil    
     if family
-       self.family = family
+        family.users << self
+#       self.family = family
 #      family = Family.find(family_user.family_id)
 #      FamilyUser.create(:family_id => family.id, :user_id => self.id)
     else
       begin 
         family = Family.create() 
-        logger.error "Family created: #{family.id}"
         user = User.find(user_id)
-        user.family = family
+        family.users << user
+        family.users << self
+#        user.family = family
+#         self.family = family
       rescue
       end
-      self.family = family
 #      FamilyUser.create(:family_id => family.id, :user_id => user_id)
 #      FamilyUser.create(:family_id => family.id, :user_id => self.id)
     end
