@@ -236,6 +236,9 @@ class UsersController < ApplicationController
     return nil unless request.xhr?
     unless params[:keys].blank?
       @users = User.find(:all, :joins => :patron, :conditions => params[:keys]) rescue nil
+      family_id = FamilyUser.find(:first, :conditions => ['user_id=?', params[:user]]).family_id rescue nil
+      family_users = Family.find(family_id).users if family_id rescue nil
+      @users.delete_if{|user| family_users.include?(user)} if family_users
       unless @users.blank? 
         html = render_to_string :partial => "search_family"
         render :json => {:success => 1, :html => html}
