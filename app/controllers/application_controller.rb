@@ -10,7 +10,7 @@ class ApplicationController < ActionController::Base
   rescue_from RSolr::Error::Http, :with => :render_500_solr
   rescue_from ActionView::MissingTemplate, :with => :render_404_invalid_format
 
-  before_filter :get_library_group, :set_locale, :set_available_languages, :prepare_for_mobile
+  before_filter :get_library_group, :set_locale, :set_available_languages, :prepare_for_mobile, :set_current_user
   helper_method :mobile_device?
 
   private
@@ -61,6 +61,12 @@ class ApplicationController < ActionController::Base
       format.html {render :template => 'page/500', :status => 500}
       format.mobile {render :template => 'page/500', :status => 500}
       format.xml {render :template => 'page/500', :status => 500}
+    end
+  end
+
+  def set_current_user
+    if user_signed_in?
+      User.current_user = current_user
     end
   end
 

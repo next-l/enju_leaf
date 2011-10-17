@@ -7,6 +7,7 @@ class User < ActiveRecord::Base
 
   # Setup accessible (or protected) attributes for your model
   attr_accessible :email, :email_confirmation, :password, :password_confirmation, :username, :current_password, :user_number, :remember_me
+  cattr_accessor :current_user
 
   scope :administrators, where('roles.name = ?', 'Administrator').includes(:role)
   scope :librarians, where('roles.name = ? OR roles.name = ?', 'Administrator', 'Librarian').includes(:role)
@@ -400,7 +401,9 @@ class User < ActiveRecord::Base
   def out_of_family
     begin
       family_user = FamilyUser.find(:first, :conditions => ['user_id=?', self.id])
+      all_users = FamilyUser.find(:all, :conditions => ['family_id=?', family_user.family_id])
       family_user.destroy
+      all_users.destroy if all_users && all_users.length = 1
     rescue Exception => e
       logger.error e
     end
