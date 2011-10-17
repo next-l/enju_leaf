@@ -108,15 +108,16 @@ class ManifestationsController < ApplicationController
       patron = get_index_patron
       @index_patron = patron
 
+      manifestation = @manifestation if @manifestation
+      subject = @subject if @subject
+      series_statement = @series_statement if @series_statement
       unless params[:mode] == 'add'
-        manifestation = @manifestation if @manifestation
-        subject = @subject if @subject
-        series_statement = @series_statement if @series_statement
         search.build do
           with(:creator_ids).equal_to patron[:creator].id if patron[:creator]
           with(:contributor_ids).equal_to patron[:contributor].id if patron[:contributor]
           with(:publisher_ids).equal_to patron[:publisher].id if patron[:publisher]
           with(:original_manifestation_ids).equal_to manifestation.id if manifestation
+          with(:series_statement_id).equal_to series_statement.id if series_statement
         end
       end
 
@@ -126,9 +127,15 @@ class ManifestationsController < ApplicationController
         order_by :updated_at, :desc if oai_search
         with(:subject_ids).equal_to subject.id if subject
         if series_statement
-          with(:series_statement_id).equal_to series_statement.id
+          with(:periodical_master).equal_to false
+          if params[:mode] != 'add'
+            with(:periodical).equal_to true
+          end
+        else
+          if params[:mode] != 'add'
+            with(:periodical).equal_to false
+          end
         end
-        with(:periodical).equal_to false
         facet :reservable
       end
       search = make_internal_query(search)
@@ -148,7 +155,6 @@ class ManifestationsController < ApplicationController
         :carrier_type_id,
         :created_at,
         :updated_at,
-        :periodical,
         :volume_number_string,
         :volume_number,
         :issue_number_string,
@@ -400,10 +406,10 @@ class ManifestationsController < ApplicationController
       end
     end
     @original_manifestation = Manifestation.where(:id => params[:manifestation_id]).first
-    if @manifestation.series_statement
+    if @series_statement
+      @manifestation.series_statement_id = @series_statement.id
+    elsif @manifestation.series_statement
       @manifestation.series_statement_id = @manifestation.series_statement.id
-    else
-      @manifestation.series_statement_id = @series_statement if @series_statement
     end
     if defined?(EnjuBookmark)
       if params[:mode] == 'tag_edit'

@@ -352,7 +352,7 @@ GEM
       railties (= 3.1.1)
     rails_autolink (1.0.4)
       rails (>= 3.1.0)
-    rails_best_practices (1.1.0)
+    rails_best_practices (1.2.0)
       activesupport
       colored
       erubis

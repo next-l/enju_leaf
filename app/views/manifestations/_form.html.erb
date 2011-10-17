@@ -5,7 +5,11 @@
   <div class="field">
     <%- if !@manifestation.new_record? and @manifestation.series_statement -%>
       <%= f.label t('activerecord.models.series_statement') -%>
-      <%= link_to @manifestation.series_statement.original_title, @manifestation.series_statement -%>
+      <% if @series_statement %>
+        <%= link_to @series_statement.original_title, @series_statement -%>
+      <% else %>
+        <%= link_to @manifestation.series_statement.original_title, @manifestation.series_statement -%>
+      <% end %>
       (<%= link_to t('series_statement.edit'), series_statements_path(:manifestation_id => @manifestation.id) -%>)
     <%- else -%>
       <%= f.label t('activerecord.models.series_statement') -%>
@@ -32,7 +36,7 @@
     <%= f.text_field :title_alternative, :class => 'resource_title' -%>
   </div>
 
-  <%- if @manifestation.serial? -%>
+  <%- if @manifestation.periodical? -%>
     <%= render :partial => 'manifestations/serial_form', :locals => {:f => f, :manifestation => @manifestation} -%>
   <%- else -%>
     <div class="field">
@@ -83,7 +87,7 @@
   <div class="field">
     <%= f.label :lccn -%>
     <%= f.text_field :lccn, :class => 'resource_isbn_issn', :style => 'ime-mode: disabled' -%>
-    <% if @manifestation.serial? %>
+    <% if @manifestation.periodical? %>
       <%= f.label :issn -%>
       <%= f.text_field :issn, :class => 'resource_isbn_issn', :style => 'ime-mode: disabled' -%>
     <% end %>
