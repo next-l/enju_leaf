@@ -26,6 +26,8 @@
                     <%- else -%>
                       <%= link_to t('activerecord.models.reserve'), new_user_reserve_path(@reserve_user, :manifestation_id => manifestation.id) -%>
                     <%- end -%>
+                    <br />
+                    (<%= t('page.number_of_reservations', :count => Reserve.waiting.where(:manifestation_id => manifestation.id, :checked_out_at => nil).count) -%>)
                   <%- end -%>
                 </td>
                 <td id="edit_icons">

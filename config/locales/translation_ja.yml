@@ -670,7 +670,7 @@ ja:
         edit_mode: 編集モード
       checkout:
         due_date: 期日
-        family_name: 家族名
+        family_info: 家族情報
         lock_version: ロックバージョン
         renewal_count: 貸出の更新回数
       subscription:

@@ -57,7 +57,7 @@
       <tr>
         <th><%= t('activerecord.models.item') %></th>
         <th><%= t('activerecord.attributes.checkout.due_date') %></th>
-        <th><%= t('activerecord.attributes.checkout.family_name') -%></th>
+        <th><%= t('activerecord.attributes.checkout.family_info') -%></th>
       </tr>
       <% @family_users.each do |f_user| %>
         <%- f_user.checkouts.not_returned.each_with_index do |checkout, i| -%>
@@ -80,7 +80,7 @@
         <th class="checked_item_title"><%= t('page.title') -%></th>
         <th><%= t('activerecord.attributes.reserve.state') -%></th>
         <th><%= t('activerecord.attributes.reserve.expired_at') -%></th>
-        <th><%= t('activerecord.attributes.checkout.family_name') -%></th>
+        <th><%= t('activerecord.attributes.checkout.family_info') -%></th>
       </tr>
       <% @family_users.each do |f_user| %>
         <%- f_user.reserves.previous_reserves.each_with_index do |reserve, i| -%>

@@ -649,7 +649,7 @@ en:
         edit_mode: Edit mode
       checkout:
         due_date: Due date
-        family_name: Family name
+        family_info: Family's information
         lock_version: Lock version
         renewal_count: Checkout renewal count
       subscription:
