@@ -80,6 +80,7 @@ ja:
       user_group: 利用者グループ
       resource_import_file: 資料のインポート用ファイル
       checkout: 貸出
+      checkout_family: 家族の貸出
       subscription: 購読
       message_template: メッセージテンプレート
       patron_merge: 人物・団体の統合
@@ -88,6 +89,7 @@ ja:
       event_import_file: 催し物のインポート用ファイル
       attachment_file: 添付ファイル
       reserve: 予約
+      reserve_family: 家族の予約
       message_request: メッセージの送信リクエスト
       answer: 回答
       bookstore: 書店

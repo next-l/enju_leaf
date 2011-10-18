@@ -84,6 +84,11 @@ class UsersController < ApplicationController
 
     @manifestation = Manifestation.pickup(@user.keyword_list.to_s.split.sort_by{rand}.first) rescue nil
 
+    family_id = FamilyUser.find(:first, :conditions => ['user_id=?', @user.id]).family_id rescue nil
+    if family_id
+      @family_users = Family.find(family_id).users
+    end
+
     respond_to do |format|
       format.html # show.rhtml
       format.xml  { render :xml => @user }
