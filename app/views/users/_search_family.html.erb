@@ -13,7 +13,7 @@
   <div><%= t('family.may_family_with') -%></div>
   <div><%= radio_button_tag :family, "" %><%=t('family.not_select_family') -%></div>
   <% @users.each do |user| %>
-    <div><%= radio_button_tag :family, user.id %><%= user.username -%></div>
+    <div><%= radio_button_tag :family, user.id %><%= user.patron.full_name if user.patron -%>(<%= user.username -%>)</div>
   <% end %>
 </div>
 <% end %>
