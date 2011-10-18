@@ -43,31 +43,39 @@
         search_family();
       })
       .change();      
+      $("[name='family']").click(function(){
+        alert("test");
+      })
+      .change();
     });
     function search_family(){
-        var tel_1 = $("#patron_telephone_number_1").val();
-        var last_name = $("#patron_last_name").val();
-        var address_1 = $("#patron_address_1").val();
-        var data = {"keys": {"patrons.telephone_number_1": tel_1, "patrons.last_name": last_name, "patrons.address_1": address_1 }, "user": "<%= @user.id -%>"};
-        if (tel_1 != "" && last_name != "" && address_1 !="") {
-          $.ajax({
-  	    type: "GET",
-            url: "search_family",
-            data: data, 
-            success: function(obj) {
-              if(obj.success){
-                $('#search_family').remove();
-                $('#family').append(obj.html);
-                $('#search_family').show();
-              }
-	    }
-          });  
-          return false;
-         }
+      var tel_1 = $("#patron_telephone_number_1").val();
+      var last_name = $("#patron_last_name").val();
+      var address_1 = $("#patron_address_1").val();
+      var data = {"keys": {"patrons.telephone_number_1": tel_1, "patrons.last_name": last_name, "patrons.address_1": address_1 }, "user": "<%= @user.id -%>"};
+      if (tel_1 != "" && last_name != "" && address_1 !="") {
+        $.ajax({
+          type: "GET",
+          url: "search_family",
+          data: data, 
+          success: function(obj) {
+            if(obj.success){
+              $('#search_family').remove();
+              $('#family').append(obj.html);
+              $('#search_family').show();
+            }
+	  }
+        });  
+        return false;
+      }
     }
     function clear_family_search(){
       $('#search_family > div').remove();
       $('#search_family').hide();
+    }
+    function get_family_info(){
+      var user_id = $("input:radio[name='family']:checked").val();
+      alert(user_id);
     }
     $("select#patron_patron_type_id").change(function(){
       str = $("select#patron_patron_type_id option:selected").val();
@@ -171,7 +179,14 @@
 
   <hr />
   <div class="field">
-    <%= f.label :note -%><br />
+    <%= f.label :note -%>
+    <%- if @patron.note_update_at -%>
+      &nbsp;<%= t('patron.last_update_at') -%>: <%= l(@patron.note_update_at) -%>
+      <%- if @note_last_updateed_user -%>
+        &nbsp;<%= t('patron.last_update_by') -%>: <%= @note_last_updateed_user.username -%>
+      <%- end -%>
+    <%- end -%>
+    <br />
     <%= f.text_area :note, :class => 'resource_textarea' -%>
   </div>
 

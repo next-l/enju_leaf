@@ -234,6 +234,7 @@ ja:
         language: 言語
         email: 電子メール
         url: URL
+        note_update_at: 注記更新時刻
       feeds/app:
         source_url: ソースURL
         title: タイトル
@@ -1332,6 +1333,8 @@ ja:
     contributor: "協力者・編者"
     publisher: "出版者"
     owner: "所有者"
+    last_update_at: 最終更新日時
+    last_update_by: 更新者 
   message:
     user_message: "%{login_name} さんのメッセージ"
     sent_at: "送信時刻"

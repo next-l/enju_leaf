@@ -154,6 +154,7 @@ class PatronsController < ApplicationController
   # GET /patrons/1;edit
   def edit
     prepare_options
+    @note_last_updateed_user = User.find(@patron.note_update_by) rescue nil
   end
 
   # POST /patrons
