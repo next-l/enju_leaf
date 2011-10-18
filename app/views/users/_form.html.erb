@@ -45,13 +45,10 @@
       .change();      
     });
     function search_family(){
-      if ($('#family_users').length > 1) {
-        return false;
-      } else {
         var tel_1 = $("#patron_telephone_number_1").val();
         var last_name = $("#patron_last_name").val();
         var address_1 = $("#patron_address_1").val();
-        var data = {"keys": {"patrons.telephone_number_1": tel_1, "patrons.last_name": last_name, "patrons.address_1": address_1 }, "user": <%= @user.id -%>};
+        var data = {"keys": {"patrons.telephone_number_1": tel_1, "patrons.last_name": last_name, "patrons.address_1": address_1 }, "user": "<%= @user.id -%>"};
         if (tel_1 != "" && last_name != "" && address_1 !="") {
           $.ajax({
   	    type: "GET",
@@ -67,7 +64,6 @@
           });  
           return false;
          }
-      }
     }
     function clear_family_search(){
       $('#search_family > div').remove();
