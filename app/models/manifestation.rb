@@ -132,7 +132,12 @@ class Manifestation < ActiveRecord::Base
     #end
     # OTC end
     string :sort_title
-    boolean :periodical
+    boolean :periodical do
+      periodical?
+    end
+    boolean :periodical_master do
+      periodical_master?
+    end
     time :acquired_at
   end
 
@@ -264,8 +269,8 @@ class Manifestation < ActiveRecord::Base
     else
       if series_statement.try(:periodical)
         return true
-      elsif periodical
-        return true unless series_statement.root_manifestation == self
+      elsif periodical?
+        return true unless series_statement.try(:root_manifestation) == self
       end
     end
     false
@@ -282,6 +287,10 @@ class Manifestation < ActiveRecord::Base
     title << original_title.to_s.strip
     title << title_transcription.to_s.strip
     title << title_alternative.to_s.strip
+    title << volume_number_string
+    title << issue_number_string
+    title << serial_number.to_s
+    title << edition_string
     title << series_statement.titles if series_statement
     #title << original_title.wakati
     #title << title_transcription.wakati rescue nil
@@ -295,7 +304,7 @@ class Manifestation < ActiveRecord::Base
   end
 
   def set_serial_information
-    return nil unless serial?
+    return nil unless periodical?
     if new_record?
       series = SeriesStatement.where(:id => series_statement_id).first
       manifestation = series.try(:last_issue)
@@ -454,6 +463,13 @@ class Manifestation < ActiveRecord::Base
   def periodical_master?
     if series_statement
       return true if series_statement.periodical and root_of_series?
+    end
+    false
+  end
+
+  def periodical?
+    if series_statement.try(:periodical)
+      return true unless root_of_series?
     end
     false
   end

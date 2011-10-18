@@ -147,7 +147,7 @@ describe PatronImportFilesController do
       it "should create patron_import_file" do
         old_patrons_count = Patron.count
         old_import_results_count = PatronImportResult.count
-        post :create, :patron_import_file => {:patron_import => fixture_file_upload("#{Rails.root.to_s}/examples/patron_import_file_sample1.tsv", 'text/csv') }
+        post :create, :patron_import_file => {:patron_import => fixture_file_upload("/../../examples/patron_import_file_sample1.tsv", 'text/csv') }
         assigns(:patron_import_file).should be_valid
         assigns(:patron_import_file).user.username.should eq @user.username
         response.should redirect_to patron_import_file_url(assigns(:patron_import_file))
@@ -156,7 +156,7 @@ describe PatronImportFilesController do
       it "should import user" do
         old_patrons_count = Patron.count
         old_users_count = User.count
-        post :create, :patron_import_file => {:patron_import => fixture_file_upload("#{Rails.root.to_s}/examples/patron_import_file_sample2.tsv", 'text/csv') }
+        post :create, :patron_import_file => {:patron_import => fixture_file_upload("/../../examples/patron_import_file_sample2.tsv", 'text/csv') }
         assigns(:patron_import_file).import_start
         Patron.count.should eq old_patrons_count + 7
         User.count.should eq old_users_count + 4
@@ -171,14 +171,14 @@ describe PatronImportFilesController do
       end
 
       it "should be forbidden" do
-        post :create, :patron_import_file => {:patron_import => fixture_file_upload("#{Rails.root.to_s}/examples/patron_import_file_sample1.tsv", 'text/csv') }
+        post :create, :patron_import_file => {:patron_import => fixture_file_upload("/../../examples/patron_import_file_sample1.tsv", 'text/csv') }
         response.should be_forbidden
       end
     end
 
     describe "When not logged in" do
       it "should be redirect to new session url" do
-        post :create, :patron_import_file => {:patron_import => fixture_file_upload("#{Rails.root.to_s}/examples/patron_import_file_sample1.tsv", 'text/csv') }
+        post :create, :patron_import_file => {:patron_import => fixture_file_upload("/../../examples/patron_import_file_sample1.tsv", 'text/csv') }
         response.should redirect_to new_user_session_url
       end
     end

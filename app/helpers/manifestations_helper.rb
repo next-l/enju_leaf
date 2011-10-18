@@ -113,7 +113,7 @@ module ManifestationsHelper
     if manifestation.volume_number_string?
       title << " " + manifestation.volume_number_string
     end
-    if manifestation.serial?
+    if manifestation.periodical?
       if manifestation.issue_number_string.present?
         title <<  " " + manifestation.issue_number_string
       end

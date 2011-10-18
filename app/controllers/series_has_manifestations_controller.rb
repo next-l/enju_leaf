@@ -2,7 +2,8 @@
 class SeriesHasManifestationsController < ApplicationController
   load_and_authorize_resource
   before_filter :get_manifestation, :only => [:index, :new, :edit, :destroy]
-  before_filter :get_series_statement, :only => [:index, :new, :edit]
+  before_filter :get_series_statement, :only => [:index, :new, :edit, :destroy]
+  after_filter :solr_commit, :only => [:create, :update, :destroy]
   cache_sweeper :page_sweeper, :only => [:create, :update, :destroy]
 
   # GET /series_has_manifestations
@@ -80,9 +81,10 @@ class SeriesHasManifestationsController < ApplicationController
     @series_has_manifestation.destroy
 
     respond_to do |format|
+      flash[:notice] = t('controller.successfully_deleted', :model => t('activerecord.models.series_has_manifestation'))
       format.html {
-        if @manifestation
-          redirect_to(manifestation_series_statements_url(@manifestation))
+        if @series_statement
+          redirect_to(series_statement_manifestations_url(@series_statement))
         else
           redirect_to(series_has_manifestations_url)
         end

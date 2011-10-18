@@ -18,8 +18,6 @@ class ExemplifiesController < ApplicationController
   # GET /exemplifies/1
   # GET /exemplifies/1.xml
   def show
-    @exemplify = Exemplify.find(params[:id])
-
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @exemplify }
@@ -42,7 +40,6 @@ class ExemplifiesController < ApplicationController
 
   # GET /exemplifies/1/edit
   def edit
-    @exemplify = Exemplify.find(params[:id])
     @exemplify.manifestation = @manifestation if @manifestation
   end
 
@@ -66,8 +63,6 @@ class ExemplifiesController < ApplicationController
   # PUT /exemplifies/1
   # PUT /exemplifies/1.xml
   def update
-    @exemplify = Exemplify.find(params[:id])
-
     if @manifestation and params[:position]
       @exemplify.insert_at(params[:position])
       redirect_to manifestation_exemplifies_url(@manifestation)
@@ -89,10 +84,10 @@ class ExemplifiesController < ApplicationController
   # DELETE /exemplifies/1
   # DELETE /exemplifies/1.xml
   def destroy
-    @exemplify = Exemplify.find(params[:id])
     @exemplify.destroy
 
     respond_to do |format|
+      flash[:notice] = t('controller.successfully_deleted', :model => t('activerecord.models.exemplify'))
       case when @manifestation
         format.html { redirect_to manifestation_items_path(@exemplify.manifestation) }
         format.xml  { head :ok }

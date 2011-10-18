@@ -3,6 +3,7 @@
   <%= link_to @series_statement.original_title, @series_statement, :itemprop => 'name' -%>
 </h2>
 
+<div class="search_form">
 <%= form_for :manifestations, :url => series_statement_manifestations_path(@series_statement), :html => {:method => 'get'} do -%>
   <p>
     <%= t('page.search_term') -%>:
@@ -16,3 +17,4 @@
     <%= link_to t('page.advanced_search'), page_advanced_search_path -%>
   </p>
 <%- end -%>
+</div>

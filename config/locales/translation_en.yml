@@ -1203,6 +1203,7 @@ en:
     disabled: "Disabled"
     routing_error: "Routing error"
     change: "Change"
+    refine_by: "Refine by"
   title:
     index: "index"
     show: "show"

@@ -525,3 +525,7 @@ div.book_jacket{
   text-align: center;
   width: 190px;
 }
+
+div.search_form{
+  margin-bottom: 10px;
+}
