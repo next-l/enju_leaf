@@ -4,7 +4,10 @@ class ManifestationsController < ApplicationController
   authorize_resource :only => :index
   before_filter :authenticate_user!, :only => :edit
   before_filter :get_patron
-  helper_method :get_manifestation, :get_subject
+  helper_method :get_manifestation
+  if defined?(EnjuSubject)
+    helper_method :get_subject
+  end
   before_filter :get_series_statement, :only => [:index, :new, :edit]
   before_filter :get_item, :only => :index
   before_filter :prepare_options, :only => [:new, :edit]
@@ -104,12 +107,15 @@ class ManifestationsController < ApplicationController
         reservable = nil
       end
 
-      get_manifestation; get_subject
+      get_manifestation
       patron = get_index_patron
       @index_patron = patron
 
       manifestation = @manifestation if @manifestation
-      subject = @subject if @subject
+      if defined?(EnjuSubject)
+        get_subject
+        subject = @subject if @subject
+      end
       series_statement = @series_statement if @series_statement
       unless params[:mode] == 'add'
         search.build do
@@ -125,7 +131,9 @@ class ManifestationsController < ApplicationController
         fulltext query unless query.blank?
         order_by sort[:sort_by], sort[:order] unless oai_search
         order_by :updated_at, :desc if oai_search
-        with(:subject_ids).equal_to subject.id if subject
+        if defined?(EnjuSubject)
+          with(:subject_ids).equal_to subject.id if subject
+        end
         if series_statement
           with(:periodical_master).equal_to false
           if params[:mode] != 'add'

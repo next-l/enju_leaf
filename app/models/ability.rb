@@ -611,5 +611,19 @@ class Ability
         can :read, NiiType
       end
     end
+
+    if defined?(EnjuNews)
+      case user.try(:role).try(:name)
+      when 'Administrator'
+        can :manage, [NewsFeed, NewsPost]
+      when 'Librarian'
+        can :read, NewsFeed
+        can :manage, NewsPost
+      when 'User'
+        can :read, [NewsFeed, NewsPost]
+      else
+        can :read, [NewsFeed, NewsPost]
+      end
+    end
   end
 end
