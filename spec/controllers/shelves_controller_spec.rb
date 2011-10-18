@@ -416,6 +416,11 @@ describe ShelvesController do
         delete :destroy, :id => @shelf.id
         response.should redirect_to(library_shelves_url(@shelf.library))
       end
+
+      it "should not destroy a shelf that has id 1" do
+        delete :destroy, :id => 1
+        response.should be_forbidden
+      end
     end
 
     describe "When logged in as Librarian" do

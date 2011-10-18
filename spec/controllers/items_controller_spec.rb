@@ -43,6 +43,27 @@ describe ItemsController do
         get :index
         assigns(:items).should_not be_nil
       end
+
+      it "should get index with patron_id" do
+        get :index, :patron_id => 1
+        response.should be_success
+        assigns(:patron).should eq Patron.find(1)
+        assigns(:items).should eq assigns(:patron).items
+      end
+
+      it "should get index with manifestation_id" do
+        get :index, :manifestation_id => 1
+        response.should be_success
+        assigns(:manifestation).should eq Manifestation.find(1)
+        assigns(:items).should eq assigns(:manifestation).items
+      end
+
+      it "should get index with shelf_id" do
+        get :index, :shelf_id => 1
+        response.should be_success
+        assigns(:shelf).should eq Shelf.find(1)
+        assigns(:items).should eq assigns(:shelf).items.page(1)
+      end
     end
   end
 

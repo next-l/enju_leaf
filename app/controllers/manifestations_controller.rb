@@ -16,7 +16,7 @@ class ManifestationsController < ApplicationController
   after_filter :solr_commit, :only => [:create, :update, :destroy]
   after_filter :convert_charset, :only => :index
   cache_sweeper :manifestation_sweeper, :only => [:create, :update, :destroy]
-  include EnjuOai::OaiController
+  include EnjuOai::OaiController if defined?(EnjuOai)
 
   # GET /manifestations
   # GET /manifestations.xml
@@ -193,13 +193,15 @@ class ManifestationsController < ApplicationController
         session[:manifestation_ids] = manifestation_ids
       end
 
-      if session[:manifestation_ids]
-        if params[:view] == 'tag_cloud'
-          bookmark_ids = Bookmark.where(:manifestation_id => session[:manifestation_ids]).limit(1000).select(:id).collect(&:id)
-          @tags = Tag.bookmarked(bookmark_ids)
-          render :partial => 'manifestations/tag_cloud'
-          #session[:manifestation_ids] = nil
-          return
+      if defined?(EnjuBookmark)
+        if session[:manifestation_ids]
+          if params[:view] == 'tag_cloud'
+            bookmark_ids = Bookmark.where(:manifestation_id => session[:manifestation_ids]).limit(1000).select(:id).collect(&:id)
+            @tags = Tag.bookmarked(bookmark_ids)
+            render :partial => 'manifestations/tag_cloud'
+            #session[:manifestation_ids] = nil
+            return
+          end
         end
       end
 
@@ -236,10 +238,12 @@ class ManifestationsController < ApplicationController
 
       @search_engines = Rails.cache.fetch('search_engine_all'){SearchEngine.all}
 
-      # TODO: 検索結果が少ない場合にも表示させる
-      if manifestation_ids.blank?
-        if query.respond_to?(:suggest_tags)
-          @suggested_tag = query.suggest_tags.first
+      if defined?(EnjuBookmark)
+        # TODO: 検索結果が少ない場合にも表示させる
+        if manifestation_ids.blank?
+          if query.respond_to?(:suggest_tags)
+            @suggested_tag = query.suggest_tags.first
+          end
         end
       end
       save_search_history(query, @manifestations.offset, @count[:query_result], current_user)
@@ -607,15 +611,21 @@ class ManifestationsController < ApplicationController
 
   def render_mode(mode)
     case mode
-    when 'barcode'
-      barcode = Barby::QrCode.new(@manifestation.id)
-      send_data(barcode.to_svg, :disposition => 'inline', :type => 'image/svg+xml')
     when 'holding'
       render :partial => 'manifestations/show_holding', :locals => {:manifestation => @manifestation}
+    when 'barcode'
+      if defined?(EnjuBarcode)
+        barcode = Barby::QrCode.new(@manifestation.id)
+        send_data(barcode.to_svg, :disposition => 'inline', :type => 'image/svg+xml')
+      end
     when 'tag_edit'
-      render :partial => 'manifestations/tag_edit', :locals => {:manifestation => @manifestation}
+      if defined?(EnjuBookmark)
+        render :partial => 'manifestations/tag_edit', :locals => {:manifestation => @manifestation}
+      end
     when 'tag_list'
-      render :partial => 'manifestations/tag_list', :locals => {:manifestation => @manifestation}
+      if defined?(EnjuBookmark)
+        render :partial => 'manifestations/tag_list', :locals => {:manifestation => @manifestation}
+      end
     when 'show_index'
       render :partial => 'manifestations/show_index', :locals => {:manifestation => @manifestation}
     when 'show_creators'
@@ -625,7 +635,9 @@ class ManifestationsController < ApplicationController
     when 'pickup'
       render :partial => 'manifestations/pickup', :locals => {:manifestation => @manifestation}
     when 'calil_list'
-      render :partial => 'manifestations/calil_list', :locals => {:manifestation => @manifestation}
+      if defined?(EnjuCalil)
+        render :partial => 'manifestations/calil_list', :locals => {:manifestation => @manifestation}
+      end
     else
       false
     end

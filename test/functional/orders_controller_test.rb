@@ -3,20 +3,6 @@ require 'test_helper'
 class OrdersControllerTest < ActionController::TestCase
   fixtures :orders, :purchase_requests, :order_lists, :patrons, :users
 
-  def test_librarian_should_get_index_feed
-    sign_in users(:librarian1)
-    get :index, :format => 'rss'
-    assert_response :success
-    assert assigns(:orders)
-  end
-
-  def test_librarian_should_get_index_with_order_list_id
-    sign_in users(:librarian1)
-    get :index, :order_list_id => 1
-    assert_response :success
-    assert assigns(:orders)
-  end
-
   def test_librarian_should_get_index_with_purchase_request_id
     sign_in users(:librarian1)
     get :index, :purchase_request_id => 1

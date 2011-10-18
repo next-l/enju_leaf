@@ -6,27 +6,6 @@ class ItemsControllerTest < ActionController::TestCase
       :libraries, :patrons, :users, :inventories, :inventory_files,
       :user_groups, :lending_policies, :exemplifies, :library_groups
 
-  def test_guest_should_get_index_with_patron_id
-    get :index, :patron_id => 1
-    assert_response :success
-    assert assigns(:patron)
-    assert assigns(:items)
-  end
-
-  def test_guest_should_get_index_with_manifestation_id
-    get :index, :manifestation_id => 1
-    assert_response :success
-    assert assigns(:manifestation)
-    assert assigns(:items)
-  end
-
-  def test_guest_should_get_index_with_shelf_id
-    get :index, :shelf_id => 1
-    assert_response :success
-    assert assigns(:shelf)
-    assert assigns(:items)
-  end
-
   def test_guest_not_should_get_index_with_inventory_file_id
     get :index, :inventory_file_id => 1
     assert_response :redirect

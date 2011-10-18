@@ -61,6 +61,14 @@ describe CheckoutsController do
         assigns(:checkouts).should eq user.checkouts.not_returned.order('created_at DESC').page(1)
         response.should be_success
       end
+
+      it "should get ics template" do
+        token = "AVRjefcBcey6f1WyYXDl"
+        user = User.where(:checkout_icalendar_token => token).first
+        get :index, :icalendar_token => token, :format => :ics
+        assigns(:checkouts).should eq user.checkouts.not_returned.order('created_at DESC').page(1)
+        response.should be_success
+      end
     end
   end
 

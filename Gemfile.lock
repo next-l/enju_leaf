@@ -328,7 +328,7 @@ GEM
       options (~> 2.3.0)
     progressbar (0.9.1)
     pyu-ruby-sasl (0.0.3.3)
-    rack (1.3.4)
+    rack (1.3.5)
     rack-cache (1.1)
       rack (>= 0.4)
     rack-mount (0.8.3)

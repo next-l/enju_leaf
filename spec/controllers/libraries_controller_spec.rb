@@ -222,6 +222,11 @@ describe LibrariesController do
           post :create, :library => @invalid_attrs
           response.should be_success
         end
+
+        it "should not create library without short_display_name" do
+          post :create, :library => { :name => 'fujisawa', :short_display_name => '' }
+          response.should be_success
+        end
       end
     end
 
@@ -439,6 +444,11 @@ describe LibrariesController do
 
         it "should not destroy library_id 1" do
           delete :destroy, :id => 'web'
+          response.should be_forbidden
+        end
+
+        it "should not destroy library that contains shelves" do
+          delete :destroy, :id => 'kamata'
           response.should be_forbidden
         end
       end

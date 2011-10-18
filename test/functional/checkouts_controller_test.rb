@@ -6,24 +6,6 @@ class CheckoutsControllerTest < ActionController::TestCase
     :manifestations, :carrier_types,
     :items, :circulation_statuses
 
-  def test_guest_should_not_get_index
-    get :index, :user_id => users(:admin).username
-    assert_response :redirect
-    assert_redirected_to new_user_session_url
-  end
-  def test_guest_should_not_get_index_without_user_id
-    get :index
-    assert_response :redirect
-    assert_redirected_to new_user_session_url
-  end
-
-  def test_everyone_should_not_get_index_without_user_id
-    sign_in users(:user1)
-    get :index
-    assert_response :redirect
-    assert_redirected_to user_checkouts_url(users(:user1))
-  end
-
   def test_user_should_get_my_index
     sign_in users(:user1)
     get :index, :user_id => users(:user1).username
@@ -34,13 +16,6 @@ class CheckoutsControllerTest < ActionController::TestCase
   def test_user_should_get_my_index_feed
     sign_in users(:user1)
     get :index, :user_id => users(:user1).username, :format => 'rss'
-    assert_response :success
-    assert assigns(:checkouts)
-  end
-
-  def test_guest_should_get_ics
-    # icsファイルは誰でもアクセスできるので、URLを他人に公開してはならない
-    get :index, :icalendar_token => users(:user1).checkout_icalendar_token
     assert_response :success
     assert assigns(:checkouts)
   end
