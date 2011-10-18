@@ -1,14 +1,14 @@
 # -*- encoding: utf-8 -*-
 class UsersController < ApplicationController
   #before_filter :reset_params_session
-  load_and_authorize_resource :except => :search_family
+  load_and_authorize_resource :except => [:search_family, :get_family_info]
   helper_method :get_patron
   before_filter :store_location, :only => [:index]
   before_filter :clear_search_sessions, :only => [:show]
   after_filter :solr_commit, :only => [:create, :update, :destroy]
   cache_sweeper :user_sweeper, :only => [:create, :update, :destroy]
   #ssl_required :new, :edit, :create, :update, :destroy
-  ssl_allowed :index, :show, :new, :edit, :create, :update, :destroy, :search_family
+  ssl_allowed :index, :show, :new, :edit, :create, :update, :destroy, :search_family, :get_family_info
 
   def index
     query = params[:query].to_s
@@ -251,6 +251,14 @@ class UsersController < ApplicationController
     end
   end
 
+  def get_family_info
+    return nil unless request.xhr?
+    unless params[:user_id].blank?
+      @user = User.find(params[:user_id]) rescue nil
+      @patron = @user.patron
+      render :json => {:success => 1, :user => @user, :patron => @patron }
+    end
+  end
   private
   def prepare_options
     @user_groups = UserGroup.all

@@ -43,10 +43,6 @@
         search_family();
       })
       .change();      
-      $("[name='family']").click(function(){
-        alert("test");
-      })
-      .change();
     });
     function search_family(){
       var tel_1 = $("#patron_telephone_number_1").val();
@@ -63,6 +59,7 @@
               $('#search_family').remove();
               $('#family').append(obj.html);
               $('#search_family').show();
+              $("input[name='family']").change(get_family_info);
             }
 	  }
         });  
@@ -75,7 +72,15 @@
     }
     function get_family_info(){
       var user_id = $("input:radio[name='family']:checked").val();
-      alert(user_id);
+      $.ajax({
+        type: "GET",
+        url: "get_family_info",
+        data: {"user_id": user_id},
+        success: function(obj) {
+          var zip_code_1 = obj["patron"]["patron"]["zip_code_1"];
+          $('#patron_zip_code_1').val(zip_code_1);
+        }
+      });
     }
     $("select#patron_patron_type_id").change(function(){
       str = $("select#patron_patron_type_id option:selected").val();

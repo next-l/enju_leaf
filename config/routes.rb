@@ -87,6 +87,8 @@ EnjuLeaf::Application.routes.draw do
   resources :users do
     get :search_family, :on => :collection
     get :search_family, :on => :member
+    get :get_family_info, :on => :collection
+    get :get_family_info, :on => :member
     resources :answers
     resources :baskets do
       resources :checked_items
