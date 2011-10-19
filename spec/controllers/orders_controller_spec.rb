@@ -29,6 +29,19 @@ describe OrdersController do
       it "assigns all orders as @orders" do
         get :index
         assigns(:orders).should eq(Order.all)
+        response.should be_success
+      end
+
+      it "should get index feed" do
+        get :index, :format => :rss
+        assigns(:orders).should eq(Order.all)
+        response.should be_success
+      end
+
+      it "should get index with order_list_id" do
+        get :index, :order_list_id => 1
+        assigns(:orders).should eq(assigns(:order_list).orders.page(1))
+        response.should be_success
       end
     end
 

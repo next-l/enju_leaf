@@ -1942,6 +1942,7 @@ manifestation_00216:
 
 
 
+
 # == Schema Information
 #
 # Table name: manifestations
@@ -1993,7 +1994,6 @@ manifestation_00216:
 #  attachment_content_type         :string(255)
 #  attachment_file_size            :integer
 #  attachment_updated_at           :datetime
-#  nii_type_id                     :integer
 #  title_alternative_transcription :text
 #  description                     :text
 #  abstract                        :text
@@ -2010,5 +2010,6 @@ manifestation_00216:
 #  volume_number                   :integer
 #  issue_number                    :integer
 #  serial_number                   :integer
+#  ndc                             :string(255)
 #
 

@@ -10,6 +10,7 @@ one:
   my_networks: 0.0.0.0/0
   url: "http://localhost:3000/"
 
+
 # == Schema Information
 #
 # Table name: library_groups
@@ -29,6 +30,7 @@ one:
 #  created_at                  :datetime
 #  updated_at                  :datetime
 #  admin_networks              :text
+#  allow_bookmark_external_url :boolean         default(FALSE), not null
 #  position                    :integer
 #  url                         :string(255)     default("http://localhost:3000/")
 #

@@ -18,8 +18,17 @@
       <% end %>
     </div>
   </div>
-</div>
 
+  <% if defined?(EnjuNews) %>
+    <div class="portlet" id="news_feed">
+      <h3 class="title"><%= t('page.news') -%></h3>
+      <div id="news_feed_box">
+        <%= render :partial => 'news_feeds/list', :locals => {:news_feeds => @news_feeds} -%>
+      </div>
+    </div>
+  <% end %>
+</div>
+  
 <div class="column" id="col2">
   <div class="portlet" id="pickup">
     <h3 class="title"><%= t('manifestation.pickup') -%></h3>

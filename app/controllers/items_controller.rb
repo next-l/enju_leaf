@@ -3,7 +3,7 @@ class ItemsController < ApplicationController
   load_and_authorize_resource
   before_filter :get_user_if_nil
   before_filter :get_patron, :get_manifestation, :get_inventory_file
-  helper_method :get_shelf
+  before_filter :get_shelf
   helper_method :get_library
   helper_method :get_item
   before_filter :prepare_options, :only => [:new, :edit]
@@ -61,7 +61,7 @@ class ItemsController < ApplicationController
 
       patron = @patron
       manifestation = @manifestation
-      shelf = get_shelf
+      shelf = @shelf
       unless params[:mode] == 'add'
         search.build do
           with(:patron_ids).equal_to patron.id if patron
