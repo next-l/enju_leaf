@@ -117,6 +117,7 @@ group :development, :test do
   gem 'spork', '~> 0.9.0.rc9'
   gem 'metric_fu', '~> 2.1'
   gem 'timecop'
+  gem 'sunspot-rails-tester'
 end
 
 # Use unicorn as the web server

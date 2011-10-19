@@ -1,7 +1,7 @@
 # -*- encoding: utf-8 -*-
 require 'spec_helper'
 
-describe Manifestation do
+describe Manifestation, :solr => true do
   fixtures :all
 
   it "should set pub_date" do

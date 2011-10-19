@@ -3,7 +3,7 @@ require 'spec_helper'
 describe PurchaseRequestsController do
   fixtures :all
 
-  describe "GET index" do
+  describe "GET index", :solr => true do
     describe "When logged in as Administrator" do
       before(:each) do
         sign_in FactoryGirl.create(:admin)
