@@ -18,7 +18,7 @@
     <% @group_users.each do |f_user| %>
       <% if f_user.family.id == f_id %>
         <% if i == 0 %>
-          <%= radio_button_tag :family, f_user.id, :onclick => "get_family_info();" %><%= f_user.patron.full_name if f_user.patron -%>(<%= f_user.username -%>)
+          <%= radio_button_tag :family, f_user.id, false, :onclick => "get_family_info();" %><%= f_user.patron.full_name if f_user.patron -%>(<%= f_user.username -%>)
         <% else %>
           &nbsp;<%= f_user.patron.full_name if f_user.patron -%>(<%= f_user.username -%>)
         <% end %>
@@ -28,7 +28,7 @@
     </div>
   <% end %>
   <% @users.each do |user| %>
-    <div><%= radio_button_tag :family, user.id, :onclick => "get_family_info();" %><%= user.patron.full_name if user.patron -%>(<%= user.username -%>)</div>
+    <div><%= radio_button_tag :family, user.id, false, :onclick => "get_family_info();" %><%= user.patron.full_name if user.patron -%>(<%= user.username -%>)</div>
   <% end %>
 </div>
 <% end %>

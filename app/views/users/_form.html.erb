@@ -52,7 +52,7 @@
       if (tel_1 != "" && last_name != "" && address_1 !="") {
         $.ajax({
           type: "GET",
-          url: "search_family",
+          url: "<%= url_for(:controller => :users, :action => :search_family) -%>",
           data: data, 
           success: function(obj) {
             if(obj.success){
