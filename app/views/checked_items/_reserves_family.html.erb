@@ -14,18 +14,20 @@
   </tr>
   <% @family_users.each do |f_user| %>
     <%- f_user.reserves.previous_reserves.each_with_index do |reserve, i| -%>
-      <tr class="line<%= cycle("0", "1") -%>">
-        <td><%= link_to reserve.id, user_reserve_path(reserve.user, reserve) -%></td>
-        <%- if configatron.checked_items.disp_title == true -%>
-          <td><%= render 'reserves/title', :reserve => reserve -%></td>
-        <%- end -%>
-        <td><%= i18n_state(reserve.state) -%></td>
-        <td><%= l(reserve.expired_at, :format => :only_date) -%></td>
-        <%- if configatron.checked_items.disp_user == true -%>
-          <td><%= link_to f_user.username, f_user -%><br />
-              <%= link_to f_user.patron.full_name, f_user.patron if current_user.has_role?('Librarian') -%></td>
-        <%- end -%>
-      </tr>
+      <%- unless @basket.user == f_user -%>
+        <tr class="line<%= cycle("0", "1") -%>">
+          <td><%= link_to reserve.id, user_reserve_path(reserve.user, reserve) -%></td>
+          <%- if configatron.checked_items.disp_title == true -%>
+            <td><%= render 'reserves/title', :reserve => reserve -%></td>
+          <%- end -%>
+          <td><%= i18n_state(reserve.state) -%></td>
+          <td><%= l(reserve.expired_at, :format => :only_date) -%></td>
+          <%- if configatron.checked_items.disp_user == true -%>
+            <td><%= link_to f_user.username, f_user -%><br />
+                <%= link_to f_user.patron.full_name, f_user.patron if current_user.has_role?('Librarian') -%></td>
+          <%- end -%>
+        </tr>
+      <%- end -%>
     <%- end -%>
   <%- end -%>
 </table>
