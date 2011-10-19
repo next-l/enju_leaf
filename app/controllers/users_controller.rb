@@ -241,9 +241,24 @@ class UsersController < ApplicationController
     return nil unless request.xhr?
     unless params[:keys].blank?
       @users = User.find(:all, :joins => :patron, :conditions => params[:keys]) rescue nil
+      all_user_ids = []
+      @users.each do |user|
+        all_user_ids << user.id
+      end
+      family_users = FamilyUser.find(:all, :conditions => ['user_id IN (?)', all_user_ids])
+      family_user_ids = []
+      @family_ids = []
+      family_users.each do |f_user|
+        family_user_ids << f_user.user_id
+        @family_ids << f_user.family_id
+      end
+      @family_ids.uniq!
+      @group_users = User.find(:all, :conditions => ['id IN (?)', family_user_ids])
       family_id = FamilyUser.find(:first, :conditions => ['user_id=?', params[:user]]).family_id rescue nil
-      family_users = Family.find(family_id).users if family_id rescue nil
-      @users.delete_if{|user| family_users.include?(user)} if family_users
+      already_family_users = Family.find(family_id).users if family_id rescue nil
+      @users.delete_if{|user| already_family_users.include?(user)} if already_family_users
+      @users.delete_if{|user| @group_users.include?(user)} if @group_users
+      @group_users.delete_if{|user| already_family_users.include?(user)} if already_family_users
       unless @users.blank? 
         html = render_to_string :partial => "search_family"
         render :json => {:success => 1, :html => html}
