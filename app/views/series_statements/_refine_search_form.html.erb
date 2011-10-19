@@ -1,3 +1,4 @@
+<div class="search_form">
 <%= form_for :manifestatioins, :url => series_statement_manifestations_path(series_statement), :html => {:method => 'get'} do -%>
   <div>
     <%= t('page.refine_by') -%>:
@@ -5,3 +6,4 @@
     <%= submit_tag t('page.search') -%>
   </div>
 <%- end -%>
+</div>
