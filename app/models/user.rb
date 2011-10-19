@@ -119,7 +119,7 @@ class User < ActiveRecord::Base
     :zip_code, :address, :telephone_number, :fax_number, :address_note,
     :role_id, :patron_id, :operator, :password_not_verified,
     :update_own_account, :auto_generated_password,
-    :locked, :current_password, :birth_date, :death_date, :email, :family
+    :locked, :current_password, :birth_date, :death_date, :email
 
   def self.per_page
     10
@@ -407,6 +407,10 @@ class User < ActiveRecord::Base
     rescue Exception => e
       logger.error e
     end
+  end
+  
+  def family
+    FamilyUser.find(:first, :conditions => ['user_id=?', id]).family
   end
 end
 
