@@ -104,7 +104,7 @@ class AnswersController < ApplicationController
     respond_to do |format|
       if @answer.save
         flash[:notice] = t('controller.successfully_created', :model => t('activerecord.models.answer'))
-        format.html { redirect_to user_question_answer_url(@answer.question.user, @answer.question, @answer) }
+        format.html { redirect_to question_answer_url(@answer.question, @answer) }
         format.xml  { render :xml => @answer, :status => :created, :location => user_question_answer_url(@answer.question.user, @answer.question, @answer) }
         format.mobile { redirect_to question_url(@answer.question) }
       else
@@ -125,7 +125,7 @@ class AnswersController < ApplicationController
     respond_to do |format|
       if @answer.update_attributes(params[:answer])
         flash[:notice] = t('controller.successfully_updated', :model => t('activerecord.models.answer'))
-        format.html { redirect_to user_question_answer_url(@answer.question.user.username, @answer.question, @answer) }
+        format.html { redirect_to question_answer_url(@answer.question, @answer) }
         format.xml  { head :ok }
       else
         format.html { render :action => "edit" }
@@ -143,7 +143,7 @@ class AnswersController < ApplicationController
     @answer.destroy
 
     respond_to do |format|
-      format.html { redirect_to user_question_answers_url(@answer.question.user.username, @answer.question) }
+      format.html { redirect_to question_answers_url(@answer.question) }
       format.xml  { head :ok }
     end
   end

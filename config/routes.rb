@@ -199,7 +199,9 @@ EnjuLeaf::Application.routes.draw do
 
   resources :participates
 
-  resources :questions
+  resources :questions do
+    resources :answers
+  end
 
   resources :purchase_requests do
     resource :order

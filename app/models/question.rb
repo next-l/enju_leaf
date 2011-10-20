@@ -10,7 +10,8 @@ class Question < ActiveRecord::Base
   has_many :answers, :dependent => :destroy
 
   validates_associated :user
-  validates_presence_of :user, :body
+  validates_presence_of :body
+  validates_presence_of :user, :on => :create 
 
   searchable do
     text :body, :answer_body

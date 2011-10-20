@@ -160,8 +160,8 @@ class QuestionsController < ApplicationController
   # PUT /questions/1
   # PUT /questions/1.xml
   def update
-    @question = @user.questions.find(params[:id])
-
+#    @question = @user.questions.find(params[:id]) 
+    @question = Question.find(params[:id])
     respond_to do |format|
       if @question.update_attributes(params[:question])
         flash[:notice] = t('controller.successfully_updated', :model => t('activerecord.models.question'))
@@ -185,7 +185,7 @@ class QuestionsController < ApplicationController
     @question.destroy
 
     respond_to do |format|
-      format.html { redirect_to user_questions_url(@question.user) }
+      format.html { redirect_to questions_url() }
       format.xml  { head :ok }
     end
   end

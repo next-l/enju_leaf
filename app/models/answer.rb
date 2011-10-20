@@ -4,15 +4,16 @@ class Answer < ActiveRecord::Base
   scope :public_answers, where(:shared => true)
   scope :private_answers, where(:shared => false)
   belongs_to :user, :counter_cache => true, :validate => true
-  belongs_to :question, :counter_cache => true, :validate => true
+  belongs_to :question, :counter_cache => true # , :validate => true
   has_many :answer_has_items, :dependent => :destroy
   has_many :items, :through => :answer_has_items
 
   after_save :save_questions
   before_save :add_items
 
-  validates_associated :user, :question
-  validates_presence_of :user, :question, :body
+  validates_associated :user #, :question
+  validates_presence_of :body
+#  validates_presence_of :user, :question, :body
   validate :check_url_list
 
   def self.per_page
