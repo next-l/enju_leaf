@@ -7,7 +7,7 @@
     </h2>
   <% end %>
 
-<%= t('activerecord.attributes.patron_import_result.imported_row') -%>: <%= @patron_import_results.length if @patron_import_results -%>
+<%= t('activerecord.attributes.patron_import_result.imported_row') -%>: <%= @results_num if @results_num -%>
 <table class="index">
   <tr>
     <th><%= t('activerecord.models.patron') %></th>

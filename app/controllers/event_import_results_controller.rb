@@ -9,8 +9,10 @@ class EventImportResultsController < InheritedResources::Base
     @event_import_file = EventImportFile.where(:id => params[:event_import_file_id]).first
     if @event_import_file
       @event_import_results = @event_import_file.event_import_results.page(params[:page])
+      @results_num = @event_import_file.event_import_results.length
     else
       @event_import_results = @event_import_results.page(params[:page])
+      @results_num = @event_import_results.length
     end
   end
 end

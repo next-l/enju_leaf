@@ -9,8 +9,10 @@ class PatronImportResultsController < InheritedResources::Base
     @patron_import_file = PatronImportFile.where(:id => params[:patron_import_file_id]).first
     if @patron_import_file
       @patron_import_results = @patron_import_file.patron_import_results.page(params[:page])
+      @results_num = @patron_import_file.patron_import_results.length
     else
       @patron_import_results = @patron_import_results.page(params[:page])
+      @results_num = @patron_import_results.length
     end
   end
 end
