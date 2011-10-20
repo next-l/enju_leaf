@@ -80,6 +80,7 @@ ja:
       user_group: 利用者グループ
       resource_import_file: 資料のインポート用ファイル
       checkout: 貸出
+      checkout_family: 家族の貸出
       subscription: 購読
       message_template: メッセージテンプレート
       patron_merge: 人物・団体の統合
@@ -88,6 +89,7 @@ ja:
       event_import_file: 催し物のインポート用ファイル
       attachment_file: 添付ファイル
       reserve: 予約
+      reserve_family: 家族の予約
       message_request: メッセージの送信リクエスト
       answer: 回答
       bookstore: 書店
@@ -232,6 +234,7 @@ ja:
         language: 言語
         email: 電子メール
         url: URL
+        note_update_at: 注記更新時刻
       feeds/app:
         source_url: ソースURL
         title: タイトル
@@ -667,7 +670,7 @@ ja:
         edit_mode: 編集モード
       checkout:
         due_date: 期日
-        family_name: 家族名
+        family_info: 家族情報
         lock_version: ロックバージョン
         renewal_count: 貸出の更新回数
       subscription:
@@ -1040,14 +1043,17 @@ ja:
         body: 本文
         error_msg: エラーメッセージ
         index: 項番
+        imported_row: 処理済み件数
       patron_import_result:
         body: 本文
         error_msg: エラーメッセージ
         index: 項番
+        imported_row: 処理済み件数
       event_import_result:
         body: 本文
         error_msg: エラーメッセージ
         index: 項番
+        imported_row: 処理済み件数
       series_statement_merge_list:
         title: タイトル
       series_has_manifestation:
@@ -1299,6 +1305,7 @@ ja:
     attachment_file: "添付ファイル"
     question: "この資料で調べた質問"
     add_derivation: "派生資料を追加"
+    delete_attachment: "添付ファイルを削除(アップロード不可)"
   item:
     current_checkout: "現在の貸出"
     donor: "寄贈者"
@@ -1330,6 +1337,8 @@ ja:
     contributor: "協力者・編者"
     publisher: "出版者"
     owner: "所有者"
+    last_update_at: 最終更新日時
+    last_update_by: 更新者 
   message:
     user_message: "%{login_name} さんのメッセージ"
     sent_at: "送信時刻"
@@ -1495,6 +1504,8 @@ ja:
     not_available_for_checkout: "この資料の貸出はできません。"
     previous_checkout: "現在貸出中の資料"
     previous_checkout_family: "現在家族に貸出中の資料"
+    previous_reserve: "現在予約中の資料"
+    previous_reserve_family: "現在家族が予約中の資料"
     checkout: "上記の資料を貸し出す"
     ignore_restriction: "制限を無視する"
     already_checked_out: "この資料はすでに貸し出されています。"

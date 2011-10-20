@@ -1,14 +1,14 @@
 # -*- encoding: utf-8 -*-
 class UsersController < ApplicationController
   #before_filter :reset_params_session
-  load_and_authorize_resource :except => :search_family
+  load_and_authorize_resource :except => [:search_family, :get_family_info]
   helper_method :get_patron
   before_filter :store_location, :only => [:index]
   before_filter :clear_search_sessions, :only => [:show]
   after_filter :solr_commit, :only => [:create, :update, :destroy]
   cache_sweeper :user_sweeper, :only => [:create, :update, :destroy]
   #ssl_required :new, :edit, :create, :update, :destroy
-  ssl_allowed :index, :show, :new, :edit, :create, :update, :destroy, :search_family
+  ssl_allowed :index, :show, :new, :edit, :create, :update, :destroy, :search_family, :get_family_info
 
   def index
     query = params[:query].to_s
@@ -84,6 +84,11 @@ class UsersController < ApplicationController
 
     @manifestation = Manifestation.pickup(@user.keyword_list.to_s.split.sort_by{rand}.first) rescue nil
 
+    family_id = FamilyUser.find(:first, :conditions => ['user_id=?', @user.id]).family_id rescue nil
+    if family_id
+      @family_users = Family.find(family_id).users
+    end
+
     respond_to do |format|
       format.html # show.rhtml
       format.xml  { render :xml => @user }
@@ -124,7 +129,7 @@ class UsersController < ApplicationController
     if family_id
       @family_users = Family.find(family_id).users
     end
-
+    @note_last_updateed_user = User.find(@patron.note_update_by) rescue nil
     if params[:mode] == 'feed_token'
       if params[:disable] == 'true'
         @user.delete_checkout_icalendar_token
@@ -236,6 +241,24 @@ class UsersController < ApplicationController
     return nil unless request.xhr?
     unless params[:keys].blank?
       @users = User.find(:all, :joins => :patron, :conditions => params[:keys]) rescue nil
+      all_user_ids = []
+      @users.each do |user|
+        all_user_ids << user.id
+      end
+      family_users = FamilyUser.find(:all, :conditions => ['user_id IN (?)', all_user_ids])
+      family_user_ids = []
+      @family_ids = []
+      family_users.each do |f_user|
+        family_user_ids << f_user.user_id
+        @family_ids << f_user.family_id
+      end
+      @family_ids.uniq!
+      @group_users = User.find(:all, :conditions => ['id IN (?)', family_user_ids])
+      family_id = FamilyUser.find(:first, :conditions => ['user_id=?', params[:user]]).family_id rescue nil
+      already_family_users = Family.find(family_id).users if family_id rescue nil
+      @users.delete_if{|user| already_family_users.include?(user)} if already_family_users
+      @users.delete_if{|user| @group_users.include?(user)} if @group_users
+      @group_users.delete_if{|user| already_family_users.include?(user)} if already_family_users
       unless @users.blank? 
         html = render_to_string :partial => "search_family"
         render :json => {:success => 1, :html => html}
@@ -243,6 +266,14 @@ class UsersController < ApplicationController
     end
   end
 
+  def get_family_info
+    return nil unless request.xhr?
+    unless params[:user_id].blank?
+      @user = User.find(params[:user_id]) rescue nil
+      @patron = @user.patron
+      render :json => {:success => 1, :user => @user, :patron => @patron }
+    end
+  end
   private
   def prepare_options
     @user_groups = UserGroup.all
