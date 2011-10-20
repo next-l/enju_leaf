@@ -36,7 +36,21 @@
   <div class="field">
     <%= f.label t('page.file') -%><br />
     <%= f.file_field :attachment -%>
+    <%- unless @manifestation.attachment_file_name.blank? -%>
+        <%= f.check_box :delete_attachment, :onClick => "toggle_upload()" -%><%= t('manifestation.delete_attachment') -%>
+        <%= render 'manifestations/attachment_file', :manifestation => @manifestation -%>
+    <%- end -%>
   </div>
+
+  <script type="text/javascript">
+    function toggle_upload(){
+      if ($('#manifestation_delete_attachment').attr('checked')){
+        $('#manifestation_attachment').attr("disabled", true);
+      } else {
+        $('#manifestation_attachment').removeAttr("disabled");
+      }
+    }
+  </script>
 
   <div class="field">
     <%= f.label t('activerecord.models.carrier_type') -%>
