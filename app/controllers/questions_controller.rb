@@ -54,6 +54,7 @@ class QuestionsController < ApplicationController
     c_user = current_user
 
     search.build do
+      with(:username).equal_to user.username if user
       if c_user
          unless c_user.has_role?('Librarian')
            readable_questions =  Question.find(:all, :conditions => ['shared=? OR user_id=?', true, c_user.id])
