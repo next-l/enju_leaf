@@ -1,5 +1,5 @@
 class PatronImportResult < ActiveRecord::Base
-  default_scope :order => 'patron_import_results.id'
+  default_scope :order => 'patron_import_results.id DESC'
   scope :file_id, proc{|file_id| where(:patron_import_file_id => file_id)}
   scope :failed, where(:patron_id => nil)
 

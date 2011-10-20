@@ -6,7 +6,7 @@
       <%= link_to @event_import_file.event_import_file_name, @event_import_file %>
     </h2>
   <% end %>
-
+<%= t('activerecord.attributes.event_import_result.imported_row') -%>: <%= @event_import_results.length if @event_import_results-%>
 <table class="index">
   <tr>
     <th><%= t('activerecord.models.event') %></th>
