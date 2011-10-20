@@ -1185,7 +1185,7 @@ ja:
     disabled: "無効"
     routing_error: "ルーティングエラー"
     change: "変更"
-    refine_by: "絞り込み"
+    refine_by: "この一覧から絞り込む"
   title:
     index: "一覧"
     show: "表示"
