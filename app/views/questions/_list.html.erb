@@ -31,8 +31,8 @@
     <tr class="line<%= cycle("0", "1") -%>">
       <td style="width: 30px"><%= question.id -%></td>
       <td>
-        <%= link_to truncate(question.body, :length => 60), user_question_path(question.user, question) -%>
-        (<%= link_to question.user.username, question.user -%>)
+        <%= link_to truncate(question.body, :length => 60), user_question_path(question.user, question) if question.user -%>
+        (<%= link_to question.user.username, question.user if question.user -%>)
         <br />
         <!--
         <%= t('question.updated_at') %>: <%= l(question.updated_at) -%>
@@ -51,10 +51,10 @@
       </td>
       <td>
         <%- if can? :update, question -%>
-          <%= link_to image_tag('icons/page_white_edit.png', :alt => t('page.edit'), :size => '16x16'), edit_user_question_path(question.user, question) -%>
+          <%= link_to image_tag('icons/page_white_edit.png', :alt => t('page.edit'), :size => '16x16'), edit_user_question_path(question.user, question) if question.user -%>
         <% end %>
         <%- if can? :destroy, question -%>
-          <%= link_to image_tag('icons/delete.png', :alt => t('page.destroy'), :size => '16x16'), user_question_path(question.user, question), :confirm => t('page.are_you_sure'), :method => :delete -%>
+          <%= link_to image_tag('icons/delete.png', :alt => t('page.destroy'), :size => '16x16'), user_question_path(question.user, question), :confirm => t('page.are_you_sure'), :method => :delete if question.user -%>
         <%- end -%>
       </td>
     </tr>
