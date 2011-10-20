@@ -71,6 +71,7 @@
           <%= link_to @patron.url, @patron.url, :class => 'url' if @patron.url? -%>
         </td>
       </tr>
+<%- if false -%>
       <tr>
         <td><strong><%= t('activerecord.attributes.patron.other_designation') -%>:</strong></td>
         <td><%= @patron.other_designation -%></td>
@@ -79,11 +80,13 @@
         <td><strong><%= t('activerecord.attributes.patron.place') -%>:</strong></td>
         <td><%= @patron.place -%></td>
       </tr>
+<%- end -%>
       <tr>
         <td><strong><%= t('activerecord.models.language') -%>:</strong></td>
         <td><%= @patron.language.display_name.localize -%></td>
       </tr>
-      <%- if can? :destroy, @patron -%>
+<%# - if can? :destroy, @patron -%>
+      <%- if current_user.try(:has_role?, 'Librarian') -%>
         <tr>
           <td><strong><%= t('activerecord.attributes.patron.zip_code_1') -%>:</strong></td>
           <td><%= @patron.zip_code_1 -%></td>
@@ -128,7 +131,7 @@
           <td><strong><%= t('activerecord.attributes.patron.telephone_number_3') -%>:</strong></td>
           <td><%= @patron.telephone_number_3 -%></td>
         </tr>
-        <%- if !@patron.user or (@patron.user and current_user.try(:has_role?, 'Administrator')) %>
+        <%# - if !@patron.user or (@patron.user and current_user.try(:has_role?, 'Administrator')) %>
           <tr>
             <td><strong><%= t('activerecord.attributes.patron.date_of_birth') -%>:</strong></td>
             <td><%= l(@patron.date_of_birth, :format => :only_date) if @patron.date_of_birth -%></td>
@@ -137,7 +140,7 @@
             <td><strong><%= t('activerecord.attributes.patron.date_of_death') -%>:</strong></td>
             <td><%= l(@patron.date_of_death, :format => :only_date) if @patron.date_of_death -%></td>
           </tr>
-        <% end %>
+        <%# end %>
       <%- end -%>
       <tr>
         <td><strong><%= t('activerecord.attributes.patron.note') -%>:</strong></td>
