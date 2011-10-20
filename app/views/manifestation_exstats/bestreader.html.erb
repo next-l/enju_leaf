@@ -40,7 +40,7 @@
       <%= render 'manifestations/show_creators', :manifestation => m -%>
     </td>
     <td>
-      <%= 999 -%>
+      <%= m.items[0].checkouts.size -%>
     </td>
   </tr>
 <%- end -%>
