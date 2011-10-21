@@ -27,6 +27,7 @@ EnjuLeaf::Application.routes.draw do
     resources :manifestations
     resources :series_statements
     resources :series_has_manifestations
+    resources :reserves
   end
 
   resources :patrons do

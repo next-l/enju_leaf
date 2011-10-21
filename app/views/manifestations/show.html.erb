@@ -81,7 +81,11 @@
               <%- end -%>
             <%- end -%>
             <br />
-            (<%= t('page.number_of_reservations', :count => @reserved_count) -%>)
+            <%- if current_user.has_role?('Librarian') && @reserved_count > 0 -%>
+              (<%= link_to t('page.number_of_reservations', :count => @reserved_count), manifestation_reserves_path(@manifestation) -%>)
+            <%- else -%>
+              (<%= t('page.number_of_reservations', :count => @reserved_count) -%>)
+            <%- end -%>
           <%- else -%>
             <%= link_to t('activerecord.models.purchase_request'), new_user_purchase_request_path(current_user, :purchase_request => {:url => manifestation_url(@manifestation)}) %>
           <%- end -%>

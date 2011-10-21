@@ -2,8 +2,12 @@
 <div id="content_detail" class="ui-corner-all">
 <h1 class="title"><%= t('page.listing', :model => t('activerecord.models.reserve')) -%></h1>
 <div id="content_list">
+
+<%= render 'manifestations/title', :manifestation => @manifestation if @manifestation -%>
+
 <table class="index">
   <tr>
+    <%- if @manifestation && current_user.has_role?('Librarian') -%><th id="position"></th><%- end -%>
     <th style="width: 30px"><%= 'Id' -%></th>
     <th><%= t('activerecord.models.user') -%></th>
     <th><%= t('activerecord.models.manifestation') -%></th>
@@ -16,6 +20,13 @@
 
 <%- @reserves.each_with_index do |reserve, i| -%>
   <tr class="line<%= cycle("0", "1") -%>">
+    <%- if @manifestation && current_user.has_role?('Librarian') -%>
+      <td>
+        <%- if can? :update, reserve -%>
+          <%= move_position(reserve) -%>
+        <%- end -%>
+      </td>
+    <%- end -%>
     <td><%= link_to reserve.id, user_reserve_path(reserve.user, reserve) -%></td>
     <td><%= link_to reserve.user.username, reserve.user -%></td>
     <td>

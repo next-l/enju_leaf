@@ -24,14 +24,17 @@ class ReservesController < ApplicationController
       end
     end
 
+    get_manifestation
     if params[:mode] == 'hold' and current_user.has_role?('Librarian')
       @reserves = Reserve.hold.order('reserves.created_at DESC').page(params[:page])
     else
       if @user
         # 一般ユーザ
         @reserves = @user.reserves.order('reserves.expired_at DESC').page(params[:page])
-      else
         # 管理者
+      elsif @manifestation
+        @reserves = @manifestation.reserves.order('reserves.position').page(params[:page])
+      else
         @reserves = Reserve.order('reserves.expired_at DESC').includes(:manifestation).page(params[:page])
       end
     end
@@ -48,6 +51,7 @@ class ReservesController < ApplicationController
   # GET /reserves/1
   # GET /reserves/1.xml
   def show
+    @reserved_count = Reserve.waiting.where(:manifestation_id => @reserve.manifestation_id, :checked_out_at => nil).count
     respond_to do |format|
       format.html # show.rhtml
       format.xml  { render :xml => @reserve.to_xml }
@@ -142,6 +146,13 @@ class ReservesController < ApplicationController
       user = User.where(:user_number => params[:reserve][:user_number]).first
     end
     user = @user if @user
+    
+    get_manifestation
+    if @manifestation and params[:position]
+      @reserve.insert_at(params[:position])
+      redirect_to manifestation_reserves_url(@manifestation)
+      return
+    end
 
     if user.blank?
       access_denied
