@@ -271,6 +271,7 @@ describe CheckinsController do
           assigns(:checkin).item.circulation_status.name.should eq 'Available On Shelf'
           flash[:message].to_s.index(I18n.t('item.this_item_include_supplement')).should be_true
           response.should redirect_to user_basket_checkins_url(assigns(:basket).user.username, assigns(:basket))
+        end
       end
     end
 

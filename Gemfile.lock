@@ -366,7 +366,7 @@ GEM
       rake (>= 0.8.7)
       rdoc (~> 3.4)
       thor (~> 0.14.6)
-    rake (0.9.2.2)
+    rake (0.9.2)
     rcov (0.9.11)
     rdoc (3.11)
       json (~> 1.4)
@@ -521,7 +521,7 @@ DEPENDENCIES
   rack-protection
   rails (= 3.1.1)
   rails_autolink
-  rake (= 0.9.2.2)
+  rake (= 0.9.2)
   ri_cal
   rspec-rails
   ruby-prof

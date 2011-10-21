@@ -5,32 +5,6 @@ class BasketsControllerTest < ActionController::TestCase
     :items, :circulation_statuses, :manifestations, :carrier_types,
     :languages, :users, :roles
 
-  def test_guest_should_not_get_index
-    get :index, :user_id => users(:user1).username
-    assert_response :redirect
-    assert_redirected_to new_user_session_url
-  end
-
-  def test_everyone_should_not_get_index_without_user_id
-    sign_in users(:admin)
-    get :index
-    #assert_response :forbidden
-    assert_response :missing
-  end
-
-  def test_user_should_not_get_index
-    sign_in users(:user1)
-    get :index, :user_id => users(:user1).username
-    assert_response :forbidden
-  end
-
-  def test_librarian_should_get_index
-    sign_in users(:librarian1)
-    get :index, :user_id => users(:user1).username
-    assert_response :success
-    assert assigns(:baskets)
-  end
-
   def test_user_should_not_create_basket
     sign_in users(:user1)
     assert_no_difference('Basket.count') do

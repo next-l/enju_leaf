@@ -12,6 +12,36 @@ describe BasketsController do
       it "assigns all baskets as @baskets" do
         get :index, :user_id => users(:user1).username
         assigns(:baskets).should_not be_empty
+        response.should be_success
+      end
+
+      it "should not get index without user_id" do
+        get :index
+        response.should be_missing
+      end
+    end
+
+    describe "When logged in as Librarian" do
+      before(:each) do
+        sign_in FactoryGirl.create(:librarian)
+      end
+
+      it "assigns all baskets as @baskets" do
+        get :index, :user_id => users(:user1).username
+        assigns(:baskets).should_not be_empty
+        response.should be_success
+      end
+    end
+
+    describe "When logged in as User" do
+      before(:each) do
+        sign_in FactoryGirl.create(:user)
+      end
+
+      it "assigns all baskets as @baskets" do
+        get :index, :user_id => users(:user1).username
+        assigns(:baskets).should be_empty
+        response.should be_forbidden
       end
     end
 
@@ -112,10 +142,51 @@ describe BasketsController do
     end
   end
 
+  describe "GET edit" do
+    describe "When logged in as Librarian" do
+      before(:each) do
+        sign_in FactoryGirl.create(:librarian)
+      end
+
+      it "assigns the requested basket as @basket" do
+        basket = baskets(:basket_00001)
+        get :edit, :id => basket.id
+        assigns(:basket).should eq(basket)
+      end
+    end
+  end
+
   describe "POST create" do
     before(:each) do
       @attrs = {:user_number => users(:user1).user_number }
       @invalid_attrs = {:user_number => 'invalid'}
+    end
+
+    describe "When logged in as Administrator" do
+      before(:each) do
+        sign_in FactoryGirl.create(:admin)
+      end
+
+      describe "with valid params" do
+        it "assigns a newly created basket as @basket" do
+          post :create, :basket => {:user_number => users(:user1).user_number }
+          assigns(:basket).should be_valid
+        end
+      end
+
+      describe "with blank params" do
+        it "assigns a newly created basket as @basket" do
+          post :create, :basket => { }
+          assigns(:basket).should_not be_valid
+        end
+      end
+
+      describe "with invalid params" do
+        it "assigns a newly created basket as @basket" do
+          post :create, :basket => @invalid_attrs
+          assigns(:basket).should_not be_valid
+        end
+      end
     end
 
     describe "When logged in as Librarian" do
@@ -141,6 +212,24 @@ describe BasketsController do
         it "assigns a newly created basket as @basket" do
           post :create, :basket => @invalid_attrs
           assigns(:basket).should_not be_valid
+        end
+      end
+    end
+
+    describe "When logged in as User" do
+      before(:each) do
+        sign_in FactoryGirl.create(:user)
+      end
+
+      describe "with valid params" do
+        it "assigns a newly created basket as @basket" do
+          post :create, :basket => {:user_number => users(:user1).user_number }
+          assigns(:basket).should_not be_valid
+        end
+
+        it "should be forbidden" do
+          post :create, :basket => {:user_number => users(:user1).user_number }
+          response.should be_forbidden
         end
       end
     end

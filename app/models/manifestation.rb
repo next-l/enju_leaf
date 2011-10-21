@@ -517,7 +517,7 @@ class Manifestation < ActiveRecord::Base
 
     def is_reservable_by?(user)
       return false if items.for_checkout.empty?
-      unless items.size == (items.size - user.checkouts.overdue.collect(&:item).size)
+      unless items.size == (items.size - user.checkouts.overdue(Time.zone.now).collect(&:item).size)
         return false
       end
       true
