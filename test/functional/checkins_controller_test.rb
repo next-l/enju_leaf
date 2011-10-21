@@ -14,15 +14,6 @@ class CheckinsControllerTest < ActionController::TestCase
     assert_response :success
   end
 
-  def test_guest_should_not_create_checkin
-    assert_no_difference('Checkin.count') do
-      post :create, :checkin => {:item_id => 3}, :basket => 9
-    end
-    
-    assert_response :redirect
-    assert_redirected_to new_user_session_url
-  end
-
   def test_everyone_should_not_create_checkin_without_item_id
     sign_in users(:admin)
     assert_no_difference('Checkin.count') do
@@ -41,28 +32,6 @@ class CheckinsControllerTest < ActionController::TestCase
     end
     
     assert_response :forbidden
-  end
-
-  def test_librarian_should_create_checkin
-    sign_in users(:librarian1)
-    assert_difference('Checkin.count') do
-      post :create, :checkin => {:item_identifier => '00003'}, :basket_id => 9
-    end
-    
-    assert_equal 'Available On Shelf', assigns(:checkin).item.circulation_status.name
-    assert_not_nil assigns(:checkin).checkout
-    assert_redirected_to user_basket_checkins_url(assigns(:basket).user.username, assigns(:basket))
-  end
-
-  def test_system_should_show_message_when_item_includes_supplements
-    sign_in users(:librarian1)
-    assert_difference('Checkin.count') do
-      post :create, :checkin => {:item_identifier => '00004'}, :basket_id => 9
-    end
-    
-    assert_equal 'Available On Shelf', assigns(:checkin).item.circulation_status.name
-    assert flash[:message].to_s.index(I18n.t('item.this_item_include_supplement'))
-    assert_redirected_to user_basket_checkins_url(assigns(:basket).user.username, assigns(:basket))
   end
 
   def test_system_should_show_notice_when_other_library_item

@@ -9,6 +9,7 @@ describe LibraryGroup do
   end
 end
 
+
 # == Schema Information
 #
 # Table name: library_groups
@@ -19,8 +20,6 @@ end
 #  short_name                  :string(255)     not null
 #  email                       :string(255)
 #  my_networks                 :text
-#  use_dsbl                    :boolean         default(FALSE), not null
-#  dsbl_list                   :text
 #  login_banner                :text
 #  note                        :text
 #  post_to_union_catalog       :boolean         default(FALSE), not null

@@ -150,6 +150,12 @@ describe EventsController do
         get :new
         assigns(:event).should_not be_valid
       end
+
+      it "should get new with date" do
+        get :new, :date => '2010/09/01'
+        response.should be_success
+        assigns(:event).should_not be_valid
+      end
     end
 
     describe "When logged in as User" do

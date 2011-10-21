@@ -265,40 +265,6 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  def my_networks?
-    return true if LibraryGroup.site_config.network_access_allowed?(request.remote_ip, :network_type => 'lan')
-    false
-  end
-
-  def admin_networks?
-    return true if LibraryGroup.site_config.network_access_allowed?(request.remote_ip, :network_type => 'admin')
-    false
-  end
-
-  def check_client_ip_address
-    access_denied unless my_networks?
-  end
-
-  def check_admin_network
-    access_denied unless admin_networks?
-  end
-
-  def check_dsbl
-    library_group = LibraryGroup.site_config
-    return true if library_group.network_access_allowed?(request.remote_ip, :network_type => 'lan')
-    begin
-      dsbl_hosts = library_group.dsbl_list.split.compact
-      reversed_address = request.remote_ip.split(/\./).reverse.join(".")
-      dsbl_hosts.each do |dsbl_host|
-        result = Socket.gethostbyname("#{reversed_address}.#{dsbl_host}.").last.unpack("C4").join(".")
-        raise SocketError unless result =~ /^127\.0\.0\./
-        access_denied
-      end
-    rescue SocketError
-      nil
-    end
-  end
-
   def store_page
     flash[:page] = params[:page].to_i if params[:page]
   end

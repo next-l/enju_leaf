@@ -39,7 +39,7 @@ class ItemsController < ApplicationController
             else
               mode = 'not_on_shelf'
             end
-            order = 'id'
+            order = 'items.id'
             @items = Item.inventory_items(@inventory_file, mode).order(order).page(params[:page]).per_page(per_page)
           else
             access_denied
@@ -49,48 +49,50 @@ class ItemsController < ApplicationController
           redirect_to new_user_session_url
           return
         end
-      else
-        search = Sunspot.new_search(Item)
-        set_role_query(current_user, search)
+      end
+    end
 
-        @query = query.dup
-        unless query.blank?
-          search.build do
-            fulltext query
-          end
-        end
+    unless @inventory_file
+      search = Sunspot.new_search(Item)
+      set_role_query(current_user, search)
 
-        patron = @patron
-        manifestation = @manifestation
-        shelf = @shelf
-        unless params[:mode] == 'add'
-          search.build do
-            with(:patron_ids).equal_to patron.id if patron
-            with(:manifestation_id).equal_to manifestation.id if manifestation
-            with(:shelf_id).equal_to shelf.id if shelf
-          end
-        end
-
+      @query = query.dup
+      unless query.blank?
         search.build do
-          order_by(:created_at, :desc)
+          fulltext query
         end
-
-        role = current_user.try(:role) || Role.default_role
-        search.build do
-          with(:required_role_id).less_than role.id
-        end
-
-        page = params[:page] || 1
-        search.query.paginate(page.to_i, per_page)
-        @items = search.execute!.results
-        @count[:total] = @items.total_entries
       end
 
-      if defined?(EnjuBarcode)
-        if params[:mode] == 'barcode'
-          render :action => 'barcode', :layout => false
-          return
+      patron = @patron
+      manifestation = @manifestation
+      shelf = @shelf
+      unless params[:mode] == 'add'
+        search.build do
+          with(:patron_ids).equal_to patron.id if patron
+          with(:manifestation_id).equal_to manifestation.id if manifestation
+          with(:shelf_id).equal_to shelf.id if shelf
         end
+      end
+
+      search.build do
+        order_by(:created_at, :desc)
+      end
+
+      role = current_user.try(:role) || Role.default_role
+      search.build do
+        with(:required_role_id).less_than role.id
+      end
+
+      page = params[:page] || 1
+      search.query.paginate(page.to_i, per_page)
+      @items = search.execute!.results
+      @count[:total] = @items.total_entries
+    end
+
+    if defined?(EnjuBarcode)
+      if params[:mode] == 'barcode'
+        render :action => 'barcode', :layout => false
+        return
       end
     end
 

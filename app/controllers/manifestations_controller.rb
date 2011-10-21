@@ -4,6 +4,7 @@ class ManifestationsController < ApplicationController
   authorize_resource :only => :index
   before_filter :authenticate_user!, :only => :edit
   before_filter :get_patron
+  before_filter :get_expression, :only => :new
   helper_method :get_manifestation
   if defined?(EnjuSubject)
     helper_method :get_subject
@@ -652,7 +653,6 @@ class ManifestationsController < ApplicationController
   end
 
   def save_search_history(query, offset = 0, total = 0, user = nil)
-    check_dsbl if LibraryGroup.site_config.use_dsbl
     if configatron.write_search_log_to_file
       write_search_log(query, total, user)
     else

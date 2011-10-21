@@ -292,7 +292,7 @@ describe LicensesController do
           assigns(:license).should be_valid
         end
 
-        it "should be forbidden" do
+        it "should be redirected to new_user_session_url" do
           post :create, :license => @attrs
           response.should redirect_to(new_user_session_url)
         end

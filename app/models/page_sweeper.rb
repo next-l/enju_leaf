@@ -4,43 +4,43 @@ class PageSweeper < ActionController::Caching::Sweeper
     SeriesStatement, SeriesHasManifestation, PictureFile, Shelf, Library
 
   def after_save(record)
-    case record.class
-    when Library
+    case record.class.to_s.to_sym
+    when :Library
       #expire_fragment(:controller => :libraries, :action => :index, :page => 'menu')
       expire_menu
-    when Shelf
+    when :Shelf
       # TODO: 書架情報が更新されたときのキャッシュはバッチで削除する
       #record.items.each do |item|
       #  expire_editable_fragment(item, ['holding'])
       #end
-    when Create
+    when :Create
       expire_editable_fragment(record.patron)
       expire_editable_fragment(record.work)
-    when Realize
+    when :Realize
       expire_editable_fragment(record.patron)
       expire_editable_fragment(record.expression)
-    when Produce
+    when :Produce
       expire_editable_fragment(record.patron)
       expire_editable_fragment(record.manifestation)
-    when Own
+    when :Own
       expire_editable_fragment(record.patron)
       expire_editable_fragment(record.item)
       expire_editable_fragment(record.item.manifestation)
-    when Exemplify
+    when :Exemplify
       expire_editable_fragment(record.manifestation, ['detail', 'show_list', 'holding'])
       expire_editable_fragment(record.item)
-    when record.is_a?(SeriesStatement)
+    when :SeriesStatement
       record.manifestations.each do |manifestation|
         expire_editable_fragment(manifestation, ['detail'])
       end
-    when SeriesHasManifestation
+    when :SeriesHasManifestation
       expire_editable_fragment(record.manifestation)
-    when PictureFile
+    when :PictureFile
       if record.picture_attachable_type?
         case record.picture_attachable.class
-        when Manifestation
+        when :Manifestation
           expire_editable_fragment(record.picture_attachable, ['picture_file', 'book_jacket'])
-        when Patron
+        when :Patron
           expire_editable_fragment(record.picture_attachable, ['picture_file'])
         end
       end

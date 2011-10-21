@@ -3,17 +3,6 @@ require 'test_helper'
 class SearchHistoriesControllerTest < ActionController::TestCase
   fixtures :search_histories, :users
 
-  def test_guest_should_not_get_index
-    get :index, :user_id => users(:admin).username
-    assert_redirected_to new_user_session_url
-  end
-
-  def test_user_should_get_index
-    sign_in users(:user1)
-    get :index
-    assert_response :success
-  end
-
   def test_librarian_should_get_index
     sign_in users(:librarian1)
     get :index
@@ -23,12 +12,6 @@ class SearchHistoriesControllerTest < ActionController::TestCase
   def test_librarian_should_get_failed_search_index
     sign_in users(:librarian1)
     get :index, :mode => 'not_found'
-    assert_response :success
-  end
-
-  def test_admin_should_get_index
-    sign_in users(:admin)
-    get :index
     assert_response :success
   end
 

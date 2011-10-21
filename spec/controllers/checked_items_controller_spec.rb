@@ -14,6 +14,12 @@ describe CheckedItemsController do
         assigns(:checked_items).should_not be_empty
         response.should be_forbidden
       end
+
+      it "should not get index without basket_id" do
+        get :index, :item_id => 1
+        assigns(:checked_items).should_not be_empty
+        response.should be_forbidden
+      end
     end
 
     describe "When logged in as Librarian" do
@@ -51,6 +57,12 @@ describe CheckedItemsController do
     describe "When not logged in" do
       it "assigns empty as @checked_items" do
         get :index
+        assigns(:checked_items).should be_empty
+        response.should redirect_to(new_user_session_url)
+      end
+
+      it "should not get index with basket_id and item_id" do
+        get :index, :basket_id => 1, :item_id => 1
         assigns(:checked_items).should be_empty
         response.should redirect_to(new_user_session_url)
       end
@@ -249,6 +261,18 @@ describe CheckedItemsController do
           assigns(:checked_item).should be_valid
           assigns(:checked_item).item.manifestation.reserves.waiting.should be_empty
         end
+      end
+    end
+
+    describe "When logged in as Librarian" do
+      before(:each) do
+        sign_in FactoryGirl.create(:librarian)
+      end
+
+      it "should create checked_item" do
+        post :create, :checked_item => @attrs, :basket_id => 3
+        assigns(:checked_item).due_date.should_not be_nil
+        response.should redirect_to user_basket_checked_items_url(assigns(:checked_item).basket.user, assigns(:checked_item).basket)
       end
     end
   end

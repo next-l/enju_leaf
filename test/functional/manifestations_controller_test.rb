@@ -68,26 +68,6 @@ class ManifestationsControllerTest < ActionController::TestCase
     assert assigns(:manifestations)
   end
 
-  def test_guest_should_get_index_with_manifestation_id
-    get :index, :manifestation_id => 1
-    assert_response :success
-    assert assigns(:manifestation)
-    assert assigns(:manifestations)
-  end
-
-  def test_guest_should_get_index_with_patron_id
-    get :index, :patron_id => 1
-    assert_response :success
-    assert assigns(:patron)
-    assert assigns(:manifestations)
-  end
-
-  def test_guest_should_get_index_with_expression
-    get :index, :expression_id => 1
-    assert_response :success
-    assert assigns(:manifestations)
-  end
-
   #def test_user_should_not_get_index_with_subscription
   #  sign_in users(:user1)
   #  get :index, :subscription_id => 1
@@ -101,19 +81,6 @@ class ManifestationsControllerTest < ActionController::TestCase
   #  assert assigns(:subscription)
   #  assert assigns(:manifestations)
   #end
-
-  def test_guest_should_get_index_with_query
-    get :index, :query => '2005'
-    assert_response :success
-    assert assigns(:manifestations)
-  end
-
-  def test_guest_should_get_index_with_page_number
-    get :index, :query => '2005', :number_of_pages_at_least => 1, :number_of_pages_at_most => 100
-    assert_response :success
-    assert assigns(:manifestations)
-    assert_equal '2005 number_of_pages_i: [1 TO 100]', assigns(:query)
-  end
 
   def test_guest_should_get_index_with_pub_date_from
     get :index, :query => '2005', :pub_date_from => '2000'

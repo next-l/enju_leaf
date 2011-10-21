@@ -3,12 +3,6 @@ require 'test_helper'
 class EventsControllerTest < ActionController::TestCase
     fixtures :events, :event_categories, :libraries, :patrons, :users
 
-  def test_librarian_should_get_new_with_date
-    sign_in users(:librarian1)
-    get :new, :date => '2010/09/01'
-    assert_response :success
-  end
-  
   def test_librarian_should_get_new_with_invalid_date
     sign_in users(:librarian1)
     get :new, :date => '2010/13/01'

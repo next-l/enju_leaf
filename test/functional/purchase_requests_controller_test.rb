@@ -3,13 +3,6 @@ require 'test_helper'
 class PurchaseRequestsControllerTest < ActionController::TestCase
     fixtures :purchase_requests, :users, :order_lists, :orders
 
-  def test_guest_should_not_get_index
-    get :index
-    assert_response :redirect
-    assert_redirected_to new_user_session_url
-    assert_equal assigns(:purchase_requests), []
-  end
-
   def test_user_should_be_redirected_to_my_index_without_user_id
     sign_in users(:user1)
     get :index
@@ -49,12 +42,6 @@ class PurchaseRequestsControllerTest < ActionController::TestCase
     get :index
     assert_response :success
     assert_not_nil assigns(:purchase_requests)
-  end
-
-  def test_guest_should_get_new
-    get :new
-    assert_response :redirect
-    assert_redirected_to new_user_session_url
   end
 
   def test_user_should_get_my_new

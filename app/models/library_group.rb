@@ -41,10 +41,10 @@ class LibraryGroup < ActiveRecord::Base
   end
 
   def network_access_allowed?(ip_address, options = {})
-    options = {:network_type => 'lan'}.merge(options)
+    options = {:network_type => :lan}.merge(options)
     client_ip = IPAddr.new(ip_address)
     case options[:network_type]
-    when 'admin'
+    when :admin
       allowed_networks = self.admin_networks.to_s.split
     else
       allowed_networks = self.my_networks.to_s.split
@@ -59,8 +59,8 @@ class LibraryGroup < ActiveRecord::Base
     end
     return false
   end
-
 end
+
 
 # == Schema Information
 #
@@ -72,8 +72,6 @@ end
 #  short_name                  :string(255)     not null
 #  email                       :string(255)
 #  my_networks                 :text
-#  use_dsbl                    :boolean         default(FALSE), not null
-#  dsbl_list                   :text
 #  login_banner                :text
 #  note                        :text
 #  post_to_union_catalog       :boolean         default(FALSE), not null

@@ -144,6 +144,22 @@ describe BasketsController do
         end
       end
     end
+
+    describe "When not logged in" do
+      describe "with blank params" do
+        it "assigns a newly created basket as @basket" do
+          post :create, :basket => { }
+          assigns(:basket).should_not be_valid
+        end
+
+        it "should be redirected to new_user_session_url" do
+          post :create, :basket => { }
+          assigns(:basket).should_not be_valid
+          assert_response :redirect
+          response.should redirect_to new_user_session_url
+        end
+      end
+    end
   end
 
   describe "PUT update" do

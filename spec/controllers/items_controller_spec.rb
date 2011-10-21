@@ -48,21 +48,27 @@ describe ItemsController do
         get :index, :patron_id => 1
         response.should be_success
         assigns(:patron).should eq Patron.find(1)
-        assigns(:items).should eq assigns(:patron).items
+        assigns(:items).should eq assigns(:patron).items.order('created_at DESC').page(1)
       end
 
       it "should get index with manifestation_id" do
         get :index, :manifestation_id => 1
         response.should be_success
         assigns(:manifestation).should eq Manifestation.find(1)
-        assigns(:items).should eq assigns(:manifestation).items
+        assigns(:items).should eq assigns(:manifestation).items.order('created_at DESC').page(1)
       end
 
       it "should get index with shelf_id" do
         get :index, :shelf_id => 1
         response.should be_success
         assigns(:shelf).should eq Shelf.find(1)
-        assigns(:items).should eq assigns(:shelf).items.page(1)
+        assigns(:items).should eq assigns(:shelf).items.order('created_at DESC').page(1)
+      end
+
+      it "should not get index with inventory_file_id" do
+        get :index, :inventory_file_id => 1
+        response.should redirect_to new_user_session_url
+        assigns(:inventory_file).should_not be_nil
       end
     end
   end
@@ -234,7 +240,14 @@ describe ItemsController do
 
         it "redirects to the created item" do
           post :create, :item => @attrs
+          assigns(:item).manifestation.should_not be_nil
           response.should redirect_to(item_url(assigns(:item)))
+        end
+
+        it "should create a lending policy" do
+          old_lending_policy_count = LendingPolicy.count
+          post :create, :item => @attrs
+          LendingPolicy.count.should eq old_lending_policy_count + UserGroup.count
         end
       end
 

@@ -127,6 +127,32 @@ describe ManifestationsController do
         assigns(:manifestation).should_not be_nil
         response.should render_template('manifestations/show')
       end
+
+      it "should get index with manifestation_id" do
+        get :index, :manifestation_id => 1
+        response.should be_success
+        assigns(:manifestation).should eq Manifestation.find(1)
+        assigns(:manifestations).should eq assigns(:manifestation).derived_manifestations
+      end
+
+      it "should get index with patron_id" do
+        get :index, :patron_id => 1
+        response.should be_success
+        assigns(:patron).should eq Patron.find(1)
+        assigns(:manifestations).should eq assigns(:patron).manifestations.order('created_at DESC')
+      end
+
+      it "should get index with query" do
+        get :index, :query => '2005'
+        response.should be_success
+        assigns(:manifestations).should_not be_blank
+      end
+
+      it "should get index with page number" do
+        get :index, :query => '2005', :number_of_pages_at_least => 1, :number_of_pages_at_most => 100
+        response.should be_success
+        assigns(:query).should eq '2005 number_of_pages_i: [1 TO 100]'
+      end
     end
   end
 

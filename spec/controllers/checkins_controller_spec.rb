@@ -202,11 +202,14 @@ describe CheckinsController do
   end
 
   describe "POST create" do
+    before(:each) do
+      @attrs = {:item_identifier => '00003'}
+      @invalid_attrs = {:item_identifier => 'invalid'}
+    end
+
     describe "When logged in as Administrator" do
       before(:each) do
         sign_in FactoryGirl.create(:admin)
-        @attrs = {:item_identifier => '00003'}
-        @invalid_attrs = {:item_identifier => 'invalid'}
       end
 
       describe "with valid params" do
@@ -245,18 +248,64 @@ describe CheckinsController do
 
     describe "When logged in as Librarian" do
       before(:each) do
-        sign_in FactoryGirl.create(:admin)
-        @attrs = {:item_identifier => '00003'}
-        @invalid_attrs = {:item_identifier => 'invalid'}
+        sign_in FactoryGirl.create(:librarian)
       end
 
       describe "with valid params" do
+        it "assigns a newly created checkin as @checkin" do
+          post :create, :checkin => @attrs
+          assigns(:checkin).should be_valid
+          assigns(:checkin).item.circulation_status.name.should eq 'Available On Shelf'
+        end
+
         it "should show notification when it is reserved" do
           post :create, :checkin => {:item_identifier => '00008'}, :basket_id => 9
           flash[:message].to_s.index(I18n.t('item.this_item_is_reserved')).should be_true
           assigns(:checkin).item.next_reservation.state.should eq 'retained'
           assigns(:checkin).item.circulation_status.name.should eq 'Available On Shelf'
           response.should redirect_to user_basket_checkins_url(assigns(:basket).user.username, assigns(:basket))
+        end
+
+        it "should show notification when an item includes supplements" do
+          post :create, :checkin => {:item_identifier => '00004'}, :basket_id => 9
+          assigns(:checkin).item.circulation_status.name.should eq 'Available On Shelf'
+          flash[:message].to_s.index(I18n.t('item.this_item_include_supplement')).should be_true
+          response.should redirect_to user_basket_checkins_url(assigns(:basket).user.username, assigns(:basket))
+      end
+    end
+
+    describe "When logged in as User" do
+      before(:each) do
+        sign_in FactoryGirl.create(:user)
+      end
+
+      describe "with valid params" do
+        it "assigns a newly created checkin as @checkin" do
+          post :create, :checkin => @attrs
+          assigns(:checkin).should be_valid
+        end
+
+        it "should be forbidden" do
+          post :create, :checkin => @attrs
+          response.should be_forbidden
+        end
+      end
+    end
+
+    describe "When not logged in" do
+      before(:each) do
+        @attrs = {:item_identifier => '00003'}
+        @invalid_attrs = {:item_identifier => 'invalid'}
+      end
+
+      describe "with valid params" do
+        it "assigns a newly created checkin as @checkin" do
+          post :create, :checkin => @attrs
+        end
+
+        it "should redirect to new session url" do
+          post :create, :checkin => @attrs
+          response.should redirect_to new_user_session_url
         end
       end
     end

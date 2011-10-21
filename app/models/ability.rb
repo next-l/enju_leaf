@@ -76,7 +76,7 @@ class Ability
         Subscription,
         UserHasRole
       ]
-      can [:read, :update], [
+      can :update, [
         CarrierType,
         ContentType,
         Country,
@@ -91,10 +91,24 @@ class Ability
         RequestStatusType,
         RequestType,
         Role
-      ]
+      ] if LibraryGroup.site_config.network_access_allowed?(ip_address)
       can :read, [
+        CarrierType,
+        ContentType,
+        Country,
+        Extent,
+        Frequency,
+        FormOfWork,
+        Language,
+        LibraryGroup,
+        License,
+        MediumOfPerformance,
+        PatronType,
+        RequestStatusType,
+        RequestType,
         PatronImportResult,
-        ResourceImportResult
+        ResourceImportResult,
+        Role
       ]
     when 'Librarian'
       can [:read, :create, :update], Item
@@ -373,19 +387,31 @@ class Ability
     if defined?(EnjuSubject)
       case user.try(:role).try(:name)
       when 'Administrator'
-        can [:read, :create, :update], ClassificationType
-        can :destroy, ClassificationType do |classification_type|
-          classification_type.classifications.empty?
-        end
+        can :read, [
+          ClassificationType,
+          SubjectHeadingType,
+          SubjectType
+        ]
         can :manage, [
           Classification,
           Subject,
           SubjectHasClassification,
-          SubjectHeadingType,
-          SubjectHeadingTypeHasSubject,
-          SubjectType
+          SubjectHeadingTypeHasSubject
         ]
         can :manage, WorkHasSubject
+        if LibraryGroup.site_config.network_access_allowed?(ip_address)
+          can [:create, :update], ClassificationType
+          can :destroy, ClassificationType do |classification_type|
+            classification_type.classifications.empty?
+          end
+          can :manage, [
+            Classification,
+            Subject,
+            SubjectHasClassification,
+            SubjectHeadingType,
+            SubjectType
+          ]
+        end
       when 'Librarian'
         can :read, [
           Classification,
@@ -433,7 +459,6 @@ class Ability
           CheckoutStatHasUser,
           CheckoutType,
           ItemHasUseRestriction,
-          LendingPolicy,
           ManifestationCheckoutStat,
           ManifestationReserveStat,
           Reserve,
@@ -445,8 +470,10 @@ class Ability
         ]
         can [:read, :update], [
           CirculationStatus,
+          LendingPolicy,
           UseRestriction
         ]
+        can :destroy, LendingPolicy
       when 'Librarian'
         can :manage, [
           Basket,

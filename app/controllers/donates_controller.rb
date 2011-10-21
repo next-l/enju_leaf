@@ -1,5 +1,4 @@
 class DonatesController < ApplicationController
-  before_filter :check_client_ip_address
   load_and_authorize_resource
 
   # GET /donates

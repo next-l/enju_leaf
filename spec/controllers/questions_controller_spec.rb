@@ -47,6 +47,19 @@ describe QuestionsController do
         get :index
         assigns(:questions).should_not be_nil
       end
+
+      it "should get index with query" do
+        get :index, :query => 'Yahoo'
+        response.should be_success
+        assigns(:questions).should_not be_nil
+        assigns(:crd_results).should_not be_nil
+      end
+
+      it "should render crd_xml template" do
+        get :index, :query => 'Yahoo', :mode => 'crd', :format => :xml
+        response.should be_success
+        response.should render_template("questions/index_crd")
+      end
     end
   end
 

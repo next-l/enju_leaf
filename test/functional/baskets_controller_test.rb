@@ -31,15 +31,6 @@ class BasketsControllerTest < ActionController::TestCase
     assert assigns(:baskets)
   end
 
-  def test_guest_should_not_create_basket
-    assert_no_difference('Basket.count') do
-      post :create, :basket => { }
-    end
-    
-    assert_response :redirect
-    assert_redirected_to new_user_session_url
-  end
-
   def test_user_should_not_create_basket
     sign_in users(:user1)
     assert_no_difference('Basket.count') do
