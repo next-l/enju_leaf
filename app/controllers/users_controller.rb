@@ -21,6 +21,8 @@ class UsersController < ApplicationController
       sort[:sort_by] = 'username'
     when 'telephone_number_1'
       sort[:sort_by] = 'patrons.telephone_number_1'
+    when 'full_name'
+      sort[:sort_by] = 'patrons.full_name_transcription'
     end
     case params[:order]
     when 'asc'
@@ -58,8 +60,11 @@ class UsersController < ApplicationController
         with(:required_role_id).less_than role.id
       end.results
     else
-      @users = User.order("#{sort[:sort_by]} #{sort[:order]}").page(page) unless sort[:sort_by] == 'patrons.telephone_number_1'
-      @users = User.joins(:patron).order("#{sort[:sort_by]} #{sort[:order]}").page(page) if sort[:sort_by] == 'patrons.telephone_number_1'
+      if sort[:sort_by] == 'patrons.telephone_number_1'|| sort[:sort_by] == 'patrons.full_name_transcription' 
+        @users = User.joins(:patron).order("#{sort[:sort_by]} #{sort[:order]}").page(page)
+      else
+        @users = User.order("#{sort[:sort_by]} #{sort[:order]}").page(page)
+      end
     end
     @count[:query_result] = @users.total_entries
 
