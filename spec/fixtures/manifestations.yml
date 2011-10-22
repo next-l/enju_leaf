@@ -21,7 +21,7 @@ manifestation_00002:
   carrier_type_id: 1
   language_id: 1
   isbn: "4915724824"
-  updated_at: 2007-11-19 16:59:00.991512 +09:00
+  updated_at: 2007-11-19 16:59:01.991512 +09:00
   original_title: "\xE6\x83\x85\xE5\xA0\xB1\xE9\x80\x9A\xE4\xBF\xA1\xE3\x83\x8F\xE3\x83\xB3\xE3\x83\x89\xE3\x83\x96\xE3\x83\x83\xE3\x82\xAF2005"
   price: 
   identifier: 
@@ -31,13 +31,13 @@ manifestation_00002:
   id: 2
   height: 
   width: 
-  created_at: 2007-11-19 16:59:00.991512 +09:00
+  created_at: 2007-11-19 16:59:01.991512 +09:00
   repository_content: false
 manifestation_00003: 
   carrier_type_id: 1
   language_id: 1
   isbn: "4897063590"
-  updated_at: 2007-11-19 16:59:01.618359 +09:00
+  updated_at: 2007-11-19 16:59:02.618359 +09:00
   original_title: !binary |
     44GT44KM44GL44KJ44Gu55Sf5ZG956eR5a2m56CU56m26ICF44Gu44Gf44KB
     44Gu44OQ44Kk44Kq54m56Kix5YWl6ZaA6Kyb5bqn
@@ -50,12 +50,12 @@ manifestation_00003:
   id: 3
   height: 
   width: 
-  created_at: 2007-11-19 16:59:01.618359 +09:00
+  created_at: 2007-11-19 16:59:02.618359 +09:00
 manifestation_00004: 
   carrier_type_id: 1
   language_id: 1
   isbn: 0471412791
-  updated_at: 2007-11-19 16:59:02.275738 +09:00
+  updated_at: 2007-11-19 16:59:03.275738 +09:00
   original_title: THE BIOTECH INVESTOR'S BIBLE
   price: 
   identifier: 
@@ -65,12 +65,12 @@ manifestation_00004:
   id: 4
   height: 
   width: 
-  created_at: 2007-11-19 16:59:02.275738 +09:00
+  created_at: 2007-11-19 16:59:03.275738 +09:00
 manifestation_00005: 
   carrier_type_id: 1
   language_id: 1
   isbn: ""
-  updated_at: 2007-11-19 16:58:54.333183 +09:00
+  updated_at: 2007-11-19 16:59:04.333183 +09:00
   original_title: !binary |
     6aGn5a6i5rqA6Laz5Z6L44Oe44O844Kx44OG44Kj44Oz44Kw44Gu5qeL5Zuz
 
@@ -82,12 +82,12 @@ manifestation_00005:
   id: 5
   height: 
   width: 
-  created_at: 2007-11-19 16:58:54.333183 +09:00
+  created_at: 2007-11-19 16:59:04.333183 +09:00
 manifestation_00006: 
   carrier_type_id: 1
   language_id: 1
   isbn: ""
-  updated_at: 2007-11-19 16:58:56.255684 +09:00
+  updated_at: 2007-11-19 16:59:05.255684 +09:00
   original_title: !binary |
     5LuV57WE44G/6Z2p5paw44Gu5pmC5Luj
 
@@ -99,12 +99,12 @@ manifestation_00006:
   id: 6
   height: 
   width: 
-  created_at: 2007-11-19 16:58:56.255684 +09:00
+  created_at: 2007-11-19 16:59:05.255684 +09:00
 manifestation_00007: 
   carrier_type_id: 1
   language_id: 1
   isbn: 0470844701
-  updated_at: 2007-11-19 16:58:56.892741 +09:00
+  updated_at: 2007-11-19 16:59:06.892741 +09:00
   original_title: dictionary of e-business
   price: 
   identifier: 
@@ -114,12 +114,12 @@ manifestation_00007:
   id: 7
   height: 
   width: 
-  created_at: 2007-11-19 16:58:56.892741 +09:00
+  created_at: 2007-11-19 16:59:06.892741 +09:00
 manifestation_00008: 
   carrier_type_id: 1
   language_id: 1
   isbn: "4798101028"
-  updated_at: 2007-11-19 16:58:57.463333 +09:00
+  updated_at: 2007-11-19 16:59:07.463333 +09:00
   original_title: "Web\xE3\x82\xB5\xE3\x83\xBC\xE3\x83\x93\xE3\x82\xB9\xE5\xAE\x8C\xE5\x85\xA8\xE8\xA7\xA3\xE8\xAA\xAC"
   price: 
   identifier: 
@@ -129,12 +129,12 @@ manifestation_00008:
   id: 8
   height: 
   width: 
-  created_at: 2007-11-19 16:58:57.463333 +09:00
+  created_at: 2007-11-19 16:59:07.463333 +09:00
 manifestation_00009: 
   carrier_type_id: 1
   language_id: 1
   isbn: "4641143331"
-  updated_at: 2007-11-19 16:58:58.166195 +09:00
+  updated_at: 2007-11-19 16:59:08.166195 +09:00
   original_title: !binary |
     6YCQ5p2h6Kej6Kqs5LiN5q2j56u25LqJ6Ziy5q2i5rOV
 
@@ -146,12 +146,12 @@ manifestation_00009:
   id: 9
   height: 
   width: 
-  created_at: 2007-11-19 16:58:58.166195 +09:00
+  created_at: 2007-11-19 16:59:08.166195 +09:00
 manifestation_00010: 
   carrier_type_id: 1
   language_id: 1
   isbn: "9784774127804"
-  updated_at: 2007-11-19 16:58:58.799724 +09:00
+  updated_at: 2007-11-19 16:59:09.799724 +09:00
   original_title: "Apache Lucene入門 : Java・オープンソース・全文検索システムの構築"
   price: 
   identifier: 
@@ -161,11 +161,11 @@ manifestation_00010:
   id: 10
   height: 
   width: 
-  created_at: 2007-11-19 16:58:58.799724 +09:00
+  created_at: 2007-11-19 16:59:09.799724 +09:00
 manifestation_00021: 
   carrier_type_id: 1
   isbn: "4822281167"
-  updated_at: 2007-11-19 16:58:58.799724 +09:00
+  updated_at: 2007-11-19 16:59:20.799724 +09:00
   original_title: "Web\xE3\x82\xB5\xE3\x83\xBC\xE3\x83\x93\xE3\x82\xB9\xE5\xAE\x8C\xE5\x85\xA8\xE6\xA7\x8B\xE7\xAF\x89\xE3\x82\xAC\xE3\x82\xA4\xE3\x83\x89"
   price: 
   identifier: 
@@ -175,12 +175,12 @@ manifestation_00021:
   id: 11
   height: 
   width: 
-  created_at: 2007-11-19 16:58:58.799724 +09:00
+  created_at: 2007-11-19 16:59:20.799724 +09:00
   required_role_id: 2
 manifestation_00022: 
   carrier_type_id: 1
   isbn: 
-  updated_at: 2007-11-19 16:58:58.799724 +09:00
+  updated_at: 2007-11-19 16:59:21.799724 +09:00
   original_title: "YouTube - Open Source ILS Song"
   price: 
   identifier: 

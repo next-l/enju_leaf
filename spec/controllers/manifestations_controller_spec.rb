@@ -135,11 +135,10 @@ describe ManifestationsController do
         assigns(:manifestations).should eq assigns(:manifestation).derived_manifestations
       end
 
-      it "should get index with patron_id" do
-        get :index, :patron_id => 1
+      it "should get index with publisher_id" do
+        get :index, :publisher_id => 1
         response.should be_success
-        assigns(:patron).should eq Patron.find(1)
-        assigns(:manifestations).should eq assigns(:patron).manifestations.order('created_at DESC')
+        assigns(:manifestations).should eq Patron.find(1).manifestations.order('created_at DESC')
       end
 
       it "should get index with query" do
@@ -152,6 +151,20 @@ describe ManifestationsController do
         get :index, :query => '2005', :number_of_pages_at_least => 1, :number_of_pages_at_most => 100
         response.should be_success
         assigns(:query).should eq '2005 number_of_pages_i: [1 TO 100]'
+      end
+
+      it "should get index with pub_date_from" do
+        get :index, :query => '2005', :pub_date_from => '2000'
+        response.should be_success
+        assigns(:manifestations).should be_true
+        assigns(:query).should eq '2005 date_of_publication_d: [1999-12-31T15:00:00Z TO *]'
+      end
+
+      it "should get index with pub_date_to" do
+        get :index, :query => '2005', :pub_date_to => '2000'
+        response.should be_success
+        assigns(:manifestations).should be_true
+        assigns(:query).should eq '2005 date_of_publication_d: [* TO 2000-12-31T14:59:59Z]'
       end
     end
   end
