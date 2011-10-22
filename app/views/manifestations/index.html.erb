@@ -53,12 +53,14 @@
       <%= render 'manifestations/list', :manifestations => @manifestations -%>
     </div>
 
-    <div id="tag_cloud">
-      <h3 class="resource_title"><%= t('activerecord.models.tag') -%></h3>
-      <div id="tag_cloud_list"></div>
-      <%= image_tag 'spinner.gif', :id => 'spinner_tag_cloud',
-        :style => 'padding-bottom: 15px; padding-left: 40px;' -%>
-    </div>
+    <% if defined?(EnjuBookmark) %>
+      <div id="tag_cloud">
+        <h3 class="resource_title"><%= t('activerecord.models.tag') -%></h3>
+        <div id="tag_cloud_list"></div>
+        <%= image_tag 'spinner.gif', :id => 'spinner_tag_cloud',
+          :style => 'padding-bottom: 15px; padding-left: 40px;' -%>
+      </div>
+    <% end %>
   <%- else -%>
     <!-- TODO: 検索結果が少ない場合にも表示させる -->
     <%- if @suggested_tag -%>
@@ -86,12 +88,14 @@
   </div>
 </div>
 
-<script type="text/javascript">
-  window.onload = function() {
-    $("#tag_cloud_list").load('<%= url_for(params.merge(:view => "tag_cloud")) -%>', null, hideTagCloudSpinner);
-  }
+<% if defined?(EnjuBookmark) %>
+  <script type="text/javascript">
+    window.onload = function() {
+      $("#tag_cloud_list").load('<%= url_for(params.merge(:view => "tag_cloud")) -%>', null, hideTagCloudSpinner);
+    }
 
-  function hideTagCloudSpinner(){
-    $("#spinner_tag_cloud").hide();
-  }
-</script>
+    function hideTagCloudSpinner(){
+      $("#spinner_tag_cloud").hide();
+    }
+  </script>
+<% end %>
