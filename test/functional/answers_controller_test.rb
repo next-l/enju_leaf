@@ -78,13 +78,6 @@ class AnswersControllerTest < ActionController::TestCase
     assert assigns(:answers)
   end
 
-  def test_user_should_get_new_without_question_id
-    sign_in users(:user1)
-    get :new
-    assert_response :redirect
-    assert_redirected_to questions_url
-  end
-  
   def test_user_should_get_new
     sign_in users(:user1)
     get :new, :user_id => users(:user2).username, :question_id => 1
