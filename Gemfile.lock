@@ -9,7 +9,7 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_bookmark.git
-  revision: 5d136e1958e201b3028941cad2222342b338d845
+  revision: 19df301f617be06f7daa8999314722598872d9d2
   specs:
     enju_bookmark (0.0.2)
       rails (~> 3.1.1)
@@ -476,7 +476,7 @@ DEPENDENCIES
   client_side_validations
   configatron
   dalli (~> 1.1)
-  delayed_job (>= 2.1.4)
+  delayed_job (~> 2.1.4)
   devise (~> 1.4.8)
   dynamic_form
   enju_barcode!

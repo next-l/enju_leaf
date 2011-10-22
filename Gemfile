@@ -53,7 +53,7 @@ gem 'fastercsv' if RUBY_VERSION < '1.9'
 
 gem 'will_paginate', '~> 3.0'
 gem 'exception_notification', '~> 2.5.2'
-gem 'delayed_job', '>= 2.1.4'
+gem 'delayed_job', '~> 2.1.4'
 gem 'state_machine'
 gem 'sunspot_rails', '~> 1.3.0.rc4'
 gem 'sunspot_solr', '~> 1.3.0.rc4'

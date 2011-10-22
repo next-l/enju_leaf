@@ -47,12 +47,6 @@ class CheckinsControllerTest < ActionController::TestCase
     assert_response :missing
   end
 
-  def test_everyone_should_not_update_checkin_without_item_identifier
-    sign_in users(:admin)
-    put :update, :id => 1, :checkin => {:item_identifier => nil}
-    assert_response :success
-  end
-
   def test_everyone_should_not_destroy_missing_checkin
     sign_in users(:admin)
     assert_no_difference('Checkin.count') do
