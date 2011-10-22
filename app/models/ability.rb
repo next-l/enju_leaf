@@ -160,7 +160,6 @@ class Ability
         Produce,
         Realize,
         ResourceImportFile,
-        SearchHistory,
         SeriesStatement,
         SeriesHasManifestation,
         Subscribe,
@@ -307,7 +306,16 @@ class Ability
         ]
       when 'User'
         can [:index, :create], Bookmark
-        can [:show, :update, :destroy], Bookmark do |bookmark|
+        can :show, Bookmark do |bookmark|
+          if bookmark.user == user
+            true
+          elsif user.share_bookmarks
+            true
+          else
+            false
+          end
+        end
+        can [:update, :destroy], Bookmark do |bookmark|
           bookmark.user == user
         end
         can :read, BookmarkStat

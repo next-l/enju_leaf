@@ -53,12 +53,6 @@ class BookmarksControllerTest < ActionController::TestCase
     assert_response :forbidden
   end
 
-  def test_guest_should_not_get_new
-    get :new
-    assert_response :redirect
-    assert_redirected_to new_user_session_url
-  end
-  
   def test_user_should_not_get_new_without_user_id
     sign_in users(:user1)
     get :new
@@ -104,16 +98,6 @@ class BookmarksControllerTest < ActionController::TestCase
       post :create, :bookmark => {:title => 'example', :url => 'http://example.com'}
     end
     assert_redirected_to new_user_session_url
-  end
-
-  def test_user_should_create_bookmark
-    sign_in users(:user1)
-    assert_difference('Bookmark.count') do
-      post :create, :bookmark => {:title => 'example', :url => 'http://example.com/'}, :user_id => users(:user1).username
-    end
-    
-    assert_redirected_to user_bookmark_url(assigns(:bookmark).user, assigns(:bookmark))
-    assigns(:bookmark).remove_from_index!
   end
 
   def test_user_should_create_bookmark_with_local_url

@@ -143,15 +143,52 @@ describe BasketsController do
   end
 
   describe "GET edit" do
-    describe "When logged in as Librarian" do
+    describe "When logged in as Administrator" do
       before(:each) do
-        sign_in FactoryGirl.create(:librarian)
+        sign_in FactoryGirl.create(:admin)
+        @basket = baskets(:basket_00001)
       end
 
       it "assigns the requested basket as @basket" do
-        basket = baskets(:basket_00001)
-        get :edit, :id => basket.id
-        assigns(:basket).should eq(basket)
+        get :edit, :id => @basket.id
+        assigns(:basket).should eq(@basket)
+      end
+    end
+
+    describe "When logged in as Librarian" do
+      before(:each) do
+        sign_in FactoryGirl.create(:librarian)
+        @basket = baskets(:basket_00001)
+      end
+
+      it "assigns the requested basket as @basket" do
+        get :edit, :id => @basket.id
+        assigns(:basket).should eq(@basket)
+      end
+    end
+
+    describe "When logged in as User" do
+      before(:each) do
+        sign_in FactoryGirl.create(:user)
+        @basket = baskets(:basket_00001)
+      end
+
+      it "should not assign the requested basket as @basket" do
+        get :edit, :id => @basket.id
+        assigns(:basket).should eq(@basket)
+        response.should be_forbidden
+      end
+    end
+
+    describe "When not logged in" do
+      before(:each) do
+        @basket = baskets(:basket_00001)
+      end
+
+      it "should not assign the requested basket as @basket" do
+        get :edit, :id => @basket.id
+        assigns(:basket).should eq(@basket)
+        response.should redirect_to new_user_session_url
       end
     end
   end
@@ -213,6 +250,20 @@ describe BasketsController do
           post :create, :basket => @invalid_attrs
           assigns(:basket).should_not be_valid
         end
+      end
+
+      it "should not create basket when user is suspended" do
+        post :create, :basket => {:user_number => users(:user4).user_number }
+        assigns(:basket).should_not be_valid
+        assigns(:basket).errors["base"].include?(I18n.t('basket.this_account_is_suspended')).should be_true
+        response.should be_success
+      end
+
+      it "should not create basket when user is not found" do
+        post :create, :basket => {:user_number => 'not found' }
+        assigns(:basket).should_not be_valid
+        assigns(:basket).errors["base"].include?(I18n.t('user.not_found')).should be_true
+        response.should be_success
       end
     end
 

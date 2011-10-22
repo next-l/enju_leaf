@@ -72,13 +72,13 @@ describe BookmarksController do
 
     describe "When logged in as User" do
       before(:each) do
-        sign_in FactoryGirl.create(:user)
+        @bookmark = FactoryGirl.create(:bookmark)
+        sign_in @bookmark.user
       end
 
       it "assigns the requested bookmark as @bookmark" do
-        bookmark = FactoryGirl.create(:bookmark)
-        get :show, :id => bookmark.id
-        assigns(:bookmark).should eq(bookmark)
+        get :show, :id => @bookmark.id
+        assigns(:bookmark).should eq(@bookmark)
       end
     end
 
@@ -87,6 +87,28 @@ describe BookmarksController do
         bookmark = FactoryGirl.create(:bookmark)
         get :show, :id => bookmark.id
         assigns(:bookmark).should eq(bookmark)
+        response.should redirect_to new_user_session_url
+      end
+    end
+  end
+
+  describe "POST create" do
+    before(:each) do
+      @bookmark = bookmarks(:bookmark_00001)
+      @attrs = FactoryGirl.attributes_for(:bookmark)
+      @invalid_attrs = {:url => ''}
+    end
+
+    describe "When logged in as User" do
+      before(:each) do
+        @user = FactoryGirl.create(:user)
+        sign_in @user
+      end
+
+      it "should create bookmark" do
+        post :create, :bookmark => {:title => 'example', :url => 'http://example.com/'}, :user_id => users(:user1).username
+        assigns(:bookmark).should be_valid
+        response.should redirect_to user_bookmark_url(assigns(:bookmark).user, assigns(:bookmark))
       end
     end
   end
