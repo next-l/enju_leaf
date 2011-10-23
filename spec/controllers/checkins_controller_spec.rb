@@ -263,15 +263,23 @@ describe CheckinsController do
           flash[:message].to_s.index(I18n.t('item.this_item_is_reserved')).should be_true
           assigns(:checkin).item.next_reservation.state.should eq 'retained'
           assigns(:checkin).item.circulation_status.name.should eq 'Available On Shelf'
-          response.should redirect_to user_basket_checkins_url(assigns(:basket).user.username, assigns(:basket))
+          response.should redirect_to user_basket_checkins_url(assigns(:basket).user, assigns(:basket))
         end
 
         it "should show notification when an item includes supplements" do
           post :create, :checkin => {:item_identifier => '00004'}, :basket_id => 9
           assigns(:checkin).item.circulation_status.name.should eq 'Available On Shelf'
           flash[:message].to_s.index(I18n.t('item.this_item_include_supplement')).should be_true
-          response.should redirect_to user_basket_checkins_url(assigns(:basket).user.username, assigns(:basket))
+          response.should redirect_to user_basket_checkins_url(assigns(:basket).user, assigns(:basket))
         end
+      end
+
+      it "should show notice when other library's item is checked in" do
+        sign_in users(:librarian2)
+        post :create, :checkin => {:item_identifier => '00009'}, :basket_id => 9
+        assigns(:checkin).should be_valid
+        flash[:message].to_s.index(I18n.t('checkin.other_library_item')).should be_true
+        response.should redirect_to user_basket_checkins_url(assigns(:basket).user, assigns(:basket))
       end
     end
 

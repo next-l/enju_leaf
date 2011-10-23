@@ -28,12 +28,18 @@ describe BookmarksController do
 
     describe "When logged in as User" do
       before(:each) do
-        sign_in FactoryGirl.create(:user)
+        @user = FactoryGirl.create(:user)
+        sign_in @user
       end
 
       it "assigns all bookmarks as @bookmarks" do
         get :index
         assigns(:bookmarks).should_not be_empty
+      end
+
+      it "should be redirected to my bookmark index" do
+        get :index
+        response.should redirect_to user_bookmarks_url(@user)
       end
     end
 
@@ -41,6 +47,11 @@ describe BookmarksController do
       it "assigns all bookmarks as @bookmarks" do
         get :index
         assigns(:bookmarks).should be_empty
+      end
+
+      it "should be redirected to new_user_session_url "do
+        get :index
+        response.should redirect_to new_user_session_url
       end
     end
   end

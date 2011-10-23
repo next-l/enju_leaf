@@ -19,16 +19,6 @@ class CheckinsControllerTest < ActionController::TestCase
     #assert_response :success
   end
 
-  def test_system_should_show_notice_when_other_library_item
-    sign_in users(:librarian2)
-    assert_difference('Checkin.count') do
-      post :create, :checkin => {:item_identifier => '00009'}, :basket_id => 9
-    end
-    assert flash[:message].to_s.index(I18n.t('checkin.other_library_item'))
-    
-    assert_redirected_to user_basket_checkins_url(assigns(:basket).user.username, assigns(:basket))
-  end
-
   def test_everyone_should_not_show_missing_checkin
     sign_in users(:admin)
     get :show, :id => 100

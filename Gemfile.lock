@@ -86,6 +86,13 @@ GIT
       rails (~> 3.1.1)
 
 GIT
+  remote: git://github.com/nabeta/enju_search_log.git
+  revision: e631f02ebc0584dbe2072ea4e7e8f1485868cba5
+  specs:
+    enju_search_log (0.0.1)
+      rails (~> 3.1.1)
+
+GIT
   remote: git://github.com/nabeta/enju_subject.git
   revision: 598b223496d75e954b98e3e23bd93fab284d4efa
   specs:
@@ -491,6 +498,7 @@ DEPENDENCIES
   enju_purchase_request!
   enju_question!
   enju_resource_merge!
+  enju_search_log!
   enju_subject!
   exception_notification (~> 2.5.2)
   extractcontent

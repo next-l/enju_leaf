@@ -20,6 +20,7 @@ gem 'enju_inter_library_loan', :git => 'git://github.com/nabeta/enju_inter_libra
 gem 'enju_inventory', :git => 'git://github.com/nabeta/enju_inventory.git'
 gem 'enju_event', :git => 'git://github.com/nabeta/enju_event.git'
 #gem 'enju_news', :git => 'git://github.com/nabeta/enju_news.git'
+gem 'enju_search_log', :git => 'git://github.com/nabeta/enju_search_log.git'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'

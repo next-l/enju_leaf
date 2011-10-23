@@ -69,7 +69,6 @@ class Ability
         Realize,
         ResourceImportFile,
         SearchEngine,
-        SearchHistory,
         SeriesStatement,
         SeriesHasManifestation,
         Subscribe,
@@ -133,10 +132,6 @@ class Ability
       end
       can [:update, :destroy], Patron do |patron|
         !patron.user.try(:has_role?, 'Librarian') and patron.required_role_id <= 3
-      end
-      can :index, SearchHistory
-      can [:show, :destroy], SearchHistory do |search_history|
-        search_history.user == user
       end
       can [:read, :create, :update], User
       can :destroy, User do |u|
@@ -217,10 +212,6 @@ class Ability
         rescue NoMethodError
           true
         end
-      end
-      can :index, SearchHistory
-      can [:show, :destroy], SearchHistory do |search_history|
-        search_history.user == user
       end
       can :show, User
       can :update, User do |u|
@@ -658,6 +649,23 @@ class Ability
         can :read, [NewsFeed, NewsPost]
       else
         can :read, [NewsFeed, NewsPost]
+      end
+    end
+
+    if defined?(EnjuSearchLog)
+      case user.try(:role).try(:name)
+      when 'Administrator'
+        can :manage, SearchHistory
+      when 'Librarian'
+        can :index, SearchHistory
+        can [:show, :destroy], SearchHistory do |search_history|
+          search_history.user == user
+        end
+      when 'User'
+        can :index, SearchHistory
+        can [:show, :destroy], SearchHistory do |search_history|
+          search_history.user == user
+        end
       end
     end
   end

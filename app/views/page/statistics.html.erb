@@ -27,11 +27,13 @@
       <td><%= Item.count -%></td>
       <td></td>
     </tr>
-    <tr>
-      <td><%= link_to t('activerecord.models.search_history'), search_histories_path -%></td>
-      <td><%= SearchHistory.count -%></td>
-      <td></td>
-    </tr>
+    <% if defined?(EnjuSearchLog) %>
+      <tr>
+        <td><%= link_to t('activerecord.models.search_history'), search_histories_path -%></td>
+        <td><%= SearchHistory.count -%></td>
+        <td></td>
+      </tr>
+    <% end %>
     <% if defined?(EnjuBookmark) %>
       <tr>
         <td><%= link_to t('activerecord.models.bookmark'), bookmarks_path -%></td>
