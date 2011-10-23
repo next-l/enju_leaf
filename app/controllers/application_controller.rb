@@ -358,6 +358,12 @@ class ApplicationController < ActionController::Base
   def prepare_for_mobile
     request.format = :mobile if request.smart_phone?
   end
+
+  def get_top_page_content
+    if defined?(EnjuNews)
+      @news_feeds = NewsFeed.all
+    end
+  end
 end
 
 class InvalidLocaleError < StandardError
