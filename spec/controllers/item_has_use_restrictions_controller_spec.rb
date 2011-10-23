@@ -11,9 +11,7 @@ describe ItemHasUseRestrictionsController do
     end
 
     describe "When logged in as Administrator" do
-      before(:each) do
-        sign_in FactoryGirl.create(:admin)
-      end
+      login_admin
 
       it "assigns all item_has_use_restrictions as @item_has_use_restrictions" do
         get :index
@@ -22,9 +20,7 @@ describe ItemHasUseRestrictionsController do
     end
 
     describe "When logged in as Librarian" do
-      before(:each) do
-        sign_in FactoryGirl.create(:librarian)
-      end
+      login_librarian
 
       it "assigns all item_has_use_restrictions as @item_has_use_restrictions" do
         get :index
@@ -33,9 +29,7 @@ describe ItemHasUseRestrictionsController do
     end
 
     describe "When logged in as Subject" do
-      before(:each) do
-        sign_in FactoryGirl.create(:user)
-      end
+      login_user
 
       it "assigns all item_has_use_restrictions as @item_has_use_restrictions" do
         get :index
@@ -55,9 +49,7 @@ describe ItemHasUseRestrictionsController do
 
   describe "GET show" do
     describe "When logged in as Administrator" do
-      before(:each) do
-        sign_in FactoryGirl.create(:admin)
-      end
+      login_admin
 
       it "assigns the requested item_has_use_restriction as @item_has_use_restriction" do
         item_has_use_restriction = FactoryGirl.create(:item_has_use_restriction)
@@ -67,9 +59,7 @@ describe ItemHasUseRestrictionsController do
     end
 
     describe "When logged in as Librarian" do
-      before(:each) do
-        sign_in FactoryGirl.create(:librarian)
-      end
+      login_librarian
 
       it "assigns the requested item_has_use_restriction as @item_has_use_restriction" do
         item_has_use_restriction = FactoryGirl.create(:item_has_use_restriction)
@@ -79,9 +69,7 @@ describe ItemHasUseRestrictionsController do
     end
 
     describe "When logged in as Subject" do
-      before(:each) do
-        sign_in FactoryGirl.create(:user)
-      end
+      login_user
 
       it "assigns the requested item_has_use_restriction as @item_has_use_restriction" do
         item_has_use_restriction = FactoryGirl.create(:item_has_use_restriction)
@@ -101,9 +89,7 @@ describe ItemHasUseRestrictionsController do
 
   describe "GET new" do
     describe "When logged in as Administrator" do
-      before(:each) do
-        sign_in FactoryGirl.create(:admin)
-      end
+      login_admin
 
       it "assigns the requested item_has_use_restriction as @item_has_use_restriction" do
         get :new
@@ -113,9 +99,7 @@ describe ItemHasUseRestrictionsController do
     end
 
     describe "When logged in as Librarian" do
-      before(:each) do
-        sign_in FactoryGirl.create(:librarian)
-      end
+      login_librarian
 
       it "should not assign the requested item_has_use_restriction as @item_has_use_restriction" do
         get :new
@@ -125,9 +109,7 @@ describe ItemHasUseRestrictionsController do
     end
 
     describe "When logged in as Subject" do
-      before(:each) do
-        sign_in FactoryGirl.create(:user)
-      end
+      login_user
 
       it "should not assign the requested item_has_use_restriction as @item_has_use_restriction" do
         get :new
@@ -147,9 +129,7 @@ describe ItemHasUseRestrictionsController do
 
   describe "GET edit" do
     describe "When logged in as Administrator" do
-      before(:each) do
-        sign_in FactoryGirl.create(:admin)
-      end
+      login_admin
 
       it "assigns the requested item_has_use_restriction as @item_has_use_restriction" do
         item_has_use_restriction = FactoryGirl.create(:item_has_use_restriction)
@@ -159,9 +139,7 @@ describe ItemHasUseRestrictionsController do
     end
 
     describe "When logged in as Librarian" do
-      before(:each) do
-        sign_in FactoryGirl.create(:librarian)
-      end
+      login_librarian
 
       it "assigns the requested item_has_use_restriction as @item_has_use_restriction" do
         item_has_use_restriction = FactoryGirl.create(:item_has_use_restriction)
@@ -171,9 +149,7 @@ describe ItemHasUseRestrictionsController do
     end
 
     describe "When logged in as Subject" do
-      before(:each) do
-        sign_in FactoryGirl.create(:user)
-      end
+      login_user
 
       it "assigns the requested item_has_use_restriction as @item_has_use_restriction" do
         item_has_use_restriction = FactoryGirl.create(:item_has_use_restriction)
@@ -198,9 +174,7 @@ describe ItemHasUseRestrictionsController do
     end
 
     describe "When logged in as Administrator" do
-      before(:each) do
-        sign_in FactoryGirl.create(:admin)
-      end
+      login_admin
 
       describe "with valid params" do
         it "assigns a newly created item_has_use_restriction as @item_has_use_restriction" do
@@ -228,9 +202,7 @@ describe ItemHasUseRestrictionsController do
     end
 
     describe "When logged in as Librarian" do
-      before(:each) do
-        sign_in FactoryGirl.create(:librarian)
-      end
+      login_librarian
 
       describe "with valid params" do
         it "assigns a newly created item_has_use_restriction as @item_has_use_restriction" do
@@ -258,9 +230,7 @@ describe ItemHasUseRestrictionsController do
     end
 
     describe "When logged in as Subject" do
-      before(:each) do
-        sign_in FactoryGirl.create(:user)
-      end
+      login_user
 
       describe "with valid params" do
         it "assigns a newly created item_has_use_restriction as @item_has_use_restriction" do
@@ -322,9 +292,7 @@ describe ItemHasUseRestrictionsController do
     end
 
     describe "When logged in as Administrator" do
-      before(:each) do
-        sign_in FactoryGirl.create(:admin)
-      end
+      login_admin
 
       describe "with valid params" do
         it "updates the requested item_has_use_restriction" do
@@ -347,9 +315,7 @@ describe ItemHasUseRestrictionsController do
     end
 
     describe "When logged in as Librarian" do
-      before(:each) do
-        sign_in FactoryGirl.create(:librarian)
-      end
+      login_librarian
 
       describe "with valid params" do
         it "assigns the requested item_has_use_restriction as @item_has_use_restriction" do
@@ -376,9 +342,7 @@ describe ItemHasUseRestrictionsController do
     end
 
     describe "When logged in as Subject" do
-      before(:each) do
-        sign_in FactoryGirl.create(:user)
-      end
+      login_user
 
       describe "with valid params" do
         it "updates the requested item_has_use_restriction" do
@@ -427,9 +391,7 @@ describe ItemHasUseRestrictionsController do
     end
 
     describe "When logged in as Administrator" do
-      before(:each) do
-        sign_in FactoryGirl.create(:admin)
-      end
+      login_admin
 
       it "destroys the requested item_has_use_restriction" do
         delete :destroy, :id => @item_has_use_restriction.id
@@ -442,9 +404,7 @@ describe ItemHasUseRestrictionsController do
     end
 
     describe "When logged in as Librarian" do
-      before(:each) do
-        sign_in FactoryGirl.create(:librarian)
-      end
+      login_librarian
 
       it "destroys the requested item_has_use_restriction" do
         delete :destroy, :id => @item_has_use_restriction.id
@@ -457,9 +417,7 @@ describe ItemHasUseRestrictionsController do
     end
 
     describe "When logged in as Subject" do
-      before(:each) do
-        sign_in FactoryGirl.create(:user)
-      end
+      login_user
 
       it "destroys the requested item_has_use_restriction" do
         delete :destroy, :id => @item_has_use_restriction.id

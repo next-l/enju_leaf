@@ -26,6 +26,24 @@ describe ReservesController do
         get :index
         assigns(:reserves).should eq(Reserve.order('reserves.id DESC').includes(:manifestation).page(1))
       end
+
+      it "should get index feed without user_id" do
+        get :index, :format => :rss
+        response.should be_success
+        assigns(:reserves).should eq(Reserve.order('reserves.id DESC').includes(:manifestation).page(1))
+      end
+
+      it "should get other user's index" do
+        get :index, :user_id => users(:user1).username
+        response.should be_success
+        assigns(:reserves).should eq(users(:user1).reserves.order('reserves.id DESC').includes(:manifestation).page(1))
+      end
+
+      it "should get other user's index feed" do
+        get :index, :user_id => users(:user1).username, :format => :rss
+        response.should be_success
+        assigns(:reserves).should eq(users(:user1).reserves.order('reserves.id DESC').includes(:manifestation).page(1))
+      end
     end
 
     describe "When logged in as User" do

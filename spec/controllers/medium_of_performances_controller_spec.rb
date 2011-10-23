@@ -11,9 +11,7 @@ describe MediumOfPerformancesController do
     end
 
     describe "When logged in as Administrator" do
-      before(:each) do
-        sign_in FactoryGirl.create(:admin)
-      end
+      login_admin
 
       it "assigns all medium_of_performances as @medium_of_performances" do
         get :index
@@ -22,9 +20,7 @@ describe MediumOfPerformancesController do
     end
 
     describe "When logged in as Librarian" do
-      before(:each) do
-        sign_in FactoryGirl.create(:librarian)
-      end
+      login_librarian
 
       it "assigns all medium_of_performances as @medium_of_performances" do
         get :index
@@ -33,9 +29,7 @@ describe MediumOfPerformancesController do
     end
 
     describe "When logged in as User" do
-      before(:each) do
-        sign_in FactoryGirl.create(:user)
-      end
+      login_user
 
       it "assigns all medium_of_performances as @medium_of_performances" do
         get :index
@@ -53,9 +47,7 @@ describe MediumOfPerformancesController do
 
   describe "GET show" do
     describe "When logged in as Administrator" do
-      before(:each) do
-        sign_in FactoryGirl.create(:admin)
-      end
+      login_admin
 
       it "assigns the requested medium_of_performance as @medium_of_performance" do
         medium_of_performance = FactoryGirl.create(:medium_of_performance)
@@ -65,9 +57,7 @@ describe MediumOfPerformancesController do
     end
 
     describe "When logged in as Librarian" do
-      before(:each) do
-        sign_in FactoryGirl.create(:librarian)
-      end
+      login_librarian
 
       it "assigns the requested medium_of_performance as @medium_of_performance" do
         medium_of_performance = FactoryGirl.create(:medium_of_performance)
@@ -77,9 +67,7 @@ describe MediumOfPerformancesController do
     end
 
     describe "When logged in as User" do
-      before(:each) do
-        sign_in FactoryGirl.create(:user)
-      end
+      login_user
 
       it "assigns the requested medium_of_performance as @medium_of_performance" do
         medium_of_performance = FactoryGirl.create(:medium_of_performance)
@@ -99,9 +87,7 @@ describe MediumOfPerformancesController do
 
   describe "GET new" do
     describe "When logged in as Administrator" do
-      before(:each) do
-        sign_in FactoryGirl.create(:admin)
-      end
+      login_admin
 
       it "assigns the requested medium_of_performance as @medium_of_performance" do
         get :new
@@ -111,9 +97,7 @@ describe MediumOfPerformancesController do
     end
 
     describe "When logged in as Librarian" do
-      before(:each) do
-        sign_in FactoryGirl.create(:librarian)
-      end
+      login_librarian
 
       it "should not assign the requested medium_of_performance as @medium_of_performance" do
         get :new
@@ -123,9 +107,7 @@ describe MediumOfPerformancesController do
     end
 
     describe "When logged in as User" do
-      before(:each) do
-        sign_in FactoryGirl.create(:user)
-      end
+      login_user
 
       it "should not assign the requested medium_of_performance as @medium_of_performance" do
         get :new
@@ -145,9 +127,7 @@ describe MediumOfPerformancesController do
 
   describe "GET edit" do
     describe "When logged in as Administrator" do
-      before(:each) do
-        sign_in FactoryGirl.create(:admin)
-      end
+      login_admin
 
       it "assigns the requested medium_of_performance as @medium_of_performance" do
         medium_of_performance = FactoryGirl.create(:medium_of_performance)
@@ -157,9 +137,7 @@ describe MediumOfPerformancesController do
     end
 
     describe "When logged in as Librarian" do
-      before(:each) do
-        sign_in FactoryGirl.create(:librarian)
-      end
+      login_librarian
 
       it "assigns the requested medium_of_performance as @medium_of_performance" do
         medium_of_performance = FactoryGirl.create(:medium_of_performance)
@@ -169,9 +147,7 @@ describe MediumOfPerformancesController do
     end
 
     describe "When logged in as User" do
-      before(:each) do
-        sign_in FactoryGirl.create(:user)
-      end
+      login_user
 
       it "assigns the requested medium_of_performance as @medium_of_performance" do
         medium_of_performance = FactoryGirl.create(:medium_of_performance)
@@ -196,9 +172,7 @@ describe MediumOfPerformancesController do
     end
 
     describe "When logged in as Administrator" do
-      before(:each) do
-        sign_in FactoryGirl.create(:admin)
-      end
+      login_admin
 
       describe "with valid params" do
         it "assigns a newly created medium_of_performance as @medium_of_performance" do
@@ -226,9 +200,7 @@ describe MediumOfPerformancesController do
     end
 
     describe "When logged in as Librarian" do
-      before(:each) do
-        sign_in FactoryGirl.create(:librarian)
-      end
+      login_librarian
 
       describe "with valid params" do
         it "assigns a newly created medium_of_performance as @medium_of_performance" do
@@ -256,9 +228,7 @@ describe MediumOfPerformancesController do
     end
 
     describe "When logged in as User" do
-      before(:each) do
-        sign_in FactoryGirl.create(:user)
-      end
+      login_user
 
       describe "with valid params" do
         it "assigns a newly created medium_of_performance as @medium_of_performance" do
@@ -320,9 +290,7 @@ describe MediumOfPerformancesController do
     end
 
     describe "When logged in as Administrator" do
-      before(:each) do
-        sign_in FactoryGirl.create(:admin)
-      end
+      login_admin
 
       describe "with valid params" do
         it "updates the requested medium_of_performance" do
@@ -349,9 +317,7 @@ describe MediumOfPerformancesController do
     end
 
     describe "When logged in as Librarian" do
-      before(:each) do
-        sign_in FactoryGirl.create(:librarian)
-      end
+      login_librarian
 
       describe "with valid params" do
         it "updates the requested medium_of_performance" do
@@ -374,9 +340,7 @@ describe MediumOfPerformancesController do
     end
 
     describe "When logged in as User" do
-      before(:each) do
-        sign_in FactoryGirl.create(:user)
-      end
+      login_user
 
       describe "with valid params" do
         it "updates the requested medium_of_performance" do
@@ -425,9 +389,7 @@ describe MediumOfPerformancesController do
     end
 
     describe "When logged in as Administrator" do
-      before(:each) do
-        sign_in FactoryGirl.create(:admin)
-      end
+      login_admin
 
       it "destroys the requested medium_of_performance" do
         delete :destroy, :id => @medium_of_performance.id
@@ -440,9 +402,7 @@ describe MediumOfPerformancesController do
     end
 
     describe "When logged in as Librarian" do
-      before(:each) do
-        sign_in FactoryGirl.create(:librarian)
-      end
+      login_librarian
 
       it "destroys the requested medium_of_performance" do
         delete :destroy, :id => @medium_of_performance.id
@@ -455,9 +415,7 @@ describe MediumOfPerformancesController do
     end
 
     describe "When logged in as User" do
-      before(:each) do
-        sign_in FactoryGirl.create(:user)
-      end
+      login_user
 
       it "destroys the requested medium_of_performance" do
         delete :destroy, :id => @medium_of_performance.id

@@ -5,9 +5,7 @@ describe PurchaseRequestsController do
 
   describe "GET index", :solr => true do
     describe "When logged in as Administrator" do
-      before(:each) do
-        sign_in FactoryGirl.create(:admin)
-      end
+      login_admin
 
       it "assigns all purchase_requests as @purchase_requests" do
         get :index
@@ -16,9 +14,7 @@ describe PurchaseRequestsController do
     end
 
     describe "When logged in as Librarian" do
-      before(:each) do
-        sign_in FactoryGirl.create(:librarian)
-      end
+      login_librarian
 
       it "assigns all purchase_requests as @purchase_requests" do
         get :index
@@ -27,9 +23,7 @@ describe PurchaseRequestsController do
     end
 
     describe "When logged in as User" do
-      before(:each) do
-        sign_in FactoryGirl.create(:user)
-      end
+      login_user
 
       it "assigns all purchase_requests as @purchase_requests" do
         get :index
@@ -48,9 +42,7 @@ describe PurchaseRequestsController do
 
   describe "GET show" do
     describe "When logged in as Administrator" do
-      before(:each) do
-        sign_in FactoryGirl.create(:admin)
-      end
+      login_admin
 
       it "assigns the requested purchase_request as @purchase_request" do
         purchase_request = FactoryGirl.create(:purchase_request)
@@ -60,9 +52,7 @@ describe PurchaseRequestsController do
     end
 
     describe "When logged in as Librarian" do
-      before(:each) do
-        sign_in FactoryGirl.create(:librarian)
-      end
+      login_librarian
 
       it "assigns the requested purchase_request as @purchase_request" do
         purchase_request = FactoryGirl.create(:purchase_request)
@@ -72,9 +62,7 @@ describe PurchaseRequestsController do
     end
 
     describe "When logged in as User" do
-      before(:each) do
-        sign_in FactoryGirl.create(:user)
-      end
+      login_user
 
       it "assigns the requested purchase_request as @purchase_request" do
         purchase_request = FactoryGirl.create(:purchase_request)
@@ -94,9 +82,7 @@ describe PurchaseRequestsController do
 
   describe "GET new" do
     describe "When logged in as Administrator" do
-      before(:each) do
-        sign_in FactoryGirl.create(:admin)
-      end
+      login_admin
 
       it "assigns the requested purchase_request as @purchase_request" do
         get :new
@@ -105,9 +91,7 @@ describe PurchaseRequestsController do
     end
 
     describe "When logged in as Librarian" do
-      before(:each) do
-        sign_in FactoryGirl.create(:librarian)
-      end
+      login_librarian
 
       it "should not assign the requested purchase_request as @purchase_request" do
         get :new
@@ -116,9 +100,7 @@ describe PurchaseRequestsController do
     end
 
     describe "When logged in as User" do
-      before(:each) do
-        sign_in FactoryGirl.create(:user)
-      end
+      login_user
 
       it "should not assign the requested purchase_request as @purchase_request" do
         get :new
@@ -257,9 +239,7 @@ describe PurchaseRequestsController do
     end
 
     describe "When logged in as Administrator" do
-      before(:each) do
-        sign_in FactoryGirl.create(:admin)
-      end
+      login_admin
 
       it "destroys the requested purchase_request" do
         delete :destroy, :id => @purchase_request.id
@@ -272,9 +252,7 @@ describe PurchaseRequestsController do
     end
 
     describe "When logged in as Librarian" do
-      before(:each) do
-        sign_in FactoryGirl.create(:librarian)
-      end
+      login_librarian
 
       it "destroys the requested purchase_request" do
         delete :destroy, :id => @purchase_request.id
@@ -287,9 +265,7 @@ describe PurchaseRequestsController do
     end
 
     describe "When logged in as User" do
-      before(:each) do
-        sign_in FactoryGirl.create(:user)
-      end
+      login_user
 
       it "destroys the requested purchase_request" do
         delete :destroy, :id => @purchase_request.id

@@ -7,9 +7,7 @@ describe DonatesController do
 
   describe "GET index" do
     describe "When logged in as Administrator" do
-      before(:each) do
-        sign_in FactoryGirl.create(:admin)
-      end
+      login_admin
 
       it "assigns all donates as @donates" do
         get :index
@@ -18,9 +16,7 @@ describe DonatesController do
     end
 
     describe "When logged in as Librarian" do
-      before(:each) do
-        sign_in FactoryGirl.create(:librarian)
-      end
+      login_librarian
 
       it "assigns all donates as @donates" do
         get :index
@@ -29,9 +25,7 @@ describe DonatesController do
     end
 
     describe "When logged in as User" do
-      before(:each) do
-        sign_in FactoryGirl.create(:user)
-      end
+      login_user
 
       it "assigns all donates as @donates" do
         get :index
@@ -49,9 +43,7 @@ describe DonatesController do
 
   describe "GET show" do
     describe "When logged in as Administrator" do
-      before(:each) do
-        sign_in FactoryGirl.create(:admin)
-      end
+      login_admin
 
       it "assigns the requested donate as @donate" do
         donate = FactoryGirl.create(:donate)
@@ -61,9 +53,7 @@ describe DonatesController do
     end
 
     describe "When logged in as Librarian" do
-      before(:each) do
-        sign_in FactoryGirl.create(:librarian)
-      end
+      login_librarian
 
       it "assigns the requested donate as @donate" do
         donate = FactoryGirl.create(:donate)
@@ -73,9 +63,7 @@ describe DonatesController do
     end
 
     describe "When logged in as User" do
-      before(:each) do
-        sign_in FactoryGirl.create(:user)
-      end
+      login_user
 
       it "assigns the requested donate as @donate" do
         donate = FactoryGirl.create(:donate)
@@ -95,9 +83,7 @@ describe DonatesController do
 
   describe "GET new" do
     describe "When logged in as Administrator" do
-      before(:each) do
-        sign_in FactoryGirl.create(:admin)
-      end
+       ogin_admin
 
       it "assigns the requested donate as @donate" do
         get :new
@@ -106,9 +92,7 @@ describe DonatesController do
     end
 
     describe "When logged in as Librarian" do
-      before(:each) do
-        sign_in FactoryGirl.create(:librarian)
-      end
+      login_librarian
 
       it "assigns the requested donate as @donate" do
         get :new
@@ -117,9 +101,7 @@ describe DonatesController do
     end
 
     describe "When logged in as User" do
-      before(:each) do
-        sign_in FactoryGirl.create(:user)
-      end
+      login_user
 
       it "should not assign the requested donate as @donate" do
         get :new
@@ -139,9 +121,7 @@ describe DonatesController do
 
   describe "GET edit" do
     describe "When logged in as Administrator" do
-      before(:each) do
-        sign_in FactoryGirl.create(:admin)
-      end
+      login_admin
 
       it "assigns the requested donate as @donate" do
         donate = FactoryGirl.create(:donate)
@@ -151,9 +131,7 @@ describe DonatesController do
     end
 
     describe "When logged in as Librarian" do
-      before(:each) do
-        sign_in FactoryGirl.create(:librarian)
-      end
+      login_librarian
 
       it "assigns the requested donate as @donate" do
         donate = FactoryGirl.create(:donate)
@@ -163,9 +141,7 @@ describe DonatesController do
     end
 
     describe "When logged in as User" do
-      before(:each) do
-        sign_in FactoryGirl.create(:user)
-      end
+      login_user
 
       it "assigns the requested donate as @donate" do
         donate = FactoryGirl.create(:donate)
@@ -190,9 +166,7 @@ describe DonatesController do
     end
 
     describe "When logged in as Administrator" do
-      before(:each) do
-        sign_in FactoryGirl.create(:admin)
-      end
+      login_admin
 
       describe "with valid params" do
         it "assigns a newly created donate as @donate" do
@@ -220,9 +194,7 @@ describe DonatesController do
     end
 
     describe "When logged in as Librarian" do
-      before(:each) do
-        sign_in FactoryGirl.create(:librarian)
-      end
+      login_librarian
 
       describe "with valid params" do
         it "assigns a newly created donate as @donate" do
@@ -250,9 +222,7 @@ describe DonatesController do
     end
 
     describe "When logged in as User" do
-      before(:each) do
-        sign_in FactoryGirl.create(:user)
-      end
+      login_user
 
       describe "with valid params" do
         it "assigns a newly created donate as @donate" do
@@ -314,9 +284,7 @@ describe DonatesController do
     end
 
     describe "When logged in as Administrator" do
-      before(:each) do
-        sign_in FactoryGirl.create(:admin)
-      end
+      login_admin
 
       describe "with valid params" do
         it "updates the requested donate" do
@@ -338,9 +306,7 @@ describe DonatesController do
     end
 
     describe "When logged in as Librarian" do
-      before(:each) do
-        sign_in FactoryGirl.create(:librarian)
-      end
+      login_librarian
 
       describe "with valid params" do
         it "updates the requested donate" do
@@ -368,9 +334,7 @@ describe DonatesController do
     end
 
     describe "When logged in as User" do
-      before(:each) do
-        sign_in FactoryGirl.create(:user)
-      end
+      login_user
 
       describe "with valid params" do
         it "updates the requested donate" do
@@ -419,9 +383,7 @@ describe DonatesController do
     end
 
     describe "When logged in as Administrator" do
-      before(:each) do
-        sign_in FactoryGirl.create(:admin)
-      end
+      login_admin
 
       it "destroys the requested donate" do
         delete :destroy, :id => @donate.id
@@ -434,9 +396,7 @@ describe DonatesController do
     end
 
     describe "When logged in as Librarian" do
-      before(:each) do
-        sign_in FactoryGirl.create(:librarian)
-      end
+      login_librarian
 
       it "destroys the requested donate" do
         delete :destroy, :id => @donate.id
@@ -449,9 +409,7 @@ describe DonatesController do
     end
 
     describe "When logged in as User" do
-      before(:each) do
-        sign_in FactoryGirl.create(:user)
-      end
+      login_user
 
       it "destroys the requested donate" do
         delete :destroy, :id => @donate.id

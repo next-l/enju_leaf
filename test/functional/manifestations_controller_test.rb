@@ -82,33 +82,6 @@ class ManifestationsControllerTest < ActionController::TestCase
   #  assert assigns(:manifestations)
   #end
 
-  def test_guest_should_get_index_all_facet
-    get :index, :query => '2005', :view => 'all_facet'
-    assert_response :success
-    assert assigns(:carrier_type_facet)
-    assert assigns(:language_facet)
-    assert assigns(:library_facet)
-    #assert assigns(:subject_facet)
-  end
-
-  def test_guest_should_get_index_carrier_type_facet
-    get :index, :query => '2005', :view => 'carrier_type_facet'
-    assert_response :success
-    assert assigns(:carrier_type_facet)
-  end
-
-  def test_guest_should_get_index_language_facet
-    get :index, :query => '2005', :view => 'language_facet'
-    assert_response :success
-    assert assigns(:language_facet)
-  end
-
-  def test_guest_should_get_index_library_facet
-    get :index, :query => '2005', :view => 'library_facet'
-    assert_response :success
-    assert assigns(:library_facet)
-  end
-
   #def test_guest_should_get_index_subject_facet
   #  get :index, :query => '2005', :view => 'subject_facet'
   #  assert_response :success
@@ -121,37 +94,6 @@ class ManifestationsControllerTest < ActionController::TestCase
     assert_template :partial => '_tag_cloud'
   end
 
-  #def test_user_should_save_search_history_when_allowed
-  #  old_search_history_count = SearchHistory.count
-  #  sign_in users(:admin)
-  #  get :index, :query => '2005'
-  #  assert_response :success
-  #  assert assigns(:manifestations)
-  #  assert_equal old_search_history_count + 1, SearchHistory.count
-  #end
-
-  #def test_user_should_not_save_search_history_when_not_allowed
-  #  old_search_history_count = SearchHistory.count
-  #  sign_in users(:user1)
-  #  get :index
-  #  assert_response :success
-  #  assert assigns(:manifestations)
-  #  assert_equal old_search_history_count, SearchHistory.count
-  #end
-
-  #def test_user_should_not_get_new
-  #  sign_in users(:user1)
-  #  get :new
-  #  assert_response :forbidden
-  #end
-  
-  #def test_librarian_should_not_get_new_without_expression_id
-  #  sign_in users(:librarian1)
-  #  get :new
-  #  assert_response :redirect
-  #  assert_redirected_to expressions_url
-  #end
-  
   def test_librarian_should_get_new_without_expression_id
     sign_in users(:librarian1)
     get :new
@@ -176,23 +118,6 @@ class ManifestationsControllerTest < ActionController::TestCase
     assert_response :success
   end
   
-  def test_guest_should_not_create_manifestation
-    assert_no_difference('Manifestation.count') do
-      post :create, :manifestation => { :original_title => 'test', :carrier_type_id => 1 }
-    end
-    
-    assert_redirected_to new_user_session_url
-  end
-
-  #def test_user_should_not_create_manifestation
-  #  sign_in users(:user1)
-  #  assert_no_difference('Manifestation.count') do
-  #    post :create, :manifestation => { :original_title => 'test', :carrier_type_id => 1 }
-  #  end
-  #  
-  #  assert_response :forbidden
-  #end
-
   def test_user_should_not_create_manifestation
     sign_in users(:user1)
     assert_no_difference('Manifestation.count') do
@@ -201,17 +126,6 @@ class ManifestationsControllerTest < ActionController::TestCase
     
     assert_response :forbidden
   end
-
-  #def test_librarian_should_not_create_manifestation_without_expression
-  #  sign_in users(:librarian1)
-  #  assert_no_difference('Manifestation.count') do
-  #   post :create, :manifestation => { :original_title => 'test', :carrier_type_id => 1, :language_id => 1 }
-  #  end
-  #  
-  #  assert_response :redirect
-  #  assert_redirected_to expressions_url
-  #  assert_equal 'Specify the expression.', flash[:notice]
-  #end
 
   def test_librarian_should_create_manifestation_without_expression
     sign_in users(:librarian1)

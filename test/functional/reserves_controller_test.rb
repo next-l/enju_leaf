@@ -25,27 +25,6 @@ class ReservesControllerTest < ActionController::TestCase
     assert_response :forbidden
   end
 
-  def test_librarian_should_get_index_feed_without_user_id
-    sign_in users(:librarian1)
-    get :index, :format => 'rss'
-    assert_response :success
-    assert assigns(:reserves)
-  end
-
-  def test_librarian_should_get_other_index
-    sign_in users(:librarian1)
-    get :index, :user_id => users(:user1).username
-    assert_response :success
-    assert assigns(:reserves)
-  end
-
-  def test_librarian_should_get_other_index_feed
-    sign_in users(:librarian1)
-    get :index, :user_id => users(:user1).username, :format => 'rss'
-    assert_response :success
-    assert assigns(:reserves)
-  end
-
   def test_admin_should_get_other_index
     sign_in users(:admin)
     get :index, :user_id => users(:user1).username

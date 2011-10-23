@@ -10,9 +10,7 @@ describe LanguagesController do
     end
 
     describe "When logged in as Administrator" do
-      before(:each) do
-        sign_in FactoryGirl.create(:admin)
-      end
+      login_admin
 
       it "assigns all languages as @languages" do
         get :index
@@ -21,9 +19,7 @@ describe LanguagesController do
     end
 
     describe "When logged in as Librarian" do
-      before(:each) do
-        sign_in FactoryGirl.create(:librarian)
-      end
+      login_librarian
 
       it "assigns all languages as @languages" do
         get :index
@@ -32,9 +28,7 @@ describe LanguagesController do
     end
 
     describe "When logged in as User" do
-      before(:each) do
-        sign_in FactoryGirl.create(:user)
-      end
+      login_user
 
       it "assigns all languages as @languages" do
         get :index
@@ -52,9 +46,7 @@ describe LanguagesController do
 
   describe "GET show" do
     describe "When logged in as Administrator" do
-      before(:each) do
-        sign_in FactoryGirl.create(:admin)
-      end
+      login_admin
 
       it "assigns the requested language as @language" do
         language = FactoryGirl.create(:language)
@@ -74,9 +66,7 @@ describe LanguagesController do
 
   describe "GET new" do
     describe "When logged in as Administrator" do
-      before(:each) do
-        sign_in FactoryGirl.create(:admin)
-      end
+      login_admin
 
       it "assigns the requested language as @language" do
         get :new
@@ -95,9 +85,7 @@ describe LanguagesController do
 
   describe "GET edit" do
     describe "When logged in as Administrator" do
-      before(:each) do
-        sign_in FactoryGirl.create(:admin)
-      end
+      login_admin
 
       it "assigns the requested language as @language" do
         language = FactoryGirl.create(:language)
@@ -122,9 +110,7 @@ describe LanguagesController do
     end
 
     describe "When logged in as Administrator" do
-      before(:each) do
-        sign_in FactoryGirl.create(:admin)
-      end
+      login_admin
 
       describe "with valid params" do
         it "assigns a newly created language as @language" do
@@ -152,9 +138,7 @@ describe LanguagesController do
     end
 
     describe "When logged in as Librarian" do
-      before(:each) do
-        sign_in FactoryGirl.create(:librarian)
-      end
+      login_librarian
 
       describe "with valid params" do
         it "assigns a newly created language as @language" do
@@ -182,9 +166,7 @@ describe LanguagesController do
     end
 
     describe "When logged in as User" do
-      before(:each) do
-        sign_in FactoryGirl.create(:user)
-      end
+      login_user
 
       describe "with valid params" do
         it "assigns a newly created language as @language" do
@@ -246,9 +228,7 @@ describe LanguagesController do
     end
 
     describe "When logged in as Administrator" do
-      before(:each) do
-        sign_in FactoryGirl.create(:admin)
-      end
+      login_admin
 
       describe "with valid params" do
         it "updates the requested language" do
@@ -301,9 +281,7 @@ describe LanguagesController do
     end
 
     describe "When logged in as Administrator" do
-      before(:each) do
-        sign_in FactoryGirl.create(:admin)
-      end
+      login_admin
 
       it "destroys the requested language" do
         delete :destroy, :id => @language.id
