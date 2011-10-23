@@ -5,9 +5,7 @@ describe BasketsController do
 
   describe "GET index" do
     describe "When logged in as Administrator" do
-      before(:each) do
-        sign_in FactoryGirl.create(:admin)
-      end
+      login_admin
 
       it "assigns all baskets as @baskets" do
         get :index, :user_id => users(:user1).username
@@ -22,9 +20,7 @@ describe BasketsController do
     end
 
     describe "When logged in as Librarian" do
-      before(:each) do
-        sign_in FactoryGirl.create(:librarian)
-      end
+      login_librarian
 
       it "assigns all baskets as @baskets" do
         get :index, :user_id => users(:user1).username
@@ -34,9 +30,7 @@ describe BasketsController do
     end
 
     describe "When logged in as User" do
-      before(:each) do
-        sign_in FactoryGirl.create(:user)
-      end
+      login_user
 
       it "assigns all baskets as @baskets" do
         get :index, :user_id => users(:user1).username
@@ -56,9 +50,7 @@ describe BasketsController do
 
   describe "GET show" do
     describe "When logged in as Administrator" do
-      before(:each) do
-        sign_in FactoryGirl.create(:admin)
-      end
+      login_admin
 
       it "assigns the requested basket as @basket" do
         get :show, :id => 1, :user_id => users(:admin).username
@@ -67,9 +59,7 @@ describe BasketsController do
     end
 
     describe "When logged in as Librarian" do
-      before(:each) do
-        sign_in FactoryGirl.create(:librarian)
-      end
+      login_librarian
 
       it "assigns the requested basket as @basket" do
         get :show, :id => 1, :user_id => users(:admin).username
@@ -78,9 +68,7 @@ describe BasketsController do
     end
 
     describe "When logged in as User" do
-      before(:each) do
-        sign_in FactoryGirl.create(:user)
-      end
+      login_user
 
       it "assigns the requested basket as @basket" do
         get :show, :id => 1, :user_id => users(:admin).username
@@ -100,9 +88,7 @@ describe BasketsController do
 
   describe "GET new" do
     describe "When logged in as Administrator" do
-      before(:each) do
-        sign_in FactoryGirl.create(:admin)
-      end
+      login_admin
 
       it "assigns the requested basket as @basket" do
         get :new
@@ -111,9 +97,7 @@ describe BasketsController do
     end
 
     describe "When logged in as Librarian" do
-      before(:each) do
-        sign_in FactoryGirl.create(:librarian)
-      end
+      login_librarian
 
       it "assigns the requested basket as @basket" do
         get :new
@@ -122,9 +106,7 @@ describe BasketsController do
     end
 
     describe "When logged in as User" do
-      before(:each) do
-        sign_in FactoryGirl.create(:user)
-      end
+      login_user
 
       it "should not assign the requested basket as @basket" do
         get :new
@@ -144,8 +126,8 @@ describe BasketsController do
 
   describe "GET edit" do
     describe "When logged in as Administrator" do
+      login_admin
       before(:each) do
-        sign_in FactoryGirl.create(:admin)
         @basket = baskets(:basket_00001)
       end
 
@@ -156,8 +138,8 @@ describe BasketsController do
     end
 
     describe "When logged in as Librarian" do
+      login_librarian
       before(:each) do
-        sign_in FactoryGirl.create(:librarian)
         @basket = baskets(:basket_00001)
       end
 
@@ -168,8 +150,8 @@ describe BasketsController do
     end
 
     describe "When logged in as User" do
+      login_user
       before(:each) do
-        sign_in FactoryGirl.create(:user)
         @basket = baskets(:basket_00001)
       end
 
@@ -200,9 +182,7 @@ describe BasketsController do
     end
 
     describe "When logged in as Administrator" do
-      before(:each) do
-        sign_in FactoryGirl.create(:admin)
-      end
+      login_admin
 
       describe "with valid params" do
         it "assigns a newly created basket as @basket" do
@@ -227,9 +207,7 @@ describe BasketsController do
     end
 
     describe "When logged in as Librarian" do
-      before(:each) do
-        sign_in FactoryGirl.create(:librarian)
-      end
+      login_librarian
 
       describe "with valid params" do
         it "assigns a newly created basket as @basket" do
@@ -268,9 +246,7 @@ describe BasketsController do
     end
 
     describe "When logged in as User" do
-      before(:each) do
-        sign_in FactoryGirl.create(:user)
-      end
+      login_user
 
       describe "with valid params" do
         it "assigns a newly created basket as @basket" do
@@ -308,9 +284,7 @@ describe BasketsController do
     end
 
     describe "When logged in as Librarian" do
-      before(:each) do
-        sign_in FactoryGirl.create(:librarian)
-      end
+      login_librarian
 
       describe "with valid params" do
         it "updates the requested basket" do

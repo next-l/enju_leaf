@@ -11,9 +11,7 @@ describe FormOfWorksController do
     end
 
     describe "When logged in as Administrator" do
-      before(:each) do
-        sign_in FactoryGirl.create(:admin)
-      end
+      login_admin
 
       it "assigns all form_of_works as @form_of_works" do
         get :index
@@ -22,9 +20,7 @@ describe FormOfWorksController do
     end
 
     describe "When logged in as Librarian" do
-      before(:each) do
-        sign_in FactoryGirl.create(:librarian)
-      end
+      login_librarian
 
       it "assigns all form_of_works as @form_of_works" do
         get :index
@@ -33,9 +29,7 @@ describe FormOfWorksController do
     end
 
     describe "When logged in as User" do
-      before(:each) do
-        sign_in FactoryGirl.create(:user)
-      end
+      login_user
 
       it "assigns all form_of_works as @form_of_works" do
         get :index
@@ -53,9 +47,7 @@ describe FormOfWorksController do
 
   describe "GET show" do
     describe "When logged in as Administrator" do
-      before(:each) do
-        sign_in FactoryGirl.create(:admin)
-      end
+      login_admin
 
       it "assigns the requested form_of_work as @form_of_work" do
         form_of_work = FactoryGirl.create(:form_of_work)
@@ -65,9 +57,7 @@ describe FormOfWorksController do
     end
 
     describe "When logged in as Librarian" do
-      before(:each) do
-        sign_in FactoryGirl.create(:librarian)
-      end
+      login_librarian
 
       it "assigns the requested form_of_work as @form_of_work" do
         form_of_work = FactoryGirl.create(:form_of_work)
@@ -77,9 +67,7 @@ describe FormOfWorksController do
     end
 
     describe "When logged in as User" do
-      before(:each) do
-        sign_in FactoryGirl.create(:user)
-      end
+      login_user
 
       it "assigns the requested form_of_work as @form_of_work" do
         form_of_work = FactoryGirl.create(:form_of_work)
@@ -99,9 +87,7 @@ describe FormOfWorksController do
 
   describe "GET new" do
     describe "When logged in as Administrator" do
-      before(:each) do
-        sign_in FactoryGirl.create(:admin)
-      end
+      login_admin
 
       it "assigns the requested form_of_work as @form_of_work" do
         get :new
@@ -111,9 +97,7 @@ describe FormOfWorksController do
     end
 
     describe "When logged in as Librarian" do
-      before(:each) do
-        sign_in FactoryGirl.create(:librarian)
-      end
+      login_librarian
 
       it "should not assign the requested form_of_work as @form_of_work" do
         get :new
@@ -123,9 +107,7 @@ describe FormOfWorksController do
     end
 
     describe "When logged in as User" do
-      before(:each) do
-        sign_in FactoryGirl.create(:user)
-      end
+      login_user
 
       it "should not assign the requested form_of_work as @form_of_work" do
         get :new
@@ -145,9 +127,7 @@ describe FormOfWorksController do
 
   describe "GET edit" do
     describe "When logged in as Administrator" do
-      before(:each) do
-        sign_in FactoryGirl.create(:admin)
-      end
+      login_admin
 
       it "assigns the requested form_of_work as @form_of_work" do
         form_of_work = FactoryGirl.create(:form_of_work)
@@ -157,9 +137,7 @@ describe FormOfWorksController do
     end
 
     describe "When logged in as Librarian" do
-      before(:each) do
-        sign_in FactoryGirl.create(:librarian)
-      end
+      login_librarian
 
       it "assigns the requested form_of_work as @form_of_work" do
         form_of_work = FactoryGirl.create(:form_of_work)
@@ -169,9 +147,7 @@ describe FormOfWorksController do
     end
 
     describe "When logged in as User" do
-      before(:each) do
-        sign_in FactoryGirl.create(:user)
-      end
+      login_user
 
       it "assigns the requested form_of_work as @form_of_work" do
         form_of_work = FactoryGirl.create(:form_of_work)
@@ -196,9 +172,7 @@ describe FormOfWorksController do
     end
 
     describe "When logged in as Administrator" do
-      before(:each) do
-        sign_in FactoryGirl.create(:admin)
-      end
+      login_admin
 
       describe "with valid params" do
         it "assigns a newly created form_of_work as @form_of_work" do
@@ -226,9 +200,7 @@ describe FormOfWorksController do
     end
 
     describe "When logged in as Librarian" do
-      before(:each) do
-        sign_in FactoryGirl.create(:librarian)
-      end
+      login_librarian
 
       describe "with valid params" do
         it "assigns a newly created form_of_work as @form_of_work" do
@@ -256,9 +228,7 @@ describe FormOfWorksController do
     end
 
     describe "When logged in as User" do
-      before(:each) do
-        sign_in FactoryGirl.create(:user)
-      end
+      login_user
 
       describe "with valid params" do
         it "assigns a newly created form_of_work as @form_of_work" do
@@ -320,9 +290,7 @@ describe FormOfWorksController do
     end
 
     describe "When logged in as Administrator" do
-      before(:each) do
-        sign_in FactoryGirl.create(:admin)
-      end
+      login_admin
 
       describe "with valid params" do
         it "updates the requested form_of_work" do
@@ -349,9 +317,7 @@ describe FormOfWorksController do
     end
 
     describe "When logged in as Librarian" do
-      before(:each) do
-        sign_in FactoryGirl.create(:librarian)
-      end
+      login_librarian
 
       describe "with valid params" do
         it "updates the requested form_of_work" do
@@ -374,9 +340,7 @@ describe FormOfWorksController do
     end
 
     describe "When logged in as User" do
-      before(:each) do
-        sign_in FactoryGirl.create(:user)
-      end
+      login_user
 
       describe "with valid params" do
         it "updates the requested form_of_work" do
@@ -425,9 +389,7 @@ describe FormOfWorksController do
     end
 
     describe "When logged in as Administrator" do
-      before(:each) do
-        sign_in FactoryGirl.create(:admin)
-      end
+      login_admin
 
       it "destroys the requested form_of_work" do
         delete :destroy, :id => @form_of_work.id
@@ -440,9 +402,7 @@ describe FormOfWorksController do
     end
 
     describe "When logged in as Librarian" do
-      before(:each) do
-        sign_in FactoryGirl.create(:librarian)
-      end
+      login_librarian
 
       it "destroys the requested form_of_work" do
         delete :destroy, :id => @form_of_work.id
@@ -455,9 +415,7 @@ describe FormOfWorksController do
     end
 
     describe "When logged in as User" do
-      before(:each) do
-        sign_in FactoryGirl.create(:user)
-      end
+      login_user
 
       it "destroys the requested form_of_work" do
         delete :destroy, :id => @form_of_work.id

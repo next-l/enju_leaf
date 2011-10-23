@@ -59,6 +59,8 @@ Spork.prefork do
       Sunspot.session = $original_sunspot_session
       #Sunspot.remove_all!
     end
+
+    config.extend ControllerMacros, :type => :controller
   end
 end
 

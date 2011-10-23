@@ -12,9 +12,7 @@ describe CheckoutsController do
     end
 
     describe "When logged in as Administrator" do
-      before(:each) do
-        sign_in FactoryGirl.create(:admin)
-      end
+      login_admin
 
       it "assigns all checkouts as @checkouts" do
         get :index
@@ -80,9 +78,7 @@ describe CheckoutsController do
     end
 
     describe "When logged in as Administrator" do
-      before(:each) do
-        sign_in FactoryGirl.create(:admin)
-      end
+      login_admin
 
       describe "with valid params" do
         it "updates the requested checkout" do
@@ -109,9 +105,7 @@ describe CheckoutsController do
     end
 
     describe "When logged in as Librarian" do
-      before(:each) do
-        sign_in FactoryGirl.create(:librarian)
-      end
+      login_librarian
 
       describe "with valid params" do
         it "updates the requested checkout" do
@@ -139,9 +133,7 @@ describe CheckoutsController do
     end
 
     describe "When logged in as User" do
-      before(:each) do
-        sign_in FactoryGirl.create(:user)
-      end
+      login_user
 
       describe "with valid params" do
         it "updates the requested checkout" do
@@ -190,9 +182,7 @@ describe CheckoutsController do
     end
 
     describe "When logged in as Administrator" do
-      before(:each) do
-        sign_in FactoryGirl.create(:admin)
-      end
+      login_admin
 
       it "destroys the requested checkout" do
         delete :destroy, :id => @checkout.id, :user_id => @checkout.user.username
@@ -205,9 +195,7 @@ describe CheckoutsController do
     end
 
     describe "When logged in as Librarian" do
-      before(:each) do
-        sign_in FactoryGirl.create(:librarian)
-      end
+      login_librarian
 
       it "destroys the requested checkout" do
         delete :destroy, :id => @checkout.id, :user_id => @checkout.user.username
@@ -220,9 +208,7 @@ describe CheckoutsController do
     end
 
     describe "When logged in as User" do
-      before(:each) do
-        sign_in FactoryGirl.create(:user)
-      end
+      login_user
 
       it "destroys the requested checkout" do
         delete :destroy, :id => @checkout.id, :user_id => @checkout.user.username

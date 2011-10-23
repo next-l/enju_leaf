@@ -11,9 +11,7 @@ describe SubjectHeadingTypeHasSubjectsController do
     end
 
     describe "When logged in as Administrator" do
-      before(:each) do
-        sign_in FactoryGirl.create(:admin)
-      end
+      login_admin
 
       it "assigns all subject_heading_type_has_subjects as @subject_heading_type_has_subjects" do
         get :index
@@ -55,9 +53,7 @@ describe SubjectHeadingTypeHasSubjectsController do
 
   describe "GET show" do
     describe "When logged in as Administrator" do
-      before(:each) do
-        sign_in FactoryGirl.create(:admin)
-      end
+      login_admin
 
       it "assigns the requested subject_heading_type_has_subject as @subject_heading_type_has_subject" do
         subject_heading_type_has_subject = FactoryGirl.create(:subject_heading_type_has_subject)
@@ -101,9 +97,7 @@ describe SubjectHeadingTypeHasSubjectsController do
 
   describe "GET new" do
     describe "When logged in as Administrator" do
-      before(:each) do
-        sign_in FactoryGirl.create(:admin)
-      end
+      login_admin
 
       it "assigns the requested subject_heading_type_has_subject as @subject_heading_type_has_subject" do
         get :new
@@ -147,9 +141,7 @@ describe SubjectHeadingTypeHasSubjectsController do
 
   describe "GET edit" do
     describe "When logged in as Administrator" do
-      before(:each) do
-        sign_in FactoryGirl.create(:admin)
-      end
+      login_admin
 
       it "assigns the requested subject_heading_type_has_subject as @subject_heading_type_has_subject" do
         subject_heading_type_has_subject = FactoryGirl.create(:subject_heading_type_has_subject)
@@ -198,9 +190,7 @@ describe SubjectHeadingTypeHasSubjectsController do
     end
 
     describe "When logged in as Administrator" do
-      before(:each) do
-        sign_in FactoryGirl.create(:admin)
-      end
+      login_admin
 
       describe "with valid params" do
         it "assigns a newly created subject_heading_type_has_subject as @subject_heading_type_has_subject" do
@@ -322,9 +312,7 @@ describe SubjectHeadingTypeHasSubjectsController do
     end
 
     describe "When logged in as Administrator" do
-      before(:each) do
-        sign_in FactoryGirl.create(:admin)
-      end
+      login_admin
 
       describe "with valid params" do
         it "updates the requested subject_heading_type_has_subject" do
@@ -427,9 +415,7 @@ describe SubjectHeadingTypeHasSubjectsController do
     end
 
     describe "When logged in as Administrator" do
-      before(:each) do
-        sign_in FactoryGirl.create(:admin)
-      end
+      login_admin
 
       it "destroys the requested subject_heading_type_has_subject" do
         delete :destroy, :id => @subject_heading_type_has_subject.id

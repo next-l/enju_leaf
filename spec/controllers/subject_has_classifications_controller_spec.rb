@@ -11,9 +11,7 @@ describe SubjectHasClassificationsController do
     end
 
     describe "When logged in as Administrator" do
-      before(:each) do
-        sign_in FactoryGirl.create(:admin)
-      end
+      login_admin
 
       it "assigns all subject_has_classifications as @subject_has_classifications" do
         get :index
@@ -53,9 +51,7 @@ describe SubjectHasClassificationsController do
 
   describe "GET show" do
     describe "When logged in as Administrator" do
-      before(:each) do
-        sign_in FactoryGirl.create(:admin)
-      end
+      login_admin
 
       it "assigns the requested subject_has_classification as @subject_has_classification" do
         subject_has_classification = FactoryGirl.create(:subject_has_classification)
@@ -99,9 +95,7 @@ describe SubjectHasClassificationsController do
 
   describe "GET new" do
     describe "When logged in as Administrator" do
-      before(:each) do
-        sign_in FactoryGirl.create(:admin)
-      end
+      login_admin
 
       it "assigns the requested subject_has_classification as @subject_has_classification" do
         get :new
@@ -143,9 +137,7 @@ describe SubjectHasClassificationsController do
 
   describe "GET edit" do
     describe "When logged in as Administrator" do
-      before(:each) do
-        sign_in FactoryGirl.create(:admin)
-      end
+      login_admin
 
       it "assigns the requested subject_has_classification as @subject_has_classification" do
         subject_has_classification = FactoryGirl.create(:subject_has_classification)
@@ -194,9 +186,7 @@ describe SubjectHasClassificationsController do
     end
 
     describe "When logged in as Administrator" do
-      before(:each) do
-        sign_in FactoryGirl.create(:admin)
-      end
+      login_admin
 
       describe "with valid params" do
         it "assigns a newly created subject_has_classification as @subject_has_classification" do
@@ -318,9 +308,7 @@ describe SubjectHasClassificationsController do
     end
 
     describe "When logged in as Administrator" do
-      before(:each) do
-        sign_in FactoryGirl.create(:admin)
-      end
+      login_admin
 
       describe "with valid params" do
         it "updates the requested subject_has_classification" do
@@ -423,9 +411,7 @@ describe SubjectHasClassificationsController do
     end
 
     describe "When logged in as Administrator" do
-      before(:each) do
-        sign_in FactoryGirl.create(:admin)
-      end
+      login_admin
 
       it "destroys the requested subject_has_classification" do
         delete :destroy, :id => @subject_has_classification.id

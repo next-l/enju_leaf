@@ -11,9 +11,7 @@ describe SubjectTypesController do
     end
 
     describe "When logged in as Administrator" do
-      before(:each) do
-        sign_in FactoryGirl.create(:admin)
-      end
+      login_admin
 
       it "assigns all subject_types as @subject_types" do
         get :index
@@ -55,9 +53,7 @@ describe SubjectTypesController do
 
   describe "GET show" do
     describe "When logged in as Administrator" do
-      before(:each) do
-        sign_in FactoryGirl.create(:admin)
-      end
+      login_admin
 
       it "assigns the requested subject_type as @subject_type" do
         subject_type = FactoryGirl.create(:subject_type)
@@ -101,9 +97,7 @@ describe SubjectTypesController do
 
   describe "GET new" do
     describe "When logged in as Administrator" do
-      before(:each) do
-        sign_in FactoryGirl.create(:admin)
-      end
+      login_admin
 
       it "assigns the requested subject_type as @subject_type" do
         get :new
@@ -147,9 +141,7 @@ describe SubjectTypesController do
 
   describe "GET edit" do
     describe "When logged in as Administrator" do
-      before(:each) do
-        sign_in FactoryGirl.create(:admin)
-      end
+      login_admin
 
       it "assigns the requested subject_type as @subject_type" do
         subject_type = FactoryGirl.create(:subject_type)
@@ -198,9 +190,7 @@ describe SubjectTypesController do
     end
 
     describe "When logged in as Administrator" do
-      before(:each) do
-        sign_in FactoryGirl.create(:admin)
-      end
+      login_admin
 
       describe "with valid params" do
         it "assigns a newly created subject_type as @subject_type" do
@@ -322,9 +312,7 @@ describe SubjectTypesController do
     end
 
     describe "When logged in as Administrator" do
-      before(:each) do
-        sign_in FactoryGirl.create(:admin)
-      end
+      login_admin
 
       describe "with valid params" do
         it "updates the requested subject_type" do
@@ -427,9 +415,7 @@ describe SubjectTypesController do
     end
 
     describe "When logged in as Administrator" do
-      before(:each) do
-        sign_in FactoryGirl.create(:admin)
-      end
+      login_admin
 
       it "destroys the requested subject_type" do
         delete :destroy, :id => @subject_type.id

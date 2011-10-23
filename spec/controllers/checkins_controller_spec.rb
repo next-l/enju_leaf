@@ -11,9 +11,7 @@ describe CheckinsController do
 
   describe "GET index" do
     describe "When logged in as Administrator" do
-      before(:each) do
-        sign_in FactoryGirl.create(:admin)
-      end
+      login_admin
 
       it "assigns all checkins as @checkins" do
         get :index
@@ -31,9 +29,7 @@ describe CheckinsController do
     end
 
     describe "When logged in as Librarian" do
-      before(:each) do
-        sign_in FactoryGirl.create(:librarian)
-      end
+      login_librarian
 
       it "assigns all checkins as @checkins" do
         get :index
@@ -51,9 +47,7 @@ describe CheckinsController do
     end
 
     describe "When logged in as User" do
-      before(:each) do
-        sign_in FactoryGirl.create(:user)
-      end
+      login_user
 
       it "should not assign all checkins as @checkins" do
         get :index
@@ -65,9 +59,7 @@ describe CheckinsController do
 
   describe "GET show" do
     describe "When logged in as Administrator" do
-      before(:each) do
-        sign_in FactoryGirl.create(:admin)
-      end
+      login_admin
 
       it "assigns the requested checkin as @checkin" do
         checkin = checkins(:checkin_00001)
@@ -77,9 +69,7 @@ describe CheckinsController do
     end
 
     describe "When logged in as Librarian" do
-      before(:each) do
-        sign_in FactoryGirl.create(:librarian)
-      end
+      login_librarian
 
       it "assigns the requested checkin as @checkin" do
         checkin = checkins(:checkin_00001)
@@ -89,9 +79,7 @@ describe CheckinsController do
     end
 
     describe "When logged in as User" do
-      before(:each) do
-        sign_in FactoryGirl.create(:user)
-      end
+      login_user
 
       it "assigns the requested checkin as @checkin" do
         checkin = checkins(:checkin_00001)
@@ -113,9 +101,7 @@ describe CheckinsController do
 
   describe "GET new" do
     describe "When logged in as Administrator" do
-      before(:each) do
-        sign_in FactoryGirl.create(:admin)
-      end
+      login_admin
 
       it "assigns the requested checkin as @checkin" do
         get :new
@@ -124,9 +110,7 @@ describe CheckinsController do
     end
 
     describe "When logged in as Librarian" do
-      before(:each) do
-        sign_in FactoryGirl.create(:librarian)
-      end
+      login_librarian
 
       it "assigns the requested checkin as @checkin" do
         get :new
@@ -135,9 +119,7 @@ describe CheckinsController do
     end
 
     describe "When logged in as User" do
-      before(:each) do
-        sign_in FactoryGirl.create(:user)
-      end
+      login_user
 
       it "should not assign the requested checkin as @checkin" do
         get :new
@@ -157,9 +139,7 @@ describe CheckinsController do
 
   describe "GET edit" do
     describe "When logged in as Administrator" do
-      before(:each) do
-        sign_in FactoryGirl.create(:admin)
-      end
+      login_admin
 
       it "assigns the requested checkin as @checkin" do
         checkin = checkins(:checkin_00001)
@@ -169,9 +149,7 @@ describe CheckinsController do
     end
 
     describe "When logged in as Librarian" do
-      before(:each) do
-        sign_in FactoryGirl.create(:librarian)
-      end
+      login_librarian
 
       it "assigns the requested checkin as @checkin" do
         checkin = checkins(:checkin_00001)
@@ -181,9 +159,7 @@ describe CheckinsController do
     end
 
     describe "When logged in as User" do
-      before(:each) do
-        sign_in FactoryGirl.create(:user)
-      end
+      login_user
 
       it "assigns the requested checkin as @checkin" do
         checkin = checkins(:checkin_00001)
@@ -208,9 +184,7 @@ describe CheckinsController do
     end
 
     describe "When logged in as Administrator" do
-      before(:each) do
-        sign_in FactoryGirl.create(:admin)
-      end
+      login_admin
 
       describe "with valid params" do
         it "assigns a newly created checkin as @checkin" do
@@ -247,9 +221,7 @@ describe CheckinsController do
     end
 
     describe "When logged in as Librarian" do
-      before(:each) do
-        sign_in FactoryGirl.create(:librarian)
-      end
+      login_librarian
 
       describe "with valid params" do
         it "assigns a newly created checkin as @checkin" do
@@ -284,9 +256,7 @@ describe CheckinsController do
     end
 
     describe "When logged in as User" do
-      before(:each) do
-        sign_in FactoryGirl.create(:user)
-      end
+      login_user
 
       describe "with valid params" do
         it "assigns a newly created checkin as @checkin" do
@@ -328,9 +298,7 @@ describe CheckinsController do
     end
 
     describe "When logged in as Administrator" do
-      before(:each) do
-        sign_in FactoryGirl.create(:admin)
-      end
+      login_admin
 
       describe "with valid params" do
         it "updates the requested checkin" do
@@ -363,9 +331,7 @@ describe CheckinsController do
     end
 
     describe "When logged in as Librarian" do
-      before(:each) do
-        sign_in FactoryGirl.create(:librarian)
-      end
+      login_librarian
 
       describe "with valid params" do
         it "updates the requested checkin" do
@@ -393,9 +359,7 @@ describe CheckinsController do
     end
 
     describe "When logged in as User" do
-      before(:each) do
-        sign_in FactoryGirl.create(:user)
-      end
+      login_user
 
       describe "with valid params" do
         it "updates the requested checkin" do
@@ -444,9 +408,7 @@ describe CheckinsController do
     end
 
     describe "When logged in as Administrator" do
-      before(:each) do
-        sign_in FactoryGirl.create(:admin)
-      end
+      login_admin
 
       it "destroys the requested checkin" do
         delete :destroy, :id => @checkin.id
@@ -459,9 +421,7 @@ describe CheckinsController do
     end
 
     describe "When logged in as Librarian" do
-      before(:each) do
-        sign_in FactoryGirl.create(:librarian)
-      end
+      login_librarian
 
       it "destroys the requested checkin" do
         delete :destroy, :id => @checkin.id
@@ -474,9 +434,7 @@ describe CheckinsController do
     end
 
     describe "When logged in as User" do
-      before(:each) do
-        sign_in FactoryGirl.create(:user)
-      end
+      login_user
 
       it "destroys the requested checkin" do
         delete :destroy, :id => @checkin.id

@@ -11,9 +11,7 @@ describe MessageTemplatesController do
     end
 
     describe "When logged in as Administrator" do
-      before(:each) do
-        sign_in FactoryGirl.create(:admin)
-      end
+      login_admin
 
       it "assigns all message_templates as @message_templates" do
         get :index
@@ -22,9 +20,7 @@ describe MessageTemplatesController do
     end
 
     describe "When logged in as Librarian" do
-      before(:each) do
-        sign_in FactoryGirl.create(:librarian)
-      end
+      login_librarian
 
       it "assigns all message_templates as @message_templates" do
         get :index
@@ -33,9 +29,7 @@ describe MessageTemplatesController do
     end
 
     describe "When logged in as User" do
-      before(:each) do
-        sign_in FactoryGirl.create(:user)
-      end
+      login_user
 
       it "assigns empty as @message_templates" do
         get :index
@@ -55,9 +49,7 @@ describe MessageTemplatesController do
 
   describe "GET show" do
     describe "When logged in as Administrator" do
-      before(:each) do
-        sign_in FactoryGirl.create(:admin)
-      end
+      login_admin
 
       it "assigns the requested message_template as @message_template" do
         message_template = FactoryGirl.create(:message_template)
@@ -67,9 +59,7 @@ describe MessageTemplatesController do
     end
 
     describe "When logged in as Librarian" do
-      before(:each) do
-        sign_in FactoryGirl.create(:librarian)
-      end
+      login_librarian
 
       it "assigns the requested message_template as @message_template" do
         message_template = FactoryGirl.create(:message_template)
@@ -79,9 +69,7 @@ describe MessageTemplatesController do
     end
 
     describe "When logged in as User" do
-      before(:each) do
-        sign_in FactoryGirl.create(:user)
-      end
+      login_user
 
       it "assigns the requested message_template as @message_template" do
         message_template = FactoryGirl.create(:message_template)
@@ -101,9 +89,7 @@ describe MessageTemplatesController do
 
   describe "GET new" do
     describe "When logged in as Administrator" do
-      before(:each) do
-        sign_in FactoryGirl.create(:admin)
-      end
+      login_admin
 
       it "assigns the requested message_template as @message_template" do
         get :new
@@ -113,9 +99,7 @@ describe MessageTemplatesController do
     end
 
     describe "When logged in as Librarian" do
-      before(:each) do
-        sign_in FactoryGirl.create(:librarian)
-      end
+      login_librarian
 
       it "should not assign the requested message_template as @message_template" do
         get :new
@@ -125,9 +109,7 @@ describe MessageTemplatesController do
     end
 
     describe "When logged in as User" do
-      before(:each) do
-        sign_in FactoryGirl.create(:user)
-      end
+      login_user
 
       it "should not assign the requested message_template as @message_template" do
         get :new
@@ -147,9 +129,7 @@ describe MessageTemplatesController do
 
   describe "GET edit" do
     describe "When logged in as Administrator" do
-      before(:each) do
-        sign_in FactoryGirl.create(:admin)
-      end
+      login_admin
 
       it "assigns the requested message_template as @message_template" do
         message_template = FactoryGirl.create(:message_template)
@@ -159,9 +139,7 @@ describe MessageTemplatesController do
     end
 
     describe "When logged in as Librarian" do
-      before(:each) do
-        sign_in FactoryGirl.create(:librarian)
-      end
+      login_librarian
 
       it "assigns the requested message_template as @message_template" do
         message_template = FactoryGirl.create(:message_template)
@@ -171,9 +149,7 @@ describe MessageTemplatesController do
     end
 
     describe "When logged in as User" do
-      before(:each) do
-        sign_in FactoryGirl.create(:user)
-      end
+      login_user
 
       it "assigns the requested message_template as @message_template" do
         message_template = FactoryGirl.create(:message_template)
@@ -198,9 +174,7 @@ describe MessageTemplatesController do
     end
 
     describe "When logged in as Administrator" do
-      before(:each) do
-        sign_in FactoryGirl.create(:admin)
-      end
+      login_admin
 
       describe "with valid params" do
         it "assigns a newly created message_template as @message_template" do
@@ -228,9 +202,7 @@ describe MessageTemplatesController do
     end
 
     describe "When logged in as Librarian" do
-      before(:each) do
-        sign_in FactoryGirl.create(:librarian)
-      end
+      login_librarian
 
       describe "with valid params" do
         it "assigns a newly created message_template as @message_template" do
@@ -258,9 +230,7 @@ describe MessageTemplatesController do
     end
 
     describe "When logged in as User" do
-      before(:each) do
-        sign_in FactoryGirl.create(:user)
-      end
+      login_user
 
       describe "with valid params" do
         it "assigns a newly created message_template as @message_template" do
@@ -322,9 +292,7 @@ describe MessageTemplatesController do
     end
 
     describe "When logged in as Administrator" do
-      before(:each) do
-        sign_in FactoryGirl.create(:admin)
-      end
+      login_admin
 
       describe "with valid params" do
         it "updates the requested message_template" do
@@ -351,9 +319,7 @@ describe MessageTemplatesController do
     end
 
     describe "When logged in as Librarian" do
-      before(:each) do
-        sign_in FactoryGirl.create(:librarian)
-      end
+      login_librarian
 
       describe "with valid params" do
         it "updates the requested message_template" do
@@ -376,9 +342,7 @@ describe MessageTemplatesController do
     end
 
     describe "When logged in as User" do
-      before(:each) do
-        sign_in FactoryGirl.create(:user)
-      end
+      login_user
 
       describe "with valid params" do
         it "updates the requested message_template" do
@@ -427,9 +391,7 @@ describe MessageTemplatesController do
     end
 
     describe "When logged in as Administrator" do
-      before(:each) do
-        sign_in FactoryGirl.create(:admin)
-      end
+      login_admin
 
       it "destroys the requested message_template" do
         delete :destroy, :id => @message_template.id
@@ -442,9 +404,7 @@ describe MessageTemplatesController do
     end
 
     describe "When logged in as Librarian" do
-      before(:each) do
-        sign_in FactoryGirl.create(:librarian)
-      end
+      login_librarian
 
       it "destroys the requested message_template" do
         delete :destroy, :id => @message_template.id
@@ -457,9 +417,7 @@ describe MessageTemplatesController do
     end
 
     describe "When logged in as User" do
-      before(:each) do
-        sign_in FactoryGirl.create(:user)
-      end
+      login_user
 
       it "destroys the requested message_template" do
         delete :destroy, :id => @message_template.id

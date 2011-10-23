@@ -5,9 +5,7 @@ describe SubjectsController do
 
   describe "GET index", :solr => true do
     describe "When logged in as Administrator" do
-      before(:each) do
-        sign_in FactoryGirl.create(:admin)
-      end
+      login_admin
 
       it "assigns all subjects as @subjects" do
         get :index
@@ -52,9 +50,7 @@ describe SubjectsController do
 
   describe "GET show", :solr => true do
     describe "When logged in as Administrator" do
-      before(:each) do
-        sign_in FactoryGirl.create(:admin)
-      end
+      login_admin
 
       it "assigns the requested subject as @subject" do
         subject = FactoryGirl.create(:subject)
@@ -98,9 +94,7 @@ describe SubjectsController do
 
   describe "GET new" do
     describe "When logged in as Administrator" do
-      before(:each) do
-        sign_in FactoryGirl.create(:admin)
-      end
+      login_admin
 
       it "assigns the requested subject as @subject" do
         get :new
@@ -142,9 +136,7 @@ describe SubjectsController do
 
   describe "GET edit" do
     describe "When logged in as Administrator" do
-      before(:each) do
-        sign_in FactoryGirl.create(:admin)
-      end
+      login_admin
 
       it "assigns the requested subject as @subject" do
         subject = FactoryGirl.create(:subject)
@@ -204,9 +196,7 @@ describe SubjectsController do
     end
 
     describe "When logged in as Administrator" do
-      before(:each) do
-        sign_in FactoryGirl.create(:admin)
-      end
+      login_admin
 
       describe "with valid params" do
         it "assigns a newly created subject as @subject" do
@@ -328,9 +318,7 @@ describe SubjectsController do
     end
 
     describe "When logged in as Administrator" do
-      before(:each) do
-        sign_in FactoryGirl.create(:admin)
-      end
+      login_admin
 
       describe "with valid params" do
         it "updates the requested subject" do
@@ -428,9 +416,7 @@ describe SubjectsController do
     end
 
     describe "When logged in as Administrator" do
-      before(:each) do
-        sign_in FactoryGirl.create(:admin)
-      end
+      login_admin
 
       it "destroys the requested subject" do
         delete :destroy, :id => @subject.id
