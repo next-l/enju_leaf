@@ -6,9 +6,7 @@ describe EventImportFilesController do
 
   describe "GET index" do
     describe "When logged in as Administrator" do
-      before(:each) do
-        sign_in FactoryGirl.create(:admin)
-      end
+      login_admin
 
       it "assigns all event_import_files as @event_import_files" do
         get :index
@@ -17,9 +15,7 @@ describe EventImportFilesController do
     end
 
     describe "When logged in as Librarian" do
-      before(:each) do
-        sign_in FactoryGirl.create(:librarian)
-      end
+      login_librarian
 
       it "assigns all event_import_files as @event_import_files" do
         get :index
@@ -28,9 +24,7 @@ describe EventImportFilesController do
     end
 
     describe "When logged in as User" do
-      before(:each) do
-        sign_in FactoryGirl.create(:user)
-      end
+      login_user
 
       it "assigns empty as @event_import_files" do
         get :index
@@ -50,9 +44,7 @@ describe EventImportFilesController do
 
   describe "GET show" do
     describe "When logged in as Administrator" do
-      before(:each) do
-        sign_in FactoryGirl.create(:admin)
-      end
+      login_admin
 
       it "assigns the requested event_import_file as @event_import_file" do
         get :show, :id => 1
@@ -61,9 +53,7 @@ describe EventImportFilesController do
     end
 
     describe "When logged in as Librarian" do
-      before(:each) do
-        sign_in FactoryGirl.create(:librarian)
-      end
+      login_librarian
 
       it "assigns the requested event_import_file as @event_import_file" do
         get :show, :id => 1
@@ -72,9 +62,7 @@ describe EventImportFilesController do
     end
 
     describe "When logged in as User" do
-      before(:each) do
-        sign_in FactoryGirl.create(:user)
-      end
+      login_user
 
       it "assigns the requested event_import_file as @event_import_file" do
         get :show, :id => 1
@@ -93,9 +81,7 @@ describe EventImportFilesController do
 
   describe "GET new" do
     describe "When logged in as Administrator" do
-      before(:each) do
-        sign_in FactoryGirl.create(:admin)
-      end
+      login_admin
 
       it "assigns the requested event_import_file as @event_import_file" do
         get :new
@@ -105,9 +91,7 @@ describe EventImportFilesController do
     end
 
     describe "When logged in as Librarian" do
-      before(:each) do
-        sign_in FactoryGirl.create(:librarian)
-      end
+      login_librarian
 
       it "should not assign the requested event_import_file as @event_import_file" do
         get :new
@@ -117,9 +101,7 @@ describe EventImportFilesController do
     end
 
     describe "When logged in as User" do
-      before(:each) do
-        sign_in FactoryGirl.create(:user)
-      end
+      login_user
 
       it "should not assign the requested event_import_file as @event_import_file" do
         get :new
@@ -182,9 +164,7 @@ describe EventImportFilesController do
 
   describe "GET edit" do
     describe "When logged in as Administrator" do
-      before(:each) do
-        sign_in FactoryGirl.create(:admin)
-      end
+      login_admin
 
       it "assigns the requested event_import_file as @event_import_file" do
         event_import_file = event_import_files(:event_import_file_00001)
@@ -194,9 +174,7 @@ describe EventImportFilesController do
     end
 
     describe "When logged in as Librarian" do
-      before(:each) do
-        sign_in FactoryGirl.create(:librarian)
-      end
+      login_librarian
 
       it "assigns the requested event_import_file as @event_import_file" do
         event_import_file = event_import_files(:event_import_file_00001)
@@ -206,9 +184,7 @@ describe EventImportFilesController do
     end
 
     describe "When logged in as User" do
-      before(:each) do
-        sign_in FactoryGirl.create(:user)
-      end
+      login_user
 
       it "assigns the requested event_import_file as @event_import_file" do
         event_import_file = event_import_files(:event_import_file_00001)
@@ -227,10 +203,17 @@ describe EventImportFilesController do
   end
 
   describe "PUT update" do
-    describe "When logged in as Librarian" do
-      before(:each) do
-        sign_in FactoryGirl.create(:librarian)
+    describe "When logged in as Administrator" do
+      login_admin
+
+      it "should update event_import_file" do
+        put :update, :id => event_import_files(:event_import_file_00003).id, :event_import_file => { }
+        response.should redirect_to event_import_file_url(assigns(:event_import_file))
       end
+    end
+
+    describe "When logged in as Librarian" do
+      login_librarian
 
       it "should update event_import_file" do
         put :update, :id => event_import_files(:event_import_file_00003).id, :event_import_file => { }
@@ -239,9 +222,7 @@ describe EventImportFilesController do
     end
 
     describe "When logged in as User" do
-      before(:each) do
-        sign_in FactoryGirl.create(:user)
-      end
+      login_user
 
       it "should not update event_import_file" do
         put :update, :id => event_import_files(:event_import_file_00003).id, :event_import_file => { }
@@ -263,9 +244,7 @@ describe EventImportFilesController do
     end
 
     describe "When logged in as Administrator" do
-      before(:each) do
-        sign_in FactoryGirl.create(:admin)
-      end
+      login_admin
 
       it "destroys the requested event_import_file" do
         delete :destroy, :id => @event_import_file.id
@@ -278,9 +257,7 @@ describe EventImportFilesController do
     end
 
     describe "When logged in as Librarian" do
-      before(:each) do
-        sign_in FactoryGirl.create(:librarian)
-      end
+      login_librarian
 
       it "destroys the requested event_import_file" do
         delete :destroy, :id => @event_import_file.id
@@ -293,9 +270,7 @@ describe EventImportFilesController do
     end
 
     describe "When logged in as User" do
-      before(:each) do
-        sign_in FactoryGirl.create(:user)
-      end
+      login_user
 
       it "destroys the requested event_import_file" do
         delete :destroy, :id => @event_import_file.id

@@ -402,9 +402,7 @@ describe ExtentsController do
     end
 
     describe "When logged in as Librarian" do
-      before(:each) do
-        login_librarian
-      end
+      login_librarian
 
       it "destroys the requested extent" do
         delete :destroy, :id => @extent.id
@@ -417,9 +415,7 @@ describe ExtentsController do
     end
 
     describe "When logged in as User" do
-      before(:each) do
-        login_user
-      end
+      login_user
 
       it "destroys the requested extent" do
         delete :destroy, :id => @extent.id

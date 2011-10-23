@@ -129,7 +129,6 @@ describe ItemsController do
 
     describe "When logged in as Librarian" do
       login_librarian
-      end
 
       it "assigns the requested item as @item" do
         get :new, :manifestation_id => @manifestation.id
@@ -139,9 +138,7 @@ describe ItemsController do
     end
 
     describe "When logged in as User" do
-      before(:each) do
-        login_user
-      end
+      login_user
 
       it "should not assign the requested item as @item" do
         get :new, :manifestation_id => @manifestation.id

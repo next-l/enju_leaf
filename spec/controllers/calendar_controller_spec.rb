@@ -5,9 +5,7 @@ describe CalendarController do
 
   describe "GET index", :solr => true do
     describe "When logged in as Administrator" do
-      before(:each) do
-        login_admin
-      end
+      login_admin
 
       it "assigns all event_stripss as @event_stripss" do
         get :index
@@ -41,9 +39,7 @@ describe CalendarController do
 
   describe "GET show" do
     describe "When logged in as Administrator" do
-      before(:each) do
-        login_admin
-      end
+      login_admin
 
       it "should redirect to a new event" do
         get :show, :year => '2011', :month => '1', :day => '1'

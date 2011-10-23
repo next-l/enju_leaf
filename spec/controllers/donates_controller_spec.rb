@@ -83,7 +83,7 @@ describe DonatesController do
 
   describe "GET new" do
     describe "When logged in as Administrator" do
-       ogin_admin
+       login_admin
 
       it "assigns the requested donate as @donate" do
         get :new

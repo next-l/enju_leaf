@@ -5,9 +5,7 @@ describe BookmarksController do
 
   describe "GET index", :solr => true do
     describe "When logged in as Administrator" do
-      before(:each) do
-        sign_in FactoryGirl.create(:admin)
-      end
+      login_admin
 
       it "assigns all bookmarks as @bookmarks" do
         get :index
@@ -16,9 +14,7 @@ describe BookmarksController do
     end
 
     describe "When logged in as Librarian" do
-      before(:each) do
-        sign_in FactoryGirl.create(:librarian)
-      end
+      login_librarian
 
       it "assigns all bookmarks as @bookmarks" do
         get :index
@@ -58,9 +54,7 @@ describe BookmarksController do
 
   describe "GET show" do
     describe "When logged in as Administrator" do
-      before(:each) do
-        sign_in FactoryGirl.create(:admin)
-      end
+      login_admin
 
       it "assigns the requested bookmark as @bookmark" do
         bookmark = FactoryGirl.create(:bookmark)
@@ -70,9 +64,7 @@ describe BookmarksController do
     end
 
     describe "When logged in as Librarian" do
-      before(:each) do
-        sign_in FactoryGirl.create(:librarian)
-      end
+      login_librarian
 
       it "assigns the requested bookmark as @bookmark" do
         bookmark = FactoryGirl.create(:bookmark)
@@ -245,9 +237,7 @@ describe BookmarksController do
     end
 
     describe "When logged in as Administrator" do
-      before(:each) do
-        sign_in FactoryGirl.create(:admin)
-      end
+      login_admin
 
       it "destroys the requested bookmark" do
         delete :destroy, :id => @bookmark.id
@@ -260,9 +250,7 @@ describe BookmarksController do
     end
 
     describe "When logged in as Librarian" do
-      before(:each) do
-        sign_in FactoryGirl.create(:librarian)
-      end
+      login_librarian
 
       it "destroys the requested bookmark" do
         delete :destroy, :id => @bookmark.id
@@ -275,9 +263,7 @@ describe BookmarksController do
     end
 
     describe "When logged in as User" do
-      before(:each) do
-        sign_in FactoryGirl.create(:user)
-      end
+      login_user
 
       it "destroys the requested bookmark" do
         delete :destroy, :id => @bookmark.id

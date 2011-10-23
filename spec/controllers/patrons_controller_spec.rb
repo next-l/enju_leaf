@@ -5,9 +5,7 @@ describe PatronsController do
 
   describe "GET index", :solr => true do
     describe "When logged in as Administrator" do
-      before(:each) do
-        sign_in FactoryGirl.create(:admin)
-      end
+      login_admin
 
       it "assigns all patrons as @patrons" do
         get :index
@@ -16,9 +14,7 @@ describe PatronsController do
     end
 
     describe "When logged in as Librarian" do
-      before(:each) do
-        sign_in FactoryGirl.create(:librarian)
-      end
+      login_librarian
 
       it "assigns all patrons as @patrons" do
         get :index
@@ -27,9 +23,7 @@ describe PatronsController do
     end
 
     describe "When logged in as User" do
-      before(:each) do
-        sign_in FactoryGirl.create(:user)
-      end
+      login_user
 
       it "assigns all patrons as @patrons" do
         get :index
@@ -61,9 +55,7 @@ describe PatronsController do
     end
 
     describe "When logged in as Administrator" do
-      before(:each) do
-        sign_in FactoryGirl.create(:admin)
-      end
+      login_admin
 
       it "assigns the requested patron as @patron" do
         get :show, :id => @patron.id
@@ -72,9 +64,7 @@ describe PatronsController do
     end
 
     describe "When logged in as Librarian" do
-      before(:each) do
-        sign_in FactoryGirl.create(:librarian)
-      end
+      login_librarian
 
       it "assigns the requested patron as @patron" do
         get :show, :id => @patron.id
@@ -83,9 +73,7 @@ describe PatronsController do
     end
 
     describe "When logged in as User" do
-      before(:each) do
-        sign_in FactoryGirl.create(:user)
-      end
+      login_user
 
       it "assigns the requested patron as @patron" do
         get :show, :id => @patron.id
@@ -103,9 +91,7 @@ describe PatronsController do
 
   describe "GET new" do
     describe "When logged in as Administrator" do
-      before(:each) do
-        sign_in FactoryGirl.create(:admin)
-      end
+      login_admin
 
       it "assigns the requested patron as @patron" do
         get :new
@@ -114,9 +100,7 @@ describe PatronsController do
     end
 
     describe "When logged in as Librarian" do
-      before(:each) do
-        sign_in FactoryGirl.create(:librarian)
-      end
+      login_librarian
 
       it "assigns the requested patron as @patron" do
         get :new
@@ -125,9 +109,7 @@ describe PatronsController do
     end
 
     describe "When logged in as User" do
-      before(:each) do
-        sign_in FactoryGirl.create(:user)
-      end
+      login_user
 
       it "should not assign the requested patron as @patron" do
         get :new
@@ -147,9 +129,7 @@ describe PatronsController do
 
   describe "GET edit" do
     describe "When logged in as Administrator" do
-      before(:each) do
-        sign_in FactoryGirl.create(:admin)
-      end
+      login_admin
 
       it "assigns the requested patron as @patron" do
         patron = Patron.find(1)
@@ -159,9 +139,7 @@ describe PatronsController do
     end
 
     describe "When logged in as Librarian" do
-      before(:each) do
-        sign_in FactoryGirl.create(:librarian)
-      end
+      login_librarian
 
       it "assigns the requested patron as @patron" do
         patron = Patron.find(1)
@@ -171,9 +149,7 @@ describe PatronsController do
     end
 
     describe "When logged in as User" do
-      before(:each) do
-        sign_in FactoryGirl.create(:user)
-      end
+      login_user
 
       it "assigns the requested patron as @patron" do
         patron = Patron.find(1)
@@ -198,9 +174,7 @@ describe PatronsController do
     end
 
     describe "When logged in as Administrator" do
-      before(:each) do
-        sign_in FactoryGirl.create(:admin)
-      end
+      login_admin
 
       describe "with valid params" do
         it "assigns a newly created patron as @patron" do
@@ -228,9 +202,7 @@ describe PatronsController do
     end
 
     describe "When logged in as Librarian" do
-      before(:each) do
-        sign_in FactoryGirl.create(:librarian)
-      end
+      login_librarian
 
       describe "with valid params" do
         it "assigns a newly created patron as @patron" do
@@ -258,9 +230,7 @@ describe PatronsController do
     end
 
     describe "When logged in as User" do
-      before(:each) do
-        sign_in FactoryGirl.create(:user)
-      end
+      login_user
 
       describe "with valid params" do
         it "assigns a newly created patron as @patron" do
@@ -322,9 +292,7 @@ describe PatronsController do
     end
 
     describe "When logged in as Administrator" do
-      before(:each) do
-        sign_in FactoryGirl.create(:admin)
-      end
+      login_admin
 
       describe "with valid params" do
         it "updates the requested patron" do
@@ -346,9 +314,7 @@ describe PatronsController do
     end
 
     describe "When logged in as Librarian" do
-      before(:each) do
-        sign_in FactoryGirl.create(:librarian)
-      end
+      login_librarian
 
       describe "with valid params" do
         it "updates the requested patron" do
@@ -376,9 +342,7 @@ describe PatronsController do
     end
 
     describe "When logged in as User" do
-      before(:each) do
-        sign_in FactoryGirl.create(:user)
-      end
+      login_user
 
       describe "with valid params" do
         it "updates the requested patron" do
@@ -427,9 +391,7 @@ describe PatronsController do
     end
 
     describe "When logged in as Administrator" do
-      before(:each) do
-        sign_in FactoryGirl.create(:admin)
-      end
+      login_admin
 
       it "destroys the requested patron" do
         delete :destroy, :id => @patron.id
@@ -442,9 +404,7 @@ describe PatronsController do
     end
 
     describe "When logged in as Librarian" do
-      before(:each) do
-        sign_in FactoryGirl.create(:librarian)
-      end
+      login_librarian
 
       it "destroys the requested patron" do
         delete :destroy, :id => @patron.id
@@ -457,9 +417,7 @@ describe PatronsController do
     end
 
     describe "When logged in as User" do
-      before(:each) do
-        sign_in FactoryGirl.create(:user)
-      end
+      login_user
 
       it "destroys the requested patron" do
         delete :destroy, :id => @patron.id

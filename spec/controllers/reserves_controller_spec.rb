@@ -7,9 +7,7 @@ describe ReservesController do
 
   describe "GET index" do
     describe "When logged in as Administrator" do
-      before(:each) do
-        sign_in FactoryGirl.create(:admin)
-      end
+      login_admin
 
       it "assigns all reserves as @reserves" do
         get :index
@@ -18,9 +16,7 @@ describe ReservesController do
     end
 
     describe "When logged in as Librarian" do
-      before(:each) do
-        sign_in FactoryGirl.create(:librarian)
-      end
+      login_librarian
 
       it "assigns all reserves as @reserves" do
         get :index
@@ -99,9 +95,7 @@ describe ReservesController do
 
   describe "GET show" do
     describe "When logged in as Administrator" do
-      before(:each) do
-        sign_in FactoryGirl.create(:admin)
-      end
+      login_admin
 
       it "assigns the requested reserve as @reserve" do
         reserve = FactoryGirl.create(:reserve)
@@ -111,9 +105,7 @@ describe ReservesController do
     end
 
     describe "When logged in as Librarian" do
-      before(:each) do
-        sign_in FactoryGirl.create(:librarian)
-      end
+      login_librarian
 
       it "assigns the requested reserve as @reserve" do
         reserve = FactoryGirl.create(:reserve)
@@ -123,9 +115,7 @@ describe ReservesController do
     end
 
     describe "When logged in as User" do
-      before(:each) do
-        sign_in FactoryGirl.create(:user)
-      end
+      login_user
 
       it "assigns the requested reserve as @reserve" do
         reserve = FactoryGirl.create(:reserve)
@@ -135,19 +125,25 @@ describe ReservesController do
     end
 
     describe "When not logged in" do
+      before(:each) do
+        @reserve = FactoryGirl.create(:reserve)
+      end
+
       it "assigns the requested reserve as @reserve" do
-        reserve = FactoryGirl.create(:reserve)
-        get :show, :id => reserve.id
-        assigns(:reserve).should eq(reserve)
+        get :show, :id => @reserve.id
+        assigns(:reserve).should eq(@reserve)
+      end
+
+      it "should be redirected to new_user_session_url" do
+        get :show, :id => @reserve.id
+        response.should redirect_to new_user_session_url
       end
     end
   end
 
   describe "GET new" do
     describe "When logged in as Administrator" do
-      before(:each) do
-        sign_in FactoryGirl.create(:admin)
-      end
+      login_admin
 
       it "assigns the requested reserve as @reserve" do
         get :new
@@ -156,9 +152,7 @@ describe ReservesController do
     end
 
     describe "When logged in as Librarian" do
-      before(:each) do
-        sign_in FactoryGirl.create(:librarian)
-      end
+      login_librarian
 
       it "should not assign the requested reserve as @reserve" do
         get :new
@@ -167,9 +161,7 @@ describe ReservesController do
     end
 
     describe "When logged in as User" do
-      before(:each) do
-        sign_in FactoryGirl.create(:user)
-      end
+      login_user
 
       it "should not assign the requested reserve as @reserve" do
         get :new
@@ -189,9 +181,7 @@ describe ReservesController do
 
   describe "GET edit" do
     describe "When logged in as Administrator" do
-      before(:each) do
-        sign_in FactoryGirl.create(:admin)
-      end
+      login_admin
 
       it "assigns the requested reserve as @reserve" do
         reserve = FactoryGirl.create(:reserve)
@@ -201,9 +191,7 @@ describe ReservesController do
     end
 
     describe "When logged in as Librarian" do
-      before(:each) do
-        sign_in FactoryGirl.create(:librarian)
-      end
+      login_librarian
 
       it "assigns the requested reserve as @reserve" do
         reserve = FactoryGirl.create(:reserve)
@@ -213,9 +201,7 @@ describe ReservesController do
     end
 
     describe "When logged in as User" do
-      before(:each) do
-        sign_in FactoryGirl.create(:user)
-      end
+      login_user
 
       it "assigns the requested reserve as @reserve" do
         reserve = FactoryGirl.create(:reserve)
@@ -240,9 +226,7 @@ describe ReservesController do
     end
 
     describe "When logged in as Administrator" do
-      before(:each) do
-        sign_in FactoryGirl.create(:admin)
-      end
+      login_admin
 
       describe "with valid params" do
         it "assigns a newly created reserve as @reserve" do
@@ -273,9 +257,7 @@ describe ReservesController do
     end
 
     describe "When logged in as Librarian" do
-      before(:each) do
-        sign_in FactoryGirl.create(:librarian)
-      end
+      login_librarian
 
       describe "with valid params" do
         it "assigns a newly created reserve as @reserve" do
@@ -373,9 +355,7 @@ describe ReservesController do
     end
 
     describe "When logged in as Administrator" do
-      before(:each) do
-        sign_in FactoryGirl.create(:admin)
-      end
+      login_admin
 
       describe "with valid params" do
         it "updates the requested reserve" do
@@ -402,9 +382,7 @@ describe ReservesController do
     end
 
     describe "When logged in as Librarian" do
-      before(:each) do
-        sign_in FactoryGirl.create(:librarian)
-      end
+      login_librarian
 
       describe "with valid params" do
         it "updates the requested reserve" do
@@ -432,9 +410,7 @@ describe ReservesController do
     end
 
     describe "When logged in as User" do
-      before(:each) do
-        sign_in FactoryGirl.create(:user)
-      end
+      login_user
 
       describe "with valid params" do
         it "updates the requested reserve" do
@@ -483,9 +459,7 @@ describe ReservesController do
     end
 
     describe "When logged in as Administrator" do
-      before(:each) do
-        sign_in FactoryGirl.create(:admin)
-      end
+      login_admin
 
       it "destroys the requested reserve" do
         delete :destroy, :id => @reserve.id, :user_id => @reserve.user.username
@@ -498,9 +472,7 @@ describe ReservesController do
     end
 
     describe "When logged in as Librarian" do
-      before(:each) do
-        sign_in FactoryGirl.create(:librarian)
-      end
+      login_librarian
 
       it "destroys the requested reserve" do
         delete :destroy, :id => @reserve.id, :user_id => @reserve.user.username
@@ -513,9 +485,7 @@ describe ReservesController do
     end
 
     describe "When logged in as User" do
-      before(:each) do
-        sign_in FactoryGirl.create(:user)
-      end
+      login_user
 
       it "destroys the requested reserve" do
         delete :destroy, :id => @reserve.id, :user_id => @reserve.user.username

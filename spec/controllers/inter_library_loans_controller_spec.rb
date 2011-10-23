@@ -6,9 +6,7 @@ describe InterLibraryLoansController do
 
   describe "GET index" do
     describe "When logged in as Administrator" do
-      before(:each) do
-        sign_in FactoryGirl.create(:admin)
-      end
+      login_admin
 
       it "assigns all inter_library_loans as @inter_library_loans" do
         get :index
@@ -17,9 +15,7 @@ describe InterLibraryLoansController do
     end
 
     describe "When logged in as Librarian" do
-      before(:each) do
-        sign_in FactoryGirl.create(:librarian)
-      end
+      login_librarian
 
       it "assigns all inter_library_loans as @inter_library_loans" do
         get :index
@@ -28,9 +24,7 @@ describe InterLibraryLoansController do
     end
 
     describe "When logged in as User" do
-      before(:each) do
-        sign_in FactoryGirl.create(:user)
-      end
+      login_user
 
       it "assigns empty as @inter_library_loans" do
         get :index
@@ -48,9 +42,7 @@ describe InterLibraryLoansController do
 
   describe "GET show" do
     describe "When logged in as Administrator" do
-      before(:each) do
-        sign_in FactoryGirl.create(:admin)
-      end
+      login_admin
 
       it "assigns the requested inter_library_loan as @inter_library_loan" do
         inter_library_loan = FactoryGirl.create(:inter_library_loan)
@@ -60,9 +52,7 @@ describe InterLibraryLoansController do
     end
 
     describe "When logged in as Librarian" do
-      before(:each) do
-        sign_in FactoryGirl.create(:librarian)
-      end
+      login_librarian
 
       it "assigns the requested inter_library_loan as @inter_library_loan" do
         inter_library_loan = FactoryGirl.create(:inter_library_loan)
@@ -72,9 +62,7 @@ describe InterLibraryLoansController do
     end
 
     describe "When logged in as User" do
-      before(:each) do
-        sign_in FactoryGirl.create(:user)
-      end
+      login_user
 
       it "assigns the requested inter_library_loan as @inter_library_loan" do
         inter_library_loan = FactoryGirl.create(:inter_library_loan)
@@ -94,9 +82,7 @@ describe InterLibraryLoansController do
 
   describe "GET new" do
     describe "When logged in as Administrator" do
-      before(:each) do
-        sign_in FactoryGirl.create(:admin)
-      end
+      login_admin
 
       it "assigns the requested inter_library_loan as @inter_library_loan" do
         get :new
@@ -105,9 +91,7 @@ describe InterLibraryLoansController do
     end
 
     describe "When logged in as Librarian" do
-      before(:each) do
-        sign_in FactoryGirl.create(:librarian)
-      end
+      login_librarian
 
       it "assigns the requested inter_library_loan as @inter_library_loan" do
         get :new
@@ -116,9 +100,7 @@ describe InterLibraryLoansController do
     end
 
     describe "When logged in as User" do
-      before(:each) do
-        sign_in FactoryGirl.create(:user)
-      end
+      login_user
 
       it "should not assign the requested inter_library_loan as @inter_library_loan" do
         get :new
@@ -138,9 +120,7 @@ describe InterLibraryLoansController do
 
   describe "GET edit" do
     describe "When logged in as Administrator" do
-      before(:each) do
-        sign_in FactoryGirl.create(:admin)
-      end
+      login_admin
 
       it "assigns the requested inter_library_loan as @inter_library_loan" do
         inter_library_loan = FactoryGirl.create(:inter_library_loan)
@@ -150,9 +130,7 @@ describe InterLibraryLoansController do
     end
 
     describe "When logged in as Librarian" do
-      before(:each) do
-        sign_in FactoryGirl.create(:librarian)
-      end
+      login_librarian
 
       it "assigns the requested inter_library_loan as @inter_library_loan" do
         inter_library_loan = FactoryGirl.create(:inter_library_loan)
@@ -162,9 +140,7 @@ describe InterLibraryLoansController do
     end
 
     describe "When logged in as User" do
-      before(:each) do
-        sign_in FactoryGirl.create(:user)
-      end
+      login_user
 
       it "assigns the requested inter_library_loan as @inter_library_loan" do
         inter_library_loan = FactoryGirl.create(:inter_library_loan)

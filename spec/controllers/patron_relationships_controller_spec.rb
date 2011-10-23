@@ -11,9 +11,7 @@ describe PatronRelationshipsController do
     end
 
     describe "When logged in as Administrator" do
-      before(:each) do
-        sign_in FactoryGirl.create(:admin)
-      end
+      login_admin
 
       it "assigns all patron_relationships as @patron_relationships" do
         get :index
@@ -22,9 +20,7 @@ describe PatronRelationshipsController do
     end
 
     describe "When logged in as Librarian" do
-      before(:each) do
-        sign_in FactoryGirl.create(:librarian)
-      end
+      login_librarian
 
       it "assigns all patron_relationships as @patron_relationships" do
         get :index
@@ -33,9 +29,7 @@ describe PatronRelationshipsController do
     end
 
     describe "When logged in as User" do
-      before(:each) do
-        sign_in FactoryGirl.create(:user)
-      end
+      login_user
 
       it "assigns all patron_relationships as @patron_relationships" do
         get :index
@@ -53,9 +47,7 @@ describe PatronRelationshipsController do
 
   describe "GET show" do
     describe "When logged in as Administrator" do
-      before(:each) do
-        sign_in FactoryGirl.create(:admin)
-      end
+      login_admin
 
       it "assigns the requested patron_relationship as @patron_relationship" do
         patron_relationship = FactoryGirl.create(:patron_relationship)
@@ -65,9 +57,7 @@ describe PatronRelationshipsController do
     end
 
     describe "When logged in as Librarian" do
-      before(:each) do
-        sign_in FactoryGirl.create(:librarian)
-      end
+      login_librarian
 
       it "assigns the requested patron_relationship as @patron_relationship" do
         patron_relationship = FactoryGirl.create(:patron_relationship)
@@ -77,9 +67,7 @@ describe PatronRelationshipsController do
     end
 
     describe "When logged in as User" do
-      before(:each) do
-        sign_in FactoryGirl.create(:user)
-      end
+      login_user
 
       it "assigns the requested patron_relationship as @patron_relationship" do
         patron_relationship = FactoryGirl.create(:patron_relationship)
@@ -99,9 +87,7 @@ describe PatronRelationshipsController do
 
   describe "GET new" do
     describe "When logged in as Administrator" do
-      before(:each) do
-        sign_in FactoryGirl.create(:admin)
-      end
+      login_admin
 
       it "assigns the requested patron_relationship as @patron_relationship" do
         get :new
@@ -111,9 +97,7 @@ describe PatronRelationshipsController do
     end
 
     describe "When logged in as Librarian" do
-      before(:each) do
-        sign_in FactoryGirl.create(:librarian)
-      end
+      login_librarian
 
       it "should not assign the requested patron_relationship as @patron_relationship" do
         get :new
@@ -123,9 +107,7 @@ describe PatronRelationshipsController do
     end
 
     describe "When logged in as User" do
-      before(:each) do
-        sign_in FactoryGirl.create(:user)
-      end
+      login_user
 
       it "should not assign the requested patron_relationship as @patron_relationship" do
         get :new
@@ -145,9 +127,7 @@ describe PatronRelationshipsController do
 
   describe "GET edit" do
     describe "When logged in as Administrator" do
-      before(:each) do
-        sign_in FactoryGirl.create(:admin)
-      end
+      login_admin
 
       it "assigns the requested patron_relationship as @patron_relationship" do
         patron_relationship = FactoryGirl.create(:patron_relationship)
@@ -157,9 +137,7 @@ describe PatronRelationshipsController do
     end
 
     describe "When logged in as Librarian" do
-      before(:each) do
-        sign_in FactoryGirl.create(:librarian)
-      end
+      login_librarian
 
       it "assigns the requested patron_relationship as @patron_relationship" do
         patron_relationship = FactoryGirl.create(:patron_relationship)
@@ -169,9 +147,7 @@ describe PatronRelationshipsController do
     end
 
     describe "When logged in as User" do
-      before(:each) do
-        sign_in FactoryGirl.create(:user)
-      end
+      login_user
 
       it "assigns the requested patron_relationship as @patron_relationship" do
         patron_relationship = FactoryGirl.create(:patron_relationship)
@@ -196,9 +172,7 @@ describe PatronRelationshipsController do
     end
 
     describe "When logged in as Administrator" do
-      before(:each) do
-        sign_in FactoryGirl.create(:admin)
-      end
+      login_admin
 
       describe "with valid params" do
         it "assigns a newly created patron_relationship as @patron_relationship" do
@@ -226,9 +200,7 @@ describe PatronRelationshipsController do
     end
 
     describe "When logged in as Librarian" do
-      before(:each) do
-        sign_in FactoryGirl.create(:librarian)
-      end
+      login_librarian
 
       describe "with valid params" do
         it "assigns a newly created patron_relationship as @patron_relationship" do
@@ -256,9 +228,7 @@ describe PatronRelationshipsController do
     end
 
     describe "When logged in as User" do
-      before(:each) do
-        sign_in FactoryGirl.create(:user)
-      end
+      login_user
 
       describe "with valid params" do
         it "assigns a newly created patron_relationship as @patron_relationship" do
@@ -320,9 +290,7 @@ describe PatronRelationshipsController do
     end
 
     describe "When logged in as Administrator" do
-      before(:each) do
-        sign_in FactoryGirl.create(:admin)
-      end
+      login_admin
 
       describe "with valid params" do
         it "updates the requested patron_relationship" do
@@ -350,9 +318,7 @@ describe PatronRelationshipsController do
     end
 
     describe "When logged in as Librarian" do
-      before(:each) do
-        sign_in FactoryGirl.create(:librarian)
-      end
+      login_librarian
 
       describe "with valid params" do
         it "updates the requested patron_relationship" do
@@ -375,9 +341,7 @@ describe PatronRelationshipsController do
     end
 
     describe "When logged in as User" do
-      before(:each) do
-        sign_in FactoryGirl.create(:user)
-      end
+      login_user
 
       describe "with valid params" do
         it "updates the requested patron_relationship" do
@@ -426,9 +390,7 @@ describe PatronRelationshipsController do
     end
 
     describe "When logged in as Administrator" do
-      before(:each) do
-        sign_in FactoryGirl.create(:admin)
-      end
+      login_admin
 
       it "destroys the requested patron_relationship" do
         delete :destroy, :id => @patron_relationship.id
@@ -441,9 +403,7 @@ describe PatronRelationshipsController do
     end
 
     describe "When logged in as Librarian" do
-      before(:each) do
-        sign_in FactoryGirl.create(:librarian)
-      end
+      login_librarian
 
       it "destroys the requested patron_relationship" do
         delete :destroy, :id => @patron_relationship.id
@@ -456,9 +416,7 @@ describe PatronRelationshipsController do
     end
 
     describe "When logged in as User" do
-      before(:each) do
-        sign_in FactoryGirl.create(:user)
-      end
+      login_user
 
       it "destroys the requested patron_relationship" do
         delete :destroy, :id => @patron_relationship.id

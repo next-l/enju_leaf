@@ -20,9 +20,7 @@ describe SubjectTypesController do
     end
 
     describe "When logged in as Librarian" do
-      before(:each) do
-        sign_in FactoryGirl.create(:librarian)
-      end
+      login_librarian
 
       it "assigns all subject_types as @subject_types" do
         get :index
@@ -31,9 +29,7 @@ describe SubjectTypesController do
     end
 
     describe "When logged in as User" do
-      before(:each) do
-        sign_in FactoryGirl.create(:user)
-      end
+      login_user
 
       it "assigns all subject_types as @subject_types" do
         get :index
@@ -63,9 +59,7 @@ describe SubjectTypesController do
     end
 
     describe "When logged in as Librarian" do
-      before(:each) do
-        sign_in FactoryGirl.create(:librarian)
-      end
+      login_librarian
 
       it "assigns the requested subject_type as @subject_type" do
         subject_type = FactoryGirl.create(:subject_type)
@@ -75,9 +69,7 @@ describe SubjectTypesController do
     end
 
     describe "When logged in as User" do
-      before(:each) do
-        sign_in FactoryGirl.create(:user)
-      end
+      login_user
 
       it "assigns the requested subject_type as @subject_type" do
         subject_type = FactoryGirl.create(:subject_type)
@@ -107,9 +99,7 @@ describe SubjectTypesController do
     end
 
     describe "When logged in as Librarian" do
-      before(:each) do
-        sign_in FactoryGirl.create(:librarian)
-      end
+      login_librarian
 
       it "should not assign the requested subject_type as @subject_type" do
         get :new
@@ -119,9 +109,7 @@ describe SubjectTypesController do
     end
 
     describe "When logged in as User" do
-      before(:each) do
-        sign_in FactoryGirl.create(:user)
-      end
+      login_user
 
       it "should not assign the requested subject_type as @subject_type" do
         get :new
@@ -151,9 +139,7 @@ describe SubjectTypesController do
     end
 
     describe "When logged in as Librarian" do
-      before(:each) do
-        sign_in FactoryGirl.create(:librarian)
-      end
+      login_librarian
 
       it "assigns the requested subject_type as @subject_type" do
         subject_type = FactoryGirl.create(:subject_type)
@@ -163,9 +149,7 @@ describe SubjectTypesController do
     end
 
     describe "When logged in as User" do
-      before(:each) do
-        sign_in FactoryGirl.create(:user)
-      end
+      login_user
 
       it "assigns the requested subject_type as @subject_type" do
         subject_type = FactoryGirl.create(:subject_type)
@@ -218,9 +202,7 @@ describe SubjectTypesController do
     end
 
     describe "When logged in as Librarian" do
-      before(:each) do
-        sign_in FactoryGirl.create(:librarian)
-      end
+      login_librarian
 
       describe "with valid params" do
         it "assigns a newly created subject_type as @subject_type" do
@@ -248,9 +230,7 @@ describe SubjectTypesController do
     end
 
     describe "When logged in as User" do
-      before(:each) do
-        sign_in FactoryGirl.create(:user)
-      end
+      login_user
 
       describe "with valid params" do
         it "assigns a newly created subject_type as @subject_type" do
@@ -339,9 +319,7 @@ describe SubjectTypesController do
     end
 
     describe "When logged in as Librarian" do
-      before(:each) do
-        sign_in FactoryGirl.create(:librarian)
-      end
+      login_librarian
 
       describe "with valid params" do
         it "updates the requested subject_type" do
@@ -364,9 +342,7 @@ describe SubjectTypesController do
     end
 
     describe "When logged in as User" do
-      before(:each) do
-        sign_in FactoryGirl.create(:user)
-      end
+      login_user
 
       describe "with valid params" do
         it "updates the requested subject_type" do
@@ -428,9 +404,7 @@ describe SubjectTypesController do
     end
 
     describe "When logged in as Librarian" do
-      before(:each) do
-        sign_in FactoryGirl.create(:librarian)
-      end
+      login_librarian
 
       it "destroys the requested subject_type" do
         delete :destroy, :id => @subject_type.id
@@ -443,9 +417,7 @@ describe SubjectTypesController do
     end
 
     describe "When logged in as User" do
-      before(:each) do
-        sign_in FactoryGirl.create(:user)
-      end
+      login_user
 
       it "destroys the requested subject_type" do
         delete :destroy, :id => @subject_type.id

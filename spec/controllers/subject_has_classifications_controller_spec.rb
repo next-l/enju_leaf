@@ -20,9 +20,7 @@ describe SubjectHasClassificationsController do
     end
 
     describe "When logged in as Librarian" do
-      before(:each) do
-        sign_in FactoryGirl.create(:librarian)
-      end
+      login_librarian
 
       it "assigns all subject_has_classifications as @subject_has_classifications" do
         get :index
@@ -31,9 +29,7 @@ describe SubjectHasClassificationsController do
     end
 
     describe "When logged in as User" do
-      before(:each) do
-        sign_in FactoryGirl.create(:user)
-      end
+      login_user
 
       it "assigns all subject_has_classifications as @subject_has_classifications" do
         get :index
@@ -61,9 +57,7 @@ describe SubjectHasClassificationsController do
     end
 
     describe "When logged in as Librarian" do
-      before(:each) do
-        sign_in FactoryGirl.create(:librarian)
-      end
+      login_librarian
 
       it "assigns the requested subject_has_classification as @subject_has_classification" do
         subject_has_classification = FactoryGirl.create(:subject_has_classification)
@@ -73,9 +67,7 @@ describe SubjectHasClassificationsController do
     end
 
     describe "When logged in as User" do
-      before(:each) do
-        sign_in FactoryGirl.create(:user)
-      end
+      login_user
 
       it "assigns the requested subject_has_classification as @subject_has_classification" do
         subject_has_classification = FactoryGirl.create(:subject_has_classification)
@@ -104,9 +96,7 @@ describe SubjectHasClassificationsController do
     end
 
     describe "When logged in as Librarian" do
-      before(:each) do
-        sign_in FactoryGirl.create(:librarian)
-      end
+      login_librarian
 
       it "assigns the requested subject_has_classification as @subject_has_classification" do
         get :new
@@ -115,9 +105,7 @@ describe SubjectHasClassificationsController do
     end
 
     describe "When logged in as User" do
-      before(:each) do
-        sign_in FactoryGirl.create(:user)
-      end
+      login_user
 
       it "should not assign the requested subject_has_classification as @subject_has_classification" do
         get :new
@@ -147,9 +135,7 @@ describe SubjectHasClassificationsController do
     end
 
     describe "When logged in as Librarian" do
-      before(:each) do
-        sign_in FactoryGirl.create(:librarian)
-      end
+      login_librarian
 
       it "assigns the requested subject_has_classification as @subject_has_classification" do
         subject_has_classification = FactoryGirl.create(:subject_has_classification)
@@ -159,9 +145,7 @@ describe SubjectHasClassificationsController do
     end
 
     describe "When logged in as User" do
-      before(:each) do
-        sign_in FactoryGirl.create(:user)
-      end
+      login_user
 
       it "assigns the requested subject_has_classification as @subject_has_classification" do
         subject_has_classification = FactoryGirl.create(:subject_has_classification)
@@ -214,9 +198,7 @@ describe SubjectHasClassificationsController do
     end
 
     describe "When logged in as Librarian" do
-      before(:each) do
-        sign_in FactoryGirl.create(:librarian)
-      end
+      login_librarian
 
       describe "with valid params" do
         it "assigns a newly created subject_has_classification as @subject_has_classification" do
@@ -244,9 +226,7 @@ describe SubjectHasClassificationsController do
     end
 
     describe "When logged in as User" do
-      before(:each) do
-        sign_in FactoryGirl.create(:user)
-      end
+      login_user
 
       describe "with valid params" do
         it "assigns a newly created subject_has_classification as @subject_has_classification" do
@@ -330,9 +310,7 @@ describe SubjectHasClassificationsController do
     end
 
     describe "When logged in as Librarian" do
-      before(:each) do
-        sign_in FactoryGirl.create(:librarian)
-      end
+      login_librarian
 
       describe "with valid params" do
         it "updates the requested subject_has_classification" do
@@ -360,9 +338,7 @@ describe SubjectHasClassificationsController do
     end
 
     describe "When logged in as User" do
-      before(:each) do
-        sign_in FactoryGirl.create(:user)
-      end
+      login_user
 
       describe "with valid params" do
         it "updates the requested subject_has_classification" do
@@ -424,9 +400,7 @@ describe SubjectHasClassificationsController do
     end
 
     describe "When logged in as Librarian" do
-      before(:each) do
-        sign_in FactoryGirl.create(:librarian)
-      end
+      login_librarian
 
       it "destroys the requested subject_has_classification" do
         delete :destroy, :id => @subject_has_classification.id
@@ -439,9 +413,7 @@ describe SubjectHasClassificationsController do
     end
 
     describe "When logged in as User" do
-      before(:each) do
-        sign_in FactoryGirl.create(:user)
-      end
+      login_user
 
       it "destroys the requested subject_has_classification" do
         delete :destroy, :id => @subject_has_classification.id
