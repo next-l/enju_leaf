@@ -30,10 +30,3 @@ $.extend($.fn,{
   }
 });
 
-$(document).FunctionKeys({
-F1:function(obj,s,c,a){alert("F1\nFocusObj:tagName "+obj.tagName+"\nType:"+obj.type+"\nid:"+obj.id+"\nname:"+obj.name+"\nshift:"+s+"\nctrt:"+a+"\nalt:"+a);}
-,F2:function(obj,s,c,a){alert("F2\nshift:"+s+"\nctrt:"+a+"\nalt:"+a+"\nobj:"+obj.tagName);}
-,F3:function(obj,s,c,a){alert("F3\nshift:"+s+"\nctrt:"+a+"\nalt:"+a+"\nobj:"+obj.tagName);}
-,F4:function(obj,s,c,a){alert("F4\nshift:"+s+"\nctrt:"+a+"\nalt:"+a+"\nobj:"+obj.tagName);}
-});
-

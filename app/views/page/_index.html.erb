@@ -1,3 +1,16 @@
+<script type="text/javascript">
+<!--
+<% if user_signed_in? && current_user.has_role?('Librarian') -%>
+$(document).FunctionKeys(
+{
+ F2:function(obj,s,c,a){document.location = '<%= new_basket_path%>';} 
+,F3:function(obj,s,c,a){document.location = '<%= checkins_path %>';}
+,F4:function(obj,s,c,a){document.location = '<%= order_lists_path %>';}
+});
+<% end %>
+// -->
+</script>
+
 <div class="column" id="col1">
   <div class="portlet" id="search">
     <h2 class="title">
@@ -55,3 +68,11 @@
     </div>
   </div>
 </div>
+
+<% if user_signed_in? && current_user.has_role?('Librarian') -%>
+<div class="column" id="shortcut">
+F2: <%= t('page.checkout') %>
+F3: <%= t('page.checkin') %>
+F4: <%= t('activerecord.models.order_list') %>
+</div>
+<% end %>
