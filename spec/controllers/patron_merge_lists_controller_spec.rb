@@ -2,6 +2,7 @@ require 'spec_helper'
 require 'sunspot/rails/spec_helper'
 
 describe PatronMergeListsController do
+  fixtures :patron_merge_lists
   disconnect_sunspot
 
   describe "GET index" do
@@ -41,13 +42,16 @@ describe PatronMergeListsController do
   end
 
   describe "GET show" do
+    before(:each) do
+      @patron_merge_list = FactoryGirl.create(:patron_merge_list)
+    end
+
     describe "When logged in as Administrator" do
       login_admin
 
       it "assigns the requested patron_merge_list as @patron_merge_list" do
-        patron_merge_list = FactoryGirl.create(:patron_merge_list)
-        get :show, :id => patron_merge_list.id
-        assigns(:patron_merge_list).should eq(patron_merge_list)
+        get :show, :id => @patron_merge_list.id
+        assigns(:patron_merge_list).should eq(@patron_merge_list)
         response.should be_success
       end
     end
@@ -56,9 +60,8 @@ describe PatronMergeListsController do
       login_librarian
 
       it "assigns the requested patron_merge_list as @patron_merge_list" do
-        patron_merge_list = FactoryGirl.create(:patron_merge_list)
-        get :show, :id => patron_merge_list.id
-        assigns(:patron_merge_list).should eq(patron_merge_list)
+        get :show, :id => @patron_merge_list.id
+        assigns(:patron_merge_list).should eq(@patron_merge_list)
         response.should be_success
       end
     end
@@ -67,18 +70,16 @@ describe PatronMergeListsController do
       login_user
 
       it "assigns the requested patron_merge_list as @patron_merge_list" do
-        patron_merge_list = FactoryGirl.create(:patron_merge_list)
-        get :show, :id => patron_merge_list.id
-        assigns(:patron_merge_list).should eq(patron_merge_list)
+        get :show, :id => @patron_merge_list.id
+        assigns(:patron_merge_list).should eq(@patron_merge_list)
         response.should be_forbidden
       end
     end
 
     describe "When not logged in" do
       it "assigns the requested patron_merge_list as @patron_merge_list" do
-        patron_merge_list = FactoryGirl.create(:patron_merge_list)
-        get :show, :id => patron_merge_list.id
-        assigns(:patron_merge_list).should eq(patron_merge_list)
+        get :show, :id => @patron_merge_list.id
+        assigns(:patron_merge_list).should eq(@patron_merge_list)
         response.should redirect_to new_user_session_url
       end
     end
@@ -338,6 +339,18 @@ describe PatronMergeListsController do
           put :update, :id => @patron_merge_list.id, :patron_merge_list => @invalid_attrs
           response.should render_template("edit")
         end
+      end
+
+      it "should not merge patrons without selected_patron_id" do
+        put :update, :id => patron_merge_lists(:patron_merge_list_00001).id, :mode => 'merge'
+        flash[:notice].should eq I18n.t('merge_list.specify_id', :model => I18n.t('activerecord.models.patron'))
+        response.should redirect_to patron_merge_list_url(assigns(:patron_merge_list))
+      end
+
+      it "should merge patrons with selected_patron_idand merge_mode" do
+        put :update, :id => patron_merge_lists(:patron_merge_list_00001).id, :selected_patron_id => 3, :mode => 'merge'
+        flash[:notice].should eq I18n.t('merge_list.successfully_merged', :model => I18n.t('activerecord.models.patron'))
+        response.should redirect_to patron_merge_list_url(assigns(:patron_merge_list))
       end
     end
 

@@ -66,6 +66,11 @@ describe CheckinsController do
         get :show, :id => checkin.id
         assigns(:checkin).should eq(checkin)
       end
+
+      it "should not show missing checkin" do
+        get :show, :id => 'missing'
+        response.should be_missing
+      end
     end
 
     describe "When logged in as Librarian" do
@@ -146,6 +151,11 @@ describe CheckinsController do
         get :edit, :id => checkin.id
         assigns(:checkin).should eq(checkin)
       end
+  
+      it "should not edit missing checkin" do
+        get :edit, :id => 'missing'
+        response.should be_missing
+      end
     end
 
     describe "When logged in as Librarian" do
@@ -217,6 +227,12 @@ describe CheckinsController do
           post :create, :checkin => @invalid_attrs
           response.should redirect_to(user_basket_checkins_url(assigns(:checkin).basket.user, assigns(:checkin).basket))
         end
+      end
+
+      it "should not create checkin without item_id" do
+        post :create, :checkin => {:item_identifier => nil}, :basket_id => 9
+        assigns(:checkin).should_not be_valid
+        response.should redirect_to user_basket_checkins_url(assigns(:basket).user, assigns(:basket))
       end
     end
 
@@ -328,6 +344,11 @@ describe CheckinsController do
           response.should be_success
         end
       end
+
+      it "should not update missing checkin" do
+        put :update, :id => 'missing', :checkin => { }
+        response.should be_missing
+      end
     end
 
     describe "When logged in as Librarian" do
@@ -417,6 +438,11 @@ describe CheckinsController do
       it "redirects to the checkins list" do
         delete :destroy, :id => @checkin.id
         response.should redirect_to(checkins_url)
+      end
+
+      it "should not destroy missing checkin" do
+        delete :destroy, :id => 'missing'
+        response.should be_missing
       end
     end
 

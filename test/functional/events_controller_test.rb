@@ -3,13 +3,6 @@ require 'test_helper'
 class EventsControllerTest < ActionController::TestCase
     fixtures :events, :event_categories, :libraries, :patrons, :users
 
-  def test_librarian_should_get_new_with_invalid_date
-    sign_in users(:librarian1)
-    get :new, :date => '2010/13/01'
-    assert_response :success
-    assert_equal flash[:notice], I18n.t('page.invalid_date')
-  end
-  
   def test_guest_should_not_create_event
     assert_no_difference('Event.count') do
       post :create, :event => { :name => 'test', :library_id => '1', :event_category_id => 1, :start_at => '2008-02-05', :end_at => '2008-02-08' }

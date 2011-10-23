@@ -21,6 +21,13 @@ describe ItemsController do
         get :index
         assigns(:items).should_not be_nil
       end
+
+      it "should not get index with inventory_file_id" do
+        get :index, :inventory_file_id => 1
+        response.should be_success
+        assigns(:inventory_file).should eq InventoryFile.find(1)
+        assigns(:items).should eq Item.inventory_items(assigns(:inventory_file), 'not_on_shelf').order('items.id').page(1)
+      end
     end
 
     describe "When logged in as User" do
@@ -29,6 +36,11 @@ describe ItemsController do
       it "assigns all items as @items" do
         get :index
         assigns(:items).should_not be_nil
+      end
+
+      it "should not get index with inventory_file_id" do
+        get :index, :inventory_file_id => 1
+        response.should be_forbidden
       end
     end
 
@@ -75,6 +87,11 @@ describe ItemsController do
         item = FactoryGirl.create(:item)
         get :show, :id => item.id
         assigns(:item).should eq(item)
+      end
+
+      it "should not show missing item" do
+        get :show, :id => 'missing'
+        response.should be_missing
       end
     end
 
@@ -165,6 +182,11 @@ describe ItemsController do
         get :edit, :id => item.id
         assigns(:item).should eq(item)
       end
+
+      it "should not edit missing item" do
+        get :edit, :id => 'missing'
+        response.should be_missing
+      end
     end
 
     describe "When logged in as Librarian" do
@@ -236,6 +258,17 @@ describe ItemsController do
           response.should render_template("new")
         end
       end
+
+      it "should not create item without manifestation_id" do
+        post :create, :item => { :circulation_status_id => 1 }
+        response.should be_missing
+      end
+
+      it "should not create item already created" do
+        post :create, :item => { :circulation_status_id => 1, :item_identifier => "00001", :manifestation_id => 1}
+        assigns(:item).should_not be_valid
+        response.should be_success
+      end
     end
 
     describe "When logged in as Librarian" do
@@ -263,6 +296,16 @@ describe ItemsController do
           post :create, :item => @invalid_attrs
           response.should render_template("new")
         end
+      end
+
+      it "should create reserved item" do
+        post :create, :item => { :circulation_status_id => 1, :manifestation_id => 2}
+        assigns(:item).should be_valid
+
+        response.should redirect_to item_url(assigns(:item))
+        flash[:message].should eq I18n.t('item.this_item_is_reserved')
+        assigns(:item).manifestation.should eq Manifestation.find(2)
+        assigns(:item).manifestation.next_reservation.state.should eq 'retained'
       end
     end
 
@@ -428,7 +471,7 @@ describe ItemsController do
 
   describe "DELETE destroy" do
     before(:each) do
-      @item = FactoryGirl.create(:item)
+      @item = items(:item_00006)
     end
 
     describe "When logged in as Administrator" do
@@ -440,7 +483,17 @@ describe ItemsController do
 
       it "redirects to the items list" do
         delete :destroy, :id => @item.id
-        response.should redirect_to(items_url)
+        response.should redirect_to(manifestation_items_url(@item.manifestation))
+      end
+
+      it "should not destroy missing item" do
+        delete :destroy, :id => 'missing'
+        response.should be_missing
+      end
+
+      it "should not destroy item if not checked in" do
+        delete :destroy, :id => 1
+        response.should be_forbidden
       end
     end
 
@@ -453,7 +506,7 @@ describe ItemsController do
 
       it "redirects to the items list" do
         delete :destroy, :id => @item.id
-        response.should redirect_to(items_url)
+        response.should redirect_to(manifestation_items_url(@item.manifestation))
       end
     end
 

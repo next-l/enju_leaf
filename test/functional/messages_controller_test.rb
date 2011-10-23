@@ -3,18 +3,6 @@ require 'test_helper'
 class MessagesControllerTest < ActionController::TestCase
     fixtures :users, :messages, :patrons, :patron_types
 
-  def test_guest_should_not_get_index
-    get :index
-    assert_response :redirect
-    assert_redirected_to new_user_session_url
-  end
-  
-  def test_user_should_get_index
-    sign_in users(:user1)
-    get :index
-    assert_response :success
-  end
-  
   def test_user_should_get_index_with_query
     sign_in users(:user1)
     get :index, :query => 'you', :user_id => users(:user1).username
@@ -37,12 +25,6 @@ class MessagesControllerTest < ActionController::TestCase
     sign_in users(:user1)
     get :new, :parent_id => 2
     assert_response :forbidden
-  end
-  
-  def test_librarian_should_get_new
-    sign_in users(:librarian1)
-    get :new
-    assert_response :success
   end
   
   def test_librarian_should_get_new
@@ -116,5 +98,4 @@ class MessagesControllerTest < ActionController::TestCase
     end
     assert_response :forbidden
   end
-  
 end

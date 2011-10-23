@@ -45,13 +45,16 @@ describe CountriesController do
   end
 
   describe "GET show" do
+    before(:each) do
+      @country = FactoryGirl.create(:country)
+    end
+
     describe "When logged in as Administrator" do
       login_admin
 
       it "assigns the requested country as @country" do
-        country = FactoryGirl.create(:country)
-        get :show, :id => country.id
-        assigns(:country).should eq(country)
+        get :show, :id => @country.id
+        assigns(:country).should eq(@country)
       end
     end
 
@@ -59,9 +62,8 @@ describe CountriesController do
       login_librarian
 
       it "assigns the requested country as @country" do
-        country = FactoryGirl.create(:country)
-        get :show, :id => country.id
-        assigns(:country).should eq(country)
+        get :show, :id => @country.id
+        assigns(:country).should eq(@country)
       end
     end
 
@@ -69,17 +71,15 @@ describe CountriesController do
       login_user
 
       it "assigns the requested country as @country" do
-        country = FactoryGirl.create(:country)
-        get :show, :id => country.id
-        assigns(:country).should eq(country)
+        get :show, :id => @country.id
+        assigns(:country).should eq(@country)
       end
     end
 
     describe "When not logged in" do
       it "assigns the requested country as @country" do
-        country = FactoryGirl.create(:country)
-        get :show, :id => country.id
-        assigns(:country).should eq(country)
+        get :show, :id => @country.id
+        assigns(:country).should eq(@country)
       end
     end
   end
