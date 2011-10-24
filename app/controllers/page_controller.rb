@@ -14,6 +14,7 @@ class PageController < ApplicationController
       @tags = Bookmark.tag_counts.sort{|a,b| a.count <=> b.count}.reverse[0..49]
     end
     @manifestation = Manifestation.pickup rescue nil
+    get_top_page_content
   end
 
   def msie_acceralator

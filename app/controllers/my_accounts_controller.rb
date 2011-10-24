@@ -12,6 +12,7 @@ class MyAccountsController < ApplicationController
     end
     @manifestation = Manifestation.pickup(@user.keyword_list.to_s.split.sort_by{rand}.first) rescue nil
     prepare_options
+    get_top_page_content
 
     respond_to do |format|
       format.html
