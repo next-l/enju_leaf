@@ -46,13 +46,16 @@ describe FrequenciesController do
   end
 
   describe "GET show" do
+    before(:each) do
+      @frequency = FactoryGirl.create(:frequency)
+    end
+
     describe "When logged in as Administrator" do
       login_admin
 
       it "assigns the requested frequency as @frequency" do
-        frequency = FactoryGirl.create(:frequency)
-        get :show, :id => frequency.id
-        assigns(:frequency).should eq(frequency)
+        get :show, :id => @frequency.id
+        assigns(:frequency).should eq(@frequency)
       end
     end
 
@@ -60,9 +63,8 @@ describe FrequenciesController do
       login_librarian
 
       it "assigns the requested frequency as @frequency" do
-        frequency = FactoryGirl.create(:frequency)
-        get :show, :id => frequency.id
-        assigns(:frequency).should eq(frequency)
+        get :show, :id => @frequency.id
+        assigns(:frequency).should eq(@frequency)
       end
     end
 
@@ -70,17 +72,15 @@ describe FrequenciesController do
       login_user
 
       it "assigns the requested frequency as @frequency" do
-        frequency = FactoryGirl.create(:frequency)
-        get :show, :id => frequency.id
-        assigns(:frequency).should eq(frequency)
+        get :show, :id => @frequency.id
+        assigns(:frequency).should eq(@frequency)
       end
     end
 
     describe "When not logged in" do
       it "assigns the requested frequency as @frequency" do
-        frequency = FactoryGirl.create(:frequency)
-        get :show, :id => frequency.id
-        assigns(:frequency).should eq(frequency)
+        get :show, :id => @frequency.id
+        assigns(:frequency).should eq(@frequency)
       end
     end
   end
@@ -126,13 +126,16 @@ describe FrequenciesController do
   end
 
   describe "GET edit" do
+    before(:each) do
+      @frequency = FactoryGirl.create(:frequency)
+    end
+
     describe "When logged in as Administrator" do
       login_admin
 
       it "assigns the requested frequency as @frequency" do
-        frequency = FactoryGirl.create(:frequency)
-        get :edit, :id => frequency.id
-        assigns(:frequency).should eq(frequency)
+        get :edit, :id => @frequency.id
+        assigns(:frequency).should eq(@frequency)
       end
     end
 
@@ -140,8 +143,7 @@ describe FrequenciesController do
       login_librarian
 
       it "assigns the requested frequency as @frequency" do
-        frequency = FactoryGirl.create(:frequency)
-        get :edit, :id => frequency.id
+        get :edit, :id => @frequency.id
         response.should be_forbidden
       end
     end
@@ -150,16 +152,14 @@ describe FrequenciesController do
       login_user
 
       it "assigns the requested frequency as @frequency" do
-        frequency = FactoryGirl.create(:frequency)
-        get :edit, :id => frequency.id
+        get :edit, :id => @frequency.id
         response.should be_forbidden
       end
     end
 
     describe "When not logged in" do
       it "should not assign the requested frequency as @frequency" do
-        frequency = FactoryGirl.create(:frequency)
-        get :edit, :id => frequency.id
+        get :edit, :id => @frequency.id
         response.should redirect_to(new_user_session_url)
       end
     end

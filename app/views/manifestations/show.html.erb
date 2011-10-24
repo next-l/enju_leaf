@@ -52,7 +52,7 @@
           <%- if @manifestation.bookmarked?(current_user) -%>
             <li><%= link_to t('bookmark.remove_from_my_bookmark'), bookmark_path(Bookmark.where(:user_id => current_user.id, :manifestation_id => @manifestation.id).first), :confirm => t('page.are_you_sure'), :method => :delete -%></li>
           <%- else -%>
-            <li><%= link_to t('bookmark.add_to_my_bookmark'), new_user_bookmark_path(current_user, :bookmark => {:url => manifestation_url(@manifestation)}) -%></li>
+            <li><%= link_to t('bookmark.add_to_my_bookmark'), new_bookmark_path(:bookmark => {:url => manifestation_url(@manifestation)}) -%></li>
           <%- end -%>
         <% end %>
 
