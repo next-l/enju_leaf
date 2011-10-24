@@ -12,7 +12,7 @@ describe CheckedItemsController do
     end
 
     it "recognizes and generates #index" do
-      { :get => "/users/1/baskets/1/checked_items" }.should route_to(:controller => "checked_items", :action => "index", :basket_id => "1", :user_id => "1")
+      { :get => "/baskets/1/checked_items" }.should route_to(:controller => "checked_items", :action => "index", :basket_id => "1")
     end
 
     it "recognizes and generates #new" do
@@ -40,7 +40,7 @@ describe CheckedItemsController do
     end
 
     it "recognizes and generates #update" do
-      { :put => "/users/1/baskets/1/checked_items/1" }.should route_to(:controller => "checked_items", :action => "update", :id => "1", :basket_id => "1", :user_id => "1")
+      { :put => "/baskets/1/checked_items/1" }.should route_to(:controller => "checked_items", :action => "update", :id => "1", :basket_id => "1")
     end
 
     it "recognizes and generates #destroy" do

@@ -69,17 +69,6 @@ class EventsControllerTest < ActionController::TestCase
     assigns(:event).remove_from_index!
   end
 
-  def test_guest_should_not_update_event
-    put :update, :id => 1, :event => { }
-    assert_redirected_to new_user_session_url
-  end
-  
-  def test_user_should_not_update_event
-    sign_in users(:user1)
-    put :update, :id => 1, :event => { }
-    assert_response :forbidden
-  end
-  
   def test_librarian_should_not_update_event_without_library_id
     sign_in users(:librarian1)
     put :update, :id => 1, :event => {:library_id => nil}
@@ -98,19 +87,5 @@ class EventsControllerTest < ActionController::TestCase
     put :update, :id => 1, :event => {:start_at => '2008-02-08', :end_at => '2008-02-05' }
     assert_response :success
     assert assigns(:event).errors['start_at']
-  end
-  
-  def test_librarian_should_update_event
-    sign_in users(:librarian1)
-    put :update, :id => 1, :event => { }
-    assert_redirected_to event_url(assigns(:event))
-    assigns(:event).remove_from_index!
-  end
-  
-  def test_admin_should_update_event
-    sign_in users(:admin)
-    put :update, :id => 1, :event => { }
-    assert_redirected_to event_url(assigns(:event))
-    assigns(:event).remove_from_index!
   end
 end
