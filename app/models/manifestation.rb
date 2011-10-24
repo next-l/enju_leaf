@@ -283,7 +283,7 @@ class Manifestation < ActiveRecord::Base
   end
 
   def next_reservation
-    self.reserves.waiting.order('reserves.created_at ASC').first
+    self.reserves.waiting.order('reserves.position ASC').first
   end
 
   def serial?
