@@ -205,4 +205,13 @@ module ApplicationHelper
     string << LibraryGroup.system_name + ' - Next-L Enju Leaf'
     string.html_safe
   end
+
+  def user_notice(user)
+    string = ''
+    messages = user.user_notice
+    messages.each do |message|
+      string << message.gsub("[","").gsub("]", "") + '<br />'
+    end
+    string.html_safe
+  end
 end
