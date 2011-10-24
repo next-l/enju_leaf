@@ -1128,6 +1128,7 @@ ja:
     picture: "画像"
     number: "巻号"
     statistics: "統計"
+    ex_statistics: "拡張統計"
     request: "図書館への依頼"
     librarian_circulation: "貸出・返却・予約"
     user_circulation: "貸出と予約"
@@ -1226,11 +1227,17 @@ ja:
     number_of_pictures: "枚"
     best_request: "ベストリクエスト"
     best_reader: "ベストリーダ"
+
     exstatistics:
       ranknumber: 順位
       count: 回数
       readercount: 貸出回数
       requestcount: 予約回数
+
+  exstatistics:
+    report: 帳票
+    checkout_report: 貸出状況表
+    reserve_report: 予約状況表
    
   title:
     index: "一覧"
