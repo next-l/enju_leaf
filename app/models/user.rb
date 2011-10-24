@@ -59,7 +59,7 @@ class User < ActiveRecord::Base
   validates_associated :patron, :user_group, :library
   validates_presence_of :user_group, :library, :locale #, :user_number
   validates :user_number, :uniqueness => true, :format => {:with => /\A[0-9A-Za-z_]+\Z/}, :allow_blank => true
-  validates_confirmation_of :email, :on => :create #, :if => proc{|user| !user.operator.try(:has_role?, 'Librarian')}
+  validates_confirmation_of :email #, :on => :create, :if => proc{|user| !user.operator.try(:has_role?, 'Librarian')}
   before_validation :set_role_and_patron, :on => :create
   before_validation :set_lock_information
   before_destroy :check_item_before_destroy, :check_role_before_destroy
@@ -119,7 +119,7 @@ class User < ActiveRecord::Base
     :zip_code, :address, :telephone_number, :fax_number, :address_note,
     :role_id, :patron_id, :operator, :password_not_verified,
     :update_own_account, :auto_generated_password,
-    :locked, :current_password, :birth_date, :death_date, :email
+    :locked, :current_password, :birth_date, :death_date #, :email
 
   def self.per_page
     10
