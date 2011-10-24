@@ -14,7 +14,7 @@
             <li><%= link_to t('page.checkout'), new_basket_path -%></li>
             <li>
               <%- if @checkins and @basket -%>
-                <%= link_to t('page.checkin'), user_basket_checkins_path(@basket.user, @basket) -%>
+                <%= link_to t('page.checkin'), basket_checkins_path(@basket) -%>
               <%- else -%>
                 <%= link_to t('page.checkin'), checkins_path -%>
               <%- end -%>
