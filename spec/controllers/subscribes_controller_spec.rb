@@ -9,9 +9,7 @@ describe SubscribesController do
     end
 
     describe "When logged in as Administrator" do
-      before(:each) do
-        sign_in FactoryGirl.create(:admin)
-      end
+      login_admin
 
       it "assigns all subscribes as @subscribes" do
         get :index
@@ -20,9 +18,7 @@ describe SubscribesController do
     end
 
     describe "When logged in as Librarian" do
-      before(:each) do
-        sign_in FactoryGirl.create(:librarian)
-      end
+      login_librarian
 
       it "assigns all subscribes as @subscribes" do
         get :index
@@ -31,9 +27,7 @@ describe SubscribesController do
     end
 
     describe "When logged in as User" do
-      before(:each) do
-        sign_in FactoryGirl.create(:user)
-      end
+      login_user
 
       it "should be forbidden" do
         get :index
@@ -53,9 +47,7 @@ describe SubscribesController do
 
   describe "GET show" do
     describe "When logged in as Administrator" do
-      before(:each) do
-        sign_in FactoryGirl.create(:admin)
-      end
+      login_admin
 
       it "assigns the requested subscribe as @subscribe" do
         subscribe = FactoryGirl.create(:subscribe)
@@ -65,9 +57,7 @@ describe SubscribesController do
     end
 
     describe "When logged in as Librarian" do
-      before(:each) do
-        sign_in FactoryGirl.create(:librarian)
-      end
+      login_librarian
 
       it "assigns the requested subscribe as @subscribe" do
         subscribe = FactoryGirl.create(:subscribe)
@@ -77,9 +67,7 @@ describe SubscribesController do
     end
 
     describe "When logged in as User" do
-      before(:each) do
-        sign_in FactoryGirl.create(:user)
-      end
+      login_user
 
       it "assigns the requested subscribe as @subscribe" do
         subscribe = FactoryGirl.create(:subscribe)
@@ -99,9 +87,7 @@ describe SubscribesController do
 
   describe "GET new" do
     describe "When logged in as Administrator" do
-      before(:each) do
-        sign_in FactoryGirl.create(:admin)
-      end
+      login_admin
 
       it "assigns the requested subscribe as @subscribe" do
         get :new
@@ -111,9 +97,7 @@ describe SubscribesController do
     end
 
     describe "When logged in as Librarian" do
-      before(:each) do
-        sign_in FactoryGirl.create(:librarian)
-      end
+      login_librarian
 
       it "assigns the requested subscribe as @subscribe" do
         get :new
@@ -123,9 +107,7 @@ describe SubscribesController do
     end
 
     describe "When logged in as User" do
-      before(:each) do
-        sign_in FactoryGirl.create(:user)
-      end
+      login_user
 
       it "should not assign the requested subscribe as @subscribe" do
         get :new
@@ -145,9 +127,7 @@ describe SubscribesController do
 
   describe "GET edit" do
     describe "When logged in as Administrator" do
-      before(:each) do
-        sign_in FactoryGirl.create(:admin)
-      end
+      login_admin
 
       it "assigns the requested subscribe as @subscribe" do
         subscribe = FactoryGirl.create(:subscribe)
@@ -157,9 +137,7 @@ describe SubscribesController do
     end
 
     describe "When logged in as Librarian" do
-      before(:each) do
-        sign_in FactoryGirl.create(:librarian)
-      end
+      login_librarian
 
       it "assigns the requested subscribe as @subscribe" do
         subscribe = FactoryGirl.create(:subscribe)
@@ -169,9 +147,7 @@ describe SubscribesController do
     end
 
     describe "When logged in as User" do
-      before(:each) do
-        sign_in FactoryGirl.create(:user)
-      end
+      login_user
 
       it "assigns the requested subscribe as @subscribe" do
         subscribe = FactoryGirl.create(:subscribe)
@@ -196,9 +172,7 @@ describe SubscribesController do
     end
 
     describe "When logged in as Administrator" do
-      before(:each) do
-        sign_in FactoryGirl.create(:admin)
-      end
+      login_admin
 
       describe "with valid params" do
         it "assigns a newly created subscribe as @subscribe" do
@@ -226,9 +200,7 @@ describe SubscribesController do
     end
 
     describe "When logged in as Librarian" do
-      before(:each) do
-        sign_in FactoryGirl.create(:librarian)
-      end
+      login_librarian
 
       describe "with valid params" do
         it "assigns a newly created subscribe as @subscribe" do
@@ -256,9 +228,7 @@ describe SubscribesController do
     end
 
     describe "When logged in as User" do
-      before(:each) do
-        sign_in FactoryGirl.create(:user)
-      end
+      login_user
 
       describe "with valid params" do
         it "assigns a newly created subscribe as @subscribe" do
@@ -320,9 +290,7 @@ describe SubscribesController do
     end
 
     describe "When logged in as Administrator" do
-      before(:each) do
-        sign_in FactoryGirl.create(:admin)
-      end
+      login_admin
 
       describe "with valid params" do
         it "updates the requested subscribe" do
@@ -345,9 +313,7 @@ describe SubscribesController do
     end
 
     describe "When logged in as Librarian" do
-      before(:each) do
-        sign_in FactoryGirl.create(:librarian)
-      end
+      login_librarian
 
       describe "with valid params" do
         it "updates the requested subscribe" do
@@ -370,9 +336,7 @@ describe SubscribesController do
     end
 
     describe "When logged in as User" do
-      before(:each) do
-        sign_in FactoryGirl.create(:user)
-      end
+      login_user
 
       describe "with valid params" do
         it "updates the requested subscribe" do
@@ -421,9 +385,7 @@ describe SubscribesController do
     end
 
     describe "When logged in as Administrator" do
-      before(:each) do
-        sign_in FactoryGirl.create(:admin)
-      end
+      login_admin
 
       it "destroys the requested subscribe" do
         delete :destroy, :id => @subscribe.id
@@ -436,9 +398,7 @@ describe SubscribesController do
     end
 
     describe "When logged in as Librarian" do
-      before(:each) do
-        sign_in FactoryGirl.create(:librarian)
-      end
+      login_librarian
 
       it "destroys the requested subscribe" do
         delete :destroy, :id => @subscribe.id
@@ -451,9 +411,7 @@ describe SubscribesController do
     end
 
     describe "When logged in as User" do
-      before(:each) do
-        sign_in FactoryGirl.create(:user)
-      end
+      login_user
 
       it "destroys the requested subscribe" do
         delete :destroy, :id => @subscribe.id

@@ -3,9 +3,7 @@ require 'spec_helper'
 describe PageController do
   describe "GET page" do
     describe "When logged in as Librarian" do
-      before(:each) do
-        sign_in FactoryGirl.create(:librarian)
-      end
+      login_librarian
 
       it "should get import" do
         get :import
@@ -19,10 +17,7 @@ describe PageController do
     end
 
     describe "When logged in as User" do
-      before(:each) do
-        @user = FactoryGirl.create(:user)
-        sign_in @user
-      end
+      login_user
 
       it "should redirect to user" do
         get :index

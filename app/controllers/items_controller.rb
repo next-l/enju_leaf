@@ -29,26 +29,30 @@ class ItemsController < ApplicationController
       end
     end
 
-    if @inventory_file
-      if user_signed_in?
-        if current_user.has_role?('Librarian')
-          case params[:inventory]
-          when 'not_in_catalog'
-            mode = 'not_in_catalog'
+    if defined?(InventoryFile)
+      if @inventory_file
+        if user_signed_in?
+          if current_user.has_role?('Librarian')
+            case params[:inventory]
+            when 'not_in_catalog'
+              mode = 'not_in_catalog'
+            else
+              mode = 'not_on_shelf'
+            end
+            order = 'items.id'
+            @items = Item.inventory_items(@inventory_file, mode).order(order).page(params[:page]).per_page(per_page)
           else
-            mode = 'not_on_shelf'
+            access_denied
+            return
           end
-          order = 'id'
-          @items = Item.inventory_items(@inventory_file, mode).order(order).page(params[:page]).per_page(per_page)
         else
-          access_denied
+          redirect_to new_user_session_url
           return
         end
-      else
-        redirect_to new_user_session_url
-        return
       end
-    else
+    end
+
+    unless @inventory_file
       search = Sunspot.new_search(Item)
       set_role_query(current_user, search)
 
@@ -85,9 +89,11 @@ class ItemsController < ApplicationController
       @count[:total] = @items.total_entries
     end
 
-    if params[:mode] == 'barcode'
-      render :action => 'barcode', :layout => false
-      return
+    if defined?(EnjuBarcode)
+      if params[:mode] == 'barcode'
+        render :action => 'barcode', :layout => false
+        return
+      end
     end
 
     flash[:page_info] = {:page => page, :query => query}

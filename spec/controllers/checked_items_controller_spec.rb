@@ -5,21 +5,23 @@ describe CheckedItemsController do
 
   describe "GET index" do
     describe "When logged in as Administrator" do
-      before(:each) do
-        sign_in FactoryGirl.create(:admin)
-      end
+      login_admin
 
       it "assigns all checked_items as @checked_items" do
         get :index
         assigns(:checked_items).should_not be_empty
         response.should be_forbidden
       end
+
+      it "should not get index without basket_id" do
+        get :index, :item_id => 1
+        assigns(:checked_items).should_not be_empty
+        response.should be_forbidden
+      end
     end
 
     describe "When logged in as Librarian" do
-      before(:each) do
-        sign_in FactoryGirl.create(:librarian)
-      end
+      login_librarian
 
       it "should be forbidden" do
         get :index
@@ -37,9 +39,7 @@ describe CheckedItemsController do
     end
 
     describe "When logged in as User" do
-      before(:each) do
-        sign_in FactoryGirl.create(:user)
-      end
+      login_user
 
       it "assigns empty as @checked_items" do
         get :index
@@ -54,14 +54,18 @@ describe CheckedItemsController do
         assigns(:checked_items).should be_empty
         response.should redirect_to(new_user_session_url)
       end
+
+      it "should not get index with basket_id and item_id" do
+        get :index, :basket_id => 1, :item_id => 1
+        assigns(:checked_items).should be_empty
+        response.should redirect_to(new_user_session_url)
+      end
     end
   end
 
   describe "GET show" do
     describe "When logged in as Administrator" do
-      before(:each) do
-        sign_in FactoryGirl.create(:admin)
-      end
+      login_admin
 
       it "assigns the requested checked_item as @checked_item" do
         get :show, :id => 1
@@ -70,9 +74,7 @@ describe CheckedItemsController do
     end
 
     describe "When logged in as Librarian" do
-      before(:each) do
-        sign_in FactoryGirl.create(:librarian)
-      end
+      login_librarian
 
       it "assigns the requested checked_item as @checked_item" do
         get :show, :id => 1
@@ -81,9 +83,7 @@ describe CheckedItemsController do
     end
 
     describe "When logged in as User" do
-      before(:each) do
-        sign_in FactoryGirl.create(:user)
-      end
+      login_user
 
       it "assigns the requested checked_item as @checked_item" do
         get :show, :id => 1
@@ -103,9 +103,7 @@ describe CheckedItemsController do
 
   describe "GET new" do
     describe "When logged in as Administrator" do
-      before(:each) do
-        sign_in FactoryGirl.create(:admin)
-      end
+      login_admin
 
       it "assigns the requested checked_item as @checked_item" do
         get :new, :basket_id => 3
@@ -122,9 +120,7 @@ describe CheckedItemsController do
     end
 
     describe "When logged in as Librarian" do
-      before(:each) do
-        sign_in FactoryGirl.create(:librarian)
-      end
+      login_librarian
 
       it "assigns the requested checked_item as @checked_item" do
         get :new, :basket_id => 3
@@ -134,9 +130,7 @@ describe CheckedItemsController do
     end
 
     describe "When logged in as User" do
-      before(:each) do
-        sign_in FactoryGirl.create(:user)
-      end
+      login_user
 
       it "should not assign the requested checked_item as @checked_item" do
         get :new, :basket_id => 3
@@ -156,9 +150,7 @@ describe CheckedItemsController do
 
   describe "GET edit" do
     describe "When logged in as Administrator" do
-      before(:each) do
-        sign_in FactoryGirl.create(:admin)
-      end
+      login_admin
 
       it "assigns the requested checked_item as @checked_item" do
         checked_item = checked_items(:checked_item_00001)
@@ -168,9 +160,7 @@ describe CheckedItemsController do
     end
 
     describe "When logged in as Librarian" do
-      before(:each) do
-        sign_in FactoryGirl.create(:librarian)
-      end
+      login_librarian
 
       it "assigns the requested checked_item as @checked_item" do
         checked_item = checked_items(:checked_item_00001)
@@ -180,9 +170,7 @@ describe CheckedItemsController do
     end
 
     describe "When logged in as User" do
-      before(:each) do
-        sign_in FactoryGirl.create(:user)
-      end
+      login_user
 
       it "assigns the requested checked_item as @checked_item" do
         checked_item = checked_items(:checked_item_00001)
@@ -207,9 +195,7 @@ describe CheckedItemsController do
     end
 
     describe "When logged in as Administrator" do
-      before(:each) do
-        sign_in FactoryGirl.create(:admin)
-      end
+      login_admin
 
       describe "When the item is missing" do
         it "assigns a newly created checked_item as @checked_item" do
@@ -249,6 +235,16 @@ describe CheckedItemsController do
           assigns(:checked_item).should be_valid
           assigns(:checked_item).item.manifestation.reserves.waiting.should be_empty
         end
+      end
+    end
+
+    describe "When logged in as Librarian" do
+      login_librarian
+
+      it "should create checked_item" do
+        post :create, :checked_item => @attrs, :basket_id => 3
+        assigns(:checked_item).due_date.should_not be_nil
+        response.should redirect_to user_basket_checked_items_url(assigns(:checked_item).basket.user, assigns(:checked_item).basket)
       end
     end
   end

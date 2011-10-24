@@ -4,6 +4,7 @@ class ManifestationsController < ApplicationController
   authorize_resource :only => :index
   before_filter :authenticate_user!, :only => :edit
   before_filter :get_patron
+  before_filter :get_expression, :only => :new
   helper_method :get_manifestation
   if defined?(EnjuSubject)
     helper_method :get_subject
@@ -17,6 +18,7 @@ class ManifestationsController < ApplicationController
   after_filter :convert_charset, :only => :index
   cache_sweeper :manifestation_sweeper, :only => [:create, :update, :destroy]
   include EnjuOai::OaiController if defined?(EnjuOai)
+  include EnjuSearchLog if defined?(EnjuSearchLog)
 
   # GET /manifestations
   # GET /manifestations.xml
@@ -246,7 +248,11 @@ class ManifestationsController < ApplicationController
           end
         end
       end
-      save_search_history(query, @manifestations.offset, @count[:query_result], current_user)
+
+      if defined?(EnjuSearchLog)
+        save_search_history(query, @manifestations.offset, @count[:query_result], current_user)
+      end
+
       if params[:format] == 'oai'
         unless @manifestations.empty?
           @resumption = set_resumption_token(
@@ -649,19 +655,6 @@ class ManifestationsController < ApplicationController
     @languages = Language.all_cache
     @frequencies = Frequency.all
     @nii_types = NiiType.all if defined?(NiiType)
-  end
-
-  def save_search_history(query, offset = 0, total = 0, user = nil)
-    check_dsbl if LibraryGroup.site_config.use_dsbl
-    if configatron.write_search_log_to_file
-      write_search_log(query, total, user)
-    else
-      history = SearchHistory.create(:query => query, :user => user, :start_record => offset + 1, :maximum_records => nil, :number_of_records => total)
-    end
-  end
-
-  def write_search_log(query, total, user)
-    SEARCH_LOGGER.info "#{Time.zone.now}\t#{query}\t#{total}\t#{user.try(:username)}\t#{params[:format]}"
   end
 
   def get_index_patron

@@ -11,9 +11,7 @@ describe RequestStatusTypesController do
     end
 
     describe "When logged in as Administrator" do
-      before(:each) do
-        sign_in FactoryGirl.create(:admin)
-      end
+      login_admin
 
       it "assigns all request_status_types as @request_status_types" do
         get :index
@@ -22,9 +20,7 @@ describe RequestStatusTypesController do
     end
 
     describe "When logged in as Librarian" do
-      before(:each) do
-        sign_in FactoryGirl.create(:librarian)
-      end
+      login_librarian
 
       it "assigns all request_status_types as @request_status_types" do
         get :index
@@ -33,9 +29,7 @@ describe RequestStatusTypesController do
     end
 
     describe "When logged in as User" do
-      before(:each) do
-        sign_in FactoryGirl.create(:user)
-      end
+      login_user
 
       it "should not assign request_status_types as @request_status_types" do
         get :index
@@ -55,9 +49,7 @@ describe RequestStatusTypesController do
 
   describe "GET show" do
     describe "When logged in as Administrator" do
-      before(:each) do
-        sign_in FactoryGirl.create(:admin)
-      end
+      login_admin
 
       it "assigns the requested request_status_type as @request_status_type" do
         request_status_type = FactoryGirl.create(:request_status_type)
@@ -67,9 +59,7 @@ describe RequestStatusTypesController do
     end
 
     describe "When logged in as Librarian" do
-      before(:each) do
-        sign_in FactoryGirl.create(:librarian)
-      end
+      login_librarian
 
       it "assigns the requested request_status_type as @request_status_type" do
         request_status_type = FactoryGirl.create(:request_status_type)
@@ -79,9 +69,7 @@ describe RequestStatusTypesController do
     end
 
     describe "When logged in as User" do
-      before(:each) do
-        sign_in FactoryGirl.create(:user)
-      end
+      login_user
 
       it "assigns the requested request_status_type as @request_status_type" do
         request_status_type = FactoryGirl.create(:request_status_type)
@@ -101,9 +89,7 @@ describe RequestStatusTypesController do
 
   describe "GET new" do
     describe "When logged in as Administrator" do
-      before(:each) do
-        sign_in FactoryGirl.create(:admin)
-      end
+      login_admin
 
       it "assigns the requested request_status_type as @request_status_type" do
         get :new
@@ -113,9 +99,7 @@ describe RequestStatusTypesController do
     end
 
     describe "When logged in as Librarian" do
-      before(:each) do
-        sign_in FactoryGirl.create(:librarian)
-      end
+      login_librarian
 
       it "should not assign the requested request_status_type as @request_status_type" do
         get :new
@@ -125,9 +109,7 @@ describe RequestStatusTypesController do
     end
 
     describe "When logged in as User" do
-      before(:each) do
-        sign_in FactoryGirl.create(:user)
-      end
+      login_user
 
       it "should not assign the requested request_status_type as @request_status_type" do
         get :new
@@ -147,9 +129,7 @@ describe RequestStatusTypesController do
 
   describe "GET edit" do
     describe "When logged in as Administrator" do
-      before(:each) do
-        sign_in FactoryGirl.create(:admin)
-      end
+      login_admin
 
       it "assigns the requested request_status_type as @request_status_type" do
         request_status_type = FactoryGirl.create(:request_status_type)
@@ -159,9 +139,7 @@ describe RequestStatusTypesController do
     end
 
     describe "When logged in as Librarian" do
-      before(:each) do
-        sign_in FactoryGirl.create(:librarian)
-      end
+      login_librarian
 
       it "assigns the requested request_status_type as @request_status_type" do
         request_status_type = FactoryGirl.create(:request_status_type)
@@ -171,9 +149,7 @@ describe RequestStatusTypesController do
     end
 
     describe "When logged in as User" do
-      before(:each) do
-        sign_in FactoryGirl.create(:user)
-      end
+      login_user
 
       it "assigns the requested request_status_type as @request_status_type" do
         request_status_type = FactoryGirl.create(:request_status_type)
@@ -198,9 +174,7 @@ describe RequestStatusTypesController do
     end
 
     describe "When logged in as Administrator" do
-      before(:each) do
-        sign_in FactoryGirl.create(:admin)
-      end
+      login_admin
 
       describe "with valid params" do
         it "assigns a newly created request_status_type as @request_status_type" do
@@ -228,9 +202,7 @@ describe RequestStatusTypesController do
     end
 
     describe "When logged in as Librarian" do
-      before(:each) do
-        sign_in FactoryGirl.create(:librarian)
-      end
+      login_librarian
 
       describe "with valid params" do
         it "assigns a newly created request_status_type as @request_status_type" do
@@ -258,9 +230,7 @@ describe RequestStatusTypesController do
     end
 
     describe "When logged in as User" do
-      before(:each) do
-        sign_in FactoryGirl.create(:user)
-      end
+      login_user
 
       describe "with valid params" do
         it "assigns a newly created request_status_type as @request_status_type" do
@@ -322,9 +292,7 @@ describe RequestStatusTypesController do
     end
 
     describe "When logged in as Administrator" do
-      before(:each) do
-        sign_in FactoryGirl.create(:admin)
-      end
+      login_admin
 
       describe "with valid params" do
         it "updates the requested request_status_type" do
@@ -351,9 +319,7 @@ describe RequestStatusTypesController do
     end
 
     describe "When logged in as Librarian" do
-      before(:each) do
-        sign_in FactoryGirl.create(:librarian)
-      end
+      login_librarian
 
       describe "with valid params" do
         it "updates the requested request_status_type" do
@@ -376,9 +342,7 @@ describe RequestStatusTypesController do
     end
 
     describe "When logged in as User" do
-      before(:each) do
-        sign_in FactoryGirl.create(:user)
-      end
+      login_user
 
       describe "with valid params" do
         it "updates the requested request_status_type" do
@@ -427,9 +391,7 @@ describe RequestStatusTypesController do
     end
 
     describe "When logged in as Administrator" do
-      before(:each) do
-        sign_in FactoryGirl.create(:admin)
-      end
+      login_admin
 
       it "destroys the requested request_status_type" do
         delete :destroy, :id => @request_status_type.id
@@ -442,9 +404,7 @@ describe RequestStatusTypesController do
     end
 
     describe "When logged in as Librarian" do
-      before(:each) do
-        sign_in FactoryGirl.create(:librarian)
-      end
+      login_librarian
 
       it "destroys the requested request_status_type" do
         delete :destroy, :id => @request_status_type.id
@@ -457,9 +417,7 @@ describe RequestStatusTypesController do
     end
 
     describe "When logged in as User" do
-      before(:each) do
-        sign_in FactoryGirl.create(:user)
-      end
+      login_user
 
       it "destroys the requested request_status_type" do
         delete :destroy, :id => @request_status_type.id

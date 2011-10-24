@@ -3,11 +3,9 @@ require 'spec_helper'
 describe ManifestationsController do
   fixtures :all
 
-  describe "GET index" do
+  describe "GET index", :solr => true do
     describe "When logged in as Administrator" do
-      before(:each) do
-        sign_in FactoryGirl.create(:admin)
-      end
+      login_admin
 
       it "assigns all manifestations as @manifestations" do
         get :index
@@ -16,9 +14,7 @@ describe ManifestationsController do
     end
 
     describe "When logged in as Librarian" do
-      before(:each) do
-        sign_in FactoryGirl.create(:librarian)
-      end
+      login_librarian
 
       it "assigns all manifestations as @manifestations" do
         get :index
@@ -27,9 +23,7 @@ describe ManifestationsController do
     end
 
     describe "When logged in as User" do
-      before(:each) do
-        sign_in FactoryGirl.create(:user)
-      end
+      login_user
 
       it "assigns all manifestations as @manifestations" do
         get :index
@@ -127,14 +121,77 @@ describe ManifestationsController do
         assigns(:manifestation).should_not be_nil
         response.should render_template('manifestations/show')
       end
+
+      it "should get index with manifestation_id" do
+        get :index, :manifestation_id => 1
+        response.should be_success
+        assigns(:manifestation).should eq Manifestation.find(1)
+        assigns(:manifestations).should eq assigns(:manifestation).derived_manifestations
+      end
+
+      it "should get index with publisher_id" do
+        get :index, :publisher_id => 1
+        response.should be_success
+        assigns(:manifestations).should eq Patron.find(1).manifestations.order('created_at DESC')
+      end
+
+      it "should get index with query" do
+        get :index, :query => '2005'
+        response.should be_success
+        assigns(:manifestations).should_not be_blank
+      end
+
+      it "should get index with page number" do
+        get :index, :query => '2005', :number_of_pages_at_least => 1, :number_of_pages_at_most => 100
+        response.should be_success
+        assigns(:query).should eq '2005 number_of_pages_i: [1 TO 100]'
+      end
+
+      it "should get index with pub_date_from" do
+        get :index, :query => '2005', :pub_date_from => '2000'
+        response.should be_success
+        assigns(:manifestations).should be_true
+        assigns(:query).should eq '2005 date_of_publication_d: [1999-12-31T15:00:00Z TO *]'
+      end
+
+      it "should get index with pub_date_to" do
+        get :index, :query => '2005', :pub_date_to => '2000'
+        response.should be_success
+        assigns(:manifestations).should be_true
+        assigns(:query).should eq '2005 date_of_publication_d: [* TO 2000-12-31T14:59:59Z]'
+      end
+
+      it "should get index_all_facet" do
+        get :index, :query => '2005', :view => 'all_facet'
+        response.should be_success
+        assigns(:carrier_type_facet).should_not be_empty
+        assigns(:language_facet).should_not be_empty
+        assigns(:library_facet).should_not be_empty
+      end
+
+      it "should get index_carrier_type_facet" do
+        get :index, :query => '2005', :view => 'carrier_type_facet'
+        response.should be_success
+        assigns(:carrier_type_facet).should_not be_empty
+      end
+
+      it "should get index_language_facet" do
+        get :index, :query => '2005', :view => 'language_facet'
+        response.should be_success
+        assigns(:language_facet).should_not be_empty
+      end
+
+      it "should get index_library_facet" do
+        get :index, :query => '2005', :view => 'library_facet'
+        response.should be_success
+        assigns(:library_facet).should_not be_empty
+      end
     end
   end
 
   describe "GET show" do
     describe "When logged in as Administrator" do
-      before(:each) do
-        sign_in FactoryGirl.create(:admin)
-      end
+      login_admin
 
       it "assigns the requested manifestation as @manifestation" do
         get :show, :id => 1
@@ -143,9 +200,7 @@ describe ManifestationsController do
     end
 
     describe "When logged in as Librarian" do
-      before(:each) do
-        sign_in FactoryGirl.create(:librarian)
-      end
+      login_librarian
 
       it "assigns the requested manifestation as @manifestation" do
         get :show, :id => 1
@@ -154,9 +209,7 @@ describe ManifestationsController do
     end
 
     describe "When logged in as User" do
-      before(:each) do
-        sign_in FactoryGirl.create(:user)
-      end
+      login_user
 
       it "assigns the requested manifestation as @manifestation" do
         get :show, :id => 1
@@ -196,9 +249,7 @@ describe ManifestationsController do
 
   describe "GET new" do
     describe "When logged in as Administrator" do
-      before(:each) do
-        sign_in FactoryGirl.create(:admin)
-      end
+      login_admin
 
       it "assigns the requested manifestation as @manifestation" do
         get :new
@@ -207,9 +258,7 @@ describe ManifestationsController do
     end
 
     describe "When logged in as Librarian" do
-      before(:each) do
-        sign_in FactoryGirl.create(:librarian)
-      end
+      login_librarian
 
       it "assigns the requested manifestation as @manifestation" do
         get :new
@@ -218,9 +267,7 @@ describe ManifestationsController do
     end
 
     describe "When logged in as User" do
-      before(:each) do
-        sign_in FactoryGirl.create(:user)
-      end
+      login_user
 
       it "should not assign the requested manifestation as @manifestation" do
         get :new
@@ -240,9 +287,7 @@ describe ManifestationsController do
 
   describe "GET edit" do
     describe "When logged in as Administrator" do
-      before(:each) do
-        sign_in FactoryGirl.create(:admin)
-      end
+      login_admin
 
       it "assigns the requested manifestation as @manifestation" do
         manifestation = FactoryGirl.create(:manifestation)
@@ -252,9 +297,7 @@ describe ManifestationsController do
     end
 
     describe "When logged in as Librarian" do
-      before(:each) do
-        sign_in FactoryGirl.create(:librarian)
-      end
+      login_librarian
 
       it "assigns the requested manifestation as @manifestation" do
         manifestation = FactoryGirl.create(:manifestation)
@@ -264,9 +307,7 @@ describe ManifestationsController do
     end
 
     describe "When logged in as User" do
-      before(:each) do
-        sign_in FactoryGirl.create(:user)
-      end
+      login_user
 
       it "assigns the requested manifestation as @manifestation" do
         manifestation = FactoryGirl.create(:manifestation)
@@ -291,9 +332,7 @@ describe ManifestationsController do
     end
 
     describe "When logged in as Administrator" do
-      before(:each) do
-        sign_in FactoryGirl.create(:admin)
-      end
+      login_admin
 
       describe "with valid params" do
         it "assigns a newly created manifestation as @manifestation" do
@@ -326,9 +365,7 @@ describe ManifestationsController do
     end
 
     describe "When logged in as Librarian" do
-      before(:each) do
-        sign_in FactoryGirl.create(:librarian)
-      end
+      login_librarian
 
       describe "with valid params" do
         it "assigns a newly created manifestation as @manifestation" do
@@ -356,9 +393,7 @@ describe ManifestationsController do
     end
 
     describe "When logged in as User" do
-      before(:each) do
-        sign_in FactoryGirl.create(:user)
-      end
+      login_user
 
       describe "with valid params" do
         it "assigns a newly created manifestation as @manifestation" do
@@ -421,9 +456,7 @@ describe ManifestationsController do
     end
 
     describe "When logged in as Administrator" do
-      before(:each) do
-        sign_in FactoryGirl.create(:admin)
-      end
+      login_admin
 
       describe "with valid params" do
         it "updates the requested manifestation" do
@@ -450,9 +483,7 @@ describe ManifestationsController do
     end
 
     describe "When logged in as Librarian" do
-      before(:each) do
-        sign_in FactoryGirl.create(:librarian)
-      end
+      login_librarian
 
       describe "with valid params" do
         it "updates the requested manifestation" do
@@ -480,9 +511,7 @@ describe ManifestationsController do
     end
 
     describe "When logged in as User" do
-      before(:each) do
-        sign_in FactoryGirl.create(:user)
-      end
+      login_user
 
       describe "with valid params" do
         it "updates the requested manifestation" do
@@ -531,9 +560,7 @@ describe ManifestationsController do
     end
 
     describe "When logged in as Administrator" do
-      before(:each) do
-        sign_in FactoryGirl.create(:admin)
-      end
+      login_admin
 
       it "destroys the requested manifestation" do
         delete :destroy, :id => @manifestation.id
@@ -551,9 +578,7 @@ describe ManifestationsController do
     end
 
     describe "When logged in as Librarian" do
-      before(:each) do
-        sign_in FactoryGirl.create(:librarian)
-      end
+      login_librarian
 
       it "destroys the requested manifestation" do
         delete :destroy, :id => @manifestation.id
@@ -566,9 +591,7 @@ describe ManifestationsController do
     end
 
     describe "When logged in as User" do
-      before(:each) do
-        sign_in FactoryGirl.create(:user)
-      end
+      login_user
 
       it "destroys the requested manifestation" do
         delete :destroy, :id => @manifestation.id

@@ -7,9 +7,7 @@ describe ImportRequestsController do
 
   describe "GET index" do
     describe "When logged in as Administrator" do
-      before(:each) do
-        sign_in FactoryGirl.create(:admin)
-      end
+      login_admin
 
       it "assigns all import_requests as @import_requests" do
         get :index
@@ -18,9 +16,7 @@ describe ImportRequestsController do
     end
 
     describe "When logged in as Librarian" do
-      before(:each) do
-        sign_in FactoryGirl.create(:librarian)
-      end
+      login_librarian
 
       it "assigns all import_requests as @import_requests" do
         get :index
@@ -29,9 +25,7 @@ describe ImportRequestsController do
     end
 
     describe "When logged in as User" do
-      before(:each) do
-        sign_in FactoryGirl.create(:user)
-      end
+      login_user
 
       it "assigns empty as @import_requests" do
         get :index
@@ -49,9 +43,7 @@ describe ImportRequestsController do
 
   describe "GET show" do
     describe "When logged in as Administrator" do
-      before(:each) do
-        sign_in FactoryGirl.create(:admin)
-      end
+      login_admin
 
       it "assigns the requested import_request as @import_request" do
         import_request = import_requests(:one)
@@ -61,9 +53,7 @@ describe ImportRequestsController do
     end
 
     describe "When logged in as Librarian" do
-      before(:each) do
-        sign_in FactoryGirl.create(:librarian)
-      end
+      login_librarian
 
       it "assigns the requested import_request as @import_request" do
         import_request = import_requests(:one)
@@ -73,9 +63,7 @@ describe ImportRequestsController do
     end
 
     describe "When logged in as User" do
-      before(:each) do
-        sign_in FactoryGirl.create(:user)
-      end
+      login_user
 
       it "assigns the requested import_request as @import_request" do
         import_request = import_requests(:one)
@@ -95,9 +83,7 @@ describe ImportRequestsController do
 
   describe "GET new" do
     describe "When logged in as Administrator" do
-      before(:each) do
-        sign_in FactoryGirl.create(:admin)
-      end
+      login_admin
 
       it "assigns the requested import_request as @import_request" do
         get :new
@@ -106,9 +92,7 @@ describe ImportRequestsController do
     end
 
     describe "When logged in as Librarian" do
-      before(:each) do
-        sign_in FactoryGirl.create(:librarian)
-      end
+      login_librarian
 
       it "assigns the requested import_request as @import_request" do
         get :new
@@ -117,9 +101,7 @@ describe ImportRequestsController do
     end
 
     describe "When logged in as User" do
-      before(:each) do
-        sign_in FactoryGirl.create(:user)
-      end
+      login_user
 
       it "should not assign the requested import_request as @import_request" do
         get :new
@@ -139,9 +121,7 @@ describe ImportRequestsController do
 
   describe "GET edit" do
     describe "When logged in as Administrator" do
-      before(:each) do
-        sign_in FactoryGirl.create(:admin)
-      end
+      login_admin
 
       it "assigns the requested import_request as @import_request" do
         import_request = FactoryGirl.create(:import_request, :isbn => '9784797350999')
@@ -151,9 +131,7 @@ describe ImportRequestsController do
     end
 
     describe "When logged in as Librarian" do
-      before(:each) do
-        sign_in FactoryGirl.create(:librarian)
-      end
+      login_librarian
 
       it "assigns the requested import_request as @import_request" do
         import_request = FactoryGirl.create(:import_request, :isbn => '9784797350999')
@@ -163,9 +141,7 @@ describe ImportRequestsController do
     end
 
     describe "When logged in as User" do
-      before(:each) do
-        sign_in FactoryGirl.create(:user)
-      end
+      login_user
 
       it "assigns the requested import_request as @import_request" do
         import_request = FactoryGirl.create(:import_request, :isbn => '9784797350999')
@@ -190,9 +166,7 @@ describe ImportRequestsController do
     end
 
     describe "When logged in as Administrator" do
-      before(:each) do
-        sign_in FactoryGirl.create(:admin)
-      end
+      login_admin
 
       describe "with valid params" do
         it "assigns a newly created import_request as @import_request" do
@@ -232,9 +206,7 @@ describe ImportRequestsController do
     end
 
     describe "When logged in as Librarian" do
-      before(:each) do
-        sign_in FactoryGirl.create(:librarian)
-      end
+      login_librarian
 
       describe "with valid params" do
         it "assigns a newly created import_request as @import_request" do
@@ -262,9 +234,7 @@ describe ImportRequestsController do
     end
 
     describe "When logged in as User" do
-      before(:each) do
-        sign_in FactoryGirl.create(:user)
-      end
+      login_user
 
       describe "with valid params" do
         it "assigns a newly created import_request as @import_request" do
@@ -326,9 +296,7 @@ describe ImportRequestsController do
     end
 
     describe "When logged in as Administrator" do
-      before(:each) do
-        sign_in FactoryGirl.create(:admin)
-      end
+      login_admin
 
       describe "with valid params" do
         it "updates the requested import_request" do
@@ -350,9 +318,7 @@ describe ImportRequestsController do
     end
 
     describe "When logged in as Librarian" do
-      before(:each) do
-        sign_in FactoryGirl.create(:librarian)
-      end
+      login_librarian
 
       describe "with valid params" do
         it "updates the requested import_request" do
@@ -380,9 +346,7 @@ describe ImportRequestsController do
     end
 
     describe "When logged in as User" do
-      before(:each) do
-        sign_in FactoryGirl.create(:user)
-      end
+      login_user
 
       describe "with valid params" do
         it "updates the requested import_request" do
@@ -431,9 +395,7 @@ describe ImportRequestsController do
     end
 
     describe "When logged in as Administrator" do
-      before(:each) do
-        sign_in FactoryGirl.create(:admin)
-      end
+      login_admin
 
       it "destroys the requested import_request" do
         delete :destroy, :id => @import_request.id
@@ -446,9 +408,7 @@ describe ImportRequestsController do
     end
 
     describe "When logged in as Librarian" do
-      before(:each) do
-        sign_in FactoryGirl.create(:librarian)
-      end
+      login_librarian
 
       it "destroys the requested import_request" do
         delete :destroy, :id => @import_request.id
@@ -461,9 +421,7 @@ describe ImportRequestsController do
     end
 
     describe "When logged in as User" do
-      before(:each) do
-        sign_in FactoryGirl.create(:user)
-      end
+      login_user
 
       it "destroys the requested import_request" do
         delete :destroy, :id => @import_request.id

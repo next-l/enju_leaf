@@ -7,32 +7,6 @@ class BookmarksControllerTest < ActionController::TestCase
       :manifestations, :carrier_types, :tags, :taggings, :shelves, :items,
       :creates, :realizes, :produces, :owns, :patrons, :patron_types
 
-  def test_guest_should_not_get_index
-    get :index
-    assert_redirected_to new_user_session_url
-  end
-
-  def test_user_should_not_get_index_without_user_id
-    sign_in users(:user1)
-    get :index
-    assert_response :redirect
-    assert_redirected_to user_bookmarks_url(users(:user1).username)
-  end
-
-  def test_librarian_should_get_index_without_user_id
-    sign_in users(:librarian1)
-    get :index
-    assert_response :success
-    assert assigns(:bookmarks)
-  end
-
-  def test_admin_should_get_index_without_user_id
-    sign_in users(:admin)
-    get :index
-    assert_response :success
-    assert assigns(:bookmarks)
-  end
-
   def test_user_should_get_my_index
     sign_in users(:user1)
     get :index, :user_id => users(:user1).username
@@ -53,12 +27,6 @@ class BookmarksControllerTest < ActionController::TestCase
     assert_response :forbidden
   end
 
-  def test_guest_should_not_get_new
-    get :new
-    assert_response :redirect
-    assert_redirected_to new_user_session_url
-  end
-  
   def test_user_should_not_get_new_without_user_id
     sign_in users(:user1)
     get :new
@@ -104,16 +72,6 @@ class BookmarksControllerTest < ActionController::TestCase
       post :create, :bookmark => {:title => 'example', :url => 'http://example.com'}
     end
     assert_redirected_to new_user_session_url
-  end
-
-  def test_user_should_create_bookmark
-    sign_in users(:user1)
-    assert_difference('Bookmark.count') do
-      post :create, :bookmark => {:title => 'example', :url => 'http://example.com/'}, :user_id => users(:user1).username
-    end
-    
-    assert_redirected_to user_bookmark_url(assigns(:bookmark).user, assigns(:bookmark))
-    assigns(:bookmark).remove_from_index!
   end
 
   def test_user_should_create_bookmark_with_local_url
@@ -185,12 +143,6 @@ class BookmarksControllerTest < ActionController::TestCase
     assert_equal I18n.t('bookmark.already_bookmarked'), flash[:notice]
   end
 
-  def test_guest_should_not_show_bookmark_without_user_id
-    get :show, :id => 1
-    assert_response :redirect
-    assert_redirected_to new_user_session_url
-  end
-
   def test_guest_should_not_show_bookmark_with_user_id
     get :show, :id => 5, :user_id => users(:user2).username
     assert_response :redirect
@@ -260,7 +212,7 @@ class BookmarksControllerTest < ActionController::TestCase
     sign_in users(:user1)
     put :update, :id => 3, :bookmark => { }
     assert_response :redirect
-    assert_redirected_to user_bookmark_url(users(:user1).username, assigns(:bookmark))
+    assert_redirected_to user_bookmark_url(users(:user1), assigns(:bookmark))
     assigns(:bookmark).remove_from_index!
   end
 
@@ -286,14 +238,14 @@ class BookmarksControllerTest < ActionController::TestCase
     sign_in users(:user1)
     put :update, :id => 3, :user_id => users(:user1).username, :bookmark => { }
     assert_response :redirect
-    assert_redirected_to user_bookmark_url(users(:user1).username, assigns(:bookmark))
+    assert_redirected_to user_bookmark_url(users(:user1), assigns(:bookmark))
     assigns(:bookmark).remove_from_index!
   end
   
   def test_user_should_add_tags_to_bookmark
     sign_in users(:user1)
     put :update, :id => 3, :user_id => users(:user1).username, :bookmark => {:user_id => users(:user1).id, :tag_list => 'search', :title => 'test'}
-    assert_redirected_to user_bookmark_url(users(:user1).username, assigns(:bookmark))
+    assert_redirected_to user_bookmark_url(users(:user1), assigns(:bookmark))
     assert_equal ['search'], assigns(:bookmark).tag_list
     assigns(:bookmark).remove_from_index!
   end
@@ -301,7 +253,7 @@ class BookmarksControllerTest < ActionController::TestCase
   def test_user_should_remove_tags_from_bookmark
     sign_in users(:user1)
     put :update, :id => 3, :user_id => users(:user1).username, :bookmark => {:user_id => users(:user1).id, :tag_list => nil, :title => 'test'}
-    assert_redirected_to user_bookmark_url(users(:user1).username, assigns(:bookmark))
+    assert_redirected_to user_bookmark_url(users(:user1), assigns(:bookmark))
     assert_equal [], assigns(:bookmark).tag_list
     assigns(:bookmark).remove_from_index!
   end
@@ -321,7 +273,7 @@ class BookmarksControllerTest < ActionController::TestCase
       delete :destroy, :id => 3, :user_id => users(:user1).username
     end
     
-    assert_redirected_to user_bookmarks_url(users(:user1).username)
+    assert_redirected_to user_bookmarks_url(users(:user1))
   end
 
   def test_user_should_not_destroy_other_bookmark

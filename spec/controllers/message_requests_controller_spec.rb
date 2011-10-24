@@ -7,9 +7,7 @@ describe MessageRequestsController do
 
   describe "GET index" do
     describe "When logged in as Administrator" do
-      before(:each) do
-        sign_in FactoryGirl.create(:admin)
-      end
+      login_admin
 
       it "assigns all message_requests as @message_requests" do
         get :index
@@ -18,9 +16,7 @@ describe MessageRequestsController do
     end
 
     describe "When logged in as Librarian" do
-      before(:each) do
-        sign_in FactoryGirl.create(:librarian)
-      end
+      login_librarian
 
       it "assigns all message_requests as @message_requests" do
         get :index
@@ -29,9 +25,7 @@ describe MessageRequestsController do
     end
 
     describe "When logged in as User" do
-      before(:each) do
-        sign_in FactoryGirl.create(:user)
-      end
+      login_user
 
       it "assigns all message_requests as @message_requests" do
         get :index
@@ -49,9 +43,7 @@ describe MessageRequestsController do
 
   describe "GET show" do
     describe "When logged in as Administrator" do
-      before(:each) do
-        sign_in FactoryGirl.create(:admin)
-      end
+      login_admin
 
       it "assigns the requested message_request as @message_request" do
         message_request = FactoryGirl.create(:message_request)
@@ -61,9 +53,7 @@ describe MessageRequestsController do
     end
 
     describe "When logged in as Librarian" do
-      before(:each) do
-        sign_in FactoryGirl.create(:librarian)
-      end
+      login_librarian
 
       it "assigns the requested message_request as @message_request" do
         message_request = FactoryGirl.create(:message_request)
@@ -73,9 +63,7 @@ describe MessageRequestsController do
     end
 
     describe "When logged in as User" do
-      before(:each) do
-        sign_in FactoryGirl.create(:user)
-      end
+      login_user
 
       it "assigns the requested message_request as @message_request" do
         message_request = FactoryGirl.create(:message_request)
@@ -95,9 +83,7 @@ describe MessageRequestsController do
 
   describe "GET edit" do
     describe "When logged in as Administrator" do
-      before(:each) do
-        sign_in FactoryGirl.create(:admin)
-      end
+      login_admin
 
       it "assigns the requested message_request as @message_request" do
         message_request = FactoryGirl.create(:message_request)
@@ -107,9 +93,7 @@ describe MessageRequestsController do
     end
 
     describe "When logged in as Librarian" do
-      before(:each) do
-        sign_in FactoryGirl.create(:librarian)
-      end
+      login_librarian
 
       it "assigns the requested message_request as @message_request" do
         message_request = FactoryGirl.create(:message_request)
@@ -119,9 +103,7 @@ describe MessageRequestsController do
     end
 
     describe "When logged in as User" do
-      before(:each) do
-        sign_in FactoryGirl.create(:user)
-      end
+      login_user
 
       it "assigns the requested message_request as @message_request" do
         message_request = FactoryGirl.create(:message_request)
@@ -147,9 +129,7 @@ describe MessageRequestsController do
     end
 
     describe "When logged in as Administrator" do
-      before(:each) do
-        sign_in FactoryGirl.create(:admin)
-      end
+      login_admin
 
       describe "with valid params" do
         it "updates the requested message_request" do
@@ -171,9 +151,7 @@ describe MessageRequestsController do
     end
 
     describe "When logged in as Librarian" do
-      before(:each) do
-        sign_in FactoryGirl.create(:librarian)
-      end
+      login_librarian
 
       describe "with valid params" do
         it "updates the requested message_request" do
@@ -196,9 +174,7 @@ describe MessageRequestsController do
     end
 
     describe "When logged in as User" do
-      before(:each) do
-        sign_in FactoryGirl.create(:user)
-      end
+      login_user
 
       describe "with valid params" do
         it "updates the requested message_request" do
@@ -247,9 +223,7 @@ describe MessageRequestsController do
     end
 
     describe "When logged in as Administrator" do
-      before(:each) do
-        sign_in FactoryGirl.create(:admin)
-      end
+      login_admin
 
       it "destroys the requested message_request" do
         delete :destroy, :id => @message_request.id
@@ -262,9 +236,7 @@ describe MessageRequestsController do
     end
 
     describe "When logged in as Librarian" do
-      before(:each) do
-        sign_in FactoryGirl.create(:librarian)
-      end
+      login_librarian
 
       it "destroys the requested message_request" do
         delete :destroy, :id => @message_request.id
@@ -277,9 +249,7 @@ describe MessageRequestsController do
     end
 
     describe "When logged in as User" do
-      before(:each) do
-        sign_in FactoryGirl.create(:user)
-      end
+      login_user
 
       it "destroys the requested message_request" do
         delete :destroy, :id => @message_request.id

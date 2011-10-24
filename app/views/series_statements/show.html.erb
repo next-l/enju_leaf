@@ -5,7 +5,6 @@
   <% if @series_statement.root_manifestation and @manifestation_ids %>
     <%= render 'manifestations/paginate_id_link', :manifestation => @series_statement.root_manifestation , :manifestation_ids => @manifestation_ids %>
   <% end %>
-  <%= render 'series_statements/refine_search_form', :series_statement => @series_statement %>
 
   <h2 class="resource_title">
     <%= @series_statement.original_title %>
@@ -40,7 +39,7 @@
   </div>
 </div>
 
-  <br />
+  <%= render 'series_statements/refine_search_form', :series_statement => @series_statement %>
   <%= render 'manifestation_list' -%>
 </div>
 </div>

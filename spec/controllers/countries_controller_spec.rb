@@ -10,9 +10,7 @@ describe CountriesController do
     end
 
     describe "When logged in as Administrator" do
-      before(:each) do
-        sign_in FactoryGirl.create(:admin)
-      end
+      login_admin
 
       it "assigns all countries as @countries" do
         get :index
@@ -21,9 +19,7 @@ describe CountriesController do
     end
 
     describe "When logged in as Librarian" do
-      before(:each) do
-        sign_in FactoryGirl.create(:librarian)
-      end
+      login_librarian
 
       it "assigns all countries as @countries" do
         get :index
@@ -32,9 +28,7 @@ describe CountriesController do
     end
 
     describe "When logged in as User" do
-      before(:each) do
-        sign_in FactoryGirl.create(:user)
-      end
+      login_user
 
       it "assigns all countries as @countries" do
         get :index
@@ -52,9 +46,7 @@ describe CountriesController do
 
   describe "GET show" do
     describe "When logged in as Administrator" do
-      before(:each) do
-        sign_in FactoryGirl.create(:admin)
-      end
+      login_admin
 
       it "assigns the requested country as @country" do
         country = FactoryGirl.create(:country)
@@ -64,9 +56,7 @@ describe CountriesController do
     end
 
     describe "When logged in as Librarian" do
-      before(:each) do
-        sign_in FactoryGirl.create(:librarian)
-      end
+      login_librarian
 
       it "assigns the requested country as @country" do
         country = FactoryGirl.create(:country)
@@ -76,9 +66,7 @@ describe CountriesController do
     end
 
     describe "When logged in as User" do
-      before(:each) do
-        sign_in FactoryGirl.create(:user)
-      end
+      login_user
 
       it "assigns the requested country as @country" do
         country = FactoryGirl.create(:country)
@@ -98,9 +86,7 @@ describe CountriesController do
 
   describe "GET new" do
     describe "When logged in as Administrator" do
-      before(:each) do
-        sign_in FactoryGirl.create(:admin)
-      end
+      login_admin
 
       it "assigns the requested country as @country" do
         get :new
@@ -110,9 +96,7 @@ describe CountriesController do
     end
 
     describe "When logged in as Librarian" do
-      before(:each) do
-        sign_in FactoryGirl.create(:librarian)
-      end
+      login_librarian
 
       it "assigns the requested country as @country" do
         get :new
@@ -122,9 +106,7 @@ describe CountriesController do
     end
 
     describe "When logged in as User" do
-      before(:each) do
-        sign_in FactoryGirl.create(:user)
-      end
+      login_user
 
       it "assigns the requested country as @country" do
         get :new
@@ -144,9 +126,7 @@ describe CountriesController do
 
   describe "GET edit" do
     describe "When logged in as Administrator" do
-      before(:each) do
-        sign_in FactoryGirl.create(:admin)
-      end
+      login_admin
 
       it "assigns the requested country as @country" do
         country = FactoryGirl.create(:country)
@@ -156,9 +136,7 @@ describe CountriesController do
     end
 
     describe "When logged in as Librarian" do
-      before(:each) do
-        sign_in FactoryGirl.create(:librarian)
-      end
+      login_librarian
 
       it "assigns the requested country as @country" do
         country = FactoryGirl.create(:country)
@@ -168,9 +146,7 @@ describe CountriesController do
     end
 
     describe "When logged in as User" do
-      before(:each) do
-        sign_in FactoryGirl.create(:user)
-      end
+      login_user
 
       it "assigns the requested country as @country" do
         country = FactoryGirl.create(:country)
@@ -195,9 +171,7 @@ describe CountriesController do
     end
 
     describe "When logged in as Administrator" do
-      before(:each) do
-        sign_in FactoryGirl.create(:admin)
-      end
+      login_admin
 
       describe "with valid params" do
         it "assigns a newly created country as @country" do
@@ -225,9 +199,7 @@ describe CountriesController do
     end
 
     describe "When logged in as Librarian" do
-      before(:each) do
-        sign_in FactoryGirl.create(:librarian)
-      end
+      login_librarian
 
       describe "with valid params" do
         it "assigns a newly created country as @country" do
@@ -255,9 +227,7 @@ describe CountriesController do
     end
 
     describe "When logged in as User" do
-      before(:each) do
-        sign_in FactoryGirl.create(:user)
-      end
+      login_user
 
       describe "with valid params" do
         it "assigns a newly created country as @country" do
@@ -319,9 +289,7 @@ describe CountriesController do
     end
 
     describe "When logged in as Administrator" do
-      before(:each) do
-        sign_in FactoryGirl.create(:admin)
-      end
+      login_admin
 
       describe "with valid params" do
         it "updates the requested country" do
@@ -348,9 +316,7 @@ describe CountriesController do
     end
 
     describe "When logged in as Librarian" do
-      before(:each) do
-        sign_in FactoryGirl.create(:librarian)
-      end
+      login_librarian
 
       describe "with valid params" do
         it "updates the requested country" do
@@ -377,9 +343,7 @@ describe CountriesController do
     end
 
     describe "When logged in as User" do
-      before(:each) do
-        sign_in FactoryGirl.create(:user)
-      end
+      login_user
 
       describe "with valid params" do
         it "updates the requested country" do
@@ -432,9 +396,7 @@ describe CountriesController do
     end
 
     describe "When logged in as Administrator" do
-      before(:each) do
-        sign_in FactoryGirl.create(:admin)
-      end
+      login_admin
 
       it "destroys the requested country" do
         delete :destroy, :id => @country.id
@@ -447,9 +409,7 @@ describe CountriesController do
     end
 
     describe "When logged in as Librarian" do
-      before(:each) do
-        sign_in FactoryGirl.create(:librarian)
-      end
+      login_librarian
 
       it "destroys the requested country" do
         delete :destroy, :id => @country.id
@@ -462,9 +422,7 @@ describe CountriesController do
     end
 
     describe "When logged in as User" do
-      before(:each) do
-        sign_in FactoryGirl.create(:user)
-      end
+      login_user
 
       it "destroys the requested country" do
         delete :destroy, :id => @country.id

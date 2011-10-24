@@ -25,27 +25,6 @@ class ReservesControllerTest < ActionController::TestCase
     assert_response :forbidden
   end
 
-  def test_librarian_should_get_index_feed_without_user_id
-    sign_in users(:librarian1)
-    get :index, :format => 'rss'
-    assert_response :success
-    assert assigns(:reserves)
-  end
-
-  def test_librarian_should_get_other_index
-    sign_in users(:librarian1)
-    get :index, :user_id => users(:user1).username
-    assert_response :success
-    assert assigns(:reserves)
-  end
-
-  def test_librarian_should_get_other_index_feed
-    sign_in users(:librarian1)
-    get :index, :user_id => users(:user1).username, :format => 'rss'
-    assert_response :success
-    assert assigns(:reserves)
-  end
-
   def test_admin_should_get_other_index
     sign_in users(:admin)
     get :index, :user_id => users(:user1).username
@@ -95,13 +74,6 @@ class ReservesControllerTest < ActionController::TestCase
     assert_response :success
   end
   
-  def test_guest_should_not_create_reserve
-    assert_no_difference('Reserve.count') do
-      post :create, :reserve => { }
-    end
-    assert_redirected_to new_user_session_url
-  end
-
   def test_everyone_should_not_create_reserve_without_manifestation_id
     sign_in users(:admin)
     assert_no_difference('Reserve.count') do
@@ -178,12 +150,6 @@ class ReservesControllerTest < ActionController::TestCase
     assert assigns(:reserve).errors[:base].include? I18n.t('reserve.excessed_reservation_limit')
     
     #assert_redirected_to resource_url(assigns(:manifestation))
-  end
-
-  def test_guest_should_not_show_reserve
-    get :show, :id => 1
-    assert_response :redirect
-    assert_redirected_to new_user_session_url
   end
 
   def test_everyone_should_not_show_missing_reserve

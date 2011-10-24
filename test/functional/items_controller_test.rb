@@ -6,14 +6,6 @@ class ItemsControllerTest < ActionController::TestCase
       :libraries, :patrons, :users, :inventories, :inventory_files,
       :user_groups, :lending_policies, :exemplifies, :library_groups
 
-  def test_guest_not_should_get_index_with_inventory_file_id
-    get :index, :inventory_file_id => 1
-    assert_response :redirect
-    assert_redirected_to new_user_session_url
-    assert assigns(:inventory_file)
-    assert_not_nil assigns(:items)
-  end
-
   def test_user_not_should_get_index_with_inventory_file_id
     sign_in users(:user1)
     get :index, :inventory_file_id => 1
@@ -26,14 +18,6 @@ class ItemsControllerTest < ActionController::TestCase
     assert_response :success
     assert assigns(:inventory_file)
     assert assigns(:items)
-  end
-
-  def test_guest_should_not_create_item
-    assert_no_difference('Item.count') do
-      post :create, :item => { :circulation_status_id => 1, :manifestation_id => 1}
-    end
-    
-    assert_redirected_to new_user_session_url
   end
 
   def test_everyone_should_not_create_item_without_manifestation_id
@@ -54,28 +38,6 @@ class ItemsControllerTest < ActionController::TestCase
     assert_response :success
   end
 
-  def test_user_should_not_create_item
-    sign_in users(:user1)
-    assert_no_difference('Item.count') do
-      post :create, :item => { :circulation_status_id => 1, :manifestation_id => 1}
-    end
-    
-    assert_response :forbidden
-  end
-
-  def test_librarian_should_create_item
-    sign_in users(:librarian1)
-    old_lending_policy_count = LendingPolicy.count
-    assert_difference('Item.count') do
-      post :create, :item => { :circulation_status_id => 1, :manifestation_id => 1}
-    end
-    assert_equal old_lending_policy_count+UserGroup.count, LendingPolicy.count
-    
-    assert_redirected_to item_url(assigns(:item))
-    assert assigns(:item).manifestation
-    assigns(:item).remove_from_index!
-  end
-
   def test_librarian_should_create_reserved_item
     sign_in users(:librarian1)
     assert_difference('Item.count') do
@@ -86,17 +48,6 @@ class ItemsControllerTest < ActionController::TestCase
     assert_equal flash[:message], I18n.t('item.this_item_is_reserved')
     assert assigns(:item).manifestation
     assert_equal assigns(:item).manifestation.next_reservation.state, 'retained'
-    assigns(:item).remove_from_index!
-  end
-
-  def test_admin_should_create_item
-    sign_in users(:admin)
-    assert_difference('Item.count') do
-      post :create, :item => { :circulation_status_id => 1, :manifestation_id => 1}
-    end
-    
-    assert_redirected_to item_url(assigns(:item))
-    assert assigns(:item).manifestation
     assigns(:item).remove_from_index!
   end
 

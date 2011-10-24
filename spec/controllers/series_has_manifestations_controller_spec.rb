@@ -11,9 +11,7 @@ describe SeriesHasManifestationsController do
 
   describe "GET index" do
     describe "When logged in as Administrator" do
-      before(:each) do
-        sign_in FactoryGirl.create(:admin)
-      end
+      login_admin
 
       it "assigns all series_has_manifestations as @series_has_manifestations" do
         get :index
@@ -22,9 +20,7 @@ describe SeriesHasManifestationsController do
     end
 
     describe "When logged in as Librarian" do
-      before(:each) do
-        sign_in FactoryGirl.create(:librarian)
-      end
+      login_librarian
 
       it "assigns all series_has_manifestations as @series_has_manifestations" do
         get :index
@@ -33,9 +29,7 @@ describe SeriesHasManifestationsController do
     end
 
     describe "When logged in as User" do
-      before(:each) do
-        sign_in FactoryGirl.create(:user)
-      end
+      login_user
 
       it "assigns all series_has_manifestations as @series_has_manifestations" do
         get :index
@@ -53,9 +47,7 @@ describe SeriesHasManifestationsController do
 
   describe "GET show" do
     describe "When logged in as Administrator" do
-      before(:each) do
-        sign_in FactoryGirl.create(:admin)
-      end
+      login_admin
 
       it "assigns the requested series_has_manifestation as @series_has_manifestation" do
         series_has_manifestation = FactoryGirl.create(:series_has_manifestation)
@@ -65,9 +57,7 @@ describe SeriesHasManifestationsController do
     end
 
     describe "When logged in as Librarian" do
-      before(:each) do
-        sign_in FactoryGirl.create(:librarian)
-      end
+      login_librarian
 
       it "assigns the requested series_has_manifestation as @series_has_manifestation" do
         series_has_manifestation = FactoryGirl.create(:series_has_manifestation)
@@ -77,9 +67,7 @@ describe SeriesHasManifestationsController do
     end
 
     describe "When logged in as User" do
-      before(:each) do
-        sign_in FactoryGirl.create(:user)
-      end
+      login_user
 
       it "assigns the requested series_has_manifestation as @series_has_manifestation" do
         series_has_manifestation = FactoryGirl.create(:series_has_manifestation)
@@ -99,9 +87,7 @@ describe SeriesHasManifestationsController do
 
   describe "GET new" do
     describe "When logged in as Administrator" do
-      before(:each) do
-        sign_in FactoryGirl.create(:admin)
-      end
+      login_admin
 
       it "assigns the requested series_has_manifestation as @series_has_manifestation" do
         get :new
@@ -110,9 +96,7 @@ describe SeriesHasManifestationsController do
     end
 
     describe "When logged in as Librarian" do
-      before(:each) do
-        sign_in FactoryGirl.create(:librarian)
-      end
+      login_librarian
 
       it "assigns the requested series_has_manifestation as @series_has_manifestation" do
         get :new
@@ -121,9 +105,7 @@ describe SeriesHasManifestationsController do
     end
 
     describe "When logged in as User" do
-      before(:each) do
-        sign_in FactoryGirl.create(:user)
-      end
+      login_user
 
       it "should not assign the requested series_has_manifestation as @series_has_manifestation" do
         get :new
@@ -143,9 +125,7 @@ describe SeriesHasManifestationsController do
 
   describe "GET edit" do
     describe "When logged in as Administrator" do
-      before(:each) do
-        sign_in FactoryGirl.create(:admin)
-      end
+      login_admin
 
       it "assigns the requested series_has_manifestation as @series_has_manifestation" do
         series_has_manifestation = FactoryGirl.create(:series_has_manifestation)
@@ -155,9 +135,7 @@ describe SeriesHasManifestationsController do
     end
 
     describe "When logged in as Librarian" do
-      before(:each) do
-        sign_in FactoryGirl.create(:librarian)
-      end
+      login_librarian
 
       it "assigns the requested series_has_manifestation as @series_has_manifestation" do
         series_has_manifestation = FactoryGirl.create(:series_has_manifestation)
@@ -167,9 +145,7 @@ describe SeriesHasManifestationsController do
     end
 
     describe "When logged in as User" do
-      before(:each) do
-        sign_in FactoryGirl.create(:user)
-      end
+      login_user
 
       it "assigns the requested series_has_manifestation as @series_has_manifestation" do
         series_has_manifestation = FactoryGirl.create(:series_has_manifestation)
@@ -194,9 +170,7 @@ describe SeriesHasManifestationsController do
     end
 
     describe "When logged in as Administrator" do
-      before(:each) do
-        sign_in FactoryGirl.create(:admin)
-      end
+      login_admin
 
       describe "with valid params" do
         it "assigns a newly created series_has_manifestation as @series_has_manifestation" do
@@ -224,9 +198,7 @@ describe SeriesHasManifestationsController do
     end
 
     describe "When logged in as Librarian" do
-      before(:each) do
-        sign_in FactoryGirl.create(:librarian)
-      end
+      login_librarian
 
       describe "with valid params" do
         it "assigns a newly created series_has_manifestation as @series_has_manifestation" do
@@ -254,9 +226,7 @@ describe SeriesHasManifestationsController do
     end
 
     describe "When logged in as User" do
-      before(:each) do
-        sign_in FactoryGirl.create(:user)
-      end
+      login_user
 
       describe "with valid params" do
         it "assigns a newly created series_has_manifestation as @series_has_manifestation" do
@@ -318,9 +288,7 @@ describe SeriesHasManifestationsController do
     end
 
     describe "When logged in as Administrator" do
-      before(:each) do
-        sign_in FactoryGirl.create(:admin)
-      end
+      login_admin
 
       describe "with valid params" do
         it "updates the requested series_has_manifestation" do
@@ -342,9 +310,7 @@ describe SeriesHasManifestationsController do
     end
 
     describe "When logged in as Librarian" do
-      before(:each) do
-        sign_in FactoryGirl.create(:librarian)
-      end
+      login_librarian
 
       describe "with valid params" do
         it "updates the requested series_has_manifestation" do
@@ -372,9 +338,7 @@ describe SeriesHasManifestationsController do
     end
 
     describe "When logged in as User" do
-      before(:each) do
-        sign_in FactoryGirl.create(:user)
-      end
+      login_user
 
       describe "with valid params" do
         it "updates the requested series_has_manifestation" do
@@ -423,9 +387,7 @@ describe SeriesHasManifestationsController do
     end
 
     describe "When logged in as Administrator" do
-      before(:each) do
-        sign_in FactoryGirl.create(:admin)
-      end
+      login_admin
 
       it "destroys the requested series_has_manifestation" do
         delete :destroy, :id => @series_has_manifestation.id
@@ -438,9 +400,7 @@ describe SeriesHasManifestationsController do
     end
 
     describe "When logged in as Librarian" do
-      before(:each) do
-        sign_in FactoryGirl.create(:librarian)
-      end
+      login_librarian
 
       it "destroys the requested series_has_manifestation" do
         delete :destroy, :id => @series_has_manifestation.id
@@ -453,9 +413,7 @@ describe SeriesHasManifestationsController do
     end
 
     describe "When logged in as User" do
-      before(:each) do
-        sign_in FactoryGirl.create(:user)
-      end
+      login_user
 
       it "destroys the requested series_has_manifestation" do
         delete :destroy, :id => @series_has_manifestation.id

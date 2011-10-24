@@ -5,9 +5,7 @@ describe InventoryFilesController do
 
   describe "GET index" do
     describe "When logged in as Administrator" do
-      before(:each) do
-        sign_in FactoryGirl.create(:admin)
-      end
+      login_admin
 
       it "assigns all inventory_files as @inventory_files" do
         get :index
@@ -26,9 +24,7 @@ describe InventoryFilesController do
 
   describe "GET show" do
     describe "When logged in as Administrator" do
-      before(:each) do
-        sign_in FactoryGirl.create(:admin)
-      end
+      login_admin
 
       it "assigns the requested inventory_file as @inventory_file" do
         get :show, :id => 1
@@ -47,9 +43,7 @@ describe InventoryFilesController do
 
   describe "GET new" do
     describe "When logged in as Administrator" do
-      before(:each) do
-        sign_in FactoryGirl.create(:admin)
-      end
+      login_admin
 
       it "assigns the requested inventory_file as @inventory_file" do
         get :new
@@ -59,9 +53,7 @@ describe InventoryFilesController do
     end
 
     describe "When logged in as Librarian" do
-      before(:each) do
-        sign_in FactoryGirl.create(:librarian)
-      end
+      login_librarian
 
       it "should not assign the requested inventory_file as @inventory_file" do
         get :new
@@ -71,9 +63,7 @@ describe InventoryFilesController do
     end
 
     describe "When logged in as User" do
-      before(:each) do
-        sign_in FactoryGirl.create(:user)
-      end
+      login_user
 
       it "should not assign the requested inventory_file as @inventory_file" do
         get :new
@@ -93,9 +83,7 @@ describe InventoryFilesController do
 
   describe "GET edit" do
     describe "When logged in as Administrator" do
-      before(:each) do
-        sign_in FactoryGirl.create(:admin)
-      end
+      login_admin
 
       it "assigns the requested inventory_file as @inventory_file" do
         inventory_file = inventory_files(:inventory_file_00001)
@@ -105,9 +93,7 @@ describe InventoryFilesController do
     end
 
     describe "When logged in as Librarian" do
-      before(:each) do
-        sign_in FactoryGirl.create(:librarian)
-      end
+      login_librarian
 
       it "assigns the requested inventory_file as @inventory_file" do
         inventory_file = inventory_files(:inventory_file_00001)
@@ -117,9 +103,7 @@ describe InventoryFilesController do
     end
 
     describe "When logged in as User" do
-      before(:each) do
-        sign_in FactoryGirl.create(:user)
-      end
+      login_user
 
       it "assigns the requested inventory_file as @inventory_file" do
         inventory_file = inventory_files(:inventory_file_00001)

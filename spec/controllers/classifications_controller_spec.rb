@@ -3,11 +3,9 @@ require 'spec_helper'
 describe ClassificationsController do
   fixtures :all
 
-  describe "GET index" do
+  describe "GET index", :solr => true do
     describe "When logged in as Administrator" do
-      before(:each) do
-        sign_in FactoryGirl.create(:admin)
-      end
+      login_admin
 
       it "assigns all classifications as @classifications" do
         get :index
@@ -16,9 +14,7 @@ describe ClassificationsController do
     end
 
     describe "When logged in as Librarian" do
-      before(:each) do
-        sign_in FactoryGirl.create(:librarian)
-      end
+      login_librarian
 
       it "assigns all classifications as @classifications" do
         get :index
@@ -27,9 +23,7 @@ describe ClassificationsController do
     end
 
     describe "When logged in as User" do
-      before(:each) do
-        sign_in FactoryGirl.create(:user)
-      end
+      login_user
 
       it "assigns all classifications as @classifications" do
         get :index
@@ -57,9 +51,7 @@ describe ClassificationsController do
     end
 
     describe "When logged in as Administrator" do
-      before(:each) do
-        sign_in FactoryGirl.create(:admin)
-      end
+      login_admin
 
       it "assigns the requested classification as @classification" do
         get :show, :id => @classification.id
@@ -68,9 +60,7 @@ describe ClassificationsController do
     end
 
     describe "When logged in as Librarian" do
-      before(:each) do
-        sign_in FactoryGirl.create(:librarian)
-      end
+      login_librarian
 
       it "assigns the requested classification as @classification" do
         get :show, :id => @classification.id
@@ -79,9 +69,7 @@ describe ClassificationsController do
     end
 
     describe "When logged in as User" do
-      before(:each) do
-        sign_in FactoryGirl.create(:user)
-      end
+      login_user
 
       it "assigns the requested classification as @classification" do
         get :show, :id => @classification.id
@@ -99,9 +87,7 @@ describe ClassificationsController do
 
   describe "GET new" do
     describe "When logged in as Administrator" do
-      before(:each) do
-        sign_in FactoryGirl.create(:admin)
-      end
+      login_admin
 
       it "assigns the requested classification as @classification" do
         get :new
@@ -110,9 +96,7 @@ describe ClassificationsController do
     end
 
     describe "When logged in as Librarian" do
-      before(:each) do
-        sign_in FactoryGirl.create(:librarian)
-      end
+      login_librarian
 
       it "assigns the requested classification as @classification" do
         get :new
@@ -121,9 +105,7 @@ describe ClassificationsController do
     end
 
     describe "When logged in as User" do
-      before(:each) do
-        sign_in FactoryGirl.create(:user)
-      end
+      login_user
 
       it "should assign the requested classification as @classification" do
         get :new
@@ -142,9 +124,7 @@ describe ClassificationsController do
 
   describe "GET edit" do
     describe "When logged in as Administrator" do
-      before(:each) do
-        sign_in FactoryGirl.create(:admin)
-      end
+      login_admin
 
       it "assigns the requested classification as @classification" do
         classification = FactoryGirl.create(:classification)
@@ -154,9 +134,7 @@ describe ClassificationsController do
     end
 
     describe "When logged in as Librarian" do
-      before(:each) do
-        sign_in FactoryGirl.create(:librarian)
-      end
+      login_librarian
 
       it "assigns the requested classification as @classification" do
         classification = FactoryGirl.create(:classification)
@@ -166,9 +144,7 @@ describe ClassificationsController do
     end
 
     describe "When logged in as User" do
-      before(:each) do
-        sign_in FactoryGirl.create(:user)
-      end
+      login_user
 
       it "assigns the requested classification as @classification" do
         classification = FactoryGirl.create(:classification)
@@ -193,9 +169,7 @@ describe ClassificationsController do
     end
 
     describe "When logged in as Administrator" do
-      before(:each) do
-        sign_in FactoryGirl.create(:admin)
-      end
+      login_admin
 
       describe "with valid params" do
         it "assigns a newly created classification as @classification" do
@@ -223,9 +197,7 @@ describe ClassificationsController do
     end
 
     describe "When logged in as Librarian" do
-      before(:each) do
-        sign_in FactoryGirl.create(:librarian)
-      end
+      login_librarian
 
       describe "with valid params" do
         it "assigns a newly created classification as @classification" do
@@ -253,9 +225,7 @@ describe ClassificationsController do
     end
 
     describe "When logged in as User" do
-      before(:each) do
-        sign_in FactoryGirl.create(:user)
-      end
+      login_user
 
       describe "with valid params" do
         it "assigns a newly created classification as @classification" do
@@ -317,9 +287,7 @@ describe ClassificationsController do
     end
 
     describe "When logged in as Administrator" do
-      before(:each) do
-        sign_in FactoryGirl.create(:admin)
-      end
+      login_admin
 
       describe "with valid params" do
         it "updates the requested classification" do
@@ -341,9 +309,7 @@ describe ClassificationsController do
     end
 
     describe "When logged in as Librarian" do
-      before(:each) do
-        sign_in FactoryGirl.create(:librarian)
-      end
+      login_librarian
 
       describe "with valid params" do
         it "updates the requested classification" do
@@ -366,9 +332,7 @@ describe ClassificationsController do
     end
 
     describe "When logged in as User" do
-      before(:each) do
-        sign_in FactoryGirl.create(:user)
-      end
+      login_user
 
       describe "with valid params" do
         it "updates the requested classification" do
@@ -417,9 +381,7 @@ describe ClassificationsController do
     end
 
     describe "When logged in as Administrator" do
-      before(:each) do
-        sign_in FactoryGirl.create(:admin)
-      end
+      login_admin
 
       it "destroys the requested classification" do
         delete :destroy, :id => @classification.id
@@ -432,9 +394,7 @@ describe ClassificationsController do
     end
 
     describe "When logged in as Librarian" do
-      before(:each) do
-        sign_in FactoryGirl.create(:librarian)
-      end
+      login_librarian
 
       it "destroys the requested classification" do
         delete :destroy, :id => @classification.id
@@ -447,9 +407,7 @@ describe ClassificationsController do
     end
 
     describe "When logged in as User" do
-      before(:each) do
-        sign_in FactoryGirl.create(:user)
-      end
+      login_user
 
       it "destroys the requested classification" do
         delete :destroy, :id => @classification.id

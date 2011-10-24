@@ -20,6 +20,7 @@ gem 'enju_inter_library_loan', :git => 'git://github.com/nabeta/enju_inter_libra
 gem 'enju_inventory', :git => 'git://github.com/nabeta/enju_inventory.git'
 gem 'enju_event', :git => 'git://github.com/nabeta/enju_event.git'
 #gem 'enju_news', :git => 'git://github.com/nabeta/enju_news.git'
+gem 'enju_search_log', :git => 'git://github.com/nabeta/enju_search_log.git'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
@@ -53,7 +54,7 @@ gem 'fastercsv' if RUBY_VERSION < '1.9'
 
 gem 'will_paginate', '~> 3.0'
 gem 'exception_notification', '~> 2.5.2'
-gem 'delayed_job', '>= 2.1.4'
+gem 'delayed_job', '~> 2.1.4'
 gem 'state_machine'
 gem 'sunspot_rails', '~> 1.3.0.rc4'
 gem 'sunspot_solr', '~> 1.3.0.rc4'
@@ -117,6 +118,7 @@ group :development, :test do
   gem 'spork', '~> 0.9.0.rc9'
   gem 'metric_fu', '~> 2.1'
   gem 'timecop'
+  gem 'sunspot-rails-tester'
 end
 
 # Use unicorn as the web server

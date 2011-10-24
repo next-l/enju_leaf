@@ -3,11 +3,9 @@ require 'spec_helper'
 describe BookmarksController do
   fixtures :all
 
-  describe "GET index" do
+  describe "GET index", :solr => true do
     describe "When logged in as Administrator" do
-      before(:each) do
-        sign_in FactoryGirl.create(:admin)
-      end
+      login_admin
 
       it "assigns all bookmarks as @bookmarks" do
         get :index
@@ -16,9 +14,7 @@ describe BookmarksController do
     end
 
     describe "When logged in as Librarian" do
-      before(:each) do
-        sign_in FactoryGirl.create(:librarian)
-      end
+      login_librarian
 
       it "assigns all bookmarks as @bookmarks" do
         get :index
@@ -28,12 +24,18 @@ describe BookmarksController do
 
     describe "When logged in as User" do
       before(:each) do
-        sign_in FactoryGirl.create(:user)
+        @user = FactoryGirl.create(:user)
+        sign_in @user
       end
 
       it "assigns all bookmarks as @bookmarks" do
         get :index
         assigns(:bookmarks).should_not be_empty
+      end
+
+      it "should be redirected to my bookmark index" do
+        get :index
+        response.should redirect_to user_bookmarks_url(@user)
       end
     end
 
@@ -42,14 +44,17 @@ describe BookmarksController do
         get :index
         assigns(:bookmarks).should be_empty
       end
+
+      it "should be redirected to new_user_session_url "do
+        get :index
+        response.should redirect_to new_user_session_url
+      end
     end
   end
 
   describe "GET show" do
     describe "When logged in as Administrator" do
-      before(:each) do
-        sign_in FactoryGirl.create(:admin)
-      end
+      login_admin
 
       it "assigns the requested bookmark as @bookmark" do
         bookmark = FactoryGirl.create(:bookmark)
@@ -59,9 +64,7 @@ describe BookmarksController do
     end
 
     describe "When logged in as Librarian" do
-      before(:each) do
-        sign_in FactoryGirl.create(:librarian)
-      end
+      login_librarian
 
       it "assigns the requested bookmark as @bookmark" do
         bookmark = FactoryGirl.create(:bookmark)
@@ -72,13 +75,13 @@ describe BookmarksController do
 
     describe "When logged in as User" do
       before(:each) do
-        sign_in FactoryGirl.create(:user)
+        @bookmark = FactoryGirl.create(:bookmark)
+        sign_in @bookmark.user
       end
 
       it "assigns the requested bookmark as @bookmark" do
-        bookmark = FactoryGirl.create(:bookmark)
-        get :show, :id => bookmark.id
-        assigns(:bookmark).should eq(bookmark)
+        get :show, :id => @bookmark.id
+        assigns(:bookmark).should eq(@bookmark)
       end
     end
 
@@ -87,6 +90,28 @@ describe BookmarksController do
         bookmark = FactoryGirl.create(:bookmark)
         get :show, :id => bookmark.id
         assigns(:bookmark).should eq(bookmark)
+        response.should redirect_to new_user_session_url
+      end
+    end
+  end
+
+  describe "POST create" do
+    before(:each) do
+      @bookmark = bookmarks(:bookmark_00001)
+      @attrs = FactoryGirl.attributes_for(:bookmark)
+      @invalid_attrs = {:url => ''}
+    end
+
+    describe "When logged in as User" do
+      before(:each) do
+        @user = FactoryGirl.create(:user)
+        sign_in @user
+      end
+
+      it "should create bookmark" do
+        post :create, :bookmark => {:title => 'example', :url => 'http://example.com/'}, :user_id => users(:user1).username
+        assigns(:bookmark).should be_valid
+        response.should redirect_to user_bookmark_url(assigns(:bookmark).user, assigns(:bookmark))
       end
     end
   end
@@ -212,9 +237,7 @@ describe BookmarksController do
     end
 
     describe "When logged in as Administrator" do
-      before(:each) do
-        sign_in FactoryGirl.create(:admin)
-      end
+      login_admin
 
       it "destroys the requested bookmark" do
         delete :destroy, :id => @bookmark.id
@@ -227,9 +250,7 @@ describe BookmarksController do
     end
 
     describe "When logged in as Librarian" do
-      before(:each) do
-        sign_in FactoryGirl.create(:librarian)
-      end
+      login_librarian
 
       it "destroys the requested bookmark" do
         delete :destroy, :id => @bookmark.id
@@ -242,9 +263,7 @@ describe BookmarksController do
     end
 
     describe "When logged in as User" do
-      before(:each) do
-        sign_in FactoryGirl.create(:user)
-      end
+      login_user
 
       it "destroys the requested bookmark" do
         delete :destroy, :id => @bookmark.id

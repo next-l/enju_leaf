@@ -8,24 +8,6 @@ class CheckedItemsControllerTest < ActionController::TestCase
     :checkouts, :reserves, :circulation_statuses, :carrier_type_has_checkout_types,
     :users, :roles, :patrons, :patron_types, :user_groups, :lending_policies
 
-  def test_guest_should_not_get_index
-    get :index, :basket_id => 1, :item_id => 1
-    assert_response :redirect
-    assert_redirected_to new_user_session_url
-  end
-
-  def test_everyone_should_not_get_index_without_basket_id
-    sign_in users(:admin)
-    get :index, :item_id => 1
-    assert_response :forbidden
-  end
-
-  def test_everyone_should_not_get_index_without_item_id
-    sign_in users(:admin)
-    get :index, :item_id => 1
-    assert_response :forbidden
-  end
-
   def test_user_should_not_get_index
     sign_in users(:user1)
     get :index, :basket_id => 3, :item_id => 3
@@ -69,16 +51,6 @@ class CheckedItemsControllerTest < ActionController::TestCase
     assert_response :forbidden
   end
 
-  def test_librarian_should_create_checked_item
-    sign_in users(:librarian1)
-    assert_difference('CheckedItem.count') do
-      post :create, :checked_item => {:item_identifier => '00011'}, :basket_id => 3
-    end
-    assert_not_nil assigns(:checked_item).due_date
-    
-    assert_redirected_to user_basket_checked_items_url(assigns(:checked_item).basket.user.username, assigns(:checked_item).basket)
-  end
-  
   def test_librarian_should_create_checked_item_with_list
     sign_in users(:librarian1)
     assert_difference('CheckedItem.count') do

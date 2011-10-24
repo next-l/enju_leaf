@@ -364,7 +364,7 @@ class Manifestation < ActiveRecord::Base
     return nil if self.cached_numdocs < 5
     manifestation = nil
     # TODO: ヒット件数が0件のキーワードがあるときに指摘する
-    response = Manifestation.search(:include => [:creators, :contributors, :publishers, :subjects, :items]) do
+    response = Manifestation.search(:include => [:creators, :contributors, :publishers, :items]) do
       fulltext keyword if keyword
       order_by(:random)
       paginate :page => 1, :per_page => 1
@@ -517,7 +517,7 @@ class Manifestation < ActiveRecord::Base
 
     def is_reservable_by?(user)
       return false if items.for_checkout.empty?
-      unless items.size == (items.size - user.checkouts.not_returned.collect(&:item).size)
+      unless items.size == (items.size - user.checkouts.overdue(Time.zone.now).collect(&:item).size)
         return false
       end
       true
@@ -609,6 +609,7 @@ end
 
 
 
+
 # == Schema Information
 #
 # Table name: manifestations
@@ -672,7 +673,6 @@ end
 #  file_hash                       :string(255)
 #  pub_date                        :string(255)
 #  edition_string                  :string(255)
-#  periodical                      :boolean         default(FALSE), not null
 #  volume_number                   :integer
 #  issue_number                    :integer
 #  serial_number                   :integer

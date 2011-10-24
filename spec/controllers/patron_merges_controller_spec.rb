@@ -1,5 +1,3 @@
-require 'spec_helper'
-
 describe PatronMergesController do
   fixtures :all
 
@@ -9,9 +7,7 @@ describe PatronMergesController do
     end
 
     describe "When logged in as Administrator" do
-      before(:each) do
-        sign_in FactoryGirl.create(:admin)
-      end
+      login_admin
 
       it "assigns all patron_merges as @patron_merges" do
         get :index
@@ -20,9 +16,7 @@ describe PatronMergesController do
     end
 
     describe "When logged in as Librarian" do
-      before(:each) do
-        sign_in FactoryGirl.create(:librarian)
-      end
+      login_librarian
 
       it "assigns all patron_merges as @patron_merges" do
         get :index
@@ -31,9 +25,7 @@ describe PatronMergesController do
     end
 
     describe "When logged in as User" do
-      before(:each) do
-        sign_in FactoryGirl.create(:user)
-      end
+      login_user
 
       it "should be forbidden" do
         get :index
@@ -53,9 +45,7 @@ describe PatronMergesController do
 
   describe "GET show" do
     describe "When logged in as Administrator" do
-      before(:each) do
-        sign_in FactoryGirl.create(:admin)
-      end
+      login_admin
 
       it "assigns the requested patron_merge as @patron_merge" do
         patron_merge = FactoryGirl.create(:patron_merge)
@@ -65,9 +55,7 @@ describe PatronMergesController do
     end
 
     describe "When logged in as Librarian" do
-      before(:each) do
-        sign_in FactoryGirl.create(:librarian)
-      end
+      login_librarian
 
       it "assigns the requested patron_merge as @patron_merge" do
         patron_merge = FactoryGirl.create(:patron_merge)
@@ -77,9 +65,7 @@ describe PatronMergesController do
     end
 
     describe "When logged in as User" do
-      before(:each) do
-        sign_in FactoryGirl.create(:user)
-      end
+      login_user
 
       it "assigns the requested patron_merge as @patron_merge" do
         patron_merge = FactoryGirl.create(:patron_merge)
@@ -99,9 +85,7 @@ describe PatronMergesController do
 
   describe "GET new" do
     describe "When logged in as Administrator" do
-      before(:each) do
-        sign_in FactoryGirl.create(:admin)
-      end
+      login_admin
 
       it "assigns the requested patron_merge as @patron_merge" do
         get :new
@@ -111,9 +95,7 @@ describe PatronMergesController do
     end
 
     describe "When logged in as Librarian" do
-      before(:each) do
-        sign_in FactoryGirl.create(:librarian)
-      end
+      login_librarian
 
       it "assigns the requested patron_merge as @patron_merge" do
         get :new
@@ -123,9 +105,7 @@ describe PatronMergesController do
     end
 
     describe "When logged in as User" do
-      before(:each) do
-        sign_in FactoryGirl.create(:user)
-      end
+      login_user
 
       it "should not assign the requested patron_merge as @patron_merge" do
         get :new
@@ -145,9 +125,7 @@ describe PatronMergesController do
 
   describe "GET edit" do
     describe "When logged in as Administrator" do
-      before(:each) do
-        sign_in FactoryGirl.create(:admin)
-      end
+      login_admin
 
       it "assigns the requested patron_merge as @patron_merge" do
         patron_merge = FactoryGirl.create(:patron_merge)
@@ -157,9 +135,7 @@ describe PatronMergesController do
     end
 
     describe "When logged in as Librarian" do
-      before(:each) do
-        sign_in FactoryGirl.create(:librarian)
-      end
+      login_librarian
 
       it "assigns the requested patron_merge as @patron_merge" do
         patron_merge = FactoryGirl.create(:patron_merge)
@@ -169,9 +145,7 @@ describe PatronMergesController do
     end
 
     describe "When logged in as User" do
-      before(:each) do
-        sign_in FactoryGirl.create(:user)
-      end
+      login_user
 
       it "assigns the requested patron_merge as @patron_merge" do
         patron_merge = FactoryGirl.create(:patron_merge)
@@ -196,9 +170,7 @@ describe PatronMergesController do
     end
 
     describe "When logged in as Administrator" do
-      before(:each) do
-        sign_in FactoryGirl.create(:admin)
-      end
+      login_admin
 
       describe "with valid params" do
         it "assigns a newly created patron_merge as @patron_merge" do
@@ -226,9 +198,7 @@ describe PatronMergesController do
     end
 
     describe "When logged in as Librarian" do
-      before(:each) do
-        sign_in FactoryGirl.create(:librarian)
-      end
+      login_librarian
 
       describe "with valid params" do
         it "assigns a newly created patron_merge as @patron_merge" do
@@ -256,9 +226,7 @@ describe PatronMergesController do
     end
 
     describe "When logged in as User" do
-      before(:each) do
-        sign_in FactoryGirl.create(:user)
-      end
+      login_user
 
       describe "with valid params" do
         it "assigns a newly created patron_merge as @patron_merge" do
@@ -320,9 +288,7 @@ describe PatronMergesController do
     end
 
     describe "When logged in as Administrator" do
-      before(:each) do
-        sign_in FactoryGirl.create(:admin)
-      end
+      login_admin
 
       describe "with valid params" do
         it "updates the requested patron_merge" do
@@ -345,9 +311,7 @@ describe PatronMergesController do
     end
 
     describe "When logged in as Librarian" do
-      before(:each) do
-        sign_in FactoryGirl.create(:librarian)
-      end
+      login_librarian
 
       describe "with valid params" do
         it "updates the requested patron_merge" do
@@ -370,9 +334,7 @@ describe PatronMergesController do
     end
 
     describe "When logged in as User" do
-      before(:each) do
-        sign_in FactoryGirl.create(:user)
-      end
+      login_user
 
       describe "with valid params" do
         it "updates the requested patron_merge" do
@@ -421,9 +383,7 @@ describe PatronMergesController do
     end
 
     describe "When logged in as Administrator" do
-      before(:each) do
-        sign_in FactoryGirl.create(:admin)
-      end
+      login_admin
 
       it "destroys the requested patron_merge" do
         delete :destroy, :id => @patron_merge.id
@@ -436,9 +396,7 @@ describe PatronMergesController do
     end
 
     describe "When logged in as Librarian" do
-      before(:each) do
-        sign_in FactoryGirl.create(:librarian)
-      end
+      login_librarian
 
       it "destroys the requested patron_merge" do
         delete :destroy, :id => @patron_merge.id
@@ -451,9 +409,7 @@ describe PatronMergesController do
     end
 
     describe "When logged in as User" do
-      before(:each) do
-        sign_in FactoryGirl.create(:user)
-      end
+      login_user
 
       it "destroys the requested patron_merge" do
         delete :destroy, :id => @patron_merge.id

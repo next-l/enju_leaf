@@ -69,14 +69,13 @@ class Ability
         Realize,
         ResourceImportFile,
         SearchEngine,
-        SearchHistory,
         SeriesStatement,
         SeriesHasManifestation,
         Subscribe,
         Subscription,
         UserHasRole
       ]
-      can [:read, :update], [
+      can :update, [
         CarrierType,
         ContentType,
         Country,
@@ -91,10 +90,24 @@ class Ability
         RequestStatusType,
         RequestType,
         Role
-      ]
+      ] if LibraryGroup.site_config.network_access_allowed?(ip_address)
       can :read, [
+        CarrierType,
+        ContentType,
+        Country,
+        Extent,
+        Frequency,
+        FormOfWork,
+        Language,
+        LibraryGroup,
+        License,
+        MediumOfPerformance,
+        PatronType,
+        RequestStatusType,
+        RequestType,
         PatronImportResult,
-        ResourceImportResult
+        ResourceImportResult,
+        Role
       ]
     when 'Librarian'
       can [:read, :create, :update], Item
@@ -120,10 +133,6 @@ class Ability
       can [:update, :destroy], Patron do |patron|
         !patron.user.try(:has_role?, 'Librarian') and patron.required_role_id <= 3
       end
-      can :index, SearchHistory
-      can [:show, :destroy], SearchHistory do |search_history|
-        search_history.user == user
-      end
       can [:read, :create, :update], User
       can :destroy, User do |u|
         if defined?(EnjuCirculation)
@@ -146,7 +155,6 @@ class Ability
         Produce,
         Realize,
         ResourceImportFile,
-        SearchHistory,
         SeriesStatement,
         SeriesHasManifestation,
         Subscribe,
@@ -204,10 +212,6 @@ class Ability
         rescue NoMethodError
           true
         end
-      end
-      can :index, SearchHistory
-      can [:show, :destroy], SearchHistory do |search_history|
-        search_history.user == user
       end
       can :show, User
       can :update, User do |u|
@@ -293,7 +297,16 @@ class Ability
         ]
       when 'User'
         can [:index, :create], Bookmark
-        can [:show, :update, :destroy], Bookmark do |bookmark|
+        can :show, Bookmark do |bookmark|
+          if bookmark.user == user
+            true
+          elsif user.share_bookmarks
+            true
+          else
+            false
+          end
+        end
+        can [:update, :destroy], Bookmark do |bookmark|
           bookmark.user == user
         end
         can :read, BookmarkStat
@@ -373,19 +386,31 @@ class Ability
     if defined?(EnjuSubject)
       case user.try(:role).try(:name)
       when 'Administrator'
-        can [:read, :create, :update], ClassificationType
-        can :destroy, ClassificationType do |classification_type|
-          classification_type.classifications.empty?
-        end
+        can :read, [
+          ClassificationType,
+          SubjectHeadingType,
+          SubjectType
+        ]
         can :manage, [
           Classification,
           Subject,
           SubjectHasClassification,
-          SubjectHeadingType,
-          SubjectHeadingTypeHasSubject,
-          SubjectType
+          SubjectHeadingTypeHasSubject
         ]
         can :manage, WorkHasSubject
+        if LibraryGroup.site_config.network_access_allowed?(ip_address)
+          can [:create, :update], ClassificationType
+          can :destroy, ClassificationType do |classification_type|
+            classification_type.classifications.empty?
+          end
+          can :manage, [
+            Classification,
+            Subject,
+            SubjectHasClassification,
+            SubjectHeadingType,
+            SubjectType
+          ]
+        end
       when 'Librarian'
         can :read, [
           Classification,
@@ -433,7 +458,6 @@ class Ability
           CheckoutStatHasUser,
           CheckoutType,
           ItemHasUseRestriction,
-          LendingPolicy,
           ManifestationCheckoutStat,
           ManifestationReserveStat,
           Reserve,
@@ -445,8 +469,10 @@ class Ability
         ]
         can [:read, :update], [
           CirculationStatus,
+          LendingPolicy,
           UseRestriction
         ]
+        can :destroy, LendingPolicy
       when 'Librarian'
         can :manage, [
           Basket,
@@ -623,6 +649,23 @@ class Ability
         can :read, [NewsFeed, NewsPost]
       else
         can :read, [NewsFeed, NewsPost]
+      end
+    end
+
+    if defined?(EnjuSearchLog)
+      case user.try(:role).try(:name)
+      when 'Administrator'
+        can :manage, SearchHistory
+      when 'Librarian'
+        can :index, SearchHistory
+        can [:show, :destroy], SearchHistory do |search_history|
+          search_history.user == user
+        end
+      when 'User'
+        can :index, SearchHistory
+        can [:show, :destroy], SearchHistory do |search_history|
+          search_history.user == user
+        end
       end
     end
   end

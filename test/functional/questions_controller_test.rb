@@ -3,19 +3,6 @@ require 'test_helper'
 class QuestionsControllerTest < ActionController::TestCase
   fixtures :questions, :users, :user_groups, :roles, :patrons, :libraries
 
-  def test_guest_should_get_index_with_query
-    get :index, :query => 'Yahoo'
-    assert_response :success
-    assert assigns(:questions)
-    assert assigns(:crd_results)
-  end
-
-  def test_guest_should_render_crd_xml_template
-    get :index, :query => 'Yahoo', :mode => 'crd', :format => 'xml'
-    assert_response :success
-    assert_template 'questions/index_crd'
-  end
-
   def test_user_should_get_my_index
     sign_in users(:user1)
     get :index, :user_id => users(:user1).username

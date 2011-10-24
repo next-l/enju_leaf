@@ -4,11 +4,9 @@ require 'spec_helper'
 describe ItemsController do
   fixtures :all
 
-  describe "GET index" do
+  describe "GET index", :solr => true do
     describe "When logged in as Administrator" do
-      before(:each) do
-        sign_in FactoryGirl.create(:admin)
-      end
+      login_admin
 
       it "assigns all items as @items" do
         get :index
@@ -17,9 +15,7 @@ describe ItemsController do
     end
 
     describe "When logged in as Librarian" do
-      before(:each) do
-        sign_in FactoryGirl.create(:librarian)
-      end
+      login_librarian
 
       it "assigns all items as @items" do
         get :index
@@ -28,9 +24,7 @@ describe ItemsController do
     end
 
     describe "When logged in as User" do
-      before(:each) do
-        sign_in FactoryGirl.create(:user)
-      end
+      login_user
 
       it "assigns all items as @items" do
         get :index
@@ -48,30 +42,34 @@ describe ItemsController do
         get :index, :patron_id => 1
         response.should be_success
         assigns(:patron).should eq Patron.find(1)
-        assigns(:items).should eq assigns(:patron).items
+        assigns(:items).should eq assigns(:patron).items.order('created_at DESC').page(1)
       end
 
       it "should get index with manifestation_id" do
         get :index, :manifestation_id => 1
         response.should be_success
         assigns(:manifestation).should eq Manifestation.find(1)
-        assigns(:items).should eq assigns(:manifestation).items
+        assigns(:items).should eq assigns(:manifestation).items.order('created_at DESC').page(1)
       end
 
       it "should get index with shelf_id" do
         get :index, :shelf_id => 1
         response.should be_success
         assigns(:shelf).should eq Shelf.find(1)
-        assigns(:items).should eq assigns(:shelf).items.page(1)
+        assigns(:items).should eq assigns(:shelf).items.order('created_at DESC').page(1)
+      end
+
+      it "should not get index with inventory_file_id" do
+        get :index, :inventory_file_id => 1
+        response.should redirect_to new_user_session_url
+        assigns(:inventory_file).should_not be_nil
       end
     end
   end
 
   describe "GET show" do
     describe "When logged in as Administrator" do
-      before(:each) do
-        sign_in FactoryGirl.create(:admin)
-      end
+      login_admin
 
       it "assigns the requested item as @item" do
         item = FactoryGirl.create(:item)
@@ -81,9 +79,7 @@ describe ItemsController do
     end
 
     describe "When logged in as Librarian" do
-      before(:each) do
-        sign_in FactoryGirl.create(:librarian)
-      end
+      login_librarian
 
       it "assigns the requested item as @item" do
         item = FactoryGirl.create(:item)
@@ -93,9 +89,7 @@ describe ItemsController do
     end
 
     describe "When logged in as User" do
-      before(:each) do
-        sign_in FactoryGirl.create(:user)
-      end
+      login_user
 
       it "assigns the requested item as @item" do
         item = FactoryGirl.create(:item)
@@ -119,9 +113,7 @@ describe ItemsController do
     end
 
     describe "When logged in as Administrator" do
-      before(:each) do
-        sign_in FactoryGirl.create(:admin)
-      end
+      login_admin
 
       it "assigns the requested item as @item" do
         get :new, :manifestation_id => @manifestation.id
@@ -136,9 +128,7 @@ describe ItemsController do
     end
 
     describe "When logged in as Librarian" do
-      before(:each) do
-        sign_in FactoryGirl.create(:librarian)
-      end
+      login_librarian
 
       it "assigns the requested item as @item" do
         get :new, :manifestation_id => @manifestation.id
@@ -148,9 +138,7 @@ describe ItemsController do
     end
 
     describe "When logged in as User" do
-      before(:each) do
-        sign_in FactoryGirl.create(:user)
-      end
+      login_user
 
       it "should not assign the requested item as @item" do
         get :new, :manifestation_id => @manifestation.id
@@ -170,9 +158,7 @@ describe ItemsController do
 
   describe "GET edit" do
     describe "When logged in as Administrator" do
-      before(:each) do
-        sign_in FactoryGirl.create(:admin)
-      end
+      login_admin
 
       it "assigns the requested item as @item" do
         item = FactoryGirl.create(:item)
@@ -182,9 +168,7 @@ describe ItemsController do
     end
 
     describe "When logged in as Librarian" do
-      before(:each) do
-        sign_in FactoryGirl.create(:librarian)
-      end
+      login_librarian
 
       it "assigns the requested item as @item" do
         item = FactoryGirl.create(:item)
@@ -194,9 +178,7 @@ describe ItemsController do
     end
 
     describe "When logged in as User" do
-      before(:each) do
-        sign_in FactoryGirl.create(:user)
-      end
+      login_user
 
       it "assigns the requested item as @item" do
         item = FactoryGirl.create(:item)
@@ -222,9 +204,7 @@ describe ItemsController do
     end
 
     describe "When logged in as Administrator" do
-      before(:each) do
-        sign_in FactoryGirl.create(:admin)
-      end
+      login_admin
 
       describe "with valid params" do
         it "assigns a newly created item as @item" do
@@ -234,7 +214,14 @@ describe ItemsController do
 
         it "redirects to the created item" do
           post :create, :item => @attrs
+          assigns(:item).manifestation.should_not be_nil
           response.should redirect_to(item_url(assigns(:item)))
+        end
+
+        it "should create a lending policy" do
+          old_lending_policy_count = LendingPolicy.count
+          post :create, :item => @attrs
+          LendingPolicy.count.should eq old_lending_policy_count + UserGroup.count
         end
       end
 
@@ -252,9 +239,7 @@ describe ItemsController do
     end
 
     describe "When logged in as Librarian" do
-      before(:each) do
-        sign_in FactoryGirl.create(:librarian)
-      end
+      login_librarian
 
       describe "with valid params" do
         it "assigns a newly created item as @item" do
@@ -282,9 +267,7 @@ describe ItemsController do
     end
 
     describe "When logged in as User" do
-      before(:each) do
-        sign_in FactoryGirl.create(:user)
-      end
+      login_user
 
       describe "with valid params" do
         it "assigns a newly created item as @item" do
@@ -346,9 +329,7 @@ describe ItemsController do
     end
 
     describe "When logged in as Administrator" do
-      before(:each) do
-        sign_in FactoryGirl.create(:admin)
-      end
+      login_admin
 
       describe "with valid params" do
         it "updates the requested item" do
@@ -374,9 +355,7 @@ describe ItemsController do
     end
 
     describe "When logged in as Librarian" do
-      before(:each) do
-        sign_in FactoryGirl.create(:librarian)
-      end
+      login_librarian
 
       describe "with valid params" do
         it "updates the requested item" do
@@ -404,9 +383,7 @@ describe ItemsController do
     end
 
     describe "When logged in as User" do
-      before(:each) do
-        sign_in FactoryGirl.create(:user)
-      end
+      login_user
 
       describe "with valid params" do
         it "updates the requested item" do
@@ -455,9 +432,7 @@ describe ItemsController do
     end
 
     describe "When logged in as Administrator" do
-      before(:each) do
-        sign_in FactoryGirl.create(:admin)
-      end
+      login_admin
 
       it "destroys the requested item" do
         delete :destroy, :id => @item.id
@@ -470,9 +445,7 @@ describe ItemsController do
     end
 
     describe "When logged in as Librarian" do
-      before(:each) do
-        sign_in FactoryGirl.create(:librarian)
-      end
+      login_librarian
 
       it "destroys the requested item" do
         delete :destroy, :id => @item.id
@@ -485,9 +458,7 @@ describe ItemsController do
     end
 
     describe "When logged in as User" do
-      before(:each) do
-        sign_in FactoryGirl.create(:user)
-      end
+      login_user
 
       it "destroys the requested item" do
         delete :destroy, :id => @item.id
