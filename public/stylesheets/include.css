@@ -873,24 +873,14 @@ div.book_jacket{
   display: inline;
 }
 
-/* add 20111004 / reiko@opentech.co.jp */
-
-/** my_status button **/
-.my_status_button {
-	font-size: 1em;
-	width:140px;
-	text-align: center;
-	float: right;
-}
-a.my_status_button,  a:visited.my_status_button {
-	color: #555555;
-	border: 1px solid #d3d3d3;
-	background: #e6e6e6 url(images/ui-bg_glass_75_e6e6e6_1x400.png) 50% 50% repeat-x;
-	text-decoration: none;
-}
-a:hover.my_status_button {
-	color: #212121;
-	border: 1px solid #999999;
-	background: #dadada url(images/ui-bg_glass_75_dadada_1x400.png) 50% 50% repeat-x; 
+#shortcut {
+  clear: both;
 }
 
+.function_key {
+  width: 145px;
+  margin: 0 5px 0 0;
+  border: 1px solid #aaaaaa;
+  text-align: center;
+  float :left;
+}
