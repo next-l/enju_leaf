@@ -46,13 +46,16 @@ describe ExtentsController do
   end
 
   describe "GET show" do
+    before(:each) do
+      @extent = FactoryGirl.create(:extent)
+    end
+
     describe "When logged in as Administrator" do
       login_admin
 
       it "assigns the requested extent as @extent" do
-        extent = FactoryGirl.create(:extent)
-        get :show, :id => extent.id
-        assigns(:extent).should eq(extent)
+        get :show, :id => @extent.id
+        assigns(:extent).should eq(@extent)
       end
     end
 
@@ -60,9 +63,8 @@ describe ExtentsController do
       login_librarian
 
       it "assigns the requested extent as @extent" do
-        extent = FactoryGirl.create(:extent)
-        get :show, :id => extent.id
-        assigns(:extent).should eq(extent)
+        get :show, :id => @extent.id
+        assigns(:extent).should eq(@extent)
       end
     end
 
@@ -70,17 +72,15 @@ describe ExtentsController do
       login_user
 
       it "assigns the requested extent as @extent" do
-        extent = FactoryGirl.create(:extent)
-        get :show, :id => extent.id
-        assigns(:extent).should eq(extent)
+        get :show, :id => @extent.id
+        assigns(:extent).should eq(@extent)
       end
     end
 
     describe "When not logged in" do
       it "assigns the requested extent as @extent" do
-        extent = FactoryGirl.create(:extent)
-        get :show, :id => extent.id
-        assigns(:extent).should eq(extent)
+        get :show, :id => @extent.id
+        assigns(:extent).should eq(@extent)
       end
     end
   end
@@ -126,13 +126,16 @@ describe ExtentsController do
   end
 
   describe "GET edit" do
+    before(:each) do
+      @extent = FactoryGirl.create(:extent)
+    end
+
     describe "When logged in as Administrator" do
       login_admin
 
       it "assigns the requested extent as @extent" do
-        extent = FactoryGirl.create(:extent)
-        get :edit, :id => extent.id
-        assigns(:extent).should eq(extent)
+        get :edit, :id => @extent.id
+        assigns(:extent).should eq(@extent)
       end
     end
 
@@ -140,8 +143,7 @@ describe ExtentsController do
       login_librarian
 
       it "assigns the requested extent as @extent" do
-        extent = FactoryGirl.create(:extent)
-        get :edit, :id => extent.id
+        get :edit, :id => @extent.id
         response.should be_forbidden
       end
     end
@@ -150,16 +152,14 @@ describe ExtentsController do
       login_user
 
       it "assigns the requested extent as @extent" do
-        extent = FactoryGirl.create(:extent)
-        get :edit, :id => extent.id
+        get :edit, :id => @extent.id
         response.should be_forbidden
       end
     end
 
     describe "When not logged in" do
       it "should not assign the requested extent as @extent" do
-        extent = FactoryGirl.create(:extent)
-        get :edit, :id => extent.id
+        get :edit, :id => @extent.id
         response.should redirect_to(new_user_session_url)
       end
     end

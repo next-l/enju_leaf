@@ -3,47 +3,6 @@ require 'test_helper'
 class PurchaseRequestsControllerTest < ActionController::TestCase
     fixtures :purchase_requests, :users, :order_lists, :orders
 
-  def test_user_should_be_redirected_to_my_index_without_user_id
-    sign_in users(:user1)
-    get :index
-    assert_response :redirect
-    assert_redirected_to user_purchase_requests_url(users(:user1).username)
-  end
-
-  def test_user_should_get_my_index
-    sign_in users(:user1)
-    get :index, :user_id => users(:user1).username
-    assert_response :success
-    assert_not_nil assigns(:purchase_requests)
-  end
-
-  def test_user_should_get_my_index_csv
-    sign_in users(:user1)
-    get :index, :user_id => users(:user1).username, :format => 'csv'
-    assert_response :success
-    assert_not_nil assigns(:purchase_requests)
-  end
-
-  def test_user_should_get_my_index_rss
-    sign_in users(:user1)
-    get :index, :user_id => users(:user1).username, :format => 'rss'
-    assert_response :success
-    assert_not_nil assigns(:purchase_requests)
-  end
-
-  def test_user_should_not_get_other_index
-    sign_in users(:user1)
-    get :index, :user_id => users(:librarian1).username
-    assert_response :forbidden
-  end
-
-  def test_librarian_should_get_other_index_without_user_id
-    sign_in users(:librarian1)
-    get :index
-    assert_response :success
-    assert_not_nil assigns(:purchase_requests)
-  end
-
   def test_user_should_get_my_new
     sign_in users(:user1)
     get :new, :user_id => users(:user1).username
@@ -112,18 +71,6 @@ class PurchaseRequestsControllerTest < ActionController::TestCase
     get :show, :id => purchase_requests(:purchase_request_00003).id
     assert_response :redirect
     assert_redirected_to new_user_session_url
-  end
-
-  def test_user_should_show_my_purchase_request
-    sign_in users(:user1)
-    get :show, :id => purchase_requests(:purchase_request_00003).id, :user_id => users(:user1).username
-    assert_response :success
-  end
-
-  def test_user_should_not_show_other_purchase_request
-    sign_in users(:user1)
-    get :show, :id => purchase_requests(:purchase_request_00002).id, :user_id => users(:librarian1).username
-    assert_response :forbidden
   end
 
   def test_librarian_should_show_purchase_request_without_user_id

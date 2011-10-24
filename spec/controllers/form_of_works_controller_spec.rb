@@ -46,13 +46,16 @@ describe FormOfWorksController do
   end
 
   describe "GET show" do
+    before(:each) do
+      @form_of_work = FactoryGirl.create(:form_of_work)
+    end
+
     describe "When logged in as Administrator" do
       login_admin
 
       it "assigns the requested form_of_work as @form_of_work" do
-        form_of_work = FactoryGirl.create(:form_of_work)
-        get :show, :id => form_of_work.id
-        assigns(:form_of_work).should eq(form_of_work)
+        get :show, :id => @form_of_work.id
+        assigns(:form_of_work).should eq(@form_of_work)
       end
     end
 
@@ -60,9 +63,8 @@ describe FormOfWorksController do
       login_librarian
 
       it "assigns the requested form_of_work as @form_of_work" do
-        form_of_work = FactoryGirl.create(:form_of_work)
-        get :show, :id => form_of_work.id
-        assigns(:form_of_work).should eq(form_of_work)
+        get :show, :id => @form_of_work.id
+        assigns(:form_of_work).should eq(@form_of_work)
       end
     end
 
@@ -70,17 +72,15 @@ describe FormOfWorksController do
       login_user
 
       it "assigns the requested form_of_work as @form_of_work" do
-        form_of_work = FactoryGirl.create(:form_of_work)
-        get :show, :id => form_of_work.id
-        assigns(:form_of_work).should eq(form_of_work)
+        get :show, :id => @form_of_work.id
+        assigns(:form_of_work).should eq(@form_of_work)
       end
     end
 
     describe "When not logged in" do
       it "assigns the requested form_of_work as @form_of_work" do
-        form_of_work = FactoryGirl.create(:form_of_work)
-        get :show, :id => form_of_work.id
-        assigns(:form_of_work).should eq(form_of_work)
+        get :show, :id => @form_of_work.id
+        assigns(:form_of_work).should eq(@form_of_work)
       end
     end
   end
@@ -126,13 +126,16 @@ describe FormOfWorksController do
   end
 
   describe "GET edit" do
+    before(:each) do
+      @form_of_work = FactoryGirl.create(:form_of_work)
+    end
+
     describe "When logged in as Administrator" do
       login_admin
 
       it "assigns the requested form_of_work as @form_of_work" do
-        form_of_work = FactoryGirl.create(:form_of_work)
-        get :edit, :id => form_of_work.id
-        assigns(:form_of_work).should eq(form_of_work)
+        get :edit, :id => @form_of_work.id
+        assigns(:form_of_work).should eq(@form_of_work)
       end
     end
 
@@ -140,8 +143,7 @@ describe FormOfWorksController do
       login_librarian
 
       it "assigns the requested form_of_work as @form_of_work" do
-        form_of_work = FactoryGirl.create(:form_of_work)
-        get :edit, :id => form_of_work.id
+        get :edit, :id => @form_of_work.id
         response.should be_forbidden
       end
     end
@@ -150,16 +152,14 @@ describe FormOfWorksController do
       login_user
 
       it "assigns the requested form_of_work as @form_of_work" do
-        form_of_work = FactoryGirl.create(:form_of_work)
-        get :edit, :id => form_of_work.id
+        get :edit, :id => @form_of_work.id
         response.should be_forbidden
       end
     end
 
     describe "When not logged in" do
       it "should not assign the requested form_of_work as @form_of_work" do
-        form_of_work = FactoryGirl.create(:form_of_work)
-        get :edit, :id => form_of_work.id
+        get :edit, :id => @form_of_work.id
         response.should redirect_to(new_user_session_url)
       end
     end
