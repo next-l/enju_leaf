@@ -92,6 +92,7 @@ class UsersController < ApplicationController
     family_id = FamilyUser.find(:first, :conditions => ['user_id=?', @user.id]).family_id rescue nil
     if family_id
       @family_users = Family.find(family_id).users
+      @family_users.delete_if{|user| user == @user}
     end
 
     respond_to do |format|

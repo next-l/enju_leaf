@@ -412,6 +412,16 @@ class User < ActiveRecord::Base
   def family
     FamilyUser.find(:first, :conditions => ['user_id=?', id]).family
   end
+ 
+  def user_notice
+    @messages = []
+    overdues = self.checkouts.overdue(Time.zone.now) rescue nil
+    @messages << I18n.t('user.overdue_item', :user => self.username, :count => overdues.length) unless overdues.empty?
+    reserves = self.reserves.hold rescue nil
+    @messages << I18n.t('user.retained_reserve', :user => self.username, :count => reserves.length) unless reserves.empty?
+    return @messages
+  end
+
 end
 
 # == Schema Information

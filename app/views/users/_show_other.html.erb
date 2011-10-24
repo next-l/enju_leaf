@@ -27,6 +27,15 @@
     <p style="font-size: 200%"><%= flash[:temporary_password] -%></p>
   <%- end -%>
 
+  <div style="color: red">
+    <%= user_notice(user) -%>
+    <%- unless @family_users.blank? -%>
+      <%- @family_users.each do |user| -%>
+        <%= user_notice(user) -%>
+      <%- end -%>
+    <%- end -%>
+  </div>
+
   <h2><%= t('activerecord.models.checkout') %></h2>
   <table class="index">
     <tr>
