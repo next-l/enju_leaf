@@ -140,6 +140,12 @@ describe EventsController do
         response.should be_success
         assigns(:event).should_not be_valid
       end
+
+      it "should get new without invalid date" do
+        get :new, :date => '2010/13/01'
+        response.should be_success
+        flash[:notice].should eq I18n.t('page.invalid_date')
+      end
     end
 
     describe "When logged in as User" do

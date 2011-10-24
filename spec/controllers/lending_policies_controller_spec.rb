@@ -46,13 +46,17 @@ describe LendingPoliciesController do
   end
 
   describe "GET show" do
+    before(:each) do
+      @lending_policy = FactoryGirl.create(:lending_policy)
+    end
+
     describe "When logged in as Administrator" do
       login_admin
 
       it "assigns the requested lending_policy as @lending_policy" do
-        lending_policy = FactoryGirl.create(:lending_policy)
-        get :show, :id => lending_policy.id
-        assigns(:lending_policy).should eq(lending_policy)
+        get :show, :id => @lending_policy.id
+        assigns(:lending_policy).should eq(@lending_policy)
+        response.should be_success
       end
     end
 
@@ -60,27 +64,27 @@ describe LendingPoliciesController do
       login_librarian
 
       it "assigns the requested lending_policy as @lending_policy" do
-        lending_policy = FactoryGirl.create(:lending_policy)
-        get :show, :id => lending_policy.id
-        assigns(:lending_policy).should eq(lending_policy)
+        get :show, :id => @lending_policy.id
+        assigns(:lending_policy).should eq(@lending_policy)
+        response.should be_success
       end
     end
 
     describe "When logged in as User" do
       login_user
 
-      it "assigns the requested lending_policy as @lending_policy" do
-        lending_policy = FactoryGirl.create(:lending_policy)
-        get :show, :id => lending_policy.id
-        assigns(:lending_policy).should eq(lending_policy)
+      it "should be forbidden" do
+        get :show, :id => @lending_policy.id
+        assigns(:lending_policy).should eq(@lending_policy)
+        response.should be_forbidden
       end
     end
 
     describe "When not logged in" do
-      it "assigns the requested lending_policy as @lending_policy" do
-        lending_policy = FactoryGirl.create(:lending_policy)
-        get :show, :id => lending_policy.id
-        assigns(:lending_policy).should eq(lending_policy)
+      it "should be redirected to new_user_session_url" do
+        get :show, :id => @lending_policy.id
+        assigns(:lending_policy).should eq(@lending_policy)
+        response.should redirect_to new_user_session_url
       end
     end
   end
