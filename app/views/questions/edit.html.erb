@@ -2,12 +2,12 @@
 <h1 class="title"><%= t('page.editing', :model => t('activerecord.models.question')) -%></h1>
 <div id="content_list">
 
-<%= form_for(@question, :url => user_question_path(@question.user, @question)) do |f| -%>
+<%= form_for(@question, :url => {:action => "update"}) do |f| -%>
   <%= f.error_messages -%>
 
   <div class="field">
     <%= f.label t('activerecord.models.user') -%><br />
-    <%= link_to @question.user.username, @question.user -%>
+    <%= link_to @question.user.username, @question.user if @question.user-%>
   </div>
 
   <div class="field">
@@ -22,7 +22,7 @@
 
   <div class="field">
     <%= f.label :solved -%>
-    <%- if @question.user == current_user -%>
+    <%- if @question.user && @question.user == current_user -%>
       <%= f.check_box :solved -%>
     <%- else -%>
       <%= f.check_box :solved, :disabled => 'disabled' -%>
@@ -38,7 +38,7 @@
 
 <div id="submenu" class="ui-corner-all">
   <ul>
-    <li><%= link_to t('page.show'), user_question_path(@question.user, @question) -%></li>
-    <li><%= link_to t('page.back'), user_questions_path(@question.user) -%></li>
+    <li><%= link_to t('page.show'), question_path(@question) -%></li>
+    <li><%= link_to t('page.back'), questions_path() -%></li>
   </ul>
 </div>

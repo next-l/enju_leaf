@@ -1,18 +1,30 @@
 <div id="content_detail" class="ui-corner-all">
-<h1 class="title"><%= t('page.listing', :model => t('activerecord.models.checked_item')) -%></h1>
-<div id="content_list">
-<p id="notice"><%= notice %></p>
-
-<%= render 'user_comment' -%>
-
-<div id="checked_item_list">
-  <%= render 'list' -%>
-</div>
-
-<br />
-
-<%= render 'checkouts' -%>
-</div>
+  <h1 class="title"><%= t('page.listing', :model => t('activerecord.models.checked_item')) -%></h1>
+  <div id="content_list">
+    <p id="notice"><%= notice %></p>
+    <%= render 'user_comment' -%>
+    <div id="checked_item_list">
+      <%= render 'list' -%>
+    </div>
+    <br />
+    <div id="checkouts_list">
+      <%= render 'checkouts' -%>
+    </div>
+    <br />
+    <div id="reserves_list">
+      <%= render 'reserves'-%>
+    </div>
+    <%- unless @family_users.blank? -%>
+      <br />
+      <div id="checkouts_family_list">
+        <%= render 'checkouts_family' -%>
+      </div>
+      <br />
+      <div id="reserves_family_list">
+        <%= render 'reserves_family' -%>
+      </div>
+    <%- end -%>
+  </div>
 </div>
 
 <div id="submenu" class="ui-corner-all">

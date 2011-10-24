@@ -22,10 +22,9 @@
       <%= t('activerecord.attributes.manifestation.original_title') -%> 
     </th>
     <th>
-      <%= t('activerecord.attributes.manifestation.original_title') -%>
     </th>
     <th>
-      <%= t('page.exstatistics.count') -%>
+      <%= t('page.exstatistics.readercount') -%>
     </th>
   </tr>
 <%- @manifestations.each_with_index do |m, i| -%>
@@ -40,7 +39,7 @@
       <%= render 'manifestations/show_creators', :manifestation => m -%>
     </td>
     <td>
-      <%= 999 -%>
+      <%= m.items[0].checkouts.size -%>
     </td>
   </tr>
 <%- end -%>

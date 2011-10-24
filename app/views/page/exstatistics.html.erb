@@ -1,0 +1,24 @@
+<div class="column" id="col1">
+  <div class="portlet" id="library">
+    <h2 class="title"><%= t('exstatistics.report') -%></h2>
+    <div class="config_box">
+      <ul>
+        <li><%= link_to t('exstatistics.checkout_report'), checkoutlist_path -%></li>
+        <li><%= link_to t('exstatistics.reserve_report'), reservelist_path -%></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="portlet" id="resource">
+    <h2 class="title"><%= t('page.statistics') -%></h2>
+    <div class="config_box">
+      <ul>
+        <li><%= link_to t('page.best_reader'), manifestation_exstats_bestreader_path -%></li>
+        <li><%= link_to t('page.best_request'), manifestation_exstats_bestrequest_path -%></li>
+      </ul>
+    </div>
+  </div>
+
+</div>
+
+</div>

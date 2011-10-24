@@ -188,10 +188,10 @@ class Ability
       can :show, Question do |question|
         question.user == user or question.shared
       end
-      can [:index, :create], Reserve
-      can [:update, :destroy, :show], Reserve do |reserve|
-        reserve.try(:user) == user
-      end
+      can [:index, :create, :update, :destroy, :show], Reserve
+#      can [:update, :destroy, :show], Reserve do |reserve|
+#        reserve.try(:user) == user
+#      end
       can :index, SearchHistory
       can [:show, :destroy], SearchHistory do |search_history|
         search_history.user == user

@@ -80,6 +80,7 @@ ja:
       user_group: 利用者グループ
       resource_import_file: 資料のインポート用ファイル
       checkout: 貸出
+      checkout_family: 家族の貸出
       subscription: 購読
       message_template: メッセージテンプレート
       patron_merge: 人物・団体の統合
@@ -88,6 +89,7 @@ ja:
       event_import_file: 催し物のインポート用ファイル
       attachment_file: 添付ファイル
       reserve: 予約
+      reserve_family: 家族の予約
       message_request: メッセージの送信リクエスト
       answer: 回答
       bookstore: 書店
@@ -216,6 +218,7 @@ ja:
         telephone_number: 電話番号
         telephone_number_1: 電話番号1
         telephone_number_2: 電話番号2
+        telephone_number_3: 電話番号3
         fax_number_1: ファックス番号1
         fax_number_2: ファックス番号2
         other_designation: 他の指定
@@ -231,6 +234,7 @@ ja:
         language: 言語
         email: 電子メール
         url: URL
+        note_update_at: 注記更新時刻
       feeds/app:
         source_url: ソースURL
         title: タイトル
@@ -666,6 +670,7 @@ ja:
         edit_mode: 編集モード
       checkout:
         due_date: 期日
+        family_info: 家族情報
         lock_version: ロックバージョン
         renewal_count: 貸出の更新回数
       subscription:
@@ -1038,14 +1043,17 @@ ja:
         body: 本文
         error_msg: エラーメッセージ
         index: 項番
+        imported_row: 処理済み件数
       patron_import_result:
         body: 本文
         error_msg: エラーメッセージ
         index: 項番
+        imported_row: 処理済み件数
       event_import_result:
         body: 本文
         error_msg: エラーメッセージ
         index: 項番
+        imported_row: 処理済み件数
       series_statement_merge_list:
         title: タイトル
       series_has_manifestation:
@@ -1120,6 +1128,7 @@ ja:
     picture: "画像"
     number: "巻号"
     statistics: "統計"
+    ex_statistics: "拡張統計"
     request: "図書館への依頼"
     librarian_circulation: "貸出・返却・予約"
     user_circulation: "貸出と予約"
@@ -1218,11 +1227,17 @@ ja:
     number_of_pictures: "枚"
     best_request: "ベストリクエスト"
     best_reader: "ベストリーダ"
+
     exstatistics:
       ranknumber: 順位
       count: 回数
       readercount: 貸出回数
       requestcount: 予約回数
+
+  exstatistics:
+    report: 帳票
+    checkout_report: 貸出状況表
+    reserve_report: 予約状況表
    
   title:
     index: "一覧"
@@ -1297,6 +1312,7 @@ ja:
     attachment_file: "添付ファイル"
     question: "この資料で調べた質問"
     add_derivation: "派生資料を追加"
+    delete_attachment: "添付ファイルを削除(アップロード不可)"
   item:
     current_checkout: "現在の貸出"
     donor: "寄贈者"
@@ -1328,6 +1344,8 @@ ja:
     contributor: "協力者・編者"
     publisher: "出版者"
     owner: "所有者"
+    last_update_at: 最終更新日時
+    last_update_by: 更新者 
   message:
     user_message: "%{login_name} さんのメッセージ"
     sent_at: "送信時刻"
@@ -1450,6 +1468,9 @@ ja:
     management: "利用者の管理"
     not_found: "利用者が見つかりません。"
     birth_date_invalid: "生年月日が不正な値です。例: 2011-04-12"
+    already_in_family: "家族登録済みです。"
+    overdue_item: "%{user} さんの貸出期限がすぎている資料が %{count} 冊あります。"
+    retained_reserve: "%{user} さんの予約資料が %{count]} 冊用意されています。" 
   news_post:
     library_group_news_post: "%{library_group_name} からのお知らせ"
   reserve:
@@ -1491,6 +1512,9 @@ ja:
     item_not_found: "資料が見つかりません。"
     not_available_for_checkout: "この資料の貸出はできません。"
     previous_checkout: "現在貸出中の資料"
+    previous_checkout_family: "現在家族に貸出中の資料"
+    previous_reserve: "現在予約中の資料"
+    previous_reserve_family: "現在家族が予約中の資料"
     checkout: "上記の資料を貸し出す"
     ignore_restriction: "制限を無視する"
     already_checked_out: "この資料はすでに貸し出されています。"
@@ -1576,3 +1600,8 @@ ja:
   merge_list:
     successfully_merged: "%{model}は正常に統合されました。"
     specify_id: "%{model}のIDを指定してください。"
+  family:
+    may_family_with: "家族ですか？"
+    not_select_family: "家族を選択しない"
+    already_family_with: "家族登録済み"
+    out_of_family: "家族登録を解除する"

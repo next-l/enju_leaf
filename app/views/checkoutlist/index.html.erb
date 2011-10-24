@@ -1,0 +1,42 @@
+<div id="content_detail" class="ui-corner-all">
+<h1 class="title"><%= t('page.listing', :model => t('activerecord.models.user')) -%></h1>
+<div id="content_list">
+<div style="color: green"><%= flash[:message] -%></div>
+
+<table class="index">
+  <tr>
+    <th>
+      <%= t('activerecord.attributes.user.username') -%>
+    </th>
+    <th>
+      <%= t('activerecord.attributes.user.user_number') -%>
+    </th>
+    <th>
+      <%= t('activerecord.attributes.patron.telephone_number') -%>
+    </th>
+    <th>
+      <%= t('page.created_at') -%>
+    </th>
+    <th><%= t('activerecord.models.checkout') -%></th>
+    <th><%= t('activerecord.models.reserve') -%></th>
+    <th></th>
+  </tr>
+
+<%- @checkoutlists.each_with_index do |c, i| -%>
+  <tr class="line<%= cycle("0", "1") -%>">
+    <td>
+      <br />
+    </td>
+  </tr>
+<%- end -%>
+</table>
+
+<br />
+
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all">
+  <ul>
+  </ul>
+</div>

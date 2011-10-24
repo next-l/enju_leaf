@@ -1,0 +1,34 @@
+<% unless @family_users.blank? %>
+<div id="family_users">
+  <div><%= t('family.already_family_with') -%></div> 
+  <%= check_box_tag 'out_of_family', "1" -%><%= t('family.out_of_family') -%>
+  <% @family_users.each do |f_user| %>
+    <div><%= f_user.username if f_user != current_user -%></div>
+  <% end %>
+</div>
+<hr>
+<% end %>
+<% unless @users.blank? %>
+<div id="search_family">
+  <div><%= t('family.may_family_with') -%></div>
+  <div><%= radio_button_tag :family, "", true %><%=t('family.not_select_family') -%></div>
+  <% @family_ids.each do |f_id| %>
+    <% i = 0 %>
+    <div>
+    <% @group_users.each do |f_user| %>
+      <% if f_user.family.id == f_id %>
+        <% if i == 0 %>
+          <%= radio_button_tag :family, f_user.id, false, :onclick => "get_family_info();" %><%= f_user.patron.full_name if f_user.patron -%>(<%= f_user.username -%>)
+        <% else %>
+          &nbsp;<%= f_user.patron.full_name if f_user.patron -%>(<%= f_user.username -%>)
+        <% end %>
+        <% i += 1 %>
+      <% end %>
+    <% end %>
+    </div>
+  <% end %>
+  <% @users.each do |user| %>
+    <div><%= radio_button_tag :family, user.id, false, :onclick => "get_family_info();" %><%= user.patron.full_name if user.patron -%>(<%= user.username -%>)</div>
+  <% end %>
+</div>
+<% end %>

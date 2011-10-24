@@ -3,7 +3,7 @@
 <div id="content_list">
 
 <%- if @question -%>
-  <p><%= link_to textilize(h(@question.body)), user_question_path(@question.user, @question) -%></p>
+  <p><%= link_to raw(textilize(h(@question.body))), question_path(@question) -%></p>
 <%- end -%>
 
 <table class="index">
@@ -17,14 +17,14 @@
 
 <%- @answers.each_with_index do |answer, i| -%>
   <tr class="line<%= cycle("0", "1") -%>">
-    <td><%= link_to answer.user.username, answer.user -%></td>
-    <td><%= link_to truncate(answer.body, :length => 20), user_question_answer_path(answer.question.user, answer.question, answer) -%></td>
+    <td><%= link_to answer.user.username, answer.user if answer.user -%></td>
+    <td><%= link_to truncate(answer.body, :length => 20), question_answer_path(answer.question, answer) -%></td>
     <td><%= l(answer.created_at) -%></td>
     <td><%= l(answer.updated_at) -%></td>
     <td>
       <%- if can? :destroy, answer -%>
-        <%= link_to t('page.edit'), edit_user_question_answer_path(answer.user, answer.question, answer) -%>
-        <%= link_to t('page.destroy'), user_question_answer_path(answer.user, answer.question, answer), :confirm => t('page.are_you_sure'), :method => :delete -%>
+        <%= link_to t('page.edit'), edit_question_answer_path(answer.question, answer) -%>
+        <%= link_to t('page.destroy'), question_answer_path(answer.question, answer), :confirm => t('page.are_you_sure'), :method => :delete -%>
       <%- end -%>
     </td>
   </tr>
@@ -38,7 +38,7 @@
 <div id="submenu" class="ui-corner-all">
   <%- if @question -%>
     <ul>
-      <li><%= link_to t('page.new', :model => t('activerecord.models.answer')), new_user_question_answer_path(@question.user, @question) -%></li>
+      <li><%= link_to t('page.new', :model => t('activerecord.models.answer')), new_question_answer_path(@question) -%></li>
     </ul>
   <%- end -%>
 </div>

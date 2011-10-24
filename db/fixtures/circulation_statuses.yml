@@ -15,13 +15,15 @@ circulation_status_00002:
   position: 2
 circulation_status_00003: 
   name: Circulation Status Undefined  
-  display_name: Circulation Status Undefined
+  display_name: "en:Circulation Status Undefined\r\n\
+    ja:不明"
   id: 3
   note: ""
   position: 3
 circulation_status_00004: 
   name: Claimed Returned Or Never Borrowed  
-  display_name: Claimed Returned Or Never Borrowed
+  display_name: "en:Claimed Returned Or Never Borrowed\r\n\
+    ja:返却済み/未貸出クレーム"
   id: 4
   note: ""
   position: 4
@@ -34,7 +36,8 @@ circulation_status_00005:
   position: 5
 circulation_status_00006: 
   name: In Transit Between Library Locations  
-  display_name: In Transit Between Library Locations
+  display_name: "en:In Transit Between Library Locations\r\n\
+    ja:相互貸借移動中"
   id: 6
   note: ""
   position: 6
@@ -68,25 +71,29 @@ circulation_status_00010:
   position: 10
 circulation_status_00011: 
   name: On Order  
-  display_name: On Order
+  display_name: "en:On Order\r\n\
+    ja:発注済み"
   id: 11
   note: ""
   position: 11
 circulation_status_00012: 
   name: Pending Transfer  
-  display_name: Pending Transfer
+  display_name: "en:Pending Transfer\r\n\
+    ja:相互貸借移動待ち"
   id: 12
   note: ""
   position: 12
 circulation_status_00013: 
   name: Recalled  
-  display_name: Recalled
+  display_name: "en:Recalled\r\n\
+    ja:相互貸借受付中"
   id: 13
   note: ""
   position: 13
 circulation_status_00014: 
   name: Waiting To Be Reshelved  
-  display_name: Waiting To Be Reshelved
+  display_name: "en:Waiting To Be Reshelved\r\n\
+    ja:棚戻し待ち"
   id: 14
   note: ""
   position: 14

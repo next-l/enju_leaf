@@ -27,6 +27,7 @@ EnjuLeaf::Application.routes.draw do
     resources :manifestations
     resources :series_statements
     resources :series_has_manifestations
+    resources :reserves
   end
 
   resources :patrons do
@@ -85,6 +86,10 @@ EnjuLeaf::Application.routes.draw do
   end
 
   resources :users do
+    get :search_family, :on => :collection
+    get :search_family, :on => :member
+    get :get_family_info, :on => :collection
+    get :get_family_info, :on => :member
     resources :answers
     resources :baskets do
       resources :checked_items
@@ -99,6 +104,8 @@ EnjuLeaf::Application.routes.draw do
     resources :purchase_requests
     resources :questions
     resource :patron
+    resource :family
+    resource :family_user
   end
 
   resources :answers
@@ -193,7 +200,9 @@ EnjuLeaf::Application.routes.draw do
 
   resources :participates
 
-  resources :questions
+  resources :questions do
+    resources :answers
+  end
 
   resources :purchase_requests do
     resource :order
@@ -299,6 +308,11 @@ EnjuLeaf::Application.routes.draw do
   resources :checkout_stat_has_users
   resources :reserve_stat_has_manifestations
   resources :reserve_stat_has_users
+  resources :families do
+    resources :users
+    resources :family_users
+  end
+  resources :family_users
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
@@ -368,10 +382,11 @@ EnjuLeaf::Application.routes.draw do
   match '/page/msie_acceralator' => 'page#msie_acceralator'
   match '/page/opensearch' => 'page#opensearch'
   match '/page/statistics' => 'page#statistics'
+  match '/page/exstatistics' => 'page#exstatistics'
   match '/page/routing_error' => 'page#routing_error'
 
-  #match '/exstatistics/bestreader' => 'exstatistics#manifestations', :mode=>"bestreader"
-  #match '/exstatistics/bestrequest' => 'exstatistics#manifestations', :mode=>"bestrequest"
+  match '/checkoutlist' => 'checkoutlist#index'
+  match '/reservelist' => 'reservelist#index'
 
   # http://techoctave.com/c7/posts/36-rails-3-0-rescue-from-routing-error-solution
   match '*a', :to => 'page#routing_error' unless Rails.application.config.consider_all_requests_local

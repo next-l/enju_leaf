@@ -80,6 +80,7 @@ en:
       user_group: User group
       resource_import_file: Resource import file
       checkout: Checkout
+      checkout_family: Family's checkout
       subscription: Subscription
       message_template: Message template
       patron_merge: Patron merge
@@ -88,6 +89,7 @@ en:
       event_import_file: Event import file
       attachment_file: Attachment file
       reserve: Reserve
+      reserve_family: Family's reserve
       message_request: Message request
       answer: Answer
       bookstore: Bookstore
@@ -647,6 +649,7 @@ en:
         edit_mode: Edit mode
       checkout:
         due_date: Due date
+        family_info: Family's information
         lock_version: Lock version
         renewal_count: Checkout renewal count
       subscription:
@@ -1470,6 +1473,9 @@ en:
     item_not_found: "Item not found."
     not_available_for_checkout: "This item is not available for checkout."
     previous_checkout: "Previous checkouts"
+    previous_checkout_family: "Previous family's checkouts"
+    previous_reserve: "Previous reserves"
+    previous_reserve_family: "Previous family's reserves"
     checkout: "Checkout!"
     ignore_restriction: "Ignore restriction"
     already_checked_out: "This item is already checked out."

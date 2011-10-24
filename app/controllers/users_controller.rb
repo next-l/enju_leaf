@@ -1,14 +1,14 @@
 # -*- encoding: utf-8 -*-
 class UsersController < ApplicationController
   #before_filter :reset_params_session
-  load_and_authorize_resource
+  load_and_authorize_resource :except => [:search_family, :get_family_info]
   helper_method :get_patron
   before_filter :store_location, :only => [:index]
   before_filter :clear_search_sessions, :only => [:show]
   after_filter :solr_commit, :only => [:create, :update, :destroy]
   cache_sweeper :user_sweeper, :only => [:create, :update, :destroy]
   #ssl_required :new, :edit, :create, :update, :destroy
-  ssl_allowed :index, :show, :new, :edit, :create, :update, :destroy
+  ssl_allowed :index, :show, :new, :edit, :create, :update, :destroy, :search_family, :get_family_info
 
   def index
     query = params[:query].to_s
@@ -21,6 +21,8 @@ class UsersController < ApplicationController
       sort[:sort_by] = 'username'
     when 'telephone_number_1'
       sort[:sort_by] = 'patrons.telephone_number_1'
+    when 'full_name'
+      sort[:sort_by] = 'patrons.full_name_transcription'
     end
     case params[:order]
     when 'asc'
@@ -58,8 +60,11 @@ class UsersController < ApplicationController
         with(:required_role_id).less_than role.id
       end.results
     else
-      @users = User.order("#{sort[:sort_by]} #{sort[:order]}").page(page) unless sort[:sort_by] == 'patrons.telephone_number_1'
-      @users = User.joins(:patron).order("#{sort[:sort_by]} #{sort[:order]}").page(page) if sort[:sort_by] == 'patrons.telephone_number_1'
+      if sort[:sort_by] == 'patrons.telephone_number_1'|| sort[:sort_by] == 'patrons.full_name_transcription' 
+        @users = User.joins(:patron).order("#{sort[:sort_by]} #{sort[:order]}").page(page)
+      else
+        @users = User.order("#{sort[:sort_by]} #{sort[:order]}").page(page)
+      end
     end
     @count[:query_result] = @users.total_entries
 
@@ -83,6 +88,12 @@ class UsersController < ApplicationController
     @tags = @user.bookmarks.tag_counts.sort{|a,b| a.count <=> b.count}.reverse
 
     @manifestation = Manifestation.pickup(@user.keyword_list.to_s.split.sort_by{rand}.first) rescue nil
+
+    family_id = FamilyUser.find(:first, :conditions => ['user_id=?', @user.id]).family_id rescue nil
+    if family_id
+      @family_users = Family.find(family_id).users
+      @family_users.delete_if{|user| user == @user}
+    end
 
     respond_to do |format|
       format.html # show.rhtml
@@ -120,7 +131,11 @@ class UsersController < ApplicationController
   def edit
     @user.role_id = @user.role.id
     @patron = @user.patron
-
+    family_id = FamilyUser.find(:first, :conditions => ['user_id=?', @user.id]).family_id rescue nil
+    if family_id
+      @family_users = Family.find(family_id).users
+    end
+    @note_last_updateed_user = User.find(@patron.note_update_by) rescue nil
     if params[:mode] == 'feed_token'
       if params[:disable] == 'true'
         @user.delete_checkout_icalendar_token
@@ -145,6 +160,9 @@ class UsersController < ApplicationController
           @patron.save!
           @user.patron = @patron
         end
+        unless params[:family].blank?
+          @user.set_family(params[:family])
+        end
         @user.save!
         flash[:notice] = t('controller.successfully_created.', :model => t('activerecord.models.user'))
         flash[:temporary_password] = @user.password
@@ -160,6 +178,8 @@ class UsersController < ApplicationController
 #      flash[:error] = t('user.could_not_setup_account')
       format.html { render :action => "new" }
       format.xml  { render :xml => @user.errors, :status => :unprocessable_entity }
+    rescue Exception => e
+      logger.error e
     end
     end
   end
@@ -187,11 +207,20 @@ class UsersController < ApplicationController
         @user.patron.save!
       end      
       #@user.save do |result|
+      @user.out_of_family if params[:out_of_family] == "1"
+      unless params[:family].blank?
+        @user.set_family(params[:family])
+      end
       @user.save!
       flash[:notice] = t('controller.successfully_updated', :model => t('activerecord.models.user'))
       format.html { redirect_to user_url(@user) }
       format.xml  { head :ok }
-    rescue ActiveRecord::RecordInvalid
+    rescue # ActiveRecord::RecordInvalid
+      @patron = @user.patron  
+      family_id = FamilyUser.find(:first, :conditions => ['user_id=?', @user.id]).family_id rescue nil
+      if family_id
+        @family_users = Family.find(family_id).users
+      end
       prepare_options
       format.html { render :action => "edit" }
       format.xml  { render :xml => @user.errors, :status => :unprocessable_entity }
@@ -214,6 +243,43 @@ class UsersController < ApplicationController
     end
   end
 
+  def search_family
+    return nil unless request.xhr?
+    unless params[:keys].blank?
+      @users = User.find(:all, :joins => :patron, :conditions => params[:keys]) rescue nil
+      all_user_ids = []
+      @users.each do |user|
+        all_user_ids << user.id
+      end
+      family_users = FamilyUser.find(:all, :conditions => ['user_id IN (?)', all_user_ids])
+      family_user_ids = []
+      @family_ids = []
+      family_users.each do |f_user|
+        family_user_ids << f_user.user_id
+        @family_ids << f_user.family_id
+      end
+      @family_ids.uniq!
+      @group_users = User.find(:all, :conditions => ['id IN (?)', family_user_ids])
+      family_id = FamilyUser.find(:first, :conditions => ['user_id=?', params[:user]]).family_id rescue nil
+      already_family_users = Family.find(family_id).users if family_id rescue nil
+      @users.delete_if{|user| already_family_users.include?(user)} if already_family_users
+      @users.delete_if{|user| @group_users.include?(user)} if @group_users
+      @group_users.delete_if{|user| already_family_users.include?(user)} if already_family_users
+      unless @users.blank? 
+        html = render_to_string :partial => "search_family"
+        render :json => {:success => 1, :html => html}
+      end
+    end
+  end
+
+  def get_family_info
+    return nil unless request.xhr?
+    unless params[:user_id].blank?
+      @user = User.find(params[:user_id]) rescue nil
+      @patron = @user.patron
+      render :json => {:success => 1, :user => @user, :patron => @patron }
+    end
+  end
   private
   def prepare_options
     @user_groups = UserGroup.all

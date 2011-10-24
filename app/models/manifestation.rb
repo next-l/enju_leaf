@@ -194,10 +194,12 @@ class Manifestation < ActiveRecord::Base
   after_create :clear_cached_numdocs
   before_save :set_date_of_publication
   before_save :set_series_statement
+  before_save :delete_attachment?
   after_save :index_series_statement
   after_destroy :index_series_statement
   normalize_attributes :identifier, :pub_date, :isbn, :issn, :nbn, :lccn, :original_title
   attr_accessor :during_import, :series_statement_id
+  attr_accessible :delete_attachment
   attr_protected :periodical_master
 
   def self.per_page
@@ -281,7 +283,7 @@ class Manifestation < ActiveRecord::Base
   end
 
   def next_reservation
-    self.reserves.waiting.order('reserves.created_at ASC').first
+    self.reserves.waiting.order('reserves.position ASC').first
   end
 
   def serial?
@@ -547,6 +549,19 @@ class Manifestation < ActiveRecord::Base
       self.series_statement = series_statement unless series_statement.blank?   
     end
   end 
+
+  def delete_attachment
+    @delete_attachment ||= "0"
+  end
+  
+  def delete_attachment=(value)
+    @delete_attachment = value
+  end
+
+private
+  def delete_attachment?
+    self.attachment.clear if @delete_attachment == "1"
+  end
 end
 
 # == Schema Information

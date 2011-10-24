@@ -3,6 +3,10 @@
     <%= f.select(:patron_type_id, @patron_types.collect{|p| [p.display_name.localize, p.id]}) -%>
   </div>
 
+  <div id="family">
+    <%= render :partial => "search_family"  %>
+  </div>
+
   <div class="field">
     <span id="name_person">
       <%- if configatron.family_name_first == true -%>
@@ -23,6 +27,61 @@
   </div>
 
   <script>
+    $(document).ready(function(){
+      $("#patron_telephone_number_1").change(function(){
+        clear_family_search();
+        search_family();
+      })
+      .change();
+      $("#patron_last_name").change(function(){
+        clear_family_search();
+        search_family();
+      })
+      .change();
+      $("#patron_address_1").change(function(){
+        clear_family_search();
+        search_family();
+      })
+      .change();      
+    });
+    function search_family(){
+      var tel_1 = $("#patron_telephone_number_1").val().replace(/^\s+|\s+$/g, "");
+      var last_name = $("#patron_last_name").val().replace(/^\s+|\s+$/g, "");
+      var address_1 = $("#patron_address_1").val().replace(/^\s+|\s+$/g, "");
+      var data = {"keys": {"patrons.telephone_number_1": tel_1, "patrons.last_name": last_name, "patrons.address_1": address_1 }, "user": "<%= @user.id -%>"};
+      if (tel_1 != "" && last_name != "" && address_1 !="") {
+        $.ajax({
+          type: "GET",
+          url: "<%= url_for(:controller => :users, :action => :search_family) -%>",
+          data: data, 
+          success: function(obj) {
+            if(obj.success){
+              $('#search_family').remove();
+              $('#family').append(obj.html);
+              $('#search_family').show();
+              $("input[name='family']").change(get_family_info);
+            }
+	  }
+        });  
+        return false;
+      }
+    }
+    function clear_family_search(){
+      $('#search_family > div').remove();
+      $('#search_family').hide();
+    }
+    function get_family_info(){
+      var user_id = $("input:radio[name='family']:checked").val();
+      $.ajax({
+        type: "GET",
+        url: "get_family_info",
+        data: {"user_id": user_id},
+        success: function(obj) {
+          var zip_code_1 = obj["patron"]["patron"]["zip_code_1"];
+          $('#patron_zip_code_1').val(zip_code_1);
+        }
+      });
+    }
     $("select#patron_patron_type_id").change(function(){
       str = $("select#patron_patron_type_id option:selected").val();
       if(str == <%= PatronType.find_by_name('Person').id %>){
@@ -116,11 +175,24 @@
     <%= f.label :address_2_note -%><br />
     <%= f.text_area :address_2_note, :class => 'resource_textarea' -%>
   </div>
+
+  <hr />
+  <div class="field">
+    <%= f.label :telephone_number_3 -%><br />
+    <%= f.phone_field :telephone_number_3, :class => 'resource_telephone_number' -%>
+  </div>
   </div>
 
   <hr />
   <div class="field">
-    <%= f.label :note -%><br />
+    <%= f.label :note -%>
+    <%- if @patron.note_update_at -%>
+      &nbsp;<%= t('patron.last_update_at') -%>: <%= l(@patron.note_update_at) -%>
+      <%- if @note_last_updateed_user -%>
+        &nbsp;<%= t('patron.last_update_by') -%>: <%= @note_last_updateed_user.username -%>
+      <%- end -%>
+    <%- end -%>
+    <br />
     <%= f.text_area :note, :class => 'resource_textarea' -%>
   </div>
 
@@ -132,3 +204,4 @@
     <%= f.hidden_field :user_username -%>
     <%= u_form.submit %>
   </div>
+

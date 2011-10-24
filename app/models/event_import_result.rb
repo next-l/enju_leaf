@@ -1,5 +1,5 @@
 class EventImportResult < ActiveRecord::Base
-  default_scope :order => 'event_import_results.id'
+  default_scope :order => 'event_import_results.id DESC'
   scope :file_id, proc{|file_id| {:conditions => {:event_import_file_id => file_id}}}
   scope :failed, where(:event_id => nil)
 

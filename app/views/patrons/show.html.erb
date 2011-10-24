@@ -1,5 +1,5 @@
 <div id="content_detail" class="ui-corner-all">
-<% cache(:controller => :patrons, :action => :show, :id => @patron.id, :page => 'detail', :role => current_user_role_name, :locale => @locale, :patron_id => nil) do %>
+<%# cache(:controller => :patrons, :action => :show, :id => @patron.id, :page => 'detail', :role => current_user_role_name, :locale => @locale, :patron_id => nil) do %>
 <h1 class="title"><%= t('page.showing', :model => t('activerecord.models.patron')) -%></h1>
 <div id="content_list">
   <p id="notice"><%= notice %></p>
@@ -71,6 +71,7 @@
           <%= link_to @patron.url, @patron.url, :class => 'url' if @patron.url? -%>
         </td>
       </tr>
+<%- if false -%>
       <tr>
         <td><strong><%= t('activerecord.attributes.patron.other_designation') -%>:</strong></td>
         <td><%= @patron.other_designation -%></td>
@@ -79,11 +80,13 @@
         <td><strong><%= t('activerecord.attributes.patron.place') -%>:</strong></td>
         <td><%= @patron.place -%></td>
       </tr>
+<%- end -%>
       <tr>
         <td><strong><%= t('activerecord.models.language') -%>:</strong></td>
         <td><%= @patron.language.display_name.localize -%></td>
       </tr>
-      <%- if can? :destroy, @patron -%>
+<%# - if can? :destroy, @patron -%>
+      <%- if current_user.try(:has_role?, 'Librarian') -%>
         <tr>
           <td><strong><%= t('activerecord.attributes.patron.zip_code_1') -%>:</strong></td>
           <td><%= @patron.zip_code_1 -%></td>
@@ -124,7 +127,11 @@
           <td><strong><%= t('activerecord.attributes.patron.address_2_note') -%>:</strong></td>
           <td><%= @patron.address_2_note -%></td>
         </tr>
-        <%- if !@patron.user or (@patron.user and current_user.try(:has_role?, 'Administrator')) %>
+        <tr>
+          <td><strong><%= t('activerecord.attributes.patron.telephone_number_3') -%>:</strong></td>
+          <td><%= @patron.telephone_number_3 -%></td>
+        </tr>
+        <%# - if !@patron.user or (@patron.user and current_user.try(:has_role?, 'Administrator')) %>
           <tr>
             <td><strong><%= t('activerecord.attributes.patron.date_of_birth') -%>:</strong></td>
             <td><%= l(@patron.date_of_birth, :format => :only_date) if @patron.date_of_birth -%></td>
@@ -133,11 +140,15 @@
             <td><strong><%= t('activerecord.attributes.patron.date_of_death') -%>:</strong></td>
             <td><%= l(@patron.date_of_death, :format => :only_date) if @patron.date_of_death -%></td>
           </tr>
-        <% end %>
+        <%# end %>
       <%- end -%>
       <tr>
         <td><strong><%= t('activerecord.attributes.patron.note') -%>:</strong></td>
         <td><%= @patron.note -%></td>
+      </tr>
+      <tr>
+        <td><strong><%= t('activerecord.attributes.patron.note_update_at') -%>:</strong></td>
+        <td><%= l(@patron.note_update_at) unless @patron.note_update_at.blank?-%></td>
       </tr>
       <tr>
         <td><strong><%= t('page.created_at') -%>:</strong></td>
@@ -149,7 +160,7 @@
       </tr>
     </table>
   </div>
-<% end %>
+<%# end %>
   <%- unless @patron.derived_patrons.empty? and @patron.original_patrons.empty? -%>
     <%= render 'patrons/patron_list' -%>
   <%- end -%>
@@ -192,6 +203,10 @@
       <%- if @patron.user.blank? -%>
         <li><%= link_to t('patron.activate_as_user'), new_user_path(:patron_id => @patron.id) -%></li>
       <%- else -%>
+        <%- unless @patron.user.user_number.blank? -%>
+          <li><%= link_to t('activerecord.models.checkout'), new_basket_path(:user_number => @patron.user.user_number) -%></li>
+          <li><%= link_to t('activerecord.models.reserve'), user_reserves_path(@patron.user) -%></li>
+        <%- end -%>
         <li><%= link_to t('page.editing', :model => t('activerecord.models.user')), edit_user_path(@patron.user) -%></li>
       <%- end -%>
       <li><%= link_to t('page.edit'), edit_patron_path(@patron) -%></li>
