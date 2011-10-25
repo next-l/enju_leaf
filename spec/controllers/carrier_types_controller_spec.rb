@@ -46,13 +46,16 @@ describe CarrierTypesController do
   end
 
   describe "GET show" do
+    before(:each) do
+      @carrier_type = FactoryGirl.create(:carrier_type)
+    end
+
     describe "When logged in as Administrator" do
       login_admin
 
       it "assigns the requested carrier_type as @carrier_type" do
-        carrier_type = FactoryGirl.create(:carrier_type)
-        get :show, :id => carrier_type.id
-        assigns(:carrier_type).should eq(carrier_type)
+        get :show, :id => @carrier_type.id
+        assigns(:carrier_type).should eq(@carrier_type)
       end
     end
 
@@ -60,9 +63,8 @@ describe CarrierTypesController do
       login_librarian
 
       it "assigns the requested carrier_type as @carrier_type" do
-        carrier_type = FactoryGirl.create(:carrier_type)
-        get :show, :id => carrier_type.id
-        assigns(:carrier_type).should eq(carrier_type)
+        get :show, :id => @carrier_type.id
+        assigns(:carrier_type).should eq(@carrier_type)
       end
     end
 
@@ -70,17 +72,15 @@ describe CarrierTypesController do
       login_user
 
       it "assigns the requested carrier_type as @carrier_type" do
-        carrier_type = FactoryGirl.create(:carrier_type)
-        get :show, :id => carrier_type.id
-        assigns(:carrier_type).should eq(carrier_type)
+        get :show, :id => @carrier_type.id
+        assigns(:carrier_type).should eq(@carrier_type)
       end
     end
 
     describe "When not logged in" do
       it "assigns the requested carrier_type as @carrier_type" do
-        carrier_type = FactoryGirl.create(:carrier_type)
-        get :show, :id => carrier_type.id
-        assigns(:carrier_type).should eq(carrier_type)
+        get :show, :id => @carrier_type.id
+        assigns(:carrier_type).should eq(@carrier_type)
       end
     end
   end
@@ -126,13 +126,16 @@ describe CarrierTypesController do
   end
 
   describe "GET edit" do
+    before(:each) do
+      @carrier_type = FactoryGirl.create(:carrier_type)
+    end
+
     describe "When logged in as Administrator" do
       login_admin
 
       it "assigns the requested carrier_type as @carrier_type" do
-        carrier_type = FactoryGirl.create(:carrier_type)
-        get :edit, :id => carrier_type.id
-        assigns(:carrier_type).should eq(carrier_type)
+        get :edit, :id => @carrier_type.id
+        assigns(:carrier_type).should eq(@carrier_type)
       end
     end
 
@@ -140,8 +143,7 @@ describe CarrierTypesController do
       login_librarian
 
       it "assigns the requested carrier_type as @carrier_type" do
-        carrier_type = FactoryGirl.create(:carrier_type)
-        get :edit, :id => carrier_type.id
+        get :edit, :id => @carrier_type.id
         response.should be_forbidden
       end
     end
@@ -150,16 +152,14 @@ describe CarrierTypesController do
       login_user
 
       it "assigns the requested carrier_type as @carrier_type" do
-        carrier_type = FactoryGirl.create(:carrier_type)
-        get :edit, :id => carrier_type.id
+        get :edit, :id => @carrier_type.id
         response.should be_forbidden
       end
     end
 
     describe "When not logged in" do
       it "should not assign the requested carrier_type as @carrier_type" do
-        carrier_type = FactoryGirl.create(:carrier_type)
-        get :edit, :id => carrier_type.id
+        get :edit, :id => @carrier_type.id
         response.should redirect_to(new_user_session_url)
       end
     end

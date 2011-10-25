@@ -244,7 +244,7 @@ describe CheckedItemsController do
       it "should create checked_item" do
         post :create, :checked_item => @attrs, :basket_id => 3
         assigns(:checked_item).due_date.should_not be_nil
-        response.should redirect_to user_basket_checked_items_url(assigns(:checked_item).basket.user, assigns(:checked_item).basket)
+        response.should redirect_to basket_checked_items_url(assigns(:checked_item).basket)
       end
     end
   end

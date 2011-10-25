@@ -16,7 +16,7 @@ describe CheckinsController do
       it "assigns all checkins as @checkins" do
         get :index
         assigns(:checkins).should eq(Checkin.all)
-        response.should redirect_to(user_basket_checkins_url(assigns(:basket).user, assigns(:basket)))
+        response.should redirect_to(basket_checkins_url(assigns(:basket)))
       end
 
       describe "When basket_id is specified" do
@@ -34,7 +34,7 @@ describe CheckinsController do
       it "assigns all checkins as @checkins" do
         get :index
         assigns(:checkins).should eq(Checkin.all)
-        response.should redirect_to(user_basket_checkins_url(assigns(:basket).user, assigns(:basket)))
+        response.should redirect_to(basket_checkins_url(assigns(:basket)))
       end
 
       describe "When basket_id is specified" do
@@ -204,14 +204,14 @@ describe CheckinsController do
 
         it "redirects to index" do
           post :create, :checkin => @attrs
-          response.should redirect_to(user_basket_checkins_url(assigns(:basket).user, assigns(:basket)))
+          response.should redirect_to(basket_checkins_url(assigns(:basket)))
           assigns(:checkin).item.circulation_status.name.should eq 'Available On Shelf'
         end
 
         describe "When basket_id is specified" do
           it "redirects to the created checkin" do
             post :create, :checkin => @attrs, :basket_id => 9
-            response.should redirect_to(user_basket_checkins_url(assigns(:checkin).basket.user, assigns(:checkin).basket))
+            response.should redirect_to(basket_checkins_url(assigns(:checkin).basket))
             assigns(:checkin).item.circulation_status.name.should eq 'Available On Shelf'
           end
         end
@@ -225,14 +225,14 @@ describe CheckinsController do
 
         it "redirects to the list" do
           post :create, :checkin => @invalid_attrs
-          response.should redirect_to(user_basket_checkins_url(assigns(:checkin).basket.user, assigns(:checkin).basket))
+          response.should redirect_to(basket_checkins_url(assigns(:checkin).basket))
         end
       end
 
       it "should not create checkin without item_id" do
         post :create, :checkin => {:item_identifier => nil}, :basket_id => 9
         assigns(:checkin).should_not be_valid
-        response.should redirect_to user_basket_checkins_url(assigns(:basket).user, assigns(:basket))
+        response.should redirect_to basket_checkins_url(assigns(:basket))
       end
     end
 
@@ -251,14 +251,14 @@ describe CheckinsController do
           flash[:message].to_s.index(I18n.t('item.this_item_is_reserved')).should be_true
           assigns(:checkin).item.next_reservation.state.should eq 'retained'
           assigns(:checkin).item.circulation_status.name.should eq 'Available On Shelf'
-          response.should redirect_to user_basket_checkins_url(assigns(:basket).user, assigns(:basket))
+          response.should redirect_to basket_checkins_url(assigns(:basket))
         end
 
         it "should show notification when an item includes supplements" do
           post :create, :checkin => {:item_identifier => '00004'}, :basket_id => 9
           assigns(:checkin).item.circulation_status.name.should eq 'Available On Shelf'
           flash[:message].to_s.index(I18n.t('item.this_item_include_supplement')).should be_true
-          response.should redirect_to user_basket_checkins_url(assigns(:basket).user, assigns(:basket))
+          response.should redirect_to basket_checkins_url(assigns(:basket))
         end
       end
 
@@ -267,7 +267,7 @@ describe CheckinsController do
         post :create, :checkin => {:item_identifier => '00009'}, :basket_id => 9
         assigns(:checkin).should be_valid
         flash[:message].to_s.index(I18n.t('checkin.other_library_item')).should be_true
-        response.should redirect_to user_basket_checkins_url(assigns(:basket).user, assigns(:basket))
+        response.should redirect_to basket_checkins_url(assigns(:basket))
       end
     end
 

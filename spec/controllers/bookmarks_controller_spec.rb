@@ -111,7 +111,7 @@ describe BookmarksController do
       it "should create bookmark" do
         post :create, :bookmark => {:title => 'example', :url => 'http://example.com/'}, :user_id => users(:user1).username
         assigns(:bookmark).should be_valid
-        response.should redirect_to user_bookmark_url(assigns(:bookmark).user, assigns(:bookmark))
+        response.should redirect_to bookmark_url(assigns(:bookmark))
       end
     end
   end
@@ -137,7 +137,7 @@ describe BookmarksController do
         it "assigns the requested bookmark as @bookmark" do
           put :update, :id => @bookmark.id, :bookmark => @attrs
           assigns(:bookmark).should eq(@bookmark)
-          response.should redirect_to user_bookmark_url(@bookmark.user, @bookmark)
+          response.should redirect_to bookmark_url(@bookmark)
         end
       end
 
@@ -167,7 +167,7 @@ describe BookmarksController do
         it "assigns the requested bookmark as @bookmark" do
           put :update, :id => @bookmark.id, :bookmark => @attrs
           assigns(:bookmark).should eq(@bookmark)
-          response.should redirect_to user_bookmark_url(@bookmark.user, @bookmark)
+          response.should redirect_to bookmark_url(@bookmark)
         end
       end
 
