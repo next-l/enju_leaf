@@ -1,1 +1,44 @@
-<%= render 'users/show' -%>
+<div id="content_detail" class="ui-corner-all">
+<h1 class="title"><%= t('page.showing', :model => t('activerecord.models.user')) -%></h1>
+<div id="content_list">
+<p id="notice"><%= notice %></p>
+
+  <h2 class="resource_title">
+    [U]
+    <%= current_user.username -%>
+    <% if can? :show, current_user.patron %>
+      (<%= link_to current_user.patron.full_name, current_user.patron %>)
+    <% end %>
+  </h2>
+
+  <p><%= t('activerecord.attributes.user.user_number') %>: <%= current_user.user_number %></p>
+
+  <% if defined?(EnjuCirculation) %>
+    <h2><%= t('activerecord.models.checkout') %></h2>
+    <table class="index">
+      <tr>
+        <th><%= t('activerecord.models.item') %></th>
+        <th><%= t('activerecord.attributes.checkout.due_date') %></th>
+      </tr>
+      <% current_user.checkouts.not_returned.each do |checkout| %>
+        <tr class="line<%= cycle("0", "1") -%>">
+          <td>
+            <%= link_to checkout.item.item_identifier, checkout.item %><br />
+            (<%= link_to checkout.item.manifestation.original_title, checkout.item.manifestation %>)
+          </td>
+          <td><%=l checkout.due_date, :format => :only_date %></td>
+        </tr>
+      <% end %>
+    </table>
+  <% end %>
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all">
+  <ul>
+    <li><%= link_to t('page.edit'), edit_my_account_path -%></li>
+    <%- if can? :destroy, current_user -%>
+      <%= link_to t('page.destroy'), curent_user, :confirm => t('page.are_you_sure'), :method => :delete -%>
+    <%- end -%>
+  </ul>
+</div>

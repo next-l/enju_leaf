@@ -21,7 +21,7 @@ describe PageController do
 
       it "should redirect to user" do
         get :index
-        response.should redirect_to my_account_url
+        response.should be_success
       end
 
       it "should not get import" do

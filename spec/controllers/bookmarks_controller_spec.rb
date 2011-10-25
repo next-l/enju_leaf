@@ -109,8 +109,8 @@ describe BookmarksController do
       end
 
       it "should create bookmark" do
-        post :create, :bookmark => {:title => 'example', :url => 'http://example.com/'}, :user_id => users(:user1).username
-        assigns(:bookmark).should be_valid
+        post :create, :bookmark => {:title => 'example', :url => 'http://www1.example.com/'}
+        assigns(:bookmark).save!
         response.should redirect_to bookmark_url(assigns(:bookmark))
       end
     end

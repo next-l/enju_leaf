@@ -101,8 +101,11 @@ gem 'validates_timeliness'
 gem 'rack-protection'
 gem 'awesome_nested_set', '~> 2.0'
 gem 'rake', '0.9.2.2'
-gem 'vidibus-routing_error', :git => 'git://github.com/nabeta/vidibus-routing_error'
 gem 'rails_autolink'
+
+group :production do
+  gem 'vidibus-routing_error', :git => 'git://github.com/nabeta/vidibus-routing_error'
+end
 
 #gem 'oink', '>=0.9.2'
 group :development do

@@ -11,7 +11,7 @@ describe MyAccountsController do
 
       it "assigns the requested user as @user" do
         get :show, :id => 'admin'
-        assigns(:user).should eq(User.find('admin'))
+        response.should be_success
       end
     end
 

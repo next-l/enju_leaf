@@ -517,8 +517,10 @@ class Manifestation < ActiveRecord::Base
 
     def is_reservable_by?(user)
       return false if items.for_checkout.empty?
-      unless items.size == (items.size - user.checkouts.overdue(Time.zone.now).collect(&:item).size)
-        return false
+      unless user.has_role?('Librarian')
+        unless items.size == (items.size - user.checkouts.overdue(Time.zone.now).collect(&:item).size)
+          return false
+        end
       end
       true
     end
@@ -572,7 +574,8 @@ class Manifestation < ActiveRecord::Base
     end
 
     def bookmarked?(user)
-      self.users.include?(user)
+      return true if user.bookmarks.where(:url => url).first
+      false
     end
 
     def tags
