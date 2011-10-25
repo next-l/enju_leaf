@@ -77,15 +77,17 @@ class PictureFilesController < ApplicationController
           end
         end
       }
-      format.svg {
-        if @picture_file.picture.path
-          if configatron.uploaded_file.storage == :s3
-            send_data data, :filename => @picture_file.picture_file_name, :type => 'image/svg+json', :disposition => 'inline'
-          else
-            send_file file, :filename => @picture_file.picture_file_name, :type => 'image/svg+json', :disposition => 'inline'
+      if defined?(EnjuBarcode)
+        format.svg {
+          if @picture_file.picture.path
+            if configatron.uploaded_file.storage == :s3
+              send_data data, :filename => @picture_file.picture_file_name, :type => 'image/svg+xml', :disposition => 'inline'
+            else
+              send_file file, :filename => @picture_file.picture_file_name, :type => 'image/svg+xml', :disposition => 'inline'
+            end
           end
-        end
-      }
+        }
+      end
     end
   end
 

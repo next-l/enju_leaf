@@ -81,9 +81,9 @@
     <%- end -%>
   <div>
     <%- if params[:library_id].blank? -%>
-      <%= link_to (image_tag 'feed-icon-14x14.png', :size => '14x14', :alt => t('page.feed'), :class => 'icon'), url_for(params.merge(:format => :rss, :page => nil, :library_id => nil)) -%> <%= link_to t('page.search_result_feed'), url_for(params.merge(:format => :rss, :page => nil, :library_id => nil, :commit => nil)) -%>
+      <%= link_to (image_tag 'icons/feed.png', :size => '16x16', :alt => t('page.feed'), :class => 'icon'), url_for(params.merge(:format => :rss, :page => nil, :library_id => nil)) -%> <%= link_to t('page.search_result_feed'), url_for(params.merge(:format => :rss, :page => nil, :library_id => nil, :commit => nil)) -%>
     <%- else -%>
-      <%= link_to (image_tag 'feed-icon-14x14.png', :size => '14x14', :alt => t('page.feed'), :class => 'icon'), url_for(params.merge(:format => :rss, :page => nil)) -%> <%= link_to t('page.search_result_feed'), url_for(params.merge(:format => :rss, :page => nil, :commit => nil)) -%>
+      <%= link_to (image_tag 'icons/feed.png', :size => '16x16', :alt => t('page.feed'), :class => 'icon'), url_for(params.merge(:format => :rss, :page => nil)) -%> <%= link_to t('page.search_result_feed'), url_for(params.merge(:format => :rss, :page => nil, :commit => nil)) -%>
     <%- end -%>
   </div>
 </div>
