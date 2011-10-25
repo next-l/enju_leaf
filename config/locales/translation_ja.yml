@@ -1470,7 +1470,7 @@ ja:
     birth_date_invalid: "生年月日が不正な値です。例: 2011-04-12"
     already_in_family: "家族登録済みです。"
     overdue_item: "%{user} さんの貸出期限がすぎている資料が %{count} 冊あります。"
-    retained_reserve: "%{user} さんの予約資料が %{count]} 冊用意されています。" 
+    retained_reserve: "%{user} さんの予約資料が %{count} 冊用意されています。" 
   news_post:
     library_group_news_post: "%{library_group_name} からのお知らせ"
   reserve:
@@ -1492,6 +1492,7 @@ ja:
     canceled: "取消済み"
     expired: "期限切れ"
     completed: "貸出済み"
+    completed_reserve: "貸出済みの予約"
   purchase_request:
     user_purchase_request: "%{login_name} さんの購入依頼資料"
     library_group_purchase_request: "%{library_group_name} での購入依頼資料"
