@@ -16,9 +16,7 @@
     <th><%= t('activerecord.models.item') -%></th>
     <th><%= t('activerecord.attributes.item.note') -%></th>
     <th><%= t('activerecord.attributes.checkout.due_date') -%></th>
-    <%- if configatron.checkins.disp_user == true -%>
-      <th><%= t('activerecord.models.user') -%></th>
-    <%- end -%>
+    <th><%= t('activerecord.models.user') -%></th>
   </tr>
 
 <%- @checkins.each_with_index do |checkin, i| -%>
@@ -43,6 +41,8 @@
     </td>
     <%- if configatron.checkins.disp_user == true -%>
       <td><%= link_to checkin.checkout.user.username, checkin.checkout.user if checkin.checkout -%></td>
+    <%- else -%>
+      <td><%= link_to t('page.userdetail'), checkin.checkout.user if checkin.checkout -%></td>
     <%- end -%>
   </tr>
 <%- end -%>
