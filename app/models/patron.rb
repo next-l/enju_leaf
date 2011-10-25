@@ -27,7 +27,7 @@ class Patron < ActiveRecord::Base
 
   validates_presence_of :language, :patron_type, :country
   validates_associated :language, :patron_type, :country
-  validates :full_name, :presence => true, :length => {:maximum => 255}, :on => :create
+  validates :full_name, :presence => true, :length => {:maximum => 255}
   validates :user_id, :uniqueness => true, :allow_nil => true
   validates :birth_date, :format => {:with => /^\d+(-\d{0,2}){0,2}$/}, :allow_blank => true
   validates :death_date, :format => {:with => /^\d+(-\d{0,2}){0,2}$/}, :allow_blank => true
@@ -258,7 +258,7 @@ class Patron < ActiveRecord::Base
 
   def self.create_with_user(params, user)
     patron = Patron.new(params)
-    patron.full_name = user.username if patron.full_name.blank?
+    #patron.full_name = user.username if patron.full_name.blank?
     patron.email = user.email
     patron.required_role = Role.find(:first, :conditions => ['name=?', "Librarian"]) rescue nil
     patron.language = Language.find(:first, :conditions => ['iso_639_1=?', user.locale]) rescue nil

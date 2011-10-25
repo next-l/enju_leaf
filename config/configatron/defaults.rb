@@ -34,3 +34,6 @@ configatron.checkins.disp_user = true
 # set disp column of checked_items
 configatron.checked_items.disp_title = true
 configatron.checked_items.disp_user = true
+
+# template file for import
+configatron.resource_import_template = "templates/resource_import_template.xls"

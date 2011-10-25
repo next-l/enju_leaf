@@ -107,12 +107,21 @@ class UsersController < ApplicationController
         access_denied; return
       end
     end
-    @user = User.new
-    @patron = Patron.new
-    @patron.required_role = Role.find_by_name('Librarian')
-    @patron.language = Language.where(:iso_639_1 => I18n.default_locale.to_s).first || Language.first
-    @patron.country = current_user.library.country
-
+    @family_with = User.find(params[:user]) if params[:user]
+    if @family_with
+      @user = @family_with.clone rescue User.new
+      @user.username = nil
+      @user.user_number = nil
+      @patron = @family_with.patron.clone rescue Patron.new
+      @patron.full_name = nil
+      @family_id = FamilyUser.find(:first, :conditions => ['user_id=?',  params[:user]]).family_id rescue nil
+    else 
+      @user = User.new
+      @patron = Patron.new
+      @patron.required_role = Role.find_by_name('Librarian')
+      @patron.language = Language.where(:iso_639_1 => I18n.default_locale.to_s).first || Language.first
+      @patron.country = current_user.library.country
+    end
     #@user.openid_identifier = flash[:openid_identifier]
     prepare_options
     @user_groups = UserGroup.all
@@ -156,10 +165,8 @@ class UsersController < ApplicationController
         @user.set_auto_generated_password
         @user.role = Role.where(:name => 'User').first
         @patron = Patron.create_with_user(params[:patron], @user)
-        if @user.valid?
-          @patron.save!
-          @user.patron = @patron
-        end
+        @patron.save!
+        @user.patron = @patron
         unless params[:family].blank?
           @user.set_family(params[:family])
         end
@@ -200,12 +207,11 @@ class UsersController < ApplicationController
         end
       end
  
-      if @user.valid?
-        @user.patron.update_attributes(params[:patron])
-        @user.patron.email = params[:user][:email]
-        @user.patron.language = Language.find(:first, :conditions => ['iso_639_1=?', params[:user][:locale]]) rescue nil
-        @user.patron.save!
-      end      
+      @user.patron.update_attributes(params[:patron])
+      @user.patron.email = params[:user][:email]
+      @user.patron.language = Language.find(:first, :conditions => ['iso_639_1=?', params[:user][:locale]]) rescue nil
+      @user.patron.save!
+
       #@user.save do |result|
       @user.out_of_family if params[:out_of_family] == "1"
       unless params[:family].blank?
@@ -217,6 +223,9 @@ class UsersController < ApplicationController
       format.xml  { head :ok }
     rescue # ActiveRecord::RecordInvalid
       @patron = @user.patron  
+      @patron.errors.each do |e|
+          @user.errors.add(e)
+      end
       family_id = FamilyUser.find(:first, :conditions => ['user_id=?', @user.id]).family_id rescue nil
       if family_id
         @family_users = Family.find(family_id).users
@@ -246,7 +255,7 @@ class UsersController < ApplicationController
   def search_family
     return nil unless request.xhr?
     unless params[:keys].blank?
-      @user = User.find(params[:user]) if params[:user]
+      @user = User.find(params[:user]) rescue nil
       @users = User.find(:all, :joins => :patron, :conditions => params[:keys]) rescue nil
       all_user_ids = []
       @users.each do |user|
@@ -266,7 +275,7 @@ class UsersController < ApplicationController
       @users.delete_if{|user| already_family_users.include?(user)} if already_family_users
       @users.delete_if{|user| @group_users.include?(user)} if @group_users
       @group_users.delete_if{|user| already_family_users.include?(user)} if already_family_users
-      unless @users.blank? 
+      unless @users.blank? && @group_users.blank?
         html = render_to_string :partial => "search_family"
         render :json => {:success => 1, :html => html}
       end

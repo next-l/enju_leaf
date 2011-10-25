@@ -142,14 +142,16 @@
           </tr>
         <%# end %>
       <%- end -%>
-      <tr>
-        <td><strong><%= t('activerecord.attributes.patron.note') -%>:</strong></td>
-        <td><%= @patron.note -%></td>
-      </tr>
-      <tr>
-        <td><strong><%= t('activerecord.attributes.patron.note_update_at') -%>:</strong></td>
-        <td><%= l(@patron.note_update_at) unless @patron.note_update_at.blank?-%></td>
-      </tr>
+      <%- if @patron.user.blank? || (!@patron.user.blank? && current_user.try(:has_role?, 'Librarian')) -%>
+        <tr>
+          <td><strong><%= t('activerecord.attributes.patron.note') -%>:</strong></td>
+          <td><%= @patron.note -%></td>
+        </tr>
+        <tr>
+          <td><strong><%= t('activerecord.attributes.patron.note_update_at') -%>:</strong></td>
+          <td><%= l(@patron.note_update_at) unless @patron.note_update_at.blank?-%></td>
+        </tr>
+      <%- end -%>
       <tr>
         <td><strong><%= t('page.created_at') -%>:</strong></td>
         <td><%= l(@patron.created_at) -%></td>
@@ -203,6 +205,7 @@
       <%- if @patron.user.blank? -%>
         <li><%= link_to t('patron.activate_as_user'), new_user_path(:patron_id => @patron.id) -%></li>
       <%- else -%>
+        <li><%= link_to t('patron.create_family_user'), new_user_path(:user => @patron.user.id) -%></li>
         <%- unless @patron.user.user_number.blank? -%>
           <li><%= link_to t('activerecord.models.checkout'), new_basket_path(:user_number => @patron.user.user_number) -%></li>
           <li><%= link_to t('activerecord.models.reserve'), user_reserves_path(@patron.user) -%></li>
