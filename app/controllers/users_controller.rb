@@ -165,10 +165,8 @@ class UsersController < ApplicationController
         @user.set_auto_generated_password
         @user.role = Role.where(:name => 'User').first
         @patron = Patron.create_with_user(params[:patron], @user)
-        if @user.valid?
-          @patron.save!
-          @user.patron = @patron
-        end
+        @patron.save!
+        @user.patron = @patron
         unless params[:family].blank?
           @user.set_family(params[:family])
         end
@@ -209,12 +207,11 @@ class UsersController < ApplicationController
         end
       end
  
-      if @user.valid?
-        @user.patron.update_attributes(params[:patron])
-        @user.patron.email = params[:user][:email]
-        @user.patron.language = Language.find(:first, :conditions => ['iso_639_1=?', params[:user][:locale]]) rescue nil
-        @user.patron.save!
-      end      
+      @user.patron.update_attributes(params[:patron])
+      @user.patron.email = params[:user][:email]
+      @user.patron.language = Language.find(:first, :conditions => ['iso_639_1=?', params[:user][:locale]]) rescue nil
+      @user.patron.save!
+
       #@user.save do |result|
       @user.out_of_family if params[:out_of_family] == "1"
       unless params[:family].blank?
@@ -226,6 +223,9 @@ class UsersController < ApplicationController
       format.xml  { head :ok }
     rescue # ActiveRecord::RecordInvalid
       @patron = @user.patron  
+      @patron.errors.each do |e|
+          @user.errors.add(e)
+      end
       family_id = FamilyUser.find(:first, :conditions => ['user_id=?', @user.id]).family_id rescue nil
       if family_id
         @family_users = Family.find(family_id).users
