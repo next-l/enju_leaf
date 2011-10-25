@@ -1610,3 +1610,5 @@ ja:
     already_family_with: "家族登録済み"
     out_of_family: "家族登録を解除する"
     will_be_family_with: "さんと家族登録します。"
+  resource_import_file:
+    template_download: "テンプレートをダウンロード"

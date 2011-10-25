@@ -39,7 +39,7 @@ class ResourceImportFilesController < ApplicationController
   # GET /resource_import_files/new.xml
   def new
     @resource_import_file = ResourceImportFile.new
-
+    @file_path = root_url + configatron.resource_import_template
     respond_to do |format|
       format.html # new.html.erb
       format.xml  { render :xml => @resource_import_file }
