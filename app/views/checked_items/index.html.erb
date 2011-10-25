@@ -2,6 +2,14 @@
   <h1 class="title"><%= t('page.listing', :model => t('activerecord.models.checked_item')) -%></h1>
   <div id="content_list">
     <p id="notice"><%= notice %></p>
+    <div style="color: red">
+      <%= user_notice(@basket.user) -%>
+      <%- unless @family_users.blank? -%>
+        <%- @family_users.each do |user| -%>
+          <%= user_notice(user) unless user == @basket.user -%>
+        <%- end -%>
+      <%- end -%>
+    </div>
     <%= render 'user_comment' -%>
     <div id="checked_item_list">
       <%= render 'list' -%>
