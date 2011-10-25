@@ -73,7 +73,7 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_question.git
-  revision: 896f60cffe668abbd35e76390f1790e888d0f517
+  revision: 8da8ad10d5c0c34042de349f889b0a0d0fd1316a
   specs:
     enju_question (0.0.2)
       rails (~> 3.1.1)
