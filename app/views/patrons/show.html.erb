@@ -203,6 +203,7 @@
       <%- if @patron.user.blank? -%>
         <li><%= link_to t('patron.activate_as_user'), new_user_path(:patron_id => @patron.id) -%></li>
       <%- else -%>
+        <li><%= link_to t('patron.create_family_user'), new_user_path(:user => @patron.user.id) -%></li>
         <%- unless @patron.user.user_number.blank? -%>
           <li><%= link_to t('activerecord.models.checkout'), new_basket_path(:user_number => @patron.user.user_number) -%></li>
           <li><%= link_to t('activerecord.models.reserve'), user_reserves_path(@patron.user) -%></li>

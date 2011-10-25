@@ -4,6 +4,10 @@
 <%= simple_form_for(@user) do |u_form| -%>
 <%= simple_form_for(@patron) do |p_form| -%>
 <%= render 'page/required_field' %>
+<%- if @family_id -%>
+  <div style="color: green"><%= @family_with.patron.full_name if @family_with.patron -%>(<%= @family_with.username -%>) <%= t('family.will_be_family_with') -%></div> 
+  <input type="hidden", name="family", value="<%= @family_id -%>">
+<%- end -%>
 <%= render :partial => 'users/edit_credential', :locals => {:f => u_form, :user => @user} -%>
 <%= render :partial => 'users/form', :locals => {:f => p_form, :u_form => u_form, :patron => @patron}-%>
 <%- end -%>

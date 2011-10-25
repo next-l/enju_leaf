@@ -107,10 +107,14 @@ class UsersController < ApplicationController
         access_denied; return
       end
     end
-    family_user = User.find(params[:user]) if params[:user]
-    if family_user
-      @user = User.new(family_user)
-      @patron = Patron.new(@user.patron)
+    @family_with = User.find(params[:user]) if params[:user]
+    if @family_with
+      @user = @family_with.clone rescue User.new
+      @user.username = nil
+      @user.user_number = nil
+      @patron = @family_with.patron.clone rescue Patron.new
+      @patron.full_name = nil
+      @family_id = FamilyUser.find(:first, :conditions => ['user_id=?',  params[:user]]).family_id rescue nil
     else 
       @user = User.new
       @patron = Patron.new
@@ -271,7 +275,7 @@ class UsersController < ApplicationController
       @users.delete_if{|user| already_family_users.include?(user)} if already_family_users
       @users.delete_if{|user| @group_users.include?(user)} if @group_users
       @group_users.delete_if{|user| already_family_users.include?(user)} if already_family_users
-      unless @users.blank? 
+      unless @users.blank? && @group_users.blank?
         html = render_to_string :partial => "search_family"
         render :json => {:success => 1, :html => html}
       end

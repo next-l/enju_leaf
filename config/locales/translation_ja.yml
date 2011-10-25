@@ -1334,6 +1334,7 @@ ja:
     expression_patron: "%{expression_title} の編者"
     manifestation_patron: "%{manifestation_title} の出版者"
     activate_as_user: "利用者として登録する"
+    create_family_user: "家族を新規作成する"
     deactivate: "利用者登録を解除する"
     add: "人物・団体を追加する"
     publication: "出版物"
@@ -1607,3 +1608,4 @@ ja:
     not_select_family: "家族を選択しない"
     already_family_with: "家族登録済み"
     out_of_family: "家族登録を解除する"
+    will_be_family_with: "さんと家族登録します。"
