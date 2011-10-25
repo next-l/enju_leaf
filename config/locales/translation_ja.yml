@@ -1227,6 +1227,7 @@ ja:
     number_of_pictures: "枚"
     best_request: "ベストリクエスト"
     best_reader: "ベストリーダ"
+    userdetail: "利用者明細"
 
     exstatistics:
       ranknumber: 順位

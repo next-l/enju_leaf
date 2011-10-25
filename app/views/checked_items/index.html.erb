@@ -37,6 +37,16 @@
         <%- end -%>
       </li>
     </ul>
+  <%- else -%>
+    <%- if current_user.has_role?('Librarian') -%>
+    <ul>
+      <li>
+        <%- if @basket.user.patron -%>
+          <%= link_to t("page.userdetail"), @basket.user.patron if current_user.has_role?('Librarian') -%>
+        <%- end -%>
+      </li>
+    </ul>    
+    <%- end -%>
   <%- end -%>
   <ul>
     <%- @basket.user.user_group.user_group_has_checkout_types.each do |available_checkout_type| -%>
