@@ -107,12 +107,17 @@ class UsersController < ApplicationController
         access_denied; return
       end
     end
-    @user = User.new
-    @patron = Patron.new
-    @patron.required_role = Role.find_by_name('Librarian')
-    @patron.language = Language.where(:iso_639_1 => I18n.default_locale.to_s).first || Language.first
-    @patron.country = current_user.library.country
-
+    family_user = User.find(params[:user]) if params[:user]
+    if family_user
+      @user = User.new(family_user)
+      @patron = Patron.new(@user.patron)
+    else 
+      @user = User.new
+      @patron = Patron.new
+      @patron.required_role = Role.find_by_name('Librarian')
+      @patron.language = Language.where(:iso_639_1 => I18n.default_locale.to_s).first || Language.first
+      @patron.country = current_user.library.country
+    end
     #@user.openid_identifier = flash[:openid_identifier]
     prepare_options
     @user_groups = UserGroup.all
@@ -246,7 +251,7 @@ class UsersController < ApplicationController
   def search_family
     return nil unless request.xhr?
     unless params[:keys].blank?
-      @user = User.find(params[:user]) if params[:user]
+      @user = User.find(params[:user]) rescue nil
       @users = User.find(:all, :joins => :patron, :conditions => params[:keys]) rescue nil
       all_user_ids = []
       @users.each do |user|
