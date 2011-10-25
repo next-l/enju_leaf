@@ -575,6 +575,11 @@ describe ManifestationsController do
         delete :destroy, :id => 2
         response.should be_forbidden
       end
+
+      it "should not destroy manifestation contains items" do
+        delete :destroy, :id => 1
+        response.should be_forbidden
+      end
     end
 
     describe "When logged in as Librarian" do

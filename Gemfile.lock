@@ -1,6 +1,6 @@
 GIT
   remote: git://github.com/nabeta/enju_barcode.git
-  revision: f762b4641fa05b6c000be21899b4bf30f9b5fcfb
+  revision: 3c9b7603fabb637fdae73c7f070f55dcf66930ab
   specs:
     enju_barcode (0.0.1)
       barby (~> 0.5)
@@ -23,7 +23,7 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_event.git
-  revision: fb7f5f7019d1edd811795d900a36b63edd674c91
+  revision: ff6b1feb2a3e2147c6df78fc9d5536a06adc36fe
   specs:
     enju_event (0.0.2)
       event-calendar (~> 2.3.3)
@@ -45,7 +45,7 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_message.git
-  revision: a96017dbbbc25b5db930f7af2fb282079c0cec3c
+  revision: e4c760741b2a0c57bc9a0f70ffcdf36f29d6c042
   specs:
     enju_message (0.0.2)
       rails (~> 3.1.1)
