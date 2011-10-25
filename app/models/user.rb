@@ -401,9 +401,14 @@ class User < ActiveRecord::Base
   def out_of_family
     begin
       family_user = FamilyUser.find(:first, :conditions => ['user_id=?', self.id])
-      all_users = FamilyUser.find(:all, :conditions => ['family_id=?', family_user.family_id])
+      family_id = family_user.family_id
       family_user.destroy
-      all_users.destroy if all_users && all_users.length = 1
+      all_users = FamilyUser.find(:all, :conditions => ['family_id=?', family_id])
+      if all_users && all_users.length == 1
+        all_users.each do |user| 
+          user.destroy 
+        end
+      end
     rescue Exception => e
       logger.error e
     end

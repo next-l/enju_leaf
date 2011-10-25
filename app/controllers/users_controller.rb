@@ -246,6 +246,7 @@ class UsersController < ApplicationController
   def search_family
     return nil unless request.xhr?
     unless params[:keys].blank?
+      @user = User.find(params[:user]) if params[:user]
       @users = User.find(:all, :joins => :patron, :conditions => params[:keys]) rescue nil
       all_user_ids = []
       @users.each do |user|

@@ -28,7 +28,9 @@
     </div>
   <% end %>
   <% @users.each do |user| %>
-    <div><%= radio_button_tag :family, user.id, false, :onclick => "get_family_info();" %><%= user.patron.full_name if user.patron -%>(<%= user.username -%>)</div>
+    <%- unless user == @user -%>
+      <div><%= radio_button_tag :family, user.id, false, :onclick => "get_family_info();" %><%= user.patron.full_name if user.patron -%>(<%= user.username -%>)</div>
+    <%- end -%>
   <% end %>
 </div>
 <% end %>
