@@ -1234,6 +1234,7 @@ ja:
       count: 回数
       readercount: 貸出回数
       requestcount: 予約回数
+      invalid_input_date: "入力年月日が正しくありません"
 
   exstatistics:
     report: 帳票
