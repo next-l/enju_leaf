@@ -232,7 +232,7 @@ ja:
         country: 国籍
         patron_type: 人物・団体の種類
         language: 言語
-        email: 電子メール
+        email: メールアドレス
         url: URL
         note_update_at: 注記更新時刻
       feeds/app:
@@ -329,14 +329,14 @@ ja:
         patron: 人物・団体
         library: 所属館
         user_group: ユーザグループ
-        full_name: 氏名
+        full_name: フルネーム
         password: パスワード
         current_password: 現在のパスワード
         locale: 言語
         password_confirmation: パスワード（確認）
         birth_date: 生年月日
         death_date: 没年月日
-        email: 電子メール
+        email: メールアドレス
         adddress: 住所
       work_has_subject:
         work: 書いた資料
@@ -1234,6 +1234,7 @@ ja:
       count: 回数
       readercount: 貸出回数
       requestcount: 予約回数
+      invalid_input_date: "入力年月日が正しくありません"
 
   exstatistics:
     report: 帳票

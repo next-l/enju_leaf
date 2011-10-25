@@ -4,8 +4,9 @@
 <%= form_for :manifestations, :html => {:method => 'get'} do -%>
   <p>
     <%= t('page.search_term') -%>:
-    <%= t('advanced_search.from') -%> <%= text_field_tag 'number_of_pages_at_least', nil, :size => 5 -%>
-    <%= t('advanced_search.to') -%> <%= text_field_tag 'number_of_pages_at_most', nil, :size => 5 -%></td>
+    <%= t('advanced_search.from') -%> <%= text_field_tag 'number_of_pages_at_least', nil, :size => 9 -%>
+    <%= t('advanced_search.to') -%> <%= text_field_tag 'number_of_pages_at_most', nil, :size => 9 -%></td>
+    <%= submit_tag t('page.search') -%>
     <br />
     <%= link_to t('page.advanced_search'), page_advanced_search_path -%>
   </p>
@@ -39,7 +40,7 @@
       <%= render 'manifestations/show_creators', :manifestation => m -%>
     </td>
     <td>
-      <%= m.items[0].checkouts.size -%>
+      <%= @checkouts[i].cnt -%>
     </td>
   </tr>
 <%- end -%>

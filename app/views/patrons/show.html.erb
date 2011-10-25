@@ -142,14 +142,16 @@
           </tr>
         <%# end %>
       <%- end -%>
-      <tr>
-        <td><strong><%= t('activerecord.attributes.patron.note') -%>:</strong></td>
-        <td><%= @patron.note -%></td>
-      </tr>
-      <tr>
-        <td><strong><%= t('activerecord.attributes.patron.note_update_at') -%>:</strong></td>
-        <td><%= l(@patron.note_update_at) unless @patron.note_update_at.blank?-%></td>
-      </tr>
+      <%- if @patron.user.blank? || (!@patron.user.blank? && current_user.try(:has_role?, 'Librarian')) -%>
+        <tr>
+          <td><strong><%= t('activerecord.attributes.patron.note') -%>:</strong></td>
+          <td><%= @patron.note -%></td>
+        </tr>
+        <tr>
+          <td><strong><%= t('activerecord.attributes.patron.note_update_at') -%>:</strong></td>
+          <td><%= l(@patron.note_update_at) unless @patron.note_update_at.blank?-%></td>
+        </tr>
+      <%- end -%>
       <tr>
         <td><strong><%= t('page.created_at') -%>:</strong></td>
         <td><%= l(@patron.created_at) -%></td>
