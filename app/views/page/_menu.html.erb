@@ -61,6 +61,9 @@
           <li><%= link_to t('page.add_manually'), new_manifestation_path -%></li>
           <li><%= link_to t('page.serial'), series_statements_path -%></li>
           <li><%= link_to t('page.import_from_file'), new_resource_import_file_path -%></li>
+          <% if defined?(EnjuBookmark) %>
+            <li><%= link_to t('page.listing', :model => t('activerecord.models.bookmark')), bookmarks_path -%></li>
+          <% end %>
         <%- end -%>
       </ul>
     </div>

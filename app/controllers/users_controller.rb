@@ -47,7 +47,7 @@ class UsersController < ApplicationController
 
   def show
     if @user == current_user
-      redirect_to my_account_url
+      redirect_to root_url
       return
     end
 

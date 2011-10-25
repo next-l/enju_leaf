@@ -13,9 +13,9 @@ describe BasketsController do
         response.should be_success
       end
 
-      it "should not get index without user_id" do
+      it "should get index without user_id" do
         get :index
-        response.should be_missing
+        response.should be_success
       end
     end
 

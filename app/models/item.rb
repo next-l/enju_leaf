@@ -68,6 +68,7 @@ class Item < ActiveRecord::Base
     end
 
     def set_use_restriction
+      return if use_restriction
       if self.use_restriction_id
         self.use_restriction = UseRestriction.where(:id => self.use_restriction_id).first
       else

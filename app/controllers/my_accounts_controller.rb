@@ -3,21 +3,6 @@ class MyAccountsController < ApplicationController
 
   def show
     @user = current_user
-    session[:user_return_to] = nil
-    unless @user.patron
-      redirect_to new_user_patron_url(@user); return
-    end
-    if defined?(EnjuBookmark)
-      @tags = @user.bookmarks.tag_counts.sort{|a,b| a.count <=> b.count}.reverse
-    end
-    @manifestation = Manifestation.pickup(@user.keyword_list.to_s.split.sort_by{rand}.first) rescue nil
-    prepare_options
-    get_top_page_content
-
-    respond_to do |format|
-      format.html
-      format.xml {render :xml => @user}
-    end
   end
 
   def edit
@@ -48,7 +33,7 @@ class MyAccountsController < ApplicationController
     @user.destroy
 
     respond_to do |format|
-      format.html { redirect_to(root_url, :notice => 'devise.registrations.destroyed') }
+      format.html { redirect_to(my_account_url, :notice => 'devise.registrations.destroyed') }
       format.xml  { head :ok }
     end
   end
