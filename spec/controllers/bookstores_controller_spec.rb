@@ -48,13 +48,16 @@ describe BookstoresController do
   end
 
   describe "GET show" do
+    before(:each) do
+      @bookstore = FactoryGirl.create(:bookstore)
+    end
+
     describe "When logged in as Administrator" do
       login_admin
 
       it "assigns the requested bookstore as @bookstore" do
-        bookstore = FactoryGirl.create(:bookstore)
-        get :show, :id => bookstore.id
-        assigns(:bookstore).should eq(bookstore)
+        get :show, :id => @bookstore.id
+        assigns(:bookstore).should eq(@bookstore)
       end
     end
 
@@ -62,9 +65,8 @@ describe BookstoresController do
       login_librarian
 
       it "assigns the requested bookstore as @bookstore" do
-        bookstore = FactoryGirl.create(:bookstore)
-        get :show, :id => bookstore.id
-        assigns(:bookstore).should eq(bookstore)
+        get :show, :id => @bookstore.id
+        assigns(:bookstore).should eq(@bookstore)
       end
     end
 
@@ -72,17 +74,15 @@ describe BookstoresController do
       login_user
 
       it "assigns the requested bookstore as @bookstore" do
-        bookstore = FactoryGirl.create(:bookstore)
-        get :show, :id => bookstore.id
-        assigns(:bookstore).should eq(bookstore)
+        get :show, :id => @bookstore.id
+        assigns(:bookstore).should eq(@bookstore)
       end
     end
 
     describe "When not logged in" do
       it "assigns the requested bookstore as @bookstore" do
-        bookstore = FactoryGirl.create(:bookstore)
-        get :show, :id => bookstore.id
-        assigns(:bookstore).should eq(bookstore)
+        get :show, :id => @bookstore.id
+        assigns(:bookstore).should eq(@bookstore)
       end
     end
   end
@@ -128,13 +128,16 @@ describe BookstoresController do
   end
 
   describe "GET edit" do
+    before(:each) do
+      @bookstore = FactoryGirl.create(:bookstore)
+    end
+
     describe "When logged in as Administrator" do
       login_admin
 
       it "assigns the requested bookstore as @bookstore" do
-        bookstore = FactoryGirl.create(:bookstore)
-        get :edit, :id => bookstore.id
-        assigns(:bookstore).should eq(bookstore)
+        get :edit, :id => @bookstore.id
+        assigns(:bookstore).should eq(@bookstore)
       end
     end
 
@@ -142,8 +145,7 @@ describe BookstoresController do
       login_librarian
 
       it "assigns the requested bookstore as @bookstore" do
-        bookstore = FactoryGirl.create(:bookstore)
-        get :edit, :id => bookstore.id
+        get :edit, :id => @bookstore.id
         response.should be_forbidden
       end
     end
@@ -152,16 +154,14 @@ describe BookstoresController do
       login_user
 
       it "assigns the requested bookstore as @bookstore" do
-        bookstore = FactoryGirl.create(:bookstore)
-        get :edit, :id => bookstore.id
+        get :edit, :id => @bookstore.id
         response.should be_forbidden
       end
     end
 
     describe "When not logged in" do
       it "should not assign the requested bookstore as @bookstore" do
-        bookstore = FactoryGirl.create(:bookstore)
-        get :edit, :id => bookstore.id
+        get :edit, :id => @bookstore.id
         response.should redirect_to(new_user_session_url)
       end
     end

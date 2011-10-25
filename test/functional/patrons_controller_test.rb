@@ -22,14 +22,6 @@ class PatronsControllerTest < ActionController::TestCase
     assert_response :success
   end
 
-  def test_guest_should_not_create_patron
-    assert_no_difference('Patron.count') do
-      post :create, :patron => { :full_name => 'test' }
-    end
-    
-    assert_redirected_to new_user_session_url
-  end
-
   def test_user_should_not_create_patron_myself
     sign_in users(:user1)
     assert_no_difference('Patron.count') do
@@ -40,15 +32,6 @@ class PatronsControllerTest < ActionController::TestCase
     assigns(:patron).remove_from_index!
   end
 
-  def test_user_should_not_create_patron_without_user_id
-    sign_in users(:user1)
-    assert_no_difference('Patron.count') do
-      post :create, :patron => { :full_name => 'test' }
-    end
-    
-    assert_response :forbidden
-  end
-
   def test_user_should_not_create_other_patron
     sign_in users(:user1)
     assert_no_difference('Patron.count') do
@@ -56,16 +39,6 @@ class PatronsControllerTest < ActionController::TestCase
     end
     
     assert_response :forbidden
-  end
-
-  def test_librarian_should_create_patron
-    sign_in users(:librarian1)
-    assert_difference('Patron.count') do
-      post :create, :patron => { :full_name => 'test' }
-    end
-    
-    assert_redirected_to patron_url(assigns(:patron))
-    assigns(:patron).remove_from_index!
   end
 
   # TODO: full_name以外での判断

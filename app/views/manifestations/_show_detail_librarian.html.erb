@@ -69,27 +69,29 @@
           <td><%= t('activerecord.attributes.manifestation.price') -%></td>
           <td><%= manifestation.price -%></td>
         </tr>
-        <tr>
-          <td><%= t('activerecord.models.subject') -%>:</td>
-          <td>
-            <%- unless manifestation.subjects.empty? -%>
-              <ul>
-                <%- manifestation.subjects.each do |subject| -%>
-                  <li>
-                    <%= link_to subject.term, subject -%>
-                    <%- unless subject.classifications.empty? -%>
-                      (
-                      <%- subject.classifications.each do |classification| -%>
-                        <%= classification.classification_type.name -%>: <%= link_to classification.category, classification -%>
+        <% if defined?(EnjuSubject) %>
+          <tr>
+            <td><%= t('activerecord.models.subject') -%>:</td>
+            <td>
+              <%- unless manifestation.subjects.empty? -%>
+                <ul>
+                  <%- manifestation.subjects.each do |subject| -%>
+                    <li>
+                      <%= link_to subject.term, subject -%>
+                      <%- unless subject.classifications.empty? -%>
+                        (
+                        <%- subject.classifications.each do |classification| -%>
+                          <%= classification.classification_type.name -%>: <%= link_to classification.category, classification -%>
+                        <%- end -%>
+                        )
                       <%- end -%>
-                      )
-                    <%- end -%>
-                  </li>
-                <%- end -%>
-              </ul>
-            <%- end -%>
-          </td>
-        </tr>
+                    </li>
+                  <%- end -%>
+                </ul>
+              <%- end -%>
+            </td>
+          </tr>
+        <% end %>
         <% if defined?(EnjuBookmark) %>
           <tr>
             <td><%= t('activerecord.models.tag') -%>:</td>

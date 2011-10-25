@@ -68,26 +68,6 @@ class ManifestationsControllerTest < ActionController::TestCase
     assert assigns(:manifestations)
   end
 
-  #def test_user_should_not_get_index_with_subscription
-  #  sign_in users(:user1)
-  #  get :index, :subscription_id => 1
-  #  assert_response :forbidden
-  #end
-
-  #def test_librarian_should_get_index_with_subscription
-  #  sign_in users(:librarian1)
-  #  get :index, :subscription_id => 1
-  #  assert_response :success
-  #  assert assigns(:subscription)
-  #  assert assigns(:manifestations)
-  #end
-
-  #def test_guest_should_get_index_subject_facet
-  #  get :index, :query => '2005', :view => 'subject_facet'
-  #  assert_response :success
-  #  assert assigns(:subject_facet)
-  #end
-
   def test_guest_should_get_index_tag_cloud
     get :index, :query => '2005', :view => 'tag_cloud'
     assert_response :success
@@ -270,32 +250,5 @@ class ManifestationsControllerTest < ActionController::TestCase
     end
     
     assert_response :forbidden
-  end
-
-  def test_everyone_should_not_destroy_manifestation_contain_items
-    sign_in users(:admin)
-    assert_no_difference('Manifestation.count') do
-      delete :destroy, :id => 1
-    end
-    
-    assert_response :forbidden
-  end
-
-  def test_librarian_should_destroy_manifestation
-    sign_in users(:librarian1)
-    assert_difference('Manifestation.count', -1) do
-      delete :destroy, :id => 10
-    end
-    
-    assert_redirected_to manifestations_url
-  end
-
-  def test_admin_should_destroy_manifestation
-    sign_in users(:admin)
-    assert_difference('Manifestation.count', -1) do
-      delete :destroy, :id => 10
-    end
-    
-    assert_redirected_to manifestations_url
   end
 end
