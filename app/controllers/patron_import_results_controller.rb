@@ -1,5 +1,5 @@
 class PatronImportResultsController < InheritedResources::Base
-  respond_to :html, :xml, :csv
+  respond_to :html, :json, :csv
   load_and_authorize_resource
   has_scope :file_id
 

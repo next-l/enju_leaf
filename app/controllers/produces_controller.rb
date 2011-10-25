@@ -5,7 +5,7 @@ class ProducesController < ApplicationController
   cache_sweeper :page_sweeper, :only => [:create, :update, :destroy]
 
   # GET /produces
-  # GET /produces.xml
+  # GET /produces.json
   def index
     case
     when @patron
@@ -18,21 +18,21 @@ class ProducesController < ApplicationController
 
     respond_to do |format|
       format.html # index.rhtml
-      format.xml  { render :xml => @produces }
+      format.json { render :json => @produces }
     end
   #rescue
   #  respond_to do |format|
   #    format.html { render :action => "new" }
-  #    format.xml  { render :xml => @produce.errors.to_xml }
+  #    format.json { render :json => @produce.errors, :status => :unprocessable_entity }
   #  end
   end
 
   # GET /produces/1
-  # GET /produces/1.xml
+  # GET /produces/1.json
   def show
     respond_to do |format|
       format.html # show.rhtml
-      format.xml  { render :xml => @produce }
+      format.json { render :json => @produce }
     end
   end
 
@@ -54,7 +54,7 @@ class ProducesController < ApplicationController
   end
 
   # POST /produces
-  # POST /produces.xml
+  # POST /produces.json
   def create
     @produce = Produce.new(params[:produce])
 
@@ -62,16 +62,16 @@ class ProducesController < ApplicationController
       if @produce.save
         flash[:notice] = t('controller.successfully_created', :model => t('activerecord.models.produce'))
         format.html { redirect_to(@produce) }
-        format.xml  { render :xml => @produce, :status => :created, :location => @produce }
+        format.json { render :json => @produce, :status => :created, :location => @produce }
       else
         format.html { render :action => "new" }
-        format.xml  { render :xml => @produce.errors, :status => :unprocessable_entity }
+        format.json { render :json => @produce.errors, :status => :unprocessable_entity }
       end
     end
   end
 
   # PUT /produces/1
-  # PUT /produces/1.xml
+  # PUT /produces/1.json
   def update
     if @manifestation and params[:position]
       @produce.insert_at(params[:position])
@@ -83,16 +83,16 @@ class ProducesController < ApplicationController
       if @produce.update_attributes(params[:produce])
         flash[:notice] = t('controller.successfully_updated', :model => t('activerecord.models.produce'))
         format.html { redirect_to produce_url(@produce) }
-        format.xml  { head :ok }
+        format.json { head :ok }
       else
         format.html { render :action => "edit" }
-        format.xml  { render :xml => @produce.errors, :status => :unprocessable_entity }
+        format.json { render :json => @produce.errors, :status => :unprocessable_entity }
       end
     end
   end
 
   # DELETE /produces/1
-  # DELETE /produces/1.xml
+  # DELETE /produces/1.json
   def destroy
     @produce.destroy
 
@@ -101,13 +101,13 @@ class ProducesController < ApplicationController
       case
       when @patron
         format.html { redirect_to patron_manifestations_url(@patron) }
-        format.xml  { head :ok }
+        format.json { head :ok }
       when @manifestation
         format.html { redirect_to manifestation_patrons_url(@manifestation) }
-        format.xml  { head :ok }
+        format.json { head :ok }
       else
         format.html { redirect_to produces_url }
-        format.xml  { head :ok }
+        format.json { head :ok }
       end
     end
   end

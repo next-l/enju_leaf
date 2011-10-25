@@ -5,7 +5,7 @@ class OwnsController < ApplicationController
   cache_sweeper :page_sweeper, :only => [:create, :update, :destroy]
 
   # GET /owns
-  # GET /owns.xml
+  # GET /owns.json
   def index
     if @patron
       @owns = @patron.owns.order('owns.position').page(params[:page])
@@ -17,16 +17,16 @@ class OwnsController < ApplicationController
 
     respond_to do |format|
       format.html # index.rhtml
-      format.xml  { render :xml => @owns }
+      format.json { render :json => @owns }
     end
   end
 
   # GET /owns/1
-  # GET /owns/1.xml
+  # GET /owns/1.json
   def show
     respond_to do |format|
       format.html # show.rhtml
-      format.xml  { render :xml => @own }
+      format.json { render :json => @own }
     end
   end
 
@@ -50,7 +50,7 @@ class OwnsController < ApplicationController
   end
 
   # POST /owns
-  # POST /owns.xml
+  # POST /owns.json
   def create
     @own = Own.new(params[:own])
 
@@ -58,16 +58,16 @@ class OwnsController < ApplicationController
       if @own.save
         flash[:notice] = t('controller.successfully_created', :model => t('activerecord.models.own'))
         format.html { redirect_to own_url(@own) }
-        format.xml  { render :xml => @own, :status => :created, :location => @own }
+        format.json { render :json => @own, :status => :created, :location => @own }
       else
         format.html { render :action => "new" }
-        format.xml  { render :xml => @own.errors, :status => :unprocessable_entity }
+        format.json { render :json => @own.errors, :status => :unprocessable_entity }
       end
     end
   end
 
   # PUT /owns/1
-  # PUT /owns/1.xml
+  # PUT /owns/1.json
   def update
     if @item and params[:position]
       @own.insert_at(params[:position])
@@ -79,16 +79,16 @@ class OwnsController < ApplicationController
       if @own.update_attributes(params[:own])
         flash[:notice] = t('controller.successfully_updated', :model => t('activerecord.models.own'))
         format.html { redirect_to own_url(@own) }
-        format.xml  { head :ok }
+        format.json { head :ok }
       else
         format.html { render :action => "edit" }
-        format.xml  { render :xml => @own.errors, :status => :unprocessable_entity }
+        format.json { render :json => @own.errors, :status => :unprocessable_entity }
       end
     end
   end
 
   # DELETE /owns/1
-  # DELETE /owns/1.xml
+  # DELETE /owns/1.json
   def destroy
     @own.destroy
 
@@ -97,13 +97,13 @@ class OwnsController < ApplicationController
       case
       when @patron
         format.html { redirect_to patron_owns_url(@patron) }
-        format.xml  { head :ok }
+        format.json { head :ok }
       when @item
         format.html { redirect_to item_owns_url(@item) }
-        format.xml  { head :ok }
+        format.json { head :ok }
       else
         format.html { redirect_to owns_url }
-        format.xml  { head :ok }
+        format.json { head :ok }
       end
     end
   end

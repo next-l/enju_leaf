@@ -19,11 +19,11 @@ class MyAccountsController < ApplicationController
       if current_user.update_with_password(params[:user])
         sign_in(current_user, :bypass => true)
         format.html { redirect_to(my_account_url, :notice => t('controller.successfully_updated', :model => t('activerecord.models.user'))) }
-        format.xml  { head :ok }
+        format.json { head :ok }
       else
         prepare_options
         format.html { render :action => "edit" }
-        format.xml  { render :xml => current_user.errors, :status => :unprocessable_entity }
+        format.json { render :json => current_user.errors, :status => :unprocessable_entity }
       end
     end
   end
@@ -34,7 +34,7 @@ class MyAccountsController < ApplicationController
 
     respond_to do |format|
       format.html { redirect_to(my_account_url, :notice => 'devise.registrations.destroyed') }
-      format.xml  { head :ok }
+      format.json { head :ok }
     end
   end
 

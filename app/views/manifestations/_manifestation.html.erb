@@ -27,9 +27,9 @@
                     <% if manifestation.is_reservable_by?(current_user) %>
                       <%- reserve = manifestation.is_reserved_by?(current_user) -%>
                       <%- if reserve -%>
-                        <%= link_to t('reserve.show'), user_reserve_path(reserve.user, reserve) -%>
+                        <%= link_to t('reserve.show'), reserve -%>
                       <%- else -%>
-                        <%= link_to t('activerecord.models.reserve'), new_user_reserve_path(current_user, :manifestation_id => manifestation.id) if can? :create, Reserve -%>
+                        <%= link_to t('activerecord.models.reserve'), new_reserve_path(:manifestation_id => manifestation.id) if can? :create, Reserve -%>
                       <%- end -%>
                     <% end %>
                     <br />

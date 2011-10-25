@@ -236,7 +236,7 @@ describe ReservesController do
 
         it "redirects to the created reserve" do
           post :create, :reserve => @attrs, :user_id => users(:user1).username
-          response.should redirect_to(user_reserve_url(assigns(:reserve).user, assigns(:reserve)))
+          response.should redirect_to(assigns(:reserve))
           assigns(:reserve).expired_at.should be_true
         end
       end
@@ -267,7 +267,7 @@ describe ReservesController do
 
         it "redirects to the created reserve" do
           post :create, :reserve => @attrs, :user_id => users(:user1).username
-          response.should redirect_to(user_reserve_url(assigns(:reserve).user, assigns(:reserve)))
+          response.should redirect_to(assigns(:reserve))
           assigns(:reserve).expired_at.should be_true
         end
       end
@@ -365,7 +365,7 @@ describe ReservesController do
         it "assigns the requested reserve as @reserve" do
           put :update, :id => @reserve.id, :reserve => @attrs, :user_id => @reserve.user.username
           assigns(:reserve).should eq(@reserve)
-          response.should redirect_to(user_reserve_url(assigns(:reserve).user, assigns(:reserve)))
+          response.should redirect_to(assigns(:reserve))
         end
       end
 
@@ -392,7 +392,7 @@ describe ReservesController do
         it "assigns the requested reserve as @reserve" do
           put :update, :id => @reserve.id, :reserve => @attrs, :user_id => @reserve.user.username
           assigns(:reserve).should eq(@reserve)
-          response.should redirect_to(user_reserve_url(assigns(:reserve).user, assigns(:reserve)))
+          response.should redirect_to(assigns(:reserve))
         end
       end
 

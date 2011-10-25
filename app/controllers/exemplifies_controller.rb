@@ -5,27 +5,27 @@ class ExemplifiesController < ApplicationController
   cache_sweeper :page_sweeper, :only => [:create, :update, :destroy]
 
   # GET /exemplifies
-  # GET /exemplifies.xml
+  # GET /exemplifies.json
   def index
     @exemplifies = Exemplify.page(params[:page])
 
     respond_to do |format|
       format.html # index.html.erb
-      format.xml  { render :xml => @exemplifies }
+      format.json { render :json => @exemplifies }
     end
   end
 
   # GET /exemplifies/1
-  # GET /exemplifies/1.xml
+  # GET /exemplifies/1.json
   def show
     respond_to do |format|
       format.html # show.html.erb
-      format.xml  { render :xml => @exemplify }
+      format.json { render :json => @exemplify }
     end
   end
 
   # GET /exemplifies/new
-  # GET /exemplifies/new.xml
+  # GET /exemplifies/new.json
   def new
     if @manifestation and @item.blank?
       redirect_to manifestation_items_url(@manifestation)
@@ -44,7 +44,7 @@ class ExemplifiesController < ApplicationController
   end
 
   # POST /exemplifies
-  # POST /exemplifies.xml
+  # POST /exemplifies.json
   def create
     @exemplify = Exemplify.new(params[:exemplify])
 
@@ -52,16 +52,16 @@ class ExemplifiesController < ApplicationController
       if @exemplify.save
         flash[:notice] = t('controller.successfully_created', :model => t('activerecord.models.exemplify'))
         format.html { redirect_to(@exemplify) }
-        format.xml  { render :xml => @exemplify, :status => :created, :location => @exemplify }
+        format.json { render :json => @exemplify, :status => :created, :location => @exemplify }
       else
         format.html { render :action => "new" }
-        format.xml  { render :xml => @exemplify.errors, :status => :unprocessable_entity }
+        format.json { render :json => @exemplify.errors, :status => :unprocessable_entity }
       end
     end
   end
 
   # PUT /exemplifies/1
-  # PUT /exemplifies/1.xml
+  # PUT /exemplifies/1.json
   def update
     if @manifestation and params[:position]
       @exemplify.insert_at(params[:position])
@@ -73,16 +73,16 @@ class ExemplifiesController < ApplicationController
       if @exemplify.update_attributes(params[:exemplify])
         flash[:notice] = t('controller.successfully_updated', :model => t('activerecord.models.exemplify'))
         format.html { redirect_to(@exemplify) }
-        format.xml  { head :ok }
+        format.json { head :ok }
       else
         format.html { render :action => "edit" }
-        format.xml  { render :xml => @exemplify.errors, :status => :unprocessable_entity }
+        format.json { render :json => @exemplify.errors, :status => :unprocessable_entity }
       end
     end
   end
 
   # DELETE /exemplifies/1
-  # DELETE /exemplifies/1.xml
+  # DELETE /exemplifies/1.json
   def destroy
     @exemplify.destroy
 
@@ -90,13 +90,13 @@ class ExemplifiesController < ApplicationController
       flash[:notice] = t('controller.successfully_deleted', :model => t('activerecord.models.exemplify'))
       case when @manifestation
         format.html { redirect_to manifestation_items_path(@exemplify.manifestation) }
-        format.xml  { head :ok }
+        format.json { head :ok }
       when @item
         format.html { redirect_to @exemplify.item }
-        format.xml  { head :ok }
+        format.json { head :ok }
       else
         format.html { redirect_to exemplifies_url }
-        format.xml  { head :ok }
+        format.json { head :ok }
       end
     end
   end

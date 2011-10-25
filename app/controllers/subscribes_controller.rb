@@ -3,27 +3,27 @@ class SubscribesController < ApplicationController
   before_filter :get_subscription, :get_work
 
   # GET /subscribes
-  # GET /subscribes.xml
+  # GET /subscribes.json
   def index
     @subscribes = Subscribe.page(params[:page])
 
     respond_to do |format|
       format.html # index.html.erb
-      format.xml  { render :xml => @subscribes }
+      format.json { render :json => @subscribes }
     end
   end
 
   # GET /subscribes/1
-  # GET /subscribes/1.xml
+  # GET /subscribes/1.json
   def show
     respond_to do |format|
       format.html # show.html.erb
-      format.xml  { render :xml => @subscribe }
+      format.json { render :json => @subscribe }
     end
   end
 
   # GET /subscribes/new
-  # GET /subscribes/new.xml
+  # GET /subscribes/new.json
   def new
     @subscribe = Subscribe.new
     @subscribe.subscription = @subscription if @subscription
@@ -31,7 +31,7 @@ class SubscribesController < ApplicationController
 
     respond_to do |format|
       format.html # new.html.erb
-      format.xml  { render :xml => @subscribe }
+      format.json { render :json => @subscribe }
     end
   end
 
@@ -40,7 +40,7 @@ class SubscribesController < ApplicationController
   end
 
   # POST /subscribes
-  # POST /subscribes.xml
+  # POST /subscribes.json
   def create
     @subscribe = Subscribe.new(params[:subscribe])
 
@@ -48,37 +48,37 @@ class SubscribesController < ApplicationController
       if @subscribe.save
         flash[:notice] = t('controller.successfully_created', :model => t('activerecord.models.subscribe'))
         format.html { redirect_to(@subscribe) }
-        format.xml  { render :xml => @subscribe, :status => :created, :location => @subscribe }
+        format.json { render :json => @subscribe, :status => :created, :location => @subscribe }
       else
         format.html { render :action => "new" }
-        format.xml  { render :xml => @subscribe.errors, :status => :unprocessable_entity }
+        format.json { render :json => @subscribe.errors, :status => :unprocessable_entity }
       end
     end
   end
 
   # PUT /subscribes/1
-  # PUT /subscribes/1.xml
+  # PUT /subscribes/1.json
   def update
     respond_to do |format|
       if @subscribe.update_attributes(params[:subscribe])
         flash[:notice] = t('controller.successfully_updated', :model => t('activerecord.models.subscribe'))
         format.html { redirect_to(@subscribe) }
-        format.xml  { head :ok }
+        format.json { head :ok }
       else
         format.html { render :action => "edit" }
-        format.xml  { render :xml => @subscribe.errors, :status => :unprocessable_entity }
+        format.json { render :json => @subscribe.errors, :status => :unprocessable_entity }
       end
     end
   end
 
   # DELETE /subscribes/1
-  # DELETE /subscribes/1.xml
+  # DELETE /subscribes/1.json
   def destroy
     @subscribe.destroy
 
     respond_to do |format|
       format.html { redirect_to(subscribes_url) }
-      format.xml  { head :ok }
+      format.json { head :ok }
     end
   end
 end

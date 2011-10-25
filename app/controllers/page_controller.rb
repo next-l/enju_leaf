@@ -28,7 +28,7 @@ class PageController < ApplicationController
 
     respond_to do |format|
       format.html
-      format.xml {render :xml => @user}
+      format.json { render :json => user }
     end
   end
 

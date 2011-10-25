@@ -7,7 +7,7 @@ class SeriesStatementsController < ApplicationController
   after_filter :solr_commit, :only => [:create, :update, :destroy]
 
   # GET /series_statements
-  # GET /series_statements.xml
+  # GET /series_statements.json
   def index
     search = Sunspot.new_search(SeriesStatement)
     query = params[:query].to_s.strip
@@ -35,12 +35,12 @@ class SeriesStatementsController < ApplicationController
 
     respond_to do |format|
       format.html # index.html.erb
-      format.xml  { render :xml => @series_statements }
+      format.json { render :json => @series_statements }
     end
   end
 
   # GET /series_statements/1
-  # GET /series_statements/1.xml
+  # GET /series_statements/1.json
   def show
     @manifestations = @series_statement.manifestations.order('date_of_publication DESC').page(params[:manifestation_page]).per_page(Manifestation.per_page)
     if session[:manifestation_ids]
@@ -50,19 +50,19 @@ class SeriesStatementsController < ApplicationController
 
     respond_to do |format|
       format.html # show.html.erb
-      format.xml  { render :xml => @series_statement }
+      format.json { render :json => @series_statement }
       format.js
     end
   end
 
   # GET /series_statements/new
-  # GET /series_statements/new.xml
+  # GET /series_statements/new.json
   def new
     @series_statement = SeriesStatement.new
 
     respond_to do |format|
       format.html # new.html.erb
-      format.xml  { render :xml => @series_statement }
+      format.json { render :json => @series_statement }
     end
   end
 
@@ -72,7 +72,7 @@ class SeriesStatementsController < ApplicationController
   end
 
   # POST /series_statements
-  # POST /series_statements.xml
+  # POST /series_statements.json
   def create
     @series_statement = SeriesStatement.new(params[:series_statement])
     manifestation = Manifestation.find(@series_statement.manifestation_id) rescue nil
@@ -82,16 +82,16 @@ class SeriesStatementsController < ApplicationController
         @series_statement.manifestations << manifestation if manifestation
         flash[:notice] = t('controller.successfully_created', :model => t('activerecord.models.series_statement'))
         format.html { redirect_to(@series_statement) }
-        format.xml  { render :xml => @series_statement, :status => :created, :location => @series_statement }
+        format.json { render :json => @series_statement, :status => :created, :location => @series_statement }
       else
         format.html { render :action => "new" }
-        format.xml  { render :xml => @series_statement.errors, :status => :unprocessable_entity }
+        format.json { render :json => @series_statement.errors, :status => :unprocessable_entity }
       end
     end
   end
 
   # PUT /series_statements/1
-  # PUT /series_statements/1.xml
+  # PUT /series_statements/1.json
   def update
     if params[:position]
       @series_statement.insert_at(params[:position])
@@ -103,22 +103,22 @@ class SeriesStatementsController < ApplicationController
       if @series_statement.update_attributes(params[:series_statement])
         flash[:notice] = t('controller.successfully_updated', :model => t('activerecord.models.series_statement'))
         format.html { redirect_to(@series_statement) }
-        format.xml  { head :ok }
+        format.json { head :ok }
       else
         format.html { render :action => "edit" }
-        format.xml  { render :xml => @series_statement.errors, :status => :unprocessable_entity }
+        format.json { render :json => @series_statement.errors, :status => :unprocessable_entity }
       end
     end
   end
 
   # DELETE /series_statements/1
-  # DELETE /series_statements/1.xml
+  # DELETE /series_statements/1.json
   def destroy
     @series_statement.destroy
 
     respond_to do |format|
       format.html { redirect_to(series_statements_url) }
-      format.xml  { head :ok }
+      format.json { head :ok }
     end
   end
 end

@@ -88,7 +88,7 @@ describe CheckoutsController do
         it "assigns the requested checkout as @checkout" do
           put :update, :id => @checkout.id, :checkout => @attrs, :user_id => @checkout.user.username
           assigns(:checkout).should eq(@checkout)
-          response.should redirect_to(user_checkout_url(@checkout.user, @checkout))
+          response.should redirect_to(assigns(:checkout))
         end
       end
 
@@ -115,7 +115,7 @@ describe CheckoutsController do
         it "assigns the requested checkout as @checkout" do
           put :update, :id => @checkout.id, :checkout => @attrs, :user_id => @checkout.user.username
           assigns(:checkout).should eq(@checkout)
-          response.should redirect_to(user_checkout_url(@checkout.user, @checkout))
+          response.should redirect_to(assigns(:checkout))
         end
       end
 

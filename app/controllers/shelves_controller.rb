@@ -5,7 +5,7 @@ class ShelvesController < ApplicationController
   cache_sweeper :page_sweeper, :only => [:create, :update, :destroy]
 
   # GET /shelves
-  # GET /shelves.xml
+  # GET /shelves.json
   def index
     if params[:mode] == 'select'
       if @library
@@ -25,18 +25,18 @@ class ShelvesController < ApplicationController
 
     respond_to do |format|
       format.html # index.rhtml
-      format.xml  { render :xml => @shelves.to_xml }
+      format.json { render :json => @shelves.to_json }
     end
   end
 
   # GET /shelves/1
-  # GET /shelves/1.xml
+  # GET /shelves/1.json
   def show
     @shelf = Shelf.find(params[:id], :include => :library)
 
     respond_to do |format|
       format.html # show.rhtml
-      format.xml  { render :xml => @shelf.to_xml }
+      format.json { render :json => @shelf.to_json }
     end
   end
 
@@ -54,7 +54,7 @@ class ShelvesController < ApplicationController
   end
 
   # POST /shelves
-  # POST /shelves.xml
+  # POST /shelves.json
   def create
     @shelf = Shelf.new(params[:shelf])
     if @library
@@ -67,17 +67,17 @@ class ShelvesController < ApplicationController
       if @shelf.save
         flash[:notice] = t('controller.successfully_created', :model => t('activerecord.models.shelf'))
         format.html { redirect_to shelf_url(@shelf) }
-        format.xml  { render :xml => @shelf, :status => :created, :location => library_shelf_url(@shelf.library, @shelf) }
+        format.json { render :json => @shelf, :status => :created, :location => library_shelf_url(@shelf.library, @shelf) }
       else
         @library = Library.first if @shelf.library.nil?
         format.html { render :action => "new" }
-        format.xml  { render :xml => @shelf.errors.to_xml }
+        format.json { render :json => @shelf.errors, :status => :unprocessable_entity }
       end
     end
   end
 
   # PUT /shelves/1
-  # PUT /shelves/1.xml
+  # PUT /shelves/1.json
   def update
     @shelf.library = @library if @library
 
@@ -91,17 +91,17 @@ class ShelvesController < ApplicationController
       if @shelf.update_attributes(params[:shelf])
         flash[:notice] = t('controller.successfully_updated', :model => t('activerecord.models.shelf'))
         format.html { redirect_to library_shelf_url(@shelf.library, @shelf) }
-        format.xml  { head :ok }
+        format.json { head :ok }
       else
         @library = Library.first if @library.nil?
         format.html { render :action => "edit" }
-        format.xml  { render :xml => @shelf.errors.to_xml }
+        format.json { render :json => @shelf.errors, :status => :unprocessable_entity }
       end
     end
   end
 
   # DELETE /shelves/1
-  # DELETE /shelves/1.xml
+  # DELETE /shelves/1.json
   def destroy
     if @shelf.id == 1
       access_denied; return
@@ -110,7 +110,7 @@ class ShelvesController < ApplicationController
 
     respond_to do |format|
       format.html { redirect_to library_shelves_url(@shelf.library) }
-      format.xml  { head :ok }
+      format.json { head :ok }
     end
   end
 end

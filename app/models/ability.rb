@@ -483,7 +483,10 @@ class Ability
           ManifestationReserveStat,
           Reserve
         ]
-        can [:index, :create], Reserve
+        can :index, Reserve
+        can :create, Reserve do
+          user.checkouts.overdue(Time.zone.now).empty?
+        end
         can [:update, :destroy, :show], Reserve do |reserve|
           reserve.try(:user) == user
         end
