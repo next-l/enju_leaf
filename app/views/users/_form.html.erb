@@ -189,8 +189,11 @@
       <%= f.label :note -%>
       <%- if @patron.note_update_at -%>
         &nbsp;<%= t('patron.last_update_at') -%>: <%= l(@patron.note_update_at) -%>
-        <%- if @note_last_updateed_user -%>
-          &nbsp;<%= t('patron.last_update_by') -%>: <%= @note_last_updateed_user.username -%>
+        <%- if @patron.note_update_by -%>
+          &nbsp;<%= t('patron.last_update_by') -%>: <%= @patron.note_update_by -%>
+        <%- end -%>
+        <%- if @patron.note_update_library -%>
+          (<%= @patron.note_update_library-%>)
         <%- end -%>
       <%- end -%>
       <br />

@@ -7,6 +7,7 @@ ja:
       circulation_status: 貸出状態
       inventory: 蔵書点検
       patron: 人物・団体
+      user_note: 利用者の注記
       feeds/app: フィード/アプリ
       feeds/persistence: フィード/永続
       feeds/shared: フィード/共有
@@ -442,6 +443,7 @@ ja:
         due_date: 期日
         user_comment: 利用者の注記
         edit_user_comment: 利用者の注記を編集する
+        update_note: 注記の更新
       produce:
         position: 位置
       role:

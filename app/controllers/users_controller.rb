@@ -144,7 +144,7 @@ class UsersController < ApplicationController
     if family_id
       @family_users = Family.find(family_id).users
     end
-    @note_last_updateed_user = User.find(@patron.note_update_by) rescue nil
+    #@note_last_updateed_user = User.find(@patron.note_update_by) rescue nil
     if params[:mode] == 'feed_token'
       if params[:disable] == 'true'
         @user.delete_checkout_icalendar_token
