@@ -207,10 +207,11 @@ class PatronsController < ApplicationController
   def update
     respond_to do |format|
       if @patron.update_attributes(params[:patron])
-        flash[:notice] = t('controller.successfully_updated', :model => t('activerecord.models.patron'))
         if params[:checked_item] == 'true'
+          flash[:notice] = t('controller.successfully_updated', :model => t('activerecord.models.user_note'))
           format.html { redirect_to :back }
         else  
+          flash[:notice] = t('controller.successfully_updated', :model => t('activerecord.models.patron'))
           format.html { redirect_to(@patron) }
         end
         format.xml  { head :ok }

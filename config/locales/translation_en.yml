@@ -7,6 +7,7 @@ en:
       circulation_status: Circulation status
       inventory: Inventory
       patron: Patron
+      user_note: Note
       feeds/app: Feeds/App
       feeds/persistence: Feeds/Persistence
       feeds/shared: Feeds/Shared
@@ -428,6 +429,8 @@ en:
         due_date: Due date
         user_comment: User note
         edit_user_comment: Edit user comment
+        update_note: Update Note
+        note_successfully_updated: Note was successfully updated.
       produce:
         position: Position
       role:
