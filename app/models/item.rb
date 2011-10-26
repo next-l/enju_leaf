@@ -87,10 +87,14 @@ class Item < ActiveRecord::Base
   end
 
   def reserved?
-     return true unless Reserve.waiting.where(:item_id => self.id).blank?
-     false
+    return true unless Reserve.waiting.where(:item_id => self.id).blank?
+    false
 #    return true if self.next_reservation
 #    false
+  end
+
+  def reserve
+    Reserve.waiting.where(:item_id => self.id).first 
   end
 
   def reservable?

@@ -96,14 +96,12 @@ class Reserve < ActiveRecord::Base
 
   def new_reserve
     if self.available_for_checkout?    
-      logger.error "new_reserve"
       items = self.manifestation.items.order('created_at ASC')
       items.each do |item|
         if item.available_for_checkout? && !item.reserved?
           self.item = item
           self.sm_retain
           self.save
-          logger.error "not reserved: #{item.id}"
           return
         end
       end
@@ -151,9 +149,7 @@ class Reserve < ActiveRecord::Base
     reserve_position = Reserve.waiting.where("manifestation_id = ? AND position >= ? AND item_id IS NULL", self.manifestation_id, self.position).count
     i = 1
     items.each do |item|
-      logger.error "item: #{item.id}"
       if item.available_for_checkout? && !item.reserved?
-        logger.error "i: #{i} / reserve position: #{reserve_position}"
         return true if i >= reserve_position
         i += 1
       end

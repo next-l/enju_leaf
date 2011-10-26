@@ -8,6 +8,7 @@ class CheckedItem < ActiveRecord::Base
   validate :available_for_checkout?, :on => :create
  
   before_validation :set_due_date, :on => :create
+  before_validation :check_reserve
   normalize_attributes :item_identifier
 
   attr_accessor :item_identifier, :ignore_restriction
@@ -32,16 +33,18 @@ class CheckedItem < ActiveRecord::Base
       return false
     end
 
+    # ここまでは絶対に貸出ができない場合
+
+    return true if self.ignore_restriction == "1"
+
     if self.item.reserved?
-      unless self.item.manifestation.next_reservation.user == self.basket.user
+      if self.available_for_reserve_checkout?
+        return true
+      else
         errors[:base] << I18n.t('activerecord.errors.messages.checked_item.reserved_item_included')
         return false
       end
     end
-
-    # ここまでは絶対に貸出ができない場合
-
-    return true if self.ignore_restriction == "1"
 
     if self.item.not_for_loan?
       errors[:base] << I18n.t('activerecord.errors.messages.checked_item.not_available_for_checkout')
@@ -110,6 +113,49 @@ class CheckedItem < ActiveRecord::Base
         reserve = Reserve.where(:user_id => basket.user_id, :manifestation_id => self.item.manifestation.id).first
         reserve.destroy
       end
+    end
+  end
+
+  def available_for_reserve_checkout?
+    reserve = Reserve.waiting.where(:manifestation_id => self.item.manifestation.id, :user_id => self.basket.user.id).first rescue nil
+    retained_reserves = self.item.manifestation.reserves.hold
+    if self.item.reserve.user == self.basket.user
+      return true        
+    elsif retained_reserves && retained_reserves.include?(reserve) && 
+      retained_reserves.each do |r|
+      end
+      begin
+        exchange_reserve_item(self.item, reserve)
+        return true
+      rescue
+      end
+    end
+    false
+  end
+
+  def exchange_reserve_item(checkin_item, checkin_reserve)
+    begin
+      Reserve.transaction do 
+        reserve = Reserve.waiting.where(:item_id => checkin_item.id).first rescue nil
+        item = checkin_reserve.item
+        checkin_reserve.item = checkin_item
+        checkin_reserve.save!
+        unless reserve.blank?
+          reserve.item = item
+          reserve.save!
+        end
+      end
+    rescue Exception => e
+      logger.error e
+      raise e
+    end
+  end
+
+  def check_reserve
+    if self.item.manifestation.is_reserved_by(self.basket.user)
+      reserve = Reserve.where(:manifestation_id => self.item.manifestation.id, :user_id => self.basket.user).first
+      reserve.item = self.item 
+      reserve.save
     end
   end
 end

@@ -164,14 +164,18 @@ class ReservesController < ApplicationController
     end
 
     if params[:mode] == 'cancel'
-      @reserve.sm_cancel!
+       @reserve.sm_cancel!
     end
 
     respond_to do |format|
       if @reserve.update_attributes(params[:reserve])
         if @reserve.state == 'canceled'
           flash[:notice] = t('reserve.reservation_was_canceled')
-          @reserve.send_message('canceled')
+          begin
+            @reserve.send_message('canceled')
+          rescue Exception => e
+            logger.error "Faild to send a notification message (reservation was canceled): #{e}" 
+          end
         else
           flash[:notice] = t('controller.successfully_updated', :model => t('activerecord.models.reserve'))
         end
