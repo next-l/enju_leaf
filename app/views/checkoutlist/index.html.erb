@@ -1,42 +1,61 @@
 <div id="content_detail" class="ui-corner-all">
-<h1 class="title"><%= t('page.listing', :model => t('activerecord.models.user')) -%></h1>
 <div id="content_list">
-<div style="color: green"><%= flash[:message] -%></div>
 
-<table class="index">
-  <tr>
-    <th>
-      <%= t('activerecord.attributes.user.username') -%>
-    </th>
-    <th>
-      <%= t('activerecord.attributes.user.user_number') -%>
-    </th>
-    <th>
-      <%= t('activerecord.attributes.patron.telephone_number') -%>
-    </th>
-    <th>
-      <%= t('page.created_at') -%>
-    </th>
-    <th><%= t('activerecord.models.checkout') -%></th>
-    <th><%= t('activerecord.models.reserve') -%></th>
-    <th></th>
-  </tr>
+<%= form_for :chekoutlist, :html => {:method => 'get'} do -%>
 
-<%- @checkoutlists.each_with_index do |c, i| -%>
-  <tr class="line<%= cycle("0", "1") -%>">
-    <td>
-      <br />
-    </td>
-  </tr>
+<%- @displist.each_with_index do |d, i| -%>
+  <div id="content_detail" class="ui-corner-all">
+  <h1 class="title"><%= d.dispname -%></h1>
+  <div id="content_list">
+  <table class="index">
+    <tr>
+      <th>
+        <%= t('activerecord.attributes.manifestation.original_title') -%>
+      </th>
+      <th>
+	<%= t('activerecord.models.library') -%>
+      </th>
+      <th>
+        <%= t('activerecord.models.shelf') -%>
+      </th>
+      <th>
+	<%= t('activerecord.attributes.item.call_number') -%>
+      </th>
+      <th>
+        <%= t('activerecord.attributes.item.item_identifier') -%>
+      </th>
+    </tr>
+
+<%- d.buflist.each_with_index do |c, j| -%>
+    <tr>
+      <td>
+        <%= c['original_title'] -%>
+      </td>
+      <td>
+        <%= c['libarary_name'] -%>
+      </td>
+      <td>
+        <%= c['shelf_name'] -%>
+      </td>
+      <td>
+        <%= c['call_number'] -%>
+      </td>
+      <td>
+        <%= c['item_identifier'] -%>
+      </td>
+    </tr>
 <%- end -%>
-</table>
-
-<br />
+  </table>
+  </div>
+  </div>
+<%- end -%>
 
 </div>
 </div>
 
 <div id="submenu" class="ui-corner-all">
-  <ul>
-  </ul>
+  <p>
+    <%= submit_tag t('page.download') -%>
+  </p>
 </div>
+<%- end -%>
