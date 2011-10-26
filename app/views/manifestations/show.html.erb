@@ -57,8 +57,8 @@
   <%- end -%>
 
   <div id="resource_bookmark_buttons">
-    <%- if user_signed_in? -%>
-      <ul>
+    <ul>
+      <%- if user_signed_in? -%>
         <%- if current_user.email.present? -%>
           <li><%= link_to t('manifestation.send_email'), manifestation_path(:mode => 'send_email'), :confirm => t('page.are_you_sure') -%></li>
         <%- end -%>
@@ -67,11 +67,12 @@
         <%- else -%>
           <li><%= link_to t('bookmark.add_to_my_bookmark'), new_user_bookmark_path(current_user, :bookmark => {:url => manifestation_url(@manifestation)}) -%></li>
         <%- end -%>
+      <%- end -%>
 
       <%- unless @manifestation.carrier_type.name == 'file' -%>
         <li>
           <% if @manifestation.reservable? %>
-            <%- if current_user.has_role?('Librarian') -%>
+            <%- if (user_signed_in? && current_user.has_role?('Librarian')) || !user_signed_in? -%>
               <%= link_to t('manifestation.reserve_this'), new_reserve_path(:manifestation_id => @manifestation.id) -%>
             <%- else -%>
               <%- if @manifestation.is_reserved_by(current_user) -%>
@@ -81,7 +82,7 @@
               <%- end -%>
             <%- end -%>
             <br />
-            <%- if current_user.has_role?('Librarian') && @reserved_count > 0 -%>
+            <%- if user_signed_in? && current_user.has_role?('Librarian') && @reserved_count > 0 -%>
               (<%= link_to t('page.number_of_reservations', :count => @reserved_count), manifestation_reserves_path(@manifestation) -%>)
             <%- else -%>
               (<%= t('page.number_of_reservations', :count => @reserved_count) -%>)
@@ -91,8 +92,9 @@
           <%- end -%>
         </li>
       <%- end -%>
-      </ul>
+    </ul>
 
+    <%- if user_signed_in? -%>
       <%- if current_user.has_role?('Librarian') -%>
         <ul>
           <li>
