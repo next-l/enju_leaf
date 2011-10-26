@@ -14,7 +14,7 @@ class PatronsController < ApplicationController
   cache_sweeper :patron_sweeper, :only => [:create, :update, :destroy]
 
   # GET /patrons
-  # GET /patrons.xml
+  # GET /patrons.json
   def index
     #session[:params] = {} unless session[:params]
     #session[:params][:patron] = params
@@ -96,7 +96,7 @@ class PatronsController < ApplicationController
   end
 
   # GET /patrons/1
-  # GET /patrons/1.xml
+  # GET /patrons/1.json
   def show
     get_work; get_expression; get_manifestation; get_item
     case
@@ -120,7 +120,7 @@ class PatronsController < ApplicationController
 
     respond_to do |format|
       format.html # show.rhtml
-      format.xml  { render :xml => @patron }
+      format.json { render :json => @patron }
       format.js
       format.mobile
     end
@@ -146,7 +146,7 @@ class PatronsController < ApplicationController
 
     respond_to do |format|
       format.html # new.html.erb
-      format.xml  { render :xml => @patron }
+      format.json { render :json => @patron }
     end
   end
 
@@ -156,7 +156,7 @@ class PatronsController < ApplicationController
   end
 
   # POST /patrons
-  # POST /patrons.xml
+  # POST /patrons.json
   def create
     @patron = Patron.new(params[:patron])
     if @patron.user_username
@@ -175,56 +175,56 @@ class PatronsController < ApplicationController
         when @work
           @work.creators << @patron
           format.html { redirect_to patron_work_url(@patron, @work) }
-          format.xml  { head :created, :location => patron_work_url(@patron, @work) }
+          format.json { head :created, :location => patron_work_url(@patron, @work) }
         when @expression
           @expression.contributors << @patron
           format.html { redirect_to patron_expression_url(@patron, @expression) }
-          format.xml  { head :created, :location => patron_expression_url(@patron, @expression) }
+          format.json { head :created, :location => patron_expression_url(@patron, @expression) }
         when @manifestation
           @manifestation.publishers << @patron
           format.html { redirect_to patron_manifestation_url(@patron, @manifestation) }
-          format.xml  { head :created, :location => patron_manifestation_url(@patron, @manifestation) }
+          format.json { head :created, :location => patron_manifestation_url(@patron, @manifestation) }
         when @item
           @item.patrons << @patron
           format.html { redirect_to patron_item_url(@patron, @item) }
-          format.xml  { head :created, :location => patron_manifestation_url(@patron, @manifestation) }
+          format.json { head :created, :location => patron_manifestation_url(@patron, @manifestation) }
         else
           format.html { redirect_to(@patron) }
-          format.xml  { render :xml => @patron, :status => :created, :location => @patron }
+          format.json { render :json => @patron, :status => :created, :location => @patron }
         end
       else
         prepare_options
         format.html { render :action => "new" }
-        format.xml  { render :xml => @patron.errors, :status => :unprocessable_entity }
+        format.json { render :json => @patron.errors, :status => :unprocessable_entity }
       end
     end
   end
 
   # PUT /patrons/1
-  # PUT /patrons/1.xml
+  # PUT /patrons/1.json
   def update
     respond_to do |format|
       if @patron.update_attributes(params[:patron])
         flash[:notice] = t('controller.successfully_updated', :model => t('activerecord.models.patron'))
         format.html { redirect_to(@patron) }
-        format.xml  { head :ok }
+        format.json { head :ok }
       else
         prepare_options
         format.html { render :action => "edit" }
-        format.xml  { render :xml => @patron.errors, :status => :unprocessable_entity }
+        format.json { render :json => @patron.errors, :status => :unprocessable_entity }
       end
     end
   end
 
   # DELETE /patrons/1
-  # DELETE /patrons/1.xml
+  # DELETE /patrons/1.json
   def destroy
     @patron.destroy
 
     respond_to do |format|
       flash[:notice] = t('controller.successfully_deleted', :model => t('activerecord.models.patron'))
       format.html { redirect_to patrons_url }
-      format.xml  { head :ok }
+      format.json { head :ok }
     end
   end
 

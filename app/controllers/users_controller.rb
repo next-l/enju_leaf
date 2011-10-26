@@ -41,7 +41,7 @@ class UsersController < ApplicationController
 
     respond_to do |format|
       format.html # index.rhtml
-      format.xml  { render :xml => @users }
+      format.json { render :json => @users }
     end
   end
 
@@ -63,7 +63,7 @@ class UsersController < ApplicationController
 
     respond_to do |format|
       format.html # show.rhtml
-      format.xml  { render :xml => @user }
+      format.json { render :json => @user }
     end
   end
 
@@ -116,12 +116,12 @@ class UsersController < ApplicationController
         flash[:temporary_password] = @user.password
         format.html { redirect_to user_url(@user) }
         #format.html { redirect_to new_user_patron_url(@user) }
-        format.xml  { head :ok }
+        format.json { head :ok }
       else
         prepare_options
         flash[:error] = t('user.could_not_setup_account')
         format.html { render :action => "new" }
-        format.xml  { render :xml => @user.errors, :status => :unprocessable_entity }
+        format.json { render :json => @user.errors, :status => :unprocessable_entity }
       end
     end
   end
@@ -146,11 +146,11 @@ class UsersController < ApplicationController
       if @user.errors.empty?
         flash[:notice] = t('controller.successfully_updated', :model => t('activerecord.models.user'))
         format.html { redirect_to user_url(@user) }
-        format.xml  { head :ok }
+        format.json { head :ok }
       else
         prepare_options
         format.html { render :action => "edit" }
-        format.xml  { render :xml => @user.errors, :status => :unprocessable_entity }
+        format.json { render :json => @user.errors, :status => :unprocessable_entity }
       end
     end
   end
@@ -166,7 +166,7 @@ class UsersController < ApplicationController
 
     respond_to do |format|
       format.html { redirect_to(users_url) }
-      format.xml  { head :ok }
+      format.json { head :ok }
     end
   end
 

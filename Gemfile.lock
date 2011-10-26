@@ -1,6 +1,6 @@
 GIT
   remote: git://github.com/nabeta/enju_barcode.git
-  revision: 3c9b7603fabb637fdae73c7f070f55dcf66930ab
+  revision: d392cb9aeeb558a414fd85712943b7cbb44212d3
   specs:
     enju_barcode (0.0.1)
       barby (~> 0.5)
@@ -9,21 +9,21 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_bookmark.git
-  revision: 8c6525ddd8cb4795dc329f3e616c4b3e55b0eaf9
+  revision: a09c3078219b469776392ec1cf3b629cc9dcc887
   specs:
     enju_bookmark (0.0.2)
       rails (~> 3.1.1)
 
 GIT
   remote: git://github.com/nabeta/enju_circulation.git
-  revision: 61aa9d4e60d1a884cd9bbdfc0ea0fb51e3e5425e
+  revision: 76d49a8e6a8d6222827e44dfb3bb2cb71b15d2c7
   specs:
     enju_circulation (0.0.2)
       rails (~> 3.1.1)
 
 GIT
   remote: git://github.com/nabeta/enju_event.git
-  revision: ff6b1feb2a3e2147c6df78fc9d5536a06adc36fe
+  revision: 292e8a2976b517d35f22dd16abed5fec5e5eed39
   specs:
     enju_event (0.0.2)
       event-calendar (~> 2.3.3)
@@ -45,56 +45,56 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_message.git
-  revision: e4c760741b2a0c57bc9a0f70ffcdf36f29d6c042
+  revision: 7a9a100367fc4d7fe51d45de4c38613cfd7a1a54
   specs:
     enju_message (0.0.2)
       rails (~> 3.1.1)
 
 GIT
   remote: git://github.com/nabeta/enju_ndl.git
-  revision: 9d54605e8a6d8879563c98fdedb3552605493b86
+  revision: 2dbbf947a6b4fb2fd4a61e92ceb9a6c0e104db11
   specs:
     enju_ndl (0.0.2)
       rails (~> 3.1.1)
 
 GIT
   remote: git://github.com/nabeta/enju_oai.git
-  revision: a80b77a29de29e5022d135b3594338d87df3d916
+  revision: 4590ce1c66e816e9beeae7556977acd78fdf3441
   specs:
     enju_oai (0.0.1)
       rails (~> 3.1.1)
 
 GIT
   remote: git://github.com/nabeta/enju_purchase_request.git
-  revision: 177b3d1f09741ebe7421080def1799c1aa1cca55
+  revision: 4dee570169a298062c50d1d494ec1b302d7b0a94
   specs:
     enju_purchase_request (0.0.2)
       rails (~> 3.1.1)
 
 GIT
   remote: git://github.com/nabeta/enju_question.git
-  revision: 963235f6ba56ec63be8b75d078a7a4573920edbf
+  revision: 868ccffa3fe84a15c7d39f972988ab81a0245fc3
   specs:
     enju_question (0.0.2)
       rails (~> 3.1.1)
 
 GIT
   remote: git://github.com/nabeta/enju_resource_merge.git
-  revision: 9048e59d1196a38ace3f07a8089d671c35315894
+  revision: 3eb1af236d06bc35ab829f7ce9fefa598c3bd4fb
   specs:
     enju_resource_merge (0.0.2)
       rails (~> 3.1.1)
 
 GIT
   remote: git://github.com/nabeta/enju_search_log.git
-  revision: e631f02ebc0584dbe2072ea4e7e8f1485868cba5
+  revision: f3f01885c9dc75ffb5904c3974dc1b7f72bbb1cb
   specs:
     enju_search_log (0.0.1)
       rails (~> 3.1.1)
 
 GIT
   remote: git://github.com/nabeta/enju_subject.git
-  revision: 598b223496d75e954b98e3e23bd93fab284d4efa
+  revision: 9309782c91cd515d1fd6c82d428c2aa305d0391f
   specs:
     enju_subject (0.0.2)
       rails (~> 3.1.1)
@@ -182,7 +182,7 @@ GEM
       main
       ruby_parser (~> 2.0.4)
       sexp_processor (~> 3.0.3)
-    client_side_validations (3.1.0)
+    client_side_validations (3.1.1)
     cloudfiles (1.4.18)
       mime-types (>= 1.16)
     cocaine (0.2.0)

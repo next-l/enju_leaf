@@ -13,8 +13,8 @@
   <tr class="line<%= cycle("0", "1") -%>">
     <td>
       <%- if can? :destroy, produce -%>
-        <%= produce.first? ? image_tag('cross.png', :size => '16x16') : link_to(image_tag('arrow_up.png', :size => '16x16', :alt => t('page.asc')), {:action => 'update', :position => (produce.position  > 1 ? produce.position - 1 : 1), :id => produce.id, :manifestation_id => manifestation.id}, :method => :put) -%>
-        <%= produce.last? ? image_tag('cross.png', :size => '16x16') : link_to(image_tag('arrow_down.png', :size => '16x16', :alt => t('page.desc')), {:action => 'update', :position => (produce.position + 1), :id => produce.id, :manifestation_id => manifestation.id}, :method => :put) -%>
+        <%= produce.first? ? image_tag('icons/cross.png', :size => '16x16') : link_to(image_tag('icons/arrow_down.png', :size => '16x16', :alt => t('page.asc')), {:action => 'update', :position => (produce.position  > 1 ? produce.position - 1 : 1), :id => produce.id, :manifestation_id => manifestation.id}, :method => :put) -%>
+        <%= produce.last? ? image_tag('icons/cross.png', :size => '16x16') : link_to(image_tag('icons/icons/arrow_down.png', :size => '16x16', :alt => t('page.desc')), {:action => 'update', :position => (produce.position + 1), :id => produce.id, :manifestation_id => manifestation.id}, :method => :put) -%>
       <%- end -%>
     </td>
     <td><%= link_to produce.patron.full_name, produce.patron -%></td>

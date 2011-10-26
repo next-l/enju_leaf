@@ -5,7 +5,7 @@ class LibrariesController < ApplicationController
   after_filter :solr_commit, :only => [:create, :update, :destroy]
 
   # GET /libraries
-  # GET /libraries.xml
+  # GET /libraries.json
   def index
     sort = {:sort_by => 'position', :order => 'asc'}
     case params[:sort_by]
@@ -29,12 +29,12 @@ class LibrariesController < ApplicationController
 
     respond_to do |format|
       format.html # index.rhtml
-      format.xml  { render :xml => @libraries }
+      format.json { render :json => @libraries }
     end
   end
 
   # GET /libraries/1
-  # GET /libraries/1.xml
+  # GET /libraries/1.json
   def show
     search = Sunspot.new_search(Event)
     library = @library.dup
@@ -48,7 +48,7 @@ class LibrariesController < ApplicationController
 
     respond_to do |format|
       format.html # show.rhtml
-      format.xml  { render :xml => @library }
+      format.json { render :json => @library }
       format.js
     end
   end
@@ -66,7 +66,7 @@ class LibrariesController < ApplicationController
   end
 
   # POST /libraries
-  # POST /libraries.xml
+  # POST /libraries.json
   def create
     #patron = Patron.create(:name => params[:library][:name], :patron_type => 'CorporateBody')
     @library = Library.new(params[:library])
@@ -75,17 +75,17 @@ class LibrariesController < ApplicationController
       if @library.save
         flash[:notice] = t('controller.successfully_created', :model => t('activerecord.models.library'))
         format.html { redirect_to(@library) }
-        format.xml  { render :xml => @library, :status => :created }
+        format.json { render :json => @library, :status => :created }
       else
         prepare_options
         format.html { render :action => "new" }
-        format.xml  { render :xml => @library.errors, :status => :unprocessable_entity }
+        format.json { render :json => @library.errors, :status => :unprocessable_entity }
       end
     end
   end
 
   # PUT /libraries/1
-  # PUT /libraries/1.xml
+  # PUT /libraries/1.json
   def update
     if @library and params[:position]
       @library.insert_at(params[:position])
@@ -97,24 +97,24 @@ class LibrariesController < ApplicationController
       if @library.update_attributes(params[:library])
         flash[:notice] = t('controller.successfully_updated', :model => t('activerecord.models.library'))
         format.html { redirect_to(@library) }
-        format.xml  { head :ok }
+        format.json { head :ok }
       else
         @library.name = @library.name_was
         prepare_options
         format.html { render :action => "edit" }
-        format.xml  { render :xml => @library.errors, :status => :unprocessable_entity }
+        format.json { render :json => @library.errors, :status => :unprocessable_entity }
       end
     end
   end
 
   # DELETE /libraries/1
-  # DELETE /libraries/1.xml
+  # DELETE /libraries/1.json
   def destroy
     @library.destroy
 
     respond_to do |format|
       format.html { redirect_to libraries_url }
-      format.xml  { head :ok }
+      format.json { head :ok }
     end
   end
 

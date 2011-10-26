@@ -1,5 +1,5 @@
 class LicensesController < InheritedResources::Base
-  respond_to :html, :xml
+  respond_to :html, :json
   load_and_authorize_resource
 
   def update
