@@ -3,7 +3,8 @@
 
 <%= form_for :manifestations, :html => {:method => 'get'} do -%>
   <p>
-    <%= t('page.search_term') -%>:
+    <div style="color: red"><%= flash[:message] -%></div>
+    <%= t('page.search_term') -%>
     <%= t('advanced_search.from_date') -%> <%= text_field_tag 'search_date_first', h(@start_date), :size => 9 -%>
     <%= t('advanced_search.to_date') -%> <%= text_field_tag 'search_date_last', h(@end_date), :size => 9 -%></td>
     <%= submit_tag t('page.search') -%>
@@ -25,25 +26,9 @@
     <th>
     </th>
     <th>
-      <%= t('page.exstatistics.readercount') -%>
+      <%= t('page.exstatistics.requestcount') -%>
     </th>
   </tr>
-<%- @manifestations.each_with_index do |m, i| -%>
-  <tr class="line<%= cycle("0", "1") -%>">
-    <td>
-      <%= i+1 -%>
-    </td>
-    <td>
-      <%= link_to m.original_title, m -%>
-    </td>
-    <td>
-      <%= render 'manifestations/show_creators', :manifestation => m -%>
-    </td>
-    <td>
-      <%= @checkouts[i].cnt -%>
-    </td>
-  </tr>
-<%- end -%>
 </table>
 
 </div>
