@@ -107,7 +107,7 @@
 
   <div class="field">
     <%= f.label t('activerecord.models.country') -%>
-    <%= f.select(:country_id, @countries.collect{|c| [c.display_name.localize, c.id]}) -%>
+    <%= f.select(:country_id, @countries.collect{|c| [c.display_name.localize, c.id]}, :selected =>LibraryGroup.site_config.country_id) -%>
   </div>
 
   <div class="field">
