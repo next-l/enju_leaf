@@ -124,9 +124,10 @@
 <div id="submenu" class="ui-corner-all">
   <ul>
     <li><%= link_to t('page.back'), users_path -%></li>
-        <%- unless user.blank? && user.user_number.blank? -%>
+        <%- if user.user_number? -%>
           <li><%= link_to t('activerecord.models.checkout'), new_basket_path(:user_number => user.user_number) -%></li>
           <li><%= link_to t('activerecord.models.reserve'), user_reserves_path(user) -%></li>
+          <li><%= link_to t('activerecord.models.checkin'), checkins_path -%></li>
         <%- end -%>
     <% if user_signed_in? %>
       <% if can? :update, user %>
