@@ -96,7 +96,18 @@ class Reserve < ActiveRecord::Base
 
   def new_reserve
     if self.available_for_checkout?    
-      self.sm_retain
+      logger.error "new_reserve"
+      items = self.manifestation.items.order('created_at ASC')
+      items.each do |item|
+        if item.available_for_checkout? && !item.reserved?
+          self.item = item
+          self.sm_retain
+          self.save
+          logger.error "not reserved: #{item.id}"
+          return
+        end
+      end
+      self.sm_request
     else 
       self.sm_request
     end
@@ -121,21 +132,31 @@ class Reserve < ActiveRecord::Base
 
   def expire
     self.update_attributes!({:request_status_type => RequestStatusType.where(:name => 'Expired').first, :canceled_at => Time.zone.now})
+    self.remove_from_list
     logger.info "#{Time.zone.now} reserve_id #{self.id} expired!"
   end
 
   def cancel
     self.update_attributes!({:request_status_type => RequestStatusType.where(:name => 'Cannot Fulfill Request').first, :canceled_at => Time.zone.now})
+    self.remove_from_list
   end
 
   def checkout
     self.update_attributes!({:request_status_type => RequestStatusType.where(:name => 'Available For Pickup').first, :checked_out_at => Time.zone.now})
+    self.remove_from_list
   end
   
   def available_for_checkout?
     items = Manifestation.find(self.manifestation_id).items
+    reserve_position = Reserve.waiting.where("manifestation_id = ? AND position >= ? AND item_id IS NULL", self.manifestation_id, self.position).count
+    i = 1
     items.each do |item|
-      return true if item.available_for_checkout?
+      logger.error "item: #{item.id}"
+      if item.available_for_checkout? && !item.reserved?
+        logger.error "i: #{i} / reserve position: #{reserve_position}"
+        return true if i >= reserve_position
+        i += 1
+      end
     end
     false
   end
