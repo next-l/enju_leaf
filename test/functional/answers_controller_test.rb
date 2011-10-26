@@ -98,7 +98,7 @@ class AnswersControllerTest < ActionController::TestCase
       post :create, :answer => {:question_id => 1, :body => 'hoge'}
     end
     
-    assert_redirected_to user_question_answer_url(assigns(:answer).question.user.username, assigns(:answer).question, assigns(:answer))
+    assert_redirected_to answer_url(assigns(:answer))
   end
 
   def test_user_should_not_create_answer_without_question_id
@@ -117,7 +117,7 @@ class AnswersControllerTest < ActionController::TestCase
       post :create, :answer => {:question_id => 1, :body => 'hoge'}
     end
     
-    assert_redirected_to user_question_answer_url(assigns(:answer).question.user.username, assigns(:answer).question, assigns(:answer))
+    assert_redirected_to answer_url(assigns(:answer))
   end
 
   def test_guest_should_show_public_answer
@@ -224,13 +224,13 @@ class AnswersControllerTest < ActionController::TestCase
   def test_user_should_update_my_answer
     sign_in users(:user1)
     put :update, :id => 3, :answer => { }, :user_id => users(:user1).username
-    assert_redirected_to user_question_answer_url(assigns(:answer).question.user.username, assigns(:answer).question, assigns(:answer))
+    assert_redirected_to answer_url(assigns(:answer))
   end
   
   def test_user_should_update_my_answer_with_question_id
     sign_in users(:user1)
     put :update, :id => 3, :answer => { }, :user_id => users(:user1).username, :question_id => 1
-    assert_redirected_to user_question_answer_url(assigns(:answer).question.user.username, assigns(:answer).question, assigns(:answer))
+    assert_redirected_to answer_url(assigns(:answer))
     #assert_redirected_to answer_url(assigns(:answer))
   end
   
@@ -256,7 +256,7 @@ class AnswersControllerTest < ActionController::TestCase
     sign_in users(:librarian1)
     put :update, :id => 3, :answer => { }, :user_id => users(:user1).username
   #  assert_redirected_to answer_url(assigns(:answer))
-    assert_redirected_to user_question_answer_url(assigns(:answer).question.user.username, assigns(:answer).question, assigns(:answer))
+    assert_redirected_to answer_url(assigns(:answer))
   end
   
   def test_guest_should_not_destroy_answer
@@ -274,7 +274,7 @@ class AnswersControllerTest < ActionController::TestCase
       delete :destroy, :id => 3, :user_id => users(:user1).username
     end
     
-    assert_redirected_to user_question_answers_url(assigns(:answer).question.user.username, assigns(:answer).question)
+    assert_redirected_to question_answers_url(assigns(:answer).question)
   end
 
   def test_user_should_not_destroy_other_answer

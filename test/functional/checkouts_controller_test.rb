@@ -9,13 +9,13 @@ class CheckoutsControllerTest < ActionController::TestCase
   def test_user_should_get_my_index
     sign_in users(:user1)
     get :index, :user_id => users(:user1).username
-    assert_response :success
-    assert assigns(:checkouts)
+    assert_nil assigns(:checkouts)
+    assert_redirected_to checkouts_url
   end
 
   def test_user_should_get_my_index_feed
     sign_in users(:user1)
-    get :index, :user_id => users(:user1).username, :format => 'rss'
+    get :index, :format => 'rss'
     assert_response :success
     assert assigns(:checkouts)
   end
@@ -26,11 +26,10 @@ class CheckoutsControllerTest < ActionController::TestCase
     assert_response :forbidden
   end
 
-  def test_user_should_not_get_overdue_index
+  def test_user_should_get_overdue_index
     sign_in users(:user1)
     get :index, :view => 'overdue'
-    assert_response :redirect
-    assert_redirected_to user_checkouts_url(users(:user1))
+    assert_response :success
   end
 
   def test_librarian_should_get_index
@@ -176,7 +175,7 @@ class CheckoutsControllerTest < ActionController::TestCase
   def test_user_should_update_my_checkout
     sign_in users(:user1)
     put :update, :id => 3, :user_id => users(:user1).username, :checkout => { }
-    assert_redirected_to user_checkout_url(assigns(:checkout).user, assigns(:checkout))
+    assert_redirected_to checkout_url(assigns(:checkout))
   end
   
   def test_user_should_not_update_checkout_without_item_id
@@ -196,7 +195,7 @@ class CheckoutsControllerTest < ActionController::TestCase
     put :update, :id => 9, :user_id => users(:user1).username, :checkout => { }
     assert_equal I18n.t('checkout.excessed_renewal_limit'), flash[:notice]
     assert_response :redirect
-    assert_redirected_to edit_user_checkout_url(assigns(:checkout).user, assigns(:checkout))
+    assert_redirected_to edit_checkout_url(assigns(:checkout))
   end
   
   def test_librarian_should_update_checkout_item_is_reserved
@@ -204,19 +203,19 @@ class CheckoutsControllerTest < ActionController::TestCase
     put :update, :id => 8, :user_id => users(:librarian1).username, :checkout => { }
     assert_equal I18n.t('checkout.this_item_is_reserved'), flash[:notice]
     assert_response :redirect
-    assert_redirected_to edit_user_checkout_url(assigns(:checkout).user, assigns(:checkout))
+    assert_redirected_to edit_checkout_url(assigns(:checkout))
   end
   
   def test_librarian_should_update_other_checkout
     sign_in users(:librarian1)
     put :update, :id => 1, :user_id => users(:admin).username, :checkout => { }
-    assert_redirected_to user_checkout_url(assigns(:checkout).user, assigns(:checkout))
+    assert_redirected_to checkout_url(assigns(:checkout))
   end
   
   def test_admin_should_update_other_checkout
     sign_in users(:admin)
     put :update, :id => 3, :user_id => users(:user1).username, :checkout => { }
-    assert_redirected_to user_checkout_url(assigns(:checkout).user, assigns(:checkout))
+    assert_redirected_to checkout_url(assigns(:checkout))
   end
   
   def test_guest_should_not_destroy_checkout

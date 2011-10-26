@@ -83,26 +83,6 @@ class ReservesControllerTest < ActionController::TestCase
     assert_response :success
   end
 
-  def test_everyone_should_not_create_reserve_with_past_date
-    sign_in users(:admin)
-    assert_no_difference('Reserve.count') do
-      post :create, :reserve => {:user_number => users(:user1).user_number, :manifestation_id => 5, :expired_at => '1901-01-01'}
-    end
-    
-    assert_response :success
-  end
-
-  def test_user_should_create_my_reserve
-    sign_in users(:user1)
-    assert_difference('Reserve.count') do
-      post :create, :reserve => {:user_number => users(:user1).user_number, :manifestation_id => 5}
-    end
-    assert assigns(:reserve).expired_at
-    
-    assert_redirected_to user_reserve_url(users(:user1).username, assigns(:reserve))
-    assert assigns(:reserve).expired_at > Time.zone.now
-  end
-
   def test_user_should_not_create_other_reserve
     sign_in users(:user1)
     assert_no_difference('Reserve.count') do
@@ -119,7 +99,7 @@ class ReservesControllerTest < ActionController::TestCase
     end
     assert assigns(:reserve).expired_at
     
-    assert_redirected_to user_reserve_url(users(:user1), assigns(:reserve))
+    assert_redirected_to reserve_url(assigns(:reserve))
   end
 
   def test_librarian_should_create_other_reserve
@@ -129,7 +109,7 @@ class ReservesControllerTest < ActionController::TestCase
     end
     assert assigns(:reserve).expired_at
     
-    assert_redirected_to user_reserve_url(users(:user1), assigns(:reserve))
+    assert_redirected_to reserve_url(assigns(:reserve))
   end
 
   def test_admin_should_create_other_reserve
@@ -139,7 +119,7 @@ class ReservesControllerTest < ActionController::TestCase
     end
     assert assigns(:reserve).expired_at
     
-    assert_redirected_to user_reserve_url(users(:user1), assigns(:reserve))
+    assert_redirected_to reserve_url(assigns(:reserve))
   end
 
   def test_everyone_should_not_create_reserve_over_reserve_limit
@@ -257,7 +237,7 @@ class ReservesControllerTest < ActionController::TestCase
     sign_in users(:user1)
     put :update, :id => 3, :user_id => users(:user1).username, :reserve => {:user_number => users(:user1).user_number}
     assert_equal I18n.t('controller.successfully_updated', :model => I18n.t('activerecord.models.reserve')), flash[:notice]
-    assert_redirected_to user_reserve_url(users(:user1), assigns(:reserve))
+    assert_redirected_to reserve_url(assigns(:reserve))
   end
 
   def test_user_should_cancel_my_reserve
@@ -267,7 +247,7 @@ class ReservesControllerTest < ActionController::TestCase
     assert_equal I18n.t('reserve.reservation_was_canceled'), flash[:notice]
     assert_equal 'canceled', assigns(:reserve).state
     assert_equal old_message_requests_count + 2, MessageRequest.count
-    assert_redirected_to user_reserve_url(users(:user1), assigns(:reserve))
+    assert_redirected_to reserve_url(assigns(:reserve))
   end
 
   def test_user_should_not_update_other_reserve
@@ -285,13 +265,13 @@ class ReservesControllerTest < ActionController::TestCase
   def test_librarian_should_update_without_user_id
     sign_in users(:librarian1)
     put :update, :id => 3, :reserve => {:user_number => users(:user1).user_number}
-    assert_redirected_to user_reserve_url(users(:user1), assigns(:reserve))
+    assert_redirected_to reserve_url(assigns(:reserve))
   end
 
   def test_librarian_should_update_other_reserve
     sign_in users(:librarian1)
     put :update, :id => 3, :user_id => users(:user1).username, :reserve => {:user_number => users(:user1).user_number}
-    assert_redirected_to user_reserve_url(users(:user1), assigns(:reserve))
+    assert_redirected_to reserve_url(assigns(:reserve))
   end
 
   def test_librarian_should_cancel_other_reserve
@@ -301,13 +281,13 @@ class ReservesControllerTest < ActionController::TestCase
     assert_equal I18n.t('reserve.reservation_was_canceled'), flash[:notice]
     assert_equal 'canceled', assigns(:reserve).state
     assert_equal old_message_requests_count + 2, MessageRequest.count
-    assert_redirected_to user_reserve_url(users(:user1), assigns(:reserve))
+    assert_redirected_to reserve_url(assigns(:reserve))
   end
 
   def test_admin_should_update_other_reserve_without_user_id
     sign_in users(:admin)
     put :update, :id => 3, :reserve => {:user_number => users(:user1).user_number}
-    assert_redirected_to user_reserve_url(users(:user1), assigns(:reserve))
+    assert_redirected_to reserve_url(assigns(:reserve))
   end
 
   def test_guest_should_not_destroy_reserve
@@ -342,7 +322,7 @@ class ReservesControllerTest < ActionController::TestCase
       delete :destroy, :id => 3, :user_id => users(:user1).username
     end
     
-    assert_redirected_to user_reserves_url(users(:user1))
+    assert_redirected_to reserves_url
   end
 
   def test_user_should_not_destroy_other_reserve
@@ -360,7 +340,7 @@ class ReservesControllerTest < ActionController::TestCase
       delete :destroy, :id => 3, :user_id => users(:user1).username
     end
     
-    assert_redirected_to user_reserves_url(users(:user1))
+    assert_redirected_to reserves_url
   end
 
   def test_user_should_destroy_other_reserve
@@ -369,7 +349,6 @@ class ReservesControllerTest < ActionController::TestCase
       delete :destroy, :id => 3, :user_id => users(:user1).username
     end
     
-    assert_redirected_to user_reserves_url(users(:user1))
+    assert_redirected_to reserves_url
   end
-
 end

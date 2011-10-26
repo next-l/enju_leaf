@@ -9,14 +9,14 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_bookmark.git
-  revision: a09c3078219b469776392ec1cf3b629cc9dcc887
+  revision: 65897699eeb0bc0f360387e43adbf2602dc3fd8f
   specs:
     enju_bookmark (0.0.2)
       rails (~> 3.1.1)
 
 GIT
   remote: git://github.com/nabeta/enju_circulation.git
-  revision: 76d49a8e6a8d6222827e44dfb3bb2cb71b15d2c7
+  revision: d6d5f66be337819cafdcecb3ace7d6949645a8ff
   specs:
     enju_circulation (0.0.2)
       rails (~> 3.1.1)
@@ -27,13 +27,6 @@ GIT
   specs:
     enju_event (0.0.2)
       event-calendar (~> 2.3.3)
-      rails (~> 3.1.1)
-
-GIT
-  remote: git://github.com/nabeta/enju_inter_library_loan.git
-  revision: c3a388c3cad6c35ccf40cc1d7e44b498a7867c4f
-  specs:
-    enju_inter_library_loan (0.0.1)
       rails (~> 3.1.1)
 
 GIT
@@ -73,7 +66,7 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_question.git
-  revision: 868ccffa3fe84a15c7d39f972988ab81a0245fc3
+  revision: fe2917444a802a8f8d207da3ac99215b9ba69225
   specs:
     enju_question (0.0.2)
       rails (~> 3.1.1)
@@ -190,7 +183,7 @@ GEM
     configatron (2.8.3)
       yamler (>= 0.1.0)
     daemons (1.1.4)
-    dalli (1.1.2)
+    dalli (1.1.3)
     delayed_job (2.1.4)
       activesupport (~> 3.0)
       daemons
@@ -266,7 +259,7 @@ GEM
       reek (>= 1.2.6)
       roodi (>= 2.1.0)
       syntax
-    mime-types (1.17.1)
+    mime-types (1.17.2)
     multi_json (1.0.3)
     multi_xml (0.4.1)
     multipart-post (1.1.3)
@@ -490,7 +483,6 @@ DEPENDENCIES
   enju_bookmark!
   enju_circulation!
   enju_event!
-  enju_inter_library_loan!
   enju_inventory!
   enju_message!
   enju_ndl!

@@ -13,9 +13,9 @@ describe CheckinsController do
     describe "When logged in as Administrator" do
       login_admin
 
-      it "assigns all checkins as @checkins" do
+      it "assigns nil as @checkins" do
         get :index
-        assigns(:checkins).should eq(Checkin.all)
+        assigns(:checkins).should be_nil
         response.should redirect_to(basket_checkins_url(assigns(:basket)))
       end
 
@@ -31,9 +31,9 @@ describe CheckinsController do
     describe "When logged in as Librarian" do
       login_librarian
 
-      it "assigns all checkins as @checkins" do
+      it "assigns nil as @checkins" do
         get :index
-        assigns(:checkins).should eq(Checkin.all)
+        assigns(:checkins).should be_nil
         response.should redirect_to(basket_checkins_url(assigns(:basket)))
       end
 
@@ -51,7 +51,7 @@ describe CheckinsController do
 
       it "should not assign all checkins as @checkins" do
         get :index
-        assigns(:checkins).should be_empty
+        assigns(:checkins).should be_nil
         response.should be_forbidden
       end
     end

@@ -165,7 +165,7 @@ class UsersControllerTest < ActionController::TestCase
   def test_user_should_show_my_user
     sign_in users(:user1)
     get :show, :id => users(:user1).username
-    assert_redirected_to my_account_url
+    assert_redirected_to root_url
   end
 
   def test_user_should_show_other_user

@@ -58,7 +58,7 @@ class CheckedItemsControllerTest < ActionController::TestCase
     end
     assert_not_nil assigns(:checked_item).due_date
     
-    assert_redirected_to user_basket_checked_items_url(assigns(:checked_item).basket.user.username, assigns(:checked_item).basket, :mode => 'list')
+    assert_redirected_to basket_checked_items_url(assigns(:checked_item).basket, :mode => 'list')
   end
   
   def test_system_should_show_message_when_item_includes_supplements
@@ -68,7 +68,7 @@ class CheckedItemsControllerTest < ActionController::TestCase
     end
     assert_not_nil assigns(:checked_item).due_date
     
-    assert_redirected_to user_basket_checked_items_url(assigns(:checked_item).basket.user.username, assigns(:checked_item).basket)
+    assert_redirected_to basket_checked_items_url(assigns(:checked_item).basket)
     assert flash[:message].index(I18n.t('item.this_item_include_supplement'))
     #assert_nil assigns(:checked_item).errors
   end
@@ -91,7 +91,7 @@ class CheckedItemsControllerTest < ActionController::TestCase
     end
     assert_not_nil assigns(:checked_item).due_date
     
-    assert_redirected_to user_basket_checked_items_url(assigns(:checked_item).basket.user.username, assigns(:checked_item).basket, :mode => 'list')
+    assert_redirected_to basket_checked_items_url(assigns(:checked_item).basket, :mode => 'list')
   end
 
   def test_guest_should_not_show_checked_item
@@ -206,6 +206,6 @@ class CheckedItemsControllerTest < ActionController::TestCase
       delete :destroy, :id => 1, :basket_id => 1
     end
     
-    assert_redirected_to user_basket_checked_items_url(assigns(:checked_item).basket.user.username, assigns(:checked_item).basket)
+    assert_redirected_to basket_checked_items_url(assigns(:checked_item).basket)
   end
 end

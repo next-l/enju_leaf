@@ -254,6 +254,12 @@ describe ReservesController do
           response.should be_success
         end
       end
+
+      it "should not create reservation with past date" do
+        post :create, :reserve => {:user_number => users(:user1).user_number, :manifestation_id => 5, :expired_at => '1901-01-01'}
+        assigns(:reserve).should_not be_valid
+        response.should be_success
+      end
     end
 
     describe "When logged in as Librarian" do
@@ -316,6 +322,12 @@ describe ReservesController do
           assigns(:reserve).expired_at.should be_nil
           response.should be_forbidden
         end
+      end
+
+      it "should create my reservation" do
+        post :create, :reserve => {:user_number => @user.user_number, :manifestation_id => 5}
+        response.should redirect_to(assigns(:reserve))
+        assigns(:reserve).expired_at.should be > Time.zone.now
       end
     end
 
@@ -467,7 +479,7 @@ describe ReservesController do
 
       it "redirects to the reserves list" do
         delete :destroy, :id => @reserve.id, :user_id => @reserve.user.username
-        response.should redirect_to(user_reserves_url(assigns(:reserve).user))
+        response.should redirect_to(reserves_url)
       end
     end
 
@@ -480,7 +492,7 @@ describe ReservesController do
 
       it "redirects to the reserves list" do
         delete :destroy, :id => @reserve.id, :user_id => @reserve.user.username
-        response.should redirect_to(user_reserves_url(assigns(:reserve).user))
+        response.should redirect_to(reserves_url)
       end
     end
 

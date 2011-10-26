@@ -29,7 +29,7 @@ class BasketsControllerTest < ActionController::TestCase
       post :create, :basket => {:user_number => users(:user1).user_number }
     end
     
-    assert_redirected_to user_basket_checked_items_url(users(:user1).username, assigns(:basket))
+    assert_redirected_to basket_checked_items_url(assigns(:basket))
   end
 
   def test_guest_should_not_destroy_basket

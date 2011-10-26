@@ -27,28 +27,28 @@ describe CheckoutsController do
       end
 
       it "assigns all checkouts as @checkouts" do
-        get :index, :user_id => @user.username
+        get :index
         assigns(:checkouts).should eq(@user.checkouts.not_returned.order('created_at DESC').page(1))
       end
 
       it "should be redirected if an username is not specified" do
         get :index
-        assigns(:checkouts).should eq(Checkout.order('created_at DESC').all)
-        response.should redirect_to(user_checkouts_url(@user))
+        assigns(:checkouts).should be_empty
+        response.should be_success
       end
 
       it "should be forbidden if other's username is specified" do
         user = FactoryGirl.create(:user)
         get :index, :user_id => user.username
-        assigns(:checkouts).should eq(Checkout.order('created_at DESC').all)
+        assigns(:checkouts).should be_nil
         response.should be_forbidden
       end
     end
 
     describe "When not logged in" do
-      it "assigns empty as @checkouts" do
+      it "assigns nil as @checkouts" do
         get :index
-        assigns(:checkouts).should_not be_empty
+        assigns(:checkouts).should be_nil
         response.should redirect_to(new_user_session_url)
       end
 
