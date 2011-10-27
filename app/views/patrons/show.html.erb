@@ -153,7 +153,14 @@
         </tr>
         <tr>
           <td><strong><%= t('activerecord.attributes.patron.note_update_at') -%>:</strong></td>
-          <td><%= l(@patron.note_update_at) unless @patron.note_update_at.blank?-%></td>
+          <td><%= l(@patron.note_update_at) unless @patron.note_update_at.blank?-%>
+            <%- if @patron.note_update_by -%>
+              &nbsp;<%= t('patron.last_update_by') -%>: <%= @patron.note_update_by -%>
+            <%- end -%>
+            <%- if @patron.note_update_library -%>
+              (<%= @patron.note_update_library-%>)
+            <%- end -%>
+          </td>
         </tr>
       <%- end -%>
       <tr>
