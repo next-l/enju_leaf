@@ -1,6 +1,6 @@
 # -*- encoding: utf-8 -*-
 class Reserve < ActiveRecord::Base
-  scope :hold, where('item_id IS NOT NULL')
+  scope :hold, where('item_id IS NOT NULL AND state = ?', 'retained')
   scope :not_hold, where(:item_id => nil)
   scope :waiting, where('canceled_at IS NULL AND expired_at > ? AND state != ?', Time.zone.now, 'completed').order('id DESC')
   scope :completed, where('checked_out_at IS NOT NULL')

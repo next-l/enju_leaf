@@ -28,7 +28,8 @@ class Basket < ActiveRecord::Base
       self.checked_items.each do |checked_item|
         checkout = self.user.checkouts.new(:librarian_id => librarian.id, :item_id => checked_item.item.id, :basket_id => self.id, :due_date => checked_item.due_date)
         if checked_item.item.checkout!(self.user)
-          checked_item.item.manifestation.next_reservation.sm_complete if checked_item.item.reserved?
+#          checked_item.item.manifestation.next_reservation.sm_complete if checked_item.item.reserved?
+          checked_item.item.reserve.sm_complete if checked_item.item.reserved? && checked_item.item.reserve.user == self.user
           checkout.save!
         end
       end

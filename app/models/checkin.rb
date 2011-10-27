@@ -30,7 +30,7 @@ class Checkin < ActiveRecord::Base
       #unless checkout.user.save_checkout_history
       #  checkout.user = nil
       #end
-      if self.item.reserved?
+      if self.item.manifestation.next_reservation
         # TODO: もっと目立たせるために別画面を表示するべき？
         message << I18n.t('item.this_item_is_reserved')
         self.item.retain(current_user)

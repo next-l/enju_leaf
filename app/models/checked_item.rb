@@ -119,11 +119,8 @@ class CheckedItem < ActiveRecord::Base
   def available_for_reserve_checkout?
     reserve = Reserve.waiting.where(:manifestation_id => self.item.manifestation.id, :user_id => self.basket.user.id).first rescue nil
     retained_reserves = self.item.manifestation.reserves.hold
-    if self.item.reserve.user == self.basket.user
-      return true        
-    elsif retained_reserves && retained_reserves.include?(reserve) && 
-      retained_reserves.each do |r|
-      end
+    if retained_reserves && retained_reserves.include?(reserve)
+      return true if self.item.reserve.item_id == self.item_id
       begin
         exchange_reserve_item(self.item, reserve)
         return true
