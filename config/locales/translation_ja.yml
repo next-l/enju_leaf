@@ -590,7 +590,7 @@ ja:
         note: 注記
         position: 位置
         start_date: 開始日
-        end_date: 終了日
+        to_date: 終了日
         draft: 下書き
       search_engine:
         name: 名前
@@ -1257,6 +1257,8 @@ ja:
     from: "ここから"
     to: "ここまで"
     all_libraries: "全ての図書館"
+    from_date: "検索開始日時"
+    to_date: "検索終了日時"
   bookmark:
     new: "新しいブックマーク"
     not_bookmarked: "ブックマークされていません。"
