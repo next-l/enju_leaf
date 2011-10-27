@@ -12,6 +12,12 @@ class ReservesController < ApplicationController
   # GET /reserves
   # GET /reserves.xml
   def index
+    if current_user.try(:has_role?, 'Librarian') && params[:user_id]
+      @reserve_user = User.find(params[:user_id]) rescue current_user
+    else
+      @reserve_user = current_user
+    end
+
     @reserve_user_id = params[:user_id] if params[:user_id]
     unless current_user.has_role?('Librarian')
       if @user
@@ -76,12 +82,13 @@ class ReservesController < ApplicationController
         return
       end
     end
-
     if user
       @reserve = user.reserves.new
     else
       @reserve = Reserve.new
     end
+    @libraries = Library.all_cache
+    @reserve.receipt_library_id = user.library_id unless user.blank?
 
     get_manifestation
     if @manifestation
@@ -99,6 +106,7 @@ class ReservesController < ApplicationController
 
   # GET /reserves/1;edit
   def edit
+    @libraries = Library.all_cache
   end
 
   # POST /reserves

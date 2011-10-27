@@ -119,6 +119,13 @@ class PatronsController < ApplicationController
     @expressions = @patron.expressions.page(params[:expression_list_page]).per_page(Manifestation.per_page)
     @manifestations = @patron.manifestations.order('date_of_publication DESC').page(params[:manifestation_list_page]).per_page(Manifestation.per_page)
 
+    @telephone_number_1_type = set_phone_type(@patron.telephone_number_1_type_id)
+    @extelephone_number_1_type = set_phone_type(@patron.extelephone_number_1_type_id)
+    @fax_number_1_type = set_phone_type(@patron.fax_number_1_type_id)
+    @telephone_number_2_type = set_phone_type(@patron.telephone_number_2_type_id)
+    @extelephone_number_2_type = set_phone_type(@patron.extelephone_number_2_type_id)
+    @fax_number_2_type = set_phone_type(@patron.fax_number_2_type_id)
+
     respond_to do |format|
       format.html # show.rhtml
       format.xml  { render :xml => @patron }
@@ -143,6 +150,8 @@ class PatronsController < ApplicationController
     end
     @patron.language = Language.where(:iso_639_1 => I18n.default_locale.to_s).first || Language.first
     @patron.country = current_user.library.country
+    @patron.country_id = LibraryGroup.site_config.country_id
+    @patron.telephone_number_1_type_id = 1
     prepare_options
 
     respond_to do |format|
@@ -154,7 +163,6 @@ class PatronsController < ApplicationController
   # GET /patrons/1;edit
   def edit
     prepare_options
-    @note_last_updateed_user = User.find(@patron.note_update_by) rescue nil
   end
 
   # POST /patrons
@@ -241,5 +249,19 @@ class PatronsController < ApplicationController
     @patron_types = PatronType.all
     @roles = Role.all
     @languages = Language.all_cache
+  end
+
+  def set_phone_type(phone_type_id)
+    type = nil;
+    if phone_type_id == 1
+      type = '('+ t('activerecord.attributes.patron.home_phone') +')'
+    elsif phone_type_id == 2
+      type = '('+ t('activerecord.attributes.patron.fax') +')'
+    elsif phone_type_id == 3
+      type = '(' +t('activerecord.attributes.patron.mobile_phone') +')'
+    elsif phone_type_id == 4
+      type = '('+ t('activerecord.attributes.patron.company_phone') +')'
+    end
+    return type;
   end
 end

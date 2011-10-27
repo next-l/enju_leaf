@@ -223,6 +223,10 @@ ja:
         extelephone_number_2: 電話番号2-2
         fax_number_1: 電話番号1-3
         fax_number_2: 電話番号2-3
+        home_phone: 自宅
+        mobile_phone: 携帯
+        company_phone: 勤務先
+        fax: ファックス
         other_designation: 他の指定
         place: 場所
         date_of_birth: 生年月日
@@ -733,6 +737,10 @@ ja:
         state: 状態
         contact: 連絡先
         zipcode: 〒
+        information_method: 連絡方法
+        receipt_library: 受取館
+        email: 電子メール
+        telephone: 電話
       message_request:
         sent_at: 送信時刻
         deleted_at: 削除時刻
@@ -1480,6 +1488,7 @@ ja:
     already_in_family: "家族登録済みです。"
     overdue_item: "%{user} さんの貸出期限がすぎている資料が %{count} 冊あります。"
     retained_reserve: "%{user} さんの予約資料が %{count} 冊用意されています。" 
+    create_family_user: "家族を新規作成する"
   news_post:
     library_group_news_post: "%{library_group_name} からのお知らせ"
   reserve:
