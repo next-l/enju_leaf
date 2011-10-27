@@ -55,6 +55,10 @@ class Patron < ActiveRecord::Base
     string :full_name_alternative
     string :telephone_number_1 
     string :telephone_number_2
+    string :extelephone_number_1 
+    string :extelephone_number_2
+    string :fax_number_1 
+    string :fax_number_2
     string :zip_code_1
     string :zip_code_2
     string :username do
