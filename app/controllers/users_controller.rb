@@ -119,8 +119,10 @@ class UsersController < ApplicationController
       @user = User.new
       @patron = Patron.new
       @patron.required_role = Role.find_by_name('Librarian')
-      @patron.language = Language.where(:iso_639_1 => I18n.default_locale.to_s).first || Language.first
+      @patron.language = Language.where(:iso_639_1 => I18n.default_locale.to_s).first || Language.first 
       @patron.country = current_user.library.country
+      @patron.country_id = LibraryGroup.site_config.country_id
+      @patron.telephone_number_1_type_id = 1
     end
     #@user.openid_identifier = flash[:openid_identifier]
     prepare_options

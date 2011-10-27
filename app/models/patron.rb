@@ -277,6 +277,7 @@ class Patron < ActiveRecord::Base
       self.note_update_library = Library.find(User.current_user.library_id).display_name
     end
   end
+
 end
 
 # == Schema Information

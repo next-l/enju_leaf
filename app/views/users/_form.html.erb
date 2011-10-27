@@ -107,7 +107,7 @@
 
   <div class="field">
     <%= f.label t('activerecord.models.country') -%>
-    <%= f.select(:country_id, @countries.collect{|c| [c.display_name.localize, c.id]}, :selected =>LibraryGroup.site_config.country_id) -%>
+    <%= f.select(:country_id, @countries.collect{|c| [c.display_name.localize, c.id]}) -%>
   </div>
 
   <div class="field">
@@ -135,16 +135,19 @@
   <div class="field">
     <%= f.label :telephone_number_1 -%><br />
     <%= f.phone_field :telephone_number_1, :class => 'resource_telephone_number' -%>
+    <%= f.select :telephone_number_1_type_id, {t('activerecord.attributes.patron.home_phone')=>1, t('activerecord.attributes.patron.fax')=>2, t('activerecord.attributes.patron.mobile_phone')=>3, t('activerecord.attributes.patron.company_phone')=>4} -%>
   </div>
 
   <div class="field">
     <%= f.label :extelephone_number_1 -%><br />
     <%= f.phone_field :extelephone_number_1, :class => 'resource_telephone_number' -%>
+    <%= f.select :extelephone_number_1_type_id, {t('activerecord.attributes.patron.home_phone')=>1, t('activerecord.attributes.patron.fax')=>2, t('activerecord.attributes.patron.mobile_phone')=>3, t('activerecord.attributes.patron.company_phone')=>4} -%>
   </div>
 
   <div class="field">
     <%= f.label :fax_number_1 -%><br />
     <%= f.phone_field :fax_number_1, :class => 'resource_telephone_number' -%>
+    <%= f.select :fax_number_1_type_id, {t('activerecord.attributes.patron.home_phone')=>1, t('activerecord.attributes.patron.fax')=>2, t('activerecord.attributes.patron.mobile_phone')=>3, t('activerecord.attributes.patron.company_phone')=>4} -%>
   </div>
 
   <div class="field">
@@ -169,16 +172,19 @@
   <div class="field">
     <%= f.label :telephone_number_2 -%><br />
     <%= f.phone_field :telephone_number_2, :class => 'resource_telephone_number' -%>
+    <%= f.select :telephone_number_2_type_id, {t('activerecord.attributes.patron.home_phone')=>1, t('activerecord.attributes.patron.fax')=>2, t('activerecord.attributes.patron.mobile_phone')=>3, t('activerecord.attributes.patron.company_phone')=>4} -%>
   </div>
 
   <div class="field">
     <%= f.label :extelephone_number_2 -%><br />
     <%= f.phone_field :extelephone_number_2, :class => 'resource_telephone_number' -%>
+    <%= f.select :extelephone_number_2_type_id, {t('activerecord.attributes.patron.home_phone')=>1, t('activerecord.attributes.patron.fax')=>2, t('activerecord.attributes.patron.mobile_phone')=>3, t('activerecord.attributes.patron.company_phone')=>4} -%>
   </div>
 
   <div class="field">
     <%= f.label :fax_number_2 -%><br />
     <%= f.phone_field :fax_number_2, :class => 'resource_telephone_number' -%>
+    <%= f.select :fax_number_2_type_id, {t('activerecord.attributes.patron.home_phone')=>1, t('activerecord.attributes.patron.fax')=>2, t('activerecord.attributes.patron.mobile_phone')=>3, t('activerecord.attributes.patron.company_phone')=>4} -%>
   </div>
 
   <div class="field">

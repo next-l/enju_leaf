@@ -223,6 +223,10 @@ ja:
         extelephone_number_2: 電話番号2-2
         fax_number_1: 電話番号1-3
         fax_number_2: 電話番号2-3
+        home_phone: 自宅
+        mobile_phone: 携帯
+        company_phone: 勤務先
+        fax: ファックス
         other_designation: 他の指定
         place: 場所
         date_of_birth: 生年月日
