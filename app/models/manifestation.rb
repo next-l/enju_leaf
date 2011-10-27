@@ -286,6 +286,10 @@ class Manifestation < ActiveRecord::Base
     self.reserves.waiting.order('reserves.position ASC').first
   end
 
+  def next_reserve
+    self.reserves.not_retained.order('reserves.position ASC').first
+  end
+
   def serial?
     if series_statement.try(:periodical) and !periodical_master
       return true unless  series_statement.initial_manifestation == self

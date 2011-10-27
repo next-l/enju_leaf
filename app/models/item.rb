@@ -39,6 +39,7 @@ class Item < ActiveRecord::Base
   validates_date :acquired_at, :allow_blank => true
   before_validation :set_circulation_status, :on => :create
   before_save :set_use_restriction
+  after_save :check_reserve, :on => :create
 
   #enju_union_catalog
   has_paper_trail
@@ -226,9 +227,10 @@ class Item < ActiveRecord::Base
   end
 
   def check_reserve
-    if self.item.manifestation.is_reserved_by(self.basket.user)
-      reserve = Reserve.where(:manifestation_id => self.item.manifestation.id, :user_id => self.basket.user).first
-      reserve.item = self.item
+    reserve = self.manifestation.next_reserve
+    if reserve
+      reserve.item = self
+      reserve.sm_retain!
       reserve.save
     end
   end

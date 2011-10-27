@@ -158,7 +158,7 @@ class ItemsController < ApplicationController
           if @item.reserved?
             #ReservationNotifier.deliver_reserved(@item.manifestation.next_reservation.user)
             flash[:message] = t('item.this_item_is_reserved')
-            @item.retain(current_user)
+#            @item.retain(current_user)
           end
         end
         flash[:notice] = t('controller.successfully_created', :model => t('activerecord.models.item'))
