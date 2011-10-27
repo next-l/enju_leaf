@@ -262,8 +262,6 @@ class PatronsController < ApplicationController
       type = '(' +t('activerecord.attributes.patron.mobile_phone') +')'
     elsif phone_type_id == 4
       type = '('+ t('activerecord.attributes.patron.company_phone') +')'
-    else
-      type = nil;
     end
     return type;
   end
