@@ -39,7 +39,7 @@
     </th>
     <th><%= t('activerecord.models.checkout') -%></th>
     <th><%= t('activerecord.models.reserve') -%></th>
-    <th></th>
+    <th><%= t('page.edit') -%></th>
   </tr>
 
 <%- @users.each_with_index do |user, i| -%>
@@ -65,10 +65,8 @@
       <br />
       (<%= link_to t('page.checkout_history'), user_checkouts_path(user) -%>)
     </td>
-    <td><%= link_to t('activerecord.models.reserve'), user_reserves_path(user) -%></td>
-    <td>
-      <%= link_to t('page.edit'), edit_user_path(user) -%>
-    </td>
+    <td><%= link_to t('activerecord.models.reserve'), user_reserves_path(user) unless user.user_number.blank? -%></td>
+    <td><%= link_to t('page.edit'), edit_user_path(user) -%></td>
   </tr>
 <%- end -%>
 </table>
