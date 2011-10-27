@@ -24,6 +24,7 @@ class Basket < ActiveRecord::Base
 
   def basket_checkout(librarian)
     return nil if self.checked_items.size == 0
+    begin
     Item.transaction do
       self.checked_items.each do |checked_item|
         checkout = self.user.checkouts.new(:librarian_id => librarian.id, :item_id => checked_item.item.id, :basket_id => self.id, :due_date => checked_item.due_date)
@@ -34,6 +35,10 @@ class Basket < ActiveRecord::Base
         end
       end
       CheckedItem.destroy_all(:basket_id => self.id)
+    end
+    rescue Exception => e
+      logger.error "Failed to checkout: #{e}"
+      return false
     end
   end
 

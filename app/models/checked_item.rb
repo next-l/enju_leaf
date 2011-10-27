@@ -8,7 +8,6 @@ class CheckedItem < ActiveRecord::Base
   validate :available_for_checkout?, :on => :create
  
   before_validation :set_due_date, :on => :create
-  before_validation :check_reserve
   normalize_attributes :item_identifier
 
   attr_accessor :item_identifier, :ignore_restriction
@@ -120,11 +119,12 @@ class CheckedItem < ActiveRecord::Base
     reserve = Reserve.waiting.where(:manifestation_id => self.item.manifestation.id, :user_id => self.basket.user.id).first rescue nil
     retained_reserves = self.item.manifestation.reserves.hold
     if retained_reserves && retained_reserves.include?(reserve)
-      return true if self.item.reserve.item_id == self.item_id
+      return true if self.item.reserve.user_id == self.basket.user.id
       begin
         exchange_reserve_item(self.item, reserve)
         return true
-      rescue
+      rescue Exception => e
+        logger.error e
       end
     end
     false
@@ -136,11 +136,11 @@ class CheckedItem < ActiveRecord::Base
         reserve = Reserve.waiting.where(:item_id => checkin_item.id).first rescue nil
         item = checkin_reserve.item
         checkin_reserve.item = checkin_item
-        checkin_reserve.save!
         unless reserve.blank?
           reserve.item = item
           reserve.save!
         end
+        checkin_reserve.save
       end
     rescue Exception => e
       logger.error e
@@ -148,13 +148,6 @@ class CheckedItem < ActiveRecord::Base
     end
   end
 
-  def check_reserve
-    if self.item.manifestation.is_reserved_by(self.basket.user)
-      reserve = Reserve.where(:manifestation_id => self.item.manifestation.id, :user_id => self.basket.user).first
-      reserve.item = self.item 
-      reserve.save
-    end
-  end
 end
 
 # == Schema Information

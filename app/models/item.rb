@@ -124,9 +124,9 @@ class Item < ActiveRecord::Base
   def checkout!(user)
     self.circulation_status = CirculationStatus.where(:name => 'On Loan').first
     if self.reserved_by_user?(user)
-      reservation = self.next_reservation
-      reservation.update_attributes(:checked_out_at => Time.zone.now)
+      reservation = self.reserve
       reservation.sm_complete!
+      reservation.update_attributes(:checked_out_at => Time.zone.now)
     end
     save!
   end
@@ -222,6 +222,14 @@ class Item < ActiveRecord::Base
       true
     else
       false
+    end
+  end
+
+  def check_reserve
+    if self.item.manifestation.is_reserved_by(self.basket.user)
+      reserve = Reserve.where(:manifestation_id => self.item.manifestation.id, :user_id => self.basket.user).first
+      reserve.item = self.item
+      reserve.save
     end
   end
 end

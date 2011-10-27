@@ -25,6 +25,8 @@ class ReservesController < ApplicationController
     end
 
     get_manifestation
+    position_update(@manifestation) if @manifestation && params[:mode] == 'position_update'
+  
     if params[:mode] == 'hold' and current_user.has_role?('Librarian')
       @reserves = Reserve.hold.order('reserves.created_at DESC').page(params[:page])
     else
@@ -33,7 +35,8 @@ class ReservesController < ApplicationController
         @reserves = @user.reserves.order('reserves.expired_at DESC').page(params[:page])
         # 管理者
       elsif @manifestation
-        @reserves = @manifestation.reserves.order('reserves.position').page(params[:page])
+        @reserves = @manifestation.reserves.waiting.order('reserves.position ASC').page(params[:page])
+        @completed_reserves = @manifestation.reserves.completed.page(params[:page])
       else
         @reserves = Reserve.order('reserves.expired_at DESC').includes(:manifestation).page(params[:page])
       end
@@ -208,4 +211,25 @@ class ReservesController < ApplicationController
       format.xml  { head :ok }
     end
   end
+
+private 
+  def position_update(manifestation)
+    reserves = Reserve.where(:manifestation_id => manifestation).order(:position)
+    items = []
+    manifestation.items.for_checkout.each do |i|
+      items << i if i.available_for_checkout?
+    end
+    logger.error items.length
+    reserves.each do |reserve|
+      if !items.blank?
+        reserve.item = items.shift
+        reserve.sm_retain!
+      else
+        reserve.item = nil
+        reserve.sm_request!
+        reserve.save
+      end
+    end
+  end
+
 end

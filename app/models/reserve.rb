@@ -2,7 +2,7 @@
 class Reserve < ActiveRecord::Base
   scope :hold, where('item_id IS NOT NULL AND state = ?', 'retained')
   scope :not_hold, where(:item_id => nil)
-  scope :waiting, where('canceled_at IS NULL AND expired_at > ? AND state != ?', Time.zone.now, 'completed').order('id DESC')
+  scope :waiting, where('canceled_at IS NULL AND expired_at > ? AND state != ?', Time.zone.now, 'completed')
   scope :completed, where('checked_out_at IS NOT NULL')
   scope :canceled, where('canceled_at IS NOT NULL')
   scope :will_expire_retained, lambda {|datetime| {:conditions => ['checked_out_at IS NULL AND canceled_at IS NULL AND expired_at <= ? AND state = ?', datetime, 'retained'], :order => 'expired_at'}}
@@ -15,7 +15,7 @@ class Reserve < ActiveRecord::Base
   scope :not_sent_cancel_notice_to_patron, where(:state => 'canceled', :expiration_notice_to_patron => false)
   scope :not_sent_cancel_notice_to_library, where(:state => 'canceled', :expiration_notice_to_library => false)
   scope :previous_reserves, where(:state => ['requested', 'retained'])  
-  acts_as_list :scope => :manifestation
+  acts_as_list :scope => :manifestation_id
 
   belongs_to :user, :validate => true
   belongs_to :manifestation, :validate => true
@@ -37,14 +37,14 @@ class Reserve < ActiveRecord::Base
   attr_accessor :user_number, :item_identifier
 
   state_machine :initial => :pending do
-    before_transition :pending => :requested, :do => :do_request
+    before_transition [:pending, :retained] => :requested, :do => :do_request
     before_transition [:pending, :requested, :retained] => :retained, :do => :retain
     before_transition [:pending ,:requested, :retained] => :canceled, :do => :cancel
     before_transition [:pending, :requested, :retained] => :expired, :do => :expire
     before_transition :retained => :completed, :do => :checkout
 
     event :sm_request do
-      transition :pending => :requested
+      transition [:pending, :retained, :requested] => :requested
     end
 
     event :sm_retain do
@@ -246,6 +246,20 @@ class Reserve < ActiveRecord::Base
       expired_period = self.manifestation.try(:reservation_expired_period, self.user)
       if expired_period.nil?
         errors[:base] << I18n.t('reserve.this_patron_cannot_reserve')
+      end
+    end
+  end
+
+  def position_update(manifestation)
+    logger.error "position update"
+    reserves = Reserve.where(:manifestation_id => manifestation).order(:position)
+    items = manifestation.items.for_checkout.available_for_checkout
+    reserves.each do |reserve|
+      logger.erros "reserve #{reserve.id}"
+      if !items.blank?
+        reserve.item = items.shift
+      else
+        reserve.item = nil
       end
     end
   end
