@@ -100,6 +100,10 @@
           <td><%= @patron.telephone_number_1 -%></td>
         </tr>
         <tr>
+          <td><strong><%= t('activerecord.attributes.patron.extelephone_number_1') -%>:</strong></td>
+          <td><%= @patron.extelephone_number_1 -%></td>
+        </tr>
+        <tr>
           <td><strong><%= t('activerecord.attributes.patron.fax_number_1') -%>:</strong></td>
           <td><%= @patron.fax_number_1 -%></td>
         </tr>
@@ -120,16 +124,16 @@
           <td><%= @patron.telephone_number_2 -%></td>
         </tr>
         <tr>
+          <td><strong><%= t('activerecord.attributes.patron.extelephone_number_2') -%>:</strong></td>
+          <td><%= @patron.extelephone_number_2 -%></td>
+        </tr>
+        <tr>
           <td><strong><%= t('activerecord.attributes.patron.fax_number_2') -%>:</strong></td>
           <td><%= @patron.fax_number_2 -%></td>
         </tr>
         <tr>
           <td><strong><%= t('activerecord.attributes.patron.address_2_note') -%>:</strong></td>
           <td><%= @patron.address_2_note -%></td>
-        </tr>
-        <tr>
-          <td><strong><%= t('activerecord.attributes.patron.telephone_number_3') -%>:</strong></td>
-          <td><%= @patron.telephone_number_3 -%></td>
         </tr>
         <%# - if !@patron.user or (@patron.user and current_user.try(:has_role?, 'Administrator')) %>
           <tr>

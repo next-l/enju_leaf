@@ -14,16 +14,19 @@ class ManifestationExstatsController < ApplicationController
     @title = t('page.best_reader')
 
     # 初期表示
-    if !params[:number_of_pages_at_least] && !params[:number_of_pages_at_most]
+    if !params[:search_date_first] && !params[:search_date_last]
       @start_d = Time.zone.now - 30.days
+      @start_date = @start_d.to_s.gsub("-", "")[0..7]
       @end_d = Time.zone.now
+      @end_date = @end_d.to_s.gsub("-", "")[0..7]
     # 再検索時
-    elsif params[:number_of_pages_at_least] && params[:number_of_pages_at_most]
-      if params[:number_of_pages_at_least] <= params[:number_of_pages_at_most]
-        @start_d = datecheck(params[:number_of_pages_at_least])
-        @end_d = datecheck(params[:number_of_pages_at_most])
-        @end_d += 1.days if @end_d 
-        #logger.info  "start_d = #{@start_d} end_d = #{@end_d}"
+    else
+      @start_date = params[:search_date_first]
+      @end_date = params[:search_date_last]
+      if (@start_date && @end_date) && (@start_date <= @end_date)
+        @start_d = datecheck(params[:search_date_first])
+        @end_d = datecheck(params[:search_date_last])
+        @end_d += 1.days if @end_d
       end
     end
 
@@ -56,16 +59,19 @@ class ManifestationExstatsController < ApplicationController
     @title = t('page.best_request')
 
     # 初期表示
-    if !params[:number_of_pages_at_least] && !params[:number_of_pages_at_most]
+    if !params[:search_date_first] && !params[:search_date_last]
       @start_d = Time.zone.now - 30.days
+      @start_date = @start_d.to_s.gsub("-", "")[0..7]
       @end_d = Time.zone.now
+      @end_date = @end_d.to_s.gsub("-", "")[0..7]
     # 再検索時
-    elsif params[:number_of_pages_at_least] && params[:number_of_pages_at_most]
-      if params[:number_of_pages_at_least] <= params[:number_of_pages_at_most]
-        @start_d = datecheck(params[:number_of_pages_at_least])
-        @end_d = datecheck(params[:number_of_pages_at_most])
+    else
+      @start_date = params[:search_date_first]
+      @end_date = params[:search_date_last]
+      if (@start_date && @end_date) && (@start_date <= @end_date)
+        @start_d = datecheck(params[:search_date_first])
+        @end_d = datecheck(params[:search_date_last])
         @end_d += 1.days if @end_d
-        #logger.info  "start_d = #{@start_d} end_d = #{@end_d}"
       end
     end
 

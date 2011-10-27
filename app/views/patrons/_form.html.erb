@@ -98,6 +98,11 @@
   </div>
 
   <div class="field">
+    <%= f.label :extelephone_number_1 -%><br />
+    <%= f.phone_field :extelephone_number_1, :class => 'resource_telephone_number' -%>
+  </div>
+
+  <div class="field">
     <%= f.label :fax_number_1 -%><br />
     <%= f.phone_field :fax_number_1, :class => 'resource_telephone_number' -%>
   </div>
@@ -127,6 +132,11 @@
   </div>
 
   <div class="field">
+    <%= f.label :extelephone_number_2 -%><br />
+    <%= f.phone_field :extelephone_number_2, :class => 'resource_telephone_number' -%>
+  </div>
+
+  <div class="field">
     <%= f.label :fax_number_2 -%><br />
     <%= f.phone_field :fax_number_2, :class => 'resource_telephone_number' -%>
   </div>
@@ -136,11 +146,6 @@
     <%= f.text_area :address_2_note, :class => 'resource_textarea' -%>
   </div>
 
-  <hr /> 
-  <div class="field">
-    <%= f.label :telephone_number_3 -%><br />
-    <%= f.phone_field :telephone_number_3, :class => 'resource_telephone_number' -%>
-  </div>
   </div>
 
   <hr />
