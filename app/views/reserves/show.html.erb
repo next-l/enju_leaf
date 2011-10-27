@@ -34,6 +34,17 @@
 <%- end -%>
   
 <p>
+  <strong><%= t('activerecord.attributes.reserve.receipt_library') -%>:</strong>
+  <%= Library.find(@reserve.receipt_library_id).display_name unless @reserve.receipt_library_id.blank? -%>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.reserve.information_method') -%>:</strong>
+  <%= t('activerecord.attributes.reserve.email') if @reserve.information_type_id == 1 -%>
+  <%= t('activerecord.attributes.reserve.telephone') if @reserve.information_type_id == 2 -%>
+</p>
+
+<p>
   <strong><%= t('activerecord.attributes.reserve.state') -%>:</strong>
   <%= i18n_state(@reserve.state) -%>
 </p>

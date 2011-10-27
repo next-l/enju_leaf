@@ -79,12 +79,13 @@ class ReservesController < ApplicationController
         return
       end
     end
-
     if user
       @reserve = user.reserves.new
     else
       @reserve = Reserve.new
     end
+    @libraries = Library.all_cache
+    @reserve.receipt_library_id = user.library_id unless user.blank?
 
     get_manifestation
     if @manifestation
@@ -102,6 +103,7 @@ class ReservesController < ApplicationController
 
   # GET /reserves/1;edit
   def edit
+    @libraries = Library.all_cache
   end
 
   # POST /reserves
