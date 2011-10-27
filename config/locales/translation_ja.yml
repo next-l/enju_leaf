@@ -153,6 +153,8 @@ ja:
       series_statement_merge: シリーズ情報の統合
       series_statement_merge_list: シリーズ情報統合リスト
       series_has_manifestation: シリーズ情報と資料の関係
+      budget: 予算
+      exchange_rate: 為替レート
 
     attributes:
       library:
@@ -1240,6 +1242,8 @@ ja:
     best_reader: "ベストリーダ"
     userdetail: "利用者詳細"
     download: "ダウンロード"
+    budget_and_order: "予算と発注の管理" 
+    budget: "予算"
 
     exstatistics:
       ranknumber: 順位
