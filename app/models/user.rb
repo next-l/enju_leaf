@@ -78,17 +78,41 @@ class User < ActiveRecord::Base
 
   searchable do
     text :username, :email, :note, :user_number
-    text :telephone_number_1 do
+    text :telephone_number_1_1 do
       patron.telephone_number_1.gsub("-", "") if patron && patron.telephone_number_1
     end
-    text :telephone_number_1_2 do
+    text :telephone_number_1_1 do
       patron.telephone_number_1 if patron && patron.telephone_number_1
     end
-    text :telephone_number_2 do
+    text :extelephone_number_1_1 do
+      patron.extelephone_number_1.gsub("-", "") if patron && patron.extelephone_number_1
+    end
+    text :extelephone_number_1_2_ do
+      patron.extelephone_number_1 if patron && patron.extelephone_number_1
+    end
+    text :fax_number_1_1 do
+      patron.fax_number_1.gsub("-", "") if patron && patron.fax_number_1
+    end
+    text :fax_number_1_2 do
+      patron.fax_number_1 if patron && patron.fax_number_1
+    end
+    text :telephone_number_2_1 do
       patron.telephone_number_2.gsub("-", "") if patron && patron.telephone_number_2
     end
     text :telephone_number_2_2 do
       patron.telephone_number_2 if patron && patron.telephone_number_2
+    end
+    text :extelephone_number_2_1 do
+      patron.extelephone_number_2.gsub("-", "") if patron && patron.extelephone_number_2
+    end
+    text :extelephone_number_2_2 do
+      patron.extelephone_number_2 if patron && patron.extelephone_number_2
+    end
+    text :fax_number_2_1 do
+      patron.fax_number_2.gsub("-", "") if patron && patron.fax_number_2
+    end
+    text :fax_number_2_2 do
+      patron.fax_number_2 if patron && patron.fax_number_2
     end
     text :address do
       addresses = []
