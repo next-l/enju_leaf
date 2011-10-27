@@ -1,0 +1,23 @@
+<% if user_signed_in? && current_user.has_role?('Librarian') -%>
+  <div id="shortcut">
+      <div class="function_key"><h4>F2: <%= t('page.checkout') %></h4></div>
+      <div class="function_key"><h4>F3: <%= t('page.checkin') %></h4></div>
+      <div class="function_key"><h4>F4: <%= t('activerecord.models.order_list') %></h4></div>
+      <div class="function_key"><h4>F6: <%= t('page.catalog_search') %></h4></div>
+      <br style="clear:both;">
+  </div>
+<% end %>
+
+<script type="text/javascript">
+  <!--
+  <% if user_signed_in? && current_user.has_role?('Librarian') -%>
+    $(document).FunctionKeys(
+    {
+       F2:function(obj,s,c,a){document.location = '<%= new_basket_path%>';} 
+       ,F3:function(obj,s,c,a){document.location = '<%= checkins_path %>';}
+       ,F4:function(obj,s,c,a){document.location = '<%= order_lists_path %>';}
+       ,F6:function(obj,s,c,a){document.location = '<%= root_path %>';}
+     });
+   <% end %>
+   // -->
+ </script>
