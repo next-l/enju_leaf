@@ -15,7 +15,7 @@ class Reserve < ActiveRecord::Base
   scope :not_sent_cancel_notice_to_patron, where(:state => 'canceled', :expiration_notice_to_patron => false)
   scope :not_sent_cancel_notice_to_library, where(:state => 'canceled', :expiration_notice_to_library => false)
   scope :previous_reserves, where(:state => ['requested', 'retained'])  
-  acts_as_list :scope => :manifestation_id
+  acts_as_list :scope => :manifestation
 
   belongs_to :user, :validate => true
   belongs_to :manifestation, :validate => true

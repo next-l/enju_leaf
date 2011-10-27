@@ -17,7 +17,7 @@ class Manifestation < ActiveRecord::Base
   has_many :subjects, :through => :work_has_subjects
   has_many :bookmarks, :include => :tags, :dependent => :destroy, :foreign_key => :manifestation_id
   has_many :users, :through => :bookmarks
-  has_many :reserves, :foreign_key => :manifestation_id
+  has_many :reserves, :foreign_key => :manifestation_id, :order => :position
   has_many :picture_files, :as => :picture_attachable, :dependent => :destroy
   belongs_to :language
   belongs_to :carrier_type

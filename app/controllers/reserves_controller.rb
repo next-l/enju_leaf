@@ -222,7 +222,7 @@ class ReservesController < ApplicationController
 
 private 
   def position_update(manifestation)
-    reserves = Reserve.where(:manifestation_id => manifestation).order(:position)
+    reserves = Reserve.where(:manifestation_id => manifestation).waiting.order(:position)
     items = []
     manifestation.items.for_checkout.each do |i|
       items << i if i.available_for_checkout?
