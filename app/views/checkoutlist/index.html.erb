@@ -55,7 +55,9 @@
 
 <div id="submenu" class="ui-corner-all">
   <p>
-    <%= submit_tag t('page.download') -%>
+    <li>
+      <%= link_to t('page.download'),  checkoutlist_path(:commit => t('page.download')) -%>
+    </li>
   </p>
 </div>
 <%- end -%>
