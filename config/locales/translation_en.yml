@@ -716,6 +716,10 @@ en:
         deleted_at: Deleted at
         created_at: Reserved at
         state: State
+        information_method: Information method
+        receipt_library: Receipt library
+        email: email
+        telephone: telephone
       message_request:
         sent_at: Sent at
         deleted_at: Deleted at

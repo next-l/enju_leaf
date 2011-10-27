@@ -737,6 +737,10 @@ ja:
         state: 状態
         contact: 連絡先
         zipcode: 〒
+        information_method: 連絡方法
+        receipt_library: 受取館
+        email: 電子メール
+        telephone: 電話
       message_request:
         sent_at: 送信時刻
         deleted_at: 削除時刻
