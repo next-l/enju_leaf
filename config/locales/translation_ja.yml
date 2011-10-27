@@ -1484,6 +1484,7 @@ ja:
     already_in_family: "家族登録済みです。"
     overdue_item: "%{user} さんの貸出期限がすぎている資料が %{count} 冊あります。"
     retained_reserve: "%{user} さんの予約資料が %{count} 冊用意されています。" 
+    create_family_user: "家族を新規作成する"
   news_post:
     library_group_news_post: "%{library_group_name} からのお知らせ"
   reserve:
