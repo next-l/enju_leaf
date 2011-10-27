@@ -97,15 +97,15 @@
         </tr>
         <tr>
           <td><strong><%= t('activerecord.attributes.patron.telephone_number_1') -%>:</strong></td>
-          <td><%= @patron.telephone_number_1 -%>&nbsp;<%= @telephone_number_1_type -%></td>
+          <td><%= @patron.telephone_number_1 -%>&nbsp;<%= @telephone_number_1_type unless @patron.telephone_number_1.blank? -%></td>
         </tr>
         <tr>
           <td><strong><%= t('activerecord.attributes.patron.extelephone_number_1') -%>:</strong></td>
-          <td><%= @patron.extelephone_number_1 -%>&nbsp;<%= @extelephone_number_1_type -%></td>
+          <td><%= @patron.extelephone_number_1 -%>&nbsp;<%= @extelephone_number_1_type unless @patron.extelephone_number_1.blank? -%></td>
         </tr>
         <tr>
           <td><strong><%= t('activerecord.attributes.patron.fax_number_1') -%>:</strong></td>
-          <td><%= @patron.fax_number_1 -%>&nbsp;<%= @fax_number_1_type -%></td>
+          <td><%= @patron.fax_number_1 -%>&nbsp;<%= @fax_number_1_type unless @patron.fax_number_1.blank? -%></td>
         </tr>
         <tr>
           <td><strong><%= t('activerecord.attributes.patron.address_1_note') -%>:</strong></td>
@@ -121,15 +121,15 @@
         </tr>
         <tr>
           <td><strong><%= t('activerecord.attributes.patron.telephone_number_2') -%>:</strong></td>
-          <td><%= @patron.telephone_number_2 -%>&nbsp;<%= @telephone_number_2_type -%></td>
+          <td><%= @patron.telephone_number_2 -%>&nbsp;<%= @telephone_number_2_type unless @patron.telephone_number_2.blank? -%></td>
         </tr>
         <tr>
           <td><strong><%= t('activerecord.attributes.patron.extelephone_number_2') -%>:</strong></td>
-          <td><%= @patron.extelephone_number_2 -%>&nbsp;<%= @extelephone_number_2_type -%></td>
+          <td><%= @patron.extelephone_number_2 -%>&nbsp;<%= @extelephone_number_2_type unless @patron.extelephone_number_2.blank? -%></td>
         </tr>
         <tr>
           <td><strong><%= t('activerecord.attributes.patron.fax_number_2') -%>:</strong></td>
-          <td><%= @patron.fax_number_2 -%>&nbsp;<%= @fax_number_2_type -%></td>
+          <td><%= @patron.fax_number_2 -%>&nbsp;<%= @fax_number_2_type unless @patron.fax_number_2.blank?-%></td>
         </tr>
         <tr>
           <td><strong><%= t('activerecord.attributes.patron.address_2_note') -%>:</strong></td>
@@ -153,7 +153,14 @@
         </tr>
         <tr>
           <td><strong><%= t('activerecord.attributes.patron.note_update_at') -%>:</strong></td>
-          <td><%= l(@patron.note_update_at) unless @patron.note_update_at.blank?-%></td>
+          <td><%= l(@patron.note_update_at) unless @patron.note_update_at.blank?-%>
+            <%- if @patron.note_update_by -%>
+              &nbsp;<%= t('patron.last_update_by') -%>: <%= @patron.note_update_by -%>
+            <%- end -%>
+            <%- if @patron.note_update_library -%>
+              (<%= @patron.note_update_library-%>)
+            <%- end -%>
+          </td>
         </tr>
       <%- end -%>
       <tr>
