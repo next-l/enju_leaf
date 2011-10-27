@@ -10,7 +10,7 @@ class BookmarksControllerTest < ActionController::TestCase
   def test_user_should_get_my_index
     sign_in users(:user1)
     get :index, :user_id => users(:user1).username
-    assert assigns(:bookmarks)
+    assert_equal assigns(:bookmarks), []
     assert_response :success
   end
 
@@ -22,7 +22,7 @@ class BookmarksControllerTest < ActionController::TestCase
   end
 
   def test_user_should_not_get_other_private_index
-    sign_in users(:user2)
+    sign_in users(:user3)
     get :index, :user_id => users(:user1).username
     assert_response :forbidden
   end
@@ -79,12 +79,13 @@ class BookmarksControllerTest < ActionController::TestCase
   def test_user_should_not_create_other_users_bookmark
     sign_in users(:user1)
     old_bookmark_counts = users(:user2).bookmarks.count
-    assert_no_difference('Bookmark.count') do
+    assert_difference('Bookmark.count') do
       post :create, :bookmark => {:user_id => users(:user2).id, :title => 'example', :url => 'http://example.com/'}
     end
     assert_equal old_bookmark_counts, users(:user2).bookmarks.count
+    assert_equal assigns(:bookmark).user, users(:user1)
     
-    assert_response :forbidden
+    assert_redirected_to bookmark_url(assigns(:bookmark))
   end
 
   def test_user_should_create_bookmark_with_tag_list

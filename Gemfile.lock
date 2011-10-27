@@ -9,14 +9,14 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_bookmark.git
-  revision: 65897699eeb0bc0f360387e43adbf2602dc3fd8f
+  revision: d7369a4f17fe2cdd217aad5483dc272a9ad1679e
   specs:
     enju_bookmark (0.0.2)
       rails (~> 3.1.1)
 
 GIT
   remote: git://github.com/nabeta/enju_circulation.git
-  revision: d6d5f66be337819cafdcecb3ace7d6949645a8ff
+  revision: e4db8c1faa36fc8dd691595aba2b5b62703d4e5a
   specs:
     enju_circulation (0.0.2)
       rails (~> 3.1.1)
@@ -59,7 +59,7 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_purchase_request.git
-  revision: 4dee570169a298062c50d1d494ec1b302d7b0a94
+  revision: 061c9046b32b10022babc0eb9469d736a8f4b55b
   specs:
     enju_purchase_request (0.0.2)
       rails (~> 3.1.1)
@@ -217,10 +217,10 @@ GEM
       ruby_parser (~> 2.0)
       sexp_processor (~> 3.0)
     friendly_id (4.0.0.beta14)
-    geocoder (1.0.4)
+    geocoder (1.0.5)
     guard (0.8.8)
       thor (~> 0.14.6)
-    guard-rspec (0.5.0)
+    guard-rspec (0.5.1)
       guard (>= 0.8.4)
     has_scope (0.5.1)
     highline (1.6.2)

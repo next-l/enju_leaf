@@ -5,7 +5,7 @@ describe BookmarksController do
 
   describe "GET index", :solr => true do
     describe "When logged in as Administrator" do
-      login_admin
+      login_fixture_admin
 
       it "assigns all bookmarks as @bookmarks" do
         get :index
@@ -14,7 +14,7 @@ describe BookmarksController do
     end
 
     describe "When logged in as Librarian" do
-      login_librarian
+      login_fixture_librarian
 
       it "assigns all bookmarks as @bookmarks" do
         get :index
@@ -23,26 +23,23 @@ describe BookmarksController do
     end
 
     describe "When logged in as User" do
-      before(:each) do
-        @user = FactoryGirl.create(:user)
-        sign_in @user
-      end
+      login_fixture_user
 
       it "assigns all bookmarks as @bookmarks" do
         get :index
         assigns(:bookmarks).should_not be_empty
       end
 
-      it "should be redirected to my bookmark index" do
+      it "should get my bookmark index" do
         get :index
-        response.should redirect_to user_bookmarks_url(@user)
+        response.should be_success
       end
     end
 
     describe "When not logged in" do
-      it "assigns all bookmarks as @bookmarks" do
+      it "assigns nil as @bookmarks" do
         get :index
-        assigns(:bookmarks).should be_empty
+        assigns(:bookmarks).should be_nil
       end
 
       it "should be redirected to new_user_session_url "do
@@ -54,7 +51,7 @@ describe BookmarksController do
 
   describe "GET show" do
     describe "When logged in as Administrator" do
-      login_admin
+      login_fixture_admin
 
       it "assigns the requested bookmark as @bookmark" do
         bookmark = FactoryGirl.create(:bookmark)
@@ -64,7 +61,7 @@ describe BookmarksController do
     end
 
     describe "When logged in as Librarian" do
-      login_librarian
+      login_fixture_librarian
 
       it "assigns the requested bookmark as @bookmark" do
         bookmark = FactoryGirl.create(:bookmark)
@@ -237,7 +234,7 @@ describe BookmarksController do
     end
 
     describe "When logged in as Administrator" do
-      login_admin
+      login_fixture_admin
 
       it "destroys the requested bookmark" do
         delete :destroy, :id => @bookmark.id
@@ -250,7 +247,7 @@ describe BookmarksController do
     end
 
     describe "When logged in as Librarian" do
-      login_librarian
+      login_fixture_librarian
 
       it "destroys the requested bookmark" do
         delete :destroy, :id => @bookmark.id
@@ -263,7 +260,7 @@ describe BookmarksController do
     end
 
     describe "When logged in as User" do
-      login_user
+      login_fixture_user
 
       it "destroys the requested bookmark" do
         delete :destroy, :id => @bookmark.id

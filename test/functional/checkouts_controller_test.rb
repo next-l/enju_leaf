@@ -123,13 +123,6 @@ class CheckoutsControllerTest < ActionController::TestCase
     assert_redirected_to new_user_session_url
   end
   
-  def test_everyone_should_not_get_edit_without_user_id
-    sign_in users(:admin)
-    get :edit, :id => 1
-    #assert_response :forbidden
-    assert_response :missing
-  end
-  
   def test_user_should_get_my_edit
     sign_in users(:user1)
     get :edit, :id => 3, :user_id => users(:user1).username
@@ -157,13 +150,6 @@ class CheckoutsControllerTest < ActionController::TestCase
   def test_guest_should_not_update_checkout
     put :update, :id => 1, :user_id => users(:admin).username, :checkout => { }
     assert_redirected_to new_user_session_url
-  end
-  
-  def test_everyone_should_not_update_checkout_without_user_id
-    sign_in users(:admin)
-    put :update, :id => 1, :checkout => { }
-    #assert_response :forbidden
-    assert_response :missing
   end
   
   def test_everyone_should_not_update_missing_checkout
@@ -224,16 +210,6 @@ class CheckoutsControllerTest < ActionController::TestCase
     end
     
     assert_redirected_to new_user_session_url 
-  end
-
-  def test_everyone_should_not_destroy_checkout_without_user_id
-    sign_in users(:admin)
-    assert_no_difference('Checkout.count') do
-      delete :destroy, :id => 3
-    end
-    
-    #assert_response :forbidden
-    assert_response :missing
   end
 
   def test_everyone_should_not_destroy_missing_checkout

@@ -31,15 +31,15 @@ describe PurchaseRequestsController do
     describe "When logged in as User" do
       login_fixture_user
 
-      it "assigns all purchase_requests as @purchase_requests" do
+      it "assigns my purchase_requests as @purchase_requests" do
         get :index
         assigns(:purchase_requests).should_not be_empty
       end
 
-      it "should be redirected to my index without user_id" do
+      it "should be get my index without user_id" do
         get :index
-        assigns(:purchase_requests).should_not be_empty
-        response.should redirect_to user_purchase_requests_url(@user)
+        assigns(:purchase_requests).should eq users(:user1).purchase_requests
+        response.should be_success
       end
 
       it "should get my index" do
