@@ -253,14 +253,18 @@ class PatronsController < ApplicationController
   end
 
   def set_phone_type(phone_type_id)
+    type = nil;
     if phone_type_id == 1
-      return t('activerecord.attributes.patron.home_phone')
+      type = '('+ t('activerecord.attributes.patron.home_phone') +')'
     elsif phone_type_id == 2
-      return t('activerecord.attributes.patron.fax')
+      type = '('+ t('activerecord.attributes.patron.fax') +')'
     elsif phone_type_id == 3
-      return t('activerecord.attributes.patron.mobile_phone')
+      type = '(' +t('activerecord.attributes.patron.mobile_phone') +')'
+    elsif phone_type_id == 4
+      type = '('+ t('activerecord.attributes.patron.company_phone') +')'
     else
-      return t('activerecord.attributes.patron.company_phone')
+      type = nil;
     end
+    return type;
   end
 end

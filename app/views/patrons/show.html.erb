@@ -97,15 +97,15 @@
         </tr>
         <tr>
           <td><strong><%= t('activerecord.attributes.patron.telephone_number_1') -%>:</strong></td>
-          <td><%= @patron.telephone_number_1 -%>&nbsp;(<%= @telephone_number_1_type -%>)</td>
+          <td><%= @patron.telephone_number_1 -%>&nbsp;<%= @telephone_number_1_type -%></td>
         </tr>
         <tr>
           <td><strong><%= t('activerecord.attributes.patron.extelephone_number_1') -%>:</strong></td>
-          <td><%= @patron.extelephone_number_1 -%>&nbsp;(<%= @extelephone_number_1_type -%>)</td>
+          <td><%= @patron.extelephone_number_1 -%>&nbsp;<%= @extelephone_number_1_type -%></td>
         </tr>
         <tr>
           <td><strong><%= t('activerecord.attributes.patron.fax_number_1') -%>:</strong></td>
-          <td><%= @patron.fax_number_1 -%>&nbsp;(<%= @fax_number_1_type -%>)</td>
+          <td><%= @patron.fax_number_1 -%>&nbsp;<%= @fax_number_1_type -%></td>
         </tr>
         <tr>
           <td><strong><%= t('activerecord.attributes.patron.address_1_note') -%>:</strong></td>
@@ -121,15 +121,15 @@
         </tr>
         <tr>
           <td><strong><%= t('activerecord.attributes.patron.telephone_number_2') -%>:</strong></td>
-          <td><%= @patron.telephone_number_2 -%>&nbsp;(<%= @telephone_number_2_type -%>)</td>
+          <td><%= @patron.telephone_number_2 -%>&nbsp;<%= @telephone_number_2_type -%></td>
         </tr>
         <tr>
           <td><strong><%= t('activerecord.attributes.patron.extelephone_number_2') -%>:</strong></td>
-          <td><%= @patron.extelephone_number_2 -%>&nbsp;(<%= @extelephone_number_2_type -%>)</td>
+          <td><%= @patron.extelephone_number_2 -%>&nbsp;<%= @extelephone_number_2_type -%></td>
         </tr>
         <tr>
           <td><strong><%= t('activerecord.attributes.patron.fax_number_2') -%>:</strong></td>
-          <td><%= @patron.fax_number_2 -%>&nbsp;(<%= @fax_number_2_type -%>)</td>
+          <td><%= @patron.fax_number_2 -%>&nbsp;<%= @fax_number_2_type -%></td>
         </tr>
         <tr>
           <td><strong><%= t('activerecord.attributes.patron.address_2_note') -%>:</strong></td>
@@ -220,9 +220,11 @@
       <li><%= link_to t('page.edit'), edit_patron_path(@patron) -%></li>
       <li><%= link_to t('patron.add_derivation'), patron_patrons_path(@patron, :mode => 'add') -%></li>
     <%- end -%>
-    <%- if can? :destroy, @patron -%>
-      <li><%= link_to t('page.new', :model => t('activerecord.models.patron')), new_patron_path -%></li>
-      <li><%= link_to t('page.destroy'), @patron, :confirm => t('page.are_you_sure'), :method => :delete -%></li>
+    <%- if @patron.user.blank? -%>
+      <%- if can? :destroy, @patron -%>
+        <li><%= link_to t('page.new', :model => t('activerecord.models.patron')), new_patron_path -%></li>
+        <li><%= link_to t('page.destroy'), @patron, :confirm => t('page.are_you_sure'), :method => :delete -%></li>
+      <%- end -%>
     <%- end -%>
   </ul>
   <ul>
