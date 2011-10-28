@@ -347,6 +347,8 @@ ja:
         death_date: 没年月日
         email: メールアドレス
         adddress: 住所
+        disp_user_info: 利用者情報を表示する
+        show_user: 利用者の表示
       work_has_subject:
         work: 書いた資料
         subject: 件名
