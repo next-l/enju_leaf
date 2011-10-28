@@ -1645,3 +1645,5 @@ ja:
     will_be_family_with: "さんと家族登録します。"
   resource_import_file:
     template_download: "テンプレートをダウンロード"
+  budget:
+    yen: "%{amount} 円"
