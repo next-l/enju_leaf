@@ -271,7 +271,7 @@ class UsersController < ApplicationController
         @family_ids << f_user.family_id
       end
       @family_ids.uniq!
-      @group_users = User.find(:all, :conditions => ['id IN (?)', family_user_ids])
+      @group_users = User.find(:all, :conditions => ['users.id IN (?)', family_user_ids], :joins => :family_user, :order => 'family_users.id')
       family_id = FamilyUser.find(:first, :conditions => ['user_id=?', params[:user]]).family_id rescue nil
       already_family_users = Family.find(family_id).users if family_id rescue nil
       @users.delete_if{|user| already_family_users.include?(user)} if already_family_users
@@ -287,7 +287,11 @@ class UsersController < ApplicationController
   def get_family_info
     return nil unless request.xhr?
     unless params[:user_id].blank?
-      @user = User.find(params[:user_id]) rescue nil
+      family_id = FamilyUser.where(:user_id => params[:user_id]).first.family_id rescue nil
+      @user = User.find(FamilyUser.where(:family_id => family_id).order(:id).first.user_id) rescue nil
+      if @user.nil?
+        @user = User.find(params[:user_id]) rescue nil
+      end
       @patron = @user.patron
       render :json => {:success => 1, :user => @user, :patron => @patron }
     end
