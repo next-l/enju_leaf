@@ -56,6 +56,7 @@ class Ability
         Bookmark,
         BookmarkStat,
         BookmarkStatHasManifestation,
+        Budget,
         CarrierTypeHasCheckoutType,
         CheckedItem,
         Checkin,
@@ -112,6 +113,7 @@ class Ability
         Subscribe,
         Subscription,
         Tag,
+        Term,
         UserCheckoutStat,
         UserGroupHasCheckoutType,
         UserHasRole,
@@ -206,6 +208,7 @@ class Ability
         Answer,
         Basket,
         Bookmark,
+        Budget,
         CheckedItem,
         Checkin,
         Checkout,
@@ -245,6 +248,7 @@ class Ability
         Subscribe,
         Subscription,
         Tag,
+        Term,
         WorkHasSubject
       ]
       can :read, [

@@ -155,7 +155,8 @@ ja:
       series_has_manifestation: シリーズ情報と資料の関係
       budget: 予算
       exchange_rate: 為替レート
-
+      term: 期間
+   
     attributes:
       library:
         name: 名前
@@ -1073,6 +1074,15 @@ ja:
       series_has_manifestation:
         series_statement_id: シリーズ情報のID
         manifestation_id: 資料のID
+      budget:
+        library: 図書館
+        term: 期間
+        amount: 金額
+      term:
+        display_name: 期間名
+        start_at: 開始日時
+        end_at: 終了日時
+
 
   page:
     user_title: "ようこそ %{login_name} さん"
