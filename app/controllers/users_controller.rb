@@ -115,6 +115,9 @@ class UsersController < ApplicationController
       @patron = @family_with.patron.clone rescue Patron.new
       @patron.full_name = nil
       @family_id = FamilyUser.find(:first, :conditions => ['user_id=?',  params[:user]]).family_id rescue nil
+      @patron.note_update_at = nil
+      @patron.note_update_by = nil
+      @patron.note_update_library = nil
     else 
       @user = User.new
       @patron = Patron.new
@@ -123,6 +126,11 @@ class UsersController < ApplicationController
       @patron.country = current_user.library.country
       @patron.country_id = LibraryGroup.site_config.country_id
       @patron.telephone_number_1_type_id = 1
+      @patron.telephone_number_2_type_id = 1
+      @patron.extelephone_number_1_type_id = 2
+      @patron.extelephone_number_2_type_id = 2
+      @patron.fax_number_1_type_id = 3
+      @patron.fax_number_2_type_id = 3
     end
     #@user.openid_identifier = flash[:openid_identifier]
     prepare_options
