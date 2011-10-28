@@ -48,7 +48,7 @@
       <%= link_to user.username, user -%>
       <br />
       <%- if user.patron -%>
-        <%= link_to user.patron.full_name, user.patron if current_user.has_role?('Librarian') -%>
+        <%= link_to user.patron.full_name, user -%>
       <%- end -%>
     </td>
     <td><%= user.user_number -%></td>

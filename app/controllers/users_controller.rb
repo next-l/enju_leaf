@@ -75,15 +75,26 @@ class UsersController < ApplicationController
   end
 
   def show
-    if @user == current_user
-      redirect_to my_account_url
-      return
-    end
-
+    #if @user == current_user
+    #  redirect_to my_account_url
+    #  return
+    #end
+    unless @user == current_user or current_user.has_role?('Librarian')
+      access_denied; return
+    end 
     session[:user_return_to] = nil
     unless @user.patron
       redirect_to new_user_patron_url(@user); return
     end
+
+    @patron = @user.patron
+    @telephone_number_1_type = set_phone_type(@user.patron.telephone_number_1_type_id)
+    @extelephone_number_1_type = set_phone_type(@user.patron.extelephone_number_1_type_id)
+    @fax_number_1_type = set_phone_type(@user.patron.fax_number_1_type_id)
+    @telephone_number_2_type = set_phone_type(@user.patron.telephone_number_2_type_id)
+    @extelephone_number_2_type = set_phone_type(@user.patron.extelephone_number_2_type_id)
+    @fax_number_2_type = set_phone_type(@user.patron.fax_number_2_type_id)
+
     #@tags = @user.owned_tags_by_solr
     @tags = @user.bookmarks.tag_counts.sort{|a,b| a.count <=> b.count}.reverse
 
@@ -320,5 +331,19 @@ class UsersController < ApplicationController
       @user.locked = '1'
     end
     @patron_types = PatronType.all
+  end
+
+  def set_phone_type(phone_type_id)
+    type = nil;
+    if phone_type_id == 1
+      type = '('+ t('activerecord.attributes.patron.home_phone') +')'
+    elsif phone_type_id == 2
+      type = '('+ t('activerecord.attributes.patron.fax') +')'
+    elsif phone_type_id == 3
+      type = '(' +t('activerecord.attributes.patron.mobile_phone') +')'
+    elsif phone_type_id == 4
+      type = '('+ t('activerecord.attributes.patron.company_phone') +')'
+    end
+    return type;
   end
 end

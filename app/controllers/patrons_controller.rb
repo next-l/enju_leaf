@@ -99,6 +99,10 @@ class PatronsController < ApplicationController
   # GET /patrons/1
   # GET /patrons/1.xml
   def show
+    unless @patron.user.blank?
+      access_denied; return
+    end
+
     get_work; get_expression; get_manifestation; get_item
     case
     when @work
