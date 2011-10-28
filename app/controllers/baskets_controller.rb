@@ -79,6 +79,7 @@ class BasketsController < ApplicationController
   def update
     librarian = current_user
     unless @basket.basket_checkout(librarian)
+      flash[:message] = @basket.errors[:base]
       redirect_to user_basket_checked_items_url(@basket.user, @basket)
       return
     end

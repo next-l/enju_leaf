@@ -363,7 +363,7 @@ class Ability
       end
       can [:index, :create], Reserve
       can [:show, :update, :destroy], Reserve do |reserve|
-        reserve.user == user
+        reserve.user == user && reserve.expired_at.end_of_day > Time.zone.now
       end
       can :index, SearchHistory
       can [:show, :destroy], SearchHistory do |search_history|
