@@ -50,7 +50,7 @@ class BasketsController < ApplicationController
   # POST /baskets.xml
   def create
     @basket = Basket.new
-    @user = User.where(:user_number => params[:basket][:user_number]).first rescue nil
+    @user = User.where(:user_number => params[:basket][:user_number].strip).first rescue nil
     if @user
       if @user.user_number?
         @basket.user = @user
