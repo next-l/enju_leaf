@@ -346,6 +346,7 @@ ja:
         death_date: 没年月日
         email: メールアドレス
         adddress: 住所
+        disp_user_info: 家族情報を表示する
       work_has_subject:
         work: 書いた資料
         subject: 件名
