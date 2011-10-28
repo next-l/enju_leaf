@@ -23,7 +23,11 @@
     <%- if @manifestation && current_user.has_role?('Librarian') -%>
       <td>
         <%- if can? :update, reserve -%>
-          <%= move_position(reserve) -%>
+          <%- if i == (@reserves.length - 1) -%>
+            <%= move_position_for_reserve(reserve, 'last') -%>
+          <%- else -%>
+            <%= move_position_for_reserve(reserve) -%>
+          <%- end -%>
         <%- end -%>
       </td>
     <%- end -%>

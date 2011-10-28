@@ -29,4 +29,8 @@ module ReservesHelper
     end
     result.sub(/(><div>)/, '\1' + parameter_tag).html_safe
   end
+
+  def move_position_for_reserve(object, option = {})
+    render :partial => 'position', :locals => {:object => object, :option => option}
+  end
 end
