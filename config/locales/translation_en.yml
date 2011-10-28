@@ -338,6 +338,7 @@ en:
         locale: Locale
         password_confirmation: Password confirmation
         disp_user_info: Show user information
+        show_user: Show user
       work_has_subject:
         work: Work
         subject: Subject
