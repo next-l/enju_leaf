@@ -193,6 +193,7 @@ class ReservesController < ApplicationController
         format.html { redirect_to user_reserve_url(@reserve.user, @reserve) }
         format.xml  { head :ok }
       else
+        @libraries = Library.all_cache
         format.html { render :action => "edit" }
         format.xml  { render :xml => @reserve.errors.to_xml }
       end

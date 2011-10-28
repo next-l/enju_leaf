@@ -6,6 +6,7 @@ class Basket < ActiveRecord::Base
   has_many :items, :through => :checked_items
   has_many :checkouts
   has_many :checkins
+  acts_as_paranoid
 
   validates_associated :user, :on => :create
   # 貸出完了後にかごのユーザidは破棄する
@@ -27,14 +28,20 @@ class Basket < ActiveRecord::Base
     begin
     Item.transaction do
       self.checked_items.each do |checked_item|
-        checkout = self.user.checkouts.new(:librarian_id => librarian.id, :item_id => checked_item.item.id, :basket_id => self.id, :due_date => checked_item.due_date)
-        if checked_item.item.checkout!(self.user)
-#          checked_item.item.manifestation.next_reservation.sm_complete if checked_item.item.reserved?
-          checked_item.item.reserve.sm_complete if checked_item.item.reserved? && checked_item.item.reserve.user == self.user
-          checkout.save!
+        checked_item.ignore_restriction = '1'
+        if checked_item.available_for_checkout?
+          checkout = self.user.checkouts.new(:librarian_id => librarian.id, :item_id => checked_item.item.id, :basket_id => self.id, :due_date => checked_item.due_date)
+          if checked_item.item.checkout!(self.user)
+            checked_item.item.reserve.sm_complete if checked_item.item.reserved? && checked_item.item.reserve.user == self.user
+            checkout.save!
+          end
+        else
+          errors[:base] << I18n.t('activerecord.errors.messages.checked_item.not_available_for_checkout')
+          return false          
         end
       end
       CheckedItem.destroy_all(:basket_id => self.id)
+      self.destroy
     end
     rescue Exception => e
       logger.error "Failed to checkout: #{e}"

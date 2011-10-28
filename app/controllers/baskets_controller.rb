@@ -51,6 +51,11 @@ class BasketsController < ApplicationController
   def create
     @basket = Basket.new
     @user = User.where(:user_number => params[:basket][:user_number].strip).first rescue nil
+    old_basket = Basket.where(:user_id => @user.id).first rescue nil
+    if old_basket
+      old_basket.checked_items.destroy_all rescue nil
+      old_basket.destroy
+    end
     if @user
       if @user.user_number?
         @basket.user = @user
@@ -74,6 +79,7 @@ class BasketsController < ApplicationController
   def update
     librarian = current_user
     unless @basket.basket_checkout(librarian)
+      flash[:message] = @basket.errors[:base]
       redirect_to user_basket_checked_items_url(@basket.user, @basket)
       return
     end

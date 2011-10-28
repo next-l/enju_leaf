@@ -112,6 +112,7 @@ class UsersController < ApplicationController
       @user = @family_with.clone rescue User.new
       @user.username = nil
       @user.user_number = nil
+      @user.role_id = @family_with.role.id
       @patron = @family_with.patron.clone rescue Patron.new
       @patron.full_name = nil
       @family_id = FamilyUser.find(:first, :conditions => ['user_id=?',  params[:user]]).family_id rescue nil
@@ -120,6 +121,10 @@ class UsersController < ApplicationController
       @patron.note_update_library = nil
     else 
       @user = User.new
+      @user.library = current_user.library
+      @user.locale = current_user.locale
+      @user.role_id = 2
+      @user.required_role_id = 3
       @patron = Patron.new
       @patron.required_role = Role.find_by_name('Librarian')
       @patron.language = Language.where(:iso_639_1 => I18n.default_locale.to_s).first || Language.first 
@@ -143,8 +148,6 @@ class UsersController < ApplicationController
 #    end
     @user.patron_id = @patron.id if @patron
     logger.error "2: #{@patron.id}"
-    @user.library = current_user.library
-    @user.locale = current_user.locale
   end
 
   def edit
