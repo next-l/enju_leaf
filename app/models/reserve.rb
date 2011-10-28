@@ -28,6 +28,7 @@ class Reserve < ActiveRecord::Base
   validates_associated :user, :librarian, :item, :request_status_type, :manifestation
   validates_presence_of :user, :manifestation, :request_status_type #, :expired_at
   #validates_uniqueness_of :manifestation_id, :scope => :user_id
+  validates_uniqueness_of :item_id, :scope => where('position is NULL')
   validates_date :expired_at, :allow_blank => true
   validate :manifestation_must_include_item
   validate :available_for_reservation?, :on => :create

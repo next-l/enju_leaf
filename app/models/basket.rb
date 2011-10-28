@@ -6,6 +6,7 @@ class Basket < ActiveRecord::Base
   has_many :items, :through => :checked_items
   has_many :checkouts
   has_many :checkins
+  acts_as_paranoid
 
   validates_associated :user, :on => :create
   # 貸出完了後にかごのユーザidは破棄する
@@ -35,6 +36,7 @@ class Basket < ActiveRecord::Base
         end
       end
       CheckedItem.destroy_all(:basket_id => self.id)
+      self.destroy
     end
     rescue Exception => e
       logger.error "Failed to checkout: #{e}"

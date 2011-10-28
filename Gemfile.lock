@@ -242,6 +242,8 @@ GEM
       activesupport (= 3.0.10)
       bundler (~> 1.0)
       railties (= 3.0.10)
+    rails3_acts_as_paranoid (0.1.1)
+      activerecord (~> 3.0)
     rails_best_practices (0.10.1)
       activesupport
       colored
@@ -401,6 +403,7 @@ DEPENDENCIES
   progress_bar
   rack-protection
   rails (= 3.0.10)
+  rails3_acts_as_paranoid
   recurrence
   ri_cal
   rqrcode

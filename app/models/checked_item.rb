@@ -103,7 +103,7 @@ class CheckedItem < ActiveRecord::Base
   end
 
   def in_transaction?
-    true if CheckedItem.where(:basket_id => self.basket.id, :item_id => self.item_id).first
+    true if CheckedItem.where(:item_id => self.item_id, :basket_id => self.basket_id).first
   end
 
   def destroy_reservation(basket)
@@ -119,8 +119,8 @@ class CheckedItem < ActiveRecord::Base
     reserve = Reserve.waiting.where(:manifestation_id => self.item.manifestation.id, :user_id => self.basket.user.id).first rescue nil
     retained_reserves = self.item.manifestation.reserves.hold
     if retained_reserves && retained_reserves.include?(reserve)
-      return true if self.item.reserve.user_id == self.basket.user.id
       begin
+       return true if self.item.reserve.user_id == self.basket.user.id
         exchange_reserve_item(self.item, reserve)
         return true
       rescue Exception => e
@@ -135,10 +135,11 @@ class CheckedItem < ActiveRecord::Base
       Reserve.transaction do 
         reserve = Reserve.waiting.where(:item_id => checkin_item.id).first rescue nil
         item = checkin_reserve.item
+        raise Exception if CheckedItem.where(:item_id => checkin_reserve.item_id, :basket_id => self.basket_id).first
         checkin_reserve.item = checkin_item
         unless reserve.blank?
           reserve.item = item
-          reserve.save!
+          reserve.save(:validate => false)
         end
         checkin_reserve.save
       end
