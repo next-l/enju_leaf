@@ -1,32 +1,7 @@
 <div id="content_detail" class="ui-corner-all">
 <h1 class="title"><%= t('page.showing', :model => t('activerecord.models.user')) -%></h1>
 <div id="content_list">
-<p id="notice"><%= notice %></p>
-
-  <h2 class="resource_title">
-    [U]
-    <%= user.username -%>
-    <% if can? :show, user.patron %>
-      (<%= link_to user.patron.full_name, user.patron %>)
-    <% end %>
-  </h2>
-
-  <p><%= t('activerecord.attributes.user.user_number') %>: <%= user.user_number %></p>
-  <%- unless @family_users.blank? -%>
-    <p><%= t('activerecord.attributes.checkout.family_info') %>: 
-      <%- @family_users.each do |f_user| -%>
-        <%- unless f_user == user -%>
-          <%= link_to f_user.username, f_user -%>
-          (<%= link_to f_user.patron.full_name, f_user.patron if current_user.has_role?('Librarian') -%>)&nbsp; 
-        <%- end -%>
-      <%- end -%>
-    </p>  
-  <%- end -%>
-  <%- if flash[:temporary_password] -%>
-    <p><%= t('user.your_temporary_password_is') -%>: </p>
-    <p style="font-size: 200%"><%= flash[:temporary_password] -%></p>
-  <%- end -%>
-
+  <p id="notice"><%= notice %></p>
   <div style="color: red">
     <%= user_notice(user) -%>
     <%- unless @family_users.blank? -%>
@@ -36,6 +11,35 @@
     <%- end -%>
   </div>
 
+  <h2 class="resource_title">[U]<%= @patron.full_name %></h2>
+
+  <%- if flash[:temporary_password] -%>
+    <p><%= t('user.your_temporary_password_is') -%>: </p>
+    <p style="font-size: 200%"><%= flash[:temporary_password] -%></p>
+  <%- end -%>
+
+  <p><strong><%= t('activerecord.attributes.user.user_number') %>: </strong><%= user.user_number %></p>
+  <%- unless @family_users.blank? -%>
+    <p><strong><%= t('activerecord.attributes.checkout.family_info') %>: </strong>
+      <%- @family_users.each do |f_user| -%>
+        <%- unless f_user == user -%>
+          <%- if current_user.has_role?('Librarian') -%>
+            <%= link_to f_user.patron.full_name, f_user -%>
+          <%- else -%>
+            <%= f_user.patron.full_name -%>
+          <%- end -%>
+          &nbsp;
+        <%- end -%>
+      <%- end -%>
+    </p>  
+  <%- end -%>
+
+  <div><%= link_to_function t('activerecord.attributes.user.disp_user_info'), "$('#user_info').toggle()" -%></div>
+  <div id="user_info" style="display: none">
+    <%= render 'patrons/show_list' %>
+  </div>
+  <br />
+ 
   <h2><%= t('activerecord.models.checkout') %></h2>
   <table class="index">
     <tr>
@@ -87,8 +91,14 @@
                 (<%= link_to checkout.item.manifestation.original_title, checkout.item.manifestation %>)
               </td>
               <td><%=l checkout.due_date, :format => :only_date %></td>
-              <td><%= link_to f_user.username, f_user -%><br />
-                  (<%= link_to f_user.patron.full_name, f_user.patron if current_user.has_role?('Librarian') -%>)</td>
+              <td>
+                <%- if current_user.has_role?('Librarian') -%>
+                  <%= link_to f_user.patron.full_name, f_user -%><br />
+                  (<%= link_to f_user.username, f_user -%>)
+                <%- else -%>
+                  <%= f_user.patron.full_name-%>
+                <%- end -%>
+              </td>
             </tr>
           <%- end -%>
         <%- end -%>
@@ -110,8 +120,14 @@
               <td><%= render 'reserves/title', :reserve => reserve -%></td>
               <td><%= i18n_state(reserve.state) -%></td>
               <td><%= l(reserve.expired_at, :format => :only_date) -%></td>
-              <td><%= link_to f_user.username, f_user -%><br />
-                  (<%= link_to f_user.patron.full_name, f_user.patron if current_user.has_role?('Librarian') -%>)</td>
+              <td>
+                <%- if current_user.has_role?('Librarian') -%>
+                  <%= link_to f_user.patron.full_name, f_user -%><br />
+                  (<%= link_to f_user.username, f_user -%>)
+                <%- else -%>
+                  <%= f_user.patron.full_name-%>
+                <%- end -%>
+              </td>
             </tr>
           <%- end -%>
         <%- end -%>
@@ -123,12 +139,13 @@
 
 <div id="submenu" class="ui-corner-all">
   <ul>
-    <li><%= link_to t('page.back'), users_path -%></li>
-        <%- if user.user_number? -%>
-          <li><%= link_to t('activerecord.models.checkout'), new_basket_path(:user_number => user.user_number) -%></li>
-          <li><%= link_to t('activerecord.models.reserve'), user_reserves_path(user) -%></li>
-          <li><%= link_to t('activerecord.models.checkin'), checkins_path -%></li>
-        <%- end -%>
+    <%- if current_user.has_role?('Librarian') -%>
+      <%- if user.user_number? -%>
+        <li><%= link_to t('activerecord.models.checkout'), new_basket_path(:user_number => user.user_number) -%></li>
+        <li><%= link_to t('activerecord.models.checkin'), checkins_path -%></li>
+      <%- end -%>
+    <%- end -%>
+    <li><%= link_to t('activerecord.models.reserve'), user_reserves_path(user) -%></li>
     <% if user_signed_in? %>
       <% if can? :update, user %>
         <li><%= link_to t('page.edit'), edit_user_path(user) -%></li>

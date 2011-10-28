@@ -1,10 +1,8 @@
+  <%- if patron.user.blank? -%>
     <tr class="line<%= cycle("0", "1") -%>">
       <td>
         <%= link_to patron.full_name, patron -%><br />
         <%= patron.full_name_transcription -%>
-      </td>
-      <td>
-        <%= link_to patron.user.username, edit_user_path(patron.user) if patron.user -%>
       </td>
       <td><%= patron.patron_type.display_name.localize -%></td>
       <td><%= l(patron.date_of_birth, :format => :only_date) if patron.date_of_birth -%></td>
@@ -15,3 +13,4 @@
         <%- end -%>
       </td>
     </tr>
+  <%- end -%>

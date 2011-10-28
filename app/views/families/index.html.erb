@@ -1,0 +1,33 @@
+<div id="content_detail" class="ui-corner-all">
+<h1 class="title"><%= t('page.listing', :model => t('activerecord.models.family')) -%></h1>
+<div id="content_list">
+<div style="color: green"><%= flash[:message] -%></div>
+
+<table class="index">
+  <tr>
+    <th>
+    </th>
+    <th><%= t('page.edit') -%></th>
+  </tr>
+
+<%- @families.each_with_index do |family, i| -%>
+  <tr class="line<%= cycle("0", "1") -%>">
+    <td><%= family.id -%> <br />
+      <%- family.users.each do |user| -%> 
+        <%= user.patron.full_name -%>
+      <%- end -%>
+    </td>
+    <td></td>
+  </tr>
+<%- end -%>
+</table>
+
+<br />
+
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all">
+  <ul>
+  </ul>
+</div>
