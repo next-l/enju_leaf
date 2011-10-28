@@ -314,6 +314,9 @@ EnjuLeaf::Application.routes.draw do
   end
   resources :family_users
 
+  resources :budgets
+  resources :terms
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

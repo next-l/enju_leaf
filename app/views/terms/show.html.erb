@@ -1,0 +1,25 @@
+<div id="content_detail" class="ui-corner-all">
+<h1 class="title"><%= t('page.showing', :model => t('activerecord.models.term')) -%></h1>
+<div id="content_list">
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong><%= t('activerecord.attributes.term.display_name') -%>:</strong>
+  <%= @term.display_name -%>
+</p>
+
+<p>
+  <strong><%= t('activerecord.models.term') -%>:</strong>
+  <%= l(@term.start_at, :format => :only_date) -%> - <%= l(@term.end_at, :format => :only_date) -%>
+</p>
+
+
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all">
+  <ul>
+    <li><%= link_to t('page.edit'), edit_term_path(@term) -%></li>
+    <li><%= link_to t('page.back'), terms_path -%></li>
+  </ul>
+</div>

@@ -471,7 +471,7 @@ class ManifestationsController < ApplicationController
     end
 
     if options[:mode] == 'recent'
-      query = "#{query} created_at_d: [NOW-1MONTH TO NOW]"
+      query = "#{query} created_at_d: [NOW-1MONTH TO NOW] AND except_recent_b: false"
     end
 
     #unless options[:carrier_type].blank?
