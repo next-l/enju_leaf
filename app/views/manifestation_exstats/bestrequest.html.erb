@@ -3,12 +3,10 @@
 
 <%= form_for :manifestations, :html => {:method => 'get'} do -%>
   <p>
-    <%= t('page.search_term') -%>:
     <%= t('advanced_search.from_date') -%> <%= text_field_tag 'search_date_first', h(@start_date), :size => 9 -%>
     <%= t('advanced_search.to_date') -%> <%= text_field_tag 'search_date_last', h(@end_date), :size => 9 -%></td>
     <%= submit_tag t('page.search') -%>
     <br />
-    <%= link_to t('page.advanced_search'), page_advanced_search_path -%>
   </p>
 <%- end -%>
 
@@ -49,3 +47,8 @@
 </div>
 </div>
 
+<div id="submenu" class="ui-corner-all">
+<ul>
+<li><%= link_to t('page.best_reader'), manifestation_exstats_bestreader_path -%></li>
+</ul>
+</div>

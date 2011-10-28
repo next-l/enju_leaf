@@ -4,7 +4,7 @@ class ManifestationExstatsController < ApplicationController
 
   def initialize
     @title = ""
-    @limit = 10
+    @limit = 20
     @start_d = @end_d = nil
     super
   end
