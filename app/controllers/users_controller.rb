@@ -123,6 +123,11 @@ class UsersController < ApplicationController
       @patron.country = current_user.library.country
       @patron.country_id = LibraryGroup.site_config.country_id
       @patron.telephone_number_1_type_id = 1
+      @patron.telephone_number_2_type_id = 1
+      @patron.extelephone_number_1_type_id = 2
+      @patron.extelephone_number_2_type_id = 2
+      @patron.fax_number_1_type_id = 3
+      @patron.fax_number_2_type_id = 3
     end
     #@user.openid_identifier = flash[:openid_identifier]
     prepare_options
