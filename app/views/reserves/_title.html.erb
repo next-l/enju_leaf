@@ -1,4 +1,10 @@
-    <strong><%= link_to reserve.manifestation.original_title, reserve -%></strong>
+    <strong>
+      <%- if current_user.has_role?('Librarian') or current_user == reserve.user -%>
+        <%= link_to reserve.manifestation.original_title, reserve -%>
+      <%- else -%>
+        <%= reserve.manifestation.original_title -%>
+      <%- end -%>
+    </strong>
     <%- if reserve.manifestation.serial? -%>
       <%= reserve.manifestation.volume_number_string -%>
       <%- unless reserve.manifestation.issue_number_string.blank? -%>
