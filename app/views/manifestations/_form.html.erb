@@ -132,6 +132,11 @@
   </div>
 
   <div class="field">
+    <%= f.label :except_recent -%>
+    <%= f.check_box :except_recent -%>
+  </div>
+
+  <div class="field">
     <%= f.label :description -%><br />
     <%= f.text_area :description, :class => 'resource_textarea' -%>
   </div>

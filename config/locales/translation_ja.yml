@@ -657,6 +657,7 @@ ja:
         issn: ISSN
         subscription_master: 購読マスタ
         description: 説明
+        except_recent: 新刊対象から除外
       user_group:
         name: 名前
         display_name: 表示名

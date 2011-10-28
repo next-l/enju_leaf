@@ -162,6 +162,7 @@ class Manifestation < ActiveRecord::Base
       serial?
     end
     time :acquired_at
+    boolean :except_recent
   end
 
   enju_manifestation_viewer
