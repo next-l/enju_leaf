@@ -98,7 +98,7 @@
     <%= f.text_field :birth_date, :class => 'date_field' -%>
   </div>
 
-  <% unless @user %>
+  <% unless @user.id.blank? %>
     <div class="field">
       <%= f.label :date_of_death -%><br />
       <%= f.text_field :death_date, :class => 'date_field' -%>
