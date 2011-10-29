@@ -18,6 +18,28 @@
        ,F4:function(obj,s,c,a){document.location = '<%= order_lists_path %>';}
        ,F6:function(obj,s,c,a){document.location = '<%= root_path %>';}
      });
+  <% end %>
+
+  <% unless configatron.no_operation_counter.nil? || configatron.no_operation_counter == 0 -%>   
+   $(function(){
+
+    window.document.onmousedown = counter_clear;
+    window.document.onkeydown   = counter_clear;
+    window.document.onmousemove = counter_clear;
+    function counter_clear() {
+      nooperation_cnt = 0;
+    }
+
+    var t = setInterval(keyborad_observer, 1000);
+    function keyborad_observer(){
+      try {
+        nooperation_cnt++;
+      } catch (e) {
+        nooperation_cnt = 0;
+      }
+      if (nooperation_cnt > <%= configatron.no_operation_counter %>) location.href = "<%= root_path %>";
+    }
+   });
    <% end %>
    // -->
  </script>

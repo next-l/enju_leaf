@@ -37,3 +37,6 @@ configatron.checked_items.disp_user = true
 
 # template file for import
 configatron.resource_import_template = "templates/resource_import_template.xls"
+
+# clear counter (sec)
+configatron.no_operation_counter = 300
