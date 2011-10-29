@@ -62,12 +62,6 @@ class ReservesControllerTest < ActionController::TestCase
     assert_response :success
   end
 
-  def test_user_should_show_my_reserve
-    sign_in users(:user1)
-    get :show, :id => 3, :user_id => users(:user1).username
-    assert_response :success
-  end
-
   def test_user_should_not_show_other_reserve
     sign_in users(:user2)
     get :show, :id => 3, :user_id => users(:user1).username

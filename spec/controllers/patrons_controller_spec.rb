@@ -242,6 +242,12 @@ describe PatronsController do
           response.should render_template("new")
         end
       end
+
+      # TODO: full_name以外での判断
+      it "should create patron without full_name" do
+        post :create, :patron => { :first_name => 'test' }
+        response.should redirect_to patron_url(assigns(:patron))
+      end
     end
 
     describe "When logged in as User" do
@@ -365,6 +371,11 @@ describe PatronsController do
           response.should render_template("edit")
         end
       end
+
+      it "should update other patron" do
+        put :update, :id => users(:user2).patron.id, :patron => { :full_name => 'test' }
+        response.should redirect_to patron_url(assigns(:patron))
+      end
     end
 
     describe "When logged in as User" do
@@ -443,6 +454,16 @@ describe PatronsController do
       it "redirects to the patrons list" do
         delete :destroy, :id => @patron.id
         response.should redirect_to(patrons_url)
+      end
+
+      it "should not destroy librarian who has items checked out" do
+        delete :destroy, :id => users(:librarian1).patron
+        response.should be_forbidden
+      end
+
+      it "should destroy librarian who does not have items checked out" do
+        delete :destroy, :id => users(:librarian2).patron
+        response.should redirect_to patrons_url
       end
     end
 

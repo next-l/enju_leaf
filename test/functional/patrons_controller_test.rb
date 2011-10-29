@@ -22,17 +22,6 @@ class PatronsControllerTest < ActionController::TestCase
     assert_response :success
   end
 
-  # TODO: full_name以外での判断
-  def test_librarian_should_create_patron_without_full_name
-    sign_in users(:librarian1)
-    assert_difference('Patron.count') do
-      post :create, :patron => { :first_name => 'test' }
-    end
-    
-    assert_redirected_to patron_url(assigns(:patron))
-    assigns(:patron).remove_from_index!
-  end
-
   def test_guest_should_not_show_patron_when_required_role_is_user
     get :show, :id => 5
     assert_response :redirect
@@ -125,26 +114,6 @@ class PatronsControllerTest < ActionController::TestCase
     assert_response :forbidden
   end
   
-  def test_guest_should_not_update_patron
-    put :update, :id => 1, :patron => { }
-    assert_redirected_to new_user_session_url
-  end
-  
-  def test_librarian_should_update_other_patron
-    sign_in users(:librarian1)
-    put :update, :id => users(:user2).patron.id, :patron => { :full_name => 'test' }
-    assert_redirected_to patron_url(assigns(:patron))
-    assigns(:patron).remove_from_index!
-  end
-  
-  def test_guest_should_not_destroy_patron
-    assert_no_difference('Patron.count') do
-      delete :destroy, :id => 1
-    end
-    
-    assert_redirected_to new_user_session_url
-  end
-
   def test_user_should_not_destroy_patron
     sign_in users(:user1)
     assert_no_difference('Patron.count') do
@@ -170,23 +139,5 @@ class PatronsControllerTest < ActionController::TestCase
     end
     
     assert_response :forbidden
-  end
-
-  def test_admin_should_not_destroy_librarian_who_has_items_checked_out
-    sign_in users(:admin)
-    assert_no_difference('Patron.count') do
-      delete :destroy, :id => users(:librarian1).patron
-    end
-    
-    assert_response :forbidden
-  end
-
-  def test_admin_should_destroy_librarian_who_doesnt_have_items_checked_out
-    sign_in users(:admin)
-    assert_difference('Patron.count', -1) do
-      delete :destroy, :id => users(:librarian2).patron
-    end
-    
-    assert_redirected_to patrons_url
   end
 end
