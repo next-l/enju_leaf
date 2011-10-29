@@ -37,7 +37,9 @@
       } catch (e) {
         nooperation_cnt = 0;
       }
-      if (nooperation_cnt > <%= configatron.no_operation_counter %>) location.href = "<%= root_path %>";
+      if (nooperation_cnt > <%= configatron.no_operation_counter %>) {
+        location.href = "<%= destroy_user_session_path %>";
+      }
     }
    });
    <% end %>
