@@ -156,30 +156,6 @@ class UsersControllerTest < ActionController::TestCase
     assert_redirected_to user_url(assigns(:user))
   end
 
-  def test_guest_should_not_show_user
-    get :show, :id => users(:user1).username
-    assert_response :redirect
-    assert_redirected_to new_user_session_url
-  end
-
-  def test_user_should_show_my_user
-    sign_in users(:user1)
-    get :show, :id => users(:user1).username
-    assert_redirected_to root_url
-  end
-
-  def test_user_should_show_other_user
-    sign_in users(:user1)
-    get :show, :id => users(:admin).username
-    assert_response :success
-  end
-
-  def test_everyone_should_not_show_missing_user
-    sign_in users(:admin)
-    get :show, :id => 100
-    assert_response :missing
-  end
-
   def test_guest_should_not_edit_user
     get :edit, :id => 1
     assert_response :redirect

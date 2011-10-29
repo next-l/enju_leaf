@@ -186,6 +186,12 @@ describe ManifestationsController do
         response.should be_success
         assigns(:library_facet).should_not be_empty
       end
+
+      it "should get tag_cloud" do
+        get :index, :query => '2005', :view => 'tag_cloud'
+        response.should be_success
+        response.should render_template("manifestations/_tag_cloud")
+      end
     end
   end
 

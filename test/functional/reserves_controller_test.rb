@@ -240,16 +240,6 @@ class ReservesControllerTest < ActionController::TestCase
     assert_redirected_to reserve_url(assigns(:reserve))
   end
 
-  def test_user_should_cancel_my_reserve
-    sign_in users(:user1)
-    old_message_requests_count = MessageRequest.count
-    put :update, :id => 3, :user_id => users(:user1).username, :reserve => {:user_number => users(:user1).user_number}, :mode => 'cancel'
-    assert_equal I18n.t('reserve.reservation_was_canceled'), flash[:notice]
-    assert_equal 'canceled', assigns(:reserve).state
-    assert_equal old_message_requests_count + 2, MessageRequest.count
-    assert_redirected_to reserve_url(assigns(:reserve))
-  end
-
   def test_user_should_not_update_other_reserve
     sign_in users(:user1)
     put :update, :id => 5, :user_id => users(:user2).username, :reserve => {:user_number => users(:user2).user_number}
@@ -271,16 +261,6 @@ class ReservesControllerTest < ActionController::TestCase
   def test_librarian_should_update_other_reserve
     sign_in users(:librarian1)
     put :update, :id => 3, :user_id => users(:user1).username, :reserve => {:user_number => users(:user1).user_number}
-    assert_redirected_to reserve_url(assigns(:reserve))
-  end
-
-  def test_librarian_should_cancel_other_reserve
-    sign_in users(:librarian1)
-    old_message_requests_count = MessageRequest.count
-    put :update, :id => 3, :user_id => users(:user1).username, :reserve => {:user_number => users(:user1).user_number}, :mode => 'cancel'
-    assert_equal I18n.t('reserve.reservation_was_canceled'), flash[:notice]
-    assert_equal 'canceled', assigns(:reserve).state
-    assert_equal old_message_requests_count + 2, MessageRequest.count
     assert_redirected_to reserve_url(assigns(:reserve))
   end
 
@@ -314,41 +294,5 @@ class ReservesControllerTest < ActionController::TestCase
     end
     
     assert_response :missing
-  end
-
-  def test_user_should_destroy_my_reserve
-    sign_in users(:user1)
-    assert_difference('Reserve.count', -1) do
-      delete :destroy, :id => 3, :user_id => users(:user1).username
-    end
-    
-    assert_redirected_to reserves_url
-  end
-
-  def test_user_should_not_destroy_other_reserve
-    sign_in users(:user1)
-    assert_no_difference('Reserve.count') do
-      delete :destroy, :id => 5, :user_id => users(:user2).username
-    end
-    
-    assert_response :forbidden
-  end
-
-  def test_librarian_should_destroy_other_reserve
-    sign_in users(:librarian1)
-    assert_difference('Reserve.count', -1) do
-      delete :destroy, :id => 3, :user_id => users(:user1).username
-    end
-    
-    assert_redirected_to reserves_url
-  end
-
-  def test_user_should_destroy_other_reserve
-    sign_in users(:admin)
-    assert_difference('Reserve.count', -1) do
-      delete :destroy, :id => 3, :user_id => users(:user1).username
-    end
-    
-    assert_redirected_to reserves_url
   end
 end

@@ -68,12 +68,6 @@ class ManifestationsControllerTest < ActionController::TestCase
     assert assigns(:manifestations)
   end
 
-  def test_guest_should_get_index_tag_cloud
-    get :index, :query => '2005', :view => 'tag_cloud'
-    assert_response :success
-    assert_template :partial => '_tag_cloud'
-  end
-
   def test_librarian_should_get_new_without_expression_id
     sign_in users(:librarian1)
     get :new

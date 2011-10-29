@@ -49,6 +49,40 @@ describe UsersController do
         get :show, :id => 'admin'
         assigns(:user).should eq(User.find('admin'))
       end
+
+      it "should not show missing user" do
+        get :show, :id => 'missing'
+        response.should be_missing
+      end
+    end
+
+    describe "When logged in as Librarian" do
+      login_fixture_librarian
+
+      it "assigns the requested user as @user" do
+        get :show, :id => users(:librarian1).username
+        assigns(:user).should eq(users(:librarian1))
+      end
+    end
+
+    describe "When logged in as User" do
+      login_fixture_user
+
+      it "assigns the requested user as @user" do
+        get :show, :id => users(:user1).username
+        assigns(:user).should eq(users(:user1))
+      end
+
+      it "should redirect to my user account" do
+        get :show, :id => users(:user1).username
+        assert_redirected_to my_account_url
+      end
+
+      it "should show other user's account" do
+        get :show, :id => users(:admin).username
+        assigns(:user).should eq(users(:admin))
+        response.should be_success
+      end
     end
 
     describe "When not logged in" do

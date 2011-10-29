@@ -7,7 +7,7 @@ describe ReservesController do
 
   describe "GET index" do
     describe "When logged in as Administrator" do
-      login_admin
+      login_fixture_admin
 
       it "assigns all reserves as @reserves" do
         get :index
@@ -16,7 +16,7 @@ describe ReservesController do
     end
 
     describe "When logged in as Librarian" do
-      login_librarian
+      login_fixture_librarian
 
       it "assigns all reserves as @reserves" do
         get :index
@@ -95,7 +95,7 @@ describe ReservesController do
 
   describe "GET show" do
     describe "When logged in as Administrator" do
-      login_admin
+      login_fixture_admin
 
       it "assigns the requested reserve as @reserve" do
         reserve = FactoryGirl.create(:reserve)
@@ -105,7 +105,7 @@ describe ReservesController do
     end
 
     describe "When logged in as Librarian" do
-      login_librarian
+      login_fixture_librarian
 
       it "assigns the requested reserve as @reserve" do
         reserve = FactoryGirl.create(:reserve)
@@ -115,7 +115,7 @@ describe ReservesController do
     end
 
     describe "When logged in as User" do
-      login_user
+      login_fixture_user
 
       it "assigns the requested reserve as @reserve" do
         reserve = FactoryGirl.create(:reserve)
@@ -143,7 +143,7 @@ describe ReservesController do
 
   describe "GET new" do
     describe "When logged in as Administrator" do
-      login_admin
+      login_fixture_admin
 
       it "assigns the requested reserve as @reserve" do
         get :new
@@ -152,7 +152,7 @@ describe ReservesController do
     end
 
     describe "When logged in as Librarian" do
-      login_librarian
+      login_fixture_librarian
 
       it "should not assign the requested reserve as @reserve" do
         get :new
@@ -161,7 +161,7 @@ describe ReservesController do
     end
 
     describe "When logged in as User" do
-      login_user
+      login_fixture_user
 
       it "should not assign the requested reserve as @reserve" do
         get :new
@@ -181,7 +181,7 @@ describe ReservesController do
 
   describe "GET edit" do
     describe "When logged in as Administrator" do
-      login_admin
+      login_fixture_admin
 
       it "assigns the requested reserve as @reserve" do
         reserve = FactoryGirl.create(:reserve)
@@ -191,7 +191,7 @@ describe ReservesController do
     end
 
     describe "When logged in as Librarian" do
-      login_librarian
+      login_fixture_librarian
 
       it "assigns the requested reserve as @reserve" do
         reserve = FactoryGirl.create(:reserve)
@@ -201,7 +201,7 @@ describe ReservesController do
     end
 
     describe "When logged in as User" do
-      login_user
+      login_fixture_user
 
       it "assigns the requested reserve as @reserve" do
         reserve = FactoryGirl.create(:reserve)
@@ -226,7 +226,7 @@ describe ReservesController do
     end
 
     describe "When logged in as Administrator" do
-      login_admin
+      login_fixture_admin
 
       describe "with valid params" do
         it "assigns a newly created reserve as @reserve" do
@@ -263,7 +263,7 @@ describe ReservesController do
     end
 
     describe "When logged in as Librarian" do
-      login_librarian
+      login_fixture_librarian
 
       describe "with valid params" do
         it "assigns a newly created reserve as @reserve" do
@@ -367,7 +367,7 @@ describe ReservesController do
     end
 
     describe "When logged in as Administrator" do
-      login_admin
+      login_fixture_admin
 
       describe "with valid params" do
         it "updates the requested reserve" do
@@ -394,7 +394,7 @@ describe ReservesController do
     end
 
     describe "When logged in as Librarian" do
-      login_librarian
+      login_fixture_librarian
 
       describe "with valid params" do
         it "updates the requested reserve" do
@@ -419,10 +419,19 @@ describe ReservesController do
           response.should render_template("edit")
         end
       end
+
+      it "should cancel other user's reservation" do
+        old_message_requests_count = MessageRequest.count
+        put :update, :id => 3, :user_id => users(:user1).username, :reserve => {:user_number => users(:user1).user_number}, :mode => 'cancel'
+        flash[:notice].should eq I18n.t('reserve.reservation_was_canceled')
+        assigns(:reserve).state.should eq 'canceled'
+        MessageRequest.count.should eq old_message_requests_count + 2
+        response.should redirect_to reserve_url(assigns(:reserve))
+      end
     end
 
     describe "When logged in as User" do
-      login_user
+      login_fixture_user
 
       describe "with valid params" do
         it "updates the requested reserve" do
@@ -441,6 +450,15 @@ describe ReservesController do
           put :update, :id => @reserve.id, :reserve => @invalid_attrs, :user_id => @reserve.user.username
           response.should be_forbidden
         end
+      end
+
+      it "should cancal my reservation" do
+        old_message_requests_count = MessageRequest.count
+        put :update, :id => 3, :user_id => users(:user1).username, :reserve => {:user_number => users(:user1).user_number}, :mode => 'cancel'
+        flash[:notice].should eq I18n.t('reserve.reservation_was_canceled')
+        assigns(:reserve).state.should eq 'canceled'
+        MessageRequest.count.should eq old_message_requests_count + 2
+        response.should redirect_to reserve_url(assigns(:reserve))
       end
     end
 
@@ -471,7 +489,7 @@ describe ReservesController do
     end
 
     describe "When logged in as Administrator" do
-      login_admin
+      login_fixture_admin
 
       it "destroys the requested reserve" do
         delete :destroy, :id => @reserve.id, :user_id => @reserve.user.username
@@ -480,11 +498,16 @@ describe ReservesController do
       it "redirects to the reserves list" do
         delete :destroy, :id => @reserve.id, :user_id => @reserve.user.username
         response.should redirect_to(reserves_url)
+      end
+
+      it "should destroy other user's reservation" do
+        delete :destroy, :id => 3, :user_id => users(:user1).username
+        response.should redirect_to reserves_url
       end
     end
 
     describe "When logged in as Librarian" do
-      login_librarian
+      login_fixture_librarian
 
       it "destroys the requested reserve" do
         delete :destroy, :id => @reserve.id, :user_id => @reserve.user.username
@@ -494,10 +517,15 @@ describe ReservesController do
         delete :destroy, :id => @reserve.id, :user_id => @reserve.user.username
         response.should redirect_to(reserves_url)
       end
+
+      it "should destroy other user's reservation" do
+        delete :destroy, :id => 3, :user_id => users(:user1).username
+        response.should redirect_to reserves_url
+      end
     end
 
     describe "When logged in as User" do
-      login_user
+      login_fixture_user
 
       it "destroys the requested reserve" do
         delete :destroy, :id => @reserve.id, :user_id => @reserve.user.username
@@ -505,6 +533,16 @@ describe ReservesController do
 
       it "should be forbidden" do
         delete :destroy, :id => @reserve.id, :user_id => @reserve.user.username
+        response.should be_forbidden
+      end
+
+      it "should destroy my reservation" do
+        delete :destroy, :id => 3, :user_id => users(:user1).username
+        response.should redirect_to reserves_url
+      end
+
+      it "should not destroy other user's reservation" do
+        delete :destroy, :id => 5, :user_id => users(:user2).username
         response.should be_forbidden
       end
     end

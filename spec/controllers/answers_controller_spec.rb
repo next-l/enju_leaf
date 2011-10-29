@@ -5,7 +5,7 @@ describe AnswersController do
 
   describe "GET index" do
     describe "When logged in as Administrator" do
-      login_admin
+      login_fixture_admin
 
       it "assigns all answers as @answers" do
         get :index
@@ -14,7 +14,7 @@ describe AnswersController do
     end
 
     describe "When logged in as Librarian" do
-      login_librarian
+      login_fixture_user
 
       it "assigns all answers as @answers" do
         get :index
@@ -23,26 +23,71 @@ describe AnswersController do
     end
 
     describe "When logged in as User" do
-      login_user
+      login_fixture_user
 
       it "assigns all answers as @answers" do
         get :index
         assigns(:answers).should_not be_empty
+      end
+
+      it "should get my index" do
+        get :index, :user_id => users(:user1).username
+        assigns(:answers).should eq users(:user1).answers.order('answers.id').page(1)
+        response.should be_success
+      end
+
+      it "should not get other user's index without user_id" do
+        get :index, :user_id => users(:user2).username
+        response.should be_forbidden
+      end
+
+      it "should get my index feed" do
+        get :index, :user_id => users(:user1).username, :format => 'rss'
+        response.should be_success
+        assigns(:answers).should_not be_empty
+      end
+
+      it "should not get other user's index if question is not shared" do
+        get :index, :user_id => users(:librarian1).username, :question_id => 2
+        response.should be_forbidden
       end
     end
 
     describe "When not logged in" do
       it "assigns all answers as @answers" do
         get :index
-        assigns(:answers).should_not be_empty
-        response.should redirect_to new_user_session_url
+        assigns(:answers).should eq Answer.public_answers.order('answers.id').page(1)
+        response.should be_success
+      end
+
+      it "should not get index with other user's question_id" do
+        get :index, :question_id => 1
+        assigns(:answers).should eq assigns(:question).answers.public_answers.order('answers.id').page(1)
+        response.should be_success
+      end
+
+      it "should get other user's index if question is shared" do
+        get :index, :question_id => 5
+        response.should be_success
+        assigns(:answers).should eq assigns(:question).answers.public_answers.order('answers.id').page(1)
+      end
+
+      it "should not get other user's index feed if question is not shared" do
+        get :index, :question_id => 2, :format => 'rss'
+        response.should be_client_error
+      end
+
+      it "should get other user's index feed if question is shared" do
+        get :index, :question_id => 5, :format => 'rss'
+        response.should be_success
+        assigns(:answers).should eq assigns(:question).answers.public_answers.order('answers.id').page(1)
       end
     end
   end
 
   describe "GET show" do
     describe "When logged in as Administrator" do
-      login_admin
+      login_fixture_admin
 
       it "assigns the requested answer as @answer" do
         answer = FactoryGirl.create(:answer)
@@ -52,7 +97,7 @@ describe AnswersController do
     end
 
     describe "When logged in as Librarian" do
-      login_librarian
+      login_fixture_user
 
       it "assigns the requested answer as @answer" do
         answer = FactoryGirl.create(:answer)
@@ -62,12 +107,50 @@ describe AnswersController do
     end
 
     describe "When logged in as User" do
-      login_user
+      login_fixture_user
 
       it "assigns the requested answer as @answer" do
         answer = FactoryGirl.create(:answer)
         get :show, :id => answer.id
         assigns(:answer).should eq(answer)
+      end
+
+      it "should show answer without user_id" do
+        get :show, :id => 1, :question_id => 1
+        assigns(:answer).should eq(answers(:answer_00001))
+        assert_response :success
+      end
+
+      it "should show public answer without question_id" do
+        get :show, :id => 3, :user_id => users(:user1).username
+        assigns(:answer).should eq(Answer.find(3))
+        assert_response :success
+      end
+
+      it "should show my answer" do
+        get :show, :id => 3, :user_id => users(:user1).username
+        assigns(:answer).should eq(Answer.find(3))
+        assert_response :success
+      end
+
+      it "should not show private answer" do
+        get :show, :id => 4, :user_id => users(:user1).username
+        response.should be_forbidden
+      end
+
+      it "should not show missing answer" do
+        get :show, :id => 'missing', :user_id => users(:user1).username, :question_id => 1
+        response.should be_missing
+      end
+
+      it "should not show answer with other user's user_id" do
+        get :show, :id => 5, :user_id => users(:user2).username, :question_id => 2
+        response.should be_forbidden
+      end
+
+      it "should not show answer without other user's user_id" do
+        get :show, :id => 5, :question_id => 2
+        response.should be_forbidden
       end
     end
 
@@ -77,12 +160,24 @@ describe AnswersController do
         get :show, :id => answer.id
         assigns(:answer).should eq(answer)
       end
+
+      it "should show public_answer" do
+        get :show, :id => 1, :question_id => 1
+        assigns(:answer).should eq(Answer.find(1))
+        response.should be_success
+      end
+
+      it "should not show private answer" do
+        get :show, :id => 4, :question_id => 1
+        assigns(:answer).should eq(Answer.find(4))
+        response.should redirect_to new_user_session_url
+      end
     end
   end
 
   describe "GET new" do
     describe "When logged in as Administrator" do
-      login_admin
+      login_fixture_admin
 
       it "assigns the requested answer as @answer" do
         get :new
@@ -91,7 +186,7 @@ describe AnswersController do
     end
 
     describe "When logged in as Librarian" do
-      login_librarian
+      login_fixture_user
 
       it "assigns the requested answer as @answer" do
         get :new
@@ -100,11 +195,17 @@ describe AnswersController do
     end
 
     describe "When logged in as User" do
-      login_user
+      login_fixture_user
 
       it "should assign the requested answer as @answer" do
         get :new
         assigns(:answer).should_not be_valid
+      end
+
+      it "should get new template with question_id" do
+        get :new, :question_id => 1
+        assigns(:answer).should_not be_valid
+        response.should be_success
       end
     end
 
@@ -119,7 +220,7 @@ describe AnswersController do
 
   describe "GET edit" do
     describe "When logged in as Administrator" do
-      login_admin
+      login_fixture_admin
 
       it "assigns the requested answer as @answer" do
         answer = FactoryGirl.create(:answer)
@@ -129,7 +230,7 @@ describe AnswersController do
     end
 
     describe "When logged in as Librarian" do
-      login_librarian
+      login_fixture_user
 
       it "assigns the requested answer as @answer" do
         answer = FactoryGirl.create(:answer)
@@ -139,11 +240,41 @@ describe AnswersController do
     end
 
     describe "When logged in as User" do
-      login_user
+      login_fixture_user
 
       it "assigns the requested answer as @answer" do
         answer = FactoryGirl.create(:answer)
         get :edit, :id => answer.id
+        response.should be_forbidden
+      end
+
+      it "should edit my answer without user_id" do
+        get :edit, :id => 3, :question_id => 1
+        response.should be_success
+      end
+  
+      it "should not edit other answer without user_id" do
+        get :edit, :id => 4, :question_id => 1
+        response.should be_forbidden
+      end
+  
+      it "should edit answer without question_id" do
+        get :edit, :id => 3 , :user_id => users(:user1).username
+        response.should be_success
+      end
+  
+      it "should not edit missing answer" do
+        get :edit, :id => 100, :user_id => users(:user1).username, :question_id => 1
+        response.should be_missing
+      end
+
+      it "should edit my answer" do
+        get :edit, :id => 3, :user_id => users(:user1).username, :question_id => 1
+        response.should be_success
+      end
+  
+      it "should not edit other user's answer" do
+        get :edit, :id => 5, :user_id => users(:user2).username, :question_id => 2
         response.should be_forbidden
       end
     end
