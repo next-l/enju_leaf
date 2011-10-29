@@ -5,7 +5,7 @@ describe PatronsController do
 
   describe "GET index", :solr => true do
     describe "When logged in as Administrator" do
-      login_admin
+      login_fixture_admin
 
       it "assigns all patrons as @patrons" do
         get :index
@@ -14,7 +14,7 @@ describe PatronsController do
     end
 
     describe "When logged in as Librarian" do
-      login_librarian
+      login_fixture_librarian
 
       it "assigns all patrons as @patrons" do
         get :index
@@ -23,7 +23,7 @@ describe PatronsController do
     end
 
     describe "When logged in as User" do
-      login_user
+      login_fixture_user
 
       it "assigns all patrons as @patrons" do
         get :index
@@ -55,7 +55,7 @@ describe PatronsController do
     end
 
     describe "When logged in as Administrator" do
-      login_admin
+      login_fixture_admin
 
       it "assigns the requested patron as @patron" do
         get :show, :id => @patron.id
@@ -64,7 +64,7 @@ describe PatronsController do
     end
 
     describe "When logged in as Librarian" do
-      login_librarian
+      login_fixture_librarian
 
       it "assigns the requested patron as @patron" do
         get :show, :id => @patron.id
@@ -73,7 +73,7 @@ describe PatronsController do
     end
 
     describe "When logged in as User" do
-      login_user
+      login_fixture_user
 
       it "assigns the requested patron as @patron" do
         get :show, :id => @patron.id
@@ -86,12 +86,27 @@ describe PatronsController do
         get :show, :id => @patron.id
         assigns(:patron).should eq(@patron)
       end
+
+      it "should show patron with work" do
+        get :show, :id => 1, :work_id => 1
+        assigns(:patron).should eq assigns(:work).creators.first
+      end
+
+      it "should show patron with expression" do
+        get :show, :id => 1, :expression_id => 1
+        assigns(:patron).should eq assigns(:expression).contributors.first
+      end
+
+      it "should show patron with manifestation" do
+        get :show, :id => 1, :manifestation_id => 1
+        assigns(:patron).should eq assigns(:manifestation).publishers.first
+      end
     end
   end
 
   describe "GET new" do
     describe "When logged in as Administrator" do
-      login_admin
+      login_fixture_admin
 
       it "assigns the requested patron as @patron" do
         get :new
@@ -100,7 +115,7 @@ describe PatronsController do
     end
 
     describe "When logged in as Librarian" do
-      login_librarian
+      login_fixture_librarian
 
       it "assigns the requested patron as @patron" do
         get :new
@@ -109,7 +124,7 @@ describe PatronsController do
     end
 
     describe "When logged in as User" do
-      login_user
+      login_fixture_user
 
       it "should not assign the requested patron as @patron" do
         get :new
@@ -129,7 +144,7 @@ describe PatronsController do
 
   describe "GET edit" do
     describe "When logged in as Administrator" do
-      login_admin
+      login_fixture_admin
 
       it "assigns the requested patron as @patron" do
         patron = Patron.find(1)
@@ -139,7 +154,7 @@ describe PatronsController do
     end
 
     describe "When logged in as Librarian" do
-      login_librarian
+      login_fixture_librarian
 
       it "assigns the requested patron as @patron" do
         patron = Patron.find(1)
@@ -149,7 +164,7 @@ describe PatronsController do
     end
 
     describe "When logged in as User" do
-      login_user
+      login_fixture_user
 
       it "assigns the requested patron as @patron" do
         patron = Patron.find(1)
@@ -174,7 +189,7 @@ describe PatronsController do
     end
 
     describe "When logged in as Administrator" do
-      login_admin
+      login_fixture_admin
 
       describe "with valid params" do
         it "assigns a newly created patron as @patron" do
@@ -202,7 +217,7 @@ describe PatronsController do
     end
 
     describe "When logged in as Librarian" do
-      login_librarian
+      login_fixture_librarian
 
       describe "with valid params" do
         it "assigns a newly created patron as @patron" do
@@ -230,7 +245,7 @@ describe PatronsController do
     end
 
     describe "When logged in as User" do
-      login_user
+      login_fixture_user
 
       describe "with valid params" do
         it "assigns a newly created patron as @patron" do
@@ -254,6 +269,17 @@ describe PatronsController do
           post :create, :patron => @invalid_attrs
           response.should be_forbidden
         end
+      end
+
+      it "should not create patron myself" do
+        post :create, :patron => { :full_name => 'test', :user_username => users(:user1).username }
+        assigns(:patron).should_not be_valid
+        response.should be_success
+      end
+
+      it "should not create other patron" do
+        post :create, :patron => { :full_name => 'test', :user_id => users(:user2).username }
+        response.should be_forbidden
       end
     end
 
@@ -292,7 +318,7 @@ describe PatronsController do
     end
 
     describe "When logged in as Administrator" do
-      login_admin
+      login_fixture_admin
 
       describe "with valid params" do
         it "updates the requested patron" do
@@ -314,7 +340,7 @@ describe PatronsController do
     end
 
     describe "When logged in as Librarian" do
-      login_librarian
+      login_fixture_librarian
 
       describe "with valid params" do
         it "updates the requested patron" do
@@ -342,7 +368,7 @@ describe PatronsController do
     end
 
     describe "When logged in as User" do
-      login_user
+      login_fixture_user
 
       describe "with valid params" do
         it "updates the requested patron" do
@@ -361,6 +387,23 @@ describe PatronsController do
           put :update, :id => @patron.id, :patron => @invalid_attrs
           response.should be_forbidden
         end
+      end
+
+      it "should update myself" do
+        put :update, :id => users(:user1).patron.id, :patron => { :full_name => 'test' }
+        assigns(:patron).should be_valid
+        response.should redirect_to patron_url(assigns(:patron))
+      end
+  
+      it "should not update myself without name" do
+        put :update, :id => users(:user1).patron.id, :patron => { :first_name => '', :last_name => '', :full_name => '' }
+        assigns(:patron).should_not be_valid
+        response.should be_success
+      end
+  
+      it "should not update other patron" do
+        put :update, :id => users(:user2).patron.id, :patron => { :full_name => 'test' }
+        response.should be_forbidden
       end
     end
 
@@ -391,7 +434,7 @@ describe PatronsController do
     end
 
     describe "When logged in as Administrator" do
-      login_admin
+      login_fixture_admin
 
       it "destroys the requested patron" do
         delete :destroy, :id => @patron.id
@@ -404,7 +447,7 @@ describe PatronsController do
     end
 
     describe "When logged in as Librarian" do
-      login_librarian
+      login_fixture_librarian
 
       it "destroys the requested patron" do
         delete :destroy, :id => @patron.id
@@ -417,7 +460,7 @@ describe PatronsController do
     end
 
     describe "When logged in as User" do
-      login_user
+      login_fixture_user
 
       it "destroys the requested patron" do
         delete :destroy, :id => @patron.id

@@ -16,7 +16,7 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_circulation.git
-  revision: e4db8c1faa36fc8dd691595aba2b5b62703d4e5a
+  revision: acd100de8e4487e0e1a747dfe2699e463b9f26be
   specs:
     enju_circulation (0.0.2)
       rails (~> 3.1.1)
@@ -59,7 +59,7 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_purchase_request.git
-  revision: 061c9046b32b10022babc0eb9469d736a8f4b55b
+  revision: 8aca878e57b2d2315c2fe495ca491bbf935d95e3
   specs:
     enju_purchase_request (0.0.2)
       rails (~> 3.1.1)

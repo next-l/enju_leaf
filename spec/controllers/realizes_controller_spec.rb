@@ -255,7 +255,7 @@ describe RealizesController do
           assigns(:realize).should be_valid
         end
 
-        it "should be forbidden" do
+        it "should redirect to new_user_session_url" do
           post :create, :realize => @attrs
           response.should redirect_to(new_user_session_url)
         end
@@ -267,7 +267,7 @@ describe RealizesController do
           assigns(:realize).should_not be_valid
         end
 
-        it "should be forbidden" do
+        it "should redirect to new_user_session_url" do
           post :create, :realize => @invalid_attrs
           response.should redirect_to(new_user_session_url)
         end

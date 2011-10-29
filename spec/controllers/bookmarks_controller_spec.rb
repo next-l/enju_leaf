@@ -1,3 +1,4 @@
+# -*- encoding: utf-8 -*-
 require 'spec_helper'
 
 describe BookmarksController do
@@ -92,6 +93,32 @@ describe BookmarksController do
     end
   end
 
+  describe "GET new" do
+    describe "When logged in as User" do
+      login_fixture_user
+
+      it "should get my new template without url" do
+        get :new
+        response.should be_success
+      end
+  
+      it "should not get new template with url already bookmarked" do
+        get :new, :bookmark => {:url => 'http://www.slis.keio.ac.jp/'}
+        response.should be_success
+      end
+  
+      it "should get my new template with external url" do
+        get :new, :bookmark => {:title => 'example', :url => 'http://example.com'}
+        response.should be_success
+      end
+  
+      it "should get my new template with internal url" do
+        get :new, :bookmark => {:url => "#{LibraryGroup.site_config.url}/manifestations/1"}
+        response.should be_success
+      end
+    end
+  end
+  
   describe "POST create" do
     before(:each) do
       @bookmark = bookmarks(:bookmark_00001)
@@ -100,15 +127,84 @@ describe BookmarksController do
     end
 
     describe "When logged in as User" do
-      before(:each) do
-        @user = FactoryGirl.create(:user)
-        sign_in @user
-      end
+      login_fixture_user
+#      before(:each) do
+#        @user = FactoryGirl.create(:user)
+#        sign_in @user
+#      end
 
       it "should create bookmark" do
         post :create, :bookmark => {:title => 'example', :url => 'http://www1.example.com/'}
         assigns(:bookmark).save!
         response.should redirect_to bookmark_url(assigns(:bookmark))
+      end
+
+      it "should create bookmark with local url" do
+        post :create, :bookmark => {:title => 'example', :url => "#{LibraryGroup.site_config.url}manifestations/10"}
+        assigns(:bookmark).should be_valid
+        response.should redirect_to bookmark_url(assigns(:bookmark))
+      end
+
+      it "should create bookmark with tag_list" do
+        old_tag_count = Tag.count
+        post :create, :bookmark => {:tag_list => 'search', :title => 'example', :url => 'http://example.com/'}
+        assigns(:bookmark).tag_list.should eq ['search']
+        assigns(:bookmark).taggings.size.should eq 1
+        Tag.count.should eq old_tag_count + 1
+        response.should redirect_to bookmark_url(assigns(:bookmark))
+      end
+
+      it "should create bookmark with tag_list include wide space" do
+        old_tag_count = Tag.count
+        post :create, :bookmark => {:tag_list => 'タグの　テスト', :title => 'example', :url => 'http://example.com/'}
+        Tag.count.should eq old_tag_count + 2
+        response.should redirect_to bookmark_url(assigns(:bookmark))
+      end
+
+      it "should not create bookmark without url" do
+        post :create, :bookmark => {:title => 'test'}
+        assigns(:bookmark).should_not be_valid
+        response.should be_success
+      end
+
+      it "should not create bookmark already bookmarked" do
+        post :create, :bookmark => {:user_id => users(:user1).id, :url => 'http://www.slis.keio.ac.jp/'}
+        assigns(:bookmark).should_not be_valid
+        response.should be_success
+      end
+
+      it "should not create other user's bookmark" do
+        old_bookmark_counts = users(:user2).bookmarks.count
+        post :create, :bookmark => {:user_id => users(:user2).id, :title => 'example', :url => 'http://example.com/'}
+        users(:user2).bookmarks.count.should eq old_bookmark_counts
+        assigns(:bookmark).user.should eq users(:user1)
+        response.should redirect_to bookmark_url(assigns(:bookmark))
+      end
+    end
+
+    describe "When not logged in" do
+      describe "with valid params" do
+        it "assigns a newly created bookmark as @bookmark" do
+          post :create, :bookmark => @attrs
+          assigns(:bookmark).should_not be_valid
+        end
+
+        it "should be forbidden" do
+          post :create, :bookmark => @attrs
+          response.should redirect_to(new_user_session_url)
+        end
+      end
+
+      describe "with invalid params" do
+        it "assigns a newly created but unsaved bookmark as @bookmark" do
+          post :create, :bookmark => @invalid_attrs
+          assigns(:bookmark).should_not be_valid
+        end
+
+        it "should be forbidden" do
+          post :create, :bookmark => @invalid_attrs
+          response.should redirect_to(new_user_session_url)
+        end
       end
     end
   end

@@ -22,25 +22,6 @@ class PatronsControllerTest < ActionController::TestCase
     assert_response :success
   end
 
-  def test_user_should_not_create_patron_myself
-    sign_in users(:user1)
-    assert_no_difference('Patron.count') do
-      post :create, :patron => { :full_name => 'test', :user_username => users(:user1).username }
-    end
-    
-    assert_response :success
-    assigns(:patron).remove_from_index!
-  end
-
-  def test_user_should_not_create_other_patron
-    sign_in users(:user1)
-    assert_no_difference('Patron.count') do
-      post :create, :patron => { :full_name => 'test', :user_id => users(:user2).username }
-    end
-    
-    assert_response :forbidden
-  end
-
   # TODO: full_name以外での判断
   def test_librarian_should_create_patron_without_full_name
     sign_in users(:librarian1)
@@ -56,21 +37,6 @@ class PatronsControllerTest < ActionController::TestCase
     get :show, :id => 5
     assert_response :redirect
     assert_redirected_to new_user_session_url
-  end
-
-  def test_guest_should_show_patron_with_work
-    get :show, :id => 1, :work_id => 1
-    assert_response :success
-  end
-
-  def test_guest_should_show_patron_with_expression
-    get :show, :id => 1, :expression_id => 1
-    assert_response :success
-  end
-
-  def test_guest_should_show_patron_with_manifestation
-    get :show, :id => 1, :manifestation_id => 1
-    assert_response :success
   end
 
   def test_user_should_show_patron
@@ -162,25 +128,6 @@ class PatronsControllerTest < ActionController::TestCase
   def test_guest_should_not_update_patron
     put :update, :id => 1, :patron => { }
     assert_redirected_to new_user_session_url
-  end
-  
-  def test_user_should_update_myself
-    sign_in users(:user1)
-    put :update, :id => users(:user1).patron.id, :patron => { :full_name => 'test' }
-    assert_redirected_to patron_url(assigns(:patron))
-    assigns(:patron).remove_from_index!
-  end
-  
-  def test_user_should_not_update_myself_without_name
-    sign_in users(:user1)
-    put :update, :id => users(:user1).patron.id, :patron => { :first_name => '', :last_name => '', :full_name => '' }
-    assert_response :success
-  end
-  
-  def test_user_should_not_update_other_patron
-    sign_in users(:user1)
-    put :update, :id => users(:user2).patron.id, :patron => { :full_name => 'test' }
-    assert_response :forbidden
   end
   
   def test_librarian_should_update_other_patron

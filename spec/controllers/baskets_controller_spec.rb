@@ -243,6 +243,24 @@ describe BasketsController do
         assigns(:basket).errors["base"].include?(I18n.t('user.not_found')).should be_true
         response.should be_success
       end
+
+      it "should not create basket without user_number" do
+        post :create, :basket => { }
+        assigns(:basket).should_not be_valid
+        response.should be_success
+      end
+
+      it "should create basket" do
+        post :create, :basket => {:user_number => users(:user1).user_number }
+        assigns(:basket).should be_valid
+        response.should redirect_to basket_checked_items_url(assigns(:basket))
+      end
+
+      it "should not create basket without user_number" do
+        post :create, :basket => { }
+        assigns(:basket).should_not be_valid
+        response.should be_success
+      end
     end
 
     describe "When logged in as User" do
@@ -258,6 +276,11 @@ describe BasketsController do
           post :create, :basket => {:user_number => users(:user1).user_number }
           response.should be_forbidden
         end
+      end
+
+      it "should not create basket" do
+        post :create, :basket => {:user_number => users(:user1).user_number }
+        response.should be_forbidden
       end
     end
 
@@ -296,6 +319,60 @@ describe BasketsController do
           assigns(:basket).checkouts.first.item.circulation_status.name.should eq 'On Loan'
           response.should redirect_to(user_checkouts_url(assigns(:basket).user))
         end
+      end
+    end
+  end
+
+  describe "DELETE destroy" do
+    before(:each) do
+      @basket = FactoryGirl.create(:basket)
+    end
+
+    describe "When logged in as Administrator" do
+      login_fixture_admin
+
+      it "should destroy basket without user_id" do
+        delete :destroy, :id => 1, :basket => {:user_id => nil}, :user_id => users(:user1).username
+        response.should redirect_to user_checkouts_url(assigns(:basket).user)
+      end
+
+      it "should destroy basket" do
+        delete :destroy, :id => 1, :basket => { }, :user_id => users(:user1).username
+        response.should redirect_to user_checkouts_url(assigns(:basket).user)
+      end
+    end
+
+    describe "When logged in as Librarian" do
+      login_fixture_librarian
+
+      it "should destroy basket without user_id" do
+        delete :destroy, :id => 1, :basket => {:user_id => nil}, :user_id => users(:user1).username
+        response.should redirect_to user_checkouts_url(assigns(:basket).user)
+      end
+
+      it "should destroy basket" do
+        delete :destroy, :id => 1, :basket => { }, :user_id => users(:user1).username
+        response.should redirect_to user_checkouts_url(assigns(:basket).user)
+      end
+    end
+
+    describe "When logged in as User" do
+      login_fixture_user
+
+      it "should not destroy basket" do
+        delete :destroy, :id => 3, :user_id => users(:user1).username
+        response.should be_forbidden
+      end
+    end
+  
+    describe "When not logged in" do
+      it "destroys the requested basket" do
+        delete :destroy, :id => @basket.id
+      end
+
+      it "should be forbidden" do
+        delete :destroy, :id => @basket.id
+        response.should redirect_to new_user_session_url
       end
     end
   end

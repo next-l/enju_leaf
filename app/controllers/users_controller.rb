@@ -68,10 +68,8 @@ class UsersController < ApplicationController
   end
 
   def new
-    if user_signed_in?
-      unless current_user.has_role?('Librarian')
-        access_denied; return
-      end
+    unless current_user.try(:has_role?, 'Librarian')
+      access_denied; return
     end
     @user = User.new
     #@user.openid_identifier = flash[:openid_identifier]

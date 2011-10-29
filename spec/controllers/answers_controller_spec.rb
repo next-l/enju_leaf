@@ -287,4 +287,194 @@ describe AnswersController do
       end
     end
   end
+
+  describe "POST create" do
+    before(:each) do
+      @attrs = FactoryGirl.attributes_for(:answer)
+      @invalid_attrs = {:body => ''}
+    end
+
+    describe "When logged in as User" do
+      login_fixture_user
+
+      it "should create answer sithout user_id" do
+        post :create, :answer => {:question_id => 1, :body => 'hoge'}
+        response.should redirect_to answer_url(assigns(:answer))
+      end
+
+      it "should not create answer without question_id" do
+        post :create, :answer => {:body => 'hoge'}
+        assigns(:answer).should_not be_valid
+        response.should redirect_to questions_url
+      end
+
+      it "should create answer with question_id" do
+        post :create, :answer => {:question_id => 1, :body => 'hoge'}
+        assigns(:answer).should be_valid
+        response.should redirect_to answer_url(assigns(:answer))
+      end
+    end
+
+    describe "When not logged in" do
+      describe "with valid params" do
+        it "assigns a newly created answer as @answer" do
+          post :create, :answer => @attrs
+          assigns(:answer).should be_valid
+        end
+
+        it "redirects to the created answer" do
+          post :create, :answer => @attrs
+          response.should redirect_to new_user_session_url
+        end
+      end
+
+      describe "with invalid params" do
+        it "assigns a newly created but unsaved answer as @answer" do
+          post :create, :answer => @invalid_attrs
+          assigns(:answer).should_not be_valid
+        end
+
+        it "re-renders the 'new' template" do
+          post :create, :answer => @invalid_attrs
+          response.should redirect_to new_user_session_url
+        end
+      end
+    end
+  end
+
+  describe "PUT update" do
+    before(:each) do
+      @answer = answers(:answer_00001)
+      @attrs = {:body => 'test'}
+      @invalid_attrs = {:body => ''}
+    end
+
+    describe "When logged in as Administrator" do
+      login_fixture_admin
+
+      describe "with valid params" do
+        it "updates the requested answer" do
+          put :update, :id => answers(:answer_00003).id, :answer => @attrs
+        end
+
+        it "assigns the requested answer as @answer" do
+          put :update, :id => answers(:answer_00003).id, :answer => @attrs
+          assigns(:answer).should eq(Answer.find(3))
+        end
+      end
+
+      describe "with invalid params" do
+        it "assigns the requested answer as @answer" do
+          put :update, :id => answers(:answer_00003).id, :answer => @invalid_attrs
+          response.should render_template("edit")
+        end
+      end
+    end
+  
+    describe "When logged in as Librarian" do
+      login_fixture_librarian
+
+      describe "with valid params" do
+        it "updates the requested answer" do
+          put :update, :id => answers(:answer_00003).id, :answer => @attrs
+        end
+
+        it "assigns the requested answer as @answer" do
+          put :update, :id => answers(:answer_00003).id, :answer => @attrs
+          assigns(:answer).should eq(Answer.find(3))
+        end
+      end
+
+      describe "with invalid params" do
+        it "assigns the requested answer as @answer" do
+          put :update, :id => answers(:answer_00003).id, :answer => @invalid_attrs
+          response.should render_template("edit")
+        end
+      end
+
+      it "should update other user's answer" do
+        put :update, :id => 3, :answer => { }, :user_id => users(:user1).username
+        response.should redirect_to answer_url(assigns(:answer))
+      end
+    end
+  
+    describe "When logged in as User" do
+      login_fixture_user
+
+      describe "with valid params" do
+        it "updates the requested answer" do
+          put :update, :id => answers(:answer_00003).id, :answer => @attrs
+        end
+
+        it "assigns the requested answer as @answer" do
+          put :update, :id => answers(:answer_00003).id, :answer => @attrs
+          assigns(:answer).should eq(Answer.find(3))
+        end
+      end
+
+      describe "with invalid params" do
+        it "assigns the requested answer as @answer" do
+          put :update, :id => answers(:answer_00003).id, :answer => @invalid_attrs
+          response.should render_template("edit")
+        end
+      end
+
+      it "should update my answer" do
+        put :update, :id => answers(:answer_00003), :answer => { }, :user_id => users(:user1).username
+        response.should redirect_to answer_url(assigns(:answer))
+      end
+
+      it "should not update missing answer" do
+        put :update, :id => 'missing', :answer => { }, :user_id => users(:user1).username
+        response.should be_missing
+      end
+  
+      it "should not update other user's answer" do
+        put :update, :id => 5, :answer => { }, :user_id => users(:user2).username
+        response.should be_forbidden
+      end
+
+      it "should update my answer with question_id" do
+        put :update, :id => 3, :answer => { }, :user_id => users(:user1).username, :question_id => 1
+        response.should redirect_to answer_url(assigns(:answer))
+      end
+    end
+
+    describe "When not logged in" do
+      describe "with valid params" do
+        it "updates the requested answer" do
+          put :update, :id => @answer.id, :answer => @attrs
+        end
+
+        it "assigns the requested answer as @answer" do
+          put :update, :id => @answer.id, :answer => @attrs
+          assigns(:answer).should eq(@answer)
+          response.should redirect_to new_user_session_url
+        end
+      end
+    end
+  end
+
+  describe "DELETE destroy" do
+    describe "When logged in as User" do
+      login_fixture_user
+
+      it "should destroy my answer" do
+        delete :destroy, :id => 3
+        response.should redirect_to question_answers_url(assigns(:answer).question)
+      end
+
+      it "should not destroy other user's answer" do
+        delete :destroy, :id => 5
+        response.should be_forbidden
+      end
+    end
+
+    describe "When not logged in" do
+      it "should be forbidden" do
+        delete :destroy, :id => 1
+        response.should redirect_to new_user_session_url
+      end
+    end
+  end
 end
