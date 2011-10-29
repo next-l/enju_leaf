@@ -138,6 +138,11 @@ describe CheckoutsController do
           response.should render_template("edit")
         end
       end
+
+      it "should not update missing checkout" do
+        put :update, :id => 'missing', :checkout => { }
+        response.should be_missing
+      end
     end
 
     describe "When logged in as Librarian" do
@@ -166,6 +171,17 @@ describe CheckoutsController do
           response.should render_template("edit")
         end
       end
+  
+      it "should update checkout item that is reserved" do
+        put :update, :id => 8, :checkout => { }
+        flash[:notice].should eq I18n.t('checkout.this_item_is_reserved')
+        response.should redirect_to edit_checkout_url(assigns(:checkout))
+      end
+  
+      it "should update other user's checkout" do
+        put :update, :id => 1, :checkout => { }
+        response.should redirect_to checkout_url(assigns(:checkout))
+      end
     end
 
     describe "When logged in as User" do
@@ -188,6 +204,17 @@ describe CheckoutsController do
           put :update, :id => checkouts(:checkout_00001).id, :checkout => @attrs
           response.should be_forbidden
         end
+      end
+
+      it "should not update other user's checkout" do
+        put :update, :id => 1, :checkout => { }
+        response.should be_forbidden
+      end
+  
+      it "should not update checkout already renewed" do
+        put :update, :id => 9, :checkout => { }
+        flash[:notice].should eq I18n.t('checkout.excessed_renewal_limit')
+        response.should redirect_to edit_checkout_url(assigns(:checkout))
       end
     end
 

@@ -278,10 +278,7 @@ describe BookmarksController do
     end
 
     describe "When logged in as User" do
-      before(:each) do
-        @user = FactoryGirl.create(:user)
-        sign_in @user
-      end
+      login_fixture_user
 
       describe "with valid params" do
         it "updates the requested bookmark" do
@@ -300,6 +297,23 @@ describe BookmarksController do
           put :update, :id => @bookmark.id, :bookmark => @invalid_attrs
           response.should be_forbidden
         end
+      end
+
+      it "should update bookmark" do
+        put :update, :id => 3, :bookmark => { }
+        response.should redirect_to bookmark_url(assigns(:bookmark))
+      end
+  
+      it "should add tags to bookmark" do
+        put :update, :id => 3, :bookmark => {:user_id => users(:user1).id, :tag_list => 'search', :title => 'test'}
+        response.should redirect_to bookmark_url(assigns(:bookmark))
+        assigns(:bookmark).tag_list.should eq ['search']
+      end
+  
+      it "should remove tags from bookmark" do
+        put :update, :id => 3, :bookmark => {:user_id => users(:user1).id, :tag_list => nil, :title => 'test'}
+        response.should redirect_to bookmark_url(assigns(:bookmark))
+        assigns(:bookmark).tag_list.should be_empty
       end
     end
 
@@ -364,6 +378,16 @@ describe BookmarksController do
 
       it "should be forbidden" do
         delete :destroy, :id => @bookmark.id
+        response.should be_forbidden
+      end
+
+      it "should destroy my bookmark" do
+        delete :destroy, :id => 3
+        response.should redirect_to user_bookmarks_url(users(:user1))
+      end
+
+      it "should not destroy other user's bookmark" do
+        delete :destroy, :id => 1
         response.should be_forbidden
       end
     end
