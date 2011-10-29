@@ -13,6 +13,13 @@ class CheckoutsControllerTest < ActionController::TestCase
     assert_redirected_to checkouts_url
   end
 
+  def test_user_should_get_my_index_feed
+    sign_in users(:user1)
+    get :index, :format => 'rss'
+    assert_response :success
+    assert assigns(:checkouts)
+  end
+
   def test_user_should_not_get_other_index
     sign_in users(:user1)
     get :index, :user_id => users(:admin).username

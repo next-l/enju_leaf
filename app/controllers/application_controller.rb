@@ -57,7 +57,6 @@ class ApplicationController < ActionController::Base
   end
 
   def render_500_solr
-    Rails.logger.error "Solr is not running!"
     return if performed?
     #flash[:notice] = t('page.connection_failed')
     respond_to do |format|
@@ -366,8 +365,10 @@ class ApplicationController < ActionController::Base
 
   def get_top_page_content
     if defined?(EnjuNews)
-      @news_feeds = NewsFeed.all
+      @news_feeds = Rails.cache.fetch('news_feed_all'){NewsFeed.all}
+      @news_posts = NewsPost.limit(3)
     end
+    @libraries = Library.real
   end
 end
 
