@@ -79,6 +79,12 @@ describe CheckoutsController do
         assigns(:checkouts).should be_nil
         response.should be_forbidden
       end
+
+      it "should get my index feed" do
+        get :index, :format => 'rss'
+        assigns(:checkouts).should be_empty
+        response.should be_success
+      end
     end
 
     describe "When not logged in" do
