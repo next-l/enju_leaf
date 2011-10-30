@@ -57,19 +57,11 @@ describe CheckoutsController do
     end
 
     describe "When logged in as User" do
-      before(:each) do
-        @user = FactoryGirl.create(:user)
-        sign_in @user
-      end
+      login_fixture_user
 
       it "assigns all checkouts as @checkouts" do
         get :index
-        assigns(:checkouts).should eq(@user.checkouts.not_returned.order('created_at DESC').page(1))
-      end
-
-      it "should be redirected if an username is not specified" do
-        get :index
-        assigns(:checkouts).should be_empty
+        assigns(:checkouts).should eq(users(:user1).checkouts.not_returned.order('created_at DESC').page(1))
         response.should be_success
       end
 
@@ -78,6 +70,12 @@ describe CheckoutsController do
         get :index, :user_id => user.username
         assigns(:checkouts).should be_nil
         response.should be_forbidden
+      end
+
+      it "should get my index feed" do
+        get :index, :format => 'rss'
+        response.should be_success
+        assigns(:checkouts).should eq(users(:user1).checkouts.not_returned.order('created_at DESC').page(1))
       end
     end
 
@@ -102,6 +100,24 @@ describe CheckoutsController do
         get :index, :icalendar_token => token, :format => :ics
         assigns(:checkouts).should eq user.checkouts.not_returned.order('created_at DESC').page(1)
         response.should be_success
+      end
+    end
+  end
+
+  describe "GET show" do
+    describe "When logged in as User" do
+      login_fixture_user
+
+      it "should show my account" do
+        get :show, :id => 3
+        response.should be_success
+        assigns(:checkout).should eq checkouts(:checkout_00003)
+      end
+
+      it "should not show other user's checkout" do
+        get :show, :id => 1
+        response.should be_forbidden
+        assigns(:checkout).should eq checkouts(:checkout_00001)
       end
     end
   end

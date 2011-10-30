@@ -13,13 +13,6 @@ class CheckoutsControllerTest < ActionController::TestCase
     assert_redirected_to checkouts_url
   end
 
-  def test_user_should_get_my_index_feed
-    sign_in users(:user1)
-    get :index, :format => 'rss'
-    assert_response :success
-    assert assigns(:checkouts)
-  end
-
   def test_user_should_not_get_other_index
     sign_in users(:user1)
     get :index, :user_id => users(:admin).username
@@ -53,18 +46,6 @@ class CheckoutsControllerTest < ActionController::TestCase
     sign_in users(:user1)
     get :show, :id => 100, :user_id => users(:user1).username
     assert_response :missing
-  end
-
-  def test_user_should_show_my_checkout
-    sign_in users(:user1)
-    get :show, :id => 3, :user_id => users(:user1).username
-    assert_response :success
-  end
-
-  def test_user_should_not_show_other_checkout
-    sign_in users(:user1)
-    get :show, :id => 1, :user_id => users(:admin).username
-    assert_response :forbidden
   end
 
   def test_librarian_should_show_other_checkout
