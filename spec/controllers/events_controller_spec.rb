@@ -233,10 +233,15 @@ describe EventsController do
           assigns(:event).should_not be_valid
         end
 
-        it "should be forbidden" do
+        it "should render new template" do
           post :create, :event => @invalid_attrs
           response.should render_template("new")
         end
+      end
+
+      it "should create event" do
+        post :create, :event => { :name => 'test', :library_id => '1', :event_category_id => 1, :start_at => '2008-02-05', :end_at => '2008-02-08' }
+        response.should redirect_to event_url(assigns(:event))
       end
     end
 
@@ -261,10 +266,31 @@ describe EventsController do
           assigns(:event).should_not be_valid
         end
 
-        it "should be forbidden" do
+        it "should render new template" do
           post :create, :event => @invalid_attrs
           response.should render_template("new")
         end
+      end
+
+      it "should create event without library_id" do
+        post :create, :event => { :name => 'test', :event_category_id => 1, :start_at => '2008-02-05', :end_at => '2008-02-08' }
+        response.should redirect_to event_url(assigns(:event))
+      end
+
+      it "should create event without category_id" do
+        post :create, :event => { :name => 'test', :library_id => '1', :start_at => '2008-02-05', :end_at => '2008-02-08' }
+        response.should redirect_to event_url(assigns(:event))
+      end
+
+      it "should not create event with_invalid_dates" do
+        post :create, :event => { :name => 'test', :library_id => '1', :event_category_id => 1, :start_at => '2008-02-08', :end_at => '2008-02-05' }
+        response.should be_success
+        assigns(:event).errors['start_at'].should be_true
+      end
+
+      it "should creat event" do
+        post :create, :event => { :name => 'test', :library_id => '1', :event_category_id => 1, :start_at => '2008-02-05', :end_at => '2008-02-08' }
+        response.should redirect_to event_url(assigns(:event))
       end
     end
 
@@ -294,6 +320,11 @@ describe EventsController do
           response.should be_forbidden
         end
       end
+
+      it "should not creat event" do
+        post :create, :event => { :name => 'test', :library_id => '1', :event_category_id => 1, :start_at => '2008-02-05', :end_at => '2008-02-08' }
+        response.should be_forbidden
+      end
     end
 
     describe "When not logged in" do
@@ -319,6 +350,11 @@ describe EventsController do
           post :create, :event => @invalid_attrs
           response.should redirect_to(new_user_session_url)
         end
+      end
+
+      it "should not create event" do
+        post :create, :event => { :name => 'test', :library_id => '1', :event_category_id => 1, :start_at => '2008-02-05', :end_at => '2008-02-08' }
+        response.should redirect_to new_user_session_url
       end
     end
   end
@@ -371,6 +407,22 @@ describe EventsController do
           put :update, :id => @event.id, :event => @invalid_attrs
           response.should render_template("edit")
         end
+      end
+
+      it "should not update event without library_id" do
+        put :update, :id => 1, :event => {:library_id => nil}
+        response.should be_success
+      end
+  
+      it "should update event without event_category_id" do
+        put :update, :id => 1, :event => {:event_category_id => nil}
+        response.should be_success
+      end
+  
+      it "should not update event with invalid date" do
+        put :update, :id => 1, :event => {:start_at => '2008-02-08', :end_at => '2008-02-05' }
+        response.should be_success
+        assigns(:event).errors['start_at'].should be_true
       end
     end
 

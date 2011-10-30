@@ -68,12 +68,6 @@ class ManifestationsControllerTest < ActionController::TestCase
     assert assigns(:manifestations)
   end
 
-  def test_guest_should_get_index_tag_cloud
-    get :index, :query => '2005', :view => 'tag_cloud'
-    assert_response :success
-    assert_template :partial => '_tag_cloud'
-  end
-
   def test_librarian_should_get_new_without_expression_id
     sign_in users(:librarian1)
     get :new
@@ -98,88 +92,6 @@ class ManifestationsControllerTest < ActionController::TestCase
     assert_response :success
   end
   
-  def test_user_should_not_create_manifestation
-    sign_in users(:user1)
-    assert_no_difference('Manifestation.count') do
-      post :create, :manifestation => { :original_title => 'test', :carrier_type_id => 1 }
-    end
-    
-    assert_response :forbidden
-  end
-
-  def test_librarian_should_create_manifestation_without_expression
-    sign_in users(:librarian1)
-    assert_difference('Manifestation.count') do
-      post :create, :manifestation => { :original_title => 'test', :carrier_type_id => 1, :language_id => 1 }
-    end
-    
-    assert_response :redirect
-    assert assigns(:manifestation)
-    assert_redirected_to manifestation_url(assigns(:manifestation))
-    assigns(:manifestation).remove_from_index!
-  end
-
-  def test_librarian_should_not_create_manifestation_without_title
-    sign_in users(:librarian1)
-    assert_no_difference('Manifestation.count') do
-      post :create, :manifestation => { :carrier_type_id => 1, :language_id => 1 }, :expression_id => 1
-    end
-    
-    assert_response :success
-  end
-
-  def test_librarian_should_create_manifestation_with_expression
-    sign_in users(:librarian1)
-    assert_difference('Manifestation.count') do
-      post :create, :manifestation => { :original_title => 'test', :carrier_type_id => 1, :language_id => 1 }, :expression_id => 1
-    end
-    
-    assert assigns(:manifestation)
-    assert_redirected_to manifestation_url(assigns(:manifestation))
-    assigns(:manifestation).remove_from_index!
-  end
-
-  def test_admin_should_create_manifestation_with_expression
-    sign_in users(:admin)
-    assert_difference('Manifestation.count') do
-      post :create, :manifestation => { :original_title => 'test', :carrier_type_id => 1, :language_id => 1 }, :expression_id => 1
-    end
-    
-    assert assigns(:manifestation)
-    assert_redirected_to manifestation_url(assigns(:manifestation))
-    assigns(:manifestation).remove_from_index!
-  end
-
-  def test_guest_should_show_manifestation_with_holding
-    get :show, :id => 1, :mode => 'holding'
-    assert_response :success
-  end
-
-  def test_guest_should_show_manifestation_with_tag_edit
-    get :show, :id => 1, :mode => 'tag_edit'
-    assert_response :success
-  end
-
-  def test_guest_should_show_manifestation_with_tag_list
-    get :show, :id => 1, :mode => 'tag_list'
-    assert_response :success
-  end
-
-  def test_guest_should_show_manifestation_with_show_authors
-    get :show, :id => 1, :mode => 'show_authors'
-    assert_response :success
-  end
-
-  def test_guest_should_show_manifestation_with_show_all_authors
-    get :show, :id => 1, :mode => 'show_all_authors'
-    assert_response :success
-  end
-
-  def test_guest_should_not_send_manifestation_detail_email
-    get :show, :id => 1, :mode => 'send_email'
-    assert_redirected_to new_user_session_url
-  end
-
   def test_user_should_send_manifestation_detail_email
     sign_in users(:user1)
     get :show, :id => 1, :mode => 'send_email'
@@ -196,59 +108,5 @@ class ManifestationsControllerTest < ActionController::TestCase
     sign_in users(:librarian1)
     get :show, :id => 3, :patron_id => 1
     assert_response :success
-  end
-
-  def test_user_should_get_edit_with_tag_edit
-    sign_in users(:user1)
-    get :edit, :id => 1, :mode => 'tag_edit'
-    assert_response :success
-  end
-  
-  def test_guest_should_not_update_manifestation
-    put :update, :id => 1, :manifestation => { }
-    assert_redirected_to new_user_session_url
-  end
-  
-  def test_user_should_not_update_manifestation
-    sign_in users(:user1)
-    put :update, :id => 1, :manifestation => { }
-    assert_response :forbidden
-  end
-  
-  def test_librarian_should_not_update_manifestation_without_title
-    sign_in users(:librarian1)
-    put :update, :id => 1, :manifestation => { :original_title => nil }
-    assert_response :success
-  end
-  
-  def test_librarian_should_update_manifestation
-    sign_in users(:librarian1)
-    put :update, :id => 1, :manifestation => { }
-    assert_redirected_to manifestation_url(assigns(:manifestation))
-    assigns(:manifestation).remove_from_index!
-  end
-  
-  def test_admin_should_update_manifestation
-    sign_in users(:admin)
-    put :update, :id => 1, :manifestation => { }
-    assert_redirected_to manifestation_url(assigns(:manifestation))
-    assigns(:manifestation).remove_from_index!
-  end
-  
-  def test_guest_should_not_destroy_manifestation
-    assert_no_difference('Manifestation.count') do
-      delete :destroy, :id => 1
-    end
-    
-    assert_redirected_to new_user_session_url
-  end
-
-  def test_user_should_not_destroy_manifestation
-    sign_in users(:user1)
-    assert_no_difference('Manifestation.count') do
-      delete :destroy, :id => 1
-    end
-    
-    assert_response :forbidden
   end
 end

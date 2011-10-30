@@ -30,34 +30,36 @@ class ManifestationsController < ApplicationController
     end
 
     @seconds = Benchmark.realtime do
-      @oai = check_oai_params(params)
-      next if @oai[:need_not_to_search]
-      if params[:format] == 'oai'
-        from_and_until_times = set_from_and_until(Manifestation, params[:from], params[:until])
-        from_time = @from_time = from_and_until_times[:from]
-        until_time = @until_time = from_and_until_times[:until]
-        # OAI-PMHのデフォルトの件数
-        per_page = 200
-        if params[:resumptionToken]
-          current_token = get_resumption_token(params[:resumptionToken])
-          if current_token
-            page = (current_token[:cursor].to_i + per_page).div(per_page) + 1
-          else
-            @oai[:errors] << 'badResumptionToken'
+      if defined?(EnjuOai)
+        @oai = check_oai_params(params)
+        next if @oai[:need_not_to_search]
+        if params[:format] == 'oai'
+          from_and_until_times = set_from_and_until(Manifestation, params[:from], params[:until])
+          from_time = @from_time = from_and_until_times[:from]
+          until_time = @until_time = from_and_until_times[:until]
+          # OAI-PMHのデフォルトの件数
+          per_page = 200
+          if params[:resumptionToken]
+            current_token = get_resumption_token(params[:resumptionToken])
+            if current_token
+              page = (current_token[:cursor].to_i + per_page).div(per_page) + 1
+            else
+              @oai[:errors] << 'badResumptionToken'
+            end
           end
-        end
-        page ||= 1
+          page ||= 1
 
-        if params[:verb] == 'GetRecord' and params[:identifier]
-          begin
-            @manifestation = Manifestation.find_by_oai_identifier(params[:identifier])
-          rescue ActiveRecord::RecordNotFound
-            @oai[:errors] << "idDoesNotExist"
-            render :template => 'manifestations/index.oai.builder'
+          if params[:verb] == 'GetRecord' and params[:identifier]
+            begin
+              @manifestation = Manifestation.find_by_oai_identifier(params[:identifier])
+            rescue ActiveRecord::RecordNotFound
+              @oai[:errors] << "idDoesNotExist"
+              render :template => 'manifestations/index.oai.builder'
+              return
+            end
+            render :template => 'manifestations/show.oai.builder'
             return
           end
-          render :template => 'manifestations/show.oai.builder'
-          return
         end
       end
 
@@ -99,7 +101,7 @@ class ManifestationsController < ApplicationController
       includes << :bookmarks if defined?(EnjuBookmark)
       search = Manifestation.search(:include => includes)
       role = current_user.try(:role) || Role.default_role
-      oai_search = true if params[:format] == 'oai'
+      oai_search = true if params[:format] == 'oai' and defined?(EnjuOai)
       case @reservable
       when 'true'
         reservable = true
@@ -253,16 +255,18 @@ class ManifestationsController < ApplicationController
         save_search_history(query, @manifestations.offset, @count[:query_result], current_user)
       end
 
-      if params[:format] == 'oai'
-        unless @manifestations.empty?
-          @resumption = set_resumption_token(
-            params[:resumptionToken],
-            @from_time || Manifestation.last.updated_at,
-            @until_time || Manifestation.first.updated_at,
-            @manifestations.per_page
-          )
-        else
-          @oai[:errors] << 'noRecordsMatch'
+      if defined?(EnjuOai)
+        if params[:format] == 'oai'
+          unless @manifestations.empty?
+            @resumption = set_resumption_token(
+              params[:resumptionToken],
+              @from_time || Manifestation.last.updated_at,
+              @until_time || Manifestation.first.updated_at,
+              @manifestations.per_page
+            )
+          else
+            @oai[:errors] << 'noRecordsMatch'
+          end
         end
       end
     end

@@ -136,7 +136,7 @@ class Ability
       can [:read, :create, :update], User
       can :destroy, User do |u|
         if defined?(EnjuCirculation)
-          u.checkouts.not_returned.empty? and u.role.name == 'User' and u != user
+          u.deletable? and u.role.name == 'User' and u != user
         else
           u.role.name == 'User' and u != user
         end

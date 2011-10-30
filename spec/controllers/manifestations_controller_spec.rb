@@ -186,6 +186,12 @@ describe ManifestationsController do
         response.should be_success
         assigns(:library_facet).should_not be_empty
       end
+
+      it "should get tag_cloud" do
+        get :index, :query => '2005', :view => 'tag_cloud'
+        response.should be_success
+        response.should render_template("manifestations/_tag_cloud")
+      end
     end
   end
 
@@ -243,6 +249,40 @@ describe ManifestationsController do
       it "should_show_manifestation_with_isbn" do
         get :show, :isbn => "47980020620"
         response.should be_missing
+      end
+
+      it "should show manifestation with holding" do
+        get :show, :id => 1, :mode => 'holding'
+        response.should be_success
+      end
+
+      it "should show manifestation with tag_edit" do
+        get :show, :id => 1, :mode => 'tag_edit'
+        response.should render_template('manifestations/_tag_edit')
+        response.should be_success
+      end
+
+      it "should show manifestation with tag_list" do
+        get :show, :id => 1, :mode => 'tag_list'
+        response.should render_template('manifestations/_tag_list')
+        response.should be_success
+      end
+
+      it "should show manifestation with show_creators" do
+        get :show, :id => 1, :mode => 'show_creators'
+        response.should render_template('manifestations/_show_creators')
+        response.should be_success
+      end
+
+      it "should show manifestation with show_all_creators" do
+        get :show, :id => 1, :mode => 'show_all_creators'
+        response.should render_template('manifestations/_show_creators')
+        response.should be_success
+      end
+
+      it "should not send manifestation's detail email" do
+        get :show, :id => 1, :mode => 'send_email'
+        response.should redirect_to new_user_session_url
       end
     end
   end
@@ -313,6 +353,11 @@ describe ManifestationsController do
         manifestation = FactoryGirl.create(:manifestation)
         get :edit, :id => manifestation.id
         response.should be_forbidden
+      end
+
+      it "should edit manifestation with tag_edit" do
+        get :edit, :id => 1, :mode => 'tag_edit'
+        response.should be_success
       end
     end
 

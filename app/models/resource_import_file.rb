@@ -95,18 +95,20 @@ class ResourceImportFile < ActiveRecord::Base
       end
       num[:manifestation_found] += 1 if manifestation
 
-      unless manifestation
-        series_statement = find_series_statement(row)
-        begin
-          manifestation = Manifestation.import_isbn(isbn)
-          manifestation.series_statement = series_statement
-          manifestation.save
-        rescue EnjuNdl::InvalidIsbn
-          manifestation = nil
-        rescue EnjuNdl::RecordNotFound
-          manifestation = nil
+      if row['original_title'].blank?
+        unless manifestation
+          series_statement = find_series_statement(row)
+          begin
+            manifestation = Manifestation.import_isbn(isbn)
+            manifestation.series_statement = series_statement
+            manifestation.save
+          rescue EnjuNdl::InvalidIsbn
+            manifestation = nil
+          rescue EnjuNdl::RecordNotFound
+            manifestation = nil
+          end
+          num[:manifestation_imported] += 1 if manifestation
         end
-        num[:manifestation_imported] += 1 if manifestation
       end
 
       unless manifestation

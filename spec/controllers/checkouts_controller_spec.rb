@@ -12,11 +12,47 @@ describe CheckoutsController do
     end
 
     describe "When logged in as Administrator" do
-      login_admin
+      login_fixture_admin
 
       it "assigns all checkouts as @checkouts" do
         get :index
         assigns(:checkouts).should eq(Checkout.not_returned.order('created_at DESC').page(1))
+      end
+    end
+
+    describe "When logged in as Librarian" do
+      login_fixture_librarian
+
+      it "should get index" do
+        get :index
+        response.should be_success
+      end
+
+      it "should get index csv" do
+        get :index, :format => 'csv'
+        response.should be_success
+      end
+
+      it "should get index rss" do
+        get :index, :format => 'rss'
+        response.should be_success
+      end
+
+      it "should get overdue index" do
+        get :index, :view => 'overdue'
+        response.should be_success
+      end
+
+      it "should get overdue index with nunber of days_overdue" do
+        get :index, :view => 'overdue', :days_overdue => 2
+        response.should be_success
+        assigns(:checkouts).size.should > 0
+      end
+
+      it "should get overdue index with invalid number of days_overdue" do
+        get :index, :view => 'overdue', :days_overdue => 'invalid days'
+        response.should be_success
+        assigns(:checkouts).size.should > 0
       end
     end
 
@@ -27,28 +63,28 @@ describe CheckoutsController do
       end
 
       it "assigns all checkouts as @checkouts" do
-        get :index, :user_id => @user.username
+        get :index
         assigns(:checkouts).should eq(@user.checkouts.not_returned.order('created_at DESC').page(1))
       end
 
       it "should be redirected if an username is not specified" do
         get :index
-        assigns(:checkouts).should eq(Checkout.order('created_at DESC').all)
-        response.should redirect_to(user_checkouts_url(@user))
+        assigns(:checkouts).should be_empty
+        response.should be_success
       end
 
       it "should be forbidden if other's username is specified" do
         user = FactoryGirl.create(:user)
         get :index, :user_id => user.username
-        assigns(:checkouts).should eq(Checkout.order('created_at DESC').all)
+        assigns(:checkouts).should be_nil
         response.should be_forbidden
       end
     end
 
     describe "When not logged in" do
-      it "assigns empty as @checkouts" do
+      it "assigns nil as @checkouts" do
         get :index
-        assigns(:checkouts).should_not be_empty
+        assigns(:checkouts).should be_nil
         response.should redirect_to(new_user_session_url)
       end
 
@@ -78,7 +114,7 @@ describe CheckoutsController do
     end
 
     describe "When logged in as Administrator" do
-      login_admin
+      login_fixture_admin
 
       describe "with valid params" do
         it "updates the requested checkout" do
@@ -102,10 +138,15 @@ describe CheckoutsController do
           response.should render_template("edit")
         end
       end
+
+      it "should not update missing checkout" do
+        put :update, :id => 'missing', :checkout => { }
+        response.should be_missing
+      end
     end
 
     describe "When logged in as Librarian" do
-      login_librarian
+      login_fixture_librarian
 
       describe "with valid params" do
         it "updates the requested checkout" do
@@ -130,28 +171,50 @@ describe CheckoutsController do
           response.should render_template("edit")
         end
       end
+  
+      it "should update checkout item that is reserved" do
+        put :update, :id => 8, :checkout => { }
+        flash[:notice].should eq I18n.t('checkout.this_item_is_reserved')
+        response.should redirect_to edit_checkout_url(assigns(:checkout))
+      end
+  
+      it "should update other user's checkout" do
+        put :update, :id => 1, :checkout => { }
+        response.should redirect_to checkout_url(assigns(:checkout))
+      end
     end
 
     describe "When logged in as User" do
-      login_user
+      login_fixture_user
 
       describe "with valid params" do
         it "updates the requested checkout" do
-          put :update, :id => @checkout.id, :checkout => @attrs, :user_id => @checkout.user.username
+          put :update, :id => checkouts(:checkout_00001).id, :checkout => @attrs
         end
 
         it "assigns the requested checkout as @checkout" do
-          put :update, :id => @checkout.id, :checkout => @attrs, :user_id => @checkout.user.username
-          assigns(:checkout).should eq(@checkout)
+          put :update, :id => checkouts(:checkout_00001).id, :checkout => @attrs
+          assigns(:checkout).should eq(checkouts(:checkout_00001))
           response.should be_forbidden
         end
       end
 
       describe "with invalid params" do
         it "assigns the requested checkout as @checkout" do
-          put :update, :id => @checkout.id, :checkout => @invalid_attrs, :user_id => @checkout.user.username
+          put :update, :id => checkouts(:checkout_00001).id, :checkout => @attrs
           response.should be_forbidden
         end
+      end
+
+      it "should not update other user's checkout" do
+        put :update, :id => 1, :checkout => { }
+        response.should be_forbidden
+      end
+  
+      it "should not update checkout already renewed" do
+        put :update, :id => 9, :checkout => { }
+        flash[:notice].should eq I18n.t('checkout.excessed_renewal_limit')
+        response.should redirect_to edit_checkout_url(assigns(:checkout))
       end
     end
 
@@ -182,7 +245,7 @@ describe CheckoutsController do
     end
 
     describe "When logged in as Administrator" do
-      login_admin
+      login_fixture_admin
 
       it "destroys the requested checkout" do
         delete :destroy, :id => @checkout.id, :user_id => @checkout.user.username
@@ -191,11 +254,21 @@ describe CheckoutsController do
       it "redirects to the checkouts list" do
         delete :destroy, :id => @checkout.id, :user_id => @checkout.user.username
         response.should redirect_to(user_checkouts_url(@checkout.user))
+      end
+
+      it "should destroy other user's checkout" do
+        delete :destroy, :id => 3
+        response.should redirect_to user_checkouts_url(assigns(:checkout).user)
+      end
+  
+      it "should not destroy missing checkout" do
+        delete :destroy, :id => 'missing'
+        response.should be_missing
       end
     end
 
     describe "When logged in as Librarian" do
-      login_librarian
+      login_fixture_librarian
 
       it "destroys the requested checkout" do
         delete :destroy, :id => @checkout.id, :user_id => @checkout.user.username
@@ -205,18 +278,28 @@ describe CheckoutsController do
         delete :destroy, :id => @checkout.id, :user_id => @checkout.user.username
         response.should redirect_to(user_checkouts_url(@checkout.user))
       end
+
+      it "should destroy other user's checkout" do
+        delete :destroy, :id => 1
+        response.should redirect_to user_checkouts_url(assigns(:checkout).user)
+      end
     end
 
     describe "When logged in as User" do
-      login_user
+      login_fixture_user
 
       it "destroys the requested checkout" do
-        delete :destroy, :id => @checkout.id, :user_id => @checkout.user.username
+        delete :destroy, :id => checkouts(:checkout_00001).id
       end
 
       it "should be forbidden" do
-        delete :destroy, :id => @checkout.id, :user_id => @checkout.user.username
+        delete :destroy, :id => checkouts(:checkout_00001).id
         response.should be_forbidden
+      end
+
+      it "should destroy my checkout" do
+        delete :destroy, :id => 3
+        response.should redirect_to user_checkouts_url(users(:user1))
       end
     end
 
