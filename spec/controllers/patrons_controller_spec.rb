@@ -70,6 +70,18 @@ describe PatronsController do
         get :show, :id => @patron.id
         assigns(:patron).should eq(@patron)
       end
+
+      it "should show patron when required_role is user" do
+        get :show, :id => users(:user2).patron.id
+        assigns(:patron).should eq(users(:user2).patron)
+        response.should be_success
+      end
+
+      it "should show_ atron when required_role is librarian" do
+        get :show, :id => users(:user1).patron.id
+        assigns(:patron).should eq(users(:user1).patron)
+        response.should be_success
+      end
     end
 
     describe "When logged in as User" do

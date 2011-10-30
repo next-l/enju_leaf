@@ -43,32 +43,27 @@ describe ReservesController do
     end
 
     describe "When logged in as User" do
-      before(:each) do
-        @user = FactoryGirl.create(:user)
-        sign_in @user
-      end
+      login_fixture_user
 
-      it "assigns empty as @reserves" do
+      it "assigns my reserves as @reserves" do
         get :index
-        assigns(:reserves).should be_nil
+        assigns(:reserves).should eq(users(:user1).reserves.order('reserves.id DESC').includes(:manifestation).page(1))
       end
 
       it "should be redirected to its own index" do
         get :index
-        response.should redirect_to user_reserves_url(@user)
+        response.should be_success
       end
 
       describe "When my user_id is specified" do
-        it "assigns my reserves as @reserves" do
-          get :index, :user_id => @user.username
-          assigns(:reserves).should be_empty
-          response.should be_success
+        it "should redirect to my reservation" do
+          get :index, :user_id => users(:user1).username
+          response.should redirect_to reserves_url
         end
 
-        it "assigns my reservation feed as @reserves" do
-          get :index, :user_id => @user.username, :format => :rss
-          assigns(:reserves).should be_empty
-          response.should be_success
+        it "should redirect to my reservation feed" do
+          get :index, :user_id => users(:user1).username, :format => 'rss'
+          response.should redirect_to reserves_url
         end
       end
 
@@ -81,6 +76,11 @@ describe ReservesController do
           get :index, :user_id => @user.username
           response.should be_forbidden
         end
+      end
+
+      it "should not get other user's index" do
+        get :index, :user_id => users(:user2).username
+        response.should be_forbidden
       end
     end
 
@@ -198,7 +198,12 @@ describe ReservesController do
       it "should not assign the requested reserve as @reserve" do
         get :new
         assigns(:reserve).should_not be_valid
-        response.should be_forbidden
+        response.should be_success
+      end
+
+      it "should get my new reservation" do
+        get :new, :manifestation_id => 3
+        response.should be_success
       end
     end
 
@@ -219,6 +224,16 @@ describe ReservesController do
         reserve = FactoryGirl.create(:reserve)
         get :edit, :id => reserve.id
         assigns(:reserve).should eq(reserve)
+      end
+  
+      it "should not edit missing reserve" do
+        get :edit, :id => 'missing'
+        response.should be_missing
+      end
+  
+      it "should edit other user's reservation" do
+        get :edit, :id => 3
+        response.should be_success
       end
     end
 

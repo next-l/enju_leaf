@@ -6,31 +6,6 @@ class CheckoutsControllerTest < ActionController::TestCase
     :manifestations, :carrier_types,
     :items, :circulation_statuses
 
-  def test_user_should_get_my_index
-    sign_in users(:user1)
-    get :index, :user_id => users(:user1).username
-    assert_nil assigns(:checkouts)
-    assert_redirected_to checkouts_url
-  end
-
-  def test_user_should_not_get_other_index
-    sign_in users(:user1)
-    get :index, :user_id => users(:admin).username
-    assert_response :forbidden
-  end
-
-  def test_user_should_get_overdue_index
-    sign_in users(:user1)
-    get :index, :view => 'overdue'
-    assert_response :success
-  end
-
-  def test_librarian_should_get_other_index
-    sign_in users(:librarian1)
-    get :index, :user_id => users(:admin).username
-    assert_response :success
-  end
-
   def test_admin_should_get_other_index
     sign_in users(:admin)
     get :index, :user_id => users(:user1).username
@@ -58,53 +33,5 @@ class CheckoutsControllerTest < ActionController::TestCase
     sign_in users(:admin)
     get :show, :id => 3, :user_id => users(:user1).username
     assert_response :success
-  end
-
-  def test_guest_should_not_get_edit
-    get :edit, :id => 1, :user_id => users(:admin).username
-    assert_response :redirect
-    assert_redirected_to new_user_session_url
-  end
-  
-  def test_user_should_get_my_edit
-    sign_in users(:user1)
-    get :edit, :id => 3, :user_id => users(:user1).username
-    assert_response :success
-  end
-  
-  def test_user_should_not_get_other_edit
-    sign_in users(:user1)
-    get :edit, :id => 1, :user_id => users(:admin).username
-    assert_response :forbidden
-  end
-  
-  def test_librarian_should_get_other_edit
-    sign_in users(:librarian1)
-    get :edit, :id => 3, :user_id => users(:user1).username
-    assert_response :success
-  end
-  
-  def test_admin_should_get_other_edit
-    sign_in users(:admin)
-    get :edit, :id => 3, :user_id => users(:user1).username
-    assert_response :success
-  end
-  
-  def test_user_should_update_my_checkout
-    sign_in users(:user1)
-    put :update, :id => 3, :user_id => users(:user1).username, :checkout => { }
-    assert_redirected_to checkout_url(assigns(:checkout))
-  end
-  
-  def test_user_should_not_update_checkout_without_item_id
-    sign_in users(:user1)
-    put :update, :id => 3, :user_id => users(:user1).username, :checkout => {:item_id => nil}
-    assert_response :success
-  end
-  
-  def test_admin_should_update_other_checkout
-    sign_in users(:admin)
-    put :update, :id => 3, :checkout => { }
-    assert_redirected_to checkout_url(assigns(:checkout))
   end
 end

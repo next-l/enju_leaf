@@ -315,6 +315,22 @@ describe BookmarksController do
         response.should redirect_to bookmark_url(assigns(:bookmark))
         assigns(:bookmark).tag_list.should be_empty
       end
+
+      it "should not update other user's bookmark" do
+        put :update, :id => 1, :bookmark => { }
+        response.should be_forbidden
+      end
+
+      it "should not update missing bookmark" do
+        put :update, :id => 'missing', :bookmark => { }
+        response.should be_missing
+      end
+
+      it "should not update bookmark without manifestation_id" do
+        put :update, :id => 3, :bookmark => {:manifestation_id => nil}
+        assigns(:bookmark).should_not be_valid
+        response.should be_success
+      end
     end
 
     describe "When not logged in" do

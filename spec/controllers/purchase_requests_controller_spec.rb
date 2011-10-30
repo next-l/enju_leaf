@@ -96,6 +96,11 @@ describe PurchaseRequestsController do
         get :show, :id => @purchase_request.id
         assigns(:purchase_request).should eq(@purchase_request)
       end
+
+      it "should show purchase_request without user_id" do
+        get :show, :id => purchase_requests(:purchase_request_00002).id
+        response.should be_success
+      end
     end
 
     describe "When logged in as User" do
@@ -119,9 +124,9 @@ describe PurchaseRequestsController do
 
     describe "When not logged in" do
       it "assigns the requested purchase_request as @purchase_request" do
-        purchase_request = FactoryGirl.create(:purchase_request)
-        get :show, :id => purchase_request.id
-        assigns(:purchase_request).should eq(purchase_request)
+        get :show, :id => @purchase_request.id
+        assigns(:purchase_request).should eq(@purchase_request)
+        response.should redirect_to new_user_session_url
       end
     end
   end
@@ -133,6 +138,7 @@ describe PurchaseRequestsController do
       it "assigns the requested purchase_request as @purchase_request" do
         get :new
         assigns(:purchase_request).should_not be_valid
+        response.should be_success
       end
     end
 
@@ -142,6 +148,7 @@ describe PurchaseRequestsController do
       it "should not assign the requested purchase_request as @purchase_request" do
         get :new
         assigns(:purchase_request).should_not be_valid
+        response.should be_success
       end
     end
 
@@ -160,6 +167,49 @@ describe PurchaseRequestsController do
         get :new
         assigns(:purchase_request).should_not be_valid
         response.should redirect_to(new_user_session_url)
+      end
+    end
+  end
+
+  describe "GET edit" do
+    describe "When logged in as Administrator" do
+      login_fixture_admin
+
+      it "should assign the requested purchase_request as @purchase_request" do
+        get :edit, :id => purchase_requests(:purchase_request_00001).id
+        assigns(:purchase_request).should eq(purchase_requests(:purchase_request_00001))
+        response.should be_success
+      end
+    end
+
+    describe "When logged in as Librarian" do
+      login_fixture_librarian
+
+      it "should assign the requested purchase_request as @purchase_request" do
+        get :edit, :id => purchase_requests(:purchase_request_00001).id
+        assigns(:purchase_request).should eq(purchase_requests(:purchase_request_00001))
+        response.should be_success
+      end
+    end
+
+    describe "When logged in as User" do
+      login_fixture_user
+
+      it "should edit my purchase_request" do
+        get :edit, :id => purchase_requests(:purchase_request_00003).id
+        response.should be_success
+      end
+
+      it "should not edit other user's purchase_request" do
+        get :edit, :id => purchase_requests(:purchase_request_00002).id
+        response.should be_forbidden
+      end
+    end
+
+    describe "When not logged in" do
+      it "should not assign the requested purchase_request as @purchase_request" do
+        get :edit, :id => purchase_requests(:purchase_request_00001).id
+        response.should redirect_to new_user_session_url
       end
     end
   end
@@ -443,6 +493,11 @@ describe PurchaseRequestsController do
         delete :destroy, :id => @purchase_request.id
         response.should redirect_to purchase_requests_url
       end
+
+      it "should destroy other user's purchase request" do
+        delete :destroy, :id => purchase_requests(:purchase_request_00003).id
+        response.should redirect_to purchase_requests_url
+      end
     end
 
     describe "When logged in as User" do
@@ -454,6 +509,16 @@ describe PurchaseRequestsController do
 
       it "should be forbidden" do
         delete :destroy, :id => @purchase_request.id
+        response.should be_forbidden
+      end
+
+      it "should destroy my purchase_request" do
+        delete :destroy, :id => purchase_requests(:purchase_request_00003).id
+        response.should redirect_to purchase_requests_url
+      end
+
+      it "should not destroy other user's purchase_request" do
+        delete :destroy, :id => purchase_requests(:purchase_request_00002).id
         response.should be_forbidden
       end
     end

@@ -510,7 +510,10 @@ class Ability
         can [:show, :update, :destroy], Checkout do |checkout|
           checkout.user == user
         end
-        can [:index, :create], Reserve
+        can :index, Reserve
+        can :create, Reserve do |reserve|
+          user.user_number.present?
+        end
         can [:show, :update, :destroy], Reserve do |reserve|
           reserve.user == user
         end

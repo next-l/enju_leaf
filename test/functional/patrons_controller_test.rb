@@ -17,7 +17,7 @@ class PatronsControllerTest < ActionController::TestCase
     assert assigns(:patrons)
   end
 
-  def test_guest_should_get_index_with_resource
+  def test_guest_should_get_index_with_manifestation
     get :index, :manifestation_id => 1
     assert_response :success
   end
@@ -42,18 +42,6 @@ class PatronsControllerTest < ActionController::TestCase
 
   def test_user_should_show_myself
     sign_in users(:user1)
-    get :show, :id => users(:user1).patron
-    assert_response :success
-  end
-
-  def test_librarian_should_show_patron_when_required_role_is_user
-    sign_in users(:librarian1)
-    get :show, :id => users(:user2).patron
-    assert_response :success
-  end
-
-  def test_librarian_should_show_patron_when_required_role_is_librarian
-    sign_in users(:librarian1)
     get :show, :id => users(:user1).patron
     assert_response :success
   end

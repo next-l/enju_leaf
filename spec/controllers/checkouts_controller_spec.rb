@@ -16,7 +16,13 @@ describe CheckoutsController do
 
       it "assigns all checkouts as @checkouts" do
         get :index
-        assigns(:checkouts).should eq(Checkout.not_returned.order('created_at DESC').page(1))
+        assigns(:checkouts).should eq(Checkout.not_returned.order('checkouts.id DESC').page(1))
+      end
+
+      it "should get other user's index" do
+        get :index, :user_id => users(:admin).username
+        response.should be_success
+        assigns(:checkouts).should eq users(:admin).checkouts.not_returned.order('checkouts.id DESC').page(1)
       end
     end
 
@@ -40,6 +46,7 @@ describe CheckoutsController do
 
       it "should get overdue index" do
         get :index, :view => 'overdue'
+        assigns(:checkouts).should eq Checkout.overdue(1.day.ago.beginning_of_day).order('checkouts.id DESC').page(1)
         response.should be_success
       end
 
@@ -54,6 +61,12 @@ describe CheckoutsController do
         response.should be_success
         assigns(:checkouts).size.should > 0
       end
+
+      it "should get other user's index" do
+        get :index, :user_id => users(:admin).username
+        response.should be_success
+        assigns(:checkouts).should eq users(:admin).checkouts.not_returned.order('checkouts.id DESC').page(1)
+      end
     end
 
     describe "When logged in as User" do
@@ -61,7 +74,7 @@ describe CheckoutsController do
 
       it "assigns all checkouts as @checkouts" do
         get :index
-        assigns(:checkouts).should eq(users(:user1).checkouts.not_returned.order('created_at DESC').page(1))
+        assigns(:checkouts).should eq(users(:user1).checkouts.not_returned.order('checkouts.id DESC').page(1))
         response.should be_success
       end
 
@@ -75,7 +88,18 @@ describe CheckoutsController do
       it "should get my index feed" do
         get :index, :format => 'rss'
         response.should be_success
-        assigns(:checkouts).should eq(users(:user1).checkouts.not_returned.order('created_at DESC').page(1))
+        assigns(:checkouts).should eq(users(:user1).checkouts.not_returned.order('checkouts.id DESC').page(1))
+      end
+
+      it "should get my index with user_id" do
+        get :index, :user_id => users(:user1).username
+        assigns(:checkouts).should be_nil
+        response.should redirect_to checkouts_url
+      end
+
+      it "should not get other user's index" do
+        get :index, :user_id => users(:admin).username
+        response.should be_forbidden
       end
     end
 
@@ -90,7 +114,7 @@ describe CheckoutsController do
         token = "AVRjefcBcey6f1WyYXDl"
         user = User.where(:checkout_icalendar_token => token).first
         get :index, :icalendar_token => token
-        assigns(:checkouts).should eq user.checkouts.not_returned.order('created_at DESC').page(1)
+        assigns(:checkouts).should eq user.checkouts.not_returned.order('checkouts.id DESC').page(1)
         response.should be_success
       end
 
@@ -98,7 +122,7 @@ describe CheckoutsController do
         token = "AVRjefcBcey6f1WyYXDl"
         user = User.where(:checkout_icalendar_token => token).first
         get :index, :icalendar_token => token, :format => :ics
-        assigns(:checkouts).should eq user.checkouts.not_returned.order('created_at DESC').page(1)
+        assigns(:checkouts).should eq user.checkouts.not_returned.order('checkouts.id DESC').page(1)
         response.should be_success
       end
     end
@@ -122,6 +146,48 @@ describe CheckoutsController do
     end
   end
 
+  describe "GET edit" do
+    describe "When logged in as Administrator" do
+      login_fixture_admin
+
+      it "should edit other user's checkout" do
+        get :edit, :id => 3
+        response.should be_success
+      end
+    end
+
+    describe "When logged in as Librarian" do
+      login_fixture_librarian
+
+      it "should edit other user's checkout" do
+        get :edit, :id => 3
+        response.should be_success
+      end
+    end
+
+    describe "When logged in as User" do
+      login_fixture_user
+
+      it "should edit my checkout" do
+        sign_in users(:user1)
+        get :edit, :id => 3
+        response.should be_success
+      end
+  
+      it "should not edit other user's checkout" do
+        get :edit, :id => 1
+        response.should be_forbidden
+      end
+    end
+
+    describe "When not logged in" do
+      it "should not edit checkout" do
+        get :edit, :id => 1
+        response.should redirect_to new_user_session_url
+      end
+    end
+  end
+
   describe "PUT update" do
     before(:each) do
       @checkout = checkouts(:checkout_00003)
@@ -134,11 +200,11 @@ describe CheckoutsController do
 
       describe "with valid params" do
         it "updates the requested checkout" do
-          put :update, :id => @checkout.id, :checkout => @attrs, :user_id => @checkout.user.username
+          put :update, :id => @checkout.id, :checkout => @attrs
         end
 
         it "assigns the requested checkout as @checkout" do
-          put :update, :id => @checkout.id, :checkout => @attrs, :user_id => @checkout.user.username
+          put :update, :id => @checkout.id, :checkout => @attrs
           assigns(:checkout).should eq(@checkout)
           response.should redirect_to(assigns(:checkout))
         end
@@ -146,11 +212,11 @@ describe CheckoutsController do
 
       describe "with invalid params" do
         it "assigns the requested checkout as @checkout" do
-          put :update, :id => @checkout.id, :checkout => @invalid_attrs, :user_id => @checkout.user.username
+          put :update, :id => @checkout.id, :checkout => @invalid_attrs
         end
 
         it "re-renders the 'edit' template" do
-          put :update, :id => @checkout.id, :checkout => @invalid_attrs, :user_id => @checkout.user.username
+          put :update, :id => @checkout.id, :checkout => @invalid_attrs
           response.should render_template("edit")
         end
       end
@@ -231,6 +297,18 @@ describe CheckoutsController do
         put :update, :id => 9, :checkout => { }
         flash[:notice].should eq I18n.t('checkout.excessed_renewal_limit')
         response.should redirect_to edit_checkout_url(assigns(:checkout))
+      end
+
+      it "should update my checkout" do
+        put :update, :id => 3, :checkout => { }
+        assigns(:checkout).should be_valid
+        response.should redirect_to checkout_url(assigns(:checkout))
+      end
+  
+      it "should not update checkout without item_id" do
+        put :update, :id => 3, :checkout => {:item_id => nil}
+        assigns(:checkout).should_not be_valid
+        response.should be_success
       end
     end
 

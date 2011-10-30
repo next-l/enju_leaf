@@ -12,19 +12,6 @@ class ReservesControllerTest < ActionController::TestCase
     assert_redirected_to new_user_session_url
   end
 
-  def test_user_should_get_my_index
-    sign_in users(:user1)
-    get :index, :user_id => users(:user1).username
-    assert_response :success
-    assert assigns(:reserves)
-  end
-
-  def test_user_should_not_get_other_index
-    sign_in users(:user1)
-    get :index, :user_id => users(:user2).username
-    assert_response :forbidden
-  end
-
   def test_admin_should_get_other_index
     sign_in users(:admin)
     get :index, :user_id => users(:user1).username
@@ -32,18 +19,6 @@ class ReservesControllerTest < ActionController::TestCase
     assert assigns(:reserves)
   end
 
-  def test_guest_should_not_get_new
-    get :new, :user_id => users(:user1).username, :manifestation_id => 3
-    assert_response :redirect
-    assert_redirected_to new_user_session_url
-  end
-  
-  def test_user_should_get_my_new_when_user_number_is_set
-    sign_in users(:user1)
-    get :new, :user_id => users(:user1).username, :manifestation_id => 3
-    assert_response :success
-  end
-  
   def test_user_should_not_get_my_new_when_user_number_is_not_set
     sign_in users(:user2)
     get :new, :user_id => users(:user2).username, :manifestation_id => 3
@@ -83,24 +58,6 @@ class ReservesControllerTest < ActionController::TestCase
   def test_admin_should_show_other_reserve
     sign_in users(:admin)
     get :show, :id => 3, :user_id => users(:user1).username
-    assert_response :success
-  end
-
-  def test_guest_should_not_get_edit
-    get :edit, :id => 3
-    assert_response :redirect
-    assert_redirected_to new_user_session_url
-  end
-  
-  def test_everyone_should_not_get_missing_edit
-    sign_in users(:admin)
-    get :edit, :id => 100
-    assert_response :missing
-  end
-  
-  def test_admin_should_get_other_edit
-    sign_in users(:admin)
-    get :edit, :id => 3, :user_id => users(:user1).username
     assert_response :success
   end
 end
