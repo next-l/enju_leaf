@@ -1219,6 +1219,16 @@ en:
       other: "Pictures"
     best_request: "best request"
     best_reader: "best reader"
+  tooltip:
+    icons_info: Icons information
+    message: message
+    edit: edit
+    cancel: cancel
+    destroy: 削除
+    feed: feed
+    csv: csv
+    asc: asc
+    desc: desc
   title:
     index: "index"
     show: "show"
