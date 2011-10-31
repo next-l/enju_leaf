@@ -1,0 +1,22 @@
+<%= form_for(@budget) do |f| %>
+  <%= f.error_messages %>
+
+  <div class="field">
+    <%= f.label :library %><br />
+    <%= f.select(:library_id, @libraries.collect{|l| [l.display_name.localize, l.id]}) -%>
+  </div>
+
+  <div class="field">
+    <%= f.label :term %><br />
+    <%= f.select(:term_id, @terms.collect{|t| [t.display_name.localize, t.id]}) -%>
+  </div>
+
+  <div class="field">
+    <%= f.label :amount %><br />
+    <%= f.text_field :amount -%>
+  </div>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

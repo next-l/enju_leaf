@@ -1,0 +1,29 @@
+<div id="content_detail" class="ui-corner-all">
+<h1 class="title"><%= t('page.showing', :model => t('activerecord.models.budget')) -%></h1>
+<div id="content_list">
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong><%= t('activerecord.attributes.budget.library') -%>:</strong>
+  <%= @budget.library.display_name if @budget.library -%>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.budget.term') -%>:</strong>
+  <%= @budget.term.display_name if @budget.term -%> (<%= l(@budget.term.start_at) if @budget.term -%> - <%= l(@budget.term.end_at) if @budget.term-%>)
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.budget.amount') -%>:</strong>
+  <%= t('budget.yen', :amount => @budget.amount) -%>
+</p>
+
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all">
+  <ul>
+    <li><%= link_to t('page.edit'), edit_budget_path(@budget) -%></li>
+    <li><%= link_to t('page.back'), budgets_path -%></li>
+  </ul>
+</div>
