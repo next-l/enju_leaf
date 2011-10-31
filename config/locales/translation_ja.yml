@@ -1285,6 +1285,7 @@ ja:
     all_libraries: "全ての図書館"
     from_date: "検索開始日時"
     to_date: "検索終了日時"
+    library: "図書館"
   bookmark:
     new: "新しいブックマーク"
     not_bookmarked: "ブックマークされていません。"
