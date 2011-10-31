@@ -10,7 +10,7 @@
 
 <p>
   <strong><%= t('activerecord.attributes.budget.term') -%>:</strong>
-  <%= @budget.term.display_name if @budget.term -%> (<%= l(@budget.term.start_at) if @budget.term -%> - <%= l(@budget.term.end_at) if @budget.term-%>)
+  <%= @budget.term.display_name if @budget.term -%> (<%= l(@budget.term.start_at, :format => :only_date) if @budget.term -%> - <%= l(@budget.term.end_at, :format => :only_date) if @budget.term-%>)
 </p>
 
 <p>
