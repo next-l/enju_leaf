@@ -203,6 +203,13 @@ div#submenu{
   border: 1px solid #5970B2;
 }
 
+div#iconmenu{
+  margin-top: 15px;
+  width: 178px;
+  padding: 5px;
+  border: 1px solid #5970B2;
+}
+
 div#manifestation_book_jacket{
   margin-top: 10px;
   text-align: center;

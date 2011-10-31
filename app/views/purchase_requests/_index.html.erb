@@ -31,9 +31,9 @@
         <%= link_to purchase_request.order_list.title, order_list_purchase_requests_path(purchase_request.order_list) if purchase_request.order_list -%>
       </td>
       <td>
-        <%= link_to image_tag('icons/page_white_edit.png', :size => '16x16', :alt => t('page.edit')), edit_user_purchase_request_path(purchase_request.user, purchase_request) -%>
+        <%= link_to image_tag('icons/page_white_edit.png', :size => '16x16', :alt => t('page.edit'), :title => t('tooltip.edit')), edit_user_purchase_request_path(purchase_request.user, purchase_request) -%>
         <%- if can? :destroy, purchase_request %>
-          <%= link_to image_tag('icons/delete.png', :size => '16x16', :alt => t('page.destroy')), purchase_request, :confirm => t('page.are_you_sure'), :method => :delete -%>
+          <%= link_to image_tag('icons/delete.png', :size => '16x16', :alt => t('page.destroy'), :title => t('tooltip.destroy')), purchase_request, :confirm => t('page.are_you_sure'), :method => :delete -%>
         <%- end -%>
       </td>
     </tr>
@@ -64,14 +64,14 @@
   </ul>
 <p>
   <%- if @user -%>
-    <%= link_to (image_tag 'feed-icon-14x14.png', :size => '14x14', :alt => t('page.feed'), :class => 'icon'), :user_id => @user.username, :format => :rss -%>
+    <%= link_to (image_tag 'feed-icon-14x14.png', :size => '14x14', :alt => t('page.feed'), :title => t('tooltip.feed'), :class => 'icon'), :user_id => @user.username, :format => :rss -%>
     (<%= link_to 'RSS', user_purchase_requests_path(@user, :format => :rss) -%>)
-    <%= link_to (image_tag 'icons/page_white_excel.png', :size => '16x16', :alt => 'CSV', :class => 'icon'), user_purchase_requests_path(@user, :format => :csv, :locale => @locale.to_s) -%>
+    <%= link_to (image_tag 'icons/page_white_excel.png', :size => '16x16', :alt => 'CSV', :title => t('tooltip.csv'), :class => 'icon'), user_purchase_requests_path(@user, :format => :csv, :locale => @locale.to_s) -%>
     (<%= link_to 'CSV', user_purchase_requests_path(@user, :format => :csv, :locale => @locale.to_s) -%>)
   <%- else -%>
-    <%= link_to (image_tag 'feed-icon-14x14.png', :size => '14x14', :alt => t('page.feed'), :class => 'icon'), :format => :rss -%>
+    <%= link_to (image_tag 'feed-icon-14x14.png', :size => '14x14', :alt => t('page.feed'), :title => t('tooltip.feed'), :class => 'icon'), :format => :rss -%>
     (<%= link_to 'RSS', purchase_requests_path(:format => :rss) -%>)
-    <%= link_to (image_tag 'icons/page_white_excel.png', :size => '16x16', :alt => 'CSV', :class => 'icon'), purchase_requests_path(:format => :csv, :locale => @locale.to_s) -%>
+    <%= link_to (image_tag 'icons/page_white_excel.png', :size => '16x16', :alt => 'CSV', :title => t('tooltip.csv'), :class => 'icon'), purchase_requests_path(:format => :csv, :locale => @locale.to_s) -%>
     (<%= link_to 'CSV', purchase_requests_path(:format => :csv, :locale => @locale.to_s) -%>)
   <%- end -%>
 </p>
@@ -80,4 +80,5 @@
 <ul>
   <li><a href="javascript:window.location.href='<%= new_user_purchase_request_url(current_user) -%>?purchase_request[url]='+encodeURIComponent(location.href)+'&purchase_request[title]='+encodeURIComponent(document.title);"><%= t('purchase_request.add_to_purchase_request') -%></a></li>
 </ul>
+<%= render 'page/iconmenu'-%>
 </div>

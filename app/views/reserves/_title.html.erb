@@ -28,5 +28,5 @@
     <%- unless reserve.manifestation.access_address.blank? -%>
       <br />
       <%= link_to reserve.manifestation.access_address, manifestation.access_address -%>
-      <%= link_to image_tag('icons/world_go.png', :size => '16x16', :alt => ('Web')), reserve.manifestation.access_address -%>
+      <%= link_to image_tag('icons/world_go.png', :size => '16x16', :alt => ('Web'), :title => ('tooltip.web')), reserve.manifestation.access_address -%>
     <%- end -%>

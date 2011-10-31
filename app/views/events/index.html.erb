@@ -55,8 +55,8 @@
     </td>
     <td>
       <%- if can? :destroy, event -%>
-        <%= link_to image_tag('icons/page_white_edit.png', :size => '16x16', :alt => t('page.edit')), edit_event_path(event) -%>
-        <%= link_to image_tag('icons/delete.png', :size => '16x16', :alt => t('page.destroy')), event, :confirm => t('page.are_you_sure'), :method => :delete -%>
+        <%= link_to image_tag('icons/page_white_edit.png', :size => '16x16', :alt => t('page.edit'), :title => t('tooltip.edit')), edit_event_path(event) -%>
+        <%= link_to image_tag('icons/delete.png', :size => '16x16', :alt => t('page.destroy'), :title => t('tooltip.destroy')), event, :confirm => t('page.are_you_sure'), :method => :delete -%>
       <%- end -%>
     </td>
   </tr>
@@ -90,16 +90,17 @@
   </ul>
   <p>
     <%- if @library -%>
-      <%= link_to (image_tag 'feed-icon-14x14.png', :size => '14x14', :alt => t('page.feed'), :class => 'icon'), library_events_path(@library, :format => :rss) -%>
+      <%= link_to (image_tag 'feed-icon-14x14.png', :size => '14x14', :alt => t('page.feed'), :title => t('tooltip.feed'), :class => 'icon'), library_events_path(@library, :format => :rss) -%>
       (<%= link_to 'RSS', library_events_path(@library, :format => :rss) -%>)
-      <%= link_to (image_tag 'icons/page_white_excel.png', :size => '16x16', :alt => 'CSV', :class => 'icon'), library_events_path(@library, :format => :csv, :locale => @locale.to_s) -%>
+      <%= link_to (image_tag 'icons/page_white_excel.png', :size => '16x16', :alt => 'CSV', :title => t('tooltip.csv'), :class => 'icon'), library_events_path(@library, :format => :csv, :locale => @locale.to_s) -%>
       (<%= link_to 'CSV', library_events_path(@library, :format => :csv, :locale => @locale.to_s) -%>)
     <%- else -%>
-      <%= link_to (image_tag 'feed-icon-14x14.png', :size => '14x14', :alt => t('page.feed'), :class => 'icon'), events_path(:format => :rss) -%>
+      <%= link_to (image_tag 'feed-icon-14x14.png', :size => '14x14', :alt => t('page.feed'), :title => t('tooltip.feed'), :class => 'icon'), events_path(:format => :rss) -%>
       (<%= link_to 'RSS', events_path(:format => :rss) -%>)
-      <%= link_to (image_tag 'icons/page_white_excel.png', :size => '16x16', :alt => 'CSV', :class => 'icon'), events_path(:format => :csv, :locale => @locale.to_s) -%>
+      <%= link_to (image_tag 'icons/page_white_excel.png', :size => '16x16', :alt => 'CSV', :title => t('tooltip.csv'), :class => 'icon'), events_path(:format => :csv, :locale => @locale.to_s) -%>
       (<%= link_to 'CSV', events_path(:format => :csv, :locale => @locale.to_s) -%>)
     <%- end -%>
   </p>
   <%= render 'page/login' unless current_user -%>
+  <%= render 'page/iconmenu' if current_user.has_role?('Librarian') -%>
 </div>
