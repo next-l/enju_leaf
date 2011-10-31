@@ -23,7 +23,7 @@
     <td><%= link_to import_request.manifestation.original_title, import_request.manifestation if import_request.manifestation -%></td>
     <td>
       <%- if can? :destroy, import_request -%>
-        <%= link_to image_tag('icons/delete.png', :size => '16x16', :alt => t('page.destroy')), import_request, :confirm => t('page.are_you_sure'), :method => :delete -%>
+        <%= link_to image_tag('icons/delete.png', :size => '16x16', :alt => t('page.destroy'), :title => t('tooltip.destroy')), import_request, :confirm => t('page.are_you_sure'), :method => :delete -%>
       <%- end -%>
     </td>
   </tr>
@@ -38,4 +38,5 @@
   <ul>
     <li><%= link_to t('page.new', :model => t('activerecord.models.import_request')), new_import_request_path -%></li>
   </ul>
+  <%= render 'page/iconmenu' -%>
 </div>

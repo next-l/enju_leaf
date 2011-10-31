@@ -1269,12 +1269,21 @@ ja:
     icons_info: アイコンの説明
     message: メッセージ
     edit: 編集
+    book_edit: 編集
     cancel: 取消
     destroy: 削除
     feed: フィード
     csv: CSV
     asc: 昇順
     desc: 降順
+    picture: 画像
+    serial: 定期刊行物
+    web: Web
+    unavailable: 操作不可
+    add_derivation: 派生資料を追加
+    answer: 回答
+    serial: 定期刊行物
+
   exstatistics:
     report: 帳票
     checkout_report: 貸出状況表

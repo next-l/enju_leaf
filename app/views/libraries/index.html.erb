@@ -42,8 +42,8 @@
   <tr class="line<%= cycle("0", "1") -%>">
     <td>
       <%- if can? :update, library -%>
-        <%= library.first? ? image_tag('cross.png', :size => '16x16') : link_to(image_tag('arrow_up.png', :size => '16x16', :alt => t('page.asc')), {:action => 'update', :position  => (library.position > 1 ? library.position - 1 : 1), :id => library.name}, :method => :put) -%>
-        <%= library.last? ? image_tag('cross.png', :size => '16x16') : link_to(image_tag('arrow_down.png', :size => '16x16', :alt => t('page.desc')), {:action => 'update', :position => (library.position + 1), :id => library.name}, :method => :put) -%>
+        <%= library.first? ? image_tag('cross.png', :size => '16x16', :title => t('tooltip.unavailable')) : link_to(image_tag('arrow_up.png', :size => '16x16', :alt => t('page.asc'), :title => t('tooltip.asc')), {:action => 'update', :position  => (library.position > 1 ? library.position - 1 : 1), :id => library.name}, :method => :put) -%>
+        <%= library.last? ? image_tag('cross.png', :size => '16x16', :title => t('tooltip.unavailable')) : link_to(image_tag('arrow_down.png', :size => '16x16', :alt => t('page.desc'), :title => t('tooltip.desc')), {:action => 'update', :position => (library.position + 1), :id => library.name}, :method => :put) -%>
       <%- end -%>
     </td>
     <td>
@@ -60,10 +60,10 @@
     <td><%= library.fax_number -%></td>
     <td>
       <%- if can? :update, library -%>
-        <%= link_to image_tag('icons/page_white_edit.png', :size => '16x16', :alt => t('page.edit')), edit_library_path(library) -%>
+        <%= link_to image_tag('icons/page_white_edit.png', :size => '16x16', :alt => t('page.edit'), :title => t('tooltip.edit')), edit_library_path(library) -%>
       <% end %>
       <%- if can? :destroy, library -%>
-        <%= link_to image_tag('icons/delete.png', :size => '16x16', :alt => t('page.destroy')), library, :confirm => t('page.are_you_sure'), :method => :delete -%>
+        <%= link_to image_tag('icons/delete.png', :size => '16x16', :alt => t('page.destroy'), :title => t('tooltip.destroy')), library, :confirm => t('page.are_you_sure'), :method => :delete -%>
       <%- end -%>
     </td>
   </tr>
@@ -74,9 +74,10 @@
 </div>
 
 <div id="submenu" class="ui-corner-all">
-  <ul>
-    <%- if can? :create, Library -%>
+  <%- if can? :create, Library -%>
+    <ul>
       <li><%= link_to t('page.new', :model => t('activerecord.models.library')), new_library_path -%></li>
-    <%- end -%>
-  </ul>
+    </ul>
+    <%= render 'page/iconmenu' -%>
+  <%- end -%>
 </div>

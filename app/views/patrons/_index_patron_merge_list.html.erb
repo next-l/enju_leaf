@@ -22,21 +22,23 @@
   </tr>
 
 <%- @patrons.each do |patron| -%>
-  <tr class="line<%= cycle("0", "1") -%>">
-    <td><%= link_to patron.full_name, patron_merge_list_patron_path(@patron_merge_list, patron) -%></td>
-    <td><%= patron.patron_type.display_name.localize -%></td>
-    <td><%=l patron.date_of_birth if patron.date_of_birth -%></td>
-    <td>
-      <%- if can? :destroy, patron -%>
-        <%- if params[:mode] == 'add' -%>
-          <%= link_to t('page.add'), new_patron_merge_list_patron_merge_path(@patron_merge_list, :patron_id => patron.id) unless @patron_merge_list.patrons.include?(patron) -%>
-        <%- else -%>
-          <%- patron_merge = @patron_merge_list.patron_merges.find_by_patron_id(patron) -%>
-          <%= link_to t('page.destroy'), patron_merge_list_patron_merge_path(@patron_merge_list, patron_merge), :confirm => t('page.are_you_sure'), :method => :delete -%>
+  <%- if patron.user.blank? -%>
+    <tr class="line<%= cycle("0", "1") -%>">
+      <td><%= link_to patron.full_name, patron_merge_list_patron_path(@patron_merge_list, patron) -%></td>
+      <td><%= patron.patron_type.display_name.localize -%></td>
+      <td><%=l patron.date_of_birth if patron.date_of_birth -%></td>
+      <td>
+        <%- if can? :destroy, patron -%>
+          <%- if params[:mode] == 'add' -%>
+            <%= link_to t('page.add'), new_patron_merge_list_patron_merge_path(@patron_merge_list, :patron_id => patron.id) unless @patron_merge_list.patrons.include?(patron) -%>
+          <%- else -%>
+            <%- patron_merge = @patron_merge_list.patron_merges.find_by_patron_id(patron) -%>
+            <%= link_to t('page.destroy'), patron_merge_list_patron_merge_path(@patron_merge_list, patron_merge), :confirm => t('page.are_you_sure'), :method => :delete -%>
+          <%- end -%>
         <%- end -%>
-      <%- end -%>
-    </td>
-  </tr>
+      </td>
+    </tr>
+  <%- end -%>
 <%- end -%>
 </table>
 

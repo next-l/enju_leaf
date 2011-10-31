@@ -22,20 +22,22 @@
     <th id="edit_icons"></th>
   </tr>
   <%- @patrons.each do |patron| -%>
-    <tr class="line<%= cycle("0", "1") -%>">
-      <td><%= link_to patron.full_name, patron -%></td>
-      <td><%= patron.patron_type.display_name.localize -%></td>
-      <td><%= l(@patron.date_of_death, :format => :only_date) if @patron.date_of_death -%></td>
-      <td>
-        <%- if can? :destroy, patron -%>
-          <%- if params[:mode] == 'add' -%>
-            <%= link_to t('page.add'), new_manifestation_produce_path(manifestation, :patron_id => patron.id) unless manifestation.patrons.include?(patron) -%>
-          <%- else -%>
-            <%= link_to t('page.destroy'), manifestation_produce_path(manifestation, manifestation.produced(patron)), :confirm => t('page.are_you_sure'), :method => :delete -%>
+    <%- if patron.user.blank? -%>
+      <tr class="line<%= cycle("0", "1") -%>">
+        <td><%= link_to patron.full_name, patron -%></td>
+        <td><%= patron.patron_type.display_name.localize -%></td>
+        <td><%= l(patron.date_of_death, :format => :only_date) if patron.date_of_death -%></td>
+        <td>
+          <%- if can? :destroy, patron -%>
+            <%- if params[:mode] == 'add' -%>
+              <%= link_to t('page.add'), new_manifestation_produce_path(manifestation, :patron_id => patron.id) unless manifestation.patrons.include?(patron) -%>
+            <%- else -%>
+              <%= link_to t('page.destroy'), manifestation_produce_path(manifestation, manifestation.produced(patron)), :confirm => t('page.are_you_sure'), :method => :delete -%>
+            <%- end -%>
           <%- end -%>
-        <%- end -%>
-      </td>
-    </tr>
+        </td>
+      </tr>
+    <%- end -%>
   <%- end -%>
 </table>
 
