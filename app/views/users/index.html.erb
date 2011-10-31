@@ -62,6 +62,7 @@
     <td><%= l(user.created_at) if user.created_at -%></td>
     <td>
       <%= link_to t('activerecord.models.checkout'), new_basket_path(:user_number => user.user_number) unless user.user_number.blank? -%>
+      <%= link_to t('activerecord.models.checkin'), checkins_path unless user.user_number.blank? -%>
       <br />
       (<%= link_to t('page.checkout_history'), user_checkouts_path(user) -%>)
     </td>
@@ -83,6 +84,7 @@
       <li><%= link_to t('page.new', :model => t('activerecord.models.user')), new_user_path -%></li>
       <li><%= link_to t('user.manage_family'), families_path -%></li>
       <li><%= link_to t('page.import_from_file'), new_patron_import_file_path -%></li>
+      <li><%= link_to t('activerecord.models.checkin'), checkins_path -%>
     <%- end -%>
   </ul>
 </div>
