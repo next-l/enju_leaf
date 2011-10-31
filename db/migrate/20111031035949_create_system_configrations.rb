@@ -1,4 +1,4 @@
-class CreateSystemConfigration < ActiveRecord::Migration
+class CreateSystemConfigrations < ActiveRecord::Migration
   def self.up
     create_table :system_configrations do |t|
       t.string :keyname, :null => false
