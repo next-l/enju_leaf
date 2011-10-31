@@ -80,6 +80,7 @@ class PatronsController < ApplicationController
     role = current_user.try(:role) || Role.default_role
     search.build do
       with(:required_role_id).less_than role.id
+      with(:user_id).equal_to(nil)
     end
 
     page = params[:page] || 1

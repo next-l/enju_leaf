@@ -76,6 +76,7 @@ class Patron < ActiveRecord::Base
     integer :original_patron_ids, :multiple => true
     integer :required_role_id
     integer :patron_type_id
+    integer :user_id
   end
 
   def self.per_page

@@ -102,5 +102,5 @@
     <%- end -%>
   </p>
   <%= render 'page/login' unless current_user -%>
-  <%= render 'page/iconmenu' if current_user.has_role?('Librarian') -%>
+  <%= render 'page/iconmenu' if user_signed_in? and current_user.has_role?('Librarian') -%>
 </div>
