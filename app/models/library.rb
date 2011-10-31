@@ -11,6 +11,7 @@ class Library < ActiveRecord::Base
   has_many :inter_library_loans, :foreign_key => 'borrowing_library_id'
   has_many :users
   belongs_to :country
+  has_many :budgets
 
   extend FriendlyId
   friendly_id :name
