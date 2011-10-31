@@ -82,6 +82,21 @@ describe PatronsController do
         assigns(:patron).should eq(users(:user1).patron)
         response.should be_success
       end
+
+      it "should not show patron who does not create a work" do
+        get :show, :id => 3, :work_id => 3
+        response.should be_missing
+      end
+
+      it "should not show patron who does not realize an expression" do
+        get :show, :id => 4, :expression_id => 4
+        response.should be_missing
+      end
+
+      it "should not show patron who does not produce a manifestation" do
+        get :show, :id => 4, :manifestation_id => 4
+        response.should be_missing
+      end
     end
 
     describe "When logged in as User" do
@@ -90,6 +105,12 @@ describe PatronsController do
       it "assigns the requested patron as @patron" do
         get :show, :id => @patron.id
         assigns(:patron).should eq(@patron)
+      end
+
+      it "should show user" do
+        get :show, :id => users(:user2).patron
+        assigns(:patron).required_role.name.should eq 'User'
+        response.should be_success
       end
     end
 

@@ -129,6 +129,24 @@ describe CheckoutsController do
   end
 
   describe "GET show" do
+    describe "When logged in as Administrator" do
+      login_fixture_admin
+
+      it "should show other user's content" do
+        get :show, :id => 3
+        response.should be_success
+      end
+    end
+
+    describe "When logged in as Librarian" do
+      login_fixture_librarian
+
+      it "should show other user's content" do
+        get :show, :id => 3
+        response.should be_success
+      end
+    end
+
     describe "When logged in as User" do
       login_fixture_user
 
@@ -142,6 +160,18 @@ describe CheckoutsController do
         get :show, :id => 1
         response.should be_forbidden
         assigns(:checkout).should eq checkouts(:checkout_00001)
+      end
+
+      it "should not show missing checkout" do
+        get :show, :id => 'missing'
+        response.should be_missing
+      end
+    end
+
+    describe "When not logged in" do
+      it "should not assign the requested checkout as @checkout" do
+        get :show, :id => 1
+        response.should redirect_to new_user_session_url
       end
     end
   end

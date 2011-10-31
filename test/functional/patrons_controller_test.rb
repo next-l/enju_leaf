@@ -28,12 +28,6 @@ class PatronsControllerTest < ActionController::TestCase
     assert_redirected_to new_user_session_url
   end
 
-  def test_user_should_show_patron
-    sign_in users(:user1)
-    get :show, :id => users(:user2).patron
-    assert_response :success
-  end
-
   def test_user_should_not_show_patron_when_required_role_is_librarian
     sign_in users(:user2)
     get :show, :id => users(:user1).patron
@@ -50,26 +44,6 @@ class PatronsControllerTest < ActionController::TestCase
     sign_in users(:librarian2)
     get :show, :id => users(:librarian1).patron
     assert_response :forbidden
-  end
-
-  def test_librarian_should_not_show_patron_not_create
-    sign_in users(:librarian1)
-    get :show, :id => 3, :work_id => 3
-    assert_response :missing
-    #assert_redirected_to new_patron_create_url(assigns(:patron), :work_id => 3)
-  end
-
-  def test_librarian_should_not_show_patron_not_realize
-    sign_in users(:librarian1)
-    get :show, :id => 4, :expression_id => 4
-    assert_response :missing
-  end
-
-  def test_librarian_should_not_show_patron_not_produce
-    sign_in users(:librarian1)
-    get :show, :id => 4, :manifestation_id => 4
-    assert_response :missing
-    #assert_redirected_to new_patron_produce_url(assigns(:patron), :manifestation_id => 4)
   end
 
   def test_user_should_get_edit_myself

@@ -30,34 +30,4 @@ class ReservesControllerTest < ActionController::TestCase
     get :new, :user_id => users(:user2).username, :manifestation_id => 5
     assert_response :forbidden
   end
-  
-  def test_user_should_show_reserve_without_user_id
-    sign_in users(:user1)
-    get :show, :id => 3
-    assert_response :success
-  end
-
-  def test_user_should_not_show_other_reserve
-    sign_in users(:user2)
-    get :show, :id => 3, :user_id => users(:user1).username
-    assert_response :forbidden
-  end
-
-  def test_librarian_should_show_reserve_without_user_id
-    sign_in users(:librarian1)
-    get :show, :id => 3
-    assert_response :success
-  end
-
-  def test_librarian_should_show_other_reserve
-    sign_in users(:librarian1)
-    get :show, :id => 3, :user_id => users(:user1).username
-    assert_response :success
-  end
-
-  def test_admin_should_show_other_reserve
-    sign_in users(:admin)
-    get :show, :id => 3, :user_id => users(:user1).username
-    assert_response :success
-  end
 end

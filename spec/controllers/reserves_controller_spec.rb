@@ -107,6 +107,11 @@ describe ReservesController do
         get :show, :id => 'missing'
         response.should be_missing
       end
+
+      it "should show other user's reservation" do
+        get :show, :id => 3
+        response.should be_success
+      end
     end
 
     describe "When logged in as Librarian" do
@@ -116,6 +121,11 @@ describe ReservesController do
         reserve = FactoryGirl.create(:reserve)
         get :show, :id => reserve.id
         assigns(:reserve).should eq(reserve)
+      end
+
+      it "should show other user's reservation" do
+        get :show, :id => 3
+        response.should be_success
       end
     end
 
@@ -128,13 +138,13 @@ describe ReservesController do
         assigns(:reserve).should eq(reserve)
       end
 
-      it "should edit my reservation" do
-        get :edit, :id => 3
+      it "should show my reservation" do
+        get :show, :id => 3
         response.should be_success
       end
   
-      it "should not edit other user's reservation" do
-        get :edit, :id => 5
+      it "should not show other user's reservation" do
+        get :show, :id => 5
         response.should be_forbidden
       end
     end
@@ -259,6 +269,16 @@ describe ReservesController do
         reserve = FactoryGirl.create(:reserve)
         get :edit, :id => reserve.id
         assigns(:reserve).should eq(reserve)
+      end
+
+      it "should edit my reservation" do
+        get :edit, :id => 3
+        response.should be_success
+      end
+  
+      it "should not edit other user's reservation" do
+        get :edit, :id => 5
+        response.should be_forbidden
       end
     end
 
