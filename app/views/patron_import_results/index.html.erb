@@ -38,10 +38,10 @@
   <ul>
     <li>
     <% if @patron_import_file %>
-      <%= link_to (image_tag 'icons/page_white_excel.png', :size => '16x16', :alt => 'CSV', :class => 'icon'), patron_import_file_patron_import_results_path(@patron_import_file, :format => :csv, :locale => @locale.to_s) -%>
+      <%= link_to (image_tag 'icons/page_white_excel.png', :size => '16x16', :alt => 'CSV', :title => t('tooltip.csv'), :class => 'icon'), patron_import_file_patron_import_results_path(@patron_import_file, :format => :csv, :locale => @locale.to_s) -%>
       (<%= link_to 'CSV', patron_import_file_patron_import_results_path(:format => :csv, :locale => @locale.to_s) -%>)
     <% else %>
-      <%= link_to (image_tag 'icons/page_white_excel.png', :size => '16x16', :alt => 'CSV', :class => 'icon'), patron_import_results_path(:format => :csv, :locale => @locale.to_s) -%>
+      <%= link_to (image_tag 'icons/page_white_excel.png', :size => '16x16', :alt => 'CSV', :title => t('tooltip.csv'), :class => 'icon'), patron_import_results_path(:format => :csv, :locale => @locale.to_s) -%>
       (<%= link_to 'CSV', patron_import_results_path(:format => :csv, :locale => @locale.to_s) -%>)
     <% end %>
     </li>
