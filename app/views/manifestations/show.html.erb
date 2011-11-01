@@ -63,9 +63,9 @@
               <li><%= link_to t('manifestation.reserve_this'), new_reserve_path(:manifestation_id => @manifestation.id) -%>
             <%- else -%>
               <%- if @manifestation.is_reserved_by?(current_user) -%>
-                <li><%= link_to t('manifestation.cancel_reservation'), user_reserve_path(@reserve.user, @reserve) -%>
+                <li><%= link_to t('manifestation.cancel_reservation'), reserve_path(@reserve) -%>
               <%- else -%>
-                <li><%= link_to t('manifestation.reserve_this'), new_user_reserve_path(current_user, :manifestation_id => @manifestation.id) -%>
+                <li><%= link_to t('manifestation.reserve_this'), new_reserve_path(:manifestation_id => @manifestation.id) -%>
               <%- end -%>
             <%- end -%>
             <br />

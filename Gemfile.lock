@@ -175,7 +175,7 @@ GEM
       main
       ruby_parser (~> 2.0.4)
       sexp_processor (~> 3.0.3)
-    client_side_validations (3.1.1)
+    client_side_validations (3.1.2)
     cloudfiles (1.4.18)
       mime-types (>= 1.16)
     cocaine (0.2.0)

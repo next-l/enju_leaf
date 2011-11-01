@@ -34,7 +34,7 @@
     <%- if user_signed_in? -%>
       <%- if current_user.has_role?('Librarian') -%>
         <%- unless @item.checkouts.not_returned.blank? -%>
-          (<%= link_to t('item.current_checkout'), user_checkout_path(@item.checkouts.not_returned.first.user, @item.checkouts.not_returned.first) -%>)
+          (<%= link_to t('item.current_checkout'), checkout_path(@item.checkouts.not_returned.first) -%>)
         <%- end -%>
       <%- end -%>
     <%- end -%>
