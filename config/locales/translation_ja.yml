@@ -1080,8 +1080,8 @@ ja:
         series_statement_id: シリーズ情報のID
         manifestation_id: 資料のID
       budget:
-        library: 図書館
-        term: 期間
+        library_id: 図書館
+        term_id: 期間
         amount: 金額
       term:
         display_name: 期間名
