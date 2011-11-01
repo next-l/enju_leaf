@@ -122,6 +122,7 @@ ja:
       person: 人
       corporate_body: 団体
       family: 家族
+      family_user: 家族利用者
       subject_heading_type_has_subject: 件名標目と件名の関係
       user_has_shelf: 利用者と書棚の関係
       participate: 参加
@@ -215,6 +216,7 @@ ja:
         deleted_at: 削除時刻
         zip_code_1: 郵便番号1
         zip_code_2: 郵便番号2
+        address: 住所
         address_1: 住所1
         address_2: 住所2
         address_1_note: 住所1の注記
@@ -901,6 +903,7 @@ ja:
         date_of_birth: 生年月日
         note: 注記
       family:
+        id: ID
         full_name: 名前
         full_name_transcription: 名前のよみ
         full_name_alternative: 代替の名前
@@ -1639,11 +1642,15 @@ ja:
     successfully_merged: "%{model}は正常に統合されました。"
     specify_id: "%{model}のIDを指定してください。"
   family:
+    add: 追加
+    remove: ×
+    members: 家族メンバー
     may_family_with: "家族ですか？"
     not_select_family: "家族を選択しない"
     already_family_with: "家族登録済み"
     out_of_family: "家族登録を解除する"
     will_be_family_with: "さんと家族登録します。"
+    create_family: "下記の利用者を家族にします。"
   resource_import_file:
     template_download: "テンプレートをダウンロード"
   budget:

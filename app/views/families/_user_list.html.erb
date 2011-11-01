@@ -1,0 +1,64 @@
+<script>
+    function addUser(user_id, username){
+      if ($("div#add_" + user_id).length < 1){
+        $("<div id='add_" + user_id + "'><input type='hidden' name='family_users[]' value=" + user_id + ">" + username
+          + "<a href='javascript:removeUser(" + user_id + ")'><%= t('family.remove') -%></a></div>").appendTo('#family_users');
+      }
+    }
+    function removeUser(user_id){
+      $('div#add_' + user_id).remove();
+    }
+</script>
+
+<table class="index">
+  <tr>
+    <th></th>
+    <th>
+      <%= t('activerecord.attributes.user.username') -%>
+      <%= link_to image_tag('arrow_up.png', :size => '16x16', :alt => t('page.asc')), url_for(params.merge(:sort_by => 'username', :order => 'asc')) -%>
+      <%= link_to image_tag('arrow_down.png', :size => '16x16', :alt => t('page.desc')), url_for(params.merge(:sort_by => 'username', :order => 'desc')) -%><br />
+      <%= t('activerecord.attributes.patron.full_name') -%>
+      <%= link_to image_tag('arrow_up.png', :size => '16x16', :alt => t('page.asc')), url_for(params.merge(:sort_by => 'full_name', :order => 'asc')) -%>
+      <%= link_to image_tag('arrow_down.png', :size => '16x16', :alt => t('page.desc')), url_for(params.merge(:sort_by => 'full_name', :order => 'desc')) -%>
+    </th>跋
+
+    <th>
+      <%= t('activerecord.attributes.user.user_number') -%>
+      <%= link_to image_tag('arrow_up.png', :size => '16x16', :alt => t('page.asc')), url_for(params.merge(:sort_by => 'user_number', :order => 'asc')) -%>
+      <%= link_to image_tag('arrow_down.png', :size => '16x16', :alt => t('page.desc')), url_for(params.merge(:sort_by => 'user_number', :order => 'desc')) -%>
+    </th>
+    <th>
+      <%= t('activerecord.attributes.patron.telephone_number') -%>
+      <%= link_to image_tag('arrow_up.png', :size => '16x16', :alt => t('page.asc')), url_for(params.merge(:sort_by => 'telephone_number_1', :order => 'asc')) -%>
+      <%= link_to image_tag('arrow_down.png', :size => '16x16', :alt => t('page.desc')), url_for(params.merge(:sort_by => 'telephone_number_1', :order => 'desc')) -%>
+    </th>
+    <th>
+      <%= t('activerecord.attributes.patron.address') -%>
+    </th>
+  </tr>
+
+<%- @users.each_with_index do |user, i| -%>
+  <tr class="line<%= cycle("0", "1") -%>">
+    <td><%= link_to t('family.add'), "javascript:addUser('#{user.id}', '#{user.username}');", :id => "user_#{user.id}" -%></td>
+    <td>
+      <%= link_to user.username, user -%>
+      <br />
+      <%- if user.patron -%>
+        <%= link_to user.patron.full_name, user -%>
+      <%- end -%>
+    </td>
+    <td><%= user.user_number -%></td>
+    <td>
+     <%- if user.patron -%>
+       <%= user.patron.telephone_number_1 -%>
+       <br />
+       <%= user.patron.telephone_number_2 -%>
+     <%- end -%>
+    </td>
+    <td><%= user.patron.address_1 if user.patron -%></td>
+  </tr>
+<%- end -%>
+</table>
+
+<br />
+<%= will_paginate(@users) -%>
