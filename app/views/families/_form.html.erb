@@ -19,7 +19,7 @@
 <%- end -%>
 
 <div style="color: green"><%= flash[:message] -%></div>
-<%= form_for @family, :html => {:onsubmit => "javascript:get_users(query);return false;"}, :remote => true do -%>
+<%= form_for @family, :url => "javascript:get_users(query);return false;", :remote => true do -%>
   <p>
     <%= t('page.search_term') -%>: <%= search_field_tag 'query', h(@query), {:id => 'search_form_top', :class => 'search_form', :placeholder => t('page.search_term')} -%><br />
     <%= t('activerecord.attributes.user.birth_date') -%>: <%= text_field_tag 'birth_date', @date_of_birth, :class => 'wide_date_text_field', :placeholder => "#{t('page.example')}: 2011-04-12" -%>
@@ -40,7 +40,6 @@
         alert("success");
       }
     });
-    alert("emiko");
     return false;
   }
 
