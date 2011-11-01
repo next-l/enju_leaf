@@ -5,8 +5,8 @@
   <div style="color: red">
     <%= user_notice(user) -%>
     <%- unless @family_users.blank? -%>
-      <%- @family_users.each do |user| -%>
-        <%= user_notice(user) -%>
+      <%- @family_users.each do |f_user| -%>
+        <%= user_notice(f_user) unless f_user == user -%>
       <%- end -%>
     <%- end -%>
   </div>
