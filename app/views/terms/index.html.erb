@@ -1,7 +1,7 @@
 <div id="content_detail" class="ui-corner-all">
 <h1 class="title"><%= t('page.listing', :model => t('activerecord.models.term')) -%></h1>
 <div id="content_list">
-
+<div style="color: red"><%= flash[:message].to_s -%></div>
 <table class="index">
   <tr>
     <th><%= t('activerecord.attributes.term.display_name') -%></th>

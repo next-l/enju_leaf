@@ -1675,3 +1675,5 @@ ja:
     template_download: "テンプレートをダウンロード"
   budget:
     yen: "%{amount} 円"
+  term:
+    cannot_delete: "この期間は削除できません。"

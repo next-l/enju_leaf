@@ -50,11 +50,15 @@ class TermsController < ApplicationController
 
   def destroy
     @term = Term.find(params[:id])
-    @term.destroy
-
     respond_to do |format|
-      format.html { redirect_to(terms_url) }
-      format.xml  { head :ok }
+      if @term.destroy?
+        @term.destroy
+        format.html { redirect_to(terms_url) }
+        format.xml  { head :ok }
+      else
+        flash[:message] = t('term.cannot_delete')
+        @terms = Term.all
+      end
     end
   end
 end

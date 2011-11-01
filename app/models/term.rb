@@ -6,5 +6,10 @@ class Term < ActiveRecord::Base
   def set_end_date
     self.end_at = self.end_at.end_of_day
   end
+
+  def destroy?
+    return false if Budget.where(:term_id => self.id).first
+    return true
+  end
 end
 
