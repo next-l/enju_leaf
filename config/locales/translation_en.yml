@@ -1219,6 +1219,24 @@ en:
       other: "Pictures"
     best_request: "best request"
     best_reader: "best reader"
+  tooltip:
+    icons_info: Icons information
+    message: message
+    edit: edit
+    book_edit: edit
+    cancel: cancel
+    destroy: destroy
+    feed: feed
+    csv: CSV
+    asc: asc
+    desc: desc
+    picture: picture
+    serial: serial
+    web: Web
+    unavailable: unavailable
+    add_derivation: Add derivation
+    answer: answer
+    serial: serial
   title:
     index: "index"
     show: "show"

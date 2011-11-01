@@ -23,8 +23,8 @@
           <td><%= i18n_state(reserve.state) -%></td>
           <td><%= l(reserve.expired_at, :format => :only_date) -%></td>
           <%- if configatron.checked_items.disp_user == true -%>
-            <td><%= link_to f_user.username, f_user -%><br />
-                <%= link_to f_user.patron.full_name, f_user.patron if current_user.has_role?('Librarian') -%></td>
+            <td><%= link_to f_user.patron.full_name, f_user -%><br />
+                (<%= link_to f_user.username, f_user -%>)</td>
           <%- end -%>
         </tr>
       <%- end -%>

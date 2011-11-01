@@ -16,26 +16,26 @@
   <tr>
     <th>
       <%= t('activerecord.attributes.user.username') -%>
-      <%= link_to image_tag('arrow_up.png', :size => '16x16', :alt => t('page.asc')), url_for(params.merge(:sort_by => 'username', :order => 'asc')) -%>
-      <%= link_to image_tag('arrow_down.png', :size => '16x16', :alt => t('page.desc')), url_for(params.merge(:sort_by => 'username', :order => 'desc')) -%><br />
+      <%= link_to image_tag('arrow_up.png', :size => '16x16', :alt => t('page.asc'), :title => t('tooltip.asc')), url_for(params.merge(:sort_by => 'username', :order => 'asc')) -%>
+      <%= link_to image_tag('arrow_down.png', :size => '16x16', :alt => t('page.desc'), :title => t('tooltip.desc')), url_for(params.merge(:sort_by => 'username', :order => 'desc')) -%><br />
       <%= t('activerecord.attributes.patron.full_name') -%>
-      <%= link_to image_tag('arrow_up.png', :size => '16x16', :alt => t('page.asc')), url_for(params.merge(:sort_by => 'full_name', :order => 'asc')) -%>
-      <%= link_to image_tag('arrow_down.png', :size => '16x16', :alt => t('page.desc')), url_for(params.merge(:sort_by => 'full_name', :order => 'desc')) -%>
+      <%= link_to image_tag('arrow_up.png', :size => '16x16', :alt => t('page.asc'), :title => t('tooltip.asc')), url_for(params.merge(:sort_by => 'full_name', :order => 'asc')) -%>
+      <%= link_to image_tag('arrow_down.png', :size => '16x16', :alt => t('page.desc'), :title => t('tooltip.desc')), url_for(params.merge(:sort_by => 'full_name', :order => 'desc')) -%>
     </th>
     <th>
       <%= t('activerecord.attributes.user.user_number') -%>
-      <%= link_to image_tag('arrow_up.png', :size => '16x16', :alt => t('page.asc')), url_for(params.merge(:sort_by => 'user_number', :order => 'asc')) -%>
-      <%= link_to image_tag('arrow_down.png', :size => '16x16', :alt => t('page.desc')), url_for(params.merge(:sort_by => 'user_number', :order => 'desc')) -%>
+      <%= link_to image_tag('arrow_up.png', :size => '16x16', :alt => t('page.asc'), :title => t('tooltip.asc')), url_for(params.merge(:sort_by => 'user_number', :order => 'asc')) -%>
+      <%= link_to image_tag('arrow_down.png', :size => '16x16', :alt => t('page.desc'), :title => t('tooltip.desc')), url_for(params.merge(:sort_by => 'user_number', :order => 'desc')) -%>
     </th>
     <th>
       <%= t('activerecord.attributes.patron.telephone_number') -%>
-      <%= link_to image_tag('arrow_up.png', :size => '16x16', :alt => t('page.asc')), url_for(params.merge(:sort_by => 'telephone_number_1', :order => 'asc')) -%>
-      <%= link_to image_tag('arrow_down.png', :size => '16x16', :alt => t('page.desc')), url_for(params.merge(:sort_by => 'telephone_number_1', :order => 'desc')) -%>
+      <%= link_to image_tag('arrow_up.png', :size => '16x16', :alt => t('page.asc'), :title => t('tooltip.asc')), url_for(params.merge(:sort_by => 'telephone_number_1', :order => 'asc')) -%>
+      <%= link_to image_tag('arrow_down.png', :size => '16x16', :alt => t('page.desc'), :title => t('tooltip.desc')), url_for(params.merge(:sort_by => 'telephone_number_1', :order => 'desc')) -%>
     </th>
     <th>
       <%= t('page.created_at') -%>
-      <%= link_to image_tag('arrow_up.png', :size => '16x16', :alt => t('page.asc')), url_for(params.merge(:sort_by => 'created_at', :order => 'asc')) -%>
-      <%= link_to image_tag('arrow_down.png', :size => '16x16', :alt => t('page.desc')), url_for(params.merge(:sort_by => 'created_at', :order => 'desc')) -%>
+      <%= link_to image_tag('arrow_up.png', :size => '16x16', :alt => t('page.asc'), :title => t('tooltip.asc')), url_for(params.merge(:sort_by => 'created_at', :order => 'asc')) -%>
+      <%= link_to image_tag('arrow_down.png', :size => '16x16', :alt => t('page.desc'), :title => t('tooltip.desc')), url_for(params.merge(:sort_by => 'created_at', :order => 'desc')) -%>
     </th>
     <th><%= t('activerecord.models.checkout') -%></th>
     <th><%= t('activerecord.models.reserve') -%></th>
@@ -62,6 +62,7 @@
     <td><%= l(user.created_at) if user.created_at -%></td>
     <td>
       <%= link_to t('activerecord.models.checkout'), new_basket_path(:user_number => user.user_number) unless user.user_number.blank? -%>
+      <%= link_to t('activerecord.models.checkin'), checkins_path unless user.user_number.blank? -%>
       <br />
       (<%= link_to t('page.checkout_history'), user_checkouts_path(user) -%>)
     </td>
@@ -83,7 +84,7 @@
       <li><%= link_to t('page.new', :model => t('activerecord.models.user')), new_user_path -%></li>
       <li><%= link_to t('user.manage_family'), families_path -%></li>
       <li><%= link_to t('page.import_from_file'), new_patron_import_file_path -%></li>
+      <li><%= link_to t('activerecord.models.checkin'), checkins_path -%>
     <%- end -%>
-    <li><%= link_to t('page.search_resource', :model => t('activerecord.models.patron')), patrons_path -%></li>
   </ul>
 </div>

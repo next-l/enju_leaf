@@ -27,6 +27,7 @@
     <%- if can? :create, Patron -%>
       <li><%= link_to t('patron.add'), new_patron_path -%></li>
       <li><%= link_to t('page.merge', :model => t('activerecord.models.patron')), patron_merge_lists_path -%></li>
+      <%= render 'page/iconmenu' -%>
     <%- end -%>
   </ul>
 </div>

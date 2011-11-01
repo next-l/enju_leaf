@@ -15,4 +15,5 @@
 <div id="submenu" class="ui-corner-all">
   <%= render 'solved_facet' -%>
   <%= render 'crd' -%>
+  <%= render 'page/iconmenu' if user_signed_in? and current_user.has_role?('User') -%>
 </div>

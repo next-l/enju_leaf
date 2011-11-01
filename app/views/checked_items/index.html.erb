@@ -41,7 +41,7 @@
       <li>
         <%= link_to @basket.user.username, @basket.user -%>
         <%- if @basket.user.patron -%>
-          (<%= link_to @basket.user.patron.full_name, @basket.user.patron if current_user.has_role?('Librarian') -%>)
+          (<%= link_to @basket.user.patron.full_name, @basket.user -%>)
         <%- end -%>
       </li>
     </ul>

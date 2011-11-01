@@ -4,8 +4,10 @@ class ManifestationExstatsController < ApplicationController
 
   def initialize
     @title = ""
-    @limit = 10
+    @limit = 20
     @start_d = @end_d = nil
+    @select_librarlies = Library.find(:all).collect{|i| [ i.short_display_name, i.id ] }
+    @selected_library = nil
     super
   end
 
@@ -28,13 +30,18 @@ class ManifestationExstatsController < ApplicationController
         @end_d = datecheck(params[:search_date_last])
         @end_d += 1.days if @end_d
       end
+      @selected_library = params[:library][:id]
     end
 
     if @start_d == nil || @end_d == nil 
       flash[:message] = t('page.exstatistics.invalid_input_date')
       #@manifestations = Manifestation.new
     else
-      @checkouts = Checkout.find_by_sql(["SELECT manifestation_id, COUNT(*) AS cnt FROM checkouts LEFT OUTER JOIN exemplifies on (exemplifies.id = checkouts.item_id) WHERE (checkouts.created_at >= ? and checkouts.created_at < ?) GROUP BY exemplifies.manifestation_id ORDER BY cnt DESC LIMIT ?", @start_d, @end_d, @limit]);
+      if @selected_library.nil? || @selected_library.empty?
+        @checkouts = Checkout.find_by_sql(["SELECT manifestation_id, COUNT(*) AS cnt FROM checkouts LEFT OUTER JOIN exemplifies on (exemplifies.id = checkouts.item_id) WHERE (checkouts.created_at >= ? and checkouts.created_at < ?) GROUP BY exemplifies.manifestation_id ORDER BY cnt DESC LIMIT ?", @start_d, @end_d, @limit]);
+      else
+        @checkouts = Checkout.find_by_sql(["SELECT manifestation_id, COUNT(*) AS cnt FROM users, checkouts LEFT OUTER JOIN exemplifies on (exemplifies.id = checkouts.item_id) WHERE checkouts.librarian_id = users.id AND users.library_id = ? AND (checkouts.created_at >= ? and checkouts.created_at < ?) GROUP BY exemplifies.manifestation_id ORDER BY cnt DESC LIMIT ?", @selected_library, @start_d, @end_d, @limit]);
+      end
 
       @manifestations = []
       @checkouts.each do |r|
@@ -72,6 +79,7 @@ class ManifestationExstatsController < ApplicationController
         @end_d = datecheck(params[:search_date_last])
         @end_d += 1.days if @end_d
       end
+      @selected_library = params[:library][:id]
     end
 
     if @start_d == nil || @end_d == nil
@@ -79,7 +87,11 @@ class ManifestationExstatsController < ApplicationController
       #@manifestations = Manifestation.new
       #@manifestations.errors.add(:message, "Invalid Date")
     else
-      @reserves = Reserve.find(:all, :select=>'manifestation_id, COUNT(*) AS cnt', :limit=>@limit, :conditions => ['reserves.created_at >= ? AND reserves.created_at < ? ',  @start_d, @end_d], :group=>'manifestation_id', :order=>'cnt DESC')
+      if @selected_library.nil? || @selected_library.empty?
+        @reserves = Reserve.find(:all, :select=>'manifestation_id, COUNT(*) AS cnt', :limit=>@limit, :conditions => ['reserves.created_at >= ? AND reserves.created_at < ? ',  @start_d, @end_d], :group=>'manifestation_id', :order=>'cnt DESC')
+      else
+        @reserves = Reserve.find(:all, :select=>'manifestation_id, COUNT(*) AS cnt', :limit=>@limit, :conditions => ['reserves.created_at >= ? AND reserves.created_at < ? ',  @start_d, @end_d], :group=>'manifestation_id', :order=>'cnt DESC')
+      end
 
       @manifestations = []
       @reserves.each do |r|

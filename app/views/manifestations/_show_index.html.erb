@@ -15,8 +15,8 @@
     <%- end -%>
   <%- end -%>
   <%= link_to form_icon(manifestation.carrier_type), manifestation -%>
-  <%= image_tag('icons/newspaper.png', :size => '16x16', :alt => t('manifestation.serial')) if manifestation.serial? -%>
-  <%= link_to image_tag('icons/world_go.png', :size => '16x16', :alt => t('manifestation.web')), manifestation.access_address unless manifestation.access_address.blank? -%>
+  <%= image_tag('icons/newspaper.png', :size => '16x16', :alt => t('manifestation.serial'), :title => t('tooltip.serial')) if manifestation.serial? -%>
+  <%= link_to image_tag('icons/world_go.png', :size => '16x16', :alt => t('manifestation.web'), :title => t('tooltip.web')), manifestation.access_address unless manifestation.access_address.blank? -%>
   <br />
   <div id="creator_list_<%= manifestation.id -%>">
     <%= render 'manifestations/show_creators', :manifestation => manifestation -%>
