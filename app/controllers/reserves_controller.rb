@@ -144,6 +144,7 @@ class ReservesController < ApplicationController
         format.html { redirect_to user_reserve_url(@reserve.user, @reserve) }
         format.xml  { render :xml => @reserve, :status => :created, :location => user_reserve_url(@reserve.user, @reserve) }
       else
+        @libraries = Library.all_cache
         format.html { render :action => "new" }
         format.xml  { render :xml => @reserve.errors.to_xml }
       end
