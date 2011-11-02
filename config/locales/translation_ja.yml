@@ -1480,6 +1480,9 @@ ja:
     staff: "職員"
     number_of_item: "所蔵冊数"
     address: "住所"
+    cannot_delete: "この図書館は削除できません。"
+  shelf:
+    cannot_delete: "この本棚は削除できません。"
   import:
     from_file: "ファイルから"
     from_isbn: "ISBNから"

@@ -112,11 +112,15 @@ class LibrariesController < ApplicationController
   # DELETE /libraries/1
   # DELETE /libraries/1.xml
   def destroy
-    @library.destroy
-
     respond_to do |format|
-      format.html { redirect_to libraries_url }
-      format.xml  { head :ok }
+      if @library.destroy?
+        @library.destroy
+        format.html { redirect_to libraries_url }
+        format.xml  { head :ok }
+      else
+        flash[:message] = t('library.cannot_delete')
+        format.html { redirect_to libraries_url }
+      end
     end
   end
 
