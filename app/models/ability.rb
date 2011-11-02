@@ -313,6 +313,7 @@ class Ability
       can [:show, :update, :destroy], Bookmark do |bookmark|
         bookmark.user == user
       end
+      can [:create, :update, :show], Tag
       can [:index, :create], Checkout
       can [:show, :update, :destroy], Checkout do |checkout|
         checkout.user == user
@@ -413,7 +414,6 @@ class Ability
         Subject,
         SubjectHasClassification,
         SubjectHeadingType,
-        Tag,
         UserCheckoutStat,
         UserReserveStat,
         UserGroup,

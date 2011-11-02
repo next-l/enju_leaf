@@ -64,7 +64,9 @@ $(document).FunctionKeys(
     </h3>
     <div id="tag_cloud_box">
       <%= render 'bookmarks/tag_cloud', :tags => @tags -%>
-      <p>(<%= link_to t('page.listing', :model => t('activerecord.models.tag')), tags_path -%>)</p>
+      <%- if can? :index, Tag -%>
+        <p>(<%= link_to t('page.listing', :model => t('activerecord.models.tag')), tags_path -%>)</p>
+      <%- end -%>
     </div>
   </div>
 </div>
