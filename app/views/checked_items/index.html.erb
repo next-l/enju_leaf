@@ -16,20 +16,20 @@
     </div>
     <br />
     <div id="checkouts_list">
-      <%= render 'checkouts' -%>
+      <%= render 'page/checkouts_list'-%>
     </div>
     <br />
     <div id="reserves_list">
-      <%= render 'reserves'-%>
+      <%= render 'page/reserves_list'-%>
     </div>
     <%- unless @family_users.blank? -%>
       <br />
       <div id="checkouts_family_list">
-        <%= render 'checkouts_family' -%>
+        <%= render 'page/checkouts_family_list'-%>
       </div>
       <br />
       <div id="reserves_family_list">
-        <%= render 'reserves_family' -%>
+        <%= render 'page/reserves_family_list' -%>
       </div>
     <%- end -%>
   </div>
