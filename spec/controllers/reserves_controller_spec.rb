@@ -13,6 +13,12 @@ describe ReservesController do
         get :index
         assigns(:reserves).should eq(Reserve.order('reserves.id DESC').includes(:manifestation).page(1))
       end
+
+      it "should get other user's reservation" do
+        get :index, :user_id => users(:user1).username
+        response.should be_success
+        assigns(:reserves).should eq(users(:user1).reserves.order('reserves.id DESC').includes(:manifestation).page(1))
+      end
     end
 
     describe "When logged in as Librarian" do
@@ -214,6 +220,17 @@ describe ReservesController do
       it "should get my new reservation" do
         get :new, :manifestation_id => 3
         response.should be_success
+      end
+  
+      it "should not get other user's new reservation" do
+        get :new, :user_id => users(:user2).username, :manifestation_id => 5
+        response.should be_forbidden
+      end
+
+      it "should not get new reservation when user_number is not set" do
+        sign_in users(:user2)
+        get :new, :user_id => users(:user2).username, :manifestation_id => 3
+        response.should be_forbidden
       end
     end
 
