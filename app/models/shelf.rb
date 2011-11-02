@@ -34,6 +34,11 @@ class Shelf < ActiveRecord::Base
   def localized_display_name
     display_name.localize
   end
+
+  def destroy?
+    return false if Item.where(:shelf_id => self.id).first
+    return true
+  end
 end
 
 # == Schema Information

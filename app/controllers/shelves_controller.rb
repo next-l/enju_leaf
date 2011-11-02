@@ -106,11 +106,15 @@ class ShelvesController < ApplicationController
     if @shelf.id == 1
       access_denied; return
     end
-    @shelf.destroy
-
     respond_to do |format|
-      format.html { redirect_to library_shelves_url(@shelf.library.name) }
-      format.xml  { head :ok }
+      if @shelf.destroy?
+        @shelf.destroy
+        format.html { redirect_to library_shelves_url(@shelf.library.name) }
+        format.xml  { head :ok }
+      else
+        flash[:message] = t('shelf.cannot_delete')
+        format.html { redirect_to library_shelves_url(@shelf.library.name) }
+      end
     end
   end
 end

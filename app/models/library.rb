@@ -78,7 +78,7 @@ class Library < ActiveRecord::Base
   end
 
   def self.web
-    Library.find(1)
+    Library.find(1) rescue nil
   end
 
   def address(locale = I18n.locale)
@@ -90,6 +90,11 @@ class Library < ActiveRecord::Base
     end
   rescue
     nil
+  end
+
+  def destroy?
+    return false if Shelf.where(:library_id => self.id).first
+    return true
   end
 
   private
