@@ -19,7 +19,8 @@
 <%- end -%>
 
 <div style="color: green"><%= flash[:message] -%></div>
-<%= form_for @family, :url => "javascript:get_users(query);return false;", :remote => true do -%>
+<%= t('family.please_search_users') -%>
+<%= form_tag({:action=>'search_user'},{:remote=>true}) do -%>
   <p>
     <%= t('page.search_term') -%>: <%= search_field_tag 'query', h(@query), {:id => 'search_form_top', :class => 'search_form', :placeholder => t('page.search_term')} -%><br />
     <%= t('activerecord.attributes.user.birth_date') -%>: <%= text_field_tag 'birth_date', @date_of_birth, :class => 'wide_date_text_field', :placeholder => "#{t('page.example')}: 2011-04-12" -%>
@@ -29,19 +30,8 @@
   </p>
 <%- end -%>
 
-<script>
-  function get_users(query){
-    alert("<%= url_for(:controller => :families, :action => "search_user") -%>");
-    $.ajax({
-      type: "GET",
-      url: url_for(:controller => :families, :action => :search_user),
-      data: query,
-      success: function(obj){
-        alert("success");
-      }
-    });
-    return false;
-  }
+<div id="result">
+  &nbsp;
+</div>
 
-</script>
-<%= render :partial => "user_list" %>
+<%= if false then render :partial => "user_list" end %>

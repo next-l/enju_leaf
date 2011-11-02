@@ -54,10 +54,9 @@ class FamiliesController < ApplicationController
   end
 
   def search_user
-    logger.error "EMIKO SEARCH USER"
     user_list(params)
-    html = render_to_string :partial => "user_list"
-    render :json => {:success => 1, :html => html}
+    #html = render_to_string :partial => "user_list"
+    #render :json => {:success => 1, :html => html}
   end
 
 private
