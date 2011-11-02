@@ -92,15 +92,31 @@ describe MessagesController do
       it "should not assign the requested message as @message" do
         get :new
         assigns(:message).should_not be_valid
+        response.should be_success
       end
     end
 
     describe "When logged in as User" do
-      login_user
+      login_fixture_user
 
       it "should not assign the requested message as @message" do
         get :new
         assigns(:message).should_not be_valid
+        response.should be_forbidden
+      end
+
+      it "should not get new template without parent_id" do
+        get :new
+        response.should be_forbidden
+      end
+  
+      it "should not get new template with invalid parent_id" do
+        get :new, :parent_id => 1
+        response.should be_forbidden
+      end
+  
+      it "should not get new template with valid parent_id" do
+        get :new, :parent_id => 2
         response.should be_forbidden
       end
     end
@@ -146,6 +162,54 @@ describe MessagesController do
           response.should render_template("new")
           response.should be_success
         end
+      end
+    end
+
+    describe "When logged in as Librarian" do
+      login_fixture_librarian
+    end
+
+    describe "When logged in as User" do
+      login_fixture_user
+
+      it "should not create message without parent_id" do
+        post :create, :message => {:recipient => 'user2', :subject => "test", :body => "test"}
+        response.should be_forbidden
+      end
+  
+      it "should not create message with parent_id" do
+        post :create, :message => {:recipient => 'user2', :subject => "test", :body => "test", :parent_id => 2}
+        response.should be_forbidden
+      end
+    end
+
+    describe "When not logged in" do
+    end
+  end
+
+  describe "DELETE destroy" do
+    describe "When logged in as User" do
+      login_fixture_user
+
+      it "should destroy own message" do
+        delete :destroy, :id => 2
+        response.should redirect_to messages_url
+      end
+
+      it "should not destroy other user's message" do
+        delete :destroy, :id => 1
+        response.should be_forbidden
+      end
+    end
+
+    describe "When not logged in" do
+      it "destroys the requested message" do
+        delete :destroy, :id => 1
+      end
+
+      it "should be redirected to new_user_session_url" do
+        delete :destroy, :id =>  1
+        response.should redirect_to(new_user_session_url)
       end
     end
   end

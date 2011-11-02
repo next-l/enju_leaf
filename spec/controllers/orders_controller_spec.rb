@@ -88,6 +88,7 @@ describe OrdersController do
         order = FactoryGirl.create(:order)
         get :show, :id => order.id
         assigns(:order).should eq(order)
+        response.should be_forbidden
       end
     end
 
@@ -96,6 +97,7 @@ describe OrdersController do
         order = FactoryGirl.create(:order)
         get :show, :id => order.id
         assigns(:order).should eq(order)
+        response.should redirect_to new_user_session_url
       end
     end
   end
@@ -118,6 +120,11 @@ describe OrdersController do
         get :new, :order_list_id => 1, :purchase_request_id => 1
         assigns(:order).should_not be_valid
         response.should be_success
+      end
+
+      it "should not get new template without purchase_request_id" do
+        get :new
+        response.should redirect_to purchase_requests_url
       end
     end
 
@@ -239,6 +246,33 @@ describe OrdersController do
           post :create, :order => @invalid_attrs
           response.should render_template("new")
         end
+      end
+
+      it "should create order which is not created yet" do
+        post :create, :order => { :order_list_id => 1, :purchase_request_id => 5 }
+        assigns(:order).should be_valid
+        response.should redirect_to order_url(assigns(:order))
+      end
+
+      it "should not create order withou order_list_id" do
+        post :create, :order => { :purchase_request_id => 1 }
+        assigns(:order).should_not be_valid
+        response.should be_success
+        response.should render_template("new")
+      end
+
+      it "should not create order without purchase_request_id" do
+        post :create, :order => { :order_list_id => 1 }
+        assigns(:order).should_not be_valid
+        response.should be_success
+        response.should render_template("new")
+      end
+
+      it "should not create order which is already created" do
+        post :create, :order => { :order_list_id => 1, :purchase_request_id => 1 }
+        assigns(:order).should_not be_valid
+        response.should be_success
+        response.should render_template("new")
       end
     end
 

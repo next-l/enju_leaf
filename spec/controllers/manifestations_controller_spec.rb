@@ -221,7 +221,7 @@ describe ManifestationsController do
     end
 
     describe "When logged in as User" do
-      login_user
+      login_fixture_user
 
       it "assigns the requested manifestation as @manifestation" do
         get :show, :id => 1
@@ -231,6 +231,11 @@ describe ManifestationsController do
       it "should send manifestation detail email" do
         get :show, :id => 1, :mode => 'send_email'
         response.should redirect_to manifestation_url(assigns(:manifestation))
+      end
+
+      it "should show myself" do
+        get :show, :id => users(:user1).patron
+        response.should be_success
       end
     end
 
@@ -293,6 +298,11 @@ describe ManifestationsController do
 
       it "should not send manifestation's detail email" do
         get :show, :id => 1, :mode => 'send_email'
+        response.should redirect_to new_user_session_url
+      end
+
+      it "should not show patron when required_role is 'User'" do
+        get :show, :id => 5
         response.should redirect_to new_user_session_url
       end
     end

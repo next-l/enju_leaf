@@ -22,22 +22,10 @@ class PatronsControllerTest < ActionController::TestCase
     assert_response :success
   end
 
-  def test_guest_should_not_show_patron_when_required_role_is_user
-    get :show, :id => 5
-    assert_response :redirect
-    assert_redirected_to new_user_session_url
-  end
-
   def test_user_should_not_show_patron_when_required_role_is_librarian
     sign_in users(:user2)
     get :show, :id => users(:user1).patron
     assert_response :forbidden
-  end
-
-  def test_user_should_show_myself
-    sign_in users(:user1)
-    get :show, :id => users(:user1).patron
-    assert_response :success
   end
 
   def test_librarian_should_not_show_patron_when_required_role_is_admin
