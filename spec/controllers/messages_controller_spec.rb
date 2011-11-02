@@ -45,9 +45,13 @@ describe MessagesController do
     end
 
     describe "When logged in as User" do
-      before(:each) do
-        @user = FactoryGirl.create(:user)
-        sign_in @user
+      login_fixture_user
+
+      describe "When user_id is specified" do
+        it "assigns all messages as @messages" do
+          get :index
+          assigns(:messages).should_not be_nil
+        end
       end
 
       it "should get its own messages" do
@@ -56,11 +60,10 @@ describe MessagesController do
         response.should be_success
       end
 
-      describe "When user_id is specified" do
-        it "assigns all messages as @messages" do
-          get :index, :user_id => @user.username
-          assigns(:messages).should_not be_nil
-        end
+      it "should get index with query" do
+        get :index, :query => 'you'
+        assigns(:messages).first.receiver.should eq users(:user1)
+        response.should be_success
       end
     end
 

@@ -3,12 +3,6 @@ require 'test_helper'
 class MessagesControllerTest < ActionController::TestCase
     fixtures :users, :messages, :patrons, :patron_types
 
-  def test_user_should_get_index_with_query
-    sign_in users(:user1)
-    get :index, :query => 'you', :user_id => users(:user1).username
-    assert_response :success
-  end
-  
   def test_user_not_should_get_new_without_parent_id
     sign_in users(:user1)
     get :new
