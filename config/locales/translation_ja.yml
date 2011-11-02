@@ -1672,6 +1672,7 @@ ja:
     will_be_family_with: "さんと家族登録します。"
     create_family: "下記の利用者を家族にします。"
     please_search_users: "追加する利用者を検索してください。"
+    no_select_users: "家族情報が空です。"
   resource_import_file:
     template_download: "テンプレートをダウンロード"
   budget:
