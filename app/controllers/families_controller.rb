@@ -20,13 +20,19 @@ class FamiliesController < ApplicationController
   def create
     @family = Family.new(params[:family])
     respond_to do |format|
-      if @family.save
-        @family.add_user(params[:family_users])                      
-        flash[:notice] = t('controller.successfully_created', :model => t('activerecord.models.family'))
-        format.html { redirect_to(@family) }
-        format.xml  { render :xml => @family, :status => :created, :location => @family }
-      else
-        user_list
+      begin
+        ActiveRecord::Base.transaction do
+          if @family.save
+            @family.add_user(params[:family_users])                      
+            flash[:notice] = t('controller.successfully_created', :model => t('activerecord.models.family'))
+            format.html { redirect_to(@family) }
+            format.xml  { render :xml => @family, :status => :created, :location => @family }
+          else
+            format.html { render :action => "new" }
+            format.xml  { render :xml => @family.errors, :status => :unprocessable_entity }
+          end
+        end
+      rescue
         format.html { render :action => "new" }
         format.xml  { render :xml => @family.errors, :status => :unprocessable_entity }
       end
