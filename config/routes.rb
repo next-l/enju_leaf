@@ -1,15 +1,4 @@
 EnjuLeaf::Application.routes.draw do
-  get "families/index"
-
-  get "families/new"
-
-  get "families/create"
-
-  get "families/edit"
-
-  get "families/update"
-
-  get "families/destroy"
 
   devise_for :users, :path => 'accounts'
 
@@ -321,9 +310,9 @@ EnjuLeaf::Application.routes.draw do
   resources :reserve_stat_has_manifestations
   resources :reserve_stat_has_users
   resources :families do
-    get :search_user
-    get :search_user, :on => :collection
-    get :search_user, :on => :member
+    collection do
+      post 'search_user'
+    end
     resources :users
     resources :family_users
   end

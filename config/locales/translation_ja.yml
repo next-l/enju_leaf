@@ -1671,6 +1671,7 @@ ja:
     out_of_family: "家族登録を解除する"
     will_be_family_with: "さんと家族登録します。"
     create_family: "下記の利用者を家族にします。"
+    please_search_users: "追加する利用者を検索してください。"
   resource_import_file:
     template_download: "テンプレートをダウンロード"
   budget:
