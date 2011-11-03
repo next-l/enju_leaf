@@ -592,7 +592,7 @@ en:
         title_alternative: Titlte alternative
         title_transcription: Title transcription
         classification_number: Classification number
-        identifier: Manifestation identifier
+        manifestation_identifier: Manifestation identifier
         date_of_publication: Date of publication
         pub_date: Date of publication
         deleted_at: Deleted at

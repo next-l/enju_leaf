@@ -33,7 +33,7 @@
         <%- if params[:mode] == 'add' -%>
           <%= link_to t('page.add'), new_patron_merge_list_patron_merge_path(@patron_merge_list, :patron_id => patron.id) unless @patron_merge_list.patrons.include?(patron) -%>
         <%- else -%>
-          <%- patron_merge = @patron_merge_list.patron_merges.find_by_patron_id(patron) -%>
+          <%- patron_merge = @patron_merge_list.patron_merges.where(:patron_id => patron.id).first -%>
           <%= link_to t('page.destroy'), patron_merge_list_patron_merge_path(@patron_merge_list, patron_merge), :confirm => t('page.are_you_sure'), :method => :delete -%>
         <%- end -%>
       <%- end -%>

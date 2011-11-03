@@ -59,6 +59,7 @@ class ApplicationController < ActionController::Base
   def render_500_solr
     return if performed?
     #flash[:notice] = t('page.connection_failed')
+    Rails.logger.fatal("Solr is not running!")
     respond_to do |format|
       format.html {render :template => 'page/500', :status => 500}
       format.mobile {render :template => 'page/500', :status => 500}

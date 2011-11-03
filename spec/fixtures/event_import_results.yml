@@ -1,11 +1,13 @@
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
 
 one:
+  id: 1
   event_import_file_id: 1
   event_id: 1
   body: MyText
 
 two:
+  id: 2
   event_import_file_id: 1
   event_id: 1
   body: MyText

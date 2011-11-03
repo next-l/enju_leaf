@@ -77,7 +77,7 @@ class Item < ActiveRecord::Base
     end
 
     def checkout_status(user)
-      user.user_group.user_group_has_checkout_types.find_by_checkout_type_id(self.checkout_type.id)
+       user.user_group.user_group_has_checkout_types.where(:checkout_type_id => self.checkout_type.id).first
     end
 
     def next_reservation
@@ -137,7 +137,7 @@ class Item < ActiveRecord::Base
         unless reservation.nil?
           reservation.item = self
           reservation.sm_retain!
-          reservation.update_attributes({:request_status_type => RequestStatusType.find_by_name('In Process')})
+          reservation.update_attributes({:request_status_type => RequestStatusType.where(:name => 'In Process').first})
           request = MessageRequest.new(:sender_id => librarian.id, :receiver_id => reservation.user_id)
           message_template = MessageTemplate.localized_template('item_received', reservation.user.locale)
           request.message_template = message_template
