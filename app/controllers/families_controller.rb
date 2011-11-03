@@ -53,16 +53,28 @@ class FamiliesController < ApplicationController
     end
     @family.add_user(params[:family_users])
     respond_to do |format|
-      flash[:notice] = t('controller.successfully_created', :model => t('activerecord.models.family'))
+      flash[:notice] = t('controller.successfully_deleted', :model => t('activerecord.models.family'))
       format.html { redirect_to(@family) }
       format.xml  { render :xml => @family, :status => :created, :location => @family }
     end
   end
 
+  def destroy
+    @family = Family.find(params[:id])
+    family_users = @family.family_users
+    family_users.each do |family_user|
+      family_user.destroy
+    end
+    @family.destroy
+
+    respond_to do |format|    
+      flash[:notice] = t('controller.successfully_created', :model => t('activerecord.models.family'))
+      format.html { redirect_to families_path }
+    end
+  end
+
   def search_user
     user_list(params)
-    #html = render_to_string :partial => "user_list"
-    #render :json => {:success => 1, :html => html}
   end
 
 private
@@ -107,7 +119,34 @@ private
     query = "#{query} date_of_birth_d: [#{date_of_birth} TO #{date_of_birth_end}]" unless date_of_birth.blank?
     query = "#{query} address_text: #{address}" unless address.blank?
 
-    logger.error "query: #{query}"
+    # TODO need refactoring
+    exclude_ids = []
+    family_users = FamilyUser.all
+    family_users.each do |family_user|
+      exclude_ids << family_user.user_id
+    end
+
+    logger.info "#{exclude_ids.join}"
+
+    #query = "#{query} user_id: [#{exclude_ids.join(' ')}]" unless exclude_ids.empty?
+    #query = "#{query} id_i: [#{exclude_ids.join(' ')}]" unless exclude_ids.empty?
+    s = "" 
+    unless exclude_ids.empty?
+      exclude_ids.each do |x| 
+        s.concat(" id_i:#{x} OR") 
+      end
+      s.chomp("OR")
+      query = "#{query} NOT (#{s})"
+    end
+
+    logger.info "query: #{query}"
+
+    @users = User.search do
+      fulltext query
+      order_by sort[:sort_by], sort[:order]
+      with(:required_role_id).less_than role.id
+    end.results
+=begin
     unless query.blank?
       @users = User.search do
         fulltext query
@@ -122,6 +161,8 @@ private
       end
       logger.error @users
     end
+=end    
+
     @count[:query_result] = @users.total_entries
   end
 

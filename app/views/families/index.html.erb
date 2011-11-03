@@ -18,7 +18,9 @@
         <%= user.patron.full_name -%>(<%= user.username -%>)&nbsp;
       <%- end -%>
     </td>
-    <td><%= link_to t('page.edit'), edit_family_path(family) -%></td>
+    <td><%= link_to t('page.edit'), edit_family_path(family) -%>
+        <%= link_to t('page.destroy'), family, :confirm => t('page.are_you_sure'), :method => :delete -%>
+    </td>    
   </tr>
 <%- end -%>
 </table>
