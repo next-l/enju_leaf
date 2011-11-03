@@ -126,6 +126,7 @@ class User < ActiveRecord::Base
     string :email
     string :user_number
     integer :required_role_id
+    integer :id
     time :created_at
     time :updated_at
     time :date_of_birth do

@@ -6,7 +6,6 @@ class Family < ActiveRecord::Base
     # TODO :need refactoring
     if user_ids.nil? || user_ids.empty? 
       logger.debug "family users no record"
-      #errors.add(:manifestation_id, I18n.t('family.no_select_users'))
       errors.add(:base, I18n.t('family.no_select_users'))
       raise 
     end
