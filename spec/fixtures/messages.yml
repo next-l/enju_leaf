@@ -19,7 +19,7 @@ user2_to_user1_1:
   state: unread
   lft: 3
   rgt: 4
-user1_to_catie_2:
+user1_to_librarian_2:
   id: 3
   sender_id: 3
   receiver_id: 4
@@ -29,7 +29,7 @@ user1_to_catie_2:
   state: unread
   lft: 5
   rgt: 6
-user2_to_catie_1:
+librarian2_to_user2:
   id: 6
   sender_id: 4
   receiver_id: 5

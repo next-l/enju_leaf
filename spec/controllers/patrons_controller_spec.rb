@@ -11,6 +11,13 @@ describe PatronsController do
         get :index
         assigns(:patrons).should_not be_empty
       end
+
+      it "should get index with patron_id" do
+        get :index, :patron_id => 1
+        response.should be_success
+        assigns(:patron).should eq Patron.find(1)
+        assigns(:patrons).should eq assigns(:patron).derived_patrons.where('required_role_id >= 1').page(1)
+      end
     end
 
     describe "When logged in as Librarian" do
@@ -45,6 +52,19 @@ describe PatronsController do
       it "assigns all patrons as @patrons in atom format" do
         get :index, :format => :atom
         assigns(:patrons).should_not be_empty
+      end
+
+      it "should get index with patron_id" do
+        get :index, :patron_id => 1
+        response.should be_success
+        assigns(:patron).should eq Patron.find(1)
+        assigns(:patrons).should eq assigns(:patron).derived_patrons.where(:required_role_id => 1).page(1)
+      end
+
+      it "should get index with manifestation_id" do
+        get :index, :manifestation_id => 1
+        assigns(:manifestation).should eq Manifestation.find(1)
+        assigns(:patrons).should eq assigns(:manifestation).publishers.where(:required_role_id => 1).page(1)
       end
     end
   end
@@ -207,6 +227,16 @@ describe PatronsController do
       it "assigns the requested patron as @patron" do
         patron = Patron.find(1)
         get :edit, :id => patron.id
+        response.should be_forbidden
+      end
+
+      it "should edit myself" do
+        get :edit, :id => users(:user1).patron
+        response.should be_success
+      end
+
+      it "should not edit other user's patron profile" do
+        get :edit, :id => users(:user2).patron
         response.should be_forbidden
       end
     end

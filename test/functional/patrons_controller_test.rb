@@ -10,18 +10,6 @@ class PatronsControllerTest < ActionController::TestCase
     assert_response :success
   end
 
-  def test_guest_should_get_index_with_patron
-    get :index, :patron_id => 1
-    assert_response :success
-    assert assigns(:patron)
-    assert assigns(:patrons)
-  end
-
-  def test_guest_should_get_index_with_manifestation
-    get :index, :manifestation_id => 1
-    assert_response :success
-  end
-
   def test_user_should_not_show_patron_when_required_role_is_librarian
     sign_in users(:user2)
     get :show, :id => users(:user1).patron
@@ -31,18 +19,6 @@ class PatronsControllerTest < ActionController::TestCase
   def test_librarian_should_not_show_patron_when_required_role_is_admin
     sign_in users(:librarian2)
     get :show, :id => users(:librarian1).patron
-    assert_response :forbidden
-  end
-
-  def test_user_should_get_edit_myself
-    sign_in users(:user1)
-    get :edit, :id => users(:user1).patron
-    assert_response :success
-  end
-  
-  def test_user_should_not_get_edit_other_patron
-    sign_in users(:user1)
-    get :edit, :id => users(:user2).patron
     assert_response :forbidden
   end
 

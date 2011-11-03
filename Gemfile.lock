@@ -59,7 +59,7 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_purchase_request.git
-  revision: 8aca878e57b2d2315c2fe495ca491bbf935d95e3
+  revision: 62427135a5d09b80e03a41dc5d5b75412bc7f406
   specs:
     enju_purchase_request (0.0.2)
       rails (~> 3.1.1)

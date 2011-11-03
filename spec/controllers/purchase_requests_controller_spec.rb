@@ -69,7 +69,7 @@ describe PurchaseRequestsController do
     describe "When not logged in" do
       it "assigns empty as @purchase_requests" do
         get :index
-        assigns(:purchase_requests).should be_empty
+        assigns(:purchase_requests).should be_nil
         response.should redirect_to(new_user_session_url)
       end
     end

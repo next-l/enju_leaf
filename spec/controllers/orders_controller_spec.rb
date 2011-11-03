@@ -166,6 +166,11 @@ describe OrdersController do
         get :edit, :id => order.id
         assigns(:order).should eq(order)
       end
+
+      it "should get edit order" do
+        get :edit, :id => 1, :order_list_id => 1
+        response.should be_success
+      end
     end
 
     describe "When logged in as User" do
@@ -382,6 +387,11 @@ describe OrdersController do
           response.should render_template("edit")
         end
       end
+
+      it "should not update order without purchase_request_id" do
+        put :update, :id => 1, :order => {:purchase_request_id => nil}
+        response.should be_success
+      end
     end
 
     describe "When logged in as User" do
@@ -456,6 +466,11 @@ describe OrdersController do
       it "redirects to the orders list" do
         delete :destroy, :id => @order.id
         response.should redirect_to(orders_url)
+      end
+
+      it "should destroy order with order_list_id" do
+        delete :destroy, :id => 1, :order_list_id => 1
+        response.should redirect_to order_list_purchase_requests_url(assigns(:order_list))
       end
     end
 
