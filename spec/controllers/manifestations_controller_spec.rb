@@ -300,11 +300,6 @@ describe ManifestationsController do
         get :show, :id => 1, :mode => 'send_email'
         response.should redirect_to new_user_session_url
       end
-
-      it "should not show patron when required_role is 'User'" do
-        get :show, :id => 5
-        response.should redirect_to new_user_session_url
-      end
     end
   end
 

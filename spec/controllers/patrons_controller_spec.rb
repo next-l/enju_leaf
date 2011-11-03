@@ -134,6 +134,11 @@ describe PatronsController do
         get :show, :id => 1, :manifestation_id => 1
         assigns(:patron).should eq assigns(:manifestation).publishers.first
       end
+
+      it "should not show patron when required_role is 'User'" do
+        get :show, :id => 5
+        response.should redirect_to new_user_session_url
+      end
     end
   end
 
