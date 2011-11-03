@@ -37,6 +37,19 @@ describe ManifestationsController do
         assigns(:manifestations).should_not be_nil
       end
 
+      it "assigns all manifestations as @manifestations in xml format without operation" do
+        get :index, :format => 'xml'
+        response.should be_success
+        assigns(:manifestations).should_not be_nil
+      end
+
+      it "assigns all manifestations as @manifestations in csv format without operation" do
+        get :index, :format => 'csv'
+        response.should be_success
+        assigns(:manifestations).should_not be_nil
+        response.should render_template('manifestations/index')
+      end
+
       it "assigns all manifestations as @manifestations in sru format without operation" do
         get :index, :format => 'sru'
         assert_response :success
