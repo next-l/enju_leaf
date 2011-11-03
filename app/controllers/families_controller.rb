@@ -126,16 +126,14 @@ private
       exclude_ids << family_user.user_id
     end
 
-    logger.info "#{exclude_ids.join}"
+    logger.info "family=#{exclude_ids.join(' ')}"
 
-    #query = "#{query} user_id: [#{exclude_ids.join(' ')}]" unless exclude_ids.empty?
-    #query = "#{query} id_i: [#{exclude_ids.join(' ')}]" unless exclude_ids.empty?
     s = "" 
     unless exclude_ids.empty?
       exclude_ids.each do |x| 
         s.concat(" id_i:#{x} OR") 
       end
-      s.chomp("OR")
+      s.chomp!("OR")
       query = "#{query} NOT (#{s})"
     end
 
@@ -146,22 +144,6 @@ private
       order_by sort[:sort_by], sort[:order]
       with(:required_role_id).less_than role.id
     end.results
-=begin
-    unless query.blank?
-      @users = User.search do
-        fulltext query
-        order_by sort[:sort_by], sort[:order]
-        with(:required_role_id).less_than role.id
-      end.results
-    else
-      if sort[:sort_by] == 'patrons.telephone_number_1'|| sort[:sort_by] == 'patrons.full_name_transcription'
-        @users = User.joins(:patron).order("#{sort[:sort_by]} #{sort[:order]}").page(page)
-      else
-        @users = User.order("#{sort[:sort_by]} #{sort[:order]}").page(page)
-      end
-      logger.error @users
-    end
-=end    
 
     @count[:query_result] = @users.total_entries
   end
