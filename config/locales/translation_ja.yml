@@ -1666,7 +1666,7 @@ ja:
     specify_id: "%{model}のIDを指定してください。"
   family:
     add: 追加
-    remove: ×
+    tips_remove: 外す
     members: 家族メンバー
     may_family_with: "家族ですか？"
     not_select_family: "家族を選択しない"
