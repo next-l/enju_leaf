@@ -16,8 +16,18 @@ class CheckinsController < ApplicationController
       return
     end
     @checkins = @basket.checkins.order('checkins.created_at DESC').all
-
     @checkin = @basket.checkins.new
+
+    unless @checkins.blank?
+      if @checkins[0].checkout
+        @checkout_user = @checkins[0].checkout.user
+        family_id = FamilyUser.find(:first, :conditions => ['user_id=?', @checkout_user.id]).family_id rescue nil
+        if family_id
+          @family_users = Family.find(family_id).users
+          @family_users.delete_if{|f_user| f_user == @checkout_user}
+        end
+      end
+    end
 
     respond_to do |format|
       format.html # index.rhtml
@@ -82,6 +92,7 @@ class CheckinsController < ApplicationController
         }
       else
         @checkin.item = item
+
         if @checkin.save(:validate => false)
         # 速度を上げるためvalidationを省略している
           #flash[:message] << t('controller.successfully_created', :model => t('activerecord.models.checkin'))

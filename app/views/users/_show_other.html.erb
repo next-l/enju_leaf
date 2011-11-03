@@ -38,101 +38,24 @@
   <div id="user_info" style="display: none">
     <%= render 'patrons/show_list' %>
   </div>
-  <br />
  
-  <h2><%= t('activerecord.models.checkout') %></h2>
-  <table class="index">
-    <tr>
-      <th><%= t('activerecord.models.item') %></th>
-      <th><%= t('activerecord.attributes.checkout.due_date') %></th>
-    </tr>
-    <% user.checkouts.not_returned.each do |checkout| %>
-      <tr class="line<%= cycle("0", "1") -%>">
-        <td>
-          <%= link_to checkout.item.item_identifier, checkout.item %><br />
-          (<%= link_to checkout.item.manifestation.original_title, checkout.item.manifestation %>)
-        </td>
-        <td><%=l checkout.due_date, :format => :only_date %></td>
-      </tr>
-    <% end %>
-  </table>
   <br />
-  <h2><%= t('activerecord.models.reserve') %></h2>
-  <table class="index">
-    <tr>
-      <th class="checked_item_title"><%= t('page.title') -%></th>
-      <th><%= t('activerecord.attributes.reserve.state') -%></th>
-      <th><%= t('activerecord.attributes.reserve.expired_at') -%></th>
-    </tr>
-    <%- user.reserves.previous_reserves.each_with_index do |reserve, i| -%>
-      <tr class="line<%= cycle("0", "1") -%>">
-        <td><%= render 'reserves/title', :reserve => reserve -%></td>
-        <td><%= i18n_state(reserve.state) -%></td>
-        <td><%= l(reserve.expired_at, :format => :only_date) -%></td>
-      </tr>
-    <%- end -%>
-  </table>
-
+    <div id="checkouts_list">
+      <%= render 'page/checkouts_list'-%>
+    </div>
+    <br />
+    <div id="reserves_list">
+      <%= render 'page/reserves_list'-%>
+    </div>
   <%- unless @family_users.blank? -%>
     <br />
-    <h2><%= t('activerecord.models.checkout_family') %></h2>
-    <table class="index">
-      <tr>
-        <th><%= t('activerecord.models.item') %></th>
-        <th><%= t('activerecord.attributes.checkout.due_date') %></th>
-        <th><%= t('activerecord.attributes.checkout.family_info') -%></th>
-      </tr>
-      <% @family_users.each do |f_user| %>
-        <%- f_user.checkouts.not_returned.each_with_index do |checkout, i| -%>
-          <%- unless f_user == user -%>
-            <tr class="line<%= cycle("0", "1") -%>">
-              <td>
-                <%= link_to checkout.item.item_identifier, checkout.item %><br />
-                (<%= link_to checkout.item.manifestation.original_title, checkout.item.manifestation %>)
-              </td>
-              <td><%=l checkout.due_date, :format => :only_date %></td>
-              <td>
-                <%- if current_user.has_role?('Librarian') -%>
-                  <%= link_to f_user.patron.full_name, f_user -%><br />
-                  (<%= link_to f_user.username, f_user -%>)
-                <%- else -%>
-                  <%= f_user.patron.full_name-%>
-                <%- end -%>
-              </td>
-            </tr>
-          <%- end -%>
-        <%- end -%>
-      <%- end -%>
-    </table>
+    <div id="checkouts_family_list">
+      <%= render 'page/checkouts_family_list'-%>
+    </div>
     <br />
-    <h2><%= t('activerecord.models.reserve_family') %></h2>
-    <table class="index">
-      <tr>
-        <th class="checked_item_title"><%= t('page.title') -%></th>
-        <th><%= t('activerecord.attributes.reserve.state') -%></th>
-        <th><%= t('activerecord.attributes.reserve.expired_at') -%></th>
-        <th><%= t('activerecord.attributes.checkout.family_info') -%></th>
-      </tr>
-      <% @family_users.each do |f_user| %>
-        <%- f_user.reserves.previous_reserves.each_with_index do |reserve, i| -%>
-          <%- unless f_user == user -%>
-            <tr class="line<%= cycle("0", "1") -%>">
-              <td><%= render 'reserves/title', :reserve => reserve -%></td>
-              <td><%= i18n_state(reserve.state) -%></td>
-              <td><%= l(reserve.expired_at, :format => :only_date) -%></td>
-              <td>
-                <%- if current_user.has_role?('Librarian') -%>
-                  <%= link_to f_user.patron.full_name, f_user -%><br />
-                  (<%= link_to f_user.username, f_user -%>)
-                <%- else -%>
-                  <%= f_user.patron.full_name-%>
-                <%- end -%>
-              </td>
-            </tr>
-          <%- end -%>
-        <%- end -%>
-      <%- end -%>
-    </table>
+    <div id="reserves_family_list">
+      <%= render 'page/reserves_family_list' -%>
+    </div>
   <%- end -%>
 </div>
 </div>
