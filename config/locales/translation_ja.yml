@@ -1087,7 +1087,7 @@ ja:
         display_name: 期間名
         start_at: 開始日時
         end_at: 終了日時
-
+        end_at_invalid: 終了日は開始日より未来を指定してください。
 
   page:
     user_title: "ようこそ %{login_name} さん"
