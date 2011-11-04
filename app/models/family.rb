@@ -4,6 +4,8 @@ class Family < ActiveRecord::Base
 
   def add_user(user_ids)
     # TODO :need refactoring
+    logger.info "aaa"
+    logger.info user_ids
     if user_ids.nil? || user_ids.empty? 
       logger.debug "family users no record"
       errors.add(:base, I18n.t('family.no_select_users'))

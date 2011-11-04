@@ -47,15 +47,22 @@ class FamiliesController < ApplicationController
 
   def update
     @family = Family.find(params[:id])
-    family_users = @family.family_users
-    family_users.each do |user|
-      user.destroy
-    end
-    @family.add_user(params[:family_users])
-    respond_to do |format|
-      flash[:notice] = t('controller.successfully_deleted', :model => t('activerecord.models.family'))
-      format.html { redirect_to(@family) }
-      format.xml  { render :xml => @family, :status => :created, :location => @family }
+    begin 
+      ActiveRecord::Base.transacation do
+        family_users = @family.family_users
+        family_users.each do |user|
+          user.destroy
+        end
+        logger.info "update2"
+        @family.add_user(params[:family_users])
+        respond_to do |format|
+          flash[:notice] = t('controller.successfully_deleted', :model => t('activerecord.models.family'))
+          format.html { redirect_to(@family) }
+          format.xml  { render :xml => @family, :status => :created, :location => @family }
+        end
+      end
+    rescue
+      #format.html { render :action => "edit" }        
     end
   end
 

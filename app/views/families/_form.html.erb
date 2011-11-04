@@ -16,6 +16,16 @@
     function removeUser(user_id) {
       $('div#add_' + user_id).remove();
     }
+    function disableUser(user_id) {
+      var text = $('input#user_' + user_id).val();
+      if (text == "") {
+         $('input#user_' + user_id).val(user_id);
+      } else {
+         $('input#user_' + user_id).val("");
+      }
+      $('span#removelabel_' + user_id).toggle();
+    }
+
   // -->
 </script>
 
@@ -27,8 +37,9 @@
   <%- if @already_family_users -%>
     <%- @already_family_users.each do |user| -%>
       <div id='add_<%= user.id -%>'>
-        <input type='hidden' name='family_users[]' value="<%= user.id -%>"><%= user.username -%> (<%= user.patron.full_name %>)
-        <a href='javascript:removeUser("<%= user.id -%>")'><%= image_tag('icons/delete.png', :size => '16x16', :alt => t('family.tips_remove'), :title => t('family.tips_remove')) -%></a>
+        <input type='hidden' id='user_<%= user.id -%>' name='family_users[]' value="<%= user.id -%>"><%= user.username -%> (<%= user.patron.full_name %>)
+        <span id='removelabel_<%= user.id -%>' style="display: none"><%= t('family.willremove') %></span>
+        <a href='javascript:disableUser("<%= user.id -%>")'><%= image_tag('icons/delete.png', :size => '16x16', :alt => t('family.tips_remove'), :title => t('family.tips_remove')) -%></a>
       </div>
     <%- end -%>
   <%- end -%>
