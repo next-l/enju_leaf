@@ -81,7 +81,7 @@ class User < ActiveRecord::Base
     text :telephone_number_1_1 do
       patron.telephone_number_1.gsub("-", "") if patron && patron.telephone_number_1
     end
-    text :telephone_number_1_1 do
+    text :telephone_number_1_2 do
       patron.telephone_number_1 if patron && patron.telephone_number_1
     end
     text :extelephone_number_1_1 do

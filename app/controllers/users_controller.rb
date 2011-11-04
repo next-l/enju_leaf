@@ -31,7 +31,7 @@ class UsersController < ApplicationController
       sort[:order] = 'desc'
     end
 
-    query = params[:query]
+    query = params[:query].gsub("-", "") if params[:query]
     page = params[:page] || 1
     role = current_user.try(:role) || Role.default_role
     @date_of_birth = params[:birth_date].to_s.dup
@@ -51,6 +51,7 @@ class UsersController < ApplicationController
     query = "#{query} date_of_birth_d: [#{date_of_birth} TO #{date_of_birth_end}]" unless date_of_birth.blank?
     query = "#{query} address_text: #{address}" unless address.blank?
 
+    logger.error "query #{query}"
     logger.error flash[:message]
 
     unless query.blank?
