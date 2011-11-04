@@ -28,11 +28,13 @@ class FamiliesController < ApplicationController
             format.html { redirect_to(@family) }
             format.xml  { render :xml => @family, :status => :created, :location => @family }
           else
+            user_list(params)
             format.html { render :action => "new" }
             format.xml  { render :xml => @family.errors, :status => :unprocessable_entity }
           end
         end
       rescue
+        user_list(params)
         format.html { render :action => "new" }
         format.xml  { render :xml => @family.errors, :status => :unprocessable_entity }
       end
@@ -47,22 +49,25 @@ class FamiliesController < ApplicationController
 
   def update
     @family = Family.find(params[:id])
+    respond_to do |format|
     begin 
-      ActiveRecord::Base.transacation do
+      ActiveRecord::Base.transaction do
         family_users = @family.family_users
         family_users.each do |user|
           user.destroy
         end
         logger.info "update2"
         @family.add_user(params[:family_users])
-        respond_to do |format|
-          flash[:notice] = t('controller.successfully_deleted', :model => t('activerecord.models.family'))
-          format.html { redirect_to(@family) }
-          format.xml  { render :xml => @family, :status => :created, :location => @family }
-        end
+        flash[:notice] = t('controller.successfully_deleted', :model => t('activerecord.models.family'))
+        format.html { redirect_to(@family) }
+        format.xml  { render :xml => @family, :status => :created, :location => @family }
       end
-    rescue
-      #format.html { render :action => "edit" }        
+    rescue Exception => e
+      user_list(params)
+      @already_family_users = @family.users
+      format.html { render :action => "edit" }
+      format.xml  { render :xml => @family.errors, :status => :unprocessable_entity }
+    end
     end
   end
 
