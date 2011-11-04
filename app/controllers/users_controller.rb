@@ -283,10 +283,13 @@ class UsersController < ApplicationController
     return nil unless request.xhr?
     unless params[:keys].blank?
       @user = User.find(params[:user]) rescue nil
-      @users = User.find(:all, :joins => :patron, :conditions => params[:keys]) rescue nil
+      query = "select * from users left join patrons on patrons.user_id = users.id where translate(patrons.telephone_number_1, '-', '') = '#{params[:keys][:tel_1]}' AND patrons.last_name = '#{params[:keys][:last_name]}' AND patrons.address_1 = '#{params[:keys][:address_1]}'"
+      @users = User.find_by_sql(query) rescue nil
       all_user_ids = []
-      @users.each do |user|
-        all_user_ids << user.id
+      if @users
+        @users.each do |user|
+          all_user_ids << user.id
+        end
       end
       family_users = FamilyUser.find(:all, :conditions => ['user_id IN (?)', all_user_ids])
       family_user_ids = []
@@ -298,9 +301,11 @@ class UsersController < ApplicationController
       @families.uniq!
       already_family_users = Family.find(family_id).users if family_id rescue nil
       group_users = []
-      @families.each do |f|
-        f.users.each do |u|
-          group_users << u
+      if @families
+        @families.each do |f|
+          f.users.each do |u|
+            group_users << u
+          end
         end
       end
       @users.delete_if{|user| already_family_users.include?(user)} if already_family_users
