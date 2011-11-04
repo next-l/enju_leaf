@@ -1679,6 +1679,7 @@ ja:
     no_select_users: "家族情報が空です。"
   resource_import_file:
     template_download: "テンプレートをダウンロード"
+    import_request: "すぐにインポートする"
   budget:
     yen: "%{amount} 円"
   term:
