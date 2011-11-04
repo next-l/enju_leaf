@@ -38,7 +38,15 @@
         nooperation_cnt = 0;
       }
       if (nooperation_cnt > <%= configatron.no_operation_counter %>) {
-        location.href = "<%= destroy_user_session_path %>";
+      <% if user_signed_in? %>      
+        <% if current_user.has_role?('Librarian') %>      
+          location.href = "<%= root_path %>";
+        <% else %>
+          location.href = "<%= destroy_user_session_path %>";
+        <% end %>
+      <% else %>
+        location.href = "<%= root_path %>";
+      <% end %>
       }
     }
    });
