@@ -9,7 +9,7 @@
     <th><%= t('activerecord.attributes.reserve.state') -%></th>
     <th><%= t('activerecord.attributes.reserve.expired_at') -%></th>
   </tr>
-  <%- @basket.user.reserves.previous_reserves.each_with_index do |reserve, i| -%>
+  <%- @checkout_user.reserves.previous_reserves.each_with_index do |reserve, i| -%>
     <tr class="line<%= cycle("0", "1") -%>">
       <td><%= link_to reserve.id, user_reserve_path(reserve.user, reserve) -%></td>
       <%- if configatron.checked_items.disp_title == true -%>

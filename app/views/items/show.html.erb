@@ -1,8 +1,7 @@
-<div style="color: red"><%= flash[:message] -%></div>
-
 <div id="content_detail" class="ui-corner-all">
 <h1 class="title"><%= t('page.showing', :model => t('activerecord.models.item')) -%></h1>
 <div id="content_list">
+<div style="color: red"><%= flash[:message] -%></div>
 <p id="notice"><%= notice %></p>
 
   <%- if @item.manifestation -%>

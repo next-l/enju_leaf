@@ -1,15 +1,4 @@
-<script>
-    function addUser(user_id, username){
-      if ($("div#add_" + user_id).length < 1){
-        $("<div id='add_" + user_id + "'><input type='hidden' name='family_users[]' value=" + user_id + ">" + username
-          + "<a href='javascript:removeUser(" + user_id + ")'><%= t('family.remove') -%></a></div>").appendTo('#family_users');
-      }
-    }
-    function removeUser(user_id){
-      $('div#add_' + user_id).remove();
-    }
-</script>
-
+<div id="result">
 <table class="index">
   <tr>
     <th></th>
@@ -39,7 +28,7 @@
 
 <%- @users.each_with_index do |user, i| -%>
   <tr class="line<%= cycle("0", "1") -%>">
-    <td><%= link_to t('family.add'), "javascript:addUser('#{user.id}', '#{user.username}');", :id => "user_#{user.id}" -%></td>
+    <td><%= link_to t('family.add'), "javascript:addUser('#{user.id}', '#{user.username}', '#{user.patron.full_name}');", :id => "user_#{user.id}" -%></td>
     <td>
       <%= link_to user.username, user -%>
       <br />
@@ -62,3 +51,5 @@
 
 <br />
 <%= will_paginate(@users) -%>
+
+</div>

@@ -10,7 +10,7 @@
     <th><%= t('activerecord.attributes.checkout.due_date') -%></th>
   </tr>
 
-  <%- @basket.user.checkouts.not_returned.each_with_index do |checkout, i| -%>
+  <%- @checkout_user.checkouts.not_returned.each_with_index do |checkout, i| -%>
     <tr class="line<%= cycle("0", "1") -%>">
       <%- if configatron.checked_items.disp_title == true -%>
         <td>
