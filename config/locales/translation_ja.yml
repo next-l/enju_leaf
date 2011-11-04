@@ -1667,6 +1667,7 @@ ja:
   family:
     add: 追加
     tips_remove: 外す
+    willremove: 更新すると外れます
     members: 家族メンバー
     may_family_with: "家族ですか？"
     not_select_family: "家族を選択しない"
