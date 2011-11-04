@@ -11,6 +11,19 @@ describe PatronsController do
         get :index
         assigns(:patrons).should_not be_empty
       end
+
+      it "should get index with patron_id" do
+        get :index, :patron_id => 1
+        response.should be_success
+        assigns(:patron).should eq Patron.find(1)
+        assigns(:patrons).should eq assigns(:patron).derived_patrons.where('required_role_id >= 1').page(1)
+      end
+
+      it "should get index with query" do
+        get :index, :query => 'Librarian1'
+        assigns(:patrons).should_not be_empty
+        response.should be_success
+      end
     end
 
     describe "When logged in as Librarian" do
@@ -46,6 +59,25 @@ describe PatronsController do
         get :index, :format => :atom
         assigns(:patrons).should_not be_empty
       end
+
+      it "should get index with patron_id" do
+        get :index, :patron_id => 1
+        response.should be_success
+        assigns(:patron).should eq Patron.find(1)
+        assigns(:patrons).should eq assigns(:patron).derived_patrons.where(:required_role_id => 1).page(1)
+      end
+
+      it "should get index with manifestation_id" do
+        get :index, :manifestation_id => 1
+        assigns(:manifestation).should eq Manifestation.find(1)
+        assigns(:patrons).should eq assigns(:manifestation).publishers.where(:required_role_id => 1).page(1)
+      end
+
+      it "should get index with query" do
+        get :index, :query => 'Librarian1'
+        assigns(:patrons).should be_empty
+        response.should be_success
+      end
     end
   end
 
@@ -70,6 +102,39 @@ describe PatronsController do
         get :show, :id => @patron.id
         assigns(:patron).should eq(@patron)
       end
+
+      it "should show patron when required_role is user" do
+        get :show, :id => users(:user2).patron.id
+        assigns(:patron).should eq(users(:user2).patron)
+        response.should be_success
+      end
+
+      it "should show_ atron when required_role is librarian" do
+        get :show, :id => users(:user1).patron.id
+        assigns(:patron).should eq(users(:user1).patron)
+        response.should be_success
+      end
+
+      it "should not show patron who does not create a work" do
+        get :show, :id => 3, :work_id => 3
+        response.should be_missing
+      end
+
+      it "should not show patron who does not realize an expression" do
+        get :show, :id => 4, :expression_id => 4
+        response.should be_missing
+      end
+
+      it "should not show patron who does not produce a manifestation" do
+        get :show, :id => 4, :manifestation_id => 4
+        response.should be_missing
+      end
+
+      it "should not show patron when required_role is 'Administrator'" do
+        sign_in users(:librarian2)
+        get :show, :id => users(:librarian1).patron.id
+        response.should be_forbidden
+      end
     end
 
     describe "When logged in as User" do
@@ -78,6 +143,18 @@ describe PatronsController do
       it "assigns the requested patron as @patron" do
         get :show, :id => @patron.id
         assigns(:patron).should eq(@patron)
+      end
+
+      it "should show user" do
+        get :show, :id => users(:user2).patron
+        assigns(:patron).required_role.name.should eq 'User'
+        response.should be_success
+      end
+
+      it "should not show patron when required_role is 'Librarian'" do
+        sign_in users(:user2)
+        get :show, :id => users(:user1).patron.id
+        response.should be_forbidden
       end
     end
 
@@ -100,6 +177,11 @@ describe PatronsController do
       it "should show patron with manifestation" do
         get :show, :id => 1, :manifestation_id => 1
         assigns(:patron).should eq assigns(:manifestation).publishers.first
+      end
+
+      it "should not show patron when required_role is 'User'" do
+        get :show, :id => 5
+        response.should redirect_to new_user_session_url
       end
     end
   end
@@ -161,6 +243,21 @@ describe PatronsController do
         get :edit, :id => patron.id
         assigns(:patron).should eq(patron)
       end
+
+      it "should edit patron when its required_role is 'User'" do
+        get :edit, :id => users(:user2).patron.id
+        response.should be_success
+      end
+
+      it "should edit patron when its required_role is 'Librarian'" do
+        get :edit, :id => users(:user1).patron.id
+        response.should be_success
+      end
+  
+      it "should edit admin" do
+        get :edit, :id => users(:admin).patron.id
+        response.should be_forbidden
+      end
     end
 
     describe "When logged in as User" do
@@ -169,6 +266,16 @@ describe PatronsController do
       it "assigns the requested patron as @patron" do
         patron = Patron.find(1)
         get :edit, :id => patron.id
+        response.should be_forbidden
+      end
+
+      it "should edit myself" do
+        get :edit, :id => users(:user1).patron
+        response.should be_success
+      end
+
+      it "should not edit other user's patron profile" do
+        get :edit, :id => users(:user2).patron
         response.should be_forbidden
       end
     end
@@ -241,6 +348,12 @@ describe PatronsController do
           post :create, :patron => @invalid_attrs
           response.should render_template("new")
         end
+      end
+
+      # TODO: full_name以外での判断
+      it "should create patron without full_name" do
+        post :create, :patron => { :first_name => 'test' }
+        response.should redirect_to patron_url(assigns(:patron))
       end
     end
 
@@ -365,6 +478,11 @@ describe PatronsController do
           response.should render_template("edit")
         end
       end
+
+      it "should update other patron" do
+        put :update, :id => users(:user2).patron.id, :patron => { :full_name => 'test' }
+        response.should redirect_to patron_url(assigns(:patron))
+      end
     end
 
     describe "When logged in as User" do
@@ -444,6 +562,16 @@ describe PatronsController do
         delete :destroy, :id => @patron.id
         response.should redirect_to(patrons_url)
       end
+
+      it "should not destroy librarian who has items checked out" do
+        delete :destroy, :id => users(:librarian1).patron
+        response.should be_forbidden
+      end
+
+      it "should destroy librarian who does not have items checked out" do
+        delete :destroy, :id => users(:librarian2).patron
+        response.should redirect_to patrons_url
+      end
     end
 
     describe "When logged in as Librarian" do
@@ -457,6 +585,11 @@ describe PatronsController do
         delete :destroy, :id => @patron.id
         response.should redirect_to(patrons_url)
       end
+
+      it "should not destroy librarian" do
+        delete :destroy, :id => users(:librarian2).patron.id
+        response.should be_forbidden
+      end
     end
 
     describe "When logged in as User" do
@@ -468,6 +601,11 @@ describe PatronsController do
 
       it "should be forbidden" do
         delete :destroy, :id => @patron.id
+        response.should be_forbidden
+      end
+
+      it "should not destroy patron" do
+        delete :destroy, :id => users(:user1).patron
         response.should be_forbidden
       end
     end

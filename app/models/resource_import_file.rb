@@ -229,7 +229,7 @@ class ResourceImportFile < ActiveRecord::Base
       file.import_start
     end
   rescue
-    logger.info "#{Time.zone.now} importing resources failed!"
+    Rails.logger.info "#{Time.zone.now} importing resources failed!"
   end
 
   #def import_jpmarc

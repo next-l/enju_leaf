@@ -115,7 +115,7 @@ class PatronImportFile < ActiveRecord::Base
       file.import_start
     end
   rescue
-    logger.info "#{Time.zone.now} importing patrons failed!"
+    Rails.logger.info "#{Time.zone.now} importing patrons failed!"
   end
 
   def modify

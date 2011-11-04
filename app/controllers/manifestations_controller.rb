@@ -23,7 +23,8 @@ class ManifestationsController < ApplicationController
   # GET /manifestations
   # GET /manifestations.json
   def index
-    if params[:mode] == 'add'
+    mode = params[:mode]
+    if mode == 'add'
       unless current_user.try(:has_role?, 'Librarian')
         access_denied; return
       end
@@ -121,7 +122,7 @@ class ManifestationsController < ApplicationController
         subject = @subject if @subject
       end
       series_statement = @series_statement if @series_statement
-      unless params[:mode] == 'add'
+      unless mode == 'add'
         search.build do
           with(:creator_ids).equal_to patron[:creator].id if patron[:creator]
           with(:contributor_ids).equal_to patron[:contributor].id if patron[:contributor]
@@ -140,11 +141,11 @@ class ManifestationsController < ApplicationController
         end
         if series_statement
           with(:periodical_master).equal_to false
-          if params[:mode] != 'add'
+          if mode != 'add'
             with(:periodical).equal_to true
           end
         else
-          if params[:mode] != 'add'
+          if mode != 'add'
             with(:periodical).equal_to false
           end
         end

@@ -35,7 +35,7 @@ xml.rss('version' => "2.0",
                 xml.category tag
               end
             end
-            xml.tag! "dc:Identifier", manifestation.isbn
+            xml.tag! "dc:identifier", manifestation.isbn
           end
         end
     end

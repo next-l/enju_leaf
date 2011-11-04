@@ -1,12 +1,8 @@
-begin
-  require 'simplecov'
-  SimpleCov.start 'rails' do
-    add_filter do |source_file|
-      source_file.lines.count < 5
-    end
+require 'simplecov'
+SimpleCov.start 'rails' do
+  add_filter do |source_file|
+    source_file.lines.count < 5
   end
-rescue LoadError
-  nil
 end
 
 require 'rubygems'
@@ -17,11 +13,10 @@ Spork.prefork do
   # if you change any configuration or code from libraries loaded here, you'll
   # need to restart spork for it take effect.
   
+# This file is copied to spec/ when you run 'rails generate rspec:install'
   ENV["RAILS_ENV"] ||= 'test'
   require File.expand_path("../../config/environment", __FILE__)
   require 'rspec/rails'
-
-# This file is copied to spec/ when you run 'rails generate rspec:install'
 
 # Requires supporting ruby files with custom matchers and macros, etc,
 # in spec/support/ and its subdirectories.
@@ -52,6 +47,7 @@ Spork.prefork do
 
     config.before do
       Sunspot.session = Sunspot::Rails::StubSessionProxy.new($original_sunspot_session)
+      SimpleCov.command_name "RSpec:#{Process.pid.to_s}#{ENV['TEST_ENV_NUMBER']}"
     end
 
     config.before :each, :solr => true do
@@ -66,7 +62,7 @@ end
 
 Spork.each_run do
   # This code will be run each time you run your specs.
-  
+
 end
 
 # --- Instructions ---

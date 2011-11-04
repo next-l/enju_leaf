@@ -23,25 +23,7 @@
             </td>
           </tr>
         <% end %>
-        <tr>
-          <td><%= t('page.number') -%>:</td>
-          <td>
-            <%- if manifestation.edition_string? -%>
-              <%= t('activerecord.attributes.manifestation.edition_string') -%>: <%= manifestation.edition_string -%>
-            <%- end -%>
-            <%- if manifestation.volume_number_string? -%>
-              <%= t('activerecord.attributes.manifestation.volume_number_string') -%>: <%= manifestation.volume_number_string -%>
-            <%- end -%>
-            <%- if manifestation.series_statement -%>
-              <%- if manifestation.issue_number_string? -%>
-                <%= t('activerecord.attributes.manifestation.issue_numberi_string') -%>: <%= manifestation.issue_number_string -%>
-              <%- end -%>
-              <%- if manifestation.serial_number? -%>
-                <%= t('activerecord.attributes.manifestation.serial_number') -%>: <%= manifestation.serial_number -%>
-              <%- end -%>
-            <%- end -%>
-          </td>
-        </tr>
+        <%= render 'edition_and_number', :manifestation => manifestation %>
         <tr>
           <td style="width: 200px"><%= t('page.form') -%>:</td>
           <td style="width: 500px">
@@ -65,12 +47,6 @@
             <%- end -%>
           </td>
         </tr>
-        <% if manifestation.price.present? %>
-          <tr>
-            <td><%= t('activerecord.attributes.manifestation.price') -%></td>
-            <td><%= manifestation.price -%></td>
-          </tr>
-        <% end %>
         <% if defined?(EnjuSubject) %>
           <%- unless manifestation.subjects.empty? -%>
             <tr>
@@ -89,6 +65,12 @@
             <td>
               <%= render 'manifestations/tag_list', :manifestation => manifestation -%>
             </td>
+          </tr>
+        <% end %>
+        <% if manifestation.price.present? %>
+          <tr>
+            <td><%= t('activerecord.attributes.manifestation.price') -%></td>
+            <td><%= manifestation.price -%></td>
           </tr>
         <% end %>
         <%- unless manifestation.periodical? -%>

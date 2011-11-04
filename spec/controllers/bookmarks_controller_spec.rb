@@ -34,6 +34,25 @@ describe BookmarksController do
       it "should get my bookmark index" do
         get :index
         response.should be_success
+        assigns(:bookmarks).should eq users(:user1).bookmarks.page(1)
+      end
+
+      it "should redirect to my bookmark index if user_id is specified" do
+        get :index, :user_id => users(:user1).username
+        response.should be_success
+        assigns(:bookmarks).should eq users(:user1).bookmarks.page(1)
+      end
+
+      it "should get other user's public bookmark index" do
+        get :index, :user_id => users(:admin).username
+        response.should be_success
+        assigns(:bookmarks).should eq users(:admin).bookmarks.page(1)
+      end
+
+      it "should not get other user's private bookmark index" do
+        sign_in users(:user3)
+        get :index, :user_id => users(:user1).username
+        response.should be_forbidden
       end
     end
 
@@ -69,17 +88,30 @@ describe BookmarksController do
         get :show, :id => bookmark.id
         assigns(:bookmark).should eq(bookmark)
       end
+
+      it "should shot other user's bookmark" do
+        get :show, :id => 3
+        response.should be_success
+      end
     end
 
     describe "When logged in as User" do
-      before(:each) do
-        @bookmark = FactoryGirl.create(:bookmark)
-        sign_in @bookmark.user
-      end
+      login_fixture_user
 
       it "assigns the requested bookmark as @bookmark" do
-        get :show, :id => @bookmark.id
-        assigns(:bookmark).should eq(@bookmark)
+        bookmark = FactoryGirl.create(:bookmark)
+        get :show, :id => bookmark.id
+        assigns(:bookmark).should eq(bookmark)
+      end
+
+      it "should not show other user's bookmark" do
+        get :show, :id => 1
+        response.should be_forbidden
+      end
+  
+      it "should show my bookmark" do
+        get :show, :id => 3
+        response.should be_success
       end
     end
 
@@ -94,11 +126,32 @@ describe BookmarksController do
   end
 
   describe "GET new" do
+    describe "When logged in as Administrator" do
+      login_fixture_admin
+
+      it "assigns the requested bookmark as @bookmark" do
+        get :new
+        assigns(:bookmark).should_not be_valid
+        response.should be_success
+      end
+    end
+
+    describe "When logged in as Librarian" do
+      login_fixture_librarian
+
+      it "assigns the requested bookmark as @bookmark" do
+        get :new
+        assigns(:bookmark).should_not be_valid
+        response.should be_success
+      end
+    end
+
     describe "When logged in as User" do
       login_fixture_user
 
       it "should get my new template without url" do
         get :new
+        assigns(:bookmark).should_not be_valid
         response.should be_success
       end
   
@@ -115,6 +168,50 @@ describe BookmarksController do
       it "should get my new template with internal url" do
         get :new, :bookmark => {:url => "#{LibraryGroup.site_config.url}/manifestations/1"}
         response.should be_success
+      end
+    end
+  end
+
+  describe "GET edit" do
+    describe "When logged in as Administrator" do
+      login_fixture_admin
+
+      it "assigns the requested bookmark as @bookmark" do
+        get :edit, :id => 3
+        assigns(:bookmark).should eq(Bookmark.find(3))
+        response.should be_success
+      end
+    end
+
+    describe "When logged in as Librarian" do
+      login_fixture_librarian
+
+      it "assigns the requested bookmark as @bookmark" do
+        get :edit, :id => 3
+        assigns(:bookmark).should eq(Bookmark.find(3))
+        response.should be_success
+      end
+    end
+
+    describe "When logged in as User" do
+      login_fixture_user
+
+      it "should not edit other user's bookmark" do
+        get :edit, :id => 1
+        response.should be_forbidden
+      end
+  
+      it "should edit my bookmark" do
+        get :edit, :id => 3
+        assigns(:bookmark).should eq(Bookmark.find(3))
+        response.should be_success
+      end
+    end
+
+    describe "When not logged in" do
+      it "should not assign the requested bookmark as @bookmark" do
+        get :edit, :id => 1
+        response.should redirect_to(new_user_session_url)
       end
     end
   end
@@ -314,6 +411,22 @@ describe BookmarksController do
         put :update, :id => 3, :bookmark => {:user_id => users(:user1).id, :tag_list => nil, :title => 'test'}
         response.should redirect_to bookmark_url(assigns(:bookmark))
         assigns(:bookmark).tag_list.should be_empty
+      end
+
+      it "should not update other user's bookmark" do
+        put :update, :id => 1, :bookmark => { }
+        response.should be_forbidden
+      end
+
+      it "should not update missing bookmark" do
+        put :update, :id => 'missing', :bookmark => { }
+        response.should be_missing
+      end
+
+      it "should not update bookmark without manifestation_id" do
+        put :update, :id => 3, :bookmark => {:manifestation_id => nil}
+        assigns(:bookmark).should_not be_valid
+        response.should be_success
       end
     end
 

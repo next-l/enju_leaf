@@ -37,6 +37,19 @@ describe ManifestationsController do
         assigns(:manifestations).should_not be_nil
       end
 
+      it "assigns all manifestations as @manifestations in xml format without operation" do
+        get :index, :format => 'xml'
+        response.should be_success
+        assigns(:manifestations).should_not be_nil
+      end
+
+      it "assigns all manifestations as @manifestations in csv format without operation" do
+        get :index, :format => 'csv'
+        response.should be_success
+        assigns(:manifestations).should_not be_nil
+        response.should render_template('manifestations/index')
+      end
+
       it "assigns all manifestations as @manifestations in sru format without operation" do
         get :index, :format => 'sru'
         assert_response :success
@@ -212,14 +225,30 @@ describe ManifestationsController do
         get :show, :id => 1
         assigns(:manifestation).should eq(Manifestation.find(1))
       end
+
+      it "should show manifestation with patron who does not produce it" do
+        get :show, :id => 3, :patron_id => 3
+        assigns(:manifestation).should eq assigns(:patron).manifestations.find(3)
+        response.should be_success
+      end
     end
 
     describe "When logged in as User" do
-      login_user
+      login_fixture_user
 
       it "assigns the requested manifestation as @manifestation" do
         get :show, :id => 1
         assigns(:manifestation).should eq(Manifestation.find(1))
+      end
+
+      it "should send manifestation detail email" do
+        get :show, :id => 1, :mode => 'send_email'
+        response.should redirect_to manifestation_url(assigns(:manifestation))
+      end
+
+      it "should show myself" do
+        get :show, :id => users(:user1).patron
+        response.should be_success
       end
     end
 
@@ -295,6 +324,16 @@ describe ManifestationsController do
         get :new
         assigns(:manifestation).should_not be_valid
       end
+
+      it "should get new template without expression_id" do
+        get :new
+        response.should be_success
+      end
+  
+      it "should get new template with expression_id" do
+        get :new, :expression_id => 1
+        response.should be_success
+      end
     end
 
     describe "When logged in as Librarian" do
@@ -303,6 +342,16 @@ describe ManifestationsController do
       it "assigns the requested manifestation as @manifestation" do
         get :new
         assigns(:manifestation).should_not be_valid
+      end
+
+      it "should get new template without expression_id" do
+        get :new
+        response.should be_success
+      end
+  
+      it "should get new template with expression_id" do
+        get :new, :expression_id => 1
+        response.should be_success
       end
     end
 
