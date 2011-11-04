@@ -127,6 +127,7 @@ class UsersController < ApplicationController
       @user.role_id = @family_with.role.id
       @patron = @family_with.patron.clone rescue Patron.new
       @patron.full_name = nil
+      @patron.full_name_transcription = nil
       @family_id = FamilyUser.find(:first, :conditions => ['user_id=?',  params[:user]]).family_id rescue nil
       @patron.note_update_at = nil
       @patron.note_update_by = nil
