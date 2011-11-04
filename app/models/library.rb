@@ -100,7 +100,7 @@ class Library < ActiveRecord::Base
   private
   def skip_geocode
     return true if Rails.env == 'test'
-    return true if configatron.google.google_maps_api_key.nil?
+#    return true if configatron.google.google_maps_api_key.nil?
   end
 end
 
