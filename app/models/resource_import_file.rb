@@ -231,8 +231,8 @@ class ResourceImportFile < ActiveRecord::Base
     ResourceImportFile.not_imported.each do |file|
       file.import_start
     end
-  rescue
-    logger.info "#{Time.zone.now} importing resources failed!"
+  rescue Exception => e
+    logger.info "#{Time.zone.now} importing resources failed! #{e}"
   end
 
   #def import_jpmarc
