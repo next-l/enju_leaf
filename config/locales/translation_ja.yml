@@ -593,7 +593,7 @@ ja:
         title_alternative: 代替タイトル
         title_transcription: タイトルよみ
         classification_number: 分類番号
-        identifier: 識別子
+        manifestation_identifier: 識別子
         date_of_publication: 出版日
         pub_date: 出版日
         deleted_at: 削除時刻

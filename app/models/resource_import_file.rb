@@ -74,8 +74,8 @@ class ResourceImportFile < ActiveRecord::Base
         next
       end
 
-      if row['identifier'].present?
-        manifestation = Manifestation.where(:identifier => row['identifier'].to_s.strip).first
+      if row['manifestation_identifier'].present?
+        manifestation = Manifestation.where(:manifestation_identifier => row['manifestation_identifier'].to_s.strip).first
       end
 
       if row['nbn'].present?
@@ -215,8 +215,8 @@ class ResourceImportFile < ActiveRecord::Base
       manifestation.save
 
       full_name = record['700']['a']
-      publisher = Patron.find_by_full_name(record['700']['a'])
-      if publisher.blank?
+      publisher = Patron.where(:full_name => record['700']['a']).first
+      unless publisher
         publisher = Patron.new(:full_name => full_name)
         publisher.save
       end
@@ -427,7 +427,7 @@ class ResourceImportFile < ActiveRecord::Base
         :start_page => start_page,
         :end_page => end_page,
         :access_address => row['access_addres'],
-        :identifier => row['identifier']
+        :manifestation_identifier => row['manifestation_identifier']
       },
       {
         :edit_mode => options[:edit_mode]

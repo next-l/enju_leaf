@@ -162,7 +162,7 @@ class Manifestation < ActiveRecord::Base
   validates :end_page, :numericality => true, :allow_blank => true
   validates :isbn, :uniqueness => true, :allow_blank => true, :unless => proc{|manifestation| manifestation.series_statement}
   validates :nbn, :uniqueness => true, :allow_blank => true
-  validates :identifier, :uniqueness => true, :allow_blank => true
+  validates :manifestation_identifier, :uniqueness => true, :allow_blank => true
   validates :pub_date, :format => {:with => /^\d+(-\d{0,2}){0,2}$/}, :allow_blank => true
   validates :access_address, :url => true, :allow_blank => true, :length => {:maximum => 255}
   validate :check_isbn, :check_issn, :check_lccn, :unless => :during_import
@@ -178,7 +178,7 @@ class Manifestation < ActiveRecord::Base
   before_save :set_periodical
   after_save :index_series_statement
   after_destroy :index_series_statement
-  normalize_attributes :identifier, :pub_date, :isbn, :issn, :nbn, :lccn, :original_title
+  normalize_attributes :manifestation_identifier, :pub_date, :isbn, :issn, :nbn, :lccn, :original_title
   attr_accessor :during_import, :series_statement_id
 
   def self.per_page
@@ -613,6 +613,7 @@ end
 
 
 
+
 # == Schema Information
 #
 # Table name: manifestations
@@ -622,7 +623,7 @@ end
 #  title_alternative               :text
 #  title_transcription             :text
 #  classification_number           :string(255)
-#  identifier                      :string(255)
+#  manifestation_identifier        :string(255)
 #  date_of_publication             :datetime
 #  date_copyrighted                :datetime
 #  created_at                      :datetime
@@ -676,6 +677,7 @@ end
 #  file_hash                       :string(255)
 #  pub_date                        :string(255)
 #  edition_string                  :string(255)
+#  periodical                      :boolean         default(FALSE), not null
 #  volume_number                   :integer
 #  issue_number                    :integer
 #  serial_number                   :integer

@@ -136,9 +136,9 @@ class PatronsController < ApplicationController
     @patron = Patron.new
     if @user
       @patron.user_username = @user.username
-      @patron.required_role = Role.find_by_name('Librarian')
+      @patron.required_role = Role.where(:name => 'Librarian').first
     else
-      @patron.required_role = Role.find_by_name('Guest')
+      @patron.required_role = Role.where(:name => 'Guest').first
     end
     @patron.language = Language.where(:iso_639_1 => I18n.default_locale.to_s).first || Language.first
     @patron.country = current_user.library.country
@@ -234,5 +234,6 @@ class PatronsController < ApplicationController
     @patron_types = PatronType.all
     @roles = Role.all
     @languages = Language.all_cache
+    @patron_type = PatronType.where(:name => 'Person').first
   end
 end

@@ -2,6 +2,7 @@ class ResourceImportResultsController < InheritedResources::Base
   respond_to :html, :json, :csv
   load_and_authorize_resource
   has_scope :file_id
+  actions :index, :show, :destroy
 
   def index
     @resource_import_file = ResourceImportFile.where(:id => params[:resource_import_file_id]).first

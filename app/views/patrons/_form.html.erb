@@ -29,7 +29,7 @@
   <script>
     $("select#patron_patron_type_id").change(function(){
       str = $("select#patron_patron_type_id option:selected").val();
-      if(str == <%= PatronType.find_by_name('Person').id %>){
+      if(str == <%= @patron_type.id %>){
         $("#name_person").show();
       }else{
         $("#name_person").hide();

@@ -24,15 +24,15 @@ describe ResourceImportFile do
         Item.count.should eq old_items_count + 6
         Patron.count.should eq old_patrons_count + 6
         ResourceImportResult.count.should eq old_import_results_count + 17
-        Item.find_by_item_identifier('10101').manifestation.creators.size.should eq 2
-        Item.find_by_item_identifier('10101').manifestation.date_of_publication.should eq Time.zone.parse('2001-01-01')
-        Item.find_by_item_identifier('10102').manifestation.date_of_publication.should eq Time.zone.parse('2001-01-01')
-        Item.find_by_item_identifier('10104').manifestation.date_of_publication.should eq Time.zone.parse('2001-01-01')
-        Manifestation.find_by_identifier('103').original_title.should eq 'ダブル"クォート"を含む資料'
-        Manifestation.find_by_identifier('104').original_title.should eq 'test10'
-        Manifestation.find_by_identifier('104').creators.collect(&:full_name).should eq ['test3']
-        Manifestation.find_by_identifier('104').publishers.collect(&:full_name).should eq ['test4']
-        item = Item.find_by_item_identifier('11111')
+        Item.where(:item_identifier => '10101').first.manifestation.creators.size.should eq 2
+        Item.where(:item_identifier => '10101').first.manifestation.date_of_publication.should eq Time.zone.parse('2001-01-01')
+        Item.where(:item_identifier => '10102').first.manifestation.date_of_publication.should eq Time.zone.parse('2001-01-01')
+        Item.where(:item_identifier => '10104').first.manifestation.date_of_publication.should eq Time.zone.parse('2001-01-01')
+        Manifestation.where(:manifestation_identifier => '103').first.original_title.should eq 'ダブル"クォート"を含む資料'
+        Manifestation.where(:manifestation_identifier => '104').first.original_title.should eq 'test10'
+        Manifestation.where(:manifestation_identifier => '104').first.creators.collect(&:full_name).should eq ['test3']
+        Manifestation.where(:manifestation_identifier => '104').first.publishers.collect(&:full_name).should eq ['test4']
+        item = Item.where(:item_identifier => '11111').first
         Shelf.find_by_name('first_shelf').should eq item.shelf
         item.manifestation.price.should eq 1000
         item.price.should eq 0
@@ -64,7 +64,7 @@ describe ResourceImportFile do
         Item.find_by_item_identifier('10101').manifestation.date_of_publication.should eq Time.zone.parse('2001-01-01')
         Item.find_by_item_identifier('10102').manifestation.date_of_publication.should eq Time.zone.parse('2001-01-01')
         Item.find_by_item_identifier('10104').manifestation.date_of_publication.should eq Time.zone.parse('2001-01-01')
-        Manifestation.find_by_identifier('103').original_title.should eq 'ダブル"クォート"を含む資料'
+        Manifestation.find_by_manifestation_identifier('103').original_title.should eq 'ダブル"クォート"を含む資料'
         item = Item.find_by_item_identifier('11111')
         Shelf.find_by_name('first_shelf').should eq item.shelf
         item.manifestation.price.should eq 1000

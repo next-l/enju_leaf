@@ -128,7 +128,7 @@ class User < ActiveRecord::Base
   end
 
   def set_role_and_patron
-    self.required_role = Role.find_by_name('Librarian')
+    self.required_role = Role.where(:name => 'Librarian').first
     self.locale = I18n.default_locale.to_s
     unless self.patron
       self.patron = Patron.create(:full_name => self.username) if self.username
@@ -167,7 +167,7 @@ class User < ActiveRecord::Base
 
   def check_role_before_destroy
     if self.has_role?('Administrator')
-      raise 'This is the last administrator in this system.' if Role.find_by_name('Administrator').users.size == 1
+      raise 'This is the last administrator in this system.' if Role.where(:name => 'Administrator').first.users.size == 1
     end
   end
 

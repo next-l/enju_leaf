@@ -1,3 +1,5 @@
+require 'spec_helper'
+
 describe PatronMergesController do
   fixtures :all
 

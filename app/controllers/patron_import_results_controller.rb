@@ -2,6 +2,7 @@ class PatronImportResultsController < InheritedResources::Base
   respond_to :html, :json, :csv
   load_and_authorize_resource
   has_scope :file_id
+  actions :index, :show, :destroy
 
   def index
     @patron_import_file = PatronImportFile.where(:id => params[:patron_import_file_id]).first
