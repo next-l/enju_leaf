@@ -3,7 +3,7 @@
   <div><%= t('family.already_family_with') -%></div> 
   <%= check_box_tag 'out_of_family', "1" -%><%= t('family.out_of_family') -%>
   <% @family_users.each do |f_user| %>
-    <div><%= f_user.username if f_user != current_user -%></div>
+    <div><%= f_user.patron.full_name if f_user != current_user -%>(<%= f_user.username if f_user != current_user -%>)</div>
   <% end %>
 </div>
 <hr>
