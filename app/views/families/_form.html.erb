@@ -4,9 +4,12 @@
       if ($("div#add_" + user_id).size() == 0) {
         s = "<div id='add_" + user_id + "'>"
           + "<input type='hidden' name='family_users[]' value=" + user_id + ">"
-          + user_name + "(" + fullname + ")"
+          + fullname
+          + "&nbsp;"
+          + "(" + user_name + ")"
+          + "&nbsp;"
           + "<a href='javascript:removeUser(" + user_id + ")'>"
-          + " <img src=\'/images/icons/delete.png\' size=\'16x16\' title=\'<%= t('family.tips_remove') %>\' >"
+          + "<img src=\'<%= "#{root_path}images/icons/delete.png"%>\' size=\'16x16\' title=\'<%= t('family.tips_remove') %>\'>"
           + "</a>"
           + "</div>";
 
@@ -37,7 +40,7 @@
   <%- if @already_family_users -%>
     <%- @already_family_users.each do |user| -%>
       <div id='add_<%= user.id -%>'>
-        <input type='hidden' id='user_<%= user.id -%>' name='family_users[]' value="<%= user.id -%>"><%= user.username -%> (<%= user.patron.full_name %>)
+        <input type='hidden' id='user_<%= user.id -%>' name='family_users[]' value="<%= user.id -%>"><%= user.patron.full_name -%> (<%= user.username %>)
         <span id='removelabel_<%= user.id -%>' style="display: none"><%= t('family.willremove') %></span>
         <a href='javascript:disableUser("<%= user.id -%>")'><%= image_tag('icons/delete.png', :size => '16x16', :alt => t('family.tips_remove'), :title => t('family.tips_remove')) -%></a>
       </div>
