@@ -284,7 +284,7 @@ class Manifestation < ActiveRecord::Base
   end
 
   def next_reservation
-    self.reserves.waiting.order('reserves.position ASC').first
+    self.reserves.not_retained.order('reserves.position ASC').first
   end
 
   def next_reserve

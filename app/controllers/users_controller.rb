@@ -288,19 +288,22 @@ class UsersController < ApplicationController
       end
       family_users = FamilyUser.find(:all, :conditions => ['user_id IN (?)', all_user_ids])
       family_user_ids = []
-      @family_ids = []
+      @families = []
       family_users.each do |f_user|
         family_user_ids << f_user.user_id
-        @family_ids << f_user.family_id
+        @families << Family.find(f_user.family_id)
       end
-      @family_ids.uniq!
-      @group_users = User.find(:all, :conditions => ['users.id IN (?)', family_user_ids], :joins => :family_user, :order => 'family_users.id')
-      family_id = FamilyUser.find(:first, :conditions => ['user_id=?', params[:user]]).family_id rescue nil
+      @families.uniq!
       already_family_users = Family.find(family_id).users if family_id rescue nil
+      group_users = []
+      @families.each do |f|
+        f.users.each do |u|
+          group_users << u
+        end
+      end
       @users.delete_if{|user| already_family_users.include?(user)} if already_family_users
-      @users.delete_if{|user| @group_users.include?(user)} if @group_users
-      @group_users.delete_if{|user| already_family_users.include?(user)} if already_family_users
-      unless @users.blank? && @group_users.blank?
+      @users.delete_if{|user| group_users.include?(user)} if group_users
+      unless @users.blank? && @families.blank?
         html = render_to_string :partial => "search_family"
         render :json => {:success => 1, :html => html}
       end

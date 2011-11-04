@@ -9,23 +9,21 @@
 <hr>
 <% end %>
 
-<% unless @users.blank? && @group_users.blank? %>
+<% unless @users.blank? && @families.blank? %>
 <div id="search_family">
   <div><%= t('family.may_family_with') -%></div>
   <div><%= radio_button_tag :family, "", true %><%=t('family.not_select_family') -%></div>
-<% if @family_ids %>
-  <% @family_ids.each do |f_id| %>
+<% if @families %>
+  <% @families.each do |f| %>
     <% i = 0 %>
     <div>
-    <% @group_users.each do |f_user| %>
-      <% if f_user.family.id == f_id %>
-        <% if i == 0 %>
-          <%= radio_button_tag :family, f_user.id, false, :onclick => "get_family_info();" %><%= f_user.patron.full_name if f_user.patron -%>(<%= f_user.username -%>)
-        <% else %>
-          &nbsp;<%= f_user.patron.full_name if f_user.patron -%>(<%= f_user.username -%>)
-        <% end %>
-        <% i += 1 %>
+    <% f.users.each do |f_user| %>
+      <% if i == 0 %>
+        <%= radio_button_tag :family, f_user.id, false, :onclick => "get_family_info();" %><%= f_user.patron.full_name if f_user.patron -%>(<%= f_user.username -%>)
+      <% else %>
+        &nbsp;<%= f_user.patron.full_name if f_user.patron -%>(<%= f_user.username -%>)
       <% end %>
+      <% i += 1 %>
     <% end %>
     </div>
   <% end %>
