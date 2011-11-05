@@ -39,8 +39,8 @@ describe BookmarksController do
 
       it "should redirect to my bookmark index if user_id is specified" do
         get :index, :user_id => users(:user1).username
-        response.should be_success
-        assigns(:bookmarks).should eq users(:user1).bookmarks.page(1)
+        response.should redirect_to bookmarks_url
+        assigns(:bookmarks).should be_nil
       end
 
       it "should get other user's public bookmark index" do
