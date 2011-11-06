@@ -1417,6 +1417,7 @@ en:
     set_auto_generated_password: "Set auto-generated password"
     history: "History"
     account_management: "Account management"
+    checkout_history_icalendar_url: "checkout historoy iCalendar URL"
     reset_checkout_icalendar_url: "Reset checkout iCalendar URL"
     you_have_to_save_profile_to_activate_feed_url: "You have to save your profile to activate this url."
     you_have_to_save_profile_to_deactivate_feed_url: "You have to save your profile to deactivate this url."

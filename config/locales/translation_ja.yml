@@ -1396,6 +1396,7 @@ ja:
     set_auto_generated_password: "自動生成したパスワードを設定する"
     history: "履歴"
     account_management: "アカウント管理"
+    checkout_history_icalendar_url: "貸出期限のiCalendar URL"
     reset_checkout_icalendar_url: "貸出期限通知用のiCalendarファイルのURLをリセットする"
     you_have_to_save_profile_to_activate_feed_url: "新しいURLを有効にするには、プロフィールを更新する必要があります。"
     you_have_to_save_profile_to_deactivate_feed_url: "URLを無効にするには、プロフィールを更新する必要があります。"
