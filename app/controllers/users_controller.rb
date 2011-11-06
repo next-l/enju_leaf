@@ -286,11 +286,14 @@ class UsersController < ApplicationController
       tel_1.delete!("-")
       @user = User.find(params[:user]) rescue nil
       #TODO
-      query = "select * from users left join patrons on patrons.user_id = users.id where translate(patrons.telephone_number_1, '-', '') = '#{tel_1}' AND patrons.last_name = '#{params[:keys][:last_name]}' AND patrons.address_1 = '#{params[:keys][:address_1]}'"
+      #query = "select * from users left join patrons on patrons.user_id = users.id where translate(patrons.telephone_number_1, '-', '') = '#{tel_1}' AND patrons.last_name = '#{params[:keys][:last_name]}' AND patrons.address_1 = '#{params[:keys][:address_1]}'"
+      query = "select users.id, users.username from users left join patrons on patrons.user_id = users.id where translate(patrons.telephone_number_1, '-', '') = '#{tel_1}' AND patrons.last_name = '#{params[:keys][:last_name]}' AND patrons.address_1 = '#{params[:keys][:address_1]}'"
       @users = User.find_by_sql(query) rescue nil
       all_user_ids = []
       if @users
+        logger.info @users
         @users.each do |user|
+          logger.info "user.id=#{user.id}"
           all_user_ids << user.id
         end
       end
