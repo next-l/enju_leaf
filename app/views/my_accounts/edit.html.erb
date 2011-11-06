@@ -33,11 +33,13 @@
   <% end %>
 
   <div class="field">
-    <%= f.check_box :save_search_history -%> <%= t('activerecord.attributes.user.save_search_history') -%>
+    <%= f.check_box :save_search_history %>
+    <%= f.label :save_search_history %>
   </div>
 
   <div class="field">
-    <%= f.check_box :save_checkout_history -%> <%= t('activerecord.attributes.user.save_checkout_history') -%>
+    <%= f.check_box :save_checkout_history %>
+    <%= f.label :save_checkout_history %>
   </div>
 
   <div class="field">
