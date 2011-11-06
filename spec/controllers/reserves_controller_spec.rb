@@ -30,9 +30,27 @@ describe ReservesController do
       end
 
       it "should get index feed without user_id" do
-        get :index, :format => :rss
+        get :index, :format => 'rss'
         response.should be_success
         assigns(:reserves).should eq(Reserve.order('reserves.id DESC').includes(:manifestation).page(1))
+      end
+
+      it "should get index csv without user_id" do
+        get :index, :format => 'csv'
+        response.should be_success
+        assigns(:reserves).should eq(Reserve.order('reserves.id DESC').includes(:manifestation).page(1))
+      end
+
+      it "should get index feed with user_id" do
+        get :index, :user_id => users(:user1).username, :format => 'rss'
+        response.should be_success
+        assigns(:reserves).should eq(users(:user1).reserves.order('reserves.id DESC').includes(:manifestation).page(1))
+      end
+
+      it "should get index csv with user_id" do
+        get :index, :user_id => users(:user1).username, :format => 'csv'
+        response.should be_success
+        assigns(:reserves).should eq(users(:user1).reserves.order('reserves.id DESC').includes(:manifestation).page(1))
       end
 
       it "should get other user's index" do
@@ -56,9 +74,21 @@ describe ReservesController do
         assigns(:reserves).should eq(users(:user1).reserves.order('reserves.id DESC').includes(:manifestation).page(1))
       end
 
-      it "should be redirected to its own index" do
+      it "should be redirected to my index" do
         get :index
         response.should be_success
+      end
+
+      it "should get my index feed" do
+        get :index, :format => :rss
+        response.should be_success
+        response.should render_template("index")
+      end
+
+      it "should get my index csv" do
+        get :index, :format => :csv
+        response.should be_success
+        response.should render_template("index")
       end
 
       describe "When my user_id is specified" do
@@ -69,7 +99,12 @@ describe ReservesController do
 
         it "should redirect to my reservation feed" do
           get :index, :user_id => users(:user1).username, :format => 'rss'
-          response.should redirect_to reserves_url
+          response.should redirect_to reserves_url(:format => :rss)
+        end
+
+        it "should redirect to my reservation csv" do
+          get :index, :user_id => users(:user1).username, :format => 'csv'
+          response.should redirect_to reserves_url(:format => :csv)
         end
       end
 
