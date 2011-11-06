@@ -111,7 +111,7 @@ private
       sort[:order] = 'desc'
     end
 
-    query = params[:query]
+    query = params[:query].gsub("-", "") if params[:query]
     page = params[:page] || 1
     role = current_user.try(:role) || Role.default_role
     @date_of_birth = params[:birth_date].to_s.dup

@@ -1680,6 +1680,7 @@ ja:
     will_change_family : "※家族を変更したいときは、一度家族登録を解除してから再登録を行ってください。"
   resource_import_file:
     template_download: "テンプレートをダウンロード"
+    import_request: "すぐにインポートする"
   budget:
     yen: "%{amount} 円"
   term:

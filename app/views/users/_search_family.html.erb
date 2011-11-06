@@ -1,17 +1,20 @@
 <% unless @family_users.blank? %>
 <div id="family_users">
-  <div><%= t('family.already_family_with') -%></div> 
+  <div><strong><%= t('family.already_family_with') -%></strong></div> 
   <%= check_box_tag 'out_of_family', "1" -%><%= t('family.out_of_family') -%>
-  <% @family_users.each do |f_user| %>
-    <div><%= f_user.patron.full_name if f_user != current_user -%>(<%= f_user.username if f_user != current_user -%>)</div>
-  <% end %>
+  <ul>
+    <% @family_users.each do |f_user| %>
+      <li><%= f_user.patron.full_name if f_user != current_user -%>(<%= f_user.username if f_user != current_user -%>)</li>
+    <% end %>
+  </ul>
 </div>
 <hr>
+<%= t('family.will_change_family') -%>
 <% end %>
 
 <% unless @users.blank? && @families.blank? %>
 <div id="search_family">
-  <div><%= t('family.may_family_with') -%></div>
+  <div><strong><%= t('family.may_family_with') -%></strong></div>
   <div><%= radio_button_tag :family, "", true %><%=t('family.not_select_family') -%></div>
 <% if @families %>
   <% @families.each do |f| %>
