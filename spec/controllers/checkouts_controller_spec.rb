@@ -6,9 +6,6 @@ describe CheckoutsController do
   describe "GET index" do
     before(:each) do
       FactoryGirl.create(:admin)
-      5.times do
-        FactoryGirl.create(:user)
-      end
     end
 
     describe "When logged in as Administrator" do
@@ -384,17 +381,17 @@ describe CheckoutsController do
       login_fixture_admin
 
       it "destroys the requested checkout" do
-        delete :destroy, :id => @checkout.id, :user_id => @checkout.user.username
+        delete :destroy, :id => @checkout.id
       end
 
       it "redirects to the checkouts list" do
-        delete :destroy, :id => @checkout.id, :user_id => @checkout.user.username
+        delete :destroy, :id => @checkout.id
         response.should redirect_to(user_checkouts_url(@checkout.user))
       end
 
       it "should destroy other user's checkout" do
         delete :destroy, :id => 3
-        response.should redirect_to user_checkouts_url(assigns(:checkout).user)
+        response.should redirect_to user_checkouts_url(@checkout.user)
       end
   
       it "should not destroy missing checkout" do
@@ -407,17 +404,18 @@ describe CheckoutsController do
       login_fixture_librarian
 
       it "destroys the requested checkout" do
-        delete :destroy, :id => @checkout.id, :user_id => @checkout.user.username
+        delete :destroy, :id => @checkout.id
       end
 
       it "redirects to the checkouts list" do
-        delete :destroy, :id => @checkout.id, :user_id => @checkout.user.username
+        delete :destroy, :id => @checkout.id
         response.should redirect_to(user_checkouts_url(@checkout.user))
       end
 
       it "should destroy other user's checkout" do
+        user = Checkout.find(1).user
         delete :destroy, :id => 1
-        response.should redirect_to user_checkouts_url(assigns(:checkout).user)
+        response.should redirect_to user_checkouts_url(user)
       end
     end
 

@@ -16,7 +16,7 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_circulation.git
-  revision: a5d471a91e4d5ff2190ffce158a73275d24b68d3
+  revision: dc2099d6890bbcac91f582499a353aa2e27deaf2
   specs:
     enju_circulation (0.0.2)
       rails (~> 3.1.1)
@@ -80,7 +80,7 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_search_log.git
-  revision: f3f01885c9dc75ffb5904c3974dc1b7f72bbb1cb
+  revision: 2e594148a4628d20a9659247f1eacd3f5760b0e8
   specs:
     enju_search_log (0.0.1)
       rails (~> 3.1.1)
@@ -387,7 +387,7 @@ GEM
     treetop (1.4.10)
       polyglot
       polyglot (>= 0.3.1)
-    tzinfo (0.3.30)
+    tzinfo (0.3.31)
     validates_timeliness (3.0.7)
       timeliness (~> 0.3.3)
     warden (1.0.6)
