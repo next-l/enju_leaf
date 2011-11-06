@@ -91,7 +91,7 @@ gem 'whenever', '~> 0.6.8', :require => false
 gem 'astrails-safe'
 gem 'dynamic_form'
 gem 'sanitize'
-gem 'jpmobile', '~> 2.0'
+gem 'jpmobile', '2.0.3'
 #gem 'geokit'
 gem 'geocoder'
 gem 'acts_as_list', :git => 'git://github.com/swanandp/acts_as_list.git'
