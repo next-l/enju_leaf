@@ -18,16 +18,8 @@
   <div><%= radio_button_tag :family, "", true %><%=t('family.not_select_family') -%></div>
 <% if @families %>
   <% @families.each do |f| %>
-    <% i = 0 %>
     <div>
-    <% f.users.each do |f_user| %>
-      <% if i == 0 %>
-        <%= radio_button_tag :family, f_user.id, false, :onclick => "get_family_info();" %><%= f_user.patron.full_name if f_user.patron -%>(<%= f_user.username -%>)
-      <% else %>
-        &nbsp;<%= f_user.patron.full_name if f_user.patron -%>(<%= f_user.username -%>)
-      <% end %>
-      <% i += 1 %>
-    <% end %>
+      <%= radio_button_tag :family, f.users.first.id, false, :onclick => "get_family_info();" %><%= enumrate_user_name(f) -%>
     </div>
   <% end %>
 <% end %>
