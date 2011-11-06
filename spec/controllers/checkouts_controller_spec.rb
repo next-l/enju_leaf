@@ -97,6 +97,18 @@ describe CheckoutsController do
         response.should redirect_to checkouts_url
       end
 
+      it "should get my index in csv format" do
+        get :index, :user_id => users(:user1).username, :format => 'csv'
+        response.should redirect_to checkouts_url(:format => :csv)
+        assigns(:checkouts).should be_nil
+      end
+
+      it "should get my index in rss format" do
+        get :index, :user_id => users(:user1).username, :format => 'rss'
+        response.should redirect_to checkouts_url(:format => :rss)
+        assigns(:checkouts).should be_nil
+      end
+
       it "should not get other user's index" do
         get :index, :user_id => users(:admin).username
         response.should be_forbidden

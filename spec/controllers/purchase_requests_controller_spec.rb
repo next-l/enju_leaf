@@ -44,20 +44,20 @@ describe PurchaseRequestsController do
 
       it "should get my index" do
         get :index, :user_id => users(:user1).username
-        response.should be_success
-        assigns(:purchase_requests).should_not be_empty
+        response.should redirect_to purchase_requests_url
+        assigns(:purchase_requests).should be_nil
       end
 
       it "should get my index in csv format" do
         get :index, :user_id => users(:user1).username, :format => 'csv'
-        response.should be_success
-        assigns(:purchase_requests).should_not be_empty
+        response.should redirect_to purchase_requests_url(:format => :csv)
+        assigns(:purchase_requests).should be_nil
       end
 
       it "should get my index in rss format" do
-        get :index, :user_id => users(:user1).username, :format => 'csv'
-        response.should be_success
-        assigns(:purchase_requests).should_not be_empty
+        get :index, :user_id => users(:user1).username, :format => 'rss'
+        response.should redirect_to purchase_requests_url(:format => :rss)
+        assigns(:purchase_requests).should be_nil
       end
 
       it "should not get other user's index" do

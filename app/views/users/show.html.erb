@@ -59,5 +59,8 @@
         <li><%= link_to t('page.destroy'), @user, :confirm => t('page.are_you_sure'), :method => :delete -%></li>
       <% end %>
     <%- end -%>
+    <li><%= link_to t('activerecord.models.checkout'), user_checkouts_url(@user) %></li>
+    <li><%= link_to t('activerecord.models.bookmark'), user_bookmarks_url(@user) %></li>
+    <li><%= link_to t('activerecord.models.purchase_request'), user_purchase_requests_url(@user) %></li>
   </ul>
 </div>
