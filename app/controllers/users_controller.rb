@@ -282,8 +282,11 @@ class UsersController < ApplicationController
   def search_family
     return nil unless request.xhr?
     unless params[:keys].blank?
+      tel_1 = params[:keys][:tel_1]
+      tel_1.delete!("-")
       @user = User.find(params[:user]) rescue nil
-      query = "select * from users left join patrons on patrons.user_id = users.id where translate(patrons.telephone_number_1, '-', '') = '#{params[:keys][:tel_1]}' AND patrons.last_name = '#{params[:keys][:last_name]}' AND patrons.address_1 = '#{params[:keys][:address_1]}'"
+      #TODO
+      query = "select * from users left join patrons on patrons.user_id = users.id where translate(patrons.telephone_number_1, '-', '') = '#{tel_1}' AND patrons.last_name = '#{params[:keys][:last_name]}' AND patrons.address_1 = '#{params[:keys][:address_1]}'"
       @users = User.find_by_sql(query) rescue nil
       all_user_ids = []
       if @users
