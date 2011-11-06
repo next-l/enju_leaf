@@ -70,13 +70,13 @@
       <% end %>
     <%- end -%>
     <% if defined?(EnjuCirculation) %>
-      <li><%= link_to t('activerecord.models.checkout'), user_checkouts_url(@user) %></li>
+      <li><%= link_to t('activerecord.models.checkout'), user_checkouts_path(@user) %></li>
     <% end %>
     <% if defined?(EnjuBookmark) %>
-      <li><%= link_to t('activerecord.models.bookmark'), user_bookmarks_url(@user) %></li>
+      <li><%= link_to t('activerecord.models.bookmark'), user_bookmarks_path(@user) %></li>
     <% end %>
     <% if defined?(EnjuPurchaseRequest) %>
-      <li><%= link_to t('activerecord.models.purchase_request'), user_purchase_requests_url(@user) %></li>
+      <li><%= link_to t('activerecord.models.purchase_request'), user_purchase_requests_path(@user) %></li>
     <% end %>
   </ul>
 </div>
