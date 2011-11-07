@@ -1,4 +1,7 @@
 class FamiliesController < ApplicationController
+  before_filter :check_client_ip_address
+  load_and_authorize_resource
+
   def index
     @families = Family.all
   end
