@@ -181,6 +181,7 @@ EnjuLeaf::Application.routes.draw do
   end
 
   resources :resource_import_files do
+    get :import_request, :on => :collection
     resources :resource_import_results, :only => [:index, :show, :destroy]
   end
 

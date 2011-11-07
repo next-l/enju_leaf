@@ -1,6 +1,6 @@
 <div id="content_detail" class="ui-corner-all" style="border-style: none">
 
-<%= form_for :chekoutlist, :html => {:method => 'get'} do -%>
+<%= form_for :reservelist, :html => {:method => 'get'} do -%>
 
 <%- @displist.each_with_index do |d, i| -%>
   <div id="content_detail" class="ui-corner-all">
@@ -12,13 +12,10 @@
         <%= t('activerecord.attributes.manifestation.original_title') -%>
       </th>
       <th>
-	<%= t('activerecord.models.library') -%>
+	<%= t('activerecord.attributes.user.user_number') -%>
       </th>
       <th>
-        <%= t('activerecord.models.shelf') -%>
-      </th>
-      <th>
-	<%= t('activerecord.attributes.item.call_number') -%>
+	<%= t('activerecord.models.user') -%>
       </th>
       <th>
         <%= t('activerecord.attributes.item.item_identifier') -%>
@@ -31,13 +28,10 @@
         <%= c['original_title'] -%>
       </td>
       <td>
-        <%= c['libarary_name'] -%>
+        <%= c['user_number'] -%>
       </td>
       <td>
-        <%= c['shelf_name'] -%>
-      </td>
-      <td>
-        <%= c['call_number'] -%>
+        <%= c['full_name'] -%>
       </td>
       <td>
         <%= c['item_identifier'] -%>
@@ -48,14 +42,14 @@
   </div>
   </div>
 <%- end -%>
+<%- end -%>
 
 </div>
 
 <div id="submenu" class="ui-corner-all">
-  <p>
+  <ul>
     <li>
-      <%= link_to t('page.download'),  checkoutlist_path(:commit => t('page.download')) -%>
+      <%= link_to t('page.download'),  reservelist_path(:commit => t('page.download')) -%>
     </li>
-  </p>
+  </ul>
 </div>
-<%- end -%>

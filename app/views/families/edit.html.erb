@@ -7,8 +7,9 @@
 
 <div id="submenu" class="ui-corner-all">
   <ul>
-    <li><%= link_to t('page.show'), @family -%></li>
-    <li><%= link_to t('page.back'), families_path -%></li>
+    <li><%= link_to t('page.listing', :model => t('activerecord.models.family')), families_path -%></li>
+    <li><%= link_to t('page.showing', :model => t('activerecord.models.family')), @family -%></li>
+    <li><%= link_to t('page.destroy'), @family, :confirm => t('page.are_you_sure'), :method => :delete -%></li>
   </ul>
 
   <%= render 'icontips' %>  

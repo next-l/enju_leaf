@@ -1,6 +1,7 @@
 <div id="content_detail" class="ui-corner-all">
 <h1 class="title"><%= t('page.listing', :model => t('activerecord.models.resource_import_result')) -%></h1>
 <div id="content_list">
+<div style="color: green"><%= flash[:message] -%></div>
   <% if @resource_import_file %>
     <h2 class="resource_title">
       <%= link_to @resource_import_file.resource_import_file_name, @resource_import_file %>
