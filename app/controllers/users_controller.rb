@@ -285,6 +285,10 @@ class UsersController < ApplicationController
       tel_1 = params[:keys][:tel_1]
       tel_1.delete!("-")
       @user = User.find(params[:user]) rescue nil
+      @family_id = FamilyUser.find(:first, :conditions => ['user_id=?', @user.id]).family_id rescue nil
+      #if family_id
+      #  @family_users = Family.find(family_id).users
+      #end
       #TODO
       #query = "select * from users left join patrons on patrons.user_id = users.id where translate(patrons.telephone_number_1, '-', '') = '#{tel_1}' AND patrons.last_name = '#{params[:keys][:last_name]}' AND patrons.address_1 = '#{params[:keys][:address_1]}'"
       query = "select users.id, users.username from users left join patrons on patrons.user_id = users.id where translate(patrons.telephone_number_1, '-', '') = '#{tel_1}' AND patrons.last_name = '#{params[:keys][:last_name]}' AND patrons.address_1 = '#{params[:keys][:address_1]}'"

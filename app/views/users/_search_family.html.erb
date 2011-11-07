@@ -1,4 +1,4 @@
-<% unless @family_users.blank? %>
+<% if @family_id.blank? %>
 <% unless @users.blank? && @families.blank? %>
 <div id="search_family">
   <div><strong><%= t('family.may_family_with') -%></strong></div>
