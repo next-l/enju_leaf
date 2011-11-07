@@ -1,0 +1,55 @@
+<div id="content_detail" class="ui-corner-all" style="border-style: none">
+
+<%= form_for :reservelist, :html => {:method => 'get'} do -%>
+
+<%- @displist.each_with_index do |d, i| -%>
+  <div id="content_detail" class="ui-corner-all">
+  <h1 class="title"><%= d.dispname -%></h1>
+  <div id="content_list">
+  <table class="index">
+    <tr>
+      <th>
+        <%= t('activerecord.attributes.manifestation.original_title') -%>
+      </th>
+      <th>
+	<%= t('activerecord.attributes.user.user_number') -%>
+      </th>
+      <th>
+	<%= t('activerecord.models.user') -%>
+      </th>
+      <th>
+        <%= t('activerecord.attributes.item.item_identifier') -%>
+      </th>
+    </tr>
+
+<%- d.buflist.each_with_index do |c, j| -%>
+    <tr>
+      <td>
+        <%= c['original_title'] -%>
+      </td>
+      <td>
+        <%= c['user_number'] -%>
+      </td>
+      <td>
+        <%= c['full_name'] -%>
+      </td>
+      <td>
+        <%= c['item_identifier'] -%>
+      </td>
+    </tr>
+<%- end -%>
+  </table>
+  </div>
+  </div>
+<%- end -%>
+<%- end -%>
+
+</div>
+
+<div id="submenu" class="ui-corner-all">
+  <ul>
+    <li>
+      <%= link_to t('page.download'),  reservelist_path(:commit => t('page.download')) -%>
+    </li>
+  </ul>
+</div>
