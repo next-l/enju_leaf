@@ -16,7 +16,7 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_circulation.git
-  revision: dc2099d6890bbcac91f582499a353aa2e27deaf2
+  revision: c3345de002a121c06e7c354845a3312f419254c1
   specs:
     enju_circulation (0.0.2)
       rails (~> 3.1.1)
