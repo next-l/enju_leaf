@@ -1681,6 +1681,7 @@ ja:
   resource_import_file:
     template_download: "テンプレートをダウンロード"
     import_request: "すぐにインポートする"
+    start_importing: "インポートを開始しました。"
   budget:
     yen: "%{amount} 円"
   term:
