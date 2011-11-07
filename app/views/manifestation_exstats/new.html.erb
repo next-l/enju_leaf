@@ -1,6 +1,6 @@
 <div id="content_detail" class="ui-corner-all">
 <h1 class="title"><%= @title -%></h1>
-
+<div id="content_list">
 <%= form_for :manifestations, :html => {:method => 'get'} do -%>
   <p>
     <div style="color: red"><%= flash[:message] -%></div>
@@ -12,9 +12,6 @@
     <%= link_to t('page.advanced_search'), page_advanced_search_path -%>
   </p>
 <%- end -%>
-
-
-<div id="content_list">
 <table class="index">
   <tr>
     <th>
