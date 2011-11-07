@@ -59,9 +59,8 @@ class FamiliesController < ApplicationController
         family_users.each do |user|
           user.destroy
         end
-        logger.info "update2"
         @family.add_user(params[:family_users])
-        flash[:notice] = t('controller.successfully_deleted', :model => t('activerecord.models.family'))
+        flash[:notice] = t('controller.successfully_updated', :model => t('activerecord.models.family'))
         format.html { redirect_to(@family) }
         format.xml  { render :xml => @family, :status => :created, :location => @family }
       end
