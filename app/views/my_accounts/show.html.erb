@@ -35,10 +35,29 @@
 </div>
 
 <div id="submenu" class="ui-corner-all">
+  <% if defined?(EnjuCirculation) %>
+    <ul>
+      <%- current_user.user_group.user_group_has_checkout_types.each do |available_checkout_type| -%>
+        <li>
+          <%= available_checkout_type.checkout_type.display_name.localize -%>:
+          <%= current_user.checked_item_count[:"#{available_checkout_type.checkout_type.name}"] -%> / <%= available_checkout_type.checkout_limit -%>
+        </li>
+      <%- end -%>
+    </ul>
+  <% end %>
   <ul>
     <li><%= link_to t('page.edit'), edit_my_account_path -%></li>
     <%- if can? :destroy, current_user -%>
       <%= link_to t('page.destroy'), curent_user, :confirm => t('page.are_you_sure'), :method => :delete -%>
     <%- end -%>
+    <% if defined?(EnjuCirculation) %>
+      <li><%= link_to t('activerecord.models.checkout'), user_checkouts_url(@user) %></li>
+    <% end %>
+    <% if defined?(EnjuBookmark) %>
+      <li><%= link_to t('activerecord.models.bookmark'), user_bookmarks_url(@user) %></li>
+    <% end %>
+    <% if defined?(EnjuPurchaseRequest) %>
+      <li><%= link_to t('activerecord.models.purchase_request'), user_purchase_requests_url(@user) %></li>
+    <% end %>
   </ul>
 </div>

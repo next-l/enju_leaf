@@ -18,7 +18,7 @@
 
   <% if defined?(EnjuCirculation) %>
     <div class="field">
-      <%= f.label t('user.reset_checkout_icalendar_url') -%><br />
+      <%= f.label t('activerecord.attributes.user.checkout_icalendar_token') -%><br />
       <div id="feed_token">
         <%- if @user.checkout_icalendar_token -%>
           <%= link_to checkouts_url(:icalendar_token => @user.checkout_icalendar_token, :format => :ics), checkouts_url(:icalendar_token => @user.checkout_icalendar_token, :format => :ics) -%>
@@ -33,20 +33,18 @@
   <% end %>
 
   <div class="field">
+    <%= f.check_box :save_search_history -%> <%= t('activerecord.attributes.user.save_search_history') -%>
+  </div>
+
+  <div class="field">
+    <%= f.check_box :save_checkout_history -%> <%= t('activerecord.attributes.user.save_checkout_history') -%>
+  </div>
+
+  <div class="field">
     <%= f.label :note -%><br />
     <%= f.text_area :note, :class => 'resource_textarea' -%>
   </div>
 
-  <!--
-  <h1 class="title"><%= t('page.history') -%></h1>
-  <div class="field">
-    <%= f.check_box :save_search_history -%> <%= ('Save search history') -%>
-  </div>
-
-  <div class="field">
-    <%= f.check_box :save_checkout_history -%> <%= ('Save checkout history') -%>
-  </div>
-  -->
   <div class="actions">
     <%= f.submit %>
   </div>

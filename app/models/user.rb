@@ -25,7 +25,7 @@ class User < ActiveRecord::Base
     has_many :bookmarks, :dependent => :destroy
   end
   if defined?(EnjuCirculation)
-    has_many :checkouts
+    has_many :checkouts, :dependent => :nullify
     has_many :reserves, :dependent => :destroy
     has_many :reserved_manifestations, :through => :reserves, :source => :manifestation
     has_many :checkout_stat_has_users
@@ -255,16 +255,21 @@ class User < ActiveRecord::Base
   def self.create_with_params(params, current_user)
     user = User.new(params)
     user.operator = current_user
-    if params[:user]
-      #self.username = params[:user][:login]
-      user.note = params[:note]
-      user.user_group_id = params[:user_group_id] ||= 1
-      user.library_id = params[:library_id] ||= 1
-      user.role_id = params[:role_id] ||= 1
-      user.required_role_id = params[:required_role_id] ||= 1
-      user.keyword_list = params[:keyword_list]
-      user.user_number = params[:user_number]
-      user.locale = params[:locale]
+    #self.username = params[:user][:login]
+    user.note = params[:note]
+    user.user_group_id = params[:user_group_id] ||= 1
+    user.library_id = params[:library_id] ||= 1
+    user.role_id = params[:role_id] ||= 1
+    user.required_role_id = params[:required_role_id] ||= 1
+    user.keyword_list = params[:keyword_list]
+    user.user_number = params[:user_number]
+    user.locale = params[:locale]
+    if defined?(EnjuCirculation)
+      user.checkout_icalendar_token = params[:checkout_icalendar_token] ||= false
+      user.save_checkout_history = params[:save_checkout_history] ||= false
+    end
+    if defined?(EnjuSearchLog)
+      user.save_search_history = params[:save_search_history] ||= false
     end
     if user.patron_id
       user.patron = Patron.find(user.patron_id) rescue nil
@@ -277,9 +282,15 @@ class User < ActiveRecord::Base
     #self.username = params[:login]
     self.openid_identifier = params[:openid_identifier]
     self.keyword_list = params[:keyword_list]
-    self.checkout_icalendar_token = params[:checkout_icalendar_token]
     self.email = params[:email]
     #self.note = params[:note]
+    if defined?(EnjuCirculation)
+      self.checkout_icalendar_token = params[:checkout_icalendar_token] ||= false
+      self.save_checkout_history = params[:save_checkout_history] ||= false
+    end
+    if defined?(EnjuSearchLog)
+      self.save_search_history = params[:save_search_history] ||= false
+    end
 
     if current_user.has_role?('Librarian')
       self.note = params[:note]
