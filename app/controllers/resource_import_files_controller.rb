@@ -93,4 +93,16 @@ class ResourceImportFilesController < ApplicationController
       format.xml  { head :ok }
     end
   end
+
+  def import_request
+    @resource_import_file = ResourceImportFile.find(params[:id])
+    if fork == nil
+      exec("rails runner -e production 'ResourceImportFile.import(#{@resource_import_file.id})'") if fork == nil
+   else
+      flash[:message] = t('resource_import_file.start_importing')
+      respond_to do |format|
+        format.html {redirect_to(resource_import_file_resource_import_results_path(@resource_import_file))}
+      end
+    end
+  end
 end
