@@ -125,6 +125,12 @@ class User < ActiveRecord::Base
     string :username
     string :email
     string :user_number
+    string :telephone_number do
+      patron.telephone_number_1.gsub("-", "") if patron && patron.telephone_number_1
+    end
+    string :full_name do
+      patron.full_name_transcription if patron
+    end
     integer :required_role_id
     integer :id
     time :created_at

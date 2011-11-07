@@ -100,9 +100,9 @@ private
     when 'username'
       sort[:sort_by] = 'username'
     when 'telephone_number_1'
-      sort[:sort_by] = 'patrons.telephone_number_1'
+      sort[:sort_by] = 'telephone_number'
     when 'full_name'
-      sort[:sort_by] = 'patrons.full_name_transcription'
+      sort[:sort_by] = 'full_name'
     end
     case params[:order]
     when 'asc'
