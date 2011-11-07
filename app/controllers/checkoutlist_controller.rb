@@ -25,11 +25,35 @@ class CheckoutlistController < ApplicationController
 
       @items.each_with_index do |d, j|
         @displist[i].buflist[j] = {}
-        @displist[i].buflist[j]['call_number'] = d.call_number
-        @displist[i].buflist[j]['item_identifier'] = d.item_identifier
-        @displist[i].buflist[j]['original_title'] = d['original_title']
-        @displist[i].buflist[j]['shelf_name'] = d['shelf_name']
-        @displist[i].buflist[j]['libarary_name'] = d['libarary_name']
+	if d.call_number.nil?
+          @displist[i].buflist[j]['call_number'] = " "
+	else
+          @displist[i].buflist[j]['call_number'] = d.call_number
+	end
+
+	if d.item_identifier.nil?
+          @displist[i].buflist[j]['item_identifier'] = " "
+	else
+          @displist[i].buflist[j]['item_identifier'] = d.item_identifier
+	end
+
+	if d['original_title'].nil?
+          @displist[i].buflist[j]['original_title'] = " "
+	else
+          @displist[i].buflist[j]['original_title'] = d['original_title']
+	end
+
+	if d['shelf_name'].nil?
+          @displist[i].buflist[j]['shelf_name'] = " "
+	else
+          @displist[i].buflist[j]['shelf_name'] = d['shelf_name']
+	end
+
+	if d['libarary_name'].nil?
+          @displist[i].buflist[j]['libarary_name'] = " "
+	else
+          @displist[i].buflist[j]['libarary_name'] = d['libarary_name']
+	end
       end
     end
 

@@ -157,6 +157,8 @@ ja:
       budget: 予算
       exchange_rate: 為替レート
       term: 期間
+      checkoutlist: 貸出状況
+      reservelist: 予約状況
    
     attributes:
       library:
