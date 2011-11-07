@@ -18,7 +18,7 @@
 
   <% if defined?(EnjuCirculation) %>
     <div class="field">
-      <%= f.label t('activerecord.attributes.user.checkout_icalendar_token') -%><br />
+      <%= f.label t('user.checkout_history_icalendar_url') -%><br />
       <div id="feed_token">
         <%- if @user.checkout_icalendar_token -%>
           <%= link_to checkouts_url(:icalendar_token => @user.checkout_icalendar_token, :format => :ics), checkouts_url(:icalendar_token => @user.checkout_icalendar_token, :format => :ics) -%>
