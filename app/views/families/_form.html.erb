@@ -53,7 +53,6 @@
   </div>
 <%- end -%>
 
-<div style="color: green"><%= flash[:message] -%></div>
 <%= t('family.please_search_users') -%>
 <%= form_tag({:action=>'search_user'},{:remote=>true}) do -%>
   <p>

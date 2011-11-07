@@ -117,7 +117,7 @@ private
     page = params[:page] || 1
     role = current_user.try(:role) || Role.default_role
     @date_of_birth = params[:birth_date].to_s.dup
-    birth_date = params[:birth_date].to_s.gsub!(/\D/, '') if params[:birth_date]
+    birth_date = params[:birth_date].to_s if params[:birth_date]
     flash[:message] = nil
     unless params[:birth_date].blank?
       begin
