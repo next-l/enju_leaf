@@ -93,7 +93,7 @@ class Library < ActiveRecord::Base
   end
 
   def destroy?
-    return false unless self.shelves.empty? && self.users.empty? && self.events.empty? && self.budget.empty?
+    return false unless self.shelves.empty? && self.users.empty? && self.events.empty? && self.budgets.empty?
     return true
   end
 
