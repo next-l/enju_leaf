@@ -6,7 +6,7 @@ class ManifestationExstatsController < ApplicationController
     @title = ""
     @limit = 20
     @start_d = @end_d = nil
-    @select_librarlies = Library.find(:all).collect{|i| [ i.short_display_name, i.id ] }
+    @select_librarlies = Library.find(:all).collect{|i| [ i.display_name, i.id ] }
     @selected_library = nil
     super
   end
