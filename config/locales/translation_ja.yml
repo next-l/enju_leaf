@@ -1085,6 +1085,8 @@ ja:
       budget:
         library_id: 図書館
         term_id: 期間
+        library: 図書館
+        term: 期間
         amount: 金額
       term:
         display_name: 期間名

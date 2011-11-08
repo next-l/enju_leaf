@@ -1,8 +1,8 @@
 class Budget < ActiveRecord::Base
   validates_presence_of :library_id, :term_id
   has_one :library, :dependent => :destroy
-  has_one :term, :dependent => :destroy
-  validates_numericality_of :amount
+  has_one :term
+  validates_numericality_of :amount, :allow_blank => true
 
   def library
     Library.find(self.library_id) 
