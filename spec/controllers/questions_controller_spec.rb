@@ -36,9 +36,15 @@ describe QuestionsController do
       end
 
       it "should get my index feed" do
+        get :index, :format => 'rss'
+        response.should be_success
+        assigns(:questions).should eq Question.public_questions.page(1)
+      end
+
+      it "should redirect_to my index feed if user_id is specified" do
         get :index, :user_id => users(:user1).username, :format => 'rss'
         response.should be_success
-        assigns(:questions).should_not be_empty
+        assigns(:questions).should eq users(:user1).questions
       end
 
       it "should get other user's index" do
@@ -55,6 +61,8 @@ describe QuestionsController do
     end
 
     describe "When not logged in" do
+      use_vcr_cassette "enju_ndl/crd", :record => :new_episodes
+
       it "assigns all questions as @questions" do
         get :index
         assigns(:questions).should_not be_nil

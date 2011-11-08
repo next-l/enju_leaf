@@ -55,6 +55,10 @@
     <% end %>
     <% if defined?(EnjuCirculation) %>
       <li><%= link_to t('activerecord.models.checkout'), checkouts_path %></li>
+      <li><%= link_to t('activerecord.models.reserve'), reserves_path %></li>
+    <% end %>
+    <% if defined?(EnjuQuestion) %>
+      <li><%= link_to t('activerecord.models.question'), user_questions_path(current_user) %></li>
     <% end %>
     <% if defined?(EnjuBookmark) %>
       <li><%= link_to t('activerecord.models.bookmark'), bookmarks_path %></li>

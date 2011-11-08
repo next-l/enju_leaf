@@ -3,6 +3,7 @@ require 'spec_helper'
 
 describe Manifestation, :solr => true do
   fixtures :all
+  use_vcr_cassette "enju_ndl/manifestation", :record => :new_episodes
 
   it "should set pub_date" do
     patron = FactoryGirl.create(:manifestation, :pub_date => '2000')
@@ -197,6 +198,7 @@ end
 
 
 
+
 # == Schema Information
 #
 # Table name: manifestations
@@ -260,7 +262,6 @@ end
 #  file_hash                       :string(255)
 #  pub_date                        :string(255)
 #  edition_string                  :string(255)
-#  periodical                      :boolean         default(FALSE), not null
 #  volume_number                   :integer
 #  issue_number                    :integer
 #  serial_number                   :integer

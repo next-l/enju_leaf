@@ -3,6 +3,7 @@ require 'spec_helper'
 
 describe ResourceImportFile do
   fixtures :all
+  use_vcr_cassette "enju_ndl/porta", :record => :new_episodes
 
   describe "when its mode is 'create'" do
     describe "when it is written in utf-8" do

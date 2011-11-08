@@ -76,7 +76,6 @@ gem 'paper_trail', '~> 2.4'
 #gem 'money'
 gem 'RedCloth', '>= 4.2.8'
 gem 'isbn-tools', :git => 'git://github.com/nabeta/isbn-tools.git', :require => 'isbn/tools'
-gem 'attribute_normalizer', '~> 1.0'
 gem 'configatron'
 gem 'extractcontent'
 gem 'cancan', '>= 1.6.7'
@@ -91,7 +90,8 @@ gem 'whenever', '~> 0.6.8', :require => false
 gem 'astrails-safe'
 gem 'dynamic_form'
 gem 'sanitize'
-gem 'jpmobile', '2.0.3'
+gem 'jpmobile', '~> 2.0'
+gem 'attribute_normalizer', '~> 1.0'
 #gem 'geokit'
 gem 'geocoder'
 gem 'acts_as_list', :git => 'git://github.com/swanandp/acts_as_list.git'
@@ -123,6 +123,8 @@ group :development, :test do
   gem 'metric_fu', '~> 2.1'
   gem 'timecop'
   gem 'sunspot-rails-tester'
+  gem 'vcr', '~> 2.0.0.beta2'
+  gem 'webmock'
 end
 
 # Use unicorn as the web server

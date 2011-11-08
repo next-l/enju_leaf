@@ -6,6 +6,7 @@ describe Answer do
 
 end
 
+
 # == Schema Information
 #
 # Table name: answers
@@ -17,7 +18,6 @@ end
 #  created_at           :datetime
 #  updated_at           :datetime
 #  deleted_at           :datetime
-#  shared               :boolean         default(TRUE), not null
 #  state                :string(255)
 #  item_identifier_list :text
 #  url_list             :text
