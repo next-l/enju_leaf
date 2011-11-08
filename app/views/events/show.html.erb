@@ -14,7 +14,7 @@
 
 <p>
   <strong><%= t('activerecord.models.library') -%>:</strong>
-  <%= link_to @event.library.display_name.localize, @event.library -%>
+  <%= link_to @event.library.display_name.localize, @event.library if @event.library-%>
 </p>
 
 <%- if @event.all_day -%>

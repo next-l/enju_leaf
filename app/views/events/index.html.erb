@@ -42,7 +42,7 @@
 <%- @events.each_with_index do |event, i| -%>
   <tr class="line<%= cycle("0", "1") -%>">
     <td>
-      <%= link_to event.library.display_name.localize, event.library -%>
+      <%= link_to event.library.display_name.localize, event.library if event.library -%>
       <br />
       <%= event.event_category.display_name.localize -%>
     </td>

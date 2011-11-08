@@ -93,7 +93,7 @@ class Library < ActiveRecord::Base
   end
 
   def destroy?
-    return false if Shelf.where(:library_id => self.id).first || User.where(:library_id => self.id).first
+    return false unless self.shelves.empty? && self.users.empty? && self.events.empty? && self.budget.empty?
     return true
   end
 
