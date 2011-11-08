@@ -18,7 +18,7 @@
       <br />
       <%= shelf.name if can? :update, shelf %>
     </td>
-    <td><%= link_to shelf.library.display_name.localize, library_path(shelf.library) -%></td>
+    <td><%= link_to shelf.library.display_name.localize, library_path(shelf.library) if shelf.library -%></td>
     <td>
       <%- if can? :update, shelf -%>
         <%= link_to t('page.edit'), edit_shelf_path(shelf) -%>
