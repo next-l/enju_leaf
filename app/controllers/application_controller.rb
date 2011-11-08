@@ -5,7 +5,6 @@ class ApplicationController < ActionController::Base
   rescue_from CanCan::AccessDenied, :with => :render_403
   rescue_from ActiveRecord::RecordNotFound, :with => :render_404
   rescue_from Errno::ECONNREFUSED, :with => :render_500
-  rescue_from RSolr::Error::Http, :with => :render_500_solr
   rescue_from ActionView::MissingTemplate, :with => :render_404_invalid_format
   rescue_from ActionController::RoutingError, :with => :render_404
 
@@ -48,21 +47,12 @@ class ApplicationController < ActionController::Base
   end
 
   def render_500
+    Rails.logger.fatal("please confirm that the Solr is running.")
     return if performed?
     #flash[:notice] = t('page.connection_failed')
     respond_to do |format|
       format.html {render :file => "#{Rails.root.to_s}/public/500.html", :layout => false, :status => 500}
       format.mobile {render :file => "#{Rails.root.to_s}/public/500.html", :layout => false, :status => 500}
-    end
-  end
-
-  def render_500_solr
-    return if performed?
-    #flash[:notice] = t('page.connection_failed')
-    Rails.logger.fatal("Solr is not running!")
-    respond_to do |format|
-      format.html {render :template => 'page/500', :status => 500}
-      format.mobile {render :template => 'page/500', :status => 500}
       format.xml {render :template => 'page/500', :status => 500}
       format.json
     end
