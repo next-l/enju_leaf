@@ -3,6 +3,7 @@
 <div id="content_list">
 <%= form_for :manifestations, :html => {:method => 'get'} do -%>
   <p>
+    <div style="color: red"><%= flash[:message] -%></div>
     <%= t('advanced_search.from_date') -%> <%= text_field_tag 'search_date_first', h(@start_date), :size => 9 -%>
     <%= t('advanced_search.to_date') -%> <%= text_field_tag 'search_date_last', h(@end_date), :size => 9 -%> <br />
       <%= t('advanced_search.library') -%> <%= select("library", "id", @select_librarlies, {:include_blank => t('advanced_search.all_libraries'), :selected=>@selected_library}  )%> </td>
@@ -24,6 +25,7 @@
       <%= t('page.exstatistics.requestcount') -%>
     </th>
   </tr>
+<%- if @manifestations -%>
 <%- @manifestations.each_with_index do |m, i| -%>
   <tr class="line<%= cycle("0", "1") -%>">
     <td>
@@ -39,6 +41,7 @@
       <%= @reserves[i].cnt -%>
     </td>
   </tr>
+<%- end -%>
 <%- end -%>
 </table>
 

@@ -159,6 +159,7 @@ ja:
       term: 期間
       checkoutlist: 貸出状況
       reservelist: 予約状況
+      manifestation_exstat: 拡張統計
    
     attributes:
       library:
