@@ -45,7 +45,7 @@
 
 <p>
   <strong><%= t('activerecord.models.user') -%>:</strong>
-  <%= link_to @patron_import_file.user.username, @patron_import_file.user -%>
+  <%= link_to @patron_import_file.user.username, @patron_import_file.user if @patron_import_file.user -%>
 </p>
 
 </div>
