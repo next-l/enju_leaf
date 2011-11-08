@@ -96,13 +96,34 @@ class ResourceImportFilesController < ApplicationController
 
   def import_request
     @resource_import_file = ResourceImportFile.find(params[:id])
-    if fork == nil
-      exec("rails runner -e production 'ResourceImportFile.import(#{@resource_import_file.id})'") if fork == nil
-   else
+    cmd = "rails runner -e production 'ResourceImportFile.import(#{@resource_import_file.id})'"
+    pid = nil
+    logger.info "start fork cmd=\"#{cmd}\""
+    begin
+      pid = fork { exec(cmd) }
+    rescue e
+      logger.info "fork-exec error"
+      raise e
+    end
+    logger.info "pid = #{pid}"
+    if pid 
       flash[:message] = t('resource_import_file.start_importing')
       respond_to do |format|
         format.html {redirect_to(resource_import_file_resource_import_results_path(@resource_import_file))}
       end
+    else
+      flash[:message] = t('resource_import_file.unsuccess_start')
+      respond_to do |format|
+        format.html {redirect_to(resource_import_file_resource_import_results_path(@resource_import_file))}
+      end
     end
+    #if fork == nil
+    #  exec("rails runner -e production 'ResourceImportFile.import(#{@resource_import_file.id})'") if fork == nil
+    #else
+    #  flash[:message] = t('resource_import_file.start_importing')
+    #  respond_to do |format|
+    #    format.html {redirect_to(resource_import_file_resource_import_results_path(@resource_import_file))}
+    #  end
+    #end
   end
 end
