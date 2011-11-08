@@ -22,7 +22,7 @@ class Ability
       end
       can [:read, :create, :update], Library
       can :destroy, Library do |library|
-        library.shelves.empty? and !library.web?
+        library.shelves.empty? and User.where(:library_id => library.id).first.nil?  and !library.web?
       end
       can [:read, :create, :update], Manifestation
       can :destroy, Manifestation do |manifestation|
