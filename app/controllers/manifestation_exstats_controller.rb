@@ -51,7 +51,7 @@ class ManifestationExstatsController < ApplicationController
 
     respond_to do |format|
       if @start_d == nil || @end_d == nil
-        format.html { render :action => "new" }
+        format.html # { render :action => "new" }
         #format.xml  { render :xml => @manifestations }
       else
         format.html # index.html.erb
@@ -101,7 +101,7 @@ class ManifestationExstatsController < ApplicationController
 
     respond_to do |format|
       if @start_d == nil || @end_d == nil
-        format.html { render :action => "new" }
+        format.html 
         #format.xml  { render :xml => @manifestations }
       else
         format.html # index.html.erb
