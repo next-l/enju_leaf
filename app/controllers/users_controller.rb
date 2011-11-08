@@ -35,7 +35,7 @@ class UsersController < ApplicationController
     page = params[:page] || 1
     role = current_user.try(:role) || Role.default_role
     @date_of_birth = params[:birth_date].to_s.dup
-    birth_date = params[:birth_date].to_s.gsub!(/\D/, '') if params[:birth_date]
+    birth_date = params[:birth_date].to_s.gsub(/\D/, '') if params[:birth_date]
     flash[:message] = nil
     unless params[:birth_date].blank?
       begin
@@ -142,7 +142,7 @@ class UsersController < ApplicationController
       @patron = Patron.new
       @patron.required_role = Role.find_by_name('Librarian')
       @patron.language = Language.where(:iso_639_1 => I18n.default_locale.to_s).first || Language.first 
-      @patron.country = current_user.library.country
+      @patron.country = current_user.library.country if current_user.library
       @patron.country_id = LibraryGroup.site_config.country_id
       @patron.telephone_number_1_type_id = 1
       @patron.telephone_number_2_type_id = 1
