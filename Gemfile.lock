@@ -264,7 +264,7 @@ GEM
     options (2.3.0)
       fattr
     orm_adapter (0.0.5)
-    paper_trail (2.4.0)
+    paper_trail (2.4.1)
       rails (~> 3)
     paperclip (2.4.5)
       activerecord (>= 2.3.0)
