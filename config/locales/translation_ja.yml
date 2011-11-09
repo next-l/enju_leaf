@@ -1265,6 +1265,7 @@ ja:
     download: "ダウンロード"
     budget_and_order: "予算と発注の管理" 
     budget: "予算"
+    wait: "処理中.."
 
     exstatistics:
       ranknumber: 順位

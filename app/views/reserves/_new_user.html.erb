@@ -43,7 +43,7 @@
 
   <div class="field">
     <%= f.hidden_field :user_number, :value => @user.user_number -%>
-    <%= f.submit t('page.create') -%>
+    <%= f.submit t('page.create'), :disable_with => t('page.wait') -%>
   </div>
 <%- end -%>
 </div>
