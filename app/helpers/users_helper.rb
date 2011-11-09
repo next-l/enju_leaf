@@ -8,8 +8,8 @@ module UsersHelper
   end
 
   def family_radio_check?(btn_value, family)
-    logger.info "family_radio_check v=[#{btn_value}] f=[#{family}]"
-    logger.info "family_radio_check v=[#{btn_value.class}] f=[#{family.class}]"
+    #logger.info "family_radio_check v=[#{btn_value}] f=[#{family}]"
+    #logger.info "family_radio_check v=[#{btn_value.class}] f=[#{family.class}]"
     if family.empty? && btn_value == 0
       return true
     end

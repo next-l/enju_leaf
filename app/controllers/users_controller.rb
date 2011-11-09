@@ -224,6 +224,7 @@ class UsersController < ApplicationController
   def update
     respond_to do |format|
     begin
+      @family = params[:family]
       @user.update_with_params(params[:user], current_user)
       if params[:user][:auto_generated_password] == "1"
         @user.set_auto_generated_password
@@ -290,7 +291,6 @@ class UsersController < ApplicationController
       @user = User.find(params[:user]) rescue nil
       @family = params[:family]
       @family_id = FamilyUser.find(:first, :conditions => ['user_id=?', @user.id]).family_id rescue nil
-      #TODO
       query = <<-SQL
         SELECT users.id, users.username
         FROM users left join patrons 
@@ -303,9 +303,9 @@ class UsersController < ApplicationController
       @users = User.find_by_sql([query, query_params]) rescue nil
       all_user_ids = []
       if @users
-        logger.info @users
+        #logger.info @users
         @users.each do |user|
-          logger.info "user.id=#{user.id}"
+          #logger.info "user.id=#{user.id}"
           all_user_ids << user.id
         end
       end
@@ -330,15 +330,15 @@ class UsersController < ApplicationController
       @users.delete_if{|user| group_users.include?(user)} if group_users
 
       #
-      logger.info("family=#{@family}")
+      #logger.info("family=#{@family}")
       unless @family.empty?
         @families.each do |f|
-          logger.info enum_users_id(f.users)  
-          u2 = f.users.select {|u| u.id.to_s == @family }
+          #logger.info enum_users_id(f.users)  
+          u2 = f.users.select {|u| u.id.to_s == @family}
           unless u2.empty?
-            f.users.reject! {|u| u.id.to_s == @family }
+            f.users.reject! {|u| u.id.to_s == @family}
             f.users.unshift(u2.first)
-            logger.info enum_users_id(f.users)  
+            #logger.info enum_users_id(f.users)  
             break
           end
         end
