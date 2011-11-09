@@ -1,7 +1,6 @@
 <div id="content_detail" class="ui-corner-all">
 <h1 class="title"><%= t('page.new', :model => t('activerecord.models.reserve')) -%></h1>
 <div id="content_list">
-
 <%= form_for(@reserve) do |f| -%>
   <%= f.error_messages -%>
 
@@ -36,7 +35,7 @@
   </div>
 
   <div class="actions">
-    <%= f.submit t('page.create') -%>
+    <%= f.submit t('page.create'), :disable_with => t('page.wait')-%>
   </div>
 <%- end -%>
 <%= javascript_tag("$('#reserve_user_number').focus()") -%>
