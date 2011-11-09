@@ -414,7 +414,6 @@ class User < ActiveRecord::Base
 
   def set_family(user_id)
     family = User.find(user_id).family rescue nil    
-    begin
     if family
       family.users << self
     else
@@ -422,10 +421,6 @@ class User < ActiveRecord::Base
         user = User.find(user_id)
         family.users << self         
         family.users << user
-    end
-    rescue Exception => e
-      errors[:base] << I18n.t('user.already_in_family')
-      raise e
     end
   end
   
