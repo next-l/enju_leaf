@@ -309,7 +309,7 @@ class ManifestationsController < ApplicationController
   def show
     if params[:isbn]
       if @manifestation = Manifestation.find_by_isbn(params[:isbn])
-        redirect_to @manifestation
+        redirect_to manifestation_url(@manifestation, :format => params[:format])
         return
       else
         raise ActiveRecord::RecordNotFound if @manifestation.nil?

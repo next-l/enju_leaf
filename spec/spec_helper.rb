@@ -7,6 +7,7 @@ end
 
 require 'rubygems'
 require 'spork'
+require 'vcr'
 
 Spork.prefork do
   # Loading more in this block will cause your tests to run faster. However, 
@@ -57,6 +58,8 @@ Spork.prefork do
     end
 
     config.extend ControllerMacros, :type => :controller
+
+    config.extend VCR::RSpec::Macros
   end
 end
 

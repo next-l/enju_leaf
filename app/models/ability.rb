@@ -358,7 +358,7 @@ class Ability
           if answer.user == user
             true
           elsif answer.question.shared
-            answer.shared
+            true
           end
         end
         can [:update, :destroy], Answer do |answer|
@@ -374,7 +374,7 @@ class Ability
       else
         can :index, Answer
         can :show, Answer do |answer|
-          answer.shared
+          answer.question.shared
         end
         can :index, Question
         can :show, Question do |question|

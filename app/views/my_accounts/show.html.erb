@@ -50,14 +50,21 @@
     <%- if can? :destroy, current_user -%>
       <%= link_to t('page.destroy'), curent_user, :confirm => t('page.are_you_sure'), :method => :delete -%>
     <%- end -%>
+    <% if defined?(EnjuSearchLog) %>
+      <li><%= link_to t('activerecord.models.search_history'), search_histories_path %></li>
+    <% end %>
     <% if defined?(EnjuCirculation) %>
-      <li><%= link_to t('activerecord.models.checkout'), user_checkouts_url(@user) %></li>
+      <li><%= link_to t('activerecord.models.checkout'), checkouts_path %></li>
+      <li><%= link_to t('activerecord.models.reserve'), reserves_path %></li>
+    <% end %>
+    <% if defined?(EnjuQuestion) %>
+      <li><%= link_to t('activerecord.models.question'), user_questions_path(current_user) %></li>
     <% end %>
     <% if defined?(EnjuBookmark) %>
-      <li><%= link_to t('activerecord.models.bookmark'), user_bookmarks_url(@user) %></li>
+      <li><%= link_to t('activerecord.models.bookmark'), bookmarks_path %></li>
     <% end %>
     <% if defined?(EnjuPurchaseRequest) %>
-      <li><%= link_to t('activerecord.models.purchase_request'), user_purchase_requests_url(@user) %></li>
+      <li><%= link_to t('activerecord.models.purchase_request'), purchase_requests_path %></li>
     <% end %>
   </ul>
 </div>

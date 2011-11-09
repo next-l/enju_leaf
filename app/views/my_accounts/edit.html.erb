@@ -32,15 +32,19 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.check_box :save_search_history %>
-    <%= f.label :save_search_history %>
-  </div>
+  <% if defined?(EnjuSearchLog) %>
+    <div class="field">
+      <%= f.check_box :save_search_history %>
+      <%= f.label :save_search_history %>
+    </div>
+  <% end %>
 
-  <div class="field">
-    <%= f.check_box :save_checkout_history %>
-    <%= f.label :save_checkout_history %>
-  </div>
+  <% if defined?(EnjuCirculation) %>
+    <div class="field">
+      <%= f.check_box :save_checkout_history %>
+      <%= f.label :save_checkout_history %>
+    </div>
+  <% end %>
 
   <div class="field">
     <%= f.label :note -%><br />

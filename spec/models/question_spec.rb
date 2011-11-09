@@ -3,6 +3,7 @@ require 'spec_helper'
 
 describe Question do
   fixtures :questions
+  use_vcr_cassette "enju_ndl/crd", :record => :new_episodes
 
   it "test_should_get_crd_search" do
     result = Question.search_crd(:query_01 => 'Yahoo')

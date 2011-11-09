@@ -14,7 +14,7 @@ describe AnswersController do
     end
 
     describe "When logged in as Librarian" do
-      login_fixture_user
+      login_fixture_librarian
 
       it "assigns all answers as @answers" do
         get :index
@@ -25,15 +25,21 @@ describe AnswersController do
     describe "When logged in as User" do
       login_fixture_user
 
-      it "assigns all answers as @answers" do
+      it "assigns nil as @answers" do
         get :index
-        assigns(:answers).should_not be_empty
+        assigns(:answers).should be_nil
       end
 
-      it "should get my index" do
+      it "should not get index" do
+        get :index
+        response.should be_forbidden
+        assigns(:answers).should be_nil
+      end
+
+      it "should get to my index if user_id is specified" do
         get :index, :user_id => users(:user1).username
-        assigns(:answers).should eq users(:user1).answers.order('answers.id').page(1)
         response.should be_success
+        assigns(:answers).should eq users(:user1).answers.order('answers.id DESC').page(1)
       end
 
       it "should not get other user's index without user_id" do
@@ -54,22 +60,22 @@ describe AnswersController do
     end
 
     describe "When not logged in" do
-      it "assigns all answers as @answers" do
+      it "assigns nil as @answers" do
         get :index
-        assigns(:answers).should eq Answer.public_answers.order('answers.id').page(1)
-        response.should be_success
+        assigns(:answers).should be_nil
+        response.should redirect_to new_user_session_url
       end
 
       it "should not get index with other user's question_id" do
         get :index, :question_id => 1
-        assigns(:answers).should eq assigns(:question).answers.public_answers.order('answers.id').page(1)
+        assigns(:answers).should eq assigns(:question).answers.order('answers.id DESC').page(1)
         response.should be_success
       end
 
       it "should get other user's index if question is shared" do
         get :index, :question_id => 5
         response.should be_success
-        assigns(:answers).should eq assigns(:question).answers.public_answers.order('answers.id').page(1)
+        assigns(:answers).should eq assigns(:question).answers.order('answers.id DESC').page(1)
       end
 
       it "should not get other user's index feed if question is not shared" do
@@ -80,7 +86,7 @@ describe AnswersController do
       it "should get other user's index feed if question is shared" do
         get :index, :question_id => 5, :format => 'rss'
         response.should be_success
-        assigns(:answers).should eq assigns(:question).answers.public_answers.order('answers.id').page(1)
+        assigns(:answers).should eq assigns(:question).answers.order('answers.id DESC').page(1)
       end
     end
   end
