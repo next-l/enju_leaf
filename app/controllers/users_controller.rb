@@ -133,6 +133,7 @@ class UsersController < ApplicationController
       @patron.note_update_at = nil
       @patron.note_update_by = nil
       @patron.note_update_library = nil
+      @family = @family_with.id
     else 
       @user = User.new
       @user.library = current_user.library
@@ -150,6 +151,7 @@ class UsersController < ApplicationController
       @patron.extelephone_number_2_type_id = 2
       @patron.fax_number_1_type_id = 3
       @patron.fax_number_2_type_id = 3
+      @family = 0
     end
     #@user.openid_identifier = flash[:openid_identifier]
     prepare_options
@@ -188,14 +190,15 @@ class UsersController < ApplicationController
     respond_to do |format|
     begin
       Patron.transaction do
+        @family = params[:family]
         @user = User.create_with_params(params[:user], current_user)
         @user.set_auto_generated_password
         @user.role = Role.where(:name => 'User').first
         @patron = Patron.create_with_user(params[:patron], @user)
         @patron.save!
         @user.patron = @patron
-        unless params[:family].blank?
-          @user.set_family(params[:family])
+        unless @family.blank?
+          @user.set_family(@family)
         end
         @user.save!
         flash[:notice] = t('controller.successfully_created.', :model => t('activerecord.models.user'))
@@ -285,14 +288,19 @@ class UsersController < ApplicationController
       tel_1 = params[:keys][:tel_1]
       tel_1.delete!("-")
       @user = User.find(params[:user]) rescue nil
+      @family = params[:family]
       @family_id = FamilyUser.find(:first, :conditions => ['user_id=?', @user.id]).family_id rescue nil
-      #if family_id
-      #  @family_users = Family.find(family_id).users
-      #end
       #TODO
-      #query = "select * from users left join patrons on patrons.user_id = users.id where translate(patrons.telephone_number_1, '-', '') = '#{tel_1}' AND patrons.last_name = '#{params[:keys][:last_name]}' AND patrons.address_1 = '#{params[:keys][:address_1]}'"
-      query = "select users.id, users.username from users left join patrons on patrons.user_id = users.id where translate(patrons.telephone_number_1, '-', '') = '#{tel_1}' AND patrons.last_name = '#{params[:keys][:last_name]}' AND patrons.address_1 = '#{params[:keys][:address_1]}'"
-      @users = User.find_by_sql(query) rescue nil
+      query = <<-SQL
+        SELECT users.id, users.username
+        FROM users left join patrons 
+         ON patrons.user_id = users.id 
+         WHERE translate(patrons.telephone_number_1, '-', '') = :tel_1
+         AND patrons.last_name = :last_name
+         AND patrons.address_1 = :address_1
+      SQL
+      query_params = {:tel_1=>tel_1, :last_name=>params[:keys][:last_name], :address_1=>params[:keys][:address_1]}
+      @users = User.find_by_sql([query, query_params]) rescue nil
       all_user_ids = []
       if @users
         logger.info @users
@@ -320,6 +328,22 @@ class UsersController < ApplicationController
       end
       @users.delete_if{|user| already_family_users.include?(user)} if already_family_users
       @users.delete_if{|user| group_users.include?(user)} if group_users
+
+      #
+      logger.info("family=#{@family}")
+      unless @family.empty?
+        @families.each do |f|
+          logger.info enum_users_id(f.users)  
+          u2 = f.users.select {|u| u.id.to_s == @family }
+          unless u2.empty?
+            f.users.reject! {|u| u.id.to_s == @family }
+            f.users.unshift(u2.first)
+            logger.info enum_users_id(f.users)  
+            break
+          end
+        end
+      end
+
       unless @users.blank? && @families.blank?
         html = render_to_string :partial => "search_family"
         render :json => {:success => 1, :html => html}
@@ -340,6 +364,16 @@ class UsersController < ApplicationController
     end
   end
   private
+  def enum_users_id(users)
+    s = ""
+    unless users.empty?
+      users.each do |u|
+        s.concat("#{u.id} ")
+      end
+    end
+    return s
+  end
+
   def prepare_options
     @user_groups = UserGroup.all
     @roles = Role.all
