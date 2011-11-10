@@ -44,6 +44,6 @@
     <%= f.datetime_select :expired_at %>
   </div>
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit t('page.create'), :disable_with => t('page.wait')-%>
   </div>
 <% end %>

@@ -6,7 +6,7 @@ class ManifestationExstatsController < ApplicationController
     @title = ""
     @limit = 20
     @start_d = @end_d = nil
-    @select_librarlies = Library.find(:all).collect{|i| [ i.short_display_name, i.id ] }
+    @select_librarlies = Library.find(:all).collect{|i| [ i.display_name, i.id ] }
     @selected_library = nil
     super
   end
@@ -90,7 +90,8 @@ class ManifestationExstatsController < ApplicationController
       if @selected_library.nil? || @selected_library.empty?
         @reserves = Reserve.find(:all, :select=>'manifestation_id, COUNT(*) AS cnt', :limit=>@limit, :conditions => ['reserves.created_at >= ? AND reserves.created_at < ? ',  @start_d, @end_d], :group=>'manifestation_id', :order=>'cnt DESC')
       else
-        @reserves = Reserve.find(:all, :select=>'manifestation_id, COUNT(*) AS cnt', :limit=>@limit, :conditions => ['reserves.created_at >= ? AND reserves.created_at < ? ',  @start_d, @end_d], :group=>'manifestation_id', :order=>'cnt DESC')
+        @reserves = Reserve.find_by_sql(["SELECT reserves.manifestation_id, count(*) as cnt FROM reserves, users WHERE reserves.created_at >= ? AND reserves.created_at < ? AND reserves.user_id = users.id AND users.library_id = ? GROUP BY reserves.manifestation_id ORDER BY cnt DESC LIMIT ?", @start_d, @end_d, @selected_library, @limit])
+
       end
 
       @manifestations = []

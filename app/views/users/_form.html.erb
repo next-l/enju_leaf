@@ -46,10 +46,11 @@
       .change();      
     });
     function search_family(){
-      var tel_1 = $("#patron_telephone_number_1").val().replace(/^\s+|\s+$/g, "").replace(/-/, "");
+      var tel_1 = $("#patron_telephone_number_1").val().replace(/^\s+|\s+$/g, "");
       var last_name = $("#patron_last_name").val().replace(/^\s+|\s+$/g, "");
       var address_1 = $("#patron_address_1").val().replace(/^\s+|\s+$/g, "");
-      var data = {"keys": {"tel_1": tel_1, "last_name": last_name, "address_1": address_1 }, "user": "<%= @user.id -%>"};
+      var family = "<%= @family -%>"
+      var data = {"keys": {"tel_1": tel_1, "last_name": last_name, "address_1": address_1 }, "family": family, "user": "<%= @user.id -%>"};
       if (tel_1 != "" && last_name != "" && address_1 !="") {
         $.ajax({
           type: "GET",

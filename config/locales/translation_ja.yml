@@ -1265,6 +1265,7 @@ ja:
     download: "ダウンロード"
     budget_and_order: "予算と発注の管理" 
     budget: "予算"
+    wait: "処理中.."
 
     exstatistics:
       ranknumber: 順位
@@ -1687,6 +1688,7 @@ ja:
     template_download: "テンプレートをダウンロード"
     import_request: "すぐにインポートする"
     start_importing: "インポートを開始しました。"
+    unsuccess_start: "インポート開始に失敗しました。"
   budget:
     yen: "%{amount} 円"
   term:

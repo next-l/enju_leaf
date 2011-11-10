@@ -1219,6 +1219,8 @@ en:
       other: "Pictures"
     best_request: "best request"
     best_reader: "best reader"
+    wait: "Wait.."
+
   tooltip:
     icons_info: Icons information
     message: message
