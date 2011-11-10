@@ -14,10 +14,10 @@ module UsersHelper
       return true
     end
     if btn_value.to_s == family
-      logger.info "true"
+      #logger.info "true"
       return true
     end
-    logger.info "false"
+    #logger.info "false"
     return false
   end
 end
