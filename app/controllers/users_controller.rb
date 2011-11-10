@@ -343,7 +343,7 @@ class UsersController < ApplicationController
   def prepare_options
     @user_groups = UserGroup.all
     @roles = Role.all
-    @libraries = Library.all_cache
+    @libraries = Library.all
     @languages = Language.all_cache
     @countries = Country.all_cache
     if @user.active_for_authentication?
