@@ -41,8 +41,8 @@ module EnjuLeaf
 
     # Configure sensitive parameters which will be filtered from the log file.
     config.filter_parameters += [
-      :password, :full_name, :first_name, :middle_name, :last_name, :address_,
-      :telephone_, :fax_, :date_of_birth, :date_of_death
+      :password, :full_name, :first_name, :middle_name, :last_name,
+      :zip_code, :address_, :telephone_, :fax_, :birth_date, :death_date
     ]
 
     #config.middleware.use '::ExceptionNotifier',
