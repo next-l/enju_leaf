@@ -49,6 +49,8 @@ Spork.prefork do
     config.before do
       Sunspot.session = Sunspot::Rails::StubSessionProxy.new($original_sunspot_session)
       SimpleCov.command_name "RSpec:#{Process.pid.to_s}#{ENV['TEST_ENV_NUMBER']}"
+      PaperTrail.controller_info = {}
+      PaperTrail.whodunnit = nil
     end
 
     config.before :each, :solr => true do

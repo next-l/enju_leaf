@@ -2,6 +2,8 @@
 require 'spec_helper'
 
 describe Library do
+  fixtures :all
+
   before(:each) do
     @library = FactoryGirl.create(:library)
   end
