@@ -1,6 +1,6 @@
 # -*- encoding: utf-8 -*-
 class ReservesController < ApplicationController
-  before_filter :store_location, :only => :index
+  before_filter :store_location, :only => [:index, :new]
   load_and_authorize_resource :except => :index
   authorize_resource :only => :index
   before_filter :get_user_if_nil
