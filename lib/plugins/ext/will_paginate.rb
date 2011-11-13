@@ -30,7 +30,7 @@ module JqueryMobileRenderer
     def html_container(html)
       tag(:div, tag(:ul, html), container_attributes)
     end
-    
+
     def page_number(page)
       first = (page - 1) * @collection.per_page + 1
       last  = [ first + @collection.per_page - 1, @collection.total_entries ].min

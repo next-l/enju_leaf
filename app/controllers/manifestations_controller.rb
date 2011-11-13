@@ -308,11 +308,12 @@ class ManifestationsController < ApplicationController
   # GET /manifestations/1.json
   def show
     if params[:isbn]
-      if @manifestation = Manifestation.find_by_isbn(params[:isbn])
+      @manifestation = Manifestation.find_by_isbn(params[:isbn])
+      if @manifestation
         redirect_to manifestation_url(@manifestation, :format => params[:format])
         return
       else
-        raise ActiveRecord::RecordNotFound if @manifestation.nil?
+        raise ActiveRecord::RecordNotFound
       end
     else
       if @version
@@ -377,7 +378,6 @@ class ManifestationsController < ApplicationController
       format.mods
       format.json { render :json => @manifestation }
       #format.atom { render :template => 'manifestations/oai_ore' }
-      #format.xml  { render :action => 'mods', :layout => false }
       #format.js
       format.download {
         if @manifestation.attachment.path
@@ -397,22 +397,7 @@ class ManifestationsController < ApplicationController
   def new
     @manifestation = Manifestation.new
     @original_manifestation = Manifestation.where(:id => params[:manifestation_id]).first
-    if @series_statement
-      @manifestation.series_statement_id = @series_statement.id
-      if @manifestation.serial?
-        @manifestation.set_serial_information
-      else
-        @manifestation.original_title = @series_statement.original_title
-        @manifestation.title_transcription = @series_statement.title_transcription
-        @manifestation.issn = @series_statement.issn
-      end
-    elsif @original_manifestation
-      @manifestation.original_title = @original_manifestation.original_title
-      @manifestation.title_transcription = @original_manifestation.title_transcription
-    elsif @expression
-      @manifestation.original_title = @expression.original_title
-      @manifestation.title_transcription = @expression.title_transcription
-    end
+    set_title
     @manifestation.language = Language.where(:iso_639_1 => @locale).first
 
     respond_to do |format|
@@ -742,5 +727,24 @@ class ManifestationsController < ApplicationController
       query = "#{query} acquired_at_d: [#{acquisition_date[:from]} TO #{acquisition_date[:to]}]"
     end
     query
+  end
+
+  def set_title
+    if @series_statement
+      @manifestation.series_statement_id = @series_statement.id
+      if @manifestation.serial?
+        @manifestation.set_serial_information
+      else
+        @manifestation.original_title = @series_statement.original_title
+        @manifestation.title_transcription = @series_statement.title_transcription
+        @manifestation.issn = @series_statement.issn
+      end
+    elsif @original_manifestation
+      @manifestation.original_title = @original_manifestation.original_title
+      @manifestation.title_transcription = @original_manifestation.title_transcription
+    elsif @expression
+      @manifestation.original_title = @expression.original_title
+      @manifestation.title_transcription = @expression.title_transcription
+    end
   end
 end

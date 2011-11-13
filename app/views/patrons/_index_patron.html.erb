@@ -5,7 +5,7 @@
     [P]
     <%= link_to patron.full_name, patron -%>
   </h2>
-  
+
 <div class="search_form">
 <%= form_for :patrons, :url => patron_patrons_path(patron), :html => {:method => 'get'} do -%>
   <p>
