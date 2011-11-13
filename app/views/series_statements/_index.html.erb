@@ -1,8 +1,8 @@
 <div id="content_detail" class="ui-corner-all">
 <h1 class="title"><%= t('page.listing', :model => t('activerecord.models.series_statement')) -%></h1>
 <div id="content_list">
-  
-  <div class="search_form">
+
+<div class="search_form">
 <%= form_for :series_statements, :url => series_statements_path, :html => {:method => 'get'} do -%>
   <p>
     <%= t('page.search_term') -%>: <%= search_field_tag 'query', h(@query), {:id => 'search_form_top', :class => 'search_form', :placeholder => t('page.search_term')} -%>

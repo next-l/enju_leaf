@@ -60,7 +60,7 @@ class PageController < ApplicationController
   def export
     @title = t('page.export')
   end
- 
+
   def about
     @title = t('page.about_this_system')
   end

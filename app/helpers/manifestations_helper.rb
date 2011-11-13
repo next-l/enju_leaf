@@ -114,7 +114,7 @@ module ManifestationsHelper
       title << " " + manifestation.volume_number_string
     end
     if manifestation.periodical?
-      if manifestation.issue_number_string.present?
+      if manifestation.issue_number_string?
         title <<  " " + manifestation.issue_number_string
       end
       if manifestation.serial_number?
