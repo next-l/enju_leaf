@@ -13,10 +13,6 @@ class User < ActiveRecord::Base
   scope :suspended, where('locked_at IS NOT NULL')
   has_one :patron
   has_many :import_requests
-  if defined?(EnjuMessage)
-    has_many :sent_messages, :foreign_key => 'sender_id', :class_name => 'Message'
-    has_many :received_messages, :foreign_key => 'receiver_id', :class_name => 'Message'
-  end
   has_many :picture_files, :as => :picture_attachable, :dependent => :destroy
   has_many :import_requests
   has_one :user_has_role
@@ -24,25 +20,11 @@ class User < ActiveRecord::Base
   if defined?(EnjuBookmark)
     has_many :bookmarks, :dependent => :destroy
   end
-  if defined?(EnjuCirculation)
-    has_many :checkouts, :dependent => :nullify
-    has_many :reserves, :dependent => :destroy
-    has_many :reserved_manifestations, :through => :reserves, :source => :manifestation
-    has_many :checkout_stat_has_users
-    has_many :user_checkout_stats, :through => :checkout_stat_has_users
-    has_many :reserve_stat_has_users
-    has_many :user_reserve_stats, :through => :reserve_stat_has_users
-    has_many :baskets, :dependent => :destroy
-  end
   if defined?(EnjuQuestion)
     has_many :questions
     has_many :answers
   end
   has_many :search_histories, :dependent => :destroy
-  if defined?(EnjuPurchaseRequest)
-    has_many :purchase_requests
-    has_many :order_lists
-  end
   has_many :subscriptions
   belongs_to :library, :validate => true
   belongs_to :user_group
@@ -324,45 +306,21 @@ class User < ActiveRecord::Base
     end
   end
 
-  if defined?(EnjuCirculation)
-    def check_item_before_destroy
-      # TODO: 貸出記録を残す場合
-      if checkouts.size > 0
-        raise 'This user has items still checked out.'
+  if defined?(EnjuBookmark)
+    def owned_tags_by_solr
+      bookmark_ids = bookmarks.collect(&:id)
+      if bookmark_ids.empty?
+        []
+      else
+        Tag.bookmarked(bookmark_ids)
       end
-    end
-
-    def reset_checkout_icalendar_token
-      self.checkout_icalendar_token = Devise.friendly_token
-    end
-
-    def delete_checkout_icalendar_token
-      self.checkout_icalendar_token = nil
-    end
-
-    def checked_item_count
-      checkout_count = {}
-      CheckoutType.all.each do |checkout_type|
-        # 資料種別ごとの貸出中の冊数を計算
-        checkout_count[:"#{checkout_type.name}"] = self.checkouts.count_by_sql(["
-          SELECT count(item_id) FROM checkouts
-            WHERE item_id IN (
-              SELECT id FROM items
-                WHERE checkout_type_id = ?
-            )
-            AND user_id = ? AND checkin_id IS NULL", checkout_type.id, self.id]
-        )
-      end
-      return checkout_count
-    end
-
-    def reached_reservation_limit?(manifestation)
-      return true if self.user_group.user_group_has_checkout_types.available_for_carrier_type(manifestation.carrier_type).where(:user_group_id => self.user_group.id).collect(&:reservation_limit).max.to_i <= self.reserves.waiting.size
-      false
     end
   end
 
   if defined?(EnjuMessage)
+    has_many :sent_messages, :foreign_key => 'sender_id', :class_name => 'Message'
+    has_many :received_messages, :foreign_key => 'receiver_id', :class_name => 'Message'
+
     def send_message(status, options = {})
       MessageRequest.transaction do
         request = MessageRequest.new
@@ -371,17 +329,6 @@ class User < ActiveRecord::Base
         request.message_template = MessageTemplate.localized_template(status, self.locale)
         request.save_message_body(options)
         request.sm_send_message!
-      end
-    end
-  end
-
-  if defined?(EnjuBookmark)
-    def owned_tags_by_solr
-      bookmark_ids = bookmarks.collect(&:id)
-      if bookmark_ids.empty?
-        []
-      else
-        Tag.bookmarked(bookmark_ids)
       end
     end
   end

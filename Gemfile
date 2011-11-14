@@ -80,7 +80,7 @@ gem 'configatron'
 gem 'extractcontent'
 gem 'cancan', '>= 1.6.7'
 #gem 'scribd_fu'
-gem 'devise', '~> 1.4.9'
+gem 'devise', '~> 1.5'
 gem 'omniauth', '~> 1.0'
 gem 'addressable'
 gem 'paperclip', '~> 2.4'
@@ -105,7 +105,7 @@ gem 'rake', '0.9.2.2'
 gem 'rails_autolink'
 
 group :production do
-  gem 'vidibus-routing_error', :git => 'git://github.com/nabeta/vidibus-routing_error'
+  gem 'vidibus-routing_error', :git => 'git://github.com/nabeta/vidibus-routing_error.git'
 end
 
 #gem 'oink', '>=0.9.2'
