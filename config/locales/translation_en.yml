@@ -1417,7 +1417,6 @@ en:
     no_checkout: "No checkouts."
     number_of_day_overdue: "Number of days overdue"
     extend: "Extend"
-    output: "Output checkouts"
   library:
     map: "Map"
     staff: "Staff"
