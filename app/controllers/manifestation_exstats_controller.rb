@@ -40,7 +40,7 @@ class ManifestationExstatsController < ApplicationController
       if @selected_library.nil? || @selected_library.empty?
         @checkouts = Checkout.find_by_sql(["SELECT manifestation_id, COUNT(*) AS cnt FROM checkouts LEFT OUTER JOIN exemplifies on (exemplifies.id = checkouts.item_id) WHERE (checkouts.created_at >= ? and checkouts.created_at < ?) GROUP BY exemplifies.manifestation_id ORDER BY cnt DESC LIMIT ?", @start_d, @end_d, @limit]);
       else
-        @checkouts = Checkout.find_by_sql(["SELECT manifestation_id, COUNT(*) AS cnt FROM users, checkouts LEFT OUTER JOIN exemplifies on (exemplifies.id = checkouts.item_id) WHERE checkouts.librarian_id = users.id AND users.library_id = ? AND (checkouts.created_at >= ? and checkouts.created_at < ?) GROUP BY exemplifies.manifestation_id ORDER BY cnt DESC LIMIT ?", @selected_library, @start_d, @end_d, @limit]);
+        @checkouts = Checkout.find_by_sql(["SELECT manifestation_id, COUNT(*) AS cnt FROM users, checkouts LEFT OUTER JOIN exemplifies on (exemplifies.id = checkouts.item_id) WHERE checkouts.user_id = users.id AND users.library_id = ? AND (checkouts.created_at >= ? and checkouts.created_at < ?) GROUP BY exemplifies.manifestation_id ORDER BY cnt DESC LIMIT ?", @selected_library, @start_d, @end_d, @limit]);
       end
 
       @manifestations = []
