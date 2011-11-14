@@ -5,7 +5,7 @@
   <p>
     <%= t('activerecord.attributes.item.item_identifier') -%>: <%= f.text_field :item_identifier -%>
     <%= t('checked_item.ignore_restriction') -%>: <%= f.check_box :ignore_restriction -%>
-    <%= submit_tag t('page.read') -%>
+    <%= submit_tag t('page.read'), :disable_with => t('page.wait') -%>
   </p>
 <%- end -%>
 <%= javascript_tag("$('#checked_item_item_identifier').focus()") -%>
@@ -37,6 +37,6 @@
 
 <%= form_for(:basket, :url => {:controller => 'baskets', :action => 'update', :id => @basket.id}, :html => { :method => :put }) do |f| -%>
   <div>
-    <%= f.submit t('checked_item.checkout') -%>
+    <%= f.submit t('checked_item.checkout'), :disable_with => t('page.wait') -%>
   </div>
 <%- end -%>
