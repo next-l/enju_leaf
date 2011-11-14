@@ -663,6 +663,7 @@ en:
         family_info: Family's information
         lock_version: Lock version
         renewal_count: Checkout renewal count
+        output: Output checkouts
       subscription:
         title: Title
         note: Note
@@ -1416,6 +1417,7 @@ en:
     no_checkout: "No checkouts."
     number_of_day_overdue: "Number of days overdue"
     extend: "Extend"
+    output: "Output checkouts"
   library:
     map: "Map"
     staff: "Staff"
