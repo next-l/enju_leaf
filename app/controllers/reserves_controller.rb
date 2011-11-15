@@ -87,7 +87,7 @@ class ReservesController < ApplicationController
     else
       @reserve = Reserve.new
     end
-    @libraries = Library.all_cache
+    @libraries = Library.all
     @reserve.receipt_library_id = user.library_id unless user.blank?
 
     get_manifestation
@@ -106,7 +106,7 @@ class ReservesController < ApplicationController
 
   # GET /reserves/1;edit
   def edit
-    @libraries = Library.all_cache
+    @libraries = Library.all
   end
 
   # POST /reserves
@@ -144,7 +144,7 @@ class ReservesController < ApplicationController
         format.html { redirect_to user_reserve_url(@reserve.user, @reserve) }
         format.xml  { render :xml => @reserve, :status => :created, :location => user_reserve_url(@reserve.user, @reserve) }
       else
-        @libraries = Library.all_cache
+        @libraries = Library.all
         format.html { render :action => "new" }
         format.xml  { render :xml => @reserve.errors.to_xml }
       end
@@ -194,7 +194,7 @@ class ReservesController < ApplicationController
         format.html { redirect_to user_reserve_url(@reserve.user, @reserve) }
         format.xml  { head :ok }
       else
-        @libraries = Library.all_cache
+        @libraries = Library.all
         format.html { render :action => "edit" }
         format.xml  { render :xml => @reserve.errors.to_xml }
       end
