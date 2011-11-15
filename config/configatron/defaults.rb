@@ -39,4 +39,9 @@ configatron.checked_items.disp_user = true
 configatron.resource_import_template = "templates/resource_import_template.xls"
 
 # 無操作待機時間 (sec)
-configatron.no_operation_counter = 300
+#configatron.no_operation_counter = 300
+configatron.no_operation_counter = 0
+
+# 貸出票メッセージ
+configatron.checkouts_print.filename = "checkouts.pdf"
+configatron.checkouts_print.message = "test.test.test.test.test.test.test.test.test"

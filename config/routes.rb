@@ -96,7 +96,9 @@ EnjuLeaf::Application.routes.draw do
       resources :checked_items
       resources :checkins
     end
-    resources :checkouts
+    resources :checkouts do
+      post :output, :on => :collection
+    end
     resources :questions do
       resources :answers
     end
@@ -282,7 +284,11 @@ EnjuLeaf::Application.routes.draw do
   resources :checkins
   resources :checked_items
 
-  resources :checkouts
+  resources :checkouts do
+    collection do
+      post 'output'
+    end
+  end
 
   resources :countries
 

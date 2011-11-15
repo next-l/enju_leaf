@@ -83,6 +83,7 @@ gem 'simple_form', '~> 1.5'
 gem 'validates_timeliness'
 gem 'rack-protection'
 gem 'rails3_acts_as_paranoid'
+gem 'thinreports'
 
 #gem 'oink', '>=0.9.2'
 group :development do

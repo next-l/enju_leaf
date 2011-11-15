@@ -133,4 +133,47 @@ class CheckoutsController < ApplicationController
       format.xml  { head :ok }
     end
   end
+  
+  def output
+    @user = User.find(params[:user_id]) rescue nil
+    @library = Library.find(@user.library_id) rescue nil
+    output_checkouts(@library, @user, current_user) unless @user.blank?
+  end
+
+  private
+  def output_checkouts(library, user, lend_user)
+    require 'thinreports'
+
+    report = ThinReports::Report.new :layout => File.join(Rails.root, 'report', 'checkouts.tlf')
+
+    checkouts = @user.checkouts.not_returned.order('created_at DESC')
+    report.layout.config.list(:list) do
+      use_stores :total => 0
+
+      events.on :footer_insert do |e|
+        e.section.item(:total).value(checkouts.size)
+        e.section.item(:message).value(configatron.checkouts_print.message)
+      end
+    end
+
+    report.start_new_page do |page|
+      page.item(:library).value(LibraryGroup.system_name(@locale))
+      page.item(:user).value(user.user_number)
+      page.item(:lend_user).value(lend_user.user_number)
+      page.item(:lend_library).value(library.display_name)
+      page.item(:lend_library_telephone_number_1).value(library.telephone_number_1)
+      page.item(:lend_library_telephone_number_2).value(library.telephone_number_2)
+      page.item(:date).value(Time.now.strftime('%Y/%m/%d'))
+
+      checkouts.each do |checkout|
+        page.list(:list).add_row do |row|
+          row.item(:book).value(checkout.item.manifestation.original_title)
+          row.item(:due_date).value(checkout.due_date)
+        end
+      end
+    end
+
+
+    send_data report.generate, :filename => configatron.checkouts_print.filename, :type => 'application/pdf', :disposition => 'attachment'
+  end
 end

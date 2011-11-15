@@ -2,6 +2,12 @@
 <h1 class="title"><%= t('page.listing', :model => t('activerecord.models.checkout')) -%></h1>
 <div id="content_list">
 
+<%- unless @checkouts.size == 0 -%>
+  <%= form_tag({:action => 'output'}) do -%>
+    <%= hidden_field_tag :user_id, user.id -%>
+    <%= submit_tag t('activerecord.attributes.checkout.output') -%>
+  <%- end -%>
+<%- end -%>
 <%= render 'list' -%>
 
 <%- if @checkouts.size == 0 -%>
