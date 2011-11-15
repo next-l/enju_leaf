@@ -42,7 +42,7 @@ class User < ActiveRecord::Base
   validates_confirmation_of :email, :email_confirmation, :on => :create, :if => proc{|user| !user.operator.try(:has_role?, 'Librarian')}
   before_validation :set_role_and_patron, :on => :create
   before_validation :set_lock_information
-  before_destroy :check_item_before_destroy, :check_role_before_destroy
+  before_destroy :check_role_before_destroy
   before_save :check_expiration
   before_create :set_expired_at
   after_destroy :remove_from_index
@@ -298,6 +298,8 @@ class User < ActiveRecord::Base
     has_many :reserve_stat_has_users
     has_many :user_reserve_stats, :through => :reserve_stat_has_users
     has_many :baskets, :dependent => :destroy
+
+    before_destroy :check_item_before_destroy
 
     def check_item_before_destroy
       # TODO: 貸出記録を残す場合

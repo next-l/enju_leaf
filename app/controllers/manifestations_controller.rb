@@ -64,7 +64,7 @@ class ManifestationsController < ApplicationController
         end
       end
 
-      set_reservable
+      set_reservable if defined?(EnjuCirculation)
 
       manifestations, sort, @count = {}, {}, {}
       query = ""
@@ -149,7 +149,7 @@ class ManifestationsController < ApplicationController
             with(:periodical).equal_to false
           end
         end
-        facet :reservable
+        facet :reservable if defined?(EnjuCirculation)
       end
       search = make_internal_query(search)
       search.data_accessor_for(Manifestation).select = [
@@ -178,7 +178,7 @@ class ManifestationsController < ApplicationController
       ] if params[:format] == 'html' or params[:format].nil?
       all_result = search.execute
       @count[:query_result] = all_result.total
-      @reservable_facet = all_result.facet(:reservable).rows
+      @reservable_facet = all_result.facet(:reservable).rows if defined?(EnjuCirculation)
 
       if session[:search_params]
         unless search.query.to_params == session[:search_params]
@@ -216,7 +216,7 @@ class ManifestationsController < ApplicationController
         search.query.start_record(params[:startRecord] || 1, params[:maximumRecords] || 200)
       else
         search.build do
-          facet :reservable
+          facet :reservable if defined?(EnjuCirculation)
           facet :carrier_type
           facet :library
           facet :language
@@ -343,8 +343,10 @@ class ManifestationsController < ApplicationController
       return
     end
 
-    @reserved_count = Reserve.waiting.where(:manifestation_id => @manifestation.id, :checked_out_at => nil).count
-    @reserve = current_user.reserves.where(:manifestation_id => @manifestation.id).first if user_signed_in?
+    if defined?(EnjuCirculation)
+      @reserved_count = Reserve.waiting.where(:manifestation_id => @manifestation.id, :checked_out_at => nil).count
+      @reserve = current_user.reserves.where(:manifestation_id => @manifestation.id).first if user_signed_in?
+    end
 
     if @manifestation.root_of_series?
       @manifestations = @manifestation.series_statement.manifestations.periodical_children.page(params[:manifestation_page]).per_page(Manifestation.per_page)
