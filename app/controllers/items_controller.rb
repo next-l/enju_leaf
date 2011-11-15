@@ -219,6 +219,7 @@ class ItemsController < ApplicationController
   def prepare_options
     @libraries = Library.real
     @libraries << Library.web unless Library.web.blank?
+    @libraries.delete_if {|l| l.shelves.empty?}
     if @item.new_record?
       @library = Library.real.first(:order => :position, :include => :shelves)
     else
