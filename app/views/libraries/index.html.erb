@@ -9,20 +9,6 @@
   </p>
 <%- end -%>
 
-<p>
-  <%= t('page.sort_by') -%>:
-  <%- if params[:sort_by] == 'name' -%>
-    <strong><%= t('activerecord.attributes.tag.name') -%></strong>
-  <%- else -%>
-    <%= link_to t('activerecord.attributes.tag.name'), libraries_path(:sort_by => 'name') -%>
-  <%- end -%>
-  <%- if params[:sort_by] == 'created_at' -%>
-    <strong><%= t('page.created_at') -%></strong>
-  <%- else -%>
-    <%= link_to t('page.created_at'), libraries_path(:sort_by => 'created_at') -%>
-  <%- end -%>
-</p>
-
 <table class="index">
   <tr>
     <th id="position"></th>
