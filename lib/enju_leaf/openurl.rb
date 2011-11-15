@@ -122,7 +122,7 @@ class Openurl
       if [:issn, :isbn].include?(key.to_sym)
         val.gsub!('-', '')
       end
-      raise OpenurlQuerySyntaxError unless /\A\d{1,#{NUM_CHECK[key]}}\Z/ =~ val
+      raise OpenurlQuerySyntaxError unless /\A\d{1,#{NUM_CHECK[key]}}X?\Z/i =~ val
     end
     "%s:%s*" % [field, val]
   end
