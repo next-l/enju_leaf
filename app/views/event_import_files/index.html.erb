@@ -19,7 +19,15 @@
     <td><%= link_to event_import_file.event_import_file_name, event_import_file -%></td>
     <td><%= l(event_import_file.imported_at) if event_import_file.imported_at -%></td>
     <td><%= link_to event_import_file.user.username, event_import_file.user -%></td>
-    <td><%= event_import_file.edit_mode -%></td>
+    <td>
+      <%- if event_import_file.edit_mode == 'create' -%>
+        <%= t('page.create')%>
+      <%- elsif event_import_file.edit_mode == 'update' -%>
+        <%= t('page.update')%>
+      <%- else -%>
+        <%= t('page.destroy')%>
+      <%- end -%>
+    </td>
     <td><%= localized_state(event_import_file.state) -%></td>
     <td>
       <%= link_to t('page.show'), event_import_file -%>
