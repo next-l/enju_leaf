@@ -1,18 +1,4 @@
-<%= stylesheet_link_tag 'html5-doctor-reset-stylesheet.min',
-  'scaffold_modified', 'enju', 'acts_as_taggable_stylesheet',
-  'colorbox', 'pagination',
-  :cache => 'include'
-%>
-<%= stylesheet_link_tag 'portlets' %>
-<%= stylesheet_link_tag 'smoothness/jquery-ui-1.8.16.custom',
-  'smoothness/fg.menu', 'smoothness/fg.menu.button',
-  :cache => 'include_jquery'
-%>
-<%= stylesheet_link_tag 'enju_print', :media => :print %>
-<%= javascript_include_tag :defaults,
-  'jquery.highlight-3', 'jquery.hotkeys', 'jquery.colorbox-min',
-  'jquery.cookie', 'fg.menu', 'fg.menu.enju', 'pagination', 'select_locale',
-  'portlets', 'tab_view',
-  :cache => 'include'
-%>
+<%= stylesheet_link_tag 'application' %>
+<%= stylesheet_link_tag 'print', :media => :print %>
+<%= javascript_include_tag 'application' %>
 <%= csrf_meta_tag %>

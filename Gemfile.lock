@@ -16,7 +16,7 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_circulation.git
-  revision: 6f4014e9b90d2310a3a746a3fc8141ea1dfe68e5
+  revision: 490ac9d4c3900e1148a2bde972f4d737b33ad7e6
   specs:
     enju_circulation (0.0.3)
       rails (~> 3.1.1)
@@ -59,7 +59,7 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_purchase_request.git
-  revision: 369b7a5c3285696fea02466769660b70270304cd
+  revision: c4624a80fa13dd073db729837885145eab0ea431
   specs:
     enju_purchase_request (0.0.3)
       rails (~> 3.1.1)
@@ -229,7 +229,7 @@ GEM
       guard (>= 0.8.4)
     has_scope (0.5.1)
     hashie (1.2.0)
-    highline (1.6.7)
+    highline (1.6.8)
     hike (1.2.1)
     hirb (0.5.0)
     i18n (0.6.0)
