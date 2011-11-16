@@ -339,6 +339,7 @@ en:
         password_confirmation: Password confirmation
         disp_user_info: Show user information
         show_user: Show user
+        unabel: Unabel
       work_has_subject:
         work: Work
         subject: Subject
