@@ -1,17 +1,18 @@
 <div id="content_detail" class="ui-corner-all">
 <h1 class="title"><%= t('activerecord.models.statistic_report') -%></h1>
 <div id="content_list">
+<div style="color: green"><%= flash[:message] -%></div>
 <table class="index">
   <tr>
     <th><%= t('activerecord.attributes.statistic_report.type') -%></th>
-    <th></th>
+    <th><%= t('activerecord.attributes.statistic_report.term') -%></th>
     <th></th>
   </tr>
 
   <tr class="line<%= cycle("0", "1") -%>">
 <%= form_tag(:action => :get_monthly_report)  do -%>
     <td><%= t('statistic_report.monthly_report') -%></td>
-    <td><%= text_field_tag :term %></td>
+    <td><%= text_field_tag :term, @year if @year %>  <%= t('statistic_report.year') -%></td>
     <td><%= submit_tag t('statistic_report.submit') %></td>
 <%- end -%>
   </tr>
