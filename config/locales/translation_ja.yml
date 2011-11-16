@@ -160,6 +160,7 @@ ja:
       checkoutlist: 貸出状況
       reservelist: 予約状況
       manifestation_exstat: 拡張統計
+      statistic_report: 利用統計の帳票
    
     attributes:
       library:
@@ -1094,6 +1095,9 @@ ja:
         start_at: 開始日時
         end_at: 終了日時
         end_at_invalid: 終了日は開始日より未来を指定してください。
+      statistic_report:
+        type: 帳票の種類
+        term: 対象期間
 
   page:
     user_title: "ようこそ %{login_name} さん"
@@ -1298,6 +1302,7 @@ ja:
     report: 帳票
     checkout_report: 貸出状況表
     reserve_report: 予約状況表
+    statistic_report: 利用統計
    
   title:
     index: "一覧"
@@ -1694,3 +1699,10 @@ ja:
     yen: "%{amount} 円"
   term:
     cannot_delete: "この期間は削除できません。"
+  statistic_report:
+    monthly_report: 月別統計
+    year: 対象年度(YYYY) 
+    submit: "帳票を作成"
+    all_library: 全図書館
+    items: 蔵書冊数
+

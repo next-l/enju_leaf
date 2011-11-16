@@ -1,0 +1,28 @@
+<div id="content_detail" class="ui-corner-all">
+<h1 class="title"><%= t('activerecord.models.statistic_report') -%></h1>
+<div id="content_list">
+<table class="index">
+  <tr>
+    <th><%= t('activerecord.attributes.statistic_report.type') -%></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+  <tr class="line<%= cycle("0", "1") -%>">
+<%= form_tag(:action => :get_monthly_report)  do -%>
+    <td><%= t('statistic_report.monthly_report') -%></td>
+    <td><%= text_field_tag :term %></td>
+    <td><%= submit_tag t('statistic_report.submit') %></td>
+<%- end -%>
+  </tr>
+</table>
+
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all">
+  <ul>
+    <li><%= link_to t('page.new', :model => t('activerecord.models.statistic_report')), new_statistic_report_path -%></li>
+  </ul>
+  <%= render 'page/iconmenu'-%>
+</div>

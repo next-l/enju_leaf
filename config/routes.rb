@@ -328,6 +328,10 @@ EnjuLeaf::Application.routes.draw do
   resources :budgets
   resources :terms
 
+  resources :statistic_reports do
+    post :get_monthly_report, :on => :collection
+  end
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
