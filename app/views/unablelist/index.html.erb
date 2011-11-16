@@ -1,0 +1,56 @@
+<div id="content_detail" class="ui-corner-all">
+<h1 class="title"><%= t('page.listing', :model => t('activerecord.models.unablelist')) -%></h1>
+<div id="content_list">
+<%- unless @users.blank? -%>
+  <%= form_tag({:action => 'output'}) do -%>
+    <%= hidden_field_tag :sort_by, params[:sort_by] -%>
+    <%= submit_tag t('page.output', :model => t('activerecord.models.unablelist')) -%>
+  <%- end -%>
+<%- end -%>
+
+<p>
+  <%= t('page.sort_by') -%>:
+  <%- if params[:sort_by].blank? || params[:sort_by] == 'user_number' -%>
+    <strong><%= t('activerecord.attributes.user.user_number') -%></strong>
+  <%- else -%>
+    <%= link_to t('activerecord.attributes.user.user_number'), unablelist_path(:sort_by => 'user_number') -%>
+  <%- end -%>
+  <%- if params[:sort_by] == 'library' -%>
+    <strong><%= t('activerecord.attributes.user.library') -%></strong>
+  <%- else -%>
+    <%= link_to t('activerecord.attributes.user.library'), unablelist_path(:sort_by => 'library') -%>
+  <%- end -%>
+</p>
+
+<table class="index">
+  <tr>
+    <th><%= t('activerecord.attributes.user.library') -%></th>
+    <th><%= t('activerecord.attributes.user.user_number') %></th>
+    <th><%= t('activerecord.attributes.patron.full_name') %></th>
+    <th><%= t('activerecord.attributes.patron.telephone_number_1') %></th>
+    <th><%= t('activerecord.attributes.patron.extelephone_number_1') %></th>
+    <th><%= t('activerecord.attributes.patron.fax_number_1') %></th>
+    <th><%= t('activerecord.attributes.patron.date_of_birth') %></th>
+    <th><%= t('activerecord.attributes.patron.email') %></th>
+  </tr>
+    <%- @users.each_with_index do |user, i| -%>
+      <tr class="line<%= cycle("0", "1") -%>">
+        <td><%= link_to user.library.display_name, user.library -%></td>
+        <td><%= link_to user.user_number -%></td>
+        <td><%= link_to user.patron.full_name, user -%></td>
+        <td><%= user.patron.telephone_number_1 -%></td>
+        <td><%= user.patron.extelephone_number_1 -%></td>
+        <td><%= user.patron.fax_number_1 -%></td>
+        <td><%= l(user.patron.date_of_birth, :format => :only_date) if user.patron.date_of_death -%></td>
+        <td><%= user.patron.email -%></td>
+      </tr>
+    <%- end -%>
+</table>
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all">
+  <ul>
+    <li><%= link_to t('page.listing', :model => t('activerecord.models.user')), users_path -%></li>
+  </ul>
+</div>

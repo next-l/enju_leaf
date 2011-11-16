@@ -898,6 +898,8 @@ en:
         date_of_death: Date of death
         lock_version: Lock version
         note: Note
+      unablelist:
+        output_format: Output format
       checkout_stat_has_user:
         checkouts_count: Checkout count
       checkout_stat_has_manifestation:

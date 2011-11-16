@@ -928,6 +928,8 @@ ja:
         place: 場所
         date_of_birth: 生年月日
         note: 注記
+      unablelist:
+        output_format: 出力形式 
       checkout_stat_has_user:
         checkouts_count: 利用者の貸出回数
       checkout_stat_has_manifestation:

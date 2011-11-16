@@ -40,7 +40,7 @@
         </tr>
         <tr>
           <td><strong><%= t('activerecord.attributes.user.library') -%>:</strong></td>
-          <td><%= Library.find(@patron.user.library_id).display_name unless @patron.user.library_id.blank? -%></td>
+          <td><%= @patron.user.library.display_name unless @patron.user.library_id.blank? -%></td>
         </tr>
         <tr>
           <td><strong><%= t('activerecord.attributes.user.expired_at') -%>:</strong></td>
