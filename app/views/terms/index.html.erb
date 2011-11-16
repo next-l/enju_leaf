@@ -21,7 +21,7 @@
       <%- if can? :update, term -%>
         <%= link_to t('page.edit'), edit_term_path(term) -%>
       <% end %>
-      <%- if can? :destroy, term -%>
+      <%- if term.destroy? -%>
         <%= link_to t('page.destroy'), term, :confirm => t('page.are_you_sure'), :method => :delete -%>
       <%- end -%>
     </td>

@@ -65,6 +65,7 @@
       <td></td>
       <td>
         <%= hidden_field_tag 'advanced_search', 'true' -%>
+        <%= hidden_field_tag 'user_id', params[:user_id] if params[:user_id] -%>
         <%= submit_tag t('page.search') -%>
       </td>
     </tr>

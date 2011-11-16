@@ -404,6 +404,7 @@ class User < ActiveRecord::Base
       self.locale = params[:locale]
       self.locked = params[:locked]
       self.expired_at = params[:expired_at]
+      self.unable = params[:unable]
     end
     self
   end

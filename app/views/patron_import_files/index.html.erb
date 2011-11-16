@@ -19,7 +19,15 @@
     <td><%= link_to patron_import_file.patron_import_file_name, patron_import_file -%></td>
     <td><%= l(patron_import_file.imported_at) if patron_import_file.imported_at -%></td>
     <td><%= link_to patron_import_file.user.username, patron_import_file.user if patron_import_file.user -%></td>
-    <td><%= patron_import_file.edit_mode if patron_import_file -%></td>
+    <td>
+      <%- if patron_import_file.edit_mode == 'create' -%>
+        <%= t('page.create')%>
+      <%- elsif patron_import_file.edit_mode == 'update' -%>
+        <%= t('page.update')%>
+      <%- else -%>
+        <%= t('page.destroy')%>
+      <%- end -%>
+    </td>
     <td><%= localized_state(patron_import_file.state) if patron_import_file -%></td>
     <td>
       <%= link_to t('page.show'), patron_import_file -%>

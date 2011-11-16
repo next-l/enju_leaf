@@ -123,6 +123,7 @@ ja:
       corporate_body: 団体
       family: 家族
       family_user: 家族利用者
+      unable: 連絡不能者
       subject_heading_type_has_subject: 件名標目と件名の関係
       user_has_shelf: 利用者と書棚の関係
       participate: 参加
@@ -355,6 +356,7 @@ ja:
         adddress: 住所
         disp_user_info: 利用者情報を表示する
         show_user: 利用者の表示
+        unable: 連絡不能
       work_has_subject:
         work: 書いた資料
         subject: 件名
