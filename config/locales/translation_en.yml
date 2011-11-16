@@ -122,6 +122,7 @@ en:
       person: Person
       corporate_body: Corporate body
       family: Family
+      unable: Unable
       subject_heading_type_has_subject: Subject heading type to subject relationship
       user_has_shelf: User to shelf relationship
       participate: Participate
