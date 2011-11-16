@@ -123,7 +123,7 @@ ja:
       corporate_body: 団体
       family: 家族
       family_user: 家族利用者
-      unable: 連絡不能者
+      unablelist: 連絡不能者
       subject_heading_type_has_subject: 件名標目と件名の関係
       user_has_shelf: 利用者と書棚の関係
       participate: 参加
@@ -694,7 +694,6 @@ ja:
         family_info: 家族情報
         lock_version: ロックバージョン
         renewal_count: 貸出の更新回数
-        output: 貸出票の出力
       subscription:
         title: タイトル
         note: 注記
@@ -1211,6 +1210,7 @@ ja:
     new: "%{model}の新規作成"
     editing: "%{model}の編集"
     showing: "%{model}の表示"
+    output: "%{model}の出力"
     patron_management: "人物・団体の管理"
     user_management: "利用者の管理"
     back_to: "%{model}の一覧に戻る"

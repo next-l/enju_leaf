@@ -122,7 +122,7 @@ en:
       person: Person
       corporate_body: Corporate body
       family: Family
-      unable: Unable
+      unablelist: Unable
       subject_heading_type_has_subject: Subject heading type to subject relationship
       user_has_shelf: User to shelf relationship
       participate: Participate
@@ -665,7 +665,6 @@ en:
         family_info: Family's information
         lock_version: Lock version
         renewal_count: Checkout renewal count
-        output: Output checkouts
       subscription:
         title: Title
         note: Note
@@ -1161,6 +1160,7 @@ en:
     new: "New %{model}"
     editing: "Editing %{model}"
     showing: "Showing %{model}"
+    output: "Output %{model}"
     patron_management: "Patron management"
     user_management: "User management"
     back_to: "Back to %{model} index"

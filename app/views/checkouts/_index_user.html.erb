@@ -5,7 +5,7 @@
 <%- unless @checkouts.size == 0 -%>
   <%= form_tag({:action => 'output'}) do -%>
     <%= hidden_field_tag :user_id, user.id -%>
-    <%= submit_tag t('activerecord.attributes.checkout.output') -%>
+    <%= submit_tag t('page.output', :model => t('activerecord.models.checkout')) -%>
   <%- end -%>
 <%- end -%>
 <%= render 'list' -%>
