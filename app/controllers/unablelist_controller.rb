@@ -1,5 +1,7 @@
 class UnablelistController < ApplicationController
   def index
+    return access_denied unless (user_signed_in? and current_user.has_role?('Librarian'))
+
     sort = 'user_number asc'
     case params[:sort_by]
     when 'library'
@@ -9,6 +11,8 @@ class UnablelistController < ApplicationController
   end
 
   def output
+    return access_denied unless (user_signed_in? and current_user.has_role?('Librarian'))
+
     sort = 'user_number asc'
     sort_by = t('activerecord.attributes.user.user_number')
     if params[:sort_by] == 'library'
@@ -20,12 +24,12 @@ class UnablelistController < ApplicationController
     require 'thinreports'
     report = ThinReports::Report.new :layout => File.join(Rails.root, 'report', 'unablelist.tlf')
 
-    report.layout.config.list(:list) do
-      use_stores :page_num => 0 
-
-      events.on :page_footer_insert do |e|
-        e.store.page_num +=1;
-        e.section.item(:page_num).value(e.store.page_num)
+    report.events.on :page_create do |e|
+      e.page.item(:page).value(e.page.no)
+    end
+    report.events.on :generate do |e|
+      e.pages.each do |page|
+        page.item(:total).value(e.report.page_count)
       end
     end
 
@@ -33,8 +37,13 @@ class UnablelistController < ApplicationController
       page.item(:date).value(Time.now)
       page.item(:sort).value(t('activerecord.attributes.unablelist.output_format')+":"+sort_by)
 
+      before_library = nil
       users.each do |user|
         page.list(:list).add_row do |row|
+          if params[:sort_by] == 'library' and before_library == user.library
+           row.item(:library_line).hide
+           row.item(:library).hide
+          end
           row.item(:library).value(user.library.display_name)
           row.item(:user_number).value(user.user_number)
           row.item(:full_name).value(user.patron.full_name)
@@ -44,8 +53,10 @@ class UnablelistController < ApplicationController
           row.item(:birth).value(user.patron.date_of_birth)
           row.item(:email).value(user.patron.email)
         end
+        before_library = user.library
       end
     end
+
     send_data report.generate, :filename => configatron.unablelist_print.filename, :type => 'application/pdf', :disposition => 'attachment'
   end
 end
