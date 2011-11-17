@@ -1705,8 +1705,13 @@ ja:
     cannot_delete: "この期間は削除できません。"
   statistic_report:
     monthly_report: 月別統計
+    daily_report: 日別統計
+    timezone_report: 時間帯別統計
+    day_report: 曜日別統計
     invalid_year: "対象年度はYYYYで入力してください。"
+    invalid_month: "対象月はYYYYMMで入力してください。"
     year: 対象年度(YYYY) 
+    month: 対象月(YYYYMM)
     submit: "帳票を作成"
     created: "帳票を作成しました。"
     all_library: 全図書館
@@ -1719,3 +1724,4 @@ ja:
     locked_users: (利用停止)
     reserves: 予約件数
     questions: レファレンス数    
+    

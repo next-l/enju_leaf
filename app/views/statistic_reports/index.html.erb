@@ -16,6 +16,30 @@
     <td><%= submit_tag t('statistic_report.submit') %></td>
 <%- end -%>
   </tr>
+
+  <tr class="line<%= cycle("0", "1") -%>">
+<%= form_tag(:action => :get_daily_report)  do -%>
+    <td><%= t('statistic_report.daily_report') -%></td>
+    <td><%= text_field_tag :term, @month if @month %>  <%= t('statistic_report.month') -%></td>
+    <td><%= submit_tag t('statistic_report.submit') %></td>
+<%- end -%>
+  </tr>
+
+  <tr class="line<%= cycle("0", "1") -%>">
+<%= form_tag(:action => :get_timezone_report)  do -%>
+    <td><%= t('statistic_report.timezone_report') -%></td>
+    <td><%= text_field_tag :start_at %> - <%= text_field_tag :end_at %>  <%= t('statistic_report.month') -%></td>
+    <td><%= submit_tag t('statistic_report.submit') %></td>
+<%- end -%>
+  </tr>
+
+  <tr class="line<%= cycle("0", "1") -%>">
+<%= form_tag(:action => :get_day_report)  do -%>
+    <td><%= t('statistic_report.day_report') -%></td>
+    <td><%= text_field_tag :start_at %> - <%= text_field_tag :end_at %>  <%= t('statistic_report.month') -%></td>
+    <td><%= submit_tag t('statistic_report.submit') %></td>
+<%- end -%>
+  </tr>
 </table>
 
 </div>
