@@ -161,6 +161,9 @@ EnjuLeaf::Application.routes.draw do
     resources :series_has_manifestations
   end
   resources :barcodes
+  resources :barcode_lists do
+    get :show_pdf, :on => :collection
+  end
   resources :message_requests, :except => [:new, :create]
   resources :message_templates
   resources :carrier_type_has_checkout_types

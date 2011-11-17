@@ -1,0 +1,9 @@
+---
+barcode_list_00001:
+  id: 1
+  barcode_name: 'default'
+  usage_type:
+  barcode_type: 'Code128B'
+  barcode_prefix: 'S'
+  print_number: 30
+  last_number: 0

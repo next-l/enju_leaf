@@ -43,6 +43,7 @@ class User < ActiveRecord::Base
   has_one :patron_import_result
   has_one :family, :through => :family_user
   has_one :family_user
+  has_many :barcode_lists, :foreign_key => 'created_by'
 
   validates :username, :presence => true, :uniqueness => true
   validates_uniqueness_of :email, :scope => authentication_keys[1..-1], :case_sensitive => false, :allow_blank => true
