@@ -330,6 +330,9 @@ EnjuLeaf::Application.routes.draw do
 
   resources :statistic_reports do
     post :get_monthly_report, :on => :collection
+    post :get_daily_report, :on => :collection
+    post :get_timezone_report, :on => :collection
+    post :get_day_report, :on => :collection
   end
 
   # The priority is based upon order of creation:
