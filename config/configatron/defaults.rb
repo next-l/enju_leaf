@@ -42,6 +42,16 @@ configatron.resource_import_template = "templates/resource_import_template.xls"
 #configatron.no_operation_counter = 300
 configatron.no_operation_counter = 0
 
-# 貸出票メッセージ
+# 貸出票の出力
 configatron.checkouts_print.filename = "checkouts.pdf"
 configatron.checkouts_print.message = "test.test.test.test.test.test.test.test.test"
+
+# 連絡不可者の出力
+configatron.unablelist_print.filename = "unablelist.pdf"
+
+# 利用統計の帳票ファイル名
+configatron.statistic_report.monthly = "monthly_report.pdf"
+configatron.statistic_report.daily = "daily_report.pdf"
+configatron.statistic_report.timezone = "timezone_report.pdf"
+configatron.statistic_report.day = "day_report.pdf"
+ 

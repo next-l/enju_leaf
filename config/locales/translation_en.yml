@@ -49,6 +49,7 @@ en:
       checkin: Checkin
       item: Item
       barcode: Barcode
+      barcode_list: Expanded Barcode
       work: Work
       purchase_request: Purchase request
       realize: Realize
@@ -122,7 +123,7 @@ en:
       person: Person
       corporate_body: Corporate body
       family: Family
-      unable: Unable
+      unablelist: Unable
       subject_heading_type_has_subject: Subject heading type to subject relationship
       user_has_shelf: User to shelf relationship
       participate: Participate
@@ -478,6 +479,17 @@ en:
         code_word: Code word
         data: Data
         barcodable: Barcodable
+      barcode_list:
+        barcode_name: Name
+        usage_type: Type
+        barcode_type: Barcode type
+        barcode_prefix: prefix
+        printed_number: Printed number
+        sheet_type: Sheet type
+        last_number: Last number
+        start_number: Start Number
+        print_sheet: Print sheet
+        error: input 0 or more numerical values.
       work:
         original_title: Original title
         title_transcription: Title transcription
@@ -665,7 +677,6 @@ en:
         family_info: Family's information
         lock_version: Lock version
         renewal_count: Checkout renewal count
-        output: Output checkouts
       subscription:
         title: Title
         note: Note
@@ -899,6 +910,8 @@ en:
         date_of_death: Date of death
         lock_version: Lock version
         note: Note
+      unablelist:
+        output_format: Output format
       checkout_stat_has_user:
         checkouts_count: Checkout count
       checkout_stat_has_manifestation:
@@ -1161,6 +1174,7 @@ en:
     new: "New %{model}"
     editing: "Editing %{model}"
     showing: "Showing %{model}"
+    output: "Output %{model}"
     patron_management: "Patron management"
     user_management: "User management"
     back_to: "Back to %{model} index"

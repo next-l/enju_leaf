@@ -90,7 +90,7 @@ class Statistic < ActiveRecord::Base
         set_date(statistic, start_at, term_id)
         statistic.data_type = term_id.to_s + 220.to_s
         statistic.library_id = library.id
-        statistic.value = statistic.value = Checkout.count_by_sql(["select count(distinct user_id) from checkouts, users, libraries where checkouts.librarian_id = users.id AND users.library_id= libraries.id AND libraries.id = ? AND checkouts.created_at >= ? AND checkouts.created_at < ?", library.id, start_at, end_at])
+        statistic.value = Checkout.count_by_sql(["select count(distinct user_id) from checkouts, users, libraries where checkouts.librarian_id = users.id AND users.library_id= libraries.id AND libraries.id = ? AND checkouts.created_at >= ? AND checkouts.created_at < ?", library.id, start_at, end_at])
         statistic.save! if statistic.value > 0
       end
     end
@@ -283,6 +283,7 @@ class Statistic < ActiveRecord::Base
       statistic = Statistic.new
       set_date(statistic, date_timestamp, 2)
       statistic.data_type = 2220
+      statistic.library_id = library.id
       statistic.value = value
       statistic.save! if statistic.value > 0
     end 
@@ -374,7 +375,7 @@ class Statistic < ActiveRecord::Base
   end
 
   def check_record
-    record = Statistic.where(:data_type => self.data_type, :yyyymmdd => self.yyyymmdd, :library_id => self.library_id, :hour => self.hour).first
+    record = Statistic.where(:data_type => self.data_type, :yyyymmdd => self.yyyymmdd, :yyyymm => self.yyyymm, :library_id => self.library_id, :hour => self.hour).first
     record.destroy if record
   end
 end

@@ -49,6 +49,7 @@ ja:
       checkin: 返却
       item: 所蔵情報
       barcode: バーコード
+      barcode_list: 拡張バーコード
       work: 書いた資料
       purchase_request: 購入リクエスト
       realize: 表現関係
@@ -123,7 +124,7 @@ ja:
       corporate_body: 団体
       family: 家族
       family_user: 家族利用者
-      unable: 連絡不能者
+      unablelist: 連絡不能者
       subject_heading_type_has_subject: 件名標目と件名の関係
       user_has_shelf: 利用者と書棚の関係
       participate: 参加
@@ -161,6 +162,7 @@ ja:
       checkoutlist: 貸出状況
       reservelist: 予約状況
       manifestation_exstat: 拡張統計
+      statistic_report: 利用統計の帳票
    
     attributes:
       library:
@@ -498,6 +500,17 @@ ja:
         code_word: コードワード
         data: データ
         barcodable: バーコード付与対象
+      barcode_list:
+        barcode_name: 名前
+        usage_type: タイプ
+        barcode_type: バーコードの種類
+        barcode_prefix: プレフィックス
+        printed_number: 連番桁数
+        sheet_type: 1シートあたりの個数
+        last_number: 最後に出力した番号
+        start_number: 今回の出力番号
+        print_sheet: 出力するシート数
+        error: 0以上の数値を入力してください
       work:
         original_title: 原題
         title_transcription: タイトルよみ
@@ -693,7 +706,6 @@ ja:
         family_info: 家族情報
         lock_version: ロックバージョン
         renewal_count: 貸出の更新回数
-        output: 貸出票の出力
       subscription:
         title: タイトル
         note: 注記
@@ -928,6 +940,8 @@ ja:
         place: 場所
         date_of_birth: 生年月日
         note: 注記
+      unablelist:
+        output_format: 出力形式 
       checkout_stat_has_user:
         checkouts_count: 利用者の貸出回数
       checkout_stat_has_manifestation:
@@ -1096,6 +1110,9 @@ ja:
         start_at: 開始日時
         end_at: 終了日時
         end_at_invalid: 終了日は開始日より未来を指定してください。
+      statistic_report:
+        type: 帳票の種類
+        term: 対象期間
 
   page:
     user_title: "ようこそ %{login_name} さん"
@@ -1207,6 +1224,7 @@ ja:
     new: "%{model}の新規作成"
     editing: "%{model}の編集"
     showing: "%{model}の表示"
+    output: "%{model}の出力"
     patron_management: "人物・団体の管理"
     user_management: "利用者の管理"
     back_to: "%{model}の一覧に戻る"
@@ -1300,6 +1318,7 @@ ja:
     report: 帳票
     checkout_report: 貸出状況表
     reserve_report: 予約状況表
+    statistic_report: 利用統計
    
   title:
     index: "一覧"
@@ -1696,3 +1715,25 @@ ja:
     yen: "%{amount} 円"
   term:
     cannot_delete: "この期間は削除できません。"
+  statistic_report:
+    monthly_report: 月別統計
+    daily_report: 日別統計
+    timezone_report: 時間帯別統計
+    day_report: 曜日別統計
+    invalid_year: "対象年度はYYYYで入力してください。"
+    invalid_month: "対象月はYYYYMMで入力してください。"
+    year: 対象年度(YYYY) 
+    month: 対象月(YYYYMM)
+    submit: "帳票を作成"
+    created: "帳票を作成しました。"
+    all_library: 全図書館
+    items: 蔵書冊数
+    checkout_users: 貸出人数
+    average_checkout_users: 一日平均貸出人数
+    users: 登録人数
+    all_users: 全区分
+    unlocked_users: (利用中)
+    locked_users: (利用停止)
+    reserves: 予約件数
+    questions: レファレンス数    
+    
