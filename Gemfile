@@ -90,7 +90,7 @@ gem 'whenever', '~> 0.6.8', :require => false
 gem 'astrails-safe'
 gem 'dynamic_form'
 gem 'sanitize'
-gem 'jpmobile', '~> 2.0'
+gem 'jpmobile', '2.0.4'
 gem 'attribute_normalizer', '~> 1.0'
 #gem 'geokit'
 gem 'geocoder'

@@ -16,7 +16,7 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_circulation.git
-  revision: 490ac9d4c3900e1148a2bde972f4d737b33ad7e6
+  revision: e20f04e22f31ef87356344efd941e32ee0fc6493
   specs:
     enju_circulation (0.0.3)
       rails (~> 3.1.1)
@@ -107,7 +107,7 @@ GIT
 
 GIT
   remote: git://github.com/swanandp/acts_as_list.git
-  revision: 8cfd7777dea985f3dc4f204b4f6f780cfc3ee702
+  revision: e0e8daa16e9864d4e5e1ee1db21332cf69f0eab5
   specs:
     acts_as_list (0.1.4)
 
@@ -186,7 +186,7 @@ GEM
       execjs
     coffee-script-source (1.1.3)
     colored (1.2)
-    configatron (2.8.3)
+    configatron (2.8.4)
       yamler (>= 0.1.0)
     crack (0.3.1)
     daemons (1.1.4)
@@ -368,7 +368,7 @@ GEM
       railties (~> 3.1.0)
       sass (~> 3.1.10)
       tilt (~> 1.3.2)
-    sexp_processor (3.0.7)
+    sexp_processor (3.0.8)
     simple_form (1.5.2)
       actionpack (~> 3.0)
       activemodel (~> 3.0)
@@ -383,7 +383,7 @@ GEM
       rack (~> 1.0)
       tilt (~> 1.1, != 1.3.0)
     state_machine (1.1.0)
-    strongbox (0.4.8)
+    strongbox (0.5.0)
       activerecord
     sunspot (1.3.0.rc6)
       escape (= 0.0.4)
@@ -407,7 +407,7 @@ GEM
     turn (0.8.3)
       ansi
     tzinfo (0.3.31)
-    uglifier (1.0.4)
+    uglifier (1.1.0)
       execjs (>= 0.3.0)
       multi_json (>= 1.0.2)
     validates_timeliness (3.0.7)
@@ -472,7 +472,7 @@ DEPENDENCIES
   inherited_resources (~> 1.3)
   isbn-tools!
   jdbc-postgres
-  jpmobile (~> 2.0)
+  jpmobile (= 2.0.4)
   jquery-rails
   jruby-openssl
   kgio
