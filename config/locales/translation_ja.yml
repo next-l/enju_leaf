@@ -49,6 +49,7 @@ ja:
       checkin: 返却
       item: 所蔵情報
       barcode: バーコード
+      barcode_list: 拡張バーコード
       work: 書いた資料
       purchase_request: 購入リクエスト
       realize: 表現関係
@@ -499,6 +500,17 @@ ja:
         code_word: コードワード
         data: データ
         barcodable: バーコード付与対象
+      barcode_list:
+        barcode_name: 名前
+        usage_type: タイプ
+        barcode_type: バーコードの種類
+        barcode_prefix: プレフィックス
+        printed_number: 連番桁数
+        sheet_type: 1シートあたりの個数
+        last_number: 最後に出力した番号
+        start_number: 今回の出力番号
+        print_sheet: 出力するシート数
+        error: 0以上の数値を入力してください
       work:
         original_title: 原題
         title_transcription: タイトルよみ

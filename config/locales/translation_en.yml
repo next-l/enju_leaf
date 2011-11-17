@@ -49,6 +49,7 @@ en:
       checkin: Checkin
       item: Item
       barcode: Barcode
+      barcode_list: Expanded Barcode
       work: Work
       purchase_request: Purchase request
       realize: Realize
@@ -478,6 +479,17 @@ en:
         code_word: Code word
         data: Data
         barcodable: Barcodable
+      barcode_list:
+        barcode_name: Name
+        usage_type: Type
+        barcode_type: Barcode type
+        barcode_prefix: prefix
+        printed_number: Printed number
+        sheet_type: Sheet type
+        last_number: Last number
+        start_number: Start Number
+        print_sheet: Print sheet
+        error: input 0 or more numerical values.
       work:
         original_title: Original title
         title_transcription: Title transcription
