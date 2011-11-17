@@ -90,7 +90,7 @@ gem 'whenever', '~> 0.6.8', :require => false
 gem 'astrails-safe'
 gem 'dynamic_form'
 gem 'sanitize'
-gem 'jpmobile', '~> 2.0'
+gem 'jpmobile', '2.0.4'
 gem 'attribute_normalizer', '~> 1.0'
 #gem 'geokit'
 gem 'geocoder'
@@ -105,7 +105,7 @@ gem 'rake', '0.9.2.2'
 gem 'rails_autolink'
 
 group :production do
-  gem 'vidibus-routing_error', :git => 'git://github.com/nabeta/vidibus-routing_error'
+  gem 'vidibus-routing_error', :git => 'git://github.com/nabeta/vidibus-routing_error.git'
 end
 
 #gem 'oink', '>=0.9.2'

@@ -16,9 +16,9 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_circulation.git
-  revision: 42d2e5ff57ce6879897c772e0decf1aa3977f6cb
+  revision: e20f04e22f31ef87356344efd941e32ee0fc6493
   specs:
-    enju_circulation (0.0.2)
+    enju_circulation (0.0.3)
       rails (~> 3.1.1)
 
 GIT
@@ -31,16 +31,16 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_inventory.git
-  revision: f2300e7154393b5bd3e1120388c47a80f9105795
+  revision: a1b5307d43d36dce366926bb30ca3445e28f15ba
   specs:
     enju_inventory (0.0.2)
       rails (~> 3.1.1)
 
 GIT
   remote: git://github.com/nabeta/enju_message.git
-  revision: 7a9a100367fc4d7fe51d45de4c38613cfd7a1a54
+  revision: b0d6d26e376ef274a24f304802c695227989bd46
   specs:
-    enju_message (0.0.2)
+    enju_message (0.0.3)
       rails (~> 3.1.1)
 
 GIT
@@ -59,9 +59,9 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_purchase_request.git
-  revision: e46e1c39b600a142bc4cfa337e582d4ed6f401cc
+  revision: c4624a80fa13dd073db729837885145eab0ea431
   specs:
-    enju_purchase_request (0.0.2)
+    enju_purchase_request (0.0.3)
       rails (~> 3.1.1)
 
 GIT
@@ -99,7 +99,7 @@ GIT
     isbn-tools (0.2.0)
 
 GIT
-  remote: git://github.com/nabeta/vidibus-routing_error
+  remote: git://github.com/nabeta/vidibus-routing_error.git
   revision: be5b5ce9a21e188c2f1ba5d4a8f407ab9c7a51b1
   specs:
     vidibus-routing_error (0.2.1)
@@ -107,7 +107,7 @@ GIT
 
 GIT
   remote: git://github.com/swanandp/acts_as_list.git
-  revision: 8cfd7777dea985f3dc4f204b4f6f780cfc3ee702
+  revision: e0e8daa16e9864d4e5e1ee1db21332cf69f0eab5
   specs:
     acts_as_list (0.1.4)
 
@@ -178,7 +178,7 @@ GEM
       mime-types (>= 1.16)
     cocaine (0.2.0)
     colored (1.2)
-    configatron (2.8.3)
+    configatron (2.8.4)
       yamler (>= 0.1.0)
     crack (0.3.1)
     daemons (1.1.4)
@@ -215,11 +215,11 @@ GEM
     geocoder (1.0.5)
     guard (0.8.8)
       thor (~> 0.14.6)
-    guard-rspec (0.5.3)
+    guard-rspec (0.5.4)
       guard (>= 0.8.4)
     has_scope (0.5.1)
     hashie (1.2.0)
-    highline (1.6.5)
+    highline (1.6.8)
     hike (1.2.1)
     hirb (0.5.0)
     i18n (0.6.0)
@@ -352,7 +352,7 @@ GEM
       sexp_processor (~> 3.0)
     sanitize (2.0.3)
       nokogiri (>= 1.4.4, < 1.6)
-    sexp_processor (3.0.7)
+    sexp_processor (3.0.8)
     simple_form (1.5.2)
       actionpack (~> 3.0)
       activemodel (~> 3.0)
@@ -366,8 +366,8 @@ GEM
       hike (~> 1.2)
       rack (~> 1.0)
       tilt (~> 1.1, != 1.3.0)
-    state_machine (1.0.3)
-    strongbox (0.4.8)
+    state_machine (1.1.0)
+    strongbox (0.5.0)
       activerecord
     sunspot (1.3.0.rc6)
       escape (= 0.0.4)
@@ -450,7 +450,7 @@ DEPENDENCIES
   inherited_resources (~> 1.3)
   isbn-tools!
   jdbc-postgres
-  jpmobile (~> 2.0)
+  jpmobile (= 2.0.4)
   jquery-rails
   jruby-openssl
   kgio
