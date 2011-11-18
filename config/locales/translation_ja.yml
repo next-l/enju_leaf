@@ -706,6 +706,7 @@ ja:
         family_info: 家族情報
         lock_version: ロックバージョン
         renewal_count: 貸出の更新回数
+        output_checkoutlist: 貸出票の出力
       subscription:
         title: タイトル
         note: 注記
