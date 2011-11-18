@@ -1,6 +1,7 @@
 <div id="content_detail" class="ui-corner-all">
 <h1 class="title"><%= t('page.output', :model => t('activerecord.models.barcode_list')) -%></h1>
 <div id="content_list">
+<p id="notice"><%= notice %></p>
 <%= form_for(@barcode_list, :url => {:action => "update"}) do |f| -%>
   <%= f.error_messages -%>
   <p>

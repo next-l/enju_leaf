@@ -1,3 +1,4 @@
+# -*- encoding: utf-8 -*-
 # Put all your default configatron settings here.
 
 # Example:
@@ -44,7 +45,7 @@ configatron.no_operation_counter = 0
 
 # 貸出票の出力
 configatron.checkouts_print.filename = "checkouts.pdf"
-configatron.checkouts_print.message = "test.test.test.test.test.test.test.test.test"
+configatron.checkouts_print.message = "本は大事に扱いましょう。期限はきちんと守りましょう。インターネットで延長ができます。"
 
 # 連絡不可者の出力
 configatron.unablelist_print.filename = "unablelist.pdf"

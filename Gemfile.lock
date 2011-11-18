@@ -278,6 +278,7 @@ GEM
     rest-client (1.6.7)
       mime-types (>= 1.16)
     ri_cal (0.8.8)
+    rmagick (2.13.1)
     roodi (2.1.0)
       ruby_parser
     rqrcode (0.4.2)
@@ -415,6 +416,7 @@ DEPENDENCIES
   rails3_acts_as_paranoid
   recurrence
   ri_cal
+  rmagick (= 2.13.1)
   rqrcode
   rspec-rails
   ruby-prof

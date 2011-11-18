@@ -1562,6 +1562,7 @@ ja:
     retained_reserve: "%{user} さんの予約資料が %{count} 冊用意されています。" 
     create_family_user: "家族を新規作成する"
     manage_family: "家族情報管理をする"
+    duplicate_user: "同じフルネーム、電話番号１、生年月日の人が既に登録されています。"
   news_post:
     library_group_news_post: "%{library_group_name} からのお知らせ"
   reserve:
