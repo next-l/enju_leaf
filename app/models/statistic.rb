@@ -78,6 +78,21 @@ class Statistic < ActiveRecord::Base
     Statistic.transaction do
       p "statistics of checkouts  #{start_at} - #{end_at}"
    
+      # checkout items 210
+      statistic = Statistic.new
+      set_date(statistic, start_at, term_id)
+      statistic.data_type = term_id.to_s + 210.to_s
+      statistic.value = Checkout.count_by_sql(["select count(*) from checkouts where created_at >= ? AND created_at  < ?", start_at, end_at])
+      statistic.save! if statistic.value > 0
+ 
+      @libraries.each do |library|
+        statistic = Statistic.new
+        set_date(statistic, start_at, term_id)
+        statistic.data_type = term_id.to_s + 210.to_s
+        statistic.library_id = library.id
+        statistic.value = Checkout.count_by_sql(["select count(*) from checkouts, users, libraries where checkouts.librarian_id = users.id AND users.library_id= libraries.id AND libraries.id = ? AND checkouts.created_at >= ? AND checkouts.created_at < ?", library.id, start_at, end_at])
+        statistic.save! if statistic.value > 0
+      end
       # checkout users 220
       statistic = Statistic.new
       set_date(statistic, start_at, term_id)
@@ -160,8 +175,55 @@ class Statistic < ActiveRecord::Base
 
   def self.calc_monthly_data(month)
     p "start to calculate monthly data: #{month}"
+
+    # monthly checkout items 1210   
+    datas = Statistic.select(:value).where(:data_type=> '2210', :yyyymm => month, :library_id => 0)
+    value = 0
+    datas.each do |data|
+      value = value + data.value
+    end
+    statistic = Statistic.new
+    statistic.yyyymm = month
+    statistic.data_type = 1210
+    statistic.value = value
+    statistic.save! if statistic.value > 0
+
+    @libraries.each do |library|
+      datas = Statistic.select(:value).where(:data_type=> '2210', :yyyymm => month, :library_id => library.id)
+      value = 0
+      datas.each do |data|
+        value = value + data.value
+      end
+      statistic = Statistic.new
+      statistic.yyyymm = month
+      statistic.data_type = 1210
+      statistic.library_id = library.id
+      statistic.value = value
+      statistic.save! if statistic.value > 0
+    end 
+
+    # avarage of checkout items per day 1213 
+    date = Date.new(month[0, 4].to_i, month[4, 2].to_i) 
+    days = date.end_of_month - date.beginning_of_month + 1
+    statistic = Statistic.new
+    statistic.yyyymm = month
+    statistic.data_type = 1213
+    monthly_data = Statistic.select(:value).where(:data_type=> '1210', :yyyymm => month, :library_id => 0).first
+    statistic.value = monthly_data.value / days rescue 0
+    statistic.save! 
+
+    @libraries.each do |library|
+      statistic = Statistic.new
+      statistic.yyyymm = month
+      statistic.data_type = 1213
+      statistic.library_id = library.id
+      monthly_data = Statistic.select(:value).where(:data_type=> '1210', :yyyymm => month, :library_id => library.id).first
+      statistic.value = monthly_data.value / days rescue 0
+      statistic.save! 
+    end 
+
     # monthly checkout users 1220
-    datas = Statistic.select(:value).where(:data_type=> '3220', :yyyymm => month, :library_id => 0)
+    datas = Statistic.select(:value).where(:data_type=> '2220', :yyyymm => month, :library_id => 0)
     value = 0
     datas.each do |data|
       value = value + data.value
@@ -173,7 +235,7 @@ class Statistic < ActiveRecord::Base
     statistic.save! if statistic.value > 0
 
     @libraries.each do |library|
-      datas = Statistic.select(:value).where(:data_type=> '3220', :yyyymm => month, :library_id => library.id)
+      datas = Statistic.select(:value).where(:data_type=> '2220', :yyyymm => month, :library_id => library.id)
       value = 0
       datas.each do |data|
         value = value + data.value
@@ -181,6 +243,7 @@ class Statistic < ActiveRecord::Base
       statistic = Statistic.new
       statistic.yyyymm = month
       statistic.data_type = 1220
+      statistic.library_id = library.id
       statistic.value = value
       statistic.save! if statistic.value > 0
     end 
@@ -206,7 +269,7 @@ class Statistic < ActiveRecord::Base
     end 
 
     # monthly reserves 1330
-    datas = Statistic.select(:value).where(:data_type=> '3330', :yyyymm => month, :library_id => 0)
+    datas = Statistic.select(:value).where(:data_type=> '2330', :yyyymm => month, :library_id => 0)
     value = 0
     datas.each do |data|
       value = value + data.value
@@ -218,7 +281,7 @@ class Statistic < ActiveRecord::Base
     statistic.save! if statistic.value > 0
 
     @libraries.each do |library|
-      datas = Statistic.select(:value).where(:data_type=> '3330', :yyyymm => month, :library_id => library.id)
+      datas = Statistic.select(:value).where(:data_type=> '2330', :yyyymm => month, :library_id => library.id)
       value = 0
       datas.each do |data|
         value = value + data.value
@@ -232,7 +295,7 @@ class Statistic < ActiveRecord::Base
     end
 
     # monthly questions 1430
-    datas = Statistic.select(:value).where(:data_type=> '3430', :yyyymm => month, :library_id => 0)
+    datas = Statistic.select(:value).where(:data_type=> '2430', :yyyymm => month, :library_id => 0)
     value = 0
     datas.each do |data|
       value = value + data.value
@@ -244,7 +307,7 @@ class Statistic < ActiveRecord::Base
     statistic.save! if statistic.value > 0
 
     @libraries.each do |library|
-      datas = Statistic.select(:value).where(:data_type=> '3430', :yyyymm => month, :library_id => library.id)
+      datas = Statistic.select(:value).where(:data_type=> '2430', :yyyymm => month, :library_id => library.id)
       value = 0
       datas.each do |data|
         value = value + data.value
@@ -261,6 +324,32 @@ class Statistic < ActiveRecord::Base
   def self.calc_daily_data(date)
     p "start to calculate daily data: #{date}"
     date_timestamp = Time.zone.parse(date)
+
+    # daily checkout items 2210
+    datas = Statistic.select(:value).where(:data_type=> '3210', :yyyymmdd => date, :library_id => 0)
+    value = 0
+    datas.each do |data|
+      value = value + data.value
+    end
+    statistic = Statistic.new
+    set_date(statistic, date_timestamp, 2)
+    statistic.data_type = 2210
+    statistic.value = value
+    statistic.save! if statistic.value > 0
+
+    @libraries.each do |library|
+      datas = Statistic.select(:value).where(:data_type=> '3210', :yyyymmdd => date, :library_id => library.id)
+      value = 0
+      datas.each do |data|
+        value = value + data.value
+      end
+      statistic = Statistic.new
+      set_date(statistic, date_timestamp, 2)
+      statistic.data_type = 2210
+      statistic.library_id = library.id
+      statistic.value = value
+      statistic.save! if statistic.value > 0
+    end 
 
     # daily checkout users 2220
     datas = Statistic.select(:value).where(:data_type=> '3220', :yyyymmdd => date, :library_id => 0)
@@ -383,13 +472,16 @@ end
 # data type list
 # monthly items: 1110
 # monthly users: 1120 / 1121 (available users) / 1122 (locked users)
+# monthly checkout items: 1210   
 # monthly checkout users: 1220
 # avarage of checkout users per day: 1223 
 # monthly reserves: 1330
 # monthly questions: 1430
+# daily checkout items: 2210
 # daily checkout users: 2220
 # daily reserves: 2330
 # daily questions: 2430
+# hourly checkout items: 3210
 # hourly checkout users: 3220
 # hourly reserves: 3330
 # hourly questions: 3430
