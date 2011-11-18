@@ -677,6 +677,7 @@ en:
         family_info: Family's information
         lock_version: Lock version
         renewal_count: Checkout renewal count
+        output_checkoutlist: Outout checkout list
       subscription:
         title: Title
         note: Note
