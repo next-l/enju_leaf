@@ -34,8 +34,18 @@ class StatisticReportsController < ApplicationController
     libraries = Library.all
     begin 
       report = ThinReports::Report.new :layout => "#{Rails.root.to_s}/app/views/statistic_reports/monthly_report"
+
+      report.events.on :page_create do |e|
+        e.page.item(:page).value(e.page.no)
+      end
+      report.events.on :generate do |e|
+        e.pages.each do |page|
+          page.item(:total).value(e.report.page_count)
+        end
+      end
+
       report.start_new_page
-       
+      report.page.item(:date).value(Time.now)       
       report.page.item(:term).value(term)
 
       # items all libraries
@@ -385,9 +395,18 @@ class StatisticReportsController < ApplicationController
 
     begin
       report = ThinReports::Report.new :layout => "#{Rails.root.to_s}/app/views/statistic_reports/daily_report"
+      report.events.on :page_create do |e|
+        e.page.item(:page).value(e.page.no)
+      end
+      report.events.on :generate do |e|
+        e.pages.each do |page|
+          page.item(:total).value(e.report.page_count)
+        end
+      end
 
       [1,14,27].each do |start_date| # for 3 pages
         report.start_new_page
+        report.page.item(:date).value(Time.now)
         report.page.item(:year).value(term[0,4])
         report.page.item(:month).value(term[4,6])        
         # header
@@ -614,8 +633,17 @@ class StatisticReportsController < ApplicationController
 
     begin
       report = ThinReports::Report.new :layout => "#{Rails.root.to_s}/app/views/statistic_reports/timezone_report"
+      report.events.on :page_create do |e|
+        e.page.item(:page).value(e.page.no)
+      end
+      report.events.on :generate do |e|
+        e.pages.each do |page|
+          page.item(:total).value(e.report.page_count)
+        end
+      end
+
       report.start_new_page
-       
+      report.page.item(:date).value(Time.now)
       report.page.item(:year).value(start_at[0,4])
       report.page.item(:year_start_at).value(start_at[0,4])
       report.page.item(:month_start_at).value(start_at[4,6])
@@ -791,8 +819,17 @@ class StatisticReportsController < ApplicationController
 
     begin
       report = ThinReports::Report.new :layout => "#{Rails.root.to_s}/app/views/statistic_reports/day_report"
+      report.events.on :page_create do |e|
+        e.page.item(:page).value(e.page.no)
+      end
+      report.events.on :generate do |e|
+        e.pages.each do |page|
+          page.item(:total).value(e.report.page_count)
+        end
+      end
+
       report.start_new_page
-       
+      report.page.item(:date).value(Time.now)
       report.page.item(:year).value(start_at[0,4])
       report.page.item(:year_start_at).value(start_at[0,4])
       report.page.item(:month_start_at).value(start_at[4,6])
