@@ -10,6 +10,9 @@
 configatron.enju.web_hostname = 'localhost'
 configatron.enju.web_port_number = 3000
 
+# 現在時刻の表示
+configatron.header.disp_date = true
+
 # パトロンの名前を入力する際、姓を先に表示する
 configatron.family_name_first = true
 

@@ -29,5 +29,6 @@
       <% end %>
     </div>
     <%= render 'page/select_locale' -%>
+    <%= l(Time.now, :format => :only_date) if configatron.header.disp_date == true -%>
   </div>
 </div>
