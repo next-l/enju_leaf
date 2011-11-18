@@ -1722,8 +1722,8 @@ ja:
     daily_report: 日別統計
     timezone_report: 時間帯別統計
     day_report: 曜日別統計
-    invalid_year: "対象年度はYYYYで入力してください。"
-    invalid_month: "対象月はYYYYMMで入力してください。"
+    invalid_year: "対象年度の指定が不正です。"
+    invalid_month: "対象月の指定が不正です。"
     year: 対象年度(YYYY) 
     month: 対象月(YYYYMM)
     submit: "帳票を作成"

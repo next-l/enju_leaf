@@ -28,7 +28,7 @@
   <tr class="line<%= cycle("0", "1") -%>">
 <%= form_tag(:action => :get_timezone_report)  do -%>
     <td><%= t('statistic_report.timezone_report') -%></td>
-    <td><%= text_field_tag :start_at %> - <%= text_field_tag :end_at %>  <%= t('statistic_report.month') -%></td>
+    <td><%= text_field_tag :start_at, @t_start_at if @t_start_at %> - <%= text_field_tag :end_at, @t_end_at if @t_end_at %>  <%= t('statistic_report.month') -%></td>
     <td><%= submit_tag t('statistic_report.submit') %></td>
 <%- end -%>
   </tr>
@@ -36,7 +36,7 @@
   <tr class="line<%= cycle("0", "1") -%>">
 <%= form_tag(:action => :get_day_report)  do -%>
     <td><%= t('statistic_report.day_report') -%></td>
-    <td><%= text_field_tag :start_at %> - <%= text_field_tag :end_at %>  <%= t('statistic_report.month') -%></td>
+    <td><%= text_field_tag :start_at, @d_start_at if @d_start_at %> - <%= text_field_tag :end_at, @d_end_at if @d_end_at %>  <%= t('statistic_report.month') -%></td>
     <td><%= submit_tag t('statistic_report.submit') %></td>
 <%- end -%>
   </tr>
