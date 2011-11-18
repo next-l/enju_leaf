@@ -4,21 +4,35 @@
 <%- unless @users.blank? -%>
   <%= form_tag({:action => 'output'}) do -%>
     <%= hidden_field_tag :sort_by, params[:sort_by] -%>
+    <%= hidden_field_tag :library, @selected_library -%>
     <%= submit_tag t('page.output', :model => t('activerecord.models.unablelist')) -%>
   <%- end -%>
+  <br />
+<%- end -%>
+
+<%= form_for :unablelist, :html => {:method => 'get'} do -%>
+  <div style="color: red"><%= flash[:message] -%></div>
+  <p>
+    <%= t('advanced_search.library') -%>: <%= select("library", "id", @select_librarlies, {:include_blank => t('advanced_search.all_libraries'), :selected=>@selected_library}  )%> </td>
+    <%= hidden_field_tag :sort_by, params[:sort_by] -%>
+    <%= submit_tag t('page.search') -%>
+    <br />
+  </p>
 <%- end -%>
 
 <p>
-  <%= t('page.sort_by') -%>:
-  <%- if params[:sort_by].blank? || params[:sort_by] == 'user_number' -%>
-    <strong><%= t('activerecord.attributes.user.user_number') -%></strong>
-  <%- else -%>
-    <%= link_to t('activerecord.attributes.user.user_number'), unablelist_path(:sort_by => 'user_number') -%>
-  <%- end -%>
-  <%- if params[:sort_by] == 'library' -%>
-    <strong><%= t('activerecord.attributes.user.library') -%></strong>
-  <%- else -%>
-    <%= link_to t('activerecord.attributes.user.library'), unablelist_path(:sort_by => 'library') -%>
+  <%- if @selected_library.blank?-%>
+    <%= t('page.sort_by') -%>:
+    <%- if params[:sort_by].blank? || params[:sort_by] == 'user_number' -%>
+      <strong><%= t('activerecord.attributes.user.user_number') -%></strong>
+    <%- else -%>
+      <%= link_to t('activerecord.attributes.user.user_number'), unablelist_path(:sort_by => 'user_number') -%>
+    <%- end -%>
+    <%- if params[:sort_by] == 'library' -%>
+      <strong><%= t('activerecord.attributes.user.library') -%></strong>
+    <%- else -%>
+      <%= link_to t('activerecord.attributes.user.library'), unablelist_path(:sort_by => 'library') -%>
+    <%- end -%>
   <%- end -%>
 </p>
 
