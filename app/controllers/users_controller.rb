@@ -1,14 +1,14 @@
 # -*- encoding: utf-8 -*-
 class UsersController < ApplicationController
   #before_filter :reset_params_session
-  load_and_authorize_resource :except => [:search_family, :get_family_info]
+  load_and_authorize_resource :except => [:search_family, :get_family_info, :output_password]
   helper_method :get_patron
   before_filter :store_location, :only => [:index]
   before_filter :clear_search_sessions, :only => [:show]
   after_filter :solr_commit, :only => [:create, :update, :destroy]
   cache_sweeper :user_sweeper, :only => [:create, :update, :destroy]
   #ssl_required :new, :edit, :create, :update, :destroy
-  ssl_allowed :index, :show, :new, :edit, :create, :update, :destroy, :search_family, :get_family_info
+  ssl_allowed :index, :show, :new, :edit, :create, :update, :destroy, :search_family, :get_family_info, :output_password
 
   def index
     query = params[:query].to_s
@@ -283,6 +283,20 @@ class UsersController < ApplicationController
     end
   end
 
+  def output_password
+    if user_signed_in?
+      unless current_user.has_role?('Librarian')
+        access_denied; return
+      end
+    end
+    require 'thinreports'
+    report = ThinReports::Report.new :layout => File.join(Rails.root, 'report', 'password.tlf')
+    report.start_new_page do |page|
+      page.item(:password).value(params[:password])
+    end
+    send_data report.generate, :filename => "password.pdf", :type => 'application/pdf', :disposition => 'attachment'
+  end
+
   def search_family
     return nil unless request.xhr?
     unless params[:keys].blank?
@@ -363,6 +377,7 @@ class UsersController < ApplicationController
       render :json => {:success => 1, :user => @user, :patron => @patron }
     end
   end
+
   private
   def enum_users_id(users)
     s = ""
