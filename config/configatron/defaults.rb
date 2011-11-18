@@ -55,4 +55,6 @@ configatron.statistic_report.monthly = "monthly_report.pdf"
 configatron.statistic_report.daily = "daily_report.pdf"
 configatron.statistic_report.timezone = "timezone_report.pdf"
 configatron.statistic_report.day = "day_report.pdf"
- 
+# 時間別統計の設定
+configatron.statistic_report.open = 9
+configatron.statistic_report.hours = 12 

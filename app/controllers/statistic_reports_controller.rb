@@ -579,6 +579,185 @@ class StatisticReportsController < ApplicationController
     end
   end
 
+  def get_timezone_report
+    #default setting 9 - 20
+    open = configatron.statistic_report.open
+    hours = configatron.statistic_report.hours
+
+    start_at = params[:start_at]
+    end_at = params[:end_at]
+    end_at = start_at if end_at.empty?
+    unless (start_at =~ /^\d{6}$/ && end_at =~ /^\d{6}$/) && start_at.to_i <= end_at.to_i 
+      flash[:message] = t('statistic_report.invalid_month')
+      @year = Time.zone.now.months_ago(1).strftime("%Y")
+      @month = Time.zone.now.months_ago(1).strftime("%Y%m")
+      @start_at = start_at
+      @end_at = end_at
+      render :index
+      return false
+    end
+    libraries = Library.all
+    logger.error "create daily timezone report: #{start_at} - #{end_at}"
+
+    begin
+      report = ThinReports::Report.new :layout => "#{Rails.root.to_s}/app/views/statistic_reports/timezone_report"
+      report.start_new_page
+       
+      report.page.item(:year).value(start_at[0,4])
+      report.page.item(:year_start_at).value(start_at[0,4])
+      report.page.item(:month_start_at).value(start_at[4,6])
+      report.page.item(:year_end_at).value(end_at[0,4])
+      report.page.item(:month_end_at).value(end_at[4,6])
+
+      # header 
+      12.times do |t|
+        report.page.list(:list).header.item("column##{t+1}").value("#{t+open}#{t('statistic_report.hour')}")
+      end
+      report.page.list(:list).header.item("column#13").value(t('statistic_report.sum'))
+
+      # checkout users all libraries
+      report.page.list(:list).add_row do |row|
+        row.item(:type).value(t('statistic_report.checkout_users'))
+        row.item(:library).value(t('statistic_report.all_library'))
+        sum = 0
+        hours.times do |t|
+          value = 0
+          datas = Statistic.where(["yyyymm >= #{start_at} AND yyyymm <= #{end_at} AND data_type = 3220 AND library_id = ? AND hour = ?", 0, t+open])
+          datas.each do |data|
+            value = value + data.value
+          end
+          sum = sum + value
+          row.item("value##{t+1}").value(value)
+        end
+        row.item("value#13").value(sum)  
+      end
+      # checkout users each libraries
+      libraries.each do |library|
+        sum = 0
+        report.page.list(:list).add_row do |row|
+          row.item(:library).value(library.display_name)
+          hours.times do |t|
+            value = 0
+            datas = Statistic.where(["yyyymm >= #{start_at} AND yyyymm <= #{end_at} AND data_type = 3220 AND library_id = ? AND hour = ?", library.id, t+open])
+            datas.each do |data|
+              value = value + data.value
+            end
+            sum = sum + value
+            row.item("value##{t+1}").value(value)
+          end
+          row.item("value#13").value(sum)
+        end
+      end
+      # checkout items all libraries
+      report.page.list(:list).add_row do |row|
+        row.item(:type).value(t('statistic_report.checkout_items'))
+        row.item(:library).value(t('statistic_report.all_library'))
+        sum = 0
+        hours.times do |t|
+          value = 0
+          datas = Statistic.where(["yyyymm >= #{start_at} AND yyyymm <= #{end_at} AND data_type = 3210 AND library_id = ? AND hour = ?", 0, t+open])
+          datas.each do |data|
+            value = value + data.value
+          end
+          sum = sum + value
+          row.item("value##{t+1}").value(value)
+        end
+        row.item("value#13").value(sum)  
+      end
+      # checkout items each libraries
+      libraries.each do |library|
+        sum = 0
+        report.page.list(:list).add_row do |row|
+          row.item(:library).value(library.display_name)
+          hours.times do |t|
+            value = 0
+            datas = Statistic.where(["yyyymm >= #{start_at} AND yyyymm <= #{end_at} AND data_type = 3210 AND library_id = ? AND hour = ?", library.id, t+open])
+            datas.each do |data|
+              value = value + data.value
+            end
+            sum = sum + value
+            row.item("value##{t+1}").value(value)
+          end
+          row.item("value#13").value(sum)
+        end
+      end
+
+      # reserves all libraries
+      report.page.list(:list).add_row do |row|
+        row.item(:type).value(t('statistic_report.reserves'))
+        row.item(:library).value(t('statistic_report.all_library'))
+        sum = 0
+        hours.times do |t|
+          value = 0
+          datas = Statistic.where(["yyyymm >= #{start_at} AND yyyymm <= #{end_at} AND data_type = 3330 AND library_id = ? AND hour = ?", 0, t+open])
+          datas.each do |data|
+            value = value + data.value
+          end
+          sum = sum + value
+          row.item("value##{t+1}").value(value)
+        end
+        row.item("value#13").value(sum)  
+      end
+      # reserves each libraries
+      libraries.each do |library|
+        sum = 0
+        report.page.list(:list).add_row do |row|
+          row.item(:library).value(library.display_name)
+          hours.times do |t|
+            value = 0
+            datas = Statistic.where(["yyyymm >= #{start_at} AND yyyymm <= #{end_at} AND data_type = 3330 AND library_id = ? AND hour = ?", library.id, t+open])
+            datas.each do |data|
+              value = value + data.value
+            end
+            sum = sum + value
+            row.item("value##{t+1}").value(value)
+          end
+          row.item("value#13").value(sum)
+        end
+      end
+
+      # questions all libraries
+      report.page.list(:list).add_row do |row|
+        row.item(:type).value(t('statistic_report.questions'))
+        row.item(:library).value(t('statistic_report.all_library'))
+        sum = 0
+        hours.times do |t|
+          value = 0
+          datas = Statistic.where(["yyyymm >= #{start_at} AND yyyymm <= #{end_at} AND data_type = 3430 AND library_id = ? AND hour = ?", 0, t+open])
+          datas.each do |data|
+            value = value + data.value
+          end
+          sum = sum + value
+          row.item("value##{t+1}").value(value)
+        end
+        row.item("value#13").value(sum)  
+      end
+      # reserves each libraries
+      libraries.each do |library|
+        sum = 0
+        report.page.list(:list).add_row do |row|
+          row.item(:library).value(library.display_name)
+          hours.times do |t|
+            value = 0
+            datas = Statistic.where(["yyyymm >= #{start_at} AND yyyymm <= #{end_at} AND data_type = 3430 AND library_id = ? AND hour = ?", library.id, t+open])
+            datas.each do |data|
+              value = value + data.value
+            end
+            sum = sum + value
+            row.item("value##{t+1}").value(value)
+          end
+          row.item("value#13").value(sum)
+        end
+      end
+
+      send_data report.generate, :filename => "#{start_at}_#{end_at}__#{configatron.statistic_report.timezone}", :type => 'application/pdf', :disposition => 'attachment'
+      return true
+    rescue Exception => e
+      logger.error "failed #{e}"
+      return false
+    end
+  end
+
   def get_day_report
     start_at = params[:start_at]
     end_at = params[:end_at]
