@@ -106,6 +106,19 @@ GIT
       rails (~> 3.1)
 
 GIT
+  remote: git://github.com/sunspot/sunspot.git
+  revision: 448371155f4d79acca526acbd697b319a921c5dc
+  specs:
+    sunspot (1.3.0.rc6)
+      escape (= 0.0.4)
+      pr_geohash (~> 1.0)
+      rsolr (= 1.0.2)
+    sunspot_rails (1.3.0.rc6)
+      nokogiri
+      sunspot (= 1.3.0.rc6)
+    sunspot_solr (1.3.0.rc6)
+
+GIT
   remote: git://github.com/swanandp/acts_as_list.git
   revision: e0e8daa16e9864d4e5e1ee1db21332cf69f0eab5
   specs:
@@ -208,10 +221,10 @@ GEM
     execjs (1.2.9)
       multi_json (~> 1.0)
     extractcontent (0.0.1)
-    factory_girl (2.2.0)
+    factory_girl (2.3.0)
       activesupport
-    factory_girl_rails (1.3.0)
-      factory_girl (~> 2.2.0)
+    factory_girl_rails (1.4.0)
+      factory_girl (~> 2.3.0)
       railties (>= 3.0.0)
     fattr (2.2.0)
     file_wrapper (0.4.1)
@@ -237,7 +250,7 @@ GEM
       has_scope (~> 0.5.0)
       responders (~> 0.6.0)
     jpmobile (2.0.4)
-    jquery-rails (1.0.17)
+    jquery-rails (1.0.18)
       railties (~> 3.0)
       thor (~> 0.14)
     json (1.6.1)
@@ -282,7 +295,7 @@ GEM
       cocaine (>= 0.0.2)
       mime-types
     parallel (0.5.9)
-    parallel_tests (0.6.10)
+    parallel_tests (0.6.11)
       parallel
     pg (0.11.0)
     polyglot (0.3.3)
@@ -363,7 +376,7 @@ GEM
     sanitize (2.0.3)
       nokogiri (>= 1.4.4, < 1.6)
     sass (3.1.10)
-    sass-rails (3.1.5.rc.2)
+    sass-rails (3.1.5)
       actionpack (~> 3.1.0)
       railties (~> 3.1.0)
       sass (~> 3.1.10)
@@ -378,23 +391,15 @@ GEM
     simplecov-html (0.5.3)
     sitemap_generator (2.1.6)
     spork (0.9.0.rc9)
-    sprockets (2.1.0)
+    sprockets (2.1.1)
       hike (~> 1.2)
       rack (~> 1.0)
       tilt (~> 1.1, != 1.3.0)
     state_machine (1.1.0)
     strongbox (0.5.0)
       activerecord
-    sunspot (1.3.0.rc6)
-      escape (= 0.0.4)
-      pr_geohash (~> 1.0)
-      rsolr (= 1.0.2)
     sunspot-rails-tester (0.0.4)
       sunspot_rails (~> 1.2)
-    sunspot_rails (1.3.0.rc6)
-      nokogiri
-      sunspot (= 1.3.0.rc6)
-    sunspot_solr (1.3.0.rc6)
     syntax (1.0.0)
     system_timer (1.2.4)
     thor (0.14.6)
@@ -503,7 +508,7 @@ DEPENDENCIES
   state_machine
   strongbox (>= 0.4.8)
   sunspot-rails-tester
-  sunspot_rails (~> 1.3.0.rc6)
+  sunspot_rails!
   sunspot_solr (~> 1.3.0.rc6)
   system_timer
   timecop
