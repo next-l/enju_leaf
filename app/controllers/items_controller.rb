@@ -2,7 +2,10 @@
 class ItemsController < ApplicationController
   load_and_authorize_resource
   before_filter :get_user_if_nil
-  before_filter :get_patron, :get_manifestation, :get_inventory_file
+  before_filter :get_patron, :get_manifestation
+  if defined?(EnjuInventory)
+    before_filter :get_inventory_file
+  end
   before_filter :get_shelf
   helper_method :get_library
   helper_method :get_item
