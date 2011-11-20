@@ -120,10 +120,6 @@ class Manifestation < ActiveRecord::Base
         titles.flatten
       end
     end
-    text :isbn do  # 前方一致検索のためtext指定を追加
-      [isbn, isbn10, wrong_isbn]
-    end
-    text :issn  # 前方一致検索のためtext指定を追加
     #text :ndl_jpno do
       # TODO 詳細不明
     #end
@@ -306,8 +302,8 @@ class Manifestation < ActiveRecord::Base
   def set_serial_information
     return nil unless periodical?
     if new_record?
-      series = SeriesStatement.where(:id => series_statement_id).first
-      manifestation = series.try(:last_issue)
+      series_statement = SeriesStatement.where(:id => series_statement_id).first
+      manifestation = series_statement.try(:last_issue)
     else
       manifestation = series_statement.try(:last_issue)
     end
@@ -315,7 +311,7 @@ class Manifestation < ActiveRecord::Base
       self.original_title = manifestation.original_title
       self.title_transcription = manifestation.title_transcription
       self.title_alternative = manifestation.title_alternative
-      self.issn = manifestation.issn
+      self.issn = series_statement.issn
       # TODO: 雑誌ごとに巻・号・通号のパターンを設定できるようにする
       if manifestation.serial_number.to_i > 0
         self.serial_number = manifestation.serial_number.to_i + 1
@@ -450,9 +446,6 @@ class Manifestation < ActiveRecord::Base
     unless series_statement
       series_statement = SeriesStatement.where(:id => series_statement_id).first
     end
-    if series_statement.try(:root_manifestation)
-      self.periodical = true
-    end
   end
 
   def root_of_series?
@@ -468,6 +461,9 @@ class Manifestation < ActiveRecord::Base
   end
 
   def periodical?
+    if self.new_record?
+      series_statement = SeriesStatement.where(:id => series_statement_id).first
+    end
     if series_statement.try(:periodical)
       return true unless root_of_series?
     end
@@ -476,6 +472,14 @@ class Manifestation < ActiveRecord::Base
 
   def web_item
     items.where(:shelf_id => Shelf.web.id).first
+  end
+
+  if defined?(EnjuCirculation)
+    searchable do
+      boolean :reservable do
+        items.for_checkout.exists?
+      end
+    end
   end
 
   if defined?(EnjuSubject)
@@ -497,67 +501,6 @@ class Manifestation < ActiveRecord::Base
   end
 
   if defined?(EnjuCirculation)
-    has_many :reserves, :foreign_key => :manifestation_id
-
-    searchable do
-      boolean :reservable do
-        items.for_checkout.exists?
-      end
-    end
-
-    def next_reservation
-      self.reserves.waiting.order('reserves.created_at ASC').first
-    end
-
-    def available_checkout_types(user)
-      if user
-        user.user_group.user_group_has_checkout_types.available_for_carrier_type(self.carrier_type)
-      end
-    end
-
-    def is_reservable_by?(user)
-      return false if items.for_checkout.empty?
-      unless user.has_role?('Librarian')
-        unless items.size == (items.size - user.checkouts.overdue(Time.zone.now).collect(&:item).size)
-          return false
-        end
-      end
-      true
-    end
-
-    def is_reserved_by?(user)
-      return nil unless user
-      reserve = Reserve.waiting.where(:user_id => user.id, :manifestation_id => id).first
-      if reserve
-        reserve
-      else
-        false
-      end
-    end
-
-    def is_reserved?
-      if self.reserves.present?
-        true
-      else
-        false
-      end
-    end
-
-    def checkouts(start_date, end_date)
-      Checkout.completed(start_date, end_date).where(:item_id => self.items.collect(&:id))
-    end
-
-    def checkout_period(user)
-      if available_checkout_types(user)
-        available_checkout_types(user).collect(&:checkout_period).max || 0
-      end
-    end
-
-    def reservation_expired_period(user)
-      if available_checkout_types(user)
-        available_checkout_types(user).collect(&:reservation_expired_period).max || 0
-      end
-    end
   end
 
   if defined?(EnjuBookmark)

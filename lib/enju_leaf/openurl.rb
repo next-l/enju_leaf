@@ -18,7 +18,7 @@ class Openurl
   LOGIC_MULTI_OR = [:ndl_dpid] # OR検索
 
   # 桁チェックが必要な項目
-  NUM_CHECK = {:issn =>8, :isbn => 13}
+  NUM_CHECK = {:issn => 8, :isbn => 13}
 
   # 集約される項目
   SYNONYMS = [:title, :aulast, :aufirst]
@@ -32,8 +32,8 @@ class Openurl
                 :btitle => 'btitle_text',
                 :jtitle => 'jtitle_text',
                 :pub => 'publisher_text',
-                :issn => 'issn_text',
-                :isbn => 'isbn_text',
+                :issn => 'issn_s',
+                :isbn => 'isbn_sm',
                 :ndl_jpno => 'ndl_jpno_text', # TODO:現在対応項目はないので保留。
                 :ndl_dpid => 'ndl_dpid_sm',   # TODO:現在対応項目はないので保留。これのみ完全一致であることに注意。
                 :associate => ''              # TODO:フィールド名ではないので削除？
