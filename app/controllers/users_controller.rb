@@ -195,6 +195,10 @@ class UsersController < ApplicationController
         @user.set_auto_generated_password
         @user.role = Role.where(:name => 'User').first
         @patron = Patron.create_with_user(params[:patron], @user)
+
+        logger.info @patron
+        logger.info @user
+
         @patron.save!
         @user.patron = @patron
         unless @family.blank?
@@ -254,9 +258,9 @@ class UsersController < ApplicationController
       format.xml  { head :ok }
     rescue # ActiveRecord::RecordInvalid
       @patron = @user.patron  
-      @patron.errors.each do |e|
-          @user.errors.add(e)
-      end
+      @patron.errors.each do |attr, msg|
+        @user.errors.add(attr, msg)
+      end  
       family_id = FamilyUser.find(:first, :conditions => ['user_id=?', @user.id]).family_id rescue nil
       if family_id
         @family_users = Family.find(family_id).users
