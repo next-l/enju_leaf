@@ -120,6 +120,10 @@ class Manifestation < ActiveRecord::Base
         titles.flatten
       end
     end
+    text :isbn do  # 前方一致検索のためtext指定を追加
+      [isbn, isbn10, wrong_isbn]
+    end
+    text :issn
     #text :ndl_jpno do
       # TODO 詳細不明
     #end
