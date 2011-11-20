@@ -34,7 +34,7 @@ platforms :ruby do
 end
 
 platforms :ruby_19 do
-  gem 'simplecov', '~> 0.5', :require => false, :group => [:development]
+  gem 'simplecov', '~> 0.5', :require => false, :group => :test
 end
 
 platforms :ruby_18 do
@@ -101,8 +101,8 @@ gem 'simple_form', '~> 1.5'
 gem 'validates_timeliness'
 gem 'rack-protection'
 gem 'awesome_nested_set', '~> 2.0'
-gem 'rake', '0.9.2.2'
 gem 'rails_autolink'
+gem 'rake', '0.9.2.2'
 #gem 'oink', '>=0.9.2'
 
 group :production do

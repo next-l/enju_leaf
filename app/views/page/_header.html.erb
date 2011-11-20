@@ -22,7 +22,7 @@
           <% end %>
         <% end %>
         <%= link_to t('page.account'), my_account_path -%>
-        <%= link_to t('page.sign_out'), destroy_user_session_path -%>
+        <%= link_to t('page.sign_out'), destroy_user_session_path, :method => :delete -%>
         <br />
       <% else %>
         <% unless controller_name == 'sessions' %>
