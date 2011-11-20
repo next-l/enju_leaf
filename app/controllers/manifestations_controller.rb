@@ -538,11 +538,11 @@ class ManifestationsController < ApplicationController
     end
 
     unless options[:isbn].blank?
-      query = "#{query} isbn_sm:#{options[:isbn]}"
+      query = "#{query} isbn_sm:#{options[:isbn].gsub('-', '')}"
     end
 
     unless options[:issn].blank?
-      query = "#{query} issn_s:#{options[:issn]}"
+      query = "#{query} issn_s:#{options[:issn].gsub('-', '')}"
     end
 
     unless options[:lccn].blank?
