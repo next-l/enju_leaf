@@ -61,3 +61,7 @@ configatron.statistic_report.day = "day_report.pdf"
 # 時間別統計の設定
 configatron.statistic_report.open = 9
 configatron.statistic_report.hours = 12 
+
+# 日付表示 0:非表示 1:西暦 2:和暦
+configatron.display_date = 1
+
