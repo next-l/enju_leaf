@@ -306,8 +306,8 @@ class Manifestation < ActiveRecord::Base
   def set_serial_information
     return nil unless periodical?
     if new_record?
-      series = SeriesStatement.where(:id => series_statement_id).first
-      manifestation = series.try(:last_issue)
+      series_statement = SeriesStatement.where(:id => series_statement_id).first
+      manifestation = series_statement.try(:last_issue)
     else
       manifestation = series_statement.try(:last_issue)
     end
@@ -315,7 +315,7 @@ class Manifestation < ActiveRecord::Base
       self.original_title = manifestation.original_title
       self.title_transcription = manifestation.title_transcription
       self.title_alternative = manifestation.title_alternative
-      self.issn = manifestation.issn
+      self.issn = series_statement.issn
       # TODO: 雑誌ごとに巻・号・通号のパターンを設定できるようにする
       if manifestation.serial_number.to_i > 0
         self.serial_number = manifestation.serial_number.to_i + 1
@@ -450,9 +450,6 @@ class Manifestation < ActiveRecord::Base
     unless series_statement
       series_statement = SeriesStatement.where(:id => series_statement_id).first
     end
-    if series_statement.try(:root_manifestation)
-      self.periodical = true
-    end
   end
 
   def root_of_series?
@@ -468,6 +465,9 @@ class Manifestation < ActiveRecord::Base
   end
 
   def periodical?
+    if self.new_record?
+      series_statement = SeriesStatement.where(:id => series_statement_id).first
+    end
     if series_statement.try(:periodical)
       return true unless root_of_series?
     end
