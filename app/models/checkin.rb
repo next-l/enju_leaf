@@ -13,11 +13,13 @@ class Checkin < ActiveRecord::Base
 
   attr_accessor :item_identifier
 
-  def item_checkin(current_user)
+  def item_checkin(current_user, loss_item)
     message = ''
     Checkin.transaction do
       checkouts = Checkout.not_returned.where(:item_id => self.item_id).select([:id, :item_id, :lock_version])
-      self.item.checkin!
+      unless loss_item.nil? or loss_item == 'true'
+        self.item.checkin!
+      end
       checkouts.each do |checkout|
         # TODO: ILL時の処理
         checkout.checkin = self

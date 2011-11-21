@@ -15,11 +15,16 @@
 
 <p>
   <strong><%= t('activerecord.models.user') -%>:</strong>
-  <%= link_to @reserve.user.username, @reserve.user -%>
+  <%= link_to @reserve.user.username, @reserve.user if @reserve.user -%>
   (<%= @reserve.user.user_number %>)
 </p>
 
-<%- if @reserve.user.patron -%> 
+<p>
+  <strong><%= t('activerecord.attributes.user.library') -%>:</strong>
+  <%= link_to @reserve.user.library.display_name, @reserve.user.library unless @reserve.user.library_id.blank? -%>
+</p>
+
+<%- if @reserve.user && @reserve.user.patron -%> 
 <p>
   <strong><%= t('activerecord.attributes.reserve.contact') -%>:</strong>
   <%= link_to @reserve.user.patron.full_name, @reserve.user -%> <%= @reserve.user.patron.email -%></br>
@@ -35,7 +40,7 @@
   
 <p>
   <strong><%= t('activerecord.attributes.reserve.receipt_library') -%>:</strong>
-  <%= Library.find(@reserve.receipt_library_id).display_name unless @reserve.receipt_library_id.blank? -%>
+  <%= link_to @receipt_library.display_name, @receipt_library unless @receipt_library.blank? -%>
 </p>
 
 <p>

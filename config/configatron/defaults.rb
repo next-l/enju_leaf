@@ -40,7 +40,7 @@ configatron.checked_items.disp_title = true
 configatron.checked_items.disp_user = true
 
 # template file for import
-configatron.resource_import_template = "templates/resource_import_template.xls"
+configatron.resource_import_template = "templates/resource_import_template.zip"
 
 # 無操作待機時間 (sec)
 #configatron.no_operation_counter = 300

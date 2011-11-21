@@ -308,6 +308,8 @@ EnjuLeaf::Application.routes.draw do
     resources :patrons
     resources :owns
     resource :exemplify
+    get :loss_item, :on => :member
+    post :update_loss_item, :on => :member
   end
 
   resources :owns
@@ -337,6 +339,11 @@ EnjuLeaf::Application.routes.draw do
     post :get_daily_report, :on => :collection
     post :get_timezone_report, :on => :collection
     post :get_day_report, :on => :collection
+  end
+
+  resources :print_labels do
+    post :get_user_label, :on => :collection
+    post 'search_user', :on => :collection
   end
 
   # The priority is based upon order of creation:
