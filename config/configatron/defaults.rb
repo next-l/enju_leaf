@@ -10,8 +10,8 @@
 configatron.enju.web_hostname = 'localhost'
 configatron.enju.web_port_number = 3000
 
-# 現在時刻の表示
-configatron.header.disp_date = true
+# 現在日付の表示 0:非表示 1:西暦 2:和暦
+configatron.header.disp_date = 1
 
 # パトロンの名前を入力する際、姓を先に表示する
 configatron.family_name_first = true
@@ -62,6 +62,4 @@ configatron.statistic_report.day = "day_report.pdf"
 configatron.statistic_report.open = 9
 configatron.statistic_report.hours = 12 
 
-# 日付表示 0:非表示 1:西暦 2:和暦
-configatron.display_date = 1
 
