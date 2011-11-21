@@ -308,6 +308,8 @@ EnjuLeaf::Application.routes.draw do
     resources :patrons
     resources :owns
     resource :exemplify
+    get :loss_item, :on => :member
+    post :update_loss_item, :on => :member
   end
 
   resources :owns

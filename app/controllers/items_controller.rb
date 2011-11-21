@@ -1,6 +1,6 @@
 # -*- encoding: utf-8 -*-
 class ItemsController < ApplicationController
-  load_and_authorize_resource
+  load_and_authorize_resource :except => [:loss_item, :update_loss_item]
   before_filter :get_user_if_nil
   before_filter :get_patron, :get_manifestation, :get_inventory_file
   helper_method :get_shelf
@@ -211,6 +211,51 @@ class ItemsController < ApplicationController
       else
         format.html { redirect_to items_url }
         format.xml  { head :ok }
+      end
+    end
+  end
+
+  def loss_item
+    return access_denied unless (user_signed_in? and current_user.has_role?('Librarian'))
+    @item = Item.find(params[:id])
+  end
+
+  def update_loss_item
+    return access_denied unless (user_signed_in? and current_user.has_role?('Librarian'))
+
+    @item = Item.find(params[:id])
+    begin
+      @item.circulation_status = CirculationStatus.where(:name => 'Lost').first
+      if @item.update_attributes(params[:item])
+        flash[:notice] = t('controller.successfully_updated', :model => t('activerecord.models.circulation_status'))
+      end
+
+      if params[:loss_item] == 'true' and !@item.blank?
+        get_basket
+        unless @basket
+          @basket = Basket.new(:user => current_user)
+          @basket.save(:validate => false)
+        end
+        @checkin = @basket.checkins.new(:item_id => @item.id, :librarian_id => current_user.id)
+        @checkin.item = @item
+        if @checkin.save(:validate => false)
+          flash[:notice] << t('checkin.successfully_checked_in', :model => t('activerecord.models.checkin'))
+          message = @checkin.item_checkin(current_user, params[:loss_item])
+          flash[:message] = message if message
+        end
+      end
+
+      respond_to do |format|
+        format.html { redirect_to item_url(@item) }
+        format.xml  { head :ok }
+      end
+    rescue Exception => e
+      logger.error "Failed to checkout: #{e}"
+      respond_to do |format|
+        prepare_options
+        flash[:message] = t('activerecord.attributes.item.fail_update_loss_item')
+        format.html { render :action => "loss_item" }
+        format.xml  { render :xml => @item.errors, :status => :unprocessable_entity }
       end
     end
   end

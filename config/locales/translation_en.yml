@@ -473,6 +473,10 @@ en:
         lock_version: Lock version
         checkout_type: Checkout type
         acquired_at: Acquired at
+        loss_item: Loss item
+        set_status: Loss item processing
+        will_loss_item: Is status set as Lost, and Is a book returned? 
+        fail_update_loss_item: Failed to update status
       barcode:
         barcode_type: Barcode type
         barcodable_type: Barcodable type
