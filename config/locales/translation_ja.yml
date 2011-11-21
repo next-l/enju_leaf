@@ -495,6 +495,10 @@ ja:
         lock_version: ロックバージョン
         checkout_type: 貸出区分
         acquired_at: 受入日
+        loss_item: 紛失処理
+        set_status: 紛失処理を実行
+        will_loss_item: 貸出状態を紛失扱いにし、自動返却を行いますか。
+        fail_update_loss_item: 紛失処理に失敗しました。
       barcode:
         barcode_type: バーコードの種類
         barcodable_type: バーコード付与対象の種類
