@@ -1,6 +1,6 @@
 source 'http://rubygems.org'
 
-gem 'rails', '3.1.2'
+gem 'rails', '3.1.3'
 
 #gem 'enju_amazon', :git => 'git://github.com/nabeta/enju_amazon.git'
 gem 'enju_barcode', :git => 'git://github.com/nabeta/enju_barcode.git'
