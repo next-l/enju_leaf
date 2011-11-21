@@ -442,7 +442,7 @@ DEPENDENCIES
   extractcontent
   factory_girl_rails (~> 1.4)
   file_wrapper
-  friendly_id (~> 4.0.0.beta14)
+  friendly_id (= 4.0.0.beta14)
   geocoder
   glassfish
   guard-rspec
