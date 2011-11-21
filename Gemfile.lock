@@ -130,12 +130,12 @@ GEM
     RedCloth (4.2.8)
     Saikuro (1.1.0)
     aaronh-chronic (0.3.9)
-    actionmailer (3.1.2)
-      actionpack (= 3.1.2)
+    actionmailer (3.1.3)
+      actionpack (= 3.1.3)
       mail (~> 2.3.0)
-    actionpack (3.1.2)
-      activemodel (= 3.1.2)
-      activesupport (= 3.1.2)
+    actionpack (3.1.3)
+      activemodel (= 3.1.3)
+      activesupport (= 3.1.3)
       builder (~> 3.0.0)
       erubis (~> 2.7.0)
       i18n (~> 0.6)
@@ -143,20 +143,20 @@ GEM
       rack-cache (~> 1.1)
       rack-mount (~> 0.8.2)
       rack-test (~> 0.6.1)
-      sprockets (~> 2.1.0)
-    activemodel (3.1.2)
-      activesupport (= 3.1.2)
+      sprockets (~> 2.0.3)
+    activemodel (3.1.3)
+      activesupport (= 3.1.3)
       builder (~> 3.0.0)
       i18n (~> 0.6)
-    activerecord (3.1.2)
-      activemodel (= 3.1.2)
-      activesupport (= 3.1.2)
+    activerecord (3.1.3)
+      activemodel (= 3.1.3)
+      activesupport (= 3.1.3)
       arel (~> 2.2.1)
       tzinfo (~> 0.3.29)
-    activeresource (3.1.2)
-      activemodel (= 3.1.2)
-      activesupport (= 3.1.2)
-    activesupport (3.1.2)
+    activeresource (3.1.3)
+      activemodel (= 3.1.3)
+      activesupport (= 3.1.3)
+    activesupport (3.1.3)
       multi_json (~> 1.0)
     acts-as-taggable-on (2.1.1)
       rails
@@ -238,7 +238,7 @@ GEM
     geocoder (1.0.5)
     guard (0.8.8)
       thor (~> 0.14.6)
-    guard-rspec (0.5.4)
+    guard-rspec (0.5.5)
       guard (>= 0.8.4)
     has_scope (0.5.1)
     hashie (1.2.0)
@@ -315,26 +315,26 @@ GEM
       rack
     rack-test (0.6.1)
       rack (>= 1.0)
-    rails (3.1.2)
-      actionmailer (= 3.1.2)
-      actionpack (= 3.1.2)
-      activerecord (= 3.1.2)
-      activeresource (= 3.1.2)
-      activesupport (= 3.1.2)
+    rails (3.1.3)
+      actionmailer (= 3.1.3)
+      actionpack (= 3.1.3)
+      activerecord (= 3.1.3)
+      activeresource (= 3.1.3)
+      activesupport (= 3.1.3)
       bundler (~> 1.0)
-      railties (= 3.1.2)
+      railties (= 3.1.3)
     rails_autolink (1.0.4)
       rails (>= 3.1.0)
-    rails_best_practices (1.3.0)
+    rails_best_practices (1.4.0)
       activesupport
       colored
       erubis
       i18n
       progressbar
       sexp_processor
-    railties (3.1.2)
-      actionpack (= 3.1.2)
-      activesupport (= 3.1.2)
+    railties (3.1.3)
+      actionpack (= 3.1.3)
+      activesupport (= 3.1.3)
       rack-ssl (~> 1.3.2)
       rake (>= 0.8.7)
       rdoc (~> 3.4)
@@ -391,7 +391,7 @@ GEM
     simplecov-html (0.5.3)
     sitemap_generator (2.1.6)
     spork (0.9.0.rc9)
-    sprockets (2.1.1)
+    sprockets (2.0.3)
       hike (~> 1.2)
       rack (~> 1.0)
       tilt (~> 1.1, != 1.3.0)
@@ -420,7 +420,7 @@ GEM
     vcr (2.0.0.beta2)
     warden (1.1.0)
       rack (>= 1.0)
-    webmock (1.7.7)
+    webmock (1.7.8)
       addressable (~> 2.2, > 2.2.5)
       crack (>= 0.1.7)
     whenever (0.6.8)
@@ -469,7 +469,7 @@ DEPENDENCIES
   extractcontent
   factory_girl_rails (~> 1.4)
   file_wrapper
-  friendly_id (~> 4.0.0.beta14)
+  friendly_id (= 4.0.0.beta14)
   geocoder
   glassfish
   guard-rspec
@@ -492,7 +492,7 @@ DEPENDENCIES
   pg
   progress_bar
   rack-protection
-  rails (= 3.1.2)
+  rails (= 3.1.3)
   rails_autolink
   rake (= 0.9.2.2)
   ri_cal
@@ -500,7 +500,7 @@ DEPENDENCIES
   ruby-prof
   rubyzip2
   sanitize
-  sass-rails (~> 3.1.5.rc.2)
+  sass-rails (~> 3.1.5)
   simple_form (~> 1.5)
   simplecov (~> 0.5)
   sitemap_generator (~> 2.1)

@@ -1,6 +1,6 @@
 source 'http://rubygems.org'
 
-gem 'rails', '3.1.2'
+gem 'rails', '3.1.3'
 
 # Bundle edge Rails instead:
 # gem 'rails',     :git => 'git://github.com/rails/rails.git'
@@ -59,7 +59,7 @@ gem 'state_machine'
 gem 'sunspot_rails', :git => 'git://github.com/sunspot/sunspot.git'
 gem 'sunspot_solr', '~> 1.3.0.rc6'
 gem 'progress_bar'
-gem 'friendly_id', '~> 4.0.0.beta14'
+gem 'friendly_id', '4.0.0.beta14'
 gem 'inherited_resources', '~> 1.3'
 gem 'has_scope'
 gem 'nokogiri'
@@ -129,7 +129,7 @@ end
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
-  gem 'sass-rails',   '~> 3.1.5.rc.2'
+  gem 'sass-rails',   '~> 3.1.5'
   gem 'coffee-rails', '~> 3.1.1'
   gem 'uglifier', '>= 1.0.3'
 end
