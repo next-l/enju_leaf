@@ -39,7 +39,6 @@ class Item < ActiveRecord::Base
   validates_date :acquired_at, :allow_blank => true
   before_validation :set_circulation_status, :on => :create
   before_save :set_use_restriction
-  after_save :check_reserve, :on => :create
 
   #enju_union_catalog
   has_paper_trail
@@ -110,9 +109,9 @@ class Item < ActiveRecord::Base
   end
 
   def reserved_by_user?(user)
-    if self.next_reservation
-      return true if self.next_reservation.user == user
-    end
+     if self.reserve
+       return true if self.reserve.user == user
+     end
     false
   end
 
@@ -226,16 +225,7 @@ class Item < ActiveRecord::Base
     end
   end
 
-  def check_reserve
-    reserve = self.manifestation.next_reserve
-    if reserve
-      reserve.item = self
-      reserve.sm_retain!
-      reserve.save
-    end
-  end
 end
-
 # == Schema Information
 #
 # Table name: items
