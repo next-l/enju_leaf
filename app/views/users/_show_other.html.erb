@@ -16,6 +16,10 @@
   <%- if flash[:temporary_password] -%>
     <p><%= t('user.your_temporary_password_is') -%>: </p>
     <p style="font-size: 200%"><%= flash[:temporary_password] -%></p>
+    <%= form_tag({:action => 'output_password'}) do -%>
+      <%= hidden_field_tag :password, flash[:temporary_password] -%>
+      <%= submit_tag t('page.output', :model => t('activerecord.attributes.user.password')) -%> 
+    <%- end -%>
   <%- end -%>
 
   <p><strong><%= t('activerecord.attributes.user.user_number') %>: </strong><%= user.user_number %></p>

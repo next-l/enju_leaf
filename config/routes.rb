@@ -91,6 +91,7 @@ EnjuLeaf::Application.routes.draw do
     get :search_family, :on => :member
     get :get_family_info, :on => :collection
     get :get_family_info, :on => :member
+    post :output_password, :on => :member
     resources :answers
     resources :baskets do
       resources :checked_items
