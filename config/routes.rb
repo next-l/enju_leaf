@@ -339,6 +339,11 @@ EnjuLeaf::Application.routes.draw do
     post :get_day_report, :on => :collection
   end
 
+  resources :print_labels do
+    post :get_user_label, :on => :collection
+    post 'search_user', :on => :collection
+  end
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

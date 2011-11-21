@@ -163,6 +163,7 @@ ja:
       reservelist: 予約状況
       manifestation_exstat: 拡張統計
       statistic_report: 利用統計の帳票
+      print_label: 利用者ラベル
    
     attributes:
       library:
@@ -1743,3 +1744,6 @@ ja:
     date: 日
     hour: 時
     sum: 合計
+  print_label:
+    users: ラベルを作成する利用者
+    submit: ラベルを作成
