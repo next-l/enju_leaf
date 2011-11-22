@@ -285,6 +285,18 @@ div#family{
   width: 250px;
 }
 
+div#item_list_library{
+  float: left;
+  text_align: left;
+  width: 200px;
+}
+
+div#item_list_carrier_type{
+  float: left;
+  text_align: left;
+  width: 200px;
+}
+
 div#footer{
   padding-top: 5px;
   padding-left: 2px;

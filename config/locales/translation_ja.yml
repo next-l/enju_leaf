@@ -164,7 +164,7 @@ ja:
       manifestation_exstat: 拡張統計
       statistic_report: 利用統計の帳票
       print_label: 利用者ラベル
-      item_list: 図書リスト
+      export_item_list: 図書リスト
    
     attributes:
       library:
@@ -1120,6 +1120,10 @@ ja:
       statistic_report:
         type: 帳票の種類
         term: 対象期間
+      item_list:
+        list_type: リストの種類
+        list_condition: 抽出条件
+        sort_by: ソート順
 
   page:
     user_title: "ようこそ %{login_name} さん"
@@ -1761,4 +1765,9 @@ ja:
     unused_list: 未利用資料リスト
     new_item_list: 新着資料リスト
     list_condition: 抽出条件
-    sort_by: ソート順
+    library: 図書館
+    all_library: 全図書館
+    carrier_type: 資料の形態
+    all_carrier_type: 全ての資料の形態
+    shelf: 保管場所
+    ndc: NDC
