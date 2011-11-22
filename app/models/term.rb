@@ -17,5 +17,15 @@ class Term < ActiveRecord::Base
     return false if Budget.where(:term_id => self.id).first
     return true
   end
+
+  def self.previous_term
+    t = Term.where("start_at <= ? AND end_at >= ?", Time.now, Time.now).first
+    return nil unless t
+    s = t.start_at - 1.day
+    Term.where("start_at <= ? AND end_at >= ?", s, s).first
+  end
+  def self.current_term
+    Term.where("start_at <= ? AND end_at >= ?", Time.now, Time.now).first
+  end
 end
 
