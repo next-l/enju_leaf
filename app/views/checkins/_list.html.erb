@@ -7,7 +7,7 @@
       <%- end -%>
     <%- end -%>
   <%- end -%>
-  <%= flash[:message] -%>
+  <%= raw flash[:message] -%>
 </div>
 <%= form_for @checkin, :html => {:method => :post}, :url => user_basket_checkins_path(@basket.user, @basket, :mode => 'list'), :remote => true do |f| -%>
 
