@@ -63,7 +63,7 @@ configatron.statistic_report.open = 9
 configatron.statistic_report.hours = 12 
 
 # 資料の詳細画面に過去の貸出回数を表示
-configatron.manifestation.display_checkout_counter = true
-configatron.manifestation.display_reserve_counter = true
-configatron.manifestation.display_last_checkout_date = true
+configatron.manifestation.display_checkouts_count = true
+configatron.manifestation.display_reserves_count = true
+configatron.manifestation.display_last_checkout_datetime = true
 
