@@ -686,6 +686,9 @@ ja:
         subscription_master: 購読マスタ
         description: 説明
         except_recent: 新刊対象から除外
+        checkouts_count: 貸出回数
+        reserves_count:  予約回数
+        last_checkout_datetime: 最終利用年月日
       user_group:
         name: 名前
         display_name: 表示名
