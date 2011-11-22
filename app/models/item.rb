@@ -103,6 +103,11 @@ class Item < ActiveRecord::Base
     true
   end
 
+  def checkin?
+    return false if ['Circulation Status Undefined'].include?(self.circulation_status.name)
+    true
+  end
+
   def rent?
     return true if self.checkouts.not_returned.select(:item_id).detect{|checkout| checkout.item_id == self.id}
     false

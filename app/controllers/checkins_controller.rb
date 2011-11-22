@@ -83,8 +83,11 @@ class CheckinsController < ApplicationController
       flash[:message] << t('checkin.already_checked_in')
     end
 
+    if item.checkin? == false
+      flash[:message] << t('checkin.not_available_for_checkin')
+    end
     respond_to do |format|
-      unless item
+      if item.blank? || item.checkin? == false
         format.html { redirect_to user_basket_checkins_url(@checkin.basket.user, @checkin.basket) }
         format.xml  { render :xml => @checkin.errors.to_xml }
         format.js {

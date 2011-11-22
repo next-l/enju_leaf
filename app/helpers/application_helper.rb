@@ -2,6 +2,7 @@
 module ApplicationHelper
   include PictureFilesHelper
   include EnjuBookJacketHelper
+  include JaDateFormat
 
   def form_icon(carrier_type)
     case carrier_type.name
@@ -214,4 +215,9 @@ module ApplicationHelper
     end
     string.html_safe
   end
+
+  def wareki_dateformat(v)
+    ja_wmd(v)
+  end
+
 end

@@ -1543,6 +1543,7 @@ en:
     already_checked_in: "This item is already checked in."
     checkin: "Checkin!"
     successfully_checked_in: "This items was successfully checked in."
+    not_available_for_checkin: "This item is not available for checkin." 
   search_history:
     all_history: "All search history"
     failed_search: "Failed searches"

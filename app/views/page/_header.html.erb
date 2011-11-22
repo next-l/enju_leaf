@@ -29,6 +29,7 @@
       <% end %>
     </div>
     <%= render 'page/select_locale' -%>
-    <%= l(Time.now, :format => :only_date) if configatron.header.disp_date == true -%>
+    <%= l(Time.now, :format => :only_date) if configatron.header.disp_date == 1 -%>
+    <%= wareki_dateformat(Time.now) if configatron.header.disp_date == 2 -%>
   </div>
 </div>
