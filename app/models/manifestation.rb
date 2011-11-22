@@ -572,16 +572,16 @@ class Manifestation < ActiveRecord::Base
     case type
     when nil
     when :all
-      self.items.all.each {|item| sum += Reserve.where(:item_id=>item.id).count} 
+      sum = Reserve.where(:manifestation_id=>self.id).count
     when :previous_term
-      previous_term = Term.previous_term
-      if previous_term
-        self.items.all.each {|item| sum += Reserve.where("item_id = ? AND created_at >= ? AND created_at <= ?", item.id, previous_term.start_at, previous_term.end_at).count }
+      term = Term.previous_term
+      if term
+        sum = Reserve.where("manifestation_id = ? AND created_at >= ? AND created_at <= ?", self.id, term.start_at, term.end_at).count 
       end
     when :current_term
-      current_term = Term.current_term
-      if current_term
-        self.items.all.each {|item| sum += Reserve.where("item_id = ? AND created_at >= ? AND created_at <= ?", item.id, current_term.start_at, current_term.end_at).count }      
+      term = Term.current_term
+      if term
+        sum = Reserve.where("manifestation_id = ? AND created_at >= ? AND created_at <= ?", self.id, term.start_at, term.end_at).count 
       end
     end
     return sum
@@ -594,14 +594,14 @@ class Manifestation < ActiveRecord::Base
     when :all
       self.items.all.each {|item| sum += Checkout.where(:item_id=>item.id).count} 
     when :previous_term
-      previous_term = Term.previous_term
-      if previous_term
-        self.items.all.each {|item| sum += Checkout.where("item_id = ? AND created_at >= ? AND created_at <= ?", item.id, previous_term.start_at, previous_term.end_at).count }
+      term = Term.previous_term
+      if term
+        self.items.all.each {|item| sum += Checkout.where("item_id = ? AND created_at >= ? AND created_at <= ?", item.id, term.start_at, term.end_at).count }
       end
     when :current_term
-      current_term = Term.current_term
-      if current_term
-        self.items.all.each {|item| sum += Checkout.where("item_id = ? AND created_at >= ? AND created_at <= ?", item.id, current_term.start_at, current_term.end_at).count }      
+      term = Term.current_term
+      if term
+        self.items.all.each {|item| sum += Checkout.where("item_id = ? AND created_at >= ? AND created_at <= ?", item.id, term.start_at, term.end_at).count } 
       end
     end
     return sum
