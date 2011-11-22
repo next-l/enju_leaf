@@ -1541,9 +1541,11 @@ en:
     enter_item_identifier: "Enter item identifier."
     other_library_item: "This item is other library's item!"
     already_checked_in: "This item is already checked in."
+    not_checkin: "This item is not checkouts."
     checkin: "Checkin!"
     successfully_checked_in: "This items was successfully checked in."
     not_available_for_checkin: "This item is not available for checkin." 
+    overdue_item: "This item is over due."
   search_history:
     all_history: "All search history"
     failed_search: "Failed searches"

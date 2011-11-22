@@ -29,7 +29,11 @@
   </tr>
 
 <%- @checkins.each_with_index do |checkin, i| -%>
+<%- if checkin.checkout.overdue? -%>
+  <tr class="line<%= cycle("2") -%>">
+<%- else -%>
   <tr class="line<%= cycle("0", "1") -%>">
+<%- end -%>
     <%- if configatron.checkins.disp_title == true -%>
       <td>
         <%= render 'manifestations/show_index', :manifestation => checkin.item.manifestation -%>
