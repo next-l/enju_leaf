@@ -7,14 +7,14 @@
       <%- end -%>
     <%- end -%>
   <%- end -%>
-  <%= flash[:message] -%>
+  <%= raw flash[:message] -%>
 </div>
 <%= form_for @checkin, :html => {:method => :post}, :url => user_basket_checkins_path(@basket.user, @basket, :mode => 'list'), :remote => true do |f| -%>
 
   <p><%= t('activerecord.attributes.item.item_identifier') -%>:
     <%= f.text_field :item_identifier, :class => 'resource_item_identifier' -%>
     <%= f.hidden_field :librarian_id, :value => current_user.id -%>
-    <%= submit_tag t('checkin.checkin') -%></p>
+    <%= submit_tag t('checkin.checkin'), :disable_with => t('page.wait') -%></p>
 <%- end -%>
 
 <table class="index">
@@ -29,7 +29,11 @@
   </tr>
 
 <%- @checkins.each_with_index do |checkin, i| -%>
+<%- if checkin.checkout.overdue? -%>
+  <tr class="line<%= cycle("2") -%>">
+<%- else -%>
   <tr class="line<%= cycle("0", "1") -%>">
+<%- end -%>
     <%- if configatron.checkins.disp_title == true -%>
       <td>
         <%= render 'manifestations/show_index', :manifestation => checkin.item.manifestation -%>

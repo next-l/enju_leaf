@@ -25,7 +25,7 @@ class Checkin < ActiveRecord::Base
         checkout.checkin = self
         checkout.save(:validate => false)
         unless checkout.item.shelf.library == current_user.library
-          message << I18n.t('checkin.other_library_item')
+          message << I18n.t('checkin.other_library_item') + '<br />'
         end
       end
 
@@ -34,12 +34,12 @@ class Checkin < ActiveRecord::Base
       #end
       if self.item.manifestation.next_reservation
         # TODO: もっと目立たせるために別画面を表示するべき？
-        message << I18n.t('item.this_item_is_reserved')
+        message << I18n.t('item.this_item_is_reserved') + '<br />'
         self.item.retain(current_user)
       end
 
       if self.item.include_supplements?
-        message << I18n.t('item.this_item_include_supplement')
+        message << I18n.t('item.this_item_include_supplement') + '<br />'
       end
 
       # メールとメッセージの送信

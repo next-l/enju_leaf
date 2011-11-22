@@ -563,6 +563,50 @@ class Manifestation < ActiveRecord::Base
     @delete_attachment = value
   end
 
+  def last_checkout_datetime
+     Manifestation.find(:last, :include => [:items, :items => :checkouts], :conditions => {:manifestations => {:id => self.id}}, :order => 'items.created_at DESC').items.first.checkouts.first.created_at
+  end
+
+  def reserve_count(type)
+    sum = 0
+    case type
+    when nil
+    when :all
+      sum = Reserve.where(:manifestation_id=>self.id).count
+    when :previous_term
+      term = Term.previous_term
+      if term
+        sum = Reserve.where("manifestation_id = ? AND created_at >= ? AND created_at <= ?", self.id, term.start_at, term.end_at).count 
+      end
+    when :current_term
+      term = Term.current_term
+      if term
+        sum = Reserve.where("manifestation_id = ? AND created_at >= ? AND created_at <= ?", self.id, term.start_at, term.end_at).count 
+      end
+    end
+    return sum
+  end
+
+ def checkout_count(type)
+    sum = 0
+    case type
+    when nil
+    when :all
+      self.items.all.each {|item| sum += Checkout.where(:item_id=>item.id).count} 
+    when :previous_term
+      term = Term.previous_term
+      if term
+        self.items.all.each {|item| sum += Checkout.where("item_id = ? AND created_at >= ? AND created_at <= ?", item.id, term.start_at, term.end_at).count }
+      end
+    when :current_term
+      term = Term.current_term
+      if term
+        self.items.all.each {|item| sum += Checkout.where("item_id = ? AND created_at >= ? AND created_at <= ?", item.id, term.start_at, term.end_at).count } 
+      end
+    end
+    return sum
+  end
+
 private
   def delete_attachment?
     self.attachment.clear if @delete_attachment == "1"
