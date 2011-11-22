@@ -14,7 +14,7 @@
   <p><%= t('activerecord.attributes.item.item_identifier') -%>:
     <%= f.text_field :item_identifier, :class => 'resource_item_identifier' -%>
     <%= f.hidden_field :librarian_id, :value => current_user.id -%>
-    <%= submit_tag t('checkin.checkin') -%></p>
+    <%= submit_tag t('checkin.checkin'), :disable_with => t('page.wait') -%></p>
 <%- end -%>
 
 <table class="index">
