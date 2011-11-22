@@ -164,6 +164,7 @@ ja:
       manifestation_exstat: 拡張統計
       statistic_report: 利用統計の帳票
       print_label: 利用者ラベル
+      item_list: 図書リスト
    
     attributes:
       library:
@@ -1626,9 +1627,11 @@ ja:
     enter_item_identifier: "所蔵情報番号を入力してください。"
     other_library_item: "この資料は他の図書館のものです！"
     already_checked_in: "この資料はすでに返却されています。"
+    not_checkin: "この資料は貸出されていません。"
     checkin: "返却（取り消しはできません）"
     successfully_checked_in: "この資料は正常に返却されました。"
     not_available_for_checkin: "この資料の返却はできません。"
+    overdue_item: "この資料は貸出期限が過ぎています。"
   search_history:
     all_history: "全ての検索履歴"
     failed_search: "失敗した検索"
@@ -1755,3 +1758,12 @@ ja:
   print_label:
     users: ラベルを作成する利用者
     submit: ラベルを作成
+  item_list:
+    list_type: リストタイプ
+    shelf_list: 保管場所資料リスト
+    call_number_list: 請求記号別資料リスト
+    removed_list: 除籍資料リスト
+    unused_list: 未利用資料リスト
+    new_item_list: 新着資料リスト
+    list_condition: 抽出条件
+    sort_by: ソート順

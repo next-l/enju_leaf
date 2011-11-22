@@ -346,6 +346,8 @@ EnjuLeaf::Application.routes.draw do
     post 'search_user', :on => :collection
   end
 
+  resources :export_item_lists  
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

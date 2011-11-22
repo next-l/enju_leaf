@@ -69,50 +69,43 @@ class CheckinsController < ApplicationController
     @checkin = @basket.checkins.new(params[:checkin])
 
     flash[:message] = ''
-    if @checkin.item_identifier.blank?
-      flash[:message] << t('checkin.enter_item_identifier') if @checkin.item_identifier.blank?
-    else
-      item = Item.where(:item_identifier => @checkin.item_identifier.to_s.strip).first
+    flash[:message] = t('checkin.enter_item_identifier') if @checkin.item_identifier.blank?
+    item = Item.where(:item_identifier => @checkin.item_identifier.to_s.strip).first unless @checkin.item_identifier.blank?
+    flash[:message] = t('checkin.item_not_found') if !@checkin.item_identifier.blank? and item.blank?
+    unless item.blank?
+      checkouts = Checkout.where(:item_id => item.id, :checkin_id => nil).order('created_at DESC')
+      checked = false
+      overdue = false
+      checkouts.each do |checkout|
+        checked = true if checkout.item.item_identifier == item.item_identifier
+        overdue = true if checkout.item.item_identifier == item.item_identifier and checkout.overdue?
+      end
+      flash[:message] = t("checkin.not_checkin") unless checked
+      flash[:message] = t('checkin.already_checked_in') if @basket.checkins.collect(&:item).include?(item)
+      flash[:message] = t('checkin.not_available_for_checkin') if item.checkin? == false
     end
-
-    if item.blank?
-      flash[:message] << t('checkin.item_not_found')
-    end
-
-    if @basket.checkins.collect(&:item).include?(item)
-      flash[:message] << t('checkin.already_checked_in')
-    end
-
-    if item.checkin? == false
-      flash[:message] << t('checkin.not_available_for_checkin')
-    end
+    
     respond_to do |format|
-      if item.blank? || item.checkin? == false
+      unless flash[:message] == ""
         format.html { redirect_to user_basket_checkins_url(@checkin.basket.user, @checkin.basket) }
         format.xml  { render :xml => @checkin.errors.to_xml }
-        format.js {
-          redirect_to user_basket_checkins_url(@checkin.basket.user, @checkin.basket, :mode => 'list', :format => :js)
-        }
+        format.js   { redirect_to user_basket_checkins_url(@checkin.basket.user, @checkin.basket, :mode => 'list', :format => :js) }
       else
         @checkin.item = item
-
         if @checkin.save(:validate => false)
         # 速度を上げるためvalidationを省略している
           #flash[:message] << t('controller.successfully_created', :model => t('activerecord.models.checkin'))
           flash[:message] << t('checkin.successfully_checked_in', :model => t('activerecord.models.checkin'))
           message = @checkin.item_checkin(current_user, nil)
           flash[:message] << message if message
+          flash[:message] = t("checkin.overdue_item") if overdue = true
           format.html { redirect_to user_basket_checkins_url(@checkin.basket.user, @checkin.basket) }
           format.xml  { render :xml => @checkin, :status => :created, :location => user_basket_checkin_url(@checkin.basket.user, @checkin.basket, @checkin) }
-          format.js {
-            redirect_to user_basket_checkins_url(@checkin.basket.user, @checkin.basket, :mode => 'list', :format => :js)
-          }
+          format.js   { redirect_to user_basket_checkins_url(@checkin.basket.user, @checkin.basket, :mode => 'list', :format => :js) }
         else
           format.html { render :action => "new" }
           format.xml  { render :xml => @checkin.errors.to_xml }
-          format.js {
-            redirect_to user_basket_checkins_url(@basket.user, @basket, :mode => 'list', :format => :js)
-          }
+          format.js   { redirect_to user_basket_checkins_url(@basket.user, @basket, :mode => 'list', :format => :js) }
         end
       end
     end
