@@ -18,7 +18,7 @@ module ExpireEditableFragment
   end
 
   def expire_manifestation_cache(manifestation, fragments = [], formats = [])
-    fragments = %w[detail pickup book_jacket title picture_file show_list show_index] if fragments.size == 1 and fragments.first == 'detail'
+    fragments = %w[detail pickup title show_list show_index sru] if fragments.size == 1 and fragments.first == 'detail'
     expire_fragment(:controller => :manifestations, :action => :index, :page => 'numdocs')
     fragments.uniq.each do |fragment|
       expire_manifestation_fragment(manifestation, fragment, formats)
@@ -59,5 +59,4 @@ module ExpireEditableFragment
       end
     end
   end
-
 end
