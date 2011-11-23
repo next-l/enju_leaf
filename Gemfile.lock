@@ -16,7 +16,7 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_circulation.git
-  revision: e20f04e22f31ef87356344efd941e32ee0fc6493
+  revision: 0e7913e4baa1ba46bf7997e492380df448dd3001
   specs:
     enju_circulation (0.0.3)
       rails (~> 3.1.1)
@@ -150,6 +150,7 @@ GEM
     addressable (2.2.6)
     annotate (2.4.0)
     arel (2.2.1)
+    arrayfields (4.7.4)
     astrails-safe (0.2.7)
       aws-s3
       cloudfiles
@@ -166,16 +167,26 @@ GEM
     builder (3.0.0)
     cancan (1.6.7)
     chronic (0.3.0)
-    churn (0.0.13)
+    churn (0.0.15)
+      arrayfields (= 4.7.4)
       chronic (>= 0.2.3)
+      chronic (>= 0.2.3)
+      fattr (= 2.2.0)
+      hirb (= 0.5.0)
       hirb
+      jeweler (= 1.6.4)
+      json (= 1.6.1)
       json_pure
       main
-      ruby_parser (~> 2.0.4)
+      main (>= 4.6.0)
+      map (= 4.3.0)
+      ruby_parser (= 2.3.1)
+      ruby_parser (~> 2.3)
+      sexp_processor (= 3.0.7)
       sexp_processor (~> 3.0.3)
     client_side_validations (3.1.3)
-    cloudfiles (1.4.18)
-      mime-types (>= 1.16)
+    cloudfiles (1.5.0)
+      json
     cocaine (0.2.0)
     colored (1.2)
     configatron (2.8.4)
@@ -213,6 +224,7 @@ GEM
       sexp_processor (~> 3.0)
     friendly_id (4.0.0.beta14)
     geocoder (1.0.5)
+    git (1.2.5)
     guard (0.8.8)
       thor (~> 0.14.6)
     guard-rspec (0.5.5)
@@ -226,6 +238,10 @@ GEM
     inherited_resources (1.3.0)
       has_scope (~> 0.5.0)
       responders (~> 0.6.0)
+    jeweler (1.6.4)
+      bundler (~> 1.0)
+      git (>= 1.2.5)
+      rake
     jpmobile (2.0.4)
     jquery-rails (1.0.18)
       railties (~> 3.0)
@@ -239,6 +255,7 @@ GEM
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
     main (4.7.1)
+    map (4.3.0)
     marc (0.4.3)
     metric_fu (2.1.1)
       Saikuro (>= 1.1.0)
@@ -280,7 +297,7 @@ GEM
     progress_bar (0.4.0)
       highline (~> 1.6.1)
       options (~> 2.3.0)
-    progressbar (0.9.1)
+    progressbar (0.9.2)
     rack (1.3.5)
     rack-cache (1.1)
       rack (>= 0.4)
@@ -348,11 +365,11 @@ GEM
     ruby2ruby (1.3.1)
       ruby_parser (~> 2.0)
       sexp_processor (~> 3.0)
-    ruby_parser (2.0.6)
+    ruby_parser (2.3.1)
       sexp_processor (~> 3.0)
     sanitize (2.0.3)
       nokogiri (>= 1.4.4, < 1.6)
-    sexp_processor (3.0.8)
+    sexp_processor (3.0.7)
     simple_form (1.5.2)
       actionpack (~> 3.0)
       activemodel (~> 3.0)
