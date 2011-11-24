@@ -138,8 +138,8 @@ class UsersController < ApplicationController
       @user = User.new
       @user.library = current_user.library
       @user.locale = current_user.locale
-      @user.role_id = 2
-      @user.required_role_id = 3
+      @user.role_id = Role.where(:name => 'User').first.id
+      @user.required_role_id = Role.where(:name => 'Librarian').first.id
       @patron = Patron.new
       @patron.required_role = Role.find_by_name('Librarian')
       @patron.language = Language.where(:iso_639_1 => I18n.default_locale.to_s).first || Language.first 
@@ -191,9 +191,8 @@ class UsersController < ApplicationController
     begin
       Patron.transaction do
         @family = params[:family]
-        @user = User.create_with_params(params[:user], current_user)
+        @user = User.create_with_params(params[:user], params[:has_role_id])
         @user.set_auto_generated_password
-        @user.role = Role.where(:name => 'User').first
         @patron = Patron.create_with_user(params[:patron], @user)
 
         logger.info @patron
@@ -201,9 +200,7 @@ class UsersController < ApplicationController
 
         @patron.save!
         @user.patron = @patron
-        unless @family.blank?
-          @user.set_family(@family)
-        end
+        @user.set_family(@family) unless @family.blank?
         @user.save!
         flash[:notice] = t('controller.successfully_created.', :model => t('activerecord.models.user'))
         flash[:temporary_password] = @user.password

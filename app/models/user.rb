@@ -175,7 +175,7 @@ class User < ActiveRecord::Base
   end
 
   def set_role_and_patron
-    self.required_role = Role.find_by_name('Librarian')
+    #self.required_role = Role.find_by_name('Librarian')
 #    self.locale = I18n.default_locale.to_s
     unless self.patron
 #      self.patron = Patron.create(:full_name => self.username) if self.username
@@ -361,7 +361,7 @@ class User < ActiveRecord::Base
     end
   end
 
-  def self.create_with_params(params, current_user)
+  def self.create_with_params(params, has_role_id)
     user = User.new(params)
     user_group = UserGroup.find(params[:user_group_id])
     user.user_group = user_group if user_group
@@ -369,13 +369,24 @@ class User < ActiveRecord::Base
     library = Library.find(params[:library_id])
     user.library = library if library
     user.operator = current_user
-    if params[:user]
+    if params
       #self.username = params[:user][:login]
       user.note = params[:note]
       user.user_group_id = params[:user_group_id] ||= 1
       user.library_id = params[:library_id] ||= 1
-      user.role_id = params[:role_id] ||= 1
+     # user.role_id = params[:role_id] ||= 1
+      if !user.role_id.blank?
+        user.role_id = params[:role_id] ||= 1
+        user.role = Role.find(user.role_id)
+      elsif !has_role_id.blank?
+        user.role_id = has_role_id ||= 1
+        user.role = Role.find(has_role_id)
+      else
+        user.role_id = Role.where.(:name => 'User').first.id ||= 1
+        user.role = Role.where(:name => 'User').first
+      end
       user.required_role_id = params[:required_role_id] ||= 1
+      user.required_role = Role.find(user.required_role_id)
       user.keyword_list = params[:keyword_list]
       user.user_number = params[:user_number]
       user.locale = params[:locale]

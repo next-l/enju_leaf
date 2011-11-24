@@ -12,17 +12,27 @@ class ExportItemListsController < ApplicationController
     list_type = params[:export_item_list][:list_type]
     library_ids = params[:library]
     carrier_type_ids = params[:carrier_type]
+    logger.error "SQL start at #{Time.now}"
     case list_type.to_i
     when 1
-      logger.error "SQL start at: #{Time.now}"
       @items = Item.find(:all, :joins => [:manifestation, :shelf => :library], :conditions => {:shelves => {:libraries => {:id => library_ids}}, :manifestations => {:carrier_type_id => carrier_type_ids}}, :order => 'libraries.id, shelves.id')
-      logger.error "SQL end at: #{Time.now}"
-      logger.error "found: #{@items.length} records"
+      filename = t('item_list.shelf_list')
     when 2
+      @items = Item.find(:all, :joins => [:manifestation, :shelf => :library], :conditions => {:shelves => {:libraries => {:id => library_ids}}, :manifestations => {:carrier_type_id => carrier_type_ids}}, :order => 'items.call_number')
+      filename = t('item_list.call_number_list')
     when 3
+      @items = Item.find(:all, :joins => [:manifestation, :circulation_status, :shelf => :library], :conditions => {:shelves => {:libraries => {:id => library_ids}}, :manifestations => {:carrier_type_id => carrier_type_ids}, :items => {:circulation_statuses => {:name => "Removed"}}}, :order => 'libraries.id, manifestations.carrier_type_id, items.shelf_id, items.item_identifier, manifestations.original_title')
+      filename = t('item_list.removed_list')
     when 4
-    else
+      checkouts = Checkout.select(:item_id).map(&:item_id).uniq!
+      @items = Item.find(:all, :joins => [:manifestation, :shelf => :library], :conditions => {:shelves => {:libraries => {:id => library_ids}}, :manifestations => {:carrier_type_id => carrier_type_ids}}, :order => 'libraries.id, manifestations.carrier_type_id, items.shelf_id, items.item_identifier')
+      @items.delete_if{|item|checkouts.include?(item.id)}
+      filename = t('item_list.unused_list')
+    when 5
+      @items = Item.recent.find(:all, :joins => [:manifestation, :shelf => :library], :conditions => {:shelves => {:libraries => {:id => library_ids}}, :manifestations => {:carrier_type_id => carrier_type_ids}}, :order => 'libraries.id, manifestations.carrier_type_id, items.shelf_id, items.item_identifier, manifestations.original_title')
+      filename = t('item_list.new_item_list')
     end
+    logger.error "SQL end at #{Time.now}\nfound #{@items.length rescue 0} records"
     begin
       report = ThinReports::Report.new :layout => "#{Rails.root.to_s}/app/views/export_item_lists/item_list"
 
@@ -44,11 +54,12 @@ class ExportItemListsController < ApplicationController
           row.item(:shelf).value(item.shelf.display_name)
 #          row.item(:ndc)
           row.item(:item_identifier).value(item.item_identifier)
+          row.item(:call_number).value(item.call_number)
           row.item(:title).value(item.manifestation.original_title)
         end
       end
 
-      send_data report.generate, :filename => "item_list.pdf", :type => 'application/pdf', :disposition => 'attachment'
+      send_data report.generate, :filename => "#{filename}.pdf", :type => 'application/pdf', :disposition => 'attachment'
       logger.error "created report: #{Time.now}"
       return true
     rescue Exception => e
