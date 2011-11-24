@@ -2,6 +2,9 @@ source 'http://rubygems.org'
 
 gem 'rails', '3.0.10'
 
+#gem 'enju_scribd', :git => 'git://github.com/nabeta/enju_scribd.git'
+#gem 'enju_nii', :git => 'git://github.com/nabeta/enju_nii.git'
+
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
@@ -84,7 +87,7 @@ gem 'validates_timeliness'
 gem 'rack-protection'
 gem 'rails3_acts_as_paranoid'
 gem 'thinreports'
-gem "rmagick", '2.13.1'
+gem "rmagick", :require => false
 
 #gem 'oink', '>=0.9.2'
 group :development do

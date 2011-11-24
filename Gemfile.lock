@@ -416,7 +416,7 @@ DEPENDENCIES
   rails3_acts_as_paranoid
   recurrence
   ri_cal
-  rmagick (= 2.13.1)
+  rmagick
   rqrcode
   rspec-rails
   ruby-prof
