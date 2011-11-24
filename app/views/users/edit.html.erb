@@ -18,7 +18,7 @@
     <%- end -%>
     <li><%= link_to t('activerecord.attributes.user.show_user'), @user -%></li>
     <%- if current_user.has_role?('Librarian') -%>
-      <%- unless current_user == @user -%>
+      <%- if can? :destroy, @user -%>
         <li><%= link_to t('page.destroy'), @user, :confirm => t('page.are_you_sure'), :method => :delete -%></li>
       <%- end -%>
     <%- end -%>
