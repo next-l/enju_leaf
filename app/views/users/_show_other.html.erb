@@ -68,7 +68,9 @@
   <ul>
     <%- if current_user.has_role?('Librarian') -%>
       <%- if user.user_number? -%>
-        <li><%= link_to t('activerecord.models.checkout'), new_basket_path(:user_number => user.user_number) -%></li>
+        <%- if user.active_for_authentication? -%>
+          <li><%= link_to t('activerecord.models.checkout'), new_basket_path(:user_number => user.user_number) -%></li>
+        <%- end -%>
         <li><%= link_to t('activerecord.models.checkin'), checkins_path -%></li>
       <%- end -%>
     <%- end -%>

@@ -61,7 +61,9 @@
     </td>
     <td><%= l(user.created_at) if user.created_at -%></td>
     <td>
-      <%= link_to t('activerecord.models.checkout'), new_basket_path(:user_number => user.user_number) unless user.user_number.blank? -%>
+      <%- if user.active_for_authentication? -%>
+        <%= link_to t('activerecord.models.checkout'), new_basket_path(:user_number => user.user_number) unless user.user_number.blank? -%>
+      <%- end -%>
       <%= link_to t('activerecord.models.checkin'), checkins_path unless user.user_number.blank? -%>
       <br />
       (<%= link_to t('page.checkout_history'), user_checkouts_path(user) -%>)
