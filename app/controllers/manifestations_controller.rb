@@ -604,7 +604,7 @@ class ManifestationsController < ApplicationController
     @roles = Role.all
     @languages = Language.all_cache
     @frequencies = Frequency.all
-    @nii_types = NiiType.all
+    @nii_types = NiiType.all if defined?(NiiType)
   end
 
   def save_search_history(query, offset = 0, total = 0, user = nil)

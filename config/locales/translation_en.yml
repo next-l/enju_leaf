@@ -342,6 +342,10 @@ en:
         disp_user_info: Show user information
         show_user: Show user
         unabel: Unabel
+        locked_yes: Possible
+        locked_no: Impossible
+        unable_yes: Possible
+        unable_no: Impossible
       work_has_subject:
         work: Work
         subject: Subject
