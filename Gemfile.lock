@@ -120,7 +120,7 @@ GIT
 
 GIT
   remote: git://github.com/swanandp/acts_as_list.git
-  revision: e0e8daa16e9864d4e5e1ee1db21332cf69f0eab5
+  revision: 7fd29b74eec9327a3d2a3033e1ca249ba04fc7e5
   specs:
     acts_as_list (0.1.4)
 
@@ -221,7 +221,7 @@ GEM
     execjs (1.2.9)
       multi_json (~> 1.0)
     extractcontent (0.0.1)
-    factory_girl (2.3.0)
+    factory_girl (2.3.1)
       activesupport
     factory_girl_rails (1.4.0)
       factory_girl (~> 2.3.0)

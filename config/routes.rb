@@ -1,4 +1,10 @@
 EnjuLeaf::Application.routes.draw do
+  resources :produce_types
+
+  resources :realize_types
+
+  resources :create_types
+
   devise_for :users, :path => 'accounts'
 
   resource :my_account

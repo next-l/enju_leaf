@@ -12,3 +12,4 @@
 //= require portlets
 //= require tab_view
 //= require event_calendar
+//= require rails.validations
