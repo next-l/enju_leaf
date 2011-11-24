@@ -300,6 +300,11 @@ div#item_list_carrier_type{
   width: 200px;
 }
 
+div#item_list_ndc{
+  float: left;
+  text_align: left;
+}
+
 div#footer{
   padding-top: 5px;
   padding-left: 2px;

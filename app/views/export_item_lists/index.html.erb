@@ -1,6 +1,7 @@
 <div id="content_detail" class="ui-corner-all">
 <h1 class="title"><%= t('page.output', :model => t('activerecord.models.export_item_list')) -%></h1>
 <div id="content_list">
+<div style="color: green"><%= flash[:message] -%></div>
 <%= form_for(:export_item_list, :url => {:controller => 'export_item_lists', :action => :create}, :html => {:multipart => true, :method => :create}) do |f| -%>
   <div class="field">
     <%= label :list_type, t('activerecord.attributes.item_list.list_type')-%>: 
@@ -20,6 +21,10 @@
     <%- @carrier_types.each do |carrier_type| -%>
       <%= check_box_tag "carrier_type[]", carrier_type.id, true, :class => 'carrier_type' -%><%= carrier_type.display_name.localize -%><br />
     <%- end -%>
+    </div>
+    <div id="item_list_ndc">
+    <%= t('item_list.ndc') -%> <%= t('item_list.ndc_message') -%><br />
+    <%= text_field_tag :ndc, @ndc rescue "" -%>
     </div>
   </div>
 

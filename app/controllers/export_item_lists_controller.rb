@@ -12,10 +12,36 @@ class ExportItemListsController < ApplicationController
     list_type = params[:export_item_list][:list_type]
     library_ids = params[:library]
     carrier_type_ids = params[:carrier_type]
+
+    ndc_str = params[:ndc]
+    unless ndc_str.nil? 
+      ndcs = ndc_str.gsub!(' ', '').split(",")
+      ndcs.each do |ndc|
+        unless ndc =~ /^\d{3}$/
+          logger.error ndc
+          flash[:message] = t('item_list.invalid_ndc')
+          @ndc = ndc_str
+          @list_types = [[t('item_list.shelf_list'),1],
+                   [t('item_list.call_number_list'), 2],
+                   [t('item_list.removed_list'), 3],
+                   [t('item_list.unused_list'), 4],
+                   [t('item_list.new_item_list'), 5]]
+          @libraries = Library.all
+          @carrier_types = CarrierType.all
+          render :index
+          return false
+        end
+      end
+    end
+
     logger.error "SQL start at #{Time.now}"
     case list_type.to_i
     when 1
-      @items = Item.find(:all, :joins => [:manifestation, :shelf => :library], :conditions => {:shelves => {:libraries => {:id => library_ids}}, :manifestations => {:carrier_type_id => carrier_type_ids}}, :order => 'libraries.id, shelves.id')
+      query = ""
+      ndcs.each {|ndc| query += "items.call_number LIKE '#{ndc}%' OR "}
+      query.gsub!(/OR\s$/, "AND ")
+      query += "libraries.id IN (#{library_ids.join(',')}) AND manifestations.carrier_type_id IN (#{carrier_type_ids.join(',')})"
+      @items = Item.find(:all, :joins => [:manifestation, :shelf => :library], :conditions => query, :order => 'libraries.id, manifestations.carrier_type_id, shelves.id, items.call_number')
       filename = t('item_list.shelf_list')
     when 2
       @items = Item.find(:all, :joins => [:manifestation, :shelf => :library], :conditions => {:shelves => {:libraries => {:id => library_ids}}, :manifestations => {:carrier_type_id => carrier_type_ids}}, :order => 'items.call_number')
@@ -47,15 +73,16 @@ class ExportItemListsController < ApplicationController
       
       report.start_new_page
       report.page.item(:date).value(Time.now)
+      report.page.item(:list_name).value(filename)
       @items.each do |item|
         report.page.list(:list).add_row do |row|
-          row.item(:library).value(item.shelf.library.display_name.localize)
-          row.item(:carrier_type).value(item.manifestation.carrier_type.display_name.localize)
-          row.item(:shelf).value(item.shelf.display_name)
-#          row.item(:ndc)
+          row.item(:library).value(item.shelf.library.display_name.localize) if item.shelf && item.shelf.library
+          row.item(:carrier_type).value(item.manifestation.carrier_type.display_name.localize) if item.manifestation && item.manifestation.carrier_type
+          row.item(:shelf).value(item.shelf.display_name) if item.shelf
+          row.item(:ndc).value(item.call_number)
           row.item(:item_identifier).value(item.item_identifier)
           row.item(:call_number).value(item.call_number)
-          row.item(:title).value(item.manifestation.original_title)
+          row.item(:title).value(item.manifestation.original_title) if item.manifestation
         end
       end
 
