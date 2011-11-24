@@ -2,7 +2,7 @@ class ExportItemListsController < ApplicationController
   def index
     @list_types = [[t('item_list.shelf_list'),1],
                    [t('item_list.call_number_list'), 2],
-#                   [t('item_list.removed_list'), 3],
+                   [t('item_list.removed_list'), 3],
                    [t('item_list.unused_list'), 4],
                    [t('item_list.new_item_list'), 5]]
     @libraries = Library.all
@@ -21,6 +21,7 @@ class ExportItemListsController < ApplicationController
       @items = Item.find(:all, :joins => [:manifestation, :shelf => :library], :conditions => {:shelves => {:libraries => {:id => library_ids}}, :manifestations => {:carrier_type_id => carrier_type_ids}}, :order => 'items.call_number')
       filename = t('item_list.call_number_list')
     when 3
+      @items = Item.find(:all, :joins => [:manifestation, :circulation_status, :shelf => :library], :conditions => {:shelves => {:libraries => {:id => library_ids}}, :manifestations => {:carrier_type_id => carrier_type_ids}, :items => {:circulation_statuses => {:name => "Removed"}}}, :order => 'libraries.id, manifestations.carrier_type_id, items.shelf_id, items.item_identifier, manifestations.original_title')
       filename = t('item_list.removed_list')
     when 4
       checkouts = Checkout.select(:item_id).map(&:item_id).uniq!

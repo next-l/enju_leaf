@@ -97,3 +97,9 @@ circulation_status_00014:
   id: 14
   note: ""
   position: 14
+circulation_status_00015:
+  name: Removed
+  display_name: "en:Removed\r\n\
+    ja:除籍"
+  id: 15
+  position: 15
