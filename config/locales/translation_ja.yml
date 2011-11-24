@@ -360,6 +360,10 @@ ja:
         disp_user_info: 利用者情報を表示する
         show_user: 利用者の表示
         unable: 連絡不能
+        locked_yes: 可能
+        locked_no: 不能
+        unable_yes: 可能
+        unable_no: 不能
       work_has_subject:
         work: 書いた資料
         subject: 件名
