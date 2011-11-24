@@ -564,7 +564,7 @@ class Manifestation < ActiveRecord::Base
   end
 
   def last_checkout_datetime
-     Manifestation.find(:last, :include => [:items, :items => :checkouts], :conditions => {:manifestations => {:id => self.id}}, :order => 'items.created_at DESC').items.first.checkouts.first.created_at
+    Manifestation.find(:last, :include => [:items, :items => :checkouts], :conditions => {:manifestations => {:id => self.id}}, :order => 'items.created_at DESC').items.first.checkouts.first.created_at rescue nil
   end
 
   def reserve_count(type)
