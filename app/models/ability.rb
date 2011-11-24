@@ -134,7 +134,6 @@ class Ability
         License,
         MediumOfPerformance,
         MessageTemplate,
-        NiiType,
         PatronType,
         RequestStatusType,
         RequestType,
@@ -279,7 +278,6 @@ class Ability
         ManifestationRelationshipType,
         MediumOfPerformance,
         MessageTemplate,
-        NiiType,
         PatronImportResult,
         PatronRelationshipType,
         PatronType,
@@ -404,7 +402,6 @@ class Ability
         ManifestationCheckoutStat,
         ManifestationReserveStat,
         MediumOfPerformance,
-        NiiType,
         Own,
         PatronRelationship,
         PatronRelationshipType,
@@ -461,7 +458,6 @@ class Ability
         ManifestationRelationshipType,
         ManifestationReserveStat,
         MediumOfPerformance,
-        NiiType,
         Own,
         PatronRelationship,
         PatronRelationshipType,
@@ -480,6 +476,15 @@ class Ability
         UserReserveStat,
         WorkHasSubject
       ]
+    end
+
+    if defined?(EnjuNii)
+      case user.try(:role).try(:name)
+      when 'Administrator'
+        can [:read, :update], NiiType
+      else
+        can :read, NiiType
+      end
     end
   end
 end
