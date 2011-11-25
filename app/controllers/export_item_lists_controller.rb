@@ -1,12 +1,6 @@
 class ExportItemListsController < ApplicationController
   def index
-    @list_types = [[t('item_list.shelf_list'),1],
-                   [t('item_list.call_number_list'), 2],
-                   [t('item_list.removed_list'), 3],
-                   [t('item_list.unused_list'), 4],
-                   [t('item_list.new_item_list'), 5]]
-    @libraries = Library.all
-    @carrier_types = CarrierType.all
+    prepare_options
   end
 
   def create
@@ -22,13 +16,7 @@ class ExportItemListsController < ApplicationController
           logger.error ndc
           flash[:message] = t('item_list.invalid_ndc')
           @ndc = ndc_str
-          @list_types = [[t('item_list.shelf_list'),1],
-                   [t('item_list.call_number_list'), 2],
-                   [t('item_list.removed_list'), 3],
-                   [t('item_list.unused_list'), 4],
-                   [t('item_list.new_item_list'), 5]]
-          @libraries = Library.all
-          @carrier_types = CarrierType.all
+          prepare_options
           render :index
           return false
         end
@@ -64,6 +52,15 @@ class ExportItemListsController < ApplicationController
       filename = t('item_list.new_item_list')
     end
     logger.error "SQL end at #{Time.now}\nfound #{@items.length rescue 0} records"
+
+    if @items.blank?
+      flash[:message] = t('item_list.no_record')
+      @ndc = ndc_str
+      prepare_options
+      render :index
+      return false
+    end
+
     begin
       report = ThinReports::Report.new :layout => "#{Rails.root.to_s}/app/views/export_item_lists/item_list"
 
@@ -98,5 +95,15 @@ class ExportItemListsController < ApplicationController
       logger.error "failed #{e}"
       return false
     end
+  end
+
+  def prepare_options
+    @list_types = [[t('item_list.shelf_list'),1],
+                   [t('item_list.call_number_list'), 2],
+                   [t('item_list.removed_list'), 3],
+                   [t('item_list.unused_list'), 4],
+                   [t('item_list.new_item_list'), 5]]
+    @libraries = Library.all
+    @carrier_types = CarrierType.all
   end
 end
