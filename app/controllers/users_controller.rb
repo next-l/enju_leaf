@@ -210,9 +210,9 @@ class UsersController < ApplicationController
       end
     rescue ActiveRecord::RecordInvalid
       prepare_options
-      @patron.errors.each do |e|
-          @user.errors.add(e)
-      end
+      @patron.errors.each do |attr, msg|
+        @user.errors.add(attr, msg)
+      end 
 #      flash[:error] = t('user.could_not_setup_account')
       format.html { render :action => "new" }
       format.xml  { render :xml => @user.errors, :status => :unprocessable_entity }

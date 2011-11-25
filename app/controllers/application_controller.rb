@@ -15,7 +15,7 @@ class ApplicationController < ActionController::Base
 
   private
   def render_403
-    debugger
+    #debugger
     return if performed?
     if user_signed_in?
       respond_to do |format|
@@ -376,7 +376,7 @@ class ApplicationController < ActionController::Base
   end
 
   def current_ability
-    debugger
+    #debugger
     @current_ability ||= Ability.new(current_user, request.remote_ip)
   end
 

@@ -221,6 +221,7 @@ ja:
         full_name: フルネーム
         full_name_transcription: フルネーム（ヨミ）
         full_name_alternative: フルネーム代替
+        full_name_note: 未入力の場合、保存時に自動的に 姓＋" "＋名 が設定されます。
         deleted_at: 削除時刻
         zip_code_1: 郵便番号1
         zip_code_2: 郵便番号2
@@ -1450,7 +1451,7 @@ ja:
     owner: "所有者"
     last_update_at: 最終更新日時
     last_update_by: 更新者 
-    duplicate_user: "同じフルネーム、電話番号１、生年月日の人が既に登録されています。"
+    duplicate_user: "同じフルネーム(ヨミ)、電話番号１ー１、生年月日の人が既に登録されています。"
   message:
     user_message: "%{login_name} さんのメッセージ"
     sent_at: "送信時刻"

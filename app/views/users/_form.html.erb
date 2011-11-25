@@ -17,6 +17,7 @@
       <%- end -%>
     </span>
     <%= f.label :full_name -%><br />
+    <span id="annotation"><%= t('activerecord.attributes.patron.full_name_note') -%></span><br />
     <%= f.text_field :full_name, :class => 'resource_title' -%><br />
     <%= f.label :full_name_transcription -%><br />
     <%= f.text_field :full_name_transcription, :class => 'resource_title' -%><br />
