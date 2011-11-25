@@ -1451,7 +1451,7 @@ ja:
     owner: "所有者"
     last_update_at: 最終更新日時
     last_update_by: 更新者 
-    duplicate_user: "同じフルネーム(ヨミ)、電話番号１、生年月日の人が既に登録されています。"
+    duplicate_user: "同じフルネーム(ヨミ)、電話番号１ー１、生年月日の人が既に登録されています。"
   message:
     user_message: "%{login_name} さんのメッセージ"
     sent_at: "送信時刻"
