@@ -1780,3 +1780,5 @@ ja:
     all_carrier_type: 全ての資料の形態
     shelf: 保管場所
     ndc: NDC
+    ndc_message: "(入力すると該当資料のみ出力します。)"
+    invalid_ndc: "不正なNDCが指定されています。\nXXX3桁の英数字を指定してください。"

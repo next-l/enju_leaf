@@ -189,7 +189,7 @@ class Ability
       end
       can [:read, :create, :update], User
       can :destroy, User do |u|
-        u.checkouts.not_returned.empty? and u.role.name == 'User' and u != user
+        u.checkouts.not_returned.empty? and (u.role.name == 'User' || u.role.name == 'Guest') and u != user
       end
       can [:read, :create, :update], UserCheckoutStat
       can [:read, :create, :update], UserReserveStat

@@ -375,7 +375,7 @@ class User < ActiveRecord::Base
       user.user_group_id = params[:user_group_id] ||= 1
       user.library_id = params[:library_id] ||= 1
      # user.role_id = params[:role_id] ||= 1
-      if !user.role_id.blank?
+      if !params[:role_id].blank? and has_role_id.blank?
         user.role_id = params[:role_id] ||= 1
         user.role = Role.find(user.role_id)
       elsif !has_role_id.blank?
@@ -397,7 +397,7 @@ class User < ActiveRecord::Base
     user
   end
 
-  def update_with_params(params, current_user)
+  def update_with_params(params)
     self.operator = current_user
     #self.username = params[:login]
     self.openid_identifier = params[:openid_identifier]

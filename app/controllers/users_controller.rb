@@ -226,7 +226,7 @@ class UsersController < ApplicationController
     respond_to do |format|
     begin
       @family = params[:family]
-      @user.update_with_params(params[:user], current_user)
+      @user.update_with_params(params[:user])
       if params[:user][:auto_generated_password] == "1"
         @user.set_auto_generated_password
         flash[:temporary_password] = @user.password
