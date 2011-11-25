@@ -5,5 +5,5 @@ barcode_list_00001:
   usage_type:
   barcode_type: 'Code128B'
   barcode_prefix: 'S'
-  print_number: 30
+  printed_number: 30
   last_number: 0
