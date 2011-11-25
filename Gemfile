@@ -62,7 +62,7 @@ gem 'isbn-tools', :git => 'git://github.com/nabeta/isbn-tools.git', :require => 
 gem 'attribute_normalizer'
 gem 'configatron'
 gem 'extractcontent'
-gem 'cancan', '>= 1.6.5'
+gem 'cancan', '>= 1.6.7'
 gem 'scribd_fu'
 gem 'devise', '~> 1.4'
 gem 'omniauth', '>= 0.2.6'

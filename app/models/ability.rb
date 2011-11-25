@@ -28,7 +28,6 @@ class Ability
       can :destroy, Manifestation do |manifestation|
         manifestation.items.empty? and !manifestation.is_reserved?
       end
-      can [:read, :update, :destroy], MessageRequest
       can [:read, :create, :update], Patron
       can :destroy, Patron do |patron|
         if patron.user
@@ -81,7 +80,6 @@ class Ability
         ManifestationRelationship,
         ManifestationRelationshipType,
         ManifestationReserveStat,
-        Message,
         Order,
         OrderList,
         Own,
@@ -133,7 +131,6 @@ class Ability
         LibraryGroup,
         License,
         MediumOfPerformance,
-        MessageTemplate,
         PatronType,
         RequestStatusType,
         RequestType,
@@ -163,14 +160,6 @@ class Ability
       can :destroy, Manifestation do |manifestation|
         manifestation.items.empty? and !manifestation.is_reserved?
       end
-      can [:index, :new, :create], Message
-      can [:update], Message do |message|
-        message.sender == user
-      end
-      can [:show, :destroy, :delete, :destroy_selected], Message do |message|
-        message.receiver == user
-      end
-      can [:read, :update, :destroy], MessageRequest
       can [:index, :create], Patron
       can :show, Patron do |patron|
         patron.required_role_id <= 3
@@ -277,7 +266,6 @@ class Ability
         License,
         ManifestationRelationshipType,
         MediumOfPerformance,
-        MessageTemplate,
         PatronImportResult,
         PatronRelationshipType,
         PatronType,
@@ -326,16 +314,6 @@ class Ability
         manifestation.required_role_id <= 2
       end
       can :edit, Manifestation
-      can [:read, :destroy, :delete, :destroy_selected], Message do |message|
-        message.receiver == user
-      end
-      can [:index, :new, :create], Message
-      can [:update], Message do |message|
-        message.sender == user
-      end
-      can [:show, :destroy, :delete, :destroy_selected], Message do |message|
-        message.receiver == user
-      end
       can [:index, :create], Question
       can [:update, :destroy], Question do |question|
         question.user == user
@@ -476,6 +454,34 @@ class Ability
         UserReserveStat,
         WorkHasSubject
       ]
+    end
+
+    #if defined?(EnjuMessage)
+    if defined?(Message)
+      case user.try(:role).try(:name)
+      when 'Administrator'
+        can :manage, Message
+        can [:read, :update, :destroy], MessageRequest
+        can [:read, :update], MessageTemplate
+      when 'Librarian'
+        can [:index, :create], Message
+        can [:update], Message do |message|
+          message.sender == user
+        end
+        can [:show, :destroy], Message do |message|
+          message.receiver == user
+        end
+        can [:read, :update, :destroy], MessageRequest
+        can :read, MessageTemplate
+      when 'User'
+        can [:read, :destroy], Message do |message|
+          message.receiver == user
+        end
+        can :index, Message
+        can :show, Message do |message|
+          message.receiver == user
+        end
+      end
     end
 
     if defined?(EnjuNii)
