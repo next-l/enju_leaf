@@ -1,6 +1,7 @@
 class PrintLabelsController < ApplicationController
   before_filter :check_client_ip_address
-#  load_and_authorize_resource
+  #TODO
+  #load_and_authorize_resource
 
   def index
     if user_signed_in?
@@ -12,14 +13,21 @@ class PrintLabelsController < ApplicationController
   end
 
   def get_user_label
-    user_ids = params[:users]
-    report = ThinReports::Report.new :layout => "#{Rails.root.to_s}/app/views/print_labels/patron_label"
-    user_ids.each do |user_id|
-      user = User.find(user_id)
-      report.start_new_page
-      report.page.item(:full_name).value(user.patron.full_name) if user && user.patron
+    if params[:users]
+      user_ids = params[:users]
+      report = ThinReports::Report.new :layout => "#{Rails.root.to_s}/app/views/print_labels/patron_label"
+      user_ids.each do |user_id|
+        user = User.find(user_id)
+        report.start_new_page
+        report.page.item(:full_name).value(user.patron.full_name) if user && user.patron
+      end
+      send_data report.generate, :filename => "users.pdf", :type => 'application/pdf', :disposition => 'attachment'
+      return
     end
-    send_data report.generate, :filename => "users.pdf", :type => 'application/pdf', :disposition => 'attachment'
+    debugger
+    user_list(params)
+    flash[:error] = t('print_label.nousers')
+    render :action => "index"
   end
 
   def search_user

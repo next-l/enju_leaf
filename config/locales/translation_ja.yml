@@ -1339,7 +1339,7 @@ ja:
     checkout_report: 貸出状況表
     reserve_report: 予約状況表
     statistic_report: 利用統計
-   
+
   title:
     index: "一覧"
     show: "表示"
@@ -1768,6 +1768,7 @@ ja:
   print_label:
     users: ラベルを作成する利用者
     submit: ラベルを作成
+    nousers: 利用者が選択されていません。
   item_list:
     list_type: リストタイプ
     shelf_list: 保管場所資料リスト
