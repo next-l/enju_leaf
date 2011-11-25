@@ -68,26 +68,6 @@ private
     query = "#{query} date_of_birth_d: [#{date_of_birth} TO #{date_of_birth_end}]" unless date_of_birth.blank?
     query = "#{query} address_text: #{address}" unless address.blank?
 
-    # TODO need refactoring
-    exclude_ids = []
-    family_users = FamilyUser.all
-    family_users.each do |family_user|
-      exclude_ids << family_user.user_id
-    end
-
-    logger.info "family=#{exclude_ids.join(' ')}"
-
-    s = ""
-    unless exclude_ids.empty?
-      exclude_ids.each do |x|
-        s.concat(" id_i:#{x} OR")
-      end
-      s.chomp!("OR")
-      query = "#{query} NOT (#{s})"
-    end
-
-    logger.info "query: #{query}"
-
     @users = User.search do
       fulltext query
       order_by sort[:sort_by], sort[:order]
