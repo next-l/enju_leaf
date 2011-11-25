@@ -379,7 +379,7 @@ class StatisticReportsController < ApplicationController
 
   def get_daily_report
     term = params[:term]
-    unless term =~ /^\d{6}$/
+    unless term =~ /^\d{6}$/ && month_term?(term)
       flash[:message] = t('statistic_report.invalid_month')
       @year = Time.zone.now.years_ago(1).strftime("%Y")
       @month = term
@@ -426,12 +426,12 @@ class StatisticReportsController < ApplicationController
           row.item(:library).value(t('statistic_report.all_library'))
           if start_date != 27
             13.times do |t|
-              value = Statistic.where(:yyyymmdd => "#{term.to_i + 1}#{"%02d" % (t + start_date)}", :data_type => 2220, :library_id => 0).first.value rescue 0
+              value = Statistic.where(:yyyymmdd => "#{term.to_i}#{"%02d" % (t + start_date)}", :data_type => 2220, :library_id => 0).first.value rescue 0
               row.item("value##{t+1}").value(value)
             end
           else
             5.times do |t|
-              value = Statistic.where(:yyyymmdd => "#{term.to_i + 1}#{"%02d" % (t + start_date)}", :data_type => 2220, :library_id => 0).first.value rescue 0
+              value = Statistic.where(:yyyymmdd => "#{term.to_i}#{"%02d" % (t + start_date)}", :data_type => 2220, :library_id => 0).first.value rescue 0
               row.item("value##{t+1}").value(value)
             end
             sum = 0
@@ -448,12 +448,12 @@ class StatisticReportsController < ApplicationController
             row.item(:library).value(library.display_name)
             if start_date != 27
               13.times do |t|
-                value = Statistic.where(:yyyymmdd => "#{term.to_i + 1}#{"%02d" % (t + start_date)}", :data_type => 2220, :library_id => library.id).first.value rescue 0
+                value = Statistic.where(:yyyymmdd => "#{term.to_i}#{"%02d" % (t + start_date)}", :data_type => 2220, :library_id => library.id).first.value rescue 0
                 row.item("value##{t+1}").value(value)
               end
             else
               5.times do |t|
-                value = Statistic.where(:yyyymmdd => "#{term.to_i + 1}#{"%02d" % (t + start_date)}", :data_type => 2220, :library_id => 0).first.value rescue 0
+                value = Statistic.where(:yyyymmdd => "#{term.to_i}#{"%02d" % (t + start_date)}", :data_type => 2220, :library_id => 0).first.value rescue 0
                 row.item("value##{t+1}").value(value)
               end
               sum = 0
@@ -471,12 +471,12 @@ class StatisticReportsController < ApplicationController
           row.item(:library).value(t('statistic_report.all_library'))
           if start_date != 27
             13.times do |t|
-              value = Statistic.where(:yyyymmdd => "#{term.to_i + 1}#{"%02d" % (t + start_date)}", :data_type => 2210, :library_id => 0).first.value rescue 0
+              value = Statistic.where(:yyyymmdd => "#{term.to_i}#{"%02d" % (t + start_date)}", :data_type => 2210, :library_id => 0).first.value rescue 0
               row.item("value##{t+1}").value(value)
             end
           else
             5.times do |t|
-              value = Statistic.where(:yyyymmdd => "#{term.to_i + 1}#{"%02d" % (t + start_date)}", :data_type => 2210, :library_id => 0).first.value rescue 0
+              value = Statistic.where(:yyyymmdd => "#{term.to_i}#{"%02d" % (t + start_date)}", :data_type => 2210, :library_id => 0).first.value rescue 0
               row.item("value##{t+1}").value(value)
             end
             sum = 0
@@ -493,12 +493,12 @@ class StatisticReportsController < ApplicationController
             row.item(:library).value(library.display_name)
             if start_date != 27
               13.times do |t|
-                value = Statistic.where(:yyyymmdd => "#{term.to_i + 1}#{"%02d" % (t + start_date)}", :data_type => 2210, :library_id => library.id).first.value rescue 0
+                value = Statistic.where(:yyyymmdd => "#{term.to_i}#{"%02d" % (t + start_date)}", :data_type => 2210, :library_id => library.id).first.value rescue 0
                 row.item("value##{t+1}").value(value)
               end
             else
               5.times do |t|
-                value = Statistic.where(:yyyymmdd => "#{term.to_i + 1}#{"%02d" % (t + start_date)}", :data_type => 2210, :library_id => library.id).first.value rescue 0
+                value = Statistic.where(:yyyymmdd => "#{term.to_i}#{"%02d" % (t + start_date)}", :data_type => 2210, :library_id => library.id).first.value rescue 0
                 row.item("value##{t+1}").value(value)
               end
               sum = 0
@@ -516,12 +516,12 @@ class StatisticReportsController < ApplicationController
           row.item(:library).value(t('statistic_report.all_library'))
           if start_date != 27
             13.times do |t|
-              value = Statistic.where(:yyyymm => "#{term.to_i + 1}#{"%02d" % (t + start_date)}", :data_type => 2330, :library_id => 0).first.value rescue 0
+              value = Statistic.where(:yyyymm => "#{term.to_i}#{"%02d" % (t + start_date)}", :data_type => 2330, :library_id => 0).first.value rescue 0
               row.item("value##{t+1}").value(value)
             end
           else  
             5.times do |t|
-              value = Statistic.where(:yyyymmdd => "#{term.to_i + 1}#{"%02d" % (t + start_date)}", :data_type => 2330, :library_id => 0).first.value rescue 0
+              value = Statistic.where(:yyyymmdd => "#{term.to_i}#{"%02d" % (t + start_date)}", :data_type => 2330, :library_id => 0).first.value rescue 0
               row.item("value##{t+1}").value(value)
             end
             sum = 0
@@ -538,12 +538,12 @@ class StatisticReportsController < ApplicationController
             row.item(:library).value(library.display_name)
             if start_date != 27
               13.times do |t|
-                value = Statistic.where(:yyyymm => "#{term.to_i + 1}#{"%02d" % (t + start_date)}", :data_type => 2330, :library_id => library.id).first.value rescue 0
+                value = Statistic.where(:yyyymm => "#{term.to_i}#{"%02d" % (t + start_date)}", :data_type => 2330, :library_id => library.id).first.value rescue 0
                 row.item("value##{t+1}").value(value)
               end
             else  
               5.times do |t|
-                value = Statistic.where(:yyyymmdd => "#{term.to_i + 1}#{"%02d" % (t + start_date)}", :data_type => 2330, :library_id => library.id).first.value rescue 0
+                value = Statistic.where(:yyyymmdd => "#{term.to_i}#{"%02d" % (t + start_date)}", :data_type => 2330, :library_id => library.id).first.value rescue 0
                 row.item("value##{t+1}").value(value)
               end
               sum = 0
@@ -561,12 +561,12 @@ class StatisticReportsController < ApplicationController
           row.item(:library).value(t('statistic_report.all_library'))
           if start_date != 27
             13.times do |t|
-              value = Statistic.where(:yyyymm => "#{term.to_i + 1}#{"%02d" % (t + start_date)}", :data_type => 2430, :library_id => 0).first.value rescue 0
+              value = Statistic.where(:yyyymm => "#{term.to_i}#{"%02d" % (t + start_date)}", :data_type => 2430, :library_id => 0).first.value rescue 0
               row.item("value##{t+1}").value(value)
             end  
           else
             5.times do |t|
-              value = Statistic.where(:yyyymmdd => "#{term.to_i + 1}#{"%02d" % (t + start_date)}", :data_type => 2430, :library_id => 0).first.value rescue 0
+              value = Statistic.where(:yyyymmdd => "#{term.to_i}#{"%02d" % (t + start_date)}", :data_type => 2430, :library_id => 0).first.value rescue 0
               row.item("value##{t+1}").value(value)
             end
             sum = 0              
@@ -583,12 +583,12 @@ class StatisticReportsController < ApplicationController
             row.item(:library).value(library.display_name)
             if start_date != 27
               13.times do |t|
-                value = Statistic.where(:yyyymm => "#{term.to_i + 1}#{"%02d" % (t + start_date)}", :data_type => 2430, :library_id => library.id).first.value rescue 0
+                value = Statistic.where(:yyyymm => "#{term.to_i}#{"%02d" % (t + start_date)}", :data_type => 2430, :library_id => library.id).first.value rescue 0
                 row.item("value##{t+1}").value(value)
               end  
             else
               5.times do |t|
-                value = Statistic.where(:yyyymmdd => "#{term.to_i + 1}#{"%02d" % (t + start_date)}", :data_type => 2430, :library_id => library.id).first.value rescue 0
+                value = Statistic.where(:yyyymmdd => "#{term.to_i}#{"%02d" % (t + start_date)}", :data_type => 2430, :library_id => library.id).first.value rescue 0
                 row.item("value##{t+1}").value(value)
               end
               sum = 0
@@ -617,7 +617,7 @@ class StatisticReportsController < ApplicationController
     start_at = params[:start_at]
     end_at = params[:end_at]
     end_at = start_at if end_at.empty?
-    unless (start_at =~ /^\d{6}$/ && end_at =~ /^\d{6}$/) && start_at.to_i <= end_at.to_i 
+    unless (start_at =~ /^\d{6}$/ && end_at =~ /^\d{6}$/) && start_at.to_i <= end_at.to_i && month_term?(start_at) && month_term?(end_at)
       flash[:message] = t('statistic_report.invalid_month')
       @year = Time.zone.now.months_ago(1).strftime("%Y")
       @month = Time.zone.now.months_ago(1).strftime("%Y%m")
@@ -803,7 +803,7 @@ class StatisticReportsController < ApplicationController
     start_at = params[:start_at]
     end_at = params[:end_at]
     end_at = start_at if end_at.empty?
-    unless (start_at =~ /^\d{6}$/ && end_at =~ /^\d{6}$/) && start_at.to_i <= end_at.to_i 
+    unless (start_at =~ /^\d{6}$/ && end_at =~ /^\d{6}$/) && start_at.to_i <= end_at.to_i && month_term?(start_at) && month_term?(end_at)
       flash[:message] = t('statistic_report.invalid_month')
       @year = Time.zone.now.months_ago(1).strftime("%Y")
       @month = Time.zone.now.months_ago(1).strftime("%Y%m")
@@ -978,6 +978,15 @@ class StatisticReportsController < ApplicationController
       return true
     rescue Exception => e
       logger.error "failed #{e}"
+      return false
+    end
+  end
+
+  def month_term?(term)
+    begin 
+      Time.parse("#{term}01")
+      return true
+    rescue ArgumentError
       return false
     end
   end
