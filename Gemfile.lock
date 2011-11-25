@@ -16,18 +16,20 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_circulation.git
-  revision: 0e7913e4baa1ba46bf7997e492380df448dd3001
+  revision: de378ba822ca55a91614a851ef11b35c963da60b
   specs:
     enju_circulation (0.0.3)
-      rails (~> 3.1.1)
+      rails (~> 3.1.3)
+      simple_form
 
 GIT
   remote: git://github.com/nabeta/enju_event.git
-  revision: 24a5717697527504c0e1f9b569b0118bbd135d19
+  revision: 60cda40ef679f9a9083974b9c8b8b0ce20396c9a
   specs:
     enju_event (0.0.2)
       event-calendar (~> 2.3.3)
-      rails (~> 3.1.1)
+      rails (~> 3.1.3)
+      simple_form
 
 GIT
   remote: git://github.com/nabeta/enju_inventory.git
@@ -66,10 +68,11 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_question.git
-  revision: b519e592d9c6b88fecbebf4297fde53fefe02245
+  revision: 7abb855ccf2d9ac3bad38e15686bc69a164dca54
   specs:
     enju_question (0.0.2)
-      rails (~> 3.1.1)
+      rails (~> 3.1.3)
+      simple_form
 
 GIT
   remote: git://github.com/nabeta/enju_resource_merge.git

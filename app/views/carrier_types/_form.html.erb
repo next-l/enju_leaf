@@ -1,5 +1,5 @@
-<%= form_for(@carrier_type) do |f| %>
-  <%= f.error_messages %>
+<%= simple_form_for(@carrier_type, :validate => true) do |f| %>
+  <%= f.error_notification %>
 
   <div class="field">
     <%= f.label :name %><br />
