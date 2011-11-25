@@ -58,4 +58,12 @@
       $('.carrier_type').attr('checked', false);
     }
   }
+  $("#export_item_list_list_type").change(function () {
+    list_type = $("#export_item_list_list_type").val();
+    if ((list_type == 1) || (list_type == 5)) {
+      $("#item_list_ndc").show();
+    } else {
+      $("#item_list_ndc").hide();
+    }
+  });
 </script>
