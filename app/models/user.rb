@@ -13,36 +13,11 @@ class User < ActiveRecord::Base
   scope :suspended, where('locked_at IS NOT NULL')
   has_one :patron
   has_many :import_requests
-  if defined?(EnjuMessage)
-    has_many :sent_messages, :foreign_key => 'sender_id', :class_name => 'Message'
-    has_many :received_messages, :foreign_key => 'receiver_id', :class_name => 'Message'
-  end
   has_many :picture_files, :as => :picture_attachable, :dependent => :destroy
   has_many :import_requests
   has_one :user_has_role
   has_one :role, :through => :user_has_role
-  if defined?(EnjuBookmark)
-    has_many :bookmarks, :dependent => :destroy
-  end
-  if defined?(EnjuCirculation)
-    has_many :checkouts, :dependent => :nullify
-    has_many :reserves, :dependent => :destroy
-    has_many :reserved_manifestations, :through => :reserves, :source => :manifestation
-    has_many :checkout_stat_has_users
-    has_many :user_checkout_stats, :through => :checkout_stat_has_users
-    has_many :reserve_stat_has_users
-    has_many :user_reserve_stats, :through => :reserve_stat_has_users
-    has_many :baskets, :dependent => :destroy
-  end
-  if defined?(EnjuQuestion)
-    has_many :questions
-    has_many :answers
-  end
   has_many :search_histories, :dependent => :destroy
-  if defined?(EnjuPurchaseRequest)
-    has_many :purchase_requests
-    has_many :order_lists
-  end
   has_many :subscriptions
   belongs_to :library, :validate => true
   belongs_to :user_group
@@ -67,7 +42,7 @@ class User < ActiveRecord::Base
   validates_confirmation_of :email, :email_confirmation, :on => :create, :if => proc{|user| !user.operator.try(:has_role?, 'Librarian')}
   before_validation :set_role_and_patron, :on => :create
   before_validation :set_lock_information
-  before_destroy :check_item_before_destroy, :check_role_before_destroy
+  before_destroy :check_role_before_destroy
   before_save :check_expiration
   before_create :set_expired_at
   after_destroy :remove_from_index
@@ -314,17 +289,18 @@ class User < ActiveRecord::Base
     end
   end
 
-  if defined?(EnjuQuestion)
-    def reset_answer_feed_token
-      self.answer_feed_token = Devise.friendly_token
-    end
-
-    def delete_answer_feed_token
-      self.answer_feed_token = nil
-    end
-  end
-
   if defined?(EnjuCirculation)
+    has_many :checkouts, :dependent => :nullify
+    has_many :reserves, :dependent => :destroy
+    has_many :reserved_manifestations, :through => :reserves, :source => :manifestation
+    has_many :checkout_stat_has_users
+    has_many :user_checkout_stats, :through => :checkout_stat_has_users
+    has_many :reserve_stat_has_users
+    has_many :user_reserve_stats, :through => :reserve_stat_has_users
+    has_many :baskets, :dependent => :destroy
+
+    before_destroy :check_item_before_destroy
+
     def check_item_before_destroy
       # TODO: 貸出記録を残す場合
       if checkouts.size > 0
@@ -362,7 +338,36 @@ class User < ActiveRecord::Base
     end
   end
 
+  if defined?(EnjuQuestion)
+    has_many :questions
+    has_many :answers
+
+    def reset_answer_feed_token
+      self.answer_feed_token = Devise.friendly_token
+    end
+
+    def delete_answer_feed_token
+      self.answer_feed_token = nil
+    end
+  end
+
+  if defined?(EnjuBookmark)
+    has_many :bookmarks, :dependent => :destroy
+
+    def owned_tags_by_solr
+      bookmark_ids = bookmarks.collect(&:id)
+      if bookmark_ids.empty?
+        []
+      else
+        Tag.bookmarked(bookmark_ids)
+      end
+    end
+  end
+
   if defined?(EnjuMessage)
+    has_many :sent_messages, :foreign_key => 'sender_id', :class_name => 'Message'
+    has_many :received_messages, :foreign_key => 'receiver_id', :class_name => 'Message'
+
     def send_message(status, options = {})
       MessageRequest.transaction do
         request = MessageRequest.new
@@ -375,15 +380,9 @@ class User < ActiveRecord::Base
     end
   end
 
-  if defined?(EnjuBookmark)
-    def owned_tags_by_solr
-      bookmark_ids = bookmarks.collect(&:id)
-      if bookmark_ids.empty?
-        []
-      else
-        Tag.bookmarked(bookmark_ids)
-      end
-    end
+  if defined?(EnjuPurchaseRequest)
+    has_many :purchase_requests
+    has_many :order_lists
   end
 end
 

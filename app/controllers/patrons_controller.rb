@@ -6,7 +6,9 @@ class PatronsController < ApplicationController
   helper_method :get_work, :get_expression
   helper_method :get_manifestation, :get_item
   helper_method :get_patron
-  helper_method :get_patron_merge_list
+  if defined?(EnjuResourceMerge)
+    helper_method :get_patron_merge_list
+  end
   before_filter :prepare_options, :only => [:new, :edit]
   before_filter :store_location
   before_filter :get_version, :only => [:show]
@@ -56,7 +58,9 @@ class PatronsController < ApplicationController
       end
     end
 
-    get_work; get_expression; get_manifestation; get_patron; get_patron_merge_list;
+    get_work; get_expression; get_manifestation; get_patron
+    get_patron_merge_list if defined?(EnjuResourceMerge)
+
     unless params[:mode] == 'add'
       user = @user
       work = @work

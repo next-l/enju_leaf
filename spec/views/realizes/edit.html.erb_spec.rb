@@ -1,11 +1,14 @@
 require 'spec_helper'
 
 describe "realizes/edit.html.erb" do
+  fixtures :realize_types
+
   before(:each) do
     @realize = assign(:realize, stub_model(Realize,
       :expression_id => 1,
       :patron_id => 1
     ))
+    @realize_types = RealizeType.all
     @ability = Object.new
     @ability.extend(CanCan::Ability)
     controller.stub(:current_ability) { @ability }

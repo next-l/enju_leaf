@@ -1,6 +1,7 @@
 class CreatesController < ApplicationController
   load_and_authorize_resource
   before_filter :get_patron, :get_work
+  before_filter :prepare_options, :only => [:new, :edit]
   after_filter :solr_commit, :only => [:create, :update, :destroy]
   cache_sweeper :page_sweeper, :only => [:create, :update, :destroy]
 
@@ -59,6 +60,7 @@ class CreatesController < ApplicationController
         format.html { redirect_to(@create) }
         format.json { render :json => @create, :status => :created, :location => @create }
       else
+        prepare_options
         format.html { render :action => "new" }
         format.json { render :json => @create.errors, :status => :unprocessable_entity }
       end
@@ -81,6 +83,7 @@ class CreatesController < ApplicationController
         format.html { redirect_to create_url(@create) }
         format.json { head :ok }
       else
+        prepare_options
         format.html { render :action => "edit" }
         format.json { render :json => @create.errors, :status => :unprocessable_entity }
       end
@@ -106,5 +109,10 @@ class CreatesController < ApplicationController
         format.json { head :ok }
       end
     end
+  end
+
+  private
+  def prepare_options
+    @create_types = CreateType.all
   end
 end

@@ -304,23 +304,25 @@ class ResourceImportFile < ActiveRecord::Base
   end
 
   def create_item(row, manifestation)
-    circulation_status = CirculationStatus.where(:name => row['circulation_status'].to_s.strip).first || CirculationStatus.where(:name => 'In Process').first
     shelf = Shelf.where(:name => row['shelf'].to_s.strip).first || Shelf.web
     bookstore = Bookstore.where(:name => row['bookstore'].to_s.strip).first
     acquired_at = Time.zone.parse(row['acquired_at']) rescue nil
-    use_restriction = UseRestriction.where(:name => row['use_restriction'].to_s.strip).first
-    use_restriction_id = use_restriction.id if use_restriction
     item = self.class.import_item(manifestation, {
       :manifestation_id => manifestation.id,
       :item_identifier => row['item_identifier'],
       :price => row['item_price'],
       :call_number => row['call_number'].to_s.strip,
-      :circulation_status => circulation_status,
       :shelf => shelf,
       :acquired_at => acquired_at,
-      :bookstore => bookstore,
-      :use_restriction_id => use_restriction_id
+      :bookstore => bookstore
     })
+    if defined?(EnjuCirculation)
+      circulation_status = CirculationStatus.where(:name => row['circulation_status'].to_s.strip).first || CirculationStatus.where(:name => 'In Process').first
+      use_restriction = UseRestriction.where(:name => row['use_restriction'].to_s.strip).first
+      use_restriction_id = use_restriction.id if use_restriction
+      item.circulation_status = circulation_status
+      item.use_restriction_id = use_restriction_id
+    end
     item
   end
 

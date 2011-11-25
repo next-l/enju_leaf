@@ -1,0 +1,43 @@
+<div id="content_detail" class="ui-corner-all">
+<h1 class="title"><%= t('page.listing', :model => t('activerecord.models.realize_type')) -%></h1>
+<div id="content_list">
+
+<table class="index">
+  <tr>
+    <th id="position"></th>
+    <th><%= t('activerecord.attributes.realize_type.name') -%></th>
+    <th><%= t('activerecord.attributes.realize_type.display_name') -%></th>
+    <th><%= t('activerecord.attributes.realize_type.note') -%></th>
+    <th></th>
+  </tr>
+
+<%- @realize_types.each do |realize_type| -%>
+  <tr class="line<%= cycle("0", "1") -%>">
+    <td>
+      <%- if can? :update, realize_type -%>
+        <%= move_position(realize_type) -%>
+      <%- end -%>
+    </td>
+    <td><%= link_to realize_type.name, realize_type -%></td>
+    <td><%= link_to realize_type.display_name.localize, realize_type -%></td>
+    <td><%= realize_type.note -%></td>
+    <td>
+      <%- if can? :update, realize_type -%>
+        <%= link_to t('page.edit'), edit_realize_type_path(realize_type) -%>
+      <% end %>
+      <%- if can? :destroy, realize_type -%>
+        <%= link_to t('page.destroy'), realize_type, :confirm => t('page.are_you_sure'), :method => :delete -%>
+      <% end %>
+    </td>
+  </tr>
+<%- end -%>
+</table>
+
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all">
+  <ul>
+    <li><%= link_to t('page.new', :model => t('activerecord.models.realize_type')), new_realize_type_path -%></li>
+  </ul>
+</div>

@@ -54,6 +54,7 @@ class Ability
       end
       can :manage, [
         Create,
+        CreateType,
         Donate,
         Exemplify,
         ImportRequest,
@@ -66,7 +67,9 @@ class Ability
         PatronRelationshipType,
         PictureFile,
         Produce,
+        ProduceType,
         Realize,
+        RealizeType,
         ResourceImportFile,
         SearchEngine,
         SeriesStatement,

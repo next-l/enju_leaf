@@ -150,6 +150,9 @@ ja:
       series_statement_merge: シリーズ情報の統合
       series_statement_merge_list: シリーズ情報統合リスト
       series_has_manifestation: シリーズ情報と資料の関係
+      create_type: 著作の関係
+      realize_type: 表現の関係
+      produce_type: 体現の関係
 
     attributes:
       library:
@@ -1016,6 +1019,18 @@ ja:
         body: 本文
       series_statement_merge_list:
         title: タイトル
+      create_type:
+        name: 名称
+        display_name: 表示名
+        note: 注記
+      realize_type:
+        name: 名称
+        display_name: 表示名
+        note: 注記
+      produce_type:
+        name: 名称
+        display_name: 表示名
+        note: 注記
 
   page:
     user_title: "ようこそ %{login_name} さん"

@@ -159,7 +159,9 @@ class ItemsController < ApplicationController
   # GET /items/1;edit
   def edit
     @item.library_id = @item.shelf.library_id
-    @item.use_restriction_id = @item.use_restriction.id if @item.use_restriction
+    if defined?(EnjuCirculation)
+      @item.use_restriction_id = @item.use_restriction.id if @item.use_restriction
+    end
   end
 
   # POST /items
@@ -175,9 +177,11 @@ class ItemsController < ApplicationController
           if @item.shelf
             @item.shelf.library.patron.items << @item
           end
-          if @item.reserved?
-            flash[:message] = t('item.this_item_is_reserved')
-            @item.retain(current_user)
+          if defined?(EnjuCirculation)
+            if @item.reserved?
+              flash[:message] = t('item.this_item_is_reserved')
+              @item.retain(current_user)
+            end
           end
         end
         flash[:notice] = t('controller.successfully_created', :model => t('activerecord.models.item'))
@@ -243,14 +247,16 @@ class ItemsController < ApplicationController
       @library = @item.shelf.library
     end
     @shelves = @library.shelves
-    @circulation_statuses = CirculationStatus.all
-    @use_restrictions = UseRestriction.available
     @bookstores = Bookstore.all
-    if @manifestation
-      @checkout_types = CheckoutType.available_for_carrier_type(@manifestation.carrier_type)
-    else
-      @checkout_types = CheckoutType.all
-    end
     @roles = Role.all
+    if defined?(EnjuCirculation)
+      @circulation_statuses = CirculationStatus.all
+      @use_restrictions = UseRestriction.available
+      if @manifestation
+        @checkout_types = CheckoutType.available_for_carrier_type(@manifestation.carrier_type)
+      else
+        @checkout_types = CheckoutType.all
+      end
+    end
   end
 end

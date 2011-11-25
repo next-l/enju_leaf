@@ -1,24 +1,32 @@
-<%= form_for(@produce) do |f| %>
-  <% if @produce.errors.any? %>
-  <div id="errorExplanation">
-    <h2><%= pluralize(@produce.errors.count, "error") %> prohibited this produce from being saved:</h2>
-    <ul>
-    <% @produce.errors.full_messages.each do |msg| %>
-      <li><%= msg %></li>
-    <% end %>
-    </ul>
-  </div>
-  <% end %>
+<%= form_for(@produce) do |f| -%>
+  <%= f.error_messages -%>
 
   <div class="field">
-    <%= f.label :patron_id %><br />
-    <%= f.text_field :patron_id %>
+    <%= f.label t('activerecord.models.patron') -%><br />
+    <%- if @produce.patron -%>
+      <%= link_to @produce.patron.full_name, @produce.patron -%>
+      <%= f.hidden_field :patron_id -%>
+    <%- else -%>
+      <%= f.text_field :patron_id -%>
+    <%- end -%>
   </div>
+
   <div class="field">
-    <%= f.label :manifestation_id %><br />
-    <%= f.text_field :manifestation_id %>
+    <%= f.label t('activerecord.models.manifestation') -%><br />
+    <%- if @produce.manifestation -%>
+      <%= link_to @produce.manifestation.original_title, @produce.manifestation -%>
+      <%= f.hidden_field :manifestation_id -%>
+    <%- else -%>
+      <%= f.text_field :manifestation_id -%>
+    <%- end -%>
   </div>
+
+  <div class="field">
+    <%= f.label t('activerecord.models.produce_type') -%><br />
+    <%= f.select :produce_type_id, @produce_types.map{|p| [p.display_name.localize, p.id]} %>
+  </div>
+
   <div class="actions">
     <%= f.submit %>
   </div>
-<% end %>
+<%- end -%>

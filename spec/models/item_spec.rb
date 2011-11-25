@@ -42,6 +42,7 @@ end
 
 
 
+
 # == Schema Information
 #
 # Table name: items
@@ -49,7 +50,7 @@ end
 #  id                    :integer         not null, primary key
 #  call_number           :string(255)
 #  item_identifier       :string(255)
-#  circulation_status_id :integer         not null
+#  circulation_status_id :integer         default(5), not null
 #  checkout_type_id      :integer         default(1), not null
 #  created_at            :datetime
 #  updated_at            :datetime

@@ -22,7 +22,7 @@
         <%= create.last? ? image_tag('icons/cross.png', :size => '16x16') : link_to(image_tag('icons/arrow_down.png', :size => '16x16', :alt => t('page.desc')), {:action => 'update', :position => (create.position + 1), :id => create.id, :patron_id => patron.id}, :method => :put) -%>
       <%- end -%>
     </td>
-    <td><%= link_to create.work.original_title, create.work -%></td>
+    <td><%= link_to create.work.try(:original_title), create.work -%></td>
     <td><%= l(create.created_at) -%></td>
     <td><%= l(create.updated_at) -%></td>
     <td>

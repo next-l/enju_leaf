@@ -8,7 +8,9 @@
 <table class="index">
   <tr>
     <th id="position"></th>
-    <th><%= t('activerecord.models.expression') -%></th>
+    <th><%= t('activerecord.models.patron') -%></th>
+    <th><%= t('page.created_at') -%></th>
+    <th><%= t('page.updated_at') -%></th>
     <th></th>
   </tr>
 
@@ -20,12 +22,9 @@
         <%= realize.last? ? image_tag('icons/cross.png', :size => '16x16') : link_to(image_tag('icons/arrow_down.png', :size => '16x16', :alt => t('page.desc')), {:action => 'update', :position => (realize.position + 1), :id => realize.id, :expression_id => expression.id}, :method => :put) -%>
       <%- end -%>
     </td>
-    <td>
-      <%= link_to realize.expression.original_title, realize.expression -%>
-      <%= content_type_icon(expression.content_type) -%>
-      <br />
-      <%= patrons_list(expression.creators.readable_by(current_user)) -%>
-    </td>
+    <td><%= link_to create.patron.try(:full_name), create.patron -%></td>
+    <td><%= l(create.created_at) -%></td>
+    <td><%= l(create.updated_at) -%></td>
     <td>
       <%- if can? :destroy, realize -%>
         <%= link_to t('page.destroy'), expression_realize_path(expression, realize), :confirm => t('page.are_you_sure'), :method => :delete -%>
