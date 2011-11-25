@@ -694,6 +694,7 @@ ja:
         checkouts_count: 貸出回数(累計/今期/前期)
         reserves_count:  予約回数(累計/今期/前期)
         last_checkout_datetime: 最終利用年月日
+        ndc: NDC
       user_group:
         name: 名前
         display_name: 表示名
