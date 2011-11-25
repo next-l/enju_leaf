@@ -1353,6 +1353,7 @@ ja:
     from: "ここから"
     to: "ここまで"
     all_libraries: "全ての図書館"
+    all_circulation_status: "全ての貸出状態"
     from_date: "検索開始日"
     to_date: "検索終了日"
     library: "図書館"
