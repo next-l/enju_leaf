@@ -1,5 +1,5 @@
-<%= form_for(@content_type) do |f| -%>
-  <%= f.error_messages -%>
+<%= simple_form_for(@content_type, :validate => true) do |f| -%>
+  <%= f.error_notification -%>
 
   <div class="field">
     <%= f.label :name -%><br />

@@ -1,6 +1,6 @@
 <%= render 'page/required_field' %>
-<%= simple_form_for(@library) do |f| -%>
-  <%= f.error_messages -%>
+<%= simple_form_for(@library, :validate => true) do |f| -%>
+  <%= f.error_notification -%>
 
   <div class="field">
     <%= f.label :name -%><br />
