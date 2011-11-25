@@ -213,14 +213,15 @@ ja:
         last_name: 姓
         middle_name: ミドルネーム
         first_name: 名
-        last_name_transcription: 姓（よみ）
-        middle_name_transcription: ミドルネーム（よみ）
-        first_name_transcription: 名（よみ）
+        last_name_transcription: 姓（ヨミ）
+        middle_name_transcription: ミドルネーム（ヨミ）
+        first_name_transcription: 名（ヨミ）
         corporate_name: 会社名
-        corporate_name_transcription: 企業名（よみ）
+        corporate_name_transcription: 企業名（ヨミ）
         full_name: フルネーム
-        full_name_transcription: フルネーム（よみ）
+        full_name_transcription: フルネーム（ヨミ）
         full_name_alternative: フルネーム代替
+        full_name_note: 未入力の場合、保存時に自動的に 姓＋" "＋名 が設定されます。
         deleted_at: 削除時刻
         zip_code_1: 郵便番号1
         zip_code_2: 郵便番号2
@@ -694,6 +695,7 @@ ja:
         checkouts_count: 貸出回数(累計/今期/前期)
         reserves_count:  予約回数(累計/今期/前期)
         last_checkout_datetime: 最終利用年月日
+        ndc: NDC
       user_group:
         name: 名前
         display_name: 表示名

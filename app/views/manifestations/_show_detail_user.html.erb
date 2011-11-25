@@ -99,6 +99,10 @@
                 <br />
                 LCCN: <%= manifestation.lccn -%>
               <%- end -%>
+              <%- if manifestation.ndc.present? -%>
+                <br />
+                NDC: <%= manifestation.ndc -%>
+              <%- end -%>
             </td>
           </tr>
         <%- end -%>
