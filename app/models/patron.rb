@@ -37,24 +37,6 @@ class Patron < ActiveRecord::Base
   before_save :set_date_of_birth, :set_date_of_death, :change_note
 
   validate :check_duplicate_user
-  def check_duplicate_user
-    chash = {}
-    chash[:full_name] = self.full_name unless self.full_name.blank?
-    chash[:birth_date] = self.birth_date unless self.birth_date.blank?
-    chash[:telephone_number_1] = self.telephone_number_1 unless self.telephone_number_1.blank?
-  
-    return false if chash.empty?
-  
-    p = Patron.find(:all, :conditions => chash)
- 
-    p.delete_if {|p| p.id == self.id} if p
- 
-    logger.info "aaa"
-    if p && p.size > 0
-      logger.info "bbb"
-      errors.add(:base, I18n.t('user.duplicate_user'))
-    end
-  end
 
   has_paper_trail
   attr_accessor :user_username
@@ -302,7 +284,9 @@ class Patron < ActiveRecord::Base
 private
   def check_duplicate_user
     chash = {}
-    chash[:full_name] = self.full_name unless self.full_name.blank?
+    #TODO
+    #chash[:full_name_transcription] = self.full_name_transcription.gsub(/\s|　/, "") unless self.full_name_transcription.blank?
+    chash[:full_name_transcription] = self.full_name_transcription.strip unless self.full_name_transcription.blank?
     chash[:birth_date] = self.birth_date unless self.birth_date.blank?
     chash[:telephone_number_1] = self.telephone_number_1 unless self.telephone_number_1.blank?
   
@@ -312,13 +296,10 @@ private
  
     p.delete_if {|p| p.id == self.id} if p
  
-    logger.info "aaa"
     if p && p.size > 0
-      logger.info "bbb"
       errors.add_to_base(I18n.t('patron.duplicate_user'))
-      #errors.add(:full_name)
     end
-    logger.info errors.inspect
+    #logger.info errors.inspect
   end
 
 
