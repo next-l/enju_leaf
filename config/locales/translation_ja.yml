@@ -221,6 +221,7 @@ ja:
         full_name: フルネーム
         full_name_transcription: フルネーム（ヨミ）
         full_name_alternative: フルネーム代替
+        full_name_note: 未入力の場合、保存時に自動的に 姓＋" "＋名 が設定されます。
         deleted_at: 削除時刻
         zip_code_1: 郵便番号1
         zip_code_2: 郵便番号2
