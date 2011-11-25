@@ -6,6 +6,7 @@ describe Produce do
 
 end
 
+
 # == Schema Information
 #
 # Table name: produces
@@ -17,5 +18,6 @@ end
 #  type             :string(255)
 #  created_at       :datetime
 #  updated_at       :datetime
+#  produce_type_id  :integer
 #
 

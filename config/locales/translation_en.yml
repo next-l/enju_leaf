@@ -1020,6 +1020,18 @@ en:
         body: Body
       series_statement_merge_list:
         title: Title
+      create_type:
+        name: Name
+        display_name: Display name
+        note: Note
+      realize_type:
+        name: Name
+        display_name: Display name
+        note: Note
+      produce_type:
+        name: Name
+        display_name: Display name
+        note: Note
 
   page:
     user_title: "Welcome %{login_name}"

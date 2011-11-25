@@ -32,7 +32,7 @@ describe CreateTypesController do
     it "assigns all create_types as @create_types" do
       create_type = CreateType.create! valid_attributes
       get :index
-      assigns(:create_types).should eq([create_type])
+      assigns(:create_types).should eq(CreateType.all)
     end
   end
 
@@ -75,7 +75,7 @@ describe CreateTypesController do
 
       it "redirects to the created create_type" do
         post :create, :create_type => valid_attributes
-        response.should redirect_to(CreateType.last)
+        response.should redirect_to(CreateType.first)
       end
     end
 

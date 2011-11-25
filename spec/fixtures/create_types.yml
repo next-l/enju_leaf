@@ -1,7 +1,19 @@
-class CreateType < ActiveRecord::Base
-  include MasterModel
-  default_scope :order => 'position'
-end
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  name: successor
+  display_name: successor
+  note: 
+  position: 1
+  id: 1
+
+two:
+  name: copy
+  display_name: copy
+  note: 
+  position: 2
+  id: 2
+
 
 # == Schema Information
 #

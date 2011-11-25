@@ -32,7 +32,7 @@ describe ProduceTypesController do
     it "assigns all produce_types as @produce_types" do
       produce_type = ProduceType.create! valid_attributes
       get :index
-      assigns(:produce_types).should eq([produce_type])
+      assigns(:produce_types).should eq(ProduceType.all)
     end
   end
 
@@ -75,7 +75,7 @@ describe ProduceTypesController do
 
       it "redirects to the created produce_type" do
         post :create, :produce_type => valid_attributes
-        response.should redirect_to(ProduceType.last)
+        response.should redirect_to(ProduceType.first)
       end
     end
 

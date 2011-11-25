@@ -1,11 +1,14 @@
 require 'spec_helper'
 
 describe "creates/edit.html.erb" do
+  fixtures :create_types
+
   before(:each) do
     @create = assign(:create, stub_model(Create,
       :work_id => 1,
       :patron_id => 1
     ))
+    @create_types = CreateType.all
     @ability = Object.new
     @ability.extend(CanCan::Ability)
     controller.stub(:current_ability) { @ability }

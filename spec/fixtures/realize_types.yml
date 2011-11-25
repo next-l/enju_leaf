@@ -1,8 +1,19 @@
-require 'spec_helper'
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
 
-describe RealizeType do
-  pending "add some examples to (or delete) #{__FILE__}"
-end
+one:
+  name: successor
+  display_name: successor
+  note: 
+  position: 1
+  id: 1
+
+two:
+  name: copy
+  display_name: copy
+  note: 
+  position: 2
+  id: 2
+
 
 # == Schema Information
 #

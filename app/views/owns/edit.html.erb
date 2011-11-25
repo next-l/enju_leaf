@@ -1,25 +1,7 @@
 <div id="content_detail" class="ui-corner-all">
 <h1 class="title"><%= t('page.editing', :model => t('activerecord.models.own')) -%></h1>
 <div id="content_list">
-
-<%= form_for(@own) do |f| -%>
-  <%= f.error_messages -%>
-
-  <div class="field">
-    <%= f.label t('activerecord.models.library') -%><br />
-    <%= f.text_field :patron_id -%>
-  </div>
-
-  <div class="field">
-    <%= f.label t('activerecord.models.item') -%><br />
-    <%= f.text_field :item_id -%>
-  </div>
-
-  <div class="actions">
-    <%= f.submit %>
-  </div>
-<%- end -%>
-
+  <%= render 'form' %>
 </div>
 </div>
 

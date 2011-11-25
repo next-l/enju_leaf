@@ -21,6 +21,11 @@
     <%- end -%>
   </div>
 
+  <div class="field">
+    <%= f.label t('activerecord.models.create_type') -%><br />
+    <%= f.select :create_type_id, @create_types.map{|c| [c.display_name.localize, c.id]} %>
+  </div>
+
   <div class="actions">
     <%= f.submit %>
   </div>

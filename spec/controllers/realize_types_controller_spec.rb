@@ -32,7 +32,7 @@ describe RealizeTypesController do
     it "assigns all realize_types as @realize_types" do
       realize_type = RealizeType.create! valid_attributes
       get :index
-      assigns(:realize_types).should eq([realize_type])
+      assigns(:realize_types).should eq(RealizeType.all)
     end
   end
 
@@ -75,7 +75,7 @@ describe RealizeTypesController do
 
       it "redirects to the created realize_type" do
         post :create, :realize_type => valid_attributes
-        response.should redirect_to(RealizeType.last)
+        response.should redirect_to(RealizeType.first)
       end
     end
 

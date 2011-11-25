@@ -1,11 +1,16 @@
 <div id="content_detail" class="ui-corner-all">
 <h1 class="title"><%= t('page.listing', :model => t('activerecord.models.produce')) -%></h1>
 <div id="content_list">
-  <%= render 'manifestations/title', :manifestation => manifestation -%>
+  <h2 class="resource_title">
+    <%= link_to manifestation.original_title, manifestation -%>
+  </h2>
+
 <table class="index">
   <tr>
     <th id="position"></th>
     <th><%= t('activerecord.models.patron') -%></th>
+    <th><%= t('page.created_at') -%></th>
+    <th><%= t('page.updated_at') -%></th>
     <th></th>
   </tr>
 
@@ -13,14 +18,16 @@
   <tr class="line<%= cycle("0", "1") -%>">
     <td>
       <%- if can? :destroy, produce -%>
-        <%= produce.first? ? image_tag('icons/cross.png', :size => '16x16') : link_to(image_tag('icons/arrow_down.png', :size => '16x16', :alt => t('page.asc')), {:action => 'update', :position => (produce.position  > 1 ? produce.position - 1 : 1), :id => produce.id, :manifestation_id => manifestation.id}, :method => :put) -%>
-        <%= produce.last? ? image_tag('icons/cross.png', :size => '16x16') : link_to(image_tag('icons/icons/arrow_down.png', :size => '16x16', :alt => t('page.desc')), {:action => 'update', :position => (produce.position + 1), :id => produce.id, :manifestation_id => manifestation.id}, :method => :put) -%>
+        <%= produce.first? ? image_tag('icons/cross.png', :size => '16x16') : link_to(image_tag('icons/arrow_down.png', :size => '16x16', :alt => t('page.asc')), {:action => 'update', :position => (produce.position > 1 ? produce.position - 1 : 1), :id => produce.id, :manifestation_id => manifestation.id}, :method => :put) -%>
+        <%= produce.last? ? image_tag('icons/cross.png', :size => '16x16') : link_to(image_tag('icons/arrow_down.png', :size => '16x16', :alt => t('page.desc')), {:action => 'update', :position => (produce.position + 1), :id => produce.id, :manifestation_id => manifestation.id}, :method => :put) -%>
       <%- end -%>
     </td>
-    <td><%= link_to produce.patron.full_name, produce.patron -%></td>
+    <td><%= link_to create.patron.try(:full_name), create.patron -%></td>
+    <td><%= l(create.created_at) -%></td>
+    <td><%= l(create.updated_at) -%></td>
     <td>
       <%- if can? :destroy, produce -%>
-        <%= link_to t('page.destroy'), manifestation_produce_path(produce.manifestation, produce), :confirm => t('page.are_you_sure'), :method => :delete -%>
+        <%= link_to t('page.destroy'), manifestation_produce_path(manifestation, produce), :confirm => t('page.are_you_sure'), :method => :delete -%>
       <%- end -%>
     </td>
   </tr>
@@ -28,13 +35,13 @@
 </table>
 
 <%= will_paginate(@produces) -%>
+
 </div>
 </div>
 
 <div id="submenu" class="ui-corner-all">
   <ul>
     <li><%= link_to t('page.listing', :model => t('activerecord.models.patron')), manifestation_patrons_path(manifestation) -%></li>
-    <li><%= link_to t('activerecord.models.manifestation'), manifestation -%></li>
     <%- if can? :create, Produce -%>
       <li><%= link_to t('page.new', :model => t('activerecord.models.produce')), new_manifestation_produce_path(manifestation) -%></li>
     <%- end -%>
