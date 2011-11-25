@@ -16,18 +16,20 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_circulation.git
-  revision: 0e7913e4baa1ba46bf7997e492380df448dd3001
+  revision: de378ba822ca55a91614a851ef11b35c963da60b
   specs:
     enju_circulation (0.0.3)
-      rails (~> 3.1.1)
+      rails (~> 3.1.3)
+      simple_form
 
 GIT
   remote: git://github.com/nabeta/enju_event.git
-  revision: 24a5717697527504c0e1f9b569b0118bbd135d19
+  revision: 60cda40ef679f9a9083974b9c8b8b0ce20396c9a
   specs:
     enju_event (0.0.2)
       event-calendar (~> 2.3.3)
-      rails (~> 3.1.1)
+      rails (~> 3.1.3)
+      simple_form
 
 GIT
   remote: git://github.com/nabeta/enju_inventory.git
@@ -38,10 +40,11 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_message.git
-  revision: b0d6d26e376ef274a24f304802c695227989bd46
+  revision: 504937fe62a5f2aa8f13b23b4402d89e50b6c270
   specs:
     enju_message (0.0.3)
-      rails (~> 3.1.1)
+      rails (~> 3.1.3)
+      simple_form
 
 GIT
   remote: git://github.com/nabeta/enju_ndl.git
@@ -66,10 +69,11 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_question.git
-  revision: b519e592d9c6b88fecbebf4297fde53fefe02245
+  revision: 2ba7a2c98c50c014062c7da36b0930d6b9fbbbc4
   specs:
     enju_question (0.0.2)
-      rails (~> 3.1.1)
+      rails (~> 3.1.3)
+      simple_form
 
 GIT
   remote: git://github.com/nabeta/enju_resource_merge.git
@@ -104,19 +108,6 @@ GIT
   specs:
     vidibus-routing_error (0.2.1)
       rails (~> 3.1)
-
-GIT
-  remote: git://github.com/sunspot/sunspot.git
-  revision: 448371155f4d79acca526acbd697b319a921c5dc
-  specs:
-    sunspot (1.3.0.rc6)
-      escape (= 0.0.4)
-      pr_geohash (~> 1.0)
-      rsolr (= 1.0.2)
-    sunspot_rails (1.3.0.rc6)
-      nokogiri
-      sunspot (= 1.3.0.rc6)
-    sunspot_solr (1.3.0.rc6)
 
 GIT
   remote: git://github.com/swanandp/acts_as_list.git
@@ -191,13 +182,6 @@ GEM
     cloudfiles (1.5.0)
       json
     cocaine (0.2.0)
-    coffee-rails (3.1.1)
-      coffee-script (>= 2.2.0)
-      railties (~> 3.1.0)
-    coffee-script (2.2.0)
-      coffee-script-source
-      execjs
-    coffee-script-source (1.1.3)
     colored (1.2)
     configatron (2.8.4)
       yamler (>= 0.1.0)
@@ -218,8 +202,6 @@ GEM
     event-calendar (2.3.3)
     exception_notification (2.5.2)
       actionmailer (>= 3.0.4)
-    execjs (1.2.9)
-      multi_json (~> 1.0)
     extractcontent (0.0.1)
     factory_girl (2.3.1)
       activesupport
@@ -375,12 +357,6 @@ GEM
       sexp_processor (~> 3.0)
     sanitize (2.0.3)
       nokogiri (>= 1.4.4, < 1.6)
-    sass (3.1.10)
-    sass-rails (3.1.5)
-      actionpack (~> 3.1.0)
-      railties (~> 3.1.0)
-      sass (~> 3.1.10)
-      tilt (~> 1.3.2)
     sexp_processor (3.0.8)
     simple_form (1.5.2)
       actionpack (~> 3.0)
@@ -398,8 +374,16 @@ GEM
     state_machine (1.1.0)
     strongbox (0.5.0)
       activerecord
+    sunspot (1.3.0.rc6)
+      escape (= 0.0.4)
+      pr_geohash (~> 1.0)
+      rsolr (= 1.0.2)
     sunspot-rails-tester (0.0.4)
       sunspot_rails (~> 1.2)
+    sunspot_rails (1.3.0.rc6)
+      nokogiri
+      sunspot (= 1.3.0.rc6)
+    sunspot_solr (1.3.0.rc6)
     syntax (1.0.0)
     system_timer (1.2.4)
     thor (0.14.6)
@@ -412,9 +396,6 @@ GEM
     turn (0.8.3)
       ansi
     tzinfo (0.3.31)
-    uglifier (1.1.0)
-      execjs (>= 0.3.0)
-      multi_json (>= 1.0.2)
     validates_timeliness (3.0.7)
       timeliness (~> 0.3.3)
     vcr (2.0.0.beta2)
@@ -446,7 +427,6 @@ DEPENDENCIES
   awesome_nested_set (~> 2.0)
   cancan (>= 1.6.7)
   client_side_validations
-  coffee-rails (~> 3.1.1)
   configatron
   dalli (~> 1.1)
   delayed_job (~> 2.1.4)
@@ -500,7 +480,6 @@ DEPENDENCIES
   ruby-prof
   rubyzip2
   sanitize
-  sass-rails (~> 3.1.5)
   simple_form (~> 1.5)
   simplecov (~> 0.5)
   sitemap_generator (~> 2.1)
@@ -508,12 +487,11 @@ DEPENDENCIES
   state_machine
   strongbox (>= 0.4.8)
   sunspot-rails-tester
-  sunspot_rails!
+  sunspot_rails (~> 1.3.0.rc6)
   sunspot_solr (~> 1.3.0.rc6)
   system_timer
   timecop
   turn (~> 0.8.3)
-  uglifier (>= 1.0.3)
   validates_timeliness
   vcr (~> 2.0.0.beta2)
   vidibus-routing_error!
