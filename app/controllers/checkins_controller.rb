@@ -1,4 +1,6 @@
 class CheckinsController < ApplicationController
+  include EnjuLeaf::NotificationSound
+
   before_filter :check_client_ip_address
   load_and_authorize_resource
   before_filter :get_user_if_nil
@@ -67,8 +69,9 @@ class CheckinsController < ApplicationController
       @basket.save(:validate => false)
     end
     @checkin = @basket.checkins.new(params[:checkin])
-
+    
     flash[:message] = ''
+    flash[:sound] = ''
     flash[:message] = t('checkin.enter_item_identifier') if @checkin.item_identifier.blank?
     item = Item.where(:item_identifier => @checkin.item_identifier.to_s.strip).first unless @checkin.item_identifier.blank?
     flash[:message] = t('checkin.item_not_found') if !@checkin.item_identifier.blank? and item.blank?
@@ -80,10 +83,14 @@ class CheckinsController < ApplicationController
         checked = true if checkout.item.item_identifier == item.item_identifier
         overdue = true if checkout.item.item_identifier == item.item_identifier and checkout.overdue?
       end
-      flash[:message] = t("checkin.not_checkin") unless checked
+      #debugger
+      # TODO refactoring
+      flash[:message], flash[:sound] = error_message_and_sound("checkin.not_checkin") unless checked
       flash[:message] = t('checkin.already_checked_in') if @basket.checkins.collect(&:item).include?(item)
       flash[:message] = t('checkin.not_available_for_checkin') if item.checkin? == false
     end
+
+    #logger.info flash.inspect
     
     respond_to do |format|
       unless flash[:message] == ""
