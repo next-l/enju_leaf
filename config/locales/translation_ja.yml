@@ -1161,7 +1161,6 @@ ja:
     merge: "統合する（取り消しはできません）"
     merge_resource: "%{model}を統合する"
     attachable: "添付先"
-    under_construction: "開発中"
     sent_email: "電子メールを送信しました。"
     identifier: "識別子"
     select_locale: "言語を設定"

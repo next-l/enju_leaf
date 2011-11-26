@@ -1177,7 +1177,6 @@ en:
     merge: "Merge!"
     merge_resource: "Merge %{model}"
     attachable: "Attachable"
-    under_construction: "Under construction"
     sent_email: "Sent email."
     identifier: "Identifier"
     select_locale: "Select locale"

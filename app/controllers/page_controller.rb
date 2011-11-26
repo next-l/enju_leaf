@@ -69,10 +69,6 @@ class PageController < ApplicationController
     @title = t('page.add_on')
   end
 
-  def under_construction
-    @title = t('page.under_construction')
-  end
-
   def routing_error
     render_404
   end

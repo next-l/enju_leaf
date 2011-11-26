@@ -61,7 +61,6 @@ class Ability
         ManifestationRelationship,
         ManifestationRelationshipType,
         Own,
-        Participate,
         PatronImportFile,
         PatronRelationship,
         PatronRelationshipType,
@@ -151,7 +150,6 @@ class Ability
         ImportRequest,
         ManifestationRelationship,
         Own,
-        Participate,
         PatronImportFile,
         PatronRelationship,
         PictureFile,
@@ -604,13 +602,15 @@ class Ability
         end
         can :manage, [
           Event,
-          EventImportFile
+          EventImportFile,
+          Participate
         ]
         can :read, EventImportResult
       when 'Librarian'
         can :manage, [
           Event,
-          EventImportFile
+          EventImportFile,
+          Participate
         ]
         can :read, [
           EventCategory,
