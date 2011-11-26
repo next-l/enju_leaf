@@ -70,8 +70,7 @@ configatron.manifestation.display_last_checkout_datetime = true
 # 音
 configatron.sounds.basedir = "sounds/"
 #configatron.sounds.errors.a = "chimeA08.ogg"
-#configatron.sounds.errors.b = "chimes01.ogg"
 #configatron.sounds.errors.c = "churchA08.ogg"
 #configatron.sounds.errors.d = "missA11.ogg"
 configatron.sounds.errors.checkin.not_checkin = "chimeA08.ogg"
-
+configatron.sounds.errors.checkin.already_checked_in = "missA11.ogg"

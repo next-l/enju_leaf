@@ -86,7 +86,7 @@ class CheckinsController < ApplicationController
       #debugger
       # TODO refactoring
       flash[:message], flash[:sound] = error_message_and_sound("checkin.not_checkin") unless checked
-      flash[:message] = t('checkin.already_checked_in') if @basket.checkins.collect(&:item).include?(item)
+      flash[:message], flash[:sound] = error_message_and_sound('checkin.already_checked_in') if @basket.checkins.collect(&:item).include?(item)
       flash[:message] = t('checkin.not_available_for_checkin') if item.checkin? == false
     end
 
