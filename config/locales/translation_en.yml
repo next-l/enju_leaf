@@ -149,6 +149,9 @@ en:
       series_statement_merge: Series statement merge
       series_statement_merge_list: Series statement merge list
       series_has_manifestation: Series statement to manifestation
+      create_type: Create type
+      realize_type: Realize type
+      produce_type: Produce type
 
     attributes:
       library:
@@ -1017,6 +1020,18 @@ en:
         body: Body
       series_statement_merge_list:
         title: Title
+      create_type:
+        name: Name
+        display_name: Display name
+        note: Note
+      realize_type:
+        name: Name
+        display_name: Display name
+        note: Note
+      produce_type:
+        name: Name
+        display_name: Display name
+        note: Note
 
   page:
     user_title: "Welcome %{login_name}"
@@ -1162,7 +1177,6 @@ en:
     merge: "Merge!"
     merge_resource: "Merge %{model}"
     attachable: "Attachable"
-    under_construction: "Under construction"
     sent_email: "Sent email."
     identifier: "Identifier"
     select_locale: "Select locale"

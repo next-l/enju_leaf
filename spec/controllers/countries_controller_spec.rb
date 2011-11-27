@@ -2,6 +2,7 @@ require 'spec_helper'
 require 'sunspot/rails/spec_helper'
 
 describe CountriesController do
+  fixtures :library_groups
   disconnect_sunspot
 
   describe "GET index" do

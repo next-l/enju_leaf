@@ -128,6 +128,7 @@ describe InventoryFilesController do
 
       it "should create inventory_file" do
         post :create, :inventory_file => {:inventory => fixture_file_upload("/../../examples/inventory_file_sample.tsv", 'text/csv') }
+        assigns(:inventory_file).save!
         assigns(:inventory_file).should be_valid
         assigns(:inventory_file).user.username.should eq @user.username
         response.should redirect_to inventory_file_url(assigns(:inventory_file))

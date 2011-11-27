@@ -1,6 +1,7 @@
 class ProducesController < ApplicationController
   load_and_authorize_resource
   before_filter :get_patron, :get_manifestation
+  before_filter :prepare_options, :only => [:new, :edit]
   after_filter :solr_commit, :only => [:create, :update, :destroy]
   cache_sweeper :page_sweeper, :only => [:create, :update, :destroy]
 
@@ -64,6 +65,7 @@ class ProducesController < ApplicationController
         format.html { redirect_to(@produce) }
         format.json { render :json => @produce, :status => :created, :location => @produce }
       else
+        prepare_options
         format.html { render :action => "new" }
         format.json { render :json => @produce.errors, :status => :unprocessable_entity }
       end
@@ -85,6 +87,7 @@ class ProducesController < ApplicationController
         format.html { redirect_to produce_url(@produce) }
         format.json { head :ok }
       else
+        prepare_options
         format.html { render :action => "edit" }
         format.json { render :json => @produce.errors, :status => :unprocessable_entity }
       end
@@ -110,5 +113,10 @@ class ProducesController < ApplicationController
         format.json { head :ok }
       end
     end
+  end
+
+  private
+  def prepare_options
+    @produce_types = ProduceType.all
   end
 end

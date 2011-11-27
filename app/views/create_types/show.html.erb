@@ -1,0 +1,29 @@
+<div id="content_detail" class="ui-corner-all">
+<h1 class="title"><%= t('page.showing', :model => t('activerecord.models.create_type')) -%></h1>
+<div id="content_list">
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong><%= t('activerecord.attributes.create_type.name') -%>:</strong>
+  <%= @create_type.name -%>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.create_type.display_name') -%>:</strong>
+  <%= @create_type.display_name.localize -%>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.create_type.note') -%>:</strong>
+  <%= @create_type.note -%>
+</p>
+
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all">
+  <ul>
+    <li><%= link_to t('page.edit'), edit_create_type_path(@create_type) -%></li>
+    <li><%= back_to_index(flash[:page_info]) -%></li>
+  </ul>
+</div>

@@ -1,9 +1,6 @@
 class Bookstore < ActiveRecord::Base
   default_scope :order => "position"
   has_many :items
-  if defined?(EnjuPurchaseRequest)
-    has_many :order_lists
-  end
 
   acts_as_list
   validates_presence_of :name

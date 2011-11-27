@@ -1,0 +1,30 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  name: successor
+  display_name: successor
+  note: 
+  position: 1
+  id: 1
+
+two:
+  name: copy
+  display_name: copy
+  note: 
+  position: 2
+  id: 2
+
+
+# == Schema Information
+#
+# Table name: create_types
+#
+#  id           :integer         not null, primary key
+#  name         :string(255)
+#  display_name :text
+#  note         :text
+#  position     :integer
+#  created_at   :datetime
+#  updated_at   :datetime
+#
+
