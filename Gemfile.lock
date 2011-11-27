@@ -435,7 +435,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  RedCloth (>= 4.2.8)
+  RedCloth (>= 4.2.9)
   activerecord-jdbc-adapter
   acts-as-taggable-on (~> 2.1)
   acts_as_list!
