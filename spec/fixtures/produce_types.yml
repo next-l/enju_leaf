@@ -1,15 +1,17 @@
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
 
-one:
-  name: successor
-  display_name: successor
+publisher:
+  name: publisher
+  display_name: "en:Publisher\r\n\
+    ja:出版者"
   note: 
   position: 1
   id: 1
 
-two:
-  name: copy
-  display_name: copy
+seller:
+  name: seller
+  display_name: "en:Seller\r\n\
+    ja:販売者"
   note: 
   position: 2
   id: 2
@@ -17,7 +19,7 @@ two:
 
 # == Schema Information
 #
-# Table name: produce_types
+# Table name: create_types
 #
 #  id           :integer         not null, primary key
 #  name         :string(255)
