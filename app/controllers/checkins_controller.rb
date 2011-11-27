@@ -102,10 +102,15 @@ class CheckinsController < ApplicationController
         if @checkin.save(:validate => false)
         # 速度を上げるためvalidationを省略している
           #flash[:message] << t('controller.successfully_created', :model => t('activerecord.models.checkin'))
+          #TODO refactoring
           flash[:message] << t('checkin.successfully_checked_in', :model => t('activerecord.models.checkin')) + '<br />'
           message = @checkin.item_checkin(current_user, nil)
           flash[:message] << message if message
-          flash[:message] << t("checkin.overdue_item") + '<br />' if overdue == true
+          #flash[:message] << t("checkin.overdue_item") + '<br />' if overdue == true
+          if overdue == true
+            flash[:message], flash[:sound] = error_message_and_sound('checkin.overdue_item') 
+            flash[:message] << '<br />' 
+          end
           format.html { redirect_to user_basket_checkins_url(@checkin.basket.user, @checkin.basket) }
           format.xml  { render :xml => @checkin, :status => :created, :location => user_basket_checkin_url(@checkin.basket.user, @checkin.basket, @checkin) }
           format.js   { redirect_to user_basket_checkins_url(@checkin.basket.user, @checkin.basket, :mode => 'list', :format => :js) }
