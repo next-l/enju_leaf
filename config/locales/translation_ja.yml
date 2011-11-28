@@ -1787,3 +1787,4 @@ ja:
     ndc_message: "(入力すると該当資料のみ出力します。)"
     invalid_ndc: "不正なNDCが指定されています。\nXXX3桁の英数字を指定してください。"
     no_record: "該当する図書が見つかりませんでした。"
+    no_list_condition: "抽出条件を指定してください。"
