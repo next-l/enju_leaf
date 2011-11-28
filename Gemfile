@@ -79,7 +79,6 @@ gem 'isbn-tools', :git => 'git://github.com/nabeta/isbn-tools.git', :require => 
 gem 'configatron'
 gem 'extractcontent'
 gem 'cancan', '>= 1.6.7'
-#gem 'scribd_fu'
 gem 'devise', '~> 1.5'
 gem 'omniauth', '~> 1.0'
 gem 'addressable'
@@ -103,7 +102,7 @@ gem 'rack-protection'
 gem 'awesome_nested_set', '~> 2.0'
 gem 'rails_autolink'
 gem 'rake', '0.9.2.2'
-#gem 'oink', '>=0.9.2'
+#gem 'oink', '>= 0.9.3'
 
 group :production do
   gem 'vidibus-routing_error', :git => 'git://github.com/nabeta/vidibus-routing_error.git'
