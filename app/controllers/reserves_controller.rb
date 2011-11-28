@@ -89,6 +89,7 @@ class ReservesController < ApplicationController
       @reserve = Reserve.new
     end
     @libraries = Library.all
+    @information_types = Reserve.information_types
     @reserve.receipt_library_id = user.library_id unless user.blank?
 
     get_manifestation
@@ -108,6 +109,7 @@ class ReservesController < ApplicationController
   # GET /reserves/1;edit
   def edit
     @libraries = Library.all
+    @information_types = Reserve.information_types
   end
 
   # POST /reserves
@@ -146,6 +148,7 @@ class ReservesController < ApplicationController
         format.xml  { render :xml => @reserve, :status => :created, :location => user_reserve_url(@reserve.user, @reserve) }
       else
         @libraries = Library.all
+        @information_types = Reserve.information_types
         format.html { render :action => "new" }
         format.xml  { render :xml => @reserve.errors.to_xml }
       end
@@ -167,6 +170,11 @@ class ReservesController < ApplicationController
       return
     end
 
+    if params[:mode] == 'cancel'
+       user = @reserve.user
+       @reserve.sm_cancel!
+    end
+
     if user.blank?
       access_denied
       return
@@ -174,10 +182,6 @@ class ReservesController < ApplicationController
 
     if user
       @reserve = user.reserves.find(params[:id])
-    end
-
-    if params[:mode] == 'cancel'
-       @reserve.sm_cancel!
     end
 
     respond_to do |format|
@@ -196,6 +200,7 @@ class ReservesController < ApplicationController
         format.xml  { head :ok }
       else
         @libraries = Library.all
+        @information_types = Reserve.information_types
         format.html { render :action => "edit" }
         format.xml  { render :xml => @reserve.errors.to_xml }
       end
@@ -205,20 +210,22 @@ class ReservesController < ApplicationController
   # DELETE /reserves/1
   # DELETE /reserves/1.xml
   def destroy
+    reserve = @reserve.dup
     @reserve.destroy
     #flash[:notice] = t('reserve.reservation_was_canceled')
 
-    if @reserve.manifestation.is_reserved?
-      if @reserve.item
-        retain = @reserve.item.retain(User.find('admin')) # TODO: システムからの送信ユーザの設定
-        if retain.nil?
-          flash[:message] = t('reserve.this_item_is_not_reserved')
-        end
-      end
+    if reserve.manifestation.is_reserved?
+      reserve.position_update(reserve.manifestation)
+#      if @reserve.item
+#        retain = @reserve.item.retain(User.find('admin')) # TODO: システムからの送信ユーザの設定
+#        if retain.nil?
+#          flash[:message] = t('reserve.this_item_is_not_reserved')
+#        end
+#      end
     end
 
     respond_to do |format|
-      format.html { redirect_to user_reserves_url(@user) }
+      format.html { redirect_to reserves_url}
       format.xml  { head :ok }
     end
   end

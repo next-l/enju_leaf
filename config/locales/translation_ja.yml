@@ -781,6 +781,7 @@ ja:
         zipcode: 〒
         information_method: 連絡方法
         receipt_library: 受取館
+        unnecessary: 連絡不要
         email: 電子メール
         telephone: 電話
       message_request:

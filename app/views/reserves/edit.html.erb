@@ -28,7 +28,7 @@
 
   <div class="field">
     <%= f.label t('activerecord.attributes.reserve.information_method') -%><br />
-    <%= f.select :information_type_id, {t('activerecord.attributes.reserve.email')=>1, t('activerecord.attributes.reserve.telephone')=>2} -%>
+    <%= f.select(:receipt_library_id, @information_types.collect{|i| [i18n_information_type(i), i]}) -%>
   </div>
 
   <div class="field">
