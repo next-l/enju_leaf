@@ -89,6 +89,7 @@ class ReservesController < ApplicationController
       @reserve = Reserve.new
     end
     @libraries = Library.all
+    @information_types = Reserve.information_types
     @reserve.receipt_library_id = user.library_id unless user.blank?
 
     get_manifestation
@@ -108,6 +109,7 @@ class ReservesController < ApplicationController
   # GET /reserves/1;edit
   def edit
     @libraries = Library.all
+    @information_types = Reserve.information_types
   end
 
   # POST /reserves
@@ -146,6 +148,7 @@ class ReservesController < ApplicationController
         format.xml  { render :xml => @reserve, :status => :created, :location => user_reserve_url(@reserve.user, @reserve) }
       else
         @libraries = Library.all
+        @information_types = Reserve.information_types
         format.html { render :action => "new" }
         format.xml  { render :xml => @reserve.errors.to_xml }
       end
@@ -197,6 +200,7 @@ class ReservesController < ApplicationController
         format.xml  { head :ok }
       else
         @libraries = Library.all
+        @information_types = Reserve.information_types
         format.html { render :action => "edit" }
         format.xml  { render :xml => @reserve.errors.to_xml }
       end

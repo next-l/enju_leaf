@@ -267,6 +267,11 @@ class Reserve < ActiveRecord::Base
       end
     end
   end
+
+  def self.information_types
+    @information_types = [0, 1, 2]
+    return @information_types
+  end
 end
 
 # == Schema Information

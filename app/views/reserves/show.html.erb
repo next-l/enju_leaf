@@ -45,8 +45,7 @@
 
 <p>
   <strong><%= t('activerecord.attributes.reserve.information_method') -%>:</strong>
-  <%= t('activerecord.attributes.reserve.email') if @reserve.information_type_id == 1 -%>
-  <%= t('activerecord.attributes.reserve.telephone') if @reserve.information_type_id == 2 -%>
+  <%= i18n_information_type(@reserve.information_type_id) -%>
 </p>
 
 <p>
