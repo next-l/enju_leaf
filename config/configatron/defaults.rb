@@ -53,6 +53,9 @@ configatron.checkouts_print.message = "本は大事に扱いましょう。期�
 # 連絡不可者の出力
 configatron.unablelist_print.filename = "unablelist.pdf"
 
+# 貸出状況の帳票ファイル名
+configatron.checkoutlist_report.filename = "checkoutlist.pdf"
+
 # 利用統計の帳票ファイル名
 configatron.statistic_report.monthly = "monthly_report.pdf"
 configatron.statistic_report.daily = "daily_report.pdf"

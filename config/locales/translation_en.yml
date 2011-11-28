@@ -1626,3 +1626,6 @@ en:
   merge_list:
     successfully_merged: "%{model} were merged successfully."
     specify_id: "Specify %{model} ID."
+  item_list:
+    list_condition: List Condition
+    no_list_condition: Check list condition

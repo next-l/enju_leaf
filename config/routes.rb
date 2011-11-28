@@ -420,7 +420,9 @@ EnjuLeaf::Application.routes.draw do
   match '/page/routing_error' => 'page#routing_error'
 
   match '/checkoutlist' => 'checkoutlist#index'
+  match '/checkoutlist/output' => 'checkoutlist#output'
   match '/reservelist' => 'reservelist#index'
+  match '/reservelist/output' => 'reservelist#output'
   match '/unablelist' => 'unablelist#index'
   match '/unablelist/output' => 'unablelist#output'
 
