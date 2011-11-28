@@ -457,7 +457,7 @@ class StatisticReportsController < ApplicationController
                 row.item("value##{t+1}").value(value)
               end
               sum = 0
-              datas = Statistic.where(:yyyymm => term, :data_type => 2220, :library_id => 0)
+              datas = Statistic.where(:yyyymm => term, :data_type => 2220, :library_id => library.id)
               datas.each do |data|
                 sum = sum + data.value
               end
@@ -502,7 +502,7 @@ class StatisticReportsController < ApplicationController
                 row.item("value##{t+1}").value(value)
               end
               sum = 0
-              datas = Statistic.where(:yyyymm => term, :data_type => 2210, :library_id => 0)
+              datas = Statistic.where(:yyyymm => term, :data_type => 2210, :library_id => library.id)
               datas.each do |data|
                 sum = sum + data.value
               end
@@ -547,7 +547,7 @@ class StatisticReportsController < ApplicationController
                 row.item("value##{t+1}").value(value)
               end
               sum = 0
-              datas = Statistic.where(:yyyymm => term, :data_type => 2330, :library_id => 0)
+              datas = Statistic.where(:yyyymm => term, :data_type => 2330, :library_id => library.id)
               datas.each do |data|
                 sum = sum + data.value
               end
@@ -592,7 +592,7 @@ class StatisticReportsController < ApplicationController
                 row.item("value##{t+1}").value(value)
               end
               sum = 0
-              datas = Statistic.where(:yyyymm => term, :data_type => 2430, :library_id => 0)
+              datas = Statistic.where(:yyyymm => term, :data_type => 2430, :library_id => library.id)
               datas.each do |data|
                 sum = sum + data.value
               end
