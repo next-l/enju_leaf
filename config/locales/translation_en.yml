@@ -1279,6 +1279,7 @@ en:
     from: "from"
     to: "to"
     all_libraries: "All libraries"
+    all_circulation_status: "All circulation status"
   bookmark:
     new: "New bookmark"
     not_bookmarked: "Not bookmarked."

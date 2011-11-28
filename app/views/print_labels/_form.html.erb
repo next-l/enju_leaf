@@ -1,5 +1,8 @@
 <script language="JavaScript" type="text/javascript">
   <!--
+    function clearMessage() {
+      $('div#message').empty();
+    }
     function addUser(user_id, user_name, fullname) {
       if ($("div#add_" + user_id).size() == 0) {
         s = "<div id='add_" + user_id + "'>"
@@ -31,6 +34,8 @@
 
   // -->
 </script>
+
+<div id="message" style="color: red"><%= flash[:error] -%></div>
 
 <%= form_tag(:action => :get_user_label) do %>
   <%= t('print_label.users') -%>
