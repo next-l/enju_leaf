@@ -42,7 +42,7 @@ class Reserve < ActiveRecord::Base
     before_transition [:pending, :requested, :retained] => :retained, :do => :retain
     before_transition [:pending ,:requested, :retained] => :canceled, :do => :cancel
     before_transition [:pending, :requested, :retained] => :expired, :do => :expire
-    before_transition :retained => :completed, :do => :checkout
+    before_transition [:retained, :requested] => :completed, :do => :checkout
 
     event :sm_request do
       transition [:pending, :retained, :requested] => :requested
@@ -252,15 +252,18 @@ class Reserve < ActiveRecord::Base
   end
 
   def position_update(manifestation)
-    logger.error "position update"
-    reserves = Reserve.where(:manifestation_id => manifestation).order(:position)
-    items = manifestation.items.for_checkout.available_for_checkout
+    logger.error "reserve position update"
+    reserves = Reserve.where(:manifestation_id => manifestation).waiting.order(:position)
+    items = manifestation.items.for_checkout
+    items.delete_if{|item| !item.available_for_checkout?}
     reserves.each do |reserve|
-      logger.erros "reserve #{reserve.id}"
       if !items.blank?
         reserve.item = items.shift
+        reserve.sm_retain!
       else
         reserve.item = nil
+        reserve.sm_request!
+        reserve.save
       end
     end
   end

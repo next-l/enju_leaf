@@ -230,7 +230,6 @@ private
     manifestation.items.for_checkout.each do |i|
       items << i if i.available_for_checkout?
     end
-    logger.error items.length
     reserves.each do |reserve|
       if !items.blank?
         reserve.item = items.shift

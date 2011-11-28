@@ -115,10 +115,21 @@ class Item < ActiveRecord::Base
   end
 
   def reserved_by_user?(user)
-     if self.reserve
-       return true if self.reserve.user == user
-     end
+    if self.reserve
+      return true if self.reserve.user == user
+    end
     false
+  end
+
+  def checkout_reserved_item(user)
+    reservation = Reserve.waiting.where(:user_id => user.id, :manifestation_id => self.manifestation.id).first rescue nil
+    if reservation
+      logger.error "checkouts reservation: #{reservation.id}"
+      reservation.item = self
+      reservation.sm_complete!
+      reservation.update_attributes(:checked_out_at => Time.zone.now)     
+      return reservation
+    end
   end
 
   def available_for_checkout?
@@ -129,12 +140,14 @@ class Item < ActiveRecord::Base
 
   def checkout!(user)
     self.circulation_status = CirculationStatus.where(:name => 'On Loan').first
-    if self.reserved_by_user?(user)
-      reservation = self.reserve
-      reservation.sm_complete!
-      reservation.update_attributes(:checked_out_at => Time.zone.now)
-    end
+    reservation = checkout_reserved_item(user)
+#    if self.reserved_by_user?(user)
+#      reservation = self.reserve
+#      reservation.sm_complete!
+#      reservation.update_attributes(:checked_out_at => Time.zone.now)
+#    end
     save!
+    reservation.position_update(reservation.manifestation) if reservation
   end
 
   def checkin!
