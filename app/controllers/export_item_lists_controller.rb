@@ -5,8 +5,11 @@ class ExportItemListsController < ApplicationController
 
   def create
     list_type = params[:export_item_list][:list_type]
-    library_ids = params[:library]
-    carrier_type_ids = params[:carrier_type]
+    library_ids = params[:library] || []
+    carrier_type_ids = params[:carrier_type] || []
+
+    library_ids = Library.all.inject([]) {|ids, lib| ids << lib.id} if library_ids.empty? || params[:all_library]
+    carrier_type_ids = CarrierType.all.inject([]){|ids, ct| ids << ct.id} if carrier_type_ids.empty? || params[:all_carrier_type]
 
     ndc_str = params[:ndc]
     unless ndc_str.blank? 
