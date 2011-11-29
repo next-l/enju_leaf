@@ -1,6 +1,6 @@
 class Statistic < ActiveRecord::Base
   has_one :library
-  validates_uniqueness_of :data_type, :scope => [:yyyymmdd, :library_id, :hour]
+  validates_uniqueness_of :data_type, :scope => [:yyyymm, :yyyymmdd, :library_id, :hour]
   @libraries = Library.all
   @checkout_types = CheckoutType.all
   before_validation :check_record
@@ -175,6 +175,20 @@ class Statistic < ActiveRecord::Base
 
   def self.calc_monthly_data(month)
     p "start to calculate monthly data: #{month}"
+
+    # montyly open days 1130
+    y = month[0,4].to_i
+    m = month[4,2].to_i
+    @libraries.each do |library|
+      c = 0
+      (1..(Date.new(y, m, -1).day)).each {|d| c += 1 if Event.closing_days.where("start_at <= ? AND ? <= end_at AND library_id = ?", Time.local(y, m, d, 0, 0, 0), Time.local(y, m, d, 0, 0, 0), library.id).count == 0}
+      statistic = Statistic.new
+      statistic.data_type = 1130
+      statistic.library_id = library.id
+      statistic.yyyymm = month
+      statistic.value = c
+      statistic.save!
+    end
 
     # monthly checkout items 1210   
     datas = Statistic.select(:value).where(:data_type=> '2210', :yyyymm => month, :library_id => 0)
@@ -472,6 +486,7 @@ end
 # data type list
 # monthly items: 1110
 # monthly users: 1120 / 1121 (available users) / 1122 (locked users)
+# montyly open days: 1130
 # monthly checkout items: 1210   
 # monthly checkout users: 1220
 # avarage of checkout users per day: 1223 

@@ -87,6 +87,34 @@ class StatisticReportsController < ApplicationController
         end
       end
 
+      # open days of each libraries
+      libraries.each do |library|
+        report.page.list(:list).add_row do |row|
+          row.item(:type).value(t('statistic_report.opens')) if libraries.first == library
+          row.item(:library).value(library.display_name)
+          sum = 0
+          12.times do |t|
+            if t < 4 # for Japanese fiscal year
+              value = Statistic.where(:yyyymm => "#{term.to_i + 1}#{"%02d" % (t + 1)}", :data_type => 1130, :library_id => library.id).first.value rescue 0 
+            else
+              value = Statistic.where(:yyyymm => "#{term}#{"%02d" % (t + 1)}", :data_type => 1130, :library_id => library.id).first.value rescue 0
+            end
+            row.item("value#{t+1}").value(value)
+            sum += value
+          end
+          row.item("valueall").value(sum)
+          if library == libraries.last
+            row.item(:type_line).show
+            row.item(:library_line).style(:border_color, '#000000')
+            row.item(:library_line).style(:border_width, 1)
+            row.item(:option_line).style(:border_color, '#000000')
+            row.item(:option_line).style(:border_width, 1)
+            row.item(:values_line).style(:border_color, '#000000')
+            row.item(:values_line).style(:border_width, 1)
+          end  
+        end
+      end
+
       # checkout users all libraries
       report.page.list(:list).add_row do |row|
         row.item(:type).value(t('statistic_report.checkout_users'))

@@ -1759,6 +1759,7 @@ ja:
     created: "帳票を作成しました。"
     all_library: 全図書館
     items: 蔵書冊数
+    opens: 開館日数
     checkout_users: 貸出人数
     checkout_items: 貸出冊数
     average_checkout_users: 一日平均貸出人数
