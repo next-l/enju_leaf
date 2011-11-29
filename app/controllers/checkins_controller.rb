@@ -69,6 +69,8 @@ class CheckinsController < ApplicationController
       @basket.save(:validate => false)
     end
     @checkin = @basket.checkins.new(params[:checkin])
+
+    debugger
     
     flash[:message] = ''
     flash[:sound] = ''
@@ -83,11 +85,12 @@ class CheckinsController < ApplicationController
         checked = true if checkout.item.item_identifier == item.item_identifier
         overdue = true if checkout.item.item_identifier == item.item_identifier and checkout.overdue?
       end
-      #debugger
       # TODO refactoring
       flash[:message], flash[:sound] = error_message_and_sound("checkin.not_checkin") unless checked
       flash[:message], flash[:sound] = error_message_and_sound('checkin.already_checked_in') if @basket.checkins.collect(&:item).include?(item)
-      flash[:message] = t('checkin.not_available_for_checkin') if item.checkin? == false
+      if item.available_checkin? == false
+        flash[:message], flash[:sound] = error_message_and_sound('checkin.not_available_for_checkin') 
+      end
     end
 
     #logger.info flash.inspect

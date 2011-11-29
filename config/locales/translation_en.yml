@@ -744,6 +744,7 @@ en:
         state: State
         information_method: Information method
         receipt_library: Receipt library
+        unnecessary: Unnecessary
         email: email
         telephone: telephone
       message_request:

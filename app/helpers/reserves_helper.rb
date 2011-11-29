@@ -15,6 +15,17 @@ module ReservesHelper
       t('reserve.completed')
     end
   end
+
+  def i18n_information_type(id)
+    case id
+      when 0
+        t('activerecord.attributes.reserve.email')
+      when 1
+        t('activerecord.attributes.reserve.telephone')
+      when 2
+        t('activerecord.attributes.reserve.unnecessary')
+    end
+  end
   
   def button_to_by_get(name, options = {}, html_options = {}, parameter = {})
     html_options.merge!({:method => :get})
