@@ -78,6 +78,7 @@
     <% if user_signed_in? %>
       <% if can? :update, user %>
         <li><%= link_to t('page.edit'), edit_user_path(user) -%></li>
+        <li><%= link_to t('user.update_user_number'), edit_user_number_user_path(user) -%></li>
       <% end %>
       <li><%= link_to t('message.send'), new_message_path(:recipient => user.username) -%></li>
       <%- if can? :create, user -%>

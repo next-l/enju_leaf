@@ -255,6 +255,7 @@ ja:
         email: メールアドレス
         url: URL
         note_update_at: 注記更新時刻
+        old: 歳
       feeds/app:
         source_url: ソースURL
         title: タイトル
@@ -345,6 +346,8 @@ ja:
         lock_version: ロックバージョン
         keyword_list: キーワードリスト
         user_number: 利用者番号
+        present_user_number: 古いの利用者番号
+        new_user_number: 新しい利用者番号
         state: 状態
         patron: 人物・団体
         library: 所属館
@@ -1589,6 +1592,7 @@ ja:
     retained_reserve: "%{user} さんの予約資料が %{count} 冊用意されています。" 
     create_family_user: "家族を新規作成する"
     manage_family: "家族情報管理をする"
+    update_user_number: "利用者番号を変更する"
   news_post:
     library_group_news_post: "%{library_group_name} からのお知らせ"
   reserve:

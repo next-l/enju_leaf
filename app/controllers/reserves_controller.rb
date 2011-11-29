@@ -1,5 +1,7 @@
 # -*- encoding: utf-8 -*-
 class ReservesController < ApplicationController
+  include ReservesHelper
+  include ApplicationHelper
   before_filter :store_location, :only => [:index, :new]
   load_and_authorize_resource :except => :index
   authorize_resource :only => :index
@@ -228,6 +230,43 @@ class ReservesController < ApplicationController
       format.html { redirect_to reserves_url}
       format.xml  { head :ok }
     end
+  end
+
+  def output
+    @reserve_library = Library.find(current_user.library_id)
+    @receipt_library = Library.find(@reserve.receipt_library_id)
+
+    require 'thinreports'
+    report = ThinReports::Report.new :layout => File.join(Rails.root, 'report', 'reserve.tlf') 
+    report.start_new_page do |page|
+      # library info
+      page.item(:library).value(LibraryGroup.system_name(@locale))
+      page.item(:date).value(Time.now.strftime('%Y/%m/%d'))
+      user = @reserve.user.user_number
+      if configatron.reserve_print.old == true and  @reserve.user.patron.date_of_birth
+        age = (Time.now.strftime("%Y%m%d").to_f - @reserve.user.patron.date_of_birth.strftime("%Y%m%d").to_f) / 10000
+        age = age.to_i
+        user = user + '(' + age.to_s + t('activerecord.attributes.patron.old')  +')'
+      end
+      page.item(:user).value(user)
+      page.item(:reserve_user).value(current_user.user_number)
+      page.item(:reserve_library).value(@reserve_library.display_name)
+      page.item(:reserve_library_telephone_number_1).value(@reserve_library.telephone_number_1)
+      page.item(:reserve_library_telephone_number_2).value(@reserve_library.telephone_number_2)
+      page.item(:receipt_library).value(@receipt_library.display_name)
+      page.item(:receipt_library_telephone_number_1).value(@receipt_library.telephone_number_1)
+      page.item(:receipt_library_telephone_number_2).value(@receipt_library.telephone_number_2)
+      page.item(:information_method).value(i18n_information_type(@reserve.information_type_id))
+      # book info
+      page.item(:title).value(@reserve.manifestation.original_title)
+      page.item(:creater).value(patrons_list(@reserve.manifestation.creators.readable_by(current_user), {:itemprop => 'author', :nolink => true}))
+      page.item(:publisher).value(patrons_list(@reserve.manifestation.publishers.readable_by(current_user), {:itemprop => 'publisher', :nolink => true}))
+      page.item(:price).value(@reserve.manifestation.price)
+      page.item(:page).value(@reserve.manifestation.number_of_pages.to_s + 'p') if @reserve.manifestation.number_of_pages 
+      page.item(:size).value(@reserve.manifestation.height.to_s + 'cm') if @reserve.manifestation.height
+      page.item(:isbn).value(@reserve.manifestation.isbn)
+    end    
+    send_data report.generate, :filename => configatron.reserve_print.filename, :type => 'application/pdf', :disposition => 'attachment'
   end
 
 private 

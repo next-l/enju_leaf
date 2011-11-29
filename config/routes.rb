@@ -110,6 +110,8 @@ EnjuLeaf::Application.routes.draw do
     resource :patron
     resource :family
     resource :family_user
+    get :edit_user_number, :on => :member
+    post :update_user_number, :on => :member
   end
 
   resources :answers
@@ -248,7 +250,9 @@ EnjuLeaf::Application.routes.draw do
 
   resources :search_engines
 
-  resources :reserves
+  resources :reserves do
+    post :output, :on => :member
+  end
 
   resources :event_categories
 
