@@ -255,6 +255,7 @@ ja:
         email: メールアドレス
         url: URL
         note_update_at: 注記更新時刻
+        old: 歳
       feeds/app:
         source_url: ソースURL
         title: タイトル
