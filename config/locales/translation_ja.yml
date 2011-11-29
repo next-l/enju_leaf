@@ -1362,8 +1362,8 @@ ja:
   advanced_search:
     from: "ここから"
     to: "ここまで"
+    all: "全ての%{model}"
     all_libraries: "全ての図書館"
-    all_circulation_status: "全ての貸出状態"
     from_date: "検索開始日"
     to_date: "検索終了日"
     library: "図書館"
@@ -1764,6 +1764,7 @@ ja:
     created: "帳票を作成しました。"
     all_library: 全図書館
     items: 蔵書冊数
+    opens: 開館日数
     checkout_users: 貸出人数
     checkout_items: 貸出冊数
     average_checkout_users: 一日平均貸出人数
