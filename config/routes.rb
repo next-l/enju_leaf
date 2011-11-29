@@ -250,7 +250,9 @@ EnjuLeaf::Application.routes.draw do
 
   resources :search_engines
 
-  resources :reserves
+  resources :reserves do
+    post :output, :on => :member
+  end
 
   resources :event_categories
 

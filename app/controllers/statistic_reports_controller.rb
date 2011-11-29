@@ -75,6 +75,15 @@ class StatisticReportsController < ApplicationController
             row.item("value#{t+1}").value(value)
             row.item("valueall").value(value) if t == 2 # March(end of fiscal year)
           end  
+          if library == libraries.last
+            row.item(:type_line).show
+            row.item(:library_line).style(:border_color, '#000000')
+            row.item(:library_line).style(:border_width, 1)
+            row.item(:option_line).style(:border_color, '#000000')
+            row.item(:option_line).style(:border_width, 1)
+            row.item(:values_line).style(:border_color, '#000000')
+            row.item(:values_line).style(:border_width, 1)
+          end  
         end
       end
 
@@ -109,6 +118,15 @@ class StatisticReportsController < ApplicationController
             sum = sum + value
           end  
           row.item("valueall").value(sum)
+          if library == libraries.last
+            row.item(:type_line).show
+            row.item(:library_line).style(:border_color, '#000000')
+            row.item(:library_line).style(:border_width, 1)
+            row.item(:option_line).style(:border_color, '#000000')
+            row.item(:option_line).style(:border_width, 1)
+            row.item(:values_line).style(:border_color, '#000000')
+            row.item(:values_line).style(:border_width, 1)
+          end  
         end
       end
 
@@ -143,6 +161,12 @@ class StatisticReportsController < ApplicationController
             sum = sum + value
           end  
           row.item("valueall").value(sum/12)
+          if library == libraries.last
+            row.item(:type_line).show
+            row.item(:library_line).style(:border_color, '#000000')
+            row.item(:option_line).style(:border_color, '#000000')
+            row.item(:values_line).style(:border_color, '#000000')
+          end  
         end
       end
 
@@ -177,6 +201,15 @@ class StatisticReportsController < ApplicationController
             sum = sum + value
           end  
           row.item("valueall").value(sum)
+          if library == libraries.last
+            row.item(:type_line).show
+            row.item(:library_line).style(:border_color, '#000000')
+            row.item(:library_line).style(:border_width, 1)
+            row.item(:option_line).style(:border_color, '#000000')
+            row.item(:option_line).style(:border_width, 1)
+            row.item(:values_line).style(:border_color, '#000000')
+            row.item(:values_line).style(:border_width, 1)
+          end  
         end
       end
 
@@ -211,6 +244,15 @@ class StatisticReportsController < ApplicationController
             sum = sum + value
           end  
           row.item("valueall").value(sum/12)
+          if library == libraries.last
+            row.item(:type_line).show
+            row.item(:library_line).style(:border_color, '#000000')
+            row.item(:library_line).style(:border_width, 1)
+            row.item(:option_line).style(:border_color, '#000000')
+            row.item(:option_line).style(:border_width, 1)
+            row.item(:values_line).style(:border_color, '#000000')
+            row.item(:values_line).style(:border_width, 1)
+          end  
         end
       end
 
@@ -297,6 +339,15 @@ class StatisticReportsController < ApplicationController
             row.item("value#{t+1}").value(value)
             row.item("valueall").value(value) if t == 2 # March(end of fiscal year)
           end  
+          if library == libraries.last
+            row.item(:type_line).show
+            row.item(:library_line).style(:border_color, '#000000')
+            row.item(:library_line).style(:border_width, 1)
+            row.item(:option_line).style(:border_color, '#000000')
+            row.item(:option_line).style(:border_width, 1)
+            row.item(:values_line).style(:border_color, '#000000')
+            row.item(:values_line).style(:border_width, 1)
+          end  
         end
       end
 
@@ -330,7 +381,16 @@ class StatisticReportsController < ApplicationController
             row.item("value#{t+1}").value(value)
             sum = sum + value
           end  
-        row.item("valueall").value(sum)
+          row.item("valueall").value(sum)
+          if library == libraries.last
+            row.item(:type_line).show
+            row.item(:library_line).style(:border_color, '#000000')
+            row.item(:library_line).style(:border_width, 1)
+            row.item(:option_line).style(:border_color, '#000000')
+            row.item(:option_line).style(:border_width, 1)
+            row.item(:values_line).style(:border_color, '#000000')
+            row.item(:values_line).style(:border_width, 1)
+          end  
         end
       end
 
@@ -365,6 +425,15 @@ class StatisticReportsController < ApplicationController
             sum = sum + value
           end  
           row.item("valueall").value(sum)
+          if library == libraries.last
+            row.item(:type_line).show
+            row.item(:library_line).style(:border_color, '#000000')
+            row.item(:library_line).style(:border_width, 1)
+            row.item(:option_line).style(:border_color, '#000000')
+            row.item(:option_line).style(:border_width, 1)
+            row.item(:values_line).style(:border_color, '#000000')
+            row.item(:values_line).style(:border_width, 1)
+          end  
         end
       end
 
@@ -463,6 +532,15 @@ class StatisticReportsController < ApplicationController
               end
               row.item("value#13").value(sum)
             end
+            if library == libraries.last
+              row.item(:type_line).show
+              row.item(:library_line).style(:border_color, '#000000')
+              row.item(:library_line).style(:border_width, 1)
+              row.item(:option_line).style(:border_color, '#000000')
+              row.item(:option_line).style(:border_width, 1)
+              row.item(:values_line).style(:border_color, '#000000')
+              row.item(:values_line).style(:border_width, 1)
+            end  
           end
         end
         # checkout items all libraries
@@ -508,6 +586,15 @@ class StatisticReportsController < ApplicationController
               end
               row.item("value#13").value(sum)
             end
+            if library == libraries.last
+              row.item(:type_line).show
+              row.item(:library_line).style(:border_color, '#000000')
+              row.item(:library_line).style(:border_width, 1)
+              row.item(:option_line).style(:border_color, '#000000')
+              row.item(:option_line).style(:border_width, 1)
+              row.item(:values_line).style(:border_color, '#000000')
+              row.item(:values_line).style(:border_width, 1)
+            end  
           end
         end
         # reserves all libraries
@@ -553,6 +640,15 @@ class StatisticReportsController < ApplicationController
               end
               row.item("value#13").value(sum)
             end
+            if library == libraries.last
+              row.item(:type_line).show
+              row.item(:library_line).style(:border_color, '#000000')
+              row.item(:library_line).style(:border_width, 1)
+              row.item(:option_line).style(:border_color, '#000000')
+              row.item(:option_line).style(:border_width, 1)
+              row.item(:values_line).style(:border_color, '#000000')
+              row.item(:values_line).style(:border_width, 1)
+            end  
           end
         end
         # questions all libraries
@@ -598,6 +694,15 @@ class StatisticReportsController < ApplicationController
               end
               row.item("value#13").value(sum)
             end
+            if library == libraries.last
+              row.item(:type_line).show
+              row.item(:library_line).style(:border_color, '#000000')
+              row.item(:library_line).style(:border_width, 1)
+              row.item(:option_line).style(:border_color, '#000000')
+              row.item(:option_line).style(:border_width, 1)
+              row.item(:values_line).style(:border_color, '#000000')
+              row.item(:values_line).style(:border_width, 1)
+            end  
           end
         end
       end
@@ -687,6 +792,15 @@ class StatisticReportsController < ApplicationController
             row.item("value##{t+1}").value(value)
           end
           row.item("value#13").value(sum)
+          if library == libraries.last
+            row.item(:type_line).show
+            row.item(:library_line).style(:border_color, '#000000')
+            row.item(:library_line).style(:border_width, 1)
+            row.item(:option_line).style(:border_color, '#000000')
+            row.item(:option_line).style(:border_width, 1)
+            row.item(:values_line).style(:border_color, '#000000')
+            row.item(:values_line).style(:border_width, 1)
+          end  
         end
       end
       # checkout items all libraries
@@ -720,6 +834,15 @@ class StatisticReportsController < ApplicationController
             row.item("value##{t+1}").value(value)
           end
           row.item("value#13").value(sum)
+          if library == libraries.last
+            row.item(:type_line).show
+            row.item(:library_line).style(:border_color, '#000000')
+            row.item(:library_line).style(:border_width, 1)
+            row.item(:option_line).style(:border_color, '#000000')
+            row.item(:option_line).style(:border_width, 1)
+            row.item(:values_line).style(:border_color, '#000000')
+            row.item(:values_line).style(:border_width, 1)
+          end  
         end
       end
 
@@ -754,6 +877,15 @@ class StatisticReportsController < ApplicationController
             row.item("value##{t+1}").value(value)
           end
           row.item("value#13").value(sum)
+          if library == libraries.last
+            row.item(:type_line).show
+            row.item(:library_line).style(:border_color, '#000000')
+            row.item(:library_line).style(:border_width, 1)
+            row.item(:option_line).style(:border_color, '#000000')
+            row.item(:option_line).style(:border_width, 1)
+            row.item(:values_line).style(:border_color, '#000000')
+            row.item(:values_line).style(:border_width, 1)
+          end  
         end
       end
 
@@ -788,6 +920,15 @@ class StatisticReportsController < ApplicationController
             row.item("value##{t+1}").value(value)
           end
           row.item("value#13").value(sum)
+          if library == libraries.last
+            row.item(:type_line).show
+            row.item(:library_line).style(:border_color, '#000000')
+            row.item(:library_line).style(:border_width, 1)
+            row.item(:option_line).style(:border_color, '#000000')
+            row.item(:option_line).style(:border_width, 1)
+            row.item(:values_line).style(:border_color, '#000000')
+            row.item(:values_line).style(:border_width, 1)
+          end  
         end
       end
 
@@ -868,6 +1009,15 @@ class StatisticReportsController < ApplicationController
             row.item("value#{t}").value(value)
           end
           row.item("valueall").value(sum)
+          if library == libraries.last
+            row.item(:type_line).show
+            row.item(:library_line).style(:border_color, '#000000')
+            row.item(:library_line).style(:border_width, 1)
+            row.item(:option_line).style(:border_color, '#000000')
+            row.item(:option_line).style(:border_width, 1)
+            row.item(:values_line).style(:border_color, '#000000')
+            row.item(:values_line).style(:border_width, 1)
+          end  
         end
       end
 
@@ -902,6 +1052,15 @@ class StatisticReportsController < ApplicationController
             row.item("value#{t}").value(value)
           end
           row.item("valueall").value(sum)
+          if library == libraries.last
+            row.item(:type_line).show
+            row.item(:library_line).style(:border_color, '#000000')
+            row.item(:library_line).style(:border_width, 1)
+            row.item(:option_line).style(:border_color, '#000000')
+            row.item(:option_line).style(:border_width, 1)
+            row.item(:values_line).style(:border_color, '#000000')
+            row.item(:values_line).style(:border_width, 1)
+          end  
         end
       end
 
@@ -970,6 +1129,15 @@ class StatisticReportsController < ApplicationController
             row.item("value#{t}").value(value)
           end
           row.item("valueall").value(sum)
+          if library == libraries.last
+            row.item(:type_line).show
+            row.item(:library_line).style(:border_color, '#000000')
+            row.item(:library_line).style(:border_width, 1)
+            row.item(:option_line).style(:border_color, '#000000')
+            row.item(:option_line).style(:border_width, 1)
+            row.item(:values_line).style(:border_color, '#000000')
+            row.item(:values_line).style(:border_width, 1)
+          end  
         end
       end
 

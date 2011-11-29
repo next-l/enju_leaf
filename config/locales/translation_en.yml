@@ -241,6 +241,7 @@ en:
         language: Language
         email: Email
         url: URL
+        old: old
       feeds/app:
         source_url: Source URL
         title: Title
