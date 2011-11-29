@@ -346,7 +346,7 @@ ja:
         lock_version: ロックバージョン
         keyword_list: キーワードリスト
         user_number: 利用者番号
-        present_user_number: 古いの利用者番号
+        present_user_number: 古い利用者番号
         new_user_number: 新しい利用者番号
         state: 状態
         patron: 人物・団体
@@ -1254,6 +1254,7 @@ ja:
     editing: "%{model}の編集"
     showing: "%{model}の表示"
     output: "%{model}の出力"
+    update: "%{model}の更新"
     patron_management: "人物・団体の管理"
     user_management: "利用者の管理"
     back_to: "%{model}の一覧に戻る"
