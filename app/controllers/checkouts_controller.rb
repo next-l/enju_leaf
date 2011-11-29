@@ -136,7 +136,7 @@ class CheckoutsController < ApplicationController
   
   def output
     @user = User.find(params[:user_id]) rescue nil
-    @library = Library.find(@user.library_id) rescue nil
+    @library = Library.find(current_user.library_id) rescue nil
     output_checkouts(@library, @user, current_user) unless @user.blank?
   end
 
