@@ -1,7 +1,7 @@
 # -*- encoding: utf-8 -*-
 class UsersController < ApplicationController
   #before_filter :reset_params_session
-  load_and_authorize_resource :except => [:search_family, :get_family_info, :output_password]
+  load_and_authorize_resource :except => [:search_family, :get_family_info, :output_password, :edit_user_number, :update_user_number]
   helper_method :get_patron
   before_filter :store_location, :only => [:index]
   before_filter :clear_search_sessions, :only => [:show]
@@ -281,6 +281,34 @@ class UsersController < ApplicationController
     respond_to do |format|
       format.html { redirect_to(users_url) }
       format.xml  { head :ok }
+    end
+  end
+
+  def edit_user_number
+    if user_signed_in?
+      unless current_user.has_role?('Librarian')
+        access_denied; return
+      end
+    end
+    @user = User.find_by_username(params[:id])
+  end
+
+  def update_user_number
+    if user_signed_in?
+      unless current_user.has_role?('Librarian')
+        access_denied; return
+      end
+    end
+    @user = User.find_by_username(params[:id])
+    #@user.user_number = params[:new_user_number]
+    debugger
+    begin 
+      @user.update_attributes({:user_number => params[:new_user_number]})
+      flash[:notice] = t('controller.successfully_updated', :model => t('activerecord.models.user.user_number'))
+      redirect_to(users_url)       
+    rescue # ActiveRecord::RecordInvalid
+      #@user = User.find_by_username(params[:id])
+      render :action => :edit_user_number 
     end
   end
 
