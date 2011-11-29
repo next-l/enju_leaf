@@ -288,6 +288,39 @@ div#family{
   width: 250px;
 }
 
+div#list_condition_150 {
+  float: left;
+  text_align: left;
+  width: 150px;
+}
+
+div#list_condition_200 {
+  float: left;
+  text_align: left;
+  width: 200px;
+}
+
+div#item_list_carrier_type{
+  float: left;
+  text_align: left;
+  width: 200px;
+}
+
+div#item_list_ndc{
+  float: left;
+  text_align: left;
+}
+
+div#footer{
+  padding-top: 5px;
+  padding-left: 2px;
+  padding-right: 2px;
+  padding-bottom: 5px;
+  clear: both;
+}
+
+}
+
 div#item_list_library{
   float: left;
   text_align: left;

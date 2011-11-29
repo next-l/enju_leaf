@@ -26,15 +26,14 @@
   <div class="field">
     <p id="notice"><%= notice %></p>
     <%= label :list_condition, t('activerecord.attributes.item_list.list_condition') -%>:<br />
-    <div style="float:left;">
+    <div id="list_condition_200">
       <input type='checkbox', name='all_circulation_status', id='all_circulation_status', 
-        onclick ='checkAll(this);', checked><%= t('advanced_search.all_circulation_status') -%></input><br />
+        onclick ='checkAll(this);', checked><%= t('advanced_search.all', :model => t('activerecord.models.circulation_status')) -%></input><br />
       <%- @circulation_status.each_with_index do |c, g| -%>
         <%= check_box_tag "circulation_status[]", c.id, true, :class => 'circulation_status', :onclick => 'clear_checkAll(this);' -%><%= c.display_name.localize -%><br />
         <%- if g == 6 -%>
           </div>
-          &nbsp;
-          <div style="float:left;">
+          <div id="list_condition_200">
         <%- end -%>
       <%- end -%>
     </div>
