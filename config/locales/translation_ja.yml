@@ -696,6 +696,11 @@ ja:
         reserves_count:  予約回数(累計/今期/前期)
         last_checkout_datetime: 最終利用年月日
         ndc: NDC
+        exinfo_1: 拡張情報１
+        exinfo_2: 拡張情報２
+        exinfo_3: 拡張情報３
+        exinfo_4: 拡張情報４
+        exinfo_5: 拡張情報５
       user_group:
         name: 名前
         display_name: 表示名

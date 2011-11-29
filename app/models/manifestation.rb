@@ -163,6 +163,11 @@ class Manifestation < ActiveRecord::Base
     end
     time :acquired_at
     boolean :except_recent
+    string :exinfo_1
+    string :exinfo_2
+    string :exinfo_3
+    string :exinfo_4
+    string :exinfo_5
   end
 
   enju_manifestation_viewer
