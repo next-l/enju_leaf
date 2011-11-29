@@ -3,6 +3,7 @@ class Statistic < ActiveRecord::Base
   validates_uniqueness_of :data_type, :scope => [:yyyymm, :yyyymmdd, :library_id, :hour]
   @libraries = Library.all
   @checkout_types = CheckoutType.all
+  @user_groups = UserGroup.all
   before_validation :check_record
 
   def self.calc_state(start_at, end_at, term_id)
@@ -15,6 +16,14 @@ class Statistic < ActiveRecord::Base
       statistic.data_type = term_id.to_s + 110.to_s
       statistic.value = Item.count_by_sql(["select count(*) from items where created_at >= ? AND created_at  < ?", start_at, end_at])
       statistic.save! if statistic.value > 0
+      # items per checkout types
+      @checkout_types.each do |checkout_type|
+        statistic = Statistic.new
+        set_date(statistic, end_at, term_id)
+        statistic.data_type = term_id.to_s + 11.to_s + checkout_type.id.to_s
+        statistic.value = Item.count_by_sql(["select count(*) from items where checkout_type_id = ? AND created_at >= ? AND created_at  < ?", checkout_type.id, start_at, end_at])
+        statistic.save! if statistic.value > 0
+      end
 
       @libraries.each do |library|
         statistic = Statistic.new
@@ -23,6 +32,15 @@ class Statistic < ActiveRecord::Base
         statistic.library_id = library.id
         statistic.value = statistic.value = Item.count_by_sql(["select count(items) from items, shelves, libraries where items.shelf_id = shelves.id AND libraries.id = shelves.library_id AND libraries.id = ? AND items.created_at >= ? AND items.created_at < ?", library.id, start_at, end_at])
         statistic.save! if statistic.value > 0
+        # items per checkout types
+        @checkout_types.each do |checkout_type|
+          statistic = Statistic.new
+          set_date(statistic, end_at, term_id)
+          statistic.data_type = term_id.to_s + 11.to_s + checkout_type.id.to_s
+          statistic.library_id = library.id
+          statistic.value = statistic.value = Item.count_by_sql(["select count(items) from items, shelves, libraries where items.shelf_id = shelves.id AND libraries.id = shelves.library_id AND libraries.id = ? AND items.checkout_type_id = ? AND items.created_at >= ? AND items.created_at < ?", library.id, checkout_type.id, start_at, end_at])
+          statistic.save! if statistic.value > 0
+        end
       end
 
       # users 120

@@ -32,6 +32,7 @@ class StatisticReportsController < ApplicationController
       return false
     end
     libraries = Library.all
+    checkout_types = CheckoutType.all
     begin 
       report = ThinReports::Report.new :layout => "#{Rails.root.to_s}/app/views/statistic_reports/monthly_report"
 
@@ -62,6 +63,22 @@ class StatisticReportsController < ApplicationController
           row.item("valueall").value(value) if t == 2 # March(end of fiscal year)
         end  
       end
+      # items each checkout_types
+      checkout_types.each do |checkout_type|
+        report.page.list(:list).add_row do |row|
+          row.item(:option).value(checkout_type.display_name.localize)
+          data_type = 111.to_s + checkout_type.id.to_s 
+          12.times do |t|
+            if t < 4 # for Japanese fiscal year
+              value = Statistic.where(:yyyymm => "#{term.to_i + 1}#{"%02d" % (t + 1)}", :data_type => data_type, :library_id => 0).first.value rescue 0
+            else
+              value = Statistic.where(:yyyymm => "#{term}#{"%02d" % (t + 1)}", :data_type => data_type, :library_id => 0).first.value rescue 0
+            end
+            row.item("value#{t+1}").value(value)
+            row.item("valueall").value(value) if t == 2 # March(end of fiscal year)
+          end  
+        end
+      end
       # items each library
       libraries.each do |library|
         report.page.list(:list).add_row do |row|
@@ -75,15 +92,31 @@ class StatisticReportsController < ApplicationController
             row.item("value#{t+1}").value(value)
             row.item("valueall").value(value) if t == 2 # March(end of fiscal year)
           end  
-          if library == libraries.last
-            row.item(:type_line).show
-            row.item(:library_line).style(:border_color, '#000000')
-            row.item(:library_line).style(:border_width, 1)
-            row.item(:option_line).style(:border_color, '#000000')
-            row.item(:option_line).style(:border_width, 1)
-            row.item(:values_line).style(:border_color, '#000000')
-            row.item(:values_line).style(:border_width, 1)
-          end  
+        end
+        # items each checkout_types
+        checkout_types.each do |checkout_type|
+          report.page.list(:list).add_row do |row|
+            row.item(:option).value(checkout_type.display_name.localize)
+            data_type = 111.to_s + checkout_type.id.to_s 
+            12.times do |t|
+              if t < 4 # for Japanese fiscal year
+                value = Statistic.where(:yyyymm => "#{term.to_i + 1}#{"%02d" % (t + 1)}", :data_type => data_type, :library_id => library.id).first.value rescue 0
+              else
+                value = Statistic.where(:yyyymm => "#{term}#{"%02d" % (t + 1)}", :data_type => data_type, :library_id => library.id).first.value rescue 0
+              end
+              row.item("value#{t+1}").value(value)
+              row.item("valueall").value(value) if t == 2 # March(end of fiscal year)
+            end  
+            if library == libraries.last && checkout_type == checkout_types.last
+              row.item(:type_line).show
+              row.item(:library_line).style(:border_color, '#000000')
+              row.item(:library_line).style(:border_width, 1)
+              row.item(:option_line).style(:border_color, '#000000')
+              row.item(:option_line).style(:border_width, 1)
+              row.item(:values_line).style(:border_color, '#000000')
+              row.item(:values_line).style(:border_width, 1)
+            end  
+          end
         end
       end
 
