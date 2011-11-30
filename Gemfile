@@ -39,8 +39,8 @@ gem 'will_paginate', '~> 3.0'
 gem 'exception_notification', '~> 2.5.2'
 gem 'delayed_job', '>= 2.1.4'
 gem 'state_machine'
-gem 'sunspot_rails', '~>1.3.rc4'
-gem 'sunspot_solr', '~>1.3.rc4'
+gem 'sunspot_rails', '~> 1.3'
+gem 'sunspot_solr', '~> 1.3'
 gem 'progress_bar'
 gem "friendly_id", "~> 4.0.0.beta11"
 gem 'inherited_resources', '~>1.3'
@@ -121,7 +121,7 @@ end
 
 # To use debugger (ruby-debug for Ruby 1.8.7+, ruby-debug19 for Ruby 1.9.2+)
 # gem 'ruby-debug'
-# gem 'ruby-debug19'
+gem 'ruby-debug19'
 
 # Bundle the extra gems:
 # gem 'bj'
