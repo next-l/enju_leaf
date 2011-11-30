@@ -15,6 +15,11 @@ class UsersController < ApplicationController
     @query = query.dup
     @count = {}
 
+    query = params[:query].gsub("-", "") if params[:query]
+    if query.size == 1
+      query = "#{query}*"
+    end
+
     sort = {:sort_by => 'created_at', :order => 'desc'}
     case params[:sort_by]
     when 'username'
@@ -31,7 +36,6 @@ class UsersController < ApplicationController
       sort[:order] = 'desc'
     end
 
-    query = params[:query].gsub("-", "") if params[:query]
     page = params[:page] || 1
     role = current_user.try(:role) || Role.default_role
     @date_of_birth = params[:birth_date].to_s.dup
@@ -300,7 +304,6 @@ class UsersController < ApplicationController
       end
     end
     @user = User.find_by_username(params[:id])
-    debugger
     if params[:new_user_number].blank?
       @user.errors.add_on_blank("new_user_number")
       render :action => :edit_user_number 

@@ -96,6 +96,11 @@ private
     query = params[:query].to_s
     @query = query.dup
     @count = {}
+    
+    query = params[:query].gsub("-", "") if params[:query]
+    if query.size == 1
+      query = "#{query}*"
+    end
 
     sort = {:sort_by => 'created_at', :order => 'desc'}
     case params[:sort_by]
@@ -113,7 +118,6 @@ private
       sort[:order] = 'desc'
     end
 
-    query = params[:query].gsub("-", "") if params[:query]
     page = params[:page] || 1
     role = current_user.try(:role) || Role.default_role
     @date_of_birth = params[:birth_date].to_s.dup
