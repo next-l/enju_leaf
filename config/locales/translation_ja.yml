@@ -782,6 +782,9 @@ ja:
         checked_out_at: 貸出時刻
         canceled_at: 取消時刻
         expired_at: 有効期限（この日以降は不要）
+        expired_at2: 有効期限
+        within_expired_at: 期限内
+        over_expired_at: 期限切れ
         deleted_at: 削除時刻
         created_at: 予約日時
         state: 状態
