@@ -4,6 +4,9 @@ class Statistic < ActiveRecord::Base
   @libraries = Library.all
   @checkout_types = CheckoutType.all
   @user_groups = UserGroup.all
+  @adult_ids = User.adults.inject([]){|ids, user| ids << user.id}
+  @student_ids = User.students.inject([]){|ids, user| ids << user.id}
+  @children_ids = User.children.inject([]){|ids, user| ids << user.id}
   before_validation :check_record
 
   def self.calc_state(start_at, end_at, term_id)
@@ -117,6 +120,22 @@ class Statistic < ActiveRecord::Base
       statistic.data_type = term_id.to_s + 220.to_s
       statistic.value = Checkout.count_by_sql(["select count(distinct user_id) from checkouts where created_at >= ? AND created_at  < ?", start_at, end_at])
       statistic.save! if statistic.value > 0
+      # checkout users 224: adults / 225: students / 226: children
+      statistic = Statistic.new
+      set_date(statistic, start_at, term_id)
+      statistic.data_type = term_id.to_s + 224.to_s
+      statistic.value = Checkout.count_by_sql(["select count(distinct user_id) from checkouts where user_id IN (?) AND created_at >= ? AND created_at  < ?", @adult_ids, start_at, end_at])
+      statistic.save! if statistic.value > 0
+      statistic = Statistic.new
+      set_date(statistic, start_at, term_id)
+      statistic.data_type = term_id.to_s + 225.to_s
+      statistic.value = Checkout.count_by_sql(["select count(distinct user_id) from checkouts where user_id IN (?) AND created_at >= ? AND created_at  < ?", @student_ids, start_at, end_at])
+      statistic.save! if statistic.value > 0
+      statistic = Statistic.new
+      set_date(statistic, start_at, term_id)
+      statistic.data_type = term_id.to_s + 226.to_s
+      statistic.value = Checkout.count_by_sql(["select count(distinct user_id) from checkouts where user_id IN (?) AND created_at >= ? AND created_at  < ?", @children_ids, start_at, end_at])
+      statistic.save! if statistic.value > 0
  
       @libraries.each do |library|
         statistic = Statistic.new
@@ -124,6 +143,25 @@ class Statistic < ActiveRecord::Base
         statistic.data_type = term_id.to_s + 220.to_s
         statistic.library_id = library.id
         statistic.value = Checkout.count_by_sql(["select count(distinct user_id) from checkouts, users, libraries where checkouts.librarian_id = users.id AND users.library_id= libraries.id AND libraries.id = ? AND checkouts.created_at >= ? AND checkouts.created_at < ?", library.id, start_at, end_at])
+        statistic.save! if statistic.value > 0
+        # checkout users 224: adults / 225: students / 226: children
+        statistic = Statistic.new
+        set_date(statistic, start_at, term_id)
+        statistic.data_type = term_id.to_s + 224.to_s
+        statistic.library_id = library.id
+        statistic.value = Checkout.count_by_sql(["select count(distinct user_id) from checkouts, users, libraries where checkouts.librarian_id = users.id AND users.library_id= libraries.id AND user_id IN (?) AND libraries.id = ? AND checkouts.created_at >= ? AND checkouts.created_at < ?", @adult_ids, library.id, start_at, end_at])
+        statistic.save! if statistic.value > 0
+        statistic = Statistic.new
+        set_date(statistic, start_at, term_id)
+        statistic.data_type = term_id.to_s + 225.to_s
+        statistic.library_id = library.id
+        statistic.value = Checkout.count_by_sql(["select count(distinct user_id) from checkouts, users, libraries where checkouts.librarian_id = users.id AND users.library_id= libraries.id AND user_id IN (?) AND libraries.id = ? AND checkouts.created_at >= ? AND checkouts.created_at < ?", @student_ids, library.id, start_at, end_at])
+        statistic.save! if statistic.value > 0
+        statistic = Statistic.new
+        set_date(statistic, start_at, term_id)
+        statistic.data_type = term_id.to_s + 226.to_s
+        statistic.library_id = library.id
+        statistic.value = Checkout.count_by_sql(["select count(distinct user_id) from checkouts, users, libraries where checkouts.librarian_id = users.id AND users.library_id= libraries.id AND user_id IN (?) AND libraries.id = ? AND checkouts.created_at >= ? AND checkouts.created_at < ?", @children_ids, library.id, start_at, end_at])
         statistic.save! if statistic.value > 0
       end
     end
@@ -254,30 +292,32 @@ class Statistic < ActiveRecord::Base
       statistic.save! 
     end 
 
-    # monthly checkout users 1220
-    datas = Statistic.select(:value).where(:data_type=> '2220', :yyyymm => month, :library_id => 0)
-    value = 0
-    datas.each do |data|
-      value = value + data.value
-    end
-    statistic = Statistic.new
-    statistic.yyyymm = month
-    statistic.data_type = 1220
-    statistic.value = value
-    statistic.save! if statistic.value > 0
-
-    @libraries.each do |library|
-      datas = Statistic.select(:value).where(:data_type=> '2220', :yyyymm => month, :library_id => library.id)
+    # monthly checkout users 1220, 1224, 1225, 1226
+    [0,4,5,6].each do |type| # [all users, adults, students, children]
+      datas = Statistic.select(:value).where(:data_type=> "222#{type}", :yyyymm => month, :library_id => 0)
       value = 0
       datas.each do |data|
         value = value + data.value
       end
       statistic = Statistic.new
       statistic.yyyymm = month
-      statistic.data_type = 1220
-      statistic.library_id = library.id
+      statistic.data_type = 122.to_s + type.to_s
       statistic.value = value
       statistic.save! if statistic.value > 0
+
+      @libraries.each do |library|
+        datas = Statistic.select(:value).where(:data_type=> "222#{type}", :yyyymm => month, :library_id => library.id)
+        value = 0
+        datas.each do |data|
+          value = value + data.value
+        end
+        statistic = Statistic.new
+        statistic.yyyymm = month
+        statistic.data_type = 122.to_s + type.to_s
+        statistic.library_id = library.id
+        statistic.value = value
+        statistic.save! if statistic.value > 0
+      end
     end 
 
     # avarage of checkout users per day 1223 
@@ -384,29 +424,31 @@ class Statistic < ActiveRecord::Base
     end 
 
     # daily checkout users 2220
-    datas = Statistic.select(:value).where(:data_type=> '3220', :yyyymmdd => date, :library_id => 0)
-    value = 0
-    datas.each do |data|
-      value = value + data.value
-    end
-    statistic = Statistic.new
-    set_date(statistic, date_timestamp, 2)
-    statistic.data_type = 2220
-    statistic.value = value
-    statistic.save! if statistic.value > 0
-
-    @libraries.each do |library|
-      datas = Statistic.select(:value).where(:data_type=> '3220', :yyyymmdd => date, :library_id => library.id)
+    [0,4,5,6].each do |type|
+      datas = Statistic.select(:value).where(:data_type=> "322#{type}", :yyyymmdd => date, :library_id => 0)
       value = 0
       datas.each do |data|
         value = value + data.value
       end
       statistic = Statistic.new
       set_date(statistic, date_timestamp, 2)
-      statistic.data_type = 2220
-      statistic.library_id = library.id
+      statistic.data_type = 222.to_s + type.to_s
       statistic.value = value
       statistic.save! if statistic.value > 0
+
+      @libraries.each do |library|
+        datas = Statistic.select(:value).where(:data_type=> "322#{type}", :yyyymmdd => date, :library_id => library.id)
+        value = 0
+        datas.each do |data|
+          value = value + data.value
+        end
+        statistic = Statistic.new
+        set_date(statistic, date_timestamp, 2)
+        statistic.data_type = 222.to_s + type.to_s
+        statistic.library_id = library.id
+        statistic.value = value
+        statistic.save! if statistic.value > 0
+      end
     end 
 
     # daily reserves 2330
@@ -506,12 +548,13 @@ end
 # monthly users: 1120 / 1121 (available users) / 1122 (locked users)
 # montyly open days: 1130
 # monthly checkout items: 1210   
-# monthly checkout users: 1220
+# monthly checkout users: 1220, 1224, 1225, 1226
 # avarage of checkout users per day: 1223 
 # monthly reserves: 1330
 # monthly questions: 1430
 # daily checkout items: 2210
 # daily checkout users: 2220
+# daily checkout users 2224: adults / 2225: students / 2226: children
 # daily reserves: 2330
 # daily questions: 2430
 # hourly checkout items: 3210

@@ -252,6 +252,7 @@ EnjuLeaf::Application.routes.draw do
 
   resources :reserves do
     post :output, :on => :member
+    post :output_user, :on => :collection
   end
 
   resources :event_categories

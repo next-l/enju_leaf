@@ -740,6 +740,9 @@ en:
         checked_out_at: Checked out at
         canceled_at: Canceled at
         expired_at: Expired at
+        expired_at2: Expired at
+        within_expired_at: Within expired at
+        over_expired_at: Over expired at
         deleted_at: Deleted at
         created_at: Reserved at
         state: State
