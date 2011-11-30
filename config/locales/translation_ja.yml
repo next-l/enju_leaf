@@ -1765,6 +1765,9 @@ ja:
     items: 蔵書冊数
     opens: 開館日数
     checkout_users: 貸出人数
+    user_type_1: 一般
+    user_type_2: 中・高
+    user_type_3: 児童
     checkout_items: 貸出冊数
     average_checkout_users: 一日平均貸出人数
     average_checkout_items: 一日平均貸出冊数

@@ -12,6 +12,9 @@ class User < ActiveRecord::Base
   scope :administrators, where('roles.name = ?', 'Administrator').includes(:role)
   scope :librarians, where('roles.name = ? OR roles.name = ?', 'Administrator', 'Librarian').includes(:role)
   scope :suspended, where('locked_at IS NOT NULL')
+  scope :adults, joins(:patron).where(["patrons.date_of_birth <= ?", Date.today.years_ago(18).change(:month => 4, :day => 1)])
+  scope :students, joins(:patron).where(["patrons.date_of_birth < ? AND patrons.date_of_birth >= ?", Date.today.years_ago(12).change(:month => 4, :day => 1), Date.today.years_ago(18).change(:month => 4, :day => 1)])
+  scope :children, joins(:patron).where(["patrons.date_of_birth >= ?", Date.today.years_ago(12).change(:month => 4, :day => 1)])
   has_one :patron
   has_many :checkouts
   has_many :import_requests
@@ -464,6 +467,10 @@ class User < ActiveRecord::Base
     reserves = self.reserves.hold rescue nil
     @messages << I18n.t('user.retained_reserve', :user => self.username, :count => reserves.length) unless reserves.empty?
     return @messages
+  end
+
+  def age
+    Date.today.year - patron.date_of_birth.year
   end
 
 end
