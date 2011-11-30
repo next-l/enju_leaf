@@ -346,7 +346,7 @@ ja:
         lock_version: ロックバージョン
         keyword_list: キーワードリスト
         user_number: 利用者番号
-        present_user_number: 古いの利用者番号
+        present_user_number: 古い利用者番号
         new_user_number: 新しい利用者番号
         state: 状態
         patron: 人物・団体
@@ -782,6 +782,9 @@ ja:
         checked_out_at: 貸出時刻
         canceled_at: 取消時刻
         expired_at: 有効期限（この日以降は不要）
+        expired_at2: 有効期限
+        within_expired_at: 期限内
+        over_expired_at: 期限切れ
         deleted_at: 削除時刻
         created_at: 予約日時
         state: 状態
@@ -1254,6 +1257,7 @@ ja:
     editing: "%{model}の編集"
     showing: "%{model}の表示"
     output: "%{model}の出力"
+    update: "%{model}の更新"
     patron_management: "人物・団体の管理"
     user_management: "利用者の管理"
     back_to: "%{model}の一覧に戻る"
@@ -1361,8 +1365,8 @@ ja:
   advanced_search:
     from: "ここから"
     to: "ここまで"
+    all: "全ての%{model}"
     all_libraries: "全ての図書館"
-    all_circulation_status: "全ての貸出状態"
     from_date: "検索開始日"
     to_date: "検索終了日"
     library: "図書館"

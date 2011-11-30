@@ -300,8 +300,13 @@ class UsersController < ApplicationController
       end
     end
     @user = User.find_by_username(params[:id])
-    #@user.user_number = params[:new_user_number]
     debugger
+    if params[:new_user_number].blank?
+      @user.errors.add_on_blank("new_user_number")
+      render :action => :edit_user_number 
+      return
+    end
+
     begin 
       @user.update_attributes({:user_number => params[:new_user_number]})
       flash[:notice] = t('controller.successfully_updated', :model => t('activerecord.models.user.user_number'))
