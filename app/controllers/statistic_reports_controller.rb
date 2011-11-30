@@ -9,6 +9,8 @@ class StatisticReportsController < ApplicationController
     @t_end_at = Time.zone.now.months_ago(1).strftime("%Y%m")
     @d_start_at = Time.zone.now.months_ago(1).strftime("%Y%m")
     @d_end_at = Time.zone.now.months_ago(1).strftime("%Y%m")
+    @a_start_at = Time.zone.now.months_ago(1).strftime("%Y%m")
+    @a_end_at = Time.zone.now.months_ago(1).strftime("%Y%m")
   end
 
   # check role
@@ -28,6 +30,8 @@ class StatisticReportsController < ApplicationController
       @t_end_at = Time.zone.now.months_ago(1).strftime("%Y%m")
       @d_start_at = Time.zone.now.months_ago(1).strftime("%Y%m")
       @d_end_at = Time.zone.now.months_ago(1).strftime("%Y%m")
+      @a_start_at = Time.zone.now.months_ago(1).strftime("%Y%m")
+      @a_end_at = Time.zone.now.months_ago(1).strftime("%Y%m")
       render :index
       return false
     end
@@ -553,6 +557,8 @@ class StatisticReportsController < ApplicationController
       @t_end_at = Time.zone.now.months_ago(1).strftime("%Y%m")
       @d_start_at = Time.zone.now.months_ago(1).strftime("%Y%m")
       @d_end_at = Time.zone.now.months_ago(1).strftime("%Y%m")
+      @a_start_at = Time.zone.now.months_ago(1).strftime("%Y%m")
+      @a_end_at = Time.zone.now.months_ago(1).strftime("%Y%m")
       render :index
       return false
     end
@@ -608,6 +614,30 @@ class StatisticReportsController < ApplicationController
             row.item("value#13").value(sum)
           end
         end
+        # each user type[all_user, adults, students, children]
+        3.times do |type|
+          data_type = 222.to_s + (type + 4).to_s
+          report.page.list(:list).add_row do |row|
+            row.item(:option).value(t("statistic_report.user_type_#{type+1}"))
+            if start_date != 27
+              13.times do |t|
+                value = Statistic.where(:yyyymmdd => "#{term.to_i}#{"%02d" % (t + start_date)}", :data_type => data_type, :library_id => 0).first.value rescue 0
+                row.item("value##{t+1}").value(value)
+              end
+            else
+              5.times do |t|
+                value = Statistic.where(:yyyymmdd => "#{term.to_i}#{"%02d" % (t + start_date)}", :data_type => data_type, :library_id => 0).first.value rescue 0
+                row.item("value##{t+1}").value(value)
+              end
+              sum = 0
+              datas = Statistic.where(:yyyymm => term, :data_type => data_type, :library_id => 0)
+              datas.each do |data|
+                sum = sum + data.value
+              end
+              row.item("value#13").value(sum)
+            end
+          end
+        end
         # checkout users each libraries
         libraries.each do |library|
           report.page.list(:list).add_row do |row|
@@ -629,17 +659,42 @@ class StatisticReportsController < ApplicationController
               end
               row.item("value#13").value(sum)
             end
-            if library == libraries.last
-              row.item(:type_line).show
-              row.item(:library_line).style(:border_color, '#000000')
-              row.item(:library_line).style(:border_width, 1)
-              row.item(:option_line).style(:border_color, '#000000')
-              row.item(:option_line).style(:border_width, 1)
-              row.item(:values_line).style(:border_color, '#000000')
-              row.item(:values_line).style(:border_width, 1)
-            end  
+          end
+          # each user type[all_user, adults, students, children]
+          3.times do |type|
+            data_type = 222.to_s + (type+4).to_s
+            report.page.list(:list).add_row do |row|
+              row.item(:option).value(t("statistic_report.user_type_#{type+1}"))
+              if start_date != 27
+                13.times do |t|
+                  value = Statistic.where(:yyyymmdd => "#{term.to_i}#{"%02d" % (t + start_date)}", :data_type => data_type, :library_id => library.id).first.value rescue 0
+                  row.item("value##{t+1}").value(value)
+                end
+              else
+                5.times do |t|
+                  value = Statistic.where(:yyyymmdd => "#{term.to_i}#{"%02d" % (t + start_date)}", :data_type => data_type, :library_id => 0).first.value rescue 0
+                  row.item("value##{t+1}").value(value)
+                end
+                sum = 0
+                datas = Statistic.where(:yyyymm => term, :data_type => data_type, :library_id => library.id)
+                datas.each do |data|
+                  sum = sum + data.value
+                end
+                row.item("value#13").value(sum)
+              end
+              if library == libraries.last && type == 2
+                row.item(:type_line).show
+                row.item(:library_line).style(:border_color, '#000000')
+                row.item(:library_line).style(:border_width, 1)
+                row.item(:option_line).style(:border_color, '#000000')
+                row.item(:option_line).style(:border_width, 1)
+                row.item(:values_line).style(:border_color, '#000000')
+                row.item(:values_line).style(:border_width, 1)
+              end  
+            end
           end
         end
+
         # checkout items all libraries
         report.page.list(:list).add_row do |row|
           row.item(:type).value(t('statistic_report.checkout_items'))
@@ -827,6 +882,8 @@ class StatisticReportsController < ApplicationController
       @t_end_at = end_at
       @d_start_at = Time.zone.now.months_ago(1).strftime("%Y%m")
       @d_end_at = Time.zone.now.months_ago(1).strftime("%Y%m")
+      @a_start_at = Time.zone.now.months_ago(1).strftime("%Y%m")
+      @a_end_at = Time.zone.now.months_ago(1).strftime("%Y%m")
       render :index
       return false
     end
@@ -874,6 +931,24 @@ class StatisticReportsController < ApplicationController
         end
         row.item("value#13").value(sum)  
       end
+      # each user type[all_user, adults, students, children]
+      3.times do |type|
+        data_type = 322.to_s + (type+4).to_s
+        report.page.list(:list).add_row do |row|
+          row.item(:option).value(t("statistic_report.user_type_#{type+1}"))
+          sum = 0
+          hours.times do |t|
+            value = 0
+            datas = Statistic.where(["yyyymm >= #{start_at} AND yyyymm <= #{end_at} AND data_type = ? AND library_id = ? AND hour = ?", data_type, 0, t+open])
+            datas.each do |data|
+              value = value + data.value
+            end
+            sum = sum + value
+            row.item("value##{t+1}").value(value)
+          end
+          row.item("value#13").value(sum)  
+        end
+      end
       # checkout users each libraries
       libraries.each do |library|
         sum = 0
@@ -889,17 +964,37 @@ class StatisticReportsController < ApplicationController
             row.item("value##{t+1}").value(value)
           end
           row.item("value#13").value(sum)
-          if library == libraries.last
-            row.item(:type_line).show
-            row.item(:library_line).style(:border_color, '#000000')
-            row.item(:library_line).style(:border_width, 1)
-            row.item(:option_line).style(:border_color, '#000000')
-            row.item(:option_line).style(:border_width, 1)
-            row.item(:values_line).style(:border_color, '#000000')
-            row.item(:values_line).style(:border_width, 1)
-          end  
+        end
+        # each user type[all_user, adults, students, children]
+        3.times do |type|
+          sum = 0
+          data_type = 322.to_s + (type+4).to_s
+          report.page.list(:list).add_row do |row|
+            row.item(:option).value(t("statistic_report.user_type_#{type+1}"))
+            hours.times do |t|
+              value = 0
+              datas = Statistic.where(["yyyymm >= #{start_at} AND yyyymm <= #{end_at} AND data_type = ? AND library_id = ? AND hour = ?", data_type, library.id, t+open])
+              datas.each do |data|
+                value = value + data.value
+              end
+              sum = sum + value
+              row.item("value##{t+1}").value(value)
+            end
+            row.item("value#13").value(sum)
+
+            if library == libraries.last && type == 2
+              row.item(:type_line).show
+              row.item(:library_line).style(:border_color, '#000000')
+              row.item(:library_line).style(:border_width, 1)
+              row.item(:option_line).style(:border_color, '#000000')
+              row.item(:option_line).style(:border_width, 1)
+              row.item(:values_line).style(:border_color, '#000000')
+              row.item(:values_line).style(:border_width, 1)
+            end  
+          end
         end
       end
+
       # checkout items all libraries
       report.page.list(:list).add_row do |row|
         row.item(:type).value(t('statistic_report.checkout_items'))
@@ -1049,6 +1144,8 @@ class StatisticReportsController < ApplicationController
       @t_end_at = Time.zone.now.months_ago(1).strftime("%Y%m")
       @d_start_at = start_at
       @d_end_at = end_at
+      @a_start_at = Time.zone.now.months_ago(1).strftime("%Y%m")
+      @a_end_at = Time.zone.now.months_ago(1).strftime("%Y%m")
       render :index
       return false
     end
@@ -1074,7 +1171,6 @@ class StatisticReportsController < ApplicationController
       report.page.item(:year_end_at).value(end_at[0,4])
       report.page.item(:month_end_at).value(end_at[4,6])
 
-
       # checkout users all libraries
       report.page.list(:list).add_row do |row|
         row.item(:type).value(t('statistic_report.checkout_users'))
@@ -1091,6 +1187,25 @@ class StatisticReportsController < ApplicationController
         end
         row.item("valueall").value(sum)  
       end
+      # each user type[all_user, adults, students, children]
+      3.times do |type|
+        data_type = 222.to_s + (type + 4).to_s
+        report.page.list(:list).add_row do |row|
+          row.item(:option).value(t("statistic_report.user_type_#{type+1}"))
+          sum = 0
+          7.times do |t|
+            value = 0
+            datas = Statistic.where(["yyyymm >= #{start_at} AND yyyymm <= #{end_at} AND data_type = ? AND library_id = ? AND day = ?", data_type, 0, t])
+            datas.each do |data|
+              value = value + data.value
+            end
+            sum = sum + value
+            row.item("value#{t}").value(value)
+          end
+          row.item("valueall").value(sum)  
+        end
+      end
+
       # checkout users each libraries
       libraries.each do |library|
         sum = 0
@@ -1106,15 +1221,34 @@ class StatisticReportsController < ApplicationController
             row.item("value#{t}").value(value)
           end
           row.item("valueall").value(sum)
-          if library == libraries.last
-            row.item(:type_line).show
-            row.item(:library_line).style(:border_color, '#000000')
-            row.item(:library_line).style(:border_width, 1)
-            row.item(:option_line).style(:border_color, '#000000')
-            row.item(:option_line).style(:border_width, 1)
-            row.item(:values_line).style(:border_color, '#000000')
-            row.item(:values_line).style(:border_width, 1)
-          end  
+        end
+        # each user type[all_user, adults, students, children]
+        3.times do |type|
+          sum = 0
+          data_type = 222.to_s + (type + 4).to_s
+          report.page.list(:list).add_row do |row|
+            row.item(:option).value(t("statistic_report.user_type_#{type+1}"))
+            7.times do |t|
+              value = 0
+              datas = Statistic.where(["yyyymm >= #{start_at} AND yyyymm <= #{end_at} AND data_type = ? AND library_id = ? AND day = ?", data_type, library.id, t])
+              datas.each do |data|
+                value = value + data.value
+              end
+              sum = sum + value
+              row.item("value#{t}").value(value)
+            end
+            row.item("valueall").value(sum)
+
+            if library == libraries.last && type == 2
+              row.item(:type_line).show
+              row.item(:library_line).style(:border_color, '#000000')
+              row.item(:library_line).style(:border_width, 1)
+              row.item(:option_line).style(:border_color, '#000000')
+              row.item(:option_line).style(:border_width, 1)
+              row.item(:values_line).style(:border_color, '#000000')
+              row.item(:values_line).style(:border_width, 1)
+            end  
+          end
         end
       end
 
@@ -1246,6 +1380,52 @@ class StatisticReportsController < ApplicationController
       return false
     end
   end
+
+  def get_age_report
+    start_at = params[:start_at]
+    end_at = params[:end_at]
+    end_at = start_at if end_at.empty?
+    unless (start_at =~ /^\d{6}$/ && end_at =~ /^\d{6}$/) && start_at.to_i <= end_at.to_i && month_term?(start_at) && month_term?(end_at)
+      flash[:message] = t('statistic_report.invalid_month')
+      @year = Time.zone.now.months_ago(1).strftime("%Y")
+      @month = Time.zone.now.months_ago(1).strftime("%Y%m")
+      @t_start_at = Time.zone.now.months_ago(1).strftime("%Y%m")
+      @t_end_at = Time.zone.now.months_ago(1).strftime("%Y%m")
+      @d_start_at = Time.zone.now.months_ago(1).strftime("%Y%m")
+      @d_end_at = Time.zone.now.months_ago(1).strftime("%Y%m")
+      @a_start_at = start_at
+      @a_end_at = end_at
+      render :index
+      return false
+    end
+    libraries = Library.all
+    logger.error "create day statistic report: #{start_at} - #{end_at}"
+
+    begin
+      report = ThinReports::Report.new :layout => "#{Rails.root.to_s}/app/views/statistic_reports/age_report"
+      report.events.on :page_create do |e|
+        e.page.item(:page).value(e.page.no)
+      end
+      report.events.on :generate do |e|
+        e.pages.each do |page|
+          page.item(:total).value(e.report.page_count)
+        end
+      end
+
+      report.start_new_page
+      report.page.item(:date).value(Time.now)
+      report.page.item(:year).value(start_at[0,4])
+      report.page.item(:year_start_at).value(start_at[0,4])
+      report.page.item(:month_start_at).value(start_at[4,6])
+
+      send_data report.generate, :filename => "#{start_at}_#{end_at}_#{configatron.statistic_report.age}", :type => 'application/pdf', :disposition => 'attachment'
+      return true
+    rescue Exception => e
+      logger.error "failed #{e}"
+      return false
+    end
+  end
+
 
   def month_term?(term)
     begin 

@@ -91,6 +91,8 @@ EnjuLeaf::Application.routes.draw do
     get :search_family, :on => :member
     get :get_family_info, :on => :collection
     get :get_family_info, :on => :member
+    get :get_user_info, :on => :collection
+    get :get_user_info, :on => :member
     post :output_password, :on => :member
     resources :answers
     resources :baskets do
@@ -253,6 +255,7 @@ EnjuLeaf::Application.routes.draw do
   resources :reserves do
     post :output, :on => :member
     post :output_user, :on => :collection
+    post :output_list, :on => :collection
   end
 
   resources :event_categories
@@ -344,6 +347,7 @@ EnjuLeaf::Application.routes.draw do
     post :get_daily_report, :on => :collection
     post :get_timezone_report, :on => :collection
     post :get_day_report, :on => :collection
+    post :get_age_report, :on => :collection
   end
 
   resources :print_labels do

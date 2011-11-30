@@ -1755,10 +1755,11 @@ ja:
   term:
     cannot_delete: "この期間は削除できません。"
   statistic_report:
-    monthly_report: 月別統計
-    daily_report: 日別統計
-    timezone_report: 時間帯別統計
-    day_report: 曜日別統計
+    monthly_report: 月別利用統計
+    daily_report: 日別利用統計
+    timezone_report: 時間帯別利用統計
+    day_report: 曜日別利用統計
+    age_report: 年代別利用統計
     invalid_year: "対象年度の指定が不正です。"
     invalid_month: "対象月の指定が不正です。"
     year: 対象年度(YYYY) 

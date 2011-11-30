@@ -186,7 +186,7 @@ class Statistic < ActiveRecord::Base
         set_date(statistic, start_at, term_id)
         statistic.data_type = term_id.to_s + 330.to_s
         statistic.library_id = library.id
-        statistic.value = statistic.value = Reserve.count_by_sql(["select count(*) from reserves, libraries where libraries.id = reserves.receipt_library_id AND libraries.id = ? AND reserves.created_at >= ? AND reserves.created_at < ?", library.id, start_at, end_at])
+        statistic.value = Reserve.count_by_sql(["select count(*) from reserves, libraries where libraries.id = reserves.receipt_library_id AND libraries.id = ? AND reserves.created_at >= ? AND reserves.created_at < ?", library.id, start_at, end_at])
         statistic.save! if statistic.value > 0
       end
     end
@@ -211,7 +211,7 @@ class Statistic < ActiveRecord::Base
         set_date(statistic, start_at, term_id)
         statistic.data_type = term_id.to_s + 430.to_s
         statistic.library_id = library.id
-        statistic.value = statistic.value = Question.count_by_sql(["select count(*) from questions, users, libraries where libraries.id = users.library_id AND users.id = questions.user_id AND libraries.id = ? AND questions.created_at >= ? AND questions.created_at < ?", library.id, start_at, end_at])
+        statistic.value = Question.count_by_sql(["select count(*) from questions, users, libraries where libraries.id = users.library_id AND users.id = questions.user_id AND libraries.id = ? AND questions.created_at >= ? AND questions.created_at < ?", library.id, start_at, end_at])
         statistic.save! if statistic.value > 0
       end
     
@@ -504,6 +504,126 @@ class Statistic < ActiveRecord::Base
     end
   end
 
+  def self.calc_age_data(start_at, end_at) 
+    p "start to calculate age data: #{start_at} - #{end_at}"
+
+    # checkout users 1220 + 0~7
+    8.times do |age|
+      statistic = Statistic.new
+      set_date(statistic, start_at, 1)
+      statistic.data_type = 1220.to_s + age.to_s
+      sql = "select count(distinct checkouts.user_id) from checkouts, users, patrons where checkouts.user_id = users.id AND users.id = patrons.user_id AND date_part('year', age(patrons.date_of_birth)) >= ? AND date_part('year', age(patrons.date_of_birth)) <= ? AND checkouts.created_at >= ? AND checkouts.created_at < ? "
+      unless age == 7
+        statistic.value = Checkout.count_by_sql([sql, (age.to_s + 0.to_s).to_i, (age.to_s + 9.to_s).to_i, start_at, end_at])
+      else
+        statistic.value = Checkout.count_by_sql([sql, (age.to_s + 0.to_s).to_i, 200, start_at, end_at])
+      end
+      statistic.save! if statistic.value > 0
+    end
+    @libraries.each do |library|
+      8.times do |age|
+        statistic = Statistic.new
+        set_date(statistic, start_at, 1)
+        statistic.data_type = 1220.to_s + age.to_s
+        statistic.library_id = library.id
+        sql = "select count(distinct checkouts.user_id) from checkouts, users, patrons, libraries  where checkouts.user_id = users.id AND users.id = patrons.user_id AND users.library_id = libraries.id AND libraries.id = ? AND date_part('year', age(patrons.date_of_birth)) >= ? AND date_part('year', age(patrons.date_of_birth)) <= ? AND checkouts.created_at >= ? AND checkouts.created_at < ? "      
+        unless age == 7
+          statistic.value = Checkout.count_by_sql([sql, library.id, (age.to_s + 0.to_s).to_i, (age.to_s + 9.to_s).to_i, start_at, end_at])
+        else
+          statistic.value = Checkout.count_by_sql([sql, library.id, (age.to_s + 0.to_s).to_i, 200, start_at, end_at])
+        end
+        statistic.save! if statistic.value > 0
+      end
+    end
+
+    # checkout items 1210 + 0~7
+    8.times do |age|
+      statistic = Statistic.new
+      set_date(statistic, start_at, 1)
+      statistic.data_type = 1210.to_s + age.to_s
+      sql = "select count(*) from checkouts, users, patrons where checkouts.user_id = users.id AND users.id = patrons.user_id AND date_part('year', age(patrons.date_of_birth)) >= ? AND date_part('year', age(patrons.date_of_birth)) <= ? AND checkouts.created_at >= ? AND checkouts.created_at < ? "
+      unless age == 7
+        statistic.value = Checkout.count_by_sql([sql, (age.to_s + 0.to_s).to_i, (age.to_s + 9.to_s).to_i, start_at, end_at])
+      else
+        statistic.value = Checkout.count_by_sql([sql, (age.to_s + 0.to_s).to_i, 200, start_at, end_at])
+      end
+      statistic.save! if statistic.value > 0
+    end
+    @libraries.each do |library|
+      8.times do |age|
+        statistic = Statistic.new
+        set_date(statistic, start_at, 1)
+        statistic.data_type = 1210.to_s + age.to_s
+        statistic.library_id = library.id
+        sql = "select count(*) from checkouts, users, patrons, libraries where checkouts.user_id = users.id AND users.id = patrons.user_id AND users.library_id = libraries.id AND libraries.id = ? AND date_part('year', age(patrons.date_of_birth)) >= ? AND date_part('year', age(patrons.date_of_birth)) <= ? AND checkouts.created_at >= ? AND checkouts.created_at < ? "
+        unless age == 7
+          statistic.value = Checkout.count_by_sql([sql, library.id, (age.to_s + 0.to_s).to_i, (age.to_s + 9.to_s).to_i, start_at, end_at])
+        else
+          statistic.value = Checkout.count_by_sql([sql, library.id, (age.to_s + 0.to_s).to_i, 200, start_at, end_at])
+        end  
+        statistic.save! if statistic.value > 0
+      end
+    end
+
+    # reserves 1330 + 0~7
+    8.times do |age|
+      statistic = Statistic.new
+      set_date(statistic, start_at, 1)
+      statistic.data_type = 1330.to_s + age.to_s
+      sql = "select count(*) from reserves, users, patrons where reserves.user_id = users.id AND users.id = patrons.user_id AND date_part('year', age(patrons.date_of_birth)) >= ? AND date_part('year', age(patrons.date_of_birth)) <= ? AND reserves.created_at >= ? AND reserves.created_at  < ?"
+      unless age == 7
+        statistic.value = Reserve.count_by_sql([sql, (age.to_s + 0.to_s).to_i, (age.to_s + 9.to_s).to_i, start_at, end_at])
+      else
+        statistic.value = Reserve.count_by_sql([sql, (age.to_s + 0.to_s).to_i, 200, start_at, end_at])
+      end
+      statistic.save! if statistic.value > 0
+    end
+    @libraries.each do |library|
+      8.times do |age|
+        statistic = Statistic.new
+        set_date(statistic, start_at, 1)
+        statistic.data_type = 1330.to_s + age.to_s
+        statistic.library_id = library.id
+        sql = "select count(*) from reserves, users, patrons, libraries where reserves.user_id = users.id AND users.id = patrons.user_id AND users.library_id = libraries.id AND libraries.id = ? AND date_part('year', age(patrons.date_of_birth)) >= ? AND date_part('year', age(patrons.date_of_birth)) <= ? AND reserves.created_at >= ? AND reserves.created_at  < ?"       
+        unless age == 7
+          statistic.value = Reserve.count_by_sql([sql, library.id, (age.to_s + 0.to_s).to_i, (age.to_s + 9.to_s).to_i, start_at, end_at])
+        else
+          statistic.value = Reserve.count_by_sql([sql, library.id, (age.to_s + 0.to_s).to_i, 200, start_at, end_at])
+        end
+        statistic.save! if statistic.value > 0
+      end
+    end
+
+    # questions 1430 + 0~7
+    8.times do |age|
+      statistic = Statistic.new
+      set_date(statistic, start_at, 1)
+      statistic.data_type = 1430.to_s + age.to_s
+      sql = "select count(*) from questions, users, patrons where questions.user_id = users.id AND users.id = patrons.user_id AND date_part('year', age(patrons.date_of_birth)) >= ? AND date_part('year', age(patrons.date_of_birth)) <= ? AND questions.created_at >= ? AND questions.created_at  < ?"
+      unless age == 7
+        statistic.value = Question.count_by_sql([sql, (age.to_s + 0.to_s).to_i, (age.to_s + 9.to_s).to_i, start_at, end_at])
+      else 
+        statistic.value = Question.count_by_sql([sql, (age.to_s + 0.to_s).to_i, 200, start_at, end_at])
+      end
+      statistic.save! if statistic.value > 0
+    end
+    @libraries.each do |library|
+      8.times do |age|
+        statistic = Statistic.new
+        set_date(statistic, start_at, 1)
+        statistic.data_type = 1430.to_s + age.to_s
+        statistic.library_id = library.id
+        sql = "select count(*) from questions, users, patrons, libraries where questions.user_id = users.id AND users.id = patrons.user_id AND users.library_id = libraries.id AND libraries.id = ? AND date_part('year', age(patrons.date_of_birth)) >= ? AND date_part('year', age(patrons.date_of_birth)) <= ? AND questions.created_at >= ? AND questions.created_at  < ?"        
+        unless age == 7
+          statistic.value = Question.count_by_sql([sql, library.id, (age.to_s + 0.to_s).to_i, (age.to_s + 9.to_s).to_i, start_at, end_at])
+        else
+          statistic.value = Question.count_by_sql([sql, library.id, (age.to_s + 0.to_s).to_i, 200, start_at, end_at])
+        end
+        statistic.save! if statistic.value > 0
+      end
+    end
+  end
+
   def self.calc_sum(date = nil, monthly = false)
     if monthly # monthly calculate data per month
       unless date.length == 6
@@ -512,6 +632,7 @@ class Statistic < ActiveRecord::Base
       end
       date_timestamp =  Time.zone.parse("#{date}01")
       calc_state(Time.new('1970-01-01'), date_timestamp.end_of_month, 1)
+      calc_age_data(date_timestamp.beginning_of_month, date_timestamp.end_of_month)
       calc_monthly_data(date)
     else # daily calculate data per hour
       if date
@@ -548,10 +669,14 @@ end
 # monthly users: 1120 / 1121 (available users) / 1122 (locked users)
 # montyly open days: 1130
 # monthly checkout items: 1210   
+# monthly checkout items per age: 1210 + 0~7
 # monthly checkout users: 1220, 1224, 1225, 1226
+# monthly checkout users per age: 1220 + 0~7
 # avarage of checkout users per day: 1223 
 # monthly reserves: 1330
+# monthly reserves per age: 1330 + 0~7
 # monthly questions: 1430
+# monthly questions per age: 1430 + 0~7
 # daily checkout items: 2210
 # daily checkout users: 2220
 # daily checkout users 2224: adults / 2225: students / 2226: children

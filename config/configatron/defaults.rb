@@ -52,6 +52,8 @@ configatron.checkouts_print.message = "本は大事に扱いましょう。期�
 
 # 予約票の出力
 configatron.reserve_print.filename = "reserve.pdf"
+# 予約リストの出力
+configatron.reservelist_print.filename = "reservelist.pdf"
 # 予約表に利用者の年齢を表示するかどうか
 configatron.reserve_print.old = true
 
@@ -66,6 +68,7 @@ configatron.statistic_report.monthly = "monthly_report.pdf"
 configatron.statistic_report.daily = "daily_report.pdf"
 configatron.statistic_report.timezone = "timezone_report.pdf"
 configatron.statistic_report.day = "day_report.pdf"
+configatron.statistic_report.age = "age_report.pdf"
 # 時間別統計の設定
 configatron.statistic_report.open = 9
 configatron.statistic_report.hours = 12 
