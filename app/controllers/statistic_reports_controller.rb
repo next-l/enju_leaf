@@ -1326,6 +1326,15 @@ class StatisticReportsController < ApplicationController
             row.item("value#{t}").value(value)
           end
           row.item("valueall").value(sum)
+          if library == libraries.last
+            row.item(:type_line).show
+            row.item(:library_line).style(:border_color, '#000000')
+            row.item(:library_line).style(:border_width, 1)
+            row.item(:option_line).style(:border_color, '#000000')
+            row.item(:option_line).style(:border_width, 1)
+            row.item(:values_line).style(:border_color, '#000000')
+            row.item(:values_line).style(:border_width, 1)
+          end  
         end
       end
 
@@ -1345,7 +1354,7 @@ class StatisticReportsController < ApplicationController
         end
         row.item("valueall").value(sum)  
       end
-      # reserves each libraries
+      # questions each libraries
       libraries.each do |library|
         sum = 0
         report.page.list(:list).add_row do |row|
@@ -1417,6 +1426,188 @@ class StatisticReportsController < ApplicationController
       report.page.item(:year).value(start_at[0,4])
       report.page.item(:year_start_at).value(start_at[0,4])
       report.page.item(:month_start_at).value(start_at[4,6])
+      report.page.item(:year_end_at).value(end_at[0,4])
+      report.page.item(:month_end_at).value(end_at[4,6])
+
+      # checkout users all libraries
+      report.page.list(:list).add_row do |row|
+        row.item(:type).value(t('statistic_report.checkout_users'))
+        row.item(:library).value(t('statistic_report.all_library'))
+        sum = 0
+        8.times do |t|
+          data_type = 1220.to_s + t.to_s
+          value = 0
+          datas = Statistic.where(["yyyymm >= #{start_at} AND yyyymm <= #{end_at} AND data_type = ? AND library_id = ?", data_type, 0])
+          datas.each do |data|
+            value = value + data.value
+          end
+          sum = sum + value
+          row.item("value#{t}").value(value)
+        end
+        row.item("valueall").value(sum)  
+      end
+      # checkout users each libraries
+      libraries.each do |library|
+        sum = 0
+        report.page.list(:list).add_row do |row|
+          row.item(:library).value(library.display_name)
+          8.times do |t|
+            data_type = 1220.to_s + t.to_s
+            value = 0
+            datas = Statistic.where(["yyyymm >= #{start_at} AND yyyymm <= #{end_at} AND data_type = ? AND library_id = ?", data_type, library.id])
+            datas.each do |data|
+              value = value + data.value
+            end
+            sum = sum + value
+            row.item("value#{t}").value(value)
+          end
+          row.item("valueall").value(sum)
+          if library == libraries.last
+            row.item(:type_line).show
+            row.item(:library_line).style(:border_color, '#000000')
+            row.item(:library_line).style(:border_width, 1)
+            row.item(:option_line).style(:border_color, '#000000')
+            row.item(:option_line).style(:border_width, 1)
+            row.item(:values_line).style(:border_color, '#000000')
+            row.item(:values_line).style(:border_width, 1)
+          end  
+        end
+      end
+
+      # checkout items all libraries
+      report.page.list(:list).add_row do |row|
+        row.item(:type).value(t('statistic_report.checkout_items'))
+        row.item(:library).value(t('statistic_report.all_library'))
+        sum = 0
+        8.times do |t|
+          data_type = 1210.to_s + t.to_s
+          value = 0
+          datas = Statistic.where(["yyyymm >= #{start_at} AND yyyymm <= #{end_at} AND data_type = ? AND library_id = ?", data_type, 0])
+          datas.each do |data|
+            value = value + data.value
+          end
+          sum = sum + value
+          row.item("value#{t}").value(value)
+        end
+        row.item("valueall").value(sum)  
+      end
+      # checkout items each libraries
+      libraries.each do |library|
+        sum = 0
+        report.page.list(:list).add_row do |row|
+          row.item(:library).value(library.display_name)
+          8.times do |t|
+            data_type = 1210.to_s + t.to_s
+            value = 0
+            datas = Statistic.where(["yyyymm >= #{start_at} AND yyyymm <= #{end_at} AND data_type = ? AND library_id = ?", data_type, library.id])
+            datas.each do |data|
+              value = value + data.value
+            end
+            sum = sum + value
+            row.item("value#{t}").value(value)
+          end
+          row.item("valueall").value(sum)
+          if library == libraries.last
+            row.item(:type_line).show
+            row.item(:library_line).style(:border_color, '#000000')
+            row.item(:library_line).style(:border_width, 1)
+            row.item(:option_line).style(:border_color, '#000000')
+            row.item(:option_line).style(:border_width, 1)
+            row.item(:values_line).style(:border_color, '#000000')
+            row.item(:values_line).style(:border_width, 1)
+          end  
+        end
+      end
+
+      # reserves all libraries
+      report.page.list(:list).add_row do |row|
+        row.item(:type).value(t('statistic_report.reserves'))
+        row.item(:library).value(t('statistic_report.all_library'))
+        sum = 0
+        8.times do |t|
+          data_type = 1330.to_s + t.to_s
+          value = 0
+          datas = Statistic.where(["yyyymm >= #{start_at} AND yyyymm <= #{end_at} AND data_type = ? AND library_id = ?", data_type, 0])
+          datas.each do |data|
+            value = value + data.value
+          end
+          sum = sum + value
+          row.item("value#{t}").value(value)
+        end
+        row.item("valueall").value(sum)  
+      end
+      # reserves each libraries
+      libraries.each do |library|
+        sum = 0
+        report.page.list(:list).add_row do |row|
+          row.item(:library).value(library.display_name)
+          8.times do |t|
+            data_type = 1330.to_s + t.to_s
+            value = 0
+            datas = Statistic.where(["yyyymm >= #{start_at} AND yyyymm <= #{end_at} AND data_type = ? AND library_id = ?", data_type, library.id])
+            datas.each do |data|
+              value = value + data.value
+            end
+            sum = sum + value
+            row.item("value#{t}").value(value)
+          end
+          row.item("valueall").value(sum)
+          if library == libraries.last
+            row.item(:type_line).show
+            row.item(:library_line).style(:border_color, '#000000')
+            row.item(:library_line).style(:border_width, 1)
+            row.item(:option_line).style(:border_color, '#000000')
+            row.item(:option_line).style(:border_width, 1)
+            row.item(:values_line).style(:border_color, '#000000')
+            row.item(:values_line).style(:border_width, 1)
+          end  
+        end
+      end
+
+      # questions all libraries
+      report.page.list(:list).add_row do |row|
+        row.item(:type).value(t('statistic_report.questions'))
+        row.item(:library).value(t('statistic_report.all_library'))
+        sum = 0
+        8.times do |t|
+          data_type = 1430.to_s + t.to_s
+          value = 0
+          datas = Statistic.where(["yyyymm >= #{start_at} AND yyyymm <= #{end_at} AND data_type = ? AND library_id = ?", data_type, 0])
+          datas.each do |data|
+            value = value + data.value
+          end
+          sum = sum + value
+          row.item("value#{t}").value(value)
+        end
+        row.item("valueall").value(sum)  
+      end
+      # questions each libraries
+      libraries.each do |library|
+        sum = 0
+        report.page.list(:list).add_row do |row|
+          row.item(:library).value(library.display_name)
+          8.times do |t|
+            data_type = 1430.to_s + t.to_s
+            value = 0
+            datas = Statistic.where(["yyyymm >= #{start_at} AND yyyymm <= #{end_at} AND data_type = ? AND library_id = ?", data_type, library.id])
+            datas.each do |data|
+              value = value + data.value
+            end
+            sum = sum + value
+            row.item("value#{t}").value(value)
+          end
+          row.item("valueall").value(sum)
+          if library == libraries.last
+            row.item(:type_line).show
+            row.item(:library_line).style(:border_color, '#000000')
+            row.item(:library_line).style(:border_width, 1)
+            row.item(:option_line).style(:border_color, '#000000')
+            row.item(:option_line).style(:border_width, 1)
+            row.item(:values_line).style(:border_color, '#000000')
+            row.item(:values_line).style(:border_width, 1)
+          end  
+        end
+      end
 
       send_data report.generate, :filename => "#{start_at}_#{end_at}_#{configatron.statistic_report.age}", :type => 'application/pdf', :disposition => 'attachment'
       return true
