@@ -190,14 +190,14 @@ describe Manifestation, :solr => true do
   it "should respond to pickup" do
     Manifestation.pickup.should_not raise_error(ActiveRecord::RecordNotFound)
   end
+
+  if defined?(EnjuCirculation)
+    it "should respond to is_checked_out_by?" do
+      manifestations(:manifestation_00001).is_checked_out_by?(users(:admin)).should be_true
+      manifestations(:manifestation_00001).is_checked_out_by?(users(:librarian2)).should be_false
+    end
+  end
 end
-
-
-
-
-
-
-
 
 # == Schema Information
 #

@@ -123,7 +123,7 @@ class Manifestation < ActiveRecord::Base
     text :isbn do  # 前方一致検索のためtext指定を追加
       [isbn, isbn10, wrong_isbn]
     end
-    text :issn
+    text :issn  # 前方一致検索のためtext指定を追加
     #text :ndl_jpno do
       # TODO 詳細不明
     #end
@@ -554,13 +554,6 @@ class Manifestation < ActiveRecord::Base
     end
   end
 end
-
-
-
-
-
-
-
 
 # == Schema Information
 #

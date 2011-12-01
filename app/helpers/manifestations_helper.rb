@@ -127,4 +127,32 @@ module ManifestationsHelper
   def set_focus_on_search_form
     javascript_tag("$('#search_form_top').focus()") if @query.blank?
   end
+
+  if defined?(EnjuBookmark)
+    def link_to_bookmark(manifestation)
+      if manifestation.bookmarked?(current_user)
+        link_to t('bookmark.remove_from_my_bookmark'), bookmark_path(Bookmark.where(:user_id => current_user.id, :manifestation_id => manifestation.id).first), :confirm => t('page.are_you_sure'), :method => :delete
+      else
+        link_to t('bookmark.add_to_my_bookmark'), new_bookmark_path(:bookmark => {:url => manifestation_url(manifestation)})
+      end
+    end
+  end
+
+  if defined?(EnjuCirculation)
+    def link_to_reservation(manifestation, reserve)
+      if current_user.has_role?('Librarian')
+        link_to t('manifestation.reserve_this'), new_reserve_path(:manifestation_id => manifestation.id)
+      else
+        if manifestation.is_checked_out_by?(current_user)
+          I18n.t('manifestation.currently_checked_out')
+        else
+          if manifestation.is_reserved_by?(current_user)
+            link_to t('manifestation.cancel_reservation'), reserve
+          else
+            link_to t('manifestation.reserve_this'), new_reserve_path(:manifestation_id => manifestation.id)
+          end
+        end
+      end
+    end
+  end
 end

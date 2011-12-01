@@ -17,9 +17,10 @@ seller:
   id: 2
 
 
+
 # == Schema Information
 #
-# Table name: create_types
+# Table name: produce_types
 #
 #  id           :integer         not null, primary key
 #  name         :string(255)

@@ -25,9 +25,10 @@ illustrator:
   id: 3
 
 
+
 # == Schema Information
 #
-# Table name: create_types
+# Table name: realize_types
 #
 #  id           :integer         not null, primary key
 #  name         :string(255)
