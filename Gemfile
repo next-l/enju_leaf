@@ -1,6 +1,6 @@
 source 'http://rubygems.org'
 
-gem 'rails', '3.0.10'
+gem 'rails', '3.0.11'
 
 #gem 'enju_scribd', :git => 'git://github.com/nabeta/enju_scribd.git'
 #gem 'enju_nii', :git => 'git://github.com/nabeta/enju_nii.git'
