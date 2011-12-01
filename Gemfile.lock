@@ -83,13 +83,6 @@ GIT
       rails (~> 3.1.1)
 
 GIT
-  remote: git://github.com/nabeta/enju_subject.git
-  revision: a95dfa89075d13fb7b571e7de822d52c5446c5b4
-  specs:
-    enju_subject (0.0.2)
-      rails (~> 3.1.3)
-
-GIT
   remote: git://github.com/nabeta/isbn-tools.git
   revision: 05e31384f167aa7d1e560f76c1c3faf104d64709
   specs:
@@ -197,6 +190,8 @@ GEM
     diff-lcs (1.1.3)
     dynamic_form (1.1.4)
     enju_ndl (0.0.3)
+      rails (~> 3.1.3)
+    enju_subject (0.0.4)
       rails (~> 3.1.3)
     erubis (2.7.0)
     escape (0.0.4)
@@ -456,7 +451,7 @@ DEPENDENCIES
   enju_question!
   enju_resource_merge!
   enju_search_log!
-  enju_subject!
+  enju_subject (= 0.0.4)
   exception_notification (~> 2.5.2)
   extractcontent
   factory_girl_rails (~> 1.4)
