@@ -122,7 +122,7 @@ group :development, :test do
   gem 'timecop'
   gem 'sunspot-rails-tester'
   gem 'vcr', '~> 2.0.0.beta2'
-  gem 'webmock'
+  gem 'fakeweb'
 end
 
 gem 'jquery-rails'
