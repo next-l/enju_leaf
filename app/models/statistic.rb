@@ -105,13 +105,58 @@ class Statistic < ActiveRecord::Base
       statistic.data_type = term_id.to_s + 210.to_s
       statistic.value = Checkout.count_by_sql(["select count(*) from checkouts where created_at >= ? AND created_at  < ?", start_at, end_at])
       statistic.save! if statistic.value > 0
- 
+      # NDC for all 211 (ndc starts a number)
+      statistic = Statistic.new
+      set_date(statistic, start_at, term_id)
+      statistic.data_type = term_id.to_s + 211.to_s
+      sql = "select count(checkouts) from checkouts, items, exemplifies, manifestations where checkouts.item_id = items.id AND exemplifies.item_id = items.id AND exemplifies.manifestation_id = manifestations.id AND manifestations.ndc ~ '^[0-9]' AND checkouts.created_at >= ? AND checkouts.created_at < ?"
+      statistic.value = Checkout.count_by_sql([ sql, start_at, end_at])
+      statistic.save! if statistic.value > 0
+      # NDC for kids 212 (ndc starts K/E/C)
+      statistic = Statistic.new
+      set_date(statistic, start_at, term_id)
+      statistic.data_type = term_id.to_s + 212.to_s
+      sql = "select count(checkouts) from checkouts, items, exemplifies, manifestations where checkouts.item_id = items.id AND exemplifies.item_id = items.id AND exemplifies.manifestation_id = manifestations.id AND manifestations.ndc ~ '^[KEC]' AND checkouts.created_at >= ? AND checkouts.created_at < ?"
+      statistic.value = Checkout.count_by_sql([ sql, start_at, end_at])
+      statistic.save! if statistic.value > 0
+      # NDC for else 213 (no ndc or ndc starts other alfabet)
+      statistic = Statistic.new
+      set_date(statistic, start_at, term_id)
+      statistic.data_type = term_id.to_s + 213.to_s
+      sql = "select count(checkouts) from checkouts, items, exemplifies, manifestations where checkouts.item_id = items.id AND exemplifies.item_id = items.id AND exemplifies.manifestation_id = manifestations.id AND (manifestations.ndc ~ '^[^KEC0-9]' OR manifestations.ndc IS NULL) AND checkouts.created_at >= ? AND checkouts.created_at < ?"
+      statistic.value = Checkout.count_by_sql([ sql, start_at, end_at])
+      statistic.save! if statistic.value > 0
+    
       @libraries.each do |library|
         statistic = Statistic.new
         set_date(statistic, start_at, term_id)
         statistic.data_type = term_id.to_s + 210.to_s
         statistic.library_id = library.id
         statistic.value = Checkout.count_by_sql(["select count(*) from checkouts, users, libraries where checkouts.librarian_id = users.id AND users.library_id= libraries.id AND libraries.id = ? AND checkouts.created_at >= ? AND checkouts.created_at < ?", library.id, start_at, end_at])
+        statistic.save! if statistic.value > 0
+        # NDC for all 211 (ndc starts a number)
+        statistic = Statistic.new
+        set_date(statistic, start_at, term_id)
+        statistic.data_type = term_id.to_s + 211.to_s
+        statistic.library_id = library.id
+        sql = "select count(checkouts) from checkouts, items, exemplifies, manifestations, users, libraries where checkouts.item_id = items.id AND exemplifies.item_id = items.id AND exemplifies.manifestation_id = manifestations.id AND checkouts.librarian_id = users.id AND users.library_id = libraries.id AND libraries.id = ? AND manifestations.ndc ~ '^[0-9]' AND checkouts.created_at >= ? AND checkouts.created_at < ?"
+        statistic.value = Checkout.count_by_sql([ sql, library.id, start_at, end_at])
+        statistic.save! if statistic.value > 0
+        # NDC for kids 212 (ndc starts K/E/C)
+        statistic = Statistic.new
+        set_date(statistic, start_at, term_id)
+        statistic.data_type = term_id.to_s + 212.to_s
+        statistic.library_id = library.id
+        sql = "select count(checkouts) from checkouts, items, exemplifies, manifestations, users, libraries where checkouts.item_id = items.id AND exemplifies.item_id = items.id AND exemplifies.manifestation_id = manifestations.id AND checkouts.librarian_id = users.id AND users.library_id = libraries.id AND libraries.id = ? AND manifestations.ndc ~ '^[KEC]' AND checkouts.created_at >= ? AND checkouts.created_at < ?"
+        statistic.value = Checkout.count_by_sql([ sql, library.id, start_at, end_at])
+        statistic.save! if statistic.value > 0
+        # NDC for else 213 (no ndc or ndc starts other alfabet)
+        statistic = Statistic.new
+        set_date(statistic, start_at, term_id)
+        statistic.data_type = term_id.to_s + 213.to_s
+        statistic.library_id = library.id
+        sql = "select count(checkouts) from checkouts, items, exemplifies, manifestations, users, libraries where checkouts.item_id = items.id AND exemplifies.item_id = items.id AND exemplifies.manifestation_id = manifestations.id AND checkouts.librarian_id = users.id AND users.library_id = libraries.id AND libraries.id = ? AND (manifestations.ndc ~ '^[^KEC0-9]' OR manifestations.ndc IS NULL) AND checkouts.created_at >= ? AND checkouts.created_at < ?"
+        statistic.value = Checkout.count_by_sql([ sql, library.id, start_at, end_at])
         statistic.save! if statistic.value > 0
       end
       # checkout users 220
@@ -246,31 +291,34 @@ class Statistic < ActiveRecord::Base
       statistic.save!
     end
 
-    # monthly checkout items 1210   
-    datas = Statistic.select(:value).where(:data_type=> '2210', :yyyymm => month, :library_id => 0)
-    value = 0
-    datas.each do |data|
-      value = value + data.value
-    end
-    statistic = Statistic.new
-    statistic.yyyymm = month
-    statistic.data_type = 1210
-    statistic.value = value
-    statistic.save! if statistic.value > 0
-
-    @libraries.each do |library|
-      datas = Statistic.select(:value).where(:data_type=> '2210', :yyyymm => month, :library_id => library.id)
+    # monthly checkout items 1210-1213 
+    4.times do |i|
+      data_type = 21.to_s + i.to_s   
+      datas = Statistic.select(:value).where(:data_type=> "2#{data_type}", :yyyymm => month, :library_id => 0)
       value = 0
       datas.each do |data|
         value = value + data.value
       end
       statistic = Statistic.new
       statistic.yyyymm = month
-      statistic.data_type = 1210
-      statistic.library_id = library.id
+      statistic.data_type = "1#{data_type}"
       statistic.value = value
       statistic.save! if statistic.value > 0
-    end 
+
+      @libraries.each do |library|
+        datas = Statistic.select(:value).where(:data_type=> "2#{data_type}", :yyyymm => month, :library_id => library.id)
+        value = 0
+        datas.each do |data|
+          value = value + data.value
+        end
+        statistic = Statistic.new
+        statistic.yyyymm = month
+        statistic.data_type = "1#{data_type}"
+        statistic.library_id = library.id
+        statistic.value = value
+        statistic.save! if statistic.value > 0
+      end 
+    end
 
     # avarage of checkout items per day 1213 
     date = Date.new(month[0, 4].to_i, month[4, 2].to_i) 
@@ -397,31 +445,34 @@ class Statistic < ActiveRecord::Base
     p "start to calculate daily data: #{date}"
     date_timestamp = Time.zone.parse(date)
 
-    # daily checkout items 2210
-    datas = Statistic.select(:value).where(:data_type=> '3210', :yyyymmdd => date, :library_id => 0)
-    value = 0
-    datas.each do |data|
-      value = value + data.value
-    end
-    statistic = Statistic.new
-    set_date(statistic, date_timestamp, 2)
-    statistic.data_type = 2210
-    statistic.value = value
-    statistic.save! if statistic.value > 0
-
-    @libraries.each do |library|
-      datas = Statistic.select(:value).where(:data_type=> '3210', :yyyymmdd => date, :library_id => library.id)
+    # daily checkout items 2210-2213
+    4.times do |i|
+      data_type = 21.to_s + i.to_s
+      datas = Statistic.select(:value).where(:data_type=> "3#{data_type}", :yyyymmdd => date, :library_id => 0)
       value = 0
       datas.each do |data|
         value = value + data.value
       end
       statistic = Statistic.new
       set_date(statistic, date_timestamp, 2)
-      statistic.data_type = 2210
-      statistic.library_id = library.id
+      statistic.data_type = "2#{data_type}"
       statistic.value = value
       statistic.save! if statistic.value > 0
-    end 
+
+      @libraries.each do |library|
+        datas = Statistic.select(:value).where(:data_type=> "3#{data_type}", :yyyymmdd => date, :library_id => library.id)
+        value = 0
+        datas.each do |data|
+          value = value + data.value
+        end
+        statistic = Statistic.new
+        set_date(statistic, date_timestamp, 2)
+        statistic.data_type = "2#{data_type}"
+        statistic.library_id = library.id
+        statistic.value = value
+        statistic.save! if statistic.value > 0
+      end
+    end
 
     # daily checkout users 2220
     [0,4,5,6].each do |type|
@@ -677,12 +728,15 @@ end
 # monthly reserves per age: 1330 + 0~7
 # monthly questions: 1430
 # monthly questions per age: 1430 + 0~7
-# daily checkout items: 2210
+# daily checkout items: 2210-2213
 # daily checkout users: 2220
 # daily checkout users 2224: adults / 2225: students / 2226: children
 # daily reserves: 2330
 # daily questions: 2430
 # hourly checkout items: 3210
+# hourly checkout items NDC for all: 3211
+# hourly checkout items NDC for kids: 3212
+# hourly checkout items NDC for else: 3213
 # hourly checkout users: 3220
 # hourly reserves: 3330
 # hourly questions: 3430
