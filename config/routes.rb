@@ -428,10 +428,10 @@ EnjuLeaf::Application.routes.draw do
   match '/page/exstatistics' => 'page#exstatistics'
   match '/page/routing_error' => 'page#routing_error'
 
-  match '/checkoutlist' => 'checkoutlist#index'
-  match '/checkoutlist/output' => 'checkoutlist#output'
-  match '/reservelist' => 'reservelist#index'
-  match '/reservelist/output' => 'reservelist#output'
+  match '/checkoutlists' => 'checkoutlists#index'
+  match '/checkoutlists/output' => 'checkoutlists#output'
+  match '/reservelists' => 'reservelists#index'
+  match '/reservelists/output' => 'reservelists#output'
   match '/unablelist' => 'unablelist#index'
   match '/unablelist/output' => 'unablelist#output'
 

@@ -1,4 +1,5 @@
 class ExportItemListsController < ApplicationController
+  before_filter :check_librarian
   def index
     prepare_options
   end
@@ -109,4 +110,12 @@ class ExportItemListsController < ApplicationController
     @libraries = Library.all
     @carrier_types = CarrierType.all
   end
+
+  private
+  def check_librarian
+    unless current_user && current_user.has_role?('Librarian')
+      access_denied
+    end
+  end
+
 end

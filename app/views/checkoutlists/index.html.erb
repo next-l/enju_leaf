@@ -22,7 +22,7 @@
 <div id="content_detail" class="ui-corner-all">
 <h1 class="title"><%= t('exstatistics.checkout_report') -%></h1>
 <div id="content_list">
-<%= form_for :chekoutlist, :url => {:controller => 'checkoutlist', :action => :output}, :html => {:method => 'get', :name => 'circulation_status'} do -%>
+<%= form_for :chekoutlist, :url => {:controller => 'checkoutlists', :action => :output}, :html => {:method => 'get', :name => 'circulation_status'} do -%>
   <div class="field">
     <p id="notice"><%= notice %></p>
     <%= label :list_condition, t('activerecord.attributes.item_list.list_condition') -%>:<br />
@@ -79,7 +79,7 @@
 
 <div id="submenu" class="ui-corner-all">
   <p>
-    <li><%= link_to t('page.download'),  checkoutlist_path(:commit => t('page.download')) -%></li>
+    <li><%= link_to t('page.download'),  checkoutlists_path(:commit => t('page.download')) -%></li>
     <li><%= link_to t('page.back'), page_exstatistics_path -%></li>
   </p>
 </div>

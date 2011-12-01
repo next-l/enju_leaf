@@ -1,11 +1,11 @@
-class ReservelistController < ApplicationController
+class ReservelistsController < ApplicationController
   #before_filter :store_location, :only => :index
   #load_and_authorize_resource
   #before_filter :get_user_if_nil, :only => :index
   #before_filter :get_user, :except => :index
   #helper_method :get_item
   #after_filter :convert_charset, :only => :index
-
+  before_filter :check_librarian
   
   def index
     @displist = []
@@ -82,4 +82,12 @@ class ReservelistController < ApplicationController
 	@dispname = nil
     end
   end
+
+  private
+  def check_librarian
+    unless current_user && current_user.has_role?('Librarian')
+      access_denied
+    end
+  end
+
 end
