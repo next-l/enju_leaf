@@ -20,3 +20,7 @@
     </tr>
   <%- end -%>
 </table>
+
+<%- if user_signed_in? and current_user.has_role?('Librarian') -%>
+<%= render 'reserves/output'-%>
+<%- end -%>

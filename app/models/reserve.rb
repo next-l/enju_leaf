@@ -268,10 +268,55 @@ class Reserve < ActiveRecord::Base
     end
   end
 
+  # TODO
+  def self.informations(user)
+    @informations = []
+    @Type = Struct.new(:id, :display_name, :information)
+    @informations << @Type.new(0, I18n.t('activerecord.attributes.reserve.unnecessary'), '')
+    unless user.blank?
+      @informations << @Type.new(1, I18n.t('activerecord.attributes.user.email'), user.email) unless user.email.blank?
+      @informations << @Type.new(2, I18n.t('activerecord.attributes.patron.telephone_number_1'), user.patron.telephone_number_1) unless user.patron.telephone_number_1.blank?
+      @informations << @Type.new(3, I18n.t('activerecord.attributes.patron.extelephone_number_1'), user.patron.extelephone_number_1) unless user.patron.extelephone_number_1.blank?
+      @informations << @Type.new(4, I18n.t('activerecord.attributes.patron.fax_number_1'), user.patron.fax_number_1) unless user.patron.fax_number_1.blank?
+      @informations << @Type.new(5, I18n.t('activerecord.attributes.patron.telephone_number_2'), user.patron.telephone_number_2) unless user.patron.telephone_number_2.blank?
+      @informations << @Type.new(6, I18n.t('activerecord.attributes.patron.extelephone_number_2'), user.patron.extelephone_number_2) unless user.patron.extelephone_number_2.blank?
+      @informations << @Type.new(7, I18n.t('activerecord.attributes.patron.fax_number_2'), user.patron.fax_number_2) unless user.patron.fax_number_2.blank?
+    end
+    return @informations
+  end
+
+  def self.get_information_method(reserve)
+    user = User.find(reserve.user_id)
+    @information_method = nil
+    case reserve.information_type_id
+    when 1
+      @information_method = user.email unless user.email.blank?
+    when 2
+      @information_method = user.patron.telephone_number_1 unless user.patron.telephone_number_1.blank? 
+    when 3
+      @information_method = user.patron.extelephone_number_1 unless user.patron.extelephone_number_1.blank?
+    when 4
+      @information_method = user.patron.fax_number_1 unless user.patron.fax_number_1.blank?
+    when 5
+      @information_method = user.patron.telephone_number_2 unless user.patron.telephone_number_2.blank?
+    when 6
+      @information_method = user.patron.extelephone_number_2 unless user.patron.extelephone_number_2.blank?
+    when 7
+      @information_method = user.patron.fax_number_2 unless user.patron.fax_number_2.blank?
+    end
+    return @information_method
+  end
+
   def self.information_types
     @information_types = [0, 1, 2]
     return @information_types
   end
+
+  def self.states
+    @states = ['pending', 'requested', 'retained', 'completed', 'canceled', 'expired']
+    return @states
+  end
+
 end
 
 # == Schema Information

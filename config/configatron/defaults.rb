@@ -52,8 +52,10 @@ configatron.checkouts_print.message = "本は大事に扱いましょう。期�
 
 # 予約票の出力
 configatron.reserve_print.filename = "reserve.pdf"
-# 予約リストの出力
-configatron.reservelist_print.filename = "reservelist.pdf"
+# 予約リスト(全体)の出力
+configatron.reservelist_all_print.filename = "reservelist_all.pdf"
+# 予約リスト(個人)の出力
+configatron.reservelist_user_print.filename = "reservelist_user.pdf"
 # 予約表に利用者の年齢を表示するかどうか
 configatron.reserve_print.old = true
 

@@ -46,6 +46,7 @@
 <p>
   <strong><%= t('activerecord.attributes.reserve.information_method') -%>:</strong>
   <%= i18n_information_type(@reserve.information_type_id) -%>
+  &nbsp;<%= @information_method unless @information_method.blank? -%>
 </p>
 
 <p>
@@ -74,7 +75,7 @@
 </p>
 
 <%= form_tag({:action => 'output'}) do -%>
-  <%= submit_tag t('page.output', :model => t('activerecord.models.reserve')) -%>
+  <%= submit_tag t('page.output', :model => t('activerecord.attributes.reserve.reserve_list')) -%>
 <%- end -%>
 </div>
 </div>
