@@ -404,6 +404,22 @@ class StatisticReportsController < ApplicationController
           row.item("valueall").value(value) if t == 2 # March(end of fiscal year)
         end  
       end
+      # users each user type[adults, students, children]
+      3.times do |i|
+        data_type = 112.to_s + (i + 4).to_s
+        report.page.list(:list).add_row do |row|
+          row.item(:option).value(t("statistic_report.user_type_#{i+1}"))
+          12.times do |t|
+            if t < 4 # for Japanese fiscal year
+              value = Statistic.where(:yyyymm => "#{term.to_i + 1}#{"%02d" % (t + 1)}", :data_type => data_type, :library_id => 0).first.value rescue 0
+            else	
+              value = Statistic.where(:yyyymm => "#{term}#{"%02d" % (t + 1)}", :data_type => data_type, :library_id => 0).first.value rescue 0
+            end
+            row.item("value#{t+1}").value(value)
+            row.item("valueall").value(value) if t == 2 # March(end of fiscal year)
+          end
+        end  
+      end
       # unlocked users all libraries
       report.page.list(:list).add_row do |row|
         row.item(:option).value(t('statistic_report.unlocked_users'))
@@ -445,6 +461,22 @@ class StatisticReportsController < ApplicationController
             end
             row.item("value#{t+1}").value(value)
             row.item("valueall").value(value) if t == 2 # March(end of fiscal year)
+          end  
+        end
+        # users each user type[adults, students, children]
+        3.times do |i|
+          data_type = 112.to_s + (i + 4).to_s
+          report.page.list(:list).add_row do |row|
+            row.item(:option).value(t("statistic_report.user_type_#{i+1}"))
+            12.times do |t|
+              if t < 4 # for Japanese fiscal year
+                value = Statistic.where(:yyyymm => "#{term.to_i + 1}#{"%02d" % (t + 1)}", :data_type => data_type, :library_id => library.id).first.value rescue 0 
+              else
+                value = Statistic.where(:yyyymm => "#{term}#{"%02d" % (t + 1)}", :data_type => data_type, :library_id => library.id).first.value rescue 0 
+              end
+              row.item("value#{t+1}").value(value)
+              row.item("valueall").value(value) if t == 2 # March(end of fiscal year)
+            end
           end  
         end
         # unlocked users
@@ -1668,7 +1700,8 @@ class StatisticReportsController < ApplicationController
         end
         3.times do |i|
           report.page.list(:list).add_row do |row|
-            row.item(:library).value(library.display_name)
+            row.item(:option).value(t("statistic_report.item_type_#{i+1}"))
+            sum = 0
             8.times do |t|
               data_type = 121.to_s + (i+7).to_s + t.to_s
               value = 0
@@ -1689,6 +1722,116 @@ class StatisticReportsController < ApplicationController
               row.item(:values_line).style(:border_color, '#000000')
               row.item(:values_line).style(:border_width, 1)
             end
+          end  
+        end
+      end
+
+      # all users all libraries
+      report.page.list(:list).add_row do |row|
+        row.item(:type).value(t('statistic_report.users'))
+        row.item(:library).value(t('statistic_report.all_library'))
+        row.item(:option).value(t('statistic_report.all_users'))
+        sum = 0
+        8.times do |t|
+          data_type = 1120.to_s + t.to_s
+          value = 0
+          datas = Statistic.where(["yyyymm >= #{start_at} AND yyyymm <= #{end_at} AND data_type = ? AND library_id = ?", data_type, 0])
+          datas.each do |data|
+            value = value + data.value
+          end
+          sum = sum + value
+          row.item("value#{t}").value(value)
+        end  
+        row.item("valueall").value(sum)
+      end
+      # unlocked users all libraries
+      report.page.list(:list).add_row do |row|
+        row.item(:option).value(t('statistic_report.unlocked_users'))
+        sum = 0
+        8.times do |t|
+          data_type = 1121.to_s + t.to_s
+          value = 0
+          datas = Statistic.where(["yyyymm >= #{start_at} AND yyyymm <= #{end_at} AND data_type = ? AND library_id = ?", data_type, 0])
+          datas.each do |data|
+            value =value + data.value
+          end
+          sum = sum + value
+          row.item("value#{t}").value(value)
+        end  
+        row.item("valueall").value(sum)
+      end
+      # locked users all libraries
+      report.page.list(:list).add_row do |row|
+        row.item(:option).value(t('statistic_report.locked_users'))
+        sum = 0
+        8.times do |t|
+          data_type = 1122.to_s + t.to_s
+          value = 0
+          datas = Statistic.where(["yyyymm >= #{start_at} AND yyyymm <= #{end_at} AND data_type = ? AND library_id = ?", data_type, 0])
+          datas.each do |data|
+            value =value + data.value
+          end
+          sum = sum + value
+          row.item("value#{t}").value(value)
+        end  
+        row.item("valueall").value(sum)
+      end
+      # users each libraries
+      libraries.each do |library|
+        report.page.list(:list).add_row do |row|
+          row.item(:library).value(library.display_name.localize)
+          sum = 0
+          8.times do |t|
+            data_type = 1120.to_s + t.to_s
+            value = 0
+            datas = Statistic.where(["yyyymm >= #{start_at} AND yyyymm <= #{end_at} AND data_type = ? AND library_id = ?", data_type, library.id])
+            datas.each do |data|
+              value =value + data.value
+            end
+            sum = sum + value
+            row.item("value#{t}").value(value)
+          end  
+          row.item("valueall").value(sum)
+        end
+        # unlocked users each libraries
+        report.page.list(:list).add_row do |row|
+          row.item(:option).value(t('statistic_report.unlocked_users'))
+          sum = 0
+          8.times do |t|
+            data_type = 1121.to_s + t.to_s
+            value = 0
+            datas = Statistic.where(["yyyymm >= #{start_at} AND yyyymm <= #{end_at} AND data_type = ? AND library_id = ?", data_type, library.id])
+            datas.each do |data|
+              value =value + data.value
+            end
+            sum = sum + value
+            row.item("value#{t}").value(value)
+          end    
+          row.item("valueall").value(sum)
+        end
+        # locked users each libraries
+        report.page.list(:list).add_row do |row|
+          row.item(:option).value(t('statistic_report.locked_users'))
+          sum = 0
+          8.times do |t|
+            data_type = 1122.to_s + t.to_s
+            value = 0
+            datas = Statistic.where(["yyyymm >= #{start_at} AND yyyymm <= #{end_at} AND data_type = ? AND library_id = ?", data_type, library.id])
+            datas.each do |data|
+              value =value + data.value
+            end
+            sum = sum + value
+            row.item("value#{t}").value(value)
+          end  
+          row.item("valueall").value(sum)
+          if library == libraries.last
+            row.item(:type_line).show
+            row.item(:library_line).style(:border_color, '#000000')
+            row.item(:library_line).style(:border_width, 1)
+            row.item(:option_line).style(:border_color, '#000000')
+            row.item(:option_line).style(:border_width, 1)
+            row.item(:values_line).style(:border_color, '#000000')
+            row.item(:values_line).style(:border_width, 1)
           end  
         end
       end
