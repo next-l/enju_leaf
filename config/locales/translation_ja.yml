@@ -1760,6 +1760,7 @@ ja:
     timezone_report: 時間帯別利用統計
     day_report: 曜日別利用統計
     age_report: 年代別利用統計
+    items_report: 蔵書統計
     invalid_year: "対象年度の指定が不正です。"
     invalid_month: "対象月の指定が不正です。"
     year: 対象年度(YYYY) 
