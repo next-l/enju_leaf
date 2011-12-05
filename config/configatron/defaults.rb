@@ -81,6 +81,10 @@ configatron.manifestation.display_checkouts_count = true
 configatron.manifestation.display_reserves_count = true
 configatron.manifestation.display_last_checkout_datetime = true
 
+# 利用者一覧の色別表示
+configatron.user.locked.background = "aqua"
+configatron.user.unable.background = "yellow"
+
 # 音
 configatron.sounds.basedir = "sounds/"
 #configatron.sounds.errors.a = "chimeA08.ogg"

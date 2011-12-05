@@ -475,6 +475,13 @@ class User < ActiveRecord::Base
     Date.today.year - patron.date_of_birth.year
   end
 
+  def set_color
+    @color = nil
+    @color = configatron.user.unable.background if self.unable == true
+    @color = configatron.user.locked.background unless self.locked_at.blank?
+    return @color
+  end
+
 end
 
 # == Schema Information
