@@ -261,7 +261,7 @@ class ApplicationController < ActionController::Base
   end
 
   def store_page
-    flash[:page] = params[:page].to_i if params[:page]
+    flash[:page] = params[:page] if params[:page].to_i > 0
   end
 
   def store_location

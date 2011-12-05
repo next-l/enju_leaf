@@ -1,5 +1,5 @@
-<%= form_for(@user_group) do |f| %>
-  <%= f.error_messages -%>
+<%= simple_form_for(@user_group, :validate => true) do |f| %>
+  <%= f.error_notification -%>
 
   <div class="field">
     <%= f.label :name %><br />
