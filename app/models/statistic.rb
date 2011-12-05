@@ -1,134 +1,223 @@
 class Statistic < ActiveRecord::Base
-  has_one :library
-  validates_uniqueness_of :data_type, :scope => [:yyyymm, :yyyymmdd, :library_id, :hour]
+  belongs_to :library
+  belongs_to :checkout_type
+  belongs_to :shelf
+  validates_uniqueness_of :data_type, :scope => [:yyyymm, :yyyymmdd, :library_id, :hour, :checkout_type_id, :shelf_id, :ndc, :call_number, :age, :option]
   @libraries = Library.all
   @checkout_types = CheckoutType.all
+  @shelves = Shelf.all
   @user_groups = UserGroup.all
   @adult_ids = User.adults.inject([]){|ids, user| ids << user.id}
   @student_ids = User.students.inject([]){|ids, user| ids << user.id}
   @children_ids = User.children.inject([]){|ids, user| ids << user.id}
   before_validation :check_record
+  scope :no_condition, where(:checkout_type_id => nil, :shelf_id => nil, :ndc => nil, :call_number => nil, :age => nil, :option => nil)
 
   def self.calc_state(start_at, end_at, term_id)
     Statistic.transaction do
       p "statistics #{start_at} - #{end_at}"
 
-      # items 110
-      statistic = Statistic.new
-      set_date(statistic, end_at, term_id)
-      statistic.data_type = term_id.to_s + 110.to_s
-      statistic.value = Item.count_by_sql(["select count(*) from items where created_at >= ? AND created_at  < ?", start_at, end_at])
-      statistic.save! if statistic.value > 0
-      # items per checkout types
-      @checkout_types.each do |checkout_type|
-        statistic = Statistic.new
-        set_date(statistic, end_at, term_id)
-        statistic.data_type = term_id.to_s + 11.to_s + checkout_type.id.to_s
-        statistic.value = Item.count_by_sql(["select count(*) from items where checkout_type_id = ? AND created_at >= ? AND created_at  < ?", checkout_type.id, start_at, end_at])
-        statistic.save! if statistic.value > 0
-      end
-
-      @libraries.each do |library|
-        statistic = Statistic.new
-        set_date(statistic, end_at, term_id)
-        statistic.data_type = term_id.to_s + 110.to_s
-        statistic.library_id = library.id
-        statistic.value = statistic.value = Item.count_by_sql(["select count(items) from items, shelves, libraries where items.shelf_id = shelves.id AND libraries.id = shelves.library_id AND libraries.id = ? AND items.created_at >= ? AND items.created_at < ?", library.id, start_at, end_at])
-        statistic.save! if statistic.value > 0
-        # items per checkout types
-        @checkout_types.each do |checkout_type|
-          statistic = Statistic.new
-          set_date(statistic, end_at, term_id)
-          statistic.data_type = term_id.to_s + 11.to_s + checkout_type.id.to_s
-          statistic.library_id = library.id
-          statistic.value = statistic.value = Item.count_by_sql(["select count(items) from items, shelves, libraries where items.shelf_id = shelves.id AND libraries.id = shelves.library_id AND libraries.id = ? AND items.checkout_type_id = ? AND items.created_at >= ? AND items.created_at < ?", library.id, checkout_type.id, start_at, end_at])
-          statistic.save! if statistic.value > 0
-        end
-      end
-
-      # users 120
-      statistic = Statistic.new
-      set_date(statistic, end_at, term_id)
-      statistic.data_type = term_id.to_s + 120.to_s
-      statistic.value = User.count_by_sql(["select count(*) from users where created_at >= ? AND created_at  < ?", start_at, end_at])
-      statistic.save! if statistic.value > 0
-      # users 121 available
-      statistic = Statistic.new
-      set_date(statistic, end_at, term_id)
-      statistic.data_type = term_id.to_s + 121.to_s
-      statistic.value = User.count_by_sql(["select count(*) from users where locked_at IS NULL AND created_at >= ? AND created_at  < ?", start_at, end_at])
-      statistic.save! if statistic.value > 0
-      # users 122 locked
-      statistic = Statistic.new
-      set_date(statistic, end_at, term_id)
-      statistic.data_type = term_id.to_s + 122.to_s
-      statistic.value = User.count_by_sql(["select count(*) from users where locked_at IS NOT NULL AND created_at >= ? AND created_at  < ?", start_at, end_at])
-      statistic.save! if statistic.value > 0
-      # users 124: adults / 125: students / 126: children
-      statistic = Statistic.new
-      set_date(statistic, end_at, term_id)
-      statistic.data_type = term_id.to_s + 124.to_s
-      statistic.value = User.count_by_sql(["select count(*) from users where id IN (?) AND created_at >= ? AND created_at  < ?", @adult_ids, start_at, end_at])
-      statistic.save! if statistic.value > 0
-      statistic = Statistic.new
-      set_date(statistic, end_at, term_id)
-      statistic.data_type = term_id.to_s + 125.to_s
-      statistic.value = User.count_by_sql(["select count(*) from users where id IN (?) AND created_at >= ? AND created_at  < ?", @student_ids, start_at, end_at])
-      statistic.save! if statistic.value > 0
-      statistic = Statistic.new
-      set_date(statistic, end_at, term_id)
-      statistic.data_type = term_id.to_s + 126.to_s
-      statistic.value = User.count_by_sql(["select count(*) from users where id IN (?) AND created_at >= ? AND created_at  < ?", @children_ids, start_at, end_at])
-      statistic.save! if statistic.value > 0
-
-      @libraries.each do |library|
-        # users 120
-        statistic = Statistic.new
-        set_date(statistic, end_at, term_id)
-        statistic.data_type = term_id.to_s + 120.to_s
-        statistic.library_id = library.id
-        statistic.value = User.count_by_sql(["select count(*) from users, libraries where users.library_id = libraries.id AND libraries.id = ? AND users.created_at >= ? AND users.created_at < ?", library.id, start_at, end_at])
-        statistic.save! if statistic.value > 0
-        # users 121 available
-        statistic = Statistic.new
-        set_date(statistic, end_at, term_id)
-        statistic.data_type = term_id.to_s + 121.to_s
-        statistic.library_id = library.id
-        statistic.value = User.count_by_sql(["select count(*) from users, libraries where users.library_id = libraries.id AND users.locked_at IS NULL AND libraries.id = ? AND users.created_at >= ? AND users.created_at < ?", library.id, start_at, end_at])
-        statistic.save! if statistic.value > 0
-        # users 122 locked
-        statistic = Statistic.new
-        set_date(statistic, end_at, term_id)
-        statistic.data_type = term_id.to_s + 122.to_s
-        statistic.library_id = library.id
-        statistic.value = User.count_by_sql(["select count(*) from users, libraries where users.library_id = libraries.id AND users.locked_at IS NOT NULL AND libraries.id = ? AND users.created_at >= ? AND users.created_at < ?", library.id, start_at, end_at])
-        statistic.save! if statistic.value > 0
-        # users 124: adults / 125: students / 126: children
-        statistic = Statistic.new
-        set_date(statistic, end_at, term_id)
-        statistic.data_type = term_id.to_s + 124.to_s
-        statistic.library_id = library.id
-        statistic.value = User.count_by_sql(["select count(*) from users, libraries where users.library_id = libraries.id AND libraries.id = ? AND users.id IN (?) AND users.created_at >= ? AND users.created_at < ?", library.id, @adult_ids, start_at, end_at])
-        statistic.save! if statistic.value > 0
-        statistic = Statistic.new
-        set_date(statistic, end_at, term_id)
-        statistic.data_type = term_id.to_s + 125.to_s
-        statistic.library_id = library.id
-        statistic.value = User.count_by_sql(["select count(*) from users, libraries where users.library_id = libraries.id AND libraries.id = ? AND users.id IN (?) AND users.created_at >= ? AND users.created_at < ?", library.id, @student_ids, start_at, end_at])
-        statistic.save! if statistic.value > 0
-        statistic = Statistic.new
-        set_date(statistic, end_at, term_id)
-        statistic.data_type = term_id.to_s + 126.to_s
-        statistic.library_id = library.id
-        statistic.value = User.count_by_sql(["select count(*) from users, libraries where users.library_id = libraries.id AND libraries.id = ? AND users.id IN (?) AND users.created_at >= ? AND users.created_at < ?", library.id, @children_ids, start_at, end_at])
-        statistic.save! if statistic.value > 0
-      end
+      calc_items(start_at, end_at, term_id)
+      calc_users(start_at, end_at, term_id)
  
     end
     rescue Exception => e
       p "Failed to calculate statistics: #{e}"
       logger.error "Failed to calculate statistics: #{e}"
   end
+
+  def self.calc_users(start_at, end_at, term_id)
+    Statistic.transaction do
+      p "statistics of users  #{start_at} - #{end_at}"
+
+      data_type = term_id.to_s + 12.to_s
+      # users 12 option 0
+      statistic = Statistic.new
+      set_date(statistic, end_at, term_id)
+      statistic.data_type = data_type
+      statistic.value = User.count_by_sql(["select count(*) from users where created_at >= ? AND created_at  < ?", start_at, end_at])
+      statistic.save! if statistic.value > 0
+      # users 12 available option 1
+      statistic = Statistic.new
+      set_date(statistic, end_at, term_id)
+      statistic.data_type = data_type
+      statistic.option = 1
+      statistic.value = User.count_by_sql(["select count(*) from users where locked_at IS NULL AND created_at >= ? AND created_at  < ?", start_at, end_at])
+      statistic.save! if statistic.value > 0
+      # users 12 locked option 2
+      statistic = Statistic.new
+      set_date(statistic, end_at, term_id)
+      statistic.data_type = data_type
+      statistic.option = 2
+      statistic.value = User.count_by_sql(["select count(*) from users where locked_at IS NOT NULL AND created_at >= ? AND created_at  < ?", start_at, end_at])
+      statistic.save! if statistic.value > 0
+      # users 12 provisional option 4
+      statistic = Statistic.new
+      set_date(statistic, end_at, term_id)
+      statistic.data_type = data_type
+      statistic.option = 4
+      statistic.value = User.provisional.where(["created_at >= ? AND created_at  < ?", start_at, end_at]).count
+      statistic.save! if statistic.value > 0
+      # users 12 6: adults / 7: students / 8: children
+      statistic = Statistic.new
+      set_date(statistic, end_at, term_id)
+      statistic.data_type = data_type
+      statistic.option = 6    
+      statistic.value = User.count_by_sql(["select count(*) from users where id IN (?) AND created_at >= ? AND created_at  < ?", @adult_ids, start_at, end_at])
+      statistic.save! if statistic.value > 0
+      statistic = Statistic.new
+      set_date(statistic, end_at, term_id)
+      statistic.data_type = data_type
+      statistic.option = 7
+      statistic.value = User.count_by_sql(["select count(*) from users where id IN (?) AND created_at >= ? AND created_at  < ?", @student_ids, start_at, end_at])
+      statistic.save! if statistic.value > 0
+      statistic = Statistic.new
+      set_date(statistic, end_at, term_id)
+      statistic.data_type = data_type
+      statistic.option = 8
+      statistic.value = User.count_by_sql(["select count(*) from users where id IN (?) AND created_at >= ? AND created_at  < ?", @children_ids, start_at, end_at])
+      statistic.save! if statistic.value > 0
+
+      @libraries.each do |library|
+        # users 12 option 0
+        statistic = Statistic.new
+        set_date(statistic, end_at, term_id)
+        statistic.data_type = data_type
+        statistic.library_id = library.id
+        statistic.option = 0
+        statistic.value = User.count_by_sql(["select count(*) from users, libraries where users.library_id = libraries.id AND libraries.id = ? AND users.created_at >= ? AND users.created_at < ?", library.id, start_at, end_at])
+        statistic.save! if statistic.value > 0
+        # users 12 available option 1
+        statistic = Statistic.new
+        set_date(statistic, end_at, term_id)
+        statistic.data_type = data_type
+        statistic.option = 1
+        statistic.library_id = library.id
+        statistic.value = User.count_by_sql(["select count(*) from users, libraries where users.library_id = libraries.id AND users.locked_at IS NULL AND libraries.id = ? AND users.created_at >= ? AND users.created_at < ?", library.id, start_at, end_at])
+        statistic.save! if statistic.value > 0
+        # users 12 locked option 2
+        statistic = Statistic.new
+        set_date(statistic, end_at, term_id)
+        statistic.data_type = data_type
+        statistic.option = 2
+        statistic.library_id = library.id
+        statistic.value = User.count_by_sql(["select count(*) from users, libraries where users.library_id = libraries.id AND users.locked_at IS NOT NULL AND libraries.id = ? AND users.created_at >= ? AND users.created_at < ?", library.id, start_at, end_at])
+        statistic.save! if statistic.value > 0
+        # users 12 provisional option 4
+        statistic = Statistic.new
+        set_date(statistic, end_at, term_id)
+        statistic.data_type = data_type
+        statistic.option = 4
+        statistic.library_id = library.id
+        statistic.value = User.provisional.joins(:library).where(["users.library_id = libraries.id AND libraries.id = ? AND users.created_at >= ? AND users.created_at  < ?", library.id, start_at, end_at]).count
+        statistic.save! if statistic.value > 0
+        # users 12 6: adults / 7: students / 8: children
+        statistic = Statistic.new
+        set_date(statistic, end_at, term_id)
+        statistic.data_type = data_type
+        statistic.option = 6
+        statistic.library_id = library.id
+        statistic.value = User.count_by_sql(["select count(*) from users, libraries where users.library_id = libraries.id AND libraries.id = ? AND users.id IN (?) AND users.created_at >= ? AND users.created_at < ?", library.id, @adult_ids, start_at, end_at])
+        statistic.save! if statistic.value > 0
+        statistic = Statistic.new
+        set_date(statistic, end_at, term_id)
+        statistic.data_type = data_type
+        statistic.option = 7
+        statistic.library_id = library.id
+        statistic.value = User.count_by_sql(["select count(*) from users, libraries where users.library_id = libraries.id AND libraries.id = ? AND users.id IN (?) AND users.created_at >= ? AND users.created_at < ?", library.id, @student_ids, start_at, end_at])
+        statistic.save! if statistic.value > 0
+        statistic = Statistic.new
+        set_date(statistic, end_at, term_id)
+        statistic.data_type = data_type
+        statistic.option = 8
+        statistic.library_id = library.id
+        statistic.value = User.count_by_sql(["select count(*) from users, libraries where users.library_id = libraries.id AND libraries.id = ? AND users.id IN (?) AND users.created_at >= ? AND users.created_at < ?", library.id, @children_ids, start_at, end_at])
+        statistic.save! if statistic.value > 0
+      end
+    end
+    rescue Exception => e
+      p "Failed to calculate users: #{e}"
+      logger.error "Failed to calculate users: #{e}"
+  end
+
+  def self.calc_items(start_at, end_at, term_id)
+    Statistic.transaction do
+      p "statistics of items  #{start_at} - #{end_at}"
+      @call_numbers = call_numbers
+
+      # items 11
+      data_type = term_id.to_s + 11.to_s
+      statistic = Statistic.new
+      set_date(statistic, end_at, term_id)
+      statistic.data_type = data_type
+      statistic.value = Item.count_by_sql(["select count(*) from items where created_at >= ? AND created_at  < ?", start_at, end_at])
+      statistic.save! if statistic.value > 0
+      # items each checkout types
+      @checkout_types.each do |checkout_type|
+        statistic = Statistic.new
+        set_date(statistic, end_at, term_id)
+        statistic.data_type = data_type
+        statistic.checkout_type = checkout_type
+        statistic.value = Item.count_by_sql(["select count(*) from items where checkout_type_id = ? AND created_at >= ? AND created_at  < ?", checkout_type.id, start_at, end_at])
+        statistic.save! if statistic.value > 0
+      end
+      # items each call_numbers
+      @call_numbers.each do |num|
+        statistic = Statistic.new
+        set_date(statistic, end_at, term_id)
+        statistic.data_type = data_type
+        statistic.call_number = num
+        num_reg = "/\|#{num}\|/"
+        statistic.value = Item.count_by_sql(["select count(*) from items where call_number ~ ? AND created_at >= ? AND created_at  < ?", num_reg, start_at, end_at])
+        statistic.save! if statistic.value > 0        
+      end
+
+      @libraries.each do |library|
+        statistic = Statistic.new
+        set_date(statistic, end_at, term_id)
+        statistic.data_type = data_type
+        statistic.library = library
+        statistic.value = statistic.value = Item.count_by_sql(["select count(items) from items, shelves, libraries where items.shelf_id = shelves.id AND libraries.id = shelves.library_id AND libraries.id = ? AND items.created_at >= ? AND items.created_at < ?", library.id, start_at, end_at])
+        statistic.save! if statistic.value > 0
+        # items each checkout types
+        @checkout_types.each do |checkout_type|
+          statistic = Statistic.new
+          set_date(statistic, end_at, term_id)
+          statistic.data_type = data_type
+          statistic.library = library
+          statistic.checkout_type = checkout_type
+          statistic.value = Item.count_by_sql(["select count(items) from items, shelves, libraries where items.shelf_id = shelves.id AND libraries.id = shelves.library_id AND libraries.id = ? AND items.checkout_type_id = ? AND items.created_at >= ? AND items.created_at < ?", library.id, checkout_type.id, start_at, end_at])
+          statistic.save! if statistic.value > 0
+        end
+        # items each shelves
+        @shelves.each do |shelf|
+          statistic = Statistic.new
+          set_date(statistic, end_at, term_id)
+          statistic.data_type = data_type
+          statistic.library = library
+          statistic.shelf = shelf
+          statistic.value = Item.count_by_sql(["select count(items) from items, shelves, libraries where items.shelf_id = shelves.id AND libraries.id = shelves.library_id AND libraries.id = ? AND shelves.id = ? AND items.created_at >= ? AND items.created_at < ?", library.id, shelf.id, start_at, end_at])
+          statistic.save! if statistic.value > 0
+          # items each call_numbers
+          @call_numbers.each do |num|
+            statistic = Statistic.new
+            set_date(statistic, end_at, term_id)
+            statistic.data_type = data_type
+            statistic.library = library
+            statistic.shelf = shelf
+            statistic.call_number = num
+            num_reg = "/\|#{num}\|/"
+            statistic.value = Item.count_by_sql(["select count(items) from items, shelves, libraries where items.shelf_id = shelves.id AND libraries.id = shelves.library_id AND libraries.id = ? AND shelves.id = ? AND items.call_number ~ ? AND items.created_at >= ? AND items.created_at < ?", library.id, shelf.id, num_reg, start_at, end_at])
+            statistic.save! if statistic.value > 0
+          end
+        end
+      end
+    end
+    rescue Exception => e
+      p "Failed to calculate items: #{e}"
+      logger.error "Failed to calculate items: #{e}"
+  end
+
 
   def self.calc_checkouts(start_at, end_at, term_id)
     Statistic.transaction do
@@ -355,7 +444,7 @@ class Statistic < ActiveRecord::Base
       end 
     end
 
-    # avarage of checkout items per day 1213 
+    # avarage of checkout items each day 1213 
     date = Date.new(month[0, 4].to_i, month[4, 2].to_i) 
     days = date.end_of_month - date.beginning_of_month + 1
     statistic = Statistic.new
@@ -403,7 +492,7 @@ class Statistic < ActiveRecord::Base
       end
     end 
 
-    # avarage of checkout users per day 1223 
+    # avarage of checkout users each day 1223 
     date = Date.new(month[0, 4].to_i, month[4, 2].to_i) 
     days = date.end_of_month - date.beginning_of_month + 1
     statistic = Statistic.new
@@ -850,7 +939,7 @@ class Statistic < ActiveRecord::Base
   end
 
   def self.calc_sum(date = nil, monthly = false)
-    if monthly # monthly calculate data per month
+    if monthly # monthly calculate data each month
       unless date.length == 6
         p "input YYYYMM" 
         return false
@@ -859,7 +948,7 @@ class Statistic < ActiveRecord::Base
       calc_state(Time.new('1970-01-01'), date_timestamp.end_of_month, 1)
       calc_age_data(date_timestamp.beginning_of_month, date_timestamp.end_of_month)
       calc_monthly_data(date)
-    else # daily calculate data per hour
+    else # daily calculate data each hour
       if date
         unless date.length == 8
           p "input YYYYMMDD" 
@@ -884,33 +973,19 @@ class Statistic < ActiveRecord::Base
   end
 
   def check_record
-    record = Statistic.where(:data_type => self.data_type, :yyyymmdd => self.yyyymmdd, :yyyymm => self.yyyymm, :library_id => self.library_id, :hour => self.hour).first
+    record = Statistic.where(:data_type => self.data_type, :yyyymmdd => self.yyyymmdd, :yyyymm => self.yyyymm, :library_id => self.library_id, :hour => self.hour, :checkout_type_id => self.checkout_type_id, :shelf_id => self.shelf_id, :ndc => self.ndc, :call_number => self.call_number, :age => self.age, :option => self.option).first
     record.destroy if record
   end
-end
+  
+  def self.call_numbers
+    call_numbers = []
+    @libraries.each do |library|
+      delimi = library.call_number_delimiter
+      delimi = '|' if delimi.nil? || delimi.empty?
+      # if you change the rule to scan, modify "# items each call_numbers" above too
+      call_numbers << Item.joins(:shelf).where(["shelves.library_id = ?", library.id]).inject([]) {|nums, item| nums << item.call_number.split(delimi)[1]}.compact
+    end
+    return call_numbers.flatten.uniq!
+  end
 
-# data type list
-# monthly items: 1110
-# monthly users: 1120 / 1121 (available users) / 1122 (locked users)
-# montyly open days: 1130
-# monthly checkout items: 1210   
-# monthly checkout items per age: 1210 + 0~7
-# monthly checkout users: 1220, 1224, 1225, 1226
-# monthly checkout users per age: 1220 + 0~7
-# avarage of checkout users per day: 1223 
-# monthly reserves: 1330
-# monthly reserves per age: 1330 + 0~7
-# monthly questions: 1430
-# monthly questions per age: 1430 + 0~7
-# daily checkout items: 2210, 2217-2219
-# daily checkout users: 2220
-# daily checkout users 2224: adults / 2225: students / 2226: children
-# daily reserves: 2330
-# daily questions: 2430
-# hourly checkout items: 3210
-# hourly checkout items NDC for all: 3217
-# hourly checkout items NDC for kids: 3218
-# hourly checkout items NDC for else: 3219
-# hourly checkout users: 3220
-# hourly reserves: 3330
-# hourly questions: 3430
+end

@@ -12,6 +12,7 @@ class Library < ActiveRecord::Base
   has_many :users
   belongs_to :country
   has_many :budgets
+  has_many :statistic
 
   extend FriendlyId
   friendly_id :name

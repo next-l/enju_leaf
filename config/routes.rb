@@ -347,6 +347,7 @@ EnjuLeaf::Application.routes.draw do
     post :get_timezone_report, :on => :collection
     post :get_day_report, :on => :collection
     post :get_age_report, :on => :collection
+    post :get_items_report, :on => :collection
   end
 
   resources :print_labels do
