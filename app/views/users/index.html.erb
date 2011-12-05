@@ -43,12 +43,16 @@
   </tr>
 
 <%- @users.each_with_index do |user, i| -%>
-  <tr class="line<%= cycle("0", "1") -%>">
+  <tr class="line<%= cycle("0", "1") -%>" style="background-color:<%= user.set_color -%>">
     <td>
       <%= link_to user.username, user -%>
       <br />
       <%- if user.patron -%>
         <%= link_to user.patron.full_name, user -%>
+      <%- end -%>
+      <%- if !user.locked_at.blank? or user.unable == true -%>
+        <br/>
+        (<%= t('activerecord.attributes.user.unable') if user.unable == true -%><%- if !user.locked_at.blank? and user.unable == true -%>&nbsp;<%- end -%><%= t('activerecord.attributes.user.locked') if !user.locked_at.blank? -%>)
       <%- end -%>
     </td>
     <td><%= user.user_number -%></td>
