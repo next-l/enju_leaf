@@ -30,7 +30,7 @@
 <div id="submenu" class="ui-corner-all">
   <%- if can? :create, Produce -%>
     <ul>
-      <li><%= link_to t('page.new', :model => t('activerecord.models.produce')), new_realize_path -%></li>
+      <li><%= link_to t('page.new', :model => t('activerecord.models.produce')), new_produce_path -%></li>
     </ul>
   <%- end -%>
 </div>
