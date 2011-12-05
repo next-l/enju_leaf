@@ -795,6 +795,7 @@ ja:
         unnecessary: 連絡不要
         email: メール
         telephone: 電話
+        reserve_list: 予約確認票
       message_request:
         sent_at: 送信時刻
         deleted_at: 削除時刻

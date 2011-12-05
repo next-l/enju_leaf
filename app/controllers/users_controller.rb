@@ -112,6 +112,10 @@ class UsersController < ApplicationController
       @family_users.delete_if{|user| user == @user}
     end
 
+    @states = Reserve.states
+    @information_types = Reserve.information_types
+    @libraries = Library.order('position')
+
     respond_to do |format|
       format.html # show.rhtml
       format.xml  { render :xml => @user }

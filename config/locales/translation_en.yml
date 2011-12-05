@@ -751,6 +751,7 @@ en:
         unnecessary: Unnecessary
         email: email
         telephone: telephone
+        reserve_list: Reserve list
       message_request:
         sent_at: Sent at
         deleted_at: Deleted at

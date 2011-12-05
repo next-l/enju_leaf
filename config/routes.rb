@@ -254,7 +254,6 @@ EnjuLeaf::Application.routes.draw do
 
   resources :reserves do
     post :output, :on => :member
-    post :output_user, :on => :collection
     post :output_list, :on => :collection
   end
 

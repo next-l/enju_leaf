@@ -20,6 +20,10 @@ class ReservesController < ApplicationController
       @reserve_user = current_user
     end
 
+    @states = Reserve.states
+    @information_types = Reserve.information_types
+    @libraries = Library.order('position')
+
     @reserve_user_id = params[:user_id] if params[:user_id]
     unless current_user.has_role?('Librarian')
       if @user
@@ -62,6 +66,7 @@ class ReservesController < ApplicationController
   # GET /reserves/1
   # GET /reserves/1.xml
   def show
+    @information_method = Reserve.get_information_method(@reserve)
     @receipt_library = Library.find(@reserve.receipt_library_id)
     @reserved_count = Reserve.waiting.where(:manifestation_id => @reserve.manifestation_id, :checked_out_at => nil).count
     respond_to do |format|
@@ -72,26 +77,27 @@ class ReservesController < ApplicationController
 
   # GET /reserves/new
   def new
-    if params[:reserve]
-      user = User.where(:user_number => params[:reserve][:user_number]).first
-    end
+    user = User.where(:user_number => params[:reserve][:user_number]).first if params[:reserve]
     user = @user if @user
+
     unless current_user.has_role?('Librarian')
       if user.try(:user_number).blank?
-        access_denied; return
+        access_denied 
+        return
       end
       if user.blank? or user != current_user
         access_denied
         return
       end
     end
+
     if user
       @reserve = user.reserves.new
     else
       @reserve = Reserve.new
     end
-    @libraries = Library.all
-    @information_types = Reserve.information_types
+    @libraries = Library.order('position')
+    @informations = Reserve.informations(user)
     @reserve.receipt_library_id = user.library_id unless user.blank?
 
     get_manifestation
@@ -110,8 +116,9 @@ class ReservesController < ApplicationController
 
   # GET /reserves/1;edit
   def edit
-    @libraries = Library.all
-    @information_types = Reserve.information_types
+    user = @user if @user
+    @libraries = Library.order('position')
+    @informations = Reserve.informations(user)
   end
 
   # POST /reserves
@@ -149,8 +156,8 @@ class ReservesController < ApplicationController
         format.html { redirect_to user_reserve_url(@reserve.user, @reserve) }
         format.xml  { render :xml => @reserve, :status => :created, :location => user_reserve_url(@reserve.user, @reserve) }
       else
-        @libraries = Library.all
-        @information_types = Reserve.information_types
+        @libraries = Library.order('position')
+        @informations = Reserve.informations(user)
         format.html { render :action => "new" }
         format.xml  { render :xml => @reserve.errors.to_xml }
       end
@@ -201,8 +208,8 @@ class ReservesController < ApplicationController
         format.html { redirect_to user_reserve_url(@reserve.user, @reserve) }
         format.xml  { head :ok }
       else
-        @libraries = Library.all
-        @information_types = Reserve.information_types
+        @libraries = Library.order('position')
+        @informations = Reserve.informations(user)
         format.html { render :action => "edit" }
         format.xml  { render :xml => @reserve.errors.to_xml }
       end
@@ -240,23 +247,22 @@ class ReservesController < ApplicationController
     report = ThinReports::Report.new :layout => File.join(Rails.root, 'report', 'reserve.tlf') 
     report.start_new_page do |page|
       # library info
-      page.item(:library).value(LibraryGroup.system_name(@locale))
-      page.item(:date).value(Time.now.strftime('%Y/%m/%d'))
       user = @reserve.user.user_number
       if configatron.reserve_print.old == true and  @reserve.user.patron.date_of_birth
         age = (Time.now.strftime("%Y%m%d").to_f - @reserve.user.patron.date_of_birth.strftime("%Y%m%d").to_f) / 10000
         age = age.to_i
         user = user + '(' + age.to_s + t('activerecord.attributes.patron.old')  +')'
       end
+      page.item(:library).value(LibraryGroup.system_name(@locale))
+      page.item(:date).value(Time.now)
+      page.item(:created_at).value(@reserve.created_at.strftime("%Y/%m/%d"))
+      page.item(:expired_at).value(@reserve.expired_at.strftime("%Y/%m/%d"))
       page.item(:user).value(user)
-      page.item(:reserve_user).value(current_user.user_number)
-      page.item(:reserve_library).value(@reserve_library.display_name)
-      page.item(:reserve_library_telephone_number_1).value(@reserve_library.telephone_number_1)
-      page.item(:reserve_library_telephone_number_2).value(@reserve_library.telephone_number_2)
       page.item(:receipt_library).value(@receipt_library.display_name)
       page.item(:receipt_library_telephone_number_1).value(@receipt_library.telephone_number_1)
       page.item(:receipt_library_telephone_number_2).value(@receipt_library.telephone_number_2)
       page.item(:information_method).value(i18n_information_type(@reserve.information_type_id))
+      page.item(:user_information).value(Reserve.get_information_method(@reserve))
       # book info
       page.item(:title).value(@reserve.manifestation.original_title)
       page.item(:creater).value(patrons_list(@reserve.manifestation.creators.readable_by(current_user), {:itemprop => 'author', :nolink => true}))
@@ -269,7 +275,131 @@ class ReservesController < ApplicationController
     send_data report.generate, :filename => configatron.reserve_print.filename, :type => 'application/pdf', :disposition => 'attachment'
   end
 
-private 
+  def output_list
+    if params[:state].blank? || params[:library].blank? || params[:method].blank? || params[:expired_at].blank?
+      redirect_to :back, :notice => t('item_list.no_list_condition')
+      return
+    end
+
+    params[:method].concat(['3', '4', '5', '6', '7']) if params[:method].include?('2')
+
+    if params[:user_id]
+      output_list_user(params)
+    else
+      output_list_all(params)
+    end
+  end
+
+  private
+  def output_list_all(params)
+    if params[:all_expired] == 'true'
+      reserves = Reserve.where(:state => params[:state], :receipt_library_id => params[:library], :information_type_id => params[:method]).order('state asc', 'receipt_library_id asc', 'expired_at Desc', 'information_type_id asc')
+    elsif params[:all_expired].nil? and params[:expired_at] == 'true'
+      reserves = Reserve.where(:state => params[:state], :receipt_library_id => params[:library], :information_type_id => params[:method]).where('expired_at >= ?', Time.zone.now.beginning_of_day).order('state asc', 'receipt_library_id asc', 'expired_at Desc', 'information_type_id asc')
+    elsif params[:all_expired].nil? and params[:expired_at] == 'false'
+      reserves = Reserve.where(:state => params[:state], :receipt_library_id => params[:library], :information_type_id => params[:method]).where('expired_at < ?', Time.zone.now.beginning_of_day).order('state asc', 'receipt_library_id asc', 'expired_at Desc', 'information_type_id asc')
+    end
+
+    require 'thinreports'
+    report = ThinReports::Report.new :layout => File.join(Rails.root, 'report', 'reservelist.tlf') 
+    report.events.on :page_create do |e|
+      e.page.item(:page).value(e.page.no)
+    end
+    report.events.on :generate do |e|
+      e.pages.each do |page|
+        page.item(:total).value(e.report.page_count)
+      end
+    end
+
+    report.start_new_page do |page|
+      page.item(:date).value(Time.now)
+
+      before_state = nil
+      before_receipt_library = nil
+      reserves.each do |r|
+        page.list(:list).add_row do |row|
+         if before_state == r.state
+           row.item(:state_line).hide
+           row.item(:state).hide
+         end
+         if before_receipt_library == r.receipt_library_id and before_state == r.state
+           row.item(:receipt_library_line).hide
+           row.item(:receipt_library).hide
+         end
+           row.item(:state).value(i18n_state(r.state))
+           row.item(:receipt_library).value(Library.find(r.receipt_library_id).display_name)
+           row.item(:title).value(r.manifestation.original_title)
+           row.item(:expired_at).value(r.expired_at.strftime("%Y/%m/%d"))
+           user = r.user.patron.full_name
+           if configatron.reserve_print.old == true and  r.user.patron.date_of_birth
+             age = (Time.now.strftime("%Y%m%d").to_f - r.user.patron.date_of_birth.strftime("%Y%m%d").to_f) / 10000
+             age = age.to_i
+             user = user + '(' + age.to_s + t('activerecord.attributes.patron.old')  +')'
+            end
+           row.item(:user).value(user)
+           information_method = i18n_information_type(r.information_type_id)
+           information_method += ': ' + Reserve.get_information_method(r) if r.information_type_id != 0 and !Reserve.get_information_method(r).nil?
+           row.item(:information_method).value(information_method)
+        end
+        before_state = r.state
+        before_receipt_library = r.receipt_library_id
+      end
+    end    
+    send_data report.generate, :filename => configatron.reservelist_all_print.filename, :type => 'application/pdf', :disposition => 'attachment'
+  end
+
+  def output_list_user(params)
+    @user = User.find(params[:user_id])
+    if params[:all_expired] == 'true'
+      reserves = Reserve.where(:user_id => @user.id, :state => params[:state], :receipt_library_id => params[:library], :information_type_id => params[:method]).order('expired_at Desc')
+    elsif params[:all_expired].nil? and params[:expired_at] == 'true'
+      reserves = Reserve.where(:user_id => @user.id, :state => params[:state], :receipt_library_id => params[:library], :information_type_id => params[:method]).where('expired_at >= ?', Time.zone.now.beginning_of_day).order('expired_at Desc')
+    elsif params[:all_expired].nil? and params[:expired_at] == 'false'
+      reserves = Reserve.where(:user_id => @user.id, :state => params[:state], :receipt_library_id => params[:library], :information_type_id => params[:method]).where('expired_at < ?', Time.zone.now.beginning_of_day).order('expired_at Desc')
+    end
+
+    require 'thinreports'
+    report = ThinReports::Report.new :layout => File.join(Rails.root, 'report', 'reservelist_user.tlf') 
+    report.layout.config.list(:list) do
+      events.on :footer_insert do |e|
+        e.section.item(:total).value(reserves.length)
+        e.section.item(:date).value(Time.now)
+      end
+    end
+
+    report.start_new_page do |page|
+      page.item(:library).value(LibraryGroup.system_name(@locale))
+      user = @user.patron.full_name
+      if configatron.reserve_print.old == true and @user.patron.date_of_birth
+        age = (Time.now.strftime("%Y%m%d").to_f - @user.patron.date_of_birth.strftime("%Y%m%d").to_f) / 10000
+        age = age.to_i
+        user = user + '(' + age.to_s + t('activerecord.attributes.patron.old')  +')'
+      end
+      page.item(:user).value(user)
+      @user_library = Library.find(@user.library_id)
+      page.item(:user_library).value(@user_library.display_name)
+      page.item(:user_library_telephone_number_1).value(@user_library.telephone_number_1)
+      page.item(:user_library_telephone_number_2).value(@user_library.telephone_number_2)
+      page.item(:user_telephone_number_1_1).value(@user.patron.telephone_number_1)
+      page.item(:user_telephone_number_1_2).value(@user.patron.extelephone_number_1)
+      page.item(:user_telephone_number_1_3).value(@user.patron.fax_number_1)
+      page.item(:user_telephone_number_2_1).value(@user.patron.telephone_number_2)
+      page.item(:user_telephone_number_2_2).value(@user.patron.extelephone_number_2)
+      page.item(:user_telephone_number_2_3).value(@user.patron.fax_number_2)
+      page.item(:user_email).value(@user.email)
+      reserves.each do |r|
+        page.list(:list).add_row do |row|
+          row.item(:title).value(r.manifestation.original_title)
+          row.item(:state).value(i18n_state(r.state))
+          row.item(:receipt_library).value(Library.find(r.receipt_library_id).display_name)
+          row.item(:information_method).value(i18n_information_type(r.information_type_id))
+          row.item(:expired_at).value(r.expired_at.strftime("%Y/%m/%d"))
+        end
+      end
+    end    
+    send_data report.generate, :filename => configatron.reservelist_user_print.filename, :type => 'application/pdf', :disposition => 'attachment'
+  end
+ 
   def position_update(manifestation)
     reserves = Reserve.where(:manifestation_id => manifestation).waiting.order(:position)
     items = []
