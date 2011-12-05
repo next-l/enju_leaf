@@ -80,7 +80,7 @@ GEM
     cocaine (0.2.0)
     colored (1.2)
     columnize (0.3.4)
-    configatron (2.8.2)
+    configatron (2.8.4)
       yamler (>= 0.1.0)
     daemons (1.1.4)
     dalli (1.1.2)
