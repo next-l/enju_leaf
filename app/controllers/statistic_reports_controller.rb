@@ -2045,9 +2045,13 @@ class StatisticReportsController < ApplicationController
             row.item(:option).value(num)
             12.times do |t|
               if t < 4 # for Japanese fiscal year
-                value = Statistic.where(:yyyymm => "#{term.to_i + 1}#{"%02d" % (t + 1)}", :data_type => data_type, :library_id => library.id, :call_number => num).first.value rescue 0
+                datas = Statistic.where(:yyyymm => "#{term.to_i + 1}#{"%02d" % (t + 1)}", :data_type => data_type, :library_id => library.id, :call_number => num)
               else
-                value = Statistic.where(:yyyymm => "#{term}#{"%02d" % (t + 1)}", :data_type => data_type, :library_id => library.id, :call_number => num).first.value rescue 0
+                datas = Statistic.where(:yyyymm => "#{term}#{"%02d" % (t + 1)}", :data_type => data_type, :library_id => library.id, :call_number => num)
+              end
+              value = 0
+              datas.each do |data|
+                value += data.value
               end
               row.item("value#{t+1}").value(value)
               row.item("valueall").value(value) if t == 2 # March(end of fiscal year)
@@ -2068,7 +2072,49 @@ class StatisticReportsController < ApplicationController
               end
               row.item("value#{t+1}").value(value)
               row.item("valueall").value(value) if t == 2 # March(end of fiscal year)
-              line_for_items(row) if checkout_type == checkout_types.last
+              if checkout_type == checkout_types.last
+                row.item(:library_line).show
+                row.item(:condition_line).show               
+              end
+            end
+          end
+        end
+        # items each shelves and call_numbers
+        library.shelves.each do |shelf|
+          report.page.list(:list).add_row do |row|
+            row.item(:library).value("(#{shelf.display_name})")
+            12.times do |t|
+              if t < 4 # for Japanese fiscal year
+                datas = Statistic.where(:yyyymm => "#{term.to_i + 1}#{"%02d" % (t + 1)}", :data_type => data_type, :library_id => library.id, :shelf_id => shelf.id)
+              else
+                datas = Statistic.where(:yyyymm => "#{term}#{"%02d" % (t + 1)}", :data_type => data_type, :library_id => library.id, :shelf_id => shelf.id)
+              end
+              value = 0
+              datas.each do |data|
+                value += data.value
+              end
+              row.item("value#{t+1}").value(value)
+              row.item("valueall").value(value) if t == 2 # March(end of fiscal year)
+              row.item("condition_line").show
+            end
+          end
+          call_numbers.each do |num|
+            report.page.list(:list).add_row do |row|
+              row.item(:condition).value(t('activerecord.attributes.item.call_number')) if num == call_numbers.first 
+              row.item(:option).value(num)
+              12.times do |t|
+                if t < 4 # for Japanese fiscal year
+                  value = Statistic.where(:yyyymm => "#{term.to_i + 1}#{"%02d" % (t + 1)}", :data_type => data_type, :library_id => library.id, :shelf_id => shelf.id, :call_number => num).first.value rescue 0
+                else
+                  value = Statistic.where(:yyyymm => "#{term}#{"%02d" % (t + 1)}", :data_type => data_type, :library_id => library.id, :shelf_id => shelf.id, :call_number => num).first.value rescue 0
+                end
+                row.item("value#{t+1}").value(value)
+                row.item("valueall").value(value) if t == 2 # March(end of fiscal year)
+                if num == call_numbers.last
+                  row.item("condition_line").show
+                  line_for_items(row) if shelf == library.shelves.last
+                end
+              end
             end
           end
         end
@@ -2086,6 +2132,8 @@ class StatisticReportsController < ApplicationController
 private
   def line_for_items(row)
     row.item(:library_line).show
+    row.item(:library_line).style(:border_color, '#000000')
+    row.item(:library_line).style(:border_width, 1)
     row.item(:condition_line).show
     row.item(:condition_line).style(:border_color, '#000000')
     row.item(:condition_line).style(:border_width, 1)

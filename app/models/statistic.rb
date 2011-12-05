@@ -161,18 +161,18 @@ class Statistic < ActiveRecord::Base
           statistic.shelf = shelf
           statistic.value = Item.count_by_sql(["select count(items) from items, shelves, libraries where items.shelf_id = shelves.id AND libraries.id = shelves.library_id AND libraries.id = ? AND shelves.id = ? AND items.created_at >= ? AND items.created_at < ?", library.id, shelf.id, start_at, end_at])
           statistic.save! if statistic.value > 0
-        end
-        # items each call_numbers
-        @call_numbers.each do |num|
-          statistic = Statistic.new
-          set_date(statistic, end_at, term_id)
-          statistic.data_type = data_type
-          statistic.library = library
-          statistic.call_number = num
-          logger.error num
-          num_reg = "/\|#{num}\|/"
-          statistic.value = Item.count_by_sql(["select count(items) from items, shelves, libraries where items.shelf_id = shelves.id AND libraries.id = shelves.library_id AND libraries.id = ? AND items.call_number ~ ? AND items.created_at >= ? AND items.created_at < ?", library.id, num_reg, start_at, end_at])
-          statistic.save! if statistic.value > 0
+          # items each call_numbers
+          @call_numbers.each do |num|
+            statistic = Statistic.new
+            set_date(statistic, end_at, term_id)
+            statistic.data_type = data_type
+            statistic.library = library
+            statistic.shelf = shelf
+            statistic.call_number = num
+            num_reg = "/\|#{num}\|/"
+            statistic.value = Item.count_by_sql(["select count(items) from items, shelves, libraries where items.shelf_id = shelves.id AND libraries.id = shelves.library_id AND libraries.id = ? AND shelves.id = ? AND items.call_number ~ ? AND items.created_at >= ? AND items.created_at < ?", library.id, shelf.id, num_reg, start_at, end_at])
+            statistic.save! if statistic.value > 0
+          end
         end
       end
     end
