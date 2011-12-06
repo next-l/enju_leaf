@@ -230,7 +230,7 @@ class ItemsController < ApplicationController
         flash[:notice] = t('controller.successfully_updated', :model => t('activerecord.models.circulation_status'))
       end
 
-      if params[:loss_item] == 'true' and !@item.blank?
+      if params[:loss_item] and !@item.blank?
         get_basket
         unless @basket
           @basket = Basket.new(:user => current_user)
