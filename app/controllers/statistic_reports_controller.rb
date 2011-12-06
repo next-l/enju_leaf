@@ -22,7 +22,7 @@ class StatisticReportsController < ApplicationController
   end
 
   def get_monthly_report
-    term = params[:term]
+    term = params[:term].strip
     unless term =~ /^\d{4}$/
       flash[:message] = t('statistic_report.invalid_year')
       @year = term
@@ -689,7 +689,7 @@ class StatisticReportsController < ApplicationController
   end
 
   def get_daily_report
-    term = params[:term]
+    term = params[:term].strip
     unless term =~ /^\d{6}$/ && month_term?(term)
       flash[:message] = t('statistic_report.invalid_month')
       @year = Time.zone.now.years_ago(1).strftime("%Y")
@@ -1126,8 +1126,8 @@ class StatisticReportsController < ApplicationController
     open = configatron.statistic_report.open
     hours = configatron.statistic_report.hours
 
-    start_at = params[:start_at]
-    end_at = params[:end_at]
+    start_at = params[:start_at].strip
+    end_at = params[:end_at].strip
     end_at = start_at if end_at.empty?
     unless (start_at =~ /^\d{6}$/ && end_at =~ /^\d{6}$/) && start_at.to_i <= end_at.to_i && month_term?(start_at) && month_term?(end_at)
       flash[:message] = t('statistic_report.invalid_month')
@@ -1400,8 +1400,8 @@ class StatisticReportsController < ApplicationController
   end
 
   def get_day_report
-    start_at = params[:start_at]
-    end_at = params[:end_at]
+    start_at = params[:start_at].strip
+    end_at = params[:end_at].strip
     end_at = start_at if end_at.empty?
     unless (start_at =~ /^\d{6}$/ && end_at =~ /^\d{6}$/) && start_at.to_i <= end_at.to_i && month_term?(start_at) && month_term?(end_at)
       flash[:message] = t('statistic_report.invalid_month')
@@ -1668,8 +1668,8 @@ class StatisticReportsController < ApplicationController
   end
 
   def get_age_report
-    start_at = params[:start_at]
-    end_at = params[:end_at]
+    start_at = params[:start_at].strip
+    end_at = params[:end_at].strip
     end_at = start_at if end_at.empty?
     unless (start_at =~ /^\d{6}$/ && end_at =~ /^\d{6}$/) && start_at.to_i <= end_at.to_i && month_term?(start_at) && month_term?(end_at)
       flash[:message] = t('statistic_report.invalid_month')
@@ -1998,7 +1998,7 @@ class StatisticReportsController < ApplicationController
   end
 
   def get_items_report
-    term = params[:term]
+    term = params[:term].strip
     unless term =~ /^\d{4}$/
       flash[:message] = t('statistic_report.invalid_year')
       @year = term
