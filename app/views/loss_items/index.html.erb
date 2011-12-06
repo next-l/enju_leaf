@@ -1,0 +1,31 @@
+<div id="content_detail" class="ui-corner-all">
+<h1 class="title"><%= t('page.listing', :model => t('activerecord.models.loss_item')) -%></h1>
+<div id="content_list">
+<div style="color: green"><%= flash[:message] -%></div>
+
+<table class="index">
+  <tr>
+    <th></th>
+    <th><%= t('activerecord.models.manifestation') -%></th>
+    <th><%= t('activerecord.models.user') -%></th>
+  </tr>
+
+<%- @loss_items.each_with_index do |loss_item, i| -%>
+  <tr class="line<%= cycle("0", "1") -%>">
+    <td><%= link_to loss_item.id, loss_item -%></td>
+    <td><%= loss_item.item.manifestation.original_title -%></td>
+    <td><%= loss_item.user.patron.full_name -%>(<%= loss_item.user.username -%>)
+    </td>
+    <td><%= link_to t('page.edit'), edit_loss_item_path(loss_item) -%>
+    </td>    
+  </tr>
+<%- end -%>
+</table>
+
+<br />
+
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all">
+</div>

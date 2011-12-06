@@ -1,0 +1,29 @@
+<div id="content_detail" class="ui-corner-all">
+<h1 class="title"><%= t('page.showing', :model => t('activerecord.models.family')) -%></h1>
+<div id="content_list">
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong><%= t('activerecord.attributes.family.id') -%>:</strong>
+  <%= @family.id if @family -%>
+</p>
+
+<%- if @family.users -%>
+<p>
+  <strong><%= t('family.members') -%>:</strong><br />
+  <%- @family.users.each do |user| -%>
+    <%= user.patron.full_name if user.patron -%>(<%= user.username -%>)<br />
+  <%- end -%>
+</p>
+<%- end -%>
+
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all">
+  <ul>
+    <li><%= link_to t('page.listing', :model => t('activerecord.models.family')), families_path -%></li>
+    <li><%= link_to t('page.edit'), edit_family_path(@family) -%></li>
+    <li><%= link_to t('page.destroy'), @family, :confirm => t('page.are_you_sure'), :method => :delete -%></li>
+  </ul>
+</div>
