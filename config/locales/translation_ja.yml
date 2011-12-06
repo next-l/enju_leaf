@@ -1536,6 +1536,7 @@ ja:
     you_have_overdue_item: "貸出期限を過ぎている資料があります。"
     excessed_renewal_limit: "貸出更新回数の上限を超えています。"
     all_checkout: "全ての貸出"
+    my_checkout: "自分の貸出"
     no_checkout: "貸出中の資料はありません。"
     number_of_day_overdue: "延滞日数"
     extend: "貸出期間の延長"
