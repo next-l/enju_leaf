@@ -165,6 +165,7 @@ ja:
       statistic_report: 利用統計の帳票
       print_label: 利用者ラベル
       export_item_list: 図書リスト
+      loss_item: 紛失弁償
    
     attributes:
       library:

@@ -116,6 +116,7 @@ EnjuLeaf::Application.routes.draw do
     post :update_user_number, :on => :member
   end
 
+  resources :loss_items
   resources :answers
   resources :imported_objects
   resources :nii_types
