@@ -17,7 +17,7 @@ class Checkin < ActiveRecord::Base
     message = ''
     Checkin.transaction do
       checkouts = Checkout.not_returned.where(:item_id => self.item_id).select([:id, :item_id, :lock_version])
-      unless loss_item.nil? && loss_item == 'true'
+      unless loss_item
         self.item.checkin!
       end
       checkouts.each do |checkout|
