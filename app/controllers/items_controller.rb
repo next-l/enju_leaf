@@ -229,7 +229,6 @@ class ItemsController < ApplicationController
       if @item.update_attributes(params[:item])
         flash[:notice] = t('controller.successfully_updated', :model => t('activerecord.models.circulation_status'))
       end
-
       if params[:loss_item] and !@item.blank?
         get_basket
         unless @basket
@@ -238,6 +237,14 @@ class ItemsController < ApplicationController
         end
         @checkin = @basket.checkins.new(:item_id => @item.id, :librarian_id => current_user.id)
         @checkin.item = @item
+
+        user_id = @item.checkouts.select {|checkout| checkout.checkin_id.nil?}.first.user_id rescue nil
+        @loss_item = LossItem.new
+        @loss_item.user_id = user_id
+        @loss_item.item_id = @item.id
+        @loss_item.status = LossItem::UnPaid
+        @loss_item.save!
+
         if @checkin.save(:validate => false)
           flash[:notice] << t('checkin.successfully_checked_in', :model => t('activerecord.models.checkin'))
           message = @checkin.item_checkin(current_user, params[:loss_item])
@@ -250,7 +257,7 @@ class ItemsController < ApplicationController
         format.xml  { head :ok }
       end
     rescue Exception => e
-      logger.error "Failed to checkout: #{e}"
+      logger.error "Failed to loss_item: #{e}"
       respond_to do |format|
         prepare_options
         flash[:message] = t('activerecord.attributes.item.fail_update_loss_item')
