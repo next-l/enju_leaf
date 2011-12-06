@@ -1164,6 +1164,7 @@ class StatisticReportsController < ApplicationController
       report.page.item(:month_start_at).value(start_at[4,6])
       report.page.item(:year_end_at).value(end_at[0,4])
       report.page.item(:month_end_at).value(end_at[4,6])
+      report.page.item(:date_end_at).value(Time.parse("#{end_at}01").end_of_month.strftime("%d")) rescue nil 
 
       # header 
       12.times do |t|
@@ -1438,6 +1439,7 @@ class StatisticReportsController < ApplicationController
       report.page.item(:month_start_at).value(start_at[4,6])
       report.page.item(:year_end_at).value(end_at[0,4])
       report.page.item(:month_end_at).value(end_at[4,6])
+      report.page.item(:date_end_at).value(Time.parse("#{end_at}01").end_of_month.strftime("%d")) rescue nil 
 
       # checkout users all libraries
       report.page.list(:list).add_row do |row|
@@ -1706,6 +1708,7 @@ class StatisticReportsController < ApplicationController
       report.page.item(:month_start_at).value(start_at[4,6])
       report.page.item(:year_end_at).value(end_at[0,4])
       report.page.item(:month_end_at).value(end_at[4,6])
+      report.page.item(:date_end_at).value(Time.parse("#{end_at}01").end_of_month.strftime("%d")) rescue nil 
 
       # checkout users all libraries
       data_type = 122
