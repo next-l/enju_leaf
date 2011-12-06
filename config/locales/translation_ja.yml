@@ -1785,6 +1785,7 @@ ja:
     missing_items: 不明
     users: 登録人数
     all_users: 全区分
+    user_groups: (団体別)
     unlocked_users: (利用中)
     locked_users: (利用停止)
     user_provisional: (仮登録)

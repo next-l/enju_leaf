@@ -39,6 +39,7 @@ class StatisticReportsController < ApplicationController
     end
     libraries = Library.all
     checkout_types = CheckoutType.all
+    user_groups = UserGroup.all
     begin 
       report = ThinReports::Report.new :layout => "#{Rails.root.to_s}/app/views/statistic_reports/monthly_report"
 
@@ -308,9 +309,28 @@ class StatisticReportsController < ApplicationController
             sum = sum + value
           end  
           row.item("valueall").value(sum)
-          row.item(:library_line).show if i == 2
         end
       end
+      # each user_group
+      user_groups.each do |user_group|
+        report.page.list(:list).add_row do |row|
+          row.item(:library).value(t('statistic_report.user_groups'))
+          row.item(:option).value(user_group.display_name.localize)   
+          sum = 0
+          12.times do |t|
+            if t < 4 # for Japanese fiscal year
+              value = Statistic.where(:yyyymm => "#{term.to_i + 1}#{"%02d" % (t + 1)}", :data_type => 121, :library_id => 0, :user_group_id => user_group.id).first.value rescue 0
+            else
+              value = Statistic.where(:yyyymm => "#{term}#{"%02d" % (t + 1)}", :data_type => 121, :library_id => 0, :user_group_id => user_group.id).first.value rescue 0
+            end
+            row.item("value#{t+1}").value(value)
+            sum = sum + value
+          end  
+          row.item("valueall").value(sum)
+          row.item(:library_line).show if user_group == user_groups.last
+        end
+      end
+
       # checkout items each library
       libraries.each do |library|
         report.page.list(:list).add_row do |row|
@@ -341,7 +361,24 @@ class StatisticReportsController < ApplicationController
               sum = sum + value
             end  
             row.item("valueall").value(sum)
-            if i == 2
+          end
+        end
+        user_groups.each do |user_group|
+          report.page.list(:list).add_row do |row|
+            row.item(:library).value(t('statistic_report.user_groups'))
+            row.item(:option).value(user_group.display_name.localize)
+            sum = 0
+            12.times do |t|
+              if t < 4 # for Japanese fiscal year
+                value = Statistic.where(:yyyymm => "#{term.to_i + 1}#{"%02d" % (t + 1)}", :data_type => 121, :library_id => library.id).no_condition.first.value rescue 0 
+              else
+                value = Statistic.where(:yyyymm => "#{term}#{"%02d" % (t + 1)}", :data_type => 121, :library_id => library.id).no_condition.first.value rescue 0 
+              end
+              row.item("value#{t+1}").value(value)
+              sum = sum + value
+            end  
+            row.item("valueall").value(sum)
+            if user_group == user_groups.last
 	      row.item(:library_line).show
               line(row) if library == libraries.last
             end  
