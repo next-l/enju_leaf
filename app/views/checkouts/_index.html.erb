@@ -13,6 +13,13 @@
 
 <div id="submenu" class="ui-corner-all">
   <ul>
+    <%- if current_user.has_role?('Librarian') -%>
+      <li><%= link_to t('checkout.all_checkout'), checkouts_path -%></li>
+      <li><%= link_to t('checkout.my_checkout'), user_checkouts_path(current_user) -%></li>
+    <%- end -%>
+    <%- if @user -%>
+      <li><%= link_to t('page.listing', :model => 'activerecord.models.checkout'), user_checkouts_path(@user) -%></li>
+    <%- end -%>
     <li><%= link_to t('page.overdue'), checkouts_path(:view => 'overdue') -%></li>
   </ul>
   <p>
