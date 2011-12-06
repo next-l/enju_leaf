@@ -8,6 +8,7 @@ class UserGroup < ActiveRecord::Base
   has_many :user_group_has_checkout_types, :dependent => :destroy
   has_many :checkout_types, :through => :user_group_has_checkout_types, :order => :position
   has_many :lending_policies
+  has_many :statistics
 
   validates_numericality_of :valid_period_for_new_user,
     :number_of_day_to_notify_due_date,

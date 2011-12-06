@@ -1447,6 +1447,7 @@ en:
     you_have_overdue_item: "You have overdue items."
     excessed_renewal_limit: "Excessed checkout renewal limit."
     all_checkout: "All checkouts"
+    my_checkout: "My checkouts"
     no_checkout: "No checkouts."
     number_of_day_overdue: "Number of days overdue"
     extend: "Extend"

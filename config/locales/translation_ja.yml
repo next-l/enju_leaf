@@ -298,7 +298,7 @@ ja:
       subject_has_classification:
       expression:
         original_title: 原題
-        title_transcription: タイトルよみ
+        title_transcription: タイトル(ヨミ)
         title_alternative: 代替タイトル
         summarization: 要約
         context: コンテキスト
@@ -527,7 +527,7 @@ ja:
         error: 0以上の数値を入力してください
       work:
         original_title: 原題
-        title_transcription: タイトルよみ
+        title_transcription: タイトル（ヨミ）
         title_alternative: 代替タイトル
         context: コンテキスト
         note: 注記
@@ -660,7 +660,7 @@ ja:
         id: ID
         original_title: 原題
         title_alternative: 代替タイトル
-        title_transcription: タイトルよみ
+        title_transcription: タイトル（ヨミ）
         classification_number: 分類番号
         identifier: 識別子
         date_of_publication: 出版日
@@ -1087,7 +1087,7 @@ ja:
         series_statement_identifier: シリーズ識別子
         issn: ISSN
         periodical: 定期刊行物
-        title_transcription: シリーズ名よみ
+        title_transcription: シリーズ名（ヨミ）
       import_request:
         isbn: ISBN
         state: 状態
@@ -1536,6 +1536,7 @@ ja:
     you_have_overdue_item: "貸出期限を過ぎている資料があります。"
     excessed_renewal_limit: "貸出更新回数の上限を超えています。"
     all_checkout: "全ての貸出"
+    my_checkout: "自分の貸出"
     no_checkout: "貸出中の資料はありません。"
     number_of_day_overdue: "延滞日数"
     extend: "貸出期間の延長"
@@ -1782,8 +1783,10 @@ ja:
     checkin_items: 返却数
     average_checkout_users: 一日平均貸出人数
     average_checkout_items: 一日平均貸出冊数
+    missing_items: 不明
     users: 登録人数
     all_users: 全区分
+    user_groups: (団体別)
     unlocked_users: (利用中)
     locked_users: (利用停止)
     user_provisional: (仮登録)
