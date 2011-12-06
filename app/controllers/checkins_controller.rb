@@ -28,6 +28,7 @@ class CheckinsController < ApplicationController
           @family_users = Family.find(family_id).users
           @family_users.delete_if{|f_user| f_user == @checkout_user}
         end
+        @reserve = Reserve.where(:item_id => @checkins[0].checkout.item.id, :state => 'retained').first if @checkins[0].checkout.item
       end
     end
 
@@ -88,9 +89,7 @@ class CheckinsController < ApplicationController
       # TODO refactoring
       flash[:message], flash[:sound] = error_message_and_sound("checkin.not_checkin") unless checked
       flash[:message], flash[:sound] = error_message_and_sound('checkin.already_checked_in') if @basket.checkins.collect(&:item).include?(item)
-      if item.available_checkin? == false
-        flash[:message], flash[:sound] = error_message_and_sound('checkin.not_available_for_checkin') 
-      end
+      flash[:message], flash[:sound] = error_message_and_sound('checkin.not_available_for_checkin') if item.available_checkin? == false
     end
 
     #logger.info flash.inspect
@@ -107,13 +106,14 @@ class CheckinsController < ApplicationController
           #flash[:message] << t('controller.successfully_created', :model => t('activerecord.models.checkin'))
           #TODO refactoring
           flash[:message] << t('checkin.successfully_checked_in', :model => t('activerecord.models.checkin')) + '<br />'
-          message = @checkin.item_checkin(current_user, nil)
-          flash[:message] << message if message
           #flash[:message] << t("checkin.overdue_item") + '<br />' if overdue == true
           if overdue == true
             flash[:message], flash[:sound] = error_message_and_sound('checkin.overdue_item') 
-            flash[:message] << '<br />' 
+            flash[:message] = t('checkin.successfully_checked_in', :model => t('activerecord.models.checkin')) + '<br />'
+            flash[:message] << t("checkin.overdue_item") + '<br />'
           end
+          message = @checkin.item_checkin(current_user, nil)
+          flash[:message] << message if message
           format.html { redirect_to user_basket_checkins_url(@checkin.basket.user, @checkin.basket) }
           format.xml  { render :xml => @checkin, :status => :created, :location => user_basket_checkin_url(@checkin.basket.user, @checkin.basket, @checkin) }
           format.js   { redirect_to user_basket_checkins_url(@checkin.basket.user, @checkin.basket, :mode => 'list', :format => :js) }

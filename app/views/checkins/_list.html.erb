@@ -9,6 +9,15 @@
   <%- end -%>
   <%= raw flash[:message] -%>
 </div>
+
+<div>
+<%- if @reserve -%>
+  <%= form_tag({:controller => 'reserves', :action => 'output', :id => @reserve.id}, {:method => 'post'}) do -%>
+    <%= submit_tag t('page.output', :model => t('activerecord.attributes.reserve.reserve_list')) -%>
+  <%- end -%>
+<%- end -%>
+</div>
+
 <%- if flash[:sound] -%>
 <script>
 playSound('<%= root_path -%><%= flash[:sound] -%>');
