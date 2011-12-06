@@ -298,7 +298,7 @@ ja:
       subject_has_classification:
       expression:
         original_title: 原題
-        title_transcription: タイトルよみ
+        title_transcription: タイトル(ヨミ)
         title_alternative: 代替タイトル
         summarization: 要約
         context: コンテキスト
@@ -527,7 +527,7 @@ ja:
         error: 0以上の数値を入力してください
       work:
         original_title: 原題
-        title_transcription: タイトルよみ
+        title_transcription: タイトル（ヨミ）
         title_alternative: 代替タイトル
         context: コンテキスト
         note: 注記
@@ -660,7 +660,7 @@ ja:
         id: ID
         original_title: 原題
         title_alternative: 代替タイトル
-        title_transcription: タイトルよみ
+        title_transcription: タイトル（ヨミ）
         classification_number: 分類番号
         identifier: 識別子
         date_of_publication: 出版日
@@ -1087,7 +1087,7 @@ ja:
         series_statement_identifier: シリーズ識別子
         issn: ISSN
         periodical: 定期刊行物
-        title_transcription: シリーズ名よみ
+        title_transcription: シリーズ名（ヨミ）
       import_request:
         isbn: ISBN
         state: 状態
