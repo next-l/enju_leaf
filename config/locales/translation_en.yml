@@ -1541,6 +1541,7 @@ en:
     return_this_item: "Return this item"
   checked_item:
     not_available_for_checkout: "This item is not available for checkout."
+    not_for_loan: "Not for loan"
     this_group_cannot_checkout: "This group cannnot checkout"
     item_not_found: "Item not found."
     already_checked_out: "This item is already checked out."
