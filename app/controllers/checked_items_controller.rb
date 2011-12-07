@@ -82,6 +82,7 @@ class CheckedItemsController < ApplicationController
       return
     end
 
+    messages = []
     flash[:message] = ''
     flash[:sound] = ''
     item_identifier = @checked_item.item_identifier.to_s.strip
@@ -94,7 +95,7 @@ class CheckedItemsController < ApplicationController
         flash[:notice] = t('controller.successfully_created', :model => t('activerecord.models.checked_item'))
 
         #flash[:message] << t('item.this_item_include_supplement') if @checked_item.item.include_supplements
-        flash[:message] = t('item.this_item_include_supplement') if @checked_item.item.include_supplements
+        messages << t('item.this_item_include_supplement') if @checked_item.item.include_supplements
 
         if params[:mode] == 'list'
           format.html { redirect_to(user_basket_checked_items_url(@basket.user, @basket, :mode => 'list')) }
@@ -103,7 +104,12 @@ class CheckedItemsController < ApplicationController
         else
           #flash[:message] << @checked_item.errors[:base] if @checked_item.errors[:base].blank?
           @checked_item.errors[:base].each do |error|
-            flash[:message], flash[:sound] = error_message_and_sound(error)
+            messages << error
+          end
+          messages.each do |message|
+            return_message, return_sound = error_message_and_sound(message)
+            flash[:message] << return_message + '<br />' if return_message
+            flash[:sound] << return_sound if return_sound
           end
           format.html { redirect_to(user_basket_checked_items_url(@basket.user, @basket)) }
           format.xml  { render :xml => @checked_item, :status => :created, :location => @checked_item }
@@ -111,7 +117,12 @@ class CheckedItemsController < ApplicationController
       else
         #flash[:message] << @checked_item.errors[:base]
         @checked_item.errors[:base].each do |error|
-          flash[:message], flash[:sound] = error_message_and_sound(error) unless error.blank?
+          messages << error
+        end
+        messages.each do |message|
+          return_message, return_sound = error_message_and_sound(message)
+          flash[:message] << return_message + '<br />' if return_message
+          flash[:sound] = return_sound if return_sound
         end
         if params[:mode] == 'list'
           format.html { redirect_to(user_basket_checked_items_url(@basket.user, @basket, :mode => 'list')) }
