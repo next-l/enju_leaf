@@ -14,33 +14,29 @@ class Checkin < ActiveRecord::Base
   attr_accessor :item_identifier
 
   def item_checkin(current_user, loss_item)
-    message = ''
+    #message = ''
+    message = []
     Checkin.transaction do
       checkouts = Checkout.not_returned.where(:item_id => self.item_id).select([:id, :item_id, :lock_version])
-      unless loss_item
-        self.item.checkin!
-      end
+      self.item.checkin! unless loss_item
       checkouts.each do |checkout|
         # TODO: ILL時の処理
         checkout.checkin = self
         checkout.save(:validate => false)
-        unless checkout.item.shelf.library == current_user.library
-          message << I18n.t('checkin.other_library_item') + '<br />'
-        end
+        #message << I18n.t('checkin.other_library_item') + '<br />' unless checkout.item.shelf.library == current_user.library
+        message << 'checkin.other_library_item' unless checkout.item.shelf.library == current_user.library
       end
 
-      #unless checkout.user.save_checkout_history
-      #  checkout.user = nil
-      #end
+      # checkout.user = nil unless checkout.user.save_checkout_history
       if self.item.manifestation.next_reservation
         # TODO: もっと目立たせるために別画面を表示するべき？
-        message << I18n.t('item.this_item_is_reserved') + '<br />'
+        #message << I18n.t('item.this_item_is_reserved') + '<br />'
+        message << 'item.this_item_is_reserved'
         self.item.retain(current_user)
       end
 
-      if self.item.include_supplements?
-        message << I18n.t('item.this_item_include_supplement') + '<br />'
-      end
+      #message << I18n.t('item.this_item_include_supplement') + '<br />' if self.item.include_supplements?
+      message << 'item.this_item_include_supplement' if self.item.include_supplements?
 
       # メールとメッセージの送信
       #ReservationNotifier.deliver_reserved(self.item.manifestation.reserves.first.user, self.item.manifestation)
