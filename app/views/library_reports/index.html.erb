@@ -1,0 +1,34 @@
+<div id="content_detail" class="ui-corner-all">
+<h1 class="title"><%= t('page.listing', :model => t('library_report.daily')) -%></h1>
+<div id="content_list">
+<div style="color: red"><%= flash[:message].to_s -%></div>
+<table class="index">
+<%- @library_reports.each do |library_report| -%>
+  <tr class="line<%= cycle("0", "1") -%>">
+    <td>
+      <%= link_to t('library_report.daily_report', :year => library_report.yyyymmdd.to_s[0,4], :month => library_report.yyyymmdd.to_s[4,2], :date => library_report.yyyymmdd.to_s[6,2]), library_report -%>
+    </td>
+    <td>
+      <%= library_report.library.display_name.localize -%>
+    </td>
+    <td>
+      <%- if can? :update, library_report -%>
+        <%= link_to t('page.edit'), edit_library_report_path(library_report) -%>
+      <% end %>
+      <%- if can? :destroy, library_report -%>
+        <%= link_to t('page.destroy'), library_report, :confirm => t('page.are_you_sure'), :method => :delete -%>
+      <%- end -%>
+    </td>
+  </tr>
+<%- end -%>
+</table>
+
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all">
+  <ul>
+    <li><%= link_to t('page.new', :model => t('library_report.daily')), new_library_report_path -%></li>
+  </ul>
+  <%= render 'monthly_report' %>
+</div>
