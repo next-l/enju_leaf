@@ -1,4 +1,5 @@
 class CheckedItemsController < ApplicationController
+  include EnjuLeaf::NotificationSound
   before_filter :check_client_ip_address
   load_and_authorize_resource
   before_filter :get_basket
@@ -81,33 +82,37 @@ class CheckedItemsController < ApplicationController
       return
     end
 
-    flash[:message] = []
+    flash[:message] = ''
+    flash[:sound] = ''
     item_identifier = @checked_item.item_identifier.to_s.strip
-    unless item_identifier.blank?
-      item = Item.where(:item_identifier => item_identifier).first
-    end
+    item = Item.where(:item_identifier => item_identifier).first unless item_identifier.blank?
     @checked_item.item = item if item
 
     respond_to do |format|
       if @checked_item.save
         flash[:warn] = t('checked_item.library_closed_today') if @checked_item.item.shelf.library.closed?(Time.zone.now)
-        if @checked_item.item.include_supplements
-          flash[:message] << t('item.this_item_include_supplement')
-        end
- 
         flash[:notice] = t('controller.successfully_created', :model => t('activerecord.models.checked_item'))
+
+        #flash[:message] << t('item.this_item_include_supplement') if @checked_item.item.include_supplements
+        flash[:message] = t('item.this_item_include_supplement') if @checked_item.item.include_supplements
 
         if params[:mode] == 'list'
           format.html { redirect_to(user_basket_checked_items_url(@basket.user, @basket, :mode => 'list')) }
           format.xml  { render :xml => @checked_item, :status => :created, :location => @checked_item }
           format.js { redirect_to(user_basket_checked_items_url(@basket.user, @basket, :format => :js)) }
         else
-          flash[:message] << @checked_item.errors[:base]
+          #flash[:message] << @checked_item.errors[:base] if @checked_item.errors[:base].blank?
+          @checked_item.errors[:base].each do |error|
+            flash[:message], flash[:sound] = error_message_and_sound(error)
+          end
           format.html { redirect_to(user_basket_checked_items_url(@basket.user, @basket)) }
           format.xml  { render :xml => @checked_item, :status => :created, :location => @checked_item }
         end
       else
-        flash[:message] << @checked_item.errors[:base]
+        #flash[:message] << @checked_item.errors[:base]
+        @checked_item.errors[:base].each do |error|
+          flash[:message], flash[:sound] = error_message_and_sound(error) unless error.blank?
+        end
         if params[:mode] == 'list'
           format.html { redirect_to(user_basket_checked_items_url(@basket.user, @basket, :mode => 'list')) }
           format.xml  { render :xml => @checked_item, :status => :created, :location => @checked_item }
