@@ -14,54 +14,56 @@ class CheckedItem < ActiveRecord::Base
 
   def available_for_checkout?
     if self.item.blank?
-      errors[:base] << I18n.t('activerecord.errors.messages.checked_item.item_not_found')
+    # errors[:base] << I18n.t('activerecord.errors.messages.checked_item.item_not_found')
+      errors[:base] << 'checked_item.item_not_found'
       return false
     end
-
     if self.item.rent?
-      errors[:base] << I18n.t('activerecord.errors.messages.checked_item.already_checked_out')
+    # errors[:base] << I18n.t('activerecord.errors.messages.checked_item.already_checked_out')
+      errors[:base] << 'checked_item.already_checked_out'
+      return
     end
-
     unless self.item.available_for_checkout?
-      errors[:base] << I18n.t('activerecord.errors.messages.checked_item.not_available_for_checkout')
+    # errors[:base] << I18n.t('activerecord.errors.messages.checked_item.not_available_for_checkout')
+      errors[:base] << 'checked_item.not_available_for_checkout'
       return false
     end
-
     if self.item_checkout_type.blank?
-      errors[:base] << I18n.t('activerecord.errors.messages.checked_item.this_group_cannot_checkout')
+    # errors[:base] << I18n.t('activerecord.errors.messages.checked_item.this_group_cannot_checkout')
+      errors[:base] << 'checked_item.this_group_cannot_checkout'
       return false
     end
-
     # ここまでは絶対に貸出ができない場合
 
     return true if self.ignore_restriction == "1"
 
+    checkout_count = self.basket.user.checked_item_count
+    CheckoutType.all.each do |checkout_type|
+      if checkout_count[:"#{checkout_type.name}"] + self.basket.checked_items.count(:id) >= self.item_checkout_type.checkout_limit
+        #errors[:base] << t('activerecord.errors.messages.checked_item.excessed_checkout_limit')
+        errors[:base] << 'checked_item.excessed_checkout_limit'
+        break
+      end
+    end 
+  
+    #errors[:base] << I18n.t('activerecord.errors.messages.checked_item.in_transcation') if self.in_transaction?
+    if self.in_transaction?
+      errors[:base] << 'checked_item.in_transcation'
+      return
+    end
     if self.item.reserved?
       if self.available_for_reserve_checkout?
         return true
       else
-        errors[:base] << I18n.t('activerecord.errors.messages.checked_item.reserved_item_included')
-        return false
+        #errors[:base] << I18n.t('activerecord.errors.messages.checked_item.reserved_item_included')
+        errors[:base] << 'checked_item.reserved_item_included'
       end
     end
-
+    #errors[:base] << I18n.t('activerecord.errors.messages.checked_item.not_available_for_checkout') if self.item.not_for_loan?
     if self.item.not_for_loan?
-      errors[:base] << I18n.t('activerecord.errors.messages.checked_item.not_available_for_checkout')
+      errors[:base] << 'checked_item.not_for_loan'
     end
-
-    if self.in_transaction?
-      errors[:base] << I18n.t('activerecord.errors.messages.checked_item.in_transcation')
-    end
-
-    checkout_count = self.basket.user.checked_item_count
-    CheckoutType.all.each do |checkout_type|
-      #carrier_type = self.item.manifestation.carrier_type
-      if checkout_count[:"#{checkout_type.name}"] + self.basket.checked_items.count(:id) >= self.item_checkout_type.checkout_limit
-        errors[:base] << I18n.t('activerecord.errors.messages.checked_item.excessed_checkout_limit')
-        break
-      end
-    end
-    
+ 
     return false unless errors[:base]
   end
 

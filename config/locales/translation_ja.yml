@@ -165,7 +165,11 @@ ja:
       statistic_report: 利用統計の帳票
       print_label: 利用者ラベル
       export_item_list: 図書リスト
+<<<<<<< HEAD
       library_report: 報告書
+=======
+      loss_item: 紛失弁償
+>>>>>>> 670aa9e69a2897f5002368813511ae2785814641
    
     attributes:
       library:
@@ -299,7 +303,7 @@ ja:
       subject_has_classification:
       expression:
         original_title: 原題
-        title_transcription: タイトルよみ
+        title_transcription: タイトル(ヨミ)
         title_alternative: 代替タイトル
         summarization: 要約
         context: コンテキスト
@@ -528,7 +532,7 @@ ja:
         error: 0以上の数値を入力してください
       work:
         original_title: 原題
-        title_transcription: タイトルよみ
+        title_transcription: タイトル（ヨミ）
         title_alternative: 代替タイトル
         context: コンテキスト
         note: 注記
@@ -661,7 +665,7 @@ ja:
         id: ID
         original_title: 原題
         title_alternative: 代替タイトル
-        title_transcription: タイトルよみ
+        title_transcription: タイトル（ヨミ）
         classification_number: 分類番号
         identifier: 識別子
         date_of_publication: 出版日
@@ -1088,7 +1092,7 @@ ja:
         series_statement_identifier: シリーズ識別子
         issn: ISSN
         periodical: 定期刊行物
-        title_transcription: シリーズ名よみ
+        title_transcription: シリーズ名（ヨミ）
       import_request:
         isbn: ISBN
         state: 状態
@@ -1546,6 +1550,7 @@ ja:
     you_have_overdue_item: "貸出期限を過ぎている資料があります。"
     excessed_renewal_limit: "貸出更新回数の上限を超えています。"
     all_checkout: "全ての貸出"
+    my_checkout: "自分の貸出"
     no_checkout: "貸出中の資料はありません。"
     number_of_day_overdue: "延滞日数"
     extend: "貸出期間の延長"
@@ -1648,15 +1653,20 @@ ja:
     borrowing_library: "借受館"
     return_this_item: "この資料を返却する"
   checked_item:
+    not_available_for_checkout: "この資料の貸出はできません。(状態不正)"
+    not_for_loan: "この資料の貸出はできません。"
+    this_group_cannot_checkout: "この利用者種別でのこの資料の貸出はできません。"
     item_not_found: "資料が見つかりません。"
-    not_available_for_checkout: "この資料の貸出はできません。"
+    already_checked_out: "この資料はすでに貸し出されています。"
+    reserved_item_included: "予約されている資料が含まれています！"
+    excessed_checkout_limit: "貸出数の上限を超えています。"
+    in_transcation: "貸出処理中です。"
     previous_checkout: "現在貸出中の資料"
     previous_checkout_family: "現在家族に貸出中の資料"
     previous_reserve: "現在予約中の資料"
     previous_reserve_family: "現在家族が予約中の資料"
     checkout: "上記の資料を貸し出す"
     ignore_restriction: "制限を無視する"
-    already_checked_out: "この資料はすでに貸し出されています。"
     library_closed_today: "この資料の図書館は本日休館日です。"
   checkin:
     item_not_found: "資料が見つかりません。"
@@ -1666,7 +1676,7 @@ ja:
     not_checkin: "この資料は貸出されていません。"
     checkin: "返却（取り消しはできません）"
     successfully_checked_in: "この資料は正常に返却されました。"
-    not_available_for_checkin: "この資料の返却はできません(状態不正)"
+    not_available_for_checkin: "この資料の返却はできません。(状態不正)"
     overdue_item: "この資料は貸出期限が過ぎています。"
   search_history:
     all_history: "全ての検索履歴"

@@ -1,0 +1,31 @@
+<div id="content_detail" class="ui-corner-all">
+<h1 class="title"><%= t('page.edit_user_profile', :login_name => @user.username) -%></h1>
+<div id="content_list">
+  <%= form_tag(:action => :update_user_number, :method => :post) do -%>
+  <%= error_messages_for :user %>
+
+  <div id="left_pane_detail">
+    <div class="field">
+      <%= label_tag t('activerecord.attributes.user.user_number') -%><br />
+      <%= @user.username -%>
+    </div>
+    <div class="field">
+      <%= label_tag t('activerecord.attributes.user.present_user_number') -%><br />
+      <%= @user.user_number -%>
+    </div>
+    <div class="field">
+      <%= label_tag t('activerecord.attributes.user.new_user_number') -%><br />
+      <%= text_field_tag :new_user_number, nil, :class => 'resource_user_number' -%>
+    </div>
+  </div>
+  <br style="clear: both;"/>
+  <div class="actions">
+    <%= submit_tag t('page.update', :model => t('activerecord.attributes.user.user_number')) -%>
+  </div>
+
+<%- end -%>
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all">
+</div>

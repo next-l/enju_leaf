@@ -1,3 +1,9 @@
+<script>
+jQuery(function(){
+  $('#manifestation_original_title').auto_ruby($('#manifestation_title_transcription'))
+})
+</script>
+
 <%= render 'page/required_field' %>
 <%= simple_form_for(@manifestation, :html => { :multipart => true }) do |f| -%>
   <%= f.error_messages -%>

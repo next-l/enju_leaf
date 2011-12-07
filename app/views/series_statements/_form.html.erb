@@ -1,3 +1,9 @@
+<script>
+jQuery(function(){
+  $('#series_statement_original_title').auto_ruby($('#series_statement_title_transcription'))
+})
+</script>
+
 <%= form_for(@series_statement) do |f| %>
   <%= f.error_messages %>
 
