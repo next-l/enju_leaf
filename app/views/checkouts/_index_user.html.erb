@@ -1,7 +1,7 @@
 <div id="content_detail" class="ui-corner-all">
 <h1 class="title"><%= t('page.listing', :model => t('activerecord.models.checkout')) -%></h1>
 <div id="content_list">
-
+<p id="notice"><%= notice %></p>
 <%- unless @checkouts.size == 0 -%>
   <%= form_tag({:action => 'output'}) do -%>
     <%= hidden_field_tag :user_id, user.id -%>

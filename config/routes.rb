@@ -1,5 +1,4 @@
 EnjuLeaf::Application.routes.draw do
-
   devise_for :users, :path => 'accounts'
 
   resource :my_account
@@ -357,6 +356,10 @@ EnjuLeaf::Application.routes.draw do
   end
 
   resources :export_item_lists  
+  resources :library_reports do
+    get :daily_report, :on => :collection
+    get :monthly_report, :on => :collection
+  end
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

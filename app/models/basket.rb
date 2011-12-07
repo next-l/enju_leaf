@@ -34,7 +34,8 @@ class Basket < ActiveRecord::Base
           checked_item.item.checkout!(self.user)
           checkout.save!
         else
-          errors[:base] << I18n.t('activerecord.errors.messages.checked_item.not_available_for_checkout')
+          #errors[:base] << I18n.t('activerecord.errors.messages.checked_item.not_available_for_checkout')
+          errors[:base] << 'checked_item.not_available_for_checkout'
           return false          
         end
       end

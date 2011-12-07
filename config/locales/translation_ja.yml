@@ -165,7 +165,11 @@ ja:
       statistic_report: 利用統計の帳票
       print_label: 利用者ラベル
       export_item_list: 図書リスト
+<<<<<<< HEAD
+      library_report: 報告書
+=======
       loss_item: 紛失弁償
+>>>>>>> 670aa9e69a2897f5002368813511ae2785814641
    
     attributes:
       library:
@@ -1147,6 +1151,13 @@ ja:
         list_type: リストの種類
         list_condition: 抽出条件
         sort_by: ソート順
+      library_report:
+        library: 図書館
+        yyyymmdd: 日報対象日
+        yyyymm: 月報対象月
+        visiters: 入館者
+        copies: コピー件数
+        consultations: 窓口利用件数
 
   page:
     user_title: "ようこそ %{login_name} さん"
@@ -1307,6 +1318,7 @@ ja:
     last_updated: "最終更新日"
     unknown: "不明"
     more: "さらに表示"
+
     connection_failed: "ネットワーク接続に失敗しました。"
     timed_out: "タイムアウトしました。"
     example: "例"
@@ -1354,6 +1366,7 @@ ja:
     checkout_report: 貸出状況表
     reserve_report: 予約状況表
     statistic_report: 利用統計
+    library_report: 報告書(日報・月報)
 
   title:
     index: "一覧"
@@ -1823,3 +1836,9 @@ ja:
     invalid_ndc: "不正なNDCが指定されています。\nXXX3桁の英数字を指定してください。"
     no_record: "該当する図書が見つかりませんでした。"
     no_list_condition: "抽出条件を指定してください。"
+  library_report:
+    checkouts: 貸出数
+    ndc: "(NDC:%{ndc})" 
+    daily_report: "%{year}年%{month}月%{date}日の日報"
+    daily: 日報
+    monthly: 月報

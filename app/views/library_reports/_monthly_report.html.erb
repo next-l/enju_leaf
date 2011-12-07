@@ -1,0 +1,23 @@
+<div id="monthly_library_report">
+<h5>
+<strong><%= t('page.output', :model => t('library_report.monthly')) -%></strong>
+</h5>
+
+<%= form_for :library_report, :url => {:action => "monthly_report"}, :html => {:method => 'get'} do |f| %>
+  <div class="field">
+    <%= label_tag 'library_id', t('activerecord.attributes.library_report.library')-%>:
+    <%= f.select(:library_id, @libraries.collect{|lib| [lib.display_name.localize, lib.id]}) -%>
+  </div>
+ 
+  <div class="field">
+    <%= label_tag 'yyyymm', t('activerecord.attributes.library_report.yyyymm') -%>:
+    <%= f.select(:yyyymm, @months.collect{|month| [month, month]}) -%>
+  </div>
+
+  <div class="actions">
+    <%= submit_tag t('page.export') %>
+  </div>
+
+<%- end -%>
+
+</div>

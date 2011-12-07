@@ -206,6 +206,14 @@ div#submenu{
   border: 1px solid #5970B2;
 }
 
+div#checkouts_report{
+  margin-left: 50px;
+  margin-top: -20px;
+}
+div#monthly_library_report{
+  margin-top: 20px;
+}
+
 div#iconmenu{
   margin-top: 15px;
   width: 178px;
@@ -608,6 +616,11 @@ input.wide_date_text_field{
 }
 
 input.short_name{
+  ime-mode: disabled;
+}
+
+input.report_integer{
+  width: 5em;
   ime-mode: disabled;
 }
 

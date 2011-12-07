@@ -1,4 +1,5 @@
 class BasketsController < ApplicationController
+  include EnjuLeaf::NotificationSound
   before_filter :check_client_ip_address
   load_and_authorize_resource
   helper_method :get_user
@@ -79,7 +80,10 @@ class BasketsController < ApplicationController
   def update
     librarian = current_user
     unless @basket.basket_checkout(librarian)
-      flash[:message] = @basket.errors[:base]
+      #flash[:message] = @basket.errors[:base]
+      @basket.errors[:base].each do |error|
+        flash[:message], flash[:sound] = error_message_and_sound(error)
+      end
       redirect_to user_basket_checked_items_url(@basket.user, @basket)
       return
     end

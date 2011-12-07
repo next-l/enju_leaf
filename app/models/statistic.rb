@@ -390,9 +390,31 @@ class Statistic < ActiveRecord::Base
       logger.error "Failed to calculate checkouts statistics: #{e}"
   end
 
+  def self.calc_ndc_checkouts(start_at, end_at, term_id)
+    Statistic.transaction do
+      p "statistics of ndc checkouts  #{start_at} - #{end_at}"
+      @libraries.each do |library|
+        10.times do |i|
+          statistic = Statistic.new
+          set_date(statistic, start_at, term_id)
+          statistic.data_type = term_id.to_s + 21.to_s
+          statistic.ndc = i.to_s
+          statistic.library_id = library.id
+          reg = "^\\D*[#{i}]"
+          sql = "select count(checkouts) from checkouts, items, exemplifies, manifestations, users, libraries where checkouts.item_id = items.id AND exemplifies.item_id = items.id AND exemplifies.manifestation_id = manifestations.id AND checkouts.librarian_id = users.id AND users.library_id = libraries.id AND libraries.id = ? AND manifestations.ndc ~ ? AND checkouts.created_at >= ? AND checkouts.created_at < ?"
+          statistic.value = Checkout.count_by_sql([ sql, library.id, reg, start_at, end_at])
+          statistic.save! if statistic.value > 0
+        end
+      end
+    end
+    rescue Exception => e
+      p "Failed to calculate ndc checkouts statistics: #{e}"
+      logger.error "Failed to calculate ndc  checkouts statistics: #{e}"
+  end
+
   def self.calc_checkins(start_at, end_at, term_id)
     Statistic.transaction do
-      p "statistics of checkins  #{start_at} - #{end_at}"
+#      p "statistics of checkins  #{start_at} - #{end_at}"
       # checkin items 51
       data_type = term_id.to_s + 51.to_s   
       statistic = Statistic.new
@@ -767,6 +789,8 @@ class Statistic < ActiveRecord::Base
         statistic.save! if statistic.value > 0
       end
     end
+    # each ndc for report
+    calc_ndc_checkouts(date_timestamp.beginning_of_month, date_timestamp.end_of_month, 2)
    
  
     # daily checkout users 222
