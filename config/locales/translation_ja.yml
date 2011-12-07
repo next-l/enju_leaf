@@ -165,11 +165,8 @@ ja:
       statistic_report: 利用統計の帳票
       print_label: 利用者ラベル
       export_item_list: 図書リスト
-<<<<<<< HEAD
       library_report: 報告書
-=======
       loss_item: 紛失弁償
->>>>>>> 670aa9e69a2897f5002368813511ae2785814641
    
     attributes:
       library:
