@@ -483,6 +483,15 @@ en:
         set_status: Loss item processing
         will_loss_item: Is status set as Lost, and Is a book returned? 
         fail_update_loss_item: Failed to update status
+      loss_item:
+        loss_item: Loss item
+        status: Status
+        reimbursed: Reimbursed
+        not_reimbursed: Not reimbursed
+        will_reimburse: Will reimburse, and Is status of a book set as removed?
+        will_cancellation: Will cancelle, and Is status of a book set as lost?
+        note: Note
+        fail_update: Fail update
       barcode:
         barcode_type: Barcode type
         barcodable_type: Barcodable type
