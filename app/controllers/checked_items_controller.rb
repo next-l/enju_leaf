@@ -109,7 +109,7 @@ class CheckedItemsController < ApplicationController
           messages.each do |message|
             return_message, return_sound = error_message_and_sound(message)
             flash[:message] << return_message + '<br />' if return_message
-            flash[:sound] << return_sound if return_sound
+            flash[:sound] = return_sound if return_sound
           end
           format.html { redirect_to(user_basket_checked_items_url(@basket.user, @basket)) }
           format.xml  { render :xml => @checked_item, :status => :created, :location => @checked_item }
