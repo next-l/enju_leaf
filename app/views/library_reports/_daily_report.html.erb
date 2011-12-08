@@ -1,9 +1,9 @@
-<div id="monthly_library_report">
+<div id="daily_library_report">
 <h4>
-<strong><%= t('page.output', :model => t('library_report.monthly')) -%></strong>
+<strong><%= t('page.output', :model => t('library_report.daily')) -%></strong>
 </h4>
 
-<%= form_for :library_report, :url => {:action => "monthly_report"}, :html => {:method => 'get'} do |f| %>
+<%= form_for :library_report, :url => {:action => "daily_report"}, :html => {:method => 'get'} do |f| %>
   <div class="field">
     <%= label_tag 'library_id', t('activerecord.attributes.library_report.library')-%>:<br />
     <%- @libraries.each do |library| -%>
@@ -12,8 +12,8 @@
   </div>
  
   <div class="field">
-    <%= label_tag 'yyyymm', t('activerecord.attributes.library_report.yyyymm') -%>:
-    <%= f.select(:yyyymm, @months.collect{|month| [month, month]}) -%>
+    <%= label_tag 'yyyymmdd', t('activerecord.attributes.library_report.yyyymmdd') -%>:
+    <%= f.select(:yyyymmdd, @dates.collect{|date| [date, date]}) -%>
   </div>
 
   <div class="actions">

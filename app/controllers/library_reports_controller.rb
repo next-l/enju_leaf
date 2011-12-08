@@ -5,6 +5,7 @@ class LibraryReportsController < ApplicationController
     @library_reports = LibraryReport.all
     @libraries = Library.all
     @months = @library_reports.inject([]){|months, data| months << data.yyyymm}.uniq
+    @dates = @library_reports.inject([]){|dates, data| dates << data.yyyymmdd}.uniq
   end
 
   def new
@@ -13,49 +14,57 @@ class LibraryReportsController < ApplicationController
   end
 
   def daily_report
-   @library_report = LibraryReport.find(params[:id])
-   library = @library_report.library
-   yyyy = @library_report.yyyymmdd.to_s[0,4]
-   mm = @library_report.yyyymmdd.to_s[4,2]
-   dd = @library_report.yyyymmdd.to_s[6,2]
-   yyyymmdd = @library_report.yyyymmdd.to_s
-   visiters = @library_report.visiters
-   copies = @library_report.copies
-   consultations = @library_report.consultations
+   @library_reports = LibraryReport.where(:id => params[:id]) rescue nil
+   yyyymmdd = @library_reports[0].yyyymmdd.to_s unless @library_reports.empty?
+   yyyymmdd = params[:library_report][:yyyymmdd].to_s if params[:library_report] && params[:library_report][:yyyymmdd]
+   library_ids = params[:library]
+   @library_reports = LibraryReport.where(["yyyymmdd = ? AND library_id IN (?)", yyyymmdd, library_ids]) if library_ids
+
    begin
-     report = ThinReports::Report.new :layout => "#{Rails.root.to_s}/app/views/library_reports/daily_library_report"
+      report = ThinReports::Report.new :layout => "#{Rails.root.to_s}/app/views/library_reports/daily_library_report"
 
       report.start_new_page
-      report.page.item(:year).value(yyyy)
-      report.page.item(:month).value(mm)
-      report.page.item(:date).value(dd)
+      report.page.item(:year).value(yyyymmdd[0,4])
+      report.page.item(:month).value(yyyymmdd[4,2])
+      report.page.item(:date).value(yyyymmdd[6,2])
 
-      @checkout_datas = Statistic.where(["yyyymmdd = ? AND library_id = ? AND ndc IS NOT NULL", yyyymmdd, library.id])
-      report.page.list(:list).add_row do |row|
-        row.item(:library).value(library.display_name.localize)
-        row.item(:title).value(t('library_report.checkouts'))
-        row.item(:value).value(@checkout_datas.inject(0){|sum, data| sum += data.value})
-      end
-      @checkout_datas.each do |data|
+      @library_reports.each do |library_report|
+        @checkout_datas = Statistic.where(["yyyymmdd = ? AND library_id = ? AND ndc IS NOT NULL", yyyymmdd, library_report.library_id])
         report.page.list(:list).add_row do |row|
-          row.item(:option).value(t('library_report.ndc', :ndc => data.ndc))
-          row.item(:value).value(data.value)
-        end  
-      end
-      report.page.list(:list).add_row do |row|
-        row.item(:title).value(t('activerecord.attributes.library_report.visiters'))
-        row.item(:value).value(visiters)
-      end
-      report.page.list(:list).add_row do |row|
-        row.item(:title).value(t('activerecord.attributes.library_report.copies'))
-        row.item(:value).value(copies)
-      end
-      report.page.list(:list).add_row do |row|
-        row.item(:title).value(t('activerecord.attributes.library_report.consultations'))
-        row.item(:value).value(consultations)
+          row.item(:library).value(library_report.library.display_name.localize)
+          row.item(:title).value(t('library_report.checkouts'))
+          row.item(:value).value(@checkout_datas.inject(0){|sum, data| sum += data.value})
+        end 
+        @checkout_datas.each do |data|
+          report.page.list(:list).add_row do |row|
+            row.item(:option).value(t('library_report.ndc', :ndc => data.ndc))
+            row.item(:value).value(data.value)
+          end  
+        end
+        report.page.list(:list).add_row do |row|
+          row.item(:title).value(t('activerecord.attributes.library_report.visiters'))
+          row.item(:value).value(library_report.visiters)
+        end
+        report.page.list(:list).add_row do |row|
+          row.item(:title).value(t('activerecord.attributes.library_report.copies'))
+          row.item(:value).value(library_report.copies)
+        end
+        report.page.list(:list).add_row do |row|
+          row.item(:title).value(t('activerecord.attributes.library_report.consultations'))
+          row.item(:value).value(library_report.consultations)
+        end
+        report.page.list(:list).add_row do |row|
+          row.item(:column_line).hide
+          row.item(:row_line).hide
+        end
       end
 
-      send_data report.generate, :filename => "#{yyyymmdd}_#{library.name}_report.pdf", :type => 'application/pdf', :disposition => 'attachment'
+      if @library_reports.size == 1
+        filename = "#{yyyymmdd}_#{@library_reports[0].library.name}_report.pdf"
+      else
+        filename = "#{yyyymmdd}_report.pdf"
+      end
+      send_data report.generate, :filename => filename, :type => 'application/pdf', :disposition => 'attachment'
       return true
     rescue Exception => e
       logger.error "failed #{e}"
@@ -80,49 +89,57 @@ class LibraryReportsController < ApplicationController
   end
 
   def monthly_report
-    library = Library.find(params[:library_report][:library_id])
     yyyymm = params[:library_report][:yyyymm]
+    library_ids = params[:library]
     begin
      report = ThinReports::Report.new :layout => "#{Rails.root.to_s}/app/views/library_reports/monthly_library_report"
 
       report.start_new_page
       report.page.item(:year).value(yyyymm.to_s[0,4])
       report.page.item(:month).value(yyyymm.to_s[4,2])
-      report.page.item(:library).value(library.display_name.localize)
 
-      @checkout_datas = Statistic.where(["yyyymm = ? AND library_id = ? AND ndc IS NOT NULL", yyyymm, library.id])
-      report.page.list(:list).add_row do |row|
-        row.item(:title).value(t('library_report.checkouts'))
-        row.item(:value).value(@checkout_datas.inject(0){|sum, data| sum += data.value})
-      end
-      9.times do |i|
-        @checkout_datas = Statistic.where(["yyyymm = ? AND library_id = ? AND ndc = ? ", yyyymm, library.id, (i+1).to_s])
+      library_ids.each do |library_id|
+        library = Library.find(library_id)
+        @checkout_datas = Statistic.where(["yyyymm = ? AND library_id = ? AND ndc IS NOT NULL", yyyymm, library.id])
         report.page.list(:list).add_row do |row|
-          row.item(:option).value(t('library_report.ndc', :ndc => i+1))
+          row.item(:library).value(library.display_name.localize)
+          row.item(:title).value(t('library_report.checkouts'))
           row.item(:value).value(@checkout_datas.inject(0){|sum, data| sum += data.value})
-        end  
-      end
-      visiters, copies, consultations = 0, 0, 0
-      @datas = LibraryReport.where(:library_id => library.id, :yyyymm => yyyymm)
-      @datas.each do |data|
-        visiters += data.visiters if data.visiters
-        copies += data.copies if data.copies
-        consultations += data.consultations if data.consultations
-      end
-      report.page.list(:list).add_row do |row|
-        row.item(:title).value(t('activerecord.attributes.library_report.visiters'))
-        row.item(:value).value(visiters)
-      end
-      report.page.list(:list).add_row do |row|
-        row.item(:title).value(t('activerecord.attributes.library_report.copies'))
-        row.item(:value).value(copies)
-      end
-      report.page.list(:list).add_row do |row|
-        row.item(:title).value(t('activerecord.attributes.library_report.consultations'))
-        row.item(:value).value(consultations)
+        end
+        9.times do |i|
+          @checkout_datas = Statistic.where(["yyyymm = ? AND library_id = ? AND ndc = ? ", yyyymm, library.id, (i+1).to_s])
+          report.page.list(:list).add_row do |row|
+            row.item(:option).value(t('library_report.ndc', :ndc => i+1))
+            row.item(:value).value(@checkout_datas.inject(0){|sum, data| sum += data.value})
+          end  
+        end
+        visiters, copies, consultations = 0, 0, 0
+        visiters, consultations = 0, 0
+        @datas = LibraryReport.where(:library_id => library.id, :yyyymm => yyyymm)
+        @datas.each do |data|
+          visiters += data.visiters unless data.visiters.nil?
+          copies += data.copies unless data.copies.nil?
+          consultations += data.consultations unless data.consultations.nil?
+        end
+        report.page.list(:list).add_row do |row|
+          row.item(:title).value(t('activerecord.attributes.library_report.visiters'))
+          row.item(:value).value(visiters)
+        end
+        report.page.list(:list).add_row do |row|
+          row.item(:title).value(t('activerecord.attributes.library_report.copies'))
+          row.item(:value).value(copies)
+        end
+        report.page.list(:list).add_row do |row|
+          row.item(:title).value(t('activerecord.attributes.library_report.consultations'))
+          row.item(:value).value(consultations)
+        end
+        report.page.list(:list).add_row do |row|
+          row.item(:column_line).hide
+          row.item(:row_line).hide
+        end
       end
 
-      send_data report.generate, :filename => "#{yyyymm}_#{library.name}_report.pdf", :type => 'application/pdf', :disposition => 'attachment'
+      send_data report.generate, :filename => "#{yyyymm}_report.pdf", :type => 'application/pdf', :disposition => 'attachment'
       return true
     rescue Exception => e
       logger.error "failed #{e}"
