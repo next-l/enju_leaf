@@ -99,8 +99,9 @@ class CheckinsController < ApplicationController
       unless messages.blank?
         #flash[:message], flash[:sound] = error_message_and_sound(message)
         messages.each do |message|
-          return_message, flash[:sound] = error_message_and_sound(message)
+          return_message, return_sound = error_message_and_sound(message)
           flash[:message] << return_message + '<br />'
+          flash[:sound] = return_sound if return_sound
         end
         format.html { redirect_to user_basket_checkins_url(@checkin.basket.user, @checkin.basket) }
         format.xml  { render :xml => @checkin.errors.to_xml }
@@ -120,7 +121,7 @@ class CheckinsController < ApplicationController
           messages.each do |message|
             return_message, return_sound = error_message_and_sound(message)
             flash[:message] << return_message + '<br />'
-            flash[:sound] << return_sound if return_sound
+            flash[:sound] = return_sound if return_sound
           end
           format.html { redirect_to user_basket_checkins_url(@checkin.basket.user, @checkin.basket) }
           format.xml  { render :xml => @checkin, :status => :created, :location => user_basket_checkin_url(@checkin.basket.user, @checkin.basket, @checkin) }

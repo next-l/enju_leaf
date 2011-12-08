@@ -74,8 +74,10 @@
   <%= l(@reserve.checked_out_at) if @reserve.checked_out_at -%>
 </p>
 
-<%= form_tag({:action => 'output'}) do -%>
-  <%= submit_tag t('page.output', :model => t('activerecord.attributes.reserve.reserve_list')) -%>
+<%- if @reserve.can_output? -%>
+  <%= form_tag({:action => 'output'}) do -%>
+    <%= submit_tag t('page.output', :model => t('activerecord.attributes.reserve.reserve_list')) -%>
+  <%- end -%>
 <%- end -%>
 </div>
 </div>
