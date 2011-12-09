@@ -22,7 +22,7 @@
       <td><%= checkout.item.note -%></td>
       <td>
         <%= l(checkout.due_date, :format => :only_date) -%><br />
-        <%= link_to t('activerecord.attributes.item.loss_item'), loss_item_item_path(checkout.item) -%>
+        <%= link_to t('activerecord.attributes.item.loss_item'), {:controller => 'loss_items', :action => 'new', :item_id => checkout.item.id, :user_id => checkout.user.id} -%>
       </td>
     </tr>
   <%- end -%>

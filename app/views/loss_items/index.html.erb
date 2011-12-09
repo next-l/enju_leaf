@@ -5,18 +5,25 @@
 
 <table class="index">
   <tr>
-    <th></th>
+    <th style="width: 30px"><%= 'Id' -%></th>
     <th><%= t('activerecord.models.manifestation') -%></th>
     <th><%= t('activerecord.models.user') -%></th>
+    <th><%= t('activerecord.attributes.loss_item.status')-%></th>
+    <th></th>
   </tr>
 
 <%- @loss_items.each_with_index do |loss_item, i| -%>
   <tr class="line<%= cycle("0", "1") -%>">
     <td><%= link_to loss_item.id, loss_item -%></td>
-    <td><%= loss_item.item.manifestation.original_title -%></td>
-    <td><%= loss_item.user.patron.full_name -%>(<%= loss_item.user.username -%>)
+    <td><%= link_to loss_item.item.manifestation.original_title, loss_item -%></td>
+    <td>
+      <%= link_to loss_item.user.patron.full_name, loss_item.user -%>
+      (<%= link_to loss_item.user.username, loss_item.user -%>)
     </td>
-    <td><%= link_to t('page.edit'), edit_loss_item_path(loss_item) -%>
+    <td><%= i18n_status(loss_item.status) -%></td>
+    <td>
+      <%= link_to t('page.edit'), edit_loss_item_path(loss_item) -%>
+      <%= link_to t('page.destroy'), loss_item, :confirm => t('page.are_you_sure'), :method => :delete -%>
     </td>    
   </tr>
 <%- end -%>
@@ -28,4 +35,5 @@
 </div>
 
 <div id="submenu" class="ui-corner-all">
+  <li><%= link_to t('page.new', :model => t('activerecord.models.loss_item')), new_loss_item_path -%></li>
 </div>

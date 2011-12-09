@@ -113,7 +113,7 @@ class CheckinsController < ApplicationController
           #flash[:message] << t('controller.successfully_created', :model => t('activerecord.models.checkin'))
           #TODO refactoring
           flash[:message] = t('checkin.successfully_checked_in', :model => t('activerecord.models.checkin')) + '<br />'
-          item_messages = @checkin.item_checkin(current_user, nil)
+          item_messages = @checkin.item_checkin(current_user)
           item_messages.each do |message|
             messages << message if message
           end
