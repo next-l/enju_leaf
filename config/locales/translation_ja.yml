@@ -1839,3 +1839,4 @@ ja:
     daily_report: "%{year}年%{month}月%{date}日の日報"
     daily: 日報
     monthly: 月報
+    yyyymm: 対象年月

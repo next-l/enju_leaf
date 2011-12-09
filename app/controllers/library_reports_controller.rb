@@ -2,10 +2,49 @@ class LibraryReportsController < ApplicationController
   load_and_authorize_resource
 
   def index
-    @library_reports = LibraryReport.all
+    @count = {}
+    search = Sunspot.new_search(LibraryReport)
+    if params[:yyyymm]
+      @yyyymm = params[:yyyymm]
+    else
+      @yyyymm = nil
+    end
+    @library = Library.find(params[:library_report][:library_id]) rescue nil if params[:library_report] && params[:library_report][:library_id]
+    if @library
+      library_id = @library.id
+      search.build do
+        with(:library_id).equal_to library_id
+      end
+    end
+   flash[:message] = nil
+    unless  @yyyymm.blank?
+      unless @yyyymm =~ /^\d{6}$/ && month_term?(@yyyymm)
+        logger.error t('statistic_report.invalid_month')
+        flash[:message] = t('statistic_report.invalid_month')
+      else 
+        yyyymm = @yyyymm.to_i
+        search.build do
+          with(:yyyymm).equal_to yyyymm
+        end
+      end
+    end
+
+    page = params[:page] || 1
+    search.query.paginate(page.to_i, LibraryReport.per_page)
+    @library_reports = search.execute!.results
+    @count[:query_result] = @library_reports.total_entries
     @libraries = Library.all
     @months = @library_reports.inject([]){|months, data| months << data.yyyymm}.uniq
     @dates = @library_reports.inject([]){|dates, data| dates << data.yyyymmdd}.uniq
+
+    respond_to do |format|
+      format.html # index.html.erb
+      format.xml  { render :xml => @library_reports }
+      format.rss  { render :layout => false }
+      format.csv
+      format.atom
+      format.ics
+    end
   end
 
   def new
@@ -163,6 +202,16 @@ class LibraryReportsController < ApplicationController
     respond_to do |format|
       format.html { redirect_to(library_reports_url) }
       format.xml  { head :ok }
+    end
+  end
+
+private
+  def month_term?(term)
+    begin
+      Time.parse("#{term}01")
+      return true
+    rescue ArgumentError
+      return false
     end
   end
 

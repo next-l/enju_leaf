@@ -1,7 +1,14 @@
 <div id="content_detail" class="ui-corner-all">
 <h1 class="title"><%= t('page.listing', :model => t('library_report.daily')) -%></h1>
 <div id="content_list">
-<div style="color: red"><%= flash[:message].to_s -%></div>
+<%= form_for :library_report, :url => library_reports_path, :html => {:method => 'get'} do -%>
+<div style="color: green"><%= flash[:message].to_s -%></div>
+  <p>
+    <%= t('library_report.yyyymm') -%>: <%= text_field_tag 'yyyymm', @yyyymm, :class => 'wide_date_text_field', :placeholder => "#{t('page.example')}: 201104" -%>
+    <%= t('activerecord.attributes.library_report.library') -%>: <%= select(:library_report, :library_id, @libraries.collect{|lib| [lib.display_name.localize, lib.id]}, {:include_blank => t('advanced_search.all_libraries'), :selected => (@library.id if @library) }) -%>
+    <%= submit_tag t('page.search') -%>
+  </p>
+<%- end -%>
 <table class="index">
 <%- @library_reports.each do |library_report| -%>
   <tr class="line<%= cycle("0", "1") -%>">
@@ -22,7 +29,7 @@
   </tr>
 <%- end -%>
 </table>
-
+<%= will_paginate(@events) -%>
 </div>
 </div>
 

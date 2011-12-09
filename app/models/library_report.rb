@@ -7,6 +7,15 @@ class LibraryReport < ActiveRecord::Base
   validate :date_valid
   before_validation :set_yyyymm
 
+  searchable do
+    integer :library_id
+    integer :yyyymm
+  end
+
+  def self.per_page
+    10
+  end
+
   def set_yyyymm
     self.yyyymm = self.yyyymmdd.to_s[0,6].to_i
   end
