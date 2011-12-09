@@ -92,6 +92,8 @@ EnjuLeaf::Application.routes.draw do
     get :get_family_info, :on => :member
     get :get_user_info, :on => :collection
     get :get_user_info, :on => :member
+    get :get_user_rent, :on => :member
+    get :get_user_rent, :on => :collection
     post :output_password, :on => :member
     resources :answers
     resources :baskets do
@@ -315,8 +317,6 @@ EnjuLeaf::Application.routes.draw do
     resources :patrons
     resources :owns
     resource :exemplify
-    get :loss_item, :on => :member
-    post :update_loss_item, :on => :member
   end
 
   resources :owns

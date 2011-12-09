@@ -1,7 +1,7 @@
 # -*- encoding: utf-8 -*-
 class UsersController < ApplicationController
   #before_filter :reset_params_session
-  load_and_authorize_resource :except => [:search_family, :get_family_info, :get_user_info, :output_password, :edit_user_number, :update_user_number]
+  load_and_authorize_resource :except => [:search_family, :get_family_info, :get_user_info, :get_user_rent, :output_password, :edit_user_number, :update_user_number]
   helper_method :get_patron
   before_filter :store_location, :only => [:index]
   before_filter :clear_search_sessions, :only => [:show]
@@ -425,6 +425,24 @@ class UsersController < ApplicationController
       @user = User.where(:user_number => params[:user_number]).first
       @patron = @user.patron unless @user.blank?
       render :json => {:success => 1, :user => @user, :patron => @patron}
+    end
+  end
+
+  def get_user_rent
+    return nil unless request.xhr?
+    unless params[:user_number].blank?
+      @user = User.where(:user_number => params[:user_number]).first
+      user_id = nil
+      user_id = @user.id if @user
+      @checkouts = @user.checkouts.not_returned unless @user.blank?
+      @items = []
+      @Item = Struct.new(:item_id, :title)
+      unless @checkouts.blank?
+        @checkouts.each do |c|
+          @items << @Item.new(c.item.id, c.item.manifestation.original_title)
+        end
+      end
+      render :json => {:success => 1, :items => @items, :user_id => user_id}
     end
   end
 
