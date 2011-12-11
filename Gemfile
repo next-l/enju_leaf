@@ -123,6 +123,7 @@ group :development, :test do
   gem 'sunspot-rails-tester'
   gem 'vcr', '~> 2.0.0.beta2'
   gem 'fakeweb'
+  gem 'churn', '0.0.13'
 end
 
 # Gems used only for assets and not required
