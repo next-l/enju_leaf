@@ -49,25 +49,13 @@
           <li><%= link_to t('manifestation.send_email'), manifestation_path(:mode => 'send_email'), :confirm => t('page.are_you_sure') -%></li>
         <%- end -%>
         <% if defined?(EnjuBookmark) %>
-          <%- if @manifestation.bookmarked?(current_user) -%>
-            <li><%= link_to t('bookmark.remove_from_my_bookmark'), bookmark_path(Bookmark.where(:user_id => current_user.id, :manifestation_id => @manifestation.id).first), :confirm => t('page.are_you_sure'), :method => :delete -%></li>
-          <%- else -%>
-            <li><%= link_to t('bookmark.add_to_my_bookmark'), new_bookmark_path(:bookmark => {:url => manifestation_url(@manifestation)}) -%></li>
-          <%- end -%>
+          <li><%= link_to_bookmark(@manifestation) %></li>
         <% end %>
 
       <%- unless @manifestation.carrier_type.name == 'file' -%>
         <% if defined?(EnjuCirculation) %>
           <% if @manifestation.is_reservable_by?(current_user) %>
-            <%- if current_user.has_role?('Librarian') -%>
-              <li><%= link_to t('manifestation.reserve_this'), new_reserve_path(:manifestation_id => @manifestation.id) -%>
-            <%- else -%>
-              <%- if @manifestation.is_reserved_by?(current_user) -%>
-                <li><%= link_to t('manifestation.cancel_reservation'), reserve_path(@reserve) -%>
-              <%- else -%>
-                <li><%= link_to t('manifestation.reserve_this'), new_reserve_path(:manifestation_id => @manifestation.id) -%>
-              <%- end -%>
-            <%- end -%>
+            <li><%= link_to_reservation(@manifestation, @reserve) %></li>
             <br />
             (<%= t('page.number_of_reservations', :count => @reserved_count) -%>)</li>
           <%- else -%>

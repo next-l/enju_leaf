@@ -41,9 +41,6 @@ Spork.prefork do
   # instead of true.
     config.use_transactional_fixtures = true
 
-    config.include Devise::TestHelpers, :type => :controller
-    config.include Devise::TestHelpers, :type => :view
-
     $original_sunspot_session = Sunspot.session
 
     config.before do

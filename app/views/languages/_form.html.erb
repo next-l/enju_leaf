@@ -1,23 +1,26 @@
-<%= form_for(@language) do |f| %>
-  <% if @language.errors.any? %>
-  <div id="errorExplanation">
-    <h2><%= pluralize(@language.errors.count, "error") %> prohibited this language from being saved:</h2>
-    <ul>
-    <% @language.errors.full_messages.each do |msg| %>
-      <li><%= msg %></li>
-    <% end %>
-    </ul>
-  </div>
-  <% end %>
+<%= simple_form_for(@language, :validate => true) do |f| %>
+  <%= f.error_notification %>
 
   <div class="field">
-    <%= f.label :name %><br />
-    <%= f.text_field :name %>
+    <%= f.label :native_name %><br />
+    <%= f.text_field :native_name %>
   </div>
+
+  <div class="field">
+    <%= f.label :name %>:<br />
+    <%= @language.name %>
+  </div>
+
   <div class="field">
     <%= f.label :display_name %><br />
-    <%= f.text_area :display_name %>
+    <%= f.text_area :display_name, :class => 'resource_textarea' %>
   </div>
+
+  <div class="field">
+    <%= f.label :note %><br />
+    <%= f.text_area :note, :class => 'resource_textarea' %>
+  </div>
+
   <div class="actions">
     <%= f.submit %>
   </div>
