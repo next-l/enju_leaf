@@ -1185,6 +1185,7 @@ ja:
     tag: "タグ"
     call_number: "請求記号"
     holding: "所蔵"
+    has_relationships: "関連あり"
     advanced_search: "条件を詳しく指定して検索"
     title: "タイトル"
     note: "注記"
