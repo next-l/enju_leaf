@@ -316,8 +316,8 @@ class UsersController < ApplicationController
 
     begin 
       @user.update_attributes({:user_number => params[:new_user_number]})
-      flash[:notice] = t('controller.successfully_updated', :model => t('activerecord.models.user.user_number'))
-      redirect_to(users_url)       
+      flash[:notice] = t('controller.successfully_updated', :model => t('activerecord.attributes.user.user_number'))
+      redirect_to(user_url(@user))       
     rescue # ActiveRecord::RecordInvalid
       #@user = User.find_by_username(params[:id])
       render :action => :edit_user_number 

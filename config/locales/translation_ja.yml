@@ -1680,6 +1680,7 @@ ja:
     item_not_found: "資料が見つかりません。"
     enter_item_identifier: "所蔵情報番号を入力してください。"
     other_library_item: "この資料は他の図書館のものです！"
+    other_library: "この資料は%{model}のものです。"
     already_checked_in: "この資料はすでに返却されています。"
     not_checkin: "この資料は貸出されていません。"
     checkin: "返却（取り消しはできません）"

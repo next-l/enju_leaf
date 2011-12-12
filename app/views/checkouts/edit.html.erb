@@ -10,7 +10,7 @@
     <%= t('checkout.new_due_date') -%>: <%= l(@renew_due_date, :format => :only_date) if @renew_due_date -%>
     <%= f.hidden_field :due_date, :value => @renew_due_date -%>
     <br />
-    <%= f.submit %>
+    <%= f.submit :disable_with => t('page.wait') %>
   <%- end -%>
 <%- else -%>
   <div class="field"><%= t('checkout.this_item_cant_be_renewed') -%></div>
@@ -33,7 +33,7 @@
     </div>
 
     <div class="actions">
-      <%= f.submit %>
+      <%= f.submit :disable_with => t('page.wait') %>
     </div>
   <%- end -%>
 <%- end -%>

@@ -1,10 +1,14 @@
 <div style="color: red">
   <%- unless @checkins.blank? -%>
-    <%= user_notice(@checkout_user) if @checkins[0].checkout -%>
+    <%- if @checkins[0].checkout -%>
+      <%= user_notice(@checkout_user) if @checkins[0].checkout -%>
+      <br />
+    <%- end -%>
     <%- unless @family_users.blank? -%>
       <%- @family_users.each do |f_user| -%>
         <%= user_notice(f_user) unless f_user == @checkout_user -%>     
       <%- end -%>
+      <br />
     <%- end -%>
   <%- end -%>
   <%= raw flash[:message] -%>
