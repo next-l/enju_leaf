@@ -612,6 +612,18 @@ class Manifestation < ActiveRecord::Base
     return sum
   end
 
+  def next_item_for_retain(lib)
+    items = self.items_ordered_for_retain(lib)
+    items.each do |item|
+      return item if item.available_for_checkout? && item.circulation_status != CirculationStatus.find(:first, :conditions => ["name = ?", 'Available For Pickup'])
+    end
+    return nil
+  end
+
+  def items_ordered_for_retain(lib)
+    items = self.items.for_retain_from_own(lib).concat(self.items.for_retain_from_others(lib)).flatten
+  end
+
 private
   def delete_attachment?
     self.attachment.clear if @delete_attachment == "1"

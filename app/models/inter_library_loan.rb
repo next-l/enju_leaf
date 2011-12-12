@@ -89,6 +89,11 @@ class InterLibraryLoan < ActiveRecord::Base
       self.update_attributes({:return_received_at => Time.zone.now})
     end
   end
+
+  def request_for_reserve(item, borrowing_library)
+    self.update_attributes(:item_id => item.id, :borrowing_library_id => borrowing_library.id, :requested_at => Time.zone.now, :reason => 1)
+    self.sm_request! if self.save
+  end
 end
 
 # == Schema Information

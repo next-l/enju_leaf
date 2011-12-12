@@ -1636,6 +1636,7 @@ ja:
     invalid_date: "無効な日付です。"
     pending: "受付待ち"
     requested: "受付済み"
+    in_process: "作業中"
     retained: "取置済み"
     canceled: "取消済み"
     expired: "期限切れ"

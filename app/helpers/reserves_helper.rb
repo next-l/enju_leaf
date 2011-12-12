@@ -7,6 +7,8 @@ module ReservesHelper
       t('reserve.requested')
     when 'retained'
       t('reserve.retained')
+    when 'in_process'
+      t('reserve.in_process')
     when 'canceled'
       t('reserve.canceled')
     when 'expired'

@@ -4,7 +4,9 @@ class Item < ActiveRecord::Base
   scope :not_for_checkout, where(:item_identifier => nil)
   scope :on_shelf, where('shelf_id != 1')
   scope :on_web, where(:shelf_id => 1)
-  scope :recent, where(['items.created_at >= ?', Time.zone.now.months_ago(1)]) 
+  scope :recent, where(['items.created_at >= ?', Time.zone.now.months_ago(1)])
+  scope :for_retain_from_own, lambda{|library| where('shelf_id IN (?)', library.shelf_ids).order('created_at ASC')}
+  scope :for_retain_from_others, lambda{|library| where('shelf_id NOT IN (?)', library.shelf_ids).order('created_at ASC')}
   has_one :exemplify
   has_one :manifestation, :through => :exemplify
   has_many :checkouts
@@ -168,6 +170,16 @@ class Item < ActiveRecord::Base
         request.save!
       end
     end
+  end
+
+  def retain_item!
+    self.circulation_status = CirculationStatus.find(:first, :conditions => ["name = ?", 'Available For Pickup'])
+    self.save
+  end
+
+  def cancel_retain!
+    self.circulation_status = CirculationStatus.find(:first, :conditions => ["name = ?", 'Available On Shelf'])
+    self.save
   end
 
   def inter_library_loaned?

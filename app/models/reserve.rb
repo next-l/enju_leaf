@@ -40,9 +40,11 @@ class Reserve < ActiveRecord::Base
   state_machine :initial => :pending do
     before_transition [:pending, :retained] => :requested, :do => :do_request
     before_transition [:pending, :requested, :retained] => :retained, :do => :retain
+    before_transition [:pending, :requested, :retained] => :in_process, :do => :to_process
     before_transition [:pending ,:requested, :retained] => :canceled, :do => :cancel
     before_transition [:pending, :requested, :retained] => :expired, :do => :expire
     before_transition [:retained, :requested] => :completed, :do => :checkout
+
 
     event :sm_request do
       transition [:pending, :retained, :requested] => :requested
@@ -50,6 +52,10 @@ class Reserve < ActiveRecord::Base
 
     event :sm_retain do
       transition [:pending, :requested, :retained] => :retained
+    end
+
+    event :sm_process do
+      transition [:pending, :requested, :retained] => :in_process, :do => :to_process
     end
 
     event :sm_cancel do
@@ -96,13 +102,19 @@ class Reserve < ActiveRecord::Base
   end
 
   def new_reserve
+    library = Library.find(self.receipt_library_id)
     if self.available_for_checkout?    
-      items = self.manifestation.items.order('created_at ASC')
+      items = self.manifestation.items_ordered_for_retain(library) rescue nil
       items.each do |item|
         if item.available_for_checkout? && !item.reserved?
           self.item = item
-          self.sm_retain
-          self.save
+          if item.shelf.library == library
+            self.sm_retain
+            self.save
+          else
+            self.sm_process
+            InterLibraryLoan.new.request_for_reserve(item, library)
+          end
           return
         end
       end
@@ -126,6 +138,12 @@ class Reserve < ActiveRecord::Base
   def retain
     # TODO: 「取り置き中」の状態を正しく表す
 #    self.update_attributes!({:request_status_type => RequestStatusType.where(:name => 'In Process').first, :checked_out_at => Time.zone.now})
+    self.item.retain_item!
+    self.update_attributes!({:request_status_type => RequestStatusType.where(:name => 'In Process').first})
+  end
+
+  def to_process
+    # borrow from other library
     self.update_attributes!({:request_status_type => RequestStatusType.where(:name => 'In Process').first})
   end
 
@@ -136,6 +154,7 @@ class Reserve < ActiveRecord::Base
   end
 
   def cancel
+    self.item.cancel_retain!
     self.update_attributes!({:request_status_type => RequestStatusType.where(:name => 'Cannot Fulfill Request').first, :canceled_at => Time.zone.now})
     self.remove_from_list
   end
@@ -146,7 +165,8 @@ class Reserve < ActiveRecord::Base
   end
   
   def available_for_checkout?
-    items = Manifestation.find(self.manifestation_id).items
+    library = Library.find(self.receipt_library_id)
+    items = Manifestation.find(self.manifestation_id).items_ordered_for_retain(library)
     reserve_position = Reserve.waiting.where("manifestation_id = ? AND position >= ? AND item_id IS NULL", self.manifestation_id, self.position).count
     i = 1
     items.each do |item|
@@ -254,7 +274,7 @@ class Reserve < ActiveRecord::Base
   def position_update(manifestation)
     logger.error "reserve position update"
     reserves = Reserve.where(:manifestation_id => manifestation).waiting.order(:position)
-    items = manifestation.items.for_checkout
+    items = manifestation.items_ordered_for_retain.for_checkout
     items.delete_if{|item| !item.available_for_checkout?}
     reserves.each do |reserve|
       if !items.blank?
