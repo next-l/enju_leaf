@@ -1,9 +1,78 @@
 class LossItemsController < ApplicationController
   include EnjuLeaf::NotificationSound
+  before_filter :get_user_if_nil
+  before_filter :get_patron, :get_manifestation
+  helper_method :get_shelf
+  helper_method :get_library
+  helper_method :get_item
 
   def index
     return access_denied unless (user_signed_in? and current_user.has_role?('Librarian'))
-    @loss_items = LossItem.all
+
+    query = params[:query].to_s.strip
+    @query = query.dup
+    @count = {}
+
+    search = Sunspot.new_search(Item)
+    set_role_query(current_user, search)
+
+    query = params[:query].gsub("-", "") if params[:query]
+    query = "#{query}*" if query.size == 1
+
+    # page = params[:page] || 1
+    @status = params[:status]
+    if query.blank?
+      #@loss_items = LossItem.page(page) if @status.blank?
+      #@loss_items = LossItem.where(:status => @status).page(page) unless @status.blank?
+      @loss_items = LossItem.all if @status.blank?
+      @loss_items = LossItem.where(:status => @status) unless @status.blank?
+    else
+      # search loss_item
+      @loss_items = LossItem.search do
+        fulltext query
+        with(:status).equal_to @status unless @status.blank?
+      end.results
+    end
+
+    # search item
+    unless query.blank?
+      patron = @patron
+      manifestation = @manifestation
+      shelf = get_shelf
+      @items = Item.search do
+        with(:patron_ids).equal_to patron.id if patron
+        with(:manifestation_id).equal_to manifestation.id if manifestation
+        with(:shelf_id).equal_to shelf.id if shelf
+        fulltext query
+      end.results
+      set_list(@items, @status)
+    end
+
+    # search user
+    @date_of_birth = params[:birth_date].to_s.dup
+    birth_date = params[:birth_date].to_s.gsub(/\D/, '') if params[:birth_date]
+    unless params[:birth_date].blank?
+      begin
+        date_of_birth = Time.zone.parse(birth_date).beginning_of_day.utc.iso8601
+      rescue
+        flash[:message] = t('user.birth_date_invalid')
+      end
+    end
+    date_of_birth_end = Time.zone.parse(birth_date).end_of_day.utc.iso8601 rescue nil
+    address = params[:address]
+    @address = address
+    query = "#{query} date_of_birth_d: [#{date_of_birth} TO #{date_of_birth_end}]" unless date_of_birth.blank?
+    query = "#{query} address_text: #{address}" unless address.blank?
+    unless query.blank?
+      @users = User.search do
+        fulltext query
+      end.results
+      set_list(@users, @status)
+    end
+
+    @loss_items = @loss_items.uniq
+    @loss_items = @loss_items.sort{|a, b| b.id <=> a.id}
+    #@count[:query_result] = @loss_items.total_entries
   end
 
   def show
@@ -112,5 +181,22 @@ class LossItemsController < ApplicationController
       format.html { redirect_to(loss_items_url) }
       format.xml  { head :ok }
     end
+  end
+
+  private
+  def set_list(obj, status)
+    unless obj.blank?
+      obj.each do |i|
+        @same_items =  LossItem.where(:item_id => i.id) if obj == @items and status.blank?
+        @same_items =  LossItem.where(:item_id => i.id, :status => status) if obj == @items and !status.blank?
+        @same_items =  LossItem.where(:user_id => i.id) if obj == @users and status.blank?
+        @same_items =  LossItem.where(:user_id => i.id, :status => status) if obj == @users and !status.blank?
+        if @same_items.length > 0 
+          @same_items.each do |s|
+            @loss_items << s
+          end
+        end
+      end
+    end 
   end
 end

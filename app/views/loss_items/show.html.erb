@@ -2,6 +2,7 @@
 <h1 class="title"><%= t('page.showing', :model => t('activerecord.models.loss_item')) -%></h1>
 <div id="content_list">
 <p id="notice"><%= raw notice %></p>
+<div style="color: red"><%= raw flash[:message] -%></div>
 
 <%- if @loss_item.item.manifestation -%>
   <%= render 'manifestations/title', :manifestation => @loss_item.item.manifestation -%>

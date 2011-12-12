@@ -3,6 +3,22 @@
 <div id="content_list">
 <div style="color: green"><%= flash[:message] -%></div>
 
+<%= form_for :loss_items, :url => loss_items_path, :html => {:method => 'get'} do -%>
+  <p>
+    <%= t('page.search_term') -%>: 
+    <%= search_field_tag 'query', h(@query), {:id => 'search_form_top', :class => 'search_form', :placeholder => t('page.search_term')} -%><br />
+    <%= t('activerecord.attributes.user.birth_date') -%>: 
+    <%= text_field_tag 'birth_date', @date_of_birth, :class => 'wide_date_text_field', :placeholder => "#{t('page.example')}: 2011-04-12" -%>
+    <%= t('activerecord.attributes.user.adddress') -%>: 
+    <%= text_field_tag 'address', @address, :class => 'search_form' -%><br />
+    <%= t('activerecord.attributes.loss_item.status')-%>:
+    <%= radio_button_tag 'status', '', true -%><%= t('advanced_search.all', :model =>t('activerecord.attributes.loss_item.status')) -%>&nbsp;
+    <%= radio_button_tag 'status', 0, (params[:status] == '0') -%><%= i18n_status(0) -%>&nbsp;
+    <%= radio_button_tag 'status', 1, (params[:status] == '1') -%><%= i18n_status(1) -%>
+    <%= submit_tag t('page.search') -%>
+  </p>
+<%- end -%>
+
 <table class="index">
   <tr>
     <th style="width: 30px"><%= 'Id' -%></th>
@@ -30,7 +46,9 @@
 </table>
 
 <br />
-
+<%-if false-%>
+<%= will_paginate(@loss_items) -%>
+<%-end-%>
 </div>
 </div>
 
