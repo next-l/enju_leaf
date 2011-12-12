@@ -5,6 +5,7 @@
   <div style="color: red">
     <%= user_notice(user) -%>
     <%- unless @family_users.blank? -%>
+      <br />
       <%- @family_users.each do |f_user| -%>
         <%= user_notice(f_user) unless f_user == user -%>
       <%- end -%>
