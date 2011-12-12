@@ -124,4 +124,65 @@ class InterLibraryLoansController < ApplicationController
       end
     end
   end
+ 
+  def export_loan_lists
+    @libraries = Library.all
+  end
+
+  def get_loan_lists
+    library_ids = params[:library] || []
+    begin
+      report = ThinReports::Report.new :layout => "#{Rails.root.to_s}/app/views/inter_library_loans/loan_list"
+ 
+      report.events.on :page_create do |e|
+        e.page.item(:page).value(e.page.no)
+      end
+      report.events.on :generate do |e|
+        e.pages.each do |page|
+          page.item(:total).value(e.report.page_count)
+        end
+      end
+
+      library_ids.each do |library_id|
+        library = Library.find(library_id) rescue nil
+        to_libraries = InterLibraryLoan.joins(:item => :shelf).where(['shelves.id IN (?) AND inter_library_loans.reason = ? ', library.shelf_ids, 1]).inject([]){|libraries, data| libraries << data.borrowing_library}
+        to_libraries << InterLibraryLoan.where(['borrowing_library_id = ? AND inter_library_loans.reason = ? ', library.id, 2]).inject([]){|libraries, data| libraries << Library.find(:first, :conditions => ['name = ? ', data.item.library])}
+        to_libraries.flatten.each do |to_library|
+          report.start_new_page
+          report.page.item(:date).value(Time.now)
+          report.page.item(:library).value(library.display_name.localize)
+          report.page.item(:library_move_to).value(to_library.display_name.localize)
+
+          @loans_checkouts = InterLibraryLoan.joins(:item => :shelf).where(['shelves.id IN (?) AND inter_library_loans.borrowing_library_id = ? AND inter_library_loans.reason = ?', library.shelf_ids, to_library.id, 1]).order('shelves.id')
+          @loans_checkouts.each do |loan|
+            report.page.list(:list).add_row do |row|
+              row.item(:reason).value(t('inter_library_loan.checkout'))
+              row.item(:item_identifier).value(loan.item.item_identifier)
+              row.item(:shelf).value(loan.item.shelf.display_name) if loan.item.shelf
+              row.item(:call_number).value(loan.item.call_number)
+              row.item(:title).value(loan.item.manifestation.original_title) if loan.item.manifestation
+            end
+          end
+          @loans_checkins = InterLibraryLoan.joins(:item => :shelf).where(['inter_library_loans.borrowing_library_id = ? AND shelves.id IN (?) AND inter_library_loans.reason = ?', library.id, to_library.shelf_ids, 2]).order('shelves.id')
+          @loans_checkins.each do |loan|
+            report.page.list(:list).add_row do |row|
+              row.item(:reason).value(t('inter_library_loan.checkin'))
+              row.item(:item_identifier).value(loan.item.item_identifier)
+              row.item(:shelf).value(loan.item.shelf.display_name) if loan.item.shelf
+              row.item(:call_number).value(loan.item.call_number)
+              row.item(:title).value(loan.item.manifestation.original_title) if loan.item.manifestation
+            end
+          end
+        end
+      end
+
+      send_data report.generate, :filename => "loan_lists.pdf", :type => 'application/pdf', :disposition => 'attachment'
+      logger.error "created report: #{Time.now}"
+      return true
+    rescue Exception => e
+      logger.error "failed #{e}"
+      return false
+    end
+  end
+
 end

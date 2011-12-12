@@ -1850,3 +1850,8 @@ ja:
     daily: 日報
     monthly: 月報
     yyyymm: 対象年月
+  inter_library_loan:
+    loan_lists: 相互貸借リスト
+    original_library: 移動元図書館
+    checkout: 貸出
+    checkin: 返却

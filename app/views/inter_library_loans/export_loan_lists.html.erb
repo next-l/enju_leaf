@@ -1,0 +1,38 @@
+<div id="content_detail" class="ui-corner-all">
+<h1 class="title"><%= t('page.output', :model => t('inter_library_loan.loan_lists')) -%></h1>
+<div id="content_list">
+<div style="color: green"><%= flash[:message] -%></div>
+<%= form_for(:inter_library_loan, :url => {:controller => 'inter_library_loans', :action => :get_loan_lists}, :html => {:multipart => true, :method => 'get'}) do |f| -%>
+  <div class="field">
+    <%= label :library, t('inter_library_loan.original_library') -%>:<br />
+    <div>
+    <input type='checkbox', name='all_library', id='all_library', onclick ='check_all_library();', checked><%= t('item_list.all_library') -%></input><br />
+    <%- @libraries.each do |library| -%>
+      <%= check_box_tag "library[]", library.id, true, :class => 'library' -%><%= library.display_name -%><br />
+    <%- end -%>
+    </div>
+  </div>
+
+  <div class="actions">
+    <%= f.submit t('page.output', :model => t('inter_library_loan.loan_lists')) %>
+  </div>
+<%- end -%>
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all">
+  <ul>
+    <li><%= link_to t('page.back'), inter_library_loans_path -%></li>
+  </ul>
+</div>
+
+<script>
+  function check_all_library(){
+    var test = $('#all_library').attr('checked');
+    if (test == "checked") {
+      $('.library').attr('checked', true);
+    } else {
+      $('.library').attr('checked', false);
+    }
+  }
+</script>

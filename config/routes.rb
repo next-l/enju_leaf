@@ -186,7 +186,10 @@ EnjuLeaf::Application.routes.draw do
   end
   resources :orders
 
-  resources :inter_library_loans
+  resources :inter_library_loans do
+    get :export_loan_lists, :on => :collection
+    get :get_loan_lists, :on => :collection
+  end
 
   resources :baskets do
     resources :checked_items
