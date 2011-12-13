@@ -24,9 +24,7 @@ class ManifestationsController < ApplicationController
       @reserve_user = current_user
     end
     if params[:mode] == 'add'
-      unless current_user.try(:has_role?, 'Librarian')
-        access_denied; return
-      end
+      access_denied; return unless current_user.try(:has_role?, 'Librarian')
     end
 
     @seconds = Benchmark.realtime do
@@ -66,9 +64,7 @@ class ManifestationsController < ApplicationController
       manifestations, sort, @count = {}, {}, {}
       query = ""
 
-      if params[:format] == 'csv'
-        per_page = 65534
-      end
+      per_page = 65534 if params[:format] == 'csv'
 
       if params[:format] == 'sru'
         if params[:operation] == 'searchRetrieve'
@@ -126,6 +122,7 @@ class ManifestationsController < ApplicationController
       search.build do
         fulltext query unless query.blank?
         order_by sort[:sort_by], sort[:order] unless oai_search
+        order_by :created_at, :desc unless oai_search
         order_by :updated_at, :desc if oai_search
         with(:subject_ids).equal_to subject.id if subject
         if series_statement
@@ -559,6 +556,9 @@ class ManifestationsController < ApplicationController
       sort[:order] = 'asc'
     when 'pub_date'
       sort[:sort_by] = 'date_of_publication'
+      sort[:order] = 'desc'
+    when 'carrier_type'
+      sort[:sort_by] = 'carrier_type'
       sort[:order] = 'desc'
     else
       # デフォルトの並び方
