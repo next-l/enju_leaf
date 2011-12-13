@@ -1,10 +1,19 @@
 <script>
   $(document).ready(function() {
+    // onload
+    //var select_num = $('#reserve_information_type_id').children().length;
+    //if (select_num > 1)
+    if ($("#reserve_user_number").val().length != 0) {
+      $('#reserve_information_type_id').removeAttr('disabled');
+      $('#reserve_submit').removeAttr('disabled');
+    }
+
     $("#reserve_user_number").change(function() {
       //default
       $('#reserve_information_type_id').children().remove();
       $('#reserve_information_type_id').append($('<option>').attr({ value: '0' }).text('<%= t('activerecord.attributes.reserve.unnecessary') -%>'));
       $('#reserve_information_type_id').attr('disabled', 'disabled');
+      $('#reserve_submit').attr('disabled', 'disabled');
       //add option
       var user_number = $("#reserve_user_number").val().replace(/^\s+|\s+$/g, "");
       if (user_number != "") {
@@ -16,6 +25,7 @@
              if (obj.success) {
                if (obj["user"] != null && obj["patron"] != null) {
                  $('#reserve_information_type_id').removeAttr('disabled');
+                 $('#reserve_submit').removeAttr('disabled');
                  if (obj["user"]["user"]["email"].length != 0)
                    $('#reserve_information_type_id').append($('<option>').attr({ value: '1' }).text('<%= t('activerecord.attributes.user.email') -%> ' + obj["user"]["user"]["email"]));
                  if (obj["patron"]["patron"]["telephone_number_1"].length != 0)
@@ -71,7 +81,7 @@
     <%= f.text_field :expired_at, :value => @reserve.expired_at.try(:strftime, "%Y-%m-%d"), :class => 'date_field', :placeholder => "#{t('page.example')}: 2011-04-12"-%>
   </div>
   <div class="actions">
-    <%= f.submit t('page.create'), :disable_with => t('page.wait')-%>
+    <%= f.submit t('page.create'), :disable_with => t('page.wait'), :disabled => true -%>
   </div>
 <%- end -%>
 <%= javascript_tag("$('#reserve_user_number').focus()") -%>
