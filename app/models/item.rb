@@ -107,7 +107,7 @@ class Item < ActiveRecord::Base
   end
 
   def available_checkin?
-    return false if ['Circulation Status Undefined'].include?(self.circulation_status.name)
+    return false if ['Circulation Status Undefined', 'Missing'].include?(self.circulation_status.name)
     true
   end
 
