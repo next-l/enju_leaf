@@ -4,7 +4,7 @@
     <%= form_for(:bookmark, :url => user_bookmark_path(current_user, @bookmark, :mode => 'tag_edit'), :html => { :method => :put }) do |f| -%>
       <div>
         <%= f.text_field :tag_list, :value => @bookmark.tag_list.join(' '), :class => 'editable_text_field' -%>
-        <%= submit_tag t('page.update') -%>
+        <%= submit_tag t('page.update', :model => t('activerecord.models.tag')) -%>
         (<a onclick="$.ajax({data:'authenticity_token=' + encodeURIComponent('<%= form_authenticity_token %>'), success:function(request){$('#tag_list').html(request);}, type:'get', url:'<%= manifestation_path(manifestation, :mode => 'tag_list') %>'}); return false;" href="#"><%= t('page.cancel') %></a>)
         <br />
         <%= t('tag.use_space_as_delimiter') -%>

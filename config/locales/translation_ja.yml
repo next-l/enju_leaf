@@ -335,7 +335,7 @@ ja:
         activation_code: 活性化コード
         activated_at: 登録時刻
         expired_at: 有効期限
-        locked: 利用不可
+        locked: 利用禁止
         confirmed: 確認済み
         approved: 承認済み
         checkout_icalendar_token: 貸出iCalendarのトークン
@@ -366,8 +366,8 @@ ja:
         disp_user_info: 利用者情報を表示する
         show_user: 利用者の表示
         unable: 連絡不能
-        locked_yes: 可能
-        locked_no: 不能
+        locked_yes: 利用可能
+        locked_no: 利用禁止
         unable_yes: 可能
         unable_no: 不能
       work_has_subject:
@@ -1186,6 +1186,7 @@ ja:
     tag: "タグ"
     call_number: "請求記号"
     holding: "所蔵"
+    has_relationships: "関連あり"
     advanced_search: "条件を詳しく指定して検索"
     title: "タイトル"
     note: "注記"
@@ -1680,6 +1681,7 @@ ja:
     item_not_found: "資料が見つかりません。"
     enter_item_identifier: "所蔵情報番号を入力してください。"
     other_library_item: "この資料は他の図書館のものです！"
+    other_library: "この資料は%{model}のものです。"
     already_checked_in: "この資料はすでに返却されています。"
     not_checkin: "この資料は貸出されていません。"
     checkin: "返却（取り消しはできません）"

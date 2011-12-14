@@ -114,13 +114,16 @@ class CheckinsController < ApplicationController
           #TODO refactoring
           flash[:message] = t('checkin.successfully_checked_in', :model => t('activerecord.models.checkin')) + '<br />'
           item_messages = @checkin.item_checkin(current_user)
-          item_messages.each do |message|
-            messages << message if message
+          unless item_messages.blank?
+            item_messages.each do |message|
+              messages << message if message
+            end
           end
           messages << 'checkin.overdue_item' if overdue == true
           messages.each do |message|
             return_message, return_sound = error_message_and_sound(message)
-            flash[:message] << return_message + '<br />'
+            flash[:message] << return_message + '<br />' unless message == 'checkin.other_library_item'
+            flash[:message] << t('checkin.other_library', :model => @checkin.item.shelf.library.display_name) + '<br />' if message == 'checkin.other_library_item'
             flash[:sound] = return_sound if return_sound
           end
           format.html { redirect_to user_basket_checkins_url(@checkin.basket.user, @checkin.basket) }

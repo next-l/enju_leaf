@@ -9,6 +9,9 @@
                 <%- unless manifestation.items.on_shelf.empty? -%>
                   (<%= link_to_function t('page.holding'), "$('#holding_#{manifestation.id}').toggle()" -%>)
                 <%- end -%>
+                <%- if manifestation.original_manifestations.first or manifestation.derived_manifestations.first -%>
+                  <%= link_to t('page.has_relationships'), manifestation, :itemprop => 'name' -%>
+                <%- end -%>
                 <%- if manifestation.tags.first -%>
                   (<%= link_to_function t('activerecord.models.tag'), "$('#tag_#{manifestation.id}').toggle()" -%>)
                 <%- end -%>

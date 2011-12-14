@@ -15,12 +15,13 @@
           + "<img src=\'<%= "#{root_path}images/icons/delete.png"%>\' size=\'16x16\' title=\'<%= t('family.tips_remove') %>\'>"
           + "</a>"
           + "</div>";
-
         $(s).appendTo('#print_users');
+        $('a#user_' + user_id).hide();
       }
     }
     function removeUser(user_id) {
       $('div#add_' + user_id).remove();
+      $('a#user_' + user_id).show();
     }
     function disableUser(user_id) {
       var text = $('input#user_' + user_id).val();

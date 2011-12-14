@@ -1567,6 +1567,7 @@ en:
     item_not_found: "Item not found."
     enter_item_identifier: "Enter item identifier."
     other_library_item: "This item is other library's item!"
+    other_library: "This item is %{model}'s item!"
     already_checked_in: "This item is already checked in."
     not_checkin: "This item is not checkouts."
     checkin: "Checkin!"

@@ -125,7 +125,8 @@ class LossItemsController < ApplicationController
             end
             messages.each do |message|
               return_message, return_sound = error_message_and_sound(message)
-              flash[:message] << return_message + '<br />' if return_message
+              flash[:message] << return_message + '<br />' unless message == 'checkin.other_library_item'
+              flash[:message] << t('checkin.other_library', :model => @checkin.item.shelf.library.display_name) + '<br />' if message == 'checkin.other_library_item'
               flash[:sound] = return_sound if return_sound
             end
           end

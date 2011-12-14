@@ -21,7 +21,7 @@
 
 <%= form_for :reserve, :url => {:controller => 'reserves', :action => :output_list}, :html => {:method => :output_user,:name => 'reserves'} do -%>
   <div class="field">
-    <p id="notice"><%= notice %></p>
+    <p id="notice"><%= flash[:reserve_notice] -%></p>
     <%= label :list_condition, t('activerecord.attributes.item_list.list_condition') -%>:<br />
     <div id="list_condition_150" class="parent">
       <%= check_box_tag "all_state", true, true, :class=>'check-parent' -%><%= t('advanced_search.all', :model=>t('activerecord.attributes.reserve.state')) -%><br />
