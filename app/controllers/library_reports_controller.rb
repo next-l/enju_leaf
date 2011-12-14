@@ -49,6 +49,7 @@ class LibraryReportsController < ApplicationController
 
   def new
     @library_report = LibraryReport.new
+    @library_report.yyyymmdd = Time.zone.now.strftime("%Y%m%d")
     @libraries = Library.all
   end
 

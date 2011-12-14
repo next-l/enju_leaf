@@ -1857,6 +1857,7 @@ ja:
     daily: 日報
     monthly: 月報
     yyyymm: 対象年月
+    date_comment: "８桁で入力。2011/12/13 の場合は、 20111213 と入力。"
   inter_library_loan:
     loan_lists: 相互貸借リスト
     original_library: 移動元図書館
@@ -1865,3 +1866,4 @@ ja:
     pickup_item: 発送準備
     accept_item: 受取処理
     no_item: 該当資料が見つかりません。
+    wrong_library: この図書館に貸し出された資料ではありません。

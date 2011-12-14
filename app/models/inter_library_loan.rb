@@ -1,4 +1,5 @@
 class InterLibraryLoan < ActiveRecord::Base
+  default_scope :order => "created_at ASC"
   scope :completed, where(:state => 'return_received')
   #scope :processing, lambda {|item, borrowing_library| {:conditions => ['item_id = ? AND borrowing_library_id = ? AND state != ?', item.id, borrowing_library.id, 'return_received']}}
   scope :processing, lambda {|item, borrowing_library| {:conditions => ['item_id = ? AND borrowing_library_id = ?', item.id, borrowing_library.id]}}
@@ -70,7 +71,7 @@ class InterLibraryLoan < ActiveRecord::Base
 
   def receive
     InterLibraryLoan.transaction do
-      self.item.update_attributes({:circulation_status => CirculationStatus.where(:name => 'In Process').first})
+#      self.item.update_attributes({:circulation_status => CirculationStatus.where(:name => 'In Process').first})
       self.update_attributes({:received_at => Time.zone.now})
     end
   end
