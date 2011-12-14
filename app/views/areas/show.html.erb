@@ -1,0 +1,32 @@
+<div id="content_detail" class="ui-corner-all">
+<h1 class="title"><%= t('page.showing', :model => t('activerecord.models.area')) -%></h1>
+<div id="content_list">
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong><%= t('activerecord.attributes.area.name') -%>:</strong>
+  <%= @area.name -%>
+</p>
+<p>
+  <strong><%= t('activerecord.attributes.area.address') -%>:</strong>
+  <%= @area.address -%>
+</p>
+<p>
+  <strong><%= t('page.created_at') -%>:</strong>
+  <%= l(@area.created_at) -%>
+</p>
+<p>
+  <strong><%= t('page.updated_at') -%>:</strong>
+  <%= l(@area.updated_at) -%>
+</p>
+
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all">
+  <ul>
+    <li><%= link_to t('page.back'), areas_path -%></li>
+    <li><%= link_to t('page.edit'), edit_area_path(@area) -%></li>
+    <li><%= link_to t('page.destroy'), @area, :confirm => t('page.are_you_sure'), :method => :delete -%></li>
+  </ul>
+</div>

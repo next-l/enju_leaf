@@ -95,6 +95,7 @@ ja:
       message_request: メッセージの送信リクエスト
       answer: 回答
       bookstore: 書店
+      area: 地区
       checkout_type: 貸出区分
       classification_type: 分類型
       country: 国と地域
@@ -827,6 +828,9 @@ ja:
         url: URL
         position: 位置
         deleted_at: 削除時刻
+      area:
+        name: 地区名   
+        address: 住所
       checkout_type:
         name: 名前
         display_name: 表示名

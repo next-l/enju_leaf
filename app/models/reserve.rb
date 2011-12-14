@@ -333,7 +333,7 @@ class Reserve < ActiveRecord::Base
   end
 
   def self.states
-    @states = ['requested', 'retained', 'completed', 'canceled', 'expired']
+    @states = ['requested', 'retained', 'in_process', 'completed', 'canceled', 'expired']
     return @states
   end
 
