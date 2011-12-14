@@ -56,6 +56,9 @@
     <%- if can? :update, @question -%>
       <li><%= link_to t('page.edit'), edit_question_path(@question) -%></li>
     <%- end -%>
+    <%- if can? :destroy, @question -%>
+      <li><%= link_to t('page.destroy'), @question, :confirm => t('page.are_you_sure'), :method => :delete -%></li>
+    <%- end -%>
     <li><%= link_to t('page.back'), questions_path -%></li>
     <li><%= link_to 'レファレンス協同データベース用XMLファイル', question_path(@question, :mode => 'crd', :format => 'xml') -%></li>
   </ul>
