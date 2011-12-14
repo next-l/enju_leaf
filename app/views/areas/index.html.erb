@@ -13,7 +13,7 @@
 <%- @areas.each do |area| -%>
   <tr class="line<%= cycle("0", "1") -%>">
     <td><%= link_to area.id, area -%></td>
-    <td><%= area.name -%></td>
+    <td><%= link_to area.name, area -%></td>
     <td><%= area.address -%></td>
     <td>
       <%= link_to image_tag('icons/page_white_edit.png', :size => '16x16', :alt => t('page.edit'), :title => t('tooltip.edit')), edit_area_path(area) -%>
@@ -31,5 +31,6 @@
 <div id="submenu" class="ui-corner-all">
   <ul>
     <li><%= link_to t('page.new', :model => t('activerecord.models.area')), new_area_path -%></li>
+    <%= render 'page/iconmenu' if user_signed_in? and current_user.has_role?('User') -%>
   </ul>
 </div>
