@@ -1,0 +1,20 @@
+<div id="content_detail" class="ui-corner-all">
+  <h1 class="title"><%= t('inter_library_loan.pickup_item') -%></h1>
+  <div id="content_list">
+    <p id="notice"><%= notice %></p>
+    <div id="puckup_item_list">
+      <%= form_for :inter_library_loan, :url => {:controller => 'inter_library_loans', :action => :pickup_item}, :html => {:method => :post}, :remote => true do -%>
+        <p>
+          <%= t('activerecord.attributes.item.item_identifier') -%>: <%= text_field_tag :item_identifier -%>
+          <%= submit_tag t('page.read') -%>
+        </p>
+      <%- end -%>
+    </div>
+  </div>
+</div>
+
+<div id="submenu" class="ui-corner-all">
+  <ul>
+    <li><%= link_to t('page.back'), inter_library_loans_path -%></li>
+  </ul>
+</div>

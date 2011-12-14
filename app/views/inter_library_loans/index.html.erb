@@ -46,6 +46,8 @@
     <%- if can? :create, InterLibraryLoan -%>
       <li><%= link_to t('page.new', :model => t('activerecord.models.inter_library_loan')), new_inter_library_loan_path -%></li>
     <%- end -%>
-    <li><%= link_to t('page.output', :model => t('inter_library_loan.loan_lists')), {:action => :export_loan_lists} -%></li>
+    <li><%= link_to t('page.output', :model => t('inter_library_loan.loan_lists')), {:action => :export_loan_lists}, {:method => :post} -%></li>
+    <li><%= link_to t('inter_library_loan.pickup_item'), {:action => :pickup}, {:method => :post} -%></li>
+    <li><%= link_to t('inter_library_loan.accept_item'), {:action => :accept}, {:method => :post} -%></li>
   </ul>
 </div>

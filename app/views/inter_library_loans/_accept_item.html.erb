@@ -1,0 +1,5 @@
+<tr id="item_<%= @item.id -%>" class="line<%= cycle("0", "1") -%>">
+  <td><%= render 'manifestations/show_index', :manifestation => @item.manifestation -%></td>
+  <td><%= link_to @item.item_identifier, @item -%></td>
+  <td><%= @item.note -%></td>
+</tr>

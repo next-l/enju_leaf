@@ -185,4 +185,61 @@ class InterLibraryLoansController < ApplicationController
     end
   end
 
+  def pickup
+  end
+
+  def pickup_item
+    library = current_user.library
+    item_identifier = params[:item_identifier].strip
+    @pickup_item = Item.where(:item_identifier => item_identifier).first
+    @loan = InterLibraryLoan.find(:first, :conditions => ['item_id = ?', @pickup_item.id])
+    begin
+      # pick up item
+      @pickup_item.circulation_status = CirculationStatus.find(:first, :conditions => ['name = ?', "In Transit Between Library Locations"])  
+      @pickup_item.save
+      @loan.shipped_at = Time.zone.now
+      @loan.sm_ship!
+      @loan.save
+
+      # export receipt for transportation
+      report = ThinReports::Report.new :layout => "#{Rails.root.to_s}/app/views/inter_library_loans/move_item"
+      report.start_new_page
+      report.page.item(:title).value(@pickup_item.manifestation.original_title)
+      report.page.item(:call_number).value(@pickup_item.call_number)
+      report.page.item(:from_library).value(@pickup_item.shelf.library.display_name.localize)
+      
+      send_data report.generate, :filename => "loan_item_#{@pickup_item.item_identifier}.pdf", :type => 'application/pdf', :disposition => 'attachment'
+      logger.error "created report: #{Time.now}"
+      return true
+    rescue Exception => e
+      logger.error "failed #{e}"
+      return false
+    end
+  end
+
+  def accept
+  end
+
+  def accept_item
+    return nil unless request.xhr?
+    library = current_user.library
+    item_identifier = params[:item_identifier]
+    @item = Item.where(:item_identifier => item_identifier).first
+    @loan = InterLibraryLoan.find(:first, :conditions => ['item_id = ?', @item.id])
+    if @item.nil? && @loan.nil?
+      flash[:message] = t('inter_library_loan.no_item')
+      redirect_to :action => :accept
+    end
+    InterLibraryLoan.transaction do
+      @item.retain_item!
+      @loan.received_at = Time.zone.now
+      @loan.sm_receive!
+      @loan.save
+    end
+    if @item
+      html = render_to_string :partial => "accept_item"
+      render :json => {:success => 1, :html => html}
+    end
+  end
+
 end

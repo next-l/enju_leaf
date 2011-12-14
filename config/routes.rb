@@ -187,8 +187,12 @@ EnjuLeaf::Application.routes.draw do
   resources :orders
 
   resources :inter_library_loans do
-    get :export_loan_lists, :on => :collection
-    get :get_loan_lists, :on => :collection
+    post :export_loan_lists, :on => :collection
+    post :get_loan_lists, :on => :collection
+    post :pickup, :on => :collection
+    post :pickup_item, :on => :collection
+    post :accept, :on => :collection
+    get :accept_item, :on => :collection
   end
 
   resources :baskets do

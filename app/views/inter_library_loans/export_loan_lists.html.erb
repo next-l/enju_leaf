@@ -2,7 +2,7 @@
 <h1 class="title"><%= t('page.output', :model => t('inter_library_loan.loan_lists')) -%></h1>
 <div id="content_list">
 <div style="color: green"><%= flash[:message] -%></div>
-<%= form_for(:inter_library_loan, :url => {:controller => 'inter_library_loans', :action => :get_loan_lists}, :html => {:multipart => true, :method => 'get'}) do |f| -%>
+<%= form_for(:inter_library_loan, :url => {:controller => 'inter_library_loans', :action => :get_loan_lists}, :html => {:multipart => true, :method => 'post'}) do |f| -%>
   <div class="field">
     <%= label :library, t('inter_library_loan.original_library') -%>:<br />
     <div>
@@ -23,6 +23,7 @@
 <div id="submenu" class="ui-corner-all">
   <ul>
     <li><%= link_to t('page.back'), inter_library_loans_path -%></li>
+    <li><%= link_to t('inter_library_loan.pickup_item'), {:action => :pickup}, {:method => :post} -%></li>
   </ul>
 </div>
 
