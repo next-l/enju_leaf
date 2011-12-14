@@ -95,6 +95,7 @@ ja:
       message_request: メッセージの送信リクエスト
       answer: 回答
       bookstore: 書店
+      area: 地区
       checkout_type: 貸出区分
       classification_type: 分類型
       country: 国と地域
@@ -335,7 +336,7 @@ ja:
         activation_code: 活性化コード
         activated_at: 登録時刻
         expired_at: 有効期限
-        locked: 利用不可
+        locked: 利用禁止
         confirmed: 確認済み
         approved: 承認済み
         checkout_icalendar_token: 貸出iCalendarのトークン
@@ -366,8 +367,8 @@ ja:
         disp_user_info: 利用者情報を表示する
         show_user: 利用者の表示
         unable: 連絡不能
-        locked_yes: 可能
-        locked_no: 不能
+        locked_yes: 利用可能
+        locked_no: 利用禁止
         unable_yes: 可能
         unable_no: 不能
       work_has_subject:
@@ -397,6 +398,7 @@ ja:
         return_shipped_at: 返却発送時刻
         return_received_at: 返却受取時刻
         deleted_at: 削除時刻
+        borrowing_library: 受取図書館
         state: 状態
       message:
         subject: 件名
@@ -826,6 +828,9 @@ ja:
         url: URL
         position: 位置
         deleted_at: 削除時刻
+      area:
+        name: 地区名   
+        address: 住所
       checkout_type:
         name: 名前
         display_name: 表示名
@@ -1857,3 +1862,6 @@ ja:
     original_library: 移動元図書館
     checkout: 貸出
     checkin: 返却
+    pickup_item: 発送準備
+    accept_item: 受取処理
+    no_item: 該当資料が見つかりません。

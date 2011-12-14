@@ -277,7 +277,7 @@ class ReservesController < ApplicationController
 
   def output_list
     if params[:state].blank? || params[:library].blank? || params[:method].blank? || params[:expired_at].blank?
-      redirect_to :back, :notice => t('item_list.no_list_condition')
+      redirect_to :back, :flash => {:reserve_notice => t('item_list.no_list_condition')}
       return
     end
 

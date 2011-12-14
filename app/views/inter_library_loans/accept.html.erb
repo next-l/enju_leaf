@@ -1,0 +1,50 @@
+<script>
+  function accept_item(){
+    var item_identifier = $("#item_identifier").val().replace(/^\s+|\s+$/g, ""); 
+    var library_id = $("#library_id").val();
+    $.ajax({
+      type: "GET",
+      url: "<%= url_for(:controller => :inter_library_loans, :action => :accept_item) -%>",
+      data: {"item_identifier": item_identifier, "library_id": library_id},
+      success: function(obj){
+        if(obj.success){
+          $("#accept_item_list").append(obj.html);
+          return true;
+        }
+      }
+    });
+    return false;
+  }
+</script>
+
+<div id="content_detail" class="ui-corner-all">
+  <h1 class="title"><%= t('inter_library_loan.accept_item') -%></h1>
+  <div id="content_list">
+    <p id="notice"><%= notice %></p>
+    <div>
+      <div style="color: red"><%= flash[:message] -%></div>
+        <%= form_for :inter_library_loan, :url => {:controller => 'inter_library_loans', :action => :accept_item}, :html => {:method => :post}, :remote => true do -%>
+          <p>
+            <%= t('activerecord.attributes.item.item_identifier') -%>: <%= text_field_tag :item_identifier -%>
+            <%= submit_tag t('page.read'), {:type => 'button', :onclick => "accept_item();"} -%>
+          </p>
+        <%- end -%>
+        <%= javascript_tag("$('#inter_library_loan_item_identifier').focus()") -%>
+
+        <table id="accept_item_list" class="index">
+          <tr>
+            <th><%= t('page.title') -%></th>
+            <th><%= t('activerecord.attributes.item.item_identifier') -%></th>
+            <th><%= t('activerecord.attributes.item.note') -%></th>
+          </tr>
+          <%= render :partial => "accept_item", :collection => @items -%>
+        </table>
+    </div>
+  </div>
+</div>
+
+<div id="submenu" class="ui-corner-all">
+  <ul>
+    <li><%= link_to t('page.back'), inter_library_loans_path -%></li>
+  </ul>
+</div>

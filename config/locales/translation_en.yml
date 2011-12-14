@@ -95,6 +95,7 @@ en:
       message_request: Message request
       answer: Answer
       bookstore: Bookstore
+      area: Area
       checkout_type: Checkout type
       classification_type: Classification type
       country: Country
@@ -780,6 +781,9 @@ en:
         url: URL
         position: Position
         deleted_at: Deleted at
+      area:
+        name: Name
+        address: Address
       checkout_type:
         name: Name
         display_name: Display name

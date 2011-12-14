@@ -1240,7 +1240,7 @@ class Statistic < ActiveRecord::Base
       delimi = library.call_number_delimiter
       delimi = '|' if delimi.nil? || delimi.empty?
       # if you change the rule to scan, modify "# items each call_numbers" above too
-      call_numbers << Item.joins(:shelf).where(["shelves.library_id = ?", library.id]).inject([]) {|nums, item| nums << item.call_number.split(delimi)[1]}.compact
+      call_numbers << Item.joins(:shelf).where(["shelves.library_id = ?", library.id]).inject([]) {|nums, item| nums << item.call_number.split(delimi)[1] unless item.call_number.nil?; nums}.compact
     end
     return call_numbers.flatten.uniq!
   end

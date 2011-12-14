@@ -26,7 +26,7 @@ class Reserve < ActiveRecord::Base
   belongs_to :request_status_type
 
   validates_associated :user, :librarian, :item, :request_status_type, :manifestation
-  validates_presence_of :user, :manifestation, :request_status_type #, :expired_at
+  validates_presence_of :user, :manifestation, :request_status_type, :expired_at
   #validates_uniqueness_of :manifestation_id, :scope => :user_id
   validates_date :expired_at, :allow_blank => true
   validate :manifestation_must_include_item
@@ -87,11 +87,11 @@ class Reserve < ActiveRecord::Base
   def set_expired_at
     if self.user and self.manifestation
       if self.canceled_at.blank?
-        if self.expired_at.blank?
-          expired_period = self.manifestation.reservation_expired_period(self.user)
-          self.expired_at = (expired_period + 1).days.from_now.beginning_of_day
-        elsif self.expired_at.beginning_of_day < Time.zone.now
-          errors[:base] << I18n.t('reserve.invalid_date')
+        #if self.expired_at.blank?
+        #  expired_period = self.manifestation.reservation_expired_period(self.user)
+        #  self.expired_at = (expired_period + 1).days.from_now.beginning_of_day
+        unless expired_at.blank?
+          errors[:base] << I18n.t('reserve.invalid_date') if self.expired_at.beginning_of_day < Time.zone.now
         end
       end
     end
@@ -333,7 +333,7 @@ class Reserve < ActiveRecord::Base
   end
 
   def self.states
-    @states = ['requested', 'retained', 'completed', 'canceled', 'expired']
+    @states = ['requested', 'retained', 'in_process', 'completed', 'canceled', 'expired']
     return @states
   end
 
