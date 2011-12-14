@@ -227,11 +227,17 @@ class InterLibraryLoansController < ApplicationController
     @item = Item.where(:item_identifier => item_identifier).first
     @loan = InterLibraryLoan.find(:first, :conditions => ['item_id = ?', @item.id])
     if @item.nil? && @loan.nil?
-      flash[:message] = t('inter_library_loan.no_item')
-      redirect_to :action => :accept
+      unless (@loan.reason == 1 && @loan.borrowing_library_id == library.id) && (@loan.reason == 2 && @item.shelf.library.id == lirary.id)
+        return false
+      end
     end
     InterLibraryLoan.transaction do
-      @item.retain_item!
+      @reserve = Reserve.waiting.find(:first, :conditions => ["item_id = ? AND state = ? AND receipt_library_id = ?", @item.id, "in_process", library.id])
+      if @reserve
+        @reserve.sm_retain!
+      else
+        @item.checkin!
+      end
       @loan.received_at = Time.zone.now
       @loan.sm_receive!
       @loan.save

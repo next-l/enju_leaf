@@ -1861,3 +1861,4 @@ ja:
     pickup_item: 発送準備
     accept_item: 受取処理
     no_item: 該当資料が見つかりません。
+    wrong_library: この図書館に貸し出された資料ではありません。
