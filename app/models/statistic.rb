@@ -1192,6 +1192,8 @@ class Statistic < ActiveRecord::Base
   end
 
   def self.calc_sum(date = nil, monthly = false)
+    s =  "start calc_sum #{Time.now} parameter date=#{date} monthly=#{monthly}"
+    puts s ; logger.info s
     if monthly # monthly calculate data each month
       unless date.length == 6
         p "input YYYYMM" 
@@ -1226,7 +1228,8 @@ class Statistic < ActiveRecord::Base
     end
     rescue Exception => e
       p "Failed to start calculation: #{e}"
-      logger.error "Failed to start calculation: #{e}"
+      logger.fatal "Failed to start calculation: #{e}"
+      logger.fatal e.backtrace.join("\n")
   end
 
   def check_record
