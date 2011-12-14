@@ -238,6 +238,7 @@ EnjuLeaf::Application.routes.draw do
   resources :bookstores do
     resources :order_lists
   end
+  resources :areas
 
   resources :user_has_roles, :only => [:index, :show]
 
