@@ -202,8 +202,9 @@ class Statistic < ActiveRecord::Base
       end
     end
     rescue Exception => e
-      p "Failed to calculate items: #{e}"
-      logger.error "Failed to calculate items: #{e}"
+      s = "Failed to calculate items: #{e}"
+      puts s ; logger.fatal s
+      logger.fatal e.backtrace.join("\n")
   end
 
   def self.calc_missing_items(start_at, end_at, term_id)
