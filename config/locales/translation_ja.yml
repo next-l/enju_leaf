@@ -397,6 +397,7 @@ ja:
         return_shipped_at: 返却発送時刻
         return_received_at: 返却受取時刻
         deleted_at: 削除時刻
+        borrowing_library: 受取図書館
         state: 状態
       message:
         subject: 件名
@@ -1855,3 +1856,6 @@ ja:
     original_library: 移動元図書館
     checkout: 貸出
     checkin: 返却
+    pickup_item: 発送準備
+    accept_item: 受取処理
+    no_item: 該当資料が見つかりません。
