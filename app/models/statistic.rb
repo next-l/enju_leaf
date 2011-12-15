@@ -213,13 +213,13 @@ class Statistic < ActiveRecord::Base
      p "statistics of missing items  #{start_at} - #{end_at}"
   
       data_type = term_id.to_s + 11.to_s
-      missing_state_id = CirculationStatus.where(:name => 'Missing').first.id
+      missing_state_ids = CirculationStatus.where(['name = ? OR name = ?', 'Missing', 'Circulation Status Undefined']).inject([]){|ids, data| ids << data.id}
       # all libraries
       statistic = Statistic.new
       set_date(statistic, end_at, term_id)
       statistic.data_type = data_type
       statistic.option = 1
-      statistic.value = Item.count_by_sql(["select count(*) from items where circulation_status_id = ? AND created_at >= ? AND created_at  < ?", missing_state_id, start_at, end_at])
+      statistic.value = Item.count_by_sql(["select count(*) from items where circulation_status_id IN (?) AND created_at >= ? AND created_at  < ?", missing_state_ids, start_at, end_at])
       statistic.save! if statistic.value > 0
       # each libraries
       @libraries.each do |library|
@@ -228,7 +228,7 @@ class Statistic < ActiveRecord::Base
         statistic.data_type = data_type
         statistic.option = 1
         statistic.library = library
-        statistic.value = statistic.value = Item.count_by_sql(["select count(items) from items, shelves, libraries where items.shelf_id = shelves.id AND libraries.id = shelves.library_id AND items.circulation_status_id = ? AND libraries.id = ? AND items.created_at >= ? AND items.created_at < ?", missing_state_id, library.id, start_at, end_at])
+        statistic.value = statistic.value = Item.count_by_sql(["select count(items) from items, shelves, libraries where items.shelf_id = shelves.id AND libraries.id = shelves.library_id AND items.circulation_status_id IN (?) AND libraries.id = ? AND items.created_at >= ? AND items.created_at < ?", missing_state_ids, library.id, start_at, end_at])
         statistic.save! if statistic.value > 0
       end
 
