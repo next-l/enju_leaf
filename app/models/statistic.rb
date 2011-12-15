@@ -11,6 +11,7 @@ class Statistic < ActiveRecord::Base
   @adult_ids = User.adults.inject([]){|ids, user| ids << user.id}
   @student_ids = User.students.inject([]){|ids, user| ids << user.id}
   @children_ids = User.children.inject([]){|ids, user| ids << user.id}
+  @librarian_ids = User.librarians.inject([]){|ids, user| ids << user.id}
   before_validation :check_record
   scope :no_condition, where(:checkout_type_id => nil, :shelf_id => nil, :ndc => nil, :call_number => nil, :age => nil, :option => 0)
 
@@ -441,12 +442,26 @@ class Statistic < ActiveRecord::Base
     Statistic.transaction do
 #      p "statistics of reserves  #{start_at} - #{end_at}"
 
-      # reserves 330
+      # reserves 33
       data_type = term_id.to_s + 33.to_s
       statistic = Statistic.new
       set_date(statistic, start_at, term_id)
       statistic.data_type = data_type
       statistic.value = Reserve.count_by_sql(["select count(*) from reserves where created_at >= ? AND created_at  < ?", start_at, end_at])
+      statistic.save! if statistic.value > 0
+      # reserves on counter by Librarian 33 option: 1
+      statistic = Statistic.new
+      set_date(statistic, start_at, term_id)
+      statistic.data_type = data_type
+      statistic.option = 1
+      statistic.value = Reserve.count_by_sql(["select count(*) from reserves where created_at >= ? AND created_at  < ? AND created_by IN (?)", start_at, end_at, @librarian_ids])
+      statistic.save! if statistic.value > 0
+      # reserves from OPAC by user  33 option: 2
+      statistic = Statistic.new
+      set_date(statistic, start_at, term_id)
+      statistic.data_type = data_type
+      statistic.option = 2
+      statistic.value = Reserve.count_by_sql(["select count(*) from reserves where created_at >= ? AND created_at  < ? AND created_by NOT IN (?)", start_at, end_at, @librarian_ids])
       statistic.save! if statistic.value > 0
 
       @libraries.each do |library|
@@ -455,6 +470,22 @@ class Statistic < ActiveRecord::Base
         statistic.data_type = data_type
         statistic.library_id = library.id
         statistic.value = Reserve.count_by_sql(["select count(*) from reserves, libraries where libraries.id = reserves.receipt_library_id AND libraries.id = ? AND reserves.created_at >= ? AND reserves.created_at < ?", library.id, start_at, end_at])
+        statistic.save! if statistic.value > 0
+        # reserve on counter
+        statistic = Statistic.new
+        set_date(statistic, start_at, term_id)
+        statistic.data_type = data_type
+        statistic.library_id = library.id
+        statistic.option = 1
+        statistic.value = Reserve.count_by_sql(["select count(*) from reserves, libraries where libraries.id = reserves.receipt_library_id AND libraries.id = ? AND reserves.created_at >= ? AND reserves.created_at < ? AND reserves.created_by IN (?)", library.id, start_at, end_at, @librarian_ids])
+        statistic.save! if statistic.value > 0
+        # reserve from OPAC
+        statistic = Statistic.new
+        set_date(statistic, start_at, term_id)
+        statistic.data_type = data_type
+        statistic.library_id = library.id
+        statistic.option = 2
+        statistic.value = Reserve.count_by_sql(["select count(*) from reserves, libraries where libraries.id = reserves.receipt_library_id AND libraries.id = ? AND reserves.created_at >= ? AND reserves.created_at < ? AND reserves.created_by NOT IN (?)", library.id, start_at, end_at, @librarian_ids])
         statistic.save! if statistic.value > 0
       end
     end
@@ -686,9 +717,33 @@ class Statistic < ActiveRecord::Base
     statistic.data_type = 133
     statistic.value = value
     statistic.save! if statistic.value > 0
+    # on counter option: 1
+    datas = Statistic.select(:value).where(:data_type=> '233', :yyyymm => month, :library_id => 0, :option => 1)
+    value = 0
+    datas.each do |data|
+      value = value + data.value
+    end
+    statistic = Statistic.new
+    statistic.yyyymm = month
+    statistic.data_type = 133
+    statistic.option = 1
+    statistic.value = value
+    statistic.save! if statistic.value > 0
+    # from OPAC option: 2
+    datas = Statistic.select(:value).where(:data_type=> '233', :yyyymm => month, :library_id => 0, :option => 2)
+    value = 0
+    datas.each do |data|
+      value = value + data.value
+    end
+    statistic = Statistic.new
+    statistic.yyyymm = month
+    statistic.data_type = 133
+    statistic.option = 2
+    statistic.value = value
+    statistic.save! if statistic.value > 0
 
     @libraries.each do |library|
-      datas = Statistic.select(:value).where(:data_type=> '233', :yyyymm => month, :library_id => library.id)
+      datas = Statistic.select(:value).where(:data_type=> '233', :yyyymm => month, :library_id => library.id, :option => 0)
       value = 0
       datas.each do |data|
         value = value + data.value
@@ -697,6 +752,32 @@ class Statistic < ActiveRecord::Base
       statistic.yyyymm = month
       statistic.data_type = 133
       statistic.library_id = library.id
+      statistic.value = value
+      statistic.save! if statistic.value > 0
+      # on counter
+      datas = Statistic.select(:value).where(:data_type=> '233', :yyyymm => month, :library_id => library.id, :option => 1)
+      value = 0
+      datas.each do |data|
+        value = value + data.value
+      end
+      statistic = Statistic.new
+      statistic.yyyymm = month
+      statistic.data_type = 133
+      statistic.library_id = library.id
+      statistic.option = 1
+      statistic.value = value
+      statistic.save! if statistic.value > 0
+      # from OPAC
+      datas = Statistic.select(:value).where(:data_type=> '233', :yyyymm => month, :library_id => library.id, :option => 2)
+      value = 0
+      datas.each do |data|
+        value = value + data.value
+      end
+      statistic = Statistic.new
+      statistic.yyyymm = month
+      statistic.data_type = 133
+      statistic.library_id = library.id
+      statistic.option = 2
       statistic.value = value
       statistic.save! if statistic.value > 0
     end
@@ -860,9 +941,33 @@ class Statistic < ActiveRecord::Base
     statistic.data_type = 233
     statistic.value = value
     statistic.save! if statistic.value > 0
+    # on counter option: 1
+    datas = Statistic.select(:value).where(:data_type=> '333', :yyyymmdd => date, :library_id => 0, :option => 1)
+    value = 0
+    datas.each do |data|
+      value = value + data.value
+    end
+    statistic = Statistic.new
+    set_date(statistic, date_timestamp, 2)
+    statistic.data_type = 233
+    statistic.option = 1
+    statistic.value = value
+    statistic.save! if statistic.value > 0
+    # from OPAC option: 2
+    datas = Statistic.select(:value).where(:data_type=> '333', :yyyymmdd => date, :library_id => 0, :option => 2)
+    value = 0
+    datas.each do |data|
+      value = value + data.value
+    end
+    statistic = Statistic.new
+    set_date(statistic, date_timestamp, 2)
+    statistic.data_type = 233
+    statistic.option = 2
+    statistic.value = value
+    statistic.save! if statistic.value > 0
 
     @libraries.each do |library|
-      datas = Statistic.select(:value).where(:data_type=> '333', :yyyymmdd => date, :library_id => library.id)
+      datas = Statistic.select(:value).where(:data_type=> '333', :yyyymmdd => date, :library_id => library.id, :option => 0)
       value = 0
       datas.each do |data|
         value = value + data.value
@@ -871,6 +976,32 @@ class Statistic < ActiveRecord::Base
       set_date(statistic, date_timestamp, 2)
       statistic.data_type = 233
       statistic.library_id = library.id
+      statistic.value = value
+      statistic.save! if statistic.value > 0
+      # on counter option: 1
+      datas = Statistic.select(:value).where(:data_type=> '333', :yyyymmdd => date, :library_id => library.id, :option => 1)
+      value = 0
+      datas.each do |data|
+        value = value + data.value
+      end
+      statistic = Statistic.new
+      set_date(statistic, date_timestamp, 2)
+      statistic.data_type = 233
+      statistic.library_id = library.id
+      statistic.option = 1
+      statistic.value = value
+      statistic.save! if statistic.value > 0
+      # from OPAN option: 2
+      datas = Statistic.select(:value).where(:data_type=> '333', :yyyymmdd => date, :library_id => library.id, :option => 2)
+      value = 0
+      datas.each do |data|
+        value = value + data.value
+      end
+      statistic = Statistic.new
+      set_date(statistic, date_timestamp, 2)
+      statistic.data_type = 233
+      statistic.library_id = library.id
+      statistic.option = 2
       statistic.value = value
       statistic.save! if statistic.value > 0
     end
@@ -1141,6 +1272,32 @@ class Statistic < ActiveRecord::Base
         statistic.value = Reserve.count_by_sql([sql, (age.to_s + 0.to_s).to_i, 200, start_at, end_at])
       end
       statistic.save! if statistic.value > 0
+      # on counter option: 1
+      statistic = Statistic.new
+      set_date(statistic, start_at, 1)
+      statistic.data_type = data_type
+      statistic.option = 1
+      statistic.age = age
+      sql = "select count(*) from reserves, users, patrons where reserves.user_id = users.id AND users.id = patrons.user_id AND date_part('year', age(patrons.date_of_birth)) >= ? AND date_part('year', age(patrons.date_of_birth)) <= ? AND reserves.created_at >= ? AND reserves.created_at  <= ? AND reserves.created_by IN (?)"
+      unless age == 7
+        statistic.value = Reserve.count_by_sql([sql, (age.to_s + 0.to_s).to_i, (age.to_s + 9.to_s).to_i, start_at, end_at, @librarian_ids])
+      else
+        statistic.value = Reserve.count_by_sql([sql, (age.to_s + 0.to_s).to_i, 200, start_at, end_at, @librarian_ids])
+      end
+      statistic.save! if statistic.value > 0
+      # from OPAC
+      statistic = Statistic.new
+      set_date(statistic, start_at, 1)
+      statistic.data_type = data_type
+      statistic.option = 2
+      statistic.age = age
+      sql = "select count(*) from reserves, users, patrons where reserves.user_id = users.id AND users.id = patrons.user_id AND date_part('year', age(patrons.date_of_birth)) >= ? AND date_part('year', age(patrons.date_of_birth)) <= ? AND reserves.created_at >= ? AND reserves.created_at  <= ? AND reserves.created_by NOT IN (?)"
+      unless age == 7
+        statistic.value = Reserve.count_by_sql([sql, (age.to_s + 0.to_s).to_i, (age.to_s + 9.to_s).to_i, start_at, end_at, @librarian_ids])
+      else
+        statistic.value = Reserve.count_by_sql([sql, (age.to_s + 0.to_s).to_i, 200, start_at, end_at, @librarian_ids])
+      end
+      statistic.save! if statistic.value > 0
     end
     @libraries.each do |library|
       8.times do |age|
@@ -1154,6 +1311,34 @@ class Statistic < ActiveRecord::Base
           statistic.value = Reserve.count_by_sql([sql, library.id, (age.to_s + 0.to_s).to_i, (age.to_s + 9.to_s).to_i, start_at, end_at])
         else
           statistic.value = Reserve.count_by_sql([sql, library.id, (age.to_s + 0.to_s).to_i, 200, start_at, end_at])
+        end
+        statistic.save! if statistic.value > 0
+        # on counter
+        statistic = Statistic.new
+        set_date(statistic, start_at, 1)
+        statistic.data_type = data_type
+        statistic.option = 1
+        statistic.age = age
+        statistic.library_id = library.id
+        sql = "select count(*) from reserves, users, patrons, libraries where reserves.user_id = users.id AND users.id = patrons.user_id AND users.library_id = libraries.id AND libraries.id = ? AND date_part('year', age(patrons.date_of_birth)) >= ? AND date_part('year', age(patrons.date_of_birth)) <= ? AND reserves.created_at >= ? AND reserves.created_at  <= ? AND reserves.created_by IN (?)"       
+        unless age == 7
+          statistic.value = Reserve.count_by_sql([sql, library.id, (age.to_s + 0.to_s).to_i, (age.to_s + 9.to_s).to_i, start_at, end_at, @librarian_ids])
+        else
+          statistic.value = Reserve.count_by_sql([sql, library.id, (age.to_s + 0.to_s).to_i, 200, start_at, end_at, @librarian_ids])
+        end
+        statistic.save! if statistic.value > 0
+        # from OPAC
+        statistic = Statistic.new
+        set_date(statistic, start_at, 1)
+        statistic.data_type = data_type
+        statistic.option = 2
+        statistic.age = age
+        statistic.library_id = library.id
+        sql = "select count(*) from reserves, users, patrons, libraries where reserves.user_id = users.id AND users.id = patrons.user_id AND users.library_id = libraries.id AND libraries.id = ? AND date_part('year', age(patrons.date_of_birth)) >= ? AND date_part('year', age(patrons.date_of_birth)) <= ? AND reserves.created_at >= ? AND reserves.created_at  <= ? AND reserves.created_by NOT IN (?)"       
+        unless age == 7
+          statistic.value = Reserve.count_by_sql([sql, library.id, (age.to_s + 0.to_s).to_i, (age.to_s + 9.to_s).to_i, start_at, end_at, @librarian_ids])
+        else
+          statistic.value = Reserve.count_by_sql([sql, library.id, (age.to_s + 0.to_s).to_i, 200, start_at, end_at, @librarian_ids])
         end
         statistic.save! if statistic.value > 0
       end

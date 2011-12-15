@@ -1824,6 +1824,8 @@ ja:
     locked_users: (利用停止)
     user_provisional: (仮登録)
     reserves: 予約件数
+    on_counter: (窓口)
+    from_opac: (OPAC)
     questions: レファレンス数    
     date: 日
     hour: 時

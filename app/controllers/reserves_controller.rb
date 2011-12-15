@@ -138,6 +138,7 @@ class ReservesController < ApplicationController
  
     @reserve = Reserve.new(params[:reserve])
     @reserve.user = user
+    @reserve.created_by = current_user.id
 
     respond_to do |format|
       if @reserve.save

@@ -620,7 +620,37 @@ class StatisticReportsController < ApplicationController
           sum = sum + value
         end  
         row.item("valueall").value(sum)
-	row.item(:library_line).show
+      end
+      # reserves on counter all libraries
+      report.page.list(:list).add_row do |row|
+        row.item(:option).value(t('statistic_report.on_counter'))
+        sum = 0
+        12.times do |t|
+          if t < 4 # for Japanese fiscal year
+            value = Statistic.where(:yyyymm => "#{term.to_i + 1}#{"%02d" % (t + 1)}", :data_type => 133, :library_id => 0, :option => 1, :age => nil).first.value rescue 0
+          else
+            value = Statistic.where(:yyyymm => "#{term}#{"%02d" % (t + 1)}", :data_type => 133, :library_id => 0, :option => 1, :age => nil).first.value rescue 0
+          end
+          row.item("value#{t+1}").value(value)
+          sum = sum + value
+        end
+        row.item("valueall").value(sum)
+      end
+      # reserves from OPAC all libraries
+      report.page.list(:list).add_row do |row|
+        row.item(:option).value(t('statistic_report.from_opac'))
+        sum = 0
+        12.times do |t|
+          if t < 4 # for Japanese fiscal year
+            value = Statistic.where(:yyyymm => "#{term.to_i + 1}#{"%02d" % (t + 1)}", :data_type => 133, :library_id => 0, :option => 2, :age => nil).first.value rescue 0
+          else
+            value = Statistic.where(:yyyymm => "#{term}#{"%02d" % (t + 1)}", :data_type => 133, :library_id => 0, :option => 2, :age => nil).first.value rescue 0
+          end
+          row.item("value#{t+1}").value(value)
+          sum = sum + value
+        end
+        row.item("valueall").value(sum)
+        row.item(:library_line).show
       end
       # reserves each library
       libraries.each do |library|
@@ -636,6 +666,37 @@ class StatisticReportsController < ApplicationController
             row.item("value#{t+1}").value(value)
             sum = sum + value
           end  
+          row.item("valueall").value(sum)
+        end
+        # reserves on counter each libraries
+        report.page.list(:list).add_row do |row|
+          row.item(:option).value(t('statistic_report.on_counter'))
+          sum = 0
+          12.times do |t|
+            if t < 4 # for Japanese fiscal year
+              value = Statistic.where(:yyyymm => "#{term.to_i + 1}#{"%02d" % (t + 1)}", :data_type => 133, :library_id => library.id, :option => 1, :age => nil).first.value rescue 0
+            else
+              value = Statistic.where(:yyyymm => "#{term}#{"%02d" % (t + 1)}", :data_type => 133, :library_id => library.id, :option => 1, :age => nil).first.value rescue 0
+            end
+            logger.error "#{term}#{"%02d" % (t + 1)}"
+            row.item("value#{t+1}").value(value)
+            sum = sum + value
+          end
+          row.item("valueall").value(sum)
+        end
+        # reserves from OPAC each libraries
+        report.page.list(:list).add_row do |row|
+          row.item(:option).value(t('statistic_report.from_opac'))
+          sum = 0
+          12.times do |t|
+            if t < 4 # for Japanese fiscal year
+              value = Statistic.where(:yyyymm => "#{term.to_i + 1}#{"%02d" % (t + 1)}", :data_type => 133, :library_id => library.id, :option => 2, :age => nil).first.value rescue 0
+            else
+              value = Statistic.where(:yyyymm => "#{term}#{"%02d" % (t + 1)}", :data_type => 133, :library_id => library.id, :option => 2, :age => nil).first.value rescue 0
+            end
+            row.item("value#{t+1}").value(value)
+            sum = sum + value
+          end
           row.item("valueall").value(sum)
           row.item(:library_line).show
           line(row) if library == libraries.last

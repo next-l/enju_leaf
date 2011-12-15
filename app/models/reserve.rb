@@ -26,7 +26,7 @@ class Reserve < ActiveRecord::Base
   belongs_to :request_status_type
 
   validates_associated :user, :librarian, :item, :request_status_type, :manifestation
-  validates_presence_of :user, :manifestation, :request_status_type, :expired_at
+  validates_presence_of :user, :manifestation, :request_status_type, :expired_at, :created_by
   #validates_uniqueness_of :manifestation_id, :scope => :user_id
   validates_date :expired_at, :allow_blank => true
   validate :manifestation_must_include_item
@@ -342,6 +342,7 @@ class Reserve < ActiveRecord::Base
     return true if ['requested', 'retained'].include?(self.state)
     false 
   end
+ 
 end
 
 # == Schema Information
