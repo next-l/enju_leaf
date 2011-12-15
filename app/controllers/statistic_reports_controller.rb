@@ -678,7 +678,6 @@ class StatisticReportsController < ApplicationController
             else
               value = Statistic.where(:yyyymm => "#{term}#{"%02d" % (t + 1)}", :data_type => 133, :library_id => library.id, :option => 1, :age => nil).first.value rescue 0
             end
-            logger.error "#{term}#{"%02d" % (t + 1)}"
             row.item("value#{t+1}").value(value)
             sum = sum + value
           end
@@ -734,6 +733,27 @@ class StatisticReportsController < ApplicationController
             row.item("value#{t+1}").value(value)
             sum = sum + value
           end  
+          row.item("valueall").value(sum)
+          row.item(:library_line).show
+          line(row) if library == libraries.last
+        end
+      end
+      # consultations of each libraries
+      libraries.each do |library|
+        report.page.list(:list).add_row do |row|
+          row.item(:type).value(t('statistic_report.consultations')) if libraries.first == library
+          row.item(:library).value(library.display_name)
+          sum = 0
+          12.times do |t|
+            if t < 4 # for Japanese fiscal year
+              value = Statistic.where(:yyyymm => "#{term.to_i + 1}#{"%02d" % (t + 1)}", :data_type => 114, :library_id => library.id).first.value rescue 0 
+            else
+              value = Statistic.where(:yyyymm => "#{term}#{"%02d" % (t + 1)}", :data_type => 114, :library_id => library.id).first.value rescue 0
+            end
+            logger.error "#{term}#{"%02d" % (t + 1)}"
+            row.item("value#{t+1}").value(value)
+            sum += value
+          end
           row.item("valueall").value(sum)
           row.item(:library_line).show
           line(row) if library == libraries.last
@@ -1215,7 +1235,7 @@ class StatisticReportsController < ApplicationController
           row.item(:library).value(t('statistic_report.all_library'))
           if start_date != 27
             13.times do |t|
-              value = Statistic.where(:yyyymm => "#{term.to_i}#{"%02d" % (t + start_date)}", :data_type => 243, :library_id => 0).no_condition.first.value rescue 0
+              value = Statistic.where(:yyyymmdd => "#{term.to_i}#{"%02d" % (t + start_date)}", :data_type => 243, :library_id => 0).no_condition.first.value rescue 0
               row.item("value##{t+1}").value(value)
             end  
           else
@@ -1238,7 +1258,7 @@ class StatisticReportsController < ApplicationController
             row.item(:library).value(library.display_name)
             if start_date != 27
               13.times do |t|
-                value = Statistic.where(:yyyymm => "#{term.to_i}#{"%02d" % (t + start_date)}", :data_type => 243, :library_id => library.id).no_condition.first.value rescue 0
+                value = Statistic.where(:yyyymmdd => "#{term.to_i}#{"%02d" % (t + start_date)}", :data_type => 243, :library_id => library.id).no_condition.first.value rescue 0
                 row.item("value##{t+1}").value(value)
               end  
             else
@@ -1248,6 +1268,32 @@ class StatisticReportsController < ApplicationController
               end
               sum = 0
               datas = Statistic.where(:yyyymm => term, :data_type => 243, :library_id => library.id).no_condition
+              datas.each do |data|
+                sum = sum + data.value
+              end
+              row.item("value#13").value(sum)
+            end
+            row.item(:library_line).show
+            line(row) if library == libraries.last
+          end
+        end
+        # consultations each library
+        libraries.each do |library|
+          report.page.list(:list).add_row do |row|
+            row.item(:type).value(t('statistic_report.consultations')) if libraries.first == library
+            row.item(:library).value(library.display_name)
+            if start_date != 27
+              13.times do |t|
+                value = Statistic.where(:yyyymmdd => "#{term.to_i}#{"%02d" % (t + start_date)}", :data_type => 214, :library_id => library.id).no_condition.first.value rescue 0
+                row.item("value##{t+1}").value(value)
+              end  
+            else
+              5.times do |t|
+                value = Statistic.where(:yyyymmdd => "#{term.to_i}#{"%02d" % (t + start_date)}", :data_type => 214, :library_id => library.id).no_condition.first.value rescue 0
+                row.item("value##{t+1}").value(value)
+              end
+              sum = 0
+              datas = Statistic.where(:yyyymm => term, :data_type => 214, :library_id => library.id).no_condition
               datas.each do |data|
                 sum = sum + data.value
               end

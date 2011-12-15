@@ -529,6 +529,28 @@ class Statistic < ActiveRecord::Base
     statistic.hour = date.strftime("%H") if term_id == 3
   end
 
+  def self.calc_consultations(start_at, end_at, term_id)
+    Statistic.transaction do
+      p "statistics of consultations  #{start_at} - #{end_at}"
+      @libraries.each do |library|
+        statistic = Statistic.new
+        set_date(statistic, start_at, term_id)
+        statistic.data_type = term_id.to_s + 14.to_s
+        statistic.library_id = library.id
+        datas = LibraryReport.where(['yyyymmdd >= ? AND yyyymmdd <= ? AND library_id = ?', start_at.strftime("%Y%m%d"), end_at.strftime("%Y%m%d"), library.id])
+        value = 0
+        datas.each do |data|
+          value += data.consultations unless data.consultations.nil?
+        end
+        statistic.value = value
+        statistic.save! if statistic.value > 0
+      end
+    end
+    rescue Exception => e
+      p "Failed to calculate consultations statistics: #{e}"
+      logger.error "Failed to calculate consulatations statistics: #{e}"
+  end
+
   def self.calc_monthly_data(month)
     p "start to calculate monthly data: #{month}"
 
@@ -1390,6 +1412,7 @@ class Statistic < ActiveRecord::Base
       calc_items(Time.new('1970-01-01'), date_timestamp.end_of_month, 1)
       calc_missing_items(Time.new('1970-01-01'), date_timestamp.end_of_month, 1)
       calc_age_data(date_timestamp.beginning_of_month, date_timestamp.end_of_month)
+      calc_consultations(date_timestamp.beginning_of_month, date_timestamp.end_of_month, 1)      
       calc_monthly_data(date)
     else # daily calculate data each hour
       if date
@@ -1410,6 +1433,7 @@ class Statistic < ActiveRecord::Base
         calc_questions(date.change(:hour => i), date.change(:hour => i + 1), 3)
         i += 1
       end
+      calc_consultations(date.beginning_of_day, date.end_of_day, 2)
       calc_daily_data(date.strftime("%Y%m%d"))
     end
     rescue Exception => e

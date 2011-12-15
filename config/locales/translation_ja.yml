@@ -1827,6 +1827,7 @@ ja:
     on_counter: (窓口)
     from_opac: (OPAC)
     questions: レファレンス数    
+    consultations: 窓口利用件数
     date: 日
     hour: 時
     sum: 合計
