@@ -400,7 +400,7 @@ GEM
     turn (0.8.3)
       ansi
     tzinfo (0.3.31)
-    uglifier (1.1.0)
+    uglifier (1.2.0)
       execjs (>= 0.3.0)
       multi_json (>= 1.0.2)
     validates_timeliness (3.0.7)
