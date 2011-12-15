@@ -1,8 +1,9 @@
 class InterLibraryLoan < ActiveRecord::Base
-  default_scope :order => "created_at ASC"
+  default_scope :order => "created_at DESC"
   scope :completed, where(:state => 'return_received')
   #scope :processing, lambda {|item, borrowing_library| {:conditions => ['item_id = ? AND borrowing_library_id = ? AND state != ?', item.id, borrowing_library.id, 'return_received']}}
   scope :processing, lambda {|item, borrowing_library| {:conditions => ['item_id = ? AND borrowing_library_id = ?', item.id, borrowing_library.id]}}
+  scope :in_process, :order => "created_at ASC"
 
   belongs_to :item, :validate => true
   #belongs_to :reserve
@@ -93,6 +94,11 @@ class InterLibraryLoan < ActiveRecord::Base
 
   def request_for_reserve(item, borrowing_library)
     self.update_attributes(:item_id => item.id, :borrowing_library_id => borrowing_library.id, :requested_at => Time.zone.now, :reason => 1)
+    self.sm_request! if self.save
+  end
+
+  def request_for_checkin(item, borrowing_library)
+    self.update_attributes(:item_id => item.id, :borrowing_library_id => borrowing_library.id, :requested_at => Time.zone.now, :reason => 2)
     self.sm_request! if self.save
   end
 end

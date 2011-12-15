@@ -620,8 +620,12 @@ class Manifestation < ActiveRecord::Base
     return nil
   end
 
-  def items_ordered_for_retain(lib)
-    items = self.items.for_retain_from_own(lib).concat(self.items.for_retain_from_others(lib)).flatten
+  def items_ordered_for_retain(lib = nil)
+    if lib.nil?
+      items = self.items
+    else
+      items = self.items.for_retain_from_own(lib).concat(self.items.for_retain_from_others(lib)).flatten
+    end
   end
 
 private

@@ -272,7 +272,6 @@ class Reserve < ActiveRecord::Base
   end
 
   def position_update(manifestation)
-    logger.error "reserve position update"
     reserves = Reserve.where(:manifestation_id => manifestation).waiting.order(:position)
     items = manifestation.items_ordered_for_retain.for_checkout
     items.delete_if{|item| !item.available_for_checkout?}
@@ -286,6 +285,8 @@ class Reserve < ActiveRecord::Base
         reserve.save
       end
     end
+    rescue Exception => e
+      logger.error "Failed to update reserve position: #{e}"
   end
 
   # TODO

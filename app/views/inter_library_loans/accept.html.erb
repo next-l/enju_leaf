@@ -5,8 +5,8 @@
       type: "GET",
       url: "<%= url_for(:controller => :inter_library_loans, :action => :accept_item) -%>",
       data: {"item_identifier": item_identifier},
-      error: function(){
-        alert("<%= t('inter_library_loan.wrong_library') -%>");
+     error: function(error){
+        alert(t('inter_library_loan.failed'));
         $("#item_identifier").val("");
       },
       success: function(obj){
@@ -15,6 +15,8 @@
           $("#item_identifier").val("");
           return true;
         }
+        $("#item_identifier").val("");
+        alert(obj.error);
       }
     });
     return false;

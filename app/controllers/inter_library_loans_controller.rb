@@ -192,7 +192,7 @@ class InterLibraryLoansController < ApplicationController
     library = current_user.library
     item_identifier = params[:item_identifier].strip
     @pickup_item = Item.where(:item_identifier => item_identifier).first
-    @loan = InterLibraryLoan.find(:first, :conditions => ['item_id = ?', @pickup_item.id])
+    @loan = InterLibraryLoan.in_process.find(:first, :conditions => ['item_id = ?', @pickup_item.id])
     begin
       # pick up item
       @pickup_item.circulation_status = CirculationStatus.find(:first, :conditions => ['name = ?', "In Transit Between Library Locations"])  
@@ -222,29 +222,36 @@ class InterLibraryLoansController < ApplicationController
 
   def accept_item
     return nil unless request.xhr?
-    library = current_user.library
-    item_identifier = params[:item_identifier]
-    @item = Item.where(:item_identifier => item_identifier).first
-    @loan = InterLibraryLoan.find(:first, :conditions => ['item_id = ?', @item.id])
-    if @item.nil? && @loan.nil?
-      unless (@loan.reason == 1 && @loan.borrowing_library_id == library.id) && (@loan.reason == 2 && @item.shelf.library.id == lirary.id)
+    begin 
+      library = current_user.library
+      item_identifier = params[:item_identifier]
+      @item = Item.where(:item_identifier => item_identifier).first
+      @loan = InterLibraryLoan.in_process.find(:first, :conditions => ['item_id = ? AND received_at IS NULL', @item.id]) if @item
+      if @item.nil? || @loan.nil?
+        render :json => {:error => t('inter_library_loan.no_loan')}
         return false
       end
-    end
-    InterLibraryLoan.transaction do
-      @reserve = Reserve.waiting.find(:first, :conditions => ["item_id = ? AND state = ? AND receipt_library_id = ?", @item.id, "in_process", library.id])
-      if @reserve
-        @reserve.sm_retain!
-      else
-        @item.checkin!
+      unless (@loan.reason == 1 && @loan.borrowing_library_id == library.id) || (@loan.reason == 2 && @item.shelf.library.id == library.id)
+        render :json => {:error => t('inter_library_loan.wrong_library')}
+        return false
       end
-      @loan.received_at = Time.zone.now
-      @loan.sm_receive!
-      @loan.save
-    end
-    if @item
-      html = render_to_string :partial => "accept_item"
-      render :json => {:success => 1, :html => html}
+      InterLibraryLoan.transaction do
+        @reserve = Reserve.waiting.find(:first, :conditions => ["item_id = ? AND state = ? AND receipt_library_id = ?", @item.id, "in_process", library.id])
+        if @reserve
+          @reserve.sm_retain!
+        else
+          @item.checkin!
+        end
+        @loan.received_at = Time.zone.now
+        @loan.sm_receive!
+        @loan.save
+      end
+      if @item
+        html = render_to_string :partial => "accept_item"
+        render :json => {:success => 1, :html => html}
+      end
+    rescue Exception => e
+      logger.error "Failed to accept item: #{e}"
     end
   end
 

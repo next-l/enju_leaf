@@ -24,7 +24,10 @@ class Checkin < ActiveRecord::Base
         checkout.checkin = self
         checkout.save(:validate => false)
         #message << I18n.t('checkin.other_library_item') + '<br />' unless checkout.item.shelf.library == current_user.library
-        message << 'checkin.other_library_item' unless checkout.item.shelf.library == current_user.library
+        unless checkout.item.shelf.library == current_user.library
+          message << 'checkin.other_library_item'
+          InterLibraryLoan.new.request_for_checkin(checkout.item, current_user.library)
+        end
       end
 
       # checkout.user = nil unless checkout.user.save_checkout_history
