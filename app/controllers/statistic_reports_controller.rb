@@ -1083,7 +1083,7 @@ class StatisticReportsController < ApplicationController
           row.item(:library).value(t('statistic_report.all_library'))
           if start_date != 27
             13.times do |t|
-              value = Statistic.where(:yyyymm => "#{term.to_i}#{"%02d" % (t + start_date)}", :data_type => 233, :library_id => 0).no_condition.first.value rescue 0
+              value = Statistic.where(:yyyymmdd => "#{term.to_i}#{"%02d" % (t + start_date)}", :data_type => 233, :library_id => 0).no_condition.first.value rescue 0
               row.item("value##{t+1}").value(value)
             end
           else  
@@ -1098,6 +1098,48 @@ class StatisticReportsController < ApplicationController
             end
             row.item("value#13").value(sum)
           end
+        end
+        # reserves on counter all libraries
+        report.page.list(:list).add_row do |row|
+          row.item(:option).value(t('statistic_report.on_counter'))
+          if start_date != 27
+            13.times do |t|
+              value = Statistic.where(:yyyymmdd => "#{term.to_i}#{"%02d" % (t + start_date)}", :data_type => 233, :library_id => 0, :option => 1).first.value rescue 0
+              row.item("value##{t+1}").value(value)
+            end
+          else  
+            5.times do |t|
+              value = Statistic.where(:yyyymmdd => "#{term.to_i}#{"%02d" % (t + start_date)}", :data_type => 233, :library_id => 0, :option => 1).first.value rescue 0
+              row.item("value##{t+1}").value(value)
+            end
+            sum = 0
+            datas = Statistic.where(:yyyymm => term, :data_type => 233, :library_id => 0, :option => 1)
+            datas.each do |data|
+              sum = sum + data.value
+            end
+            row.item("value#13").value(sum)
+          end
+        end
+        # reserves from OPAC all libraries
+        report.page.list(:list).add_row do |row|
+          row.item(:option).value(t('statistic_report.from_opac'))
+          if start_date != 27
+            13.times do |t|
+              value = Statistic.where(:yyyymmdd => "#{term.to_i}#{"%02d" % (t + start_date)}", :data_type => 233, :library_id => 0, :option => 2).first.value rescue 0
+              row.item("value##{t+1}").value(value)
+            end
+          else  
+            5.times do |t|
+              value = Statistic.where(:yyyymmdd => "#{term.to_i}#{"%02d" % (t + start_date)}", :data_type => 233, :library_id => 0, :option => 2).first.value rescue 0
+              row.item("value##{t+1}").value(value)
+            end
+            sum = 0
+            datas = Statistic.where(:yyyymm => term, :data_type => 233, :library_id => 0, :option => 2)
+            datas.each do |data|
+              sum = sum + data.value
+            end
+            row.item("value#13").value(sum)
+          end
           row.item(:library_line).show
         end
         # reserves each library
@@ -1106,7 +1148,7 @@ class StatisticReportsController < ApplicationController
             row.item(:library).value(library.display_name)
             if start_date != 27
               13.times do |t|
-                value = Statistic.where(:yyyymm => "#{term.to_i}#{"%02d" % (t + start_date)}", :data_type => 233, :library_id => library.id).no_condition.first.value rescue 0
+                value = Statistic.where(:yyyymmdd => "#{term.to_i}#{"%02d" % (t + start_date)}", :data_type => 233, :library_id => library.id).no_condition.first.value rescue 0
                 row.item("value##{t+1}").value(value)
               end
             else  
@@ -1116,6 +1158,48 @@ class StatisticReportsController < ApplicationController
               end
               sum = 0
               datas = Statistic.where(:yyyymm => term, :data_type => 233, :library_id => library.id).no_condition
+              datas.each do |data|
+                sum = sum + data.value
+              end
+              row.item("value#13").value(sum)
+            end
+          end
+          # on counter
+          report.page.list(:list).add_row do |row|
+            row.item(:option).value(t('statistic_report.on_counter'))
+            if start_date != 27
+              13.times do |t|
+                value = Statistic.where(:yyyymmdd => "#{term.to_i}#{"%02d" % (t + start_date)}", :data_type => 233, :library_id => library.id, :option => 1).first.value rescue 0
+                row.item("value##{t+1}").value(value)
+              end
+            else  
+              5.times do |t|
+                value = Statistic.where(:yyyymmdd => "#{term.to_i}#{"%02d" % (t + start_date)}", :data_type => 233, :library_id => library.id, :option => 1).first.value rescue 0
+                row.item("value##{t+1}").value(value)
+              end
+              sum = 0
+              datas = Statistic.where(:yyyymm => term, :data_type => 233, :library_id => library.id, :option => 1)
+              datas.each do |data|
+                sum = sum + data.value
+              end
+              row.item("value#13").value(sum)
+            end
+          end
+          # from OPAC
+          report.page.list(:list).add_row do |row|
+            row.item(:option).value(t('statistic_report.from_opac'))
+            if start_date != 27
+              13.times do |t|
+                value = Statistic.where(:yyyymmdd => "#{term.to_i}#{"%02d" % (t + start_date)}", :data_type => 233, :library_id => library.id, :option => 2).first.value rescue 0
+                row.item("value##{t+1}").value(value)
+              end
+            else  
+              5.times do |t|
+                value = Statistic.where(:yyyymmdd => "#{term.to_i}#{"%02d" % (t + start_date)}", :data_type => 233, :library_id => library.id, :option => 2).first.value rescue 0
+                row.item("value##{t+1}").value(value)
+              end
+              sum = 0
+              datas = Statistic.where(:yyyymm => term, :data_type => 233, :library_id => library.id, :option => 2)
               datas.each do |data|
                 sum = sum + data.value
               end
@@ -1394,6 +1478,36 @@ class StatisticReportsController < ApplicationController
           row.item("value##{t+1}").value(value)
         end
         row.item("value#13").value(sum)  
+      end
+      # reserves on counter all libraries
+      report.page.list(:list).add_row do |row|
+        row.item(:option).value(t('statistic_report.on_counter'))
+        sum = 0
+        hours.times do |t|
+          value = 0
+          datas = Statistic.where(["yyyymm >= #{start_at} AND yyyymm <= #{end_at} AND data_type = 333 AND library_id = ? AND hour = ? AND option = 1 AND age IS NULL", 0, t+open])
+          datas.each do |data|
+            value = value + data.value
+          end
+          sum = sum + value
+          row.item("value##{t+1}").value(value)
+        end
+        row.item("value#13").value(sum)  
+      end
+      # reserves from OPAC all libraries
+      report.page.list(:list).add_row do |row|
+        row.item(:option).value(t('statistic_report.from_opac'))
+        sum = 0
+        hours.times do |t|
+          value = 0
+          datas = Statistic.where(["yyyymm >= #{start_at} AND yyyymm <= #{end_at} AND data_type = 333 AND library_id = ? AND hour = ? AND option = 2 AND age IS NULL", 0, t+open])
+          datas.each do |data|
+            value = value + data.value
+          end
+          sum = sum + value
+          row.item("value##{t+1}").value(value)
+        end
+        row.item("value#13").value(sum)  
         row.item(:library_line).show
       end
       # reserves each libraries
@@ -1404,6 +1518,36 @@ class StatisticReportsController < ApplicationController
           hours.times do |t|
             value = 0
             datas = Statistic.where(["yyyymm >= #{start_at} AND yyyymm <= #{end_at} AND data_type = 333 AND library_id = ? AND hour = ?", library.id, t+open]).no_condition
+            datas.each do |data|
+              value = value + data.value
+            end
+            sum = sum + value
+            row.item("value##{t+1}").value(value)
+          end
+          row.item("value#13").value(sum)
+        end
+        # on counter
+        sum = 0
+        report.page.list(:list).add_row do |row|
+          row.item(:option).value(t('statistic_report.on_counter'))
+          hours.times do |t|
+            value = 0
+            datas = Statistic.where(["yyyymm >= #{start_at} AND yyyymm <= #{end_at} AND data_type = 333 AND library_id = ? AND hour = ? AND option = 1 AND age IS NULL", library.id, t+open])
+            datas.each do |data|
+              value = value + data.value
+            end
+            sum = sum + value
+            row.item("value##{t+1}").value(value)
+          end
+          row.item("value#13").value(sum)
+        end
+        # from OPAC
+        sum = 0
+        report.page.list(:list).add_row do |row|
+          row.item(:option).value(t('statistic_report.from_opac'))
+          hours.times do |t|
+            value = 0
+            datas = Statistic.where(["yyyymm >= #{start_at} AND yyyymm <= #{end_at} AND data_type = 333 AND library_id = ? AND hour = ? AND option = 2 AND age IS NULL", library.id, t+open])
             datas.each do |data|
               value = value + data.value
             end
@@ -1453,7 +1597,7 @@ class StatisticReportsController < ApplicationController
         end
       end
 
-      send_data report.generate, :filename => "#{start_at}_#{end_at}__#{configatron.statistic_report.timezone}", :type => 'application/pdf', :disposition => 'attachment'
+      send_data report.generate, :filename => "#{start_at}_#{end_at}_#{configatron.statistic_report.timezone}", :type => 'application/pdf', :disposition => 'attachment'
       return true
     rescue Exception => e
       logger.error "failed #{e}"
@@ -1665,14 +1809,75 @@ class StatisticReportsController < ApplicationController
         end
         row.item("valueall").value(sum)  
       end
+      # reserves on counter all libraries
+      report.page.list(:list).add_row do |row|
+        row.item(:option).value(t('statistic_report.on_counter'))
+        sum = 0
+        7.times do |t|
+          value = 0
+          datas = Statistic.where(["yyyymm >= #{start_at} AND yyyymm <= #{end_at} AND data_type = 233 AND library_id = ? AND day = ? AND option = 1", 0, t]).no_condition
+          datas.each do |data|
+            value = value + data.value
+          end
+          sum = sum + value
+          row.item("value#{t}").value(value)
+        end
+        row.item("valueall").value(sum)  
+      end
+      # reserves from OPAC all libraries
+      report.page.list(:list).add_row do |row|
+        row.item(:option).value(t('statistic_report.from_opac'))
+        sum = 0
+        7.times do |t|
+          value = 0
+          datas = Statistic.where(["yyyymm >= #{start_at} AND yyyymm <= #{end_at} AND data_type = 233 AND library_id = ? AND day = ? AND option = 2", 0, t]).no_condition
+          datas.each do |data|
+            value = value + data.value
+          end
+          sum = sum + value
+          row.item("value#{t}").value(value)
+        end
+        row.item("valueall").value(sum)  
+        row.item(:library_line).show
+      end
       # reserves each libraries
       libraries.each do |library|
         sum = 0
         report.page.list(:list).add_row do |row|
-          row.item(:library).value(library.display_name)
+          row.item(:library).value(library.display_name.localize)
           7.times do |t|
             value = 0
-            datas = Statistic.where(["yyyymm >= #{start_at} AND yyyymm <= #{end_at} AND data_type = 233 AND library_id = ? AND day = ?", library.id, t]).no_condition
+            datas = Statistic.where(["yyyymm >= #{start_at} AND yyyymm <= #{end_at} AND data_type = 233 AND library_id = ? AND day = ?", library.id, t])
+            datas.each do |data|
+              value = value + data.value
+            end
+            sum = sum + value
+            row.item("value#{t}").value(value)
+          end
+          row.item("valueall").value(sum)
+        end
+        # on counter
+        sum = 0
+        report.page.list(:list).add_row do |row|
+          row.item(:option).value(t('statistic_report.on_counter'))
+          7.times do |t|
+            value = 0
+            datas = Statistic.where(["yyyymm >= #{start_at} AND yyyymm <= #{end_at} AND data_type = 233 AND library_id = ? AND day = ? AND option = 1", library.id, t])
+            datas.each do |data|
+              value = value + data.value
+            end
+            sum = sum + value
+            row.item("value#{t}").value(value)
+          end
+          row.item("valueall").value(sum)
+        end
+        # from OPAC
+        sum = 0
+        report.page.list(:list).add_row do |row|
+          row.item(:option).value(t('statistic_report.from_opac'))
+          7.times do |t|
+            value = 0
+            datas = Statistic.where(["yyyymm >= #{start_at} AND yyyymm <= #{end_at} AND data_type = 233 AND library_id = ? AND day = ? AND option = 2", library.id, t])
             datas.each do |data|
               value = value + data.value
             end
@@ -1684,7 +1889,8 @@ class StatisticReportsController < ApplicationController
           line(row) if library == libraries.last
         end
       end
-
+     
+ 
       # questions all libraries
       report.page.list(:list).add_row do |row|
         row.item(:type).value(t('statistic_report.questions'))
@@ -1996,6 +2202,37 @@ class StatisticReportsController < ApplicationController
         end
         row.item("valueall").value(sum)  
       end
+      # reserves on counter all libraries
+      report.page.list(:list).add_row do |row|
+        row.item(:option).value(t('statistic_report.on_counter'))
+        sum = 0
+        8.times do |t|
+          value = 0
+          datas = Statistic.where(["yyyymm >= #{start_at} AND yyyymm <= #{end_at} AND data_type = ? AND option = 1 AND age = ? AND library_id = ?", data_type, t, 0])
+          datas.each do |data|
+            value = value + data.value
+          end
+          sum = sum + value
+          row.item("value#{t}").value(value)
+        end
+        row.item("valueall").value(sum)  
+      end
+      # reserves from OPAC all libraris
+      report.page.list(:list).add_row do |row|
+        row.item(:option).value(t('statistic_report.from_opac'))
+        sum = 0
+        8.times do |t|
+          value = 0
+          datas = Statistic.where(["yyyymm >= #{start_at} AND yyyymm <= #{end_at} AND data_type = ? AND option = 2 AND age = ? AND library_id = ?", data_type, t, 0])
+          datas.each do |data|
+            value = value + data.value
+          end
+          sum = sum + value
+          row.item("value#{t}").value(value)
+        end
+        row.item("valueall").value(sum)  
+        row.item(:library_line).show
+      end
       # reserves each libraries
       libraries.each do |library|
         sum = 0
@@ -2004,6 +2241,36 @@ class StatisticReportsController < ApplicationController
           8.times do |t|
             value = 0
             datas = Statistic.where(["yyyymm >= #{start_at} AND yyyymm <= #{end_at} AND data_type = ? AND option = 0 AND age = ? AND library_id = ?", data_type, t, library.id])
+            datas.each do |data|
+              value = value + data.value
+            end
+            sum = sum + value
+            row.item("value#{t}").value(value)
+          end
+          row.item("valueall").value(sum)
+        end
+        # on counter
+        sum = 0
+        report.page.list(:list).add_row do |row|
+          row.item(:option).value(t('statistic_report.on_counter'))
+          8.times do |t|
+            value = 0
+            datas = Statistic.where(["yyyymm >= #{start_at} AND yyyymm <= #{end_at} AND data_type = ? AND option = 1 AND age = ? AND library_id = ?", data_type, t, library.id])
+            datas.each do |data|
+              value = value + data.value
+            end
+            sum = sum + value
+            row.item("value#{t}").value(value)
+          end
+          row.item("valueall").value(sum)
+        end
+        # from OPAC
+        sum = 0
+        report.page.list(:list).add_row do |row|
+          row.item(:option).value(t('statistic_report.from_opac'))
+          8.times do |t|
+            value = 0
+            datas = Statistic.where(["yyyymm >= #{start_at} AND yyyymm <= #{end_at} AND data_type = ? AND option = 2 AND age = ? AND library_id = ?", data_type, t, library.id])
             datas.each do |data|
               value = value + data.value
             end
