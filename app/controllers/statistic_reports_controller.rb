@@ -750,7 +750,6 @@ class StatisticReportsController < ApplicationController
             else
               value = Statistic.where(:yyyymm => "#{term}#{"%02d" % (t + 1)}", :data_type => 114, :library_id => library.id).first.value rescue 0
             end
-            logger.error "#{term}#{"%02d" % (t + 1)}"
             row.item("value#{t+1}").value(value)
             sum += value
           end
