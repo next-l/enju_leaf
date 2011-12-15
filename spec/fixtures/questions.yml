@@ -28,7 +28,7 @@ question_00004:
   shared: false
   created_at: 2007-12-26 02:28:47.252993 +09:00
 question_00005: 
-  updated_at: 2007-12-26 02:28:47.252993 +09:00
+  updated_at: 2007-12-26 02:28:48.252993 +09:00
   body: test
   id: 5
   user_id: 5

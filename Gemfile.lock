@@ -61,14 +61,6 @@ GIT
       rails (~> 3.1.3)
 
 GIT
-  remote: git://github.com/nabeta/enju_question.git
-  revision: 2ba7a2c98c50c014062c7da36b0930d6b9fbbbc4
-  specs:
-    enju_question (0.0.2)
-      rails (~> 3.1.3)
-      simple_form
-
-GIT
   remote: git://github.com/nabeta/enju_resource_merge.git
   revision: 3eb1af236d06bc35ab829f7ce9fefa598c3bd4fb
   specs:
@@ -167,7 +159,7 @@ GEM
     client_side_validations (3.1.3)
     cloudfiles (1.5.0.1)
       json
-    cocaine (0.2.0)
+    cocaine (0.2.1)
     coffee-rails (3.1.1)
       coffee-script (>= 2.2.0)
       railties (~> 3.1.0)
@@ -179,7 +171,7 @@ GEM
     configatron (2.9.0)
       yamler (>= 0.1.0)
     daemons (1.1.4)
-    dalli (1.1.3)
+    dalli (1.1.4)
     delayed_job (2.1.4)
       activesupport (~> 3.0)
       daemons
@@ -191,6 +183,9 @@ GEM
     dynamic_form (1.1.4)
     enju_ndl (0.0.3)
       rails (~> 3.1.3)
+    enju_question (0.0.3)
+      rails (~> 3.1.3)
+      simple_form
     enju_subject (0.0.4)
       rails (~> 3.1.3)
     erubis (2.7.0)
@@ -236,7 +231,7 @@ GEM
       thor (~> 0.14)
     json (1.6.3)
     json_pure (1.6.3)
-    kgio (2.6.0)
+    kgio (2.7.0)
     library_stdnums (1.0.1)
     mail (2.3.0)
       i18n (>= 0.4.0)
@@ -276,7 +271,7 @@ GEM
       cocaine (>= 0.0.2)
       mime-types
     parallel (0.5.11)
-    parallel_tests (0.6.11)
+    parallel_tests (0.6.12)
       parallel
     pg (0.12.0)
       rake-compiler (~> 0.7)
@@ -307,7 +302,7 @@ GEM
       railties (= 3.1.3)
     rails_autolink (1.0.4)
       rails (>= 3.1.0)
-    rails_best_practices (1.6.0)
+    rails_best_practices (1.7.0)
       activesupport
       colored
       erubis
@@ -427,7 +422,7 @@ PLATFORMS
 DEPENDENCIES
   RedCloth (>= 4.2.9)
   activerecord-jdbc-adapter
-  acts-as-taggable-on (~> 2.1)
+  acts-as-taggable-on (~> 2.2)
   acts_as_list!
   addressable
   annotate
@@ -452,7 +447,7 @@ DEPENDENCIES
   enju_ndl (= 0.0.3)
   enju_oai!
   enju_purchase_request!
-  enju_question!
+  enju_question (= 0.0.3)
   enju_resource_merge!
   enju_search_log!
   enju_subject (= 0.0.4)

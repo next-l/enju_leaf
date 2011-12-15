@@ -38,7 +38,7 @@ describe QuestionsController do
       it "should get my index feed" do
         get :index, :format => 'rss'
         response.should be_success
-        assigns(:questions).should eq Question.public_questions.page(1)
+        assigns(:questions).should eq Question.public_questions.order(:updated_at).page(1)
       end
 
       it "should redirect_to my index feed if user_id is specified" do

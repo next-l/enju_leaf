@@ -1,4 +1,4 @@
-title,creator,contributor,publisher,isbn,created_at,tag
+original_title	creator	contributor	publisher	isbn	pub_date	note
 <%- @manifestations.each do |manifestation| -%>
-"<%=h manifestation.original_title.gsub(/"/, '""') -%>",<%=h manifestation.creator -%>,<%=h manifestation.contributor -%>,<%=h manifestation.publisher -%>,<%=h manifestation.isbn -%>,<%=h manifestation.created_at -%>,<%= manifestation.tags.each do |tag| h(tag.name) end -%><%= "\n" -%>
+"<%=raw manifestation.original_title.gsub(/"/	 '""') -%>"	<%=raw manifestation.creators.collect(&:full_name).join(';') -%>	<%=raw manifestation.contributors.collect(&:full_name).join(';') -%>	<%=raw manifestation.publishers.collect(&:full_name).join(';') -%>	<%= manifestation.isbn -%>	<%= manifestation.pub_date -%>	<%= manifestation.note -%><%= "\n" -%>
 <%- end -%>
