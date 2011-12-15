@@ -2,7 +2,19 @@ class AreasController < InheritedResources::Base
   before_filter :check_librarian
 
   def index
-    @areas = Area.page(params[:page])
+    query = params[:query].to_s.strip
+    @query = query.dup
+    query = "#{query}*" if query.size == 1
+    page = params[:page] || 1
+
+    unless query.blank?
+      @areas = Area.search do
+        fulltext query
+        paginate :page => page.to_i, :per_page => Area.per_page
+      end.results
+    else
+      @areas = Area.page(page)
+    end
   end
 
   def show

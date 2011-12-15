@@ -3,6 +3,13 @@
 <div id="content_list">
 <div style="color: green"><%= flash[:message] -%></div>
 
+<%= form_for :areas, :url => areas_path, :html => {:method => 'get'} do -%>
+  <p>
+    <%= t('page.search_term') -%>: <%= search_field_tag 'query', h(@query), {:id => 'search_form_top', :class => 'search_form', :placeholder => t('page.search_term')} -%>
+    <%= submit_tag t('page.search') -%>
+  </p>
+<%- end -%>
+
 <table class="index">
   <tr>
     <th style="width: 30px"><%= 'Id' -%></th>
