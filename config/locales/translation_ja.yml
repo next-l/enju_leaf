@@ -1352,7 +1352,9 @@ ja:
       count: 回数
       readercount: 貸出回数
       requestcount: 予約回数
-      invalid_input_date: "入力年月日が正しくありません"
+      nil_date: "年月日が空です。"
+      invalid_input_date: "入力年月日が正しくありません。"
+      over_end_date: "検索終了日は検索開始日以降を指定してください。"
 
   tooltip:
     icons_info: アイコンの説明
