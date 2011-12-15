@@ -1267,6 +1267,15 @@ en:
     best_reader: "best reader"
     wait: "Wait.."
 
+    exstatistics:
+      ranknumber: Rank
+      count: Count
+      readercount: Reader count
+      requestcount: Request count
+      nil_date: "fill in the form"
+      invalid_input_date: "wrong date inputed"
+      over_end_date: "The end date should over the start date"
+
   tooltip:
     icons_info: Icons information
     message: message
