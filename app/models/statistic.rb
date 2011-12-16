@@ -1100,6 +1100,20 @@ class Statistic < ActiveRecord::Base
         statistic.value = User.count_by_sql([sql, (age.to_s + 0.to_s).to_i, 200, end_at])
       end
       statistic.save! if statistic.value > 0
+      # provional users 112 option: 3
+      statistic = Statistic.new
+      set_date(statistic, end_at, 1)
+      statistic.data_type = data_type
+      statistic.age = age
+      statistic.option = 3
+      sql = "select count(*) from users, patrons where users.id = patrons.user_id AND date_part('year', age(patrons.date_of_birth)) >= ? AND date_part('year', age(patrons.date_of_birth)) <= ? AND users.created_at <= ?"
+      unless age == 7
+        statistic.value = User.provisional.count_by_sql([sql, (age.to_s + 0.to_s).to_i, (age.to_s + 9.to_s).to_i, end_at])
+      else
+        statistic.value = User.provisional.count_by_sql([sql, (age.to_s + 0.to_s).to_i, 200, end_at])
+      end
+      statistic.save! if statistic.value > 0
+      
       @libraries.each do |library|
         statistic = Statistic.new
         set_date(statistic, end_at, 1)
@@ -1139,6 +1153,20 @@ class Statistic < ActiveRecord::Base
           statistic.value = User.count_by_sql([sql, library.id, (age.to_s + 0.to_s).to_i, 200, end_at])
         end
         statistic.save! if statistic.value > 0
+        # provisional users 112 option: 3
+        statistic = Statistic.new
+        set_date(statistic, end_at, 1)
+        statistic.data_type = data_type
+        statistic.age = age
+        statistic.option = 3
+        statistic.library_id = library.id
+        sql = "select count(*) from users, patrons, libraries where users.id = patrons.user_id AND users.library_id = libraries.id AND libraries.id = ? AND date_part('year', age(patrons.date_of_birth)) >= ? AND date_part('year', age(patrons.date_of_birth)) <= ? AND users.created_at <= ?"
+        unless age == 7
+          statistic.value = User.provisional.count_by_sql([sql, library.id, (age.to_s + 0.to_s).to_i, (age.to_s + 9.to_s).to_i, end_at])
+        else
+          statistic.value = User.provisional.count_by_sql([sql, library.id, (age.to_s + 0.to_s).to_i, 200, end_at])
+        end
+        statistic.save! if statistic.value > 0
       end
     end
 
@@ -1167,6 +1195,15 @@ class Statistic < ActiveRecord::Base
     sql = "select count(*) from users, patrons where users.id = patrons.user_id AND users.locked_at IS NOT NULL AND patrons.date_of_birth IS NULL AND users.created_at <= ?"
     statistic.value = User.count_by_sql([sql, end_at])
     statistic.save! if statistic.value > 0
+    # provisional users 112 option: 3
+    statistic = Statistic.new
+    set_date(statistic, end_at, 1)
+    statistic.data_type = data_type
+    statistic.age = 10
+    statistic.option = 3
+    sql = "select count(*) from users, patrons where users.id = patrons.user_id AND patrons.date_of_birth IS NULL AND users.created_at <= ?"
+    statistic.value = User.provisional.count_by_sql([sql, end_at])
+    statistic.save! if statistic.value > 0
     @libraries.each do |library|
       statistic = Statistic.new
       set_date(statistic, end_at, 1)
@@ -1193,6 +1230,16 @@ class Statistic < ActiveRecord::Base
       statistic.library_id = library.id
       sql = "select count(*) from users, patrons, libraries where users.id = patrons.user_id AND users.library_id = libraries.id AND libraries.id = ? AND users.locked_at IS NOT NULL AND patrons.date_of_birth IS NULL AND users.created_at <= ?"
       statistic.value = User.count_by_sql([sql, library.id, end_at])
+      statistic.save! if statistic.value > 0
+      # provisional users 112 option: 3
+      statistic = Statistic.new
+      set_date(statistic, end_at, 1)
+      statistic.data_type = data_type
+      statistic.age = 10
+      statistic.library_id = library.id
+      statistic.option = 3
+      sql = "select count(*) from users, patrons, libraries where users.id = patrons.user_id AND users.library_id = libraries.id AND libraries.id = ? AND patrons.date_of_birth IS NULL AND users.created_at <= ?"
+      statistic.value = User.provisional.count_by_sql([sql, library.id, end_at])
       statistic.save! if statistic.value > 0
     end
 

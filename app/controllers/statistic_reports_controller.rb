@@ -2242,6 +2242,28 @@ class StatisticReportsController < ApplicationController
         sum = sum + value
         row.item("value8").value(value)
         row.item("valueall").value(sum)
+      end
+      # provisional users all libraries
+      report.page.list(:list).add_row do |row|
+        row.item(:option).value(t('statistic_report.user_provisional'))
+        sum = 0
+        8.times do |t|
+          value = 0
+          datas = Statistic.where(["yyyymm >= #{start_at} AND yyyymm <= #{end_at} AND data_type = ? AND option = ? AND age = ? AND library_id = ?", data_type, 3, t, 0])
+          datas.each do |data|
+            value =value + data.value
+          end
+          sum = sum + value
+          row.item("value#{t}").value(value)
+        end  
+        value = 0
+        datas = Statistic.where(["yyyymm >= #{start_at} AND yyyymm <= #{end_at} AND data_type = ? AND option = ? AND age = ? AND library_id = ?", data_type, 3, 10, 0])
+        datas.each do |data|
+          value =value + data.value
+        end
+        sum = sum + value
+        row.item("value8").value(value)
+        row.item("valueall").value(sum)
         row.item(:library_line).show
       end
       # users each libraries
@@ -2304,6 +2326,28 @@ class StatisticReportsController < ApplicationController
           end  
           value = 0
           datas = Statistic.where(["yyyymm >= #{start_at} AND yyyymm <= #{end_at} AND data_type = ? AND option = ? AND age = ? AND library_id = ?", data_type, 2, 10, library.id])
+          datas.each do |data|
+            value =value + data.value
+          end
+          sum = sum + value
+          row.item("value8").value(value)
+          row.item("valueall").value(sum)
+        end
+        # provisional users each libraries
+        report.page.list(:list).add_row do |row|
+          row.item(:option).value(t('statistic_report.user_provisional'))
+          sum = 0
+          8.times do |t|
+            value = 0
+            datas = Statistic.where(["yyyymm >= #{start_at} AND yyyymm <= #{end_at} AND data_type = ? AND option = ? AND age = ? AND library_id = ?", data_type, 3, t, library.id])
+            datas.each do |data|
+              value =value + data.value
+            end
+            sum = sum + value
+            row.item("value#{t}").value(value)
+          end  
+          value = 0
+          datas = Statistic.where(["yyyymm >= #{start_at} AND yyyymm <= #{end_at} AND data_type = ? AND option = ? AND age = ? AND library_id = ?", data_type, 3, 10, library.id])
           datas.each do |data|
             value =value + data.value
           end
@@ -2566,20 +2610,22 @@ class StatisticReportsController < ApplicationController
         end  
       end
       # items each call_numbers
-      call_numbers.each do |num|
-        report.page.list(:list).add_row do |row|
-          row.item(:condition).value(t('activerecord.attributes.item.call_number')) if num == call_numbers.first 
-          row.item(:option).value(num)
-          12.times do |t|
-            if t < 4 # for Japanese fiscal year
-              value = Statistic.where(:yyyymm => "#{term.to_i + 1}#{"%02d" % (t + 1)}", :data_type => data_type, :library_id => 0, :call_number => num).first.value rescue 0
-            else
-              value = Statistic.where(:yyyymm => "#{term}#{"%02d" % (t + 1)}", :data_type => data_type, :library_id => 0, :call_number => num).first.value rescue 0
-            end
-            row.item("value#{t+1}").value(value)
-            row.item("valueall").value(value) if t == 2 # March(end of fiscal year)
-            row.item("condition_line").show if num == call_numbers.last
-          end  
+      unless call_numbers.nil?
+        call_numbers.each do |num|
+          report.page.list(:list).add_row do |row|
+            row.item(:condition).value(t('activerecord.attributes.item.call_number')) if num == call_numbers.first 
+            row.item(:option).value(num)
+            12.times do |t|
+              if t < 4 # for Japanese fiscal year
+                value = Statistic.where(:yyyymm => "#{term.to_i + 1}#{"%02d" % (t + 1)}", :data_type => data_type, :library_id => 0, :call_number => num).first.value rescue 0
+              else
+                value = Statistic.where(:yyyymm => "#{term}#{"%02d" % (t + 1)}", :data_type => data_type, :library_id => 0, :call_number => num).first.value rescue 0
+              end
+              row.item("value#{t+1}").value(value)
+              row.item("valueall").value(value) if t == 2 # March(end of fiscal year)
+              row.item("condition_line").show if num == call_numbers.last
+            end  
+          end
         end
       end
       # items each checkout_types
@@ -2629,23 +2675,25 @@ class StatisticReportsController < ApplicationController
           end  
         end
         # items each call_numbers
-        call_numbers.each do |num|
-          report.page.list(:list).add_row do |row|
-            row.item(:condition).value(t('activerecord.attributes.item.call_number')) if num == call_numbers.first 
-            row.item(:option).value(num)
-            12.times do |t|
-              if t < 4 # for Japanese fiscal year
-                datas = Statistic.where(:yyyymm => "#{term.to_i + 1}#{"%02d" % (t + 1)}", :data_type => data_type, :library_id => library.id, :call_number => num)
-              else
-                datas = Statistic.where(:yyyymm => "#{term}#{"%02d" % (t + 1)}", :data_type => data_type, :library_id => library.id, :call_number => num)
+        unless call_numbers.nil?
+          call_numbers.each do |num|
+            report.page.list(:list).add_row do |row|
+              row.item(:condition).value(t('activerecord.attributes.item.call_number')) if num == call_numbers.first 
+              row.item(:option).value(num)
+              12.times do |t|
+                if t < 4 # for Japanese fiscal year
+                  datas = Statistic.where(:yyyymm => "#{term.to_i + 1}#{"%02d" % (t + 1)}", :data_type => data_type, :library_id => library.id, :call_number => num)
+                else
+                  datas = Statistic.where(:yyyymm => "#{term}#{"%02d" % (t + 1)}", :data_type => data_type, :library_id => library.id, :call_number => num)
+                end
+                value = 0
+                datas.each do |data|
+                  value += data.value
+                end
+                row.item("value#{t+1}").value(value)
+                row.item("valueall").value(value) if t == 2 # March(end of fiscal year)
+                row.item("condition_line").show if num == call_numbers.last
               end
-              value = 0
-              datas.each do |data|
-                value += data.value
-              end
-              row.item("value#{t+1}").value(value)
-              row.item("valueall").value(value) if t == 2 # March(end of fiscal year)
-              row.item("condition_line").show if num == call_numbers.last
             end
           end
         end
@@ -2699,22 +2747,25 @@ class StatisticReportsController < ApplicationController
               row.item("valueall").value(value) if t == 2 # March(end of fiscal year)
               row.item("condition_line").show
             end
+            line_for_items(row) if shelf == library.shelves.last && call_numbers.nil?
           end
-          call_numbers.each do |num|
-            report.page.list(:list).add_row do |row|
-              row.item(:condition).value(t('activerecord.attributes.item.call_number')) if num == call_numbers.first 
-              row.item(:option).value(num)
-              12.times do |t|
-                if t < 4 # for Japanese fiscal year
-                  value = Statistic.where(:yyyymm => "#{term.to_i + 1}#{"%02d" % (t + 1)}", :data_type => data_type, :library_id => library.id, :shelf_id => shelf.id, :call_number => num).first.value rescue 0
-                else
-                  value = Statistic.where(:yyyymm => "#{term}#{"%02d" % (t + 1)}", :data_type => data_type, :library_id => library.id, :shelf_id => shelf.id, :call_number => num).first.value rescue 0
-                end
-                row.item("value#{t+1}").value(value)
-                row.item("valueall").value(value) if t == 2 # March(end of fiscal year)
-                if num == call_numbers.last
-                  row.item("condition_line").show
-                  line_for_items(row) if shelf == library.shelves.last
+          unless call_numbers.nil?
+            call_numbers.each do |num|
+              report.page.list(:list).add_row do |row|
+                row.item(:condition).value(t('activerecord.attributes.item.call_number')) if num == call_numbers.first 
+                row.item(:option).value(num)
+                12.times do |t|
+                  if t < 4 # for Japanese fiscal year
+                    value = Statistic.where(:yyyymm => "#{term.to_i + 1}#{"%02d" % (t + 1)}", :data_type => data_type, :library_id => library.id, :shelf_id => shelf.id, :call_number => num).first.value rescue 0
+                  else
+                    value = Statistic.where(:yyyymm => "#{term}#{"%02d" % (t + 1)}", :data_type => data_type, :library_id => library.id, :shelf_id => shelf.id, :call_number => num).first.value rescue 0
+                  end
+                  row.item("value#{t+1}").value(value)
+                  row.item("valueall").value(value) if t == 2 # March(end of fiscal year)
+                  if num == call_numbers.last
+                    row.item("condition_line").show
+                    line_for_items(row) if shelf == library.shelves.last
+                  end
                 end
               end
             end
