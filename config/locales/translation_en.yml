@@ -235,6 +235,8 @@ en:
         place: Place
         date_of_birth: Date of birth
         date_of_death: Date of death
+        date_of_establishment: Date of establishment
+        date_of_dissolution: Date of dissolution
         lock_version: Lock version
         note: Note
         country: Country
