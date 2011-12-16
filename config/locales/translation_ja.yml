@@ -250,6 +250,8 @@ ja:
         birth_date: 生年月日
         date_of_death: 没年月日
         death_date: 没年月日
+        date_of_establishment: 設立年月日
+        date_of_dissolution: 解散年月日
         lock_version: ロックバージョン
         note: 注記
         country: 国籍
