@@ -39,14 +39,6 @@ GIT
       rails (~> 3.1.3)
 
 GIT
-  remote: git://github.com/nabeta/enju_message.git
-  revision: 504937fe62a5f2aa8f13b23b4402d89e50b6c270
-  specs:
-    enju_message (0.0.3)
-      rails (~> 3.1.3)
-      simple_form
-
-GIT
   remote: git://github.com/nabeta/enju_oai.git
   revision: 4590ce1c66e816e9beeae7556977acd78fdf3441
   specs:
@@ -181,6 +173,22 @@ GEM
       warden (~> 1.1)
     diff-lcs (1.1.3)
     dynamic_form (1.1.4)
+    enju_message (0.0.3)
+      addressable
+      attribute_normalizer (~> 1.0)
+      awesome_nested_set (~> 2.0)
+      cancan
+      configatron
+      delayed_job (~> 2.1.4)
+      devise
+      friendly_id (= 4.0.0.beta14)
+      inherited_resources
+      rails (~> 3.1.3)
+      simple_form
+      state_machine
+      sunspot_rails (~> 1.3)
+      sunspot_solr (~> 1.3)
+      will_paginate (~> 3.0)
     enju_ndl (0.0.3)
       rails (~> 3.1.3)
     enju_question (0.0.3)
@@ -302,7 +310,7 @@ GEM
       railties (= 3.1.3)
     rails_autolink (1.0.4)
       rails (>= 3.1.0)
-    rails_best_practices (1.7.0)
+    rails_best_practices (1.7.1)
       activesupport
       colored
       erubis
@@ -320,7 +328,7 @@ GEM
     rake-compiler (0.7.9)
       rake
     rcov (0.9.11)
-    rdoc (3.11)
+    rdoc (3.12)
       json (~> 1.4)
     reek (1.2.8)
       ruby2ruby (~> 1.2)
@@ -354,7 +362,7 @@ GEM
       sexp_processor (~> 3.0)
     sanitize (2.0.3)
       nokogiri (>= 1.4.4, < 1.6)
-    sass (3.1.11)
+    sass (3.1.12)
     sass-rails (3.1.5)
       actionpack (~> 3.1.0)
       railties (~> 3.1.0)
@@ -368,7 +376,7 @@ GEM
       multi_json (~> 1.0.3)
       simplecov-html (~> 0.5.3)
     simplecov-html (0.5.3)
-    sitemap_generator (2.1.7)
+    sitemap_generator (2.1.8)
     spork (0.9.0.rc9)
     sprockets (2.0.3)
       hike (~> 1.2)
@@ -443,7 +451,7 @@ DEPENDENCIES
   enju_circulation!
   enju_event!
   enju_inventory!
-  enju_message!
+  enju_message (= 0.0.3)
   enju_ndl (= 0.0.3)
   enju_oai!
   enju_purchase_request!
