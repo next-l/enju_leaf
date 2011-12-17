@@ -221,8 +221,8 @@ describe MessagesController do
 
   describe "POST create" do
     before(:each) do
-      @attrs = {:recipient => users(:user1).user_number, :subject => 'test',:body => 'test'}
-      @invalid_attrs = {:recipient => users(:user1).user_number, :subject => 'test', :body => ''}
+      @attrs = {:recipient => users(:user1).username, :subject => 'test',:body => 'test'}
+      @invalid_attrs = {:recipient => users(:user1).username, :subject => 'test', :body => ''}
     end
 
     describe "When logged in as Administrator" do
