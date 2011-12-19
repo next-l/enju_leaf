@@ -52,3 +52,9 @@ message_template_00009:
   title: Reservation accepted
   body: Reservation accepted
   position: 9
+message_template_00010:
+  id: 10
+  status: retained_manifestations
+  title: retained_manifestations
+  body: retained_manifestations
+  position: 10

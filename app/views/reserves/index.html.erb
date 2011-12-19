@@ -115,6 +115,7 @@
     <%- if current_user.has_role?('Librarian') -%>
       <li><%= link_to t('reserve.all_reservation'), reserves_path -%></li>
       <li><%= link_to t('reserve.my_reservation'), user_reserves_path(current_user) -%></li>
+      <li><%= link_to t('activerecord.models.retained_manifestation'), retained_manifestations_path -%></li>
     <%- end -%>
     <%- if @user -%>
       <li><%= link_to t('page.listing', :model => t('activerecord.models.checkout')), user_checkouts_path(@user) -%></li>

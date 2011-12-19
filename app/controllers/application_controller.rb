@@ -303,6 +303,10 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def check_librarian
+    access_denied unless current_user && current_user.has_role?('Librarian')
+  end
+
   def set_role_query(user, search)
     role = user.try(:role) || Role.default_role
     search.build do

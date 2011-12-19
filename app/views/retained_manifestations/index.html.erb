@@ -1,0 +1,67 @@
+<div id="content_detail" class="ui-corner-all">
+<h1 class="title"><%= t('page.listing', :model => t('activerecord.models.retained_manifestation')) -%></h1>
+<div id="content_list">
+
+<%= form_for :reserves, :url => retained_manifestations_path, :html => {:method => 'get'} do -%>
+  <p>
+    <%= t('activerecord.attributes.reserve.receipt_library') -%>:<%= select("library", "id", @librarlies, {:include_blank => t('advanced_search.all_libraries'), :selected=>@selected_library}  ) -%><br />
+    <%= t('activerecord.attributes.reserve.information_method') -%>:
+    <%= check_box_tag "all_method", true, true, :class=>'check-parent' -%><%= t('advanced_search.all', :model=>t('activerecord.attributes.reserve.information_method')) -%>
+    <%- @information_types.each do |type| -%>
+      <%= check_box_tag "method[]", type, true, :class=>'check-child' -%><%= i18n_information_type(type) -%>
+    <%- end -%>
+    <br />
+    <%= t('page.search_term') -%>: <%= search_field_tag 'query', h(@query), {:id => 'search_form_top', :class => 'search_form', :placeholder => t('page.search_term')} -%>
+    <%= submit_tag t('page.search') -%>
+  </p>
+<%- end -%>
+<table class="index">
+	  <tr>
+    <th><%= t('activerecord.models.user') -%></th>
+    <th><%= t('activerecord.models.manifestation') -%></th>
+    <th><%= t('activerecord.attributes.reserve.expired_at') -%></th>
+    <th><%= t('activerecord.attributes.reserve.information_method') -%></th>
+    <th></th>
+  </tr>
+<%- @retained_manifestations.each_with_index do |reserve, i| -%>
+  <tr class="line<%= cycle("0", "1") -%>">
+    <td><%= link_to reserve.user.username, reserve.user if reserve.user -%></td>
+    <td><%= render 'reserves/title', :reserve => reserve -%></td>
+    <td><%= l(reserve.expired_at, :format => :only_date) -%></td>
+    <td>
+      <%= i18n_information_type(reserve.information_type_id) -%>&nbsp;
+      <%- if reserve.information_type_id == 1 -%>
+        <%= mail_to Reserve.get_information_method(reserve), Reserve.get_information_method(reserve), :subject => @send_message.title, :body => @send_message.body -%>
+      <%- else -%>
+        <%= Reserve.get_information_method(reserve)-%>
+      <%- end -%>
+    </td>
+    <td>
+      <%= form_for :reserve, reserve, :url => {:action => :set_retained} do |f| -%>
+        <%= f.hidden_field :id, :value => reserve.id -%> 
+        <%- if reserve.retained -%>
+          <%= t('activerecord.attributes.retained_manifestation.retained') -%><br />
+          <%= f.hidden_field :retained, :value=>false -%> 
+          <%= submit_tag t('activerecord.attributes.retained_manifestation.will_not_retained') -%>
+        <%- else -%>
+          <%= t('activerecord.attributes.retained_manifestation.not_retained') -%><br />
+          <%= f.hidden_field :retained, :value=>true -%> 
+          <%= submit_tag t('activerecord.attributes.retained_manifestation.will_retained') -%>
+        <%- end -%>
+      <%- end -%>
+    </td>
+  </tr>    
+<%- end -%>
+</table>
+<br />
+<%= will_paginate(@retained_reserves) -%>
+
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all">
+  <ul>
+    <li><%= link_to t('reserve.all_reservation'), reserves_path -%></li>
+    <li><%= link_to t('reserve.my_reservation'), user_reserves_path(current_user) -%></li>
+  </ul>
+</div>

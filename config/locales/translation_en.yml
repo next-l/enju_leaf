@@ -91,6 +91,7 @@ en:
       event_import_file: Event import file
       attachment_file: Attachment file
       reserve: Reserve
+      retained_manifestation: Retaubed manifestation 
       reserve_family: Family's reserve
       message_request: Message request
       answer: Answer
@@ -764,6 +765,12 @@ en:
         email: email
         telephone: telephone
         reserve_list: Reserve list
+      retained_manifestation:
+        retained: Retained
+        not_retained: Not retained
+        will_retained: Will retained
+        will_not_retained: Will not retained
+        failed_update: Failed update
       message_request:
         sent_at: Sent at
         deleted_at: Deleted at
