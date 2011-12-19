@@ -17,11 +17,11 @@ gem 'enju_purchase_request', :git => 'git://github.com/nabeta/enju_purchase_requ
 gem 'enju_question', '0.0.3'
 gem 'enju_bookmark', :git => 'git://github.com/nabeta/enju_bookmark.git'
 gem 'enju_resource_merge', :git => 'git://github.com/nabeta/enju_resource_merge.git'
-gem 'enju_circulation', :git => 'git://github.com/nabeta/enju_circulation.git'
+gem 'enju_circulation', '0.0.3'
 gem 'enju_message', '0.0.3'
 #gem 'enju_inter_library_loan', :git => 'git://github.com/nabeta/enju_inter_library_loan.git'
 gem 'enju_inventory', :git => 'git://github.com/nabeta/enju_inventory.git'
-gem 'enju_event', :git => 'git://github.com/nabeta/enju_event.git'
+gem 'enju_event', '0.0.3'
 #gem 'enju_news', :git => 'git://github.com/nabeta/enju_news.git'
 gem 'enju_search_log', :git => 'git://github.com/nabeta/enju_search_log.git'
 
