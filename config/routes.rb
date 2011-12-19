@@ -31,6 +31,7 @@ EnjuLeaf::Application.routes.draw do
   end
 
   resources :library_checks do
+    get :download_file, :on => :member
     resources :libcheck_data_files
     resources :library_check_shelves
   end
@@ -161,6 +162,9 @@ EnjuLeaf::Application.routes.draw do
   end
   resources :patron_merges
   resources :inventory_files
+  resources :library_checks
+  resources :library_check_shelves
+  resources :libcheck_data_files
   resources :inventories
   resources :donates
   resources :subscriptions do
