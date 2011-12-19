@@ -1,0 +1,16 @@
+<%=h @user.patron.full_name -%> :
+
+Title: <%=h @manifestation.original_title %>
+Creator(s): <%=h @manifestation.creators.readable_by(@user).collect(&:full_name).join("/") %>
+Contributor(s): <%=h @manifestation.contributors.readable_by(@user).collect(&:full_name).join("/") %> 
+Publisher(s): <%=h @manifestation.publishers.readable_by(@user).collect(&:full_name).join("/") %>
+ISBN: <%=h @manifestation.isbn %>
+URL: <%=h @manifestation.access_address %>
+Holding:
+<% @manifestation.items.on_shelf.each do |item| -%>
+ <%=h item.shelf_display_name.localize %> <%=h item.call_number %> <%=h item.item_identifier %>
+<% end -%>
+
+-- 
+<%=h LibraryGroup.system_name(@user.locale) %>
+<%=h LibraryGroup.site_config.url %>
