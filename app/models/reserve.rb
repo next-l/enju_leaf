@@ -154,7 +154,9 @@ class Reserve < ActiveRecord::Base
   end
 
   def cancel
-    self.item.cancel_retain!
+    if self.item
+      self.item.cancel_retain!
+    end
     self.update_attributes!({:request_status_type => RequestStatusType.where(:name => 'Cannot Fulfill Request').first, :canceled_at => Time.zone.now})
     self.remove_from_list
   end
