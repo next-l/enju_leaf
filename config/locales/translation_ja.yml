@@ -1849,6 +1849,7 @@ ja:
     invalid_month: "対象月の指定が不正です。"
     year: 対象年度(YYYY) 
     month: 対象月(YYYYMM)
+    day: 対象年月日(YYYYMMDD)
     submit: "帳票を作成"
     created: "帳票を作成しました。"
     all_library: 全図書館
