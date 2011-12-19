@@ -185,9 +185,6 @@ class InterLibraryLoansController < ApplicationController
     end
   end
 
-  def pickup
-  end
-
   def pickup_item
     library = current_user.library
     item_identifier = params[:item_identifier].strip
