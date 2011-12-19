@@ -209,6 +209,12 @@ class Reserve < ActiveRecord::Base
         request.save_message_body(:manifestations => Array[self.manifestation], :user => self.user)
         request.sm_send_message! # 期限切れ時は利用者にのみ即時送信
         self.update_attribute(:expiration_notice_to_patron, true)
+      when 'retained'
+        message_template_to_patron = MessageTemplate.localized_template('retained_manifestations', self.user.locale)
+        request = MessageRequest.create!(:sender => system_user, :receiver => self.user, :message_template => message_template_to_patron)
+        request.save_message_body(:manifestations => Array[self.manifestation], :user => self.user)
+        request.sm_send_message! # 貸出準備ができたら利用者にのみ即時送信
+        self.update_attribute(:expiration_notice_to_patron, true)
       else
         raise 'status not defined'
       end
@@ -290,6 +296,20 @@ class Reserve < ActiveRecord::Base
     end
     rescue Exception => e
       logger.error "Failed to update reserve position: #{e}"
+  end
+
+  def retained_mail_title
+    MessageTemplate.localized_template('retained_manifestations', self.user.locale).title rescue nil
+  end
+
+  def retained_mail_message
+    message = MessageTemplate.localized_template('retained_manifestations', self.user.locale)
+    options = {:manifestations => Array[self.manifestation], 
+               :user => self.user,
+               :receipt_library => Library.find(self.receipt_library_id),
+               :locale => self.user.locale
+              }
+    return message.embed_body(options)
   end
 
   # TODO
