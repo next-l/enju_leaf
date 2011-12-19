@@ -56,6 +56,8 @@ configatron.reserve_print.filename = "reserve.pdf"
 configatron.reservelist_all_print.filename = "reservelist_all.pdf"
 # 予約リスト(個人)の出力
 configatron.reservelist_user_print.filename = "reservelist_user.pdf"
+# 取置済み資料の出力
+configatron.retained_manifestations_print.filename = "retained_manifestations.pdf"
 # 予約表に利用者の年齢を表示するかどうか
 configatron.reserve_print.old = true
 

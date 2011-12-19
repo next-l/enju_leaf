@@ -766,10 +766,7 @@ en:
         telephone: telephone
         reserve_list: Reserve list
       retained_manifestation:
-        retained: Retained
-        not_retained: Not retained
-        will_retained: Will retained
-        will_not_retained: Will not retained
+        done: Done
         failed_update: Failed update
       message_request:
         sent_at: Sent at

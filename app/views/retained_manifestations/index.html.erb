@@ -2,6 +2,8 @@
 <h1 class="title"><%= t('page.listing', :model => t('activerecord.models.retained_manifestation')) -%></h1>
 <div id="content_list">
 
+<div style="float:left; position:relative;">
+<div>
 <%= form_for :reserves, :url => retained_manifestations_path, :html => {:method => 'get'} do -%>
   <p>
     <%= t('activerecord.attributes.reserve.receipt_library') -%>:<%= select("library", "id", @librarlies, {:include_blank => t('advanced_search.all_libraries'), :selected=>@selected_library}  ) -%><br />
@@ -15,11 +17,21 @@
     <%= submit_tag t('page.search') -%>
   </p>
 <%- end -%>
+</div>
+
+<div style="position:absolute; bottom: 0px; left:460px">
+<%= form_tag :action => :output do -%>
+  <%= submit_tag t('page.output', :model => (t('page.listing', :model => t('activerecord.models.retained_manifestation')))) %>
+<%- end-%>
+</div>
+</div>
+
+<br style="both:clear;"/>
+
 <table class="index">
 	  <tr>
     <th><%= t('activerecord.models.user') -%></th>
     <th><%= t('activerecord.models.manifestation') -%></th>
-    <th><%= t('activerecord.attributes.reserve.expired_at') -%></th>
     <th><%= t('activerecord.attributes.reserve.information_method') -%></th>
     <th></th>
   </tr>
@@ -27,7 +39,6 @@
   <tr class="line<%= cycle("0", "1") -%>">
     <td><%= link_to reserve.user.username, reserve.user if reserve.user -%></td>
     <td><%= render 'reserves/title', :reserve => reserve -%></td>
-    <td><%= l(reserve.expired_at, :format => :only_date) -%></td>
     <td>
       <%= i18n_information_type(reserve.information_type_id) -%>&nbsp;
       <%- if reserve.information_type_id == 1 -%>
@@ -39,15 +50,8 @@
     <td>
       <%= form_for :reserve, reserve, :url => {:action => :set_retained} do |f| -%>
         <%= f.hidden_field :id, :value => reserve.id -%> 
-        <%- if reserve.retained -%>
-          <%= t('activerecord.attributes.retained_manifestation.retained') -%><br />
-          <%= f.hidden_field :retained, :value=>false -%> 
-          <%= submit_tag t('activerecord.attributes.retained_manifestation.will_not_retained') -%>
-        <%- else -%>
-          <%= t('activerecord.attributes.retained_manifestation.not_retained') -%><br />
-          <%= f.hidden_field :retained, :value=>true -%> 
-          <%= submit_tag t('activerecord.attributes.retained_manifestation.will_retained') -%>
-        <%- end -%>
+        <%= f.hidden_field :retained, :value=>true -%> 
+        <%= submit_tag t('activerecord.attributes.retained_manifestation.done') -%>
       <%- end -%>
     </td>
   </tr>    

@@ -816,10 +816,7 @@ ja:
         telephone: 電話
         reserve_list: 予約確認票
       retained_manifestation:
-        retained: 連絡済み
-        not_retained: 未連絡
-        will_retained: 連絡済みにする
-        will_not_retained: 未連絡にする
+        done: 完了
         failed_update: 更新に失敗しました。
       message_request:
         sent_at: 送信時刻
