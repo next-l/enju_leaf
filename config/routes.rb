@@ -30,6 +30,11 @@ EnjuLeaf::Application.routes.draw do
     resources :reserves
   end
 
+  resources :library_checks do
+    resources :libcheck_data_files
+    resources :library_check_shelves
+  end
+
   resources :patrons do
     resources :works, :controller => 'manifestations'
     resources :expressions, :controller => 'manifestations'
