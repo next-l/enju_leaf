@@ -31,7 +31,7 @@
     <td>
       <%= i18n_information_type(reserve.information_type_id) -%>&nbsp;
       <%- if reserve.information_type_id == 1 -%>
-        <%= mail_to Reserve.get_information_method(reserve), Reserve.get_information_method(reserve), :subject => @send_message.title, :body => @send_message.body -%>
+        <%= mail_to Reserve.get_information_method(reserve), Reserve.get_information_method(reserve), :subject => reserve.retained_mail_title, :body => reserve.retained_mail_message -%>
       <%- else -%>
         <%= Reserve.get_information_method(reserve)-%>
       <%- end -%>
