@@ -1059,14 +1059,14 @@ class Statistic < ActiveRecord::Base
     end
   end
 
-  def self.calc_age_data(start_at, end_at) 
+  def self.calc_age_data(start_at, end_at, term_id) 
     p "start to calculate age data: #{start_at} - #{end_at}"
 
-    # users 112 age 0~7
-    data_type = 112
+    # users 12 age 0~7
+    data_type = term_id.to_s + 12.to_s
     8.times do |age|
       statistic = Statistic.new
-      set_date(statistic, end_at, 1)
+      set_date(statistic, end_at, term_id)
       statistic.data_type = data_type
       statistic.age = age
       sql = "select count(*) from users, patrons where users.id = patrons.user_id AND date_part('year', age(patrons.date_of_birth)) >= ? AND date_part('year', age(patrons.date_of_birth)) <= ? AND users.created_at <= ?"
@@ -1076,9 +1076,9 @@ class Statistic < ActiveRecord::Base
         statistic.value = User.count_by_sql([sql, (age.to_s + 0.to_s).to_i, 200, end_at])
       end
       statistic.save! if statistic.value > 0
-      # users 112 available age 0~7
+      # users 12 available age 0~7
       statistic = Statistic.new
-      set_date(statistic, end_at, 1)
+      set_date(statistic, end_at, term_id)
       statistic.data_type = data_type
       statistic.age = age
       sql = "select count(*) from users, patrons where users.id = patrons.user_id AND users.locked_at IS NULL AND date_part('year', age(patrons.date_of_birth)) >= ? AND date_part('year', age(patrons.date_of_birth)) <= ? AND users.created_at <= ?"
@@ -1088,9 +1088,9 @@ class Statistic < ActiveRecord::Base
         statistic.value = User.count_by_sql([sql, (age.to_s + 0.to_s).to_i, 200, end_at])
       end
       statistic.save! if statistic.value > 0
-      # users 112 locked + 0~7
+      # users 12 locked + 0~7
       statistic = Statistic.new
-      set_date(statistic, end_at, 1)
+      set_date(statistic, end_at, term_id)
       statistic.data_type = data_type
       statistic.age = age
       sql = "select count(*) from users, patrons where users.id = patrons.user_id AND users.locked_at IS NOT NULL AND date_part('year', age(patrons.date_of_birth)) >= ? AND date_part('year', age(patrons.date_of_birth)) <= ? AND users.created_at <= ?"
@@ -1100,9 +1100,9 @@ class Statistic < ActiveRecord::Base
         statistic.value = User.count_by_sql([sql, (age.to_s + 0.to_s).to_i, 200, end_at])
       end
       statistic.save! if statistic.value > 0
-      # provional users 112 option: 3
+      # provional users 12 option: 3
       statistic = Statistic.new
-      set_date(statistic, end_at, 1)
+      set_date(statistic, end_at, term_id)
       statistic.data_type = data_type
       statistic.age = age
       statistic.option = 3
@@ -1116,7 +1116,7 @@ class Statistic < ActiveRecord::Base
       
       @libraries.each do |library|
         statistic = Statistic.new
-        set_date(statistic, end_at, 1)
+        set_date(statistic, end_at, term_id)
         statistic.data_type = data_type
         statistic.age = age
         statistic.library_id = library.id
@@ -1127,9 +1127,9 @@ class Statistic < ActiveRecord::Base
           statistic.value = User.count_by_sql([sql, library.id, (age.to_s + 0.to_s).to_i, 200, end_at])
         end
         statistic.save! if statistic.value > 0
-        # users 112 available + 0~7
+        # users 12 available + 0~7
         statistic = Statistic.new
-        set_date(statistic, end_at, 1)
+        set_date(statistic, end_at, term_id)
         statistic.data_type = data_type
         statistic.age = age
         statistic.library_id = library.id
@@ -1140,9 +1140,9 @@ class Statistic < ActiveRecord::Base
           statistic.value = User.count_by_sql([sql, library.id, (age.to_s + 0.to_s).to_i, 200, end_at])
         end
         statistic.save! if statistic.value > 0
-        # users 112 locked + 0~7
+        # users 12 locked + 0~7
         statistic = Statistic.new
-        set_date(statistic, end_at, 1)
+        set_date(statistic, end_at, term_id)
         statistic.data_type = data_type
         statistic.age = age
         statistic.library_id = library.id
@@ -1153,9 +1153,9 @@ class Statistic < ActiveRecord::Base
           statistic.value = User.count_by_sql([sql, library.id, (age.to_s + 0.to_s).to_i, 200, end_at])
         end
         statistic.save! if statistic.value > 0
-        # provisional users 112 option: 3
+        # provisional users 12 option: 3
         statistic = Statistic.new
-        set_date(statistic, end_at, 1)
+        set_date(statistic, end_at, term_id)
         statistic.data_type = data_type
         statistic.age = age
         statistic.option = 3
@@ -1171,33 +1171,32 @@ class Statistic < ActiveRecord::Base
     end
 
     # users without date_of_birth
-    data_type = 112
     statistic = Statistic.new
-    set_date(statistic, end_at, 1)
+    set_date(statistic, end_at, term_id)
     statistic.data_type = data_type
     statistic.age = 10
     sql = "select count(*) from users, patrons where users.id = patrons.user_id AND patrons.date_of_birth IS NULL AND users.created_at <= ?"
     statistic.value = User.count_by_sql([sql, end_at])
     statistic.save! if statistic.value > 0
-    # users 112 available
+    # users 12 available
     statistic = Statistic.new
-    set_date(statistic, end_at, 1)
+    set_date(statistic, end_at, term_id)
     statistic.data_type = data_type
     statistic.age = 10
     sql = "select count(*) from users, patrons where users.id = patrons.user_id AND users.locked_at IS NULL AND patrons.date_of_birth IS NULL AND users.created_at <= ?"
     statistic.value = User.count_by_sql([sql, end_at])
     statistic.save! if statistic.value > 0
-    # users 112 locked
+    # users 12 locked
     statistic = Statistic.new
-    set_date(statistic, end_at, 1)
+    set_date(statistic, end_at, term_id)
     statistic.data_type = data_type
     statistic.age = 10
     sql = "select count(*) from users, patrons where users.id = patrons.user_id AND users.locked_at IS NOT NULL AND patrons.date_of_birth IS NULL AND users.created_at <= ?"
     statistic.value = User.count_by_sql([sql, end_at])
     statistic.save! if statistic.value > 0
-    # provisional users 112 option: 3
+    # provisional users 12 option: 3
     statistic = Statistic.new
-    set_date(statistic, end_at, 1)
+    set_date(statistic, end_at, term_id)
     statistic.data_type = data_type
     statistic.age = 10
     statistic.option = 3
@@ -1206,34 +1205,34 @@ class Statistic < ActiveRecord::Base
     statistic.save! if statistic.value > 0
     @libraries.each do |library|
       statistic = Statistic.new
-      set_date(statistic, end_at, 1)
+      set_date(statistic, end_at, term_id)
       statistic.data_type = data_type
       statistic.age = 10
       statistic.library_id = library.id
       sql = "select count(*) from users, patrons, libraries where users.id = patrons.user_id AND users.library_id = libraries.id AND libraries.id = ? AND patrons.date_of_birth IS NULL AND users.created_at <= ?"
       statistic.value = User.count_by_sql([sql, library.id, end_at])
       statistic.save! if statistic.value > 0
-      # users 112 available
+      # users 12 available
       statistic = Statistic.new
-      set_date(statistic, end_at, 1)
+      set_date(statistic, end_at, term_id)
       statistic.data_type = data_type
       statistic.age = 10
       statistic.library_id = library.id
       sql = "select count(*) from users, patrons, libraries where users.id = patrons.user_id AND users.library_id = libraries.id AND libraries.id = ? AND users.locked_at IS NULL AND patrons.date_of_birth IS NULL AND users.created_at <= ?"
       statistic.value = User.count_by_sql([sql, library.id, end_at])
       statistic.save! if statistic.value > 0
-      # users 112 locked
+      # users 12 locked
       statistic = Statistic.new
-      set_date(statistic, end_at, 1)
+      set_date(statistic, end_at, term_id)
       statistic.data_type = data_type
       statistic.age = 10
       statistic.library_id = library.id
       sql = "select count(*) from users, patrons, libraries where users.id = patrons.user_id AND users.library_id = libraries.id AND libraries.id = ? AND users.locked_at IS NOT NULL AND patrons.date_of_birth IS NULL AND users.created_at <= ?"
       statistic.value = User.count_by_sql([sql, library.id, end_at])
       statistic.save! if statistic.value > 0
-      # provisional users 112 option: 3
+      # provisional users 12 option: 3
       statistic = Statistic.new
-      set_date(statistic, end_at, 1)
+      set_date(statistic, end_at, term_id)
       statistic.data_type = data_type
       statistic.age = 10
       statistic.library_id = library.id
@@ -1243,11 +1242,11 @@ class Statistic < ActiveRecord::Base
       statistic.save! if statistic.value > 0
     end
 
-    # checkout users 122 + 0~7
-    data_type = 122
+    # checkout users 22 + 0~7
+    data_type = term_id.to_s + 22.to_s
     8.times do |age|
       statistic = Statistic.new
-      set_date(statistic, start_at, 1)
+      set_date(statistic, start_at, term_id)
       statistic.data_type = data_type
       statistic.age = age
       sql = "select count(distinct checkouts.user_id) from checkouts, users, patrons where checkouts.user_id = users.id AND users.id = patrons.user_id AND date_part('year', age(patrons.date_of_birth)) >= ? AND date_part('year', age(patrons.date_of_birth)) <= ? AND checkouts.created_at >= ? AND checkouts.created_at <= ? "
@@ -1261,7 +1260,7 @@ class Statistic < ActiveRecord::Base
     @libraries.each do |library|
       8.times do |age|
         statistic = Statistic.new
-        set_date(statistic, start_at, 1)
+        set_date(statistic, start_at, term_id)
         statistic.data_type = data_type
         statistic.age = age
         statistic.library_id = library.id
@@ -1275,10 +1274,10 @@ class Statistic < ActiveRecord::Base
       end
     end
 
-    # checkout users 122 without date_of_birth
-    data_type = 122
+    # checkout users 22 without date_of_birth
+    data_type = term_id.to_s + 22.to_s
     statistic = Statistic.new
-    set_date(statistic, start_at, 1)
+    set_date(statistic, start_at, term_id)
     statistic.data_type = data_type
     statistic.age = 10
     sql = "select count(distinct checkouts.user_id) from checkouts, users, patrons where checkouts.user_id = users.id AND users.id = patrons.user_id AND patrons.date_of_birth IS NULL AND checkouts.created_at >= ? AND checkouts.created_at <= ? "
@@ -1286,7 +1285,7 @@ class Statistic < ActiveRecord::Base
     statistic.save! if statistic.value > 0
     @libraries.each do |library|
       statistic = Statistic.new
-      set_date(statistic, start_at, 1)
+      set_date(statistic, start_at, term_id)
       statistic.data_type = data_type
       statistic.age = 10
       statistic.library_id = library.id
@@ -1295,11 +1294,11 @@ class Statistic < ActiveRecord::Base
       statistic.save! if statistic.value > 0
     end
 
-    # checkout items 121 age: 0~7 / option: 0~4
-    data_type = 121
+    # checkout items 21 age: 0~7 / option: 0~4
+    data_type = term_id.to_s + 21.to_s
     8.times do |age|
       statistic = Statistic.new
-      set_date(statistic, start_at, 1)
+      set_date(statistic, start_at, term_id)
       statistic.data_type = data_type
       statistic.age = age
       sql = "select count(*) from checkouts, users, patrons where checkouts.user_id = users.id AND users.id = patrons.user_id AND date_part('year', age(patrons.date_of_birth)) >= ? AND date_part('year', age(patrons.date_of_birth)) <= ? AND checkouts.created_at >= ? AND checkouts.created_at <= ? "
@@ -1311,7 +1310,7 @@ class Statistic < ActiveRecord::Base
       statistic.save! if statistic.value > 0
       # NDC for all option: 1 (ndc starts a number)
       statistic = Statistic.new
-      set_date(statistic, start_at, 1)
+      set_date(statistic, start_at, term_id)
       statistic.data_type = data_type
       statistic.age = age
       statistic.option = 1
@@ -1324,7 +1323,7 @@ class Statistic < ActiveRecord::Base
       statistic.save! if statistic.value > 0
       # NDC for kids option: 2 (ndc starts K/E/C)
       statistic = Statistic.new
-      set_date(statistic, start_at, 1)
+      set_date(statistic, start_at, term_id)
       statistic.data_type = data_type
       statistic.age = age
       statistic.option = 2
@@ -1337,7 +1336,7 @@ class Statistic < ActiveRecord::Base
       statistic.save! if statistic.value > 0
       # NDC for else option: 3 (no ndc or ndc starts other alfabet)
       statistic = Statistic.new
-      set_date(statistic, start_at, 1)
+      set_date(statistic, start_at, term_id)
       statistic.data_type = data_type
       statistic.age = age
       statistic.option = 3
@@ -1352,7 +1351,7 @@ class Statistic < ActiveRecord::Base
     @libraries.each do |library|
       8.times do |age|
         statistic = Statistic.new
-        set_date(statistic, start_at, 1)
+        set_date(statistic, start_at, term_id)
         statistic.data_type = data_type
         statistic.age = age
         statistic.library_id = library.id
@@ -1365,7 +1364,7 @@ class Statistic < ActiveRecord::Base
         statistic.save! if statistic.value > 0
         # NDC for all option: 1 (ndc starts a number)
         statistic = Statistic.new
-        set_date(statistic, start_at, 1)
+        set_date(statistic, start_at, term_id)
         statistic.data_type = data_type
         statistic.age = age
         statistic.option = 1
@@ -1379,7 +1378,7 @@ class Statistic < ActiveRecord::Base
         statistic.save! if statistic.value > 0
         # NDC for kids option: 2 (ndc starts K/E/C)
         statistic = Statistic.new
-        set_date(statistic, start_at, 1)
+        set_date(statistic, start_at, term_id)
         statistic.data_type = data_type
         statistic.age = age
         statistic.option = 2
@@ -1393,7 +1392,7 @@ class Statistic < ActiveRecord::Base
         statistic.save! if statistic.value > 0
         # NDC for else option: 3 (no ndc or ndc starts other alfabet)
         statistic = Statistic.new
-        set_date(statistic, start_at, 1)
+        set_date(statistic, start_at, term_id)
         statistic.data_type = data_type
         statistic.age = age
         statistic.option = 3
@@ -1408,10 +1407,9 @@ class Statistic < ActiveRecord::Base
       end
     end
 
-    # checkout items 121 withou date_of_birth
-    data_type = 121
+    # checkout items 21 withou date_of_birth
     statistic = Statistic.new
-    set_date(statistic, start_at, 1)
+    set_date(statistic, start_at, term_id)
     statistic.data_type = data_type
     statistic.age = 10
     sql = "select count(*) from checkouts, users, patrons where checkouts.user_id = users.id AND users.id = patrons.user_id AND patrons.date_of_birth IS NULL AND checkouts.created_at >= ? AND checkouts.created_at <= ? "
@@ -1419,7 +1417,7 @@ class Statistic < ActiveRecord::Base
     statistic.save! if statistic.value > 0
     # NDC for all option: 1 (ndc starts a number)
     statistic = Statistic.new
-    set_date(statistic, start_at, 1)
+    set_date(statistic, start_at, term_id)
     statistic.data_type = data_type
     statistic.age = 10
     statistic.option = 1
@@ -1428,7 +1426,7 @@ class Statistic < ActiveRecord::Base
     statistic.save! if statistic.value > 0
     # NDC for kids option: 2 (ndc starts K/E/C)
     statistic = Statistic.new
-    set_date(statistic, start_at, 1)
+    set_date(statistic, start_at, term_id)
     statistic.data_type = data_type
     statistic.age = 10
     statistic.option = 2
@@ -1437,7 +1435,7 @@ class Statistic < ActiveRecord::Base
     statistic.save! if statistic.value > 0
     # NDC for else option: 3 (no ndc or ndc starts other alfabet)
     statistic = Statistic.new
-    set_date(statistic, start_at, 1)
+    set_date(statistic, start_at, term_id)
     statistic.data_type = data_type
     statistic.age = 10
     statistic.option = 3
@@ -1445,7 +1443,7 @@ class Statistic < ActiveRecord::Base
     statistic.value = Checkout.count_by_sql([sql, start_at, end_at])
     @libraries.each do |library|
       statistic = Statistic.new
-      set_date(statistic, start_at, 1)
+      set_date(statistic, start_at, term_id)
       statistic.data_type = data_type
       statistic.age = 10
       statistic.library_id = library.id
@@ -1454,7 +1452,7 @@ class Statistic < ActiveRecord::Base
       statistic.save! if statistic.value > 0
       # NDC for all option: 1 (ndc starts a number)
       statistic = Statistic.new
-      set_date(statistic, start_at, 1)
+      set_date(statistic, start_at, term_id)
       statistic.data_type = data_type
       statistic.age = 10
       statistic.option = 1
@@ -1464,7 +1462,7 @@ class Statistic < ActiveRecord::Base
       statistic.save! if statistic.value > 0
       # NDC for kids option: 2 (ndc starts K/E/C)
       statistic = Statistic.new
-      set_date(statistic, start_at, 1)
+      set_date(statistic, start_at, term_id)
       statistic.data_type = data_type
       statistic.age = 10
       statistic.option = 2
@@ -1474,7 +1472,7 @@ class Statistic < ActiveRecord::Base
       statistic.save! if statistic.value > 0
       # NDC for else option: 3 (no ndc or ndc starts other alfabet)
       statistic = Statistic.new
-      set_date(statistic, start_at, 1)
+      set_date(statistic, start_at, term_id)
       statistic.data_type = data_type
       statistic.age = 10
       statistic.option = 3
@@ -1484,11 +1482,11 @@ class Statistic < ActiveRecord::Base
       statistic.save! if statistic.value > 0
     end
 
-    # reserves 133 age: 0~7
-    data_type = 133
+    # reserves 33 age: 0~7
+    data_type = term_id.to_s + 33.to_s
     8.times do |age|
       statistic = Statistic.new
-      set_date(statistic, start_at, 1)
+      set_date(statistic, start_at, term_id)
       statistic.data_type = data_type
       statistic.age = age
       sql = "select count(*) from reserves, users, patrons where reserves.user_id = users.id AND users.id = patrons.user_id AND date_part('year', age(patrons.date_of_birth)) >= ? AND date_part('year', age(patrons.date_of_birth)) <= ? AND reserves.created_at >= ? AND reserves.created_at  <= ?"
@@ -1500,7 +1498,7 @@ class Statistic < ActiveRecord::Base
       statistic.save! if statistic.value > 0
       # on counter option: 1
       statistic = Statistic.new
-      set_date(statistic, start_at, 1)
+      set_date(statistic, start_at, term_id)
       statistic.data_type = data_type
       statistic.option = 1
       statistic.age = age
@@ -1513,7 +1511,7 @@ class Statistic < ActiveRecord::Base
       statistic.save! if statistic.value > 0
       # from OPAC
       statistic = Statistic.new
-      set_date(statistic, start_at, 1)
+      set_date(statistic, start_at, term_id)
       statistic.data_type = data_type
       statistic.option = 2
       statistic.age = age
@@ -1528,7 +1526,7 @@ class Statistic < ActiveRecord::Base
     @libraries.each do |library|
       8.times do |age|
         statistic = Statistic.new
-        set_date(statistic, start_at, 1)
+        set_date(statistic, start_at, term_id)
         statistic.data_type = data_type
         statistic.age = age
         statistic.library_id = library.id
@@ -1541,7 +1539,7 @@ class Statistic < ActiveRecord::Base
         statistic.save! if statistic.value > 0
         # on counter
         statistic = Statistic.new
-        set_date(statistic, start_at, 1)
+        set_date(statistic, start_at, term_id)
         statistic.data_type = data_type
         statistic.option = 1
         statistic.age = age
@@ -1555,7 +1553,7 @@ class Statistic < ActiveRecord::Base
         statistic.save! if statistic.value > 0
         # from OPAC
         statistic = Statistic.new
-        set_date(statistic, start_at, 1)
+        set_date(statistic, start_at, term_id)
         statistic.data_type = data_type
         statistic.option = 2
         statistic.age = age
@@ -1570,10 +1568,10 @@ class Statistic < ActiveRecord::Base
       end
     end
 
-    # reserves 133 without date_of_birth
-    data_type = 133
+    # reserves 33 without date_of_birth
+    data_type = term_id.to_s + 33.to_s
     statistic = Statistic.new
-    set_date(statistic, start_at, 1)
+    set_date(statistic, start_at, term_id)
     statistic.data_type = data_type
     statistic.age = 10
     sql = "select count(*) from reserves, users, patrons where reserves.user_id = users.id AND users.id = patrons.user_id AND patrons.date_of_birth IS NULL AND reserves.created_at >= ? AND reserves.created_at  <= ?"
@@ -1581,7 +1579,7 @@ class Statistic < ActiveRecord::Base
     statistic.save! if statistic.value > 0
     # on counter option: 1
     statistic = Statistic.new
-    set_date(statistic, start_at, 1)
+    set_date(statistic, start_at, term_id)
     statistic.data_type = data_type
     statistic.option = 1
     statistic.age = 10
@@ -1590,7 +1588,7 @@ class Statistic < ActiveRecord::Base
     statistic.save! if statistic.value > 0
     # from OPAC
     statistic = Statistic.new
-    set_date(statistic, start_at, 1)
+    set_date(statistic, start_at, term_id)
     statistic.data_type = data_type
     statistic.option = 2
     statistic.age = 10
@@ -1599,7 +1597,7 @@ class Statistic < ActiveRecord::Base
     statistic.save! if statistic.value > 0
     @libraries.each do |library|
       statistic = Statistic.new
-      set_date(statistic, start_at, 1)
+      set_date(statistic, start_at, term_id)
       statistic.data_type = data_type
       statistic.age = 10
       statistic.library_id = library.id
@@ -1608,7 +1606,7 @@ class Statistic < ActiveRecord::Base
       statistic.save! if statistic.value > 0
       # on counter
       statistic = Statistic.new
-      set_date(statistic, start_at, 1)
+      set_date(statistic, start_at, term_id)
       statistic.data_type = data_type
       statistic.option = 1
       statistic.age = 10
@@ -1618,7 +1616,7 @@ class Statistic < ActiveRecord::Base
       statistic.save! if statistic.value > 0
       # from OPAC
       statistic = Statistic.new
-      set_date(statistic, start_at, 1)
+      set_date(statistic, start_at, term_id)
       statistic.data_type = data_type
       statistic.option = 2
       statistic.age = 10
@@ -1628,11 +1626,11 @@ class Statistic < ActiveRecord::Base
       statistic.save! if statistic.value > 0
     end
 
-    # questions 143 age: 0~7
-    data_type = 143
+    # questions 43 age: 0~7
+    data_type = term_id.to_s + 43.to_s
     8.times do |age|
       statistic = Statistic.new
-      set_date(statistic, start_at, 1)
+      set_date(statistic, start_at, term_id)
       statistic.data_type = data_type
       statistic.age = age
       sql = "select count(*) from questions, users, patrons where questions.user_id = users.id AND users.id = patrons.user_id AND date_part('year', age(patrons.date_of_birth)) >= ? AND date_part('year', age(patrons.date_of_birth)) <= ? AND questions.created_at >= ? AND questions.created_at  <= ?"
@@ -1646,7 +1644,7 @@ class Statistic < ActiveRecord::Base
     @libraries.each do |library|
       8.times do |age|
         statistic = Statistic.new
-        set_date(statistic, start_at, 1)
+        set_date(statistic, start_at, term_id)
         statistic.data_type = data_type
         statistic.age = age
         statistic.library_id = library.id
@@ -1660,10 +1658,10 @@ class Statistic < ActiveRecord::Base
       end
     end
 
-    # questions 143 without date_of_birth
-    data_type = 143
+    # questions 43 without date_of_birth
+    data_type = term_id.to_s + 43.to_s
     statistic = Statistic.new
-    set_date(statistic, start_at, 1)
+    set_date(statistic, start_at, term_id)
     statistic.data_type = data_type
     statistic.age = 10
     sql = "select count(*) from questions, users, patrons where questions.user_id = users.id AND users.id = patrons.user_id AND patrons.date_of_birth IS NULL AND questions.created_at >= ? AND questions.created_at  <= ?"
@@ -1671,7 +1669,7 @@ class Statistic < ActiveRecord::Base
     statistic.save! if statistic.value > 0
     @libraries.each do |library|
       statistic = Statistic.new
-      set_date(statistic, start_at, 1)
+      set_date(statistic, start_at, term_id)
       statistic.data_type = data_type
       statistic.age = 10
       statistic.library_id = library.id
@@ -1693,7 +1691,6 @@ class Statistic < ActiveRecord::Base
       calc_users(Time.new('1970-01-01'), date_timestamp.end_of_month, 1)
       calc_items(Time.new('1970-01-01'), date_timestamp.end_of_month, 1)
       calc_missing_items(Time.new('1970-01-01'), date_timestamp.end_of_month, 1)
-      calc_age_data(date_timestamp.beginning_of_month, date_timestamp.end_of_month)
       calc_consultations(date_timestamp.beginning_of_month, date_timestamp.end_of_month, 1)      
       calc_monthly_data(date)
     else # daily calculate data each hour
@@ -1716,6 +1713,7 @@ class Statistic < ActiveRecord::Base
         i += 1
       end
       calc_consultations(date.beginning_of_day, date.end_of_day, 2)
+      calc_age_data(date.beginning_of_day, date.end_of_day, 2)
       calc_daily_data(date.strftime("%Y%m%d"))
     end
     rescue Exception => e

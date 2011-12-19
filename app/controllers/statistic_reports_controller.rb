@@ -5,12 +5,12 @@ class StatisticReportsController < ApplicationController
   def index
     @year = Time.zone.now.years_ago(1).strftime("%Y")
     @month = Time.zone.now.months_ago(1).strftime("%Y%m")
-    @t_start_at = Time.zone.now.months_ago(1).strftime("%Y%m")
-    @t_end_at = Time.zone.now.months_ago(1).strftime("%Y%m")
-    @d_start_at = Time.zone.now.months_ago(1).strftime("%Y%m")
-    @d_end_at = Time.zone.now.months_ago(1).strftime("%Y%m")
-    @a_start_at = Time.zone.now.months_ago(1).strftime("%Y%m")
-    @a_end_at = Time.zone.now.months_ago(1).strftime("%Y%m")
+    @t_start_at = Time.zone.now.months_ago(1).beginning_of_month.strftime("%Y%m%d")
+    @t_end_at = Time.zone.now.months_ago(1).end_of_month.strftime("%Y%m%d")
+    @d_start_at = Time.zone.now.months_ago(1).beginning_of_month.strftime("%Y%m%d")
+    @d_end_at = Time.zone.now.months_ago(1).end_of_month.strftime("%Y%m%d")
+    @a_start_at = Time.zone.now.months_ago(1).beginning_of_month.strftime("%Y%m%d")
+    @a_end_at = Time.zone.now.months_ago(1).end_of_month.strftime("%Y%m%d")
     @items_year = Time.zone.now.years_ago(1).strftime("%Y")
   end
 
@@ -27,12 +27,12 @@ class StatisticReportsController < ApplicationController
       flash[:message] = t('statistic_report.invalid_year')
       @year = term
       @month = Time.zone.now.months_ago(1).strftime("%Y%m")
-      @t_start_at = Time.zone.now.months_ago(1).strftime("%Y%m")
-      @t_end_at = Time.zone.now.months_ago(1).strftime("%Y%m")
-      @d_start_at = Time.zone.now.months_ago(1).strftime("%Y%m")
-      @d_end_at = Time.zone.now.months_ago(1).strftime("%Y%m")
-      @a_start_at = Time.zone.now.months_ago(1).strftime("%Y%m")
-      @a_end_at = Time.zone.now.months_ago(1).strftime("%Y%m")
+      @t_start_at = Time.zone.now.months_ago(1).beginning_of_month.strftime("%Y%m%d")
+      @t_end_at = Time.zone.now.months_ago(1).end_of_month.strftime("%Y%m%d")
+      @d_start_at = Time.zone.now.months_ago(1).beginning_of_month.strftime("%Y%m%d")
+      @d_end_at = Time.zone.now.months_ago(1).end_of_month.strftime("%Y%m%d")
+      @a_start_at = Time.zone.now.months_ago(1).beginning_of_month.strftime("%Y%m%d")
+      @a_end_at = Time.zone.now.months_ago(1).end_of_month.strftime("%Y%m%d")
       @items_year = Time.zone.now.years_ago(1).strftime("%Y")
       render :index
       return false
@@ -774,12 +774,12 @@ class StatisticReportsController < ApplicationController
       flash[:message] = t('statistic_report.invalid_month')
       @year = Time.zone.now.years_ago(1).strftime("%Y")
       @month = term
-      @t_start_at = Time.zone.now.months_ago(1).strftime("%Y%m")
-      @t_end_at = Time.zone.now.months_ago(1).strftime("%Y%m")
-      @d_start_at = Time.zone.now.months_ago(1).strftime("%Y%m")
-      @d_end_at = Time.zone.now.months_ago(1).strftime("%Y%m")
-      @a_start_at = Time.zone.now.months_ago(1).strftime("%Y%m")
-      @a_end_at = Time.zone.now.months_ago(1).strftime("%Y%m")
+      @t_start_at = Time.zone.now.months_ago(1).beginning_of_month.strftime("%Y%m%d")
+      @t_end_at = Time.zone.now.months_ago(1).end_of_month.strftime("%Y%m%d")
+      @d_start_at = Time.zone.now.months_ago(1).beginning_of_month.strftime("%Y%m%d")
+      @d_end_at = Time.zone.now.months_ago(1).end_of_month.strftime("%Y%m%d")
+      @a_start_at = Time.zone.now.months_ago(1).beginning_of_month.strftime("%Y%m%d")
+      @a_end_at = Time.zone.now.months_ago(1).end_of_month.strftime("%Y%m%d")
       @items_year = Time.zone.now.years_ago(1).strftime("%Y")
       render :index
       return false
@@ -1319,16 +1319,16 @@ class StatisticReportsController < ApplicationController
     start_at = params[:start_at].strip
     end_at = params[:end_at].strip
     end_at = start_at if end_at.empty?
-    unless (start_at =~ /^\d{6}$/ && end_at =~ /^\d{6}$/) && start_at.to_i <= end_at.to_i && month_term?(start_at) && month_term?(end_at)
+    unless (start_at =~ /^\d{8}$/ && end_at =~ /^\d{8}$/) && start_at.to_i <= end_at.to_i && term_valid?(start_at) && term_valid?(end_at)
       flash[:message] = t('statistic_report.invalid_month')
       @year = Time.zone.now.months_ago(1).strftime("%Y")
       @month = Time.zone.now.months_ago(1).strftime("%Y%m")
       @t_start_at = start_at
       @t_end_at = end_at
-      @d_start_at = Time.zone.now.months_ago(1).strftime("%Y%m")
-      @d_end_at = Time.zone.now.months_ago(1).strftime("%Y%m")
-      @a_start_at = Time.zone.now.months_ago(1).strftime("%Y%m")
-      @a_end_at = Time.zone.now.months_ago(1).strftime("%Y%m")
+      @d_start_at = Time.zone.now.months_ago(1).beginning_of_month.strftime("%Y%m%d")
+      @d_end_at = Time.zone.now.months_ago(1).end_of_month.strftime("%Y%m%d")
+      @a_start_at = Time.zone.now.months_ago(1).beginning_of_month.strftime("%Y%m%d")
+      @a_end_at = Time.zone.now.months_ago(1).end_of_month.strftime("%Y%m%d")
       @items_year = Time.zone.now.years_ago(1).strftime("%Y")
       render :index
       return false
@@ -1351,10 +1351,11 @@ class StatisticReportsController < ApplicationController
       report.page.item(:date).value(Time.now)
       report.page.item(:year).value(start_at[0,4])
       report.page.item(:year_start_at).value(start_at[0,4])
-      report.page.item(:month_start_at).value(start_at[4,6])
+      report.page.item(:month_start_at).value(start_at[4,2])
+      report.page.item(:date_start_at).value(start_at[6,2])
       report.page.item(:year_end_at).value(end_at[0,4])
-      report.page.item(:month_end_at).value(end_at[4,6])
-      report.page.item(:date_end_at).value(Time.parse("#{end_at}01").end_of_month.strftime("%d")) rescue nil 
+      report.page.item(:month_end_at).value(end_at[4,2])
+      report.page.item(:date_end_at).value(end_at[6,2]) rescue nil 
 
       # header 
       12.times do |t|
@@ -1369,7 +1370,7 @@ class StatisticReportsController < ApplicationController
         sum = 0
         hours.times do |t|
           value = 0
-          datas = Statistic.where(["yyyymm >= #{start_at} AND yyyymm <= #{end_at} AND data_type = 322 AND library_id = ? AND hour = ?", 0, t+open]).no_condition
+          datas = Statistic.where(["yyyymmdd >= #{start_at} AND yyyymmdd <= #{end_at} AND data_type = 322 AND library_id = ? AND hour = ?", 0, t+open]).no_condition
           datas.each do |data|
             value = value + data.value
           end
@@ -1386,7 +1387,7 @@ class StatisticReportsController < ApplicationController
           sum = 0
           hours.times do |t|
             value = 0
-            datas = Statistic.where(["yyyymm >= #{start_at} AND yyyymm <= #{end_at} AND data_type = ? AND option = ? AND library_id = ? AND hour = ?", data_type, type+6, 0, t+open])
+            datas = Statistic.where(["yyyymmdd >= #{start_at} AND yyyymmdd <= #{end_at} AND data_type = ? AND option = ? AND library_id = ? AND hour = ?", data_type, type+6, 0, t+open])
             datas.each do |data|
               value = value + data.value
             end
@@ -1404,7 +1405,7 @@ class StatisticReportsController < ApplicationController
           row.item(:library).value(library.display_name)
           hours.times do |t|
             value = 0
-            datas = Statistic.where(["yyyymm >= #{start_at} AND yyyymm <= #{end_at} AND data_type = 322 AND library_id = ? AND hour = ?", library.id, t+open]).no_condition
+            datas = Statistic.where(["yyyymmdd >= #{start_at} AND yyyymmdd <= #{end_at} AND data_type = 322 AND library_id = ? AND hour = ?", library.id, t+open]).no_condition
             datas.each do |data|
               value = value + data.value
             end
@@ -1421,7 +1422,7 @@ class StatisticReportsController < ApplicationController
             row.item(:option).value(t("statistic_report.user_type_#{type+1}"))
             hours.times do |t|
               value = 0
-              datas = Statistic.where(["yyyymm >= #{start_at} AND yyyymm <= #{end_at} AND data_type = ? AND option = ? AND library_id = ? AND hour = ?", data_type, type+6, library.id, t+open])
+              datas = Statistic.where(["yyyymmdd >= #{start_at} AND yyyymmdd <= #{end_at} AND data_type = ? AND option = ? AND library_id = ? AND hour = ?", data_type, type+6, library.id, t+open])
               datas.each do |data|
                 value = value + data.value
               end
@@ -1444,7 +1445,7 @@ class StatisticReportsController < ApplicationController
         sum = 0
         hours.times do |t|
           value = 0
-          datas = Statistic.where(["yyyymm >= #{start_at} AND yyyymm <= #{end_at} AND data_type = 321 AND library_id = ? AND hour = ?", 0, t+open]).no_condition
+          datas = Statistic.where(["yyyymmdd >= #{start_at} AND yyyymmdd <= #{end_at} AND data_type = 321 AND library_id = ? AND hour = ?", 0, t+open]).no_condition
           datas.each do |data|
             value = value + data.value
           end
@@ -1459,7 +1460,7 @@ class StatisticReportsController < ApplicationController
           sum = 0
           hours.times do |t|
             value = 0
-            datas = Statistic.where(["yyyymm >= #{start_at} AND yyyymm <= #{end_at} AND data_type = ? AND option = ? AND library_id = ? AND hour = ?", 321, i+1, 0, t+open])
+            datas = Statistic.where(["yyyymmdd >= #{start_at} AND yyyymmdd <= #{end_at} AND data_type = ? AND option = ? AND library_id = ? AND hour = ?", 321, i+1, 0, t+open])
             datas.each do |data|
               value = value + data.value
             end
@@ -1477,7 +1478,7 @@ class StatisticReportsController < ApplicationController
           row.item(:library).value(library.display_name)
           hours.times do |t|
             value = 0
-            datas = Statistic.where(["yyyymm >= #{start_at} AND yyyymm <= #{end_at} AND data_type = 321 AND library_id = ? AND hour = ?", library.id, t+open]).no_condition
+            datas = Statistic.where(["yyyymmdd >= #{start_at} AND yyyymmdd <= #{end_at} AND data_type = 321 AND library_id = ? AND hour = ?", library.id, t+open]).no_condition
             datas.each do |data|
               value = value + data.value
             end
@@ -1492,7 +1493,7 @@ class StatisticReportsController < ApplicationController
             sum = 0
             hours.times do |t|
               value = 0
-              datas = Statistic.where(["yyyymm >= #{start_at} AND yyyymm <= #{end_at} AND data_type = ? AND option = ? AND library_id = ? AND hour = ?", 321, i+1, library.id, t+open])
+              datas = Statistic.where(["yyyymmdd >= #{start_at} AND yyyymmdd <= #{end_at} AND data_type = ? AND option = ? AND library_id = ? AND hour = ?", 321, i+1, library.id, t+open])
               datas.each do |data|
                 value = value + data.value
               end
@@ -1515,7 +1516,7 @@ class StatisticReportsController < ApplicationController
         sum = 0
         hours.times do |t|
           value = 0
-          datas = Statistic.where(["yyyymm >= #{start_at} AND yyyymm <= #{end_at} AND data_type = 333 AND library_id = ? AND hour = ?", 0, t+open]).no_condition
+          datas = Statistic.where(["yyyymmdd >= #{start_at} AND yyyymmdd <= #{end_at} AND data_type = 333 AND library_id = ? AND hour = ?", 0, t+open]).no_condition
           datas.each do |data|
             value = value + data.value
           end
@@ -1530,7 +1531,7 @@ class StatisticReportsController < ApplicationController
         sum = 0
         hours.times do |t|
           value = 0
-          datas = Statistic.where(["yyyymm >= #{start_at} AND yyyymm <= #{end_at} AND data_type = 333 AND library_id = ? AND hour = ? AND option = 1 AND age IS NULL", 0, t+open])
+          datas = Statistic.where(["yyyymmdd >= #{start_at} AND yyyymmdd <= #{end_at} AND data_type = 333 AND library_id = ? AND hour = ? AND option = 1 AND age IS NULL", 0, t+open])
           datas.each do |data|
             value = value + data.value
           end
@@ -1545,7 +1546,7 @@ class StatisticReportsController < ApplicationController
         sum = 0
         hours.times do |t|
           value = 0
-          datas = Statistic.where(["yyyymm >= #{start_at} AND yyyymm <= #{end_at} AND data_type = 333 AND library_id = ? AND hour = ? AND option = 2 AND age IS NULL", 0, t+open])
+          datas = Statistic.where(["yyyymmdd >= #{start_at} AND yyyymmdd <= #{end_at} AND data_type = 333 AND library_id = ? AND hour = ? AND option = 2 AND age IS NULL", 0, t+open])
           datas.each do |data|
             value = value + data.value
           end
@@ -1562,7 +1563,7 @@ class StatisticReportsController < ApplicationController
           row.item(:library).value(library.display_name)
           hours.times do |t|
             value = 0
-            datas = Statistic.where(["yyyymm >= #{start_at} AND yyyymm <= #{end_at} AND data_type = 333 AND library_id = ? AND hour = ?", library.id, t+open]).no_condition
+            datas = Statistic.where(["yyyymmdd >= #{start_at} AND yyyymmdd <= #{end_at} AND data_type = 333 AND library_id = ? AND hour = ?", library.id, t+open]).no_condition
             datas.each do |data|
               value = value + data.value
             end
@@ -1577,7 +1578,7 @@ class StatisticReportsController < ApplicationController
           row.item(:option).value(t('statistic_report.on_counter'))
           hours.times do |t|
             value = 0
-            datas = Statistic.where(["yyyymm >= #{start_at} AND yyyymm <= #{end_at} AND data_type = 333 AND library_id = ? AND hour = ? AND option = 1 AND age IS NULL", library.id, t+open])
+            datas = Statistic.where(["yyyymmdd >= #{start_at} AND yyyymmdd <= #{end_at} AND data_type = 333 AND library_id = ? AND hour = ? AND option = 1 AND age IS NULL", library.id, t+open])
             datas.each do |data|
               value = value + data.value
             end
@@ -1592,7 +1593,7 @@ class StatisticReportsController < ApplicationController
           row.item(:option).value(t('statistic_report.from_opac'))
           hours.times do |t|
             value = 0
-            datas = Statistic.where(["yyyymm >= #{start_at} AND yyyymm <= #{end_at} AND data_type = 333 AND library_id = ? AND hour = ? AND option = 2 AND age IS NULL", library.id, t+open])
+            datas = Statistic.where(["yyyymmdd >= #{start_at} AND yyyymmdd <= #{end_at} AND data_type = 333 AND library_id = ? AND hour = ? AND option = 2 AND age IS NULL", library.id, t+open])
             datas.each do |data|
               value = value + data.value
             end
@@ -1612,7 +1613,7 @@ class StatisticReportsController < ApplicationController
         sum = 0
         hours.times do |t|
           value = 0
-          datas = Statistic.where(["yyyymm >= #{start_at} AND yyyymm <= #{end_at} AND data_type = 343 AND library_id = ? AND hour = ?", 0, t+open]).no_condition
+          datas = Statistic.where(["yyyymmdd >= #{start_at} AND yyyymmdd <= #{end_at} AND data_type = 343 AND library_id = ? AND hour = ?", 0, t+open]).no_condition
           datas.each do |data|
             value = value + data.value
           end
@@ -1629,7 +1630,7 @@ class StatisticReportsController < ApplicationController
           row.item(:library).value(library.display_name)
           hours.times do |t|
             value = 0
-            datas = Statistic.where(["yyyymm >= #{start_at} AND yyyymm <= #{end_at} AND data_type = 343 AND library_id = ? AND hour = ?", library.id, t+open]).no_condition
+            datas = Statistic.where(["yyyymmdd >= #{start_at} AND yyyymmdd <= #{end_at} AND data_type = 343 AND library_id = ? AND hour = ?", library.id, t+open]).no_condition
             datas.each do |data|
               value = value + data.value
             end
@@ -1654,16 +1655,16 @@ class StatisticReportsController < ApplicationController
     start_at = params[:start_at].strip
     end_at = params[:end_at].strip
     end_at = start_at if end_at.empty?
-    unless (start_at =~ /^\d{6}$/ && end_at =~ /^\d{6}$/) && start_at.to_i <= end_at.to_i && month_term?(start_at) && month_term?(end_at)
+    unless (start_at =~ /^\d{8}$/ && end_at =~ /^\d{8}$/) && start_at.to_i <= end_at.to_i && term_valid?(start_at) && term_valid?(end_at)
       flash[:message] = t('statistic_report.invalid_month')
       @year = Time.zone.now.months_ago(1).strftime("%Y")
       @month = Time.zone.now.months_ago(1).strftime("%Y%m")
-      @t_start_at = Time.zone.now.months_ago(1).strftime("%Y%m")
-      @t_end_at = Time.zone.now.months_ago(1).strftime("%Y%m")
+      @t_start_at = Time.zone.now.months_ago(1).beginning_of_month.strftime("%Y%m%d")
+      @t_end_at = Time.zone.now.months_ago(1).end_of_month.strftime("%Y%m%d")
       @d_start_at = start_at
       @d_end_at = end_at
-      @a_start_at = Time.zone.now.months_ago(1).strftime("%Y%m")
-      @a_end_at = Time.zone.now.months_ago(1).strftime("%Y%m")
+      @a_start_at = Time.zone.now.months_ago(1).beginning_of_month.strftime("%Y%m%d")
+      @a_end_at = Time.zone.now.months_ago(1).end_of_month.strftime("%Y%m%d")
       @items_year = Time.zone.now.years_ago(1).strftime("%Y")
       render :index
       return false
@@ -1686,10 +1687,11 @@ class StatisticReportsController < ApplicationController
       report.page.item(:date).value(Time.now)
       report.page.item(:year).value(start_at[0,4])
       report.page.item(:year_start_at).value(start_at[0,4])
-      report.page.item(:month_start_at).value(start_at[4,6])
+      report.page.item(:month_start_at).value(start_at[4,2])
+      report.page.item(:date_start_at).value(start_at[6,2])
       report.page.item(:year_end_at).value(end_at[0,4])
-      report.page.item(:month_end_at).value(end_at[4,6])
-      report.page.item(:date_end_at).value(Time.parse("#{end_at}01").end_of_month.strftime("%d")) rescue nil 
+      report.page.item(:month_end_at).value(end_at[4,2])
+      report.page.item(:date_end_at).value(end_at[6,2])
 
       # checkout users all libraries
       report.page.list(:list).add_row do |row|
@@ -1698,7 +1700,7 @@ class StatisticReportsController < ApplicationController
         sum = 0
         7.times do |t|
           value = 0
-          datas = Statistic.where(["yyyymm >= #{start_at} AND yyyymm <= #{end_at} AND data_type = 222 AND library_id = ? AND day = ?", 0, t]).no_condition
+          datas = Statistic.where(["yyyymmdd >= #{start_at} AND yyyymmdd <= #{end_at} AND data_type = 222 AND library_id = ? AND day = ?", 0, t]).no_condition
           datas.each do |data|
             value = value + data.value
           end
@@ -1715,7 +1717,7 @@ class StatisticReportsController < ApplicationController
           sum = 0
           7.times do |t|
             value = 0
-            datas = Statistic.where(["yyyymm >= #{start_at} AND yyyymm <= #{end_at} AND data_type = ? AND option = ? AND library_id = ? AND day = ?", data_type, type+6, 0, t])
+            datas = Statistic.where(["yyyymmdd >= #{start_at} AND yyyymmdd <= #{end_at} AND data_type = ? AND option = ? AND library_id = ? AND day = ?", data_type, type+6, 0, t])
             datas.each do |data|
               value = value + data.value
             end
@@ -1734,7 +1736,7 @@ class StatisticReportsController < ApplicationController
           row.item(:library).value(library.display_name)
           7.times do |t|
             value = 0
-            datas = Statistic.where(["yyyymm >= #{start_at} AND yyyymm <= #{end_at} AND data_type = 222 AND library_id = ? AND day = ?", library.id, t]).no_condition
+            datas = Statistic.where(["yyyymmdd >= #{start_at} AND yyyymmdd <= #{end_at} AND data_type = 222 AND library_id = ? AND day = ?", library.id, t]).no_condition
             datas.each do |data|
               value = value + data.value
             end
@@ -1751,7 +1753,7 @@ class StatisticReportsController < ApplicationController
             row.item(:option).value(t("statistic_report.user_type_#{type+1}"))
             7.times do |t|
               value = 0
-              datas = Statistic.where(["yyyymm >= #{start_at} AND yyyymm <= #{end_at} AND data_type = ? AND option = ? AND library_id = ? AND day = ?", data_type, type+6, library.id, t])
+              datas = Statistic.where(["yyyymmdd >= #{start_at} AND yyyymmdd <= #{end_at} AND data_type = ? AND option = ? AND library_id = ? AND day = ?", data_type, type+6, library.id, t])
               datas.each do |data|
                 value = value + data.value
               end
@@ -1774,7 +1776,7 @@ class StatisticReportsController < ApplicationController
         sum = 0
         7.times do |t|
           value = 0
-          datas = Statistic.where(["yyyymm >= #{start_at} AND yyyymm <= #{end_at} AND data_type = 221 AND library_id = ? AND day = ?", 0, t]).no_condition
+          datas = Statistic.where(["yyyymmdd >= #{start_at} AND yyyymmdd <= #{end_at} AND data_type = 221 AND library_id = ? AND day = ?", 0, t]).no_condition
           datas.each do |data|
             value = value + data.value
           end
@@ -1789,7 +1791,7 @@ class StatisticReportsController < ApplicationController
           sum = 0
           7.times do |t|
             value = 0
-            datas = Statistic.where(["yyyymm >= #{start_at} AND yyyymm <= #{end_at} AND data_type = ? AND option = ? AND library_id = ? AND day = ?", 221, i+1, 0, t])
+            datas = Statistic.where(["yyyymmdd >= #{start_at} AND yyyymmdd <= #{end_at} AND data_type = ? AND option = ? AND library_id = ? AND day = ?", 221, i+1, 0, t])
             datas.each do |data|
               value = value + data.value
             end
@@ -1807,7 +1809,7 @@ class StatisticReportsController < ApplicationController
           row.item(:library).value(library.display_name)
           7.times do |t|
             value = 0
-            datas = Statistic.where(["yyyymm >= #{start_at} AND yyyymm <= #{end_at} AND data_type = 221 AND library_id = ? AND day = ?", library.id, t]).no_condition
+            datas = Statistic.where(["yyyymmdd >= #{start_at} AND yyyymmdd <= #{end_at} AND data_type = 221 AND library_id = ? AND day = ?", library.id, t]).no_condition
             datas.each do |data|
               value = value + data.value
             end
@@ -1822,7 +1824,7 @@ class StatisticReportsController < ApplicationController
             sum = 0
             7.times do |t|
               value = 0
-              datas = Statistic.where(["yyyymm >= #{start_at} AND yyyymm <= #{end_at} AND data_type = ? AND option = ? AND library_id = ? AND day = ?", 221, i+1, library.id, t])
+              datas = Statistic.where(["yyyymmdd >= #{start_at} AND yyyymmdd <= #{end_at} AND data_type = ? AND option = ? AND library_id = ? AND day = ?", 221, i+1, library.id, t])
               datas.each do |data|
                 value = value + data.value
               end
@@ -1845,7 +1847,7 @@ class StatisticReportsController < ApplicationController
         sum = 0
         7.times do |t|
           value = 0
-          datas = Statistic.where(["yyyymm >= #{start_at} AND yyyymm <= #{end_at} AND data_type = 233 AND library_id = ? AND day = ?", 0, t]).no_condition
+          datas = Statistic.where(["yyyymmdd >= #{start_at} AND yyyymmdd <= #{end_at} AND data_type = 233 AND library_id = ? AND day = ?", 0, t]).no_condition
           datas.each do |data|
             value = value + data.value
           end
@@ -1860,7 +1862,7 @@ class StatisticReportsController < ApplicationController
         sum = 0
         7.times do |t|
           value = 0
-          datas = Statistic.where(["yyyymm >= #{start_at} AND yyyymm <= #{end_at} AND data_type = 233 AND library_id = ? AND day = ? AND option = 1", 0, t]).no_condition
+          datas = Statistic.where(["yyyymmdd >= #{start_at} AND yyyymmdd <= #{end_at} AND data_type = 233 AND library_id = ? AND day = ? AND option = 1", 0, t]).no_condition
           datas.each do |data|
             value = value + data.value
           end
@@ -1875,7 +1877,7 @@ class StatisticReportsController < ApplicationController
         sum = 0
         7.times do |t|
           value = 0
-          datas = Statistic.where(["yyyymm >= #{start_at} AND yyyymm <= #{end_at} AND data_type = 233 AND library_id = ? AND day = ? AND option = 2", 0, t]).no_condition
+          datas = Statistic.where(["yyyymmdd >= #{start_at} AND yyyymmdd <= #{end_at} AND data_type = 233 AND library_id = ? AND day = ? AND option = 2", 0, t]).no_condition
           datas.each do |data|
             value = value + data.value
           end
@@ -1892,7 +1894,7 @@ class StatisticReportsController < ApplicationController
           row.item(:library).value(library.display_name.localize)
           7.times do |t|
             value = 0
-            datas = Statistic.where(["yyyymm >= #{start_at} AND yyyymm <= #{end_at} AND data_type = 233 AND library_id = ? AND day = ?", library.id, t])
+            datas = Statistic.where(["yyyymmdd >= #{start_at} AND yyyymmdd <= #{end_at} AND data_type = 233 AND library_id = ? AND day = ?", library.id, t])
             datas.each do |data|
               value = value + data.value
             end
@@ -1907,7 +1909,7 @@ class StatisticReportsController < ApplicationController
           row.item(:option).value(t('statistic_report.on_counter'))
           7.times do |t|
             value = 0
-            datas = Statistic.where(["yyyymm >= #{start_at} AND yyyymm <= #{end_at} AND data_type = 233 AND library_id = ? AND day = ? AND option = 1", library.id, t])
+            datas = Statistic.where(["yyyymmdd >= #{start_at} AND yyyymmdd <= #{end_at} AND data_type = 233 AND library_id = ? AND day = ? AND option = 1", library.id, t])
             datas.each do |data|
               value = value + data.value
             end
@@ -1922,7 +1924,7 @@ class StatisticReportsController < ApplicationController
           row.item(:option).value(t('statistic_report.from_opac'))
           7.times do |t|
             value = 0
-            datas = Statistic.where(["yyyymm >= #{start_at} AND yyyymm <= #{end_at} AND data_type = 233 AND library_id = ? AND day = ? AND option = 2", library.id, t])
+            datas = Statistic.where(["yyyymmdd >= #{start_at} AND yyyymmdd <= #{end_at} AND data_type = 233 AND library_id = ? AND day = ? AND option = 2", library.id, t])
             datas.each do |data|
               value = value + data.value
             end
@@ -1943,7 +1945,7 @@ class StatisticReportsController < ApplicationController
         sum = 0
         7.times do |t|
           value = 0
-          datas = Statistic.where(["yyyymm >= #{start_at} AND yyyymm <= #{end_at} AND data_type = 243 AND library_id = ? AND day = ?", 0, t]).no_condition
+          datas = Statistic.where(["yyyymmdd >= #{start_at} AND yyyymmdd <= #{end_at} AND data_type = 243 AND library_id = ? AND day = ?", 0, t]).no_condition
           datas.each do |data|
             value = value + data.value
           end
@@ -1959,7 +1961,7 @@ class StatisticReportsController < ApplicationController
           row.item(:library).value(library.display_name)
           7.times do |t|
             value = 0
-            datas = Statistic.where(["yyyymm >= #{start_at} AND yyyymm <= #{end_at} AND data_type = 243 AND library_id = ? AND day = ?", library.id, t]).no_condition
+            datas = Statistic.where(["yyyymmdd >= #{start_at} AND yyyymmdd <= #{end_at} AND data_type = 243 AND library_id = ? AND day = ?", library.id, t]).no_condition
             datas.each do |data|
               value = value + data.value
             end
@@ -1985,14 +1987,14 @@ class StatisticReportsController < ApplicationController
     start_at = params[:start_at].strip
     end_at = params[:end_at].strip
     end_at = start_at if end_at.empty?
-    unless (start_at =~ /^\d{6}$/ && end_at =~ /^\d{6}$/) && start_at.to_i <= end_at.to_i && month_term?(start_at) && month_term?(end_at)
+    unless (start_at =~ /^\d{8}$/ && end_at =~ /^\d{8}$/) && start_at.to_i <= end_at.to_i && term_valid?(start_at) && term_valid?(end_at)
       flash[:message] = t('statistic_report.invalid_month')
       @year = Time.zone.now.months_ago(1).strftime("%Y")
       @month = Time.zone.now.months_ago(1).strftime("%Y%m")
-      @t_start_at = Time.zone.now.months_ago(1).strftime("%Y%m")
-      @t_end_at = Time.zone.now.months_ago(1).strftime("%Y%m")
-      @d_start_at = Time.zone.now.months_ago(1).strftime("%Y%m")
-      @d_end_at = Time.zone.now.months_ago(1).strftime("%Y%m")
+      @t_start_at = Time.zone.now.months_ago(1).beginning_of_month.strftime("%Y%m%d")
+      @t_end_at = Time.zone.now.months_ago(1).end_of_month.strftime("%Y%m%d")
+      @d_start_at = Time.zone.now.months_ago(1).beginning_of_month.strftime("%Y%m%d")
+      @d_end_at = Time.zone.now.months_ago(1).end_of_month.strftime("%Y%m%d")
       @a_start_at = start_at
       @a_end_at = end_at
       @items_year = Time.zone.now.years_ago(1).strftime("%Y")
@@ -2017,20 +2019,21 @@ class StatisticReportsController < ApplicationController
       report.page.item(:date).value(Time.now)
       report.page.item(:year).value(start_at[0,4])
       report.page.item(:year_start_at).value(start_at[0,4])
-      report.page.item(:month_start_at).value(start_at[4,6])
+      report.page.item(:month_start_at).value(start_at[4,2])
+      report.page.item(:date_start_at).value(start_at[6,2])
       report.page.item(:year_end_at).value(end_at[0,4])
-      report.page.item(:month_end_at).value(end_at[4,6])
-      report.page.item(:date_end_at).value(Time.parse("#{end_at}01").end_of_month.strftime("%d")) rescue nil 
+      report.page.item(:month_end_at).value(end_at[4,2])
+      report.page.item(:date_end_at).value(end_at[6,2])
 
       # checkout users all libraries
-      data_type = 122
+      data_type = 222
       report.page.list(:list).add_row do |row|
         row.item(:type).value(t('statistic_report.checkout_users'))
         row.item(:library).value(t('statistic_report.all_library'))
         sum = 0
         8.times do |t|
           value = 0
-          datas = Statistic.where(["yyyymm >= #{start_at} AND yyyymm <= #{end_at} AND data_type = ? AND age = ? AND library_id = ?", data_type, t, 0])
+          datas = Statistic.where(["yyyymmdd >= #{start_at} AND yyyymmdd <= #{end_at} AND data_type = ? AND age = ? AND library_id = ?", data_type, t, 0])
           datas.each do |data|
             value = value + data.value
           end
@@ -2038,7 +2041,7 @@ class StatisticReportsController < ApplicationController
           row.item("value#{t}").value(value)
         end
         value = 0
-        datas = Statistic.where(["yyyymm >= #{start_at} AND yyyymm <= #{end_at} AND data_type = ? AND age = ? AND library_id = ?", data_type, 10, 0])
+        datas = Statistic.where(["yyyymmdd >= #{start_at} AND yyyymmdd <= #{end_at} AND data_type = ? AND age = ? AND library_id = ?", data_type, 10, 0])
         datas.each do |data|
           value = value + data.value
         end
@@ -2054,7 +2057,7 @@ class StatisticReportsController < ApplicationController
           row.item(:library).value(library.display_name)
           8.times do |t|
             value = 0
-            datas = Statistic.where(["yyyymm >= #{start_at} AND yyyymm <= #{end_at} AND data_type = ? AND age = ? AND library_id = ?", data_type, t, library.id])
+            datas = Statistic.where(["yyyymmdd >= #{start_at} AND yyyymmdd <= #{end_at} AND data_type = ? AND age = ? AND library_id = ?", data_type, t, library.id])
             datas.each do |data|
               value = value + data.value
             end
@@ -2062,7 +2065,7 @@ class StatisticReportsController < ApplicationController
             row.item("value#{t}").value(value)
           end
           value = 0
-          datas = Statistic.where(["yyyymm >= #{start_at} AND yyyymm <= #{end_at} AND data_type = ? AND age = ? AND library_id = ?", data_type, 10, library.id])
+          datas = Statistic.where(["yyyymmdd >= #{start_at} AND yyyymmdd <= #{end_at} AND data_type = ? AND age = ? AND library_id = ?", data_type, 10, library.id])
           datas.each do |data|
             value = value + data.value
           end
@@ -2075,14 +2078,14 @@ class StatisticReportsController < ApplicationController
       end
 
       # checkout items all libraries
-      data_type = 121
+      data_type = 221
       report.page.list(:list).add_row do |row|
         row.item(:type).value(t('statistic_report.checkout_items'))
         row.item(:library).value(t('statistic_report.all_library'))
         sum = 0
         8.times do |t|
           value = 0
-          datas = Statistic.where(["yyyymm >= #{start_at} AND yyyymm <= #{end_at} AND data_type = ? AND age = ? AND library_id = ? AND option = 0", data_type, t, 0])
+          datas = Statistic.where(["yyyymmdd >= #{start_at} AND yyyymmdd <= #{end_at} AND data_type = ? AND age = ? AND library_id = ? AND option = 0", data_type, t, 0])
           datas.each do |data|
             value = value + data.value
           end
@@ -2090,7 +2093,7 @@ class StatisticReportsController < ApplicationController
           row.item("value#{t}").value(value)
         end
         value = 0
-        datas = Statistic.where(["yyyymm >= #{start_at} AND yyyymm <= #{end_at} AND data_type = ? AND age = ? AND library_id = ? AND option = 0", data_type, 10, 0])
+        datas = Statistic.where(["yyyymmdd >= #{start_at} AND yyyymmdd <= #{end_at} AND data_type = ? AND age = ? AND library_id = ? AND option = 0", data_type, 10, 0])
         datas.each do |data|
           value = value + data.value
         end
@@ -2104,7 +2107,7 @@ class StatisticReportsController < ApplicationController
           sum = 0
           8.times do |t|
             value = 0
-            datas = Statistic.where(["yyyymm >= #{start_at} AND yyyymm <= #{end_at} AND data_type = ? AND age = ? AND library_id = ? AND option = ?", data_type, t, 0, i+1])
+            datas = Statistic.where(["yyyymmdd >= #{start_at} AND yyyymmdd <= #{end_at} AND data_type = ? AND age = ? AND library_id = ? AND option = ?", data_type, t, 0, i+1])
             datas.each do |data|
               value = value + data.value
             end
@@ -2112,7 +2115,7 @@ class StatisticReportsController < ApplicationController
             row.item("value#{t}").value(value)
           end
           value = 0
-          datas = Statistic.where(["yyyymm >= #{start_at} AND yyyymm <= #{end_at} AND data_type = ? AND age = ? AND library_id = ? AND option = ?", data_type, 10, 0, i+1])
+          datas = Statistic.where(["yyyymmdd >= #{start_at} AND yyyymmdd <= #{end_at} AND data_type = ? AND age = ? AND library_id = ? AND option = ?", data_type, 10, 0, i+1])
           datas.each do |data|
             value = value + data.value
           end
@@ -2129,7 +2132,7 @@ class StatisticReportsController < ApplicationController
           row.item(:library).value(library.display_name)
           8.times do |t|
             value = 0
-            datas = Statistic.where(["yyyymm >= #{start_at} AND yyyymm <= #{end_at} AND data_type = ? AND age = ? AND library_id = ? AND option = 0", data_type, t, library.id])
+            datas = Statistic.where(["yyyymmdd >= #{start_at} AND yyyymmdd <= #{end_at} AND data_type = ? AND age = ? AND library_id = ? AND option = 0", data_type, t, library.id])
             datas.each do |data|
               value = value + data.value
             end
@@ -2137,7 +2140,7 @@ class StatisticReportsController < ApplicationController
             row.item("value#{t}").value(value)
           end
           value = 0
-          datas = Statistic.where(["yyyymm >= #{start_at} AND yyyymm <= #{end_at} AND data_type = ? AND age = ? AND library_id = ? AND option = 0", data_type, 10, library.id])
+          datas = Statistic.where(["yyyymmdd >= #{start_at} AND yyyymmdd <= #{end_at} AND data_type = ? AND age = ? AND library_id = ? AND option = 0", data_type, 10, library.id])
           datas.each do |data|
             value = value + data.value
           end
@@ -2151,7 +2154,7 @@ class StatisticReportsController < ApplicationController
             sum = 0
             8.times do |t|
               value = 0
-              datas = Statistic.where(["yyyymm >= #{start_at} AND yyyymm <= #{end_at} AND data_type = ? AND age = ? AND library_id = ? AND option = ?", data_type, t, library.id, i+1])
+              datas = Statistic.where(["yyyymmdd >= #{start_at} AND yyyymmdd <= #{end_at} AND data_type = ? AND age = ? AND library_id = ? AND option = ?", data_type, t, library.id, i+1])
               datas.each do |data|
                 value = value + data.value
               end
@@ -2159,7 +2162,7 @@ class StatisticReportsController < ApplicationController
               row.item("value#{t}").value(value)
             end
             value = 0
-            datas = Statistic.where(["yyyymm >= #{start_at} AND yyyymm <= #{end_at} AND data_type = ? AND age = ? AND library_id = ? AND option = ?", data_type, 10, library.id, i+1])
+            datas = Statistic.where(["yyyymmdd >= #{start_at} AND yyyymmdd <= #{end_at} AND data_type = ? AND age = ? AND library_id = ? AND option = ?", data_type, 10, library.id, i+1])
             datas.each do |data|
               value = value + data.value
             end
@@ -2175,7 +2178,7 @@ class StatisticReportsController < ApplicationController
       end
 
       # all users all libraries
-      data_type = 112
+      data_type = 212
       report.page.list(:list).add_row do |row|
         row.item(:type).value(t('statistic_report.users'))
         row.item(:library).value(t('statistic_report.all_library'))
@@ -2183,7 +2186,7 @@ class StatisticReportsController < ApplicationController
         sum = 0
         8.times do |t|
           value = 0
-          datas = Statistic.where(["yyyymm >= #{start_at} AND yyyymm <= #{end_at} AND data_type = ? AND option = ? AND age = ? AND library_id = ?", data_type, 0, t, 0])
+          datas = Statistic.where(["yyyymmdd >= #{start_at} AND yyyymmdd <= #{end_at} AND data_type = ? AND option = ? AND age = ? AND library_id = ?", data_type, 0, t, 0])
           datas.each do |data|
             value = value + data.value
           end
@@ -2191,7 +2194,7 @@ class StatisticReportsController < ApplicationController
           row.item("value#{t}").value(value)
         end  
         value = 0
-        datas = Statistic.where(["yyyymm >= #{start_at} AND yyyymm <= #{end_at} AND data_type = ? AND option = ? AND age = ? AND library_id = ?", data_type, 0, 10, 0])
+        datas = Statistic.where(["yyyymmdd >= #{start_at} AND yyyymmdd <= #{end_at} AND data_type = ? AND option = ? AND age = ? AND library_id = ?", data_type, 0, 10, 0])
         datas.each do |data|
           value = value + data.value
         end
@@ -2205,7 +2208,7 @@ class StatisticReportsController < ApplicationController
         sum = 0
         8.times do |t|
           value = 0
-          datas = Statistic.where(["yyyymm >= #{start_at} AND yyyymm <= #{end_at} AND data_type = ? AND option = ? AND age = ? AND library_id = ?", data_type, 1, t, 0])
+          datas = Statistic.where(["yyyymmdd >= #{start_at} AND yyyymmdd <= #{end_at} AND data_type = ? AND option = ? AND age = ? AND library_id = ?", data_type, 1, t, 0])
           datas.each do |data|
             value =value + data.value
           end
@@ -2213,7 +2216,7 @@ class StatisticReportsController < ApplicationController
           row.item("value#{t}").value(value)
         end  
         value = 0
-        datas = Statistic.where(["yyyymm >= #{start_at} AND yyyymm <= #{end_at} AND data_type = ? AND option = ? AND age = ? AND library_id = ?", data_type, 1, 10, 0])
+        datas = Statistic.where(["yyyymmdd >= #{start_at} AND yyyymmdd <= #{end_at} AND data_type = ? AND option = ? AND age = ? AND library_id = ?", data_type, 1, 10, 0])
         datas.each do |data|
           value =value + data.value
         end
@@ -2227,7 +2230,7 @@ class StatisticReportsController < ApplicationController
         sum = 0
         8.times do |t|
           value = 0
-          datas = Statistic.where(["yyyymm >= #{start_at} AND yyyymm <= #{end_at} AND data_type = ? AND option = ? AND age = ? AND library_id = ?", data_type, 2, t, 0])
+          datas = Statistic.where(["yyyymmdd >= #{start_at} AND yyyymmdd <= #{end_at} AND data_type = ? AND option = ? AND age = ? AND library_id = ?", data_type, 2, t, 0])
           datas.each do |data|
             value =value + data.value
           end
@@ -2235,7 +2238,7 @@ class StatisticReportsController < ApplicationController
           row.item("value#{t}").value(value)
         end  
         value = 0
-        datas = Statistic.where(["yyyymm >= #{start_at} AND yyyymm <= #{end_at} AND data_type = ? AND option = ? AND age = ? AND library_id = ?", data_type, 2, 10, 0])
+        datas = Statistic.where(["yyyymmdd >= #{start_at} AND yyyymmdd <= #{end_at} AND data_type = ? AND option = ? AND age = ? AND library_id = ?", data_type, 2, 10, 0])
         datas.each do |data|
           value =value + data.value
         end
@@ -2249,7 +2252,7 @@ class StatisticReportsController < ApplicationController
         sum = 0
         8.times do |t|
           value = 0
-          datas = Statistic.where(["yyyymm >= #{start_at} AND yyyymm <= #{end_at} AND data_type = ? AND option = ? AND age = ? AND library_id = ?", data_type, 3, t, 0])
+          datas = Statistic.where(["yyyymmdd >= #{start_at} AND yyyymmdd <= #{end_at} AND data_type = ? AND option = ? AND age = ? AND library_id = ?", data_type, 3, t, 0])
           datas.each do |data|
             value =value + data.value
           end
@@ -2257,7 +2260,7 @@ class StatisticReportsController < ApplicationController
           row.item("value#{t}").value(value)
         end  
         value = 0
-        datas = Statistic.where(["yyyymm >= #{start_at} AND yyyymm <= #{end_at} AND data_type = ? AND option = ? AND age = ? AND library_id = ?", data_type, 3, 10, 0])
+        datas = Statistic.where(["yyyymmdd >= #{start_at} AND yyyymmdd <= #{end_at} AND data_type = ? AND option = ? AND age = ? AND library_id = ?", data_type, 3, 10, 0])
         datas.each do |data|
           value =value + data.value
         end
@@ -2273,7 +2276,7 @@ class StatisticReportsController < ApplicationController
           sum = 0
           8.times do |t|
             value = 0
-            datas = Statistic.where(["yyyymm >= #{start_at} AND yyyymm <= #{end_at} AND data_type = ? AND option = ? AND age = ? AND library_id = ?", data_type, 0, t, library.id])
+            datas = Statistic.where(["yyyymmdd >= #{start_at} AND yyyymmdd <= #{end_at} AND data_type = ? AND option = ? AND age = ? AND library_id = ?", data_type, 0, t, library.id])
             datas.each do |data|
               value =value + data.value
             end
@@ -2281,7 +2284,7 @@ class StatisticReportsController < ApplicationController
             row.item("value#{t}").value(value)
           end  
           value = 0
-          datas = Statistic.where(["yyyymm >= #{start_at} AND yyyymm <= #{end_at} AND data_type = ? AND option = ? AND age = ? AND library_id = ?", data_type, 0, 10, library.id])
+          datas = Statistic.where(["yyyymmdd >= #{start_at} AND yyyymmdd <= #{end_at} AND data_type = ? AND option = ? AND age = ? AND library_id = ?", data_type, 0, 10, library.id])
           datas.each do |data|
             value =value + data.value
           end
@@ -2295,7 +2298,7 @@ class StatisticReportsController < ApplicationController
           sum = 0
           8.times do |t|
             value = 0
-            datas = Statistic.where(["yyyymm >= #{start_at} AND yyyymm <= #{end_at} AND data_type = ? AND option = ? AND age = ? AND library_id = ?", data_type, 1, t, library.id])
+            datas = Statistic.where(["yyyymmdd >= #{start_at} AND yyyymmdd <= #{end_at} AND data_type = ? AND option = ? AND age = ? AND library_id = ?", data_type, 1, t, library.id])
             datas.each do |data|
               value =value + data.value
             end
@@ -2303,7 +2306,7 @@ class StatisticReportsController < ApplicationController
             row.item("value#{t}").value(value)
           end    
           value = 0
-          datas = Statistic.where(["yyyymm >= #{start_at} AND yyyymm <= #{end_at} AND data_type = ? AND option = ? AND age = ? AND library_id = ?", data_type, 1, 10, library.id])
+          datas = Statistic.where(["yyyymmdd >= #{start_at} AND yyyymmdd <= #{end_at} AND data_type = ? AND option = ? AND age = ? AND library_id = ?", data_type, 1, 10, library.id])
           datas.each do |data|
             value =value + data.value
           end
@@ -2317,7 +2320,7 @@ class StatisticReportsController < ApplicationController
           sum = 0
           8.times do |t|
             value = 0
-            datas = Statistic.where(["yyyymm >= #{start_at} AND yyyymm <= #{end_at} AND data_type = ? AND option = ? AND age = ? AND library_id = ?", data_type, 2, t, library.id])
+            datas = Statistic.where(["yyyymmdd >= #{start_at} AND yyyymmdd <= #{end_at} AND data_type = ? AND option = ? AND age = ? AND library_id = ?", data_type, 2, t, library.id])
             datas.each do |data|
               value =value + data.value
             end
@@ -2325,7 +2328,7 @@ class StatisticReportsController < ApplicationController
             row.item("value#{t}").value(value)
           end  
           value = 0
-          datas = Statistic.where(["yyyymm >= #{start_at} AND yyyymm <= #{end_at} AND data_type = ? AND option = ? AND age = ? AND library_id = ?", data_type, 2, 10, library.id])
+          datas = Statistic.where(["yyyymmdd >= #{start_at} AND yyyymmdd <= #{end_at} AND data_type = ? AND option = ? AND age = ? AND library_id = ?", data_type, 2, 10, library.id])
           datas.each do |data|
             value =value + data.value
           end
@@ -2339,7 +2342,7 @@ class StatisticReportsController < ApplicationController
           sum = 0
           8.times do |t|
             value = 0
-            datas = Statistic.where(["yyyymm >= #{start_at} AND yyyymm <= #{end_at} AND data_type = ? AND option = ? AND age = ? AND library_id = ?", data_type, 3, t, library.id])
+            datas = Statistic.where(["yyyymmdd >= #{start_at} AND yyyymmdd <= #{end_at} AND data_type = ? AND option = ? AND age = ? AND library_id = ?", data_type, 3, t, library.id])
             datas.each do |data|
               value =value + data.value
             end
@@ -2347,7 +2350,7 @@ class StatisticReportsController < ApplicationController
             row.item("value#{t}").value(value)
           end  
           value = 0
-          datas = Statistic.where(["yyyymm >= #{start_at} AND yyyymm <= #{end_at} AND data_type = ? AND option = ? AND age = ? AND library_id = ?", data_type, 3, 10, library.id])
+          datas = Statistic.where(["yyyymmdd >= #{start_at} AND yyyymmdd <= #{end_at} AND data_type = ? AND option = ? AND age = ? AND library_id = ?", data_type, 3, 10, library.id])
           datas.each do |data|
             value =value + data.value
           end
@@ -2360,14 +2363,14 @@ class StatisticReportsController < ApplicationController
       end
 
       # reserves all libraries
-      data_type = 133
+      data_type = 233
       report.page.list(:list).add_row do |row|
         row.item(:type).value(t('statistic_report.reserves'))
         row.item(:library).value(t('statistic_report.all_library'))
         sum = 0
         8.times do |t|
           value = 0
-          datas = Statistic.where(["yyyymm >= #{start_at} AND yyyymm <= #{end_at} AND data_type = ? AND option = 0 AND age = ? AND library_id = ?", data_type, t, 0])
+          datas = Statistic.where(["yyyymmdd >= #{start_at} AND yyyymmdd <= #{end_at} AND data_type = ? AND option = 0 AND age = ? AND library_id = ?", data_type, t, 0])
           datas.each do |data|
             value = value + data.value
           end
@@ -2375,7 +2378,7 @@ class StatisticReportsController < ApplicationController
           row.item("value#{t}").value(value)
         end
         value = 0
-        datas = Statistic.where(["yyyymm >= #{start_at} AND yyyymm <= #{end_at} AND data_type = ? AND option = 0 AND age = ? AND library_id = ?", data_type, 10, 0])
+        datas = Statistic.where(["yyyymmdd >= #{start_at} AND yyyymmdd <= #{end_at} AND data_type = ? AND option = 0 AND age = ? AND library_id = ?", data_type, 10, 0])
         datas.each do |data|
           value = value + data.value
         end
@@ -2389,7 +2392,7 @@ class StatisticReportsController < ApplicationController
         sum = 0
         8.times do |t|
           value = 0
-          datas = Statistic.where(["yyyymm >= #{start_at} AND yyyymm <= #{end_at} AND data_type = ? AND option = 1 AND age = ? AND library_id = ?", data_type, t, 0])
+          datas = Statistic.where(["yyyymmdd >= #{start_at} AND yyyymmdd <= #{end_at} AND data_type = ? AND option = 1 AND age = ? AND library_id = ?", data_type, t, 0])
           datas.each do |data|
             value = value + data.value
           end
@@ -2397,7 +2400,7 @@ class StatisticReportsController < ApplicationController
           row.item("value#{t}").value(value)
         end
         value = 0
-        datas = Statistic.where(["yyyymm >= #{start_at} AND yyyymm <= #{end_at} AND data_type = ? AND option = 1 AND age = ? AND library_id = ?", data_type, 10, 0])
+        datas = Statistic.where(["yyyymmdd >= #{start_at} AND yyyymmdd <= #{end_at} AND data_type = ? AND option = 1 AND age = ? AND library_id = ?", data_type, 10, 0])
         datas.each do |data|
           value = value + data.value
         end
@@ -2411,7 +2414,7 @@ class StatisticReportsController < ApplicationController
         sum = 0
         8.times do |t|
           value = 0
-          datas = Statistic.where(["yyyymm >= #{start_at} AND yyyymm <= #{end_at} AND data_type = ? AND option = 2 AND age = ? AND library_id = ?", data_type, t, 0])
+          datas = Statistic.where(["yyyymmdd >= #{start_at} AND yyyymmdd <= #{end_at} AND data_type = ? AND option = 2 AND age = ? AND library_id = ?", data_type, t, 0])
           datas.each do |data|
             value = value + data.value
           end
@@ -2419,7 +2422,7 @@ class StatisticReportsController < ApplicationController
           row.item("value#{t}").value(value)
         end
         value = 0
-        datas = Statistic.where(["yyyymm >= #{start_at} AND yyyymm <= #{end_at} AND data_type = ? AND option = 2 AND age = ? AND library_id = ?", data_type, 10, 0])
+        datas = Statistic.where(["yyyymmdd >= #{start_at} AND yyyymmdd <= #{end_at} AND data_type = ? AND option = 2 AND age = ? AND library_id = ?", data_type, 10, 0])
         datas.each do |data|
           value = value + data.value
         end
@@ -2435,7 +2438,7 @@ class StatisticReportsController < ApplicationController
           row.item(:library).value(library.display_name)
           8.times do |t|
             value = 0
-            datas = Statistic.where(["yyyymm >= #{start_at} AND yyyymm <= #{end_at} AND data_type = ? AND option = 0 AND age = ? AND library_id = ?", data_type, t, library.id])
+            datas = Statistic.where(["yyyymmdd >= #{start_at} AND yyyymmdd <= #{end_at} AND data_type = ? AND option = 0 AND age = ? AND library_id = ?", data_type, t, library.id])
             datas.each do |data|
               value = value + data.value
             end
@@ -2443,7 +2446,7 @@ class StatisticReportsController < ApplicationController
             row.item("value#{t}").value(value)
           end
           value = 0
-          datas = Statistic.where(["yyyymm >= #{start_at} AND yyyymm <= #{end_at} AND data_type = ? AND option = 0 AND age = ? AND library_id = ?", data_type, 10, library.id])
+          datas = Statistic.where(["yyyymmdd >= #{start_at} AND yyyymmdd <= #{end_at} AND data_type = ? AND option = 0 AND age = ? AND library_id = ?", data_type, 10, library.id])
           datas.each do |data|
             value = value + data.value
           end
@@ -2457,7 +2460,7 @@ class StatisticReportsController < ApplicationController
           row.item(:option).value(t('statistic_report.on_counter'))
           8.times do |t|
             value = 0
-            datas = Statistic.where(["yyyymm >= #{start_at} AND yyyymm <= #{end_at} AND data_type = ? AND option = 1 AND age = ? AND library_id = ?", data_type, t, library.id])
+            datas = Statistic.where(["yyyymmdd >= #{start_at} AND yyyymmdd <= #{end_at} AND data_type = ? AND option = 1 AND age = ? AND library_id = ?", data_type, t, library.id])
             datas.each do |data|
               value = value + data.value
             end
@@ -2465,7 +2468,7 @@ class StatisticReportsController < ApplicationController
             row.item("value#{t}").value(value)
           end
           value = 0
-          datas = Statistic.where(["yyyymm >= #{start_at} AND yyyymm <= #{end_at} AND data_type = ? AND option = 1 AND age = ? AND library_id = ?", data_type, 10, library.id])
+          datas = Statistic.where(["yyyymmdd >= #{start_at} AND yyyymmdd <= #{end_at} AND data_type = ? AND option = 1 AND age = ? AND library_id = ?", data_type, 10, library.id])
           datas.each do |data|
             value = value + data.value
           end
@@ -2479,7 +2482,7 @@ class StatisticReportsController < ApplicationController
           row.item(:option).value(t('statistic_report.from_opac'))
           8.times do |t|
             value = 0
-            datas = Statistic.where(["yyyymm >= #{start_at} AND yyyymm <= #{end_at} AND data_type = ? AND option = 2 AND age = ? AND library_id = ?", data_type, t, library.id])
+            datas = Statistic.where(["yyyymmdd >= #{start_at} AND yyyymmdd <= #{end_at} AND data_type = ? AND option = 2 AND age = ? AND library_id = ?", data_type, t, library.id])
             datas.each do |data|
               value = value + data.value
             end
@@ -2487,7 +2490,7 @@ class StatisticReportsController < ApplicationController
             row.item("value#{t}").value(value)
           end
           value = 0
-          datas = Statistic.where(["yyyymm >= #{start_at} AND yyyymm <= #{end_at} AND data_type = ? AND option = 2 AND age = ? AND library_id = ?", data_type, 10, library.id])
+          datas = Statistic.where(["yyyymmdd >= #{start_at} AND yyyymmdd <= #{end_at} AND data_type = ? AND option = 2 AND age = ? AND library_id = ?", data_type, 10, library.id])
           datas.each do |data|
             value = value + data.value
           end
@@ -2500,14 +2503,14 @@ class StatisticReportsController < ApplicationController
       end
 
       # questions all libraries
-      data_type = 143
+      data_type = 243
       report.page.list(:list).add_row do |row|
         row.item(:type).value(t('statistic_report.questions'))
         row.item(:library).value(t('statistic_report.all_library'))
         sum = 0
         8.times do |t|
           value = 0
-          datas = Statistic.where(["yyyymm >= #{start_at} AND yyyymm <= #{end_at} AND data_type = ? AND option = 0 AND age = ? AND library_id = ?", data_type, t, 0])
+          datas = Statistic.where(["yyyymmdd >= #{start_at} AND yyyymmdd <= #{end_at} AND data_type = ? AND option = 0 AND age = ? AND library_id = ?", data_type, t, 0])
           datas.each do |data|
             value = value + data.value
           end
@@ -2515,7 +2518,7 @@ class StatisticReportsController < ApplicationController
           row.item("value#{t}").value(value)
         end
         value = 0
-        datas = Statistic.where(["yyyymm >= #{start_at} AND yyyymm <= #{end_at} AND data_type = ? AND option = 0 AND age = ? AND library_id = ?", data_type, 10, 0])
+        datas = Statistic.where(["yyyymmdd >= #{start_at} AND yyyymmdd <= #{end_at} AND data_type = ? AND option = 0 AND age = ? AND library_id = ?", data_type, 10, 0])
         datas.each do |data|
           value = value + data.value
         end
@@ -2531,7 +2534,7 @@ class StatisticReportsController < ApplicationController
           row.item(:library).value(library.display_name)
           8.times do |t|
             value = 0
-            datas = Statistic.where(["yyyymm >= #{start_at} AND yyyymm <= #{end_at} AND data_type = ? AND option = 0 AND age = ? AND library_id = ?", data_type, t, library.id])
+            datas = Statistic.where(["yyyymmdd >= #{start_at} AND yyyymmdd <= #{end_at} AND data_type = ? AND option = 0 AND age = ? AND library_id = ?", data_type, t, library.id])
             datas.each do |data|
               value = value + data.value
             end
@@ -2539,7 +2542,7 @@ class StatisticReportsController < ApplicationController
             row.item("value#{t}").value(value)
           end
           value = 0
-          datas = Statistic.where(["yyyymm >= #{start_at} AND yyyymm <= #{end_at} AND data_type = ? AND option = 0 AND age = ? AND library_id = ?", data_type, 10, library.id])
+          datas = Statistic.where(["yyyymmdd >= #{start_at} AND yyyymmdd <= #{end_at} AND data_type = ? AND option = 0 AND age = ? AND library_id = ?", data_type, 10, library.id])
           datas.each do |data|
             value = value + data.value
           end
@@ -2565,12 +2568,12 @@ class StatisticReportsController < ApplicationController
       flash[:message] = t('statistic_report.invalid_year')
       @year = term
       @month = Time.zone.now.months_ago(1).strftime("%Y%m")
-      @t_start_at = Time.zone.now.months_ago(1).strftime("%Y%m")
-      @t_end_at = Time.zone.now.months_ago(1).strftime("%Y%m")
-      @d_start_at = Time.zone.now.months_ago(1).strftime("%Y%m")
-      @d_end_at = Time.zone.now.months_ago(1).strftime("%Y%m")
-      @a_start_at = Time.zone.now.months_ago(1).strftime("%Y%m")
-      @a_end_at = Time.zone.now.months_ago(1).strftime("%Y%m")
+      @t_start_at = Time.zone.now.months_ago(1).beginning_of_month.strftime("%Y%m%d")
+      @t_end_at = Time.zone.now.months_ago(1).end_of_month.strftime("%Y%m%d")
+      @d_start_at = Time.zone.now.months_ago(1).beginning_of_month.strftime("%Y%m%d")
+      @d_end_at = Time.zone.now.months_ago(1).end_of_month.strftime("%Y%m%d")
+      @a_start_at = Time.zone.now.months_ago(1).beginning_of_month.strftime("%Y%m%d")
+      @a_end_at = Time.zone.now.months_ago(1).end_of_month.strftime("%Y%m%d")
       @items_year = term
       render :index
       return false
@@ -2808,11 +2811,21 @@ private
   end
 
   def month_term?(term)
-    begin 
+	    begin 
       Time.parse("#{term}01")
       return true
     rescue ArgumentError
       return false
     end
   end
+
+  def term_valid?(term)
+    begin 
+      return false unless Time.parse("#{term}").strftime("%Y%m%d") == term
+      return true
+    rescue ArgumentError
+      return false
+    end
+  end
+
 end
