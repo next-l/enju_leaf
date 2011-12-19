@@ -15,23 +15,6 @@ GIT
       rails (~> 3.1.3)
 
 GIT
-  remote: git://github.com/nabeta/enju_circulation.git
-  revision: bea359f29f29b6786db373d6416a21c624a69df4
-  specs:
-    enju_circulation (0.0.3)
-      rails (~> 3.1.3)
-      simple_form
-
-GIT
-  remote: git://github.com/nabeta/enju_event.git
-  revision: 60cda40ef679f9a9083974b9c8b8b0ce20396c9a
-  specs:
-    enju_event (0.0.2)
-      event-calendar (~> 2.3.3)
-      rails (~> 3.1.3)
-      simple_form
-
-GIT
   remote: git://github.com/nabeta/enju_inventory.git
   revision: 9837041cfce1c90171a6171576fe28568379ad7a
   specs:
@@ -166,6 +149,38 @@ GEM
       warden (~> 1.1)
     diff-lcs (1.1.3)
     dynamic_form (1.1.4)
+    enju_circulation (0.0.3)
+      attribute_normalizer (~> 1.0)
+      cancan
+      devise
+      enju_message (>= 0.0.3)
+      friendly_id (= 4.0.0.beta14)
+      inherited_resources
+      rails (~> 3.1.3)
+      simple_form
+      state_machine
+      sunspot_rails (~> 1.3)
+      sunspot_solr (~> 1.3)
+      validates_timeliness
+      will_paginate (~> 3.0)
+    enju_event (0.0.3)
+      addressable
+      attribute_normalizer (~> 1.0)
+      cancan
+      configatron
+      devise
+      enju_message (>= 0.0.3)
+      event-calendar (~> 2.3.3)
+      friendly_id (= 4.0.0.beta14)
+      has_scope
+      inherited_resources
+      paperclip
+      rails (~> 3.1.3)
+      simple_form
+      state_machine
+      sunspot_rails (~> 1.3)
+      sunspot_solr (~> 1.3)
+      will_paginate (~> 3.0)
     enju_message (0.0.3)
       addressable
       attribute_normalizer (~> 1.0)
@@ -429,8 +444,8 @@ DEPENDENCIES
   dynamic_form
   enju_barcode!
   enju_bookmark!
-  enju_circulation!
-  enju_event!
+  enju_circulation (= 0.0.3)
+  enju_event (= 0.0.3)
   enju_inventory!
   enju_message (= 0.0.3)
   enju_ndl (= 0.0.3)
