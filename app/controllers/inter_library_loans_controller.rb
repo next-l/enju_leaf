@@ -187,9 +187,19 @@ class InterLibraryLoansController < ApplicationController
 
   def pickup_item
     library = current_user.library
-    item_identifier = params[:item_identifier].strip
+    item_identifier = params[:item_identifier_tmp].strip
     @pickup_item = Item.where(:item_identifier => item_identifier).first
+    unless @pickup_item
+      flash[:message] = t('inter_library_loan.no_item') 
+      render :pickup
+      return false
+    end
     @loan = InterLibraryLoan.in_process.find(:first, :conditions => ['item_id = ?', @pickup_item.id])
+    unless @loan
+      flash[:message] = t('inter_library_loan.no_loan') 
+      render :pickup
+      return false
+    end
     begin
       # pick up item
       @pickup_item.circulation_status = CirculationStatus.find(:first, :conditions => ['name = ?', "In Transit Between Library Locations"])  
@@ -204,6 +214,12 @@ class InterLibraryLoansController < ApplicationController
       report.page.item(:title).value(@pickup_item.manifestation.original_title)
       report.page.item(:call_number).value(@pickup_item.call_number)
       report.page.item(:from_library).value(@pickup_item.shelf.library.display_name.localize)
+      report.page.item(:to_library).value(@loan.borrowing_library.display_name.localize)
+      report.page.item(:reason).value(t('inter_library_loan.checkout')) if @loan.reason == 1
+      report.page.item(:reason).value(t('inter_library_loan.checkin')) if @loan.reason == 2
+      reserve = Reserve.waiting.where(:item_id => @loan.item_id, :receipt_library_id => @loan.borrowing_library_id, :state => 'in_process').first 
+      report.page.item(:reserve_user).value(reserve.user.username) if reserve && reserve.user
+     
       
       send_data report.generate, :filename => "loan_item_#{@pickup_item.item_identifier}.pdf", :type => 'application/pdf', :disposition => 'attachment'
       logger.error "created report: #{Time.now}"
