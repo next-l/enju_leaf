@@ -1,5 +1,6 @@
-class CreateLibcheckTmpItems < ActiveRecord::Migration
+class CreateLibcheclTmpItems < ActiveRecord::Migration
   def self.up
+    drop_table :libcheck_tmp_items
     create_table :libcheck_tmp_items do |t|
       t.string :item_identifier, :null => false
       t.integer :item_id
