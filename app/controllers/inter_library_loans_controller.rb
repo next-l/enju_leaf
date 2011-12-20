@@ -147,7 +147,7 @@ class InterLibraryLoansController < ApplicationController
         library = Library.find(library_id) rescue nil
         to_libraries = InterLibraryLoan.joins(:item => :shelf).where(['shelves.id IN (?) AND inter_library_loans.reason = ? ', library.shelf_ids, 1]).inject([]){|libraries, data| libraries << data.borrowing_library}
         to_libraries << InterLibraryLoan.where(['borrowing_library_id = ? AND inter_library_loans.reason = ? ', library.id, 2]).inject([]){|libraries, data| libraries << Library.find(:first, :conditions => ['name = ? ', data.item.library])}
-        to_libraries.flatten.each do |to_library|
+        to_libraries.flatten.uniq.each do |to_library|
           report.start_new_page
           report.page.item(:date).value(Time.now)
           report.page.item(:library).value(library.display_name.localize)
