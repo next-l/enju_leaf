@@ -101,6 +101,15 @@ class InterLibraryLoan < ActiveRecord::Base
     self.update_attributes(:item_id => item.id, :borrowing_library_id => borrowing_library.id, :requested_at => Time.zone.now, :reason => 2)
     self.sm_request! if self.save
   end
+
+  def self.loan_items
+    loans = []
+    item_ids = InterLibraryLoan.select(:item_id).where(:received_at => nil).inject([]){|ids, loan| ids << loan.item_id}.uniq
+    item_ids.each do |id|
+      loans << InterLibraryLoan.where(:item_id => id, :received_at => nil).order("reason DESC, created_at ASC").first
+    end  
+    return loans
+  end
 end
 
 # == Schema Information
