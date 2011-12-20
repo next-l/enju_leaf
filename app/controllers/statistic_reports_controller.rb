@@ -798,6 +798,7 @@ class StatisticReportsController < ApplicationController
         end
       end
 
+      num_for_last_page = Time.zone.parse("#{term}01").end_of_month.strftime("%d").to_i - 26
       [1,14,27].each do |start_date| # for 3 pages
         report.start_new_page
         report.page.item(:date).value(Time.now)
@@ -809,7 +810,7 @@ class StatisticReportsController < ApplicationController
             report.page.list(:list).header.item("column##{t+1}").value("#{t+start_date}#{t('statistic_report.date')}")
           end
         else
-          5.times do |t|
+          num_for_last_page.times do |t|
             report.page.list(:list).header.item("column##{t+1}").value("#{t+start_date}#{t('statistic_report.date')}")
           end
           report.page.list(:list).header.item("column#13").value(t('statistic_report.sum'))
@@ -825,10 +826,10 @@ class StatisticReportsController < ApplicationController
               row.item("value##{t+1}").value(value)
             end
           else
-            5.times do |t|
+            num_for_last_page.times do |t|
               value = Statistic.where(:yyyymmdd => "#{term.to_i}#{"%02d" % (t + start_date)}", :data_type => 211, :library_id => 0).no_condition.first.value rescue 0
               row.item("value##{t+1}").value(value)
-              row.item("value#13").value(value) if t == 4
+              row.item("value#13").value(value) if t == num_for_last_page - 1
             end
           end
           row.item(:library_line).show
@@ -843,10 +844,10 @@ class StatisticReportsController < ApplicationController
                 row.item("value##{t+1}").value(value)
               end
             else
-              5.times do |t|
+              num_for_last_page.times do |t|
                 value = Statistic.where(:yyyymmdd => "#{term.to_i}#{"%02d" % (t + start_date)}", :data_type => 211, :library_id => library.id).no_condition.first.value rescue 0
                 row.item("value##{t+1}").value(value)
-                row.item("value#13").value(value) if t== 4
+                row.item("value#13").value(value) if t == num_for_last_page - 1
               end
             end
             row.item(:library_line).show
@@ -864,7 +865,7 @@ class StatisticReportsController < ApplicationController
               row.item("value##{t+1}").value(value)
             end
           else
-            5.times do |t|
+            num_for_last_page.times do |t|
               value = Statistic.where(:yyyymmdd => "#{term.to_i}#{"%02d" % (t + start_date)}", :data_type => data_type, :library_id => 0).no_condition.first.value rescue 0
               row.item("value##{t+1}").value(value)
             end
@@ -886,7 +887,7 @@ class StatisticReportsController < ApplicationController
                 row.item("value##{t+1}").value(value)
               end
             else
-              5.times do |t|
+              num_for_last_page.times do |t|
                 value = Statistic.where(:yyyymmdd => "#{term.to_i}#{"%02d" % (t + start_date)}", :data_type => data_type, :library_id => 0, :option => type+6).first.value rescue 0
                 row.item("value##{t+1}").value(value)
               end
@@ -910,7 +911,7 @@ class StatisticReportsController < ApplicationController
                 row.item("value##{t+1}").value(value)
               end
             else
-              5.times do |t|
+              num_for_last_page.times do |t|
                 value = Statistic.where(:yyyymmdd => "#{term.to_i}#{"%02d" % (t + start_date)}", :data_type => data_type, :library_id => 0).no_condition.first.value rescue 0
                 row.item("value##{t+1}").value(value)
               end
@@ -932,7 +933,7 @@ class StatisticReportsController < ApplicationController
                   row.item("value##{t+1}").value(value)
                 end
               else
-                5.times do |t|
+                num_for_last_page.times do |t|
                   value = Statistic.where(:yyyymmdd => "#{term.to_i}#{"%02d" % (t + start_date)}", :data_type => data_type, :library_id => 0, :option => type+6).first.value rescue 0
                   row.item("value##{t+1}").value(value)
                 end
@@ -962,7 +963,7 @@ class StatisticReportsController < ApplicationController
               row.item("value##{t+1}").value(value)
             end
           else
-            5.times do |t|
+            num_for_last_page.times do |t|
               value = Statistic.where(:yyyymmdd => "#{term.to_i}#{"%02d" % (t + start_date)}", :data_type => data_type, :library_id => 0).no_conditionfirst.value rescue 0
               row.item("value##{t+1}").value(value)
             end
@@ -983,7 +984,7 @@ class StatisticReportsController < ApplicationController
                 row.item("value##{t+1}").value(value)
               end
             else
-              5.times do |t|
+              num_for_last_page.times do |t|
                 value = Statistic.where(:yyyymmdd => "#{term.to_i}#{"%02d" % (t + start_date)}", :data_type => data_type, :library_id => 0, :option => i+1).first.value rescue 0
                 row.item("value##{t+1}").value(value)
               end
@@ -1007,7 +1008,7 @@ class StatisticReportsController < ApplicationController
                 row.item("value##{t+1}").value(value)
               end
             else
-              5.times do |t|
+              num_for_last_page.times do |t|
                 value = Statistic.where(:yyyymmdd => "#{term.to_i}#{"%02d" % (t + start_date)}", :data_type => data_type, :library_id => library.id).no_condition.first.value rescue 0
                 row.item("value##{t+1}").value(value)
               end
@@ -1028,7 +1029,7 @@ class StatisticReportsController < ApplicationController
                   row.item("value##{t+1}").value(value)
                 end
               else
-                5.times do |t|
+                num_for_last_page.times do |t|
                   value = Statistic.where(:yyyymmdd => "#{term.to_i}#{"%02d" % (t + start_date)}", :data_type => data_type, :library_id => library.id, :option => i+1).first.value rescue 0
                   row.item("value##{t+1}").value(value)
                 end
@@ -1058,7 +1059,7 @@ class StatisticReportsController < ApplicationController
               row.item("value##{t+1}").value(value)
             end
           else
-            5.times do |t|
+            num_for_last_page.times do |t|
               value = Statistic.where(:yyyymmdd => "#{term.to_i}#{"%02d" % (t + start_date)}", :data_type => data_type, :library_id => 0).no_condition.first.value rescue 0
               row.item("value##{t+1}").value(value)
             end
@@ -1080,7 +1081,7 @@ class StatisticReportsController < ApplicationController
                 row.item("value##{t+1}").value(value)
               end
             else
-              5.times do |t|
+              num_for_last_page.times do |t|
                 value = Statistic.where(:yyyymmdd => "#{term.to_i}#{"%02d" % (t + start_date)}", :data_type => data_type, :library_id => library.id).no_condition.first.value rescue 0
                 row.item("value##{t+1}").value(value)
               end
@@ -1106,7 +1107,7 @@ class StatisticReportsController < ApplicationController
               row.item("value##{t+1}").value(value)
             end
           else  
-            5.times do |t|
+            num_for_last_page.times do |t|
               value = Statistic.where(:yyyymmdd => "#{term.to_i}#{"%02d" % (t + start_date)}", :data_type => 233, :library_id => 0).no_condition.first.value rescue 0
               row.item("value##{t+1}").value(value)
             end
@@ -1127,7 +1128,7 @@ class StatisticReportsController < ApplicationController
               row.item("value##{t+1}").value(value)
             end
           else  
-            5.times do |t|
+            num_for_last_page.times do |t|
               value = Statistic.where(:yyyymmdd => "#{term.to_i}#{"%02d" % (t + start_date)}", :data_type => 233, :library_id => 0, :option => 1).first.value rescue 0
               row.item("value##{t+1}").value(value)
             end
@@ -1148,7 +1149,7 @@ class StatisticReportsController < ApplicationController
               row.item("value##{t+1}").value(value)
             end
           else  
-            5.times do |t|
+            num_for_last_page.times do |t|
               value = Statistic.where(:yyyymmdd => "#{term.to_i}#{"%02d" % (t + start_date)}", :data_type => 233, :library_id => 0, :option => 2).first.value rescue 0
               row.item("value##{t+1}").value(value)
             end
@@ -1171,7 +1172,7 @@ class StatisticReportsController < ApplicationController
                 row.item("value##{t+1}").value(value)
               end
             else  
-              5.times do |t|
+              num_for_last_page.times do |t|
                 value = Statistic.where(:yyyymmdd => "#{term.to_i}#{"%02d" % (t + start_date)}", :data_type => 233, :library_id => library.id).no_condition.first.value rescue 0
                 row.item("value##{t+1}").value(value)
               end
@@ -1192,7 +1193,7 @@ class StatisticReportsController < ApplicationController
                 row.item("value##{t+1}").value(value)
               end
             else  
-              5.times do |t|
+              num_for_last_page.times do |t|
                 value = Statistic.where(:yyyymmdd => "#{term.to_i}#{"%02d" % (t + start_date)}", :data_type => 233, :library_id => library.id, :option => 1).first.value rescue 0
                 row.item("value##{t+1}").value(value)
               end
@@ -1213,7 +1214,7 @@ class StatisticReportsController < ApplicationController
                 row.item("value##{t+1}").value(value)
               end
             else  
-              5.times do |t|
+              num_for_last_page.times do |t|
                 value = Statistic.where(:yyyymmdd => "#{term.to_i}#{"%02d" % (t + start_date)}", :data_type => 233, :library_id => library.id, :option => 2).first.value rescue 0
                 row.item("value##{t+1}").value(value)
               end
@@ -1238,7 +1239,7 @@ class StatisticReportsController < ApplicationController
               row.item("value##{t+1}").value(value)
             end  
           else
-            5.times do |t|
+            num_for_last_page.times do |t|
               value = Statistic.where(:yyyymmdd => "#{term.to_i}#{"%02d" % (t + start_date)}", :data_type => 243, :library_id => 0).no_condition.first.value rescue 0
               row.item("value##{t+1}").value(value)
             end
@@ -1261,7 +1262,7 @@ class StatisticReportsController < ApplicationController
                 row.item("value##{t+1}").value(value)
               end  
             else
-              5.times do |t|
+              num_for_last_page.times do |t|
                 value = Statistic.where(:yyyymmdd => "#{term.to_i}#{"%02d" % (t + start_date)}", :data_type => 243, :library_id => library.id).no_condition.first.value rescue 0
                 row.item("value##{t+1}").value(value)
               end
@@ -1287,7 +1288,7 @@ class StatisticReportsController < ApplicationController
                 row.item("value##{t+1}").value(value)
               end  
             else
-              5.times do |t|
+              num_for_last_page.times do |t|
                 value = Statistic.where(:yyyymmdd => "#{term.to_i}#{"%02d" % (t + start_date)}", :data_type => 214, :library_id => library.id).no_condition.first.value rescue 0
                 row.item("value##{t+1}").value(value)
               end
