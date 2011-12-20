@@ -6,7 +6,7 @@
       url: "<%= url_for(:controller => :inter_library_loans, :action => :accept_item) -%>",
       data: {"item_identifier": item_identifier},
      error: function(error){
-        alert(t('inter_library_loan.failed'));
+        alert(t('inter_library_loan.failed_accept'));
         $("#item_identifier").val("");
       },
       success: function(obj){

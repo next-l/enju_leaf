@@ -226,6 +226,8 @@ class InterLibraryLoansController < ApplicationController
       return true
     rescue Exception => e
       logger.error "failed #{e}"
+      flash[:message] = t('inter_library_loan.failed_pickup')
+      render :pickup
       return false
     end
   end
