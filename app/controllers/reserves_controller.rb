@@ -47,8 +47,8 @@ class ReservesController < ApplicationController
         @reserves = @user.reserves.order('reserves.expired_at DESC').page(params[:page])
         # 管理者
       elsif @manifestation
-        @reserves = @manifestation.reserves.waiting.order('reserves.position ASC').page(params[:page])
-        @completed_reserves = @manifestation.reserves.completed.page(params[:page])
+        @reserves = @manifestation.reserves.not_retained.order('reserves.position ASC').page(params[:page])
+        @completed_reserves = @manifestation.reserves.not_waiting.page(params[:page])
       else
         @reserves = Reserve.order('reserves.expired_at DESC').includes(:manifestation).page(params[:page])
       end

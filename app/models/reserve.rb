@@ -2,11 +2,12 @@
 class Reserve < ActiveRecord::Base
   scope :hold, where('item_id IS NOT NULL AND state = ?', 'retained')
   scope :not_hold, where(:item_id => nil)
-  scope :waiting, where('canceled_at IS NULL AND expired_at > ? AND state != ?', Time.zone.now, 'completed')
+  scope :waiting, where('canceled_at IS NULL AND expired_at > ? AND state != ? AND state != ?', Time.zone.now, 'completed', 'retained')
   scope :completed, where('checked_out_at IS NOT NULL')
   scope :canceled, where('canceled_at IS NOT NULL')
   scope :retained, where(:state => ['retained'], :retained => !true)
   scope :not_retained, where(:state => ['requested','pending'])
+  scope :not_waiting, where(:state => ['retained','canceled','in_process', 'completed'])
   scope :will_expire_retained, lambda {|datetime| {:conditions => ['checked_out_at IS NULL AND canceled_at IS NULL AND expired_at <= ? AND state = ?', datetime, 'retained'], :order => 'expired_at'}}
   scope :will_expire_pending, lambda {|datetime| {:conditions => ['checked_out_at IS NULL AND canceled_at IS NULL AND expired_at <= ? AND state = ?', datetime, 'pending'], :order => 'expired_at'}}
   scope :created, lambda {|start_date, end_date| {:conditions => ['created_at >= ? AND created_at < ?', start_date, end_date]}}
@@ -41,14 +42,14 @@ class Reserve < ActiveRecord::Base
   state_machine :initial => :pending do
     before_transition [:pending, :retained] => :requested, :do => :do_request
     before_transition [:pending, :requested, :retained, :in_process] => :retained, :do => :retain
-    before_transition [:pending, :requested, :retained] => :in_process, :do => :to_process
-    before_transition [:pending ,:requested, :retained] => :canceled, :do => :cancel
-    before_transition [:pending, :requested, :retained] => :expired, :do => :expire
+    before_transition [:requested] => :in_process, :do => :to_process
+    before_transition [:pending ,:requested, :retained, :in_process] => :canceled, :do => :cancel
+    before_transition [:canceled] => :expired, :do => :expire
     before_transition [:retained, :requested] => :completed, :do => :checkout
 
 
     event :sm_request do
-      transition [:pending, :retained, :requested] => :requested
+      transition [:pending, :retained] => :requested
     end
 
     event :sm_retain do
@@ -56,19 +57,19 @@ class Reserve < ActiveRecord::Base
     end
 
     event :sm_process do
-      transition [:pending, :requested, :retained] => :in_process, :do => :to_process
+      transition [:requested] => :in_process, :do => :to_process
     end
 
     event :sm_cancel do
-      transition [:pending, :requested, :retained] => :canceled
+      transition [:pending, :requested, :retained, :in_process] => :canceled
     end
 
     event :sm_expire do
-      transition [:pending, :requested, :retained] => :expired
+      transition [:canceled] => :expired
     end
 
     event :sm_complete do
-      transition [:pending, :requested, :retained] => :completed
+      transition [:requested, :retained] => :completed
     end
   end
 
@@ -120,7 +121,7 @@ class Reserve < ActiveRecord::Base
         end
       end
       self.sm_request
-    else 
+    else
       self.sm_request
     end
   end
@@ -141,6 +142,7 @@ class Reserve < ActiveRecord::Base
 #    self.update_attributes!({:request_status_type => RequestStatusType.where(:name => 'In Process').first, :checked_out_at => Time.zone.now})
     self.item.retain_item!
     self.update_attributes!({:request_status_type => RequestStatusType.where(:name => 'In Process').first})
+    self.remove_from_list
   end
 
   def to_process
