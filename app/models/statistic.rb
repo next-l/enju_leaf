@@ -281,6 +281,94 @@ class Statistic < ActiveRecord::Base
           statistic.save! if statistic.value > 0        
         end
       end
+      @libraries.each do |library|
+        # items each libraries accept option: 2
+        statistic = Statistic.new
+        set_date(statistic, end_at, term_id)
+        statistic.data_type = data_type
+        statistic.library = library
+        statistic.option = 2
+        statistic.value = statistic.value = Item.count_by_sql(["select count(items) from items, shelves, libraries where items.shelf_id = shelves.id AND libraries.id = shelves.library_id AND items.item_identifier IS NOT NULL AND items.circulation_status_id != ? AND libraries.id = ? AND items.created_at >= ? AND items.created_at < ?", circulation_type_remove_id, library.id, start_at, end_at])
+        statistic.save! if statistic.value > 0
+        # items each libraries remove option: 3
+        statistic = Statistic.new
+        set_date(statistic, end_at, term_id)
+        statistic.data_type = data_type
+        statistic.library = library
+        statistic.option = 3
+        statistic.value = statistic.value = Item.count_by_sql(["select count(items) from items, shelves, libraries where items.shelf_id = shelves.id AND libraries.id = shelves.library_id AND items.circulation_status_id = ? AND libraries.id = ? AND items.removed_at >= ? AND items.removed_at < ?", circulation_type_remove_id, library.id, start_at, end_at])
+        statistic.save! if statistic.value > 0
+        # items each checkout types accept option: 2
+        @checkout_types.each do |checkout_type|
+          statistic = Statistic.new
+          set_date(statistic, end_at, term_id)
+          statistic.data_type = data_type
+          statistic.library = library
+          statistic.checkout_type = checkout_type
+          statistic.option = 2
+          statistic.value = Item.count_by_sql(["select count(items) from items, shelves, libraries where items.shelf_id = shelves.id AND libraries.id = shelves.library_id AND items.item_identifier IS NOT NULL AND items.circulation_status_id != ? AND libraries.id = ? AND items.checkout_type_id = ? AND items.created_at >= ? AND items.created_at < ?", circulation_type_remove_id, library.id, checkout_type.id, start_at, end_at])
+          statistic.save! if statistic.value > 0
+        end
+        # items each checkout types remove option: 3
+        @checkout_types.each do |checkout_type|
+          statistic = Statistic.new
+          set_date(statistic, end_at, term_id)
+          statistic.data_type = data_type
+          statistic.library = library
+          statistic.checkout_type = checkout_type
+          statistic.option = 3
+          statistic.value = Item.count_by_sql(["select count(items) from items, shelves, libraries where items.shelf_id = shelves.id AND libraries.id = shelves.library_id AND items.circulation_status_id = ? AND libraries.id = ? AND items.checkout_type_id = ? AND items.removed_at >= ? AND items.removed_at < ?", circulation_type_remove_id, library.id, checkout_type.id, start_at, end_at])
+          statistic.save! if statistic.value > 0
+        end
+        # items each shelves
+        @shelves.each do |shelf|
+          # accept option: 2
+          statistic = Statistic.new
+          set_date(statistic, end_at, term_id)
+          statistic.data_type = data_type
+          statistic.library = library
+          statistic.shelf = shelf
+          statistic.option = 2
+          statistic.value = Item.count_by_sql(["select count(items) from items, shelves, libraries where items.shelf_id = shelves.id AND libraries.id = shelves.library_id AND items.item_identifier IS NOT NULL AND items.circulation_status_id != ? AND libraries.id = ? AND shelves.id = ? AND items.created_at >= ? AND items.created_at < ?", circulation_type_remove_id, library.id, shelf.id, start_at, end_at])
+          statistic.save! if statistic.value > 0
+          # remove option: 3
+          statistic = Statistic.new
+          set_date(statistic, end_at, term_id)
+          statistic.data_type = data_type
+          statistic.library = library
+          statistic.shelf = shelf
+          statistic.option = 3
+          statistic.value = Item.count_by_sql(["select count(items) from items, shelves, libraries where items.shelf_id = shelves.id AND libraries.id = shelves.library_id AND items.circulation_status_id = ? AND libraries.id = ? AND shelves.id = ? AND items.removed_at >= ? AND items.removed_at < ?", circulation_type_remove_id, library.id, shelf.id, start_at, end_at])
+          statistic.save! if statistic.value > 0
+          # items each call_numbers
+          unless @call_numbers.nil?
+            @call_numbers.each do |num|
+              # accept option: 2
+              statistic = Statistic.new
+              set_date(statistic, end_at, term_id)
+              statistic.data_type = data_type
+              statistic.library = library
+              statistic.shelf = shelf
+              statistic.call_number = num
+              statistic.option = 2
+              num_reg = "/\|#{num}\|/"
+              statistic.value = Item.count_by_sql(["select count(items) from items, shelves, libraries where items.shelf_id = shelves.id AND libraries.id = shelves.library_id AND items.item_identifier IS NOT NULL AND items.circulation_status_id != ? AND libraries.id = ? AND shelves.id = ? AND items.call_number ~ ? AND items.created_at >= ? AND items.created_at < ?", circulation_type_remove_id, library.id, shelf.id, num_reg, start_at, end_at])
+              statistic.save! if statistic.value > 0	
+              # remove option: 3
+              statistic = Statistic.new
+              set_date(statistic, end_at, term_id)
+              statistic.data_type = data_type
+              statistic.library = library
+              statistic.shelf = shelf
+              statistic.call_number = num
+              statistic.option = 3
+              num_reg = "/\|#{num}\|/"
+              statistic.value = Item.count_by_sql(["select count(items) from items, shelves, libraries where items.shelf_id = shelves.id AND libraries.id = shelves.library_id AND items.circulation_status_id = ? AND libraries.id = ? AND shelves.id = ? AND items.call_number ~ ? AND items.removed_at >= ? AND items.removed_at < ?", circulation_type_remove_id, library.id, shelf.id, num_reg, start_at, end_at])
+              statistic.save! if statistic.value > 0	
+            end
+          end
+        end
+      end
     end
     rescue Exception => e
       s = "Failed to calculate inout items: #{e}"
