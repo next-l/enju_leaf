@@ -42,7 +42,7 @@ class Reserve < ActiveRecord::Base
   state_machine :initial => :pending do
     before_transition [:pending, :retained] => :requested, :do => :do_request
     before_transition [:pending, :requested, :retained, :in_process] => :retained, :do => :retain
-    before_transition [:requested] => :in_process, :do => :to_process
+    before_transition [:pending, :requested] => :in_process, :do => :to_process
     before_transition [:pending ,:requested, :retained, :in_process] => :canceled, :do => :cancel
     before_transition [:pending, :requested, :retained, :in_process] => :expired, :do => :expire
     before_transition [:retained, :requested] => :completed, :do => :checkout
@@ -57,7 +57,7 @@ class Reserve < ActiveRecord::Base
     end
 
     event :sm_process do
-      transition [:requested] => :in_process, :do => :to_process
+      transition [:pending, :requested] => :in_process, :do => :to_process
     end
 
     event :sm_cancel do
@@ -115,6 +115,7 @@ class Reserve < ActiveRecord::Base
             self.save
           else
             self.sm_process
+            self.save
             InterLibraryLoan.new.request_for_reserve(item, library)
           end
           return

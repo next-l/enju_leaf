@@ -214,6 +214,7 @@ class InterLibraryLoansController < ApplicationController
       # export receipt for transportation
       report = ThinReports::Report.new :layout => "#{Rails.root.to_s}/app/views/inter_library_loans/move_item"
       report.start_new_page
+      report.page.item(:export_date).value(Time.now)
       report.page.item(:title).value(@pickup_item.manifestation.original_title)
       report.page.item(:call_number).value(@pickup_item.call_number)
       report.page.item(:from_library).value(@pickup_item.shelf.library.display_name.localize)
@@ -221,8 +222,12 @@ class InterLibraryLoansController < ApplicationController
       report.page.item(:reason).value(t('inter_library_loan.checkout')) if @loan.reason == 1
       report.page.item(:reason).value(t('inter_library_loan.checkin')) if @loan.reason == 2
       reserve = Reserve.waiting.where(:item_id => @loan.item_id, :receipt_library_id => @loan.borrowing_library_id, :state => 'in_process').first 
-      report.page.item(:reserve_user).value(reserve.user.username) if reserve && reserve.user
-     
+      if reserve
+        report.page.item(:user_title).show
+        report.page.item(:reserve_user).value(reserve.user.username) if reserve.user
+        report.page.item(:expire_date_title).show
+        report.page.item(:reserve_expire_date).value(reserve.expired_at)
+      end
       
       send_data report.generate, :filename => "loan_item_#{@pickup_item.item_identifier}.pdf", :type => 'application/pdf', :disposition => 'attachment'
       logger.error "created report: #{Time.now}"
