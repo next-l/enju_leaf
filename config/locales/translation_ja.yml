@@ -1845,10 +1845,12 @@ ja:
     day_report: 曜日別利用統計
     age_report: 年代別利用統計
     items_report: 蔵書統計
+    inout_items_report: 受払統計
     invalid_year: "対象年度の指定が不正です。"
     invalid_month: "対象月の指定が不正です。"
     year: 対象年度(YYYY) 
     month: 対象月(YYYYMM)
+    year_or_month: 対象年度(YYYY)または対象月(YYYYMM)
     day: 対象年月日(YYYYMMDD)
     submit: "帳票を作成"
     created: "帳票を作成しました。"
@@ -1881,6 +1883,8 @@ ja:
     date: 日
     hour: 時
     sum: 合計
+    accept: 受入資料
+    remove: 除籍資料
   print_label:
     users: ラベルを作成する利用者
     submit: ラベルを作成
