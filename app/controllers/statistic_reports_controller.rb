@@ -2363,6 +2363,63 @@ class StatisticReportsController < ApplicationController
         end
       end
 
+      # user_areas all libraries
+      data_type = 262
+      report.page.list(:list).add_row do |row|
+        row.item(:type).value(t('statistic_report.user_areas'))
+        row.item(:library).value(t('statistic_report.all_areas'))
+        sum = 0
+        8.times do |t|
+          value = 0
+          #datas = Statistic.where(["yyyymmdd >= #{start_at} AND yyyymmdd <= #{end_at} AND data_type = ? AND age = ?", data_type, t])
+          datas = Statistic.where(["yyyymmdd = ? AND data_type = ? AND age = ? AND area_id = 0", end_at, data_type, t])
+          datas.each do |data|
+            value = value + data.value
+          end
+          sum = sum + value
+          row.item("value#{t}").value(value)
+        end
+        value = 0
+        #datas = Statistic.where(["yyyymmdd >= #{start_at} AND yyyymmdd <= #{end_at} AND data_type = ? AND age = ?", data_type, 10])
+        datas = Statistic.where(["yyyymmdd = ? AND data_type = ? AND age = ? AND area_id = 0", end_at, data_type, 10])
+        datas.each do |data|
+          value = value + data.value
+        end
+        sum = sum + value
+        row.item("value8").value(value)
+        row.item("valueall").value(sum)
+        row.item(:library_line).show
+      end
+      @areas = Area.all
+      @areas.each do |a|
+        report.page.list(:list).add_row do |row|
+          row.item(:library).value(a.name)
+          sum = 0
+          8.times do |t|
+            value = 0
+            #datas = Statistic.where(["yyyymmdd >= #{start_at} AND yyyymmdd <= #{end_at} AND data_type = ? AND area_id = ? AND age = ?", data_type, a.id, t])
+            datas = Statistic.where(["yyyymmdd = ? AND data_type = ? AND area_id = ? AND age = ?", end_at, data_type, a.id, t])
+            datas.each do |data|
+              value = value + data.value
+            end
+            sum = sum + value
+            row.item("value#{t}").value(value)
+          end
+          value = 0
+          #datas = Statistic.where(["yyyymmdd >= #{start_at} AND yyyymmdd <= #{end_at} AND data_type = ? AND area_id = ? AND age = ?", data_type, a.id, 10])
+          datas = Statistic.where(["yyyymmdd = ? AND data_type = ? AND area_id = ? AND age = ?", end_at, data_type, a.id, 10])
+          datas.each do |data|
+            value = value + data.value
+          end
+          sum = sum + value
+          row.item("value8").value(value)
+
+          row.item("valueall").value(sum)
+          row.item(:library_line).show
+          line(row) if a == @areas.last
+        end
+      end
+
       # reserves all libraries
       data_type = 233
       report.page.list(:list).add_row do |row|
