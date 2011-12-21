@@ -1,19 +1,22 @@
+# -*- encoding: utf-8 -*-
 class Statistic < ActiveRecord::Base
   belongs_to :library
   belongs_to :checkout_type
   belongs_to :shelf
   belongs_to :user_group
-  validates_uniqueness_of :data_type, :scope => [:yyyymm, :yyyymmdd, :library_id, :hour, :checkout_type_id, :shelf_id, :ndc, :call_number, :age, :option]
+  belongs_to :area
+  validates_uniqueness_of :data_type, :scope => [:yyyymm, :yyyymmdd, :library_id, :hour, :checkout_type_id, :shelf_id, :ndc, :call_number, :age, :option, :area_id]
   @libraries = Library.all
   @checkout_types = CheckoutType.all
   @shelves = Shelf.all
   @user_groups = UserGroup.all
+  @areas = Area.all
   @adult_ids = User.adults.inject([]){|ids, user| ids << user.id}
   @student_ids = User.students.inject([]){|ids, user| ids << user.id}
   @children_ids = User.children.inject([]){|ids, user| ids << user.id}
   @librarian_ids = User.librarians.inject([]){|ids, user| ids << user.id}
   before_validation :check_record
-  scope :no_condition, where(:checkout_type_id => nil, :shelf_id => nil, :ndc => nil, :call_number => nil, :age => nil, :option => 0)
+  scope :no_condition, where(:checkout_type_id => nil, :shelf_id => nil, :ndc => nil, :call_number => nil, :age => nil, :option => 0, :area_id => 0)
 
   def self.calc_users(start_at, end_at, term_id)
     Statistic.transaction do
@@ -1244,6 +1247,69 @@ class Statistic < ActiveRecord::Base
       end
     end
 
+    # areas users 62 + 0~7
+    data_type = term_id.to_s + 62.to_s
+    # all areas
+    8.times do |age|
+      statistic = Statistic.new
+      set_date(statistic, end_at, term_id)
+      statistic.data_type = data_type
+      statistic.age = age
+      statistic.area_id = 0
+      sql = "select count(*) from users, patrons where users.id = patrons.user_id AND date_part('year', age(patrons.date_of_birth)) >= ? AND date_part('year', age(patrons.date_of_birth)) <= ? AND users.created_at <= ?"
+      sql = "select count(*) from users, patrons where users.id = patrons.user_id AND date_part('year', age(patrons.date_of_birth)) >= ? AND date_part('year', age(patrons.date_of_birth)) <= ? AND users.created_at <= ?"
+      unless age == 7
+        statistic.value = User.count_by_sql([sql, (age.to_s + 0.to_s).to_i, (age.to_s + 9.to_s).to_i, end_at])
+      else
+        statistic.value = User.count_by_sql([sql, (age.to_s + 0.to_s).to_i, 200, end_at])
+      end
+      statistic.save! if statistic.value > 0
+    end
+    # users without date_of_birth
+    statistic = Statistic.new
+    set_date(statistic, end_at, term_id)
+    statistic.data_type = data_type
+    statistic.age = 10
+    statistic.area_id = 0
+    sql = "select count(*) from users, patrons where users.id = patrons.user_id AND patrons.date_of_birth IS NULL AND users.created_at <= ?"
+    statistic.value = User.count_by_sql([sql, end_at])
+    statistic.save! if statistic.value > 0
+
+    # each area
+    @areas.each do |area|
+      include_areas = area.address.split(/\s*,\s*/)
+      like_address = ""
+      include_areas.each_with_index do |include_area, i|
+        include_area.gsub!(/^[　\s]*(.*?)[　\s]*$/, '\1')
+
+        8.times do |age|
+          statistic = Statistic.new
+          set_date(statistic, end_at, term_id)
+          statistic.data_type = data_type
+          statistic.age = age
+          statistic.area_id = area.id
+          statistic.option = i * 10  + 1
+          sql = "select count(*) from users, patrons where users.id = patrons.user_id AND patrons.address_1 LIKE ? AND date_part('year', age(patrons.date_of_birth)) >= ? AND date_part('year', age(patrons.date_of_birth)) <= ? AND users.created_at <= ?"
+          unless age == 7
+            statistic.value = User.count_by_sql([sql, '%'+include_area+'%', (age.to_s + 0.to_s).to_i, (age.to_s + 9.to_s).to_i, end_at])
+          else
+            statistic.value = User.count_by_sql([sql, '%'+include_area+'%', (age.to_s + 0.to_s).to_i, 200, end_at])
+          end
+          statistic.save! if statistic.value > 0
+        end
+        # users without date_of_birth
+        statistic = Statistic.new
+        set_date(statistic, end_at, term_id)
+        statistic.data_type = data_type
+        statistic.age = 10
+        statistic.area_id = area.id
+        statistic.option = i * 10
+        sql = "select count(*) from users, patrons where users.id = patrons.user_id AND patrons.address_1 LIKE ? AND patrons.date_of_birth IS NULL AND users.created_at <= ?"
+        statistic.value = User.count_by_sql([sql, '%'+include_area+'%', end_at])
+        statistic.save! if statistic.value > 0
+       end
+    end
+
     # users without date_of_birth
     statistic = Statistic.new
     set_date(statistic, end_at, term_id)
@@ -1799,7 +1865,7 @@ class Statistic < ActiveRecord::Base
   end
 
   def check_record
-    record = Statistic.where(:data_type => self.data_type, :yyyymmdd => self.yyyymmdd, :yyyymm => self.yyyymm, :library_id => self.library_id, :hour => self.hour, :checkout_type_id => self.checkout_type_id, :shelf_id => self.shelf_id, :ndc => self.ndc, :call_number => self.call_number, :age => self.age, :option => self.option).first
+    record = Statistic.where(:data_type => self.data_type, :yyyymmdd => self.yyyymmdd, :yyyymm => self.yyyymm, :library_id => self.library_id, :hour => self.hour, :checkout_type_id => self.checkout_type_id, :shelf_id => self.shelf_id, :ndc => self.ndc, :call_number => self.call_number, :age => self.age, :option => self.option, :area_id => self.area_id).first
     record.destroy if record
   end
   
