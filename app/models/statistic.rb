@@ -212,6 +212,80 @@ class Statistic < ActiveRecord::Base
       logger.fatal e.backtrace.join("\n")
   end
 
+  def self.calc_inout_items(start_at, end_at, term_id)
+    Statistic.transaction do
+     p "statistics of inout items #{start_at} - #{end_at}"
+      @call_numbers = call_numbers
+      circulation_type_remove_id = CirculationStatus.find(:first, :conditions => ["name = ?", 'Removed']).id
+
+      # items 11 accept option: 2
+      data_type = term_id.to_s + 11.to_s
+      statistic = Statistic.new
+      set_date(statistic, end_at, term_id)
+      statistic.data_type = data_type
+      statistic.option = 2
+      statistic.value = Item.count_by_sql(["select count(*) from items where item_identifier IS NOT NULL AND circulation_status_id != ? AND created_at >= ? AND created_at  < ?", circulation_type_remove_id, start_at, end_at])
+      statistic.save! if statistic.value > 0
+      # items 11 remove option: 3
+      data_type = term_id.to_s + 11.to_s
+      statistic = Statistic.new
+      set_date(statistic, end_at, term_id)
+      statistic.data_type = data_type
+      statistic.option = 3
+      statistic.value = Item.count_by_sql(["select count(*) from items where circulation_status_id = ? AND removed_at >= ? AND removed_at  < ?", circulation_type_remove_id, start_at, end_at])
+      statistic.save! if statistic.value > 0
+      # items each checkout types accept option: 2
+      @checkout_types.each do |checkout_type|
+        statistic = Statistic.new
+        set_date(statistic, end_at, term_id)
+        statistic.data_type = data_type
+        statistic.checkout_type = checkout_type
+        statistic.option = 2
+        statistic.value = Item.count_by_sql(["select count(*) from items where item_identifier IS NOT NULL AND circulation_status_id != ? AND checkout_type_id = ? AND created_at >= ? AND created_at  < ?", circulation_type_remove_id, checkout_type.id, start_at, end_at])
+        statistic.save! if statistic.value > 0
+      end
+      # items each checkout types remove option: 3
+      @checkout_types.each do |checkout_type|
+        statistic = Statistic.new
+        set_date(statistic, end_at, term_id)
+        statistic.data_type = data_type
+        statistic.checkout_type = checkout_type
+        statistic.option = 3
+        statistic.value = Item.count_by_sql(["select count(*) from items where circulation_status_id = ? AND checkout_type_id = ? AND removed_at >= ? AND removed_at  < ?", circulation_type_remove_id, checkout_type.id, start_at, end_at])
+        statistic.save! if statistic.value > 0
+      end
+      # items each call_numbers accept option: 2
+      unless @call_numbers.nil?
+        @call_numbers.each do |num|
+          statistic = Statistic.new
+          set_date(statistic, end_at, term_id)
+          statistic.data_type = data_type
+          statistic.call_number = num
+          statistic.option = 2
+          num_reg = "/\|#{num}\|/"
+          statistic.value = Item.count_by_sql(["select count(*) from items where item_identifier IS NOT NULL AND circulation_status_id != ? AND call_number ~ ? AND created_at >= ? AND created_at  < ?", circulation_type_remove_id, num_reg, start_at, end_at])
+          statistic.save! if statistic.value > 0        
+        end
+        # items each call_numbers remove option: 3
+        @call_numbers.each do |num|
+          statistic = Statistic.new
+          set_date(statistic, end_at, term_id)
+          statistic.data_type = data_type
+          statistic.call_number = num
+          statistic.option = 3
+          num_reg = "/\|#{num}\|/"
+          statistic.value = Item.count_by_sql(["select count(*) from items where circulation_status_id = ? AND call_number ~ ? AND removed_at >= ? AND removed_at  < ?", circulation_type_remove_id, num_reg, start_at, end_at])
+          statistic.save! if statistic.value > 0        
+        end
+      end
+    end
+    rescue Exception => e
+      s = "Failed to calculate inout items: #{e}"
+      puts s ; logger.fatal s
+      logger.fatal e.backtrace.join("\n")
+  end
+
+
   def self.calc_missing_items(start_at, end_at, term_id)
     Statistic.transaction do
      p "statistics of missing items  #{start_at} - #{end_at}"
@@ -1692,6 +1766,7 @@ class Statistic < ActiveRecord::Base
       calc_items(Time.new('1970-01-01'), date_timestamp.end_of_month, 1)
       calc_missing_items(Time.new('1970-01-01'), date_timestamp.end_of_month, 1)
       calc_consultations(date_timestamp.beginning_of_month, date_timestamp.end_of_month, 1)      
+      calc_inout_items(date_timestamp.beginning_of_month, date_timestamp.end_of_month, 1)
       calc_monthly_data(date)
     else # daily calculate data each hour
       if date
@@ -1714,6 +1789,7 @@ class Statistic < ActiveRecord::Base
       end
       calc_consultations(date.beginning_of_day, date.end_of_day, 2)
       calc_age_data(date.beginning_of_day, date.end_of_day, 2)
+      calc_inout_items(date.beginning_of_day, date.end_of_day, 2)
       calc_daily_data(date.strftime("%Y%m%d"))
     end
     rescue Exception => e

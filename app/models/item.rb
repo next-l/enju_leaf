@@ -41,7 +41,7 @@ class Item < ActiveRecord::Base
   validates :url, :url => true, :allow_blank => true, :length => {:maximum => 255}
   validates_date :acquired_at, :allow_blank => true
   before_validation :set_circulation_status, :on => :create
-  before_save :set_use_restriction
+  before_save :set_use_restriction, :check_remove_item
 
   #enju_union_catalog
   has_paper_trail
@@ -256,6 +256,13 @@ class Item < ActiveRecord::Base
     end
   end
 
+  def check_remove_item
+    if self.circulation_status_id == CirculationStatus.find(:first, :conditions => ["name = ?", 'Removed']).id
+      self.removed_at = Time.zone.now if self.removed_at.nil?
+    else
+      self.removed_at = nil
+    end
+  end
 end
 # == Schema Information
 #
