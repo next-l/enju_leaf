@@ -52,7 +52,7 @@
   <tr class="line<%= cycle("0", "1") -%>">
 <%= form_tag(:action => :get_items_report)  do -%>
     <td><%= t('statistic_report.items_report') -%></td>
-    <td><%= text_field_tag :term, @items_year if @items_year %>  <%= t('statistic_report.year') -%></td>
+    <td><%= text_field_tag :term, @items_year if @items_year %>  <%= t('statistic_report.year_or_month') -%></td>
     <td><%= submit_tag t('statistic_report.submit') %></td>
 <%- end -%>
   </tr>

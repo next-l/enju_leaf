@@ -2628,9 +2628,9 @@ class StatisticReportsController < ApplicationController
 
   def get_items_report
     term = params[:term].strip
-    unless term =~ /^\d{4}$/
+    unless term =~ /^\d{4}$/ || (term =~ /^\d{6}$/ && month_term?(term))
       flash[:message] = t('statistic_report.invalid_year')
-      @year = term
+      @year = Time.zone.now.years_ago(1).strftime("%Y")
       @month = Time.zone.now.months_ago(1).strftime("%Y%m")
       @t_start_at = Time.zone.now.months_ago(1).beginning_of_month.strftime("%Y%m%d")
       @t_end_at = Time.zone.now.months_ago(1).end_of_month.strftime("%Y%m%d")
@@ -2643,11 +2643,19 @@ class StatisticReportsController < ApplicationController
       render :index
       return false
     end
+    if term =~ /^\d{4}$/
+      get_items_monthly(term)
+    else
+      get_items_daily(term)
+    end
+  end
+
+  def get_items_monthly
     libraries = Library.all
     checkout_types = CheckoutType.all
     call_numbers = Statistic.call_numbers
     begin 
-      report = ThinReports::Report.new :layout => "#{Rails.root.to_s}/app/views/statistic_reports/items_report"
+      report = ThinReports::Report.new :layout => "#{Rails.root.to_s}/app/views/statistic_reports/items_monthly"
 
       report.events.on :page_create do |e|
         e.page.item(:page).value(e.page.no)
@@ -2854,7 +2862,7 @@ class StatisticReportsController < ApplicationController
     term = params[:term].strip
     unless term =~ /^\d{4}$/ || (term =~ /^\d{6}$/ && month_term?(term))
       flash[:message] = t('statistic_report.invalid_year')
-      @year = term
+      @year = Time.zone.now.years_ago(1).strftime("%Y")
       @month = Time.zone.now.months_ago(1).strftime("%Y%m")
       @t_start_at = Time.zone.now.months_ago(1).beginning_of_month.strftime("%Y%m%d")
       @t_end_at = Time.zone.now.months_ago(1).end_of_month.strftime("%Y%m%d")
@@ -2875,7 +2883,271 @@ class StatisticReportsController < ApplicationController
   end
 
   def get_inout_daily(term)
-    logger.error "daily"
+    libraries = Library.all
+    checkout_types = CheckoutType.all
+    call_numbers = Statistic.call_numbers
+    logger.error "create daily inout items statistic report: #{term}"
+
+    begin
+      report = ThinReports::Report.new :layout => "#{Rails.root.to_s}/app/views/statistic_reports/inout_items_daily"
+      report.events.on :page_create do |e|
+        e.page.item(:page).value(e.page.no)
+      end
+      report.events.on :generate do |e|
+        e.pages.each do |page|
+          page.item(:total).value(e.report.page_count)
+        end
+      end
+
+      num_for_last_page = Time.zone.parse("#{term}01").end_of_month.strftime("%d").to_i - 26
+      [1,14,27].each do |start_date| # for 3 pages
+        # accept items
+        report.start_new_page
+        report.page.item(:date).value(Time.now)
+        report.page.item(:year).value(term[0,4])
+        report.page.item(:month).value(term[4,6])        
+        report.page.item(:inout_type).value(t('statistic_report.accept'))
+        # header
+        if start_date != 27
+          13.times do |t|
+            report.page.list(:list).header.item("column##{t+1}").value("#{t+start_date}#{t('statistic_report.date')}")
+          end
+        else
+          num_for_last_page.times do |t|
+            report.page.list(:list).header.item("column##{t+1}").value("#{t+start_date}#{t('statistic_report.date')}")
+          end
+          report.page.list(:list).header.item("column#13").value(t('statistic_report.sum'))
+        end
+        # accept items all libraries
+        data_type = 211
+        report.page.list(:list).add_row do |row|
+          row.item(:library).value(t('statistic_report.all_library'))
+          if start_date != 27
+            13.times do |t|
+              value = Statistic.where(:yyyymmdd => "#{term.to_i}#{"%02d" % (t + start_date)}", :data_type => data_type, :library_id => 0, :option => 2).first.value rescue 0
+              row.item("value##{t+1}").value(value)
+            end
+          else
+            num_for_last_page.times do |t|
+              value = Statistic.where(:yyyymmdd => "#{term.to_i}#{"%02d" % (t + start_date)}", :data_type => data_type, :library_id => 0, :option => 2).first.value rescue 0
+              row.item("value##{t+1}").value(value)
+              if t == num_for_last_page - 1
+                sum = 0
+                datas = Statistic.where(:yyyymm => term, :data_type => data_type, :library_id => 0, :option => 2)
+                datas.each do |data|
+                  sum += data.value
+                end
+                row.item("value#13").value(sum)
+              end
+            end
+          end
+          row.item(:condition_line).show
+        end
+        # accept items each call_numbers
+        unless call_numbers.nil?
+          call_numbers.each do |num|
+            report.page.list(:list).add_row do |row|
+              row.item(:condition).value(t('activerecord.attributes.item.call_number')) if num == call_numbers.first 
+              row.item(:option).value(num)
+              if start_date != 27
+                13.times do |t|
+                  value = Statistic.where(:yyyymmdd => "#{term.to_i}#{"%02d" % (t + start_date)}", :data_type => data_type, :library_id => 0, :call_number => num, :option => 2).first.value rescue 0
+                  row.item("value##{t+1}").value(value)
+                end
+              else
+                num_for_last_page.times do |t|
+                  value = Statistic.where(:yyyymmdd => "#{term.to_i}#{"%02d" % (t + start_date)}", :data_type => data_type, :library_id => 0, :call_number => num, :option => 2).first.value rescue 0
+                  row.item("value##{t+1}").value(value)
+                  if t == num_for_last_page - 1
+                    sum = 0
+                    datas = Statistic.where(:yyyymm => term, :data_type => data_type, :library_id => 0, :call_number => num, :option => 2)
+                    datas.each do |data|
+                      sum += data.value
+                    end
+                    row.item("value#13").value(sum)
+                  end
+                end
+              end
+              row.item("condition_line").show if num == call_numbers.last
+            end  
+          end
+        end
+        # accept items each checkout_types
+        checkout_types.each do |checkout_type|
+          report.page.list(:list).add_row do |row|
+            row.item(:condition).value(t('activerecord.models.checkout_type')) if checkout_type == checkout_types.first 
+            row.item(:option).value(checkout_type.display_name.localize)
+            if start_date != 27
+              13.times do |t|
+                value = Statistic.where(:yyyymmdd => "#{term.to_i}#{"%02d" % (t + start_date)}", :data_type => data_type, :library_id => 0, :checkout_type_id => checkout_type.id, :option => 2).first.value rescue 0
+                row.item("value##{t+1}").value(value)
+              end
+            else
+              num_for_last_page.times do |t|
+                value = Statistic.where(:yyyymmdd => "#{term.to_i}#{"%02d" % (t + start_date)}", :data_type => data_type, :library_id => 0, :checkout_type_id => checkout_type.id, :option => 2).first.value rescue 0
+                row.item("value##{t+1}").value(value)
+                if t == num_for_last_page - 1
+                  sum = 0
+                  datas = Statistic.where(:yyyymm => term, :data_type => data_type, :library_id => 0, :checkout_type_id => checkout_type.id, :option => 2)
+                  datas.each do |data|
+                    sum += data.value
+                  end
+                  row.item("value#13").value(sum)
+                end
+              end
+            end  
+            row.item("condition_line").show if checkout_type == checkout_types.last
+            line_for_items(row) if checkout_type == checkout_types.last
+          end
+        end
+        # accept items each libraries
+        libraries.each do |library|
+          report.page.list(:list).add_row do |row|
+            row.item(:library).value(library.display_name)
+            if start_date != 27
+              13.times do |t|
+                value = Statistic.where(:yyyymmdd => "#{term.to_i}#{"%02d" % (t + start_date)}", :data_type => data_type, :library_id => library.id, :option => 2).first.value rescue 0
+                row.item("value##{t+1}").value(value)
+              end
+            else
+              num_for_last_page.times do |t|
+                value = Statistic.where(:yyyymmdd => "#{term.to_i}#{"%02d" % (t + start_date)}", :data_type => data_type, :library_id => library.id, :option => 2).first.value rescue 0
+                row.item("value##{t+1}").value(value)
+                if t == num_for_last_page - 1
+                  sum = 0
+                  datas = Statistic.where(:yyyymm => term, :data_type => data_type, :library_id => library.id, :option => 2)
+                  datas.each do |data|
+                    sum += data.value
+                  end
+                  row.item("value#13").value(sum)
+                end
+              end
+            end
+            row.item(:condition_line).show
+          end
+          # accept items each call_numbers
+          unless call_numbers.nil?
+            call_numbers.each do |num|
+              report.page.list(:list).add_row do |row|
+                row.item(:condition).value(t('activerecord.attributes.item.call_number')) if num == call_numbers.first 
+                row.item(:option).value(num)
+                if start_date != 27
+                  13.times do |t|
+                    value = Statistic.where(:yyyymmdd => "#{term.to_i}#{"%02d" % (t + start_date)}", :data_type => data_type, :library_id => library.id, :call_number => num, :option => 2).first.value rescue 0
+                    row.item("value##{t+1}").value(value)
+                  end
+                else
+                  num_for_last_page.times do |t|
+                    value = Statistic.where(:yyyymmdd => "#{term.to_i}#{"%02d" % (t + start_date)}", :data_type => data_type, :library_id => library.id, :call_number => num, :option => 2).first.value rescue 0
+                    row.item("value##{t+1}").value(value)
+                    if t == num_for_last_page - 1
+                      sum = 0
+                      datas = Statistic.where(:yyyymm => term, :data_type => data_type, :library_id => library.id, :call_number => num, :option => 2)
+                      datas.each do |data|
+                        sum += data.value
+                      end
+                      row.item("value#13").value(sum)
+                    end
+                  end
+                end
+                row.item("condition_line").show if num == call_numbers.last
+              end
+            end
+          end
+          # accept items each checkout_types
+          checkout_types.each do |checkout_type|
+            report.page.list(:list).add_row do |row|
+              row.item(:condition).value(t('activerecord.models.checkout_type')) if checkout_type == checkout_types.first 
+              row.item(:option).value(checkout_type.display_name.localize)
+              if start_date != 27
+                13.times do |t|
+                  value = Statistic.where(:yyyymmdd => "#{term.to_i}#{"%02d" % (t + start_date)}", :data_type => data_type, :library_id => library.id, :checkout_type_id => checkout_type.id, :option => 2).first.value rescue 0
+                  row.item("value##{t+1}").value(value)
+                end
+              else
+                num_for_last_page.times do |t|
+                  value = Statistic.where(:yyyymmdd => "#{term.to_i}#{"%02d" % (t + start_date)}", :data_type => data_type, :library_id => library.id, :checkout_type_id => checkout_type.id, :option => 2).first.value rescue 0
+                  row.item("value##{t+1}").value(value)
+                  if t == num_for_last_page - 1
+                    sum = 0
+                    datas = Statistic.where(:yyyymm => term, :data_type => data_type, :library_id => library.id, :checkout_type_id => checkout_type.id, :option => 2)
+                    datas.each do |data|
+                      sum += data.value
+                    end
+                    row.item("value#13").value(sum)
+                  end
+                end
+              end
+              row.item(:condition_line).show if checkout_type == checkout_types.last
+            end
+          end
+          # accept items each shelves and call_numbers
+          library.shelves.each do |shelf|
+            report.page.list(:list).add_row do |row|
+              row.item(:library).value("(#{shelf.display_name})")
+              if start_date != 27
+                13.times do |t|
+                  value = Statistic.where(:yyyymmdd => "#{term.to_i}#{"%02d" % (t + start_date)}", :data_type => data_type, :library_id => library.id, :shelf_id => shelf.id, :call_number => nil, :option => 2).first.value rescue 0
+                  row.item("value##{t+1}").value(value)
+                end
+              else 
+                 num_for_last_page.times do |t|
+                  value = Statistic.where(:yyyymmdd => "#{term.to_i}#{"%02d" % (t + start_date)}", :data_type => data_type, :library_id => library.id, :shelf_id => shelf.id, :call_number => nil, :option => 2).first.value rescue 0
+                  row.item("value##{t+1}").value(value)
+                  if t == num_for_last_page - 1
+                    sum = 0
+                    datas = Statistic.where(:yyyymm => term, :data_type => data_type, :library_id => library.id, :shelf_id => shelf.id, :call_number => nil, :option => 2)
+                    datas.each do |data|
+                      sum += data.value
+                    end
+                    row.item("value#13").value(sum)
+                  end
+                end
+              end
+              row.item("condition_line").show
+              line_for_items(row) if shelf == library.shelves.last && call_numbers.nil?
+            end
+            unless call_numbers.nil?
+              call_numbers.each do |num|
+                report.page.list(:list).add_row do |row|
+                  row.item(:condition).value(t('activerecord.attributes.item.call_number')) if num == call_numbers.first 
+                  row.item(:option).value(num)
+                  if start_date != 27
+                    13.times do |t|
+                      value = Statistic.where(:yyyymmdd => "#{term.to_i}#{"%02d" % (t + start_date)}", :data_type => data_type, :library_id => library.id, :shelf_id => shelf.id, :call_number => num, :option => 2).first.value rescue 0
+                      row.item("value##{t+1}").value(value)
+                    end
+                  else
+                    num_for_last_page.times do |t|
+                      value = Statistic.where(:yyyymmdd => "#{term.to_i}#{"%02d" % (t + start_date)}", :data_type => data_type, :library_id => library.id, :shelf_id => shelf.id, :call_number => num, :option => 2).first.value rescue 0
+                      row.item("value##{t+1}").value(value)
+                      if t == num_for_last_page - 1
+                        sum = 0
+                        datas = Statistic.where(:yyyymm => term, :data_type => data_type, :library_id => library.id, :shelf_id => shelf.id, :call_number => num, :option => 2)
+                        datas.each do |data|
+                          sum += data.value
+                        end
+                        row.item("value#13").value(sum)
+                      end
+                    end
+                  end
+                  if num == call_numbers.last
+                    row.item("condition_line").show
+                    line_for_items(row) if shelf == library.shelves.last
+                  end
+                end
+              end
+            end
+          end
+        end
+      end
+
+      send_data report.generate, :filename => "#{term}_#{configatron.statistic_report.inout_items}", :type => 'application/pdf', :disposition => 'attachment'
+      return true
+    rescue Exception => e
+      logger.error "failed #{e}"
+      return false
+    end
   end
 
   def get_inout_monthly(term)
@@ -2985,13 +3257,9 @@ class StatisticReportsController < ApplicationController
               sum = 0
               12.times do |t|
                 if t < 4 # for Japanese fiscal year
-                  datas = Statistic.where(:yyyymm => "#{term.to_i + 1}#{"%02d" % (t + 1)}", :data_type => data_type, :library_id => library.id, :call_number => num, :option => 2)
+                  value = Statistic.where(:yyyymm => "#{term.to_i + 1}#{"%02d" % (t + 1)}", :data_type => data_type, :library_id => library.id, :call_number => num, :option => 2).first.value rescue 0
                 else
-                  datas = Statistic.where(:yyyymm => "#{term}#{"%02d" % (t + 1)}", :data_type => data_type, :library_id => library.id, :call_number => num, :option => 2)
-                end
-                value = 0
-                datas.each do |data|
-                  value += data.value
+                  value = Statistic.where(:yyyymm => "#{term}#{"%02d" % (t + 1)}", :data_type => data_type, :library_id => library.id, :call_number => num, :option => 2).first.value rescue 0
                 end
                 row.item("value#{t+1}").value(value)
                 sum += value
@@ -3027,13 +3295,9 @@ class StatisticReportsController < ApplicationController
             sum = 0
             12.times do |t|
               if t < 4 # for Japanese fiscal year
-                datas = Statistic.where(:yyyymm => "#{term.to_i + 1}#{"%02d" % (t + 1)}", :data_type => data_type, :library_id => library.id, :shelf_id => shelf.id, :option => 2)
+                value = Statistic.where(:yyyymm => "#{term.to_i + 1}#{"%02d" % (t + 1)}", :data_type => data_type, :library_id => library.id, :shelf_id => shelf.id, :option => 2).first.value rescue 0
               else
-                datas = Statistic.where(:yyyymm => "#{term}#{"%02d" % (t + 1)}", :data_type => data_type, :library_id => library.id, :shelf_id => shelf.id, :option => 2)
-              end
-              value = 0
-              datas.each do |data|
-                value += data.value
+                value = Statistic.where(:yyyymm => "#{term}#{"%02d" % (t + 1)}", :data_type => data_type, :library_id => library.id, :shelf_id => shelf.id, :option => 2).first.value rescue 0
               end
               row.item("value#{t+1}").value(value)
               sum += value
