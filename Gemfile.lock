@@ -17,9 +17,9 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_circulation.git
-  revision: 119a9643e91f082208cba78ad83c7511c42e2b0d
+  revision: b2bae5d5a8677080cc7f1bcc251e3e67c16249a2
   specs:
-    enju_circulation (0.0.3)
+    enju_circulation (0.0.4)
       attribute_normalizer (~> 1.0)
       cancan
       devise
@@ -176,7 +176,7 @@ GIT
     acts_as_list (0.1.4)
 
 GEM
-  remote: http://rubygems.org/
+  remote: https://rubygems.org/
   specs:
     RedCloth (4.2.9)
     Saikuro (1.1.0)
@@ -238,7 +238,7 @@ GEM
       main
       ruby_parser (~> 2.0.4)
       sexp_processor (~> 3.0.3)
-    client_side_validations (3.1.3)
+    client_side_validations (3.1.4)
     cloudfiles (1.5.0.1)
       json
     cocaine (0.2.1)
@@ -257,7 +257,7 @@ GEM
     delayed_job (2.1.4)
       activesupport (~> 3.0)
       daemons
-    devise (1.5.3)
+    devise (2.0.0.rc)
       bcrypt-ruby (~> 3.0)
       orm_adapter (~> 0.0.3)
       warden (~> 1.1)
@@ -348,7 +348,7 @@ GEM
       cocaine (>= 0.0.2)
       mime-types
     parallel (0.5.11)
-    parallel_tests (0.6.12)
+    parallel_tests (0.6.13)
       parallel
     pg (0.12.0)
       rake-compiler (~> 0.7)
@@ -513,7 +513,7 @@ DEPENDENCIES
   configatron
   dalli (~> 1.1)
   delayed_job (~> 2.1.4)
-  devise (~> 1.5)
+  devise (~> 2.0.0.rc)
   dynamic_form
   enju_barcode!
   enju_bookmark!
@@ -579,7 +579,7 @@ DEPENDENCIES
   turn (~> 0.8.3)
   uglifier (>= 1.0.3)
   validates_timeliness
-  vcr (~> 2.0.0.beta2)
+  vcr (~> 2.0.0.rc1)
   vidibus-routing_error!
   whenever (~> 0.6.8)
   will_paginate (~> 3.0)

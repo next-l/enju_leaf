@@ -1,4 +1,4 @@
-source 'http://rubygems.org'
+source 'https://rubygems.org'
 
 gem 'rails', '3.1.3'
 
@@ -80,7 +80,7 @@ gem 'isbn-tools', :git => 'git://github.com/nabeta/isbn-tools.git', :require => 
 gem 'configatron'
 gem 'extractcontent'
 gem 'cancan', '>= 1.6.7'
-gem 'devise', '~> 1.5'
+gem 'devise', '~> 2.0.0.rc'
 gem 'omniauth', '~> 1.0'
 gem 'addressable'
 gem 'paperclip', '~> 2.4'
@@ -122,7 +122,7 @@ group :development, :test do
   gem 'metric_fu', '~> 2.1'
   gem 'timecop'
   gem 'sunspot-rails-tester'
-  gem 'vcr', '~> 2.0.0.beta2'
+  gem 'vcr', '~> 2.0.0.rc1'
   gem 'fakeweb'
   gem 'churn', '0.0.13'
 end
