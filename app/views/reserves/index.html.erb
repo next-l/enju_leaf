@@ -4,7 +4,11 @@
 <div id="content_list">
 
 <%= render 'manifestations/title', :manifestation => @manifestation if @manifestation -%>
-<%= render 'reserves/output'if user_signed_in? and current_user.has_role?('Librarian')-%>
+<%-if @user-%>
+  <%= render 'reserves/output_user' -%>
+<%- else -%>
+  <%= render 'reserves/output'-%>
+<%- end -%>
 
 <table class="index">
   <tr>

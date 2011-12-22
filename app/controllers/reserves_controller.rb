@@ -292,17 +292,6 @@ class ReservesController < ApplicationController
     end
 
     params[:method].concat(['3', '4', '5', '6', '7']) if params[:method].include?('2')
-
-    if params[:user_id]
-      output_list_user(params)
-    else
-      output_list_all(params)
-    end
-  end
-
-  private
-  def output_list_all(params)
-
     @states = Reserve.states
 
     if params[:state].include?("pending")
@@ -382,16 +371,10 @@ class ReservesController < ApplicationController
     end
   end
 
-  def output_list_user(params)
+  def output_user
     @user = User.find(params[:user_id])
-    if params[:all_expired] == 'true'
-      reserves = Reserve.where(:user_id => @user.id, :state => params[:state], :receipt_library_id => params[:library], :information_type_id => params[:method]).order('expired_at Desc')
-    elsif params[:all_expired].nil? and params[:expired_at] == 'true'
-      reserves = Reserve.where(:user_id => @user.id, :state => params[:state], :receipt_library_id => params[:library], :information_type_id => params[:method]).where('expired_at >= ?', Time.zone.now.beginning_of_day).order('expired_at Desc')
-    elsif params[:all_expired].nil? and params[:expired_at] == 'false'
-      reserves = Reserve.where(:user_id => @user.id, :state => params[:state], :receipt_library_id => params[:library], :information_type_id => params[:method]).where('expired_at < ?', Time.zone.now.beginning_of_day).order('expired_at Desc')
-    end
-
+    #reserves = Reserve.user_show_reserves.where(:user_id => @user.id).order('expired_at Desc')
+    reserves = Reserve.where(:user_id => @user.id).order('expired_at Desc')
     require 'thinreports'
     report = ThinReports::Report.new :layout => File.join(Rails.root, 'report', 'reservelist_user.tlf') 
     report.layout.config.list(:list) do
@@ -400,7 +383,6 @@ class ReservesController < ApplicationController
         e.section.item(:date).value(Time.now)
       end
     end
-
     report.start_new_page do |page|
       page.item(:library).value(LibraryGroup.system_name(@locale))
       user = @user.patron.full_name
@@ -421,6 +403,7 @@ class ReservesController < ApplicationController
       page.item(:user_telephone_number_2_2).value(@user.patron.extelephone_number_2)
       page.item(:user_telephone_number_2_3).value(@user.patron.fax_number_2)
       page.item(:user_email).value(@user.email)
+
       reserves.each do |r|
         page.list(:list).add_row do |row|
           row.item(:title).value(r.manifestation.original_title)
@@ -451,5 +434,4 @@ class ReservesController < ApplicationController
       end
     end
   end
-
 end
