@@ -125,6 +125,9 @@ class User < ActiveRecord::Base
       addresses << patron.address_1 if patron
       addresses << patron.address_2 if patron
     end
+    text :address_1 do
+      patron.address_1 if patron.address_1
+    end
     text :name do
       patron.name if patron
     end
@@ -153,7 +156,7 @@ class User < ActiveRecord::Base
   attr_accessor :first_name, :middle_name, :last_name, :full_name,
     :first_name_transcription, :middle_name_transcription,
     :last_name_transcription, :full_name_transcription,
-    :zip_code, :address, :telephone_number, :fax_number, :address_note,
+    :zip_code, :address, :address_1, :telephone_number, :fax_number, :address_note,
     :role_id, :patron_id, :operator, :password_not_verified,
     :update_own_account, :auto_generated_password,
     :locked, :current_password, :birth_date, :death_date #, :email

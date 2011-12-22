@@ -1335,69 +1335,6 @@ class Statistic < ActiveRecord::Base
       end
     end
 
-    # areas users 62 + 0~7
-    data_type = term_id.to_s + 62.to_s
-    # all areas
-    8.times do |age|
-      statistic = Statistic.new
-      set_date(statistic, end_at, term_id)
-      statistic.data_type = data_type
-      statistic.age = age
-      statistic.area_id = 0
-      sql = "select count(*) from users, patrons where users.id = patrons.user_id AND date_part('year', age(patrons.date_of_birth)) >= ? AND date_part('year', age(patrons.date_of_birth)) <= ? AND users.created_at <= ?"
-      sql = "select count(*) from users, patrons where users.id = patrons.user_id AND date_part('year', age(patrons.date_of_birth)) >= ? AND date_part('year', age(patrons.date_of_birth)) <= ? AND users.created_at <= ?"
-      unless age == 7
-        statistic.value = User.count_by_sql([sql, (age.to_s + 0.to_s).to_i, (age.to_s + 9.to_s).to_i, end_at])
-      else
-        statistic.value = User.count_by_sql([sql, (age.to_s + 0.to_s).to_i, 200, end_at])
-      end
-      statistic.save! if statistic.value > 0
-    end
-    # users without date_of_birth
-    statistic = Statistic.new
-    set_date(statistic, end_at, term_id)
-    statistic.data_type = data_type
-    statistic.age = 10
-    statistic.area_id = 0
-    sql = "select count(*) from users, patrons where users.id = patrons.user_id AND patrons.date_of_birth IS NULL AND users.created_at <= ?"
-    statistic.value = User.count_by_sql([sql, end_at])
-    statistic.save! if statistic.value > 0
-
-    # each area
-    @areas.each do |area|
-      include_areas = area.address.split(/\s*,\s*/)
-      like_address = ""
-      include_areas.each_with_index do |include_area, i|
-        include_area.gsub!(/^[　\s]*(.*?)[　\s]*$/, '\1')
-
-        8.times do |age|
-          statistic = Statistic.new
-          set_date(statistic, end_at, term_id)
-          statistic.data_type = data_type
-          statistic.age = age
-          statistic.area_id = area.id
-          statistic.option = i * 10  + 1
-          sql = "select count(*) from users, patrons where users.id = patrons.user_id AND patrons.address_1 LIKE ? AND date_part('year', age(patrons.date_of_birth)) >= ? AND date_part('year', age(patrons.date_of_birth)) <= ? AND users.created_at <= ?"
-          unless age == 7
-            statistic.value = User.count_by_sql([sql, '%'+include_area+'%', (age.to_s + 0.to_s).to_i, (age.to_s + 9.to_s).to_i, end_at])
-          else
-            statistic.value = User.count_by_sql([sql, '%'+include_area+'%', (age.to_s + 0.to_s).to_i, 200, end_at])
-          end
-          statistic.save! if statistic.value > 0
-        end
-        # users without date_of_birth
-        statistic = Statistic.new
-        set_date(statistic, end_at, term_id)
-        statistic.data_type = data_type
-        statistic.age = 10
-        statistic.area_id = area.id
-        statistic.option = i * 10
-        sql = "select count(*) from users, patrons where users.id = patrons.user_id AND patrons.address_1 LIKE ? AND patrons.date_of_birth IS NULL AND users.created_at <= ?"
-        statistic.value = User.count_by_sql([sql, '%'+include_area+'%', end_at])
-        statistic.save! if statistic.value > 0
-       end
-    end
-
     # users without date_of_birth
     statistic = Statistic.new
     set_date(statistic, end_at, term_id)
@@ -1468,6 +1405,123 @@ class Statistic < ActiveRecord::Base
       sql = "select count(*) from users, patrons, libraries where users.id = patrons.user_id AND users.library_id = libraries.id AND libraries.id = ? AND patrons.date_of_birth IS NULL AND users.created_at <= ?"
       statistic.value = User.provisional.count_by_sql([sql, library.id, end_at])
       statistic.save! if statistic.value > 0
+    end
+
+##############################################
+    # areas users 62 + 0~7
+    data_type = term_id.to_s + 62.to_s
+    # all areas
+=begin
+    8.times do |age|
+      statistic = Statistic.new
+      set_date(statistic, end_at, term_id)
+      statistic.data_type = data_type
+      statistic.age = age
+      statistic.area_id = 0
+      sql = "select count(*) from users, patrons where users.id = patrons.user_id AND date_part('year', age(patrons.date_of_birth)) >= ? AND date_part('year', age(patrons.date_of_birth)) <= ? AND users.created_at <= ?"
+      sql = "select count(*) from users, patrons where users.id = patrons.user_id AND date_part('year', age(patrons.date_of_birth)) >= ? AND date_part('year', age(patrons.date_of_birth)) <= ? AND users.created_at <= ?"
+      unless age == 7
+        statistic.value = User.count_by_sql([sql, (age.to_s + 0.to_s).to_i, (age.to_s + 9.to_s).to_i, end_at])
+      else
+        statistic.value = User.count_by_sql([sql, (age.to_s + 0.to_s).to_i, 200, end_at])
+      end
+      statistic.save! if statistic.value > 0
+    end
+    # users without date_of_birth
+    statistic = Statistic.new
+    set_date(statistic, end_at, term_id)
+    statistic.data_type = data_type
+    statistic.age = 10
+    statistic.area_id = 0
+    sql = "select count(*) from users, patrons where users.id = patrons.user_id AND patrons.date_of_birth IS NULL AND users.created_at <= ?"
+    statistic.value = User.count_by_sql([sql, end_at])
+    statistic.save! if statistic.value > 0
+=end
+    # each area
+    @known_users = []
+    @areas.each do |area|
+      include_areas = area.address.split(/\s*,\s*/)
+      like_address = ""
+      include_areas.each_with_index do |include_area, i|
+        include_area.gsub!(/^[　\s]*(.*?)[　\s]*$/, '\1')
+        8.times do |age|
+          statistic = Statistic.new
+          set_date(statistic, end_at, term_id)
+          statistic.data_type = data_type
+          statistic.age = age
+          statistic.area_id = area.id
+          statistic.option = i * 10  + 1
+          start_date = Time.now
+          end_date = Time.now
+          end_date = end_date.years_ago((age.to_s + 0.to_s).to_i)
+          unless age == 7
+            start_date = start_date.years_ago((age.to_s + 9.to_s).to_i)
+          else
+            start_date = start_date.years_ago(200)
+          end
+          query = "date_of_birth_d: [#{start_date.beginning_of_day.utc.iso8601} TO #{end_date.end_of_day.utc.iso8601}]"
+          query = "#{query} address_text: #{include_area}"
+          users = User.search do
+            fulltext query
+            with(:created_at).less_than end_at
+          end.results
+          users.each do |user|
+            @known_users << user
+          end
+          statistic.value = users.size
+          statistic.save! if statistic.value > 0
+        end
+        # users without date_of_birth
+        statistic = Statistic.new
+        set_date(statistic, end_at, term_id)
+        statistic.data_type = data_type
+        statistic.age = 10
+        statistic.area_id = area.id
+        statistic.option = i * 10
+        query = "-date_of_birth_d: [* TO *]"
+        query = "#{query} address_1_text: #{include_area}"
+        users = User.search do
+          fulltext query
+          with(:created_at).less_than end_at
+        end.results
+        users.each do |user|
+          @known_users << user
+        end
+        statistic.value = users.size
+        statistic.save! if statistic.value > 0
+      end
+    end
+    #set unknown_area_users
+    @users = User.where("created_at < ? ", end_at) 
+    ages = Array.new(9, 0)
+    @users.each do |user|
+      if @known_users.index(user) == nil
+        if user.patron.date_of_birth
+          8.times do |age|
+            #start_date = Time.now
+            #end_date = Time.now
+            end_date = Time.now.years_ago((age.to_s + 0.to_s).to_i)
+            start_date = Time.now.years_ago((age.to_s + 9.to_s).to_i) unless age == 7
+            start_date = Time.now.years_ago(200) if age == 7
+            if user.patron.date_of_birth = start_date.beginning_of_day.utc.iso8601..end_date.end_of_day.utc.iso8601
+              ages[age] = ages[age] + 1
+              break 
+            end
+          end
+        else
+          ages[8] = ages[8] + 1
+        end
+      end
+    end
+    ages.each_with_index do |age, i|
+      statistic = Statistic.new
+      set_date(statistic, end_at, term_id)
+      statistic.data_type = data_type
+      statistic.area_id = 0
+      statistic.age = i unless i == 8
+      statistic.age = 10 if i == 8
+      statistic.value = age
+      statistic.save! if age > 0
     end
 
     # checkout users 22 + 0~7
