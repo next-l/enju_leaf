@@ -6,10 +6,9 @@
 <%= render 'manifestations/title', :manifestation => @reserve.manifestation -%>
 
 <p>
-  <strong><%= t('activerecord.models.manifestation') -%>:</strong>
-  <%= link_to @reserve.manifestation.original_title, @reserve.manifestation -%>
   <%- if current_user.has_role?('Librarian') -%>
     (<%= link_to t('page.number_of_reservations', :count => @reserved_count), manifestation_reserves_path(@reserve.manifestation) -%>)
+    <br /><br/ >
   <%- end -%>
 </p>
 
@@ -74,7 +73,7 @@
   <%= l(@reserve.checked_out_at) if @reserve.checked_out_at -%>
 </p>
 
-<%- if @reserve.can_output? -%>
+<%- if @reserve.can_checkout? -%>
   <%= form_tag({:action => 'output'}) do -%>
     <%= submit_tag t('page.output', :model => t('activerecord.attributes.reserve.reserve_list')) -%>
   <%- end -%>
@@ -85,7 +84,9 @@
 <div id="submenu" class="ui-corner-all">
   <%= render 'manifestations/book_jacket', :manifestation => @reserve.manifestation -%>
   <ul>
-    <li><%= link_to t('page.edit'), edit_user_reserve_path(@reserve.user, @reserve) -%></li>
+    <%- if @reserve.can_checkout? -%>
+      <li><%= link_to t('page.edit'), edit_user_reserve_path(@reserve.user, @reserve) -%></li>
+    <%- end -%>
     <%- if @reserve.user.reserves.waiting.include?(@reserve) -%>
       <li><%= link_to t('page.cancel'), user_reserve_path(@reserve.user, @reserve, :mode => 'cancel'), :confirm => t('page.are_you_sure'), :method => :put -%></li>
     <%- else -%>

@@ -365,11 +365,10 @@ class Reserve < ActiveRecord::Base
     return @states
   end
 
-  def can_output?
-    return true if ['requested', 'retained'].include?(self.state)
-    false 
-  end
- 
+  def can_checkout?
+    return true if ['requested', 'retained', 'in_process'].include?(self.state)
+    false
+  end 
 end
 
 # == Schema Information
