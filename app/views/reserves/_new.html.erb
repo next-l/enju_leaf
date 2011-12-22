@@ -22,6 +22,7 @@
            success: function(obj) {
              if (obj.success) {
                if (obj["user"] != null && obj["patron"] != null) {
+                 $()
                  $('#reserve_information_type_id').removeAttr('disabled');
                  $('#reserve_information_type_id').children('[value = 0]').remove();
                  $('#reserve_submit').removeAttr('disabled');
@@ -55,13 +56,8 @@
 <%= form_for(@reserve) do |f| -%>
   <%= f.error_messages -%>
   <div class="field">
-    <%- if @reserve.manifestation -%>
-      <%= render 'manifestations/title', :manifestation => @reserve.manifestation -%>
-      <%= f.hidden_field :manifestation_id -%>
-    <%- else -%>
-      <%= f.label t('activerecord.models.manifestation') -%><br />
-      <%= f.text_field :manifestation_id -%>
-    <%- end -%>
+    <%= render 'manifestations/title', :manifestation => @reserve.manifestation -%>
+    <%= f.hidden_field :manifestation_id -%>
   </div>
 
   <div class="field">

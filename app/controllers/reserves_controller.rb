@@ -132,9 +132,8 @@ class ReservesController < ApplicationController
   # POST /reserves
   # POST /reserves.xml
   def create
-    if params[:reserve]
-      user = User.where(:user_number => params[:reserve][:user_number]).first
-    end
+    user = User.where(:user_number => params[:reserve][:user_number]).first if params[:reserve]
+
     # 図書館員以外は自分の予約しか作成できない
     unless current_user.has_role?('Librarian')
       unless user == current_user

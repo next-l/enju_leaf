@@ -4,20 +4,9 @@
 
 <%= form_for(@reserve, :url => user_reserves_path(@user)) do |f| -%>
   <%= f.error_messages -%>
-
   <div class="field">
-    <%- if @item -%>
-      <%= render 'manifestations/title', :manifestation => @reserve.manifestation -%>
-      (<%= link_to @item.item_identifier, @item -%>)
-      <%= f.hidden_field :manifestation_id, :value => @item.manifestation.id -%>
-      <%= f.hidden_field :item_id, :value => @item.id -%>
-    <%- elsif @manifestation -%>
-      <%= render 'manifestations/title', :manifestation => @manifestation -%>
-      <%= f.hidden_field :manifestation_id -%>
-    <%- else -%>
-      <%= f.label t('activerecord.models.manifestation') -%><br />
-      <%= f.text_field :manifestation_id -%>
-    <%- end -%>
+    <%= render 'manifestations/title', :manifestation => @reserve.manifestation -%>
+    <%= f.hidden_field :manifestation_id -%>
   </div>
 
   <div class="field">
