@@ -314,7 +314,7 @@ p "ready status is OK"
     # if exclude checkouting items, add following condition to the select.
     # difference between lost items is checkouted item's id in checkouts table
     notfound_items = Item.find_by_sql(
-      "select id, item_identifier, checkout_type_id, bookbinding_id" +
+      "select id, item_identifier, checkout_type_id" +
       " from items where id not in (" +
       " select item_id from libcheck_tmp_items where item_id is not null)" +
       " AND deleted_at is null" +
@@ -345,7 +345,7 @@ p "ready status is OK"
 
     # if exclude checkouting items, add following condition to the select.
     notfound_items = Item.find_by_sql(
-      "select id, item_identifier, checkout_type_id, bookbinding_id" +
+      "select id, item_identifier, checkout_type_id" +
       " from items where id not in (" +
       " select item_id from libcheck_tmp_items where item_id is not null)" +
       " AND deleted_at is null" +
@@ -360,12 +360,6 @@ p "ready status is OK"
 
         # ignore empty item_identifier
         next if ni.item_identifier.blank?
-
-        # except serial which bindered
-        if !ni.bookbinding_id.nil? && ni.checkout_type_id == s_id
-          logger.debug "  bindered => item_identifier: #{ni.item_identifier}"
-          next
-        end
 
         nitem = LibcheckNotfoundItem.new
         nitem.item_id = ni.id
