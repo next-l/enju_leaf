@@ -124,6 +124,10 @@ class ReservesController < ApplicationController
 
   # GET /reserves/1;edit
   def edit
+    unless @reserve.can_checkout?
+      access_denied
+      return
+    end
     user = @user if @user
     @libraries = Library.order('position')
     @informations = Reserve.informations(user)
@@ -175,6 +179,11 @@ class ReservesController < ApplicationController
   # PUT /reserves/1
   # PUT /reserves/1.xml
   def update
+    unless @reserve.can_checkout?
+      access_denied
+      return
+    end
+
     if params[:reserve]
       user = User.where(:user_number => params[:reserve][:user_number]).first
     end
