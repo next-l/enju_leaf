@@ -1934,6 +1934,7 @@ class Statistic < ActiveRecord::Base
       end
       i = 0
       calc_items(Time.new('1970-01-01'), date.end_of_day, 2)
+      calc_missing_items(Time.new('1970-01-01'), date.end_of_day, 2)
       while i < 24 #  0 ~ 24 hour
         calc_checkouts(date.change(:hour => i), date.change(:hour => i + 1), 3)
         calc_checkins(date.change(:hour => i), date.change(:hour => i + 1), 3)
