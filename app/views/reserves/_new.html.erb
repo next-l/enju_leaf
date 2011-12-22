@@ -23,6 +23,7 @@
              if (obj.success) {
                if (obj["user"] != null && obj["patron"] != null) {
                  $('#reserve_information_type_id').removeAttr('disabled');
+                 $('#reserve_information_type_id').children('[value = 0]').remove();
                  $('#reserve_submit').removeAttr('disabled');
                  if (obj["user"]["user"]["email"].length != 0)
                    $('#reserve_information_type_id').append($('<option>').attr({ value: '1' }).text('<%= t('activerecord.attributes.user.email') -%> ' + obj["user"]["user"]["email"]));
@@ -38,6 +39,7 @@
                    $('#reserve_information_type_id').append($('<option>').attr({ value: '6' }).text('<%= t('activerecord.attributes.patron.extelephone_number_2') -%> ' + obj["patron"]["patron"]["extelephone_number_2"]));
                  if (obj["patron"]["patron"]["fax_number_2"].length != 0)
                    $('#reserve_information_type_id').append($('<option>').attr({ value: '7' }).text('<%= t('activerecord.attributes.patron.fax_number_2') -%> ' + obj["patron"]["patron"]["fax_number_2"]));
+                 $('#reserve_information_type_id').append($('<option>').attr({ value: '0' }).text('<%= t('activerecord.attributes.reserve.unnecessary') -%>'));
                }
              }
            }

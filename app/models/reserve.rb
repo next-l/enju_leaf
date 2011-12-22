@@ -319,7 +319,6 @@ class Reserve < ActiveRecord::Base
   def self.informations(user)
     @informations = []
     @Type = Struct.new(:id, :display_name, :information)
-    @informations << @Type.new(0, I18n.t('activerecord.attributes.reserve.unnecessary'), '')
     unless user.blank?
       @informations << @Type.new(1, I18n.t('activerecord.attributes.user.email'), user.email) unless user.email.blank?
       @informations << @Type.new(2, I18n.t('activerecord.attributes.patron.telephone_number_1'), user.patron.telephone_number_1) unless user.patron.telephone_number_1.blank?
@@ -329,6 +328,7 @@ class Reserve < ActiveRecord::Base
       @informations << @Type.new(6, I18n.t('activerecord.attributes.patron.extelephone_number_2'), user.patron.extelephone_number_2) unless user.patron.extelephone_number_2.blank?
       @informations << @Type.new(7, I18n.t('activerecord.attributes.patron.fax_number_2'), user.patron.fax_number_2) unless user.patron.fax_number_2.blank?
     end
+    @informations << @Type.new(0, I18n.t('activerecord.attributes.reserve.unnecessary'), '')
     return @informations
   end
 
