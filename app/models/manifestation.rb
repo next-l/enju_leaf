@@ -479,6 +479,9 @@ class Manifestation < ActiveRecord::Base
   end
 
   if defined?(EnjuCirculation)
+    include EnjuCirculation::Manifestation
+    has_many :reserves, :foreign_key => :manifestation_id
+
     searchable do
       boolean :reservable do
         items.for_checkout.exists?
