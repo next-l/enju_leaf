@@ -13,7 +13,12 @@
     <%- end -%>
   </tr>
   <% @family_users.each do |f_user| %>
-    <%- f_user.reserves.previous_reserves.each_with_index do |reserve, i| -%>
+    <%- if current_user.has_role?('Librarian') -%>
+      <%- reserves = f_user.reserves.show_reserves -%>
+    <%- else -%>
+      <%- reserves =f_user.reserves.user_show_reserves -%>
+    <%- end -%>
+    <%- reserves.each_with_index do |reserve, i| -%>
       <tr class="line<%= cycle("0", "1") -%>">
         <td><%= link_to reserve.id, user_reserve_path(reserve.user, reserve) -%></td>
         <%- if configatron.checked_items.disp_title == true -%>

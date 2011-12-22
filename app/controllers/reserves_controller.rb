@@ -44,13 +44,17 @@ class ReservesController < ApplicationController
     else
       if @user
         # 一般ユーザ
-        @reserves = @user.reserves.order('reserves.expired_at DESC').page(params[:page])
+        if current_user.has_role?('Librarian')
+          @reserves = @user.reserves.show_reserves.order('reserves.expired_at DESC').page(params[:page])
+        else
+          @reserves = @user.reserves.user_show_reserves.order('reserves.expired_at DESC').page(params[:page])
+        end
         # 管理者
       elsif @manifestation
         @reserves = @manifestation.reserves.not_retained.order('reserves.position ASC').page(params[:page])
         @completed_reserves = @manifestation.reserves.not_waiting.page(params[:page])
       else
-        @reserves = Reserve.order('reserves.expired_at DESC').includes(:manifestation).page(params[:page])
+        @reserves = Reserve.show_reserves.order('reserves.expired_at DESC').includes(:manifestation).page(params[:page])
       end
     end
 
@@ -66,6 +70,10 @@ class ReservesController < ApplicationController
   # GET /reserves/1
   # GET /reserves/1.xml
   def show
+    if @reserve.state == 'canceled'
+      access_denied
+      return
+    end
     @information_method = Reserve.get_information_method(@reserve)
     @receipt_library = Library.find(@reserve.receipt_library_id)
     @reserved_count = Reserve.waiting.where(:manifestation_id => @reserve.manifestation_id, :checked_out_at => nil).count
@@ -203,11 +211,13 @@ class ReservesController < ApplicationController
           rescue Exception => e
             logger.error "Faild to send a notification message (reservation was canceled): #{e}" 
           end
+          format.html { redirect_to user_reserves_path(user)}
+          format.xml  { head :ok }
         else
           flash[:notice] = t('controller.successfully_updated', :model => t('activerecord.models.reserve'))
+          format.html { redirect_to user_reserve_url(@reserve.user, @reserve) }
+          format.xml  { head :ok }
         end
-        format.html { redirect_to user_reserve_url(@reserve.user, @reserve) }
-        format.xml  { head :ok }
       else
         @libraries = Library.order('position')
         @informations = Reserve.informations(user)
