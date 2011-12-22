@@ -9,8 +9,6 @@ class MyAccountsController < ApplicationController
     end
     @tags = @user.bookmarks.tag_counts.sort{|a,b| a.count <=> b.count}.reverse
     @manifestation = Manifestation.pickup(@user.keyword_list.to_s.split.sort_by{rand}.first) rescue nil
-    @checkouts = current_user.checkouts.not_returned.order('created_at DESC')
-    @reserves = current_user.reserves.order('reserves.expired_at DESC')
     prepare_options
 
     respond_to do |format|
