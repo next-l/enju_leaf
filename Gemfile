@@ -17,17 +17,18 @@ gem 'enju_purchase_request', :git => 'git://github.com/nabeta/enju_purchase_requ
 gem 'enju_question', '0.0.3'
 gem 'enju_bookmark', :git => 'git://github.com/nabeta/enju_bookmark.git'
 gem 'enju_resource_merge', :git => 'git://github.com/nabeta/enju_resource_merge.git'
-gem 'enju_circulation', '0.0.3'
-gem 'enju_message', '0.0.3'
+gem 'enju_circulation', '0.0.4'
+gem 'enju_message', '0.0.4'
 #gem 'enju_inter_library_loan', :git => 'git://github.com/nabeta/enju_inter_library_loan.git'
 gem 'enju_inventory', :git => 'git://github.com/nabeta/enju_inventory.git'
-gem 'enju_event', '0.0.3'
+gem 'enju_event', '0.0.4'
 #gem 'enju_news', :git => 'git://github.com/nabeta/enju_news.git'
 gem 'enju_search_log', :git => 'git://github.com/nabeta/enju_search_log.git'
 
 platforms :ruby do
   gem 'pg'
   #gem 'mysql2', '~> 0.3'
+  #gem 'sqlite3'
   gem 'ruby-prof', :group => [:development, :test]
   gem 'zipruby'
   gem 'kgio'
@@ -59,7 +60,7 @@ gem 'state_machine'
 gem 'sunspot_rails', '~> 1.3'
 gem 'sunspot_solr', '~> 1.3'
 gem 'progress_bar'
-gem 'friendly_id', '4.0.0.beta14'
+gem 'friendly_id', '~> 4.0.0.rc2'
 gem 'inherited_resources', '~> 1.3'
 gem 'has_scope'
 gem 'nokogiri'
@@ -114,7 +115,7 @@ group :development do
 end
 
 group :development, :test do
-  gem 'rspec-rails', '~> 2.8.0.rc1'
+  gem 'rspec-rails', '~> 2.8.0.rc2'
   gem 'guard-rspec'
   gem 'factory_girl_rails', '~> 1.4'
   gem 'spork', '~> 0.9.0.rc9'
