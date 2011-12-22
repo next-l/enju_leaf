@@ -28,6 +28,7 @@ gem 'enju_search_log', :git => 'git://github.com/nabeta/enju_search_log.git'
 platforms :ruby do
   gem 'pg'
   #gem 'mysql2', '~> 0.3'
+  #gem 'sqlite3'
   gem 'ruby-prof', :group => [:development, :test]
   gem 'zipruby'
   gem 'kgio'
