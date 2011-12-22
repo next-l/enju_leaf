@@ -1693,6 +1693,7 @@ ja:
     requested: "受付済み"
     in_process: "作業中"
     retained: "取置済み"
+    called: "連絡済み"
     canceled: "取消済み"
     expired: "期限切れ"
     completed: "貸出済み"

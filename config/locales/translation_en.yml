@@ -1548,6 +1548,7 @@ en:
     pending: "Pending"
     requested: "Requested"
     retained: "Retained"
+    called: "Called"
     canceled: "Canceled"
     expired: "Expired"
     completed: "Completed"
