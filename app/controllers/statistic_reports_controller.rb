@@ -2371,6 +2371,7 @@ class StatisticReportsController < ApplicationController
 
       # user_areas all libraries
       data_type = 262
+      # all_area
       report.page.list(:list).add_row do |row|
         row.item(:type).value(t('statistic_report.user_areas'))
         row.item(:library).value(t('statistic_report.all_areas'))
@@ -2378,7 +2379,7 @@ class StatisticReportsController < ApplicationController
         8.times do |t|
           value = 0
           #datas = Statistic.where(["yyyymmdd >= #{start_at} AND yyyymmdd <= #{end_at} AND data_type = ? AND age = ?", data_type, t])
-          datas = Statistic.where(["yyyymmdd = ? AND data_type = ? AND age = ? AND area_id = 0", end_at, data_type, t])
+          datas = Statistic.where(["yyyymmdd = ? AND data_type = ? AND age = ?", end_at, data_type, t])
           datas.each do |data|
             value = value + data.value
           end
@@ -2387,7 +2388,7 @@ class StatisticReportsController < ApplicationController
         end
         value = 0
         #datas = Statistic.where(["yyyymmdd >= #{start_at} AND yyyymmdd <= #{end_at} AND data_type = ? AND age = ?", data_type, 10])
-        datas = Statistic.where(["yyyymmdd = ? AND data_type = ? AND age = ? AND area_id = 0", end_at, data_type, 10])
+        datas = Statistic.where(["yyyymmdd = ? AND data_type = ? AND age = ?", end_at, data_type, 10])
         datas.each do |data|
           value = value + data.value
         end
@@ -2396,6 +2397,7 @@ class StatisticReportsController < ApplicationController
         row.item("valueall").value(sum)
         row.item(:library_line).show
       end
+      # each_area
       @areas = Area.all
       @areas.each do |a|
         report.page.list(:list).add_row do |row|
@@ -2422,8 +2424,32 @@ class StatisticReportsController < ApplicationController
 
           row.item("valueall").value(sum)
           row.item(:library_line).show
-          line(row) if a == @areas.last
         end
+      end
+      # unknown area
+      report.page.list(:list).add_row do |row|
+        row.item(:library).value(t('statistic_report.missing_items'))
+        sum = 0
+        8.times do |t|
+          value = 0
+          #datas = Statistic.where(["yyyymmdd >= #{start_at} AND yyyymmdd <= #{end_at} AND data_type = ? AND age = ?", data_type, t])
+          datas = Statistic.where(["yyyymmdd = ? AND data_type = ? AND age = ? AND area_id = 0", end_at, data_type, t])
+          datas.each do |data|
+            value = value + data.value
+          end
+          sum = sum + value
+          row.item("value#{t}").value(value)
+        end
+        value = 0
+        #datas = Statistic.where(["yyyymmdd >= #{start_at} AND yyyymmdd <= #{end_at} AND data_type = ? AND age = ?", data_type, 10])
+        datas = Statistic.where(["yyyymmdd = ? AND data_type = ? AND age = ? AND area_id = 0", end_at, data_type, 10])
+        datas.each do |data|
+          value = value + data.value
+        end
+        sum = sum + value
+        row.item("value8").value(value)
+        row.item("valueall").value(sum)
+        line(row)
       end
 
       # reserves all libraries
