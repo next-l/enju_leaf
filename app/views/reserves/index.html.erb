@@ -32,7 +32,7 @@
         <%- end -%>
       </td>
     <%- end -%>
-    <td><%= link_to reserve.id, reserves_path(reserve) -%></td>
+    <td><%= link_to reserve.id, reserve -%></td>
     <td><%= link_to reserve.user.username, reserve.user if reserve.user -%></td>
     <td>
       <%= render 'title', :reserve => reserve -%>
