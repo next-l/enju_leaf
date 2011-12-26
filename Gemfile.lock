@@ -17,9 +17,9 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_circulation.git
-  revision: 119a9643e91f082208cba78ad83c7511c42e2b0d
+  revision: b2bae5d5a8677080cc7f1bcc251e3e67c16249a2
   specs:
-    enju_circulation (0.0.3)
+    enju_circulation (0.0.4)
       attribute_normalizer (~> 1.0)
       cancan
       devise
@@ -238,7 +238,7 @@ GEM
       main
       ruby_parser (~> 2.0.4)
       sexp_processor (~> 3.0.3)
-    client_side_validations (3.1.3)
+    client_side_validations (3.1.4)
     cloudfiles (1.5.0.1)
       json
     cocaine (0.2.1)
@@ -288,7 +288,7 @@ GEM
       sexp_processor (~> 3.0)
     friendly_id (4.0.0.rc2)
     geocoder (1.1.0)
-    guard (0.9.1)
+    guard (0.9.4)
       ffi (>= 0.5.0)
       thor (~> 0.14.6)
     guard-rspec (0.5.10)
@@ -306,8 +306,8 @@ GEM
     jquery-rails (1.0.19)
       railties (~> 3.0)
       thor (~> 0.14)
-    json (1.6.3)
-    json_pure (1.6.3)
+    json (1.6.4)
+    json_pure (1.6.4)
     kgio (2.7.0)
     library_stdnums (1.0.1)
     mail (2.3.0)
@@ -348,7 +348,7 @@ GEM
       cocaine (>= 0.0.2)
       mime-types
     parallel (0.5.11)
-    parallel_tests (0.6.12)
+    parallel_tests (0.6.14)
       parallel
     pg (0.12.0)
       rake-compiler (~> 0.7)
@@ -480,8 +480,8 @@ GEM
     uglifier (1.2.0)
       execjs (>= 0.3.0)
       multi_json (>= 1.0.2)
-    validates_timeliness (3.0.7)
-      timeliness (~> 0.3.3)
+    validates_timeliness (3.0.8)
+      timeliness (~> 0.3.4)
     vcr (2.0.0.rc1)
     warden (1.1.0)
       rack (>= 1.0)
