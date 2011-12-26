@@ -86,8 +86,10 @@ class StatisticReportsController < ApplicationController
             row.item("value#{t+1}").value(value)
             row.item("valueall").value(value) if t == 2 # March(end of fiscal year)
           end 
+          row.item(:library_line).show if checkout_type == checkout_types.last
         end
       end
+=begin
       # missing items
       report.page.list(:list).add_row do |row|
         row.item(:library).value("(#{t('statistic_report.missing_items')})")
@@ -102,6 +104,7 @@ class StatisticReportsController < ApplicationController
           row.item(:library_line).show
         end  
       end
+=end
       # items each library
       libraries.each do |library|
         report.page.list(:list).add_row do |row|
@@ -129,8 +132,10 @@ class StatisticReportsController < ApplicationController
               row.item("value#{t+1}").value(value)
               row.item("valueall").value(value) if t == 2 # March(end of fiscal year)
             end  
+            row.item(:library_line).show if checkout_type == checkout_types.last
           end
         end
+=begin
         # missing items
         report.page.list(:list).add_row do |row|
           row.item(:library).value("(#{t('statistic_report.missing_items')})")
@@ -146,6 +151,7 @@ class StatisticReportsController < ApplicationController
             line(row) if library == libraries.last
           end  
         end
+=end
       end
 
       # open days of each libraries
