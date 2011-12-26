@@ -1446,10 +1446,10 @@ class StatisticReportsController < ApplicationController
       report.page.item(:date_end_at).value(end_at[6,2]) rescue nil 
 
       # header 
-      12.times do |t|
+      hours.times do |t|
         report.page.list(:list).header.item("column##{t+1}").value("#{t+open}#{t('statistic_report.hour')}")
       end
-      report.page.list(:list).header.item("column#13").value(t('statistic_report.sum'))
+      report.page.list(:list).header.item("column#15").value(t('statistic_report.sum'))
 
       # checkout users all libraries
       report.page.list(:list).add_row do |row|
@@ -1465,7 +1465,7 @@ class StatisticReportsController < ApplicationController
           sum = sum + value
           row.item("value##{t+1}").value(value)
         end
-        row.item("value#13").value(sum)  
+        row.item("value#15").value(sum)  
       end
       # each user type
       5.downto(1) do |type|
@@ -1482,7 +1482,7 @@ class StatisticReportsController < ApplicationController
             sum = sum + value
             row.item("value##{t+1}").value(value)
           end
-          row.item("value#13").value(sum)  
+          row.item("value#15").value(sum)  
           row.item(:library_line).show if type == 1
         end
       end
@@ -1500,7 +1500,7 @@ class StatisticReportsController < ApplicationController
             sum = sum + value
             row.item("value##{t+1}").value(value)
           end
-          row.item("value#13").value(sum)
+          row.item("value#15").value(sum)
         end
         # each user type
         5.downto(1) do |type|
@@ -1517,7 +1517,7 @@ class StatisticReportsController < ApplicationController
               sum = sum + value
               row.item("value##{t+1}").value(value)
             end
-            row.item("value#13").value(sum)
+            row.item("value#15").value(sum)
             if type == 1
               row.item(:library_line).show 
               line(row) if library == libraries.last
@@ -1540,7 +1540,7 @@ class StatisticReportsController < ApplicationController
           sum = sum + value
           row.item("value##{t+1}").value(value)
         end
-        row.item("value#13").value(sum)  
+        row.item("value#15").value(sum)  
       end
       3.times do |i|
         report.page.list(:list).add_row do |row|
@@ -1555,7 +1555,7 @@ class StatisticReportsController < ApplicationController
             sum = sum + value
             row.item("value##{t+1}").value(value)
           end
-          row.item("value#13").value(sum)  
+          row.item("value#15").value(sum)  
           row.item(:library_line).show if i == 2
         end
       end
@@ -1573,7 +1573,7 @@ class StatisticReportsController < ApplicationController
             sum = sum + value
             row.item("value##{t+1}").value(value)
           end
-          row.item("value#13").value(sum)
+          row.item("value#15").value(sum)
         end
         3.times do |i|
           report.page.list(:list).add_row do |row|
@@ -1588,7 +1588,7 @@ class StatisticReportsController < ApplicationController
               sum = sum + value
               row.item("value##{t+1}").value(value)
             end
-            row.item("value#13").value(sum)
+            row.item("value#15").value(sum)
             if i == 2
               row.item(:library_line).show
               line(row) if library == libraries.last
@@ -1611,7 +1611,7 @@ class StatisticReportsController < ApplicationController
           sum = sum + value
           row.item("value##{t+1}").value(value)
         end
-        row.item("value#13").value(sum)  
+        row.item("value#15").value(sum)  
       end
       # reserves on counter all libraries
       report.page.list(:list).add_row do |row|
@@ -1626,7 +1626,7 @@ class StatisticReportsController < ApplicationController
           sum = sum + value
           row.item("value##{t+1}").value(value)
         end
-        row.item("value#13").value(sum)  
+        row.item("value#15").value(sum)  
       end
       # reserves from OPAC all libraries
       report.page.list(:list).add_row do |row|
@@ -1641,7 +1641,7 @@ class StatisticReportsController < ApplicationController
           sum = sum + value
           row.item("value##{t+1}").value(value)
         end
-        row.item("value#13").value(sum)  
+        row.item("value#15").value(sum)  
         row.item(:library_line).show
       end
       # reserves each libraries
@@ -1658,7 +1658,7 @@ class StatisticReportsController < ApplicationController
             sum = sum + value
             row.item("value##{t+1}").value(value)
           end
-          row.item("value#13").value(sum)
+          row.item("value#15").value(sum)
         end
         # on counter
         sum = 0
@@ -1673,7 +1673,7 @@ class StatisticReportsController < ApplicationController
             sum = sum + value
             row.item("value##{t+1}").value(value)
           end
-          row.item("value#13").value(sum)
+          row.item("value#15").value(sum)
         end
         # from OPAC
         sum = 0
@@ -1688,7 +1688,7 @@ class StatisticReportsController < ApplicationController
             sum = sum + value
             row.item("value##{t+1}").value(value)
           end
-          row.item("value#13").value(sum)
+          row.item("value#15").value(sum)
           row.item(:library_line).show
           line(row) if library == libraries.last
         end
@@ -1708,7 +1708,7 @@ class StatisticReportsController < ApplicationController
           sum = sum + value
           row.item("value##{t+1}").value(value)
         end
-        row.item("value#13").value(sum)  
+        row.item("value#15").value(sum)  
         row.item(:library_line).show
       end
       # reserves each libraries
@@ -1725,7 +1725,7 @@ class StatisticReportsController < ApplicationController
             sum = sum + value
             row.item("value##{t+1}").value(value)
           end
-          row.item("value#13").value(sum)
+          row.item("value#15").value(sum)
           row.item(:library_line).show
           line(row) if library == libraries.last
         end
