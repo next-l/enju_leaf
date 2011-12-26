@@ -740,6 +740,26 @@ class StatisticReportsController < ApplicationController
           line(row) if library == libraries.last
         end
       end
+      # visiters of each libraries
+      libraries.each do |library|
+        report.page.list(:list).add_row do |row|
+          row.item(:type).value(t('statistic_report.visiters')) if libraries.first == library
+          row.item(:library).value(library.display_name)
+          sum = 0
+          12.times do |t|
+            if t < 4 # for Japanese fiscal year
+              value = Statistic.where(:yyyymm => "#{term.to_i + 1}#{"%02d" % (t + 1)}", :data_type => 116, :library_id => library.id).first.value rescue 0 
+            else
+              value = Statistic.where(:yyyymm => "#{term}#{"%02d" % (t + 1)}", :data_type => 116, :library_id => library.id).first.value rescue 0
+            end
+            row.item("value#{t+1}").value(value)
+            sum += value
+          end
+          row.item("valueall").value(sum)
+          row.item(:library_line).show
+          line(row) if library == libraries.last
+        end
+      end
       # consultations of each libraries
       libraries.each do |library|
         report.page.list(:list).add_row do |row|
@@ -751,6 +771,26 @@ class StatisticReportsController < ApplicationController
               value = Statistic.where(:yyyymm => "#{term.to_i + 1}#{"%02d" % (t + 1)}", :data_type => 114, :library_id => library.id).first.value rescue 0 
             else
               value = Statistic.where(:yyyymm => "#{term}#{"%02d" % (t + 1)}", :data_type => 114, :library_id => library.id).first.value rescue 0
+            end
+            row.item("value#{t+1}").value(value)
+            sum += value
+          end
+          row.item("valueall").value(sum)
+          row.item(:library_line).show
+          line(row) if library == libraries.last
+        end
+      end
+      # copies of each libraries
+      libraries.each do |library|
+        report.page.list(:list).add_row do |row|
+          row.item(:type).value(t('statistic_report.copies')) if libraries.first == library
+          row.item(:library).value(library.display_name)
+          sum = 0
+          12.times do |t|
+            if t < 4 # for Japanese fiscal year
+              value = Statistic.where(:yyyymm => "#{term.to_i + 1}#{"%02d" % (t + 1)}", :data_type => 115, :library_id => library.id).first.value rescue 0 
+            else
+              value = Statistic.where(:yyyymm => "#{term}#{"%02d" % (t + 1)}", :data_type => 115, :library_id => library.id).first.value rescue 0
             end
             row.item("value#{t+1}").value(value)
             sum += value
