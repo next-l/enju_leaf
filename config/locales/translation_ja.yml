@@ -1870,6 +1870,7 @@ ja:
     item_type_2: 児童書
     item_type_3: その他
     checkout_items: 貸出冊数
+    checkout_items_each_user_groups: 貸出冊数(団体別)
     checkin_items: 返却数
     average_checkout_users: 一日平均貸出人数
     average_checkout_items: 一日平均貸出冊数
