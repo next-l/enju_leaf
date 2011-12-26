@@ -859,6 +859,7 @@ class StatisticReportsController < ApplicationController
       return true
     rescue Exception => e
       logger.error "failed #{e}"
+      logger.error $@.join('\n')
       return false
     end	
   end
