@@ -41,7 +41,12 @@
     <td>
       <%= render 'title', :reserve => reserve -%>
     </td>
-    <td><%= i18n_state(reserve.state) -%></td>
+    <td>
+      <%= i18n_state(reserve.state) -%>
+      <%- if reserve.retained -%>
+        (<%= t('reserve.called')-%>)
+      <%- end -%>
+    </td>
     <td><%= l(reserve.expired_at, :format => :only_date) -%></td>
     <%- if can? :destroy, reserve -%>
       <td>

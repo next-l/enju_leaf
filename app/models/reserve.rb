@@ -34,6 +34,7 @@ class Reserve < ActiveRecord::Base
   validates_date :expired_at, :allow_blank => true
   validate :manifestation_must_include_item
   validate :available_for_reservation?, :on => :create
+  validate :available_for_update? , :on => :update
   before_validation :set_item_and_manifestation, :on => :create
   before_validation :set_expired_at
   before_validation :set_request_status, :on => :create
@@ -183,6 +184,12 @@ class Reserve < ActiveRecord::Base
       end
     end
     false
+  end
+
+  def available_for_update?
+    reserve = Reserve.find(self.id)
+    errors[:base] << I18n.t('reserve.retained_item') if self.state != 'requested' and reserve.information_type_id != self.information_type_id
+    errors[:base] << I18n.t('reserve.called_item') if self.retained and reserve.receipt_library_id != self.receipt_library_id
   end
 
   def send_message(status)

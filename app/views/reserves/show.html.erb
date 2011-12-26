@@ -51,6 +51,9 @@
 <p>
   <strong><%= t('activerecord.attributes.reserve.state') -%>:</strong>
   <%= i18n_state(@reserve.state) -%>
+  <%- if @reserve.retained -%>
+    (<%= t('reserve.called')-%>)
+  <%- end -%>
 </p>
 
 <p>

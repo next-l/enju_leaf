@@ -22,11 +22,19 @@
   </div>
   <div class="field">
     <%= f.label t('activerecord.attributes.reserve.information_method') -%><br />
-    <%= f.select(:information_type_id, @informations.collect{|i| [i.display_name + " " + i.information, i.id]}) -%>
+    <%- if @reserve.retained -%>
+      <%= f.select(:information_type_id, @informations.collect{|i| [i.display_name + " " + i.information, i.id]}, {}, :disabled => 'disabled') -%>
+    <%- else -%>
+      <%= f.select(:information_type_id, @informations.collect{|i| [i.display_name + " " + i.information, i.id]}) -%>
+    <%- end -%>
   </div>
   <div class="field">
     <%= f.label t('activerecord.attributes.reserve.receipt_library') -%><br />
-    <%= f.select(:receipt_library_id, @libraries.collect{|l| [l.display_name.localize, l.id]}) -%>
+    <%- unless @reserve.state == 'requested'-%>
+      <%= f.select(:receipt_library_id, @libraries.collect{|l| [l.display_name.localize, l.id]}, {}, :disabled => 'disabled') -%>
+    <%- else-%>
+      <%= f.select(:receipt_library_id, @libraries.collect{|l| [l.display_name.localize, l.id]}) -%>
+    <%- end -%>
   </div>
   <div class="field">
     <%= f.label :expired_at -%><br />
