@@ -185,23 +185,23 @@ class StatisticReportsController < ApplicationController
         end  
         row.item("valueall").value(sum)
       end
-      # checkout users each user type[adults, students, children]
-      3.times do |i|
+      # checkout users each user type
+      5.downto(1) do |i|
         data_type = 122
         report.page.list(:list).add_row do |row|
-          row.item(:option).value(t("statistic_report.user_type_#{i+1}"))
+          row.item(:option).value(t("statistic_report.user_type_#{i}"))
           sum = 0
           12.times do |t|
             if t < 4 # for Japanese fiscal year
-              value = Statistic.where(:yyyymm => "#{term.to_i + 1}#{"%02d" % (t + 1)}", :data_type => data_type, :library_id => 0, :option => i+6).first.value rescue 0
+              value = Statistic.where(:yyyymm => "#{term.to_i + 1}#{"%02d" % (t + 1)}", :data_type => data_type, :library_id => 0, :option => 0, user_type => i).first.value rescue 0
             else
-              value = Statistic.where(:yyyymm => "#{term}#{"%02d" % (t + 1)}", :data_type => data_type, :library_id => 0, :option => i+6).first.value rescue 0
+              value = Statistic.where(:yyyymm => "#{term}#{"%02d" % (t + 1)}", :data_type => data_type, :library_id => 0, :option => 0, user_type => i).first.value rescue 0
             end
             row.item("value#{t+1}").value(value)
             sum = sum + value
           end  
           row.item("valueall").value(sum)
-          row.item(:library_line).show if i == 2
+          row.item(:library_line).show if i == 1
         end
       end
       # checkout users each library
@@ -220,23 +220,23 @@ class StatisticReportsController < ApplicationController
           end  
           row.item("valueall").value(sum)
         end
-        # checkout users each user type[adults, students, children]
-        3.times do |i|
+        # checkout users each user type
+        5.downto(1) do |i|
           data_type = 122
           report.page.list(:list).add_row do |row|
-            row.item(:option).value(t("statistic_report.user_type_#{i+1}"))
+            row.item(:option).value(t("statistic_report.user_type_#{i}"))
             sum = 0
             12.times do |t|
               if t < 4 # for Japanese fiscal year
-                value = Statistic.where(:yyyymm => "#{term.to_i + 1}#{"%02d" % (t + 1)}", :data_type => data_type, :library_id => library.id, :option => i+6).first.value rescue 0
+                value = Statistic.where(:yyyymm => "#{term.to_i + 1}#{"%02d" % (t + 1)}", :data_type => data_type, :library_id => library.id, :option => 0, user_type => i).first.value rescue 0
               else
-                value = Statistic.where(:yyyymm => "#{term}#{"%02d" % (t + 1)}", :data_type => data_type, :library_id => library.id, :option => i+6).first.value rescue 0
+                value = Statistic.where(:yyyymm => "#{term}#{"%02d" % (t + 1)}", :data_type => data_type, :library_id => library.id, :option => 0, user_type => i).first.value rescue 0
               end
               row.item("value#{t+1}").value(value)
               sum = sum + value
             end  
             row.item("valueall").value(sum)
-            if i == 2
+            if i == 1
               row.item(:library_line).show
               line(row) if library == libraries.last
             end  
@@ -477,15 +477,15 @@ class StatisticReportsController < ApplicationController
           row.item("valueall").value(value) if t == 2 # March(end of fiscal year)
         end  
       end
-      # users each user type[adults, students, children]
-      3.times do |i|
+      # users each user type
+      5.downto(1) do |i|
         report.page.list(:list).add_row do |row|
-          row.item(:option).value(t("statistic_report.user_type_#{i+1}"))
+          row.item(:option).value(t("statistic_report.user_type_#{i}"))
           12.times do |t|
             if t < 4 # for Japanese fiscal year
-              value = Statistic.where(:yyyymm => "#{term.to_i + 1}#{"%02d" % (t + 1)}", :data_type => data_type, :library_id => 0, :option => i+6).first.value rescue 0
+              value = Statistic.where(:yyyymm => "#{term.to_i + 1}#{"%02d" % (t + 1)}", :data_type => data_type, :library_id => 0, :option => 0, :user_type => i).first.value rescue 0
             else	
-              value = Statistic.where(:yyyymm => "#{term}#{"%02d" % (t + 1)}", :data_type => data_type, :library_id => 0, :option => i+6).first.value rescue 0
+              value = Statistic.where(:yyyymm => "#{term}#{"%02d" % (t + 1)}", :data_type => data_type, :library_id => 0, :option => 0, :user_type => i).first.value rescue 0
             end
             row.item("value#{t+1}").value(value)
             row.item("valueall").value(value) if t == 2 # March(end of fiscal year)
@@ -549,15 +549,15 @@ class StatisticReportsController < ApplicationController
             row.item("valueall").value(value) if t == 2 # March(end of fiscal year)
           end  
         end
-        # users each user type[adults, students, children]
-        3.times do |i|
+        # users each user type
+        5.downto(1) do |i|
           report.page.list(:list).add_row do |row|
-            row.item(:option).value(t("statistic_report.user_type_#{i+1}"))
+            row.item(:option).value(t("statistic_report.user_type_#{i}"))
             12.times do |t|
               if t < 4 # for Japanese fiscal year
-                value = Statistic.where(:yyyymm => "#{term.to_i + 1}#{"%02d" % (t + 1)}", :data_type => data_type, :library_id => library.id, :option => i+6).first.value rescue 0 
+                value = Statistic.where(:yyyymm => "#{term.to_i + 1}#{"%02d" % (t + 1)}", :data_type => data_type, :library_id => library.id, :option => 0, :user_type => i).first.value rescue 0 
               else
-                value = Statistic.where(:yyyymm => "#{term}#{"%02d" % (t + 1)}", :data_type => data_type, :library_id => library.id, :option => i+6).first.value rescue 0 
+                value = Statistic.where(:yyyymm => "#{term}#{"%02d" % (t + 1)}", :data_type => data_type, :library_id => library.id, :option => 0, :user_type => i).first.value rescue 0 
               end
               row.item("value#{t+1}").value(value)
               row.item("valueall").value(value) if t == 2 # March(end of fiscal year)
@@ -873,35 +873,35 @@ class StatisticReportsController < ApplicationController
               row.item("value##{t+1}").value(value)
             end
             sum = 0
-            datas = Statistic.where(:yyyymm => term, :data_type => data_type, :library_id => 0)
+            datas = Statistic.where(:yyyymm => term, :data_type => data_type, :library_id => 0).no_condition
             datas.each do |data|
               sum = sum + data.value
             end
             row.item("value#13").value(sum)
           end
         end
-        # each user type[all_user, adults, students, children]
-        3.times do |type|
+        # each user type
+        5.downto(1) do |type|
           report.page.list(:list).add_row do |row|
-            row.item(:option).value(t("statistic_report.user_type_#{type+1}"))
+            row.item(:option).value(t("statistic_report.user_type_#{type}"))
             if start_date != 27
               13.times do |t|
-                value = Statistic.where(:yyyymmdd => "#{term.to_i}#{"%02d" % (t + start_date)}", :data_type => data_type, :library_id => 0, :option => type+6).first.value rescue 0
+                value = Statistic.where(:yyyymmdd => "#{term.to_i}#{"%02d" % (t + start_date)}", :data_type => data_type, :library_id => 0, :option => 0, :user_type => type).first.value rescue 0
                 row.item("value##{t+1}").value(value)
               end
             else
               num_for_last_page.times do |t|
-                value = Statistic.where(:yyyymmdd => "#{term.to_i}#{"%02d" % (t + start_date)}", :data_type => data_type, :library_id => 0, :option => type+6).first.value rescue 0
+                value = Statistic.where(:yyyymmdd => "#{term.to_i}#{"%02d" % (t + start_date)}", :data_type => data_type, :library_id => 0, :option => 0, :user_type => type).first.value rescue 0
                 row.item("value##{t+1}").value(value)
               end
               sum = 0
-              datas = Statistic.where(:yyyymm => term, :data_type => data_type, :library_id => 0, :option => type+6)
+              datas = Statistic.where(["yyyymm = ? AND data_type = ? AND library_id = ? AND option = 0 AND user_type = ? ", term, data_type, 0, type])
               datas.each do |data|
-                sum = sum + data.value
+                sum += data.value                               
               end
               row.item("value#13").value(sum)
             end
-            row.item(:library_line).show if type == 2
+            row.item(:library_line).show if type == 1
           end
         end
         # checkout users each libraries
@@ -926,28 +926,28 @@ class StatisticReportsController < ApplicationController
               row.item("value#13").value(sum)
             end
           end
-          # each user type[all_user, adults, students, children]
-          3.times do |type|
+          # each user type
+          5.downto(1) do |type|
             report.page.list(:list).add_row do |row|
-              row.item(:option).value(t("statistic_report.user_type_#{type+1}"))
+              row.item(:option).value(t("statistic_report.user_type_#{type}"))
               if start_date != 27
                 13.times do |t|
-                  value = Statistic.where(:yyyymmdd => "#{term.to_i}#{"%02d" % (t + start_date)}", :data_type => data_type, :library_id => library.id, :option => type+6).first.value rescue 0
+                  value = Statistic.where(:yyyymmdd => "#{term.to_i}#{"%02d" % (t + start_date)}", :data_type => data_type, :library_id => library.id, :option =>0, :user_type => type).first.value rescue 0
                   row.item("value##{t+1}").value(value)
                 end
               else
                 num_for_last_page.times do |t|
-                  value = Statistic.where(:yyyymmdd => "#{term.to_i}#{"%02d" % (t + start_date)}", :data_type => data_type, :library_id => 0, :option => type+6).first.value rescue 0
+                  value = Statistic.where(:yyyymmdd => "#{term.to_i}#{"%02d" % (t + start_date)}", :data_type => data_type, :library_id => library.id, :option => 0, user_type => type).first.value rescue 0
                   row.item("value##{t+1}").value(value)
                 end
                 sum = 0
-                datas = Statistic.where(:yyyymm => term, :data_type => data_type, :library_id => library.id, :option => type+6)
+                datas = Statistic.where(["yyyymm = ? AND data_type = ? AND library_id = ? AND option = 0 AND user_type = ?", term, data_type, library.id, type])
                 datas.each do |data|
-                  sum = sum + data.value
+                  sum += data.value                               
                 end
                 row.item("value#13").value(sum)
               end
-              if type == 2
+              if type == 1
                 row.item(:library_line).show
                 line(row) if library == libraries.last
               end
@@ -1384,15 +1384,15 @@ class StatisticReportsController < ApplicationController
         end
         row.item("value#13").value(sum)  
       end
-      # each user type[all_user, adults, students, children]
-      3.times do |type|
+      # each user type
+      5.downto(1) do |type|
         data_type = 322
         report.page.list(:list).add_row do |row|
-          row.item(:option).value(t("statistic_report.user_type_#{type+1}"))
+          row.item(:option).value(t("statistic_report.user_type_#{type}"))
           sum = 0
           hours.times do |t|
             value = 0
-            datas = Statistic.where(["yyyymmdd >= #{start_at} AND yyyymmdd <= #{end_at} AND data_type = ? AND option = ? AND library_id = ? AND hour = ?", data_type, type+6, 0, t+open])
+            datas = Statistic.where(["yyyymmdd >= #{start_at} AND yyyymmdd <= #{end_at} AND data_type = ? AND option = ? AND user_type = ? AND library_id = ? AND hour = ?", data_type, 0, type, 0, t+open])
             datas.each do |data|
               value = value + data.value
             end
@@ -1400,7 +1400,7 @@ class StatisticReportsController < ApplicationController
             row.item("value##{t+1}").value(value)
           end
           row.item("value#13").value(sum)  
-          row.item(:library_line).show if type == 2
+          row.item(:library_line).show if type == 1
         end
       end
       # checkout users each libraries
@@ -1419,15 +1419,15 @@ class StatisticReportsController < ApplicationController
           end
           row.item("value#13").value(sum)
         end
-        # each user type[all_user, adults, students, children]
-        3.times do |type|
+        # each user type
+        5.downto(1) do |type|
           sum = 0
           data_type = 322
           report.page.list(:list).add_row do |row|
-            row.item(:option).value(t("statistic_report.user_type_#{type+1}"))
+            row.item(:option).value(t("statistic_report.user_type_#{type}"))
             hours.times do |t|
               value = 0
-              datas = Statistic.where(["yyyymmdd >= #{start_at} AND yyyymmdd <= #{end_at} AND data_type = ? AND option = ? AND library_id = ? AND hour = ?", data_type, type+6, library.id, t+open])
+              datas = Statistic.where(["yyyymmdd >= #{start_at} AND yyyymmdd <= #{end_at} AND data_type = ? AND option = ? AND user_type = ? AND library_id = ? AND hour = ?", data_type, 0, type, library.id, t+open])
               datas.each do |data|
                 value = value + data.value
               end
@@ -1435,7 +1435,7 @@ class StatisticReportsController < ApplicationController
               row.item("value##{t+1}").value(value)
             end
             row.item("value#13").value(sum)
-            if type == 2
+            if type == 1
               row.item(:library_line).show 
               line(row) if library == libraries.last
             end
@@ -1715,15 +1715,15 @@ class StatisticReportsController < ApplicationController
         end
         row.item("valueall").value(sum)  
       end
-      # each user type[all_user, adults, students, children]
-      3.times do |type|
+      # each user type
+      5.downto(1) do |type|
         data_type = 222
         report.page.list(:list).add_row do |row|
-          row.item(:option).value(t("statistic_report.user_type_#{type+1}"))
+          row.item(:option).value(t("statistic_report.user_type_#{type}"))
           sum = 0
           7.times do |t|
             value = 0
-            datas = Statistic.where(["yyyymmdd >= #{start_at} AND yyyymmdd <= #{end_at} AND data_type = ? AND option = ? AND library_id = ? AND day = ?", data_type, type+6, 0, t])
+            datas = Statistic.where(["yyyymmdd >= #{start_at} AND yyyymmdd <= #{end_at} AND data_type = ? AND option = ? AND user_type = ? AND library_id = ? AND day = ?", data_type, 0, type, 0, t])
             datas.each do |data|
               value = value + data.value
             end
@@ -1731,7 +1731,7 @@ class StatisticReportsController < ApplicationController
             row.item("value#{t}").value(value)
           end
           row.item("valueall").value(sum)  
-          row.item(:library_line).show if type == 2
+          row.item(:library_line).show if type == 1
         end
       end
 
@@ -1751,15 +1751,15 @@ class StatisticReportsController < ApplicationController
           end
           row.item("valueall").value(sum)
         end
-        # each user type[all_user, adults, students, children]
-        3.times do |type|
+        # each user type
+        5.downto(1) do |type|
           sum = 0
           data_type = 222
           report.page.list(:list).add_row do |row|
-            row.item(:option).value(t("statistic_report.user_type_#{type+1}"))
+            row.item(:option).value(t("statistic_report.user_type_#{type}"))
             7.times do |t|
               value = 0
-              datas = Statistic.where(["yyyymmdd >= #{start_at} AND yyyymmdd <= #{end_at} AND data_type = ? AND option = ? AND library_id = ? AND day = ?", data_type, type+6, library.id, t])
+              datas = Statistic.where(["yyyymmdd >= #{start_at} AND yyyymmdd <= #{end_at} AND data_type = ? AND option = ? AND user_type = ? AND library_id = ? AND day = ?", data_type, 0, type, library.id, t])
               datas.each do |data|
                 value = value + data.value
               end
@@ -1767,7 +1767,7 @@ class StatisticReportsController < ApplicationController
               row.item("value#{t}").value(value)
             end
             row.item("valueall").value(sum)
-            if type == 2
+            if type == 1
               row.item(:library_line).show
               line(row) if library == libraries.last
             end

@@ -14,8 +14,10 @@ class User < ActiveRecord::Base
   scope :librarians, where('roles.name = ? OR roles.name = ?', 'Administrator', 'Librarian').includes(:role)
   scope :suspended, where('locked_at IS NOT NULL')
   scope :adults, joins(:patron).where(["patrons.date_of_birth <= ?", Date.today.years_ago(18).change(:month => 4, :day => 1)])
-  scope :students, joins(:patron).where(["patrons.date_of_birth < ? AND patrons.date_of_birth >= ?", Date.today.years_ago(12).change(:month => 4, :day => 1), Date.today.years_ago(18).change(:month => 4, :day => 1)])
-  scope :children, joins(:patron).where(["patrons.date_of_birth >= ?", Date.today.years_ago(12).change(:month => 4, :day => 1)])
+  scope :students, joins(:patron).where(["patrons.date_of_birth < ? AND patrons.date_of_birth >= ?", Date.today.years_ago(15).change(:month => 4, :day => 1), Date.today.years_ago(18).change(:month => 4, :day => 1)])
+  scope :juniors, joins(:patron).where(["patrons.date_of_birth < ? AND patrons.date_of_birth >= ?", Date.today.years_ago(12).change(:month => 4, :day => 1), Date.today.years_ago(15).change(:month => 4, :day => 1)])
+  scope :elementaries, joins(:patron).where(["patrons.date_of_birth < ? AND patrons.date_of_birth >= ?", Date.today.years_ago(6).change(:month => 4, :day => 1), Date.today.years_ago(12).change(:month => 4, :day => 1)])
+  scope :children, joins(:patron).where(["patrons.date_of_birth >= ?", Date.today.years_ago(6).change(:month => 4, :day => 1)])
   scope :provisional, where(:user_number => nil)
   has_one :patron
   has_many :checkouts
