@@ -467,6 +467,43 @@ class StatisticReportsController < ApplicationController
         end
       end
 
+      # daily average of checkin items all library
+      report.page.list(:list).add_row do |row|
+        row.item(:type).value(t('statistic_report.average_checkin_items'))
+        row.item(:library).value(t('statistic_report.all_library'))
+        sum = 0
+        12.times do |t|
+          if t < 4 # for Japanese fiscal year
+            value = Statistic.where(:yyyymm => "#{term.to_i + 1}#{"%02d" % (t + 1)}", :data_type => 151, :library_id => 0, :option => 4).first.value rescue 0
+          else
+            value = Statistic.where(:yyyymm => "#{term}#{"%02d" % (t + 1)}", :data_type => 151, :library_id => 0, :option => 4).first.value rescue 0
+          end
+          row.item("value#{t+1}").value(value)
+          sum = sum + value
+        end  
+        row.item("valueall").value(sum/12)
+	row.item(:library_line).show
+      end
+      # daily average of checkin items each library
+      libraries.each do |library|
+        report.page.list(:list).add_row do |row|
+          row.item(:library).value(library.display_name)
+          sum = 0
+          12.times do |t|
+            if t < 4 # for Japanese fiscal year
+              value = Statistic.where(:yyyymm => "#{term.to_i + 1}#{"%02d" % (t + 1)}", :data_type => 151, :library_id => library.id, :option => 4).first.value rescue 0 
+            else
+              value = Statistic.where(:yyyymm => "#{term}#{"%02d" % (t + 1)}", :data_type => 151, :library_id => library.id, :option => 4).first.value rescue 0 
+            end
+            row.item("value#{t+1}").value(value)
+            sum = sum + value
+          end  
+          row.item("valueall").value(sum/12)
+	  row.item(:library_line).show
+          line(row) if library == libraries.last
+        end
+      end
+
       # all users all libraries
       data_type = 112
       report.page.list(:list).add_row do |row|

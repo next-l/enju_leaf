@@ -1873,6 +1873,7 @@ ja:
     checkin_items: 返却数
     average_checkout_users: 一日平均貸出人数
     average_checkout_items: 一日平均貸出冊数
+    average_checkin_items: 一日平均返却冊数
     missing_items: 不明
     users: 登録人数
     all_users: 全区分

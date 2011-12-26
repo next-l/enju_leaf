@@ -998,6 +998,28 @@ class Statistic < ActiveRecord::Base
       statistic.value = value
       statistic.save! if statistic.value > 0
     end
+    # average of checkin items each day 151 option: 4 
+    date = Date.new(month[0, 4].to_i, month[4, 2].to_i) 
+    days = date.end_of_month - date.beginning_of_month + 1
+    statistic = Statistic.new
+    statistic.yyyymm = month
+    statistic.data_type = 151
+    statistic.option = 4
+    monthly_data = Statistic.select(:value).where(:data_type=> '151', :yyyymm => month, :library_id => 0).no_condition.first
+    statistic.value = monthly_data.value / days rescue 0
+    statistic.save! 
+
+    @libraries.each do |library|
+      statistic = Statistic.new
+      statistic.yyyymm = month
+      statistic.data_type = 151
+      statistic.option = 4
+      statistic.library_id = library.id
+      monthly_data = Statistic.select(:value).where(:data_type=> '151', :yyyymm => month, :library_id => library.id).first
+      statistic.value = monthly_data.value / days rescue 0
+      statistic.save! 
+    end 
+
 
     # monthly reserves 133
     datas = Statistic.select(:value).where(:data_type=> '233', :yyyymm => month, :library_id => 0).no_condition
