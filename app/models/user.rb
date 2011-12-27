@@ -257,7 +257,7 @@ class User < ActiveRecord::Base
     #self.username = params[:login]
     self.openid_identifier = params[:openid_identifier]
     self.keyword_list = params[:keyword_list]
-    self.email = params[:email]
+    self.email = params[:email] if params[:email]
     #self.note = params[:note]
     if defined?(EnjuCirculation)
       self.checkout_icalendar_token = params[:checkout_icalendar_token] ||= false
@@ -400,7 +400,6 @@ end
 #  confirmed_at             :datetime
 #  confirmation_sent_at     :datetime
 #  reset_password_token     :string(255)
-#  remember_token           :string(255)
 #  remember_created_at      :datetime
 #  sign_in_count            :integer         default(0)
 #  current_sign_in_at       :datetime
@@ -427,7 +426,6 @@ end
 #  questions_count          :integer         default(0), not null
 #  answers_count            :integer         default(0), not null
 #  answer_feed_token        :string(255)
-#  due_date_reminder_days   :integer         default(1), not null
 #  note                     :text
 #  share_bookmarks          :boolean         default(FALSE), not null
 #  save_search_history      :boolean         default(FALSE), not null

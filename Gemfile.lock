@@ -87,10 +87,13 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_ndl.git
-  revision: 92dc3a6dc594b111bffe82aff66b537a34210a32
+  revision: b5cfd159ebe341dc81489d34e25a8e4d2118c22c
   specs:
-    enju_ndl (0.0.3)
-      rails (~> 3.1.3)
+    enju_ndl (0.0.4)
+      devise
+      nokogiri
+      rails (~> 3)
+      will_paginate (~> 3.0)
 
 GIT
   remote: git://github.com/nabeta/enju_oai.git
@@ -176,7 +179,7 @@ GIT
     acts_as_list (0.1.4)
 
 GEM
-  remote: http://rubygems.org/
+  remote: https://rubygems.org/
   specs:
     RedCloth (4.2.9)
     Saikuro (1.1.0)
@@ -257,7 +260,7 @@ GEM
     delayed_job (2.1.4)
       activesupport (~> 3.0)
       daemons
-    devise (1.5.3)
+    devise (2.0.0.rc)
       bcrypt-ruby (~> 3.0)
       orm_adapter (~> 0.0.3)
       warden (~> 1.1)
@@ -477,7 +480,7 @@ GEM
     turn (0.8.3)
       ansi
     tzinfo (0.3.31)
-    uglifier (1.2.0)
+    uglifier (1.2.1)
       execjs (>= 0.3.0)
       multi_json (>= 1.0.2)
     validates_timeliness (3.0.8)
@@ -513,7 +516,7 @@ DEPENDENCIES
   configatron
   dalli (~> 1.1)
   delayed_job (~> 2.1.4)
-  devise (~> 1.5)
+  devise (~> 2.0.0.rc)
   dynamic_form
   enju_barcode!
   enju_bookmark!
@@ -579,7 +582,7 @@ DEPENDENCIES
   turn (~> 0.8.3)
   uglifier (>= 1.0.3)
   validates_timeliness
-  vcr (~> 2.0.0.beta2)
+  vcr (~> 2.0.0.rc1)
   vidibus-routing_error!
   whenever (~> 0.6.8)
   will_paginate (~> 3.0)

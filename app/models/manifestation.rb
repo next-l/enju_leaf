@@ -142,7 +142,7 @@ class Manifestation < ActiveRecord::Base
   end
 
   enju_manifestation_viewer
-  enju_ndl_porta
+  enju_ndl_search
   #enju_amazon
   #enju_oai
   #enju_calil_check
