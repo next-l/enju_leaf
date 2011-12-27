@@ -6,7 +6,7 @@
   <%= f.error_messages -%>
 
   <div class="field">
-    <%= f.label t('inter_library_loan.borrowing_library') -%><br />
+    <%= f.label t('activerecord.attributes.inter_library_loan.borrowing_library') -%><br />
     <%= f.select(:borrowing_library_id, @libraries.collect{|l| [l.display_name.localize, l.id]}) -%>
   </div>
 
