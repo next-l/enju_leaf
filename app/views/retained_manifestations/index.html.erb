@@ -20,7 +20,7 @@
 <div id="content_detail" class="ui-corner-all">
 <h1 class="title"><%= t('page.listing', :model => t('activerecord.models.retained_manifestation')) -%></h1>
 <div id="content_list">
-<p id="notice"><%= flash[:notice] -%></p>
+<p id="notice"><%= raw flash[:notice] -%></p>
 <div style="float:left; position:relative;">
 <div>
 <%= form_for :reserves, :url => retained_manifestations_path, :html => {:method => 'get'} do -%>
