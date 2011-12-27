@@ -1,10 +1,6 @@
 class RetainedManifestationsController < ApplicationController
   include ReservesHelper
   before_filter :check_librarian
-  before_filter :get_patron, :get_manifestation, :get_inventory_file
-  helper_method :get_shelf
-  helper_method :get_library
-  helper_method :get_item
 
   def index
     flash[:notice] = ""
