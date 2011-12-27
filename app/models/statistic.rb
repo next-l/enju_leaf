@@ -439,6 +439,20 @@ class Statistic < ActiveRecord::Base
 #      p "statistics of library use  #{start_at} - #{end_at}"
     start_at_str = start_at.strftime("%Y%m%d")
     end_at_str = end_at.strftime("%Y%m%d")
+    reports = LibraryReport.where(["yyyymmdd >= ? AND yyyymmdd <= ?", start_at_str, end_at_str])
+    # copies
+    statistic = Statistic.new
+    set_date(statistic, end_at, term_id)
+    statistic.data_type = term_id.to_s + 15.to_s
+    statistic.value = reports.inject(0){|sum, data| sum += data.copies if data.copies;sum}
+    statistic.save! if statistic.value > 0
+    # visiters
+    statistic = Statistic.new
+    set_date(statistic, end_at, term_id)
+    statistic.data_type = term_id.to_s + 16.to_s
+    statistic.value = reports.inject(0){|sum, data| sum += data.visiters if data.visiters;sum}
+    statistic.save! if statistic.value > 0
+
     @libraries.each do |library|
       reports = LibraryReport.where(["yyyymmdd >= ? AND yyyymmdd <= ? AND library_id = ?", start_at_str, end_at_str, library.id])
       # copies
@@ -804,6 +818,16 @@ class Statistic < ActiveRecord::Base
   def self.calc_consultations(start_at, end_at, term_id)
     Statistic.transaction do
       p "statistics of consultations  #{start_at} - #{end_at}"
+      statistic = Statistic.new
+      set_date(statistic, start_at, term_id)
+      statistic.data_type = term_id.to_s + 14.to_s
+      datas = LibraryReport.where(['yyyymmdd >= ? AND yyyymmdd <= ?', start_at.strftime("%Y%m%d"), end_at.strftime("%Y%m%d")])
+      value = 0
+      datas.each do |data|
+        value += data.consultations unless data.consultations.nil?
+      end
+      statistic.value = value
+      statistic.save! if statistic.value > 0
       @libraries.each do |library|
         statistic = Statistic.new
         set_date(statistic, start_at, term_id)
