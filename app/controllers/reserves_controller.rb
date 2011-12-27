@@ -3,7 +3,7 @@ class ReservesController < ApplicationController
   include ReservesHelper
   include ApplicationHelper
   before_filter :store_location, :only => [:index, :new]
-  load_and_authorize_resource :except => :index
+  load_and_authorize_resource :except => [:index, :output_user]
   authorize_resource :only => :index
   before_filter :get_user_if_nil
   #, :only => [:show, :edit, :create, :update, :destroy]
@@ -382,8 +382,12 @@ class ReservesController < ApplicationController
 
   def output_user
     @user = User.find(params[:user_id])
-    #reserves = Reserve.user_show_reserves.where(:user_id => @user.id).order('expired_at Desc')
-    reserves = Reserve.where(:user_id => @user.id).order('expired_at Desc')
+    if current_user.has_role?('Librarian')    
+      reserves = Reserve.show_reserves.where(:user_id => @user.id).order('expired_at Desc')
+    else
+      reserves = Reserve.user_show_reserves.where(:user_id => @user.id).order('expired_at Desc')
+    end 
+    #reserves = Reserve.where(:user_id => @user.id).order('expired_at Desc')
     require 'thinreports'
     report = ThinReports::Report.new :layout => File.join(Rails.root, 'report', 'reservelist_user.tlf') 
     report.layout.config.list(:list) do
@@ -413,13 +417,13 @@ class ReservesController < ApplicationController
       page.item(:user_telephone_number_2_3).value(@user.patron.fax_number_2)
       page.item(:user_email).value(@user.email)
 
-      reserves.each do |r|
+      reserves.each do |reserve|
         page.list(:list).add_row do |row|
-          row.item(:title).value(r.manifestation.original_title)
-          row.item(:state).value(i18n_state(r.state))
-          row.item(:receipt_library).value(Library.find(r.receipt_library_id).display_name)
-          row.item(:information_method).value(i18n_information_type(r.information_type_id))
-          row.item(:expired_at).value(r.expired_at.strftime("%Y/%m/%d"))
+          row.item(:title).value(reserve.manifestation.original_title)
+          row.item(:state).value(i18n_state(reserve.state))
+          row.item(:receipt_library).value(Library.find(reserve.receipt_library_id).display_name)
+          row.item(:information_method).value(i18n_information_type(reserve.information_type_id))
+          row.item(:expired_at).value(reserve.expired_at.strftime("%Y/%m/%d"))
         end
       end
     end    
