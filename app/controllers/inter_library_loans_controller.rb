@@ -131,6 +131,12 @@ class InterLibraryLoansController < ApplicationController
 
   def get_loan_lists
     library_ids = params[:library] || []
+    if library_ids.empty?
+      flash[:message] = t('inter_library_loan.no_library')
+      @libraries = Library.all
+      render :export_loan_lists
+      return false
+    end
     begin
       report = ThinReports::Report.new :layout => "#{Rails.root.to_s}/app/views/inter_library_loans/loan_list"
  
