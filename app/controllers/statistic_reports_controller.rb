@@ -2975,7 +2975,6 @@ class StatisticReportsController < ApplicationController
               end
               row.item("condition_line").show
             end
-            line_for_items(row) if shelf == library.shelves.last && call_numbers.nil?
             unless call_numbers.nil?
               call_numbers.each do |num|
                 report.page.list(:list).add_row do |row|
@@ -4114,6 +4113,37 @@ class StatisticReportsController < ApplicationController
       return false
     end
   end
+
+  def get_loans_report
+    term = params[:term].strip
+    unless term =~ /^\d{4}$/ || (term =~ /^\d{6}$/ && month_term?(term))
+      flash[:message] = t('statistic_report.invalid_year')
+      @year = Time.zone.now.years_ago(1).strftime("%Y")
+      @month = Time.zone.now.months_ago(1).strftime("%Y%m")
+      @t_start_at = Time.zone.now.months_ago(1).beginning_of_month.strftime("%Y%m%d")
+      @t_end_at = Time.zone.now.months_ago(1).end_of_month.strftime("%Y%m%d")
+      @d_start_at = Time.zone.now.months_ago(1).beginning_of_month.strftime("%Y%m%d")
+      @d_end_at = Time.zone.now.months_ago(1).end_of_month.strftime("%Y%m%d")
+      @a_start_at = Time.zone.now.months_ago(1).beginning_of_month.strftime("%Y%m%d")
+      @a_end_at = Time.zone.now.months_ago(1).end_of_month.strftime("%Y%m%d")
+      @items_year = Time.zone.now.years_ago(1).strftime("%Y")
+      @inout_term = 
+      render :index
+      return false
+    end
+    if term =~ /^\d{4}$/
+      get_loans_monthly(term)
+    else
+      get_loans_daily(term)
+    end
+  end
+
+  def get_loans_monthly(term)
+  end
+  def get_loans_daily(term)
+  end
+
+
 private
   def line(row)
     row.item(:type_line).show
