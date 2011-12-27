@@ -460,7 +460,6 @@ EnjuLeaf::Application.routes.draw do
   match '/unablelist/output' => 'unablelist#output'
   match '/retained_manifestations' => 'retained_manifestations#index'
   match '/retained_manifestations/set_retained' => 'retained_manifestations#set_retained'
-  match '/retained_manifestations/output' => 'retained_manifestations#output'
 
   # http://techoctave.com/c7/posts/36-rails-3-0-rescue-from-routing-error-solution
   match '*a', :to => 'page#routing_error' unless Rails.application.config.consider_all_requests_local

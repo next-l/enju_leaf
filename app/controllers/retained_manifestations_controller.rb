@@ -1,10 +1,6 @@
 class RetainedManifestationsController < ApplicationController
   include ReservesHelper
   before_filter :check_librarian
-  before_filter :get_patron, :get_manifestation, :get_inventory_file
-  helper_method :get_shelf
-  helper_method :get_library
-  helper_method :get_item
 
   def index
     flash[:notice] = ""
@@ -56,6 +52,8 @@ class RetainedManifestationsController < ApplicationController
         paginate :page => page.to_i, :per_page => Reserve.per_page
      end.results
     end
+
+    output(@retained_manifestations) if params[:output]
   end
 
   def set_retained
@@ -68,8 +66,9 @@ class RetainedManifestationsController < ApplicationController
     end
   end
 
-  def output
-    retained_manifestations = Reserve.retained.order('reserves.user_id, reserves.receipt_library_id, reserves.created_at DESC').page(params[:page])
+  private
+  def output(retained_manifestations)
+    #retained_manifestations = Reserve.retained.order('reserves.user_id, reserves.receipt_library_id, reserves.created_at DESC')
 
     require 'thinreports'
     report = ThinReports::Report.new :layout => File.join(Rails.root, 'report', 'retained_manifestations.tlf')
@@ -116,6 +115,5 @@ class RetainedManifestationsController < ApplicationController
       end
     end
     send_data report.generate, :filename => configatron.configatron.retained_manifestations_print.filename, :type => 'application/pdf', :disposition => 'attachment'
-
   end
 end

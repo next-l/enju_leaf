@@ -21,7 +21,7 @@
 <h1 class="title"><%= t('page.listing', :model => t('activerecord.models.retained_manifestation')) -%></h1>
 <div id="content_list">
 <p id="notice"><%= raw flash[:notice] -%></p>
-<div style="float:left; position:relative;">
+
 <div>
 <%= form_for :reserves, :url => retained_manifestations_path, :html => {:method => 'get'} do -%>
   <p>
@@ -41,18 +41,10 @@
     <%= text_field_tag 'address', @address, :class => 'search_form' -%><br />
     <%= hidden_field_tag 'do_search', true -%>
     <%= submit_tag t('page.search') -%>
+    <%= submit_tag t('page.output', :model => (t('page.listing', :model => t('activerecord.models.retained_manifestation')))), :name => :output %>
   </p>
 <%- end -%>
 </div>
-
-<div style="position:absolute; bottom: 0px; left:60px">
-<%= form_tag :action => :output do -%>
-  <%= submit_tag t('page.output', :model => (t('page.listing', :model => t('activerecord.models.retained_manifestation')))) %>
-<%- end-%>
-</div>
-</div>
-
-<br style="both:clear;"/>
 
 <table class="index">
   <tr>
@@ -63,7 +55,10 @@
   </tr>
 <%- @retained_manifestations.each_with_index do |reserve, i| -%>
   <tr class="line<%= cycle("0", "1") -%>">
-    <td><%= link_to reserve.user.username, reserve.user if reserve.user -%></td>
+    <td>
+      <%= link_to reserve.user.username, reserve.user if reserve.user -%><br />
+      <%= link_to reserve.user.patron.full_name, reserve.user if reserve.user.patron -%>
+    </td>
     <td><%= render 'reserves/title', :reserve => reserve -%></td>
     <td>
       <%= i18n_information_type(reserve.information_type_id) -%>&nbsp;
@@ -84,7 +79,7 @@
 <%- end -%>
 </table>
 <br />
-<%= will_paginate(@retained_reserves) -%>
+<%= will_paginate(@retained_manifestations) -%>
 
 </div>
 </div>
