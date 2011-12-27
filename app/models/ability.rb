@@ -28,6 +28,10 @@ class Ability
       can :destroy, Manifestation do |manifestation|
         manifestation.items.empty? and !manifestation.is_reserved?
       end
+      can [:read, :create, :update], SeriesStatement
+      can :destroy, SeriesStatement do |series_statement|
+        series_statement.manifestations.empty?
+      end
       can [:read, :create, :update], Patron
       can :destroy, Patron do |patron|
         if patron.user
@@ -105,7 +109,6 @@ class Ability
         ResourceImportFile,
         SearchEngine,
         SearchHistory,
-        SeriesStatement,
         SeriesHasManifestation,
         SeriesStatementMerge,
         SeriesStatementMergeList,
@@ -164,6 +167,10 @@ class Ability
       can [:read, :create, :update], Manifestation
       can :destroy, Manifestation do |manifestation|
         manifestation.items.empty? and !manifestation.is_reserved?
+      end
+      can [:read, :create, :update], SeriesStatement
+      can :destroy, SeriesStatement do |series_statement|
+        series_statement.manifestations.empty?
       end
       can [:index, :create], Patron
       can :show, Patron do |patron|
@@ -240,7 +247,6 @@ class Ability
         Reserve,
         ResourceImportFile,
         SearchHistory,
-        SeriesStatement,
         SeriesHasManifestation,
         SeriesStatementMerge,
         SeriesStatementMergeList,
