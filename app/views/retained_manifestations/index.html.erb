@@ -1,25 +1,51 @@
+<script>
+  $(document).ready(function() {
+    var $tgt_parent = $("input.check-parent");
+    var $tgt_child = $("input.check-child");
+
+    $tgt_parent.click(function(){
+      $(this).parents("span.parent").find('input.check-child').attr('checked', this.checked);
+    });
+    $tgt_child.click(function(){
+      var checkNum = $(this).parents("span.parent").find('input.check-child:checked').length;
+      var listNum = $(this).parents("span.parent").find('input.check-child').length;
+      if(checkNum < listNum)
+        $(this).parents("span.parent").find("input.check-parent").attr('checked', false);
+      if(checkNum == listNum)
+        $(this).parents("span.parent").find("input.check-parent").attr('checked', true);
+    });
+  });
+</script>
+
 <div id="content_detail" class="ui-corner-all">
 <h1 class="title"><%= t('page.listing', :model => t('activerecord.models.retained_manifestation')) -%></h1>
 <div id="content_list">
-
+<p id="notice"><%= flash[:notice] -%></p>
 <div style="float:left; position:relative;">
 <div>
 <%= form_for :reserves, :url => retained_manifestations_path, :html => {:method => 'get'} do -%>
   <p>
     <%= t('activerecord.attributes.reserve.receipt_library') -%>:<%= select("library", "id", @librarlies, {:include_blank => t('advanced_search.all_libraries'), :selected=>@selected_library}  ) -%><br />
     <%= t('activerecord.attributes.reserve.information_method') -%>:
-    <%= check_box_tag "all_method", true, true, :class=>'check-parent' -%><%= t('advanced_search.all', :model=>t('activerecord.attributes.reserve.information_method')) -%>
-    <%- @information_types.each do |type| -%>
-      <%= check_box_tag "method[]", type, true, :class=>'check-child' -%><%= i18n_information_type(type) -%>
-    <%- end -%>
+    <span class="parent">
+      <%= check_box_tag "all_method", true, true, :class=>'check-parent' -%><%= t('advanced_search.all', :model=>t('activerecord.attributes.reserve.information_method')) -%>
+      <%- @information_types.each do |type| -%>
+        <%= check_box_tag "method[]", type, true, :class=>'check-child' -%><%= i18n_information_type(type) -%>
+      <%- end -%>
+    </span>
     <br />
-    <%= t('page.search_term') -%>: <%= search_field_tag 'query', h(@query), {:id => 'search_form_top', :class => 'search_form', :placeholder => t('page.search_term')} -%>
+    <%= t('page.search_term') -%>: <%= search_field_tag 'query', h(@query), {:id => 'search_form_top', :class => 'search_form', :placeholder => t('page.search_term')} -%><br />
+    <%= t('activerecord.attributes.user.birth_date') -%>:
+    <%= text_field_tag 'birth_date', @date_of_birth, :class => 'wide_date_text_field', :placeholder => "#{t('page.example')}: 2011-04-12" -%>
+    <%= t('activerecord.attributes.user.adddress') -%>:
+    <%= text_field_tag 'address', @address, :class => 'search_form' -%><br />
+    <%= hidden_field_tag 'do_search', true -%>
     <%= submit_tag t('page.search') -%>
   </p>
 <%- end -%>
 </div>
 
-<div style="position:absolute; bottom: 0px; left:460px">
+<div style="position:absolute; bottom: 0px; left:60px">
 <%= form_tag :action => :output do -%>
   <%= submit_tag t('page.output', :model => (t('page.listing', :model => t('activerecord.models.retained_manifestation')))) %>
 <%- end-%>
@@ -29,7 +55,7 @@
 <br style="both:clear;"/>
 
 <table class="index">
-	  <tr>
+  <tr>
     <th><%= t('activerecord.models.user') -%></th>
     <th><%= t('activerecord.models.manifestation') -%></th>
     <th><%= t('activerecord.attributes.reserve.information_method') -%></th>
