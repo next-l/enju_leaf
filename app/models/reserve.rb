@@ -75,6 +75,20 @@ class Reserve < ActiveRecord::Base
     end
   end
 
+  searchable do
+    text :fulltext, :note, :creator, :contributor, :publisher, :description
+    string :state
+    integer :user_id
+    integer :manifestation_id
+    integer :item_id
+    integer :request_status_type_id
+    integer :receipt_library_id
+    integer :information_type_id
+    time :created_at
+    time :updated_at
+    time :expired_at
+  end
+
   def self.per_page
     10
   end
@@ -363,7 +377,7 @@ class Reserve < ActiveRecord::Base
   end
 
   def self.information_types
-    @information_types = [0, 1, 2]
+    @information_types = [1, 2, 0]
     return @information_types
   end
 
