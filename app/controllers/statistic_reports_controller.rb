@@ -134,7 +134,10 @@ class StatisticReportsController < ApplicationController
               row.item("value#{t+1}").value(to_format(value))
               row.item("valueall").value(to_format(value)) if t == 2 # March(end of fiscal year)
             end  
-            row.item(:library_line).show if checkout_type == checkout_types.last
+            if checkout_type == checkout_types.last
+              row.item(:library_line).show
+              line(row) if library == libraries.last
+            end
           end
         end
 =begin
