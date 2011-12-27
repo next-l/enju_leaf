@@ -76,7 +76,15 @@ class Reserve < ActiveRecord::Base
   end
 
   searchable do
-    text :fulltext, :note, :creator, :contributor, :publisher, :description
+    #text :creator, :contributor, :publisher
+    text :creator do
+      #Reserve.find(:first).manifestation.creator
+      self.manifestation.creator
+    end
+    text :contributor do
+    end
+    text :publisher do
+    end
     string :state
     integer :user_id
     integer :manifestation_id
