@@ -798,10 +798,26 @@ class StatisticReportsController < ApplicationController
           line(row) if library == libraries.last
         end
       end
+      # visiters all libraries
+      report.page.list(:list).add_row do |row|
+        row.item(:type).value(t('statistic_report.visiters'))
+        row.item(:library).value(t('statistic_report.all_library'))
+        sum = 0
+        12.times do |t|
+          if t < 4 # for Japanese fiscal year
+            value = Statistic.where(:yyyymm => "#{term.to_i + 1}#{"%02d" % (t + 1)}", :data_type => 116, :library_id => 0).first.value rescue 0 
+          else
+            value = Statistic.where(:yyyymm => "#{term}#{"%02d" % (t + 1)}", :data_type => 116, :library_id => 0).first.value rescue 0
+          end
+          row.item("value#{t+1}").value(to_format(value))
+          sum += value
+        end
+        row.item("valueall").value(sum)
+        row.item(:library_line).show
+      end
       # visiters of each libraries
       libraries.each do |library|
         report.page.list(:list).add_row do |row|
-          row.item(:type).value(t('statistic_report.visiters')) if libraries.first == library
           row.item(:library).value(library.display_name)
           sum = 0
           12.times do |t|
@@ -818,10 +834,26 @@ class StatisticReportsController < ApplicationController
           line(row) if library == libraries.last
         end
       end
+      # consultations all libraries
+      report.page.list(:list).add_row do |row|
+        row.item(:type).value(t('statistic_report.consultations'))
+        row.item(:library).value(t('statistic_report.all_library'))
+        sum = 0
+        12.times do |t|
+          if t < 4 # for Japanese fiscal year
+            value = Statistic.where(:yyyymm => "#{term.to_i + 1}#{"%02d" % (t + 1)}", :data_type => 114, :library_id => 0).first.value rescue 0 
+          else
+            value = Statistic.where(:yyyymm => "#{term}#{"%02d" % (t + 1)}", :data_type => 114, :library_id => 0).first.value rescue 0
+          end
+          row.item("value#{t+1}").value(to_format(value))
+          sum += value
+        end
+        row.item("valueall").value(sum)
+        row.item(:library_line).show
+      end
       # consultations of each libraries
       libraries.each do |library|
         report.page.list(:list).add_row do |row|
-          row.item(:type).value(t('statistic_report.consultations')) if libraries.first == library
           row.item(:library).value(library.display_name)
           sum = 0
           12.times do |t|
@@ -838,10 +870,27 @@ class StatisticReportsController < ApplicationController
           line(row) if library == libraries.last
         end
       end
+      # copies all libraries
+      report.page.list(:list).add_row do |row|
+        row.item(:type).value(t('statistic_report.copies'))
+        row.item(:library).value(t('statistic_report.all_library'))
+        sum = 0
+        12.times do |t|
+          if t < 4 # for Japanese fiscal year
+            value = Statistic.where(:yyyymm => "#{term.to_i + 1}#{"%02d" % (t + 1)}", :data_type => 115, :library_id => 0).first.value rescue 0 
+          else
+            value = Statistic.where(:yyyymm => "#{term}#{"%02d" % (t + 1)}", :data_type => 115, :library_id => 0).first.value rescue 0
+          end
+          row.item("value#{t+1}").value(to_format(value))
+          sum += value
+        end
+        row.item("valueall").value(sum)
+        row.item(:library_line).show
+      end
+
       # copies of each libraries
       libraries.each do |library|
         report.page.list(:list).add_row do |row|
-          row.item(:type).value(t('statistic_report.copies')) if libraries.first == library
           row.item(:library).value(library.display_name)
           sum = 0
           12.times do |t|
