@@ -64,6 +64,15 @@
     <td><%= submit_tag t('statistic_report.submit') %></td>
 <%- end -%>
   </tr>
+
+  <tr class="line<%= cycle("0", "1") -%>">
+<%= form_tag(:action => :get_loans_report)  do -%>
+    <td><%= t('statistic_report.loans_report') -%></td>
+    <td><%= text_field_tag :term, @loans_term if @loans_term %>  <%= t('statistic_report.year_or_month') -%></td>
+    <td><%= submit_tag t('statistic_report.submit') %></td>
+<%- end -%>
+  </tr>
+
 </table>
 
 </div>

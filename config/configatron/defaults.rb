@@ -75,6 +75,7 @@ configatron.statistic_report.day = "day_report.pdf"
 configatron.statistic_report.age = "age_report.pdf"
 configatron.statistic_report.items = "items_report.pdf"
 configatron.statistic_report.inout_items = "inout_items_report.pdf"
+configatron.statistic_report.loans = "loans_report.pdf"
 # 時間別統計の設定
 configatron.statistic_report.open = 8
 configatron.statistic_report.hours = 14 

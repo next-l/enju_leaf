@@ -4149,11 +4149,179 @@ class StatisticReportsController < ApplicationController
     end
   end
 
-  def get_loans_monthly(term)
-  end
   def get_loans_daily(term)
+    logger.error "create daily inter library loans statistic report: #{term}"
+    libraries = Library.all
+    begin
+      report = ThinReports::Report.new :layout => "#{Rails.root.to_s}/app/views/statistic_reports/loans_daily"
+      report.events.on :page_create do |e|
+        e.page.item(:page).value(e.page.no)
+      end
+      report.events.on :generate do |e|
+        e.pages.each do |page|
+          page.item(:total).value(e.report.page_count)
+        end
+      end
+
+      num_for_last_page = Time.zone.parse("#{term}01").end_of_month.strftime("%d").to_i - 26
+      libraries.each do |library|
+        [1,14,27].each do |start_date| # for 3 pages
+          report.start_new_page
+          report.page.item(:date).value(Time.now)
+          report.page.item(:year).value(term[0,4])
+          report.page.item(:month).value(term[4,6])        
+          report.page.item(:library).value(library.display_name.localize)        
+          # header
+          if start_date != 27
+            13.times do |t|
+              report.page.list(:list).header.item("column##{t+1}").value("#{t+start_date}#{t('statistic_report.date')}")
+            end
+          else
+            num_for_last_page.times do |t|
+              report.page.list(:list).header.item("column##{t+1}").value("#{t+start_date}#{t('statistic_report.date')}")
+            end
+            report.page.list(:list).header.item("column#13").value(t('statistic_report.sum'))
+          end
+          # checkout loan
+          data_type = 261
+          libraries.each do |borrowing_library|
+            next if library == borrowing_library
+            report.page.list(:list).add_row do |row|
+              row.item(:loan_type).value(t('statistic_report.checkout_loan')) if borrowing_library == libraries.first || (borrowing_library == libraries[1] && library == libraries.first)
+              row.item(:borrowing_library).value(borrowing_library.display_name)
+              if start_date != 27
+                13.times do |t|
+                  value = Statistic.where(:yyyymmdd => "#{term.to_i}#{"%02d" % (t + start_date)}", :data_type => data_type, :library_id => library.id, :borrowing_library_id => borrowing_library.id).first.value rescue 0
+                  row.item("value##{t+1}").value(to_format(value))
+                end
+              else
+                num_for_last_page.times do |t|
+                  value = Statistic.where(:yyyymmdd => "#{term.to_i}#{"%02d" % (t + start_date)}", :data_type => data_type, :library_id => library.id, :borrowing_library_id => borrowing_library.id).first.value rescue 0
+                  row.item("value##{t+1}").value(to_format(value))
+                  if t == num_for_last_page - 1
+                    sum = 0
+                    datas = Statistic.where(:yyyymm => term, :data_type => data_type, :library_id => library.id, :borrowing_library_id => borrowing_library.id)
+                    datas.each do |data|
+                      sum += data.value
+                    end
+                    row.item("value#13").value(sum)
+                  end
+                end
+              end
+              row.item(:type_line).show if borrowing_library == libraries.last || (borrowing_library == libraries[-2] && library == libraries.last)
+            end
+          end
+          # checkin loan
+          data_type = 262
+          libraries.each do |borrowing_library|
+            next if library == borrowing_library
+            report.page.list(:list).add_row do |row|
+              row.item(:loan_type).value(t('statistic_report.checkin_loan')) if borrowing_library == libraries.first || (borrowing_library == libraries[1] && library == libraries.first)
+              row.item(:borrowing_library).value(borrowing_library.display_name)
+              if start_date != 27
+                13.times do |t|
+                  value = Statistic.where(:yyyymmdd => "#{term.to_i}#{"%02d" % (t + start_date)}", :data_type => data_type, :library_id => library.id, :borrowing_library_id => borrowing_library.id).first.value rescue 0
+                  row.item("value##{t+1}").value(to_format(value))
+                end
+              else
+                num_for_last_page.times do |t|
+                  value = Statistic.where(:yyyymmdd => "#{term.to_i}#{"%02d" % (t + start_date)}", :data_type => data_type, :library_id => library.id, :borrowing_library_id => borrowing_library.id).first.value rescue 0
+                  row.item("value##{t+1}").value(to_format(value))
+                  if t == num_for_last_page - 1
+                    sum = 0
+                    datas = Statistic.where(:yyyymm => term, :data_type => data_type, :library_id => library.id, :borrowing_library_id => borrowing_library.id)
+                    datas.each do |data|
+                      sum += data.value
+                    end
+                    row.item("value#13").value(sum)
+                  end
+                end
+              end
+              row.item(:type_line).show if borrowing_library == libraries.last
+            end
+          end
+        end
+      end
+
+      send_data report.generate, :filename => "#{term}_#{configatron.statistic_report.loans}", :type => 'application/pdf', :disposition => 'attachment'
+      return true
+    rescue Exception => e
+      logger.error "failed #{e}"
+      return false
+    end
   end
 
+  def get_loans_monthly(term)
+    logger.error "create monthly inter library loans statistic report: #{term}"
+    libraries = Library.all
+    begin
+      report = ThinReports::Report.new :layout => "#{Rails.root.to_s}/app/views/statistic_reports/loans_monthly"
+      report.events.on :page_create do |e|
+        e.page.item(:page).value(e.page.no)
+      end
+      report.events.on :generate do |e|
+        e.pages.each do |page|
+          page.item(:total).value(e.report.page_count)
+        end
+      end
+
+      libraries.each do |library|
+        report.start_new_page
+        report.page.item(:date).value(Time.now)
+        report.page.item(:term).value(term)
+        report.page.item(:library).value(library.display_name.localize)        
+        # checkout loan
+        data_type = 161
+        libraries.each do |borrowing_library|
+          next if library == borrowing_library
+          report.page.list(:list).add_row do |row|
+            row.item(:loan_type).value(t('statistic_report.checkout_loan')) if borrowing_library == libraries.first || (borrowing_library == libraries[1] && library == libraries.first)
+            row.item(:borrowing_library).value(borrowing_library.display_name)
+            sum = 0
+            12.times do |t|
+              if t < 4 # for Japanese fiscal year
+                value = Statistic.where(:yyyymm => "#{term.to_i + 1}#{"%02d" % (t + 1)}", :data_type => data_type, :library_id => library.id, :borrowing_library_id => borrowing_library.id).first.value rescue 0
+              else
+                value = Statistic.where(:yyyymm => "#{term.to_i}#{"%02d" % (t + 1)}", :data_type => data_type, :library_id => library.id, :borrowing_library_id => borrowing_library.id).first.value rescue 0
+              end
+              row.item("value#{t+1}").value(to_format(value))
+              sum += value
+            end
+            row.item("valueall").value(sum)
+            row.item(:type_line).show if borrowing_library == libraries.last || (borrowing_library == libraries[-2] && library == libraries.last)
+          end
+        end
+        # checkin loan
+        data_type = 162
+        libraries.each do |borrowing_library|
+          next if library == borrowing_library
+          report.page.list(:list).add_row do |row|
+            row.item(:loan_type).value(t('statistic_report.checkin_loan')) if borrowing_library == libraries.first || (borrowing_library == libraries[1] && library == libraries.first)
+            row.item(:borrowing_library).value(borrowing_library.display_name)
+            row.item(:borrowing_library).value(borrowing_library.display_name)
+            sum = 0
+            12.times do |t|
+              if t < 4 # for Japanese fiscal year
+                value = Statistic.where(:yyyymm => "#{term.to_i + 1}#{"%02d" % (t + 1)}", :data_type => data_type, :library_id => library.id, :borrowing_library_id => borrowing_library.id).first.value rescue 0
+              else
+                value = Statistic.where(:yyyymm => "#{term.to_i}#{"%02d" % (t + 1)}", :data_type => data_type, :library_id => library.id, :borrowing_library_id => borrowing_library.id).first.value rescue 0
+              end
+              row.item("value#{t+1}").value(to_format(value))
+              sum += value
+            end
+            row.item("valueall").value(sum)
+            row.item(:type_line).show if borrowing_library == libraries.last || (borrowing_library == libraries[-2] && library == libraries.last)
+          end
+        end
+      end
+
+      send_data report.generate, :filename => "#{term}_#{configatron.statistic_report.loans}", :type => 'application/pdf', :disposition => 'attachment'
+      return true
+    rescue Exception => e
+      logger.error "failed #{e}"
+      return false
+    end
+  end
 
 private
   def line(row)

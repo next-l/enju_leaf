@@ -1849,6 +1849,7 @@ ja:
     age_report: 年代別利用統計
     items_report: 蔵書統計
     inout_items_report: 受払統計
+    loans_report: 相互貸借統計
     invalid_year: "対象年度の指定が不正です。"
     invalid_month: "対象月の指定が不正です。"
     year: 対象年度(YYYY) 
@@ -1896,6 +1897,8 @@ ja:
     sum: 合計
     accept: 受入資料
     remove: 除籍資料
+    checkout_loan: 貸出
+    checkin_loan: 借受
   print_label:
     users: ラベルを作成する利用者
     submit: ラベルを作成

@@ -367,6 +367,7 @@ EnjuLeaf::Application.routes.draw do
     post :get_age_report, :on => :collection
     post :get_items_report, :on => :collection
     post :get_inout_items_report, :on => :collection
+    post :get_loans_report, :on => :collection
   end
 
   resources :print_labels do

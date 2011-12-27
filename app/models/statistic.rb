@@ -5,7 +5,7 @@ class Statistic < ActiveRecord::Base
   belongs_to :shelf
   belongs_to :user_group
   belongs_to :area
-  validates_uniqueness_of :data_type, :scope => [:yyyymm, :yyyymmdd, :library_id, :hour, :checkout_type_id, :shelf_id, :ndc, :call_number, :age, :option, :area_id, :user_type]
+  validates_uniqueness_of :data_type, :scope => [:yyyymm, :yyyymmdd, :library_id, :hour, :checkout_type_id, :shelf_id, :ndc, :call_number, :age, :option, :area_id, :user_type, :borrowing_library_id]
   @libraries = Library.all
   @checkout_types = CheckoutType.all
   @shelves = Shelf.all
@@ -455,6 +455,32 @@ class Statistic < ActiveRecord::Base
       statistic.library = library
       statistic.value = reports.inject(0){|sum, data| sum += data.visiters if data.visiters;sum}
       statistic.save! if statistic.value > 0
+    end
+  end
+
+  def self.calc_loans(start_at, end_at, term_id)
+#      p "statistics of inter library loans  #{start_at} - #{end_at}"
+    @libraries.each do |library|
+      @libraries.each do |borrowing_library|
+        # reason: 1 checkout
+        statistic = Statistic.new
+        set_date(statistic, end_at, term_id)
+        statistic.data_type = term_id.to_s + 61.to_s
+        statistic.library = library
+        statistic.borrowing_library_id = borrowing_library.id
+        value = InterLibraryLoan.count_by_sql(["select count(*) from inter_library_loans, items where inter_library_loans.item_id = items.id AND inter_library_loans.reason = 1 AND items.shelf_id IN (?) AND borrowing_library_id = ? AND inter_library_loans.shipped_at >= ? AND inter_library_loans.shipped_at <= ?", library.shelf_ids, borrowing_library.id, start_at, end_at]) 
+        statistic.value = value
+        statistic.save! if statistic.value > 0
+        # reason: 3 checkin
+        statistic = Statistic.new
+        set_date(statistic, end_at, term_id)
+        statistic.data_type = term_id.to_s + 62.to_s
+        statistic.library = borrowing_library
+        statistic.borrowing_library_id = library.id
+        value = InterLibraryLoan.joins(:item).count_by_sql(["select count(*) from inter_library_loans, items where inter_library_loans.item_id = items.id AND inter_library_loans.reason = 2 AND items.shelf_id IN (?) AND borrowing_library_id = ? AND inter_library_loans.received_at >= ? AND inter_library_loans.received_at <= ?", borrowing_library.shelf_ids, library.id, start_at, end_at]) 
+        statistic.value = value
+        statistic.save! if statistic.value > 0
+      end
     end
   end
 
@@ -2125,6 +2151,7 @@ class Statistic < ActiveRecord::Base
       calc_consultations(date_timestamp.beginning_of_month, date_timestamp.end_of_month, 1)      
       calc_inout_items(date_timestamp.beginning_of_month, date_timestamp.end_of_month, 1)
       calc_library_use(date_timestamp.beginning_of_month, date_timestamp.end_of_month, 1)
+      calc_loans(date_timestamp.beginning_of_month, date_timestamp.end_of_month, 1)
       calc_monthly_data(date)
     else # daily calculate data each hour
       if date
@@ -2149,6 +2176,7 @@ class Statistic < ActiveRecord::Base
       calc_consultations(date.beginning_of_day, date.end_of_day, 2)
       calc_age_data(date.beginning_of_day, date.end_of_day, 2)
       calc_inout_items(date.beginning_of_day, date.end_of_day, 2)
+      calc_loans(date.beginning_of_day, date.end_of_day, 2)
       calc_daily_data(date.strftime("%Y%m%d"))
     end
     rescue Exception => e
