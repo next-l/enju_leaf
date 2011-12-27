@@ -7,7 +7,7 @@ class Reserve < ActiveRecord::Base
   scope :canceled, where('canceled_at IS NOT NULL')
   scope :retained, where(:state => ['retained'], :retained => !true)
   scope :not_retained, where("position IS NOT NULL")
-  scope :not_waiting, where("position IS NULL")
+  scope :not_waiting, where(:state => ['retained','canceled','completed'])
   scope :will_expire_retained, lambda {|datetime| {:conditions => ['checked_out_at IS NULL AND canceled_at IS NULL AND expired_at <= ? AND state = ?', datetime, 'retained'], :order => 'expired_at'}}
   scope :will_expire_pending, lambda {|datetime| {:conditions => ['checked_out_at IS NULL AND canceled_at IS NULL AND expired_at <= ? AND state = ?', datetime, 'pending'], :order => 'expired_at'}}
   scope :created, lambda {|start_date, end_date| {:conditions => ['created_at >= ? AND created_at < ?', start_date, end_date]}}
@@ -76,14 +76,45 @@ class Reserve < ActiveRecord::Base
   end
 
   searchable do
-    #text :creator, :contributor, :publisher
+    text :title do
+      titles = []
+      titles << self.manifestation.original_title
+      titles << self.manifestation.title_transcription
+    end
     text :creator do
-      #Reserve.find(:first).manifestation.creator
       self.manifestation.creator
     end
-    text :contributor do
-    end
     text :publisher do
+      self.manifestation.publisher
+    end
+    text :contributor do
+      self.manifestation.contributor
+    end
+    text :username do
+      self.user.username
+    end
+    text :email do
+      self.user.email
+    end
+    text :full_name do
+      self.user.patron.full_name_transcription
+    end
+    text :telephone_number do
+      telephone_numbers = []
+      telephone_numbers << self.user.patron.telephone_number_1.gsub("-", "") if self.user.patron && self.user.patron.telephone_number_1
+      telephone_numbers << self.user.patron.telephone_number_2.gsub("-", "") if self.user.patron && self.user.patron.telephone_number_2
+      telephone_numbers << self.user.patron.extelephone_number_1.gsub("-", "") if self.user.patron && self.user.patron.extelephone_number_1
+      telephone_numbers << self.user.patron.extelephone_number_2.gsub("-", "") if self.user.patron && self.user.patron.extelephone_number_2
+      telephone_numbers << self.user.patron.fax_number_1.gsub("-", "") if self.user.patron && self.user.patron.fax_number_1
+      telephone_numbers << self.user.patron.fax_number_2.gsub("-", "") if self.user.patron && self.user.patron.fax_number_2
+    end
+    text :address do
+      addresses = []
+      addresses << self.user.patron.address_1 if self.user.patron
+      addresses << self.user.patron.address_2 if self.user.patron
+    end
+    time :date_of_birth do
+      self.user.patron.date_of_birth if self.user.patron
     end
     string :state
     integer :user_id
