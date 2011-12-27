@@ -1,6 +1,6 @@
 class CheckoutsController < ApplicationController
   before_filter :store_location, :only => :index
-  load_and_authorize_resource
+  load_and_authorize_resource :except => :output
   before_filter :get_user_if_nil, :only => :index
   before_filter :get_user, :except => :index
   helper_method :get_item
