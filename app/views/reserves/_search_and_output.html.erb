@@ -1,5 +1,6 @@
 <script>
   $(document).ready(function() {
+     // checked
      var $tgt_parent = $("input.check-parent");
      var $tgt_child = $("input.check-child");
 
@@ -19,9 +20,9 @@
   });
 </script>
 
-<%= form_for :reserve, :url => {:controller => 'reserves', :action => :output_list}, :html => {:method => :output_user,:name => 'reserves'} do -%>
+<%= form_for :reserve, :url => reserves_path, :html => {:method => :get} do -%>
   <div class="field">
-    <p id="notice"><%= flash[:reserve_notice] -%></p>
+    <p id="notice"><%= raw flash[:reserve_notice] -%></p>
     <%= label :list_condition, t('activerecord.attributes.item_list.list_condition') -%>:<br />
     <div id="list_condition_150" class="parent">
       <%= check_box_tag "all_state", true, true, :class=>'check-parent' -%><%= t('advanced_search.all', :model=>t('activerecord.attributes.reserve.state')) -%><br />
@@ -41,14 +42,18 @@
         <%= check_box_tag "method[]", type, true, :class=>'check-child' -%><%= i18n_information_type(type) -%><br />
       <%- end -%>
     </div>
-    <div id="list_condition_150" class="parent">
-      <%= check_box_tag "all_expired", true, true, :class=> 'check-parent' -%><%= t('advanced_search.all', :model=>t('activerecord.attributes.reserve.expired_at2')) -%><br />
-      <%= check_box_tag "expired_at", true, true, :class=>'check-child' -%><%= t('activerecord.attributes.reserve.within_expired_at') -%><br />
-      <%= check_box_tag "expired_at", false, true, :class=>'check-child' -%><%= t('activerecord.attributes.reserve.over_expired_at') -%><br />
-    </div>
     <br style="clear:both;"/>
   </div>
+  <div>
+    <%= t('page.search_term') -%>: <%= search_field_tag 'query', h(@query), {:id => 'search_form_top', :class => 'search_form', :placeholder => t('page.search_term')} -%><br />
+    <%= t('activerecord.attributes.user.birth_date') -%>:
+    <%= text_field_tag 'birth_date', @date_of_birth, :class => 'wide_date_text_field', :placeholder => "#{t('page.example')}: 2011-04-12" -%>
+    <%= t('activerecord.attributes.user.adddress') -%>:
+    <%= text_field_tag 'address', @address, :class => 'search_form' -%><br />
+  </div>
   <div class="actions">
+    <%= hidden_field_tag 'do_search', true -%>
+    <%= submit_tag t('page.search') %>
     <%= submit_tag t('page.output', :model => (t('page.listing', :model => t('activerecord.models.reserve')))), :name => 'output' %>
   </div>
 <%- end -%>
