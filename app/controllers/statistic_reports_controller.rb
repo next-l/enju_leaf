@@ -368,7 +368,7 @@ class StatisticReportsController < ApplicationController
         report.page.list(:list).add_row do |row|
           if user_group == user_groups.first
             row.item(:type).value(t('statistic_report.checkout_items_each_user_groups'))
-            row.item(:library).value(t('statistic_report.all_library'))
+            row.item(:library).value(t('statistic_report.all_library')) 
           end
           row.item(:option).value(user_group.display_name.localize)   
           sum = 0
@@ -388,7 +388,7 @@ class StatisticReportsController < ApplicationController
       libraries.each do |library|
         user_groups.each do |user_group|
           report.page.list(:list).add_row do |row|
-            row.item(:library).value(library.display_name.localize)
+            row.item(:library).value(library.display_name.localize) if user_group == user_groups.first
             row.item(:option).value(user_group.display_name.localize)
             sum = 0
             12.times do |t|
