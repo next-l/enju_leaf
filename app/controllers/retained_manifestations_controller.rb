@@ -54,7 +54,7 @@ class RetainedManifestationsController < ApplicationController
         with(:information_type_id, params[:method]) unless params[:method].blank? 
         paginate :page => page.to_i, :per_page => Reserve.per_page
      end.results
-     if params [:output]
+     if params[:output]
        @retained_manifestations_output = Reserve.search do
           fulltext query
           with(:state).equal_to 'retained'
