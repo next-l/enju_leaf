@@ -40,9 +40,9 @@ class ReservesController < ApplicationController
       if @user
         # 一般ユーザ
         if current_user.has_role?('Librarian')
-          @reserves = @user.reserves.show_reserves.order('reserves.expired_at DESC').page(params[:page])
+          @reserves = @user.reserves.show_reserves.order('reserves.expired_at ASC').page(params[:page])
         else
-          @reserves = @user.reserves.user_show_reserves.order('reserves.expired_at DESC').page(params[:page])
+          @reserves = @user.reserves.user_show_reserves.order('reserves.expired_at ASC').page(params[:page])
         end
         # 管理者
       elsif @manifestation
@@ -56,7 +56,7 @@ class ReservesController < ApplicationController
         @libraries = Library.all
         # first move
         if params[:do_search].blank?
-          @reserves = Reserve.show_reserves.order('expired_at DESC').includes(:manifestation).page(page)
+          @reserves = Reserve.show_reserves.order('expired_at ASC').includes(:manifestation).page(page)
           return
         end
 
@@ -85,7 +85,7 @@ class ReservesController < ApplicationController
         date_of_birth_end = Time.zone.parse(birth_date).end_of_day.utc.iso8601 rescue nil
 
         if query.blank? and @address.blank? and @date_of_birth.blank?
-          @reserves = Reserve.where(:state => params[:state], :receipt_library_id => params[:library], :information_type_id => params[:method]).order('expired_at Desc').includes(:manifestation).page(page)
+          @reserves = Reserve.where(:state => params[:state], :receipt_library_id => params[:library], :information_type_id => params[:method]).order('expired_at ASC').includes(:manifestation).page(page)
         else
           query = "#{query} date_of_birth_d: [#{date_of_birth} TO #{date_of_birth_end}]" unless date_of_birth.blank?
           query = "#{query} address_text: #{@address}" unless @address.blank?
@@ -94,7 +94,7 @@ class ReservesController < ApplicationController
             with(:state, params[:state]) unless params[:state].blank?
             with(:receipt_library_id, params[:library]) unless params[:library].blank?
             with(:information_type_id, params[:method]) unless params[:method].blank?
-            order_by(:expired_at, :desc)
+            order_by(:expired_at, :asc)
             paginate :page => page.to_i, :per_page => Reserve.per_page
           end.results
         end
