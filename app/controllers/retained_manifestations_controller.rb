@@ -10,13 +10,14 @@ class RetainedManifestationsController < ApplicationController
 
     # first move
     if params[:do_search].blank?
-      @retained_manifestations = Reserve.retained.order('reserves.user_id, reserves.created_at DESC').page(params[:page])
+      @retained_manifestations = Reserve.retained.order('user_id DESC, expired_at ASC').page(params[:page])
       return
     end
 
     # check conditions 
     flash[:notice] = ""
     flash[:notice] << t('item_list.no_list_condition') if params[:do_search] and params[:all_method].blank? and params[:method].blank?
+    params[:method].concat(['3', '4', '5', '6', '7']) if !params[:method].blank? and params[:method].include?('2')
 
     # set query
     query = params[:query].to_s.strip
@@ -35,14 +36,13 @@ class RetainedManifestationsController < ApplicationController
     end
     date_of_birth_end = Time.zone.parse(birth_date).end_of_day.utc.iso8601 rescue nil 
 
-    params[:method].concat(['3', '4', '5', '6', '7']) if !params[:method].blank? and params[:method].include?('2')
     if query.blank? and @address.blank? and @date_of_birth.blank?
       if params[:library][:id].blank?
-        @retained_manifestations = Reserve.where(:information_type_id => params[:method]).retained.order('reserves.user_id, reserves.created_at DESC').page(params[:page])
-        @retained_manifestations_output = Reserve.where(:information_type_id => params[:method]).retained.order('reserves.user_id, reserves.created_at DESC') if params[:output]
+        @retained_manifestations = Reserve.where(:information_type_id => params[:method]).retained.order('user_id DESC, expired_at ASC').page(params[:page])
+        @retained_manifestations_output = Reserve.where(:information_type_id => params[:method]).retained.order('user_id DESC, expired_at ASC') if params[:output]
       else
-        @retained_manifestations = Reserve.where(:information_type_id => params[:method], :receipt_library_id => params[:library][:id]).retained.order('reserves.user_id, reserves.created_at DESC').page(params[:page])
-        @retained_manifestations_output = Reserve.where(:information_type_id => params[:method], :receipt_library_id => params[:library][:id]).retained.order('reserves.user_id, reserves.created_at DESC') if params[:output]
+        @retained_manifestations = Reserve.where(:information_type_id => params[:method], :receipt_library_id => params[:library][:id]).retained.order('user_id DESC, expired_at ASC').page(params[:page])
+        @retained_manifestations_output = Reserve.where(:information_type_id => params[:method], :receipt_library_id => params[:library][:id]).retained.order('user_id DESC, expired_at ASC') if params[:output]
       end
     else
       query = "#{query} date_of_birth_d: [#{date_of_birth} TO #{date_of_birth_end}]" unless date_of_birth.blank?
@@ -51,7 +51,9 @@ class RetainedManifestationsController < ApplicationController
         fulltext query
         with(:state).equal_to 'retained'
         with(:receipt_library_id).equal_to params[:library][:id] unless params[:library][:id].blank?
-        with(:information_type_id, params[:method]) unless params[:method].blank? 
+        with(:information_type_id, params[:method]) unless params[:method].blank?
+        order_by(:user_id, :desc)
+        order_by(:expired_at, :asc)
         paginate :page => page.to_i, :per_page => Reserve.per_page
      end.results
      if params[:output]
@@ -60,10 +62,12 @@ class RetainedManifestationsController < ApplicationController
           with(:state).equal_to 'retained'
           with(:receipt_library_id).equal_to params[:library][:id] unless params[:library][:id].blank?
           with(:information_type_id, params[:method]) unless params[:method].blank? 
+          order_by(:user_id, :desc)
+          order_by(:expired_at, :asc)
        end.results
      end
     end
-
+    # output
     output(@retained_manifestations_output) if params[:output]
   end
 
