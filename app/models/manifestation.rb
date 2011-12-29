@@ -387,6 +387,23 @@ class Manifestation < ActiveRecord::Base
     self
   end
 
+  def reservable_with_item?(user = nil)
+    if configatron.reserve.not_reserve_on_loan.nil?
+      return true
+    end
+    if configatron.reserve.not_reserve_on_loan == true
+      if user.try(:has_role?, 'Librarian')
+        return true
+      end
+      if items.index {|item| item.available_for_reserve_with_config? }
+        return true
+      else
+        return false
+      end
+    end
+    return true
+  end
+
   def reservable?
     return false if items.for_checkout.empty?
     true

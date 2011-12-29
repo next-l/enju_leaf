@@ -140,6 +140,12 @@ class Item < ActiveRecord::Base
     false
   end
 
+  def available_for_reserve_with_config?
+    c = CirculationStatus.where(:name => 'On Loan').first
+    return true if c.id == self.circulation_status.id
+    false
+  end
+
   def checkout!(user)
     self.circulation_status = CirculationStatus.where(:name => 'On Loan').first
     reservation = checkout_reserved_item(user)
