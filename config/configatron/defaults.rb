@@ -108,4 +108,4 @@ configatron.sounds.errors.checked_item.reserved_item_included = "chimeA08.ogg"
 
 # refs 1849 trueの場合=>一般利用者において、在架資料は、図書館利用時に借りることができる。
 # 予約対象は貸出中の図書のみ
-configatron.reserve.not_reserve_on_loan = true
+configatron.reserve.not_reserve_on_loan = false

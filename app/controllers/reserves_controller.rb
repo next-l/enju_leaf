@@ -156,6 +156,10 @@ class ReservesController < ApplicationController
 
     get_manifestation
     if @manifestation
+      unless @manifestation.reservable_with_item?(current_user) 
+        access_denied
+        return
+      end
       @reserve.manifestation = @manifestation
       if user
         @reserve.expired_at = @manifestation.reservation_expired_period(user).days.from_now.end_of_day
