@@ -16,13 +16,6 @@ GIT
       rails (~> 3)
 
 GIT
-  remote: git://github.com/nabeta/enju_inventory.git
-  revision: 648187b855ff2b6822bd4700de5e0419934f5634
-  specs:
-    enju_inventory (0.0.2)
-      rails (~> 3)
-
-GIT
   remote: git://github.com/nabeta/enju_oai.git
   revision: 900f79b5baf4fcbe9fef65bfed4fd5a5fc569797
   specs:
@@ -183,6 +176,15 @@ GEM
       sunspot_rails (~> 1.3)
       sunspot_solr (~> 1.3)
       will_paginate (~> 3.0)
+    enju_inventory (0.0.3)
+      cancan
+      devise
+      inherited_resources
+      paperclip
+      rails (~> 3)
+      sunspot_rails (~> 1.3)
+      sunspot_solr (~> 1.3)
+      will_paginate
     enju_message (0.0.4)
       addressable
       attribute_normalizer (~> 1.0)
@@ -252,7 +254,7 @@ GEM
     guard (0.9.4)
       ffi (>= 0.5.0)
       thor (~> 0.14.6)
-    guard-rspec (0.5.10)
+    guard-rspec (0.5.11)
       guard (>= 0.8.4)
     has_scope (0.5.1)
     hashie (1.2.0)
@@ -467,7 +469,7 @@ DEPENDENCIES
   enju_bookmark!
   enju_circulation (= 0.0.4)
   enju_event (= 0.0.4)
-  enju_inventory!
+  enju_inventory (= 0.0.3)
   enju_message (= 0.0.4)
   enju_ndl (= 0.0.3)
   enju_oai!

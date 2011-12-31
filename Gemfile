@@ -20,7 +20,7 @@ gem 'enju_resource_merge', :git => 'git://github.com/nabeta/enju_resource_merge.
 gem 'enju_circulation', '0.0.4'
 gem 'enju_message', '0.0.4'
 #gem 'enju_inter_library_loan', :git => 'git://github.com/nabeta/enju_inter_library_loan.git'
-gem 'enju_inventory', :git => 'git://github.com/nabeta/enju_inventory.git'
+gem 'enju_inventory', '0.0.3'
 gem 'enju_event', '0.0.4'
 #gem 'enju_news', :git => 'git://github.com/nabeta/enju_news.git'
 gem 'enju_search_log', :git => 'git://github.com/nabeta/enju_search_log.git'
