@@ -297,7 +297,7 @@ p "ready status is OK"
 
     librarians = {} 
     User.librarians.each { |user| librarians[user.library.id] = user } 
-    puts librarians
+    #puts librarians
 
     names = ['On Loan']
     ids = CirculationStatus.select(:id).where(:name => names).map(&:id)
