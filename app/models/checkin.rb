@@ -13,12 +13,12 @@ class Checkin < ActiveRecord::Base
 
   attr_accessor :item_identifier
 
-  def item_checkin(current_user)
+  def item_checkin(current_user, escape_flag = false)
     #message = ''
     message = []
     Checkin.transaction do
       checkouts = Checkout.not_returned.where(:item_id => self.item_id).select([:id, :item_id, :lock_version])
-      self.item.checkin! #unless loss_item
+      self.item.checkin! unless escape_flag #unless loss_item
 
       #message << I18n.t('item.this_item_include_supplement') + '<br />' if self.item.include_supplements?
       message << 'item.this_item_include_supplement' if self.item.include_supplements?
@@ -28,19 +28,23 @@ class Checkin < ActiveRecord::Base
         checkout.checkin = self
         checkout.save(:validate => false)
         #message << I18n.t('checkin.other_library_item') + '<br />' unless checkout.item.shelf.library == current_user.library
-        unless checkout.item.shelf.library == current_user.library
-          message << 'checkin.other_library_item'
-          InterLibraryLoan.new.request_for_checkin(checkout.item, current_user.library)
-          return
+        unless escape_flag
+          unless checkout.item.shelf.library == current_user.library
+            message << 'checkin.other_library_item'
+            InterLibraryLoan.new.request_for_checkin(checkout.item, current_user.library)
+            return
+          end
         end
       end
 
       # checkout.user = nil unless checkout.user.save_checkout_history
-      if self.item.manifestation.next_reservation
-        # TODO: もっと目立たせるために別画面を表示するべき？
-        #message << I18n.t('item.this_item_is_reserved') + '<br />'
-        message << 'item.this_item_is_reserved'
-        self.item.retain(current_user)
+      unless escape_flag
+        if self.item.manifestation.next_reservation
+          # TODO: もっと目立たせるために別画面を表示するべき？
+          #message << I18n.t('item.this_item_is_reserved') + '<br />'
+          message << 'item.this_item_is_reserved'
+          self.item.retain(current_user)
+        end
       end
 
       # メールとメッセージの送信
