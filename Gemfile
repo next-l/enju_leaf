@@ -55,7 +55,8 @@ gem 'fastercsv' if RUBY_VERSION < '1.9'
 
 gem 'will_paginate', '~> 3.0'
 gem 'exception_notification', '~> 2.5.2'
-gem 'delayed_job', '~> 2.1.4'
+gem 'delayed_job', '~> 2.1.3'
+gem 'daemons'
 gem 'state_machine'
 gem 'sunspot_rails', '~> 1.3'
 gem 'sunspot_solr', '~> 1.3'
@@ -80,7 +81,7 @@ gem 'isbn-tools', :git => 'git://github.com/nabeta/isbn-tools.git', :require => 
 gem 'configatron'
 gem 'extractcontent'
 gem 'cancan', '>= 1.6.7'
-gem 'devise', '~> 1.5'
+gem 'devise', '~> 2.0.0.rc'
 gem 'omniauth', '~> 1.0'
 gem 'addressable'
 gem 'paperclip', '~> 2.4'
@@ -102,7 +103,6 @@ gem 'validates_timeliness'
 gem 'rack-protection'
 gem 'awesome_nested_set', '~> 2.0'
 gem 'rails_autolink'
-gem 'rake', '0.9.2.2'
 #gem 'oink', '>= 0.9.3'
 
 group :production do
@@ -115,7 +115,7 @@ group :development do
 end
 
 group :development, :test do
-  gem 'rspec-rails', '~> 2.8.0.rc2'
+  gem 'rspec-rails', '~> 2.8.1'
   gem 'guard-rspec'
   gem 'factory_girl_rails', '~> 1.4'
   gem 'spork', '~> 0.9.0.rc9'
