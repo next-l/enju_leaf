@@ -141,12 +141,6 @@ class Item < ActiveRecord::Base
     false
   end
 
-  def available_for_retain?
-    circulation_statuses = CirculationStatus.available_for_retain.select(:id)
-    return true if circulation_statuses.include?(self.circulation_status)
-    false
-  end
-
   def available_for_reserve_with_config?
     c = CirculationStatus.where(:name => 'On Loan').first
     return true if c.id == self.circulation_status.id
@@ -291,7 +285,7 @@ class Item < ActiveRecord::Base
         ['item_identifier','activerecord.attributes.item.item_identifier'],
         ['removed_at', 'activerecord.attributes.item.removed_at'],
         ['acquired_at', 'activerecord.attributes.item.acquired_at'],
-        ['original_title','activerecord.attributes.manifestation.original_title']
+        ['original_title','activerecord.attributes.manifestation.original_title'],
         [:date_of_publication, 'activerecord.attributes.manifestation.date_of_publication'],
         [:patron_creator, 'activerecord.attributes.patron.creator'],
         [:patron_publisher,'activerecord.attributes.patron.publisher'], 
