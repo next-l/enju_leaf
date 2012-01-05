@@ -82,9 +82,9 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_message.git
-  revision: c046d5fba649b5df1cb7057ef52a0386f4caca83
+  revision: 5c3813ba07ed49ad69231281d396f75f59c23cb7
   specs:
-    enju_message (0.0.4)
+    enju_message (0.0.5)
       addressable
       attribute_normalizer (~> 1.0)
       awesome_nested_set (~> 2.0)
