@@ -1,14 +1,14 @@
 GIT
+  remote: git://github.com/emiko/acts_as_list.git
+  revision: 487ae2633e187436f776cbd7fbd1c57b2db225a5
+  specs:
+    acts_as_list (0.1.4)
+
+GIT
   remote: git://github.com/nabeta/isbn-tools.git
   revision: 05e31384f167aa7d1e560f76c1c3faf104d64709
   specs:
     isbn-tools (0.2.0)
-
-GIT
-  remote: git://github.com/swanandp/acts_as_list.git
-  revision: ec97d512ba792fa072c55cbb9447d83c067e611f
-  specs:
-    acts_as_list (0.1.4)
 
 GEM
   remote: http://rubygems.org/
