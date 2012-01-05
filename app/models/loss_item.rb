@@ -5,12 +5,22 @@ class LossItem < ActiveRecord::Base
   belongs_to :item
 
   validates_presence_of :user_id, :item_id, :status
+  validate :check_user_number
+
+  attr_accessor :user_number
 
   # consts
   UnPaid=0
 
   def self.per_page
     10
+  end
+
+  def check_user_number
+    unless self.user_number.blank?
+      user = User.where(:user_number => self.user_number).first
+      errors[:base] << I18n.t('user.not_found') unless user
+    end
   end
 
   searchable do
