@@ -73,6 +73,7 @@ class LossItemsController < ApplicationController
 
   def new
     if params[:item_id] or params[:user_id]
+      @already_set = true
       @loss_item = LossItem.new(:item_id => params[:item_id], :user_id => params[:user_id])
     else
       @loss_item = LossItem.new
@@ -105,7 +106,7 @@ class LossItemsController < ApplicationController
             flash[:message] = ''
             flash[:sound] = ''
             flash[:notice] << t('checkin.successfully_checked_in', :model => t('activerecord.models.checkin')) + '<br />'
-            item_messages = @checkin.item_checkin(current_user)
+            item_messages = @checkin.item_checkin(current_user, true)
             unless item_messages.blank?
               item_messages.each do |message|
                 messages << message if message
@@ -132,7 +133,7 @@ class LossItemsController < ApplicationController
     logger.error "Failed to loss_item: #{$!}"
     logger.error "Failed to loss_item: #{$@}"
     respond_to do |format|
-      flash[:message] = t('activerecord.attributes.item.fail_update_loss_item')
+      #flash[:message] = t('activerecord.attributes.item.fail_update_loss_item')
       format.html { render :action => "new" }
       format.xml  { render :xml => @loss_item.errors, :status => :unprocessable_entity }
     end
@@ -155,7 +156,7 @@ class LossItemsController < ApplicationController
       end
     end
   rescue
-   flash[:message] = t('activerecord.attributes.loss_item.fail_update')
+   #flash[:message] = t('activerecord.attributes.loss_item.fail_update')
    respond_to do |format|
      format.html { render :action => "edit" }
      format.xml  { render :xml => @loss_item.errors, :status => :unprocessable_entity }
