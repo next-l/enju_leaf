@@ -34,6 +34,7 @@ class Item < ActiveRecord::Base
   has_many :answer_has_items, :dependent => :destroy
   has_many :answers, :through => :answer_has_items
   has_one :resource_import_result
+  has_many :libcheck_tmp_items
 
   validates_associated :circulation_status, :shelf, :bookstore, :checkout_type
   validates_presence_of :circulation_status, :checkout_type
@@ -137,6 +138,12 @@ class Item < ActiveRecord::Base
   def available_for_checkout?
     circulation_statuses = CirculationStatus.available_for_checkout.select(:id)
     return true if circulation_statuses.include?(self.circulation_status)
+    false
+  end
+
+  def available_for_reserve_with_config?
+    c = CirculationStatus.where(:name => 'On Loan').first
+    return true if c.id == self.circulation_status.id
     false
   end
 

@@ -16,6 +16,10 @@ class MessageTemplate < ActiveRecord::Base
     context = {
       :library_group => LibraryGroup.site_config
     }.merge(options)
+    #puts "@@@@ embed_body start"
+    #puts context
+    #puts body
+    #puts "@@@@ embed_body end"
     template.evaluate(context)
   end
 

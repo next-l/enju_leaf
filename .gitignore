@@ -5,3 +5,4 @@ tmp/
 solr/data/*
 solr/pids
 vendor/bundle/*
+private/

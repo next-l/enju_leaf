@@ -4,10 +4,10 @@
 <div id="content_list">
 
 <%= render 'manifestations/title', :manifestation => @manifestation if @manifestation -%>
-<%-if @user-%>
+<%-if @user -%>
   <%= render 'reserves/output_user' -%>
-<%- else -%>
-  <%= render 'reserves/output'-%>
+<%- elsif !@user and !@manifestation -%>
+  <%= render 'reserves/search_and_output'-%>
 <%- end -%>
 
 <table class="index">

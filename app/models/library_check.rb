@@ -224,6 +224,20 @@ p "ready status is OK"
       return
     end
     logger.info "end check not found items"
+    
+    #4-pre) auto checkin
+    logger.info "start auto_checkin #{configatron.library_checks.auto_checkin}"
+    if configatron.library_checks.auto_checkin 
+      begin
+        logger.info "start auto_checkin"
+        check_checkouted_items_with_checkin   
+        logger.info "end auto_checkin"
+      rescue => exc
+        logger.error "Error occured. at check_checkouted_items_with_checkin:" + exc.to_s
+        logger.error $@
+      end
+    end
+    logger.info "end auto_checkin "
 
     logger.info "start check confusion"
     #4) check confusion
@@ -237,7 +251,7 @@ p "ready status is OK"
       return
     end
     logger.info "end check confusion"
-
+    
     # output directory
     out_dir = "#{dir_base}/library_check/#{self.id}/"
 
@@ -276,8 +290,73 @@ p "ready status is OK"
   end
   # end_of_preprocess
 
+  def check_checkouted_items_with_checkin
+    logger.info("start check_checkouted_items_with_checkin") 
+
+    LibcheckStatusChangedItem.destroy_all
+
+    librarians = {} 
+    User.librarians.each { |user| librarians[user.library.id] = user } 
+    #puts librarians
+
+    names = ['On Loan']
+    ids = CirculationStatus.select(:id).where(:name => names).map(&:id)
+
+    checkout_found_items = Item.find_by_sql(
+      "select id, item_identifier, circulation_status_id, checkout_type_id" +
+      " from items where id in (" +
+      " select item_id from libcheck_tmp_items where item_id is not null)" +
+      " AND items.deleted_at is null" +
+      " AND items.circulation_status_id in (#{ids.join(',').chomp(',')})" +
+      " AND items.id in (select item_id from checkouts where checkin_id is null)" +
+      " order by items.item_identifier, items.id")
+
+    if checkout_found_items.nil? then
+      logger.info "There is no checkouted items"
+    else
+      logger.info "#{checkout_found_items.length} items are found."
+      checkout_found_items.each do |item|
+        logger.debug "checkouted => id: #{item.id}, item_identifier: #{item.item_identifier}, status: #{item.circulation_status_id}"
+
+        nitem = LibcheckStatusChangedItem.new
+
+        @item_tmp = Item.find(item.id)
+        #TODO 
+        #shelf_id = @item_tmp.libcheck_tmp_items.first.shelf_id
+        #library_id = Shelf.find(shelf_id).library.id
+
+        library_id = @item_tmp.shelf.library.id
+        logger.debug "library_id: #{library_id}"
+
+        @basket = nil
+        if librarians[library_id]
+          user = librarians[library_id]
+          #@user = User.find(user_id)
+          @basket = Basket.new(:user => user)
+          @basket.save!(:validate => false)
+          @checkin = @basket.checkins.new(:item_id => @item_tmp.id, :librarian_id => user.id)
+          @checkin.item = @item_tmp
+          if @checkin.save(:validate => false)
+            item_messages = @checkin.item_checkin(user)
+            #p item_messages
+            #logger.warn("failed save checkin.")
+            #nitem.completed = false
+          end
+        else
+          logger.warn("not find librarian library_id: #{library_id} shelf_id: #{shelf_id} item_id: #{item.id}")
+          nitem.completed = false
+        end
+
+        nitem.item_id = item.id
+        nitem.item_identifier = item.item_identifier
+        nitem.circulation_status_id = item.circulation_status_id
+        nitem.save
+      end
+    end
+    logger.info("end check_checkouted_items_with_checkin") 
+  end
+
   # load barcode information
-  private
   def load_check_barcode_data(file_list)
     raise "parameter error: file_list is nil" if file_list.nil?
     

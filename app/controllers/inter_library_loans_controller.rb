@@ -150,6 +150,12 @@ class InterLibraryLoansController < ApplicationController
       end
 
       @loans = InterLibraryLoan.loan_items
+      unless @loan
+        flash[:message] = t('inter_library_loan.no_loan')
+        @libraries = Library.all
+        render :export_loan_lists
+        return false
+      end
       library_ids.each do |library_id|
         library = Library.find(library_id) rescue nil
         to_libraries = InterLibraryLoan.joins(:item => :shelf).where(['shelves.id IN (?) AND inter_library_loans.reason = ? ', library.shelf_ids, 1]).inject([]){|libraries, data| libraries << data.borrowing_library}

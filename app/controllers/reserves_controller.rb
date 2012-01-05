@@ -20,10 +20,6 @@ class ReservesController < ApplicationController
       @reserve_user = current_user
     end
 
-    @states = Reserve.states
-    @information_types = Reserve.information_types
-    @libraries = Library.order('position')
-
     @reserve_user_id = params[:user_id] if params[:user_id]
     unless current_user.has_role?('Librarian')
       if @user
@@ -31,8 +27,7 @@ class ReservesController < ApplicationController
           access_denied; return
         end
       else
-        redirect_to user_reserves_path(current_user)
-        return
+        redirect_to user_reserves_path(current_user); return
       end
     end
 
@@ -45,16 +40,67 @@ class ReservesController < ApplicationController
       if @user
         # 一般ユーザ
         if current_user.has_role?('Librarian')
-          @reserves = @user.reserves.show_reserves.order('reserves.expired_at DESC').page(params[:page])
+          @reserves = @user.reserves.show_reserves.order('reserves.expired_at ASC').page(params[:page])
         else
-          @reserves = @user.reserves.user_show_reserves.order('reserves.expired_at DESC').page(params[:page])
+          @reserves = @user.reserves.user_show_reserves.order('reserves.expired_at ASC').page(params[:page])
         end
         # 管理者
       elsif @manifestation
         @reserves = @manifestation.reserves.not_retained.order('reserves.position ASC').page(params[:page])
         @completed_reserves = @manifestation.reserves.not_waiting.page(params[:page])
       else
-        @reserves = Reserve.show_reserves.order('reserves.expired_at DESC').includes(:manifestation).page(params[:page])
+        # all reserves
+        page = params[:page] || 1
+        @states = Reserve.states
+        @information_types = Reserve.information_types
+        @libraries = Library.all
+        # first move
+        if params[:do_search].blank?
+          @reserves = Reserve.show_reserves.order('expired_at ASC').includes(:manifestation).page(page)
+          return
+        end
+
+        #check list_conditions
+        flash[:reserve_notice] = "" 
+        if params[:state].blank? || params[:library].blank? || params[:method].blank? 
+          flash[:reserve_notice] << t('item_list.no_list_condition') + '<br />'
+        end
+        params[:method].concat(['3', '4', '5', '6', '7']) if !params[:method].blank? and params[:method].include?('2')
+
+        # set query
+        query = params[:query].to_s.strip
+        @query = query.dup
+        query = params[:query].gsub("-", "") if params[:query]
+        query = "#{query}*" if query.size == 1
+        @address = params[:address]
+        @date_of_birth = params[:birth_date].to_s.dup
+        birth_date = params[:birth_date].to_s.gsub(/\D/, '') if params[:birth_date]
+        unless params[:birth_date].blank?
+          begin
+            date_of_birth = Time.zone.parse(birth_date).beginning_of_day.utc.iso8601
+          rescue
+            flash[:reserve_notice] << t('user.birth_date_invalid')
+          end
+        end
+        date_of_birth_end = Time.zone.parse(birth_date).end_of_day.utc.iso8601 rescue nil
+
+        if query.blank? and @address.blank? and @date_of_birth.blank?
+          @reserves = Reserve.where(:state => params[:state], :receipt_library_id => params[:library], :information_type_id => params[:method]).order('expired_at ASC').includes(:manifestation).page(page)
+        else
+          query = "#{query} date_of_birth_d: [#{date_of_birth} TO #{date_of_birth_end}]" unless date_of_birth.blank?
+          query = "#{query} address_text: #{@address}" unless @address.blank?
+          @reserves = Reserve.search do
+            fulltext query
+            with(:state, params[:state]) unless params[:state].blank?
+            with(:receipt_library_id, params[:library]) unless params[:library].blank?
+            with(:information_type_id, params[:method]) unless params[:method].blank?
+            order_by(:expired_at, :asc)
+            paginate :page => page.to_i, :per_page => Reserve.per_page
+          end.results
+        end
+
+        # output
+        # TODO:
       end
     end
 
@@ -104,12 +150,16 @@ class ReservesController < ApplicationController
     else
       @reserve = Reserve.new
     end
-    @libraries = Library.order('position')
+    @libraries = Library.all
     @informations = Reserve.informations(user)
     @reserve.receipt_library_id = user.library_id unless user.blank?
 
     get_manifestation
     if @manifestation
+      unless @manifestation.reservable_with_item?(current_user) 
+        access_denied
+        return
+      end
       @reserve.manifestation = @manifestation
       if user
         @reserve.expired_at = @manifestation.reservation_expired_period(user).days.from_now.end_of_day
@@ -125,11 +175,10 @@ class ReservesController < ApplicationController
   # GET /reserves/1;edit
   def edit
     unless @reserve.can_checkout?
-      access_denied
-      return
+      access_denied; return
     end
     user = @user if @user
-    @libraries = Library.order('position')
+    @libraries = Library.all
     @informations = Reserve.informations(user)
   end
 

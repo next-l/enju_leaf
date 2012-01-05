@@ -1148,6 +1148,10 @@ ja:
         resource_list: 蔵書リスト
         notfound_list: 欠本リスト
         error_msg: エラーメッセージ
+        error_list: 蔵書点検エラーリスト
+        item_register: 図書原簿
+        detection_list: 発見資料リスト
+        removing_list: 除籍原簿
       libcheck_tmp_item:
         seq: No.
         ndc: 分類記号1
