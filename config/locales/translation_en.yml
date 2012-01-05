@@ -47,7 +47,6 @@ en:
       subscribe: Subscribe
       checkin: Checkin
       item: Item
-      barcode: Barcode
       work: Work
       purchase_request: Purchase request
       realize: Realize
@@ -457,12 +456,6 @@ en:
         lock_version: Lock version
         checkout_type: Checkout type
         acquired_at: Acquired at
-      barcode:
-        barcode_type: Barcode type
-        barcodable_type: Barcodable type
-        code_word: Code word
-        data: Data
-        barcodable: Barcodable
       work:
         original_title: Original title
         title_transcription: Title transcription
