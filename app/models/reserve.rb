@@ -42,7 +42,7 @@ class Reserve < ActiveRecord::Base
   attr_accessor :user_number, :item_identifier
 
   state_machine :initial => :pending do
-    before_transition [:pending, :requested, :retained] => :requested, :do => :do_request
+    before_transition [:pending, :requested] => :requested, :do => :do_request
     before_transition [:pending, :requested, :retained, :in_process] => :retained, :do => :retain
     before_transition [:pending, :requested] => :in_process, :do => :to_process
     before_transition [:pending ,:requested, :retained, :in_process] => :canceled, :do => :cancel
@@ -51,7 +51,7 @@ class Reserve < ActiveRecord::Base
 
 
     event :sm_request do
-      transition [:pending, :requested, :retained] => :requested
+      transition [:pending, :requested] => :requested
     end
 
     event :sm_retain do
@@ -163,7 +163,7 @@ class Reserve < ActiveRecord::Base
     if self.available_for_checkout?    
       items = self.manifestation.items_ordered_for_retain(library) rescue nil
       items.each do |item|
-        if item.available_for_checkout? && !item.reserved?
+        if item.available_for_retain? && !item.reserved?
           self.item = item
           if item.shelf.library == library
             self.sm_retain
@@ -195,7 +195,6 @@ class Reserve < ActiveRecord::Base
 
   def retain
     # TODO: 「取り置き中」の状態を正しく表す
-#    self.update_attributes!({:request_status_type => RequestStatusType.where(:name => 'In Process').first, :checked_out_at => Time.zone.now})
     self.item.retain_item!
     self.update_attributes!({:request_status_type => RequestStatusType.where(:name => 'In Process').first})
     self.remove_from_list
@@ -231,7 +230,7 @@ class Reserve < ActiveRecord::Base
     reserve_position = Reserve.waiting.where("manifestation_id = ? AND position >= ? AND item_id IS NULL", self.manifestation_id, self.position).count
     i = 1
     items.each do |item|
-      if item.available_for_checkout? && !item.reserved?
+      if item.available_for_retain? && !item.reserved?
         return true if i >= reserve_position
         i += 1
       end
@@ -345,9 +344,9 @@ class Reserve < ActiveRecord::Base
   end
 
   def position_update(manifestation)
-    reserves = Reserve.where(:manifestation_id => manifestation).waiting.order(:position)
+    reserves = Reserve.where(:manifestation_id => manifestation).not_retained.order(:position)
     items = manifestation.items_ordered_for_retain.for_checkout
-    items.delete_if{|item| !item.available_for_checkout?}
+    items.delete_if{|item| !item.available_for_retain?}
     reserves.each do |reserve|
       if !items.blank?
         reserve.item = items.shift

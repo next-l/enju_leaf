@@ -480,10 +480,10 @@ class ReservesController < ApplicationController
   end
  
   def position_update(manifestation)
-    reserves = Reserve.where(:manifestation_id => manifestation).waiting.order(:position)
+    reserves = Reserve.where(:manifestation_id => manifestation).not_retained.order(:position)
     items = []
     manifestation.items.for_checkout.each do |i|
-      items << i if i.available_for_checkout?
+      items << i if i.available_for_retain?
     end
     reserves.each do |reserve|
       if !items.blank?
