@@ -1,0 +1,7 @@
+	shelfid	stackid	gid	note
+	"first_shelf"	"test1"	"B003"	""
+	"web"	"test2"	"B003"	""
+	"lib122_default"	"test3"	"C001"	""
+	"lib121_default"	"test3"	"C001"	""
+	"lib1_default"	"test4"	"C001"	""
+
