@@ -432,6 +432,7 @@ class UsersController < ApplicationController
     return nil unless request.xhr?
     unless params[:user_number].blank?
       @user = User.where(:user_number => params[:user_number]).first
+      @patron = @user.patron unless @user.blank?
       user_id = nil
       user_id = @user.id if @user
       @checkouts = @user.checkouts.not_returned unless @user.blank?
@@ -442,7 +443,7 @@ class UsersController < ApplicationController
           @items << @Item.new(c.item.id, c.item.manifestation.original_title)
         end
       end
-      render :json => {:success => 1, :items => @items, :user_id => user_id}
+      render :json => {:success => 1, :items => @items, :user => @user, :user_id => user_id, :patron => @patron}
     end
   end
 
