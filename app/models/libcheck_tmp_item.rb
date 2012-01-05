@@ -141,6 +141,24 @@ class LibcheckTmpItem < ActiveRecord::Base
     end # end_of_File.exist
   end
   # end_of_import
+  
+  def self.export_error_list(out_dir)
+    raise "invalid parameter: no path" if out_dir.nil? || out_dir.length < 1
+    csv_file = out_dir + "error_list.csv"
+    pdf_file = out_dir + "error_list.pdf"
+    logger.info "output removing_list csv: #{csv_file} pdf: #{pdf_file}"
+    # create output path
+    FileUtils.mkdir_p(out_dir) unless FileTest.exist?(out_dir)
+  end
+  
+  def self.export_pdf(dir)
+    raise "invalid parameter: no path" if dir.nil? || dir.length < 1
+    pdffile = dir + "resource_list.pdf"
+    logger.info "output resource list : " + pdffile
+    # create output path
+    FileUtils.mkdir_p(dir) unless FileTest.exist?(dir)
+
+ end
 
   def self.export(dir)
     raise "invalid parameter: no path" if dir.nil? || dir.length < 1

@@ -268,18 +268,64 @@ p "ready status is OK"
     end
     logger.info "end export resource list"
 
+
+    logger.info "start export resource list (pdf)"
+    #5-2) output resource list (pdf)
+    begin
+      LibcheckTmpItem.export_pdf(out_dir)
+    rescue => exc
+      p "Error at exporting resource list (pdf):" + exc.to_s
+      logger.error "Error at exporting resource list (pdf):" + exc.to_s
+      self.error_msg = I18n.t('activerecord.errors.messages.library_check.error_at_exporting_resource_list') + ":" + exc.to_s
+      sm_fail!
+      return
+    end
+    logger.info "end export resource list"
+
+   logger.info "start export error list (csv,pdf)"
+    #5-3) output error list (csv,pdf)
+    begin
+      LibcheckTmpItem.export_error_list(out_dir)
+    rescue => exc
+      p "Error at exporting error list (csv,pdf):" + exc.to_s
+      p "Error at export_removing_list (csv,pdf):" + $@
+      logger.error "Error at exporting error list (csv,pdf):" + exc.to_s
+      self.error_msg = I18n.t('activerecord.errors.messages.library_check.error_at_exporting_error_list') + ":" + exc.to_s
+      sm_fail!
+      return
+    end
+    logger.info "end export resource list"
+
     logger.info "start export not found item list"
     #6) output not found item list
     begin
       LibcheckNotfoundItem.export(out_dir)
     rescue => exc
       p "Error at exporting not found item list:" + exc.to_s
+      p "Error at export_removing_list (csv,pdf):" + $@
       logger.error "Error at exporting not found item list:" + exc.to_s
       self.error_msg = I18n.t('activerecord.errors.messages.library_check.error_at_exporting_notfound_list') + ":" + exc.to_s
       sm_fail!
       return
     end
     logger.info "end export not found item list"
+
+    #7) 
+    logger.info "start export_removing_list"
+    begin 
+      Item.export_removing_list(out_dir)
+    rescue => exc
+      p "Error at export_removing_list (csv,pdf):" + exc.to_s
+      p "Error at export_removing_list (csv,pdf):" + $@
+      logger.error "Error at exporting error list (csv,pdf):" + exc.to_s
+      logger.error "Error at exporting error list (csv,pdf):" + $@
+      self.error_msg = I18n.t('activerecord.errors.messages.library_check.error_at_exporting_error_list') + ":" + exc.to_s
+      sm_fail!
+      return
+    end
+    logger.info "end export_removing_list"
+
+
 
     self.operated_at = Time.now
     sm_complete!

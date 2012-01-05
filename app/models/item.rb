@@ -272,27 +272,28 @@ class Item < ActiveRecord::Base
   end
 
   def self.export_removing_list(out_dir)
-    raise "invalid parameter: no path" if dir.nil? || dir.length < 1
-    csvfile = out_dir + "removing_list.csv"
-    logger.info "output resource list : " + csvfile
+    raise "invalid parameter: no path" if out_dir.nil? || out_dir.length < 1
+    csv_file = out_dir + "removing_list.csv"
+    pdf_file = out_dir + "removing_list.pdf"
+    logger.info "output removing_list csv: #{csv_file} pdf: #{pdf_file}"
     # create output path
-    FileUtils.mkdir_p(dir) unless FileTest.exist?(dir)
+    FileUtils.mkdir_p(out_dir) unless FileTest.exist?(out_dir)
     
-    @items = Item.where('removed_at IS NOT NULL').order('removed_at ASC, id ASC')
-    if @items
+    items = Item.where('removed_at IS NOT NULL').order('removed_at ASC, id ASC')
+    if items
       # csv
       columns = [
         ['item_identifier','activerecord.attributes.item.item_identifier'],
         ['removed_at', 'activerecord.attributes.item.removed_at'],
         ['acquired_at', 'activerecord.attributes.item.acquired_at'],
-        ['original_title','activerecord.attributes.manifestation.original_title'],
+        [:original_title,'activerecord.attributes.manifestation.original_title'],
         [:date_of_publication, 'activerecord.attributes.manifestation.date_of_publication'],
-        [:patron_creator, 'activerecord.attributes.patron.creator'],
-        [:patron_publisher,'activerecord.attributes.patron.publisher'], 
+        [:patron_creator, 'patron.creator'],
+        [:patron_publisher,'patron.publisher'], 
         ['price', 'activerecord.attributes.item.price'],
         ['note', 'activerecord.attributes.item.note']
       ]
-      File.open(csvfile, "w") do |output|
+      File.open(csv_file, "w") do |output|
         # add UTF-8 BOM for excel
         output.print "\xEF\xBB\xBF".force_encoding("UTF-8")
 
@@ -303,16 +304,22 @@ class Item < ActiveRecord::Base
         end
         output.print row.join(",")+"\n"
 
-        @items.each do |item|
+        items.each do |item|
           row = []
           columns.each do |column|
             case column[0]
+            when :original_title
+              row << item.manifestation.original_title
             when :date_of_publication
-              if item.date_of_publication.nil?
+              if item.manifestation.date_of_publication.nil?
                 row << ""
               else
-                row << item.date_of_publication.strftime("%Y-%m-%d")
+                row << item.manifestation.date_of_publication.strftime("%Y-%m-%d")
               end
+            when :patron_creator
+              row << patrons_list(item.manifestation.creators)
+            when :patron_publisher
+              row << patrons_list(item.manifestation.publishers)
             else
               row << get_object_method(item, column[0].split('.')).to_s.gsub(/\r\n|\r|\n/," ").gsub(/\"/,"\"\"")
             end # end of case column[0]
@@ -323,37 +330,41 @@ class Item < ActiveRecord::Base
 
       # pdf
       require 'thinreports'
-      #report = ThinReports::Report.new :layout => File.join(Rails.root, 'report', 'reservelist_user.tlf') 
       report = ThinReports::Report.new :layout => File.join(Rails.root, 'report', 'removing_list.tlf') 
       report.layout.config.list(:list) do
         events.on :footer_insert do |e|
-          e.section.item(:total).value(reserves.length)
           e.section.item(:date).value(Time.now)
         end
       end
       report.start_new_page do |page|
-        page.item(:library).value(LibraryGroup.system_name(@locale))
-        user = @user.patron.full_name
-        page.item(:user).value(user)
-        @user_library = Library.find(@user.library_id)
-        page.item(:user_library).value(@user_library.display_name)
-        page.item(:user_library_telephone_number_1).value(@user_library.telephone_number_1)
-        page.item(:user_library_telephone_number_2).value(@user_library.telephone_number_2)
-        page.item(:user_telephone_number_1_1).value(@user.patron.telephone_number_1)
-        page.item(:user_telephone_number_1_2).value(@user.patron.extelephone_number_1)
-        reserves.each do |reserve|
+        items.each do |item|
           page.list(:list).add_row do |row|
-            row.item(:title).value(reserve.manifestation.original_title)
-            row.item(:state).value(i18n_state(reserve.state))
-            row.item(:expired_at).value(reserve.expired_at.strftime("%Y/%m/%d"))
+            row.item(:item_identifier).value(item.item_identifier)
+            unless item.acquired_at.nil?
+              row.item(:acquired_at).value(item.acquired_at.strftime("%Y/%m/%d"))
+            end
+            unless item.removed_at.nil?
+              row.item(:removed_at).value(item.removed_at.strftime("%Y/%m/%d"))
+            end
+            row.item(:title).value(item.manifestation.original_title)
+            unless item.manifestation.date_of_publication.nil?
+              #row.item(:date_of_publication).value(item.manifestation.date_of_publication.strftime("%Y/%m/%d"))
+            end
+            row.item(:patron_creator).value(patrons_list(item.manifestation.creators))
+            row.item(:patron_publisher).value(patrons_list(item.manifestation.publishers))
            end
         end
       end
+      report.generate_file(pdf_file)
 
     end  #end of method
   end
 
   private
+  def self.patrons_list(patrons)
+    ApplicationController.helpers.patrons_list(patrons, {:nolink => true})
+  end
+
   def self.get_object_method(obj,array)
     _obj = obj.send(array.shift)
     return get_object_method(_obj, array) if array.present?
