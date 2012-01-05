@@ -4,7 +4,7 @@ class LossItem < ActiveRecord::Base
   belongs_to :user 
   belongs_to :item
 
-  validates_presence_of :item_id, :user_id, :status
+  validates_presence_of :user_id, :item_id, :status
 
   # consts
   UnPaid=0

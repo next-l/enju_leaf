@@ -19,7 +19,7 @@
   });
 </script>
 
-<%= form_for :reserve, :url => {:controller => 'reserves', :action => :output_list}, :html => {:method => :output_user,:name => 'reserves'} do -%>
+<%= form_tag ({:action => 'output'}) do -%>
   <div class="field">
     <p id="notice"><%= flash[:reserve_notice] -%></p>
     <%= label :list_condition, t('activerecord.attributes.item_list.list_condition') -%>:<br />
@@ -41,15 +41,9 @@
         <%= check_box_tag "method[]", type, true, :class=>'check-child' -%><%= i18n_information_type(type) -%><br />
       <%- end -%>
     </div>
-    <div id="list_condition_150" class="parent">
-      <%= check_box_tag "all_expired", true, true, :class=> 'check-parent' -%><%= t('advanced_search.all', :model=>t('activerecord.attributes.reserve.expired_at2')) -%><br />
-      <%= check_box_tag "expired_at", true, true, :class=>'check-child' -%><%= t('activerecord.attributes.reserve.within_expired_at') -%><br />
-      <%= check_box_tag "expired_at", false, true, :class=>'check-child' -%><%= t('activerecord.attributes.reserve.over_expired_at') -%><br />
-    </div>
     <br style="clear:both;"/>
   </div>
   <div class="actions">
     <%= submit_tag t('page.output', :model => (t('page.listing', :model => t('activerecord.models.reserve')))), :name => 'output' %>
   </div>
 <%- end -%>
-

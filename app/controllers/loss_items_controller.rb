@@ -129,7 +129,8 @@ class LossItemsController < ApplicationController
       format.xml  { head :ok }
     end
   rescue #Exception => e
-    #logger.error "Failed to loss_item: #{e}"
+    logger.error "Failed to loss_item: #{$!}"
+    logger.error "Failed to loss_item: #{$@}"
     respond_to do |format|
       flash[:message] = t('activerecord.attributes.item.fail_update_loss_item')
       format.html { render :action => "new" }

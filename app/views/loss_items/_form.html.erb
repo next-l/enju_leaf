@@ -4,6 +4,8 @@
       $('#loss_item_item_id').children().remove();
       $('#loss_item_item_id').attr('disabled', 'disabled');
       $('#loss_item_submit').attr('disabled', 'disabled');
+      $('div#username').remove();
+
       var user_number = $("#user_number").val().replace(/^\s+|\s+$/g, "");
       if (user_number != "") {
         $.ajax({
@@ -12,13 +14,23 @@
            data: {"user_number": user_number},
            success: function(obj) {
              if (obj.success) {
-               if (obj["items"].length != 0 && obj["user_id"] != null) {
+               if (obj["items"].length != 0 && obj["user"] != null && obj["patron"]) {
                  $('#loss_item_item_id').removeAttr('disabled');
                  $('#loss_item_submit').removeAttr('disabled');
                  jQuery.each(obj["items"], function() {
                    $('#loss_item_item_id').append($('<option>').attr({ value: this[0] }).text(this[1]));
                  });
                  $("#loss_item_user_id").val(obj["user_id"]);
+
+                 s = "<div id='username'>"
+                   + "<p>"
+                   + "<strong><%= t('activerecord.models.user') -%>:</strong>"
+                   + "<a href='<%= "#{root_path}" %>users/"+obj["user_id"]+"'>" + obj["patron"]["patron"]["full_name"] + "</a>"
+                   + "(" + "<a href='<%= "#{root_path}" %>users/"+obj["user_id"]+"'>" + obj["user"] ["user"]["username"]+ "</a>" + ")"
+                   + "</p>"
+                   + "<br />";
+                   + "</div>"
+                $(s).appendTo('div#userinfo');
                }
              }
            }
@@ -46,6 +58,8 @@
     </p>
     <%= f.hidden_field :user_id, :value => @loss_item.user.id -%>
   <%- else -%>
+    <div id="userinfo">
+    </div>
     <div class="field">
       <%= f.label t('activerecord.attributes.user.user_number') -%><br />
       <%= text_field_tag :user_number, nil, :class => 'resource_user_number' -%>

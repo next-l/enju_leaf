@@ -519,6 +519,8 @@ ja:
         will_loss_item: 資料の貸出状態を紛失扱いにし、自動返却を行いますか。
         fail_update_loss_item: 紛失処理に失敗しました。
       loss_item:
+        user_id: 利用者番号
+        item_id: 紛失資料
         loss_item: 紛失資料
         status: 状態
         reimbursed: 弁償済み

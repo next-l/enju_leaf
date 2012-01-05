@@ -141,6 +141,12 @@ class Item < ActiveRecord::Base
     false
   end
 
+  def available_for_retain?
+    circulation_statuses = CirculationStatus.available_for_retain.select(:id)
+    return true if circulation_statuses.include?(self.circulation_status)
+    false
+  end
+
   def available_for_reserve_with_config?
     c = CirculationStatus.where(:name => 'On Loan').first
     return true if c.id == self.circulation_status.id
