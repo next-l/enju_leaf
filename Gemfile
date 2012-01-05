@@ -55,7 +55,8 @@ gem 'fastercsv' if RUBY_VERSION < '1.9'
 
 gem 'will_paginate', '~> 3.0'
 gem 'exception_notification', '~> 2.5.2'
-gem 'delayed_job', '~> 2.1.4'
+gem 'delayed_job_active_record'
+gem 'daemons'
 gem 'state_machine'
 gem 'sunspot_rails', '~> 1.3'
 gem 'sunspot_solr', '~> 1.3'
@@ -114,7 +115,7 @@ group :development do
 end
 
 group :development, :test do
-  gem 'rspec-rails', '~> 2.8.0.rc2'
+  gem 'rspec-rails', '~> 2.8.1'
   gem 'guard-rspec'
   gem 'factory_girl_rails', '~> 1.4'
   gem 'spork', '~> 0.9.0.rc9'

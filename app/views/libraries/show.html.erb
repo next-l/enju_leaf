@@ -5,6 +5,9 @@
 
   <p>
     <%= t('activerecord.attributes.library.name') -%>: <%= @library.name -%>
+    <% unless @library.web? %>
+      (ISIL: <%= @library.isil %>)
+    <% end %>
   </p>
 
   <%- unless @library.web? -%>
