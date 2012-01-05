@@ -19,6 +19,10 @@ class Checkin < ActiveRecord::Base
     Checkin.transaction do
       checkouts = Checkout.not_returned.where(:item_id => self.item_id).select([:id, :item_id, :lock_version])
       self.item.checkin! #unless loss_item
+
+      #message << I18n.t('item.this_item_include_supplement') + '<br />' if self.item.include_supplements?
+      message << 'item.this_item_include_supplement' if self.item.include_supplements?
+
       checkouts.each do |checkout|
         # TODO: ILL時の処理
         checkout.checkin = self
@@ -27,6 +31,7 @@ class Checkin < ActiveRecord::Base
         unless checkout.item.shelf.library == current_user.library
           message << 'checkin.other_library_item'
           InterLibraryLoan.new.request_for_checkin(checkout.item, current_user.library)
+          return
         end
       end
 
@@ -37,9 +42,6 @@ class Checkin < ActiveRecord::Base
         message << 'item.this_item_is_reserved'
         self.item.retain(current_user)
       end
-
-      #message << I18n.t('item.this_item_include_supplement') + '<br />' if self.item.include_supplements?
-      message << 'item.this_item_include_supplement' if self.item.include_supplements?
 
       # メールとメッセージの送信
       #ReservationNotifier.deliver_reserved(self.item.manifestation.reserves.first.user, self.item.manifestation)
