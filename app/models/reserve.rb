@@ -97,7 +97,9 @@ class Reserve < ActiveRecord::Base
       self.user.email
     end
     text :full_name do
-      self.user.patron.full_name_transcription
+      full_name = []
+      full_name << self.user.patron.full_name if self.user.patron 
+      full_name << self.user.patron.full_name_transcription if self.user.patron
     end
     text :telephone_number do
       telephone_numbers = []
