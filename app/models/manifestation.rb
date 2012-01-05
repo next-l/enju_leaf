@@ -507,9 +507,6 @@ class Manifestation < ActiveRecord::Base
     end
   end
 
-  if defined?(EnjuCirculation)
-  end
-
   if defined?(EnjuBookmark)
     has_many :bookmarks, :include => :tags, :dependent => :destroy, :foreign_key => :manifestation_id
     has_many :users, :through => :bookmarks
