@@ -678,6 +678,7 @@ en:
         issn: ISSN
         subscription_master: Subscription master
         description: Description
+        edition_display_value: Edition display value
       user_group:
         name: Name
         display_name: Display name

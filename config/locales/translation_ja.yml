@@ -727,6 +727,7 @@ ja:
         exinfo_3: 拡張情報３
         exinfo_4: 拡張情報４
         exinfo_5: 拡張情報５
+        edition_display_value: 版表示
       user_group:
         name: 名前
         display_name: 表示名
