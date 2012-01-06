@@ -7,3 +7,19 @@ bookstore_00001:
   note: ""
   address: ""
   position: 1
+bookstore_00002: 
+  name: "寄贈"
+  fax_number: 
+  telephone_number: 
+  id: 2
+  note: ""
+  address: ""
+  position: 2
+bookstore_00003: 
+  name: "委託"
+  fax_number: 
+  telephone_number: 
+  id: 3
+  note: ""
+  address: ""
+  position: 3
