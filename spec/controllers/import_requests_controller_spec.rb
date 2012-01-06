@@ -164,7 +164,7 @@ describe ImportRequestsController do
       @attrs = {:isbn => '9784873114422'}
       @invalid_attrs = {:isbn => 'invalid'}
     end
-    use_vcr_cassette "enju_ndl/porta", :record => :new_episodes
+    use_vcr_cassette "enju_ndl/ndl_search", :record => :new_episodes
 
     describe "When logged in as Administrator" do
       login_admin
