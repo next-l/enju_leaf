@@ -43,18 +43,18 @@
     <li><%= link_to t('activerecord.attributes.library_check.download'), library_check_path(@library_check, :format => :download, :file => :pdf) -%> </li>
     <li><%= link_to t('activerecord.attributes.library_check.book_data'), library_check_libcheck_data_files_path(@library_check) -%> </li>
     <li><%= link_to t('activerecord.attributes.library_check.do'), {:mode => 'exec'} -%> </li>
-    <li><%= link_to t('activerecord.attributes.library_check.resource_list') + "(PDF)", library_check_path(@library_check, :format => :pdf, :file => :resource_list)-%> </li>
-    <li><%= link_to t('activerecord.attributes.library_check.resource_list') + "(CSV)", library_check_path(@library_check, :format => :download, :file => :resource_list)-%> </li>
-    <li><%= link_to t('activerecord.attributes.library_check.error_list') + "(PDF)", library_check_path(@library_check, :format => :pdf, :file => :error_list)-%> </li>
-    <li><%= link_to t('activerecord.attributes.library_check.error_list') + "(CSV)", library_check_path(@library_check, :format => :download, :file => :error_list)-%> </li>
-    <li><%= link_to t('activerecord.attributes.library_check.item_register') + "(PDF)", library_check_path(@library_check, :format => :pdf, :file => :item_register)-%> </li>
-    <li><%= link_to t('activerecord.attributes.library_check.item_register') + "(CSV)", library_check_path(@library_check, :format => :download, :file => :item_register)-%> </li>
-    <li><%= link_to t('activerecord.attributes.library_check.notfound_list') + "(PDF)", library_check_path(@library_check, :format => :pdf, :file => :notfound_list)-%> 
-    <li><%= link_to t('activerecord.attributes.library_check.notfound_list') + "(CSV)", library_check_path(@library_check, :format => :download, :file => :notfound_list)-%> 
-    <li><%= link_to t('activerecord.attributes.library_check.detection_list') + "(PDF)", library_check_path(@library_check, :format => :pdf, :file => :detection_list)-%> 
-    <li><%= link_to t('activerecord.attributes.library_check.detection_list') + "(CSV)", library_check_path(@library_check, :format => :download, :file => :detection_list)-%> 
-    <li><%= link_to t('activerecord.attributes.library_check.removing_list') + "(PDF)", library_check_path(@library_check, :format => :pdf, :file => :removing_list)-%> 
-    <li><%= link_to t('activerecord.attributes.library_check.removing_list') + "(CSV)", library_check_path(@library_check, :format => :download, :file => :removing_list)-%> 
+    <li><%= link_to t('activerecord.attributes.library_check.resource_list') + "(PDF)", download_file_library_check_path(@library_check, :format => :pdf, :file => :resource_list)-%> </li>
+    <li><%= link_to t('activerecord.attributes.library_check.resource_list') + "(CSV)", download_file_library_check_path(@library_check, :format => :download, :file => :resource_list)-%> </li>
+    <li><%= link_to t('activerecord.attributes.library_check.error_list') + "(PDF)", download_file_library_check_path(@library_check, :format => :pdf, :file => :error_list)-%> </li>
+    <li><%= link_to t('activerecord.attributes.library_check.error_list') + "(CSV)", download_file_library_check_path(@library_check, :format => :download, :file => :error_list)-%> </li>
+    <li><%= link_to t('activerecord.attributes.library_check.item_register') + "(PDF)", download_file_library_check_path(@library_check, :format => :pdf, :file => :item_register)-%> </li>
+    <li><%= link_to t('activerecord.attributes.library_check.item_register') + "(CSV)", download_file_library_check_path(@library_check, :format => :download, :file => :item_register)-%> </li>
+    <li><%= link_to t('activerecord.attributes.library_check.notfound_list') + "(PDF)", download_file_library_check_path(@library_check, :format => :pdf, :file => :notfound_list)-%> 
+    <li><%= link_to t('activerecord.attributes.library_check.notfound_list') + "(CSV)", download_file_library_check_path(@library_check, :format => :download, :file => :notfound_list)-%> 
+    <li><%= link_to t('activerecord.attributes.library_check.detection_list') + "(PDF)", download_file_library_check_path(@library_check, :format => :pdf, :file => :detection_list)-%> 
+    <li><%= link_to t('activerecord.attributes.library_check.detection_list') + "(CSV)", download_file_library_check_path(@library_check, :format => :download, :file => :detection_list)-%> 
+    <li><%= link_to t('activerecord.attributes.library_check.removing_list') + "(PDF)", download_file_library_check_path(@library_check, :format => :pdf, :file => :removing_list)-%> 
+    <li><%= link_to t('activerecord.attributes.library_check.removing_list') + "(CSV)", download_file_library_check_path(@library_check, :format => :download, :file => :removing_list)-%> 
 </li>
     <li><%= link_to t('page.destroy'), @library_check, :confirm => t('page.are_you_sure'), :method => :delete -%>
     <li><%= link_to t('page.back_to_index'), library_checks_path -%> </li>

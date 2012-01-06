@@ -106,17 +106,36 @@ class LibraryChecksController < ApplicationController
   def download_file
     file = params[:file]
     id = params[:id]
-    if file == "pdf"
+   
+    type = params[:format]
+
+    ext_name = "csv"
+    if type == "pdf"
+      ext_name = "pdf"
+    end
+
+    case file 
+    when "pdf"
        filename  = @library_check.shelf_def_file.gsub(/\..+?$/,'.pdf')
        path = "#{RAILS_ROOT}/private/system/shelf_uploads/#{id}/original/#{filename}"
-    elsif file == "resource_list"
-       path = "#{RAILS_ROOT}/private/system/library_check/#{id}/resource_list.csv"
-    elsif file == "notfound_list"
-       path = "#{RAILS_ROOT}/private/system/library_check/#{id}/notfound_list.csv"
+    when "resource_list"
+       path = "#{RAILS_ROOT}/private/system/library_check/#{id}/resource_list.#{ext_name}"
+    when "error_list"
+       path = "#{RAILS_ROOT}/private/system/library_check/#{id}/error_list.#{ext_name}"
+    when "item_register"
+       path = "#{RAILS_ROOT}/private/system/library_check/#{id}/error_list.#{ext_name}"
+    when "notfound_list"
+       path = "#{RAILS_ROOT}/private/system/library_check/#{id}/notfound_list.#{ext_name}"
+    when "detection_list"
+       path = "#{RAILS_ROOT}/private/system/library_check/#{id}/detection_list.#{ext_name}"
+    when "removing_list"
+       path = "#{RAILS_ROOT}/private/system/library_check/#{id}/removing_list.#{ext_name}"
     end
+
     if File.exist?(path)
       send_file path #, :type => "application/pdf"
     else
+      logger.warn "not exist file. path:#{path}"
       redirect_to :back
     end
   end
