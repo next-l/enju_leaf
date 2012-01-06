@@ -9,7 +9,7 @@ class LibcheckTmpItem < ActiveRecord::Base
   STS_CHECKOUT_T_DIFF = 0b00010000 # different checkout_type 
   STS_NDC_WARNING     = 0b00100000 # minority NDC parse result
   STS_INVALID_SERIAL  = 0b01000000 # serial but no series_id
-  STS_RESERVED8       = 0b10000000 # reserve
+  STS_FOUND       = 0b10000000 # Circulation Status Undefined, Lost, Missing, Removed
 
   CONFUSION_FLG = 1 # confused
 
@@ -68,7 +68,6 @@ class LibcheckTmpItem < ActiveRecord::Base
 
           # get item by item_identifier
           item = Item.find(:first, :conditions => ["item_identifier = ?", book_id])
-
           tmp_item = LibcheckTmpItem.new
           tmp_item.item_identifier = book_id
           tmp_item.confusion_flg = 0
@@ -129,6 +128,13 @@ class LibcheckTmpItem < ActiveRecord::Base
               tmp_item.status_flg |= STS_INVALID_CALL_NO
               logger.debug "call_number is NULL or EMPTY for #{item.item_identifier}"
             end
+
+            # check item with circulation status Undefined, Lost, Missing, Removed
+            circulation_statuses = CirculationStatus.not_found.select(:id)
+            if circulation_statuses.include?(item.circulation_status)
+              tmp_item.status_flg |= STS_FOUND
+              logger.debug "found item with circulation status Undefined, Lost, Missing, Removed #{item.circulation_status.name}"         
+            end 
           end
           # end_of_if item.nil?
 
