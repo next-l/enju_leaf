@@ -8,15 +8,27 @@ class LossItemsController < ApplicationController
   helper_method :get_item
 
   def index
-    query = params[:query].to_s.strip
-    @query = query.dup
     @count = {}
 
     search = Sunspot.new_search(Item)
     set_role_query(current_user, search)
-
+ 
+    # set query
+    query = params[:query].to_s.strip
+    @query = query.dup
     query = params[:query].gsub("-", "") if params[:query]
     query = "#{query}*" if query.size == 1
+    @date_of_birth = params[:birth_date].to_s.dup
+    @address = params[:address]
+    birth_date = params[:birth_date].to_s.gsub(/\D/, '') if params[:birth_date]
+    unless params[:birth_date].blank?
+      begin
+        date_of_birth = Time.zone.parse(birth_date).beginning_of_day.utc.iso8601
+      rescue
+        flash[:message] = t('user.birth_date_invalid')
+      end
+    end
+    date_of_birth_end = Time.zone.parse(birth_date).end_of_day.utc.iso8601 rescue nil
 
     page = params[:page] || 1
     @status = params[:status]
@@ -29,6 +41,7 @@ class LossItemsController < ApplicationController
         fulltext query
         with(:status).equal_to @status unless @status.blank?
       end.results
+
       # search item
       patron = @patron
       manifestation = @manifestation
@@ -40,21 +53,10 @@ class LossItemsController < ApplicationController
         fulltext query
       end.results
       set_list(@items, @status)
+
       # search user
-      @date_of_birth = params[:birth_date].to_s.dup
-      birth_date = params[:birth_date].to_s.gsub(/\D/, '') if params[:birth_date]
-      unless params[:birth_date].blank?
-        begin
-          date_of_birth = Time.zone.parse(birth_date).beginning_of_day.utc.iso8601
-        rescue
-          flash[:message] = t('user.birth_date_invalid')
-        end
-      end
-      date_of_birth_end = Time.zone.parse(birth_date).end_of_day.utc.iso8601 rescue nil
-      address = params[:address]
-      @address = address
       query = "#{query} date_of_birth_d: [#{date_of_birth} TO #{date_of_birth_end}]" unless date_of_birth.blank?
-      query = "#{query} address_text: #{address}" unless address.blank?
+      query = "#{query} address_text: #{@address}" unless @address.blank?
       @users = User.search do
         fulltext query
       end.results
