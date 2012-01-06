@@ -25,8 +25,8 @@
                  s = "<div id='username'>"
                    + "<p>"
                    + "<strong><%= t('activerecord.models.user') -%>:</strong>"
-                   + "<a href='<%= "#{root_path}" %>users/"+obj["user_id"]+"'>" + obj["patron"]["patron"]["full_name"] + "</a>"
-                   + "(" + "<a href='<%= "#{root_path}" %>users/"+obj["user_id"]+"'>" + obj["user"] ["user"]["username"]+ "</a>" + ")"
+                   + "<a href='<%= "#{root_path}" %>users/"+obj["user"]["user"]["username"]+"'>" + obj["patron"]["patron"]["full_name"] + "</a>"
+                   + "(" + "<a href='<%= "#{root_path}" %>users/"+obj["user"]["user"]["username"]+"'>" + obj["user"] ["user"]["username"]+ "</a>" + ")"
                    + "</p>"
                    + "<br />";
                    + "</div>"

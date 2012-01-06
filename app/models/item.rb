@@ -337,12 +337,17 @@ class Item < ActiveRecord::Base
       # pdf
       require 'thinreports'
       report = ThinReports::Report.new :layout => File.join(Rails.root, 'report', 'removing_list.tlf') 
-      report.layout.config.list(:list) do
-        events.on :footer_insert do |e|
-          e.section.item(:date).value(Time.now)
+      report.events.on :page_create do |e|
+        e.page.item(:page).value(e.page.no)
+      end
+      report.events.on :generate do |e|
+        e.pages.each do |page|
+          page.item(:total).value(e.report.page_count)
         end
       end
+
       report.start_new_page do |page|
+        page.item(:date).value(Time.now)
         items.each do |item|
           page.list(:list).add_row do |row|
             row.item(:item_identifier).value(item.item_identifier)
@@ -356,6 +361,7 @@ class Item < ActiveRecord::Base
             unless item.manifestation.date_of_publication.nil?
               #row.item(:date_of_publication).value(item.manifestation.date_of_publication.strftime("%Y/%m/%d"))
             end
+            row.item(:price).value(to_format(item.price))
             row.item(:patron_creator).value(patrons_list(item.manifestation.creators))
             row.item(:patron_publisher).value(patrons_list(item.manifestation.publishers))
            end
@@ -367,6 +373,10 @@ class Item < ActiveRecord::Base
   end
 
   private
+  def self.to_format(num)
+    num.to_s.gsub(/(\d)(?=(\d{3})+(?!\d))/, '\1,')
+  end
+
   def self.patrons_list(patrons)
     ApplicationController.helpers.patrons_list(patrons, {:nolink => true})
   end
