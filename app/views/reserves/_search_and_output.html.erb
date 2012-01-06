@@ -25,21 +25,21 @@
     <p id="notice"><%= raw flash[:reserve_notice] -%></p>
     <%= label :list_condition, t('activerecord.attributes.item_list.list_condition') -%>:<br />
     <div id="list_condition_150" class="parent">
-      <%= check_box_tag "all_state", true, true, :class=>'check-parent' -%><%= t('advanced_search.all', :model=>t('activerecord.attributes.reserve.state')) -%><br />
+      <%= check_box_tag "all_state", true, @selected_state.size == @states.size ? true : false, :class=>'check-parent' -%><%= t('advanced_search.all', :model=>t('activerecord.attributes.reserve.state')) -%><br />
       <%- @states.each do |state| -%>
-        <%= check_box_tag "state[]", state, true, :class=>'check-child' -%><%= i18n_state(state) -%><br />
+        <%= check_box_tag "state[]", state, @selected_state.index(state) != nil ? true : false, :class=>'check-child' -%><%= i18n_state(state) -%><br />
       <%- end -%>
     </div>
     <div id="list_condition_150" class="parent">
-      <%= check_box_tag "all_library", true, true, :class=>'check-parent' -%><%= t('advanced_search.all', :model=>t('activerecord.attributes.reserve.receipt_library')) -%><br />
+      <%= check_box_tag "all_library", true, @selected_library.size == @libraries.size ? true : false, :class=>'check-parent' -%><%= t('advanced_search.all', :model=>t('activerecord.attributes.reserve.receipt_library')) -%><br />
       <%- @libraries.each do |library| -%>
-        <%= check_box_tag "library[]", library.id, true, :class=>'check-child' -%><%= library.display_name -%><br />
+        <%= check_box_tag "library[]", library.id, (@selected_library.index(library.id.to_s) != nil or @selected_library.index(library.id.to_i))? true : false, :class=>'check-child' -%><%= library.display_name -%><br />
       <%- end -%>
     </div>
     <div id="list_condition_150" class="parent">
-      <%= check_box_tag "all_method", true, true, :class=>'check-parent' -%><%= t('advanced_search.all', :model=>t('activerecord.attributes.reserve.information_method')) -%><br />
+      <%= check_box_tag "all_method", true, @selected_method.size == @information_types.size ? true : false, :class=>'check-parent' -%><%= t('advanced_search.all', :model=>t('activerecord.attributes.reserve.information_method')) -%><br />
       <%- @information_types.each do |type| -%>
-        <%= check_box_tag "method[]", type, true, :class=>'check-child' -%><%= i18n_information_type(type) -%><br />
+        <%= check_box_tag "method[]", type, (@selected_method.index(type.to_s) != nil or @selected_method.index(type.to_i)) ? true : false, :class=>'check-child' -%><%= i18n_information_type(type) -%><br />
       <%- end -%>
     </div>
     <br style="clear:both;"/>

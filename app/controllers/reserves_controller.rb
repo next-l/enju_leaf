@@ -51,21 +51,29 @@ class ReservesController < ApplicationController
       else
         # all reserves
         page = params[:page] || 1
-        @states = Reserve.states
-        @information_types = Reserve.information_types
-        @libraries = Library.all
+        @states = @selected_state = Reserve.states
+        @libraries =  Library.all
+        @selected_library = []
+        @libraries.each do |library|
+          @selected_library << library.id
+        end
+        @information_types = @selected_method = Reserve.information_types
         # first move
         if params[:do_search].blank?
           @reserves = Reserve.show_reserves.order('expired_at ASC').includes(:manifestation).page(page)
           return
         end
 
-        # check list_conditions
         flash[:reserve_notice] = "" 
+
+        # check list_conditions
+        params[:state] ? @selected_state = params[:state].clone : @selected_state = []
+        params[:library] ? @selected_library = params[:library].clone : @selected_library = []
+        params[:method] ? @selected_method = params[:method].clone : @selected_method = []
+        params[:method].concat(['3', '4', '5', '6', '7']) if !params[:method].blank? and params[:method].include?('2')
         if params[:state].blank? || params[:library].blank? || params[:method].blank? 
           flash[:reserve_notice] << t('item_list.no_list_condition') + '<br />'
         end
-        params[:method].concat(['3', '4', '5', '6', '7']) if !params[:method].blank? and params[:method].include?('2')
         states = nil
         if params[:state]
           states = params[:state].clone
@@ -96,16 +104,16 @@ class ReservesController < ApplicationController
           query = "#{query} address_text: #{@address}" unless @address.blank?
           @reserves = Reserve.search do
             fulltext query
-            with(:state, states) unless states.blank?
-            with(:receipt_library_id, params[:library]) unless params[:library].blank?
-            with(:information_type_id, params[:method]) unless params[:method].blank?
+            with(:state, states)
+            with(:receipt_library_id, params[:library])
+            with(:information_type_id, params[:method])
             order_by(:expired_at, :asc)
             paginate :page => page.to_i, :per_page => Reserve.per_page
           end.results
         end
 
         # output
-        output_list_with_search(query, params[:state], params[:library], params[:method]) if params[:output] and flash[:reserve_notice].blank?
+        output_list_with_search(query, params[:state], params[:library], params[:method]) if params[:output] and params[:state].present? and params[:library].present? and params[:method].present?
       end
     end
 

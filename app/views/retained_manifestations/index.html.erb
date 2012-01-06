@@ -28,9 +28,9 @@
     <%= t('activerecord.attributes.reserve.receipt_library') -%>:<%= select("library", "id", @librarlies, {:include_blank => t('advanced_search.all_libraries'), :selected=>@selected_library}  ) -%><br />
     <%= t('activerecord.attributes.reserve.information_method') -%>:
     <span class="parent">
-      <%= check_box_tag "all_method", true, true, :class=>'check-parent' -%><%= t('advanced_search.all', :model=>t('activerecord.attributes.reserve.information_method')) -%>
+      <%= check_box_tag "all_method", true, @selected_method.size == @information_types.size ? true : false, :class=>'check-parent' -%><%= t('advanced_search.all', :model=>t('activerecord.attributes.reserve.information_method')) -%>
       <%- @information_types.each do |type| -%>
-        <%= check_box_tag "method[]", type, true, :class=>'check-child' -%><%= i18n_information_type(type) -%>
+        <%= check_box_tag "method[]", type, (@selected_method.index(type.to_i) or @selected_method.index(type.to_s)) ? true : false, :class=>'check-child' -%><%= i18n_information_type(type) -%>
       <%- end -%>
     </span>
     <br />

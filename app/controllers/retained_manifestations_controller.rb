@@ -6,7 +6,7 @@ class RetainedManifestationsController < ApplicationController
     page = params[:page] || 1
     @librarlies = Library.find(:all).collect{|i| [ i.display_name, i.id ] }
     @selected_library = params[:library][:id] unless params[:library].blank?
-    @information_types = Reserve.information_types
+    @information_types = @selected_method = Reserve.information_types
 
     # first move
     if params[:do_search].blank?
@@ -16,7 +16,8 @@ class RetainedManifestationsController < ApplicationController
 
     # check conditions 
     flash[:notice] = ""
-    flash[:notice] << t('item_list.no_list_condition') if params[:do_search] and params[:all_method].blank? and params[:method].blank?
+    flash[:notice] << t('item_list.no_list_condition') + '<br />'if params[:do_search] and params[:all_method].blank? and params[:method].blank?
+    params[:method] ? @selected_method = params[:method].clone : @selected_method = []
     params[:method].concat(['3', '4', '5', '6', '7']) if !params[:method].blank? and params[:method].include?('2')
 
     # set query
@@ -31,7 +32,7 @@ class RetainedManifestationsController < ApplicationController
       begin
         date_of_birth = Time.zone.parse(birth_date).beginning_of_day.utc.iso8601
       rescue
-        flash[:notice] << t('user.birth_date_invalid') + '<br />'
+        flash[:notice] << t('user.birth_date_invalid')
       end
     end
     date_of_birth_end = Time.zone.parse(birth_date).end_of_day.utc.iso8601 rescue nil 
@@ -51,7 +52,7 @@ class RetainedManifestationsController < ApplicationController
         fulltext query
         with(:state).equal_to 'retained'
         with(:receipt_library_id).equal_to params[:library][:id] unless params[:library][:id].blank?
-        with(:information_type_id, params[:method]) unless params[:method].blank?
+        with(:information_type_id, params[:method]) 
         order_by(:user_id, :desc)
         order_by(:expired_at, :asc)
         paginate :page => page.to_i, :per_page => Reserve.per_page
