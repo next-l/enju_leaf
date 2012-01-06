@@ -85,7 +85,7 @@ describe ResourceImportFile do
         old_patrons_count = Patron.count
         @file.import_start
         Manifestation.count.should eq old_manifestations_count + 1
-        Patron.count.should eq old_patrons_count + 5
+        Patron.count.should eq old_patrons_count + 4
       end
     end
   end
