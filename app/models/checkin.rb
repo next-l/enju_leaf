@@ -31,7 +31,7 @@ class Checkin < ActiveRecord::Base
         unless escape_flag
           unless checkout.item.shelf.library == current_user.library
             message << 'checkin.other_library_item'
-            InterLibraryLoan.new.request_for_checkin(checkout.item, current_user.library)
+            InterLibraryLoan.new.request_for_checkin(self.item, current_user.library)
             return
           end
         end

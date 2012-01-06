@@ -99,7 +99,12 @@ class InterLibraryLoan < ActiveRecord::Base
 
   def request_for_checkin(item, borrowing_library)
     self.update_attributes(:item_id => item.id, :borrowing_library_id => borrowing_library.id, :requested_at => Time.zone.now, :reason => 2)
-    self.sm_request! if self.save
+    self.save
+    InterLibraryLoan.transaction do
+      item.update_attributes({:circulation_status => CirculationStatus.where(:name => 'Recalled').first})
+      self.update_attributes({:requested_at => Time.zone.now})
+    end
+#    self.sm_request! if self.save
   end
 
   def self.loan_items
