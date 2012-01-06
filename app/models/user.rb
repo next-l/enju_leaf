@@ -17,7 +17,6 @@ class User < ActiveRecord::Base
   has_many :import_requests
   has_one :user_has_role
   has_one :role, :through => :user_has_role
-  has_many :search_histories, :dependent => :destroy
   has_many :subscriptions
   belongs_to :library, :validate => true
   belongs_to :user_group
@@ -383,6 +382,10 @@ class User < ActiveRecord::Base
   if defined?(EnjuPurchaseRequest)
     has_many :purchase_requests
     has_many :order_lists
+  end
+
+  if defined?(EnjuSearchLog)
+    has_many :search_histories, :dependent => :destroy
   end
 end
 
