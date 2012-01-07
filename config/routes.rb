@@ -102,8 +102,6 @@ EnjuLeaf::Application.routes.draw do
     resources :manifestations, :controller => :manifestations
     resources :series_has_manifestations
   end
-  resources :search_histories, :only => [:index, :show, :destroy]
-
   resources :participates
 
   resources :patron_relationships

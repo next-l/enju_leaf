@@ -29,7 +29,6 @@ ja:
       imported_object: インポートされたオブジェクト
       exemplify: 書誌と所蔵の関係
       own: 所有関係
-      search_history: 検索履歴
       shelf: 本棚
       event_category: 催し物の種類
       advertisement: 広告記事
@@ -315,7 +314,6 @@ ja:
         duedate_reminder_days: Duedateリマインダー日
         note: 注記
         share_bookmarks: ブックマークを他の人物・団体と共有する
-        save_search_history: 検索履歴を保存する
         save_checkout_history: 貸出の履歴を保存する
         lock_version: ロックバージョン
         keyword_list: キーワードリスト
@@ -376,24 +374,6 @@ ja:
         position: 位置
       own:
         position: 位置
-      search_history:
-        operation: 操作
-        version: バージョン
-        query: クエリ
-        start_record: スタート記録
-        maximum_records: 最大レコード数
-        record_packing: レコードの梱包
-        record_schema: レコードスキーマ
-        result_set_ttl: 結果のTTL設定
-        stylesheet: スタイルシート
-        extra_request_data: 余分なリクエストデータ
-        number_of_records: レコードの数
-        result_set_idle_time: 結果のアイドル時間を設定
-        records: レコード
-        next_record_position: 次のレコードの位置
-        diagnostics: 診断
-        extra_response_data: 余分な応答データ
-        echoed_search_retrieve_request: エコーの検索リクエストを取得
       shelf:
         name: 名前
         display_name: 表示名
@@ -1465,10 +1445,6 @@ ja:
     already_checked_in: "この資料はすでに返却されています。"
     checkin: "返却（取り消しはできません）"
     successfully_checked_in: "この資料は正常に返却されました。"
-  search_history:
-    all_history: "全ての検索履歴"
-    failed_search: "失敗した検索"
-    searched_at: "検索時刻"
   subscribe:
     this_subscription_is_expired: "購読期間が過ぎています。"
   role:
