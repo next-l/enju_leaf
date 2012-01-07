@@ -107,29 +107,19 @@ class LibraryChecksController < ApplicationController
     file = params[:file]
     id = params[:id]
    
-    type = params[:format]
-
     ext_name = "csv"
-    if type == "pdf"
+    if params[:format] == "pdf"
       ext_name = "pdf"
     end
+
+    files = ["resource_list","error_list","item_register","notfound_list","detection_list","removing_list"]
 
     case file 
     when "pdf"
        filename  = @library_check.shelf_def_file.gsub(/\..+?$/,'.pdf')
        path = "#{RAILS_ROOT}/private/system/shelf_uploads/#{id}/original/#{filename}"
-    when "resource_list"
-       path = "#{RAILS_ROOT}/private/system/library_check/#{id}/resource_list.#{ext_name}"
-    when "error_list"
-       path = "#{RAILS_ROOT}/private/system/library_check/#{id}/error_list.#{ext_name}"
-    when "item_register"
-       path = "#{RAILS_ROOT}/private/system/library_check/#{id}/error_list.#{ext_name}"
-    when "notfound_list"
-       path = "#{RAILS_ROOT}/private/system/library_check/#{id}/notfound_list.#{ext_name}"
-    when "detection_list"
-       path = "#{RAILS_ROOT}/private/system/library_check/#{id}/detection_list.#{ext_name}"
-    when "removing_list"
-       path = "#{RAILS_ROOT}/private/system/library_check/#{id}/removing_list.#{ext_name}"
+    when *files
+       path = "#{RAILS_ROOT}/private/system/library_check/#{id}/#{file}.#{ext_name}"
     end
 
     if File.exist?(path)
