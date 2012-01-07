@@ -57,7 +57,6 @@ gem 'will_paginate', '~> 3.0'
 gem 'exception_notification', '~> 2.5.2'
 gem 'delayed_job_active_record'
 gem 'daemons'
-gem 'daemons'
 gem 'state_machine'
 gem 'sunspot_rails', '~> 1.3'
 gem 'sunspot_solr', '~> 1.3'
@@ -126,6 +125,15 @@ group :development, :test do
   gem 'vcr', '~> 2.0.0.rc1'
   gem 'fakeweb'
   gem 'churn', '0.0.13'
+end
+
+# Gems used only for assets and not required
+# in production environments by default.
+group :assets do
+  gem 'sass-rails',   '~> 3.1.5'
+  gem 'coffee-rails', '~> 3.1.1'
+
+  gem 'uglifier', '>= 1.0.3'
 end
 
 gem 'jquery-rails'

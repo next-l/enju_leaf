@@ -3,7 +3,7 @@ require 'spec_helper'
 
 describe ResourceImportFile do
   fixtures :all
-  use_vcr_cassette "enju_ndl/porta", :record => :new_episodes
+  use_vcr_cassette "enju_ndl/ndl_search", :record => :new_episodes
 
   describe "when its mode is 'create'" do
     describe "when it is written in utf-8" do
@@ -85,7 +85,7 @@ describe ResourceImportFile do
         old_patrons_count = Patron.count
         @file.import_start
         Manifestation.count.should eq old_manifestations_count + 1
-        Patron.count.should eq old_patrons_count + 5
+        Patron.count.should eq old_patrons_count + 4
       end
     end
   end
