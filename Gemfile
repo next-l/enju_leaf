@@ -1,29 +1,29 @@
 source 'https://rubygems.org'
 
-gem 'rails', '3.1.3'
+gem 'rails', '3.2.0.rc2'
 
 # Bundle edge Rails instead:
 # gem 'rails',     :git => 'git://github.com/rails/rails.git'
 
 #gem 'enju_amazon', :git => 'git://github.com/nabeta/enju_amazon.git'
-gem 'enju_barcode', '>= 0.0.1'
+#gem 'enju_barcode', :git => 'git://github.com/nabeta/enju_barcode.git'
 #gem 'enju_calil', :git => 'git://github.com/nabeta/enju_calil.git'
-gem 'enju_ndl', '>= 0.0.4'
+gem 'enju_ndl', :git => 'git://github.com/nabeta/enju_ndl.git'
 #gem 'enju_nii', :git => 'git://github.com/nabeta/enju_nii.git'
 gem 'enju_oai', :git => 'git://github.com/nabeta/enju_oai.git'
 #gem 'enju_scribd', :git => 'git://github.com/nabeta/enju_scribd.git'
-gem 'enju_subject', '0.0.4'
-gem 'enju_purchase_request', '0.0.4'
-gem 'enju_question', '0.0.5'
-gem 'enju_bookmark', '0.0.3'
-gem 'enju_resource_merge', '0.0.3'
-gem 'enju_circulation', '0.0.6'
-gem 'enju_message', '0.0.6'
+gem 'enju_subject', :git => 'git://github.com/nabeta/enju_subject.git'
+#gem 'enju_purchase_request', :git => 'git://github.com/nabeta/enju_purchase_request.git'
+#gem 'enju_question', :git => 'git://github.com/nabeta/enju_question.git'
+#gem 'enju_bookmark', :git => 'git://github.com/nabeta/enju_bookmark.git'
+gem 'enju_resource_merge', :git => 'git://github.com/nabeta/enju_resource_merge.git'
+gem 'enju_circulation', :git => 'git://github.com/nabeta/enju_circulation.git'
+gem 'enju_message', :git => 'git://github.com/nabeta/enju_message.git'
 #gem 'enju_inter_library_loan', :git => 'git://github.com/nabeta/enju_inter_library_loan.git'
-gem 'enju_inventory', '0.0.3'
-gem 'enju_event', '0.0.5'
+#gem 'enju_inventory', :git => 'git://github.com/nabeta/enju_inventory.git'
+#gem 'enju_event', :git => 'git://github.com/nabeta/enju_event.git'
 #gem 'enju_news', :git => 'git://github.com/nabeta/enju_news.git'
-gem 'enju_search_log', '0.0.1'
+gem 'enju_search_log', :git => 'git://github.com/nabeta/enju_search_log.git'
 
 platforms :ruby do
   gem 'pg'
@@ -57,7 +57,7 @@ gem 'will_paginate', '~> 3.0'
 gem 'exception_notification', '~> 2.5.2'
 gem 'delayed_job_active_record'
 gem 'daemons'
-gem 'state_machine'
+gem 'state_machine', :git => 'git://github.com/pluginaweek/state_machine.git'
 gem 'sunspot_rails', '~> 1.3'
 gem 'sunspot_solr', '~> 1.3'
 gem 'progress_bar'
@@ -67,7 +67,6 @@ gem 'has_scope'
 gem 'nokogiri'
 gem 'marc'
 #gem 'strongbox', '>= 0.5'
-#gem 'acts-as-taggable-on', '~> 2.2'
 gem 'dalli', '~> 1.1'
 gem 'sitemap_generator', '~> 2.1'
 gem 'ri_cal'
@@ -81,7 +80,7 @@ gem 'isbn-tools', :git => 'git://github.com/nabeta/isbn-tools.git', :require => 
 gem 'configatron'
 gem 'extractcontent'
 gem 'cancan', '>= 1.6.7'
-gem 'devise', '~> 1.5'
+gem 'devise', '~> 2.0.0.rc'
 gem 'omniauth', '~> 1.0'
 gem 'addressable'
 gem 'paperclip', '~> 2.4'
@@ -103,6 +102,7 @@ gem 'validates_timeliness'
 gem 'rack-protection'
 gem 'awesome_nested_set', '~> 2.0'
 gem 'rails_autolink'
+gem 'rack-cache'
 #gem 'oink', '>= 0.9.3'
 
 group :production do
@@ -129,12 +129,12 @@ end
 
 # Gems used only for assets and not required
 # in production environments by default.
-#group :assets do
-#  gem 'sass-rails',   '~> 3.1.5'
-#  gem 'coffee-rails', '~> 3.1.1'
-#
-#  gem 'uglifier', '>= 1.0.3'
-#end
+group :assets do
+  gem 'sass-rails',   '~> 3.2.3'
+  gem 'coffee-rails', '~> 3.2.0'
+
+  gem 'uglifier', '>= 1.0.3'
+end
 
 gem 'jquery-rails'
 
