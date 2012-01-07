@@ -55,10 +55,10 @@ class ManifestationsController < ApplicationController
               @manifestation = Manifestation.find_by_oai_identifier(params[:identifier])
             rescue ActiveRecord::RecordNotFound
               @oai[:errors] << "idDoesNotExist"
-              render :template => 'manifestations/index.oai.builder'
+              render :format => :oai, :layout => false
               return
             end
-            render :template => 'manifestations/show.oai.builder'
+            render :template => 'manifestations/show', :format => :oai, :layout => false
             return
           end
         end

@@ -144,7 +144,7 @@ class Manifestation < ActiveRecord::Base
   enju_manifestation_viewer
   enju_ndl_search
   #enju_amazon
-  #enju_oai
+  enju_oai
   #enju_calil_check
   #enju_cinii
   #has_ipaper_and_uses 'Paperclip'

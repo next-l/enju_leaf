@@ -29,13 +29,13 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_circulation.git
-  revision: af5c44e4691da43e2623d6c9621cdccc59503269
+  revision: df62f612fdd8580f4411134a6071a973c7f7efdd
   specs:
-    enju_circulation (0.0.5)
+    enju_circulation (0.0.6)
       attribute_normalizer (~> 1.0)
       cancan
       devise
-      enju_message (>= 0.0.3)
+      enju_message (>= 0.0.6)
       friendly_id (~> 4.0)
       inherited_resources
       rails (~> 3.1)
@@ -85,9 +85,9 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_message.git
-  revision: 5c3813ba07ed49ad69231281d396f75f59c23cb7
+  revision: f252c3dcde77ddbc3e281898904504ebeea4b7a3
   specs:
-    enju_message (0.0.5)
+    enju_message (0.0.6)
       addressable
       attribute_normalizer (~> 1.0)
       awesome_nested_set (~> 2.0)
@@ -97,7 +97,7 @@ GIT
       devise
       friendly_id (~> 4.0)
       inherited_resources
-      rails (~> 3)
+      rails (~> 3.1)
       simple_form
       state_machine
       sunspot_rails (~> 1.3)
