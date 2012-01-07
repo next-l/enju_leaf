@@ -270,12 +270,12 @@ describe ManifestationsController do
         response.should render_template("manifestations/show")
       end
 
-      it "should_show_manifestation_with_isbn" do
+      it "should show_manifestation with isbn" do
         get :show, :isbn => "4798002062"
         response.should redirect_to manifestation_url(assigns(:manifestation))
       end
 
-      it "should_show_manifestation_with_isbn" do
+      it "should not show missing manifestation with isbn" do
         get :show, :isbn => "47980020620"
         response.should be_missing
       end

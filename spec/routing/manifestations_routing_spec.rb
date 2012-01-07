@@ -15,6 +15,10 @@ describe ManifestationsController do
       { :get => "/manifestations/1" }.should route_to(:controller => "manifestations", :action => "show", :id => "1")
     end
 
+    it "recognizes ISBN" do
+      { :get => "/isbn/4798002062" }.should route_to(:controller => "manifestations", :action => "show", :isbn => "4798002062")
+    end
+
     it "recognizes and generates #edit" do
       { :get => "/manifestations/1/edit" }.should route_to(:controller => "manifestations", :action => "edit", :id => "1")
     end

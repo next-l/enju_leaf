@@ -2,19 +2,10 @@ en:
   activerecord:
     models:
       library: Library
-      question: Question
       patron_import_file: Patron import file
       circulation_status: Circulation status
       inventory: Inventory
       patron: Patron
-      feeds/app: Feeds/App
-      feeds/persistence: Feeds/Persistence
-      feeds/shared: Feeds/Shared
-      feeds/instance: Feeds/Instance
-      feeds/global: Feeds/Global
-      feeds/activity: Feeds/Activity
-      subject_as_object: Subject as object
-      subject_as_place: Subject as place
       subject_has_classification: Subject has classification
       expression: Expression
       language: Language
@@ -26,16 +17,11 @@ en:
       inter_library_loan: Inter library loan
       message: Message
       classification: Classification
-      imported_object: Imported object
       exemplify: Exemplify
       own: Own
       shelf: Shelf
-      event_category: Event category
-      advertisement: Advertisement
-      porta_response: PORTA Response
       donate: Donate
       basket: Basket
-      subject_as_event: Subject as event
       checked_item: Checked item
       produce: Produce
       role: Role
@@ -47,23 +33,16 @@ en:
       checkin: Checkin
       item: Item
       work: Work
-      purchase_request: Purchase request
       realize: Realize
       reify: Reify
-      subject_as_concept: Subject as concept
       frequency: Frequency of issue
       expression_merge_list: Expression merge list
       use_restriction: Use restriction
       subject: Subject
       content_type: Content type
       work_merge: Work merge
-      aaws_response: Aaws response
       patron_type: Patron type
       work_merge_list: Work merge list
-      order: Order
-      order_list: Order list
-      advertise: Advertise
-      event: Event
       embody: Embody
       item_has_use_restriction: Item has use restriction
       expression_merge: Expression merge
@@ -83,11 +62,9 @@ en:
       patron_merge: Patron merge
       subject_related_term: Subject related term
       library_group: Library group
-      event_import_file: Event import file
       attachment_file: Attachment file
       reserve: Reserve
       message_request: Message request
-      answer: Answer
       bookstore: Bookstore
       checkout_type: Checkout type
       classification_type: Classification type
@@ -103,20 +80,9 @@ en:
       user_checkout_stat: User checkout stat
       manifestation_reserve_stat: Manifestation reserve stat
       user_reserve_stat: User reserve stat
-      work_has_work: Work to work relationship
-      expression_has_expression: Expression to expression relationship
-      manifestation_has_manifestation: Manifestation to manifestation relationship
-      item_has_item: Item to item relationship
       bookmark_stat_has_manifestation: Bookmark stat to manifestation relationship
       reserve_stat_has_manifestation: Reserve stat to manifestation relationship
       reserve_stat_has_user: Reserve stat to user relationship
-      concept: Concept
-      place: Place
-      work_has_concept: Work to concept relationship
-      work_has_place: Work to place relationship
-      person: Person
-      corporate_body: Corporate body
-      family: Family
       subject_heading_type_has_subject: Subject heading type to subject relationship
       user_has_shelf: User to shelf relationship
       participate: Participate
@@ -129,21 +95,17 @@ en:
       lending_policy: Lending policy
       nii_type: NII metadata type
       license: License
-      work_to_expression_rel_type: Work-to-Expression relationship type
-      expression_to_manifestation_rel_type: Expression-to-Manifestation relationship type
       series_statement: Series statement
       checkout_stat_has_manifestation: Checkout stat has manifestation
       checkout_stat_has_user: Checkout stat has user
       reserve_stat_has_manifestation: Reserve stat has manifestation
       reserve_stat_has_user: Reserve stat has user
       import_request: Import request
-      resource: Resource
       user_has_role: User and roles
       patron_relationship: Patron relationship
       manifestation_relationship: Resource relationship
       resource_import_result: Resource Import Result
       patron_import_result: Patron Import Result
-      event_import_result: Event Import Result
       series_statement_merge: Series statement merge
       series_statement_merge_list: Series statement merge list
       series_has_manifestation: Series statement to manifestation
@@ -171,13 +133,6 @@ en:
         position: Position
         deleted_at: Deleted at
         opening_hour: Opening hour
-      question:
-        body: Body
-        share_question: Share question
-        deleted_at: Deleted at
-        shared: Shared
-        solved: Solved
-        answers_count: Answers count
       patron_import_file:
         patron_import_file_name: Filename
         patron_import_content_type: Content type
@@ -229,45 +184,6 @@ en:
         language: Language
         email: Email
         url: URL
-      feeds/app:
-        source_url: Source URL
-        title: Title
-        description: Description
-        directory_title: Directory title
-        title_url: Title URL
-        author: Author
-        author_email: Author email
-        author_affiliation: Author affiliation
-        author_location: Author location
-        screenshot: Screenshot
-        thumbnail: Thumbnail
-        height: Height
-        width: Width
-        scaling: Scaling
-        scrolling: Scrolling
-        singleton: Singleton
-        author_photo: Author photo
-        author_aboutme: Author aboutme
-        author_link: Author link
-        author_quote: Author quote
-      feeds/persistence:
-        key: Key
-        value: Value
-      feeds/shared:
-        key: Key
-        value: Value
-      feeds/instance:
-        key: Key
-        value: Value
-      feeds/global:
-        key: Key
-        value: Value
-      feeds/activity:
-        title: Title
-      subject_as_object:
-        term: Term
-      subject_as_place:
-        term: Term
       subject_has_classification:
       expression:
         original_title: Original title
@@ -310,7 +226,6 @@ en:
         confirmed: Confirmed
         approved: Approved
         checkout_icalendar_token: Checkout iCalendar token
-        answer_rss_token: Answer rss token
         due_date_reminder_days: Due date reminder days
         note: Note
         share_bookmarks: Share bookmarks
@@ -364,12 +279,6 @@ en:
         category: Category
         name: Name
         note: Note
-      imported_object:
-        imported_file: Imported file
-        imported_file_type: Imported file type
-        importable: Imported resource
-        importable_type: Importable type
-        line_number: Line number
       exemplify:
         position: Position
       own:
@@ -380,29 +289,11 @@ en:
         note: Note
         position: Position
         deleted_at: Deleted at
-      event_category:
-        name: Name
-        display_name: Display name
-        note: Note
-        position: Position
-      advertisement:
-        title: Title
-        url: URL
-        body: Body
-        note: Note
-        started_at: Started at
-        ended_at: Ended at
-        deleted_at: Deleted at
-        position: Position
-      porta_response:
-        body: Body
       donate:
       basket:
         user: User
         note: Note
         lock_version: Lock version
-      subject_as_event:
-        term: Term
       checked_item:
         due_date: Due date
       produce:
@@ -445,24 +336,10 @@ en:
         lock_version: Lock version
         deleted_at: Deleted at
         parent_of_series: Parent of series
-      purchase_request:
-        title: Title
-        author: Author
-        publisher: Publisher
-        isbn: ISBN
-        date_of_publication: Date of publication
-        price: Price
-        url: URL
-        note: Note
-        accepted_at: Accepted at
-        denied_at: Denied at
-        deleted_at: Deleted at
       realize:
         position: Position
       reify:
         position: Position
-      subject_as_concept:
-        term: Term
       frequency:
         name: Name
         display_name: Display name
@@ -487,8 +364,6 @@ en:
         note: Note
         position: Position
       work_merge:
-      aaws_response:
-        body: Body
       patron_type:
         name: Name
         display_name: Display name
@@ -501,25 +376,6 @@ en:
         position: Position
       work_merge_list:
         title: Title
-      order:
-        position: Position
-        state: State
-      order_list:
-        title: Title
-        note: Note
-        ordered_at: Ordered at
-        deleted_at: Deleted at
-        state: State
-      advertise:
-        position: Position
-      event:
-        name: Name
-        note: Note
-        start_at: Start at
-        end_at: End at
-        deleted_at: Deleted at
-        all_day: All day
-        display_name: Display name
       embody:
         position: Position
       item_has_use_restriction:
@@ -649,16 +505,6 @@ en:
         login_banner: Login banner
         post_to_union_catalog: Post to union catalog
         allow_bookmark_external_url: Allow bookmark external url
-      event_import_file:
-        event_import_file_name: Filename
-        event_import_content_type: Content type
-        event_import_file_size: Size
-        file_hash: File hash
-        note: Note
-        imported_at: Imported at
-        event_import_updated_at: Updated at
-        state: State
-        edit_mode: Edit mode
       attachment_file:
         attachable_type: Attachable type
         size: Size
@@ -681,12 +527,6 @@ en:
       message_request:
         sent_at: Sent at
         deleted_at: Deleted at
-      answer:
-        body: Body
-        deleted_at: Deleted at
-        shared: Shared
-        item_identifier_list: Item identifier list
-        url_list: Url list
       bookstore:
         name: Name
         zip_code: Zip code
@@ -773,85 +613,6 @@ en:
         name: Name
         synonym: Synonym
         taggings_count: Taggings count
-      concept:
-        term: Term
-        note: Note
-        required_score: Required score
-      place:
-        term: Term
-        note: Note
-        required_score: Required score
-      person:
-        last_name: Last name
-        middle_name: Middle name
-        first_name: Name
-        last_name_transcription: Last name transcription
-        middle_name_transcription: Middle name transcription
-        first_name_transcription: First name transcription
-        corporate_name: Corporate name
-        corporate_name_transcription: Corporate name transcription
-        full_name: Full name
-        full_name_transcription: Full name transcription
-        full_name_alternative: Full name alternative
-        deleted_at: Deleted at
-        zip_code_1: Zip code 1
-        zip_code_2: Zip code 2
-        address_1: Address 1
-        address_2: Address 2
-        address_1_note: Address 1 note
-        address_2_note: Address 2 note
-        telephone_number_1: Telephone number 1
-        telephone_number_2: Telephone number 2
-        fax_number_1: Fax number 1
-        fax_number_2: Fax number 2
-        other_designation: Other designation
-        place: Place
-        date_of_birth: Date of birth
-        date_of_death: Date of death
-        lock_version: Lock version
-        note: Note
-      corporate_body:
-        name: Name
-        name_transcription: Name transcription
-        name_alternative: Name alternative
-        deleted_at: Deleted at
-        zip_code_1: Zip code 1
-        zip_code_2: Zip code 2
-        address_1: Address 1
-        address_2: Address 2
-        address_1_note: Address 1 note
-        address_2_note: Address 2 note
-        telephone_number_1: Telephone number 1
-        telephone_number_2: Telephone number 2
-        fax_number_1: Fax number 1
-        fax_number_2: Fax number 2
-        other_designation: Other designation
-        place: Place
-        date_of_birth: Date of birth
-        date_of_death: Date of death
-        lock_version: Lock version
-        note: Note
-      family:
-        name: Name
-        name_transcription: Name transcription
-        name_alternative: Name alternative
-        deleted_at: Deleted at
-        zip_code_1: Zip code 1
-        zip_code_2: Zip code 2
-        address_1: Address 1
-        address_2: Address 2
-        address_1_note: Address 1 note
-        address_2_note: Address 2 note
-        telephone_number_1: Telephone number 1
-        telephone_number_2: Telephone number 2
-        fax_number_1: Fax number 1
-        fax_number_2: Fax number 2
-        other_designation: Other designation
-        place: Place
-        date_of_birth: Date of birth
-        date_of_death: Date of death
-        lock_version: Lock version
-        note: Note
       checkout_stat_has_user:
         checkouts_count: Checkout count
       checkout_stat_has_manifestation:
@@ -862,25 +623,6 @@ en:
         reserves_count: Reserve count
       bookmark_stat_has_manifestation:
         bookmarks_count: Bookmark count
-      work_has_work:
-        from_work: From
-        to_work: To
-      expression_has_expression:
-        from_expression: From
-        to_expression: To
-      manifestation_has_manifestation:
-        from_manifestation: From
-        to_manifestation: To
-      item_has_item:
-        from_item: From
-        to_item: To
-      patron_has_patron:
-        from_patron: From
-        to_patron: To
-      shelf_has_manifestation:
-        shelf: Shelf
-        manifestation: Manifestation
-        position: Position
       medium_of_performance:
         name: Name
         display_name: Displayname
@@ -943,16 +685,6 @@ en:
         display_name: Display name
         note: Note
         position: Position
-      work_to_expression_rel_type:
-        name: Name
-        display_name: Display name
-        note: Note
-        position: Position
-      expression_to_manifestation_rel_type:
-        name: Name
-        display_name: Display name
-        note: Note
-        position: Position
       series_statement:
         original_title: Title
         numbering: Numbering
@@ -967,16 +699,6 @@ en:
       import_request:
         isbn: ISBN
         state: State
-      resource:
-        iss_token: ISS token
-        manifestation_id: Manifestation
-        dcndl_xml: DCNDL XML
-        work_token: Work token
-        approved: Approved
-        state: State
-        approve: Approve
-        publish: Publish
-        deleted_at: Deleted at
       patron_relationship:
         parent_id: Parent
         child_id: Child
@@ -988,8 +710,6 @@ en:
       resource_import_result:
         body: Body
       patron_import_result:
-        body: Body
-      event_import_result:
         body: Body
       series_statement_merge_list:
         title: Title
@@ -1258,7 +978,6 @@ en:
     web: "Web"
     send_email: "Email this information"
     attachment_file: "Attachment file"
-    question: "Question"
     add_derivation: "Add a derivation"
   item:
     current_checkout: "Current checkout"
@@ -1320,28 +1039,6 @@ en:
     my_tag: "My tags"
     user_tag: "%{login_name}'s tags"
     use_space_as_delimiter: "Use space as a delimiter."
-  question:
-    my: "My questions"
-    all: "All questions"
-    number_of_search_results:
-      one: "1 record found."
-      other: "%{count} records found."
-    user_question: "%{login_name}'s questions"
-    no_record_found: "No records found."
-    library_group_question: "Questions in %{library_group_name}"
-    answer_question: "Answer this question"
-    crd: "NDL Collaborative Reference Database"
-    you_can_search_crd: "You can search within NDL Collaborative Reference Database."
-    created_at: "Question created at"
-    updated_at: "Question updated at"
-    last_answered_at: "Last answered at"
-    solved: "Solved"
-    not_solved: "Not solved"
-  answer:
-    user_answer: "%{login_name}'s answers"
-    library_group_answer: "Answers from %{library_group_name}"
-    specify_question: "Specify the question."
-    count: "Count"
   basket:
     this_account_is_suspended: "This account is suspended."
     checkout_completed: "Checkout completed."
@@ -1374,13 +1071,6 @@ en:
     will_be_imported:
       one: "Resource will be impored in a %{minute} minute."
       other: "Resource will be impored in %{minute} minutes."
-  event:
-    library_group_event: "Events at %{library_group_name}"
-    all_libraries: "All libraries"
-    import_event: "Import events"
-    all: "All events"
-    past: "Past events"
-    upcoming: "Upcoming events"
   user:
     current_password: "Current password"
     new_password: "New password"
@@ -1436,18 +1126,6 @@ en:
     canceled: "Canceled"
     expired: "Expired"
     completed: "Completed"
-  purchase_request:
-    user_purchase_request: "%{login_name} 's purchase requests"
-    library_group_purchase_request: "Purchase requests in %{library_group_name}"
-    add_to_purchase_request: "Add to purchase request"
-    all_request: "All requests"
-    ordered: "Ordered"
-    not_ordered: "Not ordered"
-    add_to_order_list: "Add to order list"
-    remove_from_order_list: "Remove from order list"
-  order_list:
-    library_group_order_list: "Order lists in %{library_group_name}"
-    total_price: "Total price"
   inter_library_loan:
     library_group_inter_library_loan: "Inter library loans in %{library_group_name}"
     borrowing_library: "Borrowing library"
@@ -1470,8 +1148,6 @@ en:
     this_subscription_is_expired: "This subscription is expired!"
   role:
     required_role: "Required role"
-  advertisement:
-    period: "Period"
   attachment_file:
     invalid_file: "Invalid file."
   inventory_file:
@@ -1481,18 +1157,12 @@ en:
     not_sent: "Not sent"
     sent: "Sent"
     all: "All messages"
-  order:
-    create_order_list: "You should create an order list."
-    specify_purchase_request: "You should specify the purchase request."
   work_has_subject:
     add_work: "Add a work"
     add_subject: "Add a subject"
     subjectable: "Subjectable"
   library_group:
     configuration: "Library configuration"
-  calendar:
-    calendar: "Calendar"
-    library_calendar: "Calendar of events at %{library_name}"
   series_statement:
     edit: "Edit series statement"
     you_should_specify_work: "You should specify a work in the series statement."

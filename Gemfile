@@ -13,15 +13,15 @@ gem 'enju_ndl', '>= 0.0.4'
 gem 'enju_oai', :git => 'git://github.com/nabeta/enju_oai.git'
 #gem 'enju_scribd', :git => 'git://github.com/nabeta/enju_scribd.git'
 gem 'enju_subject', '0.0.4'
-gem 'enju_purchase_request', '0.0.3'
-gem 'enju_question', '0.0.4'
+gem 'enju_purchase_request', '0.0.4'
+gem 'enju_question', '0.0.5'
 gem 'enju_bookmark', '0.0.3'
 gem 'enju_resource_merge', '0.0.3'
 gem 'enju_circulation', '0.0.6'
 gem 'enju_message', '0.0.6'
 #gem 'enju_inter_library_loan', :git => 'git://github.com/nabeta/enju_inter_library_loan.git'
 gem 'enju_inventory', '0.0.3'
-gem 'enju_event', '0.0.4'
+gem 'enju_event', '0.0.5'
 #gem 'enju_news', :git => 'git://github.com/nabeta/enju_news.git'
 gem 'enju_search_log', '0.0.1'
 
@@ -129,12 +129,12 @@ end
 
 # Gems used only for assets and not required
 # in production environments by default.
-group :assets do
-  gem 'sass-rails',   '~> 3.1.5'
-  gem 'coffee-rails', '~> 3.1.1'
-
-  gem 'uglifier', '>= 1.0.3'
-end
+#group :assets do
+#  gem 'sass-rails',   '~> 3.1.5'
+#  gem 'coffee-rails', '~> 3.1.1'
+#
+#  gem 'uglifier', '>= 1.0.3'
+#end
 
 gem 'jquery-rails'
 
