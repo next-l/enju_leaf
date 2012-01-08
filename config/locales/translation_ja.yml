@@ -3,15 +3,12 @@ ja:
     models:
       library: 図書館
       patron_import_file: 人物・団体のインポート用ファイル
-      inventory: 蔵書点検
       patron: 人物・団体
       expression: 協力した資料
       language: 言語
-      patron_merge_list: 人物・団体の統合リスト
       user: 利用者
       picture_file: 画像ファイル
       form_of_work: 書いた資料の形態
-      inter_library_loan: 相互貸借
       exemplify: 書誌と所蔵の関係
       own: 所有関係
       shelf: 本棚
@@ -25,16 +22,10 @@ ja:
       realize: 表現関係
       reify: 具体化
       frequency: 発行頻度
-      expression_merge_list: 協力した資料の統合リスト
       content_type: 協力した資料の形態
-      work_merge: 書いた資料の統合
       patron_type: 人物・団体の種類
-      work_merge_list: 書いた資料の統合リスト
       embody: 具体化
-      expression_merge: 協力した資料の統合
       request_status_type: 依頼の状態の種類
-      news_feed: お知らせのフィード
-      news_post: 図書館からのお知らせ
       search_engine: 検索エンジン
       create: 著作関係
       carrier_type: 資料の形態
@@ -42,13 +33,11 @@ ja:
       user_group: 利用者グループ
       resource_import_file: 資料のインポート用ファイル
       subscription: 購読
-      patron_merge: 人物・団体の統合
       library_group: 図書館全体の設定
       attachment_file: 添付ファイル
       bookstore: 書店
       country: 国と地域
       request_type: 依頼の種類
-      inventory_file: 蔵書点検ファイル
       user_has_shelf: 利用者と書棚の関係
       participate: 参加
       extent: 大きさ
@@ -56,7 +45,6 @@ ja:
       content_type: 内容の種類
       patron_relationship_type: 人物・団体の関係の種類
       manifestation_relationship_type: 資料の関係の種類
-      nii_type: NIIメタデータタイプ
       license: ライセンス
       series_statement: シリーズ情報
       import_request: ISBNインポートのリクエスト
@@ -65,8 +53,6 @@ ja:
       manifestation_relationship: 資料の関係
       resource_import_result: 資料インポートの結果
       patron_import_result: 人物・団体インポートの結果
-      series_statement_merge: シリーズ情報の統合
-      series_statement_merge_list: シリーズ情報統合リスト
       series_has_manifestation: シリーズ情報と資料の関係
       create_type: 著作の関係
       realize_type: 表現の関係
@@ -102,8 +88,6 @@ ja:
         patron_import_updated_at: 更新時刻
         state: 状態
         edit_mode: 編集モード
-      inventory:
-        note: 注記
       patron:
         last_name: 姓
         middle_name: ミドルネーム
@@ -158,8 +142,6 @@ ja:
         iso_639_3: ISO 639-3
         note: 注記
         position: 位置
-      patron_merge_list:
-        title: タイトル
       user:
         login: ユーザ名
         username: ユーザ名
@@ -210,14 +192,6 @@ ja:
         display_name: 表示名
         note: 注記
         position: 位置
-      inter_library_loan:
-        requested_at: 依頼時刻
-        shipped_at: 発送時刻
-        received_at: 受取時刻
-        return_shipped_at: 返却発送時刻
-        return_received_at: 返却受取時刻
-        deleted_at: 削除時刻
-        state: 状態
       exemplify:
         position: 位置
       own:
@@ -271,43 +245,23 @@ ja:
         display_name: 表示名
         note: 注記
         position: 位置
-      expression_merge_list:
-        title: タイトル
       content_type:
         name: 名前
         display_name: 表示名
         note: 注記
         position: 位置
-      work_merge:
       patron_type:
         name: 名前
         display_name: 表示名
         note: 注記
         position: 位置
-      work_merge_list:
-        title: タイトル
       embody:
         position: 位置
-      expression_merge:
       request_status_type:
         name: 名前
         display_name: 表示名
         note: 注記
         position: 位置
-      news_feed:
-        title: タイトル
-        url: URL
-        body: 本文
-        note: 注記
-        position: 位置
-      news_post:
-        title: タイトル
-        body: 本文
-        note: 注記
-        position: 位置
-        start_date: 開始日
-        end_date: 終了日
-        draft: 下書き
       search_engine:
         name: 名前
         url: URL
@@ -386,7 +340,6 @@ ja:
         note: 注記
         deleted_at: 削除時刻
         subscribes_count: 購読数
-      patron_merge:
       library_group:
         name: 名前
         display_name: 表示名
@@ -433,12 +386,6 @@ ja:
         display_name: 表示名
         note: 注記
         position: 位置
-      inventory_file:
-        inventory_file_name: ファイル名
-        inventory_content_type: Content-Type
-        inventory_file_size: ファイルサイズ
-        file_hash: ファイルのハッシュ
-        note: 注記
       medium_of_performance:
         name: 名前
         display_name: 表示名
@@ -484,11 +431,6 @@ ja:
         display_name: 表示名
         note: 注記
         position: 位置
-      nii_type:
-        name: 名前
-        display_name: 表示名
-        note: 注記
-        position: 位置
       license:
         name: 名前
         display_name: 表示名
@@ -520,8 +462,6 @@ ja:
         body: 本文
       patron_import_result:
         body: 本文
-      series_statement_merge_list:
-        title: タイトル
       create_type:
         name: 名称
         display_name: 表示名
@@ -653,15 +593,12 @@ ja:
     date: "日時"
     this_month: "今月"
     click_to_edit: "クリックで編集開始"
-    news: "お知らせ"
     model: "モデル"
     number_of_record: "レコード数"
     facet: "属性による絞り込み"
     number_of_days: "%{count} 日"
     require_login_as_librarian: "操作を進めるには、図書館員としてログインする必要があります。"
     read: "読み込み"
-    merge: "統合する（取り消しはできません）"
-    merge_resource: "%{model}を統合する"
     attachable: "添付先"
     sent_email: "電子メールを送信しました。"
     identifier: "識別子"
@@ -835,25 +772,12 @@ ja:
     change_my_password: "パスワードを変更する"
     management: "利用者の管理"
     not_found: "利用者が見つかりません。"
-  news_post:
-    library_group_news_post: "%{library_group_name} からのお知らせ"
-  inter_library_loan:
-    library_group_inter_library_loan: "%{library_group_name} の相互貸借"
-    borrowing_library: "借受館"
-    return_this_item: "この資料を返却する"
   subscribe:
     this_subscription_is_expired: "購読期間が過ぎています。"
   role:
     required_role: "参照に必要な権限"
   attachment_file:
     invalid_file: "無効なファイルです。"
-  inventory_file:
-    not_in_catalog: "目録に存在しない資料"
-    not_on_shelf: "書架に存在しない資料"
-  message_request:
-    not_sent: "送信待ち"
-    sent: "送信済み"
-    all: "全てのメッセージ"
   library_group:
     configuration: "図書館の設定"
   series_statement:
@@ -865,8 +789,6 @@ ja:
     completed: "完了"
     started: "開始"
     failed: "失敗"
-  news_feed:
-    failed_to_fetch_feed: フィードの読み込みに失敗しました。
   import_request:
     record_not_found: 書誌レコードが見つかりませんでした。
     invalid_isbn: ISBNが正しくありません。
@@ -879,6 +801,3 @@ ja:
   picture_file:
     invalid_file: 無効なファイルです。アップロードできるのはgif, jpeg, png, svg形式のファイルです。
     all_picture: すべての画像
-  merge_list:
-    successfully_merged: "%{model}は正常に統合されました。"
-    specify_id: "%{model}のIDを指定してください。"

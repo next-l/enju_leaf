@@ -3,15 +3,12 @@ en:
     models:
       library: Library
       patron_import_file: Patron import file
-      inventory: Inventory
       patron: Patron
       expression: Expression
       language: Language
-      patron_merge_list: Patron merge list
       user: User
       picture_file: Picture file
       form_of_work: Form of works
-      inter_library_loan: Inter library loan
       exemplify: Exemplify
       own: Own
       shelf: Shelf
@@ -25,16 +22,10 @@ en:
       realize: Realize
       reify: Reify
       frequency: Frequency of issue
-      expression_merge_list: Expression merge list
       content_type: Content type
-      work_merge: Work merge
       patron_type: Patron type
-      work_merge_list: Work merge list
       embody: Embody
-      expression_merge: Expression merge
       request_status_type: Request status type
-      news_feed: News feed
-      news_post: News post
       search_engine: Search engine
       create: Create
       carrier_type: Carrier Type
@@ -42,13 +33,11 @@ en:
       user_group: User group
       resource_import_file: Resource import file
       subscription: Subscription
-      patron_merge: Patron merge
       library_group: Library group
       attachment_file: Attachment file
       bookstore: Bookstore
       country: Country
       request_type: Request type
-      inventory_file: Inventory file
       user_has_shelf: User to shelf relationship
       participate: Participate
       patron_has_patron: Patron to patron relationship
@@ -57,7 +46,6 @@ en:
       content_type: Content type
       patron_relationship_type: Patron relationship type
       manifestation_relationship_type: Resource relationship type
-      nii_type: NII metadata type
       license: License
       series_statement: Series statement
       import_request: Import request
@@ -66,8 +54,6 @@ en:
       manifestation_relationship: Resource relationship
       resource_import_result: Resource Import Result
       patron_import_result: Patron Import Result
-      series_statement_merge: Series statement merge
-      series_statement_merge_list: Series statement merge list
       series_has_manifestation: Series statement to manifestation
       create_type: Create type
       realize_type: Realize type
@@ -103,8 +89,6 @@ en:
         patron_import_updated_at: Updated at
         state: State
         edit_mode: Edit mode
-      inventory:
-        note: Note
       patron:
         last_name: Last name
         middle_name: Middle name
@@ -159,8 +143,6 @@ en:
         iso_639_3: ISO 639 3
         note: Note
         position: Position
-      patron_merge_list:
-        title: Title
       user:
         login: Login
         username: Username
@@ -211,14 +193,6 @@ en:
         display_name: Display name
         note: Note
         position: Position
-      inter_library_loan:
-        requested_at: Requested at
-        shipped_at: Shipped at
-        received_at: Received at
-        return_shipped_at: Return shipped at
-        return_received_at: Return received at
-        deleted_at: Deleted at
-        state: State
       exemplify:
         position: Position
       own:
@@ -272,43 +246,23 @@ en:
         display_name: Display name
         note: Note
         position: Position
-      expression_merge_list:
-        title: Title
       content_type:
         name: Name
         display_name: Display name
         note: Note
         position: Position
-      work_merge:
       patron_type:
         name: Name
         display_name: Display name
         note: Note
         position: Position
-      work_merge_list:
-        title: Title
       embody:
         position: Position
-      expression_merge:
       request_status_type:
         name: Name
         display_name: Display name
         note: Note
         position: Position
-      news_feed:
-        title: Title
-        url: URL
-        body: Body
-        note: Note
-        position: Position
-      news_post:
-        title: Title
-        body: Body
-        note: Note
-        position: Position
-        start_date: Start date
-        end_date: End date
-        draft: Draft
       search_engine:
         name: Name
         url: URL
@@ -387,7 +341,6 @@ en:
         note: Note
         deleted_at: Deleted at
         subscribes_count: Count
-      patron_merge:
       library_group:
         name: Name
         display_name: Display name
@@ -434,12 +387,6 @@ en:
         display_name: Display name
         note: Note
         position: Position
-      inventory_file:
-        inventory_file_name: Filename
-        inventory_content_type: Content type
-        inventory_file_size: Size
-        file_hash: File hash
-        note: Note
       medium_of_performance:
         name: Name
         display_name: Displayname
@@ -485,11 +432,6 @@ en:
         display_name: Display name
         note: Note
         position: Position
-      nii_type:
-        name: Name
-        display_name: Display name
-        note: Note
-        position: Position
       license:
         name: Name
         display_name: Display name
@@ -521,8 +463,6 @@ en:
         body: Body
       patron_import_result:
         body: Body
-      series_statement_merge_list:
-        title: Title
       create_type:
         name: Name
         display_name: Display name
@@ -666,7 +606,6 @@ en:
     date: "Date"
     this_month: "This month"
     click_to_edit: "click to edit..."
-    news: "News"
     model: "Model"
     number_of_record: "Number of record"
     facet: "Facet"
@@ -675,8 +614,6 @@ en:
       other: "%{count} days"
     require_login_as_librarian: "You should login as a librarian to create and edit resources."
     read: "Read"
-    merge: "Merge!"
-    merge_resource: "Merge %{model}"
     attachable: "Attachable"
     sent_email: "Sent email."
     identifier: "Identifier"
@@ -854,25 +791,12 @@ en:
     change_my_password: "Change my password"
     management: "User management"
     not_found: "User not found."
-  news_post:
-    library_group_news_post: "News from %{library_group_name}"
   subscribe:
     this_subscription_is_expired: "This subscription is expired!"
   role:
     required_role: "Required role"
   attachment_file:
     invalid_file: "Invalid file."
-  inventory_file:
-    not_in_catalog: "Not in catalog"
-    not_on_shelf: "Not on shelf"
-  message_request:
-    not_sent: "Not sent"
-    sent: "Sent"
-    all: "All messages"
-  work_has_subject:
-    add_work: "Add a work"
-    add_subject: "Add a subject"
-    subjectable: "Subjectable"
   library_group:
     configuration: "Library configuration"
   series_statement:
@@ -884,17 +808,11 @@ en:
     completed: "Completed"
     started: "Started"
     failed: "Failed"
-  news_feed:
-    failed_to_fetch_feed: Failed to fetch feeds.
   import_request:
     record_not_found: Record not found.
     invalid_isbn: Invalid ISBN.
     isbn_taken: has already been taken.
     enter_isbn: Enter ISBN
-  inter_library_loan:
-    library_group_inter_library_loan: "Inter library loans in %{library_group_name}"
-    borrowing_library: "Borrowing library"
-    return_this_item: "Return this item"
   sort:
     date_of_acquisition: Date of acquisition
     date_of_publication: Date of publication
@@ -902,6 +820,3 @@ en:
   picture_file:
     invalid_file: Invalid file. You can upload gif, jpeg, png and svg files.
     all_picture: All pictures
-  merge_list:
-    successfully_merged: "%{model} were merged successfully."
-    specify_id: "Specify %{model} ID."
