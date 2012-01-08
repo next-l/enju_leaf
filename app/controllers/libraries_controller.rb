@@ -36,15 +36,17 @@ class LibrariesController < ApplicationController
   # GET /libraries/1
   # GET /libraries/1.json
   def show
-    search = Sunspot.new_search(Event)
-    library = @library.dup
-    search.build do
-      with(:library_id).equal_to library.id
-      order_by(:start_at, :desc)
+    if defined?(EnjuEvent)
+      search = Sunspot.new_search(Event)
+      library = @library.dup
+      search.build do
+        with(:library_id).equal_to library.id
+        order_by(:start_at, :desc)
+      end
+      page = params[:event_page] || 1
+      search.query.paginate(page.to_i, Event.per_page)
+      @events = search.execute!.results
     end
-    page = params[:event_page] || 1
-    search.query.paginate(page.to_i, Event.per_page)
-    @events = search.execute!.results
 
     respond_to do |format|
       format.html # show.rhtml
