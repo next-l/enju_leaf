@@ -102,7 +102,6 @@ gem 'validates_timeliness'
 gem 'rack-protection'
 gem 'awesome_nested_set', '~> 2.0'
 gem 'rails_autolink'
-gem 'rack-cache'
 #gem 'oink', '>= 0.9.3'
 
 group :production do
