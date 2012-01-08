@@ -29,7 +29,7 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_circulation.git
-  revision: df62f612fdd8580f4411134a6071a973c7f7efdd
+  revision: ea9bbf2535a1bc429df3a1e1ec025857a27a9a68
   specs:
     enju_circulation (0.0.6)
       attribute_normalizer (~> 1.0)
@@ -92,7 +92,7 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_message.git
-  revision: f252c3dcde77ddbc3e281898904504ebeea4b7a3
+  revision: 152b388f849edf88cc1d8e6bab84ca412bb0e349
   specs:
     enju_message (0.0.6)
       addressable
@@ -206,7 +206,7 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_subject.git
-  revision: 3a2576912b538ac276f99c93cd12ea1dc5575421
+  revision: 23b725f492586ff11accd74c2149ab52669b611e
   specs:
     enju_subject (0.0.5)
       attribute_normalizer (~> 1.0)
@@ -379,7 +379,7 @@ GEM
       thor (~> 0.14)
     json (1.6.4)
     json_pure (1.6.4)
-    kgio (2.7.0)
+    kgio (2.7.2)
     library_stdnums (1.0.1)
     mail (2.3.0)
       i18n (>= 0.4.0)
@@ -510,7 +510,7 @@ GEM
       multi_json (~> 1.0.3)
       simplecov-html (~> 0.5.3)
     simplecov-html (0.5.3)
-    sitemap_generator (2.1.8)
+    sitemap_generator (2.2.1)
     spork (0.9.0.rc9)
     sprockets (2.1.2)
       hike (~> 1.2)
@@ -632,7 +632,7 @@ DEPENDENCIES
   sass-rails (~> 3.2.3)
   simple_form (~> 1.5)
   simplecov (~> 0.5)
-  sitemap_generator (~> 2.1)
+  sitemap_generator (~> 2.2)
   spork (~> 0.9.0.rc9)
   state_machine!
   sunspot-rails-tester
