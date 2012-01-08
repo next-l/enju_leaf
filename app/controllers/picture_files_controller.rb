@@ -166,10 +166,10 @@ class PictureFilesController < ApplicationController
     respond_to do |format|
       if @shelf
         format.html { redirect_to shelf_picture_files_url(@shelf) }
-        format.json { head :ok }
+        format.json { head :no_content }
       else
         format.html { redirect_to(picture_files_url) }
-        format.json { head :ok }
+        format.json { head :no_content }
       end
     end
   end

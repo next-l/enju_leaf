@@ -104,13 +104,13 @@ class ProducesController < ApplicationController
       case
       when @patron
         format.html { redirect_to patron_manifestations_url(@patron) }
-        format.json { head :ok }
+        format.json { head :no_content }
       when @manifestation
         format.html { redirect_to manifestation_patrons_url(@manifestation) }
-        format.json { head :ok }
+        format.json { head :no_content }
       else
         format.html { redirect_to produces_url }
-        format.json { head :ok }
+        format.json { head :no_content }
       end
     end
   end

@@ -60,7 +60,9 @@ class PatronsController < ApplicationController
     end
 
     get_work; get_expression; get_manifestation; get_patron
-    get_patron_merge_list if defined?(EnjuResourceMerge)
+    if defined?(EnjuResourceMerge)
+      get_patron_merge_list
+    end
 
     unless params[:mode] == 'add'
       user = @user
@@ -229,7 +231,7 @@ class PatronsController < ApplicationController
     respond_to do |format|
       flash[:notice] = t('controller.successfully_deleted', :model => t('activerecord.models.patron'))
       format.html { redirect_to patrons_url }
-      format.json { head :ok }
+      format.json { head :no_content }
     end
   end
 

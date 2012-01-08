@@ -97,13 +97,13 @@ class OwnsController < ApplicationController
       case
       when @patron
         format.html { redirect_to patron_owns_url(@patron) }
-        format.json { head :ok }
+        format.json { head :no_content }
       when @item
         format.html { redirect_to item_owns_url(@item) }
-        format.json { head :ok }
+        format.json { head :no_content }
       else
         format.html { redirect_to owns_url }
-        format.json { head :ok }
+        format.json { head :no_content }
       end
     end
   end

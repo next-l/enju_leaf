@@ -100,13 +100,13 @@ class RealizesController < ApplicationController
       case
       when @expression
         format.html { redirect_to expression_patrons_url(@expression) }
-        format.json { head :ok }
+        format.json { head :no_content }
       when @patron
         format.html { redirect_to patron_expressions_url(@patron) }
-        format.json { head :ok }
+        format.json { head :no_content }
       else
         format.html { redirect_to realizes_url }
-        format.json { head :ok }
+        format.json { head :no_content }
       end
     end
   end

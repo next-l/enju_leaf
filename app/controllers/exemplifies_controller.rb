@@ -90,13 +90,13 @@ class ExemplifiesController < ApplicationController
       flash[:notice] = t('controller.successfully_deleted', :model => t('activerecord.models.exemplify'))
       case when @manifestation
         format.html { redirect_to manifestation_items_path(@exemplify.manifestation) }
-        format.json { head :ok }
+        format.json { head :no_content }
       when @item
         format.html { redirect_to @exemplify.item }
-        format.json { head :ok }
+        format.json { head :no_content }
       else
         format.html { redirect_to exemplifies_url }
-        format.json { head :ok }
+        format.json { head :no_content }
       end
     end
   end
