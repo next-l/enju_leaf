@@ -1,5 +1,5 @@
 class CreatePatronImportResults < ActiveRecord::Migration
-  def self.up
+  def change
     create_table :patron_import_results do |t|
       t.integer :patron_import_file_id
       t.integer :patron_id
@@ -8,9 +8,5 @@ class CreatePatronImportResults < ActiveRecord::Migration
 
       t.timestamps
     end
-  end
-
-  def self.down
-    drop_table :patron_import_results
   end
 end

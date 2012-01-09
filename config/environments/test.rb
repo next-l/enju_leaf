@@ -29,10 +29,15 @@ EnjuLeaf::Application.configure do
   # ActionMailer::Base.deliveries array.
   config.action_mailer.delivery_method = :test
 
+<<<<<<< HEAD
   # Use SQL instead of Active Record's schema dumper when creating the test database.
   # This is necessary if your schema can't be completely dumped by the schema dumper,
   # like if you have constraints or database-specific column types
   # config.active_record.schema_format = :sql
+=======
+  # Raise exception on mass assignment protection for ActiveRecord models
+#  config.active_record.mass_assignment_sanitizer = :strict
+>>>>>>> 94901eb... cleaned up migration files
 
   # Print deprecation notices to the stderr
   config.active_support.deprecation = :stderr

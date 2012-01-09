@@ -1,5 +1,5 @@
 class CreatePatronTypes < ActiveRecord::Migration
-  def self.up
+  def change
     create_table :patron_types do |t|
       t.string :name, :null => false
       t.text :display_name
@@ -8,9 +8,5 @@ class CreatePatronTypes < ActiveRecord::Migration
 
       t.timestamps
     end
-  end
-
-  def self.down
-    drop_table :patron_types
   end
 end

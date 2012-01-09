@@ -1,5 +1,5 @@
 class CreateOrderLists < ActiveRecord::Migration
-  def self.up
+  def change
     create_table :order_lists do |t|
       t.integer :user_id, :null => false
       t.integer :bookstore_id, :null => false
@@ -13,9 +13,5 @@ class CreateOrderLists < ActiveRecord::Migration
     end
     add_index :order_lists, :user_id
     add_index :order_lists, :bookstore_id
-  end
-
-  def self.down
-    drop_table :order_lists
   end
 end

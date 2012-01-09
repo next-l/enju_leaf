@@ -1,5 +1,5 @@
 class CreateInventoryFiles < ActiveRecord::Migration
-  def self.up
+  def change
     create_table :inventory_files do |t|
       t.string :filename
       t.string :content_type
@@ -12,9 +12,5 @@ class CreateInventoryFiles < ActiveRecord::Migration
     end
     add_index :inventory_files, :user_id
     add_index :inventory_files, :file_hash
-  end
-
-  def self.down
-    drop_table :inventory_files
   end
 end

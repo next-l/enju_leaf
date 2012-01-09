@@ -1,5 +1,5 @@
 class CreateUserGroups < ActiveRecord::Migration
-  def self.up
+  def change
     create_table :user_groups do |t|
       t.string :name, :string, :not_null => true
       t.text :display_name, :string
@@ -8,9 +8,5 @@ class CreateUserGroups < ActiveRecord::Migration
       t.timestamps
       t.datetime :deleted_at
     end
-  end
-
-  def self.down
-    drop_table :user_groups
   end
 end

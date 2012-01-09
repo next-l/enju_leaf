@@ -1,5 +1,5 @@
 class CreateOwns < ActiveRecord::Migration
-  def self.up
+  def change
     create_table :owns do |t|
       t.references :patron, :null => false
       t.references :item, :null => false
@@ -10,9 +10,5 @@ class CreateOwns < ActiveRecord::Migration
     add_index :owns, :patron_id
     add_index :owns, :item_id
     add_index :owns, :type
-  end
-
-  def self.down
-    drop_table :owns
   end
 end

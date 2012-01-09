@@ -1,5 +1,5 @@
 class CreatePurchaseRequests < ActiveRecord::Migration
-  def self.up
+  def change
     create_table :purchase_requests do |t|
       t.integer :user_id, :null => false
       t.text :title, :null => false
@@ -21,9 +21,5 @@ class CreatePurchaseRequests < ActiveRecord::Migration
     end
     add_index :purchase_requests, :user_id
     add_index :purchase_requests, :state
-  end
-
-  def self.down
-    drop_table :purchase_requests
   end
 end
