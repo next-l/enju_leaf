@@ -1,5 +1,5 @@
 class CreatePictureFiles < ActiveRecord::Migration
-  def self.up
+  def change
     create_table :picture_files do |t|
       t.integer :picture_attachable_id
       t.string :picture_attachable_type
@@ -16,9 +16,5 @@ class CreatePictureFiles < ActiveRecord::Migration
       t.timestamps
     end
     add_index :picture_files, [:picture_attachable_id, :picture_attachable_type], :name => "index_picture_files_on_picture_attachable_id_and_type"
-  end
-
-  def self.down
-    drop_table :picture_files
   end
 end

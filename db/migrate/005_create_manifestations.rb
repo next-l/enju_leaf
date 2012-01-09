@@ -1,5 +1,5 @@
 class CreateManifestations < ActiveRecord::Migration
-  def self.up
+  def change
     create_table :manifestations do |t|
       t.text :original_title, :null => false
       t.text :title_alternative
@@ -60,9 +60,5 @@ class CreateManifestations < ActiveRecord::Migration
     add_index :manifestations, :frequency_id
     add_index :manifestations, :manifestation_identifier
     add_index :manifestations, :updated_at
-  end
-
-  def self.down
-    drop_table :manifestations
   end
 end

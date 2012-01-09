@@ -4,7 +4,7 @@ class CreateLanguages < ActiveRecord::Migration
   # Note this doesn't include macrolanguages (dialects)
   # Information on macrolanguages http://en.wikipedia.org/wiki/ISO_639_macrolanguage
 
-  def self.up
+  def change
     create_table :languages do |t|
       t.string :name, :null => false
       t.string :native_name
@@ -19,9 +19,5 @@ class CreateLanguages < ActiveRecord::Migration
     add_index :languages, :iso_639_1
     add_index :languages, :iso_639_2
     add_index :languages, :iso_639_3
-  end
-
-  def self.down
-    drop_table :languages
   end
 end

@@ -1,5 +1,5 @@
 class CreateCreates < ActiveRecord::Migration
-  def self.up
+  def change
     create_table :creates do |t|
       t.references :patron, :null => false
       t.references :work, :null => false
@@ -10,9 +10,5 @@ class CreateCreates < ActiveRecord::Migration
     add_index :creates, :patron_id
     add_index :creates, :work_id
     add_index :creates, :type
-  end
-
-  def self.down
-    drop_table :creates
   end
 end

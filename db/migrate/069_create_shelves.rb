@@ -1,5 +1,5 @@
 class CreateShelves < ActiveRecord::Migration
-  def self.up
+  def change
     create_table :shelves do |t|
       t.string :name, :null => false
       t.text :display_name
@@ -11,9 +11,5 @@ class CreateShelves < ActiveRecord::Migration
       t.datetime :deleted_at
     end
     add_index :shelves, :library_id
-  end
-
-  def self.down
-    drop_table :shelves
   end
 end

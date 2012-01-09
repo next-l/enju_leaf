@@ -1,5 +1,5 @@
 class CreateBookmarkStats < ActiveRecord::Migration
-  def self.up
+  def change
     create_table :bookmark_stats do |t|
       t.datetime :start_date
       t.datetime :end_date
@@ -8,9 +8,5 @@ class CreateBookmarkStats < ActiveRecord::Migration
 
       t.timestamps
     end
-  end
-
-  def self.down
-    drop_table :bookmark_stats
   end
 end

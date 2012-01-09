@@ -1,5 +1,5 @@
 class CreateBookstores < ActiveRecord::Migration
-  def self.up
+  def change
     create_table :bookstores do |t|
       t.text :name, :null => false
       t.string :zip_code
@@ -13,9 +13,5 @@ class CreateBookstores < ActiveRecord::Migration
 
       t.timestamps
     end
-  end
-
-  def self.down
-    drop_table :bookstores
   end
 end

@@ -1,5 +1,5 @@
 class CreateCarrierTypes < ActiveRecord::Migration
-  def self.up
+  def change
     create_table :carrier_types do |t|
       t.string :name, :null => false
       t.text :display_name
@@ -7,9 +7,5 @@ class CreateCarrierTypes < ActiveRecord::Migration
       t.integer :position
       t.timestamps
     end
-  end
-
-  def self.down
-    drop_table :carrier_types
   end
 end

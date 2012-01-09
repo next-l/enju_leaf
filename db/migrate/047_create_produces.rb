@@ -1,5 +1,5 @@
 class CreateProduces < ActiveRecord::Migration
-  def self.up
+  def change
     create_table :produces do |t|
       t.references :patron, :null => false
       t.references :manifestation, :null => false
@@ -10,9 +10,5 @@ class CreateProduces < ActiveRecord::Migration
     add_index :produces, :patron_id
     add_index :produces, :manifestation_id
     add_index :produces, :type
-  end
-
-  def self.down
-    drop_table :produces
   end
 end

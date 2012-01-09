@@ -1,5 +1,5 @@
 class CreateLibraryGroups < ActiveRecord::Migration
-  def self.up
+  def change
     create_table :library_groups do |t|
       t.string :name, :null => false
       t.text :display_name
@@ -17,9 +17,5 @@ class CreateLibraryGroups < ActiveRecord::Migration
       t.timestamps
     end
     add_index :library_groups, :short_name
-  end
-
-  def self.down
-    drop_table :library_groups
   end
 end

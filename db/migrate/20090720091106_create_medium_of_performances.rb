@@ -1,5 +1,5 @@
 class CreateMediumOfPerformances < ActiveRecord::Migration
-  def self.up
+  def change
     create_table :medium_of_performances do |t|
       t.string :name, :null => false
       t.text :display_name
@@ -8,9 +8,5 @@ class CreateMediumOfPerformances < ActiveRecord::Migration
 
       t.timestamps
     end
-  end
-
-  def self.down
-    drop_table :medium_of_performances
   end
 end

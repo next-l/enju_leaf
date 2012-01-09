@@ -1,5 +1,5 @@
 class CreateRealizes < ActiveRecord::Migration
-  def self.up
+  def change
     create_table :realizes do |t|
       t.references :patron, :null => false
       t.references :expression, :null => false
@@ -11,9 +11,5 @@ class CreateRealizes < ActiveRecord::Migration
     add_index :realizes, :patron_id
     add_index :realizes, :expression_id
     add_index :realizes, :type
-  end
-
-  def self.down
-    drop_table :realizes
   end
 end

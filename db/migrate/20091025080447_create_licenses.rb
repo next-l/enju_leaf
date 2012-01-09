@@ -1,5 +1,5 @@
 class CreateLicenses < ActiveRecord::Migration
-  def self.up
+  def change
     create_table :licenses do |t|
       t.string :name, :null => false
       t.string :display_name
@@ -8,9 +8,5 @@ class CreateLicenses < ActiveRecord::Migration
 
       t.timestamps
     end
-  end
-
-  def self.down
-    drop_table :licenses
   end
 end

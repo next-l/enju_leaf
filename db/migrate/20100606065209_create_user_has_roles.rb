@@ -1,5 +1,5 @@
 class CreateUserHasRoles < ActiveRecord::Migration
-  def self.up
+  def change
     create_table :user_has_roles do |t|
       t.integer :user_id
       t.integer :role_id
@@ -8,9 +8,5 @@ class CreateUserHasRoles < ActiveRecord::Migration
     end
     add_index :user_has_roles, :user_id
     add_index :user_has_roles, :role_id
-  end
-
-  def self.down
-    drop_table :user_has_roles
   end
 end
