@@ -5,7 +5,7 @@ module EnjuGoogleBookSearch
 
   module ClassMethods
     def enju_google_book_search
-      include EnjuAmazon::InstanceMethods
+      include EnjuGoogleBookSearch::InstanceMethods
     end
   end
 
