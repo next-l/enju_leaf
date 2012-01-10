@@ -1216,6 +1216,7 @@ ja:
       item_list:
         list_type: リストの種類
         list_condition: 抽出条件
+        list_number: 件数
         sort_by: ソート順
       library_report:
         library: 図書館
