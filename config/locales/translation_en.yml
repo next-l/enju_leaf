@@ -4,7 +4,6 @@ en:
       library: Library
       patron_import_file: Patron import file
       patron: Patron
-      expression: Expression
       language: Language
       user: User
       picture_file: Picture file
@@ -15,12 +14,9 @@ en:
       donate: Donate
       produce: Produce
       role: Role
-      session: Session
       subscribe: Subscribe
       item: Item
-      work: Work
       realize: Realize
-      reify: Reify
       frequency: Frequency of issue
       content_type: Content type
       patron_type: Patron type
@@ -38,7 +34,6 @@ en:
       bookstore: Bookstore
       country: Country
       request_type: Request type
-      user_has_shelf: User to shelf relationship
       participate: Participate
       patron_has_patron: Patron to patron relationship
       extent: Extent
@@ -123,17 +118,6 @@ en:
         language: Language
         email: Email
         url: URL
-      expression:
-        original_title: Original title
-        title_transcription: Title transcription
-        title_alternative: Titlte alternative
-        summarization: Summarization
-        context: Context
-        issn: ISSN
-        feed_url: Feed URL
-        note: Note
-        lock_version: Lock version
-        deleted_at: Deleted at
       language:
         name: Name
         native_name: Native name
@@ -212,8 +196,6 @@ en:
         score: Score
         note: Note
         position: Position
-      session:
-        data: Data
       subscribe:
         started_on: Start on
         ended_on: End on
@@ -228,18 +210,7 @@ en:
         lock_version: Lock version
         checkout_type: Checkout type
         acquired_at: Acquired at
-      work:
-        original_title: Original title
-        title_transcription: Title transcription
-        title_alternative: Titlte alternative
-        context: Context
-        note: Note
-        lock_version: Lock version
-        deleted_at: Deleted at
-        parent_of_series: Parent of series
       realize:
-        position: Position
-      reify:
         position: Position
       frequency:
         name: Name
@@ -348,8 +319,6 @@ en:
         email: Email
         my_networks: My networks
         admin_networks: Admin networks
-        use_dsbl: Use DSBL
-        dsbl_list: DSBL list
         note: Note
         login_banner: Login banner
         post_to_union_catalog: Post to union catalog
@@ -412,22 +381,7 @@ en:
         display_name: Display name
         note: Note
         position: Position
-      work_relationship_type:
-        name: Name
-        display_name: Display name
-        note: Note
-        position: Position
-      expression_relationship_type:
-        name: Name
-        display_name: Display name
-        note: Note
-        position: Position
       manifestation_relationship_type:
-        name: Name
-        display_name: Display name
-        note: Note
-        position: Position
-      item_relationship_type:
         name: Name
         display_name: Display name
         note: Note

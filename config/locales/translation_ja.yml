@@ -4,7 +4,6 @@ ja:
       library: 図書館
       patron_import_file: 人物・団体のインポート用ファイル
       patron: 人物・団体
-      expression: 協力した資料
       language: 言語
       user: 利用者
       picture_file: 画像ファイル
@@ -15,12 +14,9 @@ ja:
       donate: 寄贈
       produce: 出版関係
       role: 権限
-      session: セッション
       subscribe: 購読
       item: 所蔵情報
-      work: 書いた資料
       realize: 表現関係
-      reify: 具体化
       frequency: 発行頻度
       content_type: 協力した資料の形態
       patron_type: 人物・団体の種類
@@ -38,7 +34,6 @@ ja:
       bookstore: 書店
       country: 国と地域
       request_type: 依頼の種類
-      user_has_shelf: 利用者と書棚の関係
       participate: 参加
       extent: 大きさ
       medium_of_performance: 演奏手段
@@ -122,17 +117,6 @@ ja:
         language: 言語
         email: 電子メール
         url: URL
-      expression:
-        original_title: 原題
-        title_transcription: タイトルよみ
-        title_alternative: 代替タイトル
-        summarization: 要約
-        context: コンテキスト
-        issn: ISSN
-        feed_url: フィードURL
-        note: 注記
-        lock_version: ロックバージョン
-        deleted_at: 削除時刻
       language:
         name: 名前
         native_name: ネイティブ名
@@ -211,8 +195,6 @@ ja:
         score: 点数
         note: 注記
         position: 位置
-      session:
-        data: データ
       subscribe:
         started_on: 開始日
         ended_on: 終了日
@@ -227,18 +209,7 @@ ja:
         lock_version: ロックバージョン
         checkout_type: 貸出区分
         acquired_at: 受入日
-      work:
-        original_title: 原題
-        title_transcription: タイトルよみ
-        title_alternative: 代替タイトル
-        context: コンテキスト
-        note: 注記
-        lock_version: ロックバージョン
-        deleted_at: 削除時刻
-        parent_of_series: シリーズの親
       realize:
-        position: 位置
-      reify:
         position: 位置
       frequency:
         name: 名前
@@ -347,8 +318,6 @@ ja:
         email: メール
         my_networks: LANとして扱うネットワーク
         admin_networks: 管理用として扱うネットワーク
-        use_dsbl: DSBLを使用する
-        dsbl_list: DSBLの一覧
         note: 注記
         login_banner: ログイン画面でのメッセージ
         post_to_union_catalog: 総合目録に登録する
@@ -411,22 +380,7 @@ ja:
         display_name: 表示名
         note: 注記
         position: 位置
-      work_relationship_type:
-        name: 名前
-        display_name: 表示名
-        note: 注記
-        position: 位置
-      expression_relationship_type:
-        name: 名前
-        display_name: 表示名
-        note: 注記
-        position: 位置
       manifestation_relationship_type:
-        name: 名前
-        display_name: 表示名
-        note: 注記
-        position: 位置
-      item_relationship_type:
         name: 名前
         display_name: 表示名
         note: 注記
