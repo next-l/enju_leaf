@@ -173,14 +173,6 @@ class User < ActiveRecord::Base
     end
   end
 
-  def check_update_own_account(user)
-    if user == self
-      self.update_own_account = true
-      return true
-    end
-    false
-  end
-
   def send_confirmation_instructions
     unless self.operator
       Devise::Mailer.delay.confirmation_instructions(self) if self.email.present?
