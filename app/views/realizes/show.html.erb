@@ -9,7 +9,7 @@
 </p>
 
 <p>
-  <strong><%= t('activerecord.models.expression') -%>:</strong>
+  <strong><%= t('activerecord.models.manifestation') -%>:</strong>
   <%= link_to @realize.expression.original_title, @realize.expression -%>
 </p>
 
@@ -19,6 +19,6 @@
 <div id="submenu" class="ui-corner-all">
   <ul>
     <li><%= link_to t('page.back_to', :model => t('activerecord.models.patron')), expression_patrons_path(@realize.expression) -%></li>
-    <li><%= link_to t('page.back_to', :model => t('activerecord.models.expression')), contributor_manifestations_path(@realize.patron) -%></li>
+    <li><%= link_to t('page.back_to', :model => t('activerecord.models.manifestation')), contributor_manifestations_path(@realize.patron) -%></li>
   </ul>
 </div>
