@@ -155,24 +155,65 @@ class LibcheckTmpItem < ActiveRecord::Base
     logger.info "output removing_list csv: #{csv_file} pdf: #{pdf_file}"
     # create output path
     FileUtils.mkdir_p(out_dir) unless FileTest.exist?(out_dir)
+
+    # get date
+    libcheck_tmp_items = LibcheckTmpItem.where("status_flg > ?", 0).order("shelf_id, no, id")
+    # make csv
+    make_resorce_list_csv(csv_file, libcheck_tmp_items)
+    # make pdf
+    make_resorce_list_pdf(out_dir, pdf_file, libcheck_tmp_items)
+  rescue => exc
+    logger.error exc
+    raise exc
   end
   
   def self.export_pdf(dir)
     raise "invalid parameter: no path" if dir.nil? || dir.length < 1
-    pdffile = dir + "resource_list.pdf"
-    logger.info "output resource list : " + pdffile
+    pdf_file = dir + "resource_list.pdf"
+    logger.info "output resource list pdf: " + pdf_file
     # create output path
     FileUtils.mkdir_p(dir) unless FileTest.exist?(dir)
 
- end
+    # make file
+    libcheck_tmp_items = LibcheckTmpItem.order("shelf_id, no, id")
+    make_resorce_list_pdf(dir, pdf_file, libcheck_tmp_items)
+  rescue => exc
+    logger.error exc
+    raise exc
+  end
 
   def self.export(dir)
     raise "invalid parameter: no path" if dir.nil? || dir.length < 1
     csvfile = dir + "resource_list.csv"
     logger.info "output resource list : " + csvfile
+
     # create output path
     FileUtils.mkdir_p(dir) unless FileTest.exist?(dir)
 
+    # make file
+    libcheck_tmp_items = LibcheckTmpItem.order("shelf_id, no, id")
+    make_resorce_list_csv(csvfile, libcheck_tmp_items)
+  rescue => exc
+    logger.error exc
+    raise exc
+  end
+  # end_of_export
+
+  private
+  def self.conv_flg(value, flg)
+    return "" if value.nil? || flg.nil?
+    return ((value & flg) != 0b0) ? "1":""
+  end
+
+  private
+  def self.get_object_method(obj,array)
+    _obj = obj.send(array.shift)
+    return get_object_method(_obj, array) if array.present?
+    return _obj
+  end
+
+  private
+  def self.make_resorce_list_csv(csvfile, libcheck_tmp_items)
     columns = [
       ['item_identifier','activerecord.attributes.item.item_identifier'],
       ['no', 'activerecord.attributes.libcheck_tmp_item.seq'],
@@ -194,7 +235,6 @@ class LibcheckTmpItem < ActiveRecord::Base
     ]
 
     File.open(csvfile, "w") do |output|
-
       # add UTF-8 BOM for excel
       output.print "\xEF\xBB\xBF".force_encoding("UTF-8")
 
@@ -205,14 +245,11 @@ class LibcheckTmpItem < ActiveRecord::Base
       end
       output.print row.join(",")+"\n"
 
-      item_ids = LibcheckTmpItem.find_by_sql(
-                  "select id from libcheck_tmp_items order by shelf_id, no, id")
-      if item_ids.nil? || item_ids.size < 1
+      if libcheck_tmp_items.nil? || libcheck_tmp_items.size < 1
         logger.warn "item data is empty"
       else # find data
         shelf = nil
-        item_ids.each do |tid|
-          item = LibcheckTmpItem.find(tid)
+        libcheck_tmp_items.each do |item|
           if shelf.nil? || shelf.id != item.shelf_id
             shelf = LibcheckShelf.find(item.shelf_id) rescue nil
           end
@@ -248,29 +285,67 @@ class LibcheckTmpItem < ActiveRecord::Base
           end #end of columns.each
 
           output.print '"'+row.join('","')+"\"\n"
-
         end # end_of item_ids.each
       end # end_of item_ids is empty?
-
     end # end_of File.open
-
-  rescue => exc
-    logger.error exc
-    raise exc
-  end
-  # end_of_export
-
-  private
-  def self.conv_flg(value, flg)
-    return "" if value.nil? || flg.nil?
-    return ((value & flg) != 0b0) ? "1":""
   end
 
   private
-  def self.get_object_method(obj,array)
-    _obj = obj.send(array.shift)
-    return get_object_method(_obj, array) if array.present?
-    return _obj
-  end
+  def self.make_resorce_list_pdf(dir, pdf_file, libcheck_tmp_items)
+    require 'thinreports'
+    report = ThinReports::Report.new :layout => File.join(Rails.root, 'report', 'resource_list.tlf')
 
+    # set page_num
+    report.events.on :page_create do |e|
+      e.page.item(:page).value(e.page.no)
+    end
+    report.events.on :generate do |e|
+      e.pages.each do |page|
+        page.item(:total).value(e.report.page_count)
+      end
+    end
+
+    # set date
+    report.start_new_page do |page|
+      page.item(:date).value(Time.now)
+      case pdf_file
+      when dir + "resource_list.pdf"
+        page.item(:resource_error_title).hide
+      when dir + "error_list.pdf"
+        page.item(:resource_title).hide
+      end
+
+      shelf = nil
+      if libcheck_tmp_items.nil? || libcheck_tmp_items.size < 1
+        logger.warn "item data is empty"
+      else
+        libcheck_tmp_items.each do |item|
+          if shelf.nil? || shelf.id != item.shelf_id
+            shelf = LibcheckShelf.find(item.shelf_id) rescue nil
+          end
+          # set list
+          page.list(:list).add_row do |row|
+            row.item(:item_identifier).value(item.item_identifier)
+            row.item(:no).value(item.no)
+            row.item(:ndc).value(item.ndc)
+            row.item(:class_type1).value(item.class_type1)
+            row.item(:class_type2).value(item.class_type2)
+            row.item(:shelf_id).value(shelf.nil? ? "UNKNOWN":shelf.shelf_name)
+            row.item(:confusion_flg).value(item.confusion_flg)
+            row.item(:sts_not_found).value(conv_flg(item.status_flg, STS_NOT_FOUND))
+            row.item(:sts_invalid_call_no).value(conv_flg(item.status_flg, STS_INVALID_CALL_NO))
+            row.item(:sts_unknown_shelf).value(conv_flg(item.status_flg, STS_UNKNOWN_SHELF))
+            row.item(:sts_deleted).value(conv_flg(item.status_flg, STS_DELETED))
+            row.item(:sts_checkout_t_diff).value(conv_flg(item.status_flg, STS_CHECKOUT_T_DIFF))
+            row.item(:sts_ndc_warning).value(conv_flg(item.status_flg, STS_NDC_WARNING))
+            row.item(:sts_invalid_serial).value(conv_flg(item.status_flg, STS_INVALID_SERIAL))
+            row.item(:date_of_publication).value(item.date_of_publication.strftime("%Y-%m-%d"))
+            row.item(:edition_display_value).value(item.edition_display_value)
+            row.item(:original_title).value(item.original_title)
+          end
+        end
+      end
+      report.generate_file(pdf_file)
+    end
+  end
 end
