@@ -20,22 +20,6 @@ class UsersController < ApplicationController
       query = "#{query}*"
     end
 
-    sort = {:sort_by => 'created_at', :order => 'desc'}
-    case params[:sort_by]
-    when 'username'
-      sort[:sort_by] = 'username'
-    when 'telephone_number_1'
-      sort[:sort_by] = 'patrons.telephone_number_1'
-    when 'full_name'
-      sort[:sort_by] = 'patrons.full_name_transcription'
-    end
-    case params[:order]
-    when 'asc'
-      sort[:order] = 'asc'
-    when 'desc'
-      sort[:order] = 'desc'
-    end
-
     page = params[:page] || 1
     role = current_user.try(:role) || Role.default_role
     @date_of_birth = params[:birth_date].to_s.dup
@@ -57,6 +41,30 @@ class UsersController < ApplicationController
 
     logger.error "query #{query}"
     logger.error flash[:message]
+
+    sort = {:sort_by => 'created_at', :order => 'desc'}
+    case params[:sort_by]
+    when 'username'
+      sort[:sort_by] = 'username'
+    when 'telephone_number_1'
+      if query.blank?
+        sort[:sort_by] = 'patrons.telephone_number_1'
+      else
+        sort[:sort_by] = 'telephone_number'
+      end
+    when 'full_name'
+      if query.blank?
+        sort[:sort_by] = 'patrons.full_name_transcription'
+      else
+        sort[:sort_by] = 'full_name'
+      end
+    end
+    case params[:order]
+    when 'asc'
+      sort[:order] = 'asc'
+    when 'desc'
+      sort[:order] = 'desc'
+    end
 
     unless query.blank?
       @users = User.search do
