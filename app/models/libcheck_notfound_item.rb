@@ -11,6 +11,7 @@ class LibcheckNotfoundItem < ActiveRecord::Base
   def self.export(dir)
     raise "invalid parameter: no path" if dir.nil? || dir.length < 1
     csvfile = dir + "notfound_list.csv"
+    pdffile = dir + "notfound_list.pdf"
     logger.info "output not-found resource list : " + csvfile
     # create output path
     FileUtils.mkdir_p(dir) unless FileTest.exist?(dir)
@@ -78,6 +79,34 @@ class LibcheckNotfoundItem < ActiveRecord::Base
       end # end_of items is empty?
 
     end # end_of File.open
+  
+    # make pdf
+    if items.nil? || items.size < 1
+      logger.warn "item date is empty"
+    else
+      # pdf
+      require 'thinreports'
+      report = ThinReports::Report.new :layout => File.join(Rails.root, 'report', 'libcheck_notfound.tlf')
+      report.events.on :page_create do |e|
+        e.page.item(:page).value(e.page.no)
+      end
+      report.events.on :generate do |e|
+        e.pages.each do |page|
+          page.item(:total).value(e.report.page_count)
+        end
+      end
+
+      report.start_new_page do |page|
+        page.item(:date).value(Time.now)
+        items.each do |item|
+          page.list(:list).add_row do |row|
+            row.item(:item_identifier).value(item.item_identifier)
+            row.item(:on_loan).value(conv_flg(item.status, STS_CHECKOUT))
+          end
+        end
+      end
+      report.generate_file(pdffile)
+    end
 
   rescue => exc
     logger.error exc
