@@ -1,4 +1,5 @@
 class LibcheckTmpItem < ActiveRecord::Base
+  belongs_to :shelf
 
   # CONSTANT
   STS_NO_ERROR        = 0b00000000

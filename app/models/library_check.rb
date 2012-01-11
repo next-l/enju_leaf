@@ -325,7 +325,7 @@ p "ready status is OK"
     end
     logger.info "end export_removing_list"
     
-    #8)
+    #8) export item register
     logger.info "start export_item_register"
     begin
       Item.export_item_register(out_dir)
@@ -339,6 +339,21 @@ p "ready status is OK"
       return
     end
     logger.info "end export_item_register"  
+
+    #9) export detection item list
+    logger.info "start export_detection_list"
+    begin
+      LibcheckDetectionItem.export_detection_list(out_dir)
+    rescue => exc
+      p "Error at export_detection_list (csv,pdf):" + exc.to_s
+      p "Error at export_detection_list (csv,pdf):" + $@
+      logger.error "Error at exporting detection list (csv,pdf):" + exc.to_s
+      logger.error "Error at exporting detection list (csv,pdf):" + $@
+      self.error_msg = I18n.t('activerecord.errors.messages.library_check.error_at_exporting_detection_list') + ":" + exc.to_s
+      sm_fail!
+      return
+    end
+    logger.info "end export_detection_list"  
 
     self.operated_at = Time.now
     sm_complete!
