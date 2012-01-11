@@ -688,6 +688,7 @@ ja:
         identifier: 識別子
         date_of_publication: 出版日
         pub_date: 出版日
+        pub_year: 版年
         deleted_at: 削除時刻
         access_address: アクセスアドレス
         start_page: 最初のページ

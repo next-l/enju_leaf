@@ -380,7 +380,7 @@ class Item < ActiveRecord::Base
     # create output path
     FileUtils.mkdir_p(out_dir) unless FileTest.exist?(out_dir)
     # get item
-    @items = Item.order(:bookstore_id, :acquired_at).all
+    @items = Item.order(:bookstore_id, :acquired_at, :item_identifier).all
     # make csv
     make_item_register_csv(csv_file, @items)
     # make pdf
@@ -406,9 +406,10 @@ class Item < ActiveRecord::Base
     columns = [
       [:bookstore, 'activerecord.models.bookstore'],
       ['item_identifier', 'activerecord.attributes.item.item_identifier'],
+      ['acquired_at', 'activerecord.attributes.item.acquired_at'],
       [:creator, 'patron.creator'],
       [:original_title, 'activerecord.attributes.manifestation.original_title'],
-      [:date_of_publication, 'activerecord.attributes.manifestation.date_of_publication'],
+      [:pub_year, 'activerecord.attributes.manifestation.pub_year'],
       [:publisher, 'patron.publisher'],
       [:price, 'activerecord.attributes.manifestation.price'],
       ['call_number', 'activerecord.attributes.item.call_number'],
@@ -450,9 +451,9 @@ class Item < ActiveRecord::Base
               else
                 row << ""
               end
-            when :date_of_publication
+            when :pub_year
               if item.manifestation && item.manifestation.date_of_publication
-                row << item.manifestation.date_of_publication.strftime("%Y-%m-%d")
+                row << item.manifestation.date_of_publication.strftime("%Y")
               else 
                 row << ""
               end
@@ -504,9 +505,10 @@ class Item < ActiveRecord::Base
             if item.bookstore_id == bookstore_id
               page.list(:list).add_row do |row|
                 row.item(:item_identifier).value(item.item_identifier)
+                row.item(:acquired_at).value(item.acquired_at.strftime("%Y%m%d")) if item.acquired_at
                 row.item(:patron).value(item.manifestation.creators[0].full_name) if item.manifestation && item.manifestation.creators
                 row.item(:title).value(item.manifestation.original_title) if item.manifestation
-                row.item(:date_of_publication).value(item.manifestation.date_of_publication.strftime("%Y/%m/%d")) if item.manifestation && item.manifestation.date_of_publication
+                row.item(:pub_year).value(item.manifestation.date_of_publication.strftime("%Y")) if item.manifestation && item.manifestation.date_of_publication
                 row.item(:publisher).value(item.publisher.delete_if{|p|p.blank?}[0]) if item.publisher
                 row.item(:price).value(to_format(item.price)) if item.price
                 row.item(:call_number).value(item.call_number)
