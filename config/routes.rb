@@ -374,7 +374,10 @@ EnjuLeaf::Application.routes.draw do
     post 'search_user', :on => :collection
   end
 
-  resources :export_item_lists  
+  resources :export_item_lists do
+    get :get_list_size, :on => :collection
+  end
+ 
   resources :library_reports do
     get :daily_report, :on => :collection
     get :monthly_report, :on => :collection

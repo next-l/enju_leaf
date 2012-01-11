@@ -1091,6 +1091,12 @@ en:
         body: Body
       series_statement_merge_list:
         title: Title
+      item_list:
+        list_type: List type
+        list_condition: List condition
+        list_number: List number
+        page_number: Page number
+        sort_by: Sort by
 
   page:
     user_title: "Welcome %{login_name}"
