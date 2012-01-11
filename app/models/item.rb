@@ -404,6 +404,7 @@ class Item < ActiveRecord::Base
 
   def self.make_item_register_csv(csvfile, items)
     columns = [
+      [:bookstore, 'activerecord.models.bookstore'],
       ['item_identifier', 'activerecord.attributes.item.item_identifier'],
       [:creator, 'patron.creator'],
       [:original_title, 'activerecord.attributes.manifestation.original_title'],
@@ -431,16 +432,42 @@ class Item < ActiveRecord::Base
           row = []
           columns.each do |column|
             case column[0]
+            when :bookstore
+              if item.bookstore
+                row << item.bookstore.name
+              else
+                row << ""
+              end
             when :creator
-              row << item.manifestation.creators.inject([]){|names, creator| names << creator.full_name if creator.full_name; names}.join(",") if item.manifestation && item.manifestation.creators
+              if item.manifestation && item.manifestation.creators
+                row << item.manifestation.creators.inject([]){|names, creator| names << creator.full_name if creator.full_name; names}.join(",")
+              else
+                row << ""
+              end
             when :original_title
-              row << item.manifestation.original_title if item.manifestation
+              if item.manifestation
+                row << item.manifestation.original_title
+              else
+                row << ""
+              end
             when :date_of_publication
-              row << item.manifestation.date_of_publication.strftime("%Y-%m-%d") if item.manifestation && item.manifestation.date_of_publication
+              if item.manifestation && item.manifestation.date_of_publication
+                row << item.manifestation.date_of_publication.strftime("%Y-%m-%d")
+              else 
+                row << ""
+              end
             when :publisher
-              row << item.publisher.delete_if{|p|p.blank?}.join(",") if item.publisher
+              if item.publisher
+                row << item.publisher.delete_if{|p|p.blank?}.join(",")
+              else
+                row << ""
+              end
             when :price
-              row << item.manifestation.price if item.manifestation
+              if item.manifestation && item.manifestation.price
+                row << item.manifestation.price
+              else
+                row << ""
+              end
             else
               row << get_object_method(item, column[0].split('.')).to_s.gsub(/\r\n|\r|\n/," ").gsub(/\"/,"\"\"")
             end
@@ -467,19 +494,26 @@ class Item < ActiveRecord::Base
         end
       end
 
-      report.start_new_page do |page|
-        page.item(:date).value(Time.now)
-        items.each do |item|
-          page.list(:list).add_row do |row|
-            row.item(:item_identifier).value(item.item_identifier)
-            row.item(:patron).value(item.manifestation.creators[0].full_name) if item.manifestation && item.manifestation.creators
-            row.item(:title).value(item.manifestation.original_title) if item.manifestation
-            row.item(:date_of_publication).value(item.manifestation.date_of_publication.strftime("%Y/%m/%d")) if item.manifestation && item.manifestation.date_of_publication
-            row.item(:publisher).value(item.publisher.delete_if{|p|p.blank?}[0]) if item.publisher
-            row.item(:price).value(to_format(item.price)) if item.price
-            row.item(:call_number).value(item.call_number)
-            row.item(:note).value(item.note.split("\r\n")[0]) if item.note
-           end
+      bookstore_ids = [nil]
+      bookstore_ids << items.inject([]){|ids, item| ids << item.bookstore_id; ids}.uniq!
+      bookstore_ids.flatten.each do |bookstore_id|
+        report.start_new_page do |page|
+          page.item(:date).value(Time.now)
+          page.item(:bookstore).value(Bookstore.find(bookstore_id).name) rescue nil
+          items.each do |item|
+            if item.bookstore_id == bookstore_id
+              page.list(:list).add_row do |row|
+                row.item(:item_identifier).value(item.item_identifier)
+                row.item(:patron).value(item.manifestation.creators[0].full_name) if item.manifestation && item.manifestation.creators
+                row.item(:title).value(item.manifestation.original_title) if item.manifestation
+                row.item(:date_of_publication).value(item.manifestation.date_of_publication.strftime("%Y/%m/%d")) if item.manifestation && item.manifestation.date_of_publication
+                row.item(:publisher).value(item.publisher.delete_if{|p|p.blank?}[0]) if item.publisher
+                row.item(:price).value(to_format(item.price)) if item.price
+                row.item(:call_number).value(item.call_number)
+                row.item(:note).value(item.note.split("\r\n")[0]) if item.note
+               end
+             end	
+          end
         end
       end
       report.generate_file(pdf_file)
