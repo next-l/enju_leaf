@@ -324,8 +324,21 @@ p "ready status is OK"
       return
     end
     logger.info "end export_removing_list"
-
-
+    
+    #8)
+    logger.info "start export_item_register"
+    begin
+      Item.export_item_register(out_dir)
+    rescue => exc
+      p "Error at export_item_register (csv,pdf):" + exc.to_s
+      p "Error at export_item_register (csv,pdf):" + $@
+      logger.error "Error at exporting item register (csv,pdf):" + exc.to_s
+      logger.error "Error at exporting item register (csv,pdf):" + $@
+      self.error_msg = I18n.t('activerecord.errors.messages.library_check.error_at_exporting_item_register') + ":" + exc.to_s
+      sm_fail!
+      return
+    end
+    logger.info "end export_item_register"  
 
     self.operated_at = Time.now
     sm_complete!

@@ -25,3 +25,4 @@ ja:
           error_at_checking_confusion: "乱れチェック処理時にエラーが発生しました。"
           error_at_exporting_resource_list: "蔵書リストファイル出力時にエラーが発生しました。"
           error_at_exporting_notfound_list: "欠本リストファイル出力時にエラーが発生しました。"
+          error_at_exporting_item_register: "図書原簿ファイルの出力時にエラーが発生しました。"

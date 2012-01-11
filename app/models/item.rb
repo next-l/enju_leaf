@@ -372,6 +372,21 @@ class Item < ActiveRecord::Base
     end  #end of method
   end
 
+  def self.export_item_register(out_dir)
+    raise "invalid parameter: no path" if out_dir.nil? || out_dir.length < 1
+    csv_file = out_dir + "item_register.csv"
+    pdf_file = out_dir + "item_register.pdf"
+    logger.info "output item_register csv: #{csv_file} pdf: #{pdf_file}"
+    # create output path
+    FileUtils.mkdir_p(out_dir) unless FileTest.exist?(out_dir)
+    # get item
+    @items = Item.order(:bookstore_id, :acquired_at).all
+    # make csv
+    make_item_register_csv(csv_file, @items)
+    # make pdf
+    make_item_register_pdf(pdf_file, @items)
+  end
+
   private
   def self.to_format(num)
     num.to_s.gsub(/(\d)(?=(\d{3})+(?!\d))/, '\1,')
@@ -386,7 +401,95 @@ class Item < ActiveRecord::Base
     return get_object_method(_obj, array) if array.present?
     return _obj
   end
+
+  def self.make_item_register_csv(csvfile, items)
+    columns = [
+      ['item_identifier', 'activerecord.attributes.item.item_identifier'],
+      [:creator, 'patron.creator'],
+      [:original_title, 'activerecord.attributes.manifestation.original_title'],
+      [:date_of_publication, 'activerecord.attributes.manifestation.date_of_publication'],
+      [:publisher, 'patron.publisher'],
+      [:price, 'activerecord.attributes.manifestation.price'],
+      ['call_number', 'activerecord.attributes.item.call_number'],
+      ['note', 'activerecord.attributes.item.note']
+    ]
+  
+    File.open(csvfile, "w") do |output|
+      # add UTF-8 BOM for excel
+      output.print "\xEF\xBB\xBF".force_encoding("UTF-8")
+
+      # タイトル行
+      row = []
+      columns.each do |column|
+        row << I18n.t(column[1])
+      end
+      output.print row.join(",")+"\n"
+      if items.nil? || items.size < 1
+        logger.warn "item data is empty"
+      else
+        items.each do |item|
+          row = []
+          columns.each do |column|
+            case column[0]
+            when :creator
+              row << item.manifestation.creators.inject([]){|names, creator| names << creator.full_name if creator.full_name; names}.join(",") if item.manifestation && item.manifestation.creators
+            when :original_title
+              row << item.manifestation.original_title if item.manifestation
+            when :date_of_publication
+              row << item.manifestation.date_of_publication.strftime("%Y-%m-%d") if item.manifestation && item.manifestation.date_of_publication
+            when :publisher
+              row << item.publisher.delete_if{|p|p.blank?}.join(",") if item.publisher
+            when :price
+              row << item.manifestation.price if item.manifestation
+            else
+              row << get_object_method(item, column[0].split('.')).to_s.gsub(/\r\n|\r|\n/," ").gsub(/\"/,"\"\"")
+            end
+          end
+          output.print '"'+row.join('","')+"\"\n"
+        end  
+      end
+    end
+  end
+   
+  def self.make_item_register_pdf(pdf_file, items)
+    if items.nil? || items.size < 1
+      logger.warn "item date is empty"
+    else
+      # pdf
+      require 'thinreports'
+      report = ThinReports::Report.new :layout => File.join(Rails.root, 'report', 'libcheck_items.tlf') 
+      report.events.on :page_create do |e|
+        e.page.item(:page).value(e.page.no)
+      end
+      report.events.on :generate do |e|
+        e.pages.each do |page|
+          page.item(:total).value(e.report.page_count)
+        end
+      end
+
+      report.start_new_page do |page|
+        page.item(:date).value(Time.now)
+        items.each do |item|
+          page.list(:list).add_row do |row|
+            row.item(:item_identifier).value(item.item_identifier)
+            row.item(:patron).value(item.manifestation.creators[0].full_name) if item.manifestation && item.manifestation.creators
+            row.item(:title).value(item.manifestation.original_title) if item.manifestation
+            row.item(:date_of_publication).value(item.manifestation.date_of_publication.strftime("%Y/%m/%d")) if item.manifestation && item.manifestation.date_of_publication
+            row.item(:publisher).value(item.publisher.delete_if{|p|p.blank?}[0]) if item.publisher
+            row.item(:price).value(to_format(item.price)) if item.price
+            row.item(:call_number).value(item.call_number)
+            row.item(:note).value(item.note.split("\r\n")[0]) if item.note
+           end
+        end
+      end
+      report.generate_file(pdf_file)
+    end 
+    rescue => e
+      logger.error "pdf: #{e}"
+  end
+
 end
+
 # == Schema Information
 #
 # Table name: items
@@ -405,7 +508,7 @@ end
 #  owns_count                  :integer         default(0), not null
 #  resource_has_subjects_count :integer         default(0), not null
 #  note                        :text
-#  url                         :string(255)
+#  curl                         :string(255)
 #  price                       :integer
 #  lock_version                :integer         default(0), not null
 #  required_role_id            :integer         default(1), not null
