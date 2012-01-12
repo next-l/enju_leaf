@@ -89,7 +89,7 @@
               (<%= t('page.number_of_reservations', :count => @reserved_count) -%>)
             <%- end -%>
           <%- else -%>
-            <%= link_to t('activerecord.models.purchase_request'), new_user_purchase_request_path(current_user, :purchase_request => {:url => manifestation_url(@manifestation)}) %>
+            <li><%= link_to t('activerecord.models.purchase_request'), new_user_purchase_request_path(current_user, :purchase_request => {:url => manifestation_url(@manifestation)}) %>
           <%- end -%>
         </li>
       <%- end -%>
