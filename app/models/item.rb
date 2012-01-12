@@ -506,7 +506,7 @@ class Item < ActiveRecord::Base
               page.list(:list).add_row do |row|
                 row.item(:item_identifier).value(item.item_identifier)
                 row.item(:acquired_at).value(item.acquired_at.strftime("%Y%m%d")) if item.acquired_at
-                row.item(:patron).value(item.manifestation.creators[0].full_name) if item.manifestation && item.manifestation.creators
+                row.item(:patron).value(item.manifestation.creators[0].full_name) if item.manifestation && item.manifestation.creators[0]
                 row.item(:title).value(item.manifestation.original_title) if item.manifestation
                 row.item(:pub_year).value(item.manifestation.date_of_publication.strftime("%Y")) if item.manifestation && item.manifestation.date_of_publication
                 row.item(:publisher).value(item.publisher.delete_if{|p|p.blank?}[0]) if item.publisher

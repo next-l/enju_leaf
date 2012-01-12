@@ -254,6 +254,8 @@ p "ready status is OK"
     
     # output directory
     out_dir = "#{dir_base}/library_check/#{self.id}/"
+    # clear output directory
+    Dir.foreach(out_dir){|file| File.delete(out_dir + file) rescue nil}
 
     logger.info "start export resource list"
     #5) output resource list
