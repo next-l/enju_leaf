@@ -380,7 +380,7 @@ class Item < ActiveRecord::Base
     # create output path
     FileUtils.mkdir_p(out_dir) unless FileTest.exist?(out_dir)
     # get item
-    @items = Item.order(:bookstore_id, :acquired_at, :item_identifier).all
+    @items = Item.order("bookstore_id DESC, acquired_at ASC, item_identifier ASC").all
     # make csv
     make_item_register_csv(csv_file, @items)
     # make pdf
@@ -495,9 +495,8 @@ class Item < ActiveRecord::Base
         end
       end
 
-      bookstore_ids = [nil]
-      bookstore_ids << items.inject([]){|ids, item| ids << item.bookstore_id; ids}.uniq!
-      bookstore_ids.flatten.each do |bookstore_id|
+      bookstore_ids = items.inject([]){|ids, item| ids << item.bookstore_id; ids}.uniq!
+      bookstore_ids.each do |bookstore_id|
         report.start_new_page do |page|
           page.item(:date).value(Time.now)
           page.item(:bookstore).value(Bookstore.find(bookstore_id).name) rescue nil
