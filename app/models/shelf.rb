@@ -6,7 +6,6 @@ class Shelf < ActiveRecord::Base
   has_many :items, :include => [:circulation_status]
   has_many :picture_files, :as => :picture_attachable, :dependent => :destroy
   has_many :statistics
-  has_many :libcheck_tmp_items
 
   validates_associated :library
   validates_presence_of :library

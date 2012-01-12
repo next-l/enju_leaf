@@ -51,7 +51,7 @@ private
               end
             when :shelf
               begin
-                row << LibcheckTmpItem.find(item.id).shelf.display_name.localize
+                row << LibcheckTmpItem.where(["item_id = ?", item.id]).first.libcheck_shelf.shelf_name
               rescue
                 row << ""
               end
@@ -85,7 +85,7 @@ private
           page.list(:list).add_row do |row|
             row.item(:item_identifier).value(item.item_identifier)
             row.item(:title).value(item.manifestation.original_title) if item.manifestation
-            row.item(:shelf).value(LibcheckTmpItem.find(item.id).shelf.display_name.localize) rescue nil
+            row.item(:shelf).value(LibcheckTmpItem.where(["item_id = ?", item.id]).first.libcheck_shelf.shelf_name) rescue nil
             row.item(:circulation_status).value(item.circulation_status.display_name.localize)
           end
         end

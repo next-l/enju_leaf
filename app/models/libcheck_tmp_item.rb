@@ -1,5 +1,5 @@
 class LibcheckTmpItem < ActiveRecord::Base
-  belongs_to :shelf
+  belongs_to :libcheck_shelf, :foreign_key => 'shelf_id'
 
   # CONSTANT
   STS_NO_ERROR        = 0b00000000
