@@ -124,6 +124,9 @@ class Manifestation < ActiveRecord::Base
     string :creator, :multiple => true do
       creator.map{|au| au.gsub(' ', '')}
     end
+    string :author do
+      NKF.nkf('-w --katakana', creators[0].full_name_transcription) if creators[0] and creators[0].full_name_transcription
+    end
     text :au do
       creator
     end

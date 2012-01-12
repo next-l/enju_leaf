@@ -44,6 +44,11 @@
       <%- else -%>
         <%= link_to t('page.title'), params.merge(:sort_by => 'title') -%>
       <%- end -%>
+      <%- if params[:sort_by] == 'author' -%>
+        <strong><%= t('patron.creator') -%></strong>
+      <%- else -%>
+        <%= link_to t('patron.creator'), params.merge(:sort_by => 'author') -%>
+      <%- end -%>
       <%- if params[:sort_by] == 'carrier_type' -%>
         <strong><%= t('activerecord.models.carrier_type') -%></strong>
       <%- else -%>

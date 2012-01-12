@@ -560,6 +560,9 @@ class ManifestationsController < ApplicationController
     when 'carrier_type'
       sort[:sort_by] = 'carrier_type'
       sort[:order] = 'desc'
+    when 'author'
+      sort[:sort_by] = 'author'
+      sort[:order] = 'asc'
     else
       # デフォルトの並び方
       sort[:sort_by] = 'created_at'
