@@ -112,3 +112,6 @@ configatron.reserve.not_reserve_on_loan = false
 
 # refs 2042 蔵書点検時、未返却資料を検出した場合は自動的に返却処理を行う
 configatron.library_checks.auto_checkin = true
+
+# refs 2553 ユーザ情報重複チェック機能
+configatron.patron.check_duplicate_user = false
