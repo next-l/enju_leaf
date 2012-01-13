@@ -118,7 +118,7 @@ class SeriesStatementsController < ApplicationController
 
     respond_to do |format|
       format.html { redirect_to(series_statements_url) }
-      format.json { head :ok }
+      format.json { head :no_content }
     end
   end
 end

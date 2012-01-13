@@ -3,88 +3,37 @@ en:
     models:
       library: Library
       patron_import_file: Patron import file
-      circulation_status: Circulation status
-      inventory: Inventory
       patron: Patron
-      subject_has_classification: Subject has classification
-      expression: Expression
       language: Language
-      patron_merge_list: Patron merge list
       user: User
-      work_has_subject: Resource has subject
       picture_file: Picture file
       form_of_work: Form of works
-      inter_library_loan: Inter library loan
-      message: Message
-      classification: Classification
       exemplify: Exemplify
       own: Own
       shelf: Shelf
       donate: Donate
-      basket: Basket
-      checked_item: Checked item
       produce: Produce
       role: Role
-      session: Session
-      subject_broader_term: Subject broader term
-      subject_type: Subject type
-      subject_heading_type: Subject heading type
       subscribe: Subscribe
-      checkin: Checkin
       item: Item
-      work: Work
       realize: Realize
-      reify: Reify
       frequency: Frequency of issue
-      expression_merge_list: Expression merge list
-      use_restriction: Use restriction
-      subject: Subject
       content_type: Content type
-      work_merge: Work merge
       patron_type: Patron type
-      work_merge_list: Work merge list
       embody: Embody
-      item_has_use_restriction: Item has use restriction
-      expression_merge: Expression merge
       request_status_type: Request status type
-      news_feed: News feed
-      news_post: News post
       search_engine: Search engine
-      bookmark: Bookmark
       create: Create
       carrier_type: Carrier Type
       manifestation: Manifestation
       user_group: User group
       resource_import_file: Resource import file
-      checkout: Checkout
       subscription: Subscription
-      message_template: Message template
-      patron_merge: Patron merge
-      subject_related_term: Subject related term
       library_group: Library group
       attachment_file: Attachment file
-      reserve: Reserve
-      message_request: Message request
       bookstore: Bookstore
-      checkout_type: Checkout type
-      classification_type: Classification type
       country: Country
-      manifestation_api_response: Manifestation API Response
       request_type: Request type
-      inventory_file: Inventory file
-      user_group_has_checkout_type: User group has checkout type
-      carrier_type_has_checkout_type: Carrier type and checkout type
-      tag: Tag
-      bookmark_stat: Bookmark stat
-      manifestation_checkout_stat: Manifestation checkout stat
-      user_checkout_stat: User checkout stat
-      manifestation_reserve_stat: Manifestation reserve stat
-      user_reserve_stat: User reserve stat
-      bookmark_stat_has_manifestation: Bookmark stat to manifestation relationship
-      reserve_stat_has_manifestation: Reserve stat to manifestation relationship
-      reserve_stat_has_user: Reserve stat to user relationship
-      subject_heading_type_has_subject: Subject heading type to subject relationship
-      user_has_shelf: User to shelf relationship
       participate: Participate
       patron_has_patron: Patron to patron relationship
       extent: Extent
@@ -92,22 +41,14 @@ en:
       content_type: Content type
       patron_relationship_type: Patron relationship type
       manifestation_relationship_type: Resource relationship type
-      lending_policy: Lending policy
-      nii_type: NII metadata type
       license: License
       series_statement: Series statement
-      checkout_stat_has_manifestation: Checkout stat has manifestation
-      checkout_stat_has_user: Checkout stat has user
-      reserve_stat_has_manifestation: Reserve stat has manifestation
-      reserve_stat_has_user: Reserve stat has user
       import_request: Import request
       user_has_role: User and roles
       patron_relationship: Patron relationship
       manifestation_relationship: Resource relationship
       resource_import_result: Resource Import Result
       patron_import_result: Patron Import Result
-      series_statement_merge: Series statement merge
-      series_statement_merge_list: Series statement merge list
       series_has_manifestation: Series statement to manifestation
       create_type: Create type
       realize_type: Realize type
@@ -143,13 +84,6 @@ en:
         patron_import_updated_at: Updated at
         state: State
         edit_mode: Edit mode
-      circulation_status:
-        name: Name
-        display_name: Display name
-        note: Note
-        position: Position
-      inventory:
-        note: Note
       patron:
         last_name: Last name
         middle_name: Middle name
@@ -184,18 +118,6 @@ en:
         language: Language
         email: Email
         url: URL
-      subject_has_classification:
-      expression:
-        original_title: Original title
-        title_transcription: Title transcription
-        title_alternative: Titlte alternative
-        summarization: Summarization
-        context: Context
-        issn: ISSN
-        feed_url: Feed URL
-        note: Note
-        lock_version: Lock version
-        deleted_at: Deleted at
       language:
         name: Name
         native_name: Native name
@@ -205,8 +127,6 @@ en:
         iso_639_3: ISO 639 3
         note: Note
         position: Position
-      patron_merge_list:
-        title: Title
       user:
         login: Login
         username: Username
@@ -228,7 +148,6 @@ en:
         checkout_icalendar_token: Checkout iCalendar token
         due_date_reminder_days: Due date reminder days
         note: Note
-        share_bookmarks: Share bookmarks
         save_checkout_history: Save checkout history
         lock_version: Lock version
         keyword_list: Keyword list
@@ -242,10 +161,6 @@ en:
         current_password: Current password
         locale: Locale
         password_confirmation: Password confirmation
-      work_has_subject:
-        work: Work
-        subject: Subject
-        subjectable_type: Subjectable type
       picture_file:
         picture_attachable_type: Picture attachable type
         picture_file_size: Size
@@ -262,23 +177,6 @@ en:
         display_name: Display name
         note: Note
         position: Position
-      inter_library_loan:
-        requested_at: Requested at
-        shipped_at: Shipped at
-        received_at: Received at
-        return_shipped_at: Return shipped at
-        return_received_at: Return received at
-        deleted_at: Deleted at
-        state: State
-      message:
-        subject: Subject
-        body: Body
-        sender: Sender
-        receiver: Receiver
-      classification:
-        category: Category
-        name: Name
-        note: Note
       exemplify:
         position: Position
       own:
@@ -290,12 +188,6 @@ en:
         position: Position
         deleted_at: Deleted at
       donate:
-      basket:
-        user: User
-        note: Note
-        lock_version: Lock version
-      checked_item:
-        due_date: Due date
       produce:
         position: Position
       role:
@@ -304,18 +196,9 @@ en:
         score: Score
         note: Note
         position: Position
-      session:
-        data: Data
-      subject_broader_term:
-      subject_heading_type:
-        name: Name
-        display_name: Display name
-        note: Note
-        position: Position
       subscribe:
         started_on: Start on
         ended_on: End on
-      checkin:
       item:
         call_number: Call number
         item_identifier: Item identifier
@@ -327,78 +210,30 @@ en:
         lock_version: Lock version
         checkout_type: Checkout type
         acquired_at: Acquired at
-      work:
-        original_title: Original title
-        title_transcription: Title transcription
-        title_alternative: Titlte alternative
-        context: Context
-        note: Note
-        lock_version: Lock version
-        deleted_at: Deleted at
-        parent_of_series: Parent of series
       realize:
-        position: Position
-      reify:
         position: Position
       frequency:
         name: Name
         display_name: Display name
         note: Note
         position: Position
-      expression_merge_list:
-        title: Title
-      use_restriction:
-        name: Name
-        display_name: Display name
-        note: Note
-        position: Position
-      subject:
-        term: Term
-        term_transcription: Term transcription
-        scope_note: Scope note
-        note: Note
-        lock_version: Lock version
       content_type:
         name: Name
         display_name: Display name
         note: Note
         position: Position
-      work_merge:
       patron_type:
         name: Name
         display_name: Display name
         note: Note
         position: Position
-      subject_type:
-        name: Name
-        display_name: Display name
-        note: Note
-        position: Position
-      work_merge_list:
-        title: Title
       embody:
         position: Position
-      item_has_use_restriction:
-      expression_merge:
       request_status_type:
         name: Name
         display_name: Display name
         note: Note
         position: Position
-      news_feed:
-        title: Title
-        url: URL
-        body: Body
-        note: Note
-        position: Position
-      news_post:
-        title: Title
-        body: Body
-        note: Note
-        position: Position
-        start_date: Start date
-        end_date: End date
-        draft: Draft
       search_engine:
         name: Name
         url: URL
@@ -408,10 +243,6 @@ en:
         additional_param: Additional param
         note: Note
         position: Position
-      bookmark:
-        note: Note
-        shared: Shared
-        url: URL
       create:
         position: Position
       carrier_type:
@@ -476,22 +307,11 @@ en:
         resource_import_updated_at: Updated at
         state: State
         edit_mode: Edit mode
-      checkout:
-        due_date: Due date
-        lock_version: Lock version
       subscription:
         title: Title
         note: Note
         deleted_at: Deleted at
         subscribes_count: Count
-      message_template:
-        status: Status
-        locale: Locale
-        title: Title
-        body: Body
-        position: Position
-      patron_merge:
-      subject_related_term:
       library_group:
         name: Name
         display_name: Display name
@@ -499,12 +319,9 @@ en:
         email: Email
         my_networks: My networks
         admin_networks: Admin networks
-        use_dsbl: Use DSBL
-        dsbl_list: DSBL list
         note: Note
         login_banner: Login banner
         post_to_union_catalog: Post to union catalog
-        allow_bookmark_external_url: Allow bookmark external url
       attachment_file:
         attachable_type: Attachable type
         size: Size
@@ -516,17 +333,6 @@ en:
         thumbnail: Thumbnail
         fulltext: Fulltext
         file_hash: File hash
-      reserve:
-        user: User
-        checked_out_at: Checked out at
-        canceled_at: Canceled at
-        expired_at: Expired at
-        deleted_at: Deleted at
-        created_at: Reserved at
-        state: State
-      message_request:
-        sent_at: Sent at
-        deleted_at: Deleted at
       bookstore:
         name: Name
         zip_code: Zip code
@@ -537,16 +343,6 @@ en:
         url: URL
         position: Position
         deleted_at: Deleted at
-      checkout_type:
-        name: Name
-        display_name: Display name
-        note: Note
-        position: Position
-      classification_type:
-        name: Name
-        display_name: Display name
-        note: Note
-        position: Position
       country:
         name: Name
         display_name: Display name
@@ -555,74 +351,11 @@ en:
         numeric_3: Numeric 3
         note: Note
         position: Position
-      manifestation_api_response:
-        body: Body
       request_type:
         name: Name
         display_name: Display name
         note: Note
         position: Position
-      inventory_file:
-        inventory_file_name: Filename
-        inventory_content_type: Content type
-        inventory_file_size: Size
-        file_hash: File hash
-        note: Note
-      user_group_has_checkout_type:
-        checkout_limit: Checkout limit
-        checkout_period: Checkout period
-        checkout_renewal_limit: Checkout renewal limit
-        reservation_limit: Reservation limit
-        reservation_expired_period: Reservation expired period
-        set_due_date_before_closing_day: Set due date before the closing day
-        fixed_due_date: Fixed due date
-        note: Note
-        position: Position
-        user_group_id: User group
-        checkout_type_id: Checkout type
-        current_checkout_count: Current checkout count
-      carrier_type_has_checkout_type:
-        note: Note
-        position: Position
-      bookmark_stat:
-        start_date: Start date
-        end_date: End date
-        note: Note
-        state: State
-      manifestation_checkout_stat:
-        start_date: Start date
-        end_date: End date
-        note: Note
-        state: State
-      user_checkout_stat:
-        start_date: Start date
-        end_date: End date
-        note: Note
-        state: State
-      manifestation_reserve_stat:
-        start_date: Start date
-        end_date: End date
-        note: Note
-        state: State
-      user_reserve_stat:
-        start_date: Start date
-        end_date: End date
-        note: Note
-        state: State
-      tag:
-        name: Name
-        synonym: Synonym
-        taggings_count: Taggings count
-      checkout_stat_has_user:
-        checkouts_count: Checkout count
-      checkout_stat_has_manifestation:
-        checkouts_count: Checkout count
-      reserve_stat_has_user:
-        reserves_count: Reserve count
-      reserve_stat_has_manifestation:
-        reserves_count: Reserve count
-      bookmark_stat_has_manifestation:
-        bookmarks_count: Bookmark count
       medium_of_performance:
         name: Name
         display_name: Displayname
@@ -648,34 +381,7 @@ en:
         display_name: Display name
         note: Note
         position: Position
-      work_relationship_type:
-        name: Name
-        display_name: Display name
-        note: Note
-        position: Position
-      expression_relationship_type:
-        name: Name
-        display_name: Display name
-        note: Note
-        position: Position
       manifestation_relationship_type:
-        name: Name
-        display_name: Display name
-        note: Note
-        position: Position
-      item_relationship_type:
-        name: Name
-        display_name: Display name
-        note: Note
-        position: Position
-      lending_policy:
-        loan_period: Loan period
-        fixed_due_date: Fixed due date
-        renewal: Renewal
-        fine: Fine
-        note: Note
-        position: Position
-      nii_type:
         name: Name
         display_name: Display name
         note: Note
@@ -711,8 +417,6 @@ en:
         body: Body
       patron_import_result:
         body: Body
-      series_statement_merge_list:
-        title: Title
       create_type:
         name: Name
         display_name: Display name
@@ -733,7 +437,6 @@ en:
     sign_up: "Sign up"
     logged_in_as: "logged in as %{login_name}"
     edit_user_profile: "Edit %{login_name}'s profile"
-    user_bookmark_title: "%{login_name}'s bookmark"
     login_name: "Login name"
     password: "Password"
     email_and_password: "Email and password"
@@ -857,7 +560,6 @@ en:
     date: "Date"
     this_month: "This month"
     click_to_edit: "click to edit..."
-    news: "News"
     model: "Model"
     number_of_record: "Number of record"
     facet: "Facet"
@@ -866,8 +568,6 @@ en:
       other: "%{count} days"
     require_login_as_librarian: "You should login as a librarian to create and edit resources."
     read: "Read"
-    merge: "Merge!"
-    merge_resource: "Merge %{model}"
     attachable: "Attachable"
     sent_email: "Sent email."
     identifier: "Identifier"
@@ -923,17 +623,6 @@ en:
     from: "from"
     to: "to"
     all_libraries: "All libraries"
-  bookmark:
-    new: "New bookmark"
-    not_bookmarked: "Not bookmarked."
-    add_to_my_bookmark: "Add to my bookmark"
-    add_to_library_bookmark: "Add to my library bookmark"
-    remove_from_my_bookmark: "Remove from my bookmark"
-    invalid_url: "Invalid URL."
-    specify_title_and_url: "Specify the title and URL of the page."
-    already_bookmarked: "This resource is already bookmarked."
-    only_manifestation_should_be_bookmarked: "You can bookmark only manifestatons in this site."
-    not_our_holding: "This resource is not our holding."
   work:
     patrons_work: "%{patron_name}'s works"
     library_group_work: "Works in %{library_group_name}"
@@ -1011,55 +700,6 @@ en:
     contributor: "Contributor"
     publisher: "Publisher"
     owner: "Owner"
-  message:
-    user_message: "%{login_name}'s messages"
-    sent_at: "Sent at"
-    inbox: "Inbox"
-    write: "Write"
-    outbox: "Outbox"
-    trash: "Trash"
-    recipient: "Recipient"
-    receiver: "Receiver"
-    sender: "Sender"
-    read: "Read"
-    unread: "Unread"
-    deleted: "Deleted"
-    send: "Send message"
-    reply: "Reply"
-    delete: "Delete"
-    sent_successfully: "Message was sent successfully."
-    no_new_message: "No new messages."
-    too_short: "Message is too short. The minimum length is %{count} characters."
-    too_long: "Message is too long. The maximum length is %{count} characters."
-    new_message_from_library: "New message arrived from %{library}"
-    messages_were_deleted: "Messages were deleted."
-    select_messages: "Select messages."
-  tag:
-    popular_tag: "Popular tags"
-    my_tag: "My tags"
-    user_tag: "%{login_name}'s tags"
-    use_space_as_delimiter: "Use space as a delimiter."
-  basket:
-    this_account_is_suspended: "This account is suspended."
-    checkout_completed: "Checkout completed."
-  checkout:
-    user_checkout: "%{login_name}'s checkouts"
-    library_group_checkout: "Checkouts in %{library_group_name}"
-    renewal: "Renewal"
-    renewal_count: "Renewal count"
-    new_due_date: "New due date"
-    editing_due_date: "Editing due date"
-    this_item_cant_be_renewed: "This item can't be renewed."
-    listing_overdue_item: "Listing overdue items"
-    current_user: "Current user"
-    this_item_is_reserved: "This item is reserved."
-    you_have_overdue_item: "You have overdue items."
-    excessed_renewal_limit: "Excessed checkout renewal limit."
-    all_checkout: "All checkouts"
-    no_checkout: "No checkouts."
-    number_of_day_overdue: "Number of days overdue"
-    extend: "Extend"
-    returned: "Returned"
   library:
     map: "Map"
     staff: "Staff"
@@ -1105,62 +745,12 @@ en:
     change_my_password: "Change my password"
     management: "User management"
     not_found: "User not found."
-  news_post:
-    library_group_news_post: "News from %{library_group_name}"
-  reserve:
-    user_reserve: "%{login_name}'s reservations"
-    library_group_reserve: "Reservations in %{library_group_name}"
-    my_reservation: "My reservations"
-    all_reservation: "All reservations"
-    this_manifestation_is_already_reserved: "This manifestation is already reserved."
-    excessed_reservation_limit: "Excessed reservation limit."
-    this_patron_cannot_reserve: "This patron can't reserve this manifestation."
-    reservation_was_canceled: "Reservation was canceled."
-    this_item_is_not_reserved: "This item is not reserved."
-    invalid_item: "Invalid item."
-    show: "Show reservation"
-    invalid_date: "Invalid date."
-    pending: "Pending"
-    requested: "Requested"
-    retained: "Retained"
-    canceled: "Canceled"
-    expired: "Expired"
-    completed: "Completed"
-  inter_library_loan:
-    library_group_inter_library_loan: "Inter library loans in %{library_group_name}"
-    borrowing_library: "Borrowing library"
-    return_this_item: "Return this item"
-  checked_item:
-    item_not_found: "Item not found."
-    not_available_for_checkout: "This item is not available for checkout."
-    previous_checkout: "Previous checkouts"
-    checkout: "Checkout!"
-    ignore_restriction: "Ignore restriction"
-    already_checked_out: "This item is already checked out."
-  checkin:
-    item_not_found: "Item not found."
-    enter_item_identifier: "Enter item identifier."
-    other_library_item: "This item is other library's item!"
-    already_checked_in: "This item is already checked in."
-    checkin: "Checkin!"
-    successfully_checked_in: "This items was successfully checked in."
   subscribe:
     this_subscription_is_expired: "This subscription is expired!"
   role:
     required_role: "Required role"
   attachment_file:
     invalid_file: "Invalid file."
-  inventory_file:
-    not_in_catalog: "Not in catalog"
-    not_on_shelf: "Not on shelf"
-  message_request:
-    not_sent: "Not sent"
-    sent: "Sent"
-    all: "All messages"
-  work_has_subject:
-    add_work: "Add a work"
-    add_subject: "Add a subject"
-    subjectable: "Subjectable"
   library_group:
     configuration: "Library configuration"
   series_statement:
@@ -1172,25 +762,6 @@ en:
     completed: "Completed"
     started: "Started"
     failed: "Failed"
-  resource:
-    select_all: Select all
-    approve_selected_resources: Approve selected resources
-    approve_all_resources: Approve all resources
-    publish_selected_resources: Publish selected resources
-    publish_all_resources: Publish all resources
-    approve: Approve
-    approved: Approved
-    not_approved: Not approved
-    all_resources: All resources
-    resources_were_approved: Resources were approved.
-    resources_were_published: Resources were published.
-    select_resources: Select resources.
-    publish: Publish
-    published: Published
-    reject: Reject
-    withdraw: Withdraw
-  news_feed:
-    failed_to_fetch_feed: Failed to fetch feeds.
   import_request:
     record_not_found: Record not found.
     invalid_isbn: Invalid ISBN.
@@ -1203,6 +774,3 @@ en:
   picture_file:
     invalid_file: Invalid file. You can upload gif, jpeg, png and svg files.
     all_picture: All pictures
-  merge_list:
-    successfully_merged: "%{model} were merged successfully."
-    specify_id: "Specify %{model} ID."

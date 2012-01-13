@@ -1,9 +1,31 @@
 GIT
+  remote: git://github.com/nabeta/enju_barcode.git
+  revision: 62bae2a97bf2b1f83f5cee012b8fbb258d670bab
+  specs:
+    enju_barcode (0.0.1)
+      barby (~> 0.5)
+      cancan
+      devise
+      rails (~> 3.1)
+      rqrcode
+      will_paginate
+
+GIT
   remote: git://github.com/nabeta/enju_oai.git
   revision: 0e7a88bc97de7785b8a5dceebad0a4f2bab832c6
   specs:
     enju_oai (0.0.1)
       rails (~> 3.1)
+
+GIT
+  remote: git://github.com/nabeta/enju_search_log.git
+  revision: aa8a2f09a0ca955ba5916de20b6d2013945bda7e
+  specs:
+    enju_search_log (0.0.1)
+      cancan
+      devise
+      rails (~> 3.1)
+      will_paginate
 
 GIT
   remote: git://github.com/nabeta/isbn-tools.git
@@ -17,6 +39,12 @@ GIT
   specs:
     vidibus-routing_error (0.2.1)
       rails (~> 3.1)
+
+GIT
+  remote: git://github.com/pluginaweek/state_machine.git
+  revision: de425325959303bda6edfdc6b2a4ae89b19c23cc
+  specs:
+    state_machine (1.1.1)
 
 GIT
   remote: git://github.com/swanandp/acts_as_list.git
@@ -101,19 +129,12 @@ GEM
     delayed_job_active_record (0.3.1)
       activerecord (> 2.1.0)
       delayed_job (~> 3.0.0)
-    devise (1.5.3)
+    devise (2.0.0.rc)
       bcrypt-ruby (~> 3.0)
       orm_adapter (~> 0.0.3)
       warden (~> 1.1)
     diff-lcs (1.1.3)
     dynamic_form (1.1.4)
-    enju_barcode (0.0.1)
-      barby (~> 0.5)
-      cancan
-      devise
-      rails (~> 3.0)
-      rqrcode
-      will_paginate
     enju_bookmark (0.0.4)
       acts-as-taggable-on (~> 2.2)
       addressable
@@ -222,11 +243,6 @@ GEM
       sunspot_rails (~> 1.3)
       sunspot_solr (~> 1.3)
       will_paginate (~> 3.0)
-    enju_search_log (0.0.1)
-      cancan
-      devise
-      rails (~> 3.1)
-      will_paginate
     enju_subject (0.0.5)
       attribute_normalizer (~> 1.0)
       cancan
@@ -244,10 +260,10 @@ GEM
     exception_notification (2.5.2)
       actionmailer (>= 3.0.4)
     extractcontent (0.0.1)
-    factory_girl (2.3.2)
+    factory_girl (2.4.0)
       activesupport
-    factory_girl_rails (1.4.0)
-      factory_girl (~> 2.3.0)
+    factory_girl_rails (1.5.0)
+      factory_girl (~> 2.4.0)
       railties (>= 3.0.0)
     fakeweb (1.3.0)
     fattr (2.2.0)
@@ -415,7 +431,6 @@ GEM
       hike (~> 1.2)
       rack (~> 1.0)
       tilt (~> 1.1, != 1.3.0)
-    state_machine (1.1.1)
     sunspot (1.3.0)
       escape (~> 0.0.4)
       pr_geohash (~> 1.0)
@@ -471,9 +486,9 @@ DEPENDENCIES
   daemons
   dalli (~> 1.1)
   delayed_job_active_record
-  devise (~> 1.5)
+  devise (~> 2.0.0.rc)
   dynamic_form
-  enju_barcode (>= 0.0.1)
+  enju_barcode!
   enju_bookmark (= 0.0.4)
   enju_circulation (= 0.0.6)
   enju_event (= 0.0.5)
@@ -484,7 +499,7 @@ DEPENDENCIES
   enju_purchase_request (= 0.0.4)
   enju_question (= 0.0.5)
   enju_resource_merge (= 0.0.3)
-  enju_search_log (= 0.0.1)
+  enju_search_log!
   enju_subject (= 0.0.5)
   exception_notification (~> 2.5.2)
   extractcontent
@@ -523,9 +538,9 @@ DEPENDENCIES
   sanitize
   simple_form (~> 1.5)
   simplecov (~> 0.5)
-  sitemap_generator (~> 2.1)
+  sitemap_generator (~> 2.2)
   spork (~> 0.9.0.rc9)
-  state_machine
+  state_machine!
   sunspot-rails-tester
   sunspot_rails (~> 1.3)
   sunspot_solr (~> 1.3)

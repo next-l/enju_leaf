@@ -490,7 +490,7 @@ class ManifestationsController < ApplicationController
 
     respond_to do |format|
       format.html { redirect_to manifestations_url }
-      format.json { head :ok }
+      format.json { head :no_content }
     end
   end
 

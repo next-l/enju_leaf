@@ -100,13 +100,13 @@ class CreatesController < ApplicationController
       case
       when @patron
         format.html { redirect_to patron_works_url(@patron) }
-        format.json { head :ok }
+        format.json { head :no_content }
       when @work
         format.html { redirect_to work_patrons_url(@work) }
-        format.json { head :ok }
+        format.json { head :no_content }
       else
         format.html { redirect_to creates_url }
-        format.json { head :ok }
+        format.json { head :no_content }
       end
     end
   end
