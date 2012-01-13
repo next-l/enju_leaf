@@ -7,6 +7,8 @@ inter_library_loan_00001:
   return_received_at: 2008-03-19 13:48:29
   id: 1
   state: requested
+  created_at: 2008-03-19 13:48:29
+  updated_at: 2008-03-19 13:48:29
 inter_library_loan_00002:
   item_id: 2
   borrowing_library_id: 1
@@ -16,6 +18,8 @@ inter_library_loan_00002:
   return_received_at: 2008-03-19 13:48:29
   id: 2
   state: shipped
+  created_at: 2008-03-19 13:48:29
+  updated_at: 2008-03-19 13:48:29
 inter_library_loan_00003:
   item_id: 3
   borrowing_library_id: 1
@@ -25,6 +29,8 @@ inter_library_loan_00003:
   return_received_at: 2008-03-19 13:48:29
   id: 3
   state: received
+  created_at: 2008-03-19 13:48:29
+  updated_at: 2008-03-19 13:48:29
 inter_library_loan_00004:
   item_id: 4
   borrowing_library_id: 2
@@ -34,6 +40,8 @@ inter_library_loan_00004:
   return_received_at: 2008-03-19 13:48:29
   id: 4
   state: return_shipped
+  created_at: 2008-03-19 13:48:29
+  updated_at: 2008-03-19 13:48:29
 inter_library_loan_00005:
   item_id: 5
   borrowing_library_id: 3
@@ -43,6 +51,8 @@ inter_library_loan_00005:
   return_received_at: 2008-03-19 13:48:29
   id: 5
   state: return_received
+  created_at: 2008-03-19 13:48:29
+  updated_at: 2008-03-19 13:48:29
 inter_library_loan_00006:
   item_id: 6
   borrowing_library_id: 3
@@ -53,6 +63,8 @@ inter_library_loan_00006:
   return_received_at: 
   id: 6
   state: requested
+  created_at: 2008-03-19 13:48:29
+  updated_at: 2008-03-19 13:48:29
 inter_library_loan_00007:
   item_id: 7
   borrowing_library_id: 3
@@ -63,6 +75,8 @@ inter_library_loan_00007:
   return_received_at: 
   id: 7
   state: shipped
+  created_at: 2008-03-19 13:48:29
+  updated_at: 2008-03-19 13:48:29
 
 # == Schema Information
 #
