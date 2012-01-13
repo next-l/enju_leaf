@@ -2528,7 +2528,6 @@ class StatisticReportsController < ApplicationController
 
       report.start_new_page
       report.page.item(:date).value(Time.now)
-      report.page.item(:year).value(start_at[0,4])
       report.page.item(:year_start_at).value(start_at[0,4])
       report.page.item(:month_start_at).value(start_at[4,2])
       report.page.item(:date_start_at).value(start_at[6,2])
@@ -2866,7 +2865,6 @@ class StatisticReportsController < ApplicationController
 
       report.start_new_page
       report.page.item(:date).value(Time.now)
-      report.page.item(:year).value(start_at[0,4])
       report.page.item(:year_start_at).value(start_at[0,4])
       report.page.item(:month_start_at).value(start_at[4,2])
       report.page.item(:date_start_at).value(start_at[6,2])
@@ -3200,7 +3198,6 @@ class StatisticReportsController < ApplicationController
 
       report.start_new_page
       report.page.item(:date).value(Time.now)
-      report.page.item(:year).value(start_at[0,4])
       report.page.item(:year_start_at).value(start_at[0,4])
       report.page.item(:month_start_at).value(start_at[4,2])
       report.page.item(:date_start_at).value(start_at[6,2])
