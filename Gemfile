@@ -22,7 +22,7 @@ gem 'enju_message', :git => 'git://github.com/nabeta/enju_message.git'
 gem 'enju_inter_library_loan', :git => 'git://github.com/nabeta/enju_inter_library_loan.git'
 gem 'enju_inventory', :git => 'git://github.com/nabeta/enju_inventory.git'
 gem 'enju_event', :git => 'git://github.com/nabeta/enju_event.git'
-gem 'enju_news', :git => 'git://github.com/nabeta/enju_news.git'
+#gem 'enju_news', :git => 'git://github.com/nabeta/enju_news.git'
 gem 'enju_search_log', :git => 'git://github.com/nabeta/enju_search_log.git'
 
 platforms :ruby do

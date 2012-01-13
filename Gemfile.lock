@@ -12,9 +12,9 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_bookmark.git
-  revision: 3c07a75d51501125df7e331350ce015d8c636d0e
+  revision: a5716a62192f00c20f74dc224ee25e21b6433e7a
   specs:
-    enju_bookmark (0.0.3)
+    enju_bookmark (0.0.4)
       acts-as-taggable-on (~> 2.2)
       addressable
       attribute_normalizer (~> 1.0)
@@ -122,21 +122,11 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_ndl.git
-  revision: d0da7686052fe21124fb66881d602e373c24bfd7
+  revision: 1ade3070a28681dd634dae12a6fe7a67bcf5928d
   specs:
-    enju_ndl (0.0.4)
+    enju_ndl (0.0.5)
       devise
       nokogiri
-      rails (~> 3.1)
-      will_paginate (~> 3.0)
-
-GIT
-  remote: git://github.com/nabeta/enju_news.git
-  revision: 43902189ccf44b82b887dd208b84284c7746b39c
-  specs:
-    enju_news (0.0.2)
-      cancan
-      devise
       rails (~> 3.1)
       will_paginate (~> 3.0)
 
@@ -295,7 +285,7 @@ GEM
     addressable (2.2.6)
     annotate (2.4.0)
     ansi (1.4.1)
-    arel (3.0.0.rc1)
+    arel (3.0.0)
     astrails-safe (0.2.7)
       aws-s3
       cloudfiles
@@ -385,7 +375,7 @@ GEM
     inherited_resources (1.3.0)
       has_scope (~> 0.5.0)
       responders (~> 0.6.0)
-    journey (1.0.0.rc4)
+    journey (1.0.0)
     jpmobile (2.0.4)
     jquery-rails (2.0.0)
       railties (>= 3.2.0.beta, < 5.0)
@@ -416,7 +406,7 @@ GEM
     multi_json (1.0.4)
     net-sftp (2.0.5)
       net-ssh (>= 2.0.9)
-    net-ssh (2.2.2)
+    net-ssh (2.3.0)
     nokogiri (1.5.0)
     omniauth (1.0.1)
       hashie (~> 1.2)
@@ -432,7 +422,7 @@ GEM
       cocaine (>= 0.0.2)
       mime-types
     parallel (0.5.11)
-    parallel_tests (0.6.14)
+    parallel_tests (0.6.16)
       parallel
     pg (0.12.2)
     polyglot (0.3.3)
@@ -598,7 +588,6 @@ DEPENDENCIES
   enju_inventory!
   enju_message!
   enju_ndl!
-  enju_news!
   enju_nii!
   enju_oai!
   enju_purchase_request!
