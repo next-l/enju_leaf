@@ -1864,10 +1864,11 @@ ja:
     invalid_year: "対象年度の指定が不正です。"
     invalid_month: "対象月の指定が不正です。"
     year: 対象年度(YYYY) 
-    month: 対象月(YYYYMM)
+    month_ex: 対象月(YYYYMM)
     year_or_month: 対象年度(YYYY)または対象月(YYYYMM)
     day: 対象年月日(YYYYMMDD)
     submit: "帳票を作成"
+    submit_csv: "CSVで出力"
     created: "帳票を作成しました。"
     all_library: 全図書館
     items: 蔵書冊数
@@ -1903,6 +1904,7 @@ ja:
     consultations: 窓口利用件数
     visiters: 入館者数
     copies: コピー件数
+    month: "%{num}月"
     date: 日
     hour: 時
     sum: 合計
@@ -1910,6 +1912,9 @@ ja:
     remove: 除籍資料
     checkout_loan: 貸出
     checkin_loan: 借受
+    type: 種別
+    library: 図書館
+    option: オプション
   print_label:
     users: ラベルを作成する利用者
     submit: ラベルを作成

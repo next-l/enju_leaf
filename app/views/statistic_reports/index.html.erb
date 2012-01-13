@@ -14,14 +14,16 @@
     <td><%= t('statistic_report.monthly_report') -%></td>
     <td><%= text_field_tag :term, @year if @year %>  <%= t('statistic_report.year') -%></td>
     <td><%= submit_tag t('statistic_report.submit') %></td>
+    <td><%= submit_tag(t('statistic_report.submit_csv'), :name => "csv") %></td>
 <%- end -%>
   </tr>
 
   <tr class="line<%= cycle("0", "1") -%>">
 <%= form_tag(:action => :get_daily_report)  do -%>
     <td><%= t('statistic_report.daily_report') -%></td>
-    <td><%= text_field_tag :term, @month if @month %>  <%= t('statistic_report.month') -%></td>
+    <td><%= text_field_tag :term, @month if @month %>  <%= t('statistic_report.month_ex') -%></td>
     <td><%= submit_tag t('statistic_report.submit') %></td>
+    <td><%= submit_tag(t('statistic_report.submit_csv'), :name => "csv") %></td>
 <%- end -%>
   </tr>
 
@@ -30,6 +32,7 @@
     <td><%= t('statistic_report.timezone_report') -%></td>
     <td><%= text_field_tag :start_at, @t_start_at if @t_start_at %> - <%= text_field_tag :end_at, @t_end_at if @t_end_at %>  <%= t('statistic_report.day') -%></td>
     <td><%= submit_tag t('statistic_report.submit') %></td>
+    <td><%= submit_tag(t('statistic_report.submit_csv'), :name => "csv") %></td>
 <%- end -%>
   </tr>
 
@@ -38,6 +41,7 @@
     <td><%= t('statistic_report.day_report') -%></td>
     <td><%= text_field_tag :start_at, @d_start_at if @d_start_at %> - <%= text_field_tag :end_at, @d_end_at if @d_end_at %>  <%= t('statistic_report.day') -%></td>
     <td><%= submit_tag t('statistic_report.submit') %></td>
+    <td><%= submit_tag(t('statistic_report.submit_csv'), :name => "csv") %></td>
 <%- end -%>
   </tr>
 
@@ -46,6 +50,7 @@
     <td><%= t('statistic_report.age_report') -%></td>
     <td><%= text_field_tag :start_at, @a_start_at if @a_start_at %> - <%= text_field_tag :end_at, @a_end_at if @a_end_at %>  <%= t('statistic_report.day') -%></td>
     <td><%= submit_tag t('statistic_report.submit') %></td>
+    <td><%= submit_tag(t('statistic_report.submit_csv'), :name => "csv") %></td>
 <%- end -%>
   </tr>
 
@@ -54,6 +59,7 @@
     <td><%= t('statistic_report.items_report') -%></td>
     <td><%= text_field_tag :term, @items_year if @items_year %>  <%= t('statistic_report.year_or_month') -%></td>
     <td><%= submit_tag t('statistic_report.submit') %></td>
+    <td><%= submit_tag(t('statistic_report.submit_csv'), :name => "csv") %></td>
 <%- end -%>
   </tr>
 
@@ -62,6 +68,7 @@
     <td><%= t('statistic_report.inout_items_report') -%></td>
     <td><%= text_field_tag :term, @inout_term if @inout_term %>  <%= t('statistic_report.year_or_month') -%></td>
     <td><%= submit_tag t('statistic_report.submit') %></td>
+    <td><%= submit_tag(t('statistic_report.submit_csv'), :name => "csv") %></td>
 <%- end -%>
   </tr>
 
@@ -70,6 +77,7 @@
     <td><%= t('statistic_report.loans_report') -%></td>
     <td><%= text_field_tag :term, @loans_term if @loans_term %>  <%= t('statistic_report.year_or_month') -%></td>
     <td><%= submit_tag t('statistic_report.submit') %></td>
+    <td><%= submit_tag(t('statistic_report.submit_csv'), :name => "csv") %></td>
 <%- end -%>
   </tr>
 
