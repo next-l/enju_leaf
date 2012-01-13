@@ -1960,6 +1960,10 @@ class StatisticReportsController < ApplicationController
       render :index
       return false
     end
+    if params[:csv]
+      get_daily_report_csv(term)
+      return
+    end
     libraries = Library.all
     logger.error "create daily statistic report: #{term}"
 
@@ -1983,11 +1987,11 @@ class StatisticReportsController < ApplicationController
         # header
         if start_date != 27
           13.times do |t|
-            report.page.list(:list).header.item("column##{t+1}").value("#{t+start_date}#{t('statistic_report.date')}")
+            report.page.list(:list).header.item("column##{t+1}").value(t('statistic_report.date', :num => t+start_date))
           end
         else
           num_for_last_page.times do |t|
-            report.page.list(:list).header.item("column##{t+1}").value("#{t+start_date}#{t('statistic_report.date')}")
+            report.page.list(:list).header.item("column##{t+1}").value(t('statistic_report.date', :num => t+start_date))
           end
           report.page.list(:list).header.item("column#13").value(t('statistic_report.sum'))
         end
@@ -2486,6 +2490,477 @@ class StatisticReportsController < ApplicationController
       logger.error "failed #{e}"
       return false
     end
+  end
+
+  def get_daily_report_csv(term)
+    dir_base = "#{RAILS_ROOT}/private/system"
+    out_dir = "#{dir_base}/statistic_report/"
+    csv_file = out_dir + "#{term}_daily_report.csv"
+    FileUtils.mkdir_p(out_dir) unless FileTest.exist?(out_dir)
+    libraries = Library.all
+    days = Time.zone.parse("#{term}01").end_of_month.strftime("%d").to_i
+    # header
+    columns = [
+      [:type,'statistic_report.type'],
+      [:library, 'statistic_report.library'],
+      [:option, 'statistic_report.option']
+    ]
+    File.open(csv_file, "w") do |output|
+      # add UTF-8 BOM for excel
+      output.print "\xEF\xBB\xBF".force_encoding("UTF-8")
+
+      # タイトル行
+      row = []
+      columns.each do |column|
+        row << I18n.t(column[1])
+      end
+      days.times do |t|
+        row << I18n.t('statistic_report.date', :num => t+1)
+        columns << ["#{term}#{"%02d" % (t + 1)}"]
+      end
+      row << I18n.t('statistic_report.sum')
+      columns << ["sum"]
+      output.print row.join(",")+"\n"
+
+      # items all libraries
+      row = []
+      columns.each do |column|
+        case column[0]
+        when :type
+          row << t('statistic_report.items')
+        when :library
+          row << t('statistic_report.all_library')
+        when :option
+          row << ""
+        when "sum"
+          value = Statistic.where(:yyyymmdd => "#{term}#{days}", :data_type => 211, :library_id => 0).no_condition.first.value rescue 0
+          row << to_format(value)
+        else
+          value = Statistic.where(:yyyymmdd => column[0], :data_type => 211, :library_id => 0).no_condition.first.value rescue 0
+          row << to_format(value)
+        end
+      end  
+      output.print '"'+row.join('","')+"\"\n"
+      # items each libraries
+      libraries.each do |library|
+        row = []
+        columns.each do |column|
+          case column[0]
+          when :type
+            row << t('statistic_report.items')
+          when :library
+            row << library.display_name
+          when :option
+            row << ""
+          when "sum"
+            value = Statistic.where(:yyyymmdd => "#{term}#{days}", :data_type => 211, :library_id => library.id).no_condition.first.value rescue 0
+            row << to_format(value)
+          else
+            value = Statistic.where(:yyyymmdd => column[0], :data_type => 211, :library_id => library.id).no_condition.first.value rescue 0
+            row << to_format(value)
+          end
+        end  
+        output.print '"'+row.join('","')+"\"\n"
+      end
+      # checkout users all libraries
+      sum = 0
+      row = []
+      columns.each do |column|
+        case column[0]
+        when :type
+          row << t('statistic_report.checkout_users')
+        when :library
+          row << t('statistic_report.all_library')
+        when :option
+          row << ""
+        when "sum"
+          row << to_format(sum)
+        else
+          value = Statistic.where(:yyyymmdd => column[0], :data_type => 222, :library_id => 0).no_condition.first.value rescue 0
+          sum += value
+          row << to_format(value)
+        end
+      end  
+      output.print '"'+row.join('","')+"\"\n"
+      # each user type
+      5.downto(1) do |type|
+        sum = 0
+        row = []
+        columns.each do |column|
+          case column[0]
+          when :type
+            row << t('statistic_report.checkout_users')
+          when :library
+            row << t('statistic_report.all_library')
+          when :option
+            row << t("statistic_report.user_type_#{type}")
+          when "sum"
+            row << to_format(sum)
+          else
+            value = Statistic.where(:yyyymmdd => column[0], :data_type => 222, :library_id => 0, :option => 0, :user_type => type).first.value rescue 0
+            sum += value
+            row << to_format(value)
+          end
+        end  
+        output.print '"'+row.join('","')+"\"\n"
+      end
+      # checkout users each libraries
+      libraries.each do |library|
+        sum = 0
+        row = []
+        columns.each do |column|
+          case column[0]
+          when :type
+            row << t('statistic_report.checkout_users')
+          when :library
+            row << library.display_name
+          when :option
+            row << ""
+          when "sum"
+            row << to_format(sum)
+          else
+            value = Statistic.where(:yyyymmdd => column[0], :data_type => 222, :library_id => library.id).no_condition.first.value rescue 0
+            sum += value
+            row << to_format(value)
+          end
+        end  
+        output.print '"'+row.join('","')+"\"\n"
+        # each user type
+        5.downto(1) do |type|
+          sum = 0
+          row = []
+          columns.each do |column|
+            case column[0]
+            when :type
+              row << t('statistic_report.checkout_users')
+            when :library
+              row << library.display_name
+            when :option
+              row << t("statistic_report.user_type_#{type}")
+            when "sum"
+              row << to_format(sum)
+            else
+              value = Statistic.where(:yyyymmdd => column[0], :data_type => 222, :library_id => library.id, :option =>0, :user_type => type).first.value rescue 0
+              sum += value
+              row << to_format(value)
+            end
+          end  
+          output.print '"'+row.join('","')+"\"\n"
+        end
+      end
+      # checkout items all libraries
+      sum = 0
+      row = []
+      columns.each do |column|
+        case column[0]
+        when :type
+          row << t('statistic_report.checkout_items')
+        when :library
+          row << t('statistic_report.all_library')
+        when :option
+          row << ""
+        when "sum"
+          row << to_format(sum)
+        else
+          value = Statistic.where(:yyyymmdd => column[0], :data_type => 221, :library_id => 0).no_condition.first.value rescue 0
+          sum += value
+          row << to_format(value)
+        end
+      end
+      output.print '"'+row.join('","')+"\"\n"  
+      3.times do |i|
+        sum = 0
+        row = []
+        columns.each do |column|
+          case column[0]
+          when :type
+            row << t('statistic_report.checkout_items')
+          when :library
+            row << t('statistic_report.all_library')
+          when :option
+            row << t("statistic_report.item_type_#{i+1}")
+          when "sum"
+            row << to_format(sum)
+          else
+            value = Statistic.where(:yyyymmdd => column[0], :data_type => 221, :library_id => 0, :option => i+1).first.value rescue 0
+            sum += value
+            row << to_format(value)
+          end
+        end 
+        output.print '"'+row.join('","')+"\"\n"
+      end        
+      # checkout items each libraries
+      libraries.each do |library|
+        sum = 0
+        row = []
+        columns.each do |column|
+          case column[0]
+          when :type
+            row << t('statistic_report.checkout_items')
+          when :library
+            row << library.display_name
+          when :option
+            row << ""
+          when "sum"
+            row << to_format(sum)
+          else
+            value = Statistic.where(:yyyymmdd => column[0], :data_type => 221, :library_id => library.id).no_condition.first.value rescue 0
+            sum += value
+            row << to_format(value)
+          end
+        end 
+        output.print '"'+row.join('","')+"\"\n"
+        3.times do |i|
+          sum = 0
+          row = []
+          columns.each do |column|
+            case column[0]
+            when :type
+              row << t('statistic_report.checkout_items')
+            when :library
+              row << library.display_name
+            when :option
+              row << t("statistic_report.item_type_#{i+1}")
+            when "sum"
+              row << to_format(sum)
+            else
+              value = Statistic.where(:yyyymmdd => column[0], :data_type => 221, :library_id => library.id, :option => i+1).first.value rescue 0
+              sum += value
+              row << to_format(value)
+            end
+          end 
+          output.print '"'+row.join('","')+"\"\n"
+        end
+      end
+      # checkin items
+      sum = 0
+      row = []
+      columns.each do |column|
+        case column[0]
+        when :type
+          row << t('statistic_report.checkin_items')
+        when :library
+          row << t('statistic_report.all_library')
+        when :option
+          row << ""
+        when "sum"
+          row << to_format(sum)
+        else
+          value = Statistic.where(:yyyymmdd => column[0], :data_type => 251, :library_id => 0).no_condition.first.value rescue 0
+          sum += value
+          row << to_format(value)
+        end
+      end 
+      output.print '"'+row.join('","')+"\"\n"
+      libraries.each do |library|
+        sum = 0
+        row = []
+        columns.each do |column|
+          case column[0]
+          when :type
+            row << t('statistic_report.checkin_items')
+          when :library
+            row << library.display_name
+          when :option
+            row << ""
+          when "sum"
+            row << to_format(sum)
+          else
+            value = Statistic.where(:yyyymmdd => column[0], :data_type => 251, :library_id => library.id).no_condition.first.value rescue 0
+            sum += value
+            row << to_format(value)
+          end
+        end 
+        output.print '"'+row.join('","')+"\"\n"
+      end
+      # reserves all libraries
+      sum = 0
+      row = []
+      columns.each do |column|
+        case column[0]
+        when :type
+          row << t('statistic_report.reserves')
+        when :library
+          row << t('statistic_report.all_library')
+        when :option
+          row << ""
+        when "sum"
+          row << to_format(sum)
+        else
+          value = Statistic.where(:yyyymmdd => column[0], :data_type => 233, :library_id => 0).no_condition.first.value rescue 0
+          sum += value
+          row << to_format(value)
+        end
+      end 
+      output.print '"'+row.join('","')+"\"\n"
+      # reserves on counter all libraries
+      sum = 0
+      row = []
+      columns.each do |column|
+        case column[0]
+        when :type
+          row << t('statistic_report.reserves')
+        when :library
+          row << t('statistic_report.all_library')
+        when :option
+          row << t('statistic_report.on_counter')
+        when "sum"
+          row << to_format(sum)
+        else
+          value = Statistic.where(:yyyymmdd => column[0], :data_type => 233, :library_id => 0, :option => 1).first.value rescue 0
+          sum += value
+          row << to_format(value)
+        end
+      end 
+      output.print '"'+row.join('","')+"\"\n"
+      # reserves from OPAC all libraries
+      sum = 0
+      row = []
+      columns.each do |column|
+        case column[0]
+        when :type
+          row << t('statistic_report.reserves')
+        when :library
+          row << t('statistic_report.all_library')
+        when :option
+          row << t('statistic_report.from_opac')
+        when "sum"
+          row << to_format(sum)
+        else
+          value = Statistic.where(:yyyymmdd => column[0], :data_type => 233, :library_id => 0, :option => 2).first.value rescue 0
+          sum += value
+          row << to_format(value)
+        end
+      end 
+      output.print '"'+row.join('","')+"\"\n"
+      # reserves each library
+      libraries.each do |library|
+        sum = 0
+        row = []
+        columns.each do |column|
+          case column[0]
+          when :type
+            row << t('statistic_report.reserves')
+          when :library
+            row << library.display_name.localize
+          when :option
+            row << ""
+          when "sum"
+            row << to_format(sum)
+          else
+            value = Statistic.where(:yyyymmdd => column[0], :data_type => 233, :library_id => library.id).no_condition.first.value rescue 0
+	    sum += value
+            row << to_format(value)
+          end
+        end 
+        output.print '"'+row.join('","')+"\"\n"
+        # on counter
+        sum = 0
+        row = []
+        columns.each do |column|
+          case column[0]
+          when :type
+            row << t('statistic_report.reserves')
+          when :library
+            row << library.display_name.localize
+          when :option
+            row << t('statistic_report.on_counter')
+          when "sum"
+            row << to_format(sum)
+          else
+            value = Statistic.where(:yyyymmdd => column[0], :data_type => 233, :library_id => library.id, :option => 1).first.value rescue 0
+	    sum += value
+            row << to_format(value)
+          end
+        end 
+        output.print '"'+row.join('","')+"\"\n"
+        # from OPAC
+        sum = 0
+        row = []
+        columns.each do |column|
+          case column[0]
+          when :type
+            row << t('statistic_report.reserves')
+          when :library
+            row << library.display_name.localize
+          when :option
+            row << t('statistic_report.from_opac')
+          when "sum"
+            row << to_format(sum)
+          else
+            value = Statistic.where(:yyyymmdd => column[0], :data_type => 233, :library_id => library.id, :option => 2).first.value rescue 0
+	    sum += value
+            row << to_format(value)
+          end
+        end 
+        output.print '"'+row.join('","')+"\"\n"
+      end
+      # questions all libraries
+      sum = 0
+      row = []
+      columns.each do |column|
+        case column[0]
+        when :type
+          row << t('statistic_report.questions')
+        when :library
+          row << t('statistic_report.all_library')
+        when :option
+          row << ""
+        when "sum"
+          row << to_format(sum)
+        else
+          value = Statistic.where(:yyyymmdd => column[0], :data_type => 243, :library_id => 0).no_condition.first.value rescue 0
+          sum += value
+          row << to_format(value)
+        end
+      end 
+      output.print '"'+row.join('","')+"\"\n"
+      # questions each library
+      libraries.each do |library|
+        sum = 0
+        row = []
+        columns.each do |column|
+          case column[0]
+          when :type
+            row << t('statistic_report.questions')
+          when :library
+            row << library.display_name
+          when :option
+            row << ""
+          when "sum"
+            row << to_format(sum)
+          else
+            value = Statistic.where(:yyyymmdd => column[0], :data_type => 243, :library_id => library.id).no_condition.first.value rescue 0
+            sum += value
+            row << to_format(value)
+          end
+        end 
+        output.print '"'+row.join('","')+"\"\n"
+      end
+      # consultations each library
+      libraries.each do |library|
+        sum = 0
+        row = []
+        columns.each do |column|
+          case column[0]
+          when :type
+            row << t('statistic_report.consultations')
+          when :library
+            row << library.display_name
+          when :option
+            row << ""
+          when "sum"
+            row << to_format(sum)
+          else
+            value = Statistic.where(:yyyymmdd => column[0], :data_type => 214, :library_id => library.id).no_condition.first.value rescue 0
+            sum += value
+            row << to_format(value)
+          end
+        end 
+        output.print '"'+row.join('","')+"\"\n"
+      end
+    end
+    send_file csv_file, :filenamme => "#{term}_daily_report.csv", :type => 'text/csv', :disposition => 'attachment'
   end
 
   def get_timezone_report

@@ -1905,7 +1905,7 @@ ja:
     visiters: 入館者数
     copies: コピー件数
     month: "%{num}月"
-    date: 日
+    date: "%{num}日"
     hour: 時
     sum: 合計
     accept: 受入資料
