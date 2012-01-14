@@ -83,7 +83,7 @@ gem 'cancan', '>= 1.6.7'
 gem 'devise', '~> 2.0.0.rc'
 gem 'omniauth', '~> 1.0'
 gem 'addressable'
-gem 'paperclip', '~> 2.4'
+gem 'paperclip', '~> 2.5'
 gem 'whenever', '~> 0.6.8', :require => false
 #gem 'amazon-ecs', '>= 2.2.0', :require => 'amazon/ecs'
 #gem 'aws-s3', :require => 'aws/s3'
@@ -116,7 +116,7 @@ end
 group :development, :test do
   gem 'rspec-rails', '~> 2.8.1'
   gem 'guard-rspec'
-  gem 'factory_girl_rails', '~> 1.4'
+  gem 'factory_girl_rails', '~> 1.5'
   gem 'spork', '~> 0.9.0.rc9'
   gem 'metric_fu', '~> 2.1'
   gem 'timecop'
