@@ -306,7 +306,7 @@ ja:
         term: 用語
       subject_has_classification:
       expression:
-        original_title: 原題
+        original_title: タイトル # 原題
         title_transcription: タイトル(ヨミ)
         title_alternative: 代替タイトル
         summarization: 要約
@@ -549,7 +549,7 @@ ja:
         print_sheet: 出力するシート数
         error: 0以上の数値を入力してください
       work:
-        original_title: 原題
+        original_title: タイトル # 原題
         title_transcription: タイトル（ヨミ）
         title_alternative: 代替タイトル
         context: コンテキスト
@@ -681,7 +681,7 @@ ja:
         position: 位置
       manifestation:
         id: ID
-        original_title: 原題
+        original_title: タイトル # 原題
         title_alternative: 代替タイトル
         title_transcription: タイトル（ヨミ）
         classification_number: 分類番号
