@@ -157,10 +157,10 @@ class StatisticReportsController < ApplicationController
       return false
     end
     if params[:csv]
-      file = StatisticReport.get_age_report_csv(start_at, end_ad)
+      file = StatisticReport.get_age_report_csv(start_at, end_at)
       send_file file, :filename => "#{start_at}_#{end_at}_#{configatron.statistic_report.age_csv}", :type => 'application/csv', :disposition => 'attachment'
     else
-      file = StatisticReport.get_age_report_pdf(start_at, end_ad)
+      file = StatisticReport.get_age_report_pdf(start_at, end_at)
       send_data file, :filename => "#{start_at}_#{end_at}_#{configatron.statistic_report.age}", :type => 'application/pdf', :disposition => 'attachment'
     end
   end
