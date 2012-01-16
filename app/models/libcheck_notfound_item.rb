@@ -23,7 +23,7 @@ class LibcheckNotfoundItem < ActiveRecord::Base
     items = LibcheckNotfoundItem.find_by_sql(
               "select item_id, item_identifier, status" +
               " from libcheck_notfound_items order by id")
-    out_title = false
+    out_title = true
     if items.nil? || items.size < 1
       logger.info "notfound item data is empty"
       items = [] # avoid nil violation
@@ -101,6 +101,7 @@ class LibcheckNotfoundItem < ActiveRecord::Base
         items.each do |item|
           page.list(:list).add_row do |row|
             row.item(:item_identifier).value(item.item_identifier)
+            row.item(:title).value(Item.find(item.item_id).manifestation.original_title) rescue nil
             row.item(:on_loan).value(conv_flg(item.status, STS_CHECKOUT))
           end
         end
