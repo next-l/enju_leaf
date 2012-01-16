@@ -4076,7 +4076,7 @@ class StatisticReportsController < ApplicationController
       end
       # unknown area
       report.page.list(:list).add_row do |row|
-        row.item(:library).value(t('statistic_report.missing_items'))
+        row.item(:library).value(t('statistic_report.other_area'))
         sum = 0
         8.times do |t|
           value = 0

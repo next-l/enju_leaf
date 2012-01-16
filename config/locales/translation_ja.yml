@@ -1896,6 +1896,7 @@ ja:
     all_users: 全区分
     user_areas: 登録人数（地区別）
     all_areas: 全地区
+    other_area: その他
     user_groups: (団体別)
     unlocked_users: (利用中)
     locked_users: (利用停止)
