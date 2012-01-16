@@ -69,13 +69,21 @@ configatron.checkoutlist_report.filename = "checkoutlist.pdf"
 
 # 利用統計の帳票ファイル名
 configatron.statistic_report.monthly = "monthly_report.pdf"
+configatron.statistic_report.monthly_csv = "monthly_report.csv"
 configatron.statistic_report.daily = "daily_report.pdf"
+configatron.statistic_report.daily_csv = "daily_report.csv"
 configatron.statistic_report.timezone = "timezone_report.pdf"
+configatron.statistic_report.timezone_csv = "timezone_report.csv"
 configatron.statistic_report.day = "day_report.pdf"
+configatron.statistic_report.csv = "day_report.csv"
 configatron.statistic_report.age = "age_report.pdf"
+configatron.statistic_report.age_csv = "age_report.csv"
 configatron.statistic_report.items = "items_report.pdf"
+configatron.statistic_report.items_csv = "items_report.csv"
 configatron.statistic_report.inout_items = "inout_items_report.pdf"
+configatron.statistic_report.inout_items_csv = "inout_items_report.csv"
 configatron.statistic_report.loans = "loans_report.pdf"
+configatron.statistic_report.loans_csv = "loans_report.csv"
 # 時間別統計の設定
 configatron.statistic_report.open = 8
 configatron.statistic_report.hours = 14 
