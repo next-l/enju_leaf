@@ -729,6 +729,7 @@ ja:
         exinfo_4: 拡張情報４
         exinfo_5: 拡張情報５
         edition_display_value: 版表示
+        reserves_number: 予約数
       user_group:
         name: 名前
         display_name: 表示名
@@ -1341,6 +1342,8 @@ ja:
     editing: "%{model}の編集"
     showing: "%{model}の表示"
     output: "%{model}の出力"
+    output_pdf: "%{model}の出力(PDF)"
+    output_csv: "%{model}の出力(CSV)"
     patron_management: "人物・団体の管理"
     user_management: "利用者の管理"
     back_to: "%{model}の一覧に戻る"
