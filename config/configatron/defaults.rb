@@ -127,3 +127,6 @@ configatron.library_checks.auto_checkin = true
 
 # refs 2553 ユーザ情報重複チェック機能
 configatron.patron.check_duplicate_user = false
+
+# refs 2552 クライアント接続パスフレーズ
+configatron.clientword = enju
