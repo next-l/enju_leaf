@@ -221,6 +221,7 @@ class LibcheckTmpItem < ActiveRecord::Base
       ['ndc', 'activerecord.attributes.libcheck_tmp_item.ndc'],
       ['class_type1', 'activerecord.attributes.libcheck_tmp_item.class_type1'],
       ['class_type2', 'activerecord.attributes.libcheck_tmp_item.class_type2'],
+      [:library, 'activerecord.models.library'],
       [:shelf_id, 'activerecord.attributes.libcheck_tmp_item.shelf_id'],
       ['confusion_flg', 'activerecord.attributes.libcheck_tmp_item.confusion_flg'],
       [:status_notfound, 'activerecord.attributes.libcheck_tmp_item.status_notfound'],
@@ -258,6 +259,9 @@ class LibcheckTmpItem < ActiveRecord::Base
           row = []
           columns.each do |column|
             case column[0]
+            when :library
+              # TODO
+              row << ""
             when :shelf_id
               row << (shelf.nil? ? "UNKNOWN":shelf.shelf_name)
             when :status_notfound
@@ -331,6 +335,8 @@ class LibcheckTmpItem < ActiveRecord::Base
             row.item(:ndc).value(item.ndc)
             row.item(:class_type1).value(item.class_type1)
             row.item(:class_type2).value(item.class_type2)
+            # TODO
+            row.item(:library).value("")
             row.item(:shelf_id).value(shelf.nil? ? "UNKNOWN":shelf.shelf_name)
             row.item(:confusion_flg).value(item.confusion_flg)
             row.item(:sts_not_found).value(conv_flg(item.status_flg, STS_NOT_FOUND))
