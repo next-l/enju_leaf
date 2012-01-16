@@ -88,6 +88,7 @@ gem 'rack-protection'
 gem 'rails3_acts_as_paranoid'
 gem 'thinreports'
 gem "rmagick", :require => false
+gem "crypt19"
 
 #gem 'oink', '>=0.9.2'
 group :development do

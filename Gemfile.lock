@@ -82,6 +82,7 @@ GEM
     columnize (0.3.4)
     configatron (2.8.4)
       yamler (>= 0.1.0)
+    crypt19 (1.2.1)
     daemons (1.1.4)
     dalli (1.1.2)
     delayed_job (2.1.4)
@@ -395,6 +396,7 @@ DEPENDENCIES
   cancan (>= 1.6.7)
   client_side_validations
   configatron
+  crypt19
   dalli (~> 1.1)
   delayed_job (>= 2.1.4)
   devise (~> 1.4)

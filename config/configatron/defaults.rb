@@ -129,4 +129,4 @@ configatron.library_checks.auto_checkin = true
 configatron.patron.check_duplicate_user = false
 
 # refs 2552 クライアント接続パスフレーズ
-configatron.clientword = enju
+configatron.clientkey = "1234567890123456"
