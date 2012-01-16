@@ -878,7 +878,6 @@ class StatisticReport < ActiveRecord::Base
   end
 
   def self.get_monthly_report_csv(term)
-    logger.error "get_monthly_report_csv"
     dir_base = "#{RAILS_ROOT}/private/system"
     out_dir = "#{dir_base}/statistic_report/"
     csv_file = out_dir + "#{term}_monthly_report.csv"
@@ -3964,6 +3963,436 @@ class StatisticReport < ActiveRecord::Base
       logger.error "failed #{e}"
       return false
     end
+  end
+
+  def self.get_day_report_csv(start_at, end_at)
+    dir_base = "#{RAILS_ROOT}/private/system"
+    out_dir = "#{dir_base}/statistic_report/"
+    csv_file = out_dir + "#{start_at}_#{end_at}_report.csv"
+    FileUtils.mkdir_p(out_dir) unless FileTest.exist?(out_dir)
+    # header
+    columns = [
+      [:type,'statistic_report.type'],
+      [:library, 'statistic_report.library'],
+      [:option, 'statistic_report.option']
+    ]
+    libraries = Library.all
+    File.open(csv_file, "w") do |output|
+      # add UTF-8 BOM for excel
+      output.print "\xEF\xBB\xBF".force_encoding("UTF-8")
+
+      # タイトル行
+      row = []
+      columns.each do |column|
+        row << I18n.t(column[1])
+      end
+      7.times do |t|
+        row << I18n.t("statistic_report.day_#{t}")
+        columns << [t]
+      end
+      row << I18n.t('statistic_report.sum')
+      columns << ["sum"]
+      output.print row.join(",")+"\n"
+      # checkout users all libraries
+      sum = 0
+      row = []
+      columns.each do |column|
+        case column[0]
+        when :type
+          row << I18n.t('statistic_report.checkout_users')
+        when :library
+          row << I18n.t('statistic_report.all_library')
+        when :option
+          row << ""
+        when "sum"
+          row << to_format(sum)
+        else
+          value = 0
+          datas = Statistic.where(["yyyymmdd >= #{start_at} AND yyyymmdd <= #{end_at} AND data_type = 222 AND library_id = ? AND day = ?", 0, column[0]]).no_condition
+          datas.each do |data|
+            value = value + data.value
+          end
+          sum = sum + value
+          row << to_format(value)
+        end
+      end
+      output.print row.join(",")+"\n"
+      # each user type
+      5.downto(1) do |type|
+        sum = 0
+        row = []
+        columns.each do |column|
+          case column[0]
+          when :type
+            row << I18n.t('statistic_report.checkout_users')
+          when :library
+            row << I18n.t('statistic_report.all_library')
+          when :option
+            row << I18n.t("statistic_report.user_type_#{type}")
+          when "sum"
+            row << to_format(sum)
+          else
+            value = 0
+            datas = Statistic.where(["yyyymmdd >= #{start_at} AND yyyymmdd <= #{end_at} AND data_type = ? AND option = ? AND user_type = ? AND library_id = ? AND day = ?", 222, 0, type, 0, column[0]])
+            datas.each do |data|
+              value = value + data.value
+            end
+            sum = sum + value
+            row << to_format(value)
+          end
+        end
+        output.print row.join(",")+"\n"
+      end
+      # checkout users each libraries
+      libraries.each do |library|
+        sum = 0
+        row = []
+        columns.each do |column|
+          case column[0]
+          when :type
+            row << I18n.t('statistic_report.checkout_users')
+          when :library
+            row << library.display_name.localize
+          when :option
+            row << ""
+          when "sum"
+            row << to_format(sum)
+          else
+            value = 0
+            datas = Statistic.where(["yyyymmdd >= #{start_at} AND yyyymmdd <= #{end_at} AND data_type = 222 AND library_id = ? AND day = ?", library.id, column[0]]).no_condition
+            datas.each do |data|
+              value = value + data.value
+            end
+            sum = sum + value
+            row << to_format(value)
+          end
+        end
+        output.print row.join(",")+"\n"
+        # each user type
+        5.downto(1) do |type|
+          sum = 0
+          row = []
+          columns.each do |column|
+            case column[0]
+            when :type
+              row << I18n.t('statistic_report.checkout_users')
+            when :library
+              row << library.display_name.localize
+            when :option
+              row << ""
+            when "sum"
+              row << to_format(sum)
+            else
+              value = 0
+              datas = Statistic.where(["yyyymmdd >= #{start_at} AND yyyymmdd <= #{end_at} AND data_type = ? AND option = ? AND user_type = ? AND library_id = ? AND day = ?", 222, 0, type, library.id, column[0]])
+              datas.each do |data|
+                value = value + data.value
+              end
+              sum = sum + value
+              row << to_format(value)
+            end
+          end
+          output.print row.join(",")+"\n"
+        end
+      end
+      # checkout items all libraries
+      sum = 0
+      row = []
+      columns.each do |column|
+        case column[0]
+        when :type
+          row << I18n.t('statistic_report.checkout_items')
+        when :library
+          row << I18n.t('statistic_report.all_library')
+        when :option
+          row << ""
+        when "sum"
+          row << to_format(sum)
+        else
+          value = 0
+          datas = Statistic.where(["yyyymmdd >= #{start_at} AND yyyymmdd <= #{end_at} AND data_type = 221 AND library_id = ? AND day = ?", 0, column[0]]).no_condition
+          datas.each do |data|
+            value = value + data.value
+          end
+          sum = sum + value
+          row << to_format(value)
+        end
+      end
+      output.print row.join(",")+"\n"
+      3.times do |i|
+        sum = 0
+        row = []
+        columns.each do |column|
+          case column[0]
+          when :type
+            row << I18n.t('statistic_report.checkout_items')
+          when :library
+            row << I18n.t('statistic_report.all_library')
+          when :option
+            row << I18n.t("statistic_report.item_type_#{i+1}")
+          when "sum"
+            row << to_format(sum)
+          else
+            value = 0
+            datas = Statistic.where(["yyyymmdd >= #{start_at} AND yyyymmdd <= #{end_at} AND data_type = ? AND option = ? AND library_id = ? AND day = ?", 221, i+1, 0, column[0]])
+            datas.each do |data|
+              value = value + data.value
+            end
+            sum = sum + value
+            row << to_format(value)
+          end
+        end
+        output.print row.join(",")+"\n"
+      end
+      # checkout items each libraries
+      libraries.each do |library|
+        sum = 0
+        row = []
+        columns.each do |column|
+          case column[0]
+          when :type
+            row << I18n.t('statistic_report.checkout_items')
+          when :library
+            row << library.display_name.localize
+          when :option
+            row << ""
+          when "sum"
+            row << to_format(sum)
+          else
+            value = 0
+            datas = Statistic.where(["yyyymmdd >= #{start_at} AND yyyymmdd <= #{end_at} AND data_type = 221 AND library_id = ? AND day = ?", library.id, column[0]]).no_condition
+            datas.each do |data|
+              value = value + data.value
+            end
+            sum = sum + value
+            row << to_format(value)
+          end
+        end
+        output.print row.join(",")+"\n"
+        3.times do |i|
+          sum = 0
+          row = []
+          columns.each do |column|
+            case column[0]
+            when :type
+              row << I18n.t('statistic_report.checkout_items')
+            when :library
+              row << library.display_name.localize
+            when :option
+              row << I18n.t("statistic_report.item_type_#{i+1}")
+            when "sum"
+              row << to_format(sum)
+            else
+              value = 0
+              datas = Statistic.where(["yyyymmdd >= #{start_at} AND yyyymmdd <= #{end_at} AND data_type = ? AND option = ? AND library_id = ? AND day = ?", 221, i+1, library.id, column[0]])
+              datas.each do |data|
+                value = value + data.value
+              end
+              sum = sum + value
+              row << to_format(value)
+            end
+          end
+          output.print row.join(",")+"\n"
+        end
+      end
+      # reserves all libraries
+      sum = 0
+      row = []
+      columns.each do |column|
+        case column[0]
+        when :type
+          row << I18n.t('statistic_report.reserves')
+        when :library
+          row << I18n.t('statistic_report.all_library')
+        when :option
+          row << ""
+        when "sum"
+          row << to_format(sum)
+        else
+          value = 0
+          datas = Statistic.where(["yyyymmdd >= #{start_at} AND yyyymmdd <= #{end_at} AND data_type = 233 AND library_id = ? AND day = ?", 0, column[0]]).no_condition
+          datas.each do |data|
+            value = value + data.value
+          end
+          sum = sum + value
+          row << to_format(value)
+        end
+      end
+      output.print row.join(",")+"\n"
+      # reserves on counter all libraries
+      sum = 0
+      row = []
+      columns.each do |column|
+        case column[0]
+        when :type
+          row << I18n.t('statistic_report.reserves')
+        when :library
+          row << I18n.t('statistic_report.all_library')
+        when :option
+          row << I18n.t('statistic_report.on_counter')
+        when "sum"
+          row << to_format(sum)
+        else
+          value = 0
+          datas = Statistic.where(["yyyymmdd >= #{start_at} AND yyyymmdd <= #{end_at} AND data_type = 233 AND library_id = ? AND day = ? AND option = 1", 0, column[0]]).no_condition
+          datas.each do |data|
+            value = value + data.value
+          end
+          sum = sum + value
+          row << to_format(value)
+        end
+      end
+      output.print row.join(",")+"\n"
+      # reserves from OPAC all libraries
+      sum = 0
+      row = []
+      columns.each do |column|
+        case column[0]
+        when :type
+          row << I18n.t('statistic_report.reserves')
+        when :library
+          row << I18n.t('statistic_report.all_library')
+        when :option
+          row << I18n.t('statistic_report.from_opac')
+        when "sum"
+          row << to_format(sum)
+        else
+          value = 0
+          datas = Statistic.where(["yyyymmdd >= #{start_at} AND yyyymmdd <= #{end_at} AND data_type = 233 AND library_id = ? AND day = ? AND option = 2", 0, column[0]]).no_condition
+          datas.each do |data|
+            value = value + data.value
+          end
+          sum = sum + value
+          row << to_format(value)
+        end
+      end
+      output.print row.join(",")+"\n"
+      # reserves each libraries
+      libraries.each do |library|
+        sum = 0
+        row = []
+        columns.each do |column|
+          case column[0]
+          when :type
+            row << I18n.t('statistic_report.reserves')
+          when :library
+            row << library.display_name.localize
+          when :option
+            row << ""
+          when "sum"
+            row << to_format(sum)
+          else
+            value = 0
+            datas = Statistic.where(["yyyymmdd >= #{start_at} AND yyyymmdd <= #{end_at} AND data_type = 233 AND library_id = ? AND day = ?", library.id, column[0]])
+            datas.each do |data|
+              value = value + data.value
+            end
+            sum = sum + value
+            row << to_format(value)
+          end
+        end
+        output.print row.join(",")+"\n"
+        # on counter
+        sum = 0
+        row = []
+        columns.each do |column|
+          case column[0]
+          when :type
+            row << I18n.t('statistic_report.reserves')
+          when :library
+            row << library.display_name.localize
+          when :option
+            row << I18n.t('statistic_report.on_counter')
+          when "sum"
+            row << to_format(sum)
+          else
+            value = 0
+            datas = Statistic.where(["yyyymmdd >= #{start_at} AND yyyymmdd <= #{end_at} AND data_type = 233 AND library_id = ? AND day = ? AND option = 1", library.id, column[0]])
+            datas.each do |data|
+              value = value + data.value
+            end
+            sum = sum + value
+            row << to_format(value)
+          end
+        end
+        output.print row.join(",")+"\n"
+        # from OPAC
+        sum = 0
+        row = []
+        columns.each do |column|
+          case column[0]
+          when :type
+            row << I18n.t('statistic_report.reserves')
+          when :library
+            row << library.display_name.localize
+          when :option
+            row << I18n.t('statistic_report.from_opac')
+          when "sum"
+            row << to_format(sum)
+          else
+            value = 0
+            datas = Statistic.where(["yyyymmdd >= #{start_at} AND yyyymmdd <= #{end_at} AND data_type = 233 AND library_id = ? AND day = ? AND option = 2", library.id, column[0]])
+            datas.each do |data|
+              value = value + data.value
+            end
+            sum = sum + value
+            row << to_format(value)
+          end
+        end
+        output.print row.join(",")+"\n"
+      end 
+      # questions all libraries
+      sum = 0
+      row = []
+      columns.each do |column|
+        case column[0]
+        when :type
+          row << I18n.t('statistic_report.questions')
+        when :library
+          row << I18n.t('statistic_report.all_library')
+        when :option
+          row << ""
+        when "sum"
+          row << to_format(sum)
+        else
+          value = 0
+          datas = Statistic.where(["yyyymmdd >= #{start_at} AND yyyymmdd <= #{end_at} AND data_type = 243 AND library_id = ? AND day = ?", 0, column[0]]).no_condition
+          datas.each do |data|
+            value = value + data.value
+          end
+          sum = sum + value
+          row << to_format(value)
+        end
+      end
+      output.print row.join(",")+"\n"
+      # questions each libraries
+      libraries.each do |library|
+        sum = 0
+        row = []
+        columns.each do |column|
+          case column[0]
+          when :type
+            row << I18n.t('statistic_report.questions')
+          when :library
+            row << library.display_name.localize
+          when :option
+            row << ""
+          when "sum"
+            row << to_format(sum)
+          else
+            value = 0
+            datas = Statistic.where(["yyyymmdd >= #{start_at} AND yyyymmdd <= #{end_at} AND data_type = 243 AND library_id = ? AND day = ?", library.id, column[0]]).no_condition
+            datas.each do |data|
+              value = value + data.value
+            end
+            sum = sum + value
+            row << to_format(value)
+          end
+        end
+        output.print row.join(",")+"\n"
+      end
+    end
+    return csv_file
   end
 
   def self.get_age_report_pdf(start_at, end_at)

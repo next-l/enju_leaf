@@ -1919,6 +1919,13 @@ ja:
     type: 種別
     library: 図書館
     option: オプション
+    day_0: 日曜日
+    day_1: 月曜日
+    day_2: 火曜日
+    day_3: 水曜日
+    day_4: 木曜日
+    day_5: 金曜日
+    day_6: 土曜日
   print_label:
     users: ラベルを作成する利用者
     submit: ラベルを作成
