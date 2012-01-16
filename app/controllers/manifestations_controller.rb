@@ -9,7 +9,7 @@ class ManifestationsController < ApplicationController
   before_filter :prepare_options, :only => [:new, :edit]
   helper_method :get_libraries
   before_filter :get_version, :only => [:show]
-  after_filter :solr_commit, :only => [:create, :update, :destroy]
+  after_filter :solr_commit, :only => [:create, :up, :outputdate, :destroy]
   after_filter :convert_charset, :only => :index
   cache_sweeper :manifestation_sweeper, :only => [:create, :update, :destroy]
   #include WorldcatController
@@ -166,6 +166,18 @@ class ManifestationsController < ApplicationController
         session[:query] = @query
       end
 
+      # output
+      if params[:output_pdf] or params[:output_csv]
+        manifestations_output = search.build do
+          paginate :page => 1, :per_page => all_result.total
+        end.execute.results
+        if params[:output_pdf]
+          output_pdf(manifestations_output)
+        elsif params[:output_csv]
+          output_csv(manifestations_output)
+        end
+        return 
+      end
       unless session[:manifestation_ids]
         manifestation_ids = search.build do
           paginate :page => 1, :per_page => configatron.max_number_of_results
@@ -182,7 +194,6 @@ class ManifestationsController < ApplicationController
           return
         end
       end
-
       page ||= params[:page] || 1
       per_page ||= Manifestation.per_page
       if params[:format] == 'sru'
@@ -231,7 +242,6 @@ class ManifestationsController < ApplicationController
         end
       end
     end
-
     store_location # before_filter ではファセット検索のURLを記憶してしまう
 
     respond_to do |format|
@@ -703,5 +713,85 @@ class ManifestationsController < ApplicationController
       query = "#{query} acquired_at_d: [#{acquisition_date[:from]} TO #{acquisition_date[:to]}]"
     end
     query
+  end
+  
+  def output_pdf(manifestations)
+    require 'thinreports'
+    report = ThinReports::Report.new :layout => File.join(Rails.root, 'report', 'searchlist.tlf') 
+
+    # set page_num
+    report.events.on :page_create do |e|
+      e.page.item(:page).value(e.page.no)
+    end
+    report.events.on :generate do |e|
+      e.pages.each do |page|
+        page.item(:total).value(e.report.page_count)
+      end
+    end
+
+    report.start_new_page do |page|
+      page.item(:date).value(Time.now)
+      # set list
+      manifestations.each do |manifestation|
+        page.list(:list).add_row do |row|
+          item_identifiers = ""
+          manifestation.items.each_with_index do |item, i|
+            if item.item_identifier
+              item_identifiers << ", " unless i == 0 
+              item_identifiers << item.item_identifier
+            end
+          end
+          creator, contributor, publisher= [], [], []
+          manifestation.creator.each {|c| creator << c if c.length > 0}
+          manifestation.contributor.each {|c| contributor << c if c.length > 0}
+          manifestation.publisher.each {|p| publisher << p if p.length > 0}
+          row.item(:title).value(manifestation.original_title)
+          row.item(:item_identifier).value(item_identifiers)
+          row.item(:creator).value(creator.join(","))
+          row.item(:contributor).value(contributor.join(","))
+          row.item(:publisher).value(publisher.join(","))
+          row.item(:reserves_num).value(Reserve.waiting.where(:manifestation_id => manifestation.id, :checked_out_at => nil).count)
+        end
+      end
+    end
+    send_data report.generate, :filename => configatron.search_report_pdf.filename, :type => 'application/pdf', :disposition => 'attachment'
+  end
+
+  def output_csv(manifestations)
+    buf = ""
+    buf << t('activerecord.attributes.manifestation.original_title') +
+     "," + t('activerecord.attributes.item.item_identifier') + 
+     "," + t('patron.creator') +
+     "," + t('patron.contributor') + 
+     "," + t('patron.publisher') + 
+     "," + t('activerecord.attributes.manifestation.reserves_number') + "\n"
+    manifestations.each do |manifestation|
+      # modified date
+      item_identifiers = ""
+      manifestation.items.each_with_index do |item, i|
+        if item.item_identifier
+          item_identifiers << ", " unless i == 0 
+          item_identifiers << item.item_identifier
+        end
+      end
+      creator, contributor, publisher= [], [], []
+      manifestation.creator.each {|c| creator << c if c.length > 0}
+      manifestation.contributor.each {|c| contributor << c if c.length > 0}
+      manifestation.publisher.each {|p| publisher << p if p.length > 0}
+
+      original_title = manifestation.original_title
+      item_identifier = item_identifiers
+      creator = creator.join(",")
+      contributor = contributor.join(",")
+      publisher = publisher.join(",")
+      reserves_number = Reserve.waiting.where(:manifestation_id => manifestation.id, :checked_out_at => nil).count.to_s
+      buf << "\"" + original_title + "\"" + 
+             "," +"\"" + item_identifier + "\"" + 
+             "," + "\"" + creator + "\"" + 
+             "," +"\"" + contributor + "\"" +
+             "," +"\"" + publisher + "\"" +  
+             "," +"\"" + reserves_number + "\"" + "\n"
+    end
+    send_data(buf, :filename => configatron.search_report_csv.filename)
   end
 end

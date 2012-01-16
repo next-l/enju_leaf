@@ -679,6 +679,7 @@ en:
         subscription_master: Subscription master
         description: Description
         edition_display_value: Edition display value
+        reserves_number: Reserves number
       user_group:
         name: Name
         display_name: Display name
@@ -1220,6 +1221,8 @@ en:
     editing: "Editing %{model}"
     showing: "Showing %{model}"
     output: "Output %{model}"
+    output_pdf: "Output %{model}(PDF)"
+    output_csv: "Output %{model}(CSV)"
     patron_management: "Patron management"
     user_management: "User management"
     back_to: "Back to %{model} index"
