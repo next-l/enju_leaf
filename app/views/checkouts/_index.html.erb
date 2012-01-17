@@ -1,6 +1,14 @@
 <div id="content_detail" class="ui-corner-all">
 <h1 class="title"><%= t('page.listing', :model => t('activerecord.models.checkout')) -%></h1>
 <div id="content_list">
+<%= form_for :checkout, :url => checkouts_path, :html => {:method => 'get'} do -%>
+  <p>
+    <%= t('advanced_search.library') -%>:<%= select("library", "id", @libraries, {:include_blank => t('advanced_search.all_libraries'), :selected=>@selected_library})%>
+    <%= submit_tag t('page.search') -%>
+    <%= submit_tag t('page.output', :model =>t('page.listing', :model => t('activerecord.models.checkout'))), :name => :output -%>
+  </p>
+<%- end -%>
+
 <%= render 'list' -%>
 
 <%- if @checkouts.size == 0 -%>

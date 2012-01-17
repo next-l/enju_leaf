@@ -53,6 +53,10 @@ configatron.search_report_csv.filename = "search_manifestations.csv"
 # 貸出票の出力
 configatron.checkouts_print.filename = "checkouts.pdf"
 configatron.checkouts_print.message = "本は大事に扱いましょう。期限はきちんと守りましょう。インターネットで延長ができます。"
+# 貸出リストの出力
+configatron.checkoutlist_print.filename = "checkouts.pdf"
+# 貸出リストに利用者の年齢を表示するかどうか
+configatron.checkout_print.old = true
 
 # 予約票の出力
 configatron.reserve_print.filename = "reserve.pdf"
