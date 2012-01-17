@@ -1,0 +1,17 @@
+<%= form_for(@system_configuration) do |f| %>
+  <%= f.error_messages %>
+
+  <div class="field">
+    <%= f.label :keyname %><br />
+    <%= f.text_field :keyname -%>
+  </div>
+
+  <div class="field">
+    <%= f.label :v %><br />
+    <%= f.text_field :v -%>
+  </div>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

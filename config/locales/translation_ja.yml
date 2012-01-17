@@ -172,6 +172,7 @@ ja:
       export_item_list: 図書リスト
       library_report: 報告書
       loss_item: 紛失弁償
+      system_configuration: システム情報
    
     attributes:
       library:
@@ -1228,7 +1229,9 @@ ja:
         visiters: 入館者
         copies: コピー件数
         consultations: 窓口利用件数
-
+      system_configuration:
+        keyname: key
+        v: value
   page:
     user_title: "ようこそ %{login_name} さん"
     logged_in_as: "%{login_name} としてログイン"
@@ -1407,6 +1410,7 @@ ja:
     budget_and_order: "予算と発注の管理" 
     budget: "予算"
     wait: "処理中.."
+    system_configuration: システム設定
 
     exstatistics:
       ranknumber: 順位

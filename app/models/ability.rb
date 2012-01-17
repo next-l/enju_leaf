@@ -119,6 +119,7 @@ class Ability
         SubjectType,
         Subscribe,
         Subscription,
+        SystemConfiguration,
         Tag,
         Term,
         UserCheckoutStat,
@@ -253,6 +254,7 @@ class Ability
         SubjectHasClassification,
         Subscribe,
         Subscription,
+        SystemConfiguration,
         Tag,
         Term,
         WorkHasSubject
