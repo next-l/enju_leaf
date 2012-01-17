@@ -5075,7 +5075,6 @@ class StatisticReport < ActiveRecord::Base
       row << I18n.t('statistic_report.sum')
       columns << ["sum"]
       output.print row.join(",")+"\n"
-      logger.error columns
       # checkout users all libraries
       sum = 0
       row = []
@@ -5946,7 +5945,7 @@ class StatisticReport < ActiveRecord::Base
     return csv_file
   end
 
-  def get_items_daily_pdf(term)
+  def self.get_items_daily_pdf(term)
     libraries = Library.all
     checkout_types = CheckoutType.all
     call_numbers = Statistic.call_numbers
@@ -5971,11 +5970,11 @@ class StatisticReport < ActiveRecord::Base
         # header
         if start_date != 27
           13.times do |t|
-            report.page.list(:list).header.item("column##{t+1}").value("#{t+start_date}#{t('statistic_report.date')}")
+            report.page.list(:list).header.item("column##{t+1}").value(I18n.t('statistic_report.date', :num => t+start_date))
           end
         else
           num_for_last_page.times do |t|
-            report.page.list(:list).header.item("column##{t+1}").value("#{t+start_date}#{t('statistic_report.date')}")
+            report.page.list(:list).header.item("column##{t+1}").value(I18n.t('statistic_report.date', :num => start_date))
           end
           report.page.list(:list).header.item("column#13").value(I18n.t('statistic_report.sum'))
         end
@@ -6189,20 +6188,22 @@ class StatisticReport < ActiveRecord::Base
     end
   end
 
-  def self.get_items_daily_report_csv(term)
+  def self.get_items_daily_csv(term)
     dir_base = "#{RAILS_ROOT}/private/system"
     out_dir = "#{dir_base}/statistic_report/"
-    csv_file = out_dir + "#{term}_monthly_report.csv"
+    csv_file = out_dir + "#{term}_items_daily_report.csv"
     FileUtils.mkdir_p(out_dir) unless FileTest.exist?(out_dir)
     # header
     columns = [
-      [:type,'statistic_report.type'],
       [:library, 'statistic_report.library'],
-      [:option, 'statistic_report.option']
+      [:shelf, 'activerecord.models.shelf'],
+      [:condition, 'statistic_report.condition'],
+      [:option, 'statistic_report.option'] 
     ]
     libraries = Library.all
     checkout_types = CheckoutType.all
-    user_groups = UserGroup.all
+    call_numbers = Statistic.call_numbers
+    days = Time.zone.parse("#{term}01").end_of_month.strftime("%d").to_i
     File.open(csv_file, "w") do |output|
       # add UTF-8 BOM for excel
       output.print "\xEF\xBB\xBF".force_encoding("UTF-8")
@@ -6212,21 +6213,249 @@ class StatisticReport < ActiveRecord::Base
       columns.each do |column|
         row << I18n.t(column[1])
       end
-      9.times do |t|
-        row << I18n.t('statistic_report.month', :num => t+4)
-        columns << ["#{term}#{"%02d" % (t + 4)}"]
-      end
-      3.times do |t|
-        row << I18n.t('statistic_report.month', :num => t+1)
-        columns << ["#{term.to_i + 1}#{"%02d" % (t + 1)}"]
+      days.times do |t|
+        row << I18n.t('statistic_report.date', :num => t+1)
+        columns << ["#{term}#{"%02d" % (t + 1)}"]
       end
       row << I18n.t('statistic_report.sum')
       columns << ["sum"]
       output.print row.join(",")+"\n"
+
+      # items all libraries
+      row = []
+      columns.each do |column|
+        case column[0]
+        when :library 
+          row << I18n.t('statistic_report.all_library')
+        when :shelf
+          row << ""
+        when :condition
+          row << ""
+        when :option
+          row << ""
+        when "sum"
+          logger.error "sum: #{term}#{days+1}"
+          value = Statistic.where(:yyyymmdd => "#{term}#{days+1}", :data_type => 211, :library_id => 0).no_condition.first.value rescue 0
+          row << to_format(value)
+        else
+          value = Statistic.where(:yyyymmdd => column[0], :data_type => 211, :library_id => 0).no_condition.first.value rescue 0
+          row << to_format(value)
+        end
+      end
+      output.print row.join(",")+"\n"
+      # items each call_numbers
+      unless call_numbers.nil?
+        call_numbers.each do |num|
+          row = []
+          columns.each do |column|
+            case column[0]
+            when :library 
+              row << I18n.t('statistic_report.all_library')
+            when :shelf
+              row << ""
+            when :condition
+              row << I18n.t('activerecord.attributes.item.call_number')
+            when :option
+              row << num
+            when "sum"
+              value = Statistic.where(:yyyymmdd => "#{term}#{days+1}", :data_type => 211, :library_id => 0, :call_number => num).first.value rescue 0
+              row << to_format(value)
+            else
+              value = Statistic.where(:yyyymmdd => column[0], :data_type => 211, :library_id => 0, :call_number => num).first.value rescue 0
+              row << to_format(value)
+            end
+          end
+          output.print row.join(",")+"\n"
+        end
+      end
+      # items each checkout_types
+      checkout_types.each do |checkout_type|
+        row = []
+        columns.each do |column|
+          case column[0]
+          when :library 
+            row << I18n.t('statistic_report.all_library')
+          when :shelf
+            row << ""
+          when :condition
+            row << I18n.t('activerecord.models.checkout_type')
+          when :option
+            row << checkout_type.display_name.localize
+          when "sum"
+            value = Statistic.where(:yyyymmdd => "#{term}#{days+1}", :data_type => 211, :library_id => 0, :checkout_type_id => checkout_type.id).first.value rescue 0
+            row << to_format(value)
+          else
+            value = Statistic.where(:yyyymmdd => column[0], :data_type => 211, :library_id => 0, :checkout_type_id => checkout_type.id).first.value rescue 0
+            row << to_format(value)
+          end
+        end
+        output.print row.join(",")+"\n"
+      end
+      # missing items
+      row = []
+      columns.each do |column|
+        case column[0]
+        when :library 
+          row << I18n.t('statistic_report.all_library')
+        when :shelf
+          row << ""
+        when :condition
+          row << I18n.t('statistic_report.missing_items')
+        when :option
+          row << ""
+        when "sum"
+          value = Statistic.where(:yyyymmdd => "#{term}#{days+1}", :data_type => 211, :option => 1, :library_id => 0).first.value rescue 0
+          row << to_format(value)
+        else
+          value = Statistic.where(:yyyymmdd => column[0], :data_type => 211, :option => 1, :library_id => 0).first.value rescue 0
+          row << to_format(value)
+        end
+      end
+      output.print row.join(",")+"\n"
+      # items each library
+      libraries.each do |library|
+        row = []
+        columns.each do |column|
+          case column[0]
+          when :library 
+            row << library.display_name
+          when :shelf
+            row << ""
+          when :condition
+            row << ""
+          when :option
+            row << ""
+          when "sum"
+            value = Statistic.where(:yyyymmdd => "#{term}#{days+1}", :data_type => 211, :library_id => library.id).no_condition.first.value rescue 0 
+            row << to_format(value)
+          else
+            value = Statistic.where(:yyyymmdd => column[0], :data_type => 211, :library_id => library.id).no_condition.first.value rescue 0 
+            row << to_format(value)
+          end
+        end
+        output.print row.join(",")+"\n"
+        # items each call_numbers
+        unless call_numbers.nil?
+          call_numbers.each do |num|
+            row = []
+            columns.each do |column|
+              case column[0]
+              when :library 
+                row << library.display_name
+              when :shelf
+                row << ""
+              when :condition
+                row << I18n.t('activerecord.attributes.item.call_number')
+              when :option
+                row << num
+              when "sum"
+                value = Statistic.where(:yyyymmdd => "#{term}#{days+1}", :data_type => 211, :library_id => library.id, :call_number => num).first.value rescue 0
+                row << to_format(value)
+              else
+                value = Statistic.where(:yyyymmdd => column[0], :data_type => 211, :library_id => library.id, :call_number => num).first.value rescue 0
+                row << to_format(value)
+              end
+            end
+            output.print row.join(",")+"\n"
+          end
+        end
+        # items each checkout_types
+        checkout_types.each do |checkout_type|
+          row = []
+          columns.each do |column|
+            case column[0]
+            when :library 
+              row << library.display_name
+            when :shelf
+              row << ""
+            when :condition
+              row << I18n.t('activerecord.models.checkout_type')
+            when :option
+              row << checkout_type.display_name.localize
+            when "sum"
+              value = Statistic.where(:yyyymmdd => "#{term}#{days+1}", :data_type => 211, :library_id => library.id, :checkout_type_id => checkout_type.id).first.value rescue 0
+              row << to_format(value)
+            else
+              value = Statistic.where(:yyyymmdd => column[0], :data_type => 211, :library_id => library.id, :checkout_type_id => checkout_type.id).first.value rescue 0
+              row << to_format(value)
+            end
+          end
+          output.print row.join(",")+"\n"
+        end
+        # missing items
+        row = []
+        columns.each do |column|
+          case column[0]
+          when :library 
+            row << library.display_name
+          when :shelf
+            row << ""
+          when :condition
+            row << I18n.t('statistic_report.missing_items')
+          when :option
+            row << ""
+          when "sum"
+            value = Statistic.where(:yyyymm => "#{term}#{days+1}", :data_type => 211, :option => 1, :library_id => library.id).first.value rescue 0 
+            row << to_format(value)
+          else
+            value = Statistic.where(:yyyymm => column[0], :data_type => 211, :option => 1, :library_id => library.id).first.value rescue 0 
+            row << to_format(value)
+          end
+        end
+        output.print row.join(",")+"\n"
+        # items each shelves and call_numbers
+        library.shelves.each do |shelf|
+          row = []
+          columns.each do |column|
+            case column[0]
+            when :library 
+              row << library.display_name.localize
+            when :shelf
+              row << shelf.display_name.localize
+            when :condition
+              row << I18n.t('activerecord.models.checkout_type')
+            when :option
+              row << ""
+            when "sum"
+              value = Statistic.where(:yyyymmdd => "#{term}#{days+1}", :data_type => 211, :library_id => library.id, :shelf_id => shelf.id).first.value rescue 0
+              row << to_format(value)
+            else
+              value = Statistic.where(:yyyymmdd => column[0], :data_type => 211, :library_id => library.id, :shelf_id => shelf.id).first.value rescue 0
+              row << to_format(value)
+            end
+          end
+          output.print row.join(",")+"\n"
+          unless call_numbers.nil?
+            call_numbers.each do |num|
+              row = []
+              columns.each do |column|
+                case column[0]
+                when :library 
+                  row << library.display_name.localize
+                when :shelf
+                  row << shelf.display_name.localize
+                when :condition
+                  row << I18n.t('activerecord.attributes.item.call_number')
+                when :option
+                  row << num
+                when "sum"
+                  value = Statistic.where(:yyyymmdd => "#{term}#{days+1}", :data_type => 211, :library_id => library.id, :shelf_id => shelf.id, :call_number => num).first.value rescue 0
+                  row << to_format(value)
+                else
+                  value = Statistic.where(:yyyymmdd => column[0], :data_type => 211, :library_id => library.id, :shelf_id => shelf.id, :call_number => num).first.value rescue 0
+                  row << to_format(value)
+                end
+              end
+              output.print row.join(",")+"\n"
+            end
+          end
+        end
+      end
     end
+    return csv_file
   end
 
-  def get_items_monthly_pdf(term)
+  def self.get_items_monthly_pdf(term)
     libraries = Library.all
     checkout_types = CheckoutType.all
     call_numbers = Statistic.call_numbers
@@ -6425,41 +6654,298 @@ class StatisticReport < ActiveRecord::Base
         end
       end
 
-      send_data report.generate, :filename => "#{term}_#{configatron.statistic_report.items}", :type => 'application/pdf', :disposition => 'attachment'
-      return true
+      return report.generate
     rescue Exception => e
       logger.error "failed #{e}"
       return false
     end
-
   end
 
-  def get_inout_items_report
-    term = params[:term].strip
-    unless term =~ /^\d{4}$/ || (term =~ /^\d{6}$/ && month_term?(term))
-      flash[:message] = t('statistic_report.invalid_year')
-      @year = Time.zone.now.years_ago(1).strftime("%Y")
-      @month = Time.zone.now.months_ago(1).strftime("%Y%m")
-      @t_start_at = Time.zone.now.months_ago(1).beginning_of_month.strftime("%Y%m%d")
-      @t_end_at = Time.zone.now.months_ago(1).end_of_month.strftime("%Y%m%d")
-      @d_start_at = Time.zone.now.months_ago(1).beginning_of_month.strftime("%Y%m%d")
-      @d_end_at = Time.zone.now.months_ago(1).end_of_month.strftime("%Y%m%d")
-      @a_start_at = Time.zone.now.months_ago(1).beginning_of_month.strftime("%Y%m%d")
-      @a_end_at = Time.zone.now.months_ago(1).end_of_month.strftime("%Y%m%d")
-      @items_year = Time.zone.now.years_ago(1).strftime("%Y")
-      @inout_term = term
-      @loans_term = Time.zone.now.years_ago(1).strftime("%Y")
-      render :index
-      return false
+  def self.get_items_monthly_csv(term)
+    dir_base = "#{RAILS_ROOT}/private/system"
+    out_dir = "#{dir_base}/statistic_report/"
+    csv_file = out_dir + "#{term}_items_monthly_report.csv"
+    FileUtils.mkdir_p(out_dir) unless FileTest.exist?(out_dir)
+    # header
+    columns = [
+      [:library, 'statistic_report.library'],
+      [:shelf, 'activerecord.models.shelf'],
+      [:condition, 'statistic_report.condition'],
+      [:option, 'statistic_report.option'] 
+    ]
+    libraries = Library.all
+    checkout_types = CheckoutType.all
+    call_numbers = Statistic.call_numbers
+    File.open(csv_file, "w") do |output|
+      # add UTF-8 BOM for excel
+      output.print "\xEF\xBB\xBF".force_encoding("UTF-8")
+
+      # タイトル行
+      row = []
+      columns.each do |column|
+        row << I18n.t(column[1])
+      end
+      9.times do |t|
+        row << I18n.t('statistic_report.month', :num => t+4)
+        columns << ["#{term}#{"%02d" % (t + 4)}"]
+      end
+      3.times do |t|
+        row << I18n.t('statistic_report.month', :num => t+1)
+        columns << ["#{term.to_i + 1}#{"%02d" % (t + 1)}"]
+      end
+      row << I18n.t('statistic_report.sum')
+      columns << ["sum"]
+      output.print row.join(",")+"\n"
+      # items all libraries
+      row = []
+      columns.each do |column|
+        case column[0]
+        when :library 
+          row << I18n.t('statistic_report.all_library')
+        when :shelf
+          row << ""
+        when :condition
+          row << ""
+        when :option
+          row << ""
+        when "sum"
+          value = Statistic.where(:yyyymm => "#{term.to_i+1}03}", :data_type => 111, :library_id => 0).no_condition.first.value rescue 0
+          row << to_format(value)
+        else
+          value = Statistic.where(:yyyymm => column[0], :data_type => 111, :library_id => 0).no_condition.first.value rescue 0
+          row << to_format(value)
+        end   
+      end
+      output.print row.join(",")+"\n"
+      # items each call_numbers
+      unless call_numbers.nil?
+        call_numbers.each do |num|
+          row = []
+          columns.each do |column|
+            case column[0]
+            when :library 
+              row << I18n.t('statistic_report.all_library')
+            when :shelf
+              row << ""
+            when :condition
+              row << I18n.t('activerecord.attributes.item.call_number')
+            when :option
+              row << num
+            when "sum"
+              value = Statistic.where(:yyyymm => "#{term.to_i + 1}03}", :data_type => 111, :library_id => 0, :call_number => num).first.value rescue 0
+              row << to_format(value)
+            else
+              value = Statistic.where(:yyyymm => column[0], :data_type => data_type, :library_id => 0, :call_number => num).first.value rescue 0
+              row << to_format(value)
+            end
+          end
+          output.print row.join(",")+"\n"
+        end   
+      end
+      # items each checkout_types
+      checkout_types.each do |checkout_type|
+        row = []
+        columns.each do |column|
+          case column[0]
+          when :library 
+            row << I18n.t('statistic_report.all_library')
+          when :shelf
+            row << ""
+          when :condition
+            row << I18n.t('activerecord.models.checkout_type')
+          when :option
+            row << checkout_type.display_name.localize
+          when "sum"
+            value = Statistic.where(:yyyymm => "#{term.to_i + 1}03", :data_type => 111, :library_id => 0, :checkout_type_id => checkout_type.id).first.value rescue 0
+            row << to_format(value)
+          else
+              value = Statistic.where(:yyyymm => column[0], :data_type => 111, :library_id => 0, :checkout_type_id => checkout_type.id).first.value rescue 0
+            row << to_format(value)
+          end
+        end
+        output.print row.join(",")+"\n"
+      end
+      # missing items
+      row = []
+      columns.each do |column|
+        case column[0]
+        when :library 
+          row << I18n.t('statistic_report.all_library')
+        when :shelf
+          row << ""
+        when :condition
+          row << I18n.t('statistic_report.missing_items')
+        when :option
+          row << ""
+        when "sum"
+          value = Statistic.where(:yyyymm => "#{term.to_i + 1}03}", :data_type => 111, :option => 1, :library_id => 0).first.value rescue 0
+          row << to_format(value)
+        else
+            value = Statistic.where(:yyyymm => column[0], :data_type => 111, :option => 1, :library_id => 0).first.value rescue 0
+          row << to_format(value)
+        end
+      end
+      output.print row.join(",")+"\n"
+      # items each library
+      libraries.each do |library|
+        row = []
+        columns.each do |column|
+          case column[0]
+          when :library 
+            row << library.display_name
+          when :shelf
+            row << ""
+          when :condition
+            row << ""
+          when :option
+            row << ""
+          when "sum"
+            value = Statistic.where(:yyyymm => "#{term.to_i + 1}03", :data_type => 111, :library_id => library.id).no_condition.first.value rescue 0 
+            row << to_format(value)
+          else
+            value = Statistic.where(:yyyymm => column[0], :data_type => 111, :library_id => library.id).no_condition.first.value rescue 0 
+            row << to_format(value)
+          end
+        end
+        output.print row.join(",")+"\n"
+        # items each call_numbers
+        unless call_numbers.nil?
+          call_numbers.each do |num|
+            row = []
+            columns.each do |column|
+              case column[0]
+              when :library 
+                row << library.display_name
+              when :shelf
+                row << ""
+              when :condition
+                row << I18n.t('activerecord.attributes.item.call_number')
+              when :option
+                row << num
+              when "sum"
+                datas = Statistic.where(:yyyymm => "#{term.to_i + 1}03", :data_type => 111, :library_id => library.id, :call_number => num)
+                value = 0
+                datas.each do |data|
+                  value += data.value
+                end
+                row << to_format(value)
+              else
+                datas = Statistic.where(:yyyymm => column[0], :data_type => 111, :library_id => library.id, :call_number => num)
+                value = 0
+                datas.each do |data|
+                  value += data.value
+                end
+                row << to_format(value)
+              end
+            end
+            output.print row.join(",")+"\n"
+          end
+        end
+        # items each checkout_types
+        checkout_types.each do |checkout_type|
+          row = []
+          columns.each do |column|
+            case column[0]
+            when :library 
+              row << library.display_name
+            when :shelf
+              row << ""
+            when :condition
+              row << I18n.t('activerecord.models.checkout_type')
+            when :option
+              row << checkout_type.display_name.localize
+            when "sum"
+              value = Statistic.where(:yyyymm => "#{term.to_i + 1}03", :data_type => 111, :library_id => library.id, :checkout_type_id => checkout_type.id).first.value rescue 0
+              row << to_format(value)
+            else
+                value = Statistic.where(:yyyymm => column[0], :data_type => 111, :library_id => library.id, :checkout_type_id => checkout_type.id).first.value rescue 0
+              row << to_format(value)
+            end
+          end
+          output.print row.join(",")+"\n"
+        end
+        # missing items
+        row = []
+        columns.each do |column|
+          case column[0]
+          when :library 
+            row << library.display_name
+          when :shelf
+            row << ""
+          when :condition
+            row << I18n.t('statistic_report.missing_items')
+          when :option
+            row << ""
+          when "sum"
+            value = Statistic.where(:yyyymm => "#{term.to_i + 1}03", :data_type => 111, :option => 1, :library_id => library.id).first.value rescue 0 
+            row << to_format(value)
+          else
+            value = Statistic.where(:yyyymm => column[0], :data_type => 111, :option => 1, :library_id => library.id).first.value rescue 0 
+            row << to_format(value)
+          end
+        end
+        output.print row.join(",")+"\n"
+        # items each shelves and call_numbers
+        library.shelves.each do |shelf|
+          row = []
+          columns.each do |column|
+            case column[0]
+            when :library 
+              row << library.display_name
+            when :shelf
+              row << shelf.display_name.localize
+            when :condition
+              row << ""
+            when :option
+              row << ""
+            when "sum"
+              datas = Statistic.where(:yyyymm => "#{term.to_i + 1}03", :data_type => 111, :library_id => library.id, :shelf_id => shelf.id)
+              value = 0
+              datas.each do |data|
+                value += data.value
+              end
+              row << to_format(value)
+            else
+              datas = Statistic.where(:yyyymm => column[0], :data_type => 111, :library_id => library.id, :shelf_id => shelf.id)
+              value = 0
+              datas.each do |data|
+                value += data.value
+              end
+              row << to_format(value)
+            end
+          end
+          output.print row.join(",")+"\n"
+          unless call_numbers.nil?
+            call_numbers.each do |num|
+              row = []
+              columns.each do |column|
+                case column[0]
+                when :library 
+                  row << library.display_name
+                when :shelf
+                  row << shelf.display_name.localize
+                when :condition
+                  row << I18n.t('activerecord.attributes.item.call_number')
+                when :option
+                  row << num
+                when "sum"
+                  value = Statistic.where(:yyyymm => "#{term.to_i + 1}03", :data_type => 111, :library_id => library.id, :shelf_id => shelf.id, :call_number => num).first.value rescue 0
+                  row << to_format(value)
+                else
+                  value = Statistic.where(:yyyymm => column[0], :data_type => 111, :library_id => library.id, :shelf_id => shelf.id, :call_number => num).first.value rescue 0
+                  row << to_format(value)
+                end
+              end
+              output.print row.join(",")+"\n"
+            end
+          end
+        end
+      end
     end
-    if term =~ /^\d{4}$/
-      get_inout_monthly(term)
-    else
-      get_inout_daily(term)
-    end
+    return csv_file
   end
 
-  def get_inout_daily(term)
+  def self.get_inout_daily_pdf(term)
     libraries = Library.all
     checkout_types = CheckoutType.all
     call_numbers = Statistic.call_numbers
@@ -6959,15 +7445,247 @@ class StatisticReport < ActiveRecord::Base
         end
       end
 
-      send_data report.generate, :filename => "#{term}_#{configatron.statistic_report.inout_items}", :type => 'application/pdf', :disposition => 'attachment'
-      return true
+      return report.generate
     rescue Exception => e
       logger.error "failed #{e}"
       return false
     end
   end
 
-  def get_inout_monthly(term)
+  def self.get_inout_daily_csv(term)
+    dir_base = "#{RAILS_ROOT}/private/system"
+    out_dir = "#{dir_base}/statistic_report/"
+    csv_file = out_dir + "#{term}_inout_report.csv"
+    FileUtils.mkdir_p(out_dir) unless FileTest.exist?(out_dir)
+    # header
+    columns = [
+      [:library, 'statistic_report.library'],
+      [:shelf, 'activerecord.models.shelf'],
+      [:condition, 'statistic_report.condition'],
+      [:option, 'statistic_report.option'] 
+    ]
+    libraries = Library.all
+    checkout_types = CheckoutType.all
+    call_numbers = Statistic.call_numbers
+    days = Time.zone.parse("#{term}01").end_of_month.strftime("%d").to_i
+    File.open(csv_file, "w") do |output|
+      # add UTF-8 BOM for excel
+      output.print "\xEF\xBB\xBF".force_encoding("UTF-8")
+
+      # タイトル行
+      row = []
+      columns.each do |column|
+        row << I18n.t(column[1])
+      end
+      days.times do |t|
+        row << I18n.t('statistic_report.date', :num => t+1)
+        columns << ["#{term}#{"%02d" % (t + 1)}"]
+      end
+      row << I18n.t('statistic_report.sum')
+      columns << ["sum"]
+      output.print row.join(",")+"\n"
+
+      data_type = 211
+      # accept items all libraries
+      row = []
+      sum = 0
+      columns.each do |column|
+        case column[0]
+        when :library
+          row << I18n.t('statistic_report.all_library')
+        when :shelf
+          row << ""
+        when :condition
+          row << ""
+        when :option
+          row << ""
+        when "sum"
+          row << to_format(sum)
+        else
+          value = Statistic.where(:yyyymmdd => column[0], :data_type => data_type, :library_id => 0, :option => 2).first.value rescue 0
+          sum += value
+          row << to_format(value)
+        end
+      end
+      output.print row.join(",")+"\n"    
+      # accept items each call_numbers
+      unless call_numbers.nil?
+        call_numbers.each do |num|
+          row = []
+          sum = 0
+          columns.each do |column|
+            case column[0]
+            when :library
+              row << I18n.t('statistic_report.all_library')
+            when :shelf
+              row << ""
+            when :condition
+              row << I18n.t('activerecord.attributes.item.call_number')
+            when :option
+              row << num
+            when "sum"
+              row << to_format(sum)
+            else
+              value = Statistic.where(:yyyymmdd => column[0], :data_type => data_type, :library_id => 0, :call_number => num, :option => 2).first.value rescue 0
+              sum += value
+              row << to_format(value)
+            end
+          end
+          output.print row.join(",")+"\n"
+        end
+      end
+      # accept items each checkout_types
+      checkout_types.each do |checkout_type|
+        row = []
+        sum = 0
+        columns.each do |column|
+          case column[0]
+          when :library
+            row << I18n.t('statistic_report.all_library')
+          when :shelf
+            row << ""
+          when :condition
+            row << I18n.t('activerecord.models.checkout_type')
+          when :option
+            row << checkout_type.display_name.localize
+          when "sum"
+            row << to_format(sum)
+          else
+            value = Statistic.where(:yyyymmdd => column[0], :data_type => data_type, :library_id => 0, :checkout_type_id => checkout_type.id, :option => 2).first.value rescue 0
+            sum += value
+            row << to_format(value)
+          end
+        end
+        output.print row.join(",")+"\n"
+      end
+      # accept items each libraries
+      libraries.each do |library|
+        row = []
+        sum = 0
+        columns.each do |column|
+          case column[0]
+          when :library
+            row << library.display_name.localize
+          when :shelf
+            row << ""
+          when :condition
+            row << ""
+          when :option
+            row << ""
+          when "sum"
+            row << to_format(sum)
+          else
+            value = Statistic.where(:yyyymmdd => column[0], :data_type => data_type, :library_id => library.id, :option => 2).first.value rescue 0
+            sum += value
+            row << to_format(value)
+          end
+        end
+        output.print row.join(",")+"\n"
+        # accept items each call_numbers
+        unless call_numbers.nil?
+          call_numbers.each do |num|
+            row = []
+            sum = 0
+            columns.each do |column|
+              case column[0]
+              when :library
+                row << library.display_name.localize
+              when :shelf
+                row << ""
+              when :condition
+                row << I18n.t('activerecord.attributes.item.call_number')
+              when :option
+                row << num
+              when "sum"
+                row << to_format(sum)
+              else
+                value = Statistic.where(:yyyymmdd => column[0], :data_type => data_type, :library_id => library.id, :call_number => num, :option => 2).first.value rescue 0
+                sum += value
+                row << to_format(value)
+              end
+            end
+            output.print row.join(",")+"\n"
+          end
+          # accept items each checkout_types
+          checkout_types.each do |checkout_type|
+            row = []
+            sum = 0
+            columns.each do |column|
+              case column[0]
+              when :library
+                row << library.display_name.localize
+              when :shelf
+                row << ""
+              when :condition
+                row << I18n.t('activerecord.models.checkout_type')
+              when :option
+                row << checkout_type.display_name.localize
+              when "sum"
+                row << to_format(sum)
+              else
+                value = Statistic.where(:yyyymmdd => column[0], :data_type => data_type, :library_id => library.id, :checkout_type_id => checkout_type.id, :option => 2).first.value rescue 0
+                sum += value
+                row << to_format(value)
+              end
+            end
+            output.print row.join(",")+"\n"
+          end
+          # accept items each shelves and call_numbers
+          library.shelves.each do |shelf|
+            row = []
+            sum = 0
+            columns.each do |column|
+              case column[0]
+              when :library
+                row << library.display_name.localize
+              when :shelf
+                row << shelf.display_name.localize
+              when :condition
+                row << ""
+              when :option
+                row << ""
+              when "sum"
+                row << to_format(sum)
+              else
+                value = Statistic.where(:yyyymmdd => column[0], :data_type => data_type, :library_id => library.id, :shelf_id => shelf.id, :call_number => nil, :option => 2).first.value rescue 0
+                sum += value
+                row << to_format(value)
+              end
+            end
+            output.print row.join(",")+"\n"
+            unless call_numbers.nil?
+              call_numbers.each do |num|
+                row = []
+                sum = 0
+                columns.each do |column|
+                  case column[0]
+                  when :library
+                    row << library.display_name.localize
+                  when :shelf
+                    row << shelf.display_name.localize
+                  when :condition
+                    row << I18n.t('activerecord.attributes.item.call_number')
+                  when :option
+                    row << num
+                  when "sum"
+                    row << to_format(sum)
+                  else
+                    value = Statistic.where(:yyyymmdd => column[0], :data_type => data_type, :library_id => library.id, :shelf_id => shelf.id, :call_number => num, :option => 2).first.value rescue 0
+                    sum += value
+                    row << to_format(value)
+                  end
+                end
+                output.print row.join(",")+"\n"
+              end
+            end
+          end
+        end
+      end
+    end
+    return csv_file
+  end
+
+  def self.get_inout_monthly_pdf(term)
     libraries = Library.all
     checkout_types = CheckoutType.all
     call_numbers = Statistic.call_numbers
@@ -6987,7 +7705,7 @@ class StatisticReport < ActiveRecord::Base
       report.page.item(:date).value(Time.now)       
       report.page.item(:term).value(term)
 
-      # remove items
+      # accept items
       report.page.item(:inout_type).value(I18n.t('statistic_report.accept'))
       
       # accept items all libraries
@@ -7322,40 +8040,484 @@ class StatisticReport < ActiveRecord::Base
         end
       end
 
-      send_data report.generate, :filename => "#{term}_#{configatron.statistic_report.inout_items}", :type => 'application/pdf', :disposition => 'attachment'
-      return true
+      return report.generate
     rescue Exception => e
       logger.error "failed #{e}"
       return false
     end
   end
 
-  def get_loans_report
-    term = params[:term].strip
-    unless term =~ /^\d{4}$/ || (term =~ /^\d{6}$/ && month_term?(term))
-      flash[:message] = t('statistic_report.invalid_year')
-      @year = Time.zone.now.years_ago(1).strftime("%Y")
-      @month = Time.zone.now.months_ago(1).strftime("%Y%m")
-      @t_start_at = Time.zone.now.months_ago(1).beginning_of_month.strftime("%Y%m%d")
-      @t_end_at = Time.zone.now.months_ago(1).end_of_month.strftime("%Y%m%d")
-      @d_start_at = Time.zone.now.months_ago(1).beginning_of_month.strftime("%Y%m%d")
-      @d_end_at = Time.zone.now.months_ago(1).end_of_month.strftime("%Y%m%d")
-      @a_start_at = Time.zone.now.months_ago(1).beginning_of_month.strftime("%Y%m%d")
-      @a_end_at = Time.zone.now.months_ago(1).end_of_month.strftime("%Y%m%d")
-      @items_year = Time.zone.now.years_ago(1).strftime("%Y")
-      @inout_term = Time.zone.now.years_ago(1).strftime("%Y")
-      @loans_term = term
-      render :index
-      return false
+  def self.get_inout_monthly_csv(term)
+    dir_base = "#{RAILS_ROOT}/private/system"
+    out_dir = "#{dir_base}/statistic_report/"
+    csv_file = out_dir + "#{term}_inout_report.csv"
+    FileUtils.mkdir_p(out_dir) unless FileTest.exist?(out_dir)
+    # header
+    columns = [
+      [:type,'statistic_report.type'],
+      [:library, 'statistic_report.library'],
+      [:shelf, 'activerecord.model.shelf'],
+      [:condition, 'statistic_report.condition'],
+      [:option, 'statistic_report.option']
+    ]
+    libraries = Library.all
+    checkout_types = CheckoutType.all
+    call_numbers = Statistic.call_numbers
+    File.open(csv_file, "w") do |output|
+      # add UTF-8 BOM for excel
+      output.print "\xEF\xBB\xBF".force_encoding("UTF-8")
+
+      # タイトル行
+      row = []
+      columns.each do |column|
+        row << I18n.t(column[1])
+      end
+      9.times do |t|
+        row << I18n.t('statistic_report.month', :num => t+4)
+        columns << ["#{term}#{"%02d" % (t + 4)}"]
+      end
+      3.times do |t|
+        row << I18n.t('statistic_report.month', :num => t+1)
+        columns << ["#{term.to_i + 1}#{"%02d" % (t + 1)}"]
+      end
+      row << I18n.t('statistic_report.sum')
+      columns << ["sum"]
+      output.print row.join(",")+"\n"
+      # accept items all libraries
+      row = []
+      sum = 0
+      columns.each do |column|
+        case column[0]
+        when :type
+          row << I18n.t('statistic_report.accept')
+        when :library
+          row << I18n.t('statistic_report.all_library')
+        when :shelf
+          row << ""
+        when :condition
+          row << ""
+        when :option
+          row << ""
+        when "sum"
+          row << to_format(sum)
+        else
+          value = Statistic.where(:yyyymm => column[0], :data_type => 111, :library_id => 0, :option => 2).first.value rescue 0
+          sum += value
+          row << to_format(value)
+        end
+      end
+      output.print row.join(",")+"\n"
+      # accept items each call_numbers
+      unless call_numbers.nil?
+        call_numbers.each do |num|
+          row = []
+          sum = 0
+          columns.each do |column|
+            case column[0]
+            when :type
+              row << I18n.t('statistic_report.accept')
+            when :library
+              row << I18n.t('statistic_report.all_library')
+            when :shelf
+               row << ""
+            when :condition
+              row << I18n.t('activerecord.attributes.item.call_number')
+            when :option
+              row << num
+            when "sum"
+              row << to_format(sum)
+            else
+              value = Statistic.where(:yyyymm => column[0], :data_type => 111, :library_id => 0, :call_number => num, :option => 2).first.value rescue 0
+              sum += value
+              row << to_format(value)
+            end
+          end
+          output.print row.join(",")+"\n"
+        end
+      end
+      # accept items each checkout_types
+      checkout_types.each do |checkout_type|
+        row = []
+        sum = 0
+        columns.each do |column|
+          case column[0]
+          when :type
+            row << I18n.t('statistic_report.accept')
+          when :library
+            row << I18n.t('statistic_report.all_library')
+          when :shelf
+            row << ""
+          when :condition
+            row << I18n.t('activerecord.models.checkout_type')
+          when :option
+            row << checkout_type.display_name.localize
+          when "sum"
+            row << to_format(sum)
+          else
+            value = Statistic.where(:yyyymm => column[0], :data_type => 111, :library_id => 0, :checkout_type_id => checkout_type.id, :option => 2).first.value rescue 0
+            sum += value
+            row << to_format(value)
+          end
+        end
+        output.print row.join(",")+"\n"
+      end
+      # accept items each library
+      libraries.each do |library|
+        row = []
+        sum = 0
+        columns.each do |column|
+          case column[0]
+          when :type
+            row << I18n.t('statistic_report.accept')
+          when :shelf
+            row << ""
+          when :library
+            row << library.display_name.localize
+          when :condition
+            row << ""
+          when :option
+            row << ""
+          when "sum"
+            row << to_format(sum)
+          else
+            value = Statistic.where(:yyyymm => column[0], :data_type => data_type, :library_id => library.id, :option => 2).first.value rescue 0 
+            sum += value
+            row << to_format(value)
+          end
+        end
+        output.print row.join(",")+"\n"
+        # accept items each call_numbers
+        unless call_numbers.nil?
+          call_numbers.each do |num|
+            row = []
+            sum = 0
+            columns.each do |column|
+              case column[0]
+              when :type
+                row << I18n.t('statistic_report.accept')
+              when :library
+                row << library.display_name.localize
+              when :shelf
+                row << ""
+              when :condition
+                row << I18n.t('activerecord.attributes.item.call_number')
+              when :option
+                row << num
+              when "sum"
+                row << to_format(sum)
+              else
+                value = Statistic.where(:yyyymm => column[0], :data_type => 111, :library_id => library.id, :call_number => num, :option => 2).first.value rescue 0
+                sum += value
+                row << to_format(value)
+              end
+            end
+            output.print row.join(",")+"\n"
+          end
+        end
+        # accept items each checkout_types
+        checkout_types.each do |checkout_type|
+          row = []
+          sum = 0
+          columns.each do |column|
+            case column[0]
+            when :type
+              row << I18n.t('statistic_report.accept')
+            when :library
+              row << library.display_name.localize
+            when :shelf
+              row << ""
+            when :condition
+              row << I18n.t('activerecord.models.checkout_type')
+            when :option
+              row << checkout_type.display_name.localize
+            when "sum"
+              row << to_format(sum)
+            else
+              value = Statistic.where(:yyyymm => column[0], :data_type => 111, :library_id => library.id, :checkout_type_id => checkout_type.id, :option => 2).first.value rescue 0
+              sum += value
+              row << to_format(value)
+            end
+          end
+          output.print row.join(",")+"\n"
+        end
+        # accept items each shelves and call_numbers
+        library.shelves.each do |shelf|
+          row = []
+          sum = 0
+          columns.each do |column|
+            case column[0]
+            when :type
+              row << I18n.t('statistic_report.accept')
+            when :library
+              row << library.display_name.localize
+            when :shelf
+              row << shelf.display_name.localize
+            when :condition
+              row << ""
+            when :option
+              row << ""
+            when "sum"
+              row << to_format(sum)
+            else
+              value = Statistic.where(:yyyymm => column[0], :data_type => 111, :library_id => library.id, :shelf_id => shelf.id, :option => 2).first.value rescue 0
+              sum += value
+              row << to_format(value)
+            end
+          end
+          output.print row.join(",")+"\n"
+          unless call_numbers.nil?
+            call_numbers.each do |num|
+              row = []
+              sum = 0
+              columns.each do |column|
+                case column[0]
+                when :type
+                  row << I18n.t('statistic_report.accept')
+                when :library
+                  row << library.display_name.localize
+                when :shelf
+                  row << shelf.display_name.localize
+                when :condition
+                  row << I18n.t('activerecord.attributes.item.call_number')
+                when :option
+                  row << num
+                when "sum"
+                  row << to_format(sum)
+                else
+                  value = Statistic.where(:yyyymm => column[0], :data_type => data_type, :library_id => library.id, :shelf_id => shelf.id, :call_number => num, :option => 2).first.value rescue 0
+                  sum += value
+                  row << to_format(value)
+                end
+              end
+              output.print row.join(",")+"\n"
+            end
+          end
+        end
+      end
+      # remove items all libraries
+      row = []
+      sum = 0
+      columns.each do |column|
+        case column[0]
+        when :type
+          row << I18n.t('statistic_report.remove')
+        when :library
+          row << I18n.t('statistic_report.all_library')
+        when :shelf
+          row << ""
+        when :condition
+          row << ""
+        when :option
+          row << ""
+        when "sum"
+          row << to_format(sum)
+        else
+          value = Statistic.where(:yyyymm => column[0], :data_type => 111, :library_id => 0, :option => 3).first.value rescue 0
+          sum += value
+          row << to_format(value)
+        end
+      end
+      output.print row.join(",")+"\n"
+      # remove items each call_numbers
+      unless call_numbers.nil?
+        call_numbers.each do |num|
+          row = []
+          sum = 0
+          columns.each do |column|
+            case column[0]
+            when :type
+              row << I18n.t('statistic_report.remove')
+            when :library
+              row << I18n.t('statistic_report.all_library')
+            when :shelf
+              row << ""
+            when :condition
+              row << I18n.t('activerecord.attributes.item.call_number')
+            when :option
+              row << num
+            when "sum"
+              row << to_format(sum)
+            else
+              value = Statistic.where(:yyyymm => column[0], :data_type => 111, :library_id => 0, :call_number => num, :option => 3).first.value rescue 0
+              sum += value
+              row << to_format(value)
+            end
+          end
+          output.print row.join(",")+"\n"
+        end
+      end
+      # remove items each checkout_types
+      checkout_types.each do |checkout_type|
+        row = []
+        sum = 0
+        columns.each do |column|
+          case column[0]
+          when :type
+            row << I18n.t('statistic_report.remove')
+          when :library
+            row << I18n.t('statistic_report.all_library')
+          when :shelf
+            row << ""
+          when :condition
+            row << I18n.t('activerecord.models.checkout_type')
+          when :option
+            row << checkout_type.display_name.localize
+          when "sum"
+            row << to_format(sum)
+          else
+            value = Statistic.where(:yyyymm => column[0], :data_type => 111, :library_id => 0, :checkout_type_id => checkout_type.id, :option => 3).first.value rescue 0
+            sum += value
+            row << to_format(value)
+          end
+        end
+        output.print row.join(",")+"\n"
+      end
+      # remove items each library
+      libraries.each do |library|
+        row = []
+        sum = 0
+        columns.each do |column|
+          case column[0]
+          when :type
+            row << I18n.t('statistic_report.remove')
+          when :library
+            row << library.display_name.localize
+          when :shelf
+            row << ""
+          when :condition
+            row << ""
+          when :option
+            row << ""
+          when "sum"
+            row << to_format(sum)
+          else
+            value = Statistic.where(:yyyymm => column[0], :data_type => 111, :library_id => library.id, :option => 3).first.value rescue 0 
+            sum += value
+            row << to_format(value)
+          end
+        end
+        output.print row.join(",")+"\n"
+        # remove items each call_numbers
+        unless call_numbers.nil?
+          call_numbers.each do |num|
+            row = []
+            sum = 0
+            columns.each do |column|
+              case column[0]
+              when :type
+                row << I18n.t('statistic_report.remove')
+              when :library
+                row << library.display_name.localize
+              when :shelf
+                row << ""
+              when :condition
+                row << I18n.t('activerecord.attributes.item.call_number')
+              when :option
+                row << num
+              when "sum"
+                row << to_format(sum)
+              else
+                datas = Statistic.where(:yyyymm => column[0], :data_type => 111, :library_id => library.id, :call_number => num, :option => 3)
+                value = 0
+                datas.each do |data|
+                  value += data.value
+                end
+                sum += value
+                row << to_format(value)
+              end
+            end
+            output.print row.join(",")+"\n"
+          end
+        end
+        # remove items each checkout_types
+        checkout_types.each do |checkout_type|
+          row = []
+          sum = 0
+          columns.each do |column|
+            case column[0]
+            when :type
+              row << I18n.t('statistic_report.remove')
+            when :library
+              row << library.display_name.localize
+            when :shelf
+              row << ""
+            when :condition
+              row << I18n.t('activerecord.models.checkout_type')
+            when :option
+              row << checkout_type.display_name.localize
+            when "sum"
+              row << to_format(sum)
+            else
+              value = Statistic.where(:yyyymm => column[0], :data_type => 111, :library_id => library.id, :checkout_type_id => checkout_type.id, :option => 3).first.value rescue 0
+              sum += value
+              row << to_format(value)
+            end
+          end
+          output.print row.join(",")+"\n"
+        end
+        # remove items each shelves and call_numbers
+        library.shelves.each do |shelf|
+          row = []
+          sum = 0
+          columns.each do |column|
+            case column[0]
+            when :type
+              row << I18n.t('statistic_report.remove')
+            when :library
+              row << library.display_name.localize
+            when :shelf
+              row << shelf.display_name.localize
+            when :condition
+              row << ""
+            when :option
+              row << ""
+            when "sum"
+              row << to_format(sum)
+            else
+              value = 0
+              datas = Statistic.where(:yyyymm => column[0], :data_type => 111, :library_id => library.id, :shelf_id => shelf.id, :option => 3)
+              datas.each do |data|
+                value += data.value
+              end
+              sum += value
+              row << to_format(value)
+            end
+          end
+          output.print row.join(",")+"\n"
+          unless call_numbers.nil?
+            call_numbers.each do |num|
+              row = []
+              sum = 0
+              columns.each do |column|
+                case column[0]
+                when :type
+                  row << I18n.t('statistic_report.remove')
+                when :library
+                  row << library.display_name.localize
+                when :shelf
+                  row << shelf.display_name.localize
+                when :condition
+                  row << I18n.t('activerecord.attributes.item.call_number')
+                when :option
+                  row << num
+                when "sum"
+                  row << to_format(sum)
+                else
+                  value = Statistic.where(:yyyymm => column[0], :data_type => 111, :library_id => library.id, :shelf_id => shelf.id, :call_number => num, :option => 3).first.value rescue 0
+                  sum += value
+                  row << to_format(value)
+                end
+              end
+              output.print row.join(",")+"\n"
+            end
+          end
+        end
+      end
     end
-    if term =~ /^\d{4}$/
-      get_loans_monthly(term)
-    else
-      get_loans_daily(term)
-    end
+    return csv_file
   end
 
-  def get_loans_daily(term)
+  def self.get_loans_daily_pdf(term)
     logger.error "create daily inter library loans statistic report: #{term}"
     libraries = Library.all
     begin
@@ -7380,11 +8542,11 @@ class StatisticReport < ActiveRecord::Base
           # header
           if start_date != 27
             13.times do |t|
-              report.page.list(:list).header.item("column##{t+1}").value("#{t+start_date}#{t('statistic_report.date')}")
+              report.page.list(:list).header.item("column##{t+1}").value(I18n.t('statistic_report.date', :num => t+start_date))
             end
           else
             num_for_last_page.times do |t|
-              report.page.list(:list).header.item("column##{t+1}").value("#{t+start_date}#{t('statistic_report.date')}")
+              report.page.list(:list).header.item("column##{t+1}").value(I18n.t('statistic_report.date', :num => t+start_date))
             end
             report.page.list(:list).header.item("column#13").value(I18n.t('statistic_report.sum'))
           end
@@ -7449,15 +8611,99 @@ class StatisticReport < ActiveRecord::Base
         end
       end
 
-      send_data report.generate, :filename => "#{term}_#{configatron.statistic_report.loans}", :type => 'application/pdf', :disposition => 'attachment'
-      return true
+      return report.generate
     rescue Exception => e
       logger.error "failed #{e}"
       return false
     end
   end
 
-  def get_loans_monthly(term)
+  def self.get_loans_daily_csv(term)
+    dir_base = "#{RAILS_ROOT}/private/system"
+    out_dir = "#{dir_base}/statistic_report/"
+    csv_file = out_dir + "#{term}_loans_daily.csv"
+    FileUtils.mkdir_p(out_dir) unless FileTest.exist?(out_dir)
+    # header
+    columns = [
+      [:library, 'statistic_report.library'],
+      [:loan_type, 'statistic_report.loan_type'],
+      [:loan_library, 'statistic_report.loan_library'] 
+    ]
+    libraries = Library.all
+    checkout_types = CheckoutType.all
+    call_numbers = Statistic.call_numbers
+    days = Time.zone.parse("#{term}01").end_of_month.strftime("%d").to_i
+    File.open(csv_file, "w") do |output|
+      # add UTF-8 BOM for excel
+      output.print "\xEF\xBB\xBF".force_encoding("UTF-8")
+
+      # タイトル行
+      row = []
+      columns.each do |column|
+        row << I18n.t(column[1])
+      end
+      days.times do |t|
+        row << I18n.t('statistic_report.date', :num => t+1)
+        columns << ["#{term}#{"%02d" % (t + 1)}"]
+      end
+      row << I18n.t('statistic_report.sum')
+      columns << ["sum"]
+      output.print row.join(",")+"\n"
+      libraries.each do |library|
+        # checkout loan
+        data_type = 261
+        libraries.each do |borrowing_library|
+          next if library == borrowing_library
+          sum = 0
+          row = []
+          columns.each do |column|
+            case column[0]
+            when :library
+              row << library.display_name.localize
+            when :loan_type
+              row << I18n.t('statistic_report.checkout_loan')
+            when :loan_library
+              row << borrowing_library.display_name.localize
+            when "sum"
+              row << to_format(sum)
+            else
+              value = Statistic.where(:yyyymmdd => column[0], :data_type => data_type, :library_id => library.id, :borrowing_library_id => borrowing_library.id).first.value rescue 0
+              sum += value
+              row << to_format(value)
+            end
+          end
+          output.print row.join(",")+"\n"
+        end
+        # checkin loan
+        data_type = 262
+        libraries.each do |borrowing_library|
+          next if library == borrowing_library
+          sum = 0
+          row = []
+          columns.each do |column|
+            case column[0]
+            when :library
+              row << library.display_name.localize
+            when :loan_type
+              row << I18n.t('statistic_report.checkin_loan')
+            when :loan_library
+              row << borrowing_library.display_name.localize
+            when "sum"
+              row << to_format(sum)
+            else
+              value = Statistic.where(:yyyymmdd => column[0], :data_type => data_type, :library_id => library.id, :borrowing_library_id => borrowing_library.id).first.value rescue 0
+              sum += value
+              row << to_format(value)
+            end
+          end
+          output.print row.join(",")+"\n"
+        end
+      end
+    end
+    return csv_file
+  end
+
+  def self.get_loans_monthly_pdf(term)
     logger.error "create monthly inter library loans statistic report: #{term}"
     libraries = Library.all
     begin
@@ -7504,7 +8750,6 @@ class StatisticReport < ActiveRecord::Base
           report.page.list(:list).add_row do |row|
             row.item(:loan_type).value(I18n.t('statistic_report.checkin_loan')) if borrowing_library == libraries.first || (borrowing_library == libraries[1] && library == libraries.first)
             row.item(:borrowing_library).value(borrowing_library.display_name)
-            row.item(:borrowing_library).value(borrowing_library.display_name)
             sum = 0
             12.times do |t|
               if t < 4 # for Japanese fiscal year
@@ -7521,12 +8766,100 @@ class StatisticReport < ActiveRecord::Base
         end
       end
 
-      send_data report.generate, :filename => "#{term}_#{configatron.statistic_report.loans}", :type => 'application/pdf', :disposition => 'attachment'
-      return true
+      return report.generate
     rescue Exception => e
       logger.error "failed #{e}"
       return false
     end
+  end
+
+  def self.get_loans_monthly_csv(term)
+    dir_base = "#{RAILS_ROOT}/private/system"
+    out_dir = "#{dir_base}/statistic_report/"
+    csv_file = out_dir + "#{term}_loans_monthly.csv"
+    FileUtils.mkdir_p(out_dir) unless FileTest.exist?(out_dir)
+    # header
+    columns = [
+      [:library, 'statistic_report.library'],
+      [:loan_type, 'statistic_report.loan_type'],
+      [:loan_library, 'statistic_report.loan_library'] 
+    ]
+    libraries = Library.all
+    checkout_types = CheckoutType.all
+    call_numbers = Statistic.call_numbers
+    File.open(csv_file, "w") do |output|
+      # add UTF-8 BOM for excel
+      output.print "\xEF\xBB\xBF".force_encoding("UTF-8")
+
+      # タイトル行
+      row = []
+      columns.each do |column|
+        row << I18n.t(column[1])
+      end
+      9.times do |t|
+        row << I18n.t('statistic_report.month', :num => t+4)
+        columns << ["#{term}#{"%02d" % (t + 4)}"]
+      end
+      3.times do |t|
+        row << I18n.t('statistic_report.month', :num => t+1)
+        columns << ["#{term.to_i + 1}#{"%02d" % (t + 1)}"]
+      end
+      row << I18n.t('statistic_report.sum')
+      columns << ["sum"]
+      output.print row.join(",")+"\n"
+
+      libraries.each do |library|
+        # checkout loan
+        data_type = 161
+        libraries.each do |borrowing_library|
+          next if library == borrowing_library
+          sum = 0
+          row = []
+          columns.each do |column|
+            case column[0]
+            when :library
+              row << library.display_name.localize
+            when :loan_type
+              row << I18n.t('statistic_report.checkout_loan')
+            when :loan_library
+              row << borrowing_library.display_name.localize
+            when "sum"
+              row << to_format(sum)
+            else
+              value = Statistic.where(:yyyymm => column[0], :data_type => data_type, :library_id => library.id, :borrowing_library_id => borrowing_library.id).first.value rescue 0
+              sum += value
+              row << to_format(value)
+            end
+          end
+          output.print row.join(",")+"\n"
+        end
+        # checkin loan
+        data_type = 162
+        libraries.each do |borrowing_library|
+          next if library == borrowing_library
+          sum = 0
+          row = []
+          columns.each do |column|
+            case column[0]
+            when :library
+              row << library.display_name.localize
+            when :loan_type
+              row << I18n.t('statistic_report.checkin_loan')
+            when :loan_library
+              row << borrowing_library.display_name.localize
+            when "sum"
+              row << to_format(sum)
+            else
+              value = Statistic.where(:yyyymm => column[0], :data_type => data_type, :library_id => library.id, :borrowing_library_id => borrowing_library.id).first.value rescue 0
+              sum += value
+              row << to_format(value)
+            end
+          end
+          output.print row.join(",")+"\n"
+        end
+      end
+    end
+    return csv_file
   end
 
 private

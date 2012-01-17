@@ -1918,7 +1918,10 @@ ja:
     checkin_loan: 借受
     type: 種別
     library: 図書館
+    loan_type: 貸借区分
+    loan_library: 貸借図書館
     option: オプション
+    condition: ""
     day_0: 日曜日
     day_1: 月曜日
     day_2: 火曜日
