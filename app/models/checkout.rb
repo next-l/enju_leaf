@@ -1,5 +1,5 @@
 class Checkout < ActiveRecord::Base
-  default_scope :order => 'id DESC'
+  default_scope :order => 'due_date ASC, id DESC'#:order => 'id DESC'
   scope :not_returned, where(:checkin_id => nil)
   scope :overdue, lambda {|date| {:conditions => ['checkin_id IS NULL AND due_date < ?', date]}}
   scope :due_date_on, lambda {|date| where(:checkin_id => nil, :due_date => date.beginning_of_day .. date.end_of_day)}
