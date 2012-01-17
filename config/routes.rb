@@ -1,8 +1,10 @@
 EnjuLeaf::Application.routes.draw do
+
   devise_for :users, :path => 'accounts'
 
   resource :my_account
 
+  post "batchaction/recept"
   resources :series_has_manifestations
 
   resources :series_statement_merges
