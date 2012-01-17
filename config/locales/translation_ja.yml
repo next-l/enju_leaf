@@ -1227,9 +1227,9 @@ ja:
         library: 図書館
         yyyymmdd: 日報対象日
         yyyymm: 月報対象月
-        visiters: 入館者
-        copies: コピー件数
-        consultations: 窓口利用件数
+        visiters: 入館者(人)
+        copies: コピー件数(件)
+        consultations: 窓口利用件数(件)
       system_configuration:
         keyname: key
         v: value
@@ -1879,48 +1879,48 @@ ja:
     submit_csv: "CSVで出力"
     created: "帳票を作成しました。"
     all_library: 全図書館
-    items: 蔵書冊数
-    opens: 開館日数
-    checkout_users: 貸出人数
-    user_type_5: 18~
-    user_type_4: 15~18
-    user_type_3: 12~15
-    user_type_2: 6~12
-    user_type_1: 0~6
+    items: 蔵書冊数(冊)
+    opens: 開館日数(日)
+    checkout_users: 貸出人数 (人)
+    user_type_5: "18 -   才"
+    user_type_4: "15 - 18 才"
+    user_type_3: "12 - 15 才"
+    user_type_2: "6 - 12 才"
+    user_type_1: "0 - 6 才"
     item_type_1: 一般
     item_type_2: 児童書
     item_type_3: その他
-    checkout_items: 貸出冊数
-    checkout_items_each_user_groups: 貸出冊数(団体別)
-    checkin_items: 返却数
-    average_checkout_users: 一日平均貸出人数
-    average_checkout_items: 一日平均貸出冊数
-    average_checkin_items: 一日平均返却冊数
+    checkout_items: 貸出冊数 (冊)
+    checkout_items_each_user_groups: 貸出冊数(団体別)(冊)
+    checkin_items: 返却数(冊)
+    average_checkout_users: 一日平均貸出人数(人)
+    average_checkout_items: 一日平均貸出冊数(冊)
+    average_checkin_items: 一日平均返却冊数(冊)
     missing_items: 不明
-    users: 登録人数
+    users: 登録人数 (人)
     all_users: 全区分
-    user_areas: 登録人数（地区別）
+    user_areas: 登録人数(地区別)(人)
     all_areas: 全地区
     other_area: その他
     user_groups: (団体別)
     unlocked_users: (利用中)
     locked_users: (利用停止)
     user_provisional: (仮登録)
-    reserves: 予約件数
+    reserves: 予約件数 (件)
     on_counter: (窓口)
     from_opac: (OPAC)
-    questions: レファレンス数    
-    consultations: 窓口利用件数
-    visiters: 入館者数
-    copies: コピー件数
+    questions: レファレンス数 (件)
+    consultations: 窓口利用件数(件)
+    visiters: 入館者数(人)
+    copies: コピー件数(件)
     month: "%{num}月"
     date: "%{num}日"
     hour: 時
     sum: 合計
     accept: 受入資料
     remove: 除籍資料
-    checkout_loan: 貸出
-    checkin_loan: 借受
+    checkout_loan: 貸出(冊)
+    checkin_loan: 借受(冊)
     type: 種別
     library: 図書館
     loan_type: 貸借区分
@@ -1957,7 +1957,7 @@ ja:
     no_record: "該当する図書が見つかりませんでした。"
     no_list_condition: "抽出条件を指定してください。"
   library_report:
-    checkouts: 貸出数
+    checkouts: 貸出数(冊)
     ndc: "(NDC:%{ndc})" 
     daily_report: "%{year}年%{month}月%{date}日の日報"
     daily: 日報
