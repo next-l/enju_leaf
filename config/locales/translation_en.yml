@@ -680,6 +680,7 @@ en:
         description: Description
         edition_display_value: Edition display value
         reserves_number: Reserves number
+        detail: Detail
       user_group:
         name: Name
         display_name: Display name

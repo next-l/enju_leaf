@@ -1,6 +1,6 @@
 # -*- encoding: utf-8 -*-
 class ManifestationsController < ApplicationController
-  load_and_authorize_resource :except => :index
+  load_and_authorize_resource :except => [:index, :output_show]
   authorize_resource :only => :index
   before_filter :authenticate_user!, :only => :edit
   before_filter :get_patron
@@ -8,12 +8,13 @@ class ManifestationsController < ApplicationController
   before_filter :get_series_statement, :only => [:index, :new, :edit]
   before_filter :prepare_options, :only => [:new, :edit]
   helper_method :get_libraries
-  before_filter :get_version, :only => [:show]
+  before_filter :get_version, :only => [:show, :output_show]
   after_filter :solr_commit, :only => [:create, :up, :outputdate, :destroy]
   after_filter :convert_charset, :only => :index
   cache_sweeper :manifestation_sweeper, :only => [:create, :update, :destroy]
   #include WorldcatController
   include OaiController
+  include ApplicationHelper
 
   # GET /manifestations
   # GET /manifestations.xml
@@ -467,6 +468,42 @@ class ManifestationsController < ApplicationController
     end
   end
 
+  def output_show
+    @manifestation = Manifestation.find(params[:manifestation])
+    require 'thinreports'
+    report = ThinReports::Report.new :layout => File.join(Rails.root, 'report', 'manifestation.tlf') 
+
+    # footer
+    report.layout.config.list(:list) do
+      use_stores :total => 0
+      events.on :footer_insert do |e|
+        e.section.item(:date).value(Time.now)
+      end
+    end
+
+    # main
+    report.start_new_page do |page|
+      page.item(:title).value(@manifestation.original_title)
+      page.item(:creater).value(patrons_list(@manifestation.creators.readable_by(current_user), {:itemprop => 'author', :nolink => true}))
+      page.item(:publisher).value(patrons_list(@manifestation.publishers.readable_by(current_user), {:itemprop => 'publisher', :nolink => true}))
+      page.item(:price).value(@manifestation.price)
+      page.item(:page).value(@manifestation.number_of_pages.to_s + 'p') if @manifestation.number_of_pages
+      page.item(:size).value(@manifestation.height.to_s + 'cm') if @manifestation.height
+      page.item(:series_statement).value(@manifestation.series_statement.original_title) if @manifestation.series_statement
+      page.item(:isbn).value(@manifestation.isbn)
+      @manifestation.items.each do |item|
+        page.list(:list).add_row do |row|
+          row.item(:library).value(item.shelf.library.display_name.localize)
+          row.item(:shelf).value(item.shelf.display_name.localize)
+          row.item(:call_number).value(item.call_number)
+          row.item(:item_identifier).value(item.item_identifier)
+          row.item(:circulation_status).value(item.circulation_status.display_name.localize)
+        end
+      end
+    end
+    send_data report.generate, :filename => configatron.manifestation_print.filename, :type => 'application/pdf', :disposition => 'attachment'
+  end
+  
   private
 
   def make_query(query, options = {})
@@ -714,7 +751,7 @@ class ManifestationsController < ApplicationController
     end
     query
   end
-  
+
   def output_pdf(manifestations)
     require 'thinreports'
     report = ThinReports::Report.new :layout => File.join(Rails.root, 'report', 'searchlist.tlf') 
@@ -741,15 +778,11 @@ class ManifestationsController < ApplicationController
               item_identifiers << item.item_identifier
             end
           end
-          creator, contributor, publisher= [], [], []
-          manifestation.creator.each {|c| creator << c if c.length > 0}
-          manifestation.contributor.each {|c| contributor << c if c.length > 0}
-          manifestation.publisher.each {|p| publisher << p if p.length > 0}
           row.item(:title).value(manifestation.original_title)
           row.item(:item_identifier).value(item_identifiers)
-          row.item(:creator).value(creator.join(","))
-          row.item(:contributor).value(contributor.join(","))
-          row.item(:publisher).value(publisher.join(","))
+          row.item(:creator).value(patrons_list(manifestation.creators.readable_by(current_user), {:itemprop => 'author', :nolink => true}))
+          row.item(:contributor).value(patrons_list(manifestation.contributors.readable_by(current_user), {:itemprop => 'editor', :nolink => true}))
+          row.item(:publisher).value(patrons_list(manifestation.publishers.readable_by(current_user), {:itemprop => 'publisher', :nolink => true}))
           row.item(:reserves_num).value(Reserve.waiting.where(:manifestation_id => manifestation.id, :checked_out_at => nil).count)
         end
       end
@@ -770,26 +803,22 @@ class ManifestationsController < ApplicationController
       item_identifiers = ""
       manifestation.items.each_with_index do |item, i|
         if item.item_identifier
-          item_identifiers << ", " unless i == 0 
+          item_identifiers << " " unless i == 0 
           item_identifiers << item.item_identifier
         end
       end
-      creator, contributor, publisher= [], [], []
-      manifestation.creator.each {|c| creator << c if c.length > 0}
-      manifestation.contributor.each {|c| contributor << c if c.length > 0}
-      manifestation.publisher.each {|p| publisher << p if p.length > 0}
-
+      creator, contributor, publisher = "",  "",  ""
+      creator = patrons_list(manifestation.creators.readable_by(current_user), {:itemprop => 'author', :nolink => true}) if manifestation.creators
+      contributor = patrons_list(manifestation.contributors.readable_by(current_user), {:itemprop => 'editor', :nolink => true}) if manifestation.contributors
+      publisher = patrons_list(manifestation.publishers.readable_by(current_user), {:itemprop => 'publisher', :nolink => true}) if manifestation.publishers
       original_title = manifestation.original_title
       item_identifier = item_identifiers
-      creator = creator.join(",")
-      contributor = contributor.join(",")
-      publisher = publisher.join(",")
       reserves_number = Reserve.waiting.where(:manifestation_id => manifestation.id, :checked_out_at => nil).count.to_s
       buf << "\"" + original_title + "\"" + 
              "," +"\"" + item_identifier + "\"" + 
-             "," + "\"" + creator + "\"" + 
-             "," +"\"" + contributor + "\"" +
-             "," +"\"" + publisher + "\"" +  
+             "," + "\"" + creator.to_s + "\"" + 
+             "," + "\"" + contributor.to_s + "\"" + 
+             "," + "\"" + publisher.to_s + "\"" + 
              "," +"\"" + reserves_number + "\"" + "\n"
     end
     send_data(buf, :filename => configatron.search_report_csv.filename)

@@ -731,6 +731,7 @@ ja:
         exinfo_5: 拡張情報５
         edition_display_value: 版表示
         reserves_number: 予約数
+        detail: 資料確認票
       user_group:
         name: 名前
         display_name: 表示名
