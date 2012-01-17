@@ -10,12 +10,15 @@ class BatchactionController < ApplicationController
   STAT_ERROR_INVALID_FORMAT = 10
   STAT_ERROR_INVALID_ACTION = 11
 
-  STAT_ERROR_INVALID_CHECKIN_ROWSIZE = 20
-  STAT_ERROR_INVALID_CHECKIN_ITEM = 22
+  STAT_ERROR_INVALID_CHECKIN_ROWSIZE = 100
+  STAT_ERROR_INVALID_CHECKIN_ITEM = 102
+  STAT_ERROR_INVALID_CHECKIN_FORMAT = 103
 
-  STAT_ERROR_INVALID_CHECKOUT_ROWSIZE = 30
-  STAT_ERROR_INVALID_CHECKOUT_USER = 31
-  STAT_ERROR_INVALID_CHECKOUT_ITEM = 32
+  STAT_ERROR_INVALID_CHECKOUT_ROWSIZE = 200
+  STAT_ERROR_INVALID_CHECKOUT_USER = 201
+  STAT_ERROR_INVALID_CHECKOUT_ITEM = 202
+  STAT_ERROR_INVALID_CHECKOUT_FORMAT = 203
+  STAT_ERROR_CHECKOUT = 299
 
   def initialize
     @actions = []
@@ -34,6 +37,8 @@ private
   def checkout(row)
     logger.info "checkout start."
     #puts row
+    
+    messages = []
 
     unless row.size == 6 
       logger.info "row size is invalid. size=#{row.size}"
@@ -54,20 +59,45 @@ private
       return STAT_ERROR_INVALID_CHECKOUT_ITEM, "item_identifier is invalid. (no record) item_identifier=#{item_identifier}"
     end
 
+    worked_at_str = row[5]
+    if worked_at_str.blank?
+      return STAT_ERROR_INVALID_CHECKOUT_FORMAT, "datetime is blank."
+    end
+    worked_at = nil
+    begin
+      worked_at = DateTime.strptime(worked_at_str, "%Y/%m/%d %H:%M:%S")
+    rescue ArgumentError
+      return STAT_ERROR_INVALID_CHECKOUT_FORMAT, "datetime invalid format. worked_at_str=#{worked_at_str}"
+    end
+
     basket = Basket.new(:user => librarian_user)
     basket.save!(:validate => false)
 
-    checked_item = CheckedItem.new({"item_identifier"=>item_identifier, "ignore_restriction"=>"0"})
+    checked_item = CheckedItem.new({"item_identifier"=>item_identifier, "ignore_restriction"=>"1"})
     checked_item.basket = basket
-
-    unless basket.basket_checkout(librarian_user)
-      basket.errors[:base].each do |error|
-        flash[:message], flash[:sound] = error_message_and_sound(error)
+    checked_item.item = item 
+    checked_item.save
+    pp checked_item.errors
+    unless checked_item.errors.empty?
+      checked_item.errors[:base].each do |error|
+        messages << I18n.t(error)
       end
+      logger.info "checked item create error. messages=#{messages}"
+      return STAT_ERROR_CHECKOUT, "checked item create error. messages=#{messages.join(" ")}"
     end
-    unless basket.save(:validate => false)
-      logger.info "checkout save false" 
+
+    logger.info "save start"
+    status = basket.basket_checkout(librarian_user)
+    unless status
+      basket.errors[:base].each do |error|
+        message, sound = error_message_and_sound(error)
+        messages << message
+      end
+      logger.info "basket_checkout error. @@@"
+      logger.info messages
+      return STAT_ERROR_CHECKOUT, "basket save error. messages=#{messages.join(" ")}"
     end
+    logger.info "checkout success."
 
     return STAT_SUCCESS
   end
@@ -76,7 +106,7 @@ private
     logger.info "checkin start."
     #puts row
 
-    message = []
+    messages = []
 
     unless row.size == 5
       logger.info "row size is invalid. size=#{row.size}"
@@ -97,13 +127,12 @@ private
       unless item.blank?
         basket = Basket.new(:user => librarian_user)
         basket.save!(:validate => false)
-        checkin = basket.checkins.new(:item_id => item.id, :librarian_id => current_user.id)
+        checkin = basket.checkins.new(:item_id => item.id, :librarian_id => librarian_user.id)
         checkin.item = item
         user_id = item.checkouts.select {|checkout| checkout.checkin_id.nil?}.first.user_id rescue nil
         if checkin.save(:validate => false)
           item_messages = checkin.item_checkin(librarian_user, true)
           unless item_messages.blank?
-            
             item_messages.each do |message|
               messages << message if message
             end
@@ -112,7 +141,9 @@ private
       end
     end
 
-    return STAT_SUCCESS, messsage.join(" ")
+    logger.info "checkin success."
+
+    return STAT_SUCCESS, messages.join(" ")
   end
 
   def actionkeylist
