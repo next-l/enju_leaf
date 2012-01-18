@@ -162,8 +162,6 @@ GEM
       roodi (>= 2.1.0)
       syntax
     mime-types (1.17.2)
-    money (3.7.1)
-      i18n (~> 0.4)
     multi_json (1.0.3)
     multi_xml (0.2.2)
     multipart-post (1.1.3)
@@ -230,8 +228,6 @@ GEM
     prawn (0.12.0)
       pdf-reader (>= 0.9.0)
       ttfunk (~> 1.0.2)
-    prism (0.1.0)
-      nokogiri
     progress_bar (0.4.0)
       highline (~> 1.6.1)
       options (~> 2.3.0)
@@ -274,9 +270,6 @@ GEM
     rcov (0.9.10)
     rdoc (3.11)
       json (~> 1.4)
-    recurrence (1.2.0)
-      activesupport (>= 2.3.0)
-      i18n
     reek (1.2.8)
       ruby2ruby (~> 1.2)
       ruby_parser (~> 2.0)
@@ -421,19 +414,16 @@ DEPENDENCIES
   library_stdnums
   marc
   metric_fu (~> 2.1)
-  money
   nokogiri
   omniauth (>= 0.2.6)
   paper_trail (~> 2.3)
   paperclip (~> 2.4)
   parallel_tests
   pg
-  prism
   progress_bar
   rack-protection
   rails (= 3.0.11)
   rails3_acts_as_paranoid
-  recurrence
   ri_cal
   rmagick
   rqrcode
