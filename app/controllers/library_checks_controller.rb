@@ -4,7 +4,7 @@ class LibraryChecksController < ApplicationController
   # GET /library_checks
   # GET /library_checks.xml
   def index
-    @library_checks = LibraryCheck.find(:all, :conditions => ["deleted_at IS NULL"])
+    @library_checks = LibraryCheck.find(:all, :conditions => ["deleted_at IS NULL"], :order => "id DESC")	
 
     respond_to do |format|
       format.html # index.html.erb
