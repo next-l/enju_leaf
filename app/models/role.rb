@@ -9,6 +9,10 @@ class Role < ActiveRecord::Base
   extend FriendlyId
   friendly_id :name
 
+  def self.librarian_role_ids
+     Role.where(:name => ['Administrator', 'Librarian']).select('id').inject([]) {|a, b| a << b.id}
+  end
+
   def localized_name
     display_name.localize
   end

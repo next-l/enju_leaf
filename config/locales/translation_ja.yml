@@ -361,6 +361,7 @@ ja:
         state: 状態
         patron: 人物・団体
         library: 所属館
+        reserved_library: 予約館
         user_group: ユーザグループ
         full_name: フルネーム
         password: パスワード

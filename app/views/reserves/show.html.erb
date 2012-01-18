@@ -19,8 +19,12 @@
 </p>
 
 <p>
-  <strong><%= t('activerecord.attributes.user.library') -%>:</strong>
-  <%= link_to @reserve.user.library.display_name, @reserve.user.library unless @reserve.user.library_id.blank? -%>
+  <strong><%= t('activerecord.attributes.user.reserved_library') -%>:</strong>
+  <%- if @reserve.reserved_library.blank? -%>
+  <%= @reserve.reserved_library_name -%>
+  <%- else -%>
+  <%= link_to @reserve.reserved_library_name, @reserve.reserved_library -%>
+  <%- end -%>
 </p>
 
 <%- if @reserve.user && @reserve.user.patron -%> 

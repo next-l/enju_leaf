@@ -22,6 +22,7 @@ class Reserve < ActiveRecord::Base
   acts_as_list :scope => :manifestation_id
 
   belongs_to :user, :validate => true
+  belongs_to :created_user, :class_name => 'User', :foreign_key => 'created_by', :validate => true
   belongs_to :manifestation, :validate => true
   belongs_to :librarian, :class_name => 'User', :validate => true
   belongs_to :item, :validate => true
@@ -132,6 +133,23 @@ class Reserve < ActiveRecord::Base
 
   def self.per_page
     10
+  end
+
+  def reserved_library
+    #@reserve.user.library
+    role_id = self.created_user.role.id rescue nil
+    if role_id.nil?
+      return User.administrators.first.library.display_name
+    end
+    if Role.librarian_role_ids.include?(role_id)
+      return self.created_user.library
+    end
+    return nil
+  end
+
+  def reserved_library_name
+    #@reserve.user.library.display_name rescue ""
+    return reserved_library.display_name rescue "WebOPAC" 
   end
 
   def set_item_and_manifestation
