@@ -330,7 +330,7 @@ class ReservesController < ApplicationController
     report.start_new_page do |page|
       # library info
       user = @reserve.user.user_number
-      if configatron.reserve_print.old == true and  @reserve.user.patron.date_of_birth
+      if SystemConfiguration.get("reserve_print.old") == true and  @reserve.user.patron.date_of_birth
         age = (Time.now.strftime("%Y%m%d").to_f - @reserve.user.patron.date_of_birth.strftime("%Y%m%d").to_f) / 10000
         age = age.to_i
         user = user + '(' + age.to_s + t('activerecord.attributes.patron.old')  +')'
@@ -376,7 +376,7 @@ class ReservesController < ApplicationController
     report.start_new_page do |page|
       page.item(:library).value(LibraryGroup.system_name(@locale))
       user = @user.patron.full_name
-      if configatron.reserve_print.old == true and @user.patron.date_of_birth
+      if SystemConfiguration.get("reserve_print.old") == true and @user.patron.date_of_birth
         age = (Time.now.strftime("%Y%m%d").to_f - @user.patron.date_of_birth.strftime("%Y%m%d").to_f) / 10000
         age = age.to_i
         user = user + '(' + age.to_s + t('activerecord.attributes.patron.old')  +')'
@@ -458,7 +458,7 @@ class ReservesController < ApplicationController
                row.item(:title).value(r.manifestation.original_title)
                row.item(:expired_at).value(r.expired_at.strftime("%Y/%m/%d"))
                user = r.user.patron.full_name
-               if configatron.reserve_print.old == true and  r.user.patron.date_of_birth
+               if SystemConfiguration.get("reserve_print.old") == true and  r.user.patron.date_of_birth
                  age = (Time.now.strftime("%Y%m%d").to_f - r.user.patron.date_of_birth.strftime("%Y%m%d").to_f) / 10000
                  age = age.to_i
                  user = user + '(' + age.to_s + t('activerecord.attributes.patron.old')  +')'

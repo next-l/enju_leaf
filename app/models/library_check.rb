@@ -226,8 +226,8 @@ p "ready status is OK"
     logger.info "end check not found items"
     
     #4-pre) auto checkin
-    logger.info "start auto_checkin #{configatron.library_checks.auto_checkin}"
-    if configatron.library_checks.auto_checkin 
+    logger.info "start auto_checkin #{SystemConfiguration.get("library_checks.auto_checkin")}"
+    if SystemConfiguration.get("library_checks.auto_checkin") 
       begin
         logger.info "start auto_checkin"
         check_checkouted_items_with_checkin   

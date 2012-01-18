@@ -21,9 +21,9 @@ module EnjuLeaf
     def error_message_and_sound(attribute_symbol)
       msg = t(attribute_symbol) 
       soundfile = nil
-      if configatron.sounds.basedir
-        soundfile = eval("configatron.sounds.errors.#{attribute_symbol}") 
-        soundfile = configatron.sounds.basedir + soundfile unless soundfile.inspect.empty?
+      if SystemConfiguration.get("sounds.basedir")
+        soundfile = SystemConfiguration.get("sounds.errors.#{attribute_symbol}") 
+        soundfile = SystemConfiguration.get("sounds.basedir") + soundfile unless soundfile.inspect.empty?
       end
       return [msg, soundfile]
     end

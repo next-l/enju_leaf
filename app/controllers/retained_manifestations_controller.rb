@@ -116,7 +116,7 @@ class RetainedManifestationsController < ApplicationController
           row.item(:receipt_library).value(Library.find(r.receipt_library_id).display_name)
           row.item(:title).value(r.manifestation.original_title)
           user = r.user.patron.full_name
-          if configatron.reserve_print.old == true and  r.user.patron.date_of_birth
+          if SystemConfiguration.get("reserve_print.old") == true and  r.user.patron.date_of_birth
             age = (Time.now.strftime("%Y%m%d").to_f - r.user.patron.date_of_birth.strftime("%Y%m%d").to_f) / 10000
             age = age.to_i
             user = user + '(' + age.to_s + t('activerecord.attributes.patron.old')  +')'

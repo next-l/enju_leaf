@@ -391,10 +391,10 @@ class Manifestation < ActiveRecord::Base
   end
 
   def reservable_with_item?(user = nil)
-    if configatron.reserve.not_reserve_on_loan.nil?
+    if SystemConfiguration.get("reserve.not_reserve_on_loan").nil?
       return true
     end
-    if configatron.reserve.not_reserve_on_loan == true
+    if SystemConfiguration.get("reserve.not_reserve_on_loan")
       if user.try(:has_role?, 'Librarian')
         return true
       end

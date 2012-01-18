@@ -283,7 +283,7 @@ class Patron < ActiveRecord::Base
 
 private
   def check_duplicate_user
-    return if configatron.patron.check_duplicate_user.nil? || configatron.patron.check_duplicate_user == false
+    return if SystemConfiguration.get("patron.check_duplicate_user").nil? || SystemConfiguration.get("patron.check_duplicate_user") == false
     chash = {}
     #TODO
     #chash[:full_name_transcription] = self.full_name_transcription.gsub(/\s|　/, "") unless self.full_name_transcription.blank?

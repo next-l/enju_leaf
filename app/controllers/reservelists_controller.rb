@@ -69,7 +69,7 @@ class ReservelistsController < ApplicationController
                row.item(:title).value(r.manifestation.original_title)
                row.item(:expired_at).value(r.expired_at.strftime("%Y/%m/%d"))
                user = r.user.patron.full_name
-               if configatron.reserve_print.old == true and  r.user.patron.date_of_birth
+               if SystemConfiguration.get("reserve_print.old") == true and  r.user.patron.date_of_birth
                  age = (Time.now.strftime("%Y%m%d").to_f - r.user.patron.date_of_birth.strftime("%Y%m%d").to_f) / 10000
                  age = age.to_i
                  user = user + '(' + age.to_s + t('activerecord.attributes.patron.old')  +')'

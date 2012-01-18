@@ -158,7 +158,7 @@ class CheckoutsController < ApplicationController
         use_stores :total => 0
         events.on :footer_insert do |e|
           e.section.item(:total).value(checkouts.size)
-          e.section.item(:message).value(configatron.checkouts_print.message)
+          e.section.item(:message).value(SystemConfiguration.get("checkouts_print.message"))
         end
       end
 

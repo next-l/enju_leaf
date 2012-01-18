@@ -138,7 +138,7 @@
             <%= raw simple_format(h(manifestation.note)) -%>
           </td>
         </tr>
-        <%- if configatron.manifestation.display_checkouts_count -%>
+        <%- if SystemConfiguration.get("manifestation.display_checkouts_count") -%>
         <tr>
           <td><%= t('activerecord.attributes.manifestation.checkouts_count') -%>:</td>
           <td>
@@ -148,7 +148,7 @@
           </td>
         </tr>
         <%- end -%>
-        <%- if configatron.manifestation.display_reserves_count -%>
+        <%- if SystemConfiguration.get("manifestation.display_reserves_count") -%>
         <tr>
           <td><%= t('activerecord.attributes.manifestation.reserves_count') -%>:</td>
           <td>
@@ -158,7 +158,7 @@
           </td>
         </tr>
         <%- end -%>
-        <%- if configatron.manifestation.display_last_checkout_datetime -%>
+        <%- if SystemConfiguration.get("manifestation.display_last_checkout_datetime") -%>
         <tr>
           <td><%= t('activerecord.attributes.manifestation.last_checkout_datetime') -%>:</td>
           <td>
