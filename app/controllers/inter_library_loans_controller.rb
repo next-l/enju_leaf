@@ -150,7 +150,7 @@ class InterLibraryLoansController < ApplicationController
       end
 
       @loans = InterLibraryLoan.loan_items
-      unless @loan
+      unless @loans
         flash[:message] = t('inter_library_loan.no_loan')
         @libraries = Library.all
         render :export_loan_lists
