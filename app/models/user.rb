@@ -128,7 +128,7 @@ class User < ActiveRecord::Base
       addresses << patron.address_2 if patron
     end
     text :address_1 do
-      patron.address_1 if patron.address_1
+      patron.address_1 if patron
     end
     text :name do
       patron.name if patron
