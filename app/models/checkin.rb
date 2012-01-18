@@ -18,7 +18,7 @@ class Checkin < ActiveRecord::Base
     message = []
     Checkin.transaction do
       checkouts = Checkout.not_returned.where(:item_id => self.item_id).select([:id, :item_id, :lock_version])
-      self.item.checkin! unless escape_flag #unless loss_item
+      self.item.checkin! # unless escape_flag
 
       #message << I18n.t('item.this_item_include_supplement') + '<br />' if self.item.include_supplements?
       message << 'item.this_item_include_supplement' if self.item.include_supplements?
