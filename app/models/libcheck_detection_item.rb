@@ -65,33 +65,29 @@ private
     end
   end	
   def self.make_detection_list_pdf(pdf_file, items)
-    if items.nil? || items.size < 1
-      logger.warn "item date is empty"
-    else
-      # pdf
-      require 'thinreports'
-      report = ThinReports::Report.new :layout => File.join(Rails.root, 'report', 'libcheck_detection.tlf')
-      report.events.on :page_create do |e|
-        e.page.item(:page).value(e.page.no)
-      end
-      report.events.on :generate do |e|
-        e.pages.each do |page|
-          page.item(:total).value(e.report.page_count)
-        end
-      end
-      report.start_new_page do |page|
-        page.item(:date).value(Time.now)
-        items.each do |item|
-          page.list(:list).add_row do |row|
-            row.item(:item_identifier).value(item.item_identifier)
-            row.item(:title).value(item.manifestation.original_title) if item.manifestation
-            row.item(:shelf).value(LibcheckTmpItem.where(["item_id = ?", item.id]).first.libcheck_shelf.shelf_name) rescue nil
-            row.item(:circulation_status).value(item.circulation_status.display_name.localize)
-          end
-        end
-      end
-      report.generate_file(pdf_file)
+    # pdf
+    require 'thinreports'
+    report = ThinReports::Report.new :layout => File.join(Rails.root, 'report', 'libcheck_detection.tlf')
+    report.events.on :page_create do |e|
+      e.page.item(:page).value(e.page.no)
     end
+    report.events.on :generate do |e|
+      e.pages.each do |page|
+        page.item(:total).value(e.report.page_count)
+      end
+    end
+    report.start_new_page do |page|
+      page.item(:date).value(Time.now)
+      items.each do |item|
+        page.list(:list).add_row do |row|           
+          row.item(:item_identifier).value(item.item_identifier)
+          row.item(:title).value(item.manifestation.original_title) if item.manifestation
+          row.item(:shelf).value(LibcheckTmpItem.where(["item_id = ?", item.id]).first.libcheck_shelf.shelf_name) rescue nil
+          row.item(:circulation_status).value(item.circulation_status.display_name.localize)
+        end
+      end
+    end
+    report.generate_file(pdf_file)
   end
 end
 
