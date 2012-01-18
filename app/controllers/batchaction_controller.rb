@@ -34,6 +34,16 @@ class BatchactionController < ApplicationController
   end
 
 private
+
+  def default_librarian
+    librarian_user = User.librarians.order("users.id").where(:library_id=>library_id).first rescue nil
+    if librarian_user.nil?
+      logger.warn "librarian not found. library_id=#{library_id} "
+      librarian_user = User.find(1) # admin
+    end
+    librarian_user
+  end
+
   def checkout(row)
     logger.info "checkout start."
     #puts row
@@ -44,8 +54,6 @@ private
       logger.info "row size is invalid. size=#{row.size}"
       return STAT_ERROR_INVALID_CHECKOUT_ROWSIZE, "checkout row size is invalid. size=#{row.size}"
     end
-
-    librarian_user = User.find(1) # admin
 
     user_number = row[3]
     user = User.find_by_user_number(user_number)
@@ -58,6 +66,11 @@ private
     if item.blank?
       return STAT_ERROR_INVALID_CHECKOUT_ITEM, "item_identifier is invalid. (no record) item_identifier=#{item_identifier}"
     end
+
+    library_id = item.shelf.library.id
+    librarian_user = default_librarian(library_id)
+
+    logger.info "librarian.id=#{library_id} librarian_user.id=#{librarian_user.id}"
 
     worked_at_str = row[5]
     if worked_at_str.blank?
@@ -77,7 +90,6 @@ private
     checked_item.basket = basket
     checked_item.item = item 
     checked_item.save
-    pp checked_item.errors
     unless checked_item.errors.empty?
       checked_item.errors[:base].each do |error|
         messages << I18n.t(error)
@@ -113,8 +125,6 @@ private
       return STAT_ERROR_INVALID_CHECKIN_ROWSIZE, "checkin row size is invalid. size=#{row.size}"
     end
 
-    librarian_user = User.find(1) # admin
-
     item_identifier = row[3]
     item = Item.find_by_item_identifier(item_identifier)
     if item.blank?
@@ -123,6 +133,20 @@ private
     unless item.rent? 
       return STAT_ERROR_INVALID_CHECKIN_ITEM, "item_identifier is invalid. (no rent) item_id=#{item_identifier}"
     end
+    
+    librarian_user = User.librarians.order("users.id").where(:library_id=>library_id).first
+
+    worked_at_str = row[4]
+    if worked_at_str.blank?
+      return STAT_ERROR_INVALID_CHECKIN_FORMAT, "datetime is blank."
+    end
+    worked_at = nil
+    begin
+      worked_at = DateTime.strptime(worked_at_str, "%Y/%m/%d %H:%M:%S")
+    rescue ArgumentError
+      return STAT_ERROR_INVALID_CHECKIN_FORMAT, "datetime invalid format. worked_at_str=#{worked_at_str}"
+    end
+
     if item.rent?
       unless item.blank?
         basket = Basket.new(:user => librarian_user)
