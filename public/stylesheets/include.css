@@ -963,3 +963,6 @@ div.book_jacket{
   text-align: center;
   float :left;
 }
+p.no_file{
+  color: grey;
+}
