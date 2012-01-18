@@ -6973,11 +6973,11 @@ class StatisticReport < ActiveRecord::Base
         # header
         if start_date != 27
           13.times do |t|
-            report.page.list(:list).header.item("column##{t+1}").value("#{t+start_date}#{t('statistic_report.date')}")
+            report.page.list(:list).header.item("column##{t+1}").value(I18n.t('statistic_report.date', :num => t+start_date))
           end
         else
           num_for_last_page.times do |t|
-            report.page.list(:list).header.item("column##{t+1}").value("#{t+start_date}#{t('statistic_report.date')}")
+            report.page.list(:list).header.item("column##{t+1}").value(I18n.t('statistic_report.date', :num => t+start_date))
           end
           report.page.list(:list).header.item("column#13").value(I18n.t('statistic_report.sum'))
         end
