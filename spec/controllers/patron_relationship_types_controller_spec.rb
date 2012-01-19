@@ -167,7 +167,7 @@ describe PatronRelationshipTypesController do
 
   describe "POST create" do
     before(:each) do
-      @attrs = FactoryGirl.attributes_for(:patron_relationship_type)
+      @attrs = FactoryGirl.build(:patron_relationship_type).attributes.reject!{|k, v| v.nil?}
       @invalid_attrs = {:name => ''}
     end
 

@@ -45,21 +45,23 @@ describe LanguagesController do
   end
 
   describe "GET show" do
+    before(:each) do
+      @language = FactoryGirl.create(:language)
+    end
+
     describe "When logged in as Administrator" do
       login_admin
 
       it "assigns the requested language as @language" do
-        language = FactoryGirl.create(:language)
-        get :show, :id => language.id
-        assigns(:language).should eq(language)
+        get :show, :id => @language.id
+        assigns(:language).should eq(@language)
       end
     end
 
     describe "When not logged in" do
       it "assigns the requested language as @language" do
-        language = FactoryGirl.create(:language)
-        get :show, :id => language.id
-        assigns(:language).should eq(language)
+        get :show, :id => @language.id
+        assigns(:language).should eq(@language)
       end
     end
   end
@@ -84,20 +86,22 @@ describe LanguagesController do
   end
 
   describe "GET edit" do
+    before(:each) do
+      @language = FactoryGirl.create(:language)
+    end
+
     describe "When logged in as Administrator" do
       login_admin
 
       it "assigns the requested language as @language" do
-        language = FactoryGirl.create(:language)
-        get :edit, :id => language.id
-        assigns(:language).should eq(language)
+        get :edit, :id => @language.id
+        assigns(:language).should eq(@language)
       end
     end
 
     describe "When not logged in" do
       it "should not assign the requested language as @language" do
-        language = FactoryGirl.create(:language)
-        get :edit, :id => language.id
+        get :edit, :id => @language.id
         response.should redirect_to(new_user_session_url)
       end
     end
@@ -105,7 +109,7 @@ describe LanguagesController do
 
   describe "POST create" do
     before(:each) do
-      @attrs = FactoryGirl.attributes_for(:language)
+      @attrs = FactoryGirl.build(:language).attributes.reject!{|k, v| v.nil?}
       @invalid_attrs = {:name => ''}
     end
 

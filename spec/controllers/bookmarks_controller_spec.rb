@@ -4,6 +4,10 @@ require 'spec_helper'
 describe BookmarksController do
   fixtures :all
 
+  def valid_attributes
+    FactoryGirl.build(:bookmark).attributes.reject!{|k, v| v.nil?}
+  end
+
   describe "GET index", :solr => true do
     describe "When logged in as Administrator" do
       login_fixture_admin
@@ -70,13 +74,16 @@ describe BookmarksController do
   end
 
   describe "GET show" do
+    before(:each) do
+      @bookmark = FactoryGirl.create(:bookmark)
+    end
+
     describe "When logged in as Administrator" do
       login_fixture_admin
 
       it "assigns the requested bookmark as @bookmark" do
-        bookmark = FactoryGirl.create(:bookmark)
-        get :show, :id => bookmark.id
-        assigns(:bookmark).should eq(bookmark)
+        get :show, :id => @bookmark.id
+        assigns(:bookmark).should eq(@bookmark)
       end
     end
 
@@ -84,9 +91,8 @@ describe BookmarksController do
       login_fixture_librarian
 
       it "assigns the requested bookmark as @bookmark" do
-        bookmark = FactoryGirl.create(:bookmark)
-        get :show, :id => bookmark.id
-        assigns(:bookmark).should eq(bookmark)
+        get :show, :id => @bookmark.id
+        assigns(:bookmark).should eq(@bookmark)
       end
 
       it "should shot other user's bookmark" do
@@ -99,9 +105,8 @@ describe BookmarksController do
       login_fixture_user
 
       it "assigns the requested bookmark as @bookmark" do
-        bookmark = FactoryGirl.create(:bookmark)
-        get :show, :id => bookmark.id
-        assigns(:bookmark).should eq(bookmark)
+        get :show, :id => @bookmark.id
+        assigns(:bookmark).should eq(@bookmark)
       end
 
       it "should not show other user's bookmark" do
@@ -117,9 +122,8 @@ describe BookmarksController do
 
     describe "When not logged in" do
       it "assigns the requested bookmark as @bookmark" do
-        bookmark = FactoryGirl.create(:bookmark)
-        get :show, :id => bookmark.id
-        assigns(:bookmark).should eq(bookmark)
+        get :show, :id => @bookmark.id
+        assigns(:bookmark).should eq(@bookmark)
         response.should redirect_to new_user_session_url
       end
     end
@@ -219,7 +223,7 @@ describe BookmarksController do
   describe "POST create" do
     before(:each) do
       @bookmark = bookmarks(:bookmark_00001)
-      @attrs = FactoryGirl.attributes_for(:bookmark)
+      @attrs = valid_attributes
       @invalid_attrs = {:url => ''}
     end
 

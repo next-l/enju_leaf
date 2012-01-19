@@ -167,7 +167,7 @@ describe CarrierTypesController do
 
   describe "POST create" do
     before(:each) do
-      @attrs = FactoryGirl.attributes_for(:carrier_type)
+      @attrs = FactoryGirl.build(:carrier_type).attributes.reject!{|k, v| v.nil?}
       @invalid_attrs = {:name => ''}
     end
 

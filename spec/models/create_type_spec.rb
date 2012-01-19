@@ -1,7 +1,9 @@
 require 'spec_helper'
 
 describe CreateType do
-  pending "add some examples to (or delete) #{__FILE__}"
+  it 'should create create_type' do
+    FactoryGirl.create(:create_type)
+  end
 end
 
 # == Schema Information

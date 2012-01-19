@@ -169,7 +169,7 @@ describe UseRestrictionsController do
 
   describe "POST create" do
     before(:each) do
-      @attrs = FactoryGirl.attributes_for(:use_restriction)
+      @attrs = FactoryGirl.build(:use_restriction).attributes.reject!{|k, v| v.nil?}
       @invalid_attrs = {:name => ''}
     end
 

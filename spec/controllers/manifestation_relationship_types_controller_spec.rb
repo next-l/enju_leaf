@@ -167,7 +167,7 @@ describe ManifestationRelationshipTypesController do
 
   describe "POST create" do
     before(:each) do
-      @attrs = FactoryGirl.attributes_for(:manifestation_relationship_type)
+      @attrs = FactoryGirl.build(:manifestation_relationship_type).attributes.reject!{|k, v| v.nil?}
       @invalid_attrs = {:name => ''}
     end
 

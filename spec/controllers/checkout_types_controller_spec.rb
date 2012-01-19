@@ -169,7 +169,7 @@ describe CheckoutTypesController do
 
   describe "POST create" do
     before(:each) do
-      @attrs = FactoryGirl.attributes_for(:checkout_type)
+      @attrs = FactoryGirl.build(:checkout_type).attributes.reject!{|k, v| v.nil?}
       @invalid_attrs = {:name => ''}
     end
 
