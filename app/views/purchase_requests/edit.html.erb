@@ -14,6 +14,10 @@
         <%= i18n_pr_state(@purchase_request.state) -%>
       <%- end -%>
     </div>
+    <div id="reason" style="display:none;">
+       <%= f.label t('activerecord.attributes.purchase_request.reason') -%><br />
+       <%= f.text_area :reason, :class => 'resource_textarea' -%>
+    </div>
   <%- end -%>
 
   <div class="field">
@@ -68,6 +72,18 @@
 <%- end -%>
 </div>
 </div>
+
+<script>
+  $("#purchase_request_next_state").change(function () {
+    type = $("#purchase_request_next_state").val();
+    if (type == "reject") {
+      $("#reason").show();
+    } else {
+      $("#reason").hide();
+      $("#purchase_request_reason").val('');
+    }
+  });
+</script>
 
 <div id="submenu" class="ui-corner-all">
   <ul>

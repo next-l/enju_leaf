@@ -573,6 +573,7 @@ ja:
         deleted_at: 削除時刻
         pub_date: 出版日
         state: 状態
+        reason: 理由
       realize:
         position: 位置
       reify:
