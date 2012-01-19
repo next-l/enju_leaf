@@ -483,22 +483,125 @@ class ManifestationsController < ApplicationController
 
     # main
     report.start_new_page do |page|
-      page.item(:title).value(@manifestation.original_title)
-      page.item(:creater).value(patrons_list(@manifestation.creators.readable_by(current_user), {:itemprop => 'author', :nolink => true}))
-      page.item(:publisher).value(patrons_list(@manifestation.publishers.readable_by(current_user), {:itemprop => 'publisher', :nolink => true}))
-      page.item(:price).value(@manifestation.price)
-      page.item(:page).value(@manifestation.number_of_pages.to_s + 'p') if @manifestation.number_of_pages
-      page.item(:size).value(@manifestation.height.to_s + 'cm') if @manifestation.height
-      page.item(:series_statement).value(@manifestation.series_statement.original_title) if @manifestation.series_statement
-      page.item(:isbn).value(@manifestation.isbn)
-      @manifestation.items.each do |item|
-        page.list(:list).add_row do |row|
-          row.item(:library).value(item.shelf.library.display_name.localize)
-          row.item(:shelf).value(item.shelf.display_name.localize)
-          row.item(:call_number).value(item.call_number)
-          row.item(:item_identifier).value(item.item_identifier)
-          row.item(:circulation_status).value(item.circulation_status.display_name.localize)
+      # set manifestation_information
+      7.times { |i|
+        label, data = "", ""
+        page.list(:list).add_row do |row| 
+          case i
+          when 0
+            label = t('activerecord.attributes.manifestation.original_title') 
+            data  = @manifestation.original_title
+          when 1
+            label = t('patron.creator') 
+            data  = patrons_list(@manifestation.creators.readable_by(current_user), {:itemprop => 'author', :nolink => true})
+          when 2
+            label = t('patron.publisher') 
+            data  = patrons_list(@manifestation.publishers.readable_by(current_user), {:itemprop => 'publisher', :nolink => true})
+          when 3
+            label = t('activerecord.attributes.manifestation.price') 
+            data  = @manifestation.price
+          when 4
+            label = t('activerecord.attributes.manifestation.page') 
+            data  = @manifestation.number_of_pages.to_s + 'p' if @manifestation.number_of_pages
+            data.concat('   ' + @manifestation.height.to_s + 'cm') if @manifestation.height
+          when 5
+            label = t('activerecord.attributes.series_statement.original_title') 
+            data  = @manifestation.series_statement.original_title if @manifestation.series_statement
+          when 6
+            label = t('activerecord.attributes.manifestation.isbn') 
+            data  = @manifestation.isbn
+          end
+          row.item(:label).show
+          row.item(:data).show
+          row.item(:dot_line).hide
+          row.item(:description).hide
+          row.item(:label).value(label.to_s + ":")
+          row.item(:data).value(data)
         end
+      }
+      
+      # set description
+      if @manifestation.description
+        # make space
+        page.list(:list).add_row do |row|
+          row.item(:label).hide
+          row.item(:data).hide
+          row.item(:dot_line).hide
+          row.item(:description).hide
+        end
+        # set
+        while @manifestation.description.length > 0
+          cnt = 0.0
+          str_num = 0
+          if @manifestation.description.length > 20
+            @manifestation.description.length.times { |i|
+              cnt += 0.5 if @manifestation.description[i] =~ /^[\s0-9A-Za-z]+$/
+              cnt += 1 unless @manifestation.description[i] =~ /^[\s0-9A-Za-z]+$/
+              if cnt.to_f == 20 or cnt.to_f > 20 or @manifestation.description[i+1].nil? or @manifestation.description[i] =~ /^[\n]+$/
+                page.list(:list).add_row do |row|
+                  row.item(:label).hide
+                  row.item(:data).hide
+                  row.item(:dot_line).hide
+                  row.item(:description).show
+                  if cnt.to_f == 20 or @manifestation.description[i+1].nil? or @manifestation.description[i] =~ /^[\n]+$/
+                    row.item(:description).value(@manifestation.description[0..i])
+                    str_num = i + 1
+                  elsif cnt.to_f > 20
+                    row.item(:description).value(@manifestation.description[0...i])
+                    str_num = i
+                  end
+                end
+                break
+              end
+            }
+            @manifestation.description = @manifestation.description[str_num...@manifestation.description.length]
+          else
+            page.list(:list).add_row do |row|
+              row.item(:label).hide
+              row.item(:data).hide
+              row.item(:dot_line).hide
+              row.item(:description).show
+              row.item(:description).value(@manifestation.description)
+            end
+            break
+          end
+        end
+      end
+
+      # set item_information
+      @manifestation.items.each do |item|  
+        6.times { |i|
+          label, data = "", ""
+          page.list(:list).add_row do |row|
+            row.item(:label).show
+            row.item(:data).show
+            row.item(:dot_line).hide
+            row.item(:description).hide
+            case i
+            when 0
+              row.item(:label).hide
+              row.item(:data).hide
+              row.item(:dot_line).show
+            when 1
+              label = t('activerecord.models.library')
+              data  = item.shelf.library.display_name.localize
+            when 2
+              label = t('activerecord.models.shelf') 
+              data  = item.shelf.display_name.localize
+            when 3
+              label = t('activerecord.attributes.item.call_number') 
+              data  = item.call_number
+            when 4
+              label = t('activerecord.attributes.item.item_identifier') 
+              data  = item.item_identifier
+            when 5
+              label = t('activerecord.models.circulation_status')
+              data  = item.circulation_status.display_name.localize
+            end 
+            row.item(:label).value(label.to_s + ":")
+            row.item(:data).value(data)
+          end
+        }
       end
     end
     send_data report.generate, :filename => configatron.manifestation_print.filename, :type => 'application/pdf', :disposition => 'attachment'

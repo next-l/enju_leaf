@@ -695,6 +695,7 @@ ja:
         access_address: アクセスアドレス
         start_page: 最初のページ
         end_page: 最後のページ
+        page: ページ
         height: 高さ
         width: 幅
         depth: 奥行き
@@ -1975,6 +1976,8 @@ ja:
     no_item: 該当資料が見つかりません。
     wrong_library: この図書館に貸し出された資料ではありません。
     no_loan: 相互貸借の対象になっている資料が見つかりません。
+    successfully_pickup: "%{item_identifier}は発送処理が完了しました。"
+    successfully_accept: "%{item_identifier}は受取処理が完了しました。"
     failed_pickup: 資料の発送処理に失敗しました。
     failed_accept: 資料の受取処理に失敗しました。
     no_library: 移動元図書館を選択してください。
