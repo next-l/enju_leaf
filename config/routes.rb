@@ -238,6 +238,9 @@ EnjuLeaf::Application.routes.draw do
 
   resources :purchase_requests do
     resource :order
+    get :accept, :on => :member
+    get :reject, :on => :member
+    get :order, :on => :member
   end
 
   resources :bookmarks

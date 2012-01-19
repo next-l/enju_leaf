@@ -102,7 +102,7 @@ class PurchaseRequestsController < ApplicationController
     if @user
       @purchase_request = @user.purchase_requests.find(params[:id])
       if current_user.has_role?('Librarian')
-        if @purchase_request.state == "pending"
+        if @purchase_request.state == "pending" || @purchase_request.state == "rejected"
           @states = [[t('purchase_request.accept'), "accept"], [t('purchase_request.reject'), "reject"]]
         end
       end
@@ -140,6 +140,7 @@ class PurchaseRequestsController < ApplicationController
     next_state = params[:purchase_request][:next_state]
     respond_to do |format|
       if next_state && @purchase_request.update_attributes_with_state(params[:purchase_request])
+        @purchase_request.send_message(@purchase_request.state, params[:reason])
         flash[:notice] = t('controller.successfully_updated', :model => t('activerecord.models.purchase_request'))
         format.html { redirect_to user_purchase_request_url(@purchase_request.user, @purchase_request) }
         format.xml  { head :ok }
@@ -153,6 +154,35 @@ class PurchaseRequestsController < ApplicationController
         format.xml  { render :xml => @purchase_request.errors, :status => :unprocessable_entity }
       end
     end
+  end
+
+  def accept
+    if @purchase_request.sm_accept
+      @purchase_request.send_message(@purchase_request.state)
+      flash[:notice] = t('purchase_request.request_accepted')
+    else
+      flash[:notice] = t('purchase_request.failed_update')
+    end
+    redirect_to user_purchase_request_url(@purchase_request.user, @purchase_request)
+  end
+  
+  def reject
+    if @purchase_request.sm_reject
+      @purchase_request.send_message(@purchase_request.state)
+      flash[:notice] = t('purchase_request.request_rejected')
+    else
+      flash[:notice] = t('purchase_request.failed_update')
+    end
+    redirect_to user_purchase_request_url(@purchase_request.user, @purchase_request)
+  end
+
+  def order
+    if @purchase_request.sm_order
+      flash[:notice] = t('purchase_request.request_ordered')
+    else
+      flash[:notice] = t('purchase_request.failed_update')
+    end
+    redirect_to user_purchase_request_url(@purchase_request.user, @purchase_request)
   end
 
   # DELETE /purchase_requests/1
