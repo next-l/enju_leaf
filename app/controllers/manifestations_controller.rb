@@ -477,7 +477,7 @@ class ManifestationsController < ApplicationController
     report.layout.config.list(:list) do
       use_stores :total => 0
       events.on :footer_insert do |e|
-        e.section.item(:date).value(Time.now)
+        e.section.item(:date).value(Time.now.strftime('%Y/%m/%d %H:%M'))
       end
     end
 
@@ -503,11 +503,13 @@ class ManifestationsController < ApplicationController
           when 4
             label = t('activerecord.attributes.manifestation.page') 
             data  = @manifestation.number_of_pages.to_s + 'p' if @manifestation.number_of_pages
-            data.concat('   ' + @manifestation.height.to_s + 'cm') if @manifestation.height
           when 5
+            label = t('activerecord.attributes.manifestation.size') 
+            data  = @manifestation.height.to_s + 'cm' if @manifestation.height
+          when 6
             label = t('activerecord.attributes.series_statement.original_title') 
             data  = @manifestation.series_statement.original_title if @manifestation.series_statement
-          when 6
+          when 7
             label = t('activerecord.attributes.manifestation.isbn') 
             data  = @manifestation.isbn
           end

@@ -696,6 +696,7 @@ ja:
         start_page: 最初のページ
         end_page: 最後のページ
         page: ページ
+        size: サイズ
         height: 高さ
         width: 幅
         depth: 奥行き
