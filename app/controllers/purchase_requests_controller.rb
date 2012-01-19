@@ -40,10 +40,12 @@ class PurchaseRequestsController < ApplicationController
       with(:user_id).equal_to user.id if user
       with(:order_list_id).equal_to order_list.id if order_list
       case mode
+      when 'pending'
+        with(:state).equal_to "pending"
       when 'not_ordered'
-        with(:ordered).equal_to false
+        with(:state).equal_to "accepted"
       when 'ordered'
-        with(:ordered).equal_to true
+        with(:state).equal_to "ordered"
       end
       order_by(:created_at, :desc)
     end
@@ -99,6 +101,11 @@ class PurchaseRequestsController < ApplicationController
   def edit
     if @user
       @purchase_request = @user.purchase_requests.find(params[:id])
+      if current_user.has_role?('Librarian')
+        if @purchase_request.state == "pending"
+          @states = [[t('purchase_request.accept'), "accept"], [t('purchase_request.reject'), "reject"]]
+        end
+      end
     end
   end
 
@@ -130,9 +137,13 @@ class PurchaseRequestsController < ApplicationController
     if @user
       @purchase_request = @user.purchase_requests.find(params[:id])
     end
-
+    next_state = params[:purchase_request][:next_state]
     respond_to do |format|
-      if @purchase_request.update_attributes(params[:purchase_request])
+      if next_state && @purchase_request.update_attributes_with_state(params[:purchase_request])
+        flash[:notice] = t('controller.successfully_updated', :model => t('activerecord.models.purchase_request'))
+        format.html { redirect_to user_purchase_request_url(@purchase_request.user, @purchase_request) }
+        format.xml  { head :ok }
+      elsif @purchase_request.update_attributes(params[:purchase_request])
         @order_list.purchase_requests << @purchase_request if @order_list
         flash[:notice] = t('controller.successfully_updated', :model => t('activerecord.models.purchase_request'))
         format.html { redirect_to user_purchase_request_url(@purchase_request.user, @purchase_request) }

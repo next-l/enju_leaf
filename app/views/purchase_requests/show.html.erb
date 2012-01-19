@@ -9,6 +9,7 @@
 </p>
 
 <p>
+<%- if false -%>
 <strong><%= t('activerecord.models.order_list') -%>:</strong>
   <%- if @purchase_request.order_list -%>
     <%= link_to @purchase_request.order_list.title, order_list_purchase_requests_path(@purchase_request.order_list) -%>
@@ -16,6 +17,13 @@
     <%= t('purchase_request.not_ordered') -%>
   <%- end -%>
 </p>
+<%- end -%>
+
+<p>
+  <strong><%= t('activerecord.attributes.purchase_request.state') -%>:</strong>
+  <%= i18n_pr_state(@purchase_request.state) -%>
+</p>
+
 
 <p>
   <strong><%= t('activerecord.attributes.purchase_request.title') -%>:</strong>

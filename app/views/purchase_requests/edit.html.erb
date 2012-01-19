@@ -5,6 +5,17 @@
 <%= form_for(@purchase_request, :url => user_purchase_request_path(@purchase_request.user, @purchase_request)) do |f| -%>
   <%= f.error_messages -%>
 
+  <%- if current_user.try(:has_role?, 'Librarian') -%>
+    <div class="field">
+      <%= f.label t('activerecord.attributes.purchase_request.state') -%>: 
+      <%- if @states -%>
+        <%= f.select :next_state, @states -%>
+      <%- else -%>
+        <%= i18n_pr_state(@purchase_request.state) -%>
+      <%- end -%>
+    </div>
+  <%- end -%>
+
   <div class="field">
     <%= f.label t('activerecord.models.user') -%><br />
     <%= link_to @purchase_request.user.username, @purchase_request.user -%>

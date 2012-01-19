@@ -572,6 +572,7 @@ ja:
         denied_at: 拒絶時刻
         deleted_at: 削除時刻
         pub_date: 出版日
+        state: 状態
       realize:
         position: 位置
       reify:
@@ -1727,7 +1728,10 @@ ja:
     add_to_purchase_request: "図書館の購入依頼に追加"
     all_request: "全ての購入依頼"
     ordered: "発注済み"
-    not_ordered: "未発注"
+    not_ordered: 発注待ち # "未発注"
+    pending: 処理待ち
+    accept: 発注
+    reject: 謝絶
     add_to_order_list: "発注リストに追加する"
     remove_from_order_list: "発注リストから削除する"
   order_list:
