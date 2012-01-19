@@ -22,11 +22,11 @@ class PurchaseRequest < ActiveRecord::Base
   normalize_attributes :url, :pub_date
 
   state_machine :initial => :pending do
+    before_transition [:pending, :accepted, :rejected] => :accepted, :do => :accept
     before_transition [:pending] => :rejected, :do => :reject    
-#    before_transition [:accepted] => :ordered, :do => :order
 
     event :sm_accept do
-      transition [:pending] => :accepted
+      transition [:pending, :rejected] => :accepted
     end
 
     event :sm_reject do
@@ -67,7 +67,12 @@ class PurchaseRequest < ActiveRecord::Base
     errors.add(:price) unless self.price.nil? || self.price > 0
   end
 
+  def accept
+    self.update_attributes!(:accepted_at => Time.zone.now)
+  end
+
   def reject
+    self.update_attributes!(:denied_at => Time.zone.now)
   end
   
   def order
@@ -105,6 +110,25 @@ class PurchaseRequest < ActiveRecord::Base
     return false
   end
 
+  def send_message(status, reason = nil)
+    system_user = User.find(1) # TODO: システムからのメッセージの発信者
+    PurchaseRequest.transaction do
+      case status
+      when 'accepted'
+        message_template = MessageTemplate.localized_template('purchase_request_accepted', self.user.locale)
+        request = MessageRequest.create!(:sender => system_user, :receiver => self.user, :message_template => message_template)
+        request.save_message_body(:purchase_request => Array[self], :user => self.user)
+        request.sm_send_message
+      when 'rejected'
+        message_template = MessageTemplate.localized_template('purchase_request_rejected', self.user.locale)
+        request = MessageRequest.create!(:sender => system_user, :receiver => self.user, :message_template => message_template)
+        request.save_message_body(:purchase_request => Array[self], :user => self.user, :reason => reason)
+        request.sm_send_message!
+      else
+        raise 'status to send message not defined'
+      end
+    end
+  end
 end
 
 # == Schema Information

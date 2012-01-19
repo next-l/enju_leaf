@@ -1732,8 +1732,13 @@ ja:
     ordered: "発注済み"
     not_ordered: 発注待ち # "未発注"
     pending: 処理待ち
-    accept: 発注
+    accept: 受付
     reject: 謝絶
+    order: 発注
+    request_accepted: "購入リクエストを受け付けました。"
+    request_rejected: "購入リクエストを謝絶しました。"
+    request_ordered: "購入リクエストを発注しました。"
+    failed_update: "購入リクエストの更新に失敗しました。"
     add_to_order_list: "発注リストに追加する"
     remove_from_order_list: "発注リストから削除する"
   order_list:

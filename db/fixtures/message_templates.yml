@@ -58,3 +58,16 @@ message_template_00010:
   title: retained_manifestations
   body: retained_manifestations
   position: 10
+message_template_00011:
+  id: 11
+  status: purchase_request_accepted
+  title: purchase_request_accepted
+  body: purchase_request_accepted
+  position: 11
+message_template_00012:
+  id: 11
+  status: purchase_request_rejected
+  title: purchase_request_rejected
+  body: purchase_request_rejected
+  position: 12
+
