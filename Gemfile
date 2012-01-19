@@ -102,7 +102,7 @@ end
 group :development, :test do
   gem 'rspec-rails'
   gem 'guard-rspec'
-  gem 'factory_girl_rails', '~> 1.2'
+  gem 'factory_girl_rails', '1.4.0'
   gem 'spork', '~> 0.9.0.rc9'
   gem 'metric_fu', '~> 2.1'
   gem 'timecop'

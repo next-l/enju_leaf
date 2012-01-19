@@ -110,10 +110,10 @@ GEM
     exception_notification (2.5.2)
       actionmailer (>= 3.0.4)
     extractcontent (0.0.1)
-    factory_girl (2.4.1)
+    factory_girl (2.3.2)
       activesupport
-    factory_girl_rails (1.5.0)
-      factory_girl (~> 2.4.0)
+    factory_girl_rails (1.4.0)
+      factory_girl (~> 2.3.0)
       railties (>= 3.0.0)
     fattr (2.2.0)
     ffi (1.0.11)
@@ -362,7 +362,7 @@ DEPENDENCIES
   event-calendar
   exception_notification (~> 2.5.2)
   extractcontent
-  factory_girl_rails (~> 1.2)
+  factory_girl_rails (= 1.4.0)
   file_wrapper
   friendly_id (~> 4.0.0.beta11)
   geocoder
