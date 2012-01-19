@@ -240,7 +240,7 @@ EnjuLeaf::Application.routes.draw do
     resource :order
     get :accept, :on => :member
     get :reject, :on => :member
-    get :order, :on => :member
+    get :do_order, :on => :member
   end
 
   resources :bookmarks

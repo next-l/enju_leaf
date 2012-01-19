@@ -101,7 +101,7 @@
          <li><%= link_to t('purchase_request.accept'), accept_purchase_request_path(@purchase_request) -%></li>
          <li><%= link_to t('purchase_request.reject'), reject_purchase_request_path(@purchase_request) -%></li>
        <%- elsif @purchase_request.state == "accepted" -%>
-         <li><%= link_to t('purchase_request.order'), order_purchase_request_path(@purchase_request)-%></li>
+         <li><%= link_to t('purchase_request.order'), do_order_purchase_request_path(@purchase_request) -%></li>
        <%- end -%>
     <%- end -%>
     <%- if @user -%>

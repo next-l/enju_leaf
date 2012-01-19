@@ -17,20 +17,20 @@ class PurchaseRequest < ActiveRecord::Base
   after_destroy :index!
   before_save :set_date_of_publication
   attr_protected :user
-  attr_accessor :next_state
+  attr_accessor :next_state, :reason
 
   normalize_attributes :url, :pub_date
 
   state_machine :initial => :pending do
     before_transition [:pending, :accepted, :rejected] => :accepted, :do => :accept
-    before_transition [:pending] => :rejected, :do => :reject    
+    before_transition [:pending, :rejected] => :rejected, :do => :reject    
 
     event :sm_accept do
-      transition [:pending, :rejected] => :accepted
+      transition [:pending, :accepted, :rejected] => :accepted
     end
 
     event :sm_reject do
-      transition [:pending] => :rejected
+      transition [:pending, :rejected] => :rejected
     end
 
     event :sm_order do

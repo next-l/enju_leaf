@@ -140,8 +140,8 @@ class PurchaseRequestsController < ApplicationController
     next_state = params[:purchase_request][:next_state]
     respond_to do |format|
       if next_state && @purchase_request.update_attributes_with_state(params[:purchase_request])
-        @purchase_request.send_message(@purchase_request.state, params[:reason])
-        flash[:notice] = t('controller.successfully_updated', :model => t('activerecord.models.purchase_request'))
+        @purchase_request.send_message(@purchase_request.state, params[:purchase_request][:reason])
+        flash[:notice] = t("purchase_request.request_#{@purchase_request.state}")
         format.html { redirect_to user_purchase_request_url(@purchase_request.user, @purchase_request) }
         format.xml  { head :ok }
       elsif @purchase_request.update_attributes(params[:purchase_request])
@@ -176,7 +176,7 @@ class PurchaseRequestsController < ApplicationController
     redirect_to user_purchase_request_url(@purchase_request.user, @purchase_request)
   end
 
-  def order
+  def do_order
     if @purchase_request.sm_order
       flash[:notice] = t('purchase_request.request_ordered')
     else
