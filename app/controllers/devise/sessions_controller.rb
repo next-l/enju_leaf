@@ -1,6 +1,7 @@
 class Devise::SessionsController < ApplicationController
   prepend_before_filter :require_no_authentication, :only => [ :new, :create ]
   prepend_before_filter :allow_params_authentication!, :only => :create
+  prepend_before_filter :clear_locale, :only => [:create]
   include Devise::Controllers::InternalHelpers
 
   # GET /resource/sign_in
@@ -44,6 +45,11 @@ class Devise::SessionsController < ApplicationController
     methods = methods.keys if methods.is_a?(Hash)
     methods << :password if resource.respond_to?(:password)
     { :methods => methods, :only => [:password] }
+  end
+
+  private
+  def clear_locale
+    session[:locale] = nil
   end
 end
 
