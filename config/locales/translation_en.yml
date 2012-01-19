@@ -657,6 +657,8 @@ en:
         access_address: Access address
         start_page: Start page
         end_page: End page
+        page: Page
+        size: Size
         height: Height
         width: Width
         depth: Depth

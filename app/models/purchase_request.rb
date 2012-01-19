@@ -1,6 +1,9 @@
 class PurchaseRequest < ActiveRecord::Base
-  scope :not_ordered, includes(:order_list).where('order_lists.ordered_at IS NULL')
-  scope :ordered, includes(:order_list).where('order_lists.ordered_at IS NOT NULL')
+#  scope :not_ordered, includes(:order_list).where('order_lists.ordered_at IS NULL')
+#  scope :ordered, includes(:order_list).where('order_lists.ordered_at IS NOT NULL')
+  scope :pending, where("state = pending")
+  scope :accepted, where("state = accepted")
+  scope :ordered, where("state = ordered")
 
   belongs_to :user, :validate => true
   has_one :order, :dependent => :destroy
@@ -14,8 +17,26 @@ class PurchaseRequest < ActiveRecord::Base
   after_destroy :index!
   before_save :set_date_of_publication
   attr_protected :user
+  attr_accessor :next_state
 
   normalize_attributes :url, :pub_date
+
+  state_machine :initial => :pending do
+    before_transition [:pending] => :rejected, :do => :reject    
+#    before_transition [:accepted] => :ordered, :do => :order
+
+    event :sm_accept do
+      transition [:pending] => :accepted
+    end
+
+    event :sm_reject do
+      transition [:pending] => :rejected
+    end
+
+    event :sm_order do
+      transition [:accepted] => :ordered
+    end
+  end
 
   searchable do
     text :title, :author, :publisher, :url
@@ -32,6 +53,7 @@ class PurchaseRequest < ActiveRecord::Base
     time :created_at
     time :accepted_at
     time :denied_at
+    string :state
     boolean :ordered do
       order_list.try(:ordered_at).present? ? true : false
     end
@@ -43,6 +65,12 @@ class PurchaseRequest < ActiveRecord::Base
 
   def check_price
     errors.add(:price) unless self.price.nil? || self.price > 0
+  end
+
+  def reject
+  end
+  
+  def order
   end
 
   def set_date_of_publication
@@ -62,6 +90,21 @@ class PurchaseRequest < ActiveRecord::Base
     end
     self.date_of_publication = date
   end
+
+  def update_attributes_with_state(params)
+    PurchaseRequest.transaction do
+      self.update_attributes(params)
+      case params[:next_state]
+      when "accept"
+        self.sm_accept!
+      when "reject"
+        self.sm_reject!
+      end
+      return true
+    end
+    return false
+  end
+
 end
 
 # == Schema Information

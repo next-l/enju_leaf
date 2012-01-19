@@ -13,7 +13,8 @@
   <tr>
     <th><%= t('activerecord.attributes.purchase_request.title') -%></th>
     <th><%= t('activerecord.attributes.purchase_request.price') -%></th>
-    <th><%= t('activerecord.models.order_list') -%></th>
+<%- if false -%><th><%= t('activerecord.models.order_list') -%></th><%- end -%>
+    <th><%= t('activerecord.attributes.purchase_request.state') -%></th>
     <th id="edit_icons"></th>
   </tr>
 
@@ -27,9 +28,12 @@
         <%= purchase_request.pub_date -%>
       </td>
       <td><%= purchase_request.price -%></td>
+<%- if false -%>
       <td>
         <%= link_to purchase_request.order_list.title, order_list_purchase_requests_path(purchase_request.order_list) if purchase_request.order_list -%>
       </td>
+<%- end -%>
+      <td><%= i18n_pr_state(purchase_request.state) -%></td>
       <td>
         <%= link_to image_tag('icons/page_white_edit.png', :size => '16x16', :alt => t('page.edit'), :title => t('tooltip.edit')), edit_user_purchase_request_path(purchase_request.user, purchase_request) -%>
         <%- if can? :destroy, purchase_request %>
@@ -50,15 +54,22 @@
     <li><%= link_to t('page.new', :model => t('activerecord.models.purchase_request')), new_user_purchase_request_path(current_user)%></li>
     <% if current_user.try(:has_role?, 'Librarian') %>
       <%- case params[:mode] when 'not_ordered' -%>
+        <li><%= link_to t('purchase_request.pending'), purchase_requests_path(:mode => 'pending') -%></li>
         <li><%= link_to t('purchase_request.ordered'), purchase_requests_path(:mode => 'ordered') -%></li>
         <li><%= link_to t('purchase_request.all_request'), purchase_requests_path -%></li>
       <%- when 'ordered' -%>
+        <li><%= link_to t('purchase_request.pending'), purchase_requests_path(:mode => 'pending') -%></li>
         <li><%= link_to t('purchase_request.not_ordered'), purchase_requests_path(:mode => 'not_ordered') -%></li>
+        <li><%= link_to t('purchase_request.all_request'), purchase_requests_path -%></li>
+      <%- when 'pending' -%>
+        <li><%= link_to t('purchase_request.not_ordered'), purchase_requests_path(:mode => 'not_ordered') -%></li>
+        <li><%= link_to t('purchase_request.ordered'), purchase_requests_path(:mode => 'ordered') -%></li>
         <li><%= link_to t('purchase_request.all_request'), purchase_requests_path -%></li>
       <%- else -%>
         <li><%= link_to t('purchase_request.all_request'), purchase_requests_path -%></li>
         <li><%= link_to t('purchase_request.ordered'), purchase_requests_path(:mode => 'ordered') -%></li>
         <li><%= link_to t('purchase_request.not_ordered'), purchase_requests_path(:mode => 'not_ordered') -%></li>
+        <li><%= link_to t('purchase_request.pending'), purchase_requests_path(:mode => 'pending') -%></li>
       <%- end -%>
     <%- end -%>
   </ul>

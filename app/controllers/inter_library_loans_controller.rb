@@ -282,8 +282,9 @@ class InterLibraryLoansController < ApplicationController
         @loan.save
       end
       if @item
+        message = t('inter_library_loan.successfully_pickup', :item_identifier => item_identifier)
         html = render_to_string :partial => "accept_item"
-        render :json => {:success => 1, :html => html}
+        render :json => {:success => 1, :html => html, :message => message}
       end
     rescue Exception => e
       logger.error "Failed to accept item: #{e}"
