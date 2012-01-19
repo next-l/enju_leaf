@@ -6,17 +6,18 @@
       url: "<%= url_for(:controller => :inter_library_loans, :action => :accept_item) -%>",
       data: {"item_identifier": item_identifier},
      error: function(error){
-        alert(t('inter_library_loan.failed_accept'));
         $("#item_identifier").val("");
+        $("p#notice").html("#{t('inter_library_loan.failed_accept')}");
       },
       success: function(obj){
         if(obj.success){
           $("#accept_item_list").append(obj.html);
           $("#item_identifier").val("");
+          $("p#notice").html(obj["message"]);
           return true;
         }
         $("#item_identifier").val("");
-        alert(obj.error);
+        $("p#notice").html(obj.error);
       }
     });
     return false;
