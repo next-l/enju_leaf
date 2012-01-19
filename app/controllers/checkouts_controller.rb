@@ -70,6 +70,7 @@ class CheckoutsController < ApplicationController
     @days_overdue = params[:days_overdue] ||= 1
     if params[:format] == 'csv'
       @checkouts = checkouts
+      output_csv(checkouts); return
     else
       @checkouts = checkouts.page(params[:page])
     end
@@ -79,7 +80,7 @@ class CheckoutsController < ApplicationController
       format.xml  { render :xml => @checkouts.to_xml }
       format.rss  { render :layout => false }
       format.ics
-      format.csv
+      #format.csv
       format.atom
     end
   end
@@ -240,6 +241,42 @@ class CheckoutsController < ApplicationController
         end
       end
     end
-    send_data report.generate, :filename => configatron.checkoutlist_print.filename, :type => 'application/pdf', :disposition => 'attachment'
+    send_data report.generate, :filename => configatron.checkoutlist_print_pdf.filename, :type => 'application/pdf', :disposition => 'attachment'
+  end
+
+  def output_csv(checkouts)
+    buf = ""
+    # header
+    buf << t('activerecord.models.user') +
+     "," + t('activerecord.attributes.manifestation.original_title') +
+     "," + t('activerecord.attributes.item.item_identifier') +
+     "," + t('activerecord.models.library') +
+     "," + t('activerecord.models.shelf') +
+     "," + t('activerecord.attributes.checkout.due_date') +
+     "," + t('activerecord.attributes.checkout.renewal_count') +
+     "," + t('checkout.number_of_day_overdue') + "\n"
+    checkouts.each do |checkout|
+      # modified date
+      user = checkout.user.patron.full_name
+      if configatron.checkout_print.old == true and checkout.user.patron.date_of_birth
+        age = (Time.now.strftime("%Y%m%d").to_f - checkout.user.patron.date_of_birth.strftime("%Y%m%d").to_f) / 10000
+        age = age.to_i
+        user = user + '(' + age.to_s + t('activerecord.attributes.patron.old')  +')'
+      end
+      renewal_count = checkout.checkout_renewal_count.to_s + '/' + checkout.item.checkout_status(checkout.user).checkout_renewal_limit.to_s
+      due_date_datetype = checkout.due_date.strftime("%Y-%m-%d")
+      overdue = Date.today - due_date_datetype.to_date
+      overdue = 0 if overdue < 0
+      # set date
+      buf << "\"" + user + "\"" +
+             "," + "\"" + checkout.item.manifestation.original_title + "\"" +
+             "," + "\"" + checkout.item.item_identifier + "\"" +
+             "," + "\"" + checkout.item.shelf.library.display_name.localize + "\"" +
+             "," + "\"" + checkout.item.shelf.display_name.localize + "\"" +
+             "," + "\"" + checkout.due_date.strftime("%Y/%m/%d") + "\"" +
+             "," + "\"" + renewal_count + "\"" + 
+             "," +" \"" + overdue.to_s + "\"" + "\n"
+    end
+    send_data(buf, :filename => configatron.checkoutlist_print_csv.filename)
   end
 end
