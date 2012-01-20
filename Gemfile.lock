@@ -227,7 +227,7 @@ GEM
       sunspot_rails (~> 1.3)
       sunspot_solr (~> 1.3)
       will_paginate (~> 3.0)
-    enju_search_log (0.0.1)
+    enju_search_log (0.0.2)
       cancan
       devise
       rails (~> 3.1)
@@ -495,7 +495,7 @@ DEPENDENCIES
   enju_purchase_request (= 0.0.4)
   enju_question (= 0.0.5)
   enju_resource_merge (= 0.0.3)
-  enju_search_log (= 0.0.1)
+  enju_search_log (= 0.0.2)
   enju_subject (= 0.0.6)
   exception_notification (~> 2.5.2)
   extractcontent

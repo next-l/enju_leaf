@@ -23,7 +23,7 @@ gem 'enju_message', '0.0.7'
 gem 'enju_inventory', '0.0.3'
 gem 'enju_event', '0.0.5'
 #gem 'enju_news', :git => 'git://github.com/nabeta/enju_news.git'
-gem 'enju_search_log', '0.0.1'
+gem 'enju_search_log', '0.0.2'
 
 platforms :ruby do
   gem 'pg'
