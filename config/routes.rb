@@ -382,6 +382,10 @@ EnjuLeaf::Application.routes.draw do
   resources :export_item_lists do
     get :get_list_size, :on => :collection
   end
+
+  resources :export_item_registers do
+    get :get_list_size, :on => :collection
+  end
  
   resources :library_reports do
     get :daily_report, :on => :collection

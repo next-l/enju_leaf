@@ -170,6 +170,7 @@ ja:
       statistic_report: 利用統計の帳票
       print_label: 利用者ラベル
       export_item_list: 図書リスト
+      export_item_register: 図書原簿
       library_report: 報告書
       loss_item: 紛失弁償
       system_configuration: システム情報
@@ -1228,6 +1229,9 @@ ja:
         list_number: 件数
         page_number: ページ数
         sort_by: ソート順
+      item_register:
+        list_type: リストの種類
+        file_type: ファイル形式
       library_report:
         library: 図書館
         yyyymmdd: 日報対象日
@@ -1969,6 +1973,14 @@ ja:
     invalid_ndc: "不正なNDCが指定されています。\nXXX3桁の英数字を指定してください。"
     no_record: "該当する図書が見つかりませんでした。"
     no_list_condition: "抽出条件を指定してください。"
+  item_register:
+    pdf: PDF
+    csv: CSV
+    list_number: 件数
+    page_number: ページ数
+    item_register: 図書原簿
+    removing_list: 除籍原簿
+    audio_list: 視聴覚資料目録
   library_report:
     checkouts: 貸出数(冊)
     ndc: "(NDC:%{ndc})" 
