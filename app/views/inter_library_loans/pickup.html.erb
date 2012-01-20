@@ -1,3 +1,16 @@
+<script>
+  $(document).ready(function() {
+    if ("<%= flash[:pdf]-%>".length > 0) {
+      location.href= "<%= url_for(:controller => :inter_library_loans, :action => :download_file)-%>"
+    }
+  });
+
+  function delete_field(){
+    var item_identifier = $("#item_identifier").val();
+    $("#item_identifier_tmp").val(item_identifier);
+    $("#item_identifier").val("");
+  }
+</script>
 <div id="content_detail" class="ui-corner-all">
   <h1 class="title"><%= t('inter_library_loan.pickup_item') -%></h1>
   <div id="content_list">
@@ -14,14 +27,6 @@
     </div>
   </div>
 </div>
-
-<script>
-  function delete_field(){
-    var item_identifier = $("#item_identifier").val();
-    $("#item_identifier_tmp").val(item_identifier);
-    $("#item_identifier").val("");
-  }
-</script>
 
 <div id="submenu" class="ui-corner-all">
   <ul>

@@ -206,15 +206,14 @@ class InterLibraryLoansController < ApplicationController
     @pickup_item = Item.where(:item_identifier => item_identifier).first
     unless @pickup_item
       flash[:message] = t('inter_library_loan.no_item') 
-      render :pickup
-      return false
+      render :pickup and return false
     end
     @loan = InterLibraryLoan.in_process.find(:first, :conditions => ['item_id = ?', @pickup_item.id])
     unless @loan
       flash[:message] = t('inter_library_loan.no_loan') 
-      render :pickup
-      return false
+      render :pickup and return false
     end
+
     begin
       # pick up item
       @pickup_item.circulation_status = CirculationStatus.find(:first, :conditions => ['name = ?', "In Transit Between Library Locations"])  
@@ -240,15 +239,22 @@ class InterLibraryLoansController < ApplicationController
         report.page.item(:expire_date_title).show
         report.page.item(:reserve_expire_date).value(reserve.expired_at)
       end
-      
-      send_data report.generate, :filename => "loan_item_#{@pickup_item.item_identifier}.pdf", :type => 'application/pdf', :disposition => 'attachment'
+      # check dir
+      out_dir = "#{RAILS_ROOT}/private/system/inter_library_loans/"
+      FileUtils.mkdir_p(out_dir) unless FileTest.exist?(out_dir)
+      # make pdf
+      pdf = "loan_item.pdf"
+      report.generate_file(out_dir + pdf)
+
+      flash[:message] = t('inter_library_loan.successfully_pickup', :item_identifier => item_identifier)
+      flash[:pdf] = out_dir + pdf
+
       logger.error "created report: #{Time.now}"
-      return true
+      render :pickup
     rescue Exception => e
       logger.error "failed #{e}"
       flash[:message] = t('inter_library_loan.failed_pickup')
-      render :pickup
-      return false
+      render :pickup and return false
     end
   end
 
@@ -282,7 +288,7 @@ class InterLibraryLoansController < ApplicationController
         @loan.save
       end
       if @item
-        message = t('inter_library_loan.successfully_pickup', :item_identifier => item_identifier)
+        message = t('inter_library_loan.successfully_accept', :item_identifier => item_identifier)
         html = render_to_string :partial => "accept_item"
         render :json => {:success => 1, :html => html, :message => message}
       end
@@ -291,4 +297,13 @@ class InterLibraryLoansController < ApplicationController
     end
   end
 
+  def download_file
+    path = "#{RAILS_ROOT}/private/system/inter_library_loans/loan_item.pdf"
+    if File.exist?(path)
+      send_file path #, :type => "application/pdf"
+    else
+      logger.warn "not exist file. path:#{path}"
+      render :pickup and return
+    end
+  end
 end
