@@ -35,6 +35,7 @@ class ManifestationsController < ApplicationController
         @oai = check_oai_params(params)
         next if @oai[:need_not_to_search]
         if params[:format] == 'oai'
+          oai_search = true
           from_and_until_times = set_from_and_until(Manifestation, params[:from], params[:until])
           from_time = @from_time = from_and_until_times[:from]
           until_time = @until_time = from_and_until_times[:until]
@@ -102,7 +103,6 @@ class ManifestationsController < ApplicationController
       includes << :bookmarks if defined?(EnjuBookmark)
       search = Manifestation.search(:include => includes)
       role = current_user.try(:role) || Role.default_role
-      oai_search = true if params[:format] == 'oai' and defined?(EnjuOai)
       case @reservable
       when 'true'
         reservable = true
