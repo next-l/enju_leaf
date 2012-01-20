@@ -5,6 +5,10 @@ describe FrequenciesController do
   fixtures :all
   disconnect_sunspot
 
+  def valid_attributes
+    FactoryGirl.build(:frequency).attributes.reject!{|k, v| v.nil?}
+  end
+
   describe "GET index" do
     before(:each) do
       FactoryGirl.create(:frequency)
@@ -167,7 +171,7 @@ describe FrequenciesController do
 
   describe "POST create" do
     before(:each) do
-      @attrs = FactoryGirl.attributes_for(:frequency)
+      @attrs = valid_attributes
       @invalid_attrs = {:name => ''}
     end
 
@@ -285,7 +289,7 @@ describe FrequenciesController do
   describe "PUT update" do
     before(:each) do
       @frequency = FactoryGirl.create(:frequency)
-      @attrs = FactoryGirl.attributes_for(:frequency)
+      @attrs = valid_attributes
       @invalid_attrs = {:name => ''}
     end
 

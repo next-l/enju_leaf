@@ -5,6 +5,10 @@ describe SeriesHasManifestationsController do
   fixtures :series_has_manifestations
   disconnect_sunspot
 
+  def valid_attributes
+    FactoryGirl.build(:series_has_manifestation).attributes.reject!{|k, v| v.nil?}
+  end
+
   def mock_series_has_manifestation(stubs={})
     @mock_series_has_manifestation ||= mock_model(SeriesHasManifestation, stubs).as_null_object
   end
@@ -165,7 +169,7 @@ describe SeriesHasManifestationsController do
 
   describe "POST create" do
     before(:each) do
-      @attrs = FactoryGirl.attributes_for(:series_has_manifestation)
+      @attrs = valid_attributes
       @invalid_attrs = {:manifestation_id => ''}
     end
 
@@ -283,7 +287,7 @@ describe SeriesHasManifestationsController do
   describe "PUT update" do
     before(:each) do
       @series_has_manifestation = FactoryGirl.create(:series_has_manifestation)
-      @attrs = FactoryGirl.attributes_for(:series_has_manifestation)
+      @attrs = valid_attributes
       @invalid_attrs = {:manifestation_id => ''}
     end
 

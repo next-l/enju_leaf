@@ -5,6 +5,10 @@ describe PatronMergeListsController do
   fixtures :patron_merge_lists
   disconnect_sunspot
 
+  def valid_attributes
+    FactoryGirl.build(:patron_merge_list).attributes.reject!{|k, v| v.nil?}
+  end
+
   describe "GET index" do
     describe "When logged in as Administrator" do
       login_admin
@@ -165,7 +169,7 @@ describe PatronMergeListsController do
 
   describe "POST create" do
     before(:each) do
-      @attrs = FactoryGirl.attributes_for(:patron_merge_list)
+      @attrs = valid_attributes
       @invalid_attrs = {:title => ''}
     end
 
@@ -283,7 +287,7 @@ describe PatronMergeListsController do
   describe "PUT update" do
     before(:each) do
       @patron_merge_list = FactoryGirl.create(:patron_merge_list)
-      @attrs = FactoryGirl.attributes_for(:patron_merge_list)
+      @attrs = valid_attributes
       @invalid_attrs = {:title => ''}
     end
 

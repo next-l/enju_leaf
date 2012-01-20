@@ -313,7 +313,7 @@ describe BookmarksController do
   describe "PUT update" do
     before(:each) do
       @bookmark = bookmarks(:bookmark_00001)
-      @attrs = FactoryGirl.attributes_for(:bookmark)
+      @attrs = valid_attributes
       @invalid_attrs = {:url => ''}
     end
 

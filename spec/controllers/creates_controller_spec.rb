@@ -5,6 +5,10 @@ describe CreatesController do
   fixtures :all
   disconnect_sunspot
 
+  def valid_attributes
+    FactoryGirl.build(:create).attributes.reject!{|k, v| v.nil?}
+  end
+
   describe "GET index" do
     before(:each) do
       FactoryGirl.create(:create)
@@ -165,7 +169,7 @@ describe CreatesController do
 
   describe "POST create" do
     before(:each) do
-      @attrs = FactoryGirl.attributes_for(:create)
+      @attrs = valid_attributes
       @invalid_attrs = {:work_id => ''}
     end
 
@@ -283,7 +287,7 @@ describe CreatesController do
   describe "PUT update" do
     before(:each) do
       @create = FactoryGirl.create(:create)
-      @attrs = FactoryGirl.attributes_for(:create)
+      @attrs = valid_attributes
       @invalid_attrs = {:work_id => ''}
     end
 

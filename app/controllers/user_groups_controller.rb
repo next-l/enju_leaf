@@ -65,7 +65,7 @@ class UserGroupsController < ApplicationController
         format.json { head :ok }
       else
         format.html { render :action => "edit" }
-        format.json { render :json => @user_group, :status => :unprocessable_entity }
+        format.json { render :json => @user_group.errors, :status => :unprocessable_entity }
       end
     end
   end

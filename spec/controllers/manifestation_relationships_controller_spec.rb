@@ -5,6 +5,10 @@ describe ManifestationRelationshipsController do
   fixtures :all
   disconnect_sunspot
 
+  def valid_attributes
+    @attrs = FactoryGirl.build(:manifestation_relationship).attributes.reject!{|k, v| v.nil?}
+  end
+
   describe "GET index" do
     before(:each) do
       FactoryGirl.create(:manifestation_relationship)
@@ -167,7 +171,7 @@ describe ManifestationRelationshipsController do
 
   describe "POST create" do
     before(:each) do
-      @attrs = FactoryGirl.attributes_for(:manifestation_relationship)
+      @attrs = valid_attributes
       @invalid_attrs = {:parent_id => ''}
     end
 
@@ -285,7 +289,7 @@ describe ManifestationRelationshipsController do
   describe "PUT update" do
     before(:each) do
       @manifestation_relationship = FactoryGirl.create(:manifestation_relationship)
-      @attrs = FactoryGirl.attributes_for(:manifestation_relationship)
+      @attrs = valid_attributes
       @invalid_attrs = {:parent_id => ''}
     end
 

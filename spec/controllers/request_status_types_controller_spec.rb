@@ -291,7 +291,7 @@ describe RequestStatusTypesController do
   describe "PUT update" do
     before(:each) do
       @request_status_type = FactoryGirl.create(:request_status_type)
-      @attrs = FactoryGirl.attributes_for(:request_status_type)
+      @attrs = valid_attributes
       @invalid_attrs = {:name => ''}
     end
 

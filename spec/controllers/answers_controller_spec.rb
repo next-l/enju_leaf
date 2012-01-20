@@ -3,6 +3,10 @@ require 'spec_helper'
 describe AnswersController do
   fixtures :all
 
+  def valid_attributes
+    FactoryGirl.build(:answer).attributes.reject!{|k, v| v.nil?}
+  end
+
   describe "GET index" do
     describe "When logged in as Administrator" do
       login_fixture_admin
@@ -296,7 +300,7 @@ describe AnswersController do
 
   describe "POST create" do
     before(:each) do
-      @attrs = FactoryGirl.attributes_for(:answer)
+      @attrs = valid_attributes
       @invalid_attrs = {:body => ''}
     end
 

@@ -4,6 +4,10 @@ require 'sunspot/rails/spec_helper'
 describe ParticipatesController do
   disconnect_sunspot
 
+  def valid_attributes
+    FactoryGirl.build(:participate).attributes.reject!{|k, v| v.nil?}
+  end
+
   describe "GET index" do
     describe "When logged in as Administrator" do
       login_admin
@@ -160,7 +164,7 @@ describe ParticipatesController do
 
   describe "POST create" do
     before(:each) do
-      @attrs = FactoryGirl.attributes_for(:participate)
+      @attrs = valid_attributes
       @invalid_attrs = {:event_id => ''}
     end
 
@@ -278,7 +282,7 @@ describe ParticipatesController do
   describe "PUT update" do
     before(:each) do
       @participate = FactoryGirl.create(:participate)
-      @attrs = FactoryGirl.attributes_for(:participate)
+      @attrs = valid_attributes
       @invalid_attrs = {:event_id => ''}
     end
 

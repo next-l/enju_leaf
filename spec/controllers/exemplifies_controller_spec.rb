@@ -4,8 +4,8 @@ require 'sunspot/rails/spec_helper'
 describe ExemplifiesController do
   disconnect_sunspot
 
-  def mock_exemplify(stubs={})
-    @mock_exemplify ||= mock_model(Exemplify, stubs).as_null_object
+  def valid_attributes
+    FactoryGirl.build(:exemplify).attributes.reject!{|k, v| v.nil?}
   end
 
   describe "GET index" do
@@ -164,7 +164,7 @@ describe ExemplifiesController do
 
   describe "POST create" do
     before(:each) do
-      @attrs = FactoryGirl.attributes_for(:exemplify)
+      @attrs = valid_attributes
       @invalid_attrs = {:manifestation_id => ''}
     end
 
@@ -282,7 +282,7 @@ describe ExemplifiesController do
   describe "PUT update" do
     before(:each) do
       @exemplify = FactoryGirl.create(:exemplify)
-      @attrs = FactoryGirl.attributes_for(:exemplify)
+      @attrs = valid_attributes
       @invalid_attrs = {:manifestation_id => ''}
     end
 

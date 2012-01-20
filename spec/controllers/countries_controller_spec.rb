@@ -5,6 +5,10 @@ describe CountriesController do
   fixtures :library_groups
   disconnect_sunspot
 
+  def valid_attributes
+    FactoryGirl.build(:country).attributes.reject!{|k, v| v.nil?}
+  end
+
   describe "GET index" do
     before(:each) do
       FactoryGirl.create(:country)
@@ -167,7 +171,7 @@ describe CountriesController do
 
   describe "POST create" do
     before(:each) do
-      @attrs = FactoryGirl.attributes_for(:country)
+      @attrs = valid_attributes
       @invalid_attrs = {:name => ''}
     end
 
@@ -285,7 +289,7 @@ describe CountriesController do
   describe "PUT update" do
     before(:each) do
       @country = FactoryGirl.create(:country)
-      @attrs = FactoryGirl.attributes_for(:country)
+      @attrs = valid_attributes
       @invalid_attrs = {:name => ''}
     end
 

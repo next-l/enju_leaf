@@ -4,6 +4,10 @@ require 'sunspot/rails/spec_helper'
 describe LanguagesController do
   disconnect_sunspot
 
+  def valid_attributes
+     FactoryGirl.build(:language).attributes.reject!{|k, v| v.nil?}
+  end
+
   describe "GET index" do
     before(:each) do
       FactoryGirl.create(:language)
@@ -109,7 +113,7 @@ describe LanguagesController do
 
   describe "POST create" do
     before(:each) do
-      @attrs = FactoryGirl.build(:language).attributes.reject!{|k, v| v.nil?}
+      @attrs = valid_attributes
       @invalid_attrs = {:name => ''}
     end
 
@@ -227,7 +231,7 @@ describe LanguagesController do
   describe "PUT update" do
     before(:each) do
       @language = FactoryGirl.create(:language)
-      @attrs = FactoryGirl.attributes_for(:language)
+      @attrs = valid_attributes
       @invalid_attrs = {:name => ''}
     end
 

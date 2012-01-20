@@ -5,6 +5,10 @@ describe ContentTypesController do
   fixtures :all
   disconnect_sunspot
 
+  def valid_attributes
+    FactoryGirl.build(:content_type).attributes.reject!{|k, v| v.nil?}
+  end
+
   describe "GET index" do
     before(:each) do
       FactoryGirl.create(:content_type)
@@ -167,7 +171,7 @@ describe ContentTypesController do
 
   describe "POST create" do
     before(:each) do
-      @attrs = FactoryGirl.attributes_for(:content_type)
+      @attrs = valid_attributes
       @invalid_attrs = {:name => ''}
     end
 
@@ -285,7 +289,7 @@ describe ContentTypesController do
   describe "PUT update" do
     before(:each) do
       @content_type = FactoryGirl.create(:content_type)
-      @attrs = FactoryGirl.attributes_for(:content_type)
+      @attrs = valid_attributes
       @invalid_attrs = {:name => ''}
     end
 

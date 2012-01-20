@@ -3,6 +3,10 @@ require 'spec_helper'
 describe PatronsController do
   fixtures :all
 
+  def valid_attributes
+    FactoryGirl.build(:patron).attributes.reject!{|k, v| v.nil?}
+  end
+
   describe "GET index", :solr => true do
     describe "When logged in as Administrator" do
       login_fixture_admin
@@ -291,7 +295,7 @@ describe PatronsController do
 
   describe "POST create" do
     before(:each) do
-      @attrs = FactoryGirl.attributes_for(:patron)
+      @attrs = valid_attributes
       @invalid_attrs = FactoryGirl.attributes_for(:patron, :full_name => '')
     end
 
@@ -426,7 +430,7 @@ describe PatronsController do
   describe "PUT update" do
     before(:each) do
       @patron = FactoryGirl.create(:patron)
-      @attrs = FactoryGirl.attributes_for(:patron)
+      @attrs = valid_attributes
       @invalid_attrs = FactoryGirl.attributes_for(:patron, :full_name => '')
     end
 

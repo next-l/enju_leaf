@@ -4,6 +4,10 @@ require 'spec_helper'
 describe ItemsController do
   fixtures :all
 
+  def valid_attributes
+    FactoryGirl.build(:item).attributes.reject!{|k, v| v.nil?}
+  end
+
   describe "GET index", :solr => true do
     describe "When logged in as Administrator" do
       login_admin

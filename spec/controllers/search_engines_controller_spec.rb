@@ -5,6 +5,10 @@ describe SearchEnginesController do
   fixtures :all
   disconnect_sunspot
 
+  def valid_attributes
+    FactoryGirl.build(:search_engine).attributes.reject!{|k, v| v.nil?}
+  end
+
   describe "GET index" do
     before(:each) do
       FactoryGirl.create(:search_engine)
@@ -169,7 +173,7 @@ describe SearchEnginesController do
 
   describe "POST create" do
     before(:each) do
-      @attrs = FactoryGirl.attributes_for(:search_engine)
+      @attrs = valid_attributes
       @invalid_attrs = {:name => ''}
     end
 
@@ -287,7 +291,7 @@ describe SearchEnginesController do
   describe "PUT update" do
     before(:each) do
       @search_engine = FactoryGirl.create(:search_engine)
-      @attrs = FactoryGirl.attributes_for(:search_engine)
+      @attrs = valid_attributes
       @invalid_attrs = {:name => ''}
     end
 

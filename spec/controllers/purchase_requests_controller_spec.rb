@@ -3,6 +3,10 @@ require 'spec_helper'
 describe PurchaseRequestsController do
   fixtures :all
 
+  def valid_attributes
+    FactoryGirl.build(:purchase_request).attributes.reject!{|k, v| v.nil?}
+  end
+
   describe "GET index", :solr => true do
     describe "When logged in as Administrator" do
       login_fixture_admin
@@ -216,7 +220,7 @@ describe PurchaseRequestsController do
 
   describe "POST create" do
     before(:each) do
-      @attrs = FactoryGirl.attributes_for(:purchase_request)
+      @attrs = valid_attributes
       @invalid_attrs = {:title => ''}
     end
 
@@ -345,7 +349,7 @@ describe PurchaseRequestsController do
   describe "PUT update" do
     before(:each) do
       @purchase_request = purchase_requests(:purchase_request_00001)
-      @attrs = FactoryGirl.attributes_for(:purchase_request)
+      @attrs = valid_attributes
       @invalid_attrs = {:title => ''}
     end
 

@@ -5,6 +5,10 @@ describe ExtentsController do
   fixtures :all
   disconnect_sunspot
 
+  def valid_attributes
+    FactoryGirl.build(:extent).attributes.reject!{|k, v| v.nil?}
+  end
+
   describe "GET index" do
     before(:each) do
       FactoryGirl.create(:extent)
@@ -167,7 +171,7 @@ describe ExtentsController do
 
   describe "POST create" do
     before(:each) do
-      @attrs = FactoryGirl.attributes_for(:extent)
+      @attrs = valid_attributes
       @invalid_attrs = {:name => ''}
     end
 
@@ -285,7 +289,7 @@ describe ExtentsController do
   describe "PUT update" do
     before(:each) do
       @extent = FactoryGirl.create(:extent)
-      @attrs = FactoryGirl.attributes_for(:extent)
+      @attrs = valid_attributes
       @invalid_attrs = {:name => ''}
     end
 

@@ -5,6 +5,10 @@ describe CheckoutStatHasManifestationsController do
   fixtures :all
   disconnect_sunspot
 
+  def valid_attributes
+    FactoryGirl.build(:checkout_stat_has_manifestation).attributes.reject!{|k, v| v.nil?}
+  end
+
   describe "GET index" do
     before(:each) do
       FactoryGirl.create(:checkout_stat_has_manifestation)
@@ -169,7 +173,7 @@ describe CheckoutStatHasManifestationsController do
 
   describe "POST create" do
     before(:each) do
-      @attrs = FactoryGirl.attributes_for(:checkout_stat_has_manifestation)
+      @attrs = valid_attributes
       @invalid_attrs = {:manifestation_checkout_stat_id => ''}
     end
 
@@ -287,7 +291,7 @@ describe CheckoutStatHasManifestationsController do
   describe "PUT update" do
     before(:each) do
       @checkout_stat_has_manifestation = FactoryGirl.create(:checkout_stat_has_manifestation)
-      @attrs = FactoryGirl.attributes_for(:checkout_stat_has_manifestation)
+      @attrs = valid_attributes
       @invalid_attrs = {:manifestation_checkout_stat_id => ''}
     end
 

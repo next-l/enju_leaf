@@ -3,6 +3,10 @@ require 'spec_helper'
 describe PatronMergesController do
   fixtures :all
 
+  def valid_attributes
+    FactoryGirl.build(:patron_merge).attributes.reject!{|k, v| v.nil?}
+  end
+
   describe "GET index" do
     before(:each) do
       FactoryGirl.create(:patron_merge)
@@ -167,7 +171,7 @@ describe PatronMergesController do
 
   describe "POST create" do
     before(:each) do
-      @attrs = FactoryGirl.attributes_for(:patron_merge)
+      @attrs = valid_attributes
       @invalid_attrs = {:patron_merge_list_id => ''}
     end
 
@@ -285,7 +289,7 @@ describe PatronMergesController do
   describe "PUT update" do
     before(:each) do
       @patron_merge = FactoryGirl.create(:patron_merge)
-      @attrs = FactoryGirl.attributes_for(:patron_merge)
+      @attrs = valid_attributes
       @invalid_attrs = {:patron_merge_list_id => ''}
     end
 

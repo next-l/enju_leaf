@@ -5,6 +5,10 @@ describe EventCategoriesController do
   fixtures :all
   disconnect_sunspot
 
+  def valid_attributes
+    FactoryGirl.build(:event_category).attributes.reject!{|k, v| v.nil?}
+  end
+
   describe "GET index" do
     before(:each) do
       FactoryGirl.create(:event_category)
@@ -167,7 +171,7 @@ describe EventCategoriesController do
 
   describe "POST create" do
     before(:each) do
-      @attrs = FactoryGirl.attributes_for(:event_category)
+      @attrs = valid_attributes
       @invalid_attrs = {:name => ''}
     end
 
@@ -285,7 +289,7 @@ describe EventCategoriesController do
   describe "PUT update" do
     before(:each) do
       @event_category = FactoryGirl.create(:event_category)
-      @attrs = FactoryGirl.attributes_for(:event_category)
+      @attrs = valid_attributes
       @invalid_attrs = {:name => ''}
     end
 

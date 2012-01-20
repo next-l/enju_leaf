@@ -5,6 +5,10 @@ describe SubjectHasClassificationsController do
   fixtures :all
   disconnect_sunspot
 
+  def valid_attributes
+    FactoryGirl.build(:subject_has_classification).attributes.reject!{|k, v| v.nil?}
+  end
+
   describe "GET index" do
     before(:each) do
       FactoryGirl.create(:subject_has_classification)
@@ -165,7 +169,7 @@ describe SubjectHasClassificationsController do
 
   describe "POST create" do
     before(:each) do
-      @attrs = FactoryGirl.attributes_for(:subject_has_classification)
+      @attrs = valid_attributes
       @invalid_attrs = {:subject_id => ''}
     end
 
@@ -283,7 +287,7 @@ describe SubjectHasClassificationsController do
   describe "PUT update" do
     before(:each) do
       @subject_has_classification = FactoryGirl.create(:subject_has_classification)
-      @attrs = FactoryGirl.attributes_for(:subject_has_classification)
+      @attrs = valid_attributes
       @invalid_attrs = {:subject_id => ''}
     end
 

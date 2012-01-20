@@ -4,6 +4,10 @@ require 'sunspot/rails/spec_helper'
 describe RealizesController do
   disconnect_sunspot
 
+  def valid_attributes
+    FactoryGirl.build(:realize).attributes.reject!{|k, v| v.nil?}
+  end
+
   describe "GET index" do
     describe "When logged in as Administrator" do
       login_admin
@@ -160,7 +164,7 @@ describe RealizesController do
 
   describe "POST create" do
     before(:each) do
-      @attrs = FactoryGirl.attributes_for(:realize)
+      @attrs = valid_attributes
       @invalid_attrs = {:expression_id => ''}
     end
 
@@ -278,7 +282,7 @@ describe RealizesController do
   describe "PUT update" do
     before(:each) do
       @realize = FactoryGirl.create(:realize)
-      @attrs = FactoryGirl.attributes_for(:realize)
+      @attrs = valid_attributes
       @invalid_attrs = {:expression_id => ''}
     end
 

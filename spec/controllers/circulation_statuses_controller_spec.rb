@@ -5,6 +5,10 @@ describe CirculationStatusesController do
   fixtures :all
   disconnect_sunspot
 
+  def valid_attributes
+    FactoryGirl.build(:circulation_status).attributes.reject!{|k, v| v.nil?}
+  end
+
   describe "GET index" do
     before(:each) do
       FactoryGirl.create(:circulation_status)
@@ -167,7 +171,7 @@ describe CirculationStatusesController do
 
   describe "POST create" do
     before(:each) do
-      @attrs = FactoryGirl.attributes_for(:circulation_status)
+      @attrs = valid_attributes
       @invalid_attrs = {:name => ''}
     end
 
@@ -285,7 +289,7 @@ describe CirculationStatusesController do
   describe "PUT update" do
     before(:each) do
       @circulation_status = FactoryGirl.create(:circulation_status)
-      @attrs = FactoryGirl.attributes_for(:circulation_status)
+      @attrs = valid_attributes
       @invalid_attrs = {:display_name => ''}
     end
 

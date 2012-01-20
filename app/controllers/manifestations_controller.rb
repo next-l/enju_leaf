@@ -477,7 +477,7 @@ class ManifestationsController < ApplicationController
       else
         prepare_options
         format.html { render :action => "edit" }
-        format.json { render :json => @manifestation, :status => :unprocessable_entity }
+        format.json { render :json => @manifestation.errors, :status => :unprocessable_entity }
       end
     end
   end

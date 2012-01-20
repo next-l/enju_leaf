@@ -3,6 +3,10 @@ require 'spec_helper'
 describe ManifestationsController do
   fixtures :all
 
+  def valid_attributes
+    FactoryGirl.build(:manifestation).attributes.reject!{|k, v| v.nil?}
+  end
+
   describe "GET index", :solr => true do
     describe "When logged in as Administrator" do
       login_admin
@@ -421,7 +425,7 @@ describe ManifestationsController do
 
   describe "POST create" do
     before(:each) do
-      @attrs = FactoryGirl.attributes_for(:manifestation)
+      @attrs = valid_attributes
       @invalid_attrs = {:original_title => ''}
     end
 
@@ -545,7 +549,7 @@ describe ManifestationsController do
     before(:each) do
       @manifestation = FactoryGirl.create(:manifestation)
       @manifestation.series_statement = SeriesStatement.find(1)
-      @attrs = FactoryGirl.attributes_for(:manifestation)
+      @attrs = valid_attributes
       @invalid_attrs = {:original_title => ''}
     end
 

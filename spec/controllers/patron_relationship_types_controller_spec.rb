@@ -5,6 +5,10 @@ describe PatronRelationshipTypesController do
   fixtures :all
   disconnect_sunspot
 
+  def valid_attributes
+    FactoryGirl.build(:patron_relationship_type).attributes.reject!{|k, v| v.nil?}
+  end
+
   describe "GET index" do
     before(:each) do
       FactoryGirl.create(:patron_relationship_type)
@@ -167,7 +171,7 @@ describe PatronRelationshipTypesController do
 
   describe "POST create" do
     before(:each) do
-      @attrs = FactoryGirl.build(:patron_relationship_type).attributes.reject!{|k, v| v.nil?}
+      @attrs = valid_attributes
       @invalid_attrs = {:name => ''}
     end
 
@@ -285,7 +289,7 @@ describe PatronRelationshipTypesController do
   describe "PUT update" do
     before(:each) do
       @patron_relationship_type = FactoryGirl.create(:patron_relationship_type)
-      @attrs = FactoryGirl.attributes_for(:patron_relationship_type)
+      @attrs = valid_attributes
       @invalid_attrs = {:name => ''}
     end
 

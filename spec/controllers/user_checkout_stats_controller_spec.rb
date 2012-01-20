@@ -5,6 +5,10 @@ describe UserCheckoutStatsController do
   fixtures :all
   disconnect_sunspot
 
+  def valid_attributes
+    FactoryGirl.build(:user_checkout_stat).attributes.reject!{|k, v| v.nil?}
+  end
+
   describe "GET index" do
     before(:each) do
       FactoryGirl.create(:user_checkout_stat)
@@ -165,7 +169,7 @@ describe UserCheckoutStatsController do
 
   describe "POST create" do
     before(:each) do
-      @attrs = FactoryGirl.attributes_for(:user_checkout_stat)
+      @attrs = valid_attributes
       @invalid_attrs = {:start_date => ''}
     end
 
@@ -283,7 +287,7 @@ describe UserCheckoutStatsController do
   describe "PUT update" do
     before(:each) do
       @user_checkout_stat = FactoryGirl.create(:user_checkout_stat)
-      @attrs = FactoryGirl.attributes_for(:user_checkout_stat)
+      @attrs = valid_attributes
       @invalid_attrs = {:start_date => ''}
     end
 

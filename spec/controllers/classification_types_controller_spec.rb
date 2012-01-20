@@ -5,6 +5,10 @@ describe ClassificationTypesController do
   fixtures :all
   disconnect_sunspot
 
+  def valid_attributes
+    FactoryGirl.build(:classification_type).attributes.reject!{|k, v| v.nil?}
+  end
+
   describe "GET index" do
     before(:each) do
       FactoryGirl.create(:classification_type)
@@ -167,7 +171,7 @@ describe ClassificationTypesController do
 
   describe "POST create" do
     before(:each) do
-      @attrs = FactoryGirl.attributes_for(:classification_type)
+      @attrs = valid_attributes
       @invalid_attrs = {:name => ''}
     end
 
@@ -285,7 +289,7 @@ describe ClassificationTypesController do
   describe "PUT update" do
     before(:each) do
       @classification_type = FactoryGirl.create(:classification_type)
-      @attrs = FactoryGirl.attributes_for(:classification_type)
+      @attrs = valid_attributes
       @invalid_attrs = {:name => ''}
     end
 

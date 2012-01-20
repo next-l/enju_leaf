@@ -5,6 +5,10 @@ describe SubjectTypesController do
   fixtures :all
   disconnect_sunspot
 
+  def valid_attributes
+    FactoryGirl.build(:subject_type).attributes.reject!{|k, v| v.nil?}
+  end
+
   describe "GET index" do
     before(:each) do
       FactoryGirl.create(:subject_type)
@@ -169,7 +173,7 @@ describe SubjectTypesController do
 
   describe "POST create" do
     before(:each) do
-      @attrs = FactoryGirl.attributes_for(:subject_type)
+      @attrs = valid_attributes
       @invalid_attrs = {:name => ''}
     end
 
@@ -287,7 +291,7 @@ describe SubjectTypesController do
   describe "PUT update" do
     before(:each) do
       @subject_type = FactoryGirl.create(:subject_type)
-      @attrs = FactoryGirl.attributes_for(:subject_type)
+      @attrs = valid_attributes
       @invalid_attrs = {:name => ''}
     end
 

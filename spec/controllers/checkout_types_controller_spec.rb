@@ -5,6 +5,10 @@ describe CheckoutTypesController do
   fixtures :all
   disconnect_sunspot
 
+  def valid_attributes
+     FactoryGirl.build(:checkout_type).attributes.reject!{|k, v| v.nil?}
+  end
+
   describe "GET index" do
     before(:each) do
       FactoryGirl.create(:checkout_type)
@@ -169,7 +173,7 @@ describe CheckoutTypesController do
 
   describe "POST create" do
     before(:each) do
-      @attrs = FactoryGirl.build(:checkout_type).attributes.reject!{|k, v| v.nil?}
+      @attrs = valid_attributes
       @invalid_attrs = {:name => ''}
     end
 
@@ -287,7 +291,7 @@ describe CheckoutTypesController do
   describe "PUT update" do
     before(:each) do
       @checkout_type = FactoryGirl.create(:checkout_type)
-      @attrs = FactoryGirl.attributes_for(:checkout_type)
+      @attrs = valid_attributes
       @invalid_attrs = {:name => ''}
     end
 

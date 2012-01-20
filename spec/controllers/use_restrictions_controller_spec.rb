@@ -5,6 +5,10 @@ describe UseRestrictionsController do
   fixtures :all
   disconnect_sunspot
 
+  def valid_attributes
+     FactoryGirl.build(:use_restriction).attributes.reject!{|k, v| v.nil?}
+  end
+
   describe "GET index" do
     before(:each) do
       FactoryGirl.create(:use_restriction)
@@ -169,7 +173,7 @@ describe UseRestrictionsController do
 
   describe "POST create" do
     before(:each) do
-      @attrs = FactoryGirl.build(:use_restriction).attributes.reject!{|k, v| v.nil?}
+      @attrs = valid_attributes
       @invalid_attrs = {:name => ''}
     end
 
@@ -287,7 +291,7 @@ describe UseRestrictionsController do
   describe "PUT update" do
     before(:each) do
       @use_restriction = FactoryGirl.create(:use_restriction)
-      @attrs = FactoryGirl.attributes_for(:use_restriction)
+      @attrs = valid_attributes
       @invalid_attrs = {:display_name => ''}
     end
 

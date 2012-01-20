@@ -5,6 +5,10 @@ describe ManifestationReserveStatsController do
   fixtures :all
   disconnect_sunspot
 
+  def valid_attributes
+    FactoryGirl.build(:manifestation_reserve_stat).attributes.reject!{|k, v| v.nil?}
+  end
+
   describe "GET index" do
     before(:each) do
       FactoryGirl.create(:manifestation_reserve_stat)
@@ -165,7 +169,7 @@ describe ManifestationReserveStatsController do
 
   describe "POST create" do
     before(:each) do
-      @attrs = FactoryGirl.attributes_for(:manifestation_reserve_stat)
+      @attrs = valid_attributes
       @invalid_attrs = {:start_date => ''}
     end
 
@@ -283,7 +287,7 @@ describe ManifestationReserveStatsController do
   describe "PUT update" do
     before(:each) do
       @manifestation_reserve_stat = FactoryGirl.create(:manifestation_reserve_stat)
-      @attrs = FactoryGirl.attributes_for(:manifestation_reserve_stat)
+      @attrs = valid_attributes
       @invalid_attrs = {:start_date => ''}
     end
 

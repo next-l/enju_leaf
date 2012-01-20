@@ -5,6 +5,10 @@ describe UserGroupHasCheckoutTypesController do
   fixtures :all
   disconnect_sunspot
 
+  def valid_attributes
+    FactoryGirl.build(:user_group_has_checkout_type).attributes.reject!{|k, v| v.nil?}
+  end
+
   describe "GET index" do
     describe "When logged in as Administrator" do
       login_admin
@@ -165,7 +169,7 @@ describe UserGroupHasCheckoutTypesController do
 
   describe "POST create" do
     before(:each) do
-      @attrs = FactoryGirl.attributes_for(:user_group_has_checkout_type)
+      @attrs = valid_attributes
       @invalid_attrs = {:user_group_id => ''}
     end
 
@@ -283,7 +287,7 @@ describe UserGroupHasCheckoutTypesController do
   describe "PUT update" do
     before(:each) do
       @user_group_has_checkout_type = FactoryGirl.create(:user_group_has_checkout_type)
-      @attrs = FactoryGirl.attributes_for(:user_group_has_checkout_type)
+      @attrs = valid_attributes
       @invalid_attrs = {:user_group_id => ''}
     end
 
