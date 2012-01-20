@@ -764,6 +764,7 @@ ja:
         lock_version: ロックバージョン
         renewal_count: 貸出の更新回数
         output_checkoutlist: 貸出票の出力
+        over: 以上
       subscription:
         title: タイトル
         note: 注記
