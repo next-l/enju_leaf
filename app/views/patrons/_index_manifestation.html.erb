@@ -33,6 +33,7 @@
           <%- if params[:mode] == 'add' -%>
             <%= link_to t('page.add'), new_manifestation_produce_path(manifestation, :patron_id => patron.id) unless manifestation.publishers.include?(patron) -%>
           <%- else -%>
+            <%= link_to t('page.edit'), edit_create_path(manifestation.produced(patron)) -%>
             <%= link_to t('page.destroy'), manifestation_produce_path(manifestation, manifestation.produced(patron)), :confirm => t('page.are_you_sure'), :method => :delete -%>
           <%- end -%>
         <%- end -%>
