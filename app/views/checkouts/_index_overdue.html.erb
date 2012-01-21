@@ -7,7 +7,7 @@
       <%= t('advanced_search.library') -%>:<%= select("library", "id", @libraries, {:include_blank => t('advanced_search.all_libraries'), :selected=>@selected_library})%>
       &nbsp;
       <%= t('checkout.number_of_day_overdue') -%>:<%= text_field_tag 'days_overdue', h(@days_overdue), :class => 'resource_integer' -%>
-      <%= hidden_field_tag 'view', 'overdue' -%>
+      <%= hidden_field_tag 'view', 'overdue' -%><%= t('activerecord.attributes.checkout.over') -%>&nbsp;
       <%= submit_tag t('page.search') -%>
       <%= submit_tag t('page.output', :model =>t('page.listing', :model => t('activerecord.models.checkout'))), :name => :output -%>
     </p>

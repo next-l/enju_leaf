@@ -49,7 +49,10 @@ class StatisticReport < ActiveRecord::Base
             row.item("value#{t+1}").value(to_format(value))
             row.item("valueall").value(to_format(value)) if t == 2 # Maarch(end of fiscal year)
           end 
-          row.item(:library_line).show if checkout_type == checkout_types.last
+          if checkout_type == checkout_types.last
+            row.item(:library_line).show
+            line_for_libraries(row)
+          end
         end
       end
 =begin
@@ -97,7 +100,11 @@ class StatisticReport < ActiveRecord::Base
             end  
             if checkout_type == checkout_types.last
               row.item(:library_line).show
-              line(row) if library == libraries.last
+              if library == libraries.last
+                line(row)
+              else
+                line_for_libraries(row)
+              end
             end
           end
         end
@@ -173,7 +180,10 @@ class StatisticReport < ActiveRecord::Base
             sum = sum + value
           end  
           row.item("valueall").value(sum)
-          row.item(:library_line).show if i == 1
+          if i == 1
+            row.item(:library_line).show
+            line_for_libraries(row)
+          end
         end
       end
       # checkout users each library
@@ -210,7 +220,11 @@ class StatisticReport < ActiveRecord::Base
             row.item("valueall").value(sum)
             if i == 1
               row.item(:library_line).show
-              line(row) if library == libraries.last
+              if library == libraries.last
+                line(row) if library == libraries.last
+              else
+                line_for_libraries(row)
+              end
             end  
           end
         end
@@ -283,7 +297,10 @@ class StatisticReport < ActiveRecord::Base
             sum = sum + value
           end  
           row.item("valueall").value(sum)
-          row.item(:library_line).show if i == 2
+          if i == 2
+            row.item(:library_line).show
+            line_for_libraries(row)
+          end
         end
       end
 
@@ -319,7 +336,11 @@ class StatisticReport < ActiveRecord::Base
             row.item("valueall").value(sum)
             if i == 2
               row.item(:library_line).show
-              line(row) if library == libraries.last if library == libraries.last
+              if library == libraries.last
+                line(row)
+              else
+                line_for_libraries(row)
+              end
             end
           end
         end
@@ -343,7 +364,10 @@ class StatisticReport < ActiveRecord::Base
             sum = sum + value
           end  
           row.item("valueall").value(sum)
-          row.item(:library_line).show if user_group == user_groups.last
+          if user_group == user_groups.last
+            row.item(:library_line).show 
+            line_for_libraries(row)
+          end
         end
       end
       libraries.each do |library|
@@ -364,7 +388,11 @@ class StatisticReport < ActiveRecord::Base
             row.item("valueall").value(sum)
             if user_group == user_groups.last
 	      row.item(:library_line).show
-              line(row) if library == libraries.last
+              if library == libraries.last
+                line(row)
+              else
+                line_for_libraries(row)
+              end 
             end  
           end
         end
@@ -548,7 +576,7 @@ class StatisticReport < ActiveRecord::Base
           end
           row.item("value#{t+1}").value(to_format(value))
           row.item("valueall").value(to_format(value)) if t == 2 # March(end of fiscal year)
-	  row.item(:library_line).show
+          line_for_libraries(row)
         end  
       end
 
@@ -622,7 +650,11 @@ class StatisticReport < ActiveRecord::Base
             row.item("valueall").value(to_format(value)) if t == 2 # March(end of fiscal year)
           end  
 	  row.item(:library_line).show
-          line(row) if library == libraries.last
+          if library == libraries.last
+            line(row)
+          else
+            line_for_libraries(row)
+          end
         end
       end
 
@@ -671,7 +703,7 @@ class StatisticReport < ActiveRecord::Base
           sum = sum + value
         end
         row.item("valueall").value(sum)
-        row.item(:library_line).show
+        line_for_libraries(row)
       end
       # reserves each library
       libraries.each do |library|
@@ -719,7 +751,11 @@ class StatisticReport < ActiveRecord::Base
           end
           row.item("valueall").value(sum)
           row.item(:library_line).show
-          line(row) if library == libraries.last
+          if library == libraries.last
+            line(row)
+          else
+            line_for_libraries(row)
+          end
         end
       end
 
@@ -2011,7 +2047,9 @@ class StatisticReport < ActiveRecord::Base
               end
               row.item("value#13").value(sum)
             end
-            row.item(:library_line).show if type == 1
+            if type == 1
+              line_for_libraries(row)
+            end
           end
         end
         # checkout users each libraries
@@ -2058,8 +2096,11 @@ class StatisticReport < ActiveRecord::Base
                 row.item("value#13").value(sum)
               end
               if type == 1
-                row.item(:library_line).show
-                line(row) if library == libraries.last
+                if library == libraries.last
+                  line(row) if library == libraries.last
+                else
+                  line_for_libraries(row)
+                end
               end
             end
           end
@@ -2108,6 +2149,7 @@ class StatisticReport < ActiveRecord::Base
               end
               row.item("value#13").value(sum)
             end
+            line_for_libraries(row) if i == 2
           end
         end
         
@@ -2154,8 +2196,11 @@ class StatisticReport < ActiveRecord::Base
                 row.item("value#13").value(sum)
               end
               if i == 2
-                row.item(:library_line).show
-                line(row) if library == libraries.last
+                if library == libraries.last
+                  line(row)
+                else
+                  line_for_libraries(row)
+                end
               end
             end
           end
@@ -2273,7 +2318,7 @@ class StatisticReport < ActiveRecord::Base
             end
             row.item("value#13").value(sum)
           end
-          row.item(:library_line).show
+          line_for_libraries(row)
         end
         # reserves each library
         libraries.each do |library|
@@ -2338,8 +2383,11 @@ class StatisticReport < ActiveRecord::Base
               end
               row.item("value#13").value(sum)
             end
-            row.item(:library_line).show
-            line(row) if library == libraries.last
+            if library == libraries.last
+              line(row)
+            else
+              line_for_libraries(row)
+            end
           end
         end
         # questions all libraries
@@ -2961,7 +3009,7 @@ class StatisticReport < ActiveRecord::Base
             row.item("value##{t+1}").value(to_format(value))
           end
           row.item("value#15").value(sum)  
-          row.item(:library_line).show if type == 1
+          line_for_libraries(row) if type == 1
         end
       end
       # checkout users each libraries
@@ -2997,8 +3045,11 @@ class StatisticReport < ActiveRecord::Base
             end
             row.item("value#15").value(sum)
             if type == 1
-              row.item(:library_line).show 
-              line(row) if library == libraries.last
+              if library == libraries.last
+                line(row)
+              else
+                line_for_libraries(row)
+              end
             end
           end
         end
@@ -3034,7 +3085,7 @@ class StatisticReport < ActiveRecord::Base
             row.item("value##{t+1}").value(to_format(value))
           end
           row.item("value#15").value(sum)  
-          row.item(:library_line).show if i == 2
+          line_for_libraries(row) if i == 2
         end
       end
       # checkout items each libraries
@@ -3068,8 +3119,11 @@ class StatisticReport < ActiveRecord::Base
             end
             row.item("value#15").value(sum)
             if i == 2
-              row.item(:library_line).show
-              line(row) if library == libraries.last
+              if library == libraries.last
+                line(row)
+              else
+                line_for_libraries(row)
+              end
             end
           end
         end
@@ -3120,7 +3174,7 @@ class StatisticReport < ActiveRecord::Base
           row.item("value##{t+1}").value(to_format(value))
         end
         row.item("value#15").value(sum)  
-        row.item(:library_line).show
+        line_for_libraries(row)
       end
       # reserves each libraries
       libraries.each do |library|
@@ -3167,8 +3221,11 @@ class StatisticReport < ActiveRecord::Base
             row.item("value##{t+1}").value(to_format(value))
           end
           row.item("value#15").value(sum)
-          row.item(:library_line).show
-          line(row) if library == libraries.last
+          if library == libraries.last
+            line(row)
+          else
+            line_for_libraries(row)
+          end
         end
       end
 
@@ -3709,7 +3766,7 @@ class StatisticReport < ActiveRecord::Base
             row.item("value#{t}").value(to_format(value))
           end
           row.item("valueall").value(sum)  
-          row.item(:library_line).show if type == 1
+          line_for_libraries(row) if type == 1
         end
       end
 
@@ -3746,8 +3803,11 @@ class StatisticReport < ActiveRecord::Base
             end
             row.item("valueall").value(sum)
             if type == 1
-              row.item(:library_line).show
-              line(row) if library == libraries.last
+              if library == libraries.last
+                line(row)
+              else
+                line_for_libraries(row)
+              end
             end
           end
         end
@@ -3783,7 +3843,7 @@ class StatisticReport < ActiveRecord::Base
             row.item("value#{t}").value(to_format(value))
           end
           row.item("valueall").value(sum)  
-          row.item(:library_line).show if i == 2
+          line_for_libraries(row) if i == 2
         end
       end
       # checkout items each libraries
@@ -3817,8 +3877,11 @@ class StatisticReport < ActiveRecord::Base
             end
             row.item("valueall").value(sum)
             if i == 2
-              row.item(:library_line).show
-              line(row) if library == libraries.last
+              if library == libraries.last
+                line(row)
+              else
+                line_for_libraries(row)
+              end
             end
           end
         end
@@ -3869,7 +3932,7 @@ class StatisticReport < ActiveRecord::Base
           row.item("value#{t}").value(to_format(value))
         end
         row.item("valueall").value(sum)  
-        row.item(:library_line).show
+        line_for_libraries(row)
       end
       # reserves each libraries
       libraries.each do |library|
@@ -3916,8 +3979,11 @@ class StatisticReport < ActiveRecord::Base
             row.item("value#{t}").value(to_format(value))
           end
           row.item("valueall").value(sum)
-          row.item(:library_line).show
-          line(row) if library == libraries.last
+          if library == libraries.last
+            line(row)
+          else
+            line_for_libraries(row) 
+          end
         end
       end
      
@@ -3937,6 +4003,7 @@ class StatisticReport < ActiveRecord::Base
           row.item("value#{t}").value(to_format(value))
         end
         row.item("valueall").value(sum)  
+        row.item(:library_line).show
       end
       # questions each libraries
       libraries.each do |library|
@@ -4516,7 +4583,7 @@ class StatisticReport < ActiveRecord::Base
           sum = sum + value
           row.item("value8").value(to_format(value))  
           row.item("valueall").value(sum)  
-          row.item(:library_line).show if i == 2
+          line_for_libraries(row) if i == 2
         end
       end
       # checkout items each libraries
@@ -4564,8 +4631,11 @@ class StatisticReport < ActiveRecord::Base
             row.item("value8").value(to_format(value))
             row.item("valueall").value(sum)
             if i == 2
-              row.item(:library_line).show
-              line(row) if library == libraries.last
+              if library == libraries.last
+                line(row)
+              else
+                line_for_libraries(row)
+              end
             end
           end  
         end
@@ -4576,7 +4646,7 @@ class StatisticReport < ActiveRecord::Base
       report.page.list(:list).add_row do |row|
         row.item(:type).value(I18n.t('statistic_report.users'))
         row.item(:library).value(I18n.t('statistic_report.all_library'))
-        row.item(:option).value(I18n.t('statistic_report.all_users'))
+        #row.item(:option).value(I18n.t('statistic_report.all_users'))
         sum = 0
         8.times do |t|
           value = 0
@@ -4661,7 +4731,7 @@ class StatisticReport < ActiveRecord::Base
         sum = sum + value
         row.item("value8").value(to_format(value))
         row.item("valueall").value(sum)
-        row.item(:library_line).show
+        line_for_libraries(row)
       end
       # users each libraries
       libraries.each do |library|
@@ -4751,8 +4821,11 @@ class StatisticReport < ActiveRecord::Base
           sum = sum + value
           row.item("value8").value(to_format(value))
           row.item("valueall").value(sum)
-          row.item(:library_line).show
-          line(row) if library == libraries.last
+          if library == libraries.last
+            line(row)
+          else
+            line_for_libraries(row)
+          end
         end
       end
 
@@ -4906,7 +4979,7 @@ class StatisticReport < ActiveRecord::Base
         sum = sum + value
         row.item("value8").value(to_format(value))  
         row.item("valueall").value(sum)  
-        row.item(:library_line).show
+        line_for_libraries(row)
       end
       # reserves each libraries
       libraries.each do |library|
@@ -4974,8 +5047,11 @@ class StatisticReport < ActiveRecord::Base
           sum = sum + value
           row.item("value8").value(to_format(value))
           row.item("valueall").value(sum)
-          row.item(:library_line).show
-          line(row) if library == libraries.last
+          if library == libraries.last
+            line(row)
+          else
+            line_for_libraries(row)
+          end
         end
       end
 
@@ -6132,6 +6208,7 @@ class StatisticReport < ActiveRecord::Base
             end
             row.item(:library_line).show
             row.item(:condition_line).show
+            line_for_items(row) if library.shelves.size < 1
           end  
           # items each shelves and call_numbers
           library.shelves.each do |shelf|
@@ -6149,8 +6226,9 @@ class StatisticReport < ActiveRecord::Base
                   row.item("value#13").value(to_format(value)) if t == num_for_last_page - 1
                 end
               end
+              row.item("library_line").show
               row.item("condition_line").show
-              line_for_items(row) if call_numbers.nil?
+              line_for_items(row) if call_numbers.nil? and shelf == library.shelves.last
             end
             unless call_numbers.nil?
               call_numbers.each do |num|
@@ -6170,6 +6248,7 @@ class StatisticReport < ActiveRecord::Base
                     end
                   end
                   if num == call_numbers.last
+                    row.item("library_line").show
                     row.item("condition_line").show
                     line_for_items(row) if shelf == library.shelves.last
                   end
@@ -6608,6 +6687,7 @@ class StatisticReport < ActiveRecord::Base
             row.item("valueall").value(to_format(value)) if t == 2 # March(end of fiscal year)
             row.item(:library_line).show
             row.item(:condition_line).show
+            line_for_items(row) if library.shelves.size < 1
           end  
         end
         # items each shelves and call_numbers
@@ -6626,6 +6706,7 @@ class StatisticReport < ActiveRecord::Base
               end
               row.item("value#{t+1}").value(to_format(value))
               row.item("valueall").value(to_format(value)) if t == 2 # March(end of fiscal year)
+              row.item("library_line").show
               row.item("condition_line").show
             end
             line_for_items(row) if shelf == library.shelves.last && call_numbers.nil?
@@ -6644,6 +6725,7 @@ class StatisticReport < ActiveRecord::Base
                   row.item("value#{t+1}").value(to_format(value))
                   row.item("valueall").value(to_format(value)) if t == 2 # March(end of fiscal year)
                   if num == call_numbers.last
+                    row.item("library_line").show
                     row.item("condition_line").show
                     line_for_items(row) if shelf == library.shelves.last
                   end
@@ -7141,7 +7223,11 @@ class StatisticReport < ActiveRecord::Base
                   end
                 end
               end
-              row.item(:condition_line).show if checkout_type == checkout_types.last
+              if checkout_type == checkout_types.last
+                row.item(:library_line).show
+                row.item(:condition_line).show
+                line_for_items(row) if library.shelves.size < 1
+              end
             end
           end
           # accept items each shelves and call_numbers
@@ -7167,6 +7253,7 @@ class StatisticReport < ActiveRecord::Base
                   end
                 end
               end
+              row.item("library_line").show
               row.item("condition_line").show
               line_for_items(row) if shelf == library.shelves.last && call_numbers.nil?
             end
@@ -7195,6 +7282,7 @@ class StatisticReport < ActiveRecord::Base
                     end
                   end
                   if num == call_numbers.last
+                    row.item("library_line").show
                     row.item("condition_line").show
                     line_for_items(row) if shelf == library.shelves.last
                   end
@@ -7213,11 +7301,11 @@ class StatisticReport < ActiveRecord::Base
         # header
         if start_date != 27
           13.times do |t|
-            report.page.list(:list).header.item("column##{t+1}").value("#{t+start_date}#{t('statistic_report.date')}")
+            report.page.list(:list).header.item("column##{t+1}").value(I18n.t('statistic_report.date', :num => t+start_date))
           end
         else
           num_for_last_page.times do |t|
-            report.page.list(:list).header.item("column##{t+1}").value("#{t+start_date}#{t('statistic_report.date')}")
+            report.page.list(:list).header.item("column##{t+1}").value(I18n.t('statistic_report.date', :num => t+start_date))
           end
           report.page.list(:list).header.item("column#13").value(I18n.t('statistic_report.sum'))
         end
@@ -7381,7 +7469,11 @@ class StatisticReport < ActiveRecord::Base
                   end
                 end
               end
-              row.item(:condition_line).show if checkout_type == checkout_types.last
+              if checkout_type == checkout_types.last
+                row.item(:library_line).show
+                row.item(:condition_line).show
+                line_for_items(row) if library.shelves.size < 1
+              end
             end
           end
           # remove items each shelves and call_numbers
@@ -7407,6 +7499,7 @@ class StatisticReport < ActiveRecord::Base
                   end
                 end
               end
+              row.item("library_line").show
               row.item("condition_line").show
               line_for_items(row) if shelf == library.shelves.last && call_numbers.nil?
             end
@@ -7435,6 +7528,7 @@ class StatisticReport < ActiveRecord::Base
                     end
                   end
                   if num == call_numbers.last
+                    row.item("library_line").show
                     row.item("condition_line").show
                     line_for_items(row) if shelf == library.shelves.last
                   end
@@ -7820,7 +7914,11 @@ class StatisticReport < ActiveRecord::Base
               sum += value
             end
             row.item("valueall").value(sum)
-            row.item(:condition_line).show if checkout_type == checkout_types.last
+            if checkout_type == checkout_types.last
+              row.item(:library_line).show
+              row.item(:condition_line).show
+              line_for_items(row) if library.shelves.size < 1
+            end
           end
         end
         # accept items each shelves and call_numbers
@@ -7838,6 +7936,7 @@ class StatisticReport < ActiveRecord::Base
               sum += value
             end
             row.item("valueall").value(sum)
+            row.item("library_line").show
             row.item("condition_line").show
             line_for_items(row) if shelf == library.shelves.last && call_numbers.nil?
           end
@@ -7858,6 +7957,7 @@ class StatisticReport < ActiveRecord::Base
                 end
                 row.item("valueall").value(sum)
                 if num == call_numbers.last
+                  row.item("library_line").show
                   row.item("condition_line").show
                   line_for_items(row) if shelf == library.shelves.last
                 end
@@ -7989,7 +8089,11 @@ class StatisticReport < ActiveRecord::Base
               sum += value
             end
             row.item("valueall").value(sum)
-            row.item(:condition_line).show if checkout_type == checkout_types.last
+            if checkout_type == checkout_types.last
+              row.item(:library_line).show
+              row.item(:condition_line).show
+              line_for_items(row) if library.shelves.size < 1
+            end
           end
         end
         # remove items each shelves and call_numbers
@@ -8011,6 +8115,7 @@ class StatisticReport < ActiveRecord::Base
               sum += value
             end
             row.item("valueall").value(sum)
+            row.item("library_line").show
             row.item("condition_line").show
             line_for_items(row) if shelf == library.shelves.last && call_numbers.nil?
           end
@@ -8031,6 +8136,7 @@ class StatisticReport < ActiveRecord::Base
                 end
                 row.item("valueall").value(sum)
                 if num == call_numbers.last
+                  row.item("library_line").show
                   row.item("condition_line").show
                   line_for_items(row) if shelf == library.shelves.last
                 end
@@ -8576,7 +8682,9 @@ class StatisticReport < ActiveRecord::Base
                   end
                 end
               end
-              row.item(:type_line).show if borrowing_library == libraries.last || (borrowing_library == libraries[-2] && library == libraries.last)
+              if borrowing_library == libraries.last || (borrowing_library == libraries[-2] && library == libraries.last)
+                line_loan(row)
+              end
             end
           end
           # checkin loan
@@ -8740,7 +8848,7 @@ class StatisticReport < ActiveRecord::Base
               sum += value
             end
             row.item("valueall").value(sum)
-            row.item(:type_line).show if borrowing_library == libraries.last || (borrowing_library == libraries[-2] && library == libraries.last)
+            line_loan(row) if borrowing_library == libraries.last || (borrowing_library == libraries[-2] && library == libraries.last)
           end
         end
         # checkin loan
@@ -8865,6 +8973,27 @@ class StatisticReport < ActiveRecord::Base
 private
   def self.line(row)
     row.item(:type_line).show
+    row.item(:library_line).show
+    row.item(:library_line).style(:border_color, '#000000')
+    row.item(:library_line).style(:border_width, 1)
+    row.item(:option_line).style(:border_color, '#000000')
+    row.item(:option_line).style(:border_width, 1)
+    row.item(:values_line).style(:border_color, '#000000')
+    row.item(:values_line).style(:border_width, 1)
+  end
+
+  def self.line_loan(row)
+    row.item(:type_line).show
+    row.item(:type_line).style(:border_color, '#000000')
+    row.item(:type_line).style(:border_width, 1)
+    row.item(:library_line).show
+    row.item(:library_line).style(:border_color, '#000000')
+    row.item(:library_line).style(:border_width, 1)
+    row.item(:values_line).style(:border_color, '#000000')
+    row.item(:values_line).style(:border_width, 1)
+  end
+
+  def self.line_for_libraries(row)
     row.item(:library_line).show
     row.item(:library_line).style(:border_color, '#000000')
     row.item(:library_line).style(:border_width, 1)
