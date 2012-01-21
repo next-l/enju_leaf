@@ -184,7 +184,7 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_resource_merge.git
-  revision: 164cfc36312f1334e9165899f96d9e6acaacf525
+  revision: a9c28c921b547a4c8e1644cb1e94a2ac774e202c
   specs:
     enju_resource_merge (0.0.3)
       attribute_normalizer (~> 1.0)

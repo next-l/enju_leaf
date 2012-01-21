@@ -17,13 +17,7 @@
         end
       end
     end
-    xml.tag! 'dc:creator' do
-      xml.tag! 'rdf:Seq' do
-        manifestation.contributors.readable_by(current_user).each do |contributor|
-          xml.tag! 'rdf:li', contributor.full_name
-        end
-      end
-    end
+    # TODO: contributor
     xml.tag! 'dc:publisher' do
       xml.tag! 'rdf:Seq' do
         manifestation.publishers.readable_by(current_user).each do |publisher|

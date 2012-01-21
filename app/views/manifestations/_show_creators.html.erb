@@ -10,7 +10,6 @@
     <%- end -%>
   <%- end -%>
 
-  <%= patrons_list(manifestation.contributors.readable_by(current_user)) %>
   <%= patrons_list(manifestation.publishers.readable_by(current_user)) %>
   <%- if manifestation.pub_date.present? -%>
     (<%= manifestation.pub_date -%>)

@@ -118,11 +118,6 @@ class ApplicationController < ActionController::Base
     authorize! :show, @work if @work
   end
 
-  def get_expression
-    @expression = Manifestation.find(params[:expression_id]) if params[:expression_id]
-    authorize! :show, @expression if @expression
-  end
-
   def get_manifestation
     @manifestation = Manifestation.find(params[:manifestation_id]) if params[:manifestation_id]
     authorize! :show, @manifestation if @manifestation
@@ -282,7 +277,6 @@ class ApplicationController < ActionController::Base
     set_role_query(current_user, search)
 
     unless params[:mode] == "add"
-      expression = @expression
       patron = @patron
       manifestation = @manifestation
       reservable = @reservable

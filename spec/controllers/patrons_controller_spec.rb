@@ -124,11 +124,6 @@ describe PatronsController do
         response.should be_missing
       end
 
-      it "should not show patron who does not realize an expression" do
-        get :show, :id => 4, :expression_id => 4
-        response.should be_missing
-      end
-
       it "should not show patron who does not produce a manifestation" do
         get :show, :id => 4, :manifestation_id => 4
         response.should be_missing
@@ -171,11 +166,6 @@ describe PatronsController do
       it "should show patron with work" do
         get :show, :id => 1, :work_id => 1
         assigns(:patron).should eq assigns(:work).creators.first
-      end
-
-      it "should show patron with expression" do
-        get :show, :id => 1, :expression_id => 1
-        assigns(:patron).should eq assigns(:expression).contributors.first
       end
 
       it "should show patron with manifestation" do

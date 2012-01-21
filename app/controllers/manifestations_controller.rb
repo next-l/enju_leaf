@@ -4,7 +4,6 @@ class ManifestationsController < ApplicationController
   authorize_resource :only => :index
   before_filter :authenticate_user!, :only => :edit
   before_filter :get_patron
-  before_filter :get_expression, :only => :new
   helper_method :get_manifestation
   if defined?(EnjuSubject)
     helper_method :get_subject
@@ -99,7 +98,7 @@ class ManifestationsController < ApplicationController
       @query = query.dup
       query = query.gsub('　', ' ')
 
-      includes = [:carrier_type, :required_role, :items, :creators, :contributors, :publishers]
+      includes = [:carrier_type, :required_role, :items, :creators, :publishers]
       includes << :bookmarks if defined?(EnjuBookmark)
       search = Manifestation.search(:include => includes)
       role = current_user.try(:role) || Role.default_role
@@ -125,7 +124,6 @@ class ManifestationsController < ApplicationController
       unless mode == 'add'
         search.build do
           with(:creator_ids).equal_to patron[:creator].id if patron[:creator]
-          with(:contributor_ids).equal_to patron[:contributor].id if patron[:contributor]
           with(:publisher_ids).equal_to patron[:publisher].id if patron[:publisher]
           with(:original_manifestation_ids).equal_to manifestation.id if manifestation
           with(:series_statement_id).equal_to series_statement.id if series_statement
@@ -533,10 +531,6 @@ class ManifestationsController < ApplicationController
       query = "#{query} creator_text:#{options[:creator]}"
     end
 
-    unless options[:contributor].blank?
-      query = "#{query} contributor_text:#{options[:contributor]}"
-    end
-
     unless options[:isbn].blank?
       query = "#{query} isbn_sm:#{options[:isbn].gsub('-', '')}"
     end
@@ -656,8 +650,6 @@ class ManifestationsController < ApplicationController
       patron[:patron] = Patron.find(params[:patron_id])
     when params[:creator_id]
       patron[:creator] = Patron.find(params[:creator_id])
-    when params[:contributor_id]
-      patron[:contributor] = Patron.find(params[:contributor_id])
     when params[:publisher_id]
       patron[:publisher] = Patron.find(params[:publisher_id])
     end
@@ -743,9 +735,6 @@ class ManifestationsController < ApplicationController
     elsif @original_manifestation
       @manifestation.original_title = @original_manifestation.original_title
       @manifestation.title_transcription = @original_manifestation.title_transcription
-    elsif @expression
-      @manifestation.original_title = @expression.original_title
-      @manifestation.title_transcription = @expression.title_transcription
     end
   end
 end

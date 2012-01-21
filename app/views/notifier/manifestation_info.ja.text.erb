@@ -2,7 +2,6 @@
 
 資料名: <%=h @manifestation.original_title %>
 著者: <%=h @manifestation.creators.readable_by(@user).collect(&:full_name).join("/") %>
-編者: <%=h @manifestation.contributors.readable_by(@user).collect(&:full_name).join("/") %> 
 出版者: <%=h @manifestation.publishers.readable_by(@user).collect(&:full_name).join("/") %>
 ISBN: <%=h @manifestation.isbn %>
 URL: <%=h @manifestation.access_address %>

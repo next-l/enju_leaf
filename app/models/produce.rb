@@ -1,6 +1,7 @@
 class Produce < ActiveRecord::Base
   belongs_to :patron
   belongs_to :manifestation
+  belongs_to :produce_type
   delegate :original_title, :to => :manifestation, :prefix => true
 
   validates_associated :patron, :manifestation

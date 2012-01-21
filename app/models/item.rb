@@ -25,7 +25,7 @@ class Item < ActiveRecord::Base
   normalize_attributes :item_identifier
 
   searchable do
-    text :item_identifier, :note, :title, :creator, :contributor, :publisher
+    text :item_identifier, :note, :title, :creator, :publisher
     string :item_identifier
     string :library do
       shelf.library.name if shelf
@@ -202,10 +202,6 @@ class Item < ActiveRecord::Base
 
   def creator
     manifestation.try(:creator)
-  end
-
-  def contributor
-    manifestation.try(:contributor)
   end
 
   def publisher

@@ -157,19 +157,8 @@ class ResourceImportFile < ActiveRecord::Base
     work
   end
 
-  def self.import_expression(work, patrons, options = {:edit_mode => 'create'})
-    expression = work
-    case options[:edit_mode]
-    when 'create'
-      expression.contributors << patrons
-    when 'update'
-      expression.contributors = patrons
-    end
-    expression
-  end
-
-  def self.import_manifestation(expression, patrons, options = {}, edit_options = {:edit_mode => 'create'})
-    manifestation = expression
+  def self.import_manifestation(work, patrons, options = {}, edit_options = {:edit_mode => 'create'})
+    manifestation = work
     manifestation.update_attributes!(options.merge(:during_import => true))
     case edit_options[:edit_mode]
     when 'create'
@@ -208,7 +197,7 @@ class ResourceImportFile < ActiveRecord::Base
 
     # TODO
     for record in reader
-      manifestation = Manifestation.new(:original_title => expression.original_title)
+      manifestation = Manifestation.new(:original_title => work.original_title)
       manifestation.carrier_type = CarrierType.find(1)
       manifestation.frequency = Frequency.find(1)
       manifestation.language = Language.find(1)
@@ -292,7 +281,7 @@ class ResourceImportFile < ActiveRecord::Base
 
   def import_subject(row)
     subjects = []
-    row['subject'].to_s.split(';').each do |s|
+    row['subject'].to_s.split('//').each do |s|
       subject = Subject.where(:term => s.to_s.strip).first
       unless subject
         # TODO: Subject typeの設定
@@ -360,6 +349,7 @@ class ResourceImportFile < ActiveRecord::Base
     language = Language.where(:name => row['language'].to_s.strip.camelize).first
     language = Language.where(:iso_639_2 => row['language'].to_s.strip.downcase).first unless language
     language = Language.where(:iso_639_1 => row['language'].to_s.strip.downcase).first unless language
+    language = Language.where(:name => 'unknown').first unless language
 
     if end_page >= 1
       start_page = 1
@@ -368,18 +358,14 @@ class ResourceImportFile < ActiveRecord::Base
       end_page = nil
     end
 
-    creators = row['creator'].to_s.split(';')
-    creator_transcriptions = row['creator_transcription'].to_s.split(';')
+    creators = row['creator'].to_s.split('//')
+    creator_transcriptions = row['creator_transcription'].to_s.split('//')
     creators_list = creators.zip(creator_transcriptions).map{|f,t| {:full_name => f.to_s.strip, :full_name_transcription => t.to_s.strip}}
-    contributors = row['contributor'].to_s.split(';')
-    contributor_transcriptions = row['contributor_transcription'].to_s.split(';')
-    contributors_list = contributors.zip(contributor_transcriptions).map{|f,t| {:full_name => f.to_s.strip, :full_name_transcription => t.to_s.strip}}
-    publishers = row['publisher'].to_s.split(';')
-    publisher_transcriptions = row['publisher_transcription'].to_s.split(';')
+    publishers = row['publisher'].to_s.split('//')
+    publisher_transcriptions = row['publisher_transcription'].to_s.split('//')
     publishers_list = publishers.zip(publisher_transcriptions).map{|f,t| {:full_name => f.to_s.strip, :full_name_transcription => t.to_s.strip}}
     ResourceImportFile.transaction do
       creator_patrons = Patron.import_patrons(creators_list)
-      contributor_patrons = Patron.import_patrons(contributors_list)
       publisher_patrons = Patron.import_patrons(publishers_list)
       #classification = Classification.where(:category => row['classification'].to_s.strip).first
       subjects = import_subject(row) if defined?(EnjuSubject)
@@ -391,19 +377,16 @@ class ResourceImportFile < ActiveRecord::Base
         if defined?(EnjuSubject)
           work.subjects << subjects unless subjects.empty?
         end
-        expression = self.class.import_expression(work, contributor_patrons)
       when 'update'
-        expression = manifestation
-        work = expression
+        work = manifestation
         work.series_statement = series_statement
         if defined?(EnjuSubject)
           work.subjects = subjects
         end
         work.creators = creator_patrons
-        expression.contributors = contributor_patrons
       end
 
-      manifestation = self.class.import_manifestation(expression, publisher_patrons, {
+      manifestation = self.class.import_manifestation(work, publisher_patrons, {
         :original_title => title[:original_title],
         :title_transcription => title[:title_transcription],
         :title_alternative => title[:title_alternative],
@@ -434,9 +417,13 @@ class ResourceImportFile < ActiveRecord::Base
       {
         :edit_mode => options[:edit_mode]
       })
+      manifestation.required_role = Role.where(:name => row['required_role_name'].to_s.strip.camelize).first || Role.find('Guest')
+      manifestation.language = language
+      manifestation.save!
+
+      manifestation.set_patron_role_type(creators_list)
+      manifestation.set_patron_role_type(publishers_list, :scope => :publisher)
     end
-    manifestation.required_role = Role.where(:name => row['required_role_name'].to_s.strip.camelize).first || Role.find('Guest')
-    manifestation.language = language
     manifestation
   end
 
