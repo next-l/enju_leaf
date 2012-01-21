@@ -1,35 +1,7 @@
 <div id="content_detail" class="ui-corner-all">
 <h1 class="title"><%= t('page.new', :model => t('activerecord.models.create')) -%></h1>
 <div id="content_list">
-
-<%= form_for(@create) do |f| -%>
-  <%= f.error_messages -%>
-
-  <div class="field">
-    <%= f.label t('activerecord.models.patron') -%><br />
-    <%- if @create.patron -%>
-      <%= link_to @create.patron.full_name, @create.patron -%>
-      <%= f.hidden_field :patron_id -%>
-    <%- else -%>
-      <%= f.text_field :patron_id -%>
-    <%- end -%>
-  </div>
-
-  <div class="field">
-    <%= f.label t('activerecord.models.work') -%><br />
-    <%- if @create.work -%>
-      <%= link_to @create.work.original_title, @create.work -%>
-      <%= f.hidden_field :work_id -%>
-    <%- else -%>
-      <%= f.text_field :work_id -%>
-    <%- end -%>
-  </div>
-
-  <div class="actions">
-    <%= f.submit %>
-  </div>
-<%- end -%>
-
+  <%= render 'form' %>
 </div>
 </div>
 
