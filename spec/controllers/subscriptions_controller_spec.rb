@@ -5,7 +5,7 @@ describe SubscriptionsController do
   disconnect_sunspot
 
   def valid_attributes
-    FactoryGirl.build(:subscription).attributes.reject!{|k, v| v.nil?}
+    FactoryGirl.attributes_for(:subscription)
   end
 
   describe "GET index" do

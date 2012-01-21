@@ -6,7 +6,7 @@ describe CreatesController do
   disconnect_sunspot
 
   def valid_attributes
-    FactoryGirl.build(:create).attributes.reject!{|k, v| v.nil?}
+    FactoryGirl.attributes_for(:create)
   end
 
   describe "GET index" do

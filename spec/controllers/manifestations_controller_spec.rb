@@ -4,7 +4,7 @@ describe ManifestationsController do
   fixtures :all
 
   def valid_attributes
-    FactoryGirl.build(:manifestation).attributes.reject!{|k, v| v.nil?}
+    FactoryGirl.attributes_for(:manifestation)
   end
 
   describe "GET index", :solr => true do

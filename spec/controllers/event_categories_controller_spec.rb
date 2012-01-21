@@ -6,7 +6,7 @@ describe EventCategoriesController do
   disconnect_sunspot
 
   def valid_attributes
-    FactoryGirl.build(:event_category).attributes.reject!{|k, v| v.nil?}
+    FactoryGirl.attributes_for(:event_category)
   end
 
   describe "GET index" do

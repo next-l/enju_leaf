@@ -4,7 +4,7 @@ describe ClassificationsController do
   fixtures :all
 
   def valid_attributes
-    FactoryGirl.build(:classification).attributes.reject!{|k, v| v.nil?}
+    FactoryGirl.attributes_for(:classification)
   end
 
   describe "GET index", :solr => true do

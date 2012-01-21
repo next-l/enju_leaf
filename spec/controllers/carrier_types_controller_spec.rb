@@ -6,7 +6,7 @@ describe CarrierTypesController do
   disconnect_sunspot
 
   def valid_attributes
-    FactoryGirl.build(:carrier_type).attributes.reject!{|k, v| v.nil?}
+    FactoryGirl.attributes_for(:carrier_type)
   end
 
   describe "GET index" do

@@ -6,7 +6,7 @@ describe ClassificationTypesController do
   disconnect_sunspot
 
   def valid_attributes
-    FactoryGirl.build(:classification_type).attributes.reject!{|k, v| v.nil?}
+    FactoryGirl.attributes_for(:classification_type)
   end
 
   describe "GET index" do

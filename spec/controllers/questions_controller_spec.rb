@@ -4,7 +4,7 @@ describe QuestionsController do
   fixtures :all
 
   def valid_attributes
-    @attrs = FactoryGirl.build(:question).attributes.reject!{|k, v| v.nil?}
+    @attrs = FactoryGirl.attributes_for(:question)
   end
 
   describe "GET index", :solr => true do

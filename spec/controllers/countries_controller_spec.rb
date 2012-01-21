@@ -6,7 +6,7 @@ describe CountriesController do
   disconnect_sunspot
 
   def valid_attributes
-    FactoryGirl.build(:country).attributes.reject!{|k, v| v.nil?}
+    FactoryGirl.attributes_for(:country)
   end
 
   describe "GET index" do

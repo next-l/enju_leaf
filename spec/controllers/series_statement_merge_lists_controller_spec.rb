@@ -5,7 +5,7 @@ describe SeriesStatementMergeListsController do
   disconnect_sunspot
 
   def valid_attributes
-    FactoryGirl.build(:series_statement_merge_list).attributes.reject!{|k, v| v.nil?}
+    FactoryGirl.attributes_for(:series_statement_merge_list)
   end
 
   describe "GET index" do

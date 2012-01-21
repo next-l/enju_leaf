@@ -6,7 +6,7 @@ describe ReserveStatHasUsersController do
   disconnect_sunspot
 
   def valid_attributes
-    FactoryGirl.build(:reserve_stat_has_user).attributes.reject!{|k, v| v.nil?}
+    FactoryGirl.attributes_for(:reserve_stat_has_user)
   end
 
   describe "GET index" do

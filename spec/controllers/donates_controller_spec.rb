@@ -6,7 +6,7 @@ describe DonatesController do
   disconnect_sunspot
 
   def valid_attributes
-    FactoryGirl.build(:donate).attributes.reject!{|k, v| v.nil?}
+    FactoryGirl.attributes_for(:donate)
   end
 
   describe "GET index" do

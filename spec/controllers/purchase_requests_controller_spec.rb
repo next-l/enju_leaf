@@ -4,7 +4,7 @@ describe PurchaseRequestsController do
   fixtures :all
 
   def valid_attributes
-    FactoryGirl.build(:purchase_request).attributes.reject!{|k, v| v.nil?}
+    FactoryGirl.attributes_for(:purchase_request)
   end
 
   describe "GET index", :solr => true do

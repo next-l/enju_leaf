@@ -6,7 +6,7 @@ describe FormOfWorksController do
   disconnect_sunspot
 
   def valid_attributes
-    FactoryGirl.build(:form_of_work).attributes.reject!{|k, v| v.nil?}
+    FactoryGirl.attributes_for(:form_of_work)
   end
 
   describe "GET index" do

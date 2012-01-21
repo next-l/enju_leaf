@@ -4,7 +4,7 @@ describe ShelvesController do
   fixtures :all
 
   def valid_attributes
-    FactoryGirl.build(:shelf).attributes.reject!{|k, v| v.nil?}
+    FactoryGirl.attributes_for(:shelf)
   end
 
   describe "GET index" do

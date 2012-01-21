@@ -117,8 +117,9 @@ end
 group :development, :test do
   gem 'rspec-rails', '~> 2.8.1'
   gem 'guard-rspec'
-  gem 'factory_girl_rails', '~> 1.5'
+  gem 'factory_girl_rails', '~> 1.6'
   gem 'spork', '~> 0.9.0.rc9'
+  gem 'rcov', '0.9.11'
   gem 'metric_fu', '~> 2.1'
   gem 'timecop'
   gem 'sunspot-rails-tester', :git => 'git://github.com/nabeta/sunspot-rails-tester.git'

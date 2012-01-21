@@ -6,7 +6,7 @@ describe SearchEnginesController do
   disconnect_sunspot
 
   def valid_attributes
-    FactoryGirl.build(:search_engine).attributes.reject!{|k, v| v.nil?}
+    FactoryGirl.attributes_for(:search_engine)
   end
 
   describe "GET index" do

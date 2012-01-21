@@ -6,7 +6,7 @@ describe LicensesController do
   disconnect_sunspot
 
   def valid_attributes
-    FactoryGirl.build(:license).attributes.reject!{|k, v| v.nil?}
+    FactoryGirl.attributes_for(:license)
   end
 
   describe "GET index" do

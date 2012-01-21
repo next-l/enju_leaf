@@ -5,7 +5,7 @@ describe ExemplifiesController do
   disconnect_sunspot
 
   def valid_attributes
-    FactoryGirl.build(:exemplify).attributes.reject!{|k, v| v.nil?}
+    FactoryGirl.attributes_for(:exemplify)
   end
 
   describe "GET index" do

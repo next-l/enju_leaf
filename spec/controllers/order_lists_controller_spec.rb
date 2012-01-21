@@ -5,7 +5,7 @@ describe OrderListsController do
   disconnect_sunspot
 
   def valid_attributes
-    FactoryGirl.build(:order_list).attributes.reject!{|k, v| v.nil?}
+    FactoryGirl.attributes_for(:order_list)
   end
 
   describe "GET index" do

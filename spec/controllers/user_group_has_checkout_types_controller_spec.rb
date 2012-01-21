@@ -6,7 +6,7 @@ describe UserGroupHasCheckoutTypesController do
   disconnect_sunspot
 
   def valid_attributes
-    FactoryGirl.build(:user_group_has_checkout_type).attributes.reject!{|k, v| v.nil?}
+    FactoryGirl.attributes_for(:user_group_has_checkout_type)
   end
 
   describe "GET index" do

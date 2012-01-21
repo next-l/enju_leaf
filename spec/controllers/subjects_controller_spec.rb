@@ -4,7 +4,7 @@ describe SubjectsController do
   fixtures :all
 
   def valid_attributes
-    FactoryGirl.build(:subject).attributes.reject!{|k, v| v.nil?}
+    FactoryGirl.attributes_for(:subject)
   end
 
   describe "GET index", :solr => true do

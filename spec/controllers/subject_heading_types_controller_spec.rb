@@ -6,7 +6,7 @@ describe SubjectHeadingTypesController do
   disconnect_sunspot
 
   def valid_attributes
-    FactoryGirl.build(:subject_heading_type).attributes.reject!{|k, v| v.nil?}
+    FactoryGirl.attributes_for(:subject_heading_type)
   end
 
   describe "GET index" do

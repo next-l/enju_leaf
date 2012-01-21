@@ -6,7 +6,7 @@ describe ContentTypesController do
   disconnect_sunspot
 
   def valid_attributes
-    FactoryGirl.build(:content_type).attributes.reject!{|k, v| v.nil?}
+    FactoryGirl.attributes_for(:content_type)
   end
 
   describe "GET index" do

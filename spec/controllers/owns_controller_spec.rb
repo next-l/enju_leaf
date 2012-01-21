@@ -6,7 +6,7 @@ describe OwnsController do
   disconnect_sunspot
 
   def valid_attributes
-    FactoryGirl.build(:own).attributes.reject!{|k, v| v.nil?}
+    FactoryGirl.attributes_for(:own)
   end
 
   describe "GET index" do

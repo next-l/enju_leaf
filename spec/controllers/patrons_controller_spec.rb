@@ -4,7 +4,7 @@ describe PatronsController do
   fixtures :all
 
   def valid_attributes
-    FactoryGirl.build(:patron).attributes.reject!{|k, v| v.nil?}
+    FactoryGirl.attributes_for(:patron)
   end
 
   describe "GET index", :solr => true do

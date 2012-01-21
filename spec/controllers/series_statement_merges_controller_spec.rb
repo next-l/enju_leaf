@@ -4,7 +4,7 @@ describe SeriesStatementMergesController do
   fixtures :all
 
   def valid_attributes
-    FactoryGirl.build(:series_statement_merge).attributes.reject!{|k, v| v.nil?}
+    FactoryGirl.attributes_for(:series_statement_merge)
   end
 
   describe "GET index" do

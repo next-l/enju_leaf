@@ -6,7 +6,7 @@ describe ReserveStatHasManifestationsController do
   disconnect_sunspot
 
   def valid_attributes
-    FactoryGirl.build(:reserve_stat_has_manifestation).attributes.reject!{|k, v| v.nil?}
+    FactoryGirl.attributes_for(:reserve_stat_has_manifestation)
   end
 
   describe "GET index" do

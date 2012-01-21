@@ -6,7 +6,7 @@ describe BookstoresController do
   disconnect_sunspot
 
   def valid_attributes
-    FactoryGirl.build(:bookstore).attributes.reject!{|k, v| v.nil?}
+    FactoryGirl.attributes_for(:bookstore)
   end
 
   describe "GET index" do

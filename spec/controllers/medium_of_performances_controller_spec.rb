@@ -6,7 +6,7 @@ describe MediumOfPerformancesController do
   disconnect_sunspot
 
   def valid_attributes
-    FactoryGirl.build(:medium_of_performance).attributes.reject!{|k, v| v.nil?}
+    FactoryGirl.attributes_for(:medium_of_performance)
   end
 
   describe "GET index" do

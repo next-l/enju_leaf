@@ -6,7 +6,7 @@ describe ExtentsController do
   disconnect_sunspot
 
   def valid_attributes
-    FactoryGirl.build(:extent).attributes.reject!{|k, v| v.nil?}
+    FactoryGirl.attributes_for(:extent)
   end
 
   describe "GET index" do

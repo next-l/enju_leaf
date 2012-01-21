@@ -6,7 +6,7 @@ describe BookmarkStatHasManifestationsController do
   disconnect_sunspot
 
   def valid_attributes
-    FactoryGirl.build(:bookmark_stat_has_manifestation).attributes.reject!{|k, v| v.nil?}
+    FactoryGirl.attributes_for(:bookmark_stat_has_manifestation)
   end
 
   describe "GET index" do

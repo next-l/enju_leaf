@@ -5,7 +5,7 @@ describe ParticipatesController do
   disconnect_sunspot
 
   def valid_attributes
-    FactoryGirl.build(:participate).attributes.reject!{|k, v| v.nil?}
+    FactoryGirl.attributes_for(:participate)
   end
 
   describe "GET index" do

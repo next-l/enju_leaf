@@ -3,7 +3,7 @@ require 'spec_helper'
 describe SeriesStatementsController do
 
   def valid_attributes
-    FactoryGirl.build(:series_statement).attributes.reject!{|k, v| v.nil?}
+    FactoryGirl.attributes_for(:series_statement)
   end
 
   describe "GET index", :solr => true do

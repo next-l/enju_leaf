@@ -4,7 +4,7 @@ describe PatronMergesController do
   fixtures :all
 
   def valid_attributes
-    FactoryGirl.build(:patron_merge).attributes.reject!{|k, v| v.nil?}
+    FactoryGirl.attributes_for(:patron_merge)
   end
 
   describe "GET index" do

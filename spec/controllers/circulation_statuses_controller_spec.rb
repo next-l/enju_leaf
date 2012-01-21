@@ -6,7 +6,7 @@ describe CirculationStatusesController do
   disconnect_sunspot
 
   def valid_attributes
-    FactoryGirl.build(:circulation_status).attributes.reject!{|k, v| v.nil?}
+    FactoryGirl.attributes_for(:circulation_status)
   end
 
   describe "GET index" do

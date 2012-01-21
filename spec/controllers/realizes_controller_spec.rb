@@ -5,7 +5,7 @@ describe RealizesController do
   disconnect_sunspot
 
   def valid_attributes
-    FactoryGirl.build(:realize).attributes.reject!{|k, v| v.nil?}
+    FactoryGirl.attributes_for(:realize)
   end
 
   describe "GET index" do

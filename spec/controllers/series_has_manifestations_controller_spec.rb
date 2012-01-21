@@ -6,7 +6,7 @@ describe SeriesHasManifestationsController do
   disconnect_sunspot
 
   def valid_attributes
-    FactoryGirl.build(:series_has_manifestation).attributes.reject!{|k, v| v.nil?}
+    FactoryGirl.attributes_for(:series_has_manifestation)
   end
 
   def mock_series_has_manifestation(stubs={})

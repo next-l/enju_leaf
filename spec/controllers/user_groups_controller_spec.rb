@@ -4,7 +4,7 @@ describe UserGroupsController do
   fixtures :all
 
   def valid_attributes
-    FactoryGirl.build(:user_group).attributes.reject!{|k, v| v.nil?}
+    FactoryGirl.attributes_for(:user_group)
   end
 
   describe "GET index" do

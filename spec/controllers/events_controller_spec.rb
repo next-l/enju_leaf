@@ -4,7 +4,7 @@ describe EventsController do
   fixtures :all
 
   def valid_attributes
-    FactoryGirl.build(:event).attributes.reject!{|k, v| v.nil?}
+    FactoryGirl.attributes_for(:event)
   end
 
   describe "GET index", :solr => true do

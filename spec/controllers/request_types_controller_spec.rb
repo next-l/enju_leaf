@@ -6,7 +6,7 @@ describe RequestTypesController do
   disconnect_sunspot
 
   def valid_attributes
-    FactoryGirl.build(:request_status_type).attributes.reject!{|k, v| v.nil?}
+    FactoryGirl.attributes_for(:request_status_type)
   end
 
   describe "GET index" do

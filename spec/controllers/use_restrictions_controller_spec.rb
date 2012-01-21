@@ -6,7 +6,7 @@ describe UseRestrictionsController do
   disconnect_sunspot
 
   def valid_attributes
-     FactoryGirl.build(:use_restriction).attributes.reject!{|k, v| v.nil?}
+     FactoryGirl.attributes_for(:use_restriction)
   end
 
   describe "GET index" do

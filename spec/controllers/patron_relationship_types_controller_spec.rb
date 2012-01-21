@@ -6,7 +6,7 @@ describe PatronRelationshipTypesController do
   disconnect_sunspot
 
   def valid_attributes
-    FactoryGirl.build(:patron_relationship_type).attributes.reject!{|k, v| v.nil?}
+    FactoryGirl.attributes_for(:patron_relationship_type)
   end
 
   describe "GET index" do

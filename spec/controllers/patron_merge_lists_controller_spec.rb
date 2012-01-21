@@ -6,7 +6,7 @@ describe PatronMergeListsController do
   disconnect_sunspot
 
   def valid_attributes
-    FactoryGirl.build(:patron_merge_list).attributes.reject!{|k, v| v.nil?}
+    FactoryGirl.attributes_for(:patron_merge_list)
   end
 
   describe "GET index" do

@@ -6,7 +6,7 @@ describe WorkHasSubjectsController do
   disconnect_sunspot
 
   def valid_attributes
-    FactoryGirl.build(:work_has_subject).attributes.reject!{|k, v| v.nil?}
+    FactoryGirl.attributes_for(:work_has_subject)
   end
 
   describe "GET index" do

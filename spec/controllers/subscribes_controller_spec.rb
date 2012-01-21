@@ -4,7 +4,7 @@ describe SubscribesController do
   fixtures :all
 
   def valid_attributes
-    FactoryGirl.build(:subscribe).attributes.reject!{|k, v| v.nil?}
+    FactoryGirl.attributes_for(:subscribe)
   end
 
   describe "GET index" do

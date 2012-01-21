@@ -5,7 +5,7 @@ describe BookmarksController do
   fixtures :all
 
   def valid_attributes
-    FactoryGirl.build(:bookmark).attributes.reject!{|k, v| v.nil?}
+    FactoryGirl.attributes_for(:bookmark)
   end
 
   describe "GET index", :solr => true do

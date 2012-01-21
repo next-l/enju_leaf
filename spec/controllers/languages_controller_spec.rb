@@ -5,7 +5,7 @@ describe LanguagesController do
   disconnect_sunspot
 
   def valid_attributes
-     FactoryGirl.build(:language).attributes.reject!{|k, v| v.nil?}
+     FactoryGirl.attributes_for(:language)
   end
 
   describe "GET index" do

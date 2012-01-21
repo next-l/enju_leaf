@@ -6,7 +6,7 @@ describe FrequenciesController do
   disconnect_sunspot
 
   def valid_attributes
-    FactoryGirl.build(:frequency).attributes.reject!{|k, v| v.nil?}
+    FactoryGirl.attributes_for(:frequency)
   end
 
   describe "GET index" do

@@ -6,7 +6,7 @@ describe UserCheckoutStatsController do
   disconnect_sunspot
 
   def valid_attributes
-    FactoryGirl.build(:user_checkout_stat).attributes.reject!{|k, v| v.nil?}
+    FactoryGirl.attributes_for(:user_checkout_stat)
   end
 
   describe "GET index" do

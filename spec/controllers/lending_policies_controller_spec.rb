@@ -6,7 +6,7 @@ describe LendingPoliciesController do
   disconnect_sunspot
 
   def valid_attributes
-    FactoryGirl.build(:lending_policy).attributes.reject!{|k, v| v.nil?}
+    FactoryGirl.attributes_for(:lending_policy)
   end
 
   describe "GET index" do

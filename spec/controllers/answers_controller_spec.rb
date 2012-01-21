@@ -4,7 +4,7 @@ describe AnswersController do
   fixtures :all
 
   def valid_attributes
-    FactoryGirl.build(:answer).attributes.reject!{|k, v| v.nil?}
+    FactoryGirl.attributes_for(:answer)
   end
 
   describe "GET index" do

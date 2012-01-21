@@ -6,7 +6,7 @@ describe ManifestationRelationshipsController do
   disconnect_sunspot
 
   def valid_attributes
-    @attrs = FactoryGirl.build(:manifestation_relationship).attributes.reject!{|k, v| v.nil?}
+    @attrs = FactoryGirl.attributes_for(:manifestation_relationship)
   end
 
   describe "GET index" do

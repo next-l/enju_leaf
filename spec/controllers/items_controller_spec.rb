@@ -5,7 +5,7 @@ describe ItemsController do
   fixtures :all
 
   def valid_attributes
-    FactoryGirl.build(:item).attributes.reject!{|k, v| v.nil?}
+    FactoryGirl.attributes_for(:item)
   end
 
   describe "GET index", :solr => true do
