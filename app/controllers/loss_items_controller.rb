@@ -1,5 +1,5 @@
 class LossItemsController < ApplicationController
-  include EnjuLeaf::NotificationSound
+  include NotificationSound
   before_filter :check_librarian
   before_filter :get_user_if_nil
   before_filter :get_patron, :get_manifestation

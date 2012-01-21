@@ -1,6 +1,6 @@
 # -*- encoding: utf-8 -*-
 class ItemsController < ApplicationController
-  include EnjuLeaf::NotificationSound
+  include NotificationSound
   load_and_authorize_resource
   before_filter :get_user_if_nil
   before_filter :get_patron, :get_manifestation, :get_inventory_file
