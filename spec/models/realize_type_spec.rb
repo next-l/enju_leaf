@@ -1,7 +1,9 @@
 require 'spec_helper'
 
 describe RealizeType do
-  pending "add some examples to (or delete) #{__FILE__}"
+  it 'should create realize_type' do
+    FactoryGirl.create(:realize_type)
+  end
 end
 
 # == Schema Information
