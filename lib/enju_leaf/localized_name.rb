@@ -1,6 +1,6 @@
 module LocalizedName
-  def localize(locale = I18n.locale.to_s)
-    string = YAML.load(self)[locale]
+  def localize(locale = I18n.locale)
+    string = YAML.load(self)[locale.to_s]
     if string
       string
     else

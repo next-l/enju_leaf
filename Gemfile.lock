@@ -527,7 +527,7 @@ GEM
     simplecov-html (0.5.3)
     sitemap_generator (3.0.0)
       builder
-    spork (0.9.0.rc9)
+    spork (0.9.0)
     sprockets (2.1.2)
       hike (~> 1.2)
       rack (~> 1.0)
@@ -649,7 +649,7 @@ DEPENDENCIES
   simple_form (~> 1.5)
   simplecov (~> 0.5)
   sitemap_generator (~> 3.0)
-  spork (~> 0.9.0.rc9)
+  spork (~> 0.9)
   state_machine (~> 1.1.2)
   sunspot-rails-tester!
   sunspot_rails (~> 2.0.0.pre.111215)
