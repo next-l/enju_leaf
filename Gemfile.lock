@@ -188,6 +188,14 @@ GEM
       sunspot_rails
       sunspot_solr
       will_paginate (~> 3.0)
+<<<<<<< HEAD
+=======
+
+GIT
+  remote: git://github.com/nabeta/enju_ndl.git
+  revision: ac5616de2a72fe65575b71ad7c5c14a677e0a584
+  specs:
+>>>>>>> 4a891b8... added link on notifier
     enju_ndl (0.0.6)
       devise
       nokogiri
