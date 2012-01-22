@@ -75,7 +75,7 @@ GEM
       builder
       mime-types
       xml-simple
-    aws-sdk (1.2.6)
+    aws-sdk (1.3.2)
       httparty (~> 0.7)
       json (~> 1.4)
       nokogiri (>= 1.4.4)
@@ -475,7 +475,7 @@ DEPENDENCIES
   astrails-safe
   attribute_normalizer (~> 1.0)
   awesome_nested_set (~> 2.0)
-  aws-sdk (~> 1.2.6)
+  aws-sdk (~> 1.3)
   cancan (>= 1.6.7)
   churn (= 0.0.13)
   client_side_validations
@@ -520,7 +520,7 @@ DEPENDENCIES
   metric_fu (~> 2.1)
   nokogiri
   omniauth (~> 1.0)
-  paper_trail (~> 2.5)
+  paper_trail (~> 2.6)
   paperclip (~> 2.5)
   parallel_tests
   pg
@@ -548,6 +548,6 @@ DEPENDENCIES
   validates_timeliness
   vcr (~> 2.0.0.rc1)
   vidibus-routing_error!
-  whenever (~> 0.6.8)
+  whenever
   will_paginate (~> 3.0)
   zipruby
