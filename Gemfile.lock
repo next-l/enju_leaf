@@ -661,6 +661,6 @@ DEPENDENCIES
   validates_timeliness
   vcr (~> 2.0.0.rc1)
   vidibus-routing_error!
-  whenever (~> 0.6.8)
+  whenever
   will_paginate (~> 3.0)
   zipruby

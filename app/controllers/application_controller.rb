@@ -9,7 +9,6 @@ class ApplicationController < ActionController::Base
   rescue_from ActionController::RoutingError, :with => :render_404
 
   before_filter :get_library_group, :set_locale, :set_available_languages, :prepare_for_mobile
-  helper_method :mobile_device?
 
   private
   def render_403
