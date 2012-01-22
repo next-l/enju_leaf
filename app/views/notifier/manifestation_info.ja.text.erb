@@ -10,6 +10,8 @@ URL: <%=h @manifestation.access_address %>
  <%=h item.shelf_display_name.localize %> <%=h item.call_number %> <%=h item.item_identifier %>
 <% end -%>
 
+<%= "#{LibraryGroup.site_config.url}manifestations/#{@manifestation.id}" %>
+
 -- 
 <%=h LibraryGroup.system_name(@user.locale) %>
 <%=h LibraryGroup.site_config.url %>

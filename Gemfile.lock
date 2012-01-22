@@ -123,9 +123,9 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_ndl.git
-  revision: 1ade3070a28681dd634dae12a6fe7a67bcf5928d
+  revision: ac5616de2a72fe65575b71ad7c5c14a677e0a584
   specs:
-    enju_ndl (0.0.5)
+    enju_ndl (0.0.6)
       devise
       nokogiri
       rails (~> 3.1)
