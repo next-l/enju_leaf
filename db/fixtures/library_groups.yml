@@ -1,7 +1,7 @@
 library_group_00001:
   id: 1
   name: enju_library
-  display_name: Enju Library
+  display_name: "<%= I18n.locale %>: Enju Library"
   short_name: enju
   email: library@example.jp
   note: 

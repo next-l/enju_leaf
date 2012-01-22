@@ -13,7 +13,7 @@ module MasterModel
 
   module InstanceMethods
     def set_display_name
-      self.display_name = self.name if self.display_name.blank?
+      self.display_name = "#{I18n.locale}: #{self.name}" if self.display_name.blank?
     end
 
     def check_creatable

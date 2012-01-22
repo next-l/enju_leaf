@@ -1,15 +1,15 @@
 --- 
 circulation_status_00001: 
   name: Available For Pickup  
-  display_name: "en:Available For Pickup\r\n\
-    ja:持ち出し可能"
+  display_name: "en: Available For Pickup\r\n\
+    ja: 持ち出し可能"
   id: 1
   note: ""
   position: 1
 circulation_status_00002: 
   name: Available On Shelf  
-  display_name: "en:Available on Shelf\r\n\
-    ja:在架（利用可能）"
+  display_name: "en: Available on Shelf\r\n\
+    ja: 在架（利用可能）"
   id: 2
   note: ""
   position: 2
@@ -27,8 +27,8 @@ circulation_status_00004:
   position: 4
 circulation_status_00005: 
   name: In Process  
-  display_name: "en:In Process\r\n\
-    ja:作業中"
+  display_name: "en: In Process\r\n\
+    ja: 作業中"
   id: 5
   note: ""
   position: 5
@@ -40,29 +40,29 @@ circulation_status_00006:
   position: 6
 circulation_status_00007: 
   name: Lost  
-  display_name: "en:Lost\r\n\
-    ja:紛失"
+  display_name: "en: Lost\r\n\
+    ja: 紛失"
   id: 7
   note: ""
   position: 7
 circulation_status_00008: 
   name: Missing  
-  display_name: "en:Missing\r\n\
-    ja:行方不明"
+  display_name: "en: Missing\r\n\
+    ja: 行方不明"
   id: 8
   note: ""
   position: 8
 circulation_status_00009: 
   name: Not Available  
-  display_name: "en:Not Available\r\n\
-    ja:利用不可"
+  display_name: "en: Not Available\r\n\
+    ja: 利用不可"
   id: 9
   note: ""
   position: 9
 circulation_status_00010: 
   name: On Loan  
-  display_name: "en:On Loan\r\n\
-    ja:貸出中"
+  display_name: "en: On Loan\r\n\
+    ja: 貸出中"
   id: 10
   note: ""
   position: 10

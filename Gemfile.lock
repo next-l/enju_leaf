@@ -525,7 +525,8 @@ GEM
       multi_json (~> 1.0.3)
       simplecov-html (~> 0.5.3)
     simplecov-html (0.5.3)
-    sitemap_generator (2.2.1)
+    sitemap_generator (3.0.0)
+      builder
     spork (0.9.0.rc9)
     sprockets (2.1.2)
       hike (~> 1.2)
@@ -647,7 +648,7 @@ DEPENDENCIES
   sass-rails (~> 3.2.3)
   simple_form (~> 1.5)
   simplecov (~> 0.5)
-  sitemap_generator (~> 2.2)
+  sitemap_generator (~> 3.0)
   spork (~> 0.9.0.rc9)
   state_machine (~> 1.1.2)
   sunspot-rails-tester!
