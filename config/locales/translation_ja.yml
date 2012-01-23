@@ -767,6 +767,7 @@ ja:
         lock_version: ロックバージョン
         renewal_count: 貸出の更新回数
         output_checkoutlist: 貸出票の出力
+        over: 以上
       subscription:
         title: タイトル
         note: 注記
@@ -1750,6 +1751,7 @@ ja:
     failed_update: "購入リクエストの更新に失敗しました。"
     add_to_order_list: "発注リストに追加する"
     remove_from_order_list: "発注リストから削除する"
+    input_into_form_as_much_as_possible: "わかる範囲で入力してください。"
   order_list:
     library_group_order_list: "%{library_group_name} の発注リスト"
     total_price: "合計価格"
@@ -1917,11 +1919,11 @@ ja:
     items: 蔵書冊数(冊)
     opens: 開館日数(日)
     checkout_users: 貸出人数 (人)
-    user_type_5: "18 -   才"
-    user_type_4: "15 - 18 才"
-    user_type_3: "12 - 15 才"
-    user_type_2: "6 - 12 才"
-    user_type_1: "0 - 6 才"
+    user_type_5: "18 -   歳"
+    user_type_4: "15 - 18 歳"
+    user_type_3: "12 - 15 歳"
+    user_type_2: "6 - 12 歳"
+    user_type_1: "0 - 6 歳"
     item_type_1: 一般
     item_type_2: 児童書
     item_type_3: その他

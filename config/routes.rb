@@ -204,6 +204,7 @@ EnjuLeaf::Application.routes.draw do
     post :pickup_item, :on => :collection
     post :accept, :on => :collection
     get :accept_item, :on => :collection
+    get :download_file, :on => :collection
   end
 
   resources :baskets do

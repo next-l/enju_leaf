@@ -44,13 +44,13 @@
   <%= f.error_messages %>
   <div style="color: red"><%= raw flash[:message] -%></div>
 
-  <%- if @already_set and @loss_item.item and @loss_item.item.manifestation -%>
+  <%- if @inputed and @loss_item.item and @loss_item.item.manifestation -%>
     <%= render 'manifestations/title', :manifestation => @loss_item.item.manifestation -%>
     <%= f.hidden_field :item_id, :value => @loss_item.item.id -%>
     <br />
   <%- end -%>
 
-  <%- if @already_set and @loss_item.user -%>
+  <%- if @inputed and @loss_item.user -%>
     <p>
       <strong><%= t('activerecord.models.user') -%>:</strong>
       <%= link_to @loss_item.user.patron.full_name, @loss_item.user -%>
@@ -67,7 +67,7 @@
     </div>
   <%- end -%>
 
-  <%- unless @already_set -%>
+  <%- unless @inputed -%>
     <div class="field">
       <%= f.label t('activerecord.attributes.loss_item.loss_item') -%><br />
       <%= f.select(:item_id, {}, {}, :disabled => true) -%>

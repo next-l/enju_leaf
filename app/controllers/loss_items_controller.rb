@@ -1,5 +1,5 @@
 class LossItemsController < ApplicationController
-  include EnjuLeaf::NotificationSound
+  include NotificationSound
   before_filter :check_librarian
   before_filter :get_user_if_nil
   before_filter :get_patron, :get_manifestation
@@ -75,7 +75,7 @@ class LossItemsController < ApplicationController
 
   def new
     if params[:item_id] or params[:user_id]
-      @already_set = true
+      @inputed = true
       @loss_item = LossItem.new(:item_id => params[:item_id], :user_id => params[:user_id])
     else
       @loss_item = LossItem.new
@@ -83,6 +83,7 @@ class LossItemsController < ApplicationController
   end
 
   def edit
+    @inputed = true
     @loss_item = LossItem.find(params[:id])
   end
 
