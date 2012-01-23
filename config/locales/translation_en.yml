@@ -1580,6 +1580,7 @@ en:
     not_ordered: "Not ordered"
     add_to_order_list: "Add to order list"
     remove_from_order_list: "Remove from order list"
+    input_into_form_as_much_as_possible: "Input into form as much as possible"
   order_list:
     library_group_order_list: "Order lists in %{library_group_name}"
     total_price: "Total price"

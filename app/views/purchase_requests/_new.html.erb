@@ -1,6 +1,8 @@
 <div id="content_detail" class="ui-corner-all">
 <h1 class="title"><%= t('page.new', :model => t('activerecord.models.purchase_request')) -%></h1>
 <div id="content_list">
+<strong><%= t('purchase_request.input_into_form_as_much_as_possible') -%></strong><br />
+<br />
 
 <%= form_for(@purchase_request) do |f| -%>
   <%= f.error_messages -%>

@@ -1747,6 +1747,7 @@ ja:
     failed_update: "購入リクエストの更新に失敗しました。"
     add_to_order_list: "発注リストに追加する"
     remove_from_order_list: "発注リストから削除する"
+    input_into_form_as_much_as_possible: "わかる範囲で入力してください。"
   order_list:
     library_group_order_list: "%{library_group_name} の発注リスト"
     total_price: "合計価格"
