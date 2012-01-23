@@ -888,6 +888,7 @@ class ManifestationsController < ApplicationController
           row.item(:creator).value(patrons_list(manifestation.creators.readable_by(current_user), {:itemprop => 'author', :nolink => true}))
           row.item(:contributor).value(patrons_list(manifestation.contributors.readable_by(current_user), {:itemprop => 'editor', :nolink => true}))
           row.item(:publisher).value(patrons_list(manifestation.publishers.readable_by(current_user), {:itemprop => 'publisher', :nolink => true}))
+          row.item(:pub_date).value(manifestation.pub_date)
           row.item(:reserves_num).value(Reserve.waiting.where(:manifestation_id => manifestation.id, :checked_out_at => nil).count)
         end
       end
@@ -901,7 +902,8 @@ class ManifestationsController < ApplicationController
      "," + t('activerecord.attributes.item.item_identifier') + 
      "," + t('patron.creator') +
      "," + t('patron.contributor') + 
-     "," + t('patron.publisher') + 
+     "," + t('patron.publisher') +
+     "," + t('activerecord.attributes.manifestation.pub_date') + 
      "," + t('activerecord.attributes.manifestation.reserves_number') + "\n"
     manifestations.each do |manifestation|
       # modified date
@@ -912,18 +914,20 @@ class ManifestationsController < ApplicationController
           item_identifiers << item.item_identifier
         end
       end
-      creator, contributor, publisher = "",  "",  ""
+      creator, contributor, publisher = " ",  " ",  " "
       creator = patrons_list(manifestation.creators.readable_by(current_user), {:itemprop => 'author', :nolink => true}) if manifestation.creators
       contributor = patrons_list(manifestation.contributors.readable_by(current_user), {:itemprop => 'editor', :nolink => true}) if manifestation.contributors
       publisher = patrons_list(manifestation.publishers.readable_by(current_user), {:itemprop => 'publisher', :nolink => true}) if manifestation.publishers
       original_title = manifestation.original_title
       item_identifier = item_identifiers
+      pub_date = manifestation.pub_date
       reserves_number = Reserve.waiting.where(:manifestation_id => manifestation.id, :checked_out_at => nil).count.to_s
       buf << "\"" + original_title + "\"" + 
              "," +"\"" + item_identifier + "\"" + 
-             "," + "\"" + creator.to_s + "\"" + 
-             "," + "\"" + contributor.to_s + "\"" + 
-             "," + "\"" + publisher.to_s + "\"" + 
+             "," + "\"" + creator.to_s + " \"" + 
+             "," + "\"" + contributor.to_s + " \"" + 
+             "," + "\"" + publisher.to_s + " \"" + 
+             "," + "\"" + pub_date + "\"" + 
              "," +"\"" + reserves_number + "\"" + "\n"
     end
     send_data(buf, :filename => configatron.search_report_csv.filename)
