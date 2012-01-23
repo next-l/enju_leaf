@@ -34,8 +34,10 @@ class SubjectHasClassificationsController < ApplicationController
   # GET /subject_has_classifications/new.xml
   def new
     @subject_has_classification = SubjectHasClassification.new
-    @subject_has_classification.subject = @subject
-    @subject_has_classification.classification = @classification
+    @subjects = Subject.all
+    @classifications = Classification.all
+#    @subject_has_classification.subject = @subject
+#    @subject_has_classification.classification = @classification
 
     respond_to do |format|
       format.html # new.html.erb
@@ -45,6 +47,8 @@ class SubjectHasClassificationsController < ApplicationController
 
   # GET /subject_has_classifications/1/edit
   def edit
+    @subjects = Subject.all
+    @classifications = Classification.all
   end
 
   # POST /subject_has_classifications
@@ -58,6 +62,8 @@ class SubjectHasClassificationsController < ApplicationController
         format.html { redirect_to(@subject_has_classification) }
         format.xml  { render :xml => @subject_has_classification, :status => :created, :location => @subject_has_classification }
       else
+        @subjects = Subject.all
+        @classifications = Classification.all
         format.html { render :action => "new" }
         format.xml  { render :xml => @subject_has_classification.errors, :status => :unprocessable_entity }
       end
@@ -73,6 +79,8 @@ class SubjectHasClassificationsController < ApplicationController
         format.html { redirect_to(@subject_has_classification) }
         format.xml  { head :ok }
       else
+        @subjects = Subject.all
+        @classifications = Classification.all
         format.html { render :action => "edit" }
         format.xml  { render :xml => @subject_has_classification.errors, :status => :unprocessable_entity }
       end
