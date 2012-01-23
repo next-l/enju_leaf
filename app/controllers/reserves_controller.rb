@@ -51,16 +51,17 @@ class ReservesController < ApplicationController
       else
         # all reserves
         page = params[:page] || 1
-        @states = @selected_state = Reserve.states
+        @states = Reserve.states
         @libraries =  Library.all
         @selected_library = []
         @libraries.each do |library|
           @selected_library << library.id
         end
-        @information_types = @selected_method = Reserve.information_types
+        @information_types = @selected_method =  Reserve.information_types
         # first move
         if params[:do_search].blank?
-          @reserves = Reserve.show_reserves.order('expired_at ASC').includes(:manifestation).page(page)
+          @selected_state = @states.reject{|x| x == 'completed' || x == 'expired' || x == 'canceled'}
+          @reserves = Reserve.show_reserves.where(:state => @selected_state).order('expired_at ASC').includes(:manifestation).page(page)
           return
         end
 
@@ -75,10 +76,6 @@ class ReservesController < ApplicationController
           flash[:reserve_notice] << t('item_list.no_list_condition') + '<br />'
         end
         states = nil
-        if params[:state]
-          states = params[:state].clone
-          states.delete("canceled")
-        end
 
         # set query
         query = params[:query].to_s.strip
@@ -98,13 +95,13 @@ class ReservesController < ApplicationController
         date_of_birth_end = Time.zone.parse(birth_date).end_of_day.utc.iso8601 rescue nil
 
         if query.blank? and @address.blank? and @date_of_birth.blank?
-          @reserves = Reserve.where(:state => states, :receipt_library_id => params[:library], :information_type_id => params[:method]).order('expired_at ASC').includes(:manifestation).page(page)
+          @reserves = Reserve.where(:state => params[:state], :receipt_library_id => params[:library], :information_type_id => params[:method]).order('expired_at ASC').includes(:manifestation).page(page)
         else 
           query = "#{query} date_of_birth_d: [#{date_of_birth} TO #{date_of_birth_end}]" unless date_of_birth.blank?
           query = "#{query} address_text: #{@address}" unless @address.blank?
           @reserves = Reserve.search do
             fulltext query
-            with(:state, states)
+            with(:state, params[:state])
             with(:receipt_library_id, params[:library])
             with(:information_type_id, params[:method])
             order_by(:expired_at, :asc)
@@ -130,10 +127,6 @@ class ReservesController < ApplicationController
   # GET /reserves/1
   # GET /reserves/1.xml
   def show
-    if @reserve.state == 'canceled'
-      access_denied
-      return
-    end
     @information_method = Reserve.get_information_method(@reserve)
     @receipt_library = Library.find(@reserve.receipt_library_id)
     @reserved_count = Reserve.waiting.where(:manifestation_id => @reserve.manifestation_id, :checked_out_at => nil).count
