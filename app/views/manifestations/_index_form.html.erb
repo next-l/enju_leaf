@@ -8,14 +8,12 @@
     <br />
     <%= link_to t('page.advanced_search'), page_advanced_search_path(:user_id => params[:user_id]) -%>
     <br />
-    <%- if user_signed_in? and current_user.has_role?('Librarian') -%>
-      <%= hidden_field_tag 'carrier_type', params[:carrier_type] if params[:carrier_type] -%>
-      <%= hidden_field_tag 'language', params[:language] if params[:language] -%>
-      <%= hidden_field_tag 'library', params[:library] if params[:library] -%>
-      <%= hidden_field_tag 'reservable', params[:reservable] if params[:reservable] -%>
-      <%= hidden_field_tag 'sort_by', params[:sort_by] if params[:sort_by] -%>
-      <%= submit_tag t('page.output_pdf', :model => t('page.search_result')), :name => 'output_pdf' -%>
-      <%= submit_tag t('page.output_csv', :model => t('page.search_result')), :name => 'output_csv'-%>
-    <%- end -%>
+    <%= hidden_field_tag 'carrier_type', params[:carrier_type] if params[:carrier_type] -%>
+    <%= hidden_field_tag 'language', params[:language] if params[:language] -%>
+    <%= hidden_field_tag 'library', params[:library] if params[:library] -%>
+    <%= hidden_field_tag 'reservable', params[:reservable] if params[:reservable] -%>
+    <%= hidden_field_tag 'sort_by', params[:sort_by] if params[:sort_by] -%>
+    <%= submit_tag t('page.output_pdf', :model => t('page.search_result')), :name => 'output_pdf' -%>
+    <%= submit_tag t('page.output_csv', :model => t('page.search_result')), :name => 'output_csv'-%>
   </p>
 <%- end -%>
