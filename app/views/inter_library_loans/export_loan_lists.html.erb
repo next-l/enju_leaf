@@ -1,3 +1,25 @@
+<script>
+  $(document).ready(function() {
+     // checked
+     var $tgt_parent = $("input.check-parent");
+     var $tgt_child = $("input.check-child");
+
+     $tgt_parent.click(function(){
+       $(this).parents("div.parent").find('input.check-child').attr('checked', this.checked);
+     });
+
+     $tgt_child.click(function(){
+       var checkNum = $(this).parents("div.parent").find('input.check-child:checked').length;
+       var listNum = $(this).parents("div.parent").find('input.check-child').length;
+
+       if(checkNum < listNum)
+         $(this).parents("div.parent").find("input.check-parent").attr('checked', false);
+       if(checkNum == listNum)
+         $(this).parents("div.parent").find("input.check-parent").attr('checked', true);
+    });
+  });
+</script>
+
 <div id="content_detail" class="ui-corner-all">
 <h1 class="title"><%= t('page.output', :model => t('inter_library_loan.loan_lists')) -%></h1>
 <div id="content_list">
@@ -5,11 +27,13 @@
 <%= form_for(:inter_library_loan, :url => {:controller => 'inter_library_loans', :action => :get_loan_lists}, :html => {:multipart => true, :method => 'post'}) do |f| -%>
   <div class="field">
     <%= label :library, t('inter_library_loan.original_library') -%>:<br />
-    <div>
-    <input type='checkbox', name='all_library', id='all_library', onclick ='check_all_library();', checked><%= t('item_list.all_library') -%></input><br />
-    <%- @libraries.each do |library| -%>
-      <%= check_box_tag "library[]", library.id, true, :class => 'library' -%><%= library.display_name -%><br />
-    <%- end -%>
+    <div class="parent">
+      <input type='checkbox', name='all_library', id='all_library', class='check-parent',onclick ='check_all_library();', checked><%= t('item_list.all_library') -%></input><br />
+      <ul style="list-style-type: none">
+        <%- @libraries.each do |library| -%>
+          <li><%= check_box_tag "library[]", library.id, true, :class => 'check-child' -%><%= library.display_name -%></li>
+        <%- end -%>
+      </ul>
     </div>
   </div>
 
@@ -26,14 +50,3 @@
     <li><%= link_to t('inter_library_loan.pickup_item'), {:action => :pickup}, {:method => :post} -%></li>
   </ul>
 </div>
-
-<script>
-  function check_all_library(){
-    var test = $('#all_library').attr('checked');
-    if (test == "checked") {
-      $('.library').attr('checked', true);
-    } else {
-      $('.library').attr('checked', false);
-    }
-  }
-</script>
