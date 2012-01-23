@@ -398,7 +398,8 @@ class ResourceImportFile < ActiveRecord::Base
         :nbn => row['nbn'],
         :ndc => row['ndc'],
         :pub_date => row['pub_date'],
-        :volume_number_string => row['volume_number_string'],
+        :volume_number_string => row['volume_number_string'].split（'　').first.tr('０-９', '0-9'),
+        :volume_number => row['volume_number'].to_s.tr('０-９', '0-9'),
         :issue_number_string => row['issue_number_string'],
         :serial_number => row['serial_number'],
         :edition_string => row['edition_string'],
@@ -433,9 +434,9 @@ class ResourceImportFile < ActiveRecord::Base
     unless series_statement
       if row['series_statement_original_title'].to_s.strip.present?
         series_statement = SeriesStatement.new(
-          :original_title => row['series_statement_original_title'].to_s.strip,
-          :title_transcription => row['series_statement_title_transcription'].to_s.strip,
-          :series_statement_identifier => row['series_statement_identifier'].to_s.strip
+          :original_title => row['series_statement_original_title'].to_s.strip.split('//').first,
+          :title_transcription => row['series_statement_title_transcription'].to_s.strip.split('//').first,
+          :series_statement_identifier => row['series_statement_identifier'].to_s.strip.split('//').first
         )
         if issn.present?
           series_statement.issn = issn
