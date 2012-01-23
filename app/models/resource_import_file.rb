@@ -1,3 +1,4 @@
+# -*- encoding: utf-8 -*-
 class ResourceImportFile < ActiveRecord::Base
   include ImportFile
   default_scope :order => 'id DESC'
