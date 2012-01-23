@@ -4,15 +4,15 @@
     var $tgt_child = $("input.check-child");
 
     $tgt_parent.click(function(){
-      $(this).parents("span.parent").find('input.check-child').attr('checked', this.checked);
+      $(this).parents("div.parent").find('input.check-child').attr('checked', this.checked);
     });
     $tgt_child.click(function(){
-      var checkNum = $(this).parents("span.parent").find('input.check-child:checked').length;
-      var listNum = $(this).parents("span.parent").find('input.check-child').length;
+      var checkNum = $(this).parents("div.parent").find('input.check-child:checked').length;
+      var listNum = $(this).parents("div.parent").find('input.check-child').length;
       if(checkNum < listNum)
-        $(this).parents("span.parent").find("input.check-parent").attr('checked', false);
+        $(this).parents("div.parent").find("input.check-parent").attr('checked', false);
       if(checkNum == listNum)
-        $(this).parents("span.parent").find("input.check-parent").attr('checked', true);
+        $(this).parents("div.parent").find("input.check-parent").attr('checked', true);
     });
   });
 </script>
@@ -27,13 +27,13 @@
   <p>
     <%= t('activerecord.attributes.reserve.receipt_library') -%>:<%= select("library", "id", @librarlies, {:include_blank => t('advanced_search.all_libraries'), :selected=>@selected_library}  ) -%><br />
     <%= t('activerecord.attributes.reserve.information_method') -%>:
-    <span class="parent">
-      <%= check_box_tag "all_method", true, @selected_method.size == @information_types.size ? true : false, :class=>'check-parent' -%><%= t('advanced_search.all', :model=>t('activerecord.attributes.reserve.information_method')) -%>
-      <%- @information_types.each do |type| -%>
-        <%= check_box_tag "method[]", type, (@selected_method.index(type.to_i) or @selected_method.index(type.to_s)) ? true : false, :class=>'check-child' -%><%= i18n_information_type(type) -%>
-      <%- end -%>
-    </span>
-    <br />
+    <div class="parent">
+        <%= check_box_tag "all_method", true, @selected_method.size == @information_types.size ? true : false, :class=>'check-parent' -%><%= t('advanced_search.all', :model=>t('activerecord.attributes.reserve.information_method')) -%><br />
+        &nbsp;
+        <%- @information_types.each do |type| -%>
+          <%= check_box_tag "method[]", type, (@selected_method.index(type.to_i) or @selected_method.index(type.to_s)) ? true : false, :class=>'check-child' -%><%= i18n_information_type(type) -%>
+        <%- end -%>
+    </div>
     <%= t('page.search_term') -%>: <%= search_field_tag 'query', h(@query), {:id => 'search_form_top', :class => 'search_form', :placeholder => t('page.search_term')} -%><br />
     <%= t('activerecord.attributes.user.birth_date') -%>:
     <%= text_field_tag 'birth_date', @date_of_birth, :class => 'wide_date_text_field', :placeholder => "#{t('page.example')}: 2011-04-12" -%>
