@@ -1,6 +1,6 @@
 <p>
   <%= t('page.no_record_found') -%>
-  <% unless @search_engines.empty? %>
+  <% unless !@search_engines.nil? && @search_engines.empty? %>
     <%= t('page.you_can_search_following_database') -%>
     <%= render 'manifestations/search_engine' -%>
   <% end %>

@@ -152,9 +152,16 @@ class ManifestationsController < ApplicationController
         :carrier_type_id,
         :created_at
       ] if params[:format] == 'html' or params[:format].nil?
-      all_result = search.execute
-      @count[:query_result] = all_result.total
-      @reservable_facet = all_result.facet(:reservable).rows
+      # catch query error 
+      begin
+        all_result = search.execute
+        @count[:query_result] = all_result.total
+        @reservable_facet = all_result.facet(:reservable).rows
+      rescue Exception => e
+        flash[:message] = t('manifestation.invalid_query')
+        logger.error "query error: #{e}"
+        return
+      end	
 
       if session[:search_params]
         unless search.query.to_params == session[:search_params]
@@ -209,7 +216,14 @@ class ManifestationsController < ApplicationController
           paginate :page => page.to_i, :per_page => per_page
         end
       end
-      search_result = search.execute
+      # catch query error 
+      begin
+        search_result = search.execute
+      rescue Exception => e
+        flash[:message] = t('manifestation.invalid_query')
+        logger.error "query error: #{e}"
+        return
+      end
       if @count[:query_result] > configatron.max_number_of_results
         max_count = configatron.max_number_of_results
       else
