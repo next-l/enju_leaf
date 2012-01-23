@@ -858,6 +858,12 @@ class ManifestationsController < ApplicationController
   end
 
   def output_pdf(manifestations)
+    unless configatron.manifestations.users_show_output_button
+      unless user_signed_in? or current_user.has_role('Librarian')
+        access_denied; return
+      end
+    end
+
     require 'thinreports'
     report = ThinReports::Report.new :layout => File.join(Rails.root, 'report', 'searchlist.tlf') 
 
@@ -897,6 +903,12 @@ class ManifestationsController < ApplicationController
   end
 
   def output_csv(manifestations)
+    unless configatron.manifestations.users_show_output_button
+      unless user_signed_in? or current_user.has_role('Librarian')
+        access_denied; return
+      end
+    end
+
     buf = ""
     buf << t('activerecord.attributes.manifestation.original_title') +
      "," + t('activerecord.attributes.item.item_identifier') + 

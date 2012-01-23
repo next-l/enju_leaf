@@ -13,7 +13,14 @@
     <%= hidden_field_tag 'library', params[:library] if params[:library] -%>
     <%= hidden_field_tag 'reservable', params[:reservable] if params[:reservable] -%>
     <%= hidden_field_tag 'sort_by', params[:sort_by] if params[:sort_by] -%>
-    <%= submit_tag t('page.output_pdf', :model => t('page.search_result')), :name => 'output_pdf' -%>
-    <%= submit_tag t('page.output_csv', :model => t('page.search_result')), :name => 'output_csv'-%>
+    <%- if configatron.manifestations.users_show_output_button -%>
+      <%= submit_tag t('page.output_pdf', :model => t('page.search_result')), :name => 'output_pdf' -%>
+      <%= submit_tag t('page.output_csv', :model => t('page.search_result')), :name => 'output_csv'-%>
+    <%- else -%>
+      <%- if user_signed_in? and current_user.has_role?('Librarian') -%>
+        <%= submit_tag t('page.output_pdf', :model => t('page.search_result')), :name => 'output_pdf' -%>
+        <%= submit_tag t('page.output_csv', :model => t('page.search_result')), :name => 'output_csv'-%>
+      <%- end -%>
+    <%- end -%>
   </p>
 <%- end -%>
