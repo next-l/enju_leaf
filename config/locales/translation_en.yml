@@ -1227,6 +1227,7 @@ en:
     output: "Output %{model}"
     output_pdf: "Output %{model}(PDF)"
     output_csv: "Output %{model}(CSV)"
+    output_tsv: "Output %{model}(TSV)"
     patron_management: "Patron management"
     user_management: "User management"
     back_to: "Back to %{model} index"

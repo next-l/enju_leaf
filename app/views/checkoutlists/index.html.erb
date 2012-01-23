@@ -26,13 +26,13 @@
   <div class="field">
     <p id="notice"><%= notice %></p>
     <%= label :list_condition, t('activerecord.attributes.item_list.list_condition') -%>:<br />
-    <input type='checkbox', name='all_circulation_status', id='all_circulation_status', 
-        onclick ='checkAll(this);', checked><%= t('advanced_search.all', :model => t('activerecord.models.circulation_status')) -%></input><br />
+
+    <%= check_box_tag "all_circulation_status", true, @checked_nil ? false : true, :id=>'all_circulation_status', :name=>'all_circulation_status', :onclick=>'checkAll(this);' -%><%= t('advanced_search.all', :model=>t('activerecord.models.circulation_status')) -%><br />
     <div id="list_condition_200">
       <ul style="list-style-type: none">
         <%- @circulation_status.each_with_index do |c, g| -%>
           <li>
-            <%= check_box_tag "circulation_status[]", c.id, true, :class => 'circulation_status', :onclick => 'clear_checkAll(this);' -%><%= c.display_name.localize -%>
+            <%= check_box_tag "circulation_status[]", c.id, @checked_nil ? false : true, :class => 'circulation_status', :onclick => 'clear_checkAll(this);' -%><%= c.display_name.localize -%>
           </li>
           <%- if g == 7 -%>
       </ul>
@@ -46,7 +46,8 @@
     <br style="clear:both;"/>
   </div>
   <div class="actions">
-    <%= submit_tag t('page.output', :model => t('activerecord.models.checkoutlist')) %>
+    <%= submit_tag t('page.output_pdf', :model => t('activerecord.models.checkoutlist')), :name => 'output_pdf' %>
+    <%= submit_tag t('page.output_tsv', :model => t('activerecord.models.checkoutlist')), :name => 'output_tsv' %>
   </div>
 <%- end -%>
 
@@ -85,7 +86,6 @@
 
 <div id="submenu" class="ui-corner-all">
   <p>
-    <li><%= link_to t('page.download'),  checkoutlists_path(:commit => t('page.download')) -%></li>
     <li><%= link_to t('page.back'), page_exstatistics_path -%></li>
   </p>
 </div>

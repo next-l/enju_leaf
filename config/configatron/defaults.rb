@@ -80,7 +80,8 @@ configatron.reserve_print.old = true
 configatron.unablelist_print.filename = "unablelist.pdf"
 
 # 貸出状況の帳票ファイル名
-configatron.checkoutlist_report.filename = "checkoutlist.pdf"
+configatron.checkoutlist_report_pdf.filename = "checkoutlist.pdf"
+configatron.checkoutlist_report_tsv.filename = "checkoutlist.tsv"
 
 # 利用統計の帳票ファイル名
 configatron.statistic_report.monthly = "monthly_report.pdf"
