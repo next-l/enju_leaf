@@ -1,7 +1,7 @@
-<%= form_for :reserve, :url => {:controller => 'reserves', :action => :output_user}, :html => {:method => :output_user,:name => 'reserves'} do -%>
+<%= form_for :reserve, :url => user_reserves_path(@user), :html => {:method => :get} do -%>
 <div class="actions">
   <%= hidden_field_tag :user_id, @user.id -%>
-  <%= submit_tag t('page.output', :model => t('activerecord.attributes.reserve.reserve_list')) %>
+  <%= submit_tag t('page.output', :model => t('activerecord.attributes.reserve.reserve_list')), :name => 'output_user' %>
 </div>
 <%- end -%>
 
