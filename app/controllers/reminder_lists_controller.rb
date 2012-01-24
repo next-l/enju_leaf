@@ -1,5 +1,10 @@
 class ReminderListsController < ApplicationController
 
+  def initialize
+    @reminder_list_statuses = ReminderList.statuses
+    super
+  end
+
   def index
     @reminder_lists = ReminderList.all 
     respond_to do |format|
@@ -17,8 +22,6 @@ class ReminderListsController < ApplicationController
 
   def show
     @reminder_list = ReminderList.find(params[:id])
-    logger.info "aaaaa"
-    logger.info @reminder_list.checkout.due_date
   end
 
   def create
@@ -33,7 +36,7 @@ class ReminderListsController < ApplicationController
 
   def update
     @reminder_list = ReminderList.find(params[:id])
-    if @reminder_list.update_attributes(params[:area])
+    if @reminder_list.update_attributes(params[:reminder_list])
       flash[:notice] = t('controller.successfully_updated', :model => t('activerecord.models.reminder_list'))
       redirect_to(@reminder_list) 
     else

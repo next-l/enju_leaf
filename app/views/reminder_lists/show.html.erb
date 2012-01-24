@@ -11,7 +11,7 @@ playSound('<%= root_path -%><%= flash[:sound] -%>');
 
 <p>
   <strong><%= t('activerecord.models.checkout') -%>:</strong>
-  <%= link_to @reminder_list.checkout.id, @reminder_list.checkout -%>
+  <%= link_to @reminder_list.checkout.id, user_checkout_path(@reminder_list.checkout.user, @reminder_list.checkout) -%>
 </p>
 <p>
   <strong><%= t('activerecord.attributes.reminder_list.original_title') -%>:</strong>
@@ -47,8 +47,8 @@ playSound('<%= root_path -%><%= flash[:sound] -%>');
 
 <div id="submenu" class="ui-corner-all">
   <ul>
-    <li><%= link_to t('page.listing', :model => t('activerecord.models.loss_item')), loss_items_path -%></li>
-    <li><%= link_to t('page.edit'), edit_loss_item_path(@loss_item) -%></li>
+    <li><%= link_to t('page.listing', :model => t('activerecord.models.reminder_list')), reminder_lists_path -%></li>
+    <li><%= link_to t('page.edit'), edit_reminder_list_path(@reminder_list) -%></li>
     <li><%= link_to t('page.destroy'), @loss_item, :confirm => t('page.are_you_sure'), :method => :delete -%></li>
   </ul>
 </div>

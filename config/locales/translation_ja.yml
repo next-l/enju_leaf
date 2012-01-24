@@ -180,6 +180,7 @@ ja:
       reminder_list:
         id: Id
         checkout: 貸出
+        checkout_id: 貸出番号
         original_title: 貸出資料タイトル 
         user_name: 利用者名
         status: 状態

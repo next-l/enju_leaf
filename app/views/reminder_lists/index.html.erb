@@ -18,7 +18,7 @@
 <%- @reminder_lists.each_with_index do |reminder_list, i| -%>
   <tr class="line<%= cycle("0", "1") -%>">
     <td><%= link_to reminder_list.id, reminder_list -%></td>
-    <td><%= link_to reminder_list.checkout.id, checkouts_path -%></td>
+    <td><%= link_to reminder_list.checkout.id, user_checkout_path(reminder_list.checkout.user, reminder_list.checkout) -%></td>
     <td><%= link_to reminder_list.checkout.item.manifestation.original_title, manifestation_path(reminder_list.checkout.item.manifestation) -%></td>
     <td><%= reminder_list.checkout.user_username -%></td>
     <td><%= reminder_list.status_name -%></td>
