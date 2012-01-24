@@ -1,7 +1,7 @@
 class CirculationStatus < ActiveRecord::Base
   include MasterModel
   default_scope :order => "position"
-  scope :available_for_checkout, where("name = 'Available On Shelf' OR name = 'Available For Pickup'")
+  scope :available_for_checkout, where("name = 'Available On Shelf' OR name = 'Available For Pickup' OR name = 'On Loan'")
   scope :available_for_retain, where("name = 'Available On Shelf'")
   scope :not_found, where(["name IN (?)", ["Circulation Status Undefined", "Lost", "Missing", "Removed"]])
   has_many :items

@@ -31,7 +31,7 @@ class Basket < ActiveRecord::Base
         checked_item.ignore_restriction = '1'
         if checked_item.available_for_checkout?
           checkout = self.user.checkouts.new(:librarian_id => librarian.id, :item_id => checked_item.item.id, :basket_id => self.id, :due_date => checked_item.due_date)
-          checked_item.item.checkout!(self.user)
+          checked_item.item.checkout!(self.user, librarian)
           checkout.save!
         else
           #errors[:base] << I18n.t('activerecord.errors.messages.checked_item.not_available_for_checkout')
