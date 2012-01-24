@@ -82,15 +82,19 @@
     <%= label :list_condition, t('activerecord.attributes.item_list.list_condition') -%>:<br />
     <div id="item_list_library" class="parent">
       <%= check_box_tag "all_library", true, @selected_library.size == @libraries.size ? true : false, :class=>'check-parent' -%><%= t('item_list.all_library') -%><br />
-      <%- @libraries.each do |library| -%>
-        <%= check_box_tag "library[]", library.id, (@selected_library.index(library.id.to_s) != nil or @selected_library.index(library.id.to_i))? true : false, :class=>'check-child' -%><%= library.display_name -%><br />
-      <%- end -%>
+      <ul style="list-style-type: none">
+        <%- @libraries.each do |library| -%>
+          <li><%= check_box_tag "library[]", library.id, (@selected_library.index(library.id.to_s) != nil or @selected_library.index(library.id.to_i))? true : false, :class=>'check-child' -%><%= library.display_name -%></li>
+        <%- end -%>
+       </ul>
     </div>
     <div id="item_list_carrier_type" class="parent">
       <%= check_box_tag "all_carrier_type", true, @selected_carrier_type.size == @carrier_types.size ? true : false, :class=>'check-parent' -%><%= t('item_list.all_carrier_type') -%><br />
-      <%- @carrier_types.each do |carrier_type| -%>
-        <%= check_box_tag "carrier_type[]", carrier_type.id, (@selected_carrier_type.index(carrier_type.id.to_s) != nil or @selected_carrier_type.index(carrier_type.id.to_i))? true : false, :class=>'check-child' -%><%= carrier_type.display_name.localize -%><br />
-      <%- end -%>
+      <ul style="list-style-type: none">
+        <%- @carrier_types.each do |carrier_type| -%>
+          <li><%= check_box_tag "carrier_type[]", carrier_type.id, (@selected_carrier_type.index(carrier_type.id.to_s) != nil or @selected_carrier_type.index(carrier_type.id.to_i))? true : false, :class=>'check-child' -%><%= carrier_type.display_name.localize -%></li>
+        <%- end -%>
+       </ul>
     </div>
     <div id="item_list_ndc">
     <%= t('item_list.ndc') -%> <%= t('item_list.ndc_message') -%><br />

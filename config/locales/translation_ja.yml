@@ -409,7 +409,10 @@ ja:
         return_received_at: 返却受取時刻
         deleted_at: 削除時刻
         borrowing_library: 受取図書館
+        from_library: 移動元図書館
+        to_library: 受取図書館
         state: 状態
+        reason: 移動理由
       message:
         subject: 件名
         body: 本文
@@ -1359,6 +1362,7 @@ ja:
     output: "%{model}の出力"
     output_pdf: "%{model}の出力(PDF)"
     output_csv: "%{model}の出力(CSV)"
+    output_tsv: "%{model}の出力(TSV)"
     patron_management: "人物・団体の管理"
     user_management: "利用者の管理"
     back_to: "%{model}の一覧に戻る"
@@ -1522,6 +1526,7 @@ ja:
     invalid_isbn: "無効なISBNです。"
     already_imported: "すでにインポートされています。"
     record_not_found: "資料が見つかりませんでした。"
+    invalid_query: "検索語の指定が不正です。"
     add: "資料を追加する"
     specify_expression: "協力した資料を指定してください。"
     pickup: "ピックアップ"
@@ -1748,6 +1753,7 @@ ja:
     failed_update: "購入リクエストの更新に失敗しました。"
     add_to_order_list: "発注リストに追加する"
     remove_from_order_list: "発注リストから削除する"
+    input_into_form_as_much_as_possible: "わかる範囲で入力してください。"
   order_list:
     library_group_order_list: "%{library_group_name} の発注リスト"
     total_price: "合計価格"
@@ -1755,6 +1761,20 @@ ja:
     library_group_inter_library_loan: "%{library_group_name} の相互貸借"
     borrowing_library: "借受館"
     return_this_item: "この資料を返却する"
+    loan_lists: 相互貸借リスト
+    original_library: 移動元図書館
+    checkout: 貸出
+    checkin: 返却
+    pickup_item: 発送準備
+    accept_item: 受取処理
+    no_item: 該当資料が見つかりません。
+    wrong_library: この図書館に貸し出された資料ではありません。
+    no_loan: 相互貸借の対象になっている資料が見つかりません。
+    successfully_pickup: "%{item_identifier}は発送処理が完了しました。"
+    successfully_accept: "%{item_identifier}は受取処理が完了しました。"
+    failed_pickup: 資料の発送処理に失敗しました。
+    failed_accept: 資料の受取処理に失敗しました。
+    no_library: 移動元図書館を選択してください。
   checked_item:
     not_available_for_checkout: "この資料の貸出はできません。(状態不正)"
     not_for_loan: "この資料の貸出はできません。"
@@ -1991,18 +2011,3 @@ ja:
     monthly: 月報
     yyyymm: 対象年月
     date_comment: "８桁で入力。2011/12/13 の場合は、 20111213 と入力。"
-  inter_library_loan:
-    loan_lists: 相互貸借リスト
-    original_library: 移動元図書館
-    checkout: 貸出
-    checkin: 返却
-    pickup_item: 発送準備
-    accept_item: 受取処理
-    no_item: 該当資料が見つかりません。
-    wrong_library: この図書館に貸し出された資料ではありません。
-    no_loan: 相互貸借の対象になっている資料が見つかりません。
-    successfully_pickup: "%{item_identifier}は発送処理が完了しました。"
-    successfully_accept: "%{item_identifier}は受取処理が完了しました。"
-    failed_pickup: 資料の発送処理に失敗しました。
-    failed_accept: 資料の受取処理に失敗しました。
-    no_library: 移動元図書館を選択してください。

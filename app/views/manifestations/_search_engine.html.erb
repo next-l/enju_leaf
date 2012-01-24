@@ -1,3 +1,4 @@
+<%- if @search_engines -%>
 <%- @search_engines.each do |search_engine| -%>
   <p>
     <%= form_tag search_engine.base_url, :method => search_engine.http_method do -%>
@@ -13,4 +14,5 @@
       <%- end -%>
     <%- end -%>
   </p>
+<%- end -%>
 <%- end -%>
