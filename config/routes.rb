@@ -4,8 +4,10 @@ EnjuLeaf::Application.routes.draw do
   resource :my_account
 
   post "batchaction/recept"
-  resources :series_has_manifestations
 
+  resources :reminder_lists
+
+  resources :series_has_manifestations
   resources :series_statement_merges
 
   resources :series_statement_merge_lists do
