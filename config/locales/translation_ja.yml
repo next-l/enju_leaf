@@ -177,6 +177,17 @@ ja:
       reminder_list: 督促情報
    
     attributes:
+      reminder_list:
+        id: Id
+        checkout: 貸出
+        original_title: 貸出資料タイトル 
+        user_name: 利用者名
+        status: 状態
+        due_date: 貸出期限
+        number_of_day_overdue: 超過日数
+        status_name:
+          accepted: 未連絡
+          called: 連絡済    
       library:
         name: 名前
         display_name: 表示名

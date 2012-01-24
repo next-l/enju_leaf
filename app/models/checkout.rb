@@ -25,6 +25,13 @@ class Checkout < ActiveRecord::Base
     10
   end
 
+  def day_of_overdue
+    due_date_datetype = due_date.strftime("%Y-%m-%d")
+    overdue = (Date.today - due_date_datetype.to_date) 
+    overdue = 0 if overdue < 0
+    return overdue
+  end
+
   def is_not_checked?
     checkout = Checkout.not_returned.find(self.item) rescue nil
     unless checkout.nil?
