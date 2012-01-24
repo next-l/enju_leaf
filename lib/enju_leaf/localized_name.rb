@@ -6,6 +6,8 @@ module LocalizedName
     else
       self
     end
+  rescue NoMethodError
+    self
   end
 end
 
