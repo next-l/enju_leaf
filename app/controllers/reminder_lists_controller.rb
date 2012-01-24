@@ -1,4 +1,5 @@
 class ReminderListsController < ApplicationController
+  before_filter :check_librarian
 
   def initialize
     @reminder_list_statuses = ReminderList.statuses
@@ -6,9 +7,18 @@ class ReminderListsController < ApplicationController
   end
 
   def index
-    @reminder_lists = ReminderList.all 
-    respond_to do |format|
-      format.html # index.rhtml
+    query = params[:query].to_s.strip
+    @query = query.dup
+    query = "#{query}*" if query.size == 1
+    page = params[:page] || 1
+
+    unless query.blank?
+      @reminder_lists = ReminderList.search do
+        fulltext query
+        paginate :page => page.to_i, :per_page => ReminderList.per_page
+      end.results
+    else
+      @reminder_lists =  ReminderList.page(page)
     end
   end
 
@@ -49,4 +59,9 @@ class ReminderListsController < ApplicationController
     @reminder_list.destroy
     redirect_to(reminder_lists_url)
   end
-end
+
+  private  
+  def check_librarian
+    access_denied unless current_user && current_user.has_role?('Librarian')
+  end
+end  
