@@ -399,7 +399,7 @@ class ResourceImportFile < ActiveRecord::Base
         :nbn => row['nbn'],
         :ndc => row['ndc'],
         :pub_date => row['pub_date'],
-        :volume_number_string => row['volume_number_string'].split（'　').first.tr('０-９', '0-9'),
+        :volume_number_string => row['volume_number_string'].split('　').first.tr('０-９', '0-9'),
         :volume_number => row['volume_number'].to_s.tr('０-９', '0-9'),
         :issue_number_string => row['issue_number_string'],
         :serial_number => row['serial_number'],
