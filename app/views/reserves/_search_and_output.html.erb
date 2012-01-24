@@ -66,7 +66,8 @@
   <div class="actions">
     <%= hidden_field_tag 'do_search', true -%>
     <%= submit_tag t('page.search') %>
-    <%= submit_tag t('page.output', :model => (t('page.listing', :model => t('activerecord.models.reserve')))), :name => 'output' %>
+    <%= submit_tag t('page.output_pdf', :model => (t('page.listing', :model => t('activerecord.models.reserve')))), :name => 'output_pdf' %>
+    <%= submit_tag t('page.output_csv', :model => (t('page.listing', :model => t('activerecord.models.reserve')))), :name => 'output_csv' %>
   </div>
 <%- end -%>
 
