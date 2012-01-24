@@ -110,8 +110,14 @@ class ReservesController < ApplicationController
         end
 
         # output
-        output_list_with_search(query, params[:state], params[:library], params[:method]) if params[:output] and params[:state].present? and params[:library].present? and params[:method].present?
-      end
+        if params[:state].present? and params[:library].present? and params[:method].present?
+          if params[:output_pdf]
+            output_list_with_search_pdf(query, params[:state], params[:library], params[:method])
+          elsif params[:output_csv]
+            output_list_with_search_csv(query, params[:state], params[:library], params[:method])
+          end
+        end 
+     end
     end
 
     respond_to do |format|
@@ -401,7 +407,7 @@ class ReservesController < ApplicationController
   end
 
   private
-  def output_list_with_search(query, states, library, method)
+  def output_list_with_search_pdf(query, states, library, method)
     require 'thinreports'
     report = ThinReports::Report.new :layout => File.join(Rails.root, 'report', 'reservelist.tlf')
 
@@ -422,13 +428,13 @@ class ReservesController < ApplicationController
       states.each do |state|
         reserves = []
         if query.blank?
-          reserves = Reserve.where(:state => state, :receipt_library_id => params[:library], :information_type_id => params[:method]).order('expired_at ASC').includes(:manifestation)
+          reserves = Reserve.where(:state => state, :receipt_library_id => library, :information_type_id => method).order('expired_at ASC').includes(:manifestation)
         else
           reserves = Reserve.search do
             fulltext query
             with(:state).equal_to(state)
-            with(:receipt_library_id, params[:library]) unless params[:library].blank?
-            with(:information_type_id, params[:method]) unless params[:method].blank?
+            with(:receipt_library_id, library) unless library.blank?
+            with(:information_type_id, method) unless method.blank?
             order_by(:expired_at, :asc)
           end.results
         end
@@ -455,7 +461,7 @@ class ReservesController < ApplicationController
                  age = (Time.now.strftime("%Y%m%d").to_f - r.user.patron.date_of_birth.strftime("%Y%m%d").to_f) / 10000
                  age = age.to_i
                  user = user + '(' + age.to_s + t('activerecord.attributes.patron.old')  +')'
-                end
+               end
                row.item(:user).value(user)
                information_method = i18n_information_type(r.information_type_id)
                information_method += ': ' + Reserve.get_information_method(r) if r.information_type_id != 0 and !Reserve.get_information_method(r).nil?
@@ -476,10 +482,87 @@ class ReservesController < ApplicationController
           end
         end
       end
-      send_data report.generate, :filename => configatron.reservelist_all_print.filename, :type => 'application/pdf', :disposition => 'attachment'
+      send_data report.generate, :filename => configatron.reservelist_all_print_pdf.filename, :type => 'application/pdf', :disposition => 'attachment'
     end
   end
  
+  def output_list_with_search_csv(query, states, library, method)
+    out_dir = "#{RAILS_ROOT}/private/system/reserves/"
+    csv_file = out_dir + configatron.reservelist_all_print_csv.filename 
+    logger.info "output reservelist csv: #{csv_file}"
+
+    # create output path
+    FileUtils.mkdir_p(out_dir) unless FileTest.exist?(out_dir)
+
+    columns = [
+      [:state,'activerecord.attributes.reserve.state'],
+      [:receipt_library, 'activerecord.attributes.reserve.receipt_library'],
+      [:title, 'activerecord.attributes.manifestation.original_title'],
+      [:expired_at,'activerecord.attributes.reserve.expired_at2'],
+      [:user, 'activerecord.attributes.reserve.user'],
+      [:information_method, 'activerecord.attributes.reserve.information_method'],
+    ]
+
+    File.open(csv_file, "w") do |output|
+      # add UTF-8 BOM for excel
+      output.print "\xEF\xBB\xBF".force_encoding("UTF-8")
+
+      # title column
+      row = []
+      columns.each do |column|
+        row << I18n.t(column[1])
+      end
+      output.print row.join(",")+"\n"
+
+      states.each do |state|
+  #     reserves = []
+        # get reserves
+        if query.blank?
+          reserves = Reserve.where(:state => state, :receipt_library_id => library, :information_type_id => method).order('expired_at ASC').includes(:manifestation)
+        else
+          reserves = Reserve.search do
+            fulltext query
+            with(:state).equal_to(state)
+            with(:receipt_library_id, library) unless library.blank?
+            with(:information_type_id, method) unless method.blank?
+            order_by(:expired_at, :asc)
+          end.results
+        end
+        
+        # set
+        reserves.each do |reserve|
+          row = []
+          columns.each do |column|
+            case column[0]
+            when :title
+              row << i18n_state(state)
+            when :receipt_library
+              row << Library.find(reserve.receipt_library_id).display_name
+            when :title
+              row << reserve.manifestation.original_title
+            when :expired_at
+              row << reserve.expired_at.strftime("%Y/%m/%d")
+            when :user
+              user = reserve.user.patron.full_name
+              if SystemConfiguration.get("reserve_print.old") == true and  reserve.user.patron.date_of_birth
+                age = (Time.now.strftime("%Y%m%d").to_f - reserve.user.patron.date_of_birth.strftime("%Y%m%d").to_f) / 10000
+                age = age.to_i
+                user = user + '(' + age.to_s + t('activerecord.attributes.patron.old')  +')'
+              end
+              row << user
+            when :information_method
+              information_method = i18n_information_type(reserve.information_type_id)
+              information_method += ': ' + Reserve.get_information_method(reserve) if reserve.information_type_id != 0 and !Reserve.get_information_method(reserve).nil?
+              row << information_method
+            end # end of case column[0]
+          end #end of columns.each
+          output.print '"'+row.join('","')+"\"\n"
+        end # end of items.each
+      end
+    end
+    send_file csv_file
+  end
+
   def position_update(manifestation)
     reserves = Reserve.where(:manifestation_id => manifestation).not_retained.order(:position)
     items = []

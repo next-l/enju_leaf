@@ -153,8 +153,16 @@ class Item < ActiveRecord::Base
     false
   end
 
-  def checkout!(user)
-    self.circulation_status = CirculationStatus.where(:name => 'On Loan').first
+  def checkout!(user, librarian = nil)
+    circulation_status_on_loan = CirculationStatus.where(:name => 'On Loan').first
+    if self.circulation_status == circulation_status_on_loan
+      @basket = Basket.new(:user => librarian)
+      @basket.save(:validate => false)
+      @checkin = @basket.checkins.new(:item_id => self.id, :librarian_id => librarian.id)
+      @checkin.save(:validate => false)
+      @checkin.item_checkin(user, true)
+    end
+    self.circulation_status = circulation_status_on_loan
     reservation = checkout_reserved_item(user)
 #    if self.reserved_by_user?(user)
 #      reservation = self.reserve

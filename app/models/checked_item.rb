@@ -18,11 +18,7 @@ class CheckedItem < ActiveRecord::Base
       errors[:base] << 'checked_item.item_not_found'
       return false
     end
-    if self.item.rent?
-    # errors[:base] << I18n.t('activerecord.errors.messages.checked_item.already_checked_out')
-      errors[:base] << 'checked_item.already_checked_out'
-      return
-    end
+
     unless self.item.available_for_checkout?
     # errors[:base] << I18n.t('activerecord.errors.messages.checked_item.not_available_for_checkout')
       errors[:base] << 'checked_item.not_available_for_checkout'
@@ -34,6 +30,12 @@ class CheckedItem < ActiveRecord::Base
       return false
     end
     # ここまでは絶対に貸出ができない場合
+
+#    if self.item.rent?
+    # errors[:base] << I18n.t('activerecord.errors.messages.checked_item.already_checked_out')
+#      errors[:base] << 'checked_item.already_checked_out'
+#      return # 
+#    end
 
     return true if self.ignore_restriction == "1"
 
