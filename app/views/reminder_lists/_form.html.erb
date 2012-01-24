@@ -4,7 +4,11 @@
 
   <div class="field">
     <%= f.label :checkout_id -%><br />
-    <%= f.text_field :checkout_id -%>
+    <%- if @reminder_list.id -%>
+      <%= @reminder_list.checkout_id %>
+    <%- else -%>
+      <%= f.text_field :checkout_id -%>
+    <%- end -%>
   </div>
   <div class="field">
     <%= f.label :status -%><br />
