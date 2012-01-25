@@ -16,7 +16,7 @@ class Ability
       can [:edit, :update, :destroy], EventCategory do |event_category|
         !['unknown', 'closed'].include?(event_category.name)
       end
-      can [:read, :create, :update, :export_loan_lists, :get_loan_lists, :pickup, :pickup_item, :accept, :accept_item, :download_file], InterLibraryLoan
+      can [:read, :create, :export_loan_lists, :get_loan_lists, :pickup, :pickup_item, :accept, :accept_item, :download_file], InterLibraryLoan
       can [:update, :destroy], InterLibraryLoan do |inter_library_loan|
         inter_library_loan.state == "pending" || inter_library_loan.state == "requested"
       end
@@ -164,8 +164,8 @@ class Ability
       can [:edit, :update, :destroy], EventCategory do |event_category|
         !['unknown', 'closed'].include?(event_category.name)
       end
-      can [:read, :create, :update, :export_loan_lists, :get_loan_lists, :pickup, :pickup_item, :accept, :accept_item, :download_file], InterLibraryLoan
-      can [:update, :destroy], InterLibraryLoan do |inter_library_loan|
+      can [:read, :create, :export_loan_lists, :get_loan_lists, :pickup, :pickup_item, :accept, :accept_item, :download_file], InterLibraryLoan
+      can [:update, :update, :destroy], InterLibraryLoan do |inter_library_loan|
         inter_library_loan.state == "pending" || inter_library_loan.state == "requested"
       end
       can [:read, :create, :update], Item
