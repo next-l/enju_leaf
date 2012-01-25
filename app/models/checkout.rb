@@ -113,6 +113,157 @@ class Checkout < ActiveRecord::Base
     end
     queues.size
   end
+
+  # output
+  def self.output_checkouts(file, checkouts, lend_user, current_user)
+    require 'thinreports'
+    report = ThinReports::Report.new :layout => File.join(Rails.root, 'report', 'checkouts.tlf')
+
+    report.layout.config.list(:list) do
+      use_stores :total => 0
+      events.on :footer_insert do |e|
+        e.section.item(:total).value(checkouts.size)
+        e.section.item(:message).value(SystemConfiguration.get("checkouts_print.message"))
+      end
+    end
+
+    library = Library.find(current_user.library_id) rescue nil
+
+    report.start_new_page do |page|
+      page.item(:library).value(LibraryGroup.system_name(@locale))
+      page.item(:user).value(current_user.user_number)
+      page.item(:lend_user).value(lend_user.user_number)
+      page.item(:lend_library).value(library.display_name)
+      page.item(:lend_library_telephone_number_1).value(library.telephone_number_1)
+      page.item(:lend_library_telephone_number_2).value(library.telephone_number_2)
+      page.item(:date).value(Time.now.strftime('%Y/%m/%d'))
+
+      checkouts.each do |checkout|
+        page.list(:list).add_row do |row|
+          row.item(:book).value(checkout.item.manifestation.original_title)
+          row.item(:due_date).value(checkout.due_date)
+        end
+      end
+    end
+    report.generate_file(file)
+  end
+
+  def self.output_checkoutlist_pdf(file, checkouts, view)
+    require 'thinreports'
+    report = ThinReports::Report.new :layout => File.join(Rails.root, 'report', 'checkoutlist.tlf')
+
+    # set page_num
+    report.events.on :page_create do |e|
+      e.page.item(:page).value(e.page.no)
+    end
+    report.events.on :generate do |e|
+      e.pages.each do |page|
+        page.item(:total).value(e.report.page_count)
+      end
+    end
+
+    report.start_new_page do |page|
+      page.item(:date).value(Time.now)
+      if view == 'overdue'
+        page.item(:page_title).value(I18n.t('checkout.listing_overdue_item'))
+      else
+        page.item(:page_title).value(I18n.t('page.listing', :model => I18n.t('activerecord.models.checkout')))
+      end
+
+      if checkouts.size == 0
+        page.list(:list).add_row do |row|
+          row.item(:not_found).show
+          row.item(:not_found).value(I18n.t('page.no_record_found'))
+        end
+      else
+        checkouts.each do |checkout|
+          page.list(:list).add_row do |row|
+            row.item(:not_found).hide
+            user = checkout.user.patron.full_name
+            if configatron.checkout_print.old == true and checkout.user.patron.date_of_birth
+              age = (Time.now.strftime("%Y%m%d").to_f - checkout.user.patron.date_of_birth.strftime("%Y%m%d").to_f) / 10000
+              age = age.to_i
+              user = user + '(' + age.to_s + I18n.t('activerecord.attributes.patron.old')  +')'
+            end
+            row.item(:user).value(user)
+            row.item(:title).value(checkout.item.manifestation.original_title)
+            row.item(:item_identifier).value(checkout.item.item_identifier)
+            row.item(:library).value(checkout.item.shelf.library.display_name.localize)
+            row.item(:shelf).value(checkout.item.shelf.display_name.localize)
+            row.item(:due_date).value(checkout.due_date.strftime("%Y/%m/%d"))
+            renewal_count = checkout.checkout_renewal_count.to_s + '/' + checkout.item.checkout_status(checkout.user).checkout_renewal_limit.to_s
+            row.item(:renewal_count).value(renewal_count)
+            due_date_datetype = checkout.due_date.strftime("%Y-%m-%d")
+            overdue = Date.today - due_date_datetype.to_date
+            overdue = 0 if overdue < 0
+            row.item(:overdue).value(overdue)
+          end
+        end
+      end
+     end
+    report.generate_file(file)
+  end
+
+  def self.output_checkoutlist_csv(file, checkouts, view)
+    columns = [
+      [:user,'activerecord.models.user'],
+      [:title, 'activerecord.attributes.manifestation.original_title'],
+      [:item_identifier,'activerecord.attributes.item.item_identifier'],
+      [:library, 'activerecord.models.library'],
+      [:shelf, 'activerecord.models.shelf'],
+      [:due_date, 'activerecord.attributes.checkout.due_date'],
+      [:renewal_count, 'activerecord.attributes.checkout.renewal_count'],
+      [:overdue, 'checkout.number_of_day_overdue'],
+    ]
+
+    File.open(file, "w") do |output|
+      # add UTF-8 BOM for excel
+      output.print "\xEF\xBB\xBF".force_encoding("UTF-8")
+
+      # title column
+      row = []
+      columns.each do |column|
+        row << I18n.t(column[1])
+      end
+      output.print row.join(",")+"\n"
+
+      # set
+      checkouts.each do |checkout|
+        row = []
+        columns.each do |column|
+          case column[0]
+          when :user
+            user = checkout.user.patron.full_name
+            if SystemConfiguration.get("reserve_print.old") == true and  checkout.user.patron.date_of_birth
+              age = (Time.now.strftime("%Y%m%d").to_f - checkout.user.patron.date_of_birth.strftime("%Y%m%d").to_f) / 10000
+              age = age.to_i
+              user = user + '(' + age.to_s + I18n.t('activerecord.attributes.patron.old')  +')'
+            end
+            row << user
+          when :title
+            row << checkout.item.manifestation.original_title 
+          when :item_identifier
+            row << checkout.item.item_identifier
+          when :library
+            row << checkout.item.shelf.library.display_name.localize
+          when :shelf
+            row << checkout.item.shelf.display_name.localize
+          when :due_date
+            row << checkout.due_date.strftime("%Y/%m/%d")
+          when :renewal_count
+            renewal_count = checkout.checkout_renewal_count.to_s + '/' + checkout.item.checkout_status(checkout.user).checkout_renewal_limit.to_s
+            row << renewal_count
+          when :overdue
+            due_date_datetype = checkout.due_date.strftime("%Y-%m-%d")
+            overdue = Date.today - due_date_datetype.to_date
+            overdue = 0 if overdue < 0
+            row << overdue
+          end # end of case column[0]
+        end #end of columns.each
+        output.print '"'+row.join('","')+"\"\n"
+      end # end of items.each
+    end
+  end
 end
 
 # == Schema Information

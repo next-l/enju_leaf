@@ -6,7 +6,7 @@
 <%= render 'manifestations/title', :manifestation => @reserve.manifestation -%>
 
 <p>
-  <%- if current_user.has_role?('Librarian') -%>
+  <%- if user_signed_in? and current_user.has_role?('Librarian') -%>
     (<%= link_to t('page.number_of_reservations', :count => @reserved_count), manifestation_reserves_path(@reserve.manifestation) -%>)
     <br /><br/ >
   <%- end -%>

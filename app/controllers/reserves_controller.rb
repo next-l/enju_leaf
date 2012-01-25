@@ -1,9 +1,8 @@
 # -*- encoding: utf-8 -*-
 class ReservesController < ApplicationController
-#  include ReservesHelper
   include ApplicationHelper
   before_filter :store_location, :only => [:index, :new]
-  load_and_authorize_resource :except => :index
+#  load_and_authorize_resource :except => [:index, :show, :output, :edit]
   authorize_resource :only => :index
   before_filter :get_user_if_nil
   #, :only => [:show, :edit, :create, :update, :destroy]
@@ -134,6 +133,9 @@ class ReservesController < ApplicationController
   # GET /reserves/1
   # GET /reserves/1.xml
   def show
+    @reserve = Reserve.find(params[:id])
+    check_can_access?
+
     @information_method = Reserve.get_information_method(@reserve)
     @receipt_library = Library.find(@reserve.receipt_library_id)
     @reserved_count = Reserve.waiting.where(:manifestation_id => @reserve.manifestation_id, :checked_out_at => nil).count
@@ -149,6 +151,9 @@ class ReservesController < ApplicationController
     user = User.where(:user_number => params[:reserve][:user_number]).first if params[:reserve]
     user = @user if @user
 
+    if current_user.blank?
+      access_denied; return
+    end
     unless current_user.has_role?('Librarian')
       if user.try(:user_number).blank?
         access_denied 
@@ -189,9 +194,12 @@ class ReservesController < ApplicationController
 
   # GET /reserves/1;edit
   def edit
+    @reserve = Reserve.find(params[:id])
+    check_can_access?
     unless @reserve.can_checkout?
       access_denied; return
     end
+
     user = @user if @user
     @libraries = Library.all
     @informations = Reserve.informations(user)
@@ -203,10 +211,12 @@ class ReservesController < ApplicationController
     user = User.where(:user_number => params[:reserve][:user_number]).first if params[:reserve]
 
     # 図書館員以外は自分の予約しか作成できない
+    if current_user.blank?
+      access_denied; return
+    end
     unless current_user.has_role?('Librarian')
       unless user == current_user
-        access_denied
-        return
+        access_denied; return
       end
     end
     user = @user if @user
@@ -244,8 +254,7 @@ class ReservesController < ApplicationController
   # PUT /reserves/1.xml
   def update
     unless @reserve.can_checkout?
-      access_denied
-      return
+      access_denied; return
     end
 
     if params[:reserve]
@@ -302,6 +311,16 @@ class ReservesController < ApplicationController
   # DELETE /reserves/1
   # DELETE /reserves/1.xml
   def destroy
+    @reserve = Reserve.find(params[:id])
+    if current_user.blank?
+      access_denied; return
+    end
+    unless current_user.has_role?('Librarian')
+      if current_user != @reserve.user
+        access_denied; return
+      end
+    end
+
     reserve = @reserve.dup
     @reserve.destroy
     #flash[:notice] = t('reserve.reservation_was_canceled')
@@ -323,6 +342,9 @@ class ReservesController < ApplicationController
   end
 
   def output
+    @reserve = Reserve.find(params[:id])
+    check_can_access?
+
     output_file('reserve', @reserve, current_user) 
   end
 
@@ -347,7 +369,7 @@ class ReservesController < ApplicationController
 
   def output_file(output_type, *data)
     out_dir = "#{RAILS_ROOT}/private/system/reserves/"
-    FileUtiles.mkdir_p(file) unless FileTest.exist?(out_dir)
+    FileUtils.mkdir_p(out_dir) unless FileTest.exist?(out_dir)
     file = ""
     logger.info "output reserves  type: #{output_type}"
 
@@ -366,5 +388,22 @@ class ReservesController < ApplicationController
       Reserve.output_reservelist_all_csv(file, data[0], data[1], data[2], data[3])
     end
     send_file file
+  end
+
+  def check_can_access?
+    # logined?
+    if current_user.blank?
+      access_denied; return
+    end
+    # has_role? 
+    unless current_user.has_role?('Librarian')
+      if current_user != @reserve.user
+        access_denied; return
+      end
+      # can show?
+      unless @reserve.user_can_show?
+        access_denied; return
+      end
+    end
   end
 end

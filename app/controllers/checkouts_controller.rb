@@ -1,6 +1,5 @@
 class CheckoutsController < ApplicationController
   before_filter :store_location, :only => :index
-  load_and_authorize_resource :except => :output
   before_filter :get_user_if_nil, :only => :index
   before_filter :get_user, :except => :index
   helper_method :get_item
@@ -49,8 +48,10 @@ class CheckoutsController < ApplicationController
            checkouts = Checkout.not_returned.joins(:item => [{:shelf => :library}]).where('libraries.id' => library).order('due_date ASC')#.page(params[:page])
           end
           #output
-          if params[:output]
-            output_list(checkouts, params[:view]); return
+          if params[:output_pdf]
+            output_file('checkoutlist_pdf', checkouts, params[:view]); return
+          elsif params[:output_csv]
+            output_file('checkoutlist_csv', checkouts, params[:view]); return
           end
         end
       else
@@ -68,9 +69,12 @@ class CheckoutsController < ApplicationController
     end
 
     @days_overdue = params[:days_overdue] ||= 1
+    if params[:output]
+      output_file('checkouts', checkouts, User.find(params[:user_id]), current_user); return
+    end
     if params[:format] == 'csv'
       @checkouts = checkouts
-      output_csv(checkouts); return
+      output_file('checkoutlist_csv', checkouts, params[:view]); return
     else
       @checkouts = checkouts.page(params[:page])
     end
@@ -88,6 +92,16 @@ class CheckoutsController < ApplicationController
   # GET /checkouts/1
   # GET /checkouts/1.xml
   def show
+    @checkout = Checkout.find(params[:id])
+    if current_user.blank?
+      access_denied; return
+    end
+    unless current_user.has_role?('Librarian')  
+      unless current_user == @checkout.user
+        access_denied; return
+      end
+    end
+
     respond_to do |format|
       format.html # show.rhtml
       format.xml  { render :xml => @checkout.to_xml }
@@ -96,6 +110,16 @@ class CheckoutsController < ApplicationController
 
   # GET /checkouts/1;edit
   def edit
+    @checkout = Checkout.find(params[:id])
+    if current_user.blank?
+      access_denied; return
+    end
+    unless current_user.has_role?('Librarian')
+      unless current_user == @checkout.user
+        access_denied; return
+      end
+    end
+
     @renew_due_date = @checkout.set_renew_due_date(@user)
   end
 
@@ -147,136 +171,24 @@ class CheckoutsController < ApplicationController
     end
   end
   
-  def output
-    unless @user.blank?
-      require 'thinreports'
-      report = ThinReports::Report.new :layout => File.join(Rails.root, 'report', 'checkouts.tlf')
-
-      # checkouts
-      checkouts = @user.checkouts.not_returned.order('due_date ASC')
-
-      report.layout.config.list(:list) do
-        use_stores :total => 0
-        events.on :footer_insert do |e|
-          e.section.item(:total).value(checkouts.size)
-          e.section.item(:message).value(SystemConfiguration.get("checkouts_print.message"))
-        end
-      end
-
-      lend_user = User.find(params[:user_id]) rescue nil
-      library = Library.find(current_user.library_id) rescue nil
-
-      report.start_new_page do |page|
-        page.item(:library).value(LibraryGroup.system_name(@locale))
-        page.item(:user).value(@user.user_number)
-        page.item(:lend_user).value(lend_user.user_number)
-        page.item(:lend_library).value(library.display_name)
-        page.item(:lend_library_telephone_number_1).value(library.telephone_number_1)
-        page.item(:lend_library_telephone_number_2).value(library.telephone_number_2)
-        page.item(:date).value(Time.now.strftime('%Y/%m/%d'))
-
-        checkouts.each do |checkout|
-          page.list(:list).add_row do |row|
-            row.item(:book).value(checkout.item.manifestation.original_title)
-            row.item(:due_date).value(checkout.due_date)
-          end
-        end
-      end
-      send_data report.generate, :filename => configatron.checkouts_print.filename, :type => 'application/pdf', :disposition => 'attachment'
-    end
-  end
-
   private
-  def output_list(checkouts, view)
-    require 'thinreports'
-    report = ThinReports::Report.new :layout => File.join(Rails.root, 'report', 'checkoutlist.tlf')
+  def output_file(output_type, *data)
+    out_dir = "#{RAILS_ROOT}/private/system/checkouts/"
+    FileUtils.mkdir_p(out_dir) unless FileTest.exist?(out_dir)
+    file = ""
+    logger.info "output checkouts  type: #{output_type}"
 
-    # set page_num
-    report.events.on :page_create do |e|
-      e.page.item(:page).value(e.page.no)
+    case output_type
+    when 'checkouts'
+      file = out_dir + configatron.checkouts_print.filename
+      Checkout.output_checkouts(file, data[0], data[1], data[2])
+    when 'checkoutlist_pdf'
+      file = out_dir + configatron.checkoutlist_print_pdf.filename
+      Checkout.output_checkoutlist_pdf(file, data[0], data[1])
+    when 'checkoutlist_csv'
+      file = out_dir + configatron.checkoutlist_print_csv.filename
+      Checkout.output_checkoutlist_csv(file, data[0], data[1])
     end
-    report.events.on :generate do |e|
-      e.pages.each do |page|
-        page.item(:total).value(e.report.page_count)
-      end
-    end
-
-    report.start_new_page do |page|
-      page.item(:date).value(Time.now)
-      if view == 'overdue'
-        page.item(:page_title).value(t('checkout.listing_overdue_item'))
-      else
-        page.item(:page_title).value(t('page.listing', :model => t('activerecord.models.checkout')))
-      end
-
-      if checkouts.size == 0
-        page.list(:list).add_row do |row|
-          row.item(:state).value(i18n_state(state))
-          row.item(:not_found).show
-          row.item(:not_found).value(t('page.no_record_found')) 
-        end
-      else
-        checkouts.each do |checkout| 
-          page.list(:list).add_row do |row|
-            row.item(:not_found).hide
-            user = checkout.user.patron.full_name
-            if configatron.checkout_print.old == true and checkout.user.patron.date_of_birth
-              age = (Time.now.strftime("%Y%m%d").to_f - checkout.user.patron.date_of_birth.strftime("%Y%m%d").to_f) / 10000
-              age = age.to_i
-              user = user + '(' + age.to_s + t('activerecord.attributes.patron.old')  +')'
-            end
-            row.item(:user).value(user)
-            row.item(:title).value(checkout.item.manifestation.original_title)
-            row.item(:item_identifier).value(checkout.item.item_identifier)
-            row.item(:library).value(checkout.item.shelf.library.display_name.localize)
-            row.item(:shelf).value(checkout.item.shelf.display_name.localize)
-            row.item(:due_date).value(checkout.due_date.strftime("%Y/%m/%d"))
-            renewal_count = checkout.checkout_renewal_count.to_s + '/' + checkout.item.checkout_status(checkout.user).checkout_renewal_limit.to_s
-            row.item(:renewal_count).value(renewal_count)
-            due_date_datetype = checkout.due_date.strftime("%Y-%m-%d")
-            overdue = Date.today - due_date_datetype.to_date
-            overdue = 0 if overdue < 0
-            row.item(:overdue).value(overdue)
-          end
-        end
-      end
-    end
-    send_data report.generate, :filename => configatron.checkoutlist_print_pdf.filename, :type => 'application/pdf', :disposition => 'attachment'
-  end
-
-  def output_csv(checkouts)
-    buf = ""
-    # header
-    buf << t('activerecord.models.user') +
-     "," + t('activerecord.attributes.manifestation.original_title') +
-     "," + t('activerecord.attributes.item.item_identifier') +
-     "," + t('activerecord.models.library') +
-     "," + t('activerecord.models.shelf') +
-     "," + t('activerecord.attributes.checkout.due_date') +
-     "," + t('activerecord.attributes.checkout.renewal_count') +
-     "," + t('checkout.number_of_day_overdue') + "\n"
-    checkouts.each do |checkout|
-      # modified date
-      user = checkout.user.patron.full_name
-      if configatron.checkout_print.old == true and checkout.user.patron.date_of_birth
-        age = (Time.now.strftime("%Y%m%d").to_f - checkout.user.patron.date_of_birth.strftime("%Y%m%d").to_f) / 10000
-        age = age.to_i
-        user = user + '(' + age.to_s + t('activerecord.attributes.patron.old')  +')'
-      end
-      renewal_count = checkout.checkout_renewal_count.to_s + '/' + checkout.item.checkout_status(checkout.user).checkout_renewal_limit.to_s
-      due_date_datetype = checkout.due_date.strftime("%Y-%m-%d")
-      overdue = Date.today - due_date_datetype.to_date
-      overdue = 0 if overdue < 0
-      # set date
-      buf << "\"" + user + "\"" +
-             "," + "\"" + checkout.item.manifestation.original_title + "\"" +
-             "," + "\"" + checkout.item.item_identifier + "\"" +
-             "," + "\"" + checkout.item.shelf.library.display_name.localize + "\"" +
-             "," + "\"" + checkout.item.shelf.display_name.localize + "\"" +
-             "," + "\"" + checkout.due_date.strftime("%Y/%m/%d") + "\"" +
-             "," + "\"" + renewal_count + "\"" + 
-             "," +" \"" + overdue.to_s + "\"" + "\n"
-    end
-    send_data(buf, :filename => configatron.checkoutlist_print_csv.filename)
+    send_file file
   end
 end
