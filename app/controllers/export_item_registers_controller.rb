@@ -26,6 +26,9 @@ class ExportItemRegistersController < ApplicationController
       list_type = params[:export_item_register][:list_type]
       file_type = params[:export_item_register][:file_type]
       out_dir = "#{RAILS_ROOT}/private/system/item_registers/"
+      # clear the out_dir
+      Dir.foreach(out_dir){|file| File.delete(out_dir + file) rescue nil} rescue nil
+  
       logger.error "SQL start at #{Time.now}"
       case list_type.to_i
       when 1 # item register
@@ -38,7 +41,15 @@ class ExportItemRegistersController < ApplicationController
         file_name = "audio_list"
         Item.export_audio_list(out_dir, file_type)
       end
-      send_file "#{out_dir}#{file_name}.#{file_type}"
+      begin
+        send_file "#{out_dir}#{file_name}.#{file_type}"
+      rescue Exception => e
+        logger.error "Failed download the file: #{e}"
+        flash[:message] = t('page.no_file')
+        @items_size = 0
+        @page = 0
+        render :index
+      end
       logger.error "created report: #{Time.now}"
       return true
     end

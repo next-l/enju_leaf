@@ -1423,7 +1423,7 @@ ja:
     last_updated: "最終更新日"
     unknown: "不明"
     more: "さらに表示"
-
+    no_file: "ダウンロードするファイルがありません。"
     connection_failed: "ネットワーク接続に失敗しました。"
     timed_out: "タイムアウトしました。"
     example: "例"
