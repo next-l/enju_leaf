@@ -1355,6 +1355,7 @@ ja:
     import_from_file: "TSVファイルからのインポート"
     import_from_network: "ネットワークからインポート"
     no_record_found: "資料が見つかりませんでした。"
+    not_found_users: "該当の利用者は見つかりませんでした。"
     limit_exceeded: "検索件数の上限を超えました。最初の%{count}件を表示しています。"
     enter_search_term: "検索語を入力してください。"
     serial: "雑誌・定期刊行物"

@@ -1,6 +1,7 @@
 <div id="content_detail" class="ui-corner-all">
 <h1 class="title"><%= t('page.listing', :model => t('activerecord.models.unablelist')) -%></h1>
 <div id="content_list">
+<%- if false -%>
 <%- unless @users.blank? -%>
   <%= form_tag({:action => 'output'}) do -%>
     <%= hidden_field_tag :sort_by, params[:sort_by] -%>
@@ -9,13 +10,15 @@
   <%- end -%>
   <br />
 <%- end -%>
+<%- end -%>
 
 <%= form_for :unablelist, :html => {:method => 'get'} do -%>
   <div style="color: red"><%= flash[:message] -%></div>
   <p>
-    <%= t('advanced_search.library') -%>: <%= select("library", "id", @select_librarlies, {:include_blank => t('advanced_search.all_libraries'), :selected=>@selected_library}  )%> </td>
+    <%= t('advanced_search.library') -%>: <%= select("library", "id", @libraries, {:include_blank => t('advanced_search.all_libraries'), :selected=>@selected_library}  )%> </td>
     <%= hidden_field_tag :sort_by, params[:sort_by] -%>
     <%= submit_tag t('page.search') -%>
+    <%= submit_tag t('page.output', :model => t('activerecord.models.unablelist')), :name => 'output' -%>
     <br />
   </p>
 <%- end -%>
@@ -26,12 +29,12 @@
     <%- if params[:sort_by].blank? || params[:sort_by] == 'user_number' -%>
       <strong><%= t('activerecord.attributes.user.user_number') -%></strong>
     <%- else -%>
-      <%= link_to t('activerecord.attributes.user.user_number'), unablelist_path(:sort_by => 'user_number') -%>
+      <%= link_to t('activerecord.attributes.user.user_number'), unablelist_path(:sort_by => 'user_number', :page => @page) -%>
     <%- end -%>
     <%- if params[:sort_by] == 'library' -%>
       <strong><%= t('activerecord.attributes.user.library') -%></strong>
     <%- else -%>
-      <%= link_to t('activerecord.attributes.user.library'), unablelist_path(:sort_by => 'library') -%>
+      <%= link_to t('activerecord.attributes.user.library'), unablelist_path(:sort_by => 'library', :page => @page) -%>
     <%- end -%>
   <%- end -%>
 </p>
@@ -47,10 +50,10 @@
     <th><%= t('activerecord.attributes.patron.date_of_birth') %></th>
     <th><%= t('activerecord.attributes.patron.email') %></th>
   </tr>
-    <%- @users.each_with_index do |user, i| -%>
+    <%- @users.each do |user| -%>
       <tr class="line<%= cycle("0", "1") -%>">
         <td><%= link_to user.library.display_name, user.library -%></td>
-        <td><%= link_to user.user_number -%></td>
+        <td><%= link_to user.user_number if user.user_number -%></td>
         <td><%= link_to user.patron.full_name, user -%></td>
         <td><%= user.patron.telephone_number_1 -%></td>
         <td><%= user.patron.extelephone_number_1 -%></td>
@@ -60,6 +63,8 @@
       </tr>
     <%- end -%>
 </table>
+<br />
+<%= will_paginate(@users) -%>
 </div>
 </div>
 

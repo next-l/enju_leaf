@@ -1207,6 +1207,7 @@ en:
     import_from_file: "Import from TSV file"
     import_from_network: "Import from networks"
     no_record_found: "No records found."
+    not_found_users: "Not found users."
     limit_exceeded: "Limit exceeded. Listing the first %{count} records."
     enter_search_term: "Enter your search term."
     serial: "Serial"

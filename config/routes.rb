@@ -470,7 +470,6 @@ EnjuLeaf::Application.routes.draw do
   match '/reservelists' => 'reservelists#index'
   match '/reservelists/output' => 'reservelists#output'
   match '/unablelist' => 'unablelist#index'
-  match '/unablelist/output' => 'unablelist#output'
   match '/retained_manifestations' => 'retained_manifestations#index'
   match '/retained_manifestations/set_retained' => 'retained_manifestations#set_retained'
 
