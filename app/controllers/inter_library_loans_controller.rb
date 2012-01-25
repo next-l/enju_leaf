@@ -37,8 +37,10 @@ class InterLibraryLoansController < ApplicationController
   # GET /inter_library_loans/new.xml
   def new
     @inter_library_loan = InterLibraryLoan.new
+    @current_library = current_user.library
     @libraries = LibraryGroup.first.real_libraries
-    @libraries.reject!{|library| library == current_user.library}
+    @reasons = InterLibraryLoan.reasons
+#    @libraries.reject!{|library| library == current_user.library}
 
     respond_to do |format|
       format.html # new.html.erb
@@ -50,7 +52,8 @@ class InterLibraryLoansController < ApplicationController
   def edit
     @inter_library_loan = InterLibraryLoan.find(params[:id])
     @libraries = LibraryGroup.first.real_libraries
-    @libraries.reject!{|library| library == current_user.library}
+    @reasons = InterLibraryLoan.reasons
+#    @libraries.reject!{|library| library == current_user.library}
   end
 
   # POST /inter_library_loans
@@ -68,6 +71,7 @@ class InterLibraryLoansController < ApplicationController
         format.xml  { render :xml => @inter_library_loan, :status => :created, :location => @inter_library_loan }
       else
         @libraries = LibraryGroup.first.real_libraries
+        @reasons = InterLibraryLoan.reasons
         @libraries.reject!{|library| library == current_user.library}
         format.html { render :action => "new" }
         format.xml  { render :xml => @inter_library_loan.errors, :status => :unprocessable_entity }
@@ -101,7 +105,8 @@ class InterLibraryLoansController < ApplicationController
       else
         @inter_library_loan.item = @item
         @libraries = LibraryGroup.first.real_libraries
-        @libraries.reject!{|library| library == current_user.library}
+        @reasons = InterLibraryLoan.reasons
+#        @libraries.reject!{|library| library == current_user.library}
         format.html { render :action => "edit" }
         format.xml  { render :xml => @inter_library_loan.errors, :status => :unprocessable_entity }
       end
@@ -158,8 +163,8 @@ class InterLibraryLoansController < ApplicationController
       end
       library_ids.each do |library_id|
         library = Library.find(library_id) rescue nil
-        to_libraries = InterLibraryLoan.joins(:item => :shelf).where(['shelves.id IN (?) AND inter_library_loans.reason = ? ', library.shelf_ids, 1]).inject([]){|libraries, data| libraries << data.borrowing_library}
-        to_libraries << InterLibraryLoan.where(['borrowing_library_id = ? AND inter_library_loans.reason = ? ', library.id, 2]).inject([]){|libraries, data| libraries << Library.find(:first, :conditions => ['name = ? ', data.item.library])}
+        to_libraries = InterLibraryLoan.joins(:item => :shelf).where(['shelves.id IN (?) AND inter_library_loans.reason = ? ', library.shelf_ids, 1]).inject([]){|libraries, data| libraries << data.to_library}
+        to_libraries << InterLibraryLoan.where(['to_library_id = ? AND inter_library_loans.reason = ? ', library.id, 2]).inject([]){|libraries, data| libraries << Library.find(:first, :conditions => ['name = ? ', data.item.library])}
         to_libraries.flatten.uniq.each do |to_library|
           report.start_new_page
           report.page.item(:date).value(Time.now)
@@ -167,7 +172,7 @@ class InterLibraryLoansController < ApplicationController
           report.page.item(:library_move_to).value(to_library.display_name.localize)
 
           @loans.each do |loan|
-            if library.shelf_ids.include?(loan.item.shelf.id) && loan.borrowing_library_id == to_library.id && loan.reason == 1
+            if library.shelf_ids.include?(loan.item.shelf.id) && loan.to_library_id == to_library.id && loan.reason == 1
               report.page.list(:list).add_row do |row|
                 row.item(:reason).value(t('inter_library_loan.checkout'))
                 row.item(:item_identifier).value(loan.item.item_identifier)
@@ -178,7 +183,7 @@ class InterLibraryLoansController < ApplicationController
             end
           end
           @loans.each do |loan|
-            if loan.borrowing_library_id == library.id && to_library.shelf_ids.include?(loan.item.shelf.id) && loan.reason == 2
+            if loan.to_library_id == library.id && to_library.shelf_ids.include?(loan.item.shelf.id) && loan.reason == 2
               report.page.list(:list).add_row do |row|
                 row.item(:reason).value(t('inter_library_loan.checkin'))
                 row.item(:item_identifier).value(loan.item.item_identifier)
@@ -228,11 +233,11 @@ class InterLibraryLoansController < ApplicationController
       report.page.item(:export_date).value(Time.now)
       report.page.item(:title).value(@pickup_item.manifestation.original_title)
       report.page.item(:call_number).value(@pickup_item.call_number)
-      report.page.item(:from_library).value(@pickup_item.shelf.library.display_name.localize)
-      report.page.item(:to_library).value(@loan.borrowing_library.display_name.localize)
+      report.page.item(:from_library).value(@loan.from_library.display_name.localize)
+      report.page.item(:to_library).value(@loan.to_library.display_name.localize)
       report.page.item(:reason).value(t('inter_library_loan.checkout')) if @loan.reason == 1
       report.page.item(:reason).value(t('inter_library_loan.checkin')) if @loan.reason == 2
-      reserve = Reserve.waiting.where(:item_id => @loan.item_id, :receipt_library_id => @loan.borrowing_library_id, :state => 'in_process').first 
+      reserve = Reserve.waiting.where(:item_id => @loan.item_id, :receipt_library_id => @loan.to_library_id, :state => 'in_process').first 
       if reserve
         report.page.item(:user_title).show
         report.page.item(:reserve_user).value(reserve.user.username) if reserve.user
@@ -272,7 +277,7 @@ class InterLibraryLoansController < ApplicationController
         render :json => {:error => t('inter_library_loan.no_loan')}
         return false
       end
-      unless (@loan.reason == 1 && @loan.borrowing_library_id == library.id) || (@loan.reason == 2 && @item.shelf.library.id == library.id)
+      unless @loan.to_library == current_user.library
         render :json => {:error => t('inter_library_loan.wrong_library')}
         return false
       end

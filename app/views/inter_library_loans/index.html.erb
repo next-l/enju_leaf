@@ -4,8 +4,9 @@
 <table class="index">
   <tr>
     <th><%= t('activerecord.models.item') -%></th>
-    <th><%= t('activerecord.models.library') -%></th>
-    <th><%= t('activerecord.attributes.inter_library_loan.borrowing_library') -%></th>
+    <th><%= t('activerecord.attributes.inter_library_loan.from_library') -%></th>
+    <th><%= t('activerecord.attributes.inter_library_loan.to_library') -%></th>
+    <th><%= t('activerecord.attributes.inter_library_loan.reason') -%></th>
     <th>
       <%= t('activerecord.attributes.inter_library_loan.shipped_at') -%> / 
       <%= t('activerecord.attributes.inter_library_loan.received_at') -%>
@@ -20,19 +21,24 @@
       <br />
       (<%= link_to inter_library_loan.item.manifestation.original_title, inter_library_loan.item.manifestation -%>)
     </td>
-    <td><%= link_to inter_library_loan.item.shelf.library.display_name.localize, inter_library_loan.item.shelf.library -%></td>
-    <td><%= link_to inter_library_loan.borrowing_library.display_name.localize, inter_library_loan.borrowing_library -%></td>
+    <td><%= link_to inter_library_loan.from_library.display_name.localize, inter_library_loan.from_library -%></td>
+    <td><%= link_to inter_library_loan.to_library.display_name.localize, inter_library_loan.to_library -%></td>
+    <%- if inter_library_loan.reason == 1 -%>
+      <td><%= t('inter_library_loan.checkout') -%></td>
+    <%- else -%>
+      <td><%= t('inter_library_loan.checkin') -%></td>
+    <%- end -%>
     <td>
       <%= l(inter_library_loan.shipped_at) if inter_library_loan.shipped_at -%><br />
       <%= l(inter_library_loan.received_at) if inter_library_loan.received_at -%>
     </td>
-    <%- if can? :destroy, inter_library_loan -%>
-      <td>
+    <td>
         <%= link_to t('page.show'), inter_library_loan -%>
+    <%- if can? :destroy, inter_library_loan -%>
         <%= link_to t('page.edit'), edit_inter_library_loan_path(inter_library_loan) -%>
         <%= link_to t('page.destroy'), inter_library_loan, :confirm => t('page.are_you_sure'), :method => :delete -%>
-      </td>
     <%- end -%>
+    </td>
   </tr>
 <%- end -%>
 </table>

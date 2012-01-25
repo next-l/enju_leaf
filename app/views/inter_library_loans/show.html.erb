@@ -4,13 +4,22 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <strong><%= t('activerecord.models.library') -%>:</strong>
-  <%= link_to @inter_library_loan.item.shelf.library.display_name.localize, @inter_library_loan.item.shelf.library -%>
+  <strong><%= t('activerecord.attributes.inter_library_loan.from_library') -%>:</strong>
+  <%= link_to @inter_library_loan.from_library.display_name.localize, @inter_library_loan.from_library -%>
 </p>
 
 <p>
-  <strong><%= t('activerecord.attributes.inter_library_loan.borrowing_library') -%>:</strong>
-  <%= link_to @inter_library_loan.borrowing_library.display_name.localize, @inter_library_loan.borrowing_library -%>
+  <strong><%= t('activerecord.attributes.inter_library_loan.to_library') -%>:</strong>
+  <%= link_to @inter_library_loan.to_library.display_name.localize, @inter_library_loan.to_library -%>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.inter_library_loan.reason') -%>:</strong>
+  <%- if @inter_library_loan.reason == 1 -%>
+    <%= t('inter_library_loan.checkout') -%>
+  <%- else -%>
+    <%= t('inter_library_loan.checkin') -%>
+  <%- end -%>
 </p>
 
 <p>
@@ -34,22 +43,14 @@
   <%= l(@inter_library_loan.received_at) if @inter_library_loan.received_at -%>
 </p>
 
-<p>
-  <strong><%= t('activerecord.attributes.inter_library_loan.return_shipped_at') -%>:</strong>
-  <%= l(@inter_library_loan.return_shipped_at) if @inter_library_loan.return_shipped_at -%>
-</p>
-
-<p>
-  <strong><%= t('activerecord.attributes.inter_library_loan.return_received_at') -%>:</strong>
-  <%= l(@inter_library_loan.return_received_at) if @inter_library_loan.return_received_at -%>
-</p>
-
 </div>
 </div>
 
 <div id="submenu" class="ui-corner-all">
   <ul>
-    <li><%= link_to t('page.edit'), edit_inter_library_loan_path(@inter_library_loan) -%></li>
+    <%- if can? :destroy, @inter_library_loan -%>
+      <li><%= link_to t('page.edit'), edit_inter_library_loan_path(@inter_library_loan) -%></li>
+    <%- end -%>
     <li><%= link_to t('page.back'), inter_library_loans_path -%></li>
   </ul>
 </div>

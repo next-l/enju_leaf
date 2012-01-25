@@ -8,7 +8,8 @@ class Library < ActiveRecord::Base
   has_many :events, :include => :event_category
   #belongs_to :holding_patron, :polymorphic => true, :validate => true
   belongs_to :patron #, :validate => true
-  has_many :inter_library_loans, :foreign_key => 'borrowing_library_id'
+  has_many :inter_library_loans, :foreign_key => 'to_library_id'
+  has_many :inter_library_loans, :foreign_key => 'from_library_id'
   has_many :users
   belongs_to :country
   has_many :budgets

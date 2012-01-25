@@ -16,10 +16,14 @@ class Ability
       can [:edit, :update, :destroy], EventCategory do |event_category|
         !['unknown', 'closed'].include?(event_category.name)
       end
+      can [:read, :create, :update], InterLibraryLoan
+      can [:update, :destroy], InterLibraryLoan do |inter_library_loan|
+        inter_library_loan.state == "pending" || inter_library_loan.state == "requested"
+      end
       can [:read, :create, :update], Item
       can :destroy, Item do |item|
         item.deletable?
-      end
+      end      
       can [:read, :create, :update], Library
       can :destroy, Library do |library|
         library.shelves.empty? and library.users.empty? and library.budgets.empty? and library.events.empty? and !library.web?
@@ -76,7 +80,6 @@ class Ability
         EventImportFile,
         Family,
         ImportRequest,
-        InterLibraryLoan,
         Inventory,
         InventoryFile,
         LendingPolicy,
@@ -161,6 +164,10 @@ class Ability
       can [:edit, :update, :destroy], EventCategory do |event_category|
         !['unknown', 'closed'].include?(event_category.name)
       end
+      can [:read, :create, :update], InterLibraryLoan
+      can [:update, :destroy], InterLibraryLoan do |inter_library_loan|
+        inter_library_loan.state == "pending" || inter_library_loan.state == "requested"
+      end
       can [:read, :create, :update], Item
       can :destroy, Item do |item|
         item.checkouts.not_returned.empty?
@@ -222,7 +229,6 @@ class Ability
         EventImportFile,
         Family,
         ImportRequest,
-        InterLibraryLoan,
         Inventory,
         InventoryFile,
         LibcheckDataFile,

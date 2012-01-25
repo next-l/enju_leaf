@@ -6,8 +6,18 @@
   <%= f.error_messages -%>
 
   <div class="field">
-    <%= f.label t('activerecord.attributes.inter_library_loan.borrowing_library') -%><br />
-    <%= f.select(:borrowing_library_id, @libraries.collect{|l| [l.display_name.localize, l.id]}) -%>
+    <%= f.label :from_library -%><br />
+    <%= f.select(:from_library_id, @libraries.collect{|l| [l.display_name.localize, l.id]}, :selected => @current_library.id) -%>
+  </div>
+
+  <div class="field">
+    <%= f.label :to_library -%><br />
+    <%= f.select(:to_library_id, @libraries.collect{|l| [l.display_name.localize, l.id]}) -%>
+  </div>
+
+  <div class="field">
+    <%= f.label :reason -%><br />
+    <%= f.select(:reason, @reasons.collect{|r| [r[0], r[1]]}) -%>
   </div>
 
   <div class="field">

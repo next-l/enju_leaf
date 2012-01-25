@@ -1,4 +1,4 @@
-<div id="content_detail" class="ui-corner-all">
+\<div id="content_detail" class="ui-corner-all">
   <h1 class="title"><%= t('page.editing', :model => t('activerecord.models.inter_library_loan')) -%></h1>
 <div id="content_list">
 
@@ -6,8 +6,18 @@
   <%= f.error_messages -%>
 
   <div class="field">
-    <%= f.label t('activerecord.attributes.inter_library_loan.borrowing_library') -%><br />
-    <%= f.select(:borrowing_library_id, @libraries.collect{|l| [l.display_name.localize, l.id]}) -%>
+    <%= f.label :from_library -%><br />
+    <%= f.select(:from_library_id, @libraries.collect{|l| [l.display_name.localize, l.id]}, :selected => @inter_library_loan.from_library_id) -%>
+  </div>
+
+  <div class="field">
+    <%= f.label :to_library -%><br />
+    <%= f.select(:to_library_id, @libraries.collect{|l| [l.display_name.localize, l.id]}, :selected => @inter_library_loan.to_library_id) -%>
+  </div>
+
+  <div class="field">
+    <%= f.label :reason -%><br />
+    <%= f.select(:reason, @reasons.collect{|r| [r[0], r[1]]}, :selected => @inter_library_loan.reason) -%>
   </div>
 
   <div class="field">
@@ -70,72 +80,10 @@
       <%=l @inter_library_loan.received_at if @inter_library_loan.received_at %>
     </div>
 
-    <%- if !@inter_library_loan.item.hold?(current_user.library) -%>
-      <div class="field">
-        <%= f.label :return_shippd_at -%><br />
-        <%= f.datetime_select :return_shipped_at -%>
-      </div>
-      <div class="actions">
-        <%= f.submit :confirm => t('page.are_you_sure') -%>
-      </div>
-    <%- end -%>
-  <%- when 'return_shipped' -%>
-    <div class="field">
-      <%= f.label :requested_at -%><br />
-      <%=l @inter_library_loan.requested_at if @inter_library_loan.requested_at %>
-    </div>
-
-    <div class="field">
-      <%= f.label :shipped_at -%><br />
-      <%=l @inter_library_loan.shipped_at if @inter_library_loan.shipped_at %>
-    </div>
-
-    <div class="field">
-      <%= f.label :received_at -%><br />
-      <%=l @inter_library_loan.received_at if @inter_library_loan.received_at %>
-    </div>
-
-    <div class="field">
-      <%= f.label :return_shippd_at -%><br />
-      <%=l @inter_library_loan.return_shipped_at if @inter_library_loan.return_shipped_at %>
-    </div>
-
-    <%- if @inter_library_loan.item.hold?(current_user.library) -%>
-      <div class="field">
-        <%= f.label :return_received_at -%><br />
-        <%= f.datetime_select :return_received_at -%>
-      </div>
-      <div class="actions">
-        <%= f.submit :confirm => t('page.are_you_sure') -%>
-      </div>
-    <%- end -%>
-  <%- when 'return_received' -%>
-    <div class="field">
-      <%= f.label :requested_at -%><br />
-      <%=l @inter_library_loan.requested_at if @inter_library_loan.requested_at %>
-    </div>
-
-    <div class="field">
-      <%= f.label :shipped_at -%><br />
-      <%=l @inter_library_loan.shipped_at if @inter_library_loan.shipped_at %>
-    </div>
-
-    <div class="field">
-      <%= f.label :received_at -%><br />
-      <%=l @inter_library_loan.received_at if @inter_library_loan.received_at %>
-    </div>
-
-    <div class="field">
-      <%= f.label :return_shippd_at -%><br />
-      <%=l @inter_library_loan.return_shipped_at if @inter_library_loan.return_shipped_at %>
-    </div>
-
-    <div class="field">
-      <%= f.label :return_received_at -%><br />
-      <%=l @inter_library_loan.return_received_at if @inter_library_loan.return_received_at %>
-    </div>
   <%- end -%>
-
+  <div class="actions">
+    <%= f.submit :confirm => t('page.are_you_sure') -%>
+  </div>
 <%- end -%>
 
 </div>

@@ -1,26 +1,17 @@
 class InterLibraryLoan < ActiveRecord::Base
   default_scope :order => "created_at DESC"
   scope :completed, where(:state => 'return_received')
-  #scope :processing, lambda {|item, borrowing_library| {:conditions => ['item_id = ? AND borrowing_library_id = ? AND state != ?', item.id, borrowing_library.id, 'return_received']}}
-  scope :processing, lambda {|item, borrowing_library| {:conditions => ['item_id = ? AND borrowing_library_id = ?', item.id, borrowing_library.id]}}
+  #scope :processing, lambda {|item, to_library| {:conditions => ['item_id = ? AND to_library_id = ? AND state != ?', item.id, wto_library.id, 'return_received']}}
+  scope :processing, lambda {|item, to_library| {:conditions => ['item_id = ? AND to_library_id = ?', item.id, to_library.id]}}
   scope :in_process, :order => "created_at ASC"
 
   belongs_to :item, :validate => true
   #belongs_to :reserve
-  belongs_to :borrowing_library, :foreign_key => 'borrowing_library_id', :class_name => 'Library', :validate => true
+  belongs_to :to_library, :foreign_key => 'to_library_id', :class_name => 'Library', :validate => true
+  belongs_to :from_library, :foreign_key => 'from_library_id', :class_name => 'Library', :validate => true
 
-  validates_presence_of :item_id, :borrowing_library_id
-  validates_associated :item, :borrowing_library
-  validate :check_library, :on => :create
-
-  def check_library
-    if self.item and self.borrowing_library
-      unless InterLibraryLoan.processing(self.item, self.borrowing_library).blank?
-        errors.add(:borrowing_library)
-        errors.add(:item_identifier)
-      end
-    end
-  end
+  validates_presence_of :item_id, :from_library_id, :to_library_id
+  validates_associated :item, :from_library, :to_library
 
   def self.per_page
     10
@@ -92,19 +83,19 @@ class InterLibraryLoan < ActiveRecord::Base
     end
   end
 
-  def request_for_reserve(item, borrowing_library)
-    self.update_attributes(:item_id => item.id, :borrowing_library_id => borrowing_library.id, :requested_at => Time.zone.now, :reason => 1)
+  def request_for_reserve(item, to_library)
+    self.update_attributes(:item_id => item.id, :to_library_id => to_library.id, :from_library_id => item.shelf.library.id, :requested_at => Time.zone.now, :reason => 1)
     self.sm_request! if self.save
   end
 
-  def request_for_checkin(item, borrowing_library)
-    self.update_attributes(:item_id => item.id, :borrowing_library_id => borrowing_library.id, :requested_at => Time.zone.now, :reason => 2)
+  def request_for_checkin(item, from_library)
+    self.update_attributes(:item_id => item.id, :from_library_id => from_library.id, :to_library_id => item.shelf.library.id, :requested_at => Time.zone.now, :reason => 2)
     self.save
-    InterLibraryLoan.transaction do
-      item.update_attributes({:circulation_status => CirculationStatus.where(:name => 'Recalled').first})
-      self.update_attributes({:requested_at => Time.zone.now})
-    end
-#    self.sm_request! if self.save
+#    InterLibraryLoan.transaction do
+#      item.update_attributes({:circulation_status => CirculationStatus.where(:name => 'Recalled').first})
+#      self.update_attributes({:requested_at => Time.zone.now})
+      self.sm_request! if self.save
+#    end
   end
 
   def self.loan_items
@@ -115,6 +106,13 @@ class InterLibraryLoan < ActiveRecord::Base
     end  
     return loans
   end
+
+  def self.reasons
+    reasons = [[I18n.t('inter_library_loan.checkout'), 1],
+                [I18n.t('inter_library_loan.checkin'), 2]]
+    return reasons
+  end
+
 end
 
 # == Schema Information
@@ -123,7 +121,7 @@ end
 #
 #  id                   :integer         not null, primary key
 #  item_id              :integer         not null
-#  borrowing_library_id :integer         not null
+#  to_library_id        :integer         not null
 #  requested_at         :datetime
 #  shipped_at           :datetime
 #  received_at          :datetime
@@ -133,5 +131,6 @@ end
 #  state                :string(255)
 #  created_at           :datetime
 #  updated_at           :datetime
+#  from_library_id        :integer         not null
 #
 

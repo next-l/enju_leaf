@@ -27,3 +27,5 @@ ja:
           error_at_exporting_notfound_list: "欠本リストファイル出力時にエラーが発生しました。"
           error_at_exporting_item_register: "図書原簿ファイルの出力時にエラーが発生しました。"
           error_at_exporting_detection_list: "発見リストファイルの出力時にエラーが発生しました。"
+        inter_library_loan:
+          same_library: "移動元図書館と移動先図書館が同じです。"
