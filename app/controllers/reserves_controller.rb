@@ -69,12 +69,12 @@ class ReservesController < ApplicationController
         @selected_state = params[:state] || []
         @selected_library = params[:library] || []
         @selected_method = params[:method] || []
-        selected_method = @selected_method.clone
-        selected_method.concat(['3', '4', '5', '6', '7']) if @selected_method.blank? and @selected_method.include?('2')
+        information_type_ids = nil
+        information_type_ids = params[:method].clone unless @selected_method.blank?
+        information_type_ids.concat(['3', '4', '5', '6', '7']) if !@selected_method.blank? and @selected_method.include?('2')
         if @selected_state.blank? || @selected_library.blank? || @selected_method.blank? 
           flash[:reserve_notice] << t('item_list.no_list_condition') + '<br />'
         end
-        states = nil
 
         # set query
         query = params[:query].to_s.strip
@@ -92,29 +92,30 @@ class ReservesController < ApplicationController
           end
         end
         date_of_birth_end = Time.zone.parse(birth_date).end_of_day.utc.iso8601 rescue nil
+        query = "#{query} date_of_birth_d: [#{date_of_birth} TO #{date_of_birth_end}]" unless date_of_birth.blank?
+        query = "#{query} address_text: #{@address}" unless @address.blank?
 
         # search
         if query.blank? and @address.blank? and @date_of_birth.blank?
-          @reserves = Reserve.where(:state => @selected_state, :receipt_library_id => @selected_library, 
-            :information_type_id => selected_method).order('expired_at ASC').includes(:manifestation).page(page)
-        else 
-          query = "#{query} date_of_birth_d: [#{date_of_birth} TO #{date_of_birth_end}]" unless date_of_birth.blank?
-          query = "#{query} address_text: #{@address}" unless @address.blank?
+          @reserves = Reserve.where(:state => params[:state], :receipt_library_id => params[:library], 
+            :information_type_id => information_type_ids).order('expired_at ASC').includes(:manifestation).page(page)
+        else
           @reserves = Reserve.search do
             fulltext query
-            with(:state, @selected_state)
-            with(:receipt_library_id, @selected_library)
-            with(:information_type_id, selected_method)
+            with(:state, params[:state]) 
+            with(:receipt_library_id, params[:library]) 
+            with(:information_type_id, information_type_ids) 
             order_by(:expired_at, :asc)
             paginate :page => page.to_i, :per_page => Reserve.per_page
           end.results
         end
 
         # output reserveslist
-        unless @selected_state.blank? and @selected_library.blank? and @selected_method.blank? 
+        unless @selected_state.blank? or @selected_library.blank? or @selected_method.blank? 
           if params[:output_pdf] || params[:output_csv]
             output_type = params[:output_pdf] ? 'reservelist_all_pdf': 'reservelist_all_csv'
-            output_file(output_type, query, @selected_state, @selected_library, selected_method)
+            output_file(output_type, query, params[:state], params[:library], params[:method])
+            return
           end
         end
       end
@@ -122,7 +123,7 @@ class ReservesController < ApplicationController
 
     respond_to do |format|
       format.html # index.rhtml
-      format.xml  { render :xml => @reserves.to_xml }
+      #format.xml  { render :xml => @reserves.to_xml }
       format.rss  { render :layout => false }
       format.atom
       format.csv
