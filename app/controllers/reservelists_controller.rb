@@ -5,7 +5,8 @@ class ReservelistsController < ApplicationController
   def initialize
     @states = @selected_state= Reserve.states
     @information_types = @selected_method = Reserve.information_types
-    @libraries = @selected_library = Library.order('position')
+    @libraries = Library.order('position')
+    @selected_library = @libraries.collect{|library| library.id}
     super
   end
 

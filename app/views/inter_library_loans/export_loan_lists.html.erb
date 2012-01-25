@@ -29,11 +29,9 @@
     <%= label :library, t('inter_library_loan.original_library') -%>:<br />
     <div class="parent">
       <input type='checkbox', name='all_library', id='all_library', class='check-parent',onclick ='check_all_library();', checked><%= t('item_list.all_library') -%></input><br />
-      <ul style="list-style-type: none">
-        <%- @libraries.each do |library| -%>
-          <li><%= check_box_tag "library[]", library.id, true, :class => 'check-child' -%><%= library.display_name -%></li>
-        <%- end -%>
-      </ul>
+      <%- @libraries.each do |library| -%>
+        &nbsp;&nbsp;<%= check_box_tag "library[]", library.id, true, :class => 'check-child' -%><%= library.display_name -%><br />
+      <%- end -%>
     </div>
   </div>
 

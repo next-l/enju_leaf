@@ -29,19 +29,13 @@
 
     <%= check_box_tag "all_circulation_status", true, @checked_nil ? false : true, :id=>'all_circulation_status', :name=>'all_circulation_status', :onclick=>'checkAll(this);' -%><%= t('advanced_search.all', :model=>t('activerecord.models.circulation_status')) -%><br />
     <div id="list_condition_200">
-      <ul style="list-style-type: none">
-        <%- @circulation_status.each_with_index do |c, g| -%>
-          <li>
-            <%= check_box_tag "circulation_status[]", c.id, @checked_nil ? false : true, :class => 'circulation_status', :onclick => 'clear_checkAll(this);' -%><%= c.display_name.localize -%>
-          </li>
-          <%- if g == 7 -%>
-      </ul>
+      <%- @circulation_status.each_with_index do |c, g| -%>
+        &nbsp;&nbsp;<%= check_box_tag "circulation_status[]", c.id, @checked_nil ? false : true, :class => 'circulation_status', :onclick => 'clear_checkAll(this);' -%><%= c.display_name.localize -%><br />
+        <%- if g == 7 -%>
     </div>
     <div id="list_condition_200">
-      <ul style="list-style-type: none">
           <%- end -%>
         <%- end -%>
-      </ul>
     </div>
     <br style="clear:both;"/>
   </div>
