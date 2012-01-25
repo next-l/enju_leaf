@@ -3,9 +3,9 @@
 <div id="content_list">
 <p id="notice"><%= notice %></p>
 <%- unless @checkouts.size == 0 -%>
-  <%= form_tag({:action => 'output'}) do -%>
+  <%= form_for(:checkouts, :url => user_checkouts_path(user), :html => {:method => 'get'}) do -%>
     <%= hidden_field_tag :user_id, user.id -%>
-    <%= submit_tag t('activerecord.attributes.checkout.output_checkoutlist') -%>
+    <%= submit_tag t('activerecord.attributes.checkout.output_checkoutlist'), :name => 'output' -%>
   <%- end -%>
 <%- end -%>
 <%= render 'list' -%>

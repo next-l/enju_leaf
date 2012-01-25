@@ -451,6 +451,11 @@ class Reserve < ActiveRecord::Base
     false
   end 
 
+  def user_can_show?
+    return true if ['requested', 'retained', 'in_process'].include?(self.state)
+    false
+  end 
+
   # output
   def self.output_reserve(file, reserve, current_user)
 #    library = Library.find(current_user.library_id)
