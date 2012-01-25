@@ -35,10 +35,26 @@ class ReminderList < ActiveRecord::Base
   end
 
   searchable do
+    integer :id
     integer :checkout_id 
     integer :status
     time :created_at
     time :updated_at
+    time :type1_printed_at
+    time :type2_printed_at
+
+    text :full_name do
+      full_name = []
+      full_name << self.checkout.user.patron.full_name if self.checkout.user.patron 
+      full_name << self.checkout.user.patron.full_name_transcription if self.checkout.user.patron
+    end
+
+    text :title do
+      titles = []
+      titles << self.checkout.item.manifestation.original_title
+      titles << self.checkout.item.manifestation.title_transcription
+    end
+
   end
 
 end

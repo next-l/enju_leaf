@@ -186,6 +186,9 @@ ja:
         status: 状態
         due_date: 貸出期限
         number_of_day_overdue: 超過日数
+        type1_printed: はがき
+        type2_printed: 催告書
+        printed: 印字済
         status_name:
           accepted: 未連絡
           called: 連絡済    
@@ -1441,6 +1444,8 @@ ja:
     budget: "予算"
     wait: "処理中.."
     system_configuration: システム設定
+    reminder_postal_card: "催促はがき"
+    reminder_letter: "催告書"
 
     exstatistics:
       ranknumber: 順位

@@ -1,6 +1,9 @@
 <div id="content_detail" class="ui-corner-all">
 <h1 class="title"><%= t('page.listing', :model => t('activerecord.models.reminder_list')) -%></h1>
 <div id="content_list">
+
+<%= render 'reminder_lists/search_and_output'-%>
+
 <div style="color: green"><%= flash[:message] -%></div>
 
 <table class="index">

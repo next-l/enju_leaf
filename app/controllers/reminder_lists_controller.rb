@@ -3,22 +3,45 @@ class ReminderListsController < ApplicationController
 
   def initialize
     @reminder_list_statuses = ReminderList.statuses
+    @selected_state = @reminder_list_statuses.collect {|s| s[:id]}
     super
   end
 
   def index
-    query = params[:query].to_s.strip
-    @query = query.dup
-    query = "#{query}*" if query.size == 1
+    flash[:reserve_notice] = ""
+    unless params[:do_search].blank?
+      query = params[:query].to_s.strip
+      @query = query.dup
+      query = "#{query}*" if query.size == 1
+ 
+      tmp_state_list = params[:state] || []
+      @selected_state = tmp_state_list.collect {|s| s.to_i }
+      logger.info @selected_state
+      if @selected_state.blank?  
+        flash[:reserve_notice] << t('item_list.no_list_condition') + '<br />'
+      end
+      states = nil
+    end
     page = params[:page] || 1
 
+    state_ids = @selected_state
     unless query.blank?
       @reminder_lists = ReminderList.search do
         fulltext query
+        with(:status, state_ids) 
+        order_by(:id, :asc)
         paginate :page => page.to_i, :per_page => ReminderList.per_page
       end.results
     else
-      @reminder_lists =  ReminderList.page(page)
+      @reminder_lists =  ReminderList.where(:status => state_ids).order('id').page(page)
+    end
+
+    # output reminder_list (postal_card or letter)
+    unless @selected_state.blank? 
+      if params[:output_reminder_postal_card] || params[:output_reminder_letter]
+        output_pdf(params, query)
+        return
+      end
     end
   end
 
@@ -58,6 +81,10 @@ class ReminderListsController < ApplicationController
     @reminder_list = ReminderList.find(params[:id])
     @reminder_list.destroy
     redirect_to(reminder_lists_url)
+  end
+
+  def output_pdf(params, query)
+    logger.info "output_pdf."
   end
 
   private  
