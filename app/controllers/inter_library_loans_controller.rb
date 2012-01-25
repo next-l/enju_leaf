@@ -163,16 +163,14 @@ class InterLibraryLoansController < ApplicationController
       end
       library_ids.each do |library_id|
         library = Library.find(library_id) rescue nil
-        to_libraries = InterLibraryLoan.joins(:item => :shelf).where(['shelves.id IN (?) AND inter_library_loans.reason = ? ', library.shelf_ids, 1]).inject([]){|libraries, data| libraries << data.to_library}
-        to_libraries << InterLibraryLoan.where(['to_library_id = ? AND inter_library_loans.reason = ? ', library.id, 2]).inject([]){|libraries, data| libraries << Library.find(:first, :conditions => ['name = ? ', data.item.library])}
-        to_libraries.flatten.uniq.each do |to_library|
+        to_libraries = InterLibraryLoan.where(:from_library_id => library_id).inject([]){|libraries, data| libraries << Library.find(data.to_library_id)}
+        to_libraries.uniq.each do |to_library|
           report.start_new_page
           report.page.item(:date).value(Time.now)
           report.page.item(:library).value(library.display_name.localize)
           report.page.item(:library_move_to).value(to_library.display_name.localize)
-
           @loans.each do |loan|
-            if library.shelf_ids.include?(loan.item.shelf.id) && loan.to_library_id == to_library.id && loan.reason == 1
+            if loan.from_library_id == library.id && loan.to_library_id == to_library.id && loan.reason == 1
               report.page.list(:list).add_row do |row|
                 row.item(:reason).value(t('inter_library_loan.checkout'))
                 row.item(:item_identifier).value(loan.item.item_identifier)
@@ -183,7 +181,7 @@ class InterLibraryLoansController < ApplicationController
             end
           end
           @loans.each do |loan|
-            if loan.to_library_id == library.id && to_library.shelf_ids.include?(loan.item.shelf.id) && loan.reason == 2
+            if loan.from_library_id == library.id && loan.to_library_id == to_library.id && loan.reason == 2
               report.page.list(:list).add_row do |row|
                 row.item(:reason).value(t('inter_library_loan.checkin'))
                 row.item(:item_identifier).value(loan.item.item_identifier)

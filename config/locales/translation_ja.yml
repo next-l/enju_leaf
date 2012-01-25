@@ -1788,6 +1788,10 @@ ja:
     failed_pickup: 資料の発送処理に失敗しました。
     failed_accept: 資料の受取処理に失敗しました。
     no_library: 移動元図書館を選択してください。
+    pendind: 処理待ち
+    requested: 受付済み
+    shipped: 発送済み
+    received: 受取済み
   checked_item:
     not_available_for_checkout: "この資料の貸出はできません。(状態不正)"
     not_for_loan: "この資料の貸出はできません。"
