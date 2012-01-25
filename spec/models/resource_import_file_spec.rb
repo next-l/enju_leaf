@@ -28,6 +28,12 @@ describe ResourceImportFile do
         Patron.count.should eq old_patrons_count + 6
         ResourceImportResult.count.should eq old_import_results_count + 17
 
+        manifestation_101 = Manifestation.where(:manifestation_identifier => '101').first
+        manifestation_101.series_statement.original_title.should eq '主シリーズ'
+        manifestation_101.series_statement.title_transcription.should eq 'しゅしりーず'
+        manifestation_101.series_statement.title_subseries.should eq '副シリーズ 1'
+        manifestation_101.series_statement.title_subseries_transcription.should eq 'ふくしりーず いち'
+
         item_10101 = Item.where(:item_identifier => '10101').first
         item_10101.manifestation.creators.size.should eq 2
         item_10101.manifestation.creates.order(:id).first.create_type.name.should eq 'author'

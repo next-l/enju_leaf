@@ -329,10 +329,12 @@ class ResourceImportFile < ActiveRecord::Base
     title[:original_title] = row['original_title'].to_s.strip
     title[:title_transcription] = row['title_transcription'].to_s.strip
     title[:title_alternative] = row['title_alternative'].to_s.strip
+    title[:title_alternative_transcription] = row['title_alternative_transcription'].to_s.strip
     if options[:edit_mode] == 'update'
       title[:original_title] = manifestation.original_title if row['original_title'].to_s.strip.blank?
       title[:title_transcription] = manifestation.title_transcription if row['title_transcription'].to_s.strip.blank?
       title[:title_alternative] = manifestation.title_alternative if row['title_alternative'].to_s.strip.blank?
+      title[:title_alternative_transcription] = manifestation.title_alternative_transcription if row['title_alternative_transcription'].to_s.strip.blank?
     end
     #title[:title_transcription_alternative] = row['title_transcription_alternative']
     if title[:original_title].blank? and options[:edit_mode] == 'create'
@@ -433,11 +435,15 @@ class ResourceImportFile < ActiveRecord::Base
     issn = ISBN_Tools.cleanup(row['issn'].to_s)
     series_statement = find_series_statement(row)
     unless series_statement
-      if row['series_statement_original_title'].to_s.strip.present?
+      if row['series_title'].to_s.strip.present?
+        title = row['series_title'].to_s.strip.split('//')
+        title_transcription = row['series_title_transcription'].to_s.strip.split('//')
         series_statement = SeriesStatement.new(
-          :original_title => row['series_statement_original_title'].to_s.strip.split('//').first,
-          :title_transcription => row['series_statement_title_transcription'].to_s.strip.split('//').first,
-          :series_statement_identifier => row['series_statement_identifier'].to_s.strip.split('//').first
+          :original_title => title[0],
+          :title_transcription => title_transcription[0],
+          :series_statement_identifier => row['series_statement_identifier'].to_s.strip.split('//').first,
+          :title_subseries => "#{title[1]} #{title[2]}",
+          :title_subseries_transcription => "#{title_transcription[1]} #{title_transcription[2]}"
         )
         if issn.present?
           series_statement.issn = issn
