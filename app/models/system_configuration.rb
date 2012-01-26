@@ -1,11 +1,12 @@
 class SystemConfiguration < ActiveRecord::Base
-  validates_presence_of :keyname, :v, :typename
 
   def self.typenames
     ["String","Boolean","Numeric"]
   end
 
+  validates_presence_of :keyname, :v, :typename
   validates_inclusion_of :typename, :in => SystemConfiguration.typenames
+  validate :value_by_typename_is_valid
 
   def self.get(keyname)
     value = SystemConfiguration.where(:keyname => keyname).first.v rescue nil
@@ -15,4 +16,25 @@ class SystemConfiguration < ActiveRecord::Base
       return eval("configatron.#{keyname}") 
     end
   end
+
+  private  
+  def value_by_typename_is_valid
+    logger.info "aaaa"
+    unless self.v.blank?
+      case typename
+      when "String"
+      when "Boolean"
+        logger.info "bbb"
+        unless ["true","false"].include?(v)
+          errors.add(:v, I18n.t('activerecord.attributes.system_configuration.invalid_format')) 
+        end
+      when "Numeric"
+        unless v =~ /^[0-9]+$/ 
+          errors[:base] << I18n.t('activerecord.attributes.system_configuration.invalid_format')
+        end
+      end
+    end
+  end
+
+
 end

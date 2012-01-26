@@ -39,7 +39,7 @@ class SystemConfigurationsController < ApplicationController
         format.html { redirect_to(@system_configuration) }
         format.xml  { head :ok }
       else
-        prepare_options
+        #prepare_options
         format.html { render :action => "edit" }
         format.xml  { render :xml => @system_configuration.errors, :status => :unprocessable_entity }
       end

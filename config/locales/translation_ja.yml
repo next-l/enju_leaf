@@ -1265,6 +1265,8 @@ ja:
         v: "値"
         typename: "型"
         description: "説明"
+        invalid_format: "の型が不正です"
+        type_format: "型が Boolean の場合は true もしくは false を指定してください。"
   page:
     user_title: "ようこそ %{login_name} さん"
     logged_in_as: "%{login_name} としてログイン"
