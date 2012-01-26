@@ -88,7 +88,7 @@ class ResourceImportFile < ActiveRecord::Base
           isbn = ISBN_Tools.cleanup(row['isbn'])
           m = Manifestation.find_by_isbn(isbn)
           if m
-            if m.series_statement
+            unless m.series_statement
               manifestation = m
             end
           end
@@ -145,6 +145,8 @@ class ResourceImportFile < ActiveRecord::Base
     sm_complete!
     Rails.cache.write("manifestation_search_total", Manifestation.search.total)
     return num
+  rescue
+    sm_fail!
   end
 
   def self.import_work(title, patrons, options = {:edit_mode => 'create'})

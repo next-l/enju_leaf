@@ -293,7 +293,7 @@ GEM
       cloudfiles
       net-sftp
     attribute_normalizer (1.0.1)
-    awesome_nested_set (2.1.0)
+    awesome_nested_set (2.1.2)
       activerecord (>= 3.0.0)
     aws-s3 (0.6.2)
       builder
@@ -488,7 +488,7 @@ GEM
       ruby2ruby (~> 1.2)
       ruby_parser (~> 2.0)
       sexp_processor (~> 3.0)
-    responders (0.6.4)
+    responders (0.6.5)
     ri_cal (0.8.8)
     roodi (2.1.0)
       ruby_parser
