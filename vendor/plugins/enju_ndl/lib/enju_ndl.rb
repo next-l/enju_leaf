@@ -35,6 +35,7 @@ module EnjuNdl
       language = get_language(doc)
       isbn = doc.at('./dc:identifier[@xsi:type="dcndl:ISBN"]').try(:content).to_s
       nbn = doc.at('//dcterms:identifier[@rdf:datatype="http://ndl.go.jp/dcndl/terms/JPNO"]').content
+      ndc = doc.at('//dcterms:subject[@rdf:datatype="http://ndl.go.jp/dcndl/terms/NDC8"]').content if doc.at('//dcterms:subject[@rdf:datatype="http://ndl.go.jp/dcndl/terms/NDC8"]')
       classification_urls = doc.xpath('//dcterms:subject[@rdf:resource]').map{|subject| subject.attributes['resource'].value}
       if classification_urls
         ndc9_url = classification_urls.map{|url| URI.parse(url)}.select{|u| u.path.split('/').reverse[1] == 'ndc9'}.first
@@ -57,7 +58,8 @@ module EnjuNdl
           :language_id => language_id,
           :isbn => isbn,
           :pub_date => pub_date,
-          :nbn => nbn
+          :nbn => nbn,
+          :ndc => ndc
         )
         manifestation.publishers << publisher_patrons
         #manifestation.save!
