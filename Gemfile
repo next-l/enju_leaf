@@ -20,10 +20,6 @@ platforms :ruby_19 do
   gem 'simplecov', '>= 0.5.3', :require => false, :group => [:development]
 end
 
-platforms :ruby_18 do
-  gem 'system_timer'
-end
-
 platforms :jruby do
   gem 'jruby-openssl'
   gem 'activerecord-jdbc-adapter'
@@ -32,8 +28,6 @@ platforms :jruby do
   gem 'rubyzip2'
   gem 'glassfish'
 end
-
-gem 'fastercsv' if RUBY_VERSION < '1.9'
 
 gem 'delayed_job_active_record'
 gem 'addressable'
@@ -91,8 +85,8 @@ gem 'rails3_acts_as_paranoid'
 gem 'thinreports'
 gem "rmagick", :require => false
 gem "crypt19"
-
 #gem 'oink', '>=0.9.2'
+
 group :development do
   gem 'parallel_tests'
   gem 'jquery-rails'
@@ -126,15 +120,3 @@ end
 # gem 'ruby-debug'
 gem 'ruby-debug19'
 
-# Bundle the extra gems:
-# gem 'bj'
-# gem 'nokogiri'
-# gem 'sqlite3-ruby', :require => 'sqlite3'
-# gem 'aws-s3', :require => 'aws/s3'
-
-# Bundle gems for the local environment. Make sure to
-# put test-only gems in this group so their generators
-# and rake tasks are available in development mode:
-# group :development, :test do
-#   gem 'webrat'
-# end

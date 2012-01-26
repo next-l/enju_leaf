@@ -114,6 +114,29 @@ class Checkout < ActiveRecord::Base
     queues.size
   end
 
+  def self.apend_to_reminder_list
+    queues = []    
+    User.find_each do |user|
+      user.user_group.number_of_time_to_notify_overdue.times do |i|
+        checkouts = user.checkouts.due_date_on((user.user_group.number_of_day_to_notify_overdue * (i + 1)).days.ago.beginning_of_day)
+        unless checkouts.empty?
+          checkouts.each do |checkout|
+            #logger.info checkout
+            r = ReminderList.where(:checkout_id => checkout.id)
+            unless r.nil?
+              r = ReminderList.new
+              r.checkout_id = checkout.id
+              r.save!
+              logger.info "create ReminderList checkout_id=#{checkout.id}"
+            end
+          end
+        end
+      end
+    end
+
+    queues.size
+  end
+
   # output
   def self.output_checkouts(file, checkouts, lend_user, current_user)
     require 'thinreports'
