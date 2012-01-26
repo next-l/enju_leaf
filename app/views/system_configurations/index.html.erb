@@ -6,6 +6,8 @@
   <tr>
     <th><%= t('activerecord.attributes.system_configuration.key') -%></th>
     <th><%= t('activerecord.attributes.system_configuration.v') -%></th>
+    <th><%= t('activerecord.attributes.system_configuration.typename') -%></th>
+    <th><%= t('activerecord.attributes.system_configuration.description') -%></th>
     <th></th>
   </tr>
 
@@ -13,6 +15,8 @@
   <tr class="line<%= cycle("0", "1") -%>">
     <td><%= system_configuration.keyname -%></td>
     <td><%= system_configuration.v-%></td>
+    <td><%= system_configuration.typename-%></td>
+    <td><%= system_configuration.description-%></td>
     <td>
       <%- if can? :update, system_configuration -%>
         <%= link_to t('page.edit'), edit_system_configuration_path(system_configuration) -%>

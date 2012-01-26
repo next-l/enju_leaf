@@ -11,6 +11,16 @@
     <%= f.text_field :v -%>
   </div>
 
+  <div class="field">
+    <%= f.label :typename %><br />
+    <%= f.select(:typename, SystemConfiguration.typenames) -%>
+  </div>
+
+  <div class="field">
+    <%= f.label :description %><br />
+    <%= f.text_field :description -%>
+  </div>
+
   <div class="actions">
     <%= f.submit %>
   </div>

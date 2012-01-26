@@ -19,7 +19,7 @@ class SystemConfigurationsController < ApplicationController
         format.html { redirect_to(@system_configuration) }
         format.xml  { render :xml => @system_configuration, :status => :created, :location => @system_configuration }
       else
-        prepare_options
+        #prepare_options
         format.html { render :action => "new" }
         format.xml  { render :xml => @system_configuration.errors, :status => :unprocessable_entity }
       end
