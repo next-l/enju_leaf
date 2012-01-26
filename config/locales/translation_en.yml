@@ -74,6 +74,7 @@ en:
         position: Position
         deleted_at: Deleted at
         opening_hour: Opening hour
+        isil: ISIL
       patron_import_file:
         patron_import_file_name: Filename
         patron_import_content_type: Content type
@@ -395,6 +396,7 @@ en:
         original_title: Title
         numbering: Numbering
         title_subseries: Title subseries
+        title_subseries_transcription: Title subseries transcription
         numbering_subseries: Numbering subseries
         work: Work
         series_statement_identifier: Series statement identifier
