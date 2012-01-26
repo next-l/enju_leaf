@@ -87,7 +87,7 @@ class ResourceImportFile < ActiveRecord::Base
           isbn = ISBN_Tools.cleanup(row['isbn'])
           m = Manifestation.find_by_isbn(isbn)
           if m
-            if m.series_statement
+            unless m.series_statement
               manifestation = m
             end
           end
@@ -444,11 +444,15 @@ class ResourceImportFile < ActiveRecord::Base
     issn = ISBN_Tools.cleanup(row['issn'].to_s)
     series_statement = find_series_statement(row)
     unless series_statement
-      if row['series_statement_original_title'].to_s.strip.present?
+      if row['series_title'].to_s.strip.present?
+        title = row['series_title'].to_s.strip.split(';')
+        title_transcription = row['series_title_transcription'].to_s.strip.split(';')
         series_statement = SeriesStatement.new(
-          :original_title => row['series_statement_original_title'].to_s.strip,
-          :title_transcription => row['series_statement_title_transcription'].to_s.strip,
-          :series_statement_identifier => row['series_statement_identifier'].to_s.strip
+          :original_title => title[0],
+          :title_transcription => title_transcription[0],
+          :series_statement_identifier => row['series_statement_identifier'].to_s.strip.split(';').first,
+          :title_subseries => "#{title[1]} #{title[2]}",
+          :title_subseries_transcription => "#{title_transcription[1]} #{title_transcription[2]}"
         )
         if issn.present?
           series_statement.issn = issn

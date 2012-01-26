@@ -395,6 +395,7 @@ en:
         original_title: Title
         numbering: Numbering
         title_subseries: Title subseries
+        title_subseries_transcription: Title subseries transcription
         numbering_subseries: Numbering subseries
         work: Work
         series_statement_identifier: Series statement identifier
