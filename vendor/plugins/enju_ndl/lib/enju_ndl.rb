@@ -17,7 +17,8 @@ module EnjuNdl
       return manifestation if manifestation
 
       doc = return_xml(isbn)
-      raise EnjuNdl::RecordNotFound if doc.at('//openSearch:totalResults').content.to_i == 0
+      raise EnjuNdl::RecordNotFound unless doc
+      #raise EnjuNdl::RecordNotFound if doc.at('//openSearch:totalResults').content.to_i == 0
 
       pub_date, language, nbn = nil, nil, nil
 
@@ -27,12 +28,24 @@ module EnjuNdl
       title = get_title(doc)
 
       # date of publication
-      pub_date = doc.at('//dcterms:issued').content.try(:tr, '０-９．', '0-9-')
-
+      pub_date = doc.at('//dcterms:date').content.to_s.gsub(/\./, '-')
+      unless pub_date =~ /^\d+(-\d{0,2}){0,2}$/
+        pub_date = nil
+      end
       language = get_language(doc)
-      nbn = doc.at('//dc:identifier[@xsi:type="dcndl:JPNO"]').content
-      ndc = doc.at('//dc:subject[@xsi:type="dcndl:NDC"]').try(:content)
+      isbn = doc.at('./dc:identifier[@xsi:type="dcndl:ISBN"]').try(:content).to_s
+      nbn = doc.at('//dcterms:identifier[@rdf:datatype="http://ndl.go.jp/dcndl/terms/JPNO"]').content
+      ndc = doc.at('//dcterms:subject[@rdf:datatype="http://ndl.go.jp/dcndl/terms/NDC8"]').content if doc.at('//dcterms:subject[@rdf:datatype="http://ndl.go.jp/dcndl/terms/NDC8"]')
+      classification_urls = doc.xpath('//dcterms:subject[@rdf:resource]').map{|subject| subject.attributes['resource'].value}
+      if classification_urls
+        ndc9_url = classification_urls.map{|url| URI.parse(url)}.select{|u| u.path.split('/').reverse[1] == 'ndc9'}.first
+        if ndc9_url
+          ndc = ndc9_url.path.split('/').last
+        end
+      end
+      description = doc.at('//dcterms:abstract').try(:content)
 
+      manifestation = nil
       Patron.transaction do
         publisher_patrons = Patron.import_patrons(publishers)
         language_id = Language.where(:iso_639_2 => language).first.id rescue 1
@@ -45,7 +58,8 @@ module EnjuNdl
           :language_id => language_id,
           :isbn => isbn,
           :pub_date => pub_date,
-          :nbn => nbn
+          :nbn => nbn,
+          :ndc => ndc
         )
         manifestation.publishers << publisher_patrons
         #manifestation.save!
@@ -62,15 +76,15 @@ module EnjuNdl
       manifestation
     end
 
-    def search_porta(query, options = {})
-      options = {:item => 'any', :startrecord => 1, :per_page => 10, :raw => false}.merge(options)
+    def search_ndl(query, options = {})
+      options = {:dpid => 'iss-ndl-opac', :item => 'any', :startrecord => 1, :per_page => 10, :raw => false}.merge(options)
       doc = nil
       results = {}
       startrecord = options[:startrecord].to_i
       if startrecord == 0
         startrecord = 1
       end
-      url = "http://api.porta.ndl.go.jp/servicedp/opensearch?dpid=#{options[:dpid]}&#{options[:item]}=#{URI.escape(query)}&cnt=#{options[:per_page]}&idx=#{startrecord}"
+      url = "http://iss.ndl.go.jp/api/opensearch?dpid=#{options[:dpid]}&#{options[:item]}=#{URI.escape(query)}&cnt=#{options[:per_page]}&idx=#{startrecord}"
       if options[:raw] == true
         open(url).read
       else
@@ -81,14 +95,14 @@ module EnjuNdl
     end
 
     def return_xml(isbn)
-      xml = self.search_porta(isbn, {:dpid => 'zomoku', :item => 'isbn', :raw => true}).to_s
-      doc = Nokogiri::XML(xml)
-      if doc.at('//openSearch:totalResults').content.to_i == 0
+      rss = self.search_ndl(isbn, {:dpid => 'iss-ndl-opac', :item => 'isbn'})
+      if rss.channel.totalResults.to_i == 0
         isbn = normalize_isbn(isbn)
-        xml = self.search_porta(isbn, {:dpid => 'zomoku', :item => 'isbn', :raw => true}).to_s
-        doc = Nokogiri::XML(xml)
+        rss = self.search_ndl(isbn, {:dpid => 'iss-ndl-opac', :item => 'isbn'})
       end
-      return doc
+      if rss.items.first
+        doc = Nokogiri::XML(open("#{rss.items.first.link}.rdf").read)
+      end
     end
 
     def get_crd_response(options)
@@ -215,37 +229,41 @@ module EnjuNdl
     private
     def get_title(doc)
       title = {
-        :manifestation => doc.xpath('//item[1]/title').collect(&:content).join(' ').tr('ａ-ｚＡ-Ｚ０-９　', 'a-zA-Z0-9 ').squeeze(' '),
-        :transcription => doc.xpath('//item[1]/dcndl:titleTranscription').collect(&:content).join(' ').tr('ａ-ｚＡ-Ｚ０-９　', 'a-zA-Z0-9 ').squeeze(' '),
-        :original => doc.xpath('//dcterms:alternative').collect(&:content).join(' ').tr('ａ-ｚＡ-Ｚ０-９　', 'a-zA-Z0-9 ').squeeze(' ')
+        :manifestation => doc.xpath('//dc:title/rdf:Description/rdf:value').collect(&:content).join(' ').tr('ａ-ｚＡ-Ｚ０-９　', 'a-zA-Z0-9 ').squeeze(' '),
+        :transcription => doc.xpath('//dc:title/dcndl:transcription').collect(&:content).join(' ').tr('ａ-ｚＡ-Ｚ０-９　', 'a-zA-Z0-9 ').squeeze(' '),
+        :original => doc.xpath('//dcterms:alternative/rdf:Rescription/rdf:value').collect(&:content).join(' ').tr('ａ-ｚＡ-Ｚ０-９　', 'a-zA-Z0-9 ').squeeze(' ')
       }
     end
 
     def get_creators(doc)
       creators = []
-      doc.xpath('//item[1]/dc:creator[@xsi:type="dcndl:NDLNH"]').each do |creator|
-        creators << creator.content.gsub('‖', '').tr('ａ-ｚＡ-Ｚ０-９　', 'a-zA-Z0-9 ')
+      doc.xpath('//dcterms:creator/foaf:Agent').each do |creator|
+        creators << creator.at('./foaf:name').content.gsub('∥', '').gsub(',', ' ').tr('ａ-ｚＡ-Ｚ０-９　', 'a-zA-Z0-9 ')
+#        creators << {
+#          :full_name => creator.at('./foaf:name').content,
+#          :full_name_transcription => creator.at('./dcndl:transcription').try(:content)
+#        }
       end
       return creators
     end
 
     def get_subjects(doc)
       subjects = []
-      doc.xpath('//item[1]/dc:subject[@xsi:type="dcndl:NDLSH"]').each do |subject|
-        subjects << subject.content.tr('ａ-ｚＡ-Ｚ０-９　‖', 'a-zA-Z0-9 ')
+      doc.xpath('//dcterms:subject/rdf:Description/rdf:value').each do |subject|
+        subjects << subject.content.tr('ａ-ｚＡ-Ｚ０-９　∥', 'a-zA-Z0-9 ')
       end
       return subjects
     end
 
     def get_language(doc)
       # TODO: 言語が複数ある場合
-      language = doc.xpath('//item[1]/dc:language[@xsi:type="dcterms:ISO639-2"]').first.content.downcase
+      language = doc.xpath('//dcterms:language').first.content.downcase
     end
 
     def get_publishers(doc)
       publishers = []
-      doc.xpath('//item[1]/dc:publisher').each do |publisher|
-        publishers << publisher.content #.tr('ａ-ｚＡ-Ｚ０-９　‖', 'a-zA-Z0-9 ')
+      doc.xpath('//dcterms:publisher/foaf:Agent/foaf:name').each do |publisher|
+        publishers << publisher.content.tr('ａ-ｚＡ-Ｚ０-９　∥', 'a-zA-Z0-9 ')
       end
       return publishers
     end

@@ -117,7 +117,6 @@ class ResourceImportFile < ActiveRecord::Base
           manifestation = fetch(row)
           num[:manifestation_imported] += 1 if manifestation
         end
-
         import_result.manifestation = manifestation
 
         if manifestation.valid? and item_identifier.present?
@@ -254,6 +253,7 @@ class ResourceImportFile < ActiveRecord::Base
       if item.try(:manifestation)
         fetch(row, :edit_mode => 'update')
       else
+        import_result = ResourceImportResult.create!(:resource_import_file => self, :body => row.fields.join("\t"))
         import_result.error_msg = "FAIL[#{row}]: #{item_identifier} does not exist"
       end
     end
@@ -367,7 +367,6 @@ class ResourceImportFile < ActiveRecord::Base
     language = Language.where(:name => row['language'].to_s.strip.camelize).first
     language = Language.where(:iso_639_2 => row['language'].to_s.strip.downcase).first unless language
     language = Language.where(:iso_639_1 => row['language'].to_s.strip.downcase).first unless language
-
     if end_page >= 1
       start_page = 1
     else
@@ -441,6 +440,7 @@ class ResourceImportFile < ActiveRecord::Base
     manifestation.language = language
     begin
       manifestation.save!
+      return manifestation
     rescue Exception => e
       p "error at fetch_new: #{e.message}"
       raise e
