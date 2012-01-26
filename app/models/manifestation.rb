@@ -197,7 +197,7 @@ class Manifestation < ActiveRecord::Base
   validates :pub_date, :format => {:with => /^\d+(-\d{0,2}){0,2}$/}, :allow_blank => true
   validates :access_address, :url => true, :allow_blank => true, :length => {:maximum => 255}
   validate :check_isbn, :check_issn, :check_lccn, :unless => :during_import
-  before_validation :set_wrong_isbn, :check_issn, :check_lccn, :if => :during_import
+  before_validation :set_wrong_isbn, :check_issn, :check_lccn, :set_language, :if => :during_import
   before_validation :convert_isbn
   before_create :set_digest
   after_create :clear_cached_numdocs
@@ -277,6 +277,10 @@ class Manifestation < ActiveRecord::Base
       end
     end
     self.date_of_publication = date
+  end
+  
+  def set_language
+    self.language = Language.where(:name => "Japanese").first if self.language.nil?
   end
 
   def self.cached_numdocs
