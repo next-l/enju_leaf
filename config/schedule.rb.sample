@@ -46,6 +46,6 @@ end
 #end
 
 every 1.day, :at => '5:00 am' do
-  runner "Checkout.send_due_date_notification; Checkout.send_overdue_notification"
+  runner "Checkout.send_due_date_notification; Checkout.send_overdue_notification; Checkout.apend_to_reminder_list"
   runner "PatronImportFile.stucked.destroy_all; EventImportFile.stucked.destroy_all; ResourceImportFile.stucked.destroy_all"
 end
