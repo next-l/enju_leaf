@@ -16,7 +16,7 @@ describe ResourceImportFile do
         old_items_count = Item.count
         old_patrons_count = Patron.count
         old_import_results_count = ResourceImportResult.count
-        @file.import_start.should eq({:manifestation_imported => 8, :item_imported => 6, :manifestation_found => 4, :item_found => 3, :failed => 7})
+        @file.import_start.should eq({:manifestation_imported => 9, :item_imported => 6, :manifestation_found => 3, :item_found => 3, :failed => 7})
         manifestation = Item.where(:item_identifier => '11111').first.manifestation
         manifestation.publishers.first.full_name.should eq 'test4'
         manifestation.publishers.first.full_name_transcription.should eq 'てすと4'
@@ -65,7 +65,7 @@ describe ResourceImportFile do
         old_items_count = Item.count
         old_patrons_count = Patron.count
         old_import_results_count = ResourceImportResult.count
-        @file.import_start.should eq({:manifestation_imported => 8, :item_imported => 6, :manifestation_found => 4, :item_found => 3, :failed => 7})
+        @file.import_start.should eq({:manifestation_imported => 9, :item_imported => 6, :manifestation_found => 3, :item_found => 3, :failed => 7})
         manifestation = Item.where(:item_identifier => '11111').first.manifestation
         manifestation.publishers.first.full_name.should eq 'test4'
         manifestation.publishers.first.full_name_transcription.should eq 'てすと4'

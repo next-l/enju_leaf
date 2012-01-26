@@ -1,19 +1,19 @@
 manifestation_identifier	original_title	note	title_transcription	title_alternative	periodical	series_statement_identifier	series_title	series_title_transcription	creator	creator_transcription	publisher	publisher_transcription	pub_date	volume_number_string	edition	isbn	issn	manifestation_price	item_price	height	shelf	item_identifier	nbn	lccn	subject	dummy
-è³‡æ–™ID	ã‚¿ã‚¤ãƒˆãƒ«	æ³¨è¨˜	ã‚¿ã‚¤ãƒˆãƒ«ã‚ˆã¿	ä»£æ›¿ã‚¿ã‚¤ãƒˆãƒ«	å®šæœŸåˆŠè¡Œç‰©ãƒ•ãƒ©ã‚°	ã‚·ãƒªãƒ¼ã‚ºç•ªå·	ã‚·ãƒªãƒ¼ã‚ºã‚¿ã‚¤ãƒˆãƒ«	ã‚·ãƒªãƒ¼ã‚ºã‚¿ã‚¤ãƒˆãƒ«ã‚ˆã¿	è‘—è€…	è‘—è€…ã‚ˆã¿	å‡ºç‰ˆè€…	å‡ºç‰ˆè€…ã‚ˆã¿	å‡ºç‰ˆæ—¥	å·»	ç‰ˆ	isbn	issn	è²©å£²ä¾¡æ ¼	å—å…¥ä¾¡æ ¼	é«˜ã•	æ›¸æ¶å	å€‹åˆ¥è³‡æ–™ID	nbn	lccn	ä»¶å	ã‚¤ãƒ³ãƒãƒ¼ãƒˆçœç•¥
-	test1	â—‹ identifierãªã—ã€item_identifierãªã—							test	ã¦ã™ã¨	test2			invalid												
-	test2	â—‹ identifierãªã—ã€item_identifierã‚ã‚Š							test||author//test1||illustrator				2001									10101				
-101	test3	Ã— ãƒ€ãƒŸãƒ¼							test		test2															é©å½“ãªå€¤
-101	test3	â—‹ identifierã‚ã‚Šã€item_identifierãªã—					ä¸»ã‚·ãƒªãƒ¼ã‚º//å‰¯ã‚·ãƒªãƒ¼ã‚º//1	ã—ã‚…ã—ã‚Šãƒ¼ãš//ãµãã—ã‚Šãƒ¼ãš//ã„ã¡	test		test2															
-102	test4	â—‹ identifierã‚ã‚Šã€item_identifierã‚ã‚Š							test1		test		2001-1									10102				
-101	â€œtest 5â€	â–³ identifieré‡è¤‡ã€item_identifieréé‡è¤‡							test1||author//test2||illustrator	ã¦ã™ã¨1//ã¦ã™ã¨2	test											10103				
-102	test6	Ã— identifieré‡è¤‡ã€item_identifieré‡è¤‡							test		test3											10101				
-	test7	â—‹ ISBNä¸æ­£ã€ã‚¿ã‚¤ãƒˆãƒ«ã‚ã‚Šã€æ‰€è”µæƒ…å ±ã‚ã‚Š											2001-1-1			9000000000000					first_shelf	10104				
-		Ã— ISBNä¸æ­£ã€ã‚¿ã‚¤ãƒˆãƒ«ãªã—														22222222						10105				
-	test8	â—‹ ISBNãªã—ã€æ‰€è”µæƒ…å ±ã‚ã‚Š							test		test4//test5	ã¦ã™ã¨4//ã¦ã™ã¨5						1000	0		first_shelf	11111				
-	test9	Ã— item_identifieré‡è¤‡																				11111				
-		Ã— ISBNé‡è¤‡ã€item_identifierãªã—														4798002062										
-		â–³ ISBNé‡è¤‡ã€item_identifieréé‡è¤‡														4798002062						11112				
-		Ã— ISBNé‡è¤‡ã€item_identifieré‡è¤‡														4798002062						11111				
-		Ã— ISBNé‡è¤‡ï¼ˆ13æ¡ï¼‰ã€item_identifierãªã—														978-4798002064										
-103	"ãƒ€ãƒ–ãƒ«""ã‚¯ã‚©ãƒ¼ãƒˆ""ã‚’å«ã‚€è³‡æ–™"	â—‹ ãƒ€ãƒ–ãƒ«ã‚¯ã‚©ãƒ¼ãƒˆã‚’å«ã‚€è³‡æ–™																								
-104	test10	â—‹ TSVä¸­ã«ã‚¿ã‚¤ãƒˆãƒ«ãŒã‚ã‚Œã°ä»–ã®é …ç›®ã‚‚TSVãƒ•ã‚¡ã‚¤ãƒ«å„ªå…ˆ							test3		test4					4797327030										
+‘—¿ID	ƒ^ƒCƒgƒ‹	’‹L	ƒ^ƒCƒgƒ‹‚æ‚İ	‘ã‘Öƒ^ƒCƒgƒ‹	’èŠúŠ§s•¨ƒtƒ‰ƒO	ƒVƒŠ[ƒY”Ô†	ƒVƒŠ[ƒYƒ^ƒCƒgƒ‹	ƒVƒŠ[ƒYƒ^ƒCƒgƒ‹‚æ‚İ	’˜Ò	’˜Ò‚æ‚İ	o”ÅÒ	o”ÅÒ‚æ‚İ	o”Å“ú	Šª	”Å	isbn	issn	”Ì”„‰¿Ši	ó“ü‰¿Ši	‚‚³	‘‰Ë–¼	ŒÂ•Ê‘—¿ID	nbn	lccn	Œ–¼	ƒCƒ“ƒ|[ƒgÈ—ª
+	test1	› identifier‚È‚µAitem_identifier‚È‚µ							test	‚Ä‚·‚Æ	test2			invalid												
+	test2	› identifier‚È‚µAitem_identifier‚ ‚è							test||author//test1||illustrator				2001									10101				
+101	test3	~ ƒ_ƒ~[							test		test2															“K“–‚È’l
+101	test3	› identifier‚ ‚èAitem_identifier‚È‚µ					åƒVƒŠ[ƒY//•›ƒVƒŠ[ƒY//1	‚µ‚ã‚µ‚è[‚¸//‚Ó‚­‚µ‚è[‚¸//‚¢‚¿	test		test2															
+102	test4	› identifier‚ ‚èAitem_identifier‚ ‚è							test1		test		2001-1									10102				
+101	gtest 5h	¢ identifierd•¡Aitem_identifier”ñd•¡							test1||author//test2||illustrator	‚Ä‚·‚Æ1//‚Ä‚·‚Æ2	test											10103				
+102	test6	~ identifierd•¡Aitem_identifierd•¡							test		test3											10101				
+	test7	› ISBN•s³Aƒ^ƒCƒgƒ‹‚ ‚èAŠ‘ î•ñ‚ ‚è											2001-1-1			9000000000000					first_shelf	10104				
+		~ ISBN•s³Aƒ^ƒCƒgƒ‹‚È‚µ														22222222						10105				
+	test8	› ISBN‚È‚µAŠ‘ î•ñ‚ ‚è							test		test4//test5	‚Ä‚·‚Æ4//‚Ä‚·‚Æ5						1000	0		first_shelf	11111				
+	test9	~ item_identifierd•¡																				11111				
+		› ISBNd•¡iƒVƒŠ[ƒYî•ñ‚ ‚èjAitem_identifier‚È‚µ														4798002062										
+		¢ ISBNd•¡iƒVƒŠ[ƒYî•ñ‚È‚µjAitem_identifier”ñd•¡														4798002062						11112				
+		~ ISBNd•¡Aitem_identifierd•¡														4798002062						11111				
+		~ ISBNd•¡i13Œ…jAitem_identifier‚È‚µ														978-4798002064										
+103	"ƒ_ƒuƒ‹""ƒNƒH[ƒg""‚ğŠÜ‚Ş‘—¿"	› ƒ_ƒuƒ‹ƒNƒH[ƒg‚ğŠÜ‚Ş‘—¿																								
+104	test10	› TSV’†‚Éƒ^ƒCƒgƒ‹‚ª‚ ‚ê‚Î‘¼‚Ì€–Ú‚àTSVƒtƒ@ƒCƒ‹—Dæ							test3		test4					4797327030										
