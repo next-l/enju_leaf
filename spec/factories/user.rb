@@ -7,7 +7,7 @@ FactoryGirl.define do
     f.library {FactoryGirl.create(:library)}
     f.password 'adminpassword'
     f.password_confirmation 'adminpassword'
-    f.user_group {UserGroup.first}
+    f.user_group {UserGroup.where(:name => 'User').first}
     f.required_role {Role.find_by_name('User')}
     f.locale 'ja'
   end
@@ -20,7 +20,7 @@ FactoryGirl.define do
     f.library {FactoryGirl.create(:library)}
     f.password 'librarianpassword'
     f.password_confirmation 'librarianpassword'
-    f.user_group {UserGroup.first}
+    f.user_group {UserGroup.where(:name => 'User').first}
     f.required_role {Role.find_by_name('User')}
     f.locale 'ja'
   end
@@ -33,7 +33,7 @@ FactoryGirl.define do
     f.library {FactoryGirl.create(:library)}
     f.password 'userpassword'
     f.password_confirmation 'userpassword'
-    f.user_group {UserGroup.first}
+    f.user_group {UserGroup.where(:name => '(not specified)').first}
     f.required_role {Role.find_by_name('User')}
     f.locale 'ja'
     f.sequence(:user_number){|n| "user_number_#{n}"}

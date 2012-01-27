@@ -106,7 +106,7 @@
           <%= render 'manifestations/attachment_file', :manifestation => manifestation -%>
         <%- end -%>
         <tr>
-          <td><%= t('manifestation.date_of_acquisition') -%>:</td>
+          <td><%= t('page.created_at') -%>:</td>
           <td><%=l manifestation.created_at if manifestation.created_at -%></td>
         </tr>
         <tr>
