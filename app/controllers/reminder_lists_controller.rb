@@ -83,12 +83,66 @@ class ReminderListsController < ApplicationController
     redirect_to(reminder_lists_url)
   end
 
+  def reminder_postal_card
+  end
+
+  def output_reminder_postal_card
+    user_number = params[:user_number].strip
+    # check exit user
+    @user = User.where(:user_number => user_number).first
+    unless @user
+      flash[:notice] = t('reminder_list.no_user')
+      render :reminder_postal_card and return 
+    end
+    # check user has over_due_item
+    @reminder_lists = ReminderList.find(:all, :include => [:checkout => :user], :conditions => {:checkouts => {:users => {:user_number => user_number}}})
+    unless @reminder_lists.size > 0
+      flash[:notice] = t('reminder_list.no_item')
+      render :reminder_postal_card and return 
+    end
+
+    begin
+      # save
+      @reminder_lists.each do |reminder_list|
+        reminder_list.type1_printed_at = Time.zone.now
+        reminder_list.save!
+      end
+      # output
+      output_file('reminder_postal_card')
+      flash[:notice] = t('reminder_list.successfully__output')
+      render :reminder_postal_card
+    rescue Exception => e
+      logger.error "failed #{e}"
+      flash[:notice] = t('reminder_list.failed_output')
+      render :reminder_postal_card and return
+    end
+  end
+
+  def download_file
+    path = params[:path]
+    if File.exist?(path)
+      send_file path #, :type => "application/pdf"
+    else
+      logger.warn "not exist file. path:#{path}"
+      render :pickup and return
+    end
+  end
+
+  private
   def output_pdf(params, query)
     logger.info "output_pdf."
   end
 
-  private  
-  def check_librarian
-    access_denied unless current_user && current_user.has_role?('Librarian')
+  def output_file(output_type)
+    out_dir = "#{RAILS_ROOT}/private/system/reminder_lists/"
+    FileUtils.mkdir_p(out_dir) unless FileTest.exist?(out_dir)
+    logger.info "output #{output_type}"
+
+    case output_type
+    when 'reminder_postal_card'
+      file = out_dir + configatron.reminder_postal_card_print.filename
+      ReminderList.output_reminder_postal_card(file, @reminder_lists, @user, current_user)
+      flash[:file] = file
+    end
   end
 end  
