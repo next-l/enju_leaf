@@ -38,9 +38,10 @@ class ReminderListsController < ApplicationController
 
     # output reminder_list (postal_card or letter)
     unless @selected_state.blank? 
-      if params[:output_reminder_postal_card] || params[:output_reminder_letter]
-        output_pdf(params, query)
-        return
+      if params[:output_pdf] || params[:output_pdf]
+
+          output_pdf(@reminder_list, query)
+        #return
       end
     end
   end
@@ -86,6 +87,9 @@ class ReminderListsController < ApplicationController
   def reminder_postal_card
   end
 
+  def reminder_letter
+  end
+
   def output_reminder_postal_card
     user_number = params[:user_number].strip
     # check exit user
@@ -118,13 +122,45 @@ class ReminderListsController < ApplicationController
     end
   end
 
+  def output_reminder_letter
+    user_number = params[:user_number].strip
+    # check exit user
+    @user = User.where(:user_number => user_number).first
+    unless @user
+      flash[:notice] = t('reminder_list.no_user')
+      render :reminder_letter and return 
+    end
+    # check user has over_due_item
+    @reminder_lists = ReminderList.find(:all, :include => [:checkout => :user], :conditions => {:checkouts => {:users => {:user_number => user_number}}})
+    unless @reminder_lists.size > 0
+      flash[:notice] = t('reminder_list.no_item')
+      render :reminder_letter and return 
+    end
+
+    begin
+      # save
+      @reminder_lists.each do |reminder_list|
+        reminder_list.type2_printed_at = Time.zone.now
+        reminder_list.save!
+      end
+      # output
+      output_file('reminder_letter')
+      flash[:notice] = t('reminder_list.successfully__output')
+      render :reminder_letter
+    rescue Exception => e
+      logger.error "failed #{e}"
+      flash[:notice] = t('reminder_list.failed_output')
+      render :reminder_letter and return
+    end
+  end
+
   def download_file
     path = params[:path]
     if File.exist?(path)
       send_file path #, :type => "application/pdf"
     else
       logger.warn "not exist file. path:#{path}"
-      render :pickup and return
+      render :back and return
     end
   end
 
@@ -142,6 +178,10 @@ class ReminderListsController < ApplicationController
     when 'reminder_postal_card'
       file = out_dir + configatron.reminder_postal_card_print.filename
       ReminderList.output_reminder_postal_card(file, @reminder_lists, @user, current_user)
+      flash[:file] = file
+    when 'reminder_letter'
+      file = out_dir + configatron.reminder_letter_print.filename
+      ReminderList.output_reminder_letter(file, @reminder_lists, @user, current_user)
       flash[:file] = file
     end
   end

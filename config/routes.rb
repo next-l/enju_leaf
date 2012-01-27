@@ -5,7 +5,13 @@ EnjuLeaf::Application.routes.draw do
 
   post "batchaction/recept"
 
-  resources :reminder_lists
+  resources :reminder_lists do
+    post :reminder_letter, :on => :collection
+    post :reminder_postal_card, :on => :collection
+    post :output_reminder_letter, :on => :collection
+    post :output_reminder_postal_card, :on => :collection
+    get :download_file, :on => :collection
+  end
 
   resources :series_has_manifestations
   resources :series_statement_merges
