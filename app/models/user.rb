@@ -19,6 +19,7 @@ class User < ActiveRecord::Base
   scope :elementaries, joins(:patron).where(["patrons.date_of_birth < ? AND patrons.date_of_birth >= ?", Date.today.years_ago(6).change(:month => 4, :day => 1), Date.today.years_ago(12).change(:month => 4, :day => 1)])
   scope :children, joins(:patron).where(["patrons.date_of_birth >= ?", Date.today.years_ago(6).change(:month => 4, :day => 1)])
   scope :provisional, where(:user_number => nil)
+  scope :corporate, joins(:patron => :patron_type).where(["patron_types.name = ? ", "CorporateBody"])
   has_one :patron
   has_many :checkouts
   has_many :import_requests

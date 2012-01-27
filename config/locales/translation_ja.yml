@@ -1940,6 +1940,7 @@ ja:
     items_report: 蔵書統計
     inout_items_report: 受払統計
     loans_report: 相互貸借統計
+    groups_report: 団体別貸出統計
     invalid_year: "対象年度の指定が不正です。"
     invalid_month: "対象月の指定が不正です。"
     year: 対象年度(YYYY) 
@@ -1996,6 +1997,7 @@ ja:
     library: 図書館
     loan_type: 貸借区分
     loan_library: 貸借図書館
+    corporate_name: 団体名
     option: オプション
     condition: ""
     day_0: 日曜日

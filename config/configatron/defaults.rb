@@ -111,6 +111,8 @@ configatron.statistic_report.inout_items = "inout_items_report.pdf"
 configatron.statistic_report.inout_items_csv = "inout_items_report.csv"
 configatron.statistic_report.loans = "loans_report.pdf"
 configatron.statistic_report.loans_csv = "loans_report.csv"
+configatron.statistic_report.groups = "groups_report.pdf"
+configatron.statistic_report.groups_csv = "groups_report.csv"
 # 時間別統計の設定
 configatron.statistic_report.open = 8
 configatron.statistic_report.hours = 14 

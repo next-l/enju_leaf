@@ -82,8 +82,16 @@
 <%- end -%>
   </tr>
 
+  <tr class="line<%= cycle("0", "1") -%>">
+<%= form_tag(:action => :get_groups_report)  do -%>
+    <td><%= t('statistic_report.groups_report') -%></td>
+    <td><%= text_field_tag :term, @group_term if @loans_term %>  <%= t('statistic_report.year_or_month') -%></td>
+    <td><%= submit_tag t('statistic_report.submit') %></td>
+    <td><%= submit_tag(t('statistic_report.submit_csv'), :name => "csv") %></td>
+<%- end -%>
+  </tr>
+
 </table>
 
 </div>
 </div>
-

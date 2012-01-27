@@ -14,6 +14,7 @@ class StatisticReportsController < ApplicationController
     @items_year = Time.zone.now.years_ago(1).strftime("%Y")
     @inout_term = Time.zone.now.years_ago(1).strftime("%Y")
     @loans_term = Time.zone.now.years_ago(1).strftime("%Y")
+    @group_term = Time.zone.now.years_ago(1).strftime("%Y")
   end
 
   # check role
@@ -38,6 +39,7 @@ class StatisticReportsController < ApplicationController
       @items_year = Time.zone.now.years_ago(1).strftime("%Y")
       @inout_term = Time.zone.now.years_ago(1).strftime("%Y")
       @loans_term = Time.zone.now.years_ago(1).strftime("%Y")
+      @group_term = Time.zone.now.years_ago(1).strftime("%Y")
       render :index
       return false
     end
@@ -66,6 +68,7 @@ class StatisticReportsController < ApplicationController
       @items_year = Time.zone.now.years_ago(1).strftime("%Y")
       @inout_term = Time.zone.now.years_ago(1).strftime("%Y")
       @loans_term = Time.zone.now.years_ago(1).strftime("%Y")
+      @group_term = Time.zone.now.years_ago(1).strftime("%Y")
       render :index
       return false
     end
@@ -95,6 +98,7 @@ class StatisticReportsController < ApplicationController
       @items_year = Time.zone.now.years_ago(1).strftime("%Y")
       @inout_term = Time.zone.now.years_ago(1).strftime("%Y")
       @loans_term = Time.zone.now.years_ago(1).strftime("%Y")
+      @group_term = Time.zone.now.years_ago(1).strftime("%Y")
       render :index
       return false
     end
@@ -124,6 +128,7 @@ class StatisticReportsController < ApplicationController
       @items_year = Time.zone.now.years_ago(1).strftime("%Y")
       @inout_term = Time.zone.now.years_ago(1).strftime("%Y")
       @loans_term = Time.zone.now.years_ago(1).strftime("%Y")
+      @group_term = Time.zone.now.years_ago(1).strftime("%Y")
       render :index
       return false
     end
@@ -153,6 +158,7 @@ class StatisticReportsController < ApplicationController
       @items_year = Time.zone.now.years_ago(1).strftime("%Y")
       @inout_term = Time.zone.now.years_ago(1).strftime("%Y")
       @loans_term = Time.zone.now.years_ago(1).strftime("%Y")
+      @group_term = Time.zone.now.years_ago(1).strftime("%Y")
       render :index
       return false
     end
@@ -180,6 +186,7 @@ class StatisticReportsController < ApplicationController
       @items_year = term
       @inout_term = Time.zone.now.years_ago(1).strftime("%Y")
       @loans_term = Time.zone.now.years_ago(1).strftime("%Y")
+      @group_term = Time.zone.now.years_ago(1).strftime("%Y")
       render :index
       return false
     end
@@ -217,6 +224,7 @@ class StatisticReportsController < ApplicationController
       @items_year = Time.zone.now.years_ago(1).strftime("%Y")
       @inout_term = term
       @loans_term = Time.zone.now.years_ago(1).strftime("%Y")
+      @group_term = Time.zone.now.years_ago(1).strftime("%Y")
       render :index
       return false
     end
@@ -254,6 +262,7 @@ class StatisticReportsController < ApplicationController
       @items_year = Time.zone.now.years_ago(1).strftime("%Y")
       @inout_term = Time.zone.now.years_ago(1).strftime("%Y")
       @loans_term = term
+      @group_term = Time.zone.now.years_ago(1).strftime("%Y")
       render :index
       return false
     end
@@ -272,6 +281,44 @@ class StatisticReportsController < ApplicationController
       else
         file = StatisticReport.get_loans_daily_pdf(term)
         send_data file, :filename => "#{term}_#{configatron.statistic_report.loans}", :type => 'application/pdf', :disposition => 'attachment'       
+      end
+    end
+  end
+
+  def get_groups_report
+    term = params[:term].strip
+    unless term =~ /^\d{4}$/ || (term =~ /^\d{6}$/ && month_term?(term))
+      flash[:message] = t('statistic_report.invalid_year')
+      @year = Time.zone.now.years_ago(1).strftime("%Y")
+      @month = Time.zone.now.months_ago(1).strftime("%Y%m")
+      @t_start_at = Time.zone.now.months_ago(1).beginning_of_month.strftime("%Y%m%d")
+      @t_end_at = Time.zone.now.months_ago(1).end_of_month.strftime("%Y%m%d")
+      @d_start_at = Time.zone.now.months_ago(1).beginning_of_month.strftime("%Y%m%d")
+      @d_end_at = Time.zone.now.months_ago(1).end_of_month.strftime("%Y%m%d")
+      @a_start_at = Time.zone.now.months_ago(1).beginning_of_month.strftime("%Y%m%d")
+      @a_end_at = Time.zone.now.months_ago(1).end_of_month.strftime("%Y%m%d")
+      @items_year = Time.zone.now.years_ago(1).strftime("%Y")
+      @inout_term = Time.zone.now.years_ago(1).strftime("%Y")
+      @loans_term = Time.zone.now.years_ago(1).strftime("%Y")
+      @group_term = term
+      render :index
+      return false
+    end
+    if term =~ /^\d{4}$/
+      if params[:csv]
+        file = StatisticReport.get_groups_monthly_csv(term)
+        send_file file, :filename => "#{term}_#{configatron.statistic_report.groups_csv}", :type => 'application/csv', :disposition => 'attachment'
+      else
+        file = StatisticReport.get_groups_monthly_pdf(term)
+        send_data file, :filename => "#{term}_#{configatron.statistic_report.groups}", :type => 'application/pdf', :disposition => 'attachment'
+      end
+    else
+      if params[:csv]
+        file = StatisticReport.get_groups_daily_csv(term)
+        send_file file, :filename => "#{term}_#{configatron.statistic_report.groups_csv}", :type => 'application/csv', :disposition => 'attachment'
+      else
+        file = StatisticReport.get_groups_daily_pdf(term)
+        send_data file, :filename => "#{term}_#{configatron.statistic_report.groups}", :type => 'application/pdf', :disposition => 'attachment'       
       end
     end
   end
