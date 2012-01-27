@@ -55,6 +55,71 @@ class ReminderList < ActiveRecord::Base
     end
   end
 
+  def self.output_reminder_list_pdf(file, reminder_lists)
+    logger.info "create_file=> #{file}"
+    report = ThinReports::Report.new :layout => File.join(Rails.root, 'report', 'reminder_list.tlf')
+
+    # set page_num
+    report.events.on :page_create do |e|
+      e.page.item(:page).value(e.page.no)
+    end
+    report.events.on :generate do |e|
+      e.pages.each do |page|
+        page.item(:total).value(e.report.page_count)
+      end
+    end
+
+    report.start_new_page do |page|
+      page.item(:date).value(Time.now)
+
+      if reminder_lists.size > 0
+        reminder_lists.each do |reminder_list|
+          page.list(:list).add_row do |row|
+            row.item(:checkout_id).value(reminder_list.checkout.id)
+            row.item(:title).value(reminder_list.checkout.item.manifestation.original_title)
+            row.item(:user).value(reminder_list.checkout.user.patron.full_name + "(" + reminder_list.checkout.user_username + ")")
+            row.item(:state).value(reminder_list.status_name)
+            row.item(:due_date).value(reminder_list.checkout.due_date)
+            row.item(:number_of_day_overdue).value(reminder_list.checkout.day_of_overdue)
+            row.item(:library).value(reminder_list.checkout.item.shelf.library.display_name.localize)
+          end
+        end
+      end
+      report.generate_file(file) 
+    end
+  end
+
+  def self.output_reminder_list_csv(file, reminder_lists)
+    logger.info "create_file=> #{file}"
+ 
+    columns = [
+      ['chekout_id','activerecord.attributes.reminder_list.checkout_id'],
+      ['title', 'activerecord.attributes.reminder_list.original_title'],
+      [:user, 'activerecord.attributes.reminder_list.user_name'],
+      ['state','activerecord.attributes.reminder_list.status'],
+      ['due_date', 'activerecord.attributes.reminder_list.due_date'],
+      ['number_of_day_overdue', 'activerecord.attributes.reminder_list.number_of_day_overdue'],
+      [:library, 'activerecord.attributes.reminder_list.library'],
+    ]
+
+=begin # :TODO
+    File.open(file, "w") do |output| 
+      # add UTF-8 BOM for excel
+      output.print "\xEF\xBB\xBF".force_encoding("UTF-8")
+
+      # title column
+      row = []
+      columns.each do |column|
+        row << I18n.t(column[1])
+      end
+      output.print row.join(",")+"\n"
+
+      reminder_lists.each do |reminder_list|
+      end
+    end
+=end
+  end
+
   def self.output_reminder_postal_card(file, reminder_lists, user, current_user)
     logger.info "create_file=> #{file}"
 

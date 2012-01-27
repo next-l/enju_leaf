@@ -36,13 +36,10 @@ class ReminderListsController < ApplicationController
       @reminder_lists =  ReminderList.where(:status => state_ids).order('id').page(page)
     end
 
-    # output reminder_list (postal_card or letter)
+    # output reminder_list (pdf or csv)
     unless @selected_state.blank? 
-      if params[:output_pdf] || params[:output_pdf]
-
-          output_pdf(@reminder_list, query)
-        #return
-      end
+      output_file('reminder_list_pdf') if params[:output_pdf]
+      output_file('reminder_list_csv') if params[:output_csv]
     end
   end
 
@@ -165,16 +162,20 @@ class ReminderListsController < ApplicationController
   end
 
   private
-  def output_pdf(params, query)
-    logger.info "output_pdf."
-  end
-
   def output_file(output_type)
     out_dir = "#{RAILS_ROOT}/private/system/reminder_lists/"
     FileUtils.mkdir_p(out_dir) unless FileTest.exist?(out_dir)
     logger.info "output #{output_type}"
 
     case output_type
+    when 'reminder_list_pdf'
+      file = out_dir + configatron.reminder_list_pdf_print.filename
+      ReminderList.output_reminder_list_pdf(file, @reminder_lists)
+      send_file file
+    when 'reminder_list_cdv'
+      file = out_dir + configatron.reminder_list_csv_print.filename
+      ReminderList.output_reminder_list_csv(file, @reminder_lists)
+      send_file file
     when 'reminder_postal_card'
       file = out_dir + configatron.reminder_postal_card_print.filename
       ReminderList.output_reminder_postal_card(file, @reminder_lists, @user, current_user)

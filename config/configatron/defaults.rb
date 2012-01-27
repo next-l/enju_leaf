@@ -89,6 +89,10 @@ configatron.reminder_postal_card_message = "012345678901234567890123456789012345
 configatron.reminder_letter_print.filename = "reminder_postal_card.pdf"
 # 督促書の図書館メッセージ
 configatron.reminder_letter_message = "図書館からお借りになったなった本や視聴覚資料などを、返す日が過ぎております。\n速やかにお返しください。\n\n・お返しになった後、行き違いにこの手紙が届きましたらご容赦ください。\n・図書館が閉まっているときは、入り口脇のブックポストをご利用ください。\n・視聴覚資料に限りましてはブックポストへの返却はご遠慮いただき、直接カウンターにお返しください。\n・資料を、郵送や宅配便でお返しいただく場合は、壊れないようご配慮の上お送りください。\n・ご不明な点がありましたらお問い合わせください。"
+# 督促情報表のファイル名
+configatron.reminder_list_pdf_print.filename = "reminder_list.pdf"
+# 督促情報表のファイル名
+configatron.reminder_list_csv_print.filename = "reminder_list.csv"
 
 # 貸出状況の帳票ファイル名
 configatron.checkoutlist_report_pdf.filename = "checkoutlist.pdf"
