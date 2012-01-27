@@ -1,13 +1,12 @@
 # -*- encoding: utf-8 -*-
 class UserGroup < ActiveRecord::Base
   include MasterModel
-  default_scope :order => "position"
+  default_scope :order => "user_groups.position"
   has_many :users
-  if defined?(EnjuCirculation)
-  end
 
   validates_numericality_of :valid_period_for_new_user,
-    :greater_than_or_equal_to => 0
+    :greater_than_or_equal_to => 0,
+    :allow_blank => true
 
   def self.per_page
     10
@@ -20,7 +19,6 @@ end
 #
 #  id                               :integer         not null, primary key
 #  name                             :string(255)
-#  string                           :string(255)
 #  display_name                     :text
 #  note                             :text
 #  position                         :integer
