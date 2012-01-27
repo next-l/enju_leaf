@@ -70,9 +70,10 @@ class InterLibraryLoansController < ApplicationController
         format.html { redirect_to(@inter_library_loan) }
         format.xml  { render :xml => @inter_library_loan, :status => :created, :location => @inter_library_loan }
       else
+        @current_library = @inter_library_loan.from_library
         @libraries = LibraryGroup.first.real_libraries
         @reasons = InterLibraryLoan.reasons
-        @libraries.reject!{|library| library == current_user.library}
+#        @libraries.reject!{|library| library == current_user.library}
         format.html { render :action => "new" }
         format.xml  { render :xml => @inter_library_loan.errors, :status => :unprocessable_entity }
       end

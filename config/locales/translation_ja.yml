@@ -422,7 +422,7 @@ ja:
         note: 注記
         position: 位置
       inter_library_loan:
-        item: 所蔵情報
+        item_id: 所蔵情報
         requested_at: 依頼時刻
         shipped_at: 発送時刻
         received_at: 受取時刻
