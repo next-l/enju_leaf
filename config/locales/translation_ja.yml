@@ -192,6 +192,11 @@ ja:
         status_name:
           accepted: 未連絡
           called: 連絡済    
+        honorific1: 様
+        honorific2: さん
+        total : 全
+        other: 他
+        items: 冊
       library:
         name: 名前
         display_name: 表示名
@@ -2038,3 +2043,9 @@ ja:
     monthly: 月報
     yyyymm: 対象年月
     date_comment: "８桁で入力。2011/12/13 の場合は、 20111213 と入力。"
+  reminder_list:
+    input_user_for_output_reminder: "督促状の作成対象者の利用者番号を入力してください。"
+    no_user: "該当の利用者が見つかりません。"
+    no_item: "督促対象になっている資料が見つかりません。"
+    failed_output: "督促状の出力に失敗しました。"
+    successfully__output: "督促状を出力しました。"
