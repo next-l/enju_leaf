@@ -115,7 +115,7 @@ class Checkout < ActiveRecord::Base
   end
 
   def self.apend_to_reminder_list
-    queues = []    
+    queues_size = 0 
     User.find_each do |user|
       user.user_group.number_of_time_to_notify_overdue.times do |i|
         checkouts = user.checkouts.due_date_on((user.user_group.number_of_day_to_notify_overdue * (i + 1)).days.ago.beginning_of_day)
@@ -126,15 +126,17 @@ class Checkout < ActiveRecord::Base
             unless r.nil?
               r = ReminderList.new
               r.checkout_id = checkout.id
+              r.status = 0
               r.save!
               logger.info "create ReminderList checkout_id=#{checkout.id}"
+              queues_size += 1
             end
           end
         end
       end
     end
 
-    queues.size
+    queues_size
   end
 
   # output
