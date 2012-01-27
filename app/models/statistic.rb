@@ -710,6 +710,49 @@ class Statistic < ActiveRecord::Base
       logger.error "Failed to calculate ndc  checkouts statistics: #{e}"
   end
 
+  def self.calc_reminders(start_at, end_at, term_id)
+    Statistic.transaction do
+      p "statistics of reminders  #{start_at} - #{end_at}"
+
+      # reminder checkouts 
+      data_type = term_id.to_s + 21.to_s   
+      statistic = Statistic.new
+      set_date(statistic, start_at, term_id)
+      statistic.data_type = data_type
+      statistic.option = 5
+      statistic.value = Checkout.count_by_sql(["select count(*) from checkouts, reminder_lists where checkouts.id = reminder_lists.checkout_id AND reminder_lists.created_at >= ? AND reminder_lists.created_at  < ?", start_at, end_at])
+      statistic.save! if statistic.value > 0
+      # reminder checkouts each libraries
+      @libraries.each do |library|
+        data_type = term_id.to_s + 21.to_s   
+        statistic = Statistic.new
+        set_date(statistic, start_at, term_id)
+        statistic.data_type = data_type
+        statistic.option = 5
+        statistic.library = library
+        statistic.value = Checkout.count_by_sql(["select count(*) from checkouts, users, libraries, reminder_lists where checkouts.librarian_id = users.id AND users.library_id= libraries.id AND libraries.id = ? AND checkouts.id = reminder_lists.checkout_id AND reminder_lists.created_at >= ? AND reminder_lists.created_at < ?", library.id, start_at, end_at])
+        statistic.save! if statistic.value > 0
+      end
+      # checkins remindered emiko
+      data_type = term_id.to_s + 51.to_s   
+      statistic = Statistic.new
+      set_date(statistic, start_at, term_id)
+      statistic.data_type = data_type
+      statistic.option = 5
+      statistic.value = Checkin.count_by_sql(["select count(*) from checkins, checkouts, reminder_lists where checkins.id = checkouts.checkin_id AND checkouts.id = reminder_lists.checkout_id AND checkins.created_at >= ? AND checkins.created_at  < ?", start_at, end_at])
+      statistic.save! if statistic.value > 0
+      @libraries.each do |library|
+        statistic = Statistic.new
+        set_date(statistic, start_at, term_id)
+        statistic.data_type = data_type
+        statistic.library_id = library.id
+        statistic.option = 5
+        statistic.value = Checkin.count_by_sql(["select count(*) from checkins, checkouts, reminder_lists, users, libraries where checkins.id = checkouts.checkin_id AND checkouts.id = reminder_lists.checkout_id AND checkins.librarian_id = users.id AND users.library_id= libraries.id AND libraries.id = ? AND checkins.created_at >= ? AND checkins.created_at < ?", library.id, start_at, end_at])
+        statistic.save! if statistic.value > 0
+      end
+    end
+  end
+
   def self.calc_checkins(start_at, end_at, term_id)
     Statistic.transaction do
 #      p "statistics of checkins  #{start_at} - #{end_at}"
@@ -2214,6 +2257,7 @@ class Statistic < ActiveRecord::Base
       calc_inout_items(date_timestamp.beginning_of_month, date_timestamp.end_of_month, 1)
       calc_library_use(date_timestamp.beginning_of_month, date_timestamp.end_of_month, 1)
       calc_loans(date_timestamp.beginning_of_month, date_timestamp.end_of_month, 1)
+      calc_reminders(date_timestamp.beginning_of_month, date_timestamp.end_of_month, 1)
       calc_monthly_data(date)
     else # daily calculate data each hour
       if date
@@ -2239,6 +2283,7 @@ class Statistic < ActiveRecord::Base
       calc_age_data(date.beginning_of_day, date.end_of_day, 2)
       calc_inout_items(date.beginning_of_day, date.end_of_day, 2)
       calc_loans(date.beginning_of_day, date.end_of_day, 2)
+      calc_reminders(date.beginning_of_day, date.end_of_day, 2)
       calc_daily_data(date.strftime("%Y%m%d"))
     end
     rescue Exception => e

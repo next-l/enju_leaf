@@ -434,6 +434,42 @@ class StatisticReport < ActiveRecord::Base
           line(row) if library == libraries.last
         end
       end
+  
+      # reminder checkout items
+      report.page.list(:list).add_row do |row|
+        row.item(:type).value(I18n.t('statistic_report.remind_checkouts'))
+        row.item(:library).value(I18n.t('statistic_report.all_library'))
+        sum = 0
+        12.times do |t|
+          if t < 4 # for Japanese fiscal year
+            value = Statistic.where(:yyyymm => "#{term.to_i + 1}#{"%02d" % (t + 1)}", :data_type => 121, :library_id => 0, :option => 5).first.value rescue 0
+          else
+            value = Statistic.where(:yyyymm => "#{term}#{"%02d" % (t + 1)}", :data_type => 121, :library_id => 0, :option => 5).first.value rescue 0
+          end
+          row.item("value#{t+1}").value(to_format(value))
+          sum = sum + value
+        end  
+        row.item("valueall").value(sum)
+        row.item(:library_line).show
+      end
+      libraries.each do |library|
+        report.page.list(:list).add_row do |row|
+          row.item(:library).value(library.display_name.localize)
+          sum = 0
+          12.times do |t|
+            if t < 4 # for Japanese fiscal year
+              value = Statistic.where(:yyyymm => "#{term.to_i + 1}#{"%02d" % (t + 1)}", :data_type => 121, :library_id => library.id, :option => 5).first.value rescue 0
+            else
+              value = Statistic.where(:yyyymm => "#{term}#{"%02d" % (t + 1)}", :data_type => 121, :library_id => library_id, :option => 5).first.value rescue 0
+            end
+            row.item("value#{t+1}").value(to_format(value))
+            sum = sum + value
+          end  
+          row.item("valueall").value(sum)
+          row.item(:library_line).show
+          line(row) if library == libraries.last
+        end
+      end
      
       # checkin items
       report.page.list(:list).add_row do |row|
@@ -504,6 +540,40 @@ class StatisticReport < ActiveRecord::Base
           end  
           row.item("valueall").value(sum/12)
 	  row.item(:library_line).show
+          line(row) if library == libraries.last
+        end
+      end
+
+      # checkin items remindered
+      report.page.list(:list).add_row do |row|
+        row.item(:type).value(I18n.t('statistic_report.checkin_remindered'))
+        row.item(:library).value(I18n.t('statistic_report.all_library'))
+        sum = 0
+        12.times do |t|
+          if t < 4 # for Japanese fiscal year
+            value = Statistic.where(:yyyymm => "#{term.to_i + 1}#{"%02d" % (t + 1)}", :data_type => 151, :library_id => 0, :option => 5).first.value rescue 0
+          else
+            value = Statistic.where(:yyyymm => "#{term}#{"%02d" % (t + 1)}", :data_type => 151, :library_id => 0, :option => 5).first.value rescue 0
+          end
+          row.item("value#{t+1}").value(to_format(value))
+          sum = sum + value
+        end  
+        row.item("valueall").value(sum)
+      end
+      libraries.each do |library|
+        report.page.list(:list).add_row do |row|
+          row.item(:library).value(library.display_name.localize)
+          sum = 0
+          12.times do |t|
+            if t < 4 # for Japanese fiscal year
+              value = Statistic.where(:yyyymm => "#{term.to_i + 1}#{"%02d" % (t + 1)}", :data_type => 151, :library_id => library.id, :option => 5).first.value rescue 0
+            else
+              value = Statistic.where(:yyyymm => "#{term}#{"%02d" % (t + 1)}", :data_type => 151, :library_id => library_id, :option => 5).first.value rescue 0
+            end
+            row.item("value#{t+1}").value(to_format(value))
+            sum = sum + value
+          end  
+          row.item("valueall").value(sum)
           line(row) if library == libraries.last
         end
       end
@@ -1356,7 +1426,48 @@ class StatisticReport < ActiveRecord::Base
         end
         output.print '"'+row.join('","')+"\"\n"
       end
-     
+      # remind checkout items
+      sum = 0
+      row = []
+      columns.each do |column|
+        case column[0]
+        when :type
+          row << I18n.t('statistic_report.remind_checkouts')
+        when :library
+          row << I18n.t('statistic_report.all_library')
+        when :option
+          row << ""
+        when "sum"
+          row << to_format(sum)
+        else
+          value = Statistic.where(:yyyymm => column[0], :data_type => data_type, :library_id => 0, :option => 5).first.value rescue 0
+          sum += value
+          row << to_format(value)
+        end  
+      end
+      output.print '"'+row.join('","')+"\"\n"
+      libraries.each do |library|     
+        sum = 0
+        row = []
+        columns.each do |column|
+          case column[0]
+          when :type
+            row << I18n.t('statistic_report.remind_checkouts')
+          when :library
+            row << library.display_name.localize
+          when :option
+            row << ""
+          when "sum"
+            row << to_format(sum)
+          else
+            value = Statistic.where(:yyyymm => column[0], :data_type => data_type, :library_id => library.id, :option => 5).first.value rescue 0
+            sum += value
+            row << to_format(value)
+          end  
+        end
+        output.print '"'+row.join('","')+"\"\n"
+      end
+
       # checkin items
       sum = 0
       row = []
@@ -1434,6 +1545,47 @@ class StatisticReport < ActiveRecord::Base
             row << to_format(sum/12)
           else
             value = Statistic.where(:yyyymm => column[0], :data_type => 151, :library_id => library.id, :option => 4).first.value rescue 0 
+            sum += value
+            row << to_format(value)
+          end  
+        end
+        output.print '"'+row.join('","')+"\"\n"
+      end
+      # checkin items remindered
+      sum = 0
+      row = []
+      columns.each do |column|
+        case column[0]
+        when :type
+          row << I18n.t('statistic_report.checkin_remindered')
+        when :library
+          row << I18n.t('statistic_report.all_library')
+        when :option
+          row << ""
+        when "sum"
+          row << to_format(sum)
+        else
+          value = Statistic.where(:yyyymm => column[0], :data_type => 151, :library_id => 0, :option => 5).first.value rescue 0
+          sum += value
+          row << to_format(value)
+        end  
+      end
+      output.print '"'+row.join('","')+"\"\n"
+      libraries.each do |library|     
+        sum = 0
+        row = []
+        columns.each do |column|
+          case column[0]
+          when :type
+            row << I18n.t('statistic_report.checkin_remindered')
+          when :library
+            row << library.display_name.localize
+          when :option
+            row << ""
+          when "sum"
+            row << to_format(sum)
+          else
+            value = Statistic.where(:yyyymm => column[0], :data_type => 151, :library_id => library.id, :option => 5).first.value rescue 0
             sum += value
             row << to_format(value)
           end  
@@ -2205,6 +2357,53 @@ class StatisticReport < ActiveRecord::Base
             end
           end
         end
+        # remind checkout items
+        report.page.list(:list).add_row do |row|
+          row.item(:type).value(I18n.t('statistic_report.remind_checkouts'))
+          row.item(:library).value(I18n.t('statistic_report.all_library'))
+          if start_date != 27
+            13.times do |t|
+              value = Statistic.where(:yyyymmdd => "#{term.to_i}#{"%02d" % (t + start_date)}", :data_type => data_type, :library_id => 0, :option => 5).first.value rescue 0
+              row.item("value##{t+1}").value(to_format(value))
+            end
+          else
+            num_for_last_page.times do |t|
+              value = Statistic.where(:yyyymmdd => "#{term.to_i}#{"%02d" % (t + start_date)}", :data_type => data_type, :library_id => 0, :option => 5).first.value rescue 0
+              row.item("value##{t+1}").value(to_format(value))
+            end
+            sum = 0
+            datas = Statistic.where(:yyyymm => term, :data_type => data_type, :library_id => 0, :option => 5)
+            datas.each do |data|
+              sum = sum + data.value
+            end
+            row.item("value#13").value(sum)
+          end
+          row.item(:library_line).show
+        end
+        libraries.each do |library|
+          report.page.list(:list).add_row do |row|
+            row.item(:library).value(library.display_name.localize)
+            if start_date != 27
+              13.times do |t|
+                value = Statistic.where(:yyyymmdd => "#{term.to_i}#{"%02d" % (t + start_date)}", :data_type => data_type, :library_id => library.id, :option => 5).first.value rescue 0
+                row.item("value##{t+1}").value(to_format(value))
+              end
+            else
+              num_for_last_page.times do |t|
+                value = Statistic.where(:yyyymmdd => "#{term.to_i}#{"%02d" % (t + start_date)}", :data_type => data_type, :library_id => library.id, :option => 5).first.value rescue 0
+                row.item("value##{t+1}").value(to_format(value))
+              end
+              sum = 0
+              datas = Statistic.where(:yyyymm => term, :data_type => data_type, :library_id => library.id, :option => 5)
+              datas.each do |data|
+                sum = sum + data.value
+              end
+              row.item("value#13").value(sum)
+            end
+            row.item(:library_line).show
+            line(row) if library == libraries.last
+          end
+        end
     
         # checkin items
         data_type = 251
@@ -2245,6 +2444,54 @@ class StatisticReport < ActiveRecord::Base
               end
               sum = 0
               datas = Statistic.where(:yyyymm => term, :data_type => data_type, :library_id => library.id).no_condition
+              datas.each do |data|
+                sum = sum + data.value
+              end
+              row.item("value#13").value(sum)
+            end
+            row.item(:library_line).show
+            line(row) if library == libraries.last
+          end
+        end
+
+        # checkin items remindered
+        report.page.list(:list).add_row do |row|
+          row.item(:type).value(I18n.t('statistic_report.checkin_remindered'))
+          row.item(:library).value(I18n.t('statistic_report.all_library'))
+          if start_date != 27
+            13.times do |t|
+              value = Statistic.where(:yyyymmdd => "#{term.to_i}#{"%02d" % (t + start_date)}", :data_type => data_type, :library_id => 0, :option => 5).first.value rescue 0
+              row.item("value##{t+1}").value(to_format(value))
+            end
+          else
+            num_for_last_page.times do |t|
+              value = Statistic.where(:yyyymmdd => "#{term.to_i}#{"%02d" % (t + start_date)}", :data_type => data_type, :library_id => 0, :option => 5).first.value rescue 0
+              row.item("value##{t+1}").value(to_format(value))
+            end
+            sum = 0
+            datas = Statistic.where(:yyyymm => term, :data_type => data_type, :library_id => 0).no_condition
+            datas.each do |data|
+              sum = sum + data.value
+            end
+            row.item("value#13").value(sum)
+          end
+          row.item(:library_line).show
+        end
+        libraries.each do |library|
+          report.page.list(:list).add_row do |row|
+            row.item(:library).value(library.display_name.localize)
+            if start_date != 27
+              13.times do |t|
+                value = Statistic.where(:yyyymmdd => "#{term.to_i}#{"%02d" % (t + start_date)}", :data_type => data_type, :library_id => library.id, :option => 5).first.value rescue 0
+                row.item("value##{t+1}").value(to_format(value))
+              end
+            else
+              num_for_last_page.times do |t|
+                value = Statistic.where(:yyyymmdd => "#{term.to_i}#{"%02d" % (t + start_date)}", :data_type => data_type, :library_id => library.id, :option => 5).first.value rescue 0
+                row.item("value##{t+1}").value(to_format(value))
+              end
+              sum = 0
+              datas = Statistic.where(:yyyymm => term, :data_type => data_type, :library_id => library.id, :option => 5)
               datas.each do |data|
                 sum = sum + data.value
               end
@@ -2712,6 +2959,48 @@ class StatisticReport < ActiveRecord::Base
           output.print '"'+row.join('","')+"\"\n"
         end
       end
+      # checkout items reminded
+      sum = 0
+      row = []
+      columns.each do |column|
+        case column[0]
+        when :type
+          row << I18n.t('statistic_report.remind_checkouts')
+        when :library
+          row << I18n.t('statistic_report.all_library')
+        when :option
+          row << ""
+        when "sum"
+          row << to_format(sum)
+        else
+          value = Statistic.where(:yyyymmdd => column[0], :data_type => 221, :library_id => 0, :option => 5).first.value rescue 0
+          sum += value
+          row << to_format(value)
+        end
+      end
+      output.print '"'+row.join('","')+"\"\n"  
+      libraries.each do |library|
+        sum = 0
+        row = []
+        columns.each do |column|
+          case column[0]
+          when :type
+            row << I18n.t('statistic_report.remind_checkouts')
+          when :library
+            row << library.display_name.localize
+          when :option
+            row << ""
+          when "sum"
+            row << to_format(sum)
+          else
+            value = Statistic.where(:yyyymmdd => column[0], :data_type => 221, :library_id => library.id, :option => 5).first.value rescue 0
+            sum += value
+            row << to_format(value)
+          end
+        end
+        output.print '"'+row.join('","')+"\"\n"  
+      end
+
       # checkin items
       sum = 0
       row = []
@@ -2752,6 +3041,47 @@ class StatisticReport < ActiveRecord::Base
           end
         end 
         output.print '"'+row.join('","')+"\"\n"
+      end
+      # checkin items reminded
+      sum = 0
+      row = []
+      columns.each do |column|
+        case column[0]
+        when :type
+          row << I18n.t('statistic_report.checkin_remindered')
+        when :library
+          row << I18n.t('statistic_report.all_library')
+        when :option
+          row << ""
+        when "sum"
+          row << to_format(sum)
+        else
+          value = Statistic.where(:yyyymmdd => column[0], :data_type => 251, :library_id => 0, :option => 5).first.value rescue 0
+          sum += value
+          row << to_format(value)
+        end
+      end
+      output.print '"'+row.join('","')+"\"\n"  
+      libraries.each do |library|
+        sum = 0
+        row = []
+        columns.each do |column|
+          case column[0]
+          when :type
+            row << I18n.t('statistic_report.checkin_remindered')
+          when :library
+            row << library.display_name.localize
+          when :option
+            row << ""
+          when "sum"
+            row << to_format(sum)
+          else
+            value = Statistic.where(:yyyymmdd => column[0], :data_type => 251, :library_id => library.id, :option => 5).first.value rescue 0
+            sum += value
+            row << to_format(value)
+          end
+        end
+        output.print '"'+row.join('","')+"\"\n"  
       end
       # reserves all libraries
       sum = 0
