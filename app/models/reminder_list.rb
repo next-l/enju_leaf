@@ -57,7 +57,6 @@ class ReminderList < ActiveRecord::Base
 
   def self.output_reminder_postal_card(file, reminder_lists, user, current_user)
     logger.info "create_file=> #{file}"
-    max_column = 16
 
     require 'thinreports'
     report = ThinReports::Report.create do
@@ -66,6 +65,7 @@ class ReminderList < ActiveRecord::Base
       # address
       #report.start_new_page do |page|
       start_new_page :layout => File.join(Rails.root, 'report', 'reminder_postal_card_front.tlf') do |page|
+        max_column = 16
         page.item(:zip_code).value(user.patron.zip_code_1) if user.patron.zip_code_1
         if user.patron.address_1
           address = user.patron.address_1
@@ -116,18 +116,6 @@ class ReminderList < ActiveRecord::Base
         end
       end    
 
-     #report.layout.config.list(:list) do
-=begin
-      config.list(:list) do
-        events.on :footer_insert do |e|
-          if reminder_lists.size > 5
-            e.section.item(:items_num).value(I18n.t('activerecord.attributes.reminder_list.other') + " " + (reminder_lists.size.to_i - 5).to_s + " " + I18n.t('activerecord.attributes.reminder_list.items'))
-          else
-            e.section.item(:items_num).value(I18n.t('activerecord.attributes.reminder_list.total')+ " " + reminder_lists.size.to_s + " " + I18n.t('activerecord.attributes.reminder_list.items'))
-          end
-        end
-      end
-=end
       # detail
       start_new_page do |page|
         page.item(:date).value(Time.now)
@@ -162,9 +150,42 @@ class ReminderList < ActiveRecord::Base
           if reminder_lists.size > max_length
             row.item(:items_num).value(I18n.t('activerecord.attributes.reminder_list.other') + " " + (reminder_lists.size.to_i - max_length).to_s + " " + I18n.t('activerecord.attributes.reminder_list.items'))
           else
-            row.item(:items_num).value(I18n.t('activerecord.attributes.reminder_list.total')+ " " + reminder_lists.size.to_s + " " + I18n.t('activerecord.attributes.reminder_list.items'))
+            row.item(:items_num).value(I18n.t('activerecord.attributes.reminder_list.total') + " " + reminder_lists.size.to_s + " " + I18n.t('activerecord.attributes.reminder_list.items'))
           end
         end       
+      end
+    end
+    report.generate_file(file) 
+  end
+
+  def self.output_reminder_letter(file, reminder_lists, user, current_user)
+    logger.info "create_file=> #{file}"
+
+    require 'thinreports'
+    report = ThinReports::Report.new :layout => File.join(Rails.root, 'report', 'reminder_letter.tlf')
+    report.layout.config.list(:list) do
+      events.on :footer_insert do |e|
+        e.section.item(:items_num).value(I18n.t('activerecord.attributes.reminder_list.total') + " " + reminder_lists.size.to_s + " " + I18n.t('activerecord.attributes.reminder_list.items'))
+      end
+    end
+
+    report.start_new_page do |page|
+      page.item(:date).value(Time.now)
+      page.item(:user_number).value(user.user_number) if user.user_number
+      page.item(:user).value(user.patron.full_name + " " + I18n.t('activerecord.attributes.reminder_list.honorific2')) if user.patron.full_name
+      page.item(:message).value(configatron.reminder_letter_message)
+      page.item(:library).value(LibraryGroup.system_name(@locale))
+      library = Library.find(current_user.library_id) rescue nil
+      page.item(:current_user_library).value(library.display_name.localize) if library
+      page.item(:telephone_number).value(library.telephone_number_1) if library.telephone_number_1
+      page.item(:address).value(library.address) if library.address
+
+      reminder_lists.each do |reminder_list|
+        page.list(:list).add_row do |row|
+          row.item(:item_identifier).value(reminder_list.checkout.item.item_identifier) if reminder_list.checkout.item.item_identifier
+          row.item(:title).value(reminder_list.checkout.item.manifestation.original_title) if reminder_list.checkout.item.manifestation.original_title
+          row.item(:due_date).value(reminder_list.checkout.due_date) if reminder_list.checkout.due_date
+        end
       end
     end
     report.generate_file(file) 

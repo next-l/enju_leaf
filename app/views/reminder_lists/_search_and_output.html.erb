@@ -31,7 +31,6 @@
         <%= check_box_tag "state[]", state[:id], @selected_state.index(state[:id]) != nil ? true : false, :class=>'check-child' -%><%= state[:display_name] -%>
       <%- end -%>
     </div>
-    <br style="clear:both;"/>
   </div>
   <div>
     <%= t('page.search_term') -%>: <%= search_field_tag 'query', h(@query), {:id => 'search_form_top', :class => 'search_form', :placeholder => t('page.search_term')} -%><br />
@@ -39,8 +38,8 @@
   <div class="actions">
     <%= hidden_field_tag 'do_search', true -%>
     <%= submit_tag t('page.search') %>
-    <%= submit_tag t('page.output_pdf', :model => t('page.reminder_postal_card')), :name => 'output_reminder_postal_card' %>
-    <%= submit_tag t('page.output_csv', :model => t('page.reminder_letter')), :name => 'output_reminder_letter' %>
+    <%= submit_tag t('page.output_pdf', :model => t('activerecord.models.reminder_list')), :name => 'output_pdf' %>
+    <%= submit_tag t('page.output_csv', :model => t('activerecord.models.reminder_list')), :name => 'output_csv' %>
   </div>
 <%- end -%>
 
