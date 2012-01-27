@@ -74,6 +74,7 @@ en:
         position: Position
         deleted_at: Deleted at
         opening_hour: Opening hour
+        isil: ISIL
       patron_import_file:
         patron_import_file_name: Filename
         patron_import_content_type: Content type
