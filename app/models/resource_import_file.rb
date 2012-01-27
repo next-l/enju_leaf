@@ -192,6 +192,10 @@ class ResourceImportFile < ActiveRecord::Base
     item
   end
 
+  def self.update_item(item, options = {})
+    item.update_attributes!(options)
+  end
+
   def import_marc(marc_type)
     file = File.open(self.resource_import.path)
     case marc_type
@@ -247,15 +251,46 @@ class ResourceImportFile < ActiveRecord::Base
 
   def modify
     rows = open_import_file
+    row_num = 2
+    field = rows.first
     rows.each do |row|
+      next if row['dummy'].to_s.strip.present?
+      import_result = ResourceImportResult.create!(:resource_import_file => self, :body => row.fields.join("\t"))
       item_identifier = row['item_identifier'].to_s.strip
       item = Item.where(:item_identifier => item_identifier).first if item_identifier.present?
       if item.try(:manifestation)
-        fetch(row, :edit_mode => 'update')
+        begin
+          fetch(row, :edit_mode => 'update')
+          options = {}
+          checkout_type = CheckoutType.where(:name => row['checkout_type'].to_s.strip).first if row['checkout_type']
+          options[:checkout_type] = checkout_typs if checkout_type
+          shelf = Shelf.where(:name => row['shelf'].to_s.strip).first if row['shelf']
+          options[:shelf] = shelf if shelf
+          circulation_status = CirculationStatus.where(:name => row['circulation_status'].to_s.strip).first if row['circulation_status']
+          options[:circulation_status] = circulation_status if circulation_status
+          if row['include_supplements']
+            if row['include_supplements'].blank?
+              options[:include_supplements] = false
+            else
+              options[:include_supplements] = true
+            end
+          end
+          bookstore = Bookstore.where(:name => row['bookstore'].to_s.strip).first if row['bookstore']
+          options[:bookstore] = bookstore if bookstore
+          options[:call_number] = row['call_number'].to_s.strip if row['call_number'] && !row['call_number'].blank?
+          options[:price] = row['price'] if row['price'] && !row['price'].blank?
+          self.class.update_item(item, options)
+          import_result.manifestation = item.manifestation
+          import_result.item = item
+        rescue Exception => e
+          import_result.error_msg = "FAIL[#{row_num}]: #{e.message}"
+          Rails.logger.info("resource registration failed: column #{row_num}: #{e.message}")
+        end
       else
-        import_result = ResourceImportResult.create!(:resource_import_file => self, :body => row.fields.join("\t"))
         import_result.error_msg = "FAIL[#{row}]: #{item_identifier} does not exist"
       end
+      import_result.save!
+      row_num += 1
     end
   end
 
@@ -341,7 +376,6 @@ class ResourceImportFile < ActiveRecord::Base
     when 'update'
       manifestation = Item.where(:item_identifier => row['item_identifier'].to_s.strip).first.try(:manifestation)
     end
-
     title = {}
     title[:original_title] = row['original_title'].to_s.strip
     title[:title_transcription] = row['title_transcription'].to_s.strip
