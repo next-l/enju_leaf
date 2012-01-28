@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '3.2.0'
+gem 'rails', '3.2.1'
 
 # Bundle edge Rails instead:
 # gem 'rails',     :git => 'git://github.com/rails/rails.git'
@@ -80,7 +80,7 @@ gem 'isbn-tools', :git => 'git://github.com/nabeta/isbn-tools.git', :require => 
 gem 'configatron'
 gem 'extractcontent'
 gem 'cancan', '>= 1.6.7'
-gem 'devise', '~> 2.0.0.rc2'
+gem 'devise', '~> 2.0'
 gem 'omniauth', '~> 1.0'
 gem 'addressable'
 gem 'paperclip', '~> 2.5'
@@ -97,7 +97,7 @@ gem 'attribute_normalizer', '~> 1.0'
 gem 'geocoder'
 gem 'acts_as_list', :git => 'git://github.com/swanandp/acts_as_list.git'
 gem 'library_stdnums'
-gem 'client_side_validations'
+gem 'client_side_validations', '~> 3.2.0.beta.2'
 gem 'simple_form', '~> 1.5'
 gem 'validates_timeliness'
 gem 'rack-protection'

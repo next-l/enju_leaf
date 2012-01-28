@@ -73,6 +73,7 @@ ja:
         position: 位置
         deleted_at: 削除時刻
         opening_hour: 開館時間
+        isil: ISIL
       patron_import_file:
         patron_import_file_name: ファイル名
         patron_import_content_type: Content-Type
@@ -394,6 +395,7 @@ ja:
         original_title: シリーズ名
         numbering: シリーズ番号
         title_subseries: 副シリーズ名
+        title_subseries_transcription: 副シリーズ名よみ
         numbering_subseries: 副シリーズ番号
         work: 書いた資料
         series_statement_identifier: シリーズ識別子
