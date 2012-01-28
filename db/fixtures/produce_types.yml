@@ -2,16 +2,16 @@
 
 publisher:
   name: publisher
-  display_name: "en:Publisher\r\n\
-    ja:出版者"
+  display_name: "en: Publisher\r\n\
+    ja: 出版者"
   note: 
   position: 1
   id: 1
 
 seller:
   name: seller
-  display_name: "en:Seller\r\n\
-    ja:販売者"
+  display_name: "en: Seller\r\n\
+    ja: 販売者"
   note: 
   position: 2
   id: 2

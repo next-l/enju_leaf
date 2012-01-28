@@ -2,24 +2,24 @@
 
 editor:
   name: editor
-  display_name: "en:Editor\r\n\
-    ja:編者"
+  display_name: "en: Editor\r\n\
+    ja: 編者"
   note: 
   position: 1
   id: 1
 
 translator:
   name: translator
-  display_name: "en:Translator\r\n\
-    ja:訳者"
+  display_name: "en: Translator\r\n\
+    ja: 訳者"
   note: 
   position: 2
   id: 2
 
 illustrator:
   name: illustrator
-  display_name: "en:Illustrator\r\n\
-    ja:作画者"
+  display_name: "en: Illustrator\r\n\
+    ja: 作画者"
   note: 
   position: 3
   id: 3
