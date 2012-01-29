@@ -8,7 +8,8 @@ class ApplicationController < ActionController::Base
   rescue_from ActionView::MissingTemplate, :with => :render_404_invalid_format
   rescue_from ActionController::RoutingError, :with => :render_404
 
-  before_filter :get_library_group, :set_locale, :set_available_languages, :prepare_for_mobile
+  has_mobile_fu
+  before_filter :get_library_group, :set_locale, :set_available_languages, :is_mobile_device?
 
   private
   def render_403
@@ -347,10 +348,6 @@ class ApplicationController < ActionController::Base
 
   def current_ability
     @current_ability ||= Ability.new(current_user, request.remote_ip)
-  end
-
-  def prepare_for_mobile
-    request.format = :mobile if request.smart_phone?
   end
 
   def get_top_page_content
