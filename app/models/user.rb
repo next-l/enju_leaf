@@ -219,11 +219,13 @@ class User < ActiveRecord::Base
   end
 
   def self.create_with_params(params, current_user)
-    user = User.new(params)
+    user = User.new #(params)
     user.operator = current_user
     #self.username = params[:user][:login]
     user.note = params[:note]
-    user.user_group_id = params[:user_group_id] ||= 1
+    #user.user_group_id = params[:user_group_id] ||= 1
+    user.assign_attributes(params)
+    #user_group_id = params[:user_group_id] ||= 1
     user.library_id = params[:library_id] ||= 1
     user.role_id = params[:role_id] ||= 1
     user.required_role_id = params[:required_role_id] ||= 1

@@ -40,6 +40,8 @@ describe ResourceImportFile do
         item_10101.manifestation.creates.order(:id).second.patron.full_name.should eq 'test1'
         item_10101.manifestation.creates.order(:id).second.create_type.name.should eq 'illustrator'
         item_10101.manifestation.date_of_publication.should eq Time.zone.parse('2001-01-01')
+        item_10101.budget_type.name.should eq 'Public fund'
+        item_10101.bookstore.name.should eq 'Example store'
         Item.where(:item_identifier => '10102').first.manifestation.date_of_publication.should eq Time.zone.parse('2001-01-01')
         Item.where(:item_identifier => '10104').first.manifestation.date_of_publication.should eq Time.zone.parse('2001-01-01')
         Manifestation.where(:manifestation_identifier => '103').first.original_title.should eq 'ダブル"クォート"を含む資料'
@@ -51,6 +53,15 @@ describe ResourceImportFile do
         item.manifestation.price.should eq 1000
         item.price.should eq 0
         item.manifestation.publishers.size.should eq 2
+
+        item_10103 = Item.where(:item_identifier => '10103').first
+        item_10103.budget_type.should be_nil
+        item_10103.bookstore.name.should eq 'Example store'
+
+        item_10104 = Item.where(:item_identifier => '10104').first
+        item_10104.budget_type.name.should eq 'Public fund'
+        item_10104.bookstore.should be_nil
+
         @file.file_hash.should be_true
       end
     end

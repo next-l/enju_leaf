@@ -37,6 +37,11 @@
   </div>
 
   <div class="field">
+    <%= f.label t('activerecord.models.budget_type') -%>
+    <%= f.select(:budget_type_id, @budget_types.collect{|b| [b.name, b.id]}, :include_blank => true) -%>
+  </div>
+
+  <div class="field">
     <%= f.label t('activerecord.models.bookstore') -%>
     <%= f.select(:bookstore_id, @bookstores.collect{|b| [b.name, b.id]}, :include_blank => true) -%>
   </div>

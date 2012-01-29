@@ -52,6 +52,7 @@ ja:
       create_type: 著作の関係
       realize_type: 表現の関係
       produce_type: 体現の関係
+      budget_type: 書店
 
     attributes:
       library:
@@ -427,6 +428,10 @@ ja:
         display_name: 表示名
         note: 注記
       produce_type:
+        name: 名称
+        display_name: 表示名
+        note: 注記
+      budget_type:
         name: 名称
         display_name: 表示名
         note: 注記

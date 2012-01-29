@@ -53,6 +53,7 @@ class Ability
         user_group.users.empty?
       end
       can :manage, [
+        BudgetType,
         Create,
         CreateType,
         Donate,
@@ -160,6 +161,7 @@ class Ability
       ]
       can :read, [
         Bookstore,
+        BudgetType,
         CarrierType,
         ContentType,
         Country,
