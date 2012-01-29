@@ -248,6 +248,7 @@ class ItemsController < ApplicationController
     end
     @shelves = @library.shelves
     @bookstores = Bookstore.all
+    @budget_types = BudgetType.all
     @roles = Role.all
     if defined?(EnjuCirculation)
       @circulation_statuses = CirculationStatus.all
