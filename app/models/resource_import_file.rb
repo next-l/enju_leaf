@@ -306,6 +306,7 @@ class ResourceImportFile < ActiveRecord::Base
   def create_item(row, manifestation)
     shelf = Shelf.where(:name => row['shelf'].to_s.strip).first || Shelf.web
     bookstore = Bookstore.where(:name => row['bookstore'].to_s.strip).first
+    budget_type = BudgetType.where(:name => row['budget_type'].to_s.strip).first
     acquired_at = Time.zone.parse(row['acquired_at']) rescue nil
     item = self.class.import_item(manifestation, {
       :manifestation_id => manifestation.id,
@@ -314,7 +315,8 @@ class ResourceImportFile < ActiveRecord::Base
       :call_number => row['call_number'].to_s.strip,
       :shelf => shelf,
       :acquired_at => acquired_at,
-      :bookstore => bookstore
+      :bookstore => bookstore,
+      :budget_type => budget_type
     })
     if defined?(EnjuCirculation)
       circulation_status = CirculationStatus.where(:name => row['circulation_status'].to_s.strip).first || CirculationStatus.where(:name => 'In Process').first

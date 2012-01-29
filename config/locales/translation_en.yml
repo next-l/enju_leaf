@@ -53,6 +53,7 @@ en:
       create_type: Create type
       realize_type: Realize type
       produce_type: Produce type
+      budget_type: Budget type
 
     attributes:
       library:
@@ -428,6 +429,10 @@ en:
         display_name: Display name
         note: Note
       produce_type:
+        name: Name
+        display_name: Display name
+        note: Note
+      budget_type:
         name: Name
         display_name: Display name
         note: Note
