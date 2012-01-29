@@ -52,7 +52,7 @@ ja:
       create_type: 著作の関係
       realize_type: 表現の関係
       produce_type: 体現の関係
-      budget_type: 書店
+      budget_type: 予算種別
 
     attributes:
       library:
