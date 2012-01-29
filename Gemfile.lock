@@ -131,6 +131,14 @@ GEM
       sunspot_rails (~> 1.3)
       sunspot_solr (~> 1.3)
       will_paginate (~> 3.0)
+<<<<<<< HEAD
+=======
+
+GIT
+  remote: git://github.com/nabeta/enju_circulation.git
+  revision: 8e849a57fb2ed46fac84d3fddcce3b136979c399
+  specs:
+>>>>>>> 060797c... fixed locale file
     enju_circulation (0.0.8)
       attribute_normalizer (~> 1.0)
       cancan
