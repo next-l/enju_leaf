@@ -11,8 +11,6 @@ class ApplicationController < ActionController::Base
   has_mobile_fu
   before_filter :get_library_group, :set_locale, :set_available_languages, :is_mobile_device?
 
-  #include Jpmobile::ViewSelector
-
   private
   def render_403
     return if performed?
