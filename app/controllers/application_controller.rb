@@ -10,8 +10,9 @@ class ApplicationController < ActionController::Base
   rescue_from RSolr::Error::Http, :with => :render_500_solr
   rescue_from ActionView::MissingTemplate, :with => :render_404_invalid_format
 
-  before_filter :get_library_group, :set_locale, :set_available_languages, :prepare_for_mobile, :set_current_user
-  helper_method :mobile_device?
+  #before_filter :get_library_group, :set_locale, :set_available_languages, :prepare_for_mobile, :set_current_user
+  before_filter :get_library_group, :set_locale, :set_available_languages, :set_current_user
+  #helper_method :mobile_device?
 
   private
   def render_403
@@ -380,12 +381,11 @@ class ApplicationController < ActionController::Base
   end
 
   def current_ability
-    #debugger
     @current_ability ||= Ability.new(current_user, request.remote_ip)
   end
 
   def prepare_for_mobile
-    request.format = :mobile if request.smart_phone?
+    #request.format = :mobile if request.smart_phone?
   end
 end
 
