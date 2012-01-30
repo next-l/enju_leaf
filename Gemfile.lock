@@ -51,15 +51,7 @@ GEM
     archive-tar-minitar (0.5.2)
     arel (2.0.10)
     arrayfields (4.7.4)
-    astrails-safe (0.2.7)
-      aws-s3
-      cloudfiles
-      net-sftp
     attribute_normalizer (1.0.1)
-    aws-s3 (0.6.2)
-      builder
-      mime-types
-      xml-simple
     barby (0.5.0)
     bcrypt-ruby (3.0.1)
     builder (2.1.2)
@@ -83,8 +75,6 @@ GEM
       sexp_processor (= 3.0.7)
       sexp_processor (~> 3.0.3)
     client_side_validations (3.1.4)
-    cloudfiles (1.5.0.1)
-      json
     cocaine (0.2.1)
     colored (1.2)
     columnize (0.3.6)
@@ -175,9 +165,6 @@ GEM
       syntax
     mime-types (1.17.2)
     multi_json (1.0.4)
-    net-sftp (2.0.5)
-      net-ssh (>= 2.0.9)
-    net-ssh (2.3.0)
     nokogiri (1.5.0)
     omniauth (1.0.2)
       hashie (~> 1.2)
@@ -331,7 +318,6 @@ GEM
       aaronh-chronic (>= 0.3.9)
       activesupport (>= 2.3.4)
     will_paginate (3.0.2)
-    xml-simple (1.1.1)
     yamler (0.1.0)
     zipruby (0.3.6)
 
@@ -345,7 +331,6 @@ DEPENDENCIES
   acts_as_list!
   addressable
   annotate
-  astrails-safe
   attribute_normalizer
   barby (~> 0.5)
   cancan (>= 1.6.7)

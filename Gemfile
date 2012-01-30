@@ -66,7 +66,7 @@ gem 'paperclip', '~> 2.4'
 gem 'whenever', '~> 0.6', :require => false
 #gem 'amazon-ecs', '>= 2.2.0', :require => 'amazon/ecs'
 #gem 'aws-s3', :require => 'aws/s3'
-gem 'astrails-safe'
+#gem 'astrails-safe'
 gem 'dynamic_form'
 gem 'sanitize'
 gem 'barby', '~> 0.5'
