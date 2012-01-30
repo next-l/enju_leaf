@@ -93,16 +93,15 @@ class ReminderList < ActiveRecord::Base
     logger.info "create_file=> #{file}"
  
     columns = [
-      ['chekout_id','activerecord.attributes.reminder_list.checkout_id'],
-      ['title', 'activerecord.attributes.reminder_list.original_title'],
+      [:chekout_id, 'activerecord.attributes.reminder_list.checkout_id'],
+      [:title, 'activerecord.attributes.reminder_list.original_title'],
       [:user, 'activerecord.attributes.reminder_list.user_name'],
-      ['state','activerecord.attributes.reminder_list.status'],
-      ['due_date', 'activerecord.attributes.reminder_list.due_date'],
-      ['number_of_day_overdue', 'activerecord.attributes.reminder_list.number_of_day_overdue'],
+      [:state, 'activerecord.attributes.reminder_list.status'],
+      [:due_date, 'activerecord.attributes.reminder_list.due_date'],
+      [:number_of_day_overdue, 'activerecord.attributes.reminder_list.number_of_day_overdue'],
       [:library, 'activerecord.attributes.reminder_list.library'],
     ]
 
-=begin # :TODO
     File.open(file, "w") do |output| 
       # add UTF-8 BOM for excel
       output.print "\xEF\xBB\xBF".force_encoding("UTF-8")
@@ -114,10 +113,30 @@ class ReminderList < ActiveRecord::Base
       end
       output.print row.join(",")+"\n"
 
+      # set
       reminder_lists.each do |reminder_list|
+        row = []
+        columns.each do |column|
+          case column[0]
+          when :checkout_id
+            row << reminder_list.checkout.id
+          when :title
+            row << reminder_list.checkout.item.manifestation.original_title
+          when :user
+            row << reminder_list.checkout.user.patron.full_name + "(" + reminder_list.checkout.user_username + ")"
+          when :state
+            row << reminder_list.status_name
+          when :due_date
+            row << reminder_list.checkout.due_date
+          when :number_of_day_overdue
+            row << reminder_list.checkout.day_of_overdue
+          when :library
+            row << reminder_list.checkout.item.shelf.library.display_name.localize
+          end
+        end
+        output.print '"'+row.join('","')+"\"\n"
       end
     end
-=end
   end
 
   def self.output_reminder_postal_card(file, reminder_lists, user, current_user)
