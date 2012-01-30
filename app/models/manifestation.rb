@@ -164,7 +164,7 @@ class Manifestation < ActiveRecord::Base
   validates :access_address, :url => true, :allow_blank => true, :length => {:maximum => 255}
   validate :check_isbn, :check_issn, :check_lccn, :unless => :during_import
   validates :issue_number, :numericality => {:greater_than => 0}, :allow_blank => true
-  validates :volume_number, :numericality => {:greater_than => 0}, :allow_blank => true
+  validates :volume_number, :numericality => true, :allow_blank => true
   validates :serial_number, :numericality => {:greater_than => 0}, :allow_blank => true
   validates :edition, :numericality => {:greater_than => 0}, :allow_blank => true
   before_validation :set_wrong_isbn, :check_issn, :check_lccn, :if => :during_import
