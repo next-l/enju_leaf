@@ -34,6 +34,16 @@ playSound('<%= root_path -%><%= flash[:sound] -%>');
   <strong><%= t('activerecord.attributes.reminder_list.number_of_day_overdue') -%>:</strong>
   <%= @reminder_list.checkout.day_of_overdue -%>
 </p>
+
+<p>
+  <strong><%= t('activerecord.attributes.reminder_list.type1_printed_at') -%>:</strong>
+  <%= dateformat(@reminder_list.type1_printed_at) -%>
+</p>
+<p>
+  <strong><%= t('activerecord.attributes.reminder_list.type2_printed_at') -%>:</strong>
+  <%= dateformat(@reminder_list.type2_printed_at) -%>
+</p>
+
 <p>
   <strong><%= t('page.created_at') -%>:</strong>
   <%= l(@reminder_list.created_at) -%>

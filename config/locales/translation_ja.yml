@@ -187,7 +187,9 @@ ja:
         due_date: 貸出期限
         number_of_day_overdue: 超過日数
         type1_printed: はがき
+        type1_printed_at: はがき印刷日時
         type2_printed: 催告書
+        type2_printed_at: 催告書印刷日時
         printed: 印字済
         status_name:
           accepted: 未連絡

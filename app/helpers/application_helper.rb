@@ -220,4 +220,9 @@ module ApplicationHelper
     ja_wmd(v)
   end
 
+  def dateformat(v)
+    return "" if v.nil?
+    v.strftime "%Y/%m/%d %H:%M:%S" rescue ""
+  end
+
 end
