@@ -175,8 +175,6 @@ class ReminderListsController < ApplicationController
       data = ReminderList.output_reminder_list_pdf(@reminder_lists)
       send_data data.generate, :filename => configatron.reminder_list_pdf_print.filename, :type => 'application/pdf'
     when :reminder_list_csv
-      #file = out_dir + configatron.reminder_list_csv_print.filename
-      #ReminderList.output_reminder_list_csv(file, @reminder_lists)
       data = ReminderList.output_reminder_list_csv(@reminder_lists)
       send_data data, :filename => configatron.reminder_list_csv_print.filename
     when :reminder_postal_card

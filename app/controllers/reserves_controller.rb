@@ -45,7 +45,7 @@ class ReservesController < ApplicationController
         end
         if params[:output_user]
           # output
-          output_file('reservelist_user', @user, current_user)
+          output_file(:reservelist_user, @user, current_user)
         end
       elsif @manifestation
         # 管理者
@@ -113,7 +113,7 @@ class ReservesController < ApplicationController
         # output reserveslist
         unless @selected_state.blank? or @selected_library.blank? or @selected_method.blank? 
           if params[:output_pdf] || params[:output_csv]
-            output_type = params[:output_pdf] ? 'reservelist_all_pdf': 'reservelist_all_csv'
+            output_type = params[:output_pdf] ? :reservelist_all_pdf : :reservelist_all_csv
             output_file(output_type, query, params[:state], params[:library], params[:method])
             return
           end
@@ -346,7 +346,7 @@ class ReservesController < ApplicationController
     @reserve = Reserve.find(params[:id])
     check_can_access?
 
-    output_file('reserve', @reserve, current_user) 
+    output_file(:reserve, @reserve, current_user) 
   end
 
   private
@@ -369,26 +369,25 @@ class ReservesController < ApplicationController
   end
 
   def output_file(output_type, *data)
-    out_dir = "#{RAILS_ROOT}/private/system/reserves/"
-    FileUtils.mkdir_p(out_dir) unless FileTest.exist?(out_dir)
-    file = ""
+   # out_dir = "#{RAILS_ROOT}/private/system/reserves/"
+   # FileUtils.mkdir_p(out_dir) unless FileTest.exist?(out_dir)
+   # file = ""
     logger.info "output reserves  type: #{output_type}"
 
     case output_type
-    when 'reserve'
-      file = out_dir + configatron.reserve_print.filename
-      Reserve.output_reserve(file, data[0], data[1])
-    when 'reservelist_user'
-      file = out_dir + configatron.reservelist_user_print.filename
-      Reserve.output_reservelist_user(file, data[0], data[1])
-    when 'reservelist_all_pdf'
-      file = out_dir + configatron.reservelist_all_print_pdf.filename
-      Reserve.output_reservelist_all_pdf(file, data[0], data[1], data[2], data[3])
-    when 'reservelist_all_csv'
-      file = out_dir + configatron.reservelist_all_print_csv.filename
-      Reserve.output_reservelist_all_csv(file, data[0], data[1], data[2], data[3])
+    when :reserve
+      data = Reserve.output_reserve(data[0], data[1])
+      send_data data.generate, :filename => configatron.reserve_print.filename
+    when :reservelist_user
+      data = Reserve.output_reservelist_user(data[0], data[1])
+      send_data data.generate, :filename => configatron.reservelist_user_print.filename
+    when :reservelist_all_pdf
+      data = Reserve.output_reservelist_all_pdf(data[0], data[1], data[2], data[3])
+      send_data data.generate, :filename => configatron.reservelist_all_print_pdf.filename, :type => 'application/pdf'
+    when :reservelist_all_csv
+      data = Reserve.output_reservelist_all_csv(data[0], data[1], data[2], data[3])
+      send_data data, :filename => configatron.reservelist_all_print_csv.filename
     end
-    send_file file
   end
 
   def check_can_access?
