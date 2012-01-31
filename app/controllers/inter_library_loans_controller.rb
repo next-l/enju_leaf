@@ -310,4 +310,14 @@ class InterLibraryLoansController < ApplicationController
       render :pickup and return
     end
   end
+
+  def output
+    @loan = InterLibraryLoan.find(params[:id])
+    if @loan.nil?
+      flash[:message] = t('inter_library_loan.no_loan') 
+      return false
+    end
+    file = InterLibraryLoan.get_loan_report(@loan)
+    send_data file, :filename => "loan.pdf", :type => 'application/pdf', :disposition => 'attachment'
+  end
 end

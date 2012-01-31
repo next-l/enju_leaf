@@ -1,4 +1,5 @@
 class InterLibraryLoan < ActiveRecord::Base
+  require 'thinreports'
   default_scope :order => "created_at DESC"
   scope :completed, where(:state => 'return_received')
   #scope :processing, lambda {|item, to_library| {:conditions => ['item_id = ? AND to_library_id = ? AND state != ?', item.id, wto_library.id, 'return_received']}}
@@ -113,6 +114,33 @@ class InterLibraryLoan < ActiveRecord::Base
     return reasons
   end
 
+  def self.get_loan_report(inter_library_loan)
+    @loan = inter_library_loan
+    logger.error @loan
+    begin
+      report = ThinReports::Report.new :layout => "#{Rails.root.to_s}/app/views/inter_library_loans/move_item"
+      report.start_new_page
+      report.page.item(:export_date).value(Time.now)
+      report.page.item(:title).value(@loan.item.manifestation.original_title)
+      report.page.item(:call_number).value(@loan.item.call_number)
+      report.page.item(:from_library).value(@loan.from_library.display_name.localize)
+      report.page.item(:to_library).value(@loan.to_library.display_name.localize)
+      report.page.item(:reason).value(I18n.t('inter_library_loan.checkout')) if @loan.reason == 1
+      report.page.item(:reason).value(I18n.t('inter_library_loan.checkin')) if @loan.reason == 2
+      reserve = Reserve.waiting.where(:item_id => @loan.item_id, :receipt_library_id => @loan.to_library_id, :state => 'in_process').first
+      if reserve
+        report.page.item(:user_title).show
+        report.page.item(:reserve_user).value(reserve.user.username) if reserve.user
+        report.page.item(:expire_date_title).show
+        report.page.item(:reserve_expire_date).value(reserve.expired_at)
+      end
+      logger.error "created report: #{Time.now}"
+      return report.generate
+    rescue Exception => e
+      logger.error "failed #{e}"
+      return false
+    end
+  end
 end
 
 # == Schema Information
