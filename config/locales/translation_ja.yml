@@ -1304,6 +1304,8 @@ ja:
     show: "表示"
     edit: "編集"
     destroy: "削除"
+    remove: "除籍"
+    restore: "復元"
     create: "作成"
     update: "更新"
     delete: "削除"
@@ -1552,6 +1554,7 @@ ja:
     user_who_bookmark_this_resource: "この資料をブックマークしている利用者"
     query_search_result: "検索語 %{query} による %{library_group_name} の資料の検索結果"
     serial: "定期刊行物"
+    new_serial: "(最新号)"
     number: "巻号"
     issue_number: "号数"
     serial_number: "通号"
@@ -1588,6 +1591,10 @@ ja:
     no_manifestation: "資料なし"
     no_number: "番号なし"
     add_lending_policy: "貸出規則の追加"
+    item_removed: "資料を除籍しました。"
+    item_restored: "資料の貸出状態を作業中に変更しました。"
+    update_failed: "資料の更新に失敗しました。"	
+    new_serial: "(最新号)"
   patron:
     library_group_patron: "%{library_group_name} の人物・団体"
     work_patron: "%{work_title} の著作者"
@@ -1813,6 +1820,7 @@ ja:
     received: 受取済み
   checked_item:
     not_available_for_checkout: "この資料の貸出はできません。(状態不正)"
+    new_serial: "この資料の貸出はできません。(雑誌の最新号)"
     not_for_loan: "この資料の貸出はできません。"
     this_group_cannot_checkout: "この利用者種別でのこの資料の貸出はできません。"
     item_not_found: "資料が見つかりません。"
@@ -2057,3 +2065,5 @@ ja:
     no_item: "督促対象になっている資料が見つかりません。"
     failed_output: "督促状の出力に失敗しました。"
     successfully__output: "督促状を出力しました。"
+  function_key:
+    will_move: "フォームに値が入力されています。画面遷移してもよろしいですか。"

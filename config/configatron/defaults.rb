@@ -13,6 +13,9 @@ configatron.enju.web_port_number = 3000
 # 現在日付の表示 0:非表示 1:西暦 2:和暦
 configatron.header.disp_date = 2
 
+# フォームに入力済みの状態で、ファンクションキーによる画面遷移を行おうとするとアラート画面を表示
+configatron.disp_alert_when_move_page_with_function = "true"
+
 # パトロンの名前を入力する際、姓を先に表示する
 configatron.family_name_first = true
 
@@ -167,3 +170,8 @@ configatron.clientkey = "1234567890123456"
 # refs 2601 すべてのユーザに検索結果の一覧の取得が出来るようにする
 configatron.manifestations.users_show_output_button = false
 
+# refs 1989 trueの場合 => itemがひとつだけのmanifestationのitemを削除するとき、除籍してからのみ削除できる
+configatron.items.confirm_destroy = true
+
+# refs 1991 雑誌最新号の貸出禁止
+configatron.checkouts.cannot_for_new_serial = true

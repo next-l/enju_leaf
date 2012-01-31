@@ -266,7 +266,7 @@ class Item < ActiveRecord::Base
   end
 
   def deletable?
-    checkouts.not_returned.empty?
+    checkouts.not_returned.empty? && (self.manifestation.items.size > 1 || self.circulation_status.name == "Removed" || SystemConfiguration.get("items.confirm_destroy") == false)
   end
 
   def not_for_loan?

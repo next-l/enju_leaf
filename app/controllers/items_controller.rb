@@ -216,6 +216,36 @@ class ItemsController < ApplicationController
     end
   end
 
+  def remove
+    @item.circulation_status = CirculationStatus.where(:name => "Removed").first rescue nil
+    respond_to do |format|
+      if @item.save
+        flash[:notice] = t('item.item_removed')
+        format.html { redirect_to item_url(@item) }
+        format.xml  { head :ok }
+      else
+        flash[:notice] = t('item.update_failed')
+        format.html { redirect_to item_url(@item) }
+        format.xml  { head :ok }
+      end
+    end
+  end
+
+  def restore
+    @item.circulation_status = CirculationStatus.where(:name => "In Process").first rescue nil
+    respond_to do |format|
+      if @item.save
+        flash[:notice] = t('item.item_restored')
+        format.html { redirect_to item_url(@item) }
+        format.xml  { head :ok }
+      else
+        flash[:notice] = t('item.update_failed')
+        format.html { redirect_to item_url(@item) }
+        format.xml  { head :ok }
+      end
+    end
+  end
+
   private
   def prepare_options
     @libraries = Library.real
@@ -228,6 +258,7 @@ class ItemsController < ApplicationController
     end
     @shelves = @library.shelves
     @circulation_statuses = CirculationStatus.all
+    @circulation_statuses.reject!{|cs| cs.name == "Removed"}
     @use_restrictions = UseRestriction.available
     @bookstores = Bookstore.all
     if @manifestation
