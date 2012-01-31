@@ -169,3 +169,6 @@ configatron.manifestations.users_show_output_button = false
 
 # refs 1989 trueの場合 => itemがひとつだけのmanifestationのitemを削除するとき、除籍してからのみ削除できる
 configatron.items.confirm_destroy = true
+
+# refs 1991 雑誌最新号の貸出禁止
+configatron.checkouts.cannot_for_new_serial = true

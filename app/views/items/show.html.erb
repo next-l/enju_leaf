@@ -32,6 +32,9 @@
 <p>
   <strong><%= t('activerecord.models.circulation_status') -%>:</strong>
   <%= link_to @item.circulation_status.display_name.localize, @item.circulation_status -%>
+  <%- if @item.manifestation.series_statement && @item.manifestation == @item.manifestation.series_statement.last_issue -%>
+    <%= t('item.new_serial') -%>
+  <%- end -%>
   <%- if user_signed_in? -%>
     <%- if current_user.has_role?('Librarian') -%>
       <%- unless @item.checkouts.not_returned.blank? -%>

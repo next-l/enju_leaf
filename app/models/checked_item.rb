@@ -24,6 +24,7 @@ class CheckedItem < ActiveRecord::Base
       errors[:base] << 'checked_item.not_available_for_checkout'
       return false
     end
+
     if self.item_checkout_type.blank?
     # errors[:base] << I18n.t('activerecord.errors.messages.checked_item.this_group_cannot_checkout')
       errors[:base] << 'checked_item.this_group_cannot_checkout'
@@ -38,6 +39,11 @@ class CheckedItem < ActiveRecord::Base
 #    end
 
     return true if self.ignore_restriction == "1"
+
+    if self.item.manifestation.new_serial? && SystemConfiguration.get("checkouts.cannot_for_new_serial")
+      errors[:base] << 'checked_item.new_serial'
+      return false      
+    end
 
     checkout_count = self.basket.user.checked_item_count
     CheckoutType.all.each do |checkout_type|
