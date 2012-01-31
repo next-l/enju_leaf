@@ -100,11 +100,6 @@ class ReminderList < ActiveRecord::Base
     ]
 
     data = String.new
-=begin
-    File.open(file, "w") do |output| 
-      # add UTF-8 BOM for excel
-      output.print "\xEF\xBB\xBF".force_encoding("UTF-8")
-=end
       # title column
       row = []
       columns.each do |column|
@@ -135,7 +130,6 @@ class ReminderList < ActiveRecord::Base
         end
         data << '"'+row.join('","')+"\"\n"
       end
-#    end
     return data
   end
 
@@ -158,7 +152,7 @@ class ReminderList < ActiveRecord::Base
             address.length.times { |i|
               cnt += 0.5 if address[i] =~ /^[\s0-9A-Za-z]+$/
               cnt += 1 unless address[i] =~ /^[\s0-9A-Za-z]+$/
-              if cnt.to_f == max_column or cnt.to_f > max_column or address[i+1].nil? or address[i] =~ /^[\n]+$/
+              if cnt.to_f >= max_column or address[i+1].nil? or address[i] =~ /^[\n]+$/
                 str_num = i + 1 if cnt.to_f == max_column or address[i+1].nil? or address[i] =~ /^[\n]+$/
                 str_num = i if cnt.to_f > max_column #or address[i] =~ /^[\n]+$/
                 page.list(:list).add_row do |row|
@@ -183,7 +177,7 @@ class ReminderList < ActiveRecord::Base
           name.length.times { |i|
             cnt += 0.5 if name[i] =~ /^[\s0-9A-Za-z]+$/
             cnt += 1 unless name[i] =~ /^[\s0-9A-Za-z]+$/
-            if cnt.to_f == max_column or cnt.to_f > max_column or name[i+1].nil? or name[i] =~ /^[\n]+$/
+            if cnt.to_f >= max_column or name[i+1].nil? or name[i] =~ /^[\n]+$/
               str_num = i + 1 if cnt.to_f == max_column or name[i+1].nil? or name[i] =~ /^[\n]+$/
               str_num = i if cnt.to_f > max_column #or name[i] =~ /^[\n]+$/
               page.list(:list).add_row do |row|
