@@ -1,4 +1,5 @@
 class ReminderList < ActiveRecord::Base
+  require 'thinreports'
   default_scope :order => 'reminder_lists.id DESC'
 
   validates_presence_of :checkout_id, :status
@@ -55,8 +56,7 @@ class ReminderList < ActiveRecord::Base
     end
   end
 
-  def self.output_reminder_list_pdf(file, reminder_lists)
-    logger.info "create_file=> #{file}"
+  def self.output_reminder_list_pdf(reminder_lists)
     report = ThinReports::Report.new :layout => File.join(Rails.root, 'report', 'reminder_list.tlf')
 
     # set page_num
@@ -71,7 +71,6 @@ class ReminderList < ActiveRecord::Base
 
     report.start_new_page do |page|
       page.item(:date).value(Time.now)
-
       if reminder_lists.size > 0
         reminder_lists.each do |reminder_list|
           page.list(:list).add_row do |row|
@@ -85,13 +84,11 @@ class ReminderList < ActiveRecord::Base
           end
         end
       end
-      report.generate_file(file) 
     end
+    return report
   end
 
-  def self.output_reminder_list_csv(file, reminder_lists)
-    logger.info "create_file=> #{file}"
- 
+  def self.output_reminder_list_csv(reminder_lists)
     columns = [
       [:chekout_id, 'activerecord.attributes.reminder_list.checkout_id'],
       [:title, 'activerecord.attributes.reminder_list.original_title'],
@@ -102,16 +99,18 @@ class ReminderList < ActiveRecord::Base
       [:library, 'activerecord.attributes.reminder_list.library'],
     ]
 
+    data = String.new
+=begin
     File.open(file, "w") do |output| 
       # add UTF-8 BOM for excel
       output.print "\xEF\xBB\xBF".force_encoding("UTF-8")
-
+=end
       # title column
       row = []
       columns.each do |column|
         row << I18n.t(column[1])
       end
-      output.print row.join(",")+"\n"
+      data <<  row.join(",")+"\n"
 
       # set
       reminder_lists.each do |reminder_list|
@@ -134,9 +133,10 @@ class ReminderList < ActiveRecord::Base
             row << reminder_list.checkout.item.shelf.library.display_name.localize
           end
         end
-        output.print '"'+row.join('","')+"\"\n"
+        data << '"'+row.join('","')+"\"\n"
       end
-    end
+#    end
+    return data
   end
 
   def self.output_reminder_postal_card(file, reminder_lists, user, current_user)
