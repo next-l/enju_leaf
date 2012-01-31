@@ -57,6 +57,7 @@ class Manifestation < ActiveRecord::Base
       [isbn, isbn10, wrong_isbn]
     end
     string :issn
+    string :marc_number
     string :lccn
     string :nbn
     string :tag, :multiple => true do

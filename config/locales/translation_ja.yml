@@ -752,6 +752,7 @@ ja:
         language: 言語
         lccn: LCCN
         issn: ISSN
+        marc_number: MARC番号
         subscription_master: 購読マスタ
         description: 説明
         except_recent: 新刊対象から除外

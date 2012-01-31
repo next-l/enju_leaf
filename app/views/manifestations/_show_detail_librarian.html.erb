@@ -111,6 +111,10 @@
                 <br />
                 LCCN: <%= manifestation.lccn -%>
               <%- end -%>
+              <%- if manifestation.marc_number.present? -%>
+                <br />
+                MARC: <%= manifestation.marc_number -%>
+              <%- end -%>
               <%- if manifestation.ndc.present? -%>
                 <br />
                 NDC: <%= manifestation.ndc -%>
