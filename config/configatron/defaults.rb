@@ -13,6 +13,9 @@ configatron.enju.web_port_number = 3000
 # 現在日付の表示 0:非表示 1:西暦 2:和暦
 configatron.header.disp_date = 2
 
+# フォームに入力済みの状態で、ファンクションキーによる画面遷移を行おうとするとアラート画面を表示
+configatron.disp_alert_when_move_page_with_function = "true"
+
 # パトロンの名前を入力する際、姓を先に表示する
 configatron.family_name_first = true
 

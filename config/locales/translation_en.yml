@@ -1693,3 +1693,5 @@ en:
   item_list:
     list_condition: List Condition
     no_list_condition: Check list condition
+  function_key:
+    will_move: "Form is inputted.Are page changes carried out?"

@@ -2065,3 +2065,5 @@ ja:
     no_item: "督促対象になっている資料が見つかりません。"
     failed_output: "督促状の出力に失敗しました。"
     successfully__output: "督促状を出力しました。"
+  function_key:
+    will_move: "フォームに値が入力されています。画面遷移してもよろしいですか。"
