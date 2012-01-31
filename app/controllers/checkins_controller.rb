@@ -30,6 +30,7 @@ class CheckinsController < ApplicationController
         end
         @reserve = Reserve.where(:item_id => @checkins[0].checkout.item.id, :state => 'retained').first if @checkins[0].checkout.item
         @loan = InterLibraryLoan.where(:item_id => @checkins[0].checkout.item.id, :state => 'requested', :from_library_id => current_user.library.id).first if @checkins[0].checkout.item
+        @close_shelf_item = @checkins[0].checkout.item unless @checkins[0].checkout.item.shelf.open?
       end
     end
 

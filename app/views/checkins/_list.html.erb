@@ -15,19 +15,19 @@
 </div>
 
 <div>
-<%- if @loan -%>
+<%- unless @loan.nil? -%>
   <%= form_tag({:controller => 'inter_library_loans', :action => 'output', :id => @loan.id}, {:method => 'post'}) do -%>
     <%= submit_tag t('page.output', :model => t('activerecord.models.inter_library_loan')) -%>
   <%- end -%>
 <%- end -%>
-<%- if @reserve -%>
+<%- unless @reserve.nil? -%>
   <%= form_tag({:controller => 'reserves', :action => 'output', :id => @reserve.id}, {:method => 'post'}) do -%>
     <%= submit_tag t('page.output', :model => t('activerecord.attributes.reserve.reserve_list')) -%>
   <%- end -%>
 <%- end -%>
-<%- if @close_shelf -%>
-  <%= form_tag({:controller => 'reserves', :action => 'output', :id => @reserve.id}, {:method => 'post'}) do -%>
-    <%= submit_tag t('page.output', :model => t('activerecord.attributes.reserve.reserve_list')) -%>
+<%- unless @close_shelf_item.nil? -%>
+  <%= form_tag({:controller => 'shelves', :action => 'output', :item => @close_shelf_item }, {:method => 'post'}) do -%>
+    <%= submit_tag t('page.output', :model => t('activerecord.models.shelf')) -%>
   <%- end -%>
 <%- end -%>
 </div>

@@ -1586,6 +1586,7 @@ ja:
     this_item_is_reserved: "この資料は予約されています！"
     create_shelf_first: "最初に書棚を作成してください。"
     this_item_include_supplement: "この資料は付録を含んでいます。"
+    close_shelf: "閉架本棚に所蔵されている資料です。"
     all_item: "全ての所蔵情報"
     add_new_copy: "複本を追加"
     no_manifestation: "資料なし"

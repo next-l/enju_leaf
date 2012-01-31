@@ -116,7 +116,6 @@ class InterLibraryLoan < ActiveRecord::Base
 
   def self.get_loan_report(inter_library_loan)
     @loan = inter_library_loan
-    logger.error @loan
     begin
       report = ThinReports::Report.new :layout => "#{Rails.root.to_s}/app/views/inter_library_loans/move_item"
       report.start_new_page
