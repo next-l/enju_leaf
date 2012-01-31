@@ -167,3 +167,5 @@ configatron.clientkey = "1234567890123456"
 # refs 2601 すべてのユーザに検索結果の一覧の取得が出来るようにする
 configatron.manifestations.users_show_output_button = false
 
+# refs 1989 trueの場合 => itemがひとつだけのmanifestationのitemを削除するとき、除籍してからのみ削除できる
+configatron.items.confirm_destroy = true

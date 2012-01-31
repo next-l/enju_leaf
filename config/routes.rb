@@ -345,6 +345,8 @@ EnjuLeaf::Application.routes.draw do
     resources :patrons
     resources :owns
     resource :exemplify
+    get :remove, :on => :member
+    get :restore, :on => :member
   end
 
   resources :owns

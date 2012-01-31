@@ -20,7 +20,7 @@ class Ability
       can [:update, :destroy], InterLibraryLoan do |inter_library_loan|
         inter_library_loan.state == "pending" || inter_library_loan.state == "requested"
       end
-      can [:read, :create, :update], Item
+      can [:read, :create, :update, :remove, :restore], Item
       can :destroy, Item do |item|
         item.deletable?
       end      
@@ -168,9 +168,9 @@ class Ability
       can [:update, :update, :destroy], InterLibraryLoan do |inter_library_loan|
         inter_library_loan.state == "pending" || inter_library_loan.state == "requested"
       end
-      can [:read, :create, :update], Item
+      can [:read, :create, :update, :remove, :restore], Item
       can :destroy, Item do |item|
-        item.checkouts.not_returned.empty?
+        item.deletable?
       end
       can [:read, :create, :update], Manifestation
       can :destroy, Manifestation do |manifestation|

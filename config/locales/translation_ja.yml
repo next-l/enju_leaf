@@ -1304,6 +1304,8 @@ ja:
     show: "表示"
     edit: "編集"
     destroy: "削除"
+    remove: "除籍"
+    restore: "復元"
     create: "作成"
     update: "更新"
     delete: "削除"
@@ -1588,6 +1590,9 @@ ja:
     no_manifestation: "資料なし"
     no_number: "番号なし"
     add_lending_policy: "貸出規則の追加"
+    item_removed: "資料を除籍しました。"
+    item_restored: "資料の貸出状態を作業中に変更しました。"
+    update_failed: "資料の更新に失敗しました。"	
   patron:
     library_group_patron: "%{library_group_name} の人物・団体"
     work_patron: "%{work_title} の著作者"
