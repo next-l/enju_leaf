@@ -17,3 +17,27 @@
 <%= javascript_include_tag %w{function_key_control.js jquery.auto_ruby.js enju_audio_control.js} %>
 <%= csrf_meta_tag %>
 <%= render 'page/locale_menu' %>
+
+<script>
+function check_form() {
+  <% if configatron.disp_alert_when_move_page_of_function -%>
+    var input_form = false
+    checks = new Array();
+    checks = [$('input[type=text]'), $('input[type=search]'), $('input[type=url]'),$('textarea')];
+
+    for (var i = 0; i < checks.length; i++) {
+      checks[i].each(function() {
+        if ($(this).val().replace(/^\s+|\s+$/g, "" != ""))
+          input_form = true
+      });
+    }
+
+    if (input_form == true) {
+      if (confirm("<%= t('function_key.will_move') -%>") == true)
+        return true;
+      else
+        return false;
+    }
+  <% end %>
+}
+</script>
