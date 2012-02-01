@@ -20,15 +20,6 @@ platforms :ruby_19 do
   gem 'simplecov', '>= 0.5.3', :require => false, :group => [:development]
 end
 
-platforms :jruby do
-  gem 'jruby-openssl'
-  gem 'activerecord-jdbc-adapter'
-  gem 'jdbc-postgres', :require => false
-  #gem 'jdbc-mysql', :require => false
-  gem 'rubyzip2'
-  gem 'glassfish'
-end
-
 gem 'delayed_job_active_record'
 gem 'addressable'
 gem 'will_paginate', '~> 3.0'
@@ -38,7 +29,7 @@ gem 'state_machine'
 gem 'sunspot_rails', '~> 1.3'
 gem 'sunspot_solr', '~> 1.3'
 gem 'progress_bar'
-gem "friendly_id", "~> 4.0.0.beta11"
+gem 'friendly_id', '~> 4.0'
 gem 'inherited_resources', '~>1.3'
 gem 'has_scope'
 gem 'nokogiri'
