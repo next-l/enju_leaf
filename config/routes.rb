@@ -218,6 +218,10 @@ EnjuLeaf::Application.routes.draw do
     resources :checked_items
   end
 
+  resources :resource_import_textfiles do
+
+  end
+
   resources :resource_import_files do
     get :import_request, :on => :collection
     resources :resource_import_results, :only => [:index, :show, :destroy]

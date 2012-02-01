@@ -1,0 +1,2 @@
+module ResourceImportTextfilesHelper
+end
