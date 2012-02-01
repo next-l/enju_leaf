@@ -188,19 +188,17 @@ class Reserve < ActiveRecord::Base
         if item.available_for_retain? && !item.reserved?
           self.item = item
           if item.shelf.library == library
-            self.sm_retain
-            self.save
+            self.sm_retain!
           else
-            self.sm_process
-            self.save
+            self.sm_process!
             InterLibraryLoan.new.request_for_reserve(item, library)
           end
           return
         end
       end
-      self.sm_request
+      self.sm_request!
     else
-      self.sm_request
+      self.sm_request!
     end
   end
 
@@ -218,13 +216,13 @@ class Reserve < ActiveRecord::Base
   def retain
     # TODO: 「取り置き中」の状態を正しく表す
     self.item.retain_item!
-    self.update_attributes!({:request_status_type => RequestStatusType.where(:name => 'In Process').first})
+    self.update_attribute(:request_status_type, RequestStatusType.where(:name => 'In Process').first)
     self.remove_from_list
   end
 
   def to_process
     # borrow from other library
-    self.update_attributes!({:request_status_type => RequestStatusType.where(:name => 'In Process').first})
+    self.update_attribute(:request_status_type, RequestStatusType.where(:name => 'In Process').first)
   end
 
   def expire
@@ -274,31 +272,31 @@ class Reserve < ActiveRecord::Base
         message_template_to_patron = MessageTemplate.localized_template('reservation_accepted_for_patron', self.user.locale)
         request = MessageRequest.create!(:sender => system_user, :receiver => self.user, :message_template => message_template_to_patron)
         request.save_message_body(:manifestations => Array[self.manifestation], :user => self.user)
-        request.sm_send_message! # 受付時は即時送信
+        request.send_later(:sm_send_message)
         message_template_to_library = MessageTemplate.localized_template('reservation_accepted_for_library', self.user.locale)
         request = MessageRequest.create!(:sender => system_user, :receiver => system_user, :message_template => message_template_to_library)
         request.save_message_body(:manifestations => Array[self.manifestation], :user => self.user)
-        request.sm_send_message! # 受付時は即時送信
+        request.send_later(:sm_send_message!)
       when 'canceled'
         message_template_to_patron = MessageTemplate.localized_template('reservation_canceled_for_patron', self.user.locale)
         request = MessageRequest.create!(:sender => system_user, :receiver => self.user, :message_template => message_template_to_patron)
         request.save_message_body(:manifestations => Array[self.manifestation], :user => self.user)
-        request.sm_send_message! # キャンセル時は即時送信
+        request.send_later(:sm_send_message!)
         message_template_to_library = MessageTemplate.localized_template('reservation_canceled_for_library', self.user.locale)
         request = MessageRequest.create!(:sender => system_user, :receiver => system_user, :message_template => message_template_to_library)
         request.save_message_body(:manifestations => Array[self.manifestation], :user => self.user)
-        request.sm_send_message! # キャンセル時は即時送信
+        request.send_later(:sm_send_message!)
       when 'expired'
         message_template_to_patron = MessageTemplate.localized_template('reservation_expired_for_patron', self.user.locale)
         request = MessageRequest.create!(:sender => system_user, :receiver => self.user, :message_template => message_template_to_patron)
         request.save_message_body(:manifestations => Array[self.manifestation], :user => self.user)
-        request.sm_send_message! # 期限切れ時は利用者にのみ即時送信
+        request.send_later(:sm_send_message!)
         self.update_attribute(:expiration_notice_to_patron, true)
       when 'retained'
         message_template_to_patron = MessageTemplate.localized_template('retained_manifestations', self.user.locale)
         request = MessageRequest.create!(:sender => system_user, :receiver => self.user, :message_template => message_template_to_patron)
         request.save_message_body(:manifestations => Array[self.manifestation], :user => self.user)
-        request.sm_send_message! # 貸出準備ができたら利用者にのみ即時送信
+        request.send_later(:sm_send_message!)
         self.update_attribute(:expiration_notice_to_patron, true)
       else
         raise 'status not defined'

@@ -50,8 +50,8 @@ class InterLibraryLoan < ActiveRecord::Base
 
   def do_request
     InterLibraryLoan.transaction do
-      self.item.update_attributes({:circulation_status => CirculationStatus.where(:name => 'Recalled').first})
-      self.update_attributes({:requested_at => Time.zone.now})
+      self.item.update_attribute(:circulation_status, CirculationStatus.where(:name => 'Recalled').first)
+      self.update_attribute(:requested_at, Time.zone.now)
     end
   end
 
@@ -86,17 +86,12 @@ class InterLibraryLoan < ActiveRecord::Base
 
   def request_for_reserve(item, to_library)
     self.update_attributes(:item_id => item.id, :to_library_id => to_library.id, :from_library_id => item.shelf.library.id, :requested_at => Time.zone.now, :reason => 1)
-    self.sm_request! if self.save
+    self.sm_request!
   end
 
   def request_for_checkin(item, from_library)
     self.update_attributes(:item_id => item.id, :from_library_id => from_library.id, :to_library_id => item.shelf.library.id, :requested_at => Time.zone.now, :reason => 2)
-    self.save
-#    InterLibraryLoan.transaction do
-#      item.update_attributes({:circulation_status => CirculationStatus.where(:name => 'Recalled').first})
-#      self.update_attributes({:requested_at => Time.zone.now})
-      self.sm_request! if self.save
-#    end
+    self.sm_request!
   end
 
   def self.loan_items

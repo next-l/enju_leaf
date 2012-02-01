@@ -73,7 +73,7 @@ class CheckinsController < ApplicationController
     end
     @checkin = @basket.checkins.new(params[:checkin])
 
-    debugger
+#    debugger
 
     messages = []
     flash[:message] = ''
@@ -96,7 +96,6 @@ class CheckinsController < ApplicationController
     end
 
     #logger.info flash.inspect
-    
     respond_to do |format|
       unless messages.blank?
         #flash[:message], flash[:sound] = error_message_and_sound(message)
@@ -111,7 +110,7 @@ class CheckinsController < ApplicationController
       else
         @checkin.item = item
         if @checkin.save(:validate => false)
-        # 速度を上げるためvalidationを省略している
+          # 速度を上げるためvalidationを省略している
           #flash[:message] << t('controller.successfully_created', :model => t('activerecord.models.checkin'))
           #TODO refactoring
           flash[:message] = t('checkin.successfully_checked_in', :model => t('activerecord.models.checkin')) + '<br />'

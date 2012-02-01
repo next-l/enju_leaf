@@ -221,7 +221,7 @@ class ReservesController < ApplicationController
       end
     end
     user = @user if @user
- 
+
     @reserve = Reserve.new(params[:reserve])
     @reserve.user = user
     @reserve.created_by = current_user.id
@@ -254,7 +254,8 @@ class ReservesController < ApplicationController
   # PUT /reserves/1
   # PUT /reserves/1.xml
   def update
-    unless @reserve.can_checkout?
+    @reserve = Reserve.find(params[:id])
+    unless @reserve.can_checkout? 
       access_denied; return
     end
 
