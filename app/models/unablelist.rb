@@ -1,14 +1,10 @@
 class Unablelist < ActiveRecord::Base
 
-  def self.output(users, sort, file)
-    #out_dir = "#{RAILS_ROOT}/private/system/users/"
-    #FileUtils.mkdir_p(out_dir) unless FileTest.exist?(out_dir)
-    #file = out_dir + configatron.unablelist_print.filename
+  def self.output(users, sort)
     logger.info "output unablelist"
 
     require 'thinreports'
     report = ThinReports::Report.new :layout => File.join(Rails.root, 'report', 'unablelist.tlf')
-
     # set page_num
     report.events.on :page_create do |e|
       e.page.item(:page).value(e.page.no)
@@ -61,6 +57,6 @@ class Unablelist < ActiveRecord::Base
         end 
       end
     end
-    report.generate_file(file)
+    return report
   end
 end

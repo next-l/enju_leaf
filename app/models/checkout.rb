@@ -140,7 +140,7 @@ class Checkout < ActiveRecord::Base
   end
 
   # output
-  def self.output_checkouts(file, checkouts, lend_user, current_user)
+  def self.output_checkouts(checkouts, lend_user, current_user)
     require 'thinreports'
     report = ThinReports::Report.new :layout => File.join(Rails.root, 'report', 'checkouts.tlf')
 
@@ -170,10 +170,10 @@ class Checkout < ActiveRecord::Base
         end
       end
     end
-    report.generate_file(file)
+    return report
   end
 
-  def self.output_checkoutlist_pdf(file, checkouts, view)
+  def self.output_checkoutlist_pdf(checkouts, view)
     require 'thinreports'
     report = ThinReports::Report.new :layout => File.join(Rails.root, 'report', 'checkoutlist.tlf')
 
@@ -226,10 +226,10 @@ class Checkout < ActiveRecord::Base
         end
       end
      end
-    report.generate_file(file)
+    return report
   end
 
-  def self.output_checkoutlist_csv(file, checkouts, view)
+  def self.output_checkoutlist_csv(checkouts, view)
     columns = [
       [:user,'activerecord.models.user'],
       [:title, 'activerecord.attributes.manifestation.original_title'],
@@ -241,53 +241,50 @@ class Checkout < ActiveRecord::Base
       [:overdue, 'checkout.number_of_day_overdue'],
     ]
 
-    File.open(file, "w") do |output|
-      # add UTF-8 BOM for excel
-      output.print "\xEF\xBB\xBF".force_encoding("UTF-8")
+    data = String.new
+    # title column
+    row = []
+    columns.each do |column|
+      row << I18n.t(column[1])
+    end
+    data << row.join(",")+"\n"
 
-      # title column
+    # set
+    checkouts.each do |checkout|
       row = []
       columns.each do |column|
-        row << I18n.t(column[1])
-      end
-      output.print row.join(",")+"\n"
-
-      # set
-      checkouts.each do |checkout|
-        row = []
-        columns.each do |column|
-          case column[0]
-          when :user
-            user = checkout.user.patron.full_name
-            if SystemConfiguration.get("reserve_print.old") == true and  checkout.user.patron.date_of_birth
-              age = (Time.now.strftime("%Y%m%d").to_f - checkout.user.patron.date_of_birth.strftime("%Y%m%d").to_f) / 10000
-              age = age.to_i
-              user = user + '(' + age.to_s + I18n.t('activerecord.attributes.patron.old')  +')'
-            end
-            row << user
-          when :title
-            row << checkout.item.manifestation.original_title 
-          when :item_identifier
-            row << checkout.item.item_identifier
-          when :library
-            row << checkout.item.shelf.library.display_name.localize
-          when :shelf
-            row << checkout.item.shelf.display_name.localize
-          when :due_date
-            row << checkout.due_date.strftime("%Y/%m/%d")
-          when :renewal_count
-            renewal_count = checkout.checkout_renewal_count.to_s + '/' + checkout.item.checkout_status(checkout.user).checkout_renewal_limit.to_s
-            row << renewal_count
-          when :overdue
-            due_date_datetype = checkout.due_date.strftime("%Y-%m-%d")
-            overdue = Date.today - due_date_datetype.to_date
-            overdue = 0 if overdue < 0
-            row << overdue
-          end # end of case column[0]
-        end #end of columns.each
-        output.print '"'+row.join('","')+"\"\n"
-      end # end of items.each
-    end
+        case column[0]
+        when :user
+          user = checkout.user.patron.full_name
+          if SystemConfiguration.get("reserve_print.old") == true and  checkout.user.patron.date_of_birth
+            age = (Time.now.strftime("%Y%m%d").to_f - checkout.user.patron.date_of_birth.strftime("%Y%m%d").to_f) / 10000
+            age = age.to_i
+            user = user + '(' + age.to_s + I18n.t('activerecord.attributes.patron.old')  +')'
+          end
+          row << user
+        when :title
+          row << checkout.item.manifestation.original_title 
+        when :item_identifier
+          row << checkout.item.item_identifier
+        when :library
+          row << checkout.item.shelf.library.display_name.localize
+        when :shelf
+          row << checkout.item.shelf.display_name.localize
+        when :due_date
+          row << checkout.due_date.strftime("%Y/%m/%d")
+        when :renewal_count
+          renewal_count = checkout.checkout_renewal_count.to_s + '/' + checkout.item.checkout_status(checkout.user).checkout_renewal_limit.to_s
+          row << renewal_count
+        when :overdue
+          due_date_datetype = checkout.due_date.strftime("%Y-%m-%d")
+          overdue = Date.today - due_date_datetype.to_date
+          overdue = 0 if overdue < 0
+          row << overdue
+        end # end of case column[0]
+      end #end of columns.each
+      data << '"'+row.join('","')+"\"\n"
+    end # end of items.each
+    return data
   end
 end
 
