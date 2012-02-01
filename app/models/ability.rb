@@ -110,6 +110,7 @@ class Ability
         ReserveStatHasManifestation,
         ReserveStatHasUser,
         ResourceImportFile,
+        ResourceImportTextfile,
         SearchEngine,
         SearchHistory,
         SeriesHasManifestation,
@@ -152,7 +153,8 @@ class Ability
       can :read, [
         EventImportResult,
         PatronImportResult,
-        ResourceImportResult
+        ResourceImportResult,
+        ResourceImportTextResult
       ]
     when 'Librarian'
       can [:index, :create], Bookmark
@@ -254,6 +256,7 @@ class Ability
         Realize,
         Reserve,
         ResourceImportFile,
+        ResourceImportTextfile,
         SearchHistory,
         SeriesHasManifestation,
         SeriesStatementMerge,
@@ -299,6 +302,7 @@ class Ability
         ReserveStatHasManifestation,
         ReserveStatHasUser,
         ResourceImportResult,
+        ResourceImportTextResult,
         Role,
         SearchEngine,
         Shelf,
