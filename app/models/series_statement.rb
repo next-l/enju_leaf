@@ -25,8 +25,17 @@ class SeriesStatement < ActiveRecord::Base
   end
 
   def last_issue
-     manifestations.where('serial_number IS NOT NULL').order('serial_number DESC').first || manifestations.first
+    manifestations.where('serial_number IS NOT NULL').order('serial_number DESC').first || manifestations.first
 #    manifestations.where('date_of_publication IS NOT NULL').order('date_of_publication DESC').first || manifestations.first
+  end
+
+  def self.latest_issues
+    manifestations = []
+    series_statements = SeriesStatement.all
+    series_statements.each do |series|
+      manifestations << series.last_issue
+    end
+    return manifestations
   end
 
   def check_issn

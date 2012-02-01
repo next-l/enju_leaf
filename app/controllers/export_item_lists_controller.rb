@@ -6,7 +6,9 @@ class ExportItemListsController < ApplicationController
                    [t('item_list.call_number_list'), 2],
                    [t('item_list.removed_list'), 3],
                    [t('item_list.unused_list'), 4],
-                   [t('item_list.new_item_list'), 5]]
+                   [t('item_list.new_item_list'), 5],
+                   [t('item_list.latest_list'), 6]
+                 ]
     @libraries = Library.all
     @carrier_types = CarrierType.all
     super
@@ -80,6 +82,15 @@ class ExportItemListsController < ApplicationController
         query = get_query(ndcs, @selected_library, @selected_carrier_type)
         @items = Item.recent.find(:all, :joins => [:manifestation, :shelf => :library], :conditions => query, :order => 'libraries.id, manifestations.carrier_type_id, items.shelf_id, items.item_identifier, manifestations.original_title')
         filename = t('item_list.new_item_list')
+      when 6
+        @items = []
+        manifestations = SeriesStatement.latest_issues
+        manifestations.each do |manifestation|
+          manifestation.items.each do |item|
+            @items << item
+          end
+        end
+        filename = t('item_list.latest_list')
       end
       logger.error "SQL end at #{Time.now}\nfound #{@items.length rescue 0} records"
 
@@ -163,6 +174,15 @@ class ExportItemListsController < ApplicationController
           when 5
             query = get_query(ndcs, libraries, carrier_types)
             list_size = Item.recent.count(:all, :joins => [:manifestation, :shelf => :library], :conditions => query)
+          when 6
+            @items = []
+            manifestations = SeriesStatement.latest_issues
+            manifestations.each do |manifestation|
+              manifestation.items.each do |item|
+                @items << item
+              end
+            end
+            list_size = @items.size
           end
         rescue
           list_size = 0
