@@ -16,15 +16,10 @@ class UnablelistController < ApplicationController
     # output
     if params[:output]
       @users = User.where(:unable => true, :library_id => selected_library).order(sort)
-      # check dir
-      out_dir = "#{RAILS_ROOT}/private/system/users/"
-      FileUtils.mkdir_p(out_dir) unless FileTest.exist?(out_dir)
       # make file
-      file = out_dir + configatron.unablelist_print.filename
-      Unablelist.output(@users, params[:sort_by], file)
-      # send
-      send_file file 
-      return;
+      data = Unablelist.output(@users, params[:sort_by])
+      send_data data.generate, :filename => configatron.unablelist_print.filename
+      return
     end
 
     @page = params[:page] || 1

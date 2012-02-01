@@ -44,7 +44,7 @@ class Ability
           true
         end
       end
-      can [:read, :create, :update], Shelf
+      can [:read, :create, :update, :output], Shelf
       can :destroy, Shelf do |shelf|
         shelf.items.empty?
       end
@@ -180,6 +180,7 @@ class Ability
       can :destroy, SeriesStatement do |series_statement|
         series_statement.manifestations.empty?
       end
+      can [:output], Shelf
       can [:index, :create], Patron
       can :show, Patron do |patron|
         patron.required_role_id <= 3

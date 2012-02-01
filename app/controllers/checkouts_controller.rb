@@ -49,9 +49,13 @@ class CheckoutsController < ApplicationController
           end
           #output
           if params[:output_pdf]
-            output_file('checkoutlist_pdf', checkouts, params[:view]); return
+            data = Checkout.output_checkoutlist_pdf(checkouts, params[:view])
+            send_data data.generate, :filename => configatron.checkoutlist_print_pdf.filename
+            return
           elsif params[:output_csv]
-            output_file('checkoutlist_csv', checkouts, params[:view]); return
+            data = Checkout.output_checkoutlist_csv(checkouts, params[:view])
+            send_data data, :filename => configatron.checkoutlist_print_csv.filename
+            return
           end
         end
       else
@@ -70,11 +74,15 @@ class CheckoutsController < ApplicationController
 
     @days_overdue = params[:days_overdue] ||= 1
     if params[:output]
-      output_file('checkouts', checkouts, User.find(params[:user_id]), current_user); return
+      data = Checkout.output_checkouts(checkouts, User.find(params[:user_id]), current_user)
+      send_data data.generate, :filename => configatron.checkouts_print.filename
+      return
     end
     if params[:format] == 'csv'
       @checkouts = checkouts
-      output_file('checkoutlist_csv', checkouts, params[:view]); return
+      data = Checkout.output_checkoutlist_csv(checkouts, params[:view])
+      send_data data, :filename => configatron.checkoutlist_print_csv.filename
+      return
     else
       @checkouts = checkouts.page(params[:page])
     end
@@ -169,26 +177,5 @@ class CheckoutsController < ApplicationController
       format.html { redirect_to user_checkouts_url(@checkout.user) }
       format.xml  { head :ok }
     end
-  end
-  
-  private
-  def output_file(output_type, *data)
-    out_dir = "#{RAILS_ROOT}/private/system/checkouts/"
-    FileUtils.mkdir_p(out_dir) unless FileTest.exist?(out_dir)
-    file = ""
-    logger.info "output checkouts  type: #{output_type}"
-
-    case output_type
-    when 'checkouts'
-      file = out_dir + configatron.checkouts_print.filename
-      Checkout.output_checkouts(file, data[0], data[1], data[2])
-    when 'checkoutlist_pdf'
-      file = out_dir + configatron.checkoutlist_print_pdf.filename
-      Checkout.output_checkoutlist_pdf(file, data[0], data[1])
-    when 'checkoutlist_csv'
-      file = out_dir + configatron.checkoutlist_print_csv.filename
-      Checkout.output_checkoutlist_csv(file, data[0], data[1])
-    end
-    send_file file
   end
 end

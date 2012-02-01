@@ -316,6 +316,7 @@ EnjuLeaf::Application.routes.draw do
 
   resources :shelves do
     resources :picture_files
+    post :output, :on => :collection
   end
 
   resources :libraries do

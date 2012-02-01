@@ -117,4 +117,10 @@ class ShelvesController < ApplicationController
       end
     end
   end
+
+  def output
+    @item = Item.find(params[:item])
+    file = Shelf.get_closing_report(@item)
+    send_data file, :filename => "closed_shelf.pdf", :type => 'application/pdf', :disposition => 'attachment'
+  end
 end

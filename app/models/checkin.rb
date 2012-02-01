@@ -23,6 +23,9 @@ class Checkin < ActiveRecord::Base
       #message << I18n.t('item.this_item_include_supplement') + '<br />' if self.item.include_supplements?
       message << 'item.this_item_include_supplement' if self.item.include_supplements?
 
+      # for item on closing shelf
+      message << 'item.close_shelf' unless self.item.shelf.open? 
+   
       checkouts.each do |checkout|
         # TODO: ILL時の処理
         checkout.checkin = self

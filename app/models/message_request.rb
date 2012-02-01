@@ -57,7 +57,7 @@ class MessageRequest < ActiveRecord::Base
       :receiver => self.receiver.patron,
       :locale => self.receiver.locale
     }.merge(options)
-    self.update_attributes!({:body => self.message_template.embed_body(options)})
+    self.update_attribute(:body, self.message_template.embed_body(options))
   end
 
   def self.send_messages

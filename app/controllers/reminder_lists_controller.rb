@@ -39,8 +39,8 @@ class ReminderListsController < ApplicationController
 
     # output reminder_list (pdf or csv)
     unless @selected_state.blank? 
-      output_file('reminder_list_pdf') if params[:output_pdf]
-      output_file('reminder_list_csv') if params[:output_csv]
+      output_file(:reminder_list_pdf) if params[:output_pdf]
+      output_file(:reminder_list_csv) if params[:output_csv]
     end
   end
 
@@ -110,7 +110,7 @@ class ReminderListsController < ApplicationController
         reminder_list.save!
       end
       # output
-      output_file('reminder_postal_card')
+      output_file(:reminder_postal_card)
       flash[:notice] = t('reminder_list.successfully__output')
       render :reminder_postal_card
     rescue Exception => e
@@ -142,7 +142,7 @@ class ReminderListsController < ApplicationController
         reminder_list.save!
       end
       # output
-      output_file('reminder_letter')
+      output_file(:reminder_letter)
       flash[:notice] = t('reminder_list.successfully__output')
       render :reminder_letter
     rescue Exception => e
@@ -164,27 +164,27 @@ class ReminderListsController < ApplicationController
 
   private
   def output_file(output_type)
-    out_dir = "#{RAILS_ROOT}/private/system/reminder_lists/"
-    FileUtils.mkdir_p(out_dir) unless FileTest.exist?(out_dir)
-    logger.info "output #{output_type}"
+    if output_type == :reminder_postal_card or output_type == :reminder_letter
+      out_dir = "#{RAILS_ROOT}/private/system/reminder_lists/"
+      FileUtils.mkdir_p(out_dir) unless FileTest.exist?(out_dir)
+      logger.info "output #{output_type}"
+    end
 
     case output_type
-    when 'reminder_list_pdf'
-      file = out_dir + configatron.reminder_list_pdf_print.filename
-      ReminderList.output_reminder_list_pdf(file, @reminder_lists)
-      send_file file
-    when 'reminder_list_csv'
-      file = out_dir + configatron.reminder_list_csv_print.filename
-      ReminderList.output_reminder_list_csv(file, @reminder_lists)
-      send_file file
-    when 'reminder_postal_card'
+    when :reminder_list_pdf
+      data = ReminderList.output_reminder_list_pdf(@reminder_lists)
+      send_data data.generate, :filename => configatron.reminder_list_pdf_print.filename, :type => 'application/pdf'
+    when :reminder_list_csv
+      data = ReminderList.output_reminder_list_csv(@reminder_lists)
+      send_data data, :filename => configatron.reminder_list_csv_print.filename
+    when :reminder_postal_card
       file = out_dir + configatron.reminder_postal_card_print.filename
       ReminderList.output_reminder_postal_card(file, @reminder_lists, @user, current_user)
       flash[:file] = file
-    when 'reminder_letter'
+    when :reminder_letter
       file = out_dir + configatron.reminder_letter_print.filename
       ReminderList.output_reminder_letter(file, @reminder_lists, @user, current_user)
       flash[:file] = file
     end
   end
-end  
+end 

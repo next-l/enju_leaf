@@ -188,19 +188,17 @@ class Reserve < ActiveRecord::Base
         if item.available_for_retain? && !item.reserved?
           self.item = item
           if item.shelf.library == library
-            self.sm_retain
-            self.save
+            self.sm_retain!
           else
-            self.sm_process
-            self.save
+            self.sm_process!
             InterLibraryLoan.new.request_for_reserve(item, library)
           end
           return
         end
       end
-      self.sm_request
+      self.sm_request!
     else
-      self.sm_request
+      self.sm_request!
     end
   end
 
@@ -218,13 +216,13 @@ class Reserve < ActiveRecord::Base
   def retain
     # TODO: 「取り置き中」の状態を正しく表す
     self.item.retain_item!
-    self.update_attributes!({:request_status_type => RequestStatusType.where(:name => 'In Process').first})
+    self.update_attribute(:request_status_type, RequestStatusType.where(:name => 'In Process').first)
     self.remove_from_list
   end
 
   def to_process
     # borrow from other library
-    self.update_attributes!({:request_status_type => RequestStatusType.where(:name => 'In Process').first})
+    self.update_attribute(:request_status_type, RequestStatusType.where(:name => 'In Process').first)
   end
 
   def expire
@@ -272,33 +270,33 @@ class Reserve < ActiveRecord::Base
       case status
       when 'accepted'
         message_template_to_patron = MessageTemplate.localized_template('reservation_accepted_for_patron', self.user.locale)
-        request = MessageRequest.create!(:sender => system_user, :receiver => self.user, :message_template => message_template_to_patron)
+        request = MessageRequest.new(:sender => system_user, :receiver => self.user, :message_template => message_template_to_patron)
         request.save_message_body(:manifestations => Array[self.manifestation], :user => self.user)
-        request.sm_send_message! # 受付時は即時送信
+        request.send_later(:sm_send_message)
         message_template_to_library = MessageTemplate.localized_template('reservation_accepted_for_library', self.user.locale)
-        request = MessageRequest.create!(:sender => system_user, :receiver => system_user, :message_template => message_template_to_library)
+        request = MessageRequest.new(:sender => system_user, :receiver => system_user, :message_template => message_template_to_library)
         request.save_message_body(:manifestations => Array[self.manifestation], :user => self.user)
-        request.sm_send_message! # 受付時は即時送信
+        request.send_later(:sm_send_message!)
       when 'canceled'
         message_template_to_patron = MessageTemplate.localized_template('reservation_canceled_for_patron', self.user.locale)
-        request = MessageRequest.create!(:sender => system_user, :receiver => self.user, :message_template => message_template_to_patron)
+        request = MessageRequest.new(:sender => system_user, :receiver => self.user, :message_template => message_template_to_patron)
         request.save_message_body(:manifestations => Array[self.manifestation], :user => self.user)
-        request.sm_send_message! # キャンセル時は即時送信
+        request.send_later(:sm_send_message!)
         message_template_to_library = MessageTemplate.localized_template('reservation_canceled_for_library', self.user.locale)
-        request = MessageRequest.create!(:sender => system_user, :receiver => system_user, :message_template => message_template_to_library)
+        request = MessageRequest.new(:sender => system_user, :receiver => system_user, :message_template => message_template_to_library)
         request.save_message_body(:manifestations => Array[self.manifestation], :user => self.user)
-        request.sm_send_message! # キャンセル時は即時送信
+        request.send_later(:sm_send_message!)
       when 'expired'
         message_template_to_patron = MessageTemplate.localized_template('reservation_expired_for_patron', self.user.locale)
-        request = MessageRequest.create!(:sender => system_user, :receiver => self.user, :message_template => message_template_to_patron)
+        request = MessageRequest.new(:sender => system_user, :receiver => self.user, :message_template => message_template_to_patron)
         request.save_message_body(:manifestations => Array[self.manifestation], :user => self.user)
-        request.sm_send_message! # 期限切れ時は利用者にのみ即時送信
+        request.send_later(:sm_send_message!)
         self.update_attribute(:expiration_notice_to_patron, true)
       when 'retained'
         message_template_to_patron = MessageTemplate.localized_template('retained_manifestations', self.user.locale)
-        request = MessageRequest.create!(:sender => system_user, :receiver => self.user, :message_template => message_template_to_patron)
+        request = MessageRequest.new(:sender => system_user, :receiver => self.user, :message_template => message_template_to_patron)
         request.save_message_body(:manifestations => Array[self.manifestation], :user => self.user)
-        request.sm_send_message! # 貸出準備ができたら利用者にのみ即時送信
+        request.send_later(:sm_send_message!)
         self.update_attribute(:expiration_notice_to_patron, true)
       else
         raise 'status not defined'
@@ -457,8 +455,7 @@ class Reserve < ActiveRecord::Base
   end 
 
   # output
-  def self.output_reserve(file, reserve, current_user)
-#    library = Library.find(current_user.library_id)
+  def self.output_reserve(reserve, current_user)
     receipt_library = Library.find(reserve.receipt_library_id)
 
     require 'thinreports'
@@ -490,11 +487,10 @@ class Reserve < ActiveRecord::Base
       page.item(:size).value(reserve.manifestation.height.to_s + 'cm') if reserve.manifestation.height
       page.item(:isbn).value(reserve.manifestation.isbn)
     end
-    #send_data report.generate, :filename => configatron.reserve_print.filename, :type => 'application/pdf', :disposition => 'attachment'
-    report.generate_file(file)
+    return report
   end
 
-  def self.output_reservelist_user(file, user, current_user)
+  def self.output_reservelist_user(user, current_user)
     if current_user.has_role?('Librarian')
       reserves = Reserve.show_reserves.where(:user_id => user.id).order('expired_at Desc')
     else
@@ -539,10 +535,10 @@ class Reserve < ActiveRecord::Base
         end
       end
     end
-    report.generate_file(file)
+    return report
   end
 
-  def self.output_reservelist_all_pdf(pdf_file, query, states, library, method)
+  def self.output_reservelist_all_pdf(query, states, library, method)
     require 'thinreports'
     report = ThinReports::Report.new :layout => File.join(Rails.root, 'report', 'reservelist.tlf')
 
@@ -617,11 +613,11 @@ class Reserve < ActiveRecord::Base
           end
         end
       end
-      report.generate_file(pdf_file)
+      return report
     end
   end
 
-  def self.output_reservelist_all_csv(csv_file, query, states, library, method)
+  def self.output_reservelist_all_csv(query, states, library, method)
     columns = [
       [:state,'activerecord.attributes.reserve.state'],
       [:receipt_library, 'activerecord.attributes.reserve.receipt_library'],
@@ -631,61 +627,59 @@ class Reserve < ActiveRecord::Base
       [:information_method, 'activerecord.attributes.reserve.information_method'],
     ]
 
-    File.open(csv_file, "w") do |output|
-      # add UTF-8 BOM for excel
-      output.print "\xEF\xBB\xBF".force_encoding("UTF-8")
+    data = String.new
 
-      # title column
-      row = []
-      columns.each do |column|
-        row << I18n.t(column[1])
-      end
-      output.print row.join(",")+"\n"
-
-      states.each do |state|
-        # get reserves
-        if query.blank?
-          reserves = Reserve.where(:state => state, :receipt_library_id => library, :information_type_id => method).order('expired_at ASC').includes(:manifestation)
-        else
-          reserves = Reserve.search do
-            fulltext query
-            with(:state).equal_to(state)
-            with(:receipt_library_id, library) unless library.blank?
-            with(:information_type_id, method) unless method.blank?
-            order_by(:expired_at, :asc)
-          end.results
-        end
-        # set
-        reserves.each do |reserve|
-          row = []
-          columns.each do |column|
-            case column[0]
-            when :state
-              row << I18n.t(i18n_state(state).strip_tags)
-            when :receipt_library
-              row << Library.find(reserve.receipt_library_id).display_name
-            when :title
-              row << reserve.manifestation.original_title
-            when :expired_at
-              row << reserve.expired_at.strftime("%Y/%m/%d")
-            when :user
-              user = reserve.user.patron.full_name
-              if SystemConfiguration.get("reserve_print.old") == true and  reserve.user.patron.date_of_birth
-                age = (Time.now.strftime("%Y%m%d").to_f - reserve.user.patron.date_of_birth.strftime("%Y%m%d").to_f) / 10000
-                age = age.to_i
-                user = user + '(' + age.to_s + I18n.t('activerecord.attributes.patron.old')  +')'
-              end
-              row << user
-            when :information_method
-              information_method = I18n.t(i18n_information_type(reserve.information_type_id).strip_tags)
-              information_method += ': ' + Reserve.get_information_method(reserve) if reserve.information_type_id != 0 and !Reserve.get_information_method(reserve).nil?
-              row << information_method
-            end # end of case column[0]
-          end #end of columns.each
-          output.print '"'+row.join('","')+"\"\n"
-        end # end of items.each
-      end
+    # title column
+    row = []
+    columns.each do |column|
+      row << I18n.t(column[1])
     end
+    data << row.join(",")+"\n"
+
+    states.each do |state|
+      # get reserves
+      if query.blank?
+        reserves = Reserve.where(:state => state, :receipt_library_id => library, :information_type_id => method).order('expired_at ASC').includes(:manifestation)
+      else
+        reserves = Reserve.search do
+          fulltext query
+          with(:state).equal_to(state)
+          with(:receipt_library_id, library) unless library.blank?
+          with(:information_type_id, method) unless method.blank?
+          order_by(:expired_at, :asc)
+        end.results
+      end
+      # set
+      reserves.each do |reserve|
+        row = []
+        columns.each do |column|
+          case column[0]
+          when :state
+            row << I18n.t(i18n_state(state).strip_tags)
+          when :receipt_library
+            row << Library.find(reserve.receipt_library_id).display_name
+          when :title
+            row << reserve.manifestation.original_title
+          when :expired_at
+            row << reserve.expired_at.strftime("%Y/%m/%d")
+          when :user
+            user = reserve.user.patron.full_name
+            if SystemConfiguration.get("reserve_print.old") == true and  reserve.user.patron.date_of_birth
+              age = (Time.now.strftime("%Y%m%d").to_f - reserve.user.patron.date_of_birth.strftime("%Y%m%d").to_f) / 10000
+              age = age.to_i
+              user = user + '(' + age.to_s + I18n.t('activerecord.attributes.patron.old')  +')'
+            end
+            row << user
+          when :information_method
+            information_method = I18n.t(i18n_information_type(reserve.information_type_id).strip_tags)
+            information_method += ': ' + Reserve.get_information_method(reserve) if reserve.information_type_id != 0 and !Reserve.get_information_method(reserve).nil?
+            row << information_method
+          end # end of case column[0]
+        end #end of columns.each
+        data << '"'+row.join('","')+"\"\n"
+      end # end of items.each
+    end
+    return data
   end
 end
 

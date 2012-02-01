@@ -30,6 +30,7 @@ class CheckinsController < ApplicationController
         end
         @reserve = Reserve.where(:item_id => @checkins[0].checkout.item.id, :state => 'retained').first if @checkins[0].checkout.item
         @loan = InterLibraryLoan.where(:item_id => @checkins[0].checkout.item.id, :state => 'requested', :from_library_id => current_user.library.id).first if @checkins[0].checkout.item
+        @close_shelf_item = @checkins[0].checkout.item unless @checkins[0].checkout.item.shelf.open?
       end
     end
 
@@ -72,7 +73,7 @@ class CheckinsController < ApplicationController
     end
     @checkin = @basket.checkins.new(params[:checkin])
 
-    debugger
+#    debugger
 
     messages = []
     flash[:message] = ''
@@ -95,7 +96,6 @@ class CheckinsController < ApplicationController
     end
 
     #logger.info flash.inspect
-    
     respond_to do |format|
       unless messages.blank?
         #flash[:message], flash[:sound] = error_message_and_sound(message)
@@ -110,7 +110,7 @@ class CheckinsController < ApplicationController
       else
         @checkin.item = item
         if @checkin.save(:validate => false)
-        # 速度を上げるためvalidationを省略している
+          # 速度を上げるためvalidationを省略している
           #flash[:message] << t('controller.successfully_created', :model => t('activerecord.models.checkin'))
           #TODO refactoring
           flash[:message] = t('checkin.successfully_checked_in', :model => t('activerecord.models.checkin')) + '<br />'
