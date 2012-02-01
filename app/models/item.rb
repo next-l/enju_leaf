@@ -439,6 +439,7 @@ class Item < ActiveRecord::Base
       [:publisher, 'patron.publisher'],
       [:price, 'activerecord.attributes.manifestation.price'],
       ['call_number', 'activerecord.attributes.item.call_number'],
+      [:marc_number, 'activerecord.attributes.manifestation.marc_number'],
       ['note', 'activerecord.attributes.item.note']
     ]
   
@@ -492,6 +493,12 @@ class Item < ActiveRecord::Base
             when :price
               if item.manifestation && item.manifestation.price
                 row << item.manifestation.price
+              else
+                row << ""
+              end
+            when :marc_number
+              if item.manifestation && item.manifestation.marc_number
+                row << item.manifestation.marc_number[0, 10]
               else
                 row << ""
               end
@@ -621,6 +628,7 @@ class Item < ActiveRecord::Base
                 row.item(:publisher).value(item.publisher.delete_if{|p|p.blank?}[0]) if item.publisher
                 row.item(:price).value(to_format(item.price)) if item.price
                 row.item(:call_number).value(item.call_number)
+                row.item(:marc_number).value(item.manifestation.marc_number[0,10]) if item.manifestation && item.manifestation.marc_number
                 row.item(:note).value(item.note.split("\r\n")[0]) if item.note
               end
             end
