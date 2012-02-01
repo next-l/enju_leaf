@@ -11,6 +11,7 @@ class ResourceImportTextfilesController < ApplicationController
   end
 
   def create
+    logger.info "aaa"
     @resource_import_textfile = ResourceImportTextfile.new(params[:resource_import_textfile])
     @resource_import_textfile.user = current_user
 
