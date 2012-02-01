@@ -196,6 +196,8 @@ class ResourceImportFile < ActiveRecord::Base
     item.update_attributes!(options)
   end
 
+=begin
+#TODO
   def import_marc(marc_type)
     file = File.open(self.resource_import.path)
     case marc_type
@@ -229,6 +231,7 @@ class ResourceImportFile < ActiveRecord::Base
       manifestation.publishers << publisher
     end
   end
+=end
 
   def self.import(id = nil)
     if !id.nil?

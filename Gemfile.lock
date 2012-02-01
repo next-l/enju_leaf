@@ -150,7 +150,6 @@ GEM
       treetop (~> 1.4.8)
     main (4.7.1)
     map (4.3.0)
-    marc (0.4.3)
     metric_fu (2.1.1)
       Saikuro (>= 1.1.0)
       activesupport (>= 2.0.0)
@@ -355,7 +354,6 @@ DEPENDENCIES
   jquery-rails
   kgio
   library_stdnums
-  marc
   metric_fu (~> 2.1)
   nokogiri
   omniauth (>= 0.2.6)

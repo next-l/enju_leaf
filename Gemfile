@@ -5,9 +5,6 @@ gem 'rails', '3.0.11'
 #gem 'enju_scribd', :git => 'git://github.com/nabeta/enju_scribd.git'
 #gem 'enju_nii', :git => 'git://github.com/nabeta/enju_nii.git'
 
-# Bundle edge Rails instead:
-# gem 'rails', :git => 'git://github.com/rails/rails.git'
-
 platforms :ruby do
   gem 'pg'
   #gem 'mysql2', '~> 0.2.11'
@@ -33,7 +30,7 @@ gem 'friendly_id', '~> 4.0'
 gem 'inherited_resources', '~>1.3'
 gem 'has_scope'
 gem 'nokogiri'
-gem 'marc'
+#gem 'marc'
 gem 'strongbox', '>= 0.4.8'
 gem 'acts-as-taggable-on', '~> 2.1'
 gem 'dalli', '~> 1.1'
