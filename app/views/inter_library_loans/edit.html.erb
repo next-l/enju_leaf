@@ -1,4 +1,4 @@
-\<div id="content_detail" class="ui-corner-all">
+<div id="content_detail" class="ui-corner-all">
   <h1 class="title"><%= t('page.editing', :model => t('activerecord.models.inter_library_loan')) -%></h1>
 <div id="content_list">
 
@@ -34,16 +34,6 @@
       <%= f.label :requested_at -%><br />
       <%=l @inter_library_loan.requested_at if @inter_library_loan.requested_at %>
     </div>
-
-    <%- if @inter_library_loan.item.hold?(current_user.library) -%>
-      <div class="field">
-        <%= f.label :shipped_at -%><br />
-        <%= f.datetime_select :shipped_at -%>
-      </div>
-      <div class="actions">
-        <%= f.submit :confirm => t('page.are_you_sure') -%>
-      </div>
-    <%- end -%>
   <%- when 'shipped' -%>
     <div class="field">
       <%= f.label :requested_at -%><br />
