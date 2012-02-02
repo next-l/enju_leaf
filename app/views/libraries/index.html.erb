@@ -34,8 +34,8 @@
   <tr class="line<%= cycle("0", "1") -%>">
     <td>
       <%- if can? :update, library -%>
-        <%= library.first? ? image_tag('icons/cross.png', :size => '16x16') : link_to(image_tag('icons/arrow_down.png', :size => '16x16', :alt => t('page.asc')), {:action => 'update', :position  => (library.position > 1 ? library.position - 1 : 1), :id => library.name}, :method => :put) -%>
-        <%= library.last? ? image_tag('icons/cross.png', :size => '16x16') : link_to(image_tag('icons/arrow_down.png', :size => '16x16', :alt => t('page.desc')), {:action => 'update', :position => (library.position + 1), :id => library.name}, :method => :put) -%>
+        <%= library.first? ? image_tag('icons/stop.png', :size => '16x16') : link_to(image_tag('icons/arrow_up.png', :size => '16x16', :alt => t('page.asc')), {:action => 'update', :position  => (library.position > 1 ? library.position - 1 : 1), :id => library.name}, :method => :put) -%>
+        <%= library.last? ? image_tag('icons/stop.png', :size => '16x16') : link_to(image_tag('icons/arrow_down.png', :size => '16x16', :alt => t('page.desc')), {:action => 'update', :position => (library.position + 1), :id => library.name}, :method => :put) -%>
       <%- end -%>
     </td>
     <td>
