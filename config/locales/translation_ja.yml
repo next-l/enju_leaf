@@ -1330,7 +1330,11 @@ ja:
     checkout: "貸出"
     checkin: "返却"
     name: "名前"
-    are_you_sure: "ほんとうですか？"
+    are_you_sure: "削除しますか？"
+    cancel_confirm: "取消しますか？"
+    roles_confirm: "実行しますか？"
+    send_email_confirm: "実行しますか？"
+    inter_library_loans_confirm: "実行しますか？"
     file: "ファイル"
     cancel: "取消"
     feed: "フィード"
@@ -1428,6 +1432,7 @@ ja:
     read: "読み込み"
     merge: "統合する（取り消しはできません）"
     merge_resource: "%{model}を統合する"
+    merge_confirm: "実行しますか？"
     attachable: "添付先"
     under_construction: "開発中"
     sent_email: "電子メールを送信しました。"
@@ -1828,7 +1833,7 @@ ja:
     failed_pickup: 資料の発送処理に失敗しました。
     failed_accept: 資料の受取処理に失敗しました。
     no_library: 移動元図書館を選択してください。
-    pendind: 処理待ち
+    pending: 処理待ち
     requested: 受付済み
     shipped: 発送済み
     received: 受取済み

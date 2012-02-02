@@ -175,3 +175,6 @@ configatron.items.confirm_destroy = true
 
 # refs 1991 雑誌最新号の貸出禁止
 configatron.checkouts.cannot_for_new_serial = true
+
+# refs 2588 所蔵のない資料の予約
+configatron.reserves.able_for_not_item = true

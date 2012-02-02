@@ -86,18 +86,6 @@ class InterLibraryLoansController < ApplicationController
     @inter_library_loan = InterLibraryLoan.find(params[:id])
     @item = @inter_library_loan.item
 
-    case @inter_library_loan.state
-    when 'requested'
-      @inter_library_loan.sm_ship!
-    when 'shipped'
-      @inter_library_loan.sm_receive!
-    when 'received'
-      @inter_library_loan.sm_return_ship!
-    when 'return_shipped'
-      @inter_library_loan.sm_return_receive!
-    when 'return_received'
-    end
-
     respond_to do |format|
       if @inter_library_loan.update_attributes(params[:inter_library_loan])
         flash[:notice] = t('controller.successfully_updated', :model => t('activerecord.models.inter_library_loan'))

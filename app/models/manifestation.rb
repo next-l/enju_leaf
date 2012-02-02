@@ -422,7 +422,9 @@ class Manifestation < ActiveRecord::Base
   end
 
   def reservable?
-    return false if items.for_checkout.empty?
+    unless SystemConfiguration.get("reserves.able_for_not_item")
+      return false if items.for_checkout.empty?
+    end
     true
   end
 
