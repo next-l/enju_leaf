@@ -189,7 +189,7 @@ GEM
       sunspot_rails
       sunspot_solr
       will_paginate (~> 3.0)
-    enju_ndl (0.0.8)
+    enju_ndl (0.0.9)
       devise
       nokogiri
       rails (~> 3.1)
@@ -333,7 +333,7 @@ GEM
       activesupport (>= 2.3.2)
       cocaine (>= 0.0.2)
       mime-types
-    parallel (0.5.12)
+    parallel (0.5.13)
     parallel_tests (0.6.17)
       parallel
     pg (0.12.2)
@@ -497,7 +497,7 @@ DEPENDENCIES
   enju_event (= 0.0.5)
   enju_inventory (= 0.0.3)
   enju_message (= 0.0.7)
-  enju_ndl (>= 0.0.8)
+  enju_ndl (>= 0.0.9)
   enju_oai!
   enju_purchase_request (= 0.0.4)
   enju_question (= 0.0.5)
