@@ -9,7 +9,7 @@ class ApplicationController < ActionController::Base
   rescue_from ActionController::RoutingError, :with => :render_404
 
   has_mobile_fu
-  before_filter :get_library_group, :set_locale, :set_available_languages, :is_mobile_device?
+  before_filter :get_library_group, :set_locale, :set_available_languages, :set_request_format
 
   private
   def render_403
@@ -350,6 +350,10 @@ class ApplicationController < ActionController::Base
       @news_posts = NewsPost.limit(3)
     end
     @libraries = Library.real
+  end
+
+  def set_request_format
+    request.format = :mobile if is_mobile_device?
   end
 end
 
