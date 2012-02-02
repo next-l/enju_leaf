@@ -47,4 +47,12 @@ class ResourceImportTextfile < ActiveRecord::Base
   rescue Exception => e
     logger.info "#{Time.zone.now} importing resources failed! #{e}"
   end
+
+  def import_start
+    #debugger
+    sm_start!
+    adapter = EnjuTrunk::ResourceAdapter::Base.find_by_classname(self.adapter_name)
+    logger.info "adapter=#{adapter.to_s}"
+    adapter.new.import(self.resource_import.path)
+  end
 end
