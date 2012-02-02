@@ -123,9 +123,9 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_ndl.git
-  revision: bf5e35f775a7ef3efdeee37b0b91f0e115691d7e
+  revision: 518dee750fae42bdb945b2f3ddf090c7e2bfa33f
   specs:
-    enju_ndl (0.0.8)
+    enju_ndl (0.0.10)
       devise
       nokogiri
       rails (~> 3.1)
@@ -434,7 +434,7 @@ GEM
     progress_bar (0.4.0)
       highline (~> 1.6.1)
       options (~> 2.3.0)
-    progressbar (0.9.2)
+    progressbar (0.10.0)
     rack (1.4.1)
     rack-cache (1.1)
       rack (>= 0.4)
