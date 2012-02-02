@@ -52,7 +52,7 @@
       <td>
         <%= link_to image_tag('icons/page_white_edit.png', :size => '16x16', :alt => t('page.edit'), :title => t('tooltip.edit')), edit_reserve_path(reserve) if reserve.can_checkout? -%>
         <%- if reserve.user && reserve.user.reserves.waiting.include?(reserve) -%>
-          <%= link_to image_tag('icons/cancel.png', :size => '16x16', :alt => t('page.cancel'), :title => t('tooltip.cancel')), reserve_path(reserve, :mode => 'cancel'), :confirm => t('page.are_you_sure'), :method => :put -%>
+          <%= link_to image_tag('icons/cancel.png', :size => '16x16', :alt => t('page.cancel'), :title => t('tooltip.cancel')), reserve_path(reserve, :mode => 'cancel'), :confirm => t('page.cancel_confirm'), :method => :put -%>
         <%- else -%>
           <%= link_to image_tag('icons/delete.png', :size => '16x16', :alt => t('page.destroy'), :title => t('tooltip.destroy')), reserve_path(reserve), :confirm => t('page.are_you_sure'), :method => :delete -%>
         <%- end -%>
@@ -97,7 +97,7 @@
       <td>
         <%= link_to image_tag('icons/page_white_edit.png', :size => '16x16', :alt => t('page.edit'), :title => t('tooltip.edit')), edit_user_reserve_path(reserve.user, reserve) -%>
         <%- if reserve.user.reserves.waiting.include?(reserve) -%>
-          <%= link_to image_tag('icons/cancel.png', :size => '16x16', :alt => t('page.cancel'), :title => t('tooltip.cancel')), user_reserve_path(reserve.user, reserve, :mode => 'cancel'), :confirm => t('page.are_you_sure'), :method => :put -%>
+          <%= link_to image_tag('icons/cancel.png', :size => '16x16', :alt => t('page.cancel'), :title => t('tooltip.cancel')), user_reserve_path(reserve.user, reserve, :mode => 'cancel'), :confirm => t('page.cancel_confirm'), :method => :put -%>
         <%- else -%>
           <%= link_to image_tag('icons/delete.png', :size => '16x16', :alt => t('page.destroy'), :title => t('tooltip.destroy')), user_reserve_path(reserve.user, reserve), :confirm => t('page.are_you_sure'), :method => :delete -%>
         <%- end -%>

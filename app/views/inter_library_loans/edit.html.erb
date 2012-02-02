@@ -41,7 +41,7 @@
         <%= f.datetime_select :shipped_at -%>
       </div>
       <div class="actions">
-        <%= f.submit :confirm => t('page.are_you_sure') -%>
+        <%= f.submit :confirm => t('page.inter_library_loans_confirm') -%>
       </div>
     <%- end -%>
   <%- when 'shipped' -%>
@@ -61,7 +61,7 @@
         <%= f.datetime_select :received_at -%>
       </div>
       <div class="actions">
-        <%= f.submit :confirm => t('page.are_you_sure') -%>
+        <%= f.submit :confirm => t('page.inter_library_loans_confirm') -%>
       </div>
     <%- end -%>
   <%- when 'received' -%>
@@ -82,7 +82,7 @@
 
   <%- end -%>
   <div class="actions">
-    <%= f.submit :confirm => t('page.are_you_sure') -%>
+    <%= f.submit :confirm => t('page.inter_library_loans_confirm') -%>
   </div>
 <%- end -%>
 

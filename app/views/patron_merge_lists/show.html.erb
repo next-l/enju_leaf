@@ -15,7 +15,7 @@
     <%- end -%>
   </ul>
   <%- if @patron_merge_list.patrons.size > 1 -%>
-    <%= f.submit t('page.merge'), :confirm => t('page.are_you_sure') -%>
+    <%= f.submit t('page.merge'), :confirm => t('page.merge_confirm') -%>
   <%- end -%>
 <%- end -%>
 
