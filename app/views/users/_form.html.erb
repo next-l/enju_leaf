@@ -1,3 +1,127 @@
+<script>
+  $(document).ready(function(){
+    $("#patron_telephone_number_1").change(function(){
+      clear_family_search();
+      search_family();
+    })
+    .change();
+    $("#patron_last_name").change(function(){
+      clear_family_search();
+      search_family();
+    })
+    .change();
+    $("#patron_address_1").change(function(){
+      clear_family_search();
+      search_family();
+    })
+    .change();      
+
+    // check full_name_alternative
+    <% unless @patron.full_name_alternative.blank? %>
+      if ("<%= @patron.full_name_alternative.gsub(/[　\s\t]+$/o, "").gsub(/^[　\s\t]+/o, "") -%>" != "")
+        $("#full_name_alternative").show();
+    <%- end -%>
+    // check address2
+    var input_address2 = false;
+    "<%- if @patron.zip_code_2 -%>"
+      if ("<%=@patron.zip_code_2.gsub(/[　\s\t]+$/o, "").gsub(/^[　\s\t]+/o, "") -%>" != "")
+        input_address2 = true;
+    "<%- end -%>"
+    "<%- if @patron.address_2 -%>"
+      if ("<%=@patron.address_2.gsub(/[　\s\t]+$/o, "").gsub(/^[　\s\t]+/o, "") -%>" != "")
+        input_address2 = true;
+    "<%- end -%>"
+    "<%- if @patron.telephone_number_2 -%>"
+      if ("<%=@patron.telephone_number_2.gsub(/[　\s\t]+$/o, "").gsub(/^[　\s\t]+/o, "") -%>" != "")
+        input_address2 = true;
+    "<%- end -%>"
+    "<%- if @patron.extelephone_number_2 -%>"
+      if ("<%=@patron.extelephone_number_2.gsub(/[　\s\t]+$/o, "").gsub(/^[　\s\t]+/o, "") -%>" != "")
+        input_address2 = true;
+    "<%- end -%>"
+    "<%- if @patron.fax_number_2 -%>"
+      if ("<%=@patron.fax_number_2.gsub(/[　\s\t]+$/o, "").gsub(/^[　\s\t]+/o, "") -%>" != "")
+        input_address2 = true;
+    "<%- end -%>"
+    "<%- if @patron.address_2_note -%>"
+      if ("<%=@patron.address_2_note.gsub(/[　\s\t]+$/o, "").gsub(/^[　\s\t]+/o, "") -%>" != "")
+        input_address2 = true;
+    "<%- end -%>"
+    if (input_address2 == true)
+      $("#address_2").show();
+    // check patron_type
+    if ("<%= @patron.patron_type_id -%>" == <%= @patron_type_patron_id %>) {
+      $("#name_person").show();
+      $("label[for='patron_date_of_birth']").text('<%= t('activerecord.attributes.patron.date_of_birth') -%>');
+      $("label[for='patron_date_of_death']").text('<%= t('activerecord.attributes.patron.date_of_death') -%>');
+    } else {
+      $("div.patron_full_name_note").hide();
+      $("#name_person").hide();
+      $("label[for='patron_date_of_birth']").text('<%= t('activerecord.attributes.patron.date_of_establishment') -%>');
+      $("label[for='patron_date_of_death']").text('<%= t('activerecord.attributes.patron.date_of_dissolution') -%>');
+    }
+    // change patron_type
+    $("select#patron_patron_type_id").change(function(){
+      str = $("select#patron_patron_type_id option:selected").val();
+      if (str == <%= @patron_type_patron_id %>) {
+        $("div.patron_full_name_note").show();
+        $("#name_person").show();
+        $("label[for='patron_date_of_birth']").text('<%= t('activerecord.attributes.patron.date_of_birth') -%>');
+        $("label[for='patron_date_of_death']").text('<%= t('activerecord.attributes.patron.date_of_death') -%>');
+      } else {
+        $("input#patron_last_name").val("");
+        $("input#patron_last_name_transcription").val("");
+        $("input#patron_first_name").val("");
+        $("input#patron_first_name_transcription").val("");
+        $("div.patron_full_name_note").hide();
+        $("#name_person").hide();
+        $("label[for='patron_date_of_birth']").text('<%= t('activerecord.attributes.patron.date_of_establishment') -%>');
+        $("label[for='patron_date_of_death']").text('<%= t('activerecord.attributes.patron.date_of_dissolution') -%>');
+      }
+    });
+  });
+
+  function search_family(){
+    var tel_1 = $("#patron_telephone_number_1").val().replace(/^\s+|\s+$/g, "");
+    var last_name = $("#patron_last_name").val().replace(/^\s+|\s+$/g, "");
+    var address_1 = $("#patron_address_1").val().replace(/^\s+|\s+$/g, "");
+    var family = "<%= @family -%>"
+    var data = {"keys": {"tel_1": tel_1, "last_name": last_name, "address_1": address_1 }, "family": family, "user": "<%= @user.id -%>"};
+    if (tel_1 != "" && last_name != "" && address_1 !="") {
+      $.ajax({
+        type: "GET",
+        url: "<%= url_for(:controller => :users, :action => :search_family) -%>",
+        data: data, 
+        success: function(obj) {
+          if(obj.success){
+            $('#search_family').remove();
+            $('#family').append(obj.html);
+            $('#search_family').show();
+            $("input[name='family']").change(get_family_info);
+          }
+        }
+      });  
+      return false;
+    }
+  }
+  function clear_family_search(){
+    $('#search_family > div').remove();
+    $('#search_family').hide();
+  }
+  function get_family_info(){
+    var user_id = $("input:radio[name='family']:checked").val();
+    $.ajax({
+      type: "GET",
+      url: "get_family_info",
+      data: {"user_id": user_id},
+      success: function(obj) {
+        var zip_code_1 = obj["patron"]["patron"]["zip_code_1"];
+        $('#patron_zip_code_1').val(zip_code_1);
+      }
+    });
+  }
+</script>
+
   <div class="field">
     <%= f.label t('activerecord.models.patron_type') -%>
     <%= f.select(:patron_type_id, @patron_types.collect{|p| [p.display_name.localize, p.id]}) -%>
@@ -17,7 +141,7 @@
       <%- end -%>
     </span>
     <%= f.label :full_name -%><br />
-    <span id="annotation"><%= t('activerecord.attributes.patron.full_name_note') -%></span><br />
+    <div id="annotation" class="patron_full_name_note"><%= t('activerecord.attributes.patron.full_name_note') -%><br /></div>
     <%= f.text_field :full_name, :class => 'resource_title' -%><br />
     <%= f.label :full_name_transcription -%><br />
     <%= f.text_field :full_name_transcription, :class => 'resource_title' -%><br />
@@ -27,78 +151,6 @@
       <%= f.text_area :full_name_alternative, :class => 'resource_textarea' -%>
     </span>
   </div>
-
-  <script>
-    $(document).ready(function(){
-      $("#patron_telephone_number_1").change(function(){
-        clear_family_search();
-        search_family();
-      })
-      .change();
-      $("#patron_last_name").change(function(){
-        clear_family_search();
-        search_family();
-      })
-      .change();
-      $("#patron_address_1").change(function(){
-        clear_family_search();
-        search_family();
-      })
-      .change();      
-    });
-    function search_family(){
-      var tel_1 = $("#patron_telephone_number_1").val().replace(/^\s+|\s+$/g, "");
-      var last_name = $("#patron_last_name").val().replace(/^\s+|\s+$/g, "");
-      var address_1 = $("#patron_address_1").val().replace(/^\s+|\s+$/g, "");
-      var family = "<%= @family -%>"
-      var data = {"keys": {"tel_1": tel_1, "last_name": last_name, "address_1": address_1 }, "family": family, "user": "<%= @user.id -%>"};
-      if (tel_1 != "" && last_name != "" && address_1 !="") {
-        $.ajax({
-          type: "GET",
-          url: "<%= url_for(:controller => :users, :action => :search_family) -%>",
-          data: data, 
-          success: function(obj) {
-            if(obj.success){
-              $('#search_family').remove();
-              $('#family').append(obj.html);
-              $('#search_family').show();
-              $("input[name='family']").change(get_family_info);
-            }
-	  }
-        });  
-        return false;
-      }
-    }
-    function clear_family_search(){
-      $('#search_family > div').remove();
-      $('#search_family').hide();
-    }
-    function get_family_info(){
-      var user_id = $("input:radio[name='family']:checked").val();
-      $.ajax({
-        type: "GET",
-        url: "get_family_info",
-        data: {"user_id": user_id},
-        success: function(obj) {
-          var zip_code_1 = obj["patron"]["patron"]["zip_code_1"];
-          $('#patron_zip_code_1').val(zip_code_1);
-        }
-      });
-    }
-    $("select#patron_patron_type_id").change(function(){
-      str = $("select#patron_patron_type_id option:selected").val();
-      if(str == <%= PatronType.find_by_name('Person').id %>){
-        $("#name_person").show();
-        $("label[for='patron_date_of_birth']").text('<%= t('activerecord.attributes.patron.date_of_birth') -%>');
-        $("label[for='patron_date_of_death']").text('<%= t('activerecord.attributes.patron.date_of_death') -%>');
-      }else{
-        $("#name_person").hide();
-        $("label[for='patron_date_of_birth']").text('<%= t('activerecord.attributes.patron.date_of_establishment') -%>');
-        $("label[for='patron_date_of_death']").text('<%= t('activerecord.attributes.patron.date_of_dissolution') -%>');
-      }
-    })
-    .change();
-  </script>
 
   <div class="field">
     <%= f.label :date_of_birth -%><br />
