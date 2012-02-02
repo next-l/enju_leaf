@@ -9,6 +9,11 @@
 </p>
 
 <p>
+  <strong><%= t('activerecord.attributes.resource_import_textfile.adapter_name') -%>:</strong>
+  <%= @resource_import_textfile.adapter_display_name -%>
+</p>
+
+<p>
   <strong><%= t('activerecord.attributes.resource_import_textfile.resource_import_file_name') -%>:</strong>
   <%= link_to @resource_import_textfile.resource_import_file_name, resource_import_textfile_path(@resource_import_textfile, :format => :download) -%>
 </p>

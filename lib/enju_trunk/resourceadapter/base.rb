@@ -1,9 +1,25 @@
 module EnjuTrunk
   module ResourceAdapter
     class Base
+
+      class NoFoundAdapter < StandardError #:nodoc:
+      end
+
       class << self
         def all
           @adapters
+        end
+
+        def find_by_classname(name)
+          Rails.logger.info "name=#{name}"
+          return nil unless @adapters
+          @adapters.each do |a| 
+            Rails.logger.info "a=#{a} name=#{name}"
+            return a if a.to_s == name
+          end
+          msg  = "#{name} is not found."
+          msg += "adapters=#{@adapters}"
+          raise NoFoundAdapter.new(msg)
         end
 
         def add(adapter_name)

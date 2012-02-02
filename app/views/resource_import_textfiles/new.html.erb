@@ -6,6 +6,11 @@
   <%= f.error_messages -%>
 
   <div class="field">
+    <%= f.label t('activerecord.attributes.resource_import_textfile.adapter_name') -%><br />
+    <%= f.select(:adapter_name, EnjuTrunk::ResourceAdapter::Base.all.collect {|a| [a.display_name, a]}) -%>
+  </div>
+
+  <div class="field">
     <%= f.label t('page.file') -%><br />
     <%= f.file_field :resource_import -%>
   </div>

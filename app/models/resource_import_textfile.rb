@@ -25,6 +25,10 @@ class ResourceImportTextfile < ActiveRecord::Base
     end
   end
 
+  def adapter_display_name
+    EnjuTrunk::ResourceAdapter::Base.find_by_classname(self.adapter_name).display_name rescue nil
+  end
+
   def set_digest(options = {:type => 'sha1'})
     if File.exists?(resource_import.queued_for_write[:original])
       self.file_hash = Digest::SHA1.hexdigest(File.open(resource_import.queued_for_write[:original].path, 'rb').read)
