@@ -123,7 +123,7 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_ndl.git
-  revision: 6e8193a083d9f662d0216229e0e301ce03e69782
+  revision: bf5e35f775a7ef3efdeee37b0b91f0e115691d7e
   specs:
     enju_ndl (0.0.8)
       devise
@@ -425,7 +425,7 @@ GEM
       activesupport (>= 2.3.2)
       cocaine (>= 0.0.2)
       mime-types
-    parallel (0.5.12)
+    parallel (0.5.13)
     parallel_tests (0.6.17)
       parallel
     pg (0.12.2)
