@@ -924,6 +924,7 @@ class ManifestationsController < ApplicationController
     end
 
     buf = ""
+    buf << "\xEF\xBB\xBF".force_encoding("UTF-8") + "\n"
     buf << t('activerecord.attributes.manifestation.original_title') +
      "," + t('activerecord.attributes.item.item_identifier') + 
      "," + t('patron.creator') +
@@ -948,14 +949,22 @@ class ManifestationsController < ApplicationController
       item_identifier = item_identifiers
       pub_date = manifestation.pub_date
       reserves_number = Reserve.waiting.where(:manifestation_id => manifestation.id, :checked_out_at => nil).count.to_s
-      buf << "\"" + original_title + "\"" + 
-             "," +"\"" + item_identifier + "\"" + 
-             "," + "\"" + creator.to_s + " \"" + 
-             "," + "\"" + contributor.to_s + " \"" + 
-             "," + "\"" + publisher.to_s + " \"" + 
-             "," + "\"" + pub_date + "\"" + 
-             "," +"\"" + reserves_number + "\"" + "\n"
+      str = "\"" + original_title + "\""
+      str << "," + "\""
+      str << item_identifier if item_identifier
+      str << "\"" + "," + "\""
+      str << creator.to_s if creator
+      str << " \"" + "," + "\""
+      str << contributor.to_s if contributor
+      str << " \"" + "," + "\""
+      str << publisher.to_s if publisher
+      str << " \"" + "," + "\""
+      str << pub_date if pub_date
+      str <<  "\"" + "," +"\""
+      str << reserves_number if reserves_number
+      str << "\"" + "\n"
+      buf << str
     end
-    send_data(buf, :filename => configatron.search_report_csv.filename)
+    send_data(buf, :filename => configatron.search_report_csv.filename, :type => 'application/pdf; charset=utf-8')
   end
 end
