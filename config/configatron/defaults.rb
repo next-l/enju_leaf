@@ -81,6 +81,10 @@ configatron.retained_manifestations_print.filename = "retained_manifestations.pd
 # 予約表に利用者の年齢を表示するかどうか
 configatron.reserve_print.old = true
 
+# 利用者リストの出力(PDF)
+configatron.userlist_pdf_print.filename = "userlist.pdf"
+# 利用者リス知の出力(TSV)
+configatron.userlist_tsv_print.filename = "userlist.csv"
 # 連絡不可者の出力
 configatron.unablelist_print.filename = "unablelist.pdf"
 

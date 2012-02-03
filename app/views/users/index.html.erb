@@ -8,7 +8,10 @@
     <%= t('activerecord.attributes.user.birth_date') -%>: <%= text_field_tag 'birth_date', @date_of_birth, :class => 'wide_date_text_field', :placeholder => "#{t('page.example')}: 2011-04-12" -%>
     <%= t('activerecord.attributes.user.adddress') -%>: <%= text_field_tag 'address', @address, :class => 'search_form' -%>
     <%= hidden_field_tag 'patron_id', @patron.id if @patron -%>
-    <%= submit_tag t('page.search') -%>
+    <br />
+    <%= submit_tag t('page.search'), :name => 'search' -%>
+    <%= submit_tag t('page.output_pdf', :model => t('page.listing', :model => t('activerecord.models.user'))), :name => 'output_pdf' ,-%>
+    <%= submit_tag t('page.output_tsv', :model => t('page.listing', :model => t('activerecord.models.user'))), :name => 'output_tsv' -%>
   </p>
 <%- end -%>
 

@@ -74,12 +74,26 @@ class UsersController < ApplicationController
       end.results
     else
       if sort[:sort_by] == 'patrons.telephone_number_1'|| sort[:sort_by] == 'patrons.full_name_transcription' 
-        @users = User.joins(:patron).order("#{sort[:sort_by]} #{sort[:order]}").page(page)
+        @users = User.joins(:patron).order("#{sort[:sort_by]} #{sort[:order]}").page(page) unless params[:output_pdf] and params[:output_tsv]
+        @users = User.joins(:patron).order("#{sort[:sort_by]} #{sort[:order]}") if params[:output_pdf] or params[:output_tsv]
       else
-        @users = User.order("#{sort[:sort_by]} #{sort[:order]}").page(page)
+        @users = User.order("#{sort[:sort_by]} #{sort[:order]}").page(page) unless params[:output_pdf] and params[:output_tsv]
+        @users = User.order("#{sort[:sort_by]} #{sort[:order]}") if params[:output_pdf] or params[:output_tsv]
       end
     end
-    @count[:query_result] = @users.total_entries
+    @count[:query_result] = @users.total_entries if !params[:output_pdf] and !params[:output_tsv]
+
+    # output
+    if params[:output_pdf]
+      data = User.output_userlist_pdf(@users)
+      send_data data.generate, :filename => configatron.userlist_pdf_print.filename
+      return
+    end
+    if params[:output_tsv]
+      data = User.output_userlist_tsv(@users)
+      send_data data, :filename => configatron.userlist_tsv_print.filename
+      return
+    end
 
     respond_to do |format|
       format.html # index.rhtml
