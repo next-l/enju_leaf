@@ -1,3 +1,71 @@
+<script>
+  $(document).ready(function(){
+    // check full_name_alternative
+    <% unless @patron.full_name_alternative.blank? %>
+      if ("<%= @patron.full_name_alternative.gsub(/[　\s\t]+$/o, "").gsub(/^[　\s\t]+/o, "") -%>" != "")
+        $("#full_name_alternative").show();
+    <%- end -%>  
+    // check address2
+    var input_address2 = false;
+    "<%- if @patron.zip_code_2 -%>"
+      if ("<%=@patron.zip_code_2.gsub(/[　\s\t]+$/o, "").gsub(/^[　\s\t]+/o, "") -%>" != "")
+        input_address2 = true;
+    "<%- end -%>"
+    "<%- if @patron.address_2 -%>"
+      if ("<%=@patron.address_2.gsub(/[　\s\t]+$/o, "").gsub(/^[　\s\t]+/o, "") -%>" != "")
+        input_address2 = true;
+    "<%- end -%>"
+    "<%- if @patron.telephone_number_2 -%>"
+      if ("<%=@patron.telephone_number_2.gsub(/[　\s\t]+$/o, "").gsub(/^[　\s\t]+/o, "") -%>" != "")
+        input_address2 = true;
+    "<%- end -%>"
+    "<%- if @patron.extelephone_number_2 -%>"
+      if ("<%=@patron.extelephone_number_2.gsub(/[　\s\t]+$/o, "").gsub(/^[　\s\t]+/o, "") -%>" != "")
+        input_address2 = true;
+    "<%- end -%>"
+    "<%- if @patron.fax_number_2 -%>"
+      if ("<%=@patron.fax_number_2.gsub(/[　\s\t]+$/o, "").gsub(/^[　\s\t]+/o, "") -%>" != "")
+        input_address2 = true;
+    "<%- end -%>"
+    "<%- if @patron.address_2_note -%>"
+      if ("<%=@patron.address_2_note.gsub(/[　\s\t]+$/o, "").gsub(/^[　\s\t]+/o, "") -%>" != "")
+        input_address2 = true;
+    "<%- end -%>"
+    if (input_address2 == true)
+      $("#address_2").show();
+    // check patron_type
+    if ("<%= @patron.patron_type_id -%>" == <%= @patron_type_patron_id %>) {
+      $("#name_person").show();
+      $("label[for='patron_date_of_birth']").text('<%= t('activerecord.attributes.patron.date_of_birth') -%>');
+      $("label[for='patron_date_of_death']").text('<%= t('activerecord.attributes.patron.date_of_death') -%>');
+    } else {
+      $("div.patron_full_name_note").hide();
+      $("#name_person").hide();
+      $("label[for='patron_date_of_birth']").text('<%= t('activerecord.attributes.patron.date_of_establishment') -%>');
+      $("label[for='patron_date_of_death']").text('<%= t('activerecord.attributes.patron.date_of_dissolution') -%>');
+    }
+    // change patron_type
+    $("select#patron_patron_type_id").change(function(){
+      str = $("select#patron_patron_type_id option:selected").val();
+      if (str == <%= @patron_type_patron_id %>) {
+        $("div.patron_full_name_note").show();
+        $("#name_person").show();
+        $("label[for='patron_date_of_birth']").text('<%= t('activerecord.attributes.patron.date_of_birth') -%>');
+        $("label[for='patron_date_of_death']").text('<%= t('activerecord.attributes.patron.date_of_death') -%>');
+      } else {
+        $("input#patron_last_name").val("");
+        $("input#patron_last_name_transcription").val("");
+        $("input#patron_first_name").val("");
+        $("input#patron_first_name_transcription").val("");
+        $("div.patron_full_name_note").hide();
+        $("#name_person").hide();
+        $("label[for='patron_date_of_birth']").text('<%= t('activerecord.attributes.patron.date_of_establishment') -%>');
+        $("label[for='patron_date_of_death']").text('<%= t('activerecord.attributes.patron.date_of_dissolution') -%>');
+      }
+    });
+  });
+</script>
+
 <%= render 'page/required_field' %>
 <%= simple_form_for(@patron) do |f| -%>
   <%= f.error_messages -%>
@@ -16,6 +84,7 @@
       <%- end -%>
     </span>
     <%= f.label :full_name -%><br />
+    <div id="annotation" class="patron_full_name_note"><%= t('activerecord.attributes.patron.full_name_note') -%><br /></div>
     <%= f.text_field :full_name, :class => 'resource_title' -%><br />
     <%= f.label :full_name_transcription -%><br />
     <%= f.text_field :full_name_transcription, :class => 'resource_title' -%><br />
@@ -25,22 +94,6 @@
       <%= f.text_area :full_name_alternative, :class => 'resource_textarea' -%>
     </span>
   </div>
-
-  <script>
-    $("select#patron_patron_type_id").change(function(){
-      str = $("select#patron_patron_type_id option:selected").val();
-      if(str == <%= PatronType.find_by_name('Person').id %>){
-        $("#name_person").show();
-        $("label[for='patron_date_of_birth']").text('<%= t('activerecord.attributes.patron.date_of_birth') -%>');
-        $("label[for='patron_date_of_death']").text('<%= t('activerecord.attributes.patron.date_of_death') -%>');
-      }else{
-        $("#name_person").hide();
-        $("label[for='patron_date_of_birth']").text('<%= t('activerecord.attributes.patron.date_of_establishment') -%>');
-        $("label[for='patron_date_of_death']").text('<%= t('activerecord.attributes.patron.date_of_dissolution') -%>');
-      }
-    })
-    .change();
-  </script>
 
   <div class="field">
     <%= f.label :date_of_birth -%><br />
