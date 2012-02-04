@@ -11,6 +11,14 @@ GIT
       will_paginate
 
 GIT
+  remote: git://github.com/nabeta/enju_book_jacket.git
+  revision: a933c2335907bdd801b46902b3a653aa4b951c17
+  specs:
+    enju_book_jacket (0.0.1)
+      configatron
+      rails (~> 3.2)
+
+GIT
   remote: git://github.com/nabeta/enju_bookmark.git
   revision: 0aefff0620798ede76615169cc8cd6de77b3494c
   specs:
@@ -99,6 +107,14 @@ GIT
       sunspot_rails
       sunspot_solr
       will_paginate
+
+GIT
+  remote: git://github.com/nabeta/enju_manifestation_viewer.git
+  revision: c9f7024224a35af0690af77020505e293e8dcc82
+  specs:
+    enju_manifestation_viewer (0.0.1)
+      addressable
+      rails (~> 3.2)
 
 GIT
   remote: git://github.com/nabeta/enju_message.git
@@ -588,11 +604,13 @@ DEPENDENCIES
   devise (~> 2.0)
   dynamic_form
   enju_barcode!
+  enju_book_jacket!
   enju_bookmark!
   enju_circulation!
   enju_event!
   enju_inter_library_loan!
   enju_inventory!
+  enju_manifestation_viewer!
   enju_message!
   enju_ndl!
   enju_oai!

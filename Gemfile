@@ -24,6 +24,8 @@ gem 'enju_inventory', :git => 'git://github.com/nabeta/enju_inventory.git'
 gem 'enju_event', :git => 'git://github.com/nabeta/enju_event.git'
 #gem 'enju_news', :git => 'git://github.com/nabeta/enju_news.git'
 gem 'enju_search_log', :git => 'git://github.com/nabeta/enju_search_log.git'
+gem 'enju_book_jacket', :git => 'git://github.com/nabeta/enju_book_jacket.git'
+gem 'enju_manifestation_viewer', :git => 'git://github.com/nabeta/enju_manifestation_viewer.git'
 
 platforms :ruby do
   gem 'pg'
