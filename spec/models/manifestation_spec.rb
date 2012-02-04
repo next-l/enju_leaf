@@ -192,7 +192,7 @@ describe Manifestation, :solr => true do
   end
 
   it "should be periodical if its series_statement is periodical" do
-    manifestations(:manifestation_00001).periodical?.should be_true
+    manifestations(:manifestation_00202).periodical?.should be_true
   end
 
   if defined?(EnjuCirculation)

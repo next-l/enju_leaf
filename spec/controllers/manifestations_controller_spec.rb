@@ -143,13 +143,13 @@ describe ManifestationsController do
         get :index, :manifestation_id => 1
         response.should be_success
         assigns(:manifestation).should eq Manifestation.find(1)
-        assigns(:manifestations).should eq assigns(:manifestation).derived_manifestations
+        assigns(:manifestations).collect(&:id).should eq assigns(:manifestation).derived_manifestations.collect(&:id)
       end
 
       it "should get index with publisher_id" do
         get :index, :publisher_id => 1
         response.should be_success
-        assigns(:manifestations).should eq Patron.find(1).manifestations.order('created_at DESC')
+        assigns(:manifestations).collect(&:id).should eq Patron.find(1).manifestations.order('created_at DESC').collect(&:id)
       end
 
       it "should get index with query" do

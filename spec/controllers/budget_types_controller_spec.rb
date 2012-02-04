@@ -19,7 +19,7 @@ require 'spec_helper'
 # that an instance is receiving a specific message.
 
 describe BudgetTypesController do
-  fixtures :library_groups
+  fixtures :all
   login_admin
 
   # This should return the minimal set of attributes required to create a valid

@@ -3,13 +3,13 @@
 one:
   id: 1
   original_title: title1
-  periodical: true
+  periodical: false
   position: 1
 
 two:
   id: 2
   original_title: title2
-  periodical: false
+  periodical: true
   position: 2
 
 

@@ -173,7 +173,6 @@ class Manifestation < ActiveRecord::Base
   after_create :clear_cached_numdocs
   before_save :set_date_of_publication
   before_save :set_periodical
-  before_save :extract_text, :if => proc{|manifestation| manifestation.attachment.path.present?}
   after_save :index_series_statement
   after_destroy :index_series_statement
   normalize_attributes :manifestation_identifier, :pub_date, :isbn, :issn, :nbn, :lccn, :original_title
@@ -375,6 +374,7 @@ class Manifestation < ActiveRecord::Base
   end
 
   def extract_text
+    return nil unless attachment.path
     # TODO: S3 support
     response = `curl "#{Sunspot.config.solr.url}/update/extract?&extractOnly=true&wt=ruby" --data-binary @#{attachment.path} -H "Content-type:text/html"`
     self.fulltext = eval(response)[""]
