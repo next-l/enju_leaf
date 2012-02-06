@@ -151,16 +151,16 @@ class LibcheckTmpItem < ActiveRecord::Base
   
   def self.export_error_list(out_dir)
     raise "invalid parameter: no path" if out_dir.nil? || out_dir.length < 1
-    csv_file = out_dir + "error_list.csv"
+    tsv_file = out_dir + "error_list.tsv"
     pdf_file = out_dir + "error_list.pdf"
-    logger.info "output removing_list csv: #{csv_file} pdf: #{pdf_file}"
+    logger.info "output removing_list tsv: #{tsv_file} pdf: #{pdf_file}"
     # create output path
     FileUtils.mkdir_p(out_dir) unless FileTest.exist?(out_dir)
 
     # get date
     libcheck_tmp_items = LibcheckTmpItem.where("status_flg > ?", 0).order("shelf_id, no, id")
-    # make csv
-    make_resorce_list_csv(csv_file, libcheck_tmp_items)
+    # make tsv
+    make_resorce_list_tsv(tsv_file, libcheck_tmp_items)
     # make pdf
     make_resorce_list_pdf(out_dir, pdf_file, libcheck_tmp_items)
   rescue => exc
@@ -185,15 +185,15 @@ class LibcheckTmpItem < ActiveRecord::Base
 
   def self.export(dir)
     raise "invalid parameter: no path" if dir.nil? || dir.length < 1
-    csvfile = dir + "resource_list.csv"
-    logger.info "output resource list : " + csvfile
+    tsvfile = dir + "resource_list.tsv"
+    logger.info "output resource list : " + tsvfile
 
     # create output path
     FileUtils.mkdir_p(dir) unless FileTest.exist?(dir)
 
     # make file
     libcheck_tmp_items = LibcheckTmpItem.order("shelf_id, no, id")
-    make_resorce_list_csv(csvfile, libcheck_tmp_items)
+    make_resorce_list_tsv(tsvfile, libcheck_tmp_items)
   rescue => exc
     logger.error exc
     raise exc
@@ -214,7 +214,7 @@ class LibcheckTmpItem < ActiveRecord::Base
   end
 
   private
-  def self.make_resorce_list_csv(csvfile, libcheck_tmp_items)
+  def self.make_resorce_list_tsv(tsvfile, libcheck_tmp_items)
     columns = [
       ['item_identifier','activerecord.attributes.item.item_identifier'],
       ['no', 'activerecord.attributes.libcheck_tmp_item.seq'],
@@ -236,7 +236,7 @@ class LibcheckTmpItem < ActiveRecord::Base
       ['original_title','activerecord.attributes.manifestation.original_title']
     ]
 
-    File.open(csvfile, "w") do |output|
+    File.open(tsvfile, "w") do |output|
       # add UTF-8 BOM for excel
       output.print "\xEF\xBB\xBF".force_encoding("UTF-8")
 
@@ -245,7 +245,7 @@ class LibcheckTmpItem < ActiveRecord::Base
       columns.each do |column|
         row << I18n.t(column[1])
       end
-      output.print row.join(",")+"\n"
+      output.print '"'+row.join("\"\t\"")+"\"\n"
 
       if libcheck_tmp_items.nil? || libcheck_tmp_items.size < 1
         logger.warn "item data is empty"
@@ -282,14 +282,14 @@ class LibcheckTmpItem < ActiveRecord::Base
               if item.date_of_publication.nil?
                 row << ""
               else
-                row << item.date_of_publication.strftime("%Y-%m-%d")
+                row << item.date_of_publication.strftime("%Y-%m-%d") 
               end
             else
               row << get_object_method(item, column[0].split('.')).to_s.gsub(/\r\n|\r|\n/," ").gsub(/\"/,"\"\"")
             end # end of case column[0]
           end #end of columns.each
 
-          output.print '"'+row.join('","')+"\"\n"
+          output.print '"'+row.join("\"\t\"")+"\"\n"
         end # end_of item_ids.each
       end # end_of item_ids is empty?
     end # end_of File.open
@@ -346,7 +346,7 @@ class LibcheckTmpItem < ActiveRecord::Base
             row.item(:sts_checkout_t_diff).value(conv_flg(item.status_flg, STS_CHECKOUT_T_DIFF))
             row.item(:sts_ndc_warning).value(conv_flg(item.status_flg, STS_NDC_WARNING))
             row.item(:sts_invalid_serial).value(conv_flg(item.status_flg, STS_INVALID_SERIAL))
-            row.item(:date_of_publication).value(item.date_of_publication.strftime("%Y-%m-%d"))
+            row.item(:date_of_publication).value(item.date_of_publication.strftime("%Y-%m-%d")) if item.date_of_publication
             row.item(:edition_display_value).value(item.edition_display_value)
             row.item(:original_title).value(item.original_title)
           end

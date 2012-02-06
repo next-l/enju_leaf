@@ -10,9 +10,9 @@ class LibcheckNotfoundItem < ActiveRecord::Base
 
   def self.export(dir)
     raise "invalid parameter: no path" if dir.nil? || dir.length < 1
-    csvfile = dir + "notfound_list.csv"
+    tsvfile = dir + "notfound_list.tsv"
     pdffile = dir + "notfound_list.pdf"
-    logger.info "output not-found resource list : " + csvfile
+    logger.info "output not-found resource list : " + tsvfile
     # create output path
     FileUtils.mkdir_p(dir) unless FileTest.exist?(dir)
 
@@ -37,7 +37,7 @@ class LibcheckNotfoundItem < ActiveRecord::Base
       [:status_checkout, 'activerecord.attributes.libcheck_notfound_item.status_checkout'],
     ]
 
-    File.open(csvfile, "w") do |output|
+    File.open(tsvfile, "w") do |output|
 
       # add UTF-8 BOM for excel
       output.print "\xEF\xBB\xBF".force_encoding("UTF-8")
@@ -48,7 +48,7 @@ class LibcheckNotfoundItem < ActiveRecord::Base
         row << I18n.t(column[1])
       end
       row << I18n.t('activerecord.attributes.manifestation.original_title') if out_title
-      output.print row.join(",")+"\n"
+      output.print '"'+row.join("\"\t\"")+"\"\n"
 
       if items.size > 0 # find data
         items.each do |item|
@@ -73,7 +73,7 @@ class LibcheckNotfoundItem < ActiveRecord::Base
             end
           end
 
-          output.print '"'+row.join('","')+"\"\n"
+          output.print '"'+row.join("\"\t\"")+"\"\n"
 
         end # end_of items.each
       end # end_of items is empty?

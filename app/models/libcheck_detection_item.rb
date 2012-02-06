@@ -1,22 +1,22 @@
 class LibcheckDetectionItem < ActiveRecord::Base
   def self.export_detection_list(out_dir)
     raise "invalid parameter: no path" if out_dir.nil? || out_dir.length < 1
-    csv_file = out_dir + "detection_list.csv"
+    tsv_file = out_dir + "detection_list.tsv"
     pdf_file = out_dir + "detection_list.pdf"
-    logger.info "output detection_list csv: #{csv_file} pdf: #{pdf_file}"
+    logger.info "output detection_list tsv: #{tsv_file} pdf: #{pdf_file}"
     # create output path
     FileUtils.mkdir_p(out_dir) unless FileTest.exist?(out_dir)
     # get detection item
     circulation_status_ids = CirculationStatus.not_found.inject([]){|ids, circulation_status| ids << circulation_status.id; ids}
     @items = Item.joins(:libcheck_tmp_items).where(["circulation_status_id IN (?)", circulation_status_ids])
-    # make csv
-    make_detection_list_csv(csv_file, @items)
+    # make tsv
+    make_detection_list_tsv(tsv_file, @items)
     # make pdf
     make_detection_list_pdf(pdf_file, @items)
   end
 
 private
-  def self.make_detection_list_csv(csvfile, items)
+  def self.make_detection_list_tsv(tsvfile, items)
     columns = [
       [:item_identifier, 'activerecord.attributes.item.item_identifier'],
       [:original_title, 'activerecord.attributes.manifestation.original_title'],
@@ -24,7 +24,7 @@ private
       [:state, 'activerecord.models.circulation_status'],
     ]
 
-    File.open(csvfile, "w") do |output|
+    File.open(tsvfile, "w") do |output|
       # add UTF-8 BOM for excel
       output.print "\xEF\xBB\xBF".force_encoding("UTF-8")
 
@@ -33,7 +33,7 @@ private
       columns.each do |column|
         row << I18n.t(column[1])
       end
-      output.print row.join(",")+"\n"
+      output.print '"'+row.join("\"\t\"")+"\"\n"
       if items.nil? || items.size < 1
         logger.warn "item data is empty"
       else
@@ -59,7 +59,7 @@ private
               row << item.circulation_status.display_name.localize
             end
           end
-          output.print '"'+row.join('","')+"\"\n"
+          output.print '"'+row.join("\"\t\"")+"\"\n"
         end
       end
     end

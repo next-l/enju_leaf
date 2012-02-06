@@ -36,24 +36,24 @@ class LibraryChecksController < ApplicationController
     # exist libcheck files
     dir = "#{RAILS_ROOT}/private/system/library_check/#{@library_check.id}/"
     files = ["resource_list","error_list","item_register","notfound_list","detection_list","removing_list"]
-    @resource_list_pdf, @resource_list_csv = false, false 
+    @resource_list_pdf, @resource_list_tsv = false, false 
     @resource_list_pdf = true if File.exist?("#{dir}/resource_list.pdf")
-    @resource_list_csv = true if File.exist?("#{dir}/resource_list.csv")
-    @error_list_pdf, @error_list_csv = false, false
+    @resource_list_tsv = true if File.exist?("#{dir}/resource_list.tsv")
+    @error_list_pdf, @error_list_tsv = false, false
     @error_list_pdf = true if File.exist?("#{dir}/error_list.pdf")
-    @error_list_csv = true if File.exist?("#{dir}/error_list.csv")
-    @item_register_pdf, @item_register_csv = false, false
+    @error_list_tsv = true if File.exist?("#{dir}/error_list.tsv")
+    @item_register_pdf, @item_register_tsv = false, false
     @item_register_pdf = true if File.exist?("#{dir}/item_register.pdf")
-    @item_register_csv = true if File.exist?("#{dir}/item_register.csv")
-    @notfound_list_pdf, @notfound_list_csv = false, false
+    @item_register_tsv = true if File.exist?("#{dir}/item_register.tsv")
+    @notfound_list_pdf, @notfound_list_tsv = false, false
     @notfound_list_pdf = true if File.exist?("#{dir}/notfound_list.pdf")
-    @notfound_list_csv = true if File.exist?("#{dir}/notfound_list.csv")
-    @detection_list_pdf, @detection_list_csv = false, false
+    @notfound_list_tsv = true if File.exist?("#{dir}/notfound_list.tsv")
+    @detection_list_pdf, @detection_list_tsv = false, false
     @detection_list_pdf = true if File.exist?("#{dir}/detection_list.pdf")
-    @detection_list_csv = true if File.exist?("#{dir}/detection_list.csv")
-    @removing_list_pdf, @removing_list_csv = false, false
+    @detection_list_tsv = true if File.exist?("#{dir}/detection_list.tsv")
+    @removing_list_pdf, @removing_list_tsv = false, false
     @removing_list_pdf = true if File.exist?("#{dir}/removing_list.pdf")
-    @removing_list_csv = true if File.exist?("#{dir}/removing_list.csv")
+    @removing_list_tsv = true if File.exist?("#{dir}/removing_list.tsv")
 
     respond_to do |format|
       format.html # show.html.erb
@@ -128,7 +128,7 @@ class LibraryChecksController < ApplicationController
     file = params[:file]
     id = params[:id]
    
-    ext_name = "csv"
+    ext_name = "tsv"
     if params[:format] == "pdf"
       ext_name = "pdf"
     end
