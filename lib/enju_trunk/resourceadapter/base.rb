@@ -2,7 +2,17 @@ module EnjuTrunk
   module ResourceAdapter
     class Base
 
+      def logger
+        defined?(Rails.logger) ? Rails.logger : Logger.new($stderr)
+      end
+      def languages
+        Language.all_cache
+      end
+
       class NoFoundAdapter < StandardError #:nodoc:
+      end
+
+      class HeaderFormatError < StandardError #:nodoc:
       end
 
       class << self

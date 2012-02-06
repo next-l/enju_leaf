@@ -491,6 +491,90 @@ class User < ActiveRecord::Base
     return @color
   end
 
+  def self.output_userlist_pdf(users)
+    require 'thinreports'
+    report = ThinReports::Report.new :layout => File.join(Rails.root, 'report', 'userlist.tlf')
+
+    # set page_num
+    report.events.on :page_create do |e|
+      e.page.item(:page).value(e.page.no)
+    end
+    report.events.on :generate do |e|
+      e.pages.each do |page|
+        page.item(:total).value(e.report.page_count)
+      end
+    end
+
+    report.start_new_page do |page|
+      page.item(:date).value(Time.now)
+      users.each do |user|
+        page.list(:list).add_row do |row|
+          row.item(:full_name).value(user.patron.full_name)
+          row.item(:username).value(user.username)
+          row.item(:user_number).value(user.user_number)
+          row.item(:tel1).value(user.patron.telephone_number_1) if user.patron.telephone_number_1
+          row.item(:tel2).value(user.patron.telephone_number_2) if user.patron.telephone_number_2
+          row.item(:created_at).value(user.created_at)
+          row.item(:locked).value(I18n.t('activerecord.attributes.user.locked_yes')) if user.active_for_authentication?
+          row.item(:locked).value(I18n.t('activerecord.attributes.user.locked_no')) unless user.active_for_authentication?
+          row.item(:unable).value(I18n.t('activerecord.attributes.user.unable_yes')) if user.unable
+          row.item(:unable).value(I18n.t('activerecord.attributes.user.unable_no')) unless user.unable
+        end
+      end
+    end
+    return report
+  end
+
+  def self.output_userlist_tsv(users)
+    columns = [
+      [:full_name, 'activerecord.attributes.patron.full_name'],
+      [:username, 'activerecord.attributes.user.username'],
+      [:user_number, 'activerecord.attributes.user.user_number'],
+      [:tel1, 'activerecord.attributes.patron.telephone_number_1'],
+      [:tel2, 'activerecord.attributes.patron.telephone_number_2'],
+      [:created_at, 'page.created_at'],
+      [:locked, 'activerecord.attributes.user.locked'],
+      [:unable, 'activerecord.attributes.user.unable'],
+    ]
+
+    data = String.new
+
+    data << "\xEF\xBB\xBF".force_encoding("UTF-8") + "\n"
+    # title column
+    row = []
+    columns.each do |column|
+      row << I18n.t(column[1])
+    end
+    data << row.join("\t")+"\n"
+
+    users.each do |user|
+      row = []
+      columns.each do |column|
+        case column[0]
+        when :full_name
+          row << user.patron.full_name
+        when :username
+          row << user.username
+        when :user_number
+          row << user.user_number
+        when :tel1
+          row << user.patron.telephone_number_1 if user.patron.telephone_number_1
+        when :tel2
+          row << user.patron.telephone_number_2 if user.patron.telephone_number_2
+        when :created_at
+          row << user.created_at.strftime("%Y/%m/%d %H:%M:%S")
+        when :locked
+          row << I18n.t('activerecord.attributes.user.locked_yes') if user.active_for_authentication?
+          row << I18n.t('activerecord.attributes.user.locked_no') unless user.active_for_authentication?
+        when :unable
+          row << I18n.t('activerecord.attributes.user.unable_yes') if user.unable
+          row << I18n.t('activerecord.attributes.user.unable_no') unless user.unable
+        end
+        data << row.join("\t")+"\n"
+      end  
+    end
+    return data
+  end
 end
 
 # == Schema Information

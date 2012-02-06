@@ -1,12 +1,8 @@
 # template
-class Template_Adapter
+class Template_Adapter < EnjuTrunk::ResourceAdapter::Base
 
   def self.display_name
     "Template Adapter (DisplayName)"
-  end
-
-  def logger 
-    defined?(Rails.logger) ? Rails.logger : Logger.new($stderr)
   end
 
   def import(filename)

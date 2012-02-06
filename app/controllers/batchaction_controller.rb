@@ -207,8 +207,8 @@ private
     #puts row.size
     return [STAT_ERROR_INVALID_FORMAT, "row size is invalid"] if row.size < 4
 
-    @actions = [{:name=>"CHECKOUT", :method=>:checkout},
-                {:name=>"CHECKIN",  :method=>:checkin}
+    @actions = [{:name=>"checkout", :method=>:checkout},
+                {:name=>"checkin",  :method=>:checkin}
                ]
 
     case row[0]
