@@ -71,5 +71,11 @@
   <ul>
     <li><a href="javascript:window.location.href='<%= new_user_purchase_request_url(current_user) -%>?purchase_request[url]='+encodeURIComponent(location.href)+'&purchase_request[title]='+encodeURIComponent(document.title);"><%= t('purchase_request.add_to_purchase_request') -%></a></li>
   </ul>
-  <%= render'page/iconmenu' -%>
+  <div id="iconmenu" class="ui-corner-all">
+    <strong><%= t('tooltip.icons_info') -%></strong>
+    <ul>
+      <li><%= image_tag('icons/page_white_edit.png', :size => '16x16', :alt => t('page.edit'), :title => t('tooltip.edit')) -%>:&nbsp;<%=t('page.edit')-%></li>
+      <li><%= image_tag('icons/delete.png', :size => '16x16', :alt => t('page.destroy'), :title => t('tooltip.destroy')) -%>:&nbsp;<%=t('page.destroy')-%></li>
+    </ul>
+  </div>
 </div>

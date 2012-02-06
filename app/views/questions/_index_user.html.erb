@@ -15,5 +15,12 @@
 <div id="submenu" class="ui-corner-all">
   <%= render 'solved_facet' -%>
   <%= render 'crd' -%>
-  <%= render 'page/iconmenu' if user_signed_in? and current_user.has_role?('User') -%>
+  <div id="iconmenu" class="ui-corner-all">
+    <strong><%= t('tooltip.icons_info') -%></strong>
+    <ul>
+      <li><%= image_tag('icons/page_white_edit.png', :size => '16x16', :alt => t('page.edit'), :title => t('tooltip.edit')) -%>:&nbsp;<%=t('page.edit')-%></li>
+      <li><%= image_tag('icons/delete.png', :size => '16x16', :alt => t('page.destroy'), :title => t('tooltip.destroy')) -%>:&nbsp;<%=t('page.destroy')-%></li>
+      <li><%= image_tag('icons/comments.png', :size => '16x16', :alt => t('tooltip.answer'), :title => t('tooltip.answer')) -%>:&nbsp;<%=t('tooltip.answer')-%></li>
+    </ul>
+  </div>
 </div>

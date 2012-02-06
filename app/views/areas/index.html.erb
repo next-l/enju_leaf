@@ -38,6 +38,12 @@
 <div id="submenu" class="ui-corner-all">
   <ul>
     <li><%= link_to t('page.new', :model => t('activerecord.models.area')), new_area_path -%></li>
-    <%= render 'page/iconmenu' if user_signed_in? and current_user.has_role?('User') -%>
   </ul>
+  <div id="iconmenu" class="ui-corner-all">
+    <strong><%= t('tooltip.icons_info') -%></strong>
+    <ul>
+      <li><%= image_tag('icons/page_white_edit.png', :size => '16x16', :alt => t('page.edit'), :title => t('tooltip.edit')) -%>:&nbsp;<%=t('page.edit')-%></li>
+      <li><%= image_tag('icons/delete.png', :size => '16x16', :alt => t('page.destroy'), :title => t('tooltip.destroy')) -%>:&nbsp;<%=t('page.destroy')-%></li>
+    </ul>
+  </div>
 </div>

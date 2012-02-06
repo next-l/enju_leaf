@@ -91,7 +91,13 @@
     <%- else -%>
       <%= link_to (image_tag 'feed-icon-14x14.png', :size => '14x14', :alt => t('page.feed'), :title => t('tooltip.feed'), :class => 'icon'), url_for(params.merge(:format => :rss, :page => nil)) -%> <%= link_to t('page.search_result_feed'), url_for(params.merge(:format => :rss, :page => nil, :commit => nil)) -%>
     <%- end -%>
-    <%= render 'page/iconmenu' if user_signed_in? and current_user.has_role?('Librarian') -%>
+    <div id="iconmenu" class="ui-corner-all">
+      <strong><%= t('tooltip.icons_info') -%></strong>
+      <ul>
+        <li><%= image_tag('icons/book_edit.png', :size => '16x16', :alt => t('page.edit'), :title => t('tooltip.book_edit')) -%>:&nbsp;<%=t('page.edit')-%></li>
+        <li><%= image_tag('icons/arrow_divide.png', :size => '16x16', :alt => t('manifestation.add_derivation'), :title => t('tooltip.add_derivation')) -%>:&nbsp;<%=t('manifestation.add_derivation')-%></li>
+      </ul>
+    </div>
   </div>
 </div>
 

@@ -102,5 +102,11 @@
     <%- end -%>
   </p>
   <%= render 'page/login' unless current_user -%>
-  <%= render 'page/iconmenu' if user_signed_in? and current_user.has_role?('Librarian') -%>
+  <div id="iconmenu" class="ui-corner-all">
+    <strong><%= t('tooltip.icons_info') -%></strong>
+    <ul>
+      <li><%= image_tag('icons/page_white_edit.png', :size => '16x16', :alt => t('page.edit'), :title => t('tooltip.edit')) -%>:&nbsp;<%=t('page.edit')-%></li>
+      <li><%= image_tag('icons/delete.png', :size => '16x16', :alt => t('page.destroy'), :title => t('tooltip.destroy')) -%>:&nbsp;<%=t('page.destroy')-%></li>
+    </ul>
+  </div>
 </div>

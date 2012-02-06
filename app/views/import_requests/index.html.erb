@@ -38,5 +38,10 @@
   <ul>
     <li><%= link_to t('page.new', :model => t('activerecord.models.import_request')), new_import_request_path -%></li>
   </ul>
-  <%= render 'page/iconmenu' -%>
+  <div id="iconmenu" class="ui-corner-all">
+    <strong><%= t('tooltip.icons_info') -%></strong>
+    <ul>
+      <li><%= image_tag('icons/delete.png', :size => '16x16', :alt => t('page.destroy'), :title => t('tooltip.destroy')) -%>:&nbsp;<%=t('page.destroy')-%></li>
+    </ul>
+  </div>
 </div>
