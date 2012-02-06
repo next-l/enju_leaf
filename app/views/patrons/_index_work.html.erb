@@ -34,6 +34,10 @@
   <%- @patrons.each do |patron| -%>
     <tr class="line<%= cycle("0", "1") -%>">
       <td><%= link_to patron.full_name, patron -%></td>
+<<<<<<< HEAD
+=======
+      <td><%= work.created(patron).create_type.display_name.localize unless params[:mode] == 'add' -%></td>
+>>>>>>> 7cd072e... fixed showing create_type
       <td><%= patron.patron_type.display_name.localize -%></td>
       <td><%=l patron.date_of_birth if patron.date_of_birth -%></td>
       <td>
