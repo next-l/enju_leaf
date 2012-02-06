@@ -87,6 +87,10 @@ configatron.userlist_pdf_print.filename = "userlist.pdf"
 configatron.userlist_tsv_print.filename = "userlist.csv"
 # 連絡不可者の出力
 configatron.unablelist_print.filename = "unablelist.pdf"
+# 家族リストの出力(PDF)
+configatron.familylist_pdf_print.filename = "familylist.pdf"
+# 家族リス知の出力(TSV)
+configatron.familylist_tsv_print.filename = "familylist.csv"
 
 # 督促はがきのファイル名
 configatron.reminder_postal_card_print.filename = "reminder_postal_card.pdf"

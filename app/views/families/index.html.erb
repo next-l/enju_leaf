@@ -2,7 +2,10 @@
 <h1 class="title"><%= t('page.listing', :model => t('activerecord.models.family')) -%></h1>
 <div id="content_list">
 <div style="color: green"><%= flash[:message] -%></div>
-
+<%= form_for :families, :url => families_path, :html => {:method => 'get'} do -%>
+  <%= submit_tag t('page.output_pdf', :model => t('page.listing', :model => t('activerecord.models.family'))), :name => 'output_pdf' -%>
+  <%= submit_tag t('page.output_tsv', :model => t('page.listing', :model => t('activerecord.models.family'))), :name => 'output_tsv' -%>
+<%- end -%>
 <table class="index">
   <tr>
     <th></th>
@@ -15,7 +18,7 @@
     <td><%= link_to family.id, family -%></td>
     <td>
       <%- family.users.each do |user| -%> 
-        <%= user.patron.full_name -%>(<%= user.username -%>)&nbsp;
+        <%= link_to user.patron.full_name, user -%>(<%= link_to user.username, user -%>)&nbsp;
       <%- end -%>
     </td>
     <td><%= link_to t('page.edit'), edit_family_path(family) -%>

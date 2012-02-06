@@ -1,9 +1,20 @@
 class FamiliesController < ApplicationController
   before_filter :check_client_ip_address
+  before_filter :check_librarian
   load_and_authorize_resource
 
   def index
     @families = Family.all
+
+    # output
+    if params[:output_pdf]
+      data = Family.output_familylist_pdf(@families)
+      send_data data.generate, :filename => configatron.familylist_pdf_print.filename
+    end
+    if params[:output_tsv]
+      data = Family.output_familylist_tsv(@families)
+      send_data data, :filename => configatron.familylist_tsv_print.filename
+    end
   end
 
   def show
