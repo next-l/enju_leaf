@@ -1,7 +1,7 @@
 class Term < ActiveRecord::Base
   validates_presence_of :display_name, :start_at, :end_at
   before_save :set_end_date
-  belongs_to :budget
+  has_many :budgets
 
   def validate
     unless self.start_at < self.end_at

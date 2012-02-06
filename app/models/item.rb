@@ -42,7 +42,7 @@ class Item < ActiveRecord::Base
   validates :url, :url => true, :allow_blank => true, :length => {:maximum => 255}
   validates_date :acquired_at, :allow_blank => true
   before_validation :set_circulation_status, :on => :create
-  before_save :set_use_restriction, :check_remove_item
+  before_save :set_use_restriction, :check_remove_item, :check_price
 
   #enju_union_catalog
   has_paper_trail
@@ -282,6 +282,25 @@ class Item < ActiveRecord::Base
       self.removed_at = Time.zone.now if self.removed_at.nil?
     else
       self.removed_at = nil
+    end
+  end
+
+  def check_price
+    record = Expense.where(:item_id => self.id).order("id DESC").first
+    begin
+      unless record.nil?
+        return if self.price == record.price
+        Expense.transaction do
+          Expense.create!(:item_id => self.id, :budget_id => record.budget_id, :price => record.price*-1)
+          budget = Budget.joins(:term).where(:library_id => self.shelf.library.id).order("terms.start_at DESC").first
+          Expense.create!(:item_id => self.id, :budget_id => budget.id, :price => self.price) if budget
+        end
+      else
+        budget = Budget.joins(:term).where(:library_id => self.shelf.library.id).order("terms.start_at DESC").first
+        Expense.create!(:item_id => self.id, :budget_id => budget.id, :price => self.price) if budget
+      end
+    rescue Exception => e
+      logger.error "Failed to update expense: #{e}"
     end
   end
 

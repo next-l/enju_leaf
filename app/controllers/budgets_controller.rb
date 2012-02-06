@@ -50,7 +50,12 @@ class BudgetsController < ApplicationController
 
   def show
     @budget = Budget.find(params[:id])
+    @sum = Budget.sum(:amount, :conditions => {:library_id => @budget.library_id, :term_id => @budget.term_id})
+    budget_ids = Budget.where(:library_id => @budget.library_id, :term_id => @budget.term_id).inject([]){|ids, budget| ids << budget.id}
+    expense = Expense.sum(:price, :conditions => ["budget_id IN (?)", budget_ids])
+    @balance = @sum - expense
   end
+
   def destroy
     @budget = Budget.find(params[:id])
     @budget.destroy

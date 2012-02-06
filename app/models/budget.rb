@@ -1,7 +1,8 @@
 class Budget < ActiveRecord::Base
   validates_presence_of :library_id, :term_id
   has_one :library
-  has_one :term
+  belongs_to :term
+  has_one :expense
   validates_numericality_of :amount, :allow_blank => true
 
   def library

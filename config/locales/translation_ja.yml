@@ -176,6 +176,7 @@ ja:
       loss_item: 紛失弁償
       system_configuration: システム情報
       reminder_list: 督促情報
+      expense: 購入情報
    
     attributes:
       reminder_list:
@@ -1257,6 +1258,7 @@ ja:
         library: 図書館
         term: 期間
         amount: 金額
+        note: 説明
       term:
         display_name: 期間名
         start_at: 開始日時
@@ -1288,6 +1290,11 @@ ja:
         description: "説明"
         invalid_format: "の型が不正です"
         type_format: "型が Boolean の場合は true もしくは false を指定してください。"
+      expense:
+        budget: 予算
+        item: 所蔵情報
+        price: 値段
+
   page:
     user_title: "ようこそ %{login_name} さん"
     logged_in_as: "%{login_name} としてログイン"
@@ -1960,8 +1967,12 @@ ja:
     unsuccess_start: "インポート開始に失敗しました。"
   budget:
     yen: "%{amount} 円"
+    sum: 予算全額(補正予算を含む)
+    balance: 残金
   term:
     cannot_delete: "この期間は削除できません。"
+  expense:
+    yen: "%{price} 円"
   statistic_report:
     monthly_report: 月別利用統計
     daily_report: 日別利用統計
