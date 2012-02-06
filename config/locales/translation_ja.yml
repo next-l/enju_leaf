@@ -1979,7 +1979,7 @@ ja:
     year_or_month: 対象年度(YYYY)または対象月(YYYYMM)
     day: 対象年月日(YYYYMMDD)
     submit: "帳票を作成"
-    submit_csv: "CSVで出力"
+    submit_tsv: "TSVで出力"
     created: "帳票を作成しました。"
     all_library: 全図書館
     items: 蔵書冊数(冊)
@@ -2065,7 +2065,7 @@ ja:
     no_list_condition: "抽出条件を指定してください。"
   item_register:
     pdf: PDF
-    csv: CSV
+    tsv: TSV
     list_number: 件数
     page_number: ページ数
     item_register: 図書原簿

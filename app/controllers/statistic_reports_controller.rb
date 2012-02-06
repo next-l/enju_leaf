@@ -43,10 +43,9 @@ class StatisticReportsController < ApplicationController
       render :index
       return false
     end
-    if params[:csv]
-      logger.error "csv"
-      file = StatisticReport.get_monthly_report_csv(term)
-      send_file file, :filename => "#{term}_#{configatron.statistic_report.monthly_csv}", :type => 'application/csv', :disposition => 'attachment'
+    if params[:tsv]
+      file = StatisticReport.get_monthly_report_tsv(term)
+      send_file file, :filename => "#{term}_#{configatron.statistic_report.monthly_tsv}", :type => 'application/tsv', :disposition => 'attachment'
     else
       file = StatisticReport.get_monthly_report_pdf(term)
       send_data file, :filename => "#{term}_#{configatron.statistic_report.monthly}", :type => 'application/pdf', :disposition => 'attachment'
@@ -72,9 +71,9 @@ class StatisticReportsController < ApplicationController
       render :index
       return false
     end
-    if params[:csv]
-      file = StatisticReport.get_daily_report_csv(term)
-      send_file file, :filename => "#{term}_#{configatron.statistic_report.daily_csv}", :type => 'application/csv', :disposition => 'attachment'
+    if params[:tsv]
+      file = StatisticReport.get_daily_report_tsv(term)
+      send_file file, :filename => "#{term}_#{configatron.statistic_report.daily_tsv}", :type => 'application/tsv', :disposition => 'attachment'
     else
       file = StatisticReport.get_daily_report_pdf(term)
       send_data file, :filename => "#{term}_#{configatron.statistic_report.daily}", :type => 'application/pdf', :disposition => 'attachment'
@@ -102,9 +101,9 @@ class StatisticReportsController < ApplicationController
       render :index
       return false
     end
-    if params[:csv]
-      file = StatisticReport.get_timezone_report_csv(start_at, end_at)
-      send_file file, :filename => "#{start_at}_#{end_at}_#{configatron.statistic_report.timezone_csv}", :type => 'application/csv', :disposition => 'attachment'
+    if params[:tsv]
+      file = StatisticReport.get_timezone_report_tsv(start_at, end_at)
+      send_file file, :filename => "#{start_at}_#{end_at}_#{configatron.statistic_report.timezone_tsv}", :type => 'application/tsv', :disposition => 'attachment'
     else
       file = StatisticReport.get_timezone_report_pdf(start_at, end_at)
       send_data file, :filename => "#{start_at}_#{end_at}_#{configatron.statistic_report.timezone}", :type => 'application/pdf', :disposition => 'attachment'
@@ -132,9 +131,9 @@ class StatisticReportsController < ApplicationController
       render :index
       return false
     end
-    if params[:csv]
-      file = StatisticReport.get_day_report_csv(start_at, end_at)
-      send_file file, :filename => "#{start_at}_#{end_at}_#{configatron.statistic_report.day_csv}", :type => 'application/csv', :disposition => 'attachment'
+    if params[:tsv]
+      file = StatisticReport.get_day_report_tsv(start_at, end_at)
+      send_file file, :filename => "#{start_at}_#{end_at}_#{configatron.statistic_report.day_tsv}", :type => 'application/tsv', :disposition => 'attachment'
     else
       file = StatisticReport.get_day_report_pdf(start_at, end_at)
       send_data file, :filename => "#{start_at}_#{end_at}_#{configatron.statistic_report.day}", :type => 'application/pdf', :disposition => 'attachment'
@@ -162,9 +161,9 @@ class StatisticReportsController < ApplicationController
       render :index
       return false
     end
-    if params[:csv]
-      file = StatisticReport.get_age_report_csv(start_at, end_at)
-      send_file file, :filename => "#{start_at}_#{end_at}_#{configatron.statistic_report.age_csv}", :type => 'application/csv', :disposition => 'attachment'
+    if params[:tsv]
+      file = StatisticReport.get_age_report_tsv(start_at, end_at)
+      send_file file, :filename => "#{start_at}_#{end_at}_#{configatron.statistic_report.age_tsv}", :type => 'application/tsv', :disposition => 'attachment'
     else
       file = StatisticReport.get_age_report_pdf(start_at, end_at)
       send_data file, :filename => "#{start_at}_#{end_at}_#{configatron.statistic_report.age}", :type => 'application/pdf', :disposition => 'attachment'
@@ -191,17 +190,17 @@ class StatisticReportsController < ApplicationController
       return false
     end
     if term =~ /^\d{4}$/
-      if params[:csv]
-        file = StatisticReport.get_items_monthly_csv(term)
-        send_file file, :filename => "#{term}_#{configatron.statistic_report.items_csv}", :type => 'application/csv', :disposition => 'attachment'
+      if params[:tsv]
+        file = StatisticReport.get_items_monthly_tsv(term)
+        send_file file, :filename => "#{term}_#{configatron.statistic_report.items_tsv}", :type => 'application/tsv', :disposition => 'attachment'
       else
         file = StatisticReport.get_items_monthly_pdf(term)
         send_data file, :filename => "#{term}_#{configatron.statistic_report.items}", :type => 'application/pdf', :disposition => 'attachment'
       end
     else
-      if params[:csv]
-        file = StatisticReport.get_items_daily_csv(term)
-        send_file file, :filename => "#{term}_#{configatron.statistic_report.items_csv}", :type => 'application/csv', :disposition => 'attachment'
+      if params[:tsv]
+        file = StatisticReport.get_items_daily_tsv(term)
+        send_file file, :filename => "#{term}_#{configatron.statistic_report.items_tsv}", :type => 'application/tsv', :disposition => 'attachment'
       else
         file = StatisticReport.get_items_daily_pdf(term)
         send_data file, :filename => "#{term}_#{configatron.statistic_report.items}", :type => 'application/pdf', :disposition => 'attachment'
@@ -229,17 +228,17 @@ class StatisticReportsController < ApplicationController
       return false
     end
     if term =~ /^\d{4}$/
-      if params[:csv]
-        file = StatisticReport.get_inout_monthly_csv(term)
-        send_file file, :filename => "#{term}_#{configatron.statistic_report.inout_items_csv}", :type => 'application/csv', :disposition => 'attachment' 
+      if params[:tsv]
+        file = StatisticReport.get_inout_monthly_tsv(term)
+        send_file file, :filename => "#{term}_#{configatron.statistic_report.inout_items_tsv}", :type => 'application/tsv', :disposition => 'attachment' 
       else
         file = StatisticReport.get_inout_monthly_pdf(term)
         send_data file, :filename => "#{term}_#{configatron.statistic_report.inout_items}", :type => 'application/pdf', :disposition => 'attachment'
       end
     else
-      if params[:csv]
-        file = StatisticReport.get_inout_daily_csv(term)
-        send_file file, :filename => "#{term}_#{configatron.statistic_report.inout_items_csv}", :type => 'application/csv', :disposition => 'attachment'
+      if params[:tsv]
+        file = StatisticReport.get_inout_daily_tsv(term)
+        send_file file, :filename => "#{term}_#{configatron.statistic_report.inout_items_tsv}", :type => 'application/tsv', :disposition => 'attachment'
       else
         file = StatisticReport.get_inout_daily_pdf(term)
         send_data file, :filename => "#{term}_#{configatron.statistic_report.inout_items}", :type => 'application/pdf', :disposition => 'attachment'
@@ -267,17 +266,17 @@ class StatisticReportsController < ApplicationController
       return false
     end
     if term =~ /^\d{4}$/
-      if params[:csv]
-        file = StatisticReport.get_loans_monthly_csv(term)
-        send_file file, :filename => "#{term}_#{configatron.statistic_report.loans_csv}", :type => 'application/csv', :disposition => 'attachment'
+      if params[:tsv]
+        file = StatisticReport.get_loans_monthly_tsv(term)
+        send_file file, :filename => "#{term}_#{configatron.statistic_report.loans_tsv}", :type => 'application/tsv', :disposition => 'attachment'
       else
         file = StatisticReport.get_loans_monthly_pdf(term)
         send_data file, :filename => "#{term}_#{configatron.statistic_report.loans}", :type => 'application/pdf', :disposition => 'attachment'
       end
     else
-      if params[:csv]
-        file = StatisticReport.get_loans_daily_csv(term)
-        send_file file, :filename => "#{term}_#{configatron.statistic_report.loans_csv}", :type => 'application/csv', :disposition => 'attachment'
+      if params[:tsv]
+        file = StatisticReport.get_loans_daily_tsv(term)
+        send_file file, :filename => "#{term}_#{configatron.statistic_report.loans_tsv}", :type => 'application/tsv', :disposition => 'attachment'
       else
         file = StatisticReport.get_loans_daily_pdf(term)
         send_data file, :filename => "#{term}_#{configatron.statistic_report.loans}", :type => 'application/pdf', :disposition => 'attachment'       
@@ -305,17 +304,17 @@ class StatisticReportsController < ApplicationController
       return false
     end
     if term =~ /^\d{4}$/
-      if params[:csv]
-        file = StatisticReport.get_groups_monthly_csv(term)
-        send_file file, :filename => "#{term}_#{configatron.statistic_report.groups_csv}", :type => 'application/csv', :disposition => 'attachment'
+      if params[:tsv]
+        file = StatisticReport.get_groups_monthly_tsv(term)
+        send_file file, :filename => "#{term}_#{configatron.statistic_report.groups_tsv}", :type => 'application/tsv', :disposition => 'attachment'
       else
         file = StatisticReport.get_groups_monthly_pdf(term)
         send_data file, :filename => "#{term}_#{configatron.statistic_report.groups}", :type => 'application/pdf', :disposition => 'attachment'
       end
     else
-      if params[:csv]
-        file = StatisticReport.get_groups_daily_csv(term)
-        send_file file, :filename => "#{term}_#{configatron.statistic_report.groups_csv}", :type => 'application/csv', :disposition => 'attachment'
+      if params[:tsv]
+        file = StatisticReport.get_groups_daily_tsv(term)
+        send_file file, :filename => "#{term}_#{configatron.statistic_report.groups_tsv}", :type => 'application/tsv', :disposition => 'attachment'
       else
         file = StatisticReport.get_groups_daily_pdf(term)
         send_data file, :filename => "#{term}_#{configatron.statistic_report.groups}", :type => 'application/pdf', :disposition => 'attachment'       

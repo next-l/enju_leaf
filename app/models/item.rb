@@ -287,16 +287,16 @@ class Item < ActiveRecord::Base
 
   def self.export_removing_list(out_dir, file_type = nil)
     raise "invalid parameter: no path" if out_dir.nil? || out_dir.length < 1
-    csv_file = out_dir + "removing_list.csv"
+    tsv_file = out_dir + "removing_list.tsv"
     pdf_file = out_dir + "removing_list.pdf"
-    logger.info "output removing_list csv: #{csv_file} pdf: #{pdf_file}"
+    logger.info "output removing_list tsv: #{tsv_file} pdf: #{pdf_file}"
     # create output path
     FileUtils.mkdir_p(out_dir) unless FileTest.exist?(out_dir)
     
     items = Item.where('removed_at IS NOT NULL').order('removed_at ASC, id ASC')
     if items
-      # csv
-      if file_type.nil? || file_type == "csv"
+      # tsv
+      if file_type.nil? || file_type == "tsv"
         columns = [
           ['item_identifier','activerecord.attributes.item.item_identifier'],
           ['removed_at', 'activerecord.attributes.item.removed_at'],
@@ -308,7 +308,7 @@ class Item < ActiveRecord::Base
           ['price', 'activerecord.attributes.item.price'],
           ['note', 'activerecord.attributes.item.note']
         ]
-        File.open(csv_file, "w") do |output|
+        File.open(tsv_file, "w") do |output|
           # add UTF-8 BOM for excel
           output.print "\xEF\xBB\xBF".force_encoding("UTF-8")
 
@@ -317,7 +317,7 @@ class Item < ActiveRecord::Base
           columns.each do |column|
             row << I18n.t(column[1])
           end
-          output.print row.join(",")+"\n"
+          output.print '"'+row.join("\"\t\"")+"\n"
   
           items.each do |item|
             row = []
@@ -339,7 +339,7 @@ class Item < ActiveRecord::Base
                 row << get_object_method(item, column[0].split('.')).to_s.gsub(/\r\n|\r|\n/," ").gsub(/\"/,"\"\"")
               end # end of case column[0]
             end #end of columns.each
-            output.print '"'+row.join('","')+"\"\n"
+            output.print '"'+row.join("\"\t\"")+"\"\n"
           end # end of items.each
         end
       end
@@ -384,31 +384,31 @@ class Item < ActiveRecord::Base
 
   def self.export_item_register(out_dir, file_type = nil) 
     raise "invalid parameter: no path" if out_dir.nil? || out_dir.length < 1
-    csv_file = out_dir + "item_register.csv"
+    tsv_file = out_dir + "item_register.tsv"
     pdf_file = out_dir + "item_register.pdf"
-    logger.info "output item_register csv: #{csv_file} pdf: #{pdf_file}"
+    logger.info "output item_register tsv: #{tsv_file} pdf: #{pdf_file}"
     # create output path
     FileUtils.mkdir_p(out_dir) unless FileTest.exist?(out_dir)
     # get item
     @items = Item.order("bookstore_id DESC, acquired_at ASC, item_identifier ASC").all
-    # make csv
-    make_item_register_csv(csv_file, @items) if file_type.nil? || file_type == "csv"
+    # make tsv
+    make_item_register_tsv(tsv_file, @items) if file_type.nil? || file_type == "tsv"
     # make pdf
     make_item_register_pdf(pdf_file, @items) if file_type.nil? || file_type == "pdf"
   end
 
   def self.export_audio_list(out_dir, file_type = nil)
     raise "invalid parameter: no path" if out_dir.nil? || out_dir.length < 1
-    csv_file = out_dir + "audio_list.csv"
+    tsv_file = out_dir + "audio_list.tsv"
     pdf_file = out_dir + "audio_list.pdf"
-    logger.info "output audio_list csv: #{csv_file} pdf: #{pdf_file}"
+    logger.info "output audio_list tsv: #{tsv_file} pdf: #{pdf_file}"
     # create output path
     FileUtils.mkdir_p(out_dir) unless FileTest.exist?(out_dir)
     # get item
     carrier_type_ids = CarrierType.audio.inject([]){|ids, c| ids << c.id}
     @items = Item.joins(:manifestation).where(["manifestations.carrier_type_id IN (?)", carrier_type_ids]).order("bookstore_id DESC, acquired_at ASC, item_identifier ASC").all
-    # make csv
-    make_audio_list_csv(csv_file, @items) if file_type.nil? || file_type == "csv"
+    # make tsv
+    make_audio_list_tsv(tsv_file, @items) if file_type.nil? || file_type == "tsv"
     # make pdf
     make_audio_list_pdf(pdf_file, @items) if file_type.nil? || file_type == "pdf"
   end
@@ -428,7 +428,7 @@ class Item < ActiveRecord::Base
     return _obj
   end
 
-  def self.make_item_register_csv(csvfile, items)
+  def self.make_item_register_tsv(tsvfile, items)
     columns = [
       [:bookstore, 'activerecord.models.bookstore'],
       ['item_identifier', 'activerecord.attributes.item.item_identifier'],
@@ -443,7 +443,7 @@ class Item < ActiveRecord::Base
       ['note', 'activerecord.attributes.item.note']
     ]
   
-    File.open(csvfile, "w") do |output|
+    File.open(tsvfile, "w") do |output|
       # add UTF-8 BOM for excel
       output.print "\xEF\xBB\xBF".force_encoding("UTF-8")
 
@@ -452,7 +452,7 @@ class Item < ActiveRecord::Base
       columns.each do |column|
         row << I18n.t(column[1])
       end
-      output.print row.join(",")+"\n"
+      output.print '"'+row.join("\"\t\"")+"\"\n"
       if items.nil? || items.size < 1
         logger.warn "item data is empty"
       else
@@ -468,7 +468,7 @@ class Item < ActiveRecord::Base
               end
             when :creator
               if item.manifestation && item.manifestation.creators
-                row << item.manifestation.creators.inject([]){|names, creator| names << creator.full_name if creator.full_name; names}.join(",")
+                row << item.manifestation.creators.inject([]){|names, creator| names << creator.full_name if creator.full_name; names}.join("\t")
               else
                 row << ""
               end
@@ -486,7 +486,7 @@ class Item < ActiveRecord::Base
               end
             when :publisher
               if item.publisher
-                row << item.publisher.delete_if{|p|p.blank?}.join(",")
+                row << item.publisher.delete_if{|p|p.blank?}.join("\t")
               else
                 row << ""
               end
@@ -506,13 +506,13 @@ class Item < ActiveRecord::Base
               row << get_object_method(item, column[0].split('.')).to_s.gsub(/\r\n|\r|\n/," ").gsub(/\"/,"\"\"")
             end
           end
-          output.print '"'+row.join('","')+"\"\n"
+          output.print '"'+row.join("\"\t\"")+"\"\n"
         end  
       end
     end
   end
 
-  def self.make_audio_list_csv(csvfile, items)
+  def self.make_audio_list_tsv(tsvfile, items)
     columns = [
       [:library, 'activerecord.models.library'],
       [:carrier_type, 'activerecord.models.carrier_type'],
@@ -527,7 +527,7 @@ class Item < ActiveRecord::Base
       ['note', 'activerecord.attributes.item.note']
     ]
   
-    File.open(csvfile, "w") do |output|
+    File.open(tsvfile, "w") do |output|
       # add UTF-8 BOM for excel
       output.print "\xEF\xBB\xBF".force_encoding("UTF-8")
 
@@ -536,7 +536,7 @@ class Item < ActiveRecord::Base
       columns.each do |column|
         row << I18n.t(column[1])
       end
-      output.print row.join(",")+"\n"
+      output.print '"'+row.join("\"\t\"")+"\"\n"
       if items.nil? || items.size < 1
         logger.warn "item data is empty"
       else
@@ -552,7 +552,7 @@ class Item < ActiveRecord::Base
               end
             when :creator
               if item.manifestation && item.manifestation.creators
-                row << item.manifestation.creators.inject([]){|names, creator| names << creator.full_name if creator.full_name; names}.join(",")
+                row << item.manifestation.creators.inject([]){|names, creator| names << creator.full_name if creator.full_name; names}.join("\t")
               else
                 row << ""
               end
@@ -570,7 +570,7 @@ class Item < ActiveRecord::Base
               end
             when :publisher
               if item.publisher
-                row << item.publisher.delete_if{|p|p.blank?}.join(",")
+                row << item.publisher.delete_if{|p|p.blank?}.join("\t")
               else
                 row << ""
               end
@@ -590,7 +590,7 @@ class Item < ActiveRecord::Base
               row << get_object_method(item, column[0].split('.')).to_s.gsub(/\r\n|\r|\n/," ").gsub(/\"/,"\"\"")
             end
           end
-          output.print '"'+row.join('","')+"\"\n"
+          output.print '"'+row.join("\"\t\"")+"\"\n"
         end  
       end
     end

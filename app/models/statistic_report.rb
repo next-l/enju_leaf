@@ -983,10 +983,10 @@ class StatisticReport < ActiveRecord::Base
     end	
   end
 
-  def self.get_monthly_report_csv(term)
+  def self.get_monthly_report_tsv(term)
     dir_base = "#{RAILS_ROOT}/private/system"
     out_dir = "#{dir_base}/statistic_report/"
-    csv_file = out_dir + "#{term}_monthly_report.csv"
+    tsv_file = out_dir + "#{term}_monthly_report.tsv"
     FileUtils.mkdir_p(out_dir) unless FileTest.exist?(out_dir)
     # header
     columns = [
@@ -997,9 +997,9 @@ class StatisticReport < ActiveRecord::Base
     libraries = Library.all
     checkout_types = CheckoutType.all
     user_groups = UserGroup.all
-    File.open(csv_file, "w") do |output|
+    File.open(tsv_file, "w") do |output|
       # add UTF-8 BOM for excel
-      output.print "\xEF\xBB\xBF".force_encoding("UTF-8")
+      output.print"\xEF\xBB\xBF".force_encoding("UTF-8")
 
       # タイトル行
       row = []
@@ -1016,7 +1016,7 @@ class StatisticReport < ActiveRecord::Base
       end
       row << I18n.t('statistic_report.sum')
       columns << ["sum"]
-      output.print row.join(",")+"\n"
+      output.print "\""+row.join("\"\t\"")+"\"\n"
 
       # items all libraries
       data_type = 111
@@ -1037,7 +1037,7 @@ class StatisticReport < ActiveRecord::Base
           row << to_format(value)
         end
       end  
-      output.print '"'+row.join('","')+"\"\n"
+      output.print "\""+row.join("\"\t\"")+"\"\n"
       # items each checkout_types
       checkout_types.each do |checkout_type|
         row = []
@@ -1057,7 +1057,7 @@ class StatisticReport < ActiveRecord::Base
             row << to_format(value)
           end
         end
-        output.print '"'+row.join('","')+"\"\n"
+        output.print "\""+row.join("\"\t\"")+"\"\n"
       end
       # items each library
       libraries.each do |library|
@@ -1078,7 +1078,7 @@ class StatisticReport < ActiveRecord::Base
             row << to_format(value)
           end
         end
-        output.print '"'+row.join('","')+"\"\n"
+        output.print "\""+row.join("\"\t\"")+"\"\n"
         # items each checkout_types
         checkout_types.each do |checkout_type|
           row = []
@@ -1098,7 +1098,7 @@ class StatisticReport < ActiveRecord::Base
               row << to_format(value)
             end
           end
-          output.print '"'+row.join('","')+"\"\n"
+          output.print "\""+row.join("\"\t\"")+"\"\n"
         end
       end
       # open days of each libraries
@@ -1121,7 +1121,7 @@ class StatisticReport < ActiveRecord::Base
             row << to_format(value)
           end
         end
-        output.print '"'+row.join('","')+"\"\n"
+        output.print "\""+row.join("\"\t\"")+"\"\n"
       end
       # checkout users all libraries
       data_type = 122
@@ -1143,7 +1143,7 @@ class StatisticReport < ActiveRecord::Base
           row << to_format(value)
         end  
       end
-      output.print '"'+row.join('","')+"\"\n"
+      output.print "\""+row.join("\"\t\"")+"\"\n"
       # checkout users each user type
       5.downto(1) do |i|
         sum = 0
@@ -1164,7 +1164,7 @@ class StatisticReport < ActiveRecord::Base
             row << to_format(value)
           end  
         end
-        output.print '"'+row.join('","')+"\"\n"
+        output.print "\""+row.join("\"\t\"")+"\"\n"
       end
       # checkout users each library
       libraries.each do |library|
@@ -1186,7 +1186,7 @@ class StatisticReport < ActiveRecord::Base
             row << to_format(value)
           end  
         end
-        output.print '"'+row.join('","')+"\"\n"
+        output.print "\""+row.join("\"\t\"")+"\"\n"
         # checkout users each user type
         5.downto(1) do |i|
           sum = 0
@@ -1207,7 +1207,7 @@ class StatisticReport < ActiveRecord::Base
               row << to_format(value)
             end  
           end
-          output.print '"'+row.join('","')+"\"\n"
+          output.print "\""+row.join("\"\t\"")+"\"\n"
         end
       end
       # daily average of checkout users all library
@@ -1230,7 +1230,7 @@ class StatisticReport < ActiveRecord::Base
           row << to_format(value)
         end  
       end
-      output.print '"'+row.join('","')+"\"\n"
+      output.print "\""+row.join("\"\t\"")+"\"\n"
       # daily average of checkout users each library
       libraries.each do |library|
         sum = 0
@@ -1251,7 +1251,7 @@ class StatisticReport < ActiveRecord::Base
             row << to_format(value)
           end  
         end
-        output.print '"'+row.join('","')+"\"\n"
+        output.print "\""+row.join("\"\t\"")+"\"\n"
       end
       # checkout items all libraries
       data_type = 121
@@ -1273,7 +1273,7 @@ class StatisticReport < ActiveRecord::Base
           row << to_format(value)
         end  
       end
-      output.print '"'+row.join('","')+"\"\n"
+      output.print "\""+row.join("\"\t\"")+"\"\n"
       # checkout items all libraries each item types
       3.times do |i|
         sum = 0
@@ -1294,7 +1294,7 @@ class StatisticReport < ActiveRecord::Base
             row << to_format(value)
           end  
         end
-        output.print '"'+row.join('","')+"\"\n"
+        output.print "\""+row.join("\"\t\"")+"\"\n"
       end
       # checkout items each library
       libraries.each do |library|
@@ -1316,7 +1316,7 @@ class StatisticReport < ActiveRecord::Base
             row << to_format(value)
           end  
         end
-        output.print '"'+row.join('","')+"\"\n"
+        output.print "\""+row.join("\"\t\"")+"\"\n"
         3.times do |i|
           sum = 0
           row = []
@@ -1336,7 +1336,7 @@ class StatisticReport < ActiveRecord::Base
               row << to_format(value)
             end  
           end
-          output.print '"'+row.join('","')+"\"\n"
+          output.print "\""+row.join("\"\t\"")+"\"\n"
         end
       end
       # checkout items each user_group
@@ -1359,7 +1359,7 @@ class StatisticReport < ActiveRecord::Base
             row << to_format(value)
           end  
         end
-        output.print '"'+row.join('","')+"\"\n"
+        output.print "\""+row.join("\"\t\"")+"\"\n"
       end
       libraries.each do |library|
         user_groups.each do |user_group|
@@ -1381,7 +1381,7 @@ class StatisticReport < ActiveRecord::Base
               row << to_format(value)
             end  
           end
-          output.print '"'+row.join('","')+"\"\n"
+          output.print "\""+row.join("\"\t\"")+"\"\n"
         end
       end
       # daily average of checkout items all library
@@ -1403,7 +1403,7 @@ class StatisticReport < ActiveRecord::Base
           row << to_format(value)
         end  
       end
-      output.print '"'+row.join('","')+"\"\n"
+      output.print "\""+row.join("\"\t\"")+"\"\n"
       # daily average of checkout items each library
       libraries.each do |library|
         sum = 0
@@ -1424,7 +1424,7 @@ class StatisticReport < ActiveRecord::Base
             row << to_format(value)
           end  
         end
-        output.print '"'+row.join('","')+"\"\n"
+        output.print "\""+row.join("\"\t\"")+"\"\n"
       end
       # remind checkout items
       sum = 0
@@ -1445,7 +1445,7 @@ class StatisticReport < ActiveRecord::Base
           row << to_format(value)
         end  
       end
-      output.print '"'+row.join('","')+"\"\n"
+      output.print "\""+row.join("\"\t\"")+"\"\n"
       libraries.each do |library|     
         sum = 0
         row = []
@@ -1465,7 +1465,7 @@ class StatisticReport < ActiveRecord::Base
             row << to_format(value)
           end  
         end
-        output.print '"'+row.join('","')+"\"\n"
+        output.print "\""+row.join("\"\t\"")+"\"\n"
       end
 
       # checkin items
@@ -1487,7 +1487,7 @@ class StatisticReport < ActiveRecord::Base
           row << to_format(value)
         end  
       end
-      output.print '"'+row.join('","')+"\"\n"
+      output.print "\""+row.join("\"\t\"")+"\"\n"
       libraries.each do |library|
         sum = 0
         row = []
@@ -1507,7 +1507,7 @@ class StatisticReport < ActiveRecord::Base
             row << to_format(value)
           end  
         end
-        output.print '"'+row.join('","')+"\"\n"
+        output.print "\""+row.join("\"\t\"")+"\"\n"
       end
       # daily average of checkin items all library
       sum = 0
@@ -1528,7 +1528,7 @@ class StatisticReport < ActiveRecord::Base
           row << to_format(value)
         end  
       end
-      output.print '"'+row.join('","')+"\"\n"
+      output.print "\""+row.join("\"\t\"")+"\"\n"
       # daily average of checkin items each library
       libraries.each do |library|
         row = []
@@ -1549,7 +1549,7 @@ class StatisticReport < ActiveRecord::Base
             row << to_format(value)
           end  
         end
-        output.print '"'+row.join('","')+"\"\n"
+        output.print "\""+row.join("\"\t\"")+"\"\n"
       end
       # checkin items remindered
       sum = 0
@@ -1570,7 +1570,7 @@ class StatisticReport < ActiveRecord::Base
           row << to_format(value)
         end  
       end
-      output.print '"'+row.join('","')+"\"\n"
+      output.print "\""+row.join("\"\t\"")+"\"\n"
       libraries.each do |library|     
         sum = 0
         row = []
@@ -1590,7 +1590,7 @@ class StatisticReport < ActiveRecord::Base
             row << to_format(value)
           end  
         end
-        output.print '"'+row.join('","')+"\"\n"
+        output.print "\""+row.join("\"\t\"")+"\"\n"
       end
       # all users all libraries
       row = []
@@ -1610,7 +1610,7 @@ class StatisticReport < ActiveRecord::Base
           row << to_format(value)
         end  
       end
-      output.print '"'+row.join('","')+"\"\n"
+      output.print "\""+row.join("\"\t\"")+"\"\n"
       # users each user type
       5.downto(1) do |i|
         row = []
@@ -1630,7 +1630,7 @@ class StatisticReport < ActiveRecord::Base
             row << to_format(value)
           end  
         end
-        output.print '"'+row.join('","')+"\"\n"
+        output.print "\""+row.join("\"\t\"")+"\"\n"
       end
       # unlocked users all libraries
       row = []
@@ -1650,7 +1650,7 @@ class StatisticReport < ActiveRecord::Base
           row << to_format(value)
         end  
       end
-      output.print '"'+row.join('","')+"\"\n"
+      output.print "\""+row.join("\"\t\"")+"\"\n"
       # locked users all libraries
       row = []
       columns.each do |column|
@@ -1669,7 +1669,7 @@ class StatisticReport < ActiveRecord::Base
           row << to_format(value)
         end  
       end
-      output.print '"'+row.join('","')+"\"\n"
+      output.print "\""+row.join("\"\t\"")+"\"\n"
       # provisional users all libraries
       row = []
       columns.each do |column|
@@ -1688,7 +1688,7 @@ class StatisticReport < ActiveRecord::Base
           row << to_format(value)
         end  
       end
-      output.print '"'+row.join('","')+"\"\n"
+      output.print "\""+row.join("\"\t\"")+"\"\n"
       # users each library
       libraries.each do |library|
         # all users
@@ -1709,7 +1709,7 @@ class StatisticReport < ActiveRecord::Base
             row << to_format(value)
           end  
         end
-        output.print '"'+row.join('","')+"\"\n"
+        output.print "\""+row.join("\"\t\"")+"\"\n"
         # users each user type
         5.downto(1) do |i|
           row = []
@@ -1729,7 +1729,7 @@ class StatisticReport < ActiveRecord::Base
               row << to_format(value)
             end  
           end
-          output.print '"'+row.join('","')+"\"\n"
+          output.print "\""+row.join("\"\t\"")+"\"\n"
         end
         # unlocked users
         row = []
@@ -1749,7 +1749,7 @@ class StatisticReport < ActiveRecord::Base
             row << to_format(value)
           end  
         end
-        output.print '"'+row.join('","')+"\"\n"
+        output.print "\""+row.join("\"\t\"")+"\"\n"
         # locked users
         row = []
         columns.each do |column|
@@ -1768,7 +1768,7 @@ class StatisticReport < ActiveRecord::Base
             row << to_format(value)
           end  
         end
-        output.print '"'+row.join('","')+"\"\n"
+        output.print "\""+row.join("\"\t\"")+"\"\n"
         # provisional users all libraries
         row = []
         columns.each do |column|
@@ -1787,7 +1787,7 @@ class StatisticReport < ActiveRecord::Base
             row << to_format(value)
           end  
         end
-        output.print '"'+row.join('","')+"\"\n"
+        output.print "\""+row.join("\"\t\"")+"\"\n"
       end
 
       # reserves all libraries
@@ -1809,7 +1809,7 @@ class StatisticReport < ActiveRecord::Base
           row << to_format(value)
         end  
       end
-      output.print '"'+row.join('","')+"\"\n"
+      output.print "\""+row.join("\"\t\"")+"\"\n"
       # reserves on counter all libraries
       sum = 0
       row = []
@@ -1829,7 +1829,7 @@ class StatisticReport < ActiveRecord::Base
           row << to_format(value)
         end  
       end
-      output.print '"'+row.join('","')+"\"\n"
+      output.print "\""+row.join("\"\t\"")+"\"\n"
       # reserves from OPAC all libraries
       sum = 0
       row = []
@@ -1849,7 +1849,7 @@ class StatisticReport < ActiveRecord::Base
           row << to_format(value)
         end  
       end
-      output.print '"'+row.join('","')+"\"\n"
+      output.print "\""+row.join("\"\t\"")+"\"\n"
       # reserves each library
       libraries.each do |library|
         sum = 0
@@ -1870,7 +1870,7 @@ class StatisticReport < ActiveRecord::Base
             row << to_format(value)
           end  
         end
-        output.print '"'+row.join('","')+"\"\n"
+        output.print "\""+row.join("\"\t\"")+"\"\n"
         # reserves on counter each libraries
         sum = 0
         row = []
@@ -1890,7 +1890,7 @@ class StatisticReport < ActiveRecord::Base
             row << to_format(value)
           end  
         end
-        output.print '"'+row.join('","')+"\"\n"
+        output.print "\""+row.join("\"\t\"")+"\"\n"
         # reserves from OPAC each libraries
         sum = 0
         row = []
@@ -1910,7 +1910,7 @@ class StatisticReport < ActiveRecord::Base
             row << to_format(value)
           end  
         end
-        output.print '"'+row.join('","')+"\"\n"
+        output.print "\""+row.join("\"\t\"")+"\"\n"
       end
       # questions all libraries
       sum = 0
@@ -1931,7 +1931,7 @@ class StatisticReport < ActiveRecord::Base
           row << to_format(value)
         end  
       end
-      output.print '"'+row.join('","')+"\"\n"
+      output.print "\""+row.join("\"\t\"")+"\"\n"
       # questions each library
       libraries.each do |library|
         sum = 0
@@ -1952,7 +1952,7 @@ class StatisticReport < ActiveRecord::Base
             row << to_format(value)
           end
         end  
-        output.print '"'+row.join('","')+"\"\n"
+        output.print "\""+row.join("\"\t\"")+"\"\n"
       end
       # visiters all libraries
       sum = 0
@@ -1973,7 +1973,7 @@ class StatisticReport < ActiveRecord::Base
           row << to_format(value)
         end  
       end
-      output.print '"'+row.join('","')+"\"\n"
+      output.print "\""+row.join("\"\t\"")+"\"\n"
       # visiters of each libraries
       libraries.each do |library|
         sum = 0
@@ -1994,7 +1994,7 @@ class StatisticReport < ActiveRecord::Base
             row << to_format(value)
           end  
         end
-        output.print '"'+row.join('","')+"\"\n"
+        output.print "\""+row.join("\"\t\"")+"\"\n"
       end
       # consultations all libraries
       sum = 0
@@ -2015,7 +2015,7 @@ class StatisticReport < ActiveRecord::Base
           row << to_format(value)
         end  
       end
-      output.print '"'+row.join('","')+"\"\n"
+      output.print "\""+row.join("\"\t\"")+"\"\n"
       # consultations of each libraries
       libraries.each do |library|
         sum = 0
@@ -2036,7 +2036,7 @@ class StatisticReport < ActiveRecord::Base
             row << to_format(value)
           end  
         end
-        output.print '"'+row.join('","')+"\"\n"
+        output.print "\""+row.join("\"\t\"")+"\"\n"
       end
       # copies all libraries
       sum = 0
@@ -2057,7 +2057,7 @@ class StatisticReport < ActiveRecord::Base
           row << to_format(value)
         end  
       end
-      output.print '"'+row.join('","')+"\"\n"
+      output.print "\""+row.join("\"\t\"")+"\"\n"
       # copies of each libraries
       libraries.each do |library|
         sum = 0
@@ -2078,10 +2078,10 @@ class StatisticReport < ActiveRecord::Base
             row << to_format(value)
           end  
         end
-        output.print '"'+row.join('","')+"\"\n"
+        output.print "\""+row.join("\"\t\"")+"\"\n"
       end
     end
-    return csv_file
+    return tsv_file
   end
 
   def self.get_daily_report_pdf(term)
@@ -2719,10 +2719,10 @@ class StatisticReport < ActiveRecord::Base
     end
   end
 
-  def self.get_daily_report_csv(term)
+  def self.get_daily_report_tsv(term)
     dir_base = "#{RAILS_ROOT}/private/system"
     out_dir = "#{dir_base}/statistic_report/"
-    csv_file = out_dir + "#{term}_daily_report.csv"
+    tsv_file = out_dir + "#{term}_daily_report.tsv"
     FileUtils.mkdir_p(out_dir) unless FileTest.exist?(out_dir)
     libraries = Library.all
     days = Time.zone.parse("#{term}01").end_of_month.strftime("%d").to_i
@@ -2732,7 +2732,7 @@ class StatisticReport < ActiveRecord::Base
       [:library, 'statistic_report.library'],
       [:option, 'statistic_report.option']
     ]
-    File.open(csv_file, "w") do |output|
+    File.open(tsv_file, "w") do |output|
       # add UTF-8 BOM for excel
       output.print "\xEF\xBB\xBF".force_encoding("UTF-8")
 
@@ -2747,7 +2747,7 @@ class StatisticReport < ActiveRecord::Base
       end
       row << I18n.t('statistic_report.sum')
       columns << ["sum"]
-      output.print row.join(",")+"\n"
+      output.print "\""+row.join("\"\t\"")+"\"\n"
 
       # items all libraries
       row = []
@@ -2767,7 +2767,7 @@ class StatisticReport < ActiveRecord::Base
           row << to_format(value)
         end
       end  
-      output.print '"'+row.join('","')+"\"\n"
+      output.print "\""+row.join("\"\t\"")+"\"\n"
       # items each libraries
       libraries.each do |library|
         row = []
@@ -2787,7 +2787,7 @@ class StatisticReport < ActiveRecord::Base
             row << to_format(value)
           end
         end  
-        output.print '"'+row.join('","')+"\"\n"
+        output.print "\""+row.join("\"\t\"")+"\"\n"
       end
       # checkout users all libraries
       sum = 0
@@ -2808,7 +2808,7 @@ class StatisticReport < ActiveRecord::Base
           row << to_format(value)
         end
       end  
-      output.print '"'+row.join('","')+"\"\n"
+      output.print "\""+row.join("\"\t\"")+"\"\n"
       # each user type
       5.downto(1) do |type|
         sum = 0
@@ -2829,7 +2829,7 @@ class StatisticReport < ActiveRecord::Base
             row << to_format(value)
           end
         end  
-        output.print '"'+row.join('","')+"\"\n"
+        output.print "\""+row.join("\"\t\"")+"\"\n"
       end
       # checkout users each libraries
       libraries.each do |library|
@@ -2851,7 +2851,7 @@ class StatisticReport < ActiveRecord::Base
             row << to_format(value)
           end
         end  
-        output.print '"'+row.join('","')+"\"\n"
+        output.print "\""+row.join("\"\t\"")+"\"\n"
         # each user type
         5.downto(1) do |type|
           sum = 0
@@ -2872,7 +2872,7 @@ class StatisticReport < ActiveRecord::Base
               row << to_format(value)
             end
           end  
-          output.print '"'+row.join('","')+"\"\n"
+          output.print "\""+row.join("\"\t\"")+"\"\n"
         end
       end
       # checkout items all libraries
@@ -2894,7 +2894,7 @@ class StatisticReport < ActiveRecord::Base
           row << to_format(value)
         end
       end
-      output.print '"'+row.join('","')+"\"\n"  
+      output.print "\""+row.join("\"\t\"")+"\"\n"  
       3.times do |i|
         sum = 0
         row = []
@@ -2914,7 +2914,7 @@ class StatisticReport < ActiveRecord::Base
             row << to_format(value)
           end
         end 
-        output.print '"'+row.join('","')+"\"\n"
+        output.print "\""+row.join("\"\t\"")+"\"\n"
       end        
       # checkout items each libraries
       libraries.each do |library|
@@ -2936,7 +2936,7 @@ class StatisticReport < ActiveRecord::Base
             row << to_format(value)
           end
         end 
-        output.print '"'+row.join('","')+"\"\n"
+        output.print "\""+row.join("\"\t\"")+"\"\n"
         3.times do |i|
           sum = 0
           row = []
@@ -2956,7 +2956,7 @@ class StatisticReport < ActiveRecord::Base
               row << to_format(value)
             end
           end 
-          output.print '"'+row.join('","')+"\"\n"
+          output.print "\""+row.join("\"\t\"")+"\"\n"
         end
       end
       # checkout items reminded
@@ -2978,7 +2978,7 @@ class StatisticReport < ActiveRecord::Base
           row << to_format(value)
         end
       end
-      output.print '"'+row.join('","')+"\"\n"  
+      output.print "\""+row.join("\"\t\"")+"\"\n"  
       libraries.each do |library|
         sum = 0
         row = []
@@ -2998,7 +2998,7 @@ class StatisticReport < ActiveRecord::Base
             row << to_format(value)
           end
         end
-        output.print '"'+row.join('","')+"\"\n"  
+        output.print "\""+row.join("\"\t\"")+"\"\n"  
       end
 
       # checkin items
@@ -3020,7 +3020,7 @@ class StatisticReport < ActiveRecord::Base
           row << to_format(value)
         end
       end 
-      output.print '"'+row.join('","')+"\"\n"
+      output.print "\""+row.join("\"\t\"")+"\"\n"
       libraries.each do |library|
         sum = 0
         row = []
@@ -3040,7 +3040,7 @@ class StatisticReport < ActiveRecord::Base
             row << to_format(value)
           end
         end 
-        output.print '"'+row.join('","')+"\"\n"
+        output.print "\""+row.join("\"\t\"")+"\"\n"
       end
       # checkin items reminded
       sum = 0
@@ -3061,7 +3061,7 @@ class StatisticReport < ActiveRecord::Base
           row << to_format(value)
         end
       end
-      output.print '"'+row.join('","')+"\"\n"  
+      output.print "\""+row.join("\"\t\"")+"\"\n"  
       libraries.each do |library|
         sum = 0
         row = []
@@ -3081,7 +3081,7 @@ class StatisticReport < ActiveRecord::Base
             row << to_format(value)
           end
         end
-        output.print '"'+row.join('","')+"\"\n"  
+        output.print "\""+row.join("\"\t\"")+"\"\n"  
       end
       # reserves all libraries
       sum = 0
@@ -3102,7 +3102,7 @@ class StatisticReport < ActiveRecord::Base
           row << to_format(value)
         end
       end 
-      output.print '"'+row.join('","')+"\"\n"
+      output.print "\""+row.join("\"\t\"")+"\"\n"
       # reserves on counter all libraries
       sum = 0
       row = []
@@ -3122,7 +3122,7 @@ class StatisticReport < ActiveRecord::Base
           row << to_format(value)
         end
       end 
-      output.print '"'+row.join('","')+"\"\n"
+      output.print "\""+row.join("\"\t\"")+"\"\n"
       # reserves from OPAC all libraries
       sum = 0
       row = []
@@ -3142,7 +3142,7 @@ class StatisticReport < ActiveRecord::Base
           row << to_format(value)
         end
       end 
-      output.print '"'+row.join('","')+"\"\n"
+      output.print "\""+row.join("\"\t\"")+"\"\n"
       # reserves each library
       libraries.each do |library|
         sum = 0
@@ -3163,7 +3163,7 @@ class StatisticReport < ActiveRecord::Base
             row << to_format(value)
           end
         end 
-        output.print '"'+row.join('","')+"\"\n"
+        output.print "\""+row.join("\"\t\"")+"\"\n"
         # on counter
         sum = 0
         row = []
@@ -3183,7 +3183,7 @@ class StatisticReport < ActiveRecord::Base
             row << to_format(value)
           end
         end 
-        output.print '"'+row.join('","')+"\"\n"
+        output.print "\""+row.join("\"\t\"")+"\"\n"
         # from OPAC
         sum = 0
         row = []
@@ -3203,7 +3203,7 @@ class StatisticReport < ActiveRecord::Base
             row << to_format(value)
           end
         end 
-        output.print '"'+row.join('","')+"\"\n"
+        output.print "\""+row.join("\"\t\"")+"\"\n"
       end
       # questions all libraries
       sum = 0
@@ -3224,7 +3224,7 @@ class StatisticReport < ActiveRecord::Base
           row << to_format(value)
         end
       end 
-      output.print '"'+row.join('","')+"\"\n"
+      output.print "\""+row.join("\"\t\"")+"\"\n"
       # questions each library
       libraries.each do |library|
         sum = 0
@@ -3245,7 +3245,7 @@ class StatisticReport < ActiveRecord::Base
             row << to_format(value)
           end
         end 
-        output.print '"'+row.join('","')+"\"\n"
+        output.print "\""+row.join("\"\t\"")+"\"\n"
       end
       # consultations each library
       libraries.each do |library|
@@ -3267,10 +3267,10 @@ class StatisticReport < ActiveRecord::Base
             row << to_format(value)
           end
         end 
-        output.print '"'+row.join('","')+"\"\n"
+        output.print "\""+row.join("\"\t\"")+"\"\n"
       end
     end
-    return csv_file
+    return tsv_file
   end
 
   def self.get_timezone_report_pdf(start_at, end_at)
@@ -3603,10 +3603,10 @@ class StatisticReport < ActiveRecord::Base
     end
   end
 
-  def self.get_timezone_report_csv(start_at, end_at)
+  def self.get_timezone_report_tsv(start_at, end_at)
     dir_base = "#{RAILS_ROOT}/private/system"
     out_dir = "#{dir_base}/statistic_report/"
-    csv_file = out_dir + "#{start_at}_#{end_at}_timezone_report.csv"
+    tsv_file = out_dir + "#{start_at}_#{end_at}_timezone_report.tsv"
     FileUtils.mkdir_p(out_dir) unless FileTest.exist?(out_dir)
     # header
     columns = [
@@ -3620,7 +3620,7 @@ class StatisticReport < ActiveRecord::Base
 
     libraries = Library.all
     logger.error "create daily timezone report: #{start_at} - #{end_at}"
-    File.open(csv_file, "w") do |output|
+    File.open(tsv_file, "w") do |output|
       # add UTF-8 BOM for excel
       output.print "\xEF\xBB\xBF".force_encoding("UTF-8")
 
@@ -3635,7 +3635,7 @@ class StatisticReport < ActiveRecord::Base
       end
       row << I18n.t('statistic_report.sum')
       columns << ["sum"]
-      output.print row.join(",")+"\n"
+      output.print "\""+row.join("\"\t\"")+"\"\n"
       # checkout users all libraries
       row = []
       sum = 0
@@ -3659,7 +3659,7 @@ class StatisticReport < ActiveRecord::Base
           row << to_format(value)
         end
       end
-      output.print row.join(",")+"\n"
+      output.print "\""+row.join("\"\t\"")+"\"\n"
       # each user type
       5.downto(1) do |type|
         row = []
@@ -3684,7 +3684,7 @@ class StatisticReport < ActiveRecord::Base
             row << to_format(value)
           end
         end
-        output.print row.join(",")+"\n"
+        output.print "\""+row.join("\"\t\"")+"\"\n"
       end
       # checkout users each libraries
       libraries.each do |library|
@@ -3710,7 +3710,7 @@ class StatisticReport < ActiveRecord::Base
             row << to_format(value)
           end
         end
-        output.print row.join(",")+"\n"
+        output.print "\""+row.join("\"\t\"")+"\"\n"
         # each user type
         5.downto(1) do |type|
           row = []
@@ -3735,7 +3735,7 @@ class StatisticReport < ActiveRecord::Base
               row << to_format(value)
             end
           end
-          output.print row.join(",")+"\n"
+          output.print "\""+row.join("\"\t\"")+"\"\n"
         end
       end
       # checkout items all libraries
@@ -3761,7 +3761,7 @@ class StatisticReport < ActiveRecord::Base
           row << to_format(value)
         end
       end
-      output.print row.join(",")+"\n"
+      output.print "\""+row.join("\"\t\"")+"\"\n"
       3.times do |i|
         row = []
         sum = 0
@@ -3785,7 +3785,7 @@ class StatisticReport < ActiveRecord::Base
             row << to_format(value)
           end
         end
-        output.print row.join(",")+"\n"
+        output.print "\""+row.join("\"\t\"")+"\"\n"
       end
       # checkout items each libraries
       libraries.each do |library|
@@ -3811,7 +3811,7 @@ class StatisticReport < ActiveRecord::Base
             row << to_format(value)
           end
         end
-        output.print row.join(",")+"\n"
+        output.print "\""+row.join("\"\t\"")+"\"\n"
         3.times do |i|
           row = []
           sum = 0
@@ -3835,7 +3835,7 @@ class StatisticReport < ActiveRecord::Base
               row << to_format(value)
             end
           end
-          output.print row.join(",")+"\n"
+          output.print "\""+row.join("\"\t\"")+"\"\n"
         end
       end
 
@@ -3862,7 +3862,7 @@ class StatisticReport < ActiveRecord::Base
           row << to_format(value)
         end
       end
-      output.print row.join(",")+"\n"
+      output.print "\""+row.join("\"\t\"")+"\"\n"
       # reserves on counter all libraries
       row = []
       sum = 0
@@ -3886,7 +3886,7 @@ class StatisticReport < ActiveRecord::Base
           row << to_format(value)
         end
       end
-      output.print row.join(",")+"\n"
+      output.print "\""+row.join("\"\t\"")+"\"\n"
       # reserves from OPAC all libraries
       row = []
       sum = 0
@@ -3910,7 +3910,7 @@ class StatisticReport < ActiveRecord::Base
           row << to_format(value)
         end
       end
-      output.print row.join(",")+"\n"
+      output.print "\""+row.join("\"\t\"")+"\"\n"
       # reserves each libraries
       libraries.each do |library|
         row = []
@@ -3935,7 +3935,7 @@ class StatisticReport < ActiveRecord::Base
             row << to_format(value)
           end
         end
-        output.print row.join(",")+"\n"
+        output.print "\""+row.join("\"\t\"")+"\"\n"
         # on counter
         row = []
         sum = 0
@@ -3959,7 +3959,7 @@ class StatisticReport < ActiveRecord::Base
             row << to_format(value)
           end
         end
-        output.print row.join(",")+"\n"
+        output.print "\""+row.join("\"\t\"")+"\"\n"
         # from OPAC
         row = []
         sum = 0
@@ -3983,7 +3983,7 @@ class StatisticReport < ActiveRecord::Base
             row << to_format(value)
           end
         end
-        output.print row.join(",")+"\n"
+        output.print "\""+row.join("\"\t\"")+"\"\n"
       end
 
       # questions all libraries
@@ -4009,7 +4009,7 @@ class StatisticReport < ActiveRecord::Base
           row << to_format(value)
         end
       end
-      output.print row.join(",")+"\n"
+      output.print "\""+row.join("\"\t\"")+"\"\n"
       # reserves each libraries
       libraries.each do |library|
         row = []
@@ -4034,10 +4034,10 @@ class StatisticReport < ActiveRecord::Base
             row << to_format(value)
           end
         end
-        output.print row.join(",")+"\n"
+        output.print "\""+row.join("\"\t\"")+"\"\n"
       end
     end
-    return csv_file
+    return tsv_file
   end
 
   def self.get_day_report_pdf(start_at, end_at)
@@ -4362,10 +4362,10 @@ class StatisticReport < ActiveRecord::Base
     end
   end
 
-  def self.get_day_report_csv(start_at, end_at)
+  def self.get_day_report_tsv(start_at, end_at)
     dir_base = "#{RAILS_ROOT}/private/system"
     out_dir = "#{dir_base}/statistic_report/"
-    csv_file = out_dir + "#{start_at}_#{end_at}_day_report.csv"
+    tsv_file = out_dir + "#{start_at}_#{end_at}_day_report.tsv"
     FileUtils.mkdir_p(out_dir) unless FileTest.exist?(out_dir)
     # header
     columns = [
@@ -4374,7 +4374,7 @@ class StatisticReport < ActiveRecord::Base
       [:option, 'statistic_report.option']
     ]
     libraries = Library.all
-    File.open(csv_file, "w") do |output|
+    File.open(tsv_file, "w") do |output|
       # add UTF-8 BOM for excel
       output.print "\xEF\xBB\xBF".force_encoding("UTF-8")
 
@@ -4389,7 +4389,7 @@ class StatisticReport < ActiveRecord::Base
       end
       row << I18n.t('statistic_report.sum')
       columns << ["sum"]
-      output.print row.join(",")+"\n"
+      output.print "\""+row.join("\"\t\"")+"\"\n"
       # checkout users all libraries
       sum = 0
       row = []
@@ -4413,7 +4413,7 @@ class StatisticReport < ActiveRecord::Base
           row << to_format(value)
         end
       end
-      output.print row.join(",")+"\n"
+      output.print "\""+row.join("\"\t\"")+"\"\n"
       # each user type
       5.downto(1) do |type|
         sum = 0
@@ -4438,7 +4438,7 @@ class StatisticReport < ActiveRecord::Base
             row << to_format(value)
           end
         end
-        output.print row.join(",")+"\n"
+        output.print "\""+row.join("\"\t\"")+"\"\n"
       end
       # checkout users each libraries
       libraries.each do |library|
@@ -4464,7 +4464,7 @@ class StatisticReport < ActiveRecord::Base
             row << to_format(value)
           end
         end
-        output.print row.join(",")+"\n"
+        output.print "\""+row.join("\"\t\"")+"\"\n"
         # each user type
         5.downto(1) do |type|
           sum = 0
@@ -4489,7 +4489,7 @@ class StatisticReport < ActiveRecord::Base
               row << to_format(value)
             end
           end
-          output.print row.join(",")+"\n"
+          output.print "\""+row.join("\"\t\"")+"\"\n"
         end
       end
       # checkout items all libraries
@@ -4515,7 +4515,7 @@ class StatisticReport < ActiveRecord::Base
           row << to_format(value)
         end
       end
-      output.print row.join(",")+"\n"
+      output.print "\""+row.join("\"\t\"")+"\"\n"
       3.times do |i|
         sum = 0
         row = []
@@ -4539,7 +4539,7 @@ class StatisticReport < ActiveRecord::Base
             row << to_format(value)
           end
         end
-        output.print row.join(",")+"\n"
+        output.print "\""+row.join("\"\t\"")+"\"\n"
       end
       # checkout items each libraries
       libraries.each do |library|
@@ -4565,7 +4565,7 @@ class StatisticReport < ActiveRecord::Base
             row << to_format(value)
           end
         end
-        output.print row.join(",")+"\n"
+        output.print "\""+row.join("\"\t\"")+"\"\n"
         3.times do |i|
           sum = 0
           row = []
@@ -4589,7 +4589,7 @@ class StatisticReport < ActiveRecord::Base
               row << to_format(value)
             end
           end
-          output.print row.join(",")+"\n"
+          output.print "\""+row.join("\"\t\"")+"\"\n"
         end
       end
       # reserves all libraries
@@ -4615,7 +4615,7 @@ class StatisticReport < ActiveRecord::Base
           row << to_format(value)
         end
       end
-      output.print row.join(",")+"\n"
+      output.print "\""+row.join("\"\t\"")+"\"\n"
       # reserves on counter all libraries
       sum = 0
       row = []
@@ -4639,7 +4639,7 @@ class StatisticReport < ActiveRecord::Base
           row << to_format(value)
         end
       end
-      output.print row.join(",")+"\n"
+      output.print "\""+row.join("\"\t\"")+"\"\n"
       # reserves from OPAC all libraries
       sum = 0
       row = []
@@ -4663,7 +4663,7 @@ class StatisticReport < ActiveRecord::Base
           row << to_format(value)
         end
       end
-      output.print row.join(",")+"\n"
+      output.print "\""+row.join("\"\t\"")+"\"\n"
       # reserves each libraries
       libraries.each do |library|
         sum = 0
@@ -4688,7 +4688,7 @@ class StatisticReport < ActiveRecord::Base
             row << to_format(value)
           end
         end
-        output.print row.join(",")+"\n"
+        output.print "\""+row.join("\"\t\"")+"\"\n"
         # on counter
         sum = 0
         row = []
@@ -4712,7 +4712,7 @@ class StatisticReport < ActiveRecord::Base
             row << to_format(value)
           end
         end
-        output.print row.join(",")+"\n"
+        output.print "\""+row.join("\"\t\"")+"\"\n"
         # from OPAC
         sum = 0
         row = []
@@ -4736,7 +4736,7 @@ class StatisticReport < ActiveRecord::Base
             row << to_format(value)
           end
         end
-        output.print row.join(",")+"\n"
+        output.print "\""+row.join("\"\t\"")+"\"\n"
       end 
       # questions all libraries
       sum = 0
@@ -4761,7 +4761,7 @@ class StatisticReport < ActiveRecord::Base
           row << to_format(value)
         end
       end
-      output.print row.join(",")+"\n"
+      output.print "\""+row.join("\"\t\"")+"\"\n"
       # questions each libraries
       libraries.each do |library|
         sum = 0
@@ -4786,10 +4786,10 @@ class StatisticReport < ActiveRecord::Base
             row << to_format(value)
           end
         end
-        output.print row.join(",")+"\n"
+        output.print "\""+row.join("\"\t\"")+"\"\n"
       end
     end
-    return csv_file
+    return tsv_file
   end
 
   def self.get_age_report_pdf(start_at, end_at)
@@ -5444,10 +5444,10 @@ class StatisticReport < ActiveRecord::Base
     end
   end
 
-  def self.get_age_report_csv(start_at, end_at)
+  def self.get_age_report_tsv(start_at, end_at)
     dir_base = "#{RAILS_ROOT}/private/system"
     out_dir = "#{dir_base}/statistic_report/"
-    csv_file = out_dir + "#{start_at}_#{end_at}_day_report.csv"
+    tsv_file = out_dir + "#{start_at}_#{end_at}_day_report.tsv"
     FileUtils.mkdir_p(out_dir) unless FileTest.exist?(out_dir)
     # header
     columns = [
@@ -5457,7 +5457,7 @@ class StatisticReport < ActiveRecord::Base
       [:option, 'statistic_report.option']
     ]
     libraries = Library.all
-    File.open(csv_file, "w") do |output|
+    File.open(tsv_file, "w") do |output|
       # add UTF-8 BOM for excel
       output.print "\xEF\xBB\xBF".force_encoding("UTF-8")
 
@@ -5480,7 +5480,7 @@ class StatisticReport < ActiveRecord::Base
       columns << ["unknown"]
       row << I18n.t('statistic_report.sum')
       columns << ["sum"]
-      output.print row.join(",")+"\n"
+      output.print "\""+row.join("\"\t\"")+"\"\n"
       # checkout users all libraries
       sum = 0
       row = []
@@ -5514,7 +5514,7 @@ class StatisticReport < ActiveRecord::Base
           row << to_format(value)
         end
       end
-      output.print row.join(",")+"\n"
+      output.print "\""+row.join("\"\t\"")+"\"\n"
       # checkout users each libraries
       libraries.each do |library|
         sum = 0
@@ -5549,7 +5549,7 @@ class StatisticReport < ActiveRecord::Base
             row << to_format(value)
           end
         end
-        output.print row.join(",")+"\n"
+        output.print "\""+row.join("\"\t\"")+"\"\n"
       end
       # checkout items all libraries
       sum = 0
@@ -5584,7 +5584,7 @@ class StatisticReport < ActiveRecord::Base
           row << to_format(value)
         end
       end
-      output.print row.join(",")+"\n"
+      output.print "\""+row.join("\"\t\"")+"\"\n"
       3.times do |i|
         sum = 0
         row = []
@@ -5618,7 +5618,7 @@ class StatisticReport < ActiveRecord::Base
             row << to_format(value)
           end
         end
-        output.print row.join(",")+"\n"
+        output.print "\""+row.join("\"\t\"")+"\"\n"
       end
       # checkout items each libraries
       libraries.each do |library|
@@ -5654,7 +5654,7 @@ class StatisticReport < ActiveRecord::Base
             row << to_format(value)
           end
         end
-        output.print row.join(",")+"\n"
+        output.print "\""+row.join("\"\t\"")+"\"\n"
         3.times do |i|
           sum = 0
           row = []
@@ -5688,7 +5688,7 @@ class StatisticReport < ActiveRecord::Base
               row << to_format(value)
             end
           end
-          output.print row.join(",")+"\n"
+          output.print "\""+row.join("\"\t\"")+"\"\n"
         end
       end
       # all users all libraries
@@ -5724,7 +5724,7 @@ class StatisticReport < ActiveRecord::Base
           row << to_format(value)
         end
       end
-      output.print row.join(",")+"\n"
+      output.print "\""+row.join("\"\t\"")+"\"\n"
       # unlocked users all libraries
       sum = 0
       row = []
@@ -5758,7 +5758,7 @@ class StatisticReport < ActiveRecord::Base
           row << to_format(value)
         end
       end
-      output.print row.join(",")+"\n"
+      output.print "\""+row.join("\"\t\"")+"\"\n"
       # locked users all libraries
       sum = 0
       row = []
@@ -5792,7 +5792,7 @@ class StatisticReport < ActiveRecord::Base
           row << to_format(value)
         end
       end
-      output.print row.join(",")+"\n"
+      output.print "\""+row.join("\"\t\"")+"\"\n"
       # provisional users all libraries
       sum = 0
       row = []
@@ -5826,7 +5826,7 @@ class StatisticReport < ActiveRecord::Base
           row << to_format(value)
         end
       end
-      output.print row.join(",")+"\n"
+      output.print "\""+row.join("\"\t\"")+"\"\n"
       # users each libraries
       libraries.each do |library|
         sum = 0
@@ -5861,7 +5861,7 @@ class StatisticReport < ActiveRecord::Base
             row << to_format(value)
           end
         end
-        output.print row.join(",")+"\n"
+        output.print "\""+row.join("\"\t\"")+"\"\n"
         # unlocked users each libraries
         sum = 0
         row = []
@@ -5895,7 +5895,7 @@ class StatisticReport < ActiveRecord::Base
             row << to_format(value)
           end
         end
-        output.print row.join(",")+"\n"
+        output.print "\""+row.join("\"\t\"")+"\"\n"
         # locked users each libraries
         sum = 0
         row = []
@@ -5929,7 +5929,7 @@ class StatisticReport < ActiveRecord::Base
             row << to_format(value)
           end
         end
-        output.print row.join(",")+"\n"
+        output.print "\""+row.join("\"\t\"")+"\"\n"
         # provisional users each libraries
         sum = 0
         row = []
@@ -5963,7 +5963,7 @@ class StatisticReport < ActiveRecord::Base
             row << to_format(value)
           end
         end
-        output.print row.join(",")+"\n"
+        output.print "\""+row.join("\"\t\"")+"\"\n"
       end
       # user_areas all libraries
       # all_area
@@ -5999,7 +5999,7 @@ class StatisticReport < ActiveRecord::Base
           row << to_format(value)
         end
       end
-      output.print row.join(",")+"\n"
+      output.print "\""+row.join("\"\t\"")+"\"\n"
       # each_area
       @areas = Area.all
       @areas.each do |a|
@@ -6035,7 +6035,7 @@ class StatisticReport < ActiveRecord::Base
             row << to_format(value)
           end
         end
-        output.print row.join(",")+"\n"
+        output.print "\""+row.join("\"\t\"")+"\"\n"
       end
       # unknown area
       sum = 0
@@ -6070,7 +6070,7 @@ class StatisticReport < ActiveRecord::Base
           row << to_format(value)
         end
       end
-      output.print row.join(",")+"\n"
+      output.print "\""+row.join("\"\t\"")+"\"\n"
       # reserves all libraries
       sum = 0
       row = []
@@ -6104,7 +6104,7 @@ class StatisticReport < ActiveRecord::Base
           row << to_format(value)
         end
       end
-      output.print row.join(",")+"\n"
+      output.print "\""+row.join("\"\t\"")+"\"\n"
       # reserves on counter all libraries
       sum = 0
       row = []
@@ -6138,7 +6138,7 @@ class StatisticReport < ActiveRecord::Base
           row << to_format(value)
         end
       end
-      output.print row.join(",")+"\n"
+      output.print "\""+row.join("\"\t\"")+"\"\n"
       # reserves from OPAC all libraris
       sum = 0
       row = []
@@ -6172,7 +6172,7 @@ class StatisticReport < ActiveRecord::Base
           row << to_format(value)
         end
       end
-      output.print row.join(",")+"\n"
+      output.print "\""+row.join("\"\t\"")+"\"\n"
       # reserves each libraries
       libraries.each do |library|
         sum = 0
@@ -6207,7 +6207,7 @@ class StatisticReport < ActiveRecord::Base
             row << to_format(value)
           end
         end
-        output.print row.join(",")+"\n"
+        output.print "\""+row.join("\"\t\"")+"\"\n"
         # on counter
         sum = 0
         row = []
@@ -6241,7 +6241,7 @@ class StatisticReport < ActiveRecord::Base
             row << to_format(value)
           end
         end
-        output.print row.join(",")+"\n"
+        output.print "\""+row.join("\"\t\"")+"\"\n"
         # from OPAC
         sum = 0
         row = []
@@ -6275,7 +6275,7 @@ class StatisticReport < ActiveRecord::Base
             row << to_format(value)
           end
         end
-        output.print row.join(",")+"\n"
+        output.print "\""+row.join("\"\t\"")+"\"\n"
       end
       # questions all libraries
       sum = 0
@@ -6310,7 +6310,7 @@ class StatisticReport < ActiveRecord::Base
           row << to_format(value)
         end
       end
-      output.print row.join(",")+"\n"
+      output.print "\""+row.join("\"\t\"")+"\"\n"
       # questions each libraries
       libraries.each do |library|
         sum = 0
@@ -6345,10 +6345,10 @@ class StatisticReport < ActiveRecord::Base
             row << to_format(value)
           end
         end
-        output.print row.join(",")+"\n"
+        output.print "\""+row.join("\"\t\"")+"\"\n"
       end
     end
-    return csv_file
+    return tsv_file
   end
 
   def self.get_items_daily_pdf(term)
@@ -6597,10 +6597,10 @@ class StatisticReport < ActiveRecord::Base
     end
   end
 
-  def self.get_items_daily_csv(term)
+  def self.get_items_daily_tsv(term)
     dir_base = "#{RAILS_ROOT}/private/system"
     out_dir = "#{dir_base}/statistic_report/"
-    csv_file = out_dir + "#{term}_items_daily_report.csv"
+    tsv_file = out_dir + "#{term}_items_daily_report.tsv"
     FileUtils.mkdir_p(out_dir) unless FileTest.exist?(out_dir)
     # header
     columns = [
@@ -6613,7 +6613,7 @@ class StatisticReport < ActiveRecord::Base
     checkout_types = CheckoutType.all
     call_numbers = Statistic.call_numbers
     days = Time.zone.parse("#{term}01").end_of_month.strftime("%d").to_i
-    File.open(csv_file, "w") do |output|
+    File.open(tsv_file, "w") do |output|
       # add UTF-8 BOM for excel
       output.print "\xEF\xBB\xBF".force_encoding("UTF-8")
 
@@ -6628,7 +6628,7 @@ class StatisticReport < ActiveRecord::Base
       end
       row << I18n.t('statistic_report.sum')
       columns << ["sum"]
-      output.print row.join(",")+"\n"
+      output.print "\""+row.join("\"\t\"")+"\"\n"
 
       # items all libraries
       row = []
@@ -6651,7 +6651,7 @@ class StatisticReport < ActiveRecord::Base
           row << to_format(value)
         end
       end
-      output.print row.join(",")+"\n"
+      output.print "\""+row.join("\"\t\"")+"\"\n"
       # items each call_numbers
       unless call_numbers.nil?
         call_numbers.each do |num|
@@ -6674,7 +6674,7 @@ class StatisticReport < ActiveRecord::Base
               row << to_format(value)
             end
           end
-          output.print row.join(",")+"\n"
+          output.print "\""+row.join("\"\t\"")+"\"\n"
         end
       end
       # items each checkout_types
@@ -6698,7 +6698,7 @@ class StatisticReport < ActiveRecord::Base
             row << to_format(value)
           end
         end
-        output.print row.join(",")+"\n"
+        output.print "\""+row.join("\"\t\"")+"\"\n"
       end
       # missing items
       row = []
@@ -6720,7 +6720,7 @@ class StatisticReport < ActiveRecord::Base
           row << to_format(value)
         end
       end
-      output.print row.join(",")+"\n"
+      output.print "\""+row.join("\"\t\"")+"\"\n"
       # items each library
       libraries.each do |library|
         row = []
@@ -6742,7 +6742,7 @@ class StatisticReport < ActiveRecord::Base
             row << to_format(value)
           end
         end
-        output.print row.join(",")+"\n"
+        output.print "\""+row.join("\"\t\"")+"\"\n"
         # items each call_numbers
         unless call_numbers.nil?
           call_numbers.each do |num|
@@ -6765,7 +6765,7 @@ class StatisticReport < ActiveRecord::Base
                 row << to_format(value)
               end
             end
-            output.print row.join(",")+"\n"
+            output.print "\""+row.join("\"\t\"")+"\"\n"
           end
         end
         # items each checkout_types
@@ -6789,7 +6789,7 @@ class StatisticReport < ActiveRecord::Base
               row << to_format(value)
             end
           end
-          output.print row.join(",")+"\n"
+          output.print "\""+row.join("\"\t\"")+"\"\n"
         end
         # missing items
         row = []
@@ -6811,7 +6811,7 @@ class StatisticReport < ActiveRecord::Base
             row << to_format(value)
           end
         end
-        output.print row.join(",")+"\n"
+        output.print "\""+row.join("\"\t\"")+"\"\n"
         # items each shelves and call_numbers
         library.shelves.each do |shelf|
           row = []
@@ -6833,7 +6833,7 @@ class StatisticReport < ActiveRecord::Base
               row << to_format(value)
             end
           end
-          output.print row.join(",")+"\n"
+          output.print "\""+row.join("\"\t\"")+"\"\n"
           unless call_numbers.nil?
             call_numbers.each do |num|
               row = []
@@ -6855,13 +6855,13 @@ class StatisticReport < ActiveRecord::Base
                   row << to_format(value)
                 end
               end
-              output.print row.join(",")+"\n"
+              output.print "\""+row.join("\"\t\"")+"\"\n"
             end
           end
         end
       end
     end
-    return csv_file
+    return tsv_file
   end
 
   def self.get_items_monthly_pdf(term)
@@ -7073,10 +7073,10 @@ class StatisticReport < ActiveRecord::Base
     end
   end
 
-  def self.get_items_monthly_csv(term)
+  def self.get_items_monthly_tsv(term)
     dir_base = "#{RAILS_ROOT}/private/system"
     out_dir = "#{dir_base}/statistic_report/"
-    csv_file = out_dir + "#{term}_items_monthly_report.csv"
+    tsv_file = out_dir + "#{term}_items_monthly_report.tsv"
     FileUtils.mkdir_p(out_dir) unless FileTest.exist?(out_dir)
     # header
     columns = [
@@ -7088,7 +7088,7 @@ class StatisticReport < ActiveRecord::Base
     libraries = Library.all
     checkout_types = CheckoutType.all
     call_numbers = Statistic.call_numbers
-    File.open(csv_file, "w") do |output|
+    File.open(tsv_file, "w") do |output|
       # add UTF-8 BOM for excel
       output.print "\xEF\xBB\xBF".force_encoding("UTF-8")
 
@@ -7107,7 +7107,7 @@ class StatisticReport < ActiveRecord::Base
       end
       row << I18n.t('statistic_report.sum')
       columns << ["sum"]
-      output.print row.join(",")+"\n"
+      output.print "\""+row.join("\"\t\"")+"\"\n"
       # items all libraries
       row = []
       columns.each do |column|
@@ -7128,7 +7128,7 @@ class StatisticReport < ActiveRecord::Base
           row << to_format(value)
         end   
       end
-      output.print row.join(",")+"\n"
+      output.print "\""+row.join("\"\t\"")+"\"\n"
       # items each call_numbers
       unless call_numbers.nil?
         call_numbers.each do |num|
@@ -7151,7 +7151,7 @@ class StatisticReport < ActiveRecord::Base
               row << to_format(value)
             end
           end
-          output.print row.join(",")+"\n"
+          output.print "\""+row.join("\"\t\"")+"\"\n"
         end   
       end
       # items each checkout_types
@@ -7175,7 +7175,7 @@ class StatisticReport < ActiveRecord::Base
             row << to_format(value)
           end
         end
-        output.print row.join(",")+"\n"
+        output.print "\""+row.join("\"\t\"")+"\"\n"
       end
       # missing items
       row = []
@@ -7197,7 +7197,7 @@ class StatisticReport < ActiveRecord::Base
           row << to_format(value)
         end
       end
-      output.print row.join(",")+"\n"
+      output.print "\""+row.join("\"\t\"")+"\"\n"
       # items each library
       libraries.each do |library|
         row = []
@@ -7219,7 +7219,7 @@ class StatisticReport < ActiveRecord::Base
             row << to_format(value)
           end
         end
-        output.print row.join(",")+"\n"
+        output.print "\""+row.join("\"\t\"")+"\"\n"
         # items each call_numbers
         unless call_numbers.nil?
           call_numbers.each do |num|
@@ -7250,7 +7250,7 @@ class StatisticReport < ActiveRecord::Base
                 row << to_format(value)
               end
             end
-            output.print row.join(",")+"\n"
+            output.print "\""+row.join("\"\t\"")+"\"\n"
           end
         end
         # items each checkout_types
@@ -7274,7 +7274,7 @@ class StatisticReport < ActiveRecord::Base
               row << to_format(value)
             end
           end
-          output.print row.join(",")+"\n"
+          output.print "\""+row.join("\"\t\"")+"\"\n"
         end
         # missing items
         row = []
@@ -7296,7 +7296,7 @@ class StatisticReport < ActiveRecord::Base
             row << to_format(value)
           end
         end
-        output.print row.join(",")+"\n"
+        output.print "\""+row.join("\"\t\"")+"\"\n"
         # items each shelves and call_numbers
         library.shelves.each do |shelf|
           row = []
@@ -7326,7 +7326,7 @@ class StatisticReport < ActiveRecord::Base
               row << to_format(value)
             end
           end
-          output.print row.join(",")+"\n"
+          output.print "\""+row.join("\"\t\"")+"\"\n"
           unless call_numbers.nil?
             call_numbers.each do |num|
               row = []
@@ -7348,13 +7348,13 @@ class StatisticReport < ActiveRecord::Base
                   row << to_format(value)
                 end
               end
-              output.print row.join(",")+"\n"
+              output.print "\""+row.join("\"\t\"")+"\"\n"
             end
           end
         end
       end
     end
-    return csv_file
+    return tsv_file
   end
 
   def self.get_inout_daily_pdf(term)
@@ -7876,10 +7876,10 @@ class StatisticReport < ActiveRecord::Base
     end
   end
 
-  def self.get_inout_daily_csv(term)
+  def self.get_inout_daily_tsv(term)
     dir_base = "#{RAILS_ROOT}/private/system"
     out_dir = "#{dir_base}/statistic_report/"
-    csv_file = out_dir + "#{term}_inout_report.csv"
+    tsv_file = out_dir + "#{term}_inout_report.tsv"
     FileUtils.mkdir_p(out_dir) unless FileTest.exist?(out_dir)
     # header
     columns = [
@@ -7892,7 +7892,7 @@ class StatisticReport < ActiveRecord::Base
     checkout_types = CheckoutType.all
     call_numbers = Statistic.call_numbers
     days = Time.zone.parse("#{term}01").end_of_month.strftime("%d").to_i
-    File.open(csv_file, "w") do |output|
+    File.open(tsv_file, "w") do |output|
       # add UTF-8 BOM for excel
       output.print "\xEF\xBB\xBF".force_encoding("UTF-8")
 
@@ -7907,7 +7907,7 @@ class StatisticReport < ActiveRecord::Base
       end
       row << I18n.t('statistic_report.sum')
       columns << ["sum"]
-      output.print row.join(",")+"\n"
+      output.print "\""+row.join("\"\t\"")+"\"\n"
 
       data_type = 211
       # accept items all libraries
@@ -7931,7 +7931,7 @@ class StatisticReport < ActiveRecord::Base
           row << to_format(value)
         end
       end
-      output.print row.join(",")+"\n"    
+      output.print "\""+row.join("\"\t\"")+"\"\n"    
       # accept items each call_numbers
       unless call_numbers.nil?
         call_numbers.each do |num|
@@ -7955,7 +7955,7 @@ class StatisticReport < ActiveRecord::Base
               row << to_format(value)
             end
           end
-          output.print row.join(",")+"\n"
+          output.print "\""+row.join("\"\t\"")+"\"\n"
         end
       end
       # accept items each checkout_types
@@ -7980,7 +7980,7 @@ class StatisticReport < ActiveRecord::Base
             row << to_format(value)
           end
         end
-        output.print row.join(",")+"\n"
+        output.print "\""+row.join("\"\t\"")+"\"\n"
       end
       # accept items each libraries
       libraries.each do |library|
@@ -8004,7 +8004,7 @@ class StatisticReport < ActiveRecord::Base
             row << to_format(value)
           end
         end
-        output.print row.join(",")+"\n"
+        output.print "\""+row.join("\"\t\"")+"\"\n"
         # accept items each call_numbers
         unless call_numbers.nil?
           call_numbers.each do |num|
@@ -8028,7 +8028,7 @@ class StatisticReport < ActiveRecord::Base
                 row << to_format(value)
               end
             end
-            output.print row.join(",")+"\n"
+            output.print "\""+row.join("\"\t\"")+"\"\n"
           end
           # accept items each checkout_types
           checkout_types.each do |checkout_type|
@@ -8052,7 +8052,7 @@ class StatisticReport < ActiveRecord::Base
                 row << to_format(value)
               end
             end
-            output.print row.join(",")+"\n"
+            output.print "\""+row.join("\"\t\"")+"\"\n"
           end
           # accept items each shelves and call_numbers
           library.shelves.each do |shelf|
@@ -8076,7 +8076,7 @@ class StatisticReport < ActiveRecord::Base
                 row << to_format(value)
               end
             end
-            output.print row.join(",")+"\n"
+            output.print "\""+row.join("\"\t\"")+"\"\n"
             unless call_numbers.nil?
               call_numbers.each do |num|
                 row = []
@@ -8099,14 +8099,14 @@ class StatisticReport < ActiveRecord::Base
                     row << to_format(value)
                   end
                 end
-                output.print row.join(",")+"\n"
+                output.print "\""+row.join("\"\t\"")+"\"\n"
               end
             end
           end
         end
       end
     end
-    return csv_file
+    return tsv_file
   end
 
   def self.get_inout_monthly_pdf(term)
@@ -8483,10 +8483,10 @@ class StatisticReport < ActiveRecord::Base
     end
   end
 
-  def self.get_inout_monthly_csv(term)
+  def self.get_inout_monthly_tsv(term)
     dir_base = "#{RAILS_ROOT}/private/system"
     out_dir = "#{dir_base}/statistic_report/"
-    csv_file = out_dir + "#{term}_inout_report.csv"
+    tsv_file = out_dir + "#{term}_inout_report.tsv"
     FileUtils.mkdir_p(out_dir) unless FileTest.exist?(out_dir)
     # header
     columns = [
@@ -8499,7 +8499,7 @@ class StatisticReport < ActiveRecord::Base
     libraries = Library.all
     checkout_types = CheckoutType.all
     call_numbers = Statistic.call_numbers
-    File.open(csv_file, "w") do |output|
+    File.open(tsv_file, "w") do |output|
       # add UTF-8 BOM for excel
       output.print "\xEF\xBB\xBF".force_encoding("UTF-8")
 
@@ -8518,7 +8518,7 @@ class StatisticReport < ActiveRecord::Base
       end
       row << I18n.t('statistic_report.sum')
       columns << ["sum"]
-      output.print row.join(",")+"\n"
+      output.print "\""+row.join("\"\t\"")+"\"\n"
       # accept items all libraries
       row = []
       sum = 0
@@ -8542,7 +8542,7 @@ class StatisticReport < ActiveRecord::Base
           row << to_format(value)
         end
       end
-      output.print row.join(",")+"\n"
+      output.print "\""+row.join("\"\t\"")+"\"\n"
       # accept items each call_numbers
       unless call_numbers.nil?
         call_numbers.each do |num|
@@ -8568,7 +8568,7 @@ class StatisticReport < ActiveRecord::Base
               row << to_format(value)
             end
           end
-          output.print row.join(",")+"\n"
+          output.print "\""+row.join("\"\t\"")+"\"\n"
         end
       end
       # accept items each checkout_types
@@ -8595,7 +8595,7 @@ class StatisticReport < ActiveRecord::Base
             row << to_format(value)
           end
         end
-        output.print row.join(",")+"\n"
+        output.print "\""+row.join("\"\t\"")+"\"\n"
       end
       # accept items each library
       libraries.each do |library|
@@ -8621,7 +8621,7 @@ class StatisticReport < ActiveRecord::Base
             row << to_format(value)
           end
         end
-        output.print row.join(",")+"\n"
+        output.print "\""+row.join("\"\t\"")+"\"\n"
         # accept items each call_numbers
         unless call_numbers.nil?
           call_numbers.each do |num|
@@ -8647,7 +8647,7 @@ class StatisticReport < ActiveRecord::Base
                 row << to_format(value)
               end
             end
-            output.print row.join(",")+"\n"
+            output.print "\""+row.join("\"\t\"")+"\"\n"
           end
         end
         # accept items each checkout_types
@@ -8674,7 +8674,7 @@ class StatisticReport < ActiveRecord::Base
               row << to_format(value)
             end
           end
-          output.print row.join(",")+"\n"
+          output.print "\""+row.join("\"\t\"")+"\"\n"
         end
         # accept items each shelves and call_numbers
         library.shelves.each do |shelf|
@@ -8700,7 +8700,7 @@ class StatisticReport < ActiveRecord::Base
               row << to_format(value)
             end
           end
-          output.print row.join(",")+"\n"
+          output.print "\""+row.join("\"\t\"")+"\"\n"
           unless call_numbers.nil?
             call_numbers.each do |num|
               row = []
@@ -8725,7 +8725,7 @@ class StatisticReport < ActiveRecord::Base
                   row << to_format(value)
                 end
               end
-              output.print row.join(",")+"\n"
+              output.print "\""+row.join("\"\t\"")+"\"\n"
             end
           end
         end
@@ -8753,7 +8753,7 @@ class StatisticReport < ActiveRecord::Base
           row << to_format(value)
         end
       end
-      output.print row.join(",")+"\n"
+      output.print "\""+row.join("\"\t\"")+"\"\n"
       # remove items each call_numbers
       unless call_numbers.nil?
         call_numbers.each do |num|
@@ -8779,7 +8779,7 @@ class StatisticReport < ActiveRecord::Base
               row << to_format(value)
             end
           end
-          output.print row.join(",")+"\n"
+          output.print "\""+row.join("\"\t\"")+"\"\n"
         end
       end
       # remove items each checkout_types
@@ -8806,7 +8806,7 @@ class StatisticReport < ActiveRecord::Base
             row << to_format(value)
           end
         end
-        output.print row.join(",")+"\n"
+        output.print "\""+row.join("\"\t\"")+"\"\n"
       end
       # remove items each library
       libraries.each do |library|
@@ -8832,7 +8832,7 @@ class StatisticReport < ActiveRecord::Base
             row << to_format(value)
           end
         end
-        output.print row.join(",")+"\n"
+        output.print "\""+row.join("\"\t\"")+"\"\n"
         # remove items each call_numbers
         unless call_numbers.nil?
           call_numbers.each do |num|
@@ -8862,7 +8862,7 @@ class StatisticReport < ActiveRecord::Base
                 row << to_format(value)
               end
             end
-            output.print row.join(",")+"\n"
+            output.print "\""+row.join("\"\t\"")+"\"\n"
           end
         end
         # remove items each checkout_types
@@ -8889,7 +8889,7 @@ class StatisticReport < ActiveRecord::Base
               row << to_format(value)
             end
           end
-          output.print row.join(",")+"\n"
+          output.print "\""+row.join("\"\t\"")+"\"\n"
         end
         # remove items each shelves and call_numbers
         library.shelves.each do |shelf|
@@ -8919,7 +8919,7 @@ class StatisticReport < ActiveRecord::Base
               row << to_format(value)
             end
           end
-          output.print row.join(",")+"\n"
+          output.print "\""+row.join("\"\t\"")+"\"\n"
           unless call_numbers.nil?
             call_numbers.each do |num|
               row = []
@@ -8944,13 +8944,13 @@ class StatisticReport < ActiveRecord::Base
                   row << to_format(value)
                 end
               end
-              output.print row.join(",")+"\n"
+              output.print "\""+row.join("\"\t\"")+"\"\n"
             end
           end
         end
       end
     end
-    return csv_file
+    return tsv_file
   end
 
   def self.get_loans_daily_pdf(term)
@@ -9056,10 +9056,10 @@ class StatisticReport < ActiveRecord::Base
     end
   end
 
-  def self.get_loans_daily_csv(term)
+  def self.get_loans_daily_tsv(term)
     dir_base = "#{RAILS_ROOT}/private/system"
     out_dir = "#{dir_base}/statistic_report/"
-    csv_file = out_dir + "#{term}_loans_daily.csv"
+    tsv_file = out_dir + "#{term}_loans_daily.tsv"
     FileUtils.mkdir_p(out_dir) unless FileTest.exist?(out_dir)
     # header
     columns = [
@@ -9071,7 +9071,7 @@ class StatisticReport < ActiveRecord::Base
     checkout_types = CheckoutType.all
     call_numbers = Statistic.call_numbers
     days = Time.zone.parse("#{term}01").end_of_month.strftime("%d").to_i
-    File.open(csv_file, "w") do |output|
+    File.open(tsv_file, "w") do |output|
       # add UTF-8 BOM for excel
       output.print "\xEF\xBB\xBF".force_encoding("UTF-8")
 
@@ -9086,7 +9086,7 @@ class StatisticReport < ActiveRecord::Base
       end
       row << I18n.t('statistic_report.sum')
       columns << ["sum"]
-      output.print row.join(",")+"\n"
+      output.print "\""+row.join("\"\t\"")+"\"\n"
       libraries.each do |library|
         # checkout loan
         data_type = 261
@@ -9110,7 +9110,7 @@ class StatisticReport < ActiveRecord::Base
               row << to_format(value)
             end
           end
-          output.print row.join(",")+"\n"
+          output.print "\""+row.join("\"\t\"")+"\"\n"
         end
         # checkin loan
         data_type = 262
@@ -9134,11 +9134,11 @@ class StatisticReport < ActiveRecord::Base
               row << to_format(value)
             end
           end
-          output.print row.join(",")+"\n"
+          output.print "\""+row.join("\"\t\"")+"\"\n"
         end
       end
     end
-    return csv_file
+    return tsv_file
   end
 
   def self.get_loans_monthly_pdf(term)
@@ -9211,10 +9211,10 @@ class StatisticReport < ActiveRecord::Base
     end
   end
 
-  def self.get_loans_monthly_csv(term)
+  def self.get_loans_monthly_tsv(term)
     dir_base = "#{RAILS_ROOT}/private/system"
     out_dir = "#{dir_base}/statistic_report/"
-    csv_file = out_dir + "#{term}_loans_monthly.csv"
+    tsv_file = out_dir + "#{term}_loans_monthly.tsv"
     FileUtils.mkdir_p(out_dir) unless FileTest.exist?(out_dir)
     # header
     columns = [
@@ -9225,7 +9225,7 @@ class StatisticReport < ActiveRecord::Base
     libraries = Library.all
     checkout_types = CheckoutType.all
     call_numbers = Statistic.call_numbers
-    File.open(csv_file, "w") do |output|
+    File.open(tsv_file, "w") do |output|
       # add UTF-8 BOM for excel
       output.print "\xEF\xBB\xBF".force_encoding("UTF-8")
 
@@ -9244,7 +9244,7 @@ class StatisticReport < ActiveRecord::Base
       end
       row << I18n.t('statistic_report.sum')
       columns << ["sum"]
-      output.print row.join(",")+"\n"
+      output.print "\""+row.join("\"\t\"")+"\"\n"
 
       libraries.each do |library|
         # checkout loan
@@ -9269,7 +9269,7 @@ class StatisticReport < ActiveRecord::Base
               row << to_format(value)
             end
           end
-          output.print row.join(",")+"\n"
+          output.print "\""+row.join("\"\t\"")+"\"\n"
         end
         # checkin loan
         data_type = 162
@@ -9293,11 +9293,11 @@ class StatisticReport < ActiveRecord::Base
               row << to_format(value)
             end
           end
-          output.print row.join(",")+"\n"
+          output.print "\""+row.join("\"\t\"")+"\"\n"
         end
       end
     end
-    return csv_file
+    return tsv_file
   end
 
   def self.get_groups_monthly_pdf(term)
@@ -9347,10 +9347,10 @@ class StatisticReport < ActiveRecord::Base
     end	
   end
 
-  def self.get_groups_monthly_csv(term)
+  def self.get_groups_monthly_tsv(term)
     dir_base = "#{RAILS_ROOT}/private/system"
     out_dir = "#{dir_base}/statistic_report/"
-    csv_file = out_dir + "#{term}_groups_monthly.csv"
+    tsv_file = out_dir + "#{term}_groups_monthly.tsv"
     FileUtils.mkdir_p(out_dir) unless FileTest.exist?(out_dir)
     # header
     columns = [
@@ -9360,7 +9360,7 @@ class StatisticReport < ActiveRecord::Base
     libraries = Library.all
     checkout_types = CheckoutType.all
     user_groups = UserGroup.all
-    File.open(csv_file, "w") do |output|
+    File.open(tsv_file, "w") do |output|
       # add UTF-8 BOM for excel
       output.print "\xEF\xBB\xBF".force_encoding("UTF-8")
 
@@ -9379,7 +9379,7 @@ class StatisticReport < ActiveRecord::Base
       end
       row << I18n.t('statistic_report.sum')
       columns << ["sum"]
-      output.print row.join(",")+"\n"
+      output.print "\""+row.join("\"\t\"")+"\"\n"
 
       corporates = User.corporate
       # checkout items each corporate users
@@ -9400,10 +9400,10 @@ class StatisticReport < ActiveRecord::Base
             row << to_format(value)
           end  
         end
-        output.print '"'+row.join('","')+"\"\n"
+        output.print "\""+row.join("\"\t\"")+"\"\n"
       end
     end
-    return csv_file
+    return tsv_file
   end
 
   def self.get_groups_daily_pdf(term)
@@ -9468,10 +9468,10 @@ class StatisticReport < ActiveRecord::Base
     end
   end
 
-  def self.get_groups_daily_csv(term)
+  def self.get_groups_daily_tsv(term)
     dir_base = "#{RAILS_ROOT}/private/system"
     out_dir = "#{dir_base}/statistic_report/"
-    csv_file = out_dir + "#{term}_groups_daily.csv"
+    tsv_file = out_dir + "#{term}_groups_daily.tsv"
     FileUtils.mkdir_p(out_dir) unless FileTest.exist?(out_dir)
     days = Time.zone.parse("#{term}01").end_of_month.strftime("%d").to_i
     # header
@@ -9479,7 +9479,7 @@ class StatisticReport < ActiveRecord::Base
       [:type,'statistic_report.type'],
       [:user_name, 'statistic_report.corporate_name']
     ]
-    File.open(csv_file, "w") do |output|
+    File.open(tsv_file, "w") do |output|
       # add UTF-8 BOM for excel
       output.print "\xEF\xBB\xBF".force_encoding("UTF-8")
 
@@ -9494,7 +9494,7 @@ class StatisticReport < ActiveRecord::Base
       end
       row << I18n.t('statistic_report.sum')
       columns << ["sum"]
-      output.print row.join(",")+"\n"
+      output.print "\""+row.join("\"\t\"")+"\"\n"
 
       corporates = User.corporate
       # checkout users each libraries
@@ -9515,10 +9515,10 @@ class StatisticReport < ActiveRecord::Base
             row << to_format(value)
           end
         end  
-        output.print '"'+row.join('","')+"\"\n"
+        output.print "\""+row.join("\"\t\"")+"\"\n"
       end
     end
-    return csv_file
+    return tsv_file
   end
 
 private
