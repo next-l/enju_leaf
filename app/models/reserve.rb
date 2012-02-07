@@ -458,7 +458,6 @@ class Reserve < ActiveRecord::Base
   def self.output_reserve(reserve, current_user)
     receipt_library = Library.find(reserve.receipt_library_id)
 
-    require 'thinreports'
     report = ThinReports::Report.new :layout => File.join(Rails.root, 'report', 'reserve.tlf')
     report.start_new_page do |page|
       # library info
@@ -496,7 +495,6 @@ class Reserve < ActiveRecord::Base
     else
       reserves = Reserve.user_show_reserves.where(:user_id => user.id).order('expired_at Desc')
     end
-    require 'thinreports'
     report = ThinReports::Report.new :layout => File.join(Rails.root, 'report', 'reservelist_user.tlf')
     report.layout.config.list(:list) do
       events.on :footer_insert do |e|
@@ -539,7 +537,6 @@ class Reserve < ActiveRecord::Base
   end
 
   def self.output_reservelist_all_pdf(query, states, library, method)
-    require 'thinreports'
     report = ThinReports::Report.new :layout => File.join(Rails.root, 'report', 'reservelist.tlf')
 
     # set page_num

@@ -297,7 +297,6 @@ class LibcheckTmpItem < ActiveRecord::Base
 
   private
   def self.make_resorce_list_pdf(dir, pdf_file, libcheck_tmp_items)
-    require 'thinreports'
     report = ThinReports::Report.new :layout => File.join(Rails.root, 'report', 'resource_list.tlf')
 
     # set page_num

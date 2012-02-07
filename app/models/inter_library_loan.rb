@@ -1,5 +1,4 @@
 class InterLibraryLoan < ActiveRecord::Base
-  require 'thinreports'
   default_scope :order => "created_at DESC"
   scope :completed, where(:state => 'return_received')
   #scope :processing, lambda {|item, to_library| {:conditions => ['item_id = ? AND to_library_id = ? AND state != ?', item.id, wto_library.id, 'return_received']}}

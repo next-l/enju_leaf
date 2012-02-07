@@ -141,7 +141,6 @@ class Checkout < ActiveRecord::Base
 
   # output
   def self.output_checkouts(checkouts, lend_user, current_user)
-    require 'thinreports'
     report = ThinReports::Report.new :layout => File.join(Rails.root, 'report', 'checkouts.tlf')
 
     report.layout.config.list(:list) do
@@ -174,7 +173,6 @@ class Checkout < ActiveRecord::Base
   end
 
   def self.output_checkoutlist_pdf(checkouts, view)
-    require 'thinreports'
     report = ThinReports::Report.new :layout => File.join(Rails.root, 'report', 'checkoutlist.tlf')
 
     # set page_num

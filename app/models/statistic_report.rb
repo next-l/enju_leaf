@@ -1,6 +1,4 @@
 class StatisticReport < ActiveRecord::Base
-  require 'thinreports'
-
   def self.get_monthly_report_pdf(term)
     libraries = Library.all
     checkout_types = CheckoutType.all

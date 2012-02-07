@@ -352,7 +352,6 @@ class UsersController < ApplicationController
         access_denied; return
       end
     end
-    require 'thinreports'
     report = ThinReports::Report.new :layout => File.join(Rails.root, 'report', 'password.tlf')
     report.start_new_page do |page|
       page.item(:password).value(params[:password])

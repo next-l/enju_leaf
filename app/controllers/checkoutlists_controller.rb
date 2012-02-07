@@ -52,7 +52,6 @@ class CheckoutlistsController < ApplicationController
 
   private
   def output_pdf
-    require 'thinreports'
     report = ThinReports::Report.new :layout => File.join(Rails.root, 'report', 'circulation_status_list.tlf')
 
     # set page_num

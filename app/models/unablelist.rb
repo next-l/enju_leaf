@@ -3,7 +3,6 @@ class Unablelist < ActiveRecord::Base
   def self.output(users, sort)
     logger.info "output unablelist"
 
-    require 'thinreports'
     report = ThinReports::Report.new :layout => File.join(Rails.root, 'report', 'unablelist.tlf')
     # set page_num
     report.events.on :page_create do |e|

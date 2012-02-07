@@ -484,7 +484,6 @@ class ManifestationsController < ApplicationController
 
   def output_show
     @manifestation = Manifestation.find(params[:manifestation])
-    require 'thinreports'
     report = ThinReports::Report.new :layout => File.join(Rails.root, 'report', 'manifestation.tlf') 
 
     # footer
@@ -878,7 +877,6 @@ class ManifestationsController < ApplicationController
       end
     end
 
-    require 'thinreports'
     report = ThinReports::Report.new :layout => File.join(Rails.root, 'report', 'searchlist.tlf') 
 
     # set page_num

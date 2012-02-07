@@ -86,7 +86,6 @@ class RetainedManifestationsController < ApplicationController
   def output(retained_manifestations)
     #retained_manifestations = Reserve.retained.order('reserves.user_id, reserves.receipt_library_id, reserves.created_at DESC')
 
-    require 'thinreports'
     report = ThinReports::Report.new :layout => File.join(Rails.root, 'report', 'retained_manifestations.tlf')
 
     report.events.on :page_create do |e|
