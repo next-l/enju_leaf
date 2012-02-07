@@ -139,7 +139,7 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_ndl.git
-  revision: 518dee750fae42bdb945b2f3ddf090c7e2bfa33f
+  revision: ee53a1e93a1911f8b1e3b4b37930177c06b32806
   specs:
     enju_ndl (0.0.10)
       devise
@@ -336,7 +336,7 @@ GEM
     colored (1.2)
     configatron (2.9.0)
       yamler (>= 0.1.0)
-    daemons (1.1.6)
+    daemons (1.1.8)
     dalli (1.1.4)
     delayed_job (3.0.1)
       activesupport (~> 3.0)
@@ -440,7 +440,7 @@ GEM
       activesupport (>= 2.3.2)
       cocaine (>= 0.0.2)
       mime-types
-    parallel (0.5.13)
+    parallel (0.5.14)
     parallel_tests (0.6.17)
       parallel
     pg (0.12.2)
