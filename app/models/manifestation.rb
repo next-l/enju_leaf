@@ -668,6 +668,223 @@ private
   def delete_attachment?
     self.attachment.clear if @delete_attachment == "1"
   end
+
+  def self.get_manifestation_list_pdf(manifestations, current_user)
+    report = ThinReports::Report.new :layout => File.join(Rails.root, 'report', 'searchlist.tlf')
+
+    # set page_num
+    report.events.on :page_create do |e|
+      e.page.item(:page).value(e.page.no)
+    end
+    report.events.on :generate do |e|
+      e.pages.each do |page|
+        page.item(:total).value(e.report.page_count)
+      end
+    end
+
+    report.start_new_page do |page|
+      page.item(:date).value(Time.now)
+      manifestations.each do |manifestation|
+        page.list(:list).add_row do |row|
+          # modified data format
+          item_identifiers = manifestation.items.map{|item| item.item_identifier}
+          creator = manifestation.creators.readable_by(current_user).map{|patron| patron.full_name}
+          contributor = manifestation.contributors.readable_by(current_user).map{|patron| patron.full_name}
+          publisher = manifestation.publishers.readable_by(current_user).map{|patron| patron.full_name}
+          # set list
+          row.item(:title).value(manifestation.original_title)
+          row.item(:item_identifier).value(item_identifiers.join(','))
+          row.item(:creator).value(creator.join(','))
+          row.item(:contributor).value(contributor.join(','))
+          row.item(:publisher).value(publisher.join(','))
+          row.item(:pub_date).value(manifestation.pub_date)
+          row.item(:reserves_num).value(Reserve.waiting.where(:manifestation_id => manifestation.id, :checked_out_at => nil).count)
+        end
+      end
+    end
+    return report
+  end
+
+  def self.get_manifestation_list_tsv(manifestations, current_user)
+    data = String.new
+    data << "\xEF\xBB\xBF".force_encoding("UTF-8") + "\n"
+
+    columns = [
+      [:title, 'activerecord.attributes.manifestation.original_title'],
+      [:item_identifier, 'activerecord.attributes.item.item_identifier'],
+      [:creator, 'patron.creator'],
+      [:contributor, 'patron.contributor'],
+      [:publisher, 'patron.publisher'],
+      [:pub_date, 'activerecord.attributes.manifestation.pub_date'],
+      [:reserves_num, 'activerecord.attributes.manifestation.reserves_number']
+    ]
+
+    # title column
+    row = columns.map{|column| I18n.t(column[1])}
+    data << row.join("\t")+"\n"
+
+    manifestations.each do |manifestation|
+      row = []
+      columns.each do |column|
+        case column[0]
+        when :title 
+          row << manifestation.original_title 
+        when :item_identifier
+          item_identifiers = manifestation.items.map{|item| item.item_identifier}
+          row << item_identifiers.join(',')
+        when :creator
+          creator = manifestation.creators.readable_by(current_user).map{|patron| patron.full_name}
+          row << creator.join(',')
+        when :contributor
+          contributor = manifestation.contributors.readable_by(current_user).map{|patron| patron.full_name}
+          row << contributor.join(',')
+        when :publisher
+          publisher = manifestation.publishers.readable_by(current_user).map{|patron| patron.full_name}
+          row << publisher.join(',')
+        when :pub_date
+          row << manifestation.pub_date
+        when :reserves_num
+          row << Reserve.waiting.where(:manifestation_id => manifestation.id, :checked_out_at => nil).count
+        end
+      end
+      data << '"' + row.join("\"\t\"") +"\"\n"
+    end
+    return data
+  end
+
+  def self.get_manifestation_locate(manifestation, current_user)
+    report = ThinReports::Report.new :layout => File.join(Rails.root, 'report', 'manifestation.tlf')
+   
+    # footer
+    report.layout.config.list(:list) do
+      use_stores :total => 0
+      events.on :footer_insert do |e|
+        e.section.item(:date).value(Time.now.strftime('%Y/%m/%d %H:%M'))
+      end
+    end
+    # main
+    report.start_new_page do |page|
+      # set manifestation_information
+      7.times { |i|
+        label, data = "", ""
+        page.list(:list).add_row do |row|
+          case i
+          when 0
+            label = I18n.t('activerecord.attributes.manifestation.original_title')
+            data  = manifestation.original_title
+          when 1
+            label = I18n.t('patron.creator')
+            data  = manifestation.creators.readable_by(current_user).map{|patron| patron.full_name}
+            data  = data.join(",")
+          when 2
+            label = I18n.t('patron.publisher')
+            data  = manifestation.publishers.readable_by(current_user).map{|patron| patron.full_name}
+            data  = data.join(",")
+          when 3
+            label = I18n.t('activerecord.attributes.manifestation.price')
+            data  = manifestation.price
+          when 4
+            label = I18n.t('activerecord.attributes.manifestation.page')
+            data  = manifestation.number_of_pages.to_s + 'p' if manifestation.number_of_pages
+          when 5
+            label = I18n.t('activerecord.attributes.manifestation.size')
+            data  = manifestation.height.to_s + 'cm' if manifestation.height
+          when 6
+            label = I18n.t('activerecord.attributes.series_statement.original_title')
+            data  = manifestation.series_statement.original_title if manifestation.series_statement
+          when 7
+            label = I18n.t('activerecord.attributes.manifestation.isbn')
+            data  = manifestation.isbn
+          end
+          row.item(:label).show
+          row.item(:data).show
+          row.item(:dot_line).hide
+          row.item(:description).hide
+          row.item(:label).value(label.to_s + ":")
+          row.item(:data).value(data)
+        end
+      }
+
+      # set description
+      if manifestation.description
+        # make space
+        page.list(:list).add_row do |row|
+          row.item(:label).hide
+          row.item(:data).hide
+          row.item(:dot_line).hide
+          row.item(:description).hide
+        end
+        # set
+        max_column = 20
+        cnt, str_num = 0.0, 0
+        str = manifestation.description
+        while str.length > max_column
+          str.length.times do |i|
+            cnt += 0.5 if str[i] =~ /^[\s0-9A-Za-z]+$/
+            cnt += 1 unless str[i] =~ /^[\s0-9A-Za-z]+$/
+            if cnt.to_f >= max_column or str[i+1].nil? or str[i] =~ /^[\n]+$/
+              str_num = i + 1 if cnt.to_f == max_column or str[i+1].nil? or str[i] =~ /^[\n]+$/
+              str_num = i if cnt.to_f > max_column
+              page.list(:list).add_row do |row|
+                row.item(:label).hide
+                row.item(:data).hide
+                row.item(:dot_line).hide
+                row.item(:description).show
+                row.item(:description).value(str[0...str_num].chomp)
+              end
+              str = str[str_num...str.length]
+              cnt, str_num = 0.0, 0
+              break
+            end
+          end
+        end
+        page.list(:list).add_row do |row|
+          row.item(:label).hide
+          row.item(:data).hide
+          row.item(:dot_line).hide
+          row.item(:description).show
+          row.item(:description).value(str)
+        end
+      end
+
+      # set item_information
+      manifestation.items.each do |item|
+        6.times { |i|
+          label, data = "", ""
+          page.list(:list).add_row do |row|
+            row.item(:label).show
+            row.item(:data).show
+            row.item(:dot_line).hide
+            row.item(:description).hide
+            case i
+            when 0
+              row.item(:label).hide
+              row.item(:data).hide
+              row.item(:dot_line).show
+            when 1
+              label = I18n.t('activerecord.models.library')
+              data  = item.shelf.library.display_name.localize
+            when 2
+              label = I18n.t('activerecord.models.shelf')
+              data  = item.shelf.display_name.localize
+            when 3
+              label = I18n.t('activerecord.attributes.item.call_number')
+              data  = item.call_number
+            when 4
+              label = I18n.t('activerecord.attributes.item.item_identifier')
+              data  = item.item_identifier
+            when 5
+              label = I18n.t('activerecord.models.circulation_status')
+              data  = item.circulation_status.display_name.localize
+            end
+            row.item(:label).value(label.to_s + ":")
+            row.item(:data).value(data)
+          end
+        }
+      end
+    end
+    return report 
+  end
 end
 
 # == Schema Information
