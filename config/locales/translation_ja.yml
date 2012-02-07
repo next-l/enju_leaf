@@ -1984,6 +1984,7 @@ ja:
     export_pdf: PDF出力
     term: 集計対象期間
     date_format: "%{year}年%{month}月%{date}日"
+    term_note: (YYYY, YYYYMM, YYYYMMDDのいずれかで指定)
   statistic_report:
     monthly_report: 月別利用統計
     daily_report: 日別利用統計

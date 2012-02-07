@@ -26,6 +26,13 @@
       get_list_size();
     });
 
+    // change term
+    $("#expense_term_from").change(function () {
+      get_list_size();
+    });
+    $("#expense_term_to").change(function () {
+      get_list_size();
+    });
   });
   
   function get_list_size() {
@@ -35,10 +42,8 @@
     $("input#budget_:checked").map(function() { budgets.push($(this).val()); });
     $("input#library_:checked").map(function() { libraries.push($(this).val()); });
     $("input#bookstore_:checked").map(function() { bookstores.push($(this).val()); });
-    var term_from = new Array;
-    var term_to = new Array;    
-    term_from.push($("#expense_term_from_1i").val()).push($("#expense_term_from_2i").val()).push($("#expense_term_from_3i").val());
-    term_from.push($("#expense_term_to_1i").val()).push($("#expense_term_to_2i").val()).push($("#expense_term_to_3i").val());
+    var term_from = $("#expense_term_from").val();
+    var term_to = $("#expense_term_to").val();
 
     $.ajax({
       type: "GET",
@@ -81,7 +86,8 @@
   </div>
   <div>
      <%= label :list_condition, t('expense.term') -%>:<br />
-     <%= f.date_select :term_from, :include_blank => true -%>&nbsp;-&nbsp;<%= f.date_select :term_to, :include_blank => true-%>
+     <%= f.text_field :term_from, :class => 'date_field' -%>&nbsp;-&nbsp;<%= f.text_field :term_to,  :class => 'date_field' -%>
+     <%= t('expense.term_note') -%>
   </div>
 
   <div>
