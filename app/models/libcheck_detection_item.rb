@@ -66,7 +66,6 @@ private
   end	
   def self.make_detection_list_pdf(pdf_file, items)
     # pdf
-    require 'thinreports'
     report = ThinReports::Report.new :layout => File.join(Rails.root, 'report', 'libcheck_detection.tlf')
     report.events.on :page_create do |e|
       e.page.item(:page).value(e.page.no)

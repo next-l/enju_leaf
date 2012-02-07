@@ -85,7 +85,6 @@ class LibcheckNotfoundItem < ActiveRecord::Base
       logger.warn "item date is empty"
     else
       # pdf
-      require 'thinreports'
       report = ThinReports::Report.new :layout => File.join(Rails.root, 'report', 'libcheck_notfound.tlf')
       report.events.on :page_create do |e|
         e.page.item(:page).value(e.page.no)

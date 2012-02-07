@@ -54,8 +54,6 @@ class ReservelistsController < ApplicationController
 
   private
   def output_pdf
-    # thinreports
-    require 'thinreports'
     report = ThinReports::Report.new :layout => File.join(Rails.root, 'report', 'reservelist.tlf')
 
     # set page_number

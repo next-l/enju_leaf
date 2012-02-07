@@ -492,7 +492,6 @@ class User < ActiveRecord::Base
   end
 
   def self.output_userlist_pdf(users)
-    require 'thinreports'
     report = ThinReports::Report.new :layout => File.join(Rails.root, 'report', 'userlist.tlf')
 
     # set page_num

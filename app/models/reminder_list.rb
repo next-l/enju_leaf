@@ -1,5 +1,4 @@
 class ReminderList < ActiveRecord::Base
-  require 'thinreports'
   default_scope :order => 'reminder_lists.id DESC'
 
   validates_presence_of :checkout_id, :status
@@ -136,7 +135,6 @@ class ReminderList < ActiveRecord::Base
   def self.output_reminder_postal_card(file, reminder_lists, user, current_user)
     logger.info "create_file=> #{file}"
 
-    require 'thinreports'
     report = ThinReports::Report.create do
       use_layout File.join(Rails.root, 'report', 'reminder_postal_card_back.tlf'), :default => true
       #report = ThinReports::Report.new :layout => File.join(Rails.root, 'report', 'reminder_postal_card_front.tlf')
@@ -239,7 +237,6 @@ class ReminderList < ActiveRecord::Base
   def self.output_reminder_letter(file, reminder_lists, user, current_user)
     logger.info "create_file=> #{file}"
 
-    require 'thinreports'
     report = ThinReports::Report.new :layout => File.join(Rails.root, 'report', 'reminder_letter.tlf')
     report.layout.config.list(:list) do
       events.on :footer_insert do |e|

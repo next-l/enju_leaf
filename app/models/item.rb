@@ -365,7 +365,6 @@ class Item < ActiveRecord::Base
       end
       # pdf
       if file_type.nil? || file_type == "pdf"
-        require 'thinreports'
         report = ThinReports::Report.new :layout => File.join(Rails.root, 'report', 'removing_list.tlf') 
         report.events.on :page_create do |e|
           e.page.item(:page).value(e.page.no)
@@ -621,7 +620,6 @@ class Item < ActiveRecord::Base
       logger.warn "item date is empty"
     else
       # pdf
-      require 'thinreports'
       report = ThinReports::Report.new :layout => File.join(Rails.root, 'report', 'libcheck_items.tlf') 
       report.events.on :page_create do |e|
         e.page.item(:page).value(e.page.no)
@@ -667,7 +665,6 @@ class Item < ActiveRecord::Base
     else
       filename = I18n.t('item_register.audio_list')
       # pdf
-      require 'thinreports'
       begin
         report = ThinReports::Report.new :layout => "#{Rails.root.to_s}/app/views/export_item_lists/item_list"
 

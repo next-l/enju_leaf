@@ -1,5 +1,4 @@
 class StatisticReportsController < ApplicationController
-  require 'thinreports'
   before_filter :check_role
 
   def index
