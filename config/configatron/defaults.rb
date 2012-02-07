@@ -52,11 +52,10 @@ configatron.no_operation_counter = 0
 # 検索結果一覧の出力ボタンを表示するか(true => 全てのユーザーに対し表示, false => ライブラリアン権限以上ならば表示)
 configatron.manifestations.users_show_output_button = true
 # 検索結果一覧の出力
-configatron.search_report_pdf.filename = "search_manifestations.pdf"
-configatron.search_report_csv.filename = "search_manifestations.csv"
-
+configatron.manifestation_list_print_pdf.filename = "manifestation_list.pdf"
+configatron.manifestation_list_print_tsv.filename = "manifestation_list.csv"
 # 資料確認票のファイル名
-configatron.manifestation_print.filename = "manifestation.pdf"
+configatron.manifestation_locate_print.filename = "manifestation.pdf"
 
 # 貸出票の出力
 configatron.checkouts_print.filename = "checkouts.pdf"
