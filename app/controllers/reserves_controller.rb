@@ -2,7 +2,7 @@
 class ReservesController < ApplicationController
   include ApplicationHelper
   before_filter :store_location, :only => [:index, :new]
-#  load_and_authorize_resource :except => [:index, :show, :output, :edit]
+#  load_and_authorize_resource :except => [:index, :show, :edit]
   authorize_resource :only => :index
   before_filter :get_user_if_nil
   #, :only => [:show, :edit, :create, :update, :destroy]
@@ -43,10 +43,14 @@ class ReservesController < ApplicationController
         else
           @reserves = @user.reserves.user_show_reserves.order('reserves.expired_at ASC').page(params[:page])
         end
+        # output
         if params[:output_user]
-          # output
-          data = Reserve.output_reservelist_user(@user, current_user)
-          send_data data.generate, :filename => configatron.reservelist_user_print.filename
+          data = Reserve.get_reserves(@user, current_user)
+          send_data data.generate, :filename => configatron.reserve_list_user_print.filename
+        end
+        if params[:output_user_tsv]
+          data = Reserve.get_reserve_list_user_tsv(@user.id, current_user)
+          send_data data, :filename => configatron.reserve_list_all_print_tsv.filename
         end
       elsif @manifestation
         # 管理者
@@ -114,13 +118,13 @@ class ReservesController < ApplicationController
         # output reserveslist
         unless @selected_state.blank? or @selected_library.blank? or @selected_method.blank? 
           if params[:output_pdf]
-            data = Reserve.output_reservelist_all_pdf(query, params[:state], params[:library], params[:method])
-            send_data data.generate, :filename => configatron.reservelist_all_print_pdf.filename, :type => 'application/pdf'
+            data = Reserve.get_reserve_list_all_pdf(query, params[:state], params[:library], params[:method])
+            send_data data.generate, :filename => configatron.reserve_list_all_print_pdf.filename, :type => 'application/pdf'
             return
           end
-          if params[:output_csv]
-            data = Reserve.output_reservelist_all_pdf(query, params[:state], params[:library], params[:method])
-            send_data data, :filename => configatron.reservelist_all_print_csv.filename
+          if params[:output_tsv]
+            data = Reserve.get_reserve_list_all_tsv(query, params[:state], params[:library], params[:method])
+            send_data data, :filename => configatron.reserve_list_all_print_tsv.filename
             return
           end
         end
@@ -146,6 +150,12 @@ class ReservesController < ApplicationController
     @information_method = Reserve.get_information_method(@reserve)
     @receipt_library = Library.find(@reserve.receipt_library_id)
     @reserved_count = Reserve.waiting.where(:manifestation_id => @reserve.manifestation_id, :checked_out_at => nil).count
+
+    if params[:output]
+      data = Reserve.get_reserve(@reserve, current_user)
+      send_data data.generate, :filename => configatron.reserve_print.filename
+      return
+    end
 
     respond_to do |format|
       format.html # show.rhtml
@@ -347,14 +357,6 @@ class ReservesController < ApplicationController
       format.html { redirect_to reserves_url}
       format.xml  { head :ok }
     end
-  end
-
-  def output
-    @reserve = Reserve.find(params[:id])
-    check_can_access?
-
-    data = Reserve.output_reserve(@reserve, current_user)
-    send_data data.generate, :filename => configatron.reserve_print.filename
   end
 
   private

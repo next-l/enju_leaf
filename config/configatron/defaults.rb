@@ -70,11 +70,11 @@ configatron.checkout_print.old = true
 # 予約票の出力
 configatron.reserve_print.filename = "reserve.pdf"
 # 予約リスト(個人)の出力
-configatron.reservelist_user_print.filename = "reservelist_user.pdf"
+configatron.reserve_list_user_print.filename = "reserve_list_user.pdf"
 # 予約リスト(全体)の出力(PDF)
-configatron.reservelist_all_print_pdf.filename = "reservelist_all.pdf"
+configatron.reserve_list_all_print_pdf.filename = "reserve_list_all.pdf"
 # 予約リスト(全体)の出力(CSV)
-configatron.reservelist_all_print_csv.filename = "reservelist_all.csv"
+configatron.reserve_list_all_print_tsv.filename = "reserve_list_all.csv"
 # 取置済み資料の出力
 configatron.retained_manifestations_print.filename = "retained_manifestations.pdf"
 # 予約表に利用者の年齢を表示するかどうか

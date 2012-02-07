@@ -37,7 +37,6 @@ EnjuLeaf::Application.routes.draw do
     resources :series_statements
     resources :series_has_manifestations
     resources :reserves
-    post :output_show, :on => :collection
   end
 
   resources :library_checks do

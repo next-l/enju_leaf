@@ -27,19 +27,19 @@
     <div id="list_condition_200" class="parent">
       <%= check_box_tag "all_state", true, @selected_state.size == @states.size ? true : false, :class=>'check-parent' -%><%= t('advanced_search.all', :model=>t('activerecord.attributes.reserve.state')) -%><br />
       <%- @states.each do |state| -%>
-        &nbsp;&nbsp;<%= check_box_tag "state[]", state, @selected_state.index(state) != nil ? true : false, :class=>'check-child' -%><%= i18n_state(state) -%><br />
+        &nbsp;&nbsp;<%= check_box_tag "state[]", state, @selected_state.index(state) ? true : false, :class=>'check-child' -%><%= i18n_state(state) -%><br />
       <%- end -%>
     </div>
     <div id="list_condition_200" class="parent">
       <%= check_box_tag "all_library", true, @selected_library.size == @libraries.size ? true : false, :class=>'check-parent' -%><%= t('advanced_search.all', :model=>t('activerecord.attributes.reserve.receipt_library')) -%><br />
       <%- @libraries.each do |library| -%>
-        &nbsp;&nbsp;<%= check_box_tag "library[]", library.id, (@selected_library.index(library.id.to_s) != nil or @selected_library.index(library.id.to_i))? true : false, :class=>'check-child' -%><%= library.display_name -%><br />
+        &nbsp;&nbsp;<%= check_box_tag "library[]", library.id, (@selected_library.index(library.id.to_s) or @selected_library.index(library.id.to_i))? true : false, :class=>'check-child' -%><%= library.display_name -%><br />
       <%- end -%>
     </div>
     <div id="list_condition_200" class="parent">
       <%= check_box_tag "all_method", true, @selected_method.size == @information_types.size ? true : false, :class=>'check-parent' -%><%= t('advanced_search.all', :model=>t('activerecord.attributes.reserve.information_method')) -%><br />
       <%- @information_types.each do |type| -%>
-        &nbsp;&nbsp;<%= check_box_tag "method[]", type, (@selected_method.index(type.to_s) != nil or @selected_method.index(type.to_i)) ? true : false, :class=>'check-child' -%><%= i18n_information_type(type) -%><br />
+        &nbsp;&nbsp;<%= check_box_tag "method[]", type, (@selected_method.index(type.to_s) or @selected_method.index(type.to_i)) ? true : false, :class=>'check-child' -%><%= i18n_information_type(type) -%><br />
       <%- end -%>
     </div>
     <br style="clear:both;"/>
@@ -55,7 +55,7 @@
     <%= hidden_field_tag 'do_search', true -%>
     <%= submit_tag t('page.search') %>
     <%= submit_tag t('page.output_pdf', :model => (t('page.listing', :model => t('activerecord.models.reserve')))), :name => 'output_pdf' %>
-    <%= submit_tag t('page.output_csv', :model => (t('page.listing', :model => t('activerecord.models.reserve')))), :name => 'output_csv' %>
+    <%= submit_tag t('page.output_tsv', :model => (t('page.listing', :model => t('activerecord.models.reserve')))), :name => 'output_tsv' %>
   </div>
 <%- end -%>
 
