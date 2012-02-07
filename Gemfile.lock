@@ -99,7 +99,7 @@ GEM
     colored (1.2)
     configatron (2.9.0)
       yamler (>= 0.1.0)
-    daemons (1.1.6)
+    daemons (1.1.8)
     dalli (1.1.4)
     delayed_job (3.0.1)
       activesupport (~> 3.0)
@@ -189,7 +189,7 @@ GEM
       sunspot_rails
       sunspot_solr
       will_paginate (~> 3.0)
-    enju_ndl (0.0.10)
+    enju_ndl (0.0.11)
       devise
       nokogiri
       rails (~> 3.1)
@@ -250,7 +250,7 @@ GEM
     exception_notification (2.5.2)
       actionmailer (>= 3.0.4)
     extractcontent (0.0.1)
-    factory_girl (2.5.0)
+    factory_girl (2.5.1)
       activesupport
     factory_girl_rails (1.6.0)
       factory_girl (~> 2.5.0)
@@ -333,7 +333,7 @@ GEM
       activesupport (>= 2.3.2)
       cocaine (>= 0.0.2)
       mime-types
-    parallel (0.5.13)
+    parallel (0.5.14)
     parallel_tests (0.6.17)
       parallel
     pg (0.12.2)
@@ -497,7 +497,7 @@ DEPENDENCIES
   enju_event (= 0.0.5)
   enju_inventory (= 0.0.3)
   enju_message (= 0.0.7)
-  enju_ndl (= 0.0.10)
+  enju_ndl (= 0.0.11)
   enju_oai!
   enju_purchase_request (= 0.0.4)
   enju_question (= 0.0.5)
