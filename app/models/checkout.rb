@@ -228,6 +228,8 @@ class Checkout < ActiveRecord::Base
   end
 
   def self.output_checkoutlist_csv(checkouts, view)
+    data = String.new
+    data << "\xEF\xBB\xBF".force_encoding("UTF-8") + "\n"
     columns = [
       [:user,'activerecord.models.user'],
       [:title, 'activerecord.attributes.manifestation.original_title'],
@@ -239,13 +241,9 @@ class Checkout < ActiveRecord::Base
       [:overdue, 'checkout.number_of_day_overdue'],
     ]
 
-    data = String.new
     # title column
-    row = []
-    columns.each do |column|
-      row << I18n.t(column[1])
-    end
-    data << row.join(",")+"\n"
+    row = columns.map {|column| I18n.t(column[1])}
+    data << row.join("\t")+"\n"
 
     # set
     checkouts.each do |checkout|
@@ -278,10 +276,10 @@ class Checkout < ActiveRecord::Base
           overdue = Date.today - due_date_datetype.to_date
           overdue = 0 if overdue < 0
           row << overdue
-        end # end of case column[0]
-      end #end of columns.each
-      data << '"'+row.join('","')+"\"\n"
-    end # end of items.each
+        end
+      end
+      data << '"'+row.join("\"\t\"")+"\"\n"
+    end 
     return data
   end
 end

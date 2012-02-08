@@ -15,7 +15,7 @@
     (<%= @reserve.user.user_number %>)
   </div>
   <div class="field">
-    <%= f.label t('activerecord.attributes.reserve.information_method') -%><br />
+    <%= f.label t('activerecord.attributes.reserve.information_type') -%><br />
     <%= f.select(:information_type_id, @informations.collect{|i| [i.display_name + " " + i.information, i.id]}) -%>
   </div>
   <div class="field">

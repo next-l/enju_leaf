@@ -34,10 +34,16 @@ class Expense < ActiveRecord::Base
       columns.each do |column|
         row << I18n.t(column[1])
       end
+      output.print "\""+row.join("\"\t\"")+"\"\n"
      
       expenses.each do |expense|
+        row = []
         columns.each do |column|
           case column[0]
+          when "budget"
+            budget = "#{expense.budget.library.display_name.localize} #{expense.budget.term.display_name.localize}"
+            budget += "(#{expense.budget.note})" unless expense.budget.note.nil?
+            row << budget
           when :library
             row << expense.item.shelf.library.display_name.localize rescue ""
           when "created_at"
@@ -59,7 +65,41 @@ class Expense < ActiveRecord::Base
   end
   
   def self.export_pdf(expenses)
-    logger.error "export pdf"
+    begin
+      report = ThinReports::Report.new :layout => "#{Rails.root.to_s}/app/views/expenses/expense_list"
+      report.events.on :page_create do |e|
+        e.page.item(:page).value(e.page.no)
+      end
+      report.events.on :generate do |e|
+        e.pages.each do |page|
+          page.item(:total).value(e.report.page_count)
+        end
+      end
+
+      report.start_new_page
+      report.page.item(:date).value(Time.zone.now)
+      sum = 0
+      expenses.each do |expense|
+        report.page.list(:list).add_row do |row|
+          budget = "#{expense.budget.library.display_name.localize} #{expense.budget.term.display_name.localize}"
+          budget += "(#{expense.budget.note})" unless expense.budget.note.nil?
+          row.item(:budget).value(budget)        
+          row.item(:library).value(expense.item.shelf.library.display_name.localize) rescue nil        
+          row.item(:created_at).value(I18n.t('expense.date_format', :year => expense.created_at.strftime("%Y"), :month => expense.created_at.strftime("%m"), :date => expense.created_at.strftime("%d"))) rescue nil        
+          row.item(:bookstore).value(expense.item.bookstore.name) rescue nil        
+          row.item(:title).value(expense.item.manifestation.original_title) rescue nil        
+          row.item(:item_identifier).value(expense.item.item_identifier) rescue nil        
+          row.item(:price).value(expense.price)
+          sum += expense.price        
+        end
+      end
+      report.page.list(:list).add_row do |row|
+        row.item(:price).value(sum)
+      end
+      return report.generate
+    rescue Exception => e
+      logger.error "Failed to create PDF file: #{e}"
+    end
   end
 
 end

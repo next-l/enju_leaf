@@ -5,7 +5,7 @@
 <%- unless @checkouts.size == 0 -%>
   <%= form_for(:checkouts, :url => user_checkouts_path(user), :html => {:method => 'get'}) do -%>
     <%= hidden_field_tag :user_id, user.id -%>
-    <%= submit_tag t('activerecord.attributes.checkout.output_checkoutlist'), :name => 'output' -%>
+    <%= submit_tag t('activerecord.attributes.checkout.output_checkoutlist'), :name => 'output_checkouts' -%>
   <%- end -%>
 <%- end -%>
 <%= render 'list' -%>
@@ -41,12 +41,13 @@
     <%- if params[:view] == 'overdue' -%>
       <%= link_to (image_tag 'feed-icon-14x14.png', :size => '14x14', :alt => 'RSS', :title => t('tooltip.feed'), :class => 'icon'), user_checkouts_path(user, :format => :rss, :view => 'overdue') -%>
       (<%= link_to 'RSS', user_checkouts_path(user, :format => :rss, :view => 'overdue') -%>)
-      (<%= link_to 'CSV', user_checkouts_path(user, :format => :csv, :view => 'overdue', :locale => @locale.to_s) -%>)
+      <%= link_to (image_tag 'icons/page_white_excel.png', :size => '16x16', :alt => 'TSV', :title => 'TSV', :class => 'icon'), user_checkouts_path(user, :output_checkout_list_tsv=> true) -%>
+      (<%= link_to 'TSV', user_checkouts_path(user, :format => :tsv, :view => 'overdue', :locale => @locale.to_s, :output_checkout_list_tsv=> true) -%>)
     <%- else -%>
       <%= link_to (image_tag 'feed-icon-14x14.png', :size => '14x14', :alt => 'RSS', :title => t('tooltip.feed'), :class => 'icon'), user_checkouts_path(user, :format => :rss) -%>
       (<%= link_to 'RSS', user_checkouts_path(user, :format => :rss) -%>)
-      <%= link_to (image_tag 'icons/page_white_excel.png', :size => '16x16', :alt => 'CSV', :title => t('tooltip.csv'), :class => 'icon'), user_checkouts_path(user, :format => :csv, :locale => @locale.to_s) -%>
-      (<%= link_to 'CSV', user_checkouts_path(user, :format => :csv, :locale => @locale.to_s) -%>)
+      <%= link_to (image_tag 'icons/page_white_excel.png', :size => '16x16', :alt => 'TSV', :title => 'TSV', :class => 'icon'), user_checkouts_path(user, :output_checkout_list_tsv=> true) -%>
+      (<%= link_to 'TSV', user_checkouts_path(user, :output_checkout_list_tsv=> true) -%>)
     <%- end -%>
   </p>
 

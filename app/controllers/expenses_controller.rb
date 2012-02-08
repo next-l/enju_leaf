@@ -56,7 +56,7 @@ class ExpensesController < ApplicationController
     end
     if params[:pdf]
       file = Expense.export_pdf(expenses)
-      send_file file
+      send_data file, :filename => "expense_list.pdf", :type => 'application/pdf', :disposition => 'attachment'
     elsif params[:tsv]
       file = Expense.export_tsv(expenses)
       send_file file

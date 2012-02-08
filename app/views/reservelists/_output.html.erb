@@ -36,9 +36,9 @@
       <%- end -%>
     </div>
     <div id="list_condition_150" class="parent">
-      <%= check_box_tag "all_method", true, @selected_method.size == @information_types.size ? true : false, :class=>'check-parent' -%><%= t('advanced_search.all', :model=>t('activerecord.attributes.reserve.information_method')) -%><br />
+      <%= check_box_tag "all_information_type", true, @selected_information_type.size == @information_types.size ? true : false, :class=>'check-parent' -%><%= t('advanced_search.all', :model=>t('activerecord.attributes.reserve.information_type')) -%><br />
       <%- @information_types.each do |type| -%>
-        &nbsp;&nbsp;<%= check_box_tag "method[]", type, (@selected_method.index(type.to_s) != nil or @selected_method.index(type.to_i)) ? true : false, :class=>'check-child' -%><%= i18n_information_type(type) -%><br />
+        &nbsp;&nbsp;<%= check_box_tag "information_type[]", type, @selected_information_type.index(type) ? true : false, :class=>'check-child' -%><%= i18n_information_type(type) -%><br />
       <%- end -%>
     </div>
     <br style="clear:both;"/>

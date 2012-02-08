@@ -4,7 +4,7 @@ class ReservelistsController < ApplicationController
   
   def initialize
     @states = @selected_state= Reserve.states
-    @information_types = @selected_method = Reserve.information_types
+    @information_types = @selected_information_type = Reserve.information_type_ids
     @libraries = Library.order('position')
     @selected_library = @libraries.collect{|library| library.id}
     super
@@ -26,11 +26,18 @@ class ReservelistsController < ApplicationController
     # check list_conditions
     @selected_state = params[:state] || []
     @selected_library = params[:library] ||  []
-    @selected_method = params[:method] || []
-    selected_method = params[:method].clone.concat(['3', '4', '5', '6', '7']) if !params[:method].blank? and params[:method].include?('2')
-
-    # wrong checked
-    if params[:state].blank? || params[:library].blank? || params[:method].blank?
+    @selected_information_type = params[:information_type] || []
+    if params[:information_type]
+      @selected_information_type = params[:information_type].map{|i|i.split}
+      @selected_information_type = @selected_information_type.inject([]){|types, type|
+        type = type.map{|i| i.to_i}
+        type = type.join().to_i if type.size == 1
+        types << type
+      }
+    end
+    selected_information_type = @selected_information_type.flatten
+    # check conditions
+    if @selected_state.blank? || @selected_library.blank? || @selected_information_type.blank?
       flash[:reserve_notice] = t('item_list.no_list_condition')
       @states.each_with_index do |state, i|
         @reserves = Reserve.where(:state => state).order('created_at DESC')
@@ -41,7 +48,7 @@ class ReservelistsController < ApplicationController
 
     # set list
     @selected_state.each do |state|
-      @reserves = Reserve.where(:state => state, :receipt_library_id => @selected_library, :information_type_id => selected_method).order('created_at DESC')
+      @reserves = Reserve.where(:state => state, :receipt_library_id => @selected_library, :information_type_id => selected_information_type).order('created_at DESC')
       @displist << dispList.new(state, @reserves)
     end
 
@@ -72,7 +79,6 @@ class ReservelistsController < ApplicationController
 
       @displist.each do |d|
         before_receipt_library = nil
-        #reserves = Reserve.where(:state => d.state, :receipt_library_id => params[:library], :information_type_id => params[:method]).order('expired_at ASC').includes(:manifestation) 
         unless d.reserves.blank?
           d.reserves.each do |r|
             page.list(:list).add_row do |row|
@@ -96,9 +102,9 @@ class ReservelistsController < ApplicationController
                  user = user + '(' + age.to_s + t('activerecord.attributes.patron.old')  +')'
                 end
                row.item(:user).value(user)
-               information_method = i18n_information_type(r.information_type_id)
-               information_method += ': ' + Reserve.get_information_method(r) if r.information_type_id != 0 and !Reserve.get_information_method(r).nil?
-               row.item(:information_method).value(information_method)
+               information_type = i18n_information_type(r.information_type_id)
+               information_type += ': ' + Reserve.get_information_type(r) if r.information_type_id != 0 and !Reserve.get_information_type(r).nil?
+               row.item(:information_type).value(information_type)
             end
             before_receipt_library = r.receipt_library_id
             before_state = d.state

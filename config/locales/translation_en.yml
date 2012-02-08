@@ -91,7 +91,7 @@ en:
       event_import_file: Event import file
       attachment_file: Attachment file
       reserve: Reserve
-      retained_manifestation: Retaubed manifestation 
+      retained_manifestation: Retaubed manifestation(not connected)
       reserve_family: Family's reserve
       message_request: Message request
       answer: Answer
@@ -768,7 +768,7 @@ en:
         deleted_at: Deleted at
         created_at: Reserved at
         state: State
-        information_method: Information method
+        information_type: Information type
         receipt_library: Receipt library
         unnecessary: Unnecessary
         email: email

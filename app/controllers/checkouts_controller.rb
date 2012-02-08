@@ -47,16 +47,6 @@ class CheckoutsController < ApplicationController
           # all
            checkouts = Checkout.not_returned.joins(:item => [{:shelf => :library}]).where('libraries.id' => library).order('due_date ASC')#.page(params[:page])
           end
-          #output
-          if params[:output_pdf]
-            data = Checkout.output_checkoutlist_pdf(checkouts, params[:view])
-            send_data data.generate, :filename => configatron.checkoutlist_print_pdf.filename
-            return
-          elsif params[:output_csv]
-            data = Checkout.output_checkoutlist_csv(checkouts, params[:view])
-            send_data data, :filename => configatron.checkoutlist_print_csv.filename
-            return
-          end
         end
       else
         # 一般ユーザ
@@ -72,12 +62,26 @@ class CheckoutsController < ApplicationController
       end
     end
 
-    @days_overdue = params[:days_overdue] ||= 1
-    if params[:output]
-      data = Checkout.output_checkouts(checkouts, User.find(params[:user_id]), current_user)
-      send_data data.generate, :filename => configatron.checkouts_print.filename
-      return
+    #output
+    if params[:output_checkouts] or params[:output_checkout_list_pdf] or params[:output_checkout_list_tsv]
+      if params[:output_checkouts]
+        data = Checkout.output_checkouts(checkouts, User.find(params[:user_id]), current_user)
+        send_data data.generate, :filename => configatron.checkouts_print.filename
+      end
+      if params[:output_checkout_list_pdf]
+        data = Checkout.output_checkoutlist_pdf(checkouts, params[:view])
+        send_data data.generate, :filename => configatron.checkout_list_print_pdf.filename
+      end
+      if params[:output_checkout_list_tsv]
+        data = Checkout.output_checkoutlist_csv(checkouts, params[:view])
+        send_data data, :filename => configatron.checkout_list_print_tsv.filename
+      end
+      return 
     end
+
+    @days_overdue = params[:days_overdue] ||= 1
+    @checkouts = checkouts.page(params[:page])
+=begin
     if params[:format] == 'csv'
       @checkouts = checkouts
       data = Checkout.output_checkoutlist_csv(checkouts, params[:view])
@@ -86,7 +90,7 @@ class CheckoutsController < ApplicationController
     else
       @checkouts = checkouts.page(params[:page])
     end
-
+=end
     respond_to do |format|
       format.html # index.rhtml
       format.xml  { render :xml => @checkouts.to_xml }
