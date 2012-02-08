@@ -1294,6 +1294,7 @@ ja:
         budget: 予算
         item: 所蔵情報
         price: 値段
+        created_at: 受入日
 
   page:
     user_title: "ようこそ %{login_name} さん"
@@ -1969,10 +1970,21 @@ ja:
     yen: "%{amount} 円"
     sum: 予算全額(補正予算を含む)
     balance: 残金
+    all_budgets: 全ての予算
+    all_libraries: 全ての図書館
+    all_bookstores: 全ての書店
+    list_number: 件数
+    page_number: ページ数
   term:
     cannot_delete: "この期間は削除できません。"
   expense:
     yen: "%{price} 円"
+    export: 帳票の出力
+    export_tsv: TSV出力
+    export_pdf: PDF出力
+    term: 集計対象期間
+    date_format: "%{year}年%{month}月%{date}日"
+    term_note: (YYYY, YYYYMM, YYYYMMDDのいずれかで指定)
   statistic_report:
     monthly_report: 月別利用統計
     daily_report: 日別利用統計

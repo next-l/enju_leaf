@@ -37,7 +37,6 @@ EnjuLeaf::Application.routes.draw do
     resources :series_statements
     resources :series_has_manifestations
     resources :reserves
-    post :output_show, :on => :collection
   end
 
   resources :library_checks do
@@ -410,7 +409,11 @@ EnjuLeaf::Application.routes.draw do
 
   resources :system_configurations
 
-  resources :expenses
+  resources :expenses do
+    get :export_report, :on => :collection
+    get :get_list_size, :on => :collection
+    get :download_file, :on => :collection
+  end
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

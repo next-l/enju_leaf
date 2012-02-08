@@ -396,6 +396,10 @@ class Reserve < ActiveRecord::Base
   end
 
   # TODO
+  def self.information_ids
+    return [0, 1, 2, 3, 4, 5 , 6, 7]
+  end
+
   def self.informations(user)
     @informations = []
     @Type = Struct.new(:id, :display_name, :information)
@@ -444,6 +448,11 @@ class Reserve < ActiveRecord::Base
     return @states
   end
 
+  def self.show_user_states
+    @states = ['requested', 'retained', 'in_process']
+    return @states
+  end
+
   def can_checkout?
     return true if ['requested', 'retained', 'in_process'].include?(self.state)
     false
@@ -455,7 +464,7 @@ class Reserve < ActiveRecord::Base
   end 
 
   # output
-  def self.output_reserve(reserve, current_user)
+  def self.get_reserve(reserve, current_user)
     receipt_library = Library.find(reserve.receipt_library_id)
 
     report = ThinReports::Report.new :layout => File.join(Rails.root, 'report', 'reserve.tlf')
@@ -489,7 +498,7 @@ class Reserve < ActiveRecord::Base
     return report
   end
 
-  def self.output_reservelist_user(user, current_user)
+  def self.get_reserves(user, current_user)
     if current_user.has_role?('Librarian')
       reserves = Reserve.show_reserves.where(:user_id => user.id).order('expired_at Desc')
     else
@@ -536,7 +545,65 @@ class Reserve < ActiveRecord::Base
     return report
   end
 
-  def self.output_reservelist_all_pdf(query, states, library, method)
+  def self.get_reserve_list_user_tsv(user_id, current_user)
+    data = String.new
+    data << "\xEF\xBB\xBF".force_encoding("UTF-8") + "\n"
+    columns = [
+      [:state,'activerecord.attributes.reserve.state'],
+      [:receipt_library, 'activerecord.attributes.reserve.receipt_library'],
+      [:title, 'activerecord.attributes.manifestation.original_title'],
+      [:expired_at,'activerecord.attributes.reserve.expired_at2'],
+      [:user, 'activerecord.attributes.reserve.user'],
+      [:information_method, 'activerecord.attributes.reserve.information_method'],
+    ]
+
+    # title column
+    row = columns.map {|column| I18n.t(column[1])}
+    data << row.join("\t")+"\n"
+
+    if current_user.has_role?('Librarian')
+      states = Reserve.states
+    else
+      states = Reserve.show_user_states
+    end
+    states.each do |state|
+      library = Library.all.collect{|library| library.id}
+      method = Reserve.information_ids
+      reserves = Reserve.where(:user_id => user_id, :state => state, :receipt_library_id => library, :information_type_id => method).order('expired_at ASC').includes(:manifestation)
+      # set
+      reserves.each do |reserve|
+        row = []
+        columns.each do |column|
+          case column[0]
+          when :state
+            row << I18n.t(i18n_state(state).strip_tags)
+          when :receipt_library
+            row << Library.find(reserve.receipt_library_id).display_name
+          when :title
+            row << reserve.manifestation.original_title
+          when :expired_at
+            row << reserve.expired_at.strftime("%Y/%m/%d")
+          when :user
+            user = reserve.user.patron.full_name
+            if SystemConfiguration.get("reserve_print.old") == true and  reserve.user.patron.date_of_birth
+              age = (Time.now.strftime("%Y%m%d").to_f - reserve.user.patron.date_of_birth.strftime("%Y%m%d").to_f) / 10000
+              age = age.to_i
+              user = user + '(' + age.to_s + I18n.t('activerecord.attributes.patron.old')  +')'
+            end
+            row << user
+          when :information_method
+            information_method = I18n.t(i18n_information_type(reserve.information_type_id).strip_tags)
+            information_method += ': ' + Reserve.get_information_method(reserve) if reserve.information_type_id != 0 and !Reserve.get_information_method(reserve).nil?
+            row << information_method
+          end
+        end
+        data << '"'+row.join("\"\t\"")+"\"\n"
+      end
+    end
+    return data
+  end
+
+  def self.get_reserve_list_all_pdf(query, states, library, method)
     report = ThinReports::Report.new :layout => File.join(Rails.root, 'report', 'reservelist.tlf')
 
     # set page_num
@@ -614,7 +681,9 @@ class Reserve < ActiveRecord::Base
     end
   end
 
-  def self.output_reservelist_all_csv(query, states, library, method)
+  def self.get_reserve_list_all_tsv(query, states, library, method)
+    data = String.new
+    data << "\xEF\xBB\xBF".force_encoding("UTF-8") + "\n"
     columns = [
       [:state,'activerecord.attributes.reserve.state'],
       [:receipt_library, 'activerecord.attributes.reserve.receipt_library'],
@@ -624,14 +693,9 @@ class Reserve < ActiveRecord::Base
       [:information_method, 'activerecord.attributes.reserve.information_method'],
     ]
 
-    data = String.new
-
     # title column
-    row = []
-    columns.each do |column|
-      row << I18n.t(column[1])
-    end
-    data << row.join(",")+"\n"
+    row = columns.map {|column| I18n.t(column[1])}
+    data << row.join("\t")+"\n"
 
     states.each do |state|
       # get reserves
@@ -671,10 +735,10 @@ class Reserve < ActiveRecord::Base
             information_method = I18n.t(i18n_information_type(reserve.information_type_id).strip_tags)
             information_method += ': ' + Reserve.get_information_method(reserve) if reserve.information_type_id != 0 and !Reserve.get_information_method(reserve).nil?
             row << information_method
-          end # end of case column[0]
-        end #end of columns.each
-        data << '"'+row.join('","')+"\"\n"
-      end # end of items.each
+          end
+        end
+        data << '"'+row.join("\"\t\"")+"\"\n"
+      end
     end
     return data
   end

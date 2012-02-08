@@ -35,6 +35,7 @@ class Item < ActiveRecord::Base
   has_many :answers, :through => :answer_has_items
   has_one :resource_import_result
   has_many :libcheck_tmp_items
+  has_many :expenses
 
   validates_associated :circulation_status, :shelf, :bookstore, :checkout_type
   validates_presence_of :circulation_status, :checkout_type

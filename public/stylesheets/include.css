@@ -333,31 +333,22 @@ div#footer{
   clear: both;
 }
 
-}
-
-div#item_list_library{
+div#budget_library{
   float: left;
   text_align: left;
   width: 200px;
 }
 
-div#item_list_carrier_type{
+div#budget_type{
+  float: left;
+  text_align: left;
+  width: 300px;
+}
+
+div#budget_bookstore{
   float: left;
   text_align: left;
   width: 200px;
-}
-
-div#item_list_ndc{
-  float: left;
-  text_align: left;
-}
-
-div#footer{
-  padding-top: 5px;
-  padding-left: 2px;
-  padding-right: 2px;
-  padding-bottom: 5px;
-  clear: both;
 }
 
 h1{

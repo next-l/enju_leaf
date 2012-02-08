@@ -52,11 +52,10 @@ configatron.no_operation_counter = 0
 # 検索結果一覧の出力ボタンを表示するか(true => 全てのユーザーに対し表示, false => ライブラリアン権限以上ならば表示)
 configatron.manifestations.users_show_output_button = true
 # 検索結果一覧の出力
-configatron.search_report_pdf.filename = "search_manifestations.pdf"
-configatron.search_report_csv.filename = "search_manifestations.csv"
-
+configatron.manifestation_list_print_pdf.filename = "manifestation_list.pdf"
+configatron.manifestation_list_print_tsv.filename = "manifestation_list.csv"
 # 資料確認票のファイル名
-configatron.manifestation_print.filename = "manifestation.pdf"
+configatron.manifestation_locate_print.filename = "manifestation.pdf"
 
 # 貸出票の出力
 configatron.checkouts_print.filename = "checkouts.pdf"
@@ -71,11 +70,11 @@ configatron.checkout_print.old = true
 # 予約票の出力
 configatron.reserve_print.filename = "reserve.pdf"
 # 予約リスト(個人)の出力
-configatron.reservelist_user_print.filename = "reservelist_user.pdf"
+configatron.reserve_list_user_print.filename = "reserve_list_user.pdf"
 # 予約リスト(全体)の出力(PDF)
-configatron.reservelist_all_print_pdf.filename = "reservelist_all.pdf"
+configatron.reserve_list_all_print_pdf.filename = "reserve_list_all.pdf"
 # 予約リスト(全体)の出力(CSV)
-configatron.reservelist_all_print_csv.filename = "reservelist_all.csv"
+configatron.reserve_list_all_print_tsv.filename = "reserve_list_all.csv"
 # 取置済み資料の出力
 configatron.retained_manifestations_print.filename = "retained_manifestations.pdf"
 # 予約表に利用者の年齢を表示するかどうか
