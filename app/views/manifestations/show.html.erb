@@ -29,7 +29,6 @@
     <% end %>
 
     <%= form_tag({:action => 'output_show'}) do -%>
-      <%= hidden_field_tag :manifestation, @manifestation.id -%>
       <%= submit_tag t('page.output', :model => t('activerecord.attributes.manifestation.detail')) -%>
     <%- end -%>
   </div>
