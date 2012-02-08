@@ -175,7 +175,7 @@ ja:
       library_report: 報告書
       loss_item: 紛失弁償
       system_configuration: システム情報
-      reminder_list: 督促情報
+      reminder_list: 督促
       expense: 購入情報
    
     attributes:
@@ -188,8 +188,8 @@ ja:
         status: 状態
         due_date: 貸出期限
         number_of_day_overdue: 超過日数
-        type1_printed: はがき
-        type1_printed_at: はがき印刷日時
+        type1_printed: 督促はがき
+        type1_printed_at: 督促はがき印刷日時
         type2_printed: 催告書
         type2_printed_at: 催告書印刷日時
         printed: 印字済
@@ -1485,7 +1485,7 @@ ja:
     budget: "予算"
     wait: "処理中.."
     system_configuration: システム設定
-    reminder_postal_card: "催促はがき"
+    reminder_postal_card: "督促はがき"
     reminder_letter: "催告書"
 
     exstatistics:
@@ -2103,10 +2103,10 @@ ja:
     yyyymm: 対象年月
     date_comment: "８桁で入力。2011/12/13 の場合は、 20111213 と入力。"
   reminder_list:
-    input_user_for_output_reminder: "督促状の作成対象者の利用者番号を入力してください。"
+    input_user_for_output_reminder: "督促作成対象者の利用者番号を入力してください。"
     no_user: "該当の利用者が見つかりません。"
     no_item: "督促対象になっている資料が見つかりません。"
-    failed_output: "督促状の出力に失敗しました。"
-    successfully__output: "督促状を出力しました。"
+    failed_output: "督促の出力に失敗しました。"
+    successfully__output: "督促を出力しました。"
   function_key:
     will_move: "フォームに値が入力されています。画面遷移してもよろしいですか。"

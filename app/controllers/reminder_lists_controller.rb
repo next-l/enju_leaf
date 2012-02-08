@@ -30,17 +30,17 @@ class ReminderListsController < ApplicationController
         fulltext query
         with(:status, state_ids) 
         order_by(:id, :asc)
-        paginate :page => page.to_i, :per_page => ReminderList.per_page unless params[:output_pdf] or params[:output_csv]
+        paginate :page => page.to_i, :per_page => ReminderList.per_page unless params[:output_pdf] or params[:output_tsv]
       end.results
     else
       @reminder_lists =  ReminderList.where(:status => state_ids).order('id').page(page)
-      @reminder_lists =  ReminderList.where(:status => state_ids).order('id') if params[:output_pdf] or params[:output_csv]
+      @reminder_lists =  ReminderList.where(:status => state_ids).order('id') if params[:output_pdf] or params[:output_tsv]
     end
 
-    # output reminder_list (pdf or csv)
+    # output reminder_list (pdf or tsv)
     unless @selected_state.blank? 
       output_file(:reminder_list_pdf) if params[:output_pdf]
-      output_file(:reminder_list_csv) if params[:output_csv]
+      output_file(:reminder_list_tsv) if params[:output_tsv]
     end
   end
 
@@ -174,9 +174,9 @@ class ReminderListsController < ApplicationController
     when :reminder_list_pdf
       data = ReminderList.output_reminder_list_pdf(@reminder_lists)
       send_data data.generate, :filename => configatron.reminder_list_pdf_print.filename, :type => 'application/pdf'
-    when :reminder_list_csv
-      data = ReminderList.output_reminder_list_csv(@reminder_lists)
-      send_data data, :filename => configatron.reminder_list_csv_print.filename
+    when :reminder_list_tsv
+      data = ReminderList.output_reminder_list_tsv(@reminder_lists)
+      send_data data, :filename => configatron.reminder_list_tsv_print.filename
     when :reminder_postal_card
       file = out_dir + configatron.reminder_postal_card_print.filename
       ReminderList.output_reminder_postal_card(file, @reminder_lists, @user, current_user)

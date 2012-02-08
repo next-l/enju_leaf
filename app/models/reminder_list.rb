@@ -87,7 +87,7 @@ class ReminderList < ActiveRecord::Base
     return report
   end
 
-  def self.output_reminder_list_csv(reminder_lists)
+  def self.output_reminder_list_tsv(reminder_lists)
     columns = [
       [:chekout_id, 'activerecord.attributes.reminder_list.checkout_id'],
       [:title, 'activerecord.attributes.reminder_list.original_title'],
@@ -104,7 +104,7 @@ class ReminderList < ActiveRecord::Base
       columns.each do |column|
         row << I18n.t(column[1])
       end
-      data <<  row.join(",")+"\n"
+      data <<  '"'+row.join("\"\t\"")+"\"\n"
 
       # set
       reminder_lists.each do |reminder_list|
@@ -127,7 +127,7 @@ class ReminderList < ActiveRecord::Base
             row << reminder_list.checkout.item.shelf.library.display_name.localize
           end
         end
-        data << '"'+row.join('","')+"\"\n"
+        data << '"'+row.join("\"\t\"")+"\"\n"
       end
     return data
   end

@@ -91,7 +91,7 @@ configatron.userlist_tsv_print.filename = "userlist.tsv"
 configatron.unablelist_print.filename = "unablelist.pdf"
 # 家族リストの出力(PDF)
 configatron.familylist_pdf_print.filename = "familylist.pdf"
-# 家族リス知の出力(TSV)
+# 家族リストの出力(TSV)
 configatron.familylist_tsv_print.filename = "familylist.tsv"
 
 # 督促はがきのファイル名
@@ -105,7 +105,10 @@ configatron.reminder_letter_message = "図書館からお借りになったな�
 # 督促情報表のファイル名
 configatron.reminder_list_pdf_print.filename = "reminder_list.pdf"
 # 督促情報表のファイル名
-configatron.reminder_list_csv_print.filename = "reminder_list.csv"
+configatron.reminder_list_tsv_print.filename = "reminder_list.tsv"
+
+#開館日と催し物の一覧の出力(TSV)
+configatron.event_list_print_tsv.filename = "event_list.tsv"
 
 # 貸出状況の帳票ファイル名
 configatron.checkoutlist_report_pdf.filename = "checkoutlist.pdf"

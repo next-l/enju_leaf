@@ -39,7 +39,7 @@
     <%= hidden_field_tag 'do_search', true -%>
     <%= submit_tag t('page.search') %>
     <%= submit_tag t('page.output_pdf', :model => t('activerecord.models.reminder_list')), :name => 'output_pdf' %>
-    <%= submit_tag t('page.output_csv', :model => t('activerecord.models.reminder_list')), :name => 'output_csv' %>
+    <%= submit_tag t('page.output_tsv', :model => t('activerecord.models.reminder_list')), :name => 'output_tsv' %>
   </div>
 <%- end -%>
 

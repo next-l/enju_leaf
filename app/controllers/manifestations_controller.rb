@@ -485,13 +485,12 @@ class ManifestationsController < ApplicationController
   end
 
   def output_show
-    @manifestation = Manifestation.find(params[:manifestation])
+    @manifestation = Manifestation.find(params[:id])
     data = Manifestation.get_manifestation_locate(@manifestation, current_user)
     send_data data.generate, :filename => configatron.manifestation_locate_print.filename
   end
   
   private
-
   def make_query(query, options = {})
     # TODO: integerやstringもqfに含める
     query = query.to_s.strip
