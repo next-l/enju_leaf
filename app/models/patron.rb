@@ -277,8 +277,14 @@ class Patron < ActiveRecord::Base
     data = Patron.find(self.id).note rescue nil
     unless data == self.note
       self.note_update_at = Time.zone.now
-      self.note_update_by = User.current_user.patron.full_name
-      self.note_update_library = Library.find(User.current_user.library_id).display_name
+      if User.current_user.nil?
+        #TODO
+        self.note_update_by = "SYSTEM"
+        self.note_update_library = "SYSTEM"
+      else
+        self.note_update_by = User.current_user.patron.full_name
+        self.note_update_library = Library.find(User.current_user.library_id).display_name
+      end
     end
   end
 
