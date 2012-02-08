@@ -10,8 +10,8 @@
       <%= hidden_field_tag 'view', 'overdue' -%><%= t('activerecord.attributes.checkout.over') -%>&nbsp;
       <%= submit_tag t('page.search') -%>
       <br />
-      <%= submit_tag t('page.output_pdf', :model =>t('page.listing', :model => t('activerecord.models.checkout'))), :name => :output_pdf -%>
-      <%= submit_tag t('page.output_csv', :model =>t('page.listing', :model => t('activerecord.models.checkout'))), :name => :output_csv -%>
+      <%= submit_tag t('page.output_pdf', :model =>t('page.listing', :model => t('activerecord.models.checkout'))), :name => :output_checkout_list_pdf -%>
+      <%= submit_tag t('page.output_tsv', :model =>t('page.listing', :model => t('activerecord.models.checkout'))), :name => :output_checkout_list_tsv -%>
     </p>
   <%- end -%>
 
