@@ -105,7 +105,7 @@ configatron.reminder_letter_message = "図書館からお借りになったな�
 # 督促情報表のファイル名
 configatron.reminder_list_pdf_print.filename = "reminder_list.pdf"
 # 督促情報表のファイル名
-configatron.reminder_list_csv_print.filename = "reminder_list.csv"
+configatron.reminder_list_tsv_print.filename = "reminder_list.tsv"
 
 # 貸出状況の帳票ファイル名
 configatron.checkoutlist_report_pdf.filename = "checkoutlist.pdf"
