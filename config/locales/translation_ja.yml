@@ -92,7 +92,7 @@ ja:
       event_import_file: 催し物のインポート用ファイル
       attachment_file: 添付ファイル
       reserve: 予約
-      retained_manifestation: 取置済み資料
+      retained_manifestation: 取置済み(未連絡)資料
       reserve_family: 家族の予約
       message_request: メッセージの送信リクエスト
       answer: 回答
@@ -867,14 +867,14 @@ ja:
         state: 状態
         contact: 連絡先
         zipcode: 〒
-        information_method: 連絡方法
+        information_type: 連絡方法
         receipt_library: 受取館
         unnecessary: 連絡不要
         email: メール
         telephone: 電話
         reserve_list: 予約確認票
       retained_manifestation:
-        done: 完了
+        done: 連絡完了
         failed_update: 更新に失敗しました。
       message_request:
         sent_at: 送信時刻

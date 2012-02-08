@@ -65,7 +65,7 @@
     <%= f.text_field :user_number, :class => 'resource_user_number' -%>
   </div>
   <div class="field">
-    <%= f.label t('activerecord.attributes.reserve.information_method') -%><br />
+    <%= f.label t('activerecord.attributes.reserve.information_type') -%><br />
     <%= f.select(:information_type_id, @informations.collect{|i| [i.display_name + " " + i.information, i.id]}, {}, :disabled => 'disabled') -%>
   </div>
   <div class="field">

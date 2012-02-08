@@ -395,9 +395,21 @@ class Reserve < ActiveRecord::Base
     return message.embed_body(options)
   end
 
-  # TODO
-  def self.information_ids
-    return [0, 1, 2, 3, 4, 5 , 6, 7]
+  def self.information_type_ids
+    information_types = [Reserve.mail_type_ids, Reserve.all_telephone_type_ids, Reserve.unnecessary_type_ids]
+    return information_types
+  end
+
+  def self.unnecessary_type_ids
+    return 0
+  end
+
+  def self.mail_type_ids
+    return 1
+  end
+
+  def self.all_telephone_type_ids
+    return [2, 3, 4, 5, 6, 7]
   end
 
   def self.informations(user)
@@ -416,31 +428,26 @@ class Reserve < ActiveRecord::Base
     return @informations
   end
 
-  def self.get_information_method(reserve)
+  def self.get_information_type(reserve)
     user = User.find(reserve.user_id)
-    @information_method = nil
+    information_type = nil
     case reserve.information_type_id
     when 1
-      @information_method = user.email unless user.email.blank?
+      information_type = user.email unless user.email.blank?
     when 2
-      @information_method = user.patron.telephone_number_1 unless user.patron.telephone_number_1.blank? 
+      information_type = user.patron.telephone_number_1 unless user.patron.telephone_number_1.blank? 
     when 3
-      @information_method = user.patron.extelephone_number_1 unless user.patron.extelephone_number_1.blank?
+      information_type = user.patron.extelephone_number_1 unless user.patron.extelephone_number_1.blank?
     when 4
-      @information_method = user.patron.fax_number_1 unless user.patron.fax_number_1.blank?
+      information_type = user.patron.fax_number_1 unless user.patron.fax_number_1.blank?
     when 5
-      @information_method = user.patron.telephone_number_2 unless user.patron.telephone_number_2.blank?
+      information_type = user.patron.telephone_number_2 unless user.patron.telephone_number_2.blank?
     when 6
-      @information_method = user.patron.extelephone_number_2 unless user.patron.extelephone_number_2.blank?
+      information_type = user.patron.extelephone_number_2 unless user.patron.extelephone_number_2.blank?
     when 7
-      @information_method = user.patron.fax_number_2 unless user.patron.fax_number_2.blank?
+      information_type = user.patron.fax_number_2 unless user.patron.fax_number_2.blank?
     end
-    return @information_method
-  end
-
-  def self.information_types
-    @information_types = [1, 2, 0]
-    return @information_types
+    return information_type
   end
 
   def self.states
@@ -484,8 +491,8 @@ class Reserve < ActiveRecord::Base
       page.item(:receipt_library).value(receipt_library.display_name)
       page.item(:receipt_library_telephone_number_1).value(receipt_library.telephone_number_1)
       page.item(:receipt_library_telephone_number_2).value(receipt_library.telephone_number_2)
-      page.item(:information_method).value(I18n.t(i18n_information_type(reserve.information_type_id).strip_tags))
-      page.item(:user_information).value(Reserve.get_information_method(reserve))
+      page.item(:information_type).value(I18n.t(i18n_information_type(reserve.information_type_id).strip_tags))
+      page.item(:user_information).value(Reserve.get_information_type(reserve))
       # book info
       page.item(:title).value(reserve.manifestation.original_title)
       page.item(:creater).value(patrons_list(reserve.manifestation.creators.readable_by(current_user), {:itemprop => 'author', :nolink => true}))
@@ -537,7 +544,7 @@ class Reserve < ActiveRecord::Base
           row.item(:title).value(reserve.manifestation.original_title)
           row.item(:state).value(I18n.t(i18n_state(reserve.state).strip_tags))
           row.item(:receipt_library).value(Library.find(reserve.receipt_library_id).display_name)
-          row.item(:information_method).value(I18n.t(i18n_information_type(reserve.information_type_id).strip_tags))
+          row.item(:information_type).value(I18n.t(i18n_information_type(reserve.information_type_id).strip_tags))
           row.item(:expired_at).value(reserve.expired_at.strftime("%Y/%m/%d"))
         end
       end
@@ -554,7 +561,7 @@ class Reserve < ActiveRecord::Base
       [:title, 'activerecord.attributes.manifestation.original_title'],
       [:expired_at,'activerecord.attributes.reserve.expired_at2'],
       [:user, 'activerecord.attributes.reserve.user'],
-      [:information_method, 'activerecord.attributes.reserve.information_method'],
+      [:information_type, 'activerecord.attributes.reserve.information_type'],
     ]
 
     # title column
@@ -568,8 +575,8 @@ class Reserve < ActiveRecord::Base
     end
     states.each do |state|
       library = Library.all.collect{|library| library.id}
-      method = Reserve.information_ids
-      reserves = Reserve.where(:user_id => user_id, :state => state, :receipt_library_id => library, :information_type_id => method).order('expired_at ASC').includes(:manifestation)
+      information_type_ids = Reserve.information_type_ids
+      reserves = Reserve.where(:user_id => user_id, :state => state, :receipt_library_id => library, :information_type_id => information_type_ids).order('expired_at ASC').includes(:manifestation)
       # set
       reserves.each do |reserve|
         row = []
@@ -591,10 +598,10 @@ class Reserve < ActiveRecord::Base
               user = user + '(' + age.to_s + I18n.t('activerecord.attributes.patron.old')  +')'
             end
             row << user
-          when :information_method
-            information_method = I18n.t(i18n_information_type(reserve.information_type_id).strip_tags)
-            information_method += ': ' + Reserve.get_information_method(reserve) if reserve.information_type_id != 0 and !Reserve.get_information_method(reserve).nil?
-            row << information_method
+          when :information_type
+            information_type = I18n.t(i18n_information_type(reserve.information_type_id).strip_tags)
+            information_type += ': ' + Reserve.get_information_type(reserve) if reserve.information_type_id != 0 and !Reserve.get_information_type(reserve).nil?
+            row << information_type
           end
         end
         data << '"'+row.join("\"\t\"")+"\"\n"
@@ -603,7 +610,7 @@ class Reserve < ActiveRecord::Base
     return data
   end
 
-  def self.get_reserve_list_all_pdf(query, states, library, method)
+  def self.get_reserve_list_all_pdf(query, states, library, type)
     report = ThinReports::Report.new :layout => File.join(Rails.root, 'report', 'reservelist.tlf')
 
     # set page_num
@@ -623,13 +630,13 @@ class Reserve < ActiveRecord::Base
       states.each do |state|
         reserves = []
         if query.blank?
-          reserves = Reserve.where(:state => state, :receipt_library_id => library, :information_type_id => method).order('expired_at ASC').includes(:manifestation)
+          reserves = Reserve.where(:state => state, :receipt_library_id => library, :information_type_id => type).order('expired_at ASC').includes(:manifestation)
         else
           reserves = Reserve.search do
             fulltext query
             with(:state).equal_to(state)
             with(:receipt_library_id, library) unless library.blank?
-            with(:information_type_id, method) unless method.blank?
+            with(:information_type_id, type) unless type.blank?
             order_by(:expired_at, :asc)
           end.results
         end
@@ -658,9 +665,9 @@ class Reserve < ActiveRecord::Base
                  user = user + '(' + age.to_s + I18n.t('activerecord.attributes.patron.old')  +')'
                end
                row.item(:user).value(user)
-               information_method = I18n.t(i18n_information_type(r.information_type_id).strip_tags)
-               information_method += ': ' + Reserve.get_information_method(r) if r.information_type_id != 0 and !Reserve.get_information_method(r).nil?
-               row.item(:information_method).value(information_method)
+               information_type = I18n.t(i18n_information_type(r.information_type_id).strip_tags)
+               information_type += ': ' + Reserve.get_information_type(r) if r.information_type_id != 0 and !Reserve.get_information_type(r).nil?
+               row.item(:information_type).value(information_type)
             end
             before_receipt_library = r.receipt_library_id
             before_state = state
@@ -681,7 +688,7 @@ class Reserve < ActiveRecord::Base
     end
   end
 
-  def self.get_reserve_list_all_tsv(query, states, library, method)
+  def self.get_reserve_list_all_tsv(query, states, library, type)
     data = String.new
     data << "\xEF\xBB\xBF".force_encoding("UTF-8") + "\n"
     columns = [
@@ -690,7 +697,7 @@ class Reserve < ActiveRecord::Base
       [:title, 'activerecord.attributes.manifestation.original_title'],
       [:expired_at,'activerecord.attributes.reserve.expired_at2'],
       [:user, 'activerecord.attributes.reserve.user'],
-      [:information_method, 'activerecord.attributes.reserve.information_method'],
+      [:information_type, 'activerecord.attributes.reserve.information_type'],
     ]
 
     # title column
@@ -700,13 +707,13 @@ class Reserve < ActiveRecord::Base
     states.each do |state|
       # get reserves
       if query.blank?
-        reserves = Reserve.where(:state => state, :receipt_library_id => library, :information_type_id => method).order('expired_at ASC').includes(:manifestation)
+        reserves = Reserve.where(:state => state, :receipt_library_id => library, :information_type_id => type).order('expired_at ASC').includes(:manifestation)
       else
         reserves = Reserve.search do
           fulltext query
           with(:state).equal_to(state)
           with(:receipt_library_id, library) unless library.blank?
-          with(:information_type_id, method) unless method.blank?
+          with(:information_type_id, type) unless type.blank?
           order_by(:expired_at, :asc)
         end.results
       end
@@ -731,10 +738,10 @@ class Reserve < ActiveRecord::Base
               user = user + '(' + age.to_s + I18n.t('activerecord.attributes.patron.old')  +')'
             end
             row << user
-          when :information_method
-            information_method = I18n.t(i18n_information_type(reserve.information_type_id).strip_tags)
-            information_method += ': ' + Reserve.get_information_method(reserve) if reserve.information_type_id != 0 and !Reserve.get_information_method(reserve).nil?
-            row << information_method
+          when :information_type
+            information_type = I18n.t(i18n_information_type(reserve.information_type_id).strip_tags)
+            information_type += ': ' + Reserve.get_information_type(reserve) if reserve.information_type_id != 0 and !Reserve.get_information_type(reserve).nil?
+            row << information_type
           end
         end
         data << '"'+row.join("\"\t\"")+"\"\n"

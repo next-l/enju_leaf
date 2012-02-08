@@ -51,9 +51,10 @@ configatron.no_operation_counter = 0
 
 # 検索結果一覧の出力ボタンを表示するか(true => 全てのユーザーに対し表示, false => ライブラリアン権限以上ならば表示)
 configatron.manifestations.users_show_output_button = true
-# 検索結果一覧の出力
+# 検索結果一覧の出力(PDF)
 configatron.manifestation_list_print_pdf.filename = "manifestation_list.pdf"
-configatron.manifestation_list_print_tsv.filename = "manifestation_list.csv"
+# 検索結果一覧の出力(TSV)
+configatron.manifestation_list_print_tsv.filename = "manifestation_list.tsv"
 # 資料確認票のファイル名
 configatron.manifestation_locate_print.filename = "manifestation.pdf"
 
@@ -73,23 +74,25 @@ configatron.reserve_print.filename = "reserve.pdf"
 configatron.reserve_list_user_print.filename = "reserve_list_user.pdf"
 # 予約リスト(全体)の出力(PDF)
 configatron.reserve_list_all_print_pdf.filename = "reserve_list_all.pdf"
-# 予約リスト(全体)の出力(CSV)
-configatron.reserve_list_all_print_tsv.filename = "reserve_list_all.csv"
-# 取置済み資料の出力
-configatron.retained_manifestations_print.filename = "retained_manifestations.pdf"
+# 予約リスト(全体)の出力(TSV)
+configatron.reserve_list_all_print_tsv.filename = "reserve_list_all.tsv"
+# 取置済み資料の出力(PDF)
+configatron.retained_manifestation_list_print_pdf.filename = "retained_manifestation_list.pdf"
+# 取置済み資料の出力(TSV)
+configatron.retained_manifestation_list_print_tsv.filename = "retained_manifestation_list.tsv"
 # 予約表に利用者の年齢を表示するかどうか
 configatron.reserve_print.old = true
 
 # 利用者リストの出力(PDF)
 configatron.userlist_pdf_print.filename = "userlist.pdf"
 # 利用者リス知の出力(TSV)
-configatron.userlist_tsv_print.filename = "userlist.csv"
+configatron.userlist_tsv_print.filename = "userlist.tsv"
 # 連絡不可者の出力
 configatron.unablelist_print.filename = "unablelist.pdf"
 # 家族リストの出力(PDF)
 configatron.familylist_pdf_print.filename = "familylist.pdf"
 # 家族リス知の出力(TSV)
-configatron.familylist_tsv_print.filename = "familylist.csv"
+configatron.familylist_tsv_print.filename = "familylist.tsv"
 
 # 督促はがきのファイル名
 configatron.reminder_postal_card_print.filename = "reminder_postal_card.pdf"

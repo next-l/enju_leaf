@@ -62,7 +62,7 @@ class ReservesController < ApplicationController
         @states = Reserve.states
         @libraries =  Library.all
         @selected_library = @libraries.collect{|library| library.id}
-        @information_types = @selected_method =  Reserve.information_types
+        @information_types = @selected_information_type =  Reserve.information_type_ids
         # first move
         if params[:do_search].blank?
           @selected_state = @states.reject{|x| x == 'completed' || x == 'expired' || x == 'canceled'}
@@ -73,11 +73,18 @@ class ReservesController < ApplicationController
         flash[:reserve_notice] = "" 
         @selected_state = params[:state] || []
         @selected_library = params[:library] || []
-        @selected_method = params[:method] || []
-        information_type_ids = nil
-        information_type_ids = params[:method].clone unless @selected_method.blank?
-        information_type_ids.concat(['3', '4', '5', '6', '7']) if !@selected_method.blank? and @selected_method.include?('2')
-        if @selected_state.blank? || @selected_library.blank? || @selected_method.blank? 
+        @selected_information_type = params[:information_type] || []
+        if params[:information_type]
+          @selected_information_type = params[:information_type].map{|i|i.split}
+          @selected_information_type = @selected_information_type.inject([]){|types, type|
+            type = type.map{|i| i.to_i}
+            type = type.join().to_i if type.size == 1
+            types << type
+          }
+        end
+        selected_information_type = @selected_information_type.flatten
+        # check conditions
+        if @selected_state.blank? || @selected_library.blank? || @selected_information_type.blank? 
           flash[:reserve_notice] << t('item_list.no_list_condition') + '<br />'
         end
 
@@ -102,28 +109,28 @@ class ReservesController < ApplicationController
 
         # search
         if query.blank? and @address.blank? and @date_of_birth.blank?
-          @reserves = Reserve.where(:state => params[:state], :receipt_library_id => params[:library], 
-            :information_type_id => information_type_ids).order('expired_at ASC').includes(:manifestation).page(page)
+          @reserves = Reserve.where(:state => @selected_state, :receipt_library_id => @selected_library, 
+            :information_type_id => selected_information_type).order('expired_at ASC').includes(:manifestation).page(page)
         else
           @reserves = Reserve.search do
             fulltext query
-            with(:state, params[:state]) 
-            with(:receipt_library_id, params[:library]) 
-            with(:information_type_id, information_type_ids) 
+            with(:state, @selected_state) 
+            with(:receipt_library_id, @selected_library) 
+            with(:information_type_id, selected_information_type) 
             order_by(:expired_at, :asc)
             paginate :page => page.to_i, :per_page => Reserve.per_page
           end.results
         end
 
         # output reserveslist
-        unless @selected_state.blank? or @selected_library.blank? or @selected_method.blank? 
+        unless @selected_state.blank? or @selected_library.blank? or @selected_information_type.blank? 
           if params[:output_pdf]
-            data = Reserve.get_reserve_list_all_pdf(query, params[:state], params[:library], params[:method])
+            data = Reserve.get_reserve_list_all_pdf(query, @selected_state, @selected_library, selected_information_type)
             send_data data.generate, :filename => configatron.reserve_list_all_print_pdf.filename, :type => 'application/pdf'
             return
           end
           if params[:output_tsv]
-            data = Reserve.get_reserve_list_all_tsv(query, params[:state], params[:library], params[:method])
+            data = Reserve.get_reserve_list_all_tsv(query, @selected_state, @selected_library, selected_information_type)
             send_data data, :filename => configatron.reserve_list_all_print_tsv.filename
             return
           end
@@ -147,7 +154,7 @@ class ReservesController < ApplicationController
     @reserve = Reserve.find(params[:id])
     check_can_access?
 
-    @information_method = Reserve.get_information_method(@reserve)
+    @information_type = Reserve.get_information_type(@reserve)
     @receipt_library = Library.find(@reserve.receipt_library_id)
     @reserved_count = Reserve.waiting.where(:manifestation_id => @reserve.manifestation_id, :checked_out_at => nil).count
 

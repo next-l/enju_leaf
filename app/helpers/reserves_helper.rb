@@ -24,7 +24,7 @@ module ReservesHelper
       t('activerecord.attributes.reserve.unnecessary')
     when 1
       t('activerecord.attributes.reserve.email')
-    when 2, 3, 4, 5, 6, 7
+    when [2, 3, 4, 5, 6, 7], 2, 3, 4, 5, 6, 7
       t('activerecord.attributes.reserve.telephone')
     end
   end
