@@ -1,8 +1,6 @@
 class Unablelist < ActiveRecord::Base
 
-  def self.output(users, sort)
-    logger.info "output unablelist"
-
+  def self.get_unable_list_pdf(users, sort)
     report = ThinReports::Report.new :layout => File.join(Rails.root, 'report', 'unablelist.tlf')
     # set page_num
     report.events.on :page_create do |e|
@@ -57,5 +55,53 @@ class Unablelist < ActiveRecord::Base
       end
     end
     return report
+  end
+
+  def self.get_unable_list_tsv(users)
+    data = String.new
+    data << "\xEF\xBB\xBF".force_encoding("UTF-8") + "\n"
+
+    columns = [
+      [:library, 'activerecord.attributes.user.library'],
+      [:user_number, 'activerecord.attributes.user.user_number'],
+      [:full_name, 'activerecord.attributes.patron.full_name'],
+      [:telephone_number_1, 'activerecord.attributes.patron.telephone_number_1'],
+      [:extelephone_number_1, 'activerecord.attributes.patron.extelephone_number_1'],
+      [:fax_number_1, 'activerecord.attributes.patron.fax_number_1'],
+      [:birth, 'activerecord.attributes.patron.date_of_birth'],
+      [:email, 'activerecord.attributes.patron.email'],
+    ]
+
+    # title column
+    row = columns.map {|column| I18n.t(column[1])}
+    data << row.join("\t")+"\n"
+
+    users.each do |user|
+      row = []
+      columns.each do |column|
+        case column[0]
+        when :library
+          row << user.library.display_name
+        when :user_number
+          row << user.user_number
+        when :full_name
+          row << user.patron.full_name
+        when :telephone_number_1
+          row << user.patron.telephone_number_1
+        when :extelephone_number_1
+          row << user.patron.extelephone_number_1
+        when :fax_number_1
+          row << user.patron.fax_number_1
+        when :birth
+          row << user.patron.date_of_birth.strftime("%Y/%m/%d") if user.patron.date_of_birth
+        when :email
+          row << user.patron.email
+        else
+          row << get_object_method(user, column[0].split('.')).to_s.gsub(/\r\n|\r|\n/," ").gsub(/\"/,"\"\"")
+        end
+      end
+      data << '"'+row.join("\"\t\"")+"\"\n"
+    end
+    return data
   end
 end

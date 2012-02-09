@@ -135,7 +135,7 @@ class UsersController < ApplicationController
     end
 
     @states = Reserve.states
-    @information_types = Reserve.information_types
+    @information_types = Reserve.information_type_ids
     @libraries = Library.order('position')
 
     respond_to do |format|

@@ -87,8 +87,10 @@ configatron.reserve_print.old = true
 configatron.userlist_pdf_print.filename = "userlist.pdf"
 # 利用者リス知の出力(TSV)
 configatron.userlist_tsv_print.filename = "userlist.tsv"
-# 連絡不可者の出力
-configatron.unablelist_print.filename = "unablelist.pdf"
+# 連絡不可者の出力(PDF)
+configatron.unable_list_print_pdf.filename = "unable_list.pdf"
+# 連絡不可者の出力(TSV)
+configatron.unable_list_print_tsv.filename = "unable_list.tsv"
 # 家族リストの出力(PDF)
 configatron.familylist_pdf_print.filename = "familylist.pdf"
 # 家族リストの出力(TSV)
