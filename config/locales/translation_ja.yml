@@ -1271,7 +1271,7 @@ ja:
         list_type: リストの種類
         list_condition: 抽出条件
         list_number: 件数
-        page_number: ページ数
+        page_number: ページ数(PDF)
         sort_by: ソート順
       item_register:
         list_type: リストの種類
