@@ -566,7 +566,7 @@ class Reserve < ActiveRecord::Base
 
     # title column
     row = columns.map {|column| I18n.t(column[1])}
-    data << row.join("\t")+"\n"
+    data << '"'+row.join("\"\t\"")+"\"\n"
 
     if current_user.has_role?('Librarian')
       states = Reserve.states
@@ -702,7 +702,7 @@ class Reserve < ActiveRecord::Base
 
     # title column
     row = columns.map {|column| I18n.t(column[1])}
-    data << row.join("\t")+"\n"
+    data << '"'+row.join("\"\t\"")+"\"\n"
 
     states.each do |state|
       # get reserves

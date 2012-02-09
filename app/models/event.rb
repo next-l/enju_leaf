@@ -79,7 +79,7 @@ class Event < ActiveRecord::Base
 
     # title column
     row = columns.map {|column| I18n.t(column[1])}
-    data << row.join("\t")+"\n"
+    data << '"'+row.join("\"\t\"")+"\"\n"
 
     events.each do |event|
       row = []

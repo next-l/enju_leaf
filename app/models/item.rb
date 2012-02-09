@@ -744,7 +744,7 @@ class Item < ActiveRecord::Base
 
     # title column
     row = columns.map {|column| I18n.t(column[1])}
-    data << row.join("\t")+"\n"
+    data << '"'+row.join("\"\t\"")+"\"\n"
 
     items.each do |item|
       row = []
