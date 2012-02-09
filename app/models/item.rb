@@ -701,6 +701,73 @@ class Item < ActiveRecord::Base
     end
   end
 
+  def self.make_export_item_list_pdf(items, filename)
+    report = ThinReports::Report.new :layout => "#{Rails.root.to_s}/app/views/export_item_lists/item_list"
+
+    report.events.on :page_create do |e|
+      e.page.item(:page).value(e.page.no)
+    end
+    report.events.on :generate do |e|
+      e.pages.each do |page|
+        page.item(:total).value(e.report.page_count)
+      end
+    end
+    report.start_new_page
+    report.page.item(:date).value(Time.now)
+    report.page.item(:list_name).value(filename)
+    items.each do |item|
+      report.page.list(:list).add_row do |row|
+        row.item(:library).value(item.shelf.library.display_name.localize) if item.shelf && item.shelf.library
+        row.item(:carrier_type).value(item.manifestation.carrier_type.display_name.localize) if item.manifestation && item.manifestation.carrier_type
+        row.item(:shelf).value(item.shelf.display_name) if item.shelf
+        row.item(:ndc).value(item.manifestation.ndc) if item.manifestation
+        row.item(:item_identifier).value(item.item_identifier)
+        row.item(:call_number).value(item.call_number)
+        row.item(:title).value(item.manifestation.original_title) if item.manifestation
+      end
+    end
+    return report
+  end
+
+  def self.make_export_item_list_tsv(items)
+    data = String.new
+    data << "\xEF\xBB\xBF".force_encoding("UTF-8") + "\n"
+    columns = [
+      [:library, 'activerecord.models.library'],
+      [:carrier_type, 'activerecord.models.carrier_type'],
+      [:shelf, 'activerecord.models.shelf'],
+      [:ndc, 'activerecord.attributes.manifestation.ndc'],
+      ['item_identifier', 'activerecord.attributes.item.item_identifier'],
+      ['call_number', 'activerecord.attributes.item.call_number'],
+      [:title, 'activerecord.attributes.manifestation.original_title'],
+    ]
+
+    # title column
+    row = columns.map {|column| I18n.t(column[1])}
+    data << '"'+row.join("\"\t\"")+"\"\n"
+
+    items.each do |item|
+      row = []
+      columns.each do |column|
+        case column[0]
+        when :library
+          row << item.shelf.library.display_name.localize 
+        when :carrier_type
+          row << item.manifestation.carrier_type.display_name.localize
+        when :shelf
+          row << item.shelf.display_name
+        when :ndc
+          row << item.manifestation.ndc
+        when :title
+          row << item.manifestation.original_title
+        else
+          row << get_object_method(item, column[0].split('.')).to_s.gsub(/\r\n|\r|\n/," ").gsub(/\"/,"\"\"")
+        end
+      end
+      data << '"'+row.join("\"\t\"")+"\"\n"
+    end
+    return data
+  end
 end
 
 # == Schema Information

@@ -86,12 +86,12 @@ class UsersController < ApplicationController
     # output
     if params[:output_pdf]
       data = User.output_userlist_pdf(@users)
-      send_data data.generate, :filename => configatron.userlist_pdf_print.filename
+      send_data data.generate, :filename => configatron.user_list_print_pdf.filename
       return
     end
     if params[:output_tsv]
       data = User.output_userlist_tsv(@users)
-      send_data data, :filename => configatron.userlist_tsv_print.filename
+      send_data data, :filename => configatron.user_list_print_tsv.filename
       return
     end
 
@@ -135,7 +135,7 @@ class UsersController < ApplicationController
     end
 
     @states = Reserve.states
-    @information_types = Reserve.information_types
+    @information_types = Reserve.information_type_ids
     @libraries = Library.order('position')
 
     respond_to do |format|
@@ -491,7 +491,7 @@ class UsersController < ApplicationController
       @user.locked = '1'
     end
     @patron_types = PatronType.all
-    @patron_type_patron_id = PatronType.find_by_name('Person').id
+    @patron_type_person = PatronType.find_by_name('Person').id
   end
 
   def set_phone_type(phone_type_id)

@@ -52,35 +52,47 @@ class ExportItemListsController < ApplicationController
       render :index; return false
     else
       list_type = params[:export_item_list][:list_type]
-      #library_ids = params[:library] || []
-      #carrier_type_ids = params[:carrier_type] || []
-
-      #library_ids = Library.all.inject([]) {|ids, lib| ids << lib.id} if library_ids.empty? || params[:all_library]
-      #carrier_type_ids = CarrierType.all.inject([]){|ids, ct| ids << ct.id} if carrier_type_ids.empty? || params[:all_carrier_type]
+      file_type = params[:export_item_list][:file_type]
 
       logger.error "SQL start at #{Time.now}"
       case list_type.to_i
       when 1
         query = get_query(ndcs, @selected_library, @selected_carrier_type)
-        @items = Item.find(:all, :joins => [:manifestation, :shelf => :library], :conditions => query, :order => 'libraries.id, manifestations.carrier_type_id, shelves.id, manifestations.ndc')
+        @items = Item.find(:all, 
+          :joins => [:manifestation, :shelf => :library], 
+          :conditions => query, 
+          :order => 'libraries.id, manifestations.carrier_type_id, shelves.id, manifestations.ndc')
         filename = t('item_list.shelf_list')
       when 2
-        #@items = Item.find(:all, :joins => [:manifestation, :shelf => :library], :conditions => {:shelves => {:libraries => {:id => library_ids}}, :manifestations => {:carrier_type_id => carrier_type_ids}}, :order => 'items.call_number')
-        @items = Item.find(:all, :joins => [:manifestation, :shelf => :library], :conditions => {:shelves => {:libraries => {:id => @selected_library}}, :manifestations => {:carrier_type_id => @selected_carrier_type}}, :order => 'items.call_number')
+        @items = Item.find(:all, 
+          :joins => [:manifestation, :shelf => :library], 
+          :conditions => {:shelves => {:libraries => {:id => @selected_library}}, 
+          :manifestations => {:carrier_type_id => @selected_carrier_type}}, 
+          :order => 'items.call_number')
         filename = t('item_list.call_number_list')
       when 3
-        #@items = Item.find(:all, :joins => [:manifestation, :circulation_status, :shelf => :library], :conditions => {:shelves => {:libraries => {:id => library_ids}}, :manifestations => {:carrier_type_id => carrier_type_ids}, :items => {:circulation_statuses => {:name => "Removed"}}}, :order => 'libraries.id, manifestations.carrier_type_id, items.shelf_id, items.item_identifier, manifestations.original_title')
-        @items = Item.find(:all, :joins => [:manifestation, :circulation_status, :shelf => :library], :conditions => {:shelves => {:libraries => {:id => @selected_library}}, :manifestations => {:carrier_type_id => @selected_carrier_type}, :items => {:circulation_statuses => {:name => "Removed"}}}, :order => 'libraries.id, manifestations.carrier_type_id, items.shelf_id, items.item_identifier, manifestations.original_title')
+        @items = Item.find(:all, 
+          :joins => [:manifestation, :circulation_status, :shelf => :library], 
+          :conditions => {:shelves => {:libraries => {:id => @selected_library}}, 
+          :manifestations => {:carrier_type_id => @selected_carrier_type}, 
+          :items => {:circulation_statuses => {:name => "Removed"}}}, 
+          :order => 'libraries.id, manifestations.carrier_type_id, items.shelf_id, items.item_identifier, manifestations.original_title')
         filename = t('item_list.removed_list')
       when 4
         checkouts = Checkout.select(:item_id).map(&:item_id).uniq!
-        #@items = Item.find(:all, :joins => [:manifestation, :shelf => :library], :conditions => {:shelves => {:libraries => {:id => library_ids}}, :manifestations => {:carrier_type_id => carrier_type_ids}}, :order => 'libraries.id, manifestations.carrier_type_id, items.shelf_id, items.item_identifier')
-        @items = Item.find(:all, :joins => [:manifestation, :shelf => :library], :conditions => {:shelves => {:libraries => {:id => @selected_library}}, :manifestations => {:carrier_type_id => @selected_carrier_type}}, :order => 'libraries.id, manifestations.carrier_type_id, items.shelf_id, items.item_identifier')
+        @items = Item.find(:all, 
+          :joins => [:manifestation, :shelf => :library], 
+          :conditions => {:shelves => {:libraries => {:id => @selected_library}}, 
+          :manifestations => {:carrier_type_id => @selected_carrier_type}}, 
+          :order => 'libraries.id, manifestations.carrier_type_id, items.shelf_id, items.item_identifier')
         @items.delete_if{|item|checkouts.include?(item.id)}
         filename = t('item_list.unused_list')
       when 5
         query = get_query(ndcs, @selected_library, @selected_carrier_type)
-        @items = Item.recent.find(:all, :joins => [:manifestation, :shelf => :library], :conditions => query, :order => 'libraries.id, manifestations.carrier_type_id, items.shelf_id, items.item_identifier, manifestations.original_title')
+        @items = Item.recent.find(:all, 
+          :joins => [:manifestation, :shelf => :library], 
+          :conditions => query, 
+          :order => 'libraries.id, manifestations.carrier_type_id, items.shelf_id, items.item_identifier, manifestations.original_title')
         filename = t('item_list.new_item_list')
       when 6
         @items = []
@@ -95,34 +107,13 @@ class ExportItemListsController < ApplicationController
       logger.error "SQL end at #{Time.now}\nfound #{@items.length rescue 0} records"
 
       begin
-        report = ThinReports::Report.new :layout => "#{Rails.root.to_s}/app/views/export_item_lists/item_list"
-
-        report.events.on :page_create do |e|
-          e.page.item(:page).value(e.page.no)
+        if file_type == 'pdf'
+          data = Item.make_export_item_list_pdf(@items, filename)
+          send_data data.generate, :filename => "#{filename}.pdf"
+        elsif file_type == 'tsv'
+          data = Item.make_export_item_list_tsv(@items)
+          send_data data, :filename => "#{filename}.tsv"
         end
-        report.events.on :generate do |e|
-          e.pages.each do |page|
-            page.item(:total).value(e.report.page_count)
-          end
-        end
-      
-        report.start_new_page
-        report.page.item(:date).value(Time.now)
-        report.page.item(:list_name).value(filename)
-        @items.each do |item|
-          report.page.list(:list).add_row do |row|
-            row.item(:library).value(item.shelf.library.display_name.localize) if item.shelf && item.shelf.library
-            row.item(:carrier_type).value(item.manifestation.carrier_type.display_name.localize) if item.manifestation && item.manifestation.carrier_type
-            row.item(:shelf).value(item.shelf.display_name) if item.shelf
-            row.item(:ndc).value(item.manifestation.ndc) if item.manifestation
-            row.item(:item_identifier).value(item.item_identifier)
-            row.item(:call_number).value(item.call_number)
-            row.item(:title).value(item.manifestation.original_title) if item.manifestation
-          end
-        end
-
-        send_data report.generate, :filename => "#{filename}.pdf", :type => 'application/pdf', :disposition => 'attachment'
-        logger.error "created report: #{Time.now}"
         return true
       rescue Exception => e
         logger.error "failed #{e}"
@@ -161,19 +152,29 @@ class ExportItemListsController < ApplicationController
           case list_type.to_i
           when 1
             query = get_query(ndcs, libraries, carrier_types)
-            list_size = Item.count(:all, :joins => [:manifestation, :shelf => :library], :conditions => query)
+            list_size = Item.count(:all, 
+              :joins => [:manifestation, :shelf => :library], 
+              :conditions => query)
           when 2
-            list_size = Item.count(:all, :joins => [:manifestation, :shelf => :library], :conditions => {:shelves => {:libraries => {:id => libraries}}, :manifestations => {:carrier_type_id => carrier_types}})
+            list_size = Item.count(:all, 
+              :joins => [:manifestation, :shelf => :library], 
+              :conditions => {:shelves => {:libraries => {:id => libraries}}, :manifestations => {:carrier_type_id => carrier_types}})
           when 3
-            list_size = Item.count(:all, :joins => [:manifestation, :circulation_status, :shelf => :library], :conditions => {:shelves => {:libraries => {:id => libraries}}, :manifestations => {:carrier_type_id => carrier_types}, :items => {:circulation_statuses => {:name => "Removed"}}})
+            list_size = Item.count(:all, 
+              :joins => [:manifestation, :circulation_status, :shelf => :library], 
+              :conditions => {:shelves => {:libraries => {:id => libraries}}, :manifestations => {:carrier_type_id => carrier_types}, :items => {:circulation_statuses => {:name => "Removed"}}})
           when 4
             checkouts = Checkout.select(:item_id).map(&:item_id).uniq!
-            items = Item.find(:all, :joins => [:manifestation, :shelf => :library], :conditions => {:shelves => {:libraries => {:id => libraries}}, :manifestations => {:carrier_type_id => carrier_types}})
+            items = Item.find(:all, 
+              :joins => [:manifestation, :shelf => :library], 
+              :conditions => {:shelves => {:libraries => {:id => libraries}}, :manifestations => {:carrier_type_id => carrier_types}})
             items.delete_if{|item|checkouts.include?(item.id)}
             list_size = items.size
           when 5
             query = get_query(ndcs, libraries, carrier_types)
-            list_size = Item.recent.count(:all, :joins => [:manifestation, :shelf => :library], :conditions => query)
+            list_size = Item.recent.count(:all, 
+              :joins => [:manifestation, :shelf => :library], 
+              :conditions => query)
           when 6
             @items = []
             manifestations = SeriesStatement.latest_issues

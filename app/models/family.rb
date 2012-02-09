@@ -69,7 +69,6 @@ class Family < ActiveRecord::Base
     # title column
     row = []
     row << I18n.t('activerecord.attributes.family.id')
-
     max_family = 1
     families.each do |family|
       max_family = family.users.size if max_family < family.users.size
@@ -77,7 +76,7 @@ class Family < ActiveRecord::Base
     for i in 1..max_family do
       row << I18n.t('family.members') + i.to_s
     end
-    data << row.join("\t")+"\n"
+    data << '"'+row.join("\"\t\"")+"\"\n"
 
     # detail
     families.each do |family|
@@ -86,7 +85,7 @@ class Family < ActiveRecord::Base
       family.users.each do |user|
         row << user.patron.full_name
       end
-      data << row.join("\t")+"\n"
+      data << '"'+row.join("\"\t\"")+"\"\n"
     end
     return data
   end
