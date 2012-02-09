@@ -491,7 +491,7 @@ class UsersController < ApplicationController
       @user.locked = '1'
     end
     @patron_types = PatronType.all
-    @patron_type_patron_id = PatronType.find_by_name('Person').id
+    @patron_type_person = PatronType.find_by_name('Person').id
   end
 
   def set_phone_type(phone_type_id)

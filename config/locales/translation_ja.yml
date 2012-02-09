@@ -1960,7 +1960,8 @@ ja:
     create_family: "下記の利用者を家族にします。"
     please_search_users: "追加する利用者を検索してください。"
     no_select_users: "家族情報が空です。"
-    will_change_family : "※家族を変更したいときは、一度家族登録を解除してから再登録を行ってください。"
+    will_change_family : "※家族情報を変更したいときは、一度家族登録を解除してから再登録を行ってください。"
+    user_will_change_family : "※家族情報を変更したいときは、図書館員までお申し付けください。"
   resource_import_file:
     template_download: "テンプレートをダウンロード"
     import_request: "すぐにインポートする"
