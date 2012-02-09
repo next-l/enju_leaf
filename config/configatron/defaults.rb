@@ -84,17 +84,17 @@ configatron.retained_manifestation_list_print_tsv.filename = "retained_manifesta
 configatron.reserve_print.old = true
 
 # 利用者リストの出力(PDF)
-configatron.userlist_pdf_print.filename = "userlist.pdf"
+configatron.user_list_print_pdf.filename = "user_list.pdf"
 # 利用者リス知の出力(TSV)
-configatron.userlist_tsv_print.filename = "userlist.tsv"
+configatron.user_list_print_tsv.filename = "user_list.tsv"
 # 連絡不可者の出力(PDF)
 configatron.unable_list_print_pdf.filename = "unable_list.pdf"
 # 連絡不可者の出力(TSV)
 configatron.unable_list_print_tsv.filename = "unable_list.tsv"
 # 家族リストの出力(PDF)
-configatron.familylist_pdf_print.filename = "familylist.pdf"
+configatron.family_list_print_pdf.filename = "family_list.pdf"
 # 家族リストの出力(TSV)
-configatron.familylist_tsv_print.filename = "familylist.tsv"
+configatron.family_list_print_tsv.filename = "family_list.tsv"
 
 # 督促はがきのファイル名
 configatron.reminder_postal_card_print.filename = "reminder_postal_card.pdf"
@@ -105,9 +105,9 @@ configatron.reminder_letter_print.filename = "reminder_letter.pdf"
 # 督促書の図書館メッセージ
 configatron.reminder_letter_message = "図書館からお借りになったなった本や視聴覚資料などを、返す日が過ぎております。\n速やかにお返しください。\n\n・お返しになった後、行き違いにこの手紙が届きましたらご容赦ください。\n・図書館が閉まっているときは、入り口脇のブックポストをご利用ください。\n・視聴覚資料に限りましてはブックポストへの返却はご遠慮いただき、直接カウンターにお返しください。\n・資料を、郵送や宅配便でお返しいただく場合は、壊れないようご配慮の上お送りください。\n・ご不明な点がありましたらお問い合わせください。"
 # 督促情報表のファイル名
-configatron.reminder_list_pdf_print.filename = "reminder_list.pdf"
+configatron.reminder_list_print_pdf.filename = "reminder_list.pdf"
 # 督促情報表のファイル名
-configatron.reminder_list_tsv_print.filename = "reminder_list.tsv"
+configatron.reminder_list_print_tsv.filename = "reminder_list.tsv"
 
 #開館日と催し物の一覧の出力(TSV)
 configatron.event_list_print_tsv.filename = "event_list.tsv"

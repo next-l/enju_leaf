@@ -9,11 +9,11 @@ class FamiliesController < ApplicationController
     # output
     if params[:output_pdf]
       data = Family.output_familylist_pdf(@families)
-      send_data data.generate, :filename => configatron.familylist_pdf_print.filename
+      send_data data.generate, :filename => configatron.family_list_print_pdf.filename
     end
     if params[:output_tsv]
       data = Family.output_familylist_tsv(@families)
-      send_data data, :filename => configatron.familylist_tsv_print.filename
+      send_data data, :filename => configatron.family_list_print_tsv.filename
     end
   end
 

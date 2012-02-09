@@ -86,12 +86,12 @@ class UsersController < ApplicationController
     # output
     if params[:output_pdf]
       data = User.output_userlist_pdf(@users)
-      send_data data.generate, :filename => configatron.userlist_pdf_print.filename
+      send_data data.generate, :filename => configatron.user_list_print_pdf.filename
       return
     end
     if params[:output_tsv]
       data = User.output_userlist_tsv(@users)
-      send_data data, :filename => configatron.userlist_tsv_print.filename
+      send_data data, :filename => configatron.user_list_print_tsv.filename
       return
     end
 
