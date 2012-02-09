@@ -171,6 +171,12 @@
           </td>
         </tr>
       <%- end -%>
+      <%- unless @patron.patron_identifier.blank? -%>
+      <tr>
+        <td><strong><%= t('patron.patron_identifier') -%>:</strong></td>
+        <td><%= @patron.patron_identifier -%></td>
+      </tr>
+    <%- end -%>
       <tr>
         <td><strong><%= t('page.created_at') -%>:</strong></td>
         <td><%= l(@patron.created_at) -%></td>

@@ -293,6 +293,7 @@ ja:
         url: URL
         note_update_at: 注記更新時刻
         old: 歳
+        patron_identifier: 人物団体の識別番号
       feeds/app:
         source_url: ソースURL
         title: タイトル
@@ -1643,6 +1644,7 @@ ja:
     last_update_at: 最終更新日時
     last_update_by: 更新者 
     duplicate_user: "同じフルネーム(ヨミ)、電話番号１ー１、生年月日の人が既に登録されています。"
+    patron_identifier: 人物団体の識別番号
   message:
     user_message: "%{login_name} さんのメッセージ"
     sent_at: "送信時刻"
