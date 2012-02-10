@@ -155,7 +155,7 @@ class Ability
         EventImportResult,
         PatronImportResult,
         ResourceImportResult,
-        ResourceImportTextResult
+        ResourceImportTextresult
       ]
     when 'Librarian'
       can [:index, :create], Bookmark
@@ -304,7 +304,7 @@ class Ability
         ReserveStatHasManifestation,
         ReserveStatHasUser,
         ResourceImportResult,
-        ResourceImportTextResult,
+        ResourceImportTextresult,
         Role,
         SearchEngine,
         Shelf,
