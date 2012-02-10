@@ -22,7 +22,7 @@ class PurchaseRequestsController < ApplicationController
     end
 
     @count = {}
-    if params[:format] == 'csv'
+    if params[:format] == 'tsv'
       per_page = 65534
     else
       per_page = PurchaseRequest.per_page
@@ -61,7 +61,7 @@ class PurchaseRequestsController < ApplicationController
       format.xml  { render :xml => @purchase_requests }
       format.rss  { render :layout => false }
       format.atom
-      format.csv
+      format.tsv { send_data PurchaseRequest.output_tsv(@purchase_requests)}
     end
   end
 

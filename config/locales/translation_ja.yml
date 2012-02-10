@@ -600,6 +600,7 @@ ja:
         price: 価格
         url: URL
         note: 注記
+        created_at: 作成時刻
         accepted_at: 受理時刻
         denied_at: 拒絶時刻
         deleted_at: 削除時刻
@@ -1506,6 +1507,7 @@ ja:
     destroy: 削除
     feed: フィード
     csv: CSV
+    tsv: TSV
     asc: 昇順
     desc: 降順
     picture: 画像
