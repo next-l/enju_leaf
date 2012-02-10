@@ -382,18 +382,21 @@ class Manifestation < ActiveRecord::Base
       unless m.serial_number_string.blank?
         self.serial_number_string = m.serial_number_string.to_i + 1
         unless m.issue_number.blank?
-          self.issue_number = m.issue_number.split.last.to_i + 1
+#          self.issue_number = m.issue_number.split.last.to_i + 1
+          self.issue_number = m.issue_number.last.to_i + 1
         else
           self.issue_number = m.issue_number
         end
         self.volume_number = m.volume_number
       else
         unless m.issue_number.blank?
-          self.issue_number = m.issue_number.split.last.to_i + 1
+#          self.issue_number = m.issue_number.split.last.to_i + 1
+          self.issue_number = m.issue_number.last.to_i + 1
           self.volume_number = m.volume_number_string
         else
           unless m.volume_number.blank?
-            self.volume_number = m.volume_number.split.last.to_i + 1
+#            self.volume_number = m.volume_number.split.last.to_i + 1
+            self.volume_number = m.volume_number.last.to_i + 1
           end
         end
       end
@@ -402,7 +405,7 @@ class Manifestation < ActiveRecord::Base
   end
 
   def set_new_serial_number
-    self.serial_number = self.serial_number_string.to_i
+    self.serial_number = self.serial_number_string.gsub(/\D/, "").to_i
   end
 
   def reservable_with_item?(user = nil)
