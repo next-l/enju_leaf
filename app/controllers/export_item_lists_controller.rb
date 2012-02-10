@@ -99,7 +99,7 @@ class ExportItemListsController < ApplicationController
         manifestations = SeriesStatement.latest_issues
         manifestations.each do |manifestation|
           manifestation.items.each do |item|
-            @items << item
+            @items << item if libraries.include?(item.shelf.library.id.to_s) rescue next
           end
         end
         filename = t('item_list.latest_list')
@@ -109,6 +109,11 @@ class ExportItemListsController < ApplicationController
       begin
         if file_type == 'pdf'
           data = Item.make_export_item_list_pdf(@items, filename)
+          unless data
+            flash[:message] = t('item_list.no_record')
+            render :index
+            return false
+          end
           send_data data.generate, :filename => "#{filename}.pdf"
         elsif file_type == 'tsv'
           data = Item.make_export_item_list_tsv(@items)
@@ -180,7 +185,7 @@ class ExportItemListsController < ApplicationController
             manifestations = SeriesStatement.latest_issues
             manifestations.each do |manifestation|
               manifestation.items.each do |item|
-                @items << item
+                @items << item if libraries.include?(item.shelf.library.id.to_s) rescue next
               end
             end
             list_size = @items.size

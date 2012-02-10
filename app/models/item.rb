@@ -706,7 +706,8 @@ class Item < ActiveRecord::Base
   end
 
   def self.make_export_item_list_pdf(items, filename)
-    report = ThinReports::Report.new :layout => "#{Rails.root.to_s}/app/views/export_item_lists/item_list"
+    return false if items.blank?
+    report = ThinReports::Report.new :layout => "#{Rails.root.to_s}/report/item_list"
 
     report.events.on :page_create do |e|
       e.page.item(:page).value(e.page.no)
