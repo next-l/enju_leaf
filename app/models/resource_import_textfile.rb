@@ -1,6 +1,6 @@
 class ResourceImportTextfile < ActiveRecord::Base
   include ImportFile
-  default_scope :order => 'id DESC'
+  default_scope :order => 'resource_import_textfiles.id DESC'
   scope :not_imported, where(:state => 'pending', :imported_at => nil)
 
   has_attached_file :resource_import, :path => ":rails_root/private:url"
@@ -8,7 +8,7 @@ class ResourceImportTextfile < ActiveRecord::Base
   validates_attachment_content_type :resource_import, :content_type => ['text/csv', 'text/plain', 'text/tab-separated-values', 'application/octet-stream']
   validates_attachment_presence :resource_import
   belongs_to :user, :validate => true
-  has_many :resource_import_results
+  has_many :resource_import_textresults
   before_create :set_digest
   
   state_machine :initial => :pending do

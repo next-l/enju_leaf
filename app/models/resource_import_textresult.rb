@@ -1,11 +1,11 @@
-class ResourceImportTextResult < ActiveRecord::Base
+class ResourceImportTextresult < ActiveRecord::Base
   default_scope :order => 'resource_import_textresults.id DESC'
   scope :file_id, proc{|file_id| where(:resource_import_textfile_id => file_id)}
   scope :failed, where(:manifestation_id => nil)
 
   belongs_to :resource_import_textfile
-  belongs_to :manifestation
-  belongs_to :item
+  #belongs_to :manifestation
+  #belongs_to :item
 
   validates_presence_of :resource_import_textfile_id
 end
