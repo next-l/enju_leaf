@@ -79,6 +79,12 @@
   </div>
 
   <div class="field">
+    <%= label :list_type, t('activerecord.attributes.item_register.file_type')-%>:
+    <%= f.radio_button :file_type, "pdf", :checked => "checked" -%><%= t('item_register.pdf')-%>
+    <%= f.radio_button :file_type, "tsv" -%><%= t('item_register.tsv') -%>
+  </div>
+
+  <div class="field">
     <%= label :list_condition, t('activerecord.attributes.item_list.list_condition') -%>:<br />
     <div id="item_list_library" class="parent">
       <%= check_box_tag "all_library", true, @selected_library.size == @libraries.size ? true : false, :class=>'check-parent' -%><%= t('item_list.all_library') -%><br />

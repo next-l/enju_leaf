@@ -544,7 +544,7 @@ class User < ActiveRecord::Base
     columns.each do |column|
       row << I18n.t(column[1])
     end
-    data << row.join("\t")+"\n"
+    data << '"'+row.join("\"\t\"")+"\"\n"
 
     users.each do |user|
       row = []
@@ -569,7 +569,7 @@ class User < ActiveRecord::Base
           row << I18n.t('activerecord.attributes.user.unable_yes') if user.unable
           row << I18n.t('activerecord.attributes.user.unable_no') unless user.unable
         end
-        data << row.join("\t")+"\n"
+        data << '"'+row.join("\"\t\"")+"\"\n"
       end  
     end
     return data

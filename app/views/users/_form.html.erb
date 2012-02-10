@@ -1,21 +1,5 @@
 <script>
   $(document).ready(function(){
-    $("#patron_telephone_number_1").change(function(){
-      clear_family_search();
-      search_family();
-    })
-    .change();
-    $("#patron_last_name").change(function(){
-      clear_family_search();
-      search_family();
-    })
-    .change();
-    $("#patron_address_1").change(function(){
-      clear_family_search();
-      search_family();
-    })
-    .change();      
-
     // check full_name_alternative
     <% unless @patron.full_name_alternative.blank? %>
       if ("<%= @patron.full_name_alternative.gsub(/[　\s\t]+$/o, "").gsub(/^[　\s\t]+/o, "") -%>" != "")
@@ -50,7 +34,7 @@
     if (input_address2 == true)
       $("#address_2").show();
     // check patron_type
-    if ("<%= @patron.patron_type_id -%>" == <%= @patron_type_patron_id %>) {
+    if ("<%= @patron.patron_type_id -%>" == <%= @patron_type_person %>) {
       $("#name_person").show();
       $("label[for='patron_date_of_birth']").text('<%= t('activerecord.attributes.patron.date_of_birth') -%>');
       $("label[for='patron_date_of_death']").text('<%= t('activerecord.attributes.patron.date_of_death') -%>');
@@ -63,7 +47,7 @@
     // change patron_type
     $("select#patron_patron_type_id").change(function(){
       str = $("select#patron_patron_type_id option:selected").val();
-      if (str == <%= @patron_type_patron_id %>) {
+      if (str == <%= @patron_type_person -%>) {
         $("div.patron_full_name_note").show();
         $("#name_person").show();
         $("label[for='patron_date_of_birth']").text('<%= t('activerecord.attributes.patron.date_of_birth') -%>');
@@ -79,6 +63,24 @@
         $("label[for='patron_date_of_death']").text('<%= t('activerecord.attributes.patron.date_of_dissolution') -%>');
       }
     });
+    // seach_family
+    <%- if current_user.has_role?('Librarian') -%>
+      $("#patron_telephone_number_1").change(function(){
+        clear_family_search();
+        search_family();
+      })
+      .change();
+      $("#patron_last_name").change(function(){
+        clear_family_search();
+        search_family();
+      })
+      .change();
+      $("#patron_address_1").change(function(){
+        clear_family_search();
+        search_family();
+      })
+      .change();
+    <%- end -%>
   });
 
   function search_family(){
@@ -104,6 +106,7 @@
       return false;
     }
   }
+
   function clear_family_search(){
     $('#search_family > div').remove();
     $('#search_family').hide();
@@ -122,10 +125,12 @@
   }
 </script>
 
-  <div class="field">
-    <%= f.label t('activerecord.models.patron_type') -%>
-    <%= f.select(:patron_type_id, @patron_types.collect{|p| [p.display_name.localize, p.id]}) -%>
-  </div>
+  <%- if current_user.has_role?('Librarian') -%>
+    <div class="field">
+      <%= f.label t('activerecord.models.patron_type') -%>
+      <%= f.select(:patron_type_id, @patron_types.collect{|p| [p.display_name.localize, p.id]}) -%>
+    </div>
+  <%- end -%>
 
   <div id="family">
     <%= render :partial => "family_info"  %>
@@ -158,10 +163,19 @@
   </div>
 
   <% unless @user.id.blank? %>
-    <div class="field">
-      <%= f.label :date_of_death -%><br />
-      <%= f.text_field :death_date, :class => 'date_field' -%>
-    </div>
+    <%- if current_user.has_role?('Librarian') -%>
+      <div class="field">
+        <%= f.label :date_of_death -%><br />
+        <%= f.text_field :death_date, :class => 'date_field' -%>
+      </div>
+    <%- else -%>
+      <%- if @patron_type_person != @user.patron.patron_type.id -%>
+        <div class="field">
+          <%= f.label :date_of_death -%><br />
+          <%= f.text_field :death_date, :class => 'date_field' -%>
+        </div>
+      <%- end -%>
+    <%- end -%>
   <% end %>
 
   <div class="field">

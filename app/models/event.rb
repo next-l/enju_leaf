@@ -65,6 +65,42 @@ class Event < ActiveRecord::Base
   def set_display_name
     self.display_name = self.name if self.display_name.blank?
   end
+
+  def self.get_event_list_tsv(events)
+    data = String.new
+    data << "\xEF\xBB\xBF".force_encoding("UTF-8") + "\n"
+    columns = [
+      [:library, 'activerecord.models.library'],
+      [:event, 'activerecord.attributes.event.name'],
+      [:note, 'activerecord.attributes.event.note'],
+      [:start_at, 'activerecord.attributes.event.start_at'],
+      [:end_at, 'activerecord.attributes.event.end_at'],
+    ]
+
+    # title column
+    row = columns.map {|column| I18n.t(column[1])}
+    data << '"'+row.join("\"\t\"")+"\"\n"
+
+    events.each do |event|
+      row = []
+      columns.each do |column|
+        case column[0]
+        when :library
+          row << event.library.display_name.gsub(/"/, '""')
+        when :event
+          row << event.display_name.localize.gsub(/"/, '""')
+        when :note
+          row << event.note.to_s.gsub(/"/, '""')
+        when :start_at
+          row << event.start_at.to_s.gsub(/"/, '""')
+        when :end_at
+          row << event.end_at.to_s.gsub(/"/, '""')
+        end
+      end
+      data << '"'+row.join("\"\t\"")+"\"\n"
+    end
+    return data
+  end
 end
 
 # == Schema Information

@@ -46,31 +46,35 @@
           <td><strong><%= t('activerecord.attributes.user.expired_at') -%>:</strong></td>
           <td><%= l(@patron.user.expired_at, :format => :only_date) if @patron.user.expired_at -%></td>
         </tr>
+        <%- if current_user.has_role?('Librarian') -%>
+          <tr>
+            <td><strong><%= t('activerecord.attributes.user.locked') -%>:</strong></td>
+            <td>
+              <%- if @patron.user.active_for_authentication? -%>
+	        <%= t('activerecord.attributes.user.locked_yes') -%>
+              <%- else -%>
+                <%= t('activerecord.attributes.user.locked_no') -%>
+              <%- end -%>
+            </td>
+          </tr>
+          <tr>
+            <td><strong><%= t('activerecord.attributes.user.unable') -%>:</strong></td>
+            <td>
+              <%- if @patron.user.unable == true -%>
+                <%= t('activerecord.attributes.user.unable_no') -%>
+              <%- else -%>
+                <%= t('activerecord.attributes.user.unable_yes') -%>
+              <%- end -%>
+            </td>
+          </tr>
+        <%- end -%>
+      <%- end -%>
+      <%- if current_user.has_role?('Librarian') or !@patron.user -%>
         <tr>
-          <td><strong><%= t('activerecord.attributes.user.locked') -%>:</strong></td>
-          <td>
-            <%- if @patron.user.active_for_authentication? -%>
-	      <%= t('activerecord.attributes.user.locked_yes') -%>
-            <%- else -%>
-              <%= t('activerecord.attributes.user.locked_no') -%>
-            <%- end -%>
-          </td>
-        </tr>
-        <tr>
-          <td><strong><%= t('activerecord.attributes.user.unable') -%>:</strong></td>
-          <td>
-            <%- if @patron.user.unable == true -%>
-              <%= t('activerecord.attributes.user.unable_no') -%>
-            <%- else -%>
-              <%= t('activerecord.attributes.user.unable_yes') -%>
-            <%- end -%>
-          </td>
+          <td><strong><%= t('activerecord.models.patron_type') -%>:</strong></td>
+          <td><%= @patron.patron_type.display_name.localize -%></td>
         </tr>
       <%- end -%>
-      <tr>
-        <td><strong><%= t('activerecord.models.patron_type') -%>:</strong></td>
-        <td><%= @patron.patron_type.display_name.localize -%></td>
-      </tr>
       <tr>
         <td><strong><%= t('activerecord.attributes.patron.email') -%>:</strong></td>
         <td><%= mail_to @patron.email, nil, :class => 'email' -%></td>
@@ -171,6 +175,12 @@
           </td>
         </tr>
       <%- end -%>
+      <%- unless @patron.patron_identifier.blank? -%>
+      <tr>
+        <td><strong><%= t('patron.patron_identifier') -%>:</strong></td>
+        <td><%= @patron.patron_identifier -%></td>
+      </tr>
+    <%- end -%>
       <tr>
         <td><strong><%= t('page.created_at') -%>:</strong></td>
         <td><%= l(@patron.created_at) -%></td>

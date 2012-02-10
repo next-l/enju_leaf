@@ -15,10 +15,12 @@
 <%= form_for :unablelist, :html => {:method => 'get'} do -%>
   <div style="color: red"><%= flash[:message] -%></div>
   <p>
-    <%= t('advanced_search.library') -%>: <%= select("library", "id", @libraries, {:include_blank => t('advanced_search.all_libraries'), :selected=>@selected_library}  )%> </td>
+    <%= t('advanced_search.library') -%>: <%= select("library", "id", @libraries, {:include_blank => t('advanced_search.all_libraries'), :selected=>@selected_library})%> </td>
     <%= hidden_field_tag :sort_by, params[:sort_by] -%>
+    <br />
     <%= submit_tag t('page.search') -%>
-    <%= submit_tag t('page.output', :model => t('activerecord.models.unablelist')), :name => 'output' -%>
+    <%= submit_tag t('page.output_pdf', :model => t('page.listing', :model => t('activerecord.models.unablelist'))), :name => 'output_pdf' -%>
+    <%= submit_tag t('page.output_tsv', :model => t('page.listing', :model => t('activerecord.models.unablelist'))), :name => 'output_tsv' -%>
     <br />
   </p>
 <%- end -%>

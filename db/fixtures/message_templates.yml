@@ -65,7 +65,7 @@ message_template_00011:
   body: purchase_request_accepted
   position: 11
 message_template_00012:
-  id: 11
+  id: 12
   status: purchase_request_rejected
   title: purchase_request_rejected
   body: purchase_request_rejected

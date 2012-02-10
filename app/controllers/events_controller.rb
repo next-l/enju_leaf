@@ -43,6 +43,12 @@ class EventsController < ApplicationController
     @events = search.execute!.results
     @count[:query_result] = @events.total_entries
 
+    if params[:output_tsv]
+      data = Event.get_event_list_tsv(@events)
+      send_data data, :filename => configatron.event_list_print_tsv.filename
+      return
+    end
+
     respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @events }

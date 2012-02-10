@@ -175,7 +175,7 @@ ja:
       library_report: 報告書
       loss_item: 紛失弁償
       system_configuration: システム情報
-      reminder_list: 督促情報
+      reminder_list: 督促
       expense: 購入情報
    
     attributes:
@@ -188,8 +188,8 @@ ja:
         status: 状態
         due_date: 貸出期限
         number_of_day_overdue: 超過日数
-        type1_printed: はがき
-        type1_printed_at: はがき印刷日時
+        type1_printed: 督促はがき
+        type1_printed_at: 督促はがき印刷日時
         type2_printed: 催告書
         type2_printed_at: 催告書印刷日時
         printed: 印字済
@@ -293,6 +293,7 @@ ja:
         url: URL
         note_update_at: 注記更新時刻
         old: 歳
+        patron_identifier: 人物団体の識別番号
       feeds/app:
         source_url: ソースURL
         title: タイトル
@@ -1272,7 +1273,7 @@ ja:
         list_type: リストの種類
         list_condition: 抽出条件
         list_number: 件数
-        page_number: ページ数
+        page_number: ページ数(PDF)
         sort_by: ソート順
       item_register:
         list_type: リストの種類
@@ -1486,7 +1487,7 @@ ja:
     budget: "予算"
     wait: "処理中.."
     system_configuration: システム設定
-    reminder_postal_card: "催促はがき"
+    reminder_postal_card: "督促はがき"
     reminder_letter: "催告書"
 
     exstatistics:
@@ -1645,6 +1646,7 @@ ja:
     last_update_at: 最終更新日時
     last_update_by: 更新者 
     duplicate_user: "同じフルネーム(ヨミ)、電話番号１ー１、生年月日の人が既に登録されています。"
+    patron_identifier: 人物団体の識別番号
   message:
     user_message: "%{login_name} さんのメッセージ"
     sent_at: "送信時刻"
@@ -1962,7 +1964,8 @@ ja:
     create_family: "下記の利用者を家族にします。"
     please_search_users: "追加する利用者を検索してください。"
     no_select_users: "家族情報が空です。"
-    will_change_family : "※家族を変更したいときは、一度家族登録を解除してから再登録を行ってください。"
+    will_change_family : "※家族情報を変更したいときは、一度家族登録を解除してから再登録を行ってください。"
+    user_will_change_family : "※家族情報を変更したいときは、図書館員までお申し付けください。"
   resource_import_file:
     template_download: "テンプレートをダウンロード"
     import_request: "すぐにインポートする"
@@ -2105,10 +2108,10 @@ ja:
     yyyymm: 対象年月
     date_comment: "８桁で入力。2011/12/13 の場合は、 20111213 と入力。"
   reminder_list:
-    input_user_for_output_reminder: "督促状の作成対象者の利用者番号を入力してください。"
+    input_user_for_output_reminder: "督促作成対象者の利用者番号を入力してください。"
     no_user: "該当の利用者が見つかりません。"
     no_item: "督促対象になっている資料が見つかりません。"
-    failed_output: "督促状の出力に失敗しました。"
-    successfully__output: "督促状を出力しました。"
+    failed_output: "督促の出力に失敗しました。"
+    successfully__output: "督促を出力しました。"
   function_key:
     will_move: "フォームに値が入力されています。画面遷移してもよろしいですか。"
