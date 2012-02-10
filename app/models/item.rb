@@ -138,13 +138,13 @@ class Item < ActiveRecord::Base
 
   def available_for_checkout?
     circulation_statuses = CirculationStatus.available_for_checkout.select(:id)
-    return true if circulation_statuses.include?(self.circulation_status)
+    return true if circulation_statuses.include?(self.circulation_status) && self.item_identifier
     false
   end
 
   def available_for_retain?
     circulation_statuses = CirculationStatus.available_for_retain.select(:id)
-    return true if circulation_statuses.include?(self.circulation_status)
+    return true if circulation_statuses.include?(self.circulation_status) && self.item_identifier
     false
   end
 
@@ -343,6 +343,10 @@ class Item < ActiveRecord::Base
             row = []
             columns.each do |column|
               case column[0]
+              when "removed_at"
+                row << item.removed_at.strftime("%Y/%m/%d") rescue ""
+              when "acquired at"
+                row << item.acquired_at.strftime("%Y/%m/%d") rescue ""
               when :original_title
                 row << item.manifestation.original_title
               when :date_of_publication
@@ -666,7 +670,7 @@ class Item < ActiveRecord::Base
       filename = I18n.t('item_register.audio_list')
       # pdf
       begin
-        report = ThinReports::Report.new :layout => "#{Rails.root.to_s}/app/views/export_item_lists/item_list"
+        report = ThinReports::Report.new :layout => "#{Rails.root.to_s}/report/item_list"
 
         report.events.on :page_create do |e|
           e.page.item(:page).value(e.page.no)

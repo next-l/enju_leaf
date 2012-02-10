@@ -131,6 +131,13 @@ class InterLibraryLoansController < ApplicationController
       render :export_loan_lists
       return false
     end
+    @loans = InterLibraryLoan.loan_items
+    if @loans.blank?
+      flash[:message] = t('inter_library_loan.no_loan')
+      @libraries = Library.all
+      render :export_loan_lists
+      return false
+    end
     begin
       report = ThinReports::Report.new :layout => "#{Rails.root.to_s}/app/views/inter_library_loans/loan_list"
  
@@ -143,16 +150,10 @@ class InterLibraryLoansController < ApplicationController
         end
       end
 
-      @loans = InterLibraryLoan.loan_items
-      unless @loans
-        flash[:message] = t('inter_library_loan.no_loan')
-        @libraries = Library.all
-        render :export_loan_lists
-        return false
-      end
       library_ids.each do |library_id|
         library = Library.find(library_id) rescue nil
         to_libraries = InterLibraryLoan.where(:from_library_id => library_id).inject([]){|libraries, data| libraries << Library.find(data.to_library_id)}
+        next if to_libraries.blank?
         to_libraries.uniq.each do |to_library|
           report.start_new_page
           report.page.item(:date).value(Time.now)
@@ -182,10 +183,17 @@ class InterLibraryLoansController < ApplicationController
           end
         end
       end
-
-      send_data report.generate, :filename => "loan_lists.pdf", :type => 'application/pdf', :disposition => 'attachment'
-      logger.error "created report: #{Time.now}"
-      return true
+      logger.error report.page
+      if report.page
+        send_data report.generate, :filename => "loan_lists.pdf", :type => 'application/pdf', :disposition => 'attachment'
+        logger.error "created report: #{Time.now}"
+        return true
+      else
+        flash[:message] = t('inter_library_loan.no_loan')
+        @libraries = Library.all
+        render :export_loan_lists
+        return false
+      end
     rescue Exception => e
       logger.error "failed #{e}"
       return false

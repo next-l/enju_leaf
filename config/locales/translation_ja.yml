@@ -554,7 +554,7 @@ ja:
         set_status: 紛失処理を実行
         will_loss_item: 資料の貸出状態を紛失扱いにし、自動返却を行いますか。
         fail_update_loss_item: 紛失処理に失敗しました。
-        removed_at: 除籍日時
+        removed_at: 除籍年月日
 
       loss_item:
         user_id: 利用者番号
@@ -602,6 +602,7 @@ ja:
         price: 価格
         url: URL
         note: 注記
+        created_at: 作成時刻
         accepted_at: 受理時刻
         denied_at: 拒絶時刻
         deleted_at: 削除時刻
@@ -1508,6 +1509,7 @@ ja:
     destroy: 削除
     feed: フィード
     csv: CSV
+    tsv: TSV
     asc: 昇順
     desc: 降順
     picture: 画像
@@ -1624,6 +1626,7 @@ ja:
     item_restored: "資料の貸出状態を作業中に変更しました。"
     update_failed: "資料の更新に失敗しました。"	
     new_serial: "(最新号)"
+    already_removed: "この資料は除籍されています。編集できません。"
   patron:
     library_group_patron: "%{library_group_name} の人物・団体"
     work_patron: "%{work_title} の著作者"

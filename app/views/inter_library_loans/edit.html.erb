@@ -34,19 +34,12 @@
       <%= f.label :requested_at -%><br />
       <%=l @inter_library_loan.requested_at if @inter_library_loan.requested_at %>
     </div>
-<<<<<<< HEAD
-=======
-
     <%- if @inter_library_loan.item.hold?(current_user.library) -%>
       <div class="field">
         <%= f.label :shipped_at -%><br />
         <%= f.datetime_select :shipped_at -%>
       </div>
-      <div class="actions">
-        <%= f.submit :confirm => t('page.inter_library_loans_confirm') -%>
-      </div>
     <%- end -%>
->>>>>>> 9bce39d6413cc2301a4220d2f096c8ec1116f857
   <%- when 'shipped' -%>
     <div class="field">
       <%= f.label :requested_at -%><br />
@@ -82,7 +75,6 @@
       <%= f.label :received_at -%><br />
       <%=l @inter_library_loan.received_at if @inter_library_loan.received_at %>
     </div>
-
   <%- end -%>
   <div class="actions">
     <%= f.submit :confirm => t('page.inter_library_loans_confirm') -%>

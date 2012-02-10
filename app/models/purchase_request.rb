@@ -8,6 +8,7 @@ class PurchaseRequest < ActiveRecord::Base
   belongs_to :user, :validate => true
   has_one :order, :dependent => :destroy
   has_one :order_list, :through => :order
+  belongs_to :manifestation
 
   validates_associated :user
   validates_presence_of :user, :title
@@ -128,6 +129,36 @@ class PurchaseRequest < ActiveRecord::Base
         raise 'status to send message not defined'
       end
     end
+  end
+
+  def self.output_tsv(purchase_requests)
+    @buf = String.new
+    @buf << "\"" + I18n.t('activerecord.attributes.manifestation.original_title') + "\"" + "\t" +
+      "\"" + I18n.t('activerecord.attributes.purchase_request.author') + "\"" + "\t" +
+      "\"" + I18n.t('activerecord.attributes.purchase_request.publisher') + "\"" + "\t" +
+      "\"" + I18n.t('activerecord.attributes.purchase_request.created_at') + "\"" + "\t" +
+      "\"" + I18n.t('activerecord.attributes.order_list.title') + "\"" + "\t" +
+      "\"" + I18n.t('activerecord.attributes.order_list.ordered_at') + "\"" + "\t" +
+      "\"" + I18n.t('activerecord.attributes.order_list.bookstore') + "\"" + "\t" +
+      "\n"
+    purchase_requests.each do |purchase_request|
+      title = purchase_request.title || ""
+      author = purchase_request.author || ""
+      publisher = purchase_request.publisher || ""
+      created_at = purchase_request.created_at.strftime("%Y%m%d") || ""
+      order_list_title = purchase_request.order_list.title rescue ""
+      order_list_ordered_at = purchase_request.order_list.created_at rescue "" 
+      order_list_bookstore = purchase_request.order_list.bookstore.name rescue ""
+      @buf << "\"" + title + "\"" + "\t" +
+              "\"" + author + "\"" + "\t" +
+              "\"" + publisher + "\"" + "\t" +
+              "\"" + created_at + "\"" + "\t" +
+              "\"" + order_list_title + "\"" + "\t" +
+              "\"" + order_list_ordered_at + "\"" + "\t" +
+              "\"" + order_list_bookstore + "\"" + "\t" +
+              "\n"
+    end
+    return @buf
   end
 end
 
