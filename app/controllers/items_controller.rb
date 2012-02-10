@@ -9,6 +9,7 @@ class ItemsController < ApplicationController
   helper_method :get_item
   before_filter :prepare_options, :only => [:new, :edit]
   before_filter :get_version, :only => [:show]
+  before_filter :check_status, :only => [:edit]
   #before_filter :store_location
   after_filter :solr_commit, :only => [:create, :update, :destroy]
   after_filter :convert_charset, :only => :index
@@ -267,5 +268,13 @@ class ItemsController < ApplicationController
       @checkout_types = CheckoutType.all
     end
     @roles = Role.all
+  end
+
+  def check_status
+    if @item.circulation_status.name == "Removed"
+      flash[:notice] = t('item.already_removed')
+      redirect_to item_url(@item)
+    end
+    return true
   end
 end

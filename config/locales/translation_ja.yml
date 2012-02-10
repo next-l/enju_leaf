@@ -1625,6 +1625,7 @@ ja:
     item_restored: "資料の貸出状態を作業中に変更しました。"
     update_failed: "資料の更新に失敗しました。"	
     new_serial: "(最新号)"
+    already_removed: "この資料は除籍されています。編集できません。"
   patron:
     library_group_patron: "%{library_group_name} の人物・団体"
     work_patron: "%{work_title} の著作者"
