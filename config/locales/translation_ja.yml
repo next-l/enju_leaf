@@ -2003,6 +2003,7 @@ ja:
     groups_report: 団体別貸出統計
     invalid_year: "対象年度の指定が不正です。"
     invalid_month: "対象月の指定が不正です。"
+    no_corporate: "団体が登録されていません。"
     year: 対象年度(YYYY) 
     month_ex: 対象月(YYYYMM)
     year_or_month: 対象年度(YYYY)または対象月(YYYYMM)

@@ -9299,6 +9299,11 @@ class StatisticReport < ActiveRecord::Base
   end
 
   def self.get_groups_monthly_pdf(term)
+    corporates = User.corporate
+    if corporates.blank?
+      return false
+    end
+    dir_base = "#{RAILS_ROOT}/private/system"
     begin
       report = ThinReports::Report.new :layout => "#{Rails.root.to_s}/app/views/statistic_reports/groups_monthly"
 
@@ -9314,7 +9319,6 @@ class StatisticReport < ActiveRecord::Base
       report.start_new_page
       report.page.item(:date).value(Time.now)       
       report.page.item(:term).value(term)
-      corporates = User.corporate
       # checkout items each corporate users
       corporates.each do |user|
         report.page.list(:list).add_row do |row|
@@ -9346,6 +9350,10 @@ class StatisticReport < ActiveRecord::Base
   end
 
   def self.get_groups_monthly_tsv(term)
+    corporates = User.corporate
+    if corporates.blank?
+      return false
+    end
     dir_base = "#{RAILS_ROOT}/private/system"
     out_dir = "#{dir_base}/statistic_report/"
     tsv_file = out_dir + "#{term}_groups_monthly.tsv"
@@ -9405,6 +9413,10 @@ class StatisticReport < ActiveRecord::Base
   end
 
   def self.get_groups_daily_pdf(term)
+    corporates = User.corporate
+    if corporates.blank?
+      return false
+    end
     begin
       report = ThinReports::Report.new :layout => "#{Rails.root.to_s}/app/views/statistic_reports/groups_daily"
       report.events.on :page_create do |e|
@@ -9433,7 +9445,7 @@ class StatisticReport < ActiveRecord::Base
           end
           report.page.list(:list).header.item("column#13").value(I18n.t('statistic_report.sum'))
         end
-        corporates = User.corporate
+
         # checkout items each libraries
         corporates.each do |user|
           report.page.list(:list).add_row do |row|
@@ -9467,6 +9479,10 @@ class StatisticReport < ActiveRecord::Base
   end
 
   def self.get_groups_daily_tsv(term)
+    corporates = User.corporate
+    if corporates.blank?
+      return false
+    end
     dir_base = "#{RAILS_ROOT}/private/system"
     out_dir = "#{dir_base}/statistic_report/"
     tsv_file = out_dir + "#{term}_groups_daily.tsv"
@@ -9494,7 +9510,6 @@ class StatisticReport < ActiveRecord::Base
       columns << ["sum"]
       output.print "\""+row.join("\"\t\"")+"\"\n"
 
-      corporates = User.corporate
       # checkout users each libraries
       corporates.each do |user|
         sum = 0
