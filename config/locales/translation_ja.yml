@@ -203,6 +203,7 @@ ja:
         other: 他
         items: 冊
         library: 本籍館
+        item_identifier: 所蔵情報ID
       library:
         name: 名前
         display_name: 表示名

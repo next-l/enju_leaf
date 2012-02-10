@@ -29,3 +29,5 @@ ja:
           error_at_exporting_detection_list: "発見リストファイルの出力時にエラーが発生しました。"
         inter_library_loan:
           same_library: "移動元図書館と移動先図書館が同じです。"
+        reminder_list:
+          no_checkout: "該当する貸出が見つかりません。"

@@ -3,11 +3,11 @@
   <div style="color: red"><%= raw flash[:message] -%></div>
 
   <div class="field">
-    <%= f.label :checkout_id -%><br />
-    <%- if @reminder_list.id -%>
-      <%= @reminder_list.checkout_id %>
+    <%= f.label :item_identifier -%><br />
+    <%- if @reminder_list.checkout_id -%>
+      <%= @reminder_list.checkout.item.item_identifier rescue "" %>
     <%- else -%>
-      <%= f.text_field :checkout_id -%>
+      <%= f.text_field :item_identifier -%>
     <%- end -%>
   </div>
   <div class="field">

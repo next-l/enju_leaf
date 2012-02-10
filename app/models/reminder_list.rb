@@ -3,8 +3,11 @@ class ReminderList < ActiveRecord::Base
 
   validates_presence_of :checkout_id, :status
   validate :check_checkout_id
+  attr_accessor :item_identifier
 
   belongs_to :checkout
+
+  before_validation :set_checkout_id
 
   def self.per_page
     10
@@ -53,6 +56,16 @@ class ReminderList < ActiveRecord::Base
       titles << self.checkout.item.manifestation.original_title
       titles << self.checkout.item.manifestation.title_transcription
     end
+  end
+
+  def set_checkout_id
+    logger.error "set checkout id"
+    checkout = Checkout.where(:item_id => Item.where(:item_identifier => self.item_identifier).first.id).not_returned.order("created_at DESC").first rescue nil
+    if checkout.nil?
+      errors[:base] << I18n.t('activerecord.errors.messages.reminder_list.no_checkout')
+      return false
+    end
+    self.checkout = checkout
   end
 
   def self.output_reminder_list_pdf(reminder_lists)
