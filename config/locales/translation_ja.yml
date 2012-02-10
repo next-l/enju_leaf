@@ -553,7 +553,7 @@ ja:
         set_status: 紛失処理を実行
         will_loss_item: 資料の貸出状態を紛失扱いにし、自動返却を行いますか。
         fail_update_loss_item: 紛失処理に失敗しました。
-        removed_at: 除籍日時
+        removed_at: 除籍年月日
 
       loss_item:
         user_id: 利用者番号
