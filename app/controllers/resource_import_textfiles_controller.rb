@@ -10,8 +10,23 @@ class ResourceImportTextfilesController < ApplicationController
     @resource_import_textfile = ResourceImportTextfile.new
   end
 
+  def show
+    if @resource_import_textfile.resource_import.path
+      unless configatron.uploaded_file.storage == :s3
+        file = @resource_import_textfile.resource_import.path
+      end
+    end
+
+    respond_to do |format|
+      format.html # show.html.erb
+      format.xml  { render :xml => @resource_import_textfile }
+      format.download {
+        send_file file, :filename => @resource_import_textfile.resource_import_file_name, :type => 'application/octet-stream'
+      }
+    end
+  end
+
   def create
-    logger.info "aaa"
     @resource_import_textfile = ResourceImportTextfile.new(params[:resource_import_textfile])
     @resource_import_textfile.user = current_user
 
@@ -26,4 +41,14 @@ class ResourceImportTextfilesController < ApplicationController
       end
     end
   end
+
+  def import_request
+    @resource_import_textfile = ResourceImportTextfile.find(params[:id])
+    ResourceImportTextfile.send_later(:import, @resource_import_textfile.id, 0)
+    flash[:message] = t('resource_import_textfile.start_importing')
+    respond_to do |format|
+      format.html {redirect_to(resource_import_textfile_resource_import_textresults_path(@resource_import_textfile))}
+    end
+  end
+
 end

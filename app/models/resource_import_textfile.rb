@@ -45,7 +45,9 @@ class ResourceImportTextfile < ActiveRecord::Base
       end
     end
   rescue Exception => e
+    puts $!
     logger.info "#{Time.zone.now} importing resources failed! #{e}"
+    logger.info "#{Time.zone.now} #{$@}"
   end
 
   def import_start

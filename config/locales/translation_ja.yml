@@ -157,6 +157,7 @@ ja:
       patron_relationship: 著者・編者・出版社の関係
       manifestation_relationship: 資料の関係
       resource_import_result: 資料インポートの結果
+      resource_import_textresult: 資料インポートの結果
       patron_import_result: 人物・団体インポートの結果
       event_import_result: 催し物インポートの結果
       series_statement_merge: シリーズ情報の統合
@@ -1967,6 +1968,11 @@ ja:
     no_select_users: "家族情報が空です。"
     will_change_family : "※家族情報を変更したいときは、一度家族登録を解除してから再登録を行ってください。"
     user_will_change_family : "※家族情報を変更したいときは、図書館員までお申し付けください。"
+  resource_import_textfile:
+    template_download: "テンプレートをダウンロード"
+    import_request: "すぐにインポートする"
+    start_importing: "インポートを開始しました。"
+    unsuccess_start: "インポート開始に失敗しました。"
   resource_import_file:
     template_download: "テンプレートをダウンロード"
     import_request: "すぐにインポートする"
