@@ -6,6 +6,10 @@
     <%= f.label :item_identifier -%><br />
     <%- if @reminder_list.checkout_id -%>
       <%= @reminder_list.checkout.item.item_identifier rescue "" %>
+      </div>
+      <div class="field">
+      <%= f.label :checkout_id -%><br />
+      <%= @reminder_list.checkout_id -%>
     <%- else -%>
       <%= f.text_field :item_identifier -%>
     <%- end -%>
