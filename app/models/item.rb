@@ -138,13 +138,13 @@ class Item < ActiveRecord::Base
 
   def available_for_checkout?
     circulation_statuses = CirculationStatus.available_for_checkout.select(:id)
-    return true if circulation_statuses.include?(self.circulation_status)
+    return true if circulation_statuses.include?(self.circulation_status) && self.item_identifier
     false
   end
 
   def available_for_retain?
     circulation_statuses = CirculationStatus.available_for_retain.select(:id)
-    return true if circulation_statuses.include?(self.circulation_status)
+    return true if circulation_statuses.include?(self.circulation_status) && self.item_identifier
     false
   end
 
