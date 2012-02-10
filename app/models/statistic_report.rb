@@ -557,6 +557,7 @@ class StatisticReport < ActiveRecord::Base
           sum = sum + value
         end  
         row.item("valueall").value(sum)
+        row.item(:library_line).show
       end
       libraries.each do |library|
         report.page.list(:list).add_row do |row|
@@ -572,6 +573,7 @@ class StatisticReport < ActiveRecord::Base
             sum = sum + value
           end  
           row.item("valueall").value(sum)
+          row.item(:library_line).show
           line(row) if library == libraries.last
         end
       end
