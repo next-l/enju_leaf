@@ -89,7 +89,11 @@ class PurchaseRequestsController < ApplicationController
 
     @purchase_request = PurchaseRequest.new(params[:purchase_request])
     @purchase_request.user = @user if @user
-    @purchase_request.title = Bookmark.get_title_from_url(@purchase_request.url) unless @purchase_request.title?
+#    @purchase_request.title = Bookmark.get_title_from_url(@purchase_request.url) unless @purchase_request.title?
+    if @purchase_request.manifestation
+      @purchase_request.title = @purchase_request.manifestation.original_title
+      @purchase_request.isbn = @purchase_request.manifestation.isbn
+    end
 
     respond_to do |format|
       format.html # new.html.erb

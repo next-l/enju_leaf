@@ -68,7 +68,7 @@
         <%- end -%>
         <%- if @manifestation.bookmarked?(current_user) -%>
           <li><%= link_to t('bookmark.remove_from_my_bookmark'), bookmark_path(Bookmark.where(:user_id => current_user.id, :manifestation_id => @manifestation.id).first), :confirm => t('page.are_you_sure'), :method => :delete -%></li>
-        <%- else -%>
+        <%- elsif !@manifestation.ordered? -%>
           <li><%= link_to t('bookmark.add_to_my_bookmark'), new_user_bookmark_path(current_user, :bookmark => {:url => manifestation_url(@manifestation)}) -%></li>
         <%- end -%>
       <%- end -%>
@@ -117,6 +117,9 @@
               <li><%= link_to t('manifestation.edit_publisher'), manifestation_patrons_path(@manifestation) -%></li>
               <%- if @manifestation.serial? -%>
                 <li><%= link_to t('manifestation.add_next_issue'), new_series_statement_manifestation_path(@manifestation.series_statement) if @manifestation.series_statement -%></li>
+              <%- end -%>
+              <%- if @manifestation.items.blank? && !@manifestation.ordered? -%>
+                <li><%= link_to t('activerecord.models.purchase_request'), new_user_purchase_request_path(current_user, :purchase_request => {:manifestation_id => @manifestation, :url => manifestation_url(@manifestation)}) %>
               <%- end -%>
             </ul>
           </li>

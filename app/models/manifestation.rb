@@ -28,6 +28,7 @@ class Manifestation < ActiveRecord::Base
   belongs_to :frequency
   belongs_to :required_role, :class_name => 'Role', :foreign_key => 'required_role_id', :validate => true
   has_one :resource_import_result
+  has_many :purchase_requests
 
   searchable do
     text :title, :default_boost => 2 do
@@ -662,6 +663,13 @@ class Manifestation < ActiveRecord::Base
     else
       items = self.items.for_retain_from_own(lib).concat(self.items.for_retain_from_others(lib)).flatten
     end
+  end
+ 
+  def ordered?
+    self.purchase_requests.each do |p|
+      return true if p.state == "ordered"
+    end
+    return false
   end
 
 private

@@ -8,6 +8,7 @@ class PurchaseRequest < ActiveRecord::Base
   belongs_to :user, :validate => true
   has_one :order, :dependent => :destroy
   has_one :order_list, :through => :order
+  belongs_to :manifestation
 
   validates_associated :user
   validates_presence_of :user, :title
