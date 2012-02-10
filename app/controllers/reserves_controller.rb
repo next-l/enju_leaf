@@ -366,6 +366,12 @@ class ReservesController < ApplicationController
     end
   end
 
+  def output
+    @reserve = Reserve.find(params[:id])
+    data = Reserve.get_reserve(@reserve, current_user)
+    send_data data.generate, :filename => configatron.reserve_print.filename
+  end
+
   private
   def position_update(manifestation)
     reserves = Reserve.where(:manifestation_id => manifestation).not_retained.order(:position)

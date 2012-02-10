@@ -8,7 +8,7 @@ class Shelf < ActiveRecord::Base
   has_many :statistics
 
   validates_associated :library
-  validates_presence_of :library, :open_shelf
+  validates_presence_of :library, :open_access
   validates_uniqueness_of :display_name, :scope => :library_id
 
   acts_as_list :scope => :library
@@ -42,7 +42,7 @@ class Shelf < ActiveRecord::Base
   end
 
   def open?
-    return true if self.open_shelf == 0
+    return true if self.open_access == 0
     return false
   end
 

@@ -43,7 +43,8 @@ class Item < ActiveRecord::Base
   validates :url, :url => true, :allow_blank => true, :length => {:maximum => 255}
   validates_date :acquired_at, :allow_blank => true
   before_validation :set_circulation_status, :on => :create
-  before_save :set_use_restriction, :check_remove_item, :check_price
+  before_save :set_use_restriction, :check_remove_item
+  after_save :check_price
 
   #enju_union_catalog
   has_paper_trail
@@ -290,15 +291,17 @@ class Item < ActiveRecord::Base
     record = Expense.where(:item_id => self.id).order("id DESC").first
     begin
       unless record.nil?
-        return if self.price == record.price
+        original_library_id = record.budget.library_id rescue nil
+        return if self.price == record.price && self.library_id == original_library_id
         Expense.transaction do
           Expense.create!(:item_id => self.id, :budget_id => record.budget_id, :price => record.price*-1)
           budget = Budget.joins(:term).where(:library_id => self.shelf.library.id).order("terms.start_at DESC").first
-          Expense.create!(:item_id => self.id, :budget_id => budget.id, :price => self.price) if budget
+          Expense.create!(:item_id => self.id, :budget_id => budget.id, :price => self.price)
         end
       else
+        return true if self.price.nil?
         budget = Budget.joins(:term).where(:library_id => self.shelf.library.id).order("terms.start_at DESC").first
-        Expense.create!(:item_id => self.id, :budget_id => budget.id, :price => self.price) if budget
+        Expense.create!(:item => self, :budget => budget, :price => self.price)
       end
     rescue Exception => e
       logger.error "Failed to update expense: #{e}"
@@ -706,7 +709,8 @@ class Item < ActiveRecord::Base
   end
 
   def self.make_export_item_list_pdf(items, filename)
-    report = ThinReports::Report.new :layout => "#{Rails.root.to_s}/app/views/export_item_lists/item_list"
+    return false if items.blank?
+    report = ThinReports::Report.new :layout => "#{Rails.root.to_s}/report/item_list"
 
     report.events.on :page_create do |e|
       e.page.item(:page).value(e.page.no)

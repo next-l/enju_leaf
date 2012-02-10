@@ -3,7 +3,7 @@ class Expense < ActiveRecord::Base
   belongs_to :item
 
   validates_numericality_of :price, :allow_blank => true
-  validates_presence_of :budget_id, :item_id
+  validates_presence_of :item_id
   attr_accessor :term_from, :term_to
 
   def item
