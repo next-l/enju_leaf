@@ -1,0 +1,47 @@
+<div id="content_detail" class="ui-corner-all">
+<h1 class="title"><%= t('page.showing', :model => t('activerecord.models.resource_import_result')) -%></h1>
+<div id="content_list">
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b><%= t('activerecord.models.resource_import_file') %>:</b>
+  <%= @resource_import_result.resource_import_file.resource_import_file_name %>
+</p>
+
+<p>
+  <b><%= t('activerecord.attributes.resource_import_result.error_msg') %>:</b>
+  <%= h(@resource_import_result.error_msg) if @resource_import_result.error_msg %>
+</p>
+
+<p>
+  <b><%= t('activerecord.attributes.manifestation.original_title')-%>:</b>
+  <%= link_to @resource_import_result.manifestation.original_title, @resource_import_result.manifestation if @resource_import_result.manifestation %>
+</p>
+
+<p>
+  <b><%= t('activerecord.models.item') %>:</b>
+  <%= link_to @resource_import_result.item.item_identifier, @resource_import_result.item if @resource_import_result.item %>
+</p>
+
+<p>
+  <b><%= t('activerecord.attributes.resource_import_result.body') %>:</b>
+  <%- if @resource_import_result.body -%><br />
+    <% @resource_import_result.body.split("\t").each_with_index do |item, i| %>
+      &nbsp;<%= t('activerecord.attributes.resource_import_result.index') %><%= "#{h(i+1)}:" %>&nbsp;<%= h(item) %><br />
+    <% end %>
+  <%- end -%>
+</p>
+
+<p>
+  <b><%= t('page.created_at') %>:</b>
+  <%=l @resource_import_result.created_at %>
+</p>
+
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all">
+  <ul>
+    <li><%= link_to t('page.back'), resource_import_results_path %></li>
+  </ul>
+</div>
