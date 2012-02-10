@@ -111,6 +111,8 @@ class ExportItemListsController < ApplicationController
           data = Item.make_export_item_list_pdf(@items, filename)
           unless data
             flash[:message] = t('item_list.no_record')
+            @items_size = 0
+            @page = 0
             render :index
             return false
           end
