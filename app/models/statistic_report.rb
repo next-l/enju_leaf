@@ -8490,7 +8490,7 @@ class StatisticReport < ActiveRecord::Base
     columns = [
       [:type,'statistic_report.type'],
       [:library, 'statistic_report.library'],
-      [:shelf, 'activerecord.model.shelf'],
+      [:shelf, 'activerecord.models.shelf'],
       [:condition, 'statistic_report.condition'],
       [:option, 'statistic_report.option']
     ]
