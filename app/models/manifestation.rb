@@ -405,7 +405,7 @@ class Manifestation < ActiveRecord::Base
   end
 
   def set_new_serial_number
-    self.serial_number = self.serial_number_string.gsub(/\D/, "").to_i
+    self.serial_number = self.serial_number_string.gsub(/\D/, "").to_i rescue nil
   end
 
   def reservable_with_item?(user = nil)

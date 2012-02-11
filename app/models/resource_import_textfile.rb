@@ -48,18 +48,13 @@ class ResourceImportTextfile < ActiveRecord::Base
     puts $!
     logger.info "#{Time.zone.now} importing resources failed! #{e}"
     logger.info "#{Time.zone.now} #{$@}"
-
-    #result = ResourceImportTextResult.new
-    #result.resource_import_textfile_id = self.id
-    #result.body = "importing resources failed! #{e}"
-    #result.save!
   end
 
   def import_start
     sm_start!
     adapter = EnjuTrunk::ResourceAdapter::Base.find_by_classname(self.adapter_name)
     logger.info "adapter=#{adapter.to_s}"
-    adapter.new.import(self.resource_import_text.path)
+    adapter.new.import(self.id, self.resource_import_text.path)
     self.update_attribute(:imported_at, Time.zone.now)
     sm_complete!
   end
