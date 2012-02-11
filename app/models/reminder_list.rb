@@ -59,8 +59,7 @@ class ReminderList < ActiveRecord::Base
   end
 
   def set_checkout_id
-    logger.error "set checkout id"
-    checkout = Checkout.where(:item_id => Item.where(:item_identifier => self.item_identifier).first.id).not_returned.order("created_at DESC").first rescue nil
+    checkout = Checkout.where(:item_id => Item.where(:item_identifier => self.item_identifier.strip).first.id).not_returned.order("created_at DESC").first rescue nil
     if checkout.nil?
       errors[:base] << I18n.t('activerecord.errors.messages.reminder_list.no_checkout')
       return false
