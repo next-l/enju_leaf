@@ -11,10 +11,8 @@ class ResourceImportTextfilesController < ApplicationController
   end
 
   def show
-    if @resource_import_textfile.resource_import.path
-      unless configatron.uploaded_file.storage == :s3
-        file = @resource_import_textfile.resource_import.path
-      end
+    if @resource_import_textfile.resource_import_text.path
+      file = @resource_import_textfile.resource_import_text.path
     end
 
     respond_to do |format|

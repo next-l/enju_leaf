@@ -3,10 +3,10 @@ class ResourceImportTextfile < ActiveRecord::Base
   default_scope :order => 'resource_import_textfiles.id DESC'
   scope :not_imported, where(:state => 'pending', :imported_at => nil)
 
-  has_attached_file :resource_import, :path => ":rails_root/private:url"
+  has_attached_file :resource_import_text, :path => ":rails_root/private:url"
 
-  validates_attachment_content_type :resource_import, :content_type => ['text/csv', 'text/plain', 'text/tab-separated-values', 'application/octet-stream']
-  validates_attachment_presence :resource_import
+  validates_attachment_content_type :resource_import_text, :content_type => ['text/plain', 'application/octet-stream']
+  validates_attachment_presence :resource_import_text
   belongs_to :user, :validate => true
   has_many :resource_import_textresults
   before_create :set_digest
@@ -30,8 +30,8 @@ class ResourceImportTextfile < ActiveRecord::Base
   end
 
   def set_digest(options = {:type => 'sha1'})
-    if File.exists?(resource_import.queued_for_write[:original])
-      self.file_hash = Digest::SHA1.hexdigest(File.open(resource_import.queued_for_write[:original].path, 'rb').read)
+    if File.exists?(resource_import_text.queued_for_write[:original])
+      self.file_hash = Digest::SHA1.hexdigest(File.open(resource_import_text.queued_for_write[:original].path, 'rb').read)
     end
   end
 
@@ -48,13 +48,19 @@ class ResourceImportTextfile < ActiveRecord::Base
     puts $!
     logger.info "#{Time.zone.now} importing resources failed! #{e}"
     logger.info "#{Time.zone.now} #{$@}"
+
+    #result = ResourceImportTextResult.new
+    #result.resource_import_textfile_id = self.id
+    #result.body = "importing resources failed! #{e}"
+    #result.save!
   end
 
   def import_start
-    #debugger
     sm_start!
     adapter = EnjuTrunk::ResourceAdapter::Base.find_by_classname(self.adapter_name)
     logger.info "adapter=#{adapter.to_s}"
-    adapter.new.import(self.resource_import.path)
+    adapter.new.import(self.resource_import_text.path)
+    self.update_attribute(:imported_at, Time.zone.now)
+    sm_complete!
   end
 end

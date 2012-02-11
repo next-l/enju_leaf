@@ -795,9 +795,9 @@ ja:
         state: 状態
         edit_mode: 編集モード
       resource_import_textfile:
-        resource_import_file_name: ファイル名
-        resource_import_content_type: Content-Type
-        resource_import_file_size: ファイルサイズ
+        resource_import_text_file_name: ファイル名
+        resource_import_text_content_type: Content-Type
+        resource_import_text_file_size: ファイルサイズ
         file_hash: ファイルのハッシュ
         note: 注記
         imported_at: インポート時刻
