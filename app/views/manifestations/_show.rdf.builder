@@ -53,7 +53,7 @@ xml.dcndl :BibResource do
           xml.dcndl :location, publisher.address_1
         end
       end
-      xml.dcndl :publicationPlace, publisher.country.alpha_2, 'rdf:datatype' => 'http://purl.org/dc/terms/ISO3166'
+      xml.dcndl :publicationPlace, publisher.country.alpha_2.downcase, 'rdf:datatype' => 'http://purl.org/dc/terms/ISO3166'
     end
     xml.dcterms :language, manifestation.language.iso_639_2, 'rdf:datatype' => "http://purl.org/dc/terms/ISO639-2" if manifestation.language
     xml.dcterms :date, manifestation.pub_date
