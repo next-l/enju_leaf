@@ -8,10 +8,10 @@ xml.dcndl :BibResource do
       xml.dcterms :identifier, manifestation.isbn, 'rdf:datatype' => 'http://ndl.go.jp/dcndl/terms/ISBN'
       xml.rdfs :seeAlso, 'rdf:resource' => "http://iss.ndl.go.jp/isbn/#{manifestation.isbn}"
     end
-    xml.dcterms :title, manifestation.title
+    xml.dcterms :title, manifestation.original_title
     xml.dc :title do
       xml.rdf :Description do
-        xml.rdf :value, manifestation.title
+        xml.rdf :value, manifestation.original_title
         xml.dcndl :transcription, manifestation.title_transcription
       end
     end
@@ -44,7 +44,7 @@ xml.dcndl :BibResource do
           xml.dcndl :location, publisher.address_1
         end
       end
-      xml.dcndl :publicationPlace, publisher.country.alpha_2, 'rdf:datatype' => 'http://purl.org/dc/terms/ISO3166'
+      xml.dcndl :publicationPlace, publisher.country.alpha_2.downcase, 'rdf:datatype' => 'http://purl.org/dc/terms/ISO3166'
     end
     xml.dcterms :language, manifestation.language.iso_639_2, 'rdf:datatype' => "http://purl.org/dc/terms/ISO639-2" if manifestation.language
     xml.dcterms :date, manifestation.pub_date
