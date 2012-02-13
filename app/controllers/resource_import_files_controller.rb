@@ -95,9 +95,13 @@ class ResourceImportFilesController < ApplicationController
   end
 
   def import_request
-    @resource_import_file = ResourceImportFile.find(params[:id])
-    ResourceImportFile.send_later(:import, @resource_import_file.id, 0)
-    flash[:message] = t('resource_import_file.start_importing')
+    begin
+      @resource_import_file = ResourceImportFile.find(params[:id])
+      ResourceImportFile.send_later(:import, @resource_import_file.id, 0)
+      flash[:message] = t('resource_import_file.start_importing')
+    rescue Exception => e
+      logger.error "Failed to send process to delayed_job: #{e}"
+    end 
     respond_to do |format|
       format.html {redirect_to(resource_import_file_resource_import_results_path(@resource_import_file))}
     end
