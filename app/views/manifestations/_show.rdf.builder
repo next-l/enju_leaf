@@ -24,7 +24,7 @@ xml.dcndl :BibResource do
     end
     xml.dcndl :edition do
       xml.rdf :Description do
-        xml.rdf :value, manifestation.edition_number_string
+        xml.rdf :value, manifestation.edition_string
       end
     end
     manifestation.creators.each do |creator|
@@ -44,8 +44,8 @@ xml.dcndl :BibResource do
           xml.dcndl :location, publisher.address_1
         end
       end
+      xml.dcndl :publicationPlace, publisher.country.alpha_2, 'rdf:datatype' => 'http://purl.org/dc/terms/ISO3166'
     end
-    xml.dcndl :publicationPlace, manifestation.country.alpha_2, 'rdf:datatype' => 'http://purl.org/dc/terms/ISO3166'
     xml.dcterms :language, manifestation.language.iso_639_2, 'rdf:datatype' => "http://purl.org/dc/terms/ISO639-2" if manifestation.language
     xml.dcterms :date, manifestation.pub_date
     xml.dcterms :issued, manifestation.date_of_publication.try(:year), 'rdf:datatype' => "http://purl.org/dc/terms/W3CDTF"
