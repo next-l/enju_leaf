@@ -20,4 +20,17 @@ module UsersHelper
     #logger.info "false"
     return false
   end
+
+  def i18n_telephone_type(type)
+    case type
+    when 1
+      t('activerecord.attributes.patron.home_phone')
+    when 2
+      t('activerecord.attributes.patron.fax')
+    when 3
+      t('activerecord.attributes.patron.mobile_phone')
+    when 4
+      t('activerecord.attributes.patron.company_phone')
+    end
+  end
 end

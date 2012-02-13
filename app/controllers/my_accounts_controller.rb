@@ -24,7 +24,9 @@ class MyAccountsController < ApplicationController
   end
 
   def update
-    current_user.update_with_params(params[:user])
+    #current_user.update_with_params(params[:user])
+    current_user.update_attributes(params[:user])
+    current_user.operator = current_user
     @user = current_user
 
     respond_to do |format|
