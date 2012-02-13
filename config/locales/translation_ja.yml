@@ -547,7 +547,7 @@ ja:
         include_supplements: 付録を含む
         note: 注記
         url: URL
-        price: 購入価格
+        price: 価格
         lock_version: ロックバージョン
         checkout_type: 貸出区分
         acquired_at: 受入日

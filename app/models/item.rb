@@ -322,13 +322,13 @@ class Item < ActiveRecord::Base
       if file_type.nil? || file_type == "tsv"
         columns = [
           ['item_identifier','activerecord.attributes.item.item_identifier'],
-          ['removed_at', 'activerecord.attributes.item.removed_at'],
           ['acquired_at', 'activerecord.attributes.item.acquired_at'],
           [:original_title,'activerecord.attributes.manifestation.original_title'],
-          [:date_of_publication, 'activerecord.attributes.manifestation.date_of_publication'],
-          [:patron_creator, 'patron.creator'],
-          [:patron_publisher,'patron.publisher'], 
+          ['removed_at', 'activerecord.attributes.item.removed_at'],
           ['price', 'activerecord.attributes.item.price'],
+          [:patron_publisher,'patron.publisher'], 
+          [:patron_creator, 'patron.creator'],
+          [:date_of_publication, 'activerecord.attributes.manifestation.date_of_publication'],
           ['note', 'activerecord.attributes.item.note']
         ]
         File.open(tsv_file, "w") do |output|
@@ -356,7 +356,7 @@ class Item < ActiveRecord::Base
                 if item.manifestation.date_of_publication.nil?
                   row << ""
                 else
-                  row << item.manifestation.date_of_publication.strftime("%Y-%m-%d")
+                  row << item.manifestation.date_of_publication.strftime("%Y/%m/%d") rescue ""
                 end
               when :patron_creator
                 row << patrons_list(item.manifestation.creators)
@@ -400,6 +400,7 @@ class Item < ActiveRecord::Base
               row.item(:price).value(to_format(item.price))
               row.item(:patron_creator).value(patrons_list(item.manifestation.creators))
               row.item(:patron_publisher).value(patrons_list(item.manifestation.publishers))
+              row.item(:date_of_publication).value(item.manifestation.date_of_publication.strftime("%Y/%m/%d")) rescue nil
              end
           end
         end
