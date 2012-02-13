@@ -8,6 +8,7 @@ class ResourceImportTextfilesController < ApplicationController
 
   def new
     @resource_import_textfile = ResourceImportTextfile.new
+    @adapters = EnjuTrunk::ResourceAdapter::Base.all
   end
 
   def show
@@ -19,7 +20,7 @@ class ResourceImportTextfilesController < ApplicationController
       format.html # show.html.erb
       format.xml  { render :xml => @resource_import_textfile }
       format.download {
-        send_file file, :filename => @resource_import_textfile.resource_import_file_name, :type => 'application/octet-stream'
+        send_file file, :filename => @resource_import_textfile.resource_import_text_file_name, :type => 'application/octet-stream'
       }
     end
   end
@@ -34,6 +35,7 @@ class ResourceImportTextfilesController < ApplicationController
         format.html { redirect_to(@resource_import_textfile) }
         format.xml  { render :xml => @resource_import_textfile, :status => :created, :location => @resource_import_textfile }
       else
+        @adapters = EnjuTrunk::ResourceAdapter::Base.all
         format.html { render :action => "new" }
         format.xml  { render :xml => @resource_import_textfile.errors, :status => :unprocessable_entity }
       end
