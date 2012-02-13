@@ -373,6 +373,7 @@ ja:
         activation_code: 活性化コード
         activated_at: 登録時刻
         expired_at: 有効期限
+        nil_expired_at: （有効期限無し）
         locked: 利用禁止
         confirmed: 確認済み
         approved: 承認済み
