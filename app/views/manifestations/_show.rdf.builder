@@ -8,10 +8,10 @@ xml.dcndl :BibResource do
       xml.dcterms :identifier, manifestation.isbn, 'rdf:datatype' => 'http://ndl.go.jp/dcndl/terms/ISBN'
       xml.rdfs :seeAlso, 'rdf:resource' => "http://iss.ndl.go.jp/isbn/#{manifestation.isbn}"
     end
-    xml.dcterms :title, manifestation.title
+    xml.dcterms :title, manifestation.original_title
     xml.dc :title do
       xml.rdf :Description do
-        xml.rdf :value, manifestation.title
+        xml.rdf :value, manifestation.original_title
         xml.dcndl :transcription, manifestation.title_transcription
       end
     end
@@ -22,9 +22,18 @@ xml.dcndl :BibResource do
         end
       end
     end
-    xml.dcndl :edition do
-      xml.rdf :Description do
-        xml.rdf :value, manifestation.edition_string
+    if manifestation.volume_number_string?
+      xml.dcndl :volume do
+        xml.rdf :Description do
+          xml.rdf :value, manifestation.volume_number_string
+        end
+      end
+    end
+    if manifestation.edition_string?
+      xml.dcndl :edition do
+        xml.rdf :Description do
+          xml.rdf :value, manifestation.edition_string
+        end
       end
     end
     manifestation.creators.each do |creator|
