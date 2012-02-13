@@ -1,4 +1,5 @@
 class User < ActiveRecord::Base
+  self.extend UsersHelper
   # Include default devise modules. Others available are:
   # :token_authenticatable, :lockable and :timeoutable
   devise :database_authenticatable, #:registerable, :confirmable,
@@ -530,13 +531,39 @@ class User < ActiveRecord::Base
   def self.output_userlist_tsv(users)
     columns = [
       [:full_name, 'activerecord.attributes.patron.full_name'],
-      [:username, 'activerecord.attributes.user.username'],
-      [:user_number, 'activerecord.attributes.user.user_number'],
-      [:tel1, 'activerecord.attributes.patron.telephone_number_1'],
-      [:tel2, 'activerecord.attributes.patron.telephone_number_2'],
-      [:created_at, 'page.created_at'],
+      [:full_name_transcription, 'activerecord.attributes.patron.full_name_transcription'],
+      [:full_name_alternative, 'activerecord.attributes.patron.full_name_alternative'],
+      ['username', 'activerecord.attributes.user.username'],
+      ['user_number', 'activerecord.attributes.user.user_number'],
+      [:library, 'activerecord.attributes.user.library'],
+      [:expired_at, 'activerecord.attributes.user.expired_at'],
       [:locked, 'activerecord.attributes.user.locked'],
       [:unable, 'activerecord.attributes.user.unable'],
+      [:patron_type, 'activerecord.models.patron_type'],
+      [:email, 'activerecord.attributes.patron.email'],
+      [:url, 'activerecord.attributes.patron.url'],
+      [:other_designation, 'activerecord.attributes.patron.other_designation'],
+      [:place, 'activerecord.attributes.patron.place'],
+      [:language, 'activerecord.models.language'],
+      [:zip_code_1, 'activerecord.attributes.patron.zip_code_1'],
+      [:address_1, 'activerecord.attributes.patron.address_1'],
+      [:telephone_number_1, 'activerecord.attributes.patron.telephone_number_1'],
+      [:extelephone_number_1, 'activerecord.attributes.patron.extelephone_number_1'],
+      [:fax_number_1, 'activerecord.attributes.patron.fax_number_1'],
+      [:address_1_note, 'activerecord.attributes.patron.address_1_note'],
+      [:zip_code_2, 'activerecord.attributes.patron.zip_code_2'],
+      [:address_2, 'activerecord.attributes.patron.address_2'],
+      [:telephone_number_2, 'activerecord.attributes.patron.telephone_number_2'],
+      [:extelephone_number_2, 'activerecord.attributes.patron.extelephone_number_2'],
+      [:fax_number_2, 'activerecord.attributes.patron.fax_number_2'],
+      [:address_2_note, 'activerecord.attributes.patron.address_2_note'],
+      [:date_of_birth, 'activerecord.attributes.patron.date_of_birth'],
+      [:date_of_death, 'activerecord.attributes.patron.date_of_death'],
+      [:note, 'activerecord.attributes.patron.note'],
+      [:note_update_at, 'activerecord.attributes.patron.note_update_at'],
+      [:patron_identifier, 'patron.patron_identifier'],
+      [:created_at, 'page.created_at'],
+      [:updated_at, 'page.updated_at'],
     ]
 
     data = String.new
@@ -555,27 +582,120 @@ class User < ActiveRecord::Base
         case column[0]
         when :full_name
           row << user.patron.full_name
-        when :username
-          row << user.username
-        when :user_number
-          row << user.user_number
-        when :tel1
-          row << user.patron.telephone_number_1 if user.patron.telephone_number_1
-        when :tel2
-          row << user.patron.telephone_number_2 if user.patron.telephone_number_2
-        when :created_at
-          row << user.created_at.strftime("%Y/%m/%d %H:%M:%S")
+        when :full_name_transcription
+          row << user.patron.full_name_transcription
+        when :full_name_alternative
+          row << user.patron.full_name_alternative
+        when :library
+          row << user.library.display_name
+        when :expired_at
+          expired_at = ""
+          if user.expired_at
+            year = user.expired_at.strftime("%Y")
+            month = user.expired_at.strftime("%m")
+            date = user.expired_at.strftime("%d")
+            expired_at = I18n.t('expense.date_format', :year => year, :month => month, :date => date) 
+          end
+          row << expired_at
         when :locked
           row << I18n.t('activerecord.attributes.user.locked_yes') if user.active_for_authentication?
           row << I18n.t('activerecord.attributes.user.locked_no') unless user.active_for_authentication?
         when :unable
           row << I18n.t('activerecord.attributes.user.unable_yes') if user.unable
           row << I18n.t('activerecord.attributes.user.unable_no') unless user.unable
+        when :patron_type
+          row << user.patron.patron_type.display_name.localize
+        when :email
+          row << user.patron.email
+        when :url
+          row << user.patron.url
+        when :other_designation
+          row << user.patron.other_designation
+        when :place
+          row << user.patron.place
+        when :language
+          row << user.patron.language.display_name.localize
+        when :zip_code_1
+          row << user.patron.zip_code_1
+        when :address_1
+          row << user.patron.address_1
+        when :telephone_number_1
+          telephone_number_1 = user.patron.telephone_number_1
+          telephone_number_1 += ' (' + I18n.t(i18n_telephone_type(user.patron.telephone_number_1_type_id).strip_tags) +')' unless user.patron.telephone_number_1.blank?
+          row << telephone_number_1 
+        when :extelephone_number_1
+          extelephone_number_1 = user.patron.extelephone_number_1
+          extelephone_number_1 += ' (' + I18n.t(i18n_telephone_type(user.patron.extelephone_number_1_type_id).strip_tags) +')' unless user.patron.extelephone_number_1.blank?
+          row << extelephone_number_1 
+        when :fax_number_1
+          fax_number_1 = user.patron.fax_number_1
+          fax_number_1 += ' (' + I18n.t(i18n_telephone_type(user.patron.fax_number_1_type_id).strip_tags) +')' unless user.patron.fax_number_1.blank?
+          row << fax_number_1 
+        when :address_1_note
+          row << user.patron.address_1_note 
+        when :zip_code_2
+          row << user.patron.zip_code_2
+        when :address_2
+          row << user.patron.address_2
+        when :telephone_number_2
+          telephone_number_2 = user.patron.telephone_number_2
+          telephone_number_2 += ' (' + I18n.t(i18n_telephone_type(user.patron.telephone_number_2_type_id).strip_tags) +')' unless user.patron.telephone_number_2.blank?
+          row << telephone_number_2
+        when :extelephone_number_2
+          extelephone_number_2 = user.patron.extelephone_number_2
+          extelephone_number_2 += ' (' + I18n.t(i18n_telephone_type(user.patron.extelephone_number_2_type_id).strip_tags) +')' unless user.patron.extelephone_number_2.blank?
+          row << extelephone_number_2
+        when :fax_number_2
+          fax_number_2 = user.patron.fax_number_2
+          fax_number_2 += ' (' + I18n.t(i18n_telephone_type(user.patron.fax_number_2_type_id).strip_tags) +')' unless user.patron.fax_number_2.blank?
+          row << fax_number_2 
+        when :address_2_note
+          row << user.patron.address_2_note
+        when :date_of_birth
+          date_of_birth = ""
+          if user.patron.date_of_birth
+            year = user.patron.date_of_birth.strftime("%Y")
+            month = user.patron.date_of_birth.strftime("%m")
+            date = user.patron.date_of_birth.strftime("%d")
+            date_of_birth = I18n.t('expense.date_format', :year => year, :month => month, :date => date)
+          end
+          row << date_of_birth
+        when :date_of_death
+          date_of_death = ""
+          if user.patron.date_of_death
+            year = user.patron.date_of_death.strftime("%Y")
+            month = user.patron.date_of_death.strftime("%m")
+            date = user.patron.date_of_death.strftime("%d")
+            date_of_death = I18n.t('expense.date_format', :year => year, :month => month, :date => date)
+          end
+          row << date_of_death
+        when :note
+          row << user.patron.note
+        when :note_update_at
+          note_update = user.patron.note_update_at.strftime("%Y/%m/%d %H:%M:%S") if user.patron.note_update_at
+          note_update += ' ' + I18n.t('patron.last_update_by') + ':' + user.patron.note_update_by if user.patron.note_update_by
+          note_update += '(' + user.patron.note_update_library + ')' if user.patron.note_update_library
+          row << note_update
+        when :patron_identifier
+          row << user.patron.patron_identifier
+        when :created_at
+          row << user.created_at.strftime("%Y/%m/%d %H:%M:%S")
+        when :updated_at
+          row << user.updated_at.strftime("%Y/%m/%d %H:%M:%S")
+        else
+          row << get_object_method(user, column[0].split('.')).to_s.gsub(/\r\n|\r|\n/," ").gsub(/\"/,"\"\"")
         end
-        data << '"'+row.join("\"\t\"")+"\"\n"
       end  
+      data << '"'+row.join("\"\t\"")+"\"\n"
     end
     return data
+  end
+
+  private
+  def self.get_object_method(obj,array)
+    _obj = obj.send(array.shift)
+    return get_object_method(_obj, array) if array.present?
+    return _obj
   end
 end
 
