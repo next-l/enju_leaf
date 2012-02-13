@@ -8,6 +8,10 @@ class Ability
       can :destroy, Bookstore do |bookstore|
         bookstore.order_lists.empty?
       end
+      can [:read, :create, :update], BudgetType
+      can :destroy, BudgetType do |budget_type|
+        budget_type.budgets.empty?
+      end
       can [:read, :create, :update], ClassificationType
       can :destroy, ClassificationType do |classification_type|
         classification_type.classifications.empty?
@@ -161,6 +165,10 @@ class Ability
       can [:index, :create], Bookmark
       can [:show, :update, :destroy], Bookmark do |bookmark|
         bookmark.user == user
+      end
+      can [:read, :create, :update], BudgetType
+      can :destroy, BudgetType do |budget_type|
+        budget_type.budgets.empty?
       end
       can [:read, :create, :update], BookmarkStat
       can [:read, :new, :create], EventCategory

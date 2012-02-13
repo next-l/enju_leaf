@@ -7,6 +7,11 @@
   </div>
 
   <div class="field">
+    <%= f.label :budget_type %><br />
+    <%= f.select(:budget_type_id, @budget_types.collect{|t| [t.name, t.id]}) -%>
+  </div>
+
+  <div class="field">
     <%= f.label :term %><br />
     <%= f.select(:term_id, @terms.collect{|t| [t.display_name.localize, t.id]}) -%>
   </div>

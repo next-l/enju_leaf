@@ -70,5 +70,6 @@ private
   def prepare_options
     @libraries = Library.all
     @terms = Term.all
+    @budget_types = BudgetType.all
   end
 end

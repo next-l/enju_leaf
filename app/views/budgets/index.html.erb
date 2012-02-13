@@ -6,6 +6,7 @@
   <tr>
     <th><%= t('activerecord.attributes.budget.library') -%></th>
     <th><%= t('activerecord.attributes.budget.term') -%></th>
+    <th><%= t('activerecord.attributes.budget.budget_type') -%></th>
     <th></th>
     <th><%= t('activerecord.attributes.budget.amount') -%></th>
     <th></th>
@@ -15,6 +16,7 @@
   <tr class="line<%= cycle("0", "1") -%>">
     <td><%= budget.library.display_name if budget.library -%></td>
     <td><%= budget.term.display_name if budget.term -%></td>
+    <td><%= budget.budget_type.name if budget.budget_type -%></td>
     <td><%= budget.note if budget.note -%></td>
     <td><%= t('budget.yen', :amount => budget.amount) -%></td>
     <td>

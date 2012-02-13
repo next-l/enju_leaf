@@ -376,6 +376,7 @@ EnjuLeaf::Application.routes.draw do
   resources :family_users
 
   resources :budgets
+  resources :budget_types
   resources :terms
 
   resources :statistic_reports do

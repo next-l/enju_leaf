@@ -3,6 +3,7 @@ class Budget < ActiveRecord::Base
   has_one :library
   belongs_to :term
   has_one :expense
+  belongs_to :budget_type
   validates_numericality_of :amount, :allow_blank => true
 
   def library
