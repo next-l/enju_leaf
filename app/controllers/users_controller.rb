@@ -102,10 +102,6 @@ class UsersController < ApplicationController
   end
 
   def show
-    #if @user == current_user
-    #  redirect_to my_account_url
-    #  return
-    #end
     unless @user == current_user or current_user.has_role?('Librarian')
       access_denied; return
     end 
@@ -115,28 +111,16 @@ class UsersController < ApplicationController
     end
 
     @patron = @user.patron
-    @telephone_number_1_type = set_phone_type(@user.patron.telephone_number_1_type_id)
-    @extelephone_number_1_type = set_phone_type(@user.patron.extelephone_number_1_type_id)
-    @fax_number_1_type = set_phone_type(@user.patron.fax_number_1_type_id)
-    @telephone_number_2_type = set_phone_type(@user.patron.telephone_number_2_type_id)
-    @extelephone_number_2_type = set_phone_type(@user.patron.extelephone_number_2_type_id)
-    @fax_number_2_type = set_phone_type(@user.patron.fax_number_2_type_id)
-
-    #@tags = @user.owned_tags_by_solr
-    @tags = @user.bookmarks.tag_counts.sort{|a,b| a.count <=> b.count}.reverse
-
-    @manifestation = Manifestation.pickup(@user.keyword_list.to_s.split.sort_by{rand}.first) rescue nil
 
     @checkout_user = @user
+    #@tags = @user.bookmarks.tag_counts.sort{|a,b| a.count <=> b.count}.reverse
+    #@manifestation = Manifestation.pickup(@user.keyword_list.to_s.split.sort_by{rand}.first) rescue nil
+
     family_id = FamilyUser.find(:first, :conditions => ['user_id=?', @user.id]).family_id rescue nil
     if family_id
       @family_users = Family.find(family_id).users
       @family_users.delete_if{|user| user == @user}
     end
-
-    @states = Reserve.states
-    @information_types = Reserve.information_type_ids
-    @libraries = Library.order('position')
 
     respond_to do |format|
       format.html # show.rhtml
@@ -253,49 +237,48 @@ class UsersController < ApplicationController
   end
 
   def update
-    respond_to do |format|
+    @user = User.where(:username => params[:id]).first
+    @family = params[:family]
     begin
-      @family = params[:family]
-      @user.update_with_params(params[:user])
+      # set user_info
+      @user.update_attributes!(params[:user])
+      #@user.update_with_params(params[:user])
+      @user.operator = current_user
       if params[:user][:auto_generated_password] == "1"
         @user.set_auto_generated_password
         flash[:temporary_password] = @user.password
       end
-
       if current_user.has_role?('Administrator')
-        if @user.role_id
-          role = Role.find(@user.role_id)
-          @user.role = role
-        end
+        @user.role = Role.find(@user.role_id) if @user.role_id
       end
- 
-      @user.patron.update_attributes(params[:patron])
-      @user.patron.email = params[:user][:email]
+
+      # set patrons_info
+      @user.patron.update_attributes!(params[:patron])
+      @user.patron.email = @user.email
       @user.patron.language = Language.find(:first, :conditions => ['iso_639_1=?', params[:user][:locale]]) rescue nil
       @user.patron.save!
 
-      #@user.save do |result|
       @user.out_of_family if params[:out_of_family] == "1"
-      unless params[:family].blank?
-        @user.set_family(params[:family])
-      end
+      @user.set_family(params[:family]) unless params[:family].blank?
       @user.save!
+
       flash[:notice] = t('controller.successfully_updated', :model => t('activerecord.models.user'))
-      format.html { redirect_to user_url(@user) }
-      format.xml  { head :ok }
+      respond_to do |format|
+        format.html { redirect_to user_url(@user) }
+        format.xml  { head :ok }
+      end
     rescue # ActiveRecord::RecordInvalid
       @patron = @user.patron  
       @patron.errors.each do |attr, msg|
         @user.errors.add(attr, msg)
       end  
       family_id = FamilyUser.find(:first, :conditions => ['user_id=?', @user.id]).family_id rescue nil
-      if family_id
-        @family_users = Family.find(family_id).users
-      end
+      @family_users = Family.find(family_id).users if family_id
       prepare_options
-      format.html { render :action => "edit" }
-      format.xml  { render :xml => @user.errors, :status => :unprocessable_entity }
-    end
+      respond_to do |format|
+        format.html { render :action => "edit" }
+        format.xml  { render :xml => @user.errors, :status => :unprocessable_entity }
+      end
     end
   end
 
@@ -492,19 +475,5 @@ class UsersController < ApplicationController
     end
     @patron_types = PatronType.all
     @patron_type_person = PatronType.find_by_name('Person').id
-  end
-
-  def set_phone_type(phone_type_id)
-    type = nil;
-    if phone_type_id == 1
-      type = '('+ t('activerecord.attributes.patron.home_phone') +')'
-    elsif phone_type_id == 2
-      type = '('+ t('activerecord.attributes.patron.fax') +')'
-    elsif phone_type_id == 3
-      type = '(' +t('activerecord.attributes.patron.mobile_phone') +')'
-    elsif phone_type_id == 4
-      type = '('+ t('activerecord.attributes.patron.company_phone') +')'
-    end
-    return type;
   end
 end

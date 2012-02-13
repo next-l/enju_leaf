@@ -6,7 +6,8 @@ class User < ActiveRecord::Base
          :lockable, :lock_strategy => :none, :unlock_strategy => :none
 
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :email, :email_confirmation, :password, :password_confirmation, :username, :current_password, :user_number, :remember_me
+  #attr_accessible :email, :email_confirmation, :password, :password_confirmation, :username, :current_password, :user_number, :remember_me
+  attr_accessible :email, :email_confirmation, :password, :password_confirmation, :username, :current_password, :user_number, :remember_me, :auto_generated_password, :expired_at, :locked, :unable, :user_group_id, :library_id, :locale, :role_id
   cattr_accessor :current_user
   attr_accessor :new_user_number
 
@@ -413,21 +414,23 @@ class User < ActiveRecord::Base
 
   def update_with_params(params)
     self.operator = current_user
-    #self.username = params[:login]
     self.openid_identifier = params[:openid_identifier]
     self.keyword_list = params[:keyword_list]
     self.checkout_icalendar_token = params[:checkout_icalendar_token]
     self.email = params[:email]
     #self.note = params[:note]
+    #self.username = params[:login]
 
     if current_user.has_role?('Librarian')
+      self.email = params[:email]
+      self.expired_at = params[:expired_at]
       self.note = params[:note]
       self.user_group_id = params[:user_group_id] || 1
       self.library_id = params[:library_id] || 1
       self.role_id = params[:role_id]
       self.required_role_id = params[:required_role_id] || 1
-      self.user_number = params[:user_number]
       self.locale = params[:locale]
+      self.user_number = params[:user_number]
       self.locked = params[:locked]
       self.expired_at = params[:expired_at]
       self.unable = params[:unable]

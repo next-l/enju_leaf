@@ -109,15 +109,30 @@
         </tr>
         <tr>
           <td><strong><%= t('activerecord.attributes.patron.telephone_number_1') -%>:</strong></td>
-          <td><%= @patron.telephone_number_1 -%>&nbsp;<%= @telephone_number_1_type unless @patron.telephone_number_1.blank? -%></td>
+          <td>
+            <%= @patron.telephone_number_1 -%>
+            <%- unless @patron.telephone_number_1.blank? -%>
+              &nbsp;(<%= i18n_telephone_type(@patron.telephone_number_1_type_id) -%>)
+            <%- end -%>
+          </td>
         </tr>
         <tr>
           <td><strong><%= t('activerecord.attributes.patron.extelephone_number_1') -%>:</strong></td>
-          <td><%= @patron.extelephone_number_1 -%>&nbsp;<%= @extelephone_number_1_type unless @patron.extelephone_number_1.blank? -%></td>
+          <td>
+            <%= @patron.extelephone_number_1 -%>
+            <%- unless @patron.extelephone_number_1.blank? -%>
+              &nbsp;(<%= i18n_telephone_type(@patron.extelephone_number_1_type_id) -%>)
+            <%- end -%>
+          </td>
         </tr>
         <tr>
           <td><strong><%= t('activerecord.attributes.patron.fax_number_1') -%>:</strong></td>
-          <td><%= @patron.fax_number_1 -%>&nbsp;<%= @fax_number_1_type unless @patron.fax_number_1.blank? -%></td>
+          <td>
+            <%= @patron.fax_number_1 -%>
+            <%- unless @patron.fax_number_1.blank? -%>
+              &nbsp;(<%= i18n_telephone_type(@patron.fax_number_1_type_id) -%>)
+            <%- end -%>
+          </td>
         </tr>
         <tr>
           <td><strong><%= t('activerecord.attributes.patron.address_1_note') -%>:</strong></td>
@@ -133,15 +148,30 @@
         </tr>
         <tr>
           <td><strong><%= t('activerecord.attributes.patron.telephone_number_2') -%>:</strong></td>
-          <td><%= @patron.telephone_number_2 -%>&nbsp;<%= @telephone_number_2_type unless @patron.telephone_number_2.blank? -%></td>
+          <td>
+            <%= @patron.telephone_number_2 -%>
+            <%- unless @patron.telephone_number_2.blank? -%>
+              &nbsp;(<%= i18n_telephone_type(@patron.telephone_number_2_type_id) -%>)
+            <%- end -%>
+          </td>
         </tr>
         <tr>
           <td><strong><%= t('activerecord.attributes.patron.extelephone_number_2') -%>:</strong></td>
-          <td><%= @patron.extelephone_number_2 -%>&nbsp;<%= @extelephone_number_2_type unless @patron.extelephone_number_2.blank? -%></td>
+          <td>
+            <%= @patron.extelephone_number_2 -%>
+            <%- unless @patron.extelephone_number_2.blank? -%>
+              &nbsp;(<%= i18n_telephone_type(@patron.extelephone_number_2_type_id) -%>)
+            <%- end -%>
+          </td>
         </tr>
         <tr>
           <td><strong><%= t('activerecord.attributes.patron.fax_number_2') -%>:</strong></td>
-          <td><%= @patron.fax_number_2 -%>&nbsp;<%= @fax_number_2_type unless @patron.fax_number_2.blank?-%></td>
+          <td>
+            <%= @patron.fax_number_2 -%>
+            <%- unless @patron.fax_number_2.blank? -%>
+              &nbsp;(<%= i18n_telephone_type(@patron.fax_number_2_type_id) -%>)
+            <%- end -%>
+            </td>
         </tr>
         <tr>
           <td><strong><%= t('activerecord.attributes.patron.address_2_note') -%>:</strong></td>

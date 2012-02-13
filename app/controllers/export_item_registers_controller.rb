@@ -19,6 +19,7 @@ class ExportItemRegistersController < ApplicationController
     flash[:message] = ""
 
     unless flash[:message].blank?
+      @selected_list_type = params[:export_item_register][:list_type].to_i || 1 rescue nil
       @items_size = 0
       @page = 0
       render :index; return false
@@ -46,6 +47,7 @@ class ExportItemRegistersController < ApplicationController
       rescue Exception => e
         logger.error "Failed download the file: #{e}"
         flash[:message] = t('page.no_file')
+        @selected_list_type = list_type
         @items_size = 0
         @page = 0
         render :index

@@ -324,6 +324,7 @@ en:
         activation_code: Activation code
         activated_at: Activated at
         expired_at: Expired at
+        nil_expired_at: (none)
         locked: Locked
         confirmed: Confirmed
         approved: Approved

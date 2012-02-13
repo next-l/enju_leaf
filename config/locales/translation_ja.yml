@@ -164,6 +164,7 @@ ja:
       series_statement_merge_list: シリーズ情報統合リスト
       series_has_manifestation: シリーズ情報と資料の関係
       budget: 予算
+      budget_type: 予算区分
       exchange_rate: 為替レート
       term: 期間
       checkoutlist: 貸出状況
@@ -373,6 +374,7 @@ ja:
         activation_code: 活性化コード
         activated_at: 登録時刻
         expired_at: 有効期限
+        nil_expired_at: （有効期限無し）
         locked: 利用禁止
         confirmed: 確認済み
         approved: 承認済み
@@ -547,7 +549,7 @@ ja:
         include_supplements: 付録を含む
         note: 注記
         url: URL
-        price: 購入価格
+        price: 価格
         lock_version: ロックバージョン
         checkout_type: 貸出区分
         acquired_at: 受入日
@@ -1261,8 +1263,12 @@ ja:
         term_id: 期間
         library: 図書館
         term: 期間
+        budget_type: 予算区分
         amount: 金額
         note: 説明
+      budget_type:
+        id: ID
+        name: 区分名
       term:
         display_name: 期間名
         start_at: 開始日時
