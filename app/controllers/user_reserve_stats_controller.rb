@@ -16,13 +16,14 @@ class UserReserveStatsController < ApplicationController
   # GET /user_reserve_stats/1
   # GET /user_reserve_stats/1.xml
   def show
-    ReserveStatHasUser.per_page = 65534 if params[:format] == 'csv'
+    ReserveStatHasUser.per_page = 65534 if params[:format] == 'csv' or params[:format] == 'tsv'
     @stats = @user_reserve_stat.reserve_stat_has_users.order('reserves_count DESC, user_id').page(params[:page])
 
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @user_reserve_stat }
       format.csv
+      format.tsv  { send_data UserReserveStat.get_user_reserve_stats_tsv(@user_reserve_stat, @stats), :filename => configatron.user_reserve_stats_print_tsv.filename }
     end
   end
 

@@ -27,3 +27,10 @@ carrier_type_00003:
   id: 3
   note: 
   position: 3
+carrier_type_00005: 
+  name: AV
+  display_name: "en:Audio,Visual\r\n\
+    ja:視聴覚資料"
+  id: 5
+  note: 
+  position: 5

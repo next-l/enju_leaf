@@ -1,12 +1,16 @@
 class ShelvesController < ApplicationController
   load_and_authorize_resource
-  before_filter :get_library
-  before_filter :get_libraries, :only => [:new, :edit, :create, :update]
+  before_filter :get_library, :only => [:new, :edit, :create, :update, :output]
+  before_filter :get_libraries, :only => [:index, :new, :edit, :create, :update]
   cache_sweeper :page_sweeper, :only => [:create, :update, :destroy]
 
   # GET /shelves
   # GET /shelves.xml
   def index
+    if params[:library_id]
+      library_id = params[:library_id]
+      @library =  Library.find(library_id) unless library_id.size == 0
+    end
     if params[:mode] == 'select'
       if @library
         @shelves = @library.shelves
@@ -79,6 +83,7 @@ class ShelvesController < ApplicationController
   # PUT /shelves/1
   # PUT /shelves/1.xml
   def update
+    @shelf= Shelf.find(params[:id])
     @shelf.library = @library if @library
 
     if params[:position]

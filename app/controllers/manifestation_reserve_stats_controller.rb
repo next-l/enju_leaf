@@ -16,13 +16,14 @@ class ManifestationReserveStatsController < ApplicationController
   # GET /manifestation_reserve_stats/1
   # GET /manifestation_reserve_stats/1.xml
   def show
-    ReserveStatHasManifestation.per_page = 65534 if params[:format] == 'csv'
+    ReserveStatHasManifestation.per_page = 65534 if params[:format] == 'csv' or params[:format] == 'tsv'
     @stats = @manifestation_reserve_stat.reserve_stat_has_manifestations.order('reserves_count DESC, manifestation_id').page(params[:page])
 
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @manifestation_reserve_stat }
       format.csv
+      format.tsv  { send_data ManifestationReserveStat.get_manifestation_reserve_stats_tsv(@manifestation_reserve_stat, @stats), :filename => configatron.manifestation_reserve_stats_print_tsv.filename }
     end
   end
 

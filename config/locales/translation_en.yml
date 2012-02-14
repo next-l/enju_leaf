@@ -425,6 +425,9 @@ en:
         note: Note
         position: Position
         deleted_at: Deleted at
+        open_access: Open access
+        open: Open
+        closed: Closed
       event_category:
         name: Name
         display_name: Display name
