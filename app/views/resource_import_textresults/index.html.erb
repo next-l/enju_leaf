@@ -11,21 +11,15 @@
 <%= t('activerecord.attributes.resource_import_textresult.imported_row') -%>: <%= @results_num if @results_num -%>
 <table class="index">
   <tr>
-    <th><%= t('activerecord.attributes.manifestation.original_title')-%>(<%= t('activerecord.models.item') %>)</th>
     <th><%= t('activerecord.attributes.resource_import_result.error_msg') %></th>
     <th></th>
   </tr>
 
 <% @resource_import_textresults.each do |resource_import_textresult| %>
   <tr class="line<%= cycle("0", "1") -%>">
-    <td><%= link_to resource_import_textresult.manifestation.original_title, resource_import_textresult.manifestation if resource_import_textresult.manifestation %>
-        <% if resource_import_textresult.item %><br />(<%= link_to resource_import_textresult.item.item_identifier, resource_import_textresult.item %>)<% end %>
-    </td>
-    <td><%= h(resource_import_textresult.error_msg) if resource_import_result.error_msg %></td>
-    </td>
     <td>
-      <%= link_to t('page.show'), resource_import_result %>
-      <%= link_to t('page.destroy'), resource_import_result, :confirm => t('page.are_you_sure'), :method => :delete %>
+      <%= link_to t('page.show'), resource_import_textresult %>
+      <%= link_to t('page.destroy'), resource_import_textresult, :confirm => t('page.are_you_sure'), :method => :delete %>
     </td>
   </tr>
 <% end %>
