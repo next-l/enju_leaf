@@ -8,6 +8,10 @@ class Ability
       can :destroy, Bookstore do |bookstore|
         bookstore.order_lists.empty?
       end
+      can [:read, :create, :update], Budget
+      can :destroy, Budget do |budget|
+        budget.expenses.empty?
+      end
       can [:read, :create, :update], BudgetType
       can :destroy, BudgetType do |budget_type|
         budget_type.budgets.empty?
@@ -67,7 +71,6 @@ class Ability
         Bookmark,
         BookmarkStat,
         BookmarkStatHasManifestation,
-        Budget,
         CarrierTypeHasCheckoutType,
         CheckedItem,
         Checkin,
@@ -166,6 +169,10 @@ class Ability
       can [:show, :update, :destroy], Bookmark do |bookmark|
         bookmark.user == user
       end
+      can [:read, :create, :update], Budget
+      can :destroy, Budget do |budget|
+        budget.expenses.empty?
+      end
       can [:read, :create, :update], BudgetType
       can :destroy, BudgetType do |budget_type|
         budget_type.budgets.empty?
@@ -229,7 +236,6 @@ class Ability
         Answer,
         Basket,
         Bookmark,
-        Budget,
         CheckedItem,
         Checkin,
         Checkout,

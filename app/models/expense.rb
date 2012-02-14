@@ -41,9 +41,13 @@ class Expense < ActiveRecord::Base
         columns.each do |column|
           case column[0]
           when "budget"
-            budget = "#{expense.budget.library.display_name.localize} #{expense.budget.term.display_name.localize}"
-            budget += "(#{expense.budget.note})" unless expense.budget.note.nil?
-            row << budget
+            begin 
+              budget = "#{expense.budget.library.display_name.localize} #{expense.budget.term.display_name.localize}"
+              budget += "(#{expense.budget.note})" unless expense.budget.note.nil?
+              row << budget
+            rescue
+              row << ""
+            end
           when :library
             row << expense.item.shelf.library.display_name.localize rescue ""
           when "created_at"
@@ -55,7 +59,7 @@ class Expense < ActiveRecord::Base
           when :item_identifier
             row << expense.item.item_identifier rescue ""
           when "price"
-            row << expense.price
+            row << to_format(expense.price)
           end
         end
         output.print "\""+row.join("\"\t\"")+"\"\n"
@@ -81,20 +85,20 @@ class Expense < ActiveRecord::Base
       sum = 0
       expenses.each do |expense|
         report.page.list(:list).add_row do |row|
-          budget = "#{expense.budget.library.display_name.localize} #{expense.budget.term.display_name.localize}"
-          budget += "(#{expense.budget.note})" unless expense.budget.note.nil?
+          budget = "#{expense.budget.library.display_name.localize} #{expense.budget.term.display_name.localize}" rescue ""
+          budget += "(#{expense.budget.note})" unless expense.budget.note.nil? rescue ""
           row.item(:budget).value(budget)        
           row.item(:library).value(expense.item.shelf.library.display_name.localize) rescue nil        
           row.item(:created_at).value(I18n.t('expense.date_format', :year => expense.created_at.strftime("%Y"), :month => expense.created_at.strftime("%m"), :date => expense.created_at.strftime("%d"))) rescue nil        
           row.item(:bookstore).value(expense.item.bookstore.name) rescue nil        
           row.item(:title).value(expense.item.manifestation.original_title) rescue nil        
           row.item(:item_identifier).value(expense.item.item_identifier) rescue nil        
-          row.item(:price).value(expense.price)
+          row.item(:price).value(to_format(expense.price))
           sum += expense.price        
         end
       end
       report.page.list(:list).add_row do |row|
-        row.item(:price).value(sum)
+        row.item(:price).value(to_format(sum))
       end
       return report.generate
     rescue Exception => e
@@ -102,6 +106,10 @@ class Expense < ActiveRecord::Base
     end
   end
 
+private
+  def self.to_format(num = 0)
+    num.to_s.gsub(/(\d)(?=(\d{3})+(?!\d))/, '\1,')
+  end
 end
 
 

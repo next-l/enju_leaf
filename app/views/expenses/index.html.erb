@@ -14,9 +14,9 @@
   <tr class="line<%= cycle("0", "1") -%>">
     <td><%= expense.item.manifestation.original_title if expense.item && expense.item.manifestation -%></ br>
         (<%= link_to(expense.item.item_identifier, expense.item) if expense.item -%>)</td>
-    <td><%= t('expense.yen', :price => expense.price) -%></td>
-    <td><%= expense.budget.library.display_name.localize if expense.budget.library -%>
-        <%= expense.budget.term.display_name.localize if expense.budget.term -%></td>
+    <td><%= t('expense.yen', :price => to_format(expense.price)) -%></td>
+    <td><%= expense.budget.library.display_name.localize if expense.budget && expense.budget.library -%>
+        <%= expense.budget.term.display_name.localize if expense.budget && expense.budget.term -%></td>
     <td>
       <%- if can? :update, expense -%>
         <%= link_to t('page.edit'), edit_expense_path(expense) -%>
