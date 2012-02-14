@@ -243,13 +243,6 @@ GIT
       sunspot_solr
 
 GIT
-  remote: git://github.com/nabeta/vidibus-routing_error.git
-  revision: be5b5ce9a21e188c2f1ba5d4a8f407ab9c7a51b1
-  specs:
-    vidibus-routing_error (0.2.1)
-      rails (~> 3.1)
-
-GIT
   remote: git://github.com/swanandp/acts_as_list.git
   revision: 7fd29b74eec9327a3d2a3033e1ca249ba04fc7e5
   specs:
@@ -536,7 +529,10 @@ GEM
     simplecov-html (0.5.3)
     sitemap_generator (3.0.0)
       builder
-    spork (0.9.0)
+    spork (1.0.0rc2)
+    spork-rails (3.2.0)
+      rails (>= 3.0.0, < 3.3.0)
+      spork (>= 1.0rc0)
     sprockets (2.1.2)
       hike (~> 1.2)
       rack (~> 1.0)
@@ -570,6 +566,7 @@ GEM
     validates_timeliness (3.0.8)
       timeliness (~> 0.3.4)
     vcr (2.0.0.rc1)
+    vidibus-routing_error (0.2.2)
     warden (1.1.0)
       rack (>= 1.0)
     whenever (0.6.8)
@@ -658,7 +655,7 @@ DEPENDENCIES
   simple_form (~> 1.5)
   simplecov (~> 0.5)
   sitemap_generator (~> 3.0)
-  spork (~> 0.9)
+  spork-rails
   state_machine (~> 1.1.2)
   sunspot-rails-tester!
   sunspot_rails (~> 2.0.0.pre.111215)
@@ -669,7 +666,7 @@ DEPENDENCIES
   uglifier (>= 1.0.3)
   validates_timeliness
   vcr (~> 2.0.0.rc1)
-  vidibus-routing_error!
+  vidibus-routing_error
   whenever
   will_paginate (~> 3.0)
   zipruby
