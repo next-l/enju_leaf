@@ -46,7 +46,7 @@
           <td><strong><%= t('activerecord.attributes.user.expired_at') -%>:</strong></td>
           <td><%= l(@patron.user.expired_at, :format => :only_date) if @patron.user.expired_at -%></td>
         </tr>
-        <%- if current_user.has_role?('Librarian') -%>
+        <%- if user_signed_in? and current_user.has_role?('Librarian') -%>
           <tr>
             <td><strong><%= t('activerecord.attributes.user.locked') -%>:</strong></td>
             <td>
@@ -69,7 +69,7 @@
           </tr>
         <%- end -%>
       <%- end -%>
-      <%- if current_user.has_role?('Librarian') or !@patron.user -%>
+      <%- if user_signed_in? and current_user.has_role?('Librarian') or !@patron.user -%>
         <tr>
           <td><strong><%= t('activerecord.models.patron_type') -%>:</strong></td>
           <td><%= @patron.patron_type.display_name.localize -%></td>
@@ -98,7 +98,7 @@
         <td><%= @patron.language.display_name.localize -%></td>
       </tr>
 <%# - if can? :destroy, @patron -%>
-      <%- if current_user.try(:has_role?, 'Librarian') -%>
+      <%- if user_signed_in? and current_user.try(:has_role?, 'Librarian') -%>
         <tr>
           <td><strong><%= t('activerecord.attributes.patron.zip_code_1') -%>:</strong></td>
           <td><%= @patron.zip_code_1 -%></td>
@@ -188,7 +188,7 @@
           </tr>
         <%# end %>
       <%- end -%>
-      <%- if @patron.user.blank? || (!@patron.user.blank? && current_user.try(:has_role?, 'Librarian')) -%>
+      <%- if @patron.user.blank? and (!@patron.user.blank? and user_signed_in? and current_user.try(:has_role?, 'Librarian')) -%>
         <tr>
           <td><strong><%= t('activerecord.attributes.patron.note') -%>:</strong></td>
           <td><%= @patron.note -%></td>

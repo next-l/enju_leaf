@@ -49,8 +49,6 @@ configatron.resource_import_template = "templates/resource_import_template.zip"
 #configatron.no_operation_counter = 300
 configatron.no_operation_counter = 0
 
-# 検索結果一覧の出力ボタンを表示するか(true => 全てのユーザーに対し表示, false => ライブラリアン権限以上ならば表示)
-configatron.manifestations.users_show_output_button = true
 # 検索結果一覧の出力(PDF)
 configatron.manifestation_list_print_pdf.filename = "manifestation_list.pdf"
 # 検索結果一覧の出力(TSV)
