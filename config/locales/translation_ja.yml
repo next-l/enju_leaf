@@ -488,7 +488,9 @@ ja:
         note: 注記
         position: 位置
         deleted_at: 削除時刻
-        open_shelf: 開架区分
+        open_access: 開架区分
+        open: 開架 
+        closed: 閉架
       event_category:
         name: 名前
         display_name: 表示名

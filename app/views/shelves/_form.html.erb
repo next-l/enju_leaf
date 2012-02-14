@@ -28,7 +28,8 @@
 
   <div class="field">
     <%= f.label :open_access -%><br />
-    <%= f.check_box :open_access -%>
+    <%= t('activerecord.attributes.shelf.open') -%><%= f.radio_button :open_access, 0 -%>&nbsp;
+    <%= t('activerecord.attributes.shelf.closed') -%><%= f.radio_button :open_access, 1 -%>
   </div>
   
   <div class="actions">

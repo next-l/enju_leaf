@@ -2,6 +2,17 @@
   <h1 class="title"><%= t('page.listing', :model => t('activerecord.models.shelf')) -%></h1>
 <div id="content_list">
 
+<%= form_for :shelves, :html => {:method => 'get'} do -%>
+  <%= t('advanced_search.library') -%>:
+    <select id="library_id" name="library_id">
+      <option value=""><%= t('advanced_search.all_libraries') -%></option>
+      <%- @libraries.each do |library| -%>
+        <option value="<%= library.id -%>"<%= " selected='selected'" if @library == library -%>><%= library.display_name.localize -%></option>
+      <%- end -%>
+    </select> 
+  <%= submit_tag t('page.search') -%>
+<%- end -%>
+
 <table class="index">
   <tr>
     <th id="position"></th>
