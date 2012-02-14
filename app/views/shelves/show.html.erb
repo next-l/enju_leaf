@@ -21,6 +21,15 @@
 </p>
 
 <p>
+  <strong><%= t('activerecord.attributes.shelf.open_access') -%>:</strong>
+  <%- if @shelf.open_access == 0 -%>
+    <%= t('activerecord.attributes.shelf.open') -%>
+  <%- else -%>
+    <%= t('activerecord.attributes.shelf.closed') -%>
+  <%- end -%>
+</p>
+
+<p>
   <strong><%= t('activerecord.models.picture_file') -%>:</strong><br />
   <%- @shelf.picture_files.each do |picture_file| -%>
     <%= render 'picture_files/link', :picture_file => picture_file %>
