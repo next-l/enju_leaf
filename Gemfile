@@ -106,7 +106,7 @@ gem 'rails_autolink'
 #gem 'oink', '>= 0.9.3'
 
 group :production do
-  gem 'vidibus-routing_error', :git => 'git://github.com/nabeta/vidibus-routing_error.git'
+  gem 'vidibus-routing_error'
 end
 
 group :development do
@@ -118,7 +118,7 @@ group :development, :test do
   gem 'rspec-rails', '~> 2.8.1'
   gem 'guard-rspec'
   gem 'factory_girl_rails', '~> 1.6'
-  gem 'spork', '~> 0.9'
+  gem 'spork-rails'
   gem 'rcov', '0.9.11'
   gem 'metric_fu', '~> 2.1'
   gem 'timecop'
