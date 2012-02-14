@@ -8,6 +8,42 @@ class ResourceImportResult < ActiveRecord::Base
   belongs_to :item
 
   validates_presence_of :resource_import_file_id
+
+  def self.get_resource_import_results_tsv(resource_import_results)
+    data = String.new
+    data << "\xEF\xBB\xBF".force_encoding("UTF-8") + "\n"
+    columns = [
+      [:title, 'activerecord.attributes.manifestation.original_title'],
+      [:item_identifier, 'activerecord.models.item'],
+      [:error_msg, 'activerecord.attributes.resource_import_result.error_msg']
+    ]
+
+    # title column
+    row = columns.map {|column| I18n.t(column[1])}
+    data << '"'+row.join("\"\t\"")+"\"\n"
+
+    resource_import_results.each do |resource_import_result|
+      row = []
+      columns.each do |column|
+        case column[0]
+        when :title
+          title = ""
+          title = resource_import_result.manifestation.original_title if resource_import_result.manifestation
+          row << title
+        when :item_identifier
+          item_identifier = ""
+          item_identifier = resource_import_result.item.item_identifier if resource_import_result.item
+          row << item_identifier
+        when :error_msg
+          error_msg = ""
+          error_msg = resource_import_result.error_msg if resource_import_result
+          row << error_msg
+        end
+      end
+      data << '"' + row.join("\"\t\"") + "\"\n"
+    end
+    return data
+  end
 end
 
 # == Schema Information

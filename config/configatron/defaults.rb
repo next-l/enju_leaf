@@ -118,6 +118,15 @@ configatron.checkoutlist_report_tsv.filename = "checkoutlist.tsv"
 configatron.reservelist_report_pdf.filename = "reservelist.pdf"
 configatron.reservelist_report_tsv.filename = "reservelist.tsv"
 
+# 資料インポートの結果の一覧の出力(TSV)
+configatron.resource_import_results_print_tsv.filename = "resource_import_results.tsv"
+
+# 催し物インポートの結果の一覧の出力(TSV)
+configatron.event_import_results_print_tsv.filename = "event_import_results.tsv"
+
+# 人物・団体インポートの結果の一覧の出力(TSV)
+configatron.patron_import_results_print_tsv.filename = "patron_import_results.tsv"
+
 # 利用統計の帳票ファイル名
 configatron.statistic_report.monthly = "monthly_report.pdf"
 configatron.statistic_report.monthly_tsv = "monthly_report.tsv"
