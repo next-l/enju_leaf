@@ -30,6 +30,48 @@ class UserReserveStat < ActiveRecord::Base
     end
     self.completed_at = Time.zone.now
   end
+
+  def self.get_user_reserve_stats_tsv(user_reserve_stat, stats)
+    data = String.new
+    data << "\xEF\xBB\xBF".force_encoding("UTF-8") + "\n"
+
+    # term
+    data << '"' + I18n.t('activerecord.attributes.user_reserve_stat.start_date') + "\"\n"
+    data << '"' + user_reserve_stat.start_date.to_s + "\"\n"
+    data << '"' + I18n.t('activerecord.attributes.user_reserve_stat.end_date') + "\"\n"
+    data << '"' + user_reserve_stat.end_date.to_s + "\"\n"
+    # state
+    data << '"' + I18n.t('activerecord.attributes.user_reserve_stat.state') + "\"\n"
+    data << '"' + user_reserve_stat.state.to_s + "\"\n"
+    # note
+    data << '"' + I18n.t('activerecord.attributes.user_reserve_stat.note') + "\"\n"
+    data << '"' + user_reserve_stat.note + "\"\n"
+    data << "\n"
+
+    # title column
+    columns = [
+      [:user, 'activerecord.models.user'],
+      [:reserves_count, 'activerecord.attributes.reserve_stat_has_user.reserves_count']
+    ]
+    row = columns.map {|column| I18n.t(column[1])}
+    data << '"'+row.join("\"\t\"")+"\"\n"
+
+    stats.each do |stat|
+      row = []
+      columns.each do |column|
+        case column[0]
+        when :user
+          user = ""
+          user = stat.user.username if stat.user
+          row << user
+        when :reserves_count
+          row << stat.reserves_count
+        end
+      end
+      data << '"' + row.join("\"\t\"") + "\"\n"
+    end
+    return data
+  end
 end
 
 # == Schema Information

@@ -16,13 +16,15 @@ class ManifestationCheckoutStatsController < ApplicationController
   # GET /manifestation_checkout_stats/1
   # GET /manifestation_checkout_stats/1.xml
   def show
-    CheckoutStatHasManifestation.per_page = 65534 if params[:format] == 'csv'
+    CheckoutStatHasManifestation.per_page = 65534 if params[:format] == 'csv' or params[:format] == 'tsv'
     @stats = @manifestation_checkout_stat.checkout_stat_has_manifestations.order('checkouts_count DESC, manifestation_id').page(params[:page])
 
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @manifestation_checkout_stat }
       format.csv
+      format.tsv { send_data ManifestationCheckoutStat.get_manifestation_checkout_stats_tsv(@manifestation_checkout_stat, @stats) , :filename => configatron.manifestation_checkout_stats_print_tsv.filename }
+
     end
   end
 
