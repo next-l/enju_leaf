@@ -25,17 +25,17 @@
 
 <p>
   <strong><%= t('activerecord.attributes.budget.amount') -%>:</strong>
-  <%= t('budget.yen', :amount => @budget.amount) -%>
+  <%= t('budget.yen', :amount => to_format(@budget.amount)) -%>
 </p>
 
 <p>
   <strong><%= t('budget.sum') -%>:</strong>
-  <%= t('budget.yen', :amount => @sum) -%>
+  <%= t('budget.yen', :amount => to_format(@sum)) -%>
 </p>
 
 <p>
   <strong><%= t('budget.balance') -%>:</strong>
-  <%= t('budget.yen', :amount => @balance) -%>
+  <%= t('budget.yen', :amount => to_format(@balance)) -%>
 </p>
 
 </div>

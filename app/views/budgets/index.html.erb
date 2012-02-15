@@ -8,7 +8,7 @@
     <th><%= t('activerecord.attributes.budget.term') -%></th>
     <th><%= t('activerecord.attributes.budget.budget_type') -%></th>
     <th></th>
-    <th><%= t('activerecord.attributes.budget.amount') -%></th>
+    <th align="right"><%= t('activerecord.attributes.budget.amount') -%>(<%= t('budget.yent') -%>)</th>
     <th></th>
   </tr>
 
@@ -18,7 +18,7 @@
     <td><%= budget.term.display_name if budget.term -%></td>
     <td><%= budget.budget_type.name if budget.budget_type -%></td>
     <td><%= budget.note if budget.note -%></td>
-    <td><%= t('budget.yen', :amount => budget.amount) -%></td>
+    <td align="right"><%= to_format(budget.amount) -%></td>
     <td>
       <%- if can? :update, budget -%>
         <%= link_to t('page.edit'), edit_budget_path(budget) -%>
