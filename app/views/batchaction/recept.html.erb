@@ -1,1 +1,1 @@
-<%= @statuscode %>,<%= @msg %>
+<%- if @statuscode == 0%>ok<%- else -%><%= t('state.failed')-%>: <%= @msg %><%- end -%>
