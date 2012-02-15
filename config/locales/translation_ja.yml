@@ -1636,6 +1636,9 @@ ja:
     update_failed: "資料の更新に失敗しました。"	
     new_serial: "(最新号)"
     already_removed: "この資料は除籍されています。編集できません。"
+    all_type: 全ての資料区分
+    general_item: 一般資料
+    audio_item: 視聴覚資料
   patron:
     library_group_patron: "%{library_group_name} の人物・団体"
     work_patron: "%{work_title} の著作者"
@@ -1996,6 +1999,8 @@ ja:
     all_bookstores: 全ての書店
     list_number: 件数
     page_number: ページ数
+  budget_type:
+    all_type: 全ての予算区分
   term:
     cannot_delete: "この期間は削除できません。"
   expense:
@@ -2006,6 +2011,7 @@ ja:
     term: 集計対象期間
     date_format: "%{year}年%{month}月%{date}日"
     term_note: (YYYY, YYYYMM, YYYYMMDDのいずれかで指定)
+    no_value: 未登録
   statistic_report:
     monthly_report: 月別利用統計
     daily_report: 日別利用統計

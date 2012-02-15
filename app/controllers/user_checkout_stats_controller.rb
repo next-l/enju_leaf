@@ -16,13 +16,14 @@ class UserCheckoutStatsController < ApplicationController
   # GET /user_checkout_stats/1
   # GET /user_checkout_stats/1.xml
   def show
-    CheckoutStatHasUser.per_page = 65534 if params[:format] == 'csv'
+    CheckoutStatHasUser.per_page = 65534 if params[:format] == 'csv' or params[:format] == 'tsv'
     @stats = @user_checkout_stat.checkout_stat_has_users.order('checkouts_count DESC, user_id').page(params[:page])
 
     respond_to do |format|
       format.html # show.html.erb
-      format.xml  { render :xml => @user_checkout_stat }
+      format.xml { render :xml => @user_checkout_stat }
       format.csv
+      format.tsv { send_data UserCheckoutStat.get_user_checkout_stats_tsv(@user_checkout_stat, @stats) , :filename => configatron.user_checkout_stats_print_tsv.filename }
     end
   end
 

@@ -337,6 +337,7 @@ div#budget_library{
   float: left;
   text_align: left;
   width: 200px;
+  margin-top: 30px;
 }
 
 div#budget_type{
@@ -349,6 +350,14 @@ div#budget_bookstore{
   float: left;
   text_align: left;
   width: 200px;
+  margin-top: 30px;
+}
+
+div#expense_item{
+  float: left;
+  text_align: left;
+  width: 200px;
+  margin-top: 30px;
 }
 
 h1{

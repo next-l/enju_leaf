@@ -1,5 +1,5 @@
 class EventImportResultsController < InheritedResources::Base
-  respond_to :html, :xml#, :csv
+  respond_to :html, :xml, :csv
   before_filter :check_client_ip_address
   before_filter :access_denied, :except => [:index, :show]
   load_and_authorize_resource
@@ -13,10 +13,11 @@ class EventImportResultsController < InheritedResources::Base
     else
       @results_num = @event_import_results.length
     end
-    if params[:output_tsv]
-      data = EventImportResult.get_event_import_results_tsv(@event_import_results)
-      send_data data, :filename => configatron.event_import_results_print_tsv.filename
-      return
+ 
+    if params[:format] == 'tsv'
+      respond_to do |format|
+        format.tsv { send_data EventImportResult.get_event_import_results_tsv(@event_import_results), :filename => configatron.event_import_results_print_tsv.filename }
+      end
     else
       @event_import_results = @event_import_results.page(params[:page])
     end

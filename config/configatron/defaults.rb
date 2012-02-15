@@ -94,6 +94,9 @@ configatron.family_list_print_pdf.filename = "family_list.pdf"
 # 家族リストの出力(TSV)
 configatron.family_list_print_tsv.filename = "family_list.tsv"
 
+#購入リクエストの一覧の出力(TSV)
+configatron.purchase_requests_print_tsv.filename = "purchase_requests.tsv"
+
 # 督促はがきのファイル名
 configatron.reminder_postal_card_print.filename = "reminder_postal_card.pdf"
 # 督促はがきの図書館メッセージ（最大全角242文字）
@@ -120,12 +123,19 @@ configatron.reservelist_report_tsv.filename = "reservelist.tsv"
 
 # 資料インポートの結果の一覧の出力(TSV)
 configatron.resource_import_results_print_tsv.filename = "resource_import_results.tsv"
-
 # 催し物インポートの結果の一覧の出力(TSV)
 configatron.event_import_results_print_tsv.filename = "event_import_results.tsv"
-
 # 人物・団体インポートの結果の一覧の出力(TSV)
 configatron.patron_import_results_print_tsv.filename = "patron_import_results.tsv"
+
+# 利用者別貸出統計の出力(TSV)
+configatron.user_checkout_stats_print_tsv.filename = "user_checkout_stats.tsv"
+# 利用者別予約統計の出力(TSV)
+configatron.user_reserve_stats_print_tsv.filename = "user_reserve_stats.tsv"
+# 資料別貸出統計の出力(TSV)
+configatron.manifestation_checkout_stats_print_tsv.filename = "manifestation_checkout_stats.tsv"
+# 資料者別予約統計の出力(TSV)
+configatron.manifestation_reserve_stats_print_tsv.filename = "manifestation_reserve_stats.tsv"
 
 # 利用統計の帳票ファイル名
 configatron.statistic_report.monthly = "monthly_report.pdf"

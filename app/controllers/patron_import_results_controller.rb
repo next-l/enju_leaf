@@ -13,10 +13,11 @@ class PatronImportResultsController < InheritedResources::Base
     else
       @results_num = @patron_import_results.length
     end
-    if params[:output_tsv]
-      data = PatronImportResult.get_patron_import_results_tsv(@patron_import_results)
-      send_data data, :filename => configatron.patron_import_results_print_tsv.filename
-      return
+
+    if params[:format] == 'tsv'
+      respond_to do |format|
+        format.tsv { send_data PatronImportResult.get_patron_import_results_tsv(@patron_import_results), :filename => configatron.patron_import_results_print_tsv.filename }
+      end
     else
       @patron_import_results = @patron_import_results.page(params[:page])
     end

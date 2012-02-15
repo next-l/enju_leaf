@@ -11,13 +11,13 @@
 
 <p>
   <strong><%= t('activerecord.attributes.expense.price') -%>:</strong>
-  <%= t('expense.yen', :price => @expense.price) -%>
+  <%= t('expense.yen', :price => to_format(@expense.price)) -%>
 </p>
 
 <p>
   <strong><%= t('activerecord.attributes.expense.budget') -%>:</strong>
-  <%= @expense.budget.library.display_name.localize if @expense.budget.library -%>
-  (<%= @expense.budget.term.display_name.localize if @expense.budget.term -%>)
+  <%= @expense.budget.library.display_name.localize if @expense.budget && @expense.budget.library -%>
+  (<%= @expense.budget.term.display_name.localize if @expense.budget && @expense.budget.term -%>)
 </p>
 
 </div>

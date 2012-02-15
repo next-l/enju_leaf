@@ -48,8 +48,6 @@
     <li><%= link_to t('page.edit'), edit_user_checkout_stat_path(@user_checkout_stat) -%></li>
     <li><%= link_to t('page.back'), user_checkout_stats_path -%></li>
   </ul>
-  <h4><%= t('page.export') -%></h4>
-  <ul>
-    <li><%= link_to 'CSV', user_checkout_stat_path(@user_checkout_stat, :format => :csv, :locale => @locale.to_s) -%></li>
-  </ul>
+  <%= link_to (image_tag 'icons/page_white_excel.png', :size => '16x16', :alt => 'TSV', :title => 'TSV', :class => 'icon'), user_checkout_stat_path(@user_checkout_stat, :locale => @locale.to_s, :format => 'tsv') -%>
+  (<%= link_to 'TSV', user_checkout_stat_path(@user_checkout_stat, :locale => @locale.to_s, :format => 'tsv') -%>)
 </div>
