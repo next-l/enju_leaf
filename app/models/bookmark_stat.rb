@@ -31,6 +31,48 @@ class BookmarkStat < ActiveRecord::Base
     end
     self.completed_at = Time.zone.now
   end
+
+  def self.get_bookmark_stats_tsv(bookmark_stat, stats)
+    data = String.new
+    data << "\xEF\xBB\xBF".force_encoding("UTF-8") + "\n"
+
+    # term
+    data << '"' + I18n.t('activerecord.attributes.bookmark_stat.start_date') + "\"\n"
+    data << '"' + bookmark_stat.start_date.to_s + "\"\n"
+    data << '"' + I18n.t('activerecord.attributes.bookmark_stat.end_date') + "\"\n"
+    data << '"' + bookmark_stat.end_date.to_s + "\"\n"
+    # state
+    data << '"' + I18n.t('activerecord.attributes.bookmark_stat.state') + "\"\n"
+    data << '"' + bookmark_stat.state.to_s + "\"\n"
+    # note
+    data << '"' + I18n.t('activerecord.attributes.bookmark_stat.note') + "\"\n"
+    data << '"' + bookmark_stat.note + "\"\n"
+    data << "\n"
+
+    # title column
+    columns = [
+      [:manifestation, 'activerecord.models.manifestation'],
+      [:bookmarks_count, 'activerecord.attributes.bookmark_stat_has_manifestation.bookmarks_count']
+    ]
+    row = columns.map {|column| I18n.t(column[1])}
+    data << '"'+row.join("\"\t\"")+"\"\n"
+
+    stats.each do |stat|
+      row = []
+      columns.each do |column|
+        case column[0]
+        when :manifestation
+          manifestation = ""
+          manifestation = stat.manifestation.original_title if stat.manifestation
+          row << manifestation
+        when :bookmarks_count
+          row << stat.bookmarks_count
+        end
+      end
+      data << '"' + row.join("\"\t\"") + "\"\n"
+    end
+    return data
+  end
 end
 
 # == Schema Information

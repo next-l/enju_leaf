@@ -16,13 +16,14 @@ class BookmarkStatsController < ApplicationController
   # GET /bookmark_stats/1
   # GET /bookmark_stats/1.xml
   def show
-    BookmarkStatHasManifestation.per_page = 65534 if params[:format] == 'csv'
+    BookmarkStatHasManifestation.per_page = 65534 if params[:format] == 'csv' or params[:format] == 'tsv'
     @stats = @bookmark_stat.bookmark_stat_has_manifestations.order('bookmarks_count DESC, manifestation_id').page(params[:page])
 
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @bookmark_stat }
       format.csv
+      format.tsv { send_data BookmarkStat.get_bookmark_stats_tsv(@bookmark_stat, @stats), :filename => configatron.bookmark_stat_stats_print_tsv.filename}
     end
   end
 

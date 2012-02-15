@@ -16,8 +16,7 @@ class PurchaseRequestsController < ApplicationController
           access_denied; return
         end
       else
-        redirect_to user_purchase_requests_path(current_user)
-        return
+        redirect_to user_purchase_requests_path(current_user); return
       end
     end
 
@@ -61,7 +60,7 @@ class PurchaseRequestsController < ApplicationController
       format.xml  { render :xml => @purchase_requests }
       format.rss  { render :layout => false }
       format.atom
-      format.tsv { send_data PurchaseRequest.output_tsv(@purchase_requests)}
+      format.tsv { send_data PurchaseRequest.get_purchase_requests_tsv(@purchase_requests), :filename => configatron.purchase_requests_print_tsv.filename }
     end
   end
 

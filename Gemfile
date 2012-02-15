@@ -18,10 +18,11 @@ platforms :ruby_19 do
 end
 
 gem 'delayed_job_active_record'
+#gem 'delayed_job', '>= 2.1.4'
+gem 'daemons'
 gem 'addressable'
 gem 'will_paginate', '~> 3.0'
 gem 'exception_notification', '~> 2.5.2'
-gem 'delayed_job', '>= 2.1.4'
 gem 'state_machine'
 gem 'sunspot_rails', '~> 1.3'
 gem 'sunspot_solr', '~> 1.3'

@@ -427,8 +427,9 @@ class Manifestation < ActiveRecord::Base
 
   def reservable?
     unless SystemConfiguration.get("reserves.able_for_not_item")
-      return false if items.for_checkout.empty?
+      return false if items.for_checkout.empty? 
     end
+    return false if self.periodical_master?
     true
   end
 

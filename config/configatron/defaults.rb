@@ -121,8 +121,10 @@ configatron.checkoutlist_report_tsv.filename = "checkoutlist.tsv"
 configatron.reservelist_report_pdf.filename = "reservelist.pdf"
 configatron.reservelist_report_tsv.filename = "reservelist.tsv"
 
-# 資料インポートの結果の一覧の出力(TSV)
+# TSVファイルからの資料インポートの結果の一覧の出力(TSV)
 configatron.resource_import_results_print_tsv.filename = "resource_import_results.tsv"
+# テキストファイルからの資料インポートの結果の一覧の出力(TSV)
+configatron.resource_import_textresults_print_tsv.filename = "resource_import_textresults.tsv"
 # 催し物インポートの結果の一覧の出力(TSV)
 configatron.event_import_results_print_tsv.filename = "event_import_results.tsv"
 # 人物・団体インポートの結果の一覧の出力(TSV)
@@ -136,6 +138,8 @@ configatron.user_reserve_stats_print_tsv.filename = "user_reserve_stats.tsv"
 configatron.manifestation_checkout_stats_print_tsv.filename = "manifestation_checkout_stats.tsv"
 # 資料者別予約統計の出力(TSV)
 configatron.manifestation_reserve_stats_print_tsv.filename = "manifestation_reserve_stats.tsv"
+# ブックマーク統計の出力(TSV)
+configatron.bookmark_stat_stats_print_tsv.filename = "bookmark_stat_stats.tsv"
 
 # 利用統計の帳票ファイル名
 configatron.statistic_report.monthly = "monthly_report.pdf"
