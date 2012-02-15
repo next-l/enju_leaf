@@ -1210,6 +1210,7 @@ ja:
         book_data: 点検データ登録
         do: 実行
         not_yet: 未実施
+        shelf_upload: 棚定義ファイル
         shelf_upload_file_name: 棚定義ファイル
         resource_list: 蔵書リスト
         notfound_list: 欠本リスト

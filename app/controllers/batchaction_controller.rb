@@ -25,17 +25,23 @@ class BatchactionController < ApplicationController
   end
 
   def recept
-    @statuscode = 0
-    @msg = ""
+    @msg = []
 
-    @statuscode, @msg = decode_action(params[:encodetext])
-
+    *@msg = decode_action(params[:data], params[:kbn], params[:create_date])
+    case @msg[0]
+    when "checkout"
+      result = checkout(@msg)
+    when "checkin"
+      result = checkin(@msg)
+    else
+      logger.error "invalid action"
+    end
     render :template => 'batchaction/recept', :layout => false
   end
 
 private
 
-  def default_librarian
+  def default_librarian(library_id)
     librarian_user = User.librarians.order("users.id").where(:library_id=>library_id).first rescue nil
     if librarian_user.nil?
       logger.warn "librarian not found. library_id=#{library_id} "
@@ -78,12 +84,13 @@ private
     end
     worked_at = nil
     begin
-      worked_at = DateTime.strptime(worked_at_str, "%Y/%m/%d %H:%M:%S")
+#      worked_at = DateTime.strptime(worked_at_str, "%Y/%m/%d %H:%M:%S")
+      worked_at = DateTime.parse(worked_at_str)
     rescue ArgumentError
       return STAT_ERROR_INVALID_CHECKOUT_FORMAT, "datetime invalid format. worked_at_str=#{worked_at_str}"
     end
 
-    basket = Basket.new(:user => librarian_user)
+    basket = Basket.new(:user => user)
     basket.save!(:validate => false)
 
     checked_item = CheckedItem.new({"item_identifier"=>item_identifier, "ignore_restriction"=>"1"})
@@ -142,7 +149,8 @@ private
     end
     worked_at = nil
     begin
-      worked_at = DateTime.strptime(worked_at_str, "%Y/%m/%d %H:%M:%S")
+#      worked_at = DateTime.strptime(worked_at_str, "%Y/%m/%d %H:%M:%S")
+      worked_at = DateTime.parse(worked_at_str)
     rescue ArgumentError
       return STAT_ERROR_INVALID_CHECKIN_FORMAT, "datetime invalid format. worked_at_str=#{worked_at_str}"
     end
@@ -174,9 +182,11 @@ private
     @actions.collect {|act| act[:name]}
   end
 
-  def decode_action(posttext)
+  def decode_action(posttext, action, create_date)
+    encoding = configatron.encoding
     rinjndael_key = Rinjndael_Default_Key
     plaintext = posttext.chomp rescue ""
+    plaintext = Base64.decode64(plaintext) if encoding
 
     if posttext.nil?
       return STAT_ERROR_INVALID_PARAM, "encodetext is empty."
@@ -186,24 +196,29 @@ private
       return STAT_ERROR_DECODEKEY_EMPTY, "decodekey is empty. see configatron file on server."
     end
 
-=begin
-    begin
-      rinjndael_key = configatron.clientkey
-      puts "key=#{rinjndael_key}"
-      rijndael = Crypt::Rijndael.new(rinjndael_key)
-      plaintext = rijndael.decrypt_string(encodetext)
-    rescue => ex
-      logger.info "error occured. BatchactionController#recept.crypt"
-      logger.info ex
-      logger.info $@.split.join("\n")
-      return STAT_ERROR_CRYPT, "crypt error. #{ex} (see serverlog)"
+    row = [action]
+    if encoding
+      begin
+        rinjndael_key = configatron.clientkey
+        puts "key=#{rinjndael_key}"
+        rijndael = Crypt::Rijndael.new(rinjndael_key)
+        plaintext = rijndael.decrypt_string(plaintext)
+      rescue => ex
+        logger.info "error occured. BatchactionController#recept.crypt"
+        logger.info ex
+        logger.info $@.split.join("\n")
+        return STAT_ERROR_CRYPT, "crypt error. #{ex} (see serverlog)"
+      end
+      row << plaintext.split("\t")
+    else
+      row << plaintext.split(",")
     end
-=end
-
+ 
+    row << create_date
     #puts plaintext
-    row = plaintext.split(",")
     require "pp"
     pp row
+    return row.flatten
     #puts row.size
     return [STAT_ERROR_INVALID_FORMAT, "row size is invalid"] if row.size < 4
 

@@ -146,6 +146,7 @@ ja:
         record_invalid: "バリデーションに失敗しました。 %{errors}"
         non_exist_user: "に存在しない利用者が指定されています。"
         invalid_content_type: "が不正です。text/csv, text/plain, text/tab-separated-values いずれかの形式でアップロードしてください。"
+        not_selected: "が選択されていません。"
 
       full_messages:
         format: "%{attribute}%{message}"
