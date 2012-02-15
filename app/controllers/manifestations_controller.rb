@@ -175,14 +175,14 @@ class ManifestationsController < ApplicationController
       end
 
       # output
-      if params[:output_pdf] or params[:output_csv]
+      if params[:output_pdf] or params[:output_tsv]
         manifestations_for_output = search.build do
           paginate :page => 1, :per_page => all_result.total
         end.execute.results
         if params[:output_pdf]
           data = Manifestation.get_manifestation_list_pdf(manifestations_for_output, current_user)
           send_data data.generate, :filename => configatron.manifestation_list_print_pdf.filename
-        elsif params[:output_csv]
+        elsif params[:output_tsv]
           data = Manifestation.get_manifestation_list_tsv(manifestations_for_output, current_user)
           send_data data, :filename => configatron.manifestation_list_print_tsv.filename
         end

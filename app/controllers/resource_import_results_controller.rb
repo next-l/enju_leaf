@@ -7,19 +7,14 @@ class ResourceImportResultsController < InheritedResources::Base
 
   def index
     @resource_import_file = ResourceImportFile.where(:id => params[:resource_import_file_id]).first
-    if @resource_import_file
-      @resource_import_results = @resource_import_file.resource_import_results
-      @results_num = @resource_import_file.resource_import_results.length
-    else
-      @results_num = @resource_import_results.length
-    end
+    @resource_import_results = @resource_import_file.resource_import_results if @resource_import_file
+    @results_num = @resource_import_results.length
+    @resource_import_results = @resource_import_results.page(params[:page]) unless params[:format] == 'tsv'
 
     if params[:format] == 'tsv'
       respond_to do |format|
         format.tsv { send_data ResourceImportResult.get_resource_import_results_tsv(@resource_import_results), :filename => configatron.resource_import_results_print_tsv.filename }
       end
-    else
-      @resource_import_results = @resource_import_results.page(params[:page])
     end
   end
 end
