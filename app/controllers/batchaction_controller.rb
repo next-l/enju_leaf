@@ -25,14 +25,16 @@ class BatchactionController < ApplicationController
   end
 
   def recept
-    @msg = []
+    @statuscode = ""
+    @msg = ""
+    row = []
 
-    *@msg = decode_action(params[:data], params[:kbn], params[:create_date])
-    case @msg[0]
+    *row = decode_action(params[:data], params[:kbn], params[:create_date])
+    case row[0]
     when "checkout"
-      result = checkout(@msg)
+      @statuscode, @msg = checkout(row)
     when "checkin"
-      result = checkin(@msg)
+      @statuscode, @msg = checkin(row)
     else
       logger.error "invalid action"
     end
