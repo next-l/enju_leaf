@@ -143,7 +143,11 @@ private
       return STAT_ERROR_INVALID_CHECKIN_ITEM, "item_identifier is invalid. (no rent) item_id=#{item_identifier}"
     end
     
-    librarian_user = User.librarians.order("users.id").where(:library_id=>library_id).first
+    librarian_number = row[1]
+    librarian_user = User.find_by_user_number(librarian_number)
+    if librarian_user.blank?
+      librarian_user = User.librarians.order("users.id").first # where(:library_id=>library_id).first
+    end
 
     worked_at_str = row[4]
     if worked_at_str.blank?
