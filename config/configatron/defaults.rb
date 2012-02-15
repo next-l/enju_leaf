@@ -197,7 +197,9 @@ configatron.library_checks.auto_checkin = true
 configatron.patron.check_duplicate_user = false
 
 # refs 2552 クライアント接続パスフレーズ
-configatron.clientkey = "1234567890123456"
+configatron.clientkey = "Next-L/Enju:Next-L/Enju:Next-L/E"
+# refs 2552 データを暗号化する
+configatron.encoding = false
 
 # refs 2601 すべてのユーザに検索結果の一覧の取得が出来るようにする
 configatron.manifestations.users_show_output_button = false
