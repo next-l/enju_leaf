@@ -3,7 +3,7 @@ class BudgetsController < ApplicationController
   load_and_authorize_resource
 
   def index
-    @budgets = Budget.all
+    @budgets = Budget.find(:all, :order => "library_id, term_id DESC, budget_type_id")
   end
 
   def new
