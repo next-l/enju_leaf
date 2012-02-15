@@ -53,37 +53,23 @@
   <ul>
     <li><%= link_to t('page.new', :model => t('activerecord.models.purchase_request')), new_user_purchase_request_path(current_user)%></li>
     <% if current_user.try(:has_role?, 'Librarian') %>
-      <%- case params[:mode] when 'not_ordered' -%>
-        <li><%= link_to t('purchase_request.pending'), purchase_requests_path(:mode => 'pending') -%></li>
-        <li><%= link_to t('purchase_request.ordered'), purchase_requests_path(:mode => 'ordered') -%></li>
-        <li><%= link_to t('purchase_request.all_request'), purchase_requests_path -%></li>
-      <%- when 'ordered' -%>
-        <li><%= link_to t('purchase_request.pending'), purchase_requests_path(:mode => 'pending') -%></li>
-        <li><%= link_to t('purchase_request.not_ordered'), purchase_requests_path(:mode => 'not_ordered') -%></li>
-        <li><%= link_to t('purchase_request.all_request'), purchase_requests_path -%></li>
-      <%- when 'pending' -%>
-        <li><%= link_to t('purchase_request.not_ordered'), purchase_requests_path(:mode => 'not_ordered') -%></li>
-        <li><%= link_to t('purchase_request.ordered'), purchase_requests_path(:mode => 'ordered') -%></li>
-        <li><%= link_to t('purchase_request.all_request'), purchase_requests_path -%></li>
-      <%- else -%>
-        <li><%= link_to t('purchase_request.all_request'), purchase_requests_path -%></li>
-        <li><%= link_to t('purchase_request.ordered'), purchase_requests_path(:mode => 'ordered') -%></li>
-        <li><%= link_to t('purchase_request.not_ordered'), purchase_requests_path(:mode => 'not_ordered') -%></li>
-        <li><%= link_to t('purchase_request.pending'), purchase_requests_path(:mode => 'pending') -%></li>
-      <%- end -%>
+      <li><%= link_to t('purchase_request.all_request'), purchase_requests_path -%></li>
+      <li><%= link_to t('purchase_request.ordered'), purchase_requests_path(:mode => 'ordered') -%></li>
+      <li><%= link_to t('purchase_request.not_ordered'), purchase_requests_path(:mode => 'not_ordered') -%></li>
+      <li><%= link_to t('purchase_request.pending'), purchase_requests_path(:mode => 'pending') -%></li>
     <%- end -%>
   </ul>
 <p>
   <%- if @user -%>
-    <%= link_to (image_tag 'feed-icon-14x14.png', :size => '14x14', :alt => t('page.feed'), :title => t('tooltip.feed'), :class => 'icon'), :user_id => @user.username, :format => :rss -%>
+    <%= link_to (image_tag 'feed-icon-14x14.png', :size => '14x14', :alt => t('page.feed'), :title => t('tooltip.feed'), :class => 'icon'), :user_id => @user.username, :format => :rss, :mode => params[:mode], :query => @query -%>
     (<%= link_to 'RSS', user_purchase_requests_path(@user, :format => :rss) -%>)
-    <%= link_to (image_tag 'icons/page_white_excel.png', :size => '16x16', :alt => 'TSV', :title => t('tooltip.tsv'), :class => 'icon'), user_purchase_requests_path(@user, :format => :tsv, :locale => @locale.to_s) -%>
-    (<%= link_to 'TSV', user_purchase_requests_path(@user, :format => :tsv, :locale => @locale.to_s) -%>)
+    <%= link_to (image_tag 'icons/page_white_excel.png', :size => '16x16', :alt => 'TSV', :title => t('tooltip.tsv'), :class => 'icon'), user_purchase_requests_path(@user, :format => :tsv, :locale => @locale.to_s, :mode => params[:mode], :query => @query) -%>
+    (<%= link_to 'TSV', user_purchase_requests_path(@user, :format => :tsv, :locale => @locale.to_s, :mode => params[:mode], :query => @query) -%>)
   <%- else -%>
-    <%= link_to (image_tag 'feed-icon-14x14.png', :size => '14x14', :alt => t('page.feed'), :title => t('tooltip.feed'), :class => 'icon'), :format => :rss -%>
-    (<%= link_to 'RSS', purchase_requests_path(:format => :rss) -%>)
-    <%= link_to (image_tag 'icons/page_white_excel.png', :size => '16x16', :alt => 'TSV', :title => t('tooltip.tsv'), :class => 'icon'), purchase_requests_path(:format => :tsv, :locale => @locale.to_s) -%>
-    (<%= link_to 'TSV', purchase_requests_path(:format => :tsv, :locale => @locale.to_s) -%>)
+    <%= link_to (image_tag 'feed-icon-14x14.png', :size => '14x14', :alt => t('page.feed'), :title => t('tooltip.feed'), :class => 'icon'), :format => :rss, :mode => params[:mode], :query => @query -%>
+    (<%= link_to 'RSS', purchase_requests_path(:format => :rss, :mode => params[:mode], :query => @query) -%>)
+    <%= link_to (image_tag 'icons/page_white_excel.png', :size => '16x16', :alt => 'TSV', :title => t('tooltip.tsv'), :class => 'icon'), purchase_requests_path(:format => :tsv, :locale => @locale.to_s, :mode => params[:mode], :query => @query) -%>
+    (<%= link_to 'TSV', purchase_requests_path(:format => :tsv, :locale => @locale.to_s, :mode => params[:mode], :query => @query) -%>)
   <%- end -%>
 </p>
 

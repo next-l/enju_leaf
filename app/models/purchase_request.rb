@@ -131,34 +131,51 @@ class PurchaseRequest < ActiveRecord::Base
     end
   end
 
-  def self.output_tsv(purchase_requests)
-    @buf = String.new
-    @buf << "\"" + I18n.t('activerecord.attributes.manifestation.original_title') + "\"" + "\t" +
-      "\"" + I18n.t('activerecord.attributes.purchase_request.author') + "\"" + "\t" +
-      "\"" + I18n.t('activerecord.attributes.purchase_request.publisher') + "\"" + "\t" +
-      "\"" + I18n.t('activerecord.attributes.purchase_request.created_at') + "\"" + "\t" +
-      "\"" + I18n.t('activerecord.attributes.order_list.title') + "\"" + "\t" +
-      "\"" + I18n.t('activerecord.attributes.order_list.ordered_at') + "\"" + "\t" +
-      "\"" + I18n.t('activerecord.attributes.order_list.bookstore') + "\"" + "\t" +
-      "\n"
+  def self.get_purchase_requests_tsv(purchase_requests)
+    data = String.new
+    data << "\xEF\xBB\xBF".force_encoding("UTF-8") + "\n"
+    columns = [
+      [:original_title, 'activerecord.attributes.manifestation.original_title'],
+      [:author, 'activerecord.attributes.purchase_request.author'],
+      [:publisher, 'activerecord.attributes.purchase_request.publisher'],
+      [:created_at, 'activerecord.attributes.purchase_request.created_at'],
+      [:title, 'activerecord.attributes.order_list.title'],
+      [:ordered_at, 'activerecord.attributes.order_list.ordered_at'],
+      [:bookstore, 'activerecord.attributes.order_list.bookstore'],
+    ]
+
+    # title column
+    row = columns.map {|column| I18n.t(column[1])}
+    data << '"'+row.join("\"\t\"")+"\"\n"
+
     purchase_requests.each do |purchase_request|
-      title = purchase_request.title || ""
-      author = purchase_request.author || ""
-      publisher = purchase_request.publisher || ""
-      created_at = purchase_request.created_at.strftime("%Y%m%d") || ""
-      order_list_title = purchase_request.order_list.title rescue ""
-      order_list_ordered_at = purchase_request.order_list.created_at rescue "" 
-      order_list_bookstore = purchase_request.order_list.bookstore.name rescue ""
-      @buf << "\"" + title + "\"" + "\t" +
-              "\"" + author + "\"" + "\t" +
-              "\"" + publisher + "\"" + "\t" +
-              "\"" + created_at + "\"" + "\t" +
-              "\"" + order_list_title + "\"" + "\t" +
-              "\"" + order_list_ordered_at + "\"" + "\t" +
-              "\"" + order_list_bookstore + "\"" + "\t" +
-              "\n"
+      row = []
+      columns.each do |column|
+        case column[0]
+        when :original_title
+          original_title = purchase_request.title || ""
+          row << original_title
+        when :author
+          author = purchase_request.author || ""
+          row << author
+        when :publisher
+          publisher = purchase_request.publisher || ""
+          row << publisher
+        when :created_at
+          created_at = ""
+          created_at = purchase_request.created_at.strftime("%Y%m%d") if purchase_request.created_at
+          row << created_at
+        when :title
+          order_list_title = purchase_request.order_list.title rescue ""
+          row << order_list_title
+        when :bookstore
+          order_list_bookstore = purchase_request.order_list.bookstore.name rescue ""
+          row << order_list_bookstore
+        end
+      end
+      data << '"' + row.join("\"\t\"") + "\"\n"
     end
-    return @buf
+    return data
   end
 end
 

@@ -1245,6 +1245,9 @@ ja:
         error_msg: エラーメッセージ
         index: 項番
         imported_row: 処理済み件数
+      resource_import_textresult:
+        error_msg: エラーメッセージ
+        imported_row: 処理済み件数
       patron_import_result:
         body: 本文
         error_msg: エラーメッセージ
