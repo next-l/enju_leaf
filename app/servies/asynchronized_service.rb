@@ -8,6 +8,8 @@ class Asynchronized_Service
     case method_identifier
     when :ResoureceImportFile_import
       ResourceImportFile.import(param)
+    when :ResoureceImportTextfile_import
+      ResourceImportTextfile.import(param)
     else
       logger.error "unknown method_identifier id=#{method_identifier}"
     end
