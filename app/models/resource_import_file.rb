@@ -260,6 +260,8 @@ class ResourceImportFile < ActiveRecord::Base
       end
     end
     sm_complete!
+  rescue
+    sm_fail!
   end
 
   def remove
@@ -272,6 +274,8 @@ class ResourceImportFile < ActiveRecord::Base
       end
     end
     sm_complete!
+  rescue
+    sm_fail!
   end
 
   private
@@ -437,6 +441,7 @@ class ResourceImportFile < ActiveRecord::Base
         :height => height,
         :price => row['manifestation_price'],
         :description => row['description'],
+        :description_transcription => row['description_transcription'],
         :note => row['note'],
         :series_statement => series_statement,
         :start_page => start_page,
