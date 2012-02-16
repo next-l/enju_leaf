@@ -1,8 +1,8 @@
 class CarrierType < ActiveRecord::Base
   include MasterModel
   default_scope :order => "position"
-  scope :audio, where(:name => ["CD", "DVD" ])
-  scope :not_audio, where(["name NOT IN (?)", ["CD", "DVD" ]])
+  scope :audio, where(:name => ["CD", "DVD", "AV"])
+  scope :not_audio, where(["name NOT IN (?)", ["CD", "DVD", "AV"]])
   has_many :manifestation
   has_many :carrier_type_has_checkout_types, :dependent => :destroy
   has_many :checkout_types, :through => :carrier_type_has_checkout_types
