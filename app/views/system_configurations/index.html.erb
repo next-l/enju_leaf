@@ -14,15 +14,29 @@
 <%- @system_configurations.each do |system_configuration| -%>
   <tr class="line<%= cycle("0", "1") -%>">
     <td><%= system_configuration.keyname -%></td>
-    <td><%= system_configuration.v-%></td>
+    <td>
+      <%- if system_configuration.v.length > 15 -%>
+        <%= system_configuration.v.slice(0..15) -%>...
+      <%- else -%>
+        <%= system_configuration.v-%>
+      <%- end -%>
+    </td>
     <td><%= system_configuration.typename-%></td>
-    <td><%= system_configuration.description-%></td>
+    <td>
+      <%- if system_configuration.description.length > 15 -%>
+        <%= system_configuration.description.slice(0..15) -%>...
+      <%- else -%>
+        <%= system_configuration.description -%>
+      <%- end -%>
+    </td>
     <td>
       <%- if can? :update, system_configuration -%>
         <%= link_to t('page.edit'), edit_system_configuration_path(system_configuration) -%>
       <% end %>
-      <%- if can? :destroy, system_configuration -%>
-        <%= link_to t('page.destroy'), system_configuration, :confirm => t('page.are_you_sure'), :method => :delete -%>
+      <%- if false -%>
+        <%- if can? :destroy, system_configuration -%>
+          <%= link_to t('page.destroy'), system_configuration, :confirm => t('page.are_you_sure'), :method => :delete -%>
+        <%- end -%>
       <%- end -%>
         <%= link_to t('page.show'), system_configuration -%>
     </td>
@@ -35,6 +49,8 @@
 
 <div id="submenu" class="ui-corner-all">
   <ul>
-    <li><%= link_to t('page.new', :model => t('activerecord.models.system_configuration')), new_system_configuration_path -%></li>
+    <%- if false -%>
+      <li><%= link_to t('page.new', :model => t('activerecord.models.system_configuration')), new_system_configuration_path -%></li>
+    <%- end -%>
   </ul>
 </div>
