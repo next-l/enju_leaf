@@ -14,7 +14,7 @@ configatron.enju.web_port_number = 3000
 configatron.header.disp_date = 2
 
 # フォームに入力済みの状態で、ファンクションキーによる画面遷移を行おうとするとアラート面を表示
-configatron.disp_alert_when_move_page_with_function = "true"
+configatron.disp_alert_when_move_page_with_function = true
 
 # パトロンの名前を入力する際、姓を先に表示する
 configatron.family_name_first = true
