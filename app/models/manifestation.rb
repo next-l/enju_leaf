@@ -258,21 +258,6 @@ class Manifestation < ActiveRecord::Base
     original_manifestations
   end
 
-  def serial?
-    if new_record?
-      if SeriesStatement.where(:id => series_statement_id).first.try(:periodical)
-        return true
-      end
-    else
-      if series_statement.try(:periodical)
-        return true
-      elsif periodical?
-        return true unless series_statement.try(:root_manifestation) == self
-      end
-    end
-    false
-  end
-
   def number_of_pages
     if self.start_page and self.end_page
       page = self.end_page.to_i - self.start_page.to_i + 1
@@ -439,7 +424,7 @@ class Manifestation < ActiveRecord::Base
   end
 
   def periodical?
-    if self.new_record?
+    if new_record?
       series_statement = SeriesStatement.where(:id => series_statement_id).first
     end
     if self.series_statement.try(:periodical)
