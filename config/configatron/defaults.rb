@@ -189,6 +189,7 @@ configatron.sounds.errors.checked_item.not_available_for_checkout = "churchA08.o
 configatron.sounds.errors.checked_item.this_group_cannot_checkout = "churchA08.ogg"
 configatron.sounds.errors.checked_item.in_transcation = "chimeA08.ogg"
 configatron.sounds.errors.checked_item.reserved_item_included = "chimeA08.ogg"
+configatron.sounds.errors.default = "sounds/missA11.ogg"
 
 # refs 1849 trueの場合=>一般利用者において、在架資料は、図書館利用時に借りることができる。
 # 予約対象は貸出中の図書のみ

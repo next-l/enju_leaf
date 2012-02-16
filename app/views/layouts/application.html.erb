@@ -11,7 +11,12 @@
   <%= render 'page/portlets' %>
 </head>
 <body itemscope itemtype="http://schema.org/WebPage">
-
+<script>
+  $(document).ready(function(){
+    if ($("#errorExplanation").length > 0)
+       playSound('<%= root_path -%><%= configatron.sounds.errors.default -%>');
+  });
+</script>
 <%= render 'page/header' %>
 <%= render 'page/menu' %>
 

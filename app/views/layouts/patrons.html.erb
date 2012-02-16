@@ -10,7 +10,12 @@
   <%- end -%>
 </head>
 <body>
-
+<script>
+  $(document).ready(function(){
+    if ($("#errorExplanation").length > 0)
+       playSound('<%= root_path -%><%= configatron.sounds.errors.default -%>');
+  });
+</script>
 <%= render 'page/header' %>
 <%= render 'page/menu' %>
 
