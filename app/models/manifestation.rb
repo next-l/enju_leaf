@@ -203,7 +203,7 @@ class Manifestation < ActiveRecord::Base
   before_validation :convert_isbn
   before_create :set_digest
   after_create :clear_cached_numdocs
-  before_save :set_date_of_publication, :set_new_serial_number
+  before_save :set_date_of_publication, :set_new_serial_number, :set_volume_issue_number
   before_save :set_series_statement
   before_save :delete_attachment?
   after_save :index_series_statement
@@ -350,7 +350,11 @@ class Manifestation < ActiveRecord::Base
 
   def new_serial?
     return false unless self.serial?    
-    return true if self == self.series_statement.last_issue
+    unless self.serial_number.blank?
+      return true if self == self.series_statement.last_issue
+    else
+      return true if self == self.series_statement.last_issue_with_issue_number
+    end
   end
 
   def checkout_period(user)
@@ -406,6 +410,11 @@ class Manifestation < ActiveRecord::Base
 
   def set_new_serial_number
     self.serial_number = self.serial_number_string.gsub(/\D/, "").to_i if self.serial_number_string rescue nil
+  end
+
+  def set_volume_issue_number
+    self.volume_number = self.volume_number_string.gsub(/\D/, "").to_i if self.volume_number_string rescue nil
+    self.issue_number = self.issue_number_string.gsub(/\D/, "").to_i if self.issue_number_string rescue nil     
   end
 
   def reservable_with_item?(user = nil)
