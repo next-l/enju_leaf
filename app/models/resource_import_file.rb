@@ -155,7 +155,7 @@ class ResourceImportFile < ActiveRecord::Base
     when 'create'
       work.creators << patrons
     when 'update'
-      work.creators = patrons
+      work.creators = patrons unless patrons.empty?
     end
     work
   end
@@ -167,7 +167,7 @@ class ResourceImportFile < ActiveRecord::Base
     when 'create'
       manifestation.publishers << patrons
     when 'update'
-      manifestation.publishers = patrons
+      manifestation.publishers = patrons unless patron.empty?
     end
     manifestation
   end

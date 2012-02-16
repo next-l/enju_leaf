@@ -26,7 +26,7 @@
   <%- @patrons.each do |patron| -%>
     <tr class="line<%= cycle("0", "1") -%>">
       <td><%= link_to patron.full_name, patron -%></td>
-      <td><%= manifestation.produced(patron).produce_type.display_name.localize unless params[:mode] == 'add' -%></td>
+      <td><%= manifestation.produced(patron).produce_type.display_name.localize if params[:mode] != 'add' and manifestation.produced(patron).try(:produce_type) -%></td>
       <td><%= patron.patron_type.display_name.localize -%></td>
       <td>
         <%- if can? :destroy, patron -%>
