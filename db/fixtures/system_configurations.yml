@@ -50,9 +50,9 @@ system_configuration_00008:
 system_configuration_00009:
   id: 9
   keyname: no_operation_counter
-  v: "true"
+  v: 0
   typename: Numeric
-  description: "無操作待機時間 (sec)。"
+  description: "無操作待機時間 (sec)。0のときは作動しない。"
 system_configuration_00010:
   id: 10 
   keyname: checkouts_print.message

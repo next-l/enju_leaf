@@ -209,7 +209,7 @@ class ReminderList < ActiveRecord::Base
         page.item(:date).value(Time.now)
         page.item(:user_number).value(user.user_number) if user.user_number
         page.item(:user).value(user.patron.full_name + " " + I18n.t('activerecord.attributes.reminder_list.honorific2')) if user.patron.full_name
-        page.item(:message).value(configatron.reminder_postal_card_message)
+        page.item(:message).value(SystemConfiguration.get("reminder_postal_card_message"))
         page.item(:library).value(LibraryGroup.system_name(@locale))
         library = Library.find(current_user.library_id) rescue nil
         page.item(:current_user_library).value(library.display_name.localize) if library
@@ -260,7 +260,7 @@ class ReminderList < ActiveRecord::Base
       page.item(:date).value(Time.now)
       page.item(:user_number).value(user.user_number) if user.user_number
       page.item(:user).value(user.patron.full_name + " " + I18n.t('activerecord.attributes.reminder_list.honorific2')) if user.patron.full_name
-      page.item(:message).value(configatron.reminder_letter_message)
+      page.item(:message).value(SystemConfiguration.get("reminder_letter_message"))
       page.item(:library).value(LibraryGroup.system_name(@locale))
       library = Library.find(current_user.library_id) rescue nil
       page.item(:current_user_library).value(library.display_name.localize) if library
