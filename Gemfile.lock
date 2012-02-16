@@ -336,7 +336,7 @@ GEM
     delayed_job_active_record (0.3.2)
       activerecord (> 2.1.0)
       delayed_job (~> 3.0.0)
-    devise (2.0.1)
+    devise (2.0.2)
       bcrypt-ruby (~> 3.0)
       orm_adapter (~> 0.0.3)
       railties (~> 3.1)
@@ -638,7 +638,7 @@ DEPENDENCIES
   nokogiri
   omniauth (~> 1.0)
   paper_trail (~> 2.6)
-  paperclip (~> 2.5)
+  paperclip (~> 2.6)
   parallel_tests
   pg
   progress_bar
