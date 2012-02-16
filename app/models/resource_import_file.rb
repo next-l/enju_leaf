@@ -235,10 +235,30 @@ class ResourceImportFile < ActiveRecord::Base
     rows.each do |row|
       item_identifier = row['item_identifier'].to_s.strip
       item = Item.where(:item_identifier => item_identifier).first if item_identifier.present?
-      if item.try(:manifestation)
-        fetch(row, :edit_mode => 'update')
+      if item
+        if item.manifestation
+          fetch(row, :edit_mode => 'update')
+        end
+        shelf = Shelf.where(:name => row['shelf']).first
+        circulation_status = CirculationStatus.where(:name => row['circulation_status']).first
+        checkout_type = CheckoutType.where(:name => row['checkout_type']).first
+        bookstore = Bookstore.where(:name => row['bookstore']).first
+        required_role = Role.where(:name => row['required_role']).first
+
+        item.shelf = shelf if shelf
+        item.circulation_status = circulation_status if circulation_status
+        item.checkout_type = checkout_type if checkout_type
+        item.bookstore = bookstore if bookstore
+        item.required_role = required_role if required_role
+        item.update_attributes({
+          :call_number => row['call_number'],
+          :price => row['item_price'],
+          :include_supplements => row['include_supplements'],
+          :note => row['note']
+        })
       end
     end
+    sm_complete!
   end
 
   def remove
@@ -250,6 +270,7 @@ class ResourceImportFile < ActiveRecord::Base
         item.destroy if item.deletable?
       end
     end
+    sm_complete!
   end
 
   private
