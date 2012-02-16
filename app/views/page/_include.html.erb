@@ -20,7 +20,7 @@
 
 <script>
 function check_form() {
-  <% if configatron.disp_alert_when_move_page_with_function -%>
+  <% unless SystemConfiguration.get("disp_alert_when_move_page_with_function") == false -%>
     var input_form = false
     checks = new Array();
     checks = [$('input[type=text]'), $('input[type=search]'), $('input[type=url]'),$('textarea')];

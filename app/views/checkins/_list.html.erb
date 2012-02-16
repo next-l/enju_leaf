@@ -47,7 +47,7 @@ playSound('<%= root_path -%><%= flash[:sound] -%>');
 
 <table class="index">
   <tr>
-    <%- if configatron.checkins.disp_title == true -%>
+    <%- if SystemConfiguration.get("checkins.disp_title") -%>
       <th><%= t('page.title') -%></th>
     <%- end -%>
     <th><%= t('activerecord.models.item') -%></th>
@@ -62,7 +62,7 @@ playSound('<%= root_path -%><%= flash[:sound] -%>');
 <%- else -%>
   <tr class="line<%= cycle("0", "1") -%>">
 <%- end -%>
-    <%- if configatron.checkins.disp_title == true -%>
+    <%- if SystemConfiguration.get("checkins.disp_title") -%>
       <td>
         <%= render 'manifestations/show_index', :manifestation => checkin.item.manifestation -%>
       </td>
@@ -80,7 +80,7 @@ playSound('<%= root_path -%><%= flash[:sound] -%>');
         <%= l(checkin.checkout.due_date, :format => :only_date) -%>
       <%- end -%>
     </td>
-    <%- if configatron.checkins.disp_user == true -%>
+    <%- if SystemConfiguration.get("checkins.disp_user") -%>
       <td><%= link_to checkin.checkout.user.username, checkin.checkout.user if checkin.checkout -%></td>
     <%- else -%>
       <td><%= link_to t('page.userdetail'), checkin.checkout.user if checkin.checkout -%></td>

@@ -37,7 +37,7 @@
 </div>
 
 <div id="submenu" class="ui-corner-all">
-  <%- if configatron.checked_items.disp_user == true -%>
+  <%- if SystemConfiguration.get("checked_items.disp_user") -%>
     <ul>
       <li>
         <%= link_to @basket.user.username, @basket.user -%>
