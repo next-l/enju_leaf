@@ -250,10 +250,11 @@ class ResourceImportFile < ActiveRecord::Base
         item.checkout_type = checkout_type if checkout_type
         item.bookstore = bookstore if bookstore
         item.required_role = required_role if required_role
+        item.include_supplements = row['include_supplements'] if row['include_supplements']
         item.update_attributes({
           :call_number => row['call_number'],
           :price => row['item_price'],
-          :include_supplements => row['include_supplements'],
+          :acquired_at => row['acquired_at'],
           :note => row['note']
         })
       end
