@@ -51,7 +51,7 @@
     <ul>
       <li>
         <%- if @basket.user.patron -%>
-          <%= link_to t("page.userdetail"), @basket.user.patron if current_user.has_role?('Librarian') -%>
+          <%= link_to t("page.userdetail"), @basket.user if current_user.has_role?('Librarian') -%>
         <%- end -%>
       </li>
     </ul>    

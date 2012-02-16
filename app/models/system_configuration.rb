@@ -43,7 +43,7 @@ class SystemConfiguration < ActiveRecord::Base
         end
       when "Numeric"
         unless v =~ /^[0-9]+$/ 
-          errors[:base] << I18n.t('activerecord.attributes.system_configuration.invalid_format')
+          errors.add(:v, I18n.t('activerecord.attributes.system_configuration.invalid_format')) 
         end
       end
     end
