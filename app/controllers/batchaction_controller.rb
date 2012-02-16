@@ -104,7 +104,7 @@ private
         messages << I18n.t(error)
       end
       logger.info "checked item create error. messages=#{messages}"
-      return STAT_ERROR_CHECKOUT, "checked item create error. messages=#{messages.join(" ")}"
+      return STAT_ERROR_CHECKOUT, "#{messages.join(" ")}"
     end
 
     logger.info "save start"
@@ -116,7 +116,7 @@ private
       end
       logger.info "basket_checkout error. @@@"
       logger.info messages
-      return STAT_ERROR_CHECKOUT, "basket save error. messages=#{messages.join(" ")}"
+      return STAT_ERROR_CHECKOUT, "#{messages.join(" ")}"
     end
     logger.info "checkout success."
 
