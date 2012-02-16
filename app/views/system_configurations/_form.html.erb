@@ -14,7 +14,7 @@
 
   <div class="field">
     <%= f.label :typename %><br />
-    <%= f.select(:typename, SystemConfiguration.typenames) -%>
+    <%= f.select(:typename, SystemConfiguration.typenames, {}, {:disabled => true}) -%>
   </div>
 
   <div class="field">
