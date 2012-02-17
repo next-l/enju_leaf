@@ -339,7 +339,7 @@ DEPENDENCIES
   daemons
   dalli (~> 1.1)
   delayed_job_active_record
-  devise (~> 1.4)
+  devise (~> 1.5)
   dynamic_form
   event-calendar
   exception_notification (~> 2.5.2)
