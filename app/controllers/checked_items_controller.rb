@@ -11,6 +11,9 @@ class CheckedItemsController < ApplicationController
       @checked_items = @basket.checked_items
       @checked_item = @basket.checked_items.new
       @checkout_user = @basket.user
+      unless @checkout_user.patron
+        redirect_to new_user_patron_url(@user); return
+      end
 
       family_id = FamilyUser.find(:first, :conditions => ['user_id=?', @basket.user.id]).family_id rescue nil
       if family_id

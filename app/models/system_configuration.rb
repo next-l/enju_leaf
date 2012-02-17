@@ -1,4 +1,5 @@
 class SystemConfiguration < ActiveRecord::Base
+  default_scope order('id ASC') 
 
   def self.typenames
     ["String","Boolean","Numeric"]
@@ -10,8 +11,20 @@ class SystemConfiguration < ActiveRecord::Base
 
   def self.get(keyname)
     value = SystemConfiguration.where(:keyname => keyname).first.v rescue nil
-    if value
-      return value
+    typename = SystemConfiguration.where(:keyname => keyname).first.typename rescue nil
+    if value and typename
+      case typename
+      when "String"
+        return value.to_s
+      when "Boolean"
+        if value == "true"
+          return true
+        else
+          return false
+        end
+      when "Numeric"
+        return value.to_i
+      end
     else
       return eval("configatron.#{keyname}") 
     end
@@ -30,7 +43,7 @@ class SystemConfiguration < ActiveRecord::Base
         end
       when "Numeric"
         unless v =~ /^[0-9]+$/ 
-          errors[:base] << I18n.t('activerecord.attributes.system_configuration.invalid_format')
+          errors.add(:v, I18n.t('activerecord.attributes.system_configuration.invalid_format')) 
         end
       end
     end

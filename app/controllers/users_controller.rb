@@ -181,6 +181,13 @@ class UsersController < ApplicationController
   end
 
   def edit
+    unless @user == current_user or current_user.has_role?('Librarian')
+      access_denied; return
+    end 
+    unless @user.patron
+      redirect_to new_user_patron_url(@user); return
+    end
+
     @user.role_id = @user.role.id
     @patron = @user.patron
     family_id = FamilyUser.find(:first, :conditions => ['user_id=?', @user.id]).family_id rescue nil
@@ -237,6 +244,13 @@ class UsersController < ApplicationController
   end
 
   def update
+    unless @user == current_user or current_user.has_role?('Librarian')
+      access_denied; return
+    end 
+    unless @user.patron
+      redirect_to new_user_patron_url(@user); return
+    end
+
     @user = User.where(:username => params[:id]).first
     @family = params[:family]
     begin

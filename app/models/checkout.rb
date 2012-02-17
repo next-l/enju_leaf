@@ -204,7 +204,7 @@ class Checkout < ActiveRecord::Base
           page.list(:list).add_row do |row|
             row.item(:not_found).hide
             user = checkout.user.patron.full_name
-            if configatron.checkout_print.old == true and checkout.user.patron.date_of_birth
+            if SystemConfiguration.get("checkout_print.old") == true and checkout.user.patron.date_of_birth
               age = (Time.now.strftime("%Y%m%d").to_f - checkout.user.patron.date_of_birth.strftime("%Y%m%d").to_f) / 10000
               age = age.to_i
               user = user + '(' + age.to_s + I18n.t('activerecord.attributes.patron.old')  +')'

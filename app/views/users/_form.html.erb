@@ -139,7 +139,7 @@
 
   <div class="field">
     <span id="name_person">
-      <%- if configatron.family_name_first == true -%>
+      <%- if SystemConfiguration.get("family_name_first") == true -%>
         <%= render 'patrons/form_family_name_first', :f => f -%>
       <%- else -%>
         <%= render 'patrons/form_family_name_last', :f => f -%>

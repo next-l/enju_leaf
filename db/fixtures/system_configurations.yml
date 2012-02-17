@@ -1,0 +1,242 @@
+---
+system_configuration_00001:
+  id: 1 
+  keyname: header.disp_date
+  v: 2
+  typename: Numeric
+  description: "現在日付の表示方法。\n0:非表示 1:西暦 2:和暦"
+system_configuration_00002:
+  id: 2
+  keyname: disp_alert_when_move_page_with_function
+  v: "true"
+  typename: Boolean 
+  description: "フォームに入力済みの状態で、ファンクションキーによる画面遷移を行おうとするとアラート面を表示するか。trueのとき表示。"
+system_configuration_00003:
+  id: 3
+  keyname: family_name_first
+  v: "true"
+  typename: Boolean
+  description: "パトロンの名前を入力する際、姓を先に表示するか。trueのとき表示。"
+system_configuration_00004:
+  id: 4
+  keyname: max_number_of_results
+  v: 500
+  typename: Numeric
+  description: "資料検索時の最大表示件数。"
+system_configuration_00005:
+  id: 5
+  keyname: checkins.disp_title
+  v: "true"
+  typename: Boolean
+  description: "返却画面で本のタイトルを表示するか。trueのとき表示。"
+system_configuration_00006:
+  id: 6
+  keyname: checkins.disp_user
+  v: "true"
+  typename: Boolean
+  description: "返却画面で利用者の名前を表示するか。家族の貸出、予約一覧に家族の名前を表示するか。trueのとき表示。"
+system_configuration_00007:
+  id: 7
+  keyname: checked_items.disp_title
+  v: "true"
+  typename: Boolean
+  description: "貸出画面で本のタイトルを表示するか。trueのとき表示。"
+system_configuration_00008:
+  id: 8
+  keyname: checked_items.disp_user
+  v: "true"
+  typename: Boolean
+  description: "貸出画面で利用者の名前を表示するか。家族の貸出、予約一覧に家族の名前を表示するか。trueのとき表示。"
+system_configuration_00009:
+  id: 9
+  keyname: no_operation_counter
+  v: 0
+  typename: Numeric
+  description: "無操作待機時間 (sec)。0のときは作動しない。"
+system_configuration_00010:
+  id: 10 
+  keyname: checkouts_print.message
+  v: "本は大事に扱いましょう。期限はきちんと守りましょう。インターネットで延長ができます。"
+  typename: String
+  description: "貸出票に表示するメッセージ内容"
+system_configuration_00011:
+  id: 11
+  keyname: checkout_print.old
+  v: "true"
+  typename: Boolean
+  description: "貸出リストに利用者の年齢を表示するか。trueのとき表示。"
+system_configuration_00012:
+  id: 12
+  keyname: reserve_print.old
+  v: "true"
+  typename: Boolean
+  description: "予約表に利用者の年齢を表示するか。trueのとき表示。"
+system_configuration_00013:
+  id: 13
+  keyname: reminder_postal_card_message
+  v: "図書館からお借りになったなった本や視聴覚資料などを、返す日が過ぎております。\n速やかにお返しください。"
+  typename: String
+  description: "督促はがきの図書館メッセージ（最大全角242文字）。"
+system_configuration_00014:
+  id: 14
+  keyname: reminder_letter_message
+  v: "図書館からお借りになったなった本や視聴覚資料などを、返す日が過ぎております。\n速やかにお返しください。\n\n・お返しになった後、行き違いにこの手紙が届きましたらご容赦ください。\n・図書館が閉まっているときは、入り口脇のブックポストをご利用ください。\n>・視聴覚資料に限りましてはブックポストへの返却はご遠慮いただき、直接カウンターにお返しください。\n・資料を、郵送や宅配便でお返しいただく場合は、
+壊れないようご配慮の上お送りください。\n・ご不明な点がありましたらお問い合わせください。"
+  typename: String
+  description: "督促書の図書館メッセージ。"
+system_configuration_00015:
+  id: 15
+  keyname: statistic_report.open
+  v: 8
+  typename: Numeric
+  description: "時間帯別利用統計の開館時間(n時)。"
+system_configuration_00016:
+  id: 16
+  keyname: statistic_report.hours
+  v: 14
+  typename: Numeric
+  description: "時間別カラム（横列）の表示カラム数。"
+system_configuration_00017:
+  id: 17
+  keyname: manifestation.display_checkouts_count
+  v: "true"
+  typename: Boolean
+  description: "資料の詳細画面に過去の貸出回数を表示するか。trueのとき表示。"
+system_configuration_00018:
+  id: 18
+  keyname: manifestation.display_reserves_count
+  v: "true"
+  typename: Boolean
+  description: "資料の詳細画面に過去の予約回数を表示するか。trueのとき表示。"
+system_configuration_00019:
+  id: 19
+  keyname: manifestation.display_last_checkout_datetime
+  v: "true"
+  typename: Boolean
+  description: "資料の詳細画面に最終利用年月日を表示するか。trueのとき表示。"
+system_configuration_00020:
+  id: 20
+  keyname: user.locked.background
+  v: "aqua"
+  typename: String
+  description: "利用者の一覧画面の利用禁止者の名前カラム部分の背景色。"
+system_configuration_00021:
+  id: 21
+  keyname: user.unable.background
+  v: "yellow"
+  typename: String
+  description: "利用者の一覧画面の連絡不能者の名前カラム部分の背景色。"
+system_configuration_00022:
+  id: 22
+  keyname: sounds.basedir
+  v: "sounds/"
+  typename: String
+  description: "音ファイルのパス。"
+system_configuration_00023:
+  id: 23
+  keyname: sounds.errors.item.this_item_is_reserved
+  v: "missA11.ogg"
+  typename: String
+  description: "予約済み資料返却時に発生する警告音。"
+system_configuration_00024:
+  id: 24
+  keyname: sounds.errors.checkin.not_checkin
+  v: "chimeA08.ogg"
+  typename: String
+  description: "貸出を行っていない資料返却時に発生する警告音。"
+system_configuration_00025:
+  id: 25
+  keyname: sounds.errors.checkin.already_checked_in
+  v: "missA11.ogg"
+  typename: String
+  description: "返却済み資料を返却しようとすると発生する警告音。"
+system_configuration_00026:
+  id: 26
+  keyname: sounds.errors.checkin.overdue_item
+  v: "missA11.ogg"
+  typename: String
+  description: "貸出期限が過ぎている資料返却時に発生する警告音。"
+system_configuration_00027:
+  id: 27
+  keyname: sounds.errors.checkin.not_available_for_checkin
+  v: "churchA08.ogg"
+  typename: String
+  description: "状態不正の資料返却時に発生する警告音。"
+system_configuration_00028:
+  id: 28
+  keyname: sounds.errors.checkin.other_library_item
+  v: "chimeA08.ogg"
+  typename: String
+  description: "他の図書館所蔵の資料返却時に発生する警告音。"
+system_configuration_00029:
+  id: 29
+  keyname: sounds.errors.checked_item.already_checked_out
+  v: "missA11.ogg"
+  typename: String
+  description: "貸出済みの資料を貸し出そうとすると発生する警告音。"
+system_configuration_00030:
+  id: 30
+  keyname: sounds.errors.checked_item.not_available_for_checkout
+  v: "churchA08.ogg"
+  typename: String
+  description: "貸出できない資料を貸し出そうとすると発生する警告音。"
+system_configuration_00031:
+  id: 31
+  keyname: sounds.errors.checked_item.this_group_cannot_checkout
+  v: "churchA08.ogg"
+  typename: String
+  description: "貸出を行えない利用者種別の利用者に資料を貸し出そうとすると発生する警告音。"
+system_configuration_00032:
+  id: 32
+  keyname: sounds.errors.checked_item.in_transcation
+  v: "chimeA08.ogg"
+  typename: String
+  description: "貸出処理中の資料を貸し出そうとすると発生する警告音。"
+system_configuration_00033:
+  id: 33
+  keyname: sounds.errors.checked_item.reserved_item_included
+  v: "chimeA08.ogg"
+  typename: String
+  description: "予約状態が取り置き済み以外の利用者に予約済み資料を貸し出そうとすると発生する警告音。"
+system_configuration_00034:
+  id: 34
+  keyname: reserve.not_reserve_on_loan
+  v: "false"
+  typename: Boolean
+  description: "予約対象は在架資料のみか。trueのとき、一般利用者が図書館利用時に、在架資料を予約/利用することができる。"
+system_configuration_00035:
+  id: 35
+  keyname: library_checks.auto_checkin
+  v: "true"
+  typename: Boolean
+  description: "蔵書点検時、未返却資料を検出した場合は自動的に返却処理を行うか。trueのとき自動返却処理を行う。"
+system_configuration_00036:
+  id: 36
+  keyname: patron.check_duplicate_user
+  v: "false"
+  typename: Boolean
+  description: "ユーザ情報重複チェックを行うか。trueのとき重複チェックを行う。"
+system_configuration_00037:
+  id: 37
+  keyname: manifestations.users_show_output_button
+  v: "false"
+  typename: Boolean
+  description: "検索結果の一覧の出力ボタンをどの権限でも表示するか。trueのとき全ての権限で表示。falseのときライブライアン以上の権限で表示。"
+system_configuration_00038:
+  id: 38
+  keyname: items.confirm_destroy
+  v: "true"
+  typename: Boolean
+  description: "所蔵が1冊だけの資料削除時、すぐに削除できないようにするか。trueのとき除籍してからでなければ削除できない。falseのときすぐに削除可能。"
+system_configuration_00039:
+  id: 39
+  keyname: checkouts.cannot_for_new_serial
+  v: "true"
+  typename: Boolean
+  description: "雑誌最新号を貸出禁止にするか。trueのとき貸出禁止。"
+system_configuration_00040:
+  id: 40
+  keyname: reserves.able_for_not_item
+  v: "true"
+  typename: Boolean
+  description: "所蔵のない資料の予約ができるようにするか。trueのとき予約可能。"

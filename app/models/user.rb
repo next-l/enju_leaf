@@ -490,8 +490,8 @@ class User < ActiveRecord::Base
 
   def set_color
     @color = nil
-    @color = configatron.user.unable.background if self.unable == true
-    @color = configatron.user.locked.background unless self.locked_at.blank?
+    @color = SystemConfiguration.get("user.unable.background") if self.unable == true
+    @color = SystemConfiguration.get("user.locked.background") unless self.locked_at.blank?
     return @color
   end
 

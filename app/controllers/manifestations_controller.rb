@@ -190,7 +190,7 @@ class ManifestationsController < ApplicationController
       end
       unless session[:manifestation_ids]
         manifestation_ids = search.build do
-          paginate :page => 1, :per_page => configatron.max_number_of_results
+          paginate :page => 1, :per_page => SystemConfiguration.get("max_number_of_results")
         end.execute.raw_results.collect(&:primary_key).map{|id| id.to_i}
         session[:manifestation_ids] = manifestation_ids
       end
@@ -226,8 +226,8 @@ class ManifestationsController < ApplicationController
         logger.error "query error: #{e}"
         return
       end
-      if @count[:query_result] > configatron.max_number_of_results
-        max_count = configatron.max_number_of_results
+      if @count[:query_result] > SystemConfiguration.get("max_number_of_results")
+        max_count = SystemConfiguration.get("max_number_of_results")
       else
         max_count = @count[:query_result]
       end

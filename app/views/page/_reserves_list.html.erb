@@ -3,7 +3,7 @@
 <table class="index">
   <tr>
     <th style="width: 30px"><%= 'Id' -%></th>
-    <%- if configatron.checked_items.disp_title == true -%>
+    <%- if SystemConfiguration.get("checked_items.disp_title") -%>
       <th class="checked_item_title"><%= t('page.title') -%></th>
     <%- end -%>
     <th><%= t('activerecord.attributes.reserve.state') -%></th>
@@ -17,7 +17,7 @@
   <%- @reserves.each_with_index do |reserve, i| -%>
     <tr class="line<%= cycle("0", "1") -%>">
       <td><%= link_to reserve.id, user_reserve_path(reserve.user, reserve) -%></td>
-      <%- if configatron.checked_items.disp_title == true -%>
+      <%- if SystemConfiguration.get("checked_items.disp_title") -%>
         <td><%= render 'reserves/title', :reserve => reserve -%></td>
       <%- end -%>
       <td><%= i18n_state(reserve.state) -%></td>

@@ -3275,8 +3275,8 @@ class StatisticReport < ActiveRecord::Base
 
   def self.get_timezone_report_pdf(start_at, end_at)
     #default setting 9 - 20
-    open = configatron.statistic_report.open
-    hours = configatron.statistic_report.hours
+    open = SystemConfiguration.get("statistic_report.open")
+    hours = SystemConfiguration.get("statistic_report.hours")
 
     libraries = Library.all
     logger.error "create daily timezone report: #{start_at} - #{end_at}"
@@ -3615,8 +3615,8 @@ class StatisticReport < ActiveRecord::Base
       [:option, 'statistic_report.option']
     ]
     #default setting 9 - 20
-    open = configatron.statistic_report.open
-    hours = configatron.statistic_report.hours
+    open = SystemConfiguration.get("statistic_report.open")
+    hours = SystemConfiguration.get("statistic_report.hours")
 
     libraries = Library.all
     logger.error "create daily timezone report: #{start_at} - #{end_at}"
