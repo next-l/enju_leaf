@@ -7,7 +7,7 @@ class ReminderList < ActiveRecord::Base
 
   belongs_to :checkout
 
-  before_validation :set_checkout_id
+  before_validation :set_checkout_id, :on => :create
 
   def self.per_page
     10
