@@ -39,7 +39,6 @@ class ResourceImportFile < ActiveRecord::Base
   end
 
   def import_start
-    sm_start!
     case edit_mode
     when 'create'
       import
@@ -53,6 +52,7 @@ class ResourceImportFile < ActiveRecord::Base
   end
 
   def import
+    sm_start!
     self.reload
     num = {:manifestation_imported => 0, :item_imported => 0, :manifestation_found => 0, :item_found => 0, :failed => 0}
     row_num = 2
@@ -167,7 +167,7 @@ class ResourceImportFile < ActiveRecord::Base
     when 'create'
       manifestation.publishers << patrons
     when 'update'
-      manifestation.publishers = patrons unless patron.empty?
+      manifestation.publishers = patrons unless patrons.empty?
     end
     manifestation
   end
@@ -231,6 +231,7 @@ class ResourceImportFile < ActiveRecord::Base
   #end
 
   def modify
+    sm_start!
     rows = open_import_file
     rows.each do |row|
       item_identifier = row['item_identifier'].to_s.strip
@@ -265,6 +266,7 @@ class ResourceImportFile < ActiveRecord::Base
   end
 
   def remove
+    sm_start!
     rows = open_import_file
     rows.each do |row|
       item_identifier = row['item_identifier'].to_s.strip
@@ -414,9 +416,9 @@ class ResourceImportFile < ActiveRecord::Base
         work = manifestation
         work.series_statement = series_statement
         if defined?(EnjuSubject)
-          work.subjects = subjects
+          work.subjects = subjects unless subjects.empty?
         end
-        work.creators = creator_patrons
+        work.creators = creator_patrons unless creator_patrons.empty?
       end
 
       manifestation = self.class.import_manifestation(work, publisher_patrons, {
@@ -441,7 +443,7 @@ class ResourceImportFile < ActiveRecord::Base
         :height => height,
         :price => row['manifestation_price'],
         :description => row['description'],
-        :description_transcription => row['description_transcription'],
+        #:description_transcription => row['description_transcription'],
         :note => row['note'],
         :series_statement => series_statement,
         :start_page => start_page,

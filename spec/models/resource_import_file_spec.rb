@@ -116,7 +116,7 @@ describe ResourceImportFile do
 
   describe "when its mode is 'update'" do
     it "should update items" do
-      @file = ResourceImportFile.create :resource_import => File.new("#{Rails.root.to_s}/examples/item_update_file.tsv")
+      @file = ResourceImportFile.create :resource_import => File.new("#{Rails.root.to_s}/examples/item_update_file.tsv"), :edit_mode => 'update'
       @file.modify
       Item.where(:item_identifier => '00001').first.manifestation.creators.collect(&:full_name).should eq ['たなべ', 'こうすけ']
       Item.where(:item_identifier => '00003').first.manifestation.original_title.should eq 'テスト3'
@@ -126,7 +126,7 @@ describe ResourceImportFile do
   describe "when its mode is 'destroy'" do
     it "should remove items" do
       old_count = Item.count
-      @file = ResourceImportFile.create :resource_import => File.new("#{Rails.root.to_s}/examples/item_delete_file.tsv")
+      @file = ResourceImportFile.create :resource_import => File.new("#{Rails.root.to_s}/examples/item_delete_file.tsv"), :edit_mode => 'destroy'
       @file.remove
       Item.count.should eq old_count - 2
     end
