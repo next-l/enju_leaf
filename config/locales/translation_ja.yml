@@ -179,8 +179,16 @@ ja:
       system_configuration: システム情報
       reminder_list: 督促
       expense: 購入情報
-   
+      budget_and_results_managements: 予算実績対比 
     attributes:
+      budget_and_results_managements:
+        id: 項番
+        item_of_expenditure: 費目
+        expense: 購入金額(円)
+        budget: 予算(円)
+        remain_amount: 予算残額(円)
+        digestibility: 消化率(%)
+        search: 検索
       reminder_list:
         id: Id
         checkout: 貸出

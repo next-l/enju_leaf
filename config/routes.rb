@@ -378,6 +378,7 @@ EnjuLeaf::Application.routes.draw do
   resources :budgets
   resources :budget_types
   resources :terms
+  resources :budget_and_results_managements
 
   resources :statistic_reports do
     post :get_monthly_report, :on => :collection

@@ -1,0 +1,31 @@
+<div id="content_detail" class="ui-corner-all">
+<h1 class="title"><%= t('activerecord.models.budget_and_results_managements') -%></h1>
+<div id="content_list">
+<div style="color: green"><%= flash[:message] -%></div>
+<%= form_tag({:action => 'index'}, {:method => 'get'}) do |f| %>  
+  <div class="field">
+    <%= label_tag :term %><br />
+    <%= select_tag :id, options_from_collection_for_select(@terms, 'id', 'display_name', @term.id) -%>
+  </div>
+  <div class="actions">
+    <%= submit_tag t('activerecord.attributes.budget_and_results_managements.search') %>
+  </div>
+<% end %>
+
+<table class="index">
+  <tr>
+    <th><%= t('activerecord.attributes.budget_and_results_managements.id') -%></th>
+    <th><%= t('activerecord.attributes.budget_and_results_managements.item_of_expenditure') -%></th>
+    <th><%= t('activerecord.attributes.budget_and_results_managements.expense') -%></th>
+    <th><%= t('activerecord.attributes.budget_and_results_managements.budget') -%></th>
+    <th><%= t('activerecord.attributes.budget_and_results_managements.remain_amount') -%></th>
+    <th><%= t('activerecord.attributes.budget_and_results_managements.digestibility') -%></th>
+  </tr>
+
+</table>
+
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all">
+</div>

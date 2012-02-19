@@ -3,6 +3,12 @@ class Term < ActiveRecord::Base
   before_save :set_end_date
   has_many :budgets
 
+  scope :current, where(["start_at <= :now and :now < end_at", {:now => Time.now}])
+
+  def self.current_term
+    self.current.first
+  end
+
   def validate
     unless self.start_at < self.end_at
       errors.add(:base, I18n.t('activerecord.attributes.term.end_at_invalid'))
