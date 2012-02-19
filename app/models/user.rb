@@ -6,7 +6,9 @@ class User < ActiveRecord::Base
          :lockable, :lock_strategy => :none, :unlock_strategy => :none
 
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :email, :password, :password_confirmation, :username, :current_password, :user_number, :remember_me
+  attr_accessible :email, :password, :password_confirmation, :username, :current_password, :user_number, :remember_me,
+    :email_confirmation, :note, :user_group_id, :library_id, :locale, :expired_at, :locked, :required_role_id,
+    :keyword_list #, :as => :admin
 
   scope :administrators, where('roles.name = ?', 'Administrator').includes(:role)
   scope :librarians, where('roles.name = ? OR roles.name = ?', 'Administrator', 'Librarian').includes(:role)
@@ -39,6 +41,7 @@ class User < ActiveRecord::Base
   validates_presence_of :user_group, :library, :locale #, :user_number
   validates :user_number, :uniqueness => true, :format => {:with => /\A[0-9A-Za-z_]+\Z/}, :allow_blank => true
   validates_confirmation_of :email, :on => :create, :if => proc{|user| !user.operator.try(:has_role?, 'Librarian')}
+
   before_validation :set_role_and_patron, :on => :create
   before_validation :set_lock_information
   before_destroy :check_role_before_destroy
@@ -219,7 +222,7 @@ class User < ActiveRecord::Base
   end
 
   def self.create_with_params(params, current_user)
-    user = User.new #(params)
+    user = User.new
     user.operator = current_user
     #self.username = params[:user][:login]
     user.note = params[:note]
@@ -233,7 +236,6 @@ class User < ActiveRecord::Base
     user.user_number = params[:user_number]
     user.locale = params[:locale]
     if defined?(EnjuCirculation)
-      user.checkout_icalendar_token = params[:checkout_icalendar_token] ||= false
       user.save_checkout_history = params[:save_checkout_history] ||= false
     end
     if defined?(EnjuSearchLog)
@@ -283,6 +285,8 @@ class User < ActiveRecord::Base
   end
 
   if defined?(EnjuCirculation)
+    attr_accessible :save_checkout_history, :checkout_icalendar_token
+
     has_many :checkouts, :dependent => :nullify
     has_many :reserves, :dependent => :destroy
     has_many :reserved_manifestations, :through => :reserves, :source => :manifestation
@@ -379,6 +383,8 @@ class User < ActiveRecord::Base
   end
 
   if defined?(EnjuSearchLog)
+    attr_accessible :save_search_history
+
     has_many :search_histories, :dependent => :destroy
   end
 end
