@@ -9,10 +9,11 @@ class BudgetAndResultsManagementsController < ApplicationController
       logger.info "term id=#{term_id}}"
 
       term = Term.find(term_id)
+      @term = term
       term_start_yyyymm = term.start_at.strftime("%Y%m")
       term_end_yyyymm = term.end_at.strftime("%Y%m")
       @budgets = Budget.find_all_by_term_id(term_id)
-      @expenses = Expense.where("create_at_yyyymm BETWEEN ? AND ?", term_start_yyyymm, term_end_yyyymm).group(:create_at_yyyymm).sum(:price)
+      @expenses = Expense.where("acquired_at_ym BETWEEN ? AND ?", term_start_yyyymm, term_end_yyyymm).group(:acquired_at_ym).sum(:price)
       #TODO
       @budgets.each do |b|
         r = {}
@@ -39,14 +40,14 @@ class BudgetAndResultsManagementsController < ApplicationController
       @results.sort!{|a, b| a[:created_at] <=> b[:created_at]}
       @results.each do |r|
         if r[:type] == 1
-          remain_amount += r[:budget]
-          amount += r[:budget]
+          remain_amount += r[:budget] if r[:budget]
+          amount += r[:budget] if r[:budget]
         else
           remain_amount -= r[:expense]
           expense += r[:expense]
         end
         r[:remain_amount] = remain_amount
-        r[:digestibility] = (Float(expense) / Float(amount)) * 100
+        r[:digestibility] = (amount == 0)?(0):((Float(expense) / Float(amount)) * 100)
       end
     end
   end

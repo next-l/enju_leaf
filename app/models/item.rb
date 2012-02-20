@@ -287,24 +287,50 @@ class Item < ActiveRecord::Base
     end
   end
 
+  def select_acquired_at
+    if self.acquired_at
+      return self.acquired_at.strftime("%Y%m")
+    else
+      return Time.now.strftime("%Y%m")
+    end
+  end
+
   def check_price
     record = Expense.where(:item_id => self.id).order("id DESC").first
     begin
       unless record.nil?
+        record.acquired_at_ym = select_acquired_at
+        record.acquired_at = self.acquired_at
+        record.save!
+
         original_library_id = record.budget.library_id rescue nil
-        return if self.price == record.price && self.library_id == original_library_id
+        logger.info "@@@@@"
+        logger.info "price=#{self.price} / record_price=#{record.price} , library_id=#{self.library_id} / original_library_id=#{original_library_id}"
+
+        if self.price == record.price && self.library_id == original_library_id
+          logger.info "no change. price and library_id"
+          return
+        end
         Expense.transaction do
-          Expense.create!(:item_id => self.id, :budget_id => record.budget_id, :price => record.price*-1, :create_at_yyyymm => Time.now.strftime("%Y%m"))
+          Expense.create!(:item_id => self.id, :budget_id => record.budget_id, :price => record.price*-1, :acquired_at_ym  => select_acquired_at, :acquired_at => self.acquired_at)
+          #TODO
           budget = Budget.joins(:term).where(:library_id => self.shelf.library.id).order("terms.start_at DESC").first
-          Expense.create!(:item_id => self.id, :budget_id => budget.id, :price => self.price, :create_at_yyyymm => Time.now.strftime("%Y%m"))
+          if budget
+            budget_id = budget.id
+          else
+            budget_id = nil
+          end
+          Expense.create!(:item_id => self.id, :budget_id => budget_id, :price => self.price, :acquired_at_ym => select_acquired_at, :acquired_at => self.acquired_at)
         end
       else
         return true if self.price.nil?
         budget = Budget.joins(:term).where(:library_id => self.shelf.library.id).order("terms.start_at DESC").first
-        Expense.create!(:item => self, :budget => budget, :price => self.price, :create_at_yyyymm => Time.now.strftime("%Y%m"))
+        yyyymm = select_acquired_at
+        Expense.create!(:item => self, :budget => budget, :price => self.price, :acquired_at_ym => yyyymm, :acquired_at => self.acquired_at)
       end
     rescue Exception => e
       logger.error "Failed to update expense: #{e}"
+      logger.error $@
     end
   end
 
