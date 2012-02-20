@@ -61,4 +61,12 @@ class TermsController < ApplicationController
       end
     end
   end
+
+  def get_term
+    return nil unless request.xhr?
+    unless params[:term_id].blank?
+      term = Term.find(params[:term_id])
+      render :json => { :success => 1, :start_at => l(term.start_at, :format => :only_date), :end_at => l(term.end_at, :format => :only_date) }
+    end
+  end
 end

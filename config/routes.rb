@@ -377,7 +377,9 @@ EnjuLeaf::Application.routes.draw do
 
   resources :budgets
   resources :budget_types
-  resources :terms
+  resources :terms do
+    get :get_term, :on => :collection
+  end
   resources :budget_and_results_managements
 
   resources :statistic_reports do
