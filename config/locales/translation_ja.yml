@@ -1249,6 +1249,7 @@ ja:
         id: id
         file_name: 点検ファイル名
         uploaded_at: アップロード日時
+        data_upload: 点検ファイル
         data_upload_file_name: 点検ファイル
       resource_import_result:
         body: 本文
