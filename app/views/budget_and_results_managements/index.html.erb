@@ -16,12 +16,22 @@
   <tr>
     <th><%= t('activerecord.attributes.budget_and_results_managements.id') -%></th>
     <th><%= t('activerecord.attributes.budget_and_results_managements.item_of_expenditure') -%></th>
-    <th><%= t('activerecord.attributes.budget_and_results_managements.expense') -%></th>
-    <th><%= t('activerecord.attributes.budget_and_results_managements.budget') -%></th>
-    <th><%= t('activerecord.attributes.budget_and_results_managements.remain_amount') -%></th>
-    <th><%= t('activerecord.attributes.budget_and_results_managements.digestibility') -%></th>
+    <th align="right"><%= t('activerecord.attributes.budget_and_results_managements.expense') -%></th>
+    <th align="right"><%= t('activerecord.attributes.budget_and_results_managements.budget') -%></th>
+    <th align="right"><%= t('activerecord.attributes.budget_and_results_managements.remain_amount') -%></th>
+    <th align="right"><%= t('activerecord.attributes.budget_and_results_managements.digestibility') -%></th>
   </tr>
 
+<%- @results.each_with_index do |r, i| -%>
+  <tr class="line<%= cycle("0", "1") -%>" >
+    <td><%= i+1 -%></td>
+    <td><%= r[:item_of_expenditure] -%></td>
+    <td align="right"><%= number_to_currency(r[:expense], :unit => "") -%></td>
+    <td align="right"><%= number_to_currency(r[:budget], :unit => "") -%></td>
+    <td align="right"><%= number_to_currency(r[:remain_amount], :unit => "") -%></td>
+    <td align="right"><%= number_to_percentage(100, :precision => 1) -%></td>
+  </tr>
+<%- end -%>
 </table>
 
 </div>
