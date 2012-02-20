@@ -297,10 +297,16 @@ class UsersController < ApplicationController
   end
 
   def destroy
-    if @user.deletable_by(current_user)
-      @user.destroy
-    else
-      flash[:notice] = @user.errors[:base].join(' ')
+    begin
+      if @user.deletable_by(current_user)
+        @user.patron.destroy
+        @user.destroy
+      else
+        flash[:notice] = @user.errors[:base].join(' ')
+        redirect_to current_user
+        return
+      end
+    rescue
       redirect_to current_user
       return
     end
