@@ -97,6 +97,10 @@
         <td><strong><%= t('activerecord.models.language') -%>:</strong></td>
         <td><%= @patron.language.display_name.localize -%></td>
       </tr>
+      <tr>
+        <td><strong><%= t('activerecord.models.country') -%>:</strong></td>
+        <td><%= @patron.country.display_name.localize -%></td>
+      </tr>
 <%# - if can? :destroy, @patron -%>
       <%- if user_signed_in? and current_user.try(:has_role?, 'Librarian') -%>
         <tr>
@@ -188,9 +192,9 @@
           </tr>
         <%# end %>
       <%- end -%>
-      <%- if @patron.user.blank? and (!@patron.user.blank? and user_signed_in? and current_user.try(:has_role?, 'Librarian')) -%>
+      <%- if !@patron.user or (@patron.user and user_signed_in? and current_user.has_role?('Librarian')) -%>
         <tr>
-          <td><strong><%= t('activerecord.attributes.patron.note') -%>:</strong></td>
+         <td><strong><%= t('activerecord.attributes.patron.note') -%>:</strong></td>
           <td><%= @patron.note -%></td>
         </tr>
         <tr>
