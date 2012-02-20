@@ -16,21 +16,38 @@ class BudgetAndResultsManagementsController < ApplicationController
       #TODO
       @budgets.each do |b|
         r = {}
-        r[:item_of_expenditure] = 'budget'
+        r[:item_of_expenditure] = I18n.t('activerecord.models.budget') 
+        r[:item_of_expenditure] += "(" + b.note + ")" unless b.note.empty?
         r[:budget] = b.amount
-        r[:created_at] = b.created_at
+        r[:created_at] = b.created_at.strftime("%Y%m%d")
+        r[:type] = 1
         @results << r
       end
       @expenses.each do |k, v|
         r = {}
-        r[:item_of_expenditure] = "#{k}"
+        r[:item_of_expenditure] = I18n.t('activerecord.attributes.budget_and_results_managements.expense_label', {:yyyy=>k.to_s.slice(0, 4), :mm=>k.to_s.slice(4, 2)})
         r[:expense] = v
-        r[:created_at] = "#{k}00"
+        r[:created_at] = "#{k}99"
+        r[:type] = 2
         @results << r
       end
 
-      pp @results
-      #@results = @results.sort{|a, b| a[:created_at] <=> b[:created_at]}
+      #pp @results
+      remain_amount = 0
+      amount = 0
+      expense = 0
+      @results.sort!{|a, b| a[:created_at] <=> b[:created_at]}
+      @results.each do |r|
+        if r[:type] == 1
+          remain_amount += r[:budget]
+          amount += r[:budget]
+        else
+          remain_amount -= r[:expense]
+          expense += r[:expense]
+        end
+        r[:remain_amount] = remain_amount
+        r[:digestibility] = (Float(expense) / Float(amount)) * 100
+      end
     end
   end
 end

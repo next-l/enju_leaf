@@ -189,6 +189,7 @@ ja:
         remain_amount: 予算残額(円)
         digestibility: 消化率(%)
         search: 検索
+        expense_label: %{yyyy}年%{mm}月分 
       reminder_list:
         id: Id
         checkout: 貸出
