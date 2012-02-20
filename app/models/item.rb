@@ -294,14 +294,14 @@ class Item < ActiveRecord::Base
         original_library_id = record.budget.library_id rescue nil
         return if self.price == record.price && self.library_id == original_library_id
         Expense.transaction do
-          Expense.create!(:item_id => self.id, :budget_id => record.budget_id, :price => record.price*-1)
+          Expense.create!(:item_id => self.id, :budget_id => record.budget_id, :price => record.price*-1, :create_at_yyyymm => Time.now.strftime("%Y%m"))
           budget = Budget.joins(:term).where(:library_id => self.shelf.library.id).order("terms.start_at DESC").first
-          Expense.create!(:item_id => self.id, :budget_id => budget.id, :price => self.price)
+          Expense.create!(:item_id => self.id, :budget_id => budget.id, :price => self.price, :create_at_yyyymm => Time.now.strftime("%Y%m"))
         end
       else
         return true if self.price.nil?
         budget = Budget.joins(:term).where(:library_id => self.shelf.library.id).order("terms.start_at DESC").first
-        Expense.create!(:item => self, :budget => budget, :price => self.price)
+        Expense.create!(:item => self, :budget => budget, :price => self.price, :create_at_yyyymm => Time.now.strftime("%Y%m"))
       end
     rescue Exception => e
       logger.error "Failed to update expense: #{e}"
