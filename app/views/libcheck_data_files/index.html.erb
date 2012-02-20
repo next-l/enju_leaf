@@ -15,7 +15,7 @@
   <tr class="line<%= cycle("0", "1") -%>">
     <td><%= link_to libcheck_data_file.id, libcheck_data_file -%> </td>
     <td><%= libcheck_data_file.file_name -%> </td>
-    <td><%= l(libcheck_data_file.updated_at) -%> </td>
+    <td><%= l(libcheck_data_file.uploaded_at) if libcheck_data_file.uploaded_at -%> </td>
     <td><%= link_to t('page.destroy'), libcheck_data_file, :confirm => t('page.are_you_sure'), :method => :delete -%> </td>
   </tr>
 <%- end -%> 

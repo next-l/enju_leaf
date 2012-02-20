@@ -25,6 +25,7 @@ class LibcheckDataFilesController < ApplicationController
   def create
     @libcheck_data_file = LibcheckDataFile.new
     @libcheck_data_file.library_check_id = params[:libcheck_data_file][:library_check_id]
+    @libcheck_data_file.uploaded_at = Time.now
     respond_to do |format|
       if @libcheck_data_file.update_attributes(params[:libcheck_data_file])
         flash[:notice] = t('controller.successfully_created', :model => t('activerecord.models.libcheck_data_file'))

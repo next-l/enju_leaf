@@ -3,10 +3,13 @@
 <div id="content_list">
 
   <p>
-  <strong><%= t('activerecord.attributes.libcheck_data_file.file_name') -%></strong>
-  <%= @libcheck_data_file.file_name -%>
+    <strong><%= t('activerecord.attributes.libcheck_data_file.file_name') -%>:</strong>
+    <%= @libcheck_data_file.file_name -%>
   </p>
-
+  <p>
+    <strong><%= t('activerecord.attributes.libcheck_data_file.uploaded_at') -%>:</strong>
+    <%= l(@libcheck_data_file.uploaded_at) if @libcheck_data_file.uploaded_at -%>
+  </p>
 
 </div>
 </div>
