@@ -141,7 +141,7 @@ class Checkout < ActiveRecord::Base
   end
 
   # output
-  def self.output_checkouts(checkouts, lend_user, current_user)
+  def self.output_checkouts(checkouts, user, current_user)
     report = ThinReports::Report.new :layout => File.join(Rails.root, 'report', 'checkouts.tlf')
 
     report.layout.config.list(:list) do
@@ -156,8 +156,8 @@ class Checkout < ActiveRecord::Base
 
     report.start_new_page do |page|
       page.item(:library).value(LibraryGroup.system_name(@locale))
-      page.item(:user).value(current_user.user_number)
-      page.item(:lend_user).value(lend_user.user_number)
+      page.item(:user).value(user.user_number)
+      page.item(:lend_user).value(current_user.user_number)
       page.item(:lend_library).value(library.display_name)
       page.item(:lend_library_telephone_number_1).value(library.telephone_number_1)
       page.item(:lend_library_telephone_number_2).value(library.telephone_number_2)

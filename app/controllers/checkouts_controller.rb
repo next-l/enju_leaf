@@ -65,7 +65,7 @@ class CheckoutsController < ApplicationController
     #output
     if params[:output_checkouts] or params[:output_checkout_list_pdf] or params[:output_checkout_list_tsv]
       if params[:output_checkouts]
-        data = Checkout.output_checkouts(checkouts, User.find(params[:user_id]), current_user)
+        data = Checkout.output_checkouts(checkouts, @user, current_user)
         send_data data.generate, :filename => configatron.checkouts_print.filename
       end
       if params[:output_checkout_list_pdf]
