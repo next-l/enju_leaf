@@ -2004,6 +2004,8 @@ ja:
     import_request: "すぐにインポートする"
     start_importing: "インポートを開始しました。"
     unsuccess_start: "インポート開始に失敗しました。"
+  library_check:
+    opeym_notice: "実施年月は 201203 のように YYYYMM 形式で入力してください。"
   budget:
     yen: "%{amount} 円"
     yent: 円
