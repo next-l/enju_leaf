@@ -54,6 +54,7 @@ class ExportItemListsController < ApplicationController
       list_type = params[:export_item_list][:list_type]
       file_type = params[:export_item_list][:file_type]
 
+      # get data
       logger.error "SQL start at #{Time.now}"
       case list_type.to_i
       when 1
@@ -106,9 +107,17 @@ class ExportItemListsController < ApplicationController
       end
       logger.error "SQL end at #{Time.now}\nfound #{@items.length rescue 0} records"
 
+      # make file
       begin
         if file_type == 'pdf'
-          data = Item.make_export_item_list_pdf(@items, filename)
+          case list_type.to_i
+          when 3
+            data = Item.make_export_removed_list_pdf(@items)
+          when 5
+            data = Item.make_export_new_item_list_pdf(@items)
+          else
+            data = Item.make_export_item_list_pdf(@items, filename)
+          end
           unless data
             flash[:message] = t('item_list.no_record')
             @items_size = 0
@@ -118,7 +127,14 @@ class ExportItemListsController < ApplicationController
           end
           send_data data.generate, :filename => "#{filename}.pdf"
         elsif file_type == 'tsv'
-          data = Item.make_export_item_list_tsv(@items)
+          case list_type.to_i
+          when 3
+            data = Item.make_export_removed_list_tsv(@items)
+          when 5
+            data = Item.make_export_new_item_list_tsv(@items)
+          else
+            data = Item.make_export_item_list_tsv(@items)
+          end
           send_data data, :filename => "#{filename}.tsv"
         end
         return true

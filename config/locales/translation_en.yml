@@ -492,6 +492,8 @@ en:
         set_status: Loss item processing
         will_loss_item: Is status set as Lost, and Is a book returned? 
         fail_update_loss_item: Failed to update status
+        created_at: Created at
+        removed_at: Removed at
       loss_item:
         user_id: User number
         item_id: Loss item 
