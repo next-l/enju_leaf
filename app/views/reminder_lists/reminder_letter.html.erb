@@ -1,8 +1,8 @@
 <script>
   $(document).ready(function() {
     // output file
-    if ("<%= flash[:file]-%>".length > 0) {
-      location.href= "<%= url_for(:controller => :reminder_lists, :action => :download_file, :path =>"#{flash[:file]}")-%>";
+    if ("<%= flash[:path]-%>".length > 0) {
+      location.href= "<%= url_for(:controller => :reminder_lists, :action => :download_file, :path =>flash[:path])-%>";
     }
  
     // clear form

@@ -247,7 +247,7 @@ class InterLibraryLoansController < ApplicationController
       report.generate_file(out_dir + pdf)
 
       flash[:message] = t('inter_library_loan.successfully_pickup', :item_identifier => item_identifier)
-      flash[:pdf] = out_dir + pdf
+      flash[:path] = out_dir + pdf
 
       logger.error "created report: #{Time.now}"
       render :pickup
@@ -298,9 +298,11 @@ class InterLibraryLoansController < ApplicationController
   end
 
   def download_file
-    path = "#{RAILS_ROOT}/private/system/inter_library_loans/loan_item.pdf"
+    #path = "#{RAILS_ROOT}/private/system/inter_library_loans/loan_item.pdf"
+    path = params[:path]
     if File.exist?(path)
-      send_file path #, :type => "application/pdf"
+      #send_file path, :type => "application/pdf", :disposition => 'attachment'
+      send_file path, :type => "application/pdf", :disposition => 'inline'
     else
       logger.warn "not exist file. path:#{path}"
       render :pickup and return

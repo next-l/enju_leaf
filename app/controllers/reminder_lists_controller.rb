@@ -161,7 +161,8 @@ class ReminderListsController < ApplicationController
   def download_file
     path = params[:path]
     if File.exist?(path)
-      send_file path #, :type => "application/pdf"
+      send_file path, :type => "application/pdf", :disposition => 'inline'
+      #send_file path, :type => "application/pdf", :disposition => 'attachment'
     else
       logger.warn "not exist file. path:#{path}"
       render :back and return
@@ -178,11 +179,11 @@ class ReminderListsController < ApplicationController
     when :reminder_postal_card
       file = out_dir + configatron.reminder_postal_card_print.filename
       ReminderList.output_reminder_postal_card(file, @reminder_lists, @user, current_user)
-      flash[:file] = file
+      flash[:path] = file
     when :reminder_letter
       file = out_dir + configatron.reminder_letter_print.filename
       ReminderList.output_reminder_letter(file, @reminder_lists, @user, current_user)
-      flash[:file] = file
+      flash[:path] = file
     end
   end
 end 
