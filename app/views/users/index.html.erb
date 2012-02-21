@@ -10,7 +10,7 @@
     <%= hidden_field_tag 'patron_id', @patron.id if @patron -%>
     <br />
     <%= submit_tag t('page.search'), :name => 'search' -%>
-    <%= submit_tag t('page.output_pdf', :model => t('page.listing', :model => t('activerecord.models.user'))), :name => 'output_pdf' ,-%>
+    <%= submit_tag t('page.output_pdf', :model => t('page.listing', :model => t('activerecord.models.user'))), :name => 'output_pdf' -%>
     <%= submit_tag t('page.output_tsv', :model => t('page.listing', :model => t('activerecord.models.user'))), :name => 'output_tsv' -%>
   </p>
 <%- end -%>
