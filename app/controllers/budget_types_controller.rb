@@ -52,8 +52,8 @@ class BudgetTypesController < ApplicationController
     @budget_type = BudgetType.find(params[:id])
     respond_to do |format|
       if @budget_type.budgets.empty?
-        @budget.destroy
-        format.html { redirect_to(budgets_url) }
+        @budget_type.destroy
+        format.html { redirect_to(budget_types_url) }
         format.xml  { head :ok }
       else
         format.html { render :action => :index }
