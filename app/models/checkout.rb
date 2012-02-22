@@ -198,6 +198,9 @@ class Checkout < ActiveRecord::Base
         page.list(:list).add_row do |row|
           row.item(:not_found).show
           row.item(:not_found).value(I18n.t('page.no_record_found'))
+          (1..7).each do |i|
+            row.item("line#{i}").hide
+          end
         end
       else
         checkouts.each do |checkout|
