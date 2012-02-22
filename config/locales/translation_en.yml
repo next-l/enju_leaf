@@ -1096,10 +1096,15 @@ en:
         manifestation_relationship_type_id: Manifestation relationship type
       resource_import_result:
         body: Body
+        error_msg: Message
+      resource_import_textresult:
+        error_msg: Message
       patron_import_result:
         body: Body
+        error_msg: Message
       event_import_result:
         body: Body
+        error_msg: Message
       series_statement_merge_list:
         title: Title
       item_list:
