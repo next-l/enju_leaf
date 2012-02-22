@@ -9,7 +9,7 @@
     </tr>
     <tr>
       <td><%= link_to t('activerecord.models.patron'), patrons_path -%></td>
-      <td><%= Patron.count -%></td>
+      <td><%= (Patron.count - User.count) -%></td>
       <td></td>
     </tr>
     <tr>
