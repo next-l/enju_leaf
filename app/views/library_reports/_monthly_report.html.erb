@@ -17,7 +17,11 @@
   </div>
 
   <div class="actions">
-    <%= submit_tag t('page.export') %>
+    <%- if @library_reports.size > 0 -%>
+      <%= submit_tag t('page.export') -%>
+    <%- else -%>
+      <%= submit_tag t('page.export'), :disabled => true -%>
+    <%- end -%>
   </div>
 
 <%- end -%>
