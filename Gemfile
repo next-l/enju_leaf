@@ -37,7 +37,7 @@ platforms :ruby do
 end
 
 platforms :ruby_19 do
-  gem 'simplecov', '~> 0.5', :require => false, :group => :test
+  gem 'simplecov', '~> 0.6', :require => false, :group => :test
 end
 
 platforms :ruby_18 do
