@@ -39,7 +39,7 @@
 </p>
 
 <p>
-  <strong><%= t('activerecord.attributes.manifestation_import_file.state') -%>:</strong>
+  <strong><%= t('activerecord.attributes.event_import_file.state') -%>:</strong>
   <%= localized_state(@event_import_file.state) -%>
 </p>
 
@@ -53,6 +53,9 @@
 
 <div id="submenu" class="ui-corner-all">
   <ul>
+    <%- if @event_import_file.state == 'pending' -%>
+      <li><%= link_to t('event_import_file.import_request'), {:action => "import_request", :id => @event_import_file.id} -%></li>
+    <%- end -%>
     <li><%= link_to t('activerecord.models.event_import_result'), event_import_file_event_import_results_path(@event_import_file) -%></li>
     <li><%= link_to t('page.back_to_index'), event_import_files_path -%></li>
   </ul>

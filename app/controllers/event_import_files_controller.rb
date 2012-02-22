@@ -93,4 +93,18 @@ class EventImportFilesController < ApplicationController
       format.xml  { head :ok }
     end
   end
+
+  def import_request
+    begin
+      @event_import_file = EventImportFile.find(params[:id])
+      Asynchronized_Service.new.delay.perform(:EventImportFile_import, @event_import_file.id)
+      flash[:message] = t('event_import_file.start_importing')
+    rescue Exception => e
+      logger.error "Failed to send process to delayed_job: #{e}"
+    end
+    respond_to do |format|
+      format.html {redirect_to(event_import_file_event_import_results_path(@event_import_file))}
+    end
+  end
+
 end

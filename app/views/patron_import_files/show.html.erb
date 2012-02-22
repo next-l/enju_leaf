@@ -39,7 +39,7 @@
 </p>
 
 <p>
-  <strong><%= t('activerecord.attributes.manifestation_import_file.state') -%>:</strong>
+  <strong><%= t('activerecord.attributes.patron_import_file.state') -%>:</strong>
   <%= localized_state(@patron_import_file.state) -%>
 </p>
 
@@ -53,6 +53,9 @@
 
 <div id="submenu" class="ui-corner-all">
   <ul>
+    <%- if @patron_import_file.state == 'pending' -%>
+      <li><%= link_to t('patron_import_file.import_request'), {:action => "import_request", :id => @patron_import_file.id} -%></li>
+    <%- end -%>
     <li><%= link_to t('activerecord.models.patron_import_result'), patron_import_file_patron_import_results_path(@patron_import_file) -%></li>
     <li><%= link_to t('page.back_to_index'), patron_import_files_path -%></li>
   </ul>

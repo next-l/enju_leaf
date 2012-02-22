@@ -93,4 +93,19 @@ class PatronImportFilesController < ApplicationController
       format.xml  { head :ok }
     end
   end
+
+  def import_request
+    begin
+      @patron_import_file = PatronImportFile.find(params[:id])
+      Asynchronized_Service.new.delay.perform(:PatronImportFile_import, @patron_import_file.id)
+      flash[:message] = t('patron_import_file.start_importing')
+    rescue Exception => e
+      logger.error "Failed to send process to delayed_job: #{e}"
+    end
+    respond_to do |format|
+      format.html {redirect_to(patron_import_file_patron_import_results_path(@patron_import_file))}
+    end
+  end
+
+
 end

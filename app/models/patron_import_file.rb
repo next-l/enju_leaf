@@ -112,12 +112,21 @@ class PatronImportFile < ActiveRecord::Base
     return num
   end
 
-  def self.import
-    PatronImportFile.not_imported.each do |file|
-      file.import_start
+  def self.import(id = nil)
+    #PatronImportFile.not_imported.each do |file|
+    #  file.import_start
+    #end
+    if !id.nil?
+      file = PatronImportFile.find(id) rescue nil
+      file.import_start unless file.nil?
+    else
+      PatronImportFile.not_imported.each do |file|
+        file.import_start
+      end
     end
   rescue
-    logger.info "#{Time.zone.now} importing patrons failed!"
+    logger.error "#{Time.zone.now} importing patrons failed!"
+    logger.error $@
   end
 
   def modify
