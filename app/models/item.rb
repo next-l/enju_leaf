@@ -650,21 +650,18 @@ class Item < ActiveRecord::Base
   end
 
   def self.make_item_register_pdf(pdf_file, items)
-    if items.nil? || items.size < 1
-      logger.warn "item date is empty"
-    else
-      # pdf
-      report = ThinReports::Report.new :layout => File.join(Rails.root, 'report', 'libcheck_items.tlf') 
-      report.events.on :page_create do |e|
-        e.page.item(:page).value(e.page.no)
+    report = ThinReports::Report.new :layout => File.join(Rails.root, 'report', 'libcheck_items.tlf') 
+    report.events.on :page_create do |e|
+      e.page.item(:page).value(e.page.no)
+    end
+    report.events.on :generate do |e|
+      e.pages.each do |page|
+        page.item(:total).value(e.report.page_count)
       end
-      report.events.on :generate do |e|
-        e.pages.each do |page|
-          page.item(:total).value(e.report.page_count)
-        end
-      end
+    end
 
-      bookstore_ids = items.inject([]){|ids, item| ids << item.bookstore_id; ids}.uniq! 
+    bookstore_ids = items.inject([]){|ids, item| ids << item.bookstore_id; ids}.uniq! 
+    if bookstore_ids
       bookstore_ids.each do |bookstore_id|
         report.start_new_page do |page|
           page.item(:date).value(Time.now)
@@ -687,52 +684,44 @@ class Item < ActiveRecord::Base
           end	
         end
       end
-      report.generate_file(pdf_file)
-    end 
-    rescue => e
-      logger.error "pdf: #{e}"
+    else
+      report.start_new_page do |page|
+        page.item(:date).value(Time.now)
+        page.item(:bookstore).value(nil)
+      end
+    end
+    report.generate_file(pdf_file)
   end
 
   def self.make_audio_list_pdf(pdf_file, items)
-    if items.nil? || items.size < 1
-      logger.warn "item date is empty"
-    else
-      filename = I18n.t('item_register.audio_list')
-      # pdf
-      begin
-        report = ThinReports::Report.new :layout => "#{Rails.root.to_s}/report/item_list"
+    filename = I18n.t('item_register.audio_list')
+    report = ThinReports::Report.new :layout => "#{Rails.root.to_s}/report/item_list"
 
-        report.events.on :page_create do |e|
-          e.page.item(:page).value(e.page.no)
-        end
-        report.events.on :generate do |e|
-          e.pages.each do |page|
-            page.item(:total).value(e.report.page_count)
-          end
-        end
-
-        report.start_new_page
-        report.page.item(:date).value(Time.now)
-        report.page.item(:list_name).value(filename)
-        @items.each do |item|
-          report.page.list(:list).add_row do |row|
-            row.item(:library).value(item.shelf.library.display_name.localize) if item.shelf && item.shelf.library
-            row.item(:carrier_type).value(item.manifestation.carrier_type.display_name.localize) if item.manifestation && item.manifestation.carrier_type
-            row.item(:shelf).value(item.shelf.display_name) if item.shelf
-            row.item(:ndc).value(item.manifestation.ndc) if item.manifestation
-            row.item(:item_identifier).value(item.item_identifier)
-            row.item(:call_number).value(item.call_number)
-            row.item(:title).value(item.manifestation.original_title) if item.manifestation
-          end
-        end
-        report.generate_file(pdf_file)
-        logger.error "created report: #{Time.now}"
-        return true
-      rescue Exception => e
-        logger.error "failed #{e}"
-        return false
+    report.events.on :page_create do |e|
+      e.page.item(:page).value(e.page.no)
+    end
+    report.events.on :generate do |e|
+      e.pages.each do |page|
+        page.item(:total).value(e.report.page_count)
       end
     end
+
+    report.start_new_page
+    report.page.item(:date).value(Time.now)
+    report.page.item(:list_name).value(filename)
+    @items.each do |item|
+      report.page.list(:list).add_row do |row|
+        row.item(:library).value(item.shelf.library.display_name.localize) if item.shelf && item.shelf.library
+        row.item(:carrier_type).value(item.manifestation.carrier_type.display_name.localize) if item.manifestation && item.manifestation.carrier_type
+        row.item(:shelf).value(item.shelf.display_name) if item.shelf
+        row.item(:ndc).value(item.manifestation.ndc) if item.manifestation
+        row.item(:item_identifier).value(item.item_identifier)
+        row.item(:call_number).value(item.call_number)
+        row.item(:title).value(item.manifestation.original_title) if item.manifestation
+      end
+    end
+    report.generate_file(pdf_file)
+    logger.error "created report: #{Time.now}"
   end
 
   def self.make_export_item_list_pdf(items, filename)
