@@ -81,8 +81,9 @@
 </p>
 
 <%- if @reserve.can_checkout? -%>
-  <%= form_for :reserve, :url => reserve_path(@reserve), :html => {:method => :get} do -%>
-    <%= submit_tag t('page.output', :model => t('activerecord.attributes.reserve.reserve_list')), :name => 'output' -%>
+  <%= form_tag ({:action => 'output'}) do -%>
+    <%= hidden_field_tag :reserve_id, @reserve.id -%>
+    <%= submit_tag t('page.output', :model => t('activerecord.attributes.reserve.reserve_list')) -%>
   <%- end -%>
 <%- end -%>
 </div>

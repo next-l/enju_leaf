@@ -115,6 +115,18 @@
   <%= l(@item.updated_at) -%>
 </p>
 <%- end -%>
+
+<%- if @item.reserve -%>
+  <%- if @item.reserve.user == current_user or (user_signed_in? and current_user.has_role?('Librarian')) -%>
+    <%- if @item.reserve.can_checkout? -%>
+      <%= form_tag ({:controller => 'reserves', :action => 'output'}) do -%>
+        <%= hidden_field_tag :reserve_id, @item.reserve.id -%>
+        <%= submit_tag t('page.output', :model => t('activerecord.attributes.reserve.reserve_list')) -%>
+      <%- end -%>
+    <%- end -%>
+  <%- end -%>
+<%- end -%>
+</div>
 </div>
 </div>
 
