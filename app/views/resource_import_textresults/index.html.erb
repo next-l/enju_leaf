@@ -11,16 +11,20 @@
 <%= t('activerecord.attributes.resource_import_textresult.imported_row') -%>: <%= @results_num if @results_num -%>
 <table class="index">
   <tr>
+    <th><%= t('activerecord.attributes.resource_import_textresult.body') %></th>
     <th><%= t('activerecord.attributes.resource_import_textresult.error_msg') %></th>
     <th></th>
   </tr>
 
-<% @resource_import_textresults.each do |resource_import_textresult| %>
+<% @resource_import_textresults.each do |r| %>
   <tr class="line<%= cycle("0", "1") -%>">
     <td>
-      <%= link_to t('page.show'), resource_import_textresult %>
-      <%= link_to t('page.destroy'), resource_import_textresult, :confirm => t('page.are_you_sure'), :method => :delete %>
+      <%= r.body -%>
     </td>
+    <td>
+      <%= r.error_msg -%>
+    </td>
+    <td>&nbsp;</td>
   </tr>
 <% end %>
 </table>
