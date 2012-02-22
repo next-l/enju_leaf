@@ -1,7 +1,7 @@
 <script>
   $(document).ready(function() {
-    if ("<%= flash[:pdf]-%>".length > 0) {
-      location.href= "<%= url_for(:controller => :inter_library_loans, :action => :download_file)-%>"
+    if ("<%= flash[:path]-%>".length > 0) {
+      location.href= "<%= url_for(:controller => :inter_library_loans, :action => :download_file, :path => flash[:path])-%>"
     }
   });
 

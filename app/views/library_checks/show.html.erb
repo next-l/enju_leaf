@@ -40,7 +40,13 @@
   <ul>
     <li><%= link_to t('page.edit'), edit_library_check_path(@library_check) -%> </li>
     <li><%= link_to t('activerecord.attributes.library_check.shelf_data'), library_check_library_check_shelves_path(@library_check) -%></li> 
-    <li><%= link_to t('activerecord.attributes.library_check.download'), library_check_path(@library_check, :format => :download, :file => :pdf) -%> </li>
+    <li>
+      <%- unless @library_check.shelf_def_file.blank? -%>
+        <%= link_to t('activerecord.attributes.library_check.download'), library_check_path(@library_check, :format => :download, :file => :pdf) -%> 
+      <%- else -%>
+        <p class="no_file"><%= t('activerecord.attributes.library_check.download') -%></p>
+      <%- end -%>
+    </li>
     <li><%= link_to t('activerecord.attributes.library_check.book_data'), library_check_libcheck_data_files_path(@library_check) -%> </li>
     <li><%= link_to t('activerecord.attributes.library_check.do'), {:mode => 'exec'} -%> </li>
     <%- if @resource_list_pdf -%>

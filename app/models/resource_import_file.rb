@@ -52,7 +52,6 @@ class ResourceImportFile < ActiveRecord::Base
   end
 
   def import
-    self.reload
     num = {:manifestation_imported => 0, :item_imported => 0, :manifestation_found => 0, :item_found => 0, :failed => 0}
     row_num = 2
     rows = open_import_file
@@ -123,6 +122,12 @@ class ResourceImportFile < ActiveRecord::Base
           import_result.item = create_item(row, manifestation)
           manifestation.index
           num[:item_imported] +=1 if import_result.item
+
+          if import_result.item.manifestation.next_reserve
+            current_user = User.where(:username => 'admin').first
+            import_result.item.retain(current_user) if import_result.item.available_for_retain?           
+            import_result.error_msg = I18n.t('resource_import_file.reserved_item', :username => import_result.item.reserve.user.username, :user_number => import_result.item.reserve.user.user_number)
+          end
         else
           num[:failed] += 1
         end
@@ -285,6 +290,8 @@ class ResourceImportFile < ActiveRecord::Base
           self.class.update_item(item, options)
           import_result.manifestation = item.manifestation
           import_result.item = item
+
+          import_result.error_msg = I18n.t('resource_import_file.reserved_item', :username => import_result.item.reserve.user.username, :user_number => import_result.item.reserve.user.user_number) if import_result.item.reserve
         rescue Exception => e
           import_result.error_msg = "FAIL[#{row_num}]: #{e.message}"
           Rails.logger.info("resource registration failed: column #{row_num}: #{e.message}")

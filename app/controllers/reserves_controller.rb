@@ -158,12 +158,6 @@ class ReservesController < ApplicationController
     @receipt_library = Library.find(@reserve.receipt_library_id)
     @reserved_count = Reserve.waiting.where(:manifestation_id => @reserve.manifestation_id, :checked_out_at => nil).count
 
-    if params[:output]
-      data = Reserve.get_reserve(@reserve, current_user)
-      send_data data.generate, :filename => configatron.reserve_print.filename
-      return
-    end
-
     respond_to do |format|
       format.html # show.rhtml
       format.xml  { render :xml => @reserve.to_xml }
@@ -300,8 +294,7 @@ class ReservesController < ApplicationController
     end
 
     if user.blank?
-      access_denied
-      return
+      access_denied; return
     end
 
     if user
@@ -367,7 +360,7 @@ class ReservesController < ApplicationController
   end
 
   def output
-    @reserve = Reserve.find(params[:id])
+    @reserve = Reserve.find(params[:reserve_id])
     data = Reserve.get_reserve(@reserve, current_user)
     send_data data.generate, :filename => configatron.reserve_print.filename
   end

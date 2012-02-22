@@ -8,8 +8,10 @@ class ShelvesController < ApplicationController
   # GET /shelves.xml
   def index
     if params[:library_id]
-      library_id = params[:library_id]
-      @library =  Library.find(library_id) unless library_id.size == 0
+      if params[:library_id]
+        library = Library.find(params[:library_id]) rescue nil
+      end
+      @library = library if library
     end
     if params[:mode] == 'select'
       if @library
