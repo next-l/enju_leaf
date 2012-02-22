@@ -2,7 +2,7 @@
 <div id="content_detail" class="ui-corner-all">
 <h1 class="title"><%= t('page.listing', :model => t('activerecord.models.reserve')) -%></h1>
 <div id="content_list">
-
+<p id="notice"><%= notice %></p>
 <%= render 'manifestations/title', :manifestation => @manifestation if @manifestation -%>
 <%-if @user -%>
   <%= render 'reserves/output_user' -%>
@@ -79,7 +79,7 @@
     <th><%= t('activerecord.attributes.manifestation.original_title')-%></th>
     <th><%= t('activerecord.attributes.reserve.state') -%></th>
     <th><%= t('activerecord.attributes.reserve.expired_at') -%></th>
-    <%- if can? :update, @reserves.first -%>
+    <%- if can? :destroy, @completed_reserves.first -%>
       <th id="edit_icons"></th>
     <% end %>
   </tr>
