@@ -2005,6 +2005,7 @@ ja:
     import_request: "すぐにインポートする"
     start_importing: "インポートを開始しました。"
     unsuccess_start: "インポート開始に失敗しました。"
+    reserved_item : "予約済みの資料です。(ユーザ名: %{username}, 利用者番号: %{user_number})"
   library_check:
     opeym_notice: "実施年月は 201203 のように YYYYMM 形式で入力してください。"
   budget:
