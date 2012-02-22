@@ -140,6 +140,12 @@
           </td>
         </tr>
         <tr>
+          <td><%= t('activerecord.attributes.manifestation.supplement') -%>:</td>
+          <td>
+            <%= raw simple_format(h(manifestation.supplement)) -%>
+          </td>
+        </tr>
+        <tr>
           <td><%= t('activerecord.attributes.manifestation.note') -%>:</td>
           <td>
             <%= raw simple_format(h(manifestation.note)) -%>

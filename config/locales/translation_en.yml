@@ -689,6 +689,7 @@ en:
         edition_display_value: Edition display value
         reserves_number: Reserves number
         detail: Detail
+        supplement: Supplement
       user_group:
         name: Name
         display_name: Display name

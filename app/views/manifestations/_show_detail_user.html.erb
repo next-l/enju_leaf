@@ -128,6 +128,14 @@
             </td>
           </tr>
         <% end %>
+        <% if manifestation.supplement.present? %>
+          <tr>
+            <td><%= t('activerecord.attributes.manifestation.supplement') -%>:</td>
+            <td>
+              <%= raw simple_format(h(manifestation.supplement)) -%>
+            </td>
+          </tr>
+        <% end %>
         <% if manifestation.note.present? %>
           <tr>
             <td><%= t('activerecord.attributes.manifestation.note') -%>:</td>
