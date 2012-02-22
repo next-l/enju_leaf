@@ -125,6 +125,10 @@ class LibraryChecksController < ApplicationController
   end
 
   def download_file
+    if @library_check.shelf_def_file.blank?
+      redirect_to :back; return
+    end
+
     file = params[:file]
     id = params[:id]
    
