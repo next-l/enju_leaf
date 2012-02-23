@@ -19,7 +19,7 @@ unless solr = Sunspot.commit rescue nil
 end
 
 Dir.glob(Rails.root.to_s + '/db/fixtures/*.yml').each do |file|
-  Fixtures.create_fixtures('db/fixtures', File.basename(file, '.*'))
+  ActiveRecord::Fixtures.create_fixtures('db/fixtures', File.basename(file, '.*'))
 end
 
 Patron.reindex
@@ -28,7 +28,6 @@ Library.reindex
 user = User.new
 user.username = username
 user.email = email
-user.email_confirmation = email
 user.password = password
 user.password_confirmation = password
 user.library = Library.real.first
