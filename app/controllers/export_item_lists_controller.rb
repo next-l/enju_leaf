@@ -128,7 +128,7 @@ class ExportItemListsController < ApplicationController
           when 7
             data = Item.make_export_new_book_list_pdf(@items)
           else
-            data = Item.make_export_item_book_pdf(@items, filename)
+            data = Item.make_export_item_list_pdf(@items, filename)
           end
           unless data
             flash[:message] = t('item_list.no_record')
