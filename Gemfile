@@ -35,7 +35,7 @@ platforms :ruby do
 end
 
 platforms :ruby_19 do
-  gem 'simplecov', '~> 0.5', :require => false, :group => :test
+  gem 'simplecov', '~> 0.6', :require => false, :group => :test
 end
 
 platforms :ruby_18 do
@@ -84,7 +84,7 @@ gem 'cancan', '>= 1.6.7'
 gem 'devise', '~> 1.5.3'
 gem 'omniauth', '~> 1.0'
 gem 'addressable'
-gem 'paperclip', '~> 2.5'
+gem 'paperclip', '~> 2.6'
 gem 'whenever', :require => false
 #gem 'amazon-ecs', '>= 2.2.0', :require => 'amazon/ecs'
 #gem 'aws-s3', :require => 'aws/s3'
@@ -92,7 +92,7 @@ gem 'astrails-safe'
 gem 'dynamic_form'
 gem 'sanitize'
 gem 'mobile-fu'
-gem 'attribute_normalizer', '~> 1.0'
+gem 'attribute_normalizer', '~> 1.1'
 #gem 'geokit'
 gem 'geocoder'
 gem 'acts_as_list', :git => 'git://github.com/swanandp/acts_as_list.git'
@@ -117,7 +117,7 @@ end
 group :development, :test do
   gem 'rspec-rails', '~> 2.8.1'
   gem 'guard-rspec'
-  gem 'factory_girl_rails', '~> 1.6'
+  gem 'factory_girl_rails', '~> 1.7'
   gem 'spork-rails'
   gem 'rcov', '0.9.11'
   gem 'metric_fu', '~> 2.1'
