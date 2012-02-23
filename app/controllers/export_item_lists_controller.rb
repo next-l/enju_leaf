@@ -87,7 +87,7 @@ class ExportItemListsController < ApplicationController
           :conditions => {:shelves => {:libraries => {:id => @selected_library}}, 
           :manifestations => {:carrier_type_id => @selected_carrier_type}}, 
           :order => 'libraries.id, manifestations.carrier_type_id, items.shelf_id, items.item_identifier')
-        @items.delete_if{|item|checkouts.include?(item.id)}
+        @items.delete_if{|item|checkouts.include?(item.id)} if checkouts
         filename = t('item_list.unused_list')
       when 5
         query = get_query(ndcs, @selected_library, @selected_carrier_type)
