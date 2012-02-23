@@ -89,7 +89,7 @@ class ExemplifiesController < ApplicationController
     respond_to do |format|
       flash[:notice] = t('controller.successfully_deleted', :model => t('activerecord.models.exemplify'))
       case when @manifestation
-        format.html { redirect_to manifestation_items_path(@exemplify.manifestation) }
+        format.html { redirect_to @exemplify.manifestation }
         format.json { head :no_content }
       when @item
         format.html { redirect_to @exemplify.item }
