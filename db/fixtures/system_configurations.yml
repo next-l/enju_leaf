@@ -240,3 +240,9 @@ system_configuration_00040:
   v: "true"
   typename: Boolean
   description: "所蔵のない資料の予約ができるようにするか。trueのとき予約可能。"
+system_configuration_00041:
+  id: 41
+  keyname: new_book_term
+  v: 14
+  typename: Numeric
+  description: "所蔵が1冊以上ある資料で、出版日がシステム日付からn日前以降であるものを抽出する。"

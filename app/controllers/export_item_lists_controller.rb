@@ -7,7 +7,8 @@ class ExportItemListsController < ApplicationController
                    [t('item_list.removed_list'), 3],
                    [t('item_list.unused_list'), 4],
                    [t('item_list.new_item_list'), 5],
-                   [t('item_list.latest_list'), 6]
+                   [t('item_list.latest_list'), 6],
+                   [t('item_list.new_book_list'), 7]
                  ]
     @libraries = Library.all
     @carrier_types = CarrierType.all
@@ -104,6 +105,15 @@ class ExportItemListsController < ApplicationController
           end
         end
         filename = t('item_list.latest_list')
+      when 7
+        query = get_query(ndcs, @selected_library, @selected_carrier_type)
+        day_ago = "'" + (Time.zone.now - SystemConfiguration.get("new_book_term").day).to_s + "'"
+        query += " AND manifestations.pub_date >= #{day_ago}"
+        @items = Item.find(:all, 
+          :joins => [:manifestation, :shelf => :library], 
+          :conditions => query ,
+          :order => 'libraries.id, manifestations.carrier_type_id, items.shelf_id, items.item_identifier, manifestations.original_title')
+        filename = t('item_list.new_book_list')
       end
       logger.error "SQL end at #{Time.now}\nfound #{@items.length rescue 0} records"
 
@@ -115,8 +125,10 @@ class ExportItemListsController < ApplicationController
             data = Item.make_export_removed_list_pdf(@items)
           when 5
             data = Item.make_export_new_item_list_pdf(@items)
+          when 7
+            data = Item.make_export_new_book_list_pdf(@items)
           else
-            data = Item.make_export_item_list_pdf(@items, filename)
+            data = Item.make_export_item_book_pdf(@items, filename)
           end
           unless data
             flash[:message] = t('item_list.no_record')
@@ -132,6 +144,8 @@ class ExportItemListsController < ApplicationController
             data = Item.make_export_removed_list_tsv(@items)
           when 5
             data = Item.make_export_new_item_list_tsv(@items)
+          when 7
+            data = Item.make_export_new_book_list_tsv(@items)
           else
             data = Item.make_export_item_list_tsv(@items)
           end
@@ -207,6 +221,14 @@ class ExportItemListsController < ApplicationController
               end
             end
             list_size = @items.size
+          when 7
+            query = get_query(ndcs, libraries, carrier_types)
+            day_ago = "'" + (Time.zone.now - SystemConfiguration.get("new_book_term").day).to_s + "'"
+            query += " AND manifestations.pub_date >= #{day_ago}"
+            list_size = Item.count(:all, 
+              :joins => [:manifestation, :shelf => :library], 
+              :conditions => query ,
+              :order => 'libraries.id, manifestations.carrier_type_id, items.shelf_id, items.item_identifier, manifestations.original_title')
           end
         rescue
           list_size = 0

@@ -217,3 +217,6 @@ configatron.checkouts.cannot_for_new_serial = true
 
 # refs 2588 所蔵のない資料の予約
 configatron.reserves.able_for_not_item = true
+
+# refs 1978 拡張統計-図書リストの新刊購入受入リスト 出版日がシステム日付からn日前以降であるものを抽出
+configatron.new_book_term = 14
