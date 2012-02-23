@@ -14,7 +14,7 @@ platforms :ruby do
 end
 
 platforms :ruby_19 do
-  gem 'simplecov', '>= 0.6', :require => false, :group => [:development]
+  gem 'simplecov', '~> 0.6', :require => false, :group => :test
 end
 
 gem 'will_paginate', '~> 3.0'
@@ -58,7 +58,7 @@ gem 'whenever', '~> 0.6', :require => false
 gem 'dynamic_form'
 gem 'sanitize'
 gem 'mobile-fu'
-gem 'attribute_normalizer', '~> 1.0'
+gem 'attribute_normalizer', '~> 1.1'
 gem 'barby', '~> 0.5'
 gem 'rqrcode'
 gem 'event-calendar', :require => 'event_calendar'
@@ -74,7 +74,7 @@ gem 'paranoia'
 gem 'thinreports'
 gem "rmagick", :require => false
 gem "crypt19"
-#gem 'oink', '>=0.9.2'
+#gem 'oink', '>= 0.9.3'
 
 group :development do
   gem 'parallel_tests'

@@ -49,7 +49,6 @@ GEM
       rails (~> 3.0)
     addressable (2.2.7)
     annotate (2.4.0)
-    archive-tar-minitar (0.5.2)
     arel (2.2.3)
     attribute_normalizer (1.1.0)
     awesome_nested_set (2.1.2)
@@ -74,7 +73,6 @@ GEM
     client_side_validations (3.1.4)
     cocaine (0.2.1)
     colored (1.2)
-    columnize (0.3.6)
     configatron (2.9.0)
       yamler (>= 0.1.0)
     crypt19 (1.2.1)
@@ -138,8 +136,6 @@ GEM
     json_pure (1.6.5)
     kgio (2.7.2)
     library_stdnums (1.1.0)
-    linecache19 (0.5.12)
-      ruby_core_source (>= 0.1.4)
     mail (2.3.0)
       i18n (>= 0.4.0)
       mime-types (~> 1.16)
@@ -261,21 +257,11 @@ GEM
       activesupport (>= 3.0)
       railties (>= 3.0)
       rspec (~> 2.8.0)
-    ruby-debug-base19 (0.11.25)
-      columnize (>= 0.3.1)
-      linecache19 (>= 0.5.11)
-      ruby_core_source (>= 0.1.4)
-    ruby-debug19 (0.11.6)
-      columnize (>= 0.3.1)
-      linecache19 (>= 0.5.11)
-      ruby-debug-base19 (>= 0.11.19)
     ruby-prof (0.10.8)
     ruby-rc4 (0.1.5)
     ruby2ruby (1.3.1)
       ruby_parser (~> 2.0)
       sexp_processor (~> 3.0)
-    ruby_core_source (0.1.5)
-      archive-tar-minitar (>= 0.5.2)
     ruby_parser (2.0.6)
       sexp_processor (~> 3.0)
     sanitize (2.0.3)
@@ -346,7 +332,7 @@ DEPENDENCIES
   acts_as_list!
   addressable
   annotate
-  attribute_normalizer (~> 1.0)
+  attribute_normalizer (~> 1.1)
   awesome_nested_set (~> 2.0)
   aws-sdk (~> 1.3)
   barby (~> 0.5)
@@ -392,12 +378,11 @@ DEPENDENCIES
   rmagick
   rqrcode
   rspec-rails (~> 2.8.1)
-  ruby-debug19
   ruby-prof
   sanitize
   scribd_fu
   simple_form (~> 1.5)
-  simplecov (>= 0.6)
+  simplecov (~> 0.6)
   sitemap_generator (~> 3.0)
   spork-rails
   state_machine
