@@ -6,8 +6,9 @@ module ActiveModel
     def initialize(base)
       @soundfiles = []
       @base = base
-      super()
+      @messages = ActiveSupport::OrderedHash.new
     end
+
     def add_with_sound(attribute, message, soundfile, options = {})
       @soundfiles << soundfile
       add(attribute, message, options)

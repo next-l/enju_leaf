@@ -1,6 +1,7 @@
 inter_library_loan_00001:
   item_id: 1
-  borrowing_library_id: 1
+  from_library_id: 2
+  to_library_id: 1
   shipped_at: 2008-03-19 13:48:29
   received_at: 2008-03-19 13:48:29
   return_shipped_at: 2008-03-19 13:48:29
@@ -9,7 +10,8 @@ inter_library_loan_00001:
   state: requested
 inter_library_loan_00002:
   item_id: 2
-  borrowing_library_id: 1
+  from_library_id: 2
+  to_library_id: 1
   shipped_at: 2008-03-19 13:48:29
   received_at: 2008-03-19 13:48:29
   return_shipped_at: 2008-03-19 13:48:29
@@ -18,7 +20,8 @@ inter_library_loan_00002:
   state: shipped
 inter_library_loan_00003:
   item_id: 3
-  borrowing_library_id: 1
+  from_library_id: 2
+  to_library_id: 1
   shipped_at: 2008-03-19 13:48:29
   received_at: 2008-03-19 13:48:29
   return_shipped_at: 2008-03-19 13:48:29
@@ -27,7 +30,8 @@ inter_library_loan_00003:
   state: received
 inter_library_loan_00004:
   item_id: 4
-  borrowing_library_id: 2
+  from_library_id: 2
+  to_library_id: 2
   shipped_at: 2008-03-19 13:48:29
   received_at: 2008-03-19 13:48:29
   return_shipped_at: 2008-03-19 13:48:29
@@ -36,7 +40,8 @@ inter_library_loan_00004:
   state: return_shipped
 inter_library_loan_00005:
   item_id: 5
-  borrowing_library_id: 3
+  from_library_id: 2
+  to_library_id: 3
   shipped_at: 2008-03-19 13:48:29
   received_at: 2008-03-19 13:48:29
   return_shipped_at: 2008-03-19 13:48:29
@@ -45,7 +50,8 @@ inter_library_loan_00005:
   state: return_received
 inter_library_loan_00006:
   item_id: 6
-  borrowing_library_id: 3
+  from_library_id: 2
+  to_library_id: 3
   requested_at: 2008-03-19 13:48:29
   shipped_at: 
   received_at: 
@@ -55,7 +61,8 @@ inter_library_loan_00006:
   state: requested
 inter_library_loan_00007:
   item_id: 7
-  borrowing_library_id: 3
+  from_library_id: 2
+  to_library_id: 3
   requested_at: 2008-03-19 13:48:29
   shipped_at: 2008-03-19 13:48:29
   received_at: 
@@ -70,7 +77,8 @@ inter_library_loan_00007:
 #
 #  id                   :integer         not null, primary key
 #  item_id              :integer         not null
-#  borrowing_library_id :integer         not null
+#  from_library_id      :integer         not null
+#  to_library_id        :integer         not null
 #  requested_at         :datetime
 #  shipped_at           :datetime
 #  received_at          :datetime
