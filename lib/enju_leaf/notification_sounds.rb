@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+=begin
 module ActiveModel
   class Errors
     attr_reader :soundfiles
@@ -15,6 +16,7 @@ module ActiveModel
     end
   end
 end
+=end
 
 module NotificationSound
   def error_message_and_sound(attribute_symbol)
