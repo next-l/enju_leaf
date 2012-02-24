@@ -74,7 +74,7 @@ class CreatesController < ApplicationController
     if @work and params[:move]
       direction = params[:move]
       if ['higher', 'lower'].include?(direction)
-        @work.send("move_#{direction}")
+        @create.send("move_#{direction}")
         redirect_to work_creates_url(@work)
         return
       end
