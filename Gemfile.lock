@@ -20,10 +20,11 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_bookmark.git
-  revision: e8aafb5b9245e1bcad46304bd02a904734067bee
+  revision: 0965b732a21ad1f8b4ecb874137ba18e92f180a9
   specs:
     enju_bookmark (0.0.4)
       acts-as-taggable-on (~> 2.2)
+      acts_as_list (~> 0.1.5)
       addressable
       attribute_normalizer (~> 1.1)
       cancan
@@ -37,9 +38,10 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_circulation.git
-  revision: 8eac3576da691d37110fc344b25f295db43fedc1
+  revision: 3a790cb4a14e5d911c3a69b85e846120c9582dde
   specs:
     enju_circulation (0.0.11)
+      acts_as_list (~> 0.1.5)
       attribute_normalizer (~> 1.1)
       cancan
       devise
@@ -80,9 +82,10 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_inter_library_loan.git
-  revision: cebd0100eb3073ecd599a46af35f85694751d51d
+  revision: c85465908ccd323b257bf4293d0999c2f8d67406
   specs:
     enju_inter_library_loan (0.0.1)
+      acts_as_list (~> 0.1.5)
       addressable
       attribute_normalizer (~> 1.1)
       cancan
@@ -118,9 +121,10 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_message.git
-  revision: b1d1b24c362f1ed8b43f66fd96216e6c97a04431
+  revision: 8f8069be24feab492467377df5c733ec5c12efec
   specs:
     enju_message (0.0.10)
+      acts_as_list (~> 0.1.5)
       addressable
       attribute_normalizer (~> 1.1)
       awesome_nested_set (~> 2.1)
@@ -139,9 +143,9 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_ndl.git
-  revision: ae9a134fc0e1a7103d791e46055d1f4c1d3bcff0
+  revision: aa6a01c3f443cfa878664dd7b8e69b7bc881daa1
   specs:
-    enju_ndl (0.0.11)
+    enju_ndl (0.0.12)
       devise
       nokogiri
       rails (~> 3.1)
@@ -156,9 +160,10 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_purchase_request.git
-  revision: a88e74ff7cc29a8867fa9c387770422032e134f4
+  revision: 5d34750d5b0c63849beb1daebf9138a13052c183
   specs:
     enju_purchase_request (0.0.4)
+      acts_as_list (~> 0.1.5)
       addressable
       attribute_normalizer (~> 1.1)
       cancan
@@ -172,10 +177,11 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_question.git
-  revision: a0ca6cbafb27b946f1a54155a759ab4c3be01614
+  revision: e883f3125d84c2b3d15b86da830a01dcad3efd70
   specs:
     enju_question (0.0.5)
       acts-as-taggable-on (~> 2.2)
+      acts_as_list (~> 0.1.5)
       cancan
       devise
       enju_ndl (>= 0.0.11)
@@ -189,9 +195,10 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_resource_merge.git
-  revision: 02563374fa47ad7270b2b4cadaf17d7cd5bae409
+  revision: 81c1877f72f151549a26149ef18188b916169eed
   specs:
     enju_resource_merge (0.0.3)
+      acts_as_list (~> 0.1.5)
       attribute_normalizer (~> 1.1)
       cancan
       devise
@@ -214,9 +221,10 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_subject.git
-  revision: 7a61716ef8e5ee1eb57d3e7371bafc47428dbd1d
+  revision: 3879ee80fb39318d2b99f6c18334be2e2f07427d
   specs:
     enju_subject (0.0.6)
+      acts_as_list (~> 0.1.5)
       attribute_normalizer (~> 1.1)
       cancan
       devise
@@ -241,12 +249,6 @@ GIT
     sunspot-rails-tester (0.0.4)
       sunspot_rails
       sunspot_solr
-
-GIT
-  remote: git://github.com/swanandp/acts_as_list.git
-  revision: 70be831b99d59b053ee92635b24be726b77b2a8c
-  specs:
-    acts_as_list (0.1.5)
 
 GEM
   remote: https://rubygems.org/
@@ -283,6 +285,7 @@ GEM
       multi_json (~> 1.0)
     acts-as-taggable-on (2.2.2)
       rails (~> 3.0)
+    acts_as_list (0.1.5)
     addressable (2.2.7)
     annotate (2.4.0)
     ansi (1.4.2)
@@ -523,7 +526,7 @@ GEM
     simple_form (2.0.0)
       actionpack (~> 3.0)
       activemodel (~> 3.0)
-    simplecov (0.6.0)
+    simplecov (0.6.1)
       multi_json (~> 1.0)
       simplecov-html (~> 0.5.3)
     simplecov-html (0.5.3)
@@ -583,7 +586,7 @@ PLATFORMS
 DEPENDENCIES
   RedCloth (>= 4.2.9)
   activerecord-jdbc-adapter
-  acts_as_list!
+  acts_as_list (~> 0.1.5)
   addressable
   annotate
   astrails-safe
