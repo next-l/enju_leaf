@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe "manifestations/show.html.erb" do
+describe "manifestations/show" do
   before(:each) do
     @manifestation = assign(:manifestation, FactoryGirl.create(:manifestation))
     @ability = Object.new

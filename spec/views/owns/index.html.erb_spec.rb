@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe "owns/index.html.erb" do
+describe "owns/index" do
   before(:each) do
     assign(:owns, [
       stub_model(Own,

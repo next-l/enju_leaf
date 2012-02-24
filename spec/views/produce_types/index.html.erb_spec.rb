@@ -1,7 +1,7 @@
 # -*- encoding: utf-8 -*-
 require 'spec_helper'
 
-describe "produce_types/index.html.erb" do
+describe "produce_types/index" do
   before(:each) do
     assign(:produce_types, [
       stub_model(ProduceType,

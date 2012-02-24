@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe "creates/new.html.erb" do
+describe "creates/new" do
   fixtures :create_types
 
   before(:each) do
