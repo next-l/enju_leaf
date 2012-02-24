@@ -569,7 +569,7 @@ ja:
         set_status: 紛失処理を実行
         will_loss_item: 資料の貸出状態を紛失扱いにし、自動返却を行いますか。
         fail_update_loss_item: 紛失処理に失敗しました。
-        created_at: 受入日
+        created_at: 作成日
         removed_at: 除籍日
 
       loss_item:
@@ -2136,17 +2136,20 @@ ja:
     new_item_list: 新着資料リスト
     latest_list: 雑誌最新号リスト
     new_book_list: 新刊購入受入リスト
+    series_statements_list: 雑誌一覧リスト
     list_condition: 抽出条件
     library: 図書館
     all_library: 全図書館
     carrier_type: 資料の形態
     all_carrier_type: 全ての資料の形態
+    all_bookstore: 全ての書店
     shelf: 保管場所
     ndc: NDC
     ndc_message: "(入力すると該当資料のみ出力します。)"
     invalid_ndc: "不正なNDCが指定されています。\nXXX3桁の英数字を指定してください。"
     no_record: "該当する図書が見つかりませんでした。"
     no_list_condition: "抽出条件を指定してください。"
+    acquired_at_invalid: "受入日が不正な値です。例: 2011-04-12"
   item_register:
     pdf: PDF
     tsv: TSV

@@ -320,7 +320,18 @@ div#item_list_carrier_type{
   width: 200px;
 }
 
+div#item_list_bookstore{
+  float: left;
+  text_align: left;
+  width: 200px;
+}
+
 div#item_list_ndc{
+  float: left;
+  text_align: left;
+}
+
+div#item_list_created_at{
   float: left;
   text_align: left;
 }
