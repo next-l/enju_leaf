@@ -1,7 +1,8 @@
 source 'https://rubygems.org'
 
-gem 'rails', '3.1.3'
+gem 'rails', '3.2.1'
 
+#gem 'enju_calil', :git => 'git://github.com/nabeta/enju_calil.git'
 #gem 'enju_scribd', :git => 'git://github.com/nabeta/enju_scribd.git'
 #gem 'enju_nii', :git => 'git://github.com/nabeta/enju_nii.git'
 
@@ -78,7 +79,6 @@ gem "crypt19"
 
 group :development do
   gem 'parallel_tests'
-  gem 'jquery-rails'
   gem 'annotate'
 end
 
@@ -91,18 +91,28 @@ group :development, :test do
   gem 'metric_fu', '~> 2.1'
   gem 'timecop'
   gem 'sunspot-rails-tester'
-  gem 'vcr', '~> 2.0.0.rc1'
+  gem 'vcr', '~> 2.0.0.rc2'
   gem 'fakeweb'
   gem 'churn', '0.0.13'
 end
 
 # Gems used only for assets and not required
 # in production environments by default.
-#group :assets do
-#  gem 'sass-rails', "  ~> 3.1.0"
-#  gem 'coffee-rails', "~> 3.1.0"
-#  gem 'uglifier'
-#end
+group :assets do
+  gem 'sass-rails',   '~> 3.2.3'
+  gem 'coffee-rails', '~> 3.2.1'
+
+  # See https://github.com/sstephenson/execjs#readme for more supported runtimes
+  # gem 'therubyracer'
+
+  gem 'uglifier', '>= 1.0.3'
+end
+
+gem 'jquery-rails'
+
+
+# To use ActiveModel has_secure_password
+# gem 'bcrypt-ruby', '~> 3.0.0'
 
 # Use unicorn as the web server
 # gem 'unicorn'
@@ -112,5 +122,5 @@ end
 
 # To use debugger (ruby-debug for Ruby 1.8.7+, ruby-debug19 for Ruby 1.9.2+)
 # gem 'ruby-debug'
-gem 'ruby-debug19', :require => 'ruby-debug'
+#gem 'ruby-debug19', :require => 'ruby-debug'
 

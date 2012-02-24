@@ -9,7 +9,7 @@ class Notifier < ActionMailer::Base
   end
 
   def message_notification(message)
-    I18n.locale = message.receiver.locale.to_sym
+    I18n.locale = message.receiver.locale.try(:to_sym) || I18n.default_locale
     from = "#{LibraryGroup.system_name(message.receiver.locale)} <#{LibraryGroup.site_config.email}>"
     if message.subject
       subject = message.subject

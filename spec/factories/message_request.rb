@@ -1,7 +1,7 @@
 FactoryGirl.define do
   factory :message_request do |f|
-    f.sequence(:sender){FactoryGirl.create(:user)}
-    f.sequence(:receiver){FactoryGirl.create(:user)}
-    f.sequence(:message_template){FactoryGirl.create(:message_template)}
+    f.sender_id{FactoryGirl.create(:user).id}
+    f.receiver_id{FactoryGirl.create(:user).id}
+    f.message_template_id{FactoryGirl.create(:message_template).id}
   end
 end

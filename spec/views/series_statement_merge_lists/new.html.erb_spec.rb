@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe "series_statement_merge_lists/new.html.erb" do
+describe "series_statement_merge_lists/new" do
   before(:each) do
     assign(:series_statement_merge_list, stub_model(SeriesStatementMergeList,
       :title => "MyString"
