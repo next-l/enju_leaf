@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '3.1.3'
+gem 'rails', '3.2.1'
 
 # Bundle edge Rails instead:
 # gem 'rails',     :git => 'git://github.com/rails/rails.git'
@@ -24,6 +24,8 @@ gem 'enju_inventory', '~> 0.0.3'
 gem 'enju_event', '~> 0.0.7'
 #gem 'enju_news', :git => 'git://github.com/nabeta/enju_news.git'
 gem 'enju_search_log', '~> 0.0.2'
+gem 'enju_book_jacket', :git => 'git://github.com/nabeta/enju_book_jacket.git'
+gem 'enju_manifestation_viewer', :git => 'git://github.com/nabeta/enju_manifestation_viewer.git'
 
 platforms :ruby do
   gem 'pg'
@@ -73,7 +75,6 @@ gem 'sitemap_generator', '~> 3.0'
 gem 'ri_cal'
 gem 'file_wrapper'
 gem 'paper_trail', '~> 2.6'
-gem 'aws-sdk', '~> 1.3'
 #gem 'recurrence'
 #gem 'prism'
 #gem 'money'
@@ -85,6 +86,7 @@ gem 'devise', '~> 1.5.3'
 gem 'omniauth', '~> 1.0'
 gem 'addressable'
 gem 'paperclip', '~> 2.6'
+gem 'aws-sdk', '~> 1.3'
 gem 'whenever', :require => false
 #gem 'amazon-ecs', '>= 2.2.0', :require => 'amazon/ecs'
 #gem 'aws-s3', :require => 'aws/s3'
@@ -98,10 +100,10 @@ gem 'geocoder'
 gem 'acts_as_list', '~> 0.1.5'
 gem 'library_stdnums'
 gem 'client_side_validations'
-gem 'simple_form', '~> 1.5'
+gem 'simple_form', '~> 2.0'
 gem 'validates_timeliness'
 gem 'rack-protection'
-gem 'awesome_nested_set', '~> 2.0'
+gem 'awesome_nested_set', '~> 2.1'
 gem 'rails_autolink'
 #gem 'oink', '>= 0.9.3'
 
@@ -130,12 +132,15 @@ end
 
 # Gems used only for assets and not required
 # in production environments by default.
-#group :assets do
-#  gem 'sass-rails',   '~> 3.1.5'
-#  gem 'coffee-rails', '~> 3.1.1'
-#
-#  gem 'uglifier', '>= 1.0.3'
-#end
+group :assets do
+  gem 'sass-rails',   '~> 3.2.3'
+  gem 'coffee-rails', '~> 3.2.1'
+
+  # See https://github.com/sstephenson/execjs#readme for more supported runtimes
+  # gem 'therubyracer'
+
+  gem 'uglifier', '>= 1.0.3'
+end
 
 gem 'jquery-rails'
 

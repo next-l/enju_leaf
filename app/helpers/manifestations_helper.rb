@@ -63,19 +63,6 @@ module ManifestationsHelper
     links.join(" ").html_safe
   end
 
-  def embed_content(manifestation)
-    case
-    when manifestation.youtube_id
-      render :partial => 'manifestations/youtube', :locals => {:manifestation => manifestation}
-    when manifestation.nicovideo_id
-      render :partial => 'manifestations/nicovideo', :locals => {:manifestation => manifestation}
-    when manifestation.flickr.present?
-      render :partial => 'manifestations/flickr', :locals => {:manifestation => manifestation}
-    when manifestation.ipaper_id
-      render :partial => 'manifestations/scribd', :locals => {:manifestation => manifestation}
-    end
-  end
-
   def language_facet(language, current_languages, facet)
     string = ''
     languages = current_languages.dup

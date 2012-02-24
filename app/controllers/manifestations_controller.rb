@@ -56,10 +56,10 @@ class ManifestationsController < ApplicationController
               @manifestation = Manifestation.find_by_oai_identifier(params[:identifier])
             rescue ActiveRecord::RecordNotFound
               @oai[:errors] << "idDoesNotExist"
-              render :format => :oai, :layout => false
+              render :formats => :oai, :layout => false
               return
             end
-            render :template => 'manifestations/show', :format => :oai, :layout => false
+            render :template => 'manifestations/show', :formats => :oai, :layout => false
             return
           end
         end
@@ -477,7 +477,7 @@ class ManifestationsController < ApplicationController
       else
         prepare_options
         format.html { render :action => "edit" }
-        format.json { render :json => @manifestation, :status => :unprocessable_entity }
+        format.json { render :json => @manifestation.errors, :status => :unprocessable_entity }
       end
     end
   end

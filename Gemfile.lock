@@ -1,4 +1,20 @@
 GIT
+  remote: git://github.com/nabeta/enju_book_jacket.git
+  revision: 688cca0c3a0e101d7cd208e71ce6aa7e9fd0cbed
+  specs:
+    enju_book_jacket (0.0.1)
+      configatron
+      rails (~> 3.2)
+
+GIT
+  remote: git://github.com/nabeta/enju_manifestation_viewer.git
+  revision: 63cddc5dbd2865cec4bb571700a5b0880d42128f
+  specs:
+    enju_manifestation_viewer (0.0.1)
+      addressable
+      rails (~> 3.2)
+
+GIT
   remote: git://github.com/nabeta/enju_oai.git
   revision: 7e7fb239ddbc4d7d084be5043d34d2f0e991b379
   specs:
@@ -17,33 +33,32 @@ GEM
     RedCloth (4.2.9)
     Saikuro (1.1.0)
     aaronh-chronic (0.3.9)
-    actionmailer (3.1.3)
-      actionpack (= 3.1.3)
-      mail (~> 2.3.0)
-    actionpack (3.1.3)
-      activemodel (= 3.1.3)
-      activesupport (= 3.1.3)
+    actionmailer (3.2.1)
+      actionpack (= 3.2.1)
+      mail (~> 2.4.0)
+    actionpack (3.2.1)
+      activemodel (= 3.2.1)
+      activesupport (= 3.2.1)
       builder (~> 3.0.0)
       erubis (~> 2.7.0)
-      i18n (~> 0.6)
-      rack (~> 1.3.5)
+      journey (~> 1.0.1)
+      rack (~> 1.4.0)
       rack-cache (~> 1.1)
-      rack-mount (~> 0.8.2)
       rack-test (~> 0.6.1)
-      sprockets (~> 2.0.3)
-    activemodel (3.1.3)
-      activesupport (= 3.1.3)
+      sprockets (~> 2.1.2)
+    activemodel (3.2.1)
+      activesupport (= 3.2.1)
       builder (~> 3.0.0)
-      i18n (~> 0.6)
-    activerecord (3.1.3)
-      activemodel (= 3.1.3)
-      activesupport (= 3.1.3)
-      arel (~> 2.2.1)
+    activerecord (3.2.1)
+      activemodel (= 3.2.1)
+      activesupport (= 3.2.1)
+      arel (~> 3.0.0)
       tzinfo (~> 0.3.29)
-    activeresource (3.1.3)
-      activemodel (= 3.1.3)
-      activesupport (= 3.1.3)
-    activesupport (3.1.3)
+    activeresource (3.2.1)
+      activemodel (= 3.2.1)
+      activesupport (= 3.2.1)
+    activesupport (3.2.1)
+      i18n (~> 0.6)
       multi_json (~> 1.0)
     acts-as-taggable-on (2.2.2)
       rails (~> 3.0)
@@ -51,7 +66,7 @@ GEM
     addressable (2.2.7)
     annotate (2.4.0)
     ansi (1.4.2)
-    arel (2.2.3)
+    arel (3.0.2)
     astrails-safe (0.2.7)
       aws-s3
       cloudfiles
@@ -84,6 +99,13 @@ GEM
     cloudfiles (1.5.0.1)
       json
     cocaine (0.2.1)
+    coffee-rails (3.2.2)
+      coffee-script (>= 2.2.0)
+      railties (~> 3.2.0)
+    coffee-script (2.2.0)
+      coffee-script-source
+      execjs
+    coffee-script-source (1.2.0)
     colored (1.2)
     configatron (2.9.0)
       yamler (>= 0.1.0)
@@ -243,6 +265,8 @@ GEM
     event-calendar (2.3.3)
     exception_notification (2.5.2)
       actionmailer (>= 3.0.4)
+    execjs (1.3.0)
+      multi_json (~> 1.0)
     extractcontent (0.0.1)
     factory_girl (2.6.0)
       activesupport (>= 2.3.9)
@@ -278,15 +302,16 @@ GEM
     inherited_resources (1.3.0)
       has_scope (~> 0.5.0)
       responders (~> 0.6.0)
+    journey (1.0.3)
     jpmobile (2.0.4)
-    jquery-rails (1.0.19)
-      railties (~> 3.0)
+    jquery-rails (2.0.0)
+      railties (>= 3.2.0.beta, < 5.0)
       thor (~> 0.14)
     json (1.6.5)
     json_pure (1.6.5)
     kgio (2.7.2)
     library_stdnums (1.1.0)
-    mail (2.3.0)
+    mail (2.4.1)
       i18n (>= 0.4.0)
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
@@ -322,7 +347,7 @@ GEM
     orm_adapter (0.0.6)
     paper_trail (2.6.0)
       rails (~> 3)
-    paperclip (2.6.0)
+    paperclip (2.7.0)
       activerecord (>= 2.3.0)
       activesupport (>= 2.3.2)
       cocaine (>= 0.0.2)
@@ -337,27 +362,25 @@ GEM
       highline (~> 1.6.1)
       options (~> 2.3.0)
     progressbar (0.10.0)
-    rack (1.3.6)
+    rack (1.4.1)
     rack-cache (1.1)
       rack (>= 0.4)
     rack-mobile-detect (0.3.0)
       rack
-    rack-mount (0.8.3)
-      rack (>= 1.0.0)
     rack-protection (1.2.0)
       rack
     rack-ssl (1.3.2)
       rack
     rack-test (0.6.1)
       rack (>= 1.0)
-    rails (3.1.3)
-      actionmailer (= 3.1.3)
-      actionpack (= 3.1.3)
-      activerecord (= 3.1.3)
-      activeresource (= 3.1.3)
-      activesupport (= 3.1.3)
+    rails (3.2.1)
+      actionmailer (= 3.2.1)
+      actionpack (= 3.2.1)
+      activerecord (= 3.2.1)
+      activeresource (= 3.2.1)
+      activesupport (= 3.2.1)
       bundler (~> 1.0)
-      railties (= 3.1.3)
+      railties (= 3.2.1)
     rails_autolink (1.0.5)
       rails (~> 3.1)
     rails_best_practices (1.8.0)
@@ -367,9 +390,9 @@ GEM
       i18n
       progressbar
       sexp_processor
-    railties (3.1.3)
-      actionpack (= 3.1.3)
-      activesupport (= 3.1.3)
+    railties (3.2.1)
+      actionpack (= 3.2.1)
+      activesupport (= 3.2.1)
       rack-ssl (~> 1.3.2)
       rake (>= 0.8.7)
       rdoc (~> 3.4)
@@ -410,8 +433,13 @@ GEM
       sexp_processor (~> 3.0)
     sanitize (2.0.3)
       nokogiri (>= 1.4.4, < 1.6)
+    sass (3.1.15)
+    sass-rails (3.2.4)
+      railties (~> 3.2.0)
+      sass (>= 3.1.10)
+      tilt (~> 1.3)
     sexp_processor (3.0.10)
-    simple_form (1.5.2)
+    simple_form (2.0.0)
       actionpack (~> 3.0)
       activemodel (~> 3.0)
     simplecov (0.6.1)
@@ -424,7 +452,7 @@ GEM
     spork-rails (3.2.0)
       rails (>= 3.0.0, < 3.3.0)
       spork (>= 1.0rc0)
-    sprockets (2.0.3)
+    sprockets (2.1.2)
       hike (~> 1.2)
       rack (~> 1.0)
       tilt (~> 1.1, != 1.3.0)
@@ -452,6 +480,9 @@ GEM
     turn (0.8.3)
       ansi
     tzinfo (0.3.31)
+    uglifier (1.2.3)
+      execjs (>= 0.3.0)
+      multi_json (>= 1.0.2)
     uuidtools (2.1.2)
     validates_timeliness (3.0.8)
       timeliness (~> 0.3.4)
@@ -478,11 +509,12 @@ DEPENDENCIES
   annotate
   astrails-safe
   attribute_normalizer (~> 1.1)
-  awesome_nested_set (~> 2.0)
+  awesome_nested_set (~> 2.1)
   aws-sdk (~> 1.3)
   cancan (>= 1.6.7)
   churn (= 0.0.13)
   client_side_validations
+  coffee-rails (~> 3.2.1)
   configatron
   daemons
   dalli (~> 1.1)
@@ -490,10 +522,12 @@ DEPENDENCIES
   devise (~> 1.5.3)
   dynamic_form
   enju_barcode (~> 0.0.1)
+  enju_book_jacket!
   enju_bookmark (~> 0.0.4)
   enju_circulation (~> 0.0.12)
   enju_event (~> 0.0.7)
   enju_inventory (~> 0.0.3)
+  enju_manifestation_viewer!
   enju_message (~> 0.0.10)
   enju_ndl (~> 0.0.12)
   enju_oai!
@@ -530,7 +564,7 @@ DEPENDENCIES
   pg
   progress_bar
   rack-protection
-  rails (= 3.1.3)
+  rails (= 3.2.1)
   rails_autolink
   rcov (= 0.9.11)
   ri_cal
@@ -538,7 +572,8 @@ DEPENDENCIES
   ruby-prof
   rubyzip2
   sanitize
-  simple_form (~> 1.5)
+  sass-rails (~> 3.2.3)
+  simple_form (~> 2.0)
   simplecov (~> 0.6)
   sitemap_generator (~> 3.0)
   spork-rails
@@ -549,6 +584,7 @@ DEPENDENCIES
   system_timer
   timecop
   turn (~> 0.8.3)
+  uglifier (>= 1.0.3)
   validates_timeliness
   vcr (~> 2.0.0.rc2)
   vidibus-routing_error

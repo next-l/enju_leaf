@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe "realizes/new.html.erb" do
+describe "realizes/new" do
   fixtures :realize_types
 
   before(:each) do

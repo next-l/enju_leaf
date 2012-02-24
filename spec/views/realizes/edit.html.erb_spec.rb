@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe "realizes/edit.html.erb" do
+describe "realizes/edit" do
   fixtures :realize_types
 
   before(:each) do

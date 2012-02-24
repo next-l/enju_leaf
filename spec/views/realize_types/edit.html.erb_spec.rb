@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe "realize_types/edit.html.erb" do
+describe "realize_types/edit" do
   before(:each) do
     @realize_type = assign(:realize_type, stub_model(RealizeType,
       :name => "MyString",

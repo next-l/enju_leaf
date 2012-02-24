@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe "realizes/index.html.erb" do
+describe "realizes/index" do
   before(:each) do
     assign(:realizes, [
       stub_model(Realize,

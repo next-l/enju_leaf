@@ -1,7 +1,7 @@
 # -*- encoding: utf-8 -*-
 require 'spec_helper'
 
-describe "realize_types/index.html.erb" do
+describe "realize_types/index" do
   before(:each) do
     assign(:realize_types, [
       stub_model(RealizeType,
