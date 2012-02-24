@@ -85,7 +85,7 @@ gem 'cancan', '>= 1.6.7'
 gem 'devise', '~> 1.5.3'
 gem 'omniauth', '~> 1.0'
 gem 'addressable'
-gem 'paperclip', '~> 2.6'
+gem 'paperclip', '~> 2.7'
 gem 'aws-sdk', '~> 1.3'
 gem 'whenever', :require => false
 #gem 'amazon-ecs', '>= 2.2.0', :require => 'amazon/ecs'

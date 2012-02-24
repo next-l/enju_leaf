@@ -559,7 +559,7 @@ DEPENDENCIES
   nokogiri
   omniauth (~> 1.0)
   paper_trail (~> 2.6)
-  paperclip (~> 2.6)
+  paperclip (~> 2.7)
   parallel_tests
   pg
   progress_bar
