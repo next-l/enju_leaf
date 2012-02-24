@@ -6,21 +6,23 @@ class ExportItemListsController < ApplicationController
                    [t('item_list.call_number_list'), 2],
                    [t('item_list.removed_list'), 3],
                    [t('item_list.unused_list'), 4],
+                   [t('item_list.series_statements_list'), 8],
                    [t('item_list.new_item_list'), 5],
                    [t('item_list.latest_list'), 6],
                    [t('item_list.new_book_list'), 7]
                  ]
     @libraries = Library.all
     @carrier_types = CarrierType.all
+    @bookstores = Bookstore.all
+    @selected_list_type = 1
+    @selected_library, @selected_carrier_type, @selected_bookstore = [], [], []
     super
   end
 
   def index
-    @selected_list_type = 1
-    @selected_library = []
-    @selected_carrier_type = [] 
-    @libraries.each { |lib| @selected_library << lib.id }
-    @carrier_types.each { |car| @selected_carrier_type << car.id }
+    @selected_library = @libraries.inject([]){ |library_ids, library| library_ids << library.id.to_i }
+    @selected_carrier_type = @carrier_types.inject([]){ |carrier_type_ids, carrier_type| carrier_type_ids << carrier_type.id.to_i }
+    @selected_bookstore = @bookstores.inject([]){ |bookstore_ids, bookstore| bookstore_ids << bookstore.id.to_i }
     @items_size = Item.count(:all, :joins => [:manifestation, :shelf => :library])
     @page = (@items_size / 36).to_f.ceil
   end
@@ -29,10 +31,12 @@ class ExportItemListsController < ApplicationController
     flash[:message] = ""
 
     # check checked
-    @selected_list_type = params[:export_item_list][:list_type] || 1
-    @selected_library = params[:library] || []
-    @selected_carrier_type = params[:carrier_type] || []
-    flash[:message] << t('item_list.no_list_condition') + '<br />' if @selected_library.blank? || @selected_carrier_type.blank?
+    @selected_list_type = params[:export_item_list][:list_type]
+    @selected_library = params[:library].inject([]){ |library_ids, library_id| library_ids << library_id.to_i } if params[:library]
+    @selected_carrier_type = params[:carrier_type].inject([]){ |carrier_type_ids, carrier_type_id| carrier_type_ids << carrier_type_id.to_i } if params[:carrier_type]
+    @selected_bookstore = params[:bookstore].inject([]){ |bookstore_ids, bookstore_id| bookstore_ids << bookstore_id.to_i } if params[:bookstore]
+    all_bookstore = params[:all_bookstore]
+    flash[:message] << t('item_list.no_list_condition') + '<br />' if @selected_library.blank? || @selected_carrier_type.blank? || @selected_bookstore.blank?
 
     # check ndc
     @ndc = params[:ndc]
@@ -41,9 +45,20 @@ class ExportItemListsController < ApplicationController
       ndcs.each do |ndc|
         unless ndc =~ /^\d{3}$/
           logger.error ndc
-          flash[:message] << t('item_list.invalid_ndc')
+          flash[:message] << t('item_list.invalid_ndc') + '<br />'
           break
         end
+      end
+    end
+
+    # check acquired_at
+    @acquired_at = params[:acquired_at].to_s.dup
+    acquired_at = params[:acquired_at].to_s.gsub(/\D/, '') if params[:acquired_at]
+    unless params[:acquired_at].blank?
+      begin
+        acquired_at = Time.zone.parse(acquired_at).beginning_of_day.utc.iso8601
+      rescue
+        flash[:message] << t('item_list.acquired_at_invalid')
       end
     end
 
@@ -114,6 +129,23 @@ class ExportItemListsController < ApplicationController
           :conditions => query ,
           :order => 'libraries.id, manifestations.carrier_type_id, items.shelf_id, items.item_identifier, manifestations.original_title')
         filename = t('item_list.new_book_list')
+      when 8
+        @items = get_series_statements_item(@selected_library, all_bookstore, @selected_bookstore, acquired_at)
+        @items = @items.sort{|a, b|
+          if a.shelf.library.id.to_i != b.shelf.library.id.to_i 
+            a.shelf.library.id.to_i <=> b.shelf.library.id.to_i
+          elsif a.acquired_at.to_i != b.acquired_at.to_i
+            a.acquired_at.to_i <=> b.acquired_at.to_i
+          elsif a.bookstore_id.to_i != b.bookstore_id.to_i 
+            a.bookstore_id.to_i <=> b.bookstore_id.to_i
+          elsif a.item_identifier.to_s != b.item_identifier.to_s
+            a.item_identifier.to_s <=> b.item_identifier.to_s
+          else
+            #return 0 
+            a.id <=> b.id
+          end
+        }
+        filename = t('item_list.series_statements_list')
       end
       logger.error "SQL end at #{Time.now}\nfound #{@items.length rescue 0} records"
 
@@ -127,6 +159,8 @@ class ExportItemListsController < ApplicationController
             data = Item.make_export_new_item_list_pdf(@items)
           when 7
             data = Item.make_export_new_book_list_pdf(@items)
+          when 8
+            data = Item.make_export_series_statements_list_pdf(@items, acquired_at)
           else
             data = Item.make_export_item_list_pdf(@items, filename)
           end
@@ -146,6 +180,8 @@ class ExportItemListsController < ApplicationController
             data = Item.make_export_new_item_list_tsv(@items)
           when 7
             data = Item.make_export_new_book_list_tsv(@items)
+          when 8
+            data = Item.make_export_series_statements_list_tsv(@items, acquired_at)
           else
             data = Item.make_export_item_list_tsv(@items)
           end
@@ -166,6 +202,11 @@ class ExportItemListsController < ApplicationController
       ndcs = params[:ndc]
       libraries = params[:libraries]
       carrier_types = params[:carrier_types]
+      all_bookstore = params[:all_bookstore]
+      bookstores = params[:bookstores]
+      all_bookstores = params[:all_bookstore]
+      acquired_at = params[:acquired_at]
+
       error = false
       list_size = 0
 
@@ -180,6 +221,17 @@ class ExportItemListsController < ApplicationController
             error = true
             break
           end
+        end
+      end
+
+      # check acquired_at
+      unless acquired_at.blank?
+        acquired_at = params[:acquired_at].to_s.dup
+        acquired_at = params[:acquired_at].to_s.gsub(/\D/, '') if params[:acquired_at]
+        begin
+          acquired_at = Time.zone.parse(acquired_at).beginning_of_day.utc.iso8601
+        rescue
+          error = true
         end
       end
 
@@ -229,6 +281,9 @@ class ExportItemListsController < ApplicationController
               :joins => [:manifestation, :shelf => :library], 
               :conditions => query ,
               :order => 'libraries.id, manifestations.carrier_type_id, items.shelf_id, items.item_identifier, manifestations.original_title')
+          when 8
+            @items = get_series_statements_item(libraries, all_bookstore, bookstores, acquired_at)
+            list_size = @items.size
           end
         rescue
           list_size = 0
@@ -250,5 +305,37 @@ class ExportItemListsController < ApplicationController
     query.gsub!(/OR\s$/, "AND ")
     query += "libraries.id IN (#{libraries.join(',')}) AND manifestations.carrier_type_id IN (#{carrier_types.join(',')})"
     return query
+  end
+
+  def get_series_statements_item(libraries, all_bookstore, bookstores, acquired_at)
+    libraries = libraries.map{|library|library.to_i}
+    bookstores = bookstores.map{|bookstore|bookstore.to_i}
+
+    @items = []
+    series_statements = SeriesStatement.all
+    series_statements.each do |series_statement|
+      series_statement.manifestations.each do |manifestation|
+        manifestation.items.each do |item|
+          if libraries.include?(item.shelf.library.id)
+            if all_bookstore == "true"
+              unless acquired_at.blank?
+                @items << item if item.acquired_at >= acquired_at
+              else
+                @items << item
+              end
+            else
+              if bookstores.include?(item.bookstore_id)
+                unless acquired_at.blank?
+                  @items << item if item.acquired_at >= acquired_at
+                else
+                  @items << item
+                end
+              end
+            end
+          end
+        end
+      end
+    end
+    return @items
   end
 end

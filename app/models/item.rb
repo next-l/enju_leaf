@@ -970,7 +970,7 @@ class Item < ActiveRecord::Base
         row.item(:ndc).value(item.manifestation.ndc) if item.manifestation
         row.item(:item_identifier).value(item.item_identifier)
         row.item(:pub_date).value(item.manifestation.pub_date)
-        row.item(:created_at).value(item.created_at.strftime("%Y/%m/%d"))
+        row.item(:acquired_at).value(item.acquired_at.strftime("%Y/%m/%d")) if item.acquired_at
         row.item(:title).value(item.manifestation.original_title) if item.manifestation
       end
     end
@@ -993,7 +993,7 @@ class Item < ActiveRecord::Base
       [:ndc, 'activerecord.attributes.manifestation.ndc'],
       ['item_identifier', 'activerecord.attributes.item.item_identifier'],
       [:pub_date, 'activerecord.attributes.manifestation.pub_date'],
-      [:created_at, 'activerecord.attributes.item.created_at'],
+      [:acquired_at, 'activerecord.attributes.item.acquired_at'],
       [:title, 'activerecord.attributes.manifestation.original_title'],
     ]
 
@@ -1017,8 +1017,103 @@ class Item < ActiveRecord::Base
           row << item.manifestation.original_title
         when :pub_date
           row << item.manifestation.pub_date
-        when :created_at
-          row << item.created_at.strftime("%Y/%m/%d") if item.created_at
+        when :acquired_at
+          acquired_at = ""
+          acquired_at =  item.acquired_at.strftime("%Y/%m/%d") if item.acquired_at
+          row << acquired_at
+        else
+          row << get_object_method(item, column[0].split('.')).to_s.gsub(/\r\n|\r|\n/," ").gsub(/\"/,"\"\"")
+        end
+      end
+      data << '"'+row.join("\"\t\"")+"\"\n"
+    end
+    return data
+  end
+
+  def self.make_export_series_statements_list_pdf(items, acquired_at)
+    return false if items.blank?
+    report = ThinReports::Report.new :layout => "#{Rails.root.to_s}/report/series_statements_list"
+
+    report.events.on :page_create do |e|
+      e.page.item(:page).value(e.page.no)
+    end
+    report.events.on :generate do |e|
+      e.pages.each do |page|
+        page.item(:total).value(e.report.page_count)
+      end
+    end
+    report.start_new_page
+    report.page.item(:date).value(Time.now)
+    if acquired_at.size > 0
+      start_date = Time.zone.parse(acquired_at).strftime("%Y/%m/%d").to_s
+    else
+      start_date = ""
+    end
+    term = start_date + ' - ' + Time.now.strftime("%Y/%m/%d").to_s
+    report.page.item(:term).value(term)
+    items.each do |item|
+      report.page.list(:list).add_row do |row|
+        row.item(:library).value(item.shelf.library.display_name.localize) if item.shelf && item.shelf.library
+        row.item(:acquired_at).value(item.acquired_at.strftime("%Y/%m/%d")) if item.acquired_at
+        row.item(:bookstore).value(item.bookstore.name) if item.bookstore
+        row.item(:item_identifier).value(item.item_identifier)
+        row.item(:volume_number_string).value(item.manifestation.volume_number_string) if item.manifestation
+        row.item(:issue_number_string).value(item.manifestation.issue_number_string) if item.manifestation
+        row.item(:serial_number_string).value(item.manifestation.serial_number_string) if item.manifestation
+        row.item(:title).value(item.manifestation.original_title) if item.manifestation
+      end
+    end
+    return report
+  end
+
+  def self.make_export_series_statements_list_tsv(items, acquired_at)
+    data = String.new
+    data << "\xEF\xBB\xBF".force_encoding("UTF-8") + "\n"
+
+    # set term
+    if acquired_at.size > 0
+      start_date = Time.zone.parse(acquired_at).strftime("%Y/%m/%d").to_s
+    else
+      start_date = ""
+    end
+    term = start_date + ' - ' + Time.now.strftime("%Y/%m/%d").to_s
+    data << '"' + term + "\"\n"
+
+    columns = [
+      [:library, 'activerecord.models.library'],
+      [:acquired_at, 'activerecord.attributes.item.acquired_at'],
+      [:bookstore, 'activerecord.models.bookstore'],
+      ['item_identifier', 'activerecord.attributes.item.item_identifier'],
+      [:volume_number_string, 'activerecord.attributes.manifestation.volume_number_string'],
+      [:issue_number_string, 'activerecord.attributes.manifestation.issue_number_string'],
+      [:serial_number_string, 'activerecord.attributes.manifestation.serial_number_string'],
+      [:title, 'activerecord.attributes.manifestation.original_title'],
+    ]
+
+    # title column
+    row = columns.map {|column| I18n.t(column[1])}
+    data << '"'+row.join("\"\t\"")+"\"\n"
+
+    items.each do |item|
+      row = []
+      columns.each do |column|
+        case column[0]
+        when :library
+          row << item.shelf.library.display_name.localize 
+        when :acquired_at
+          row << item.acquired_at.strftime("%Y/%m/%d") if item.acquired_at
+        when :bookstore
+          bookstore = ""
+          bookstore = item.bookstore.name if item.bookstore and item.bookstore.name
+          row << bookstore
+        when :volume_number_string
+          row << item.manifestation.volume_number_string
+        when :issue_number_string
+          row << item.manifestation.issue_number_string
+        when :serial_number_string
+          row << item.manifestation.serial_number_string
+        when :title
+          row << item.manifestation.original_title
         else
           row << get_object_method(item, column[0].split('.')).to_s.gsub(/\r\n|\r|\n/," ").gsub(/\"/,"\"\"")
         end
