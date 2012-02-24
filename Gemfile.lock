@@ -12,7 +12,7 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_book_jacket.git
-  revision: a933c2335907bdd801b46902b3a653aa4b951c17
+  revision: 688cca0c3a0e101d7cd208e71ce6aa7e9fd0cbed
   specs:
     enju_book_jacket (0.0.1)
       configatron
@@ -37,7 +37,7 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_circulation.git
-  revision: 5ed53842acb0ee21a139b12a8d9ab4570c2d0686
+  revision: 797a88b50ec4a42339dddda3ac5fd2adda8e08e4
   specs:
     enju_circulation (0.0.11)
       attribute_normalizer (~> 1.0)
@@ -80,7 +80,7 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_inter_library_loan.git
-  revision: a7fea112d2eafed42510c5c66e0d35172468d7da
+  revision: 2f2c5c285bfcdeea1a898bb8f62c6fdfa6dbaea0
   specs:
     enju_inter_library_loan (0.0.1)
       addressable
@@ -96,7 +96,7 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_inventory.git
-  revision: 091114a24423bd2ea685af408c910dc3a0bf2500
+  revision: 79f33a7154f0589a540daba0037563d121184b5b
   specs:
     enju_inventory (0.0.3)
       cancan
@@ -110,7 +110,7 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_manifestation_viewer.git
-  revision: c9f7024224a35af0690af77020505e293e8dcc82
+  revision: 63cddc5dbd2865cec4bb571700a5b0880d42128f
   specs:
     enju_manifestation_viewer (0.0.1)
       addressable
@@ -118,7 +118,7 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_message.git
-  revision: 03145f7737dab326fe8f14ac78a613593dd28ef8
+  revision: b1d1b24c362f1ed8b43f66fd96216e6c97a04431
   specs:
     enju_message (0.0.10)
       addressable
@@ -139,7 +139,7 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_ndl.git
-  revision: cc2d5fc0267dc3cfd8f2c6245d5d6a80f4c41871
+  revision: ae9a134fc0e1a7103d791e46055d1f4c1d3bcff0
   specs:
     enju_ndl (0.0.11)
       devise
@@ -149,7 +149,7 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_oai.git
-  revision: 0e7a88bc97de7785b8a5dceebad0a4f2bab832c6
+  revision: 7e7fb239ddbc4d7d084be5043d34d2f0e991b379
   specs:
     enju_oai (0.0.1)
       rails (~> 3.1)
@@ -172,13 +172,13 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_question.git
-  revision: 0cdb37260010a0f4b382e0827f0d8c8af9015189
+  revision: a0ca6cbafb27b946f1a54155a759ab4c3be01614
   specs:
     enju_question (0.0.5)
       acts-as-taggable-on (~> 2.2)
       cancan
       devise
-      enju_ndl (>= 0.0.3)
+      enju_ndl (>= 0.0.11)
       friendly_id (~> 4.0)
       nokogiri
       rails (~> 3.1)
@@ -189,7 +189,7 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_resource_merge.git
-  revision: a9c28c921b547a4c8e1644cb1e94a2ac774e202c
+  revision: ac48cab0f2080f787d887cf4407c2c1d6d8f0c50
   specs:
     enju_resource_merge (0.0.3)
       attribute_normalizer (~> 1.0)
@@ -204,7 +204,7 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_search_log.git
-  revision: 79ce1d4a16b74f201b451b27aede3e5b6355a449
+  revision: 6fa5b6e1b3b4ab8139567e94bb204c17e1a1fa8d
   specs:
     enju_search_log (0.0.2)
       cancan
