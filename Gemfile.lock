@@ -471,7 +471,7 @@ DEPENDENCIES
   addressable
   annotate
   astrails-safe
-  attribute_normalizer (~> 1.0)
+  attribute_normalizer (~> 1.1)
   awesome_nested_set (~> 2.0)
   aws-sdk (~> 1.3)
   cancan (>= 1.6.7)
@@ -498,7 +498,7 @@ DEPENDENCIES
   enju_subject (~> 0.0.6)
   exception_notification (~> 2.5.2)
   extractcontent
-  factory_girl_rails (~> 1.6)
+  factory_girl_rails (~> 1.7)
   fakeweb
   file_wrapper
   friendly_id (~> 4.0)
@@ -519,7 +519,7 @@ DEPENDENCIES
   nokogiri
   omniauth (~> 1.0)
   paper_trail (~> 2.6)
-  paperclip (~> 2.5)
+  paperclip (~> 2.6)
   parallel_tests
   pg
   progress_bar
