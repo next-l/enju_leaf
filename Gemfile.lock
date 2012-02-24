@@ -37,9 +37,9 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_circulation.git
-  revision: 274008b474f8c34996ca43a6ee208486ad619285
+  revision: 86835738717b4dbc61905295a66e534e926ef6d3
   specs:
-    enju_circulation (0.0.10)
+    enju_circulation (0.0.11)
       attribute_normalizer (~> 1.0)
       cancan
       devise
@@ -57,15 +57,15 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_event.git
-  revision: 04f5c2f24474d6853d67db517ac840a792dbbd33
+  revision: 4aff00209086a6e442944efcbbea72c36a98d56c
   specs:
-    enju_event (0.0.5)
+    enju_event (0.0.7)
       addressable
-      attribute_normalizer (~> 1.0)
+      attribute_normalizer (~> 1.1)
       cancan
       configatron
       devise
-      enju_message (>= 0.0.5)
+      enju_message (>= 0.0.10)
       event-calendar (~> 2.3.3)
       friendly_id (~> 4.0)
       has_scope
@@ -118,11 +118,11 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_message.git
-  revision: 96fe4f867882a03982221355f21627746e156c0d
+  revision: 03145f7737dab326fe8f14ac78a613593dd28ef8
   specs:
-    enju_message (0.0.9)
+    enju_message (0.0.10)
       addressable
-      attribute_normalizer (~> 1.0)
+      attribute_normalizer (~> 1.1)
       awesome_nested_set (~> 2.1)
       cancan
       configatron
@@ -214,10 +214,10 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_subject.git
-  revision: 39545dd840d465916be7da375eeae1a16b93de0f
+  revision: b5eb0c4d98e7c9cb27714babf6494219829a72d4
   specs:
     enju_subject (0.0.6)
-      attribute_normalizer (~> 1.0)
+      attribute_normalizer (~> 1.1)
       cancan
       devise
       dynamic_form
@@ -244,9 +244,9 @@ GIT
 
 GIT
   remote: git://github.com/swanandp/acts_as_list.git
-  revision: 7fd29b74eec9327a3d2a3033e1ca249ba04fc7e5
+  revision: 70be831b99d59b053ee92635b24be726b77b2a8c
   specs:
-    acts_as_list (0.1.4)
+    acts_as_list (0.1.5)
 
 GEM
   remote: https://rubygems.org/
@@ -464,7 +464,7 @@ GEM
       railties (= 3.2.2.rc1)
     rails_autolink (1.0.5)
       rails (~> 3.1)
-    rails_best_practices (1.7.2)
+    rails_best_practices (1.8.0)
       activesupport
       colored
       erubis

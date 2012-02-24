@@ -309,7 +309,7 @@ describe UseRestrictionsController do
         end
 
         it "moves its position when specified" do
-          put :update, :id => @use_restriction.id, :use_restriction => @attrs, :position => 2
+          put :update, :id => @use_restriction.id, :use_restriction => @attrs, :move => 'lower'
           response.should redirect_to(use_restrictions_url)
         end
       end

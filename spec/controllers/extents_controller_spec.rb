@@ -307,7 +307,7 @@ describe ExtentsController do
         end
 
         it "moves its position when specified" do
-          put :update, :id => @extent.id, :extent => @attrs, :position => 2
+          put :update, :id => @extent.id, :extent => @attrs, :move => 'lower'
           response.should redirect_to(extents_url)
         end
       end

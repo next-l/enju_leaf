@@ -307,7 +307,7 @@ describe CountriesController do
         end
 
         it "moves its position when specified" do
-          put :update, :id => @country.id, :country => @attrs, :position => 2
+          put :update, :id => @country.id, :country => @attrs, :move => 'lower'
           response.should redirect_to(countries_url)
         end
       end
@@ -334,7 +334,7 @@ describe CountriesController do
         end
 
         it "moves its position when specified" do
-          put :update, :id => @country.id, :country => @attrs, :position => 2
+          put :update, :id => @country.id, :country => @attrs, :move => 'lower'
           response.should be_forbidden
         end
       end
@@ -361,7 +361,7 @@ describe CountriesController do
         end
 
         it "moves its position when specified" do
-          put :update, :id => @country.id, :country => @attrs, :position => 2
+          put :update, :id => @country.id, :country => @attrs, :move => 'lower'
           response.should be_forbidden
         end
       end

@@ -100,7 +100,7 @@ describe RolesController do
         end
 
         it "moves its position when specified" do
-          put :update, :id => @role.id, :role => @attrs, :position => 2
+          put :update, :id => @role.id, :role => @attrs, :move => 'lower'
           response.should redirect_to(roles_url)
         end
       end

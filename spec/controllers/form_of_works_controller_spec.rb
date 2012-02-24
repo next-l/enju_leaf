@@ -307,7 +307,7 @@ describe FormOfWorksController do
         end
 
         it "moves its position when specified" do
-          put :update, :id => @form_of_work.id, :form_of_work => @attrs, :position => 2
+          put :update, :id => @form_of_work.id, :form_of_work => @attrs, :move => 'lower'
           response.should redirect_to(form_of_works_url)
         end
       end

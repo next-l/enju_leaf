@@ -307,7 +307,7 @@ describe FrequenciesController do
         end
 
         it "moves its position when specified" do
-          put :update, :id => @frequency.id, :frequency => @attrs, :position => 2
+          put :update, :id => @frequency.id, :frequency => @attrs, :move => 'lower'
           response.should redirect_to(frequencies_url)
         end
       end

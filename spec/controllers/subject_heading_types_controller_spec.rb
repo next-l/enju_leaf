@@ -307,7 +307,7 @@ describe SubjectHeadingTypesController do
         end
 
         it "moves its position when specified" do
-          put :update, :id => @subject_heading_type.id, :subject_heading_type => @attrs, :position => 2
+          put :update, :id => @subject_heading_type.id, :subject_heading_type => @attrs, :move => 'lower'
           response.should redirect_to(subject_heading_types_url)
         end
       end

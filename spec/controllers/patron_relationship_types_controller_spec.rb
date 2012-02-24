@@ -307,7 +307,7 @@ describe PatronRelationshipTypesController do
         end
 
         it "moves its position when specified" do
-          put :update, :id => @patron_relationship_type.id, :patron_relationship_type => @attrs, :position => 2
+          put :update, :id => @patron_relationship_type.id, :patron_relationship_type => @attrs, :move => 'lower'
           response.should redirect_to(patron_relationship_types_url)
         end
       end

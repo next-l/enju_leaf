@@ -307,7 +307,7 @@ describe MediumOfPerformancesController do
         end
 
         it "moves its position when specified" do
-          put :update, :id => @medium_of_performance.id, :medium_of_performance => @attrs, :position => 2
+          put :update, :id => @medium_of_performance.id, :medium_of_performance => @attrs, :move => 'lower'
           response.should redirect_to(medium_of_performances_url)
         end
       end

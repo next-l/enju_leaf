@@ -309,7 +309,7 @@ describe PatronTypesController do
         end
 
         it "moves its position when specified" do
-          put :update, :id => @patron_type.id, :patron_type => @attrs, :position => 2
+          put :update, :id => @patron_type.id, :patron_type => @attrs, :move => 'lower'
           response.should redirect_to(patron_types_url)
         end
       end
