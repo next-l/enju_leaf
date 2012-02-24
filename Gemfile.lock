@@ -1,6 +1,6 @@
 GIT
   remote: git://github.com/nabeta/enju_barcode.git
-  revision: 62bae2a97bf2b1f83f5cee012b8fbb258d670bab
+  revision: bb08068e256c3a931745cfb631ec71c576cfb787
   specs:
     enju_barcode (0.0.1)
       barby (~> 0.5)
@@ -20,7 +20,7 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_bookmark.git
-  revision: 0aefff0620798ede76615169cc8cd6de77b3494c
+  revision: 3730c11859e3d25a155a50276c3f46fce50a52e3
   specs:
     enju_bookmark (0.0.4)
       acts-as-taggable-on (~> 2.2)
@@ -37,7 +37,7 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_circulation.git
-  revision: 86835738717b4dbc61905295a66e534e926ef6d3
+  revision: 5ed53842acb0ee21a139b12a8d9ab4570c2d0686
   specs:
     enju_circulation (0.0.11)
       attribute_normalizer (~> 1.0)
@@ -214,7 +214,7 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_subject.git
-  revision: b5eb0c4d98e7c9cb27714babf6494219829a72d4
+  revision: 7a61716ef8e5ee1eb57d3e7371bafc47428dbd1d
   specs:
     enju_subject (0.0.6)
       attribute_normalizer (~> 1.1)
