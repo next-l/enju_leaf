@@ -1,7 +1,0 @@
-<div id="amazon">
-  <p><%= link_to t('page.these_reviews_are_from_amazon'), amazon_link(manifestation.asin) -%></p>
-  <%- manifestation.amazon_customer_reviews.each do |review| -%>
-    <div class="amazon_summary"><strong><%= review[:summary] -%></strong> (<%= review[:date] -%>)</div>
-    <p><%= raw h(review[:content]).gsub('&lt;', '<').gsub('&gt;', '>') -%></p>
-  <%- end -%>
-</div>
