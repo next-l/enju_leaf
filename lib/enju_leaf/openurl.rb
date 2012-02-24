@@ -1,3 +1,4 @@
+# -*- encoding: utf-8 -*-
 #-------------------------------------------
 # OpenurlQuerySyntaxErrorクラス
 # 文法上の誤りをエラーとする
@@ -17,7 +18,7 @@ class Openurl
   LOGIC_MULTI_OR = [:ndl_dpid] # OR検索
 
   # 桁チェックが必要な項目
-  NUM_CHECK = {:issn =>8, :isbn => 13}
+  NUM_CHECK = {:issn => 8, :isbn => 13}
 
   # 集約される項目
   SYNONYMS = [:title, :aulast, :aufirst]
@@ -31,8 +32,8 @@ class Openurl
                 :btitle => 'btitle_text',
                 :jtitle => 'jtitle_text',
                 :pub => 'publisher_text',
-                :issn => 'issn_text',
-                :isbn => 'isbn_text',
+                :issn => 'issn_s',
+                :isbn => 'isbn_sm',
                 :ndl_jpno => 'ndl_jpno_text', # TODO:現在対応項目はないので保留。
                 :ndl_dpid => 'ndl_dpid_sm',   # TODO:現在対応項目はないので保留。これのみ完全一致であることに注意。
                 :associate => ''              # TODO:フィールド名ではないので削除？
@@ -118,7 +119,10 @@ class Openurl
     # 数値でない文字列には空白がある場合も含むので複数指定はエラーとなる
     # このチェックはANY検索の時外す
     if NUM_CHECK.include?(key) then
-      raise OpenurlQuerySyntaxError unless /\A\d{1,#{NUM_CHECK[key]}}\Z/ =~ val
+      if [:issn, :isbn].include?(key.to_sym)
+        val.gsub!('-', '')
+      end
+      raise OpenurlQuerySyntaxError unless /\A\d{1,#{NUM_CHECK[key]}}X?\Z/i =~ val
     end
     "%s:%s*" % [field, val]
   end

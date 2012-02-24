@@ -1,6 +1,5 @@
 FactoryGirl.define do
-  factory :question do |f|
-    f.sequence(:body){|n| "question_#{n}"}
+  factory :basket do |f|
     f.user_id{FactoryGirl.create(:user).id}
   end
 end

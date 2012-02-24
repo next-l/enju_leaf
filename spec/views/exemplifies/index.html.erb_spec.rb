@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe "exemplifies/index.html.erb" do
+describe "exemplifies/index" do
   before(:each) do
     assign(:exemplifies, [
       stub_model(Exemplify,

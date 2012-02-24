@@ -3,6 +3,7 @@ require 'sunspot/rails/spec_helper'
 
 describe ExemplifiesController do
   disconnect_sunspot
+  fixtures :circulation_statuses
 
   def mock_exemplify(stubs={})
     @mock_exemplify ||= mock_model(Exemplify, stubs).as_null_object

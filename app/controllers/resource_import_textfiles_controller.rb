@@ -42,6 +42,15 @@ class ResourceImportTextfilesController < ApplicationController
     end
   end
 
+  def destroy
+    @resource_import_textfile.destroy
+
+    respond_to do |format|
+      format.html { redirect_to(resource_import_textfiles_url) }
+      format.xml  { head :ok }
+    end
+  end
+
   def import_request
     @resource_import_textfile = ResourceImportTextfile.find(params[:id])
     #ResourceImportTextfile.send_later(:import, @resource_import_textfile.id, 0)

@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe "creates/new.html.erb" do
+describe "creates/new" do
   before(:each) do
     assign(:create, stub_model(Create,
       :work_id => 1,

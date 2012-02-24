@@ -203,5 +203,3 @@ Devise.setup do |config|
   # end
 end
 
-Devise::SessionsController.ssl_allowed :new, :create
-Devise::RegistrationsController.ssl_allowed :new, :create

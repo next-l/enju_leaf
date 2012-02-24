@@ -1,6 +1,6 @@
 FactoryGirl.define do
   factory :work_has_subject do |f|
-    f.work{FactoryGirl.create(:manifestation)}
-    f.subject{FactoryGirl.create(:subject)}
+    f.work_id{FactoryGirl.create(:manifestation).id}
+    f.subject_id{FactoryGirl.create(:subject).id}
   end
 end
