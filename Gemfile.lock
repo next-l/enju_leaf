@@ -20,12 +20,12 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_bookmark.git
-  revision: 3730c11859e3d25a155a50276c3f46fce50a52e3
+  revision: e8aafb5b9245e1bcad46304bd02a904734067bee
   specs:
     enju_bookmark (0.0.4)
       acts-as-taggable-on (~> 2.2)
       addressable
-      attribute_normalizer (~> 1.0)
+      attribute_normalizer (~> 1.1)
       cancan
       devise
       friendly_id (~> 4.0)
@@ -37,14 +37,14 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_circulation.git
-  revision: 797a88b50ec4a42339dddda3ac5fd2adda8e08e4
+  revision: 8eac3576da691d37110fc344b25f295db43fedc1
   specs:
     enju_circulation (0.0.11)
-      attribute_normalizer (~> 1.0)
+      attribute_normalizer (~> 1.1)
       cancan
       devise
       enju_event (>= 0.0.5)
-      enju_message (>= 0.0.6)
+      enju_message (>= 0.0.9)
       friendly_id (~> 4.0)
       inherited_resources
       rails (~> 3.1)
@@ -57,7 +57,7 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_event.git
-  revision: 4aff00209086a6e442944efcbbea72c36a98d56c
+  revision: 612681726149297bba65a1a2fa3c989325d2c2df
   specs:
     enju_event (0.0.7)
       addressable
@@ -80,11 +80,11 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_inter_library_loan.git
-  revision: 2f2c5c285bfcdeea1a898bb8f62c6fdfa6dbaea0
+  revision: cebd0100eb3073ecd599a46af35f85694751d51d
   specs:
     enju_inter_library_loan (0.0.1)
       addressable
-      attribute_normalizer (~> 1.0)
+      attribute_normalizer (~> 1.1)
       cancan
       devise
       friendly_id (~> 4.0)
@@ -156,11 +156,11 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_purchase_request.git
-  revision: f3fb4d6a678f21310dbc914994be9ff01c26cca8
+  revision: a88e74ff7cc29a8867fa9c387770422032e134f4
   specs:
     enju_purchase_request (0.0.4)
       addressable
-      attribute_normalizer (~> 1.0)
+      attribute_normalizer (~> 1.1)
       cancan
       configatron
       devise
@@ -189,10 +189,10 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_resource_merge.git
-  revision: ac48cab0f2080f787d887cf4407c2c1d6d8f0c50
+  revision: 02563374fa47ad7270b2b4cadaf17d7cd5bae409
   specs:
     enju_resource_merge (0.0.3)
-      attribute_normalizer (~> 1.0)
+      attribute_normalizer (~> 1.1)
       cancan
       devise
       dynamic_form
@@ -587,7 +587,7 @@ DEPENDENCIES
   addressable
   annotate
   astrails-safe
-  attribute_normalizer (~> 1.0)
+  attribute_normalizer (~> 1.1)
   awesome_nested_set (~> 2.1)
   aws-sdk (~> 1.3)
   cancan (>= 1.6.7)
