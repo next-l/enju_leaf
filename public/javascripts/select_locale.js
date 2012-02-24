@@ -1,0 +1,9 @@
+$(function(){
+  $("body").click(function(event){
+    $("#select_locale").hide();
+  });
+  $("#select_locale_menu").click(function(event){
+    $("#select_locale").toggle();
+    event.stopPropagation();
+  });
+});
