@@ -59,15 +59,16 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_event.git
-  revision: 612681726149297bba65a1a2fa3c989325d2c2df
+  revision: 95fc0b7a99b79dfe670f04246cb8a62320e1d285
   specs:
     enju_event (0.0.7)
+      acts_as_list (~> 0.1.5)
       addressable
       attribute_normalizer (~> 1.1)
       cancan
       configatron
       devise
-      enju_message (>= 0.0.10)
+      enju_message (~> 0.0.10)
       event-calendar (~> 2.3.3)
       friendly_id (~> 4.0)
       has_scope
@@ -160,9 +161,9 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_purchase_request.git
-  revision: 5d34750d5b0c63849beb1daebf9138a13052c183
+  revision: 2f1dd001a9c0c2c30358c1a50251a75340a6c927
   specs:
-    enju_purchase_request (0.0.4)
+    enju_purchase_request (0.0.5)
       acts_as_list (~> 0.1.5)
       addressable
       attribute_normalizer (~> 1.1)
@@ -177,9 +178,9 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_question.git
-  revision: e883f3125d84c2b3d15b86da830a01dcad3efd70
+  revision: 912a8192ec38b4a16d7121e2d6a19ac16c359f1b
   specs:
-    enju_question (0.0.5)
+    enju_question (0.0.6)
       acts-as-taggable-on (~> 2.2)
       acts_as_list (~> 0.1.5)
       cancan
@@ -195,9 +196,9 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_resource_merge.git
-  revision: 81c1877f72f151549a26149ef18188b916169eed
+  revision: 301936c9ff570ee701f4ed09f4b84e3b0b56630e
   specs:
-    enju_resource_merge (0.0.3)
+    enju_resource_merge (0.0.4)
       acts_as_list (~> 0.1.5)
       attribute_normalizer (~> 1.1)
       cancan
@@ -221,9 +222,9 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_subject.git
-  revision: 3879ee80fb39318d2b99f6c18334be2e2f07427d
+  revision: 21792a708150e6715628b53631a1e60fe0f4f3d9
   specs:
-    enju_subject (0.0.6)
+    enju_subject (0.0.7)
       acts_as_list (~> 0.1.5)
       attribute_normalizer (~> 1.1)
       cancan
@@ -431,7 +432,7 @@ GEM
     orm_adapter (0.0.6)
     paper_trail (2.6.0)
       rails (~> 3)
-    paperclip (2.6.0)
+    paperclip (2.7.0)
       activerecord (>= 2.3.0)
       activesupport (>= 2.3.2)
       cocaine (>= 0.0.2)
@@ -641,7 +642,7 @@ DEPENDENCIES
   nokogiri
   omniauth (~> 1.0)
   paper_trail (~> 2.6)
-  paperclip (~> 2.6)
+  paperclip (~> 2.7)
   parallel_tests
   pg
   progress_bar
