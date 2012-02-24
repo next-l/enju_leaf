@@ -305,7 +305,7 @@ describe MessageTemplatesController do
         end
 
         it "moves its position when specified" do
-          put :update, :id => @message_template.id, :message_template => @attrs, :position => 2
+          put :update, :id => @message_template.id, :message_template => @attrs, :move => 'lower'
           response.should redirect_to(message_templates_url)
         end
       end

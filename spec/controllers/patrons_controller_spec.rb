@@ -3,6 +3,10 @@ require 'spec_helper'
 describe PatronsController do
   fixtures :all
 
+  def valid_attributes
+    FactoryGirl.attributes_for(:patron)
+  end
+
   describe "GET index", :solr => true do
     describe "When logged in as Administrator" do
       login_fixture_admin
@@ -120,11 +124,6 @@ describe PatronsController do
         response.should be_missing
       end
 
-      it "should not show patron who does not realize an expression" do
-        get :show, :id => 4, :expression_id => 4
-        response.should be_missing
-      end
-
       it "should not show patron who does not produce a manifestation" do
         get :show, :id => 4, :manifestation_id => 4
         response.should be_missing
@@ -167,11 +166,6 @@ describe PatronsController do
       it "should show patron with work" do
         get :show, :id => 1, :work_id => 1
         assigns(:patron).should eq assigns(:work).creators.first
-      end
-
-      it "should show patron with expression" do
-        get :show, :id => 1, :expression_id => 1
-        assigns(:patron).should eq assigns(:expression).contributors.first
       end
 
       it "should show patron with manifestation" do
@@ -291,7 +285,7 @@ describe PatronsController do
 
   describe "POST create" do
     before(:each) do
-      @attrs = FactoryGirl.attributes_for(:patron)
+      @attrs = valid_attributes
       @invalid_attrs = FactoryGirl.attributes_for(:patron, :full_name => '')
     end
 
@@ -426,7 +420,7 @@ describe PatronsController do
   describe "PUT update" do
     before(:each) do
       @patron = FactoryGirl.create(:patron)
-      @attrs = FactoryGirl.attributes_for(:patron)
+      @attrs = valid_attributes
       @invalid_attrs = FactoryGirl.attributes_for(:patron, :full_name => '')
     end
 

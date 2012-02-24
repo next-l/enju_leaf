@@ -5,6 +5,10 @@ describe ReservesController do
   fixtures :all
   disconnect_sunspot
 
+  def valid_attributes
+    FactoryGirl.attributes_for(:reserve)
+  end
+
   describe "GET index" do
     describe "When logged in as Administrator" do
       login_fixture_admin
@@ -515,7 +519,7 @@ describe ReservesController do
   describe "PUT update" do
     before(:each) do
       @reserve = FactoryGirl.create(:reserve)
-      @attrs = FactoryGirl.attributes_for(:reserve)
+      @attrs = valid_attributes
       @invalid_attrs = {:manifestation_id => ''}
     end
 

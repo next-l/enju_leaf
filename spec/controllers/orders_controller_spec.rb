@@ -5,6 +5,10 @@ describe OrdersController do
   fixtures :all
   disconnect_sunspot
 
+  def valid_attributes
+    FactoryGirl.attributes_for(:order)
+  end
+
   describe "GET index" do
     before(:each) do
       FactoryGirl.create(:order)
@@ -194,7 +198,7 @@ describe OrdersController do
 
   describe "POST create" do
     before(:each) do
-      @attrs = FactoryGirl.attributes_for(:order)
+      @attrs = valid_attributes
       @invalid_attrs = {:order_list_id => ''}
     end
 
@@ -339,7 +343,7 @@ describe OrdersController do
   describe "PUT update" do
     before(:each) do
       @order = FactoryGirl.create(:order)
-      @attrs = FactoryGirl.attributes_for(:order)
+      @attrs = valid_attributes
       @invalid_attrs = {:order_list_id => ''}
     end
 

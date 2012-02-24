@@ -5,6 +5,10 @@ describe DonatesController do
   fixtures :all
   disconnect_sunspot
 
+  def valid_attributes
+    FactoryGirl.attributes_for(:donate)
+  end
+
   describe "GET index" do
     describe "When logged in as Administrator" do
       login_admin
@@ -161,7 +165,7 @@ describe DonatesController do
 
   describe "POST create" do
     before(:each) do
-      @attrs = FactoryGirl.attributes_for(:donate)
+      @attrs = valid_attributes
       @invalid_attrs = {:item_id => ''}
     end
 
@@ -279,7 +283,7 @@ describe DonatesController do
   describe "PUT update" do
     before(:each) do
       @donate = FactoryGirl.create(:donate)
-      @attrs = FactoryGirl.attributes_for(:donate)
+      @attrs = valid_attributes
       @invalid_attrs = {:item_id => ''}
     end
 

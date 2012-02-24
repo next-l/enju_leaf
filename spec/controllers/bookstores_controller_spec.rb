@@ -5,6 +5,10 @@ describe BookstoresController do
   fixtures :all
   disconnect_sunspot
 
+  def valid_attributes
+    FactoryGirl.attributes_for(:bookstore)
+  end
+
   describe "GET index" do
     before(:each) do
       FactoryGirl.create(:bookstore)
@@ -169,7 +173,7 @@ describe BookstoresController do
 
   describe "POST create" do
     before(:each) do
-      @attrs = FactoryGirl.attributes_for(:bookstore)
+      @attrs = valid_attributes
       @invalid_attrs = {:name => ''}
     end
 
@@ -287,7 +291,7 @@ describe BookstoresController do
   describe "PUT update" do
     before(:each) do
       @bookstore = FactoryGirl.create(:bookstore)
-      @attrs = FactoryGirl.attributes_for(:bookstore)
+      @attrs = valid_attributes
       @invalid_attrs = {:name => ''}
     end
 
@@ -305,7 +309,7 @@ describe BookstoresController do
         end
 
         it "moves its position when specified" do
-          put :update, :id => @bookstore.id, :bookstore => @attrs, :position => 2
+          put :update, :id => @bookstore.id, :bookstore => @attrs, :move => 'lower'
           response.should redirect_to(bookstores_url)
         end
       end

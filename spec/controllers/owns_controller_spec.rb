@@ -5,6 +5,10 @@ describe OwnsController do
   fixtures :all
   disconnect_sunspot
 
+  def valid_attributes
+    FactoryGirl.attributes_for(:own)
+  end
+
   describe "GET index" do
     before(:each) do
       FactoryGirl.create(:own)
@@ -167,7 +171,7 @@ describe OwnsController do
 
   describe "POST create" do
     before(:each) do
-      @attrs = FactoryGirl.attributes_for(:own)
+      @attrs = valid_attributes
       @invalid_attrs = {:item_id => ''}
     end
 
@@ -285,7 +289,7 @@ describe OwnsController do
   describe "PUT update" do
     before(:each) do
       @own = FactoryGirl.create(:own)
-      @attrs = FactoryGirl.attributes_for(:own)
+      @attrs = valid_attributes
       @invalid_attrs = {:item_id => ''}
     end
 
@@ -304,7 +308,7 @@ describe OwnsController do
         end
 
         it "moves its position when specified" do
-          put :update, :id => @own.id, :own => @attrs, :item_id => @own.item.id, :position => 2
+          put :update, :id => @own.id, :own => @attrs, :item_id => @own.item.id, :move => 'lower'
           response.should redirect_to(item_owns_url(@own.item))
         end
       end

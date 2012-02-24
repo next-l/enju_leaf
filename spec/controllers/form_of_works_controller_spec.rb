@@ -5,6 +5,10 @@ describe FormOfWorksController do
   fixtures :all
   disconnect_sunspot
 
+  def valid_attributes
+    FactoryGirl.attributes_for(:form_of_work)
+  end
+
   describe "GET index" do
     before(:each) do
       FactoryGirl.create(:form_of_work)
@@ -167,7 +171,7 @@ describe FormOfWorksController do
 
   describe "POST create" do
     before(:each) do
-      @attrs = FactoryGirl.attributes_for(:form_of_work)
+      @attrs = valid_attributes
       @invalid_attrs = {:name => ''}
     end
 
@@ -285,7 +289,7 @@ describe FormOfWorksController do
   describe "PUT update" do
     before(:each) do
       @form_of_work = FactoryGirl.create(:form_of_work)
-      @attrs = FactoryGirl.attributes_for(:form_of_work)
+      @attrs = valid_attributes
       @invalid_attrs = {:name => ''}
     end
 
@@ -303,7 +307,7 @@ describe FormOfWorksController do
         end
 
         it "moves its position when specified" do
-          put :update, :id => @form_of_work.id, :form_of_work => @attrs, :position => 2
+          put :update, :id => @form_of_work.id, :form_of_work => @attrs, :move => 'lower'
           response.should redirect_to(form_of_works_url)
         end
       end

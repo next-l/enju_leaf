@@ -5,6 +5,10 @@ describe CheckoutStatHasUsersController do
   fixtures :all
   disconnect_sunspot
 
+  def valid_attributes
+    FactoryGirl.attributes_for(:checkout_stat_has_user)
+  end
+
   describe "GET index" do
     before(:each) do
       FactoryGirl.create(:checkout_stat_has_user)
@@ -169,7 +173,7 @@ describe CheckoutStatHasUsersController do
 
   describe "POST create" do
     before(:each) do
-      @attrs = FactoryGirl.attributes_for(:checkout_stat_has_user)
+      @attrs = valid_attributes
       @invalid_attrs = {:user_checkout_stat_id => ''}
     end
 
@@ -287,7 +291,7 @@ describe CheckoutStatHasUsersController do
   describe "PUT update" do
     before(:each) do
       @checkout_stat_has_user = FactoryGirl.create(:checkout_stat_has_user)
-      @attrs = FactoryGirl.attributes_for(:checkout_stat_has_user)
+      @attrs = valid_attributes
       @invalid_attrs = {:user_checkout_stat_id => ''}
     end
 

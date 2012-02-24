@@ -5,6 +5,10 @@ describe UseRestrictionsController do
   fixtures :all
   disconnect_sunspot
 
+  def valid_attributes
+     FactoryGirl.attributes_for(:use_restriction)
+  end
+
   describe "GET index" do
     before(:each) do
       FactoryGirl.create(:use_restriction)
@@ -169,7 +173,7 @@ describe UseRestrictionsController do
 
   describe "POST create" do
     before(:each) do
-      @attrs = FactoryGirl.attributes_for(:use_restriction)
+      @attrs = valid_attributes
       @invalid_attrs = {:name => ''}
     end
 
@@ -287,7 +291,7 @@ describe UseRestrictionsController do
   describe "PUT update" do
     before(:each) do
       @use_restriction = FactoryGirl.create(:use_restriction)
-      @attrs = FactoryGirl.attributes_for(:use_restriction)
+      @attrs = valid_attributes
       @invalid_attrs = {:display_name => ''}
     end
 
@@ -305,7 +309,7 @@ describe UseRestrictionsController do
         end
 
         it "moves its position when specified" do
-          put :update, :id => @use_restriction.id, :use_restriction => @attrs, :position => 2
+          put :update, :id => @use_restriction.id, :use_restriction => @attrs, :move => 'lower'
           response.should redirect_to(use_restrictions_url)
         end
       end

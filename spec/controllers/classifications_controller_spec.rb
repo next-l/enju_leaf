@@ -3,6 +3,10 @@ require 'spec_helper'
 describe ClassificationsController do
   fixtures :all
 
+  def valid_attributes
+    FactoryGirl.attributes_for(:classification)
+  end
+
   describe "GET index", :solr => true do
     describe "When logged in as Administrator" do
       login_admin
@@ -164,7 +168,7 @@ describe ClassificationsController do
 
   describe "POST create" do
     before(:each) do
-      @attrs = FactoryGirl.attributes_for(:classification)
+      @attrs = valid_attributes
       @invalid_attrs = {:category => ''}
     end
 
@@ -282,7 +286,7 @@ describe ClassificationsController do
   describe "PUT update" do
     before(:each) do
       @classification = FactoryGirl.create(:classification)
-      @attrs = FactoryGirl.attributes_for(:classification)
+      @attrs = valid_attributes
       @invalid_attrs = {:category => ''}
     end
 

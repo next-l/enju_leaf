@@ -5,6 +5,10 @@ describe CountriesController do
   fixtures :library_groups
   disconnect_sunspot
 
+  def valid_attributes
+    FactoryGirl.attributes_for(:country)
+  end
+
   describe "GET index" do
     before(:each) do
       FactoryGirl.create(:country)
@@ -167,7 +171,7 @@ describe CountriesController do
 
   describe "POST create" do
     before(:each) do
-      @attrs = FactoryGirl.attributes_for(:country)
+      @attrs = valid_attributes
       @invalid_attrs = {:name => ''}
     end
 
@@ -285,7 +289,7 @@ describe CountriesController do
   describe "PUT update" do
     before(:each) do
       @country = FactoryGirl.create(:country)
-      @attrs = FactoryGirl.attributes_for(:country)
+      @attrs = valid_attributes
       @invalid_attrs = {:name => ''}
     end
 
@@ -303,7 +307,7 @@ describe CountriesController do
         end
 
         it "moves its position when specified" do
-          put :update, :id => @country.id, :country => @attrs, :position => 2
+          put :update, :id => @country.id, :country => @attrs, :move => 'lower'
           response.should redirect_to(countries_url)
         end
       end
@@ -330,7 +334,7 @@ describe CountriesController do
         end
 
         it "moves its position when specified" do
-          put :update, :id => @country.id, :country => @attrs, :position => 2
+          put :update, :id => @country.id, :country => @attrs, :move => 'lower'
           response.should be_forbidden
         end
       end
@@ -357,7 +361,7 @@ describe CountriesController do
         end
 
         it "moves its position when specified" do
-          put :update, :id => @country.id, :country => @attrs, :position => 2
+          put :update, :id => @country.id, :country => @attrs, :move => 'lower'
           response.should be_forbidden
         end
       end

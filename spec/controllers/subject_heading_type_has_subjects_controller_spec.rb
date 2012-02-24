@@ -5,6 +5,10 @@ describe SubjectHeadingTypeHasSubjectsController do
   fixtures :all
   disconnect_sunspot
 
+  def valid_attributes
+    FactoryGirl.attributes_for(:subject_heading_type_has_subject)
+  end
+
   describe "GET index" do
     before(:each) do
       FactoryGirl.create(:subject_heading_type_has_subject)
@@ -169,7 +173,7 @@ describe SubjectHeadingTypeHasSubjectsController do
 
   describe "POST create" do
     before(:each) do
-      @attrs = FactoryGirl.attributes_for(:subject_heading_type_has_subject)
+      @attrs = valid_attributes
       @invalid_attrs = {:subject_heading_type_id => ''}
     end
 
@@ -287,7 +291,7 @@ describe SubjectHeadingTypeHasSubjectsController do
   describe "PUT update" do
     before(:each) do
       @subject_heading_type_has_subject = FactoryGirl.create(:subject_heading_type_has_subject)
-      @attrs = FactoryGirl.attributes_for(:subject_heading_type_has_subject)
+      @attrs = valid_attributes
       @invalid_attrs = {:subject_heading_type_id => ''}
     end
 

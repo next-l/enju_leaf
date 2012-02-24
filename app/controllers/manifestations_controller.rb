@@ -734,7 +734,7 @@ class ManifestationsController < ApplicationController
   def set_title
     if @series_statement
       @manifestation.series_statement_id = @series_statement.id
-      if @manifestation.serial?
+      if @manifestation.periodical?
         @manifestation.set_serial_information
       else
         @manifestation.original_title = @series_statement.original_title

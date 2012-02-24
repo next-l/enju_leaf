@@ -1,6 +1,11 @@
 require 'spec_helper'
 
 describe SeriesStatementsController do
+
+  def valid_attributes
+    FactoryGirl.attributes_for(:series_statement)
+  end
+
   describe "GET index", :solr => true do
     describe "When logged in as Administrator" do
       login_admin
@@ -157,7 +162,7 @@ describe SeriesStatementsController do
 
   describe "POST create" do
     before(:each) do
-      @attrs = FactoryGirl.attributes_for(:series_statement)
+      @attrs = valid_attributes
       @invalid_attrs = {:original_title => ''}
     end
 
@@ -275,7 +280,7 @@ describe SeriesStatementsController do
   describe "PUT update" do
     before(:each) do
       @series_statement = FactoryGirl.create(:series_statement)
-      @attrs = FactoryGirl.attributes_for(:series_statement)
+      @attrs = valid_attributes
       @invalid_attrs = {:original_title => ''}
     end
 
@@ -293,7 +298,7 @@ describe SeriesStatementsController do
         end
 
         it "moves its position when specified" do
-          put :update, :id => @series_statement.id, :position => 2
+          put :update, :id => @series_statement.id, :move => 'lower'
           response.should redirect_to(series_statements_url)
         end
       end

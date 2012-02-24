@@ -163,7 +163,7 @@ class Manifestation < ActiveRecord::Base
   validates :isbn, :uniqueness => true, :allow_blank => true, :unless => proc{|manifestation| manifestation.series_statement}
   validates :nbn, :uniqueness => true, :allow_blank => true
   validates :manifestation_identifier, :uniqueness => true, :allow_blank => true
-  validates :pub_date, :format => {:with => /^\d+(-\d{0,2}){0,2}$/}, :allow_blank => true
+  validates :pub_date, :format => {:with => /^\d+([\/-]\d{0,2}){0,2}$/}, :allow_blank => true
   validates :access_address, :url => true, :allow_blank => true, :length => {:maximum => 255}
   validate :check_isbn, :check_issn, :check_lccn, :unless => :during_import
   validates :issue_number, :numericality => {:greater_than => 0}, :allow_blank => true
@@ -259,21 +259,6 @@ class Manifestation < ActiveRecord::Base
 
   def parent_of_series
     original_manifestations
-  end
-
-  def serial?
-    if new_record?
-      if SeriesStatement.where(:id => series_statement_id).first.try(:periodical)
-        return true
-      end
-    else
-      if series_statement.try(:periodical)
-        return true
-      elsif periodical?
-        return true unless series_statement.try(:root_manifestation) == self
-      end
-    end
-    false
   end
 
   def number_of_pages
@@ -465,7 +450,7 @@ class Manifestation < ActiveRecord::Base
   end
 
   def periodical?
-    if self.new_record?
+    if new_record?
       series_statement = SeriesStatement.where(:id => series_statement_id).first
     end
     if self.series_statement.try(:periodical)

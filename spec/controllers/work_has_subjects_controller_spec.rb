@@ -5,6 +5,10 @@ describe WorkHasSubjectsController do
   fixtures :all
   disconnect_sunspot
 
+  def valid_attributes
+    FactoryGirl.attributes_for(:work_has_subject)
+  end
+
   describe "GET index" do
     before(:each) do
       FactoryGirl.create(:work_has_subject)
@@ -165,7 +169,7 @@ describe WorkHasSubjectsController do
 
   describe "POST create" do
     before(:each) do
-      @attrs = FactoryGirl.attributes_for(:work_has_subject)
+      @attrs = valid_attributes
       @invalid_attrs = {:work_id => ''}
     end
 
@@ -283,7 +287,7 @@ describe WorkHasSubjectsController do
   describe "PUT update" do
     before(:each) do
       @work_has_subject = FactoryGirl.create(:work_has_subject)
-      @attrs = FactoryGirl.attributes_for(:work_has_subject)
+      @attrs = valid_attributes
       @invalid_attrs = {:work_id => ''}
     end
 

@@ -75,10 +75,12 @@ class ProducesController < ApplicationController
   # PUT /produces/1
   # PUT /produces/1.json
   def update
-    if @manifestation and params[:position]
-      @produce.insert_at(params[:position])
-      redirect_to manifestation_produces_url(@manifestation)
-      return
+    if @manifestation and params[:move]
+      if ['higher', 'lower'].include?(params[:move])
+        @produce.send("move_#{params[:move]}")
+        redirect_to manifestation_produces_url(@manifestation)
+        return
+      end
     end
 
     respond_to do |format|

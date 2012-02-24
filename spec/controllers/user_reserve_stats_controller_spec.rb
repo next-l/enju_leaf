@@ -5,6 +5,10 @@ describe UserReserveStatsController do
   fixtures :all
   disconnect_sunspot
 
+  def valid_attributes
+    FactoryGirl.attributes_for(:user_reserve_stat)
+  end
+
   describe "GET index" do
     before(:each) do
       FactoryGirl.create(:user_reserve_stat)
@@ -165,7 +169,7 @@ describe UserReserveStatsController do
 
   describe "POST create" do
     before(:each) do
-      @attrs = FactoryGirl.attributes_for(:user_reserve_stat)
+      @attrs = valid_attributes
       @invalid_attrs = {:start_date => ''}
     end
 
@@ -283,7 +287,7 @@ describe UserReserveStatsController do
   describe "PUT update" do
     before(:each) do
       @user_reserve_stat = FactoryGirl.create(:user_reserve_stat)
-      @attrs = FactoryGirl.attributes_for(:user_reserve_stat)
+      @attrs = valid_attributes
       @invalid_attrs = {:start_date => ''}
     end
 

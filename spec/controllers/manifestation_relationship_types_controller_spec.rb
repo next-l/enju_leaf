@@ -5,6 +5,10 @@ describe ManifestationRelationshipTypesController do
   fixtures :all
   disconnect_sunspot
 
+  def valid_attributes
+    FactoryGirl.attributes_for(:manifestation_relationship_type)
+  end
+
   describe "GET index" do
     before(:each) do
       FactoryGirl.create(:manifestation_relationship_type)
@@ -167,7 +171,7 @@ describe ManifestationRelationshipTypesController do
 
   describe "POST create" do
     before(:each) do
-      @attrs = FactoryGirl.attributes_for(:manifestation_relationship_type)
+      @attrs = valid_attributes
       @invalid_attrs = {:name => ''}
     end
 
@@ -285,7 +289,7 @@ describe ManifestationRelationshipTypesController do
   describe "PUT update" do
     before(:each) do
       @manifestation_relationship_type = FactoryGirl.create(:manifestation_relationship_type)
-      @attrs = FactoryGirl.attributes_for(:manifestation_relationship_type)
+      @attrs = valid_attributes
       @invalid_attrs = {:name => ''}
     end
 
@@ -303,7 +307,7 @@ describe ManifestationRelationshipTypesController do
         end
 
         it "moves its position when specified" do
-          put :update, :id => @manifestation_relationship_type.id, :manifestation_relationship_type => @attrs, :position => 2
+          put :update, :id => @manifestation_relationship_type.id, :manifestation_relationship_type => @attrs, :move => 'lower'
           response.should redirect_to(manifestation_relationship_types_url)
         end
       end

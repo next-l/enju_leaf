@@ -18,8 +18,8 @@
   <tr class="line<%= cycle("0", "1") -%>">
     <td>
       <%- if can? :destroy, realize -%>
-        <%= realize.first? ? image_tag('icons/stop.png', :size => '16x16') : link_to(image_tag('icons/arrow_up.png', :size => '16x16', :alt => t('page.asc')), {:action => 'update', :position => (realize.position > 1 ? realize.position - 1 : 1), :id => realize.id, :expression_id => expression.id}, :method => :put) -%>
-        <%= realize.last? ? image_tag('icons/stop.png', :size => '16x16') : link_to(image_tag('icons/arrow_down.png', :size => '16x16', :alt => t('page.desc')), {:action => 'update', :position => (realize.position + 1), :id => realize.id, :expression_id => expression.id}, :method => :put) -%>
+        <%= realize.first? ? image_tag('icons/stop.png', :size => '16x16') : link_to(image_tag('icons/arrow_up.png', :size => '16x16', :alt => t('page.asc')), {:action => 'update', :move => 'higher', :id => realize.id, :expression_id => expression.id}, :method => :put) -%>
+        <%= realize.last? ? image_tag('icons/stop.png', :size => '16x16') : link_to(image_tag('icons/arrow_down.png', :size => '16x16', :alt => t('page.desc')), {:action => 'update', :move => 'lower', :id => realize.id, :expression_id => expression.id}, :method => :put) -%>
       <%- end -%>
     </td>
     <td><%= link_to create.patron.try(:full_name), create.patron -%></td>

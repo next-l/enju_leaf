@@ -3,6 +3,10 @@ require 'spec_helper'
 describe SubjectsController do
   fixtures :all
 
+  def valid_attributes
+    FactoryGirl.attributes_for(:subject)
+  end
+
   describe "GET index", :solr => true do
     describe "When logged in as Administrator" do
       login_admin
@@ -175,7 +179,7 @@ describe SubjectsController do
 
   describe "POST create" do
     before(:each) do
-      @attrs = FactoryGirl.attributes_for(:subject)
+      @attrs = valid_attributes
       @invalid_attrs = {:term => ''}
     end
 
@@ -293,7 +297,7 @@ describe SubjectsController do
   describe "PUT update" do
     before(:each) do
       @subject = FactoryGirl.create(:subject)
-      @attrs = FactoryGirl.attributes_for(:subject)
+      @attrs = valid_attributes
       @invalid_attrs = {:term => ''}
     end
 

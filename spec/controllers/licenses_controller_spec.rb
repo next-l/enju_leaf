@@ -5,6 +5,10 @@ describe LicensesController do
   fixtures :all
   disconnect_sunspot
 
+  def valid_attributes
+    FactoryGirl.attributes_for(:license)
+  end
+
   describe "GET index" do
     before(:each) do
       FactoryGirl.create(:license)
@@ -167,7 +171,7 @@ describe LicensesController do
 
   describe "POST create" do
     before(:each) do
-      @attrs = FactoryGirl.attributes_for(:license)
+      @attrs = valid_attributes
       @invalid_attrs = {:name => ''}
     end
 
@@ -285,7 +289,7 @@ describe LicensesController do
   describe "PUT update" do
     before(:each) do
       @license = FactoryGirl.create(:license)
-      @attrs = FactoryGirl.attributes_for(:license)
+      @attrs = valid_attributes
       @invalid_attrs = {:name => ''}
     end
 
@@ -303,7 +307,7 @@ describe LicensesController do
         end
 
         it "moves its position when specified" do
-          put :update, :id => @license.id, :license => @attrs, :position => 2
+          put :update, :id => @license.id, :license => @attrs, :move => 'lower'
           response.should redirect_to(licenses_url)
         end
       end

@@ -3,6 +3,10 @@ require 'spec_helper'
 describe EventsController do
   fixtures :all
 
+  def valid_attributes
+    FactoryGirl.attributes_for(:event)
+  end
+
   describe "GET index", :solr => true do
     before(:each) do
       FactoryGirl.create(:event)
@@ -208,7 +212,7 @@ describe EventsController do
 
   describe "POST create" do
     before(:each) do
-      @attrs = FactoryGirl.attributes_for(:event)
+      @attrs = valid_attributes
       @invalid_attrs = {:name => ''}
     end
 
@@ -362,7 +366,7 @@ describe EventsController do
   describe "PUT update" do
     before(:each) do
       @event = FactoryGirl.create(:event)
-      @attrs = FactoryGirl.attributes_for(:event)
+      @attrs = valid_attributes
       @invalid_attrs = {:name => ''}
     end
 

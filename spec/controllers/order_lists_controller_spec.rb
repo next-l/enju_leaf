@@ -4,6 +4,10 @@ require 'sunspot/rails/spec_helper'
 describe OrderListsController do
   disconnect_sunspot
 
+  def valid_attributes
+    FactoryGirl.attributes_for(:order_list)
+  end
+
   describe "GET index" do
     describe "When logged in as Administrator" do
       login_admin
@@ -160,7 +164,7 @@ describe OrderListsController do
 
   describe "POST create" do
     before(:each) do
-      @attrs = FactoryGirl.attributes_for(:order_list)
+      @attrs = valid_attributes
       @invalid_attrs = {:bookstore_id => ''}
     end
 
@@ -278,7 +282,7 @@ describe OrderListsController do
   describe "PUT update" do
     before(:each) do
       @order_list = FactoryGirl.create(:order_list)
-      @attrs = FactoryGirl.attributes_for(:order_list)
+      @attrs = valid_attributes
       @invalid_attrs = {:bookstore_id => ''}
     end
 

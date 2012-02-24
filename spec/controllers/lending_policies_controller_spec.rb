@@ -5,6 +5,10 @@ describe LendingPoliciesController do
   fixtures :all
   disconnect_sunspot
 
+  def valid_attributes
+    FactoryGirl.attributes_for(:lending_policy)
+  end
+
   describe "GET index" do
     before(:each) do
       FactoryGirl.create(:lending_policy)
@@ -171,7 +175,7 @@ describe LendingPoliciesController do
 
   describe "POST create" do
     before(:each) do
-      @attrs = FactoryGirl.attributes_for(:lending_policy)
+      @attrs = valid_attributes
       @invalid_attrs = {:item_id => ''}
     end
 
@@ -289,7 +293,7 @@ describe LendingPoliciesController do
   describe "PUT update" do
     before(:each) do
       @lending_policy = FactoryGirl.create(:lending_policy)
-      @attrs = FactoryGirl.attributes_for(:lending_policy)
+      @attrs = valid_attributes
       @invalid_attrs = {:item_id => ''}
     end
 

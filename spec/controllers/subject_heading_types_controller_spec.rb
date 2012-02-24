@@ -5,6 +5,10 @@ describe SubjectHeadingTypesController do
   fixtures :all
   disconnect_sunspot
 
+  def valid_attributes
+    FactoryGirl.attributes_for(:subject_heading_type)
+  end
+
   describe "GET index" do
     before(:each) do
       FactoryGirl.create(:subject_heading_type)
@@ -167,7 +171,7 @@ describe SubjectHeadingTypesController do
 
   describe "POST create" do
     before(:each) do
-      @attrs = FactoryGirl.attributes_for(:subject_heading_type)
+      @attrs = valid_attributes
       @invalid_attrs = {:name => ''}
     end
 
@@ -285,7 +289,7 @@ describe SubjectHeadingTypesController do
   describe "PUT update" do
     before(:each) do
       @subject_heading_type = FactoryGirl.create(:subject_heading_type)
-      @attrs = FactoryGirl.attributes_for(:subject_heading_type)
+      @attrs = valid_attributes
       @invalid_attrs = {:name => ''}
     end
 
@@ -303,7 +307,7 @@ describe SubjectHeadingTypesController do
         end
 
         it "moves its position when specified" do
-          put :update, :id => @subject_heading_type.id, :subject_heading_type => @attrs, :position => 2
+          put :update, :id => @subject_heading_type.id, :subject_heading_type => @attrs, :move => 'lower'
           response.should redirect_to(subject_heading_types_url)
         end
       end

@@ -5,6 +5,10 @@ describe ReserveStatHasManifestationsController do
   fixtures :all
   disconnect_sunspot
 
+  def valid_attributes
+    FactoryGirl.attributes_for(:reserve_stat_has_manifestation)
+  end
+
   describe "GET index" do
     before(:each) do
       FactoryGirl.create(:reserve_stat_has_manifestation)
@@ -169,7 +173,7 @@ describe ReserveStatHasManifestationsController do
 
   describe "POST create" do
     before(:each) do
-      @attrs = FactoryGirl.attributes_for(:reserve_stat_has_manifestation)
+      @attrs = valid_attributes
       @invalid_attrs = {:manifestation_reserve_stat_id => ''}
     end
 
@@ -287,7 +291,7 @@ describe ReserveStatHasManifestationsController do
   describe "PUT update" do
     before(:each) do
       @reserve_stat_has_manifestation = FactoryGirl.create(:reserve_stat_has_manifestation)
-      @attrs = FactoryGirl.attributes_for(:reserve_stat_has_manifestation)
+      @attrs = valid_attributes
       @invalid_attrs = {:manifestation_reserve_stat_id => ''}
     end
 

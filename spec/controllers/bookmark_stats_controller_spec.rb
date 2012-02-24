@@ -5,6 +5,10 @@ describe BookmarkStatsController do
   fixtures :all
   disconnect_sunspot
 
+  def valid_attributes
+    FactoryGirl.attributes_for(:bookmark_stat)
+  end
+
   describe "GET index" do
     before(:each) do
       FactoryGirl.create(:bookmark_stat)
@@ -165,7 +169,7 @@ describe BookmarkStatsController do
 
   describe "POST create" do
     before(:each) do
-      @attrs = FactoryGirl.attributes_for(:bookmark_stat)
+      @attrs = valid_attributes
       @invalid_attrs = {:start_date => ''}
     end
 
@@ -283,7 +287,7 @@ describe BookmarkStatsController do
   describe "PUT update" do
     before(:each) do
       @bookmark_stat = FactoryGirl.create(:bookmark_stat)
-      @attrs = FactoryGirl.attributes_for(:bookmark_stat)
+      @attrs = valid_attributes
       @invalid_attrs = {:start_date => ''}
     end
 

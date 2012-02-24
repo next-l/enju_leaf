@@ -3,6 +3,10 @@ require 'spec_helper'
 describe ManifestationsController do
   fixtures :all
 
+  def valid_attributes
+    FactoryGirl.attributes_for(:manifestation)
+  end
+
   describe "GET index", :solr => true do
     describe "When logged in as Administrator" do
       login_admin
@@ -139,13 +143,13 @@ describe ManifestationsController do
         get :index, :manifestation_id => 1
         response.should be_success
         assigns(:manifestation).should eq Manifestation.find(1)
-        assigns(:manifestations).should eq assigns(:manifestation).derived_manifestations
+        assigns(:manifestations).collect(&:id).should eq assigns(:manifestation).derived_manifestations.collect(&:id)
       end
 
       it "should get index with publisher_id" do
         get :index, :publisher_id => 1
         response.should be_success
-        assigns(:manifestations).should eq Patron.find(1).manifestations.order('created_at DESC')
+        assigns(:manifestations).collect(&:id).should eq Patron.find(1).manifestations.order('created_at DESC').collect(&:id)
       end
 
       it "should get index with query" do
@@ -421,7 +425,7 @@ describe ManifestationsController do
 
   describe "POST create" do
     before(:each) do
-      @attrs = FactoryGirl.attributes_for(:manifestation)
+      @attrs = valid_attributes
       @invalid_attrs = {:original_title => ''}
     end
 
@@ -545,7 +549,7 @@ describe ManifestationsController do
     before(:each) do
       @manifestation = FactoryGirl.create(:manifestation)
       @manifestation.series_statement = SeriesStatement.find(1)
-      @attrs = FactoryGirl.attributes_for(:manifestation)
+      @attrs = valid_attributes
       @invalid_attrs = {:original_title => ''}
     end
 
