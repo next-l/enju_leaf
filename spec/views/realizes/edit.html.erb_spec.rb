@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe "realizes/edit.html.erb" do
+describe "realizes/edit" do
   before(:each) do
     @realize = assign(:realize, stub_model(Realize,
       :expression_id => 1,

@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe "produces/edit.html.erb" do
+describe "produces/edit" do
   before(:each) do
     @produce = assign(:produce, stub_model(Produce,
       :manifestation_id => 1,

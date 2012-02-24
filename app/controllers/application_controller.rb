@@ -2,8 +2,6 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
 
-  include SslRequirement
-
   rescue_from CanCan::AccessDenied, :with => :render_403
   rescue_from ActiveRecord::RecordNotFound, :with => :render_404
   rescue_from Errno::ECONNREFUSED, :with => :render_500

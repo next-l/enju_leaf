@@ -1,6 +1,6 @@
 FactoryGirl.define do
   factory :patron_relationship do |f|
-    f.parent{FactoryGirl.create(:patron)}
-    f.child{FactoryGirl.create(:patron)}
+    f.parent_id{FactoryGirl.create(:patron).id}
+    f.child_id{FactoryGirl.create(:patron).id}
   end
 end

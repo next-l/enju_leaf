@@ -1,8 +1,9 @@
 # -*- encoding: utf-8 -*-
 require 'spec_helper'
 
-describe Manifestation do
+describe Manifestation, :solr => true do
   fixtures :all
+  use_vcr_cassette "enju_ndl/manifestation", :record => :new_episodes
 
   it "should set pub_date" do
     patron = FactoryGirl.create(:manifestation, :pub_date => '2000')

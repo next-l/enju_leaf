@@ -3,7 +3,7 @@ require 'spec_helper'
 describe LibrariesController do
   fixtures :all
 
-  describe "GET index" do
+  describe "GET index", :solr => true do
     describe "When logged in as Administrator" do
       before(:each) do
         sign_in FactoryGirl.create(:admin)
@@ -51,7 +51,7 @@ describe LibrariesController do
     end
   end
 
-  describe "GET show" do
+  describe "GET show", :solr => true do
     describe "When logged in as Administrator" do
       before(:each) do
         sign_in FactoryGirl.create(:admin)

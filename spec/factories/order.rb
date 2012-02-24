@@ -1,6 +1,6 @@
 FactoryGirl.define do
   factory :order do |f|
-    f.order_list{FactoryGirl.create(:order_list)}
-    f.purchase_request{FactoryGirl.create(:purchase_request)}
+    f.order_list_id{FactoryGirl.create(:order_list).id}
+    f.purchase_request_id{FactoryGirl.create(:purchase_request).id}
   end
 end

@@ -3,7 +3,7 @@ require 'spec_helper'
 describe MessagesController do
   fixtures :all
 
-  describe "GET index" do
+  describe "GET index", :solr => true do
     describe "When logged in as Administrator" do
       before(:each) do
         @user = FactoryGirl.create(:admin)
