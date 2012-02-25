@@ -425,13 +425,11 @@ describe ItemsController do
 
   describe "DELETE destroy" do
     before(:each) do
-      @item = FactoryGirl.create(:item)
+      @item = items(:item_00006)
     end
 
     describe "When logged in as Administrator" do
-      before(:each) do
-        sign_in FactoryGirl.create(:admin)
-      end
+      login_admin
 
       it "destroys the requested item" do
         delete :destroy, :id => @item.id
@@ -444,9 +442,7 @@ describe ItemsController do
     end
 
     describe "When logged in as Librarian" do
-      before(:each) do
-        sign_in FactoryGirl.create(:librarian)
-      end
+      login_librarian
 
       it "destroys the requested item" do
         delete :destroy, :id => @item.id
@@ -459,9 +455,7 @@ describe ItemsController do
     end
 
     describe "When logged in as User" do
-      before(:each) do
-        sign_in FactoryGirl.create(:user)
-      end
+      login_user
 
       it "destroys the requested item" do
         delete :destroy, :id => @item.id

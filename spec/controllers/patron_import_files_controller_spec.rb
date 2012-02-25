@@ -6,9 +6,7 @@ describe PatronImportFilesController do
 
   describe "GET index" do
     describe "When logged in as Administrator" do
-      before(:each) do
-        sign_in FactoryGirl.create(:admin)
-      end
+      login_admin
 
       it "assigns all patron_import_files as @patron_import_files" do
         get :index
@@ -17,9 +15,7 @@ describe PatronImportFilesController do
     end
 
     describe "When logged in as Librarian" do
-      before(:each) do
-        sign_in FactoryGirl.create(:librarian)
-      end
+      login_librarian
 
       it "assigns all patron_import_files as @patron_import_files" do
         get :index
@@ -28,9 +24,7 @@ describe PatronImportFilesController do
     end
 
     describe "When logged in as User" do
-      before(:each) do
-        sign_in FactoryGirl.create(:user)
-      end
+      login_user
 
       it "assigns empty as @patron_import_files" do
         get :index
@@ -50,9 +44,7 @@ describe PatronImportFilesController do
 
   describe "GET show" do
     describe "When logged in as Administrator" do
-      before(:each) do
-        sign_in FactoryGirl.create(:admin)
-      end
+      login_admin
 
       it "assigns the requested patron_import_file as @patron_import_file" do
         get :show, :id => 1
@@ -61,9 +53,7 @@ describe PatronImportFilesController do
     end
 
     describe "When logged in as Librarian" do
-      before(:each) do
-        sign_in FactoryGirl.create(:librarian)
-      end
+      login_librarian
 
       it "assigns the requested patron_import_file as @patron_import_file" do
         get :show, :id => 1
@@ -72,9 +62,7 @@ describe PatronImportFilesController do
     end
 
     describe "When logged in as User" do
-      before(:each) do
-        sign_in FactoryGirl.create(:user)
-      end
+      login_user
 
       it "assigns the requested patron_import_file as @patron_import_file" do
         get :show, :id => 1
@@ -93,9 +81,7 @@ describe PatronImportFilesController do
 
   describe "GET new" do
     describe "When logged in as Administrator" do
-      before(:each) do
-        sign_in FactoryGirl.create(:admin)
-      end
+      login_admin
 
       it "assigns the requested patron_import_file as @patron_import_file" do
         get :new
@@ -105,9 +91,7 @@ describe PatronImportFilesController do
     end
 
     describe "When logged in as Librarian" do
-      before(:each) do
-        sign_in FactoryGirl.create(:librarian)
-      end
+      login_librarian
 
       it "should not assign the requested patron_import_file as @patron_import_file" do
         get :new
@@ -117,9 +101,7 @@ describe PatronImportFilesController do
     end
 
     describe "When logged in as User" do
-      before(:each) do
-        sign_in FactoryGirl.create(:user)
-      end
+      login_user
 
       it "should not assign the requested patron_import_file as @patron_import_file" do
         get :new
@@ -147,7 +129,7 @@ describe PatronImportFilesController do
       it "should create patron_import_file" do
         old_patrons_count = Patron.count
         old_import_results_count = PatronImportResult.count
-        post :create, :patron_import_file => {:patron_import => fixture_file_upload("#{Rails.root.to_s}/examples/patron_import_file_sample1.tsv", 'text/csv') }
+        post :create, :patron_import_file => {:patron_import => fixture_file_upload("/../../examples/patron_import_file_sample1.tsv", 'text/csv') }
         assigns(:patron_import_file).should be_valid
         assigns(:patron_import_file).user.username.should eq @user.username
         response.should redirect_to patron_import_file_url(assigns(:patron_import_file))
@@ -156,7 +138,7 @@ describe PatronImportFilesController do
       it "should import user" do
         old_patrons_count = Patron.count
         old_users_count = User.count
-        post :create, :patron_import_file => {:patron_import => fixture_file_upload("#{Rails.root.to_s}/examples/patron_import_file_sample2.tsv", 'text/csv') }
+        post :create, :patron_import_file => {:patron_import => fixture_file_upload("/../../examples/patron_import_file_sample2.tsv", 'text/csv') }
         assigns(:patron_import_file).import_start
         Patron.count.should eq old_patrons_count + 7
         User.count.should eq old_users_count + 4
@@ -171,14 +153,14 @@ describe PatronImportFilesController do
       end
 
       it "should be forbidden" do
-        post :create, :patron_import_file => {:patron_import => fixture_file_upload("#{Rails.root.to_s}/examples/patron_import_file_sample1.tsv", 'text/csv') }
+        post :create, :patron_import_file => {:patron_import => fixture_file_upload("/../../examples/patron_import_file_sample1.tsv", 'text/csv') }
         response.should be_forbidden
       end
     end
 
     describe "When not logged in" do
       it "should be redirect to new session url" do
-        post :create, :patron_import_file => {:patron_import => fixture_file_upload("#{Rails.root.to_s}/examples/patron_import_file_sample1.tsv", 'text/csv') }
+        post :create, :patron_import_file => {:patron_import => fixture_file_upload("/../../examples/patron_import_file_sample1.tsv", 'text/csv') }
         response.should redirect_to new_user_session_url
       end
     end
@@ -186,9 +168,7 @@ describe PatronImportFilesController do
 
   describe "GET edit" do
     describe "When logged in as Administrator" do
-      before(:each) do
-        sign_in FactoryGirl.create(:admin)
-      end
+      login_admin
 
       it "assigns the requested patron_import_file as @patron_import_file" do
         patron_import_file = patron_import_files(:patron_import_file_00001)
@@ -198,9 +178,7 @@ describe PatronImportFilesController do
     end
 
     describe "When logged in as Librarian" do
-      before(:each) do
-        sign_in FactoryGirl.create(:librarian)
-      end
+      login_librarian
 
       it "assigns the requested patron_import_file as @patron_import_file" do
         patron_import_file = patron_import_files(:patron_import_file_00001)
@@ -210,9 +188,7 @@ describe PatronImportFilesController do
     end
 
     describe "When logged in as User" do
-      before(:each) do
-        sign_in FactoryGirl.create(:user)
-      end
+      login_user
 
       it "assigns the requested patron_import_file as @patron_import_file" do
         patron_import_file = patron_import_files(:patron_import_file_00001)
@@ -231,10 +207,17 @@ describe PatronImportFilesController do
   end
 
   describe "PUT update" do
-    describe "When logged in as Librarian" do
-      before(:each) do
-        sign_in FactoryGirl.create(:librarian)
+    describe "When logged in as Administrator" do
+      login_admin
+
+      it "should update patron_import_file" do
+        put :update, :id => patron_import_files(:patron_import_file_00003).id, :patron_import_file => { }
+        response.should redirect_to patron_import_file_url(assigns(:patron_import_file))
       end
+    end
+
+    describe "When logged in as Librarian" do
+      login_librarian
 
       it "should update patron_import_file" do
         put :update, :id => patron_import_files(:patron_import_file_00003).id, :patron_import_file => { }
@@ -243,9 +226,7 @@ describe PatronImportFilesController do
     end
 
     describe "When logged in as User" do
-      before(:each) do
-        sign_in FactoryGirl.create(:user)
-      end
+      login_user
 
       it "should not update patron_import_file" do
         put :update, :id => patron_import_files(:patron_import_file_00003).id, :patron_import_file => { }
@@ -267,9 +248,7 @@ describe PatronImportFilesController do
     end
 
     describe "When logged in as Administrator" do
-      before(:each) do
-        sign_in FactoryGirl.create(:admin)
-      end
+      login_admin
 
       it "destroys the requested patron_import_file" do
         delete :destroy, :id => @patron_import_file.id
@@ -282,9 +261,7 @@ describe PatronImportFilesController do
     end
 
     describe "When logged in as Librarian" do
-      before(:each) do
-        sign_in FactoryGirl.create(:librarian)
-      end
+      login_librarian
 
       it "destroys the requested patron_import_file" do
         delete :destroy, :id => @patron_import_file.id
@@ -297,9 +274,7 @@ describe PatronImportFilesController do
     end
 
     describe "When logged in as User" do
-      before(:each) do
-        sign_in FactoryGirl.create(:user)
-      end
+      login_user
 
       it "destroys the requested patron_import_file" do
         delete :destroy, :id => @patron_import_file.id

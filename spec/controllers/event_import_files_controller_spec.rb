@@ -145,7 +145,7 @@ describe EventImportFilesController do
       end
 
       it "should create event_import_file" do
-        post :create, :event_import_file => {:event_import => fixture_file_upload("#{Rails.root.to_s}/examples/event_import_file_sample1.tsv", 'text/csv') }
+        post :create, :event_import_file => {:event_import => fixture_file_upload("/../../examples/event_import_file_sample1.tsv", 'text/csv') }
         assigns(:event_import_file).should be_valid
         assigns(:event_import_file).user.username.should eq @user.username
         response.should redirect_to event_import_file_url(assigns(:event_import_file))
@@ -153,7 +153,7 @@ describe EventImportFilesController do
 
       it "should import user" do
         old_events_count = Event.count
-        post :create, :event_import_file => {:event_import => fixture_file_upload("#{Rails.root.to_s}/examples/event_import_file_sample2.tsv", 'text/csv') }
+        post :create, :event_import_file => {:event_import => fixture_file_upload("/../../examples/event_import_file_sample2.tsv", 'text/csv') }
         assigns(:event_import_file).import_start
         Event.count.should eq old_events_count + 2
         response.should redirect_to event_import_file_url(assigns(:event_import_file))
@@ -167,14 +167,14 @@ describe EventImportFilesController do
       end
 
       it "should be forbidden" do
-        post :create, :event_import_file => {:event_import => fixture_file_upload("#{Rails.root.to_s}/examples/event_import_file_sample1.tsv", 'text/csv') }
+        post :create, :event_import_file => {:event_import => fixture_file_upload("/../..//examples/event_import_file_sample1.tsv", 'text/csv') }
         response.should be_forbidden
       end
     end
 
     describe "When not logged in" do
       it "should be redirect to new session url" do
-        post :create, :event_import_file => {:event_import => fixture_file_upload("#{Rails.root.to_s}/examples/event_import_file_sample1.tsv", 'text/csv') }
+        post :create, :event_import_file => {:event_import => fixture_file_upload("/../../examples/event_import_file_sample1.tsv", 'text/csv') }
         response.should redirect_to new_user_session_url
       end
     end
