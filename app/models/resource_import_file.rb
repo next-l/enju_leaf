@@ -1,3 +1,4 @@
+# -*- encoding: utf-8 -*-
 class ResourceImportFile < ActiveRecord::Base
   include ImportFile
   default_scope :order => 'id DESC'
@@ -52,6 +53,7 @@ class ResourceImportFile < ActiveRecord::Base
   end
 
   def import
+    sm_start!
     self.reload
     num = {:manifestation_imported => 0, :item_imported => 0, :manifestation_found => 0, :item_found => 0, :failed => 0}
     row_num = 2
@@ -144,6 +146,8 @@ class ResourceImportFile < ActiveRecord::Base
     sm_complete!
     Rails.cache.write("manifestation_search_total", Manifestation.search.total)
     return num
+  rescue
+    sm_fail!
   end
 
   def self.import_work(title, patrons, options = {:edit_mode => 'create'})
@@ -152,7 +156,7 @@ class ResourceImportFile < ActiveRecord::Base
     when 'create'
       work.creators << patrons
     when 'update'
-      work.creators = patrons
+      work.creators = patrons unless patrons.empty?
     end
     work
   end
@@ -163,7 +167,7 @@ class ResourceImportFile < ActiveRecord::Base
     when 'create'
       expression.contributors << patrons
     when 'update'
-      expression.contributors = patrons
+      expression.contributors = patrons unless patrons.empty?
     end
     expression
   end
@@ -175,7 +179,7 @@ class ResourceImportFile < ActiveRecord::Base
     when 'create'
       manifestation.publishers << patrons
     when 'update'
-      manifestation.publishers = patrons
+      manifestation.publishers = patrons unless patrons.empty?
     end
     manifestation
   end
@@ -239,17 +243,42 @@ class ResourceImportFile < ActiveRecord::Base
   #end
 
   def modify
+    sm_start!
     rows = open_import_file
     rows.each do |row|
       item_identifier = row['item_identifier'].to_s.strip
       item = Item.where(:item_identifier => item_identifier).first if item_identifier.present?
-      if item.try(:manifestation)
-        fetch(row, :edit_mode => 'update')
+      if item
+        if item.manifestation
+          fetch(row, :edit_mode => 'update')
+        end
+        shelf = Shelf.where(:name => row['shelf']).first
+        circulation_status = CirculationStatus.where(:name => row['circulation_status']).first
+        checkout_type = CheckoutType.where(:name => row['checkout_type']).first
+        bookstore = Bookstore.where(:name => row['bookstore']).first
+        required_role = Role.where(:name => row['required_role']).first
+
+        item.shelf = shelf if shelf
+        item.circulation_status = circulation_status if circulation_status
+        item.checkout_type = checkout_type if checkout_type
+        item.bookstore = bookstore if bookstore
+        item.required_role = required_role if required_role
+        item.include_supplements = row['include_supplements'] if row['include_supplements']
+        item.update_attributes({
+          :call_number => row['call_number'],
+          :price => row['item_price'],
+          :acquired_at => row['acquired_at'],
+          :note => row['note']
+        })
       end
     end
+    sm_complete!
+  rescue
+    sm_fail!
   end
 
   def remove
+    sm_start!
     rows = open_import_file
     rows.each do |row|
       item_identifier = row['item_identifier'].to_s.strip
@@ -258,6 +287,9 @@ class ResourceImportFile < ActiveRecord::Base
         item.destroy if item.deletable?
       end
     end
+    sm_complete!
+  rescue
+    sm_fail!
   end
 
   private
@@ -341,10 +373,12 @@ class ResourceImportFile < ActiveRecord::Base
     title[:original_title] = row['original_title'].to_s.strip
     title[:title_transcription] = row['title_transcription'].to_s.strip
     title[:title_alternative] = row['title_alternative'].to_s.strip
+    title[:title_alternative_transcription] = row['title_alternative_transcription'].to_s.strip
     if options[:edit_mode] == 'update'
       title[:original_title] = manifestation.original_title if row['original_title'].to_s.strip.blank?
       title[:title_transcription] = manifestation.title_transcription if row['title_transcription'].to_s.strip.blank?
       title[:title_alternative] = manifestation.title_alternative if row['title_alternative'].to_s.strip.blank?
+      title[:title_alternative_transcription] = manifestation.title_alternative_transcription if row['title_alternative_transcription'].to_s.strip.blank?
     end
     #title[:title_transcription_alternative] = row['title_transcription_alternative']
     if title[:original_title].blank? and options[:edit_mode] == 'create'
@@ -362,6 +396,7 @@ class ResourceImportFile < ActiveRecord::Base
     language = Language.where(:name => row['language'].to_s.strip.camelize).first
     language = Language.where(:iso_639_2 => row['language'].to_s.strip.downcase).first unless language
     language = Language.where(:iso_639_1 => row['language'].to_s.strip.downcase).first unless language
+    language = Language.where(:name => 'unknown').first unless language
 
     if end_page >= 1
       start_page = 1
@@ -417,7 +452,8 @@ class ResourceImportFile < ActiveRecord::Base
         :nbn => row['nbn'],
         :ndc => row['ndc'],
         :pub_date => row['pub_date'],
-        :volume_number_string => row['volume_number_string'],
+        :volume_number_string => row['volume_number_string'].to_s.split('　').first.try(:tr, '０-９', '0-9'),
+        :volume_number => row['volume_number'].to_s.tr('０-９', '0-9'),
         :issue_number_string => row['issue_number_string'],
         :serial_number => row['serial_number'],
         :edition_string => row['edition_string'],
@@ -426,6 +462,7 @@ class ResourceImportFile < ActiveRecord::Base
         :height => height,
         :price => row['manifestation_price'],
         :description => row['description'],
+        #:description_transcription => row['description_transcription'],
         :note => row['note'],
         :series_statement => series_statement,
         :start_page => start_page,
@@ -436,9 +473,10 @@ class ResourceImportFile < ActiveRecord::Base
       {
         :edit_mode => options[:edit_mode]
       })
+      manifestation.required_role = Role.where(:name => row['required_role_name'].to_s.strip.camelize).first || Role.find('Guest')
+      manifestation.language = language
+      manifestation.save!
     end
-    manifestation.required_role = Role.where(:name => row['required_role_name'].to_s.strip.camelize).first || Role.find('Guest')
-    manifestation.language = language
     manifestation
   end
 

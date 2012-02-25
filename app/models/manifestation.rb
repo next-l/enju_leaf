@@ -405,7 +405,11 @@ class Manifestation < ActiveRecord::Base
   end
 
   def sort_title
-    NKF.nkf('-w --katakana', title_transcription) if title_transcription
+    if title_transcription
+      NKF.nkf('-w --katakana', title_transcription)
+    else
+      original_title
+    end
   end
 
   def classifications

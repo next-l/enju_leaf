@@ -5,7 +5,6 @@ class Library < ActiveRecord::Base
   scope :real, where('id != 1')
   has_many :shelves, :order => 'shelves.position'
   belongs_to :library_group, :validate => true
-  has_many :events, :include => :event_category
   #belongs_to :holding_patron, :polymorphic => true, :validate => true
   belongs_to :patron #, :validate => true
   has_many :inter_library_loans, :foreign_key => 'borrowing_library_id'
@@ -65,10 +64,6 @@ class Library < ActiveRecord::Base
     Shelf.create!(:name => "#{self.name}_default", :library => self)
   end
 
-  def closed?(date)
-    events.closing_days.collect{|c| c.start_at.beginning_of_day}.include?(date.beginning_of_day)
-  end
-
   def web?
     return true if self.id == 1
     false
@@ -92,6 +87,14 @@ class Library < ActiveRecord::Base
   def address_changed?
     return true if region_changed? or locality_changed? or street_changed?
     false
+  end
+
+  if defined?(EnjuEvent)
+    has_many :events, :include => :event_category
+
+    def closed?(date)
+      events.closing_days.collect{|c| c.start_at.beginning_of_day}.include?(date.beginning_of_day)
+    end
   end
 end
 
