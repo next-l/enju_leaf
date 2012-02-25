@@ -5,6 +5,14 @@ GIT
     acts_as_list (0.1.4)
 
 GIT
+  remote: git://github.com/nabeta/enju_book_jacket.git
+  revision: 688cca0c3a0e101d7cd208e71ce6aa7e9fd0cbed
+  specs:
+    enju_book_jacket (0.0.1)
+      configatron
+      rails (~> 3.2)
+
+GIT
   remote: git://github.com/nabeta/enju_oai.git
   revision: 7e7fb239ddbc4d7d084be5043d34d2f0e991b379
   specs:
@@ -369,6 +377,7 @@ DEPENDENCIES
   delayed_job_active_record
   devise (~> 1.5)
   dynamic_form
+  enju_book_jacket!
   enju_oai!
   event-calendar
   exception_notification (~> 2.5.2)
