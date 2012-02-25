@@ -12,8 +12,8 @@ class ManifestationsController < ApplicationController
   after_filter :solr_commit, :only => [:create, :up, :outputdate, :destroy]
   after_filter :convert_charset, :only => :index
   cache_sweeper :manifestation_sweeper, :only => [:create, :update, :destroy]
-  #include WorldcatController
-  include OaiController
+  include EnjuOai::OaiController if defined?(EnjuOai)
+  include EnjuSearchLog if defined?(EnjuSearchLog)
   include ApplicationHelper
 
   # GET /manifestations
