@@ -219,12 +219,12 @@ GEM
       sunspot_rails
       sunspot_solr
       will_paginate (~> 3.0)
-    enju_question (0.0.6)
+    enju_question (0.0.7)
       acts-as-taggable-on (~> 2.2)
       acts_as_list (~> 0.1.5)
       cancan
       devise
-      enju_ndl (>= 0.0.11)
+      enju_ndl (~> 0.0.12)
       friendly_id (~> 4.0)
       nokogiri
       rails (~> 3.1)
@@ -531,7 +531,7 @@ DEPENDENCIES
   enju_ndl (~> 0.0.12)
   enju_oai!
   enju_purchase_request (~> 0.0.5)
-  enju_question (~> 0.0.6)
+  enju_question (~> 0.0.7)
   enju_resource_merge (~> 0.0.4)
   enju_search_log (~> 0.0.2)
   enju_subject (~> 0.0.8)
