@@ -5,6 +5,13 @@ GIT
     acts_as_list (0.1.4)
 
 GIT
+  remote: git://github.com/nabeta/enju_oai.git
+  revision: 7e7fb239ddbc4d7d084be5043d34d2f0e991b379
+  specs:
+    enju_oai (0.0.1)
+      rails (~> 3.1)
+
+GIT
   remote: git://github.com/nabeta/isbn-tools.git
   revision: 05e31384f167aa7d1e560f76c1c3faf104d64709
   specs:
@@ -362,6 +369,7 @@ DEPENDENCIES
   delayed_job_active_record
   devise (~> 1.5)
   dynamic_form
+  enju_oai!
   event-calendar
   exception_notification (~> 2.5.2)
   extractcontent
