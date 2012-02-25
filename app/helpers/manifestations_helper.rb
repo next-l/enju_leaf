@@ -1,6 +1,4 @@
 module ManifestationsHelper
-  include EnjuAmazonHelper
-
   def resource_title(manifestation, action)
     string = LibraryGroup.site_config.display_name.localize.dup
     unless action == ('index' or 'new')
