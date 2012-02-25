@@ -13,6 +13,14 @@ GIT
       rails (~> 3.2)
 
 GIT
+  remote: git://github.com/nabeta/enju_manifestation_viewer.git
+  revision: 63cddc5dbd2865cec4bb571700a5b0880d42128f
+  specs:
+    enju_manifestation_viewer (0.0.1)
+      addressable
+      rails (~> 3.2)
+
+GIT
   remote: git://github.com/nabeta/enju_oai.git
   revision: 7e7fb239ddbc4d7d084be5043d34d2f0e991b379
   specs:
@@ -378,6 +386,7 @@ DEPENDENCIES
   devise (~> 1.5)
   dynamic_form
   enju_book_jacket!
+  enju_manifestation_viewer!
   enju_oai!
   event-calendar
   exception_notification (~> 2.5.2)
