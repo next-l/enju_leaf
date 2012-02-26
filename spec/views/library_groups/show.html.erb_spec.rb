@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe "library_groups/show.html.erb" do
+describe "library_groups/show" do
   before(:each) do
     @library_group = LibraryGroup.site_config
   end

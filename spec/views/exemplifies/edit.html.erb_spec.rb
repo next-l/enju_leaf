@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe "exemplifies/edit.html.erb" do
+describe "exemplifies/edit" do
   before(:each) do
     @exemplify = assign(:exemplify, stub_model(Exemplify,
       :manifestation_id => 1,

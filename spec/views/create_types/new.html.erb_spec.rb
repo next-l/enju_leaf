@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe "create_types/new.html.erb" do
+describe "create_types/new" do
   before(:each) do
     assign(:create_type, stub_model(CreateType,
       :name => "MyString",

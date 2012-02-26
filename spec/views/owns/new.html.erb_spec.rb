@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe "owns/new.html.erb" do
+describe "owns/new" do
   before(:each) do
     assign(:own, stub_model(Own,
       :item_id => 1,

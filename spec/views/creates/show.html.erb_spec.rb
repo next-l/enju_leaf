@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe "creates/show.html.erb" do
+describe "creates/show" do
   before(:each) do
     @create = assign(:create, stub_model(Create,
       :work_id => 1,

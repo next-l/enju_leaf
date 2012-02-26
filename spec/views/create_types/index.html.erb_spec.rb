@@ -1,7 +1,7 @@
 # -*- encoding: utf-8 -*-
 require 'spec_helper'
 
-describe "create_types/index.html.erb" do
+describe "create_types/index" do
   before(:each) do
     assign(:create_types, [
       stub_model(CreateType,
