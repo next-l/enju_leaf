@@ -23,9 +23,9 @@ a.fg-4button {
   float: right;
 }
 a.my_status_button,  a:visited.my_status_button {
-  color: #555555;
-  border: 1px solid #d3d3d3;
-  background: #e6e6e6 url(images/ui-bg_glass_75_e6e6e6_1x400.png) 50% 50% repeat-x;
+  color: #333333;
+  border: 1px solid #c0c0c0;
+  background: #e0e0e0 url(images/ui-bg_glass_75_e6e6e6_1x400.png) 50% 50% repeat-x;
   text-decoration: none;
 }
 a:hover.my_status_button {
@@ -70,13 +70,13 @@ div#easy_tools_box{
   margin: 0 5px 0 0;
 }
 a.easy_tools_button,  a:visited.easy_tools_button {
-  color: #555555;
+  color: #333333;
   border: 1px solid #d3d3d3;
   background: #e6e6e6 url(images/ui-bg_glass_75_e6e6e6_1x400.png) 50% 50% repeat-x;
   text-decoration: none;
 }
 a:hover.easy_tools_button {
-  color: #212121;
+  color: #000000;
   border: 1px solid #999999;
   background: #dadada url(images/ui-bg_glass_75_dadada_1x400.png) 50% 50% repeat-x;
 }
