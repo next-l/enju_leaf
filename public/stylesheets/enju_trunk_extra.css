@@ -110,15 +110,15 @@ div#iconmenu{
   background: #ffcccc;
 }
 
-div#item_list_library{
+div#budget_library {
   float: left;
   text_align: left;
   width: 200px;
 }
-div#item_list_carrier_type{
+div#budget_type {
   float: left;
   text_align: left;
-  width: 200px;
+  width: 300px;
 }
 
 div#list_condition_150 {
@@ -137,9 +137,10 @@ div#item_list_carrier_type {
   width: 200px;
 }
 
-div#item_list_ndc {
+div#budget_bookstore {
   float: left;
   text_align: left;
+  width: 200px;
 }
 
 div#checkouts_report { 
