@@ -142,4 +142,15 @@ div#item_list_ndc{
   text_align: left;
 }
 
+div#checkouts_report{
+  margin-left: 50px;
+  margin-top: -20px;
+}
+div#monthly_library_report{
+  margin-top: 20px;
+}
+input.report_integer{
+  width: 5em;
+  ime-mode: disabled;
+}
 
