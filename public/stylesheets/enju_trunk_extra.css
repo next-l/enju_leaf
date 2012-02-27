@@ -81,3 +81,9 @@ a:hover.easy_tools_button {
   background: #dadada url(images/ui-bg_glass_75_dadada_1x400.png) 50% 50% repeat-x;
 }
 
+div#family {
+  float: right;
+  text_align: left;
+  width: 250px;
+}
+
