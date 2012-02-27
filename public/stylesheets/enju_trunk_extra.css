@@ -131,26 +131,30 @@ div#list_condition_200 {
   text_align: left;
   width: 200px;
 }
-div#item_list_carrier_type{
+div#item_list_carrier_type {
   float: left;
   text_align: left;
   width: 200px;
 }
 
-div#item_list_ndc{
+div#item_list_ndc {
   float: left;
   text_align: left;
 }
 
-div#checkouts_report{
+div#checkouts_report { 
   margin-left: 50px;
   margin-top: -20px;
 }
-div#monthly_library_report{
+div#monthly_library_report {
   margin-top: 20px;
 }
-input.report_integer{
+input.report_integer {
   width: 5em;
   ime-mode: disabled;
+}
+
+p.no_file {
+  color: grey;
 }
 
