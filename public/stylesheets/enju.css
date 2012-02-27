@@ -288,10 +288,16 @@ div#user_search_form, div#message_box, div#news_feed_box, div#user_box{
 
 div#picked_up_box{
   padding: 10px;
+  word-wrap: break-word;
 }
 
 div#tag_cloud_box{
   padding: 10px;
+  word-wrap: break-word;
+}
+
+div#tag_cloud_list{
+  word-wrap: break-word;
 }
 
 div.config_box{
