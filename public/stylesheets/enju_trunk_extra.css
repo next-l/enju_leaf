@@ -1,0 +1,36 @@
+/* add annotation by reiko@opentech.co.jp */
+#annotation {
+  font-weight: normal;
+  font-size: 85%;
+}
+
+/** tab menu**/
+a.fg-4button {
+   width: 184px;
+}
+
+/** cheked_outs **/
+#user_comment {
+  padding: 5px;
+  border: 1px solid #2779AA;
+}
+
+/** my_status button **/
+.my_status_button {
+  font-size: 1em;
+  width:140px;
+  text-align: center;
+  float: right;
+}
+a.my_status_button,  a:visited.my_status_button {
+  color: #555555;
+  border: 1px solid #d3d3d3;
+  background: #e6e6e6 url(images/ui-bg_glass_75_e6e6e6_1x400.png) 50% 50% repeat-x;
+  text-decoration: none;
+}
+a:hover.my_status_button {
+  color: #212121;
+  border: 1px solid #999999;
+  background: #dadada url(images/ui-bg_glass_75_dadada_1x400.png) 50% 50% repeat-x; 
+}
+
