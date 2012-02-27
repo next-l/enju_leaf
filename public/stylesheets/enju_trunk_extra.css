@@ -87,3 +87,22 @@ div#family {
   width: 250px;
 }
 
+#shortcut {
+  clear: both;
+}
+       
+.function_key {
+  width: 145px;
+  margin: 0 5px 0 0;
+  border: 1px solid #aaaaaa;
+  text-align: center;
+  float :left;
+}
+
+div#iconmenu{
+  margin-top: 15px;
+  width: 178px;
+  padding: 5px;
+  border: 1px solid #5970B2;
+}
+
