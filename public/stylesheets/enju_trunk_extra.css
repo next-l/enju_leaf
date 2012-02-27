@@ -114,11 +114,21 @@ div#budget_library {
   float: left;
   text_align: left;
   width: 200px;
+  margin-top: 30px;
 }
+
 div#budget_type {
   float: left;
   text_align: left;
   width: 300px;
+  margin-top: 30px;
+}
+
+div#expense_item {
+  float: left;
+  text_align: left;
+  width: 200px;
+  margin-top: 30px;
 }
 
 div#list_condition_150 {
