@@ -169,3 +169,14 @@ p.no_file {
   color: grey;
 }
 
+div#item_list_bookstore {
+  float: left;
+  text_align: left;
+  width: 200px;
+}
+
+div#item_list_created_at {
+    float: left;
+    text_align: left;
+}
+
