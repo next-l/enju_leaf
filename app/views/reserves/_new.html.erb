@@ -2,52 +2,72 @@
   $(document).ready(function() {
     // onload
     if ($("#reserve_user_number").val().length != 0) {
-      $('#reserve_information_type_id').removeAttr('disabled');
-      $('#reserve_submit').removeAttr('disabled');
+      set_user_information();
     }
-
+   
+    // change user_number
     $("#reserve_user_number").change(function() {
-      //default
-      $('#reserve_information_type_id').children().remove();
-      $('#reserve_information_type_id').append($('<option>').attr({ value: '0' }).text('<%= t('activerecord.attributes.reserve.unnecessary') -%>'));
-      $('#reserve_information_type_id').attr('disabled', 'disabled');
-      $('#reserve_submit').attr('disabled', 'disabled');
-      //add option
-      var user_number = $("#reserve_user_number").val().replace(/^\s+|\s+$/g, "");
-      if (user_number != "") {
-        $.ajax({
-           type: "GET",
-           url: "<%= url_for(:controller => :users, :action => :get_user_info)-%>",
-           data: {"user_number": user_number},
-           success: function(obj) {
-             if (obj.success) {
-               if (obj["user"] != null && obj["patron"] != null) {
-                 $()
-                 $('#reserve_information_type_id').removeAttr('disabled');
-                 $('#reserve_information_type_id').children('[value = 0]').remove();
-                 $('#reserve_submit').removeAttr('disabled');
-                 if (obj["user"]["user"]["email"].length != 0)
-                   $('#reserve_information_type_id').append($('<option>').attr({ value: '1' }).text('<%= t('activerecord.attributes.user.email') -%> ' + obj["user"]["user"]["email"]));
-                 if (obj["patron"]["patron"]["telephone_number_1"].length != 0)
-                   $('#reserve_information_type_id').append($('<option>').attr({ value: '2' }).text('<%= t('activerecord.attributes.patron.telephone_number_1') -%> ' + obj["patron"]["patron"]["telephone_number_1"]));
-                 if (obj["patron"]["patron"]["extelephone_number_1"].length != 0)
-                   $('#reserve_information_type_id').append($('<option>').attr({ value: '3' }).text('<%= t('activerecord.attributes.patron.extelephone_number_1') -%> ' + obj["patron"]["patron"]["extelephone_number_1"]));
-                 if (obj["patron"]["patron"]["fax_number_1"].length != 0)
-                   $('#reserve_information_type_id').append($('<option>').attr({ value: '4' }).text('<%= t('activerecord.attributes.patron.fax_number_1') -%> ' + obj["patron"]["patron"]["fax_number_1"]));
-                 if (obj["patron"]["patron"]["telephone_number_2"].length != 0)
-                   $('#reserve_information_type_id').append($('<option>').attr({ value: '5' }).text('<%= t('activerecord.attributes.patron.telephone_number_2') -%> ' + obj["patron"]["patron"]["telephone_number_2"]));
-                 if (obj["patron"]["patron"]["extelephone_number_2"].length != 0)
-                   $('#reserve_information_type_id').append($('<option>').attr({ value: '6' }).text('<%= t('activerecord.attributes.patron.extelephone_number_2') -%> ' + obj["patron"]["patron"]["extelephone_number_2"]));
-                 if (obj["patron"]["patron"]["fax_number_2"].length != 0)
-                   $('#reserve_information_type_id').append($('<option>').attr({ value: '7' }).text('<%= t('activerecord.attributes.patron.fax_number_2') -%> ' + obj["patron"]["patron"]["fax_number_2"]));
-                 $('#reserve_information_type_id').append($('<option>').attr({ value: '0' }).text('<%= t('activerecord.attributes.reserve.unnecessary') -%>'));
-               }
-             }
-           }
-        });
-      }
+      set_user_information(); 
     });
   });
+
+  function set_user_information() {
+    //remove before_user_info
+    $('#reserve_information_type_id').children().remove();
+    $('#reserve_information_type_id').append($('<option>').attr({ value: '0' }).text('<%= t('activerecord.attributes.reserve.unnecessary') -%>'));
+    $('#reserve_information_type_id').attr('disabled', 'disabled');
+    $('#reserve_submit').attr('disabled', 'disabled');
+    $('div#username').remove();
+
+    //add option
+    var user_number = $("#reserve_user_number").val().replace(/^\s+|\s+$/g, "");
+    var manifestation_id = <%= @reserve.manifestation.id -%>;
+    if (user_number != "") {
+      $.ajax({
+        type: "GET",
+        url: "<%= url_for(:controller => :users, :action => :get_user_info)-%>",
+        data: {"user_number": user_number, "manifestation_id": manifestation_id},
+        success: function(obj) {
+          if (obj.success) {
+            if (obj["user"] != null && obj["patron"] != null) {
+              //show username
+              var s = "<div id='username'>"
+                + "<p>"
+                + "<strong><%= t('activerecord.models.user') -%>:</strong>"
+                + "<a href='<%= "#{root_path}" %>users/"+obj["user"]["user"]["username"]+"'>" + obj["patron"]["patron"]["full_name"] + "</a>"
+                + "(" + "<a href='<%= "#{root_path}" %>users/"+obj["user"]["user"]["username"]+"'>" + obj["user"] ["user"]["username"]+ "</a>" + ")"
+                + "</p>"
+                + "</div>";
+              $(s).appendTo('div#userinfo');
+
+              //set expired_at
+              $("#reserve_expired_at").val(obj["expired_at"]);
+
+              //set information_type
+              $('#reserve_information_type_id').removeAttr('disabled');
+              $('#reserve_information_type_id').children('[value = 0]').remove();
+              $('#reserve_submit').removeAttr('disabled');
+              if (obj["user"]["user"]["email"] != null)
+                $('#reserve_information_type_id').append($('<option>').attr({ value: '1' }).text('<%= t('activerecord.attributes.user.email') -%> ' + obj["user"]["user"]["email"]));
+              if (obj["patron"]["patron"]["telephone_number_1"] != null)
+                $('#reserve_information_type_id').append($('<option>').attr({ value: '2' }).text('<%= t('activerecord.attributes.patron.telephone_number_1') -%> ' + obj["patron"]["patron"]["telephone_number_1"]));
+              if (obj["patron"]["patron"]["extelephone_number_1"] != null)
+                $('#reserve_information_type_id').append($('<option>').attr({ value: '3' }).text('<%= t('activerecord.attributes.patron.extelephone_number_1') -%> ' + obj["patron"]["patron"]["extelephone_number_1"]));
+              if (obj["patron"]["patron"]["fax_number_1"] != null)
+                $('#reserve_information_type_id').append($('<option>').attr({ value: '4' }).text('<%= t('activerecord.attributes.patron.fax_number_1') -%> ' + obj["patron"]["patron"]["fax_number_1"]));
+              if (obj["patron"]["patron"]["telephone_number_2"] != null)
+                $('#reserve_information_type_id').append($('<option>').attr({ value: '5' }).text('<%= t('activerecord.attributes.patron.telephone_number_2') -%> ' + obj["patron"]["patron"]["telephone_number_2"]));
+              if (obj["patron"]["patron"]["extelephone_number_2"] != null)
+                $('#reserve_information_type_id').append($('<option>').attr({ value: '6' }).text('<%= t('activerecord.attributes.patron.extelephone_number_2') -%> ' + obj["patron"]["patron"]["extelephone_number_2"]));
+              if (obj["patron"]["patron"]["fax_number_2"] != null)
+                $('#reserve_information_type_id').append($('<option>').attr({ value: '7' }).text('<%= t('activerecord.attributes.patron.fax_number_2') -%> ' + obj["patron"]["patron"]["fax_number_2"]));
+              $('#reserve_information_type_id').append($('<option>').attr({ value: '0' }).text('<%= t('activerecord.attributes.reserve.unnecessary') -%>'));
+            } 
+          }
+        }
+      });
+    }
+  }
 </script>
 
 <div id="content_detail" class="ui-corner-all">
@@ -58,6 +78,9 @@
   <div class="field">
     <%= render 'manifestations/title', :manifestation => @reserve.manifestation -%>
     <%= f.hidden_field :manifestation_id -%>
+  </div>
+
+  <div class="field" id="userinfo">
   </div>
 
   <div class="field">
@@ -77,7 +100,7 @@
     <%= f.text_field :expired_at, :value => @reserve.expired_at.try(:strftime, "%Y-%m-%d"), :class => 'date_field', :placeholder => "#{t('page.example')}: 2011-04-12"-%>
   </div>
   <div class="actions">
-    <%= f.submit t('page.create'), :disable_with => t('page.wait'), :disabled => true -%>
+    <%= f.submit t('page.create'), :disable_with => t('page.wait'), :disabled => true, :id=> "reserve_submit" -%>
   </div>
 <%- end -%>
 <%= javascript_tag("$('#reserve_user_number').focus()") -%>
