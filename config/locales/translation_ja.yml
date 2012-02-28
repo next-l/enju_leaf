@@ -1708,6 +1708,7 @@ ja:
     my_tag: "自分のつけたタグ"
     user_tag: "%{login_name} さんのタグ"
     use_space_as_delimiter: "半角スペースで区切ってください。"
+    contain_space: "には空白文字を使用することはできません。"
   question:
     my: "自分の質問"
     all: "全ての質問"

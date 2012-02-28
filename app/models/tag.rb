@@ -1,6 +1,7 @@
 class Tag < ActiveRecord::Base
   has_many :taggings, :dependent => :destroy, :class_name => 'ActsAsTaggableOn::Tagging'
   validates_presence_of :name
+  validate :contain_space
   after_save :save_taggings, :tag_delete
   after_destroy :save_taggings
 
@@ -22,6 +23,12 @@ class Tag < ActiveRecord::Base
 
   def self.per_page
     10
+  end
+
+  def contain_space
+    if name =~ /^[#{s}]*([^#{s}]+)[#{s}]*$/
+      errors.add(:name, I18n.t('tag.contain_space'))
+    end
   end
 
   def self.bookmarked(bookmark_ids, options = {})
