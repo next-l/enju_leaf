@@ -1,0 +1,9 @@
+<tr>
+  <td><%= t('activerecord.attributes.manifestation.table_of_contents') -%>:</td>
+  <td>
+    <%- manifestation.table_of_contents.order(:display_order).each do |t| -%>
+      <%= t.note -%> &nbsp; <%= t.pagenumber -%> <br />
+    <%- end -%>
+  </td>
+</tr>
+
