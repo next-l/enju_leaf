@@ -120,6 +120,32 @@
               <%- end -%>
             </td>
           </tr>
+        <%- else -%>
+          <tr>
+            <td><%= t('page.identifier') -%>:</td>
+            <td>
+              <%- if manifestation.isbn.present? -%>
+                ISBN: <span itemprop="isbn"><%= manifestation.isbn -%></span>
+                <%- if manifestation.isbn10.present? -%>
+                  ( <%= manifestation.isbn10 -%> )
+                <%- end -%>
+              <%- end -%>
+              <%- if manifestation.nbn.present? -%>
+                NBN: <%= manifestation.nbn -%>
+              <%- end -%>
+              <%- if manifestation.lccn.present? -%>
+                <br />
+                LCCN: <%= manifestation.lccn -%>
+              <%- end -%>
+              <%- if manifestation.marc_number.present? -%>
+                <br />
+                MARC: <%= manifestation.marc_number -%>
+              <%- end -%>
+              <%- if manifestation.ndc.present? -%>
+                <br />
+                NDC: <%= manifestation.ndc -%>
+              <%- end -%>
+            </td>
         <%- end -%>
         <%- unless manifestation.attachment_file_name.blank? -%>
           <%= render 'manifestations/attachment_file', :manifestation => manifestation -%>
@@ -138,6 +164,9 @@
             <%= raw simple_format(h(manifestation.description)) -%>
           </td>
         </tr>
+        <%- if manifestation.table_of_contents.present? -%>
+          <%= render 'manifestations/show_table_of_contents', :manifestation => manifestation -%>
+        <%- end -%>
         <tr>
           <td><%= t('activerecord.attributes.manifestation.supplement') -%>:</td>
           <td>

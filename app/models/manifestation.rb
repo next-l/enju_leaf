@@ -29,6 +29,7 @@ class Manifestation < ActiveRecord::Base
   belongs_to :required_role, :class_name => 'Role', :foreign_key => 'required_role_id', :validate => true
   has_one :resource_import_result
   has_many :purchase_requests
+  has_many :table_of_contents
 
   searchable do
     text :title, :default_boost => 2 do

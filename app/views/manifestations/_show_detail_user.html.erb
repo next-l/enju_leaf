@@ -127,6 +127,9 @@
             </td>
           </tr>
         <% end %>
+        <%- if manifestation.table_of_contents.present? -%>
+          <%= render 'manifestations/show_table_of_contents', :manifestation => manifestation -%>
+        <%- end -%>
         <% if manifestation.supplement.present? %>
           <tr>
             <td><%= t('activerecord.attributes.manifestation.supplement') -%>:</td>
