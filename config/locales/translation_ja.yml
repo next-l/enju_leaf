@@ -776,6 +776,7 @@ ja:
         marc_number: MARC番号
         subscription_master: 購読マスタ
         description: 説明
+        table_of_contents: 目次
         except_recent: 新刊対象から除外
         checkouts_count: 貸出回数(累計/今期/前期)
         reserves_count:  予約回数(累計/今期/前期)
