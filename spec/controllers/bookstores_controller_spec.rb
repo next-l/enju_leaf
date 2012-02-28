@@ -309,7 +309,7 @@ describe BookstoresController do
         end
 
         it "moves its position when specified" do
-          put :update, :id => @bookstore.id, :bookstore => @attrs, :position => 2
+          put :update, :id => @bookstore.id, :bookstore => @attrs, :move => 'lower'
           response.should redirect_to(bookstores_url)
         end
       end

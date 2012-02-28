@@ -249,7 +249,7 @@ describe LanguagesController do
         end
 
         it "moves its position when specified" do
-          put :update, :id => @language.id, :language => @attrs, :position => 2
+          put :update, :id => @language.id, :language => @attrs, :move => 'lower'
           response.should redirect_to(languages_url)
         end
       end

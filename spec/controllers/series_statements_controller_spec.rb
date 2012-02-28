@@ -298,7 +298,7 @@ describe SeriesStatementsController do
         end
 
         it "moves its position when specified" do
-          put :update, :id => @series_statement.id, :position => 2
+          put :update, :id => @series_statement.id, :move => 'lower'
           response.should redirect_to(series_statements_url)
         end
       end

@@ -305,7 +305,7 @@ describe UserGroupsController do
         end
 
         it "moves its position when specified" do
-          put :update, :id => @user_group.id, :user_group => @attrs, :position => 2
+          put :update, :id => @user_group.id, :user_group => @attrs, :move => 'lower'
           response.should redirect_to(user_groups_url)
         end
       end

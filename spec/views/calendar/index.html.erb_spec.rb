@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe "calendar/index.html.erb" do
+describe "calendar/index" do
   fixtures :libraries
 
   before(:each) do

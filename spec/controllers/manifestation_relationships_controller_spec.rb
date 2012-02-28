@@ -308,7 +308,7 @@ describe ManifestationRelationshipsController do
         end
 
         it "moves its position when specified" do
-          put :update, :id => @manifestation_relationship.id, :manifestation_relationship => @attrs, :position => 2
+          put :update, :id => @manifestation_relationship.id, :manifestation_relationship => @attrs, :move => 'lower'
           response.should redirect_to(manifestation_relationships_url)
         end
       end

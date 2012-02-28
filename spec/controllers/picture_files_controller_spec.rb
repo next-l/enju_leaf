@@ -299,7 +299,7 @@ describe PictureFilesController do
         end
 
         it "moves its position when specified" do
-          put :update, :id => @picture_file.id, :position => 2
+          put :update, :id => @picture_file.id, :move => 'lower'
           response.should redirect_to(shelf_picture_files_url(@picture_file.picture_attachable))
         end
       end

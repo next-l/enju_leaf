@@ -307,7 +307,7 @@ describe ContentTypesController do
         end
 
         it "moves its position when specified" do
-          put :update, :id => @content_type.id, :content_type => @attrs, :position => 2
+          put :update, :id => @content_type.id, :content_type => @attrs, :move => 'lower'
           response.should redirect_to(content_types_url)
         end
       end

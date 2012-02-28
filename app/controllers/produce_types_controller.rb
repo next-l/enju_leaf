@@ -4,9 +4,8 @@ class ProduceTypesController < InheritedResources::Base
 
   def update
     @produce_type = ProduceType.find(params[:id])
-    if params[:position]
-      @produce_type.insert_at(params[:position])
-      redirect_to produce_types_url
+    if params[:move]
+      move_position(@produce_type, params[:move])
       return
     end
     update!

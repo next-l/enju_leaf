@@ -290,7 +290,7 @@ describe ShelvesController do
         end
 
         it "moves its position when specified" do
-          put :update, :id => @shelf.id, :shelf => @attrs, :position => 2
+          put :update, :id => @shelf.id, :shelf => @attrs, :move => 'lower'
           response.should redirect_to(library_shelves_url(@shelf.library))
         end
       end

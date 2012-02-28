@@ -4,9 +4,8 @@ class BudgetTypesController < InheritedResources::Base
 
   def update
     @budget_type = BudgetType.find(params[:id])
-    if params[:position]
-      @budget_type.insert_at(params[:position])
-      redirect_to budget_types_url
+    if params[:move]
+      move_position(@budget_type, params[:move])
       return
     end
     update!

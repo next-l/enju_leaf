@@ -307,7 +307,7 @@ describe CarrierTypesController do
         end
 
         it "moves its position when specified" do
-          put :update, :id => @carrier_type.id, :carrier_type => @attrs, :position => 2
+          put :update, :id => @carrier_type.id, :carrier_type => @attrs, :move => 'lower'
           response.should redirect_to(carrier_types_url)
         end
       end

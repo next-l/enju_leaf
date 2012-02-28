@@ -93,9 +93,8 @@ class SeriesStatementsController < ApplicationController
   # PUT /series_statements/1
   # PUT /series_statements/1.json
   def update
-    if params[:position]
-      @series_statement.insert_at(params[:position])
-      redirect_to series_statements_url
+    if params[:move]
+      move_position(@series_statement, params[:move])
       return
     end
 

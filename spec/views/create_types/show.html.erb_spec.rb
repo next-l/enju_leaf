@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe "create_types/show.html.erb" do
+describe "create_types/show" do
   before(:each) do
     @create_type = assign(:create_type, stub_model(CreateType,
       :name => "Name",

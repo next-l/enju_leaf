@@ -4,9 +4,8 @@ class SearchEnginesController < InheritedResources::Base
 
   def update
     @search_engine = SearchEngine.find(params[:id])
-    if params[:position]
-      @search_engine.insert_at(params[:position])
-      redirect_to search_engines_url
+    if params[:move]
+      move_position(@search_engine, params[:move])
       return
     end
     update!

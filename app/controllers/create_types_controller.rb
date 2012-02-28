@@ -4,9 +4,8 @@ class CreateTypesController < InheritedResources::Base
 
   def update
     @create_type = CreateType.find(params[:id])
-    if params[:position]
-      @create_type.insert_at(params[:position])
-      redirect_to create_types_url
+    if params[:move]
+      move_position(@create_type, params[:move])
       return
     end
     update!

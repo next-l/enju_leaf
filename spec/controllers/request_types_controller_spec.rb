@@ -309,7 +309,7 @@ describe RequestTypesController do
         end
 
         it "moves its position when specified" do
-          put :update, :id => @request_type.id, :request_type => @attrs, :position => 2
+          put :update, :id => @request_type.id, :request_type => @attrs, :move => 'lower'
           response.should redirect_to(request_types_url)
         end
       end

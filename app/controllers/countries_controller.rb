@@ -4,9 +4,8 @@ class CountriesController < InheritedResources::Base
 
   def update
     @country = Country.find(params[:id])
-    if params[:position]
-      @country.insert_at(params[:position])
-      redirect_to countries_url
+    if params[:move]
+      move_position(@country, params[:move])
       return
     end
     update!

@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe "produce_types/edit.html.erb" do
+describe "produce_types/edit" do
   before(:each) do
     @produce_type = assign(:produce_type, stub_model(ProduceType,
       :name => "MyString",

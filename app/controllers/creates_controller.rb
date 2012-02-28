@@ -71,10 +71,13 @@ class CreatesController < ApplicationController
   # PUT /creates/1.json
   def update
     # 並べ替え
-    if @work and params[:position]
-      @create.insert_at(params[:position])
-      redirect_to work_creates_url(@work)
-      return
+    if @work and params[:move]
+      direction = params[:move]
+      if ['higher', 'lower'].include?(direction)
+        @create.send("move_#{direction}")
+        redirect_to work_creates_url(@work)
+        return
+      end
     end
 
     respond_to do |format|

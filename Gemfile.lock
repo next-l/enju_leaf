@@ -1,6 +1,6 @@
 GIT
   remote: git://github.com/nabeta/enju_barcode.git
-  revision: 62bae2a97bf2b1f83f5cee012b8fbb258d670bab
+  revision: bb08068e256c3a931745cfb631ec71c576cfb787
   specs:
     enju_barcode (0.0.1)
       barby (~> 0.5)
@@ -12,7 +12,7 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_book_jacket.git
-  revision: a933c2335907bdd801b46902b3a653aa4b951c17
+  revision: 688cca0c3a0e101d7cd208e71ce6aa7e9fd0cbed
   specs:
     enju_book_jacket (0.0.1)
       configatron
@@ -20,12 +20,13 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_bookmark.git
-  revision: 0aefff0620798ede76615169cc8cd6de77b3494c
+  revision: 0965b732a21ad1f8b4ecb874137ba18e92f180a9
   specs:
     enju_bookmark (0.0.4)
       acts-as-taggable-on (~> 2.2)
+      acts_as_list (~> 0.1.5)
       addressable
-      attribute_normalizer (~> 1.0)
+      attribute_normalizer (~> 1.1)
       cancan
       devise
       friendly_id (~> 4.0)
@@ -37,14 +38,15 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_circulation.git
-  revision: 274008b474f8c34996ca43a6ee208486ad619285
+  revision: 95578cc71da2e2910a6e585ff6af7520d1b71a44
   specs:
-    enju_circulation (0.0.10)
-      attribute_normalizer (~> 1.0)
+    enju_circulation (0.0.13)
+      acts_as_list (~> 0.1.5)
+      attribute_normalizer (~> 1.1)
       cancan
       devise
       enju_event (>= 0.0.5)
-      enju_message (>= 0.0.6)
+      enju_message (~> 0.0.10)
       friendly_id (~> 4.0)
       inherited_resources
       rails (~> 3.1)
@@ -57,15 +59,16 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_event.git
-  revision: 04f5c2f24474d6853d67db517ac840a792dbbd33
+  revision: 95fc0b7a99b79dfe670f04246cb8a62320e1d285
   specs:
-    enju_event (0.0.5)
+    enju_event (0.0.7)
+      acts_as_list (~> 0.1.5)
       addressable
-      attribute_normalizer (~> 1.0)
+      attribute_normalizer (~> 1.1)
       cancan
       configatron
       devise
-      enju_message (>= 0.0.5)
+      enju_message (~> 0.0.10)
       event-calendar (~> 2.3.3)
       friendly_id (~> 4.0)
       has_scope
@@ -80,11 +83,12 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_inter_library_loan.git
-  revision: a7fea112d2eafed42510c5c66e0d35172468d7da
+  revision: c85465908ccd323b257bf4293d0999c2f8d67406
   specs:
     enju_inter_library_loan (0.0.1)
+      acts_as_list (~> 0.1.5)
       addressable
-      attribute_normalizer (~> 1.0)
+      attribute_normalizer (~> 1.1)
       cancan
       devise
       friendly_id (~> 4.0)
@@ -96,7 +100,7 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_inventory.git
-  revision: 091114a24423bd2ea685af408c910dc3a0bf2500
+  revision: 79f33a7154f0589a540daba0037563d121184b5b
   specs:
     enju_inventory (0.0.3)
       cancan
@@ -110,7 +114,7 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_manifestation_viewer.git
-  revision: c9f7024224a35af0690af77020505e293e8dcc82
+  revision: 63cddc5dbd2865cec4bb571700a5b0880d42128f
   specs:
     enju_manifestation_viewer (0.0.1)
       addressable
@@ -118,11 +122,12 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_message.git
-  revision: 96fe4f867882a03982221355f21627746e156c0d
+  revision: 8f8069be24feab492467377df5c733ec5c12efec
   specs:
-    enju_message (0.0.9)
+    enju_message (0.0.10)
+      acts_as_list (~> 0.1.5)
       addressable
-      attribute_normalizer (~> 1.0)
+      attribute_normalizer (~> 1.1)
       awesome_nested_set (~> 2.1)
       cancan
       configatron
@@ -139,9 +144,9 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_ndl.git
-  revision: cc2d5fc0267dc3cfd8f2c6245d5d6a80f4c41871
+  revision: aa6a01c3f443cfa878664dd7b8e69b7bc881daa1
   specs:
-    enju_ndl (0.0.11)
+    enju_ndl (0.0.12)
       devise
       nokogiri
       rails (~> 3.1)
@@ -149,18 +154,19 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_oai.git
-  revision: 0e7a88bc97de7785b8a5dceebad0a4f2bab832c6
+  revision: 7e7fb239ddbc4d7d084be5043d34d2f0e991b379
   specs:
     enju_oai (0.0.1)
       rails (~> 3.1)
 
 GIT
   remote: git://github.com/nabeta/enju_purchase_request.git
-  revision: f3fb4d6a678f21310dbc914994be9ff01c26cca8
+  revision: 2f1dd001a9c0c2c30358c1a50251a75340a6c927
   specs:
-    enju_purchase_request (0.0.4)
+    enju_purchase_request (0.0.5)
+      acts_as_list (~> 0.1.5)
       addressable
-      attribute_normalizer (~> 1.0)
+      attribute_normalizer (~> 1.1)
       cancan
       configatron
       devise
@@ -172,13 +178,14 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_question.git
-  revision: eccb845807c431a8f22db2f16d16a89d56eed9dc
+  revision: 912a8192ec38b4a16d7121e2d6a19ac16c359f1b
   specs:
-    enju_question (0.0.5)
+    enju_question (0.0.6)
       acts-as-taggable-on (~> 2.2)
+      acts_as_list (~> 0.1.5)
       cancan
       devise
-      enju_ndl (>= 0.0.3)
+      enju_ndl (>= 0.0.11)
       friendly_id (~> 4.0)
       nokogiri
       rails (~> 3.1)
@@ -189,10 +196,11 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_resource_merge.git
-  revision: a9c28c921b547a4c8e1644cb1e94a2ac774e202c
+  revision: 301936c9ff570ee701f4ed09f4b84e3b0b56630e
   specs:
-    enju_resource_merge (0.0.3)
-      attribute_normalizer (~> 1.0)
+    enju_resource_merge (0.0.4)
+      acts_as_list (~> 0.1.5)
+      attribute_normalizer (~> 1.1)
       cancan
       devise
       dynamic_form
@@ -204,7 +212,7 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_search_log.git
-  revision: 79ce1d4a16b74f201b451b27aede3e5b6355a449
+  revision: 6fa5b6e1b3b4ab8139567e94bb204c17e1a1fa8d
   specs:
     enju_search_log (0.0.2)
       cancan
@@ -214,10 +222,11 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_subject.git
-  revision: 39545dd840d465916be7da375eeae1a16b93de0f
+  revision: 21792a708150e6715628b53631a1e60fe0f4f3d9
   specs:
-    enju_subject (0.0.6)
-      attribute_normalizer (~> 1.0)
+    enju_subject (0.0.7)
+      acts_as_list (~> 0.1.5)
+      attribute_normalizer (~> 1.1)
       cancan
       devise
       dynamic_form
@@ -242,24 +251,18 @@ GIT
       sunspot_rails
       sunspot_solr
 
-GIT
-  remote: git://github.com/swanandp/acts_as_list.git
-  revision: 7fd29b74eec9327a3d2a3033e1ca249ba04fc7e5
-  specs:
-    acts_as_list (0.1.4)
-
 GEM
   remote: https://rubygems.org/
   specs:
     RedCloth (4.2.9)
     Saikuro (1.1.0)
     aaronh-chronic (0.3.9)
-    actionmailer (3.2.1)
-      actionpack (= 3.2.1)
+    actionmailer (3.2.2.rc1)
+      actionpack (= 3.2.2.rc1)
       mail (~> 2.4.0)
-    actionpack (3.2.1)
-      activemodel (= 3.2.1)
-      activesupport (= 3.2.1)
+    actionpack (3.2.2.rc1)
+      activemodel (= 3.2.2.rc1)
+      activesupport (= 3.2.2.rc1)
       builder (~> 3.0.0)
       erubis (~> 2.7.0)
       journey (~> 1.0.1)
@@ -267,22 +270,23 @@ GEM
       rack-cache (~> 1.1)
       rack-test (~> 0.6.1)
       sprockets (~> 2.1.2)
-    activemodel (3.2.1)
-      activesupport (= 3.2.1)
+    activemodel (3.2.2.rc1)
+      activesupport (= 3.2.2.rc1)
       builder (~> 3.0.0)
-    activerecord (3.2.1)
-      activemodel (= 3.2.1)
-      activesupport (= 3.2.1)
-      arel (~> 3.0.0)
+    activerecord (3.2.2.rc1)
+      activemodel (= 3.2.2.rc1)
+      activesupport (= 3.2.2.rc1)
+      arel (~> 3.0.2)
       tzinfo (~> 0.3.29)
-    activeresource (3.2.1)
-      activemodel (= 3.2.1)
-      activesupport (= 3.2.1)
-    activesupport (3.2.1)
+    activeresource (3.2.2.rc1)
+      activemodel (= 3.2.2.rc1)
+      activesupport (= 3.2.2.rc1)
+    activesupport (3.2.2.rc1)
       i18n (~> 0.6)
       multi_json (~> 1.0)
     acts-as-taggable-on (2.2.2)
       rails (~> 3.0)
+    acts_as_list (0.1.5)
     addressable (2.2.7)
     annotate (2.4.0)
     ansi (1.4.2)
@@ -330,7 +334,7 @@ GEM
     configatron (2.9.0)
       yamler (>= 0.1.0)
     daemons (1.1.8)
-    dalli (1.1.4)
+    dalli (1.1.5)
     delayed_job (3.0.1)
       activesupport (~> 3.0)
     delayed_job_active_record (0.3.2)
@@ -428,13 +432,13 @@ GEM
     orm_adapter (0.0.6)
     paper_trail (2.6.0)
       rails (~> 3)
-    paperclip (2.6.0)
+    paperclip (2.7.0)
       activerecord (>= 2.3.0)
       activesupport (>= 2.3.2)
       cocaine (>= 0.0.2)
       mime-types
-    parallel (0.5.14)
-    parallel_tests (0.6.19)
+    parallel (0.5.15)
+    parallel_tests (0.6.20)
       parallel
     pg (0.13.2)
     polyglot (0.3.3)
@@ -454,26 +458,26 @@ GEM
       rack
     rack-test (0.6.1)
       rack (>= 1.0)
-    rails (3.2.1)
-      actionmailer (= 3.2.1)
-      actionpack (= 3.2.1)
-      activerecord (= 3.2.1)
-      activeresource (= 3.2.1)
-      activesupport (= 3.2.1)
+    rails (3.2.2.rc1)
+      actionmailer (= 3.2.2.rc1)
+      actionpack (= 3.2.2.rc1)
+      activerecord (= 3.2.2.rc1)
+      activeresource (= 3.2.2.rc1)
+      activesupport (= 3.2.2.rc1)
       bundler (~> 1.0)
-      railties (= 3.2.1)
+      railties (= 3.2.2.rc1)
     rails_autolink (1.0.5)
       rails (~> 3.1)
-    rails_best_practices (1.7.2)
+    rails_best_practices (1.8.0)
       activesupport
       colored
       erubis
       i18n
       progressbar
       sexp_processor
-    railties (3.2.1)
-      actionpack (= 3.2.1)
-      activesupport (= 3.2.1)
+    railties (3.2.2.rc1)
+      actionpack (= 3.2.2.rc1)
+      activesupport (= 3.2.2.rc1)
       rack-ssl (~> 1.3.2)
       rake (>= 0.8.7)
       rdoc (~> 3.4)
@@ -520,10 +524,10 @@ GEM
       sass (>= 3.1.10)
       tilt (~> 1.3)
     sexp_processor (3.0.10)
-    simple_form (1.5.2)
+    simple_form (2.0.0)
       actionpack (~> 3.0)
       activemodel (~> 3.0)
-    simplecov (0.6.0)
+    simplecov (0.6.1)
       multi_json (~> 1.0)
       simplecov-html (~> 0.5.3)
     simplecov-html (0.5.3)
@@ -565,7 +569,7 @@ GEM
     uuidtools (2.1.2)
     validates_timeliness (3.0.8)
       timeliness (~> 0.3.4)
-    vcr (2.0.0.rc1)
+    vcr (2.0.0.rc2)
     vidibus-routing_error (0.2.2)
     warden (1.1.1)
       rack (>= 1.0)
@@ -583,7 +587,7 @@ PLATFORMS
 DEPENDENCIES
   RedCloth (>= 4.2.9)
   activerecord-jdbc-adapter
-  acts_as_list!
+  acts_as_list (~> 0.1.5)
   addressable
   annotate
   astrails-safe
@@ -638,12 +642,12 @@ DEPENDENCIES
   nokogiri
   omniauth (~> 1.0)
   paper_trail (~> 2.6)
-  paperclip (~> 2.6)
+  paperclip (~> 2.7)
   parallel_tests
   pg
   progress_bar
   rack-protection
-  rails (= 3.2.1)
+  rails (= 3.2.2.rc1)
   rails_autolink
   rcov (= 0.9.11)
   ri_cal
@@ -652,7 +656,7 @@ DEPENDENCIES
   rubyzip2
   sanitize
   sass-rails (~> 3.2.3)
-  simple_form (~> 1.5)
+  simple_form (~> 2.0)
   simplecov (~> 0.6)
   sitemap_generator (~> 3.0)
   spork-rails
@@ -665,7 +669,7 @@ DEPENDENCIES
   turn (~> 0.8.3)
   uglifier (>= 1.0.3)
   validates_timeliness
-  vcr (~> 2.0.0.rc1)
+  vcr (~> 2.0.0.rc2)
   vidibus-routing_error
   whenever
   will_paginate (~> 3.0)

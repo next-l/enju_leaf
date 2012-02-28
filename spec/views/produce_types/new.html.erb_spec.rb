@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe "produce_types/new.html.erb" do
+describe "produce_types/new" do
   before(:each) do
     assign(:produce_type, stub_model(ProduceType,
       :name => "MyString",

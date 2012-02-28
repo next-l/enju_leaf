@@ -52,9 +52,8 @@ class UserGroupsController < ApplicationController
   # PUT /user_groups/1
   # PUT /user_groups/1.json
   def update
-    if params[:position]
-      @user_group.insert_at(params[:position])
-      redirect_to user_groups_url
+    if params[:move]
+      move_position(@user_group, params[:move])
       return
     end
 
