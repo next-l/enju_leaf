@@ -29,7 +29,7 @@ class Question < ActiveRecord::Base
   end
 
   acts_as_taggable_on :tags
-  enju_ndl
+  enju_ndl_search
 
   def self.per_page
     10
