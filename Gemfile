@@ -9,6 +9,7 @@ gem 'rails', '3.2.1'
 gem 'enju_oai', :git => 'git://github.com/nabeta/enju_oai.git'
 gem 'enju_book_jacket', :git => 'git://github.com/nabeta/enju_book_jacket.git'
 gem 'enju_manifestation_viewer', :git => 'git://github.com/nabeta/enju_manifestation_viewer.git'
+gem 'enju_ndl', :git => 'git://github.com/nabeta/enju_ndl.git'
 
 platforms :ruby do
   gem 'pg'
@@ -107,7 +108,7 @@ group :assets do
   gem 'coffee-rails', '~> 3.2.1'
 
   # See https://github.com/sstephenson/execjs#readme for more supported runtimes
-  # gem 'therubyracer'
+   gem 'therubyracer'
 
   gem 'uglifier', '>= 1.0.3'
 end
