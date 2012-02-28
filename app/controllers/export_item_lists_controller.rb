@@ -71,7 +71,7 @@ class ExportItemListsController < ApplicationController
       file_type = params[:export_item_list][:file_type]
 
       # get data
-      logger.error "SQL start at #{Time.now}"
+      logger.info "SQL start at #{Time.now}"
       case list_type.to_i
       when 1
         query = get_query(ndcs, @selected_library, @selected_carrier_type)
@@ -112,11 +112,13 @@ class ExportItemListsController < ApplicationController
           :order => 'libraries.id, manifestations.carrier_type_id, items.shelf_id, items.item_identifier, manifestations.original_title')
         filename = t('item_list.new_item_list')
       when 6
+        libraries = @selected_library
+
         @items = []
         manifestations = SeriesStatement.latest_issues
         manifestations.each do |manifestation|
           manifestation.items.each do |item|
-            @items << item if libraries.include?(item.shelf.library.id.to_s) rescue next
+            @items << item if libraries.include?(item.shelf.library.id) rescue next
           end
         end
         filename = t('item_list.latest_list')
@@ -147,7 +149,8 @@ class ExportItemListsController < ApplicationController
         }
         filename = t('item_list.series_statements_list')
       end
-      logger.error "SQL end at #{Time.now}\nfound #{@items.length rescue 0} records"
+      logger.info "SQL end at #{Time.now}\nfound #{@items.length rescue 0} records"
+      logger.info "list_type=#{list_type.to_i} file_type=#{file_type}"
 
       # make file
       begin
