@@ -79,7 +79,7 @@ class BarcodeListsController < ApplicationController
 
   def show_pdf
     id = params[:id]
-    path = "#{RAILS_ROOT}/private/system/barcode_list/#{id}/original/barcode.pdf"
+    path = "#{Rails.root}/private/system/barcode_list/#{id}/original/barcode.pdf"
     send_file(path, :type => "application/pdf")
   end
 
