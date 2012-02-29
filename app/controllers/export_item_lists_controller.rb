@@ -112,15 +112,20 @@ class ExportItemListsController < ApplicationController
           :order => 'libraries.id, manifestations.carrier_type_id, items.shelf_id, items.item_identifier, manifestations.original_title')
         filename = t('item_list.new_item_list')
       when 6
-        libraries = @selected_library
-
         @items = []
         manifestations = SeriesStatement.latest_issues
         manifestations.each do |manifestation|
           manifestation.items.each do |item|
-            @items << item if libraries.include?(item.shelf.library.id) rescue next
+            if @selected_library.include?(item.shelf.library.id)
+              if all_bookstore == "true"
+                @items << item 
+              else
+                @items << item if @selected_bookstore.include?(item.bookstore_id)
+              end
+            end
           end
         end
+        sort_series_statements
         filename = t('item_list.latest_list')
       when 7
         query = get_query(ndcs, @selected_library, @selected_carrier_type)
@@ -133,20 +138,7 @@ class ExportItemListsController < ApplicationController
         filename = t('item_list.new_book_list')
       when 8
         @items = get_series_statements_item(@selected_library, all_bookstore, @selected_bookstore, acquired_at)
-        @items = @items.sort{|a, b|
-          if a.shelf.library.id.to_i != b.shelf.library.id.to_i 
-            a.shelf.library.id.to_i <=> b.shelf.library.id.to_i
-          elsif a.acquired_at.to_i != b.acquired_at.to_i
-            a.acquired_at.to_i <=> b.acquired_at.to_i
-          elsif a.bookstore_id.to_i != b.bookstore_id.to_i 
-            a.bookstore_id.to_i <=> b.bookstore_id.to_i
-          elsif a.item_identifier.to_s != b.item_identifier.to_s
-            a.item_identifier.to_s <=> b.item_identifier.to_s
-          else
-            #return 0 
-            a.id <=> b.id
-          end
-        }
+        sort_series_statements
         filename = t('item_list.series_statements_list')
       end
       logger.info "SQL end at #{Time.now}\nfound #{@items.length rescue 0} records"
@@ -160,6 +152,8 @@ class ExportItemListsController < ApplicationController
             data = Item.make_export_removed_list_pdf(@items)
           when 5
             data = Item.make_export_new_item_list_pdf(@items)
+          when 6
+            data = Item.make_export_series_statements_latest_list_pdf(@items)
           when 7
             data = Item.make_export_new_book_list_pdf(@items)
           when 8
@@ -181,6 +175,8 @@ class ExportItemListsController < ApplicationController
             data = Item.make_export_removed_list_tsv(@items)
           when 5
             data = Item.make_export_new_item_list_tsv(@items)
+          when 6
+            data = Item.make_export_series_statements_latest_list_tsv(@items)
           when 7
             data = Item.make_export_new_book_list_tsv(@items)
           when 8
@@ -209,6 +205,9 @@ class ExportItemListsController < ApplicationController
       bookstores = params[:bookstores]
       all_bookstores = params[:all_bookstore]
       acquired_at = params[:acquired_at]
+      libraries = libraries.map{|library|library.to_i}
+      carrier_types = carrier_types.map{|carrier_type|carrier_type.to_i}
+      bookstores = bookstores.map{|bookstore|bookstore.to_i}
 
       error = false
       list_size = 0
@@ -272,7 +271,13 @@ class ExportItemListsController < ApplicationController
             manifestations = SeriesStatement.latest_issues
             manifestations.each do |manifestation|
               manifestation.items.each do |item|
-                @items << item if libraries.include?(item.shelf.library.id.to_s) rescue next
+                if libraries.include?(item.shelf.library.id)
+                  if all_bookstore == "true"
+                    @items << item
+                  else
+                    @items << item if bookstores.include?(item.bookstore_id)
+                  end
+                end
               end
             end
             list_size = @items.size
@@ -311,9 +316,6 @@ class ExportItemListsController < ApplicationController
   end
 
   def get_series_statements_item(libraries, all_bookstore, bookstores, acquired_at)
-    libraries = libraries.map{|library|library.to_i}
-    bookstores = bookstores.map{|bookstore|bookstore.to_i}
-
     @items = []
     series_statements = SeriesStatement.all
     series_statements.each do |series_statement|
@@ -340,5 +342,21 @@ class ExportItemListsController < ApplicationController
       end
     end
     return @items
+  end
+
+  def sort_series_statements
+    @items = @items.sort{|a, b|
+      if a.shelf.library.id.to_i != b.shelf.library.id.to_i 
+        a.shelf.library.id.to_i <=> b.shelf.library.id.to_i
+      elsif a.acquired_at.to_i != b.acquired_at.to_i
+        a.acquired_at.to_i <=> b.acquired_at.to_i
+      elsif a.bookstore_id.to_i != b.bookstore_id.to_i 
+        a.bookstore_id.to_i <=> b.bookstore_id.to_i
+      elsif a.item_identifier.to_s != b.item_identifier.to_s
+        a.item_identifier.to_s <=> b.item_identifier.to_s
+      else
+        a.id <=> b.id
+      end
+    }
   end
 end
