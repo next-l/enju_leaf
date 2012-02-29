@@ -6,7 +6,7 @@ class ApplicationController < ActionController::Base
   rescue_from ActiveRecord::RecordNotFound, :with => :render_404
   rescue_from Errno::ECONNREFUSED, :with => :render_500
   rescue_from ActionView::MissingTemplate, :with => :render_404_invalid_format
-  rescue_from ActionController::RoutingError, :with => :render_404
+  #rescue_from ActionController::RoutingError, :with => :render_404
 
   has_mobile_fu
   before_filter :get_library_group, :set_locale, :set_available_languages, :set_request_format
@@ -182,6 +182,10 @@ class ApplicationController < ActionController::Base
   if defined?(EnjuResourceMerge)
     def get_patron_merge_list
       @patron_merge_list = PatronMergeList.find(params[:patron_merge_list_id]) if params[:patron_merge_list_id]
+    end
+
+    def get_series_statement_merge_list
+      @series_statement_merge_list = SeriesStatementMergeList.find(params[:series_statement_merge_list_id]) if params[:series_statement_merge_list_id]
     end
   end
 

@@ -17,6 +17,7 @@ class SeriesStatement < ActiveRecord::Base
     end
     integer :position
     boolean :periodical
+    integer :series_statement_merge_list_ids, :multiple => true if defined?(EnjuResourceMerge)
   end
 
   normalize_attributes :original_title, :issn
