@@ -48,7 +48,7 @@
     var list_type = $("#export_item_list_list_type").val();
 
     // carrier_type
-    if (list_type == 8) {
+    if ((list_type == 6) || (list_type == 8)) {
       $("#item_list_carrier_type input:checkbox[@type='checkbox']").attr('checked', true);
       $('#item_list_carrier_type').hide();
     } else {
@@ -56,7 +56,7 @@
     }
 
     // book_store
-    if (list_type == 8) {
+    if ((list_type == 6) || (list_type == 8)) {
       $('#item_list_bookstore').show();
     } else {
       $("#item_list_bookstore input:checkbox[@type='checkbox']").attr('checked', true);
