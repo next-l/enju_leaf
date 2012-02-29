@@ -984,7 +984,7 @@ class StatisticReport < ActiveRecord::Base
   end
 
   def self.get_monthly_report_tsv(term)
-    dir_base = "#{RAILS_ROOT}/private/system"
+    dir_base = "#{Rails.root}/private/system"
     out_dir = "#{dir_base}/statistic_report/"
     tsv_file = out_dir + "#{term}_monthly_report.tsv"
     FileUtils.mkdir_p(out_dir) unless FileTest.exist?(out_dir)
@@ -2720,7 +2720,7 @@ class StatisticReport < ActiveRecord::Base
   end
 
   def self.get_daily_report_tsv(term)
-    dir_base = "#{RAILS_ROOT}/private/system"
+    dir_base = "#{Rails.root}/private/system"
     out_dir = "#{dir_base}/statistic_report/"
     tsv_file = out_dir + "#{term}_daily_report.tsv"
     FileUtils.mkdir_p(out_dir) unless FileTest.exist?(out_dir)
@@ -3604,7 +3604,7 @@ class StatisticReport < ActiveRecord::Base
   end
 
   def self.get_timezone_report_tsv(start_at, end_at)
-    dir_base = "#{RAILS_ROOT}/private/system"
+    dir_base = "#{Rails.root}/private/system"
     out_dir = "#{dir_base}/statistic_report/"
     tsv_file = out_dir + "#{start_at}_#{end_at}_timezone_report.tsv"
     FileUtils.mkdir_p(out_dir) unless FileTest.exist?(out_dir)
@@ -4363,7 +4363,7 @@ class StatisticReport < ActiveRecord::Base
   end
 
   def self.get_day_report_tsv(start_at, end_at)
-    dir_base = "#{RAILS_ROOT}/private/system"
+    dir_base = "#{Rails.root}/private/system"
     out_dir = "#{dir_base}/statistic_report/"
     tsv_file = out_dir + "#{start_at}_#{end_at}_day_report.tsv"
     FileUtils.mkdir_p(out_dir) unless FileTest.exist?(out_dir)
@@ -5445,7 +5445,7 @@ class StatisticReport < ActiveRecord::Base
   end
 
   def self.get_age_report_tsv(start_at, end_at)
-    dir_base = "#{RAILS_ROOT}/private/system"
+    dir_base = "#{Rails.root}/private/system"
     out_dir = "#{dir_base}/statistic_report/"
     tsv_file = out_dir + "#{start_at}_#{end_at}_day_report.tsv"
     FileUtils.mkdir_p(out_dir) unless FileTest.exist?(out_dir)
@@ -6598,7 +6598,7 @@ class StatisticReport < ActiveRecord::Base
   end
 
   def self.get_items_daily_tsv(term)
-    dir_base = "#{RAILS_ROOT}/private/system"
+    dir_base = "#{Rails.root}/private/system"
     out_dir = "#{dir_base}/statistic_report/"
     tsv_file = out_dir + "#{term}_items_daily_report.tsv"
     FileUtils.mkdir_p(out_dir) unless FileTest.exist?(out_dir)
@@ -7074,7 +7074,7 @@ class StatisticReport < ActiveRecord::Base
   end
 
   def self.get_items_monthly_tsv(term)
-    dir_base = "#{RAILS_ROOT}/private/system"
+    dir_base = "#{Rails.root}/private/system"
     out_dir = "#{dir_base}/statistic_report/"
     tsv_file = out_dir + "#{term}_items_monthly_report.tsv"
     FileUtils.mkdir_p(out_dir) unless FileTest.exist?(out_dir)
@@ -7877,7 +7877,7 @@ class StatisticReport < ActiveRecord::Base
   end
 
   def self.get_inout_daily_tsv(term)
-    dir_base = "#{RAILS_ROOT}/private/system"
+    dir_base = "#{Rails.root}/private/system"
     out_dir = "#{dir_base}/statistic_report/"
     tsv_file = out_dir + "#{term}_inout_report.tsv"
     FileUtils.mkdir_p(out_dir) unless FileTest.exist?(out_dir)
@@ -8484,7 +8484,7 @@ class StatisticReport < ActiveRecord::Base
   end
 
   def self.get_inout_monthly_tsv(term)
-    dir_base = "#{RAILS_ROOT}/private/system"
+    dir_base = "#{Rails.root}/private/system"
     out_dir = "#{dir_base}/statistic_report/"
     tsv_file = out_dir + "#{term}_inout_report.tsv"
     FileUtils.mkdir_p(out_dir) unless FileTest.exist?(out_dir)
@@ -9057,7 +9057,7 @@ class StatisticReport < ActiveRecord::Base
   end
 
   def self.get_loans_daily_tsv(term)
-    dir_base = "#{RAILS_ROOT}/private/system"
+    dir_base = "#{Rails.root}/private/system"
     out_dir = "#{dir_base}/statistic_report/"
     tsv_file = out_dir + "#{term}_loans_daily.tsv"
     FileUtils.mkdir_p(out_dir) unless FileTest.exist?(out_dir)
@@ -9212,7 +9212,7 @@ class StatisticReport < ActiveRecord::Base
   end
 
   def self.get_loans_monthly_tsv(term)
-    dir_base = "#{RAILS_ROOT}/private/system"
+    dir_base = "#{Rails.root}/private/system"
     out_dir = "#{dir_base}/statistic_report/"
     tsv_file = out_dir + "#{term}_loans_monthly.tsv"
     FileUtils.mkdir_p(out_dir) unless FileTest.exist?(out_dir)
@@ -9305,7 +9305,7 @@ class StatisticReport < ActiveRecord::Base
     if corporates.blank?
       return false
     end
-    dir_base = "#{RAILS_ROOT}/private/system"
+    dir_base = "#{Rails.root}/private/system"
     begin
       report = ThinReports::Report.new :layout => "#{Rails.root.to_s}/app/views/statistic_reports/groups_monthly"
 
@@ -9356,7 +9356,7 @@ class StatisticReport < ActiveRecord::Base
     if corporates.blank?
       return false
     end
-    dir_base = "#{RAILS_ROOT}/private/system"
+    dir_base = "#{Rails.root}/private/system"
     out_dir = "#{dir_base}/statistic_report/"
     tsv_file = out_dir + "#{term}_groups_monthly.tsv"
     FileUtils.mkdir_p(out_dir) unless FileTest.exist?(out_dir)
@@ -9485,7 +9485,7 @@ class StatisticReport < ActiveRecord::Base
     if corporates.blank?
       return false
     end
-    dir_base = "#{RAILS_ROOT}/private/system"
+    dir_base = "#{Rails.root}/private/system"
     out_dir = "#{dir_base}/statistic_report/"
     tsv_file = out_dir + "#{term}_groups_daily.tsv"
     FileUtils.mkdir_p(out_dir) unless FileTest.exist?(out_dir)
