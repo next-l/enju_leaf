@@ -107,9 +107,9 @@ gem 'awesome_nested_set', '~> 2.1'
 gem 'rails_autolink'
 #gem 'oink', '>= 0.9.3'
 
-group :production do
-  gem 'vidibus-routing_error'
-end
+#group :production do
+#  gem 'vidibus-routing_error'
+#end
 
 group :development do
   gem 'parallel_tests'

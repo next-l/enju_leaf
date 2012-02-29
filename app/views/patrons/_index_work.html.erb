@@ -34,7 +34,7 @@
   <%- @patrons.each do |patron| -%>
     <tr class="line<%= cycle("0", "1") -%>">
       <td><%= link_to patron.full_name, patron -%></td>
-      <td><%= work.created(patron).create_type.display_name.localize unless params[:mode] == 'add' -%></td>
+      <td><%= work.created(patron).create_type.display_name.localize if params[:mode] != 'add' and work.created(patron).try(:create_type) -%></td>
       <td><%= patron.patron_type.display_name.localize -%></td>
       <td>
         <%- if can? :destroy, patron -%>

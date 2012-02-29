@@ -19,21 +19,21 @@
 <table class="index">
   <tr>
     <th><%= t('activerecord.attributes.patron.full_name') -%></th>
-    <th><%= t('activerecord.models.create_type') -%></th>
+    <th><%= t('activerecord.models.produce_type') -%></th>
     <th><%= t('activerecord.models.patron_type') -%></th>
     <th id="edit_icons"></th>
   </tr>
   <%- @patrons.each do |patron| -%>
     <tr class="line<%= cycle("0", "1") -%>">
       <td><%= link_to patron.full_name, patron -%></td>
-      <td><%= manifestation.produced(patron).produce_type.display_name.localize unless params[:mode] == 'add' -%></td>
+      <td><%= manifestation.produced(patron).produce_type.display_name.localize if params[:mode] != 'add' and manifestation.produced(patron).try(:produce_type) -%></td>
       <td><%= patron.patron_type.display_name.localize -%></td>
       <td>
         <%- if can? :destroy, patron -%>
           <%- if params[:mode] == 'add' -%>
             <%= link_to t('page.add'), new_manifestation_produce_path(manifestation, :patron_id => patron.id) unless manifestation.publishers.include?(patron) -%>
           <%- else -%>
-            <%= link_to t('page.edit'), edit_create_path(manifestation.produced(patron)) -%>
+            <%= link_to t('page.edit'), edit_produce_path(manifestation.produced(patron)) -%>
             <%= link_to t('page.destroy'), manifestation_produce_path(manifestation, manifestation.produced(patron)), :confirm => t('page.are_you_sure'), :method => :delete -%>
           <%- end -%>
         <%- end -%>

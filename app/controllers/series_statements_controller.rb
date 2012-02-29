@@ -5,11 +5,17 @@ class SeriesStatementsController < ApplicationController
   before_filter :get_manifestation, :only => [:index, :show, :new, :edit]
   cache_sweeper :page_sweeper, :only => [:create, :update, :destroy]
   after_filter :solr_commit, :only => [:create, :update, :destroy]
+  if defined?(EnjuResourceMerge)
+    helper_method :get_series_statement_merge_list
+  end
 
   # GET /series_statements
   # GET /series_statements.json
   def index
     search = Sunspot.new_search(SeriesStatement)
+    if defined?(EnjuResourceMerge)
+      get_series_statement_merge_list
+    end
     query = params[:query].to_s.strip
     page = params[:page] || 1
     unless query.blank?
@@ -27,6 +33,7 @@ class SeriesStatementsController < ApplicationController
       search.build do
       #  with(:work_id).equal_to work.id if work
         with(:manifestation_ids).equal_to manifestation.id if manifestation
+        with(:series_statement_merge_list_ids).equal_to series_statement_merge_list.id if series_statement_merge_list
       end
     end
     page = params[:page] || 1
