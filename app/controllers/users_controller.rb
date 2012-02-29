@@ -238,6 +238,7 @@ class UsersController < ApplicationController
       format.xml  { render :xml => @user.errors, :status => :unprocessable_entity }
     rescue Exception => e
       logger.error e
+      logger.error $@
     end
     end
   end
