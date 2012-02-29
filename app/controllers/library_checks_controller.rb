@@ -34,7 +34,7 @@ class LibraryChecksController < ApplicationController
     end
     #end check execute mode: 2011.05.19
     # exist libcheck files
-    dir = "#{RAILS_ROOT}/private/system/library_check/#{@library_check.id}/"
+    dir = "#{Rails.root}/private/system/library_check/#{@library_check.id}/"
     files = ["resource_list","error_list","item_register","notfound_list","detection_list","removing_list"]
     @resource_list_pdf, @resource_list_tsv = false, false 
     @resource_list_pdf = true if File.exist?("#{dir}/resource_list.pdf")
@@ -142,9 +142,9 @@ class LibraryChecksController < ApplicationController
     case file 
     when "pdf"
        filename  = @library_check.shelf_def_file.gsub(/\..+?$/,'.pdf')
-       path = "#{RAILS_ROOT}/private/system/shelf_uploads/#{id}/original/#{filename}"
+       path = "#{Rails.root}/private/system/shelf_uploads/#{id}/original/#{filename}"
     when *files
-       path = "#{RAILS_ROOT}/private/system/library_check/#{id}/#{file}.#{ext_name}"
+       path = "#{Rails.root}/private/system/library_check/#{id}/#{file}.#{ext_name}"
     end
 
     if File.exist?(path)

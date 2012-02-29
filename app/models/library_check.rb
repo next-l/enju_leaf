@@ -97,7 +97,7 @@ class LibraryCheck < ActiveRecord::Base
       #libcheck.exec_process
       if libcheck.preprocess?(false)
         p "library check pre-process is success"
-        dir_base = "#{RAILS_ROOT}/private/system"
+        dir_base = "#{Rails.root}/private/system"
         libcheck.execute_process(dir_base)
       else
         p "library check pre-process is failed"
@@ -135,7 +135,7 @@ class LibraryCheck < ActiveRecord::Base
     end
 p "start library check main process for #{self.id}"
 
-    dir_base = "#{RAILS_ROOT}/private/system"
+    dir_base = "#{Rails.root}/private/system"
 
     #check execute conditions
     #1-1) status library_check is ready ?
@@ -768,7 +768,7 @@ p "ready status is OK"
   private
   def ready_status_check?
     #1) shelf definition is uploaded ?
-    dir_base = "#{RAILS_ROOT}/private/system"
+    dir_base = "#{Rails.root}/private/system"
     shelf_def = "#{dir_base}/shelf_uploads/#{self.id}/original/#{self.shelf_def_file}"
     logger.debug "shelf def file #{shelf_def}"
     unless File.exist?(shelf_def)
