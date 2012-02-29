@@ -129,8 +129,9 @@ class ExportItemListsController < ApplicationController
         filename = t('item_list.latest_list')
       when 7
         query = get_query(ndcs, @selected_library, @selected_carrier_type)
-        day_ago = "'" + (Time.zone.now - SystemConfiguration.get("new_book_term").day).to_s + "'"
-        query += " AND manifestations.pub_date >= #{day_ago}"
+        day_ago = Time.zone.now - SystemConfiguration.get("new_book_term").day
+        day_ago = "'" + (day_ago.beginning_of_day.utc.iso8601).to_s + "'"
+        query += " AND manifestations.date_of_publication >= #{day_ago}"
         @items = Item.find(:all, 
           :joins => [:manifestation, :shelf => :library], 
           :conditions => query ,
@@ -205,9 +206,9 @@ class ExportItemListsController < ApplicationController
       bookstores = params[:bookstores]
       all_bookstores = params[:all_bookstore]
       acquired_at = params[:acquired_at]
-      libraries = libraries.map{|library|library.to_i}
-      carrier_types = carrier_types.map{|carrier_type|carrier_type.to_i}
-      bookstores = bookstores.map{|bookstore|bookstore.to_i}
+      libraries = libraries.map{|library|library.to_i} if libraries
+      carrier_types = carrier_types.map{|carrier_type|carrier_type.to_i} if carrier_types
+      bookstores = bookstores.map{|bookstore|bookstore.to_i} if bookstores
 
       error = false
       list_size = 0
@@ -283,8 +284,9 @@ class ExportItemListsController < ApplicationController
             list_size = @items.size
           when 7
             query = get_query(ndcs, libraries, carrier_types)
-            day_ago = "'" + (Time.zone.now - SystemConfiguration.get("new_book_term").day).to_s + "'"
-            query += " AND manifestations.pub_date >= #{day_ago}"
+            day_ago = Time.zone.now - SystemConfiguration.get("new_book_term").day
+            day_ago = "'" + (day_ago.beginning_of_day.utc.iso8601).to_s + "'"
+            query += " AND manifestations.date_of_publication >= #{day_ago}"
             list_size = Item.count(:all, 
               :joins => [:manifestation, :shelf => :library], 
               :conditions => query ,
