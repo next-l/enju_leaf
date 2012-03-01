@@ -9,7 +9,6 @@ class CheckedItemsController < ApplicationController
   def index
     if @basket
       @checked_items = @basket.checked_items
-      @checked_item = @basket.checked_items.new
       @checkout_user = @basket.user
       unless @checkout_user.patron
         redirect_to new_user_patron_url(@user); return
