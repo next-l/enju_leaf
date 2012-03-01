@@ -25,7 +25,9 @@ class ManifestationsController < ApplicationController
       @reserve_user = current_user
     end
     if params[:mode] == 'add'
-      access_denied; return unless current_user.try(:has_role?, 'Librarian')
+      unless current_user.has_role?('Librarian')
+        access_denied; return 
+      end
     end
 
     @seconds = Benchmark.realtime do
