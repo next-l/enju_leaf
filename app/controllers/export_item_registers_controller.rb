@@ -27,7 +27,7 @@ class ExportItemRegistersController < ApplicationController
     else
       list_type = params[:export_item_register][:list_type]
       file_type = params[:export_item_register][:file_type]
-      out_dir = "#{RAILS_ROOT}/private/system/item_registers/"
+      out_dir = "#{Rails.root}/private/system/item_registers/"
       # clear the out_dir
       Dir.foreach(out_dir){|file| File.delete(out_dir + file) rescue nil} rescue nil
   

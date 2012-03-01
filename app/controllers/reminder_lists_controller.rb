@@ -171,7 +171,7 @@ class ReminderListsController < ApplicationController
 
   private
   def make_file(output_type)
-    out_dir = "#{RAILS_ROOT}/private/system/reminder_lists/"
+    out_dir = "#{Rails.root}/private/system/reminder_lists/"
     FileUtils.mkdir_p(out_dir) unless FileTest.exist?(out_dir)
     logger.info "output #{output_type}"
 
