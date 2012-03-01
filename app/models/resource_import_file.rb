@@ -39,7 +39,6 @@ class ResourceImportFile < ActiveRecord::Base
   end
 
   def import_start
-    sm_start!
     case edit_mode
     when 'create'
       import
@@ -434,10 +433,10 @@ class ResourceImportFile < ActiveRecord::Base
         work = expression
         work.series_statement = series_statement
         if defined?(EnjuSubject)
-          work.subjects = subjects
+          work.subjects = subjects unless subjects.empty?
         end
-        work.creators = creator_patrons
-        expression.contributors = contributor_patrons
+        work.creators = creator_patrons unless creator_patrons.empty?
+        expression.contributors = contributor_patrons unless contributor_patrons.empty?
       end
 
       manifestation = self.class.import_manifestation(expression, publisher_patrons, {
