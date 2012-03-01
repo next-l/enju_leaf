@@ -38,7 +38,7 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_circulation.git
-  revision: 95578cc71da2e2910a6e585ff6af7520d1b71a44
+  revision: 14102beba4ae1f5c8131e87f34249e14a5871ac4
   specs:
     enju_circulation (0.0.13)
       acts_as_list (~> 0.1.5)
@@ -59,9 +59,9 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_event.git
-  revision: f0a3d95d9aa71fde327cd7adfa673ac590dd9f3e
+  revision: 5bd4d01caec5929e3220cebae4560314634e3d4a
   specs:
-    enju_event (0.0.8)
+    enju_event (0.0.9)
       acts_as_list (~> 0.1.5)
       addressable
       attribute_normalizer (~> 1.1)
@@ -122,9 +122,9 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_message.git
-  revision: d2de1aec88591f49cbdfb1d707e9bcc186940bc3
+  revision: c650b958a4de02affb24705b34f64c849c265f10
   specs:
-    enju_message (0.0.11)
+    enju_message (0.0.12)
       acts_as_list (~> 0.1.5)
       addressable
       attribute_normalizer (~> 1.1)
@@ -178,9 +178,9 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_question.git
-  revision: f59f36474d314ffd10d22673302056880d93950a
+  revision: 2c3bfcfe49e176d47837e79e73b46990dec1daa3
   specs:
-    enju_question (0.0.7)
+    enju_question (0.0.8)
       acts-as-taggable-on (~> 2.2)
       acts_as_list (~> 0.1.5)
       cancan
@@ -222,7 +222,7 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_subject.git
-  revision: 1e77497be2190f7f2170d1ec85effd2d00c9ed82
+  revision: b5fa3a064d4c70dadb9a6c380c86ee1484eb3589
   specs:
     enju_subject (0.0.8)
       acts_as_list (~> 0.1.5)

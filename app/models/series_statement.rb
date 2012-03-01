@@ -20,6 +20,7 @@ class SeriesStatement < ActiveRecord::Base
     integer :series_statement_merge_list_ids, :multiple => true if defined?(EnjuResourceMerge)
   end
 
+  attr_accessor :selected
   normalize_attributes :original_title, :issn
 
   def self.per_page
@@ -61,6 +62,11 @@ class SeriesStatement < ActiveRecord::Base
 
   def titles
     [original_title, title_transcription]
+  end
+
+  if defined?(EnjuResourceMerge)
+    has_many :series_statement_merges, :dependent => :destroy
+    has_many :series_statement_merge_lists, :through => :series_statement_merges
   end
 end
 

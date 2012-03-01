@@ -29,6 +29,7 @@ class SeriesStatementsController < ApplicationController
     end
     #work = @work
     manifestation = @manifestation
+    series_statement_merge_list = @series_statement_merge_list
     unless params[:mode] == 'add'
       search.build do
       #  with(:work_id).equal_to work.id if work
