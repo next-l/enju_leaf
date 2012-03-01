@@ -240,7 +240,7 @@ class InterLibraryLoansController < ApplicationController
         report.page.item(:reserve_expire_date).value(reserve.expired_at)
       end
       # check dir
-      out_dir = "#{RAILS_ROOT}/private/system/inter_library_loans/"
+      out_dir = "#{Rails.root}/private/system/inter_library_loans/"
       FileUtils.mkdir_p(out_dir) unless FileTest.exist?(out_dir)
       # make pdf
       pdf = "loan_item.pdf"
@@ -298,7 +298,7 @@ class InterLibraryLoansController < ApplicationController
   end
 
   def download_file
-    #path = "#{RAILS_ROOT}/private/system/inter_library_loans/loan_item.pdf"
+    #TODO fullpath -> filename 
     path = params[:path]
     if File.exist?(path)
       #send_file path, :type => "application/pdf", :disposition => 'attachment'
