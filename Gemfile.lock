@@ -252,6 +252,8 @@ GEM
       activesupport (= 3.2.1)
       bundler (~> 1.0)
       railties (= 3.2.1)
+    rails_autolink (1.0.5)
+      rails (~> 3.1)
     rails_best_practices (1.8.0)
       activesupport
       colored
@@ -429,6 +431,7 @@ DEPENDENCIES
   progress_bar
   rack-protection
   rails (= 3.2.1)
+  rails_autolink
   rcov (= 0.9.11)
   rghost
   rghost_barcode
