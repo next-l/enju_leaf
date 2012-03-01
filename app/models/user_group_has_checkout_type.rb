@@ -15,7 +15,7 @@ class UserGroupHasCheckoutType < ActiveRecord::Base
 
   def create_lending_policy
     self.checkout_type.items.find_each do |item|
-      sql = ['INSERT INTO lending_policies (item_id, user_group_id, loan_period, renewal, created_at) VALUES (?, ?, ?, ?, ?)', item.id, self.user_group_id, self.checkout_period, self.checkout_renewal_limit, Time.zone.now]
+      sql = ['INSERT INTO lending_policies (item_id, user_group_id, loan_period, renewal, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?)', item.id, self.user_group_id, self.checkout_period, self.checkout_renewal_limit, Time.zone.now, Time.zone.now]
       ActiveRecord::Base.connection.execute(
         self.class.send(:sanitize_sql_array, sql)
       )
