@@ -150,6 +150,14 @@ GEM
       sunspot_rails
       sunspot_solr
       will_paginate (~> 3.0)
+<<<<<<< HEAD
+=======
+
+GIT
+  remote: git://github.com/nabeta/enju_circulation.git
+  revision: 14102beba4ae1f5c8131e87f34249e14a5871ac4
+  specs:
+>>>>>>> 53af02b... resource_merge module
     enju_circulation (0.0.13)
       acts_as_list (~> 0.1.5)
       attribute_normalizer (~> 1.1)
@@ -166,6 +174,14 @@ GEM
       sunspot_solr
       validates_timeliness
       will_paginate (~> 3.0)
+<<<<<<< HEAD
+=======
+
+GIT
+  remote: git://github.com/nabeta/enju_event.git
+  revision: 5bd4d01caec5929e3220cebae4560314634e3d4a
+  specs:
+>>>>>>> 53af02b... resource_merge module
     enju_event (0.0.9)
       acts_as_list (~> 0.1.5)
       addressable
@@ -194,6 +210,22 @@ GEM
       sunspot_rails
       sunspot_solr
       will_paginate
+<<<<<<< HEAD
+=======
+
+GIT
+  remote: git://github.com/nabeta/enju_manifestation_viewer.git
+  revision: 63cddc5dbd2865cec4bb571700a5b0880d42128f
+  specs:
+    enju_manifestation_viewer (0.0.1)
+      addressable
+      rails (~> 3.2)
+
+GIT
+  remote: git://github.com/nabeta/enju_message.git
+  revision: c650b958a4de02affb24705b34f64c849c265f10
+  specs:
+>>>>>>> 53af02b... resource_merge module
     enju_message (0.0.12)
       acts_as_list (~> 0.1.5)
       addressable
@@ -228,6 +260,14 @@ GEM
       sunspot_rails
       sunspot_solr
       will_paginate (~> 3.0)
+<<<<<<< HEAD
+=======
+
+GIT
+  remote: git://github.com/nabeta/enju_question.git
+  revision: 2c3bfcfe49e176d47837e79e73b46990dec1daa3
+  specs:
+>>>>>>> 53af02b... resource_merge module
     enju_question (0.0.8)
       acts-as-taggable-on (~> 2.2)
       acts_as_list (~> 0.1.5)
@@ -257,6 +297,14 @@ GEM
       devise
       rails (~> 3.1)
       will_paginate
+<<<<<<< HEAD
+=======
+
+GIT
+  remote: git://github.com/nabeta/enju_subject.git
+  revision: b5fa3a064d4c70dadb9a6c380c86ee1484eb3589
+  specs:
+>>>>>>> 53af02b... resource_merge module
     enju_subject (0.0.8)
       acts_as_list (~> 0.1.5)
       attribute_normalizer (~> 1.1)

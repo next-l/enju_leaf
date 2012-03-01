@@ -542,6 +542,35 @@ class Manifestation < ActiveRecord::Base
       end.results
     end
   end
+
+  def set_patron_role_type(patron_lists, options = {:scope => :creator})
+    patron_lists.each do |patron_list|
+      name_and_role = patron_list[:full_name].split('||')
+      patron = Patron.where(:full_name => name_and_role[0]).first
+      next unless patron
+      type = name_and_role[1].to_s.strip
+
+      case options[:scope]
+      when :creator
+        type = 'author' if type.blank?
+        role_type = CreateType.where(:name => type).first
+        create = Create.where(:work_id => self.id, :patron_id => patron.id).first
+        if create
+          create.create_type = role_type
+          create.save(:validate => false)
+        end
+      when :publisher
+        type = 'publisher' if role_type.blank?
+        produce = Produce.where(:manifestation_id => self.id, :patron_id => patron.id).first
+        if produce
+          produce.produce_type = ProduceType.where(:name => type).first
+          produce.save(:validate => false)
+        end
+      else
+        raise "#{options[:scope]} is not supported!"
+      end
+    end
+  end
 end
 
 # == Schema Information

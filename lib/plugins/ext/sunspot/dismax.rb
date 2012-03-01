@@ -5,7 +5,7 @@ module Sunspot
         params = { :q => @keywords }
         params[:fl] = '* score'
         params[:qf] = @fulltext_fields.values.map { |field| field.to_boosted_field }.join(' ')
-        params[:defType] = 'lucene'
+        params[:defType] = 'edismax'
         if @phrase_fields
           params[:pf] = @phrase_fields.map { |field| field.to_boosted_field }.join(' ')
         end
