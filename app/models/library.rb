@@ -53,6 +53,10 @@ class Library < ActiveRecord::Base
     end
   end
 
+  def excludescope_shelf_ids
+    self.shelves.collect {|c| c.id}
+  end
+
   def clear_all_cache
     Rails.cache.delete('library_all')
   end

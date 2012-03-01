@@ -5,8 +5,8 @@ class Item < ActiveRecord::Base
   scope :on_shelf, where('shelf_id != 1')
   scope :on_web, where(:shelf_id => 1)
   scope :recent, where(['items.created_at >= ?', Time.zone.now.months_ago(1)])
-  scope :for_retain_from_own, lambda{|library| where('shelf_id IN (?)', library.shelf_ids).order('created_at ASC')}
-  scope :for_retain_from_others, lambda{|library| where('shelf_id NOT IN (?)', library.shelf_ids).order('created_at ASC')}
+  scope :for_retain_from_own, lambda{|library| where('shelf_id IN (?)', library.excludescope_shelf_ids).order('created_at ASC')}
+  scope :for_retain_from_others, lambda{|library| where('shelf_id NOT IN (?)', library.excludescope_shelf_ids).order('created_at ASC')}
   has_one :exemplify
   has_one :manifestation, :through => :exemplify
   has_many :checkouts
