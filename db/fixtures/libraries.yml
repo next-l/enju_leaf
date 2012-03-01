@@ -13,9 +13,9 @@ library_00001:
   call_number_delimiter: "|"
   position: 1
 library_00002: 
-  name: yours
-  short_display_name: your_library
-  display_name: Your Library
+  name: komagome1
+  short_display_name: komagome1
+  display_name: 駒込中央図書館
   fax_number: 
   telephone_number_1: 
   telephone_number_2: 
@@ -25,3 +25,16 @@ library_00002:
   patron_id: 2
   call_number_delimiter: "|"
   position: 2
+library_00003: 
+  name: komagome2
+  short_display_name: komagome2
+  display_name: 駒込１丁目分館
+  fax_number: 
+  telephone_number_1: 
+  telephone_number_2: 
+  id: 3
+  region: somewhere
+  library_group_id: 1
+  patron_id: 3
+  call_number_delimiter: "|"
+  position: 3
