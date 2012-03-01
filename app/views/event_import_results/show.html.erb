@@ -4,17 +4,17 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <b><%= t('activerecord.models.event_import_file') %></b>
+  <b><%= t('activerecord.models.event_import_file') %>:</b>
   <%= @event_import_result.event_import_file.event_import_file_name %>
 </p>
 
 <p>
-  <b><%= t('activerecord.models.event') %></b>
+  <b><%= t('activerecord.models.event') %>:</b>
   <%= @event_import_result.event_id %>
 </p>
 
 <p>
-  <b><%= t('activerecord.attributes.patron_import_result.body') %></b>
+  <b><%= t('activerecord.attributes.patron_import_result.body') %>:</b>
   <%- if @event_import_result.body -%><br />
     <% @event_import_result.body.split("\t").each_with_index do |item, i| %>
       &nbsp;<%= t('activerecord.attributes.event_import_result.index') %><%= "#{h(i+1)}:" %>&nbsp;<%= h(item) %><br />
@@ -23,7 +23,7 @@
 </p>
 
 <p>
-  <b><%= t('page.created_at') %></b>
+  <b><%= t('page.created_at') %>:</b>
   <%=l @event_import_result.created_at %>
 </p>
 
