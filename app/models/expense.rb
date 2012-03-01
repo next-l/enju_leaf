@@ -11,7 +11,7 @@ class Expense < ActiveRecord::Base
   end
  
   def self.export_tsv(expenses)
-    dir_base = "#{RAILS_ROOT}/private/system"
+    dir_base = "#{Rails.root}/private/system"
     out_dir = "#{dir_base}/expense/"
     tsv_file = out_dir + "expenses.tsv"
     FileUtils.mkdir_p(out_dir) unless FileTest.exist?(out_dir)
