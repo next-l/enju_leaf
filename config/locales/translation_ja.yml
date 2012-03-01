@@ -154,7 +154,7 @@ ja:
       import_request: ISBNインポートのリクエスト
       resource: 資料
       user_has_role: 利用者と権限
-      patron_relationship: 著者・編者・出版社の関係
+      patron_relationship: 著者・編者・出版者の関係
       manifestation_relationship: 資料の関係
       resource_import_result: 資料インポートの結果
       resource_import_textresult: 資料インポートの結果
@@ -612,7 +612,7 @@ ja:
       purchase_request:
         title: タイトル
         author: 著者
-        publisher: 出版社
+        publisher: 出版者
         isbn: ISBN
         date_of_publication: 出版日
         price: 価格
