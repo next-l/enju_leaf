@@ -1213,7 +1213,7 @@ ja:
         child: 派生先の資料
         manifestation_relationship_type_id: 資料の関係の種類
       library_check:
-        id: id
+        id: Id
         opeym: 実施年月
         shelf_def_file: 棚定義ファイル
         operated_at: 実施日
