@@ -205,6 +205,10 @@ class PatronImportFile < ActiveRecord::Base
     patron.birth_date = row['birth_date'] if row['birth_date']
     patron.death_date = row['death_date'] if row['death_date']
 
+    unless row['patron_type_id'].to_s.strip.blank?
+      patron.patron_type_id = row['patron_type_id'] 
+    end
+
     if row['username'].to_s.strip.blank?
       patron.email = row['email'].to_s.strip
       patron.required_role = Role.where(:name => row['required_role_name'].to_s.strip.camelize).first || Role.find('Guest')
@@ -243,6 +247,11 @@ class PatronImportFile < ActiveRecord::Base
     user.required_role = required_role
     locale = Language.where(:iso_639_1 => row['locale'].to_s.strip).first
     user.locale = locale || I18n.default_locale.to_s
+
+    unless row['library_id'].to_s.strip.blank?
+      user.library_id = row['library_id'] 
+    end
+    #
     user
   end
 end
