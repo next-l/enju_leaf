@@ -23,7 +23,9 @@
     <td><%= patron_import_result.error_msg %></td>
     <td>
       <%= link_to t('page.show'), patron_import_result %>
+      <%- if false -%>
       <%= link_to t('page.destroy'), patron_import_result, :confirm => t('page.are_you_sure'), :method => :delete %>
+      <%- end -%>
     </td>
   </tr>
 <% end %>
