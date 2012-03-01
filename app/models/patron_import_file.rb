@@ -201,6 +201,8 @@ class PatronImportFile < ActiveRecord::Base
     patron.telephone_number_2 = row['telephone_number_2'] if row['telephone_number_2']
     patron.fax_number_1 = row['fax_number_1'] if row['fax_number_1']
     patron.fax_number_2 = row['fax_number_2'] if row['fax_number_2']
+    patron.extelephone_number_1 = row['extelephone_number_1'] if row['extelephone_number_1']
+    patron.extelephone_number_2 = row['extelephone_number_2'] if row['extelephone_number_2']
     patron.note = row['note'] if row['note']
     patron.birth_date = row['birth_date'] if row['birth_date']
     patron.death_date = row['death_date'] if row['death_date']
@@ -208,6 +210,26 @@ class PatronImportFile < ActiveRecord::Base
     unless row['patron_type_id'].to_s.strip.blank?
       patron.patron_type_id = row['patron_type_id'] 
     end
+
+    unless row['telephone_number_1_type_id'].to_s.strip.blank?
+      patron.telephone_number_1_type_id = row['telephone_number_1_type_id'] 
+    end
+    unless row['fax_number_1_type_id'].to_s.strip.blank?
+      patron.fax_number_1_type_id = row['fax_number_1_type_id'] 
+    end
+    unless row['extelephone_number_1_type_id'].to_s.strip.blank?
+      patron.extelephone_number_1_type_id = row['extelephone_number_1_type_id'] 
+    end
+    unless row['telephone_number_2_type_id'].to_s.strip.blank?
+      patron.telephone_number_2_type_id = row['telephone_number_2_type_id'] 
+    end
+    unless row['fax_number_2_type_id'].to_s.strip.blank?
+      patron.fax_number_2_type_id = row['fax_number_2_type_id'] 
+    end
+    unless row['extelephone_number_2_type_id'].to_s.strip.blank?
+      patron.extelephone_number_2_type_id = row['extelephone_number_2_type_id'] 
+    end
+
 
     if row['username'].to_s.strip.blank?
       patron.email = row['email'].to_s.strip
