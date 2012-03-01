@@ -275,6 +275,8 @@ GEM
       ruby_parser (~> 2.0)
       sexp_processor (~> 3.0)
     responders (0.6.5)
+    rghost (0.8.7.6)
+    rghost_barcode (0.9)
     ri_cal (0.8.8)
     rmagick (2.13.1)
     roodi (2.1.0)
@@ -428,6 +430,8 @@ DEPENDENCIES
   rack-protection
   rails (= 3.2.1)
   rcov (= 0.9.11)
+  rghost
+  rghost_barcode
   ri_cal
   rmagick
   rqrcode

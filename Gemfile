@@ -66,6 +66,8 @@ gem 'sanitize'
 gem 'mobile-fu'
 gem 'attribute_normalizer', '~> 1.1'
 gem 'barby', '~> 0.5'
+gem 'rghost'  
+gem 'rghost_barcode'  
 gem 'rqrcode'
 gem 'event-calendar', :require => 'event_calendar'
 gem 'geocoder'
@@ -126,6 +128,5 @@ gem 'jquery-rails'
 # gem 'capistrano'
 
 # To use debugger (ruby-debug for Ruby 1.8.7+, ruby-debug19 for Ruby 1.9.2+)
-# gem 'ruby-debug'
-#gem 'ruby-debug19', :require => 'ruby-debug'
+# gem 'ruby-debug19', :require => 'ruby-debug'
 
