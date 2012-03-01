@@ -133,13 +133,13 @@ class UsersController < ApplicationController
         access_denied; return
       end
     end
-    @family_with = User.find(params[:user]) if params[:user]
+    @family_with = User.find(params[:family_user_id]) if params[:family_user_id]
     if @family_with
-      @user = @family_with.clone rescue User.new
+      @user = @family_with.dup rescue User.new
       @user.username = nil
       @user.user_number = nil
       @user.role_id = @family_with.role.id
-      @patron = @family_with.patron.clone rescue Patron.new
+      @patron = @family_with.patron.dup rescue Patron.new
       @patron.full_name = nil
       @patron.full_name_transcription = nil
       @family_id = FamilyUser.find(:first, :conditions => ['user_id=?',  params[:user]]).family_id rescue nil
