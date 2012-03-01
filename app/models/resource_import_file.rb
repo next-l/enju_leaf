@@ -70,6 +70,7 @@ class ResourceImportFile < ActiveRecord::Base
       item = Item.where(:item_identifier => item_identifier).first
       if item
         import_result.item = item
+        import_result.manifestation = item.manifestation
         import_result.save!
         num[:item_found] += 1
         next
@@ -151,24 +152,14 @@ class ResourceImportFile < ActiveRecord::Base
 
   def self.import_work(title, patrons, options = {:edit_mode => 'create'})
     work = Manifestation.new(title)
-    case options[:edit_mode]
-    when 'create'
-      work.creators << patrons
-    when 'update'
-      work.creators = patrons unless patrons.empty?
-    end
+    work.creators = patrons.uniq unless patrons.empty?
     work
   end
 
   def self.import_manifestation(work, patrons, options = {}, edit_options = {:edit_mode => 'create'})
     manifestation = work
     manifestation.update_attributes!(options.merge(:during_import => true))
-    case edit_options[:edit_mode]
-    when 'create'
-      manifestation.publishers << patrons
-    when 'update'
-      manifestation.publishers = patrons unless patrons.empty?
-    end
+    manifestation.publishers = patrons.uniq unless patrons.empty?
     manifestation
   end
 
@@ -410,15 +401,15 @@ class ResourceImportFile < ActiveRecord::Base
         work = self.class.import_work(title, creator_patrons, options)
         work.series_statement = series_statement
         if defined?(EnjuSubject)
-          work.subjects << subjects unless subjects.empty?
+          work.subjects = subjects.uniq unless subjects.empty?
         end
       when 'update'
         work = manifestation
         work.series_statement = series_statement
+        work.creators = creator_patrons.uniq unless creator_patrons.empty?
         if defined?(EnjuSubject)
-          work.subjects = subjects unless subjects.empty?
+          work.subjects = subjects.uniq unless subjects.empty?
         end
-        work.creators = creator_patrons unless creator_patrons.empty?
       end
 
       manifestation = self.class.import_manifestation(work, publisher_patrons, {
@@ -491,7 +482,7 @@ class ResourceImportFile < ActiveRecord::Base
             creator_transcriptions = row['series_statement_creator_transcription'].to_s.split('//')
             creators_list = creators.zip(creator_transcriptions).map{|f,t| {:full_name => f.to_s.strip, :full_name_transcription => t.to_s.strip}}
             creator_patrons = Patron.import_patrons(creators_list)
-            series_statement.root_manifestation.creators << creator_patrons
+            series_statement.root_manifestation.creators = creator_patrons unless creator_patrons.empty?
           end
         end
       end
