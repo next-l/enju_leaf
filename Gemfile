@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '3.2.2.rc1'
+gem 'rails', '3.2.2'
 
 # Bundle edge Rails instead:
 # gem 'rails',     :git => 'git://github.com/rails/rails.git'
@@ -112,7 +112,7 @@ gem 'rails_autolink'
 #end
 
 group :development do
-  gem 'parallel_tests'
+  gem 'parallel_tests', '~> 0.7.0.rc3'
   gem 'annotate'
 end
 
@@ -155,8 +155,3 @@ gem 'jquery-rails'
 
 # To use debugger
 # gem 'ruby-debug19', :require => 'ruby-debug'
-
-group :test do
-  # Pretty printed test output
-  gem 'turn', '~> 0.8.3', :require => false
-end

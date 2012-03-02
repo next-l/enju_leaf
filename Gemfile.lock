@@ -257,12 +257,12 @@ GEM
     RedCloth (4.2.9)
     Saikuro (1.1.0)
     aaronh-chronic (0.3.9)
-    actionmailer (3.2.2.rc1)
-      actionpack (= 3.2.2.rc1)
+    actionmailer (3.2.2)
+      actionpack (= 3.2.2)
       mail (~> 2.4.0)
-    actionpack (3.2.2.rc1)
-      activemodel (= 3.2.2.rc1)
-      activesupport (= 3.2.2.rc1)
+    actionpack (3.2.2)
+      activemodel (= 3.2.2)
+      activesupport (= 3.2.2)
       builder (~> 3.0.0)
       erubis (~> 2.7.0)
       journey (~> 1.0.1)
@@ -270,18 +270,18 @@ GEM
       rack-cache (~> 1.1)
       rack-test (~> 0.6.1)
       sprockets (~> 2.1.2)
-    activemodel (3.2.2.rc1)
-      activesupport (= 3.2.2.rc1)
+    activemodel (3.2.2)
+      activesupport (= 3.2.2)
       builder (~> 3.0.0)
-    activerecord (3.2.2.rc1)
-      activemodel (= 3.2.2.rc1)
-      activesupport (= 3.2.2.rc1)
+    activerecord (3.2.2)
+      activemodel (= 3.2.2)
+      activesupport (= 3.2.2)
       arel (~> 3.0.2)
       tzinfo (~> 0.3.29)
-    activeresource (3.2.2.rc1)
-      activemodel (= 3.2.2.rc1)
-      activesupport (= 3.2.2.rc1)
-    activesupport (3.2.2.rc1)
+    activeresource (3.2.2)
+      activemodel (= 3.2.2)
+      activesupport (= 3.2.2)
+    activesupport (3.2.2)
       i18n (~> 0.6)
       multi_json (~> 1.0)
     acts-as-taggable-on (2.2.2)
@@ -289,7 +289,6 @@ GEM
     acts_as_list (0.1.5)
     addressable (2.2.7)
     annotate (2.4.0)
-    ansi (1.4.2)
     arel (3.0.2)
     astrails-safe (0.2.7)
       aws-s3
@@ -438,7 +437,7 @@ GEM
       cocaine (>= 0.0.2)
       mime-types
     parallel (0.5.15)
-    parallel_tests (0.6.20)
+    parallel_tests (0.7.0.rc3)
       parallel
     pg (0.13.2)
     polyglot (0.3.3)
@@ -458,14 +457,14 @@ GEM
       rack
     rack-test (0.6.1)
       rack (>= 1.0)
-    rails (3.2.2.rc1)
-      actionmailer (= 3.2.2.rc1)
-      actionpack (= 3.2.2.rc1)
-      activerecord (= 3.2.2.rc1)
-      activeresource (= 3.2.2.rc1)
-      activesupport (= 3.2.2.rc1)
+    rails (3.2.2)
+      actionmailer (= 3.2.2)
+      actionpack (= 3.2.2)
+      activerecord (= 3.2.2)
+      activeresource (= 3.2.2)
+      activesupport (= 3.2.2)
       bundler (~> 1.0)
-      railties (= 3.2.2.rc1)
+      railties (= 3.2.2)
     rails_autolink (1.0.5)
       rails (~> 3.1)
     rails_best_practices (1.8.0)
@@ -475,9 +474,9 @@ GEM
       i18n
       progressbar
       sexp_processor
-    railties (3.2.2.rc1)
-      actionpack (= 3.2.2.rc1)
-      activesupport (= 3.2.2.rc1)
+    railties (3.2.2)
+      actionpack (= 3.2.2)
+      activesupport (= 3.2.2)
       rack-ssl (~> 1.3.2)
       rake (>= 0.8.7)
       rdoc (~> 3.4)
@@ -560,8 +559,6 @@ GEM
     treetop (1.4.10)
       polyglot
       polyglot (>= 0.3.1)
-    turn (0.8.3)
-      ansi
     tzinfo (0.3.31)
     uglifier (1.2.3)
       execjs (>= 0.3.0)
@@ -642,11 +639,11 @@ DEPENDENCIES
   omniauth (~> 1.0)
   paper_trail (~> 2.6)
   paperclip (~> 2.7)
-  parallel_tests
+  parallel_tests (~> 0.7.0.rc3)
   pg
   progress_bar
   rack-protection
-  rails (= 3.2.2.rc1)
+  rails (= 3.2.2)
   rails_autolink
   rcov (= 0.9.11)
   ri_cal
@@ -665,7 +662,6 @@ DEPENDENCIES
   sunspot_solr (~> 2.0.0.pre.111215)
   system_timer
   timecop
-  turn (~> 0.8.3)
   uglifier (>= 1.0.3)
   validates_timeliness
   vcr (~> 2.0.0.rc2)
