@@ -600,6 +600,8 @@ ja:
         start_number: 今回の出力番号
         print_sheet: 出力するシート数
         error: 0以上の数値を入力してください
+        output_user_numbers: 利用者番号を昇順に出力します。
+        output_item_identifiers: 所蔵IDを昇順に出力します。
       work:
         original_title: タイトル # 原題
         title_transcription: タイトル（ヨミ）
