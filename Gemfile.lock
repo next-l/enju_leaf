@@ -22,7 +22,7 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_ndl.git
-  revision: aa6a01c3f443cfa878664dd7b8e69b7bc881daa1
+  revision: 062c1e96dd5e22f334a13b30ae1daad7d409a056
   specs:
     enju_ndl (0.0.12)
       devise
