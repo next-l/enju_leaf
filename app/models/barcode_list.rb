@@ -1,5 +1,49 @@
 class BarcodeList < ActiveRecord::Base
   default_scope :order => 'barcode_prefix'
+
+  def create_pdf_user_number_list
+    dir_base = "#{Rails.root}/private/system/barcode_list/#{self.id}/original/"
+    FileUtils.mkdir_p(dir_base) unless FileTest.exist?(dir_base)
+
+    filename = "barcode.pdf"
+    File.delete(dir_base+filename) if File.exist?(dir_base+filename)
+    type = "Code128B"
+    prefix = ""
+    prefix = self.barcode_prefix unless self.barcode_prefix.blank?
+    @code_words = []
+    user_numbers = User.select("user_number").order(:user_number)
+    user_numbers.each do |u|
+      @code_words << prefix + u.user_number unless u.user_number.blank?
+    end
+    sheet = BarcodeSheet.new
+    sheet.path = dir_base
+    sheet.code_type = type
+    sheet.create_jpgs(@code_words)
+    sheet.create_pdf(filename)
+    return dir_base + filename
+  end
+
+  def create_pdf_item_identifier_list
+    dir_base = "#{Rails.root}/private/system/barcode_list/#{self.id}/original/"
+    FileUtils.mkdir_p(dir_base) unless FileTest.exist?(dir_base)
+
+    filename = "barcode.pdf"
+    File.delete(dir_base+filename) if File.exist?(dir_base+filename)
+    type = "Code128B"
+    prefix = ""
+    prefix = self.barcode_prefix unless self.barcode_prefix.blank?
+    @code_words = []
+    items = Item.select("item_identifier").order(:item_identifier)
+    items.each do |item|
+      @code_words << prefix + item.item_identifier unless item.item_identifier.blank?
+    end
+    sheet = BarcodeSheet.new
+    sheet.path = dir_base
+    sheet.code_type = type
+    sheet.create_jpgs(@code_words)
+    sheet.create_pdf(filename)
+    return dir_base + filename
+  end
  
   def create_pdf_sheet(start_number,print_sheet)
       dir_base = "#{Rails.root}/private/system/barcode_list/#{self.id}/original/"
