@@ -51,6 +51,9 @@
       <%- if user_signed_in? && current_user.has_role?('Librarian') -%>
         <ul>
           <li><%= link_to t('import_request.enter_isbn'), new_import_request_path -%></li>
+          <% if defined?(EnjuNdl) %>
+            <li><%= link_to t('enju_ndl.import_from_ndl_search'), ndl_books_path -%></li>
+          <% end %>
           <li><%= link_to t('page.add_manually'), new_manifestation_path -%></li>
           <li><%= link_to t('page.serial'), series_statements_path -%></li>
           <li><%= link_to t('page.import_from_file'), new_resource_import_file_path -%></li>
