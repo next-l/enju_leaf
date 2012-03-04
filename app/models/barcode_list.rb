@@ -1,7 +1,9 @@
 class BarcodeList < ActiveRecord::Base
   default_scope :order => 'barcode_prefix'
 
-  def create_pdf_user_number_list
+  attr_accessor :end_number
+
+  def create_pdf_user_number_list(start_number, end_number)
     dir_base = "#{Rails.root}/private/system/barcode_list/#{self.id}/original/"
     FileUtils.mkdir_p(dir_base) unless FileTest.exist?(dir_base)
 
@@ -11,7 +13,14 @@ class BarcodeList < ActiveRecord::Base
     prefix = ""
     prefix = self.barcode_prefix unless self.barcode_prefix.blank?
     @code_words = []
-    user_numbers = User.select("user_number").order(:user_number)
+    user_numbers = User.select("user_number")
+    if start_number && start_number.strip.present?
+      user_numbers = user_numbers.where("user_number >= ?", start_number)
+    end
+    if end_number && end_number.strip.present?
+      user_numbers = user_numbers.where("user_number <= ?", end_number)
+    end
+    user_numbers = user_numbers.order(:user_number)
     user_numbers.each do |u|
       @code_words << prefix + u.user_number unless u.user_number.blank?
     end
@@ -23,7 +32,7 @@ class BarcodeList < ActiveRecord::Base
     return dir_base + filename
   end
 
-  def create_pdf_item_identifier_list
+  def create_pdf_item_identifier_list(start_number, end_number)
     dir_base = "#{Rails.root}/private/system/barcode_list/#{self.id}/original/"
     FileUtils.mkdir_p(dir_base) unless FileTest.exist?(dir_base)
 
@@ -33,7 +42,16 @@ class BarcodeList < ActiveRecord::Base
     prefix = ""
     prefix = self.barcode_prefix unless self.barcode_prefix.blank?
     @code_words = []
-    items = Item.select("item_identifier").order(:item_identifier)
+    #items = Item.select("item_identifier").order(:item_identifier)
+    items = Item.select("item_identifier")
+    if start_number && start_number.strip.present?
+      items = items.where("item_identifier >= ?", start_number)
+    end
+    if end_number && end_number.strip.present?
+      items = items.where("item_identifier <= ?", end_number)
+    end
+    items = items.order(:item_identifier)
+
     items.each do |item|
       @code_words << prefix + item.item_identifier unless item.item_identifier.blank?
     end

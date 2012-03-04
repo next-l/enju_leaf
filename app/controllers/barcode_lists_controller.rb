@@ -64,7 +64,7 @@ class BarcodeListsController < ApplicationController
 
     respond_to do |format|
       if @barcode_list.usage_type == "user"
-        pdf = @barcode_list.create_pdf_user_number_list
+        pdf = @barcode_list.create_pdf_user_number_list(params[:start_number], params[:end_number])
         if pdf
           flash[:notice] = t('controller.successfully_updated', :model => t('activerecord.models.barcode_list'))
           format.html { redirect_to :action => 'show_pdf', :id => @barcode_list, :status => 301}
@@ -73,7 +73,7 @@ class BarcodeListsController < ApplicationController
           format.html { render :action => "edit" }
         end
       elsif @barcode_list.usage_type == "item"
-        pdf = @barcode_list.create_pdf_item_identifier_list
+        pdf = @barcode_list.create_pdf_item_identifier_list(params[:start_number], params[:end_number])
         if pdf
           flash[:notice] = t('controller.successfully_updated', :model => t('activerecord.models.barcode_list'))
           format.html { redirect_to :action => 'show_pdf', :id => @barcode_list, :status => 301}

@@ -14,6 +14,13 @@
     <%= f.label t('activerecord.attributes.barcode_list.print_sheet') -%> <br />
     <input type="text" name="print_sheet" value=1 />
   </p>
+  <%- else -%>
+  <p>
+    <%= f.label t('activerecord.attributes.barcode_list.sp_start_number') -%> 〜
+    <%= f.label t('activerecord.attributes.barcode_list.sp_end_number') -%> <br />
+    <input type="text" name="start_number" value="<%= @start_number %>" /> 〜
+    <input type="text" name="end_number" value="<%= @last_number %>" />
+  </p>
   <%- end -%>
   <p>
     <%= f.submit t('page.output', :model => t('activerecord.models.barcode_list')) %>
