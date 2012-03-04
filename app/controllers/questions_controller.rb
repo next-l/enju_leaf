@@ -9,6 +9,11 @@ class QuestionsController < ApplicationController
   # GET /questions.xml
   def index
     store_location
+    if @user and user_signed_in?
+      user = @user
+    end
+    c_user = current_user
+
     session[:params] = {} unless session[:params]
     session[:params][:question] = params
 
@@ -46,22 +51,12 @@ class QuestionsController < ApplicationController
       order_by sort_by, :desc
     end
 
-    if @user
-      if user_signed_in?
-        user = @user
-      end
-    end
-    c_user = current_user
-
     search.build do
       with(:username).equal_to user.username if user
-      if c_user
-         unless c_user.has_role?('Librarian')
-           readable_questions =  Question.find(:all, :conditions => ['shared=? OR user_id=?', true, c_user.id])
-           with readable_questions
-         end
-      else 
-         with(:shared).equal_to true
+      if c_user != user
+        unless c_user.has_role?('Librarian')
+          with(:shared).equal_to true
+        end
       end
       facet :solved
     end
