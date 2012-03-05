@@ -47,19 +47,19 @@
               $('#reserve_information_type_id').removeAttr('disabled');
               $('#reserve_information_type_id').children('[value = 0]').remove();
               $('#reserve_submit').removeAttr('disabled');
-              if (obj["user"]["user"]["email"] != null)
+              if (obj["user"]["user"]["email"].length > 0)
                 $('#reserve_information_type_id').append($('<option>').attr({ value: '1' }).text('<%= t('activerecord.attributes.user.email') -%> ' + obj["user"]["user"]["email"]));
-              if (obj["patron"]["patron"]["telephone_number_1"] != null)
+              if (obj["patron"]["patron"]["telephone_number_1"].length > 0)
                 $('#reserve_information_type_id').append($('<option>').attr({ value: '2' }).text('<%= t('activerecord.attributes.patron.telephone_number_1') -%> ' + obj["patron"]["patron"]["telephone_number_1"]));
-              if (obj["patron"]["patron"]["extelephone_number_1"] != null)
+              if (obj["patron"]["patron"]["extelephone_number_1"].length > 0)
                 $('#reserve_information_type_id').append($('<option>').attr({ value: '3' }).text('<%= t('activerecord.attributes.patron.extelephone_number_1') -%> ' + obj["patron"]["patron"]["extelephone_number_1"]));
-              if (obj["patron"]["patron"]["fax_number_1"] != null)
+              if (obj["patron"]["patron"]["fax_number_1"].length > 0)
                 $('#reserve_information_type_id').append($('<option>').attr({ value: '4' }).text('<%= t('activerecord.attributes.patron.fax_number_1') -%> ' + obj["patron"]["patron"]["fax_number_1"]));
-              if (obj["patron"]["patron"]["telephone_number_2"] != null)
+              if (obj["patron"]["patron"]["telephone_number_2"].length > 0)
                 $('#reserve_information_type_id').append($('<option>').attr({ value: '5' }).text('<%= t('activerecord.attributes.patron.telephone_number_2') -%> ' + obj["patron"]["patron"]["telephone_number_2"]));
-              if (obj["patron"]["patron"]["extelephone_number_2"] != null)
+              if (obj["patron"]["patron"]["extelephone_number_2"].length > 0)
                 $('#reserve_information_type_id').append($('<option>').attr({ value: '6' }).text('<%= t('activerecord.attributes.patron.extelephone_number_2') -%> ' + obj["patron"]["patron"]["extelephone_number_2"]));
-              if (obj["patron"]["patron"]["fax_number_2"] != null)
+              if (obj["patron"]["patron"]["fax_number_2"].length > 0)
                 $('#reserve_information_type_id').append($('<option>').attr({ value: '7' }).text('<%= t('activerecord.attributes.patron.fax_number_2') -%> ' + obj["patron"]["patron"]["fax_number_2"]));
               $('#reserve_information_type_id').append($('<option>').attr({ value: '0' }).text('<%= t('activerecord.attributes.reserve.unnecessary') -%>'));
             } 
