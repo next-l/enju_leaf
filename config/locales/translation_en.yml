@@ -1711,5 +1711,8 @@ en:
   item_list:
     list_condition: List Condition
     no_list_condition: Check list condition
+  manifestation_relationships:
+    no_parent_id: "Not found parent id"
+    no_child_id: "Not found child id"
   function_key:
     will_move: "Form is inputted.Are page changes carried out?"

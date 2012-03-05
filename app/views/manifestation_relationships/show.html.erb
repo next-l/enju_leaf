@@ -13,6 +13,11 @@
   <%= link_to @manifestation_relationship.child.original_title, @manifestation_relationship.child %>
 </p>
 
+<p>
+  <strong><%= t('activerecord.attributes.manifestation_relationship.manifestation_relationship_type_id') -%>:</strong>
+  <%= @manifestation_relationship.manifestation_relationship_type.display_name.localize -%>
+</p>
+
 </div>
 </div>
 

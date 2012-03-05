@@ -1220,6 +1220,8 @@ ja:
       manifestation_relationship:
         parent: 派生元の資料
         child: 派生先の資料
+        parent_id: 派生元の資料
+        child_id: 派生先の資料
         manifestation_relationship_type_id: 資料の関係の種類
       library_check:
         id: Id
@@ -2183,5 +2185,8 @@ ja:
     no_item: "督促対象になっている資料が見つかりません。"
     failed_output: "督促の出力に失敗しました。"
     successfully__output: "督促を出力しました。"
+  manifestation_relationships: 
+    no_parent_id: "指定の派生元の資料ID が見つかりません。"
+    no_child_id: "指定の派生先の資料ID が見つかりません。"
   function_key:
     will_move: "フォームに値が入力されています。画面遷移してもよろしいですか。"
