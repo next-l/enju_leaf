@@ -350,6 +350,8 @@ ja:
       subject_as_place:
         term: 用語
       subject_has_classification:
+        subject: 件名
+        classification: 分類
       expression:
         original_title: タイトル # 原題
         title_transcription: タイトル(ヨミ)
