@@ -120,6 +120,14 @@ describe BudgetTypesController do
         put :update, :id => budget_type.id, :budget_type => valid_attributes
         response.should redirect_to(budget_type)
       end
+
+      it "moves its position when specified" do
+        budget_type = BudgetType.create! valid_attributes
+        position = budget_type.position
+        put :update, :id => budget_type.id, :move => 'higher'
+        response.should redirect_to budget_types_url
+        assigns(:budget_type).position.should eq position - 1
+      end
     end
 
     describe "with invalid params" do

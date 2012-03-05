@@ -144,10 +144,13 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_ndl.git
-  revision: 062c1e96dd5e22f334a13b30ae1daad7d409a056
+  revision: 9ea75782f33f482a555dd36371f96a7763fe8693
   specs:
     enju_ndl (0.0.12)
+      acts_as_list
+      attribute_normalizer
       devise
+      library_stdnums
       nokogiri
       rails (~> 3.1)
       will_paginate (~> 3.0)
@@ -447,7 +450,7 @@ GEM
       options (~> 2.3.0)
     progressbar (0.10.0)
     rack (1.4.1)
-    rack-cache (1.1)
+    rack-cache (1.2)
       rack (>= 0.4)
     rack-mobile-detect (0.3.0)
       rack
@@ -559,7 +562,7 @@ GEM
     treetop (1.4.10)
       polyglot
       polyglot (>= 0.3.1)
-    tzinfo (0.3.31)
+    tzinfo (0.3.32)
     uglifier (1.2.3)
       execjs (>= 0.3.0)
       multi_json (>= 1.0.2)

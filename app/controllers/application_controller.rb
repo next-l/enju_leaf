@@ -299,7 +299,6 @@ class ApplicationController < ActionController::Base
         with(:reservable).equal_to reservable unless reservable.nil?
         unless carrier_type.blank?
           with(:carrier_type).equal_to carrier_type
-          with(:carrier_type).equal_to carrier_type
         end
         unless library.blank?
           library_list = library.split.uniq

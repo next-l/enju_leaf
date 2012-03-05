@@ -2,6 +2,7 @@ require 'spec_helper'
 require 'sunspot/rails/spec_helper'
 
 describe ExemplifiesController do
+  fixtures :exemplifies
   disconnect_sunspot
 
   def valid_attributes
@@ -281,7 +282,7 @@ describe ExemplifiesController do
 
   describe "PUT update" do
     before(:each) do
-      @exemplify = FactoryGirl.create(:exemplify)
+      @exemplify = exemplifies(:exemplify_00001)
       @attrs = valid_attributes
       @invalid_attrs = {:manifestation_id => ''}
     end
@@ -320,6 +321,13 @@ describe ExemplifiesController do
           put :update, :id => @exemplify.id, :exemplify => @attrs
           assigns(:exemplify).should eq(@exemplify)
           response.should redirect_to(@exemplify)
+        end
+
+        it "moves its position when specified" do
+          position = @exemplify.position
+          put :update, :id => @exemplify.id, :manifestation_id => @exemplify.manifestation.id, :move => 'lower'
+          response.should redirect_to manifestation_exemplifies_url(@exemplify.manifestation)
+          assigns(:exemplify).position.should eq position + 1
         end
       end
 

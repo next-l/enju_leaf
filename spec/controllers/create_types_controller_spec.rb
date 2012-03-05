@@ -75,7 +75,7 @@ describe CreateTypesController do
 
       it "redirects to the created create_type" do
         post :create, :create_type => valid_attributes
-        response.should redirect_to(CreateType.first)
+        response.should redirect_to(CreateType.last)
       end
     end
 
@@ -118,6 +118,14 @@ describe CreateTypesController do
         create_type = CreateType.create! valid_attributes
         put :update, :id => create_type.id, :create_type => valid_attributes
         response.should redirect_to(create_type)
+      end
+
+      it "moves its position when specified" do
+        create_type = CreateType.create! valid_attributes
+        position = create_type.position
+        put :update, :id => create_type.id, :move => 'higher'
+        response.should redirect_to create_types_url
+        assigns(:create_type).position.should eq position - 1
       end
     end
 
