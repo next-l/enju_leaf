@@ -6,13 +6,14 @@ class BarcodeSheet
     @code_type = "Code128B"
   end
 
-  def create_jpgs(code_words)
+  def create_jpgs(code_words, sup_words = nil)
     img_dir = @path + "jpg/"
     unless File::directory?(img_dir)
       Dir::mkdir(img_dir)
     end
     @img_files = []
     @code_words = code_words
+    @sup_words = sup_words
     @code_words.each do |code_word|
       img_path = img_dir + code_word + "_" + @code_type + "jpg"
       @img_files << img_path
@@ -37,13 +38,19 @@ class BarcodeSheet
     img_files = @img_files
     code_type = @code_type
     page = 1
+    sup_words = @sup_words
     Prawn::Document.generate(@path+filename,
       :page_layout => :portrait,
       :page_size => "A4") do
+      font("#{Rails.root}/vendor/fonts/ipag.ttf")
       code_words.each_with_index { |code_word, index|
         if File.exist?(img_files[index])
           image img_files[index], :at => [pos.x, pos.y], :scale => 0.75
           draw_text code_word, :at => [pos.x,pos.y-40], :size => 10
+          if sup_words and sup_words[index].present?
+            t = sup_words[index].slice(0, 20)
+            draw_text t, :at => [pos.x,pos.y-50], :size => 8
+          end
         else
           draw_text code_type, :at => [pos.x, pos.y]
           draw_text "encoding error", :at => [pos.x, pos.y-20]
