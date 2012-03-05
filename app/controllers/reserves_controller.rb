@@ -1,14 +1,13 @@
 # -*- encoding: utf-8 -*-
 class ReservesController < ApplicationController
   include ApplicationHelper
+  authorize_resource :only => :index
   before_filter :store_location, :only => [:index, :new]
 #  load_and_authorize_resource :except => [:index, :show, :edit]
-  authorize_resource :only => :index
-  before_filter :get_user_if_nil
-  #, :only => [:show, :edit, :create, :update, :destroy]
+  before_filter :get_user_if_nil #, :only => [:show, :edit, :create, :update, :destroy]
+  before_filter :store_page, :only => :index
   helper_method :get_manifestation
   helper_method :get_item
-  before_filter :store_page, :only => :index
 
   # GET /reserves
   # GET /reserves.xml
@@ -60,7 +59,7 @@ class ReservesController < ApplicationController
         # all reserves
         page = params[:page] || 1
         @states = Reserve.states
-        @libraries =  Library.all
+        @libraries =  Library.real
         #@selected_library = @libraries.collect{|library| library.id}
         @information_types = @selected_information_type =  Reserve.information_type_ids
         # first move
@@ -189,7 +188,7 @@ class ReservesController < ApplicationController
     else
       @reserve = Reserve.new
     end
-    @libraries = Library.all
+    @libraries = Library.real
     @informations = Reserve.informations(user)
     @reserve.receipt_library_id = user.library_id unless user.blank?
 
@@ -220,7 +219,7 @@ class ReservesController < ApplicationController
     end
 
     user = @user if @user
-    @libraries = Library.all
+    @libraries = Library.real
     @informations = Reserve.informations(user)
   end
 
@@ -261,7 +260,7 @@ class ReservesController < ApplicationController
         format.html { redirect_to user_reserve_url(@reserve.user, @reserve) }
         format.xml  { render :xml => @reserve, :status => :created, :location => user_reserve_url(@reserve.user, @reserve) }
       else
-        @libraries = Library.order('position')
+        @libraries = Library.real.order('position')
         @informations = Reserve.informations(user)
         format.html { render :action => "new" }
         format.xml  { render :xml => @reserve.errors.to_xml }
@@ -319,7 +318,7 @@ class ReservesController < ApplicationController
           format.xml  { head :ok }
         end
       else
-        @libraries = Library.order('position')
+        @libraries = Library.real.order('position')
         @informations = Reserve.informations(user)
         format.html { render :action => "edit" }
         format.xml  { render :xml => @reserve.errors.to_xml }

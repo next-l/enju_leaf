@@ -574,7 +574,7 @@ class Reserve < ActiveRecord::Base
       states = Reserve.show_user_states
     end
     states.each do |state|
-      library = Library.all.collect{|library| library.id}
+      library = Library.real.collect{|library| library.id}
       information_type_ids = Reserve.information_type_ids
       reserves = Reserve.where(:user_id => user_id, :state => state, :receipt_library_id => library, :information_type_id => information_type_ids).order('expired_at ASC').includes(:manifestation)
       # set
