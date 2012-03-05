@@ -3,6 +3,7 @@ class ManifestationRelationship < ActiveRecord::Base
   belongs_to :child, :foreign_key => 'child_id', :class_name => 'Manifestation'
   belongs_to :manifestation_relationship_type
   validate :check_parent
+  validate :check_exist_manifestation
   validates_presence_of :parent_id, :child_id
   acts_as_list :scope => :parent_id
 
@@ -11,6 +12,11 @@ class ManifestationRelationship < ActiveRecord::Base
       errors.add(:parent)
       errors.add(:child)
     end
+  end
+
+  def check_exist_manifestation
+    parent_manifestation = Manifestation.find(parent_id) rescue errors[:base] << I18n.t('manifestation_relationships.no_parent_id')
+    child_manifestation = Manifestation.find(child_id) rescue errors[:base] << I18n.t('manifestation_relationships.no_child_id')
   end
 end
 

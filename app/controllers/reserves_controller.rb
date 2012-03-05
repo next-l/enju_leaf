@@ -61,12 +61,13 @@ class ReservesController < ApplicationController
         page = params[:page] || 1
         @states = Reserve.states
         @libraries =  Library.all
-        @selected_library = @libraries.collect{|library| library.id}
+        #@selected_library = @libraries.collect{|library| library.id}
         @information_types = @selected_information_type =  Reserve.information_type_ids
         # first move
         if params[:do_search].blank?
+          @selected_library = [current_user.library.id]
           @selected_state = @states.reject{|x| x == 'completed' || x == 'expired' || x == 'canceled'}
-          @reserves = Reserve.show_reserves.where(:state => @selected_state).order('expired_at ASC').includes(:manifestation).page(page)
+          @reserves = Reserve.show_reserves.where(:state => @selected_state, :receipt_library_id => @selected_library).order('expired_at ASC').includes(:manifestation).page(page)
           return
         end
 

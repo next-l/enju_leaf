@@ -7,6 +7,10 @@
 
 <div id="submenu" class="ui-corner-all">
   <ul>
-    <li><%= link_to t('page.back'), :back -%></li>
+    <%- if params[:child_id] and params[:manifestation_id] -%>
+      <li><%= link_to t('page.back'), :back -%></li>
+    <%- else -%>
+      <li><%= link_to t('page.back'), manifestation_relationships_path -%></li>
+    <%- end -%>
   </ul>
 </div>

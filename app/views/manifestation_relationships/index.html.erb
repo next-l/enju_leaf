@@ -4,20 +4,22 @@
 
 <table class="index">
   <tr>
-    <th><%= t('activerecord.attributes.manifestation_relationship.parent_id') -%>:</th>
-    <th><%= t('activerecord.attributes.manifestation_relationship.child_id') -%>:</th>
-    <th></th>
-    <th></th>
+    <th><%= t('activerecord.attributes.manifestation_relationship.parent') -%></th>
+    <th><%= t('activerecord.attributes.manifestation_relationship.child') -%></th>
+    <th><%= t('activerecord.attributes.manifestation_relationship.manifestation_relationship_type_id') -%></th>
     <th></th>
   </tr>
 
 <% @manifestation_relationships.each do |manifestation_relationship| %>
-  <tr>
+  <tr class="line<%= cycle("0", "1") %>">
     <td><%= link_to manifestation_relationship.parent.original_title, manifestation_relationship.parent %></td>
     <td><%= link_to manifestation_relationship.child.original_title, manifestation_relationship.child %></td>
-    <td><%= link_to t('page.show'), manifestation_relationship %></td>
-    <td><%= link_to t('page.edit'), edit_manifestation_relationship_path(manifestation_relationship) %></td>
-    <td><%= link_to t('page.destroy'), manifestation_relationship, :confirm => t('page.are_you_sure'), :method => :delete %></td>
+    <td><%= manifestation_relationship.manifestation_relationship_type.display_name.localize %></td>
+    <td>
+      <%= link_to t('page.show'), manifestation_relationship %>
+      <%= link_to t('page.edit'), edit_manifestation_relationship_path(manifestation_relationship) %>
+      <%= link_to t('page.destroy'), manifestation_relationship, :confirm => t('page.are_you_sure'), :method => :delete %>
+    </td>
   </tr>
 <% end %>
 </table>
