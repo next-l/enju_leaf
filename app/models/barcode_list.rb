@@ -13,21 +13,29 @@ class BarcodeList < ActiveRecord::Base
     prefix = ""
     prefix = self.barcode_prefix unless self.barcode_prefix.blank?
     @code_words = []
-    user_numbers = User.select("user_number")
+    @sup_words = []
+
+    user_numbers = User.order(:user_number).includes(:patron)
     if start_number && start_number.strip.present?
       user_numbers = user_numbers.where("user_number >= ?", start_number)
     end
     if end_number && end_number.strip.present?
       user_numbers = user_numbers.where("user_number <= ?", end_number)
     end
-    user_numbers = user_numbers.order(:user_number)
+
     user_numbers.each do |u|
       @code_words << prefix + u.user_number unless u.user_number.blank?
+      if u.patron.full_name
+        title = u.patron.full_name
+      else
+        title = ""
+      end
+      @sup_words << title
     end
     sheet = BarcodeSheet.new
     sheet.path = dir_base
     sheet.code_type = type
-    sheet.create_jpgs(@code_words)
+    sheet.create_jpgs(@code_words, @sup_words)
     sheet.create_pdf(filename)
     return dir_base + filename
   end
@@ -43,7 +51,6 @@ class BarcodeList < ActiveRecord::Base
     prefix = self.barcode_prefix unless self.barcode_prefix.blank?
     @code_words = []
     @sup_words = []
-    #items = Item.select("item_identifier")
     items = Item.order(:item_identifier).includes(:manifestation)
     if start_number && start_number.strip.present?
       items = items.where("item_identifier >= ?", start_number)
@@ -51,7 +58,6 @@ class BarcodeList < ActiveRecord::Base
     if end_number && end_number.strip.present?
       items = items.where("item_identifier <= ?", end_number)
     end
-    #items = items.order(:item_identifier)
 
     items.each do |item|
       unless item.item_identifier.blank?
