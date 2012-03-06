@@ -4,6 +4,7 @@
 <p id="notice"><%= notice %></p>
 
 <%= render 'manifestations/title', :manifestation => @reserve.manifestation -%>
+<%= render 'manifestations/show_series_number', :manifestation => @reserve.manifestation -%>
 
 <p>
   <%- if user_signed_in? and current_user.has_role?('Librarian') -%>
