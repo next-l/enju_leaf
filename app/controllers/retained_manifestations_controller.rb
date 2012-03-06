@@ -5,7 +5,7 @@ class RetainedManifestationsController < ApplicationController
   def index
     flash[:notice] = ""
     page = params[:page] || 1
-    @librarlies = @selected_library = Library.find(:all).map{|i| [ i.display_name, i.id ] }
+    @librarlies = @selected_library = Library.real.find(:all).map{|i| [ i.display_name, i.id ] }
     @selected_library = params[:library][:id] if !params[:library].blank? and !params[:library][:id].blank?
     @information_types = @selected_information_type = Reserve.information_type_ids
     @selected_information_type = [] if params[:commit] or params[:output_pdf] or params[:output_tsv]
