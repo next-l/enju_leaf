@@ -25,11 +25,7 @@ class BarcodeList < ActiveRecord::Base
 
     user_numbers.each do |u|
       @code_words << prefix + u.user_number unless u.user_number.blank?
-      if u.patron.full_name
-        title = u.patron.full_name
-      else
-        title = ""
-      end
+      title = u.patron.full_name || ""
       @sup_words << title
     end
     sheet = BarcodeSheet.new
@@ -62,11 +58,7 @@ class BarcodeList < ActiveRecord::Base
     items.each do |item|
       unless item.item_identifier.blank?
         @code_words << prefix + item.item_identifier 
-        if item.manifestation.original_title
-          title = item.manifestation.original_title
-        else
-          title = ""
-        end
+        title = item.manifestation.original_title || ""
         @sup_words << title
       end
     end
