@@ -72,7 +72,7 @@
       <%- end -%>
     </td>
     <td>
-      <%= form_for :reserve, reserve, :url => {:action => :set_retained} do |f| -%>
+      <%= form_for :reserve, :url => {:action => :set_retained} do |f| -%>
         <%= f.hidden_field :id, :value => reserve.id -%> 
         <%= f.hidden_field :retained, :value=>true -%> 
         <%= submit_tag t('activerecord.attributes.retained_manifestation.done') -%>
