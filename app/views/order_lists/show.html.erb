@@ -33,7 +33,7 @@
 
 <div id="submenu" class="ui-corner-all">
   <ul>
-    <li><%= link_to t('activerecord.models.purchase_request'), order_list_purchase_requests_path(@order_list) -%></li>
+    <li><%= link_to t('page.listing', :model => t('activerecord.models.purchase_request')), order_list_purchase_requests_path(@order_list) -%></li>
     <li><%= link_to t('page.edit'), edit_order_list_path(@order_list) -%></li>
     <li><%= link_to t('page.back'), order_lists_path -%></li>
   </ul>
