@@ -457,7 +457,7 @@ class Manifestation < ActiveRecord::Base
     if new_record?
       series_statement = SeriesStatement.where(:id => series_statement_id).first
     end
-    if self.series_statement.try(:periodical)
+    if series_statement.try(:periodical)
       return true unless root_of_series?
     end
     false
