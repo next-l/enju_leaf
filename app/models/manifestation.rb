@@ -200,7 +200,7 @@ class Manifestation < ActiveRecord::Base
   validates :identifier, :uniqueness => true, :allow_blank => true
   validates :access_address, :url => true, :allow_blank => true, :length => {:maximum => 255}
   validate :check_isbn, :check_issn, :check_lccn, :unless => :during_import
-  validate :check_date
+  #validate :check_date
   before_validation :set_wrong_isbn, :check_issn, :check_lccn, :set_language, :if => :during_import
   before_validation :convert_isbn
   before_create :set_digest
@@ -220,6 +220,7 @@ class Manifestation < ActiveRecord::Base
   end
 
   def check_date
+    logger.info "manifestaion#check_date pub_date=#{self.pub_date}"
     date = self.pub_date.to_s.gsub(' ', '').dup
     return if date.blank?
 

@@ -4,8 +4,8 @@ class ImportRequest < ActiveRecord::Base
   belongs_to :user
   validates_presence_of :isbn
   validate :check_isbn
-  validate :check_imported, :on => :create
-  validates_uniqueness_of :isbn, :if => Proc.new{|request| ImportRequest.where("created_at > ?", 1.day.ago).collect(&:isbn).include?(request.isbn)}
+  #validate :check_imported, :on => :create
+  #validates_uniqueness_of :isbn, :if => Proc.new{|request| ImportRequest.where("created_at > ?", 1.day.ago).collect(&:isbn).include?(request.isbn)}
 
   enju_ndl_search
 
@@ -38,6 +38,7 @@ class ImportRequest < ActiveRecord::Base
   end
 
   def import!
+    logger.info "import start"
     unless manifestation
       manifestation = self.class.import_isbn!(isbn)
       if manifestation
@@ -51,8 +52,14 @@ class ImportRequest < ActiveRecord::Base
       sm_fail!
     end
   rescue ActiveRecord::RecordInvalid
+    logger.info "manifestation import trap-94 fail"
+    logger.info  $!
+    logger.info  $@
     sm_fail!
   rescue EnjuNdl::RecordNotFound
+    logger.info "manifestation import trap-96 fail"
+    logger.info  $!
+    logger.info  $@
     sm_fail!
   end
 end
