@@ -9,7 +9,7 @@ gem 'rails', '3.2.1'
 gem 'enju_oai', :git => 'git://github.com/nabeta/enju_oai.git'
 gem 'enju_book_jacket', :git => 'git://github.com/nabeta/enju_book_jacket.git'
 gem 'enju_manifestation_viewer', :git => 'git://github.com/nabeta/enju_manifestation_viewer.git'
-gem 'enju_ndl', :git => 'git://github.com/nabeta/enju_ndl.git'
+gem 'enju_ndl', '0.0.12', :git => 'git://github.com/nabeta/enju_ndl.git'
 
 platforms :ruby do
   gem 'pg'

@@ -22,10 +22,13 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_ndl.git
-  revision: 062c1e96dd5e22f334a13b30ae1daad7d409a056
+  revision: 9ea75782f33f482a555dd36371f96a7763fe8693
   specs:
     enju_ndl (0.0.12)
+      acts_as_list
+      attribute_normalizer
       devise
+      library_stdnums
       nokogiri
       rails (~> 3.1)
       will_paginate (~> 3.0)
@@ -403,7 +406,7 @@ DEPENDENCIES
   dynamic_form
   enju_book_jacket!
   enju_manifestation_viewer!
-  enju_ndl!
+  enju_ndl (= 0.0.12)!
   enju_oai!
   event-calendar
   exception_notification (~> 2.5.2)
