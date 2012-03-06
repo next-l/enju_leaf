@@ -198,9 +198,9 @@ class Manifestation < ActiveRecord::Base
   validates :isbn, :uniqueness => true, :allow_blank => true, :unless => proc{|manifestation| manifestation.series_statement}
   validates :nbn, :uniqueness => true, :allow_blank => true
   validates :identifier, :uniqueness => true, :allow_blank => true
-  validates :pub_date, :format => {:with => /^\d+(-\d{0,2}){0,2}$/}, :allow_blank => true
   validates :access_address, :url => true, :allow_blank => true, :length => {:maximum => 255}
   validate :check_isbn, :check_issn, :check_lccn, :unless => :during_import
+  validate :check_date
   before_validation :set_wrong_isbn, :check_issn, :check_lccn, :set_language, :if => :during_import
   before_validation :convert_isbn
   before_create :set_digest
@@ -217,6 +217,38 @@ class Manifestation < ActiveRecord::Base
 
   def self.per_page
     10
+  end
+
+  def check_date
+    date = self.pub_date.to_s.gsub(' ', '').dup
+    return if date.blank?
+
+    unless date =~ /^\d+(-\d{0,2}){0,2}$/
+      errors.add(:pub_date); return
+    end
+
+    date = date.gsub('-', '')
+    case date.length
+    when 4
+      data = "#{date}-01-01"
+    when 6
+      year = date.slice(0, 4)
+      month = date.slice(4, 2)
+      date = "#{year}-#{month}-01"
+    when 8
+      year = date.slice(0, 4)
+      month = date.slice(4, 2)
+      day = date.slice(6, 2) 
+      date = "#{year}-#{month}-#{day}"
+    else
+      errors.add(:pub_date); return
+    end
+
+    begin
+      date = Time.zone.parse(date)
+    rescue
+      errors.add(:pub_date)
+    end
   end
 
   def check_isbn
