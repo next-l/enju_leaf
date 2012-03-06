@@ -1469,6 +1469,7 @@ en:
     user_tag: "%{login_name}'s tags"
     use_space_as_delimiter: "Use space as a delimiter."
     contain_space: " contains a space character"
+    space: "　"
   question:
     my: "My questions"
     all: "All questions"

@@ -26,7 +26,7 @@ class Tag < ActiveRecord::Base
   end
 
   def contain_space
-    if self.name =~ /^[#{s}]*([^#{s}]+)[#{s}]*$/
+    if self.name =~ /\s/ or name.index(I18n.t('tag.space'))
       errors.add(:name, I18n.t('tag.contain_space'))
     end
   end
