@@ -80,6 +80,10 @@
     <%= f.hidden_field :manifestation_id -%>
   </div>
 
+  <div class="field">
+    <%= render 'manifestations/show_series_number', :manifestation => @reserve.manifestation -%>
+  </div>
+
   <div class="field" id="userinfo">
   </div>
 
