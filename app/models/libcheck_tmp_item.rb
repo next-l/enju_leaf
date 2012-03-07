@@ -151,8 +151,8 @@ class LibcheckTmpItem < ActiveRecord::Base
   
   def self.export_error_list(out_dir)
     raise "invalid parameter: no path" if out_dir.nil? || out_dir.length < 1
-    tsv_file = out_dir + "error_list.tsv"
-    pdf_file = out_dir + "error_list.pdf"
+    tsv_file = "error_list.tsv"
+    pdf_file = "error_list.pdf"
     logger.info "output removing_list tsv: #{tsv_file} pdf: #{pdf_file}"
     # create output path
     FileUtils.mkdir_p(out_dir) unless FileTest.exist?(out_dir)
@@ -160,7 +160,7 @@ class LibcheckTmpItem < ActiveRecord::Base
     # get date
     libcheck_tmp_items = LibcheckTmpItem.where("status_flg > ?", 0).order("shelf_id, no, id")
     # make tsv
-    make_resorce_list_tsv(tsv_file, libcheck_tmp_items)
+    make_resorce_list_tsv(out_dir, tsv_file, libcheck_tmp_items)
     # make pdf
     make_resorce_list_pdf(out_dir, pdf_file, libcheck_tmp_items)
   rescue => exc
@@ -170,11 +170,11 @@ class LibcheckTmpItem < ActiveRecord::Base
   
   def self.export_pdf(dir)
     raise "invalid parameter: no path" if dir.nil? || dir.length < 1
-    pdf_file = dir + "resource_list.pdf"
+    pdf_file = "resource_list.pdf"
     logger.info "output resource list pdf: " + pdf_file
+
     # create output path
     FileUtils.mkdir_p(dir) unless FileTest.exist?(dir)
-
     # make file
     libcheck_tmp_items = LibcheckTmpItem.order("shelf_id, no, id")
     make_resorce_list_pdf(dir, pdf_file, libcheck_tmp_items)
@@ -185,7 +185,7 @@ class LibcheckTmpItem < ActiveRecord::Base
 
   def self.export(dir)
     raise "invalid parameter: no path" if dir.nil? || dir.length < 1
-    tsvfile = dir + "resource_list.tsv"
+    tsvfile = "resource_list.tsv"
     logger.info "output resource list : " + tsvfile
 
     # create output path
@@ -193,7 +193,7 @@ class LibcheckTmpItem < ActiveRecord::Base
 
     # make file
     libcheck_tmp_items = LibcheckTmpItem.order("shelf_id, no, id")
-    make_resorce_list_tsv(tsvfile, libcheck_tmp_items)
+    make_resorce_list_tsv(dir, tsvfile, libcheck_tmp_items)
   rescue => exc
     logger.error exc
     raise exc
@@ -214,7 +214,7 @@ class LibcheckTmpItem < ActiveRecord::Base
   end
 
   private
-  def self.make_resorce_list_tsv(tsvfile, libcheck_tmp_items)
+  def self.make_resorce_list_tsv(dir, tsvfile, libcheck_tmp_items)
     columns = [
       ['item_identifier','activerecord.attributes.item.item_identifier'],
       ['no', 'activerecord.attributes.libcheck_tmp_item.seq'],
@@ -236,7 +236,7 @@ class LibcheckTmpItem < ActiveRecord::Base
       ['original_title','activerecord.attributes.manifestation.original_title']
     ]
 
-    File.open(tsvfile, "w") do |output|
+    File.open(dir + tsvfile, "w") do |output|
       # add UTF-8 BOM for excel
       output.print "\xEF\xBB\xBF".force_encoding("UTF-8")
 
@@ -308,15 +308,14 @@ class LibcheckTmpItem < ActiveRecord::Base
         page.item(:total).value(e.report.page_count)
       end
     end
-
     # set date
     report.start_new_page do |page|
       page.item(:date).value(Time.now)
       case pdf_file
-      when dir + "resource_list.pdf"
-        page.item(:resource_error_title).hide
-      when dir + "error_list.pdf"
-        page.item(:resource_title).hide
+      when "resource_list.pdf"
+        page.item(:title).value(I18n.t('activerecord.attributes.library_check.resource_list'))
+      when "error_list.pdf"
+        page.item(:title).value(I18n.t('activerecord.attributes.library_check.error_list'))
       end
 
       shelf = nil
@@ -351,7 +350,8 @@ class LibcheckTmpItem < ActiveRecord::Base
           end
         end
       end
-      report.generate_file(pdf_file)
+      file = dir + pdf_file
+      report.generate_file(file)
     end
   end
 end
