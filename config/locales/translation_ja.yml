@@ -252,7 +252,7 @@ ja:
         patron_import_updated_at: 更新時刻
         state: 状態
         edit_mode: 編集モード
-        import_request: すぐにインポートする
+        import_request: すぐにインポート
       circulation_status:
         name: 名前
         display_name: 表示名
@@ -1395,7 +1395,7 @@ ja:
     detail: "詳細"
     acquisition: "資料の受入"
     configuration: "システムの設定"
-    search_resource: "%{model}を検索する"
+    search_resource: "%{model}を検索"
     show_all: "全てを表示"
     hide: "隠す"
     overdue: "延滞"
@@ -1421,10 +1421,10 @@ ja:
     reset: "リセット"
     account: "アカウント"
     form: "形態"
-    remove_this_facet: "この絞り込みを解除する"
+    remove_this_facet: "この絞り込みを解除"
     no_subject: "件名はついていません。"
     no_tag: "タグはついていません。"
-    add_patron: "人物・団体を追加する"
+    add_patron: "人物・団体を追加"
     total: "合計"
     sort_by: "次の項目で並べ替える"
     bookmarklet: "ブックマークレット"
@@ -1435,7 +1435,7 @@ ja:
     new_resource: "新着資料"
     checkout_history: "貸出履歴"
     recommendation: "おすすめの資料"
-    add_manually: "手動で登録する"
+    add_manually: "手動で登録"
     import_from_file: "TSVファイルからのインポート"
     import_from_textfile: "テキストファイルからのインポート"
     import_from_network: "ネットワークからインポート"
@@ -1480,7 +1480,7 @@ ja:
     number_of_days: "%{count} 日"
     require_login_as_librarian: "操作を進めるには、図書館員としてログインする必要があります。"
     read: "読み込み"
-    merge: "統合する（取り消しはできません）"
+    merge: "統合（取り消しはできません）"
     merge_resource: "%{model}を統合する"
     merge_confirm: "実行しますか？"
     attachable: "添付先"
@@ -1586,9 +1586,9 @@ ja:
   bookmark:
     new: "新しいブックマーク"
     not_bookmarked: "ブックマークされていません。"
-    add_to_my_bookmark: "ブックマークに追加する"
-    add_to_library_bookmark: "図書館のブックマークに追加する"
-    remove_from_my_bookmark: "ブックマークから削除する"
+    add_to_my_bookmark: "ブックマークに追加"
+    add_to_library_bookmark: "図書館のブックマークに追加"
+    remove_from_my_bookmark: "ブックマークから削除"
     invalid_url: "無効なURLです。"
     specify_title_and_url: "タイトルとURLを指定してください。"
     already_bookmarked: "すでにブックマークに登録されています。"
@@ -1598,12 +1598,12 @@ ja:
   work:
     patron_work: "%{patron_name} の書いた資料"
     library_group_work: "%{library_group_name} にある書いた資料"
-    add: "書いた資料を追加する"
+    add: "書いた資料を追加"
   expression:
     patron_expression: "%{patron_name} の協力した資料"
     manifestations_expression: "%{manifestation_title} に含まれる協力した資料"
     library_group_expression: "%{library_group_name} にある協力した資料"
-    add: "協力した資料を追加する"
+    add: "協力した資料を追加"
     specify_work: "書いた資料を指定してください。"
     specify_manifestation: "資料を指定してください。"
   manifestation:
@@ -1618,8 +1618,8 @@ ja:
     patron_manifestation: "%{patron_name} の資料"
     expressions_manifestation: "%{expression_title} の出版した資料"
     library_group_manifestation: "%{library_group_name} にある資料"
-    reserve_this: "この資料を予約する"
-    cancel_reservation: "この資料の予約を解除する"
+    reserve_this: "この資料を予約"
+    cancel_reservation: "この資料の予約を解除"
     user_who_bookmark_this_resource: "この資料をブックマークしている利用者"
     query_search_result: "検索語 %{query} による %{library_group_name} の資料の検索結果"
     serial: "定期刊行物"
@@ -1631,7 +1631,7 @@ ja:
     already_imported: "すでにインポートされています。"
     record_not_found: "資料が見つかりませんでした。"
     invalid_query: "検索語の指定が不正です。"
-    add: "資料を追加する"
+    add: "資料を追加"
     specify_expression: "協力した資料を指定してください。"
     pickup: "ピックアップ"
     showing_all_record: "すべての資料を表示しています。"
@@ -1639,9 +1639,9 @@ ja:
     reservable: "予約可能"
     all_result: "すべての検索結果"
     reservable_list: "予約可能な資料の一覧"
-    post_to_twitter: "Twitterに送信する"
+    post_to_twitter: "Twitterに送信"
     web: "Web"
-    send_email: "書誌情報を電子メールで送信する"
+    send_email: "書誌情報を電子メールで送信"
     attachment_file: "添付ファイル"
     question: "この資料で調べた質問"
     add_derivation: "派生資料を追加"
@@ -1650,7 +1650,7 @@ ja:
     current_checkout: "現在の貸出"
     donor: "寄贈者"
     library_group_item: "%{library_group_name}にある所蔵情報"
-    add: "所蔵情報を追加する"
+    add: "所蔵情報を追加"
     specify_manifestation: "資料を指定してください。"
     this_item_is_reserved: "この資料は予約されています！"
     create_shelf_first: "最初に書棚を作成してください。"
@@ -1674,10 +1674,10 @@ ja:
     work_patron: "%{work_title} の著作者"
     expression_patron: "%{expression_title} の編者"
     manifestation_patron: "%{manifestation_title} の出版者"
-    activate_as_user: "利用者として登録する"
-    create_family_user: "家族を新規作成する"
-    deactivate: "利用者登録を解除する"
-    add: "人物・団体を追加する"
+    activate_as_user: "利用者として登録"
+    create_family_user: "家族を新規作成"
+    deactivate: "利用者登録を解除"
+    add: "人物・団体を追加"
     publication: "出版物"
     recent_publication: "最近の出版物"
     all_publication: "全ての出版物"
@@ -1695,7 +1695,7 @@ ja:
     user_message: "%{login_name} さんのメッセージ"
     sent_at: "送信時刻"
     inbox: "受信箱"
-    write: "メッセージを作成する"
+    write: "メッセージを作成"
     outbox: "送信箱"
     trash: "ごみ箱"
     recipient: "宛て先"
@@ -1704,9 +1704,9 @@ ja:
     read: "既読"
     unread: "未読"
     deleted: "削除済み"
-    send: "メッセージを送信する"
-    reply: "メッセージに返信する"
-    delete: "メッセージを削除する"
+    send: "メッセージを送信"
+    reply: "メッセージに返信"
+    delete: "メッセージを削除"
     sent_successfully: "メッセージは正しく送信されました。"
     no_new_message: "新しいメッセージはありません。"
     too_short: "メッセージが短すぎます。最小 %{count} 文字以上必要です。"
@@ -1789,9 +1789,9 @@ ja:
     current_password: "現在のパスワード"
     new_password: "新しいパスワード"
     repeat_new_password: "新しいパスワード（確認のため再度入力）"
-    delete_this_user: "この利用者を削除する"
+    delete_this_user: "この利用者を削除"
     your_temporary_password_is: "仮パスワードは次のとおりです"
-    sign_up: "利用者を登録する（取り消しはできません）"
+    sign_up: "利用者を登録（取り消しはできません）"
     edit_profile: "プロフィールの編集"
     edit_account: "アカウント情報の編集"
     already_activated: "すでに利用者として登録されています。"
@@ -1814,17 +1814,17 @@ ja:
     resend_confirmation_instruction: '確認手順をもう一度取り寄せる'
     remember_me: "ウインドウを閉じてもログインしたままにする"
     forgot_your_password: "パスワードを忘れましたか?"
-    send_me_reset_password_instruction: "パスワードを再発行する"
-    change_my_password: "パスワードを変更する"
+    send_me_reset_password_instruction: "パスワードを再発行"
+    change_my_password: "パスワードを変更"
     management: "利用者の管理"
     not_found: "利用者が見つかりません。"
     birth_date_invalid: "生年月日が不正な値です。例: 2011-04-12"
     already_in_family: "家族登録済みです。"
     overdue_item: "%{user} さんの貸出期限がすぎている資料が %{count} 冊あります。"
     retained_reserve: "%{user} さんの予約資料が %{count} 冊用意されています。" 
-    create_family_user: "家族を新規作成する"
-    manage_family: "家族情報管理をする"
-    update_user_number: "利用者番号を変更する"
+    create_family_user: "家族を新規作成"
+    manage_family: "家族情報の管理"
+    update_user_number: "利用者番号を変更"
   news_post:
     library_group_news_post: "%{library_group_name} からのお知らせ"
   reserve:
@@ -1867,8 +1867,8 @@ ja:
     request_rejected: "購入リクエストを謝絶しました。"
     request_ordered: "購入リクエストを発注しました。"
     failed_update: "購入リクエストの更新に失敗しました。"
-    add_to_order_list: "発注リストに追加する"
-    remove_from_order_list: "発注リストから削除する"
+    add_to_order_list: "発注リストに追加"
+    remove_from_order_list: "発注リストから削除"
     input_into_form_as_much_as_possible: "わかる範囲で入力してください。"
   order_list:
     library_group_order_list: "%{library_group_name} の発注リスト"
@@ -1876,7 +1876,7 @@ ja:
   inter_library_loan:
     library_group_inter_library_loan: "%{library_group_name} の相互貸借"
     borrowing_library: "借受館"
-    return_this_item: "この資料を返却する"
+    return_this_item: "この資料を返却"
     loan_lists: 相互貸借リスト
     original_library: 移動元図書館
     checkout: 貸出
@@ -1946,8 +1946,8 @@ ja:
     create_order_list: "発注リストを作成してください。"
     specify_purchase_request: "購入依頼を指定してください。"
   work_has_subject:
-    add_work: "書いた資料を追加する"
-    add_subject: "件名を追加する"
+    add_work: "書いた資料を追加"
+    add_subject: "件名を追加"
     subjectable: "件名付与対象"
   library_group:
     configuration: "図書館の設定"
@@ -1986,7 +1986,7 @@ ja:
     record_not_found: 書誌レコードが見つかりませんでした。
     invalid_isbn: ISBNが正しくありません。
     isbn_taken: はすでに登録されています。
-    enter_isbn: ISBNを入力する
+    enter_isbn: ISBNを入力
   sort:
     date_of_acquisition: 新着図書優先
     date_of_publication: 出版日優先
@@ -2014,23 +2014,23 @@ ja:
     user_will_change_family : "※家族情報を変更したいときは、図書館員までお申し付けください。"
   resource_import_textfile:
     template_download: "テンプレートをダウンロード"
-    import_request: "すぐにインポートする"
+    import_request: "すぐにインポート"
     start_importing: "インポートを開始しました。"
     unsuccess_start: "インポート開始に失敗しました。"
   resource_import_file:
     template_download: "テンプレートをダウンロード"
-    import_request: "すぐにインポートする"
+    import_request: "すぐにインポート"
     start_importing: "インポートを開始しました。"
     unsuccess_start: "インポート開始に失敗しました。"
     reserved_item : "予約済みの資料です。(ユーザ名: %{username}, 利用者番号: %{user_number})"
   patron_import_file:
     template_download: "テンプレートをダウンロード"
-    import_request: "すぐにインポートする"
+    import_request: "すぐにインポート"
     start_importing: "インポートを開始しました。"
     unsuccess_start: "インポート開始に失敗しました。"
   event_import_file:
     template_download: "テンプレートをダウンロード"
-    import_request: "すぐにインポートする"
+    import_request: "すぐにインポート"
     start_importing: "インポートを開始しました。"
     unsuccess_start: "インポート開始に失敗しました。"
   library_check:
