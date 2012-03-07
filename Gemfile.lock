@@ -303,7 +303,7 @@ GEM
     hashie (1.2.0)
     highline (1.6.11)
     hike (1.2.1)
-    hirb (0.6.0)
+    hirb (0.6.1)
     httparty (0.8.1)
       multi_json
       multi_xml
@@ -391,7 +391,7 @@ GEM
       railties (= 3.2.2)
     rails_autolink (1.0.5)
       rails (~> 3.1)
-    rails_best_practices (1.8.0)
+    rails_best_practices (1.9.0)
       activesupport
       colored
       erubis
