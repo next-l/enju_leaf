@@ -246,3 +246,9 @@ system_configuration_00041:
   v: 14
   typename: Numeric
   description: "所蔵が1冊以上ある資料で、出版日がシステム日付からn日前以降であるものを抽出する。"
+system_configuration_00042:
+  id: 42
+  keyname: write_search_log_to_file
+  v: "true"
+  typename: Boolean
+  description: "資料の検索履歴をファイルで記録するかどうか。trueのときファイルに記録。falseのときDBに記録。"

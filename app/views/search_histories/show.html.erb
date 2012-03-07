@@ -4,12 +4,12 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <strong>Operation:</strong>
+  <strong><%= t('activerecord.attributes.search_history.operation') -%>:</strong>
   <%= @search_history.operation -%>
 </p>
 
 <p>
-  <strong>Version:</strong>
+  <strong><%= t('activerecord.attributes.search_history.version') -%>:</strong>
   <%= @search_history.sru_version -%>
 </p>
 
@@ -24,32 +24,32 @@
 </p>
 
 <p>
-<strong><%= ('Maximum records') -%>:</strong>
+<strong><%= t('activerecord.attributes.search_history.maximum_records') -%>:</strong>
   <%= @search_history.maximum_records -%>
 </p>
 
 <p>
-  <strong>Record packing:</strong>
+  <strong><%= t('activerecord.attributes.search_history.record_packing') -%>:</strong>
   <%= @search_history.record_packing -%>
 </p>
 
 <p>
-  <strong>Record schema:</strong>
+  <strong><%= t('activerecord.attributes.search_history.record_schema') -%>:</strong>
   <%= @search_history.record_schema -%>
 </p>
 
 <p>
-  <strong>Result set ttl:</strong>
+  <strong><%= t('activerecord.attributes.search_history.result_set_ttl') -%>:</strong>
   <%= @search_history.result_set_ttl -%>
 </p>
 
 <p>
-  <strong>Stylesheet:</strong>
+  <strong><%= t('activerecord.attributes.search_history.stylesheet') -%>:</strong>
   <%= @search_history.stylesheet -%>
 </p>
 
 <p>
-  <strong>Extra request data:</strong>
+  <strong><%= t('activerecord.attributes.search_history.extra_request_data') -%>:</strong>
   <%= @search_history.extra_request_data -%>
 </p>
 
