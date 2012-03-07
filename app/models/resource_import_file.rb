@@ -411,6 +411,9 @@ class ResourceImportFile < ActiveRecord::Base
           work.subjects = subjects.uniq unless subjects.empty?
         end
       end
+      if row['volume_number'].present?
+        volume_number = row['volume_number'].to_s.tr('０-９', '0-9').to_i
+      end
 
       manifestation = self.class.import_manifestation(work, publisher_patrons, {
         :original_title => title[:original_title],
@@ -425,7 +428,6 @@ class ResourceImportFile < ActiveRecord::Base
         :ndc => row['ndc'],
         :pub_date => row['pub_date'],
         :volume_number_string => row['volume_number_string'].to_s.split('　').first.try(:tr, '０-９', '0-9'),
-        :volume_number => row['volume_number'].to_s.tr('０-９', '0-9'),
         :issue_number_string => row['issue_number_string'],
         :serial_number => row['serial_number'],
         :edition_string => row['edition_string'],
@@ -445,6 +447,7 @@ class ResourceImportFile < ActiveRecord::Base
       {
         :edit_mode => options[:edit_mode]
       })
+      manifestation.volume_number = volume_number
       manifestation.required_role = Role.where(:name => row['required_role_name'].to_s.strip.camelize).first || Role.find('Guest')
       manifestation.language = language
       manifestation.save!
