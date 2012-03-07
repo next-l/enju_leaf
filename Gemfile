@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '3.2.1'
+gem 'rails', '3.2.2'
 
 #gem 'enju_amazon', :git => 'git://github.com/nabeta/enju_amazon.git'
 #gem 'enju_calil', :git => 'git://github.com/nabeta/enju_calil.git'
@@ -9,8 +9,11 @@ gem 'rails', '3.2.1'
 gem 'enju_oai', :git => 'git://github.com/nabeta/enju_oai.git'
 gem 'enju_book_jacket', :git => 'git://github.com/nabeta/enju_book_jacket.git'
 gem 'enju_manifestation_viewer', :git => 'git://github.com/nabeta/enju_manifestation_viewer.git'
-gem 'enju_ndl', '0.0.12', :git => 'git://github.com/nabeta/enju_ndl.git'
-
+#gem 'enju_ndl', '0.0.12'
+gem 'enju_ndl', :git => 'git://github.com/nabeta/enju_ndl.git'
+#gem 'enju_question', :git => 'git://github.com/nabeta/enju_question.git'
+#
+#
 platforms :ruby do
   gem 'pg'
   #gem 'mysql2', '~> 0.3'
