@@ -1,5 +1,6 @@
 class LibcheckTmpItem < ActiveRecord::Base
   belongs_to :libcheck_shelf, :foreign_key => 'shelf_id'
+  belongs_to :item
 
   # CONSTANT
   STS_NO_ERROR        = 0b00000000
@@ -231,7 +232,7 @@ class LibcheckTmpItem < ActiveRecord::Base
       [:status_diff_checkout_type, 'activerecord.attributes.libcheck_tmp_item.status_diff_checkout_type'],
       [:status_ndc_warning, 'activerecord.attributes.libcheck_tmp_item.status_ndc_warning'],
       [:status_invalid_serial, 'activerecord.attributes.libcheck_tmp_item.status_invalid_serial'],
-      [:date_of_publication,'activerecord.attributes.manifestation.date_of_publication'],
+      [:pub_date,'activerecord.attributes.manifestation.pub_date'],
       ['edition_display_value','activerecord.attributes.manifestation.edition_display_value'],
       ['original_title','activerecord.attributes.manifestation.original_title']
     ]
@@ -278,11 +279,13 @@ class LibcheckTmpItem < ActiveRecord::Base
               row << conv_flg(item.status_flg, STS_NDC_WARNING)
             when :status_invalid_serial
               row << conv_flg(item.status_flg, STS_INVALID_SERIAL)
-            when :date_of_publication
-              if item.date_of_publication.nil?
-                row << ""
+            when :library
+              row << ""
+            when :pub_date
+              if item.item_id and item.item.manifestation.pub_date
+                row << item.item.manifestation.pub_date
               else
-                row << item.date_of_publication.strftime("%Y-%m-%d") 
+                row << ""
               end
             else
               row << get_object_method(item, column[0].split('.')).to_s.gsub(/\r\n|\r|\n/," ").gsub(/\"/,"\"\"")
@@ -344,7 +347,7 @@ class LibcheckTmpItem < ActiveRecord::Base
             row.item(:sts_checkout_t_diff).value(conv_flg(item.status_flg, STS_CHECKOUT_T_DIFF))
             row.item(:sts_ndc_warning).value(conv_flg(item.status_flg, STS_NDC_WARNING))
             row.item(:sts_invalid_serial).value(conv_flg(item.status_flg, STS_INVALID_SERIAL))
-            row.item(:date_of_publication).value(item.date_of_publication.strftime("%Y-%m-%d")) if item.date_of_publication
+            row.item(:pub_date).value(item.item.manifestation.pub_date) if item.item_id and item.item.manifestation.pub_date
             row.item(:edition_display_value).value(item.edition_display_value)
             row.item(:original_title).value(item.original_title)
           end
