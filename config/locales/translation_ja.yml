@@ -2141,6 +2141,12 @@ ja:
     users: ラベルを作成する利用者
     submit: ラベルを作成
     nousers: 利用者が選択されていません。
+    notypes: 印刷する情報が選択されていません。
+    printed_type: 印字する情報
+    printed_type_full_name: 名前
+    printed_type_address: 住所
+    printed_type_postal_barcode: 郵便カスタマバーコード
+    notice_printed_postal_barcode: 郵便カスタマバーコードを出力するには郵便番号と正しい住所の設定が必要です。
   item_list:
     list_type: リストタイプ
     shelf_list: 保管場所資料リスト
