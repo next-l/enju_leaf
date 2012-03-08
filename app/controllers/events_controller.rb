@@ -2,7 +2,7 @@
 class EventsController < ApplicationController
   load_and_authorize_resource
   before_filter :get_library, :get_patron
-  before_filter :get_libraries, :except => :destroy
+  before_filter :get_real_libraries, :except => :destroy
   before_filter :prepare_options
   before_filter :store_page, :only => :index
   after_filter :solr_commit, :only => [:create, :update, :destroy]

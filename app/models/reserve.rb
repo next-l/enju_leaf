@@ -749,6 +749,106 @@ class Reserve < ActiveRecord::Base
     end
     return data
   end
+
+  
+  def self.get_reservelist_pdf(displist)
+    report = ThinReports::Report.new :layout => File.join(Rails.root, 'report', 'reservelist.tlf')
+
+    # set page_number
+    report.events.on :page_create do |e|
+      e.page.item(:page).value(e.page.no)
+    end
+    report.events.on :generate do |e|
+      e.pages.each do |page|
+        page.item(:total).value(e.report.page_count)
+      end
+    end
+
+    report.start_new_page do |page|
+      page.item(:date).value(Time.now)
+      before_state = nil
+
+      displist.each do |d|
+        before_receipt_library = nil
+        unless d.reserves.blank?
+          d.reserves.each do |r|
+            page.list(:list).add_row do |row|
+             row.item(:not_found).hide
+             if before_state == d.state
+               row.item(:state_line).hide
+               row.item(:state).hide
+             end
+             if before_receipt_library == r.receipt_library_id and before_state == d.state
+               row.item(:receipt_library_line).hide
+               row.item(:receipt_library).hide
+             end
+               row.item(:state).value(I18n.t(i18n_state(d.state).strip_tags))
+               row.item(:receipt_library).value(Library.find(r.receipt_library_id).display_name)
+               row.item(:title).value(r.manifestation.original_title)
+               row.item(:expired_at).value(r.expired_at.strftime("%Y/%m/%d"))
+               user = r.user.patron.full_name
+               if SystemConfiguration.get("reserve_print.old") == true and  r.user.patron.date_of_birth
+                 age = (Time.now.strftime("%Y%m%d").to_f - r.user.patron.date_of_birth.strftime("%Y%m%d").to_f) / 10000
+                 age = age.to_i
+                 user = user + '(' + age.to_s + I18n.t('activerecord.attributes.patron.old')  +')'
+               end
+               row.item(:user).value(user)
+               information_type = I18n.t(i18n_information_type(r.information_type_id).strip_tags)
+               information_type += ': ' + Reserve.get_information_type(r) if r.information_type_id != 0 and !Reserve.get_information_type(r).nil?
+               row.item(:information_type).value(information_type)
+            end
+            before_receipt_library = r.receipt_library_id
+            before_state = d.state
+          end
+        else
+          page.list(:list).add_row do |row|
+            row.item(:state).value(I18n.t(i18n_state(d.state).strip_tags))
+            row.item(:not_found).show
+            row.item(:not_found).value(I18n.t('page.no_record_found'))
+            row.item(:line2).hide
+            row.item(:line3).hide
+            row.item(:line4).hide
+            row.item(:line5).hide
+          end
+        end
+      end
+      return report
+    end
+  end
+
+  def self.get_reservelist_tsv(displist)
+    @buf = String.new
+    displist.each do |d|
+      @buf << "\"" + I18n.t(i18n_state(d.state).strip_tags) + "\"" + "\n"
+      @buf << "\"" + I18n.t('activerecord.attributes.manifestation.original_title') + "\"" + "\t" +
+        "\"" + I18n.t('activerecord.attributes.user.user_number') + "\"" + "\t" +
+        "\"" + I18n.t('activerecord.models.user') + "\"" + "\t" +
+        "\"" + I18n.t('activerecord.attributes.item.item_identifier') + "\"" + "\t" +
+        "\n"
+      d.reserves.each do |reserve|
+        original_title = ""
+        original_title = reserve.manifestation.original_title unless reserve.manifestation.original_title.blank?
+        user_number = ""
+        user_number = reserve.user.user_number unless reserve.user.user_number.blank?
+        full_name = ""
+        full_name = reserve.user.patron.full_name unless reserve.user.patron.full_name.blank?
+        if SystemConfiguration.get("reserve_print.old") == true and  reserve.user.patron.date_of_birth
+          age = (Time.now.strftime("%Y%m%d").to_f - reserve.user.patron.date_of_birth.strftime("%Y%m%d").to_f) / 10000
+          age = age.to_i
+          full_name = full_name + '(' + age.to_s + I18n.t('activerecord.attributes.patron.old')  +')'
+        end
+        item_identifier = ""
+        item_identifier = reserve.item.item_identifier if !reserve.item.blank? and !reserve.item.item_identifier.blank?
+        @buf << "\"" + original_title + "\"" + "\t" +
+                "\"" + user_number + "\"" + "\t" +
+                "\"" + full_name + "\"" + "\t" +
+                "\"" + item_identifier + "\"" + "\t" +
+                "\n"
+      end
+      @buf << "\n"
+    end
+    return @buf
+  end
 end
 
 # == Schema Information

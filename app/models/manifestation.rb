@@ -200,7 +200,7 @@ class Manifestation < ActiveRecord::Base
   validates :identifier, :uniqueness => true, :allow_blank => true
   validates :access_address, :url => true, :allow_blank => true, :length => {:maximum => 255}
   validate :check_isbn, :check_issn, :check_lccn, :unless => :during_import
-  #validate :check_date
+  #validate :check_pub_date
   before_validation :set_wrong_isbn, :check_issn, :check_lccn, :set_language, :if => :during_import
   before_validation :convert_isbn
   before_create :set_digest
@@ -219,8 +219,8 @@ class Manifestation < ActiveRecord::Base
     10
   end
 
-  def check_date
-    logger.info "manifestaion#check_date pub_date=#{self.pub_date}"
+  def check_pub_date
+    logger.info "manifestaion#check pub_date=#{self.pub_date}"
     date = self.pub_date.to_s.gsub(' ', '').dup
     return if date.blank?
 
@@ -228,21 +228,30 @@ class Manifestation < ActiveRecord::Base
       errors.add(:pub_date); return
     end
 
-    date = date.gsub('-', '')
-    case date.length
-    when 4
-      data = "#{date}-01-01"
-    when 6
-      year = date.slice(0, 4)
-      month = date.slice(4, 2)
-      date = "#{year}-#{month}-01"
-    when 8
-      year = date.slice(0, 4)
-      month = date.slice(4, 2)
-      day = date.slice(6, 2) 
-      date = "#{year}-#{month}-#{day}"
+    if date =~ /^[0-9]+$/  # => YYYY / YYYYMM / YYYYMMDD
+      case date.length
+      when 4
+        date = "#{date}-01-01"
+      when 6
+        year = date.slice(0, 4)
+        month = date.slice(4, 2)
+        date = "#{year}-#{month}-01"
+      when 8
+        year = date.slice(0, 4)
+        month = date.slice(4, 2)
+        day = date.slice(6, 2) 
+        date = "#{year}-#{month}-#{day}"
+      else
+        errors.add(:pub_date); return
+      end
     else
-      errors.add(:pub_date); return
+      date_a = date.split(/\D/) #=> ex. YYYY / YYYY-MM / YYYY-MM-DD / YY-MM-DD
+      year = date_a[0]
+      month = date_a[1]
+      day = date_a[2]
+      date = "#{year}-01-01" unless month and day
+      date = "#{year}-#{month}-01" unless day
+      date = "#{year}-#{month}-#{day}" if year and month and day
     end
 
     begin

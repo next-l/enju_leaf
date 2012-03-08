@@ -188,6 +188,10 @@ class ApplicationController < ActionController::Base
     @libraries = Library.all_cache
   end
 
+  def get_real_libraries
+    @libraries = Library.real.all
+  end
+
   def get_library_group
     @library_group = LibraryGroup.site_config
   end

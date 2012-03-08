@@ -16,7 +16,7 @@ class CalendarController < ApplicationController
     else
       @event_strips = Event.event_strips_for_month(@shown_month)
     end
-    get_libraries
+    get_real_libraries
   end
 
   def show
