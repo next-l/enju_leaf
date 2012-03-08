@@ -23,7 +23,8 @@
       <%= link_to image_tag('arrow_down.png', :size => '16x16', :alt => t('page.desc')), url_for(:action => 'index', :sort_by => 'telephone_number_1', :order => 'desc', :query => @query, :birth_date => @date_of_birth, :address => @address) -%>
     </th>
     <th>
-      <%= t('activerecord.attributes.patron.address') -%>
+      <%= t('activerecord.attributes.patron.zip_code_1') -%><br />
+      <%= t('activerecord.attributes.patron.address_1') -%>
     </th>
   </tr>
 
@@ -45,7 +46,10 @@
        <%= user.patron.telephone_number_2 -%>
      <%- end -%>
     </td>
-    <td><%= user.patron.address_1 if user.patron -%></td>
+    <td>
+      <%= user.patron.zip_code_1 if user.patron -%><br />
+      <%= user.patron.address_1 if user.patron -%>
+    </td>
   </tr>
 <%- end -%>
 </table>

@@ -12,7 +12,7 @@
           + "(" + user_name + ")"
           + "&nbsp;"
           + "<a href='javascript:removeUser(" + user_id + ")'>"
-          + "<img src=\'<%= "assets/icons/delete.png"%>\' size=\'16x16\' title=\'<%= t('family.tips_remove') %>\'>"
+          + "<img src='<%= path_to_image('icons/delete.png') -%>' alt='<%= t('family.tips_remove') -%>' size='16x16'>"
           + "</a>"
           + "</div>";
         $(s).appendTo('#print_users');
@@ -36,9 +36,17 @@
   // -->
 </script>
 
-<div id="message" style="color: red"><%= flash[:error] -%></div>
+<div id="message" style="color: red"><%= raw flash[:error].join("<br />") -%></div>
 
 <%= form_tag(:action => :get_user_label) do %>
+  <%= t('print_label.printed_type') -%><br />
+
+  <%- @printed_types.each do |type| -%>
+    <%= check_box_tag "type[]", type, @selected_type.index(type) ? true : false -%><%= t("print_label.#{type}") -%> &nbsp;
+  <%- end -%>
+
+  <br />
+  <br />
   <%= t('print_label.users') -%>
   <div id="print_users">
   </div>

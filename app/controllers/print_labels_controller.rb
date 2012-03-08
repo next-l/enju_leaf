@@ -1,31 +1,35 @@
 class PrintLabelsController < ApplicationController
   before_filter :check_client_ip_address
-  #TODO
-  #load_and_authorize_resource
+  before_filter :check_librarian
 
   def index
-    if user_signed_in?
-      unless current_user.has_role?('Librarian')
-        access_denied; return
-      end
-    end
     user_list(params)
+
+    @printed_types = %w(printed_type_full_name printed_type_address printed_type_postal_barcode)
+    @selected_type = []
+    flash[:error] = []
   end
 
   def get_user_label
-    if params[:users]
-      user_ids = params[:users]
-      report = ThinReports::Report.new :layout => "#{Rails.root.to_s}/app/views/print_labels/patron_label"
-      user_ids.each do |user_id|
-        user = User.find(user_id)
-        report.start_new_page
-        report.page.item(:full_name).value(user.patron.full_name) if user && user.patron
-      end
+    @printed_types = %w(printed_type_full_name printed_type_address printed_type_postal_barcode)
+    @selected_type = params[:type]
+
+    if params[:users] and @selected_type
+      report = UserLabel.output_user_label_pdf(params[:users], @selected_type)
       send_data report.generate, :filename => "users.pdf", :type => 'application/pdf', :disposition => 'attachment'
       return
     end
+
     user_list(params)
-    flash[:error] = t('print_label.nousers')
+    flash[:error] = []
+    unless params[:users]
+      flash[:error] << t('print_label.nousers')
+    end
+    unless @selected_type
+      flash[:error] << t('print_label.notypes') 
+    end
+
+    @selected_type = @selected_type || []
     render :action => "index"
   end
 
@@ -34,6 +38,14 @@ class PrintLabelsController < ApplicationController
   end
 
 private
+  def check_librarian
+    if user_signed_in?
+      unless current_user.has_role?('Librarian')
+        access_denied; return
+      end
+    end
+  end
+
   def user_list(params)
     query = params[:query].to_s
     @query = query.dup
