@@ -252,3 +252,15 @@ system_configuration_00042:
   v: "true"
   typename: Boolean
   description: "資料の検索履歴をファイルで記録するかどうか。trueのときファイルに記録。falseのときDBに記録。"
+system_configuration_00043:
+  id: 43
+  keyname: user_show_purchase_requests
+  v: "true"
+  typename: Boolean
+  description: "ユーザー権限以下でログイン時、購入リクエスト画面を表示するかどうか。trueのとき表示。"
+system_configuration_00044:
+  id: 44
+  keyname: user_show_questions
+  v: "true"
+  typename: Boolean
+  description: "ユーザー権限以下でログイン時、質問(レファレンス)画面を表示するかどうか。trueのとき表示。"

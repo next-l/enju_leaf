@@ -9,6 +9,10 @@ a.fg-4button {
    width: 184px;
 }
 
+a.fg-3button {
+   width: 260px;
+}
+
 /** cheked_outs **/
 #user_comment {
   padding: 5px;

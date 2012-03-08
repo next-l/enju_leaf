@@ -11,12 +11,16 @@ class PurchaseRequestsController < ApplicationController
   # GET /purchase_requests.xml
   def index
     unless current_user.has_role?('Librarian')
-      if @user
-        unless current_user == @user
-          access_denied; return
+      if SystemConfiguration.get("user_show_purchase_requests")
+        if @user
+          unless current_user == @user
+            access_denied; return
+          end
+        else
+          redirect_to user_purchase_requests_path(current_user); return
         end
       else
-        redirect_to user_purchase_requests_path(current_user); return
+        access_denied; return
       end
     end
 
@@ -67,6 +71,12 @@ class PurchaseRequestsController < ApplicationController
   # GET /purchase_requests/1
   # GET /purchase_requests/1.xml
   def show
+    unless current_user.has_role?('Librarian')
+      unless SystemConfiguration.get("user_show_purchase_requests")
+        access_denied; return
+      end
+    end
+
     if @user
       @purchase_request = @user.purchase_requests.find(params[:id])
     end
@@ -80,8 +90,16 @@ class PurchaseRequestsController < ApplicationController
   # GET /purchase_requests/new
   # GET /purchase_requests/new.xml
   def new
-    if !current_user.has_role?('Librarian')
-      unless current_user == @user
+    unless current_user.has_role?('Librarian')
+      if SystemConfiguration.get("user_show_purchase_requests")
+        if @user
+          unless current_user == @user
+            access_denied; return
+          end
+        else
+          redirect_to user_purchase_requests_path(current_user); return
+        end
+      else
         access_denied; return
       end
     end
@@ -102,6 +120,12 @@ class PurchaseRequestsController < ApplicationController
 
   # GET /purchase_requests/1/edit
   def edit
+    unless current_user.has_role?('Librarian')
+      unless SystemConfiguration.get("user_show_purchase_requests")
+        access_denied; return
+      end
+    end
+
     if @user
       @purchase_request = @user.purchase_requests.find(params[:id])
       if current_user.has_role?('Librarian')
@@ -115,6 +139,12 @@ class PurchaseRequestsController < ApplicationController
   # POST /purchase_requests
   # POST /purchase_requests.xml
   def create
+    unless current_user.has_role?('Librarian')
+      unless SystemConfiguration.get("user_show_purchase_requests")
+        access_denied; return
+      end
+    end
+
     if @user
       @purchase_request = @user.purchase_requests.new(params[:purchase_request])
     else
@@ -137,6 +167,12 @@ class PurchaseRequestsController < ApplicationController
   # PUT /purchase_requests/1
   # PUT /purchase_requests/1.xml
   def update
+    unless current_user.has_role?('Librarian')
+      unless SystemConfiguration.get("user_show_purchase_requests")
+        access_denied; return
+      end
+    end
+
     if @user
       @purchase_request = @user.purchase_requests.find(params[:id])
     end
@@ -191,6 +227,20 @@ class PurchaseRequestsController < ApplicationController
   # DELETE /purchase_requests/1
   # DELETE /purchase_requests/1.xml
   def destroy
+    unless current_user.has_role?('Librarian')
+      if SystemConfiguration.get("user_show_purchase_requests")
+        if @user
+          unless current_user == @user
+            access_denied; return
+          end
+        else
+          redirect_to user_purchase_requests_path(current_user); return
+        end
+      else
+        access_denied; return
+      end
+    end
+
     if @user
       @purchase_request = @user.purchase_requests.find(params[:id])
     end
