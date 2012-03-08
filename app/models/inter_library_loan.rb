@@ -134,6 +134,75 @@ class InterLibraryLoan < ActiveRecord::Base
       return false
     end
   end
+
+  def self.get_loan_lists(loans, library_ids)
+    report = ThinReports::Report.new :layout => "#{Rails.root.to_s}/app/views/inter_library_loans/loan_list"
+
+    report.events.on :page_create do |e|
+      e.page.item(:page).value(e.page.no)
+    end
+    report.events.on :generate do |e|
+      e.pages.each do |page|
+        page.item(:total).value(e.report.page_count)
+      end
+    end
+
+    library_ids.each do |library_id|
+      library = Library.find(library_id) rescue nil
+      to_libraries = InterLibraryLoan.where(:from_library_id => library_id).inject([]){|libraries, data| libraries << Library.find(data.to_library_id)}
+      next if to_libraries.blank?
+      to_libraries.uniq.each do |to_library|
+        report.start_new_page
+        report.page.item(:date).value(Time.now)
+        report.page.item(:library).value(library.display_name.localize)
+        report.page.item(:library_move_to).value(to_library.display_name.localize)
+        loans.each do |loan|
+          if loan.from_library_id == library.id && loan.to_library_id == to_library.id && loan.reason == 1
+            report.page.list(:list).add_row do |row|
+              row.item(:reason).value(I18n.t('inter_library_loan.checkout'))
+              row.item(:item_identifier).value(loan.item.item_identifier)
+              row.item(:shelf).value(loan.item.shelf.display_name) if loan.item.shelf
+              row.item(:call_number).value(loan.item.call_number)
+              row.item(:title).value(loan.item.manifestation.original_title) if loan.item.manifestation
+            end
+          end
+        end
+        loans.each do |loan|
+          if loan.from_library_id == library.id && loan.to_library_id == to_library.id && loan.reason == 2
+            report.page.list(:list).add_row do |row|
+              row.item(:reason).value(I18n.t('inter_library_loan.checkin'))
+              row.item(:item_identifier).value(loan.item.item_identifier)
+              row.item(:shelf).value(loan.item.shelf.display_name) if loan.item.shelf
+              row.item(:call_number).value(loan.item.call_number)
+              row.item(:title).value(loan.item.manifestation.original_title) if loan.item.manifestation
+            end
+          end
+        end
+      end
+    end
+    logger.error report.page
+    return report
+  end
+
+  def self.get_pickup_item_file(pickup_item, loan)
+    report = ThinReports::Report.new :layout => "#{Rails.root.to_s}/app/views/inter_library_loans/move_item"
+    report.start_new_page
+    report.page.item(:export_date).value(Time.now)
+    report.page.item(:title).value(pickup_item.manifestation.original_title)
+    report.page.item(:call_number).value(pickup_item.call_number)
+    report.page.item(:from_library).value(loan.from_library.display_name.localize)
+    report.page.item(:to_library).value(loan.to_library.display_name.localize)
+    report.page.item(:reason).value(I18n.t('inter_library_loan.checkout')) if loan.reason == 1
+    report.page.item(:reason).value(I18n.t('inter_library_loan.checkin')) if loan.reason == 2
+    reserve = Reserve.waiting.where(:item_id => loan.item_id, :receipt_library_id => loan.to_library_id, :state => 'in_process').first
+    if reserve
+      report.page.item(:user_title).show
+      report.page.item(:reserve_user).value(reserve.user.username) if reserve.user
+      report.page.item(:expire_date_title).show
+      report.page.item(:reserve_expire_date).value(reserve.expired_at)
+    end
+    return report
+  end
 end
 
 # == Schema Information

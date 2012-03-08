@@ -120,83 +120,41 @@ class InterLibraryLoansController < ApplicationController
   end
  
   def export_loan_lists
-    @libraries = Library.all
+    @libraries = Library.real.all
   end
 
   def get_loan_lists
     library_ids = params[:library] || []
+
+    # check checked
     if library_ids.empty?
       flash[:message] = t('inter_library_loan.no_library')
-      @libraries = Library.all
-      render :export_loan_lists
-      return false
+      @libraries = Library.real.all
+      render :export_loan_lists; return false
     end
+    # check date_exist?
     @loans = InterLibraryLoan.loan_items
     if @loans.blank?
       flash[:message] = t('inter_library_loan.no_loan')
-      @libraries = Library.all
-      render :export_loan_lists
-      return false
+      @libraries = Library.real.all
+      render :export_loan_lists; return false
     end
-    begin
-      report = ThinReports::Report.new :layout => "#{Rails.root.to_s}/app/views/inter_library_loans/loan_list"
- 
-      report.events.on :page_create do |e|
-        e.page.item(:page).value(e.page.no)
-      end
-      report.events.on :generate do |e|
-        e.pages.each do |page|
-          page.item(:total).value(e.report.page_count)
-        end
-      end
 
-      library_ids.each do |library_id|
-        library = Library.find(library_id) rescue nil
-        to_libraries = InterLibraryLoan.where(:from_library_id => library_id).inject([]){|libraries, data| libraries << Library.find(data.to_library_id)}
-        next if to_libraries.blank?
-        to_libraries.uniq.each do |to_library|
-          report.start_new_page
-          report.page.item(:date).value(Time.now)
-          report.page.item(:library).value(library.display_name.localize)
-          report.page.item(:library_move_to).value(to_library.display_name.localize)
-          @loans.each do |loan|
-            if loan.from_library_id == library.id && loan.to_library_id == to_library.id && loan.reason == 1
-              report.page.list(:list).add_row do |row|
-                row.item(:reason).value(t('inter_library_loan.checkout'))
-                row.item(:item_identifier).value(loan.item.item_identifier)
-                row.item(:shelf).value(loan.item.shelf.display_name) if loan.item.shelf
-                row.item(:call_number).value(loan.item.call_number)
-                row.item(:title).value(loan.item.manifestation.original_title) if loan.item.manifestation
-              end
-            end
-          end
-          @loans.each do |loan|
-            if loan.from_library_id == library.id && loan.to_library_id == to_library.id && loan.reason == 2
-              report.page.list(:list).add_row do |row|
-                row.item(:reason).value(t('inter_library_loan.checkin'))
-                row.item(:item_identifier).value(loan.item.item_identifier)
-                row.item(:shelf).value(loan.item.shelf.display_name) if loan.item.shelf
-                row.item(:call_number).value(loan.item.call_number)
-                row.item(:title).value(loan.item.manifestation.original_title) if loan.item.manifestation
-              end
-            end
-          end
-        end
-      end
-      logger.error report.page
+    begin
+      report = InterLibraryLoan.get_loan_lists(@loans, library_ids)
       if report.page
         send_data report.generate, :filename => "loan_lists.pdf", :type => 'application/pdf', :disposition => 'attachment'
         logger.error "created report: #{Time.now}"
         return true
       else
         flash[:message] = t('inter_library_loan.no_loan')
-        @libraries = Library.all
-        render :export_loan_lists
-        return false
+        @libraries = Library.real.all
+        render :export_loan_lists; return false
       end
     rescue Exception => e
       logger.error "failed #{e}"
-      return false
+      @libraries = Library.real.all
+      render :export_loan_lists; return false
     end
   end
 
@@ -204,10 +162,13 @@ class InterLibraryLoansController < ApplicationController
     library = current_user.library
     item_identifier = params[:item_identifier_tmp].strip
     @pickup_item = Item.where(:item_identifier => item_identifier).first
+
+    # check item_exist?
     unless @pickup_item
       flash[:message] = t('inter_library_loan.no_item') 
       render :pickup and return false
     end
+    # check loan_item_exist?
     @loan = InterLibraryLoan.in_process.find(:first, :conditions => ['item_id = ?', @pickup_item.id])
     unless @loan
       flash[:message] = t('inter_library_loan.no_loan') 
@@ -222,23 +183,7 @@ class InterLibraryLoansController < ApplicationController
       @loan.sm_ship!
       @loan.save
 
-      # export receipt for transportation
-      report = ThinReports::Report.new :layout => "#{Rails.root.to_s}/app/views/inter_library_loans/move_item"
-      report.start_new_page
-      report.page.item(:export_date).value(Time.now)
-      report.page.item(:title).value(@pickup_item.manifestation.original_title)
-      report.page.item(:call_number).value(@pickup_item.call_number)
-      report.page.item(:from_library).value(@loan.from_library.display_name.localize)
-      report.page.item(:to_library).value(@loan.to_library.display_name.localize)
-      report.page.item(:reason).value(t('inter_library_loan.checkout')) if @loan.reason == 1
-      report.page.item(:reason).value(t('inter_library_loan.checkin')) if @loan.reason == 2
-      reserve = Reserve.waiting.where(:item_id => @loan.item_id, :receipt_library_id => @loan.to_library_id, :state => 'in_process').first 
-      if reserve
-        report.page.item(:user_title).show
-        report.page.item(:reserve_user).value(reserve.user.username) if reserve.user
-        report.page.item(:expire_date_title).show
-        report.page.item(:reserve_expire_date).value(reserve.expired_at)
-      end
+      report = InterLibraryLoan.get_pickup_item_file(@pickup_item, @loan)
       # check dir
       out_dir = "#{Rails.root}/private/system/inter_library_loans/"
       FileUtils.mkdir_p(out_dir) unless FileTest.exist?(out_dir)
