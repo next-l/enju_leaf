@@ -44,7 +44,7 @@
     <br style="clear:both;"/>
   </div>
   <div class="actions">
-    <%= submit_tag t('page.output_pdf', :model => (t('page.listing', :model => t('activerecord.models.reserve')))), :name => 'output_pdf' %>
-    <%= submit_tag t('page.output_tsv', :model => (t('page.listing', :model => t('activerecord.models.reserve')))), :name => 'output_tsv' %>
+    <%= submit_tag t('page.output_pdf', :model => (t('page.listing', :model => t('activerecord.models.reserve')))), :name => 'pdf' %>
+    <%= submit_tag t('page.output_tsv', :model => (t('page.listing', :model => t('activerecord.models.reserve')))), :name => 'tsv' %>
   </div>
 <%- end -%>
