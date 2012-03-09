@@ -59,7 +59,7 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_event.git
-  revision: 5bd4d01caec5929e3220cebae4560314634e3d4a
+  revision: bdaeb5ce0addccd47a91ebf2e6b83cd6ddeabac3
   specs:
     enju_event (0.0.9)
       acts_as_list (~> 0.1.5)
