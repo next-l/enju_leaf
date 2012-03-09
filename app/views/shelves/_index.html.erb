@@ -31,11 +31,13 @@
     </td>
     <td><%= link_to shelf.library.display_name.localize, library_path(shelf.library) if shelf.library -%></td>
     <td>
-      <%- if can? :update, shelf -%>
-        <%= link_to t('page.edit'), edit_shelf_path(shelf) -%>
+      <% if can? :update, shelf %>
+        <%- unless shelf.open_access == 9 %>
+          <%= link_to t('page.edit'), edit_shelf_path(shelf) -%>
+        <% end %>
       <% end %>
       <%- if can? :destroy, shelf -%>
-        <%- unless shelf.id == 1 -%>
+        <%- unless shelf.id == 1 or shelf.open_access == 9 -%>
           <%= link_to t('page.destroy'), shelf, :confirm => t('page.are_you_sure'), :method => :delete -%>
         <%- end -%>
       <%- end -%>

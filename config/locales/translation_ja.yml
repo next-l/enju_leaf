@@ -506,6 +506,7 @@ ja:
         open_access: 開架区分
         open: 開架 
         closed: 閉架
+        in_process: 受入手続き中
       event_category:
         name: 名前
         display_name: 表示名
@@ -1771,6 +1772,7 @@ ja:
     number_of_item: "所蔵冊数"
     address: "住所"
     cannot_delete: "この図書館は削除できません。"
+    already_exist_shelf: "図書館作成時のデフォルトの本棚名と同一の本棚が既に存在しています。この名前では図書館の作成ができません。"
   shelf:
     cannot_delete: "この本棚は削除できません。"
   import:

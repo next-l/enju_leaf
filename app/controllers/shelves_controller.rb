@@ -57,6 +57,9 @@ class ShelvesController < ApplicationController
   # GET /shelves/1;edit
   def edit
     @shelf = Shelf.find(params[:id], :include => :library)
+    if @shelf.open_access == 9
+      access_denied; return
+    end
   end
 
   # POST /shelves
@@ -86,6 +89,10 @@ class ShelvesController < ApplicationController
   # PUT /shelves/1.xml
   def update
     @shelf= Shelf.find(params[:id])
+    if @shelf.open_access == 9
+      access_denied; return
+    end
+
     @shelf.library = @library if @library
 
     if params[:position]
@@ -110,7 +117,7 @@ class ShelvesController < ApplicationController
   # DELETE /shelves/1
   # DELETE /shelves/1.xml
   def destroy
-    if @shelf.id == 1
+    if @shelf.id == 1 or @shelf.open_access == 9
       access_denied; return
     end
     respond_to do |format|
