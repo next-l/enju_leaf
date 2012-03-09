@@ -59,7 +59,7 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_event.git
-  revision: bdaeb5ce0addccd47a91ebf2e6b83cd6ddeabac3
+  revision: 656af0947fff8992349ead0c57fad5c850a9ffd9
   specs:
     enju_event (0.0.9)
       acts_as_list (~> 0.1.5)
@@ -425,7 +425,7 @@ GEM
     net-sftp (2.0.5)
       net-ssh (>= 2.0.9)
     net-ssh (2.3.0)
-    nokogiri (1.5.0)
+    nokogiri (1.5.1)
     omniauth (1.0.3)
       hashie (~> 1.2)
       rack
