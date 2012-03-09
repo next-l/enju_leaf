@@ -220,3 +220,9 @@ configatron.reserves.able_for_not_item = true
 
 # refs 1978 拡張統計-図書リストの新刊購入受入リスト 出版日がシステム日付からn日前以降であるものを抽出
 configatron.new_book_term = 14
+
+# refs 3127 ユーザー権限以下でログイン時、購入リクエスト画面を表示するかどうか。trueのとき表示
+configatron.user_show_purchase_requests
+
+# refs 3127 ユーザー権限以下でログイン時、質問(レファレンス)ト画面を表示するかどうか。trueのとき表示
+configatron.user_show_questions
