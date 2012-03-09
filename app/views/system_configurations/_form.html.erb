@@ -6,11 +6,17 @@
     <%= f.text_field :keyname -%>
   </div>
 
-  <div class="field">
-    <%= f.label :v %><br />
-    <%= f.text_field :v -%> <br />
-    <%= t('activerecord.attributes.system_configuration.type_format') -%>
-  </div>
+  <% if @system_configuration and @system_configuration.typename == 'Boolean' %>
+    <div class="field">
+      <%= f.label :v %><br />
+      <%= f.select :v, ["true", "false"] -%> <br />
+    </div>
+  <% else %>
+    <div class="field">
+      <%= f.label :v %><br />
+      <%= f.text_field :v -%> <br />
+    </div>
+  <% end %>
 
   <div class="field">
     <%= f.label :typename %><br />

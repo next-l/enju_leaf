@@ -1,4 +1,4 @@
-<%- if @order_list -%>
+<%- if SystemConfiguration.get("use_order_lists") and @order_list -%>
   <%= render 'index_order_list' -%>
 <%- else -%>
   <%= render 'index' -%>

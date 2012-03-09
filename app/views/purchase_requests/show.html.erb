@@ -86,12 +86,14 @@
 <div id="submenu" class="ui-corner-all">
   <ul>
     <%- if current_user.has_role?('Librarian') -%>
-      <%- if @purchase_request.order_list -%>
-        <li><%= link_to t('purchase_request.remove_from_order_list'), order_path(@purchase_request.order), 
-              :method => :delete, :confirm => t('page.are_you_sure') -%></li>
-      <%- else -%>
-        <li><%= link_to t('purchase_request.add_to_order_list'), new_purchase_request_order_path(@purchase_request) -%></li>
-      <%- end -%>
+      <% if SystemConfiguration.get("use_order_lists") %>
+       <%- if @purchase_request.order_list -%>
+          <li><%= link_to t('purchase_request.remove_from_order_list'), order_path(@purchase_request.order), 
+                :method => :delete, :confirm => t('page.are_you_sure') -%></li>
+        <%- else -%>
+          <li><%= link_to t('purchase_request.add_to_order_list'), new_purchase_request_order_path(@purchase_request) -%></li>
+        <%- end -%>
+      <% end %>
     <%- end -%>
 
     <%- if current_user.has_role?('Librarian') -%>

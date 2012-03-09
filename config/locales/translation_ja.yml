@@ -1331,7 +1331,6 @@ ja:
         typename: "型"
         description: "説明"
         invalid_format: "の型が不正です"
-        type_format: "型が Boolean の場合は true もしくは false を指定してください。"
       expense:
         budget: 予算
         item: 所蔵情報

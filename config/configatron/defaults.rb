@@ -226,3 +226,6 @@ configatron.user_show_purchase_requests
 
 # refs 3127 ユーザー権限以下でログイン時、質問(レファレンス)ト画面を表示するかどうか。trueのとき表示
 configatron.user_show_questions
+
+# refs 3128 発注リストを使用するかどうか。trueのとき使用可能
+configatron.use_order_lists

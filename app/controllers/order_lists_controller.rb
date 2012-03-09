@@ -2,6 +2,9 @@ class OrderListsController < ApplicationController
   before_filter :check_client_ip_address
   load_and_authorize_resource
   before_filter :get_bookstore
+  unless SystemConfiguration.get("use_order_lists")
+    before_filter :access_denied
+  end
 
   # GET /order_lists
   # GET /order_lists.xml

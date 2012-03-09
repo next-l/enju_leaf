@@ -264,3 +264,9 @@ system_configuration_00044:
   v: "true"
   typename: Boolean
   description: "ユーザー権限以下でログイン時、質問(レファレンス)画面を表示するかどうか。trueのとき表示。"
+system_configuration_00045:
+  id: 45
+  keyname: use_order_lists
+  v: "true"
+  typename: Boolean
+  description: "発注リストを使用するかどうか。trueのとき使用可能。"
