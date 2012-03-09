@@ -112,7 +112,7 @@ gem 'rails_autolink'
 #end
 
 group :development do
-  gem 'parallel_tests', '~> 0.7.0.rc3'
+  gem 'parallel_tests', '~> 0.7'
   gem 'annotate'
 end
 

@@ -275,9 +275,9 @@ class ResourceImportFile < ActiveRecord::Base
   def open_import_file
     tempfile = Tempfile.new('patron_import_file')
     if configatron.uploaded_file.storage == :s3
-      uploaded_file_path = open(self.resource_import.expiring_url(10)).path
+      uploaded_file_path = resource_import.expiring_url(10)
     else
-      uploaded_file_path = self.resource_import.path
+      uploaded_file_path = resource_import.path
     end
     open(uploaded_file_path){|f|
       f.each{|line|

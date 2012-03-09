@@ -643,7 +643,7 @@ DEPENDENCIES
   omniauth (~> 1.0)
   paper_trail (~> 2.6)
   paperclip (~> 2.7)
-  parallel_tests (~> 0.7.0.rc3)
+  parallel_tests (~> 0.7)
   pg
   progress_bar
   rack-protection
