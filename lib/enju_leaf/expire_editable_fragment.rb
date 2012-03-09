@@ -34,17 +34,10 @@ module ExpireEditableFragment
     formats = ['atom', 'csv', 'html', 'mods', 'mobile', 'oai_list_identifiers', 'oai_list_records', 'rdf', 'rss'] if formats.empty?
     if manifestation
       I18n.available_locales.each do |locale|
-        if fragment == 'holding'
-          expire_fragment(:controller => :manifestations, :action => :show, :id => manifestation.id, :page => fragment, :locale => locale, :manifestation_id => nil)
+        Role.all_cache.each do |role|
+          expire_fragment(:controller => :manifestations, :action => :show, :id => manifestation.id, :page => fragment, :role => role.name, :locale => locale, :manifestation_id => nil)
           formats.each do |format|
-            expire_fragment(:controller => :manifestations, :action => :show, :id => manifestation.id, :page => fragment, :locale => locale, :format => format, :manifestation_id => nil)
-          end
-        else
-          Role.all_cache.each do |role|
-            expire_fragment(:controller => :manifestations, :action => :show, :id => manifestation.id, :page => fragment, :role => role.name, :locale => locale, :manifestation_id => nil)
-            formats.each do |format|
-              expire_fragment(:controller => :manifestations, :action => :show, :id => manifestation.id, :page => fragment, :role => role.name, :locale => locale, :format => format, :manifestation_id => nil)
-            end
+            expire_fragment(:controller => :manifestations, :action => :show, :id => manifestation.id, :page => fragment, :role => role.name, :locale => locale, :format => format, :manifestation_id => nil)
           end
         end
       end

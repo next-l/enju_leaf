@@ -1,7 +1,7 @@
 class PatronImportFile < ActiveRecord::Base
   include ImportFile
   default_scope :order => 'id DESC'
-  scope :not_imported, where(:state => 'pending', :imported_at => nil)
+  scope :not_imported, where(:state => 'pending')
   scope :stucked, where('created_at < ? AND state = ?', 1.hour.ago, 'pending')
 
   if configatron.uploaded_file.storage == :s3
