@@ -5,6 +5,10 @@ describe ExtentsController do
   fixtures :all
   disconnect_sunspot
 
+  def valid_attributes
+    FactoryGirl.attributes_for(:extent)
+  end
+
   describe "GET index" do
     before(:each) do
       FactoryGirl.create(:extent)
@@ -167,7 +171,7 @@ describe ExtentsController do
 
   describe "POST create" do
     before(:each) do
-      @attrs = FactoryGirl.attributes_for(:extent)
+      @attrs = valid_attributes
       @invalid_attrs = {:name => ''}
     end
 
@@ -285,7 +289,7 @@ describe ExtentsController do
   describe "PUT update" do
     before(:each) do
       @extent = FactoryGirl.create(:extent)
-      @attrs = FactoryGirl.attributes_for(:extent)
+      @attrs = valid_attributes
       @invalid_attrs = {:name => ''}
     end
 
@@ -303,7 +307,7 @@ describe ExtentsController do
         end
 
         it "moves its position when specified" do
-          put :update, :id => @extent.id, :extent => @attrs, :position => 2
+          put :update, :id => @extent.id, :extent => @attrs, :move => 'lower'
           response.should redirect_to(extents_url)
         end
       end

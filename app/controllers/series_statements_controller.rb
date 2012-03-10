@@ -5,11 +5,17 @@ class SeriesStatementsController < ApplicationController
   before_filter :get_manifestation, :only => [:index, :show, :new, :edit]
   cache_sweeper :page_sweeper, :only => [:create, :update, :destroy]
   after_filter :solr_commit, :only => [:create, :update, :destroy]
+  if defined?(EnjuResourceMerge)
+    helper_method :get_series_statement_merge_list
+  end
 
   # GET /series_statements
   # GET /series_statements.json
   def index
     search = Sunspot.new_search(SeriesStatement)
+    if defined?(EnjuResourceMerge)
+      get_series_statement_merge_list
+    end
     query = params[:query].to_s.strip
     page = params[:page] || 1
     unless query.blank?
@@ -23,10 +29,12 @@ class SeriesStatementsController < ApplicationController
     end
     #work = @work
     manifestation = @manifestation
+    series_statement_merge_list = @series_statement_merge_list
     unless params[:mode] == 'add'
       search.build do
       #  with(:work_id).equal_to work.id if work
         with(:manifestation_ids).equal_to manifestation.id if manifestation
+        with(:series_statement_merge_list_ids).equal_to series_statement_merge_list.id if series_statement_merge_list
       end
     end
     page = params[:page] || 1
@@ -93,9 +101,8 @@ class SeriesStatementsController < ApplicationController
   # PUT /series_statements/1
   # PUT /series_statements/1.json
   def update
-    if params[:position]
-      @series_statement.insert_at(params[:position])
-      redirect_to series_statements_url
+    if params[:move]
+      move_position(@series_statement, params[:move])
       return
     end
 
@@ -118,7 +125,7 @@ class SeriesStatementsController < ApplicationController
 
     respond_to do |format|
       format.html { redirect_to(series_statements_url) }
-      format.json { head :ok }
+      format.json { head :no_content }
     end
   end
 end

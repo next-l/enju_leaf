@@ -1,9 +1,9 @@
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
 one:
   id: 1
-  name: unknown
-  display_name: unknown
-  short_name: unknown
+  name: enju_library
+  display_name: "<%= I18n.locale %>: Enju Library"
+  short_name: enju
   email: next-l@library.example.jp
   note: 
   my_networks: 0.0.0.0/0

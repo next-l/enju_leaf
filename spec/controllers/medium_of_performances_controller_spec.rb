@@ -5,6 +5,10 @@ describe MediumOfPerformancesController do
   fixtures :all
   disconnect_sunspot
 
+  def valid_attributes
+    FactoryGirl.attributes_for(:medium_of_performance)
+  end
+
   describe "GET index" do
     before(:each) do
       FactoryGirl.create(:medium_of_performance)
@@ -167,7 +171,7 @@ describe MediumOfPerformancesController do
 
   describe "POST create" do
     before(:each) do
-      @attrs = FactoryGirl.attributes_for(:medium_of_performance)
+      @attrs = valid_attributes
       @invalid_attrs = {:name => ''}
     end
 
@@ -285,7 +289,7 @@ describe MediumOfPerformancesController do
   describe "PUT update" do
     before(:each) do
       @medium_of_performance = FactoryGirl.create(:medium_of_performance)
-      @attrs = FactoryGirl.attributes_for(:medium_of_performance)
+      @attrs = valid_attributes
       @invalid_attrs = {:name => ''}
     end
 
@@ -303,7 +307,7 @@ describe MediumOfPerformancesController do
         end
 
         it "moves its position when specified" do
-          put :update, :id => @medium_of_performance.id, :medium_of_performance => @attrs, :position => 2
+          put :update, :id => @medium_of_performance.id, :medium_of_performance => @attrs, :move => 'lower'
           response.should redirect_to(medium_of_performances_url)
         end
       end

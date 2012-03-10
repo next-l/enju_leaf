@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe "series_has_manifestations/index.html.erb" do
+describe "series_has_manifestations/index" do
   before(:each) do
     assign(:series_has_manifestations, [
       stub_model(SeriesHasManifestation,

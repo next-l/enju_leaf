@@ -4,6 +4,10 @@ require 'sunspot/rails/spec_helper'
 describe LanguagesController do
   disconnect_sunspot
 
+  def valid_attributes
+     FactoryGirl.attributes_for(:language)
+  end
+
   describe "GET index" do
     before(:each) do
       FactoryGirl.create(:language)
@@ -45,21 +49,23 @@ describe LanguagesController do
   end
 
   describe "GET show" do
+    before(:each) do
+      @language = FactoryGirl.create(:language)
+    end
+
     describe "When logged in as Administrator" do
       login_admin
 
       it "assigns the requested language as @language" do
-        language = FactoryGirl.create(:language)
-        get :show, :id => language.id
-        assigns(:language).should eq(language)
+        get :show, :id => @language.id
+        assigns(:language).should eq(@language)
       end
     end
 
     describe "When not logged in" do
       it "assigns the requested language as @language" do
-        language = FactoryGirl.create(:language)
-        get :show, :id => language.id
-        assigns(:language).should eq(language)
+        get :show, :id => @language.id
+        assigns(:language).should eq(@language)
       end
     end
   end
@@ -84,20 +90,22 @@ describe LanguagesController do
   end
 
   describe "GET edit" do
+    before(:each) do
+      @language = FactoryGirl.create(:language)
+    end
+
     describe "When logged in as Administrator" do
       login_admin
 
       it "assigns the requested language as @language" do
-        language = FactoryGirl.create(:language)
-        get :edit, :id => language.id
-        assigns(:language).should eq(language)
+        get :edit, :id => @language.id
+        assigns(:language).should eq(@language)
       end
     end
 
     describe "When not logged in" do
       it "should not assign the requested language as @language" do
-        language = FactoryGirl.create(:language)
-        get :edit, :id => language.id
+        get :edit, :id => @language.id
         response.should redirect_to(new_user_session_url)
       end
     end
@@ -105,7 +113,7 @@ describe LanguagesController do
 
   describe "POST create" do
     before(:each) do
-      @attrs = FactoryGirl.attributes_for(:language)
+      @attrs = valid_attributes
       @invalid_attrs = {:name => ''}
     end
 
@@ -223,7 +231,7 @@ describe LanguagesController do
   describe "PUT update" do
     before(:each) do
       @language = FactoryGirl.create(:language)
-      @attrs = FactoryGirl.attributes_for(:language)
+      @attrs = valid_attributes
       @invalid_attrs = {:name => ''}
     end
 
@@ -241,7 +249,7 @@ describe LanguagesController do
         end
 
         it "moves its position when specified" do
-          put :update, :id => @language.id, :language => @attrs, :position => 2
+          put :update, :id => @language.id, :language => @attrs, :move => 'lower'
           response.should redirect_to(languages_url)
         end
       end

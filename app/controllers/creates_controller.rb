@@ -71,10 +71,13 @@ class CreatesController < ApplicationController
   # PUT /creates/1.json
   def update
     # 並べ替え
-    if @work and params[:position]
-      @create.insert_at(params[:position])
-      redirect_to work_creates_url(@work)
-      return
+    if @work and params[:move]
+      direction = params[:move]
+      if ['higher', 'lower'].include?(direction)
+        @create.send("move_#{direction}")
+        redirect_to work_creates_url(@work)
+        return
+      end
     end
 
     respond_to do |format|
@@ -100,13 +103,13 @@ class CreatesController < ApplicationController
       case
       when @patron
         format.html { redirect_to patron_works_url(@patron) }
-        format.json { head :ok }
+        format.json { head :no_content }
       when @work
         format.html { redirect_to work_patrons_url(@work) }
-        format.json { head :ok }
+        format.json { head :no_content }
       else
         format.html { redirect_to creates_url }
-        format.json { head :ok }
+        format.json { head :no_content }
       end
     end
   end

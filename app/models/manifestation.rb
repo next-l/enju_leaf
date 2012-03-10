@@ -3,8 +3,6 @@ class Manifestation < ActiveRecord::Base
   scope :periodical_children, where(:periodical => true)
   has_many :creates, :dependent => :destroy, :foreign_key => 'work_id'
   has_many :creators, :through => :creates, :source => :patron
-  has_many :realizes, :dependent => :destroy, :foreign_key => 'expression_id'
-  has_many :contributors, :through => :realizes, :source => :patron
   has_many :produces, :dependent => :destroy, :foreign_key => 'manifestation_id'
   has_many :publishers, :through => :produces, :source => :patron
   has_many :exemplifies, :foreign_key => 'manifestation_id'
@@ -28,7 +26,7 @@ class Manifestation < ActiveRecord::Base
     text :title, :default_boost => 2 do
       titles
     end
-    text :fulltext, :note, :creator, :contributor, :publisher, :description
+    text :fulltext, :note, :creator, :publisher, :description
     string :title, :multiple => true
     # text フィールドだと区切りのない文字列の index が上手く作成
     #できなかったので。 downcase することにした。
@@ -68,7 +66,6 @@ class Manifestation < ActiveRecord::Base
     time :deleted_at
     time :date_of_publication
     integer :creator_ids, :multiple => true
-    integer :contributor_ids, :multiple => true
     integer :publisher_ids, :multiple => true
     integer :item_ids, :multiple => true
     integer :original_manifestation_ids, :multiple => true
@@ -142,9 +139,9 @@ class Manifestation < ActiveRecord::Base
   end
 
   enju_manifestation_viewer
-  enju_ndl_porta
+  enju_ndl_search
   #enju_amazon
-  #enju_oai
+  enju_oai
   #enju_calil_check
   #enju_cinii
   #has_ipaper_and_uses 'Paperclip'
@@ -163,7 +160,7 @@ class Manifestation < ActiveRecord::Base
   validates :isbn, :uniqueness => true, :allow_blank => true, :unless => proc{|manifestation| manifestation.series_statement}
   validates :nbn, :uniqueness => true, :allow_blank => true
   validates :manifestation_identifier, :uniqueness => true, :allow_blank => true
-  validates :pub_date, :format => {:with => /^\d+(-\d{0,2}){0,2}$/}, :allow_blank => true
+  validates :pub_date, :format => {:with => /^\d+([\/-]\d{0,2}){0,2}$/}, :allow_blank => true
   validates :access_address, :url => true, :allow_blank => true, :length => {:maximum => 255}
   validate :check_isbn, :check_issn, :check_lccn, :unless => :during_import
   validates :issue_number, :numericality => {:greater_than => 0}, :allow_blank => true
@@ -261,21 +258,6 @@ class Manifestation < ActiveRecord::Base
     original_manifestations
   end
 
-  def serial?
-    if new_record?
-      if SeriesStatement.where(:id => series_statement_id).first.try(:periodical)
-        return true
-      end
-    else
-      if series_statement.try(:periodical)
-        return true
-      elsif periodical?
-        return true unless series_statement.try(:root_manifestation) == self
-      end
-    end
-    false
-  end
-
   def number_of_pages
     if self.start_page and self.end_page
       page = self.end_page.to_i - self.start_page.to_i + 1
@@ -343,10 +325,6 @@ class Manifestation < ActiveRecord::Base
     creators.collect(&:name).flatten
   end
 
-  def contributor
-    contributors.collect(&:name).flatten
-  end
-
   def publisher
     publishers.collect(&:name).flatten
   end
@@ -364,7 +342,7 @@ class Manifestation < ActiveRecord::Base
     return nil if self.cached_numdocs < 5
     manifestation = nil
     # TODO: ヒット件数が0件のキーワードがあるときに指摘する
-    response = Manifestation.search(:include => [:creators, :contributors, :publishers, :items]) do
+    response = Manifestation.search(:include => [:creators, :publishers, :items]) do
       fulltext keyword if keyword
       order_by(:random)
       paginate :page => 1, :per_page => 1
@@ -381,38 +359,15 @@ class Manifestation < ActiveRecord::Base
   end
 
   def extract_text
-    extractor = ExtractContent::Extractor.new
-    text = Tempfile::new("text")
-    case self.attachment_content_type
-    when "application/pdf"
-      system("pdftotext -q -enc UTF-8 -raw #{attachment(:path)} #{text.path}")
-      self.fulltext = text.read
-    when "application/msword"
-      system("antiword #{attachment(:path)} 2> /dev/null > #{text.path}")
-      self.fulltext = text.read
-    when "application/vnd.ms-excel"
-      system("xlhtml #{attachment(:path)} 2> /dev/null > #{text.path}")
-      self.fulltext = extractor.analyse(text.read)
-    when "application/vnd.ms-powerpoint"
-      system("ppthtml #{attachment(:path)} 2> /dev/null > #{text.path}")
-      self.fulltext = extractor.analyse(text.read)
-    when "text/html"
-      # TODO: 日本語以外
-      system("w3m -dump #{attachment(:path)} 2> /dev/null | nkf -w > #{text.path}")
-      self.fulltext = extractor.analyse(text.read)
-    end
-
-    #self.indexed_at = Time.zone.now
+    return nil unless attachment.path
+    # TODO: S3 support
+    response = `curl "#{Sunspot.config.solr.url}/update/extract?&extractOnly=true&wt=ruby" --data-binary @#{attachment.path} -H "Content-type:text/html"`
+    self.fulltext = eval(response)[""]
     save(:validate => false)
-    text.close
   end
 
   def created(patron)
     creates.where(:patron_id => patron.id).first
-  end
-
-  def realized(patron)
-    realizes.where(:patron_id => patron.id).first
   end
 
   def produced(patron)
@@ -420,7 +375,11 @@ class Manifestation < ActiveRecord::Base
   end
 
   def sort_title
-    NKF.nkf('-w --katakana', title_transcription) if title_transcription
+    if title_transcription
+      NKF.nkf('-w --katakana', title_transcription)
+    else
+      original_title
+    end
   end
 
   def classifications
@@ -465,10 +424,12 @@ class Manifestation < ActiveRecord::Base
   end
 
   def periodical?
-    if self.new_record?
-      series_statement = SeriesStatement.where(:id => series_statement_id).first
+    if new_record?
+      series = SeriesStatement.where(:id => series_statement_id).first
+    else
+      series = series_statement
     end
-    if series_statement.try(:periodical)
+    if series.try(:periodical)
       return true unless root_of_series?
     end
     false
@@ -479,6 +440,9 @@ class Manifestation < ActiveRecord::Base
   end
 
   if defined?(EnjuCirculation)
+    include EnjuCirculation::Manifestation
+    has_many :reserves, :foreign_key => :manifestation_id
+
     searchable do
       boolean :reservable do
         items.for_checkout.exists?
@@ -502,9 +466,6 @@ class Manifestation < ActiveRecord::Base
       end
       integer :subject_ids, :multiple => true
     end
-  end
-
-  if defined?(EnjuCirculation)
   end
 
   if defined?(EnjuBookmark)
@@ -551,6 +512,35 @@ class Manifestation < ActiveRecord::Base
         end
         paginate :page => page, :per_page => per_page
       end.results
+    end
+  end
+
+  def set_patron_role_type(patron_lists, options = {:scope => :creator})
+    patron_lists.each do |patron_list|
+      name_and_role = patron_list[:full_name].split('||')
+      patron = Patron.where(:full_name => name_and_role[0]).first
+      next unless patron
+      type = name_and_role[1].to_s.strip
+
+      case options[:scope]
+      when :creator
+        type = 'author' if type.blank?
+        role_type = CreateType.where(:name => type).first
+        create = Create.where(:work_id => self.id, :patron_id => patron.id).first
+        if create
+          create.create_type = role_type
+          create.save(:validate => false)
+        end
+      when :publisher
+        type = 'publisher' if role_type.blank?
+        produce = Produce.where(:manifestation_id => self.id, :patron_id => patron.id).first
+        if produce
+          produce.produce_type = ProduceType.where(:name => type).first
+          produce.save(:validate => false)
+        end
+      else
+        raise "#{options[:scope]} is not supported!"
+      end
     end
   end
 end

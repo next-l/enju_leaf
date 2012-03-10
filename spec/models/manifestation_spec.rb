@@ -191,6 +191,10 @@ describe Manifestation, :solr => true do
     Manifestation.pickup.should_not raise_error(ActiveRecord::RecordNotFound)
   end
 
+  it "should be periodical if its series_statement is periodical" do
+    manifestations(:manifestation_00202).periodical?.should be_true
+  end
+
   if defined?(EnjuCirculation)
     it "should respond to is_checked_out_by?" do
       manifestations(:manifestation_00001).is_checked_out_by?(users(:admin)).should be_true

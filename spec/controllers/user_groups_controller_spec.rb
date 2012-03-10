@@ -3,6 +3,10 @@ require 'spec_helper'
 describe UserGroupsController do
   fixtures :all
 
+  def valid_attributes
+    FactoryGirl.attributes_for(:user_group)
+  end
+
   describe "GET index" do
     before(:each) do
       FactoryGirl.create(:user_group)
@@ -165,7 +169,7 @@ describe UserGroupsController do
 
   describe "POST create" do
     before(:each) do
-      @attrs = FactoryGirl.attributes_for(:user_group)
+      @attrs = valid_attributes
       @invalid_attrs = {:name => ''}
     end
 
@@ -283,7 +287,7 @@ describe UserGroupsController do
   describe "PUT update" do
     before(:each) do
       @user_group = FactoryGirl.create(:user_group)
-      @attrs = FactoryGirl.attributes_for(:user_group)
+      @attrs = valid_attributes
       @invalid_attrs = {:name => ''}
     end
 
@@ -301,7 +305,7 @@ describe UserGroupsController do
         end
 
         it "moves its position when specified" do
-          put :update, :id => @user_group.id, :user_group => @attrs, :position => 2
+          put :update, :id => @user_group.id, :user_group => @attrs, :move => 'lower'
           response.should redirect_to(user_groups_url)
         end
       end

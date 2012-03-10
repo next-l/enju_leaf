@@ -8,9 +8,6 @@
     <%- unless manifestation.creators.readable_by(current_user).empty? -%>
       <%= t('patron.creator') -%>: <%= patrons_list(manifestation.creators.readable_by(current_user)) -%>
     <%- end -%>
-    <%- unless manifestation.contributors.readable_by(current_user).empty? -%>
-      <%= t('patron.contributor') -%>: <%= patrons_list(manifestation.contributors.readable_by(current_user)) -%>
-    <%- end -%>
     <%- unless manifestation.publishers.readable_by(current_user).empty? -%>
       <%= t('patron.publisher') -%>: <%= patrons_list(manifestation.publishers.readable_by(current_user)) -%>
     <% end %>

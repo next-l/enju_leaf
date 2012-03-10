@@ -89,7 +89,7 @@ class SeriesHasManifestationsController < ApplicationController
           redirect_to(series_has_manifestations_url)
         end
       }
-      format.json { head :ok }
+      format.json { head :no_content }
     end
   end
 end

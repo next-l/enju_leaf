@@ -1,7 +1,7 @@
 EnjuLeaf::Application.routes.draw do
-  resources :produce_types
+  resources :budget_types
 
-  resources :realize_types
+  resources :produce_types
 
   resources :create_types
 
@@ -14,10 +14,8 @@ EnjuLeaf::Application.routes.draw do
   resources :manifestations do
     resources :patrons
     resources :creators, :controller => 'patrons'
-    resources :contributors, :controller => 'patrons'
     resources :publishers, :controller => 'patrons'
     resources :creates
-    resources :realizes
     resources :produces
     resources :picture_files
     resources :items
@@ -36,15 +34,10 @@ EnjuLeaf::Application.routes.draw do
     resources :patrons
     resources :patron_relationships
     resources :creates
-    resources :realizes
     resources :produces
   end
 
   resources :creators, :controller => 'patrons' do
-    resources :manifestations
-  end
-
-  resources :contributors, :controller => 'patrons' do
     resources :manifestations
   end
 
@@ -58,13 +51,6 @@ EnjuLeaf::Application.routes.draw do
     resources :expressions, :controller => 'manifestations'
     resources :manifestation_relationships
     resources :manifestations
-  end
-
-  resources :expressions, :controller => 'manifestations' do
-    resources :patrons
-    resources :realizes
-    resources :manifestations
-    resources :manifestation_relationships
   end
 
   resources :manifestations do
@@ -102,8 +88,6 @@ EnjuLeaf::Application.routes.draw do
     resources :manifestations, :controller => :manifestations
     resources :series_has_manifestations
   end
-  resources :search_histories, :only => [:index, :show, :destroy]
-
   resources :participates
 
   resources :patron_relationships
@@ -148,10 +132,6 @@ EnjuLeaf::Application.routes.draw do
     resources :patron_import_results, :only => [:index, :show, :destroy]
   end
 
-  resources :event_import_files do
-    resources :event_import_results, :only => [:index, :show, :destroy]
-  end
-  resources :event_import_results, :only => [:index, :show, :destroy]
   resources :patron_import_results, :only => [:index, :show, :destroy]
   resources :resource_import_results, :only => [:index, :show, :destroy]
 
@@ -164,7 +144,6 @@ EnjuLeaf::Application.routes.draw do
 
   resources :owns
   resources :produces
-  resources :realizes
   resources :creates
   resources :exemplifies
 
@@ -185,12 +164,12 @@ EnjuLeaf::Application.routes.draw do
   # Sample resource route with options:
   #   resources :products do
   #     member do
-  #       get :short
-  #       post :toggle
+  #       get 'short'
+  #       post 'toggle'
   #     end
   #
   #     collection do
-  #       get :sold
+  #       get 'sold'
   #     end
   #   end
 
@@ -204,7 +183,7 @@ EnjuLeaf::Application.routes.draw do
   #   resources :products do
   #     resources :comments
   #     resources :sales do
-  #       get :recent, :on => :collection
+  #       get 'recent', :on => :collection
   #     end
   #   end
 
@@ -223,10 +202,10 @@ EnjuLeaf::Application.routes.draw do
 
   # This is a legacy wild controller route that's not recommended for RESTful applications.
   # Note: This route will make all actions in every controller accessible via GET requests.
+  # match ':controller(/:action(/:id))(.:format)'
   match '/isbn/:isbn' => 'manifestations#show'
   match '/calendar(/:year(/:month))' => 'calendar#index', :as => :calendar, :constraints => {:year => /\d{4}/, :month => /\d{1,2}/}
   match "/calendar/:year/:month/:day" => "calendar#show"
-  # match ':controller(/:action(/:id(.:format)))'
   match '/page/about' => 'page#about'
   match '/page/configuration' => 'page#configuration'
   match '/page/advanced_search' => 'page#advanced_search'

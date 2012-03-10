@@ -1,5 +1,5 @@
 class CreateBaskets < ActiveRecord::Migration
-  def self.up
+  def change
     create_table :baskets do |t|
       t.integer :user_id
       t.text :note
@@ -10,9 +10,5 @@ class CreateBaskets < ActiveRecord::Migration
     end
     add_index :baskets, :user_id
     add_index :baskets, :type
-  end
-
-  def self.down
-    drop_table :baskets
   end
 end

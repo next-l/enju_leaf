@@ -28,7 +28,7 @@
   <%- @items.each do |item| -%>
     <tr class="line<%= cycle("0", "1") -%>">
       <td>
-        <%- if item.item_identifier.blank? -%>
+        <%- unless item.item_identifier? -%>
           (<%= link_to t('item.no_number'), item -%>)
         <%- else -%>
           <%= link_to item.item_identifier, item -%>

@@ -1,34 +1,33 @@
-class Devise::SessionsController < ApplicationController
+class Devise::SessionsController < DeviseController
   prepend_before_filter :require_no_authentication, :only => [ :new, :create ]
-  before_filter :allow_params_authentication!, :only => :create
+  prepend_before_filter :allow_params_authentication!, :only => :create
   prepend_before_filter :clear_locale, :only => [:create]
-  include Devise::Controllers::InternalHelpers
 
   # GET /resource/sign_in
   def new
     resource = build_resource
     clean_up_passwords(resource)
-    respond_with_navigational(resource, stub_options(resource)){ render_with_scope :new }
+    respond_with(resource, serialize_options(resource))
   end
 
   # POST /resource/sign_in
   def create
-    resource = warden.authenticate!(:scope => resource_name, :recall => "#{controller_path}#new")
+    resource = warden.authenticate!(auth_options)
     set_flash_message(:notice, :signed_in) if is_navigational_format?
     sign_in(resource_name, resource)
-    respond_with resource, :location => redirect_location(resource_name, resource)
+    respond_with resource, :location => after_sign_in_path_for(resource)
   end
 
-  # GET /resource/sign_out
+  # DELETE /resource/sign_out
   def destroy
-    signed_in = signed_in?(resource_name)
-    Devise.sign_out_all_scopes ? sign_out : sign_out(resource_name)
-    set_flash_message :notice, :signed_out if signed_in
+    redirect_path = after_sign_out_path_for(resource_name)
+    signed_out = (Devise.sign_out_all_scopes ? sign_out : sign_out(resource_name))
+    set_flash_message :notice, :signed_out if signed_out
 
-    # We actually need to hardcode this, as Rails default responder doesn't
+    # We actually need to hardcode this as Rails default responder doesn't
     # support returning empty response on GET request
     respond_to do |format|
-      format.any(*navigational_formats) { redirect_to after_sign_out_path_for(resource_name) }
+      format.any(*navigational_formats) { redirect_to redirect_path }
       format.all do
         method = "to_#{request_format}"
         text = {}.respond_to?(method) ? {}.send(method) : ""
@@ -39,13 +38,17 @@ class Devise::SessionsController < ApplicationController
 
   protected
 
-  def stub_options(resource)
-    array = resource_class.authentication_keys.dup
-    array << :password if resource.respond_to?(:password)
-    { :methods => array, :only => [:password] }
+  def serialize_options(resource)
+    methods = resource_class.authentication_keys.dup
+    methods = methods.keys if methods.is_a?(Hash)
+    methods << :password if resource.respond_to?(:password)
+    { :methods => methods, :only => [:password] }
   end
 
-  private
+  def auth_options
+    { :scope => resource_name, :recall => "#{controller_path}#new" }
+  end
+
   def clear_locale
     session[:locale] = nil
   end

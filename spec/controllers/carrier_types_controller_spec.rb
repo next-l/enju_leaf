@@ -5,6 +5,10 @@ describe CarrierTypesController do
   fixtures :all
   disconnect_sunspot
 
+  def valid_attributes
+    FactoryGirl.attributes_for(:carrier_type)
+  end
+
   describe "GET index" do
     before(:each) do
       FactoryGirl.create(:carrier_type)
@@ -167,7 +171,7 @@ describe CarrierTypesController do
 
   describe "POST create" do
     before(:each) do
-      @attrs = FactoryGirl.attributes_for(:carrier_type)
+      @attrs = valid_attributes
       @invalid_attrs = {:name => ''}
     end
 
@@ -285,7 +289,7 @@ describe CarrierTypesController do
   describe "PUT update" do
     before(:each) do
       @carrier_type = FactoryGirl.create(:carrier_type)
-      @attrs = FactoryGirl.attributes_for(:carrier_type)
+      @attrs = valid_attributes
       @invalid_attrs = {:name => ''}
     end
 
@@ -303,7 +307,7 @@ describe CarrierTypesController do
         end
 
         it "moves its position when specified" do
-          put :update, :id => @carrier_type.id, :carrier_type => @attrs, :position => 2
+          put :update, :id => @carrier_type.id, :carrier_type => @attrs, :move => 'lower'
           response.should redirect_to(carrier_types_url)
         end
       end

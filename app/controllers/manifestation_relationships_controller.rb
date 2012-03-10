@@ -15,9 +15,8 @@ class ManifestationRelationshipsController < InheritedResources::Base
 
   def update
     @manifestation_relationship = ManifestationRelationship.find(params[:id])
-    if params[:position]
-      @manifestation_relationship.insert_at(params[:position])
-      redirect_to manifestation_relationships_url
+    if params[:move]
+      move_position(@manifestation_relationship, params[:move])
       return
     end
     update!

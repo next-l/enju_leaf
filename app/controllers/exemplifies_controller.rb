@@ -63,10 +63,13 @@ class ExemplifiesController < ApplicationController
   # PUT /exemplifies/1
   # PUT /exemplifies/1.json
   def update
-    if @manifestation and params[:position]
-      @exemplify.insert_at(params[:position])
-      redirect_to manifestation_exemplifies_url(@manifestation)
-      return
+    if @manifestation and params[:move]
+      direction = params[:move]
+      if ['higher', 'lower'].include?(direction)
+        @exemplify.send("move_#{direction}")
+        redirect_to manifestation_exemplifies_url(@manifestation)
+        return
+      end
     end
 
     respond_to do |format|
@@ -89,14 +92,14 @@ class ExemplifiesController < ApplicationController
     respond_to do |format|
       flash[:notice] = t('controller.successfully_deleted', :model => t('activerecord.models.exemplify'))
       case when @manifestation
-        format.html { redirect_to manifestation_items_path(@exemplify.manifestation) }
-        format.json { head :ok }
+        format.html { redirect_to @exemplify.manifestation }
+        format.json { head :no_content }
       when @item
         format.html { redirect_to @exemplify.item }
-        format.json { head :ok }
+        format.json { head :no_content }
       else
         format.html { redirect_to exemplifies_url }
-        format.json { head :ok }
+        format.json { head :no_content }
       end
     end
   end

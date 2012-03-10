@@ -75,10 +75,12 @@ class ProducesController < ApplicationController
   # PUT /produces/1
   # PUT /produces/1.json
   def update
-    if @manifestation and params[:position]
-      @produce.insert_at(params[:position])
-      redirect_to manifestation_produces_url(@manifestation)
-      return
+    if @manifestation and params[:move]
+      if ['higher', 'lower'].include?(params[:move])
+        @produce.send("move_#{params[:move]}")
+        redirect_to manifestation_produces_url(@manifestation)
+        return
+      end
     end
 
     respond_to do |format|
@@ -104,13 +106,13 @@ class ProducesController < ApplicationController
       case
       when @patron
         format.html { redirect_to patron_manifestations_url(@patron) }
-        format.json { head :ok }
+        format.json { head :no_content }
       when @manifestation
         format.html { redirect_to manifestation_patrons_url(@manifestation) }
-        format.json { head :ok }
+        format.json { head :no_content }
       else
         format.html { redirect_to produces_url }
-        format.json { head :ok }
+        format.json { head :no_content }
       end
     end
   end

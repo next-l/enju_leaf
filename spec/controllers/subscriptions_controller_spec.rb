@@ -4,6 +4,10 @@ require 'sunspot/rails/spec_helper'
 describe SubscriptionsController do
   disconnect_sunspot
 
+  def valid_attributes
+    FactoryGirl.attributes_for(:subscription)
+  end
+
   describe "GET index" do
     describe "When logged in as Administrator" do
       login_admin
@@ -160,7 +164,7 @@ describe SubscriptionsController do
 
   describe "POST create" do
     before(:each) do
-      @attrs = FactoryGirl.attributes_for(:subscription)
+      @attrs = valid_attributes
       @invalid_attrs = {:user_id => ''}
     end
 
@@ -278,7 +282,7 @@ describe SubscriptionsController do
   describe "PUT update" do
     before(:each) do
       @subscription = FactoryGirl.create(:subscription)
-      @attrs = FactoryGirl.attributes_for(:subscription)
+      @attrs = valid_attributes
       @invalid_attrs = {:user_id => ''}
     end
 

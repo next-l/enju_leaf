@@ -5,6 +5,10 @@ describe PatronTypesController do
   fixtures :all
   disconnect_sunspot
 
+  def valid_attributes
+    @attrs = FactoryGirl.attributes_for(:patron_type)
+  end
+
   describe "GET index" do
     before(:each) do
       FactoryGirl.create(:patron_type)
@@ -169,7 +173,7 @@ describe PatronTypesController do
 
   describe "POST create" do
     before(:each) do
-      @attrs = FactoryGirl.attributes_for(:patron_type)
+      @attrs = valid_attributes
       @invalid_attrs = {:name => ''}
     end
 
@@ -287,7 +291,7 @@ describe PatronTypesController do
   describe "PUT update" do
     before(:each) do
       @patron_type = FactoryGirl.create(:patron_type)
-      @attrs = FactoryGirl.attributes_for(:patron_type)
+      @attrs = valid_attributes
       @invalid_attrs = {:name => ''}
     end
 
@@ -305,7 +309,7 @@ describe PatronTypesController do
         end
 
         it "moves its position when specified" do
-          put :update, :id => @patron_type.id, :patron_type => @attrs, :position => 2
+          put :update, :id => @patron_type.id, :patron_type => @attrs, :move => 'lower'
           response.should redirect_to(patron_types_url)
         end
       end

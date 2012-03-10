@@ -5,6 +5,10 @@ describe SearchEnginesController do
   fixtures :all
   disconnect_sunspot
 
+  def valid_attributes
+    FactoryGirl.attributes_for(:search_engine)
+  end
+
   describe "GET index" do
     before(:each) do
       FactoryGirl.create(:search_engine)
@@ -169,7 +173,7 @@ describe SearchEnginesController do
 
   describe "POST create" do
     before(:each) do
-      @attrs = FactoryGirl.attributes_for(:search_engine)
+      @attrs = valid_attributes
       @invalid_attrs = {:name => ''}
     end
 
@@ -287,7 +291,7 @@ describe SearchEnginesController do
   describe "PUT update" do
     before(:each) do
       @search_engine = FactoryGirl.create(:search_engine)
-      @attrs = FactoryGirl.attributes_for(:search_engine)
+      @attrs = valid_attributes
       @invalid_attrs = {:name => ''}
     end
 
@@ -305,7 +309,7 @@ describe SearchEnginesController do
         end
 
         it "moves its position when specified" do
-          put :update, :id => @search_engine.id, :search_engine => @attrs, :position => 2
+          put :update, :id => @search_engine.id, :search_engine => @attrs, :move => 'lower'
           response.should redirect_to(search_engines_url)
         end
       end

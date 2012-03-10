@@ -4,9 +4,8 @@ class ManifestationRelationshipTypesController < InheritedResources::Base
 
   def update
     @manifestation_relationship_type = ManifestationRelationshipType.find(params[:id])
-    if params[:position]
-      @manifestation_relationship_type.insert_at(params[:position])
-      redirect_to manifestation_relationship_types_url
+    if params[:move]
+      move_position(@manifestation_relationship_type, params[:move])
       return
     end
     update!

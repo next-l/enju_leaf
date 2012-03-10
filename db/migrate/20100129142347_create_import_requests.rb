@@ -1,5 +1,5 @@
 class CreateImportRequests < ActiveRecord::Migration
-  def self.up
+  def change
     create_table :import_requests do |t|
       t.string :isbn
       t.string :state
@@ -11,9 +11,5 @@ class CreateImportRequests < ActiveRecord::Migration
     add_index :import_requests, :isbn
     add_index :import_requests, :manifestation_id
     add_index :import_requests, :user_id
-  end
-
-  def self.down
-    drop_table :import_requests
   end
 end

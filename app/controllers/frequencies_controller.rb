@@ -4,9 +4,8 @@ class FrequenciesController < InheritedResources::Base
 
   def update
     @frequency = Frequency.find(params[:id])
-    if params[:position]
-      @frequency.insert_at(params[:position])
-      redirect_to frequencies_url
+    if params[:move]
+      move_position(@frequency, params[:move])
       return
     end
     update!

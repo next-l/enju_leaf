@@ -4,7 +4,6 @@ class ManifestationsController < ApplicationController
   authorize_resource :only => :index
   before_filter :authenticate_user!, :only => :edit
   before_filter :get_patron
-  before_filter :get_expression, :only => :new
   helper_method :get_manifestation
   if defined?(EnjuSubject)
     helper_method :get_subject
@@ -35,6 +34,7 @@ class ManifestationsController < ApplicationController
         @oai = check_oai_params(params)
         next if @oai[:need_not_to_search]
         if params[:format] == 'oai'
+          oai_search = true
           from_and_until_times = set_from_and_until(Manifestation, params[:from], params[:until])
           from_time = @from_time = from_and_until_times[:from]
           until_time = @until_time = from_and_until_times[:until]
@@ -55,10 +55,10 @@ class ManifestationsController < ApplicationController
               @manifestation = Manifestation.find_by_oai_identifier(params[:identifier])
             rescue ActiveRecord::RecordNotFound
               @oai[:errors] << "idDoesNotExist"
-              render :template => 'manifestations/index.oai.builder'
+              render :formats => :oai, :layout => false
               return
             end
-            render :template => 'manifestations/show.oai.builder'
+            render :template => 'manifestations/show', :formats => :oai, :layout => false
             return
           end
         end
@@ -98,11 +98,10 @@ class ManifestationsController < ApplicationController
       @query = query.dup
       query = query.gsub('　', ' ')
 
-      includes = [:carrier_type, :required_role, :items, :creators, :contributors, :publishers]
+      includes = [:carrier_type, :required_role, :items, :creators, :publishers]
       includes << :bookmarks if defined?(EnjuBookmark)
       search = Manifestation.search(:include => includes)
       role = current_user.try(:role) || Role.default_role
-      oai_search = true if params[:format] == 'oai' and defined?(EnjuOai)
       case @reservable
       when 'true'
         reservable = true
@@ -125,7 +124,6 @@ class ManifestationsController < ApplicationController
       unless mode == 'add'
         search.build do
           with(:creator_ids).equal_to patron[:creator].id if patron[:creator]
-          with(:contributor_ids).equal_to patron[:contributor].id if patron[:contributor]
           with(:publisher_ids).equal_to patron[:publisher].id if patron[:publisher]
           with(:original_manifestation_ids).equal_to manifestation.id if manifestation
           with(:series_statement_id).equal_to series_statement.id if series_statement
@@ -477,7 +475,7 @@ class ManifestationsController < ApplicationController
       else
         prepare_options
         format.html { render :action => "edit" }
-        format.json { render :json => @manifestation, :status => :unprocessable_entity }
+        format.json { render :json => @manifestation.errors, :status => :unprocessable_entity }
       end
     end
   end
@@ -490,7 +488,7 @@ class ManifestationsController < ApplicationController
 
     respond_to do |format|
       format.html { redirect_to manifestations_url }
-      format.json { head :ok }
+      format.json { head :no_content }
     end
   end
 
@@ -531,10 +529,6 @@ class ManifestationsController < ApplicationController
 
     unless options[:creator].blank?
       query = "#{query} creator_text:#{options[:creator]}"
-    end
-
-    unless options[:contributor].blank?
-      query = "#{query} contributor_text:#{options[:contributor]}"
     end
 
     unless options[:isbn].blank?
@@ -656,8 +650,6 @@ class ManifestationsController < ApplicationController
       patron[:patron] = Patron.find(params[:patron_id])
     when params[:creator_id]
       patron[:creator] = Patron.find(params[:creator_id])
-    when params[:contributor_id]
-      patron[:contributor] = Patron.find(params[:contributor_id])
     when params[:publisher_id]
       patron[:publisher] = Patron.find(params[:publisher_id])
     end
@@ -734,7 +726,7 @@ class ManifestationsController < ApplicationController
   def set_title
     if @series_statement
       @manifestation.series_statement_id = @series_statement.id
-      if @manifestation.serial?
+      if @manifestation.periodical?
         @manifestation.set_serial_information
       else
         @manifestation.original_title = @series_statement.original_title
@@ -743,9 +735,6 @@ class ManifestationsController < ApplicationController
     elsif @original_manifestation
       @manifestation.original_title = @original_manifestation.original_title
       @manifestation.title_transcription = @original_manifestation.title_transcription
-    elsif @expression
-      @manifestation.original_title = @expression.original_title
-      @manifestation.title_transcription = @expression.title_transcription
     end
   end
 end

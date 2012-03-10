@@ -1,6 +1,6 @@
 class PageSweeper < ActionController::Caching::Sweeper
   include ExpireEditableFragment
-  observe Create, Realize, Produce, Own, Exemplify, Patron,
+  observe Create, Produce, Own, Exemplify, Patron,
     SeriesStatement, SeriesHasManifestation, PictureFile, Shelf, Library
 
   def after_save(record)
@@ -16,9 +16,6 @@ class PageSweeper < ActionController::Caching::Sweeper
     when :Create
       expire_editable_fragment(record.patron)
       expire_editable_fragment(record.work)
-    when :Realize
-      expire_editable_fragment(record.patron)
-      expire_editable_fragment(record.expression)
     when :Produce
       expire_editable_fragment(record.patron)
       expire_editable_fragment(record.manifestation)

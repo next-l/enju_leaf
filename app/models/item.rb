@@ -13,6 +13,7 @@ class Item < ActiveRecord::Base
   has_many :donors, :through => :donates, :source => :patron
   belongs_to :required_role, :class_name => 'Role', :foreign_key => 'required_role_id', :validate => true
   has_one :resource_import_result
+  belongs_to :budget_type
 
   validates_associated :shelf, :bookstore
   validates :manifestation_id, :presence => true, :on => :create
@@ -25,7 +26,7 @@ class Item < ActiveRecord::Base
   normalize_attributes :item_identifier
 
   searchable do
-    text :item_identifier, :note, :title, :creator, :contributor, :publisher
+    text :item_identifier, :note, :title, :creator, :publisher
     string :item_identifier
     string :library do
       shelf.library.name if shelf
@@ -202,10 +203,6 @@ class Item < ActiveRecord::Base
 
   def creator
     manifestation.try(:creator)
-  end
-
-  def contributor
-    manifestation.try(:contributor)
   end
 
   def publisher

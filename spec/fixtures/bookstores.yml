@@ -75,6 +75,17 @@ bookstore_00006:
   address: ""
   created_at: 2008-02-10 12:15:54.558517 +09:00
   position: 6
+bookstore_00007: 
+  name: Example store
+  fax_number: ""
+  updated_at: 2008-02-10 12:16:25.906073 +09:00
+  deleted_at: 
+  telephone_number: ""
+  id: 7
+  note: ""
+  address: ""
+  created_at: 2008-02-10 12:15:54.558517 +09:00
+  position: 7
 
 # == Schema Information
 #

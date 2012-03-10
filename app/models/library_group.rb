@@ -23,7 +23,7 @@ class LibraryGroup < ActiveRecord::Base
     #else
       LibraryGroup.find(1)
     #end
-  rescue
+  rescue ActiveRecord::RecordNotFound
     nil
   end
 

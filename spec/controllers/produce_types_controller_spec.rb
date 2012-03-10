@@ -75,7 +75,7 @@ describe ProduceTypesController do
 
       it "redirects to the created produce_type" do
         post :create, :produce_type => valid_attributes
-        response.should redirect_to(ProduceType.first)
+        response.should redirect_to(ProduceType.last)
       end
     end
 
@@ -118,6 +118,14 @@ describe ProduceTypesController do
         produce_type = ProduceType.create! valid_attributes
         put :update, :id => produce_type.id, :produce_type => valid_attributes
         response.should redirect_to(produce_type)
+      end
+
+      it "moves its position when specified" do
+        produce_type = ProduceType.create! valid_attributes
+        position = produce_type.position
+        put :update, :id => produce_type.id, :move => 'higher'
+        response.should redirect_to produce_types_url
+        assigns(:produce_type).position.should eq position - 1
       end
     end
 

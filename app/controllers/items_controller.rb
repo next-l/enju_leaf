@@ -230,10 +230,10 @@ class ItemsController < ApplicationController
       flash[:notice] = t('controller.successfully_deleted', :model => t('activerecord.models.item'))
       if @item.manifestation
         format.html { redirect_to manifestation_items_url(manifestation) }
-        format.json { head :ok }
+        format.json { head :no_content }
       else
         format.html { redirect_to items_url }
-        format.json { head :ok }
+        format.json { head :no_content }
       end
     end
   end
@@ -248,6 +248,7 @@ class ItemsController < ApplicationController
     end
     @shelves = @library.shelves
     @bookstores = Bookstore.all
+    @budget_types = BudgetType.all
     @roles = Role.all
     if defined?(EnjuCirculation)
       @circulation_statuses = CirculationStatus.all

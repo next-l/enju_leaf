@@ -81,8 +81,9 @@ class ShelvesController < ApplicationController
   def update
     @shelf.library = @library if @library
 
-    if params[:position]
-      @shelf.insert_at(params[:position])
+    direction = params[:move]
+    if ['higher', 'lower'].include?(direction)
+      @shelf.send("move_#{direction}")
       redirect_to library_shelves_url(@shelf.library)
       return
     end
@@ -110,7 +111,7 @@ class ShelvesController < ApplicationController
 
     respond_to do |format|
       format.html { redirect_to library_shelves_url(@shelf.library) }
-      format.json { head :ok }
+      format.json { head :no_content }
     end
   end
 end

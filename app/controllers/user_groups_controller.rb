@@ -52,9 +52,8 @@ class UserGroupsController < ApplicationController
   # PUT /user_groups/1
   # PUT /user_groups/1.json
   def update
-    if params[:position]
-      @user_group.insert_at(params[:position])
-      redirect_to user_groups_url
+    if params[:move]
+      move_position(@user_group, params[:move])
       return
     end
 
@@ -65,7 +64,7 @@ class UserGroupsController < ApplicationController
         format.json { head :ok }
       else
         format.html { render :action => "edit" }
-        format.json { render :json => @user_group, :status => :unprocessable_entity }
+        format.json { render :json => @user_group.errors, :status => :unprocessable_entity }
       end
     end
   end
@@ -77,7 +76,7 @@ class UserGroupsController < ApplicationController
 
     respond_to do |format|
       format.html { redirect_to user_groups_url }
-      format.json { head :ok }
+      format.json { head :no_content }
     end
   end
 end

@@ -3,7 +3,7 @@ class PatronsController < ApplicationController
   load_and_authorize_resource :except => :index
   authorize_resource :only => :index
   before_filter :get_user_if_nil
-  helper_method :get_work, :get_expression
+  helper_method :get_work
   helper_method :get_manifestation, :get_item
   helper_method :get_patron
   if defined?(EnjuResourceMerge)
@@ -45,7 +45,9 @@ class PatronsController < ApplicationController
       :full_name_transcription,
       :patron_type_id,
       :required_role_id,
-      :created_at
+      :created_at,
+      :updated_at,
+      :date_of_birth
     ]
     set_role_query(current_user, search)
 
@@ -58,20 +60,20 @@ class PatronsController < ApplicationController
       end
     end
 
-    get_work; get_expression; get_manifestation; get_patron
-    get_patron_merge_list if defined?(EnjuResourceMerge)
+    get_work; get_manifestation; get_patron
+    if defined?(EnjuResourceMerge)
+      get_patron_merge_list
+    end
 
     unless params[:mode] == 'add'
       user = @user
       work = @work
-      expression = @expression
       manifestation = @manifestation
       patron = @patron
       patron_merge_list = @patron_merge_list
       search.build do
         with(:user).equal_to user.username if user
         with(:work_ids).equal_to work.id if work
-        with(:expression_ids).equal_to expression.id if expression
         with(:manifestation_ids).equal_to manifestation.id if manifestation
         with(:original_patron_ids).equal_to patron.id if patron
         with(:patron_merge_list_ids).equal_to patron_merge_list.id if patron_merge_list
@@ -102,12 +104,10 @@ class PatronsController < ApplicationController
   # GET /patrons/1
   # GET /patrons/1.json
   def show
-    get_work; get_expression; get_manifestation; get_item
+    get_work; get_manifestation; get_item
     case
     when @work
       @patron = @work.creators.find(params[:id])
-    when @expression
-      @patron = @expression.contributors.find(params[:id])
     when @manifestation
       @patron = @manifestation.publishers.find(params[:id])
     when @item
@@ -119,7 +119,6 @@ class PatronsController < ApplicationController
     end
 
     @works = @patron.works.page(params[:work_list_page]).per_page(Manifestation.per_page)
-    @expressions = @patron.expressions.page(params[:expression_list_page]).per_page(Manifestation.per_page)
     @manifestations = @patron.manifestations.order('date_of_publication DESC').page(params[:manifestation_list_page]).per_page(Manifestation.per_page)
 
     respond_to do |format|
@@ -180,10 +179,6 @@ class PatronsController < ApplicationController
           @work.creators << @patron
           format.html { redirect_to patron_work_url(@patron, @work) }
           format.json { head :created, :location => patron_work_url(@patron, @work) }
-        when @expression
-          @expression.contributors << @patron
-          format.html { redirect_to patron_expression_url(@patron, @expression) }
-          format.json { head :created, :location => patron_expression_url(@patron, @expression) }
         when @manifestation
           @manifestation.publishers << @patron
           format.html { redirect_to patron_manifestation_url(@patron, @manifestation) }
@@ -228,7 +223,7 @@ class PatronsController < ApplicationController
     respond_to do |format|
       flash[:notice] = t('controller.successfully_deleted', :model => t('activerecord.models.patron'))
       format.html { redirect_to patrons_url }
-      format.json { head :ok }
+      format.json { head :no_content }
     end
   end
 

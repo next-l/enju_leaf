@@ -28,9 +28,6 @@
     <%- if @patron.works.exists? -%>
       <li><a href="#work"><em><%= t('activerecord.models.work') -%></em></a></li>
     <%- end -%>
-    <%- if @patron.expressions.exists? -%>
-      <li><a href="#expression"><em><%= t('activerecord.models.expression') -%></em></a></li>
-    <%- end -%>
     <%- if @patron.manifestations.exists? -%>
       <li><a href="#manifestation"><em><%= t('activerecord.models.manifestation') -%></em></a></li>
     <%- end -%>
@@ -155,9 +152,6 @@
   <%- unless @works.blank? -%>
     <%= render 'patrons/work_list' -%>
   <%- end -%>
-  <%- unless @expressions.blank? -%>
-    <%= render 'patrons/expression_list' -%>
-  <%- end -%>
   <%- unless @manifestations.blank? -%>
     <%= render 'patrons/manifestation_list' -%>
   <%- end -%>
@@ -203,7 +197,6 @@
   </ul>
   <ul>
     <li><%= link_to t('page.listing', :model => t('activerecord.models.work')), creator_manifestations_path(@patron) -%></li>
-    <li><%= link_to t('page.listing', :model => t('activerecord.models.expression')), contributor_manifestations_path(@patron) -%></li>
     <li><%= link_to t('page.listing', :model => t('activerecord.models.manifestation')), publisher_manifestations_path(@patron) -%></li>
   </ul>
 </div>

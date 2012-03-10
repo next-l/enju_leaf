@@ -5,6 +5,10 @@ describe CreatesController do
   fixtures :all
   disconnect_sunspot
 
+  def valid_attributes
+    FactoryGirl.attributes_for(:create)
+  end
+
   describe "GET index" do
     before(:each) do
       FactoryGirl.create(:create)
@@ -165,7 +169,7 @@ describe CreatesController do
 
   describe "POST create" do
     before(:each) do
-      @attrs = FactoryGirl.attributes_for(:create)
+      @attrs = valid_attributes
       @invalid_attrs = {:work_id => ''}
     end
 
@@ -282,8 +286,8 @@ describe CreatesController do
 
   describe "PUT update" do
     before(:each) do
-      @create = FactoryGirl.create(:create)
-      @attrs = FactoryGirl.attributes_for(:create)
+      @create = creates(:create_00001)
+      @attrs = valid_attributes
       @invalid_attrs = {:work_id => ''}
     end
 
@@ -321,6 +325,13 @@ describe CreatesController do
           put :update, :id => @create.id, :create => @attrs
           assigns(:create).should eq(@create)
           response.should redirect_to(@create)
+        end
+
+        it "moves its position when specified" do
+          position = @create.position
+          put :update, :id => @create.id, :work_id => @create.work.id, :move => 'lower'
+          response.should redirect_to work_creates_url(@create.work)
+          assigns(:create).position.should eq position + 1
         end
       end
 

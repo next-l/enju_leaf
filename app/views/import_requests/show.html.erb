@@ -10,7 +10,7 @@
 
 <p>
   <strong><%= t('activerecord.models.user') -%>:</strong>
-  <%= link_to @import_request.user.username, @import_request.user -%>
+  <%= link_to @import_request.user.username, @import_request.user if @import_request.user -%>
 </p>
 
 <p>

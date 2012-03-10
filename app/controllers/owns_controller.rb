@@ -69,10 +69,13 @@ class OwnsController < ApplicationController
   # PUT /owns/1
   # PUT /owns/1.json
   def update
-    if @item and params[:position]
-      @own.insert_at(params[:position])
-      redirect_to item_owns_url(@item)
-      return
+    if @item and params[:move]
+      direction = params[:move]
+      if ['higher', 'lower'].include?(direction)
+        @own.send("move_#{direction}")
+        redirect_to item_owns_url(@item)
+        return
+      end
     end
 
     respond_to do |format|
@@ -97,13 +100,13 @@ class OwnsController < ApplicationController
       case
       when @patron
         format.html { redirect_to patron_owns_url(@patron) }
-        format.json { head :ok }
+        format.json { head :no_content }
       when @item
         format.html { redirect_to item_owns_url(@item) }
-        format.json { head :ok }
+        format.json { head :no_content }
       else
         format.html { redirect_to owns_url }
-        format.json { head :ok }
+        format.json { head :no_content }
       end
     end
   end

@@ -53,7 +53,7 @@
     <%- if flash[:query] -%>
       <li><%= link_to t('page.back'), users_path(@user, :query => flash[:query]) -%></li>
     <% else %>
-      <li><%= back_to_index -%></li>
+      <li><%= back_to_index %></li>
     <% end %>
     <% if user_signed_in? %>
       <% if can? :update, @user %>

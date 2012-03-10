@@ -1,7 +1,7 @@
 class Ability
   include CanCan::Ability
 
-  def initialize(user, ip_address)
+  def initialize(user, ip_address = nil)
     case user.try(:role).try(:name)
     when 'Administrator'
       can [:read, :create, :update], Bookstore
@@ -53,6 +53,7 @@ class Ability
         user_group.users.empty?
       end
       can :manage, [
+        BudgetType,
         Create,
         CreateType,
         Donate,
@@ -67,8 +68,6 @@ class Ability
         PictureFile,
         Produce,
         ProduceType,
-        Realize,
-        RealizeType,
         ResourceImportFile,
         SearchEngine,
         SeriesStatement,
@@ -154,7 +153,6 @@ class Ability
         PatronRelationship,
         PictureFile,
         Produce,
-        Realize,
         ResourceImportFile,
         SeriesStatement,
         SeriesHasManifestation,
@@ -163,6 +161,7 @@ class Ability
       ]
       can :read, [
         Bookstore,
+        BudgetType,
         CarrierType,
         ContentType,
         Country,
@@ -238,7 +237,6 @@ class Ability
         PatronRelationship,
         PatronRelationshipType,
         Produce,
-        Realize,
         SeriesStatement,
         SeriesHasManifestation,
         Shelf,
@@ -272,7 +270,6 @@ class Ability
         PatronRelationshipType,
         PictureFile,
         Produce,
-        Realize,
         SeriesStatement,
         SeriesHasManifestation,
         Shelf,
@@ -484,13 +481,6 @@ class Ability
           ManifestationReserveStat,
           Reserve
         ]
-        can :index, Reserve
-        can :create, Reserve do
-          user.checkouts.overdue(Time.zone.now).empty?
-        end
-        can [:update, :destroy, :show], Reserve do |reserve|
-          reserve.try(:user) == user
-        end
         can [:read, :create, :update], UserCheckoutStat
         can [:read, :create, :update], UserReserveStat
         can :read, [

@@ -1,5 +1,5 @@
 class CreatePatronImportFiles < ActiveRecord::Migration
-  def self.up
+  def change
     create_table :patron_import_files do |t|
       t.integer :parent_id
       t.string :filename
@@ -21,9 +21,5 @@ class CreatePatronImportFiles < ActiveRecord::Migration
     add_index :patron_import_files, :user_id
     add_index :patron_import_files, :file_hash
     add_index :patron_import_files, :state
-  end
-
-  def self.down
-    drop_table :patron_import_files
   end
 end

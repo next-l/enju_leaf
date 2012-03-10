@@ -3,6 +3,10 @@ require 'spec_helper'
 describe ShelvesController do
   fixtures :all
 
+  def valid_attributes
+    FactoryGirl.attributes_for(:shelf)
+  end
+
   describe "GET index" do
     describe "When logged in as Administrator" do
       login_admin
@@ -150,7 +154,7 @@ describe ShelvesController do
 
   describe "POST create" do
     before(:each) do
-      @attrs = FactoryGirl.attributes_for(:shelf)
+      @attrs = valid_attributes
       @invalid_attrs = {:name => ''}
     end
 
@@ -268,7 +272,7 @@ describe ShelvesController do
   describe "PUT update" do
     before(:each) do
       @shelf = FactoryGirl.create(:shelf)
-      @attrs = FactoryGirl.attributes_for(:shelf)
+      @attrs = valid_attributes
       @invalid_attrs = {:name => ''}
     end
 
@@ -286,7 +290,7 @@ describe ShelvesController do
         end
 
         it "moves its position when specified" do
-          put :update, :id => @shelf.id, :shelf => @attrs, :position => 2
+          put :update, :id => @shelf.id, :shelf => @attrs, :move => 'lower'
           response.should redirect_to(library_shelves_url(@shelf.library))
         end
       end

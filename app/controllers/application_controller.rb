@@ -6,10 +6,10 @@ class ApplicationController < ActionController::Base
   rescue_from ActiveRecord::RecordNotFound, :with => :render_404
   rescue_from Errno::ECONNREFUSED, :with => :render_500
   rescue_from ActionView::MissingTemplate, :with => :render_404_invalid_format
-  rescue_from ActionController::RoutingError, :with => :render_404
+  #rescue_from ActionController::RoutingError, :with => :render_404
 
-  before_filter :get_library_group, :set_locale, :set_available_languages, :prepare_for_mobile
-  helper_method :mobile_device?
+  has_mobile_fu
+  before_filter :get_library_group, :set_locale, :set_available_languages, :set_request_format
 
   private
   def render_403
@@ -118,11 +118,6 @@ class ApplicationController < ActionController::Base
     authorize! :show, @work if @work
   end
 
-  def get_expression
-    @expression = Manifestation.find(params[:expression_id]) if params[:expression_id]
-    authorize! :show, @expression if @expression
-  end
-
   def get_manifestation
     @manifestation = Manifestation.find(params[:manifestation_id]) if params[:manifestation_id]
     authorize! :show, @manifestation if @manifestation
@@ -187,6 +182,10 @@ class ApplicationController < ActionController::Base
   if defined?(EnjuResourceMerge)
     def get_patron_merge_list
       @patron_merge_list = PatronMergeList.find(params[:patron_merge_list_id]) if params[:patron_merge_list_id]
+    end
+
+    def get_series_statement_merge_list
+      @series_statement_merge_list = SeriesStatementMergeList.find(params[:series_statement_merge_list_id]) if params[:series_statement_merge_list_id]
     end
   end
 
@@ -282,7 +281,6 @@ class ApplicationController < ActionController::Base
     set_role_query(current_user, search)
 
     unless params[:mode] == "add"
-      expression = @expression
       patron = @patron
       manifestation = @manifestation
       reservable = @reservable
@@ -300,7 +298,6 @@ class ApplicationController < ActionController::Base
         with(:original_manifestation_ids).equal_to manifestation.id if manifestation
         with(:reservable).equal_to reservable unless reservable.nil?
         unless carrier_type.blank?
-          with(:carrier_type).equal_to carrier_type
           with(:carrier_type).equal_to carrier_type
         end
         unless library.blank?
@@ -350,16 +347,24 @@ class ApplicationController < ActionController::Base
     @current_ability ||= Ability.new(current_user, request.remote_ip)
   end
 
-  def prepare_for_mobile
-    request.format = :mobile if request.smart_phone?
-  end
-
   def get_top_page_content
     if defined?(EnjuNews)
       @news_feeds = Rails.cache.fetch('news_feed_all'){NewsFeed.all}
       @news_posts = NewsPost.limit(3)
     end
     @libraries = Library.real
+  end
+
+  def set_request_format
+    request.format = :mobile if is_mobile_device?
+  end
+
+  def move_position(resource, direction)
+    if ['higher', 'lower'].include?(direction)
+      resource.send("move_#{direction}")
+      redirect_to url_for(:controller => resource.class.to_s.pluralize.underscore)
+      return
+    end
   end
 end
 

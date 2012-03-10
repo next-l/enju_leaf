@@ -4,7 +4,7 @@ library_00001:
   short_display_name: Web
   display_name: World Wide Web
   fax_number: 
-  updated_at: 
+  updated_at: 2007-08-31 00:18:06.662349 +09:00
   telephone_number_1: 
   telephone_number_2: 
   id: 1
@@ -12,7 +12,7 @@ library_00001:
   region: 
   locality: 
   street: 
-  created_at: 
+  created_at: 2007-08-13 18:10:00 +09:00
   library_group_id: 1
   patron_id: 1
   call_number_delimiter: "|"
@@ -35,6 +35,7 @@ library_00002:
   patron_id: 2
   call_number_delimiter: "|"
   position: 2
+  isil: "JP-0000000"
 library_00003: 
   name: hachioji
   short_display_name: 八王子

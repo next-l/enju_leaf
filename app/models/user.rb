@@ -6,7 +6,9 @@ class User < ActiveRecord::Base
          :lockable, :lock_strategy => :none, :unlock_strategy => :none
 
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :email, :password, :password_confirmation, :username, :current_password, :user_number, :remember_me
+  attr_accessible :email, :password, :password_confirmation, :username, :current_password, :user_number, :remember_me,
+    :email_confirmation, :note, :user_group_id, :library_id, :locale, :expired_at, :locked, :required_role_id,
+    :keyword_list #, :as => :admin
 
   scope :administrators, where('roles.name = ?', 'Administrator').includes(:role)
   scope :librarians, where('roles.name = ? OR roles.name = ?', 'Administrator', 'Librarian').includes(:role)
@@ -17,7 +19,6 @@ class User < ActiveRecord::Base
   has_many :import_requests
   has_one :user_has_role
   has_one :role, :through => :user_has_role
-  has_many :search_histories, :dependent => :destroy
   has_many :subscriptions
   belongs_to :library, :validate => true
   belongs_to :user_group
@@ -40,6 +41,7 @@ class User < ActiveRecord::Base
   validates_presence_of :user_group, :library, :locale #, :user_number
   validates :user_number, :uniqueness => true, :format => {:with => /\A[0-9A-Za-z_]+\Z/}, :allow_blank => true
   validates_confirmation_of :email, :on => :create, :if => proc{|user| !user.operator.try(:has_role?, 'Librarian')}
+
   before_validation :set_role_and_patron, :on => :create
   before_validation :set_lock_information
   before_destroy :check_role_before_destroy
@@ -174,14 +176,6 @@ class User < ActiveRecord::Base
     end
   end
 
-  def check_update_own_account(user)
-    if user == self
-      self.update_own_account = true
-      return true
-    end
-    false
-  end
-
   def send_confirmation_instructions
     unless self.operator
       Devise::Mailer.delay.confirmation_instructions(self) if self.email.present?
@@ -228,11 +222,13 @@ class User < ActiveRecord::Base
   end
 
   def self.create_with_params(params, current_user)
-    user = User.new(params)
+    user = User.new
     user.operator = current_user
     #self.username = params[:user][:login]
     user.note = params[:note]
-    user.user_group_id = params[:user_group_id] ||= 1
+    #user.user_group_id = params[:user_group_id] ||= 1
+    user.assign_attributes(params)
+    #user_group_id = params[:user_group_id] ||= 1
     user.library_id = params[:library_id] ||= 1
     user.role_id = params[:role_id] ||= 1
     user.required_role_id = params[:required_role_id] ||= 1
@@ -240,7 +236,6 @@ class User < ActiveRecord::Base
     user.user_number = params[:user_number]
     user.locale = params[:locale]
     if defined?(EnjuCirculation)
-      user.checkout_icalendar_token = params[:checkout_icalendar_token] ||= false
       user.save_checkout_history = params[:save_checkout_history] ||= false
     end
     if defined?(EnjuSearchLog)
@@ -257,7 +252,7 @@ class User < ActiveRecord::Base
     #self.username = params[:login]
     self.openid_identifier = params[:openid_identifier]
     self.keyword_list = params[:keyword_list]
-    self.email = params[:email]
+    self.email = params[:email] if params[:email]
     #self.note = params[:note]
     if defined?(EnjuCirculation)
       self.checkout_icalendar_token = params[:checkout_icalendar_token] ||= false
@@ -290,6 +285,8 @@ class User < ActiveRecord::Base
   end
 
   if defined?(EnjuCirculation)
+    attr_accessible :save_checkout_history, :checkout_icalendar_token
+
     has_many :checkouts, :dependent => :nullify
     has_many :reserves, :dependent => :destroy
     has_many :reserved_manifestations, :through => :reserves, :source => :manifestation
@@ -384,6 +381,12 @@ class User < ActiveRecord::Base
     has_many :purchase_requests
     has_many :order_lists
   end
+
+  if defined?(EnjuSearchLog)
+    attr_accessible :save_search_history
+
+    has_many :search_histories, :dependent => :destroy
+  end
 end
 
 
@@ -400,7 +403,6 @@ end
 #  confirmed_at             :datetime
 #  confirmation_sent_at     :datetime
 #  reset_password_token     :string(255)
-#  remember_token           :string(255)
 #  remember_created_at      :datetime
 #  sign_in_count            :integer         default(0)
 #  current_sign_in_at       :datetime
@@ -427,7 +429,6 @@ end
 #  questions_count          :integer         default(0), not null
 #  answers_count            :integer         default(0), not null
 #  answer_feed_token        :string(255)
-#  due_date_reminder_days   :integer         default(1), not null
 #  note                     :text
 #  share_bookmarks          :boolean         default(FALSE), not null
 #  save_search_history      :boolean         default(FALSE), not null

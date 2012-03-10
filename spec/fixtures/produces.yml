@@ -1,4 +1,4 @@
---- 
+---
 produce_00001: 
   updated_at: 2008-01-11 23:28:19.277110 +09:00
   manifestation_id: 1
@@ -39,7 +39,7 @@ produce_00006:
   manifestation_id: 1
   patron_id: 3
   id: 6
-  position: 1
+  position: 2
   created_at: 2008-01-11 23:35:36.467584 +09:00
 produce_00007: 
   updated_at: 2008-01-11 02:40:24.038276 +09:00

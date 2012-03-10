@@ -2,10 +2,11 @@ require 'spec_helper'
 require 'sunspot/rails/spec_helper'
 
 describe ExemplifiesController do
+  fixtures :exemplifies
   disconnect_sunspot
 
-  def mock_exemplify(stubs={})
-    @mock_exemplify ||= mock_model(Exemplify, stubs).as_null_object
+  def valid_attributes
+    FactoryGirl.attributes_for(:exemplify)
   end
 
   describe "GET index" do
@@ -164,7 +165,7 @@ describe ExemplifiesController do
 
   describe "POST create" do
     before(:each) do
-      @attrs = FactoryGirl.attributes_for(:exemplify)
+      @attrs = valid_attributes
       @invalid_attrs = {:manifestation_id => ''}
     end
 
@@ -281,8 +282,8 @@ describe ExemplifiesController do
 
   describe "PUT update" do
     before(:each) do
-      @exemplify = FactoryGirl.create(:exemplify)
-      @attrs = FactoryGirl.attributes_for(:exemplify)
+      @exemplify = exemplifies(:exemplify_00001)
+      @attrs = valid_attributes
       @invalid_attrs = {:manifestation_id => ''}
     end
 
@@ -320,6 +321,13 @@ describe ExemplifiesController do
           put :update, :id => @exemplify.id, :exemplify => @attrs
           assigns(:exemplify).should eq(@exemplify)
           response.should redirect_to(@exemplify)
+        end
+
+        it "moves its position when specified" do
+          position = @exemplify.position
+          put :update, :id => @exemplify.id, :manifestation_id => @exemplify.manifestation.id, :move => 'lower'
+          response.should redirect_to manifestation_exemplifies_url(@exemplify.manifestation)
+          assigns(:exemplify).position.should eq position + 1
         end
       end
 

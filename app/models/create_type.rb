@@ -1,6 +1,6 @@
 class CreateType < ActiveRecord::Base
   include MasterModel
-  default_scope :order => 'position'
+  default_scope :order => 'create_types.position'
 end
 
 # == Schema Information

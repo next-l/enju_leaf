@@ -3,6 +3,10 @@ require 'spec_helper'
 describe SubscribesController do
   fixtures :all
 
+  def valid_attributes
+    FactoryGirl.attributes_for(:subscribe)
+  end
+
   describe "GET index" do
     before(:each) do
       FactoryGirl.create(:subscribe)
@@ -167,7 +171,7 @@ describe SubscribesController do
 
   describe "POST create" do
     before(:each) do
-      @attrs = FactoryGirl.attributes_for(:subscribe)
+      @attrs = valid_attributes
       @invalid_attrs = {:work_id => ''}
     end
 
@@ -285,7 +289,7 @@ describe SubscribesController do
   describe "PUT update" do
     before(:each) do
       @subscribe = FactoryGirl.create(:subscribe)
-      @attrs = FactoryGirl.attributes_for(:subscribe)
+      @attrs = valid_attributes
       @invalid_attrs = {:work_id => ''}
     end
 

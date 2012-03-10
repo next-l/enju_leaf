@@ -25,6 +25,7 @@
           <li><%= link_to t('page.new', :model => t('activerecord.models.event_import_file')), new_event_import_file_path %></li>
         </ul>
         </li>
+        <li><%= link_to t('activerecord.models.budget_type'), budget_types_path -%></li>
         <li><%= link_to t('activerecord.models.bookstore'), bookstores_path -%></li>
         <% if defined?(EnjuMessage) %>
           <li><%= link_to t('activerecord.models.message_template'), message_templates_path -%></li>
@@ -102,6 +103,8 @@
         <li><%= link_to t('activerecord.models.patron_relationship_type'), patron_relationship_types_path -%></li>
         <li><%= link_to t('activerecord.models.manifestation_relationship_type'), manifestation_relationship_types_path -%></li>
         <li><%= link_to t('activerecord.models.license'), licenses_path -%></li>
+        <li><%= link_to t('activerecord.models.create_type'), create_types_path -%></li>
+        <li><%= link_to t('activerecord.models.produce_type'), produce_types_path -%></li>
       </ul>
     </div>
   </div>
