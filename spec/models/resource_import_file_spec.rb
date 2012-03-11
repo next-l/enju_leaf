@@ -21,6 +21,8 @@ describe ResourceImportFile do
         manifestation.publishers.first.full_name.should eq 'test4'
         manifestation.publishers.first.full_name_transcription.should eq 'てすと4'
         manifestation.publishers.second.full_name_transcription.should eq 'てすと5'
+        manifestation.produces.first.produce_type.name.should eq 'publisher'
+        manifestation.creates.first.create_type.name.should eq 'author'
         Manifestation.count.should eq old_manifestations_count + 8
         Item.count.should eq old_items_count + 6
         Patron.count.should eq old_patrons_count + 6
@@ -34,7 +36,9 @@ describe ResourceImportFile do
 
         item_10101 = Item.where(:item_identifier => '10101').first
         item_10101.manifestation.creators.size.should eq 2
+        item_10101.manifestation.creates.order(:id).first.create_type.name.should eq 'author'
         item_10101.manifestation.creates.order(:id).second.patron.full_name.should eq 'test1'
+        item_10101.manifestation.creates.order(:id).second.create_type.name.should eq 'illustrator'
         item_10101.manifestation.date_of_publication.should eq Time.zone.parse('2001-01-01')
         item_10101.budget_type.name.should eq 'Public fund'
         item_10101.bookstore.name.should eq 'Example store'
@@ -112,17 +116,19 @@ describe ResourceImportFile do
 
   describe "when its mode is 'update'" do
     it "should update items" do
-      @file = ResourceImportFile.create :resource_import => File.new("#{Rails.root.to_s}/examples/item_update_file.tsv")
+      @file = ResourceImportFile.create :resource_import => File.new("#{Rails.root.to_s}/examples/item_update_file.tsv"), :edit_mode => 'update'
       @file.modify
       Item.where(:item_identifier => '00001').first.manifestation.creators.collect(&:full_name).should eq ['たなべ', 'こうすけ']
+      Item.where(:item_identifier => '00002').first.manifestation.publishers.collect(&:full_name).should eq ['test2']
       Item.where(:item_identifier => '00003').first.manifestation.original_title.should eq 'テスト3'
+      Item.where(:item_identifier => '00003').first.acquired_at.should eq Time.zone.parse('2012-01-01')
     end
   end
 
   describe "when its mode is 'destroy'" do
     it "should remove items" do
       old_count = Item.count
-      @file = ResourceImportFile.create :resource_import => File.new("#{Rails.root.to_s}/examples/item_delete_file.tsv")
+      @file = ResourceImportFile.create :resource_import => File.new("#{Rails.root.to_s}/examples/item_delete_file.tsv"), :edit_mode => 'destroy'
       @file.remove
       Item.count.should eq old_count - 2
     end

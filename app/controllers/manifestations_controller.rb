@@ -115,13 +115,14 @@ class ManifestationsController < ApplicationController
       get_manifestation
       patron = get_index_patron
       @index_patron = patron
-
+      series_statement = @series_statement if @series_statement
       manifestation = @manifestation if @manifestation
+
       if defined?(EnjuSubject)
         get_subject
         subject = @subject if @subject
       end
-      series_statement = @series_statement if @series_statement
+
       unless mode == 'add'
         search.build do
           with(:creator_ids).equal_to patron[:creator].id if patron[:creator]

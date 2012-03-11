@@ -249,12 +249,11 @@ class ResourceImportFile < ActiveRecord::Base
         item.bookstore = bookstore if bookstore
         item.required_role = required_role if required_role
         item.include_supplements = row['include_supplements'] if row['include_supplements']
-        item.update_attributes({
-          :call_number => row['call_number'],
-          :price => row['item_price'],
-          :acquired_at => row['acquired_at'],
-          :note => row['note']
-        })
+        item.call_number = row['call_number'] if row['call_number']
+        item.item_price = row['item_price'] if row['item_price']
+        item.acquired_at = row['acquired_at'] if row['acquired_at']
+        item.note = row['note'] if row['note']
+        item.save!
       end
     end
     sm_complete!
@@ -495,7 +494,7 @@ class ResourceImportFile < ActiveRecord::Base
             creator_transcriptions = row['series_statement_creator_transcription'].to_s.split(';')
             creators_list = creators.zip(creator_transcriptions).map{|f,t| {:full_name => f.to_s.strip, :full_name_transcription => t.to_s.strip}}
             creator_patrons = Patron.import_patrons(creators_list)
-            series_statement.root_manifestation.creators << creator_patrons
+            series_statement.root_manifestation.creators = creator_patrons.uniq unless creator_patrons.empty?
           end
         end
       end
