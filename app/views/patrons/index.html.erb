@@ -1,5 +1,7 @@
 <%- case when @work -%>
   <%= render 'index_work', :work => @work -%>
+<%- when @manifestation -%>
+  <%= render 'index_manifestation', :manifestation => @manifestation -%>
 <%- when @patron -%>
   <%= render 'index_patron', :patron => @patron -%>
 <%- when @patron_merge_list -%>
