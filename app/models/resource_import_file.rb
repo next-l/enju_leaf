@@ -243,12 +243,11 @@ class ResourceImportFile < ActiveRecord::Base
         item.bookstore = bookstore if bookstore
         item.required_role = required_role if required_role
         item.include_supplements = row['include_supplements'] if row['include_supplements']
-        item.update_attributes({
-          :call_number => row['call_number'],
-          :price => row['item_price'],
-          :acquired_at => row['acquired_at'],
-          :note => row['note']
-        })
+        item.call_number = row['call_number'] if row['call_number']
+        item.item_price = row['item_price'] if row['item_price']
+        item.acquired_at = row['acquired_at'] if row['acquired_at']
+        item.note = row['note'] if row['note']
+        item.save!
       end
     end
     sm_complete!

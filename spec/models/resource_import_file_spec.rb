@@ -119,7 +119,9 @@ describe ResourceImportFile do
       @file = ResourceImportFile.create :resource_import => File.new("#{Rails.root.to_s}/examples/item_update_file.tsv"), :edit_mode => 'update'
       @file.modify
       Item.where(:item_identifier => '00001').first.manifestation.creators.collect(&:full_name).should eq ['たなべ', 'こうすけ']
+      Item.where(:item_identifier => '00002').first.manifestation.publishers.collect(&:full_name).should eq ['test2']
       Item.where(:item_identifier => '00003').first.manifestation.original_title.should eq 'テスト3'
+      Item.where(:item_identifier => '00003').first.acquired_at.should eq Time.zone.parse('2012-01-01')
     end
   end
 

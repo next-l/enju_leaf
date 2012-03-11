@@ -195,6 +195,16 @@ describe Manifestation, :solr => true do
     manifestations(:manifestation_00202).periodical?.should be_true
   end
 
+  it "should set series_statement if the manifestation is periodical" do
+    manifestation = series_statements(:two).manifestations.new
+    manifestation.set_series_statement(series_statements(:two))
+    manifestation.original_title.should eq "テスト雑誌２月号"
+    manifestation.issn.should eq "12345678"
+    manifestation.serial_number.should eq 3
+    manifestation.issue_number.should eq 3
+    manifestation.volume_number.should eq 1
+  end
+
   if defined?(EnjuCirculation)
     it "should respond to is_checked_out_by?" do
       manifestations(:manifestation_00001).is_checked_out_by?(users(:admin)).should be_true

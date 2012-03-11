@@ -10,6 +10,7 @@ two:
   id: 2
   original_title: title2
   periodical: true
+  issn: 12345678
   position: 2
 
 

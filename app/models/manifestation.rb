@@ -285,40 +285,16 @@ class Manifestation < ActiveRecord::Base
     "#{LibraryGroup.site_config.url}#{self.class.to_s.tableize}/#{self.id}"
   end
 
-  def set_serial_information
-    return nil unless periodical?
-    if new_record?
-      series_statement = SeriesStatement.where(:id => series_statement_id).first
-      manifestation = series_statement.try(:last_issue)
-    else
-      manifestation = series_statement.try(:last_issue)
-    end
-    if manifestation
-      self.original_title = manifestation.original_title
-      self.title_transcription = manifestation.title_transcription
-      self.title_alternative = manifestation.title_alternative
-      self.issn = series_statement.issn
-      # TODO: 雑誌ごとに巻・号・通号のパターンを設定できるようにする
-      if manifestation.serial_number.to_i > 0
-        self.serial_number = manifestation.serial_number.to_i + 1
-        if manifestation.issue_number.to_i > 0
-          self.issue_number = manifestation.issue_number.to_i + 1
-        else
-          self.issue_number = manifestation.issue_number
-        end
-        self.volume_number = manifestation.volume_number
+  def set_series_statement(series_statement)
+    if series_statement
+      self.series_statement_id = series_statement.id
+      if periodical?
+        set_serial_information(series_statement)
       else
-        if manifestation.issue_number.to_i > 0
-          self.issue_number = manifestation.issue_number.to_i + 1
-          self.volume_number = manifestation.volume_number
-        else
-          if manifestation.volume_number.to_i > 0
-            self.volume_number = manifestation.volume_number.to_i + 1
-          end
-        end
+        self.original_title = series_statement.original_title
+        self.title_transcription = series_statement.title_transcription
       end
     end
-    self
   end
 
   def creator
@@ -542,6 +518,39 @@ class Manifestation < ActiveRecord::Base
         raise "#{options[:scope]} is not supported!"
       end
     end
+  end
+
+  private
+  def set_serial_information(series_statement = nil)
+    return nil unless series_statement.try(:periodical?)
+    manifestation = series_statement.last_issue
+
+    if manifestation
+      self.original_title = manifestation.original_title
+      self.title_transcription = manifestation.title_transcription
+      self.title_alternative = manifestation.title_alternative
+      self.issn = series_statement.issn
+      # TODO: 雑誌ごとに巻・号・通号のパターンを設定できるようにする
+      if manifestation.serial_number.to_i > 0
+        self.serial_number = manifestation.serial_number.to_i + 1
+        if manifestation.issue_number.to_i > 0
+          self.issue_number = manifestation.issue_number.to_i + 1
+        else
+          self.issue_number = manifestation.issue_number
+        end
+        self.volume_number = manifestation.volume_number
+      else
+        if manifestation.issue_number.to_i > 0
+          self.issue_number = manifestation.issue_number.to_i + 1
+          self.volume_number = manifestation.volume_number
+        else
+          if manifestation.volume_number.to_i > 0
+            self.volume_number = manifestation.volume_number.to_i + 1
+          end
+        end
+      end
+    end
+    self
   end
 end
 

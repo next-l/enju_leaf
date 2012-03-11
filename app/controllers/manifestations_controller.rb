@@ -114,13 +114,14 @@ class ManifestationsController < ApplicationController
       get_manifestation
       patron = get_index_patron
       @index_patron = patron
-
       manifestation = @manifestation if @manifestation
+      series_statement = @series_statement if @series_statement
+
       if defined?(EnjuSubject)
         get_subject
         subject = @subject if @subject
       end
-      series_statement = @series_statement if @series_statement
+
       unless mode == 'add'
         search.build do
           with(:creator_ids).equal_to patron[:creator].id if patron[:creator]
@@ -725,13 +726,7 @@ class ManifestationsController < ApplicationController
 
   def set_title
     if @series_statement
-      @manifestation.series_statement_id = @series_statement.id
-      if @manifestation.periodical?
-        @manifestation.set_serial_information
-      else
-        @manifestation.original_title = @series_statement.original_title
-        @manifestation.title_transcription = @series_statement.title_transcription
-      end
+      @manifestation.set_series_statement(@series_statement)
     elsif @original_manifestation
       @manifestation.original_title = @original_manifestation.original_title
       @manifestation.title_transcription = @original_manifestation.title_transcription
