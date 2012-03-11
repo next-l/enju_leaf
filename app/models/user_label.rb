@@ -16,7 +16,7 @@ class UserLabel < ActiveRecord::Base
         logger.info "japan postal customer barcode gen start"
         code = ""
         begin
-          code = self.generate_japanpost_customer_code(user.patron.zip_code_1, user.patron.address_1)
+          code = ZipCodeList.generate_japanpost_customer_code(user.patron.zip_code_1, user.patron.address_1)
         rescue ArgumentError
           logger.warn "argument error in generate_japanpost_customer_code"
           logger.warn $!
@@ -33,64 +33,6 @@ class UserLabel < ActiveRecord::Base
 
   def self.check_zip
 
-  end
-
-  def self.generate_japanpost_customer_code(zip_code, address)
-    # see http://www.post.japanpost.jp/zipcode/zipmanual/p19.html
-    sp1 = ["丁目","丁","番地","番","号","地割","線","の","ノ"]
-
-    logger.info "@@@ Start zip_code=#{zip_code} address=#{address}"
-    if zip_code.empty? or address.empty?
-      raise ArgumentError, "zip_code or address is empty."
-    end
-    zip_code = zip_code.gsub(/\D/, "")
-    unless zip_code.size == 7
-      raise ArgumentError, "zip_code is invalid. (size invalid)"
-    end
-    zip = ZipCodeList.find_by_zipcode7(zip_code)
-    unless zip
-      raise ArgumentError, "zip_code is invalid. (no record)"
-    end
-
-    puts "zip.id=#{zip.id} "
-
-    # whitespece remove
-    #address = address.strip_with_full_size_space
-    asub = zip.check_include_address(address)
-    logger.debug "asub=#{asub}" 
-    a2 = address.delete(asub)
-    logger.debug "a2=#{a2}"
-    puts "a2=#{a2}"
-
-    # rule 0 wide-char alphabet and numeric convert to ascii 
-    a3 = a2.tr('ａ-ｚＡ-Ｚ１-９', 'a-zA-Z1-9')
-    
-    # rule 1 ascii alphabet small to large
-    a3.upcase!
-
-    # rule 2
-    spr2 = "&/・."
-    a3.gsub!(/"#{spr2}"/, "")
-    logger.debug "rule2 end a3=#{a3}"
-
-    # sp1 kanji number to number-char 
-    a4 = a3
-    sp1.each do |c|
-
-    end
-
-    # rule 3
-    a5 = a4.gsub(/[^0-9A-Z\-]{1,}/, "-").gsub(/[A-Z]{2,}/, "-")
-    logger.debug "rule3-1 a5=#{a5}"
-
-    a5 = a5.gsub(/[-]{2,}/, "-").gsub(/^[-]|[-]$/, "")
-    logger.debug "rule3-2 a5=#{a5}"
-
-    code = zip_code + a5
-
-    logger.debug "rule3 end code=#{code}"
-    
-    return code  
   end
 
   def self.gen_barcode(code)
