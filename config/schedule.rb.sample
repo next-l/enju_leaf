@@ -28,7 +28,8 @@ every 5.minute do
 end
 
 every 1.day, :at => '0:00 am' do
-  runner "Reserve.expire; Basket.expire; User.lock_expired_users"
+  runner "Reserve.expire; Basket.expire"
+  runner "User.lock_expired_users"
 end
 
 every 1.day, :at => '1:00 am' do
@@ -36,8 +37,9 @@ every 1.day, :at => '1:00 am' do
 end
 
 every 1.hour do
-  runner "PatronImportFile.import; EventImportFile.import; ResourceImportFile.import"
-  runner "PatronImportFile.expire; EventImportFile.expire; ResourceImportFile.expire"
+  runner "PatronImportFile.import; ResourceImportFile.import"
+  runner "PatronImportFile.expire; ResourceImportFile.expire"
+  runner "EventImportFile.import; EventImportFile.expire"
 end
 
 every 1.day, :at => '3:00 am' do
@@ -47,5 +49,6 @@ end
 
 every 1.day, :at => '5:00 am' do
   runner "Checkout.send_due_date_notification; Checkout.send_overdue_notification"
-  runner "PatronImportFile.stucked.destroy_all; EventImportFile.stucked.destroy_all; ResourceImportFile.stucked.destroy_all"
+  runner "PatronImportFile.stucked.destroy_all; ResourceImportFile.stucked.destroy_all"
+  runner "EventImportFile.stucked.destroy_all"
 end
