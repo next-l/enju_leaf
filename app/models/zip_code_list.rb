@@ -90,7 +90,6 @@ class ZipCodeList < ActiveRecord::Base
     # rule 2
     a3 = a3.gsub(/[&\/..・]/, "")
     logger.debug "rule2 a3=#{a3}"
-    logger.debug "==="
 
     # sp1 kanji number to number-char 
     a4 = a3.dup
@@ -151,6 +150,7 @@ class ZipCodeList < ActiveRecord::Base
     suffix = "丁目"; range_char = "〜"
 
     puts "address=#{address}"
+    address = self.build_asub(address)
 
     if self.flag10 && self.flag10 == 1
       puts "flag10 multiple address"
@@ -167,7 +167,7 @@ class ZipCodeList < ActiveRecord::Base
       #puts "range check $1=#{$1} $2=#{$2}" 
       if $1.present? && $2.present?
         ($1..$2).each do |i|
-          asub = self.prefecture_name+self.city_name+a+i.to_s+suffix
+          asub = self.build_asub(self.prefecture_name, self.city_name, a, i.to_s, suffix)
           #puts asub
           if address.index(asub) == 0
             return self.prefecture_name+self.city_name+a
@@ -177,11 +177,11 @@ class ZipCodeList < ActiveRecord::Base
 
       raise ArgumentError, "trap 2 at check_include_address"
     else
-      asub = self.prefecture_name+self.city_name+self.region_name
+      asub = self.build_asub(self.prefecture_name, self.city_name, self.region_name)
       logger.debug "asub1=#{asub}"
       unless address.index(asub) == 0
         logger.info "try matching city+region"
-        asub = self.city_name + self.region_name
+        asub = self.build_asub(self.city_name, self.region_name)
         logger.debug "asub2=#{asub}"
         unless address.index(asub) == 0
           raise ArgumentError, "trap 3 at check_include_address"
@@ -189,6 +189,15 @@ class ZipCodeList < ActiveRecord::Base
       end
     end
 
+    return asub
+  end
+
+  def build_asub(*args)
+    asub = args.join
+    puts "asub=#{asub} flag11=#{self.flag11}"
+    if self.flag11 = 1
+      asub = asub.gsub(/大字/, "")
+    end
     return asub
   end
 
