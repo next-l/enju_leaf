@@ -37,7 +37,6 @@ class Library < ActiveRecord::Base
   before_validation :set_patron, :on => :create
   #before_save :set_calil_neighborhood_library
   after_validation :geocode, :unless => :skip_geocode
-  after_create :create_shelf
   after_save :clear_all_cache
   after_destroy :clear_all_cache
 
@@ -65,10 +64,6 @@ class Library < ActiveRecord::Base
     self.patron = Patron.new(
       :full_name => self.name
     )
-  end
-
-  def create_shelf
-    Shelf.create!(:name => "#{self.name}_default", :library => self)
   end
 
   def closed?(date)
@@ -100,7 +95,9 @@ class Library < ActiveRecord::Base
   end
 
   def destroy?
-    return false unless self.shelves.empty? && self.users.empty? && self.events.empty? && self.budgets.empty?
+    #return false unless self.shelves.empty? && self.users.empty? && self.events.empty? && self.budgets.empty?
+    return false unless self.shelves.size == 1 && self.shelves[0].open_access == 9 && self.shelves[0].items.empty? && self.users.empty? && self.events.empty? && self.budgets.empty?
+    return false if self.id == 1
     return true
   end
 

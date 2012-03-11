@@ -7,23 +7,47 @@ shelf_00001:
   library_id: 1
   position: 1
 shelf_00002: 
-  name: honkan01
-  display_name: 本館１F
+  name: web_in_process
+  display_name: 受入手続き中 
   id: 2
   note:
-  library_id: 2
+  library_id: 1
   position: 2
+  open_access: 9
 shelf_00003: 
-  name: honkan02
-  display_name: 本館２F
+  name: honkan01
+  display_name: 本館１F
   id: 3
   note:
   library_id: 2
   position: 3
-shelf_00004: 
-  name: bunkan01
-  display_name: 分館１F
+shelf_00004:
+  name: honkan02
+  display_name: 本館２F
   id: 4
   note:
-  library_id: 3
+  library_id: 2
   position: 4
+shelf_00005:
+  name: honkan02_in_process
+  display_name: 受入手続き中 
+  id: 5
+  note:
+  library_id: 2
+  position: 5
+  open_access: 9
+shelf_00006: 
+  name: bunkan01
+  display_name: 分館１F
+  id: 6
+  note:
+  library_id: 3
+  position: 6
+shelf_00007: 
+  name: bunkan01_in_process
+  display_name: 受入手続き中
+  id: 7
+  note:
+  library_id: 3
+  position: 7
+  open_access: 9

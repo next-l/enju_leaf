@@ -72,17 +72,31 @@ class LibrariesController < ApplicationController
   def create
     #patron = Patron.create(:name => params[:library][:name], :patron_type => 'CorporateBody')
     @library = Library.new(params[:library])
+    begin
+      ActiveRecord::Base.transaction do
+        @library.save!
 
-    respond_to do |format|
-      if @library.save
-        flash[:notice] = t('controller.successfully_created', :model => t('activerecord.models.library'))
-        format.html { redirect_to(@library) }
-        format.xml  { render :xml => @library, :status => :created }
-      else
-        prepare_options
-        format.html { render :action => "new" }
-        format.xml  { render :xml => @library.errors, :status => :unprocessable_entity }
+        shelf_name = @library.name 
+        @shelf_default = Shelf.new(:name => "#{shelf_name}_default", :library_id => @library.id)
+        @shelf_in_process = Shelf.new(:name => "#{shelf_name}_in_process", :display_name => t('activerecord.attributes.shelf.in_process'), :open_access => 9,:library_id => @library.id)
+        @shelf_default.save!
+        @shelf_in_process.save!
+
+        respond_to do |format|
+          flash[:notice] = t('controller.successfully_created', :model => t('activerecord.models.library'))
+          format.html { redirect_to(@library) }
+          format.xml  { render :xml => @library, :status => :created }
+        end
       end
+    end
+  rescue Exception => e
+    logger.info "Error => #{e}"
+    prepare_options
+    @library.errors[:base] << t('library.already_exist_shelf') if @shelf_default and @shelf_default.errors.size > 0
+    @library.errors[:base] << t('library.already_exist_shelf') if @shelf_in_process and @shelf_in_process.errors.size > 0
+    respond_to do |format|
+      format.html { render :action => "new" }
+      format.xml  { render :xml => @library.errors, :status => :unprocessable_entity }
     end
   end
 
@@ -114,6 +128,15 @@ class LibrariesController < ApplicationController
   def destroy
     respond_to do |format|
       if @library.destroy?
+        @library.shelves.each do |shelf|
+          if shelf.destroy?
+            shelf.destroy
+          else
+            flash[:message] = t('library.cannot_delete')
+            format.html { redirect_to libraries_url }
+            return
+          end
+        end
         @library.destroy
         format.html { redirect_to libraries_url }
         format.xml  { head :ok }

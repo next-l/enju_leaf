@@ -22,7 +22,9 @@
 
 <p>
   <strong><%= t('activerecord.attributes.shelf.open_access') -%>:</strong>
-  <%- if @shelf.open_access == 0 -%>
+  <%- if @shelf.open_access == 9 -%>
+    <%= t('activerecord.attributes.shelf.in_process') -%>
+  <%- elsif @shelf.open_access == 0 -%>
     <%= t('activerecord.attributes.shelf.open') -%>
   <%- else -%>
     <%= t('activerecord.attributes.shelf.closed') -%>
@@ -59,8 +61,10 @@
       <%- end -%>
     <% end %>
     <% if can? :update, @shelf %>
-      <li><%= link_to t('page.edit'), edit_shelf_path(@shelf) -%></li>
-      <li><%= link_to t('page.listing', :model => t('activerecord.models.picture_file')), shelf_picture_files_path(@shelf) -%></li>
+      <% unless @shelf.open_access == 9 %>
+        <li><%= link_to t('page.edit'), edit_shelf_path(@shelf) -%></li>
+        <li><%= link_to t('page.listing', :model => t('activerecord.models.picture_file')), shelf_picture_files_path(@shelf) -%></li>
+      <% end %>
     <% end %>
     <li>
       <%= link_to t('page.back'), shelves_path -%>

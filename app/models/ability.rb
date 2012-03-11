@@ -34,7 +34,8 @@ class Ability
       end      
       can [:read, :create, :update], Library
       can :destroy, Library do |library|
-        library.shelves.empty? and library.users.empty? and library.budgets.empty? and library.events.empty? and !library.web?
+        #library.shelves.empty? and library.users.empty? and library.budgets.empty? and library.events.empty? and !library.web?
+        library.id != 0 and  library.shelves.size == 1 and library.shelves[0].open_access == 9 and library.shelves[0].items.empty? and library.budgets.empty? and library.events.empty? and !library.web?
       end
       can [:read, :create, :update], Manifestation
       can :destroy, Manifestation do |manifestation|

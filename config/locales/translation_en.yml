@@ -428,6 +428,7 @@ en:
         open_access: Open access
         open: Open
         closed: Closed
+        in_process: In process
       event_category:
         name: Name
         display_name: Display name
