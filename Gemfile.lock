@@ -1,5 +1,5 @@
 GIT
-  remote: https://github.com/nabeta/enju_book_jacket.git
+  remote: git://github.com/nabeta/enju_book_jacket.git
   revision: 688cca0c3a0e101d7cd208e71ce6aa7e9fd0cbed
   specs:
     enju_book_jacket (0.0.1)
@@ -7,7 +7,7 @@ GIT
       rails (~> 3.2)
 
 GIT
-  remote: https://github.com/nabeta/enju_manifestation_viewer.git
+  remote: git://github.com/nabeta/enju_manifestation_viewer.git
   revision: 63cddc5dbd2865cec4bb571700a5b0880d42128f
   specs:
     enju_manifestation_viewer (0.0.1)
@@ -15,20 +15,20 @@ GIT
       rails (~> 3.2)
 
 GIT
-  remote: https://github.com/nabeta/enju_oai.git
+  remote: git://github.com/nabeta/enju_oai.git
   revision: 7e7fb239ddbc4d7d084be5043d34d2f0e991b379
   specs:
     enju_oai (0.0.1)
       rails (~> 3.1)
 
 GIT
-  remote: https://github.com/nabeta/isbn-tools.git
+  remote: git://github.com/nabeta/isbn-tools.git
   revision: 05e31384f167aa7d1e560f76c1c3faf104d64709
   specs:
     isbn-tools (0.2.0)
 
 GIT
-  remote: https://github.com/nabeta/sunspot-rails-tester.git
+  remote: git://github.com/nabeta/sunspot-rails-tester.git
   revision: 733d46622fd4080836ee688f00acdd2b77395af9
   specs:
     sunspot-rails-tester (0.0.4)
@@ -73,7 +73,6 @@ GEM
     acts_as_list (0.1.5)
     addressable (2.2.7)
     annotate (2.4.0)
-    ansi (1.4.2)
     arel (3.0.2)
     astrails-safe (0.2.7)
       aws-s3
@@ -86,7 +85,7 @@ GEM
       builder
       mime-types
       xml-simple
-    aws-sdk (1.3.5)
+    aws-sdk (1.3.6)
       httparty (~> 0.7)
       json (~> 1.4)
       nokogiri (>= 1.4.4)
@@ -276,8 +275,7 @@ GEM
       actionmailer (>= 3.0.4)
     execjs (1.3.0)
       multi_json (~> 1.0)
-    extractcontent (0.0.1)
-    factory_girl (2.6.1)
+    factory_girl (2.6.3)
       activesupport (>= 2.3.9)
     factory_girl_rails (1.7.0)
       factory_girl (~> 2.6.0)
@@ -294,7 +292,7 @@ GEM
       sexp_processor (~> 3.0)
     friendly_id (4.0.1)
     geocoder (1.1.1)
-    guard (1.0.0)
+    guard (1.0.1)
       ffi (>= 0.5.0)
       thor (~> 0.14.6)
     guard-rspec (0.6.0)
@@ -308,9 +306,9 @@ GEM
       multi_json
       multi_xml
     i18n (0.6.0)
-    inherited_resources (1.3.0)
+    inherited_resources (1.3.1)
       has_scope (~> 0.5.0)
-      responders (~> 0.6.0)
+      responders (~> 0.6)
     journey (1.0.3)
     jquery-rails (2.0.1)
       railties (>= 3.2.0, < 5.0)
@@ -346,7 +344,7 @@ GEM
     net-sftp (2.0.5)
       net-ssh (>= 2.0.9)
     net-ssh (2.3.0)
-    nokogiri (1.5.0)
+    nokogiri (1.5.2)
     omniauth (1.0.3)
       hashie (~> 1.2)
       rack
@@ -361,7 +359,7 @@ GEM
       cocaine (>= 0.0.2)
       mime-types
     parallel (0.5.16)
-    parallel_tests (0.7.1)
+    parallel_tests (0.7.2)
       parallel
     pg (0.13.2)
     polyglot (0.3.3)
@@ -413,7 +411,8 @@ GEM
       ruby2ruby (~> 1.2)
       ruby_parser (~> 2.0)
       sexp_processor (~> 3.0)
-    responders (0.6.5)
+    responders (0.8.0)
+      railties (~> 3.1)
     ri_cal (0.8.8)
     roodi (2.1.0)
       ruby_parser
@@ -483,8 +482,6 @@ GEM
     treetop (1.4.10)
       polyglot
       polyglot (>= 0.3.1)
-    turn (0.8.3)
-      ansi
     tzinfo (0.3.32)
     uglifier (1.2.3)
       execjs (>= 0.3.0)
@@ -542,7 +539,6 @@ DEPENDENCIES
   enju_search_log (~> 0.0.2)
   enju_subject (~> 0.0.8)
   exception_notification (~> 2.5.2)
-  extractcontent
   factory_girl_rails (~> 1.7)
   fakeweb
   file_wrapper
@@ -565,7 +561,7 @@ DEPENDENCIES
   omniauth (~> 1.0)
   paper_trail (~> 2.6)
   paperclip (~> 2.7)
-  parallel_tests
+  parallel_tests (~> 0.7)
   pg
   progress_bar
   rack-protection
@@ -588,7 +584,6 @@ DEPENDENCIES
   sunspot_solr (~> 2.0.0.pre.111215)
   system_timer
   timecop
-  turn (~> 0.8.3)
   uglifier (>= 1.0.3)
   validates_timeliness
   vcr (~> 2.0)

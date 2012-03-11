@@ -1,7 +1,7 @@
 class PatronImportFile < ActiveRecord::Base
   include ImportFile
   default_scope :order => 'id DESC'
-  scope :not_imported, where(:state => 'pending', :imported_at => nil)
+  scope :not_imported, where(:state => 'pending')
   scope :stucked, where('created_at < ? AND state = ?', 1.hour.ago, 'pending')
 
   if configatron.uploaded_file.storage == :s3
@@ -145,9 +145,9 @@ class PatronImportFile < ActiveRecord::Base
   def open_import_file
     tempfile = Tempfile.new('patron_import_file')
     if configatron.uploaded_file.storage == :s3
-      uploaded_file_path = open(self.patron_import.expiring_url(10)).path
+      uploaded_file_path = patron_import.expiring_url(10)
     else
-      uploaded_file_path = self.patron_import.path
+      uploaded_file_path = patron_import.path
     end
     open(uploaded_file_path){|f|
       f.each{|line|

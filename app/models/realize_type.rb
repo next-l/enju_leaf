@@ -1,6 +1,6 @@
 class RealizeType < ActiveRecord::Base
   include MasterModel
-  default_scope :order => 'position'
+  default_scope :order => 'realize_types.position'
 end
 
 # == Schema Information

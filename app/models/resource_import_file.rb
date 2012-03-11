@@ -2,7 +2,7 @@
 class ResourceImportFile < ActiveRecord::Base
   include ImportFile
   default_scope :order => 'id DESC'
-  scope :not_imported, where(:state => 'pending', :imported_at => nil)
+  scope :not_imported, where(:state => 'pending')
   scope :stucked, where('created_at < ? AND state = ?', 1.hour.ago, 'pending')
 
   if configatron.uploaded_file.storage == :s3
@@ -70,6 +70,7 @@ class ResourceImportFile < ActiveRecord::Base
       item = Item.where(:item_identifier => item_identifier).first
       if item
         import_result.item = item
+        import_result.manifestation = item.manifestation
         import_result.save!
         num[:item_found] += 1
         next
@@ -151,35 +152,20 @@ class ResourceImportFile < ActiveRecord::Base
 
   def self.import_work(title, patrons, options = {:edit_mode => 'create'})
     work = Manifestation.new(title)
-    case options[:edit_mode]
-    when 'create'
-      work.creators << patrons
-    when 'update'
-      work.creators = patrons unless patrons.empty?
-    end
+    work.creators = patrons.uniq unless patrons.empty?
     work
   end
 
   def self.import_expression(work, patrons, options = {:edit_mode => 'create'})
     expression = work
-    case options[:edit_mode]
-    when 'create'
-      expression.contributors << patrons
-    when 'update'
-      expression.contributors = patrons unless patrons.empty?
-    end
+    expression.contributors = patrons.uniq unless patrons.empty?
     expression
   end
 
   def self.import_manifestation(expression, patrons, options = {}, edit_options = {:edit_mode => 'create'})
     manifestation = expression
     manifestation.update_attributes!(options.merge(:during_import => true))
-    case edit_options[:edit_mode]
-    when 'create'
-      manifestation.publishers << patrons
-    when 'update'
-      manifestation.publishers = patrons unless patrons.empty?
-    end
+    manifestation.publishers = patrons.uniq unless patrons.empty?
     manifestation
   end
 
@@ -295,9 +281,9 @@ class ResourceImportFile < ActiveRecord::Base
   def open_import_file
     tempfile = Tempfile.new('patron_import_file')
     if configatron.uploaded_file.storage == :s3
-      uploaded_file_path = open(self.resource_import.expiring_url(10)).path
+      uploaded_file_path = resource_import.expiring_url(10)
     else
-      uploaded_file_path = self.resource_import.path
+      uploaded_file_path = resource_import.path
     end
     open(uploaded_file_path){|f|
       f.each{|line|
@@ -425,18 +411,18 @@ class ResourceImportFile < ActiveRecord::Base
         work = self.class.import_work(title, creator_patrons, options)
         work.series_statement = series_statement
         if defined?(EnjuSubject)
-          work.subjects << subjects unless subjects.empty?
+          work.subjects = subjects.uniq unless subjects.empty?
         end
         expression = self.class.import_expression(work, contributor_patrons)
       when 'update'
         expression = manifestation
         work = expression
         work.series_statement = series_statement
+        work.creators = creator_patrons.uniq unless creator_patrons.empty?
+        expression.contributors = contributor_patrons.uniq unless contributor_patrons.empty?
         if defined?(EnjuSubject)
-          work.subjects = subjects unless subjects.empty?
+          work.subjects = subjects.uniq unless subjects.empty?
         end
-        work.creators = creator_patrons unless creator_patrons.empty?
-        expression.contributors = contributor_patrons unless contributor_patrons.empty?
       end
       if row['volume_number'].present?
         volume_number = row['volume_number'].to_s.tr('０-９', '0-9').to_i

@@ -366,30 +366,11 @@ class Manifestation < ActiveRecord::Base
   end
 
   def extract_text
-    extractor = ExtractContent::Extractor.new
-    text = Tempfile::new("text")
-    case self.attachment_content_type
-    when "application/pdf"
-      system("pdftotext -q -enc UTF-8 -raw #{attachment(:path)} #{text.path}")
-      self.fulltext = text.read
-    when "application/msword"
-      system("antiword #{attachment(:path)} 2> /dev/null > #{text.path}")
-      self.fulltext = text.read
-    when "application/vnd.ms-excel"
-      system("xlhtml #{attachment(:path)} 2> /dev/null > #{text.path}")
-      self.fulltext = extractor.analyse(text.read)
-    when "application/vnd.ms-powerpoint"
-      system("ppthtml #{attachment(:path)} 2> /dev/null > #{text.path}")
-      self.fulltext = extractor.analyse(text.read)
-    when "text/html"
-      # TODO: 日本語以外
-      system("w3m -dump #{attachment(:path)} 2> /dev/null | nkf -w > #{text.path}")
-      self.fulltext = extractor.analyse(text.read)
-    end
-
-    #self.indexed_at = Time.zone.now
+    return nil unless attachment.path
+    # TODO: S3 support
+    response = `curl "#{Sunspot.config.solr.url}/update/extract?&extractOnly=true&wt=ruby" --data-binary @#{attachment.path} -H "Content-type:text/html"`
+    self.fulltext = eval(response)[""]
     save(:validate => false)
-    text.close
   end
 
   def created(patron)

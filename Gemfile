@@ -10,7 +10,7 @@ gem 'enju_barcode', '~> 0.0.1'
 #gem 'enju_calil', :git => 'git://github.com/nabeta/enju_calil.git'
 gem 'enju_ndl', '~> 0.0.12'
 #gem 'enju_nii', :git => 'git://github.com/nabeta/enju_nii.git'
-gem 'enju_oai', :git => 'https://github.com/nabeta/enju_oai.git'
+gem 'enju_oai', :git => 'git://github.com/nabeta/enju_oai.git'
 #gem 'enju_scribd', :git => 'git://github.com/nabeta/enju_scribd.git'
 gem 'enju_subject', '~> 0.0.8'
 gem 'enju_purchase_request', '~> 0.0.5'
@@ -24,8 +24,8 @@ gem 'enju_inventory', '~> 0.0.4'
 gem 'enju_event', '~> 0.0.9'
 #gem 'enju_news', :git => 'git://github.com/nabeta/enju_news.git'
 gem 'enju_search_log', '~> 0.0.2'
-gem 'enju_book_jacket', :git => 'https://github.com/nabeta/enju_book_jacket.git'
-gem 'enju_manifestation_viewer', :git => 'https://github.com/nabeta/enju_manifestation_viewer.git'
+gem 'enju_book_jacket', :git => 'git://github.com/nabeta/enju_book_jacket.git'
+gem 'enju_manifestation_viewer', :git => 'git://github.com/nabeta/enju_manifestation_viewer.git'
 
 platforms :ruby do
   gem 'pg'
@@ -79,8 +79,8 @@ gem 'paper_trail', '~> 2.6'
 #gem 'prism'
 #gem 'money'
 gem 'RedCloth', '>= 4.2.9'
-gem 'isbn-tools', :git => 'https://github.com/nabeta/isbn-tools.git', :require => 'isbn/tools'
-gem 'extractcontent'
+gem 'isbn-tools', :git => 'git://github.com/nabeta/isbn-tools.git', :require => 'isbn/tools'
+#gem 'extractcontent'
 gem 'cancan', '>= 1.6.7'
 gem 'devise', '~> 1.5.3'
 gem 'omniauth', '~> 1.0'
@@ -112,7 +112,7 @@ gem 'rails_autolink'
 #end
 
 group :development do
-  gem 'parallel_tests'
+  gem 'parallel_tests', '~> 0.7'
   gem 'annotate'
 end
 
@@ -124,7 +124,7 @@ group :development, :test do
   gem 'rcov', '0.9.11'
   gem 'metric_fu', '~> 2.1'
   gem 'timecop'
-  gem 'sunspot-rails-tester', :git => 'https://github.com/nabeta/sunspot-rails-tester.git'
+  gem 'sunspot-rails-tester', :git => 'git://github.com/nabeta/sunspot-rails-tester.git'
   gem 'vcr', '~> 2.0'
   gem 'fakeweb'
   gem 'churn', '0.0.13'
@@ -155,8 +155,3 @@ gem 'jquery-rails'
 
 # To use debugger
 # gem 'ruby-debug19', :require => 'ruby-debug'
-
-group :test do
-  # Pretty printed test output
-  gem 'turn', '~> 0.8.3', :require => false
-end
