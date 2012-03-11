@@ -1,4 +1,27 @@
 # -*- encoding: utf-8 -*-
+class String 
+  def strip_hypen_around_alphabet
+    s = ""
+    c = 0 
+    doFlag = true
+    while doFlag
+      break if c > self.size
+      c2 = c
+      c = self.index(/\-[A-Z]/, c) 
+      unless c
+        s = s + self[c2..-1]
+        break 
+      end
+      s = s + self[0...c] 
+      puts "c=#{c}"
+      c = c + 1
+    end
+
+    # TODO
+    return s
+  end
+end
+
 class ZipCodeList < ActiveRecord::Base
 
   searchable do
@@ -23,7 +46,7 @@ class ZipCodeList < ActiveRecord::Base
       raise ArgumentError, "zip_code is invalid. (no record)"
     end
 
-    puts "zip.id=#{zip.id} "
+    #puts "zip.id=#{zip.id} "
 
     # whitespece remove
     #address = address.strip_with_full_size_space
@@ -40,9 +63,11 @@ class ZipCodeList < ActiveRecord::Base
     a3.upcase!
 
     # rule 2
-    spr2 = "&/・."
-    a3.gsub!(/"#{spr2}"/, "")
-    logger.debug "rule2 end a3=#{a3}"
+    #spr2 = "&/・."
+    spr2 = "\&"
+    #a3 = a3.gsub(/"[#{spr2}]"/, "")
+    a3 = a3.gsub(/[&\/..・]/, "")
+    logger.debug "rule2 a3=#{a3}"
 
     # sp1 kanji number to number-char 
     a4 = a3
@@ -50,12 +75,14 @@ class ZipCodeList < ActiveRecord::Base
 
     end
 
-    #                 # rule 3
+    # rule 3
     a5 = a4.gsub(/[^0-9A-Z\-]{1,}/, "-").gsub(/[A-Z]{2,}/, "-")
     logger.debug "rule3-1 a5=#{a5}"
 
     a5 = a5.gsub(/[-]{2,}/, "-").gsub(/^[-]|[-]$/, "")
     logger.debug "rule3-2 a5=#{a5}"
+    a5 = a5.strip_hypen_around_alphabet
+    logger.debug "rule3-3 a5=#{a5}"
 
     code = zip_code + a5
 
@@ -81,11 +108,11 @@ class ZipCodeList < ActiveRecord::Base
       #puts "$2=#{$2}"
       s = $2.dup.tr("０-９", "0-9")
       s =~ /(\d{1,})#{range_char}(\d{1,})/
-      puts "range check $1=#{$1} $2=#{$2}" 
+      #puts "range check $1=#{$1} $2=#{$2}" 
       if $1.present? && $2.present?
         ($1..$2).each do |i|
           asub = self.prefecture_name+self.city_name+a+i.to_s+suffix
-          puts asub
+          #puts asub
           if address.index(asub) == 0
             return self.prefecture_name+self.city_name+a
           end
