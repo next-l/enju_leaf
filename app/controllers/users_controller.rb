@@ -87,6 +87,10 @@ class UsersController < ApplicationController
   end
 
   def edit
+    if @user == current_user
+      redirect_to edit_my_account_url
+      return
+    end
     @user.role_id = @user.role.id
 
     if defined?(EnjuCirculation)

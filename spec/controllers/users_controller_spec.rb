@@ -188,7 +188,7 @@ describe UsersController do
 
       it "should edit myself" do
         get :edit, :id => users(:user1).username
-        response.should be_success
+        response.should redirect_to edit_my_account_url
       end
     end
 
