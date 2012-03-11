@@ -52,14 +52,15 @@ class UserLabel < ActiveRecord::Base
       raise ArgumentError, "zip_code is invalid. (no record)"
     end
 
+    puts "zip.id=#{zip.id} "
+
     # whitespece remove
     #address = address.strip_with_full_size_space
-    asub = zip.prefecture_name+zip.city_name+zip.region_name
-    logger.debug "asub1=#{asub}"
     asub = zip.check_include_address(address)
-    
+    logger.debug "asub=#{asub}" 
     a2 = address.delete(asub)
     logger.debug "a2=#{a2}"
+    puts "a2=#{a2}"
 
     # rule 0 wide-char alphabet and numeric convert to ascii 
     a3 = a2.tr('ａ-ｚＡ-Ｚ１-９', 'a-zA-Z1-9')
@@ -82,7 +83,8 @@ class UserLabel < ActiveRecord::Base
     a5 = a4.gsub(/[^0-9A-Z\-]{1,}/, "-").gsub(/[A-Z]{2,}/, "-")
     logger.debug "rule3-1 a5=#{a5}"
 
-    a5 = a5.squeeze.gsub(/^[-]|[-]$/, "")
+    a5 = a5.gsub(/[-]{2,}/, "-").gsub(/^[-]|[-]$/, "")
+    logger.debug "rule3-2 a5=#{a5}"
 
     code = zip_code + a5
 

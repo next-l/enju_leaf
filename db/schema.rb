@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120308083652) do
+ActiveRecord::Schema.define(:version => 20120311103427) do
 
   create_table "answer_has_items", :force => true do |t|
     t.integer  "answer_id"
@@ -1951,8 +1951,8 @@ ActiveRecord::Schema.define(:version => 20120308083652) do
 
   create_table "zip_code_lists", :force => true do |t|
     t.integer  "union_code"
-    t.integer  "zipcode5"
-    t.integer  "zipcode7"
+    t.string   "zipcode5"
+    t.string   "zipcode7"
     t.string   "prefectrure_name_kana"
     t.string   "city_name_kana"
     t.string   "region_name_kana"

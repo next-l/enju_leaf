@@ -7,13 +7,34 @@ class ZipCodeList < ActiveRecord::Base
 
   public
   def check_include_address(address)
-    if self.flag10 && self.flag10 == "1"
-      self.region_name =~ /(.*)（(.*)丁目）/
+    suffix = "丁目"; range_char = "〜"
+
+    puts "address=#{address}"
+
+    if self.flag10 && self.flag10 == 1
+      puts "flag10 multiple address"
+      self.region_name =~ /(.*)（(.*)#{suffix}）/
       unless $2 
         logger.error "error"
-        raise ArgumentError, "trap 1-1"
+        raise ArgumentError, "trap 1 at check_include_address"
+      end
+      a = $1.dup
+
+      #puts "$2=#{$2}"
+      s = $2.dup.tr("０-９", "0-9")
+      s =~ /(\d{1,})#{range_char}(\d{1,})/
+      puts "range check $1=#{$1} $2=#{$2}" 
+      if $1.present? && $2.present?
+        ($1..$2).each do |i|
+          asub = self.prefecture_name+self.city_name+a+i.to_s+suffix
+          puts asub
+          if address.index(asub) == 0
+            return self.prefecture_name+self.city_name+a
+          end
+        end
       end
 
+      raise ArgumentError, "trap 2 at check_include_address"
     else
       asub = self.prefecture_name+self.city_name+self.region_name
       logger.debug "asub1=#{asub}"
@@ -22,7 +43,7 @@ class ZipCodeList < ActiveRecord::Base
         asub = self.city_name + self.region_name
         logger.debug "asub2=#{asub}"
         unless address.index(asub) == 0
-          raise ArgumentError, "trap 1-2"
+          raise ArgumentError, "trap 3 at check_include_address"
         end
       end
     end
