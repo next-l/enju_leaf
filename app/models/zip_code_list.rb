@@ -13,12 +13,37 @@ class String
         break 
       end
       s = s + self[0...c] 
-      puts "c=#{c}"
       c = c + 1
     end
 
     # TODO
     return s
+  end
+
+  def self.kanju2num(kan)
+    nums = %w|〇 一 二 三 四 五 六 七 八 九|
+    digits =  %w|十 百 千|
+    digits2 = %w|万 億 兆|
+
+    pieces = kan.split(//)
+    stack = 0
+    sum = 0
+    result = 0
+    while kan = pieces.shift
+      if i = nums.index(kan)
+        stack = i
+      elsif i = digits.index(kan)
+        stack = 1 if stack == 0
+        sum += stack * (10 ** (i + 1))
+        stack = 0
+      elsif i = digits2.index(kan)
+        result += (sum + stack) * ( 10 ** ((i + 1) * 4))
+        sum = 0
+        stack = 0
+      end
+    end
+    result += sum + stack
+    return result.to_s
   end
 end
 
@@ -63,16 +88,47 @@ class ZipCodeList < ActiveRecord::Base
     a3.upcase!
 
     # rule 2
-    #spr2 = "&/・."
-    spr2 = "\&"
-    #a3 = a3.gsub(/"[#{spr2}]"/, "")
     a3 = a3.gsub(/[&\/..・]/, "")
     logger.debug "rule2 a3=#{a3}"
+    logger.debug "==="
 
     # sp1 kanji number to number-char 
-    a4 = a3
+    a4 = a3.dup
     sp1.each do |c|
+      logger.debug "a4=#{a4} c=#{c}"
+      pos = a4.index(c)
+      if pos
+        logger.debug "find pos=#{pos}"
+        break_flag = false
+        rs = ""
+        pos2 = pos - 1
+        logger.debug "pos2=#{pos2}"
+        loop do
+          logger.debug "a4=#{a4[pos2]}"
+          if a4[pos2] =~ /[一二三四五六七八九十〇]/ 
+            rs += a4[pos2]
+            logger.debug "append rs=#{rs}"
+            if pos2 < 0
+              break_flag = true
+            end
+          else
+            break_flag = true
+          end
 
+          if break_flag 
+            logger.debug "break. pos2=#{pos2} rs=#{rs}"
+            if rs.present?
+              rs.reverse!
+              logger.debug "rs=#{rs}"
+              rp = String.kanju2num(rs)
+              a4[pos2+1, rs.size] = rp
+              logger.debug "a4rp=#{a4}"
+            end
+            break
+          end
+          pos2 = pos2 - 1
+        end
+      end
     end
 
     # rule 3
