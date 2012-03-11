@@ -267,6 +267,6 @@ system_configuration_00044:
 system_configuration_00045:
   id: 45
   keyname: use_order_lists
-  v: "true"
+  v: "false"
   typename: Boolean
   description: "発注リストを使用するかどうか。trueのとき使用可能。"
