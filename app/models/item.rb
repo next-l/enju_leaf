@@ -960,7 +960,7 @@ class Item < ActiveRecord::Base
     report.start_new_page
     report.page.item(:date).value(Time.now)
     date_ago = Time.zone.now - SystemConfiguration.get("new_book_term").day 
-    term = date_ago.strftime("%Y/%m/%d").to_s + ' -  ' + Time.now.strftime("%Y/%m/%d").to_s
+    term = date_ago.strftime("%Y/%m/%d").to_s + ' -  '
     report.page.item(:term).value(term)
     items.each do |item|
       report.page.list(:list).add_row do |row|
@@ -983,7 +983,7 @@ class Item < ActiveRecord::Base
 
     # set term
     date_ago = Time.zone.now - SystemConfiguration.get("new_book_term").day 
-    term = date_ago.strftime("%Y/%m/%d").to_s + ' -  ' + Time.now.strftime("%Y/%m/%d").to_s
+    term = date_ago.strftime("%Y/%m/%d").to_s + ' -  '
     data << '"' + term + "\"\n"
 
     columns = [
