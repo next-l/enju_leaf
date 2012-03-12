@@ -7,6 +7,9 @@ class PatronSweeper < ActionController::Caching::Sweeper
     record.works.each do |work|
       expire_editable_fragment(work)
     end
+    record.expressions.each do |expression|
+      expire_editable_fragment(expression)
+    end
     record.manifestations.each do |manifestation|
       expire_editable_fragment(manifestation)
     end

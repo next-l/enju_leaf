@@ -30,9 +30,23 @@
         }
       end
     end
-
-    # TODO contributor
-
+    manifestation.contributors.readable_by(current_user).each do |contributor|
+      case contributor.patron_type.name
+      when "Person"
+        xml.name('type' => 'personal'){
+          xml.namePart contributor.full_name
+          xml.namePart contributor.date if contributor.date
+        }
+      when "CorporateBody"
+        xml.name('type' => 'corporate'){
+          xml.namePart contributor.full_name
+        }
+      when "Conference"
+        xml.name('type' => 'conference'){
+          xml.namePart contributor.full_name
+        }
+      end
+    end
     xml.typeOfResource manifestation.carrier_type.mods_type
     xml.originInfo{
       manifestation.publishers.readable_by(current_user).each do |patron|

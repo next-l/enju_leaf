@@ -3,6 +3,8 @@ EnjuLeaf::Application.routes.draw do
 
   resources :produce_types
 
+  resources :realize_types
+
   resources :create_types
 
   devise_for :users, :path => 'accounts'
@@ -14,8 +16,10 @@ EnjuLeaf::Application.routes.draw do
   resources :manifestations do
     resources :patrons
     resources :creators, :controller => 'patrons'
+    resources :contributors, :controller => 'patrons'
     resources :publishers, :controller => 'patrons'
     resources :creates
+    resources :realizes
     resources :produces
     resources :picture_files
     resources :items
@@ -34,10 +38,15 @@ EnjuLeaf::Application.routes.draw do
     resources :patrons
     resources :patron_relationships
     resources :creates
+    resources :realizes
     resources :produces
   end
 
   resources :creators, :controller => 'patrons' do
+    resources :manifestations
+  end
+
+  resources :contributors, :controller => 'patrons' do
     resources :manifestations
   end
 
@@ -49,6 +58,13 @@ EnjuLeaf::Application.routes.draw do
     resources :patrons
     resources :creates
     resources :expressions, :controller => 'manifestations'
+    resources :manifestation_relationships
+    resources :manifestations
+  end
+
+  resources :expressions, :controller => 'manifestations' do
+    resources :patrons
+    resources :realizes
     resources :manifestation_relationships
     resources :manifestations
   end
@@ -144,6 +160,7 @@ EnjuLeaf::Application.routes.draw do
 
   resources :owns
   resources :produces
+  resources :realizes
   resources :creates
   resources :exemplifies
 

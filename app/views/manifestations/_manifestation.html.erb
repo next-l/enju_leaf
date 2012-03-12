@@ -44,6 +44,8 @@
                       <% case %>
                       <% when @index_patron[:creator] %>
                         <%= link_to t('page.add'), new_patron_create_path(@index_patron[:creator], :work_id => manifestation.id) unless manifestation.creators.include?(@index_patron[:creator]) -%>
+                      <% when @index_patron[:contributor] %>
+                        <%= link_to t('page.add'), new_patron_realize_path(@index_patron[:contributor], :expression_id => manifestation.id) unless manifestation.contributors.include?(@index_patron[:contributor]) -%>
                       <% when @index_patron[:publisher] %>
                         <%= link_to t('page.add'), new_patron_produce_path(@index_patron[:publisher], :manifestation_id => manifestation.id) unless manifestation.publishers.include?(@index_patron[:publisher]) -%>
                       <% when @series_statement %>

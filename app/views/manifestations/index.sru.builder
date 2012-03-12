@@ -74,7 +74,9 @@ def get_record(manifestation)
       manifestation.creators.readable_by(current_user).each do |patron|
         xml.tag! 'dc:creator', patron.full_name
       end
-      # TODO: contributor
+      manifestation.contributors.each do |patron|
+        xml.tag! 'dc:contributor', patron.full_name
+      end
       manifestation.publishers.each do |patron|
         xml.tag! 'dc:publisher', patron.full_name
       end

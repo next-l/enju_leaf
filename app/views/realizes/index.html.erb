@@ -1,0 +1,7 @@
+<%- if @patron -%>
+  <%= render 'index_patron', :patron => @patron -%>
+<%- elsif @expression -%>
+  <%= render 'index_expression', :expression => @expression -%>
+<%- else -%>
+  <%= render 'index' -%>
+<%- end -%>

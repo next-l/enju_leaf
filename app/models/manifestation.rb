@@ -3,6 +3,8 @@ class Manifestation < ActiveRecord::Base
   scope :periodical_children, where(:periodical => true)
   has_many :creates, :dependent => :destroy, :foreign_key => 'work_id'
   has_many :creators, :through => :creates, :source => :patron
+  has_many :realizes, :dependent => :destroy, :foreign_key => 'expression_id'
+  has_many :contributors, :through => :realizes, :source => :patron
   has_many :produces, :dependent => :destroy, :foreign_key => 'manifestation_id'
   has_many :publishers, :through => :produces, :source => :patron
   has_many :exemplifies, :foreign_key => 'manifestation_id'
@@ -26,7 +28,7 @@ class Manifestation < ActiveRecord::Base
     text :title, :default_boost => 2 do
       titles
     end
-    text :fulltext, :note, :creator, :publisher, :description
+    text :fulltext, :note, :creator, :contributor, :publisher, :description
     string :title, :multiple => true
     # text フィールドだと区切りのない文字列の index が上手く作成
     #できなかったので。 downcase することにした。
@@ -66,6 +68,7 @@ class Manifestation < ActiveRecord::Base
     time :deleted_at
     time :date_of_publication
     integer :creator_ids, :multiple => true
+    integer :contributor_ids, :multiple => true
     integer :publisher_ids, :multiple => true
     integer :item_ids, :multiple => true
     integer :original_manifestation_ids, :multiple => true
@@ -301,6 +304,10 @@ class Manifestation < ActiveRecord::Base
     creators.collect(&:name).flatten
   end
 
+  def contributor
+    contributors.collect(&:name).flatten
+  end
+
   def publisher
     publishers.collect(&:name).flatten
   end
@@ -318,7 +325,7 @@ class Manifestation < ActiveRecord::Base
     return nil if self.cached_numdocs < 5
     manifestation = nil
     # TODO: ヒット件数が0件のキーワードがあるときに指摘する
-    response = Manifestation.search(:include => [:creators, :publishers, :items]) do
+    response = Manifestation.search(:include => [:creators, :contributors, :publishers, :items]) do
       fulltext keyword if keyword
       order_by(:random)
       paginate :page => 1, :per_page => 1
@@ -344,6 +351,10 @@ class Manifestation < ActiveRecord::Base
 
   def created(patron)
     creates.where(:patron_id => patron.id).first
+  end
+
+  def realized(patron)
+    realizes.where(:patron_id => patron.id).first
   end
 
   def produced(patron)

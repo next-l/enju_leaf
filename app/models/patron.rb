@@ -3,6 +3,8 @@ class Patron < ActiveRecord::Base
   scope :readable_by, lambda{|user| {:conditions => ['required_role_id <= ?', user.try(:user_has_role).try(:role_id) || Role.where(:name => 'Guest').select(:id).first.id]}}
   has_many :creates, :dependent => :destroy
   has_many :works, :through => :creates
+  has_many :realizes, :dependent => :destroy
+  has_many :expressions, :through => :realizes
   has_many :produces, :dependent => :destroy
   has_many :manifestations, :through => :produces
   has_many :children, :foreign_key => 'parent_id', :class_name => 'PatronRelationship', :dependent => :destroy
@@ -57,6 +59,7 @@ class Patron < ActiveRecord::Base
     time :date_of_death
     string :user
     integer :work_ids, :multiple => true
+    integer :expression_ids, :multiple => true
     integer :manifestation_ids, :multiple => true
     integer :patron_merge_list_ids, :multiple => true if defined?(EnjuResourceMerge)
     integer :original_patron_ids, :multiple => true
@@ -210,6 +213,10 @@ class Patron < ActiveRecord::Base
 
   def created(work)
     creates.where(:work_id => work.id).first
+  end
+
+  def realized(expression)
+    realizes.where(:expression_id => expression.id).first
   end
 
   def produced(manifestation)

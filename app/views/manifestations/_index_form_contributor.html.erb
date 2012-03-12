@@ -1,0 +1,15 @@
+<div class="search_form">
+<%= form_for :manifestations, :url => contributor_manifestations_path(@index_patron[:contributor]), :html => {:method => 'get'} do -%>
+  <p>
+    <%= t('page.search_term') -%>:
+    <%= search_field_tag 'query', h(@query), {:id => 'search_form_top', :class => 'search_form', :placeholder => t('page.search_term')} -%>
+    <%= hidden_field_tag 'reservable', h(@reservable) if @reservable -%>
+    <% if can? :create, Realize %>
+      <%= render 'page/add' %>
+    <% end %>
+    <%= submit_tag t('page.search') -%>
+    <br />
+    <%= link_to t('page.advanced_search'), page_advanced_search_path -%>
+  </p>
+<%- end -%>
+</div>

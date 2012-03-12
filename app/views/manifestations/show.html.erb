@@ -70,7 +70,9 @@
       <%- if current_user.has_role?('Librarian') -%>
         <ul>
           <li>
-            <%- if @patron -%>
+            <%- case when @expression -%>
+              <%= link_to t('page.edit'), edit_expression_manifestation_path(@expression, @manifestation) -%>
+            <%- when @patron -%>
               <%= link_to t('page.edit'), edit_publisher_manifestation_path(@patron, @manifestation) -%>
             <%- else -%>
               <%= link_to t('page.edit'), edit_manifestation_path(@manifestation) -%>
@@ -80,6 +82,7 @@
             <%- end -%>
             <ul>
               <li><%= link_to t('manifestation.edit_creator'), work_patrons_path(@manifestation) -%></li>
+              <li><%= link_to t('manifestation.edit_contributor'), expression_patrons_path(@manifestation) -%></li>
               <li><%= link_to t('manifestation.edit_publisher'), manifestation_patrons_path(@manifestation) -%></li>
               <%- if @manifestation.periodical? -%>
                 <li><%= link_to t('manifestation.add_next_issue'), new_series_statement_manifestation_path(@manifestation.series_statement) if @manifestation.series_statement -%></li>

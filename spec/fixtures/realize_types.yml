@@ -1,0 +1,39 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+editor:
+  name: editor
+  display_name: "en: Editor\r\n\
+    ja: 編者"
+  note: 
+  position: 1
+  id: 1
+
+translator:
+  name: translator
+  display_name: "en: Translator\r\n\
+    ja: 訳者"
+  note: 
+  position: 2
+  id: 2
+
+illustrator:
+  name: illustrator
+  display_name: "en: Illustrator\r\n\
+    ja: 作画者"
+  note: 
+  position: 3
+  id: 3
+
+# == Schema Information
+#
+# Table name: realize_types
+#
+#  id           :integer         not null, primary key
+#  name         :string(255)
+#  display_name :text
+#  note         :text
+#  position     :integer
+#  created_at   :datetime
+#  updated_at   :datetime
+#
+
