@@ -3,17 +3,21 @@ class String
   def strip_hypen_front_alphabet
     s = ""
     c = 0 
-    doFlag = true
-    while doFlag
+    while true
       break if c > self.size
       c2 = c
       c = self.index(/\-[A-Z]/, c) 
       unless c
         s = s + self[c2..-1]
+        #puts "c2=#{c2} self[0..-1]=#{self[c2..-1]}"
+        #puts "s=#{s}"
         break 
       end
-      s = s + self[0...c] 
+      s = s + self[c2...c] 
+      #puts "c=#{c} self[0...c]=#{self[c2...c]}"
+      #puts "s=#{s}"
       c = c + 1
+      #puts "c=#{c}"
     end
 
     return s
@@ -35,7 +39,7 @@ class String
       pos = pos + 2
     end
 
-    puts "strip_hypen_around_alphabet s2=#{s2}"
+    #puts "strip_hypen_around_alphabet s2=#{s2}"
     return s2
   end
 
@@ -89,8 +93,10 @@ class ZipCodeList < ActiveRecord::Base
     unless zip
       raise ArgumentError, "zip_code is invalid. (no record)"
     end
-
-    #puts "zip.id=#{zip.id} "
+    if zip.zipcode7[5, 2] == "00"
+      # 下２ケタが00の場合はバーコードは利用しない
+      return ""
+    end
 
     # whitespece remove
     #address = address.strip_with_full_size_space
@@ -98,7 +104,7 @@ class ZipCodeList < ActiveRecord::Base
     logger.debug "asub=#{asub}" 
     a2 = address.delete(asub)
     logger.debug "a2=#{a2}"
-    puts "a2=#{a2}"
+    #puts "a2=#{a2}"
 
     # rule 0 wide-char alphabet and numeric convert to ascii 
     a3 = a2.tr('ａ-ｚＡ-Ｚ０-９', 'a-zA-Z0-9')
@@ -160,12 +166,13 @@ class ZipCodeList < ActiveRecord::Base
     logger.debug "rule3-3 a3=#{a3}"
 
     a3 = a3.strip_hypen_front_alphabet
-    a3 = a3.strip_hypen_behind_alphabet
     logger.debug "rule3-4 a3=#{a3}"
+    a3 = a3.strip_hypen_behind_alphabet
+    logger.debug "rule3-5 a3=#{a3}"
 
     code = zip_code + a3
 
-    logger.debug "rule3 end code=#{code}"
+    logger.debug "return code=#{code}"
 
     return code
   end
@@ -173,11 +180,11 @@ class ZipCodeList < ActiveRecord::Base
   def check_include_address(address)
     suffix = "丁目"; range_char = "〜"
 
-    puts "address=#{address}"
+    #puts "address=#{address}"
     address = self.build_asub(address)
 
     if self.flag10 && self.flag10 == 1
-      puts "flag10 multiple address"
+      #puts "flag10 multiple address"
       self.region_name =~ /(.*)（(.*)#{suffix}）/
       unless $2 
         logger.error "error"
@@ -218,7 +225,7 @@ class ZipCodeList < ActiveRecord::Base
 
   def build_asub(*args)
     asub = args.join
-    puts "asub=#{asub} flag11=#{self.flag11}"
+    #puts "asub=#{asub} flag11=#{self.flag11}"
     if self.flag11 = 1
       asub = asub.gsub(/大字/, "")
     end
