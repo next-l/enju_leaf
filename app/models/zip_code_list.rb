@@ -1,6 +1,6 @@
 # -*- encoding: utf-8 -*-
 class String 
-  def strip_hypen_around_alphabet
+  def strip_hypen_front_alphabet
     s = ""
     c = 0 
     doFlag = true
@@ -16,8 +16,27 @@ class String
       c = c + 1
     end
 
-    # TODO
     return s
+  end
+
+  def strip_hypen_behind_alphabet
+    s2 = ""
+    pos = 0
+    doFlag = true
+    while doFlag
+      break if pos > self.size
+      pos2 = pos
+      pos = self.index(/[A-Z]\-/, pos) 
+      unless pos
+        s2 = s2 + self[pos2..-1]
+        break 
+      end
+      s2 = s2 + self[pos2..pos]
+      pos = pos + 2
+    end
+
+    puts "strip_hypen_around_alphabet s2=#{s2}"
+    return s2
   end
 
   def self.kanju2num(kan)
@@ -82,7 +101,7 @@ class ZipCodeList < ActiveRecord::Base
     puts "a2=#{a2}"
 
     # rule 0 wide-char alphabet and numeric convert to ascii 
-    a3 = a2.tr('ａ-ｚＡ-Ｚ１-９', 'a-zA-Z1-9')
+    a3 = a2.tr('ａ-ｚＡ-Ｚ０-９', 'a-zA-Z0-9')
 
     # rule 1 ascii alphabet small to large
     a3.upcase!
@@ -92,20 +111,19 @@ class ZipCodeList < ActiveRecord::Base
     logger.debug "rule2 a3=#{a3}"
 
     # sp1 kanji number to number-char 
-    a4 = a3.dup
     sp1.each do |c|
-      logger.debug "a4=#{a4} c=#{c}"
-      pos = a4.index(c)
+      #logger.debug "a4=#{a4} c=#{c}"
+      pos = a3.index(c)
       if pos
-        logger.debug "find pos=#{pos}"
+        #logger.debug "find pos=#{pos}"
         break_flag = false
         rs = ""
         pos2 = pos - 1
-        logger.debug "pos2=#{pos2}"
+        #logger.debug "pos2=#{pos2}"
         loop do
-          logger.debug "a4=#{a4[pos2]}"
-          if a4[pos2] =~ /[一二三四五六七八九十〇]/ 
-            rs += a4[pos2]
+          #logger.debug "a4=#{a4[pos2]}"
+          if a3[pos2] =~ /[一二三四五六七八九十〇]/ 
+            rs += a3[pos2]
             logger.debug "append rs=#{rs}"
             if pos2 < 0
               break_flag = true
@@ -118,10 +136,10 @@ class ZipCodeList < ActiveRecord::Base
             logger.debug "break. pos2=#{pos2} rs=#{rs}"
             if rs.present?
               rs.reverse!
-              logger.debug "rs=#{rs}"
+              #logger.debug "rs=#{rs}"
               rp = String.kanju2num(rs)
-              a4[pos2+1, rs.size] = rp
-              logger.debug "a4rp=#{a4}"
+              a3[pos2+1, rs.size] = rp
+              #logger.debug "a4rp=#{a3}"
             end
             break
           end
@@ -131,15 +149,21 @@ class ZipCodeList < ActiveRecord::Base
     end
 
     # rule 3
-    a5 = a4.gsub(/[^0-9A-Z\-]{1,}/, "-").gsub(/[A-Z]{2,}/, "-")
-    logger.debug "rule3-1 a5=#{a5}"
+    a3 = a3.gsub(/[^0-9A-Z\-]{1,}/, "-").gsub(/[A-Z]{2,}/, "-")
+    a3 = a3.gsub(/[-]{2,}/, "-").gsub(/^[-]|[-]$/, "")
+    logger.debug "rule3-2 a3=#{a3}"
 
-    a5 = a5.gsub(/[-]{2,}/, "-").gsub(/^[-]|[-]$/, "")
-    logger.debug "rule3-2 a5=#{a5}"
-    a5 = a5.strip_hypen_around_alphabet
-    logger.debug "rule3-3 a5=#{a5}"
+    if a3 =~ /\dF$/
+      a3 = a3.gsub(/F$/, "")
+    end
+    a3 = a3.gsub(/F/, "-")
+    logger.debug "rule3-3 a3=#{a3}"
 
-    code = zip_code + a5
+    a3 = a3.strip_hypen_front_alphabet
+    a3 = a3.strip_hypen_behind_alphabet
+    logger.debug "rule3-4 a3=#{a3}"
+
+    code = zip_code + a3
 
     logger.debug "rule3 end code=#{code}"
 
