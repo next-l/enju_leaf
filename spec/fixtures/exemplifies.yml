@@ -5,6 +5,7 @@ exemplify_00001:
   manifestation_id: 1
   id: 1
   created_at: 2008-01-11 23:28:19.277110 +09:00
+  position: 1
 exemplify_00002: 
   updated_at: 2008-01-11 23:28:57.068191 +09:00
   item_id: 2
@@ -23,6 +24,7 @@ exemplify_00004:
   manifestation_id: 1
   id: 4
   created_at: 2008-01-11 02:34:20.183962 +09:00
+  position: 2
 exemplify_00005: 
   updated_at: 2008-01-11 02:34:32.352223 +09:00
   item_id: 5

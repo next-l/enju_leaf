@@ -1,6 +1,5 @@
 class ManifestationRelationshipsController < InheritedResources::Base
   load_and_authorize_resource
-  helper_method :get_manifestation
   before_filter :prepare_options, :except => [:index, :destroy]
 
   def prepare_options

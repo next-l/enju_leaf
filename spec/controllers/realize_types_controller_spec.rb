@@ -75,7 +75,7 @@ describe RealizeTypesController do
 
       it "redirects to the created realize_type" do
         post :create, :realize_type => valid_attributes
-        response.should redirect_to(RealizeType.first)
+        response.should redirect_to(RealizeType.last)
       end
     end
 
@@ -118,6 +118,14 @@ describe RealizeTypesController do
         realize_type = RealizeType.create! valid_attributes
         put :update, :id => realize_type.id, :realize_type => valid_attributes
         response.should redirect_to(realize_type)
+      end
+
+      it "moves its position when specified" do
+        realize_type = RealizeType.create! valid_attributes
+        position = realize_type.position
+        put :update, :id => realize_type.id, :move => 'higher'
+        response.should redirect_to realize_types_url
+        assigns(:realize_type).position.should eq position - 1
       end
     end
 

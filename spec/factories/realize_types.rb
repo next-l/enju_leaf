@@ -5,6 +5,5 @@ FactoryGirl.define do
     name "MyString"
     display_name "MyText"
     note "MyText"
-    position 1
   end
 end

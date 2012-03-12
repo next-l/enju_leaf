@@ -2,6 +2,7 @@ require 'spec_helper'
 require 'sunspot/rails/spec_helper'
 
 describe ProducesController do
+  fixtures :produces
   disconnect_sunspot
 
   def valid_attributes
@@ -281,7 +282,7 @@ describe ProducesController do
 
   describe "PUT update" do
     before(:each) do
-      @produce = FactoryGirl.create(:produce)
+      @produce = produces(:produce_00001)
       @attrs = valid_attributes
       @invalid_attrs = {:manifestation_id => ''}
     end
@@ -320,6 +321,13 @@ describe ProducesController do
           put :update, :id => @produce.id, :produce => @attrs
           assigns(:produce).should eq(@produce)
           response.should redirect_to(@produce)
+        end
+
+        it "moves its position when specified" do
+          position = @produce.position
+          put :update, :id => @produce.id, :manifestation_id => @produce.manifestation.id, :move => 'lower'
+          response.should redirect_to manifestation_produces_url(@produce.manifestation)
+          assigns(:produce).position.should eq position + 1
         end
       end
 

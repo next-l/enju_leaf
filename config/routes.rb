@@ -65,8 +65,8 @@ EnjuLeaf::Application.routes.draw do
   resources :expressions, :controller => 'manifestations' do
     resources :patrons
     resources :realizes
-    resources :manifestations
     resources :manifestation_relationships
+    resources :manifestations
   end
 
   resources :manifestations do
@@ -181,12 +181,12 @@ EnjuLeaf::Application.routes.draw do
   # Sample resource route with options:
   #   resources :products do
   #     member do
-  #       get :short
-  #       post :toggle
+  #       get 'short'
+  #       post 'toggle'
   #     end
   #
   #     collection do
-  #       get :sold
+  #       get 'sold'
   #     end
   #   end
 
@@ -200,7 +200,7 @@ EnjuLeaf::Application.routes.draw do
   #   resources :products do
   #     resources :comments
   #     resources :sales do
-  #       get :recent, :on => :collection
+  #       get 'recent', :on => :collection
   #     end
   #   end
 
@@ -219,10 +219,10 @@ EnjuLeaf::Application.routes.draw do
 
   # This is a legacy wild controller route that's not recommended for RESTful applications.
   # Note: This route will make all actions in every controller accessible via GET requests.
+  # match ':controller(/:action(/:id))(.:format)'
   match '/isbn/:isbn' => 'manifestations#show'
   match '/calendar(/:year(/:month))' => 'calendar#index', :as => :calendar, :constraints => {:year => /\d{4}/, :month => /\d{1,2}/}
   match "/calendar/:year/:month/:day" => "calendar#show"
-  # match ':controller(/:action(/:id(.:format)))'
   match '/page/about' => 'page#about'
   match '/page/configuration' => 'page#configuration'
   match '/page/advanced_search' => 'page#advanced_search'

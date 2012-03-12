@@ -3,16 +3,14 @@ class ManifestationsController < ApplicationController
   load_and_authorize_resource :except => :index
   authorize_resource :only => :index
   before_filter :authenticate_user!, :only => :edit
-  before_filter :get_patron
+  before_filter :get_patron, :get_manifestation, :except => [:create, :update, :destroy]
   before_filter :get_expression, :only => :new
-  helper_method :get_manifestation
   if defined?(EnjuSubject)
-    helper_method :get_subject
+    before_filter :get_subject, :except => [:create, :update, :destroy]
   end
   before_filter :get_series_statement, :only => [:index, :new, :edit]
-  before_filter :get_item, :only => :index
+  before_filter :get_item, :get_libraries, :only => :index
   before_filter :prepare_options, :only => [:new, :edit]
-  helper_method :get_libraries
   before_filter :get_version, :only => [:show]
   after_filter :solr_commit, :only => [:create, :update, :destroy]
   after_filter :convert_charset, :only => :index
@@ -112,14 +110,12 @@ class ManifestationsController < ApplicationController
         reservable = nil
       end
 
-      get_manifestation
       patron = get_index_patron
       @index_patron = patron
-      series_statement = @series_statement if @series_statement
       manifestation = @manifestation if @manifestation
+      series_statement = @series_statement if @series_statement
 
       if defined?(EnjuSubject)
-        get_subject
         subject = @subject if @subject
       end
 
@@ -234,7 +230,6 @@ class ManifestationsController < ApplicationController
       @manifestations = WillPaginate::Collection.create(page, per_page, max_count) do |pager|
         pager.replace(search_result.results)
       end
-      get_libraries
 
       if params[:format].blank? or params[:format] == 'html'
         @carrier_type_facet = search_result.facet(:carrier_type).rows

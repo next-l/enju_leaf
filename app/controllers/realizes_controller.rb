@@ -71,10 +71,13 @@ class RealizesController < ApplicationController
   # PUT /realizes/1.json
   def update
     # 並べ替え
-    if @expression and params[:position]
-      @realize.insert_at(params[:position])
-      redirect_to expression_realizes_url(@expression)
-      return
+    if @expression and params[:move]
+      direction = params[:move]
+      if ['higher', 'lower'].include?(direction)
+        @realize.send("move_#{direction}")
+        redirect_to expression_realizes_url(@expression)
+        return
+      end
     end
 
     respond_to do |format|

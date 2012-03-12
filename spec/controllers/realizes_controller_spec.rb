@@ -2,6 +2,7 @@ require 'spec_helper'
 require 'sunspot/rails/spec_helper'
 
 describe RealizesController do
+  fixtures :realizes
   disconnect_sunspot
 
   describe "GET index" do
@@ -10,7 +11,7 @@ describe RealizesController do
 
       it "assigns all realizes as @realizes" do
         get :index
-        assigns(:realizes).should eq(Realize.all)
+        assigns(:realizes).should eq(Realize.page(1))
       end
     end
 
@@ -19,7 +20,7 @@ describe RealizesController do
 
       it "assigns all realizes as @realizes" do
         get :index
-        assigns(:realizes).should eq(Realize.all)
+        assigns(:realizes).should eq(Realize.page(1))
       end
     end
 
@@ -28,14 +29,14 @@ describe RealizesController do
 
       it "assigns all realizes as @realizes" do
         get :index
-        assigns(:realizes).should eq(Realize.all)
+        assigns(:realizes).should eq(Realize.page(1))
       end
     end
 
     describe "When not logged in" do
       it "assigns all realizes as @realizes" do
         get :index
-        assigns(:realizes).should eq(Realize.all)
+        assigns(:realizes).should eq(Realize.page(1))
       end
     end
   end
@@ -277,7 +278,7 @@ describe RealizesController do
 
   describe "PUT update" do
     before(:each) do
-      @realize = FactoryGirl.create(:realize)
+      @realize = realizes(:realize_00001)
       @attrs = FactoryGirl.attributes_for(:realize)
       @invalid_attrs = {:expression_id => ''}
     end
@@ -321,6 +322,13 @@ describe RealizesController do
           put :update, :id => @realize.id, :realize => @attrs
           assigns(:realize).should eq(@realize)
           response.should redirect_to(@realize)
+        end
+
+        it "moves its position when specified" do
+          position = @realize.position
+          put :update, :id => @realize.id, :expression_id => @realize.expression.id, :move => 'lower'
+          response.should redirect_to expression_realizes_url(@realize.expression)
+          assigns(:realize).position.should eq position + 1
         end
       end
 

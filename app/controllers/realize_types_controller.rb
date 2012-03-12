@@ -4,9 +4,8 @@ class RealizeTypesController < InheritedResources::Base
 
   def update
     @realize_type = RealizeType.find(params[:id])
-    if params[:position]
-      @realize_type.insert_at(params[:position])
-      redirect_to realize_types_url
+    if params[:move]
+      move_position(@realize_type, params[:move])
       return
     end
     update!

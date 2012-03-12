@@ -1,21 +1,17 @@
 # -*- encoding: utf-8 -*-
 class SeriesStatementsController < ApplicationController
   load_and_authorize_resource
-  before_filter :get_work, :only => [:index, :new, :edit]
-  before_filter :get_manifestation, :only => [:index, :show, :new, :edit]
+  before_filter :get_work, :get_manifestation, :except => [:create, :update, :destroy]
   cache_sweeper :page_sweeper, :only => [:create, :update, :destroy]
   after_filter :solr_commit, :only => [:create, :update, :destroy]
   if defined?(EnjuResourceMerge)
-    helper_method :get_series_statement_merge_list
+    before_filter :get_series_statement_merge_list, :except => [:create, :update, :destroy]
   end
 
   # GET /series_statements
   # GET /series_statements.json
   def index
     search = Sunspot.new_search(SeriesStatement)
-    if defined?(EnjuResourceMerge)
-      get_series_statement_merge_list
-    end
     query = params[:query].to_s.strip
     page = params[:page] || 1
     unless query.blank?

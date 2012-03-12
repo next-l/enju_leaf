@@ -3,11 +3,9 @@ class PatronsController < ApplicationController
   load_and_authorize_resource :except => :index
   authorize_resource :only => :index
   before_filter :get_user_if_nil
-  helper_method :get_work
-  helper_method :get_manifestation, :get_item
-  helper_method :get_patron
+  before_filter :get_work, :get_manifestation, :get_item, :get_patron, :except => [:create, :update, :destroy]
   if defined?(EnjuResourceMerge)
-    helper_method :get_patron_merge_list
+    before_filter :get_patron_merge_list, :except => [:create, :update, :destroy]
   end
   before_filter :prepare_options, :only => [:new, :edit]
   before_filter :store_location
@@ -60,11 +58,6 @@ class PatronsController < ApplicationController
       end
     end
 
-    get_work; get_manifestation; get_patron
-    if defined?(EnjuResourceMerge)
-      get_patron_merge_list
-    end
-
     unless params[:mode] == 'add'
       user = @user
       work = @work
@@ -104,7 +97,6 @@ class PatronsController < ApplicationController
   # GET /patrons/1
   # GET /patrons/1.json
   def show
-    get_work; get_manifestation; get_item
     case
     when @work
       @patron = @work.creators.find(params[:id])
