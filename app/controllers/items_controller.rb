@@ -2,13 +2,11 @@
 class ItemsController < ApplicationController
   load_and_authorize_resource
   before_filter :get_user_if_nil
-  before_filter :get_patron, :get_manifestation
+  before_filter :get_patron, :get_manifestation, :get_shelf, :except => [:create, :update, :destroy]
   if defined?(EnjuInventory)
     before_filter :get_inventory_file
   end
-  before_filter :get_shelf
-  helper_method :get_library
-  helper_method :get_item
+  before_filter :get_library, :get_item, :except => [:create, :update, :destroy]
   before_filter :prepare_options, :only => [:new, :edit]
   before_filter :get_version, :only => [:show]
   #before_filter :store_location
@@ -204,8 +202,6 @@ class ItemsController < ApplicationController
   # PUT /items/1
   # PUT /items/1.json
   def update
-    #@item = Item.find(params[:id])
-
     respond_to do |format|
       if @item.update_attributes(params[:item])
         flash[:notice] = t('controller.successfully_updated', :model => t('activerecord.models.item'))
@@ -222,7 +218,6 @@ class ItemsController < ApplicationController
   # DELETE /items/1
   # DELETE /items/1.json
   def destroy
-    #@item = Item.find(params[:id])
     manifestation = @item.manifestation
     @item.destroy
 

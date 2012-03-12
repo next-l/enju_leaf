@@ -1,8 +1,7 @@
 # -*- encoding: utf-8 -*-
 class UsersController < ApplicationController
-  #before_filter :reset_params_session
   load_and_authorize_resource
-  helper_method :get_patron
+  before_filter :get_patron, :only => :new
   before_filter :store_location, :only => [:index]
   before_filter :clear_search_sessions, :only => [:show]
   after_filter :solr_commit, :only => [:create, :update, :destroy]
@@ -75,7 +74,6 @@ class UsersController < ApplicationController
     #@user.openid_identifier = flash[:openid_identifier]
     prepare_options
     @user_groups = UserGroup.all
-    get_patron
     if @patron.try(:user)
       flash[:notice] = t('page.already_activated')
       redirect_to @patron
