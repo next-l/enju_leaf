@@ -96,7 +96,7 @@ class ExportItemListsController < ApplicationController
           :order => 'libraries.id, manifestations.carrier_type_id, items.shelf_id, items.item_identifier, manifestations.original_title')
         filename = t('item_list.removed_list')
       when 4
-        checkouts = Checkout.select(:item_id).map(&:item_id).uniq!
+        checkouts = Checkout.select(:item_id).map(&:item_id).uniq
         @items = Item.find(:all, 
           :joins => [:manifestation, :shelf => :library], 
           :conditions => {:shelves => {:libraries => {:id => @selected_library}}, 
@@ -256,11 +256,11 @@ class ExportItemListsController < ApplicationController
               :joins => [:manifestation, :circulation_status, :shelf => :library], 
               :conditions => {:shelves => {:libraries => {:id => libraries}}, :manifestations => {:carrier_type_id => carrier_types}, :items => {:circulation_statuses => {:name => "Removed"}}})
           when 4
-            checkouts = Checkout.select(:item_id).map(&:item_id).uniq!
+            checkouts = Checkout.select(:item_id).map(&:item_id).uniq
             items = Item.find(:all, 
               :joins => [:manifestation, :shelf => :library], 
               :conditions => {:shelves => {:libraries => {:id => libraries}}, :manifestations => {:carrier_type_id => carrier_types}})
-            items.delete_if{|item|checkouts.include?(item.id)}
+            items.delete_if{|item|checkouts.include?(item.id)} if checkouts
             list_size = items.size
           when 5
             query = get_query(ndcs, libraries, carrier_types)
