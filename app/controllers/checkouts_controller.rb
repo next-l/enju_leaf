@@ -38,9 +38,9 @@ class CheckoutsController < ApplicationController
           # over_due
           if params[:view] == 'overdue'
             if params[:days_overdue]
-              date = params[:days_overdue].to_i.days.ago.beginning_of_day
+              date = params[:days_overdue].to_i.days.ago.end_of_day
             else
-              date = 1.days.ago.beginning_of_day
+              date = 1.days.ago.end_of_day
             end
             checkouts = Checkout.overdue(date).joins(:item => [{:shelf => :library}]).where('libraries.id' => library).order('due_date ASC')#.page(params[:page])
           else
