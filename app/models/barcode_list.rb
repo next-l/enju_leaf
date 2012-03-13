@@ -58,7 +58,7 @@ class BarcodeList < ActiveRecord::Base
     items.each do |item|
       unless item.item_identifier.blank?
         @code_words << prefix + item.item_identifier 
-        title = item.manifestation.original_title || ""
+        title = item.manifestation.try(:original_title) || ""
         @sup_words << title
       end
     end
