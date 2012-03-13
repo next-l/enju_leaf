@@ -29,6 +29,7 @@ namespace :enju do
         ManifestationCheckoutStat.calculate_stat
         ManifestationReserveStat.calculate_stat
       end
+      BookmarkStat.calculate_stat if defined?(EnjuBookmark)
     end
 
     task :expire => :environment do
@@ -43,13 +44,6 @@ namespace :enju do
         Checkout.send_due_date_notification
         Checkout.send_overdue_notification
       end
-    end
-  end
-
-  namespace :bookmark do
-    desc "Batch processing for bookmark"
-    task :stat => :environment do
-      BookmarkStat.calculate_stat if defined?(EnjuBookmark)
     end
   end
 

@@ -290,7 +290,7 @@ GEM
     flog (2.5.3)
       ruby_parser (~> 2.0)
       sexp_processor (~> 3.0)
-    friendly_id (4.0.1)
+    friendly_id (4.0.2)
     geocoder (1.1.1)
     guard (1.0.1)
       ffi (>= 0.5.0)
@@ -340,7 +340,7 @@ GEM
       rack-mobile-detect
       rails
     multi_json (1.1.0)
-    multi_xml (0.4.1)
+    multi_xml (0.4.2)
     net-sftp (2.0.5)
       net-ssh (>= 2.0.9)
     net-ssh (2.3.0)

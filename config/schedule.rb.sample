@@ -24,22 +24,22 @@ set :environment, :production
 set :output, "#{path}/log/cron_log.log"
 
 every 5.minute do
-  runner "MessageRequest.send_messages"
+  rake "enju:message:send"
 end
 
 every 1.day, :at => '0:00 am' do
-  runner "Reserve.expire; Basket.expire"
+  rake "enju:circulation:expire"
   runner "User.lock_expired_users"
 end
 
 every 1.day, :at => '1:00 am' do
-  runner "UserCheckoutStat.calculate_stat; UserReserveStat.calculate_stat; ManifestationCheckoutStat.calculate_stat; ManifestationReserveStat.calculate_stat; BookmarkStat.calculate_stat"
+  rake "enju:circulation:stat"
+  rake "enju:bookmark:stat"
 end
 
 every 1.hour do
-  runner "PatronImportFile.import; ResourceImportFile.import"
-  runner "PatronImportFile.expire; ResourceImportFile.expire"
-  runner "EventImportFile.import; EventImportFile.expire"
+  rake "enju:import:start"
+  rake "enju:import:expire"
 end
 
 every 1.day, :at => '3:00 am' do
@@ -48,7 +48,6 @@ every 1.day, :at => '3:00 am' do
 end
 
 every 1.day, :at => '5:00 am' do
-  runner "Checkout.send_due_date_notification; Checkout.send_overdue_notification"
-  runner "PatronImportFile.stucked.destroy_all; ResourceImportFile.stucked.destroy_all"
-  runner "EventImportFile.stucked.destroy_all"
+  rake "enju:circulation:send_notification"
+  rake "enju:import:destroy"
 end
