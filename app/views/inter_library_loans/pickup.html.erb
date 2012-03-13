@@ -20,7 +20,7 @@
         <p>
           <%= t('activerecord.attributes.item.item_identifier') -%>: <%= text_field_tag :item_identifier -%>
           <input type="hidden" name="item_identifier_tmp" id="item_identifier_tmp" value="">
-          <%= submit_tag t('page.read'), :onclick => "delete_field();return true;" -%>
+          <%= submit_tag t('page.read'), :disable_with => t('page.wait'), :onclick => "delete_field();return true;" -%>
         </p>
       <%- end -%>
       <%= javascript_tag("$('#item_identifier').focus()") -%>
