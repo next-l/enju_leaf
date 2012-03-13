@@ -12,7 +12,7 @@ module CalculateStat
   module ClassMethods
     def calculate_stat
       self.not_calculated.each do |stat|
-        stat.aasm_calculate!
+        stat.calculate!
       end
     end
   end
