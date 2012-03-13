@@ -16,7 +16,7 @@ patron_00002:
   id: 2
   address_1: 
   language_id: 1
-  patron_type_id: 2
+  patron_type_id: 1
   required_role_id: 1
 patron_00003: 
   place: ""
@@ -25,5 +25,5 @@ patron_00003:
   id: 3
   address_1: 
   language_id: 1
-  patron_type_id: 2
+  patron_type_id: 1
   required_role_id: 1
