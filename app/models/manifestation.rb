@@ -74,6 +74,13 @@ class Manifestation < ActiveRecord::Base
     string :carrier_type do
       carrier_type.name
     end
+    string :manifestation_type, :multiple => true do
+      if series_statement.try(:id) 
+        1
+      else
+        0
+      end
+    end
     string :library, :multiple => true do
       items.map{|i| i.shelf.library.name}
     end

@@ -107,4 +107,27 @@ module ManifestationsHelper
       string.html_safe
     end
   end
+
+  def manifestation_type_facet(facet)
+    string = ''
+
+    #manifestation_type = ManifestationType.where(:name => facet.value).first
+    manifestation_type_name = nil
+    case facet.value
+    when "0"
+      manifestation_type_name = t('activerecord.attributes.manifestation_types.book')
+    when "1"
+      manifestation_type_name = t('activerecord.attributes.manifestation_types.series')
+    end
+
+    puts manifestation_type_name
+    current = true if params[:manifestation_type] == facet.value
+    if manifestation_type_name
+      string << '<strong>' if current
+      string << link_to("#{manifestation_type_name} (" + facet.count.to_s + ")", url_for(params.merge(:manifestation_type => facet.value, :page => nil, :view => nil)))
+      string << '</strong>' if current
+      string.html_safe
+    end
+  end
+
 end

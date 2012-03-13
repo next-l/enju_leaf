@@ -217,6 +217,7 @@ class ManifestationsController < ApplicationController
           facet :library
           facet :language
           facet :subject_ids
+          facet :manifestation_type
           paginate :page => page.to_i, :per_page => per_page
         end
       end
@@ -242,6 +243,7 @@ class ManifestationsController < ApplicationController
         @carrier_type_facet = search_result.facet(:carrier_type).rows
         @language_facet = search_result.facet(:language).rows
         @library_facet = search_result.facet(:library).rows
+        @manifestation_type_facet = search_result.facet(:manifestation_type).rows
       end
 
       @search_engines = Rails.cache.fetch('search_engine_all'){SearchEngine.all}
@@ -570,6 +572,10 @@ class ManifestationsController < ApplicationController
 
     query = set_pub_date(query, options)
     query = set_acquisition_date(query, options)
+
+    unless options[:manifestation_type].blank?
+      query = "#{query} manifestation_type_sm: #{options[:manifestation_type]}"
+    end
 
     query = query.strip
     if query == '[* TO *]'
