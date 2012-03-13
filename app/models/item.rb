@@ -39,7 +39,7 @@ class Item < ActiveRecord::Base
 
   validates_associated :circulation_status, :shelf, :bookstore, :checkout_type
   validates_presence_of :circulation_status, :checkout_type
-  validates :item_identifier, :allow_blank => true, :uniqueness => {:if => proc{|item| !item.item_identifier.blank? and !item.manifestation.try(:series_statement)}}, :format => {:with => /\A[0-9A-Za-z_]+\Z/}
+  validates :item_identifier, :allow_blank => true, :uniqueness => true, :format => {:with => /\A[0-9A-Za-z_]+\Z/}
   validates :url, :url => true, :allow_blank => true, :length => {:maximum => 255}
   validates_date :acquired_at, :allow_blank => true
   before_validation :set_circulation_status, :on => :create
@@ -960,7 +960,7 @@ class Item < ActiveRecord::Base
     report.start_new_page
     report.page.item(:date).value(Time.now)
     date_ago = Time.zone.now - SystemConfiguration.get("new_book_term").day 
-    term = date_ago.strftime("%Y/%m/%d").to_s + ' -  ' + Time.now.strftime("%Y/%m/%d").to_s
+    term = date_ago.strftime("%Y/%m/%d").to_s + ' -  '
     report.page.item(:term).value(term)
     items.each do |item|
       report.page.list(:list).add_row do |row|
@@ -983,7 +983,7 @@ class Item < ActiveRecord::Base
 
     # set term
     date_ago = Time.zone.now - SystemConfiguration.get("new_book_term").day 
-    term = date_ago.strftime("%Y/%m/%d").to_s + ' -  ' + Time.now.strftime("%Y/%m/%d").to_s
+    term = date_ago.strftime("%Y/%m/%d").to_s + ' -  '
     data << '"' + term + "\"\n"
 
     columns = [

@@ -138,6 +138,7 @@ class CheckoutsController < ApplicationController
   # PUT /checkouts/1
   # PUT /checkouts/1.xml
   def update
+    @checkout = Checkout.find(params[:id])
     if @checkout.reserved?
       flash[:notice] = t('checkout.this_item_is_reserved')
       redirect_to edit_user_checkout_url(@checkout.user, @checkout)
