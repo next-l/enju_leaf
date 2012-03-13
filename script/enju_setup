@@ -36,3 +36,17 @@ sample_files.each do |file|
     puts "copied #{file}"
   end
 end
+
+
+require "securerandom" 
+token = SecureRandom.hex(64)
+
+open( "config/initializers/secret_token.rb","r+") { |f|
+  f.flock(File::LOCK_EX)
+  body = f.read
+  body = body.gsub("\'change this\'", "\'#{token}\'")
+  f.rewind
+  f.puts body
+  f.truncate(f.tell)
+}
+
