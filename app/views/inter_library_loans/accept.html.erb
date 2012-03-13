@@ -30,7 +30,7 @@
     <p id="notice"><%= notice %></p>
     <div>
         <div style="color: red" id="message"></div>
-        <%= form_for :inter_library_loan, :url => {:controller => 'inter_library_loans', :action => :accept_item}, :html => {:method => :post}, :remote => true do -%>
+        <%= form_for :inter_library_loan, :url => {:controller => 'inter_library_loans', :action => :accept_item}, :html => {:onsubmit => "accept_item(); return false;"} do -%>
           <p>
             <%= t('activerecord.attributes.item.item_identifier') -%>: <%= text_field_tag :item_identifier -%>
             <%= submit_tag t('page.read'), {:type => 'button', :onclick => "accept_item();"} -%>
