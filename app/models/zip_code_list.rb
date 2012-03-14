@@ -82,7 +82,7 @@ class ZipCodeList < ActiveRecord::Base
     sp1 = ["丁目","丁","番地","番","号","地割","線","の","ノ"]
 
     logger.info "@@@ Start zip_code=#{zip_code} address=#{address}"
-    if zip_code.empty? or address.empty?
+    if zip_code.blank? or address.blank?
       raise ArgumentError, "zip_code or address is empty."
     end
     zip_code = zip_code.gsub(/\D/, "")
