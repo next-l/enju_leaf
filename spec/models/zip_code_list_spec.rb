@@ -6,22 +6,22 @@ describe ZipCodeList do
 
   context "generate barcode" do
 
-    if "shoud raise exception (1)"
+    it "shoud raise exception (1)" do
       proc {
         ZipCodeList.generate_japanpost_customer_code(nil , nil) 
       }.should raise_error(ArgumentError, "zip_code or address is empty.")
     end
 
-    if "shoud raise exception (2)"
+    it "shoud raise exception (2)" do
       proc {
         ZipCodeList.generate_japanpost_customer_code("3340021" , nil) 
       }.should raise_error(ArgumentError, "zip_code or address is empty.")
     end
 
-    if "shoud raise exception (3)"
+    it "shoud raise exception (3)" do
       proc {
         ZipCodeList.generate_japanpost_customer_code("113-0021" , "東京都文京区本駒込6-1-21") 
-      }.should raise_error(ArgumentError, "zip_code or address is empty.")
+      }.should raise_error(ArgumentError, "zip_code is invalid. (no record)")
     end
 
     it "shoud return customer code (1)" do
@@ -110,8 +110,9 @@ describe ZipCodeList do
 
     it "shoud return customer code (15)" do
       h = {:z=>"2280024", :a=>"神奈川県座間市入谷6丁目3454-5　郵便ハイツ6-1108", :ans=>"22800246-3454-5-6-112"}
-      ans = ZipCodeList.generate_japanpost_customer_code(h[:z], h[:a]) 
-      ans.should eq h[:ans]
+      proc {
+        ZipCodeList.generate_japanpost_customer_code(h[:z], h[:a]) 
+      }.should raise_error(ArgumentError, "zip_code is invalid. (no record)")
     end
 
     it "shoud return customer code (16)" do
