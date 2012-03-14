@@ -17,7 +17,7 @@ checkout_00002:
   user_id: 1
   id: 2
   librarian_id: 1
-  checkout_renewal_count: 0
+  checkout_renewal_count: 5
   due_date: <%= 2.day.from_now.beginning_of_day %>
   created_at: 2007-09-08 01:34:07.363023 +09:00
   basket_id: 1
