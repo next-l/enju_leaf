@@ -28,9 +28,9 @@
   <div class="field">
     <%= label :library, t('inter_library_loan.original_library') -%>:<br />
     <div class="parent">
-      <input type='checkbox', name='all_library', id='all_library', class='check-parent',onclick ='check_all_library();', checked><%= t('item_list.all_library') -%></input><br />
+      <%= check_box_tag "all_library", true, @selected_library.size == @libraries.size ? true : false, :class=>'check-parent' -%><%= t('advanced_search.all', :model=>t('activerecord.attributes.reserve.receipt_library')) -%><br />
       <%- @libraries.each do |library| -%>
-        &nbsp;&nbsp;<%= check_box_tag "library[]", library.id, true, :class => 'check-child' -%><%= library.display_name -%><br />
+        &nbsp;&nbsp;<%= check_box_tag "library[]", library.id, (@selected_library.index(library.id.to_s) or @selected_library.index(library.id.to_i))? true : false, :class => 'check-child' -%><%= library.display_name -%><br />
       <%- end -%>
     </div>
   </div>

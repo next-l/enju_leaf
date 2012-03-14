@@ -121,13 +121,14 @@ class InterLibraryLoansController < ApplicationController
  
   def export_loan_lists
     @libraries = Library.real.all
+    @selected_library = params[:library] || [current_user.library.id]
   end
 
   def get_loan_lists
-    library_ids = params[:library] || []
+    @selected_library = params[:library] || []
 
     # check checked
-    if library_ids.empty?
+    if @selected_library.empty?
       flash[:message] = t('inter_library_loan.no_library')
       @libraries = Library.real.all
       render :export_loan_lists; return false
@@ -141,7 +142,7 @@ class InterLibraryLoansController < ApplicationController
     end
 
     begin
-      report = InterLibraryLoan.get_loan_lists(@loans, library_ids)
+      report = InterLibraryLoan.get_loan_lists(@loans, @selected_library)
       if report.page
         send_data report.generate, :filename => "loan_lists.pdf", :type => 'application/pdf', :disposition => 'attachment'
         logger.error "created report: #{Time.now}"
