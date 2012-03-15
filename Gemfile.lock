@@ -38,7 +38,7 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_circulation.git
-  revision: 61f77867c363920bb577c07c8f26367e9e2ba97f
+  revision: de20810fb2df38a3622ba3f586837a91304f50b3
   specs:
     enju_circulation (0.0.13)
       acts_as_list (~> 0.1.5)
@@ -385,7 +385,7 @@ GEM
     flog (2.5.3)
       ruby_parser (~> 2.0)
       sexp_processor (~> 3.0)
-    friendly_id (4.0.2)
+    friendly_id (4.0.3)
     geocoder (1.1.1)
     guard (1.0.1)
       ffi (>= 0.5.0)
@@ -410,9 +410,9 @@ GEM
       thor (~> 0.14)
     json (1.6.5)
     json_pure (1.6.5)
-    kgio (2.7.2)
+    kgio (2.7.3)
     library_stdnums (1.1.0)
-    mail (2.4.3)
+    mail (2.4.4)
       i18n (>= 0.4.0)
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
