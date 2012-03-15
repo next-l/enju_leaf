@@ -10,6 +10,7 @@ FactoryGirl.define do
     f.user_group {UserGroup.first}
     f.required_role {Role.find_by_name('User')}
     f.locale 'ja'
+    f.patron {FactoryGirl.create(:patron)}
   end
 
   factory :librarian, :class => User do |f|
@@ -23,6 +24,7 @@ FactoryGirl.define do
     f.user_group {UserGroup.first}
     f.required_role {Role.find_by_name('User')}
     f.locale 'ja'
+    f.patron {FactoryGirl.create(:patron)}
   end
 
   factory :user, :class => User do |f|
@@ -37,6 +39,7 @@ FactoryGirl.define do
     f.required_role {Role.find_by_name('User')}
     f.locale 'ja'
     f.sequence(:user_number){|n| "user_number_#{n}"}
+    f.patron {FactoryGirl.create(:patron)}
   end
 
   factory :invalid_user, :class => User do |f|
