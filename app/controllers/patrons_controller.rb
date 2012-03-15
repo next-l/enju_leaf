@@ -111,6 +111,7 @@ class PatronsController < ApplicationController
     end
 
     @works = @patron.works.page(params[:work_list_page]).per_page(Manifestation.per_page)
+    @expressions = @patron.expressions.page(params[:expression_list_page]).per_page(Manifestation.per_page)
     @manifestations = @patron.manifestations.order('date_of_publication DESC').page(params[:manifestation_list_page]).per_page(Manifestation.per_page)
 
     respond_to do |format|
