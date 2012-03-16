@@ -12,7 +12,7 @@ describe Checkout do
 
   it "should respond to reserved?" do
     checkouts(:checkout_00001).reserved?.should be_false
-    checkouts(:checkout_00002).reserved?.should be_true
+    checkouts(:checkout_00012).reserved?.should be_true
   end
 
   it "should respond to overdue?" do
