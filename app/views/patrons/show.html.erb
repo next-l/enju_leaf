@@ -176,8 +176,8 @@
       <li><%= link_to t('page.listing', :model => t('activerecord.models.picture_file')), patron_picture_files_path(@patron) -%></li>
       <script type="text/javascript">
         $(document).ready(function(){
-          $("a[rel='patron_<%= @patron.id -%>']").colorbox({transition:"none"});
-          $("a[rel='patron_<%= @patron.id -%>_other']").colorbox({transition:"none"});
+          $("a[rel='patron_<%= @patron.id -%>']").colorbox({transition:"none", photo:true});
+          $("a[rel='patron_<%= @patron.id -%>_other']").colorbox({transition:"none", photo:true});
         })
       </script>
     <% end %>
