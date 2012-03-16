@@ -76,12 +76,6 @@ class LibrariesController < ApplicationController
       ActiveRecord::Base.transaction do
         @library.save!
 
-        shelf_name = @library.name 
-        @shelf_default = Shelf.new(:name => "#{shelf_name}_default", :library_id => @library.id)
-        @shelf_in_process = Shelf.new(:name => "#{shelf_name}_in_process", :display_name => t('activerecord.attributes.shelf.in_process'), :open_access => 9,:library_id => @library.id)
-        @shelf_default.save!
-        @shelf_in_process.save!
-
         respond_to do |format|
           flash[:notice] = t('controller.successfully_created', :model => t('activerecord.models.library'))
           format.html { redirect_to(@library) }

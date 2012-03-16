@@ -37,6 +37,7 @@ class Library < ActiveRecord::Base
   before_validation :set_patron, :on => :create
   #before_save :set_calil_neighborhood_library
   after_validation :geocode, :unless => :skip_geocode
+  after_create :create_shelf
   after_save :clear_all_cache
   after_destroy :clear_all_cache
 
@@ -64,6 +65,15 @@ class Library < ActiveRecord::Base
     self.patron = Patron.new(
       :full_name => self.name
     )
+  end
+
+  def create_shelf
+    #Shelf.create!(:name => "#{self.name}_default", :library => self)
+    shelf_name = self.name 
+    @shelf_default = Shelf.new(:name => "#{shelf_name}_default", :library_id => self.id)
+    @shelf_in_process = Shelf.new(:name => "#{shelf_name}_in_process", :display_name => t('activerecord.attributes.shelf.in_process'), :open_access => 9,:library_id => self.id)
+    @shelf_default.save!
+    @shelf_in_process.save!
   end
 
   def closed?(date)
