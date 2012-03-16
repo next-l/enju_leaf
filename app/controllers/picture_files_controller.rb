@@ -42,52 +42,21 @@ class PictureFilesController < ApplicationController
       format.html # show.html.erb
       format.json { render :json => @picture_file }
       format.download {
+        case params[:mode]
+        when 'download'
+          disposition = 'attachment'
+        else
+          disposition = 'inline'
+        end
+
         if @picture_file.picture.path
           if configatron.uploaded_file.storage == :s3
-            send_data data, :filename => @picture_file.picture_file_name, :type => @picture_file.picture_content_type, :disposition => 'attachment'
+            send_data data, :filename => @picture_file.picture_file_name, :type => @picture_file.picture_content_type, :disposition => disposition
           else
-            send_file file, :filename => @picture_file.picture_file_name, :type => @picture_file.picture_content_type, :disposition => 'attachment'
+            send_file file, :filename => @picture_file.picture_file_name, :type => @picture_file.picture_content_type, :disposition => disposition
           end
         end
       }
-      format.jpeg {
-        if @picture_file.picture.path
-          if configatron.uploaded_file.storage == :s3
-            send_data data, :filename => @picture_file.picture_file_name, :type => 'image/jpeg', :disposition => 'inline'
-          else
-            send_file file, :filename => @picture_file.picture_file_name, :type => 'image/jpeg', :disposition => 'inline'
-          end
-        end
-      }
-      format.gif {
-        if @picture_file.picture.path
-          if configatron.uploaded_file.storage == :s3
-            send_data data, :filename => @picture_file.picture_file_name, :type => 'image/gif', :disposition => 'inline'
-          else
-            send_file file, :filename => @picture_file.picture_file_name, :type => 'image/gif', :disposition => 'inline'
-          end
-        end
-      }
-      format.png {
-        if @picture_file.picture.path
-          if configatron.uploaded_file.storage == :s3
-            send_data data, :filename => @picture_file.picture_file_name, :type => 'image/png', :disposition => 'inline'
-          else
-            send_file file, :filename => @picture_file.picture_file_name, :type => 'image/png', :disposition => 'inline'
-          end
-        end
-      }
-      if defined?(EnjuBarcode)
-        format.svg {
-          if @picture_file.picture.path
-            if configatron.uploaded_file.storage == :s3
-              send_data data, :filename => @picture_file.picture_file_name, :type => 'image/svg+xml', :disposition => 'inline'
-            else
-              send_file file, :filename => @picture_file.picture_file_name, :type => 'image/svg+xml', :disposition => 'inline'
-            end
-          end
-        }
-      end
     end
   end
 

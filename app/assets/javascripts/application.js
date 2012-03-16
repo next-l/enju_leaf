@@ -2,7 +2,7 @@
 //= require jquery-ui
 //= require jquery.colorbox
 //= require jquery_ujs
-//= require jquery.highlight-3
+//= require jquery.highlight
 //= require jquery.hotkeys
 //= require jquery.cookie
 //= require fg.menu
