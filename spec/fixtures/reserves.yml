@@ -8,6 +8,7 @@ reserve_00003:
   created_at: 2007-09-02 17:46:52.791614 +09:00
   expired_at: <%= 1.week.from_now %>
   state: requested
+  created_by: 1
 reserve_00004: 
   updated_at: 2007-09-02 18:37:25.576087 +09:00
   manifestation_id: 7
@@ -17,6 +18,7 @@ reserve_00004:
   created_at: 2007-09-02 18:37:25.576087 +09:00
   expired_at: <%= 1.week.from_now %>
   state: requested
+  created_by: 1
 reserve_00005: 
   updated_at: 2007-09-02 19:16:55.714812 +09:00
   manifestation_id: 8
@@ -26,6 +28,7 @@ reserve_00005:
   created_at: 2007-09-02 19:16:55.714812 +09:00
   expired_at: <%= 1.week.from_now %>
   state: requested
+  created_by: 1
 reserve_00001: 
   updated_at: 2007-09-02 17:51:54.887849 +09:00
   manifestation_id: 4
@@ -35,6 +38,7 @@ reserve_00001:
   created_at: 2007-09-01 14:14:52.356803 +09:00
   expired_at: <%= 1.week.from_now %>
   state: requested
+  created_by: 1
 reserve_00002: 
   updated_at: 2007-09-01 14:20:05.530854 +09:00
   manifestation_id: 5
@@ -44,6 +48,7 @@ reserve_00002:
   created_at: 2007-09-01 14:20:05.530854 +09:00
   expired_at: <%= 1.week.from_now %>
   state: requested
+  created_by: 1
 reserve_00006: 
   updated_at: 2007-09-01 14:20:05.530854 +09:00
   manifestation_id: 4
@@ -53,6 +58,7 @@ reserve_00006:
   created_at: 2007-09-01 14:20:05.530854 +09:00
   expired_at: <%= 1.week.from_now %>
   state: requested
+  created_by: 1
 reserve_00007: 
   updated_at: 2007-09-01 14:20:05.530854 +09:00
   manifestation_id: 2
@@ -62,6 +68,7 @@ reserve_00007:
   created_at: 2007-09-01 14:20:05.530854 +09:00
   expired_at: <%= 1.week.from_now %>
   state: requested
+  created_by: 1
 reserve_00008: 
   updated_at: 2007-09-02 17:46:52.791614 +09:00
   manifestation_id: 6
@@ -71,6 +78,7 @@ reserve_00008:
   created_at: 2007-09-02 17:46:52.791614 +09:00
   expired_at: <%= 1.week.ago %>
   state: expired
+  created_by: 1
 reserve_00009: 
   updated_at: 2007-09-02 17:46:52.791614 +09:00
   manifestation_id: 7
@@ -80,6 +88,7 @@ reserve_00009:
   created_at: 2007-09-02 17:46:52.791614 +09:00
   expired_at: <%= 1.day.ago %>
   state: requested
+  created_by: 1
 reserve_00010: 
   updated_at: 2007-09-02 17:46:52.791614 +09:00
   manifestation_id: 8
@@ -90,6 +99,7 @@ reserve_00010:
   expired_at: <%= 1.hour.ago %>
   checked_out_at: <%= 1.week.ago %>
   state: completed
+  created_by: 1
 reserve_00011: 
   updated_at: 2007-09-01 14:20:05.530854 +09:00
   manifestation_id: 7
@@ -99,6 +109,7 @@ reserve_00011:
   created_at: 2007-09-01 14:20:05.530854 +09:00
   expired_at: <%= 1.day.ago %>
   state: expired
+  created_by: 1
 reserve_00012: 
   updated_at: 2007-09-01 14:20:05.530854 +09:00
   manifestation_id: 8
@@ -108,6 +119,7 @@ reserve_00012:
   created_at: 2007-09-01 14:20:05.530854 +09:00
   expired_at: <%= 1.day.ago %>
   state: retained
+  created_by: 1
 reserve_00013: 
   updated_at: 2007-09-01 14:20:05.530854 +09:00
   manifestation_id: 11
@@ -117,6 +129,7 @@ reserve_00013:
   created_at: 2007-09-01 14:20:05.530854 +09:00
   expired_at: <%= 1.day.ago %>
   state: requested
+  created_by: 1
 reserve_00014: 
   updated_at: 2007-09-01 14:20:05.530854 +09:00
   manifestation_id: 10
