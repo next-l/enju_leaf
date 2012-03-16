@@ -320,11 +320,11 @@ class Manifestation < ActiveRecord::Base
       date = Time.zone.parse("#{pub_date}")
     rescue ArgumentError
       begin
-        date = Time.parse("#{pub_date}-01")
+        date = Time.zone.parse("#{pub_date}-01")
         date = date.end_of_month
       rescue ArgumentError
         begin
-          date = Time.parse("#{pub_date}-12-01")
+          date = Time.zone.parse("#{pub_date}-12-01")
           date = date.end_of_month
         rescue ArgumentError
           nil
