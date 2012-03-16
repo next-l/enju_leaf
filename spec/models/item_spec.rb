@@ -25,7 +25,7 @@ describe Item do
 
   it "should be retained" do
     old_count = MessageRequest.count
-    items(:item_00013).retain(users(:librarian1)).should be_true
+    items(:item_00022).retain(users(:librarian1)).should be_true
     MessageRequest.count.should eq old_count + 1
   end
 

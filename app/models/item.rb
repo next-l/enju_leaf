@@ -171,8 +171,10 @@ class Item < ActiveRecord::Base
 #      reservation.sm_complete!
 #      reservation.update_attributes(:checked_out_at => Time.zone.now)
 #    end
-    save!
-    reservation.position_update(reservation.manifestation) if reservation
+    if save!
+      reservation.position_update(reservation.manifestation) if reservation
+      true
+    end
   end
 
   def checkin!
