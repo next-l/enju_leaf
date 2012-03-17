@@ -88,8 +88,7 @@ class PictureFilesController < ApplicationController
 
     respond_to do |format|
       if @picture_file.save
-        flash[:notice] = t('controller.successfully_created', :model => t('activerecord.models.picture_file'))
-        format.html { redirect_to(@picture_file) }
+        format.html { redirect_to @picture_file, :notice => t('controller.successfully_created', :model => t('activerecord.models.picture_file')) }
         format.json { render :json => @picture_file, :status => :created, :location => @picture_file }
       else
         format.html { render :action => "new" }
@@ -120,9 +119,8 @@ class PictureFilesController < ApplicationController
 
     respond_to do |format|
       if @picture_file.update_attributes(params[:picture_file])
-        flash[:notice] = t('controller.successfully_updated', :model => t('activerecord.models.picture_file'))
-        format.html { redirect_to(@picture_file) }
-        format.json { head :ok }
+        format.html { redirect_to @picture_file, :notice => t('controller.successfully_updated', :model => t('activerecord.models.picture_file')) }
+        format.json { head :no_content }
       else
         format.html { render :action => "edit" }
         format.json { render :json => @picture_file.errors, :status => :unprocessable_entity }
@@ -140,7 +138,7 @@ class PictureFilesController < ApplicationController
         format.html { redirect_to shelf_picture_files_url(@shelf) }
         format.json { head :no_content }
       else
-        format.html { redirect_to(picture_files_url) }
+        format.html { redirect_to picture_files_url }
         format.json { head :no_content }
       end
     end

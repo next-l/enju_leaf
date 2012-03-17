@@ -47,11 +47,9 @@ class ImportRequestsController < ApplicationController
         @import_request.import!
         format.html {
           if @import_request.manifestation
-            flash[:notice] = t('controller.successfully_created', :model => t('activerecord.models.import_request'))
-            redirect_to manifestation_items_url(@import_request.manifestation)
+            redirect_to manifestation_items_url(@import_request.manifestation), :notice => t('controller.successfully_created', :model => t('activerecord.models.import_request'))
           else
-            flash[:notice] = t('import_request.record_not_found')
-            redirect_to new_import_request_url
+            redirect_to new_import_request_url, :notice => t('import_request.record_not_found')
           end
         }
         format.json { render :json => @import_request, :status => :created, :location => @import_request }
@@ -72,9 +70,8 @@ class ImportRequestsController < ApplicationController
     respond_to do |format|
       if @import_request.update_attributes(params[:import_request])
         @import_request.import!
-        flash[:notice] = t('controller.successfully_updated', :model => t('activerecord.models.import_request'))
-        format.html { redirect_to(@import_request) }
-        format.json { head :ok }
+        format.html { redirect_to @import_request, :notice => t('controller.successfully_updated', :model => t('activerecord.models.import_request')) }
+        format.json { head :no_content }
       else
         format.html { render :action => "edit" }
         format.json { render :json => @import_request.errors, :status => :unprocessable_entity }
@@ -88,7 +85,7 @@ class ImportRequestsController < ApplicationController
     @import_request.destroy
 
     respond_to do |format|
-      format.html { redirect_to(import_requests_url) }
+      format.html { redirect_to import_requests_url }
       format.json { head :no_content }
     end
   end

@@ -57,8 +57,7 @@ class PatronImportFilesController < ApplicationController
 
     respond_to do |format|
       if @patron_import_file.save
-        flash[:notice] = t('controller.successfully_created', :model => t('activerecord.models.patron_import_file'))
-        format.html { redirect_to(@patron_import_file) }
+        format.html { redirect_to @patron_import_file, :notice => t('controller.successfully_created', :model => t('activerecord.models.patron_import_file')) }
         format.json { render :json => @patron_import_file, :status => :created, :location => @patron_import_file }
       else
         format.html { render :action => "new" }
@@ -72,9 +71,8 @@ class PatronImportFilesController < ApplicationController
   def update
     respond_to do |format|
       if @patron_import_file.update_attributes(params[:patron_import_file])
-        flash[:notice] = t('controller.successfully_updated', :model => t('activerecord.models.patron_import_file'))
-        format.html { redirect_to(@patron_import_file) }
-        format.json { head :ok }
+        format.html { redirect_to @patron_import_file, :notice => t('controller.successfully_updated', :model => t('activerecord.models.patron_import_file')) }
+        format.json { head :no_content }
       else
         format.html { render :action => "edit" }
         format.json { render :json => @patron_import_file.errors, :status => :unprocessable_entity }

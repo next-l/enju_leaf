@@ -50,8 +50,7 @@ class SeriesHasManifestationsController < ApplicationController
   def create
     respond_to do |format|
       if @series_has_manifestation.save
-        flash[:notice] = t('controller.successfully_created', :model => t('activerecord.models.series_has_manifestation'))
-        format.html { redirect_to(@series_has_manifestation) }
+        format.html { redirect_to @series_has_manifestation, :notice => t('controller.successfully_created', :model => t('activerecord.models.series_has_manifestation')) }
         format.json { render :json => @series_has_manifestation, :status => :created, :location => @series_has_manifestation }
       else
         format.html { render :action => "new" }
@@ -65,9 +64,8 @@ class SeriesHasManifestationsController < ApplicationController
   def update
     respond_to do |format|
       if @series_has_manifestation.update_attributes(params[:series_has_manifestation])
-        flash[:notice] = t('controller.successfully_updated', :model => t('activerecord.models.series_has_manifestation'))
-        format.html { redirect_to(@series_has_manifestation) }
-        format.json { head :ok }
+        format.html { redirect_to @series_has_manifestation, :notice => t('controller.successfully_updated', :model => t('activerecord.models.series_has_manifestation')) }
+        format.json { head :no_content }
       else
         format.html { render :action => "edit" }
         format.json { render :json => @series_has_manifestation.errors, :status => :unprocessable_entity }
@@ -81,12 +79,12 @@ class SeriesHasManifestationsController < ApplicationController
     @series_has_manifestation.destroy
 
     respond_to do |format|
-      flash[:notice] = t('controller.successfully_deleted', :model => t('activerecord.models.series_has_manifestation'))
       format.html {
+        flash[:notice] = t('controller.successfully_deleted', :model => t('activerecord.models.series_has_manifestation'))
         if @series_statement
-          redirect_to(series_statement_manifestations_url(@series_statement))
+          redirect_to series_statement_manifestations_url(@series_statement)
         else
-          redirect_to(series_has_manifestations_url)
+          redirect_to series_has_manifestations_url
         end
       }
       format.json { head :no_content }

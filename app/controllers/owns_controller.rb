@@ -56,8 +56,7 @@ class OwnsController < ApplicationController
 
     respond_to do |format|
       if @own.save
-        flash[:notice] = t('controller.successfully_created', :model => t('activerecord.models.own'))
-        format.html { redirect_to own_url(@own) }
+        format.html { redirect_to @own, :notice => t('controller.successfully_created', :model => t('activerecord.models.own')) }
         format.json { render :json => @own, :status => :created, :location => @own }
       else
         format.html { render :action => "new" }
@@ -80,9 +79,8 @@ class OwnsController < ApplicationController
 
     respond_to do |format|
       if @own.update_attributes(params[:own])
-        flash[:notice] = t('controller.successfully_updated', :model => t('activerecord.models.own'))
-        format.html { redirect_to own_url(@own) }
-        format.json { head :ok }
+        format.html { redirect_to @own, :notice => t('controller.successfully_updated', :model => t('activerecord.models.own')) }
+        format.json { head :no_content }
       else
         format.html { render :action => "edit" }
         format.json { render :json => @own.errors, :status => :unprocessable_entity }
@@ -96,18 +94,18 @@ class OwnsController < ApplicationController
     @own.destroy
 
     respond_to do |format|
-      flash[:notice] = t('controller.successfully_deleted', :model => t('activerecord.models.own'))
-      case
-      when @patron
-        format.html { redirect_to patron_owns_url(@patron) }
-        format.json { head :no_content }
-      when @item
-        format.html { redirect_to item_owns_url(@item) }
-        format.json { head :no_content }
-      else
-        format.html { redirect_to owns_url }
-        format.json { head :no_content }
-      end
+      format.html {
+        flash[:notice] = t('controller.successfully_deleted', :model => t('activerecord.models.own'))
+        case
+        when @patron
+          redirect_to patron_owns_url(@patron)
+        when @item
+          redirect_to item_owns_url(@item)
+        else
+          redirect_to owns_url
+        end
+      }
+      format.json { head :no_content }
     end
   end
 end

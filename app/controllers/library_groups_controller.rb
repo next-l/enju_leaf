@@ -10,7 +10,7 @@ class LibraryGroupsController < ApplicationController
 
     respond_to do |format|
       format.html # index.rhtml
-      format.json { render :json => @library_groups.to_json }
+      format.json { render :json => @library_groups }
     end
   end
 
@@ -19,7 +19,7 @@ class LibraryGroupsController < ApplicationController
   def show
     respond_to do |format|
       format.html # show.rhtml
-      format.json { render :json => @library_group.to_json }
+      format.json { render :json => @library_group }
     end
   end
 
@@ -31,13 +31,11 @@ class LibraryGroupsController < ApplicationController
   # PUT /library_groups/1
   # PUT /library_groups/1.json
   def update
-    @library_group = LibraryGroup.find(params[:id])
     respond_to do |format|
       if @library_group.update_attributes(params[:library_group])
         expire_page '/page/opensearch'
-        flash[:notice] = t('controller.successfully_updated', :model => t('activerecord.models.library_group'))
-        format.html { redirect_to library_group_url(@library_group) }
-        format.json { head :ok }
+        format.html { redirect_to @library_group, :notice => t('controller.successfully_updated', :model => t('activerecord.models.library_group')) }
+        format.json { head :no_content }
       else
         @countries = Country.all
         format.html { render :action => "edit" }

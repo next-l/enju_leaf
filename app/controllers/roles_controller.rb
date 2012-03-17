@@ -6,7 +6,7 @@ class RolesController < ApplicationController
   def index
     respond_to do |format|
       format.html # index.rhtml
-      format.json { render :json => @roles.to_json }
+      format.json { render :json => @roles }
     end
   end
 
@@ -15,7 +15,7 @@ class RolesController < ApplicationController
   def show
     respond_to do |format|
       format.html # show.rhtml
-      format.json { render :json => @role.to_json }
+      format.json { render :json => @role }
     end
   end
 
@@ -33,9 +33,8 @@ class RolesController < ApplicationController
 
     respond_to do |format|
       if @role.update_attributes(params[:role])
-        flash[:notice] = t('controller.successfully_updated', :model => t('activerecord.models.role'))
-        format.html { redirect_to role_url(@role) }
-        format.json { head :ok }
+        format.html { redirect_to @role, :notice => t('controller.successfully_updated', :model => t('activerecord.models.role')) }
+        format.json { head :no_content }
       else
         format.html { render :action => "edit" }
         format.json { render :json => @role.errors, :status => :unprocessable_entity }

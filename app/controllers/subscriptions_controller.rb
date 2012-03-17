@@ -50,8 +50,7 @@ class SubscriptionsController < ApplicationController
 
     respond_to do |format|
       if @subscription.save
-        flash[:notice] = t('controller.successfully_created', :model => t('activerecord.models.subscription'))
-        format.html { redirect_to(@subscription) }
+        format.html { redirect_to @subscription, :notice => t('controller.successfully_created', :model => t('activerecord.models.subscription')) }
         format.json { render :json => @subscription, :status => :created, :location => @subscription }
       else
         format.html { render :action => "new" }
@@ -65,9 +64,8 @@ class SubscriptionsController < ApplicationController
   def update
     respond_to do |format|
       if @subscription.update_attributes(params[:subscription])
-        flash[:notice] = t('controller.successfully_updated', :model => t('activerecord.models.subscription'))
-        format.html { redirect_to(@subscription) }
-        format.json { head :ok }
+        format.html { redirect_to @subscription, :notice => t('controller.successfully_updated', :model => t('activerecord.models.subscription')) }
+        format.json { head :no_content }
       else
         format.html { render :action => "edit" }
         format.json { render :json => @subscription.errors, :status => :unprocessable_entity }
@@ -81,7 +79,7 @@ class SubscriptionsController < ApplicationController
     @subscription.destroy
 
     respond_to do |format|
-      format.html { redirect_to(subscriptions_url) }
+      format.html { redirect_to subscriptions_url }
       format.json { head :no_content }
     end
   end

@@ -61,8 +61,7 @@ class ProducesController < ApplicationController
 
     respond_to do |format|
       if @produce.save
-        flash[:notice] = t('controller.successfully_created', :model => t('activerecord.models.produce'))
-        format.html { redirect_to(@produce) }
+        format.html { redirect_to @produce, :notice => t('controller.successfully_created', :model => t('activerecord.models.produce')) }
         format.json { render :json => @produce, :status => :created, :location => @produce }
       else
         prepare_options
@@ -85,9 +84,8 @@ class ProducesController < ApplicationController
 
     respond_to do |format|
       if @produce.update_attributes(params[:produce])
-        flash[:notice] = t('controller.successfully_updated', :model => t('activerecord.models.produce'))
-        format.html { redirect_to produce_url(@produce) }
-        format.json { head :ok }
+        format.html { redirect_to @produce, :notice => t('controller.successfully_updated', :model => t('activerecord.models.produce')) }
+        format.json { head :no_content }
       else
         prepare_options
         format.html { render :action => "edit" }
@@ -102,18 +100,18 @@ class ProducesController < ApplicationController
     @produce.destroy
 
     respond_to do |format|
-      flash[:notice] = t('controller.successfully_deleted', :model => t('activerecord.models.produce'))
-      case
-      when @patron
-        format.html { redirect_to patron_manifestations_url(@patron) }
-        format.json { head :no_content }
-      when @manifestation
-        format.html { redirect_to manifestation_patrons_url(@manifestation) }
-        format.json { head :no_content }
-      else
-        format.html { redirect_to produces_url }
-        format.json { head :no_content }
-      end
+      format.html {
+        flash[:notice] = t('controller.successfully_deleted', :model => t('activerecord.models.produce'))
+        case
+        when @patron
+          redirect_to patron_manifestations_url(@patron)
+        when @manifestation
+          redirect_to manifestation_patrons_url(@manifestation)
+        else
+          redirect_to produces_url
+        end
+      }
+      format.json { head :no_content }
     end
   end
 

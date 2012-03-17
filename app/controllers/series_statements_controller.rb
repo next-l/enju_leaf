@@ -84,8 +84,7 @@ class SeriesStatementsController < ApplicationController
     respond_to do |format|
       if @series_statement.save
         @series_statement.manifestations << manifestation if manifestation
-        flash[:notice] = t('controller.successfully_created', :model => t('activerecord.models.series_statement'))
-        format.html { redirect_to(@series_statement) }
+        format.html { redirect_to @series_statement, :notice => t('controller.successfully_created', :model => t('activerecord.models.series_statement')) }
         format.json { render :json => @series_statement, :status => :created, :location => @series_statement }
       else
         format.html { render :action => "new" }
@@ -104,9 +103,8 @@ class SeriesStatementsController < ApplicationController
 
     respond_to do |format|
       if @series_statement.update_attributes(params[:series_statement])
-        flash[:notice] = t('controller.successfully_updated', :model => t('activerecord.models.series_statement'))
-        format.html { redirect_to(@series_statement) }
-        format.json { head :ok }
+        format.html { redirect_to @series_statement, :notice => t('controller.successfully_updated', :model => t('activerecord.models.series_statement')) }
+        format.json { head :no_content }
       else
         format.html { render :action => "edit" }
         format.json { render :json => @series_statement.errors, :status => :unprocessable_entity }
@@ -120,7 +118,7 @@ class SeriesStatementsController < ApplicationController
     @series_statement.destroy
 
     respond_to do |format|
-      format.html { redirect_to(series_statements_url) }
+      format.html { redirect_to series_statements_url }
       format.json { head :no_content }
     end
   end

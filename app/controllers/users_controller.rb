@@ -112,11 +112,10 @@ class UsersController < ApplicationController
 
     respond_to do |format|
       if @user.save
-        flash[:notice] = t('controller.successfully_created.', :model => t('activerecord.models.user'))
         flash[:temporary_password] = @user.password
-        format.html { redirect_to user_url(@user) }
+        format.html { redirect_to @user, :notice => t('controller.successfully_created.', :model => t('activerecord.models.user')) }
         #format.html { redirect_to new_user_patron_url(@user) }
-        format.json { head :ok }
+        format.json { render :json => @user, :status => :created, :location => @user }
       else
         prepare_options
         flash[:error] = t('user.could_not_setup_account')
@@ -144,9 +143,8 @@ class UsersController < ApplicationController
     respond_to do |format|
       @user.save
       if @user.errors.empty?
-        flash[:notice] = t('controller.successfully_updated', :model => t('activerecord.models.user'))
-        format.html { redirect_to user_url(@user) }
-        format.json { head :ok }
+        format.html { redirect_to @user, :notice => t('controller.successfully_updated', :model => t('activerecord.models.user')) }
+        format.json { head :no_content }
       else
         prepare_options
         format.html { render :action => "edit" }
