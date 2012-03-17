@@ -38,9 +38,9 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_circulation.git
-  revision: e5f11e510824f7cfb1e0d9a0fbdb2c6c5b594053
+  revision: f10711df31e498348b34f1d2a593374c7d098b87
   specs:
-    enju_circulation (0.0.13)
+    enju_circulation (0.0.14)
       acts_as_list (~> 0.1.5)
       attribute_normalizer (~> 1.1)
       cancan
@@ -225,9 +225,9 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_subject.git
-  revision: 853f46384aebd7e632691b89ea464ef5024c8cb2
+  revision: eaf99bf2f709931611a77be0bf7dd94a4232b418
   specs:
-    enju_subject (0.0.8)
+    enju_subject (0.0.9)
       acts_as_list (~> 0.1.5)
       attribute_normalizer (~> 1.1)
       cancan
@@ -356,7 +356,7 @@ GEM
     delayed_job_active_record (0.3.2)
       activerecord (> 2.1.0)
       delayed_job (~> 3.0.0)
-    devise (2.0.4)
+    devise (2.1.0.rc)
       bcrypt-ruby (~> 3.0)
       orm_adapter (~> 0.0.3)
       railties (~> 3.1)
@@ -607,7 +607,7 @@ DEPENDENCIES
   daemons
   dalli (~> 1.1)
   delayed_job_active_record
-  devise (~> 2.0)
+  devise (~> 2.1.0.rc)
   dynamic_form
   enju_barcode!
   enju_book_jacket!
