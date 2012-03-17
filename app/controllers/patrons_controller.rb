@@ -3,7 +3,7 @@ class PatronsController < ApplicationController
   load_and_authorize_resource :except => :index
   authorize_resource :only => :index
   before_filter :get_user
-  before_filter :get_work, :get_manifestation, :get_item, :get_patron, :except => [:create, :update, :destroy]
+  before_filter :get_work, :get_manifestation, :get_item, :get_patron, :except => [:update, :destroy]
   if defined?(EnjuResourceMerge)
     before_filter :get_patron_merge_list, :except => [:create, :update, :destroy]
   end
@@ -166,24 +166,16 @@ class PatronsController < ApplicationController
 
     respond_to do |format|
       if @patron.save
-        flash[:notice] = t('controller.successfully_created', :model => t('activerecord.models.patron'))
         case
         when @work
-          @work.creators << @patron
-          format.html { redirect_to patron_work_url(@patron, @work) }
-          format.json { head :created, :location => patron_work_url(@patron, @work) }
+          @patron.works << @work
         when @manifestation
-          @manifestation.publishers << @patron
-          format.html { redirect_to patron_manifestation_url(@patron, @manifestation) }
-          format.json { head :created, :location => patron_manifestation_url(@patron, @manifestation) }
+          @patron.manifestations << @manifestation
         when @item
-          @item.patrons << @patron
-          format.html { redirect_to patron_item_url(@patron, @item) }
-          format.json { head :created, :location => patron_manifestation_url(@patron, @manifestation) }
-        else
-          format.html { redirect_to(@patron) }
-          format.json { render :json => @patron, :status => :created, :location => @patron }
+          @patron.items << @item
         end
+        format.html { redirect_to @patron, :notice => t('controller.successfully_created', :model => t('activerecord.models.patron')) }
+        format.json { render :json => @patron, :status => :created, :location => @patron }
       else
         prepare_options
         format.html { render :action => "new" }

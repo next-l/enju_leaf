@@ -330,6 +330,24 @@ describe PatronsController do
           post :create, :patron => @attrs
           response.should redirect_to(patron_url(assigns(:patron)))
         end
+
+        it "should create a relationship if work_id is set" do
+          post :create, :patron => @attrs, :work_id => 1
+          response.should redirect_to(patron_url(assigns(:patron)))
+          assigns(:patron).works.should eq [Manifestation.find(1)]
+        end
+
+        it "should create a relationship if manifestation_id is set" do
+          post :create, :patron => @attrs, :manifestation_id => 1
+          response.should redirect_to(patron_url(assigns(:patron)))
+          assigns(:patron).manifestations.should eq [Manifestation.find(1)]
+        end
+
+        it "should create a relationship if item_id is set" do
+          post :create, :patron => @attrs, :item_id => 1
+          response.should redirect_to(patron_url(assigns(:patron)))
+          assigns(:patron).items.should eq [Item.find(1)]
+        end
       end
 
       describe "with invalid params" do
