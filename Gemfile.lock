@@ -533,7 +533,7 @@ DEPENDENCIES
   enju_message (~> 0.0.13)
   enju_ndl (~> 0.0.12)
   enju_oai!
-  enju_purchase_request (~> 0.0.5)
+  enju_purchase_request (~> 0.0.6)
   enju_question (~> 0.0.9)
   enju_resource_merge (~> 0.0.5)
   enju_search_log (~> 0.0.2)
