@@ -45,7 +45,7 @@ class RealizesController < ApplicationController
     end
   end
 
-  # GET /realizes/1;edit
+  # GET /realizes/1/edit
   def edit
   end
 

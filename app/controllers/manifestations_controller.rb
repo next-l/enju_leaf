@@ -404,7 +404,7 @@ class ManifestationsController < ApplicationController
     end
   end
 
-  # GET /manifestations/1;edit
+  # GET /manifestations/1/edit
   def edit
     unless current_user.has_role?('Librarian')
       unless params[:mode] == 'tag_edit'

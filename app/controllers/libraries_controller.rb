@@ -62,7 +62,7 @@ class LibrariesController < ApplicationController
     prepare_options
   end
 
-  # GET /libraries/1;edit
+  # GET /libraries/1/edit
   def edit
     prepare_options
   end

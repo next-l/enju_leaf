@@ -27,7 +27,7 @@ class UserGroupsController < ApplicationController
     @user_group = UserGroup.new
   end
 
-  # GET /user_groups/1;edit
+  # GET /user_groups/1/edit
   def edit
   end
 

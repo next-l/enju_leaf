@@ -48,7 +48,7 @@ class ShelvesController < ApplicationController
     #@shelf.user = current_user
   end
 
-  # GET /shelves/1;edit
+  # GET /shelves/1/edit
   def edit
     @shelf = Shelf.find(params[:id], :include => :library)
   end

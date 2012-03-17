@@ -50,7 +50,7 @@ class ProducesController < ApplicationController
     end
   end
 
-  # GET /produces/1;edit
+  # GET /produces/1/edit
   def edit
   end
 

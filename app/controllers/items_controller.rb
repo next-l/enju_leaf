@@ -154,7 +154,7 @@ class ItemsController < ApplicationController
     end
   end
 
-  # GET /items/1;edit
+  # GET /items/1/edit
   def edit
     @item.library_id = @item.shelf.library_id
     if defined?(EnjuCirculation)

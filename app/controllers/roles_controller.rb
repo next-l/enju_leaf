@@ -19,7 +19,7 @@ class RolesController < ApplicationController
     end
   end
 
-  # GET /roles/1;edit
+  # GET /roles/1/edit
   def edit
   end
 

@@ -146,7 +146,7 @@ class PatronsController < ApplicationController
     end
   end
 
-  # GET /patrons/1;edit
+  # GET /patrons/1/edit
   def edit
     prepare_options
   end

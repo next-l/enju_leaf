@@ -23,7 +23,7 @@ class LibraryGroupsController < ApplicationController
     end
   end
 
-  # GET /library_groups/1;edit
+  # GET /library_groups/1/edit
   def edit
     @countries = Country.all
   end
