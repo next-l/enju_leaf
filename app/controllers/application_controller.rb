@@ -143,16 +143,6 @@ class ApplicationController < ActionController::Base
 
   def get_user
     @user = User.where(:username => params[:user_id]).first if params[:user_id]
-    if @user
-      authorize! :show, @user
-    else
-      raise ActiveRecord::RecordNotFound
-    end
-    return @user
-  end
-
-  def get_user_if_nil
-    @user = User.where(:username => params[:user_id]).first if params[:user_id]
     #authorize! :show, @user if @user
   end
 
