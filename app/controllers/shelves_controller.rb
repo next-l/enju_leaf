@@ -25,7 +25,7 @@ class ShelvesController < ApplicationController
 
     respond_to do |format|
       format.html # index.rhtml
-      format.json { render :json => @shelves.to_json }
+      format.json { render :json => @shelves }
     end
   end
 
@@ -36,19 +36,25 @@ class ShelvesController < ApplicationController
 
     respond_to do |format|
       format.html # show.rhtml
-      format.json { render :json => @shelf.to_json }
+      format.json { render :json => @shelf }
     end
   end
 
   # GET /shelves/new
+  # GET /shelves/new.json
   def new
     @library = Library.web if @library.nil?
     @shelf = Shelf.new
     @shelf.library = @library
     #@shelf.user = current_user
+
+    respond_to do |format|
+      format.html # new.html.erb
+      format.json { render :json => @shelf }
+    end
   end
 
-  # GET /shelves/1;edit
+  # GET /shelves/1/edit
   def edit
     @shelf = Shelf.find(params[:id], :include => :library)
   end
@@ -65,8 +71,7 @@ class ShelvesController < ApplicationController
 
     respond_to do |format|
       if @shelf.save
-        flash[:notice] = t('controller.successfully_created', :model => t('activerecord.models.shelf'))
-        format.html { redirect_to shelf_url(@shelf) }
+        format.html { redirect_to @shelf, :notice => t('controller.successfully_created', :model => t('activerecord.models.shelf')) }
         format.json { render :json => @shelf, :status => :created, :location => library_shelf_url(@shelf.library, @shelf) }
       else
         @library = Library.first if @shelf.library.nil?
@@ -90,9 +95,8 @@ class ShelvesController < ApplicationController
 
     respond_to do |format|
       if @shelf.update_attributes(params[:shelf])
-        flash[:notice] = t('controller.successfully_updated', :model => t('activerecord.models.shelf'))
-        format.html { redirect_to library_shelf_url(@shelf.library, @shelf) }
-        format.json { head :ok }
+        format.html { redirect_to library_shelf_url(@shelf.library, @shelf), :notice => t('controller.successfully_updated', :model => t('activerecord.models.shelf')) }
+        format.json { head :no_content }
       else
         @library = Library.first if @library.nil?
         format.html { render :action => "edit" }

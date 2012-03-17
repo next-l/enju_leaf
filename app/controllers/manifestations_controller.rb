@@ -404,7 +404,7 @@ class ManifestationsController < ApplicationController
     end
   end
 
-  # GET /manifestations/1;edit
+  # GET /manifestations/1/edit
   def edit
     unless current_user.has_role?('Librarian')
       unless params[:mode] == 'tag_edit'
@@ -449,8 +449,7 @@ class ManifestationsController < ApplicationController
           end
         end
 
-        flash[:notice] = t('controller.successfully_created', :model => t('activerecord.models.manifestation'))
-        format.html { redirect_to(@manifestation) }
+        format.html { redirect_to @manifestation, :notice => t('controller.successfully_created', :model => t('activerecord.models.manifestation')) }
         format.json { render :json => @manifestation, :status => :created, :location => @manifestation }
       else
         prepare_options
@@ -466,9 +465,8 @@ class ManifestationsController < ApplicationController
     respond_to do |format|
       if @manifestation.update_attributes(params[:manifestation])
         @manifestation.series_statement = SeriesStatement.where(:id => @manifestation.series_statement_id).first
-        flash[:notice] = t('controller.successfully_updated', :model => t('activerecord.models.manifestation'))
-        format.html { redirect_to @manifestation }
-        format.json { head :ok }
+        format.html { redirect_to @manifestation, :notice => t('controller.successfully_updated', :model => t('activerecord.models.manifestation')) }
+        format.json { head :no_content }
         format.js
       else
         prepare_options

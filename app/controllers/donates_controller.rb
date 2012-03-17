@@ -43,8 +43,7 @@ class DonatesController < ApplicationController
 
     respond_to do |format|
       if @donate.save
-        flash[:notice] = t('controller.successfully_created', :model => t('activerecord.models.donate'))
-        format.html { redirect_to(@donate) }
+        format.html { redirect_to @donate, :notice => t('controller.successfully_created', :model => t('activerecord.models.donate')) }
         format.json { render :json => @donate, :status => :created, :location => @donate }
       else
         format.html { render :action => "new" }
@@ -58,9 +57,8 @@ class DonatesController < ApplicationController
   def update
     respond_to do |format|
       if @donate.update_attributes(params[:donate])
-        flash[:notice] = t('controller.successfully_updated', :model => t('activerecord.models.donate'))
-        format.html { redirect_to(@donate) }
-        format.json { head :ok }
+        format.html { redirect_to @donate, :notice => t('controller.successfully_updated', :model => t('activerecord.models.donate')) }
+        format.json { head :no_content }
       else
         format.html { render :action => "edit" }
         format.json { render :json => @donate.errors, :status => :unprocessable_entity }

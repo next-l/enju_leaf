@@ -45,7 +45,7 @@ class CreatesController < ApplicationController
     end
   end
 
-  # GET /creates/1;edit
+  # GET /creates/1/edit
   def edit
   end
 
@@ -56,8 +56,7 @@ class CreatesController < ApplicationController
 
     respond_to do |format|
       if @create.save
-        flash[:notice] = t('controller.successfully_created', :model => t('activerecord.models.create'))
-        format.html { redirect_to(@create) }
+        format.html { redirect_to @create, :notice => t('controller.successfully_created', :model => t('activerecord.models.create')) }
         format.json { render :json => @create, :status => :created, :location => @create }
       else
         prepare_options
@@ -82,9 +81,8 @@ class CreatesController < ApplicationController
 
     respond_to do |format|
       if @create.update_attributes(params[:create])
-        flash[:notice] = t('controller.successfully_updated', :model => t('activerecord.models.create'))
-        format.html { redirect_to create_url(@create) }
-        format.json { head :ok }
+        format.html { redirect_to @create, :notice => t('controller.successfully_updated', :model => t('activerecord.models.create')) }
+        format.json { head :no_content }
       else
         prepare_options
         format.html { render :action => "edit" }

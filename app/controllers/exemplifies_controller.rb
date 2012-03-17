@@ -74,9 +74,8 @@ class ExemplifiesController < ApplicationController
 
     respond_to do |format|
       if @exemplify.update_attributes(params[:exemplify])
-        flash[:notice] = t('controller.successfully_updated', :model => t('activerecord.models.exemplify'))
-        format.html { redirect_to(@exemplify) }
-        format.json { head :ok }
+        format.html { redirect_to @exemplify, :notice => t('controller.successfully_updated', :model => t('activerecord.models.exemplify')) }
+        format.json { head :no_content }
       else
         format.html { render :action => "edit" }
         format.json { render :json => @exemplify.errors, :status => :unprocessable_entity }
@@ -90,17 +89,17 @@ class ExemplifiesController < ApplicationController
     @exemplify.destroy
 
     respond_to do |format|
-      flash[:notice] = t('controller.successfully_deleted', :model => t('activerecord.models.exemplify'))
-      case when @manifestation
-        format.html { redirect_to @exemplify.manifestation }
-        format.json { head :no_content }
-      when @item
-        format.html { redirect_to @exemplify.item }
-        format.json { head :no_content }
-      else
-        format.html { redirect_to exemplifies_url }
-        format.json { head :no_content }
-      end
+      format.html {
+        flash[:notice] = t('controller.successfully_deleted', :model => t('activerecord.models.exemplify'))
+        case when @manifestation
+          redirect_to @exemplify.manifestation
+        when @item
+          redirect_to @exemplify.item
+        else
+          redirect_to exemplifies_url
+        end
+      }
+      format.json { head :no_content }
     end
   end
 end

@@ -45,7 +45,7 @@ class RealizesController < ApplicationController
     end
   end
 
-  # GET /realizes/1;edit
+  # GET /realizes/1/edit
   def edit
   end
 
@@ -56,8 +56,7 @@ class RealizesController < ApplicationController
 
     respond_to do |format|
       if @realize.save
-        flash[:notice] = t('controller.successfully_created', :model => t('activerecord.models.realize'))
-        format.html { redirect_to(@realize) }
+        format.html { redirect_to @realize, :notice => t('controller.successfully_created', :model => t('activerecord.models.realize')) }
         format.json { render :json => @realize, :status => :created, :location => @realize }
       else
         prepare_options
@@ -82,9 +81,8 @@ class RealizesController < ApplicationController
 
     respond_to do |format|
       if @realize.update_attributes(params[:realize])
-        flash[:notice] = t('controller.successfully_updated', :model => t('activerecord.models.realize'))
-        format.html { redirect_to realize_url(@realize) }
-        format.json { head :ok }
+        format.html { redirect_to @realize, :notice => t('controller.successfully_updated', :model => t('activerecord.models.realize')) }
+        format.json { head :no_content }
       else
         prepare_options
         format.html { render :action => "edit" }
@@ -99,18 +97,18 @@ class RealizesController < ApplicationController
     @realize.destroy
 
     respond_to do |format|
-      flash[:notice] = t('controller.successfully_deleted', :model => t('activerecord.models.realize'))
-      case
-      when @expression
-        format.html { redirect_to expression_patrons_url(@expression) }
-        format.json { head :no_content }
-      when @patron
-        format.html { redirect_to patron_expressions_url(@patron) }
-        format.json { head :no_content }
-      else
-        format.html { redirect_to realizes_url }
-        format.json { head :no_content }
-      end
+      format.html {
+        flash[:notice] = t('controller.successfully_deleted', :model => t('activerecord.models.realize'))
+        case
+        when @expression
+          redirect_to expression_patrons_url(@expression)
+        when @patron
+          redirect_to patron_expressions_url(@patron)
+        else
+          redirect_to realizes_url
+        end
+      }
+      format.json { head :no_content }
     end
   end
 

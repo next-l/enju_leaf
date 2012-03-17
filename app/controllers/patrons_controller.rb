@@ -146,7 +146,7 @@ class PatronsController < ApplicationController
     end
   end
 
-  # GET /patrons/1;edit
+  # GET /patrons/1/edit
   def edit
     prepare_options
   end
@@ -197,9 +197,8 @@ class PatronsController < ApplicationController
   def update
     respond_to do |format|
       if @patron.update_attributes(params[:patron])
-        flash[:notice] = t('controller.successfully_updated', :model => t('activerecord.models.patron'))
-        format.html { redirect_to(@patron) }
-        format.json { head :ok }
+        format.html { redirect_to @patron, :notice => t('controller.successfully_updated', :model => t('activerecord.models.patron')) }
+        format.json { head :no_content }
       else
         prepare_options
         format.html { render :action => "edit" }
@@ -214,8 +213,7 @@ class PatronsController < ApplicationController
     @patron.destroy
 
     respond_to do |format|
-      flash[:notice] = t('controller.successfully_deleted', :model => t('activerecord.models.patron'))
-      format.html { redirect_to patrons_url }
+      format.html { redirect_to patrons_url, :notice => t('controller.successfully_deleted', :model => t('activerecord.models.patron')) }
       format.json { head :no_content }
     end
   end

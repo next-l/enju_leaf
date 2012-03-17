@@ -20,7 +20,7 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_bookmark.git
-  revision: 4ead005ea3e4b0529f807b67c218133c4be757f5
+  revision: b3af167308fb4431d3d6a5e142cc361a0c8ca30e
   specs:
     enju_bookmark (0.0.5)
       acts-as-taggable-on (~> 2.2)
@@ -38,7 +38,7 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_circulation.git
-  revision: de20810fb2df38a3622ba3f586837a91304f50b3
+  revision: a444ea4eae6d5b8787daa395cd36192c4c1878e0
   specs:
     enju_circulation (0.0.13)
       acts_as_list (~> 0.1.5)
@@ -122,7 +122,7 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_message.git
-  revision: c650b958a4de02affb24705b34f64c849c265f10
+  revision: 3ea53add34069204d5a2b92d1a6f6d216b95af7f
   specs:
     enju_message (0.0.12)
       acts_as_list (~> 0.1.5)
@@ -181,7 +181,7 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_question.git
-  revision: 2c3bfcfe49e176d47837e79e73b46990dec1daa3
+  revision: 77935e2370c267d81cea3aff321cd92a9842a976
   specs:
     enju_question (0.0.8)
       acts-as-taggable-on (~> 2.2)
@@ -225,7 +225,7 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_subject.git
-  revision: b5fa3a064d4c70dadb9a6c380c86ee1484eb3589
+  revision: 853f46384aebd7e632691b89ea464ef5024c8cb2
   specs:
     enju_subject (0.0.8)
       acts_as_list (~> 0.1.5)
@@ -514,19 +514,19 @@ GEM
     rqrcode (0.4.2)
     rsolr (1.0.7)
       builder (>= 2.1.2)
-    rspec (2.9.0.rc2)
-      rspec-core (= 2.9.0.rc2)
-      rspec-expectations (= 2.9.0.rc2)
-      rspec-mocks (= 2.9.0.rc2)
-    rspec-core (2.9.0.rc2)
-    rspec-expectations (2.9.0.rc2)
+    rspec (2.9.0)
+      rspec-core (~> 2.9.0)
+      rspec-expectations (~> 2.9.0)
+      rspec-mocks (~> 2.9.0)
+    rspec-core (2.9.0)
+    rspec-expectations (2.9.0)
       diff-lcs (~> 1.1.3)
-    rspec-mocks (2.9.0.rc2)
-    rspec-rails (2.9.0.rc2)
+    rspec-mocks (2.9.0)
+    rspec-rails (2.9.0)
       actionpack (>= 3.0)
       activesupport (>= 3.0)
       railties (>= 3.0)
-      rspec (= 2.9.0.rc2)
+      rspec (~> 2.9.0)
     ruby-prof (0.10.8)
     ruby2ruby (1.3.1)
       ruby_parser (~> 2.0)
@@ -656,7 +656,7 @@ DEPENDENCIES
   rails_autolink
   rcov (= 0.9.11)
   ri_cal
-  rspec-rails (~> 2.9.0.rc2)
+  rspec-rails (~> 2.9)
   ruby-prof
   rubyzip2
   sanitize

@@ -6,7 +6,7 @@ class MyAccountsController < ApplicationController
 
     respond_to do |format|
       format.html
-      format.json { render :json => @user.to_json }
+      format.json { render :json => @user }
     end
   end
 
@@ -23,8 +23,8 @@ class MyAccountsController < ApplicationController
     respond_to do |format|
       if current_user.update_with_password(params[:user])
         sign_in(current_user, :bypass => true)
-        format.html { redirect_to(my_account_url, :notice => t('controller.successfully_updated', :model => t('activerecord.models.user'))) }
-        format.json { head :ok }
+        format.html { redirect_to my_account_url, :notice => t('controller.successfully_updated', :model => t('activerecord.models.user')) }
+        format.json { head :no_content }
       else
         prepare_options
         format.html { render :action => "edit" }
@@ -38,11 +38,12 @@ class MyAccountsController < ApplicationController
     @user.destroy
 
     respond_to do |format|
-      format.html { redirect_to(my_account_url, :notice => 'devise.registrations.destroyed') }
-      format.json { head :ok }
+      format.html { redirect_to my_account_url, :notice => 'devise.registrations.destroyed' }
+      format.json { head :no_content }
     end
   end
 
+  private
   def prepare_options
     @user_groups = UserGroup.all
     @roles = Role.all
