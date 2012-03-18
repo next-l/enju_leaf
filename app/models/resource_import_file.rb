@@ -253,8 +253,8 @@ class ResourceImportFile < ActiveRecord::Base
       end
     end
     sm_complete!
-  #rescue
-  #  sm_fail!
+  rescue
+    sm_fail!
   end
 
   def remove
