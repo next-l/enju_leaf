@@ -20,9 +20,9 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_bookmark.git
-  revision: 6288445f65f1995185826dbd43415ebf0d57ff8f
+  revision: 213c4528614a6b60885bf56f68dd7f638e314463
   specs:
-    enju_bookmark (0.0.6)
+    enju_bookmark (0.0.7)
       acts-as-taggable-on (~> 2.2)
       acts_as_list (~> 0.1.5)
       addressable
@@ -38,9 +38,9 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_circulation.git
-  revision: 3d714414c7f51d4be347a2c663209509467660e1
+  revision: 20953a946e75221d8e77423306656dbd6c1bd6e2
   specs:
-    enju_circulation (0.0.14)
+    enju_circulation (0.0.15)
       acts_as_list (~> 0.1.5)
       attribute_normalizer (~> 1.1)
       cancan
@@ -181,9 +181,9 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_question.git
-  revision: ef36545583d9654a525e92cee2627eb9c6deb4ed
+  revision: b31b5ec856bf8369849c46ff94c1808671ca0620
   specs:
-    enju_question (0.0.9)
+    enju_question (0.0.10)
       acts-as-taggable-on (~> 2.2)
       acts_as_list (~> 0.1.5)
       cancan
@@ -225,9 +225,9 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_subject.git
-  revision: eaf99bf2f709931611a77be0bf7dd94a4232b418
+  revision: 5c42fd9505387eb2e3d7903a357b5ef7957633a1
   specs:
-    enju_subject (0.0.9)
+    enju_subject (0.0.10)
       acts_as_list (~> 0.1.5)
       attribute_normalizer (~> 1.1)
       cancan
