@@ -8,8 +8,8 @@ class ApplicationController < ActionController::Base
   rescue_from ActionView::MissingTemplate, :with => :render_404_invalid_format
   #rescue_from ActionController::RoutingError, :with => :render_404
 
+  before_filter :get_library_group, :set_locale, :set_available_languages, :set_mobile_request
   has_mobile_fu
-  before_filter :get_library_group, :set_locale, :set_available_languages, :set_request_format
 
   private
   def render_403
@@ -351,8 +351,16 @@ class ApplicationController < ActionController::Base
     @libraries = Library.real
   end
 
-  def set_request_format
-    request.format = :mobile if is_mobile_device?
+  def set_mobile_request
+    #if is_mobile_device?
+      if params[:mobile_view]
+        if params[:mobile_view] == 'false'
+          session[:mobile_view] = false
+        else
+          session[:mobile_view] = true
+        end
+      end
+    #end
   end
 
   def move_position(resource, direction)

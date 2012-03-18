@@ -2,7 +2,6 @@
 <h1 class="title"><%= t('page.advanced_search') -%></h1>
 <div id="content_list">
 
-<%- cache :controller => 'page', :action => 'advanced_search', :locale => @locale do -%>
 <%= form_tag({:controller => 'manifestations'}, {:method => 'get'}) do -%>
   <table style="width: 100%">
     <tr>
@@ -71,7 +70,6 @@
   </table>
 <%- end -%>
 <%= javascript_tag("$('#query').focus()") -%>
-<%- end -%>
 </div>
 </div>
 

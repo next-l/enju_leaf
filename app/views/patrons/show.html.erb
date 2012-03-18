@@ -1,5 +1,4 @@
 <div id="content_detail" class="ui-corner-all">
-<% cache(:controller => :patrons, :action => :show, :id => @patron.id, :page => 'detail', :role => current_user_role_name, :locale => @locale, :patron_id => nil) do %>
 <h1 class="title"><%= t('page.showing', :model => t('activerecord.models.patron')) -%></h1>
 <div id="content_list">
   <p id="notice"><%= notice %></p>
@@ -148,7 +147,6 @@
       </tr>
     </table>
   </div>
-<% end %>
   <%- unless @patron.derived_patrons.empty? and @patron.original_patrons.empty? -%>
     <%= render 'patrons/patron_list' -%>
   <%- end -%>

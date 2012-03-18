@@ -20,7 +20,7 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_bookmark.git
-  revision: 4c9772e8b9d43a2f2a99ca2adbad9106f05580d1
+  revision: 6288445f65f1995185826dbd43415ebf0d57ff8f
   specs:
     enju_bookmark (0.0.6)
       acts-as-taggable-on (~> 2.2)
@@ -38,7 +38,7 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_circulation.git
-  revision: f10711df31e498348b34f1d2a593374c7d098b87
+  revision: 3d714414c7f51d4be347a2c663209509467660e1
   specs:
     enju_circulation (0.0.14)
       acts_as_list (~> 0.1.5)
