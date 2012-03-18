@@ -10,6 +10,7 @@ class ApplicationController < ActionController::Base
 
   before_filter :get_library_group, :set_locale, :set_available_languages, :set_mobile_request
   has_mobile_fu
+  before_filter :set_request_format
 
   private
   def render_403
@@ -352,15 +353,19 @@ class ApplicationController < ActionController::Base
   end
 
   def set_mobile_request
-    #if is_mobile_device?
-      if params[:mobile_view]
-        if params[:mobile_view] == 'false'
-          session[:mobile_view] = false
-        else
-          session[:mobile_view] = true
-        end
+    if params[:mobile_view]
+      if params[:mobile_view] == 'false'
+        session[:mobile_view] = false
+      else
+        session[:mobile_view] = true
       end
-    #end
+    end
+  end
+
+  def set_request_format
+    if session[:mobile_view]
+      request.format = :mobile if is_mobile_device?
+    end
   end
 
   def move_position(resource, direction)
