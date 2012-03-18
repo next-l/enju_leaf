@@ -201,16 +201,6 @@ class Patron < ActiveRecord::Base
     resource.publishers.include?(self)
   end
 
-  def check_required_role(user)
-    return true if self.user.blank?
-    return true if self.user.required_role.name == 'Guest'
-    return true if user == self.user
-    return true if user.has_role?(self.user.required_role.name)
-    false
-  rescue NoMethodError
-    false
-  end
-
   def created(work)
     creates.where(:work_id => work.id).first
   end
