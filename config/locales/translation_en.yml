@@ -54,6 +54,7 @@ en:
       realize_type: Realize type
       produce_type: Produce type
       budget_type: Budget type
+      session: Login
 
     attributes:
       library:
@@ -617,6 +618,8 @@ en:
     routing_error: "Routing error"
     change: "Change"
     refine_by: "Refine by"
+    standard_view: "Standard view"
+    mobile_view: "Mobile view"
   title:
     index: "index"
     show: "show"

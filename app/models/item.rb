@@ -244,10 +244,6 @@ class Item < ActiveRecord::Base
 end
 
 
-
-
-
-
 # == Schema Information
 #
 # Table name: items

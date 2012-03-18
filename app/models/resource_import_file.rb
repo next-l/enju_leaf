@@ -130,6 +130,7 @@ class ResourceImportFile < ActiveRecord::Base
       #  Rails.logger.info("resource registration failed: column #{row_num}: #{e.message}")
       #end
 
+      ExpireFragmentCache.expire_fragment_cache(manifestation)
       import_result.save!
       num[:item_imported] +=1 if import_result.item
 
@@ -254,11 +255,12 @@ class ResourceImportFile < ActiveRecord::Base
         item.acquired_at = row['acquired_at'] if row['acquired_at']
         item.note = row['note'] if row['note']
         item.save!
+        ExpireFragmentCache.expire_fragment_cache(item.manifestation)
       end
     end
     sm_complete!
-  rescue
-    sm_fail!
+  #rescue
+  #  sm_fail!
   end
 
   def remove

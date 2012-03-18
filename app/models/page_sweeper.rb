@@ -7,7 +7,6 @@ class PageSweeper < ActionController::Caching::Sweeper
     case record.class.to_s.to_sym
     when :Library
       #expire_fragment(:controller => :libraries, :action => :index, :page => 'menu')
-      expire_menu
     when :Shelf
       # TODO: 書架情報が更新されたときのキャッシュはバッチで削除する
       #record.items.each do |item|
@@ -27,35 +26,22 @@ class PageSweeper < ActionController::Caching::Sweeper
       expire_editable_fragment(record.item)
       expire_editable_fragment(record.item.manifestation)
     when :Exemplify
-      expire_editable_fragment(record.manifestation, ['detail', 'show_list', 'holding'])
+      expire_editable_fragment(record.manifestation)
       expire_editable_fragment(record.item)
     when :SeriesStatement
       record.manifestations.each do |manifestation|
-        expire_editable_fragment(manifestation, ['detail'])
+        expire_editable_fragment(manifestation)
       end
     when :SeriesHasManifestation
       expire_editable_fragment(record.manifestation)
     when :PictureFile
       if record.picture_attachable_type?
-        case record.picture_attachable.class
-        when :Manifestation
-          expire_editable_fragment(record.picture_attachable, ['picture_file', 'book_jacket'])
-        when :Patron
-          expire_editable_fragment(record.picture_attachable, ['picture_file'])
-        end
+        expire_editable_fragment(record.picture_attachable)
       end
     end
   end
 
   def after_destroy(record)
     after_save(record)
-  end
-
-  def expire_menu
-    I18n.available_locales.each do |locale|
-      Role.all_cache.each do |role|
-        expire_fragment(:controller => :page, :page => 'menu', :role => role.name, :locale => locale)
-      end
-    end
   end
 end
