@@ -53,6 +53,7 @@ class Ability
         user_group.users.empty?
       end
       can :manage, [
+        Accept,
         BudgetType,
         Create,
         CreateType,
@@ -145,6 +146,7 @@ class Ability
         end
       end
       can :manage, [
+        Accept,
         Create,
         Donate,
         Exemplify,

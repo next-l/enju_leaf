@@ -1,4 +1,6 @@
 EnjuLeaf::Application.routes.draw do
+  resources :accepts
+
   resources :budget_types
 
   resources :produce_types
