@@ -2,6 +2,8 @@
 
 FactoryGirl.define do
   factory :accept do
-    item_id 1
+    basket_id{FactoryGirl.create(:basket).id}
+    item_id{FactoryGirl.create(:item).id}
+    librarian_id{FactoryGirl.create(:librarian).id}
   end
 end

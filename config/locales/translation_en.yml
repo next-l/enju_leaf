@@ -55,6 +55,7 @@ en:
       produce_type: Produce type
       budget_type: Budget type
       session: Login
+      accept: Accept
 
     attributes:
       library:
@@ -784,3 +785,9 @@ en:
   picture_file:
     invalid_file: Invalid file. You can upload gif, jpeg, png and svg files.
     all_picture: All pictures
+  accept:
+    item_not_found: "Item not found."
+    enter_item_identifier: "Enter item identifier."
+    already_accepted: "This item is already accepted."
+    accept: "Accept!"
+    successfully_accepted: "This items was successfully accepted."

@@ -54,6 +54,7 @@ ja:
       produce_type: 体現の関係
       budget_type: 予算種別
       session: ログイン
+      accept: 検収
 
     attributes:
       library:
@@ -765,3 +766,9 @@ ja:
   picture_file:
     invalid_file: 無効なファイルです。アップロードできるのはgif, jpeg, png, svg形式のファイルです。
     all_picture: すべての画像
+  accept:
+    item_not_found: "資料が見つかりません。"
+    enter_item_identifier: "所蔵情報番号を入力してください。"
+    already_accepted: "この資料はすでに検収されています。"
+    accept: "検収（取り消しはできません）"
+    successfully_accepted: "この資料は正常に検収されました。"
