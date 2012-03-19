@@ -1,0 +1,23 @@
+<h1>Listing accepts</h1>
+
+<table>
+  <tr>
+    <th>Item</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @accepts.each do |accept| %>
+  <tr>
+    <td><%= accept.item_id %></td>
+    <td><%= link_to 'Show', accept %></td>
+    <td><%= link_to 'Edit', edit_accept_path(accept) %></td>
+    <td><%= link_to 'Destroy', accept, confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Accept', new_accept_path %>
