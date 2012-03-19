@@ -58,8 +58,13 @@
   </div>
 
   <div class="field">
+    <%= f.label t('activerecord.models.content_type') -%>
+    <%= f.select(:content_type_id, @content_types.collect{|c| [c.display_name.localize, c.id]}) -%>
+  </div>
+
+  <div class="field">
     <%= f.label t('activerecord.models.carrier_type') -%>
-    <%= f.select(:carrier_type_id, @carrier_types.collect{|m| [m.display_name.localize, m.id]}) -%>
+    <%= f.select(:carrier_type_id, @carrier_types.collect{|c| [c.display_name.localize, c.id]}) -%>
     <!-- TODO: Formの切り替え時に入力項目をAjaxで書き換える -->
   </div>
 
