@@ -1,6 +1,13 @@
-<h1>Editing accept</h1>
+<div id="content_detail" class="ui-corner-all">
+<h1 class="title"><%= t('page.editing', :model => t('activerecord.models.accept')) -%></h1>
+<div id="content_list">
+  <%= render 'form' %>
+</div>
+</div>
 
-<%= render 'form' %>
-
-<%= link_to 'Show', @accept %> |
-<%= link_to 'Back', accepts_path %>
+<div id="submenu" class="ui-corner-all">
+  <ul>
+    <li><%= link_to t('page.show'), @accept -%></li>
+    <li><%= link_to t('page.back'), accepts_path -%></li>
+  </ul>
+</div>
