@@ -1,13 +1,7 @@
 require 'spec_helper'
-require 'sunspot/rails/spec_helper'
 
 describe ReserveStatHasManifestationsController do
   fixtures :all
-  disconnect_sunspot
-
-  def valid_attributes
-    FactoryGirl.attributes_for(:reserve_stat_has_manifestation)
-  end
 
   describe "GET index" do
     before(:each) do
@@ -173,7 +167,7 @@ describe ReserveStatHasManifestationsController do
 
   describe "POST create" do
     before(:each) do
-      @attrs = valid_attributes
+      @attrs = FactoryGirl.attributes_for(:reserve_stat_has_manifestation)
       @invalid_attrs = {:manifestation_reserve_stat_id => ''}
     end
 
@@ -291,7 +285,7 @@ describe ReserveStatHasManifestationsController do
   describe "PUT update" do
     before(:each) do
       @reserve_stat_has_manifestation = FactoryGirl.create(:reserve_stat_has_manifestation)
-      @attrs = valid_attributes
+      @attrs = FactoryGirl.attributes_for(:reserve_stat_has_manifestation)
       @invalid_attrs = {:manifestation_reserve_stat_id => ''}
     end
 

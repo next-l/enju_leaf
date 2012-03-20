@@ -1,13 +1,7 @@
 require 'spec_helper'
-require 'sunspot/rails/spec_helper'
 
 describe CarrierTypeHasCheckoutTypesController do
   fixtures :all
-  disconnect_sunspot
-
-  def valid_attributes
-    FactoryGirl.attributes_for(:carrier_type_has_checkout_type)
-  end
 
   describe "GET index" do
     before(:each) do
@@ -173,7 +167,7 @@ describe CarrierTypeHasCheckoutTypesController do
 
   describe "POST create" do
     before(:each) do
-      @attrs = valid_attributes
+      @attrs = FactoryGirl.attributes_for(:carrier_type_has_checkout_type)
       @invalid_attrs = {:carrier_type_id => ''}
     end
 
@@ -291,7 +285,7 @@ describe CarrierTypeHasCheckoutTypesController do
   describe "PUT update" do
     before(:each) do
       @carrier_type_has_checkout_type = FactoryGirl.create(:carrier_type_has_checkout_type)
-      @attrs = valid_attributes
+      @attrs = FactoryGirl.attributes_for(:carrier_type_has_checkout_type)
       @invalid_attrs = {:carrier_type_id => ''}
     end
 

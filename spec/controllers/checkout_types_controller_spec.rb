@@ -1,13 +1,7 @@
 require 'spec_helper'
-require 'sunspot/rails/spec_helper'
 
 describe CheckoutTypesController do
   fixtures :all
-  disconnect_sunspot
-
-  def valid_attributes
-     FactoryGirl.attributes_for(:checkout_type)
-  end
 
   describe "GET index" do
     before(:each) do
@@ -173,7 +167,7 @@ describe CheckoutTypesController do
 
   describe "POST create" do
     before(:each) do
-      @attrs = valid_attributes
+      @attrs = FactoryGirl.attributes_for(:checkout_type)
       @invalid_attrs = {:name => ''}
     end
 
@@ -291,7 +285,7 @@ describe CheckoutTypesController do
   describe "PUT update" do
     before(:each) do
       @checkout_type = FactoryGirl.create(:checkout_type)
-      @attrs = valid_attributes
+      @attrs = FactoryGirl.attributes_for(:checkout_type)
       @invalid_attrs = {:name => ''}
     end
 

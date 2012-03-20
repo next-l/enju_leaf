@@ -1,13 +1,7 @@
 require 'spec_helper'
-require 'sunspot/rails/spec_helper'
 
 describe ReservesController do
   fixtures :all
-  disconnect_sunspot
-
-  def valid_attributes
-    FactoryGirl.attributes_for(:reserve)
-  end
 
   describe "GET index" do
     describe "When logged in as Administrator" do
@@ -519,7 +513,7 @@ describe ReservesController do
   describe "PUT update" do
     before(:each) do
       @reserve = FactoryGirl.create(:reserve)
-      @attrs = valid_attributes
+      @attrs = FactoryGirl.attributes_for(:reserve)
       @invalid_attrs = {:manifestation_id => ''}
     end
 
