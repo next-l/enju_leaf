@@ -9,5 +9,6 @@ rake db:migrate RAILS_ENV=test
 rake sunspot:solr:stop RAILS_ENV=test
 rake sunspot:solr:start RAILS_ENV=test
 rake db:seed RAILS_ENV=test
+rake sunspot:reindex RAILS_ENV=test
 bundle exec rspec spec/models/
 
