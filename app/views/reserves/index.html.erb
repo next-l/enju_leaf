@@ -12,7 +12,10 @@
 
 <table class="index">
   <tr>
-    <%- if @manifestation && current_user.has_role?('Librarian') -%><th id="position"></th><%- end -%>
+    <%- if @manifestation && current_user.has_role?('Librarian') -%>
+      <th><%= t('activerecord.attributes.reserve.position') -%></th>
+      <th id="position"></th>
+    <%- end -%>
     <th style="width: 30px"><%= 'Id' -%></th>
     <th><%= t('activerecord.models.user') -%></th>
     <th><%= t('activerecord.attributes.manifestation.original_title')-%></th>
@@ -26,6 +29,7 @@
 <%- @reserves.each_with_index do |reserve, i| -%>
   <tr class="line<%= cycle("0", "1") -%>">
     <%- if @manifestation && current_user.has_role?('Librarian') -%>
+      <td><%= i + 1 -%></td>
       <td>
         <%- if can? :update, reserve -%>
           <%- if i == (@reserves.length - 1) -%>
@@ -71,7 +75,8 @@
 <%= will_paginate(@reserves) -%>
 
 <% unless @completed_reserves.blank? %>
-<%= t('reserve.completed_reserve') -%>
+<br />
+<h4><%= t('reserve.completed_reserve') -%></h4>
 <table class="index">
   <tr>
     <th style="width: 30px"><%= 'Id' -%></th>

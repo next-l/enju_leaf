@@ -782,6 +782,7 @@ en:
         email: email
         telephone: telephone
         reserve_list: Reserve list
+        position: Position
       retained_manifestation:
         done: Done
         failed_update: Failed update

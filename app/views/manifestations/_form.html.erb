@@ -168,7 +168,7 @@ jQuery(function(){
   <div class="actions">
     <%= hidden_field_tag :patron_id, @patron.id if @patron -%>
     <%= hidden_field_tag :manifestation_id, @original_manifestation.id if @original_manifestation -%>
-    <%= f.submit %>
+    <%= f.submit :disable_with => t('page.wait') %>
   </div>
   <%= javascript_tag("$('#manifestation_original_title').focus()") -%>
 <%- end -%>

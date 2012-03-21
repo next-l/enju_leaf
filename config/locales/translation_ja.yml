@@ -908,6 +908,7 @@ ja:
         email: メール
         telephone: 電話
         reserve_list: 予約確認票
+        position: 順位
       retained_manifestation:
         done: 連絡完了
         failed_update: 更新に失敗しました。
