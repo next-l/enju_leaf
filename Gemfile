@@ -121,13 +121,13 @@ group :development, :test do
   gem 'guard-rspec'
   gem 'factory_girl_rails', '~> 1.7'
   gem 'spork-rails'
-  gem 'rcov', '0.9.11'
-  gem 'metric_fu', '~> 2.1'
+#  gem 'rcov', '0.9.11'
+#  gem 'metric_fu', '~> 2.1'
   gem 'timecop'
   gem 'sunspot-rails-tester', :git => 'git://github.com/nabeta/sunspot-rails-tester.git'
   gem 'vcr', '~> 2.0'
   gem 'fakeweb'
-  gem 'churn', '0.0.13'
+#  gem 'churn', '0.0.13'
 end
 
 # Gems used only for assets and not required
