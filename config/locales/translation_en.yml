@@ -1569,6 +1569,8 @@ en:
     change_my_password: "Change my password"
     management: "User management"
     not_found: "User not found."
+    create_family: "Create family"
+    create_family_user: "Create family"
   news_post:
     library_group_news_post: "News from %{library_group_name}"
   reserve:
