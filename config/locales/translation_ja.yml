@@ -2016,6 +2016,7 @@ ja:
     please_search_users: "追加する利用者を検索してください。"
     no_select_users: "家族情報が空です。"
     will_change_family : "※家族情報を変更したいときは、一度家族登録を解除してから再登録を行ってください。"
+    will_change_patron_type : "※人物・団体の種類を団体に変更した場合、自動的に所属していた家族から登録削除されます。"
     user_will_change_family : "※家族情報を変更したいときは、図書館員までお申し付けください。"
   resource_import_textfile:
     template_download: "テンプレートをダウンロード"

@@ -9,12 +9,13 @@
       <li><%= f_user.patron.full_name -%>(<%= f_user.username -%>)</li>
     <% end %>
   </ul>
+  <hr>
+  <%- if current_user.has_role?('Librarian') -%>
+    <%= t('family.will_change_family') -%><br />
+    <br />
+    <%= t('family.will_change_patron_type') -%>
+  <%- else -%>
+    <%= t('family.user_will_change_family') -%>
+  <%- end -%>
 </div>
-<hr>
-<%- if current_user.has_role?('Librarian') -%>
-  <%= t('family.will_change_family') -%>
-<%- else -%>
-  <%= t('family.user_will_change_family') -%>
-<%- end -%>
 <% end %>
-

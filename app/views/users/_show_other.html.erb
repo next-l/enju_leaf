@@ -87,7 +87,9 @@
       <li><%= link_to t('message.send'), new_message_path(:recipient => user.username) -%></li>
       <%- if can? :create, user -%>
         <li><%= link_to t('page.new', :model => t('activerecord.models.user')), new_user_path -%></li>
-        <li><%= link_to t('user.create_family_user'), new_user_path(:family_user_id => user.id) -%></li>        
+        <%- if user.patron.patron_type_id == 1 -%>
+          <li><%= link_to t('user.create_family_user'), new_user_path(:family_user_id => user.id) -%></li>        
+        <%- end -%>
       <% end %>
       <%- if can? :destroy, user -%>
         <li><%= link_to t('page.destroy'), user, :confirm => t('page.are_you_sure'), :method => :delete -%></li>

@@ -272,7 +272,7 @@ class UsersController < ApplicationController
       @user.patron.language = Language.find(:first, :conditions => ['iso_639_1=?', params[:user][:locale]]) rescue nil
       @user.patron.save!
 
-      @user.out_of_family if params[:out_of_family] == "1"
+      @user.out_of_family if params[:out_of_family] == "1" or @user.patron.patron_type_id != PatronType.find_by_name('Person').id
       @user.set_family(params[:family]) unless params[:family].blank?
       @user.save!
 
@@ -370,25 +370,35 @@ class UsersController < ApplicationController
       @user = User.find(params[:user]) rescue nil
       @family = params[:family]
       @family_id = FamilyUser.find(:first, :conditions => ['user_id=?', @user.id]).family_id rescue nil
+      patron_type_person = PatronType.find_by_name('Person').id
       query = <<-SQL
         SELECT users.id, users.username
         FROM users left join patrons 
-         ON patrons.user_id = users.id 
-         WHERE translate(patrons.telephone_number_1, '-', '') = :tel_1
-         AND patrons.last_name = :last_name
-         AND patrons.address_1 = :address_1
+        ON patrons.user_id = users.id 
+        WHERE patrons.telephone_number_1 IS NOT NULL
+        AND NOT patrons.telephone_number_1 = ''
+        AND translate(patrons.telephone_number_1, '-', '') = :tel_1
+        AND patrons.last_name IS NOT NULL
+        AND NOT patrons.last_name = ''
+        AND patrons.last_name = :last_name
+        AND patrons.address_1 IS NOT NULL
+        AND NOT patrons.address_1 = ''
+        AND patrons.address_1 = :address_1
+        AND patrons.patron_type_id = :patron_type_person
       SQL
-      query_params = {:tel_1=>tel_1, :last_name=>params[:keys][:last_name], :address_1=>params[:keys][:address_1]}
+      query_params = {:tel_1=>tel_1, :last_name=>params[:keys][:last_name], :address_1=>params[:keys][:address_1], :patron_type_person=>patron_type_person}
       @users = User.find_by_sql([query, query_params]) rescue nil
       all_user_ids = []
       if @users
         #logger.info @users
         @users.each do |user|
-          #logger.info "user.id=#{user.id}"
-          all_user_ids << user.id
-        end
+          #unless @user == user
+            #logger.info "user.id=#{user.id}"
+            all_user_ids << user.id
+          #end
+        end 
       end
-      family_users = FamilyUser.find(:all, :conditions => ['user_id IN (?)', all_user_ids])
+      family_users = FamilyUser.find(:all, :conditions => ['user_id IN (?)', all_user_ids]) 
       family_user_ids = []
       @families = []
       family_users.each do |f_user|
@@ -407,6 +417,7 @@ class UsersController < ApplicationController
       end
       @users.delete_if{|user| already_family_users.include?(user)} if already_family_users
       @users.delete_if{|user| group_users.include?(user)} if group_users
+      @users.delete_if{|user| user == @user}
 
       #
       #logger.info("family=#{@family}")
@@ -422,7 +433,6 @@ class UsersController < ApplicationController
           end
         end
       end
-
       unless @users.blank? && @families.blank?
         html = render_to_string :partial => "search_family"
         render :json => {:success => 1, :html => html}

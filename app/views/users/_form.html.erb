@@ -52,6 +52,7 @@
         $("#name_person").show();
         $("label[for='patron_date_of_birth']").text('<%= t('activerecord.attributes.patron.date_of_birth') -%>');
         $("label[for='patron_date_of_death']").text('<%= t('activerecord.attributes.patron.date_of_death') -%>');
+        $("#family_users").show();
       } else {
         $("input#patron_last_name").val("");
         $("input#patron_last_name_transcription").val("");
@@ -61,8 +62,10 @@
         $("#name_person").hide();
         $("label[for='patron_date_of_birth']").text('<%= t('activerecord.attributes.patron.date_of_establishment') -%>');
         $("label[for='patron_date_of_death']").text('<%= t('activerecord.attributes.patron.date_of_dissolution') -%>');
+        $("#family_users").hide();
       }
     });
+
     // seach_family
     <%- if current_user.has_role?('Librarian') -%>
       $("#patron_telephone_number_1").change(function(){
@@ -80,6 +83,14 @@
         search_family();
       })
       .change();
+      $("#patron_patron_type_id").change(function(){
+        var patron_type_id = $("#patron_patron_type_id").val();
+        if (patron_type_id == 1)
+          search_family();
+        else
+          clear_family_search();
+      })
+      .change();
     <%- end -%>
   });
 
@@ -89,7 +100,7 @@
     var address_1 = $("#patron_address_1").val().replace(/^\s+|\s+$/g, "");
     var family = "<%= @family -%>"
     var data = {"keys": {"tel_1": tel_1, "last_name": last_name, "address_1": address_1 }, "family": family, "user": "<%= @user.id -%>"};
-    if (tel_1 != "" && last_name != "" && address_1 !="") {
+    if ((tel_1 != "" && last_name != "" && address_1 !="") || "<%= @family -%>" != null) {
       $.ajax({
         type: "GET",
         url: "<%= url_for(:controller => :users, :action => :search_family) -%>",
