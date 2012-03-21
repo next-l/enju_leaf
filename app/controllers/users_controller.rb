@@ -375,27 +375,33 @@ class UsersController < ApplicationController
         SELECT users.id, users.username
         FROM users left join patrons 
         ON patrons.user_id = users.id 
-        WHERE patrons.telephone_number_1 IS NOT NULL
-        AND NOT patrons.telephone_number_1 = ''
-        AND translate(patrons.telephone_number_1, '-', '') = :tel_1
-        AND patrons.last_name IS NOT NULL
-        AND NOT patrons.last_name = ''
+        WHERE translate(patrons.telephone_number_1, '-', '') = :tel_1
         AND patrons.last_name = :last_name
-        AND patrons.address_1 IS NOT NULL
-        AND NOT patrons.address_1 = ''
         AND patrons.address_1 = :address_1
         AND patrons.patron_type_id = :patron_type_person
       SQL
-      query_params = {:tel_1=>tel_1, :last_name=>params[:keys][:last_name], :address_1=>params[:keys][:address_1], :patron_type_person=>patron_type_person}
+      if @family.present? and @family.to_i != 0
+        query += " AND users.id = :user_id"
+        query_params = {:tel_1=>tel_1, :last_name=>params[:keys][:last_name], :address_1=>params[:keys][:address_1], :patron_type_person=>patron_type_person, :user_id=>@family} if @family
+      else
+        query += <<-SQL
+          AND patrons.telephone_number_1 IS NOT NULL
+          AND NOT patrons.telephone_number_1 = ''
+          AND patrons.last_name IS NOT NULL
+          AND NOT patrons.last_name = ''
+          AND patrons.address_1 IS NOT NULL
+          AND NOT patrons.address_1 = ''
+        SQL
+        query_params = {:tel_1=>tel_1, :last_name=>params[:keys][:last_name], :address_1=>params[:keys][:address_1], :patron_type_person=>patron_type_person}
+      end
+     
       @users = User.find_by_sql([query, query_params]) rescue nil
       all_user_ids = []
       if @users
         #logger.info @users
         @users.each do |user|
-          #unless @user == user
-            #logger.info "user.id=#{user.id}"
-            all_user_ids << user.id
-          #end
+          #logger.info "user.id=#{user.id}"
+          all_user_ids << user.id
         end 
       end
       family_users = FamilyUser.find(:all, :conditions => ['user_id IN (?)', all_user_ids]) 
