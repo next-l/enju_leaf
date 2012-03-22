@@ -14,7 +14,6 @@ class Accept < ActiveRecord::Base
 
   def accept!
     item.circulation_status = CirculationStatus.where(:name => 'Available On Shelf').first
-    item.accepted_at = Time.zone.now
     item.save!
   end
 end
