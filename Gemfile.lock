@@ -106,6 +106,8 @@ GEM
       main
       ruby_parser (~> 2.0.4)
       sexp_processor (~> 3.0.3)
+    ci_reporter (1.7.0)
+      builder (>= 2.1.2)
     client_side_validations (3.1.4)
     cocaine (0.2.1)
     coffee-rails (3.2.2)
@@ -397,6 +399,7 @@ DEPENDENCIES
   cancan (>= 1.6.7)
   chunky_png (= 1.2.5)
   churn (= 0.0.13)
+  ci_reporter
   client_side_validations
   coffee-rails (~> 3.2.1)
   configatron

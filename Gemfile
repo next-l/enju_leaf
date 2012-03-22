@@ -106,6 +106,7 @@ group :development, :test do
   gem 'vcr', '~> 2.0.0.rc2'
   gem 'fakeweb'
   gem 'churn', '0.0.13'
+  gem 'ci_reporter'
 end
 
 # Gems used only for assets and not required
