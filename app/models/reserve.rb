@@ -362,6 +362,16 @@ class Reserve < ActiveRecord::Base
       if expired_period.nil?
         errors[:base] << I18n.t('reserve.this_patron_cannot_reserve')
       end
+
+      if self.user.locked_at
+        errors[:base] << I18n.t('reserve.this_user_is_locked')
+      end
+
+      if self.expired_at and self.user.expired_at
+        if self.user.expired_at < self.expired_at
+          errors[:base] << I18n.t('reserve.expired_at_of_this_user_is_over')
+        end
+      end
     end
   end
 

@@ -53,6 +53,21 @@ describe Reserve do
   it "should expire all reservations" do
     assert Reserve.expire.should be_true
   end
+
+  it "should not create when expired_at is before today" do
+    reserve = Reserve.new(:user => FactoryGirl.create(:user), :manifestation => FactoryGirl.create(:manifestation), :receipt_library_id => FactoryGirl.create(:library).id, :expired_at => 1.week.ago)
+    reserve.should_not be_valid
+  end
+
+  it "should not create when user is locked" do
+    reserve = Reserve.new(:user => FactoryGirl.create(:locked_user), :manifestation => FactoryGirl.create(:manifestation), :receipt_library_id => FactoryGirl.create(:library).id, :expired_at => 1.week.from_now)
+    reserve.should_not be_valid
+  end
+
+  it "should not create when user's expired_at is over" do
+    reserve = Reserve.new(:user => FactoryGirl.create(:expired_at_is_over_user), :manifestation => FactoryGirl.create(:manifestation), :receipt_library_id => FactoryGirl.create(:library).id, :expired_at => 1.week.from_now)
+    reserve.should_not be_valid
+  end
 end
 
 # == Schema Information
