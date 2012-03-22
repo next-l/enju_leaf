@@ -38,9 +38,9 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_circulation.git
-  revision: dec5d9dd6cc6c0d14b193fa94f22a7cd3d488bfc
+  revision: 25904b85ed6ffcdf3d48754ad624bdf6afd636d1
   specs:
-    enju_circulation (0.0.17)
+    enju_circulation (0.0.18)
       acts_as_list (~> 0.1.5)
       attribute_normalizer (~> 1.1)
       cancan
@@ -496,7 +496,7 @@ GEM
       multi_json (~> 1.0)
       simplecov-html (~> 0.5.3)
     simplecov-html (0.5.3)
-    sitemap_generator (3.0.0)
+    sitemap_generator (3.1.0)
       builder
     spork (1.0.0rc2)
     spork-rails (3.2.0)
@@ -607,7 +607,7 @@ DEPENDENCIES
   sass-rails (~> 3.2.3)
   simple_form (~> 2.0)
   simplecov (~> 0.6)
-  sitemap_generator (~> 3.0)
+  sitemap_generator (~> 3.1)
   spork-rails
   state_machine (~> 1.1.2)
   sunspot-rails-tester!
