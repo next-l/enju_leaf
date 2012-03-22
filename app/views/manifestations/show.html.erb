@@ -55,7 +55,7 @@
       <%- unless @manifestation.carrier_type.name == 'file' -%>
         <% if defined?(EnjuCirculation) %>
           <% if @manifestation.is_reservable_by?(current_user) %>
-            <li><%= link_to_reservation(@manifestation, @reserve) %></li>
+            <li><%= link_to_reservation(@manifestation, @reserve) %>
             <br />
             (<%= t('page.number_of_reservations', :count => @reserved_count) -%>)</li>
           <%- else -%>
