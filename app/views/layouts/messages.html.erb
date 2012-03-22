@@ -8,7 +8,12 @@
   <%= auto_discovery_link_tag(:atom, messages_url(:format => :atom), :title => (t('message.user_message', :login_name => current_user.username) + " (Atom)")) %>
 </head>
 <body>
-
+<script>
+  $(document).ready(function(){
+    if ($("#errorExplanation").length > 0)
+       playSound('<%= root_path -%><%= configatron.sounds.errors.default -%>');
+  });
+</script>
 <%= render 'page/header' -%>
 <%= render 'page/menu' -%>
 
