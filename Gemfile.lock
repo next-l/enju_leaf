@@ -140,7 +140,7 @@ GEM
       sunspot_rails
       sunspot_solr
       will_paginate (~> 3.0)
-    enju_circulation (0.0.17)
+    enju_circulation (0.0.18)
       acts_as_list (~> 0.1.5)
       attribute_normalizer (~> 1.1)
       cancan
@@ -405,7 +405,7 @@ GEM
       multi_json (~> 1.0)
       simplecov-html (~> 0.5.3)
     simplecov-html (0.5.3)
-    sitemap_generator (3.0.0)
+    sitemap_generator (3.1.0)
       builder
     spork (1.0.0rc2)
     spork-rails (3.2.0)
@@ -476,7 +476,7 @@ DEPENDENCIES
   enju_barcode (~> 0.0.1)
   enju_book_jacket!
   enju_bookmark (~> 0.0.7)
-  enju_circulation (~> 0.0.17)
+  enju_circulation (~> 0.0.18)
   enju_event (~> 0.0.9)
   enju_inventory (~> 0.0.4)
   enju_manifestation_viewer!
@@ -524,7 +524,7 @@ DEPENDENCIES
   sass-rails (~> 3.2.3)
   simple_form (~> 2.0)
   simplecov (~> 0.6)
-  sitemap_generator (~> 3.0)
+  sitemap_generator (~> 3.1)
   spork-rails
   state_machine (~> 1.1.2)
   sunspot-rails-tester!
