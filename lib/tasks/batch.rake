@@ -51,7 +51,6 @@ namespace :enju do
           ManifestationCheckoutStat.calculate_stat
           ManifestationReserveStat.calculate_stat
         end
-        BookmarkStat.calculate_stat if defined?(EnjuBookmark)
       }
     end
 
@@ -79,6 +78,15 @@ namespace :enju do
     task :send => :environment do
       exception_notify{
         MessageRequest.send_messages if defined?(EnjuMessage)
+      }
+    end
+  end
+
+  namespace :bookmark do
+    desc 'Batch processing for bookmark'
+    task :stat => :environment do
+      exception_notify{
+        BookmarkStat.calculate_stat if defined?(EnjuBookmark)
       }
     end
   end
