@@ -1588,8 +1588,6 @@ en:
     this_user_is_locked: "This user is locked."
     expired_at_of_this_user_is_over: "Expired at of this user is over"
     invalid_item: "Invalid item."
-    retained_item: "Retained item is not change information"
-    called_item: "Called item is not change receipt library"
     show: "Show reservation"
     invalid_date: "Invalid date."
     pending: "Pending"

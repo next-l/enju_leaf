@@ -262,8 +262,7 @@ class Reserve < ActiveRecord::Base
 
   def available_for_update?
     reserve = Reserve.find(self.id)
-    errors[:base] << I18n.t('reserve.retained_item') if self.state != 'requested' and reserve.information_type_id != self.information_type_id
-    errors[:base] << I18n.t('reserve.called_item') if self.retained and reserve.receipt_library_id != self.receipt_library_id
+    errors[:base] << I18n.t('reserve.expired_at_of_this_user_is_over') if self.expired_at and self.user.expired_at and self.user.expired_at < self.expired_at
   end
 
   def send_message(status)

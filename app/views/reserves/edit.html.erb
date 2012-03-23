@@ -22,7 +22,7 @@
   </div>
   <div class="field">
     <%= f.label t('activerecord.attributes.reserve.information_type') -%><br />
-    <%- if @reserve.retained -%>
+    <%- if @reserve.state == 'retained' -%>
       <%= f.select(:information_type_id, @informations.collect{|i| [i.display_name + " " + i.information, i.id]}, {}, :disabled => 'disabled') -%>
     <%- else -%>
       <%= f.select(:information_type_id, @informations.collect{|i| [i.display_name + " " + i.information, i.id]}) -%>
@@ -38,7 +38,11 @@
   </div>
   <div class="field">
     <%= f.label :expired_at -%><br />
-    <%= f.text_field :expired_at, :value => @reserve.expired_at.try(:strftime, "%Y-%m-%d"), :class => 'date_field', :placeholder => "#{t('page.example')}: 2011-04-12"-%>
+    <%- unless @reserve.state == 'requested'-%>
+      <%= f.text_field :expired_at, :value => @reserve.expired_at.try(:strftime, "%Y-%m-%d"), :class => 'date_field', :placeholder => "#{t('page.example')}: 2011-04-12", :disabled => true-%>
+    <%- else -%>
+      <%= f.text_field :expired_at, :value => @reserve.expired_at.try(:strftime, "%Y-%m-%d"), :class => 'date_field', :placeholder => "#{t('page.example')}: 2011-04-12"-%>
+    <%- end -%>
   </div>
   <div class="actions">
     <%= f.submit %>

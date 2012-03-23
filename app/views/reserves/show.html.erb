@@ -93,8 +93,10 @@
 <div id="submenu" class="ui-corner-all">
   <%= render 'manifestations/book_jacket', :manifestation => @reserve.manifestation -%>
   <ul>
-    <%- if @reserve.can_checkout? -%>
-      <li><%= link_to t('page.edit'), edit_user_reserve_path(@reserve.user, @reserve) -%></li>
+    <%- unless @reserve.state == 'retained' -%>
+      <%- if @reserve.can_checkout? -%>
+        <li><%= link_to t('page.edit'), edit_user_reserve_path(@reserve.user, @reserve) -%></li>
+      <%- end -%>
     <%- end -%>
     <%- if @reserve.user.reserves.waiting.include?(@reserve) -%>
       <li><%= link_to t('page.cancel'), user_reserve_path(@reserve.user, @reserve, :mode => 'cancel'), :confirm => t('page.cancel_confirm'), :method => :put -%></li>

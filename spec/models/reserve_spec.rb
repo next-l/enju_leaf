@@ -68,6 +68,16 @@ describe Reserve do
     reserve = Reserve.new(:user => FactoryGirl.create(:expired_at_is_over_user), :manifestation => FactoryGirl.create(:manifestation), :receipt_library_id => FactoryGirl.create(:library).id, :expired_at => 1.week.from_now)
     reserve.should_not be_valid
   end
+
+  it "should  update when user's expired_at is over" do
+    reserve = FactoryGirl.create(:reserve)
+    reserve.stub(:update_attributes).with(:expired_at => 2.week.from_now).and_return(true)
+  end
+
+  it "should not update when user's expired_at is over" do
+    reserve = FactoryGirl.create(:reserve)
+    reserve.stub(:update_attributes).with(:user => FactoryGirl.create(:expired_at_is_over_user)).and_return(false)
+  end
 end
 
 # == Schema Information

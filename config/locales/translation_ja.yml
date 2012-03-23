@@ -1848,8 +1848,6 @@ ja:
     this_user_is_locked: "この利用者は利用禁止中です。"
     expired_at_of_this_user_is_over: "予約の有効期限が利用者の有効期限を超えています。"
     invalid_item: "無効な所蔵情報です。"
-    retained_item: "取置済資料の連絡方法は変更できません。"
-    called_item: "取置、連絡済み資料の受取館の変更できません。"
     show: "予約の詳細"
     invalid_date: "無効な日付です。"
     pending: "受付待ち"

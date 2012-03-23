@@ -217,10 +217,13 @@ class ReservesController < ApplicationController
     unless @reserve.can_checkout?
       access_denied; return
     end
+    if @reserve.state == 'retained'
+      access_denied; return
+    end
 
     user = @user if @user
     @libraries = Library.real
-    @informations = Reserve.informations(user)
+    @informations = Reserve.informations(@reserve.user)
   end
 
   # POST /reserves
@@ -273,6 +276,9 @@ class ReservesController < ApplicationController
   def update
     @reserve = Reserve.find(params[:id])
     unless @reserve.can_checkout? 
+      access_denied; return
+    end
+    if @reserve.state == 'retained'
       access_denied; return
     end
 

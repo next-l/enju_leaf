@@ -54,7 +54,9 @@
     <td><%= l(reserve.expired_at, :format => :only_date) -%></td>
     <%- if can? :destroy, reserve -%>
       <td>
-        <%= link_to image_tag('icons/page_white_edit.png', :size => '16x16', :alt => t('page.edit'), :title => t('tooltip.edit')), edit_reserve_path(reserve) if reserve.can_checkout? -%>
+        <%- unless reserve.state == 'retained'-%>
+          <%= link_to image_tag('icons/page_white_edit.png', :size => '16x16', :alt => t('page.edit'), :title => t('tooltip.edit')), edit_reserve_path(reserve) if reserve.can_checkout? -%>
+        <%- end -%>
         <%- if reserve.user && reserve.user.reserves.waiting.include?(reserve) -%>
           <%= link_to image_tag('icons/cancel.png', :size => '16x16', :alt => t('page.cancel'), :title => t('tooltip.cancel')), reserve_path(reserve, :mode => 'cancel'), :confirm => t('page.cancel_confirm'), :method => :put -%>
         <%- else -%>
@@ -89,18 +91,15 @@
     <% end %>
   </tr>
 
-<%- @completed_reserves.each_with_index do |reserve, i| -%>
+<%- @completed_reserves.each do |reserve| -%>
   <tr class="line<%= cycle("0", "1") -%>">
     <td><%= link_to reserve.id, user_reserve_path(reserve.user, reserve) -%></td>
     <td><%= link_to reserve.user.username, reserve.user -%></td>
-    <td>
-      <%= render 'title', :reserve => reserve -%>
-    </td>
+    <td><%= render 'title', :reserve => reserve -%></td>
     <td><%= i18n_state(reserve.state) -%></td>
     <td><%= l(reserve.expired_at, :format => :only_date) -%></td>
     <%- if can? :destroy, reserve -%>
       <td>
-        <%= link_to image_tag('icons/page_white_edit.png', :size => '16x16', :alt => t('page.edit'), :title => t('tooltip.edit')), edit_user_reserve_path(reserve.user, reserve) -%>
         <%- if reserve.user.reserves.waiting.include?(reserve) -%>
           <%= link_to image_tag('icons/cancel.png', :size => '16x16', :alt => t('page.cancel'), :title => t('tooltip.cancel')), user_reserve_path(reserve.user, reserve, :mode => 'cancel'), :confirm => t('page.cancel_confirm'), :method => :put -%>
         <%- else -%>
