@@ -164,6 +164,11 @@ describe User do
     user.save
     users(:user1).active_for_authentication?.should be_false
   end
+
+  it "should return messege when user cannot connect" do
+    user = FactoryGirl.create(:unable_user)
+    user.user_notice.should include(I18n.t('user.not_connect', :user => user.username))
+  end
 end
 
 # == Schema Information

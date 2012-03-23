@@ -487,6 +487,7 @@ class User < ActiveRecord::Base
  
   def user_notice
     @messages = []
+    @messages << I18n.t('user.not_connect', :user => self.username) if self.unable
     overdues = self.checkouts.overdue(Time.zone.now) rescue nil
     @messages << I18n.t('user.overdue_item', :user => self.username, :count => overdues.length) unless overdues.empty?
     reserves = self.reserves.hold rescue nil

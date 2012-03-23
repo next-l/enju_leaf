@@ -7,21 +7,20 @@ class CheckedItemsController < ApplicationController
   # GET /checked_items
   # GET /checked_items.xml
   def index
-    if @basket
-      @checked_items = @basket.checked_items
-      @checkout_user = @basket.user
-      unless @checkout_user.patron
-        redirect_to new_user_patron_url(@user); return
-      end
+    unless @basket
+      access_denied; return
+    end
 
-      family_id = FamilyUser.find(:first, :conditions => ['user_id=?', @basket.user.id]).family_id rescue nil
-      if family_id
-        @family_users = Family.find(family_id).users
-        @family_users.delete_if{|f_user| f_user == @checkout_user}
-      end
-    else
-      access_denied
-      return
+    @checked_items = @basket.checked_items
+    @checkout_user = @basket.user
+    unless @checkout_user.patron
+      redirect_to new_user_patron_url(@user); return
+    end
+
+    family_id = FamilyUser.find(:first, :conditions => ['user_id=?', @basket.user.id]).family_id rescue nil
+    if family_id
+      @family_users = Family.find(family_id).users
+      @family_users.delete_if{|f_user| f_user == @checkout_user}
     end
 
     respond_to do |format|
