@@ -144,9 +144,9 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_ndl.git
-  revision: b79600672fa3d6bf4090299650b2ce3e9d21fbd5
+  revision: 9278e4c9af72dade7ad5b29b44f31f890b696d1b
   specs:
-    enju_ndl (0.0.13)
+    enju_ndl (0.0.14)
       acts_as_list
       attribute_normalizer
       devise
@@ -496,7 +496,7 @@ GEM
       multi_json (~> 1.0)
       simplecov-html (~> 0.5.3)
     simplecov-html (0.5.3)
-    sitemap_generator (3.1.0)
+    sitemap_generator (3.1.1)
       builder
     spork (1.0.0rc2)
     spork-rails (3.2.0)

@@ -5,7 +5,7 @@ class Create < ActiveRecord::Base
 
   validates_associated :patron, :work
   validates_presence_of :patron_id, :work_id
-  validates_uniqueness_of :work_id, :scope => :patron_id
+#  validates_uniqueness_of :work_id, :scope => :patron_id
   after_save :reindex
   after_destroy :reindex
 
