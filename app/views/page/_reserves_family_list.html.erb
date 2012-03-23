@@ -18,7 +18,7 @@
     <%- else -%>
       <%- reserves =f_user.reserves.user_show_reserves -%>
     <%- end -%>
-    <%- reserves.each_with_index do |reserve, i| -%>
+    <%- reserves.user_show_reserves.each do |reserve| -%>
       <tr class="line<%= cycle("0", "1") -%>">
         <td><%= link_to reserve.id, user_reserve_path(reserve.user, reserve) -%></td>
         <%- if SystemConfiguration.get("checked_items.disp_title") -%>
