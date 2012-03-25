@@ -95,6 +95,7 @@ class CheckedItem < ActiveRecord::Base
       self.due_date = lending_rule.fixed_due_date
     end
     # 返却期限日が閉館日の場合
+    # TODO date_truncはPostgreSQL独自の機能なので他のDBも少しは考慮に入れる
     events = Event.find(:all, :conditions => ["? BETWEEN date_trunc('day', start_at) AND date_trunc('day', end_at)", due_date.beginning_of_day])
     checkin_before = false
     events.each do |e|
