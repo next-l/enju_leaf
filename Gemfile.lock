@@ -38,9 +38,9 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_circulation.git
-  revision: 25904b85ed6ffcdf3d48754ad624bdf6afd636d1
+  revision: 41799936f89ab29c119dd47c870f67b4aac49ee2
   specs:
-    enju_circulation (0.0.18)
+    enju_circulation (0.0.19)
       acts_as_list (~> 0.1.5)
       attribute_normalizer (~> 1.1)
       cancan
@@ -391,7 +391,7 @@ GEM
     jquery-rails (2.0.1)
       railties (>= 3.2.0, < 5.0)
       thor (~> 0.14)
-    json (1.6.5)
+    json (1.6.6)
     kgio (2.7.4)
     library_stdnums (1.1.0)
     mail (2.4.4)

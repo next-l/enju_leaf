@@ -256,7 +256,9 @@ class ApplicationController < ActionController::Base
   end
 
   def store_page
-    flash[:page] = params[:page] if params[:page].to_i > 0
+    if request.get? and request.format.try(:html?) and !request.xhr?
+      flash[:page] = params[:page] if params[:page].to_i > 0
+    end
   end
 
   def store_location

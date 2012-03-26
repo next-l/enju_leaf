@@ -43,31 +43,39 @@
   <%- end -%>
 
   <div id="resource_bookmark_buttons">
-    <%- if user_signed_in? -%>
       <ul>
-        <%- if current_user.email.present? -%>
-          <li><%= link_to t('manifestation.send_email'), manifestation_path(:mode => 'send_email'), :confirm => t('page.are_you_sure') -%></li>
-        <%- end -%>
-        <% if defined?(EnjuBookmark) %>
-          <li><%= link_to_bookmark(@manifestation) %></li>
+        <%- if user_signed_in? -%>
+          <%- if current_user.email.present? -%>
+            <li><%= link_to t('manifestation.send_email'), manifestation_path(:mode => 'send_email'), :confirm => t('page.are_you_sure') -%></li>
+          <%- end -%>
+          <% if defined?(EnjuBookmark) %>
+            <li><%= link_to_bookmark(@manifestation) %></li>
+          <% end %>
         <% end %>
 
-      <%- unless @manifestation.carrier_type.name == 'file' -%>
-        <% if defined?(EnjuCirculation) %>
-          <% if @manifestation.is_reservable_by?(current_user) %>
-            <li><%= link_to_reservation(@manifestation, @reserve) %>
-            <br />
-            (<%= t('page.number_of_reservations', :count => @reserved_count) -%>)</li>
-          <%- else -%>
-            <% if defined?(EnjuPurchaseRequest) %>
-              <li><%= link_to t('activerecord.models.purchase_request'), new_purchase_request_path(:purchase_request => {:url => manifestation_url(@manifestation)}) %></li>
+        <%- unless @manifestation.carrier_type.name == 'file' -%>
+          <% if defined?(EnjuCirculation) %>
+            <% if user_signed_in? %>
+              <% if @manifestation.is_reservable_by?(current_user) %>
+                <li><%= link_to_reservation(@manifestation, @reserve) %>
+                <br />
+                (<%= t('page.number_of_reservations', :count => @reserved_count) -%>)</li>
+              <%- else -%>
+                <% if defined?(EnjuPurchaseRequest) %>
+                  <li><%= link_to t('activerecord.models.purchase_request'), new_purchase_request_path(:purchase_request => {:url => manifestation_url(@manifestation)}) %></li>
+                <% end %>
+              <%- end -%>
+            <% else %>
+              <% unless @manifestation.items.for_checkout.empty? %>
+                <li><%= link_to_reservation(@manifestation, @reserve) %><br />
+                (<%= t('page.number_of_reservations', :count => @reserved_count) -%>)</li>
+              <% end %>
             <% end %>
-          <%- end -%>
-        <% end %>
-      <%- end -%>
+          <% end %>
+        <%- end -%>
       </ul>
 
-      <%- if current_user.has_role?('Librarian') -%>
+      <%- if current_user.try(:has_role?, 'Librarian') -%>
         <ul>
           <li>
             <%- case when @expression -%>
@@ -76,9 +84,6 @@
               <%= link_to t('page.edit'), edit_publisher_manifestation_path(@patron, @manifestation) -%>
             <%- else -%>
               <%= link_to t('page.edit'), edit_manifestation_path(@manifestation) -%>
-              <% if can? :destroy, @manifestation %>
-                <li><%= link_to t('page.destroy'), @manifestation, :confirm => t('page.are_you_sure'), :method => :delete -%></li>
-              <% end %>
             <%- end -%>
             <ul>
               <li><%= link_to t('manifestation.edit_creator'), work_patrons_path(@manifestation) -%></li>
@@ -89,13 +94,15 @@
               <%- end -%>
             </ul>
           </li>
+          <% if can? :destroy, @manifestation %>
+            <li><%= link_to t('page.destroy'), @manifestation, :confirm => t('page.are_you_sure'), :method => :delete -%></li>
+          <% end %>
           <li><%= link_to t('manifestation.add_derivation'), manifestation_manifestations_path(@manifestation, :mode => 'add') -%></li>
           <% if defined?(EnjuSubject) %>
             <li><%= link_to t('page.listing', :model => t('activerecord.models.subject')), work_subjects_path(@manifestation) -%></li>
           <% end %>
           <li><%= link_to t('manifestation.edit_item'), manifestation_items_path(@manifestation) -%></li>
         </ul>
-      <%- end -%>
-    <%- end -%>
+      <% end %>
   </div>
 </div>
