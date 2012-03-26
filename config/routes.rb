@@ -3,8 +3,6 @@ EnjuLeaf::Application.routes.draw do
 
   resource :my_account
 
-  post "batchaction/recept"
-
   resources :reminder_lists do
     post :reminder_letter, :on => :collection
     post :reminder_postal_card, :on => :collection
