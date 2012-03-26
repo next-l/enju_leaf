@@ -140,7 +140,7 @@ GEM
       sunspot_rails
       sunspot_solr
       will_paginate (~> 3.0)
-    enju_circulation (0.0.18)
+    enju_circulation (0.0.19)
       acts_as_list (~> 0.1.5)
       attribute_normalizer (~> 1.1)
       cancan
@@ -300,7 +300,7 @@ GEM
     jquery-rails (2.0.1)
       railties (>= 3.2.0, < 5.0)
       thor (~> 0.14)
-    json (1.6.5)
+    json (1.6.6)
     kgio (2.7.4)
     library_stdnums (1.1.0)
     mail (2.4.4)
@@ -477,7 +477,7 @@ DEPENDENCIES
   enju_barcode (~> 0.0.1)
   enju_book_jacket!
   enju_bookmark (~> 0.0.7)
-  enju_circulation (~> 0.0.18)
+  enju_circulation (~> 0.0.19)
   enju_event (~> 0.0.9)
   enju_inventory (~> 0.0.4)
   enju_manifestation_viewer!
