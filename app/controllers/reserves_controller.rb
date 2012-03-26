@@ -278,9 +278,6 @@ class ReservesController < ApplicationController
     unless @reserve.can_checkout? 
       access_denied; return
     end
-    if @reserve.state == 'retained'
-      access_denied; return
-    end
 
     if params[:reserve]
       user = User.where(:user_number => params[:reserve][:user_number]).first
