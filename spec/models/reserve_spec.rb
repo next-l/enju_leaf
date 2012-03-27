@@ -93,14 +93,18 @@ describe Reserve do
     reserve.state.should eq 'requested'
   end
 
-  it "should reqesuted when a shef of items is not opened" do
+  it "should reqested when a shef of items is not opened" do
     reserve = Reserve.new(:user => users(:user2), :manifestation => manifestations(:manifestation_00025), :receipt_library_id => libraries(:library_00002).id, :expired_at => 1.week.from_now, :created_by=> users(:librarian2))
     reserve.save
     reserve.new_reserve
     reserve.state.should eq 'requested'
   end
 
-  it "should reqesuted when a shef of items is not on shelf" do
+  it "should reqested when a shef of items is not on shelf" do
+    reserve = Reserve.new(:user => users(:user2), :manifestation => manifestations(:manifestation_00026), :receipt_library_id => libraries(:library_00002).id, :expired_at => 1.week.from_now, :created_by=> users(:librarian2))
+    reserve.save
+    reserve.new_reserve
+    reserve.state.should eq 'requested'
   end
 end
 
