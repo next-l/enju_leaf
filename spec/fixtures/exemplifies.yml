@@ -131,7 +131,30 @@ exemplify_00022:
   manifestation_id: 10
   id: 22
   created_at: 2008-01-11 02:44:37.135721 +09:00
-
+exemplify_00023: 
+  updated_at: 2008-01-11 02:44:37.135721 +09:00
+  item_id: 23
+  manifestation_id: 4
+  id: 23
+  created_at: 2008-01-11 02:44:37.135721 +09:00
+exemplify_00024: 
+  updated_at: 2008-01-11 02:44:37.135721 +09:00
+  item_id: 24
+  manifestation_id: 24
+  id: 24
+  created_at: 2008-01-11 02:44:37.135721 +09:00
+exemplify_00025: 
+  updated_at: 2008-01-11 02:44:37.135721 +09:00
+  item_id: 25
+  manifestation_id: 2
+  id: 25
+  created_at: 2008-01-11 02:44:37.135721 +09:00
+exemplify_00026: 
+  updated_at: 2008-01-11 02:44:37.135721 +09:00
+  item_id: 26
+  manifestation_id: 2
+  id: 26
+  created_at: 2008-01-11 02:44:37.135721 +09:00
 # == Schema Information
 #
 # Table name: exemplifies

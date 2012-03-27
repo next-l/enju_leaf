@@ -207,6 +207,51 @@ manifestation_00023:
   width: 
   created_at: 2007-11-19 16:58:58.799724 +09:00
   required_role_id: 4
+manifestation_00024: 
+  carrier_type_id: 1
+  isbn: 
+  created_at: 2008-04-17 00:34:01 +09:00
+  original_title: "海辺のカフカ"
+  price: 
+  identifier: 
+  depth: 
+  date_of_publication: 
+  access_address:
+  id: 24
+  height: 
+  width: 
+  created_at: 2007-11-19 16:58:58.799724 +09:00
+  required_role_id: 4
+manifestation_00025: 
+  carrier_type_id: 1
+  isbn: 
+  created_at: 2008-04-17 00:34:01 +09:00
+  original_title: "ノルウェーの森"
+  price: 
+  identifier: 
+  depth: 
+  date_of_publication: 
+  access_address:
+  id: 25
+  height: 
+  width: 
+  created_at: 2007-11-19 16:58:58.799724 +09:00
+  required_role_id: 4
+manifestation_00026: 
+  carrier_type_id: 1
+  isbn: 
+  created_at: 2008-04-17 00:34:01 +09:00
+  original_title: "アンドロイドは電気羊の夢を見るか？"
+  price: 
+  identifier: 
+  depth: 
+  date_of_publication: 
+  access_address:
+  id: 26
+  height: 
+  width: 
+  created_at: 2007-11-19 16:58:58.799724 +09:00
+  required_role_id: 4
 manifestation_00101:
   carrier_type_id: 1
   language_id: 1

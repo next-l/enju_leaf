@@ -69,7 +69,7 @@ describe Reserve do
     reserve.should_not be_valid
   end
 
-  it "should  update when user's expired_at is over" do
+  it "should update when user's expired_at is over" do
     reserve = FactoryGirl.create(:reserve)
     reserve.stub(:update_attributes).with(:expired_at => 2.week.from_now).and_return(true)
   end
@@ -77,6 +77,30 @@ describe Reserve do
   it "should not update when user's expired_at is over" do
     reserve = FactoryGirl.create(:reserve)
     reserve.stub(:update_attributes).with(:user => FactoryGirl.create(:expired_at_is_over_user)).and_return(false)
+  end
+
+  it "should retained" do
+    reserve = Reserve.new(:user => users(:user2), :manifestation => manifestations(:manifestation_00004), :receipt_library_id => libraries(:library_00002).id, :expired_at => 1.week.from_now, :created_by=> users(:librarian2))
+    reserve.save
+    reserve.new_reserve
+    reserve.state.should eq 'retained'
+  end
+
+  it "should reqesuted when item_identifier is null" do
+    reserve = Reserve.new(:user => users(:user2), :manifestation => manifestations(:manifestation_00024), :receipt_library_id => libraries(:library_00002).id, :expired_at => 1.week.from_now, :created_by=> users(:librarian2))
+    reserve.save
+    reserve.new_reserve
+    reserve.state.should eq 'requested'
+  end
+
+  it "should reqesuted when a shef of items is not opened" do
+    reserve = Reserve.new(:user => users(:user2), :manifestation => manifestations(:manifestation_00025), :receipt_library_id => libraries(:library_00002).id, :expired_at => 1.week.from_now, :created_by=> users(:librarian2))
+    reserve.save
+    reserve.new_reserve
+    reserve.state.should eq 'requested'
+  end
+
+  it "should reqesuted when a shef of items is not on shelf" do
   end
 end
 

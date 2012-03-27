@@ -145,7 +145,7 @@ class Item < ActiveRecord::Base
 
   def available_for_retain?
     circulation_statuses = CirculationStatus.available_for_retain.select(:id)
-    return true if circulation_statuses.include?(self.circulation_status) && self.item_identifier
+    return true if circulation_statuses.include?(self.circulation_status) && self.item_identifier && self.shelf.open_access == 0 
     false
   end
 

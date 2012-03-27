@@ -187,7 +187,7 @@ class Reserve < ActiveRecord::Base
     if self.available_for_checkout?    
       items = self.manifestation.items_ordered_for_retain(library) rescue nil
       items.each do |item|
-        if item.available_for_retain? && !item.reserved?
+       if item.available_for_retain? && !item.reserved?
           self.item = item
           if item.shelf.library == library
             self.sm_retain!
@@ -331,7 +331,6 @@ class Reserve < ActiveRecord::Base
     Reserve.transaction do
       self.will_expire_retained(Time.zone.now.beginning_of_day).map{|r| r.sm_expire!}
       self.will_expire_pending(Time.zone.now.beginning_of_day).map{|r| r.sm_expire!}
-
       # キューに登録した時点では本文は作られないので
       # 予約の連絡をすませたかどうかを識別できるようにしなければならない
       # reserve.send_message('expired')

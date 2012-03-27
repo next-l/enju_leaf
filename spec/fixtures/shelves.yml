@@ -6,6 +6,7 @@ shelf_00001:
   note:
   library_id: 1
   position: 1
+  open_access: 0
 shelf_00002: 
   name: first_shelf
   display_name: First shelf
@@ -13,6 +14,7 @@ shelf_00002:
   note:
   library_id: 2
   position: 2
+  open_access: 0
 shelf_00003: 
   name: second_shelf
   display_name: Second shelf
@@ -20,6 +22,7 @@ shelf_00003:
   note:
   library_id: 2
   position: 3
+  open_access: 0
 shelf_00004: 
   name: third_shelf
   display_name: Third shelf
@@ -27,6 +30,15 @@ shelf_00004:
   note:
   library_id: 3
   position: 4
+  open_access: 0
+shelf_00005: 
+  name: closed_shelf
+  display_name: closed shelf
+  id: 5
+  note:
+  library_id: 2
+  position: 5
+  open_access: 9
 
 # == Schema Information
 #
