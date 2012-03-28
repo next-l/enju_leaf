@@ -106,6 +106,24 @@ describe Reserve do
     reserve.new_reserve
     reserve.state.should eq 'requested'
   end
+
+  it "should be canceled" do
+    reserves(:reserve_00001).can_cancel?.should be_true # requested
+    reserves(:reserve_00012).can_cancel?.should be_true # retained
+    reserves(:reserve_00016).can_cancel?.should_not be_true # in_process
+    reserves(:reserve_00017).can_cancel?.should_not be_true # completed
+    reserves(:reserve_00019).can_cancel?.should_not be_true # expired
+  end
+
+  it "should be edited" do
+    reserves(:reserve_00001).can_edit?.should be_true # requested
+    reserves(:reserve_00012).can_edit?.should be_true # retained
+    reserves(:reserve_00016).can_edit?.should be_true # in_process
+    reserves(:reserve_00017).can_edit?.should_not be_true # completed
+    reserves(:reserve_00018).can_edit?.should_not be_true # canceled
+    reserves(:reserve_00019).can_edit?.should_not be_true # expired
+  end
+
 end
 
 # == Schema Information

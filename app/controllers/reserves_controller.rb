@@ -217,7 +217,7 @@ class ReservesController < ApplicationController
     unless @reserve.can_checkout?
       access_denied; return
     end
-    if @reserve.state == 'retained'
+    if @reserve.retained
       access_denied; return
     end
 
@@ -278,7 +278,7 @@ class ReservesController < ApplicationController
     unless @reserve.can_checkout? 
       access_denied; return
     end
-    if @reserve.state == 'retained'
+    if @reserve.retained
       unless params[:mode] == 'cancel'
         access_denied; return
       end
