@@ -31,7 +31,13 @@
 <%- @reserves.each_with_index do |reserve, i| -%>
   <tr class="line<%= cycle("0", "1") -%>">
     <%- if @manifestation && current_user.has_role?('Librarian') -%>
-      <td><%= i + 1 -%></td>
+      <td>
+        <% if params[:page] %>
+          <%= (params[:page].to_i - 1 ) * 10 + i + 1 -%>
+        <% else %>
+          <%= i + 1 -%>
+        <% end %>
+      </td>
       <td>
         <%- if can? :update, reserve -%>
           <%- if i == (@reserves.length - 1) -%>

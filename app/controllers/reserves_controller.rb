@@ -54,7 +54,7 @@ class ReservesController < ApplicationController
       elsif @manifestation
         # 管理者
         @reserves = @manifestation.reserves.not_retained.order('reserves.position ASC').page(params[:page])
-        @completed_reserves = @manifestation.reserves.not_waiting.page(params[:page])
+        @completed_reserves = @manifestation.reserves.not_waiting
       else
         # all reserves
         page = params[:page] || 1
