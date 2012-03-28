@@ -43,7 +43,7 @@ class SeriesStatement < ActiveRecord::Base
   def create_root_manifestation
     return nil unless periodical
     return nil if root_manifestation
-    self.root_manifestation = Manifestation.new(
+    self.root_manifestation = Manifestation.create(
       :original_title => original_title
     )
   end
