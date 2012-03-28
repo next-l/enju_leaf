@@ -245,6 +245,7 @@ class ReservesController < ApplicationController
     @reserve = Reserve.new(params[:reserve])
     @reserve.user = user
     @reserve.created_by = current_user.id
+    @reserve.position = Reserve.waiting.where("manifestation_id = ? AND item_id IS NULL", @reserve.manifestation_id).count + 1
 
     respond_to do |format|
       if @reserve.save
