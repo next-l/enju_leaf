@@ -54,7 +54,7 @@ class ReservesController < ApplicationController
       elsif @manifestation
         # 管理者
         @reserves = @manifestation.reserves.not_retained.order('reserves.position ASC').page(params[:page])
-        @completed_reserves = @manifestation.reserves.not_waiting.page(params[:page])
+        @completed_reserves = @manifestation.reserves.not_waiting
       else
         # all reserves
         page = params[:page] || 1
@@ -217,7 +217,7 @@ class ReservesController < ApplicationController
     unless @reserve.can_checkout?
       access_denied; return
     end
-    if @reserve.state == 'retained'
+    if @reserve.retained
       access_denied; return
     end
 
@@ -245,6 +245,7 @@ class ReservesController < ApplicationController
     @reserve = Reserve.new(params[:reserve])
     @reserve.user = user
     @reserve.created_by = current_user.id
+    @reserve.position = Reserve.waiting.where("manifestation_id = ? AND item_id IS NULL", @reserve.manifestation_id).count + 1
 
     respond_to do |format|
       if @reserve.save
@@ -278,7 +279,7 @@ class ReservesController < ApplicationController
     unless @reserve.can_checkout? 
       access_denied; return
     end
-    if @reserve.state == 'retained'
+    if @reserve.retained
       unless params[:mode] == 'cancel'
         access_denied; return
       end

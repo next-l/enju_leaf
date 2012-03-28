@@ -3,12 +3,14 @@
 <h1 class="title"><%= t('page.listing', :model => t('activerecord.models.reserve')) -%></h1>
 <div id="content_list">
 <p id="notice"><%= notice %></p>
-<%= render 'manifestations/title', :manifestation => @manifestation if @manifestation -%>
-<%-if @user -%>
+
+<% if @user %>
   <%= render 'reserves/output_user' -%>
-<%- elsif !@user and !@manifestation -%>
-  <%= render 'reserves/search_and_output'-%>
-<%- end -%>
+<% elsif @manifestation %>
+  <%= render 'manifestations/title', :manifestation => @manifestation -%>
+<% else %>
+  <%= render 'reserves/search_and_output' -%>
+<% end %>
 
 <table class="index">
   <tr>
@@ -29,7 +31,13 @@
 <%- @reserves.each_with_index do |reserve, i| -%>
   <tr class="line<%= cycle("0", "1") -%>">
     <%- if @manifestation && current_user.has_role?('Librarian') -%>
-      <td><%= i + 1 -%></td>
+      <td>
+        <% if params[:page] %>
+          <%= (params[:page].to_i - 1 ) * 10 + i + 1 -%>
+        <% else %>
+          <%= i + 1 -%>
+        <% end %>
+      </td>
       <td>
         <%- if can? :update, reserve -%>
           <%- if i == (@reserves.length - 1) -%>
@@ -42,9 +50,7 @@
     <%- end -%>
     <td><%= link_to reserve.id, reserve -%></td>
     <td><%= link_to reserve.user.username, reserve.user if reserve.user -%></td>
-    <td>
-      <%= render 'title', :reserve => reserve -%>
-    </td>
+    <td><%= render 'title', :reserve => reserve -%></td>
     <td>
       <%= i18n_state(reserve.state) -%>
       <%- if reserve.retained -%>
@@ -54,11 +60,13 @@
     <td><%= l(reserve.expired_at, :format => :only_date) -%></td>
     <%- if can? :destroy, reserve -%>
       <td>
-        <%- unless reserve.state == 'retained'-%>
+        <% if reserve.can_edit? %>
           <%= link_to image_tag('icons/page_white_edit.png', :size => '16x16', :alt => t('page.edit'), :title => t('tooltip.edit')), edit_reserve_path(reserve) if reserve.can_checkout? -%>
         <%- end -%>
         <%- if reserve.user && reserve.user.reserves.waiting.include?(reserve) -%>
-          <%= link_to image_tag('icons/cancel.png', :size => '16x16', :alt => t('page.cancel'), :title => t('tooltip.cancel')), reserve_path(reserve, :mode => 'cancel'), :confirm => t('page.cancel_confirm'), :method => :put -%>
+          <%- if reserve.can_cancel? -%>
+            <%= link_to image_tag('icons/cancel.png', :size => '16x16', :alt => t('page.cancel'), :title => t('tooltip.cancel')), reserve_path(reserve, :mode => 'cancel'), :confirm => t('page.cancel_confirm'), :method => :put -%>
+          <%- end -%>
         <%- else -%>
           <%= link_to image_tag('icons/delete.png', :size => '16x16', :alt => t('page.destroy'), :title => t('tooltip.destroy')), reserve_path(reserve), :confirm => t('page.are_you_sure'), :method => :delete -%>
         <%- end -%>

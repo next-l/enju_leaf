@@ -22,7 +22,7 @@
   </div>
   <div class="field">
     <%= f.label t('activerecord.attributes.reserve.information_type') -%><br />
-    <%- if @reserve.state == 'retained' -%>
+    <%- if @reserve.retained -%>
       <%= f.select(:information_type_id, @informations.collect{|i| [i.display_name + " " + i.information, i.id]}, {}, :disabled => 'disabled') -%>
     <%- else -%>
       <%= f.select(:information_type_id, @informations.collect{|i| [i.display_name + " " + i.information, i.id]}) -%>

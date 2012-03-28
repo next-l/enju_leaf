@@ -461,7 +461,7 @@ class Reserve < ActiveRecord::Base
   end
 
   def self.states
-    @states = ['requested', 'retained', 'in_process', 'completed', 'canceled', 'expired']
+    @states = ['requested', 'in_process', 'retained', 'completed', 'canceled', 'expired']
     return @states
   end
 
@@ -474,6 +474,16 @@ class Reserve < ActiveRecord::Base
     return true if ['requested', 'retained', 'in_process'].include?(self.state)
     false
   end 
+
+  def can_cancel?
+    return true if ['requested', 'retained'].include?(self.state)
+    false
+  end
+
+  def can_edit?
+    return true if ['requested', 'in_process', 'retained'].include?(self.state)
+    false
+  end
 
   def user_can_show?
     return true if ['requested', 'retained', 'in_process'].include?(self.state)
