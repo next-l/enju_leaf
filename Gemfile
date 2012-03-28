@@ -14,7 +14,7 @@ gem 'enju_ndl', :git => 'git://github.com/nabeta/enju_ndl.git'
 #gem 'enju_question', :git => 'git://github.com/nabeta/enju_question.git'
 
 #gem 'enju_standalone_interface', :path => '/Users/tmpz84/src/enju_standalone_interface'
-gem 'enju_standalone_interface', :git => 'git@github.com:nakamura-akifumi/enju_standalone_interface.git'
+gem 'enju_standalone_interface', :git => 'git://github.com/nakamura-akifumi/enju_standalone_interface.git'
 
 #
 platforms :ruby do

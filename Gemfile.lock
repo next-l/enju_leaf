@@ -47,7 +47,7 @@ GIT
     isbn-tools (0.2.0)
 
 GIT
-  remote: git@github.com:nakamura-akifumi/enju_standalone_interface.git
+  remote: git://github.com/nakamura-akifumi/enju_standalone_interface.git
   revision: ac7fa565773c4a956b0261a1f20069ff35b27694
   specs:
     enju_standalone_interface (0.0.1)
