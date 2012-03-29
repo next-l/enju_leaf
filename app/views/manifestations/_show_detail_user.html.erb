@@ -27,7 +27,8 @@
         <tr>
           <td style="width: 200px"><%= t('page.form') -%>:</td>
           <td style="width: 500px">
-            <%= form_icon(manifestation.carrier_type) -%> <%= manifestation.carrier_type.display_name.localize -%>
+            <%= form_icon(manifestation.carrier_type) -%> <%= manifestation.carrier_type.display_name.localize -%> /
+            <%= content_type_icon(manifestation.manifestation_content_type) -%> <%= manifestation.manifestation_content_type.display_name.localize if manifestation.manifestation_content_type -%>
           </td>
         </tr>
         <tr>

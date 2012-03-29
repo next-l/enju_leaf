@@ -144,9 +144,9 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_ndl.git
-  revision: 9278e4c9af72dade7ad5b29b44f31f890b696d1b
+  revision: 95942e06808f846ec51d9b0a51e0c189f3a5345d
   specs:
-    enju_ndl (0.0.14)
+    enju_ndl (0.0.15)
       acts_as_list
       attribute_normalizer
       devise
@@ -340,7 +340,7 @@ GEM
     configatron (2.9.0)
       yamler (>= 0.1.0)
     daemons (1.1.8)
-    dalli (2.0.0)
+    dalli (1.1.5)
     delayed_job (3.0.1)
       activesupport (~> 3.0)
     delayed_job_active_record (0.3.2)
@@ -418,10 +418,9 @@ GEM
     paper_trail (2.6.3)
       activerecord (~> 3.0)
       railties (~> 3.0)
-    paperclip (3.0.0)
-      activemodel (>= 3.0.0)
-      activerecord (>= 3.0.0)
-      activesupport (>= 3.0.0)
+    paperclip (2.7.0)
+      activerecord (>= 2.3.0)
+      activesupport (>= 2.3.2)
       cocaine (>= 0.0.2)
       mime-types
     parallel (0.5.16)
@@ -553,7 +552,7 @@ DEPENDENCIES
   coffee-rails (~> 3.2.1)
   configatron
   daemons
-  dalli (~> 2.0)
+  dalli (~> 1.1)
   delayed_job_active_record
   devise (~> 2.1.0.rc)
   dynamic_form
@@ -594,7 +593,7 @@ DEPENDENCIES
   nokogiri
   omniauth (~> 1.0)
   paper_trail (~> 2.6)
-  paperclip (~> 3.0)
+  paperclip (~> 2.7)
   parallel_tests (~> 0.7)
   pg
   progress_bar
