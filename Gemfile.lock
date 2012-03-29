@@ -38,9 +38,9 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_circulation.git
-  revision: 41799936f89ab29c119dd47c870f67b4aac49ee2
+  revision: ed301f13c8da092130815b59b3dbd9fdb26b60f0
   specs:
-    enju_circulation (0.0.19)
+    enju_circulation (0.0.20)
       acts_as_list (~> 0.1.5)
       attribute_normalizer (~> 1.1)
       cancan
@@ -512,7 +512,7 @@ GEM
     thor (0.14.6)
     tilt (1.3.3)
     timecop (0.3.5)
-    timeliness (0.3.4)
+    timeliness (0.3.5)
     treetop (1.4.10)
       polyglot
       polyglot (>= 0.3.1)
@@ -521,8 +521,8 @@ GEM
       execjs (>= 0.3.0)
       multi_json (>= 1.0.2)
     uuidtools (2.1.2)
-    validates_timeliness (3.0.9)
-      timeliness (~> 0.3.4)
+    validates_timeliness (3.0.10)
+      timeliness (~> 0.3.5)
     vcr (2.0.0)
     warden (1.1.1)
       rack (>= 1.0)
