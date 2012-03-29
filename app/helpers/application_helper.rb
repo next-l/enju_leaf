@@ -15,10 +15,10 @@ module ApplicationHelper
     when 'file'
       image_tag('icons/monitor.png', :size => '16x16', :alt => carrier_type.display_name.localize)
     else
-      image_tag('icons/help.png', :size => '16x16', :alt => 'unknown')
+      image_tag('icons/help.png', :size => '16x16', :alt => t('page.unknown'))
     end
   rescue NoMethodError
-    image_tag('icons/help.png', :size => '16x16', :alt => 'unknown')
+    image_tag('icons/help.png', :size => '16x16', :alt => t('page.unknown'))
   end
 
   def content_type_icon(content_type)

@@ -201,7 +201,7 @@ GEM
       sunspot_rails
       sunspot_solr
       will_paginate (~> 3.0)
-    enju_ndl (0.0.14)
+    enju_ndl (0.0.15)
       acts_as_list
       attribute_normalizer
       devise
@@ -482,7 +482,7 @@ DEPENDENCIES
   enju_inventory (~> 0.0.4)
   enju_manifestation_viewer!
   enju_message (~> 0.0.13)
-  enju_ndl (~> 0.0.14)
+  enju_ndl (~> 0.0.15)
   enju_oai!
   enju_purchase_request (~> 0.0.6)
   enju_question (~> 0.0.10)

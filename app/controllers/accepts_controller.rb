@@ -7,20 +7,24 @@ class AcceptsController < InheritedResources::Base
   # GET /accepts
   # GET /accepts.json
   def index
-    # かごがない場合、自動的に作成する
-    unless @basket
-      @basket = Basket.create!(:user => current_user)
-      redirect_to basket_accepts_url(@basket)
-      return
+    if params[:format] == 'csv'
+      @accepts = Accept.order('accepts.created_at DESC').paginate(:page => params[:page], :per_page => 65534)
+    else
+      # かごがない場合、自動的に作成する
+      unless @basket
+        @basket = Basket.create!(:user => current_user)
+        redirect_to basket_accepts_url(@basket)
+        return
+      end
+      @accepts = @basket.accepts.order('accepts.created_at DESC').all
+      @accept = @basket.accepts.new
     end
-    @accepts = @basket.accepts.order('accepts.created_at DESC').all
-
-    @accept = @basket.accepts.new
 
     respond_to do |format|
       format.html # index.rhtml
       format.json { render :json => @accepts }
       format.js
+      format.csv
     end
   end
 

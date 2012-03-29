@@ -16,7 +16,7 @@ class Manifestation < ActiveRecord::Base
   has_many :picture_files, :as => :picture_attachable, :dependent => :destroy
   belongs_to :language
   belongs_to :carrier_type
-  belongs_to :content_type
+  belongs_to :manifestation_content_type, :class_name => 'ContentType', :foreign_key => 'content_type_id'
   has_one :series_has_manifestation, :dependent => :destroy
   has_one :series_statement, :through => :series_has_manifestation
   belongs_to :manifestation_relationship_type
