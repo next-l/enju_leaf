@@ -107,7 +107,7 @@ GEM
     configatron (2.9.0)
       yamler (>= 0.1.0)
     daemons (1.1.8)
-    dalli (1.1.5)
+    dalli (2.0.2)
     delayed_job (3.0.1)
       activesupport (~> 3.0)
     delayed_job_active_record (0.3.2)
@@ -470,7 +470,7 @@ DEPENDENCIES
   coffee-rails (~> 3.2.1)
   configatron
   daemons
-  dalli (~> 1.1)
+  dalli (~> 2.0)
   delayed_job_active_record
   devise (~> 2.0)
   dynamic_form
