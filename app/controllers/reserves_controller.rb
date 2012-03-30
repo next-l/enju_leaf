@@ -53,7 +53,8 @@ class ReservesController < ApplicationController
         end
       elsif @manifestation
         # 管理者
-        @reserves = @manifestation.reserves.not_retained.order('reserves.position ASC').page(params[:page])
+        @reserves = @manifestation.reserves.can_change_position.order('reserves.position ASC').page(params[:page])
+        @in_process_reserves = @manifestation.reserves.in_process
         @completed_reserves = @manifestation.reserves.not_waiting
       else
         # all reserves
@@ -376,7 +377,7 @@ class ReservesController < ApplicationController
 
   private
   def position_update(manifestation)
-    reserves = Reserve.where(:manifestation_id => manifestation).not_retained.order(:position)
+    reserves = Reserve.where(:manifestation_id => manifestation).can_change_position.order(:position)
     items = []
     manifestation.items.for_checkout.each do |i|
       items << i if i.available_for_retain?

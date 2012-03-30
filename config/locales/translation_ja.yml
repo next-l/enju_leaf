@@ -1862,6 +1862,7 @@ ja:
     expired: "期限切れ"
     completed: "貸出済み"
     completed_reserve: "取り置き済みの予約"
+    in_process_reserve: "作業中の予約"
     update: "予約の更新"
   purchase_request:
     user_purchase_request: "%{login_name} さんの購入依頼資料"

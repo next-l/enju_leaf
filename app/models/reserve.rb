@@ -8,8 +8,9 @@ class Reserve < ActiveRecord::Base
   scope :completed, where('checked_out_at IS NOT NULL')
   scope :canceled, where('canceled_at IS NOT NULL')
   scope :retained, where(:state => ['retained'], :retained => !true)
-  scope :not_retained, where("state in (?) AND position IS NOT NULL", ['in_process', 'requested'])
-  #scope :not_retained, where("position IS NOT NULL")
+  scope :in_process, where(:state => ['in_process'])
+  scope :can_change_position, where("state = ? AND position IS NOT NULL", 'requested')
+  scope :not_retained, where("position IS NOT NULL")
   scope :not_waiting, where(:state => ['retained'])
   #scope :not_waiting, where(:state => ['retained','canceled','completed'])
   scope :will_expire_retained, lambda {|datetime| {:conditions => ['checked_out_at IS NULL AND canceled_at IS NULL AND expired_at <= ? AND state = ?', datetime, 'retained'], :order => 'expired_at'}}
@@ -380,7 +381,7 @@ class Reserve < ActiveRecord::Base
   end
 
   def position_update(manifestation)
-    reserves = Reserve.where(:manifestation_id => manifestation).not_retained.order(:position)
+    reserves = Reserve.where(:manifestation_id => manifestation).can_change_position.order(:position)
     items = manifestation.items_ordered_for_retain.for_checkout
     items.delete_if{|item| !item.available_for_retain?}
     reserves.each do |reserve|
