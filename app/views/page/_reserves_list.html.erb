@@ -9,12 +9,7 @@
     <th><%= t('activerecord.attributes.reserve.state') -%></th>
     <th><%= t('activerecord.attributes.reserve.expired_at') -%></th>
   </tr>
-<%- if current_user.has_role?('Librarian') -%>
-  <%- @reserves = @checkout_user.reserves.show_reserves -%>
-<%- else -%>
-  <%- @reserves = @checkout_user.reserves.user_show_reserves -%>
-<%- end -%>
-  <%- @reserves.user_show_reserves.each do |reserve| -%>
+  <%- @checkout_user.reserves.user_show_reserves.each do |reserve| -%>
     <tr class="line<%= cycle("0", "1") -%>">
       <td><%= link_to reserve.id, user_reserve_path(reserve.user, reserve) -%></td>
       <%- if SystemConfiguration.get("checked_items.disp_title") -%>

@@ -13,12 +13,7 @@
     <%- end -%>
   </tr>
   <% @family_users.each do |f_user| %>
-    <%- if current_user.has_role?('Librarian') -%>
-      <%- reserves = f_user.reserves.show_reserves -%>
-    <%- else -%>
-      <%- reserves =f_user.reserves.user_show_reserves -%>
-    <%- end -%>
-    <%- reserves.user_show_reserves.each do |reserve| -%>
+    <%- f_user.reserves.user_show_reserves.each do |reserve| -%>
       <tr class="line<%= cycle("0", "1") -%>">
         <td><%= link_to reserve.id, user_reserve_path(reserve.user, reserve) -%></td>
         <%- if SystemConfiguration.get("checked_items.disp_title") -%>

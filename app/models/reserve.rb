@@ -243,6 +243,8 @@ class Reserve < ActiveRecord::Base
   def cancel
     if self.item
       self.item.cancel_retain!
+      current_user = User.where(:username => 'admin').first
+      self.item.retain(current_user) if self.item.manifestation.next_reservation
     end
     self.update_attributes!({:request_status_type => RequestStatusType.where(:name => 'Cannot Fulfill Request').first, :canceled_at => Time.zone.now})
     self.remove_from_list
