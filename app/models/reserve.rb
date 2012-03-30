@@ -47,7 +47,7 @@ class Reserve < ActiveRecord::Base
   attr_accessor :user_number, :item_identifier
 
   state_machine :initial => :pending do
-    before_transition [:pending, :requested] => :requested, :do => :do_request
+    before_transition [:pending, :requested, :retained, :in_process] => :requested, :do => :do_request
     before_transition [:pending, :requested, :retained, :in_process] => :retained, :do => :retain
     before_transition [:pending, :requested] => :in_process, :do => :to_process
     before_transition [:pending ,:requested, :retained, :in_process] => :canceled, :do => :cancel
@@ -56,7 +56,7 @@ class Reserve < ActiveRecord::Base
 
 
     event :sm_request do
-      transition [:pending, :requested] => :requested
+      transition [:pending, :requested, :retained, :in_process] => :requested
     end
 
     event :sm_retain do
@@ -220,6 +220,12 @@ class Reserve < ActiveRecord::Base
     self.item.retain_item!
     self.update_attribute(:request_status_type, RequestStatusType.where(:name => 'In Process').first)
     self.remove_from_list
+  end
+
+  def revert_request
+    self.item_id = nil
+    self.sm_request!
+    self.insert_at(1)
   end
 
   def to_process

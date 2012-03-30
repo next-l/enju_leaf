@@ -107,6 +107,12 @@ describe Reserve do
     reserve.state.should eq 'requested'
   end
 
+  it "should requested when reserve state was not retained" do
+    reserves(:reserve_00020).revert_request
+    reserves(:reserve_00020).state.should eq 'requested'
+    reserves(:reserve_00020).position.should eq 1
+  end
+
   it "should be canceled" do
     reserves(:reserve_00001).can_cancel?.should be_true # requested
     reserves(:reserve_00012).can_cancel?.should be_true # retained
