@@ -55,6 +55,8 @@ ja:
       budget_type: 予算種別
       session: ログイン
       accept: 検収
+      work: 著作
+      expression: 表現
 
     attributes:
       library:
