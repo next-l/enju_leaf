@@ -60,7 +60,9 @@ class ResourceImportFile < ActiveRecord::Base
       raise "You should specify isbn or original_tile in the first line"
     end
 
-    rows.each do |row|
+    rows.each_with_index do |row, index|
+      Rails.logger.info("import block start. row_num=#{row_num} index=#{index}")
+
       next if row['dummy'].to_s.strip.present?
       import_result = ResourceImportResult.create!(:resource_import_file => self, :body => row.fields.join("\t"))
 
@@ -102,11 +104,13 @@ class ResourceImportFile < ActiveRecord::Base
         begin
           manifestation = Manifestation.import_isbn(isbn)
           manifestation.series_statement = series_statement
-          manifestation.save
+          manifestation.save!
         rescue EnjuNdl::InvalidIsbn
           import_result.error_msg = "FAIL[#{row_num}]: ISBN #{isbn} is invalid"
         rescue EnjuNdl::RecordNotFound
           import_result.error_msg = "FAIL[#{row_num}]: ISBN #{isbn} is not found"
+        rescue ActiveRecord::RecordInvalid  => e
+          import_result.error_msg = "FAIL[#{row_num}]: fail save manifestation. #{e.message}"
         end
         num[:manifestation_imported] += 1 if manifestation
       end
@@ -131,11 +135,13 @@ class ResourceImportFile < ActiveRecord::Base
         else
           num[:failed] += 1
         end
-      rescue Exception => e
+      rescue => e
         import_result.error_msg = "FAIL[#{row_num}]: #{e.message}"
-        Rails.logger.info("resource registration failed: column #{row_num}: #{e.message}")
+        Rails.logger.info("FAIL[#{row_num} resource registration failed: column #{row_num}: #{e.message}")
+        Rails.logger.info("FAIL[#{row_num} #{$@}")
       end
 
+      #debugger
       import_result.save!
 
       if row_num % 50 == 0
