@@ -8,8 +8,9 @@ class Reserve < ActiveRecord::Base
   scope :completed, where('checked_out_at IS NOT NULL')
   scope :canceled, where('canceled_at IS NOT NULL')
   scope :retained, where(:state => ['retained'], :retained => !true)
-  scope :not_retained, where("state in (?) AND position IS NOT NULL", ['in_process', 'requested'])
-  #scope :not_retained, where("position IS NOT NULL")
+  scope :in_process, where(:state => ['in_process'])
+  scope :can_change_position, where("state = ? AND position IS NOT NULL", 'requested')
+  scope :not_retained, where("position IS NOT NULL")
   scope :not_waiting, where(:state => ['retained'])
   #scope :not_waiting, where(:state => ['retained','canceled','completed'])
   scope :will_expire_retained, lambda {|datetime| {:conditions => ['checked_out_at IS NULL AND canceled_at IS NULL AND expired_at <= ? AND state = ?', datetime, 'retained'], :order => 'expired_at'}}
@@ -47,7 +48,7 @@ class Reserve < ActiveRecord::Base
   attr_accessor :user_number, :item_identifier
 
   state_machine :initial => :pending do
-    before_transition [:pending, :requested] => :requested, :do => :do_request
+    before_transition [:pending, :requested, :retained, :in_process] => :requested, :do => :do_request
     before_transition [:pending, :requested, :retained, :in_process] => :retained, :do => :retain
     before_transition [:pending, :requested] => :in_process, :do => :to_process
     before_transition [:pending ,:requested, :retained, :in_process] => :canceled, :do => :cancel
@@ -56,7 +57,7 @@ class Reserve < ActiveRecord::Base
 
 
     event :sm_request do
-      transition [:pending, :requested] => :requested
+      transition [:pending, :requested, :retained, :in_process] => :requested
     end
 
     event :sm_retain do
@@ -222,6 +223,12 @@ class Reserve < ActiveRecord::Base
     self.remove_from_list
   end
 
+  def revert_request
+    self.item_id = nil
+    self.sm_request!
+    self.insert_at(1)
+  end
+
   def to_process
     # borrow from other library
     self.update_attribute(:request_status_type, RequestStatusType.where(:name => 'In Process').first)
@@ -236,6 +243,8 @@ class Reserve < ActiveRecord::Base
   def cancel
     if self.item
       self.item.cancel_retain!
+      current_user = User.where(:username => 'admin').first
+      self.item.retain(current_user) if self.item.manifestation.next_reservation
     end
     self.update_attributes!({:request_status_type => RequestStatusType.where(:name => 'Cannot Fulfill Request').first, :canceled_at => Time.zone.now})
     self.remove_from_list
@@ -374,7 +383,7 @@ class Reserve < ActiveRecord::Base
   end
 
   def position_update(manifestation)
-    reserves = Reserve.where(:manifestation_id => manifestation).not_retained.order(:position)
+    reserves = Reserve.where(:manifestation_id => manifestation).can_change_position.order(:position)
     items = manifestation.items_ordered_for_retain.for_checkout
     items.delete_if{|item| !item.available_for_retain?}
     reserves.each do |reserve|

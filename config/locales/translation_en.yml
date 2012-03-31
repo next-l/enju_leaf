@@ -1597,6 +1597,8 @@ en:
     canceled: "Canceled"
     expired: "Expired"
     completed: "Completed"
+    completed_reserve: "Completed reserve"
+    in_process_reserve: "In process reserve"
   purchase_request:
     user_purchase_request: "%{login_name} 's purchase requests"
     library_group_purchase_request: "Purchase requests in %{library_group_name}"

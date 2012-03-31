@@ -298,13 +298,20 @@ class UsersController < ApplicationController
 
   def destroy
     begin
-      if @user.deletable_by(current_user)
-        @user.patron.destroy
-        @user.destroy
-      else
-        flash[:notice] = @user.errors[:base].join(' ')
-        redirect_to current_user
-        return
+      User.transaction do
+        if @user.deletable_by(current_user)
+          items = @user.reserves.not_waiting.inject([]){|items, reserve| items << reserve.item if reserve.item} if @user.reserves.not_waiting
+          @user.patron.destroy
+          @user.destroy
+          items.each do |item|
+            item.cancel_retain!
+            item.retain(User.where(:username => 'admin').first) if item.manifestation.next_reservation
+          end          
+        else
+          flash[:notice] = @user.errors[:base].join(' ')
+          redirect_to current_user
+          return
+        end
       end
     rescue
       redirect_to current_user

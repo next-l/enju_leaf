@@ -204,6 +204,9 @@ class ItemsController < ApplicationController
     #@item = Item.find(params[:id])
     manifestation = @item.manifestation
     @item.destroy
+    if @item.reserve
+      @item.reserve.revert_request rescue nil
+    end
 
     respond_to do |format|
       flash[:notice] = t('controller.successfully_deleted', :model => t('activerecord.models.item'))
@@ -219,6 +222,10 @@ class ItemsController < ApplicationController
 
   def remove
     @item.circulation_status = CirculationStatus.where(:name => "Removed").first rescue nil
+    if @item.reserve
+      @item.reserve.revert_request rescue nil
+    end
+
     respond_to do |format|
       if @item.save
         flash[:notice] = t('item.item_removed')
