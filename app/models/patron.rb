@@ -71,10 +71,6 @@ class Patron < ActiveRecord::Base
     10
   end
 
-  def full_name_without_space
-    full_name.gsub(/\s/, "")
-  end
-
   def set_role_and_name
     self.required_role = Role.where(:name => 'Librarian').first if self.required_role_id.nil?
     set_full_name
@@ -174,7 +170,7 @@ class Patron < ActiveRecord::Base
     name << full_name.to_s.strip
     name << full_name_transcription.to_s.strip
     name << full_name_alternative.to_s.strip
-    #name << full_name_without_space
+    name << full_name_without_space
     #name << full_name_transcription_without_space
     #name << full_name_alternative_without_space
     #name << full_name.wakati rescue nil
