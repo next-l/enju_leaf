@@ -26,12 +26,12 @@
     <%- if can? :create, PictureFile -%>
       <li><%= link_to t('page.new', :model => t('activerecord.models.picture_file')), new_manifestation_picture_file_path(@manifestation) -%></li>
     <%- end -%>
-    <script type="text/javascript">
-      $(document).ready(function(){
-        $("a[rel='manifestation_<%= @manifestation.id -%>']").colorbox({transition:"none", photo:true});
-      })
-    </script>
   </ul>
+  <script type="text/javascript">
+    $(document).ready(function(){
+      $("a[rel='manifestation_<%= @manifestation.id -%>']").colorbox({transition:"none", photo:true});
+    })
+  </script>
   <%- if user_signed_in? -%>
     <div id="call_number_content">
       <%- @manifestation.items.on_shelf.each do |item| -%>
