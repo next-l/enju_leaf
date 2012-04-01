@@ -147,7 +147,7 @@ class Patron < ActiveRecord::Base
   #end
 
   def full_name_without_space
-    full_name.gsub(/\s/, "")
+    full_name.gsub(/[\s,]/, "")
   #  # TODO: 日本人以外は？
   #  name = []
   #  name << self.last_name.to_s.strip
