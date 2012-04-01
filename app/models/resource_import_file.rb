@@ -157,8 +157,14 @@ class ResourceImportFile < ActiveRecord::Base
     work
   end
 
-  def self.import_manifestation(work, patrons, options = {}, edit_options = {:edit_mode => 'create'})
-    manifestation = work
+  def self.import_expression(work, patrons, options = {:edit_mode => 'create'})
+    expression = work
+    expression.contributors = patrons.uniq unless patrons.empty?
+    expression
+  end
+
+  def self.import_manifestation(expression, patrons, options = {}, edit_options = {:edit_mode => 'create'})
+    manifestation = expression
     manifestation.update_attributes!(options.merge(:during_import => true))
     manifestation.publishers = patrons.uniq unless patrons.empty?
     manifestation
@@ -192,7 +198,7 @@ class ResourceImportFile < ActiveRecord::Base
 
     # TODO
     for record in reader
-      manifestation = Manifestation.new(:original_title => work.original_title)
+      manifestation = Manifestation.new(:original_title => expression.original_title)
       manifestation.carrier_type = CarrierType.find(1)
       manifestation.frequency = Frequency.find(1)
       manifestation.language = Language.find(1)
@@ -388,11 +394,15 @@ class ResourceImportFile < ActiveRecord::Base
     creators = row['creator'].to_s.split('//')
     creator_transcriptions = row['creator_transcription'].to_s.split('//')
     creators_list = creators.zip(creator_transcriptions).map{|f,t| {:full_name => f.to_s.strip, :full_name_transcription => t.to_s.strip}}
+    contributors = row['contributor'].to_s.split('//')
+    contributor_transcriptions = row['contributor_transcription'].to_s.split('//')
+    contributors_list = contributors.zip(contributor_transcriptions).map{|f,t| {:full_name => f.to_s.strip, :full_name_transcription => t.to_s.strip}}
     publishers = row['publisher'].to_s.split('//')
     publisher_transcriptions = row['publisher_transcription'].to_s.split('//')
     publishers_list = publishers.zip(publisher_transcriptions).map{|f,t| {:full_name => f.to_s.strip, :full_name_transcription => t.to_s.strip}}
     ResourceImportFile.transaction do
       creator_patrons = Patron.import_patrons(creators_list)
+      contributor_patrons = Patron.import_patrons(contributors_list)
       publisher_patrons = Patron.import_patrons(publishers_list)
       #classification = Classification.where(:category => row['classification'].to_s.strip).first
       subjects = import_subject(row) if defined?(EnjuSubject)
@@ -404,10 +414,13 @@ class ResourceImportFile < ActiveRecord::Base
         if defined?(EnjuSubject)
           work.subjects = subjects.uniq unless subjects.empty?
         end
+        expression = self.class.import_expression(work, contributor_patrons)
       when 'update'
-        work = manifestation
+        expression = manifestation
+        work = expression
         work.series_statement = series_statement
         work.creators = creator_patrons.uniq unless creator_patrons.empty?
+        expression.contributors = contributor_patrons.uniq unless contributor_patrons.empty?
         if defined?(EnjuSubject)
           work.subjects = subjects.uniq unless subjects.empty?
         end
@@ -416,7 +429,7 @@ class ResourceImportFile < ActiveRecord::Base
         volume_number = row['volume_number'].to_s.tr('０-９', '0-9').to_i
       end
 
-      manifestation = self.class.import_manifestation(work, publisher_patrons, {
+      manifestation = self.class.import_manifestation(expression, publisher_patrons, {
         :original_title => title[:original_title],
         :title_transcription => title[:title_transcription],
         :title_alternative => title[:title_alternative],
