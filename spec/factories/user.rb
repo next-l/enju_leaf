@@ -72,7 +72,7 @@ FactoryGirl.define do
     f.user_group {UserGroup.first}
     f.required_role {Role.find_by_name('User')}
     f.locale 'ja'
-    f.sequence(:user_number){|n| "locked_user_number_#{n}"}
+    f.sequence(:user_number){|n| "unable_user_number_#{n}"}
     f.patron {FactoryGirl.create(:patron)}
     f.unable true
   end
@@ -88,8 +88,22 @@ FactoryGirl.define do
     f.user_group {UserGroup.first}
     f.required_role {Role.find_by_name('User')}
     f.locale 'ja'
-    f.sequence(:user_number){|n| "locked_user_number_#{n}"}
+    f.sequence(:user_number){|n| "expired_at_is_over_user_number_#{n}"}
     f.patron {FactoryGirl.create(:patron)}
     f.expired_at {1.week.ago}
+  end
+
+  factory :has_not_user_number_user, :class => User do |f|
+    f.sequence(:username){|n| "has_not_user_number_user_#{n}"}
+    f.sequence(:email){|n| "has_not_user_number_user_#{n}@example.jp"}
+    f.email_confirmation{|u| u.email}
+    f.role {Role.find_by_name('User')}
+    f.library {FactoryGirl.create(:library)}
+    f.password 'userpassword'
+    f.password_confirmation 'userpassword'
+    f.user_group {UserGroup.first}
+    f.required_role {Role.find_by_name('User')}
+    f.locale 'ja'
+    f.patron {FactoryGirl.create(:patron)}
   end
 end

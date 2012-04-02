@@ -506,6 +506,28 @@ class User < ActiveRecord::Base
     return @color
   end
 
+  def available_for_reservation?
+    return false if self.user_number.blank? or self.locked_at or (self.expired_at and self.expired_at < Time.zone.today.beginning_of_day)
+    true
+  end
+
+  def delete_reserves
+    items = []
+    if self.reserves.not_waiting
+      self.reserves.not_waiting.each do |reserve| 
+        if reserve.item
+          items << reserve.item
+          Reserve.delete(reserve)
+        end
+      end
+    end
+
+    items.each do |item|
+      item.cancel_retain!
+      item.retain(User.where(:username => 'admin').first) if item.manifestation.next_reservation
+    end
+  end
+
   def self.output_userlist_pdf(users)
     report = ThinReports::Report.new :layout => File.join(Rails.root, 'report', 'userlist.tlf')
 
