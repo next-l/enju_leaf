@@ -161,6 +161,18 @@ exemplify_00027:
   manifestation_id: 27
   id: 27
   created_at: 2008-01-11 02:44:37.135721 +09:00
+exemplify_00028: 
+  updated_at: 2008-01-11 02:44:37.135721 +09:00
+  item_id: 28
+  manifestation_id: 5
+  id: 28
+  created_at: 2008-01-11 02:44:37.135721 +09:00
+exemplify_00029: 
+  updated_at: 2008-01-11 02:44:37.135721 +09:00
+  item_id: 29
+  manifestation_id: 28
+  id: 29
+  created_at: 2008-01-11 02:44:37.135721 +09:00
 
 # == Schema Information
 #

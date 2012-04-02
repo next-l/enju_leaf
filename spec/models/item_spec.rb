@@ -36,6 +36,20 @@ describe Item do
   it "should have library_url" do
     items(:item_00001).library_url.should eq "#{LibraryGroup.site_config.url}libraries/web"
   end
+
+  it "should not set next reserve when next reservation is blank" do
+    items(:item_00028).set_next_reservation.should be_false
+  end
+
+  it "should set retained when receipt library of next reservation equal library of item" do
+    items(:item_00027).set_next_reservation
+    reserves(:reserve_00021).state.should eq 'retained'
+  end
+
+  it "should set in_process when receipt library of next reservation not equal library of item" do
+    items(:item_00029).set_next_reservation
+    reserves(:reserve_00024).state.should eq 'in_process'
+  end
 end
 
 # == Schema Information

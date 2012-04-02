@@ -182,6 +182,21 @@ class Item < ActiveRecord::Base
     save(:validate => false)
   end
 
+  def set_next_reservation
+    return unless self.manifestation.next_reservation
+
+    next_reservation = self.manifestation.next_reservation
+    next_reservation_accept_library = Library.find(next_reservation.receipt_library_id)
+    next_reservation.item = self
+
+    if self.shelf.library == next_reservation_accept_library 
+      next_reservation.sm_retain!
+    else
+      next_reservation.sm_process!
+      InterLibraryLoan.new.request_for_reserve(self, next_reservation_accept_library)
+    end
+  end
+
   def retain(librarian)
     Item.transaction do
       reservation = self.manifestation.next_reservation
