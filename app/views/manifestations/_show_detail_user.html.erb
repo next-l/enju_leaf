@@ -48,6 +48,12 @@
             <%- end -%>
           </td>
         </tr>
+        <% if manifestation.price.present? %>
+          <tr>
+            <td><%= t('activerecord.attributes.manifestation.price') -%>:</td>
+            <td><%= manifestation.price -%></td>
+          </tr>
+        <% end %>
         <% if defined?(EnjuSubject) %>
           <%- unless manifestation.subjects.empty? -%>
             <tr>
@@ -66,12 +72,6 @@
             <td>
               <%= render 'manifestations/tag_list', :manifestation => manifestation -%>
             </td>
-          </tr>
-        <% end %>
-        <% if manifestation.price.present? %>
-          <tr>
-            <td><%= t('activerecord.attributes.manifestation.price') -%>:</td>
-            <td><%= manifestation.price -%></td>
           </tr>
         <% end %>
         <%- unless manifestation.periodical? -%>
