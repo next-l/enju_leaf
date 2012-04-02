@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120311103427) do
+ActiveRecord::Schema.define(:version => 20120331131936) do
 
   create_table "answer_has_items", :force => true do |t|
     t.integer  "answer_id"
@@ -927,6 +927,7 @@ ActiveRecord::Schema.define(:version => 20120311103427) do
     t.string   "other_number_list"
     t.string   "marc_number"
     t.text     "supplement"
+    t.integer  "content_type_id",                 :default => 1
   end
 
   add_index "manifestations", ["access_address"], :name => "index_manifestations_on_access_address"

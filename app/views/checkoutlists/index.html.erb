@@ -31,7 +31,7 @@
     <div id="list_condition_200">
       <%- @circulation_status.each_with_index do |c, g| -%>
         &nbsp;&nbsp;<%= check_box_tag "circulation_status[]", c.id, @checked_nil ? false : true, :class => 'circulation_status', :onclick => 'clear_checkAll(this);' -%><%= c.display_name.localize -%><br />
-        <%- if g == 7 -%>
+        <%- if g == 6 -%>
     </div>
     <div id="list_condition_200">
           <%- end -%>

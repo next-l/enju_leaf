@@ -104,13 +104,13 @@ class Item < ActiveRecord::Base
   end
 
   def reservable?
-    return false if ['Lost', 'Missing', 'Claimed Returned Or Never Borrowed'].include?(self.circulation_status.name)
+    return false if ['Lost', 'Claimed Returned Or Never Borrowed'].include?(self.circulation_status.name)
     return false if self.item_identifier.blank?
     true
   end
 
   def available_checkin?
-    return false if ['Circulation Status Undefined', 'Missing'].include?(self.circulation_status.name)
+    return false if ['Circulation Status Undefined'].include?(self.circulation_status.name)
     true
   end
 
