@@ -7,7 +7,7 @@ class User < ActiveRecord::Base
 
   # Setup accessible (or protected) attributes for your model
   attr_accessible :email, :password, :password_confirmation, :username, :current_password, :user_number, :remember_me,
-    :email_confirmation, :note, :user_group_id, :library_id, :locale, :expired_at, :locked, :required_role_id,
+    :email_confirmation, :note, :user_group_id, :library_id, :locale, :expired_at, :locked, :required_role_id, :role_id,
     :keyword_list #, :as => :admin
 
   scope :administrators, where('roles.name = ?', 'Administrator').includes(:role)
