@@ -524,7 +524,7 @@ class User < ActiveRecord::Base
 
     items.each do |item|
       item.cancel_retain!
-      item.retain(User.where(:username => 'admin').first) if item.manifestation.next_reservation
+      item.set_next_reservation if item.manifestation.next_reservation
     end
   end
 
