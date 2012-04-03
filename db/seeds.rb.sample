@@ -34,7 +34,7 @@ user.password_confirmation = password
 user.library = Library.real.first
 user.patron = Patron.first
 user.locale = I18n.default_locale.to_s
-user.role_id = Role.where(:name => 'Administrator').first.id
+user.role = Role.where(:name => 'Administrator').first
 user.user_number = '0'
 user.operator = user
 user.save!
