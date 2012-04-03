@@ -424,7 +424,7 @@ GEM
       cocaine (>= 0.0.2)
       mime-types
     parallel (0.5.16)
-    parallel_tests (0.7.2)
+    parallel_tests (0.7.3)
       parallel
     pg (0.13.2)
     polyglot (0.3.3)
