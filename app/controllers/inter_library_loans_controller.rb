@@ -228,6 +228,7 @@ class InterLibraryLoansController < ApplicationController
           @reserve.sm_retain!
         else
           @item.checkin!
+          @item.set_next_reservation
         end
         @loan.received_at = Time.zone.now
         @loan.sm_receive!

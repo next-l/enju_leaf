@@ -104,13 +104,13 @@ class Item < ActiveRecord::Base
   end
 
   def reservable?
-    return false if ['Lost', 'Missing', 'Claimed Returned Or Never Borrowed'].include?(self.circulation_status.name)
+    return false if ['Lost', 'Claimed Returned Or Never Borrowed'].include?(self.circulation_status.name)
     return false if self.item_identifier.blank?
     true
   end
 
   def available_checkin?
-    return false if ['Circulation Status Undefined', 'Missing'].include?(self.circulation_status.name)
+    return false if ['Circulation Status Undefined'].include?(self.circulation_status.name)
     true
   end
 
@@ -180,6 +180,21 @@ class Item < ActiveRecord::Base
   def checkin!
     self.circulation_status = CirculationStatus.where(:name => 'Available On Shelf').first
     save(:validate => false)
+  end
+
+  def set_next_reservation
+    return unless self.manifestation.next_reservation
+
+    next_reservation = self.manifestation.next_reservation
+    next_reservation_accept_library = Library.find(next_reservation.receipt_library_id)
+    next_reservation.item = self
+
+    if self.shelf.library == next_reservation_accept_library 
+      next_reservation.sm_retain!
+    else
+      next_reservation.sm_process!
+      InterLibraryLoan.new.request_for_reserve(self, next_reservation_accept_library)
+    end
   end
 
   def retain(librarian)

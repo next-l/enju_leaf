@@ -139,7 +139,7 @@ describe User do
   end
 
   it "should get reserves_count" do
-    users(:user1).reserves.waiting.count.should eq 1
+    users(:user5).reserves.waiting.count.should eq 1
   end
 
   it "should get highest_role" do
@@ -168,6 +168,21 @@ describe User do
   it "should return messege when user cannot connect" do
     user = FactoryGirl.create(:unable_user)
     user.user_notice.should include(I18n.t('user.not_connect', :user => user.username))
+  end
+
+  it "should available for reservation" do
+    users(:user1).available_for_reservation?.should be_true
+  end
+
+  it "should not available for reservation" do
+    FactoryGirl.create(:has_not_user_number_user).available_for_reservation?.should be_false# user_number is blank 
+    FactoryGirl.create(:expired_at_is_over_user).available_for_reservation?.should be_false # expired_at is over
+    FactoryGirl.create(:locked_user).available_for_reservation?.should be_false # locked_at
+  end
+
+  it "should retained when user has retained reserves  was not available for reservation" do
+    users(:user1).delete_reserves
+    reserves(:reserve_00021).state.should eq 'retained'
   end
 end
 

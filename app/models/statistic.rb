@@ -411,7 +411,7 @@ class Statistic < ActiveRecord::Base
      p "statistics of missing items  #{start_at} - #{end_at}"
   
       data_type = term_id.to_s + 11.to_s
-      missing_state_ids = CirculationStatus.where(['name = ? OR name = ?', 'Missing', 'Circulation Status Undefined']).inject([]){|ids, data| ids << data.id}
+      missing_state_ids = CirculationStatus.where(['name = ?', 'Circulation Status Undefined']).inject([]){|ids, data| ids << data.id}
       # all libraries
       statistic = Statistic.new
       set_date(statistic, end_at, term_id)

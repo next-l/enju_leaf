@@ -267,6 +267,21 @@ manifestation_00027:
   width: 
   created_at: 2007-11-19 16:58:58.799724 +09:00
   required_role_id: 4
+manifestation_00028: 
+  carrier_type_id: 1
+  isbn: 
+  created_at: 2008-04-17 00:34:01 +09:00
+  original_title: "眠れる美女"
+  price: 
+  identifier: 
+  depth: 
+  date_of_publication: 
+  access_address:
+  id: 28
+  height: 
+  width: 
+  created_at: 2007-11-19 16:58:58.799724 +09:00
+  required_role_id: 4
 manifestation_00101:
   carrier_type_id: 1
   language_id: 1

@@ -12,6 +12,7 @@ rake sunspot:solr:start RAILS_ENV=test
 rake sunspot:reindex RAILS_ENV=test
 
 # test
-rake ci:setup:rspec spec spec:rcov
+rake ci:setup:rspec spec:models spec:rcov
 #bundle exec rspec spec/models/
+
 

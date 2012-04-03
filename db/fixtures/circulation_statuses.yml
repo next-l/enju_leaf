@@ -49,57 +49,50 @@ circulation_status_00007:
   note: ""
   position: 7
 circulation_status_00008: 
-  name: Missing  
-  display_name: "en:Missing\r\n\
-    ja:行方不明"
+  name: Not Available  
+  display_name: "en:Not Available\r\n\
+    ja:利用不可"
   id: 8
   note: ""
   position: 8
 circulation_status_00009: 
-  name: Not Available  
-  display_name: "en:Not Available\r\n\
-    ja:利用不可"
+  name: On Loan  
+  display_name: "en:On Loan\r\n\
+    ja:貸出中"
   id: 9
   note: ""
   position: 9
 circulation_status_00010: 
-  name: On Loan  
-  display_name: "en:On Loan\r\n\
-    ja:貸出中"
-  id: 10
-  note: ""
-  position: 10
-circulation_status_00011: 
   name: On Order  
   display_name: "en:On Order\r\n\
     ja:発注済み"
+  id: 10
+  note: ""
+  position: 10
+circulation_status_00011:
+  name: Pending Transfer  
+  display_name: "en:Pending Transfer\r\n\
+    ja:相互貸借移動待ち"
   id: 11
   note: ""
   position: 11
 circulation_status_00012: 
-  name: Pending Transfer  
-  display_name: "en:Pending Transfer\r\n\
-    ja:相互貸借移動待ち"
-  id: 12
-  note: ""
-  position: 12
-circulation_status_00013: 
   name: Recalled  
   display_name: "en:Recalled\r\n\
     ja:相互貸借受付中"
-  id: 13
+  id: 12
   note: ""
-  position: 13
-circulation_status_00014: 
+  position: 12
+circulation_status_00013:
   name: Waiting To Be Reshelved  
   display_name: "en:Waiting To Be Reshelved\r\n\
     ja:棚戻し待ち"
-  id: 14
+  id: 13
   note: ""
-  position: 14
-circulation_status_00015:
+  position: 13
+circulation_status_00014:
   name: Removed
   display_name: "en:Removed\r\n\
     ja:除籍"
-  id: 15
-  position: 15
+  id: 14
+  position: 14

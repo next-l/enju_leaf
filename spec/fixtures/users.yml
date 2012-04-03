@@ -190,6 +190,34 @@ user4:
   checkout_icalendar_token: 
   user_number: "00007"
   locale: "ja"
+user5: 
+  password_salt: $2a$10$JthS59A0BNkDOoFpCXM0V.
+  questions_count: 0
+  checkouts_count: 0
+  answer_feed_token: 
+  updated_at: 2008-05-31 13:02:25.101261 +09:00
+  checkout_icalendar_token: h75t40Hk364eBQOkmVnH
+  expired_at: 
+  encrypted_password: $2a$10$JthS59A0BNkDOoFpCXM0V.GhhffKaoWKbzpPahYp/vTFrOyM7h/uW
+  deleted_at: 
+  user_group_id: 1
+  reserves_count: 0
+  id: 8
+  bookmarks_count: 0
+  share_bookmarks: false
+  note: 
+  due_date_reminder_days: 1
+  username: user5
+  library_id: 2
+  answers_count: 0
+  email: user5@kamata.lib.teu.ac.jp
+  created_at: 2007-11-19 16:58:34.637413 +09:00
+  confirmed_at: 2007-11-19 16:58:34.637413 +09:00
+  save_search_history: false
+  required_role_id: 3
+  checkout_icalendar_token: e3e0277cbba03183c3a12d2b740f3eabebd7df0d
+  user_number: "00008"
+  locale: "ja"
 
 # == Schema Information
 #

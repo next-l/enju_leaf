@@ -276,6 +276,11 @@ class UsersController < ApplicationController
       @user.set_family(params[:family]) unless params[:family].blank?
       @user.save!
 
+      # delete reserves when user can not check out items
+      unless @user.available_for_reservation?
+        @user.delete_reserves
+      end
+
       flash[:notice] = t('controller.successfully_updated', :model => t('activerecord.models.user'))
       respond_to do |format|
         format.html { redirect_to user_url(@user) }
@@ -300,13 +305,9 @@ class UsersController < ApplicationController
     begin
       User.transaction do
         if @user.deletable_by(current_user)
-          items = @user.reserves.not_waiting.inject([]){|items, reserve| items << reserve.item if reserve.item} if @user.reserves.not_waiting
+          @user.delete_reserves if @user.reserves.not_waiting
           @user.patron.destroy
           @user.destroy
-          items.each do |item|
-            item.cancel_retain!
-            item.retain(User.where(:username => 'admin').first) if item.manifestation.next_reservation
-          end          
         else
           flash[:notice] = @user.errors[:base].join(' ')
           redirect_to current_user
