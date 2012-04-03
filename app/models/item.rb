@@ -171,7 +171,11 @@ class Item < ActiveRecord::Base
 #      reservation.sm_complete!
 #      reservation.update_attributes(:checked_out_at => Time.zone.now)
 #    end
+
     if save!
+      if self.reserve and self.reserve.user != user
+        self.reserve.revert_request rescue nil
+      end
       reservation.position_update(reservation.manifestation) if reservation
       true
     end

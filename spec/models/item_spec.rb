@@ -50,6 +50,11 @@ describe Item do
     items(:item_00029).set_next_reservation
     reserves(:reserve_00024).state.should eq 'in_process'
   end
+
+  it "should revert requested when item that is not retained  was check out" do
+    items(:item_00029).checkout!(users(:admin)).should be_true
+    reserves(:reserve_00023).state.should eq 'requested'
+  end
 end
 
 # == Schema Information
