@@ -12,7 +12,7 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_book_jacket.git
-  revision: 24319de4c3898abef24b3079adbb0be4a0f9fb9d
+  revision: c4bf5f2005f199b1388cf22b08d083a2da61f927
   specs:
     enju_book_jacket (0.0.1)
       configatron
