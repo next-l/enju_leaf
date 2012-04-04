@@ -17,6 +17,9 @@ class InterLibraryLoansController < ApplicationController
       @selected_to_library = params[:to_library] ? params[:to_library].inject([]){|ids, id| ids << id.to_i} : []
       @selected_reason = params[:reason] ? params[:reason].inject([]){|ids, id| ids << id.to_i} : []
     end
+    from_library = @selected_from_library
+    to_library = @selected_to_library
+    reason = @selected_reason
     # check conditions
     flash[:notice] = t('item_list.no_list_condition') if @selected_from_library.blank? or @selected_to_library.blank? or @selected_reason.blank?
 
@@ -30,9 +33,9 @@ class InterLibraryLoansController < ApplicationController
       if @query.present?
         @inter_library_loans = @item.inter_library_loans.search do
           fulltext query
-          with(:from_library_id, @selected_from_library_id)
-          with(:to_library_id, @selected_to_library)
-          with(:reason, @selected_information_type)
+          with(:from_library_id, from_library_id)
+          with(:to_library_id, to_library)
+          with(:reason, reason)
           paginate :page => page.to_i, :per_page => InterLibraryLoan.per_page
         end.results
       else
@@ -42,9 +45,10 @@ class InterLibraryLoansController < ApplicationController
       if @query.present?
         @inter_library_loans = InterLibraryLoan.search do
           fulltext query
-          with(:from_library_id, @selected_from_library)
-          with(:to_library_id, @selected_to_library)
-          with(:reason, @selected_information_type)
+          with(:from_library_id, from_library)
+          with(:to_library_id, to_library)
+          with(:reason, reason) 
+          #with(:reason).equal_to 2
           paginate :page => page.to_i, :per_page => InterLibraryLoan.per_page
         end.results
       else

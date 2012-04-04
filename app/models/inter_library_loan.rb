@@ -48,8 +48,7 @@ class InterLibraryLoan < ActiveRecord::Base
   end
 
   searchable do
-    string :item_identifier do
-      self.item.item_identifier
+    text :item_identifier do
       self.item.item_identifier if self.item
     end
     text :title do
