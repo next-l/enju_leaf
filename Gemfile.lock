@@ -12,7 +12,7 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_book_jacket.git
-  revision: c4bf5f2005f199b1388cf22b08d083a2da61f927
+  revision: 7498bed4f55da66c7206e9f125d94ceff349fc9f
   specs:
     enju_book_jacket (0.0.1)
       configatron
@@ -144,15 +144,15 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_ndl.git
-  revision: 9ba4914c684e7bf9580f5a086c9fdab9587bb45b
+  revision: 38779e7e33906c7322db89148ce118a1352a7769
   specs:
-    enju_ndl (0.0.16)
+    enju_ndl (0.0.17)
       acts_as_list
       attribute_normalizer
       devise
       library_stdnums
       nokogiri
-      rails (~> 3.1)
+      rails (~> 3.2)
       will_paginate (~> 3.0)
 
 GIT
