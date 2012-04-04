@@ -8,12 +8,49 @@ class InterLibraryLoansController < ApplicationController
   # GET /inter_library_loans
   # GET /inter_library_loans.xml
   def index
-    if @item
-      @inter_library_loans = @item.inter_library_loans.page(params[:page])
-    else
-      @inter_library_loans = InterLibraryLoan.page(params[:page])
+    @from_library = @to_library = Library.real.all
+    @reasons = InterLibraryLoan.reasons
+    @selected_from_library = @selected_to_library = Library.real.all.inject([]){|ids, library| ids << library.id}
+    @selected_reason = InterLibraryLoan.reasons.inject([]){|ids, reason| ids << reason[1]}
+    if params[:commit]
+      @selected_from_library = params[:from_library] ? params[:from_library].inject([]){|ids, id| ids << id.to_i} : []
+      @selected_to_library = params[:to_library] ? params[:to_library].inject([]){|ids, id| ids << id.to_i} : []
+      @selected_reason = params[:reason] ? params[:reason].inject([]){|ids, id| ids << id.to_i} : []
     end
+    # check conditions
+    flash[:notice] = t('item_list.no_list_condition') if @selected_from_library.blank? or @selected_to_library.blank? or @selected_reason.blank?
 
+    # query
+    query = params[:query].to_s.strip
+    @query = query.dup
+    query = "#{query}*" if query.size == 1
+
+    page = params[:page] || 1
+    if @item
+      if @query.present?
+        @inter_library_loans = @item.inter_library_loans.search do
+          fulltext query
+          with(:from_library_id, @selected_from_library_id)
+          with(:to_library_id, @selected_to_library)
+          with(:reason, @selected_information_type)
+          paginate :page => page.to_i, :per_page => InterLibraryLoan.per_page
+        end.results
+      else
+        @inter_library_loans = @item.inter_library_loans.where(:from_library_id => @selected_from_library, :to_library_id => @selected_to_library, :reason => @selected_reason).page(page)
+      end
+    else
+      if @query.present?
+        @inter_library_loans = InterLibraryLoan.search do
+          fulltext query
+          with(:from_library_id, @selected_from_library)
+          with(:to_library_id, @selected_to_library)
+          with(:reason, @selected_information_type)
+          paginate :page => page.to_i, :per_page => InterLibraryLoan.per_page
+        end.results
+      else
+        @inter_library_loans = InterLibraryLoan.where(:from_library_id => @selected_from_library, :to_library_id => @selected_to_library, :reason => @selected_reason).page(page)
+      end
+    end
     respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @inter_library_loans }

@@ -47,6 +47,30 @@ class InterLibraryLoan < ActiveRecord::Base
     end
   end
 
+  searchable do
+    string :item_identifier do
+      self.item.item_identifier
+      self.item.item_identifier if self.item
+    end
+    text :title do
+      titles = []
+      titles << self.item.manifestation.original_title if self.item
+      titles << self.item.manifestation.title_transcription if self.item
+    end
+    string :state 
+    integer :item_id
+    integer :to_library_id
+    integer :from_library_id
+    integer :reason
+    time :requested_at
+    time :shipped_at
+    time :received_at
+    time :return_shipped_at
+    time :return_received_at
+    time :created_at
+    time :updated_at
+  end
+
   def do_request
     InterLibraryLoan.transaction do
       self.item.update_attribute(:circulation_status, CirculationStatus.where(:name => 'Recalled').first)
