@@ -15,6 +15,7 @@ gem "enju_ndl", "~> 0.0.16"
 
 #gem 'enju_standalone_interface', :path => '/Users/tmpz84/src/enju_standalone_interface'
 gem 'enju_standalone_interface', :git => 'git://github.com/nakamura-akifumi/enju_standalone_interface.git'
+gem "jpp_customercode_transfer", "~> 0.0.2"
 
 #
 platforms :ruby do
