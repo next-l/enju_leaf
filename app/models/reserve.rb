@@ -658,7 +658,8 @@ class Reserve < ActiveRecord::Base
       before_state = nil
       states.each do |state|
         reserves = []
-        if query.blank?
+        error_condition = true if states.blank? or library.blank? or type.blank?
+        if query.blank? or error_condition
           reserves = Reserve.where(:state => state, :receipt_library_id => library, :information_type_id => type).order('expired_at ASC').includes(:manifestation)
         else
           reserves = Reserve.search do
@@ -735,7 +736,8 @@ class Reserve < ActiveRecord::Base
 
     states.each do |state|
       # get reserves
-      if query.blank?
+      error_condition = true if states.blank? or library.blank? or type.blank?
+      if query.blank? or error_condition
         reserves = Reserve.where(:state => state, :receipt_library_id => library, :information_type_id => type).order('expired_at ASC').includes(:manifestation)
       else
         reserves = Reserve.search do

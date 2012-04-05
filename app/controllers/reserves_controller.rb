@@ -12,13 +12,12 @@ class ReservesController < ApplicationController
   # GET /reserves
   # GET /reserves.xml
   def index
-    if current_user.try(:has_role?, 'Librarian') && params[:user_id]
+    if current_user.has_role?('Librarian') and params[:user_id]
       @reserve_user = User.find(params[:user_id]) rescue current_user
     else
       @reserve_user = current_user
     end
 
-    @reserve_user_id = params[:user_id] if params[:user_id]
     unless current_user.has_role?('Librarian')
       if @user
         unless current_user == @user
@@ -32,62 +31,53 @@ class ReservesController < ApplicationController
     get_manifestation
     position_update(@manifestation) if @manifestation && params[:mode] == 'position_update'
   
+    page = params[:page] || 1
     if params[:mode] == 'hold' and current_user.has_role?('Librarian')
-      @reserves = Reserve.hold.order('reserves.created_at DESC').page(params[:page])
+      @reserves = Reserve.hold.order('reserves.created_at DESC').page(page)
     else
+      # disp1. user reserves
       if @user
-        # 一般ユーザ
         if current_user.has_role?('Librarian')
-          @reserves = @user.reserves.show_reserves.order('reserves.expired_at ASC').page(params[:page])
+          @reserves = @user.reserves.show_reserves.order('reserves.expired_at ASC').page(page)
         else
-          @reserves = @user.reserves.user_show_reserves.order('reserves.expired_at ASC').page(params[:page])
+          @reserves = @user.reserves.user_show_reserves.order('reserves.expired_at ASC').page(page)
         end
-        # output
-        if params[:output_user]
-          data = Reserve.get_reserves(@user, current_user)
-          send_data data.generate, :filename => configatron.reserve_list_user_print.filename
-        end
-        if params[:output_user_tsv]
-          data = Reserve.get_reserve_list_user_tsv(@user.id, current_user)
-          send_data data, :filename => configatron.reserve_list_all_print_tsv.filename
-        end
+      # disp2. manifestation reserves (when position update)
       elsif @manifestation
-        # 管理者
-        @reserves = @manifestation.reserves.can_change_position.order('reserves.position ASC').page(params[:page])
+        @reserves = @manifestation.reserves.can_change_position.order('reserves.position ASC').page(page)
         @in_process_reserves = @manifestation.reserves.in_process
         @completed_reserves = @manifestation.reserves.not_waiting
+      # disp3. all reserves
       else
-        # all reserves
-        page = params[:page] || 1
         @states = Reserve.states
         @libraries =  Library.real
-        #@selected_library = @libraries.collect{|library| library.id}
-        @information_types = @selected_information_type =  Reserve.information_type_ids
-        # first move
-        if params[:do_search].blank?
-          @selected_library = [current_user.library.id]
-          @selected_state = @states.reject{|x| x == 'completed' || x == 'expired' || x == 'canceled'}
-          @reserves = Reserve.show_reserves.where(:state => @selected_state, :receipt_library_id => @selected_library).order('expired_at ASC').includes(:manifestation).page(page)
-          return
+        @information_types = Reserve.information_type_ids
+        # default selected
+        @selected_state = Reserve.show_user_states
+        @selected_library = [current_user.library.id]
+        @selected_information_type = @information_types
+        # push submit?
+        if params[:commit]
+          @selected_state = params[:state] ? params[:state].inject([]){|states, state| states << state} : []
+          @selected_library = params[:library] ? params[:library].inject([]){|ids, id| ids << id.to_i} : []
+          @selected_information_type = []
+          if params[:information_type]
+            @selected_information_type = params[:information_type].map{|i|i.split}
+            @selected_information_type = @selected_information_type.inject([]){|types, type|
+              type = type.map{|i| i.to_i}
+              type = type.join().to_i if type.size == 1
+              types << type
+            }
+          end
         end
+        selected_state = @selected_state
+        selected_library = @selected_library
+        selected_information_type = @selected_information_type.flatten
 
         flash[:reserve_notice] = "" 
-        @selected_state = params[:state] || []
-        @selected_library = params[:library] || []
-        @selected_information_type = params[:information_type] || []
-        if params[:information_type]
-          @selected_information_type = params[:information_type].map{|i|i.split}
-          @selected_information_type = @selected_information_type.inject([]){|types, type|
-            type = type.map{|i| i.to_i}
-            type = type.join().to_i if type.size == 1
-            types << type
-          }
-        end
-        selected_information_type = @selected_information_type.flatten
         # check conditions
-        if @selected_state.blank? || @selected_library.blank? || @selected_information_type.blank? 
-          flash[:reserve_notice] << t('item_list.no_list_condition') + '<br />'
-        end
+        error_condition = true if @selected_state.blank? or @selected_library.blank? or @selected_information_type.blank?
+        flash[:reserve_notice] << t('item_list.no_list_condition') + '<br />' if error_condition
 
         # set query
         query = params[:query].to_s.strip
@@ -109,32 +99,17 @@ class ReservesController < ApplicationController
         query = "#{query} address_text: #{@address}" unless @address.blank?
 
         # search
-        if query.blank? and @address.blank? and @date_of_birth.blank?
-          @reserves = Reserve.where(:state => @selected_state, :receipt_library_id => @selected_library, 
-            :information_type_id => selected_information_type).order('expired_at ASC').includes(:manifestation).page(page)
+        if (query.blank? and @address.blank? and @date_of_birth.blank? and wrong_condition?) or error_condition
+          @reserves = Reserve.where(:state => selected_state, :receipt_library_id => selected_library, :information_type_id => selected_information_type).order('expired_at ASC').includes(:manifestation).page(page)
         else
           @reserves = Reserve.search do
             fulltext query
-            with(:state, @selected_state) 
-            with(:receipt_library_id, @selected_library) 
-            with(:information_type_id, selected_information_type) 
+            with(:state, selected_state) 
+            with(:receipt_library_id, selected_library) 
+            with(:information_type_id, selected_information_type)
             order_by(:expired_at, :asc)
             paginate :page => page.to_i, :per_page => Reserve.per_page
           end.results
-        end
-
-        # output reserveslist
-        unless @selected_state.blank? or @selected_library.blank? or @selected_information_type.blank? 
-          if params[:output_pdf]
-            data = Reserve.get_reserve_list_all_pdf(query, @selected_state, @selected_library, selected_information_type)
-            send_data data.generate, :filename => configatron.reserve_list_all_print_pdf.filename, :type => 'application/pdf'
-            return
-          end
-          if params[:output_tsv]
-            data = Reserve.get_reserve_list_all_tsv(query, @selected_state, @selected_library, selected_information_type)
-            send_data data, :filename => configatron.reserve_list_all_print_tsv.filename
-            return
-          end
         end
       end
     end
@@ -145,7 +120,22 @@ class ReservesController < ApplicationController
       format.rss  { render :layout => false }
       format.atom
       format.csv
-      return
+      format.pdf  { 
+        if @user
+          send_data Reserve.get_reserves(@user, current_user).generate, :filename => configatron.reserve_list_user_print.filename
+        else
+          send_data Reserve.get_reserve_list_all_pdf(query, selected_state, selected_library, selected_information_type).generate,
+          :filename => configatron.reserve_list_all_print_pdf.filename, :type => 'application/pdf'
+        end
+      }
+      format.tsv  { 
+        if @user
+          send_data Reserve.get_reserve_list_user_tsv(@user.id, current_user), :filename => configatron.reserve_list_all_print_tsv.filename
+        else
+          send_data Reserve.get_reserve_list_all_tsv(query, selected_state, selected_library, selected_information_type),
+          :filename => configatron.reserve_list_all_print_tsv.filename 
+        end
+      }
     end
   end
 
