@@ -1,12 +1,12 @@
 GIT
   remote: git://github.com/nabeta/enju_barcode.git
-  revision: bb08068e256c3a931745cfb631ec71c576cfb787
+  revision: d37f886b1d5874ffadcd4d37a4711154117ed3db
   specs:
     enju_barcode (0.0.1)
       barby (~> 0.5)
       cancan
       devise
-      rails (~> 3.1)
+      rails (~> 3.2)
       rqrcode
       will_paginate
 
@@ -20,7 +20,7 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_bookmark.git
-  revision: 213c4528614a6b60885bf56f68dd7f638e314463
+  revision: e5743954ec297191cd81938b2b99d3c2cb41a8c2
   specs:
     enju_bookmark (0.0.7)
       acts-as-taggable-on (~> 2.2)
@@ -30,7 +30,7 @@ GIT
       cancan
       devise
       friendly_id (~> 4.0)
-      rails (~> 3.1)
+      rails (~> 3.2)
       state_machine
       sunspot_rails
       sunspot_solr
@@ -38,7 +38,7 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_circulation.git
-  revision: f3c7a943e58878df9cc25fc6efad9f9b22dc9319
+  revision: 585433f2b71a427480e7d506952fbbaaa052df97
   specs:
     enju_circulation (0.0.21)
       acts_as_list (~> 0.1.5)
@@ -46,10 +46,10 @@ GIT
       cancan
       devise
       enju_event (>= 0.0.5)
-      enju_message (~> 0.0.10)
+      enju_message (~> 0.0.13)
       friendly_id (~> 4.0)
       inherited_resources
-      rails (~> 3.1)
+      rails (~> 3.2)
       simple_form
       state_machine
       sunspot_rails
@@ -59,7 +59,7 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_event.git
-  revision: 656af0947fff8992349ead0c57fad5c850a9ffd9
+  revision: a3cddfdd69f9f91ad637491d9da9d99a866a2a22
   specs:
     enju_event (0.0.9)
       acts_as_list (~> 0.1.5)
@@ -68,13 +68,13 @@ GIT
       cancan
       configatron
       devise
-      enju_message (~> 0.0.10)
+      enju_message (~> 0.0.13)
       event-calendar (~> 2.3.3)
       friendly_id (~> 4.0)
       has_scope
       inherited_resources
       paperclip
-      rails (~> 3.1)
+      rails (~> 3.2)
       simple_form
       state_machine
       sunspot_rails
@@ -83,7 +83,7 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_inter_library_loan.git
-  revision: c85465908ccd323b257bf4293d0999c2f8d67406
+  revision: 5aa9205ea9457a444dcb57962216e2dce49005c4
   specs:
     enju_inter_library_loan (0.0.1)
       acts_as_list (~> 0.1.5)
@@ -92,7 +92,7 @@ GIT
       cancan
       devise
       friendly_id (~> 4.0)
-      rails (~> 3.1)
+      rails (~> 3.2)
       state_machine
       sunspot_rails
       sunspot_solr
@@ -100,14 +100,14 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_inventory.git
-  revision: c9310c9026f5a69cea277d1beecf686a9f90aeb6
+  revision: a682a89ec0422fdd6da446740713760ea1f6ee08
   specs:
     enju_inventory (0.0.4)
       cancan
       devise
       inherited_resources
       paperclip
-      rails (~> 3.1)
+      rails (~> 3.2)
       sunspot_rails
       sunspot_solr
       will_paginate
@@ -122,7 +122,7 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_message.git
-  revision: 5db0cf7fea708b71b40529c609049b751b6a87a2
+  revision: ef7b7c7031cae0d6894de98334fdf84efb219bd7
   specs:
     enju_message (0.0.13)
       acts_as_list (~> 0.1.5)
@@ -135,7 +135,7 @@ GIT
       devise
       friendly_id (~> 4.0)
       inherited_resources
-      rails (~> 3.1)
+      rails (~> 3.2)
       simple_form
       state_machine
       sunspot_rails
@@ -157,14 +157,14 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_oai.git
-  revision: 7e7fb239ddbc4d7d084be5043d34d2f0e991b379
+  revision: 9edb21b36a3281676278ea1e59855354e4f47142
   specs:
     enju_oai (0.0.1)
-      rails (~> 3.1)
+      rails (~> 3.2)
 
 GIT
   remote: git://github.com/nabeta/enju_purchase_request.git
-  revision: 1a0cf2c9bf760e8137f6417f2d94be5b9f865eda
+  revision: 69f424e9f3e950cee2d6da5142f1fb60d9018f9d
   specs:
     enju_purchase_request (0.0.6)
       acts_as_list (~> 0.1.5)
@@ -173,7 +173,7 @@ GIT
       cancan
       configatron
       devise
-      rails (~> 3.1)
+      rails (~> 3.2)
       state_machine
       sunspot_rails
       sunspot_solr
@@ -181,17 +181,17 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_question.git
-  revision: b31b5ec856bf8369849c46ff94c1808671ca0620
+  revision: 552b76e0b9ace6dba5a94ebe7dfde8f8abca7c7b
   specs:
     enju_question (0.0.10)
       acts-as-taggable-on (~> 2.2)
       acts_as_list (~> 0.1.5)
       cancan
       devise
-      enju_ndl (~> 0.0.12)
+      enju_ndl (~> 0.0.17)
       friendly_id (~> 4.0)
       nokogiri
-      rails (~> 3.1)
+      rails (~> 3.2)
       simple_form
       sunspot_rails
       sunspot_solr
@@ -199,7 +199,7 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_resource_merge.git
-  revision: 00ae3cfa39b49bf09f36d950378485c52f17e6a2
+  revision: 636e5eadd2c90e57c53b432b3b0f4a60d7d869b0
   specs:
     enju_resource_merge (0.0.5)
       acts_as_list (~> 0.1.5)
@@ -208,24 +208,24 @@ GIT
       devise
       dynamic_form
       inherited_resources
-      rails (~> 3.1)
+      rails (~> 3.2)
       sunspot_rails
       sunspot_solr
       will_paginate (~> 3.0)
 
 GIT
   remote: git://github.com/nabeta/enju_search_log.git
-  revision: 6fa5b6e1b3b4ab8139567e94bb204c17e1a1fa8d
+  revision: 41b57949f86513d6fc9644ed0caea94789946e1f
   specs:
     enju_search_log (0.0.2)
       cancan
       devise
-      rails (~> 3.1)
+      rails (~> 3.2)
       will_paginate
 
 GIT
   remote: git://github.com/nabeta/enju_subject.git
-  revision: 5c42fd9505387eb2e3d7903a357b5ef7957633a1
+  revision: 512e7199f20fe0fc7c5ef8e0a20216d54c4961cc
   specs:
     enju_subject (0.0.10)
       acts_as_list (~> 0.1.5)
@@ -235,7 +235,7 @@ GIT
       dynamic_form
       friendly_id (~> 4.0)
       inherited_resources
-      rails (~> 3.1)
+      rails (~> 3.2)
       sunspot_rails
       sunspot_solr
       will_paginate (~> 3.0)
