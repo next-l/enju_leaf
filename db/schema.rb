@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120331131936) do
+ActiveRecord::Schema.define(:version => 20120405085919) do
 
   create_table "answer_has_items", :force => true do |t|
     t.integer  "answer_id"
@@ -616,6 +616,26 @@ ActiveRecord::Schema.define(:version => 20120331131936) do
   add_index "items", ["item_identifier"], :name => "index_items_on_item_identifier"
   add_index "items", ["required_role_id"], :name => "index_items_on_required_role_id"
   add_index "items", ["shelf_id"], :name => "index_items_on_shelf_id"
+
+  create_table "jpp_customercode_transfer_zip_code_lists", :force => true do |t|
+    t.string   "union_code"
+    t.string   "zipcode5"
+    t.string   "zipcode"
+    t.string   "prefectrure_name_kana"
+    t.string   "city_name_kana"
+    t.string   "region_name_kana"
+    t.string   "prefecture_name"
+    t.string   "city_name"
+    t.string   "region_name"
+    t.integer  "flag10"
+    t.integer  "flag11"
+    t.integer  "flag12"
+    t.integer  "flag13"
+    t.integer  "flag14"
+    t.integer  "update_flag"
+    t.datetime "created_at",            :null => false
+    t.datetime "updated_at",            :null => false
+  end
 
   create_table "languages", :force => true do |t|
     t.string  "name",         :null => false

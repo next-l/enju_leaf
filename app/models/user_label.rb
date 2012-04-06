@@ -16,7 +16,7 @@ class UserLabel < ActiveRecord::Base
         logger.info "japan postal customer barcode gen start"
         code = ""
         begin
-          code = ZipCodeList.generate_japanpost_customer_code(user.patron.zip_code_1, user.patron.address_1)
+          code = JppCustomercodeTransfer::ZipCodeList.generate_japanpost_customer_code(user.patron.zip_code_1, user.patron.address_1)
         rescue ArgumentError
           logger.warn "argument error in generate_japanpost_customer_code"
           logger.warn $!
