@@ -165,7 +165,7 @@
   <ul>
     <%- if @reserve_user.user_number? -%>
       <li>
-        <%= link_to t('page.new', :model => t('activerecord.models.reserve')), manifestations_path(:reservable => true, :user_id => @reserve_user_id) -%>
+        <%= link_to t('page.new', :model => t('activerecord.models.reserve')), manifestations_path(:reservable => true, :user_id => @reserve_user.id) -%>
         <br />
         (<%= t('page.search_resource', :model => t('page.resource')) -%>)
       </li>
@@ -183,8 +183,8 @@
     <%- if @user -%>
       <%= link_to (image_tag 'feed-icon-14x14.png', :size => '14x14', :alt => t('page.feed'), :title => t('tooltip.feed'), :class => 'icon'), user_reserves_path(@user, :format => :rss) -%>
       (<%= link_to 'RSS', user_reserves_path(@user, :format => :rss) -%>)
-      <%= link_to (image_tag 'icons/page_white_excel.png', :size => '16x16', :alt => 'TSV', :title => 'TSV', :class => 'icon'), user_reserves_path(@user, :output_user_tsv=> true) -%>
-      (<%= link_to 'TSV', user_reserves_path(@user, :output_user_tsv=> true) -%>)
+      <%= link_to (image_tag 'icons/page_white_excel.png', :size => '16x16', :alt => 'TSV', :title => 'TSV', :class => 'icon'), user_reserves_path(@user, :format => :tsv) -%>
+      (<%= link_to 'TSV', user_reserves_path(@user, :format => :tsv) -%>)
     <%- end -%>
   </p>
   <div id="iconmenu" class="ui-corner-all">
