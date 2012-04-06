@@ -467,6 +467,7 @@ class ResourceImportFile < ActiveRecord::Base
       manifestation.save!
 
       manifestation.set_patron_role_type(creators_list)
+      manifestation.set_patron_role_type(contributors_list, :scope => :contributor)
       manifestation.set_patron_role_type(publishers_list, :scope => :publisher)
     end
     manifestation

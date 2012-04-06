@@ -144,15 +144,18 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_ndl.git
-  revision: 38779e7e33906c7322db89148ce118a1352a7769
+  revision: 3aea0b5ac10860681be0a895a9d57028026e32a4
   specs:
-    enju_ndl (0.0.17)
+    enju_ndl (0.0.18)
       acts_as_list
       attribute_normalizer
       devise
+      enju_subject
       library_stdnums
       nokogiri
       rails (~> 3.2)
+      sunspot_rails
+      sunspot_solr
       will_paginate (~> 3.0)
 
 GIT

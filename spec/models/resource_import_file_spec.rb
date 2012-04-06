@@ -45,9 +45,6 @@ describe ResourceImportFile do
         Item.where(:item_identifier => '10102').first.manifestation.date_of_publication.should eq Time.zone.parse('2001-01-01')
         Item.where(:item_identifier => '10104').first.manifestation.date_of_publication.should eq Time.zone.parse('2001-01-01')
         Manifestation.where(:manifestation_identifier => '103').first.original_title.should eq 'ダブル"クォート"を含む資料'
-        Manifestation.where(:manifestation_identifier => '104').first.original_title.should eq 'test10'
-        Manifestation.where(:manifestation_identifier => '104').first.creators.collect(&:full_name).should eq ['test3']
-        Manifestation.where(:manifestation_identifier => '104').first.publishers.collect(&:full_name).should eq ['test4']
         item = Item.where(:item_identifier => '11111').first
         Shelf.find_by_name('first_shelf').should eq item.shelf
         item.manifestation.price.should eq 1000
@@ -61,6 +58,12 @@ describe ResourceImportFile do
         item_10104 = Item.where(:item_identifier => '10104').first
         item_10104.budget_type.name.should eq 'Public fund'
         item_10104.bookstore.should be_nil
+
+        manifestation_104 = Manifestation.where(:manifestation_identifier => '104').first
+        manifestation_104.isbn.should eq '9784797327038'
+        manifestation_104.original_title.should eq 'test10'
+        manifestation_104.creators.collect(&:full_name).should eq ['test3']
+        manifestation_104.publishers.collect(&:full_name).should eq ['test4']
 
         @file.file_hash.should be_true
       end
