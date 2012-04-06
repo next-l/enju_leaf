@@ -16,10 +16,10 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_oai.git
-  revision: 7e7fb239ddbc4d7d084be5043d34d2f0e991b379
+  revision: 9edb21b36a3281676278ea1e59855354e4f47142
   specs:
     enju_oai (0.0.1)
-      rails (~> 3.1)
+      rails (~> 3.2)
 
 GIT
   remote: git://github.com/nabeta/isbn-tools.git
@@ -201,13 +201,16 @@ GEM
       sunspot_rails
       sunspot_solr
       will_paginate (~> 3.0)
-    enju_ndl (0.0.17)
+    enju_ndl (0.0.18)
       acts_as_list
       attribute_normalizer
       devise
+      enju_subject
       library_stdnums
       nokogiri
       rails (~> 3.2)
+      sunspot_rails
+      sunspot_solr
       will_paginate (~> 3.0)
     enju_purchase_request (0.0.6)
       acts_as_list (~> 0.1.5)
@@ -482,7 +485,7 @@ DEPENDENCIES
   enju_inventory (~> 0.0.4)
   enju_manifestation_viewer!
   enju_message (~> 0.0.13)
-  enju_ndl (~> 0.0.17)
+  enju_ndl (~> 0.0.18)
   enju_oai!
   enju_purchase_request (~> 0.0.6)
   enju_question (~> 0.0.10)
