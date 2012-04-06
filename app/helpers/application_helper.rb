@@ -32,20 +32,20 @@ module ApplicationHelper
     when 'video'
       image_tag('icons/film.png', :size => '16x16', :alt => content_type.display_name.localize)
     else
-      image_tag('icons/help.png', :size => '16x16', :alt => ('unknown'))
+      image_tag('icons/help.png', :size => '16x16', :alt => t('page.unknown'))
     end
   rescue NoMethodError
-    image_tag('icons/help.png', :size => '16x16', :alt => ('unknown'))
+    image_tag('icons/help.png', :size => '16x16', :alt => t('page.unknown'))
   end
 
   def patron_type_icon(patron_type)
     case patron_type
     when 'Person'
-      image_tag('icons/user.png', :size => '16x16', :alt => ('Person'))
+      image_tag('icons/user.png', :size => '16x16', :alt => 'Person')
     when 'CorporateBody'
-      image_tag('icons/group.png', :size => '16x16', :alt => ('CorporateBody'))
+      image_tag('icons/group.png', :size => '16x16', :alt => 'CorporateBody')
     else
-      image_tag('icons/help.png', :size => '16x16', :alt => ('unknown'))
+      image_tag('icons/help.png', :size => '16x16', :alt => t('page.unknown'))
     end
   end
 

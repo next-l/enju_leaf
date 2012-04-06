@@ -1,6 +1,6 @@
 --- 
 subject_heading_type_00001: 
-  name: NDLSH
+  name: ndlsh
   display_name: NDLSH
   updated_at: 2008-03-03 00:44:49.850140 +09:00
   id: 1
@@ -8,7 +8,7 @@ subject_heading_type_00001:
   created_at: 2008-03-03 00:44:34.260739 +09:00
   position: 1
 subject_heading_type_00002: 
-  name: BSH
+  name: bsh
   display_name: BSH
   updated_at: 2008-03-03 00:44:58.685360 +09:00
   id: 2
