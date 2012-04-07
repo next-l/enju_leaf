@@ -107,10 +107,17 @@ class ResourceImportFile < ActiveRecord::Base
           manifestation.save!
         rescue EnjuNdl::InvalidIsbn
           import_result.error_msg = "FAIL[#{row_num}]: ISBN #{isbn} is invalid"
+          num[:failed] += 1
         rescue EnjuNdl::RecordNotFound
           import_result.error_msg = "FAIL[#{row_num}]: ISBN #{isbn} is not found"
+          num[:failed] += 1
         rescue ActiveRecord::RecordInvalid  => e
-          import_result.error_msg = "FAIL[#{row_num}]: fail save manifestation. #{e.message}"
+          import_result.error_msg = "FAIL[#{row_num}]: fail save manifestation. (record invalid) #{e.message}"
+          num[:failed] += 1
+        rescue ActiveRecord::StatementInvalid => e
+          import_result.error_msg = "FAIL[#{row_num}]: fail save manifestation. (statement invalid) #{e.message}"
+          manifestation = nil
+          num[:failed] += 1
         end
         num[:manifestation_imported] += 1 if manifestation
       end
@@ -139,6 +146,7 @@ class ResourceImportFile < ActiveRecord::Base
         import_result.error_msg = "FAIL[#{row_num}]: #{e.message}"
         Rails.logger.info("FAIL[#{row_num} resource registration failed: column #{row_num}: #{e.message}")
         Rails.logger.info("FAIL[#{row_num} #{$@}")
+        num[:failed] += 1
       end
 
       #debugger
