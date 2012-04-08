@@ -1,7 +1,7 @@
 //= require jquery
 //= require jquery-ui
-//= require jquery.colorbox
 //= require jquery_ujs
+//= require jquery.colorbox
 //= require jquery.highlight
 //= require jquery.hotkeys
 //= require jquery.cookie
