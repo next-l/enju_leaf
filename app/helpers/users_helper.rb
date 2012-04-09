@@ -33,4 +33,22 @@ module UsersHelper
       t('activerecord.attributes.patron.company_phone')
     end
   end
+
+  def library_facet(library, current_libraries, facet)
+    string = ''
+    current = true if current_libraries.include?(library.name)
+    string << "<strong>" if current
+    string << link_to("#{library.display_name.localize} (" + facet.count.to_s + ")", url_for(params.merge(:page => nil, :library => (current_libraries << library.name).uniq.join(' '), :view => nil)))
+    string << "</strong>" if current
+    string.html_safe
+  end
+
+  def role_facet(role, current_roles, facet)
+    string = ''
+    current = true if current_roles.include?(role.name)
+    string << "<strong>" if current
+    string << link_to("#{role.display_name.localize} (" + facet.count.to_s + ")", url_for(params.merge(:page => nil, :role => (current_roles << role.name).uniq.join(' '), :view => nil)))
+    string << "</strong>" if current
+    string.html_safe
+  end
 end
