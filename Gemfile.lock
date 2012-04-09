@@ -492,7 +492,7 @@ DEPENDENCIES
   enju_resource_merge (~> 0.0.5)
   enju_search_log (~> 0.0.2)
   enju_subject (~> 0.0.9)
-  exception_notification (~> 2.5.2)
+  exception_notification (~> 2.5)
   factory_girl_rails (~> 3.0)
   fakeweb
   file_wrapper
