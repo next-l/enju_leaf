@@ -589,6 +589,7 @@ class Manifestation < ActiveRecord::Base
     subjects.collect(&:classifications).flatten
   end
 
+=begin
   def volume_number
     volume_number_string.gsub(/\D/, ' ').split(" ") if volume_number_string
   end
@@ -600,6 +601,7 @@ class Manifestation < ActiveRecord::Base
   def serial_number
     serial_number_string.gsub(/\D/, ' ').split(" ") if serial_number_string
   end
+=end
 
   def questions(options = {})
     id = self.id
