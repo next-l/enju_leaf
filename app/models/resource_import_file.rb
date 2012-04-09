@@ -113,9 +113,19 @@ class ResourceImportFile < ActiveRecord::Base
           num[:failed] += 1
         rescue ActiveRecord::RecordInvalid  => e
           import_result.error_msg = "FAIL[#{row_num}]: fail save manifestation. (record invalid) #{e.message}"
+          Rails.logger.error "FAIL[#{row_num}]: fail save manifestation. (record invalid) #{e.message}"
+          Rails.logger.error "FAIL[#{row_num}]: #{$@}"
           num[:failed] += 1
         rescue ActiveRecord::StatementInvalid => e
           import_result.error_msg = "FAIL[#{row_num}]: fail save manifestation. (statement invalid) #{e.message}"
+          Rails.logger.error "FAIL[#{row_num}]: fail save manifestation. (statement invalid) #{e.message}"
+          Rails.logger.error "FAIL[#{row_num}]: #{$@}"
+          manifestation = nil
+          num[:failed] += 1
+        rescue => e
+          import_result.error_msg = "FAIL[#{row_num}]: fail save manifestation. #{e.message}"
+          Rails.logger.error "FAIL[#{row_num}]: fail save manifestation. #{e.message}"
+          Rails.logger.error "FAIL[#{row_num}]: #{$@}"
           manifestation = nil
           num[:failed] += 1
         end
