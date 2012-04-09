@@ -159,6 +159,12 @@ class User < ActiveRecord::Base
       active_for_authentication?
     end
     time :confirmed_at
+    string :library do
+      library.name
+    end
+    string :role do
+      role.display_name
+    end
   end
 
   attr_accessor :first_name, :middle_name, :last_name, :full_name,
@@ -553,8 +559,8 @@ class User < ActiveRecord::Base
           row.item(:created_at).value(user.created_at)
           row.item(:locked).value(I18n.t('activerecord.attributes.user.locked_yes')) if user.active_for_authentication?
           row.item(:locked).value(I18n.t('activerecord.attributes.user.locked_no')) unless user.active_for_authentication?
-          row.item(:unable).value(I18n.t('activerecord.attributes.user.unable_yes')) if user.unable
-          row.item(:unable).value(I18n.t('activerecord.attributes.user.unable_no')) unless user.unable
+          row.item(:unable).value(I18n.t('activerecord.attributes.user.unable_yes')) unless user.unable
+          row.item(:unable).value(I18n.t('activerecord.attributes.user.unable_no')) if user.unable
         end
       end
     end
@@ -634,8 +640,8 @@ class User < ActiveRecord::Base
           row << I18n.t('activerecord.attributes.user.locked_yes') if user.active_for_authentication?
           row << I18n.t('activerecord.attributes.user.locked_no') unless user.active_for_authentication?
         when :unable
-          row << I18n.t('activerecord.attributes.user.unable_yes') if user.unable
-          row << I18n.t('activerecord.attributes.user.unable_no') unless user.unable
+          row << I18n.t('activerecord.attributes.user.unable_yes') unless user.unable
+          row << I18n.t('activerecord.attributes.user.unable_no') if user.unable
         when :patron_type
           row << user.patron.patron_type.display_name.localize
         when :email

@@ -10,17 +10,14 @@ class UsersController < ApplicationController
   #ssl_allowed :index, :show, :new, :edit, :create, :update, :destroy, :search_family, :get_family_info, :output_password
 
   def index
-    query = params[:query].to_s
-    @query = query.dup
     @count = {}
-
-    query = params[:query].gsub("-", "") if params[:query]
-    if query.size == 1
-      query = "#{query}*"
-    end
-
     page = params[:page] || 1
     role = current_user.try(:role) || Role.default_role
+
+    query = params[:query].to_s
+    @query = query.dup
+    query = params[:query].gsub("-", "") if params[:query]
+    query = "#{query}*" if query.size == 1
     @date_of_birth = params[:birth_date].to_s.dup
     birth_date = params[:birth_date].to_s.gsub(/\D/, '') if params[:birth_date]
     flash[:message] = nil
@@ -34,10 +31,8 @@ class UsersController < ApplicationController
     date_of_birth_end = Time.zone.parse(birth_date).end_of_day.utc.iso8601 rescue nil
     address = params[:address]
     @address = address
-
     query = "#{query} date_of_birth_d: [#{date_of_birth} TO #{date_of_birth_end}]" unless date_of_birth.blank?
     query = "#{query} address_text: #{address}" unless address.blank?
-
     logger.error "query #{query}"
     logger.error flash[:message]
 
@@ -65,38 +60,31 @@ class UsersController < ApplicationController
       sort[:order] = 'desc'
     end
 
-    unless query.blank?
-      @users = User.search do
-        fulltext query
-        order_by sort[:sort_by], sort[:order]
-        with(:required_role_id).less_than role.id
-      end.results
-    else
-      if sort[:sort_by] == 'patrons.telephone_number_1'|| sort[:sort_by] == 'patrons.full_name_transcription' 
-        @users = User.joins(:patron).order("#{sort[:sort_by]} #{sort[:order]}").page(page) unless params[:output_pdf] and params[:output_tsv]
-        @users = User.joins(:patron).order("#{sort[:sort_by]} #{sort[:order]}") if params[:output_pdf] or params[:output_tsv]
-      else
-        @users = User.order("#{sort[:sort_by]} #{sort[:order]}").page(page) unless params[:output_pdf] and params[:output_tsv]
-        @users = User.order("#{sort[:sort_by]} #{sort[:order]}") if params[:output_pdf] or params[:output_tsv]
+    search = User.search
+    search_result = search.build do
+      fulltext query unless query.blank?
+      with(:library).equal_to params[:library] if params[:library]
+      with(:role).equal_to params[:role] if params[:role]
+      with(:required_role_id).less_than role.id
+      order_by sort[:sort_by], sort[:order]
+      if params[:format] == 'html' or params[:format].nil?
+        facet :library
+        facet :role
+        paginate :page => page.to_i, :per_page => User.per_page
       end
+    end.execute rescue nil
+    if params[:format].blank? or params[:format] == 'html'
+      @library_facet = search_result.facet(:library).rows
+      @role_facet = search_result.facet(:role).rows
     end
-    @count[:query_result] = @users.total_entries if !params[:output_pdf] and !params[:output_tsv]
-
-    # output
-    if params[:output_pdf]
-      data = User.output_userlist_pdf(@users)
-      send_data data.generate, :filename => configatron.user_list_print_pdf.filename
-      return
-    end
-    if params[:output_tsv]
-      data = User.output_userlist_tsv(@users)
-      send_data data, :filename => configatron.user_list_print_tsv.filename
-      return
-    end
+    @users = search_result.results
+    @count[:query_result] = @users.total_entries
 
     respond_to do |format|
       format.html # index.rhtml
       format.xml  { render :xml => @users }
+      format.pdf  { send_data User.output_userlist_pdf(@users).generate, :filename => configatron.user_list_print_pdf.filename }
+      format.tsv  { send_data User.output_userlist_tsv(@users), :filename => configatron.user_list_print_tsv.filename }
     end
   end
 

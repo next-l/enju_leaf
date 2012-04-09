@@ -1,17 +1,32 @@
+<script>
+  function push_submit(format) {
+    var o = document.getElementById('form');
+    if(format == 'pdf')
+      o.action = "<%= users_path(:format => 'pdf') %>";
+    else if(format == 'tsv')
+      o.action = "<%= users_path(:format => 'tsv') %>";
+    else
+      o.action = "<%= users_path %>";
+    o.submit();
+  }
+</script>
+
 <div id="content_detail" class="ui-corner-all">
 <h1 class="title"><%= t('page.listing', :model => t('activerecord.models.user')) -%></h1>
 <div id="content_list">
 <div style="color: green"><%= flash[:message] -%></div>
-<%= form_for :users, :url => users_path, :html => {:method => 'get'} do -%>
+<%= form_for :users, :url => users_path, :html => {:method => 'get', :id => 'form'} do -%>
   <p>
     <%= t('page.search_term') -%>: <%= search_field_tag 'query', h(@query), {:id => 'search_form_top', :class => 'search_form', :placeholder => t('page.search_term')} -%><br />
     <%= t('activerecord.attributes.user.birth_date') -%>: <%= text_field_tag 'birth_date', @date_of_birth, :class => 'wide_date_text_field', :placeholder => "#{t('page.example')}: 2011-04-12" -%>
     <%= t('activerecord.attributes.user.adddress') -%>: <%= text_field_tag 'address', @address, :class => 'search_form' -%>
-    <%= hidden_field_tag 'patron_id', @patron.id if @patron -%>
     <br />
-    <%= submit_tag t('page.search'), :name => 'search' -%>
-    <%= submit_tag t('page.output_pdf', :model => t('page.listing', :model => t('activerecord.models.user'))), :name => 'output_pdf' -%>
-    <%= submit_tag t('page.output_tsv', :model => t('page.listing', :model => t('activerecord.models.user'))), :name => 'output_tsv' -%>
+    <%= hidden_field_tag 'patron_id', @patron.id if @patron -%>
+    <%= hidden_field_tag 'library', params[:library] if params[:library] -%>
+    <%= hidden_field_tag 'role', params[:role] if params[:role] -%>
+    <%= submit_tag t('page.search'), :onclick => "push_submit(null);" -%>
+    <%= submit_tag t('page.output_pdf', :model => t('page.listing', :model => t('activerecord.models.user'))), :onclick => "push_submit('pdf');" -%>
+    <%= submit_tag t('page.output_tsv', :model => t('page.listing', :model => t('activerecord.models.user'))), :onclick => "push_submit('tsv');" -%>
   </p>
 <%- end -%>
 
@@ -93,6 +108,12 @@
 </div>
 
 <div id="submenu" class="ui-corner-all">
+  <h3><%= link_to h("#{t('page.total')}: #{@count[:query_result]}"), url_for(params.merge(:action => 'index', :library => nil, :role => nil))  -%></h3>
+  <%- if @users && (@users.total_entries > 0) -%>
+    <%= render 'users/all_facet' -%>
+    <br />
+  <%- end -%>
+
   <ul>
     <%- if user_signed_in? && current_user.has_role?('Librarian') -%>
       <li><%= link_to t('page.new', :model => t('activerecord.models.user')), new_user_path -%></li>
