@@ -3,7 +3,8 @@ class ReservesController < ApplicationController
   include ApplicationHelper
   authorize_resource :only => :index
   before_filter :store_location, :only => [:index, :new]
-#  load_and_authorize_resource :except => [:index, :show, :edit]
+  load_and_authorize_resource :except => [:index, :show, :edit]
+#  load_and_authorize_resource :except => [:index, :show, :edit] :TODO
   before_filter :get_user_if_nil #, :only => [:show, :edit, :create, :update, :destroy]
   before_filter :store_page, :only => :index
   helper_method :get_manifestation
@@ -99,7 +100,7 @@ class ReservesController < ApplicationController
         query = "#{query} address_text: #{@address}" unless @address.blank?
 
         # search
-        if (query.blank? and @address.blank? and @date_of_birth.blank? and wrong_condition?) or error_condition
+        if (query.blank? and @address.blank? and @date_of_birth.blank?) or error_condition
           @reserves = Reserve.where(:state => selected_state, :receipt_library_id => selected_library, :information_type_id => selected_information_type).order('expired_at ASC').includes(:manifestation).page(page)
         else
           @reserves = Reserve.search do
