@@ -9,6 +9,11 @@
   <% end %>
 
 <%= t('activerecord.attributes.resource_import_result.imported_row') -%>: <%= @results_num if @results_num -%>
+<br />
+<%= t('activerecord.attributes.resource_import_result.display_result') -%>:
+<%= link_to t('activerecord.attributes.resource_import_result.all'),  -%> &nbsp;
+<%= link_to t('activerecord.attributes.resource_import_result.has_msg'), {:display_result=>'has_msg'} -%>
+
 <table class="index">
   <tr>
     <th><%= t('activerecord.attributes.manifestation.original_title')-%>(<%= t('activerecord.models.item') %>)</th>

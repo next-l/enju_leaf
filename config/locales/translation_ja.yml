@@ -1277,6 +1277,9 @@ ja:
         error_msg: メッセージ
         index: 項番
         imported_row: 処理済み件数
+        display_result: 表示する結果
+        all: 全て
+        has_msg: メッセージが存在するもの
       resource_import_textresult:
         body: 処理内容
         error_msg: メッセージ
