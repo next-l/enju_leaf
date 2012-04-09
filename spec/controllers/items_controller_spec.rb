@@ -437,7 +437,8 @@ describe ItemsController do
 
       it "redirects to the items list" do
         delete :destroy, :id => @item.id
-        response.should redirect_to(items_url)
+        #response.should redirect_to(items_url)
+        response.should  redirect_to(manifestation_items_url(@item.manifestation))
       end
     end
 
@@ -450,7 +451,8 @@ describe ItemsController do
 
       it "redirects to the items list" do
         delete :destroy, :id => @item.id
-        response.should redirect_to(items_url)
+        #response.should redirect_to(items_url)
+        response.should  redirect_to(manifestation_items_url(@item.manifestation))
       end
     end
 
