@@ -12,4 +12,5 @@
  *= require portlets
  *= require event_calendar
  *= require vendor
+ *= require jquery.qtip
 */

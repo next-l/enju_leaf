@@ -19,10 +19,10 @@
         <%- end -%>
       </td>
       <td>
-        <%= link_to item.shelf.library.display_name.localize, item.shelf.library %>
+        <%= link_to(item.shelf.library.display_name.localize, item.shelf.library, :id => item.shelf.library.name) %>
       </td>
       <td>
-        <%= link_to item.shelf_display_name.localize, item.shelf -%>
+        <%= link_to(item.shelf_display_name.localize, item.shelf, :id => item.shelf.name)-%>
         <%= render 'items/shelf_picture', :item => item -%>
       </td>
       <td>
@@ -40,6 +40,32 @@
         </td>
       <% end %>
     </tr>
+    <% if can? :update, item %>
+      <script>
+        $(document).ready(function(){
+          $('a#<%= item.shelf.library.name %>').qtip({
+            position: {
+              my: 'bottom left',
+              at: 'top center'
+            },
+            content: '<%= item.shelf.library.name %>',
+            hide: {
+              fixed: true
+            }
+          });
+          $('a#<%= item.shelf.name %>').qtip({
+            position: {
+              my: 'bottom left',
+              at: 'top center'
+            },
+            content: '<%= item.shelf.name %>',
+            hide: {
+              fixed: true
+            }
+          });
+        });
+      </script>
+    <% end %>
   <%- end -%>
 </table>
 </div>
