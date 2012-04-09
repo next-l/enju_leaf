@@ -29,6 +29,9 @@ class Manifestation < ActiveRecord::Base
       titles
     end
     text :fulltext, :note, :creator, :contributor, :publisher, :description
+    text :item_identifier do
+      items.collect(&:item_identifier)
+    end
     string :title, :multiple => true
     # text フィールドだと区切りのない文字列の index が上手く作成
     #できなかったので。 downcase することにした。

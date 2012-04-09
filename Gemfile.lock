@@ -12,7 +12,7 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_book_jacket.git
-  revision: 7498bed4f55da66c7206e9f125d94ceff349fc9f
+  revision: 695d38b71da56bfd097f5486c3075520faab866a
   specs:
     enju_book_jacket (0.0.1)
       configatron
@@ -144,9 +144,9 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_ndl.git
-  revision: 3aea0b5ac10860681be0a895a9d57028026e32a4
+  revision: 793ccb77c6160b25d1e638b862f3af98a347af3a
   specs:
-    enju_ndl (0.0.18)
+    enju_ndl (0.0.19)
       acts_as_list
       attribute_normalizer
       devise
@@ -359,7 +359,7 @@ GEM
     erubis (2.7.0)
     escape (0.0.4)
     event-calendar (2.3.3)
-    exception_notification (2.5.2)
+    exception_notification (2.6.0.rc1)
       actionmailer (>= 3.0.4)
     execjs (1.3.0)
       multi_json (~> 1.0)
@@ -519,7 +519,7 @@ GEM
     treetop (1.4.10)
       polyglot
       polyglot (>= 0.3.1)
-    tzinfo (0.3.32)
+    tzinfo (0.3.33)
     uglifier (1.2.4)
       execjs (>= 0.3.0)
       multi_json (>= 1.0.2)
@@ -575,7 +575,7 @@ DEPENDENCIES
   enju_resource_merge!
   enju_search_log!
   enju_subject!
-  exception_notification (~> 2.5.2)
+  exception_notification (~> 2.6.0.rc1)
   factory_girl_rails (~> 3.0)
   fakeweb
   file_wrapper

@@ -56,7 +56,7 @@ end
 gem 'fastercsv' if RUBY_VERSION < '1.9'
 
 gem 'will_paginate', '~> 3.0'
-gem 'exception_notification', '~> 2.5.2'
+gem 'exception_notification', '~> 2.6.0.rc1'
 gem 'configatron'
 gem 'delayed_job_active_record'
 gem 'daemons'
