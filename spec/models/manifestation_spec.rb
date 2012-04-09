@@ -10,6 +10,11 @@ describe Manifestation, :solr => true do
     manifestation.date_of_publication.should eq Time.zone.parse('2000-12-31').end_of_month
   end
 
+  it "should clear volume_number (over limit length)" do
+    manifestation = FactoryGirl.create(:manifestation, :volume_number_string => '第29/30巻(第2部門 講義 1919-44)')
+    manifestation.volume_number.should be_nil
+  end
+
   it "should search title in openurl" do
     openurl = Openurl.new({:title => "プログラミング"})
     results = openurl.search

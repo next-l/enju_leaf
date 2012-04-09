@@ -467,8 +467,12 @@ class Manifestation < ActiveRecord::Base
   end
 
   def set_volume_issue_number
-    self.volume_number = self.volume_number_string.gsub(/\D/, "").to_i if self.volume_number_string rescue nil
+    self.volume_number = (self.volume_number_string.gsub(/\D/, "")).to_i if self.volume_number_string rescue nil
     self.issue_number = self.issue_number_string.gsub(/\D/, "").to_i if self.issue_number_string rescue nil     
+
+    if self.volume_number && self.volume_number.to_s.length > 9
+      self.volume_number = nil
+    end
   end
 
   def reservable_with_item?(user = nil)
