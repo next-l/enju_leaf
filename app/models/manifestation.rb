@@ -236,21 +236,25 @@ class Manifestation < ActiveRecord::Base
 
   def set_date_of_publication
     return if pub_date.blank?
-    begin
-      date = Time.zone.parse("#{pub_date}")
-    rescue ArgumentError
+    date = nil
+    pub_date_string = pub_date
+
+    while date.nil? do
+      pub_date_string += '-01'
+      break if date =~ /-01-01-01$/
       begin
-        date = Time.zone.parse("#{pub_date}-01")
+        date = Time.zone.parse(pub_date_string)
       rescue ArgumentError
-        begin
-          date = Time.zone.parse("#{pub_date}-01-01")
-        rescue ArgumentError
-          nil
-        end
+        date = nil
+      rescue TZInfo::AmbiguousTime
+        date = nil
+        self.year_of_publication = pub_date_string.to_i if pub_date_string =~ /^\d+$/
+        break
       end
     end
 
     if date
+      self.year_of_publication = date.year
       if date.year > 0
         self.date_of_publication = date
       end

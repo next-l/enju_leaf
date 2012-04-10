@@ -5,9 +5,16 @@ describe Manifestation, :solr => true do
   fixtures :all
   use_vcr_cassette "enju_ndl/manifestation", :record => :new_episodes
 
-  it "should set pub_date" do
-    patron = FactoryGirl.create(:manifestation, :pub_date => '2000')
-    patron.date_of_publication.should eq Time.zone.parse('2000-01-01')
+  it "should set year_of_publication" do
+    manifestation = FactoryGirl.create(:manifestation, :pub_date => '2000')
+    manifestation.year_of_publication.should eq 2000
+    manifestation.date_of_publication.should eq Time.zone.parse('2000-01-01')
+  end
+
+  it "should set date_of_publication" do
+    manifestation = FactoryGirl.create(:manifestation, :pub_date => '2000-01')
+    manifestation.year_of_publication.should eq 2000
+    manifestation.date_of_publication.should eq Time.zone.parse('2000-01-01')
   end
 
   it "should search title in openurl" do
