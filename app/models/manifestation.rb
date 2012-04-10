@@ -249,7 +249,12 @@ class Manifestation < ActiveRecord::Base
         end
       end
     end
-    self.date_of_publication = date
+
+    if date
+      if date.year > 0
+        self.date_of_publication = date
+      end
+    end
   end
 
   def self.cached_numdocs
