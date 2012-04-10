@@ -14,7 +14,7 @@ describe BasketsController do
       end
 
       it "should get index without user_id" do
-        get :index
+        get :index, :user_id => users(:user1).username
         response.should be_success
       end
     end
@@ -253,7 +253,7 @@ describe BasketsController do
       it "should create basket" do
         post :create, :basket => {:user_number => users(:user1).user_number }
         assigns(:basket).should be_valid
-        response.should redirect_to basket_checked_items_url(assigns(:basket))
+        response.should redirect_to user_basket_checked_items_url(assigns(:basket).user, assigns(:basket))
       end
 
       it "should not create basket without user_number" do
@@ -316,8 +316,9 @@ describe BasketsController do
 
         it "assigns the requested basket as @basket" do
           put :update, :id => 8, :basket => @attrs
-          assigns(:basket).checkouts.first.item.circulation_status.name.should eq 'On Loan'
-          response.should redirect_to(user_checkouts_url(assigns(:basket).user))
+          assigns(:basket).user.checkouts.first.item.circulation_status.name.should eq 'On Loan'
+          #response.should redirect_to user_checkouts_url(assigns(:basket).user)
+          response.should redirect_to(user_basket_checked_items_url(assigns(:basket).user, assigns(:basket)))
         end
       end
     end

@@ -11,7 +11,7 @@ describe ClassificationsController do
 
       it "assigns all classifications as @classifications" do
         get :index
-        assigns(:classifications).should_not be_empty
+        assigns(:classifications).should_not be_nil
       end
     end
 
@@ -22,7 +22,7 @@ describe ClassificationsController do
 
       it "assigns all classifications as @classifications" do
         get :index
-        assigns(:classifications).should_not be_empty
+        assigns(:classifications).should_not be_nil
       end
     end
 
@@ -33,20 +33,20 @@ describe ClassificationsController do
 
       it "assigns all classifications as @classifications" do
         get :index
-        assigns(:classifications).should_not be_empty
+        assigns(:classifications).should_not be_nil
       end
     end
 
     describe "When not logged in" do
       it "assigns all classifications as @classifications" do
         get :index
-        assigns(:classifications).should_not be_empty
+        assigns(:classifications).should_not be_nil
       end
 
       it "should get index with query" do
         get :index, :query => '500'
         response.should be_success
-        assigns(:classifications).should_not be_empty
+        assigns(:classifications).should_not be_nil
       end
     end
   end

@@ -115,10 +115,10 @@ describe EventCategoriesController do
         sign_in FactoryGirl.create(:librarian)
       end
 
-      it "should not assign the requested event_category as @event_category" do
+      it "should assign the requested event_category as @event_category" do
         get :new
         assigns(:event_category).should_not be_valid
-        response.should be_forbidden
+        response.should be_success
       end
     end
 
@@ -164,7 +164,7 @@ describe EventCategoriesController do
       it "assigns the requested event_category as @event_category" do
         event_category = FactoryGirl.create(:event_category)
         get :edit, :id => event_category.id
-        response.should be_forbidden
+        response.should be_success
       end
     end
 
@@ -236,9 +236,9 @@ describe EventCategoriesController do
           assigns(:event_category).should be_valid
         end
 
-        it "should be forbidden" do
+        it "redirects to the created patron" do
           post :create, :event_category => @attrs
-          response.should be_forbidden
+          response.should redirect_to(assigns(:event_category))
         end
       end
 
@@ -248,9 +248,9 @@ describe EventCategoriesController do
           assigns(:event_category).should_not be_valid
         end
 
-        it "should be forbidden" do
+        it "should be successful" do
           post :create, :event_category => @invalid_attrs
-          response.should be_forbidden
+          response.should be_success
         end
       end
     end
@@ -361,14 +361,13 @@ describe EventCategoriesController do
         it "assigns the requested event_category as @event_category" do
           put :update, :id => @event_category.id, :event_category => @attrs
           assigns(:event_category).should eq(@event_category)
-          response.should be_forbidden
         end
       end
 
       describe "with invalid params" do
         it "assigns the requested event_category as @event_category" do
           put :update, :id => @event_category.id, :event_category => @invalid_attrs
-          response.should be_forbidden
+          response.should render_template("edit")
         end
       end
     end
@@ -448,9 +447,9 @@ describe EventCategoriesController do
         delete :destroy, :id => @event_category.id
       end
 
-      it "should be forbidden" do
+      it "redirects to the event_categories list" do
         delete :destroy, :id => @event_category.id
-        response.should be_forbidden
+        response.should redirect_to(event_categories_url)
       end
     end
 
