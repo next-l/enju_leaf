@@ -99,67 +99,81 @@ class ResourceImportFile < ActiveRecord::Base
       end
       num[:manifestation_found] += 1 if manifestation
 
+      has_error = false
       unless manifestation
         series_statement = find_series_statement(row)
         begin
+          debugger
+
           manifestation = Manifestation.import_isbn(isbn)
           manifestation.series_statement = series_statement
           manifestation.save!
         rescue EnjuNdl::InvalidIsbn
-          import_result.error_msg = "FAIL[#{row_num}]: ISBN #{isbn} is invalid"
+          import_result.error_msg = "FAIL[#{row_num}]: "+I18n.t('resource_import_file.invalid_isbn', :isbn => isbn)
+          Rails.logger.error "FAIL[#{row_num}]: import_isbn catch EnjuNdl::InvalidIsbn isbn: #{isbn}"
+          manifestation = nil
           num[:failed] += 1
+          has_error = true
         rescue EnjuNdl::RecordNotFound
-          import_result.error_msg = "FAIL[#{row_num}]: ISBN #{isbn} is not found"
+          import_result.error_msg = "FAIL[#{row_num}]: "+I18n.t('resource_import_file.record_not_found', :isbn => isbn)
+          Rails.logger.error "FAIL[#{row_num}]: import_isbn catch EnjuNdl::RecordNotFound isbn: #{isbn}"
+          manifestation = nil
           num[:failed] += 1
+          has_error = true
         rescue ActiveRecord::RecordInvalid  => e
           import_result.error_msg = "FAIL[#{row_num}]: fail save manifestation. (record invalid) #{e.message}"
           Rails.logger.error "FAIL[#{row_num}]: fail save manifestation. (record invalid) #{e.message}"
           Rails.logger.error "FAIL[#{row_num}]: #{$@}"
+          manifestation = nil
           num[:failed] += 1
+          has_error = true
         rescue ActiveRecord::StatementInvalid => e
           import_result.error_msg = "FAIL[#{row_num}]: fail save manifestation. (statement invalid) #{e.message}"
           Rails.logger.error "FAIL[#{row_num}]: fail save manifestation. (statement invalid) #{e.message}"
           Rails.logger.error "FAIL[#{row_num}]: #{$@}"
           manifestation = nil
           num[:failed] += 1
+          has_error = true
         rescue => e
           import_result.error_msg = "FAIL[#{row_num}]: fail save manifestation. #{e.message}"
           Rails.logger.error "FAIL[#{row_num}]: fail save manifestation. #{e.message}"
           Rails.logger.error "FAIL[#{row_num}]: #{$@}"
           manifestation = nil
           num[:failed] += 1
+          has_error = true
         end
         num[:manifestation_imported] += 1 if manifestation
       end
 
-      begin
-        unless manifestation
-          manifestation = fetch(row)
-          num[:manifestation_imported] += 1 if manifestation
-        end
-        import_result.manifestation = manifestation
-
-        if manifestation.valid? and item_identifier.present?
-          import_result.item = create_item(row, manifestation)
-          manifestation.index
-          num[:item_imported] +=1 if import_result.item
-
-          if import_result.item.manifestation.next_reserve
-            current_user = User.where(:username => 'admin').first
-            import_result.item.retain(current_user) if import_result.item.available_for_retain?           
-            import_result.error_msg = I18n.t('resource_import_file.reserved_item', :username => import_result.item.reserve.user.username, :user_number => import_result.item.reserve.user.user_number)
+      unless has_error
+        begin
+          unless manifestation
+            manifestation = fetch(row)
+            num[:manifestation_imported] += 1 if manifestation
           end
-        else
+          import_result.manifestation = manifestation
+
+          if manifestation.valid? and item_identifier.present?
+            import_result.item = create_item(row, manifestation)
+            manifestation.index
+            num[:item_imported] +=1 if import_result.item
+
+            if import_result.item.manifestation.next_reserve
+              current_user = User.where(:username => 'admin').first
+              import_result.item.retain(current_user) if import_result.item.available_for_retain?           
+              import_result.error_msg = I18n.t('resource_import_file.reserved_item', :username => import_result.item.reserve.user.username, :user_number => import_result.item.reserve.user.user_number)
+            end
+          else
+            num[:failed] += 1
+          end
+        rescue => e
+          import_result.error_msg = "FAIL[#{row_num}]: #{e.message}"
+          Rails.logger.info("FAIL[#{row_num} resource registration failed: column #{row_num}: #{e.message}")
+          Rails.logger.info("FAIL[#{row_num} #{$@}")
           num[:failed] += 1
         end
-      rescue => e
-        import_result.error_msg = "FAIL[#{row_num}]: #{e.message}"
-        Rails.logger.info("FAIL[#{row_num} resource registration failed: column #{row_num}: #{e.message}")
-        Rails.logger.info("FAIL[#{row_num} #{$@}")
-        num[:failed] += 1
       end
 
-      #debugger
       import_result.save!
 
       if row_num % 50 == 0
@@ -382,9 +396,20 @@ class ResourceImportFile < ActiveRecord::Base
     subjects
   end
 
+  def select_item_shelf
+    shelf = Shelf.where(:name => row['shelf'].to_s.strip).first 
+    if shelf.nil? && self.user
+      shelf = self.user.library.in_process_shelf
+    end
+    unless shelf 
+      shelf = Shelf.web
+    end
+    shelf
+  end
+
   def create_item(row, manifestation)
     circulation_status = CirculationStatus.where(:name => row['circulation_status'].to_s.strip).first || CirculationStatus.where(:name => 'Available On Shelf').first
-    shelf = Shelf.where(:name => row['shelf'].to_s.strip).first || Shelf.web
+    shelf = select_item_shelf
     bookstore = Bookstore.where(:name => row['bookstore'].to_s.strip).first
     acquired_at = Time.zone.parse(row['acquired_at']) rescue nil
     use_restriction = UseRestriction.where(:name => row['use_restriction'].to_s.strip).first

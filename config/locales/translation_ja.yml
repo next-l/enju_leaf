@@ -1276,7 +1276,7 @@ ja:
         body: 本文
         error_msg: メッセージ
         index: 項番
-        imported_row: 処理済み件数
+        imported_row: 処理済み行数
         display_result: 表示する結果
         all: 全て
         has_msg: メッセージが存在するもの
@@ -2039,6 +2039,8 @@ ja:
     start_importing: "インポートを開始しました。"
     unsuccess_start: "インポート開始に失敗しました。"
     reserved_item : "予約済みの資料です。(ユーザ名: %{username}, 利用者番号: %{user_number})"
+    invalid_isbn: "指定ISBNが不正です。 ISBN: %{isbn}"
+    record_not_found: "指定ISBNの書誌情報を読み込めませんでした。 ISBN: %{isbn}"
   patron_import_file:
     template_download: "テンプレートをダウンロード"
     import_request: "すぐにインポート"
