@@ -439,7 +439,7 @@ describe QuestionsController do
 
       it "redirects to the questions list" do
         delete :destroy, :id => @question.id
-        response.should redirect_to(user_questions_url(assigns(:question).user))
+        response.should redirect_to(questions_url)
       end
     end
 
@@ -454,7 +454,7 @@ describe QuestionsController do
 
       it "redirects to the questions list" do
         delete :destroy, :id => @question.id
-        response.should redirect_to(user_questions_url(assigns(:question).user))
+        response.should redirect_to(questions_url)
       end
     end
 

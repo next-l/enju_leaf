@@ -17,7 +17,7 @@ describe MessageTemplatesController do
 
       it "assigns all message_templates as @message_templates" do
         get :index
-        assigns(:message_templates).should eq(MessageTemplate.all)
+        assigns(:message_templates).should eq(MessageTemplate.page(1))
       end
     end
 
@@ -28,7 +28,7 @@ describe MessageTemplatesController do
 
       it "assigns all message_templates as @message_templates" do
         get :index
-        assigns(:message_templates).should eq(MessageTemplate.all)
+        assigns(:message_templates).should eq(MessageTemplate.page(1))
       end
     end
 
