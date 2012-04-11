@@ -6,12 +6,18 @@ describe Library do
     @library = FactoryGirl.create(:library)
   end
 
-  it "should should create default shelf" do
+  it "should create default shelf" do
     @library.shelves.first.should be_true
     @library.shelves.first.name.should eq "#{@library.name}_default"
 
     @library.shelves.second.should be_true
     @library.shelves.second.open_access.should eq 9
+  end
+
+  it "should return in_process shelf" do
+    shelf = @library.in_process_shelf
+    shelf.should be_true
+    shelf.open_access.should eq 9
   end
 end
 

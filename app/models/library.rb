@@ -53,6 +53,10 @@ class Library < ActiveRecord::Base
     end
   end
 
+  def in_process_shelf
+    self.shelves.find_by_open_access(9)
+  end
+
   def excludescope_shelf_ids
     self.shelves.collect {|c| c.id}
   end
