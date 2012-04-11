@@ -396,7 +396,7 @@ class ResourceImportFile < ActiveRecord::Base
     subjects
   end
 
-  def select_item_shelf
+  def select_item_shelf(row)
     shelf = Shelf.where(:name => row['shelf'].to_s.strip).first 
     if shelf.nil? && self.user
       shelf = self.user.library.in_process_shelf
@@ -409,7 +409,7 @@ class ResourceImportFile < ActiveRecord::Base
 
   def create_item(row, manifestation)
     circulation_status = CirculationStatus.where(:name => row['circulation_status'].to_s.strip).first || CirculationStatus.where(:name => 'Available On Shelf').first
-    shelf = select_item_shelf
+    shelf = select_item_shelf(row)
     bookstore = Bookstore.where(:name => row['bookstore'].to_s.strip).first
     acquired_at = Time.zone.parse(row['acquired_at']) rescue nil
     use_restriction = UseRestriction.where(:name => row['use_restriction'].to_s.strip).first
