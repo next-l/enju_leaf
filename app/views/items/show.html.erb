@@ -11,9 +11,9 @@
 
 <p>
   <strong><%= t('activerecord.models.shelf') -%>:</strong>
-  <%= link_to(@item.shelf_display_name.localize, @item.shelf, :id => @item.shelf.name) -%>
+  <%= link_to(@item.shelf_display_name.localize, @item.shelf, :id => "shelf_item_#{@item.id}") -%>
   <%= render 'items/shelf_picture', :item => @item -%>
-  (<%= link_to(@item.shelf.library.display_name.localize, @item.shelf.library, :id => @item.shelf.library.name) -%>)
+  (<%= link_to(@item.shelf.library.display_name.localize, @item.shelf.library, :id => "library_item_#{@item.id}") -%>)
 </p>
 
 <% if defined?(EnjuCirculation) %>
@@ -153,7 +153,7 @@
 <% if can? :update, @item %>
   <script>
     $(document).ready(function(){
-      $('a#<%= @item.shelf.name %>').qtip({
+      $('a#shelf_item_<%= @item.id %>').qtip({
         position: {
           my: 'bottom left',
           at: 'top center'
@@ -163,7 +163,7 @@
           fixed: true
         }
       });
-      $('a#<%= @item.shelf.library.name %>').qtip({
+      $('a#library_item_<%= @item.id %>').qtip({
         position: {
           my: 'bottom left',
           at: 'top center'
