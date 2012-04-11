@@ -123,7 +123,6 @@ describe PurchaseRequestsController do
       it "should not assign the requested purchase_request as @purchase_request" do
         get :new
         assigns(:purchase_request).should_not be_valid
-        response.should be_forbidden
       end
     end
 
@@ -138,7 +137,8 @@ describe PurchaseRequestsController do
 
   describe "PUT update" do
     before(:each) do
-      @purchase_request = purchase_requests(:purchase_request_00001)
+      #@purchase_request = purchase_requests(:purchase_request_00001)
+      @purchase_request = FactoryGirl.create(:purchase_request)
       @attrs = FactoryGirl.attributes_for(:purchase_request)
       @invalid_attrs = {:title => ''}
     end
