@@ -1,10 +1,18 @@
+<script>
+  function push_user_submit(format) {
+    var o = document.getElementById('form');
+    o.action = "<%= user_checkouts_path(:user => @user, :format => 'pdf') %>";
+    o.submit();
+  }
+</script>
+
 <div id="content_detail" class="ui-corner-all">
 <h1 class="title"><%= t('page.listing', :model => t('activerecord.models.checkout')) -%></h1>
 <div id="content_list">
 <p id="notice"><%= notice %></p>
 <%- unless @checkouts.size == 0 -%>
-  <%= form_for(:checkouts, :url => user_checkouts_path(user), :html => {:method => 'get'}) do -%>
-    <%= submit_tag t('activerecord.attributes.checkout.output_checkoutlist'), :name => 'output_checkouts' -%>
+  <%= form_for(:checkouts, :url => user_checkouts_path(user), :html => {:method => 'get', :id => 'form'}) do -%>
+    <%= submit_tag t('activerecord.attributes.checkout.output_checkoutlist'), :onclick => "push_user_submit('pdf');" -%>
   <%- end -%>
 <%- end -%>
 <%= render 'list' -%>
@@ -40,13 +48,13 @@
     <%- if params[:view] == 'overdue' -%>
       <%= link_to (image_tag 'feed-icon-14x14.png', :size => '14x14', :alt => 'RSS', :title => t('tooltip.feed'), :class => 'icon'), user_checkouts_path(user, :format => :rss, :view => 'overdue') -%>
       (<%= link_to 'RSS', user_checkouts_path(user, :format => :rss, :view => 'overdue') -%>)
-      <%= link_to (image_tag 'icons/page_white_excel.png', :size => '16x16', :alt => 'TSV', :title => 'TSV', :class => 'icon'), user_checkouts_path(user, :output_checkout_list_tsv=> true) -%>
-      (<%= link_to 'TSV', user_checkouts_path(user, :format => :tsv, :view => 'overdue', :locale => @locale.to_s, :output_checkout_list_tsv=> true) -%>)
+      <%= link_to (image_tag 'icons/page_white_excel.png', :size => '16x16', :alt => 'TSV', :title => 'TSV', :class => 'icon'), user_checkouts_path(user, :format => :tsv) -%>
+      (<%= link_to 'TSV', user_checkouts_path(user, :format => :tsv, :view => 'overdue', :locale => @locale.to_s, :format => :tsv) -%>)
     <%- else -%>
       <%= link_to (image_tag 'feed-icon-14x14.png', :size => '14x14', :alt => 'RSS', :title => t('tooltip.feed'), :class => 'icon'), user_checkouts_path(user, :format => :rss) -%>
       (<%= link_to 'RSS', user_checkouts_path(user, :format => :rss) -%>)
-      <%= link_to (image_tag 'icons/page_white_excel.png', :size => '16x16', :alt => 'TSV', :title => 'TSV', :class => 'icon'), user_checkouts_path(user, :output_checkout_list_tsv=> true) -%>
-      (<%= link_to 'TSV', user_checkouts_path(user, :output_checkout_list_tsv=> true) -%>)
+      <%= link_to (image_tag 'icons/page_white_excel.png', :size => '16x16', :alt => 'TSV', :title => 'TSV', :class => 'icon'), user_checkouts_path(user, :format=> :tsv) -%>
+      (<%= link_to 'TSV', user_checkouts_path(user, :format => :tsv) -%>)
     <%- end -%>
   </p>
 
