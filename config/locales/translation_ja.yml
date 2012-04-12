@@ -1784,6 +1784,7 @@ ja:
     address: "住所"
     cannot_delete: "この図書館は削除できません。"
     already_exist_shelf: "図書館作成時のデフォルトの本棚名と同一の本棚が既に存在しています。この名前では図書館の作成ができません。"
+    help_name: "半角英数字で入力してください。"
   shelf:
     cannot_delete: "この本棚は削除できません。"
   import:
