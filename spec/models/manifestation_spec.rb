@@ -241,9 +241,9 @@ end
 #  extent_id                       :integer         default(1), not null
 #  start_page                      :integer
 #  end_page                        :integer
-#  height                          :decimal(, )
-#  width                           :decimal(, )
-#  depth                           :decimal(, )
+#  height                          :integer
+#  width                           :integer
+#  depth                           :integer
 #  isbn                            :string(255)
 #  isbn10                          :string(255)
 #  wrong_isbn                      :string(255)
@@ -288,5 +288,6 @@ end
 #  ndc                             :string(255)
 #  content_type_id                 :integer         default(1)
 #  year_of_publication             :integer
+#  attachment_fingerprint          :string(255)
 #
 
