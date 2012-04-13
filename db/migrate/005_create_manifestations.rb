@@ -16,9 +16,9 @@ class CreateManifestations < ActiveRecord::Migration
       t.integer :extent_id, :default => 1, :null => false
       t.integer :start_page
       t.integer :end_page
-      t.decimal :height
-      t.decimal :width
-      t.decimal :depth
+      t.integer :height
+      t.integer :width
+      t.integer :depth
       t.string :isbn
       t.string :isbn10
       t.string :wrong_isbn
