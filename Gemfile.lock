@@ -59,9 +59,9 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_event.git
-  revision: a3cddfdd69f9f91ad637491d9da9d99a866a2a22
+  revision: 0185e934c6ee83811505839140e6a6c76b69d53d
   specs:
-    enju_event (0.0.9)
+    enju_event (0.1.0)
       acts_as_list (~> 0.1.5)
       addressable
       attribute_normalizer (~> 1.1)
@@ -73,7 +73,7 @@ GIT
       friendly_id (~> 4.0)
       has_scope
       inherited_resources
-      paperclip
+      paperclip (~> 3.0)
       rails (~> 3.2)
       simple_form
       state_machine
@@ -259,7 +259,7 @@ GIT
 
 GIT
   remote: git://github.com/sunspot/sunspot.git
-  revision: c290d353807a23d45d3b07ab4b8cd2b4e12eb682
+  revision: 78068a431160557e8771d675eb885ba46048b9b9
   specs:
     sunspot (2.0.0.pre.111215)
       escape (~> 0.0.4)
@@ -306,20 +306,20 @@ GEM
       rails (~> 3.0)
     acts_as_list (0.1.5)
     addressable (2.2.7)
-    annotate (2.4.0)
+    annotate (2.4.1.beta1)
     arel (3.0.2)
     astrails-safe (0.2.7)
       aws-s3
       cloudfiles
       net-sftp
     attribute_normalizer (1.1.0)
-    awesome_nested_set (2.1.2)
+    awesome_nested_set (2.1.3)
       activerecord (>= 3.0.0)
     aws-s3 (0.6.2)
       builder
       mime-types
       xml-simple
-    aws-sdk (1.3.9)
+    aws-sdk (1.4.0)
       httparty (~> 0.7)
       json (~> 1.4)
       nokogiri (>= 1.4.4)
@@ -339,7 +339,7 @@ GEM
     coffee-script (2.2.0)
       coffee-script-source
       execjs
-    coffee-script-source (1.2.0)
+    coffee-script-source (1.3.1)
     configatron (2.9.0)
       yamler (>= 0.1.0)
     daemons (1.1.8)
@@ -380,10 +380,9 @@ GEM
     guard-rspec (0.7.0)
       guard (>= 0.10.0)
     has_scope (0.5.1)
-    hashie (1.2.0)
     highline (1.6.11)
     hike (1.2.1)
-    httparty (0.8.1)
+    httparty (0.8.2)
       multi_json
       multi_xml
     i18n (0.6.0)
@@ -412,20 +411,20 @@ GEM
       net-ssh (>= 2.0.9)
     net-ssh (2.3.0)
     nokogiri (1.5.2)
-    omniauth (1.0.3)
-      hashie (~> 1.2)
-      rack
     options (2.3.0)
       fattr
     orm_adapter (0.0.7)
     paper_trail (2.6.3)
       activerecord (~> 3.0)
       railties (~> 3.0)
-    paperclip (2.7.0)
-      activerecord (>= 2.3.0)
-      activesupport (>= 2.3.2)
+    paperclip (3.0.2)
+      activemodel (>= 3.0.0)
+      activerecord (>= 3.0.0)
+      activesupport (>= 3.0.0)
       cocaine (>= 0.0.2)
       mime-types
+    paperclip-meta (0.4.1)
+      paperclip
     parallel (0.5.16)
     parallel_tests (0.7.3)
       parallel
@@ -511,7 +510,6 @@ GEM
       rack (~> 1.0)
       tilt (~> 1.1, != 1.3.0)
     state_machine (1.1.2)
-    system_timer (1.2.4)
     thor (0.14.6)
     tilt (1.3.3)
     timecop (0.3.5)
@@ -545,11 +543,11 @@ DEPENDENCIES
   activerecord-jdbc-adapter
   acts_as_list (~> 0.1.5)
   addressable
-  annotate
+  annotate (~> 2.4.1.beta1)
   astrails-safe
   attribute_normalizer (~> 1.1)
   awesome_nested_set (~> 2.1)
-  aws-sdk (~> 1.3)
+  aws-sdk (~> 1.4)
   cancan (>= 1.6.7)
   client_side_validations (~> 3.2.0.beta.3)
   coffee-rails (~> 3.2.1)
@@ -593,10 +591,9 @@ DEPENDENCIES
   library_stdnums
   marc
   mobile-fu
-  nokogiri
-  omniauth (~> 1.0)
   paper_trail (~> 2.6)
-  paperclip (~> 2.7)
+  paperclip (~> 3.0)
+  paperclip-meta
   parallel_tests (~> 0.7)
   pg
   progress_bar
@@ -617,7 +614,6 @@ DEPENDENCIES
   sunspot-rails-tester!
   sunspot_rails!
   sunspot_solr!
-  system_timer
   timecop
   uglifier (>= 1.0.3)
   validates_timeliness

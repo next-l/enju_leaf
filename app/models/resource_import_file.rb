@@ -16,7 +16,6 @@ class ResourceImportFile < ActiveRecord::Base
   validates_attachment_presence :resource_import
   belongs_to :user, :validate => true
   has_many :resource_import_results
-  before_create :set_digest
 
   state_machine :initial => :pending do
     event :sm_start do
@@ -29,12 +28,6 @@ class ResourceImportFile < ActiveRecord::Base
 
     event :sm_fail do
       transition :started => :failed
-    end
-  end
-
-  def set_digest(options = {:type => 'sha1'})
-    if File.exists?(resource_import.queued_for_write[:original])
-      self.file_hash = Digest::SHA1.hexdigest(File.open(resource_import.queued_for_write[:original].path, 'rb').read)
     end
   end
 
@@ -293,15 +286,9 @@ class ResourceImportFile < ActiveRecord::Base
     }
     tempfile.close
 
-    if RUBY_VERSION > '1.9'
-      file = CSV.open(tempfile.path, 'r:utf-8', :col_sep => "\t")
-      header = file.first
-      rows = CSV.open(tempfile.path, 'r:utf-8', :headers => header, :col_sep => "\t")
-    else
-      file = FasterCSV.open(tempfile.path, 'r:utf-8', :col_sep => "\t")
-      header = file.first
-      rows = FasterCSV.open(tempfile.path, 'r:utf-8', :headers => header, :col_sep => "\t")
-    end
+    file = CSV.open(tempfile.path, 'r:utf-8', :col_sep => "\t")
+    header = file.first
+    rows = CSV.open(tempfile.path, 'r:utf-8', :headers => header, :col_sep => "\t")
     ResourceImportResult.create(:resource_import_file => self, :body => header.join("\t"))
     tempfile.close(true)
     file.close
@@ -541,8 +528,9 @@ end
 #  resource_import_content_type :string(255)
 #  resource_import_file_size    :integer
 #  resource_import_updated_at   :datetime
-#  created_at                   :datetime
-#  updated_at                   :datetime
+#  created_at                   :datetime        not null
+#  updated_at                   :datetime        not null
 #  edit_mode                    :string(255)
+#  resource_import_fingerprint  :string(255)
 #
 

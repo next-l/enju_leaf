@@ -138,6 +138,7 @@ describe ItemsController do
 
       it "assigns the requested item as @item" do
         get :new, :manifestation_id => @manifestation.id
+        assigns(:item).save!
         assigns(:item).should be_valid
         response.should be_success
       end

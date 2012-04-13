@@ -53,8 +53,8 @@ end
 #  item_identifier       :string(255)
 #  circulation_status_id :integer         default(5), not null
 #  checkout_type_id      :integer         default(1), not null
-#  created_at            :datetime
-#  updated_at            :datetime
+#  created_at            :datetime        not null
+#  updated_at            :datetime        not null
 #  deleted_at            :datetime
 #  shelf_id              :integer         default(1), not null
 #  include_supplements   :boolean         default(FALSE), not null
@@ -70,5 +70,6 @@ end
 #  acquired_at           :datetime
 #  bookstore_id          :integer
 #  missing_since         :datetime
+#  budget_type_id        :integer
 #
 

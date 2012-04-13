@@ -1,0 +1,65 @@
+message_template_00001:
+  id: 1
+  status: reservation_accepted
+  title: Reservation accepted
+  body: Reservation accepted
+  position: 1
+message_template_00002:
+  id: 2
+  status: item_received
+  title: Item received
+  body: Item received
+  position: 2
+message_template_00003:
+  id: 3
+  status: reservation_expired_for_patron
+  title: Reservation expired
+  body: Reservation expired
+  position: 3
+message_template_00004:
+  id: 4
+  status: reservation_expired_for_library
+  title: Reservation expired
+  body: Reservation expired
+  position: 4
+message_template_00005:
+  id: 5
+  status: reservation_canceled_for_patron
+  title: Reservation canceled
+  body: Reservation canceled
+  position: 5
+message_template_00006:
+  id: 6
+  status: reservation_canceled_for_library
+  title: Reservation canceled
+  body: Reservation canceled
+  position: 6
+message_template_00007:
+  id: 7
+  status: recall_item
+  title: Recall item
+  body: Recall item
+  position: 7
+message_template_00008:
+  id: 8
+  status: recall_overdue_item
+  title: Recall overdue item
+  body: Recall overdue item
+  position: 8
+
+
+
+# == Schema Information
+#
+# Table name: message_templates
+#
+#  id         :integer         not null, primary key
+#  status     :string(255)     not null
+#  title      :text            not null
+#  body       :text            not null
+#  position   :integer
+#  created_at :datetime
+#  updated_at :datetime
+#  locale     :string(255)     default("ja")
+#
+

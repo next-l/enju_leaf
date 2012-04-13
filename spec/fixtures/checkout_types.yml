@@ -1,0 +1,34 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+checkout_type_00001:
+  id: 1
+  name: book  
+  display_name: book
+  note: 
+  position: 1
+checkout_type_00002:
+  id: 2
+  name: serial  
+  display_name: serial
+  note: 
+  position: 2
+checkout_type_00003:
+  id: 3
+  name: cd  
+  display_name: cd
+  note: 
+  position: 3
+
+# == Schema Information
+#
+# Table name: checkout_types
+#
+#  id           :integer         not null, primary key
+#  name         :string(255)     not null
+#  display_name :text
+#  note         :text
+#  position     :integer
+#  created_at   :datetime
+#  updated_at   :datetime
+#
+

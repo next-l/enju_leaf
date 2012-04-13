@@ -175,7 +175,6 @@ class Manifestation < ActiveRecord::Base
   validates :edition, :numericality => {:greater_than => 0}, :allow_blank => true
   before_validation :set_wrong_isbn, :check_issn, :check_lccn, :if => :during_import
   before_validation :convert_isbn, :if => :isbn_changed?
-  before_create :set_digest
   after_create :clear_cached_numdocs
   before_save :set_date_of_publication
   before_save :set_periodical
@@ -343,14 +342,6 @@ class Manifestation < ActiveRecord::Base
       paginate :page => 1, :per_page => 1
     end
     manifestation = response.results.first
-  end
-
-  def set_digest(options = {:type => 'sha1'})
-    if attachment.queued_for_write[:original]
-      if File.exists?(attachment.queued_for_write[:original])
-        self.file_hash = Digest::SHA1.hexdigest(File.open(attachment.queued_for_write[:original].path, 'rb').read)
-      end
-    end
   end
 
   def extract_text
@@ -589,8 +580,8 @@ end
 #  manifestation_identifier        :string(255)
 #  date_of_publication             :datetime
 #  date_copyrighted                :datetime
-#  created_at                      :datetime
-#  updated_at                      :datetime
+#  created_at                      :datetime        not null
+#  updated_at                      :datetime        not null
 #  deleted_at                      :datetime
 #  access_address                  :string(255)
 #  language_id                     :integer         default(1), not null
@@ -644,5 +635,8 @@ end
 #  issue_number                    :integer
 #  serial_number                   :integer
 #  ndc                             :string(255)
+#  content_type_id                 :integer         default(1)
+#  year_of_publication             :integer
+#  attachment_fingerprint          :string(255)
 #
 

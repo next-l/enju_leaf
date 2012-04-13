@@ -17,3 +17,15 @@ class Accept < ActiveRecord::Base
     item.save!
   end
 end
+# == Schema Information
+#
+# Table name: accepts
+#
+#  id           :integer         not null, primary key
+#  basket_id    :integer
+#  item_id      :integer
+#  librarian_id :integer
+#  created_at   :datetime        not null
+#  updated_at   :datetime        not null
+#
+

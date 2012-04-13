@@ -84,7 +84,7 @@ en:
         patron_import_file_name: Filename
         patron_import_content_type: Content type
         patron_import_file_size: Size
-        file_hash: File hash
+        patron_import_fingerprint: File hash
         note: Note
         imported_at: Imported at
         patron_import_updated_at: Updated at
@@ -176,7 +176,7 @@ en:
         height: Height
         width: Width
         thumbnail: Thumbnail
-        file_hash: File hash
+        picture_fingerprint: File hash
         picture_updated_at: Updated at
       form_of_work:
         name: Name
@@ -307,7 +307,7 @@ en:
         resource_import_file_name: Filename
         resource_import_content_type: Content type
         resource_import_file_size: Size
-        file_hash: File hash
+        resource_import_fingerprint: File hash
         note: Note
         imported_at: Imported at
         resource_import_updated_at: Updated at
@@ -328,17 +328,6 @@ en:
         note: Note
         login_banner: Login banner
         post_to_union_catalog: Post to union catalog
-      attachment_file:
-        attachable_type: Attachable type
-        size: Size
-        content_type: Content type
-        title: Title
-        filename: Filename
-        height: Height
-        width: Width
-        thumbnail: Thumbnail
-        fulltext: Fulltext
-        file_hash: File hash
       bookstore:
         name: Name
         zip_code: Zip code

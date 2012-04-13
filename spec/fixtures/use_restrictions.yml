@@ -1,0 +1,93 @@
+--- 
+use_restriction_00001: 
+  name: Available For Supply Without Return  
+  display_name: Available For Supply Without Return
+  id: 1
+  position: 1
+  note: ""
+use_restriction_00002: 
+  name: In Library Use Only  
+  display_name: In Library Use Only
+  id: 2
+  position: 2
+  note: ""
+use_restriction_00003: 
+  name: Limited Circulation, Long Loan Period  
+  display_name: Limited Circulation, Long Loan Period
+  id: 3
+  position: 3
+  note: ""
+use_restriction_00003: 
+  name: Limited Circulation, Normal Loan Period  
+  display_name: Limited Circulation, Normal Loan Period
+  id: 4
+  position: 4
+  note: ""
+use_restriction_00005: 
+  name: Limited Circulation, Short Loan Period  
+  display_name: Limited Circulation, Short Loan Period
+  id: 5
+  position: 5
+  note: ""
+use_restriction_00006: 
+  name: No Reproduction  
+  display_name: No Reproduction
+  id: 6
+  position: 6
+  note: ""
+use_restriction_00007: 
+  name: Not For Loan  
+  display_name: Not For Loan
+  id: 7
+  position: 7
+  note: ""
+use_restriction_00008: 
+  name: Overnight Only  
+  display_name: Overnight Only
+  id: 8
+  position: 8
+  note: ""
+use_restriction_00009: 
+  name: Renewals Not Permitted  
+  display_name: Renewals Not Permitted
+  id: 9
+  position: 9
+  note: ""
+use_restriction_00010: 
+  name: Supervision Required  
+  display_name: Supervision Required
+  id: 10
+  position: 10
+  note: ""
+use_restriction_00011: 
+  name: Term Loan  
+  display_name: Term Loan
+  id: 11
+  position: 11
+  note: ""
+use_restriction_00012: 
+  name: Use Only In Controlled Access  
+  display_name: Use Only In Controlled Access
+  id: 12
+  position: 12
+  note: ""
+use_restriction_00013: 
+  name: User Signature Required  
+  display_name: User Signature Required
+  id: 13
+  position: 13
+  note: ""
+
+# == Schema Information
+#
+# Table name: use_restrictions
+#
+#  id           :integer         not null, primary key
+#  name         :string(255)     not null
+#  display_name :text
+#  note         :text
+#  position     :integer
+#  created_at   :datetime
+#  updated_at   :datetime
+#
+

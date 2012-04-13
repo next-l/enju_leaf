@@ -1,0 +1,31 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+carrier_type_has_checkout_type_00001:
+  id: 1
+  carrier_type_id: 1
+  checkout_type_id: 1
+  note: MyText
+carrier_type_has_checkout_type_00002:
+  id: 2
+  carrier_type_id: 1
+  checkout_type_id: 2
+  note: MyText
+carrier_type_has_checkout_type_00003:
+  id: 3
+  carrier_type_id: 2
+  checkout_type_id: 1
+  note: MyText
+
+# == Schema Information
+#
+# Table name: carrier_type_has_checkout_types
+#
+#  id               :integer         not null, primary key
+#  carrier_type_id  :integer         not null
+#  checkout_type_id :integer         not null
+#  note             :text
+#  position         :integer
+#  created_at       :datetime
+#  updated_at       :datetime
+#
+

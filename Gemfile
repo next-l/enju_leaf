@@ -36,14 +36,6 @@ platforms :ruby do
   gem 'kgio'
 end
 
-platforms :ruby_19 do
-  gem 'simplecov', '~> 0.6', :require => false, :group => :test
-end
-
-platforms :ruby_18 do
-  gem 'system_timer'
-end
-
 platforms :jruby do
   gem 'jruby-openssl'
   gem 'activerecord-jdbc-adapter'
@@ -52,8 +44,6 @@ platforms :jruby do
   gem 'rubyzip2'
   gem 'glassfish'
 end
-
-gem 'fastercsv' if RUBY_VERSION < '1.9'
 
 gem 'will_paginate', '~> 3.0'
 gem 'exception_notification', '~> 2.6.0.rc1'
@@ -67,7 +57,6 @@ gem 'progress_bar'
 gem 'friendly_id', '~> 4.0'
 gem 'inherited_resources', '~> 1.3'
 gem 'has_scope'
-gem 'nokogiri'
 gem 'marc'
 #gem 'attr_encryptor'
 gem 'dalli', '~> 2.0'
@@ -83,10 +72,11 @@ gem 'isbn-tools', :git => 'git://github.com/nabeta/isbn-tools.git', :require => 
 #gem 'extractcontent'
 gem 'cancan', '>= 1.6.7'
 gem 'devise', '~> 2.1.0.rc'
-gem 'omniauth', '~> 1.0'
+#gem 'omniauth', '~> 1.1'
 gem 'addressable'
-gem 'paperclip', '~> 2.7'
-gem 'aws-sdk', '~> 1.3'
+gem 'paperclip', '~> 3.0'
+gem 'paperclip-meta'
+gem 'aws-sdk', '~> 1.4'
 gem 'whenever', :require => false
 #gem 'amazon-ecs', '>= 2.2.0', :require => 'amazon/ecs'
 #gem 'aws-s3', :require => 'aws/s3'
@@ -113,8 +103,10 @@ gem 'rails_autolink'
 
 group :development do
   gem 'parallel_tests', '~> 0.7'
-  gem 'annotate'
+  gem 'annotate', '~> 2.4.1.beta1'
 end
+
+gem 'simplecov', '~> 0.6', :require => false, :group => :test
 
 group :development, :test do
   gem 'rspec-rails', '~> 2.9'

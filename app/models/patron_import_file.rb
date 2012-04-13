@@ -16,8 +16,6 @@ class PatronImportFile < ActiveRecord::Base
   belongs_to :user, :validate => true
   has_many :patron_import_results
 
-  before_create :set_digest
-
   state_machine :initial => :pending do
     event :sm_start do
       transition [:pending, :started] => :started
@@ -29,12 +27,6 @@ class PatronImportFile < ActiveRecord::Base
 
     event :sm_fail do
       transition :started => :failed
-    end
-  end
-
-  def set_digest(options = {:type => 'sha1'})
-    if File.exists?(patron_import.queued_for_write[:original])
-      self.file_hash = Digest::SHA1.hexdigest(File.open(patron_import.queued_for_write[:original].path, 'rb').read)
     end
   end
 
@@ -156,15 +148,9 @@ class PatronImportFile < ActiveRecord::Base
     }
     tempfile.close
 
-    if RUBY_VERSION > '1.9'
-      file = CSV.open(tempfile, :col_sep => "\t")
-      header = file.first
-      rows = CSV.open(tempfile, :headers => header, :col_sep => "\t")
-    else
-      file = FasterCSV.open(tempfile.path, :col_sep => "\t")
-      header = file.first
-      rows = FasterCSV.open(tempfile.path, :headers => header, :col_sep => "\t")
-    end
+    file = CSV.open(tempfile, :col_sep => "\t")
+    header = file.first
+    rows = CSV.open(tempfile, :headers => header, :col_sep => "\t")
     PatronImportResult.create(:patron_import_file => self, :body => header.join("\t"))
     tempfile.close(true)
     file.close
@@ -253,8 +239,9 @@ end
 #  patron_import_content_type :string(255)
 #  patron_import_file_size    :integer
 #  patron_import_updated_at   :datetime
-#  created_at                 :datetime
-#  updated_at                 :datetime
+#  created_at                 :datetime        not null
+#  updated_at                 :datetime        not null
 #  edit_mode                  :string(255)
+#  patron_import_fingerprint  :string(255)
 #
 

@@ -38,13 +38,14 @@ end
 #  users_count                 :integer         default(0), not null
 #  position                    :integer
 #  country_id                  :integer
-#  created_at                  :datetime
-#  updated_at                  :datetime
+#  created_at                  :datetime        not null
+#  updated_at                  :datetime        not null
 #  deleted_at                  :datetime
 #  opening_hour                :text
 #  latitude                    :float
 #  longitude                   :float
 #  calil_systemid              :string(255)
 #  calil_neighborhood_systemid :text
+#  isil                        :string(255)
 #
 

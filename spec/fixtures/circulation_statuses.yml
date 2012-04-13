@@ -1,0 +1,127 @@
+--- 
+circulation_status_00005: 
+  name: In Process  
+  display_name: In Process
+  updated_at: 2008-02-15 17:31:42.422676 +09:00
+  id: 5
+  note: ""
+  created_at: 2008-02-15 17:31:42.422676 +09:00
+  position: 5
+circulation_status_00006: 
+  name: In Transit Between Library Locations  
+  display_name: In Transit Between Library Locations
+  updated_at: 2008-02-15 17:31:51.227056 +09:00
+  id: 6
+  note: ""
+  created_at: 2008-02-15 17:31:51.227056 +09:00
+  position: 6
+circulation_status_00007: 
+  name: Lost  
+  display_name: Lost
+  updated_at: 2008-02-15 17:31:58.627987 +09:00
+  id: 7
+  note: ""
+  created_at: 2008-02-15 17:31:58.627987 +09:00
+  position: 7
+circulation_status_00008: 
+  name: Missing  
+  display_name: Missing
+  updated_at: 2008-02-15 17:32:07.006541 +09:00
+  id: 8
+  note: ""
+  created_at: 2008-02-15 17:32:07.006541 +09:00
+  position: 8
+circulation_status_00010: 
+  name: On Loan  
+  display_name: On Loan
+  updated_at: 2008-02-15 17:32:22.969896 +09:00
+  id: 10
+  note: ""
+  created_at: 2008-02-15 17:32:22.969896 +09:00
+  position: 10
+circulation_status_00009: 
+  name: Not Available  
+  display_name: Not Available
+  updated_at: 2008-02-15 17:32:15.454067 +09:00
+  id: 9
+  note: ""
+  created_at: 2008-02-15 17:32:15.454067 +09:00
+  position: 9
+circulation_status_00011: 
+  name: On Order  
+  display_name: On Order
+  updated_at: 2008-02-15 17:32:30.675735 +09:00
+  id: 11
+  note: ""
+  created_at: 2008-02-15 17:32:30.675735 +09:00
+  position: 11
+circulation_status_00012: 
+  name: Pending Transfer  
+  display_name: Pending Transfer
+  updated_at: 2008-02-15 17:32:39.395000 +09:00
+  id: 12
+  note: ""
+  created_at: 2008-02-15 17:32:39.395000 +09:00
+  position: 12
+circulation_status_00001: 
+  name: Available For Pickup  
+  display_name: Available For Pickup
+  updated_at: 2008-02-15 17:31:10.588524 +09:00
+  id: 1
+  note: ""
+  created_at: 2008-02-15 17:31:10.588524 +09:00
+  position: 1
+circulation_status_00002: 
+  name: Available On Shelf  
+  display_name: Available On Shelf
+  updated_at: 2008-02-15 17:31:18.946298 +09:00
+  id: 2
+  note: ""
+  created_at: 2008-02-15 17:31:18.946298 +09:00
+  position: 2
+circulation_status_00013: 
+  name: Recalled  
+  display_name: Recalled
+  updated_at: 2008-02-15 17:32:48.355304 +09:00
+  id: 13
+  note: ""
+  created_at: 2008-02-15 17:32:48.355304 +09:00
+  position: 13
+circulation_status_00014: 
+  name: Waiting To Be Reshelved  
+  display_name: Waiting To Be Reshelved
+  updated_at: 2008-02-15 17:32:59.078750 +09:00
+  id: 14
+  note: ""
+  created_at: 2008-02-15 17:32:59.078750 +09:00
+  position: 14
+circulation_status_00003: 
+  name: Circulation Status Undefined  
+  display_name: Circulation Status Undefined
+  updated_at: 2008-02-15 17:31:26.564769 +09:00
+  id: 3
+  note: ""
+  created_at: 2008-02-15 17:31:26.564769 +09:00
+  position: 3
+circulation_status_00004: 
+  name: Claimed Returned Or Never Borrowed  
+  display_name: Claimed Returned Or Never Borrowed
+  updated_at: 2008-02-15 17:31:35.786404 +09:00
+  id: 4
+  note: ""
+  created_at: 2008-02-15 17:31:35.786404 +09:00
+  position: 4
+
+# == Schema Information
+#
+# Table name: circulation_statuses
+#
+#  id           :integer         not null, primary key
+#  name         :string(255)     not null
+#  display_name :text
+#  note         :text
+#  position     :integer
+#  created_at   :datetime
+#  updated_at   :datetime
+#
+

@@ -16,26 +16,10 @@ class PictureFile < ActiveRecord::Base
   default_scope :order => 'position'
   # http://railsforum.com/viewtopic.php?id=11615
   acts_as_list :scope => 'picture_attachable_type=\'#{picture_attachable_type}\''
-  before_create :set_digest, :set_dimensions
   normalize_attributes :picture_attachable_type
 
   def self.per_page
     10
-  end
-
-  def set_digest(options = {:type => 'sha1'})
-    if File.exists?(picture.queued_for_write[:original])
-      self.file_hash = Digest::SHA1.hexdigest(File.open(picture.queued_for_write[:original].path, 'rb').read)
-    end
-  end
-
-  def set_dimensions
-    file = picture.queued_for_write[:original]
-    if File.exists?(file)
-      dimensions = ::Paperclip::Geometry.from_file(file)
-      self.width = dimensions.width
-      self.height = dimensions.height
-    end
   end
 
   def extname
@@ -68,11 +52,13 @@ end
 #  thumbnail               :string(255)
 #  file_hash               :string(255)
 #  position                :integer
-#  created_at              :datetime
-#  updated_at              :datetime
+#  created_at              :datetime        not null
+#  updated_at              :datetime        not null
 #  picture_file_name       :string(255)
 #  picture_content_type    :string(255)
 #  picture_file_size       :integer
 #  picture_updated_at      :datetime
+#  picture_fingerprint     :string(255)
+#  meta                    :text
 #
 

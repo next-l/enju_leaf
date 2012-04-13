@@ -65,7 +65,7 @@ describe ResourceImportFile do
         manifestation_104.creators.collect(&:full_name).should eq ['test3']
         manifestation_104.publishers.collect(&:full_name).should eq ['test4']
 
-        @file.file_hash.should be_true
+        @file.resource_import_fingerprint.should be_true
       end
     end
 
@@ -98,7 +98,7 @@ describe ResourceImportFile do
         item.manifestation.price.should eq 1000
         item.price.should eq 0
         item.manifestation.publishers.size.should eq 2
-        @file.file_hash.should be_true
+        @file.resource_import_fingerprint.should be_true
       end
     end
 
@@ -155,8 +155,9 @@ end
 #  resource_import_content_type :string(255)
 #  resource_import_file_size    :integer
 #  resource_import_updated_at   :datetime
-#  created_at                   :datetime
-#  updated_at                   :datetime
+#  created_at                   :datetime        not null
+#  updated_at                   :datetime        not null
 #  edit_mode                    :string(255)
+#  resource_import_fingerprint  :string(255)
 #
 
