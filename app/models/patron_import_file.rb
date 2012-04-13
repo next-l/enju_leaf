@@ -94,6 +94,7 @@ class PatronImportFile < ActiveRecord::Base
   rescue => e
     self.error_message = "line #{row_num}: #{e.message}"
     sm_fail!
+    raise e
   end
 
   def self.import
@@ -123,6 +124,7 @@ class PatronImportFile < ActiveRecord::Base
   rescue => e
     self.error_message = "line #{row_num}: #{e.message}"
     sm_fail!
+    raise e
   end
 
   def remove
@@ -141,6 +143,7 @@ class PatronImportFile < ActiveRecord::Base
   rescue => e
     self.error_message = "line #{row_num}: #{e.message}"
     sm_fail!
+    raise e
   end
 
   private

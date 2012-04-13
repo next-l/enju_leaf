@@ -139,6 +139,7 @@ class ResourceImportFile < ActiveRecord::Base
   rescue => e
     self.error_message = "line #{row_num}: #{e.message}"
     sm_fail!
+    raise e
   end
 
   def self.import_work(title, patrons, options = {:edit_mode => 'create'})
@@ -254,6 +255,7 @@ class ResourceImportFile < ActiveRecord::Base
   rescue => e
     self.error_message = "line #{row_num}: #{e.message}"
     sm_fail!
+    raise e
   end
 
   def remove
@@ -272,6 +274,7 @@ class ResourceImportFile < ActiveRecord::Base
   rescue => e
     self.error_message = "line #{row_num}: #{e.message}"
     sm_fail!
+    raise e
   end
 
   private
