@@ -1,6 +1,6 @@
 //= require jquery
-//= require jquery-ui
 //= require jquery_ujs
+//= require jquery-ui
 //= require jquery.colorbox
 //= require jquery.highlight
 //= require jquery.hotkeys
