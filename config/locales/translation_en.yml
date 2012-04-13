@@ -90,6 +90,7 @@ en:
         patron_import_updated_at: Updated at
         state: State
         edit_mode: Edit mode
+        error_message: Error message
       patron:
         last_name: Last name
         middle_name: Middle name
@@ -313,6 +314,7 @@ en:
         resource_import_updated_at: Updated at
         state: State
         edit_mode: Edit mode
+        error_message: Error message
       subscription:
         title: Title
         note: Note
