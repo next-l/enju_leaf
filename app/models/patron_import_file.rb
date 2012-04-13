@@ -121,6 +121,7 @@ class PatronImportFile < ActiveRecord::Base
   def modify
     rows = open_import_file
     rows.each do |row|
+      next if row['dummy'].to_s.strip.present?
       user = User.where(:user_number => row['user_number'].to_s.strip).first
       if user.try(:patron)
         set_patron_value(user.patron, row)
@@ -129,16 +130,25 @@ class PatronImportFile < ActiveRecord::Base
         user.save!
       end
     end
+  rescue => e
+    self.error_message = "line #{row_num}: #{e.message}"
+    sm_fail!
   end
 
   def remove
     rows = open_import_file
+    row_num = 2
     rows.each do |row|
+      next if row['dummy'].to_s.strip.present?
       user = User.where(:user_number => row['user_number'].to_s.strip).first
       if user.try(:deletable?)
         user.destroy
       end
+      row_num += 1
     end
+  rescue => e
+    self.error_message = "line #{row_num}: #{e.message}"
+    sm_fail!
   end
 
   private
@@ -256,5 +266,6 @@ end
 #  created_at                 :datetime        not null
 #  updated_at                 :datetime        not null
 #  edit_mode                  :string(255)
+#  error_message              :text
 #
 
