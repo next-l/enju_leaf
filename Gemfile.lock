@@ -83,7 +83,7 @@ GEM
       builder
       mime-types
       xml-simple
-    aws-sdk (1.3.9)
+    aws-sdk (1.4.0)
       httparty (~> 0.7)
       json (~> 1.4)
       nokogiri (>= 1.4.4)
@@ -289,10 +289,9 @@ GEM
     guard-rspec (0.7.0)
       guard (>= 0.10.0)
     has_scope (0.5.1)
-    hashie (1.2.0)
     highline (1.6.11)
     hike (1.2.1)
-    httparty (0.8.1)
+    httparty (0.8.2)
       multi_json
       multi_xml
     i18n (0.6.0)
@@ -321,9 +320,6 @@ GEM
       net-ssh (>= 2.0.9)
     net-ssh (2.3.0)
     nokogiri (1.5.2)
-    omniauth (1.0.3)
-      hashie (~> 1.2)
-      rack
     options (2.3.0)
       fattr
     orm_adapter (0.0.7)
@@ -467,7 +463,7 @@ DEPENDENCIES
   astrails-safe
   attribute_normalizer (~> 1.1)
   awesome_nested_set (~> 2.1)
-  aws-sdk (~> 1.3)
+  aws-sdk (~> 1.4)
   cancan (>= 1.6.7)
   client_side_validations
   coffee-rails (~> 3.2.1)
@@ -510,8 +506,6 @@ DEPENDENCIES
   library_stdnums
   marc
   mobile-fu
-  nokogiri
-  omniauth (~> 1.0)
   paper_trail (~> 2.6)
   paperclip (~> 2.7)
   parallel_tests (~> 0.7)
