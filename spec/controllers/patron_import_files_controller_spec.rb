@@ -139,11 +139,14 @@ describe PatronImportFilesController do
         old_patrons_count = Patron.count
         old_users_count = User.count
         post :create, :patron_import_file => {:patron_import => fixture_file_upload("/../../examples/patron_import_file_sample2.tsv", 'text/csv') }
-        assigns(:patron_import_file).import_start
-        Patron.count.should eq old_patrons_count + 2
-        User.count.should eq old_users_count + 1
-        response.should redirect_to patron_import_file_url(assigns(:patron_import_file))
-        assigns(:patron_import_file).error_message.should be_true
+        begin
+          assigns(:patron_import_file).import_start
+        rescue ActiveRecord::RecordInvalid
+          Patron.count.should eq old_patrons_count + 2
+          User.count.should eq old_users_count + 1
+          response.should redirect_to patron_import_file_url(assigns(:patron_import_file))
+          assigns(:patron_import_file).error_message.should be_true
+        end
       end
     end
 
