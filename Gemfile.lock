@@ -70,7 +70,7 @@ GEM
       rails (~> 3.0)
     acts_as_list (0.1.5)
     addressable (2.2.7)
-    annotate (2.4.0)
+    annotate (2.4.1.beta1)
     arel (3.0.2)
     astrails-safe (0.2.7)
       aws-s3
@@ -268,7 +268,7 @@ GEM
     erubis (2.7.0)
     escape (0.0.4)
     event-calendar (2.3.3)
-    exception_notification (2.5.2)
+    exception_notification (2.6.0)
       actionmailer (>= 3.0.4)
     execjs (1.3.0)
       multi_json (~> 1.0)
@@ -459,7 +459,7 @@ DEPENDENCIES
   activerecord-jdbc-adapter
   acts_as_list (~> 0.1.5)
   addressable
-  annotate
+  annotate (~> 2.4.1.beta1)
   astrails-safe
   attribute_normalizer (~> 1.1)
   awesome_nested_set (~> 2.1)
@@ -488,7 +488,7 @@ DEPENDENCIES
   enju_resource_merge (~> 0.0.5)
   enju_search_log (~> 0.0.2)
   enju_subject (~> 0.0.9)
-  exception_notification (~> 2.5)
+  exception_notification (~> 2.6)
   factory_girl_rails (~> 3.0)
   fakeweb
   file_wrapper

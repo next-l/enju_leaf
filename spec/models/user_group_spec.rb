@@ -12,12 +12,11 @@ end
 #
 #  id                               :integer         not null, primary key
 #  name                             :string(255)
-#  string                           :string(255)
 #  display_name                     :text
 #  note                             :text
 #  position                         :integer
-#  created_at                       :datetime
-#  updated_at                       :datetime
+#  created_at                       :datetime        not null
+#  updated_at                       :datetime        not null
 #  deleted_at                       :datetime
 #  valid_period_for_new_user        :integer         default(0), not null
 #  expired_at                       :datetime

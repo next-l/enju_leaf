@@ -253,8 +253,8 @@ end
 #  patron_import_content_type :string(255)
 #  patron_import_file_size    :integer
 #  patron_import_updated_at   :datetime
-#  created_at                 :datetime
-#  updated_at                 :datetime
+#  created_at                 :datetime        not null
+#  updated_at                 :datetime        not null
 #  edit_mode                  :string(255)
 #
 

@@ -232,8 +232,8 @@ end
 #  manifestation_identifier        :string(255)
 #  date_of_publication             :datetime
 #  date_copyrighted                :datetime
-#  created_at                      :datetime
-#  updated_at                      :datetime
+#  created_at                      :datetime        not null
+#  updated_at                      :datetime        not null
 #  deleted_at                      :datetime
 #  access_address                  :string(255)
 #  language_id                     :integer         default(1), not null
@@ -287,5 +287,7 @@ end
 #  issue_number                    :integer
 #  serial_number                   :integer
 #  ndc                             :string(255)
+#  content_type_id                 :integer         default(1)
+#  year_of_publication             :integer
 #
 

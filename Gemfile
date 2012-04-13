@@ -56,7 +56,7 @@ end
 gem 'fastercsv' if RUBY_VERSION < '1.9'
 
 gem 'will_paginate', '~> 3.0'
-gem 'exception_notification', '~> 2.5'
+gem 'exception_notification', '~> 2.6'
 gem 'configatron'
 gem 'delayed_job_active_record'
 gem 'daemons'
@@ -112,7 +112,7 @@ gem 'rails_autolink'
 
 group :development do
   gem 'parallel_tests', '~> 0.7'
-  gem 'annotate'
+  gem 'annotate', '~> 2.4.1.beta1'
 end
 
 group :development, :test do

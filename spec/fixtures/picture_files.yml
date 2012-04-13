@@ -64,8 +64,8 @@ picture_file_00004:
 #  thumbnail               :string(255)
 #  file_hash               :string(255)
 #  position                :integer
-#  created_at              :datetime
-#  updated_at              :datetime
+#  created_at              :datetime        not null
+#  updated_at              :datetime        not null
 #  picture_file_name       :string(255)
 #  picture_content_type    :string(255)
 #  picture_file_size       :integer
