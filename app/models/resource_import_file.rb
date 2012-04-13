@@ -251,7 +251,7 @@ class ResourceImportFile < ActiveRecord::Base
       row_num += 1
     end
     sm_complete!
-  rescue
+  rescue => e
     self.error_message = "line #{row_num}: #{e.message}"
     sm_fail!
   end
@@ -269,7 +269,7 @@ class ResourceImportFile < ActiveRecord::Base
       row_num += 1
     end
     sm_complete!
-  rescue
+  rescue => e
     self.error_message = "line #{row_num}: #{e.message}"
     sm_fail!
   end
