@@ -1735,7 +1735,7 @@ ja:
   question:
     my: "自分の質問"
     all: "全ての質問"
-    number_of_search_results: "%{count} 件の資料が見つかりました。"
+    number_of_search_results: "%{count} 件の質問が見つかりました。"
     user_question: "%{login_name} さんの質問"
     no_record_found: "事例が見つかりませんでした。"
     library_group_question: "%{library_group_name} での質問"
