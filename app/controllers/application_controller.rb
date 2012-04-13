@@ -361,6 +361,10 @@ class ApplicationController < ActionController::Base
       else
         session[:mobile_view] = true
       end
+    else
+      if is_mobile_device?
+        session[:mobile_view] = true
+      end
     end
   end
 

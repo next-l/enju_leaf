@@ -10,7 +10,6 @@ class CreatePictureFiles < ActiveRecord::Migration
       t.integer :height
       t.integer :width
       t.string :thumbnail
-      t.string :file_hash
       t.integer :position
 
       t.timestamps

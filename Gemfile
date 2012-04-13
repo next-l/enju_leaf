@@ -46,7 +46,7 @@ platforms :jruby do
 end
 
 gem 'will_paginate', '~> 3.0'
-gem 'exception_notification', '~> 2.6.0.rc1'
+gem 'exception_notification', '~> 2.6'
 gem 'configatron'
 gem 'delayed_job_active_record'
 gem 'daemons'
@@ -111,7 +111,7 @@ gem 'simplecov', '~> 0.6', :require => false, :group => :test
 group :development, :test do
   gem 'rspec-rails', '~> 2.9'
   gem 'guard-rspec'
-  gem 'factory_girl_rails', '~> 3.0'
+  gem 'factory_girl_rails', '~> 3.1'
   gem 'spork-rails'
 #  gem 'rcov', '0.9.11'
 #  gem 'metric_fu', '~> 2.1'

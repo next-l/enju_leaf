@@ -58,38 +58,29 @@ class PatronImportFile < ActiveRecord::Base
       next if row['dummy'].to_s.strip.present?
       import_result = PatronImportResult.create!(:patron_import_file => self, :body => row.fields.join("\t"))
 
-      begin
-        patron = Patron.new
-        patron = set_patron_value(patron, row)
+      patron = Patron.new
+      patron = set_patron_value(patron, row)
 
-        if patron.save!
-          import_result.patron = patron
-          num[:patron_imported] += 1
-          if row_num % 50 == 0
-            Sunspot.commit
-            GC.start
-          end
+      if patron.save!
+        import_result.patron = patron
+        num[:patron_imported] += 1
+        if row_num % 50 == 0
+          Sunspot.commit
+          GC.start
         end
-      rescue
-        Rails.logger.info("patron import failed: column #{row_num}")
-        num[:failed] += 1
       end
 
       unless row['username'].to_s.strip.blank?
-        begin
-          user = User.new
-          user.patron = patron
-          set_user_value(user, row)
-          if user.password.blank?
-            user.set_auto_generated_password
-          end
-          if user.save!
-            import_result.user = user
-          end
-          num[:user_imported] += 1
-        rescue ActiveRecord::RecordInvalid
-          Rails.logger.info("user import failed: column #{row_num}")
+        user = User.new
+        user.patron = patron
+        set_user_value(user, row)
+        if user.password.blank?
+          user.set_auto_generated_password
         end
+        if user.save!
+          import_result.user = user
+        end
+        num[:user_imported] += 1
       end
 
       import_result.save!
@@ -100,6 +91,9 @@ class PatronImportFile < ActiveRecord::Base
     rows.close
     sm_complete!
     return num
+  rescue => e
+    self.error_message = "line #{row_num}: #{e.message}"
+    sm_fail!
   end
 
   def self.import
@@ -111,8 +105,11 @@ class PatronImportFile < ActiveRecord::Base
   end
 
   def modify
+    sm_start!
     rows = open_import_file
+    row_num = 2
     rows.each do |row|
+      next if row['dummy'].to_s.strip.present?
       user = User.where(:user_number => row['user_number'].to_s.strip).first
       if user.try(:patron)
         set_patron_value(user.patron, row)
@@ -120,17 +117,30 @@ class PatronImportFile < ActiveRecord::Base
         set_user_value(user, row)
         user.save!
       end
+      row_num += 1
     end
+    sm_complete!
+  rescue => e
+    self.error_message = "line #{row_num}: #{e.message}"
+    sm_fail!
   end
 
   def remove
+    sm_start!
     rows = open_import_file
+    row_num = 2
     rows.each do |row|
+      next if row['dummy'].to_s.strip.present?
       user = User.where(:user_number => row['user_number'].to_s.strip).first
       if user.try(:deletable?)
         user.destroy
       end
+      row_num += 1
     end
+    sm_complete!
+  rescue => e
+    self.error_message = "line #{row_num}: #{e.message}"
+    sm_fail!
   end
 
   private
@@ -230,7 +240,6 @@ end
 #  parent_id                  :integer
 #  content_type               :string(255)
 #  size                       :integer
-#  file_hash                  :string(255)
 #  user_id                    :integer
 #  note                       :text
 #  imported_at                :datetime
@@ -243,5 +252,6 @@ end
 #  updated_at                 :datetime        not null
 #  edit_mode                  :string(255)
 #  patron_import_fingerprint  :string(255)
+#  error_message              :text
 #
 

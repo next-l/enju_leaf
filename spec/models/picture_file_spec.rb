@@ -20,7 +20,6 @@ end
 #  height                  :integer
 #  width                   :integer
 #  thumbnail               :string(255)
-#  file_hash               :string(255)
 #  position                :integer
 #  created_at              :datetime        not null
 #  updated_at              :datetime        not null
@@ -28,7 +27,7 @@ end
 #  picture_content_type    :string(255)
 #  picture_file_size       :integer
 #  picture_updated_at      :datetime
-#  picture_fingerprint     :string(255)
 #  meta                    :text
+#  picture_fingerprint     :string(255)
 #
 

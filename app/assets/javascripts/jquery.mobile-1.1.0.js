@@ -1,5 +1,5 @@
 /*
-* jQuery Mobile Framework 1.1.0-rc.2 0837c4a738b4f306ff6437f021100b350a753e11
+* jQuery Mobile Framework 1.1.0 db342b1f315c282692791aa870455901fdb46a55
 * http://jquerymobile.com
 *
 * Copyright 2011 (c) jQuery Project
@@ -1240,7 +1240,7 @@ $.widget( "mobile.widget", {
 	$.mobile = $.extend( {}, {
 
 		// Version of the jQuery Mobile Framework
-		version: "1.1.0-rc.2",
+		version: "1.1.0",
 
 		// Namespace used framework-wide for data-attrs. Default is no namespace
 		ns: "",
@@ -7174,8 +7174,8 @@ $( document ).bind( "pagecreate create", function( e ){
 					if( o.disablePageZoom ){
 						$.mobile.zoom.disable( true );
 					}
-					if( o.visibleOnPageShow ){
-						self.show( true );
+					if( !o.visibleOnPageShow ){
+						self.hide( true );
 					}
 				} )
 				.bind( "webkitAnimationStart animationstart updatelayout", function(){
@@ -7219,7 +7219,7 @@ $( document ).bind( "pagecreate create", function( e ){
 				});
 		},
 
-		_visible: false,
+		_visible: true,
 
 		// This will set the content element's top or bottom padding equal to the toolbar's height
 		updatePagePadding: function() {

@@ -146,7 +146,6 @@ end
 #  parent_id                    :integer
 #  content_type                 :string(255)
 #  size                         :integer
-#  file_hash                    :string(255)
 #  user_id                      :integer
 #  note                         :text
 #  imported_at                  :datetime
@@ -159,5 +158,6 @@ end
 #  updated_at                   :datetime        not null
 #  edit_mode                    :string(255)
 #  resource_import_fingerprint  :string(255)
+#  error_message                :text
 #
 
