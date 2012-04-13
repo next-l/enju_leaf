@@ -212,14 +212,14 @@ GEM
       sunspot_rails
       sunspot_solr
       will_paginate (~> 3.0)
-    enju_purchase_request (0.0.6)
+    enju_purchase_request (0.0.7)
       acts_as_list (~> 0.1.5)
       addressable
       attribute_normalizer (~> 1.1)
       cancan
       configatron
       devise
-      rails (~> 3.1)
+      rails (~> 3.2)
       state_machine
       sunspot_rails
       sunspot_solr
@@ -483,7 +483,7 @@ DEPENDENCIES
   enju_message (~> 0.0.14)
   enju_ndl (~> 0.0.19)
   enju_oai!
-  enju_purchase_request (~> 0.0.6)
+  enju_purchase_request (~> 0.0.7)
   enju_question (~> 0.0.12)
   enju_resource_merge (~> 0.0.6)
   enju_search_log (~> 0.0.3)
