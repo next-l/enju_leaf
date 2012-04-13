@@ -257,9 +257,11 @@ class ResourceImportFile < ActiveRecord::Base
         item.save!
         ExpireFragmentCache.expire_fragment_cache(item.manifestation)
       end
+      row_num += 1
     end
     sm_complete!
-  rescue
+  rescue => e
+    self.error_message = "line #{row_num}: #{e.message}"
     sm_fail!
   end
 
@@ -272,9 +274,11 @@ class ResourceImportFile < ActiveRecord::Base
       if item
         item.destroy if item.deletable?
       end
+      row_num += 1
     end
     sm_complete!
-  rescue
+  rescue => e
+    self.error_message = "line #{row_num}: #{e.message}"
     sm_fail!
   end
 
