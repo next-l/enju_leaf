@@ -2241,6 +2241,11 @@ class Statistic < ActiveRecord::Base
     end
   end
 
+  def self.calc_sum_prev_month
+    date = Time.now.prev_month.strftime("%Y%m")
+    calc_sum(date, true)
+  end
+
   def self.calc_sum(date = nil, monthly = false)
     s =  "start calc_sum #{Time.now} parameter date=#{date} monthly=#{monthly}"
     puts s ; logger.info s
