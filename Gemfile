@@ -118,7 +118,7 @@ end
 group :development, :test do
   gem 'rspec-rails', '~> 2.9'
   gem 'guard-rspec'
-  gem 'factory_girl_rails', '~> 3.0'
+  gem 'factory_girl_rails', '~> 3.1'
   gem 'spork-rails'
 #  gem 'rcov', '0.9.11'
 #  gem 'metric_fu', '~> 2.1'
