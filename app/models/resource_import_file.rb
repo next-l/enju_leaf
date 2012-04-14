@@ -119,16 +119,12 @@ class ResourceImportFile < ActiveRecord::Base
       end
       import_result.manifestation = manifestation
 
-      #begin
-        if manifestation and item_identifier.present?
-          import_result.item = create_item(row, manifestation)
-          manifestation.index
-        else
-          num[:failed] += 1
-        end
-      #rescue Exception => e
-      #  Rails.logger.info("resource registration failed: column #{row_num}: #{e.message}")
-      #end
+      if manifestation and item_identifier.present?
+        import_result.item = create_item(row, manifestation)
+        manifestation.index
+      else
+        num[:failed] += 1
+      end
 
       ExpireFragmentCache.expire_fragment_cache(manifestation)
       import_result.save!
@@ -232,6 +228,7 @@ class ResourceImportFile < ActiveRecord::Base
   def modify
     sm_start!
     rows = open_import_file
+    row_num = 2
     rows.each do |row|
       item_identifier = row['item_identifier'].to_s.strip
       item = Item.where(:item_identifier => item_identifier).first if item_identifier.present?
@@ -270,6 +267,7 @@ class ResourceImportFile < ActiveRecord::Base
   def remove
     sm_start!
     rows = open_import_file
+    row_num = 2
     rows.each do |row|
       item_identifier = row['item_identifier'].to_s.strip
       item = Item.where(:item_identifier => item_identifier).first
