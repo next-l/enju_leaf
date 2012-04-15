@@ -107,9 +107,9 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_inventory.git
-  revision: 7d3ab1992135c549f5acc7a8bbb37889d3130b72
+  revision: 03b2d6cc50505273505c7785ca76344991dddd4a
   specs:
-    enju_inventory (0.1.0)
+    enju_inventory (0.1.1)
       cancan
       devise
       inherited_resources
