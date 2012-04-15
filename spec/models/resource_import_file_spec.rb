@@ -62,7 +62,7 @@ describe ResourceImportFile do
         item_10104.budget_type.name.should eq 'Public fund'
         item_10104.bookstore.should be_nil
 
-        @file.file_hash.should be_true
+        @file.resource_import_fingerprint.should be_true
       end
     end
 
@@ -95,7 +95,7 @@ describe ResourceImportFile do
         item.manifestation.price.should eq 1000
         item.price.should eq 0
         item.manifestation.publishers.size.should eq 2
-        @file.file_hash.should be_true
+        @file.resource_import_fingerprint.should be_true
       end
     end
 
