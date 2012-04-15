@@ -49,5 +49,7 @@ end
 #  picture_content_type    :string(255)
 #  picture_file_size       :integer
 #  picture_updated_at      :datetime
+#  meta                    :text
+#  picture_fingerprint     :string(255)
 #
 

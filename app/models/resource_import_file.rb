@@ -539,5 +539,6 @@ end
 #  updated_at                   :datetime        not null
 #  edit_mode                    :string(255)
 #  error_message                :text
+#  resource_import_fingerprint  :string(255)
 #
 

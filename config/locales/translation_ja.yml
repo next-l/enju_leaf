@@ -83,7 +83,7 @@ ja:
         patron_import_file_name: ファイル名
         patron_import_content_type: Content-Type
         patron_import_file_size: ファイルサイズ
-        file_hash: ファイルのハッシュ
+        patron_import_fingerprint: ファイルのハッシュ
         note: 注記
         imported_at: インポート時刻
         patron_import_updated_at: 更新時刻
@@ -176,7 +176,7 @@ ja:
         height: 高さ
         width: 幅
         thumbnail: サムネイル
-        file_hash: ファイルのハッシュ
+        picture_fingerprint: ファイルのハッシュ
         picture_updated_at: 更新時刻
       form_of_work:
         name: 名前
@@ -307,7 +307,7 @@ ja:
         resource_import_file_name: ファイル名
         resource_import_content_type: Content-Type
         resource_import_file_size: ファイルサイズ
-        file_hash: ファイルのハッシュ
+        resource_import_fingerprint: ファイルのハッシュ
         note: 注記
         imported_at: インポート時刻
         resource_import_updated_at: 更新時刻
@@ -329,17 +329,6 @@ ja:
         note: 注記
         login_banner: ログイン画面でのメッセージ
         post_to_union_catalog: 総合目録に登録する
-      attachment_file:
-        attachable_type: 添付可能な種類
-        size: ファイルサイズ
-        content_type: Content-Type
-        title: タイトル
-        filename: ファイル名
-        height: 高さ
-        width: 幅
-        thumbnail: サムネイル
-        fulltext: 全文
-        file_hash: ファイルのハッシュ
       bookstore:
         name: 名前
         zip_code: 郵便番号
