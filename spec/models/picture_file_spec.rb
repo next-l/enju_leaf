@@ -13,12 +13,9 @@ end
 #  id                      :integer         not null, primary key
 #  picture_attachable_id   :integer
 #  picture_attachable_type :string(255)
-#  size                    :integer
 #  content_type            :string(255)
 #  title                   :text
 #  filename                :text
-#  height                  :integer
-#  width                   :integer
 #  thumbnail               :string(255)
 #  position                :integer
 #  created_at              :datetime        not null
@@ -27,7 +24,6 @@ end
 #  picture_content_type    :string(255)
 #  picture_file_size       :integer
 #  picture_updated_at      :datetime
-#  meta                    :text
 #  picture_fingerprint     :string(255)
 #
 

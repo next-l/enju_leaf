@@ -289,5 +289,6 @@ end
 #  content_type_id                 :integer         default(1)
 #  year_of_publication             :integer
 #  attachment_fingerprint          :string(255)
+#  attachment_meta                 :text
 #
 
