@@ -86,7 +86,7 @@ en:
         patron_import_file_size: Size
         patron_import_fingerprint: File hash
         note: Note
-        executed_at: Imported at
+        executed_at: Executed at
         patron_import_updated_at: Updated at
         state: State
         edit_mode: Edit mode
@@ -217,6 +217,7 @@ en:
         lock_version: Lock version
         checkout_type: Checkout type
         acquired_at: Acquired at
+        donation: Donation
       realize:
         position: Position
       frequency:
@@ -310,7 +311,7 @@ en:
         resource_import_file_size: Size
         resource_import_fingerprint: File hash
         note: Note
-        executed_at: Imported at
+        executed_at: Executed at
         resource_import_updated_at: Updated at
         state: State
         edit_mode: Edit mode
