@@ -111,6 +111,15 @@ circulation_status_00004:
   note: ""
   created_at: 2008-02-15 17:31:35.786404 +09:00
   position: 4
+circulation_status_00015: 
+  name: Removed
+  display_name: "en: Removed\r\n\
+    ja: 除籍済み"
+  id: 15
+  updated_at: 2008-02-15 17:31:35.786404 +09:00
+  note: ""
+  created_at: 2008-02-15 17:31:35.786404 +09:00
+  position: 15
 
 # == Schema Information
 #

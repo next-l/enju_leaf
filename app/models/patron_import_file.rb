@@ -28,6 +28,14 @@ class PatronImportFile < ActiveRecord::Base
     event :sm_fail do
       transition :started => :failed
     end
+
+    before_transition any => :started do |patron_import_file|
+      patron_import_file.executed_at = Time.zone.now
+    end
+
+    before_transition any => :completed do |patron_import_file|
+      patron_import_file.error_message = nil
+    end
   end
 
   def import_start
@@ -54,6 +62,7 @@ class PatronImportFile < ActiveRecord::Base
       raise "You should specify first_name, last_name or full_name in the first line"
     end
     #rows.shift
+
     rows.each do |row|
       next if row['dummy'].to_s.strip.present?
       import_result = PatronImportResult.create!(:patron_import_file => self, :body => row.fields.join("\t"))
@@ -86,7 +95,6 @@ class PatronImportFile < ActiveRecord::Base
       import_result.save!
       row_num += 1
     end
-    self.update_attribute(:imported_at, Time.zone.now)
     Sunspot.commit
     rows.close
     sm_complete!
@@ -109,6 +117,7 @@ class PatronImportFile < ActiveRecord::Base
     sm_start!
     rows = open_import_file
     row_num = 2
+
     rows.each do |row|
       next if row['dummy'].to_s.strip.present?
       user = User.where(:user_number => row['user_number'].to_s.strip).first
@@ -131,6 +140,7 @@ class PatronImportFile < ActiveRecord::Base
     sm_start!
     rows = open_import_file
     row_num = 2
+
     rows.each do |row|
       next if row['dummy'].to_s.strip.present?
       user = User.where(:user_number => row['user_number'].to_s.strip).first
@@ -245,7 +255,7 @@ end
 #  size                       :integer
 #  user_id                    :integer
 #  note                       :text
-#  imported_at                :datetime
+#  executed_at                :datetime
 #  state                      :string(255)
 #  patron_import_file_name    :string(255)
 #  patron_import_content_type :string(255)

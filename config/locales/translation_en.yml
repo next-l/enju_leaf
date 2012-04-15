@@ -86,7 +86,7 @@ en:
         patron_import_file_size: Size
         patron_import_fingerprint: File hash
         note: Note
-        imported_at: Imported at
+        executed_at: Imported at
         patron_import_updated_at: Updated at
         state: State
         edit_mode: Edit mode
@@ -310,7 +310,7 @@ en:
         resource_import_file_size: Size
         resource_import_fingerprint: File hash
         note: Note
-        imported_at: Imported at
+        executed_at: Imported at
         resource_import_updated_at: Updated at
         state: State
         edit_mode: Edit mode

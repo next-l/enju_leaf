@@ -29,6 +29,14 @@ class ResourceImportFile < ActiveRecord::Base
     event :sm_fail do
       transition :started => :failed
     end
+
+    before_transition any => :started do |resource_import_file|
+      resource_import_file.executed_at = Time.zone.now
+    end
+
+    before_transition any => :completed do |resource_import_file|
+      resource_import_file.error_message = nil
+    end
   end
 
   def import_start
@@ -48,8 +56,9 @@ class ResourceImportFile < ActiveRecord::Base
     sm_start!
     self.reload
     num = {:manifestation_imported => 0, :item_imported => 0, :manifestation_found => 0, :item_found => 0, :failed => 0}
-    row_num = 2
     rows = open_import_file
+    row_num = 2
+
     field = rows.first
     if [field['isbn'], field['original_title']].reject{|field| field.to_s.strip == ""}.empty?
       raise "You should specify isbn or original_tile in the first line"
@@ -130,7 +139,7 @@ class ResourceImportFile < ActiveRecord::Base
       row_num += 1
     end
 
-    self.update_attribute(:imported_at, Time.zone.now)
+    self.update_attribute(:executed_at, Time.zone.now)
     Sunspot.commit
     rows.close
     sm_complete!
@@ -223,6 +232,7 @@ class ResourceImportFile < ActiveRecord::Base
     sm_start!
     rows = open_import_file
     row_num = 2
+
     rows.each do |row|
       item_identifier = row['item_identifier'].to_s.strip
       item = Item.where(:item_identifier => item_identifier).first if item_identifier.present?
@@ -262,6 +272,7 @@ class ResourceImportFile < ActiveRecord::Base
     sm_start!
     rows = open_import_file
     row_num = 2
+
     rows.each do |row|
       item_identifier = row['item_identifier'].to_s.strip
       item = Item.where(:item_identifier => item_identifier).first
@@ -527,7 +538,7 @@ end
 #  size                         :integer
 #  user_id                      :integer
 #  note                         :text
-#  imported_at                  :datetime
+#  executed_at                  :datetime
 #  state                        :string(255)
 #  resource_import_file_name    :string(255)
 #  resource_import_content_type :string(255)

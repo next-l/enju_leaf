@@ -19,6 +19,9 @@ describe PatronImportFile do
       Patron.order('id DESC')[2].date_of_birth.should eq Time.zone.parse('1978-01-01')
       Patron.count.should eq old_patrons_count + 3
       PatronImportResult.count.should eq old_import_results_count + 4
+
+      @file.patron_import_fingerprint.should be_true
+      @file.executed_at.should be_true
     end
   end
 
@@ -39,6 +42,9 @@ describe PatronImportFile do
       Patron.order('id DESC')[3].required_role.should eq Role.find_by_name('Guest')
       Patron.order('id DESC')[1].email.should be_nil
       PatronImportResult.count.should eq old_import_results_count + 5
+
+      @file.patron_import_fingerprint.should be_true
+      @file.executed_at.should be_true
     end
   end
 

@@ -59,9 +59,9 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_event.git
-  revision: 2fd9dfa098b0d22f911f5a80e6c7cafef65dba1c
+  revision: 93e3c3f3a468b9d8902b236b0c980834b0a7e4a2
   specs:
-    enju_event (0.1.2)
+    enju_event (0.1.3)
       acts_as_list (~> 0.1.5)
       addressable
       attribute_normalizer (~> 1.1)
@@ -259,17 +259,15 @@ GIT
 
 GIT
   remote: git://github.com/sunspot/sunspot.git
-  revision: 78068a431160557e8771d675eb885ba46048b9b9
+  revision: a7d67ca3dee35752b507d1f269fabbd9aee4f4b8
   specs:
     sunspot (2.0.0.pre.111215)
-      escape (~> 0.0.4)
       pr_geohash (~> 1.0)
-      rsolr (~> 1.0.6)
+      rsolr (~> 1.0.7)
     sunspot_rails (2.0.0.pre.111215)
       nokogiri
       sunspot (= 2.0.0.pre.111215)
     sunspot_solr (2.0.0.pre.111215)
-      escape (~> 0.0.4)
 
 GEM
   remote: https://rubygems.org/
@@ -357,7 +355,6 @@ GEM
     diff-lcs (1.1.3)
     dynamic_form (1.1.4)
     erubis (2.7.0)
-    escape (0.0.4)
     event-calendar (2.3.3)
     exception_notification (2.6.0)
       actionmailer (>= 3.0.4)

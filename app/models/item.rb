@@ -225,10 +225,14 @@ class Item < ActiveRecord::Base
   end
 
   def deletable?
-    if defined?(EnjuCirculation)
-      checkouts.not_returned.empty?
+    if circulation_status.name == 'Removed'
+      return false
     else
-      true
+      if defined?(EnjuCirculation)
+        checkouts.not_returned.empty?
+      else
+        true
+      end
     end
   end
 end

@@ -66,6 +66,7 @@ describe ResourceImportFile do
         manifestation_104.publishers.collect(&:full_name).should eq ['test4']
 
         @file.resource_import_fingerprint.should be_true
+        @file.executed_at.should be_true
       end
     end
 
@@ -98,7 +99,9 @@ describe ResourceImportFile do
         item.manifestation.price.should eq 1000
         item.price.should eq 0
         item.manifestation.publishers.size.should eq 2
+
         @file.resource_import_fingerprint.should be_true
+        @file.executed_at.should be_true
       end
     end
 
