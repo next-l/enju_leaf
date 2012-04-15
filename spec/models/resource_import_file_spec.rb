@@ -151,7 +151,7 @@ end
 #  size                         :integer
 #  user_id                      :integer
 #  note                         :text
-#  imported_at                  :datetime
+#  executed_at                  :datetime
 #  state                        :string(255)
 #  resource_import_file_name    :string(255)
 #  resource_import_content_type :string(255)
