@@ -22,15 +22,6 @@ class PictureFile < ActiveRecord::Base
     10
   end
 
-  def extname
-    ext = picture.content_type.split('/')[1].gsub('+xml', '') if picture.content_type
-    if ext == 'pjpeg'
-      ext = 'jpeg'
-    else
-      ext
-    end
-  end
-
   def content_type
     FileWrapper.get_mime(picture.path) rescue nil
   end
