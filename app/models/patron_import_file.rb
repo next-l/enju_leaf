@@ -28,6 +28,14 @@ class PatronImportFile < ActiveRecord::Base
     event :sm_fail do
       transition :started => :failed
     end
+
+    before_transition any => :started do |patron_import_file|
+      patron_import_file.executed_at = Time.zone.now
+    end
+
+    before_transition any => :completed do |patron_import_file|
+      patron_import_file.error_message = nil
+    end
   end
 
   def import_start
@@ -95,7 +103,6 @@ class PatronImportFile < ActiveRecord::Base
       import_result.save!
       row_num += 1
     end
-    self.update_attribute(:imported_at, Time.zone.now)
     Sunspot.commit
     rows.close
     sm_complete!
@@ -255,7 +262,7 @@ end
 #  file_hash                  :string(255)
 #  user_id                    :integer
 #  note                       :text
-#  imported_at                :datetime
+#  executed_at                :datetime
 #  state                      :string(255)
 #  patron_import_file_name    :string(255)
 #  patron_import_content_type :string(255)

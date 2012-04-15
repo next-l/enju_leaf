@@ -63,6 +63,7 @@ describe ResourceImportFile do
         item_10104.bookstore.should be_nil
 
         @file.resource_import_fingerprint.should be_true
+        @file.executed_at.should be_true
       end
     end
 
@@ -95,7 +96,9 @@ describe ResourceImportFile do
         item.manifestation.price.should eq 1000
         item.price.should eq 0
         item.manifestation.publishers.size.should eq 2
+
         @file.resource_import_fingerprint.should be_true
+        @file.executed_at.should be_true
       end
     end
 
@@ -146,7 +149,7 @@ end
 #  file_hash                    :string(255)
 #  user_id                      :integer
 #  note                         :text
-#  imported_at                  :datetime
+#  executed_at                  :datetime
 #  state                        :string(255)
 #  resource_import_file_name    :string(255)
 #  resource_import_content_type :string(255)

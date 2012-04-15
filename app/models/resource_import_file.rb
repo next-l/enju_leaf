@@ -29,6 +29,14 @@ class ResourceImportFile < ActiveRecord::Base
     event :sm_fail do
       transition :started => :failed
     end
+
+    before_transition any => :started do |resource_import_file|
+      resource_import_file.executed_at = Time.zone.now
+    end
+
+    before_transition any => :completed do |resource_import_file|
+      resource_import_file.error_message = nil
+    end
   end
 
   def import_start
@@ -130,7 +138,6 @@ class ResourceImportFile < ActiveRecord::Base
       row_num += 1
     end
 
-    self.update_attribute(:imported_at, Time.zone.now)
     Sunspot.commit
     rows.close
     sm_complete!
@@ -529,7 +536,7 @@ end
 #  file_hash                    :string(255)
 #  user_id                      :integer
 #  note                         :text
-#  imported_at                  :datetime
+#  executed_at                  :datetime
 #  state                        :string(255)
 #  resource_import_file_name    :string(255)
 #  resource_import_content_type :string(255)

@@ -17,6 +17,9 @@ describe EventImportFile do
       Event.count.should eq old_events_count + 3
       Event.closing_days.size.should eq closing_days_size + 1
       EventImportResult.count.should eq old_import_results_count + 4
+
+      @file.event_import_fingerprint.should be_true
+      @file.executed_at.should be_true
     end
   end
 
@@ -49,7 +52,7 @@ end
 #  file_hash                 :string(255)
 #  user_id                   :integer
 #  note                      :text
-#  imported_at               :datetime
+#  executed_at               :datetime
 #  state                     :string(255)
 #  event_import_file_name    :string(255)
 #  event_import_content_type :string(255)

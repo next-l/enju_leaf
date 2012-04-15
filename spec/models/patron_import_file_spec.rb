@@ -19,6 +19,9 @@ describe PatronImportFile do
       Patron.order('id DESC')[2].date_of_birth.should eq Time.zone.parse('1978-01-01')
       Patron.count.should eq old_patrons_count + 3
       PatronImportResult.count.should eq old_import_results_count + 4
+
+      @file.patron_import_fingerprint.should be_true
+      @file.executed_at.should be_true
     end
   end
 
@@ -76,7 +79,7 @@ end
 #  file_hash                  :string(255)
 #  user_id                    :integer
 #  note                       :text
-#  imported_at                :datetime
+#  executed_at                :datetime
 #  state                      :string(255)
 #  patron_import_file_name    :string(255)
 #  patron_import_content_type :string(255)

@@ -1,0 +1,25 @@
+  <script>
+    $(document).ready(function(){
+      $('a#shelf_item_<%= item.id %>').qtip({
+        position: {
+          my: 'bottom left',
+          at: 'top center'
+        },
+        content: 'shelf: <%= item.shelf.name %>',
+        hide: {
+          fixed: true
+        }
+      });
+      $('a#library_item_<%= item.id %>').qtip({
+        position: {
+          my: 'bottom left',
+          at: 'top center'
+        },
+        content: 'library: <%= item.shelf.library.name %>',
+        hide: {
+          fixed: true
+        }
+      });
+    });
+  </script>
+
