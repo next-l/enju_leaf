@@ -16,7 +16,6 @@ class ResourceImportFile < ActiveRecord::Base
   validates_attachment_presence :resource_import
   belongs_to :user, :validate => true
   has_many :resource_import_results
-  before_create :set_digest
 
   state_machine :initial => :pending do
     event :sm_start do
@@ -29,12 +28,6 @@ class ResourceImportFile < ActiveRecord::Base
 
     event :sm_fail do
       transition :started => :failed
-    end
-  end
-
-  def set_digest(options = {:type => 'sha1'})
-    if File.exists?(resource_import.queued_for_write[:original])
-      self.file_hash = Digest::SHA1.hexdigest(File.open(resource_import.queued_for_write[:original].path, 'rb').read)
     end
   end
 

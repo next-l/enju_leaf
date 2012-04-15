@@ -85,6 +85,7 @@ gem 'devise', '~> 2.0'
 #gem 'omniauth', '~> 1.1'
 gem 'addressable'
 gem 'paperclip', '~> 2.7'
+gem 'paperclip-meta'
 gem 'aws-sdk', '~> 1.4'
 gem 'whenever', :require => false
 #gem 'amazon-ecs', '>= 2.2.0', :require => 'amazon/ecs'
