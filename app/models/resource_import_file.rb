@@ -139,7 +139,6 @@ class ResourceImportFile < ActiveRecord::Base
       row_num += 1
     end
 
-    self.update_attribute(:executed_at, Time.zone.now)
     Sunspot.commit
     rows.close
     sm_complete!
