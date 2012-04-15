@@ -27,14 +27,12 @@ gem 'enju_search_log', :git => 'git://github.com/nabeta/enju_search_log.git'
 gem 'enju_book_jacket', :git => 'git://github.com/nabeta/enju_book_jacket.git'
 gem 'enju_manifestation_viewer', :git => 'git://github.com/nabeta/enju_manifestation_viewer.git'
 
-platforms :ruby do
-  gem 'pg'
-  #gem 'mysql2', '~> 0.3'
-  #gem 'sqlite3'
-  gem 'ruby-prof', :group => [:development, :test]
-  gem 'zipruby'
-  gem 'kgio'
-end
+gem 'pg'
+#gem 'mysql2', '~> 0.3'
+#gem 'sqlite3'
+gem 'ruby-prof', :group => [:development, :test]
+gem 'zipruby'
+gem 'kgio'
 
 platforms :jruby do
   gem 'jruby-openssl'
@@ -75,7 +73,7 @@ gem 'devise', '~> 2.1.0.rc'
 #gem 'omniauth', '~> 1.1'
 gem 'addressable'
 gem 'paperclip', '~> 3.0'
-gem 'paperclip-meta'
+gem 'paperclip-meta', :git => 'git://github.com/dce/paperclip-meta.git'
 gem 'aws-sdk', '~> 1.4'
 gem 'whenever', :require => false
 #gem 'amazon-ecs', '>= 2.2.0', :require => 'amazon/ecs'

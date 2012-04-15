@@ -1,4 +1,11 @@
 GIT
+  remote: git://github.com/dce/paperclip-meta.git
+  revision: 662e49a3b38ebfb43fb7ae2c70d650ed1ee0aba2
+  specs:
+    paperclip-meta (0.4.1)
+      paperclip
+
+GIT
   remote: git://github.com/nabeta/enju_barcode.git
   revision: ba8d1ec303f383f8319f364314f9a9eff45aa2ce
   specs:
@@ -259,7 +266,7 @@ GIT
 
 GIT
   remote: git://github.com/sunspot/sunspot.git
-  revision: a7d67ca3dee35752b507d1f269fabbd9aee4f4b8
+  revision: 54eb2b5e3fddae25a76b820252fdc006cd73a683
   specs:
     sunspot (2.0.0.pre.111215)
       pr_geohash (~> 1.0)
@@ -420,8 +427,6 @@ GEM
       activesupport (>= 3.0.0)
       cocaine (>= 0.0.2)
       mime-types
-    paperclip-meta (0.4.1)
-      paperclip
     parallel (0.5.16)
     parallel_tests (0.7.3)
       parallel
@@ -590,7 +595,7 @@ DEPENDENCIES
   mobile-fu
   paper_trail (~> 2.6)
   paperclip (~> 3.0)
-  paperclip-meta
+  paperclip-meta!
   parallel_tests (~> 0.7)
   pg
   progress_bar
