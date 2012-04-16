@@ -20,6 +20,11 @@ module EnjuTrunk
           @adapters
         end
 
+        def default
+          list = @adapters.delete_if {|a| a.display_name =~ /^Template Adapter/ }
+          return list
+        end
+
         def find_by_classname(name)
           Rails.logger.info "name=#{name}"
           return nil unless @adapters

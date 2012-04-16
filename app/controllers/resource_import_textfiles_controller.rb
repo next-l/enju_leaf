@@ -8,7 +8,7 @@ class ResourceImportTextfilesController < ApplicationController
 
   def new
     @resource_import_textfile = ResourceImportTextfile.new
-    @adapters = EnjuTrunk::ResourceAdapter::Base.all
+    @adapters = EnjuTrunk::ResourceAdapter::Base.default
   end
 
   def show
