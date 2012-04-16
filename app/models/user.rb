@@ -13,7 +13,7 @@ class User < ActiveRecord::Base
   scope :administrators, where('roles.name = ?', 'Administrator').includes(:role)
   scope :librarians, where('roles.name = ? OR roles.name = ?', 'Administrator', 'Librarian').includes(:role)
   scope :suspended, where('locked_at IS NOT NULL')
-  has_one :patron
+  #has_one :patron
   has_many :import_requests
   has_many :picture_files, :as => :picture_attachable, :dependent => :destroy
   has_many :import_requests
@@ -23,7 +23,7 @@ class User < ActiveRecord::Base
   belongs_to :library, :validate => true
   belongs_to :user_group
   belongs_to :required_role, :class_name => 'Role', :foreign_key => 'required_role_id' #, :validate => true
-  has_one :patron_import_result
+  #has_one :patron_import_result
 
   validates :username, :presence => true, :uniqueness => true
   validates_uniqueness_of :email, :scope => authentication_keys[1..-1], :case_sensitive => false, :allow_blank => true
@@ -37,7 +37,7 @@ class User < ActiveRecord::Base
   end
 
   validates_presence_of     :email, :email_confirmation, :on => :create, :if => proc{|user| !user.operator.try(:has_role?, 'Librarian')}
-  validates_associated :patron, :user_group, :library
+  validates_associated :user_group, :library #, :patron
   validates_presence_of :user_group, :library, :locale #, :user_number
   validates :user_number, :uniqueness => true, :format => {:with => /\A[0-9A-Za-z_]+\Z/}, :allow_blank => true
   validates_confirmation_of :email, :on => :create, :if => proc{|user| !user.operator.try(:has_role?, 'Librarian')}
@@ -49,8 +49,8 @@ class User < ActiveRecord::Base
   before_create :set_expired_at
   after_destroy :remove_from_index
   after_create :set_confirmation
-  after_save :index_patron
-  after_destroy :index_patron
+  #after_save :index_patron
+  #after_destroy :index_patron
 
   extend FriendlyId
   friendly_id :username
@@ -61,7 +61,7 @@ class User < ActiveRecord::Base
   searchable do
     text :username, :email, :note, :user_number
     text :name do
-      patron.name if patron
+      #patron.name if patron
     end
     string :username
     string :email
@@ -79,9 +79,9 @@ class User < ActiveRecord::Base
     :first_name_transcription, :middle_name_transcription,
     :last_name_transcription, :full_name_transcription,
     :zip_code, :address, :telephone_number, :fax_number, :address_note,
-    :role_id, :patron_id, :operator, :password_not_verified,
+    :role_id, :operator, :password_not_verified,
     :update_own_account, :auto_generated_password,
-    :locked, :current_password
+    :locked, :current_password #, :patron_id
 
   def self.per_page
     10
@@ -107,9 +107,9 @@ class User < ActiveRecord::Base
   def set_role_and_patron
     self.required_role = Role.where(:name => 'Librarian').first
     self.locale = I18n.default_locale.to_s
-    unless self.patron
-      self.patron = Patron.create(:full_name => self.username) if self.username
-    end
+    #unless self.patron
+    #  self.patron = Patron.create(:full_name => self.username) if self.username
+    #end
   end
 
   def set_lock_information
@@ -241,9 +241,9 @@ class User < ActiveRecord::Base
     if defined?(EnjuSearchLog)
       user.save_search_history = params[:save_search_history] ||= false
     end
-    if user.patron_id
-      user.patron = Patron.find(user.patron_id) rescue nil
-    end
+    #if user.patron_id
+    #  user.patron = Patron.find(user.patron_id) rescue nil
+    #end
     user
   end
 
@@ -282,6 +282,10 @@ class User < ActiveRecord::Base
     else
       true if id != 1
     end
+  end
+
+  def patron
+    LocalPatron.new(self)
   end
 
   if defined?(EnjuCirculation)
@@ -388,8 +392,6 @@ class User < ActiveRecord::Base
     has_many :search_histories, :dependent => :destroy
   end
 end
-
-
 
 
 # == Schema Information

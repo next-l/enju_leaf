@@ -155,14 +155,14 @@ class PatronsController < ApplicationController
   # POST /patrons.json
   def create
     @patron = Patron.new(params[:patron])
-    if @patron.user_username
-      @patron.user = User.find(@patron.user_username) rescue nil
-    end
-    unless current_user.has_role?('Librarian')
-      if @patron.user != current_user
-        access_denied; return
-      end
-    end
+    #if @patron.user_username
+    #  @patron.user = User.find(@patron.user_username) rescue nil
+    #end
+    #unless current_user.has_role?('Librarian')
+    #  if @patron.user != current_user
+    #    access_denied; return
+    #  end
+    #end
 
     respond_to do |format|
       if @patron.save

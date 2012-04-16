@@ -199,16 +199,17 @@ class Ability
         manifestation.required_role_id <= 2
       end
       can :edit, Manifestation
-      can [:index, :create], Patron
+      #can [:index, :create], Patron
+      can :index, Patron
       can :update, Patron do |patron|
         patron.user == user
       end
       can :show, Patron do |patron|
-        if patron.user == user
-          true
-        elsif patron.user != user
+        #if patron.user == user
+        #  true
+        #elsif patron.user != user
           true if patron.required_role_id <= 2 #name == 'Administrator'
-        end
+        #end
       end
       can :index, PictureFile
       can :show, PictureFile do |picture_file|

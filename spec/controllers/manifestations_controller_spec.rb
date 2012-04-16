@@ -250,10 +250,10 @@ describe ManifestationsController do
         response.should redirect_to manifestation_url(assigns(:manifestation))
       end
 
-      it "should show myself" do
-        get :show, :id => users(:user1).patron
-        response.should be_success
-      end
+      #it "should show myself" do
+      #  get :show, :id => users(:user1).patron.id
+      #  response.should be_success
+      #end
     end
 
     describe "When not logged in" do

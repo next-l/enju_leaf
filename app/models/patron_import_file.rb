@@ -79,18 +79,18 @@ class PatronImportFile < ActiveRecord::Base
         end
       end
 
-      unless row['username'].to_s.strip.blank?
-        user = User.new
-        user.patron = patron
-        set_user_value(user, row)
-        if user.password.blank?
-          user.set_auto_generated_password
-        end
-        if user.save!
-          import_result.user = user
-        end
-        num[:user_imported] += 1
-      end
+      #unless row['username'].to_s.strip.blank?
+      #  user = User.new
+      #  user.patron = patron
+      #  set_user_value(user, row)
+      #  if user.password.blank?
+      #    user.set_auto_generated_password
+      #  end
+      #  if user.save!
+      #    import_result.user = user
+      #  end
+      #  num[:user_imported] += 1
+      #end
 
       import_result.save!
       row_num += 1
@@ -120,12 +120,16 @@ class PatronImportFile < ActiveRecord::Base
 
     rows.each do |row|
       next if row['dummy'].to_s.strip.present?
-      user = User.where(:user_number => row['user_number'].to_s.strip).first
-      if user.try(:patron)
-        set_patron_value(user.patron, row)
-        user.patron.save!
-        set_user_value(user, row)
-        user.save!
+      #user = User.where(:user_number => row['user_number'].to_s.strip).first
+      #if user.try(:patron)
+      #  set_patron_value(user.patron, row)
+      #  user.patron.save!
+      #  set_user_value(user, row)
+      #  user.save!
+      #end
+      patron = Patron.where(:id => row['id']).first
+      if patron
+        patron.full_name = row['full_name'] if row['full_name'].to_s.strip.present
       end
       row_num += 1
     end
@@ -143,10 +147,10 @@ class PatronImportFile < ActiveRecord::Base
 
     rows.each do |row|
       next if row['dummy'].to_s.strip.present?
-      user = User.where(:user_number => row['user_number'].to_s.strip).first
-      if user.try(:deletable?)
-        user.destroy
-      end
+      #user = User.where(:user_number => row['user_number'].to_s.strip).first
+      #if user.try(:deletable?)
+      #  user.destroy
+      #end
       row_num += 1
     end
     sm_complete!
@@ -203,12 +207,12 @@ class PatronImportFile < ActiveRecord::Base
     patron.birth_date = row['birth_date'] if row['birth_date']
     patron.death_date = row['death_date'] if row['death_date']
 
-    if row['username'].to_s.strip.blank?
+    #if row['username'].to_s.strip.blank?
       patron.email = row['email'].to_s.strip
       patron.required_role = Role.where(:name => row['required_role_name'].to_s.strip.camelize).first || Role.find('Guest')
-    else
-      patron.required_role = Role.where(:name => row['required_role_name'].to_s.strip.camelize).first || Role.find('Librarian')
-    end
+    #else
+    #  patron.required_role = Role.where(:name => row['required_role_name'].to_s.strip.camelize).first || Role.find('Librarian')
+    #end
     language = Language.where(:name => row['language'].to_s.strip.camelize).first
     language = Language.where(:iso_639_2 => row['language'].to_s.strip.downcase).first unless language
     language = Language.where(:iso_639_1 => row['language'].to_s.strip.downcase).first unless language
@@ -218,31 +222,31 @@ class PatronImportFile < ActiveRecord::Base
     patron
   end
 
-  def set_user_value(user, row)
-    user.operator = User.find(1)
-    email = row['email'].to_s.strip
-    if email.present?
-      user.email = email
-      user.email_confirmation = email
-    end
-    password = row['password'].to_s.strip
-    if password.present?
-      user.password = password
-      user.password_confirmation = password
-    end
-    user.username = row['username'] if row['username']
-    user.user_number = row['user_number'] if row['user_number']
-    library = Library.where(:name => row['library_short_name'].to_s.strip).first || Library.web
-    user_group = UserGroup.where(:name => row['user_group_name']).first || UserGroup.first
-    user.library = library
-    role = Role.where(:name => row['role_name'].to_s.strip.camelize).first || Role.find('User')
-    user.role = role
-    required_role = Role.where(:name => row['required_role_name'].to_s.strip.camelize).first || Role.find('Librarian')
-    user.required_role = required_role
-    locale = Language.where(:iso_639_1 => row['locale'].to_s.strip).first
-    user.locale = locale || I18n.default_locale.to_s
-    user
-  end
+  #def set_user_value(user, row)
+  #  user.operator = User.find(1)
+  #  email = row['email'].to_s.strip
+  #  if email.present?
+  #    user.email = email
+  #    user.email_confirmation = email
+  #  end
+  #  password = row['password'].to_s.strip
+  #  if password.present?
+  #    user.password = password
+  #    user.password_confirmation = password
+  #  end
+  #  user.username = row['username'] if row['username']
+  #  user.user_number = row['user_number'] if row['user_number']
+  #  library = Library.where(:name => row['library_short_name'].to_s.strip).first || Library.web
+  #  user_group = UserGroup.where(:name => row['user_group_name']).first || UserGroup.first
+  #  user.library = library
+  #  role = Role.where(:name => row['role_name'].to_s.strip.camelize).first || Role.find('User')
+  #  user.role = role
+  #  required_role = Role.where(:name => row['required_role_name'].to_s.strip.camelize).first || Role.find('Librarian')
+  #  user.required_role = required_role
+  #  locale = Language.where(:iso_639_1 => row['locale'].to_s.strip).first
+  #  user.locale = locale || I18n.default_locale.to_s
+  #  user
+  #end
 end
 
 # == Schema Information

@@ -20,7 +20,7 @@ class Patron < ActiveRecord::Base
     has_many :patron_merges, :dependent => :destroy
     has_many :patron_merge_lists, :through => :patron_merges
   end
-  belongs_to :user
+  #belongs_to :user
   belongs_to :patron_type
   belongs_to :required_role, :class_name => 'Role', :foreign_key => 'required_role_id', :validate => true
   belongs_to :language
@@ -30,7 +30,7 @@ class Patron < ActiveRecord::Base
   validates_presence_of :language, :patron_type, :country
   validates_associated :language, :patron_type, :country
   validates :full_name, :presence => true, :length => {:maximum => 255}
-  validates :user_id, :uniqueness => true, :allow_nil => true
+  #validates :user_id, :uniqueness => true, :allow_nil => true
   validates :birth_date, :format => {:with => /^\d+(-\d{0,2}){0,2}$/}, :allow_blank => true
   validates :death_date, :format => {:with => /^\d+(-\d{0,2}){0,2}$/}, :allow_blank => true
   validates :email, :format => {:with => /^([\w\.%\+\-]+)@([\w\-]+\.)+([\w]{2,})$/i}, :allow_blank => true
@@ -39,7 +39,7 @@ class Patron < ActiveRecord::Base
   before_save :set_date_of_birth, :set_date_of_death
 
   has_paper_trail
-  attr_accessor :user_username
+  #attr_accessor :user_username
   #[:address_1, :address_2].each do |column|
   #  encrypt_with_public_key column,
   #    :key_pair => File.join(Rails.root.to_s,'config','keypair.pem'),
@@ -50,14 +50,14 @@ class Patron < ActiveRecord::Base
     text :name, :place, :address_1, :address_2, :other_designation, :note
     string :zip_code_1
     string :zip_code_2
-    string :username do
-      user.username if user
-    end
+    #string :username do
+    #  user.username if user
+    #end
     time :created_at
     time :updated_at
     time :date_of_birth
     time :date_of_death
-    string :user
+    #string :user
     integer :work_ids, :multiple => true
     integer :expression_ids, :multiple => true
     integer :manifestation_ids, :multiple => true
@@ -235,6 +235,10 @@ class Patron < ActiveRecord::Base
 
   def patrons
     self.original_patrons + self.derived_patrons
+  end
+
+  def user
+    # TODO: 外部サービスから取得する
   end
 end
 

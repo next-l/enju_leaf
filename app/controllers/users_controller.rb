@@ -51,9 +51,9 @@ class UsersController < ApplicationController
     end
 
     session[:user_return_to] = nil
-    unless @user.patron
-      redirect_to new_user_patron_url(@user); return
-    end
+    #unless @user.patron
+    #  redirect_to new_user_patron_url(@user); return
+    #end
     if defined?(EnjuBookmark)
       @tags = @user.bookmarks.tag_counts.sort{|a,b| a.count <=> b.count}.reverse
     end
