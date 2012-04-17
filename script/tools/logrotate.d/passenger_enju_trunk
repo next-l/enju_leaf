@@ -1,0 +1,18 @@
+/opt/enju_trunk/log/*.log {
+ daily
+ missingok
+ rotate 90
+ dateext
+ compress
+ delaycompress
+ sharedscripts
+ postrotate
+  EXT=`date -d '1 day ago' +%Y%m%d`
+  for F in $1; do
+    mv $F.1 $F.$EXT
+  done
+
+  touch /opt/enju_trunk/tmp/restart.txt
+ endscript
+}
+

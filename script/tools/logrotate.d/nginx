@@ -1,0 +1,17 @@
+/opt/nginx/logs/*.log {
+ daily
+ missingok
+ rotate 90
+ dateext
+ compress
+ delaycompress
+ sharedscripts
+ postrotate
+  EXT=`date -d '1 day ago' +%Y%m%d`
+  for F in $1; do
+    mv $F.1 $F.$EXT
+  done
+
+  kill -USR1 `cat /opt/nginx/logs/nginx.pid`
+ endscript
+}
