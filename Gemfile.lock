@@ -609,8 +609,8 @@ DEPENDENCIES
   spork-rails
   state_machine (~> 1.1.2)
   sunspot-rails-tester!
-  sunspot_rails (~> 2.0.0.pre.120415)
-  sunspot_solr (~> 2.0.0.pre.120415)
+  sunspot_rails (~> 2.0.0.pre.120417)
+  sunspot_solr (~> 2.0.0.pre.120417)
   timecop
   uglifier (>= 1.0.3)
   validates_timeliness
