@@ -20,7 +20,7 @@ class MyAccountsController < ApplicationController
         else
           @user.reset_checkout_icalendar_token
         end
-        render :partial => 'users/feed_token'
+        render :partial => 'feed_token'
         return
       end
     end

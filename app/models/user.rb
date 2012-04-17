@@ -255,7 +255,7 @@ class User < ActiveRecord::Base
     self.email = params[:email] if params[:email]
     #self.note = params[:note]
     if defined?(EnjuCirculation)
-      self.checkout_icalendar_token = params[:checkout_icalendar_token] ||= false
+      self.checkout_icalendar_token = params[:checkout_icalendar_token] ||= nil
       self.save_checkout_history = params[:save_checkout_history] ||= false
     end
     if defined?(EnjuSearchLog)
