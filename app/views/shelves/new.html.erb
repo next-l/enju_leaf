@@ -7,12 +7,6 @@
 
 <div id="submenu" class="ui-corner-all">
   <ul>
-    <li>
-      <%- if @shelf.library -%>
-        <%= link_to t('page.back'), library_shelves_path(@shelf.library) -%>
-      <%- else -%>
-        <%= link_to t('page.back'), shelves_path -%>
-      <%- end -%>
-    </li>
+    <li><%= link_to t('page.back'), shelves_path -%></li>
   </ul>
 </div>
