@@ -129,7 +129,17 @@ class PatronImportFile < ActiveRecord::Base
       #end
       patron = Patron.where(:id => row['id']).first
       if patron
-        patron.full_name = row['full_name'] if row['full_name'].to_s.strip.present
+        patron.full_name = row['full_name'] if row['full_name'].to_s.strip.present?
+        patron.full_name_transcription = row['full_name_transcription'] if row['full_name_transcription'].to_s.strip.present?
+        patron.first_name = row['first_name'] if row['first_name'].to_s.strip.present?
+        patron.first_name_transcription = row['first_name_transcription'] if row['first_name_transcription'].to_s.strip.present?
+        patron.middle_name = row['middle_name'] if row['middle_name'].to_s.strip.present?
+        patron.middle_name_transcription = row['middle_name_transcription'] if row['middle_name_transcription'].to_s.strip.present?
+        patron.last_name = row['last_name'] if row['last_name'].to_s.strip.present?
+        patron.last_name_transcription = row['last_name_transcription'] if row['last_name_transcription'].to_s.strip.present?
+        patron.address_1 = row['address_1'] if row['address_1'].to_s.strip.present?
+        patron.address_2 = row['address_2'] if row['address_2'].to_s.strip.present?
+        patron.save!
       end
       row_num += 1
     end
@@ -147,10 +157,10 @@ class PatronImportFile < ActiveRecord::Base
 
     rows.each do |row|
       next if row['dummy'].to_s.strip.present?
-      #user = User.where(:user_number => row['user_number'].to_s.strip).first
-      #if user.try(:deletable?)
-      #  user.destroy
-      #end
+      patron = Patron.where(:id => row['id'].to_s.strip).first
+      if patron
+        patron.destroy
+      end
       row_num += 1
     end
     sm_complete!
