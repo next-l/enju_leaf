@@ -76,7 +76,7 @@ class Library < ActiveRecord::Base
     #Shelf.create!(:name => "#{self.name}_default", :library => self)
     shelf_name = self.name 
     @shelf_default = Shelf.new(:name => "#{shelf_name}_default", :library_id => self.id)
-    @shelf_in_process = Shelf.new(:name => "#{shelf_name}_in_process", :display_name => t('activerecord.attributes.shelf.in_process'), :open_access => 9,:library_id => self.id)
+    @shelf_in_process = Shelf.new(:name => "#{shelf_name}_in_process", :display_name => I18n.t('activerecord.attributes.shelf.in_process'), :open_access => 9,:library_id => self.id)
     @shelf_default.save!
     @shelf_in_process.save!
   end
