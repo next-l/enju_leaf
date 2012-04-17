@@ -20,7 +20,7 @@
     <div class="field">
       <%= f.label t('user.checkout_history_icalendar_url') -%><br />
       <div id="feed_token">
-        <%- if @user.checkout_icalendar_token -%>
+        <%- if @user.checkout_icalendar_token? -%>
           <%= link_to checkouts_url(:icalendar_token => @user.checkout_icalendar_token, :format => :ics), checkouts_url(:icalendar_token => @user.checkout_icalendar_token, :format => :ics) -%>
           <%= f.hidden_field :checkout_icalendar_token -%>
         <%- end -%>
@@ -66,11 +66,6 @@
 <div id="submenu" class="ui-corner-all">
   <ul>
     <li><%= link_to t('page.listing', :model => t('activerecord.models.user')), users_path -%></li>
-    <%- if @user.patron -%>
-      <li><%= link_to t('user.patron_profile'), @user.patron -%></li>
-    <%- else -%>
-      <li><%= link_to t('user.patron_profile'), new_user_patron_path(@user) -%></li>
-    <%- end -%>
     <%- if current_user.has_role?('Librarian') -%>
       <%- unless current_user == @user -%>
         <li><%= link_to t('page.destroy'), @user, :confirm => t('page.are_you_sure'), :method => :delete -%></li>

@@ -20,13 +20,13 @@
     <div class="field">
       <%= f.label t('user.checkout_history_icalendar_url') -%><br />
       <div id="feed_token">
-        <%- if @user.checkout_icalendar_token -%>
+        <%- if @user.checkout_icalendar_token? -%>
           <%= link_to checkouts_url(:icalendar_token => @user.checkout_icalendar_token, :format => :ics), checkouts_url(:icalendar_token => @user.checkout_icalendar_token, :format => :ics) -%>
           <%= f.hidden_field :checkout_icalendar_token -%>
         <%- end -%>
         <br />
-        <input onclick="$.ajax({data:'authenticity_token=' + encodeURIComponent('<%= form_authenticity_token %>'), success:function(request){$('#feed_token').html(request);}, type:'get', url:'<%= edit_user_path(@user, :mode => 'feed_token') %>'});" type="button" value="<%= t('page.reset') %>" />
-        <input onclick="$.ajax({data:'authenticity_token=' + encodeURIComponent('<%= form_authenticity_token %>'), success:function(request){$('#feed_token').html(request);}, type:'get', url:'<%= edit_user_path(@user, :disable => true, :mode => 'feed_token') %>'});" type="button" value="<%= t('page.delete') %>" />
+        <input onclick="$.ajax({data:'authenticity_token=' + encodeURIComponent('<%= form_authenticity_token %>'), success:function(request){$('#feed_token').html(request);}, type:'get', url:'<%= edit_my_account_path(:mode => 'feed_token') %>'});" type="button" value="<%= t('page.reset') %>" />
+        <input onclick="$.ajax({data:'authenticity_token=' + encodeURIComponent('<%= form_authenticity_token %>'), success:function(request){$('#feed_token').html(request);}, type:'get', url:'<%= edit_my_account_path(:disable => true, :mode => 'feed_token') %>'});" type="button" value="<%= t('page.delete') %>" />
       </div>
       <br />
     </div>
@@ -67,10 +67,5 @@
     <% if current_user.has_role?('Librarian') %>
       <li><%= link_to t('page.listing', :model => t('activerecord.models.user')), users_path -%></li>
     <% end %>
-    <%- if current_user.patron -%>
-      <li><%= link_to t('user.patron_profile'), @user.patron -%></li>
-    <%- else -%>
-      <li><%= link_to t('user.patron_profile'), new_user_patron_path(@user) -%></li>
-    <%- end -%>
   </ul>
 </div>

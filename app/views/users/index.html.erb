@@ -37,8 +37,8 @@
     <td>
       <%= link_to user.username, user -%>
       <br />
-      <%- if user.patron -%>
-        <%= link_to user.patron.full_name, user.patron if current_user.has_role?('Librarian') -%>
+      <%- if user.patron.id -%>
+        <%= link_to user.patron.full_name, user.patron.url if current_user.has_role?('Librarian') -%>
       <%- end -%>
     </td>
     <td><%= user.user_number -%></td>
@@ -52,8 +52,7 @@
     <% end %>
     <td>
       <%= link_to t('user.edit_account'), edit_user_path(user) -%>
-      <br />
-      <%= link_to t('user.edit_profile'), edit_patron_path(user.patron) if can? :update, user.patron-%>
+      <%- # link_to t('user.edit_profile'), edit_patron_path(user.patron) if can? :update, user.patron -%>
     </td>
   </tr>
 <%- end -%>
