@@ -50,7 +50,6 @@ gem 'delayed_job_active_record'
 gem 'daemons'
 gem 'state_machine', '~> 1.1.2'
 gem 'sunspot_rails', '~> 2.0.0.pre.120415'
-gem 'sunspot_solr', '~> 2.0.0.pre.120415'
 gem 'progress_bar'
 gem 'friendly_id', '~> 4.0'
 gem 'inherited_resources', '~> 1.3'
@@ -102,6 +101,7 @@ gem 'rails_autolink'
 group :development do
   gem 'parallel_tests', '~> 0.7'
   gem 'annotate', '~> 2.4.1.beta1'
+  gem 'sunspot_solr', '~> 2.0.0.pre.120415'
 end
 
 gem 'simplecov', '~> 0.6', :require => false, :group => :test

@@ -166,7 +166,7 @@ class Manifestation < ActiveRecord::Base
   validates :isbn, :uniqueness => true, :allow_blank => true, :unless => proc{|manifestation| manifestation.series_statement}
   validates :nbn, :uniqueness => true, :allow_blank => true
   validates :manifestation_identifier, :uniqueness => true, :allow_blank => true
-  validates :pub_date, :format => {:with => /^\d+([\/-]\d{0,2}){0,2}$/}, :allow_blank => true
+  validates :pub_date, :format => {:with => /^\[{0,1}\d+([\/-]\d{0,2}){0,2}\]{0,1}$/}, :allow_blank => true
   validates :access_address, :url => true, :allow_blank => true, :length => {:maximum => 255}
   validate :check_isbn, :check_issn, :check_lccn, :unless => :during_import
   validates :issue_number, :numericality => {:greater_than => 0}, :allow_blank => true
@@ -236,7 +236,7 @@ class Manifestation < ActiveRecord::Base
   def set_date_of_publication
     return if pub_date.blank?
     date = nil
-    pub_date_string = pub_date
+    pub_date_string = pub_date.gsub(/[\[\]]/, '')
 
     while date.nil? do
       pub_date_string += '-01'
