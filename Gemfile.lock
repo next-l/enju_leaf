@@ -45,9 +45,9 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_circulation.git
-  revision: 3b604b70f09a7c5c03a151dc72d41c94ee5e604c
+  revision: 43700193194228d68839eda5d4843de6e14b3414
   specs:
-    enju_circulation (0.0.23)
+    enju_circulation (0.0.24)
       acts_as_list (~> 0.1.5)
       attribute_normalizer (~> 1.1)
       cancan
@@ -397,7 +397,7 @@ GEM
     mobile-fu (1.0.0)
       rack-mobile-detect
       rails
-    multi_json (1.3.1)
+    multi_json (1.3.2)
     multi_xml (0.4.4)
     net-sftp (2.0.5)
       net-ssh (>= 2.0.9)
