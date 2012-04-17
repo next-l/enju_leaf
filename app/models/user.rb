@@ -165,6 +165,9 @@ class User < ActiveRecord::Base
     string :role do
       role.display_name
     end
+    string :patron_type do
+      patron.patron_type.name if patron
+    end
   end
 
   attr_accessor :first_name, :middle_name, :last_name, :full_name,

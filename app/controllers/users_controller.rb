@@ -65,17 +65,20 @@ class UsersController < ApplicationController
       fulltext query unless query.blank?
       with(:library).equal_to params[:library] if params[:library]
       with(:role).equal_to params[:role] if params[:role]
+      with(:patron_type).equal_to params[:patron_type] if params[:patron_type]
       with(:required_role_id).less_than role.id
       order_by sort[:sort_by], sort[:order]
       if params[:format] == 'html' or params[:format].nil?
         facet :library
         facet :role
+        facet :patron_type
         paginate :page => page.to_i, :per_page => User.per_page
       end
     end.execute rescue nil
     if params[:format].blank? or params[:format] == 'html'
       @library_facet = search_result.facet(:library).rows
       @role_facet = search_result.facet(:role).rows
+      @patron_type_facet = search_result.facet(:patron_type).rows
     end
     @users = search_result.results
     @count[:query_result] = @users.total_entries

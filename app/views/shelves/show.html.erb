@@ -3,10 +3,10 @@
 <div id="content_list">
 <p id="notice"><%= notice %></p>
 
-  <h2 class="resource_title">
-    <%= link_to @shelf.library.display_name.localize, @shelf.library -%>
-    <%= @shelf.display_name.localize -%>
-  </h2>
+<h2 class="resource_title">
+  <%= link_to @shelf.library.display_name.localize, @shelf.library -%>
+  <%= @shelf.display_name.localize -%>
+</h2>
 
 <% if current_user.try(:has_role?, 'Librarian') %>
   <p>
@@ -22,13 +22,7 @@
 
 <p>
   <strong><%= t('activerecord.attributes.shelf.open_access') -%>:</strong>
-  <%- if @shelf.open_access == 9 -%>
-    <%= t('activerecord.attributes.shelf.in_process') -%>
-  <%- elsif @shelf.open_access == 0 -%>
-    <%= t('activerecord.attributes.shelf.open') -%>
-  <%- else -%>
-    <%= t('activerecord.attributes.shelf.closed') -%>
-  <%- end -%>
+  <%= i18n_open_access(@shelf.open_access) -%>
 </p>
 
 <p>
@@ -66,8 +60,11 @@
         <li><%= link_to t('page.listing', :model => t('activerecord.models.picture_file')), shelf_picture_files_path(@shelf) -%></li>
       <% end %>
     <% end %>
-    <li>
-      <%= link_to t('page.back'), shelves_path -%>
-    </li>
+    <%- if can? :destroy, @shelf -%>
+      <%- unless @shelf.id == 1 or @shelf.open_access == 9 -%>
+        <li><%= link_to t('page.destroy'), @shelf, :confirm => t('page.are_you_sure'), :method => :delete -%></li>
+      <%- end -%>
+    <%- end -%>
+    <li><%= link_to t('page.back'), shelves_path -%></li>
   </ul>
 </div>
