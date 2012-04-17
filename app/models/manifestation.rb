@@ -236,7 +236,7 @@ class Manifestation < ActiveRecord::Base
   def set_date_of_publication
     return if pub_date.blank?
     date = nil
-    pub_date_string = pub_date
+    pub_date_string = pub_date.gsub(/[\[\]]/, '')
 
     while date.nil? do
       pub_date_string += '-01'
