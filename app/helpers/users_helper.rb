@@ -51,4 +51,13 @@ module UsersHelper
     string << "</strong>" if current
     string.html_safe
   end
+
+  def patron_type_facet(patron_type, current_patron_type, facet)
+    string = ''
+    current = true if current_patron_type.include?(patron_type.name)
+    string << "<strong>" if current
+    string << link_to("#{patron_type.display_name.localize} (" + facet.count.to_s + ")", url_for(params.merge(:page => nil, :patron_type => (current_patron_type << patron_type.name).uniq.join(' '), :view => nil)))
+    string << "</strong>" if current
+    string.html_safe
+  end
 end
