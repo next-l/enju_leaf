@@ -4,6 +4,7 @@
 # User-Agent: *
 # Disallow: /
 User-Agent: *
+Disallow: accepts
 Disallow: answers
 Disallow: baskets
 Disallow: bookmark_stat_has_manifestations
@@ -24,7 +25,6 @@ Disallow: classification_types
 Disallow: classifications
 Disallow: content_types
 Disallow: countries
-Disallow: create_types
 Disallow: creates
 Disallow: devise
 Disallow: donates
@@ -72,12 +72,10 @@ Disallow: patron_relationships
 Disallow: patron_types
 Disallow: patrons
 Disallow: picture_files
-Disallow: produce_types
 Disallow: produces
 Disallow: purchase_requests
 #Disallow: questions
-#Disallow: realize_types
-#Disallow: realizes
+Disallow: realizes
 Disallow: request_status_types
 Disallow: request_types
 Disallow: reserve_stat_has_manifestations
