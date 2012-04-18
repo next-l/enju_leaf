@@ -86,9 +86,9 @@ EnjuLeaf::Application.routes.draw do
     resources :exemplifies
   end
 
-  resources :users do
-    resource :patron
-  end
+  #resources :users do
+  #  resource :patron
+  #end
 
   resources :manifestation_relationship_types
   resources :patron_relationship_types
