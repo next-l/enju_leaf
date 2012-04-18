@@ -14,6 +14,7 @@ describe Manifestation, :solr => true do
   it "should set date_of_publication" do
     manifestation = FactoryGirl.create(:manifestation, :pub_date => '2000-01')
     manifestation.year_of_publication.should eq 2000
+    manifestation.month_of_publication.should eq 1
     manifestation.date_of_publication.should eq Time.zone.parse('2000-01-01')
   end
 
@@ -290,5 +291,7 @@ end
 #  content_type_id                 :integer         default(1)
 #  year_of_publication             :integer
 #  attachment_fingerprint          :string(255)
+#  attachment_meta                 :text
+#  month_of_publication            :integer
 #
 

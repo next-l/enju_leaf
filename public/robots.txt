@@ -4,6 +4,7 @@
 # User-Agent: *
 # Disallow: /
 User-Agent: *
+Disallow: accepts
 Disallow: answers
 Disallow: baskets
 Disallow: bookmark_stat_has_manifestations

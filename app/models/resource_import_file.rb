@@ -56,8 +56,9 @@ class ResourceImportFile < ActiveRecord::Base
     sm_start!
     self.reload
     num = {:manifestation_imported => 0, :item_imported => 0, :manifestation_found => 0, :item_found => 0, :failed => 0}
-    row_num = 2
     rows = open_import_file
+    row_num = 2
+
     field = rows.first
     if [field['isbn'], field['original_title']].reject{|field| field.to_s.strip == ""}.empty?
       raise "You should specify isbn or original_tile in the first line"
@@ -143,7 +144,8 @@ class ResourceImportFile < ActiveRecord::Base
     sm_complete!
     Rails.cache.write("manifestation_search_total", Manifestation.search.total)
     return num
-  rescue
+  rescue => e
+    self.error_message = "line #{row_num}: #{e.message}"
     sm_fail!
     raise e
   end
@@ -229,6 +231,7 @@ class ResourceImportFile < ActiveRecord::Base
     sm_start!
     rows = open_import_file
     row_num = 2
+
     rows.each do |row|
       item_identifier = row['item_identifier'].to_s.strip
       item = Item.where(:item_identifier => item_identifier).first if item_identifier.present?
@@ -268,6 +271,7 @@ class ResourceImportFile < ActiveRecord::Base
     sm_start!
     rows = open_import_file
     row_num = 2
+
     rows.each do |row|
       item_identifier = row['item_identifier'].to_s.strip
       item = Item.where(:item_identifier => item_identifier).first

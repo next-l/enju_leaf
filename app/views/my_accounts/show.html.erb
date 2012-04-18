@@ -14,7 +14,12 @@
   <p><%= t('activerecord.attributes.user.user_number') %>: <%= current_user.user_number %></p>
 
   <% if defined?(EnjuCirculation) %>
-    <h2><%= t('activerecord.models.checkout') %></h2>
+    <h2>
+      <%= t('activerecord.models.checkout') %>
+      <%= link_to image_tag('icons/date.png', :size => '16x16', :alt => 'iCalendar', :class => 'icon'), checkouts_url(:icalendar_token => current_user.checkout_icalendar_token, :format => :ics) if current_user.checkout_icalendar_token? %>
+      <%= link_to image_tag('icons/feed.png', :size => '16x16', :alt => 'RSS', :class => 'icon'), user_checkouts_url(current_user, :format => :rss) %>
+      <%= link_to image_tag('icons/page_white_excel.png', :size => '16x16', :alt => 'CSV', :class => 'icon'), user_checkouts_url(current_user, :format => :csv) %>
+    </h2>
     <table class="index">
       <tr>
         <th><%= t('activerecord.models.item') %></th>

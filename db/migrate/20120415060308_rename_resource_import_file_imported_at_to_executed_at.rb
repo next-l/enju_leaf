@@ -4,6 +4,6 @@ class RenameResourceImportFileImportedAtToExecutedAt < ActiveRecord::Migration
   end
 
   def down
-    rename_column :resource_import_files, :executed_at, :impored_at
+    rename_column :resource_import_files, :executed_at, :imported_at
   end
 end

@@ -1,18 +1,18 @@
-<%=h @user.patron.full_name -%> :
+<%= @user.patron.full_name -%> :
 
-Title: <%=h @manifestation.original_title %>
-Creator(s): <%=h @manifestation.creators.readable_by(@user).collect(&:full_name).join("/") %>
-Contributor(s): <%=h @manifestation.contributors.readable_by(@user).collect(&:full_name).join("/") %> 
-Publisher(s): <%=h @manifestation.publishers.readable_by(@user).collect(&:full_name).join("/") %>
-ISBN: <%=h @manifestation.isbn %>
-URL: <%=h @manifestation.access_address %>
+Title: <%= @manifestation.original_title %>
+Creator(s): <%= @manifestation.creators.readable_by(@user).collect(&:full_name).join("/") %>
+Contributor(s): <%= @manifestation.contributors.readable_by(@user).collect(&:full_name).join("/") %> 
+Publisher(s): <%= @manifestation.publishers.readable_by(@user).collect(&:full_name).join("/") %>
+ISBN: <%= @manifestation.isbn %>
+URL: <%= @manifestation.access_address %>
 Holding:
 <% @manifestation.items.on_shelf.each do |item| -%>
- <%=h item.shelf_display_name.localize %> <%=h item.call_number %> <%=h item.item_identifier %>
+ <%= item.shelf_display_name.localize %> <%= item.call_number %> <%= item.item_identifier %>
 <% end -%>
 
 <%= "#{LibraryGroup.site_config.url}manifestations/#{@manifestation.id}" %>
 
 -- 
-<%=h LibraryGroup.system_name(@user.locale) %>
-<%=h LibraryGroup.site_config.url %>
+<%= LibraryGroup.system_name(@user.locale) %>
+<%= LibraryGroup.site_config.url %>

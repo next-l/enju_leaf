@@ -62,42 +62,34 @@ class PatronImportFile < ActiveRecord::Base
       raise "You should specify first_name, last_name or full_name in the first line"
     end
     #rows.shift
+
     rows.each do |row|
       next if row['dummy'].to_s.strip.present?
       import_result = PatronImportResult.create!(:patron_import_file => self, :body => row.fields.join("\t"))
 
-      begin
-        patron = Patron.new
-        patron = set_patron_value(patron, row)
+      patron = Patron.new
+      patron = set_patron_value(patron, row)
 
-        if patron.save!
-          import_result.patron = patron
-          num[:patron_imported] += 1
-          if row_num % 50 == 0
-            Sunspot.commit
-            GC.start
-          end
+      if patron.save!
+        import_result.patron = patron
+        num[:patron_imported] += 1
+        if row_num % 50 == 0
+          Sunspot.commit
+          GC.start
         end
-      rescue
-        Rails.logger.info("patron import failed: column #{row_num}")
-        num[:failed] += 1
       end
 
       unless row['username'].to_s.strip.blank?
-        begin
-          user = User.new
-          user.patron = patron
-          set_user_value(user, row)
-          if user.password.blank?
-            user.set_auto_generated_password
-          end
-          if user.save!
-            import_result.user = user
-          end
-          num[:user_imported] += 1
-        rescue ActiveRecord::RecordInvalid
-          Rails.logger.info("user import failed: column #{row_num}")
+        user = User.new
+        user.patron = patron
+        set_user_value(user, row)
+        if user.password.blank?
+          user.set_auto_generated_password
         end
+        if user.save!
+          import_result.user = user
+        end
+        num[:user_imported] += 1
       end
 
       import_result.save!
@@ -122,7 +114,10 @@ class PatronImportFile < ActiveRecord::Base
   end
 
   def modify
+    sm_start!
     rows = open_import_file
+    row_num = 2
+
     rows.each do |row|
       next if row['dummy'].to_s.strip.present?
       user = User.where(:user_number => row['user_number'].to_s.strip).first
@@ -132,7 +127,9 @@ class PatronImportFile < ActiveRecord::Base
         set_user_value(user, row)
         user.save!
       end
+      row_num += 1
     end
+    sm_complete!
   rescue => e
     self.error_message = "line #{row_num}: #{e.message}"
     sm_fail!
@@ -140,8 +137,10 @@ class PatronImportFile < ActiveRecord::Base
   end
 
   def remove
+    sm_start!
     rows = open_import_file
     row_num = 2
+
     rows.each do |row|
       next if row['dummy'].to_s.strip.present?
       user = User.where(:user_number => row['user_number'].to_s.strip).first
@@ -150,6 +149,7 @@ class PatronImportFile < ActiveRecord::Base
       end
       row_num += 1
     end
+    sm_complete!
   rescue => e
     self.error_message = "line #{row_num}: #{e.message}"
     sm_fail!
