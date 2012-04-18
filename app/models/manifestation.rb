@@ -254,6 +254,7 @@ class Manifestation < ActiveRecord::Base
 
     if date
       self.year_of_publication = date.year
+      self.month_of_publication = date.month
       if date.year > 0
         self.date_of_publication = date
       end
@@ -638,5 +639,6 @@ end
 #  year_of_publication             :integer
 #  attachment_fingerprint          :string(255)
 #  attachment_meta                 :text
+#  month_of_publication            :integer
 #
 
