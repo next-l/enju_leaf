@@ -27,7 +27,7 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_bookmark.git
-  revision: c49299befada6ef0ca4a95324a3a9cb3ad9a1918
+  revision: 129b21d223984d9b862f466a263dfb4fa3687f7c
   specs:
     enju_bookmark (0.0.8)
       acts-as-taggable-on (~> 2.2)
@@ -45,7 +45,7 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_circulation.git
-  revision: a708200676894f918efd43f73089705818d0790d
+  revision: 1b5d731abdc2cdf29c36e5d0f4337ff1e0606f04
   specs:
     enju_circulation (0.0.25)
       acts_as_list (~> 0.1.5)
@@ -191,7 +191,7 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_question.git
-  revision: 812ff334127a8076d64619667f941d197555b35b
+  revision: 4112d7a5e87815423d6f5ba2b0a790b8604d2c87
   specs:
     enju_question (0.0.12)
       acts-as-taggable-on (~> 2.2)
@@ -225,7 +225,7 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_search_log.git
-  revision: 94772f7c594538982165c2dd720309925dbc7326
+  revision: a6bd2e4e407407b7488a9e16e9d965f10338c240
   specs:
     enju_search_log (0.0.3)
       cancan

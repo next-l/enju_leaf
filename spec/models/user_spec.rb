@@ -183,7 +183,7 @@ end
 #
 #  id                       :integer         not null, primary key
 #  email                    :string(255)     default(""), not null
-#  encrypted_password       :string(255)
+#  encrypted_password       :string(255)     default(""), not null
 #  reset_password_token     :string(255)
 #  reset_password_sent_at   :datetime
 #  remember_created_at      :datetime
@@ -204,32 +204,21 @@ end
 #  created_at               :datetime        not null
 #  updated_at               :datetime        not null
 #  deleted_at               :datetime
-#  username                 :string(255)
+#  username                 :string(255)     not null
 #  library_id               :integer         default(1), not null
 #  user_group_id            :integer         default(1), not null
 #  expired_at               :datetime
-#  libraries_count          :integer         default(0), not null
 #  required_role_id         :integer         default(1), not null
 #  note                     :text
 #  keyword_list             :text
 #  user_number              :string(255)
 #  state                    :string(255)
-#  required_score           :integer         default(0), not null
 #  locale                   :string(255)
-#  bookmarks_count          :integer         default(0), not null
-#  share_bookmarks          :boolean         default(FALSE), not null
-#  checkouts_count          :integer         default(0), not null
-#  due_date_reminder_days   :integer         default(1), not null
-#  reserves_count           :integer         default(0), not null
-#  checkout_icalendar_token :string(255)
-#  save_checkout_history    :boolean         default(FALSE), not null
-#  questions_count          :integer         default(0), not null
-#  answers_count            :integer         default(0), not null
-#  answer_feed_token        :string(255)
-#  save_search_history      :boolean         default(FALSE), not null
-#  openid_identifier        :string(255)
-#  oauth_token              :string(255)
-#  oauth_secret             :string(255)
 #  enju_access_key          :string(255)
+#  save_checkout_history    :boolean
+#  checkout_icalendar_token :string(255)
+#  share_bookmarks          :boolean
+#  save_search_history      :boolean
+#  answer_feed_token        :string(255)
 #
 
