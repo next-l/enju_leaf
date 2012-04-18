@@ -19,7 +19,7 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_book_jacket.git
-  revision: 695d38b71da56bfd097f5486c3075520faab866a
+  revision: 37101695b2c1798f6708642b61e52b773c7468ab
   specs:
     enju_book_jacket (0.0.1)
       configatron
@@ -45,7 +45,7 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_circulation.git
-  revision: 1b5d731abdc2cdf29c36e5d0f4337ff1e0606f04
+  revision: b698e8bac6b6ec459a41ef8c83089900bb8a987e
   specs:
     enju_circulation (0.0.25)
       acts_as_list (~> 0.1.5)

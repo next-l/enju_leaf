@@ -3,7 +3,6 @@
 <head>
   <meta charset="UTF-8" />
   <%= render 'page/include' %>
-  <%= render 'page/portlets' %>
   <title><%= title(controller.controller_name) %></title>
   <%- if controller.controller_name == 'manifestations' and controller.action_name == 'index' -%>
     <%= auto_discovery_link_tag(:rss, url_for(params.merge(:format => 'rss', :page => nil, :commit => nil)), :title => (t('manifestation.library_group_manifestation', :library_group_name => @library_group.display_name.localize) + " (RSS)")) %>
