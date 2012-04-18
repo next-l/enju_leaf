@@ -6,7 +6,7 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_book_jacket.git
-  revision: 688cca0c3a0e101d7cd208e71ce6aa7e9fd0cbed
+  revision: 695d38b71da56bfd097f5486c3075520faab866a
   specs:
     enju_book_jacket (0.0.1)
       configatron
@@ -32,6 +32,14 @@ GIT
   revision: 05e31384f167aa7d1e560f76c1c3faf104d64709
   specs:
     isbn-tools (0.2.0)
+
+GIT
+  remote: git://github.com/nabeta/sunspot-rails-tester.git
+  revision: 733d46622fd4080836ee688f00acdd2b77395af9
+  specs:
+    sunspot-rails-tester (0.0.4)
+      sunspot_rails
+      sunspot_solr
 
 GIT
   remote: git://github.com/nakamura-akifumi/enju_standalone_interface.git
@@ -139,7 +147,6 @@ GEM
       rails (~> 3.1)
       will_paginate (~> 3.0)
     erubis (2.7.0)
-    escape (0.0.4)
     event-calendar (2.3.3)
     exception_notification (2.5.2)
       actionmailer (>= 3.0.4)
@@ -348,17 +355,13 @@ GEM
       rack (~> 1.0)
       tilt (~> 1.1, != 1.3.0)
     state_machine (1.1.2)
-    sunspot (1.3.1)
-      escape (~> 0.0.4)
+    sunspot (2.0.0.pre.120417)
       pr_geohash (~> 1.0)
       rsolr (~> 1.0.7)
-    sunspot-rails-tester (0.0.4)
-      sunspot_rails (~> 1.2)
-    sunspot_rails (1.3.1)
+    sunspot_rails (2.0.0.pre.120417)
       nokogiri
-      sunspot (= 1.3.1)
-    sunspot_solr (1.3.0)
-      escape (~> 0.0.4)
+      sunspot (= 2.0.0.pre.120417)
+    sunspot_solr (2.0.0.pre.120417)
     syntax (1.0.0)
     therubyracer (0.9.10)
       libv8 (~> 3.3.10)
@@ -463,9 +466,9 @@ DEPENDENCIES
   sitemap_generator (~> 3.0)
   spork-rails
   state_machine
-  sunspot-rails-tester
-  sunspot_rails (~> 1.3)
-  sunspot_solr (~> 1.3)
+  sunspot-rails-tester!
+  sunspot_rails (~> 2.0.0.pre.120417)
+  sunspot_solr (~> 2.0.0.pre.120417)
   therubyracer
   thinreports
   timecop

@@ -36,8 +36,7 @@ gem 'delayed_job_active_record'
 gem 'daemons'
 gem 'exception_notification', '~> 2.5.2'
 gem 'state_machine'
-gem 'sunspot_rails', '~> 1.3'
-gem 'sunspot_solr', '~> 1.3'
+gem 'sunspot_rails', '~> 2.0.0.pre.120417'
 gem 'progress_bar'
 gem 'friendly_id', '~> 4.0'
 gem 'inherited_resources', '~> 1.3'
@@ -96,6 +95,7 @@ gem "rails_autolink"
 group :development do
   gem 'parallel_tests'
   gem 'annotate'
+  gem 'sunspot_solr', '~> 2.0.0.pre.120417'
 end
 
 group :development, :test do
@@ -106,7 +106,7 @@ group :development, :test do
   gem 'rcov', '0.9.11'
   gem 'metric_fu', '~> 2.1'
   gem 'timecop'
-  gem 'sunspot-rails-tester'
+  gem 'sunspot-rails-tester', :git => 'git://github.com/nabeta/sunspot-rails-tester.git'
   gem 'vcr', '~> 2.0.0.rc2'
   gem 'fakeweb'
   #gem 'churn', '0.0.13'
