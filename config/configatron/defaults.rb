@@ -229,3 +229,6 @@ configatron.user_show_questions
 
 # refs 3128 発注リストを使用するかどうか。trueのとき使用可能
 configatron.use_order_lists
+
+# 書影
+#configatron.manifestation_book_jacket.unknown_resource = "(NO IMAGE)"
