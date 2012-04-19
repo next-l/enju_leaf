@@ -39,12 +39,24 @@
   <%= raw auto_link(simple_format(h(@event.note))) -%>
 </p>
 
+<p>
+  <strong><%= t('activerecord.models.picture_file') -%>:</strong><br />
+  <%- @event.picture_files.each do |picture_file| -%>
+    <%= render 'picture_files/link', :picture_file => picture_file %>
+  <%- end -%>
+</p>
+
 </div>
 </div>
 
 <div id="submenu" class="ui-corner-all">
   <ul>
-    <li><%= link_to t('page.edit'), edit_event_path(@event) -%></li>
+    <%- if can? :edit, @event -%>
+      <li><%= link_to t('page.edit'), edit_event_path(@event) -%></li>
+    <%- end -%>
+    <%- if can? :create, PictureFile -%>
+      <li><%= link_to t('page.listing', :model => t('activerecord.models.picture_file')), event_picture_files_path(@event) -%></li>
+    <%- end -%>
     <li><%= link_to t('page.back'), events_path(:page => flash[:page] ||= nil) -%></li>
   </ul>
 </div>

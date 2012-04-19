@@ -57,8 +57,10 @@
     <% if can? :update, @shelf %>
       <% unless @shelf.open_access == 9 %>
         <li><%= link_to t('page.edit'), edit_shelf_path(@shelf) -%></li>
-        <li><%= link_to t('page.listing', :model => t('activerecord.models.picture_file')), shelf_picture_files_path(@shelf) -%></li>
       <% end %>
+    <% end %>
+    <%- if can? :create, PictureFile -%>
+      <li><%= link_to t('page.listing', :model => t('activerecord.models.picture_file')), shelf_picture_files_path(@shelf) -%></li>
     <% end %>
     <%- if can? :destroy, @shelf -%>
       <%- unless @shelf.id == 1 or @shelf.open_access == 9 -%>
