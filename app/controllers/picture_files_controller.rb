@@ -151,11 +151,35 @@ class PictureFilesController < ApplicationController
   # DELETE /picture_files/1
   # DELETE /picture_files/1.xml
   def destroy
+    obj = @picture_file.picture_attachable
+    case
+    when @picture_file.picture_attachable.is_a?(Shelf)
+      type = 'Shelf'
+    when @picture_file.picture_attachable.is_a?(Manifestation)
+      type = 'Manifestation'
+    when @picture_file.picture_attachable.is_a?(Patron)
+      type = 'Patron'
+    when @picture_file.picture_attachable.is_a?(Event)
+      type = 'Event'
+    else
+      type = nil
+    end
+
     @picture_file.destroy
 
     respond_to do |format|
-      if @shelf
-        format.html { redirect_to shelf_picture_files_url(@shelf) }
+      case type
+      when 'Shelf'
+        format.html { redirect_to shelf_picture_files_url(obj) }
+        format.xml  { head :ok }
+      when 'Manifestation'
+        format.html { redirect_to manifestation_picture_files_url(obj) }
+        format.xml  { head :ok }
+      when 'Patron'
+        format.html { redirect_to patron_picture_files_url(obj) }
+        format.xml  { head :ok }
+      when 'Event'
+        format.html { redirect_to event_picture_files_url(obj) }
         format.xml  { head :ok }
       else
         format.html { redirect_to(picture_files_url) }

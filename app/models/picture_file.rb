@@ -15,7 +15,7 @@ class PictureFile < ActiveRecord::Base
   validates_associated :picture_attachable
   default_scope :order => 'position'
   # http://railsforum.com/viewtopic.php?id=11615
-  acts_as_list :scope => 'picture_attachable_type=\'#{picture_attachable_type}\''
+  acts_as_list :scope => 'picture_attachable_type=\'#{picture_attachable_type}\' and picture_attachable_id=\'#{picture_attachable_id}\''
   before_create :set_digest, :set_dimensions
   normalize_attributes :picture_attachable_type
 

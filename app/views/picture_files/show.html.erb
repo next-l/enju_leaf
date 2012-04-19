@@ -51,12 +51,15 @@
   <ul>
     <li><%= link_to t('page.edit'), edit_picture_file_path(@picture_file) -%></li>
     <% if @picture_file.picture_attachable_type? %>
-      <%- case when @picture_file.picture_attachable.is_a?(Shelf) -%>
+      <%- case -%>
+      <%- when @picture_file.picture_attachable.is_a?(Shelf) -%>
         <li><%= link_to t('page.listing', :model => t('activerecord.models.picture_file')), shelf_picture_files_path(@picture_file.picture_attachable) -%></li>
-     <%- when @picture_file.picture_attachable.is_a?(Manifestation) -%>
+      <%- when @picture_file.picture_attachable.is_a?(Manifestation) -%>
         <li><%= link_to t('page.listing', :model => t('activerecord.models.picture_file')), manifestation_picture_files_path(@picture_file.picture_attachable) -%></li>
-     <%- when @picture_file.picture_attachable.is_a?(Patron) -%>
+      <%- when @picture_file.picture_attachable.is_a?(Patron) -%>
         <li><%= link_to t('page.listing', :model => t('activerecord.models.picture_file')), patron_picture_files_path(@picture_file.picture_attachable) -%></li>
+      <%- when @picture_file.picture_attachable.is_a?(Event) -%>
+        <li><%= link_to t('page.listing', :model => t('activerecord.models.picture_file')), event_picture_files_path(@picture_file.picture_attachable) -%></li>
       <%- else -%>
         <li><%= link_to t('page.listing', :model => t('activerecord.models.picture_file')), picture_files_path -%></li>
       <%- end -%>
