@@ -5,9 +5,8 @@ class ExtentsController < InheritedResources::Base
 
   def update
     @extent = Extent.find(params[:id])
-    if params[:position]
-      @extent.insert_at(params[:position])
-      redirect_to extents_url
+    if params[:move]
+      move_position(@extent, params[:move])
       return
     end
     update!

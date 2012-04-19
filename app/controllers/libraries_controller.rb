@@ -97,9 +97,8 @@ class LibrariesController < ApplicationController
   # PUT /libraries/1
   # PUT /libraries/1.xml
   def update
-    if @library and params[:position]
-      @library.insert_at(params[:position])
-      redirect_to libraries_url
+    if params[:move]
+      move_position(@library, params[:move])
       return
     end
 

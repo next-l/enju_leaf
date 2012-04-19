@@ -5,9 +5,8 @@ class ClassificationTypesController < InheritedResources::Base
 
   def update
     @classification_type = ClassificationType.find(params[:id])
-    if @classification_type and params[:position]
-      @classification_type.insert_at(params[:position])
-      redirect_to classification_types_url
+    if params[:move]
+      move_position(@classification_type, params[:move])
       return
     end
     update!

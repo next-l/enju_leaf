@@ -5,9 +5,8 @@ class LanguagesController < InheritedResources::Base
 
   def update
     @language = Language.find(params[:id])
-    if params[:position]
-      @language.insert_at(params[:position])
-      redirect_to languages_url
+    if params[:move]
+      move_position(@language, params[:move])
       return
     end
     update!

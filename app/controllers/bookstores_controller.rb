@@ -5,9 +5,8 @@ class BookstoresController < InheritedResources::Base
 
   def update
     @bookstore = Bookstore.find(params[:id])
-    if params[:position]
-      @bookstore.insert_at(params[:position])
-      redirect_to bookstores_url
+    if params[:move]
+      move_position(@bookstore, params[:move])
       return
     end
     update!

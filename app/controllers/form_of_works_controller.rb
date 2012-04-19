@@ -5,9 +5,8 @@ class FormOfWorksController < InheritedResources::Base
 
   def update
     @form_of_work = FormOfWork.find(params[:id])
-    if params[:position]
-      @form_of_work.insert_at(params[:position])
-      redirect_to form_of_works_url
+    if params[:move]
+      move_position(@form_of_work, params[:move])
       return
     end
     update!

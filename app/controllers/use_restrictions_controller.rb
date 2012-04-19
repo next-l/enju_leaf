@@ -5,9 +5,8 @@ class UseRestrictionsController < InheritedResources::Base
 
   def update
     @use_restriction = UseRestriction.find(params[:id])
-    if params[:position]
-      @use_restriction.insert_at(params[:position])
-      redirect_to use_restrictions_url
+    if params[:move]
+      move_position(@use_restriction, params[:move])
       return
     end
     update!

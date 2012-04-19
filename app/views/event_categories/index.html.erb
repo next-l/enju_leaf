@@ -14,7 +14,7 @@
 <%- @event_categories.each do |event_category| -%>
   <tr class="line<%= cycle("0", "1") -%>">
     <td>
-      <%- if can? :update, event_category -%>
+      <%- if current_user.has_role?('Administrator') -%>
         <%= move_position(event_category) -%>
       <%- end -%>
     </td>

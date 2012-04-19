@@ -5,9 +5,8 @@ class ContentTypesController < InheritedResources::Base
 
   def update
     @content_type = ContentType.find(params[:id])
-    if params[:position]
-      @content_type.insert_at(params[:position])
-      redirect_to content_types_url
+    if params[:move]
+      move_position(@content_type, params[:move])
       return
     end
     update!

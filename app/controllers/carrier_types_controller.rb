@@ -5,9 +5,8 @@ class CarrierTypesController < InheritedResources::Base
 
   def update
     @carrier_type = CarrierType.find(params[:id])
-    if params[:position]
-      @carrier_type.insert_at(params[:position])
-      redirect_to carrier_types_url
+    if params[:move]
+      move_position(@carrier_type, params[:move])
       return
     end
     update!

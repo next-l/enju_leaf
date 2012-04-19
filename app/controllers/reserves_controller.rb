@@ -284,7 +284,7 @@ class ReservesController < ApplicationController
     
     get_manifestation
     if @manifestation and params[:position]
-      @reserve.insert_at(params[:position])
+      @reserve.insert_at(params[:position].to_i)
       redirect_to manifestation_reserves_url(@manifestation)
       return
     end

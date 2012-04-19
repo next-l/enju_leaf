@@ -5,9 +5,8 @@ class PatronTypesController < InheritedResources::Base
 
   def update
     @patron_type = PatronType.find(params[:id])
-    if params[:position]
-      @patron_type.insert_at(params[:position])
-      redirect_to patron_types_url
+    if params[:move]
+      move_position(@patron_type, params[:move])
       return
     end
     update!

@@ -5,9 +5,8 @@ class PatronRelationshipTypesController < InheritedResources::Base
 
   def update
     @patron_relationship_type = PatronRelationshipType.find(params[:id])
-    if params[:position]
-      @patron_relationship_type.insert_at(params[:position])
-      redirect_to patron_relationship_types_url
+    if params[:move]
+      move_position(@patron_relationship_type, params[:move])
       return
     end
     update!

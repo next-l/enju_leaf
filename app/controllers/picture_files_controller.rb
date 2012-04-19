@@ -131,16 +131,8 @@ class PictureFilesController < ApplicationController
   # PUT /picture_files/1.xml
   def update
     # 並べ替え
-    if params[:position]
-      @picture_file.insert_at(params[:position])
-      case
-      when @picture_file.picture_attachable.is_a?(Shelf)
-        redirect_to shelf_picture_files_url(@picture_file.picture_attachable)
-      when @picture_file.picture_attachable.is_a?(Manifestation)
-        redirect_to manifestation_picture_files_url(@picture_file.picture_attachable)
-      else
-        redirect_to picture_files_url
-      end
+    if params[:move]
+      move_position(@picture_file, params[:move])
       return
     end
 

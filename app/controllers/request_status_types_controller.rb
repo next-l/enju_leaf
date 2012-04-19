@@ -5,9 +5,8 @@ class RequestStatusTypesController < InheritedResources::Base
 
   def update
     @request_status_type = RequestStatusType.find(params[:id])
-    if params[:position]
-      @request_status_type.insert_at(params[:position])
-      redirect_to request_status_types_url
+    if params[:move]
+      move_position(@request_status_type, params[:move])
       return
     end
     update!

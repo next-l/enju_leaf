@@ -5,9 +5,8 @@ class LicensesController < InheritedResources::Base
 
   def update
     @license = License.find(params[:id])
-    if params[:position]
-      @license.insert_at(params[:position])
-      redirect_to licenses_url
+    if params[:move]
+      move_position(@license, params[:move])
       return
     end
     update!

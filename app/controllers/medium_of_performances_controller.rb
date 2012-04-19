@@ -5,9 +5,8 @@ class MediumOfPerformancesController < InheritedResources::Base
 
   def update
     @medium_of_performance = MediumOfPerformance.find(params[:id])
-    if params[:position]
-      @medium_of_performance.insert_at(params[:position])
-      redirect_to medium_of_performances_url
+    if params[:move]
+      move_position(@medium_of_performance, params[:move])
       return
     end
     update!

@@ -14,7 +14,7 @@
 <%- @carrier_types.each do |carrier_type| -%>
   <tr class="line<%= cycle("0", "1") -%>">
     <td>
-      <%- if can? :destroy, carrier_type -%>
+      <%- if can? :update, carrier_type -%>
         <%= move_position(carrier_type) -%>
       <%- end -%>
     </td>
