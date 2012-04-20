@@ -68,7 +68,7 @@ GEM
       multi_json (~> 1.0)
     acts-as-taggable-on (2.2.2)
       rails (~> 3.0)
-    acts_as_list (0.1.5)
+    acts_as_list (0.1.6)
     addressable (2.2.7)
     annotate (2.4.1.beta1)
     arel (3.0.2)
@@ -83,7 +83,7 @@ GEM
       builder
       mime-types
       xml-simple
-    aws-sdk (1.4.0)
+    aws-sdk (1.4.1)
       httparty (~> 0.7)
       json (~> 1.4)
       nokogiri (>= 1.4.4)
@@ -140,7 +140,7 @@ GEM
       sunspot_rails
       sunspot_solr
       will_paginate (~> 3.0)
-    enju_circulation (0.0.26)
+    enju_circulation (0.0.27)
       acts_as_list (~> 0.1.5)
       attribute_normalizer (~> 1.1)
       cancan
@@ -184,7 +184,7 @@ GEM
       sunspot_rails
       sunspot_solr
       will_paginate
-    enju_message (0.0.14)
+    enju_message (0.0.15)
       acts_as_list (~> 0.1.5)
       addressable
       attribute_normalizer (~> 1.1)
@@ -439,7 +439,7 @@ GEM
     uuidtools (2.1.2)
     validates_timeliness (3.0.11)
       timeliness (~> 0.3.6)
-    vcr (2.0.1)
+    vcr (2.1.0)
     warden (1.1.1)
       rack (>= 1.0)
     whenever (0.7.3)
@@ -475,7 +475,7 @@ DEPENDENCIES
   enju_barcode (~> 0.0.2)
   enju_book_jacket!
   enju_bookmark (~> 0.0.8)
-  enju_circulation (~> 0.0.26)
+  enju_circulation (~> 0.0.27)
   enju_event (~> 0.0.15)
   enju_inventory (~> 0.0.6)
   enju_manifestation_viewer!
