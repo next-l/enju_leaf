@@ -3,7 +3,7 @@
 
   <div class="field">
     <%= f.label :keyname %><br />
-    <%= f.text_field :keyname -%>
+    <%= f.text_field :keyname, :disabled => true -%>
   </div>
 
   <% if @system_configuration and @system_configuration.typename == 'Boolean' %>
