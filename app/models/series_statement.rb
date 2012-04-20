@@ -4,7 +4,7 @@ class SeriesStatement < ActiveRecord::Base
   belongs_to :root_manifestation, :foreign_key => :root_manifestation_id, :class_name => 'Manifestation'
   validates_presence_of :original_title
   validate :check_issn
-  after_save :create_root_manifestation
+  before_save :create_root_manifestation
 
   acts_as_list
   searchable do
@@ -43,9 +43,13 @@ class SeriesStatement < ActiveRecord::Base
   def create_root_manifestation
     return nil unless periodical
     return nil if root_manifestation
-    self.root_manifestation = Manifestation.create(
-      :original_title => original_title
-    )
+    SeriesStatement.transaction do
+      manifestation = Manifestation.create!(
+        :original_title => original_title
+      )
+      self.root_manifestation = manifestation
+      self.manifestations << manifestation
+    end
   end
 
   def first_issue

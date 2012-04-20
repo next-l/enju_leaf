@@ -118,6 +118,7 @@ group :development, :test do
   gem 'vcr', '~> 2.0'
   gem 'fakeweb'
 #  gem 'churn', '0.0.13'
+  gem 'steak'
 end
 
 # Gems used only for assets and not required
