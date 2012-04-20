@@ -203,7 +203,7 @@ system_configuration_00034:
   keyname: reserve.not_reserve_on_loan
   v: "false"
   typename: Boolean
-  description: "予約対象は在架資料のみか。trueのとき、一般利用者が図書館利用時に、在架資料を予約/利用することができる。"
+  description: "予約対象は貸出中のもののみとするか。trueのとき一般利用者でシステムにログインすると、予約対象資料は貸出中資料のみとなる。"
 system_configuration_00035:
   id: 35
   keyname: library_checks.auto_checkin
