@@ -7,6 +7,9 @@ describe SeriesStatement do
   it "should create root_manifestation" do
     series_statement = FactoryGirl.create(:series_statement, :periodical => true)
     series_statement.root_manifestation.should be_true
+    series_statement.manifestations.size.should eq 1
+    series_statement.reload
+    series_statement.root_manifestation.periodical_master?.should be_true
   end
 end
 
