@@ -45,9 +45,9 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_circulation.git
-  revision: 1988b7e03c05524013e78e2399ce2f23b735d29c
+  revision: 4db4fd3e7e0105dadeb7485a1cff687505360cf7
   specs:
-    enju_circulation (0.0.28)
+    enju_circulation (0.0.29)
       acts_as_list (~> 0.1.6)
       attribute_normalizer (~> 1.1)
       cancan
@@ -151,9 +151,9 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_ndl.git
-  revision: baa22eea95a10231a32691b164d1340689a09484
+  revision: 8bab422e6698f8327e07c0d49ddc60d377e5036e
   specs:
-    enju_ndl (0.0.20)
+    enju_ndl (0.0.21)
       acts_as_list
       attribute_normalizer
       devise
