@@ -447,10 +447,10 @@ class Manifestation < ActiveRecord::Base
 
     searchable do
       text :subject do
-        subjects.collect(&:term) + subjects.collect(&:term_transcription)
+        (subjects.collect(&:term) + subjects.collect(&:term_transcription)).compact
       end
       string :subject, :multiple => true do
-        subjects.collect(&:term) + subjects.collect(&:term_transcription)
+        (subjects.collect(&:term) + subjects.collect(&:term_transcription)).compact
       end
       string :classification, :multiple => true do
         classifications.collect(&:category)
