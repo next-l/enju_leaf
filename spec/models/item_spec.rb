@@ -27,7 +27,7 @@ describe Item do
     old_count = MessageRequest.count
     items(:item_00013).retain(users(:librarian1)).should be_true
     items(:item_00013).reserves.first.state.should eq 'retained'
-    MessageRequest.count.should eq old_count + 1
+    MessageRequest.count.should eq old_count + 2
   end
 
   it "should not be checked out when it is clamed" do
