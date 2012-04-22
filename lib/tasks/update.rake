@@ -14,7 +14,7 @@ namespace :enju do
     raise exception
   end
 
-  namespace :upgrade do
+  namespace :update do
     desc '1.0.5.rc2'
     task :to_1_0_5_rc2 => :environment do
       exception_notify{
