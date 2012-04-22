@@ -239,9 +239,10 @@ describe CheckedItemsController do
 
       describe "When the item is reserved" do
         it "assigns a newly created checked_item as @checked_item" do
+          old_count = items(:item_00021).manifestation.reserves.waiting.count
           post :create, :checked_item => {:item_identifier => '00021'} , :basket_id => 11
           assigns(:checked_item).should be_valid
-          assigns(:checked_item).item.manifestation.reserves.waiting.should be_empty
+          assigns(:checked_item).item.manifestation.reserves.waiting.count.should eq old_count - 1
         end
       end
 

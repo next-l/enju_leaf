@@ -6,10 +6,6 @@ describe MessageTemplatesController do
   disconnect_sunspot
 
   describe "GET index" do
-    before(:each) do
-      FactoryGirl.create(:message_template)
-    end
-
     describe "When logged in as Administrator" do
       login_admin
 

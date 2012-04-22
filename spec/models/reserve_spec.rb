@@ -5,16 +5,25 @@ describe Reserve do
   fixtures :all
 
   it "should have next reservation" do
-    reserves(:reserve_00001).next_reservation.should be_true
+    reserves(:reserve_00014).next_reservation.should be_true
+  end
+
+  it "should notify a next reservation" do
+    old_count = Message.count
+    reserve = reserves(:reserve_00014)
+    reserve.sm_expire!
+    reserve.state.should eq 'expired'
+    reserve.next_reservation.item.should eq reserve.item
+    Message.count.should eq old_count + 2
   end
 
   it "should expire reservation" do
-    reserves(:reserve_00001).expire
+    reserves(:reserve_00001).sm_expire!
     reserves(:reserve_00001).request_status_type.name.should eq 'Expired'
   end
 
   it "should cancel reservation" do
-    reserves(:reserve_00001).cancel
+    reserves(:reserve_00001).sm_cancel!
     reserves(:reserve_00001).canceled_at.should be_true
     reserves(:reserve_00001).request_status_type.name.should eq 'Cannot Fulfill Request'
   end
@@ -26,7 +35,7 @@ describe Reserve do
   it "should send accepted message" do
     old_admin_count = User.find('admin').received_messages.count
     old_user_count = reserves(:reserve_00002).user.received_messages.count
-    reserves(:reserve_00002).send_message('accepted').should be_true
+    reserves(:reserve_00002).send_message.should be_true
     # 予約者と図書館の両方に送られる
     User.find('admin').received_messages.count.should eq old_admin_count + 1
     reserves(:reserve_00002).user.received_messages.count.should eq old_user_count + 1
@@ -34,8 +43,8 @@ describe Reserve do
 
   it "should send expired message" do
     old_count = MessageRequest.count
-    reserves(:reserve_00002).send_message('expired').should be_true
-    MessageRequest.count.should eq old_count + 1
+    reserves(:reserve_00006).send_message.should be_true
+    MessageRequest.count.should eq old_count + 2
   end
 
   it "should send message to library" do

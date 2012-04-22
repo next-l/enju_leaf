@@ -128,11 +128,7 @@ class Item < ActiveRecord::Base
         unless reservation.nil?
           reservation.item = self
           reservation.sm_retain!
-          reservation.update_attributes({:request_status_type => RequestStatusType.where(:name => 'In Process').first})
-          request = MessageRequest.new(:sender_id => librarian.id, :receiver_id => reservation.user_id)
-          message_template = MessageTemplate.localized_template('item_received', reservation.user.locale)
-          request.message_template = message_template
-          request.save!
+          reservation.send_message(librarian)
         end
       end
     end
@@ -225,10 +221,14 @@ class Item < ActiveRecord::Base
   end
 
   def deletable?
-    if defined?(EnjuCirculation)
-      checkouts.not_returned.empty?
+    if circulation_status.name == 'Removed'
+      return false
     else
-      true
+      if defined?(EnjuCirculation)
+        checkouts.not_returned.empty?
+      else
+        true
+      end
     end
   end
 end
