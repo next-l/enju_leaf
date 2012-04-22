@@ -31,11 +31,11 @@ namespace :enju do
         end
 
         MessageTemplate.create!(
-          :status => 'reservation_for_library',
+          :status => 'reservation_accepted_for_library',
           :title => 'Reservation accepted',
           :body => 'Reservation accepted',
           :locale => 'ja'
-        ) unless MessageTemplate.where(:status => 'reservation_for_library').first
+        ) unless MessageTemplate.where(:status => 'reservation_accepted_for_library').first
 
         MessageTemplate.create!(
           :status => 'item_received_for_library',
