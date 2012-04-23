@@ -10,6 +10,18 @@ class ShelvesController < ApplicationController
     @count = {}
     page = params[:page] || 1
 
+    # when create a item 
+    if params[:mode] == 'select'
+      library = Library.find(params[:library_id]) rescue nil
+      if library
+        @shelves = library.shelves
+      else
+        @shelves = Shelf.real
+      end
+      render :partial => 'select_form'
+      return
+    end
+
     search_result = Shelf.search.build do
       with(:library).equal_to params[:library] if params[:library]
       with(:open_access).equal_to params[:open_access] if params[:open_access]
