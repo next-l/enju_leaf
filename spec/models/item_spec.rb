@@ -37,6 +37,10 @@ describe Item do
   it "should have library_url" do
     items(:item_00001).library_url.should eq "#{LibraryGroup.site_config.url}libraries/web"
   end
+
+  it "should not be able to checkout a removed item" do
+    Item.for_checkout.include?(items(:item_00023)).should be_false
+  end
 end
 
 

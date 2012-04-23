@@ -45,7 +45,7 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_circulation.git
-  revision: da5b02d9d95c470eb51df19356e1063762b9179e
+  revision: 71641beabba5cef14837e1743e513558675dfe45
   specs:
     enju_circulation (0.0.29)
       acts_as_list (~> 0.1.6)
@@ -151,7 +151,7 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_ndl.git
-  revision: 8bab422e6698f8327e07c0d49ddc60d377e5036e
+  revision: 331c6b6a48648c4bf757681307790bf2b33728ba
   specs:
     enju_ndl (0.0.21)
       acts_as_list

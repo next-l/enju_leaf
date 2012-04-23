@@ -501,7 +501,7 @@ describe ItemsController do
       end
 
       it "should not destroy a removed item" do
-        delete :destroy, :id => 22
+        delete :destroy, :id => 23
         response.should be_forbidden
       end
     end
