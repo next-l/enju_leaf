@@ -209,10 +209,26 @@ item_00021:
   id: 21
   include_supplements: false
   created_at: 2007-08-24 23:46:20.484813 +09:00
-
-
-
-
+item_00022: 
+  updated_at: 2007-08-24 23:46:20.484813 +09:00
+  item_identifier: '00022'
+  circulation_status_id: 2
+  checkout_type_id: 3
+  shelf_id: 1
+  call_number: 
+  id: 22
+  include_supplements: false
+  created_at: 2007-08-24 23:46:20.484813 +09:00
+item_00023: 
+  updated_at: 2007-08-24 23:46:20.484813 +09:00
+  item_identifier: '00023'
+  circulation_status_id: 15
+  checkout_type_id: 3
+  shelf_id: 2
+  call_number: 
+  id: 23
+  include_supplements: false
+  created_at: 2007-08-24 23:46:20.484813 +09:00
 
 
 # == Schema Information

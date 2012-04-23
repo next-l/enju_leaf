@@ -249,7 +249,7 @@ describe CheckinsController do
         it "should show notification when it is reserved" do
           post :create, :checkin => {:item_identifier => '00008'}, :basket_id => 9
           flash[:message].to_s.index(I18n.t('item.this_item_is_reserved')).should be_true
-          assigns(:checkin).item.next_reservation.state.should eq 'retained'
+          assigns(:checkin).item.manifestation.next_reservation.state.should eq 'retained'
           assigns(:checkin).item.circulation_status.name.should eq 'Available On Shelf'
           response.should redirect_to basket_checkins_url(assigns(:basket))
         end

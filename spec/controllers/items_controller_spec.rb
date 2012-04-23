@@ -499,6 +499,11 @@ describe ItemsController do
         delete :destroy, :id => 1
         response.should be_forbidden
       end
+
+      it "should not destroy a removed item" do
+        delete :destroy, :id => 23
+        response.should be_forbidden
+      end
     end
 
     describe "When logged in as Librarian" do
