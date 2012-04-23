@@ -8,7 +8,7 @@
         <p>
           <strong><%= t('activerecord.models.subject') -%>:</strong>
           <%- manifestation.subjects.each do |subject| -%>
-            <%= link_to subject.term, manifestations_path(:query => "subject_sm: #{h(subject.term)}") -%>
+            <%= link_to subject.term, manifestations_path(:query => "subject_sm:#{h(subject.term)}") -%>
           <%- end -%>
         </p>
       <% end %>
