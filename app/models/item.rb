@@ -50,7 +50,7 @@ class Item < ActiveRecord::Base
       'Limited Circulation, Short Loan Period',
       'Term Loan'
     ]
-    scope :for_checkout, includes(:use_restriction).where('use_restrictions.name' => FOR_CHECKOUT)
+    scope :for_checkout, includes(:use_restriction).where('use_restrictions.name' => FOR_CHECKOUT).where('item_identifier IS NOT NULL')
     scope :removed, includes(:use_restriction).where('use_restrictions.name' => 'Removed')
     has_many :checkouts
     has_many :reserves

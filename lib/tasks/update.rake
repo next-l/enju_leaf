@@ -45,8 +45,8 @@ namespace :enju do
           :locale => 'ja'
         ) unless MessageTemplate.where(:status => 'item_received_for_library').first
 
-        unless UseRestriction.where(:name => 'Removed').first
-          use_restriction = UseRestriction.new
+        unless CirculationStatus.where(:name => 'Removed').first
+          use_restriction = CirculationStatus.new
           use_restriction.name = "Removed"
           use_restriction.display_name = "en: Removed\r\nja: 除籍済み"
           use_restriction.save!
