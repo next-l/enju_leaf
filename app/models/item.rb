@@ -44,8 +44,14 @@ class Item < ActiveRecord::Base
   attr_accessor :library_id, :manifestation_id
 
   if defined?(EnjuCirculation)
-    scope :for_checkout, where('item_identifier IS NOT NULL')
-    scope :not_for_checkout, where(:item_identifier => nil)
+    # TODO: ひとつの個別資料に対する複数の利用制限の設定
+    FOR_CHECKOUT = [
+      'Limited Circulation, Normal Loan Period',
+      'Limited Circulation, Short Loan Period',
+      'Term Loan'
+    ]
+    scope :for_checkout, includes(:use_restriction).where('use_restrictions.name' => FOR_CHECKOUT)
+    scope :removed, includes(:use_restriction).where('use_restrictions.name' => 'Removed')
     has_many :checkouts
     has_many :reserves
     has_many :reserved_patrons, :through => :reserves, :class_name => 'Patron'

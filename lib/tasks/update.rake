@@ -1,3 +1,4 @@
+# -*- encoding: utf-8 -*-
 namespace :enju do
   # https://gist.github.com/551136
   def exception_notify
@@ -15,8 +16,8 @@ namespace :enju do
   end
 
   namespace :update do
-    desc '1.0.5.rc2'
-    task :to_1_0_5_rc2 => :environment do
+    desc '1.0.5'
+    task :to_1_0_5 => :environment do
       exception_notify{
         message_template = MessageTemplate.where(:status => 'reservation_accepted').first
         if message_template
@@ -43,6 +44,13 @@ namespace :enju do
           :body => 'Item received',
           :locale => 'ja'
         ) unless MessageTemplate.where(:status => 'item_received_for_library').first
+
+        unless UseRestriction.where(:name => 'Removed').first
+          use_restriction = UseRestriction.new
+          use_restriction.name = "Removed"
+          use_restriction.display_name = "en: Removed\r\nja: 除籍済み"
+          use_restriction.save!
+        end
 
         puts "Records were added successfully!"
       }
