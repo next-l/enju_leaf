@@ -192,9 +192,9 @@ class Item < ActiveRecord::Base
     next_reservation = self.manifestation.next_reservation
     next_reservation_accept_library = Library.find(next_reservation.receipt_library_id)
     next_reservation.item = self
-
     if self.shelf.library == next_reservation_accept_library 
       next_reservation.sm_retain!
+      next_reservation.send_message('retained')
     else
       next_reservation.sm_process!
       InterLibraryLoan.new.request_for_reserve(self, next_reservation_accept_library)
@@ -208,10 +208,7 @@ class Item < ActiveRecord::Base
         reservation.item = self
         reservation.sm_retain!
         reservation.update_attributes({:request_status_type => RequestStatusType.find_by_name('In Process')})
-        request = MessageRequest.new(:sender_id => librarian.id, :receiver_id => reservation.user_id)
-        message_template = MessageTemplate.localized_template('item_received', reservation.user.locale)
-        request.message_template = message_template
-        request.save!
+        reservation.send_message('retained')
       end
     end
   end

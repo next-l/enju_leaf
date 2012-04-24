@@ -116,15 +116,19 @@ class PurchaseRequest < ActiveRecord::Base
     PurchaseRequest.transaction do
       case status
       when 'accepted'
-        message_template = MessageTemplate.localized_template('purchase_request_accepted', self.user.locale)
-        request = MessageRequest.create!(:sender => system_user, :receiver => self.user, :message_template => message_template)
-        request.save_message_body(:purchase_request => Array[self], :user => self.user)
-        request.sm_send_message
+        if SystemConfiguration.get("send_message.purchase_request_accepted")
+          message_template = MessageTemplate.localized_template('purchase_request_accepted', self.user.locale)
+          request = MessageRequest.create!(:sender => system_user, :receiver => self.user, :message_template => message_template)
+          request.save_message_body(:purchase_request => Array[self], :user => self.user)
+          request.sm_send_message
+        end
       when 'rejected'
-        message_template = MessageTemplate.localized_template('purchase_request_rejected', self.user.locale)
-        request = MessageRequest.create!(:sender => system_user, :receiver => self.user, :message_template => message_template)
-        request.save_message_body(:purchase_request => Array[self], :user => self.user, :reason => reason)
-        request.sm_send_message!
+        if SystemConfiguration.get("send_message.purchase_request_rejected")
+          message_template = MessageTemplate.localized_template('purchase_request_rejected', self.user.locale)
+          request = MessageRequest.create!(:sender => system_user, :receiver => self.user, :message_template => message_template)
+          request.save_message_body(:purchase_request => Array[self], :user => self.user, :reason => reason)
+          request.sm_send_message!
+        end
       else
         raise 'status to send message not defined'
       end

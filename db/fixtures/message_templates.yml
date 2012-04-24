@@ -1,73 +1,95 @@
+body = <<EOS
+EOS
+
 message_template_00001:
   id: 1
   status: reservation_accepted_for_patron
-  title: Reservation accepted
-  body: Reservation accepted
+  title: "予約を受け付けました"
+  body: "以下の資料の予約を受け付けました"
   position: 1
+  locale: ja
 message_template_00002:
   id: 2
-  status: item_received
-  title: Item received
-  body: Item received
+  status: reservation_accepted_for_library
+  title: "予約が行われました"
+  body: "以下の資料の予約が行われました。"
   position: 2
+  locale: ja
 message_template_00003:
   id: 3
-  status: reservation_expired_for_patron
-  title: Reservation expired
-  body: Reservation expired
+  status: item_received_for_patron
+  title: "予約資料の準備が整いました"
+  body: "以下の予約資料の準備が整いました。"
   position: 3
+  locale: ja
 message_template_00004:
   id: 4
-  status: reservation_expired_for_library
-  title: Reservation expired
-  body: Reservation expired
+  status: item_received_for_library
+  title: "予約資料を確保しました"
+  body: "以下の予約資料を確保しました。"
   position: 4
+  locale: ja
 message_template_00005:
   id: 5
-  status: reservation_canceled_for_patron
-  title: Reservation canceled
-  body: Reservation canceled
+  status: reservation_expired_for_patron
+  title: "予約の有効期限が過ぎました"
+  body: "以下の予約資料の有効期限が過ぎました。"
   position: 5
+  locale: ja
 message_template_00006:
   id: 6
-  status: reservation_canceled_for_library
-  title: Reservation canceled
-  body: Reservation canceled
+  status: reservation_expired_for_library
+  title: "有効期限が過ぎた予約があります"
+  body: "以下の予約資料の有効期限が過ぎました。"
   position: 6
+  locale: ja
 message_template_00007:
   id: 7
-  status: recall_item
-  title: Recall item
-  body: Recall item
+  status: reservation_canceled_for_patron
+  title: "予約を取り消しました"
+  body: "以下の資料の予約を取り消しました。"
   position: 7
+  locale: ja
 message_template_00008:
   id: 8
-  status: recall_overdue_item
-  title: Recall overdue item
-  body: Recall overdue item
+  status: reservation_canceled_for_library
+  title: "予約が取り消されました"
+  body: "以下の資料の予約が取り消されました。"
   position: 8
+  locale: ja
 message_template_00009:
   id: 9
-  status: reservation_accepted_for_library
-  title: Reservation accepted
-  body: Reservation accepted
+  status: recall_item
+  title: "貸出期限が迫っています"
+  body: "以下の資料の貸出期限が迫っています。"
   position: 9
+  locale: ja
 message_template_00010:
   id: 10
-  status: retained_manifestations
-  title: retained_manifestations
-  body: retained_manifestations
+  status: recall_overdue_item
+  title: "資料を返却してください"
+  body: "以下の資料の貸出期限が過ぎています。返却をお願いします。"
   position: 10
+  locale: ja
 message_template_00011:
   id: 11
-  status: purchase_request_accepted
-  title: purchase_request_accepted
-  body: purchase_request_accepted
+  status: retained_manifestations
+  title: "予約資料の準備が整いました"
+  body: "以下の予約資料の準備が整いました。"
   position: 11
+  locale: ja
 message_template_00012:
   id: 12
-  status: purchase_request_rejected
-  title: purchase_request_rejected
-  body: purchase_request_rejected
+  status: purchase_request_accepted
+  title: "購入リクエストを受け付けました"
+  body: "以下の資料の購入リクエストを受け付けました。"
   position: 12
+  locale: ja
+message_template_00013:
+  id: 13
+  status: purchase_request_rejected
+  title: "購入リクエストを謝絶しました"
+  body: "以下の資料の購入リクエストを謝絶しました。"
+  position: 13
+  locale: ja
 

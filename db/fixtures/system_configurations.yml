@@ -270,3 +270,75 @@ system_configuration_00045:
   v: "false"
   typename: Boolean
   description: "発注リストを使用するかどうか。trueのとき使用可能。"
+system_configuration_00046:
+  id: 46
+  keyname: send_message.reservation_accepted_for_patron
+  v: "true"
+  typename: Boolean
+  description: "予約受付時に予約者に受付完了メッセージを送信するか。trueのとき送信。"
+system_configuration_00047:
+  id: 47
+  keyname: send_message.reservation_accepted_for_library
+  v: "true"
+  typename: Boolean
+  description: "予約受付時に管理者に受付完了メッセージを送信するか。trueのとき送信。"
+system_configuration_00048:
+  id: 48
+  keyname: send_message.reservation_canceled_for_patron
+  v: "true"
+  typename: Boolean
+  description: "予約キャンセル時に予約者にキャンセル完了メッセージを送信するか。trueのとき送信。"
+system_configuration_00049:
+  id: 49
+  keyname: send_message.reservation_canceled_for_library
+  v: "true"
+  typename: Boolean
+  description: "予約キャンセル時に管理者にキャンセル完了メッセージを送信するか。trueのとき送信。"
+system_configuration_00050:
+  id: 50
+  keyname: send_message.item_received_for_patron
+  v: "true"
+  typename: Boolean
+  description: "予約資料確保時に予約者に資料確保完了メッセージを送信するか。trueのとき送信。"
+system_configuration_00051:
+  id: 51
+  keyname: send_message.item_received_for_library
+  v: "true"
+  typename: Boolean
+  description: "予約資料確保時に管理者に資料確保完了メッセージを送信するか。trueのとき送信。"
+system_configuration_00052:
+  id: 52
+  keyname: send_message.reservation_expired_for_patron
+  v: "true"
+  typename: Boolean
+  description: "予約資料の有効期限が過ぎた時に利用者に有効期限切れメッセージを送信するか。trueのとき送信。"
+system_configuration_00053:
+  id: 53
+  keyname: send_message.reservation_expired_for_library
+  v: "true"
+  typename: Boolean
+  description: "予約資料の有効期限が過ぎた時に管理者に有効期限切れメッセージを送信するか。trueのとき送信。"
+system_configuration_00054:
+  id: 54
+  keyname: send_message.recall_item
+  v: "true"
+  typename: Boolean
+  description: "貸出資料の督促送信指定日に利用者に督促メッセージを送信するか。trueのとき送信。"
+system_configuration_00055:
+  id: 55
+  keyname: send_message.recall_overdue_item
+  v: "true"
+  typename: Boolean
+  description: "貸出期限切れ資料の督促送信指定日に利用者に督促メッセージを送信するか。trueのとき送信。"
+system_configuration_00056:
+  id: 56
+  keyname: send_message.purchase_request_accepted
+  v: "true"
+  typename: Boolean
+  description: "購入リクエストを受付時に利用者に受付完了メッセージを送信するか。trueのとき送信。"
+system_configuration_00057:
+  id: 57
+  keyname: send_message.purchase_request_rejected
+  v: "true"
+  typename: Boolean
+  description: "購入リクエスト謝絶時に利用者に謝絶完了メッセージを送信するか。trueのとき送信。"

@@ -232,3 +232,39 @@ configatron.use_order_lists
 
 # 書影
 #configatron.manifestation_book_jacket.unknown_resource = "(NO IMAGE)"
+
+# refs 2506 予約受付時に予約者に受付完了メッセージを送信するか
+configatron.send_message.reservation_accepted_for_patron = true
+
+# refs 2506 予約受付時に管理者に受付完了メッセージを送信するか
+configatron.send_message.reservation_accepted_for_library = true
+
+# refs 2506 予約キャンセル時に予約者にキャンセル完了メッセージを送信するか
+configatron.send_message.reservation_canceled_for_patron = true
+
+# refs 2506 予約キャンセル時に管理者にキャンセル完了メッセージを送信するか
+configatron.send_message.reservation_canceled_for_library = true
+
+# refs 2506 予約資料確保時に予約者に資料確保完了メッセージを送信するか
+configatron.send_message.item_received_for_patron = true
+
+# refs 2506 予約資料確保時に管理者に資料確保完了メッセージを送信するか
+configatron.send_message.item_received_for_library = true
+
+# refs 2506 予約資料の有効期限が過ぎた時に利用者に有効期限切れメッセージを送信するか
+configatron.send_message.reservation_expired_for_patron = true
+
+# refs 2506 予約資料の有効期限が過ぎた時に管理者に有効期限切れメッセージを送信するか
+configatron.send_message.reservation_expired_for_library = true
+
+# refs 2506 貸出資料の督促送信指定日に利用者に督促メッセージを送信するか
+configatron.send_message.recall_item = true
+
+# refs 2506 貸出期限切れ資料の督促送信指定日に利用者に督促メッセージを送信するか
+configatron.send_message.recall_overdue_item = true
+
+# refs 2506 購入リクエストを受付時に利用者に受付完了メッセージを送信するか
+configatron.send_message.purchase_request_accepted = true
+
+# refs 2506 購入リクエスト謝絶時に利用者に謝絶完了メッセージを送信するか
+configatron.send_message.purchase_request_rejected = true

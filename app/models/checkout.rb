@@ -95,7 +95,9 @@ class Checkout < ActiveRecord::Base
       # 未来の日時を指定する
       checkouts = user.checkouts.due_date_on(user.user_group.number_of_day_to_notify_due_date.days.from_now.beginning_of_day)
       unless checkouts.empty?
-        queues << user.send_message(template, :manifestations => checkouts.collect(&:item).collect(&:manifestation))
+        if SystemConfiguration.get("send_message.recall_item")
+          queues << user.send_message(template, :manifestations => checkouts.collect(&:item).collect(&:manifestation))
+        end
       end
     end
     queues.size
@@ -108,7 +110,9 @@ class Checkout < ActiveRecord::Base
       user.user_group.number_of_time_to_notify_overdue.times do |i|
         checkouts = user.checkouts.due_date_on((user.user_group.number_of_day_to_notify_overdue * (i + 1)).days.ago.beginning_of_day)
         unless checkouts.empty?
-          queues << user.send_message(template, :manifestations => checkouts.collect(&:item).collect(&:manifestation))
+          if SystemConfiguration.get("send_message.recall_overdue_item")
+            queues << user.send_message(template, :manifestations => checkouts.collect(&:item).collect(&:manifestation))
+          end
         end
       end
     end

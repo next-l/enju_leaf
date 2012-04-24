@@ -14,6 +14,7 @@ class Reserve < ActiveRecord::Base
   scope :not_waiting, where(:state => ['retained'])
   #scope :not_waiting, where(:state => ['retained','canceled','completed'])
   scope :will_expire_retained, lambda {|datetime| {:conditions => ['checked_out_at IS NULL AND canceled_at IS NULL AND expired_at <= ? AND state = ?', datetime, 'retained'], :order => 'expired_at'}}
+  scope :will_expire_requested, lambda {|datetime| {:conditions => ['checked_out_at IS NULL AND canceled_at IS NULL AND expired_at <= ? AND state = ?', datetime, 'requested'], :order => 'expired_at'}}
   scope :will_expire_pending, lambda {|datetime| {:conditions => ['checked_out_at IS NULL AND canceled_at IS NULL AND expired_at <= ? AND state = ?', datetime, 'pending'], :order => 'expired_at'}}
   scope :created, lambda {|start_date, end_date| {:conditions => ['created_at >= ? AND created_at < ?', start_date, end_date]}}
   scope :not_sent_expiration_notice_to_patron, where(:state => 'expired', :expiration_notice_to_patron => false)
@@ -73,7 +74,7 @@ class Reserve < ActiveRecord::Base
     end
 
     event :sm_expire do
-      transition [:canceled] => :expired
+      transition [:pending, :requested, :retained] => :expired
     end
 
     event :sm_complete do
@@ -279,35 +280,75 @@ class Reserve < ActiveRecord::Base
     Reserve.transaction do
       case status
       when 'accepted'
-        message_template_to_patron = MessageTemplate.localized_template('reservation_accepted_for_patron', self.user.locale)
-        request = MessageRequest.new(:sender => system_user, :receiver => self.user, :message_template => message_template_to_patron)
-        request.save_message_body(:manifestations => Array[self.manifestation], :user => self.user)
-        request.send_later(:sm_send_message)
-        message_template_to_library = MessageTemplate.localized_template('reservation_accepted_for_library', self.user.locale)
-        request = MessageRequest.new(:sender => system_user, :receiver => system_user, :message_template => message_template_to_library)
-        request.save_message_body(:manifestations => Array[self.manifestation], :user => self.user)
-        request.send_later(:sm_send_message!)
+        if SystemConfiguration.get("send_message.reservation_accepted_for_patron")
+          message_template_to_patron = MessageTemplate.localized_template('reservation_accepted_for_patron', self.user.locale)
+          request = MessageRequest.new(:sender => system_user, :receiver => self.user, :message_template => message_template_to_patron)
+          request.save_message_body(:manifestations => Array[self.manifestation], :user => self.user)
+          request.send_later(:sm_send_message)
+        end
+        if SystemConfiguration.get("send_message.reservation_accepted_for_library")
+          message_template_to_library = MessageTemplate.localized_template('reservation_accepted_for_library', self.user.locale)
+          request = MessageRequest.new(:sender => system_user, :receiver => system_user, :message_template => message_template_to_library)
+          request.save_message_body(:manifestations => Array[self.manifestation], :user => self.user)
+          request.send_later(:sm_send_message!)
+        end
       when 'canceled'
-        message_template_to_patron = MessageTemplate.localized_template('reservation_canceled_for_patron', self.user.locale)
-        request = MessageRequest.new(:sender => system_user, :receiver => self.user, :message_template => message_template_to_patron)
-        request.save_message_body(:manifestations => Array[self.manifestation], :user => self.user)
-        request.send_later(:sm_send_message!)
-        message_template_to_library = MessageTemplate.localized_template('reservation_canceled_for_library', self.user.locale)
-        request = MessageRequest.new(:sender => system_user, :receiver => system_user, :message_template => message_template_to_library)
-        request.save_message_body(:manifestations => Array[self.manifestation], :user => self.user)
-        request.send_later(:sm_send_message!)
+        if SystemConfiguration.get("send_message.reservation_canceled_for_patron")
+          message_template_to_patron = MessageTemplate.localized_template('reservation_canceled_for_patron', self.user.locale)
+          request = MessageRequest.new(:sender => system_user, :receiver => self.user, :message_template => message_template_to_patron)
+          request.save_message_body(:manifestations => Array[self.manifestation], :user => self.user)
+          request.send_later(:sm_send_message!)
+        end
+        if SystemConfiguration.get("send_message.reservation_canceled_for_library")
+          message_template_to_library = MessageTemplate.localized_template('reservation_canceled_for_library', self.user.locale)
+          request = MessageRequest.new(:sender => system_user, :receiver => system_user, :message_template => message_template_to_library)
+          request.save_message_body(:manifestations => Array[self.manifestation], :user => self.user)
+          request.send_later(:sm_send_message!)
+        end
       when 'expired'
         message_template_to_patron = MessageTemplate.localized_template('reservation_expired_for_patron', self.user.locale)
         request = MessageRequest.new(:sender => system_user, :receiver => self.user, :message_template => message_template_to_patron)
         request.save_message_body(:manifestations => Array[self.manifestation], :user => self.user)
         request.send_later(:sm_send_message!)
         self.update_attribute(:expiration_notice_to_patron, true)
+=begin
+        if SystemConfiguration.get("send_message.reservation_expired_for_library")
+          message_template_to_library = MessageTemplate.localized_template('reservation_expired_for_library', self.user.locale)
+          request = MessageRequest.new(:sender => system_user, :receiver => self.user, :message_template => message_template_to_library)
+            request.save_message_body(:manifestations => Array[self.manifestation], :user => self.user)
+          request.send_later(:sm_send_message!)
+          self.not_sent_expiration_notice_to_library.each do |reserve|
+            self.update_attribute(:expiration_notice_to_library, true)
+          end
+        end
+        if SystemConfiguration.get("send_message.reservation_expired_for_patron")
+          message_template_to_patron = MessageTemplate.localized_template('reservation_expired_for_patron', self.user.locale)
+          request = MessageRequest.new(:sender => system_user, :receiver => self.user, :message_template => message_template_to_patron)
+          request.save_message_body(:manifestations => Array[self.manifestation], :user => self.user)
+          request.send_later(:sm_send_message!)
+          self.update_attribute(:expiration_notice_to_patron, true)
+        end
+=end
       when 'retained'
+        if SystemConfiguration.get("send_message.item_received_for_patron")
+          message_template_for_patron = MessageTemplate.localized_template('item_received_for_patron', self.user.locale)
+          request = MessageRequest.new(:sender => system_user, :receiver => user, :message_template => message_template_for_patron)
+          request.save_message_body(:manifestations => Array[self.manifestation], :user => self.user)
+          request.send_later(:sm_send_message!)
+        end
+        if SystemConfiguration.get("send_message.item_received_for_library")
+          message_template_for_library = MessageTemplate.localized_template('item_received_for_library', self.user.locale)
+          request = MessageRequest.new(:sender => system_user, :receiver => system_user, :message_template => message_template_for_library)
+          request.save_message_body(:manifestations => Array[self.manifestation], :user => self.user)
+          request.send_later(:sm_send_message!)
+        end
+=begin
         message_template_to_patron = MessageTemplate.localized_template('retained_manifestations', self.user.locale)
         request = MessageRequest.new(:sender => system_user, :receiver => self.user, :message_template => message_template_to_patron)
         request.save_message_body(:manifestations => Array[self.manifestation], :user => self.user)
         request.send_later(:sm_send_message!)
         self.update_attribute(:expiration_notice_to_patron, true)
+=end
       else
         raise 'status not defined'
       end
@@ -318,18 +359,23 @@ class Reserve < ActiveRecord::Base
     system_user = User.find(1) # TODO: システムからのメッセージの発信者
     case status
     when 'expired'
-      message_template_to_library = MessageTemplate.localized_template('reservation_expired_for_library', system_user.locale)
-      request = MessageRequest.create!(:sender => system_user, :receiver => system_user, :message_template => message_template_to_library)
-      request.save_message_body(:manifestations => options[:manifestations])
-      self.not_sent_expiration_notice_to_library.each do |reserve|
-        reserve.update_attribute(:expiration_notice_to_library, true)
+      if SystemConfiguration.get("send_message.reservation_expired_for_library")
+        message_template_to_library = MessageTemplate.localized_template('reservation_expired_for_library', system_user.locale)
+        request = MessageRequest.new(:sender => system_user, :receiver => system_user, :message_template => message_template_to_library)
+        request.save_message_body(:manifestations => options[:manifestations])
+        request.send_later(:sm_send_message!)
+        self.not_sent_expiration_notice_to_library.each do |reserve|
+          reserve.update_attribute(:expiration_notice_to_library, true)
+        end
       end
     #when 'canceled'
-    #  message_template_to_library = MessageTemplate.localized_template('reservation_canceled_for_library', system_user.locale)
-    #  request = MessageRequest.create!(:sender => system_user, :receiver => system_user, :message_template => message_template_to_library)
-    #  request.save_message_body(:manifestations => self.not_sent_expiration_notice_to_library.collect(&:manifestation))
-    #  self.not_sent_cancel_notice_to_library.each do |reserve|
-    #    reserve.update_attribute(:expiration_notice_to_library, true)
+    #  if SystemConfiguration.get("send_message.reservation_canceled_for_library")
+    #    message_template_to_library = MessageTemplate.localized_template('reservation_canceled_for_library', system_user.locale)
+    #    request = MessageRequest.create!(:sender => system_user, :receiver => system_user, :message_template => message_template_to_library)
+    #    request.save_message_body(:manifestations => self.not_sent_expiration_notice_to_library.collect(&:manifestation))
+    #    self.not_sent_cancel_notice_to_library.each do |reserve|
+    #      reserve.update_attribute(:expiration_notice_to_library, true)
+    #    end
     #  end
     else
       raise 'status not defined'
@@ -338,14 +384,18 @@ class Reserve < ActiveRecord::Base
 
   def self.expire
     Reserve.transaction do
-      self.will_expire_retained(Time.zone.now.beginning_of_day).map{|r| r.sm_expire!}
       self.will_expire_pending(Time.zone.now.beginning_of_day).map{|r| r.sm_expire!}
+      #self.will_expire_requested(Time.zone.now.beginning_of_day).map{|r| r.sm_expire!}
+      self.will_expire_retained(Time.zone.now.beginning_of_day).map{|r| r.sm_expire!}
+
       # キューに登録した時点では本文は作られないので
       # 予約の連絡をすませたかどうかを識別できるようにしなければならない
       # reserve.send_message('expired')
       User.find_each do |user|
         unless user.reserves.not_sent_expiration_notice_to_patron.empty?
-          user.send_message('reservation_expired_for_patron', :manifestations => user.reserves.not_sent_expiration_notice_to_patron.collect(&:manifestation))
+          if SystemConfiguration.get("send_message.reservation_expired_for_patron")
+            user.send_message('reservation_expired_for_patron', :manifestations => user.reserves.not_sent_expiration_notice_to_patron.collect(&:manifestation))
+          end
         end
       end
       unless Reserve.not_sent_expiration_notice_to_library.empty?
@@ -401,11 +451,13 @@ class Reserve < ActiveRecord::Base
   end
 
   def retained_mail_title
-    MessageTemplate.localized_template('retained_manifestations', self.user.locale).title rescue nil
+    #MessageTemplate.localized_template('retained_manifestations', self.user.locale).title rescue nil
+    MessageTemplate.localized_template('item_received_for_patron', self.user.locale).title rescue nil
   end
 
   def retained_mail_message
-    message = MessageTemplate.localized_template('retained_manifestations', self.user.locale)
+    #message = MessageTemplate.localized_template('retained_manifestations', self.user.locale)
+    message = MessageTemplate.localized_template('item_received_for_patron', self.user.locale)
     options = {:manifestations => Array[self.manifestation], 
                :user => self.user,
                :receipt_library => Library.find(self.receipt_library_id),
