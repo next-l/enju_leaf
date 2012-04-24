@@ -1,20 +1,25 @@
 class Accept < ActiveRecord::Base
+  default_scope :order => 'accepts.id DESC'
   belongs_to :basket
   belongs_to :item
   belongs_to :librarian, :class_name => 'User'
 
-  validates_uniqueness_of :item_id, :scope => :basket_id, :on => :create
-  validates_presence_of :item_id
-  validates_presence_of :basket_id, :on => :create
+  validates_uniqueness_of :item_id, :message => I18n.t('accept.already_accepted')
+  validates_presence_of :item_id, :message => I18n.t('accept.item_not_found')
+  validates_presence_of :basket_id
 
   before_save :accept!, :on => :create
 
   attr_accessible :item_identifier
   attr_accessor :item_identifier
 
+  def self.per_page
+    10
+  end
+
   def accept!
     item.circulation_status = CirculationStatus.where(:name => 'Available On Shelf').first
-    item.save!
+    item.save(:validate => false)
   end
 end
 # == Schema Information

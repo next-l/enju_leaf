@@ -432,6 +432,8 @@ en:
         name: Name
         display_name: Display name
         note: Note
+      accept:
+        item_id: Item
 
   page:
     user_title: "Welcome %{login_name}"

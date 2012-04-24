@@ -439,6 +439,9 @@ class Manifestation < ActiveRecord::Base
         items.for_checkout.exists?
       end
     end
+
+    def available_for_reservation?
+    end
   end
 
   if defined?(EnjuSubject)

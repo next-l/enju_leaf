@@ -56,7 +56,7 @@ class BasketsController < ApplicationController
 
     respond_to do |format|
       if @basket.save
-        format.html { redirect_to basket_checked_items_url(@basket), :notice => t('controller.successfully_created', :model => t('activerecord.models.basket')) }
+        format.html { redirect_to new_basket_checked_item_url(@basket), :notice => t('controller.successfully_created', :model => t('activerecord.models.basket')) }
         format.json { render :json => @basket, :status => :created, :location => @basket }
       else
         format.html { render :action => "new" }

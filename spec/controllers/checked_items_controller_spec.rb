@@ -10,13 +10,13 @@ describe CheckedItemsController do
       it "assigns all checked_items as @checked_items" do
         get :index
         assigns(:checked_items).should_not be_empty
-        response.should be_forbidden
+        response.should be_success
       end
 
-      it "should not get index without basket_id" do
+      it "should get index without basket_id" do
         get :index, :item_id => 1
         assigns(:checked_items).should_not be_empty
-        response.should be_forbidden
+        response.should be_success
       end
     end
 
@@ -26,7 +26,7 @@ describe CheckedItemsController do
       it "should be forbidden" do
         get :index
         assigns(:checked_items).should_not be_empty
-        response.should be_forbidden
+        response.should be_success
       end
 
       describe "When basket is specified" do
@@ -115,13 +115,12 @@ describe CheckedItemsController do
       it "assigns the requested checked_item as @checked_item" do
         get :new, :basket_id => 3
         assigns(:checked_item).should_not be_valid
-        response.should be_success
       end
 
       describe "When basket is not specified" do
         it "should be forbidden" do
           get :new
-          response.should be_forbidden
+          response.should redirect_to new_basket_url
         end
       end
     end
@@ -243,6 +242,7 @@ describe CheckedItemsController do
           post :create, :checked_item => {:item_identifier => '00021'} , :basket_id => 11
           assigns(:checked_item).should be_valid
           assigns(:checked_item).item.manifestation.reserves.waiting.count.should eq old_count - 1
+          assigns(:checked_item).librarian.should eq users(:admin)
         end
       end
 
@@ -266,11 +266,11 @@ describe CheckedItemsController do
         response.should redirect_to basket_checked_items_url(assigns(:checked_item).basket)
       end
 
-      it "should create checked_item with list" do
-        post :create, :checked_item => {:item_identifier => '00011'}, :basket_id => 3, :mode => 'list'
+      it "should create checked_item" do
+        post :create, :checked_item => {:item_identifier => '00011'}, :basket_id => 3
         assigns(:checked_item).should be_true
         assigns(:checked_item).due_date.should_not be_nil
-        response.should redirect_to basket_checked_items_url(assigns(:checked_item).basket, :mode => 'list')
+        response.should redirect_to basket_checked_items_url(assigns(:checked_item).basket)
       end 
 
       it "should not create checked_item if excessed checkout_limit" do
@@ -287,9 +287,9 @@ describe CheckedItemsController do
       end 
 
       it "should create checked_item when ignore_restrictoin is checked" do
-        post :create, :checked_item => {:item_identifier => '00011', :ignore_restriction => "1"}, :basket_id => 2, :mode => 'list'
+        post :create, :checked_item => {:item_identifier => '00011', :ignore_restriction => "1"}, :basket_id => 2
         assigns(:checked_item).due_date.should_not be_nil
-        response.should redirect_to basket_checked_items_url(assigns(:checked_item).basket, :mode => 'list')
+        response.should redirect_to basket_checked_items_url(assigns(:checked_item).basket)
       end
     end
 

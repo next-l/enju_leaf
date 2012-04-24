@@ -13,16 +13,16 @@ describe CheckinsController do
     describe "When logged in as Administrator" do
       login_admin
 
-      it "assigns nil as @checkins" do
+      it "assigns all checkins as @checkins" do
         get :index
-        assigns(:checkins).should be_nil
-        response.should redirect_to(basket_checkins_url(assigns(:basket)))
+        assigns(:checkins).should eq Checkin.page(1)
+        response.should be_success
       end
 
       describe "When basket_id is specified" do
         it "assigns all checkins as @checkins" do
           get :index, :basket_id => 10
-          assigns(:checkins).should eq Basket.find(10).checkins
+          assigns(:checkins).should eq Basket.find(10).checkins.page(1)
           response.should be_success
         end
       end
@@ -31,16 +31,16 @@ describe CheckinsController do
     describe "When logged in as Librarian" do
       login_librarian
 
-      it "assigns nil as @checkins" do
+      it "assigns all checkins as @checkins" do
         get :index
-        assigns(:checkins).should be_nil
-        response.should redirect_to(basket_checkins_url(assigns(:basket)))
+        assigns(:checkins).should eq Checkin.page(1)
+        response.should be_success
       end
 
       describe "When basket_id is specified" do
         it "assigns all checkins as @checkins" do
           get :index, :basket_id => 9
-          assigns(:checkins).should eq Basket.find(9).checkins
+          assigns(:checkins).should eq Basket.find(9).checkins.page(1)
           response.should be_success
         end
       end
@@ -199,13 +199,12 @@ describe CheckinsController do
       describe "with valid params" do
         it "assigns a newly created checkin as @checkin" do
           post :create, :checkin => @attrs
-          assigns(:checkin).should be_valid
+          assigns(:checkin).should_not be_valid
         end
 
-        it "redirects to index" do
+        it "should not create checkin without basket_id" do
           post :create, :checkin => @attrs
-          response.should redirect_to(basket_checkins_url(assigns(:basket)))
-          assigns(:checkin).item.circulation_status.name.should eq 'Available On Shelf'
+          response.should be_forbidden
         end
 
         describe "When basket_id is specified" do
@@ -220,19 +219,19 @@ describe CheckinsController do
       describe "with invalid params" do
         it "assigns a newly created but unsaved checkin as @checkin" do
           post :create, :checkin => @invalid_attrs
-          assigns(:checkin).should be_valid
+          assigns(:checkin).should_not be_valid
         end
 
-        it "redirects to the list" do
+        it "should be forbidden" do
           post :create, :checkin => @invalid_attrs
-          response.should redirect_to(basket_checkins_url(assigns(:checkin).basket))
+          response.should be_forbidden
         end
       end
 
       it "should not create checkin without item_id" do
         post :create, :checkin => {:item_identifier => nil}, :basket_id => 9
         assigns(:checkin).should_not be_valid
-        response.should redirect_to basket_checkins_url(assigns(:basket))
+        response.should be_success
       end
     end
 
@@ -242,8 +241,12 @@ describe CheckinsController do
       describe "with valid params" do
         it "assigns a newly created checkin as @checkin" do
           post :create, :checkin => @attrs
-          assigns(:checkin).should be_valid
-          assigns(:checkin).item.circulation_status.name.should eq 'Available On Shelf'
+          assigns(:checkin).should_not be_valid
+        end
+
+        it "should not create checkin without basket_id" do
+          post :create, :checkin => @attrs
+          response.should be_forbidden
         end
 
         it "should show notification when it is reserved" do
@@ -277,7 +280,7 @@ describe CheckinsController do
       describe "with valid params" do
         it "assigns a newly created checkin as @checkin" do
           post :create, :checkin => @attrs
-          assigns(:checkin).should be_valid
+          assigns(:checkin).should_not be_valid
         end
 
         it "should be forbidden" do

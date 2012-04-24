@@ -4,7 +4,7 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-<strong><%= t('activerecord.models.item') -%>:</strong>
+  <strong><%= t('activerecord.models.item') -%>:</strong>
   <% if @accept.item %>
     <%= link_to @accept.item.item_identifier, @accept.item -%>
     (<%= link_to @accept.item.manifestation.original_title, @accept.item.manifestation %>)
@@ -12,8 +12,13 @@
 </p>
 
 <p>
-<strong><%= t('activerecord.models.user') -%>:</strong>
-  <%= link_to @accept.librarian.username, @accept.librarian -%>
+  <strong><%= t('activerecord.models.user') -%>:</strong>
+  <%= link_to @accept.librarian.username, @accept.librarian if @accept.librarian -%>
+</p>
+
+<p>
+  <strong><%= t('page.created_at') -%>:</strong>
+  <%=l @accept.created_at %>
 </p>
 
 </div>
@@ -21,7 +26,6 @@
 
 <div id="submenu" class="ui-corner-all">
   <ul>
-    <li><%= link_to t('page.edit'), edit_accept_path(@accept) -%></li>
     <li><%= back_to_index(flash[:page_info]) -%></li>
   </ul>
 </div>

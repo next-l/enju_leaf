@@ -431,6 +431,8 @@ ja:
         name: 名称
         display_name: 表示名
         note: 注記
+      accept:
+        item_id: 個別資料
 
   page:
     user_title: "ようこそ %{login_name} さん"
@@ -764,5 +766,5 @@ ja:
     item_not_found: "資料が見つかりません。"
     enter_item_identifier: "所蔵情報番号を入力してください。"
     already_accepted: "この資料はすでに検収されています。"
-    accept: "検収（取り消しはできません）"
+    accept: "検収"
     successfully_accepted: "この資料は正常に検収されました。"
