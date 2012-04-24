@@ -13,16 +13,16 @@ describe AcceptsController do
     describe "When logged in as Administrator" do
       login_fixture_admin
 
-      it "assigns nil as @accepts" do
+      it "assigns all accepts as @accepts" do
         get :index
-        assigns(:accepts).should be_nil
-        response.should redirect_to(basket_accepts_url(assigns(:basket)))
+        assigns(:accepts).should_not be_nil
+        response.should be_success
       end
 
       describe "When basket_id is specified" do
         it "assigns all accepts as @accepts" do
           get :index, :basket_id => 10
-          assigns(:accepts).should eq Basket.find(10).accepts
+          assigns(:accepts).should eq Basket.find(10).accepts.page(1)
           response.should be_success
         end
       end
@@ -31,16 +31,16 @@ describe AcceptsController do
     describe "When logged in as Librarian" do
       login_fixture_librarian
 
-      it "assigns nil as @accepts" do
+      it "assigns all accepts as @accepts" do
         get :index
-        assigns(:accepts).should be_nil
-        response.should redirect_to(basket_accepts_url(assigns(:basket)))
+        assigns(:accepts).should_not be_nil
+        response.should be_success
       end
 
       describe "When basket_id is specified" do
         it "assigns all accepts as @accepts" do
           get :index, :basket_id => 9
-          assigns(:accepts).should eq Basket.find(9).accepts
+          assigns(:accepts).should eq Basket.find(9).accepts.page(1)
           response.should be_success
         end
       end
@@ -199,13 +199,12 @@ describe AcceptsController do
       describe "with valid params" do
         it "assigns a newly created accept as @accept" do
           post :create, :accept => @attrs
-          assigns(:accept).should be_valid
+          assigns(:accept).should_not be_valid
         end
 
-        it "redirects to index" do
+        it "should not create a new accept without basket_id" do
           post :create, :accept => @attrs
-          response.should redirect_to(basket_accepts_url(assigns(:basket)))
-          assigns(:accept).item.circulation_status.name.should eq 'Available On Shelf'
+          response.should be_forbidden
         end
 
         describe "When basket_id is specified" do
@@ -223,16 +222,16 @@ describe AcceptsController do
           assigns(:accept).should_not be_valid
         end
 
-        it "redirects to the list" do
+        it "should be forbidden" do
           post :create, :accept => @invalid_attrs
-          response.should redirect_to(basket_accepts_url(assigns(:accept).basket))
+          response.should be_forbidden
         end
       end
 
       it "should not create accept without item_id" do
         post :create, :accept => {:item_identifier => nil}, :basket_id => 9
         assigns(:accept).should_not be_valid
-        response.should redirect_to basket_accepts_url(assigns(:basket))
+        response.should be_success
       end
     end
 
@@ -242,8 +241,12 @@ describe AcceptsController do
       describe "with valid params" do
         it "assigns a newly created accept as @accept" do
           post :create, :accept => @attrs
-          assigns(:accept).should be_valid
-          assigns(:accept).item.circulation_status.name.should eq 'Available On Shelf'
+          assigns(:accept).should_not be_valid
+        end
+
+        it "should not create a new accept without basket_id" do
+          post :create, :accept => @attrs
+          response.should be_forbidden
         end
       end
     end

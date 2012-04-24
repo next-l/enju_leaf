@@ -4,7 +4,8 @@ describe "accepts/show" do
   before(:each) do
     @accept = assign(:accept, stub_model(Accept,
       :item_id => 1,
-      :librarian_id => 1
+      :librarian_id => 1,
+      :created_at => Time.zone.now
     ))
   end
 

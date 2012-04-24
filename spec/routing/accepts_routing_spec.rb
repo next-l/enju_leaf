@@ -15,16 +15,8 @@ describe AcceptsController do
       get("/accepts/1").should route_to("accepts#show", :id => "1")
     end
 
-    it "routes to #edit" do
-      get("/accepts/1/edit").should route_to("accepts#edit", :id => "1")
-    end
-
     it "routes to #create" do
       post("/accepts").should route_to("accepts#create")
-    end
-
-    it "routes to #update" do
-      put("/accepts/1").should route_to("accepts#update", :id => "1")
     end
 
     it "routes to #destroy" do

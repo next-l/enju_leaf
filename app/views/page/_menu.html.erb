@@ -12,13 +12,7 @@
         <ul>
           <%- if current_user.has_role?('Librarian') -%>
             <li><%= link_to t('page.checkout'), new_basket_path -%></li>
-            <li>
-              <%- if @checkins and @basket -%>
-                <%= link_to t('page.checkin'), basket_checkins_path(@basket) -%>
-              <%- else -%>
-                <%= link_to t('page.checkin'), checkins_path -%>
-              <%- end -%>
-            </li>
+            <li><%= link_to t('page.checkin'), new_checkin_path -%></li>
           <% end %>
           <li>
             <%= link_to t('page.listing', :model => t('activerecord.models.reserve')), reserves_path -%>

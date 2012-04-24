@@ -4,12 +4,14 @@ describe "accepts/index" do
   before(:each) do
     assign(:accepts, [
       stub_model(Accept,
-        :item_id => 1
+        :item_id => 1,
+        :created_at => Time.zone.now
       ),
       stub_model(Accept,
-        :item_id => 1
+        :item_id => 1,
+        :created_at => Time.zone.now
       )
-    ])
+    ].paginate(:page => 1))
     basket = FactoryGirl.create(:basket)
     assign(:basket, basket)
     assign(:accept, basket.accepts.new)

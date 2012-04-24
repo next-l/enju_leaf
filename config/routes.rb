@@ -1,9 +1,9 @@
 EnjuLeaf::Application.routes.draw do
   resources :baskets do
-    resources :accepts
+    resources :accepts, :except => [:edit, :update]
   end
 
-  resources :accepts
+  resources :accepts, :except => [:edit, :update]
 
   resources :budget_types
 

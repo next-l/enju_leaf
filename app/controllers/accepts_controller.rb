@@ -11,20 +11,44 @@ class AcceptsController < InheritedResources::Base
       @accepts = Accept.order('accepts.created_at DESC').paginate(:page => params[:page], :per_page => 65534)
     else
       # かごがない場合、自動的に作成する
-      unless @basket
-        @basket = Basket.create!(:user => current_user)
-        redirect_to basket_accepts_url(@basket)
-        return
+      #unless @basket
+      #  @basket = Basket.create!(:user => current_user)
+      #  redirect_to basket_accepts_url(@basket)
+      #  return
+      #end
+      if params[:accept]
+        @query = params[:accept][:item_identifier].to_s.strip
+        item = Item.where(:item_identifier => @query).first if @query.present?
+        if item
+          @accepts = Accept.order('accepts.created_at DESC').where(:item_id => item.id).paginate(:page => params[:page])
+        else
+          @accepts = [].paginate(:page => 1)
+        end
+      else
+        if @basket
+          @accepts = @basket.accepts.paginate(:page => params[:page])
+        else
+          @accepts = Accept.paginate(:page => params[:page])
+        end
       end
-      @accepts = @basket.accepts.order('accepts.created_at DESC').all
-      @accept = @basket.accepts.new
     end
 
     respond_to do |format|
       format.html # index.rhtml
       format.json { render :json => @accepts }
-      format.js
+      format.js { @accept = Accept.new }
       format.csv
+    end
+  end
+
+  def new
+    @basket = Basket.create!(:user => current_user)
+    @accept = Accept.new
+    @accepts = []
+
+    respond_to do |format|
+      format.html # new.html.erb
+      format.json { render :json => @patron }
     end
   end
 
@@ -32,10 +56,9 @@ class AcceptsController < InheritedResources::Base
   # POST /accepts.json
   def create
     unless @basket
-      @basket = Basket.new(:user => current_user)
-      @basket.save(:validate => false)
+      access_denied; return
     end
-    @accept = @basket.accepts.new(params[:accept])
+    @accept.basket = @basket
     @accept.librarian = current_user
 
     flash[:message] = ''
@@ -44,38 +67,19 @@ class AcceptsController < InheritedResources::Base
     else
       item = Item.where(:item_identifier => @accept.item_identifier.to_s.strip).first
     end
-
-    unless item
-      flash[:message] << t('accept.item_not_found')
-    else
-      if @basket.accepts.collect(&:item).include?(item)
-        flash[:message] << t('accept.already_accepted')
-      end
-    end
+    @accept.item = item
 
     respond_to do |format|
-      unless item
-        format.html { redirect_to basket_accepts_url(@accept.basket) }
-        format.json { render :json => @accept.errors, :status => :unprocessable_entity }
-        format.js {
-          redirect_to basket_accepts_url(@accept.basket, :mode => 'list', :format => :js)
-        }
+      if @accept.save
+        flash[:message] << t('accept.successfully_accepted', :model => t('activerecord.models.accept'))
+        format.html { redirect_to basket_accepts_url(@basket) }
+        format.json { render :json => @accept, :status => :created, :location => @accept }
+        format.js { redirect_to basket_accepts_url(@basket, :format => :js) }
       else
-        @accept.item = item
-        if @accept.save
-          flash[:message] << t('accept.successfully_accepted', :model => t('activerecord.models.accept'))
-          format.html { redirect_to basket_accepts_url(@accept.basket) }
-          format.json { render :json => @accept, :status => :created, :location => @accept }
-          format.js {
-            redirect_to basket_accepts_url(@accept.basket, :mode => 'list', :format => :js)
-          }
-        else
-          format.html { render :action => "new" }
-          format.json { render :json => @accept.errors, :status => :unprocessable_entity }
-          format.js {
-            redirect_to basket_accepts_url(@basket, :mode => 'list', :format => :js)
-          }
-        end
+        @accepts = Accept.paginate(:page => params[:page])
+        format.html { render :action => "index" }
+        format.json { render :json => @accept.errors, :status => :unprocessable_entity }
+        format.js { render :action => "index" }
       end
     end
   end
