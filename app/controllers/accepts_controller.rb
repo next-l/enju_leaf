@@ -19,11 +19,10 @@ class AcceptsController < InheritedResources::Base
       if params[:accept]
         @query = params[:accept][:item_identifier].to_s.strip
         item = Item.where(:item_identifier => @query).first if @query.present?
-        if item
-          @accepts = Accept.order('accepts.created_at DESC').where(:item_id => item.id).paginate(:page => params[:page])
-        else
-          @accepts = [].paginate(:page => 1)
-        end
+      end
+
+      if item
+        @accepts = Accept.order('accepts.created_at DESC').where(:item_id => item.id).paginate(:page => params[:page])
       else
         if @basket
           @accepts = @basket.accepts.paginate(:page => params[:page])
@@ -76,7 +75,7 @@ class AcceptsController < InheritedResources::Base
         format.json { render :json => @accept, :status => :created, :location => @accept }
         format.js { redirect_to basket_accepts_url(@basket, :format => :js) }
       else
-        @accepts = Accept.paginate(:page => params[:page])
+        @accepts = @basket.accepts.paginate(:page => params[:page])
         format.html { render :action => "index" }
         format.json { render :json => @accept.errors, :status => :unprocessable_entity }
         format.js { render :action => "index" }
