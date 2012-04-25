@@ -140,6 +140,14 @@ GEM
       sunspot_rails
       sunspot_solr
       will_paginate (~> 3.0)
+<<<<<<< HEAD
+=======
+
+GIT
+  remote: git://github.com/nabeta/enju_circulation.git
+  revision: 962b5139e33a5b0c36f1ab7e3159d41dac6cf4b5
+  specs:
+>>>>>>> e1bc267... updated spec files
     enju_circulation (0.0.30)
       acts_as_list (~> 0.1.6)
       attribute_normalizer (~> 1.1)
@@ -271,10 +279,10 @@ GEM
       actionmailer (>= 3.0.4)
     execjs (1.3.0)
       multi_json (~> 1.0)
-    factory_girl (3.1.1)
+    factory_girl (3.2.0)
       activesupport (>= 3.0.0)
-    factory_girl_rails (3.1.0)
-      factory_girl (~> 3.1.0)
+    factory_girl_rails (3.2.0)
+      factory_girl (~> 3.2.0)
       railties (>= 3.0.0)
     fakeweb (1.3.0)
     fattr (2.2.1)
@@ -488,7 +496,7 @@ DEPENDENCIES
   enju_search_log (~> 0.0.3)
   enju_subject (~> 0.0.9)
   exception_notification (~> 2.6)
-  factory_girl_rails (~> 3.1)
+  factory_girl_rails (~> 3.2)
   fakeweb
   file_wrapper
   friendly_id (~> 4.0)

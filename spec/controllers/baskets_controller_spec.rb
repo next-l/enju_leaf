@@ -253,7 +253,7 @@ describe BasketsController do
       it "should create basket" do
         post :create, :basket => {:user_number => users(:user1).user_number }
         assigns(:basket).should be_valid
-        response.should redirect_to new_basket_checked_item_url(assigns(:basket))
+        response.should redirect_to basket_checked_items_url(assigns(:basket))
       end
 
       it "should not create basket without user_number" do

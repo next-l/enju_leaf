@@ -44,12 +44,28 @@ class Item < ActiveRecord::Base
   attr_accessor :library_id, :manifestation_id
 
   if defined?(EnjuCirculation)
-    FOR_CHECKOUT = [
+    FOR_CHECKOUT_CIRCULATION_STATUS = [
       'Available On Shelf',
       'On Loan',
       'Waiting To Be Reshelved'
     ]
-    scope :for_checkout, includes(:circulation_status).where('circulation_statuses.name' => FOR_CHECKOUT).where('item_identifier IS NOT NULL')
+    FOR_CHECKOUT_USE_RESTRICTION = [
+      'Available For Supply Without Return',
+      'Limited Circulation, Long Loan Period',
+      'Limited Circulation, Short Loan Period',
+      'No Reproduction',
+      'Overnight Only',
+      'Renewals Not Permitted',
+      'Supervision Required',
+      'Term Loan',
+      'User Signature Required',
+      'Limited Circulation, Normal Loan Period'
+    ]
+    scope :for_checkout, includes(:circulation_status, :use_restriction)
+      .where(
+        'circulation_statuses.name' => FOR_CHECKOUT_CIRCULATION_STATUS,
+        'use_restrictions.name' => FOR_CHECKOUT_USE_RESTRICTION
+      ).where('item_identifier IS NOT NULL')
     scope :removed, includes(:circulation_status).where('circulation_statuses.name' => 'Removed')
     has_many :checkouts
     has_many :reserves
@@ -104,9 +120,11 @@ class Item < ActiveRecord::Base
     end
 
     def available_for_checkout?
-      circulation_statuses = CirculationStatus.available_for_checkout.select(:id)
-      return true if circulation_statuses.include?(self.circulation_status)
-      false
+      if circulation_status.name == 'On Loan'
+        false
+      else
+        manifestation.items.for_checkout.include?(self)
+      end
     end
 
     def checkout!(user)
@@ -139,11 +157,7 @@ class Item < ActiveRecord::Base
     end
 
     def not_for_loan?
-      if use_restriction.try(:name) == 'Not For Loan'
-        true
-      else
-        false
-      end
+      !manifestation.items.for_checkout.include?(self)
     end
   end
 
