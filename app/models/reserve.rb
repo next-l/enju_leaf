@@ -388,7 +388,7 @@ class Reserve < ActiveRecord::Base
     Reserve.transaction do
       self.will_expire_pending(Time.zone.now.beginning_of_day).map{|r| r.sm_expire!}
       #self.will_expire_requested(Time.zone.now.beginning_of_day).map{|r| r.sm_expire!}
-      self.will_expire_retained(Time.zone.now.beginning_of_day).map{|r| r.sm_expire!}
+      self.will_expire_retained(Time.zone.now.beginning_of_day).map{|r| r.sm_expire!; r.item.set_next_reservation}
 
       # キューに登録した時点では本文は作られないので
       # 予約の連絡をすませたかどうかを識別できるようにしなければならない
