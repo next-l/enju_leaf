@@ -247,7 +247,6 @@ class ReservesController < ApplicationController
         #end
         begin
           @reserve.new_reserve
-          @reserve.send_message('accepted')
         rescue Exception => e
           logger.error "Faild to send the reservation message: #{e}"
         end
