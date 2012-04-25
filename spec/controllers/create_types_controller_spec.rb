@@ -20,6 +20,7 @@ require 'spec_helper'
 
 describe CreateTypesController do
   login_admin
+  fixtures :library_groups
 
   # This should return the minimal set of attributes required to create a valid
   # CreateType. As you add validations to CreateType, be sure to

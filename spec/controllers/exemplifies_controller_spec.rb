@@ -2,7 +2,7 @@ require 'spec_helper'
 require 'sunspot/rails/spec_helper'
 
 describe ExemplifiesController do
-  fixtures :exemplifies
+  fixtures :exemplifies, :carrier_types
   disconnect_sunspot
 
   def valid_attributes
