@@ -203,13 +203,7 @@ class Item < ActiveRecord::Base
 
   def retain(librarian)
     Item.transaction do
-      reservation = self.manifestation.next_reservation
-      unless reservation.nil?
-        reservation.item = self
-        reservation.sm_retain!
-        reservation.update_attributes({:request_status_type => RequestStatusType.find_by_name('In Process')})
-        reservation.send_message('retained')
-      end
+      set_next_reservation
     end
   end
 
