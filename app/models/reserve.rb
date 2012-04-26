@@ -41,7 +41,6 @@ class Reserve < ActiveRecord::Base
   validates_date :expired_at, :allow_blank => true
   validate :manifestation_must_include_item
   validate :available_for_reservation?, :on => :create
-  validate :available_for_update? , :on => :update
   before_validation :set_item_and_manifestation, :on => :create
   before_validation :set_expired_at
   before_validation :set_request_status, :on => :create
@@ -401,7 +400,7 @@ class Reserve < ActiveRecord::Base
   def self.expire
     Reserve.transaction do
       self.will_expire_pending(Time.zone.now.beginning_of_day).map{|r| r.sm_expire!}
-      #self.will_expire_requested(Time.zone.now.beginning_of_day).map{|r| r.sm_expire!}
+      self.will_expire_requested(Time.zone.now.beginning_of_day).map{|r| r.sm_expire!}
       self.will_expire_retained(Time.zone.now.beginning_of_day).map{|r| r.sm_expire!; r.item.set_next_reservation}
 
       # キューに登録した時点では本文は作られないので

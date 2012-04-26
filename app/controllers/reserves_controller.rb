@@ -276,9 +276,7 @@ class ReservesController < ApplicationController
       end
     end
 
-    if params[:reserve]
-      user = User.where(:user_number => params[:reserve][:user_number]).first
-    end
+    user = User.where(:user_number => params[:reserve][:user_number]).first if params[:reserve]
     user = @user if @user
     
     get_manifestation
@@ -299,10 +297,10 @@ class ReservesController < ApplicationController
 
     if user
       @reserve = user.reserves.find(params[:id])
-    end
+    end 
 
     respond_to do |format|
-      if @reserve.update_attributes(params[:reserve])
+      if @reserve.available_for_update? and @reserve.update_attributes(params[:reserve])
         if @reserve.state == 'canceled'
           flash[:notice] = t('reserve.reservation_was_canceled')
           begin
@@ -318,6 +316,7 @@ class ReservesController < ApplicationController
           format.xml  { head :ok }
         end
       else
+        @reserve.errors << t('reserve.expired_at_of_this_user_is_over') unless @reserve.available_for_update?
         @libraries = Library.real.order('position')
         @informations = Reserve.informations(user)
         format.html { render :action => "edit" }
