@@ -13,9 +13,9 @@ library_00001:
   call_number_delimiter: "|"
   position: 1
 library_00002: 
-  name: komagome1
-  short_display_name: komagome1
-  display_name: 駒込中央図書館
+  name: gotanda1
+  short_display_name: gotanda1
+  display_name: 五反田中央図書館
   fax_number: 
   telephone_number_1: 
   telephone_number_2: 
@@ -26,9 +26,9 @@ library_00002:
   call_number_delimiter: "|"
   position: 2
 library_00003: 
-  name: komagome2
-  short_display_name: komagome2
-  display_name: 駒込１丁目分館
+  name: gotanda2
+  short_display_name: gotanda2
+  display_name: 五反田１丁目分館
   fax_number: 
   telephone_number_1: 
   telephone_number_2: 
