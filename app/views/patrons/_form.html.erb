@@ -148,7 +148,6 @@
     <%= hidden_field_tag 'expression_id', @expression.id if @expression -%>
     <%= hidden_field_tag 'manifestation_id', @manifestation.id if @manifestation -%>
     <%= hidden_field_tag 'item_id', @item.id if @item -%>
-    <%= f.hidden_field :user_username -%>
     <%= f.submit %>
   </div>
 <%- end -%>

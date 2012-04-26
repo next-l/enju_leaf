@@ -124,18 +124,8 @@ class PatronsController < ApplicationController
 
   # GET /patrons/new
   def new
-    unless current_user.has_role?('Librarian')
-      unless current_user == @user
-        access_denied; return
-      end
-    end
     @patron = Patron.new
-    if @user
-      @patron.user_username = @user.username
-      @patron.required_role = Role.where(:name => 'Librarian').first
-    else
-      @patron.required_role = Role.where(:name => 'Guest').first
-    end
+    @patron.required_role = Role.where(:name => 'Guest').first
     @patron.language = Language.where(:iso_639_1 => I18n.default_locale.to_s).first || Language.first
     @patron.country = current_user.library.country
     prepare_options
