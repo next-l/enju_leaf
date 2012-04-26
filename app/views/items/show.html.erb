@@ -110,6 +110,11 @@
 </p>
 
 <p>
+  <strong><%= t('item.accepted_at') -%>:</strong>
+  <%= l(@item.accept.created_at) if item.accept -%>
+</p>
+
+<p>
   <strong><%= t('page.created_at') -%>:</strong>
   <%= l(@item.created_at) -%>
 </p>

@@ -45,9 +45,9 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_circulation.git
-  revision: 962b5139e33a5b0c36f1ab7e3159d41dac6cf4b5
+  revision: 2c5aae6f3a27c6ae723b07e40983c5fdd6c3af38
   specs:
-    enju_circulation (0.0.30)
+    enju_circulation (0.0.31)
       acts_as_list (~> 0.1.6)
       attribute_normalizer (~> 1.1)
       cancan
@@ -542,7 +542,7 @@ GEM
     uuidtools (2.1.2)
     validates_timeliness (3.0.11)
       timeliness (~> 0.3.6)
-    vcr (2.1.0)
+    vcr (2.1.1)
     warden (1.1.1)
       rack (>= 1.0)
     whenever (0.7.3)
@@ -638,7 +638,7 @@ DEPENDENCIES
   timecop
   uglifier (>= 1.0.3)
   validates_timeliness
-  vcr (~> 2.0)
+  vcr (~> 2.1)
   whenever
   will_paginate (~> 3.0)
   zipruby

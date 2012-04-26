@@ -673,6 +673,7 @@ ja:
     no_number: "番号なし"
     add_lending_policy: "貸出規則の追加"
     edit_exemplification: "書誌の付け替え"
+    accepted_at: "受入時刻"
   patron:
     library_group_patron: "%{library_group_name} の人物・団体"
     work_patron: "%{work_title} の著作者"
