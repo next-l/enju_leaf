@@ -14,6 +14,7 @@ class Item < ActiveRecord::Base
   belongs_to :required_role, :class_name => 'Role', :foreign_key => 'required_role_id', :validate => true
   has_one :resource_import_result
   belongs_to :budget_type
+  has_one :accept
 
   validates_associated :shelf, :bookstore
   validates :manifestation_id, :presence => true, :on => :create
