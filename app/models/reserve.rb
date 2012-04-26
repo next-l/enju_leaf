@@ -230,6 +230,7 @@ class Reserve < ActiveRecord::Base
     self.item_id = nil
     self.sm_request!
     self.insert_at(1)
+    send_message('reverted')
   end
 
   def to_process
@@ -351,6 +352,19 @@ class Reserve < ActiveRecord::Base
         request.send_later(:sm_send_message!)
         self.update_attribute(:expiration_notice_to_patron, true)
 =end
+      when 'reverted'
+        if SystemConfiguration.get("send_message.reserve_reverted_for_patron")
+          message_template_for_patron = MessageTemplate.localized_template('reserve_reverted_for_patron', self.user.locale)
+          request = MessageRequest.create!(:sender => system_user, :receiver => user, :message_template => message_template_for_patron)
+          request.save_message_body(:manifestations => Array[self.manifestation], :user => self.user)
+          request.sm_send_message!
+        end
+        if SystemConfiguration.get("send_message.reserve_reverted_for_library")
+          message_template_for_library = MessageTemplate.localized_template('reserve_reverted_for_library', self.user.locale)
+          request = MessageRequest.create!(:sender => system_user, :receiver => system_user, :message_template => message_template_for_library)
+          request.save_message_body(:manifestations => Array[self.manifestation], :user => self.user)
+          request.sm_send_message!
+        end
       else
         raise 'status not defined'
       end

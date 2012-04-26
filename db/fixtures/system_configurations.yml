@@ -342,3 +342,15 @@ system_configuration_00057:
   v: "true"
   typename: Boolean
   description: "購入リクエスト謝絶時に利用者に謝絶完了メッセージを送信するか。trueのとき送信。"
+system_configuration_00058:
+  id: 58
+  keyname: send_message.reserve_reverted_for_patron
+  v: "true"
+  typename: Boolean
+  description: "取置き済資料が貸出不可になったとき利用者に取置き取消メッセージを送信するか。trueのとき送信。"
+system_configuration_00059:
+  id: 59
+  keyname: send_message.reserve_reverted_for_library
+  v: "true"
+  typename: Boolean
+  description: "取置き済資料が貸出不可になったとき管理者に取置き取消メッセージを送信するか。trueのとき送信。"

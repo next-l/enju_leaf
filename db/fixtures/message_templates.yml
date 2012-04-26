@@ -131,3 +131,17 @@ message_template_00013:
   body: "以下の資料の購入リクエストは謝絶されました。\n\n<%= purchase_request %>"
   position: 13
   locale: ja
+message_template_00014:
+  id: 14
+  status: reserve_reverted_for_patron
+  title: "予約資料の取置きはキャンセルされました"
+  body: "以下の取置き済みの予約資料は貸出できない状態となりました。\n申し訳ありませんが貸出状態が整うまでしばしお待ちください。\n\n<%= manifestations %>"
+  position: 14
+  locale: ja
+message_template_00015:
+  id: 15
+  status: reserve_reverted_for_library
+  title: "取置き済み予約の状態を受付済みに戻しました"
+  body: "以下の取置き済であった予約資料の状態を受付済みに戻しました。\n\n<%= manifestations %>"
+  position: 14
+  locale: ja

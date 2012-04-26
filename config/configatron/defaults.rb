@@ -268,3 +268,9 @@ configatron.send_message.purchase_request_accepted = true
 
 # refs 2506 購入リクエスト謝絶時に利用者に謝絶完了メッセージを送信するか
 configatron.send_message.purchase_request_rejected = true
+
+# refs 3563 取置き済資料が貸出不可になったとき利用者に取置き取消メッセージを送信するか
+configatron.send_message.reserve_reverted_for_patron
+
+# refs 3563 取置き済資料が貸出不可になったとき管理者に取置き取消メッセージを送信するか
+configatron.send_message.reserve_reverted_for_library
