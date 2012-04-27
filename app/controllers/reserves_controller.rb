@@ -316,7 +316,7 @@ class ReservesController < ApplicationController
           format.xml  { head :ok }
         end
       else
-        @reserve.errors << t('reserve.expired_at_of_this_user_is_over') unless @reserve.available_for_update?
+        @reserve.errors[:base] << t('reserve.expired_at_of_this_user_is_over') unless @reserve.available_for_update?
         @libraries = Library.real.order('position')
         @informations = Reserve.informations(user)
         format.html { render :action => "edit" }

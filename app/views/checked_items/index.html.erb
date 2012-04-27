@@ -11,15 +11,19 @@
         <%- end -%>
       <%- end -%>
     </div>
+
     <%= render 'user_comment' -%>
+
     <div id="checked_item_list">
       <%= render 'list' -%>
     </div>
     <br />
+
     <div id="checkouts_list">
       <%= render 'page/checkouts_list', :user => @basket.user -%>
     </div>
     <br />
+
     <div id="reserves_list">
       <%= render 'page/reserves_list', :user => @basket.user -%>
     </div>

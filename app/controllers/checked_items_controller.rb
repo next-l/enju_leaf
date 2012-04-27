@@ -74,60 +74,32 @@ class CheckedItemsController < ApplicationController
     end
 
     messages = []
-    flash[:message] = ''
-    flash[:sound] = ''
+    flash[:message], flash[:sound] = '', ''
     item_identifier = @checked_item.item_identifier.to_s.strip
-    item = Item.where(:item_identifier => item_identifier).first unless item_identifier.blank?
+    item = Item.where(:item_identifier => item_identifier).first if item_identifier
     @checked_item.item = item if item
 
     respond_to do |format|
       if @checked_item.save
         flash[:warn] = t('checked_item.library_closed_today') if @checked_item.item.shelf.library.closed?(Time.zone.now)
         flash[:notice] = t('controller.successfully_created', :model => t('activerecord.models.checked_item'))
-
-        #flash[:message] << t('item.this_item_include_supplement') if @checked_item.item.include_supplements
         messages << 'item.this_item_include_supplement' if @checked_item.item.include_supplements
 
-        @checked_item.errors[:base].each do |error|
-          messages << error
-        end
-        messages.each do |message|
-          return_message, return_sound = error_message_and_sound(message)
-          flash[:message] << return_message + '<br />' if return_message
-          flash[:sound] = return_sound if return_sound
-        end
-
+        set_messages(messages)
         if params[:mode] == 'list'
           format.html { redirect_to(user_basket_checked_items_url(@basket.user, @basket, :mode => 'list')) }
           format.xml  { render :xml => @checked_item, :status => :created, :location => @checked_item }
-          format.js { redirect_to(user_basket_checked_items_url(@basket.user, @basket, :format => :js)) }
+          format.js   { redirect_to(user_basket_checked_items_url(@basket.user, @basket, :format => :js)) }
         else
-          ##flash[:message] << @checked_item.errors[:base] if @checked_item.errors[:base].blank?
-          #@checked_item.errors[:base].each do |error|
-          #  messages << error
-          #end
-          #messages.each do |message|
-          #  return_message, return_sound = error_message_and_sound(message)
-          #  flash[:message] << return_message + '<br />' if return_message
-          #  flash[:sound] = return_sound if return_sound
-          #end
           format.html { redirect_to(user_basket_checked_items_url(@basket.user, @basket)) }
           format.xml  { render :xml => @checked_item, :status => :created, :location => @checked_item }
         end
       else
-        #flash[:message] << @checked_item.errors[:base]
-        @checked_item.errors[:base].each do |error|
-          messages << error
-        end
-        messages.each do |message|
-          return_message, return_sound = error_message_and_sound(message)
-          flash[:message] << return_message + '<br />' if return_message
-          flash[:sound] = return_sound if return_sound
-        end
+        set_messages(messages)
         if params[:mode] == 'list'
           format.html { redirect_to(user_basket_checked_items_url(@basket.user, @basket, :mode => 'list')) }
           format.xml  { render :xml => @checked_item, :status => :created, :location => @checked_item }
-          format.js { redirect_to(user_basket_checked_items_url(@basket.user, @basket, :format => :js)) }
+          format.js   { redirect_to(user_basket_checked_items_url(@basket.user, @basket, :format => :js)) }
         else
           format.html { render :action => "new" }
           format.xml  { render :xml => @checked_item.errors, :status => :unprocessable_entity }
@@ -170,6 +142,18 @@ class CheckedItemsController < ApplicationController
     respond_to do |format|
       format.html { redirect_to(user_basket_checked_items_url(@checked_item.basket.user, @checked_item.basket)) }
       format.xml  { head :ok }
+    end
+  end
+
+  private
+  def set_messages(messages)
+    @checked_item.errors[:base].each do |error|
+      messages << error
+    end
+    messages.each do |message|
+      return_message, return_sound = error_message_and_sound(message)
+      flash[:message] << return_message + '<br />' if return_message
+      flash[:sound] = return_sound if return_sound
     end
   end
 end
