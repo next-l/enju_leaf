@@ -5,7 +5,7 @@
   </div>
 <%- end -%>
 <%- if @basket.user.patron -%>
-  <%-  if can? :destroy, @basket.user.patron-%>
+  <%- if can? :edit, @basket.user.patron-%>
     <div><%= link_to_function t('activerecord.attributes.checked_item.edit_user_comment'), "$('#comment').toggle()" -%></div>
     <div id="comment" style="display: none">
       <%= form_for(@basket.user.patron) do |f| -%>
