@@ -4,8 +4,8 @@
     <p id="notice"><%= notice %></p>
     <div style="color: red">
       <%= user_notice(@basket.user) -%>
-      <%- unless @family_users.blank? -%>
-        <br />
+      <%- if @family_users -%>
+        <%- if notice -%><br /><%- end -%>
         <%- @family_users.each do |user| -%>
           <%= user_notice(user) unless user == @basket.user -%>
         <%- end -%>
@@ -17,11 +17,11 @@
     </div>
     <br />
     <div id="checkouts_list">
-      <%= render 'page/checkouts_list'-%>
+      <%= render 'page/checkouts_list', :user => @basket.user -%>
     </div>
     <br />
     <div id="reserves_list">
-      <%= render 'page/reserves_list'-%>
+      <%= render 'page/reserves_list', :user => @basket.user -%>
     </div>
     <%- unless @family_users.blank? -%>
       <br />

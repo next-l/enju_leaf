@@ -10,22 +10,16 @@ class CheckedItemsController < ApplicationController
     unless @basket
       access_denied; return
     end
-
-    @checked_items = @basket.checked_items
-    @checkout_user = @basket.user
-    unless @checkout_user.patron
+    unless @basket.user.patron
       redirect_to new_user_patron_url(@user); return
     end
 
     family_id = FamilyUser.find(:first, :conditions => ['user_id=?', @basket.user.id]).family_id rescue nil
-    if family_id
-      @family_users = Family.find(family_id).users
-      @family_users.delete_if{|f_user| f_user == @checkout_user}
-    end
+    @family_users = Family.find(family_id).users.select{ |user| user != @checkout_user } if family_id
 
     respond_to do |format|
       format.html # index.html.erb
-      format.xml  { render :xml => @checked_items }
+      format.xml  { render :xml => @basket.checked_items }
       format.js
     end
   end
@@ -36,8 +30,7 @@ class CheckedItemsController < ApplicationController
     if @basket
       @checked_item = @basket.checked_items.find(params[:id])
     else
-      access_denied
-      return
+      access_denied; return
     end
 
     respond_to do |format|
@@ -52,8 +45,7 @@ class CheckedItemsController < ApplicationController
     if @basket
       @checked_item = @basket.checked_items.new
     else
-      access_denied
-      return
+      access_denied; return
     end
 
     respond_to do |format|
@@ -67,8 +59,7 @@ class CheckedItemsController < ApplicationController
     if @basket
       @checked_item = @basket.checked_items.find(params[:id])
     else
-      access_denied
-      return
+      access_denied; return
     end
   end
 
@@ -79,8 +70,7 @@ class CheckedItemsController < ApplicationController
       @checked_item = CheckedItem.new(params[:checked_item])
       @checked_item.basket = @basket
     else
-      access_denied
-      return
+      access_denied; return
     end
 
     messages = []
@@ -152,8 +142,7 @@ class CheckedItemsController < ApplicationController
     if @basket
       @checked_item = @basket.checked_items.find(params[:id])
     else
-      access_denied
-      return
+      access_denied; return
     end
 
     respond_to do |format|
@@ -174,8 +163,7 @@ class CheckedItemsController < ApplicationController
     if @basket
       @checked_item = @basket.checked_items.find(params[:id])
     else
-      access_denied
-      return
+      access_denied; return
     end
     @checked_item.destroy
 

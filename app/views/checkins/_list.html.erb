@@ -1,12 +1,12 @@
 <div style="color: red">
   <%- unless @checkins.blank? -%>
     <%- if @checkins[0].checkout -%>
-      <%= user_notice(@checkout_user) if @checkins[0].checkout -%>
+      <%= user_notice(@checkins[0].checkout.user) if @checkins[0].checkout -%>
       <br />
     <%- end -%>
     <%- unless @family_users.blank? -%>
       <%- @family_users.each do |f_user| -%>
-        <%= user_notice(f_user) unless f_user == @checkout_user -%>     
+        <%= user_notice(f_user) unless f_user == @checkins[0].checkout.user -%>     
       <%- end -%>
       <br />
     <%- end -%>
@@ -92,14 +92,14 @@ playSound('<%= root_path -%><%= flash[:sound] -%>');
 <br />
 <%- unless @checkins.blank? -%>
   <%- if @checkins[0].checkout -%>
-    <%- unless @checkout_user.blank? -%>
+    <%- unless @checkins[0].checkout.user.blank? -%>
       <br />
       <div id="checkouts_list">
-        <%= render 'page/checkouts_list' -%>
+        <%= render 'page/checkouts_list', :user => @checkins[0].checkout.user -%>
       </div>
       <br />
       <div id="reserves_list">
-        <%= render 'page/reserves_list'-%>
+        <%= render 'page/reserves_list', :user => @checkins[0].checkout.user -%>
       </div> 
       <%- unless @family_users.blank? -%>
         <br />

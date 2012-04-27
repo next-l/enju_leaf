@@ -22,12 +22,8 @@ class CheckinsController < ApplicationController
 
     unless @checkins.blank?
       if option = @checkins[0].checkout
-        @checkout_user = @checkins[0].checkout.user
-        family_id = FamilyUser.find(:first, :conditions => ['user_id=?', @checkout_user.id]).family_id rescue nil
-        if family_id
-          @family_users = Family.find(family_id).users
-          @family_users.delete_if{|f_user| f_user == @checkout_user}
-        end
+        family_id = FamilyUser.find(:first, :conditions => ['user_id=?', @checkins[0].checkout.user.id]).family_id rescue nil
+        @family_users = Family.find(family_id).users.select{ |user| user != @checkout_user } if family_id
         @reserve = Reserve.where(:item_id => @checkins[0].checkout.item.id, :state => 'retained').first if @checkins[0].checkout.item
         @loan = InterLibraryLoan.where(:item_id => @checkins[0].checkout.item.id, :state => 'requested', :from_library_id => current_user.library.id).first if @checkins[0].checkout.item
         @close_shelf_item = @checkins[0].checkout.item unless @checkins[0].checkout.item.shelf.open?

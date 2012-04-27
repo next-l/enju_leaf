@@ -101,16 +101,11 @@ class UsersController < ApplicationController
     end
 
     @patron = @user.patron
+    family_id = FamilyUser.find(:first, :conditions => ['user_id=?', @user.id]).family_id rescue nil
+    @family_users = Family.find(family_id).users.select{ |user| user != @checkout_user } if family_id
 
-    @checkout_user = @user
     #@tags = @user.bookmarks.tag_counts.sort{|a,b| a.count <=> b.count}.reverse
     #@manifestation = Manifestation.pickup(@user.keyword_list.to_s.split.sort_by{rand}.first) rescue nil
-
-    family_id = FamilyUser.find(:first, :conditions => ['user_id=?', @user.id]).family_id rescue nil
-    if family_id
-      @family_users = Family.find(family_id).users
-      @family_users.delete_if{|user| user == @user}
-    end
 
     respond_to do |format|
       format.html # show.rhtml
