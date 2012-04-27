@@ -102,7 +102,7 @@ class UsersController < ApplicationController
 
     @patron = @user.patron
     family_id = FamilyUser.find(:first, :conditions => ['user_id=?', @user.id]).family_id rescue nil
-    @family_users = Family.find(family_id).users.select{ |user| user != @checkout_user } if family_id
+    @family_users = Family.find(family_id).users.select{ |user| user != @user } if family_id
 
     #@tags = @user.bookmarks.tag_counts.sort{|a,b| a.count <=> b.count}.reverse
     #@manifestation = Manifestation.pickup(@user.keyword_list.to_s.split.sort_by{rand}.first) rescue nil

@@ -15,7 +15,7 @@ class CheckedItemsController < ApplicationController
     end
 
     family_id = FamilyUser.find(:first, :conditions => ['user_id=?', @basket.user.id]).family_id rescue nil
-    @family_users = Family.find(family_id).users.select{ |user| user != @checkout_user } if family_id
+    @family_users = Family.find(family_id).users.select{ |user| user != @basket.user } if family_id
 
     respond_to do |format|
       format.html # index.html.erb
