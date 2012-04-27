@@ -274,7 +274,9 @@ class Reserve < ActiveRecord::Base
 
   def available_for_update?
     reserve = Reserve.find(self.id)
-    errors[:base] << I18n.t('reserve.expired_at_of_this_user_is_over') if self.expired_at and self.user.expired_at and self.user.expired_at < self.expired_at
+    #errors[:base] << I18n.t('reserve.expired_at_of_this_user_is_over') if self.expired_at and self.user.expired_at and self.user.expired_at < self.expired_at
+    return false if self.expired_at and self.user.expired_at and self.user.expired_at < self.expired_at
+    true
   end
 
   def send_message(status)
