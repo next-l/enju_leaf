@@ -3,7 +3,7 @@
 //= require jquery-ui
 //= require jquery.colorbox
 //= require jquery.highlight
-//= require jquery.hotkeys
+//= require jquery.shortcut
 //= require jquery.cookie
 //= require fg.menu
 //= require fg.menu.enju
