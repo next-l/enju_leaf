@@ -167,7 +167,7 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_oai.git
-  revision: 9edb21b36a3281676278ea1e59855354e4f47142
+  revision: e8eaf941f5477e88dcdf9f9a3a8ef720ebd09692
   specs:
     enju_oai (0.0.1)
       rails (~> 3.2)
@@ -235,7 +235,7 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_subject.git
-  revision: e155cd4329e5bbb90b8229c5624ff8c72673695d
+  revision: 0c438014c82d3e8fefbf9a0b146b8eb039646c10
   specs:
     enju_subject (0.0.11)
       acts_as_list (~> 0.1.6)
@@ -405,7 +405,7 @@ GEM
       treetop (~> 1.4.8)
     marc (0.4.4)
     mime-types (1.18)
-    mobile-fu (1.0.0)
+    mobile-fu (1.1.0)
       rack-mobile-detect
       rails
     multi_json (1.3.4)
@@ -500,7 +500,7 @@ GEM
       libwebsocket (~> 0.1.3)
       multi_json (~> 1.0)
       rubyzip
-    simple_form (2.0.1)
+    simple_form (2.0.2)
       actionpack (~> 3.0)
       activemodel (~> 3.0)
     simplecov (0.6.2)
