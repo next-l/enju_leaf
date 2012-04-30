@@ -373,10 +373,6 @@ class Manifestation < ActiveRecord::Base
     end
   end
 
-  def classifications
-    subjects.collect(&:classifications).flatten
-  end
-
   def self.find_by_isbn(isbn)
     if ISBN_Tools.is_valid?(isbn)
       ISBN_Tools.cleanup!(isbn)
@@ -439,9 +435,6 @@ class Manifestation < ActiveRecord::Base
         items.for_checkout.exists?
       end
     end
-
-    def available_for_reservation?
-    end
   end
 
   if defined?(EnjuSubject)
@@ -459,6 +452,10 @@ class Manifestation < ActiveRecord::Base
         classifications.collect(&:category)
       end
       integer :subject_ids, :multiple => true
+    end
+
+    def classifications
+      subjects.collect(&:classifications).flatten
     end
   end
 

@@ -7,14 +7,12 @@ class Library < ActiveRecord::Base
   belongs_to :library_group, :validate => true
   #belongs_to :holding_patron, :polymorphic => true, :validate => true
   belongs_to :patron #, :validate => true
-  has_many :inter_library_loans, :foreign_key => 'borrowing_library_id'
   has_many :users
   belongs_to :country
 
   extend FriendlyId
   friendly_id :name
   geocoded_by :address
-  #enju_calil_library
 
   searchable do
     text :name, :display_name, :note, :address
@@ -95,6 +93,10 @@ class Library < ActiveRecord::Base
     def closed?(date)
       events.closing_days.collect{|c| c.start_at.beginning_of_day}.include?(date.beginning_of_day)
     end
+  end
+
+  if defined?(EnjuInterLibraryLoan)
+    has_many :inter_library_loans, :foreign_key => 'borrowing_library_id'
   end
 end
 
