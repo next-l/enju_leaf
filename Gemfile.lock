@@ -19,7 +19,7 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_book_jacket.git
-  revision: 37101695b2c1798f6708642b61e52b773c7468ab
+  revision: b3cbbd6ccc5116e75dad4e995d83d9a5752dc1cd
   specs:
     enju_book_jacket (0.0.1)
       configatron
@@ -27,7 +27,7 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_bookmark.git
-  revision: 05eb87203d8965d144357e67f653972ab6602d05
+  revision: 81ff8481cc234808e16e4a69b40d7ab1dd689ec9
   specs:
     enju_bookmark (0.0.8)
       acts-as-taggable-on (~> 2.2)
@@ -45,7 +45,7 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_circulation.git
-  revision: cfd3249babd5adb2a09ce107b48af620cb980af6
+  revision: 515dc80b7ceedb5da8a4c2584063c580145ee903
   specs:
     enju_circulation (0.0.33)
       acts_as_list (~> 0.1.6)
@@ -167,10 +167,19 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_oai.git
-  revision: e8eaf941f5477e88dcdf9f9a3a8ef720ebd09692
+  revision: 888b507f0924884718cd4192fb410e05946a166c
   specs:
-    enju_oai (0.0.1)
+    enju_oai (0.0.2)
+      acts_as_list
+      attribute_normalizer (~> 1.1)
+      cancan
+      configatron
+      devise
+      friendly_id (~> 4.0)
+      mobile-fu
       rails (~> 3.2)
+      sunspot_rails
+      will_paginate
 
 GIT
   remote: git://github.com/nabeta/enju_purchase_request.git
@@ -209,7 +218,7 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_resource_merge.git
-  revision: 27a3a75a65c94375ffd8f2e86ad20b6188ee8f2f
+  revision: 7e92d32ca7cb55c9554d2d67dbf46594edc3bea1
   specs:
     enju_resource_merge (0.0.6)
       acts_as_list (~> 0.1.6)
@@ -266,7 +275,7 @@ GIT
 
 GIT
   remote: git://github.com/next-l/enju_biblio.git
-  revision: e9cd08b609e999c6cfb762ee859dcbe0eef4cf20
+  revision: 0df3439f9973893b5b96b9611d1d8a8da355826e
   specs:
     enju_biblio (0.0.1)
       acts_as_list
