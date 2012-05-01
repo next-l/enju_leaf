@@ -45,15 +45,15 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_circulation.git
-  revision: a2b7c446fbd9df51ca1aeaba643553bc63a6fbae
+  revision: cfd3249babd5adb2a09ce107b48af620cb980af6
   specs:
-    enju_circulation (0.0.31)
+    enju_circulation (0.0.33)
       acts_as_list (~> 0.1.6)
       attribute_normalizer (~> 1.1)
       cancan
       devise
       enju_event (>= 0.0.12)
-      enju_message (~> 0.0.17)
+      enju_message (>= 0.0.18)
       friendly_id (~> 4.0)
       inherited_resources
       rails (~> 3.2)
@@ -66,21 +66,21 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_event.git
-  revision: 5c63762bb500209a6914e32115b8f0e57e44de4b
+  revision: d400cfdd2354163e516b6320583eab27117e4a01
   specs:
-    enju_event (0.1.3)
+    enju_event (0.1.4)
       acts_as_list (~> 0.1.6)
       addressable
       attribute_normalizer (~> 1.1)
       cancan
       configatron
       devise
-      enju_message (~> 0.0.18)
+      enju_message (>= 0.0.18)
       event-calendar (~> 2.3.3)
       friendly_id (~> 4.0)
       has_scope
       inherited_resources
-      paperclip (~> 3.0)
+      paperclip
       rails (~> 3.2)
       simple_form
       state_machine
@@ -129,9 +129,9 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_message.git
-  revision: 6e0a283e7cad98e26ae8dbdef17046e30fa8f433
+  revision: 35322ec0b0ec2eee204d518b71a68ae3790e0451
   specs:
-    enju_message (0.0.18)
+    enju_message (0.1.0)
       acts_as_list (~> 0.1.6)
       addressable
       attribute_normalizer (~> 1.1)
@@ -266,7 +266,7 @@ GIT
 
 GIT
   remote: git://github.com/next-l/enju_biblio.git
-  revision: a8568d81b1727e9abd5764f4a4f5d0c85f1586ac
+  revision: e9cd08b609e999c6cfb762ee859dcbe0eef4cf20
   specs:
     enju_biblio (0.0.1)
       acts_as_list
