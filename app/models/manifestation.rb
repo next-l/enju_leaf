@@ -614,8 +614,6 @@ end
 #  required_score                  :integer         default(0), not null
 #  frequency_id                    :integer         default(1), not null
 #  subscription_master             :boolean         default(FALSE), not null
-#  ipaper_id                       :integer
-#  ipaper_access_key               :string(255)
 #  attachment_file_name            :string(255)
 #  attachment_content_type         :string(255)
 #  attachment_file_size            :integer
@@ -629,7 +627,6 @@ end
 #  date_accepted                   :datetime
 #  date_caputured                  :datetime
 #  ndl_bib_id                      :string(255)
-#  file_hash                       :string(255)
 #  pub_date                        :string(255)
 #  edition_string                  :string(255)
 #  volume_number                   :integer
