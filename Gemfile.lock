@@ -151,9 +151,9 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_ndl.git
-  revision: 331c6b6a48648c4bf757681307790bf2b33728ba
+  revision: 354d8c9b37f77d28f5e25f634b16378855472506
   specs:
-    enju_ndl (0.0.21)
+    enju_ndl (0.0.23)
       acts_as_list
       attribute_normalizer
       devise
@@ -244,9 +244,9 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_subject.git
-  revision: 0c438014c82d3e8fefbf9a0b146b8eb039646c10
+  revision: 99df045b3d5dad879e882d83f05ff2e7b4c43a4b
   specs:
-    enju_subject (0.0.11)
+    enju_subject (0.0.12)
       acts_as_list (~> 0.1.6)
       attribute_normalizer (~> 1.1)
       cancan
