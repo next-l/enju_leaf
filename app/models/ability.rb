@@ -199,7 +199,7 @@ class Ability
         manifestation.required_role_id <= 2
       end
       can :edit, Manifestation
-      can [:index, :create], Patron
+      can :index, Patron
       can :update, Patron do |patron|
         patron.user == user
       end

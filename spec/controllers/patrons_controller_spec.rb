@@ -398,8 +398,8 @@ describe PatronsController do
 
       it "should not create patron myself" do
         post :create, :patron => { :full_name => 'test', :user_username => users(:user1).username }
-        assigns(:patron).should_not be_valid
-        response.should be_success
+        assigns(:patron).should be_valid
+        response.should be_forbidden
       end
 
       it "should not create other patron" do
