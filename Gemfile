@@ -117,7 +117,7 @@ group :development do
 end
 
 group :development, :test do
-  gem 'rspec-rails', '~> 2.9'
+  gem 'rspec-rails', '~> 2.9.0'
   gem 'guard-rspec'
   gem 'factory_girl_rails'
   gem 'spork-rails'
