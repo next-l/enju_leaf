@@ -195,7 +195,7 @@ manifestation_00022:
 manifestation_00023: 
   carrier_type_id: 1
   isbn: 
-  created_at: 2008-04-17 00:34:01 +09:00
+  updated_at: 2008-04-17 00:34:01 +09:00
   original_title: "世界の美しい図書館集めてみた【第一弾】"
   price: 
   manifestation_identifier: 
