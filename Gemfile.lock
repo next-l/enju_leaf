@@ -7,7 +7,7 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_barcode.git
-  revision: ba8d1ec303f383f8319f364314f9a9eff45aa2ce
+  revision: c0791e083c102c13c59965e3e0a616e5ce77c500
   specs:
     enju_barcode (0.0.2)
       barby (~> 0.5)
@@ -90,7 +90,7 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_inter_library_loan.git
-  revision: 52ebbf3ffe37cf14a5c4270de5ac152a55ac8b56
+  revision: 88422c124d5f211414595adc159a868316fed5b9
   specs:
     enju_inter_library_loan (0.0.2)
       acts_as_list (~> 0.1.6)
@@ -107,7 +107,7 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_inventory.git
-  revision: 03b2d6cc50505273505c7785ca76344991dddd4a
+  revision: f21b9f44cbcfe8cd9cae482184bc5a9291f59964
   specs:
     enju_inventory (0.1.1)
       cancan
@@ -234,7 +234,7 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_search_log.git
-  revision: a6bd2e4e407407b7488a9e16e9d965f10338c240
+  revision: fd678d5c13b86afe6b6d73637174a4ea679bc3f2
   specs:
     enju_search_log (0.0.3)
       cancan
@@ -320,7 +320,7 @@ GEM
     acts-as-taggable-on (2.2.2)
       rails (~> 3.0)
     acts_as_list (0.1.6)
-    addressable (2.2.7)
+    addressable (2.2.8)
     annotate (2.4.1.beta1)
     arel (3.0.2)
     astrails-safe (0.2.7)
@@ -642,7 +642,7 @@ DEPENDENCIES
   rails (= 3.2.3)
   rails_autolink
   ri_cal
-  rspec-rails (~> 2.9)
+  rspec-rails (~> 2.9.0)
   ruby-prof
   rubyzip2
   sanitize

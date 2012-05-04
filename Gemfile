@@ -105,7 +105,7 @@ end
 gem 'simplecov', '~> 0.6', :require => false, :group => :test
 
 group :development, :test do
-  gem 'rspec-rails', '~> 2.9'
+  gem 'rspec-rails', '~> 2.9.0'
   gem 'guard-rspec'
   gem 'factory_girl_rails', '~> 3.2'
   gem 'spork-rails'
