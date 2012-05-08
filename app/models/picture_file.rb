@@ -21,10 +21,6 @@ class PictureFile < ActiveRecord::Base
   def self.per_page
     10
   end
-
-  def content_type
-    FileWrapper.get_mime(picture.path) rescue nil
-  end
 end
 
 # == Schema Information
