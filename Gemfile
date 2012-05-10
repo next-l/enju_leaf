@@ -67,11 +67,12 @@ gem 'isbn-tools', :git => 'git://github.com/nabeta/isbn-tools.git', :require => 
 #gem 'extractcontent'
 gem 'cancan', '>= 1.6.7'
 gem 'devise', '~> 2.1.0.rc'
+gem 'devise-encryptable'
 #gem 'omniauth', '~> 1.1'
 gem 'addressable'
 gem 'paperclip', '~> 3.0'
 gem 'paperclip-meta', :git => 'git://github.com/dce/paperclip-meta.git'
-gem 'aws-sdk', '~> 1.4'
+gem 'aws-sdk'
 gem 'whenever', :require => false
 #gem 'amazon-ecs', '>= 2.2.0', :require => 'amazon/ecs'
 #gem 'aws-s3', :require => 'aws/s3'
