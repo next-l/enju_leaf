@@ -194,6 +194,7 @@ en:
         note: Note
         position: Position
         deleted_at: Deleted at
+        closed: Closed
       donate:
       produce:
         position: Position

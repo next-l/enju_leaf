@@ -193,6 +193,7 @@ ja:
         note: 注記
         position: 位置
         deleted_at: 削除時刻
+        closed: 閉架
       donate:
       produce:
         position: 位置
