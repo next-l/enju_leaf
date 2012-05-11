@@ -51,7 +51,7 @@
   <% end %>
   <ul>
     <%- if flash[:query] -%>
-      <li><%= link_to t('page.back'), users_path(@user, :query => flash[:query]) -%></li>
+      <li><%= link_to t('page.back'), users_path(:query => flash[:query]) -%></li>
     <% else %>
       <li><%= back_to_index %></li>
     <% end %>
