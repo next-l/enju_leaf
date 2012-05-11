@@ -65,6 +65,7 @@
 
 <div id="submenu" class="ui-corner-all">
   <ul>
+    <li><%= link_to t('page.show'), @user -%></li>
     <li><%= link_to t('page.listing', :model => t('activerecord.models.user')), users_path -%></li>
     <%- if current_user.has_role?('Librarian') -%>
       <%- unless current_user == @user -%>
