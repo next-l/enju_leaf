@@ -107,9 +107,9 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_inventory.git
-  revision: f21b9f44cbcfe8cd9cae482184bc5a9291f59964
+  revision: e7b3bade947e44ceec446df11ae8fe7fc37deec3
   specs:
-    enju_inventory (0.1.1)
+    enju_inventory (0.1.2)
       cancan
       devise
       inherited_resources
@@ -275,7 +275,7 @@ GIT
 
 GIT
   remote: git://github.com/next-l/enju_biblio.git
-  revision: 07ed45da4ec1e96a7bcc56cb67ace14ff6082705
+  revision: 0690465c76c7bc5718e9eb9095a761c662cc4a5c
   specs:
     enju_biblio (0.0.1)
       acts_as_list
@@ -417,7 +417,7 @@ GEM
     jquery-rails (2.0.2)
       railties (>= 3.2.0, < 5.0)
       thor (~> 0.14)
-    json (1.7.1)
+    json (1.7.3)
     kgio (2.7.4)
     library_stdnums (1.1.0)
     libwebsocket (0.1.3)
