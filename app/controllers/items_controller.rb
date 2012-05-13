@@ -16,7 +16,7 @@ class ItemsController < ApplicationController
   cache_sweeper :item_sweeper, :only => [:create, :update, :destroy]
 
   # GET /items
-  # GET /items.xml
+  # GET /items.json
   def index
     query = params[:query].to_s.strip
     per_page = Item.per_page
@@ -93,22 +93,22 @@ class ItemsController < ApplicationController
     end
 
     respond_to do |format|
-      format.html # index.rhtml
-      format.xml  { render :xml => @items }
+      format.html # index.html.erb
+      format.json { render :json => @items }
       format.csv  { render :layout => false }
       format.atom
     end
   end
 
   # GET /items/1
-  # GET /items/1.xml
+  # GET /items/1.json
   def show
     #@item = Item.find(params[:id])
     @item = @item.versions.find(@version).item if @version
 
     respond_to do |format|
-      format.html # show.rhtml
-      format.xml  { render :xml => @item }
+      format.html # show.html.erb
+      format.json { render :json => @item }
     end
   end
 
@@ -134,18 +134,18 @@ class ItemsController < ApplicationController
 
     respond_to do |format|
       format.html # new.html.erb
-      format.xml  { render :xml => @item }
+      format.json { render :json => @item }
     end
   end
 
-  # GET /items/1;edit
+  # GET /items/1/edit
   def edit
     @item.library_id = @item.shelf.library_id
     @item.use_restriction_id = @item.use_restriction.id if @item.use_restriction
   end
 
   # POST /items
-  # POST /items.xml
+  # POST /items.json
   def create
     @item = Item.new(params[:item])
     manifestation = Manifestation.find(@item.manifestation_id)
@@ -167,21 +167,21 @@ class ItemsController < ApplicationController
         @item.post_to_union_catalog if LibraryGroup.site_config.post_to_union_catalog
         if @patron
           format.html { redirect_to patron_item_url(@patron, @item) }
-          format.xml  { render :xml => @item, :status => :created, :location => @item }
+          format.json { render :json => @item, :status => :created, :location => @item }
         else
           format.html { redirect_to(@item) }
-          format.xml  { render :xml => @item, :status => :created, :location => @item }
+          format.json { render :json => @item, :status => :created, :location => @item }
         end
       else
         prepare_options
         format.html { render :action => "new" }
-        format.xml  { render :xml => @item.errors, :status => :unprocessable_entity }
+        format.json { render :json => @item.errors, :status => :unprocessable_entity }
       end
     end
   end
 
   # PUT /items/1
-  # PUT /items/1.xml
+  # PUT /items/1.json
   def update
     #@item = Item.find(params[:id])
 
@@ -189,17 +189,17 @@ class ItemsController < ApplicationController
       if @item.update_attributes(params[:item])
         flash[:notice] = t('controller.successfully_updated', :model => t('activerecord.models.item'))
         format.html { redirect_to item_url(@item) }
-        format.xml  { head :ok }
+        format.json { head :no_content }
       else
         prepare_options
         format.html { render :action => "edit" }
-        format.xml  { render :xml => @item.errors, :status => :unprocessable_entity }
+        format.json { render :json => @item.errors, :status => :unprocessable_entity }
       end
     end
   end
 
   # DELETE /items/1
-  # DELETE /items/1.xml
+  # DELETE /items/1.json
   def destroy
     #@item = Item.find(params[:id])
     manifestation = @item.manifestation
@@ -212,10 +212,10 @@ class ItemsController < ApplicationController
       flash[:notice] = t('controller.successfully_deleted', :model => t('activerecord.models.item'))
       if @item.manifestation
         format.html { redirect_to manifestation_items_url(manifestation) }
-        format.xml  { head :ok }
+        format.json { head :no_content }
       else
         format.html { redirect_to items_url }
-        format.xml  { head :ok }
+        format.json { head :no_content }
       end
     end
   end
@@ -230,11 +230,11 @@ class ItemsController < ApplicationController
       if @item.save
         flash[:notice] = t('item.item_removed')
         format.html { redirect_to item_url(@item) }
-        format.xml  { head :ok }
+        format.json { head :no_content }
       else
         flash[:notice] = t('item.update_failed')
         format.html { redirect_to item_url(@item) }
-        format.xml  { head :ok }
+        format.json { head :no_content }
       end
     end
   end
@@ -245,11 +245,11 @@ class ItemsController < ApplicationController
       if @item.save
         flash[:notice] = t('item.item_restored')
         format.html { redirect_to item_url(@item) }
-        format.xml  { head :ok }
+        format.json { head :no_content }
       else
         flash[:notice] = t('item.update_failed')
         format.html { redirect_to item_url(@item) }
-        format.xml  { head :ok }
+        format.json { head :no_content }
       end
     end
   end

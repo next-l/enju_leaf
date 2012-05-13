@@ -130,7 +130,7 @@ class LossItemsController < ApplicationController
     end
     respond_to do |format|
       format.html { redirect_to loss_item_url(@loss_item) }
-      format.xml  { head :ok }
+      format.json { head :no_content }
     end
   rescue #Exception => e
     logger.error "Failed to loss_item: #{$!}"
@@ -138,7 +138,7 @@ class LossItemsController < ApplicationController
     respond_to do |format|
       #flash[:message] = t('activerecord.attributes.item.fail_update_loss_item')
       format.html { render :action => "new" }
-      format.xml  { render :xml => @loss_item.errors, :status => :unprocessable_entity }
+      format.json { render :json => @loss_item.errors, :status => :unprocessable_entity }
     end
   end
 
@@ -162,7 +162,7 @@ class LossItemsController < ApplicationController
    #flash[:message] = t('activerecord.attributes.loss_item.fail_update')
    respond_to do |format|
      format.html { render :action => "edit" }
-     format.xml  { render :xml => @loss_item.errors, :status => :unprocessable_entity }
+     format.json { render :json => @loss_item.errors, :status => :unprocessable_entity }
     end
   end
 
@@ -171,7 +171,7 @@ class LossItemsController < ApplicationController
     @loss_item.destroy
     respond_to do |format| 
       format.html { redirect_to(loss_items_url) }
-      format.xml  { head :ok }
+      format.json { head :no_content }
     end
   end
 

@@ -5,7 +5,7 @@ class RealizesController < ApplicationController
   cache_sweeper :page_sweeper, :only => [:create, :update, :destroy]
 
   # GET /realizes
-  # GET /realizes.xml
+  # GET /realizes.json
   def index
     case
     when @patron
@@ -17,17 +17,17 @@ class RealizesController < ApplicationController
     end
 
     respond_to do |format|
-      format.html # index.rhtml
-      format.xml  { render :xml => @realizes }
+      format.html # index.html.erb
+      format.json { render :json => @realizes }
     end
   end
 
   # GET /realizes/1
-  # GET /realizes/1.xml
+  # GET /realizes/1.json
   def show
     respond_to do |format|
-      format.html # show.rhtml
-      format.xml  { render :xml => @realize }
+      format.html # show.html.erb
+      format.json { render :json => @realize }
     end
   end
 
@@ -44,12 +44,12 @@ class RealizesController < ApplicationController
     end
   end
 
-  # GET /realizes/1;edit
+  # GET /realizes/1/edit
   def edit
   end
 
   # POST /realizes
-  # POST /realizes.xml
+  # POST /realizes.json
   def create
     @realize = Realize.new(params[:realize])
 
@@ -57,16 +57,16 @@ class RealizesController < ApplicationController
       if @realize.save
         flash[:notice] = t('controller.successfully_created', :model => t('activerecord.models.realize'))
         format.html { redirect_to(@realize) }
-        format.xml  { render :xml => @realize, :status => :created, :location => @realize }
+        format.json { render :json => @realize, :status => :created, :location => @realize }
       else
         format.html { render :action => "new" }
-        format.xml  { render :xml => @realize.errors, :status => :unprocessable_entity }
+        format.json { render :json => @realize.errors, :status => :unprocessable_entity }
       end
     end
   end
 
   # PUT /realizes/1
-  # PUT /realizes/1.xml
+  # PUT /realizes/1.json
   def update
     # 並べ替え
     if @expression and params[:position]
@@ -79,16 +79,16 @@ class RealizesController < ApplicationController
       if @realize.update_attributes(params[:realize])
         flash[:notice] = t('controller.successfully_updated', :model => t('activerecord.models.realize'))
         format.html { redirect_to realize_url(@realize) }
-        format.xml  { head :ok }
+        format.json { head :no_content }
       else
         format.html { render :action => "edit" }
-        format.xml  { render :xml => @realize.errors, :status => :unprocessable_entity }
+        format.json { render :json => @realize.errors, :status => :unprocessable_entity }
       end
     end
   end
 
   # DELETE /realizes/1
-  # DELETE /realizes/1.xml
+  # DELETE /realizes/1.json
   def destroy
     @realize.destroy
 
@@ -96,13 +96,13 @@ class RealizesController < ApplicationController
       case
       when @expression
         format.html { redirect_to expression_patrons_url(@expression) }
-        format.xml  { head :ok }
+        format.json { head :no_content }
       when @patron
         format.html { redirect_to patron_expressions_url(@patron) }
-        format.xml  { head :ok }
+        format.json { head :no_content }
       else
         format.html { redirect_to realizes_url }
-        format.xml  { head :ok }
+        format.json { head :no_content }
       end
     end
   end

@@ -17,7 +17,7 @@ class ManifestationsController < ApplicationController
   include ApplicationHelper
 
   # GET /manifestations
-  # GET /manifestations.xml
+  # GET /manifestations.json
   def index
     if current_user.try(:has_role?, 'Librarian') && params[:user_id]
       @reserve_user = User.find(params[:user_id]) rescue current_user
@@ -268,7 +268,7 @@ class ManifestationsController < ApplicationController
     respond_to do |format|
       format.html
       format.mobile
-      format.xml  { render :xml => @manifestations }
+      format.json { render :json => @manifestations }
       format.sru  { render :layout => false }
       format.rss  { render :layout => false }
       format.csv  { render :layout => false }
@@ -300,7 +300,7 @@ class ManifestationsController < ApplicationController
   end
 
   # GET /manifestations/1
-  # GET /manifestations/1.xml
+  # GET /manifestations/1.json
   def show
     if params[:isbn]
       if @manifestation = Manifestation.find_by_isbn(params[:isbn])
@@ -350,9 +350,9 @@ class ManifestationsController < ApplicationController
     end
 
     respond_to do |format|
-      format.html # show.rhtml
+      format.html # show.html.erb
       format.mobile
-      format.xml  {
+      format.json {
         case params[:mode]
         when 'related'
           render :template => 'manifestations/related'
@@ -365,7 +365,6 @@ class ManifestationsController < ApplicationController
       format.mods
       format.json { render :json => @manifestation }
       #format.atom { render :template => 'manifestations/oai_ore' }
-      #format.xml  { render :action => 'mods', :layout => false }
       #format.js
       format.download {
         if @manifestation.attachment.path
@@ -402,11 +401,11 @@ class ManifestationsController < ApplicationController
 
     respond_to do |format|
       format.html # new.html.erb
-      format.xml  { render :xml => @manifestation }
+      format.json { render :json => @manifestation }
     end
   end
 
-  # GET /manifestations/1;edit
+  # GET /manifestations/1/edit
   def edit
     unless current_user.has_role?('Librarian')
       unless params[:mode] == 'tag_edit'
@@ -423,7 +422,7 @@ class ManifestationsController < ApplicationController
   end
 
   # POST /manifestations
-  # POST /manifestations.xml
+  # POST /manifestations.json
   def create
     @manifestation = Manifestation.new(params[:manifestation])
     @original_manifestation = Manifestation.where(:id => params[:manifestation_id]).first
@@ -446,45 +445,40 @@ class ManifestationsController < ApplicationController
           end
         end
 
-        flash[:notice] = t('controller.successfully_created', :model => t('activerecord.models.manifestation'))
-        format.html { redirect_to(@manifestation) }
-        format.xml  { render :xml => @manifestation, :status => :created, :location => @manifestation }
+        format.html { redirect_to @manifestation, :notice => t('controller.successfully_created', :model => t('activerecord.models.manifestation')) }
+        format.json { render :json => @manifestation, :status => :created, :location => @manifestation }
       else
         prepare_options
         format.html { render :action => "new" }
-        format.xml  { render :xml => @manifestation.errors, :status => :unprocessable_entity }
+        format.json { render :json => @manifestation.errors, :status => :unprocessable_entity }
       end
     end
   end
 
   # PUT /manifestations/1
-  # PUT /manifestations/1.xml
+  # PUT /manifestations/1.json
   def update
     respond_to do |format|
       if @manifestation.update_attributes(params[:manifestation])
-        flash[:notice] = t('controller.successfully_updated', :model => t('activerecord.models.manifestation'))
-        format.html { redirect_to @manifestation }
-        format.xml  { head :ok }
-        format.json { render :json => @manifestation }
-        format.js
+        format.html { redirect_to @manifestation, :notice => t('controller.successfully_updated', :model => t('activerecord.models.manifestation')) }
+        format.json { head :no_content }
       else
         prepare_options
         format.html { render :action => "edit" }
-        format.xml  { render :xml => @manifestation.errors, :status => :unprocessable_entity }
-        format.json { render :json => @manifestation, :status => :unprocessable_entity }
+        format.json { render :json => @manifestation.errors, :status => :unprocessable_entity }
       end
     end
   end
 
   # DELETE /manifestations/1
-  # DELETE /manifestations/1.xml
+  # DELETE /manifestations/1.json
   def destroy
     @manifestation.destroy
     flash[:notice] = t('controller.successfully_deleted', :model => t('activerecord.models.manifestation'))
 
     respond_to do |format|
       format.html { redirect_to manifestations_url }
-      format.xml  { head :ok }
+      format.json { head :no_content }
     end
   end
 

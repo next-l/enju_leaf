@@ -3,7 +3,7 @@ class SearchHistoriesController < ApplicationController
   load_and_authorize_resource
 
   # GET /search_histories
-  # GET /search_histories.xml
+  # GET /search_histories.json
   def index
     if params[:mode] == 'not_found'
       if current_user.has_role?('Administrator')
@@ -20,29 +20,29 @@ class SearchHistoriesController < ApplicationController
     end
 
     respond_to do |format|
-      format.html # index.rhtml
-      format.xml  { render :xml => @search_histories.to_xml }
+      format.html # index.html.erb
+      format.json { render :json => @search_histories.to_xml }
     end
   end
 
   # GET /search_histories/1
-  # GET /search_histories/1.xml
+  # GET /search_histories/1.json
   def show
     respond_to do |format|
-      format.html # show.rhtml
-      format.xml  { render :xml => @search_history.to_xml }
+      format.html # show.html.erb
+      format.json { render :json => @search_history.to_xml }
     end
   end
 
   # DELETE /search_histories/1
-  # DELETE /search_histories/1.xml
+  # DELETE /search_histories/1.json
   def destroy
     @search_history.destroy
 
     respond_to do |format|
       #format.html { redirect_to user_search_histories_url(@user) }
       format.html { redirect_to search_histories_url }
-      format.xml  { head :ok }
+      format.json { head :no_content }
     end
   end
 end

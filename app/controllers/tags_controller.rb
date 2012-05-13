@@ -28,7 +28,7 @@ class TagsController < ApplicationController
 
     respond_to do |format|
       format.html # index.html.erb
-      format.xml  { render :xml => @tags }
+      format.json { render :json => @tags }
       format.rss
       format.atom
     end
@@ -40,7 +40,7 @@ class TagsController < ApplicationController
 
     respond_to do |format|
       format.html # show.html.erb
-      format.xml  { render :xml => @tag }
+      format.json { render :json => @tag }
     end
   end
 
@@ -55,23 +55,23 @@ class TagsController < ApplicationController
       if @tag.update_attributes(params[:tag])
         flash[:notice] = t('controller.successfully_updated', :model => t('activerecord.models.tag'))
         format.html { redirect_to tag_url(@tag.name) }
-        format.xml  { head :ok }
+        format.json { head :no_content }
       else
         format.html { render :action => "edit" }
-        format.xml  { render :xml => @tag.errors.to_xml }
+        format.json { render :json => @tag.errors, :status => :unprocessable_entity }
       end
     end
   end
 
   # DELETE /tags/1
-  # DELETE /tags/1.xml
+  # DELETE /tags/1.json
   def destroy
     #@tag = Tag.find(params[:id])
     @tag.destroy
 
     respond_to do |format|
       format.html { redirect_to(tags_url) }
-      format.xml  { head :ok }
+      format.json { head :no_content }
     end
   end
 end

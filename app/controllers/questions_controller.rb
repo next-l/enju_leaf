@@ -9,7 +9,7 @@ class QuestionsController < ApplicationController
   end
 
   # GET /questions
-  # GET /questions.xml
+  # GET /questions.json
   def index
     store_location
     if @user and user_signed_in?
@@ -88,13 +88,13 @@ class QuestionsController < ApplicationController
     end
 
     respond_to do |format|
-      format.html # index.rhtml
-      format.xml  {
+      format.html # index.html.erb
+      format.json {
         if params[:mode] == 'crd'
           render :template => 'questions/index_crd'
           convert_charset
         else
-          render :xml => @questions.to_xml
+          render :xml => @questions
         end
       }
       format.rss  { render :layout => false }
@@ -104,7 +104,7 @@ class QuestionsController < ApplicationController
   end
 
   # GET /questions/1
-  # GET /questions/1.xml
+  # GET /questions/1.json
   def show
     if @user
       @question = @user.questions.find(params[:id])
@@ -113,13 +113,13 @@ class QuestionsController < ApplicationController
     end
 
     respond_to do |format|
-      format.html # show.rhtml
-      format.xml  {
+      format.html # show.html.erb
+      format.json {
         if params[:mode] == 'crd'
           render :template => 'questions/show_crd'
           convert_charset
         else
-          render :xml => @question.to_xml
+          render :xml => @question
         end
       }
     end
@@ -130,7 +130,7 @@ class QuestionsController < ApplicationController
     @question = current_user.questions.new
   end
 
-  # GET /questions/1;edit
+  # GET /questions/1/edit
   def edit
     if @user
       @question = @user.questions.find(params[:id])
@@ -140,7 +140,7 @@ class QuestionsController < ApplicationController
   end
 
   # POST /questions
-  # POST /questions.xml
+  # POST /questions.json
   def create
     @question = current_user.questions.new(params[:question])
 
@@ -148,16 +148,16 @@ class QuestionsController < ApplicationController
       if @question.save
         flash[:notice] = t('controller.successfully_created', :model => t('activerecord.models.question'))
         format.html { redirect_to @question }
-        format.xml  { render :xml => @question, :status => :created, :location => user_question_url(@question.user, @question) }
+        format.json { render :json => @question, :status => :created, :location => user_question_url(@question.user, @question) }
       else
         format.html { render :action => "new" }
-        format.xml  { render :xml => @question.errors.to_xml }
+        format.json { render :json => @question.errors, :status => :unprocessable_entity }
       end
     end
   end
 
   # PUT /questions/1
-  # PUT /questions/1.xml
+  # PUT /questions/1.json
   def update
 #    @question = @user.questions.find(params[:id]) 
     @question = Question.find(params[:id])
@@ -165,16 +165,16 @@ class QuestionsController < ApplicationController
       if @question.update_attributes(params[:question])
         flash[:notice] = t('controller.successfully_updated', :model => t('activerecord.models.question'))
         format.html { redirect_to @question }
-        format.xml  { head :ok }
+        format.json { head :no_content }
       else
         format.html { render :action => "edit" }
-        format.xml  { render :xml => @question.errors.to_xml }
+        format.json { render :json => @question.errors, :status => :unprocessable_entity }
       end
     end
   end
 
   # DELETE /questions/1
-  # DELETE /questions/1.xml
+  # DELETE /questions/1.json
   def destroy
     if @user
       @question = @user.questions.find(params[:id])
@@ -185,7 +185,7 @@ class QuestionsController < ApplicationController
 
     respond_to do |format|
       format.html { redirect_to questions_url() }
-      format.xml  { head :ok }
+      format.json { head :no_content }
     end
   end
 end

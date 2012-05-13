@@ -40,17 +40,17 @@ class FamiliesController < ApplicationController
             @family.add_user(params[:family_users])                      
             flash[:notice] = t('controller.successfully_created', :model => t('activerecord.models.family'))
             format.html { redirect_to(@family) }
-            format.xml  { render :xml => @family, :status => :created, :location => @family }
+            format.json { render :json => @family, :status => :created, :location => @family }
           else
             user_list(params)
             format.html { render :action => "new" }
-            format.xml  { render :xml => @family.errors, :status => :unprocessable_entity }
+            format.json { render :json => @family.errors, :status => :unprocessable_entity }
           end
         end
       rescue
         user_list(params)
         format.html { render :action => "new" }
-        format.xml  { render :xml => @family.errors, :status => :unprocessable_entity }
+        format.json { render :json => @family.errors, :status => :unprocessable_entity }
       end
     end    
   end
@@ -73,13 +73,13 @@ class FamiliesController < ApplicationController
         @family.add_user(params[:family_users])
         flash[:notice] = t('controller.successfully_updated', :model => t('activerecord.models.family'))
         format.html { redirect_to(@family) }
-        format.xml  { render :xml => @family, :status => :created, :location => @family }
+        format.json { render :json => @family, :status => :created, :location => @family }
       end
     rescue Exception => e
       user_list(params)
       @already_family_users = @family.users
       format.html { render :action => "edit" }
-      format.xml  { render :xml => @family.errors, :status => :unprocessable_entity }
+      format.json { render :json => @family.errors, :status => :unprocessable_entity }
     end
     end
   end

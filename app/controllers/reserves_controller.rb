@@ -11,7 +11,7 @@ class ReservesController < ApplicationController
   helper_method :get_item
 
   # GET /reserves
-  # GET /reserves.xml
+  # GET /reserves.json
   def index
     if current_user.has_role?('Librarian') and params[:user_id]
       @reserve_user = User.find(params[:user_id]) rescue current_user
@@ -116,8 +116,8 @@ class ReservesController < ApplicationController
     end
 
     respond_to do |format|
-      format.html # index.rhtml
-      #format.xml  { render :xml => @reserves.to_xml }
+      format.html # index.html.erb
+      format.json { render :json => @reserves }
       format.rss  { render :layout => false }
       format.atom
       format.csv
@@ -141,7 +141,7 @@ class ReservesController < ApplicationController
   end
 
   # GET /reserves/1
-  # GET /reserves/1.xml
+  # GET /reserves/1.json
   def show
     @reserve = Reserve.find(params[:id])
     check_can_access?
@@ -151,8 +151,8 @@ class ReservesController < ApplicationController
     @reserved_count = Reserve.waiting.where(:manifestation_id => @reserve.manifestation_id, :checked_out_at => nil).count
 
     respond_to do |format|
-      format.html # show.rhtml
-      format.xml  { render :xml => @reserve.to_xml }
+      format.html # show.html.erb
+      format.json { render :json => @reserve }
     end
   end
 
@@ -202,7 +202,7 @@ class ReservesController < ApplicationController
     end
   end
 
-  # GET /reserves/1;edit
+  # GET /reserves/1/edit
   def edit
     @reserve = Reserve.find(params[:id])
     check_can_access?
@@ -219,7 +219,7 @@ class ReservesController < ApplicationController
   end
 
   # POST /reserves
-  # POST /reserves.xml
+  # POST /reserves.json
   def create
     user = User.where(:user_number => params[:reserve][:user_number]).first if params[:reserve]
 
@@ -253,18 +253,18 @@ class ReservesController < ApplicationController
         flash[:notice] = t('controller.successfully_created', :model => t('activerecord.models.reserve'))
         #format.html { redirect_to reserve_url(@reserve) }
         format.html { redirect_to user_reserve_url(@reserve.user, @reserve) }
-        format.xml  { render :xml => @reserve, :status => :created, :location => user_reserve_url(@reserve.user, @reserve) }
+        format.json { render :json => @reserve, :status => :created, :location => user_reserve_url(@reserve.user, @reserve) }
       else
         @libraries = Library.real.order('position')
         @informations = Reserve.informations(user)
         format.html { render :action => "new" }
-        format.xml  { render :xml => @reserve.errors.to_xml }
+        format.json { render :json => @reserve.errors, :status => :unprocessable_entity }
       end
     end
   end
 
   # PUT /reserves/1
-  # PUT /reserves/1.xml
+  # PUT /reserves/1.json
   def update
     @reserve = Reserve.find(params[:id])
     unless @reserve.can_checkout? 
@@ -309,24 +309,24 @@ class ReservesController < ApplicationController
             logger.error "Faild to send a notification message (reservation was canceled): #{e}" 
           end
           format.html { redirect_to user_reserves_path(user)}
-          format.xml  { head :ok }
+          format.json { head :no_content }
         else
           flash[:notice] = t('controller.successfully_updated', :model => t('activerecord.models.reserve'))
           format.html { redirect_to user_reserve_url(@reserve.user, @reserve) }
-          format.xml  { head :ok }
+          format.json { head :no_content }
         end
       else
         @reserve.errors[:base] << t('reserve.expired_at_of_this_user_is_over') unless @reserve.available_for_update?
         @libraries = Library.real.order('position')
         @informations = Reserve.informations(user)
         format.html { render :action => "edit" }
-        format.xml  { render :xml => @reserve.errors.to_xml }
+        format.json { render :json => @reserve.errors, :status => :unprocessable_entity }
       end
     end
   end
 
   # DELETE /reserves/1
-  # DELETE /reserves/1.xml
+  # DELETE /reserves/1.json
   def destroy
     @reserve = Reserve.find(params[:id])
     if current_user.blank?
@@ -354,7 +354,7 @@ class ReservesController < ApplicationController
 
     respond_to do |format|
       format.html { redirect_to reserves_url}
-      format.xml  { head :ok }
+      format.json { head :no_content }
     end
   end
 

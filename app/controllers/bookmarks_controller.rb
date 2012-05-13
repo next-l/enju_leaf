@@ -9,7 +9,7 @@ class BookmarksController < ApplicationController
   cache_sweeper :bookmark_sweeper, :only => [:create, :update, :destroy]
 
   # GET /bookmarks
-  # GET /bookmarks.xml
+  # GET /bookmarks.json
   def index
     search = Bookmark.search(:include => [:manifestation])
     query = params[:query].to_s.strip
@@ -27,17 +27,17 @@ class BookmarksController < ApplicationController
     @bookmarks = search.execute!.results
 
     respond_to do |format|
-      format.html # index.rhtml
-      format.xml  { render :xml => @bookmarks }
+      format.html # index.html.erb
+      format.json { render :json => @bookmarks }
     end
   end
 
   # GET /bookmarks/1
-  # GET /bookmarks/1.xml
+  # GET /bookmarks/1.json
   def show
     respond_to do |format|
-      format.html # show.rhtml
-      format.xml  { render :xml => @bookmark }
+      format.html # show.html.erb
+      format.json { render :json => @bookmark }
     end
   end
 
@@ -66,7 +66,7 @@ class BookmarksController < ApplicationController
     end
   end
 
-  # GET /bookmarks/1;edit
+  # GET /bookmarks/1/edit
   def edit
     if @user
       @bookmark = @user.bookmarks.find(params[:id])
@@ -76,7 +76,7 @@ class BookmarksController < ApplicationController
   end
 
   # POST /bookmarks
-  # POST /bookmarks.xml
+  # POST /bookmarks.json
   def create
     @bookmark = current_user.bookmarks.new(params[:bookmark])
     if @bookmark.url
@@ -102,15 +102,15 @@ class BookmarksController < ApplicationController
         @bookmark.manifestation.index!
         if params[:mode] == 'tag_edit'
           format.html { redirect_to(@bookmark.manifestation) }
-          format.xml  { render :xml => @bookmark, :status => :created, :location => user_bookmark_url(@bookmark.user, @bookmark) }
+          format.json { render :json => @bookmark, :status => :created, :location => user_bookmark_url(@bookmark.user, @bookmark) }
         else
           format.html { redirect_to user_bookmark_url(@bookmark.user, @bookmark) }
-          format.xml  { render :xml => @bookmark, :status => :created, :location => user_bookmark_url(@bookmark.user, @bookmark) }
+          format.json { render :json => @bookmark, :status => :created, :location => user_bookmark_url(@bookmark.user, @bookmark) }
         end
       else
         @user = current_user
         format.html { render :action => "new" }
-        format.xml  { render :xml => @bookmark.errors, :status => :unprocessable_entity }
+        format.json { render :json => @bookmark.errors, :status => :unprocessable_entity }
       end
     end
 
@@ -118,7 +118,7 @@ class BookmarksController < ApplicationController
   end
 
   # PUT /bookmarks/1
-  # PUT /bookmarks/1.xml
+  # PUT /bookmarks/1.json
   def update
     if @user
       params[:bookmark][:user_id] = @user.id
@@ -140,20 +140,20 @@ class BookmarksController < ApplicationController
         case params[:mode]
         when 'tag_edit'
           format.html { redirect_to(@bookmark.manifestation) }
-          format.xml  { head :ok }
+          format.json { head :no_content }
         else
           format.html { redirect_to user_bookmark_url(@bookmark.user, @bookmark) }
-          format.xml  { head :ok }
+          format.json { head :no_content }
         end
       else
         format.html { render :action => "edit" }
-        format.xml  { render :xml => @bookmark.errors, :status => :unprocessable_entity }
+        format.json { render :json => @bookmark.errors, :status => :unprocessable_entity }
       end
     end
   end
 
   # DELETE /bookmarks/1
-  # DELETE /bookmarks/1.xml
+  # DELETE /bookmarks/1.json
   def destroy
     @bookmark.destroy
     flash[:notice] = t('controller.successfully_deleted', :model => t('activerecord.models.bookmark'))
@@ -162,12 +162,12 @@ class BookmarksController < ApplicationController
     if @user
       respond_to do |format|
         format.html { redirect_to user_bookmarks_url(@user) }
-        format.xml  { head :ok }
+        format.json { head :no_content }
       end
     else
       respond_to do |format|
         format.html { redirect_to user_bookmarks_url(@bookmark.user) }
-        format.xml  { head :ok }
+        format.json { head :no_content }
       end
     end
   end

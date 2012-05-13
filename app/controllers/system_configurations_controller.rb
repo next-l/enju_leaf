@@ -17,11 +17,11 @@ class SystemConfigurationsController < ApplicationController
       if @system_configuration.save
         flash[:notice] = t('controller.successfully_created', :model => t('activerecord.models.system_configuration'))
         format.html { redirect_to(@system_configuration) }
-        format.xml  { render :xml => @system_configuration, :status => :created, :location => @system_configuration }
+        format.json { render :json => @system_configuration, :status => :created, :location => @system_configuration }
       else
         #prepare_options
         format.html { render :action => "new" }
-        format.xml  { render :xml => @system_configuration.errors, :status => :unprocessable_entity }
+        format.json { render :json => @system_configuration.errors, :status => :unprocessable_entity }
       end
     end
   end
@@ -37,11 +37,11 @@ class SystemConfigurationsController < ApplicationController
       if @system_configuration.update_attributes(params[:system_configuration])
         flash[:notice] = t('controller.successfully_updated', :model => t('activerecord.models.system_configuration'))
         format.html { redirect_to(@system_configuration) }
-        format.xml  { head :ok }
+        format.json { head :no_content }
       else
         #prepare_options
         format.html { render :action => "edit" }
-        format.xml  { render :xml => @system_configuration.errors, :status => :unprocessable_entity }
+        format.json { render :json => @system_configuration.errors, :status => :unprocessable_entity }
       end
     end
   end
@@ -56,7 +56,7 @@ class SystemConfigurationsController < ApplicationController
 
     respond_to do |format|
       format.html { redirect_to(system_configurations_url) }
-      format.xml  { head :ok }
+      format.json { head :no_content }
     end
   end
 end

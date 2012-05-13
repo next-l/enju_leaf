@@ -6,7 +6,7 @@ class MessagesController < ApplicationController
   cache_sweeper :page_sweeper, :only => [:create, :update, :destroy]
 
   # GET /messages
-  # GET /messages.xml
+  # GET /messages.json
   def index
     query = params[:query].to_s.strip
     search = Sunspot.new_search(Message)
@@ -34,22 +34,22 @@ class MessagesController < ApplicationController
     @messages = search.execute!.results
 
     respond_to do |format|
-      format.html # index.rhtml
-      format.xml  { render :xml => @messages }
+      format.html # index.html.erb
+      format.json { render :json => @messages }
       format.rss
       format.atom
     end
   end
 
   # GET /messages/1
-  # GET /messages/1.xml
+  # GET /messages/1.json
   def show
     @message = current_user.received_messages.find(params[:id])
     @message.sm_read!
 
     respond_to do |format|
-      format.html # show.rhtml
-      format.xml  { render :xml => @message }
+      format.html # show.html.erb
+      format.json { render :json => @message }
     end
   end
 
@@ -64,14 +64,14 @@ class MessagesController < ApplicationController
     end
   end
 
-  # GET /messages/1;edit
+  # GET /messages/1/edit
   def edit
     @message = current_user.received_messages.find(params[:id])
     @message.sm_read!
   end
 
   # POST /messages
-  # POST /messages.xml
+  # POST /messages.json
   def create
     @message = current_user.sent_messages.new(params[:message])
     get_parent(@message.parent_id)
@@ -81,38 +81,38 @@ class MessagesController < ApplicationController
       if @message.save
         flash[:notice] = t('controller.successfully_created', :model => t('activerecord.models.message'))
         format.html { redirect_to messages_url }
-        format.xml  { render :xml => @message, :status => :created, :location => @message }
+        format.json { render :json => @message, :status => :created, :location => @message }
       else
         format.html { render :action => "new" }
-        format.xml  { render :xml => @message.errors, :status => :unprocessable_entity }
+        format.json { render :json => @message.errors, :status => :unprocessable_entity }
       end
     end
   end
 
   # PUT /messages/1
-  # PUT /messages/1.xml
+  # PUT /messages/1.json
   def update
     @message = current_user.received_messages.find(params[:id])
 
     if @message.update_attributes(params[:message])
       flash[:notice] = t('controller.successfully_updated', :model => t('activerecord.models.message'))
       format.html { redirect_to message_url(@message) }
-      format.xml  { head :ok }
+      format.json { head :no_content }
     else
       format.html { render :action => "edit" }
-      format.xml  { render :xml => @message.errors, :status => :unprocessable_entity }
+      format.json { render :json => @message.errors, :status => :unprocessable_entity }
     end
   end
 
   # DELETE /messages/1
-  # DELETE /messages/1.xml
+  # DELETE /messages/1.json
   def destroy
     @message = current_user.received_messages.find(params[:id])
     @message.destroy
 
     respond_to do |format|
       format.html { redirect_to messages_url }
-      format.xml  { head :ok }
+      format.json { head :no_content }
     end
   end
 

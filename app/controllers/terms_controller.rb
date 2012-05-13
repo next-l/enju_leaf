@@ -17,10 +17,10 @@ class TermsController < ApplicationController
       if @term.save
         flash[:notice] = t('controller.successfully_created', :model => t('activerecord.models.term'))
         format.html { redirect_to(@term) }
-        format.xml  { render :xml => @term, :status => :created, :location => @term }
+        format.json { render :json => @term, :status => :created, :location => @term }
       else
         format.html { render :action => "new" }
-        format.xml  { render :xml => @term.errors, :status => :unprocessable_entity }
+        format.json { render :json => @term.errors, :status => :unprocessable_entity }
       end
     end
   end
@@ -36,10 +36,10 @@ class TermsController < ApplicationController
       if @term.update_attributes(params[:term])
         flash[:notice] = t('controller.successfully_updated', :model => t('activerecord.models.term'))
         format.html { redirect_to(@term) }
-        format.xml  { head :ok }
+        format.json { head :no_content }
       else
         format.html { render :action => "edit" }
-        format.xml  { render :xml => @term.errors, :status => :unprocessable_entity }
+        format.json { render :json => @term.errors, :status => :unprocessable_entity }
       end
     end
   end
@@ -54,7 +54,7 @@ class TermsController < ApplicationController
       if @term.destroy?
         @term.destroy
         format.html { redirect_to(terms_url) }
-        format.xml  { head :ok }
+        format.json { head :no_content }
       else
         flash[:message] = t('term.cannot_delete')
         @terms = Term.all

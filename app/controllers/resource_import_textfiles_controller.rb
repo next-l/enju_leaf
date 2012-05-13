@@ -18,7 +18,7 @@ class ResourceImportTextfilesController < ApplicationController
 
     respond_to do |format|
       format.html # show.html.erb
-      format.xml  { render :xml => @resource_import_textfile }
+      format.json { render :json => @resource_import_textfile }
       format.download {
         send_file file, :filename => @resource_import_textfile.resource_import_text_file_name, :type => 'application/octet-stream'
       }
@@ -33,11 +33,11 @@ class ResourceImportTextfilesController < ApplicationController
       if @resource_import_textfile.save
         flash[:notice] = t('controller.successfully_created', :model => t('activerecord.models.resource_import_textfile'))
         format.html { redirect_to(@resource_import_textfile) }
-        format.xml  { render :xml => @resource_import_textfile, :status => :created, :location => @resource_import_textfile }
+        format.json { render :json => @resource_import_textfile, :status => :created, :location => @resource_import_textfile }
       else
         @adapters = EnjuTrunk::ResourceAdapter::Base.all
         format.html { render :action => "new" }
-        format.xml  { render :xml => @resource_import_textfile.errors, :status => :unprocessable_entity }
+        format.json { render :json => @resource_import_textfile.errors, :status => :unprocessable_entity }
       end
     end
   end
@@ -47,7 +47,7 @@ class ResourceImportTextfilesController < ApplicationController
 
     respond_to do |format|
       format.html { redirect_to(resource_import_textfiles_url) }
-      format.xml  { head :ok }
+      format.json { head :no_content }
     end
   end
 

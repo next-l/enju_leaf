@@ -6,35 +6,35 @@ class SeriesHasManifestationsController < ApplicationController
   cache_sweeper :page_sweeper, :only => [:create, :update, :destroy]
 
   # GET /series_has_manifestations
-  # GET /series_has_manifestations.xml
+  # GET /series_has_manifestations.json
   def index
     @series_has_manifestations = SeriesHasManifestation.paginate(:page => params[:page])
 
     respond_to do |format|
       format.html # index.html.erb
-      format.xml  { render :xml => @series_has_manifestations }
+      format.json { render :json => @series_has_manifestations }
     end
   end
 
   # GET /series_has_manifestations/1
-  # GET /series_has_manifestations/1.xml
+  # GET /series_has_manifestations/1.json
   def show
 
     respond_to do |format|
       format.html # show.html.erb
-      format.xml  { render :xml => @series_has_manifestation }
+      format.json { render :json => @series_has_manifestation }
       format.js
     end
   end
 
   # GET /series_has_manifestations/new
-  # GET /series_has_manifestations/new.xml
+  # GET /series_has_manifestations/new.json
   def new
     @series_has_manifestation = SeriesHasManifestation.new(:series_statement => @series_statement, :manifestation => @manifestation)
 
     respond_to do |format|
       format.html # new.html.erb
-      format.xml  { render :xml => @series_has_manifestation }
+      format.json { render :json => @series_has_manifestation }
     end
   end
 
@@ -45,37 +45,37 @@ class SeriesHasManifestationsController < ApplicationController
   end
 
   # POST /series_has_manifestations
-  # POST /series_has_manifestations.xml
+  # POST /series_has_manifestations.json
   def create
     respond_to do |format|
       if @series_has_manifestation.save
         flash[:notice] = t('controller.successfully_created', :model => t('activerecord.models.series_has_manifestation'))
         format.html { redirect_to(@series_has_manifestation) }
-        format.xml  { render :xml => @series_has_manifestation, :status => :created, :location => @series_has_manifestation }
+        format.json { render :json => @series_has_manifestation, :status => :created, :location => @series_has_manifestation }
       else
         format.html { render :action => "new" }
-        format.xml  { render :xml => @series_has_manifestation.errors, :status => :unprocessable_entity }
+        format.json { render :json => @series_has_manifestation.errors, :status => :unprocessable_entity }
       end
     end
   end
 
   # PUT /series_has_manifestations/1
-  # PUT /series_has_manifestations/1.xml
+  # PUT /series_has_manifestations/1.json
   def update
     respond_to do |format|
       if @series_has_manifestation.update_attributes(params[:series_has_manifestation])
         flash[:notice] = t('controller.successfully_updated', :model => t('activerecord.models.series_has_manifestation'))
         format.html { redirect_to(@series_has_manifestation) }
-        format.xml  { head :ok }
+        format.json { head :no_content }
       else
         format.html { render :action => "edit" }
-        format.xml  { render :xml => @series_has_manifestation.errors, :status => :unprocessable_entity }
+        format.json { render :json => @series_has_manifestation.errors, :status => :unprocessable_entity }
       end
     end
   end
 
   # DELETE /series_has_manifestations/1
-  # DELETE /series_has_manifestations/1.xml
+  # DELETE /series_has_manifestations/1.json
   def destroy
     @series_has_manifestation.destroy
 
@@ -87,7 +87,7 @@ class SeriesHasManifestationsController < ApplicationController
           redirect_to(series_has_manifestations_url)
         end
       }
-      format.xml  { head :ok }
+      format.json { head :no_content }
     end
   end
 end

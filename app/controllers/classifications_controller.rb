@@ -6,7 +6,7 @@ class ClassificationsController < ApplicationController
   cache_sweeper :page_sweeper, :only => [:create, :update, :destroy]
 
   # GET /classifications
-  # GET /classifications.xml
+  # GET /classifications.json
   def index
     search = Sunspot.new_search(Classification)
     query = params[:query].to_s.strip
@@ -34,23 +34,23 @@ class ClassificationsController < ApplicationController
 
     respond_to do |format|
       format.html # index.html.erb
-      format.xml  { render :xml => @classifications }
+      format.json { render :json => @classifications }
     end
   end
 
   # GET /classifications/1
-  # GET /classifications/1.xml
+  # GET /classifications/1.json
   def show
     @classification = Classification.find(params[:id])
 
     respond_to do |format|
       format.html # show.html.erb
-      format.xml  { render :xml => @classification }
+      format.json { render :json => @classification }
     end
   end
 
   # GET /classifications/new
-  # GET /classifications/new.xml
+  # GET /classifications/new.json
   def new
     @classification_types = ClassificationType.all
     @classification = Classification.new
@@ -58,7 +58,7 @@ class ClassificationsController < ApplicationController
 
     respond_to do |format|
       format.html # new.html.erb
-      format.xml  { render :xml => @classification }
+      format.json { render :json => @classification }
     end
   end
 
@@ -69,7 +69,7 @@ class ClassificationsController < ApplicationController
   end
 
   # POST /classifications
-  # POST /classifications.xml
+  # POST /classifications.json
   def create
     @classification = Classification.new(params[:classification])
 
@@ -77,17 +77,17 @@ class ClassificationsController < ApplicationController
       if @classification.save
         flash[:notice] = t('controller.successfully_created', :model => t('activerecord.models.classification'))
         format.html { redirect_to(@classification) }
-        format.xml  { render :xml => @classification, :status => :created, :location => @classification }
+        format.json { render :json => @classification, :status => :created, :location => @classification }
       else
         @classification_types = ClassificationType.all
         format.html { render :action => "new" }
-        format.xml  { render :xml => @classification.errors, :status => :unprocessable_entity }
+        format.json { render :json => @classification.errors, :status => :unprocessable_entity }
       end
     end
   end
 
   # PUT /classifications/1
-  # PUT /classifications/1.xml
+  # PUT /classifications/1.json
   def update
     @classification = Classification.find(params[:id])
 
@@ -95,24 +95,24 @@ class ClassificationsController < ApplicationController
       if @classification.update_attributes(params[:classification])
         flash[:notice] = t('controller.successfully_updated', :model => t('activerecord.models.classification'))
         format.html { redirect_to(@classification) }
-        format.xml  { head :ok }
+        format.json { head :no_content }
       else
         @classification_types = ClassificationType.all
         format.html { render :action => "edit" }
-        format.xml  { render :xml => @classification.errors, :status => :unprocessable_entity }
+        format.json { render :json => @classification.errors, :status => :unprocessable_entity }
       end
     end
   end
 
   # DELETE /classifications/1
-  # DELETE /classifications/1.xml
+  # DELETE /classifications/1.json
   def destroy
     @classification = Classification.find(params[:id])
     @classification.destroy
 
     respond_to do |format|
       format.html { redirect_to(classifications_url) }
-      format.xml  { head :ok }
+      format.json { head :no_content }
     end
   end
 

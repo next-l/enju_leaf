@@ -8,7 +8,7 @@ class CheckinsController < ApplicationController
   cache_sweeper :page_sweeper, :only => [:create, :update, :destroy]
 
   # GET /checkins
-  # GET /checkins.xml
+  # GET /checkins.json
   def index
     # かごがない場合、自動的に作成する
     get_basket
@@ -31,20 +31,20 @@ class CheckinsController < ApplicationController
     end
 
     respond_to do |format|
-      format.html # index.rhtml
-      format.xml  { render :xml => @checkins.to_xml }
+      format.html # index.html.erb
+      format.json { render :json => @checkins }
       format.js
     end
   end
 
   # GET /checkins/1
-  # GET /checkins/1.xml
+  # GET /checkins/1.json
   def show
     #@checkin = Checkin.find(params[:id])
 
     respond_to do |format|
-      format.html # show.rhtml
-      format.xml  { render :xml => @checkin.to_xml }
+      format.html # show.html.erb
+      format.json { render :json => @checkin }
     end
   end
 
@@ -54,13 +54,13 @@ class CheckinsController < ApplicationController
     redirect_to checkins_url
   end
 
-  # GET /checkins/1;edit
+  # GET /checkins/1/edit
   def edit
     #@checkin = Checkin.find(params[:id])
   end
 
   # POST /checkins
-  # POST /checkins.xml
+  # POST /checkins.json
   def create
     get_basket
     unless @basket
@@ -101,7 +101,7 @@ class CheckinsController < ApplicationController
           flash[:sound] = return_sound if return_sound
         end
         format.html { redirect_to user_basket_checkins_url(@checkin.basket.user, @checkin.basket) }
-        format.xml  { render :xml => @checkin.errors.to_xml }
+        format.json { render :json => @checkin.errors, :status => :unprocessable_entity }
         format.js   { redirect_to user_basket_checkins_url(@checkin.basket.user, @checkin.basket, :mode => 'list', :format => :js) }
       else
         @checkin.item = item
@@ -124,11 +124,11 @@ class CheckinsController < ApplicationController
             flash[:sound] = return_sound if return_sound
           end
           format.html { redirect_to user_basket_checkins_url(@checkin.basket.user, @checkin.basket) }
-          format.xml  { render :xml => @checkin, :status => :created, :location => user_basket_checkin_url(@checkin.basket.user, @checkin.basket, @checkin) }
+          format.json { render :json => @checkin, :status => :created, :location => user_basket_checkin_url(@checkin.basket.user, @checkin.basket, @checkin) }
           format.js   { redirect_to user_basket_checkins_url(@checkin.basket.user, @checkin.basket, :mode => 'list', :format => :js) }
         else
           format.html { render :action => "new" }
-          format.xml  { render :xml => @checkin.errors.to_xml }
+          format.json { render :json => @checkin.errors, :status => :unprocessable_entity }
           format.js   { redirect_to user_basket_checkins_url(@basket.user, @basket, :mode => 'list', :format => :js) }
         end
       end
@@ -136,7 +136,7 @@ class CheckinsController < ApplicationController
   end
 
   # PUT /checkins/1
-  # PUT /checkins/1.xml
+  # PUT /checkins/1.json
   def update
     #@checkin = Checkin.find(params[:id])
     @checkin.item_identifier = params[:checkin][:item_identifier] rescue nil
@@ -149,23 +149,23 @@ class CheckinsController < ApplicationController
       if @checkin.update_attributes(params[:checkin])
         flash[:notice] = t('controller.successfully_updated', :model => t('activerecord.models.checkin'))
         format.html { redirect_to checkin_url(@checkin) }
-        format.xml  { head :ok }
+        format.json { head :no_content }
       else
         format.html { render :action => "edit" }
-        format.xml  { render :xml => @checkin.errors.to_xml }
+        format.json { render :json => @checkin.errors, :status => :unprocessable_entity }
       end
     end
   end
 
   # DELETE /checkins/1
-  # DELETE /checkins/1.xml
+  # DELETE /checkins/1.json
   def destroy
     #@checkin = Checkin.find(params[:id])
     @checkin.destroy
 
     respond_to do |format|
       format.html { redirect_to checkins_url }
-      format.xml  { head :ok }
+      format.json { head :no_content }
     end
   end
 end

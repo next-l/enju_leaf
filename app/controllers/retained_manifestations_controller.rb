@@ -76,7 +76,7 @@ class RetainedManifestationsController < ApplicationController
     @reserve.save!(:validate => false)
     respond_to do |format|
       format.html { redirect_to retained_manifestations_path }
-      format.xml  { head :ok }
+      format.json { head :no_content }
     end
   end
 end

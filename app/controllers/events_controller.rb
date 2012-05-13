@@ -9,7 +9,7 @@ class EventsController < ApplicationController
   after_filter :convert_charset, :only => :index
 
   # GET /events
-  # GET /events.xml
+  # GET /events.json
   def index
     @count = {}
     query = params[:query].to_s.strip
@@ -51,7 +51,7 @@ class EventsController < ApplicationController
 
     respond_to do |format|
       format.html # index.html.erb
-      format.xml  { render :xml => @events }
+      format.json { render :json => @events }
       format.rss  { render :layout => false }
       format.csv
       format.atom
@@ -60,18 +60,18 @@ class EventsController < ApplicationController
   end
 
   # GET /events/1
-  # GET /events/1.xml
+  # GET /events/1.json
   def show
     @event = Event.find(params[:id])
 
     respond_to do |format|
       format.html # show.html.erb
-      format.xml  { render :xml => @event }
+      format.json { render :json => @event }
     end
   end
 
   # GET /events/new
-  # GET /events/new.xml
+  # GET /events/new.json
   def new
      prepare_options
     if params[:date]
@@ -89,7 +89,7 @@ class EventsController < ApplicationController
 
     respond_to do |format|
       format.html # new.html.erb
-      format.xml  { render :xml => @event }
+      format.json { render :json => @event }
     end
   end
 
@@ -100,7 +100,7 @@ class EventsController < ApplicationController
   end
 
   # POST /events
-  # POST /events.xml
+  # POST /events.json
   def create
     @event = Event.new(params[:event])
     @event.set_date
@@ -109,17 +109,17 @@ class EventsController < ApplicationController
       if @event.save
         flash[:notice] = t('controller.successfully_created', :model => t('activerecord.models.event'))
         format.html { redirect_to(@event) }
-        format.xml  { render :xml => @event, :status => :created, :location => @event }
+        format.json { render :json => @event, :status => :created, :location => @event }
       else
         prepare_options
         format.html { render :action => "new" }
-        format.xml  { render :xml => @event.errors, :status => :unprocessable_entity }
+        format.json { render :json => @event.errors, :status => :unprocessable_entity }
       end
     end
   end
 
   # PUT /events/1
-  # PUT /events/1.xml
+  # PUT /events/1.json
   def update
     @event = Event.find(params[:id])
     @event.set_date
@@ -129,24 +129,24 @@ class EventsController < ApplicationController
 
         flash[:notice] = t('controller.successfully_updated', :model => t('activerecord.models.event'))
         format.html { redirect_to(@event) }
-        format.xml  { head :ok }
+        format.json { head :no_content }
       else
         prepare_options
         format.html { render :action => "edit" }
-        format.xml  { render :xml => @event.errors, :status => :unprocessable_entity }
+        format.json { render :json => @event.errors, :status => :unprocessable_entity }
       end
     end
   end
 
   # DELETE /events/1
-  # DELETE /events/1.xml
+  # DELETE /events/1.json
   def destroy
     @event = Event.find(params[:id])
     @event.destroy
 
     respond_to do |format|
       format.html { redirect_to(events_url) }
-      format.xml  { head :ok }
+      format.json { head :no_content }
     end
   end
 

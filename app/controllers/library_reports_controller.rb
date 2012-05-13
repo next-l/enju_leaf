@@ -39,7 +39,7 @@ class LibraryReportsController < ApplicationController
 
     respond_to do |format|
       format.html # index.html.erb
-      format.xml  { render :xml => @library_reports }
+      format.json { render :json => @library_reports }
       format.rss  { render :layout => false }
       format.csv
       format.atom
@@ -119,11 +119,11 @@ class LibraryReportsController < ApplicationController
       if @library_report.save
         flash[:notice] = t('controller.successfully_created', :model => t('activerecord.models.library_report'))
         format.html { redirect_to(@library_report) }
-        format.xml  { render :xml => @library_report, :status => :created, :location => @library_report }
+        format.json { render :json => @library_report, :status => :created, :location => @library_report }
       else
         @libraries = Library.all
         format.html { render :action => "new" }
-        format.xml  { render :xml => @library_report.errors, :status => :unprocessable_entity }
+        format.json { render :json => @library_report.errors, :status => :unprocessable_entity }
       end
     end
   end
@@ -202,7 +202,7 @@ class LibraryReportsController < ApplicationController
     @library_report.destroy
     respond_to do |format|
       format.html { redirect_to(library_reports_url) }
-      format.xml  { head :ok }
+      format.json { head :no_content }
     end
   end
 

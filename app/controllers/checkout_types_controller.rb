@@ -3,7 +3,7 @@ class CheckoutTypesController < ApplicationController
   before_filter :get_user_group
 
   # GET /checkout_types
-  # GET /checkout_types.xml
+  # GET /checkout_types.json
   def index
     if @user_group
       @checkout_types = @user_group.checkout_types.order('checkout_types.position').page(params[:page])
@@ -13,12 +13,12 @@ class CheckoutTypesController < ApplicationController
 
     respond_to do |format|
       format.html # index.html.erb
-      format.xml  { render :xml => @checkout_types }
+      format.json { render :json => @checkout_types }
     end
   end
 
   # GET /checkout_types/1
-  # GET /checkout_types/1.xml
+  # GET /checkout_types/1.json
   def show
     if @user_group
       @checkout_type = @user_group.checkout_types.find(params[:id])
@@ -26,12 +26,12 @@ class CheckoutTypesController < ApplicationController
 
     respond_to do |format|
       format.html # show.html.erb
-      format.xml  { render :xml => @checkout_type }
+      format.json { render :json => @checkout_type }
     end
   end
 
   # GET /checkout_types/new
-  # GET /checkout_types/new.xml
+  # GET /checkout_types/new.json
   def new
     if @user_group
       @checkout_type = @user_group.checkout_types.new
@@ -41,7 +41,7 @@ class CheckoutTypesController < ApplicationController
 
     respond_to do |format|
       format.html # new.html.erb
-      format.xml  { render :xml => @checkout_type }
+      format.json { render :json => @checkout_type }
     end
   end
 
@@ -53,7 +53,7 @@ class CheckoutTypesController < ApplicationController
   end
 
   # POST /checkout_types
-  # POST /checkout_types.xml
+  # POST /checkout_types.json
   def create
     if @user_group
       @checkout_type = @user_group.checkout_types.new(params[:checkout_type])
@@ -65,16 +65,16 @@ class CheckoutTypesController < ApplicationController
       if @checkout_type.save
         flash[:notice] = t('controller.successfully_created', :model => t('activerecord.models.checkout_type'))
         format.html { redirect_to(@checkout_type) }
-        format.xml  { render :xml => @checkout_type, :status => :created, :location => @checkout_type }
+        format.json { render :json => @checkout_type, :status => :created, :location => @checkout_type }
       else
         format.html { render :action => "new" }
-        format.xml  { render :xml => @checkout_type.errors, :status => :unprocessable_entity }
+        format.json { render :json => @checkout_type.errors, :status => :unprocessable_entity }
       end
     end
   end
 
   # PUT /checkout_types/1
-  # PUT /checkout_types/1.xml
+  # PUT /checkout_types/1.json
   def update
     if @user_group
       @checkout_type = @user_group.checkout_types.find(params[:id])
@@ -89,16 +89,16 @@ class CheckoutTypesController < ApplicationController
       if @checkout_type.update_attributes(params[:checkout_type])
         flash[:notice] = t('controller.successfully_updated', :model => t('activerecord.models.checkout_type'))
         format.html { redirect_to(@checkout_type) }
-        format.xml  { head :ok }
+        format.json { head :no_content }
       else
         format.html { render :action => "edit" }
-        format.xml  { render :xml => @checkout_type.errors, :status => :unprocessable_entity }
+        format.json { render :json => @checkout_type.errors, :status => :unprocessable_entity }
       end
     end
   end
 
   # DELETE /checkout_types/1
-  # DELETE /checkout_types/1.xml
+  # DELETE /checkout_types/1.json
   def destroy
     if @user_group
       @checkout_type = @user_group.checkout_types.find(params[:id])
@@ -107,7 +107,7 @@ class CheckoutTypesController < ApplicationController
 
     respond_to do |format|
       format.html { redirect_to(checkout_types_url) }
-      format.xml  { head :ok }
+      format.json { head :no_content }
     end
   end
 end

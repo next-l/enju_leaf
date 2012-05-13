@@ -3,33 +3,33 @@ class PatronMergeListsController < ApplicationController
   load_and_authorize_resource
 
   # GET /patron_merge_lists
-  # GET /patron_merge_lists.xml
+  # GET /patron_merge_lists.json
   def index
     @patron_merge_lists = PatronMergeList.page(params[:page])
 
     respond_to do |format|
       format.html # index.html.erb
-      format.xml  { render :xml => @patron_merge_lists }
+      format.json { render :json => @patron_merge_lists }
     end
   end
 
   # GET /patron_merge_lists/1
-  # GET /patron_merge_lists/1.xml
+  # GET /patron_merge_lists/1.json
   def show
     respond_to do |format|
       format.html # show.html.erb
-      format.xml  { render :xml => @patron_merge_list }
+      format.json { render :json => @patron_merge_list }
     end
   end
 
   # GET /patron_merge_lists/new
-  # GET /patron_merge_lists/new.xml
+  # GET /patron_merge_lists/new.json
   def new
     @patron_merge_list = PatronMergeList.new
 
     respond_to do |format|
       format.html # new.html.erb
-      format.xml  { render :xml => @patron_merge_list }
+      format.json { render :json => @patron_merge_list }
     end
   end
 
@@ -38,7 +38,7 @@ class PatronMergeListsController < ApplicationController
   end
 
   # POST /patron_merge_lists
-  # POST /patron_merge_lists.xml
+  # POST /patron_merge_lists.json
   def create
     @patron_merge_list = PatronMergeList.new(params[:patron_merge_list])
 
@@ -46,16 +46,16 @@ class PatronMergeListsController < ApplicationController
       if @patron_merge_list.save
         flash[:notice] = t('controller.successfully_created', :model => t('activerecord.models.patron_merge_list'))
         format.html { redirect_to(@patron_merge_list) }
-        format.xml  { render :xml => @patron_merge_list, :status => :created, :location => @patron_merge_list }
+        format.json { render :json => @patron_merge_list, :status => :created, :location => @patron_merge_list }
       else
         format.html { render :action => "new" }
-        format.xml  { render :xml => @patron_merge_list.errors, :status => :unprocessable_entity }
+        format.json { render :json => @patron_merge_list.errors, :status => :unprocessable_entity }
       end
     end
   end
 
   # PUT /patron_merge_lists/1
-  # PUT /patron_merge_lists/1.xml
+  # PUT /patron_merge_lists/1.json
   def update
     respond_to do |format|
       if @patron_merge_list.update_attributes(params[:patron_merge_list])
@@ -73,22 +73,22 @@ class PatronMergeListsController < ApplicationController
           flash[:notice] = t('controller.successfully_updated', :model => t('activerecord.models.patron_merge_list'))
         end
         format.html { redirect_to(@patron_merge_list) }
-        format.xml  { head :ok }
+        format.json { head :no_content }
       else
         format.html { render :action => "edit" }
-        format.xml  { render :xml => @patron_merge_list.errors, :status => :unprocessable_entity }
+        format.json { render :json => @patron_merge_list.errors, :status => :unprocessable_entity }
       end
     end
   end
 
   # DELETE /patron_merge_lists/1
-  # DELETE /patron_merge_lists/1.xml
+  # DELETE /patron_merge_lists/1.json
   def destroy
     @patron_merge_list.destroy
 
     respond_to do |format|
       format.html { redirect_to(patron_merge_lists_url) }
-      format.xml  { head :ok }
+      format.json { head :no_content }
     end
   end
 end

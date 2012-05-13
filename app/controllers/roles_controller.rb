@@ -4,20 +4,20 @@ class RolesController < ApplicationController
   cache_sweeper :page_sweeper, :only => [:create, :update, :destroy]
 
   # GET /roles
-  # GET /roles.xml
+  # GET /roles.json
   def index
     respond_to do |format|
-      format.html # index.rhtml
-      format.xml  { render :xml => @roles.to_xml }
+      format.html # index.html.erb
+      format.json { render :json => @roles }
     end
   end
 
   # GET /roles/1
-  # GET /roles/1.xml
+  # GET /roles/1.json
   def show
     respond_to do |format|
-      format.html # show.rhtml
-      format.xml  { render :xml => @role.to_xml }
+      format.html # show.html.erb
+      format.json { render :json => @role }
     end
   end
 
@@ -26,12 +26,12 @@ class RolesController < ApplicationController
   #  @role = Role.new
   #end
 
-  # GET /roles/1;edit
+  # GET /roles/1/edit
   def edit
   end
 
   # POST /roles
-  # POST /roles.xml
+  # POST /roles.json
   #def create
   #  @role = Role.new(params[:role])
   #
@@ -39,16 +39,16 @@ class RolesController < ApplicationController
   #    if @role.save
   #      flash[:notice] = t('controller.successfully_created', :model => t('activerecord.models.role'))
   #      format.html { redirect_to role_url(@role) }
-  #      format.xml  { head :created, :location => role_url(@role) }
+  #      format.json { head :created, :location => role_url(@role) }
   #    else
   #      format.html { render :action => "new" }
-  #      format.xml  { render :xml => @role.errors.to_xml }
+  #      format.json { render :json => @role.errors, :status => :unprocessable_entity }
   #    end
   #  end
   #end
 
   # PUT /roles/1
-  # PUT /roles/1.xml
+  # PUT /roles/1.json
   def update
     if params[:position]
       @role.insert_at(params[:position])
@@ -60,23 +60,23 @@ class RolesController < ApplicationController
       if @role.update_attributes(params[:role])
         flash[:notice] = t('controller.successfully_updated', :model => t('activerecord.models.role'))
         format.html { redirect_to role_url(@role) }
-        format.xml  { head :ok }
+        format.json { head :no_content }
       else
         format.html { render :action => "edit" }
-        format.xml  { render :xml => @role.errors.to_xml }
+        format.json { render :json => @role.errors, :status => :unprocessable_entity }
       end
     end
   end
 
   # DELETE /roles/1
-  # DELETE /roles/1.xml
+  # DELETE /roles/1.json
   #def destroy
   #  @role = Role.find(params[:id])
   #  @role.destroy
   #
   #  respond_to do |format|
   #    format.html { redirect_to roles_url }
-  #    format.xml  { head :ok }
+  #    format.json { head :no_content }
   #  end
   #end
 end

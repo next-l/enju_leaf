@@ -2,13 +2,13 @@ class LibraryChecksController < ApplicationController
   load_and_authorize_resource
 
   # GET /library_checks
-  # GET /library_checks.xml
+  # GET /library_checks.json
   def index
     @library_checks = LibraryCheck.find(:all, :conditions => ["deleted_at IS NULL"], :order => "id DESC")	
 
     respond_to do |format|
       format.html # index.html.erb
-      format.xml  { render :xml => @library_checks }
+      format.json { render :json => @library_checks }
     end
   end
 
@@ -62,7 +62,7 @@ class LibraryChecksController < ApplicationController
  end
 
   # POST /library_checks
-  # POST /library_checks.xml
+  # POST /library_checks.json
   def create
     @library_check = LibraryCheck.new
     @library_check.opeym = params[:library_check][:opeym]
@@ -70,10 +70,10 @@ class LibraryChecksController < ApplicationController
     respond_to do |format|
       if @library_check.save
         format.html { redirect_to(@library_check) }
-        format.xml  { render :xml => @library_check, :status => :created, :location => @library_check }
+        format.json { render :json => @library_check, :status => :created, :location => @library_check }
       else
         format.html { render :action => "new" }
-        format.xml  { render :xml => @library_check.errors, :status => :unprocessable_entity }
+        format.json { render :json => @library_check.errors, :status => :unprocessable_entity }
       end
     end
   end
@@ -84,7 +84,7 @@ class LibraryChecksController < ApplicationController
   end
 
   # PUT /library_checks/1
-  # PUT /library_checks/1.xml
+  # PUT /library_checks/1.json
   def update
     @library_check = LibraryCheck.find(params[:id])
     if params[:library_check].blank?
@@ -98,21 +98,21 @@ class LibraryChecksController < ApplicationController
         flash[:notice] = t('controller.successfully_updated', :model => t('activerecord.models.library_check'))
         @library_check.send_later(:delayed_import, @library_check.shelf_upload.path)
         format.html { redirect_to(@library_check) }
-        format.xml  { head :ok }
+        format.json { head :no_content }
       else
         if @library_check.file_update_flg
            format.html { render :template => "library_check_shelves/index"}
-           format.xml  { render :xml => @library_check, :status => :unprocessable_entity }
+           format.json { render :json => @library_check, :status => :unprocessable_entity }
         else
            format.html { render :action => "edit" }
-           format.xml  { render :xml => @library_check.errors, :status => :unprocessable_entity }
+           format.json { render :json => @library_check.errors, :status => :unprocessable_entity }
         end
       end
     end
   end
 
   # DELETE /library_checks/1
-  # DELETE /library_checks/1.xml
+  # DELETE /library_checks/1.json
   def destroy
     @library_check = LibraryCheck.find(params[:id])
     @library_check.deleted_at = Time.now
@@ -120,7 +120,7 @@ class LibraryChecksController < ApplicationController
 
     respond_to do |format|
       format.html { redirect_to(library_checks_url) }
-      format.xml  { head :ok }
+      format.json { head :no_content }
     end
   end
 

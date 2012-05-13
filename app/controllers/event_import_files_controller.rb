@@ -3,18 +3,18 @@ class EventImportFilesController < ApplicationController
   load_and_authorize_resource
 
   # GET /event_import_files
-  # GET /event_import_files.xml
+  # GET /event_import_files.json
   def index
     @event_import_files = EventImportFile.page(params[:page])
 
     respond_to do |format|
       format.html # index.html.erb
-      format.xml  { render :xml => @event_import_files }
+      format.json { render :json => @event_import_files }
     end
   end
 
   # GET /event_import_files/1
-  # GET /event_import_files/1.xml
+  # GET /event_import_files/1.json
   def show
     if @event_import_file.event_import.path
       unless configatron.uploaded_file.storage == :s3
@@ -24,7 +24,7 @@ class EventImportFilesController < ApplicationController
 
     respond_to do |format|
       format.html # show.html.erb
-      format.xml  { render :xml => @event_import_file }
+      format.json { render :json => @event_import_file }
       format.download {
         if configatron.uploaded_file.storage == :s3
           redirect_to @event_import_file.event_import.expiring_url(10)
@@ -36,13 +36,13 @@ class EventImportFilesController < ApplicationController
   end
 
   # GET /event_import_files/new
-  # GET /event_import_files/new.xml
+  # GET /event_import_files/new.json
   def new
     @event_import_file = EventImportFile.new
 
     respond_to do |format|
       format.html # new.html.erb
-      format.xml  { render :xml => @event_import_file }
+      format.json { render :json => @event_import_file }
     end
   end
 
@@ -51,7 +51,7 @@ class EventImportFilesController < ApplicationController
   end
 
   # POST /event_import_files
-  # POST /event_import_files.xml
+  # POST /event_import_files.json
   def create
     @event_import_file = EventImportFile.new(params[:event_import_file])
     @event_import_file.user = current_user
@@ -60,37 +60,37 @@ class EventImportFilesController < ApplicationController
       if @event_import_file.save
         flash[:notice] = t('controller.successfully_created', :model => t('activerecord.models.event_import_file'))
         format.html { redirect_to(@event_import_file) }
-        format.xml  { render :xml => @event_import_file, :status => :created, :location => @event_import_file }
+        format.json { render :json => @event_import_file, :status => :created, :location => @event_import_file }
       else
         format.html { render :action => "new" }
-        format.xml  { render :xml => @event_import_file.errors, :status => :unprocessable_entity }
+        format.json { render :json => @event_import_file.errors, :status => :unprocessable_entity }
       end
     end
   end
 
   # PUT /event_import_files/1
-  # PUT /event_import_files/1.xml
+  # PUT /event_import_files/1.json
   def update
     respond_to do |format|
       if @event_import_file.update_attributes(params[:event_import_file])
         flash[:notice] = t('controller.successfully_updated', :model => t('activerecord.models.event_import_file'))
         format.html { redirect_to(@event_import_file) }
-        format.xml  { head :ok }
+        format.json { head :no_content }
       else
         format.html { render :action => "edit" }
-        format.xml  { render :xml => @event_import_file.errors, :status => :unprocessable_entity }
+        format.json { render :json => @event_import_file.errors, :status => :unprocessable_entity }
       end
     end
   end
 
   # DELETE /event_import_files/1
-  # DELETE /event_import_files/1.xml
+  # DELETE /event_import_files/1.json
   def destroy
     @event_import_file.destroy
 
     respond_to do |format|
       format.html { redirect_to(event_import_files_url) }
-      format.xml  { head :ok }
+      format.json { head :no_content }
     end
   end
 

@@ -5,7 +5,7 @@ class LibrariesController < ApplicationController
   after_filter :solr_commit, :only => [:create, :update, :destroy]
 
   # GET /libraries
-  # GET /libraries.xml
+  # GET /libraries.json
   def index
     sort = {:sort_by => 'position', :order => 'asc'}
 
@@ -30,13 +30,13 @@ class LibrariesController < ApplicationController
     end
 
     respond_to do |format|
-      format.html # index.rhtml
-      format.xml  { render :xml => @libraries }
+      format.html # index.html.erb
+      format.json { render :json => @libraries }
     end
   end
 
   # GET /libraries/1
-  # GET /libraries/1.xml
+  # GET /libraries/1.json
   def show
     search = Sunspot.new_search(Event)
     library = @library.dup
@@ -49,8 +49,8 @@ class LibrariesController < ApplicationController
     @events = search.execute!.results
 
     respond_to do |format|
-      format.html # show.rhtml
-      format.xml  { render :xml => @library }
+      format.html # show.html.erb
+      format.json { render :json => @library }
       format.js
     end
   end
@@ -62,13 +62,13 @@ class LibrariesController < ApplicationController
     prepare_options
   end
 
-  # GET /libraries/1;edit
+  # GET /libraries/1/edit
   def edit
     prepare_options
   end
 
   # POST /libraries
-  # POST /libraries.xml
+  # POST /libraries.json
   def create
     #patron = Patron.create(:name => params[:library][:name], :patron_type => 'CorporateBody')
     @library = Library.new(params[:library])
@@ -79,7 +79,7 @@ class LibrariesController < ApplicationController
         respond_to do |format|
           flash[:notice] = t('controller.successfully_created', :model => t('activerecord.models.library'))
           format.html { redirect_to(@library) }
-          format.xml  { render :xml => @library, :status => :created }
+          format.json { render :json => @library, :status => :created }
         end
       end
     end
@@ -90,12 +90,12 @@ class LibrariesController < ApplicationController
     @library.errors[:base] << t('library.already_exist_shelf') if @shelf_in_process and @shelf_in_process.errors.size > 0
     respond_to do |format|
       format.html { render :action => "new" }
-      format.xml  { render :xml => @library.errors, :status => :unprocessable_entity }
+      format.json { render :json => @library.errors, :status => :unprocessable_entity }
     end
   end
 
   # PUT /libraries/1
-  # PUT /libraries/1.xml
+  # PUT /libraries/1.json
   def update
     if params[:move]
       move_position(@library, params[:move])
@@ -106,18 +106,18 @@ class LibrariesController < ApplicationController
       if @library.update_attributes(params[:library])
         flash[:notice] = t('controller.successfully_updated', :model => t('activerecord.models.library'))
         format.html { redirect_to library_url(@library.name) }
-        format.xml  { head :ok }
+        format.json { head :no_content }
       else
         @library.name = @library.name_was
         prepare_options
         format.html { render :action => "edit" }
-        format.xml  { render :xml => @library.errors, :status => :unprocessable_entity }
+        format.json { render :json => @library.errors, :status => :unprocessable_entity }
       end
     end
   end
 
   # DELETE /libraries/1
-  # DELETE /libraries/1.xml
+  # DELETE /libraries/1.json
   def destroy
     respond_to do |format|
       if @library.destroy?
@@ -132,7 +132,7 @@ class LibrariesController < ApplicationController
         end
         @library.destroy
         format.html { redirect_to libraries_url }
-        format.xml  { head :ok }
+        format.json { head :no_content }
       else
         flash[:message] = t('library.cannot_delete')
         format.html { redirect_to libraries_url }
