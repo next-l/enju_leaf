@@ -9,7 +9,7 @@ class LibraryGroupsController < ApplicationController
     @library_groups = LibraryGroup.all
 
     respond_to do |format|
-      format.html # index.rhtml
+      format.html # index.html.erb
       format.json { render :json => @library_groups }
     end
   end
@@ -18,7 +18,7 @@ class LibraryGroupsController < ApplicationController
   # GET /library_groups/1.json
   def show
     respond_to do |format|
-      format.html # show.rhtml
+      format.html # show.html.erb
       format.json { render :json => @library_group }
     end
   end

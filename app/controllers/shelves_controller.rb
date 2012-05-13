@@ -24,7 +24,7 @@ class ShelvesController < ApplicationController
     end
 
     respond_to do |format|
-      format.html # index.rhtml
+      format.html # index.html.erb
       format.json { render :json => @shelves }
     end
   end
@@ -35,7 +35,7 @@ class ShelvesController < ApplicationController
     @shelf = Shelf.find(params[:id], :include => :library)
 
     respond_to do |format|
-      format.html # show.rhtml
+      format.html # show.html.erb
       format.json { render :json => @shelf }
     end
   end
@@ -95,7 +95,7 @@ class ShelvesController < ApplicationController
 
     respond_to do |format|
       if @shelf.update_attributes(params[:shelf])
-        format.html { redirect_to library_shelf_url(@shelf.library, @shelf), :notice => t('controller.successfully_updated', :model => t('activerecord.models.shelf')) }
+        format.html { redirect_to @shelf, :notice => t('controller.successfully_updated', :model => t('activerecord.models.shelf')) }
         format.json { head :no_content }
       else
         @library = Library.first if @library.nil?

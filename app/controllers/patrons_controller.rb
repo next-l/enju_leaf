@@ -78,14 +78,14 @@ class PatronsController < ApplicationController
       with(:required_role_id).less_than role.id
     end
 
-    page =  params[:page] || 1
+    page = params[:page] || 1
     search.query.paginate(page.to_i, Patron.per_page)
     @patrons = search.execute!.results
 
     flash[:page_info] = {:page => page, :query => query}
 
     respond_to do |format|
-      format.html # index.rhtml
+      format.html # index.html.erb
       format.xml  { render :xml => @patrons }
       format.rss  { render :layout => false }
       format.atom
@@ -115,7 +115,7 @@ class PatronsController < ApplicationController
     @manifestations = @patron.manifestations.order('date_of_publication DESC').page(params[:manifestation_list_page]).per_page(Manifestation.per_page)
 
     respond_to do |format|
-      format.html # show.rhtml
+      format.html # show.html.erb
       format.json { render :json => @patron }
       format.js
       format.mobile
@@ -123,6 +123,7 @@ class PatronsController < ApplicationController
   end
 
   # GET /patrons/new
+  # GET /patrons/new.json
   def new
     @patron = Patron.new
     @patron.required_role = Role.where(:name => 'Guest').first

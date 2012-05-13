@@ -361,7 +361,7 @@ class ManifestationsController < ApplicationController
     end
 
     respond_to do |format|
-      format.html # show.rhtml
+      format.html # show.html.erb
       format.mobile
       format.xml  {
         case params[:mode]
@@ -392,6 +392,7 @@ class ManifestationsController < ApplicationController
   end
 
   # GET /manifestations/new
+  # GET /manifestations/new.json
   def new
     @manifestation = Manifestation.new
     @original_manifestation = Manifestation.where(:id => params[:manifestation_id]).first
@@ -467,7 +468,6 @@ class ManifestationsController < ApplicationController
         @manifestation.series_statement = SeriesStatement.where(:id => @manifestation.series_statement_id).first
         format.html { redirect_to @manifestation, :notice => t('controller.successfully_updated', :model => t('activerecord.models.manifestation')) }
         format.json { head :no_content }
-        format.js
       else
         prepare_options
         format.html { render :action => "edit" }

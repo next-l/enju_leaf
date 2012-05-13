@@ -16,7 +16,7 @@ class OwnsController < ApplicationController
     end
 
     respond_to do |format|
-      format.html # index.rhtml
+      format.html # index.html.erb
       format.json { render :json => @owns }
     end
   end
@@ -25,7 +25,7 @@ class OwnsController < ApplicationController
   # GET /owns/1.json
   def show
     respond_to do |format|
-      format.html # show.rhtml
+      format.html # show.html.erb
       format.json { render :json => @own }
     end
   end
