@@ -350,7 +350,7 @@ class ApplicationController < ActionController::Base
           library_list.each do |library|
             with(:library).equal_to library
           end
-          #search.query.keywords = "#{search.query.to_params[:q]} library_s: (#{library_list})"
+          #search.query.keywords = "#{search.query.to_params[:q]} library_s:(#{library_list})"
         end
         unless language.blank?
           language_list = language.split.uniq

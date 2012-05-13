@@ -51,7 +51,7 @@ class PatronsController < ApplicationController
     set_role_query(current_user, search)
 
     if params[:mode] == 'recent'
-      query = "#{query} created_at_d: [NOW-1MONTH TO NOW]"
+      query = "#{query} created_at_d:[NOW-1MONTH TO NOW]"
     end
     unless query.blank?
       search.build do
