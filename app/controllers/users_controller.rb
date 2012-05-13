@@ -39,7 +39,7 @@ class UsersController < ApplicationController
     @count[:query_result] = @users.total_entries
 
     respond_to do |format|
-      format.html # index.rhtml
+      format.html # index.html.erb
       format.json { render :json => @users }
     end
   end
@@ -61,7 +61,7 @@ class UsersController < ApplicationController
     @manifestation = Manifestation.pickup(@user.keyword_list.to_s.split.sort_by{rand}.first) rescue nil
 
     respond_to do |format|
-      format.html # show.rhtml
+      format.html # show.html.erb
       format.json { render :json => @user }
     end
   end

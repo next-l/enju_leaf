@@ -33,7 +33,7 @@ class AcceptsController < InheritedResources::Base
     end
 
     respond_to do |format|
-      format.html # index.rhtml
+      format.html # index.html.erb
       format.json { render :json => @accepts }
       format.js { @accept = Accept.new }
       format.csv

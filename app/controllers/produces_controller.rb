@@ -18,7 +18,7 @@ class ProducesController < ApplicationController
     end
 
     respond_to do |format|
-      format.html # index.rhtml
+      format.html # index.html.erb
       format.json { render :json => @produces }
     end
   #rescue
@@ -32,7 +32,7 @@ class ProducesController < ApplicationController
   # GET /produces/1.json
   def show
     respond_to do |format|
-      format.html # show.rhtml
+      format.html # show.html.erb
       format.json { render :json => @produce }
     end
   end

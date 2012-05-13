@@ -85,7 +85,7 @@ class PatronsController < ApplicationController
     flash[:page_info] = {:page => page, :query => query}
 
     respond_to do |format|
-      format.html # index.rhtml
+      format.html # index.html.erb
       format.xml  { render :xml => @patrons }
       format.rss  { render :layout => false }
       format.atom
@@ -115,7 +115,7 @@ class PatronsController < ApplicationController
     @manifestations = @patron.manifestations.order('date_of_publication DESC').page(params[:manifestation_list_page]).per_page(Manifestation.per_page)
 
     respond_to do |format|
-      format.html # show.rhtml
+      format.html # show.html.erb
       format.json { render :json => @patron }
       format.js
       format.mobile

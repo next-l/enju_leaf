@@ -5,7 +5,7 @@ class RolesController < ApplicationController
   # GET /roles.json
   def index
     respond_to do |format|
-      format.html # index.rhtml
+      format.html # index.html.erb
       format.json { render :json => @roles }
     end
   end
@@ -14,7 +14,7 @@ class RolesController < ApplicationController
   # GET /roles/1.json
   def show
     respond_to do |format|
-      format.html # show.rhtml
+      format.html # show.html.erb
       format.json { render :json => @role }
     end
   end

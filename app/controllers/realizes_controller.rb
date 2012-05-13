@@ -18,7 +18,7 @@ class RealizesController < ApplicationController
     end
 
     respond_to do |format|
-      format.html # index.rhtml
+      format.html # index.html.erb
       format.json { render :json => @realizes }
     end
   end
@@ -27,7 +27,7 @@ class RealizesController < ApplicationController
   # GET /realizes/1.json
   def show
     respond_to do |format|
-      format.html # show.rhtml
+      format.html # show.html.erb
       format.json { render :json => @realize }
     end
   end
