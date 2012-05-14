@@ -15,8 +15,6 @@ class ImportRequestsController < ApplicationController
   # GET /import_requests/1
   # GET /import_requests/1.json
   def show
-    @import_request = ImportRequest.find(params[:id])
-
     respond_to do |format|
       format.html # show.html.erb
       format.json { render :json => @import_request }
@@ -36,7 +34,6 @@ class ImportRequestsController < ApplicationController
 
   # GET /import_requests/1/edit
   def edit
-    @import_request = ImportRequest.find(params[:id])
   end
 
   # POST /import_requests
@@ -65,8 +62,6 @@ class ImportRequestsController < ApplicationController
   # PUT /import_requests/1
   # PUT /import_requests/1.json
   def update
-    @import_request = ImportRequest.find(params[:id])
-
     respond_to do |format|
       if @import_request.update_attributes(params[:import_request])
         @import_request.import!
@@ -82,11 +77,10 @@ class ImportRequestsController < ApplicationController
   # DELETE /import_requests/1
   # DELETE /import_requests/1.json
   def destroy
-    @import_request = ImportRequest.find(params[:id])
     @import_request.destroy
 
     respond_to do |format|
-      format.html { redirect_to(import_requests_url) }
+      format.html { redirect_to import_requests_url }
       format.json { head :no_content }
     end
   end
