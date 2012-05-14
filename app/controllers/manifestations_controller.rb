@@ -162,7 +162,6 @@ class ManifestationsController < ApplicationController
         :date_of_publication,
         :pub_date,
         :language_id,
-        :carrier_type_id,
         :created_at,
         :updated_at,
         :volume_number_string,
@@ -335,7 +334,7 @@ class ManifestationsController < ApplicationController
 
     if @manifestation.periodical_master?
       flash.keep(:notice) if flash[:notice]
-      redirect_to series_statement_path(@manifestation.series_statement, :manifestation_id => @manifestation.id)
+      redirect_to series_statement_url(@manifestation.series_statement, :manifestation_id => @manifestation.id)
       return
     end
 
@@ -392,6 +391,7 @@ class ManifestationsController < ApplicationController
   end
 
   # GET /manifestations/new
+  # GET /manifestations/new.json
   def new
     @manifestation = Manifestation.new
     @original_manifestation = Manifestation.where(:id => params[:manifestation_id]).first

@@ -384,7 +384,7 @@ describe ShelvesController do
 
       it "redirects to the shelves list" do
         delete :destroy, :id => @shelf.id
-        response.should redirect_to(library_shelves_url(@shelf.library))
+        response.should redirect_to(shelves_url)
       end
 
       it "should not destroy a shelf that has id 1" do

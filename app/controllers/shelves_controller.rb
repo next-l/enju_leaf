@@ -72,7 +72,7 @@ class ShelvesController < ApplicationController
     respond_to do |format|
       if @shelf.save
         format.html { redirect_to @shelf, :notice => t('controller.successfully_created', :model => t('activerecord.models.shelf')) }
-        format.json { render :json => @shelf, :status => :created, :location => library_shelf_url(@shelf.library, @shelf) }
+        format.json { render :json => @shelf, :status => :created, :location => @shelf }
       else
         @library = Library.first if @shelf.library.nil?
         format.html { render :action => "new" }
@@ -114,7 +114,7 @@ class ShelvesController < ApplicationController
     @shelf.destroy
 
     respond_to do |format|
-      format.html { redirect_to library_shelves_url(@shelf.library) }
+      format.html { redirect_to shelves_url }
       format.json { head :no_content }
     end
   end
