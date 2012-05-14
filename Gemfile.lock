@@ -27,7 +27,7 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_bookmark.git
-  revision: 81ff8481cc234808e16e4a69b40d7ab1dd689ec9
+  revision: 96dd6485c8100a006d17c000f5ccb2c78eee23ac
   specs:
     enju_bookmark (0.0.8)
       acts-as-taggable-on (~> 2.2)
@@ -200,7 +200,7 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_question.git
-  revision: 555a76eea81bd8ec4b012037c11ca5bde4a14f4a
+  revision: 8d134b6a62b04156ad112a7b756e1ade1c7c6727
   specs:
     enju_question (0.0.12)
       acts-as-taggable-on (~> 2.2)
@@ -234,7 +234,7 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_search_log.git
-  revision: fd678d5c13b86afe6b6d73637174a4ea679bc3f2
+  revision: 097264bfc974a97ccb4b8f8070c93bddf1c4d7c1
   specs:
     enju_search_log (0.0.3)
       cancan
@@ -244,7 +244,7 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_subject.git
-  revision: 99df045b3d5dad879e882d83f05ff2e7b4c43a4b
+  revision: 5126f1c9a7c86a3a24693658800dac225725954d
   specs:
     enju_subject (0.0.12)
       acts_as_list (~> 0.1.6)
@@ -401,7 +401,7 @@ GEM
     guard (1.0.2)
       ffi (>= 0.5.0)
       thor (~> 0.14.6)
-    guard-rspec (0.7.1)
+    guard-rspec (0.7.2)
       guard (>= 0.10.0)
     has_scope (0.5.1)
     highline (1.6.12)

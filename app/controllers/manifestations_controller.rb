@@ -162,7 +162,6 @@ class ManifestationsController < ApplicationController
         :date_of_publication,
         :pub_date,
         :language_id,
-        :carrier_type_id,
         :created_at,
         :updated_at,
         :volume_number_string,
