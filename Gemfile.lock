@@ -168,7 +168,7 @@ GEM
       sunspot_rails
       sunspot_solr
       will_paginate (~> 3.0)
-    enju_inventory (0.0.7)
+    enju_inventory (0.0.8)
       cancan
       devise
       inherited_resources
@@ -480,7 +480,7 @@ DEPENDENCIES
   enju_bookmark (~> 0.0.8)
   enju_circulation (~> 0.0.33)
   enju_event (~> 0.0.17)
-  enju_inventory (~> 0.0.6)
+  enju_inventory (~> 0.0.8)
   enju_manifestation_viewer!
   enju_message (~> 0.0.19)
   enju_ndl (~> 0.0.23)
