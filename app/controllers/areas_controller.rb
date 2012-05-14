@@ -35,10 +35,10 @@ class AreasController < InheritedResources::Base
       if @area.save
         flash[:notice] = t('controller.successfully_created', :model => t('activerecord.models.area'))
         format.html { redirect_to(@area) }
-        format.xml  { render :xml => @area, :status => :created, :location => @area }
+        format.json { render :json => @area, :status => :created, :location => @area }
       else
         format.html { render :action => "new" }
-        format.xml  { render :xml => @area.errors, :status => :unprocessable_entity }
+        format.json { render :json => @area.errors, :status => :unprocessable_entity }
       end
     end
   end
@@ -49,10 +49,10 @@ class AreasController < InheritedResources::Base
       if @area.update_attributes(params[:area])
         flash[:notice] = t('controller.successfully_updated', :model => t('activerecord.models.area'))
         format.html { redirect_to(@area) }
-        format.xml  { head :ok }
+        format.json { head :no_content }
       else
         format.html { render :action => "edit" }
-        format.xml  { render :xml => @area.errors, :status => :unprocessable_entity }
+        format.json { render :json => @area.errors, :status => :unprocessable_entity }
       end
     end
   end
@@ -62,7 +62,7 @@ class AreasController < InheritedResources::Base
     @area.destroy
     respond_to do |format|
       format.html { redirect_to(areas_url) }
-      format.xml  { head :ok }
+      format.json { head :no_content }
     end
   end
 

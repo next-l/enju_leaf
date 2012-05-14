@@ -5,7 +5,7 @@ class ShelvesController < ApplicationController
   cache_sweeper :page_sweeper, :only => [:create, :update, :destroy]
 
   # GET /shelves
-  # GET /shelves.xml
+  # GET /shelves.json
   def index
     @count = {}
     page = params[:page] || 1
@@ -39,19 +39,19 @@ class ShelvesController < ApplicationController
     @count[:query_result] = @shelves.total_entries
 
     respond_to do |format|
-      format.html # index.rhtml
-      format.xml  { render :xml => @shelves.to_xml }
+      format.html # index.html.erb
+      format.json { render :json => @shelves }
     end
   end
 
   # GET /shelves/1
-  # GET /shelves/1.xml
+  # GET /shelves/1.json
   def show
     @shelf = Shelf.find(params[:id], :include => :library)
 
     respond_to do |format|
-      format.html # show.rhtml
-      format.xml  { render :xml => @shelf.to_xml }
+      format.html # show.html.erb
+      format.json { render :json => @shelf }
     end
   end
 
@@ -60,7 +60,7 @@ class ShelvesController < ApplicationController
     @shelf = Shelf.new
   end
 
-  # GET /shelves/1;edit
+  # GET /shelves/1/edit
   def edit
     @shelf = Shelf.find(params[:id], :include => :library)
     if @shelf.open_access == 9
@@ -69,7 +69,7 @@ class ShelvesController < ApplicationController
   end
 
   # POST /shelves
-  # POST /shelves.xml
+  # POST /shelves.json
   def create
     @shelf = Shelf.new(params[:shelf])
 
@@ -77,16 +77,16 @@ class ShelvesController < ApplicationController
       if @shelf.save
         flash[:notice] = t('controller.successfully_created', :model => t('activerecord.models.shelf'))
         format.html { redirect_to @shelf }
-        format.xml  { render :xml => @shelf, :status => :created, :location => @shelf }
+        format.json { render :json => @shelf, :status => :created, :location => @shelf }
       else
         format.html { render :action => "new" }
-        format.xml  { render :xml => @shelf.errors.to_xml }
+        format.json { render :json => @shelf.errors, :status => :unprocessable_entity }
       end
     end
   end
 
   # PUT /shelves/1
-  # PUT /shelves/1.xml
+  # PUT /shelves/1.json
   def update
     @shelf= Shelf.find(params[:id])
     if @shelf.open_access == 9
@@ -103,16 +103,16 @@ class ShelvesController < ApplicationController
       if @shelf.update_attributes(params[:shelf])
         flash[:notice] = t('controller.successfully_updated', :model => t('activerecord.models.shelf'))
         format.html { redirect_to @shelf }
-        format.xml  { head :ok }
+        format.json { head :no_content }
       else
         format.html { render :action => "edit" }
-        format.xml  { render :xml => @shelf.errors.to_xml }
+        format.json { render :json => @shelf.errors, :status => :unprocessable_entity }
       end
     end
   end
 
   # DELETE /shelves/1
-  # DELETE /shelves/1.xml
+  # DELETE /shelves/1.json
   def destroy
     if @shelf.id == 1 or @shelf.open_access == 9
       access_denied; return
@@ -122,7 +122,7 @@ class ShelvesController < ApplicationController
       if @shelf.destroy?
         @shelf.destroy
         format.html { redirect_to shelves_url }
-        format.xml  { head :ok }
+        format.json { head :no_content }
       else
         flash[:message] = t('shelf.cannot_delete')
         format.html { redirect_to shelves_url }

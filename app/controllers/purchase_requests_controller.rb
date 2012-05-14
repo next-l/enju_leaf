@@ -8,7 +8,7 @@ class PurchaseRequestsController < ApplicationController
   after_filter :convert_charset, :only => :index
 
   # GET /purchase_requests
-  # GET /purchase_requests.xml
+  # GET /purchase_requests.json
   def index
     unless current_user.has_role?('Librarian')
       if SystemConfiguration.get("user_show_purchase_requests")
@@ -61,7 +61,7 @@ class PurchaseRequestsController < ApplicationController
 
     respond_to do |format|
       format.html # index.html.erb
-      format.xml  { render :xml => @purchase_requests }
+      format.json { render :json => @purchase_requests }
       format.rss  { render :layout => false }
       format.atom
       format.tsv { send_data PurchaseRequest.get_purchase_requests_tsv(@purchase_requests), :filename => configatron.purchase_requests_print_tsv.filename }
@@ -69,7 +69,7 @@ class PurchaseRequestsController < ApplicationController
   end
 
   # GET /purchase_requests/1
-  # GET /purchase_requests/1.xml
+  # GET /purchase_requests/1.json
   def show
     unless current_user.has_role?('Librarian')
       unless SystemConfiguration.get("user_show_purchase_requests")
@@ -83,12 +83,12 @@ class PurchaseRequestsController < ApplicationController
 
     respond_to do |format|
       format.html # show.html.erb
-      format.xml  { render :xml => @purchase_request }
+      format.json { render :json => @purchase_request }
     end
   end
 
   # GET /purchase_requests/new
-  # GET /purchase_requests/new.xml
+  # GET /purchase_requests/new.json
   def new
     unless current_user.has_role?('Librarian')
       if SystemConfiguration.get("user_show_purchase_requests")
@@ -114,7 +114,7 @@ class PurchaseRequestsController < ApplicationController
 
     respond_to do |format|
       format.html # new.html.erb
-      format.xml  { render :xml => @purchase_request }
+      format.json { render :json => @purchase_request }
     end
   end
 
@@ -137,7 +137,7 @@ class PurchaseRequestsController < ApplicationController
   end
 
   # POST /purchase_requests
-  # POST /purchase_requests.xml
+  # POST /purchase_requests.json
   def create
     unless current_user.has_role?('Librarian')
       unless SystemConfiguration.get("user_show_purchase_requests")
@@ -156,16 +156,16 @@ class PurchaseRequestsController < ApplicationController
         @order_list.purchase_requests << @purchase_request if @order_list
         flash[:notice] = t('controller.successfully_created', :model => t('activerecord.models.purchase_request'))
         format.html { redirect_to user_purchase_request_url(@purchase_request.user, @purchase_request) }
-        format.xml  { render :xml => @purchase_request, :status => :created, :location => @purchase_request }
+        format.json { render :json => @purchase_request, :status => :created, :location => @purchase_request }
       else
         format.html { render :action => "new" }
-        format.xml  { render :xml => @purchase_request.errors, :status => :unprocessable_entity }
+        format.json { render :json => @purchase_request.errors, :status => :unprocessable_entity }
       end
     end
   end
 
   # PUT /purchase_requests/1
-  # PUT /purchase_requests/1.xml
+  # PUT /purchase_requests/1.json
   def update
     unless current_user.has_role?('Librarian')
       unless SystemConfiguration.get("user_show_purchase_requests")
@@ -182,15 +182,15 @@ class PurchaseRequestsController < ApplicationController
         @purchase_request.send_message(@purchase_request.state, params[:purchase_request][:reason])
         flash[:notice] = t("purchase_request.request_#{@purchase_request.state}")
         format.html { redirect_to user_purchase_request_url(@purchase_request.user, @purchase_request) }
-        format.xml  { head :ok }
+        format.json { head :no_content }
       elsif @purchase_request.update_attributes(params[:purchase_request])
         @order_list.purchase_requests << @purchase_request if @order_list
         flash[:notice] = t('controller.successfully_updated', :model => t('activerecord.models.purchase_request'))
         format.html { redirect_to user_purchase_request_url(@purchase_request.user, @purchase_request) }
-        format.xml  { head :ok }
+        format.json { head :no_content }
       else
         format.html { render :action => "edit" }
-        format.xml  { render :xml => @purchase_request.errors, :status => :unprocessable_entity }
+        format.json { render :json => @purchase_request.errors, :status => :unprocessable_entity }
       end
     end
   end
@@ -225,7 +225,7 @@ class PurchaseRequestsController < ApplicationController
   end
 
   # DELETE /purchase_requests/1
-  # DELETE /purchase_requests/1.xml
+  # DELETE /purchase_requests/1.json
   def destroy
     unless current_user.has_role?('Librarian')
       if SystemConfiguration.get("user_show_purchase_requests")
@@ -248,7 +248,7 @@ class PurchaseRequestsController < ApplicationController
 
     respond_to do |format|
       format.html { redirect_to(purchase_requests_url) }
-      format.xml  { head :ok }
+      format.json { head :no_content }
     end
   end
 end

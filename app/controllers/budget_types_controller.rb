@@ -17,10 +17,10 @@ class BudgetTypesController < ApplicationController
       if @budget_type.save
         flash[:notice] = t('controller.successfully_created', :model => t('activerecord.models.budget_type'))
         format.html { redirect_to(@budget_type) }
-        format.xml  { render :xml => @budget_type, :status => :created, :location => @budget_type }
+        format.json { render :json => @budget_type, :status => :created, :location => @budget_type }
       else
         format.html { render :action => "new" }
-        format.xml  { render :xml => @budget_type.errors, :status => :unprocessable_entity }
+        format.json { render :json => @budget_type.errors, :status => :unprocessable_entity }
       end
     end
   end
@@ -36,10 +36,10 @@ class BudgetTypesController < ApplicationController
       if @budget_type.update_attributes(params[:budget_type])
         flash[:notice] = t('controller.successfully_updated', :model => t('activerecord.models.budget_type'))
         format.html { redirect_to(@budget_type) }
-        format.xml  { head :ok }
+        format.json { head :no_content }
       else
         format.html { render :action => "edit" }
-        format.xml  { render :xml => @budget_type.errors, :status => :unprocessable_entity }
+        format.json { render :json => @budget_type.errors, :status => :unprocessable_entity }
       end
     end
   end
@@ -54,10 +54,10 @@ class BudgetTypesController < ApplicationController
       if @budget_type.budgets.empty?
         @budget_type.destroy
         format.html { redirect_to(budget_types_url) }
-        format.xml  { head :ok }
+        format.json { head :no_content }
       else
         format.html { render :action => :index }
-        format.xml  { render :xml => @budget_type.errors, :status => :unprocessable_entity }
+        format.json { render :json => @budget_type.errors, :status => :unprocessable_entity }
       end
     end
   end

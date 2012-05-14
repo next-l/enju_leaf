@@ -6,7 +6,7 @@ class LibraryCheckShelvesController < ApplicationController
     @library_check = LibraryCheck.find(:first, :conditions => ["id = ?", params[:library_check_id]])
     respond_to do |format|
       format.html # index.html.erb
-      format.xml  { render :xml => @library_check_shelf }
+      format.json { render :json => @library_check_shelf }
     end
   end
 

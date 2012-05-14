@@ -5,22 +5,22 @@ class UserGroupsController < ApplicationController
   helper_method :get_library
 
   # GET /user_groups
-  # GET /user_groups.xml
+  # GET /user_groups.json
   def index
     @user_groups = UserGroup.all
 
     respond_to do |format|
-      format.html # index.rhtml
-      format.xml  { render :xml => @user_groups.to_xml }
+      format.html # index.html.erb
+      format.json { render :json => @user_groups }
     end
   end
 
   # GET /user_groups/1
-  # GET /user_groups/1.xml
+  # GET /user_groups/1.json
   def show
     respond_to do |format|
-      format.html # show.rhtml
-      format.xml  { render :xml => @user_group.to_xml }
+      format.html # show.html.erb
+      format.json { render :json => @user_group }
     end
   end
 
@@ -29,12 +29,12 @@ class UserGroupsController < ApplicationController
     @user_group = UserGroup.new
   end
 
-  # GET /user_groups/1;edit
+  # GET /user_groups/1/edit
   def edit
   end
 
   # POST /user_groups
-  # POST /user_groups.xml
+  # POST /user_groups.json
   def create
     @user_group = UserGroup.new(params[:user_group])
 
@@ -42,16 +42,16 @@ class UserGroupsController < ApplicationController
       if @user_group.save
         flash[:notice] = t('controller.successfully_created', :model => t('activerecord.models.user_group'))
         format.html { redirect_to user_group_url(@user_group) }
-        format.xml  { render :xml => @user_group, :status => :created, :location => @user_group }
+        format.json { render :json => @user_group, :status => :created, :location => @user_group }
       else
         format.html { render :action => "new" }
-        format.xml  { render :xml => @user_group.errors.to_xml }
+        format.json { render :json => @user_group.errors, :status => :unprocessable_entity }
       end
     end
   end
 
   # PUT /user_groups/1
-  # PUT /user_groups/1.xml
+  # PUT /user_groups/1.json
   def update
     if params[:move]
       move_position(@user_group, params[:move])
@@ -62,22 +62,22 @@ class UserGroupsController < ApplicationController
       if @user_group.update_attributes(params[:user_group])
         flash[:notice] = t('controller.successfully_updated', :model => t('activerecord.models.user_group'))
         format.html { redirect_to user_group_url(@user_group) }
-        format.xml  { head :ok }
+        format.json { head :no_content }
       else
         format.html { render :action => "edit" }
-        format.xml  { render :xml => @user_group.errors.to_xml }
+        format.json { render :json => @user_group.errors, :status => :unprocessable_entity }
       end
     end
   end
 
   # DELETE /user_groups/1
-  # DELETE /user_groups/1.xml
+  # DELETE /user_groups/1.json
   def destroy
     @user_group.destroy
 
     respond_to do |format|
       format.html { redirect_to user_groups_url }
-      format.xml  { head :ok }
+      format.json { head :no_content }
     end
   end
 end

@@ -17,7 +17,7 @@ class ManifestationsController < ApplicationController
   include ApplicationHelper
 
   # GET /manifestations
-  # GET /manifestations.xml
+  # GET /manifestations.json
   def index
     if current_user.try(:has_role?, 'Librarian') && params[:user_id]
       @reserve_user = User.find(params[:user_id]) rescue current_user
@@ -268,7 +268,7 @@ class ManifestationsController < ApplicationController
     respond_to do |format|
       format.html
       format.mobile
-      format.xml  { render :xml => @manifestations }
+      format.json { render :json => @manifestations }
       format.sru  { render :layout => false }
       format.rss  { render :layout => false }
       format.csv  { render :layout => false }
@@ -300,7 +300,7 @@ class ManifestationsController < ApplicationController
   end
 
   # GET /manifestations/1
-  # GET /manifestations/1.xml
+  # GET /manifestations/1.json
   def show
     if params[:isbn]
       if @manifestation = Manifestation.find_by_isbn(params[:isbn])
@@ -350,9 +350,9 @@ class ManifestationsController < ApplicationController
     end
 
     respond_to do |format|
-      format.html # show.rhtml
+      format.html # show.html.erb
       format.mobile
-      format.xml  {
+      format.json {
         case params[:mode]
         when 'related'
           render :template => 'manifestations/related'
@@ -365,7 +365,6 @@ class ManifestationsController < ApplicationController
       format.mods
       format.json { render :json => @manifestation }
       #format.atom { render :template => 'manifestations/oai_ore' }
-      #format.xml  { render :action => 'mods', :layout => false }
       #format.js
       format.download {
         if @manifestation.attachment.path
@@ -402,11 +401,11 @@ class ManifestationsController < ApplicationController
 
     respond_to do |format|
       format.html # new.html.erb
-      format.xml  { render :xml => @manifestation }
+      format.json { render :json => @manifestation }
     end
   end
 
-  # GET /manifestations/1;edit
+  # GET /manifestations/1/edit
   def edit
     unless current_user.has_role?('Librarian')
       unless params[:mode] == 'tag_edit'
@@ -423,7 +422,7 @@ class ManifestationsController < ApplicationController
   end
 
   # POST /manifestations
-  # POST /manifestations.xml
+  # POST /manifestations.json
   def create
     @manifestation = Manifestation.new(params[:manifestation])
     @original_manifestation = Manifestation.where(:id => params[:manifestation_id]).first
@@ -446,45 +445,40 @@ class ManifestationsController < ApplicationController
           end
         end
 
-        flash[:notice] = t('controller.successfully_created', :model => t('activerecord.models.manifestation'))
-        format.html { redirect_to(@manifestation) }
-        format.xml  { render :xml => @manifestation, :status => :created, :location => @manifestation }
+        format.html { redirect_to @manifestation, :notice => t('controller.successfully_created', :model => t('activerecord.models.manifestation')) }
+        format.json { render :json => @manifestation, :status => :created, :location => @manifestation }
       else
         prepare_options
         format.html { render :action => "new" }
-        format.xml  { render :xml => @manifestation.errors, :status => :unprocessable_entity }
+        format.json { render :json => @manifestation.errors, :status => :unprocessable_entity }
       end
     end
   end
 
   # PUT /manifestations/1
-  # PUT /manifestations/1.xml
+  # PUT /manifestations/1.json
   def update
     respond_to do |format|
       if @manifestation.update_attributes(params[:manifestation])
-        flash[:notice] = t('controller.successfully_updated', :model => t('activerecord.models.manifestation'))
-        format.html { redirect_to @manifestation }
-        format.xml  { head :ok }
-        format.json { render :json => @manifestation }
-        format.js
+        format.html { redirect_to @manifestation, :notice => t('controller.successfully_updated', :model => t('activerecord.models.manifestation')) }
+        format.json { head :no_content }
       else
         prepare_options
         format.html { render :action => "edit" }
-        format.xml  { render :xml => @manifestation.errors, :status => :unprocessable_entity }
-        format.json { render :json => @manifestation, :status => :unprocessable_entity }
+        format.json { render :json => @manifestation.errors, :status => :unprocessable_entity }
       end
     end
   end
 
   # DELETE /manifestations/1
-  # DELETE /manifestations/1.xml
+  # DELETE /manifestations/1.json
   def destroy
     @manifestation.destroy
     flash[:notice] = t('controller.successfully_deleted', :model => t('activerecord.models.manifestation'))
 
     respond_to do |format|
       format.html { redirect_to manifestations_url }
-      format.xml  { head :ok }
+      format.json { head :no_content }
     end
   end
 
@@ -504,60 +498,60 @@ class ManifestationsController < ApplicationController
     end
 
     if options[:mode] == 'recent'
-      query = "#{query} created_at_d: [NOW-1MONTH TO NOW] AND except_recent_b: false"
+      query = "#{query} created_at_d:[NOW-1MONTH TO NOW] AND except_recent_b:false"
     end
 
     #unless options[:carrier_type].blank?
-    #  query = "#{query} carrier_type_s: #{options[:carrier_type]}"
+    #  query = "#{query} carrier_type_s:#{options[:carrier_type]}"
     #end
 
     #unless options[:library].blank?
     #  library_list = options[:library].split.uniq.join(' and ')
-    #  query = "#{query} library_sm: #{library_list}"
+    #  query = "#{query} library_sm:#{library_list}"
     #end
 
     #unless options[:language].blank?
-    #  query = "#{query} language_sm: #{options[:language]}"
+    #  query = "#{query} language_sm:#{options[:language]}"
     #end
 
     #unless options[:subject].blank?
-    #  query = "#{query} subject_sm: #{options[:subject]}"
+    #  query = "#{query} subject_sm:#{options[:subject]}"
     #end
 
     unless options[:tag].blank?
-      query = "#{query} tag_sm: #{options[:tag]}"
+      query = "#{query} tag_sm:#{options[:tag]}"
     end
 
     unless options[:creator].blank?
-      query = "#{query} creator_text: #{options[:creator]}"
+      query = "#{query} creator_text:#{options[:creator]}"
     end
 
     unless options[:contributor].blank?
-      query = "#{query} contributor_text: #{options[:contributor]}"
+      query = "#{query} contributor_text:#{options[:contributor]}"
     end
 
     unless options[:isbn].blank?
-      query = "#{query} isbn_sm: #{options[:isbn]}"
+      query = "#{query} isbn_sm:#{options[:isbn]}"
     end
 
     unless options[:issn].blank?
-      query = "#{query} issn_sm: #{options[:issn]}"
+      query = "#{query} issn_sm:#{options[:issn]}"
     end
 
     unless options[:lccn].blank?
-      query = "#{query} lccn_s: #{options[:lccn]}"
+      query = "#{query} lccn_s:#{options[:lccn]}"
     end
 
     unless options[:nbn].blank?
-      query = "#{query} nbn_s: #{options[:nbn]}"
+      query = "#{query} nbn_s:#{options[:nbn]}"
     end
 
     unless options[:publisher].blank?
-      query = "#{query} publisher_text: #{options[:publisher]}"
+      query = "#{query} publisher_text:#{options[:publisher]}"
     end
 
     unless options[:item_identifier].blank?
-      query = "#{query} item_identifier_sm: #{options[:item_identifier]}"
+      query = "#{query} item_identifier_sm:#{options[:item_identifier]}"
     end
 
     unless options[:number_of_pages_at_least].blank? and options[:number_of_pages_at_most].blank?
@@ -567,14 +561,14 @@ class ManifestationsController < ApplicationController
       number_of_pages[:at_least] = "*" if number_of_pages[:at_least] == 0
       number_of_pages[:at_most] = "*" if number_of_pages[:at_most] == 0
 
-      query = "#{query} number_of_pages_i: [#{number_of_pages[:at_least]} TO #{number_of_pages[:at_most]}]"
+      query = "#{query} number_of_pages_i:[#{number_of_pages[:at_least]} TO #{number_of_pages[:at_most]}]"
     end
 
     query = set_pub_date(query, options)
     query = set_acquisition_date(query, options)
 
     unless options[:manifestation_type].blank?
-      query = "#{query} manifestation_type_sm: #{options[:manifestation_type]}"
+      query = "#{query} manifestation_type_sm:#{options[:manifestation_type]}"
     end
 
     query = query.strip
@@ -712,7 +706,7 @@ class ManifestationsController < ApplicationController
           pub_date[:to] = Time.zone.parse(Time.mktime(options[:pub_date_to]).to_s).end_of_year.utc.iso8601
         end
       end
-      query = "#{query} date_of_publication_d: [#{pub_date[:from]} TO #{pub_date[:to]}]"
+      query = "#{query} date_of_publication_d:[#{pub_date[:from]} TO #{pub_date[:to]}]"
     end
     query
   end
@@ -740,7 +734,7 @@ class ManifestationsController < ApplicationController
           acquisition_date[:to] = Time.zone.parse(Time.mktime(options[:acquired_to]).to_s).end_of_year.utc.iso8601
         end
       end
-      query = "#{query} acquired_at_d: [#{acquisition_date[:from]} TO #{acquisition_date[:to]}]"
+      query = "#{query} acquired_at_d:[#{acquisition_date[:from]} TO #{acquisition_date[:to]}]"
     end
     query
   end

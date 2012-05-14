@@ -3,7 +3,7 @@ class MessageRequestsController < ApplicationController
   load_and_authorize_resource
 
   # GET /message_requests
-  # GET /message_requests.xml
+  # GET /message_requests.json
   def index
     case params[:mode]
     when 'sent'
@@ -16,16 +16,16 @@ class MessageRequestsController < ApplicationController
 
     respond_to do |format|
       format.html # index.html.erb
-      format.xml  { render :xml => @message_requests }
+      format.json { render :json => @message_requests }
     end
   end
 
   # GET /message_requests/1
-  # GET /message_requests/1.xml
+  # GET /message_requests/1.json
   def show
     respond_to do |format|
       format.html # show.html.erb
-      format.xml  { render :xml => @message_request }
+      format.json { render :json => @message_request }
     end
   end
 
@@ -35,29 +35,29 @@ class MessageRequestsController < ApplicationController
   end
 
   # PUT /message_requests/1
-  # PUT /message_requests/1.xml
+  # PUT /message_requests/1.json
   def update
     respond_to do |format|
       if @message_request.update_attributes(params[:message_request])
         flash[:notice] = t('controller.successfully_updated', :model => t('activerecord.models.message_request'))
         format.html { redirect_to(@message_request) }
-        format.xml  { head :ok }
+        format.json { head :no_content }
       else
         @message_templates = MessageTemplate.all
         format.html { render :action => "edit" }
-        format.xml  { render :xml => @message_request.errors, :status => :unprocessable_entity }
+        format.json { render :json => @message_request.errors, :status => :unprocessable_entity }
       end
     end
   end
 
   # DELETE /message_requests/1
-  # DELETE /message_requests/1.xml
+  # DELETE /message_requests/1.json
   def destroy
     @message_request.destroy
 
     respond_to do |format|
       format.html { redirect_to(message_requests_url) }
-      format.xml  { head :ok }
+      format.json { head :no_content }
     end
   end
 end

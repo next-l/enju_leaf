@@ -39,8 +39,8 @@ class RetainedManifestationsController < ApplicationController
       end
     end
     date_of_birth_end = Time.zone.parse(birth_date).end_of_day.utc.iso8601 rescue nil
-    query = "#{query} date_of_birth_d: [#{date_of_birth} TO #{date_of_birth_end}]" unless date_of_birth.blank?
-    query = "#{query} address_text: #{@address}" unless @address.blank?
+    query = "#{query} date_of_birth_d:[#{date_of_birth} TO #{date_of_birth_end}]" unless date_of_birth.blank?
+    query = "#{query} address_text:#{@address}" unless @address.blank?
 
     if query.blank?
       if params[:output_pdf] or params[:output_tsv]
@@ -76,7 +76,7 @@ class RetainedManifestationsController < ApplicationController
     @reserve.save!(:validate => false)
     respond_to do |format|
       format.html { redirect_to retained_manifestations_path }
-      format.xml  { head :ok }
+      format.json { head :no_content }
     end
   end
 end

@@ -5,27 +5,27 @@ class UserGroupHasCheckoutTypesController < ApplicationController
   before_filter :prepare_options, :only => [:new, :edit]
 
   # GET /user_group_has_checkout_types
-  # GET /user_group_has_checkout_types.xml
+  # GET /user_group_has_checkout_types.json
   def index
     @user_group_has_checkout_types = UserGroupHasCheckoutType.includes([:user_group, :checkout_type]).order('user_groups.position, checkout_types.position').page(params[:page])
 
     respond_to do |format|
       format.html # index.html.erb
-      format.xml  { render :xml => @user_group_has_checkout_types }
+      format.json { render :json => @user_group_has_checkout_types }
     end
   end
 
   # GET /user_group_has_checkout_types/1
-  # GET /user_group_has_checkout_types/1.xml
+  # GET /user_group_has_checkout_types/1.json
   def show
     respond_to do |format|
       format.html # show.html.erb
-      format.xml  { render :xml => @user_group_has_checkout_type }
+      format.json { render :json => @user_group_has_checkout_type }
     end
   end
 
   # GET /user_group_has_checkout_types/new
-  # GET /user_group_has_checkout_types/new.xml
+  # GET /user_group_has_checkout_types/new.json
   def new
     @user_group_has_checkout_type = UserGroupHasCheckoutType.new(
       :checkout_type => get_checkout_type,
@@ -34,7 +34,7 @@ class UserGroupHasCheckoutTypesController < ApplicationController
 
     respond_to do |format|
       format.html # new.html.erb
-      format.xml  { render :xml => @user_group_has_checkout_type }
+      format.json { render :json => @user_group_has_checkout_type }
     end
   end
 
@@ -43,7 +43,7 @@ class UserGroupHasCheckoutTypesController < ApplicationController
   end
 
   # POST /user_group_has_checkout_types
-  # POST /user_group_has_checkout_types.xml
+  # POST /user_group_has_checkout_types.json
   def create
     @user_group_has_checkout_type = UserGroupHasCheckoutType.new(params[:user_group_has_checkout_type])
 
@@ -51,39 +51,39 @@ class UserGroupHasCheckoutTypesController < ApplicationController
       if @user_group_has_checkout_type.save
         flash[:notice] = t('controller.successfully_created', :model => t('activerecord.models.user_group_has_checkout_type'))
         format.html { redirect_to(@user_group_has_checkout_type) }
-        format.xml  { render :xml => @user_group_has_checkout_type, :status => :created, :location => @user_group_has_checkout_type }
+        format.json { render :json => @user_group_has_checkout_type, :status => :created, :location => @user_group_has_checkout_type }
       else
         prepare_options
         format.html { render :action => "new" }
-        format.xml  { render :xml => @user_group_has_checkout_type.errors, :status => :unprocessable_entity }
+        format.json { render :json => @user_group_has_checkout_type.errors, :status => :unprocessable_entity }
       end
     end
   end
 
   # PUT /user_group_has_checkout_types/1
-  # PUT /user_group_has_checkout_types/1.xml
+  # PUT /user_group_has_checkout_types/1.json
   def update
     respond_to do |format|
       if @user_group_has_checkout_type.update_attributes(params[:user_group_has_checkout_type])
         flash[:notice] = t('controller.successfully_updated', :model => t('activerecord.models.user_group_has_checkout_type'))
         format.html { redirect_to(@user_group_has_checkout_type) }
-        format.xml  { head :ok }
+        format.json { head :no_content }
       else
         prepare_options
         format.html { render :action => "edit" }
-        format.xml  { render :xml => @user_group_has_checkout_type.errors, :status => :unprocessable_entity }
+        format.json { render :json => @user_group_has_checkout_type.errors, :status => :unprocessable_entity }
       end
     end
   end
 
   # DELETE /user_group_has_checkout_types/1
-  # DELETE /user_group_has_checkout_types/1.xml
+  # DELETE /user_group_has_checkout_types/1.json
   def destroy
     @user_group_has_checkout_type.destroy
 
     respond_to do |format|
       format.html { redirect_to(user_group_has_checkout_types_url) }
-      format.xml  { head :ok }
+      format.json { head :no_content }
     end
   end
 

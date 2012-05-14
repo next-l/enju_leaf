@@ -3,33 +3,33 @@ class SeriesStatementMergeListsController < ApplicationController
   load_and_authorize_resource
 
   # GET /series_statement_merge_lists
-  # GET /series_statement_merge_lists.xml
+  # GET /series_statement_merge_lists.json
   def index
     @series_statement_merge_lists = SeriesStatementMergeList.page(params[:page])
 
     respond_to do |format|
       format.html # index.html.erb
-      format.xml  { render :xml => @series_statement_merge_lists }
+      format.json { render :json => @series_statement_merge_lists }
     end
   end
 
   # GET /series_statement_merge_lists/1
-  # GET /series_statement_merge_lists/1.xml
+  # GET /series_statement_merge_lists/1.json
   def show
     respond_to do |format|
       format.html # show.html.erb
-      format.xml  { render :xml => @series_statement_merge_list }
+      format.json { render :json => @series_statement_merge_list }
     end
   end
 
   # GET /series_statement_merge_lists/new
-  # GET /series_statement_merge_lists/new.xml
+  # GET /series_statement_merge_lists/new.json
   def new
     @series_statement_merge_list = SeriesStatementMergeList.new
 
     respond_to do |format|
       format.html # new.html.erb
-      format.xml  { render :xml => @series_statement_merge_list }
+      format.json { render :json => @series_statement_merge_list }
     end
   end
 
@@ -38,7 +38,7 @@ class SeriesStatementMergeListsController < ApplicationController
   end
 
   # POST /series_statement_merge_lists
-  # POST /series_statement_merge_lists.xml
+  # POST /series_statement_merge_lists.json
   def create
     @series_statement_merge_list = SeriesStatementMergeList.new(params[:series_statement_merge_list])
 
@@ -46,16 +46,16 @@ class SeriesStatementMergeListsController < ApplicationController
       if @series_statement_merge_list.save
         flash[:notice] = t('controller.successfully_created', :model => t('activerecord.models.series_statement_merge_list'))
         format.html { redirect_to(@series_statement_merge_list) }
-        format.xml  { render :xml => @series_statement_merge_list, :status => :created, :location => @series_statement_merge_list }
+        format.json { render :json => @series_statement_merge_list, :status => :created, :location => @series_statement_merge_list }
       else
         format.html { render :action => "new" }
-        format.xml  { render :xml => @series_statement_merge_list.errors, :status => :unprocessable_entity }
+        format.json { render :json => @series_statement_merge_list.errors, :status => :unprocessable_entity }
       end
     end
   end
 
   # PUT /series_statement_merge_lists/1
-  # PUT /series_statement_merge_lists/1.xml
+  # PUT /series_statement_merge_lists/1.json
   def update
     respond_to do |format|
       if @series_statement_merge_list.update_attributes(params[:series_statement_merge_list])
@@ -73,22 +73,22 @@ class SeriesStatementMergeListsController < ApplicationController
           flash[:notice] = t('controller.successfully_updated', :model => t('activerecord.models.series_statement_merge_list'))
         end
         format.html { redirect_to(@series_statement_merge_list) }
-        format.xml  { head :ok }
+        format.json { head :no_content }
       else
         format.html { render :action => "edit" }
-        format.xml  { render :xml => @series_statement_merge_list.errors, :status => :unprocessable_entity }
+        format.json { render :json => @series_statement_merge_list.errors, :status => :unprocessable_entity }
       end
     end
   end
 
   # DELETE /series_statement_merge_lists/1
-  # DELETE /series_statement_merge_lists/1.xml
+  # DELETE /series_statement_merge_lists/1.json
   def destroy
     @series_statement_merge_list.destroy
 
     respond_to do |format|
       format.html { redirect_to(series_statement_merge_lists_url) }
-      format.xml  { head :ok }
+      format.json { head :no_content }
     end
   end
 end

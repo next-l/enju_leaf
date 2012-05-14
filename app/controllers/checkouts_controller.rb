@@ -6,7 +6,7 @@ class CheckoutsController < ApplicationController
   after_filter :convert_charset, :only => :index
 
   # GET /checkouts
-  # GET /checkouts.xml
+  # GET /checkouts.json
 
   def index
     if params[:icalendar_token].present?
@@ -63,8 +63,8 @@ class CheckoutsController < ApplicationController
     @checkouts = checkouts.page(params[:page])
 
     respond_to do |format|
-      format.html # index.rhtml
-      format.xml  { render :xml => @checkouts.to_xml }
+      format.html # index.html.erb
+      format.json { render :json => @checkouts }
       format.rss  { render :layout => false }
       format.ics
       #format.csv
@@ -81,7 +81,7 @@ class CheckoutsController < ApplicationController
   end
 
   # GET /checkouts/1
-  # GET /checkouts/1.xml
+  # GET /checkouts/1.json
   def show
     @checkout = Checkout.find(params[:id])
     if current_user.blank?
@@ -94,12 +94,12 @@ class CheckoutsController < ApplicationController
     end
 
     respond_to do |format|
-      format.html # show.rhtml
-      format.xml  { render :xml => @checkout.to_xml }
+      format.html # show.html.erb
+      format.json { render :json => @checkout }
     end
   end
 
-  # GET /checkouts/1;edit
+  # GET /checkouts/1/edit
   def edit
     @checkout = Checkout.find(params[:id])
     if current_user.blank?
@@ -115,7 +115,7 @@ class CheckoutsController < ApplicationController
   end
 
   # PUT /checkouts/1
-  # PUT /checkouts/1.xml
+  # PUT /checkouts/1.json
   def update
     @checkout = Checkout.find(params[:id])
     if @checkout.reserved?
@@ -144,22 +144,22 @@ class CheckoutsController < ApplicationController
       if @checkout.update_attributes(params[:checkout])
         flash[:notice] = t('controller.successfully_updated', :model => t('activerecord.models.checkout'))
         format.html { redirect_to user_checkout_url(@checkout.user, @checkout) }
-        format.xml  { head :ok }
+        format.json { head :no_content }
       else
         format.html { render :action => "edit" }
-        format.xml  { render :xml => @checkout.errors.to_xml }
+        format.json { render :json => @checkout.errors, :status => :unprocessable_entity }
       end
     end
   end
 
   # DELETE /checkouts/1
-  # DELETE /checkouts/1.xml
+  # DELETE /checkouts/1.json
   def destroy
     @checkout.destroy
 
     respond_to do |format|
       format.html { redirect_to user_checkouts_url(@checkout.user) }
-      format.xml  { head :ok }
+      format.json { head :no_content }
     end
   end
 end

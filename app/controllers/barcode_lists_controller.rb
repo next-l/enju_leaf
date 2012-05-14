@@ -2,7 +2,7 @@ class BarcodeListsController < ApplicationController
 #  load_and_authorize_resource
 
   # GET /barcode_lists
-  # GET /barcode_lists.xml
+  # GET /barcode_lists.json
   def index
     @barcode_lists = BarcodeList.paginate(:page => params[:page])
     @start_rows = params[:start_rows]
@@ -15,30 +15,30 @@ class BarcodeListsController < ApplicationController
 
     respond_to do |format|
       format.html # index.html.erb
-      format.xml  { render :xml => @barcode_lists }
+      format.json { render :json => @barcode_lists }
     end
   end
 
   # GET /barcode_lists/1
-  # GET /barcode_lists/1.xml
+  # GET /barcode_lists/1.json
   def show
     @barcode_list = BarcodeList.find(params[:id])
 
     respond_to do |format|
       format.html # show.html.erb
-      format.xml  { render :xml => @barcode_list }
+      format.json { render :json => @barcode_list }
       format.svg { send_data @barcode_list.data, :type => 'image/svg+xml', :disposition => 'inline' }
     end
   end
 
   # GET /barcode_lists/new
-  # GET /barcode_lists/new.xml
+  # GET /barcode_lists/new.json
   def new
     @barcode_list = BarcodeList.new
 
     respond_to do |format|
       format.html # new.html.erb
-      format.xml  { render :xml => @barcode }
+      format.json { render :json => @barcode }
     end
   end
 
@@ -58,7 +58,7 @@ class BarcodeListsController < ApplicationController
   end
 
   # POST /barcode_lists/1
-  # POST /barcode_lists/1.xml
+  # POST /barcode_lists/1.json
   def update
     @barcode_list = BarcodeList.find(params[:id])
 
@@ -92,16 +92,16 @@ class BarcodeListsController < ApplicationController
           flash[:notice] = t('controller.successfully_updated', :model => t('activerecord.models.barcode_list'))
 #          format.html { redirect_to(@barcode_list) }
           format.html { redirect_to :action => 'show_pdf', :id => @barcode_list, :status => 301}
-          format.xml  { head :ok }
+          format.json { head :no_content }
         else
           @barcode_list.errors.add_to_base t('activerecord.attributes.barcode_list.error')
           format.html { render :action => "edit" }
-          format.xml  { render :xml => @barcode_list.errors, :status => :unprocessable_entity }
+          format.json { render :json => @barcode_list.errors, :status => :unprocessable_entity }
         end
       else
         @barcode_list.errors.add_to_base t('activerecord.attributes.barcode_list.error')
         format.html { render :action => "edit" }
-        format.xml  { render :xml => @barcode_list.errors, :status => :unprocessable_entity }
+        format.json { render :json => @barcode_list.errors, :status => :unprocessable_entity }
       end
     end
   end
@@ -113,7 +113,7 @@ class BarcodeListsController < ApplicationController
   end
 
   # DELETE /barcode_lists/1
-  # DELETE /barcode_lists/1.xml
+  # DELETE /barcode_lists/1.json
   def destroy
     @barcode_list = BarcodeList.find(params[:id])
     @barcode_list.deleted_at = Time.now
@@ -121,7 +121,7 @@ class BarcodeListsController < ApplicationController
 
     respond_to do |format|
       format.html { redirect_to(barcode_lists_url) }
-      format.xml  { head :ok }
+      format.json { head :no_content }
     end
   end
 end

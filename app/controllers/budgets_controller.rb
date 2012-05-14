@@ -18,11 +18,11 @@ class BudgetsController < ApplicationController
       if @budget.save
         flash[:notice] = t('controller.successfully_created', :model => t('activerecord.models.budget'))
         format.html { redirect_to(@budget) }
-        format.xml  { render :xml => @budget, :status => :created, :location => @budget }
+        format.json { render :json => @budget, :status => :created, :location => @budget }
       else
         prepare_options
         format.html { render :action => "new" }
-        format.xml  { render :xml => @budget.errors, :status => :unprocessable_entity }
+        format.json { render :json => @budget.errors, :status => :unprocessable_entity }
       end
     end
   end
@@ -39,11 +39,11 @@ class BudgetsController < ApplicationController
       if @budget.update_attributes(params[:budget])
         flash[:notice] = t('controller.successfully_updated', :model => t('activerecord.models.budget'))
         format.html { redirect_to(@budget) }
-        format.xml  { head :ok }
+        format.json { head :no_content }
       else
         prepare_options
         format.html { render :action => "edit" }
-        format.xml  { render :xml => @budget.errors, :status => :unprocessable_entity }
+        format.json { render :json => @budget.errors, :status => :unprocessable_entity }
       end
     end
   end
@@ -62,7 +62,7 @@ class BudgetsController < ApplicationController
 
     respond_to do |format|
       format.html { redirect_to(budgets_url) }
-      format.xml  { head :ok }
+      format.json { head :no_content }
     end
   end
 

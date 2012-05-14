@@ -40,17 +40,17 @@ class FamiliesController < ApplicationController
             @family.add_user(params[:family_users])                      
             flash[:notice] = t('controller.successfully_created', :model => t('activerecord.models.family'))
             format.html { redirect_to(@family) }
-            format.xml  { render :xml => @family, :status => :created, :location => @family }
+            format.json { render :json => @family, :status => :created, :location => @family }
           else
             user_list(params)
             format.html { render :action => "new" }
-            format.xml  { render :xml => @family.errors, :status => :unprocessable_entity }
+            format.json { render :json => @family.errors, :status => :unprocessable_entity }
           end
         end
       rescue
         user_list(params)
         format.html { render :action => "new" }
-        format.xml  { render :xml => @family.errors, :status => :unprocessable_entity }
+        format.json { render :json => @family.errors, :status => :unprocessable_entity }
       end
     end    
   end
@@ -73,13 +73,13 @@ class FamiliesController < ApplicationController
         @family.add_user(params[:family_users])
         flash[:notice] = t('controller.successfully_updated', :model => t('activerecord.models.family'))
         format.html { redirect_to(@family) }
-        format.xml  { render :xml => @family, :status => :created, :location => @family }
+        format.json { render :json => @family, :status => :created, :location => @family }
       end
     rescue Exception => e
       user_list(params)
       @already_family_users = @family.users
       format.html { render :action => "edit" }
-      format.xml  { render :xml => @family.errors, :status => :unprocessable_entity }
+      format.json { render :json => @family.errors, :status => :unprocessable_entity }
     end
     end
   end
@@ -145,8 +145,8 @@ private
     address = params[:address]
     @address = address
 
-    query = "#{query} date_of_birth_d: [#{date_of_birth} TO #{date_of_birth_end}]" unless date_of_birth.blank?
-    query = "#{query} address_text: #{address}" unless address.blank?
+    query = "#{query} date_of_birth_d:[#{date_of_birth} TO #{date_of_birth_end}]" unless date_of_birth.blank?
+    query = "#{query} address_text:#{address}" unless address.blank?
 
     # TODO need refactoring
     exclude_ids = []
@@ -166,7 +166,7 @@ private
       query = "#{query} NOT (#{s})"
     end
 
-    logger.info "query: #{query}"
+    logger.info "query:#{query}"
 
     @users = User.search do
       fulltext query

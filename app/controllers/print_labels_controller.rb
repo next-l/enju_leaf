@@ -88,8 +88,8 @@ private
     address = params[:address]
     @address = address
 
-    query = "#{query} date_of_birth_d: [#{date_of_birth} TO #{date_of_birth_end}]" unless date_of_birth.blank?
-    query = "#{query} address_text: #{address}" unless address.blank?
+    query = "#{query} date_of_birth_d:[#{date_of_birth} TO #{date_of_birth_end}]" unless date_of_birth.blank?
+    query = "#{query} address_text:#{address}" unless address.blank?
 
     @users = User.search do
       fulltext query

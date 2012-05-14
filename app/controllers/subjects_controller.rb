@@ -8,7 +8,7 @@ class SubjectsController < ApplicationController
   cache_sweeper :page_sweeper, :only => [:create, :update, :destroy]
 
   # GET /subjects
-  # GET /subjects.xml
+  # GET /subjects.json
   def index
     sort = {:sort_by => 'created_at', :order => 'desc'}
     case params[:sort_by]
@@ -54,15 +54,15 @@ class SubjectsController < ApplicationController
     session[:params][:subject] = params
 
     respond_to do |format|
-      format.html # index.rhtml
-      format.xml  { render :xml => @subjects.to_xml }
+      format.html # index.html.erb
+      format.json { render :json => @subjects }
       format.rss
       format.atom
     end
   end
 
   # GET /subjects/1
-  # GET /subjects/1.xml
+  # GET /subjects/1.json
   def show
     if params[:term]
       subject = Subject.where(:term => params[:term]).first
@@ -85,8 +85,8 @@ class SubjectsController < ApplicationController
     @works = search.execute!.results
 
     respond_to do |format|
-      format.html # show.rhtml
-      format.xml  { render :xml => @subject.to_xml }
+      format.html # show.html.erb
+      format.json { render :json => @subject }
       format.js
     end
   end
@@ -99,11 +99,11 @@ class SubjectsController < ApplicationController
 
     respond_to do |format|
       format.html # new.html.erb
-      format.xml  { render :xml => @subject }
+      format.json { render :json => @subject }
     end
   end
 
-  # GET /subjects/1;edit
+  # GET /subjects/1/edit
   def edit
     if @work
       @subject = @work.subjects.find(params[:id])
@@ -114,7 +114,7 @@ class SubjectsController < ApplicationController
   end
 
   # POST /subjects
-  # POST /subjects.xml
+  # POST /subjects.json
   def create
     if @work
       @subject = @work.subjects.new(params[:subject])
@@ -130,19 +130,19 @@ class SubjectsController < ApplicationController
         @subject.subject_heading_types << subject_heading_type if subject_heading_type
         flash[:notice] = t('controller.successfully_created', :model => t('activerecord.models.subject'))
         format.html { redirect_to subject_url(@subject) }
-        format.xml  { render :xml => @subject, :status => :created, :location => @subject }
+        format.json { render :json => @subject, :status => :created, :location => @subject }
       else
         @classification = classification
         @subject_heading_type = subject_heading_type
         prepare_options
         format.html { render :action => "new" }
-        format.xml  { render :xml => @subject.errors.to_xml }
+        format.json { render :json => @subject.errors, :status => :unprocessable_entity }
       end
     end
   end
 
   # PUT /subjects/1
-  # PUT /subjects/1.xml
+  # PUT /subjects/1.json
   def update
     if @work
       @subject = @work.subjects.find(params[:id])
@@ -154,17 +154,17 @@ class SubjectsController < ApplicationController
       if @subject.update_attributes(params[:subject])
         flash[:notice] = t('controller.successfully_updated', :model => t('activerecord.models.subject'))
         format.html { redirect_to subject_url(@subject) }
-        format.xml  { head :ok }
+        format.json { head :no_content }
       else
         prepare_options
         format.html { render :action => "edit" }
-        format.xml  { render :xml => @subject.errors.to_xml }
+        format.json { render :json => @subject.errors, :status => :unprocessable_entity }
       end
     end
   end
 
   # DELETE /subjects/1
-  # DELETE /subjects/1.xml
+  # DELETE /subjects/1.json
   def destroy
     if @work
       @subject = @work.subjects.find(params[:id])
@@ -175,7 +175,7 @@ class SubjectsController < ApplicationController
 
     respond_to do |format|
       format.html { redirect_to subjects_url }
-      format.xml  { head :ok }
+      format.json { head :no_content }
     end
   end
 

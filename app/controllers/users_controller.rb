@@ -31,8 +31,8 @@ class UsersController < ApplicationController
     date_of_birth_end = Time.zone.parse(birth_date).end_of_day.utc.iso8601 rescue nil
     address = params[:address]
     @address = address
-    query = "#{query} date_of_birth_d: [#{date_of_birth} TO #{date_of_birth_end}]" unless date_of_birth.blank?
-    query = "#{query} address_text: #{address}" unless address.blank?
+    query = "#{query} date_of_birth_d:[#{date_of_birth} TO #{date_of_birth_end}]" unless date_of_birth.blank?
+    query = "#{query} address_text:#{address}" unless address.blank?
     logger.error "query #{query}"
     logger.error flash[:message]
 
@@ -84,8 +84,8 @@ class UsersController < ApplicationController
     @count[:query_result] = @users.total_entries
 
     respond_to do |format|
-      format.html # index.rhtml
-      format.xml  { render :xml => @users }
+      format.html # index.html.erb
+      format.json { render :json => @users }
       format.pdf  { send_data User.output_userlist_pdf(@users).generate, :filename => configatron.user_list_print_pdf.filename }
       format.tsv  { send_data User.output_userlist_tsv(@users), :filename => configatron.user_list_print_tsv.filename }
     end
@@ -108,8 +108,8 @@ class UsersController < ApplicationController
     #@manifestation = Manifestation.pickup(@user.keyword_list.to_s.split.sort_by{rand}.first) rescue nil
 
     respond_to do |format|
-      format.html # show.rhtml
-      format.xml  { render :xml => @user }
+      format.html # show.html.erb
+      format.json { render :json => @user }
     end
   end
 
@@ -212,7 +212,7 @@ class UsersController < ApplicationController
         flash[:temporary_password] = @user.password
         format.html { redirect_to user_url(@user) }
         #format.html { redirect_to new_user_patron_url(@user) }
-        format.xml  { head :ok }
+        format.json { head :no_content }
       end
     rescue ActiveRecord::RecordInvalid
       prepare_options
@@ -221,7 +221,7 @@ class UsersController < ApplicationController
       end 
 #      flash[:error] = t('user.could_not_setup_account')
       format.html { render :action => "new" }
-      format.xml  { render :xml => @user.errors, :status => :unprocessable_entity }
+      format.json { render :json => @user.errors, :status => :unprocessable_entity }
     rescue Exception => e
       logger.error e
       logger.error $@
@@ -270,7 +270,7 @@ class UsersController < ApplicationController
       flash[:notice] = t('controller.successfully_updated', :model => t('activerecord.models.user'))
       respond_to do |format|
         format.html { redirect_to user_url(@user) }
-        format.xml  { head :ok }
+        format.json { head :no_content }
       end
     rescue # ActiveRecord::RecordInvalid
       @patron = @user.patron  
@@ -282,7 +282,7 @@ class UsersController < ApplicationController
       prepare_options
       respond_to do |format|
         format.html { render :action => "edit" }
-        format.xml  { render :xml => @user.errors, :status => :unprocessable_entity }
+        format.json { render :json => @user.errors, :status => :unprocessable_entity }
       end
     end
   end
@@ -307,7 +307,7 @@ class UsersController < ApplicationController
 
     respond_to do |format|
       format.html { redirect_to(users_url) }
-      format.xml  { head :ok }
+      format.json { head :no_content }
     end
   end
 

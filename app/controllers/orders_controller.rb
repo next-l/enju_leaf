@@ -5,7 +5,7 @@ class OrdersController < ApplicationController
   before_filter :get_purchase_request
 
   # GET /orders
-  # GET /orders.xml
+  # GET /orders.json
   def index
     case
     when @order_list
@@ -18,7 +18,7 @@ class OrdersController < ApplicationController
 
     respond_to do |format|
       format.html # index.html.erb
-      format.xml  { render :xml => @orders }
+      format.json { render :json => @orders }
       format.rss
       format.atom
       format.csv
@@ -26,18 +26,18 @@ class OrdersController < ApplicationController
   end
 
   # GET /orders/1
-  # GET /orders/1.xml
+  # GET /orders/1.json
   def show
     @order = Order.find(params[:id])
 
     respond_to do |format|
       format.html # show.html.erb
-      format.xml  { render :xml => @order }
+      format.json { render :json => @order }
     end
   end
 
   # GET /orders/new
-  # GET /orders/new.xml
+  # GET /orders/new.json
   def new
     @order_lists = OrderList.not_ordered
     if @order_lists.blank?
@@ -54,7 +54,7 @@ class OrdersController < ApplicationController
 
     respond_to do |format|
       format.html # new.html.erb
-      format.xml  { render :xml => @order }
+      format.json { render :json => @order }
     end
   end
 
@@ -65,7 +65,7 @@ class OrdersController < ApplicationController
   end
 
   # POST /orders
-  # POST /orders.xml
+  # POST /orders.json
   def create
     @order = Order.new(params[:order])
 
@@ -74,21 +74,21 @@ class OrdersController < ApplicationController
         flash[:notice] = t('controller.successfully_created', :model => t('activerecord.models.order'))
         if @purchase_request
           format.html { redirect_to purchase_request_order_url(@order.purchase_request, @order) }
-          format.xml  { render :xml => @order, :status => :created, :location => @order }
+          format.json { render :json => @order, :status => :created, :location => @order }
         else
           format.html { redirect_to(@order) }
-          format.xml  { render :xml => @order, :status => :created, :location => @order }
+          format.json { render :json => @order, :status => :created, :location => @order }
         end
       else
         @order_lists = OrderList.not_ordered
         format.html { render :action => "new" }
-        format.xml  { render :xml => @order.errors, :status => :unprocessable_entity }
+        format.json { render :json => @order.errors, :status => :unprocessable_entity }
       end
     end
   end
 
   # PUT /orders/1
-  # PUT /orders/1.xml
+  # PUT /orders/1.json
   def update
     @order = Order.find(params[:id])
 
@@ -97,21 +97,21 @@ class OrdersController < ApplicationController
         flash[:notice] = t('controller.successfully_updated', :model => t('activerecord.models.order'))
         if @purchase_request
           format.html { redirect_to purchase_request_order_url(@order.purchase_request, @order) }
-          format.xml  { head :ok }
+          format.json { head :no_content }
         else
           format.html { redirect_to(@order) }
-          format.xml  { head :ok }
+          format.json { head :no_content }
         end
       else
         @order_lists = OrderList.not_ordered
         format.html { render :action => "edit" }
-        format.xml  { render :xml => @order.errors, :status => :unprocessable_entity }
+        format.json { render :json => @order.errors, :status => :unprocessable_entity }
       end
     end
   end
 
   # DELETE /orders/1
-  # DELETE /orders/1.xml
+  # DELETE /orders/1.json
   def destroy
     @order = Order.find(params[:id])
 
@@ -120,10 +120,10 @@ class OrdersController < ApplicationController
     respond_to do |format|
       if @order_list
         format.html { redirect_to order_list_purchase_requests_url(@order_list) }
-        format.xml  { head :ok }
+        format.json { head :no_content }
       else
         format.html { redirect_to(orders_url) }
-        format.xml  { head :ok }
+        format.json { head :no_content }
       end
     end
   end

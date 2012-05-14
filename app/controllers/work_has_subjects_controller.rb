@@ -5,7 +5,7 @@ class WorkHasSubjectsController < ApplicationController
   cache_sweeper :page_sweeper, :only => [:create, :update, :destroy]
 
   # GET /work_has_subjects
-  # GET /work_has_subjects.xml
+  # GET /work_has_subjects.json
   def index
     get_work; get_subject
     if @work
@@ -18,28 +18,28 @@ class WorkHasSubjectsController < ApplicationController
 
     respond_to do |format|
       format.html # index.html.erb
-      format.xml  { render :xml => @work_has_subjects }
+      format.json { render :json => @work_has_subjects }
     end
   end
 
   # GET /work_has_subjects/1
-  # GET /work_has_subjects/1.xml
+  # GET /work_has_subjects/1.json
   def show
     respond_to do |format|
       format.html # show.html.erb
-      format.xml  { render :xml => @work_has_subject }
+      format.json { render :json => @work_has_subject }
     end
   end
 
   # GET /work_has_subjects/new
-  # GET /work_has_subjects/new.xml
+  # GET /work_has_subjects/new.json
   def new
     get_work; get_subject
     @work_has_subject = WorkHasSubject.new(:work => @work, :subject => @subject)
 
     respond_to do |format|
       format.html # new.html.erb
-      format.xml  { render :xml => @work_has_subject }
+      format.json { render :json => @work_has_subject }
     end
   end
 
@@ -48,7 +48,7 @@ class WorkHasSubjectsController < ApplicationController
   end
 
   # POST /work_has_subjects
-  # POST /work_has_subjects.xml
+  # POST /work_has_subjects.json
   def create
     @work_has_subject = WorkHasSubject.new(params[:work_has_subject])
 
@@ -56,16 +56,16 @@ class WorkHasSubjectsController < ApplicationController
       if @work_has_subject.save
         flash[:notice] = t('controller.successfully_created', :model => t('activerecord.models.work_has_subject'))
         format.html { redirect_to(@work_has_subject) }
-        format.xml  { render :xml => @work_has_subject, :status => :created, :location => @work_has_subject }
+        format.json { render :json => @work_has_subject, :status => :created, :location => @work_has_subject }
       else
         format.html { render :action => "new" }
-        format.xml  { render :xml => @work_has_subject.errors, :status => :unprocessable_entity }
+        format.json { render :json => @work_has_subject.errors, :status => :unprocessable_entity }
       end
     end
   end
 
   # PUT /work_has_subjects/1
-  # PUT /work_has_subjects/1.xml
+  # PUT /work_has_subjects/1.json
   def update
     get_work
     if @work and params[:position]
@@ -78,16 +78,16 @@ class WorkHasSubjectsController < ApplicationController
       if @work_has_subject.update_attributes(params[:work_has_subject])
         flash[:notice] = t('controller.successfully_updated', :model => t('activerecord.models.work_has_subject'))
         format.html { redirect_to(@work_has_subject) }
-        format.xml  { head :ok }
+        format.json { head :no_content }
       else
         format.html { render :action => "edit" }
-        format.xml  { render :xml => @work_has_subject.errors, :status => :unprocessable_entity }
+        format.json { render :json => @work_has_subject.errors, :status => :unprocessable_entity }
       end
     end
   end
 
   # DELETE /work_has_subjects/1
-  # DELETE /work_has_subjects/1.xml
+  # DELETE /work_has_subjects/1.json
   def destroy
     get_work; get_subject
     @work_has_subject.destroy
@@ -96,13 +96,13 @@ class WorkHasSubjectsController < ApplicationController
       case
       when @work
         format.html { redirect_to(work_work_has_subjects_url(@work)) }
-        format.xml  { head :ok }
+        format.json { head :no_content }
       when @subject
         format.html { redirect_to(subject_work_has_subjects_url(@subject)) }
-        format.xml  { head :ok }
+        format.json { head :no_content }
       else
         format.html { redirect_to(work_has_subjects_url) }
-        format.xml  { head :ok }
+        format.json { head :no_content }
       end
     end
   end
