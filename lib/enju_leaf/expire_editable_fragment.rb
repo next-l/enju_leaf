@@ -3,7 +3,7 @@ module ExpireEditableFragment
     fragments.uniq!
     if record.is_a?(Manifestation)
       if fragments.empty?
-        fragments = %w[manifestation_html show_detail_user_html show_detail_librarian_html pickup_html title_html title_mobile index_sru]
+        fragments = %w[manifestation_html show_detail_user_html show_detail_librarian_html pickup_html title_html title_mobile index_sru list_identifiers_oai list_records_oai]
       end
       expire_manifestation_cache(record, fragments)
     else
