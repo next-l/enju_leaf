@@ -185,8 +185,7 @@ class ItemsController < ApplicationController
   def update
     respond_to do |format|
       if @item.update_attributes(params[:item])
-        flash[:notice] = t('controller.successfully_updated', :model => t('activerecord.models.item'))
-        format.html { redirect_to item_url(@item) }
+        format.html { redirect_to @item, :notice => t('controller.successfully_updated', :model => t('activerecord.models.item')) }
         format.json { head :no_content }
       else
         prepare_options

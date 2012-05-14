@@ -56,8 +56,7 @@ class OwnsController < ApplicationController
 
     respond_to do |format|
       if @own.save
-        flash[:notice] = t('controller.successfully_created', :model => t('activerecord.models.own'))
-        format.html { redirect_to own_url(@own) }
+        format.html { redirect_to @own, :notice => t('controller.successfully_created', :model => t('activerecord.models.own')) }
         format.json { render :json => @own, :status => :created, :location => @own }
       else
         format.html { render :action => "new" }
@@ -77,8 +76,7 @@ class OwnsController < ApplicationController
 
     respond_to do |format|
       if @own.update_attributes(params[:own])
-        flash[:notice] = t('controller.successfully_updated', :model => t('activerecord.models.own'))
-        format.html { redirect_to own_url(@own) }
+        format.html { redirect_to @own, :notice => t('controller.successfully_updated', :model => t('activerecord.models.own')) }
         format.json { head :no_content }
       else
         format.html { render :action => "edit" }

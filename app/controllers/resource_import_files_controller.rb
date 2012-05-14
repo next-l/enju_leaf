@@ -58,8 +58,7 @@ class ResourceImportFilesController < ApplicationController
 
     respond_to do |format|
       if @resource_import_file.save
-        flash[:notice] = t('controller.successfully_created', :model => t('activerecord.models.resource_import_file'))
-        format.html { redirect_to(@resource_import_file) }
+        format.html { redirect_to @resource_import_file, :notice => t('controller.successfully_created', :model => t('activerecord.models.resource_import_file')) }
         format.json { render :json => @resource_import_file, :status => :created, :location => @resource_import_file }
       else
         format.html { render :action => "new" }
@@ -73,8 +72,7 @@ class ResourceImportFilesController < ApplicationController
   def update
     respond_to do |format|
       if @resource_import_file.update_attributes(params[:resource_import_file])
-        flash[:notice] = t('controller.successfully_updated', :model => t('activerecord.models.resource_import_file'))
-        format.html { redirect_to(@resource_import_file) }
+        format.html { redirect_to @resource_import_file, :notice => t('controller.successfully_updated', :model => t('activerecord.models.resource_import_file')) }
         format.json { head :no_content }
       else
         format.html { render :action => "edit" }

@@ -211,7 +211,7 @@ class UsersController < ApplicationController
         flash[:temporary_password] = @user.password
         format.html { redirect_to @user, :notice => t('controller.successfully_created.', :model => t('activerecord.models.user')) }
         #format.html { redirect_to new_user_patron_url(@user) }
-        format.json { head :no_content }
+        format.json { render :json => @user, :status => :created, :location => @user }
       end
     rescue ActiveRecord::RecordInvalid
       prepare_options

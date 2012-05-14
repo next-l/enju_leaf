@@ -102,8 +102,7 @@ class ShelvesController < ApplicationController
 
     respond_to do |format|
       if @shelf.update_attributes(params[:shelf])
-        flash[:notice] = t('controller.successfully_updated', :model => t('activerecord.models.shelf'))
-        format.html { redirect_to @shelf }
+        format.html { redirect_to @shelf, :notice => t('controller.successfully_updated', :model => t('activerecord.models.shelf')) }
         format.json { head :no_content }
       else
         format.html { render :action => "edit" }

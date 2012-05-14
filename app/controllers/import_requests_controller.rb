@@ -70,8 +70,7 @@ class ImportRequestsController < ApplicationController
     respond_to do |format|
       if @import_request.update_attributes(params[:import_request])
         @import_request.import!
-        flash[:notice] = t('controller.successfully_updated', :model => t('activerecord.models.import_request'))
-        format.html { redirect_to(@import_request) }
+        format.html { redirect_to @import_request, :notice => t('controller.successfully_updated', :model => t('activerecord.models.import_request')) }
         format.json { head :no_content }
       else
         format.html { render :action => "edit" }

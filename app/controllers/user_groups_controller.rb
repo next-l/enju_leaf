@@ -45,8 +45,7 @@ class UserGroupsController < ApplicationController
 
     respond_to do |format|
       if @user_group.save
-        flash[:notice] = t('controller.successfully_created', :model => t('activerecord.models.user_group'))
-        format.html { redirect_to user_group_url(@user_group) }
+        format.html { redirect_to @user_group, :notice => t('controller.successfully_created', :model => t('activerecord.models.user_group')) }
         format.json { render :json => @user_group, :status => :created, :location => @user_group }
       else
         format.html { render :action => "new" }
@@ -65,8 +64,7 @@ class UserGroupsController < ApplicationController
 
     respond_to do |format|
       if @user_group.update_attributes(params[:user_group])
-        flash[:notice] = t('controller.successfully_updated', :model => t('activerecord.models.user_group'))
-        format.html { redirect_to user_group_url(@user_group) }
+        format.html { redirect_to @user_group, :notice => t('controller.successfully_updated', :model => t('activerecord.models.user_group')) }
         format.json { head :no_content }
       else
         format.html { render :action => "edit" }
