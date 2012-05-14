@@ -183,8 +183,6 @@ class ItemsController < ApplicationController
   # PUT /items/1
   # PUT /items/1.json
   def update
-    #@item = Item.find(params[:id])
-
     respond_to do |format|
       if @item.update_attributes(params[:item])
         flash[:notice] = t('controller.successfully_updated', :model => t('activerecord.models.item'))
@@ -201,7 +199,6 @@ class ItemsController < ApplicationController
   # DELETE /items/1
   # DELETE /items/1.json
   def destroy
-    #@item = Item.find(params[:id])
     manifestation = @item.manifestation
     @item.destroy
     if @item.reserve

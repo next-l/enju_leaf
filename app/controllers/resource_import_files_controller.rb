@@ -89,7 +89,7 @@ class ResourceImportFilesController < ApplicationController
     @resource_import_file.destroy
 
     respond_to do |format|
-      format.html { redirect_to(resource_import_files_url) }
+      format.html { redirect_to resource_import_files_url }
       format.json { head :no_content }
     end
   end

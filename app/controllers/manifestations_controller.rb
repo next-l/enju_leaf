@@ -268,7 +268,7 @@ class ManifestationsController < ApplicationController
     respond_to do |format|
       format.html
       format.mobile
-      format.json { render :json => @manifestations }
+      format.xml  { render :xml => @manifestations }
       format.sru  { render :layout => false }
       format.rss  { render :layout => false }
       format.csv  { render :layout => false }
@@ -352,7 +352,7 @@ class ManifestationsController < ApplicationController
     respond_to do |format|
       format.html # show.html.erb
       format.mobile
-      format.json {
+      format.xml  {
         case params[:mode]
         when 'related'
           render :template => 'manifestations/related'
@@ -381,6 +381,7 @@ class ManifestationsController < ApplicationController
   end
 
   # GET /manifestations/new
+  # GET /manifestations/new.json
   def new
     @manifestation = Manifestation.new
     @original_manifestation = Manifestation.where(:id => params[:manifestation_id]).first

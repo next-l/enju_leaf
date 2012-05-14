@@ -16,8 +16,6 @@ class DonatesController < ApplicationController
   # GET /donates/1
   # GET /donates/1.json
   def show
-    @donate = Donate.find(params[:id])
-
     respond_to do |format|
       format.html # show.html.erb
       format.json { render :json => @donate }
@@ -37,7 +35,6 @@ class DonatesController < ApplicationController
 
   # GET /donates/1/edit
   def edit
-    @donate = Donate.find(params[:id])
   end
 
   # POST /donates
@@ -47,8 +44,7 @@ class DonatesController < ApplicationController
 
     respond_to do |format|
       if @donate.save
-        flash[:notice] = t('controller.successfully_created', :model => t('activerecord.models.donate'))
-        format.html { redirect_to(@donate) }
+        format.html { redirect_to @donate, :notice => t('controller.successfully_created', :model => t('activerecord.models.donate')) }
         format.json { render :json => @donate, :status => :created, :location => @donate }
       else
         format.html { render :action => "new" }
@@ -60,12 +56,9 @@ class DonatesController < ApplicationController
   # PUT /donates/1
   # PUT /donates/1.json
   def update
-    @donate = Donate.find(params[:id])
-
     respond_to do |format|
       if @donate.update_attributes(params[:donate])
-        flash[:notice] = t('controller.successfully_updated', :model => t('activerecord.models.donate'))
-        format.html { redirect_to(@donate) }
+        format.html { redirect_to @donate, :notice => t('controller.successfully_updated', :model => t('activerecord.models.donate')) }
         format.json { head :no_content }
       else
         format.html { render :action => "edit" }
@@ -77,7 +70,6 @@ class DonatesController < ApplicationController
   # DELETE /donates/1
   # DELETE /donates/1.json
   def destroy
-    @donate = Donate.find(params[:id])
     @donate.destroy
 
     respond_to do |format|

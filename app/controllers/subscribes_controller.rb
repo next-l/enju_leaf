@@ -47,8 +47,7 @@ class SubscribesController < ApplicationController
 
     respond_to do |format|
       if @subscribe.save
-        flash[:notice] = t('controller.successfully_created', :model => t('activerecord.models.subscribe'))
-        format.html { redirect_to(@subscribe) }
+        format.html { redirect_to @subscribe, :notice => t('controller.successfully_created', :model => t('activerecord.models.subscribe')) }
         format.json { render :json => @subscribe, :status => :created, :location => @subscribe }
       else
         format.html { render :action => "new" }
@@ -62,8 +61,7 @@ class SubscribesController < ApplicationController
   def update
     respond_to do |format|
       if @subscribe.update_attributes(params[:subscribe])
-        flash[:notice] = t('controller.successfully_updated', :model => t('activerecord.models.subscribe'))
-        format.html { redirect_to(@subscribe) }
+        format.html { redirect_to @subscribe, :notice => t('controller.successfully_updated', :model => t('activerecord.models.subscribe')) }
         format.json { head :no_content }
       else
         format.html { render :action => "edit" }
@@ -78,7 +76,7 @@ class SubscribesController < ApplicationController
     @subscribe.destroy
 
     respond_to do |format|
-      format.html { redirect_to(subscribes_url) }
+      format.html { redirect_to subscribes_url }
       format.json { head :no_content }
     end
   end

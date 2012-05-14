@@ -138,8 +138,7 @@ class PictureFilesController < ApplicationController
 
     respond_to do |format|
       if @picture_file.update_attributes(params[:picture_file])
-        flash[:notice] = t('controller.successfully_updated', :model => t('activerecord.models.picture_file'))
-        format.html { redirect_to(@picture_file) }
+        format.html { redirect_to @picture_file, :notice => t('controller.successfully_updated', :model => t('activerecord.models.picture_file')) }
         format.json { head :no_content }
       else
         format.html { render :action => "edit" }

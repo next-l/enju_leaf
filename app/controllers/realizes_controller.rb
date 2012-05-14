@@ -55,8 +55,7 @@ class RealizesController < ApplicationController
 
     respond_to do |format|
       if @realize.save
-        flash[:notice] = t('controller.successfully_created', :model => t('activerecord.models.realize'))
-        format.html { redirect_to(@realize) }
+        format.html { redirect_to @realize, :notice => t('controller.successfully_created', :model => t('activerecord.models.realize')) }
         format.json { render :json => @realize, :status => :created, :location => @realize }
       else
         format.html { render :action => "new" }
@@ -77,8 +76,7 @@ class RealizesController < ApplicationController
 
     respond_to do |format|
       if @realize.update_attributes(params[:realize])
-        flash[:notice] = t('controller.successfully_updated', :model => t('activerecord.models.realize'))
-        format.html { redirect_to realize_url(@realize) }
+        format.html { redirect_to @realize, :notice => t('controller.successfully_updated', :model => t('activerecord.models.realize')) }
         format.json { head :no_content }
       else
         format.html { render :action => "edit" }

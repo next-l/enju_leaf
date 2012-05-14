@@ -24,8 +24,6 @@ class OwnsController < ApplicationController
   # GET /owns/1
   # GET /owns/1.json
   def show
-    @own = Own.find(params[:id])
-
     respond_to do |format|
       format.html # show.html.erb
       format.json { render :json => @own }
@@ -49,7 +47,6 @@ class OwnsController < ApplicationController
 
   # GET /owns/1/edit
   def edit
-    @own = Own.find(params[:id])
   end
 
   # POST /owns
@@ -72,8 +69,6 @@ class OwnsController < ApplicationController
   # PUT /owns/1
   # PUT /owns/1.json
   def update
-    @own = Own.find(params[:id])
-
     if @item and params[:position]
       @own.insert_at(params[:position])
       redirect_to item_owns_url(@item)
@@ -95,7 +90,6 @@ class OwnsController < ApplicationController
   # DELETE /owns/1
   # DELETE /owns/1.json
   def destroy
-    @own = Own.find(params[:id])
     @own.destroy
 
     respond_to do |format|

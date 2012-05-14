@@ -27,6 +27,11 @@ class UserGroupsController < ApplicationController
   # GET /user_groups/new
   def new
     @user_group = UserGroup.new
+
+    respond_to do |format|
+      format.html # new.html.erb
+      format.json { render :json => @user_group }
+    end
   end
 
   # GET /user_groups/1/edit
