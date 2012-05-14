@@ -50,8 +50,7 @@ class ExemplifiesController < ApplicationController
 
     respond_to do |format|
       if @exemplify.save
-        flash[:notice] = t('controller.successfully_created', :model => t('activerecord.models.exemplify'))
-        format.html { redirect_to(@exemplify) }
+        format.html { redirect_to @exemplify, :notice => t('controller.successfully_created', :model => t('activerecord.models.exemplify')) }
         format.json { render :json => @exemplify, :status => :created, :location => @exemplify }
       else
         format.html { render :action => "new" }

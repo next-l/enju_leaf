@@ -335,7 +335,7 @@ class ManifestationsController < ApplicationController
 
     if @manifestation.periodical_master?
       flash.keep(:notice) if flash[:notice]
-      redirect_to series_statement_path(@manifestation.series_statement, :manifestation_id => @manifestation.id)
+      redirect_to series_statement_url(@manifestation.series_statement, :manifestation_id => @manifestation.id)
       return
     end
 
