@@ -7,7 +7,7 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_barcode.git
-  revision: c0791e083c102c13c59965e3e0a616e5ce77c500
+  revision: 38aaad9e9a9aac2b17eb8458dc5cf13980b28274
   specs:
     enju_barcode (0.0.2)
       barby (~> 0.5)
@@ -27,7 +27,7 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_bookmark.git
-  revision: 81ff8481cc234808e16e4a69b40d7ab1dd689ec9
+  revision: 96dd6485c8100a006d17c000f5ccb2c78eee23ac
   specs:
     enju_bookmark (0.0.8)
       acts-as-taggable-on (~> 2.2)
@@ -66,16 +66,16 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_event.git
-  revision: 109307865105c6693c688767e5f1599d589d3518
+  revision: cbab2a33b66fcba2cc2eca274150a50667ba198d
   specs:
-    enju_event (0.1.4)
+    enju_event (0.1.5)
       acts_as_list (~> 0.1.6)
       addressable
       attribute_normalizer (~> 1.1)
       cancan
       configatron
       devise
-      enju_message (>= 0.0.18)
+      enju_message (>= 0.0.19)
       event-calendar (~> 2.3.3)
       friendly_id (~> 4.0)
       has_scope
@@ -90,9 +90,9 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_inter_library_loan.git
-  revision: 88422c124d5f211414595adc159a868316fed5b9
+  revision: f9a95fccf2062e80161ffce1ea09104d6e36fa7a
   specs:
-    enju_inter_library_loan (0.0.2)
+    enju_inter_library_loan (0.0.3)
       acts_as_list (~> 0.1.6)
       addressable
       attribute_normalizer (~> 1.1)
@@ -107,9 +107,9 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_inventory.git
-  revision: e7b3bade947e44ceec446df11ae8fe7fc37deec3
+  revision: 8a287be1a618f44a50fabf6ee76de708d06e9d98
   specs:
-    enju_inventory (0.1.2)
+    enju_inventory (0.1.3)
       cancan
       devise
       inherited_resources
@@ -129,7 +129,7 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_message.git
-  revision: 9652bc6d32da07e4a10c52470a1a94ec9d5b3663
+  revision: e4085c377daeb5dd47aafd299c91e5c996df6e82
   specs:
     enju_message (0.1.2)
       acts_as_list (~> 0.1.6)
@@ -167,9 +167,9 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_oai.git
-  revision: 888b507f0924884718cd4192fb410e05946a166c
+  revision: 4e35abdff93e0b9f4ef6ebd89f1c715e4967f90e
   specs:
-    enju_oai (0.0.2)
+    enju_oai (0.0.3)
       acts_as_list
       attribute_normalizer (~> 1.1)
       cancan
@@ -183,9 +183,9 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_purchase_request.git
-  revision: 84d871919776edafb1ed2a5feb752bf69ebf16af
+  revision: d60425cc53ba614dbf1b30d0b97427d549a9992e
   specs:
-    enju_purchase_request (0.0.7)
+    enju_purchase_request (0.0.8)
       acts_as_list (~> 0.1.6)
       addressable
       attribute_normalizer (~> 1.1)
@@ -200,7 +200,7 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_question.git
-  revision: 555a76eea81bd8ec4b012037c11ca5bde4a14f4a
+  revision: a12f96f3d0345214f196ea36482182dcb22d63de
   specs:
     enju_question (0.0.12)
       acts-as-taggable-on (~> 2.2)
@@ -218,9 +218,9 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_resource_merge.git
-  revision: 9d385d11611706e477a0e72a837ea52944677b9e
+  revision: ec9cbec8233354dee1eb88cd246ce3f390f72f71
   specs:
-    enju_resource_merge (0.0.7)
+    enju_resource_merge (0.0.8)
       acts_as_list (~> 0.1.6)
       attribute_normalizer (~> 1.1)
       cancan
@@ -234,7 +234,7 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_search_log.git
-  revision: fd678d5c13b86afe6b6d73637174a4ea679bc3f2
+  revision: 097264bfc974a97ccb4b8f8070c93bddf1c4d7c1
   specs:
     enju_search_log (0.0.3)
       cancan
@@ -244,7 +244,7 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_subject.git
-  revision: 99df045b3d5dad879e882d83f05ff2e7b4c43a4b
+  revision: 5126f1c9a7c86a3a24693658800dac225725954d
   specs:
     enju_subject (0.0.12)
       acts_as_list (~> 0.1.6)
@@ -363,7 +363,7 @@ GEM
     coffee-script (2.2.0)
       coffee-script-source
       execjs
-    coffee-script-source (1.3.1)
+    coffee-script-source (1.3.2)
     configatron (2.9.1)
       yamler (>= 0.1.0)
     daemons (1.1.8)
@@ -398,10 +398,10 @@ GEM
     ffi (1.0.11)
     friendly_id (4.0.5)
     geocoder (1.1.1)
-    guard (1.0.2)
+    guard (1.0.3)
       ffi (>= 0.5.0)
-      thor (~> 0.14.6)
-    guard-rspec (0.7.1)
+      thor (>= 0.14.6)
+    guard-rspec (0.7.2)
       guard (>= 0.10.0)
     has_scope (0.5.1)
     highline (1.6.12)
