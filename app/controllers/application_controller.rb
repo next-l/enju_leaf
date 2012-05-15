@@ -13,6 +13,11 @@ class ApplicationController < ActionController::Base
   before_filter :set_request_format
 
   private
+  def after_sign_in_path_for(resource)
+    session[:locale] = nil
+    super
+  end
+
   def render_403
     return if performed?
     if user_signed_in?
