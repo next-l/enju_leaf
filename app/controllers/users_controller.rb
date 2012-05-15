@@ -71,7 +71,6 @@ class UsersController < ApplicationController
       access_denied; return
     end
     @user = User.new
-    #@user.openid_identifier = flash[:openid_identifier]
     prepare_options
     @user_groups = UserGroup.all
     if @patron.try(:user)
