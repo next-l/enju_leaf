@@ -25,7 +25,6 @@ en:
       picture_file: Picture file
       form_of_work: Form of works
       inter_library_loan: Inter library loan
-      message: Message
       classification: Classification
       imported_object: Imported object
       exemplify: Exemplify
@@ -84,7 +83,6 @@ en:
       checkout: Checkout
       checkout_family: Family's checkout
       subscription: Subscription
-      message_template: Message template
       patron_merge: Patron merge
       subject_related_term: Subject related term
       library_group: Library group
@@ -93,7 +91,6 @@ en:
       reserve: Reserve
       retained_manifestation: Retaubed manifestation(not connected)
       reserve_family: Family's reserve
-      message_request: Message request
       answer: Answer
       bookstore: Bookstore
       area: Area
@@ -382,11 +379,6 @@ en:
         return_received_at: Return received at
         deleted_at: Deleted at
         state: State
-      message:
-        subject: Subject
-        body: Body
-        sender: Sender
-        receiver: Receiver
       classification:
         category: Category
         name: Name
@@ -723,12 +715,6 @@ en:
         note: Note
         deleted_at: Deleted at
         subscribes_count: Count
-      message_template:
-        status: Status
-        locale: Locale
-        title: Title
-        body: Body
-        position: Position
       patron_merge:
       subject_related_term:
       library_group:
@@ -786,9 +772,6 @@ en:
       retained_manifestation:
         done: Done
         failed_update: Failed update
-      message_request:
-        sent_at: Sent at
-        deleted_at: Deleted at
       answer:
         body: Body
         deleted_at: Deleted at
@@ -1442,29 +1425,6 @@ en:
     contributor: "Contributor"
     publisher: "Publisher"
     owner: "Owner"
-  message:
-    user_message: "%{login_name}'s messages"
-    sent_at: "Sent at"
-    inbox: "Inbox"
-    write: "Write"
-    outbox: "Outbox"
-    trash: "Trash"
-    recipient: "Recipient"
-    receiver: "Receiver"
-    sender: "Sender"
-    read: "Read"
-    unread: "Unread"
-    deleted: "Deleted"
-    send: "Send message"
-    reply: "Reply"
-    delete: "Delete"
-    sent_successfully: "Message was sent successfully."
-    no_new_message: "No new messages."
-    too_short: "Message is too short. The minimum length is %{count} characters."
-    too_long: "Message is too long. The maximum length is %{count} characters."
-    new_message_from_library: "New message arrived from %{library}"
-    messages_were_deleted: "Messages were deleted."
-    select_messages: "Select messages."
   tag:
     popular_tag: "Popular tags"
     my_tag: "My tags"
@@ -1657,10 +1617,6 @@ en:
   inventory_file:
     not_in_catalog: "Not in catalog"
     not_on_shelf: "Not on shelf"
-  message_request:
-    not_sent: "Not sent"
-    sent: "Sent"
-    all: "All messages"
   order:
     create_order_list: "You should create an order list."
     specify_purchase_request: "You should specify the purchase request."
