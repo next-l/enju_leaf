@@ -80,6 +80,7 @@ gem 'isbn-tools', :git => 'git://github.com/nabeta/isbn-tools.git', :require => 
 #gem 'extractcontent'
 gem 'cancan', '>= 1.6.7'
 gem 'devise', '~> 2.1'
+gem 'devise-encryptable'
 #gem 'omniauth', '~> 1.1'
 gem 'addressable'
 gem 'paperclip', '~> 2.7'

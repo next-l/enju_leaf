@@ -111,6 +111,8 @@ GEM
       orm_adapter (~> 0.0.7)
       railties (~> 3.1)
       warden (~> 1.1.1)
+    devise-encryptable (0.1.1)
+      devise (>= 2.1.0.rc)
     diff-lcs (1.1.3)
     dynamic_form (1.1.4)
     enju_barcode (0.0.2)
@@ -474,6 +476,7 @@ DEPENDENCIES
   dalli (~> 2.0)
   delayed_job_active_record
   devise (~> 2.1)
+  devise-encryptable
   dynamic_form
   enju_barcode (~> 0.0.2)
   enju_book_jacket!
