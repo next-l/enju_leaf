@@ -25,7 +25,6 @@ ja:
       picture_file: 画像ファイル
       form_of_work: 書いた資料の形態
       inter_library_loan: 相互貸借
-      message: メッセージ
       classification: 分類
       imported_object: インポートされたオブジェクト
       exemplify: 例証
@@ -85,7 +84,6 @@ ja:
       checkout: 貸出
       checkout_family: 家族の貸出
       subscription: 購読
-      message_template: メッセージテンプレート
       patron_merge: 人物・団体の統合
       subject_related_term: 件名の関連語
       library_group: 図書館全体の設定
@@ -94,7 +92,6 @@ ja:
       reserve: 予約
       retained_manifestation: 取置済み(未連絡)資料
       reserve_family: 家族の予約
-      message_request: メッセージの送信リクエスト
       answer: 回答
       bookstore: 書店
       area: 地区
@@ -463,12 +460,6 @@ ja:
         to_library: 受取図書館
         state: 状態
         reason: 移動理由
-      message:
-        subject: 件名
-        body: 本文
-        sender: 差出人
-        receiver: 宛て先
-        recipient: 宛て先
       classification:
         category: カテゴリー
         name: 名前
@@ -533,6 +524,8 @@ ja:
       porta_response:
         body: 本文
       donate:
+        patron: 人物・団体
+        item: 所蔵情報
       basket:
         user: 利用者
         note: 注記
@@ -641,6 +634,8 @@ ja:
         reason: 理由
       realize:
         position: 位置
+        patron: 人物・団体
+        expression: 協力した資料
       reify:
         position: 位置
       subject_as_concept:
@@ -847,12 +842,6 @@ ja:
         note: 注記
         deleted_at: 削除時刻
         subscribes_count: 購読数
-      message_template:
-        status: 状態
-        locale: 言語
-        title: タイトル
-        body: 本文
-        position: 位置
       patron_merge:
       subject_related_term:
       library_group:
@@ -912,9 +901,6 @@ ja:
       retained_manifestation:
         done: 連絡完了
         failed_update: 更新に失敗しました。
-      message_request:
-        sent_at: 送信時刻
-        deleted_at: 削除時刻
       answer:
         body: 本文
         deleted_at: 削除時刻
@@ -1702,29 +1688,6 @@ ja:
     last_update_by: 更新者 
     duplicate_user: "同じフルネーム(ヨミ)、電話番号１ー１、生年月日の人が既に登録されています。"
     patron_identifier: 人物団体の識別番号
-  message:
-    user_message: "%{login_name} さんのメッセージ"
-    sent_at: "送信時刻"
-    inbox: "受信箱"
-    write: "メッセージを作成"
-    outbox: "送信箱"
-    trash: "ごみ箱"
-    recipient: "宛て先"
-    receiver: "受信者"
-    sender: "送信者"
-    read: "既読"
-    unread: "未読"
-    deleted: "削除済み"
-    send: "メッセージを送信"
-    reply: "メッセージに返信"
-    delete: "メッセージを削除"
-    sent_successfully: "メッセージは正しく送信されました。"
-    no_new_message: "新しいメッセージはありません。"
-    too_short: "メッセージが短すぎます。最小 %{count} 文字以上必要です。"
-    too_long: "メッセージが長すぎます。最大 %{count} 文字までです。"
-    new_message_from_library: "%{library} から新しいお知らせが届いています"
-    messages_were_deleted: "メッセージは削除されました。"
-    select_messages: "メッセージを選択してください。"
   tag:
     popular_tag: "人気のあるタグ"
     my_tag: "自分のつけたタグ"
@@ -1954,10 +1917,6 @@ ja:
   inventory_file:
     not_in_catalog: "目録に存在しない資料"
     not_on_shelf: "書架に存在しない資料"
-  message_request:
-    not_sent: "送信待ち"
-    sent: "送信済み"
-    all: "全てのメッセージ"
   order:
     create_order_list: "発注リストを作成してください。"
     specify_purchase_request: "購入依頼を指定してください。"
