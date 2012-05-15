@@ -60,6 +60,11 @@ class LibrariesController < ApplicationController
     @library = Library.new
     @library.country = LibraryGroup.site_config.country
     prepare_options
+
+    respond_to do |format|
+      format.html # new.html.erb
+      format.json { render :json => @library }
+    end
   end
 
   # GET /libraries/1/edit
@@ -77,8 +82,7 @@ class LibrariesController < ApplicationController
         @library.save!
 
         respond_to do |format|
-          flash[:notice] = t('controller.successfully_created', :model => t('activerecord.models.library'))
-          format.html { redirect_to(@library) }
+          format.html { redirect_to @library, :notice => t('controller.successfully_created', :model => t('activerecord.models.library')) }
           format.json { render :json => @library, :status => :created }
         end
       end
@@ -104,8 +108,7 @@ class LibrariesController < ApplicationController
 
     respond_to do |format|
       if @library.update_attributes(params[:library])
-        flash[:notice] = t('controller.successfully_updated', :model => t('activerecord.models.library'))
-        format.html { redirect_to library_url(@library.name) }
+        format.html { redirect_to @library, :notice => t('controller.successfully_updated', :model => t('activerecord.models.library')) }
         format.json { head :no_content }
       else
         @library.name = @library.name_was

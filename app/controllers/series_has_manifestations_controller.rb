@@ -49,8 +49,7 @@ class SeriesHasManifestationsController < ApplicationController
   def create
     respond_to do |format|
       if @series_has_manifestation.save
-        flash[:notice] = t('controller.successfully_created', :model => t('activerecord.models.series_has_manifestation'))
-        format.html { redirect_to(@series_has_manifestation) }
+        format.html { redirect_to @series_has_manifestation, :notice => t('controller.successfully_created', :model => t('activerecord.models.series_has_manifestation')) }
         format.json { render :json => @series_has_manifestation, :status => :created, :location => @series_has_manifestation }
       else
         format.html { render :action => "new" }
@@ -64,8 +63,7 @@ class SeriesHasManifestationsController < ApplicationController
   def update
     respond_to do |format|
       if @series_has_manifestation.update_attributes(params[:series_has_manifestation])
-        flash[:notice] = t('controller.successfully_updated', :model => t('activerecord.models.series_has_manifestation'))
-        format.html { redirect_to(@series_has_manifestation) }
+        format.html { redirect_to @series_has_manifestation, :notice => t('controller.successfully_updated', :model => t('activerecord.models.series_has_manifestation')) }
         format.json { head :no_content }
       else
         format.html { render :action => "edit" }

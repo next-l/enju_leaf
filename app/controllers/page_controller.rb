@@ -12,6 +12,11 @@ class PageController < ApplicationController
     #@tags = Tag.all(:limit => 50, :order => 'taggings_count DESC')
     @tags = Bookmark.tag_counts.sort{|a,b| a.count <=> b.count}.reverse[0..49]
     @manifestation = Manifestation.pickup rescue nil
+
+    respond_to do |format|
+      format.html
+      format.json { render :json => user }
+    end
   end
 
   def msie_acceralator
@@ -46,7 +51,7 @@ class PageController < ApplicationController
   def export
     @title = t('page.export')
   end
- 
+
   def about
     @title = t('page.about_this_system')
   end

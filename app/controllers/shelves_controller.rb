@@ -56,6 +56,7 @@ class ShelvesController < ApplicationController
   end
 
   # GET /shelves/new
+  # GET /shelves/new.json
   def new
     @shelf = Shelf.new
   end
@@ -75,10 +76,10 @@ class ShelvesController < ApplicationController
 
     respond_to do |format|
       if @shelf.save
-        flash[:notice] = t('controller.successfully_created', :model => t('activerecord.models.shelf'))
-        format.html { redirect_to @shelf }
+        format.html { redirect_to @shelf, :notice => t('controller.successfully_created', :model => t('activerecord.models.shelf')) }
         format.json { render :json => @shelf, :status => :created, :location => @shelf }
       else
+        @library = Library.first if @shelf.library.nil?
         format.html { render :action => "new" }
         format.json { render :json => @shelf.errors, :status => :unprocessable_entity }
       end
@@ -101,8 +102,7 @@ class ShelvesController < ApplicationController
 
     respond_to do |format|
       if @shelf.update_attributes(params[:shelf])
-        flash[:notice] = t('controller.successfully_updated', :model => t('activerecord.models.shelf'))
-        format.html { redirect_to @shelf }
+        format.html { redirect_to @shelf, :notice => t('controller.successfully_updated', :model => t('activerecord.models.shelf')) }
         format.json { head :no_content }
       else
         format.html { render :action => "edit" }

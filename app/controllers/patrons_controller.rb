@@ -89,7 +89,7 @@ class PatronsController < ApplicationController
 
     respond_to do |format|
       format.html # index.html.erb
-      format.json { render :json => @patrons }
+      format.xml  { render :xml => @patrons }
       format.rss  { render :layout => false }
       format.atom
       format.json { render :json => @patrons }
