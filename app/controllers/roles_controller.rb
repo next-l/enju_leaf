@@ -1,7 +1,7 @@
 class RolesController < ApplicationController
   before_filter :check_client_ip_address
   load_and_authorize_resource
-  cache_sweeper :page_sweeper, :only => [:create, :update, :destroy]
+  cache_sweeper :page_sweeper, :only => :update
 
   # GET /roles
   # GET /roles.json

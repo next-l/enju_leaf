@@ -269,7 +269,7 @@ EnjuLeaf::Application.routes.draw do
 
   resources :user_has_roles, :only => [:index, :show]
 
-  resources :roles, :except => [:new, :create, :destroy]
+  resources :roles, :except => [:new, :create]
 
   resources :messages do
     collection do
