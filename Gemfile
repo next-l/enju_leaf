@@ -100,6 +100,7 @@ group :development do
   gem 'parallel_tests', '~> 0.8'
   gem 'annotate', '~> 2.4.1.beta1'
   gem 'sunspot_solr', '~> 2.0.0.pre.120417'
+  gem 'rails-erd'
 end
 
 gem 'simplecov', '~> 0.6', :require => false, :group => :test

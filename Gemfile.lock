@@ -7,7 +7,7 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_barcode.git
-  revision: 38aaad9e9a9aac2b17eb8458dc5cf13980b28274
+  revision: e1479ff0b4470d8e8ccd7da5d14a3eccbf0f9006
   specs:
     enju_barcode (0.0.2)
       barby (~> 0.5)
@@ -45,7 +45,7 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_circulation.git
-  revision: 81613d90d353ee5bcaeea66255ce4fa1c38ed84f
+  revision: 38076b4c05cc9646dc34d2faa66955781fcc67b8
   specs:
     enju_circulation (0.0.33)
       acts_as_list (~> 0.1.6)
@@ -66,7 +66,7 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_event.git
-  revision: cbab2a33b66fcba2cc2eca274150a50667ba198d
+  revision: a6751e9ee0f0c5078c84876953116b7529154abd
   specs:
     enju_event (0.1.5)
       acts_as_list (~> 0.1.6)
@@ -275,7 +275,7 @@ GIT
 
 GIT
   remote: git://github.com/next-l/enju_biblio.git
-  revision: 0690465c76c7bc5718e9eb9095a761c662cc4a5c
+  revision: 3de5a4721aea878193458687d8dc6aa193b11eae
   specs:
     enju_biblio (0.0.1)
       acts_as_list
@@ -334,7 +334,7 @@ GEM
       builder
       mime-types
       xml-simple
-    aws-sdk (1.5.1)
+    aws-sdk (1.5.2)
       httparty (~> 0.7)
       json (~> 1.4)
       nokogiri (>= 1.4.4)
@@ -417,6 +417,7 @@ GEM
     jquery-rails (2.0.2)
       railties (>= 3.2.0, < 5.0)
       thor (~> 0.14)
+    jruby-pageant (1.0.2)
     json (1.7.3)
     kgio (2.7.4)
     library_stdnums (1.1.0)
@@ -435,7 +436,8 @@ GEM
     multi_xml (0.5.1)
     net-sftp (2.0.5)
       net-ssh (>= 2.0.9)
-    net-ssh (2.3.0)
+    net-ssh (2.4.0)
+      jruby-pageant (>= 1.0.2)
     nokogiri (1.5.2)
     options (2.3.0)
       fattr
@@ -477,6 +479,10 @@ GEM
       activesupport (= 3.2.3)
       bundler (~> 1.0)
       railties (= 3.2.3)
+    rails-erd (0.4.5)
+      activerecord (~> 3.0)
+      activesupport (~> 3.0)
+      ruby-graphviz (~> 0.9.18)
     rails_autolink (1.0.7)
       rails (~> 3.1)
     railties (3.2.3)
@@ -508,6 +514,7 @@ GEM
       activesupport (>= 3.0)
       railties (>= 3.0)
       rspec (~> 2.10.0)
+    ruby-graphviz (0.9.21)
     ruby-prof (0.11.2)
     rubyzip (0.9.8)
     sanitize (2.0.3)
@@ -641,6 +648,7 @@ DEPENDENCIES
   progress_bar
   rack-protection
   rails (= 3.2.3)
+  rails-erd
   rails_autolink
   ri_cal
   rspec-rails (~> 2.10)

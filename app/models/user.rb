@@ -54,7 +54,6 @@ class User < ActiveRecord::Base
 
   extend FriendlyId
   friendly_id :username
-  #acts_as_tagger
   has_paper_trail
   normalize_attributes :username, :user_number #, :email
 
@@ -353,6 +352,7 @@ class User < ActiveRecord::Base
 
   if defined?(EnjuBookmark)
     has_many :bookmarks, :dependent => :destroy
+    acts_as_tagger
 
     def owned_tags_by_solr
       bookmark_ids = bookmarks.collect(&:id)
