@@ -76,7 +76,7 @@ GEM
       builder
       mime-types
       xml-simple
-    aws-sdk (1.5.1)
+    aws-sdk (1.5.2)
       httparty (~> 0.7)
       json (~> 1.4)
       nokogiri (>= 1.4.4)
@@ -135,7 +135,7 @@ GEM
       sunspot_rails
       sunspot_solr
       will_paginate (~> 3.0)
-    enju_circulation (0.0.33)
+    enju_circulation (0.0.34)
       acts_as_list (~> 0.1.6)
       attribute_normalizer (~> 1.1)
       cancan
@@ -306,6 +306,7 @@ GEM
     jquery-rails (2.0.2)
       railties (>= 3.2.0, < 5.0)
       thor (~> 0.14)
+    jruby-pageant (1.0.2)
     json (1.7.3)
     kgio (2.7.4)
     library_stdnums (1.1.0)
@@ -322,7 +323,8 @@ GEM
     multi_xml (0.5.1)
     net-sftp (2.0.5)
       net-ssh (>= 2.0.9)
-    net-ssh (2.3.0)
+    net-ssh (2.4.0)
+      jruby-pageant (>= 1.0.2)
     nokogiri (1.5.2)
     options (2.3.0)
       fattr
@@ -365,6 +367,10 @@ GEM
       activesupport (= 3.2.3)
       bundler (~> 1.0)
       railties (= 3.2.3)
+    rails-erd (0.4.5)
+      activerecord (~> 3.0)
+      activesupport (~> 3.0)
+      ruby-graphviz (~> 0.9.18)
     rails_autolink (1.0.7)
       rails (~> 3.1)
     railties (3.2.3)
@@ -396,6 +402,7 @@ GEM
       activesupport (>= 3.0)
       railties (>= 3.0)
       rspec (~> 2.10.0)
+    ruby-graphviz (0.9.21)
     ruby-prof (0.11.2)
     sanitize (2.0.3)
       nokogiri (>= 1.4.4, < 1.6)
@@ -481,7 +488,7 @@ DEPENDENCIES
   enju_barcode (~> 0.0.2)
   enju_book_jacket!
   enju_bookmark (~> 0.0.8)
-  enju_circulation (~> 0.0.33)
+  enju_circulation (~> 0.0.34)
   enju_event (~> 0.0.18)
   enju_inventory (~> 0.0.8)
   enju_manifestation_viewer!
@@ -518,6 +525,7 @@ DEPENDENCIES
   progress_bar
   rack-protection
   rails (= 3.2.3)
+  rails-erd
   rails_autolink
   ri_cal
   rspec-rails (~> 2.10)

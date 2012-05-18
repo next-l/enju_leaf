@@ -17,7 +17,7 @@ gem 'enju_purchase_request', '~> 0.0.8'
 gem 'enju_question', '~> 0.0.13'
 gem 'enju_bookmark', '~> 0.0.8'
 gem 'enju_resource_merge', '~> 0.0.8'
-gem 'enju_circulation', '~> 0.0.33'
+gem 'enju_circulation', '~> 0.0.34'
 gem 'enju_message', '~> 0.0.19'
 #gem 'enju_inter_library_loan', '>= 0.0.3'
 gem 'enju_inventory', '~> 0.0.8'
@@ -110,6 +110,7 @@ group :development do
   gem 'parallel_tests', '~> 0.8'
   gem 'annotate', '~> 2.4.1.beta1'
   gem 'sunspot_solr', '~> 2.0.0.pre.120417'
+  gem 'rails-erd'
 end
 
 group :development, :test do
