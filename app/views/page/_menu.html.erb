@@ -52,6 +52,10 @@
           <% if defined?(EnjuBookmark) %>
             <li><%= link_to t('page.listing', :model => t('activerecord.models.bookmark')), bookmarks_path -%></li>
           <% end %>
+        <%- else -%>
+          <% if defined?(EnjuBookmark) %>
+            <li><%= link_to t('page.listing', :model => t('activerecord.models.bookmark')), bookmarks_path -%></li>
+          <% end %>
         <%- end -%>
       </ul>
     </div>
@@ -64,29 +68,29 @@
       </ul>
     </div>
   <%- end -%>
-    <a tabindex="2" href="#request_menu" class="fg-button fg-button-icon-right ui-widget ui-state-default ui-corner-all" id="fg_request"><span class="ui-icon ui-icon-triangle-1-s"></span><%= t('page.request') -%></a>
-    <%- if user_signed_in? -%>
-      <div id="request_menu" class="hidden">
-        <ul>
-          <% if defined?(EnjuPurchaseRequest) %>
-            <li><%= link_to t('activerecord.models.purchase_request'), purchase_requests_path -%></li>
-          <% end %>
-          <% if defined?(EnjuQuestion) %>
-            <li><%= link_to t('activerecord.models.question'), questions_path -%></li>
-          <% end %>
-        </ul>
-      </div>
-    <%- else -%>
-      <div id="request_menu" class="hidden">
-        <ul>
-          <% if defined?(EnjuPurchaseRequest) %>
-            <li><%= link_to t('activerecord.models.purchase_request'), purchase_requests_path -%></li>
-          <% end %>
-          <% if defined?(EnjuQuestion) %>
-            <li><%= link_to t('activerecord.models.question'), questions_path -%></li>
-          <% end %>
-        </ul>
-      </div>
+  <a tabindex="2" href="#request_menu" class="fg-button fg-button-icon-right ui-widget ui-state-default ui-corner-all" id="fg_request"><span class="ui-icon ui-icon-triangle-1-s"></span><%= t('page.request') -%></a>
+  <%- if user_signed_in? -%>
+    <div id="request_menu" class="hidden">
+      <ul>
+        <% if defined?(EnjuPurchaseRequest) %>
+          <li><%= link_to t('activerecord.models.purchase_request'), purchase_requests_path -%></li>
+        <% end %>
+        <% if defined?(EnjuQuestion) %>
+          <li><%= link_to t('activerecord.models.question'), questions_path -%></li>
+        <% end %>
+      </ul>
+    </div>
+  <%- else -%>
+    <div id="request_menu" class="hidden">
+      <ul>
+        <% if defined?(EnjuPurchaseRequest) %>
+          <li><%= link_to t('activerecord.models.purchase_request'), purchase_requests_path -%></li>
+        <% end %>
+        <% if defined?(EnjuQuestion) %>
+          <li><%= link_to t('activerecord.models.question'), questions_path -%></li>
+        <% end %>
+      </ul>
+    </div>
   <%- end -%>
   <a tabindex="3" href="#event_menu" class="fg-button fg-button-icon-right ui-widget ui-state-default ui-corner-all" id="fg_event"><span class="ui-icon ui-icon-triangle-1-s"></span><%= t('activerecord.models.event') -%></a>
   <div id="event_menu" class="hidden">
