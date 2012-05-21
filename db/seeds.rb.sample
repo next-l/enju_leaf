@@ -24,6 +24,7 @@ end
 
 Patron.reindex
 Library.reindex
+Shelf.reindex
 
 user = User.new
 user.username = username
