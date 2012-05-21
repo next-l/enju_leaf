@@ -504,7 +504,7 @@ class Ability
           UserGroupHasCheckoutType
         ]
       when 'User'
-        can [:index, :create], Checkout
+        can [:index, :create, :remove_all], Checkout
         can [:show, :update, :destroy], Checkout do |checkout|
           checkout.user == user
         end

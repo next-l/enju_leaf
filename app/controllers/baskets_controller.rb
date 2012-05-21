@@ -69,8 +69,15 @@ class BasketsController < ApplicationController
   # PUT /baskets/1.json
   def update
     librarian = current_user
-    unless @basket.basket_checkout(librarian)
-      redirect_to basket_checked_items_url(@basket)
+    begin
+      unless @basket.basket_checkout(librarian)
+        redirect_to new_basket_checked_item_url(@basket)
+        return
+      end
+    rescue ActiveRecord::RecordInvalid
+      flash[:message] = t('checked_item.already_checked_out_try_again')
+      @basket.checked_items.delete_all
+      redirect_to new_basket_checked_item_url(@basket)
       return
     end
 

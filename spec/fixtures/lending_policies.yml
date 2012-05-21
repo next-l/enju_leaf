@@ -6,7 +6,7 @@ lending_policy_00001:
   loan_period: 1
   fixed_due_date: 
   renewal: 1
-  fine: 9.99
+  fine: 10
   note: MyText
   position: 1
 lending_policy_00002:
@@ -15,7 +15,7 @@ lending_policy_00002:
   loan_period: 1
   fixed_due_date: 
   renewal: 1
-  fine: 9.99
+  fine: 10
   note: MyText
   position: 2
 lending_policy_00003:
@@ -24,7 +24,7 @@ lending_policy_00003:
   loan_period: 1
   fixed_due_date: 
   renewal: 1
-  fine: 9.99
+  fine: 10
   note: MyText
   position: 1
 lending_policy_00004:
@@ -33,7 +33,7 @@ lending_policy_00004:
   loan_period: 1
   fixed_due_date: 
   renewal: 1
-  fine: 9.99
+  fine: 10
   note: MyText
   position: 1
 lending_policy_00005:
@@ -42,7 +42,7 @@ lending_policy_00005:
   loan_period: 1
   fixed_due_date: 
   renewal: 1
-  fine: 9.99
+  fine: 10
   note: MyText
   position: 1
 lending_policy_00006:
@@ -51,7 +51,9 @@ lending_policy_00006:
   loan_period: 1
   fixed_due_date: 
   renewal: 1
-  fine: 9.99
+  fine: 10
+  note: MyText
+  position: 1
   note: MyText
   position: 1
 lending_policy_00007:
@@ -60,9 +62,16 @@ lending_policy_00007:
   loan_period: 1
   fixed_due_date: 
   renewal: 1
-  fine: 9.99
+  fine: 10
   note: MyText
   position: 1
+lending_policy_00008:
+  item_id: 11
+  user_group_id: 2
+  loan_period: 1
+  fixed_due_date: 
+  renewal: 1
+  fine: 10
 
 # == Schema Information
 #
@@ -74,7 +83,7 @@ lending_policy_00007:
 #  loan_period    :integer         default(0), not null
 #  fixed_due_date :datetime
 #  renewal        :integer         default(0), not null
-#  fine           :decimal(, )     default(0.0), not null
+#  fine           :integer         default(0.0), not null
 #  note           :text
 #  position       :integer
 #  created_at     :datetime

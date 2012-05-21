@@ -6,7 +6,7 @@ class CreateLendingPolicies < ActiveRecord::Migration
       t.integer :loan_period, :default => 0, :null => false
       t.datetime :fixed_due_date
       t.integer :renewal, :default => 0, :null => false
-      t.decimal :fine, :default => 0, :null => false
+      t.integer :fine, :default => 0, :null => false
       t.text :note
       t.integer :position
 
