@@ -44,6 +44,8 @@
       <% if shelf.closed? %>
         <%= t('activerecord.attributes.shelf.closed') %>
       <% end %>
+      <br />
+      <%= shelf.library.name if can? :update, shelf.library %>
     </td>
     <td>
       <%- if can? :update, shelf -%>
