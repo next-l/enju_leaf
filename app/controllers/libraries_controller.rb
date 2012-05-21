@@ -17,15 +17,11 @@ class LibrariesController < ApplicationController
     query = @query = params[:query].to_s.strip
     page = params[:page] || 1
 
-    if query.present?
-      @libraries = Library.search(:include => [:shelves]) do
-        fulltext query
-        paginate :page => page.to_i, :per_page => Library.per_page
-        order_by sort[:sort_by], sort[:order]
-      end.results
-    else
-      @libraries = Library.order("#{sort[:sort_by]} #{sort[:order]}").page(page)
-    end
+    @libraries = Library.search(:include => [:shelves]) do
+      fulltext query if query.present?
+      paginate :page => page.to_i, :per_page => Library.per_page
+      order_by sort[:sort_by], sort[:order]
+    end.results
 
     respond_to do |format|
       format.html # index.html.erb
