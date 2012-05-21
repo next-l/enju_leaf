@@ -16,11 +16,30 @@ class ShelvesController < ApplicationController
       render :partial => 'select_form'
       return
     else
-      if @library
-        @shelves = @library.shelves.order('shelves.position').includes(:library).page(params[:page])
-      else
-        @shelves = Shelf.order('shelves.position').includes(:library).page(params[:page])
+      sort = {:sort_by => 'name', :order => 'asc'}
+      #case params[:sort_by]
+      #when 'name'
+      #  sort[:sort_by] = 'name'
+      #end
+      sort[:order] = 'desc' if params[:order] == 'desc'
+
+      query = @query = params[:query].to_s.strip
+      page = params[:page] || 1
+      library = @library if @library
+
+      search = Shelf.search(:include => [:library]) do
+        fulltext query if query.present?
+        paginate :page => page.to_i, :per_page => Shelf.per_page
+        if library
+          with(:library).equal_to library.name
+          order_by :position, :asc
+        end
+        order_by sort[:sort_by], sort[:order]
+        facet :library
       end
+      @shelves = search.results
+      @library_facet = search.facet(:library).rows
+      @library_names = Library.select(:name).collect(&:name)
     end
 
     respond_to do |format|

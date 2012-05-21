@@ -12,6 +12,17 @@ class Shelf < ActiveRecord::Base
 
   acts_as_list :scope => :library
 
+  searchable do
+    string :name
+    string :library do
+      library.name
+    end
+    text :display_name do
+      [display_name, library.display_name]
+    end
+    integer :position
+  end
+
   def self.per_page
     10
   end

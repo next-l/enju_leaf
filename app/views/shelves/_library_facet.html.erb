@@ -1,0 +1,12 @@
+<h4><%= t('activerecord.models.library') -%></h4>
+<ul>
+  <%- @library_facet.each do |facet| -%>
+    <%- library = Library.where(:name => facet.value).select([:name, :display_name]).first -%>
+    <li>
+      <%= library_facet(library, @library, facet) %>
+    </li>
+  <%- end -%>
+  <%- if params[:library_id] -%>
+    <li><%= link_to t('page.remove_this_facet'), url_for(params.merge(:library_id => nil, :page => nil)) -%></li>
+  <%- end -%>
+</ul>

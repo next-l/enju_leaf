@@ -33,7 +33,7 @@
 <%- @libraries.each_with_index do |library, i| -%>
   <tr class="line<%= cycle("0", "1") -%>">
     <td>
-      <%- if can? :update, library -%>
+      <%- if can?(:update, library) and params[:query].blank? -%>
         <%= library.first? ? image_tag('icons/stop.png', :size => '16x16') : link_to(image_tag('icons/arrow_up.png', :size => '16x16', :alt => t('page.asc')), {:action => 'update', :move => 'higher', :id => library.name}, :method => :put) -%>
         <%= library.last? ? image_tag('icons/stop.png', :size => '16x16') : link_to(image_tag('icons/arrow_down.png', :size => '16x16', :alt => t('page.desc')), {:action => 'update', :move => 'lower', :id => library.name}, :method => :put) -%>
       <%- end -%>
@@ -61,6 +61,7 @@
   </tr>
 <%- end -%>
 </table>
+<%= will_paginate(@libraries) %>
 
 </div>
 </div>
