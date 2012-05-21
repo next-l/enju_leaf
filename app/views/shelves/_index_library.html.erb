@@ -19,6 +19,9 @@
     </td>
     <td>
       <%= link_to shelf.display_name.localize, shelf -%>
+      <% if shelf.closed? %>
+        <%= t('activerecord.attributes.shelf.closed') %>
+      <% end %>
       <br />
       <%= shelf.name if can? :update, shelf %>
     </td>
