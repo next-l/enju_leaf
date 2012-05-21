@@ -17,8 +17,8 @@ class Shelf < ActiveRecord::Base
     string :library do
       library.name
     end
-    text :display_name do
-      [display_name, library.display_name]
+    text :name do
+      [name, library.name, display_name, library.display_name]
     end
     integer :position
   end
