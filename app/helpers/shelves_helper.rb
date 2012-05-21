@@ -1,5 +1,5 @@
 module ShelvesHelper
-  def library_facet(library, current_library, facet)
+  def library_shelf_facet(library, current_library, facet)
     string = ''
     current = true if current_library.try(:name) == library.name
     string << "<strong>" if current
