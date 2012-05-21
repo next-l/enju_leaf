@@ -52,10 +52,6 @@ class DeviseCreateUsers < ActiveRecord::Migration
       t.string :state
       #t.integer :required_score, :default => 0, :null => false
       t.string :locale
-
-      #t.integer :bookmarks_count, :default => 0, :null => false
-      #t.boolean :share_bookmarks, :default => false, :null => false
-      #t.boolean :save_search_history, :default => false, :null => false
     end
     add_index :users, :email,                :unique => true
     add_index :users, :reset_password_token, :unique => true

@@ -9,7 +9,7 @@
 *   http://en.wikipedia.org/wiki/MIT_License
 *   http://en.wikipedia.org/wiki/GNU_General_Public_License
 *
-* Date: Thu Apr 26 12:17:04.0000000000 2012
+* Date: Sat May 19 09:45:07.0000000000 2012
 */
 
 /*jslint browser: true, onevar: true, undef: true, nomen: true, bitwise: true, regexp: true, newcap: true, immed: true, strict: true */
@@ -1623,7 +1623,8 @@ function init(id, opts)
 
 	// Remove title attribute and store it if present
 	if(config.suppress && (title = $.attr(this, 'title'))) {
-		$(this).removeAttr('title').attr(oldtitle, title);
+		// Final attr call fixes event delegatiom and IE default tooltip showing problem
+		$(this).removeAttr('title').attr(oldtitle, title).attr('title', '');
 	}
 
 	// Initialize the tooltip and add API reference

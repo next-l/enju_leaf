@@ -7,13 +7,13 @@ describe ShelvesController do
     FactoryGirl.attributes_for(:shelf)
   end
 
-  describe "GET index" do
+  describe "GET index", :solr => true do
     describe "When logged in as Administrator" do
       login_admin
 
       it "assigns all shelves as @shelves" do
         get :index
-        assigns(:shelves).should eq(Shelf.order('shelves.position').includes(:library).page(1))
+        assigns(:shelves).should_not be_empty
       end
     end
 
@@ -22,7 +22,7 @@ describe ShelvesController do
 
       it "assigns all shelves as @shelves" do
         get :index
-        assigns(:shelves).should eq(Shelf.order('shelves.position').includes(:library).page(1))
+        assigns(:shelves).should_not be_empty
       end
     end
 
@@ -31,14 +31,14 @@ describe ShelvesController do
 
       it "assigns all shelves as @shelves" do
         get :index
-        assigns(:shelves).should eq(Shelf.order('shelves.position').includes(:library).page(1))
+        assigns(:shelves).should_not be_empty
       end
     end
 
     describe "When not logged in" do
       it "assigns all shelves as @shelves" do
         get :index
-        assigns(:shelves).should eq(Shelf.order('shelves.position').includes(:library).page(1))
+        assigns(:shelves).should_not be_empty
         response.should be_success
       end
 
