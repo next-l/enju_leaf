@@ -121,7 +121,7 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_manifestation_viewer.git
-  revision: 5106e94c0dc4cf7fff59a98f5521debd75c14db5
+  revision: d6c133a24e768b87cd3ab9a28aa4448572b0adb6
   specs:
     enju_manifestation_viewer (0.0.1)
       addressable
@@ -401,7 +401,7 @@ GEM
     guard (1.0.3)
       ffi (>= 0.5.0)
       thor (>= 0.14.6)
-    guard-rspec (0.7.2)
+    guard-rspec (0.7.3)
       guard (>= 0.10.0)
     has_scope (0.5.1)
     highline (1.6.12)
