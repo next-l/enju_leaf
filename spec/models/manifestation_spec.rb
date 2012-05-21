@@ -290,5 +290,6 @@ end
 #  attachment_fingerprint          :string(255)
 #  attachment_meta                 :text
 #  month_of_publication            :integer
+#  online_isbn                     :string(255)
 #
 
