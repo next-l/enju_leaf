@@ -3,7 +3,7 @@
   <%- @library_facet.each do |facet| -%>
     <%- library = Library.where(:name => facet.value).select([:name, :display_name]).first -%>
     <li>
-      <%= library_facet(library, @library, facet) %>
+      <%= library_shelf_facet(library, @library, facet) %>
     </li>
   <%- end -%>
   <%- if params[:library_id] -%>
