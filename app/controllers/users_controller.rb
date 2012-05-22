@@ -7,6 +7,8 @@ class UsersController < ApplicationController
   after_filter :solr_commit, :only => [:create, :update, :destroy]
   cache_sweeper :user_sweeper, :only => [:create, :update, :destroy]
 
+  # GET /users
+  # GET /users.json
   def index
     query = flash[:query] = params[:query].to_s
     @query = query.dup
@@ -44,6 +46,8 @@ class UsersController < ApplicationController
     end
   end
 
+  # GET /users/1
+  # GET /users/1.json
   def show
     if @user == current_user
       redirect_to my_account_url
@@ -66,6 +70,8 @@ class UsersController < ApplicationController
     end
   end
 
+  # GET /users/new
+  # GET /users/new.json
   def new
     unless current_user.try(:has_role?, 'Librarian')
       access_denied; return
@@ -83,12 +89,12 @@ class UsersController < ApplicationController
     @user.locale = current_user.locale
   end
 
+  # GET /patrons/1/edit
   def edit
     if @user == current_user
       redirect_to edit_my_account_url
       return
     end
-    @user.role_id = @user.role.id
 
     if defined?(EnjuCirculation)
       if params[:mode] == 'feed_token'
@@ -104,6 +110,8 @@ class UsersController < ApplicationController
     prepare_options
   end
 
+  # POST /users
+  # POST /users.json
   def create
     @user = User.create_with_params(params[:user], current_user)
     @user.set_auto_generated_password
@@ -113,7 +121,6 @@ class UsersController < ApplicationController
       if @user.save
         flash[:temporary_password] = @user.password
         format.html { redirect_to @user, :notice => t('controller.successfully_created.', :model => t('activerecord.models.user')) }
-        #format.html { redirect_to new_user_patron_url(@user) }
         format.json { render :json => @user, :status => :created, :location => @user }
       else
         prepare_options
@@ -124,6 +131,8 @@ class UsersController < ApplicationController
     end
   end
 
+  # PUT /users/1
+  # PUT /users/1.json
   def update
     @user.update_with_params(params[:user], current_user)
     if params[:user][:auto_generated_password] == "1"
@@ -131,14 +140,6 @@ class UsersController < ApplicationController
       flash[:temporary_password] = @user.password
     end
 
-    if current_user.has_role?('Administrator')
-      if @user.role_id
-        role = Role.find(@user.role_id)
-        @user.role = role
-      end
-    end
-
-    #@user.save do |result|
     respond_to do |format|
       @user.save
       if @user.errors.empty?
@@ -152,6 +153,8 @@ class UsersController < ApplicationController
     end
   end
 
+  # DELETE /users/1
+  # DELETE /users/1.json
   def destroy
     if @user.deletable_by(current_user)
       @user.destroy

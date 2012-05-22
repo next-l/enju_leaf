@@ -170,9 +170,6 @@ class ItemsController < ApplicationController
     respond_to do |format|
       if @item.save
         Item.transaction do
-          if @item.shelf
-            @item.shelf.library.patron.items << @item
-          end
           if defined?(EnjuCirculation)
             if @item.reserved?
               flash[:message] = t('item.this_item_is_reserved')

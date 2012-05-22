@@ -97,7 +97,7 @@ describe UsersController do
       end
 
       it "should not update other user's role" do
-        put :update, :id => users(:user1).username, :user => {:role_id => 4, :locale => 'en'}
+        put :update, :id => users(:user1).username, :user => {:user_has_role_attributes => {:role_id => 4}, :locale => 'en'}
         assert_redirected_to user_url(assigns(:user))
         assigns(:user).role.should_not eq Role.find_by_name('Administrator')
       end
@@ -321,8 +321,8 @@ describe UsersController do
         end
       end
 
-      it "should update other ueer's role" do
-        put :update, :id => users(:user1).username, :user => {:role_id => 4, :locale => 'en'}
+      it "should update other user's role" do
+        put :update, :id => users(:user1).username, :user => {:user_has_role_attributes => {:role_id => 4}, :locale => 'en'}
         response.should redirect_to user_url(assigns(:user))
         assigns(:user).role.should eq Role.find_by_name('Administrator')
       end
@@ -419,7 +419,7 @@ describe UsersController do
       end
 
       it "should not update my role" do
-        put :update, :id => users(:user1).username, :user => {:role_id => 4}
+        put :update, :id => users(:user1).username, :user => {:user_has_role_attributes => {:role_id => 4}}
         response.should redirect_to user_url(assigns(:user))
         assigns(:user).role.should_not eq Role.find_by_name('Administrator')
       end

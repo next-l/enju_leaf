@@ -8,7 +8,7 @@ class User < ActiveRecord::Base
   # Setup accessible (or protected) attributes for your model
   attr_accessible :email, :password, :password_confirmation, :username, :current_password, :user_number, :remember_me,
     :email_confirmation, :note, :user_group_id, :library_id, :locale, :expired_at, :locked, :required_role_id, :role_id,
-    :keyword_list #, :as => :admin
+    :keyword_list, :user_has_role_attributes #, :as => :admin
 
   scope :administrators, where('roles.name = ?', 'Administrator').includes(:role)
   scope :librarians, where('roles.name = ? OR roles.name = ?', 'Administrator', 'Librarian').includes(:role)
@@ -24,6 +24,7 @@ class User < ActiveRecord::Base
   belongs_to :user_group
   belongs_to :required_role, :class_name => 'Role', :foreign_key => 'required_role_id' #, :validate => true
   #has_one :patron_import_result
+  accepts_nested_attributes_for :user_has_role
 
   validates :username, :presence => true, :uniqueness => true
   validates_uniqueness_of :email, :scope => authentication_keys[1..-1], :case_sensitive => false, :allow_blank => true
@@ -78,7 +79,7 @@ class User < ActiveRecord::Base
     :first_name_transcription, :middle_name_transcription,
     :last_name_transcription, :full_name_transcription,
     :zip_code, :address, :telephone_number, :fax_number, :address_note,
-    :role_id, :operator, :password_not_verified,
+    :operator, :password_not_verified,
     :update_own_account, :auto_generated_password,
     :locked, :current_password #, :patron_id
 
@@ -229,11 +230,13 @@ class User < ActiveRecord::Base
     user.assign_attributes(params)
     #user_group_id = params[:user_group_id] ||= 1
     user.library_id = params[:library_id] ||= 1
-    user.role_id = params[:role_id] ||= 1
     user.required_role_id = params[:required_role_id] ||= 1
     user.keyword_list = params[:keyword_list]
     user.user_number = params[:user_number]
     user.locale = params[:locale]
+    if current_user.has_role?('Administrator') and params[:user_has_role_attributes]
+      user.role = Role.find(params[:user_has_role_attributes][:role_id])
+    end
     if defined?(EnjuCirculation)
       user.save_checkout_history = params[:save_checkout_history] ||= false
     end
@@ -264,12 +267,14 @@ class User < ActiveRecord::Base
       self.note = params[:note]
       self.user_group_id = params[:user_group_id] || 1
       self.library_id = params[:library_id] || 1
-      self.role_id = params[:role_id]
       self.required_role_id = params[:required_role_id] || 1
       self.user_number = params[:user_number]
       self.locale = params[:locale]
       self.locked = params[:locked]
       self.expired_at = params[:expired_at]
+    end
+    if current_user.has_role?('Administrator') and params[:user_has_role_attributes]
+      self.role = Role.find(params[:user_has_role_attributes][:role_id])
     end
     self
   end

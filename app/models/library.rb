@@ -5,8 +5,6 @@ class Library < ActiveRecord::Base
   scope :real, where('id != 1')
   has_many :shelves, :order => 'shelves.position'
   belongs_to :library_group, :validate => true
-  #belongs_to :holding_patron, :polymorphic => true, :validate => true
-  belongs_to :patron #, :validate => true
   has_many :users
   belongs_to :country
 
@@ -21,15 +19,13 @@ class Library < ActiveRecord::Base
     integer :position
   end
 
-  #validates_associated :library_group, :holding_patron
-  validates_associated :library_group, :patron
-  validates_presence_of :short_display_name, :library_group, :patron
+  validates_associated :library_group
+  validates_presence_of :short_display_name, :library_group
   validates_uniqueness_of :short_display_name, :case_sensitive => false
   validates_uniqueness_of :isil, :allow_blank => true
   validates :display_name, :uniqueness => true
   validates :name, :format => {:with => /^[a-z][0-9a-z]{2,254}$/}
   validates :isil, :format => {:with => /^[A-Za-z]{1,4}-[A-Za-z0-9\/:\-]{2,11}$/}, :allow_blank => true
-  before_validation :set_patron, :on => :create
   #before_save :set_calil_neighborhood_library
   after_validation :geocode, :if => :address_changed?
   after_create :create_shelf
@@ -50,12 +46,6 @@ class Library < ActiveRecord::Base
 
   def clear_all_cache
     Rails.cache.delete('library_all')
-  end
-
-  def set_patron
-    self.patron = Patron.new(
-      :full_name => self.name
-    )
   end
 
   def create_shelf
@@ -105,8 +95,6 @@ end
 # Table name: libraries
 #
 #  id                    :integer         not null, primary key
-#  patron_id             :integer
-#  patron_type           :string(255)
 #  name                  :string(255)     not null
 #  display_name          :text
 #  short_display_name    :string(255)     not null
