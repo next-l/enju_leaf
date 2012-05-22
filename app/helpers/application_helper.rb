@@ -101,7 +101,7 @@ module ApplicationHelper
         if i == 0
           link += link_to(show_image(picture_file, :size => :thumb), picture_file_path(picture_file, :format => :download), :rel => "manifestation_#{manifestation.id}")
         else
-          link += content_tag :span, :class => "display: none" do
+          link += content_tag :span, :style => "display: none" do
             link_to(show_image(picture_file, :size => :thumb), picture_file_path(picture_file, :format => :download), :rel => "manifestation_#{manifestation.id}")
           end
         end
