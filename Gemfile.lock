@@ -234,9 +234,9 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_search_log.git
-  revision: 097264bfc974a97ccb4b8f8070c93bddf1c4d7c1
+  revision: f1b432ec3126c0d3004e8553cd7e11eb8486136c
   specs:
-    enju_search_log (0.0.3)
+    enju_search_log (0.0.4)
       cancan
       devise
       rails (~> 3.2)
@@ -275,7 +275,7 @@ GIT
 
 GIT
   remote: git://github.com/next-l/enju_biblio.git
-  revision: 5d45e098929f92250880d34e4a6483555a7d578f
+  revision: f57b177b1f12f92c21c5650889657bcdf09e2a19
   specs:
     enju_biblio (0.0.1)
       acts_as_list

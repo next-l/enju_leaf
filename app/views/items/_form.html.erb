@@ -12,23 +12,25 @@
 
   <% if defined?(EnjuCirculation) %>
     <div class="field">
-      <%= f.label t('activerecord.models.checkout_type') -%><br />
+      <%= f.label t('activerecord.models.checkout_type') -%>
       <%= f.select(:checkout_type_id, @checkout_types.collect{|c| [c.display_name.localize, c.id]}) -%>
     </div>
 
     <div class="field">
-      <%= f.label t('activerecord.models.circulation_status') -%><br />
+      <%= f.label t('activerecord.models.circulation_status') -%>
       <%= f.select(:circulation_status_id, @circulation_statuses.collect{|c| [c.display_name.localize, c.id]}) -%>
     </div>
 
     <div class="field">
       <%= f.label t('activerecord.models.use_restriction') -%>
-      <%= f.select(:use_restriction_id, @use_restrictions.collect{|u| [u.display_name.localize, u.id]}) -%>
+      <%= f.fields_for :item_has_use_restriction do |i| %>
+        <%= i.select :use_restriction_id, @use_restrictions.collect{|r| [r.display_name.localize, r.id]}, :include_blank => true %>
+      <% end %>
     </div>
   <% end %>
 
   <div class="field">
-    <%= f.label :call_number -%><br />
+    <%= f.label :call_number -%>
     <%= f.text_field :call_number -%>
   </div>
 
@@ -43,7 +45,7 @@
   </div>
 
   <div class="field">
-    <%= f.label :price -%><br />
+    <%= f.label :price -%>
     <%= f.text_field :price -%>
   </div>
 
@@ -73,7 +75,7 @@
   </div>
 
   <div class="field">
-    <%= f.label :item_identifier -%><br />
+    <%= f.label :item_identifier -%>
     <%= f.text_field :item_identifier, :class => 'resource_identifier' -%>
   </div>
 

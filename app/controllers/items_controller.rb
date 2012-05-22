@@ -120,6 +120,7 @@ class ItemsController < ApplicationController
   end
 
   # GET /items/new
+  # GET /items/new.json
   def new
     if Shelf.real.blank?
       flash[:notice] = t('item.create_shelf_first')
@@ -145,7 +146,7 @@ class ItemsController < ApplicationController
       ).order(:position)
       @item.circulation_status = CirculationStatus.where(:name => 'In Process').first
       @item.checkout_type = @manifestation.carrier_type.checkout_types.first
-      @item.use_restriction_id = UseRestriction.where(:name => 'Limited Circulation, Normal Loan Period').select(:id).first.id
+      @item.item_has_use_restriction = ItemHasUseRestriction.new(:use_restriction => UseRestriction.where(:name => 'Not For Loan').first)
     end
 
     respond_to do |format|
@@ -157,9 +158,6 @@ class ItemsController < ApplicationController
   # GET /items/1/edit
   def edit
     @item.library_id = @item.shelf.library_id
-    if defined?(EnjuCirculation)
-      @item.use_restriction_id = @item.use_restriction.id if @item.use_restriction
-    end
   end
 
   # POST /items
