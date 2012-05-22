@@ -12,7 +12,6 @@ class MyAccountsController < ApplicationController
 
   def edit
     @user = current_user
-    @user.role_id = @user.role.id
     if defined?(EnjuCirculation)
       if params[:mode] == 'feed_token'
         if params[:disable] == 'true'

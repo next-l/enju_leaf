@@ -65,7 +65,7 @@ describe Manifestation, :solr => true do
   it "should search issn in openurl" do
     openurl = Openurl.new({:api => "openurl", :issn => "1234"})
     results = openurl.search
-    openurl.query_text.should eq "issn_s:1234*"
+    openurl.query_text.should eq "issn_sm:1234*"
     results.size.should eq 2
   end
 
