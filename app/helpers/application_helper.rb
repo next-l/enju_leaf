@@ -72,16 +72,15 @@ module ApplicationHelper
     end
     divisor = ((max - min).div(classes.size)) + 1
 
-    html =    %(<div class="hTagcloud">\n)
-    html <<   %(  <ul class="popularity">\n)
-    tags.each do |tag|
-      html << %(  <li>)
-      html << link_to(tag.name, manifestations_path(:tag => tag.name), :class => classes[(tag.taggings.size - min).div(divisor)])
-      html << %(  </li>\n) # FIXME: IEのために文末の空白を入れている
+    content_tag :div, :class => "hTagcloud" do
+      content_tag :ul, :class => "popularity" do
+        tags.each do |tag|
+          content_tag :li do
+            link_to(tag.name, manifestations_path(:tag => tag.name), :class => classes[(tag.taggings.size - min).div(divisor)])
+          end
+        end
+      end
     end
-    html <<   %(  </ul>\n)
-    html <<   %(</div>\n)
-    html.html_safe
   end
 
   def patrons_list(patrons = [], options = {})
@@ -102,7 +101,9 @@ module ApplicationHelper
         if i == 0
           link += link_to(show_image(picture_file, :size => :thumb), picture_file_path(picture_file, :format => :download), :rel => "manifestation_#{manifestation.id}")
         else
-          link += '<span style="display: none">' + link_to(show_image(picture_file, :size => :thumb), picture_file_path(picture_file, :format => :download), :rel => "manifestation_#{manifestation.id}") + '</span>'
+          link += content_tag :span, :class => "display: none" do
+            link_to(show_image(picture_file, :size => :thumb), picture_file_path(picture_file, :format => :download), :rel => "manifestation_#{manifestation.id}")
+          end
         end
       end
       return link.html_safe
@@ -117,8 +118,6 @@ module ApplicationHelper
       link = link_to image_tag('unknown_resource.png', :width => '100', :height => '100', :alt => '*', :itemprop => 'image'), manifestation
     end
     link
-  #rescue NoMethodError
-  #  nil
   end
 
   def database_adapter

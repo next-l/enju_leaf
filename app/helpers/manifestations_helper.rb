@@ -67,19 +67,25 @@ module ManifestationsHelper
     string = ''
     languages = current_languages.dup
     current = true if languages.include?(language.name)
-    string << "<strong>" if current
-    string << link_to("#{language.display_name.localize} (" + facet.count.to_s + ")", url_for(params.merge(:page => nil, :language => language.name, :carrier_type => nil, :view => nil)))
-    string << "</strong>" if current
-    string.html_safe
+    if current
+      content_tag :strong do
+        link_to("#{language.display_name.localize} (" + facet.count.to_s + ")", url_for(params.merge(:page => nil, :language => language.name, :carrier_type => nil, :view => nil)))
+      end
+    else
+      link_to("#{language.display_name.localize} (" + facet.count.to_s + ")", url_for(params.merge(:page => nil, :language => language.name, :carrier_type => nil, :view => nil)))
+    end
   end
 
   def library_facet(library, current_libraries, facet)
     string = ''
     current = true if current_libraries.include?(library.name)
-    string << "<strong>" if current
-    string << link_to("#{library.display_name.localize} (" + facet.count.to_s + ")", url_for(params.merge(:page => nil, :library => (current_libraries << library.name).uniq.join(' '), :view => nil)))
-    string << "</strong>" if current
-    string.html_safe
+    if current
+      content_tag :strong do
+        link_to("#{library.display_name.localize} (" + facet.count.to_s + ")", url_for(params.merge(:page => nil, :library => (current_libraries << library.name).uniq.join(' '), :view => nil)))
+      end
+    else
+      link_to("#{library.display_name.localize} (" + facet.count.to_s + ")", url_for(params.merge(:page => nil, :library => (current_libraries << library.name).uniq.join(' '), :view => nil)))
+    end
   end
 
   def carrier_type_facet(facet)
@@ -88,10 +94,13 @@ module ManifestationsHelper
     if carrier_type
       string << form_icon(carrier_type)
       current = true if params[:carrier_type] == carrier_type.name
-      string << '<strong>' if current
-      string << link_to("#{carrier_type.display_name.localize} (" + facet.count.to_s + ")", url_for(params.merge(:carrier_type => carrier_type.name, :page => nil, :view => nil)))
-      string << '</strong>' if current
-      string.html_safe
+      if current
+        content_tag :strong do
+          link_to("#{carrier_type.display_name.localize} (" + facet.count.to_s + ")", url_for(params.merge(:carrier_type => carrier_type.name, :page => nil, :view => nil)))
+        end
+      else
+        link_to("#{carrier_type.display_name.localize} (" + facet.count.to_s + ")", url_for(params.merge(:carrier_type => carrier_type.name, :page => nil, :view => nil)))
+      end
     end
   end
 
