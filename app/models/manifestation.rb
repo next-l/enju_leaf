@@ -48,7 +48,13 @@ class Manifestation < ActiveRecord::Base
     string :isbn, :multiple => true do
       [isbn, isbn10, wrong_isbn]
     end
-    string :issn
+    string :issn, :multiple => true do
+      if periodical_master?
+        series_statement.manifestations.collect{|m| m.issn}.compact
+      else
+        [issn, series_statement.try(:issn)].compact
+      end
+    end
     string :lccn
     string :nbn
     string :carrier_type do

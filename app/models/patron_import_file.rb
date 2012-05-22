@@ -86,7 +86,8 @@ class PatronImportFile < ActiveRecord::Base
         if user.password.blank?
           user.set_auto_generated_password
         end
-        if user.save!
+        user.role = Role.where(:name => 'User').first
+        if user.save
           import_result.user = user
         end
         num[:user_imported] += 1
