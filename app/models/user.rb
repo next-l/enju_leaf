@@ -235,7 +235,8 @@ class User < ActiveRecord::Base
     user.user_number = params[:user_number]
     user.locale = params[:locale]
     if current_user.has_role?('Administrator') and params[:user_has_role_attributes]
-      user.role = Role.find(params[:user_has_role_attributes][:role_id])
+      role = Role.where(:id => params[:user_has_role_attributes][:role_id]).first
+      user.role = role if role
     end
     if defined?(EnjuCirculation)
       user.save_checkout_history = params[:save_checkout_history] ||= false
@@ -275,7 +276,8 @@ class User < ActiveRecord::Base
       self.expired_at = params[:expired_at]
     end
     if current_user.has_role?('Administrator') and params[:user_has_role_attributes]
-      self.role = Role.find(params[:user_has_role_attributes][:role_id])
+      role = Role.where(:id => params[:user_has_role_attributes][:role_id]).first
+      self.role = role if role
     end
     self
   end
