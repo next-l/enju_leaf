@@ -61,12 +61,14 @@ class PatronsController < ApplicationController
     unless params[:mode] == 'add'
       user = @user
       work = @work
+      expression = @expression
       manifestation = @manifestation
       patron = @patron
       patron_merge_list = @patron_merge_list
       search.build do
         with(:user).equal_to user.username if user
         with(:work_ids).equal_to work.id if work
+        with(:expression_ids).equal_to expression.id if expression
         with(:manifestation_ids).equal_to manifestation.id if manifestation
         with(:original_patron_ids).equal_to patron.id if patron
         with(:patron_merge_list_ids).equal_to patron_merge_list.id if patron_merge_list
