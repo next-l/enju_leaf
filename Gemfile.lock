@@ -45,9 +45,9 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_circulation.git
-  revision: 3e1f9c987e6213292432205340a0410d38b6b3f4
+  revision: fe5e6b92c23603880186845ef18bdbaf84b16621
   specs:
-    enju_circulation (0.0.39)
+    enju_circulation (0.0.41)
       acts_as_list (~> 0.1.6)
       attribute_normalizer (~> 1.1)
       cancan
