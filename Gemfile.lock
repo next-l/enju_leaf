@@ -122,7 +122,7 @@ GEM
       rails (~> 3.2)
       rqrcode
       will_paginate
-    enju_bookmark (0.0.10)
+    enju_bookmark (0.0.11)
       acts-as-taggable-on (~> 2.2)
       acts_as_list (~> 0.1.6)
       addressable
@@ -135,7 +135,7 @@ GEM
       sunspot_rails
       sunspot_solr
       will_paginate (~> 3.0)
-    enju_circulation (0.0.38)
+    enju_circulation (0.0.41)
       acts_as_list (~> 0.1.6)
       attribute_normalizer (~> 1.1)
       cancan
