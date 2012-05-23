@@ -135,7 +135,7 @@ GEM
       sunspot_rails
       sunspot_solr
       will_paginate (~> 3.0)
-    enju_circulation (0.0.39)
+    enju_circulation (0.0.40)
       acts_as_list (~> 0.1.6)
       attribute_normalizer (~> 1.1)
       cancan
@@ -488,7 +488,7 @@ DEPENDENCIES
   enju_barcode (~> 0.0.2)
   enju_book_jacket!
   enju_bookmark (~> 0.0.11)
-  enju_circulation (~> 0.0.39)
+  enju_circulation (~> 0.0.40)
   enju_event (~> 0.0.18)
   enju_inventory (~> 0.0.8)
   enju_manifestation_viewer!
