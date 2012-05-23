@@ -3,7 +3,7 @@ class PatronsController < ApplicationController
   load_and_authorize_resource :except => :index
   authorize_resource :only => :index
   before_filter :get_user
-  before_filter :get_work, :get_manifestation, :get_item, :get_patron, :except => [:update, :destroy]
+  before_filter :get_work, :get_expression, :get_manifestation, :get_item, :get_patron, :except => [:update, :destroy]
   if defined?(EnjuResourceMerge)
     before_filter :get_patron_merge_list, :except => [:create, :update, :destroy]
   end
