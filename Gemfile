@@ -91,6 +91,7 @@ gem 'rack-protection'
 gem 'awesome_nested_set', '~> 2.1'
 gem 'rails_autolink'
 #gem 'oink', '>= 0.9.3'
+gem 'foreigner'
 
 #group :production do
 #  gem 'vidibus-routing_error'
@@ -101,6 +102,7 @@ group :development do
   gem 'annotate', '~> 2.4.1.beta1'
   gem 'sunspot_solr', '~> 2.0.0.pre.120417'
   gem 'rails-erd'
+  gem 'immigrant'
 end
 
 gem 'simplecov', '~> 0.6', :require => false, :group => :test
