@@ -13,11 +13,11 @@ class User < ActiveRecord::Base
   scope :administrators, where('roles.name = ?', 'Administrator').includes(:role)
   scope :librarians, where('roles.name = ? OR roles.name = ?', 'Administrator', 'Librarian').includes(:role)
   scope :suspended, where('locked_at IS NOT NULL')
-  has_one :patron
+  has_one :patron, :dependent => :destroy
   has_many :import_requests
   has_many :picture_files, :as => :picture_attachable, :dependent => :destroy
   has_many :import_requests
-  has_one :user_has_role
+  has_one :user_has_role, :dependent => :destroy
   has_one :role, :through => :user_has_role
   has_many :subscriptions
   belongs_to :library, :validate => true
@@ -38,7 +38,7 @@ class User < ActiveRecord::Base
   end
 
   validates_presence_of     :email, :email_confirmation, :on => :create, :if => proc{|user| !user.operator.try(:has_role?, 'Librarian')}
-  validates_associated :patron, :user_group, :library
+  validates_associated :user_group, :library, :patron
   validates_presence_of :user_group, :library, :locale #, :user_number
   validates :user_number, :uniqueness => true, :format => {:with => /\A[0-9A-Za-z_]+\Z/}, :allow_blank => true
   validates_confirmation_of :email, :on => :create, :if => proc{|user| !user.operator.try(:has_role?, 'Librarian')}

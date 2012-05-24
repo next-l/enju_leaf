@@ -105,12 +105,14 @@ gem 'rack-protection'
 gem 'awesome_nested_set', '~> 2.1'
 gem 'rails_autolink'
 #gem 'oink', '>= 0.9.3'
+gem 'foreigner'
 
 group :development do
   gem 'parallel_tests', '~> 0.8'
   gem 'annotate', '~> 2.4.1.beta1'
   gem 'sunspot_solr', '~> 2.0.0.pre.120417'
   gem 'rails-erd'
+  gem 'immigrant'
 end
 
 group :development, :test do

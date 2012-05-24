@@ -3,7 +3,7 @@ class Item < ActiveRecord::Base
   scope :on_shelf, where('shelf_id != 1')
   scope :on_web, where(:shelf_id => 1)
   scope :accepted_between, lambda{|from, to| includes(:accept).where('items.created_at BETWEEN ? AND ?', Time.zone.parse(from).beginning_of_day, Time.zone.parse(to).end_of_day)}
-  has_one :exemplify
+  has_one :exemplify, :dependent => :destroy
   has_one :manifestation, :through => :exemplify
   has_many :owns
   has_many :patrons, :through => :owns

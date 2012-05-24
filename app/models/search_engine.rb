@@ -1,6 +1,5 @@
 class SearchEngine < ActiveRecord::Base
-  default_scope :order => "position"
-  belongs_to :library_group, :validate => true
+  default_scope :order => "search_engines.position"
   acts_as_list
 
   validates :name, :presence => true

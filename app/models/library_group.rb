@@ -5,8 +5,6 @@ class LibraryGroup < ActiveRecord::Base
   include MasterModel
 
   has_many :libraries
-  has_many :search_engines
-  #has_many :news_feeds
   belongs_to :country
 
   validates :email, :format => {:with => /\A([\w\.%\+\-]+)@([\w\-]+\.)+([\w]{2,})\z/i}, :presence => true

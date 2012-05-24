@@ -26,6 +26,7 @@ class Patron < ActiveRecord::Base
   belongs_to :language
   belongs_to :country
   has_one :patron_import_result
+  has_one :library, :dependent => :nullify
 
   validates_presence_of :language, :patron_type, :country
   validates_associated :language, :patron_type, :country

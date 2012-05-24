@@ -19,7 +19,6 @@ class Manifestation < ActiveRecord::Base
   belongs_to :manifestation_content_type, :class_name => 'ContentType', :foreign_key => 'content_type_id'
   has_one :series_has_manifestation, :dependent => :destroy
   has_one :series_statement, :through => :series_has_manifestation
-  belongs_to :manifestation_relationship_type
   belongs_to :frequency
   belongs_to :required_role, :class_name => 'Role', :foreign_key => 'required_role_id', :validate => true
   has_one :resource_import_result
