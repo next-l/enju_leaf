@@ -49,7 +49,10 @@ class Library < ActiveRecord::Base
   end
 
   def create_shelf
-    Shelf.create!(:name => "#{self.name}_default", :library => self)
+    shelf = Shelf.new
+    shelf.name = "#{self.name}_default"
+    shelf.library = self
+    shelf.save!
   end
 
   def web?

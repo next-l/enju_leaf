@@ -14,7 +14,6 @@ library_00001:
   street: 
   created_at: 2007-08-13 18:10:00 +09:00
   library_group_id: 1
-  patron_id: 1
   call_number_delimiter: "|"
   position: 1
 library_00002: 
@@ -32,7 +31,6 @@ library_00002:
   street: 
   created_at: 2007-08-13 18:10:00 +09:00
   library_group_id: 1
-  patron_id: 2
   call_number_delimiter: "|"
   position: 2
   isil: "JP-0000000"
@@ -51,7 +49,6 @@ library_00003:
   street: 
   created_at: 2007-08-14 16:37:00 +09:00
   library_group_id: 1
-  patron_id: 3
   call_number_delimiter: "|"
   position: 3
 library_00004: 
@@ -69,7 +66,6 @@ library_00004:
   street: 
   created_at: 2007-08-23 19:51:00 +09:00
   library_group_id: 1
-  patron_id: 4
   call_number_delimiter: "|"
   position: 4
 
@@ -78,8 +74,6 @@ library_00004:
 # Table name: libraries
 #
 #  id                    :integer         not null, primary key
-#  patron_id             :integer
-#  patron_type           :string(255)
 #  name                  :string(255)     not null
 #  display_name          :text
 #  short_display_name    :string(255)     not null

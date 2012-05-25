@@ -19,8 +19,6 @@ end
 # Table name: libraries
 #
 #  id                    :integer         not null, primary key
-#  patron_id             :integer
-#  patron_type           :string(255)
 #  name                  :string(255)     not null
 #  display_name          :text
 #  short_display_name    :string(255)     not null

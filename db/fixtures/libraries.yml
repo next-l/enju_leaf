@@ -9,7 +9,6 @@ library_00001:
   id: 1
   region: 
   library_group_id: 1
-  patron_id: 1
   call_number_delimiter: "|"
   position: 1
 library_00002: 
@@ -22,6 +21,5 @@ library_00002:
   id: 2
   region: somewhere
   library_group_id: 1
-  patron_id: 2
   call_number_delimiter: "|"
   position: 2

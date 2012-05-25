@@ -1,4 +1,5 @@
 class Shelf < ActiveRecord::Base
+  attr_accessible :name, :display_name, :note, :library_id, :closed
   include MasterModel
   scope :real, where('library_id != 1')
   belongs_to :library, :validate => true
