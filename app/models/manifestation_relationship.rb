@@ -1,4 +1,5 @@
 class ManifestationRelationship < ActiveRecord::Base
+  attr_accessible :parent_id, :child_id, :manifestation_relationship_type_id
   belongs_to :parent, :foreign_key => 'parent_id', :class_name => 'Manifestation'
   belongs_to :child, :foreign_key => 'child_id', :class_name => 'Manifestation'
   belongs_to :manifestation_relationship_type

@@ -10,12 +10,6 @@ class AcceptsController < InheritedResources::Base
     if params[:format] == 'csv'
       @accepts = Accept.order('accepts.created_at DESC').paginate(:page => params[:page], :per_page => 65534)
     else
-      # かごがない場合、自動的に作成する
-      #unless @basket
-      #  @basket = Basket.create!(:user => current_user)
-      #  redirect_to basket_accepts_url(@basket)
-      #  return
-      #end
       if params[:accept]
         @query = params[:accept][:item_identifier].to_s.strip
         item = Item.where(:item_identifier => @query).first if @query.present?
@@ -41,7 +35,9 @@ class AcceptsController < InheritedResources::Base
   end
 
   def new
-    @basket = Basket.create!(:user => current_user)
+    @basket = Basket.new
+    @basket.user = current_user
+    @basket.save!
     @accept = Accept.new
     @accepts = []
 

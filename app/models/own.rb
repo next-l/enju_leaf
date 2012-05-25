@@ -1,4 +1,5 @@
 class Own < ActiveRecord::Base
+  attr_accessible :patron_id, :item_id
   belongs_to :patron #, :counter_cache => true #, :polymorphic => true, :validate => true
   belongs_to :item #, :counter_cache => true #, :validate => true
 
@@ -29,8 +30,7 @@ end
 #  patron_id  :integer         not null
 #  item_id    :integer         not null
 #  position   :integer
-#  type       :string(255)
-#  created_at :datetime
-#  updated_at :datetime
+#  created_at :datetime        not null
+#  updated_at :datetime        not null
 #
 

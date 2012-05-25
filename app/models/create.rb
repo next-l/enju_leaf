@@ -1,4 +1,5 @@
 class Create < ActiveRecord::Base
+  attr_accessible :patron_id, :work_id, :create_type_id
   belongs_to :patron
   belongs_to :work, :class_name => 'Manifestation', :foreign_key => 'work_id'
   belongs_to :create_type
@@ -30,9 +31,8 @@ end
 #  patron_id      :integer         not null
 #  work_id        :integer         not null
 #  position       :integer
-#  type           :string(255)
-#  created_at     :datetime
-#  updated_at     :datetime
+#  created_at     :datetime        not null
+#  updated_at     :datetime        not null
 #  create_type_id :integer
 #
 

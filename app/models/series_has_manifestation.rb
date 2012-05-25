@@ -1,4 +1,5 @@
 class SeriesHasManifestation < ActiveRecord::Base
+  attr_accessible :series_statement_id, :manifestation_id
   belongs_to :series_statement
   belongs_to :manifestation
 

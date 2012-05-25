@@ -4,12 +4,10 @@ class CreateRealizes < ActiveRecord::Migration
       t.references :patron, :null => false
       t.references :expression, :null => false
       t.integer :position
-      t.string :type
 
       t.timestamps
     end
     add_index :realizes, :patron_id
     add_index :realizes, :expression_id
-    add_index :realizes, :type
   end
 end

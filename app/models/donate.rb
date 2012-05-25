@@ -1,4 +1,5 @@
 class Donate < ActiveRecord::Base
+  attr_accessible :patron_id, :item_id
   belongs_to :patron, :validate => true
   belongs_to :item, :validate => true
   validates_associated :patron, :item

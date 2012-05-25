@@ -1,4 +1,5 @@
 class PatronRelationship < ActiveRecord::Base
+  attr_accessible :parent_id, :child_id, :patron_relationship_type_id
   belongs_to :parent, :foreign_key => 'parent_id', :class_name => 'Patron'
   belongs_to :child, :foreign_key => 'child_id', :class_name => 'Patron'
   belongs_to :patron_relationship_type

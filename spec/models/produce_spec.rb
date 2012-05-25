@@ -15,9 +15,8 @@ end
 #  patron_id        :integer         not null
 #  manifestation_id :integer         not null
 #  position         :integer
-#  type             :string(255)
-#  created_at       :datetime
-#  updated_at       :datetime
+#  created_at       :datetime        not null
+#  updated_at       :datetime        not null
 #  produce_type_id  :integer
 #
 

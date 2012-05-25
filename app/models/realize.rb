@@ -1,4 +1,5 @@
 class Realize < ActiveRecord::Base
+  attr_accessible :patron_id, :expression_id, :realize_type_id
   belongs_to :patron
   belongs_to :expression, :class_name => 'Manifestation', :foreign_key => 'expression_id'
   belongs_to :realize_type
@@ -30,9 +31,8 @@ end
 #  patron_id       :integer         not null
 #  expression_id   :integer         not null
 #  position        :integer
-#  type            :string(255)
-#  created_at      :datetime
-#  updated_at      :datetime
+#  created_at      :datetime        not null
+#  updated_at      :datetime        not null
 #  realize_type_id :integer
 #
 

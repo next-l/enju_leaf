@@ -1,4 +1,5 @@
 class ImportRequest < ActiveRecord::Base
+  attr_accessible :isbn, :manifestation_id, :user_id
   default_scope :order => 'id DESC'
   belongs_to :manifestation
   belongs_to :user

@@ -1,4 +1,5 @@
 class Exemplify < ActiveRecord::Base
+  attr_accessible :manifestation_id, :item_id
   belongs_to :manifestation
   belongs_to :item
 
@@ -37,9 +38,8 @@ end
 #  id               :integer         not null, primary key
 #  manifestation_id :integer         not null
 #  item_id          :integer         not null
-#  type             :string(255)
 #  position         :integer
-#  created_at       :datetime
-#  updated_at       :datetime
+#  created_at       :datetime        not null
+#  updated_at       :datetime        not null
 #
 

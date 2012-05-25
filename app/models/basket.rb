@@ -1,5 +1,6 @@
 class Basket < ActiveRecord::Base
-  default_scope :order => 'id DESC'
+  attr_accessible :note
+  default_scope :order => 'baskets.id DESC'
   scope :will_expire, lambda {|date| {:conditions => ['created_at < ?', date]}}
   belongs_to :user, :validate => true
   has_many :accepts
@@ -9,7 +10,6 @@ class Basket < ActiveRecord::Base
   validates_presence_of :user, :on => :create
   validate :check_suspended
 
-  attr_protected :user_id
   attr_accessor :user_number
 
   def check_suspended
@@ -52,9 +52,8 @@ end
 #  id           :integer         not null, primary key
 #  user_id      :integer
 #  note         :text
-#  type         :string(255)
 #  lock_version :integer         default(0), not null
-#  created_at   :datetime
-#  updated_at   :datetime
+#  created_at   :datetime        not null
+#  updated_at   :datetime        not null
 #
 
