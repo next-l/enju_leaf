@@ -24,7 +24,7 @@
     <div class="field">
       <%= f.label t('activerecord.models.use_restriction') -%>
       <%= f.fields_for :item_has_use_restriction do |i| %>
-        <%= i.select :use_restriction_id, @use_restrictions.collect{|r| [r.display_name.localize, r.id]}, :include_blank => true %>
+        <%= i.select :use_restriction_id, @use_restrictions.collect{|r| [r.display_name.localize, r.id]} %>
       <% end %>
     </div>
   <% end %>
