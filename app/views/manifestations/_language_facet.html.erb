@@ -11,6 +11,6 @@
     <%- end -%>
   <%- end -%>
   <%- if params[:language] -%>
-    <li><%= link_to t('page.remove_this_facet'), url_for(params.merge(:language => nil, :page => nil, :view => nil)) -%></li>
+    <li><%= link_to t('page.remove_this_facet'), url_for(params.merge(:language => nil, :page => nil, :view => nil, :only_path => true)) -%></li>
   <%- end -%>
 </ul>

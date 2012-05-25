@@ -7,6 +7,6 @@
     </li>
   <%- end -%>
   <%- if params[:library_id] -%>
-    <li><%= link_to t('page.remove_this_facet'), url_for(params.merge(:library_id => nil, :page => nil)) -%></li>
+    <li><%= link_to t('page.remove_this_facet'), url_for(params.merge(:library_id => nil, :page => nil, :only_path => true)) -%></li>
   <%- end -%>
 </ul>

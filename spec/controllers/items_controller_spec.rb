@@ -138,7 +138,7 @@ describe ItemsController do
 
       it "assigns the requested item as @item" do
         get :new, :manifestation_id => @manifestation.id
-        assigns(:item).should_not be_valid
+        assigns(:item).should be_valid
         response.should be_success
       end
 
@@ -153,7 +153,7 @@ describe ItemsController do
 
       it "assigns the requested item as @item" do
         get :new, :manifestation_id => @manifestation.id
-        assigns(:item).should_not be_valid
+        assigns(:item).should be_valid
         response.should be_success
       end
     end
@@ -486,8 +486,9 @@ describe ItemsController do
       end
 
       it "redirects to the items list" do
+        manifestation = @item.manifestation
         delete :destroy, :id => @item.id
-        response.should redirect_to(manifestation_items_url(@item.manifestation))
+        response.should redirect_to(manifestation_items_url(manifestation))
       end
 
       it "should not destroy missing item" do
@@ -514,8 +515,9 @@ describe ItemsController do
       end
 
       it "redirects to the items list" do
+        manifestation = @item.manifestation
         delete :destroy, :id => @item.id
-        response.should redirect_to(manifestation_items_url(@item.manifestation))
+        response.should redirect_to(manifestation_items_url(manifestation))
       end
     end
 

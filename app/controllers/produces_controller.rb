@@ -75,11 +75,9 @@ class ProducesController < ApplicationController
   # PUT /produces/1.json
   def update
     if @manifestation and params[:move]
-      if ['higher', 'lower'].include?(params[:move])
-        @produce.send("move_#{params[:move]}")
-        redirect_to manifestation_produces_url(@manifestation)
-        return
-      end
+      move_position(@produce, params[:move], false)
+      redirect_to manifestation_produces_url(@manifestation)
+      return
     end
 
     respond_to do |format|

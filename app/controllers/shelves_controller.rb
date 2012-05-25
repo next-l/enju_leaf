@@ -105,9 +105,8 @@ class ShelvesController < ApplicationController
   def update
     @shelf.library = @library if @library
 
-    direction = params[:move]
-    if ['higher', 'lower'].include?(direction)
-      @shelf.send("move_#{direction}")
+    if @library and params[:move]
+      move_position(@shelf, params[:move], false)
       redirect_to library_shelves_url(@shelf.library)
       return
     end

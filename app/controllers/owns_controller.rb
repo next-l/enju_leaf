@@ -69,12 +69,9 @@ class OwnsController < ApplicationController
   # PUT /owns/1.json
   def update
     if @item and params[:move]
-      direction = params[:move]
-      if ['higher', 'lower'].include?(direction)
-        @own.send("move_#{direction}")
-        redirect_to item_owns_url(@item)
-        return
-      end
+      move_position(@own, params[:move], false)
+      redirect_to item_owns_url(@item)
+      return
     end
 
     respond_to do |format|

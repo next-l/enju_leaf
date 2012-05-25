@@ -178,14 +178,8 @@ class ItemsController < ApplicationController
           end
         end
         flash[:notice] = t('controller.successfully_created', :model => t('activerecord.models.item'))
-        @item.post_to_union_catalog if LibraryGroup.site_config.post_to_union_catalog
-        if @patron
-          format.html { redirect_to patron_item_url(@patron, @item) }
-          format.json { render :json => @item, :status => :created, :location => @item }
-        else
-          format.html { redirect_to(@item) }
-          format.json { render :json => @item, :status => :created, :location => @item }
-        end
+        format.html { redirect_to(@item) }
+        format.json { render :json => @item, :status => :created, :location => @item }
       else
         prepare_options
         format.html { render :action => "new" }
