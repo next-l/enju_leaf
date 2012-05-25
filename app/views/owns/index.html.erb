@@ -15,7 +15,7 @@
     <td><%= link_to own.patron.full_name, own.patron -%></td>
     <td>
       <%- if own.item.item_identifier.blank? -%>
-        (<%= link_to ('no number'), own.item -%>)
+        (<%= link_to 'no number', own.item -%>)
       <%- else -%>
         <%= link_to own.item.item_identifier, own.item -%>
       <%- end -%>

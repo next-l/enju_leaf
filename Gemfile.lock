@@ -122,7 +122,7 @@ GEM
       rails (~> 3.2)
       rqrcode
       will_paginate
-    enju_bookmark (0.0.11)
+    enju_bookmark (0.0.12)
       acts-as-taggable-on (~> 2.2)
       acts_as_list (~> 0.1.6)
       addressable
@@ -135,7 +135,7 @@ GEM
       sunspot_rails
       sunspot_solr
       will_paginate (~> 3.0)
-    enju_circulation (0.0.41)
+    enju_circulation (0.0.42)
       acts_as_list (~> 0.1.6)
       attribute_normalizer (~> 1.1)
       cancan
@@ -151,7 +151,7 @@ GEM
       sunspot_solr
       validates_timeliness
       will_paginate (~> 3.0)
-    enju_event (0.0.18)
+    enju_event (0.0.19)
       acts_as_list (~> 0.1.6)
       addressable
       attribute_normalizer (~> 1.1)
@@ -230,7 +230,7 @@ GEM
       sunspot_rails
       sunspot_solr
       will_paginate (~> 3.0)
-    enju_question (0.0.13)
+    enju_question (0.0.14)
       acts-as-taggable-on (~> 2.2)
       acts_as_list (~> 0.1.6)
       cancan
@@ -259,7 +259,7 @@ GEM
       devise
       rails (~> 3.2)
       will_paginate
-    enju_subject (0.0.12)
+    enju_subject (0.0.13)
       acts_as_list (~> 0.1.6)
       attribute_normalizer (~> 1.1)
       cancan
@@ -376,7 +376,7 @@ GEM
       activerecord (~> 3.0)
       activesupport (~> 3.0)
       ruby-graphviz (~> 0.9.18)
-    rails_autolink (1.0.7)
+    rails_autolink (1.0.8)
       rails (~> 3.1)
     railties (3.2.3)
       actionpack (= 3.2.3)
@@ -492,19 +492,19 @@ DEPENDENCIES
   dynamic_form
   enju_barcode (~> 0.0.2)
   enju_book_jacket!
-  enju_bookmark (~> 0.0.11)
-  enju_circulation (~> 0.0.40)
-  enju_event (~> 0.0.18)
+  enju_bookmark (~> 0.0.12)
+  enju_circulation (~> 0.0.42)
+  enju_event (~> 0.0.19)
   enju_inventory (~> 0.0.8)
   enju_manifestation_viewer!
   enju_message (~> 0.0.19)
   enju_ndl (~> 0.0.23)
   enju_oai (~> 0.0.3)
   enju_purchase_request (~> 0.0.8)
-  enju_question (~> 0.0.13)
+  enju_question (~> 0.0.14)
   enju_resource_merge (~> 0.0.8)
   enju_search_log (~> 0.0.4)
-  enju_subject (~> 0.0.12)
+  enju_subject (~> 0.0.13)
   exception_notification (~> 2.6)
   factory_girl_rails
   fakeweb

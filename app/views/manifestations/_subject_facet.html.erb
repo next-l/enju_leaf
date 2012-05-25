@@ -5,12 +5,12 @@
     <%- subject = Subject.where(:id => facet.value).first -%>
     <%- if subject -%>
       <li>
-        <%= link_to "#{subject.term} (#{facet.count})", url_for(params.merge(:page => nil, :subject => subject.term, :view => nil)) -%>
+        <%= link_to "#{subject.term} (#{facet.count})", url_for(params.merge(:page => nil, :subject => subject.term, :view => nil, :only_path => true)) -%>
       </li>
     <%- end -%>
   <%- end -%>
   <%- if @subject_by_term -%>
-    <li><%= link_to t('page.remove_this_facet'), params.merge(:subject => nil, :page => nil, :view => nil) -%></li>
+    <li><%= link_to t('page.remove_this_facet'), url_for(params.merge(:subject => nil, :page => nil, :view => nil, :only_path => true)) -%></li>
   <%- end -%>
 </ul>
 <%- else -%>

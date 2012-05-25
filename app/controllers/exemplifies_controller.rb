@@ -63,12 +63,9 @@ class ExemplifiesController < ApplicationController
   # PUT /exemplifies/1.json
   def update
     if @manifestation and params[:move]
-      direction = params[:move]
-      if ['higher', 'lower'].include?(direction)
-        @exemplify.send("move_#{direction}")
-        redirect_to manifestation_exemplifies_url(@manifestation)
-        return
-      end
+      move_position(@exemplify, params[:move], false)
+      redirect_to manifestation_exemplifies_url(@manifestation)
+      return
     end
 
     respond_to do |format|

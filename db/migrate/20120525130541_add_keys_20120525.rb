@@ -1,22 +1,14 @@
-class AddKeys20120524 < ActiveRecord::Migration
+class AddKeys20120525 < ActiveRecord::Migration
   def change
-    add_foreign_key "baskets", "users", :name => "baskets_user_id_fk", :dependent => :nullify
     add_foreign_key "creates", "create_types", :name => "creates_create_type_id_fk"
     add_foreign_key "creates", "patrons", :name => "creates_patron_id_fk"
     add_foreign_key "creates", "manifestations", :name => "creates_work_id_fk", :column => "work_id"
     add_foreign_key "exemplifies", "items", :name => "exemplifies_item_id_fk", :dependent => :delete
     add_foreign_key "exemplifies", "manifestations", :name => "exemplifies_manifestation_id_fk"
     add_foreign_key "items", "bookstores", :name => "items_bookstore_id_fk"
-    add_foreign_key "items", "budget_types", :name => "items_budget_type_id_fk"
     add_foreign_key "items", "roles", :name => "items_required_role_id_fk", :column => "required_role_id"
-    add_foreign_key "items", "shelves", :name => "items_shelf_id_fk"
-    add_foreign_key "libraries", "countries", :name => "libraries_country_id_fk"
-    add_foreign_key "libraries", "library_groups", :name => "libraries_library_group_id_fk"
-    add_foreign_key "libraries", "patrons", :name => "libraries_patron_id_fk", :dependent => :nullify
-    add_foreign_key "library_groups", "countries", :name => "library_groups_country_id_fk"
     add_foreign_key "manifestations", "carrier_types", :name => "manifestations_carrier_type_id_fk"
     add_foreign_key "manifestations", "content_types", :name => "manifestations_content_type_id_fk"
-    add_foreign_key "manifestations", "extents", :name => "manifestations_extent_id_fk"
     add_foreign_key "manifestations", "frequencies", :name => "manifestations_frequency_id_fk"
     add_foreign_key "manifestations", "languages", :name => "manifestations_language_id_fk"
     add_foreign_key "manifestations", "roles", :name => "manifestations_required_role_id_fk", :column => "required_role_id"
@@ -36,11 +28,5 @@ class AddKeys20120524 < ActiveRecord::Migration
     add_foreign_key "series_has_manifestations", "manifestations", :name => "series_has_manifestations_manifestation_id_fk"
     add_foreign_key "series_has_manifestations", "series_statements", :name => "series_has_manifestations_series_statement_id_fk"
     add_foreign_key "series_statements", "manifestations", :name => "series_statements_root_manifestation_id_fk", :column => "root_manifestation_id"
-    add_foreign_key "shelves", "libraries", :name => "shelves_library_id_fk"
-    add_foreign_key "user_has_roles", "roles", :name => "user_has_roles_role_id_fk"
-    add_foreign_key "user_has_roles", "users", :name => "user_has_roles_user_id_fk", :dependent => :delete
-    add_foreign_key "users", "libraries", :name => "users_library_id_fk"
-    add_foreign_key "users", "roles", :name => "users_required_role_id_fk", :column => "required_role_id"
-    add_foreign_key "users", "user_groups", :name => "users_user_group_id_fk"
   end
 end

@@ -71,12 +71,9 @@ class RealizesController < ApplicationController
   def update
     # 並べ替え
     if @expression and params[:move]
-      direction = params[:move]
-      if ['higher', 'lower'].include?(direction)
-        @realize.send("move_#{direction}")
-        redirect_to expression_realizes_url(@expression)
-        return
-      end
+      move_position(@realize, params[:move], false)
+      redirect_to expression_realizes_url(@expression)
+      return
     end
 
     respond_to do |format|

@@ -71,12 +71,9 @@ class CreatesController < ApplicationController
   def update
     # 並べ替え
     if @work and params[:move]
-      direction = params[:move]
-      if ['higher', 'lower'].include?(direction)
-        @create.send("move_#{direction}")
-        redirect_to work_creates_url(@work)
-        return
-      end
+      move_position(@create, params[:move], false)
+      redirect_to work_creates_url(@work)
+      return
     end
 
     respond_to do |format|

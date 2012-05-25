@@ -4,6 +4,6 @@
     <li><%= carrier_type_facet(facet) %></li>
   <%- end -%>
   <%- if params[:carrier_type] -%>
-    <li><%= link_to t('page.remove_this_facet'), url_for(params.merge(:carrier_type => nil, :page => nil, :view => nil)) -%></li>
+    <li><%= link_to t('page.remove_this_facet'), url_for(params.merge(:carrier_type => nil, :page => nil, :view => nil, :only_path => true)) -%></li>
   <%- end -%>
 </ul>

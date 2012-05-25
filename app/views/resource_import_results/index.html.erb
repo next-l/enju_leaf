@@ -41,10 +41,10 @@
   <ul>
     <li>
     <% if @resource_import_file %>
-      <%= link_to (image_tag 'icons/page_white_excel.png', :size => '16x16', :alt => 'CSV', :class => 'icon'), resource_import_file_resource_import_results_path(@resource_import_file, :format => :csv, :locale => @locale.to_s) -%>
+      <%= link_to((image_tag 'icons/page_white_excel.png', :size => '16x16', :alt => 'CSV', :class => 'icon'), resource_import_file_resource_import_results_path(@resource_import_file, :format => :csv, :locale => @locale.to_s)) -%>
       (<%= link_to 'CSV', resource_import_file_resource_import_results_path(:format => :csv, :locale => @locale.to_s) -%>)
     <% else %>
-      <%= link_to (image_tag 'icons/page_white_excel.png', :size => '16x16', :alt => 'CSV', :class => 'icon'), resource_import_results_path(:format => :csv, :locale => @locale.to_s) -%>
+      <%= link_to((image_tag 'icons/page_white_excel.png', :size => '16x16', :alt => 'CSV', :class => 'icon'), resource_import_results_path(:format => :csv, :locale => @locale.to_s)) -%>
       (<%= link_to 'CSV', resource_import_results_path(:format => :csv, :locale => @locale.to_s) -%>)
     <% end %>
     </li>

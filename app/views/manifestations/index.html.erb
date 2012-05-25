@@ -35,17 +35,17 @@
       <%- if params[:sort_by].blank? -%>
         <strong><%= t('manifestation.date_of_acquisition') -%></strong>
       <%- else -%>
-        <%= link_to t('manifestation.date_of_acquisition'), params.merge(:sort_by => nil) -%>
+        <%= link_to t('manifestation.date_of_acquisition'), url_for(params.merge(:sort_by => nil, :only_path => true)) -%>
       <%- end -%>
       <%- if params[:sort_by] == 'pub_date' -%>
         <strong><%= t('activerecord.attributes.manifestation.date_of_publication') -%></strong>
       <%- else -%>
-        <%= link_to t('activerecord.attributes.manifestation.date_of_publication'), params.merge(:sort_by => 'pub_date') -%>
+        <%= link_to t('activerecord.attributes.manifestation.date_of_publication'), url_for(params.merge(:sort_by => 'pub_date', :only_path => true)) -%>
       <%- end -%>
       <%- if params[:sort_by] == 'title' -%>
         <strong><%= t('page.title') -%></strong>
       <%- else -%>
-        <%= link_to t('page.title'), params.merge(:sort_by => 'sort_title') -%>
+        <%= link_to t('page.title'), url_for(params.merge(:sort_by => 'sort_title', :only_path => true)) -%>
       <%- end -%>
     </p>
 
@@ -75,15 +75,15 @@
 </div>
 
 <div id="submenu" class="ui-corner-all">
-    <h3><%= link_to h("#{t('page.total')}: #{@count[:query_result]}"), url_for(params.merge(:action => 'index', :view => nil, :carrier_type => nil, :library => nil, :language => nil, :subject => nil))  -%></h3>
+  <h3><%= link_to h("#{t('page.total')}: #{@count[:query_result]}"), url_for(params.merge(:action => 'index', :view => nil, :carrier_type => nil, :library => nil, :language => nil, :subject => nil, :only_path => true))  -%></h3>
     <%- if @manifestations.total_entries > 0 -%>
       <%= render 'manifestations/all_facet' -%>
     <%- end -%>
   <div>
     <%- if params[:library_id].blank? -%>
-      <%= link_to (image_tag 'icons/feed.png', :size => '16x16', :alt => t('page.feed'), :class => 'icon'), url_for(params.merge(:format => :rss, :page => nil, :library_id => nil)) -%> <%= link_to t('page.search_result_feed'), url_for(params.merge(:format => :rss, :page => nil, :library_id => nil, :commit => nil)) -%>
+      <%= link_to((image_tag 'icons/feed.png', :size => '16x16', :alt => t('page.feed'), :class => 'icon'), url_for(params.merge(:format => :rss, :page => nil, :library_id => nil, :only_path => true))) -%> <%= link_to t('page.search_result_feed'), url_for(params.merge(:format => :rss, :page => nil, :library_id => nil, :commit => nil, :only_path => true)) -%>
     <%- else -%>
-      <%= link_to (image_tag 'icons/feed.png', :size => '16x16', :alt => t('page.feed'), :class => 'icon'), url_for(params.merge(:format => :rss, :page => nil)) -%> <%= link_to t('page.search_result_feed'), url_for(params.merge(:format => :rss, :page => nil, :commit => nil)) -%>
+      <%= link_to((image_tag 'icons/feed.png', :size => '16x16', :alt => t('page.feed'), :class => 'icon'), url_for(params.merge(:format => :rss, :page => nil, :only_path => true))) -%> <%= link_to t('page.search_result_feed'), url_for(params.merge(:format => :rss, :page => nil, :commit => nil, :only_path => true)) -%>
     <%- end -%>
   </div>
 </div>
@@ -91,7 +91,7 @@
 <% if defined?(EnjuBookmark) %>
   <script type="text/javascript">
     window.onload = function() {
-      $("#tag_cloud_list").load('<%= url_for(params.merge(:view => "tag_cloud")) -%>', null, hideTagCloudSpinner);
+      $("#tag_cloud_list").load('<%= url_for(params.merge(:view => "tag_cloud", :only_path => true)) -%>', null, hideTagCloudSpinner);
     }
 
     function hideTagCloudSpinner(){
