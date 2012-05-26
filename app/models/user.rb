@@ -15,15 +15,6 @@ class User < ActiveRecord::Base
     :expired_at, :locked, :required_role_id, :role_id,
     :keyword_list, :user_has_role_attributes, :auto_generated_password,
     :as => :admin
-  if defined?(EnjuCirculation)
-    attr_accessible :save_checkout_history, :checkout_icalendar_token
-    attr_accessible :save_checkout_history, :checkout_icalendar_token,
-      :as => :admin
-  end
-  if defined?(EnjuSearchLog)
-    attr_accessible :save_search_history
-    attr_accessible :save_search_history, :as => :admin
-  end
 
   scope :administrators, where('roles.name = ?', 'Administrator').includes(:role)
   scope :librarians, where('roles.name = ? OR roles.name = ?', 'Administrator', 'Librarian').includes(:role)
@@ -250,6 +241,8 @@ class User < ActiveRecord::Base
 
   if defined?(EnjuCirculation)
     attr_accessible :save_checkout_history, :checkout_icalendar_token
+    attr_accessible :save_checkout_history, :checkout_icalendar_token,
+      :as => :admin
 
     has_many :checkouts, :dependent => :nullify
     has_many :reserves, :dependent => :destroy
@@ -349,6 +342,7 @@ class User < ActiveRecord::Base
 
   if defined?(EnjuSearchLog)
     attr_accessible :save_search_history
+    attr_accessible :save_search_history, :as => :admin
 
     has_many :search_histories, :dependent => :destroy
   end

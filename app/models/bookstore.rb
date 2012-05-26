@@ -1,5 +1,7 @@
 class Bookstore < ActiveRecord::Base
-  default_scope :order => "position"
+  attr_accessible :name, :zip_code, :address, :note, :telephone_number,
+    :fax_number, :url
+  default_scope :order => "bookstores.position"
   has_many :items
 
   acts_as_list

@@ -120,6 +120,10 @@ class UsersController < ApplicationController
 
     respond_to do |format|
       if @user.save
+        role = Role.where(:name => 'User').first
+        user_has_role = UserHasRole.new
+        user_has_role.assign_attributes({:user_id => @user.id, :role_id => role.id}, :as => :admin)
+        user_has_role.save
         flash[:temporary_password] = @user.password
         format.html { redirect_to @user, :notice => t('controller.successfully_created.', :model => t('activerecord.models.user')) }
         format.json { render :json => @user, :status => :created, :location => @user }
