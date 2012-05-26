@@ -6,9 +6,24 @@ class User < ActiveRecord::Base
          :lockable, :lock_strategy => :none, :unlock_strategy => :none
 
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :email, :password, :password_confirmation, :username, :current_password, :user_number, :remember_me,
-    :email_confirmation, :note, :user_group_id, :library_id, :locale, :expired_at, :locked, :required_role_id, :role_id,
-    :keyword_list, :user_has_role_attributes #, :as => :admin
+  attr_accessible :email, :password, :password_confirmation, :current_password,
+    :remember_me, :email_confirmation, :library_id, :locale,
+    :keyword_list, :auto_generated_password
+  attr_accessible :email, :password, :password_confirmation, :username,
+    :current_password, :user_number, :remember_me,
+    :email_confirmation, :note, :user_group_id, :library_id, :locale,
+    :expired_at, :locked, :required_role_id, :role_id,
+    :keyword_list, :user_has_role_attributes, :auto_generated_password,
+    :as => :admin
+  if defined?(EnjuCirculation)
+    attr_accessible :save_checkout_history, :checkout_icalendar_token
+    attr_accessible :save_checkout_history, :checkout_icalendar_token,
+      :as => :admin
+  end
+  if defined?(EnjuSearchLog)
+    attr_accessible :save_search_history
+    attr_accessible :save_search_history, :as => :admin
+  end
 
   scope :administrators, where('roles.name = ?', 'Administrator').includes(:role)
   scope :librarians, where('roles.name = ? OR roles.name = ?', 'Administrator', 'Librarian').includes(:role)
@@ -219,66 +234,6 @@ class User < ActiveRecord::Base
     else
       false
     end
-  end
-
-  def self.create_with_params(params, current_user)
-    user = User.new
-    user.operator = current_user
-    #self.username = params[:user][:login]
-    user.note = params[:note]
-    #user.user_group_id = params[:user_group_id] ||= 1
-    user.assign_attributes(params)
-    #user_group_id = params[:user_group_id] ||= 1
-    user.library_id = params[:library_id] ||= 1
-    user.required_role_id = params[:required_role_id] ||= 1
-    user.keyword_list = params[:keyword_list]
-    user.user_number = params[:user_number]
-    user.locale = params[:locale]
-    if current_user.has_role?('Administrator') and params[:user_has_role_attributes]
-      role = Role.where(:id => params[:user_has_role_attributes][:role_id]).first
-      user.role = role if role
-    end
-    if defined?(EnjuCirculation)
-      user.save_checkout_history = params[:save_checkout_history] ||= false
-    end
-    if defined?(EnjuSearchLog)
-      user.save_search_history = params[:save_search_history] ||= false
-    end
-    #if user.patron_id
-    #  user.patron = Patron.find(user.patron_id) rescue nil
-    #end
-    user
-  end
-
-  def update_with_params(params, current_user)
-    self.operator = current_user
-    #self.username = params[:login]
-    self.keyword_list = params[:keyword_list]
-    self.email = params[:email] if params[:email]
-    #self.note = params[:note]
-    if defined?(EnjuCirculation)
-      self.checkout_icalendar_token = params[:checkout_icalendar_token] ||= nil
-      self.save_checkout_history = params[:save_checkout_history] ||= false
-    end
-    if defined?(EnjuSearchLog)
-      self.save_search_history = params[:save_search_history] ||= false
-    end
-
-    if current_user.has_role?('Librarian')
-      self.note = params[:note]
-      self.user_group_id = params[:user_group_id] || 1
-      self.library_id = params[:library_id] || 1
-      self.required_role_id = params[:required_role_id] || 1
-      self.user_number = params[:user_number]
-      self.locale = params[:locale]
-      self.locked = params[:locked]
-      self.expired_at = params[:expired_at]
-    end
-    if current_user.has_role?('Administrator') and params[:user_has_role_attributes]
-      role = Role.where(:id => params[:user_has_role_attributes][:role_id]).first
-      self.role = role if role
-    end
-    self
   end
 
   def deletable?

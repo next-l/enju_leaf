@@ -27,10 +27,10 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_bookmark.git
-  revision: 646cee00617ce2a421442996ba0a4471aadd89fa
+  revision: b848002506c0971c3a20d4b4bd9ca61ea64881ae
   specs:
     enju_bookmark (0.0.12)
-      acts-as-taggable-on (~> 2.2)
+      acts-as-taggable-on (~> 2.3)
       acts_as_list (~> 0.1.6)
       addressable
       attribute_normalizer (~> 1.1)
@@ -45,7 +45,7 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_circulation.git
-  revision: 8f8588db40126fa6e794944a19e52bb3a5f6621d
+  revision: b5faf4ff8db63c3928a734ccad73783625fbf87f
   specs:
     enju_circulation (0.0.43)
       acts_as_list (~> 0.1.6)
@@ -60,13 +60,12 @@ GIT
       simple_form
       state_machine
       sunspot_rails
-      sunspot_solr
       validates_timeliness
       will_paginate (~> 3.0)
 
 GIT
   remote: git://github.com/nabeta/enju_event.git
-  revision: bed0a940853a5bb48ad12bb58a37cde81c1b4c04
+  revision: 1d078beec0e6366130b428583a600dba6b887111
   specs:
     enju_event (0.1.6)
       acts_as_list (~> 0.1.6)
@@ -129,7 +128,7 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_message.git
-  revision: 5902f87108ed2c131bc5cf264ba5a7f59933d723
+  revision: 667bed72d2c2ed528f204fbcb94bd999bc7d32a6
   specs:
     enju_message (0.1.2)
       acts_as_list (~> 0.1.6)
@@ -183,7 +182,7 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_purchase_request.git
-  revision: d60425cc53ba614dbf1b30d0b97427d549a9992e
+  revision: b04199e3b0c5577a5c82b01106db764de6cdc7e7
   specs:
     enju_purchase_request (0.0.8)
       acts_as_list (~> 0.1.6)
@@ -195,12 +194,11 @@ GIT
       rails (~> 3.2)
       state_machine
       sunspot_rails
-      sunspot_solr
       will_paginate (~> 3.0)
 
 GIT
   remote: git://github.com/nabeta/enju_question.git
-  revision: fce747ae15a696645a17ed900df34c248c0fe7af
+  revision: d9f1db03d90053cdb57f1faa663606d60dbe6313
   specs:
     enju_question (0.0.15)
       acts-as-taggable-on (~> 2.2)
@@ -317,7 +315,7 @@ GEM
     activesupport (3.2.3)
       i18n (~> 0.6)
       multi_json (~> 1.0)
-    acts-as-taggable-on (2.2.2)
+    acts-as-taggable-on (2.3.1)
       rails (~> 3.0)
     acts_as_list (0.1.6)
     addressable (2.2.8)
@@ -486,7 +484,7 @@ GEM
       activerecord (~> 3.0)
       activesupport (~> 3.0)
       ruby-graphviz (~> 0.9.18)
-    rails_autolink (1.0.8)
+    rails_autolink (1.0.9)
       rails (~> 3.1)
     railties (3.2.3)
       actionpack (= 3.2.3)
@@ -522,7 +520,7 @@ GEM
     rubyzip (0.9.8)
     sanitize (2.0.3)
       nokogiri (>= 1.4.4, < 1.6)
-    sass (3.1.18)
+    sass (3.1.19)
     sass-rails (3.2.5)
       railties (~> 3.2.0)
       sass (>= 3.1.10)
