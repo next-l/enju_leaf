@@ -1,4 +1,5 @@
 class PatronImportFile < ActiveRecord::Base
+  attr_accessible :patron_import
   include ImportFile
   default_scope :order => 'id DESC'
   scope :not_imported, where(:state => 'pending')

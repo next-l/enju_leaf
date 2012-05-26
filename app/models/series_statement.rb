@@ -1,4 +1,9 @@
 class SeriesStatement < ActiveRecord::Base
+  attr_accessible :original_title, :numbering, :title_subseries,
+    :numbering_subseries, :title_transcription, :title_alternative,
+    :series_statement_identifier, :issn, :periodical, :note,
+    :title_subseries_transcription
+
   has_many :series_has_manifestations, :dependent => :destroy
   has_many :manifestations, :through => :series_has_manifestations
   belongs_to :root_manifestation, :foreign_key => :root_manifestation_id, :class_name => 'Manifestation'

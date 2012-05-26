@@ -5,10 +5,6 @@ describe BookmarkStatHasManifestationsController do
   fixtures :all
   disconnect_sunspot
 
-  def valid_attributes
-    FactoryGirl.attributes_for(:bookmark_stat_has_manifestation)
-  end
-
   describe "GET index" do
     before(:each) do
       FactoryGirl.create(:bookmark_stat_has_manifestation)
@@ -173,7 +169,7 @@ describe BookmarkStatHasManifestationsController do
 
   describe "POST create" do
     before(:each) do
-      @attrs = valid_attributes
+      @attrs = FactoryGirl.attributes_for(:bookmark_stat_has_manifestation)
       @invalid_attrs = {:bookmark_stat_id => ''}
     end
 
@@ -211,7 +207,7 @@ describe BookmarkStatHasManifestationsController do
       describe "with valid params" do
         it "assigns a newly created bookmark_stat_has_manifestation as @bookmark_stat_has_manifestation" do
           post :create, :bookmark_stat_has_manifestation => @attrs
-          assigns(:bookmark_stat_has_manifestation).should be_valid
+          assigns(:bookmark_stat_has_manifestation).should_not be_valid
         end
 
         it "should be forbidden" do
@@ -239,7 +235,7 @@ describe BookmarkStatHasManifestationsController do
       describe "with valid params" do
         it "assigns a newly created bookmark_stat_has_manifestation as @bookmark_stat_has_manifestation" do
           post :create, :bookmark_stat_has_manifestation => @attrs
-          assigns(:bookmark_stat_has_manifestation).should be_valid
+          assigns(:bookmark_stat_has_manifestation).should_not be_valid
         end
 
         it "should be forbidden" do
@@ -265,7 +261,7 @@ describe BookmarkStatHasManifestationsController do
       describe "with valid params" do
         it "assigns a newly created bookmark_stat_has_manifestation as @bookmark_stat_has_manifestation" do
           post :create, :bookmark_stat_has_manifestation => @attrs
-          assigns(:bookmark_stat_has_manifestation).should be_valid
+          assigns(:bookmark_stat_has_manifestation).should_not be_valid
         end
 
         it "should be forbidden" do
@@ -291,7 +287,7 @@ describe BookmarkStatHasManifestationsController do
   describe "PUT update" do
     before(:each) do
       @bookmark_stat_has_manifestation = FactoryGirl.create(:bookmark_stat_has_manifestation)
-      @attrs = valid_attributes
+      @attrs = FactoryGirl.attributes_for(:bookmark_stat_has_manifestation)
       @invalid_attrs = {:bookmark_stat_id => ''}
     end
 
