@@ -34,7 +34,9 @@ class ExemplifiesController < ApplicationController
       redirect_to manifestations_url
       return
     else
-      @exemplify = Exemplify.new(:manifestation => @manifestation, :item => @item)
+      @exemplify = Exemplify.new
+      @exemplify.manifestation = @manifestation
+      @exemplify.item = @item
     end
   end
 

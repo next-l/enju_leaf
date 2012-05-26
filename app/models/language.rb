@@ -1,4 +1,6 @@
 class Language < ActiveRecord::Base
+  attr_accessible :name, :native_name, :display_name, :iso_639_1, :iso_639_2,
+    :iso_639_3, :note
   include MasterModel
   default_scope :order => "languages.position"
   # If you wish to change the field names for brevity, feel free to enable/modify these.

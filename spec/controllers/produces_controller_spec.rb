@@ -2,7 +2,7 @@ require 'spec_helper'
 require 'sunspot/rails/spec_helper'
 
 describe ProducesController do
-  fixtures :produces
+  fixtures :all
   disconnect_sunspot
 
   def valid_attributes

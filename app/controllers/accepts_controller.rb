@@ -34,6 +34,8 @@ class AcceptsController < InheritedResources::Base
     end
   end
 
+  # GET /new
+  # GET /new.json
   def new
     @basket = Basket.new
     @basket.user = current_user

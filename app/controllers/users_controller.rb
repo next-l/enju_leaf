@@ -113,12 +113,17 @@ class UsersController < ApplicationController
   # POST /users
   # POST /users.json
   def create
-    @user = User.create_with_params(params[:user], current_user)
+    @user = User.new
+    @user.assign_attributes(params[:user], :as => :admin)
+    @user.operator = current_user
     @user.set_auto_generated_password
-    @user.role = Role.where(:name => 'User').first
 
     respond_to do |format|
       if @user.save
+        role = Role.where(:name => 'User').first
+        user_has_role = UserHasRole.new
+        user_has_role.assign_attributes({:user_id => @user.id, :role_id => role.id}, :as => :admin)
+        user_has_role.save
         flash[:temporary_password] = @user.password
         format.html { redirect_to @user, :notice => t('controller.successfully_created.', :model => t('activerecord.models.user')) }
         format.json { render :json => @user, :status => :created, :location => @user }
@@ -134,8 +139,12 @@ class UsersController < ApplicationController
   # PUT /users/1
   # PUT /users/1.json
   def update
-    @user.update_with_params(params[:user], current_user)
-    if params[:user][:auto_generated_password] == "1"
+    if current_user.has_role?('Librarian')
+      @user.assign_attributes(params[:user], :as => :admin)
+    else
+      @user.assign_attributes(params[:user])
+    end
+    if @user.auto_generated_password == "1"
       @user.set_auto_generated_password
       flash[:temporary_password] = @user.password
     end

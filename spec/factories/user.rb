@@ -10,7 +10,10 @@ FactoryGirl.define do
     f.required_role {Role.find_by_name('User')}
     f.locale 'ja'
     f.after(:create) do |user|
-      user.role = Role.find_by_name('Administrator')
+      user_has_role = UserHasRole.new
+      user_has_role.assign_attributes({:user_id => user.id, :role_id => Role.find_by_name('Administrator').id}, :as => :admin)
+      user_has_role.save
+      user.reload
     end
   end
 
@@ -25,7 +28,10 @@ FactoryGirl.define do
     f.required_role {Role.find_by_name('User')}
     f.locale 'ja'
     f.after(:create) do |user|
-      user.role = Role.find_by_name('Librarian')
+      user_has_role = UserHasRole.new
+      user_has_role.assign_attributes({:user_id => user.id, :role_id => Role.find_by_name('Librarian').id}, :as => :admin)
+      user_has_role.save
+      user.reload
     end
   end
 
@@ -41,7 +47,10 @@ FactoryGirl.define do
     f.locale 'ja'
     f.sequence(:user_number){|n| "user_number_#{n}"}
     f.after(:create) do |user|
-      user.role = Role.find_by_name('User')
+      user_has_role = UserHasRole.new
+      user_has_role.assign_attributes({:user_id => user.id, :role_id => Role.find_by_name('User').id}, :as => :admin)
+      user_has_role.save
+      user.reload
     end
   end
 

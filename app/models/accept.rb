@@ -1,4 +1,5 @@
 class Accept < ActiveRecord::Base
+  attr_accessible :item_identifier
   default_scope :order => 'accepts.id DESC'
   belongs_to :basket
   belongs_to :item
@@ -10,7 +11,6 @@ class Accept < ActiveRecord::Base
 
   before_save :accept!, :on => :create
 
-  attr_accessible :item_identifier
   attr_accessor :item_identifier
 
   def self.per_page

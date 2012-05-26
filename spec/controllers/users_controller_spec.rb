@@ -95,12 +95,6 @@ describe UsersController do
         assigns(:user).should eq(users(:admin))
         response.should be_success
       end
-
-      it "should not update other user's role" do
-        put :update, :id => users(:user1).username, :user => {:user_has_role_attributes => {:role_id => 4}, :locale => 'en'}
-        assert_redirected_to user_url(assigns(:user))
-        assigns(:user).role.should_not eq Role.find_by_name('Administrator')
-      end
     end
 
     describe "When not logged in" do
@@ -262,6 +256,18 @@ describe UsersController do
           response.should render_template("new")
         end
       end
+
+      it "should not create user without username" do
+        post :create, :user => { :username => '' }
+        assigns(:user).should_not be_valid
+        response.should be_success
+      end
+
+      it "should create user" do
+        post :create, :user => { :username => 'test10' }
+        assigns(:user).should be_valid
+        response.should redirect_to user_url(assigns(:user))
+      end
     end
 
     describe "When logged in as User" do
@@ -324,6 +330,7 @@ describe UsersController do
       it "should update other user's role" do
         put :update, :id => users(:user1).username, :user => {:user_has_role_attributes => {:role_id => 4}, :locale => 'en'}
         response.should redirect_to user_url(assigns(:user))
+        assigns(:user).reload
         assigns(:user).role.should eq Role.find_by_name('Administrator')
       end
     end
@@ -375,18 +382,6 @@ describe UsersController do
         put :update, :id => users(:user1).username, :user => {:note => 'test', :locale => 'en'}
         response.should redirect_to user_url(assigns(:user))
         assert_equal assigns(:user).note, 'test'
-      end
-
-      it "should not create user without username" do
-        post :create, :user => { :username => '' }
-        assigns(:user).should_not be_valid
-        response.should be_success
-      end
-
-      it "should create user" do
-        post :create, :user => { :username => 'test10' }
-        assigns(:user).should be_valid
-        response.should redirect_to user_url(assigns(:user))
       end
     end
 
