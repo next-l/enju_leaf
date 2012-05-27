@@ -178,7 +178,7 @@ GEM
       sunspot_rails
       sunspot_solr
       will_paginate
-    enju_message (0.0.21)
+    enju_message (0.0.22)
       acts_as_list (~> 0.1.6)
       addressable
       attribute_normalizer (~> 1.1)
