@@ -133,8 +133,8 @@ class ItemsController < ApplicationController
       return
     end
     @item = Item.new
-    @item.shelf_id = @library.shelves.first.id
-    @item.manifestation_id = @manifestation.id
+    @item.shelf = @library.shelves.first
+    @item.manifestation_id = @manifestation.id if @manifestation
     if defined?(EnjuCirculation)
       @circulation_statuses = CirculationStatus.where(
         :name => [
@@ -177,8 +177,7 @@ class ItemsController < ApplicationController
             end
           end
         end
-        flash[:notice] = t('controller.successfully_created', :model => t('activerecord.models.item'))
-        format.html { redirect_to(@item) }
+        format.html { redirect_to(@item, :notice => t('controller.successfully_created', :model => t('activerecord.models.item'))) }
         format.json { render :json => @item, :status => :created, :location => @item }
       else
         prepare_options

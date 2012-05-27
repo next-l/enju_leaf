@@ -84,13 +84,16 @@ describe ItemsController do
   end
 
   describe "GET show" do
+    before(:each) do
+      @item = FactoryGirl.create(:item)
+    end
+
     describe "When logged in as Administrator" do
       login_admin
 
       it "assigns the requested item as @item" do
-        item = FactoryGirl.create(:item)
-        get :show, :id => item.id
-        assigns(:item).should eq(item)
+        get :show, :id => @item.id
+        assigns(:item).should eq(@item)
       end
 
       it "should not show missing item" do
@@ -103,9 +106,8 @@ describe ItemsController do
       login_librarian
 
       it "assigns the requested item as @item" do
-        item = FactoryGirl.create(:item)
-        get :show, :id => item.id
-        assigns(:item).should eq(item)
+        get :show, :id => @item.id
+        assigns(:item).should eq(@item)
       end
     end
 
@@ -113,17 +115,15 @@ describe ItemsController do
       login_user
 
       it "assigns the requested item as @item" do
-        item = FactoryGirl.create(:item)
-        get :show, :id => item.id
-        assigns(:item).should eq(item)
+        get :show, :id => @item.id
+        assigns(:item).should eq(@item)
       end
     end
 
     describe "When not logged in" do
       it "assigns the requested item as @item" do
-        item = FactoryGirl.create(:item)
-        get :show, :id => item.id
-        assigns(:item).should eq(item)
+        get :show, :id => @item.id
+        assigns(:item).should eq(@item)
       end
     end
   end
@@ -138,7 +138,7 @@ describe ItemsController do
 
       it "assigns the requested item as @item" do
         get :new, :manifestation_id => @manifestation.id
-        assigns(:item).should be_valid
+        assigns(:item).should_not be_valid
         response.should be_success
       end
 
@@ -153,7 +153,7 @@ describe ItemsController do
 
       it "assigns the requested item as @item" do
         get :new, :manifestation_id => @manifestation.id
-        assigns(:item).should be_valid
+        assigns(:item).should_not be_valid
         response.should be_success
       end
     end
@@ -265,6 +265,7 @@ describe ItemsController do
 
       it "should not create item without manifestation_id" do
         post :create, :item => { :circulation_status_id => 1 }
+        assigns(:item).should_not be_valid
         response.should be_missing
       end
 

@@ -51,9 +51,11 @@ class PictureFilesController < ApplicationController
 
         if @picture_file.picture.path
           if configatron.uploaded_file.storage == :s3
-            send_data data, :filename => @picture_file.picture_file_name, :type => @picture_file.picture_content_type, :disposition => disposition
+            send_data data, :filename => File.basename(@picture_file.picture_file_name), :type => @picture_file.picture_content_type, :disposition => disposition
           else
-            send_file file, :filename => @picture_file.picture_file_name, :type => @picture_file.picture_content_type, :disposition => disposition
+            if File.exist?(file) and File.file?(file)
+              send_file file, :filename => File.basename(@picture_file.picture_file_name), :type => @picture_file.picture_content_type, :disposition => disposition
+            end
           end
         end
       }

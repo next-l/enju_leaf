@@ -11,7 +11,6 @@ class CreateLibraryGroups < ActiveRecord::Migration
       t.text :login_banner
       t.text :note
       t.integer :valid_period_for_new_user, :default => 365, :null => false
-      t.boolean :post_to_union_catalog, :default => false, :null => false
       t.integer :country_id
 
       t.timestamps

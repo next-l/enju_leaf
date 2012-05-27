@@ -165,7 +165,7 @@ describe SubscriptionsController do
   describe "POST create" do
     before(:each) do
       @attrs = valid_attributes
-      @invalid_attrs = {:user_id => ''}
+      @invalid_attrs = {:title => ''}
     end
 
     describe "When logged in as Administrator" do
@@ -230,7 +230,7 @@ describe SubscriptionsController do
       describe "with valid params" do
         it "assigns a newly created subscription as @subscription" do
           post :create, :subscription => @attrs
-          assigns(:subscription).should be_valid
+          assigns(:subscription).should_not be_valid
         end
 
         it "should be forbidden" do
@@ -256,7 +256,7 @@ describe SubscriptionsController do
       describe "with valid params" do
         it "assigns a newly created subscription as @subscription" do
           post :create, :subscription => @attrs
-          assigns(:subscription).should be_valid
+          assigns(:subscription).should_not be_valid
         end
 
         it "should be forbidden" do
@@ -283,7 +283,7 @@ describe SubscriptionsController do
     before(:each) do
       @subscription = FactoryGirl.create(:subscription)
       @attrs = valid_attributes
-      @invalid_attrs = {:user_id => ''}
+      @invalid_attrs = {:title => ''}
     end
 
     describe "When logged in as Administrator" do

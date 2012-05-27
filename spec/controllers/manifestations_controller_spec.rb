@@ -251,7 +251,7 @@ describe ManifestationsController do
       end
 
       #it "should show myself" do
-      #  get :show, :id => users(:user1).patron.id
+      #  get :show, :id => users(:user1).patron
       #  response.should be_success
       #end
     end
@@ -439,7 +439,8 @@ describe ManifestationsController do
         end
 
         it "assigns a series_statement" do
-          post :create, :manifestation => @attrs.merge(:series_statement_id => 1)
+          post :create, :manifestation => @attrs.merge(:series_has_manifestation_attributes => {:series_statement_id => 1})
+          assigns(:manifestation).reload
           assigns(:manifestation).series_statement.should eq SeriesStatement.find(1)
         end
 
@@ -562,7 +563,8 @@ describe ManifestationsController do
         end
 
         it "assigns a series_statement" do
-          put :update, :id => @manifestation.id, :manifestation => @attrs.merge(:series_statement_id => 2)
+          put :update, :id => @manifestation.id, :manifestation => @attrs.merge(:series_has_manifestation_attributes => {:series_statement_id => 2})
+          assigns(:manifestation).reload
           assigns(:manifestation).series_statement.should eq SeriesStatement.find(2)
         end
 
