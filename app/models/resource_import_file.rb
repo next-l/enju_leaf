@@ -2,7 +2,7 @@
 class ResourceImportFile < ActiveRecord::Base
   attr_accessible :resource_import
   include ImportFile
-  default_scope :order => 'id DESC'
+  default_scope :order => 'resource_import_files.id DESC'
   scope :not_imported, where(:state => 'pending')
   scope :stucked, where('created_at < ? AND state = ?', 1.hour.ago, 'pending')
 
@@ -460,7 +460,6 @@ class ResourceImportFile < ActiveRecord::Base
         :description => row['description'],
         #:description_transcription => row['description_transcription'],
         :note => row['note'],
-        :series_statement => series_statement,
         :start_page => start_page,
         :end_page => end_page,
         :access_address => row['access_addres'],
@@ -472,6 +471,7 @@ class ResourceImportFile < ActiveRecord::Base
       manifestation.volume_number = volume_number
       manifestation.required_role = Role.where(:name => row['required_role_name'].to_s.strip.camelize).first || Role.find('Guest')
       manifestation.language = language
+      manifestation.series_statement = series_statement
       manifestation.save!
     end
     manifestation
