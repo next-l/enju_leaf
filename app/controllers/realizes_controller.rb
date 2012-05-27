@@ -41,7 +41,9 @@ class RealizesController < ApplicationController
       redirect_to patron_expressions_url(@patron)
       return
     else
-      @realize = Realize.new(:expression => @expression, :patron => @patron)
+      @realize = Realize.new
+      @realize.expression = @expression
+      @realize.patron = @patron
     end
   end
 

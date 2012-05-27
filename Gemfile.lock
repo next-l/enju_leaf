@@ -65,7 +65,7 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_event.git
-  revision: d0752d20f311790364a17ac522f978049065cf9a
+  revision: 2d1f23b6c15faeb66b106dd9c92325077dae5653
   specs:
     enju_event (0.1.7)
       acts_as_list (~> 0.1.6)
@@ -128,9 +128,9 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_message.git
-  revision: 660ffd6aecb50af5a730c7df24510ffe93e5c712
+  revision: 45807bffb9dcfc5272aadcc313bda217fcf4c838
   specs:
-    enju_message (0.1.4)
+    enju_message (0.1.6)
       acts_as_list (~> 0.1.6)
       addressable
       attribute_normalizer (~> 1.1)
@@ -150,9 +150,9 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_ndl.git
-  revision: 354d8c9b37f77d28f5e25f634b16378855472506
+  revision: f2829a2b28a3db06198af52caca6b16476b04702
   specs:
-    enju_ndl (0.0.23)
+    enju_ndl (0.0.24)
       acts_as_list
       attribute_normalizer
       devise
@@ -273,7 +273,7 @@ GIT
 
 GIT
   remote: git://github.com/next-l/enju_biblio.git
-  revision: 2b44e31ea12467d8275e2e494671e106db39fd97
+  revision: bed2bb16154ac6ae700344c71ca4ce50bf4205e3
   specs:
     enju_biblio (0.0.1)
       acts_as_list

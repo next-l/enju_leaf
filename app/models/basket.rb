@@ -1,5 +1,5 @@
 class Basket < ActiveRecord::Base
-  attr_accessible :note
+  attr_accessible :note, :user_number
   default_scope :order => 'baskets.id DESC'
   scope :will_expire, lambda {|date| {:conditions => ['created_at < ?', date]}}
   belongs_to :user, :validate => true

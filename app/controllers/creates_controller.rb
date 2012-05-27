@@ -41,7 +41,9 @@ class CreatesController < ApplicationController
       redirect_to work_patrons_url(@work)
       return
     else
-      @create = Create.new(:work => @work, :patron => @patron)
+      @create = Create.new
+      @create.work = @work
+      @create.patron = @patron
     end
   end
 
