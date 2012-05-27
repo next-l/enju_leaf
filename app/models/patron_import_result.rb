@@ -1,4 +1,5 @@
 class PatronImportResult < ActiveRecord::Base
+  attr_accessible :patron_import_file_id, :patron_id, :user_id, :body
   default_scope :order => 'patron_import_results.id'
   scope :file_id, proc{|file_id| where(:patron_import_file_id => file_id)}
   scope :failed, where(:patron_id => nil)

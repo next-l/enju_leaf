@@ -2,9 +2,11 @@ class SeriesHasManifestation < ActiveRecord::Base
   attr_accessible :series_statement_id, :manifestation_id
   belongs_to :series_statement
   belongs_to :manifestation
+  accepts_nested_attributes_for :series_statement
 
   validates_associated :series_statement, :manifestation
-  validates_presence_of :series_statement_id, :manifestation_id
+  validates_presence_of :series_statement_id
+  validates_presence_of :manifestation_id, :on => :update
   validates_uniqueness_of :manifestation_id, :scope => :series_statement_id
   after_save :reload
   after_save :reindex

@@ -1,4 +1,5 @@
 class ResourceImportResult < ActiveRecord::Base
+  attr_accessible :resource_import_file_id, :manifestation_id, :item_id, :body
   default_scope :order => 'resource_import_results.id'
   scope :file_id, proc{|file_id| where(:resource_import_file_id => file_id)}
   scope :failed, where(:manifestation_id => nil)

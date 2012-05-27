@@ -1,7 +1,7 @@
 class License < ActiveRecord::Base
   attr_accessible :name, :display_name, :note
   include MasterModel
-  default_scope :order => 'position'
+  default_scope :order => 'licenses.position'
 end
 
 # == Schema Information

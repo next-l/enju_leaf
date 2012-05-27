@@ -67,7 +67,7 @@ class ResourceImportFile < ActiveRecord::Base
 
     rows.each do |row|
       next if row['dummy'].to_s.strip.present?
-      import_result = ResourceImportResult.create!(:resource_import_file => self, :body => row.fields.join("\t"))
+      import_result = ResourceImportResult.create!(:resource_import_file_id => self.id, :body => row.fields.join("\t"))
 
       item_identifier = row['item_identifier'].to_s.strip
       item = Item.where(:item_identifier => item_identifier).first
@@ -312,7 +312,7 @@ class ResourceImportFile < ActiveRecord::Base
       header = file.first
       rows = FasterCSV.open(tempfile.path, 'r:utf-8', :headers => header, :col_sep => "\t")
     end
-    ResourceImportResult.create(:resource_import_file => self, :body => header.join("\t"))
+    ResourceImportResult.create!(:resource_import_file_id => self.id, :body => header.join("\t"))
     tempfile.close(true)
     file.close
     rows
@@ -341,16 +341,16 @@ class ResourceImportFile < ActiveRecord::Base
       :item_identifier => row['item_identifier'],
       :price => row['item_price'],
       :call_number => row['call_number'].to_s.strip,
-      :shelf => shelf,
       :acquired_at => acquired_at,
-      :bookstore => bookstore,
-      :budget_type => budget_type
     })
     if defined?(EnjuCirculation)
       circulation_status = CirculationStatus.where(:name => row['circulation_status'].to_s.strip).first || CirculationStatus.where(:name => 'In Process').first
       use_restriction = UseRestriction.where(:name => row['use_restriction'].to_s.strip).first
       item.circulation_status = circulation_status
     end
+    item.bookstore = bookstore
+    item.budget_type = budget_type
+    item.shelf = shelf
     item
   end
 

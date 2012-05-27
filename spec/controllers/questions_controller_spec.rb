@@ -3,10 +3,6 @@ require 'spec_helper'
 describe QuestionsController do
   fixtures :all
 
-  def valid_attributes
-    @attrs = FactoryGirl.attributes_for(:question)
-  end
-
   describe "GET index", :solr => true do
     describe "When logged in as Administrator" do
       login_fixture_admin
@@ -249,7 +245,7 @@ describe QuestionsController do
 
   describe "POST create" do
     before(:each) do
-      @attrs = valid_attributes
+      @attrs = FactoryGirl.attributes_for(:question)
       @invalid_attrs = {:body => ''}
     end
 
@@ -341,7 +337,7 @@ describe QuestionsController do
       describe "with valid params" do
         it "assigns a newly created question as @question" do
           post :create, :question => @attrs
-          assigns(:question).should be_valid
+          assigns(:question).should_not be_valid
         end
 
         it "should be forbidden" do
@@ -367,7 +363,7 @@ describe QuestionsController do
   describe "PUT update" do
     before(:each) do
       @question = FactoryGirl.create(:question)
-      @attrs = valid_attributes
+      @attrs = FactoryGirl.attributes_for(:question)
       @invalid_attrs = {:body => ''}
     end
 

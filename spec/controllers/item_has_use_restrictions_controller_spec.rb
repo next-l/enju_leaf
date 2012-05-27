@@ -32,7 +32,7 @@ describe ItemHasUseRestrictionsController do
       end
     end
 
-    describe "When logged in as Subject" do
+    describe "When logged in as User" do
       login_user
 
       it "assigns all item_has_use_restrictions as @item_has_use_restrictions" do
@@ -72,7 +72,7 @@ describe ItemHasUseRestrictionsController do
       end
     end
 
-    describe "When logged in as Subject" do
+    describe "When logged in as User" do
       login_user
 
       it "assigns the requested item_has_use_restriction as @item_has_use_restriction" do
@@ -112,7 +112,7 @@ describe ItemHasUseRestrictionsController do
       end
     end
 
-    describe "When logged in as Subject" do
+    describe "When logged in as User" do
       login_user
 
       it "should not assign the requested item_has_use_restriction as @item_has_use_restriction" do
@@ -152,7 +152,7 @@ describe ItemHasUseRestrictionsController do
       end
     end
 
-    describe "When logged in as Subject" do
+    describe "When logged in as User" do
       login_user
 
       it "assigns the requested item_has_use_restriction as @item_has_use_restriction" do
@@ -211,7 +211,7 @@ describe ItemHasUseRestrictionsController do
       describe "with valid params" do
         it "assigns a newly created item_has_use_restriction as @item_has_use_restriction" do
           post :create, :item_has_use_restriction => @attrs
-          assigns(:item_has_use_restriction).should be_valid
+          assigns(:item_has_use_restriction).should_not be_valid
         end
 
         it "should be forbidden" do
@@ -233,13 +233,13 @@ describe ItemHasUseRestrictionsController do
       end
     end
 
-    describe "When logged in as Subject" do
+    describe "When logged in as User" do
       login_user
 
       describe "with valid params" do
         it "assigns a newly created item_has_use_restriction as @item_has_use_restriction" do
           post :create, :item_has_use_restriction => @attrs
-          assigns(:item_has_use_restriction).should be_valid
+          assigns(:item_has_use_restriction).should_not be_valid
         end
 
         it "should be forbidden" do
@@ -265,7 +265,7 @@ describe ItemHasUseRestrictionsController do
       describe "with valid params" do
         it "assigns a newly created item_has_use_restriction as @item_has_use_restriction" do
           post :create, :item_has_use_restriction => @attrs
-          assigns(:item_has_use_restriction).should be_valid
+          assigns(:item_has_use_restriction).should_not be_valid
         end
 
         it "should be forbidden" do
@@ -345,7 +345,7 @@ describe ItemHasUseRestrictionsController do
       end
     end
 
-    describe "When logged in as Subject" do
+    describe "When logged in as User" do
       login_user
 
       describe "with valid params" do
@@ -420,7 +420,7 @@ describe ItemHasUseRestrictionsController do
       end
     end
 
-    describe "When logged in as Subject" do
+    describe "When logged in as User" do
       login_user
 
       it "destroys the requested item_has_use_restriction" do

@@ -1,7 +1,7 @@
 class ManifestationRelationshipType < ActiveRecord::Base
   attr_accessible :name, :display_name, :note
   include MasterModel
-  default_scope :order => 'position'
+  default_scope :order => 'manifestation_relationship_types.position'
   has_many :manifestation_relationships
 end
 

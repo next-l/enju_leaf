@@ -181,7 +181,7 @@ describe CirculationStatusesController do
       describe "with valid params" do
         it "assigns a newly created circulation_status as @circulation_status" do
           post :create, :circulation_status => @attrs
-          assigns(:circulation_status).should_not be_valid
+          assigns(:circulation_status).should be_valid
         end
 
         it "redirects to the created patron" do
@@ -209,7 +209,7 @@ describe CirculationStatusesController do
       describe "with valid params" do
         it "assigns a newly created circulation_status as @circulation_status" do
           post :create, :circulation_status => @attrs
-          assigns(:circulation_status).should_not be_valid
+          assigns(:circulation_status).should be_valid
         end
 
         it "should be forbidden" do
@@ -237,7 +237,7 @@ describe CirculationStatusesController do
       describe "with valid params" do
         it "assigns a newly created circulation_status as @circulation_status" do
           post :create, :circulation_status => @attrs
-          assigns(:circulation_status).should_not be_valid
+          assigns(:circulation_status).should be_valid
         end
 
         it "should be forbidden" do
@@ -263,7 +263,7 @@ describe CirculationStatusesController do
       describe "with valid params" do
         it "assigns a newly created circulation_status as @circulation_status" do
           post :create, :circulation_status => @attrs
-          assigns(:circulation_status).should_not be_valid
+          assigns(:circulation_status).should be_valid
         end
 
         it "should be forbidden" do

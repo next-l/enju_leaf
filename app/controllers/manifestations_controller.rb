@@ -379,9 +379,11 @@ class ManifestationsController < ApplicationController
       format.download {
         if @manifestation.attachment.path
           if configatron.uploaded_file.storage == :s3
-            send_data @manifestation.attachment.data, :filename => @manifestation.attachment_file_name, :type => 'application/octet-stream'
+            send_data @manifestation.attachment.data, :filename => File.basename(@manifestation.attachment_file_name), :type => 'application/octet-stream'
           else
-            send_file file, :filename => @manifestation.attachment_file_name, :type => 'application/octet-stream'
+            if File.exist?(file) and File.file?(file)
+              send_file file, :filename => File.basename(@manifestation.attachment_file_name), :type => 'application/octet-stream'
+            end
           end
         else
           render :template => 'page/404', :status => 404
@@ -397,6 +399,8 @@ class ManifestationsController < ApplicationController
     @original_manifestation = Manifestation.where(:id => params[:manifestation_id]).first
     set_title
     @manifestation.language = Language.where(:iso_639_1 => @locale).first
+    @manifestation.series_has_manifestation = SeriesHasManifestation.new
+    @manifestation.series_has_manifestation.series_statement = @series_statement
 
     respond_to do |format|
       format.html # new.html.erb
@@ -412,11 +416,6 @@ class ManifestationsController < ApplicationController
       end
     end
     @original_manifestation = Manifestation.where(:id => params[:manifestation_id]).first
-    if @series_statement
-      @manifestation.series_statement_id = @series_statement.id
-    elsif @manifestation.series_statement
-      @manifestation.series_statement_id = @manifestation.series_statement.id
-    end
     if defined?(EnjuBookmark)
       if params[:mode] == 'tag_edit'
         @bookmark = current_user.bookmarks.where(:manifestation_id => @manifestation.id).first if @manifestation rescue nil
@@ -431,11 +430,6 @@ class ManifestationsController < ApplicationController
   def create
     @manifestation = Manifestation.new(params[:manifestation])
     @original_manifestation = Manifestation.where(:id => params[:manifestation_id]).first
-    if defined?(EnjuScribd)
-      if @manifestation.respond_to?(:post_to_scribd)
-        @manifestation.post_to_scribd = true if params[:manifestation][:post_to_scribd] == "1"
-      end
-    end
     unless @manifestation.original_title?
       @manifestation.original_title = @manifestation.attachment_file_name
     end
@@ -443,7 +437,6 @@ class ManifestationsController < ApplicationController
     respond_to do |format|
       if @manifestation.save
         Manifestation.transaction do
-          @manifestation.series_statement = SeriesStatement.where(:id => @manifestation.series_statement_id).first
           if @original_manifestation
             @manifestation.derived_manifestations << @original_manifestation
           end
@@ -464,7 +457,6 @@ class ManifestationsController < ApplicationController
   def update
     respond_to do |format|
       if @manifestation.update_attributes(params[:manifestation])
-        @manifestation.series_statement = SeriesStatement.where(:id => @manifestation.series_statement_id).first
         format.html { redirect_to @manifestation, :notice => t('controller.successfully_updated', :model => t('activerecord.models.manifestation')) }
         format.json { head :no_content }
       else

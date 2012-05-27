@@ -205,7 +205,7 @@ describe ReserveStatHasUsersController do
       describe "with valid params" do
         it "assigns a newly created reserve_stat_has_user as @reserve_stat_has_user" do
           post :create, :reserve_stat_has_user => @attrs
-          assigns(:reserve_stat_has_user).should be_valid
+          assigns(:reserve_stat_has_user).should_not be_valid
         end
 
         it "should be forbidden" do
@@ -233,7 +233,7 @@ describe ReserveStatHasUsersController do
       describe "with valid params" do
         it "assigns a newly created reserve_stat_has_user as @reserve_stat_has_user" do
           post :create, :reserve_stat_has_user => @attrs
-          assigns(:reserve_stat_has_user).should be_valid
+          assigns(:reserve_stat_has_user).should_not be_valid
         end
 
         it "should be forbidden" do
@@ -259,7 +259,7 @@ describe ReserveStatHasUsersController do
       describe "with valid params" do
         it "assigns a newly created reserve_stat_has_user as @reserve_stat_has_user" do
           post :create, :reserve_stat_has_user => @attrs
-          assigns(:reserve_stat_has_user).should be_valid
+          assigns(:reserve_stat_has_user).should_not be_valid
         end
 
         it "should be forbidden" do

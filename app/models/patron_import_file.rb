@@ -66,7 +66,7 @@ class PatronImportFile < ActiveRecord::Base
 
     rows.each do |row|
       next if row['dummy'].to_s.strip.present?
-      import_result = PatronImportResult.create!(:patron_import_file => self, :body => row.fields.join("\t"))
+      import_result = PatronImportResult.create!(:patron_import_file_id => self.id, :body => row.fields.join("\t"))
 
       patron = Patron.new
       patron = set_patron_value(patron, row)
@@ -182,7 +182,7 @@ class PatronImportFile < ActiveRecord::Base
       header = file.first
       rows = FasterCSV.open(tempfile.path, :headers => header, :col_sep => "\t")
     end
-    PatronImportResult.create(:patron_import_file => self, :body => header.join("\t"))
+    PatronImportResult.create!(:patron_import_file_id => self.id, :body => header.join("\t"))
     tempfile.close(true)
     file.close
     rows

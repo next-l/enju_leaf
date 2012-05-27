@@ -4,10 +4,6 @@ require 'spec_helper'
 describe BookmarksController do
   fixtures :all
 
-  def valid_attributes
-    FactoryGirl.attributes_for(:bookmark)
-  end
-
   describe "GET index", :solr => true do
     describe "When logged in as Administrator" do
       login_fixture_admin
@@ -74,16 +70,13 @@ describe BookmarksController do
   end
 
   describe "GET show" do
-    before(:each) do
-      @bookmark = FactoryGirl.create(:bookmark)
-    end
-
     describe "When logged in as Administrator" do
       login_fixture_admin
 
       it "assigns the requested bookmark as @bookmark" do
-        get :show, :id => @bookmark.id
-        assigns(:bookmark).should eq(@bookmark)
+        bookmark = FactoryGirl.create(:bookmark)
+        get :show, :id => bookmark.id
+        assigns(:bookmark).should eq(bookmark)
       end
     end
 
@@ -91,8 +84,9 @@ describe BookmarksController do
       login_fixture_librarian
 
       it "assigns the requested bookmark as @bookmark" do
-        get :show, :id => @bookmark.id
-        assigns(:bookmark).should eq(@bookmark)
+        bookmark = FactoryGirl.create(:bookmark)
+        get :show, :id => bookmark.id
+        assigns(:bookmark).should eq(bookmark)
       end
 
       it "should shot other user's bookmark" do
@@ -105,8 +99,9 @@ describe BookmarksController do
       login_fixture_user
 
       it "assigns the requested bookmark as @bookmark" do
-        get :show, :id => @bookmark.id
-        assigns(:bookmark).should eq(@bookmark)
+        bookmark = FactoryGirl.create(:bookmark)
+        get :show, :id => bookmark.id
+        assigns(:bookmark).should eq(bookmark)
       end
 
       it "should not show other user's bookmark" do
@@ -122,8 +117,9 @@ describe BookmarksController do
 
     describe "When not logged in" do
       it "assigns the requested bookmark as @bookmark" do
-        get :show, :id => @bookmark.id
-        assigns(:bookmark).should eq(@bookmark)
+        bookmark = FactoryGirl.create(:bookmark)
+        get :show, :id => bookmark.id
+        assigns(:bookmark).should eq(bookmark)
         response.should redirect_to new_user_session_url
       end
     end
@@ -223,7 +219,7 @@ describe BookmarksController do
   describe "POST create" do
     before(:each) do
       @bookmark = bookmarks(:bookmark_00001)
-      @attrs = valid_attributes
+      @attrs = FactoryGirl.attributes_for(:bookmark)
       @invalid_attrs = {:url => ''}
     end
 
@@ -313,7 +309,7 @@ describe BookmarksController do
   describe "PUT update" do
     before(:each) do
       @bookmark = bookmarks(:bookmark_00001)
-      @attrs = valid_attributes
+      @attrs = FactoryGirl.attributes_for(:bookmark)
       @invalid_attrs = {:url => ''}
     end
 
@@ -427,10 +423,11 @@ describe BookmarksController do
         response.should be_missing
       end
 
-      it "should not update bookmark without manifestation_id" do
+      it "should update bookmark without manifestation_id" do
         put :update, :id => 3, :bookmark => {:manifestation_id => nil}
-        assigns(:bookmark).should_not be_valid
-        response.should be_success
+        assigns(:bookmark).should be_valid
+        response.should redirect_to bookmark_url(assigns(:bookmark))
+        assigns(:bookmark).manifestation.should_not be_nil
       end
     end
 

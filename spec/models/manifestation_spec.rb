@@ -206,8 +206,8 @@ describe Manifestation, :solr => true do
   it "should set series_statement if the manifestation is periodical" do
     manifestation = series_statements(:two).manifestations.new
     manifestation.set_series_statement(series_statements(:two))
-    manifestation.original_title.should eq "テスト雑誌２月号"
-    manifestation.issn.should eq "12345678"
+    manifestation.original_title.should eq 'テスト雑誌２月号'
+    manifestation.issn.should eq series_statements(:two).issn
     manifestation.serial_number.should eq 3
     manifestation.issue_number.should eq 3
     manifestation.volume_number.should eq 1

@@ -26,7 +26,7 @@ describe CarrierTypeHasCheckoutTypesController do
       end
     end
 
-    describe "When logged in as Subject" do
+    describe "When logged in as User" do
       login_user
 
       it "assigns all carrier_type_has_checkout_types as @carrier_type_has_checkout_types" do
@@ -66,7 +66,7 @@ describe CarrierTypeHasCheckoutTypesController do
       end
     end
 
-    describe "When logged in as Subject" do
+    describe "When logged in as User" do
       login_user
 
       it "assigns the requested carrier_type_has_checkout_type as @carrier_type_has_checkout_type" do
@@ -106,7 +106,7 @@ describe CarrierTypeHasCheckoutTypesController do
       end
     end
 
-    describe "When logged in as Subject" do
+    describe "When logged in as User" do
       login_user
 
       it "should not assign the requested carrier_type_has_checkout_type as @carrier_type_has_checkout_type" do
@@ -146,7 +146,7 @@ describe CarrierTypeHasCheckoutTypesController do
       end
     end
 
-    describe "When logged in as Subject" do
+    describe "When logged in as User" do
       login_user
 
       it "assigns the requested carrier_type_has_checkout_type as @carrier_type_has_checkout_type" do
@@ -227,7 +227,7 @@ describe CarrierTypeHasCheckoutTypesController do
       end
     end
 
-    describe "When logged in as Subject" do
+    describe "When logged in as User" do
       login_user
 
       describe "with valid params" do
@@ -339,7 +339,7 @@ describe CarrierTypeHasCheckoutTypesController do
       end
     end
 
-    describe "When logged in as Subject" do
+    describe "When logged in as User" do
       login_user
 
       describe "with valid params" do
@@ -414,7 +414,7 @@ describe CarrierTypeHasCheckoutTypesController do
       end
     end
 
-    describe "When logged in as Subject" do
+    describe "When logged in as User" do
       login_user
 
       it "destroys the requested carrier_type_has_checkout_type" do

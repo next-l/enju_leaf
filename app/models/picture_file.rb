@@ -1,4 +1,6 @@
 class PictureFile < ActiveRecord::Base
+  attr_accessible :picture, :picture_attachable_id,
+    :picture_attachable_type
   scope :attached, where('picture_attachable_id > 0')
   belongs_to :picture_attachable, :polymorphic => true, :validate => true
 
@@ -13,7 +15,7 @@ class PictureFile < ActiveRecord::Base
 
   validates :picture_attachable_type, :presence => true, :inclusion => {:in => ['Event', 'Manifestation', 'Patron', 'Shelf']}
   validates_associated :picture_attachable
-  default_scope :order => 'position'
+  default_scope :order => 'picture_files.position'
   # http://railsforum.com/viewtopic.php?id=11615
   acts_as_list :scope => 'picture_attachable_type=\'#{picture_attachable_type}\''
   normalize_attributes :picture_attachable_type

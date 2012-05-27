@@ -133,8 +133,8 @@ class ItemsController < ApplicationController
       return
     end
     @item = Item.new
-    @item.shelf_id = @library.shelves.first.id
-    @item.manifestation_id = @manifestation.id
+    @item.shelf = @library.shelves.first
+    @item.manifestation_id = @manifestation.id if @manifestation
     if defined?(EnjuCirculation)
       @circulation_statuses = CirculationStatus.where(
         :name => [
@@ -180,13 +180,11 @@ class ItemsController < ApplicationController
             end
           end
         end
-        flash[:notice] = t('controller.successfully_created', :model => t('activerecord.models.item'))
-        @item.post_to_union_catalog if LibraryGroup.site_config.post_to_union_catalog
         if @patron
-          format.html { redirect_to patron_item_url(@patron, @item) }
+          format.html { redirect_to patron_item_url(@patron, @item, :notice => t('controller.successfully_created', :model => t('activerecord.models.item')))}
           format.json { render :json => @item, :status => :created, :location => @item }
         else
-          format.html { redirect_to(@item) }
+          format.html { redirect_to(@item, :notice => t('controller.successfully_created', :model => t('activerecord.models.item')))}
           format.json { render :json => @item, :status => :created, :location => @item }
         end
       else

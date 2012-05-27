@@ -62,8 +62,9 @@ class SubscriptionsController < ApplicationController
   # PUT /subscriptions/1
   # PUT /subscriptions/1.json
   def update
+    @subscription.assign_attributes(params[:subscription])
     respond_to do |format|
-      if @subscription.update_attributes(params[:subscription])
+      if @subscription.save
         format.html { redirect_to @subscription, :notice => t('controller.successfully_updated', :model => t('activerecord.models.subscription')) }
         format.json { head :no_content }
       else

@@ -1,5 +1,15 @@
 # -*- encoding: utf-8 -*-
 class Patron < ActiveRecord::Base
+  attr_accessible :last_name, :middle_name, :first_name,
+    :last_name_transcription, :middle_name_transcription,
+    :first_name_transcription, :corporate_name, :corporate_name_transcription,
+    :full_name, :full_name_transcription, :full_name_alternative, :zip_code_1,
+    :zip_code_2, :address_1, :address_2, :address_1_note, :address_2_note,
+    :telephone_number_1, :telephone_number_2, :fax_number_1, :fax_number_2,
+    :other_designation, :place, :street, :locality, :region, :language_id,
+    :country_id, :patron_type_id, :note, :required_role_id, :email, :url,
+    :full_name_alternative_transcription, :title, :birth_date, :death_date
+
   scope :readable_by, lambda{|user| {:conditions => ['required_role_id <= ?', user.try(:user_has_role).try(:role_id) || Role.where(:name => 'Guest').select(:id).first.id]}}
   has_many :creates, :dependent => :destroy
   has_many :works, :through => :creates

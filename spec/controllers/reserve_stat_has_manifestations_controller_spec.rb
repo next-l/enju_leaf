@@ -26,7 +26,7 @@ describe ReserveStatHasManifestationsController do
       end
     end
 
-    describe "When logged in as Manifestation" do
+    describe "When logged in as User" do
       login_user
 
       it "assigns all reserve_stat_has_manifestations as @reserve_stat_has_manifestations" do
@@ -66,7 +66,7 @@ describe ReserveStatHasManifestationsController do
       end
     end
 
-    describe "When logged in as Manifestation" do
+    describe "When logged in as User" do
       login_user
 
       it "assigns the requested reserve_stat_has_manifestation as @reserve_stat_has_manifestation" do
@@ -106,7 +106,7 @@ describe ReserveStatHasManifestationsController do
       end
     end
 
-    describe "When logged in as Manifestation" do
+    describe "When logged in as User" do
       login_user
 
       it "should not assign the requested reserve_stat_has_manifestation as @reserve_stat_has_manifestation" do
@@ -146,7 +146,7 @@ describe ReserveStatHasManifestationsController do
       end
     end
 
-    describe "When logged in as Manifestation" do
+    describe "When logged in as User" do
       login_user
 
       it "assigns the requested reserve_stat_has_manifestation as @reserve_stat_has_manifestation" do
@@ -205,7 +205,7 @@ describe ReserveStatHasManifestationsController do
       describe "with valid params" do
         it "assigns a newly created reserve_stat_has_manifestation as @reserve_stat_has_manifestation" do
           post :create, :reserve_stat_has_manifestation => @attrs
-          assigns(:reserve_stat_has_manifestation).should be_valid
+          assigns(:reserve_stat_has_manifestation).should_not be_valid
         end
 
         it "should be forbidden" do
@@ -227,13 +227,13 @@ describe ReserveStatHasManifestationsController do
       end
     end
 
-    describe "When logged in as Manifestation" do
+    describe "When logged in as User" do
       login_user
 
       describe "with valid params" do
         it "assigns a newly created reserve_stat_has_manifestation as @reserve_stat_has_manifestation" do
           post :create, :reserve_stat_has_manifestation => @attrs
-          assigns(:reserve_stat_has_manifestation).should be_valid
+          assigns(:reserve_stat_has_manifestation).should_not be_valid
         end
 
         it "should be forbidden" do
@@ -259,7 +259,7 @@ describe ReserveStatHasManifestationsController do
       describe "with valid params" do
         it "assigns a newly created reserve_stat_has_manifestation as @reserve_stat_has_manifestation" do
           post :create, :reserve_stat_has_manifestation => @attrs
-          assigns(:reserve_stat_has_manifestation).should be_valid
+          assigns(:reserve_stat_has_manifestation).should_not be_valid
         end
 
         it "should be forbidden" do
@@ -339,7 +339,7 @@ describe ReserveStatHasManifestationsController do
       end
     end
 
-    describe "When logged in as Manifestation" do
+    describe "When logged in as User" do
       login_user
 
       describe "with valid params" do
@@ -414,7 +414,7 @@ describe ReserveStatHasManifestationsController do
       end
     end
 
-    describe "When logged in as Manifestation" do
+    describe "When logged in as User" do
       login_user
 
       it "destroys the requested reserve_stat_has_manifestation" do

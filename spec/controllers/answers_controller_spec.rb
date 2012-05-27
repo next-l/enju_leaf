@@ -3,10 +3,6 @@ require 'spec_helper'
 describe AnswersController do
   fixtures :all
 
-  def valid_attributes
-    FactoryGirl.attributes_for(:answer)
-  end
-
   describe "GET index" do
     describe "When logged in as Administrator" do
       login_fixture_admin
@@ -300,7 +296,7 @@ describe AnswersController do
 
   describe "POST create" do
     before(:each) do
-      @attrs = valid_attributes
+      @attrs = FactoryGirl.attributes_for(:answer)
       @invalid_attrs = {:body => ''}
     end
 
@@ -329,7 +325,7 @@ describe AnswersController do
       describe "with valid params" do
         it "assigns a newly created answer as @answer" do
           post :create, :answer => @attrs
-          assigns(:answer).should be_valid
+          assigns(:answer).should_not be_valid
         end
 
         it "redirects to the created answer" do

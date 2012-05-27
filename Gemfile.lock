@@ -122,7 +122,7 @@ GEM
       rails (~> 3.2)
       rqrcode
       will_paginate
-    enju_bookmark (0.0.15)
+    enju_bookmark (0.0.17)
       acts-as-taggable-on (~> 2.3)
       acts_as_list (~> 0.1.6)
       addressable
@@ -135,7 +135,7 @@ GEM
       sunspot_rails
       sunspot_solr
       will_paginate (~> 3.0)
-    enju_circulation (0.0.43)
+    enju_circulation (0.0.45)
       acts_as_list (~> 0.1.6)
       attribute_normalizer (~> 1.1)
       cancan
@@ -148,7 +148,6 @@ GEM
       simple_form
       state_machine
       sunspot_rails
-      sunspot_solr
       validates_timeliness
       will_paginate (~> 3.0)
     enju_event (0.0.19)
@@ -490,8 +489,8 @@ DEPENDENCIES
   dynamic_form
   enju_barcode (~> 0.0.2)
   enju_book_jacket!
-  enju_bookmark (~> 0.0.15)
-  enju_circulation (~> 0.0.43)
+  enju_bookmark (~> 0.0.17)
+  enju_circulation (~> 0.0.45)
   enju_event (~> 0.0.19)
   enju_inventory (~> 0.0.8)
   enju_manifestation_viewer!

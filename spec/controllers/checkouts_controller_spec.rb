@@ -254,9 +254,10 @@ describe CheckoutsController do
           put :update, :id => @checkout.id, :checkout => @invalid_attrs
         end
 
-        it "re-renders the 'edit' template" do
+        it "should ignore item_id" do
           put :update, :id => @checkout.id, :checkout => @invalid_attrs
-          response.should render_template("edit")
+          response.should redirect_to(assigns(:checkout))
+          assigns(:checkout).changed?.should be_false
         end
       end
 
@@ -296,12 +297,12 @@ describe CheckoutsController do
       describe "with invalid params" do
         it "assigns the checkout as @checkout" do
           put :update, :id => @checkout.id, :checkout => @invalid_attrs, :user_id => @checkout.user.username
-          assigns(:checkout).should_not be_valid
+          assigns(:checkout).should be_valid
         end
 
-        it "re-renders the 'edit' template" do
+        it "should ignore item_id" do
           put :update, :id => @checkout.id, :checkout => @invalid_attrs, :user_id => @checkout.user.username
-          response.should render_template("edit")
+          response.should redirect_to(assigns(:checkout))
         end
       end
   
@@ -370,8 +371,9 @@ describe CheckoutsController do
   
       it "should not update checkout without item_id" do
         put :update, :id => 3, :checkout => {:item_id => nil}
-        assigns(:checkout).should_not be_valid
-        response.should be_success
+        assigns(:checkout).should be_valid
+        response.should redirect_to(assigns(:checkout))
+        assigns(:checkout).changed?.should be_false
       end
 
       it "should remove its own checkout history" do

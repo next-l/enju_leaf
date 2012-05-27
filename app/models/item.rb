@@ -1,5 +1,9 @@
 # -*- encoding: utf-8 -*-
 class Item < ActiveRecord::Base
+  attr_accessible :call_number, :item_identifier, :circulation_status_id,
+    :checkout_type_id, :shelf_id, :include_supplements, :note, :url, :price,
+    :acquired_at, :bookstore_id, :missing_since, :budget_type_id,
+    :manifestation_id #,:exemplify_attributes
   scope :on_shelf, where('shelf_id != 1')
   scope :on_web, where(:shelf_id => 1)
   scope :accepted_between, lambda{|from, to| includes(:accept).where('items.created_at BETWEEN ? AND ?', Time.zone.parse(from).beginning_of_day, Time.zone.parse(to).end_of_day)}
@@ -16,6 +20,7 @@ class Item < ActiveRecord::Base
   has_one :resource_import_result
   belongs_to :budget_type
   has_one :accept
+  #accepts_nested_attributes_for :exemplify
 
   validates_associated :shelf, :bookstore
   validates :manifestation_id, :presence => true, :on => :create
