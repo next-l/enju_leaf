@@ -1,5 +1,8 @@
 # -*- encoding: utf-8 -*-
 class LibraryGroup < ActiveRecord::Base
+  attr_accessible :name, :display_name, :short_name, :email, :my_networks,
+    :login_banner, :note, :country_id, :admin_networks, :url
+
   #include Singleton
   #include Configurator
   include MasterModel
@@ -72,10 +75,9 @@ end
 #  my_networks                 :text
 #  login_banner                :text
 #  note                        :text
-#  post_to_union_catalog       :boolean         default(FALSE), not null
 #  country_id                  :integer
-#  created_at                  :datetime
-#  updated_at                  :datetime
+#  created_at                  :datetime        not null
+#  updated_at                  :datetime        not null
 #  admin_networks              :text
 #  allow_bookmark_external_url :boolean         default(FALSE), not null
 #  position                    :integer
