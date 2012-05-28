@@ -4,10 +4,6 @@ require 'sunspot/rails/spec_helper'
 describe SeriesStatementMergeListsController do
   disconnect_sunspot
 
-  def valid_attributes
-    FactoryGirl.attributes_for(:series_statement_merge_list)
-  end
-
   describe "GET index" do
     describe "When logged in as Administrator" do
       login_admin
@@ -164,7 +160,7 @@ describe SeriesStatementMergeListsController do
 
   describe "POST create" do
     before(:each) do
-      @attrs = valid_attributes
+      @attrs = FactoryGirl.attributes_for(:series_statement_merge_list)
       @invalid_attrs = {:title => ''}
     end
 
@@ -282,7 +278,7 @@ describe SeriesStatementMergeListsController do
   describe "PUT update" do
     before(:each) do
       @series_statement_merge_list = FactoryGirl.create(:series_statement_merge_list)
-      @attrs = valid_attributes
+      @attrs = FactoryGirl.attributes_for(:series_statement_merge_list)
       @invalid_attrs = {:title => ''}
     end
 

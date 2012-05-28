@@ -241,7 +241,7 @@ GEM
       sunspot_rails
       sunspot_solr
       will_paginate (~> 3.0)
-    enju_resource_merge (0.0.8)
+    enju_resource_merge (0.0.9)
       acts_as_list (~> 0.1.6)
       attribute_normalizer (~> 1.1)
       cancan
@@ -430,6 +430,9 @@ GEM
       rack (~> 1.0)
       tilt (~> 1.1, != 1.3.0)
     state_machine (1.1.2)
+    strong_parameters (0.1.3)
+      actionpack (>= 3.2.0)
+      activemodel (>= 3.2.0)
     sunspot (2.0.0.pre.120417)
       pr_geohash (~> 1.0)
       rsolr (~> 1.0.7)
@@ -498,7 +501,7 @@ DEPENDENCIES
   enju_oai (~> 0.0.3)
   enju_purchase_request (~> 0.0.9)
   enju_question (~> 0.0.16)
-  enju_resource_merge (~> 0.0.8)
+  enju_resource_merge (~> 0.0.9)
   enju_search_log (~> 0.0.5)
   enju_subject (~> 0.0.14)
   exception_notification (~> 2.6)
@@ -541,6 +544,7 @@ DEPENDENCIES
   sitemap_generator (~> 3.1)
   spork-rails
   state_machine (~> 1.1.2)
+  strong_parameters
   sunspot-rails-tester!
   sunspot_rails (~> 2.0.0.pre.120417)
   sunspot_solr (~> 2.0.0.pre.120417)

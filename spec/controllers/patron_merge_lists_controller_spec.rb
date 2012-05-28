@@ -2,12 +2,8 @@ require 'spec_helper'
 require 'sunspot/rails/spec_helper'
 
 describe PatronMergeListsController do
-  fixtures :patron_merge_lists
+  fixtures :all
   disconnect_sunspot
-
-  def valid_attributes
-    FactoryGirl.attributes_for(:patron_merge_list)
-  end
 
   describe "GET index" do
     describe "When logged in as Administrator" do
@@ -169,7 +165,7 @@ describe PatronMergeListsController do
 
   describe "POST create" do
     before(:each) do
-      @attrs = valid_attributes
+      @attrs = FactoryGirl.attributes_for(:patron_merge_list)
       @invalid_attrs = {:title => ''}
     end
 
@@ -287,7 +283,7 @@ describe PatronMergeListsController do
   describe "PUT update" do
     before(:each) do
       @patron_merge_list = FactoryGirl.create(:patron_merge_list)
-      @attrs = valid_attributes
+      @attrs = FactoryGirl.attributes_for(:patron_merge_list)
       @invalid_attrs = {:title => ''}
     end
 

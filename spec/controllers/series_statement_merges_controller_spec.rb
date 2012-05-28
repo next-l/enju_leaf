@@ -3,15 +3,7 @@ require 'spec_helper'
 describe SeriesStatementMergesController do
   fixtures :all
 
-  def valid_attributes
-    FactoryGirl.attributes_for(:series_statement_merge)
-  end
-
   describe "GET index" do
-    before(:each) do
-      FactoryGirl.create(:series_statement_merge)
-    end
-
     describe "When logged in as Administrator" do
       login_admin
 
@@ -171,7 +163,7 @@ describe SeriesStatementMergesController do
 
   describe "POST create" do
     before(:each) do
-      @attrs = valid_attributes
+      @attrs = FactoryGirl.attributes_for(:series_statement_merge)
       @invalid_attrs = {:series_statement_merge_list_id => ''}
     end
 
@@ -289,7 +281,7 @@ describe SeriesStatementMergesController do
   describe "PUT update" do
     before(:each) do
       @series_statement_merge = FactoryGirl.create(:series_statement_merge)
-      @attrs = valid_attributes
+      @attrs = FactoryGirl.attributes_for(:series_statement_merge)
       @invalid_attrs = {:series_statement_merge_list_id => ''}
     end
 
