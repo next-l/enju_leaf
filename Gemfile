@@ -6,6 +6,7 @@ gem 'rails', '3.2.3'
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
 gem 'enju_biblio', :git => 'git://github.com/next-l/enju_biblio.git'
+gem 'enju_library', :git => 'git://github.com/next-l/enju_library.git'
 #gem 'enju_amazon', :git => 'git://github.com/nabeta/enju_amazon.git'
 gem 'enju_barcode', :git => 'git://github.com/nabeta/enju_barcode.git'
 #gem 'enju_calil', :git => 'git://github.com/nabeta/enju_calil.git'

@@ -19,7 +19,7 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_book_jacket.git
-  revision: b3cbbd6ccc5116e75dad4e995d83d9a5752dc1cd
+  revision: 0d52b21f96b0e4d73a2df2afd0183cae6c3dd367
   specs:
     enju_book_jacket (0.0.1)
       configatron
@@ -27,7 +27,7 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_bookmark.git
-  revision: ec458aa63caeb5ce8b1b3fb7679160e9d252fe6f
+  revision: c38751883e726561615ad354a8c957bb3a43d0bf
   specs:
     enju_bookmark (0.0.17)
       acts-as-taggable-on (~> 2.3)
@@ -65,7 +65,7 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_event.git
-  revision: 1cc2ba4a81c6f5da0408fca59e5caaa7c348f823
+  revision: 8c9c7804cbd6ff30328de9bf0682be4729d2f77f
   specs:
     enju_event (0.1.8)
       acts_as_list (~> 0.1.6)
@@ -120,7 +120,7 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_manifestation_viewer.git
-  revision: d6c133a24e768b87cd3ab9a28aa4448572b0adb6
+  revision: 59a3037c304ce907a1f66a8dcc837acc1603fc0f
   specs:
     enju_manifestation_viewer (0.0.1)
       addressable
@@ -150,7 +150,7 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_ndl.git
-  revision: 4df88b5491abfb0e8eaab4fb57dc604eb0bd076d
+  revision: f81a35d6adf6bff2e711a93c569eff72cf9fbee1
   specs:
     enju_ndl (0.0.24)
       acts_as_list
@@ -242,7 +242,7 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_subject.git
-  revision: 4339148e4e7a9b02157f20ef302c52eaed004f04
+  revision: 9d697a9f4e98bb647c69577dfbeede96a7c23508
   specs:
     enju_subject (0.0.14)
       acts_as_list (~> 0.1.6)
@@ -273,7 +273,7 @@ GIT
 
 GIT
   remote: git://github.com/next-l/enju_biblio.git
-  revision: bed2bb16154ac6ae700344c71ca4ce50bf4205e3
+  revision: 0ba96e6a4f856a5eb0ca0095005fa1c73683c20b
   specs:
     enju_biblio (0.0.1)
       acts_as_list
@@ -283,6 +283,15 @@ GIT
       paperclip-meta
       rails (~> 3.2)
       sunspot_rails (~> 2.0.0.pre)
+
+GIT
+  remote: git://github.com/next-l/enju_library.git
+  revision: 7da7d0e91883dddbed311916633346a71b06cfd6
+  specs:
+    enju_library (0.0.1)
+      cancan
+      devise
+      rails (~> 3.2)
 
 GEM
   remote: https://rubygems.org/
@@ -434,7 +443,7 @@ GEM
     mobile-fu (1.1.0)
       rack-mobile-detect
       rails
-    multi_json (1.3.5)
+    multi_json (1.3.6)
     multi_xml (0.5.1)
     net-sftp (2.0.5)
       net-ssh (>= 2.0.9)
@@ -619,6 +628,7 @@ DEPENDENCIES
   enju_event!
   enju_inter_library_loan!
   enju_inventory!
+  enju_library!
   enju_manifestation_viewer!
   enju_message!
   enju_ndl!
