@@ -150,7 +150,7 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_ndl.git
-  revision: 265e765841ce4851afb3033976ae97ea632d68e6
+  revision: 4df88b5491abfb0e8eaab4fb57dc604eb0bd076d
   specs:
     enju_ndl (0.0.24)
       acts_as_list
@@ -242,7 +242,7 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_subject.git
-  revision: bf50632fa0f1e50611424278a35ab44cb1837091
+  revision: 4339148e4e7a9b02157f20ef302c52eaed004f04
   specs:
     enju_subject (0.0.14)
       acts_as_list (~> 0.1.6)
