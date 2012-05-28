@@ -13,7 +13,6 @@ two:
   end_date: 2008-12-16 18:43:02
   note: MyText
   state: pending
-
 # == Schema Information
 #
 # Table name: user_checkout_stats
@@ -23,8 +22,8 @@ two:
 #  end_date     :datetime
 #  note         :text
 #  state        :string(255)
-#  created_at   :datetime
-#  updated_at   :datetime
+#  created_at   :datetime        not null
+#  updated_at   :datetime        not null
 #  started_at   :datetime
 #  completed_at :datetime
 #

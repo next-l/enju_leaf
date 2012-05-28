@@ -171,19 +171,13 @@ describe User do
     end
   end
 end
-
-
-
-
-
-
 # == Schema Information
 #
 # Table name: users
 #
 #  id                       :integer         not null, primary key
 #  email                    :string(255)     default(""), not null
-#  encrypted_password       :string(255)
+#  encrypted_password       :string(255)     default(""), not null
 #  reset_password_token     :string(255)
 #  reset_password_sent_at   :datetime
 #  remember_created_at      :datetime
@@ -204,7 +198,7 @@ end
 #  created_at               :datetime        not null
 #  updated_at               :datetime        not null
 #  deleted_at               :datetime
-#  username                 :string(255)
+#  username                 :string(255)     not null
 #  library_id               :integer         default(1), not null
 #  user_group_id            :integer         default(1), not null
 #  expired_at               :datetime
@@ -227,9 +221,6 @@ end
 #  answers_count            :integer         default(0), not null
 #  answer_feed_token        :string(255)
 #  save_search_history      :boolean         default(FALSE), not null
-#  openid_identifier        :string(255)
-#  oauth_token              :string(255)
-#  oauth_secret             :string(255)
 #  enju_access_key          :string(255)
 #
 

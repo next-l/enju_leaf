@@ -124,7 +124,7 @@ describe MessageRequestsController do
   describe "PUT update" do
     before(:each) do
       @message_request = FactoryGirl.create(:message_request)
-      @attrs = FactoryGirl.attributes_for(:message_request)
+      @attrs = FactoryGirl.attributes_for(:message_request).merge(:body => 'test')
       @invalid_attrs = {:sender_id => ''}
     end
 
