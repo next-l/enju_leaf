@@ -315,13 +315,13 @@ describe AcceptsController do
 
         it "re-renders the 'edit' template" do
           put :update, :id => @accept.id, :accept => @invalid_attrs
-          response.should redirect_to @accept
+          response.should render_template("edit")
         end
 
         it "should not update accept without item_id" do
           put :update, :id => @accept.id, :accept => @attrs.merge(:item_id => nil)
-          assigns(:accept).should be_valid
-          response.should redirect_to @accept
+          assigns(:accept).should_not be_valid
+          response.should be_success
         end
       end
 
@@ -349,12 +349,12 @@ describe AcceptsController do
       describe "with invalid params" do
         it "assigns the accept as @accept" do
           put :update, :id => @accept.id, :accept => @invalid_attrs
-          assigns(:accept).should be_valid
+          assigns(:accept).should_not be_valid
         end
 
         it "re-renders the 'edit' template" do
           put :update, :id => @accept.id, :accept => @invalid_attrs
-          response.should redirect_to @accept
+          response.should render_template("edit")
         end
       end
     end

@@ -156,7 +156,8 @@ class User < ActiveRecord::Base
 
   def set_auto_generated_password
     password = Devise.friendly_token[0..7]
-    self.reset_password!(password, password)
+    self.password = password
+    self.password_confirmation = password
   end
 
   def self.lock_expired_users

@@ -45,9 +45,9 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_circulation.git
-  revision: 1927d0628ae32ce848044860739c876103a96cb1
+  revision: a172750c34f87c4b82cfe83011777fbbc039a2ce
   specs:
-    enju_circulation (0.0.45)
+    enju_circulation (0.0.46)
       acts_as_list (~> 0.1.6)
       attribute_normalizer (~> 1.1)
       cancan
@@ -65,9 +65,9 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_event.git
-  revision: 2d1f23b6c15faeb66b106dd9c92325077dae5653
+  revision: 1cc2ba4a81c6f5da0408fca59e5caaa7c348f823
   specs:
-    enju_event (0.1.7)
+    enju_event (0.1.8)
       acts_as_list (~> 0.1.6)
       addressable
       attribute_normalizer (~> 1.1)
@@ -128,9 +128,9 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_message.git
-  revision: 45807bffb9dcfc5272aadcc313bda217fcf4c838
+  revision: fe174a6ea3570b6956fa0c18749f888aa1064e2a
   specs:
-    enju_message (0.1.6)
+    enju_message (0.1.7)
       acts_as_list (~> 0.1.6)
       addressable
       attribute_normalizer (~> 1.1)
@@ -150,7 +150,7 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_ndl.git
-  revision: f2829a2b28a3db06198af52caca6b16476b04702
+  revision: 265e765841ce4851afb3033976ae97ea632d68e6
   specs:
     enju_ndl (0.0.24)
       acts_as_list
@@ -232,7 +232,7 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_search_log.git
-  revision: ca732202b71a4d33afdf308fccc4b53f3e8dc6b1
+  revision: 053376f42f2cfb63e1785ff14d56d3746f430ef2
   specs:
     enju_search_log (0.0.5)
       cancan
@@ -552,6 +552,9 @@ GEM
     steak (2.0.0)
       capybara (>= 1.0.0)
       rspec-rails (>= 2.5.0)
+    strong_parameters (0.1.3)
+      actionpack (>= 3.2.0)
+      activemodel (>= 3.2.0)
     sunspot (2.0.0.pre.120417)
       pr_geohash (~> 1.0)
       rsolr (~> 1.0.7)
@@ -665,6 +668,7 @@ DEPENDENCIES
   spork-rails
   state_machine (~> 1.1.2)
   steak
+  strong_parameters
   sunspot-rails-tester!
   sunspot_solr (~> 2.0.0.pre.120417)
   timecop

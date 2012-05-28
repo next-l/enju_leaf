@@ -171,12 +171,6 @@ describe User do
     end
   end
 end
-
-
-
-
-
-
 # == Schema Information
 #
 # Table name: users
@@ -215,10 +209,10 @@ end
 #  state                    :string(255)
 #  locale                   :string(255)
 #  enju_access_key          :string(255)
-#  save_checkout_history    :boolean
+#  save_checkout_history    :boolean         default(FALSE), not null
 #  checkout_icalendar_token :string(255)
 #  share_bookmarks          :boolean
-#  save_search_history      :boolean
+#  save_search_history      :boolean         default(FALSE), not null
 #  answer_feed_token        :string(255)
 #
 

@@ -92,7 +92,7 @@ gem 'awesome_nested_set', '~> 2.1'
 gem 'rails_autolink'
 #gem 'oink', '>= 0.9.3'
 gem 'foreigner'
-#gem 'strong_parameters'
+gem 'strong_parameters'
 
 #group :production do
 #  gem 'vidibus-routing_error'
