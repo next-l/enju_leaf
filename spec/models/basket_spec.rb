@@ -5,7 +5,9 @@ describe Basket do
   fixtures :all
 
   it "should not create basket when user is not active" do
-    Basket.create(:user => users(:user4)).id.should be_nil
+    basket = Basket.new
+    basket.user = users(:user4)
+    basket.save.should be_false
   end
 end
 
