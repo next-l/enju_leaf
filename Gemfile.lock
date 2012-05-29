@@ -45,9 +45,9 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_circulation.git
-  revision: 401e2bd0ea44489221539458a9a96ad49f3ba2ef
+  revision: 65e14b5a08c41f56a679d920dba513f6dadd90b7
   specs:
-    enju_circulation (0.0.46)
+    enju_circulation (0.0.47)
       acts_as_list (~> 0.1.6)
       attribute_normalizer (~> 1.1)
       cancan
@@ -65,7 +65,7 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_event.git
-  revision: 8c9c7804cbd6ff30328de9bf0682be4729d2f77f
+  revision: 13eff56a66c54beb9d7174202de7961033af4979
   specs:
     enju_event (0.1.8)
       acts_as_list (~> 0.1.6)
@@ -150,13 +150,12 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_ndl.git
-  revision: f81a35d6adf6bff2e711a93c569eff72cf9fbee1
+  revision: 8a5cce408e29268071b07e59c3596f41a8816c55
   specs:
-    enju_ndl (0.0.24)
+    enju_ndl (0.0.26)
       acts_as_list
       attribute_normalizer
       devise
-      enju_subject
       library_stdnums
       nokogiri
       rails (~> 3.2)
@@ -182,7 +181,7 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_purchase_request.git
-  revision: e7761aa580ef27c995e26bcf389115029e90fbe2
+  revision: c58d2ab0610cda75975e20d89c2f9566b5ee58ce
   specs:
     enju_purchase_request (0.0.9)
       acts_as_list (~> 0.1.6)
@@ -198,7 +197,7 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_question.git
-  revision: 566dd739e8d087eb81bbb52b36be428dcd83b67d
+  revision: 4fc064e4ff50948113fc742bfbccb4ef384f548c
   specs:
     enju_question (0.0.16)
       acts-as-taggable-on (~> 2.2)
@@ -242,7 +241,7 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_subject.git
-  revision: 9d697a9f4e98bb647c69577dfbeede96a7c23508
+  revision: df91adfbe2312e302b26ed1a1190a851f5bea18b
   specs:
     enju_subject (0.0.14)
       acts_as_list (~> 0.1.6)
@@ -273,20 +272,34 @@ GIT
 
 GIT
   remote: git://github.com/next-l/enju_biblio.git
-  revision: 9c1518d1e41e44719ac4a5298b6c7aa391e789fd
+  revision: 8e10fde78afc5f8d6281b58405a3e75d7ea5820b
   specs:
     enju_biblio (0.0.1)
       acts_as_list
+      addressable
+      attribute_normalizer (~> 1.1)
       aws-sdk
+      cancan
+      configatron
+      devise
+      enju_ndl
+      enju_oai
+      has_scope
+      inherited_resources
       marc
+      paper_trail
       paperclip
       paperclip-meta
       rails (~> 3.2)
-      sunspot_rails (~> 2.0.0.pre)
+      state_machine
+      sunspot_rails
+      sunspot_rails
+      validates_timeliness
+      will_paginate
 
 GIT
   remote: git://github.com/next-l/enju_library.git
-  revision: 7cd62072ab64b221a1281e09a01d644f3e4ebe57
+  revision: 2e71b8f758e03aefca3256e7fcf75e02e7245017
   specs:
     enju_library (0.0.1)
       acts_as_list (~> 0.1.6)
@@ -470,7 +483,7 @@ GEM
       cocaine (>= 0.0.2)
       mime-types
     parallel (0.5.16)
-    parallel_tests (0.8.1)
+    parallel_tests (0.8.2)
       parallel
     pg (0.13.2)
     polyglot (0.3.3)
@@ -688,6 +701,7 @@ DEPENDENCIES
   steak
   strong_parameters
   sunspot-rails-tester!
+  sunspot_rails (~> 2.0.0.pre.120417)
   sunspot_solr (~> 2.0.0.pre.120417)
   timecop
   uglifier (>= 1.0.3)
