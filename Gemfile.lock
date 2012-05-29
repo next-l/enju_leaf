@@ -195,11 +195,10 @@ GEM
       sunspot_rails
       sunspot_solr
       will_paginate (~> 3.0)
-    enju_ndl (0.0.24)
+    enju_ndl (0.0.26)
       acts_as_list
       attribute_normalizer
       devise
-      enju_subject
       library_stdnums
       nokogiri
       rails (~> 3.2)
@@ -341,7 +340,7 @@ GEM
     paperclip-meta (0.4.2)
       paperclip
     parallel (0.5.16)
-    parallel_tests (0.8.1)
+    parallel_tests (0.8.2)
       parallel
     pg (0.13.2)
     polyglot (0.3.3)
@@ -497,7 +496,7 @@ DEPENDENCIES
   enju_inventory (~> 0.0.9)
   enju_manifestation_viewer!
   enju_message (~> 0.0.23)
-  enju_ndl (~> 0.0.24)
+  enju_ndl (~> 0.0.26)
   enju_oai (~> 0.0.3)
   enju_purchase_request (~> 0.0.9)
   enju_question (~> 0.0.16)
