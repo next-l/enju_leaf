@@ -106,7 +106,7 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_inventory.git
-  revision: ee426c9b88015c0e6d073642218453addb19618b
+  revision: 3d559b34f052cb1673826f452ede6d5e428dce62
   specs:
     enju_inventory (0.1.4)
       cancan

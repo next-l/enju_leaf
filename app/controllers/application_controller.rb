@@ -19,6 +19,7 @@ class ApplicationController < ActionController::Base
   enju_purchase_request
   enju_event
   enju_resource_merge
+  enju_inventory
 
   private
   def after_sign_in_path_for(resource)
@@ -134,12 +135,6 @@ class ApplicationController < ActionController::Base
 
     def get_checkout_type
       @checkout_type = CheckoutType.find(params[:checkout_type_id]) if params[:checkout_type_id]
-    end
-  end
-
-  if defined?(EnjuInventory)
-    def get_inventory_file
-      @inventory_file = InventoryFile.find(params[:inventory_file_id]) if params[:inventory_file_id]
     end
   end
 
