@@ -45,7 +45,7 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_circulation.git
-  revision: a172750c34f87c4b82cfe83011777fbbc039a2ce
+  revision: 48b05e42ebb9312b96ea5c0b93ead993e7d0e2f2
   specs:
     enju_circulation (0.0.46)
       acts_as_list (~> 0.1.6)
@@ -273,7 +273,7 @@ GIT
 
 GIT
   remote: git://github.com/next-l/enju_biblio.git
-  revision: 8b61cd99bc748a4bbb9f7b3acdd5063a590a72fc
+  revision: 9c1518d1e41e44719ac4a5298b6c7aa391e789fd
   specs:
     enju_biblio (0.0.1)
       acts_as_list
@@ -286,12 +286,19 @@ GIT
 
 GIT
   remote: git://github.com/next-l/enju_library.git
-  revision: 4f139513eec0f9b90568c9361b66943cc17e38d3
+  revision: 9b4d25ecafb2b9e97f87c8f77df02716af4d9bce
   specs:
     enju_library (0.0.1)
+      acts_as_list (~> 0.1.6)
+      addressable
+      attribute_normalizer (~> 1.1)
       cancan
       devise
+      friendly_id (~> 4.0)
+      geocoder
+      inherited_resources
       rails (~> 3.2)
+      sunspot_rails
 
 GEM
   remote: https://rubygems.org/
@@ -419,9 +426,9 @@ GEM
       multi_json (~> 1.0)
       multi_xml
     i18n (0.6.0)
-    immigrant (0.1.1)
+    immigrant (0.1.2)
       activerecord (>= 3.0)
-      foreigner (>= 1.1.3)
+      foreigner (>= 1.1.6)
     inherited_resources (1.3.1)
       has_scope (~> 0.5.0)
       responders (~> 0.6)
