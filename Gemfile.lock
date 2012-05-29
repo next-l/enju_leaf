@@ -45,9 +45,9 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_circulation.git
-  revision: 401e2bd0ea44489221539458a9a96ad49f3ba2ef
+  revision: 65e14b5a08c41f56a679d920dba513f6dadd90b7
   specs:
-    enju_circulation (0.0.46)
+    enju_circulation (0.0.47)
       acts_as_list (~> 0.1.6)
       attribute_normalizer (~> 1.1)
       cancan
@@ -273,16 +273,30 @@ GIT
 
 GIT
   remote: git://github.com/next-l/enju_biblio.git
-  revision: 9c1518d1e41e44719ac4a5298b6c7aa391e789fd
+  revision: 4d9f430a9917b2f4cb2c5a4cf89864fb86f76df5
   specs:
     enju_biblio (0.0.1)
       acts_as_list
+      addressable
+      attribute_normalizer (~> 1.1)
       aws-sdk
+      cancan
+      configatron
+      devise
+      enju_ndl
+      enju_oai
+      has_scope
+      inherited_resources
       marc
+      paper_trail
       paperclip
       paperclip-meta
       rails (~> 3.2)
-      sunspot_rails (~> 2.0.0.pre)
+      state_machine
+      sunspot_rails
+      sunspot_rails
+      validates_timeliness
+      will_paginate
 
 GIT
   remote: git://github.com/next-l/enju_library.git
@@ -572,12 +586,12 @@ GEM
     strong_parameters (0.1.3)
       actionpack (>= 3.2.0)
       activemodel (>= 3.2.0)
-    sunspot (2.0.0.pre.120417)
+    sunspot (1.3.2)
       pr_geohash (~> 1.0)
       rsolr (~> 1.0.7)
-    sunspot_rails (2.0.0.pre.120417)
+    sunspot_rails (1.3.2)
       nokogiri
-      sunspot (= 2.0.0.pre.120417)
+      sunspot (= 1.3.2)
     sunspot_solr (2.0.0.pre.120417)
     thor (0.14.6)
     tilt (1.3.3)
