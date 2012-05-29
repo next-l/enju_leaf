@@ -45,7 +45,7 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_circulation.git
-  revision: 48b05e42ebb9312b96ea5c0b93ead993e7d0e2f2
+  revision: 401e2bd0ea44489221539458a9a96ad49f3ba2ef
   specs:
     enju_circulation (0.0.46)
       acts_as_list (~> 0.1.6)
@@ -286,7 +286,7 @@ GIT
 
 GIT
   remote: git://github.com/next-l/enju_library.git
-  revision: 9b4d25ecafb2b9e97f87c8f77df02716af4d9bce
+  revision: 7cd62072ab64b221a1281e09a01d644f3e4ebe57
   specs:
     enju_library (0.0.1)
       acts_as_list (~> 0.1.6)
@@ -299,6 +299,7 @@ GIT
       inherited_resources
       rails (~> 3.2)
       sunspot_rails
+      will_paginate
 
 GEM
   remote: https://rubygems.org/
