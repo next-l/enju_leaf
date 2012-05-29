@@ -18,6 +18,7 @@ class ApplicationController < ActionController::Base
   enju_subject
   enju_purchase_request
   enju_event
+  enju_resource_merge
 
   private
   def after_sign_in_path_for(resource)
@@ -124,16 +125,6 @@ class ApplicationController < ActionController::Base
 
   def get_user_group
     @user_group = UserGroup.find(params[:user_group_id]) if params[:user_group_id]
-  end
-
-  if defined?(EnjuResourceMerge)
-    def get_patron_merge_list
-      @patron_merge_list = PatronMergeList.find(params[:patron_merge_list_id]) if params[:patron_merge_list_id]
-    end
-
-    def get_series_statement_merge_list
-      @series_statement_merge_list = SeriesStatementMergeList.find(params[:series_statement_merge_list_id]) if params[:series_statement_merge_list_id]
-    end
   end
 
   if defined?(EnjuCirculation)
