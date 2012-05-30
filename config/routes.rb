@@ -7,17 +7,9 @@ EnjuLeaf::Application.routes.draw do
 
   resources :budget_types
 
-  resources :produce_types
-
-  resources :realize_types
-
-  resources :create_types
-
   devise_for :users, :path => 'accounts'
 
   resource :my_account
-
-  resources :series_has_manifestations
 
   resources :manifestations do
     resources :patrons
@@ -31,8 +23,6 @@ EnjuLeaf::Application.routes.draw do
     resources :items
     resources :manifestation_relationships
     resources :manifestations
-    resources :series_statements
-    resources :series_has_manifestations
   end
 
   resources :patrons do
@@ -60,32 +50,6 @@ EnjuLeaf::Application.routes.draw do
     resources :manifestations
   end
 
-  resources :works, :controller => 'manifestations' do
-    resources :patrons
-    resources :creates
-    resources :expressions, :controller => 'manifestations'
-    resources :manifestation_relationships
-    resources :manifestations
-  end
-
-  resources :expressions, :controller => 'manifestations' do
-    resources :patrons
-    resources :realizes
-    resources :manifestation_relationships
-    resources :manifestations
-  end
-
-  resources :manifestations do
-    resources :produces
-    resources :patrons
-    resources :items
-    resources :picture_files
-    resources :expressions, :controller => 'manifestations'
-    resources :manifestation_relationships
-    resources :manifestations
-    resources :exemplifies
-  end
-
   #resources :users do
   #  resource :patron
   #end
@@ -106,10 +70,6 @@ EnjuLeaf::Application.routes.draw do
   end
   resources :subscribes
   resources :picture_files
-  resources :series_statements do
-    resources :manifestations, :controller => :manifestations
-    resources :series_has_manifestations
-  end
   resources :participates
 
   resources :patron_relationships
@@ -140,10 +100,6 @@ EnjuLeaf::Application.routes.draw do
 
   resources :bookstores
 
-  resources :countries
-
-  resources :languages
-
   resources :manifestation_relationships
 
   resources :resource_import_files do
@@ -165,9 +121,6 @@ EnjuLeaf::Application.routes.draw do
   end
 
   resources :owns
-  resources :produces
-  resources :realizes
-  resources :creates
   resources :exemplifies
 
   # The priority is based upon order of creation:
