@@ -1,12 +1,4 @@
 EnjuLeaf::Application.routes.draw do
-  resources :baskets do
-    resources :accepts, :except => [:edit, :update]
-  end
-
-  resources :accepts, :except => [:edit, :update]
-
-  resources :budget_types
-
   devise_for :users, :path => 'accounts'
 
   resource :my_account
@@ -59,8 +51,6 @@ EnjuLeaf::Application.routes.draw do
   resources :licenses
   resources :medium_of_performances
   resources :extents
-  resources :request_status_types
-  resources :request_types
   resources :patron_types
   resources :donates
   resources :subscriptions do
