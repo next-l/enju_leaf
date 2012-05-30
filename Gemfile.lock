@@ -45,9 +45,9 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_circulation.git
-  revision: b90f993dd215414478cd2cbc168eeffc509cdfee
+  revision: 15478bdc51a81a1735771bf8f077df3ccb3ffcc8
   specs:
-    enju_circulation (0.0.47)
+    enju_circulation (0.0.48)
       acts_as_list (~> 0.1.6)
       attribute_normalizer (~> 1.1)
       cancan
@@ -65,9 +65,9 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_event.git
-  revision: 13eff56a66c54beb9d7174202de7961033af4979
+  revision: 9124737eadfe863986a2750f7458875f29b57962
   specs:
-    enju_event (0.1.8)
+    enju_event (0.1.9)
       acts_as_list (~> 0.1.6)
       addressable
       attribute_normalizer (~> 1.1)
@@ -106,9 +106,9 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_inventory.git
-  revision: 3d559b34f052cb1673826f452ede6d5e428dce62
+  revision: 2ad69fae5c8c5e5c1a00e177d4a6c0b02040018c
   specs:
-    enju_inventory (0.1.4)
+    enju_inventory (0.1.5)
       cancan
       devise
       inherited_resources
@@ -150,9 +150,9 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_ndl.git
-  revision: 8a5cce408e29268071b07e59c3596f41a8816c55
+  revision: af89fbe7d3cdf45a3350f5d25bda8a3c1f29006b
   specs:
-    enju_ndl (0.0.26)
+    enju_ndl (0.0.27)
       acts_as_list
       attribute_normalizer
       devise
@@ -181,9 +181,9 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_purchase_request.git
-  revision: c58d2ab0610cda75975e20d89c2f9566b5ee58ce
+  revision: d49bfbad1ca20c80caec6a81af5db15361cbbe05
   specs:
-    enju_purchase_request (0.0.9)
+    enju_purchase_request (0.0.10)
       acts_as_list (~> 0.1.6)
       addressable
       attribute_normalizer (~> 1.1)
@@ -197,9 +197,9 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_question.git
-  revision: 4fc064e4ff50948113fc742bfbccb4ef384f548c
+  revision: 368392ecab81b38167ccc778b52cdab8fc78fb59
   specs:
-    enju_question (0.0.16)
+    enju_question (0.0.17)
       acts-as-taggable-on (~> 2.2)
       acts_as_list (~> 0.1.6)
       cancan
@@ -215,9 +215,9 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_resource_merge.git
-  revision: 00ccd2656a9eebd03061f4c7f0713a10dd4eeb6d
+  revision: 86070c9bc817944bc818ad9ee3412c884eafaea6
   specs:
-    enju_resource_merge (0.0.9)
+    enju_resource_merge (0.0.10)
       acts_as_list (~> 0.1.6)
       attribute_normalizer (~> 1.1)
       cancan
@@ -241,9 +241,9 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_subject.git
-  revision: df91adfbe2312e302b26ed1a1190a851f5bea18b
+  revision: 3f0a960ed34f1d54fb2c13f379305f36f3809ee7
   specs:
-    enju_subject (0.0.14)
+    enju_subject (0.0.15)
       acts_as_list (~> 0.1.6)
       attribute_normalizer (~> 1.1)
       cancan
@@ -272,7 +272,7 @@ GIT
 
 GIT
   remote: git://github.com/next-l/enju_biblio.git
-  revision: c822c9fa5fd3c23557da6be91b333031cceda176
+  revision: fa688db7bbabfa2464c97c300786fdad736d8a46
   specs:
     enju_biblio (0.0.1)
       acts_as_list
@@ -282,6 +282,7 @@ GIT
       cancan
       configatron
       devise
+      enju_ndl
       enju_oai
       has_scope
       inherited_resources
@@ -298,7 +299,7 @@ GIT
 
 GIT
   remote: git://github.com/next-l/enju_library.git
-  revision: 2e71b8f758e03aefca3256e7fcf75e02e7245017
+  revision: b424cd619bb78b9fb2a8d6614f5139da0af7d2d6
   specs:
     enju_library (0.0.1)
       acts_as_list (~> 0.1.6)
