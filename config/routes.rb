@@ -61,9 +61,7 @@ EnjuLeaf::Application.routes.draw do
   resources :extents
   resources :request_status_types
   resources :request_types
-  resources :frequencies
   resources :patron_types
-  resources :form_of_works
   resources :donates
   resources :subscriptions do
     resources :manifestations
@@ -74,13 +72,9 @@ EnjuLeaf::Application.routes.draw do
 
   resources :patron_relationships
 
-  resources :user_has_roles, :only => [:index, :show]
-
   resources :roles, :except => [:new, :create, :destroy]
 
   resources :library_groups, :except => [:new, :create, :destroy]
-
-  resources :search_engines
 
   resources :content_types
 

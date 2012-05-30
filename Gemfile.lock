@@ -45,7 +45,7 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_circulation.git
-  revision: 15478bdc51a81a1735771bf8f077df3ccb3ffcc8
+  revision: 2fb23b3a0c840b58d7c9dba25a4bd16dc66d1f54
   specs:
     enju_circulation (0.0.48)
       acts_as_list (~> 0.1.6)
@@ -272,7 +272,7 @@ GIT
 
 GIT
   remote: git://github.com/next-l/enju_biblio.git
-  revision: 20e63d83d6265f0c61291b2af2a882833b4785d2
+  revision: 57fa78eaa851362005d7f209667dba68c3669973
   specs:
     enju_biblio (0.0.1)
       acts_as_list
@@ -299,7 +299,7 @@ GIT
 
 GIT
   remote: git://github.com/next-l/enju_library.git
-  revision: b424cd619bb78b9fb2a8d6614f5139da0af7d2d6
+  revision: f9b4453bcb3cdafcbd0d471d483dc42b2115c3d5
   specs:
     enju_library (0.0.1)
       acts_as_list (~> 0.1.6)
