@@ -12,6 +12,14 @@ class ApplicationController < ActionController::Base
   has_mobile_fu
   before_filter :set_request_format
 
+  enju_question
+  enju_subject
+  enju_purchase_request
+  enju_event
+  enju_resource_merge
+  enju_inventory
+  enju_circulation
+
   private
   def after_sign_in_path_for(resource)
     session[:locale] = nil
@@ -178,69 +186,6 @@ class ApplicationController < ActionController::Base
 
   def get_subscription
     @subscription = Subscription.find(params[:subscription_id]) if params[:subscription_id]
-  end
-
-  if defined?(EnjuResourceMerge)
-    def get_patron_merge_list
-      @patron_merge_list = PatronMergeList.find(params[:patron_merge_list_id]) if params[:patron_merge_list_id]
-    end
-
-    def get_series_statement_merge_list
-      @series_statement_merge_list = SeriesStatementMergeList.find(params[:series_statement_merge_list_id]) if params[:series_statement_merge_list_id]
-    end
-  end
-
-  if defined?(EnjuQuestion)
-    def get_question
-      @question = Question.find(params[:question_id]) if params[:question_id]
-      authorize! :show, @question if @question
-    end
-  end
-
-  if defined?(EnjuEvent)
-    def get_event
-      @event = Event.find(params[:event_id]) if params[:event_id]
-    end
-  end
-
-  if defined?(EnjuPurchaseRequest)
-    def get_order_list
-      @order_list = OrderList.find(params[:order_list_id]) if params[:order_list_id]
-    end
-
-    def get_purchase_request
-      @purchase_request = PurchaseRequest.find(params[:purchase_request_id]) if params[:purchase_request_id]
-    end
-  end
-
-  if defined?(EnjuCirculation)
-    def get_basket
-      @basket = Basket.find(params[:basket_id]) if params[:basket_id]
-    end
-
-    def get_checkout_type
-      @checkout_type = CheckoutType.find(params[:checkout_type_id]) if params[:checkout_type_id]
-    end
-  end
-
-  if defined?(EnjuInventory)
-    def get_inventory_file
-      @inventory_file = InventoryFile.find(params[:inventory_file_id]) if params[:inventory_file_id]
-    end
-  end
-
-  if defined?(EnjuSubject)
-    def get_subject_heading_type
-      @subject_heading_type = SubjectHeadingType.find(params[:subject_heading_type_id]) if params[:subject_heading_type_id]
-    end
-
-    def get_subject
-      @subject = Subject.find(params[:subject_id]) if params[:subject_id]
-    end
-
-    def get_classification
-      @classification = Classification.find(params[:classification_id]) if params[:classification_id]
-    end
   end
 
   def convert_charset
