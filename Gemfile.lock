@@ -45,7 +45,7 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_circulation.git
-  revision: 04a0f2913352a22b3417683dfc6229f9c7aed688
+  revision: b90f993dd215414478cd2cbc168eeffc509cdfee
   specs:
     enju_circulation (0.0.47)
       acts_as_list (~> 0.1.6)
@@ -272,7 +272,7 @@ GIT
 
 GIT
   remote: git://github.com/next-l/enju_biblio.git
-  revision: d55cb8eb046506632713987a3a4ba751197f9ac0
+  revision: c822c9fa5fd3c23557da6be91b333031cceda176
   specs:
     enju_biblio (0.0.1)
       acts_as_list
@@ -282,7 +282,6 @@ GIT
       cancan
       configatron
       devise
-      enju_ndl
       enju_oai
       has_scope
       inherited_resources

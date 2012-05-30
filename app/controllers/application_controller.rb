@@ -20,6 +20,7 @@ class ApplicationController < ActionController::Base
   enju_event
   enju_resource_merge
   enju_inventory
+  enju_circulation
 
   private
   def after_sign_in_path_for(resource)
@@ -126,16 +127,6 @@ class ApplicationController < ActionController::Base
 
   def get_user_group
     @user_group = UserGroup.find(params[:user_group_id]) if params[:user_group_id]
-  end
-
-  if defined?(EnjuCirculation)
-    def get_basket
-      @basket = Basket.find(params[:basket_id]) if params[:basket_id]
-    end
-
-    def get_checkout_type
-      @checkout_type = CheckoutType.find(params[:checkout_type_id]) if params[:checkout_type_id]
-    end
   end
 
   def convert_charset
