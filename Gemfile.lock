@@ -45,7 +45,7 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_circulation.git
-  revision: 65e14b5a08c41f56a679d920dba513f6dadd90b7
+  revision: 4e0c04311f23b8e0d11c5e11c4540da3e0a57208
   specs:
     enju_circulation (0.0.47)
       acts_as_list (~> 0.1.6)
@@ -272,7 +272,7 @@ GIT
 
 GIT
   remote: git://github.com/next-l/enju_biblio.git
-  revision: 8e10fde78afc5f8d6281b58405a3e75d7ea5820b
+  revision: d55cb8eb046506632713987a3a4ba751197f9ac0
   specs:
     enju_biblio (0.0.1)
       acts_as_list
@@ -358,7 +358,7 @@ GEM
     attribute_normalizer (1.1.0)
     awesome_nested_set (2.1.3)
       activerecord (>= 3.0.0)
-    aws-s3 (0.6.2)
+    aws-s3 (0.6.3)
       builder
       mime-types
       xml-simple
@@ -555,7 +555,7 @@ GEM
       railties (~> 3.2.0)
       sass (>= 3.1.10)
       tilt (~> 1.3)
-    selenium-webdriver (2.21.2)
+    selenium-webdriver (2.22.0)
       childprocess (>= 0.2.5)
       ffi (~> 1.0)
       libwebsocket (~> 0.1.3)
