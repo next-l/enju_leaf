@@ -1,9 +1,0 @@
-<ul>
-  <%- @languages.each do |language| -%>
-    <li>
-    <%- if params[:language] == language.name -%><strong><%- end -%>
-      <%= link_to h("#{language.display_name.localize} (#{@language_facet_results[language.name].to_i})"), url_for(:params => session[:params][:manifestation].merge(:page => nil, :language => language.name, :view => nil)) -%>
-    <%- if params[:language] == language.name -%></strong><%- end -%>
-    </li>
-  <%- end -%>
-</ul>
