@@ -45,9 +45,9 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_circulation.git
-  revision: 2fb23b3a0c840b58d7c9dba25a4bd16dc66d1f54
+  revision: d216cb41f79f7c331647e9c6bbd71f2194ad082e
   specs:
-    enju_circulation (0.0.48)
+    enju_circulation (0.0.49)
       acts_as_list (~> 0.1.6)
       attribute_normalizer (~> 1.1)
       cancan
@@ -272,7 +272,7 @@ GIT
 
 GIT
   remote: git://github.com/next-l/enju_biblio.git
-  revision: 427db63b43219e765921e52ade4af9431616ee9c
+  revision: 5956384ddf380829c564b6f8e922b50660e24b03
   specs:
     enju_biblio (0.0.1)
       acts_as_list
@@ -299,7 +299,7 @@ GIT
 
 GIT
   remote: git://github.com/next-l/enju_library.git
-  revision: a5fb328d2f48348db0e68e140be39a3f01fae636
+  revision: fa0652d81f351b7d8d9037d539d401285e6e8975
   specs:
     enju_library (0.0.1)
       acts_as_list (~> 0.1.6)
@@ -606,7 +606,7 @@ GEM
     uuidtools (2.1.2)
     validates_timeliness (3.0.11)
       timeliness (~> 0.3.6)
-    vcr (2.1.1)
+    vcr (2.2.0)
     warden (1.1.1)
       rack (>= 1.0)
     whenever (0.7.3)
