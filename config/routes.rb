@@ -46,9 +46,6 @@ EnjuLeaf::Application.routes.draw do
   #  resource :patron
   #end
 
-  resources :manifestation_relationship_types
-  resources :patron_relationship_types
-  resources :licenses
   resources :medium_of_performances
   resources :extents
   resources :patron_types
@@ -59,8 +56,6 @@ EnjuLeaf::Application.routes.draw do
   resources :subscribes
   resources :picture_files
   resources :participates
-
-  resources :patron_relationships
 
   resources :roles, :except => [:new, :create, :destroy]
 
@@ -81,10 +76,6 @@ EnjuLeaf::Application.routes.draw do
   resources :libraries do
     resources :shelves
   end
-
-  resources :bookstores
-
-  resources :manifestation_relationships
 
   resources :resource_import_files do
     resources :resource_import_results, :only => [:index, :show, :destroy]
