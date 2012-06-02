@@ -11,7 +11,6 @@ class CreateItems < ActiveRecord::Migration
       t.integer :shelf_id, :default => 1, :null => false
       t.boolean :include_supplements, :default => false, :null => false
       t.integer :checkouts_count, :default => 0, :null => false
-      t.integer :owns_count, :default => 0, :null => false
       t.integer :resource_has_subjects_count, :default => 0, :null => false
       t.text :note
       t.string :url

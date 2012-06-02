@@ -164,7 +164,7 @@ describe PictureFilesController do
   describe "POST create" do
     before(:each) do
       @attrs = {:picture_attachable_type => 'Shelf', :picture_attachable_id => 1, :picture => fixture_file_upload("/../../examples/spinner.gif", 'image/gif')}
-      @invalid_attrs = {:filename => ''}
+      @invalid_attrs = {:picture_attachable_id => 'invalid', :picture_attachable_type => 'Library'}
     end
 
     describe "When logged in as Administrator" do
@@ -281,8 +281,8 @@ describe PictureFilesController do
   describe "PUT update" do
     before(:each) do
       @picture_file = picture_files(:picture_file_00001)
-      @attrs = {:filename => 'new filename.txt'}
-      @invalid_attrs = {:picture_attachable_type => nil}
+      @attrs = {:picture_attachable_id => '1', :picture_attachable_type => 'Manifestation'}
+      @invalid_attrs = {:picture_attachable_id => 'invalid', :picture_attachable_type => 'Library'}
     end
 
     describe "When logged in as Administrator" do

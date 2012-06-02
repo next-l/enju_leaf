@@ -3,33 +3,6 @@ EnjuLeaf::Application.routes.draw do
 
   resource :my_account
 
-  resources :manifestations do
-    resources :patrons
-    resources :creators, :controller => 'patrons'
-    resources :contributors, :controller => 'patrons'
-    resources :publishers, :controller => 'patrons'
-    resources :creates
-    resources :realizes
-    resources :produces
-    resources :picture_files
-    resources :items
-    resources :manifestation_relationships
-    resources :manifestations
-  end
-
-  resources :patrons do
-    resources :works, :controller => 'manifestations'
-    resources :expressions, :controller => 'manifestations'
-    resources :manifestations
-    resources :items
-    resources :picture_files
-    resources :patrons
-    resources :patron_relationships
-    resources :creates
-    resources :realizes
-    resources :produces
-  end
-
   resources :creators, :controller => 'patrons' do
     resources :manifestations
   end
@@ -45,58 +18,11 @@ EnjuLeaf::Application.routes.draw do
   #resources :users do
   #  resource :patron
   #end
-
-  resources :medium_of_performances
-  resources :extents
-  resources :patron_types
-  resources :donates
-  resources :subscriptions do
-    resources :manifestations
-  end
-  resources :subscribes
-  resources :picture_files
-  resources :participates
+  resources :users
 
   resources :roles, :except => [:new, :create, :destroy]
 
-  resources :library_groups, :except => [:new, :create, :destroy]
-
-  resources :content_types
-
-  resources :carrier_types
-
-  resources :import_requests
-
   resources :user_groups
-
-  resources :shelves do
-    resources :picture_files
-  end
-
-  resources :libraries do
-    resources :shelves
-  end
-
-  resources :resource_import_files do
-    resources :resource_import_results, :only => [:index, :show, :destroy]
-  end
-
-  resources :patron_import_files do
-    resources :patron_import_results, :only => [:index, :show, :destroy]
-  end
-
-  resources :patron_import_results, :only => [:index, :show, :destroy]
-  resources :resource_import_results, :only => [:index, :show, :destroy]
-
-  resources :items do
-    resources :patrons
-    resources :owns
-    resource :exemplify
-    resources :manifestations, :only => [:index]
-  end
-
-  resources :owns
-  resources :exemplifies
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
