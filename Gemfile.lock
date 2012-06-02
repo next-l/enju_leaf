@@ -27,7 +27,7 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_bookmark.git
-  revision: c38751883e726561615ad354a8c957bb3a43d0bf
+  revision: 765667bb3df4acc2fcba3ee8199962c806faec05
   specs:
     enju_bookmark (0.0.17)
       acts-as-taggable-on (~> 2.3)
@@ -45,7 +45,7 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_circulation.git
-  revision: 4ad7736016f970d3de9cdb4c3fc34ece8b82d793
+  revision: 20ca3315859a16b3fb153f12564aa9ffc5c58727
   specs:
     enju_circulation (0.0.50)
       acts_as_list (~> 0.1.6)
@@ -242,7 +242,7 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_subject.git
-  revision: 3f0a960ed34f1d54fb2c13f379305f36f3809ee7
+  revision: 5af92da7918b342e1c4d32ded41a3d299cc9c454
   specs:
     enju_subject (0.0.15)
       acts_as_list (~> 0.1.6)
@@ -267,7 +267,7 @@ GIT
 
 GIT
   remote: git://github.com/next-l/enju_biblio.git
-  revision: f63395edaa87cda6850c1c0baf3b1604bfaed7c3
+  revision: 801895bc045f98a1de6802b241d029f782110e6b
   specs:
     enju_biblio (0.0.1)
       acts_as_list
@@ -277,6 +277,7 @@ GIT
       cancan
       configatron
       devise
+      dynamic_form
       enju_ndl
       enju_oai
       has_scope
@@ -286,6 +287,7 @@ GIT
       paperclip
       paperclip-meta
       rails (~> 3.2)
+      simple_form
       state_machine
       sunspot_rails (~> 2.0.0.pre.120417)
       validates_timeliness
@@ -293,7 +295,7 @@ GIT
 
 GIT
   remote: git://github.com/next-l/enju_library.git
-  revision: b914335975d9b8351e188d7845690126320c09ae
+  revision: 91e828cd7c45a126a461cb24b179b6847eed8f85
   specs:
     enju_library (0.0.1)
       acts_as_list (~> 0.1.6)

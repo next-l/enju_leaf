@@ -3,18 +3,6 @@ EnjuLeaf::Application.routes.draw do
 
   resource :my_account
 
-  resources :creators, :controller => 'patrons' do
-    resources :manifestations
-  end
-
-  resources :contributors, :controller => 'patrons' do
-    resources :manifestations
-  end
-
-  resources :publishers, :controller => 'patrons' do
-    resources :manifestations
-  end
-
   #resources :users do
   #  resource :patron
   #end
