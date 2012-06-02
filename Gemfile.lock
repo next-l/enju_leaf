@@ -116,7 +116,7 @@ GEM
       rails (~> 3.2)
       rqrcode
       will_paginate
-    enju_bookmark (0.0.17)
+    enju_bookmark (0.0.18)
       acts-as-taggable-on (~> 2.3)
       acts_as_list (~> 0.1.6)
       addressable
@@ -497,7 +497,7 @@ DEPENDENCIES
   dynamic_form
   enju_barcode (~> 0.0.3)
   enju_book_jacket!
-  enju_bookmark (~> 0.0.17)
+  enju_bookmark (~> 0.0.18)
   enju_circulation (~> 0.0.50)
   enju_event (~> 0.0.23)
   enju_inventory (~> 0.0.10)
