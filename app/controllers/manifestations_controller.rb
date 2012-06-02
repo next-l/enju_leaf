@@ -471,10 +471,9 @@ class ManifestationsController < ApplicationController
   # DELETE /manifestations/1.json
   def destroy
     @manifestation.destroy
-    flash[:notice] = t('controller.successfully_deleted', :model => t('activerecord.models.manifestation'))
 
     respond_to do |format|
-      format.html { redirect_to manifestations_url }
+      format.html { redirect_to manifestations_url, :notice => t('controller.successfully_deleted', :model => t('activerecord.models.manifestation')) }
       format.json { head :no_content }
     end
   end

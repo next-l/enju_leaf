@@ -31,7 +31,7 @@ describe Manifestation, :solr => true do
     results = openurl.search
     results.size.should eq 1
     openurl.query_text.should eq "atitle_text:2005"
-    openurl = Openurl.new({:atitle => "テスト", :jtitle => "2月号"})
+    openurl = Openurl.new({:atitle => "テスト", :jtitle => "テスト雑誌"})
     results = openurl.search
     results.size.should eq 1
   end
@@ -63,9 +63,9 @@ describe Manifestation, :solr => true do
   end
 
   it "should search issn in openurl" do
-    openurl = Openurl.new({:api => "openurl", :issn => "1234"})
+    openurl = Openurl.new({:api => "openurl", :issn => "0913"})
     results = openurl.search
-    openurl.query_text.should eq "issn_sm:1234*"
+    openurl.query_text.should eq "issn_sm:0913*"
     results.size.should eq 2
   end
 
@@ -81,7 +81,7 @@ describe Manifestation, :solr => true do
     results.size.should eq 3
     openurl = Openurl.new({:jtitle => "テスト", :pub => "テスト"})
     results = openurl.search
-    results.size.should eq 2
+    results.size.should eq 1
   end
 
   it "shoulld get search_error in openurl" do

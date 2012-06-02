@@ -1,6 +1,6 @@
 # -*- encoding: utf-8 -*-
 class ResourceImportFile < ActiveRecord::Base
-  attr_accessible :resource_import
+  attr_accessible :resource_import, :edit_mode
   include ImportFile
   default_scope :order => 'resource_import_files.id DESC'
   scope :not_imported, where(:state => 'pending')
@@ -89,7 +89,7 @@ class ResourceImportFile < ActiveRecord::Base
 
       unless manifestation
         if row['isbn'].present?
-          isbn = ISBN_Tools.cleanup(row['isbn'])
+          isbn = StdNum::ISBN.normalize(row['isbn'])
           m = Manifestation.find_by_isbn(isbn)
           if m
             unless m.series_statement
@@ -105,14 +105,15 @@ class ResourceImportFile < ActiveRecord::Base
           series_statement = find_series_statement(row)
           begin
             manifestation = Manifestation.import_isbn(isbn)
-            manifestation.series_statement = series_statement
-            manifestation.save
+            if manifestation
+              manifestation.series_statement = series_statement
+              num[:manifestation_imported] += 1 if manifestation
+            end
           rescue EnjuNdl::InvalidIsbn
             manifestation = nil
           rescue EnjuNdl::RecordNotFound
             manifestation = nil
           end
-          num[:manifestation_imported] += 1 if manifestation
         end
       end
 
@@ -165,18 +166,17 @@ class ResourceImportFile < ActiveRecord::Base
 
   def self.import_manifestation(expression, patrons, options = {}, edit_options = {:edit_mode => 'create'})
     manifestation = expression
-    manifestation.update_attributes!(options.merge(:during_import => true))
+    manifestation.during_import = true
+    manifestation.update_attributes!(options)
     manifestation.publishers = patrons.uniq unless patrons.empty?
     manifestation
   end
 
   def self.import_item(manifestation, options)
-    options = {:shelf => Shelf.web}.merge(options)
     item = Item.new(options)
+    item.shelf = Shelf.web unless item.shelf
     item.manifestation = manifestation
-    #if item.save!
-      item.patrons << options[:shelf].library.patron
-    #end
+    item.patrons << item.shelf.library.patron
     item
   end
 
@@ -347,6 +347,7 @@ class ResourceImportFile < ActiveRecord::Base
       circulation_status = CirculationStatus.where(:name => row['circulation_status'].to_s.strip).first || CirculationStatus.where(:name => 'In Process').first
       use_restriction = UseRestriction.where(:name => row['use_restriction'].to_s.strip).first
       item.circulation_status = circulation_status
+      item.use_restriction = use_restriction
     end
     item.bookstore = bookstore
     item.budget_type = budget_type
@@ -379,8 +380,9 @@ class ResourceImportFile < ActiveRecord::Base
       return nil
     end
 
-    if ISBN_Tools.is_valid?(row['isbn'].to_s.strip)
-      isbn = ISBN_Tools.cleanup(row['isbn'])
+    lisbn = Lisbn.new(row['isbn'].to_s.strip)
+    if lisbn.isbn.valid?
+      isbn = lisbn.isbn
     end
     # TODO: 小数点以下の表現
     width = NKF.nkf('-eZ1', row['width'].to_s).gsub(/\D/, '').to_i
@@ -478,7 +480,7 @@ class ResourceImportFile < ActiveRecord::Base
   end
 
   def import_series_statement(row)
-    issn = ISBN_Tools.cleanup(row['issn'].to_s)
+    issn = StdNum::ISSN.normalize(row['issn'].to_s)
     series_statement = find_series_statement(row)
     unless series_statement
       if row['series_title'].to_s.strip.present?
@@ -517,7 +519,7 @@ class ResourceImportFile < ActiveRecord::Base
   end
 
   def find_series_statement(row)
-    issn = ISBN_Tools.cleanup(row['issn'].to_s)
+    issn = StdNum::ISSN.normalize(row['issn'].to_s)
     series_statement_identifier = row['series_statement_identifier'].to_s.strip
     series_statement = SeriesStatement.where(:issn => issn).first if issn.present?
     unless series_statement

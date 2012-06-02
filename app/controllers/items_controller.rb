@@ -1,7 +1,6 @@
 # -*- encoding: utf-8 -*-
 class ItemsController < ApplicationController
   load_and_authorize_resource
-  before_filter :get_user
   before_filter :get_patron, :get_manifestation, :get_shelf, :except => [:create, :update, :destroy]
   if defined?(EnjuInventory)
     before_filter :get_inventory_file

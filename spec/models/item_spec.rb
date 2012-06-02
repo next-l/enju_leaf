@@ -42,12 +42,6 @@ describe Item do
     Item.for_checkout.include?(items(:item_00023)).should be_false
   end
 end
-
-
-
-
-
-
 # == Schema Information
 #
 # Table name: items
@@ -63,7 +57,6 @@ end
 #  shelf_id              :integer         default(1), not null
 #  include_supplements   :boolean         default(FALSE), not null
 #  checkouts_count       :integer         default(0), not null
-#  owns_count            :integer         default(0), not null
 #  note                  :text
 #  url                   :string(255)
 #  price                 :integer

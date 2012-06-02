@@ -1,7 +1,6 @@
 # -*- encoding: utf-8 -*-
 class LibrariesController < ApplicationController
   load_and_authorize_resource
-  cache_sweeper :page_sweeper, :only => [:create, :update, :destroy]
   after_filter :solr_commit, :only => [:create, :update, :destroy]
 
   # GET /libraries

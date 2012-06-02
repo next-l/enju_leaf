@@ -3,6 +3,7 @@ require 'sunspot/rails/spec_helper'
 
 describe LanguagesController do
   disconnect_sunspot
+  fixtures :languages
 
   def valid_attributes
      FactoryGirl.attributes_for(:language)

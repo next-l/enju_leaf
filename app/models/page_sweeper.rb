@@ -1,17 +1,10 @@
 class PageSweeper < ActionController::Caching::Sweeper
   include ExpireEditableFragment
   observe Create, Realize, Produce, Own, Exemplify, Patron,
-    SeriesStatement, SeriesHasManifestation, PictureFile, Shelf, Library
+    SeriesStatement, SeriesHasManifestation, PictureFile
 
   def after_save(record)
     case record.class.to_s.to_sym
-    when :Library
-      #expire_fragment(:controller => :libraries, :action => :index, :page => 'menu')
-    when :Shelf
-      # TODO: 書架情報が更新されたときのキャッシュはバッチで削除する
-      #record.items.each do |item|
-      #  expire_editable_fragment(item, ['holding'])
-      #end
     when :Create
       expire_editable_fragment(record.patron)
       expire_editable_fragment(record.work)
