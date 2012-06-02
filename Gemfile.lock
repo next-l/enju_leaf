@@ -65,9 +65,9 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_event.git
-  revision: 9124737eadfe863986a2750f7458875f29b57962
+  revision: 51657113790dccc530688166c86f8cdc5a780dea
   specs:
-    enju_event (0.1.9)
+    enju_event (0.1.10)
       acts_as_list (~> 0.1.6)
       addressable
       attribute_normalizer (~> 1.1)
@@ -268,7 +268,7 @@ GIT
 
 GIT
   remote: git://github.com/next-l/enju_biblio.git
-  revision: 55c17992b7dba0edb8601882b5344572bf32c2fd
+  revision: 3e796f537fd9203d487cf2d0fef85400d2e331f4
   specs:
     enju_biblio (0.0.1)
       acts_as_list
