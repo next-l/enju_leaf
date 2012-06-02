@@ -123,9 +123,6 @@ class Manifestation < ActiveRecord::Base
     text :au do
       creator
     end
-    text :pub do
-      publisher
-    end
     text :atitle do
       title if series_statement.try(:periodical)
     end
