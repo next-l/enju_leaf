@@ -1683,7 +1683,7 @@ manifestation_00201:
   language_id: 1
   isbn: 9876543210201
   updated_at: 2010-03-01 16:14:18 +09:00
-  original_title: "テスト雑誌１月号"
+  original_title: "テスト雑誌2005年１月号"
   price:
   manifestation_identifier:
   depth:
@@ -1694,7 +1694,7 @@ manifestation_00201:
   width:
   created_at: 2007-11-19 17:55:41 UTC
   frequency_id: 3
-  issn: 12345678
+  issn: 09130000
 manifestation_00202:
   carrier_type_id: 1
   language_id: 1
@@ -1720,7 +1720,7 @@ manifestation_00203:
   language_id: 1
   isbn: 9876543210203
   updated_at: 2010-03-01 16:14:18 +09:00
-  original_title: "テスト単行本記事"
+  original_title: "テスト単行本記事2005"
   price:
   manifestation_identifier:
   depth:
