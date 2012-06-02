@@ -45,9 +45,9 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_circulation.git
-  revision: d216cb41f79f7c331647e9c6bbd71f2194ad082e
+  revision: 4ad7736016f970d3de9cdb4c3fc34ece8b82d793
   specs:
-    enju_circulation (0.0.49)
+    enju_circulation (0.0.50)
       acts_as_list (~> 0.1.6)
       attribute_normalizer (~> 1.1)
       cancan
@@ -199,7 +199,7 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_question.git
-  revision: 368392ecab81b38167ccc778b52cdab8fc78fb59
+  revision: 884e41498431fa6ad17fa97a81c80e2dc47faa69
   specs:
     enju_question (0.0.17)
       acts-as-taggable-on (~> 2.2)
@@ -217,9 +217,9 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_resource_merge.git
-  revision: 86070c9bc817944bc818ad9ee3412c884eafaea6
+  revision: 13260932127c240d51b41c5aaa5814bcc7103c35
   specs:
-    enju_resource_merge (0.0.10)
+    enju_resource_merge (0.0.11)
       acts_as_list (~> 0.1.6)
       attribute_normalizer (~> 1.1)
       cancan
@@ -227,8 +227,7 @@ GIT
       dynamic_form
       inherited_resources
       rails (~> 3.2)
-      sunspot_rails
-      sunspot_solr
+      sunspot_rails (~> 2.0.0.pre.120417)
       will_paginate (~> 3.0)
 
 GIT
@@ -294,7 +293,7 @@ GIT
 
 GIT
   remote: git://github.com/next-l/enju_library.git
-  revision: c42a8b4e899a92bafeb438b9f366036380326728
+  revision: b914335975d9b8351e188d7845690126320c09ae
   specs:
     enju_library (0.0.1)
       acts_as_list (~> 0.1.6)
