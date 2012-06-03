@@ -267,7 +267,7 @@ GIT
 
 GIT
   remote: git://github.com/next-l/enju_biblio.git
-  revision: 0eb2a6d0a05596a6b56c1f1b94f49f2ce9c0b9b2
+  revision: db95ba03dda95ae754c43fe3485441309bd68a3c
   specs:
     enju_biblio (0.0.1)
       acts_as_list
@@ -295,7 +295,7 @@ GIT
 
 GIT
   remote: git://github.com/next-l/enju_library.git
-  revision: 91e828cd7c45a126a461cb24b179b6847eed8f85
+  revision: 95b89d71f1aea0f34be012d8de8dd0ec1375a43b
   specs:
     enju_library (0.0.1)
       acts_as_list (~> 0.1.6)
