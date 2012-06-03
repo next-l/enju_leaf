@@ -3,7 +3,7 @@
   <%= f.error_messages -%>
 
   <div class="field">
-    <%- if @manifestation.series_has_manifestation.series_statement -%>
+    <%- if @manifestation.series_has_manifestation.try(:series_statement) -%>
       <%= f.label t('activerecord.models.series_statement') -%>
       <%= link_to @manifestation.series_has_manifestation.series_statement.original_title, @manifestation.series_has_manifestation.series_statement -%>
       <% if @manifestation.new_record? %>
