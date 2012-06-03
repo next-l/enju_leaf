@@ -35,14 +35,14 @@ class ApplicationController < ActionController::Base
         format.html {render :template => 'page/403', :status => 403}
         format.mobile {render :template => 'page/403', :status => 403}
         format.xml {render :template => 'page/403', :status => 403}
-        format.json
+        format.json { render :text => '{"error": "forbidden"}' }
       end
     else
       respond_to do |format|
         format.html {redirect_to new_user_session_url}
         format.mobile {redirect_to new_user_session_url}
         format.xml {render :template => 'page/403', :status => 403}
-        format.json
+        format.json { render :text => '{"error": "forbidden"}' }
       end
     end
   end
@@ -53,7 +53,7 @@ class ApplicationController < ActionController::Base
       format.html {render :template => 'page/404', :status => 404}
       format.mobile {render :template => 'page/404', :status => 404}
       format.xml {render :template => 'page/404', :status => 404}
-      format.json
+      format.json { render :text => '{"error": "not_found"}' }
     end
   end
 
@@ -70,7 +70,7 @@ class ApplicationController < ActionController::Base
       format.html {render :file => "#{Rails.root.to_s}/public/500.html", :layout => false, :status => 500}
       format.mobile {render :file => "#{Rails.root.to_s}/public/500.html", :layout => false, :status => 500}
       format.xml {render :template => 'page/500', :status => 500}
-      format.json
+      format.json { render :text => '{"error": "server_error"}' }
     end
   end
 
