@@ -120,7 +120,7 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_manifestation_viewer.git
-  revision: 59a3037c304ce907a1f66a8dcc837acc1603fc0f
+  revision: 46e748b0d56ab4be4a0f858f84785a75004880cd
   specs:
     enju_manifestation_viewer (0.0.1)
       addressable
