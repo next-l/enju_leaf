@@ -489,7 +489,7 @@ DEPENDENCIES
   enju_book_jacket (~> 0.0.1)
   enju_bookmark (~> 0.0.18)
   enju_circulation (~> 0.0.51)
-  enju_event (~> 0.0.23)
+  enju_event (~> 0.0.24)
   enju_inventory (~> 0.0.10)
   enju_manifestation_viewer (~> 0.0.1)
   enju_message (~> 0.0.23)

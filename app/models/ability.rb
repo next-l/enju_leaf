@@ -195,10 +195,9 @@ class Ability
       can :show, Item do |item|
         item.required_role_id <= 2
       end
-      can :read, Manifestation do |manifestation|
+      can [:read, :edit], Manifestation do |manifestation|
         manifestation.required_role_id <= 2
       end
-      can :edit, Manifestation
       can :index, Patron
       can :update, Patron do |patron|
         patron.user == user
