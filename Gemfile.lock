@@ -271,7 +271,7 @@ GEM
       activerecord (>= 3.0.0)
     friendly_id (4.0.6)
     geocoder (1.1.2)
-    guard (1.1.0)
+    guard (1.1.1)
       listen (>= 0.4.2)
       thor (>= 0.14.6)
     guard-rspec (0.7.3)
@@ -331,7 +331,7 @@ GEM
       mime-types
     paperclip-meta (0.4.2)
       paperclip
-    parallel (0.5.16)
+    parallel (0.5.17)
     parallel_tests (0.8.2)
       parallel
     pg (0.13.2)
