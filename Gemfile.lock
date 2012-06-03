@@ -713,7 +713,7 @@ DEPENDENCIES
   timecop
   uglifier (>= 1.0.3)
   validates_timeliness
-  vcr (~> 2.1)
+  vcr (~> 2.2)
   whenever
   will_paginate (~> 3.0)
   zipruby
