@@ -34,7 +34,6 @@ class CreateManifestations < ActiveRecord::Migration
       t.integer :edition
       t.text :note
       t.integer :produces_count, :default => 0, :null => false
-      t.integer :exemplifies_count, :default => 0, :null => false
       t.integer :embodies_count, :default => 0, :null => false
       t.integer :exemplifies_count, :default => 0, :null => false
       t.integer :work_has_subjects_count, :default => 0, :null => false
