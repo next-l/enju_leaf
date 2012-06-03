@@ -121,18 +121,12 @@ module ApplicationHelper
   end
 
   def database_adapter
-    case ActiveRecord::Base.configurations["#{Rails.env}"]['adapter']
-    when 'postgresql'
+    case ActiveRecord::Base.connection.adapter_name
+    when 'PostgreSQL'
       link_to 'PostgreSQL', 'http://www.postgresql.org/'
-    when 'jdbcpostgresql'
-      link_to 'PostgreSQL', 'http://www.postgresql.org/'
-    when 'mysql'
+    when 'MySQL'
       link_to 'MySQL', 'http://www.mysql.org/'
-    when 'jdbcmysql'
-      link_to 'MySQL', 'http://www.mysql.org/'
-    when 'sqlite3'
-      link_to 'SQLite', 'http://www.sqlite.org/'
-    when 'jdbcsqlite3'
+    when 'SQLite'
       link_to 'SQLite', 'http://www.sqlite.org/'
     end
   end
