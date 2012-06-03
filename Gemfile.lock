@@ -1,12 +1,4 @@
 GIT
-  remote: git://github.com/nabeta/enju_book_jacket.git
-  revision: 0d52b21f96b0e4d73a2df2afd0183cae6c3dd367
-  specs:
-    enju_book_jacket (0.0.1)
-      configatron
-      rails (~> 3.2)
-
-GIT
   remote: git://github.com/nabeta/sunspot-rails-tester.git
   revision: 733d46622fd4080836ee688f00acdd2b77395af9
   specs:
@@ -108,6 +100,9 @@ GEM
       rails (~> 3.2)
       rqrcode
       will_paginate
+    enju_book_jacket (0.0.1)
+      configatron
+      rails (~> 3.2)
     enju_bookmark (0.0.18)
       acts-as-taggable-on (~> 2.3)
       acts_as_list (~> 0.1.6)
@@ -136,7 +131,7 @@ GEM
       sunspot_rails
       validates_timeliness
       will_paginate (~> 3.0)
-    enju_event (0.0.23)
+    enju_event (0.0.24)
       acts_as_list (~> 0.1.6)
       addressable
       attribute_normalizer (~> 1.1)
@@ -491,7 +486,7 @@ DEPENDENCIES
   devise-encryptable
   dynamic_form
   enju_barcode (~> 0.0.3)
-  enju_book_jacket!
+  enju_book_jacket (~> 0.0.1)
   enju_bookmark (~> 0.0.18)
   enju_circulation (~> 0.0.51)
   enju_event (~> 0.0.23)

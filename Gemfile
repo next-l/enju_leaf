@@ -24,7 +24,7 @@ gem 'enju_inventory', '~> 0.0.10'
 gem 'enju_event', '~> 0.0.23'
 #gem 'enju_news', :git => 'git://github.com/nabeta/enju_news.git'
 gem 'enju_search_log', '~> 0.0.5'
-gem 'enju_book_jacket', :git => 'git://github.com/nabeta/enju_book_jacket.git'
+gem 'enju_book_jacket', '~> 0.0.1'
 gem 'enju_manifestation_viewer', '~> 0.0.1'
 
 platforms :ruby do
