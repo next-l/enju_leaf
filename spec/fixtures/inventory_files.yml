@@ -27,7 +27,6 @@ inventory_file_00003:
 #  filename               :string(255)
 #  content_type           :string(255)
 #  size                   :integer
-#  file_hash              :string(255)
 #  user_id                :integer
 #  note                   :text
 #  created_at             :datetime        not null
@@ -37,6 +36,5 @@ inventory_file_00003:
 #  inventory_file_size    :integer
 #  inventory_updated_at   :datetime
 #  inventory_fingerprint  :string(255)
-#  error_message          :text
 #
 

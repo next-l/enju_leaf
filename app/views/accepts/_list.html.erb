@@ -6,7 +6,7 @@
   <p>
     <%= t('activerecord.attributes.item.item_identifier') -%>:
     <%= f.search_field :item_identifier, :class => 'resource_item_identifier', :value => nil -%>
-    <%= f.submit t('accept.accept'), :disable_with => t('page.saving') -%>
+    <%= f.submit t('accept.accept'), 'data-disable-with' => t('page.saving') -%>
   </p>
 <%- end -%>
 </div>

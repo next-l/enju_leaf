@@ -1,5 +1,5 @@
 class UserHasRole < ActiveRecord::Base
-  attr_accessible
+  attr_accessible :user_id, :role_id
   attr_accessible :user_id, :role_id, :as => :admin
   belongs_to :user
   belongs_to :role

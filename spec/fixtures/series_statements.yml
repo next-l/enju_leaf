@@ -9,10 +9,16 @@ one:
 two:
   id: 2
   original_title: title2
+  title_transcription: テスト
   periodical: true
   issn: 09135707
   position: 2
 
+three:
+  id: 3
+  original_title: テスト雑誌
+  periodical: true
+  position: 3
 
 
 # == Schema Information

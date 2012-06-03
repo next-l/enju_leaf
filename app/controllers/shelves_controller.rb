@@ -2,7 +2,6 @@ class ShelvesController < ApplicationController
   load_and_authorize_resource
   before_filter :get_library
   before_filter :get_libraries, :only => [:new, :edit, :create, :update]
-  cache_sweeper :page_sweeper, :only => [:create, :update, :destroy]
 
   # GET /shelves
   # GET /shelves.json

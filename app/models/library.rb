@@ -26,7 +26,7 @@ class Library < ActiveRecord::Base
   end
 
   validates_associated :library_group, :patron
-  validates_presence_of :short_display_name, :library_group, :patron
+  validates_presence_of :short_display_name, :library_group
   validates_uniqueness_of :short_display_name, :case_sensitive => false
   validates_uniqueness_of :isil, :allow_blank => true
   validates :display_name, :uniqueness => true
