@@ -7,14 +7,6 @@ GIT
       rails (~> 3.2)
 
 GIT
-  remote: git://github.com/nabeta/enju_manifestation_viewer.git
-  revision: 59a3037c304ce907a1f66a8dcc837acc1603fc0f
-  specs:
-    enju_manifestation_viewer (0.0.1)
-      addressable
-      rails (~> 3.2)
-
-GIT
   remote: git://github.com/nabeta/sunspot-rails-tester.git
   revision: 733d46622fd4080836ee688f00acdd2b77395af9
   specs:
@@ -172,6 +164,9 @@ GEM
       sunspot_rails
       sunspot_solr
       will_paginate
+    enju_manifestation_viewer (0.0.1)
+      addressable
+      rails (~> 3.2)
     enju_message (0.0.23)
       acts_as_list (~> 0.1.6)
       addressable
@@ -501,7 +496,7 @@ DEPENDENCIES
   enju_circulation (~> 0.0.50)
   enju_event (~> 0.0.23)
   enju_inventory (~> 0.0.10)
-  enju_manifestation_viewer!
+  enju_manifestation_viewer (~> 0.0.1)
   enju_message (~> 0.0.23)
   enju_ndl (~> 0.0.31)
   enju_oai (~> 0.0.3)
