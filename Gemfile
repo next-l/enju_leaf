@@ -38,10 +38,7 @@ end
 
 platforms :ruby_19 do
   gem 'simplecov', '~> 0.6', :require => false, :group => :test
-end
-
-platforms :ruby_18 do
-  gem 'system_timer'
+  gem 'strong_parameters'
 end
 
 platforms :jruby do
@@ -53,7 +50,15 @@ platforms :jruby do
   gem 'glassfish'
 end
 
-gem 'fastercsv' if RUBY_VERSION < '1.9'
+if RUBY_VERSION < '1.9'
+  gem 'fastercsv'
+  gem 'system_timer'
+  gem 'library_stdnums', '~> 1.0.2'
+end
+
+if RUBY_VERSION > '1.9'
+  gem 'library_stdnums', '~> 1.1'
+end
 
 gem 'will_paginate', '~> 3.0'
 gem 'exception_notification', '~> 2.6'
@@ -96,7 +101,6 @@ gem 'attribute_normalizer', '~> 1.1'
 #gem 'geokit'
 gem 'geocoder'
 gem 'acts_as_list', '~> 0.1.6'
-gem 'library_stdnums'
 gem 'client_side_validations', '~> 3.2.0.beta.3'
 gem 'simple_form', '~> 2.0'
 gem 'validates_timeliness'
@@ -105,7 +109,6 @@ gem 'awesome_nested_set', '~> 2.1'
 gem 'rails_autolink'
 #gem 'oink', '>= 0.9.3'
 gem 'foreigner'
-gem 'strong_parameters'
 
 group :development do
   gem 'parallel_tests', '~> 0.8'
@@ -118,7 +121,11 @@ end
 group :development, :test do
   gem 'rspec-rails', '~> 2.10'
   gem 'guard-rspec'
-  gem 'factory_girl_rails'
+  if RUBY_VERSION > '1.9'
+    gem 'factory_girl_rails', '~> 3.3'
+  else
+    gem 'factory_girl_rails', '~> 1.7'
+  end
   gem 'spork-rails'
 #  gem 'rcov', '0.9.11'
 #  gem 'metric_fu', '~> 2.1'
