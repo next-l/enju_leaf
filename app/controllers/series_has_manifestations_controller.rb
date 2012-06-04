@@ -32,8 +32,8 @@ class SeriesHasManifestationsController < ApplicationController
   # GET /series_has_manifestations/new.json
   def new
     @series_has_manifestation = SeriesHasManifestation.new
-    @series_has_manifestation.series_statement_id = @series_statement
-    @series_has_manifestation.manifestation_id = @manifestation
+    @series_has_manifestation.series_statement = @series_statement
+    @series_has_manifestation.manifestation = @manifestation
 
     respond_to do |format|
       format.html # new.html.erb
