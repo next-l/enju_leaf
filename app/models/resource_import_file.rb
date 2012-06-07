@@ -106,8 +106,10 @@ class ResourceImportFile < ActiveRecord::Base
           debugger
 
           manifestation = Manifestation.import_isbn(isbn)
-          manifestation.series_statement = series_statement
-          manifestation.save!
+          if manifestation
+            manifestation.series_statement = series_statement
+            manifestation.save!
+          end
         rescue EnjuNdl::InvalidIsbn
           import_result.error_msg = "FAIL[#{row_num}]: "+I18n.t('resource_import_file.invalid_isbn', :isbn => isbn)
           Rails.logger.error "FAIL[#{row_num}]: import_isbn catch EnjuNdl::InvalidIsbn isbn: #{isbn}"
