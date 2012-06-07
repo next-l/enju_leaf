@@ -10,11 +10,11 @@
 
 <p>
   <b><%= t('activerecord.models.patron') %></b>
-  <%= link_to @patron_import_result.patron.full_name, @patron_import_result.patron if @patron_import_result.patron %>
+  <%= link_to @patron_import_result.patron.full_name, @patron_import_result.user if @patron_import_result.user %>
 </p>
 
 <p>
-  <b><%= t('activerecord.models.user') %></b>
+  <b><%= t('activerecord.attributes.user.username') %></b>
   <%= link_to @patron_import_result.user.username, @patron_import_result.user if @patron_import_result.user %>
 </p>
 
