@@ -45,9 +45,9 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_circulation.git
-  revision: df8502f038e72d38d96f5e88fea25382730bae94
+  revision: 3c1fc15d8fa76f161f0980255cfe1a887e074a87
   specs:
-    enju_circulation (0.0.51)
+    enju_circulation (0.0.52)
       acts_as_list (~> 0.1.6)
       attribute_normalizer (~> 1.1)
       cancan
@@ -259,15 +259,15 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/sunspot-rails-tester.git
-  revision: 733d46622fd4080836ee688f00acdd2b77395af9
+  revision: 34a55ca47c935ada9540a76fa2e2261e1e8b407d
   specs:
     sunspot-rails-tester (0.0.4)
-      sunspot_rails
-      sunspot_solr
+      sunspot_rails (>= 1.2)
+      sunspot_solr (>= 1.2)
 
 GIT
   remote: git://github.com/next-l/enju_biblio.git
-  revision: 201e082ceedab48549b945a939160039cdd06ab0
+  revision: 1afd6e4167868bd3c3353e69b0b785d445ebdac1
   specs:
     enju_biblio (0.0.2)
       acts_as_list
@@ -422,13 +422,13 @@ GEM
     ffi (1.0.11)
     foreigner (1.1.6)
       activerecord (>= 3.0.0)
-    friendly_id (4.0.6)
+    friendly_id (4.0.7)
     geocoder (1.1.2)
     guard (1.1.1)
       listen (>= 0.4.2)
       thor (>= 0.14.6)
-    guard-rspec (0.7.3)
-      guard (>= 0.10.0)
+    guard-rspec (1.0.0)
+      guard (>= 1.1)
     has_scope (0.5.1)
     highline (1.6.12)
     hike (1.2.1)
@@ -453,7 +453,7 @@ GEM
       addressable
     lisbn (0.1.2)
       nori
-    listen (0.4.2)
+    listen (0.4.3)
       rb-fchange (~> 0.0.5)
       rb-fsevent (~> 0.9.1)
       rb-inotify (~> 0.8.8)
@@ -563,7 +563,7 @@ GEM
       railties (~> 3.2.0)
       sass (>= 3.1.10)
       tilt (~> 1.3)
-    selenium-webdriver (2.22.1)
+    selenium-webdriver (2.22.2)
       childprocess (>= 0.2.5)
       ffi (~> 1.0)
       libwebsocket (~> 0.1.3)
