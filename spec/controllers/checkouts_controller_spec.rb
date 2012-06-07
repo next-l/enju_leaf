@@ -123,7 +123,7 @@ describe CheckoutsController do
         token = "AVRjefcBcey6f1WyYXDl"
         user = User.where(:checkout_icalendar_token => token).first
         get :index, :icalendar_token => token
-        assigns(:checkouts).should eq user.checkouts.not_returned.order('checkouts.id DESC').page(1)
+        assigns(:checkouts).should eq user.checkouts.not_returned.order('checkouts.id DESC')
         response.should be_success
       end
 
@@ -131,7 +131,7 @@ describe CheckoutsController do
         token = "AVRjefcBcey6f1WyYXDl"
         user = User.where(:checkout_icalendar_token => token).first
         get :index, :icalendar_token => token, :format => :ics
-        assigns(:checkouts).should eq user.checkouts.not_returned.order('checkouts.id DESC').page(1)
+        assigns(:checkouts).should eq user.checkouts.not_returned.order('checkouts.id DESC')
         response.should be_success
       end
     end

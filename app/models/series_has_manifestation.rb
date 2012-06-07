@@ -8,7 +8,6 @@ class SeriesHasManifestation < ActiveRecord::Base
   validates_presence_of :series_statement_id
   validates_presence_of :manifestation_id, :on => :update
   validates_uniqueness_of :manifestation_id, :scope => :series_statement_id
-  after_save :reload
   after_save :reindex
   after_destroy :reindex
 
@@ -19,8 +18,8 @@ class SeriesHasManifestation < ActiveRecord::Base
   end
 
   def reindex
-    series_statement.try(:index)
-    manifestation.try(:index)
+    series_statement.reload; series_statement.try(:index)
+    manifestation.reload; manifestation.try(:index)
   end
 end
 

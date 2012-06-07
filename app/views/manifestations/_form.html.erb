@@ -37,7 +37,7 @@
     <%= f.text_field :title_alternative, :class => 'resource_title' -%>
   </div>
 
-  <%- if @manifestation.periodical? -%>
+  <%- if @series_statement.try(:periodical?) -%>
     <%= render :partial => 'manifestations/serial_form', :locals => {:f => f, :manifestation => @manifestation} -%>
   <%- else -%>
     <div class="field">
