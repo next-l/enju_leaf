@@ -45,9 +45,9 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_circulation.git
-  revision: 3c1fc15d8fa76f161f0980255cfe1a887e074a87
+  revision: b6405e2f92c8de2ceb80122607c6ce870ea84b67
   specs:
-    enju_circulation (0.0.52)
+    enju_circulation (0.0.55)
       acts_as_list (~> 0.1.6)
       attribute_normalizer (~> 1.1)
       cancan
@@ -267,7 +267,7 @@ GIT
 
 GIT
   remote: git://github.com/next-l/enju_biblio.git
-  revision: 1afd6e4167868bd3c3353e69b0b785d445ebdac1
+  revision: 42053fb664fceb2d8b94626536b078c099a905f5
   specs:
     enju_biblio (0.0.2)
       acts_as_list
@@ -453,7 +453,7 @@ GEM
       addressable
     lisbn (0.1.2)
       nori
-    listen (0.4.3)
+    listen (0.4.4)
       rb-fchange (~> 0.0.5)
       rb-fsevent (~> 0.9.1)
       rb-inotify (~> 0.8.8)
@@ -497,7 +497,7 @@ GEM
     rack (1.4.1)
     rack-cache (1.2)
       rack (>= 0.4)
-    rack-mobile-detect (0.3.0)
+    rack-mobile-detect (0.4.0)
       rack
     rack-protection (1.2.0)
       rack
