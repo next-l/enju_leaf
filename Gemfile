@@ -112,7 +112,7 @@ gem 'simplecov', '~> 0.6', :require => false, :group => :test
 group :development, :test do
   gem 'rspec-rails', '~> 2.10'
   gem 'guard-rspec'
-  gem 'factory_girl_rails', '~> 3.3'
+  gem 'factory_girl_rails', '~> 3.4'
   gem 'spork-rails'
 #  gem 'rcov', '0.9.11'
 #  gem 'metric_fu', '~> 2.1'
