@@ -87,6 +87,7 @@ class Item < ActiveRecord::Base
     searchable do
       integer :circulation_status_id
     end
+    attr_accessible :item_has_use_restriction_attributes
     accepts_nested_attributes_for :item_has_use_restriction
 
     def set_circulation_status

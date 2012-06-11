@@ -521,9 +521,13 @@ class ResourceImportFile < ActiveRecord::Base
   def find_series_statement(row)
     issn = StdNum::ISSN.normalize(row['issn'].to_s)
     series_statement_identifier = row['series_statement_identifier'].to_s.strip
+    series_statement_id = row['series_statement_id'].to_s.strip
     series_statement = SeriesStatement.where(:issn => issn).first if issn.present?
     unless series_statement
       series_statement = SeriesStatement.where(:series_statement_identifier => series_statement_identifier).first if series_statement_identifier.present?
+    end
+    unless series_statement
+      series_statement = SeriesStatement.where(:id => series_statement_id).first if series_statement_id
     end
     series_statement = SeriesStatement.where(:original_title => row['series_statement_original_title'].to_s.strip).first unless series_statement
     series_statement

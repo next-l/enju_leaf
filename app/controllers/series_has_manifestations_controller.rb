@@ -52,6 +52,7 @@ class SeriesHasManifestationsController < ApplicationController
   def create
     respond_to do |format|
       if @series_has_manifestation.save
+        Sunspot.commit
         format.html { redirect_to @series_has_manifestation, :notice => t('controller.successfully_created', :model => t('activerecord.models.series_has_manifestation')) }
         format.json { render :json => @series_has_manifestation, :status => :created, :location => @series_has_manifestation }
       else
@@ -64,8 +65,11 @@ class SeriesHasManifestationsController < ApplicationController
   # PUT /series_has_manifestations/1
   # PUT /series_has_manifestations/1.json
   def update
+    old_series_statement = @series_has_manifestation.manifestation.series_statement
     respond_to do |format|
       if @series_has_manifestation.update_attributes(params[:series_has_manifestation])
+        old_series_statement.index
+        Sunspot.commit
         format.html { redirect_to @series_has_manifestation, :notice => t('controller.successfully_updated', :model => t('activerecord.models.series_has_manifestation')) }
         format.json { head :no_content }
       else
