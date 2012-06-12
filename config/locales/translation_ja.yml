@@ -601,6 +601,7 @@ ja:
     refine_by: "この一覧から絞り込む"
     standard_view: "パソコン用の画面"
     mobile_view: "携帯機器用の画面"
+    rearrange_order: "順番を変更する"
   title:
     index: "一覧"
     show: "表示"

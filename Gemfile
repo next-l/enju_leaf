@@ -16,7 +16,7 @@ gem 'enju_subject', '~> 0.0.15'
 gem 'enju_purchase_request', '~> 0.0.10'
 gem 'enju_question', '~> 0.0.17'
 gem 'enju_bookmark', '~> 0.0.19'
-gem 'enju_resource_merge', '~> 0.0.12'
+gem 'enju_resource_merge', '~> 0.0.13'
 gem 'enju_circulation', '~> 0.0.55'
 gem 'enju_message', '~> 0.0.23'
 #gem 'enju_inter_library_loan', '>= 0.0.4'
@@ -122,7 +122,7 @@ group :development, :test do
   gem 'rspec-rails', '~> 2.10'
   gem 'guard-rspec'
   if RUBY_VERSION > '1.9'
-    gem 'factory_girl_rails', '~> 3.3'
+    gem 'factory_girl_rails', '~> 3.4'
   else
     gem 'factory_girl_rails', '~> 1.7'
   end

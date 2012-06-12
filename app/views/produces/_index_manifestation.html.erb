@@ -11,25 +11,19 @@
     <th><%= t('activerecord.models.patron') -%></th>
     <th><%= t('page.created_at') -%></th>
     <th><%= t('page.updated_at') -%></th>
-    <th></th>
   </tr>
 
 <%- @produces.each do |produce| -%>
   <tr class="line<%= cycle("0", "1") -%>">
     <td>
       <%- if can? :destroy, produce -%>
-        <%= produce.first? ? image_tag('icons/stop.png', :size => '16x16') : link_to(image_tag('icons/arrow_up.png', :size => '16x16', :alt => t('page.asc')), {:action => 'update', :move => 'higher', :id => produce.id, :manifestation_id => manifestation.id}, :method => :put) -%>
-        <%= produce.last? ? image_tag('icons/stop.png', :size => '16x16') : link_to(image_tag('icons/arrow_down.png', :size => '16x16', :alt => t('page.desc')), {:action => 'update', :move => 'lower', :id => produce.id, :manifestation_id => manifestation.id}, :method => :put) -%>
+        <%= produce.first? ? image_tag('icons/stop.png', :size => '16x16') : link_to(image_tag('icons/arrow_up.png', :size => '16x16', :alt => t('page.asc')), produce_path(produce, :move => 'higher'), :method => :put) -%>
+        <%= produce.last? ? image_tag('icons/stop.png', :size => '16x16') : link_to(image_tag('icons/arrow_down.png', :size => '16x16', :alt => t('page.desc')), produce_path(produce, :move => 'lower'), :method => :put) -%>
       <%- end -%>
     </td>
-    <td><%= link_to create.patron.try(:full_name), create.patron -%></td>
-    <td><%= l(create.created_at) -%></td>
-    <td><%= l(create.updated_at) -%></td>
-    <td>
-      <%- if can? :destroy, produce -%>
-        <%= link_to t('page.destroy'), manifestation_produce_path(manifestation, produce), :confirm => t('page.are_you_sure'), :method => :delete -%>
-      <%- end -%>
-    </td>
+    <td><%= link_to produce.patron.try(:full_name), produce.patron -%></td>
+    <td><%= l(produce.created_at) -%></td>
+    <td><%= l(produce.updated_at) -%></td>
   </tr>
 <%- end -%>
 </table>

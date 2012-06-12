@@ -211,7 +211,7 @@ describe ItemHasUseRestrictionsController do
       describe "with valid params" do
         it "assigns a newly created item_has_use_restriction as @item_has_use_restriction" do
           post :create, :item_has_use_restriction => @attrs
-          assigns(:item_has_use_restriction).should_not be_valid
+          assigns(:item_has_use_restriction).should be_valid
         end
 
         it "should be forbidden" do
@@ -239,7 +239,7 @@ describe ItemHasUseRestrictionsController do
       describe "with valid params" do
         it "assigns a newly created item_has_use_restriction as @item_has_use_restriction" do
           post :create, :item_has_use_restriction => @attrs
-          assigns(:item_has_use_restriction).should_not be_valid
+          assigns(:item_has_use_restriction).should be_valid
         end
 
         it "should be forbidden" do
@@ -265,7 +265,7 @@ describe ItemHasUseRestrictionsController do
       describe "with valid params" do
         it "assigns a newly created item_has_use_restriction as @item_has_use_restriction" do
           post :create, :item_has_use_restriction => @attrs
-          assigns(:item_has_use_restriction).should_not be_valid
+          assigns(:item_has_use_restriction).should be_valid
         end
 
         it "should be forbidden" do

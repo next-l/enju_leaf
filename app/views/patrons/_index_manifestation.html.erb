@@ -53,6 +53,7 @@
     <li><%= link_to t('page.listing', :model => t('activerecord.models.item')), manifestation_items_path(manifestation) -%></li>
     <%- if can? :create, Patron -%>
       <li><%= link_to t('page.new', :model => t('activerecord.models.patron')), new_manifestation_patron_path(manifestation) -%></li>
+      <li><%= link_to t('page.rearrange_order'), manifestation_produces_path(manifestation) %></li>
     <%- end -%>
   </ul>
 </div>

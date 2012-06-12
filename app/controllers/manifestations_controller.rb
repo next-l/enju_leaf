@@ -138,8 +138,12 @@ class ManifestationsController < ApplicationController
         end
         if series_statement
           with(:periodical_master).equal_to false
-          if mode != 'add'
-            with(:periodical).equal_to true
+          if series_statement.periodical?
+            if mode != 'add'
+              with(:periodical).equal_to true
+            end
+          else
+            with(:periodical).equal_to false
           end
         else
           if mode != 'add'

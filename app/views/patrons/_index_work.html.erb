@@ -58,6 +58,7 @@
   <ul>
     <%- if can? :create, Patron -%>
       <li><%= link_to t('page.new', :model => t('activerecord.models.patron')), new_work_patron_path(work) -%></li>
+      <li><%= link_to t('page.rearrange_order'), work_creates_path(work) %></li>
     <%- end -%>
   </ul>
 </div>
