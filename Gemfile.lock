@@ -27,7 +27,7 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_bookmark.git
-  revision: 6446973bb815ff2474a51888a6883813b877ddd1
+  revision: 5a78a32cb2aa9d4f229783dd2d6e63d0f18d4902
   specs:
     enju_bookmark (0.0.19)
       acts-as-taggable-on (~> 2.3)
@@ -45,7 +45,7 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_circulation.git
-  revision: fac48f7683d81c84960b8efbc4dc5ac3198a68cb
+  revision: b233b1e98ecf2c2cfd33d451c5472b3d28f5efae
   specs:
     enju_circulation (0.0.57)
       acts_as_list (~> 0.1.6)
@@ -65,7 +65,7 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_event.git
-  revision: 51657113790dccc530688166c86f8cdc5a780dea
+  revision: 55790af2247eb5a40633e09fa62f76ad558e8d0a
   specs:
     enju_event (0.1.10)
       acts_as_list (~> 0.1.6)
@@ -89,7 +89,7 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_inter_library_loan.git
-  revision: 1879669f1412327123700b928c1088a508a38c18
+  revision: 7624ff11469ef30edba7859e38a951aca2152a26
   specs:
     enju_inter_library_loan (0.0.4)
       acts_as_list (~> 0.1.6)
@@ -106,7 +106,7 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_inventory.git
-  revision: 2ad69fae5c8c5e5c1a00e177d4a6c0b02040018c
+  revision: 3c047c70d8c0f1a0b84862ec70c27d0148f19881
   specs:
     enju_inventory (0.1.5)
       cancan
@@ -128,7 +128,7 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_message.git
-  revision: fe174a6ea3570b6956fa0c18749f888aa1064e2a
+  revision: cb047bdfed8ec576533fb81a09dd16cfe4ea5e7d
   specs:
     enju_message (0.1.7)
       acts_as_list (~> 0.1.6)
@@ -217,7 +217,7 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_resource_merge.git
-  revision: 8654ddb9a27521df548e9e1f0acecde505722569
+  revision: bdc8c59850b10308800d41bd0b4fe29d20f0088b
   specs:
     enju_resource_merge (0.0.13)
       acts_as_list (~> 0.1.6)
@@ -242,7 +242,7 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_subject.git
-  revision: 5af92da7918b342e1c4d32ded41a3d299cc9c454
+  revision: 4c8dbc4b83c2e7b20ad7ef2fbd75a7d3d3f29c81
   specs:
     enju_subject (0.0.15)
       acts_as_list (~> 0.1.6)
@@ -295,7 +295,7 @@ GIT
 
 GIT
   remote: git://github.com/next-l/enju_library.git
-  revision: 392875e0e4595c33eca0f88f2ab71a758b1e861b
+  revision: 4672b09827f466c996f013f24718daa7489b3bc9
   specs:
     enju_library (0.0.1)
       acts_as_list (~> 0.1.6)
@@ -614,7 +614,7 @@ GEM
     uuidtools (2.1.2)
     validates_timeliness (3.0.11)
       timeliness (~> 0.3.6)
-    vcr (2.2.0)
+    vcr (2.2.1)
     warden (1.1.1)
       rack (>= 1.0)
     whenever (0.7.3)
