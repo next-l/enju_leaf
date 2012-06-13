@@ -107,9 +107,9 @@ group :development do
   gem 'immigrant'
 end
 
-gem 'simplecov', '~> 0.6', :require => false, :group => :test
 
 group :development, :test do
+  gem 'simplecov', '~> 0.6', :require => false
   gem 'rspec-rails', '~> 2.10'
   gem 'guard-rspec'
   gem 'factory_girl_rails', '~> 3.4'
