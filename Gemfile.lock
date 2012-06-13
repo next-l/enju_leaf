@@ -267,7 +267,7 @@ GIT
 
 GIT
   remote: git://github.com/next-l/enju_biblio.git
-  revision: b0ef4916fc1d24a13eed14ba637c89c39ac6c06b
+  revision: 28ab1b71fbe192aec74b4540ebb073a01049d809
   specs:
     enju_biblio (0.0.2)
       acts_as_list
@@ -453,7 +453,7 @@ GEM
       addressable
     lisbn (0.1.2)
       nori
-    listen (0.4.4)
+    listen (0.4.5)
       rb-fchange (~> 0.0.5)
       rb-fsevent (~> 0.9.1)
       rb-inotify (~> 0.8.8)
