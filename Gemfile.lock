@@ -7,7 +7,7 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_barcode.git
-  revision: 03d941c50a6f3fcfbf985341739addaf8849702a
+  revision: 5af8d34b44f0f9c2c797a7c49c1ea44eed822b08
   specs:
     enju_barcode (0.0.3)
       barby (~> 0.5)
@@ -45,7 +45,7 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_circulation.git
-  revision: b233b1e98ecf2c2cfd33d451c5472b3d28f5efae
+  revision: fd2215f4dc8c83edddc604834fb13ca8208f8eb2
   specs:
     enju_circulation (0.0.57)
       acts_as_list (~> 0.1.6)
@@ -183,7 +183,7 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_purchase_request.git
-  revision: d49bfbad1ca20c80caec6a81af5db15361cbbe05
+  revision: 90a5247ee93e920225a678ea6d3ae735b52573c2
   specs:
     enju_purchase_request (0.0.10)
       acts_as_list (~> 0.1.6)
@@ -199,7 +199,7 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_question.git
-  revision: 884e41498431fa6ad17fa97a81c80e2dc47faa69
+  revision: 026c0c5f7174f2f201ed4e0a2419fa98b0317931
   specs:
     enju_question (0.0.17)
       acts-as-taggable-on (~> 2.2)
@@ -242,7 +242,7 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_subject.git
-  revision: 4c8dbc4b83c2e7b20ad7ef2fbd75a7d3d3f29c81
+  revision: 810e71b3073e9602697c5bf27795e8b053e24f78
   specs:
     enju_subject (0.0.15)
       acts_as_list (~> 0.1.6)
