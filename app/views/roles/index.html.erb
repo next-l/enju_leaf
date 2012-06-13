@@ -15,7 +15,7 @@
     <td><%= link_to role.display_name.localize, role -%></td>
     <td>
       <%= link_to t('page.edit'), edit_role_path(role) -%>
-      <%= link_to t('page.destroy'), role, :confirm => t('page.are_you_sure'), :method => :delete -%>
+      <%= link_to t('page.destroy'), role, :data => {:confirm => t('page.are_you_sure')}, :method => :delete -%>
     </td>
   </tr>
 <%- end -%>

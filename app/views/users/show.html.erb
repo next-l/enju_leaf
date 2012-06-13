@@ -66,7 +66,7 @@
         <li><%= link_to t('page.new', :model => t('activerecord.models.user')), new_user_path -%></li>
       <% end %>
       <%- if can? :destroy, @user -%>
-        <li><%= link_to t('page.destroy'), @user, :confirm => t('page.are_you_sure'), :method => :delete -%></li>
+        <li><%= link_to t('page.destroy'), @user, :data => {:confirm => t('page.are_you_sure')}, :method => :delete -%></li>
       <% end %>
     <%- end -%>
     <% if defined?(EnjuCirculation) %>
