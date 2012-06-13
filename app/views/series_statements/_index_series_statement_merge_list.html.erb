@@ -34,7 +34,7 @@
           <%= link_to t('page.add'), new_series_statement_merge_list_series_statement_merge_path(@series_statement_merge_list, :series_statement_id => series_statement.id) unless @series_statement_merge_list.series_statements.include?(series_statement) -%>
         <%- else -%>
           <%- series_statement_merge = @series_statement_merge_list.series_statement_merges.where(:series_statement_id => series_statement.id).first -%>
-          <%= link_to t('page.destroy'), series_statement_merge_list_series_statement_merge_path(@series_statement_merge_list, series_statement_merge), :confirm => t('page.are_you_sure'), :method => :delete if series_statement_merge -%>
+          <%= link_to t('page.destroy'), series_statement_merge_list_series_statement_merge_path(@series_statement_merge_list, series_statement_merge), :data => {:confirm => t('page.are_you_sure')}, :method => :delete if series_statement_merge -%>
         <%- end -%>
       <%- end -%>
     </td>

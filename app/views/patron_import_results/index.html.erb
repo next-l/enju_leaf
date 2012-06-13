@@ -26,7 +26,7 @@
     <td><%= link_to patron_import_result.user.username, patron_import_result.user if patron_import_result.user %></td>
     <td>
       <%= link_to t('page.show'), patron_import_result %>
-      <%= link_to t('page.destroy'), patron_import_result, :confirm => t('page.are_you_sure'), :method => :delete %>
+      <%= link_to t('page.destroy'), patron_import_result, :data => {:confirm => t('page.are_you_sure')}, :method => :delete %>
     </td>
   </tr>
 <% end %>

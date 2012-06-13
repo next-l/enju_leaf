@@ -29,7 +29,7 @@
         <%= link_to image_tag('icons/page_white_edit.png', :size => '16x16', :alt => t('page.edit')), edit_bookstore_path(bookstore) -%>
       <% end %>
       <%- if can? :destroy, bookstore -%>
-        <%= link_to image_tag('icons/delete.png', :size => '16x16', :alt => t('page.destroy')), bookstore, :confirm => t('page.are_you_sure'), :method => :delete -%>
+        <%= link_to image_tag('icons/delete.png', :size => '16x16', :alt => t('page.destroy')), bookstore, :data => {:confirm => t('page.are_you_sure')}, :method => :delete -%>
       <%- end -%>
     </td>
   </tr>

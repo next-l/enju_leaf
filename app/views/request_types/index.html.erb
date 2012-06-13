@@ -24,7 +24,7 @@
         <%= link_to t('page.edit'), edit_request_type_path(request_type) -%>
       <% end %>
       <%- if can? :destroy, request_type -%>
-        <%= link_to t('page.destroy'), request_type, :confirm => t('page.are_you_sure'), :method => :delete -%>
+        <%= link_to t('page.destroy'), request_type, :data => {:confirm => t('page.are_you_sure')}, :method => :delete -%>
       <% end %>
     </td>
   </tr>

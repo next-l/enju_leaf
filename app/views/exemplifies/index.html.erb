@@ -18,7 +18,7 @@
     <%- if can? :destroy, exemplify -%>
       <td>
         <%= link_to t('page.show'), exemplify -%>
-        <%= link_to t('page.destroy'), exemplify, :confirm => t('page.are_you_sure'), :method => :delete -%>
+        <%= link_to t('page.destroy'), exemplify, :data => {:confirm => t('page.are_you_sure')}, :method => :delete -%>
       </td>
     <%- end -%>
   </tr>

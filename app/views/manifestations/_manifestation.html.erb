@@ -43,7 +43,7 @@
                       <%= link_to image_tag('icons/book_edit.png', :size => '16x16', :alt => t('page.edit')), edit_manifestation_path(manifestation) -%>
                       <% if @series_statement %>
                         <% if manifestation.series_statement == @series_statement %>
-                          <%= link_to t('page.destroy'), series_statement_series_has_manifestation_path(manifestation.series_statement, manifestation.series_has_manifestation), :confirm => t('page.are_you_sure'), :method => :delete -%>
+                          <%= link_to t('page.destroy'), series_statement_series_has_manifestation_path(manifestation.series_statement, manifestation.series_has_manifestation), :data => {:confirm => t('page.are_you_sure')}, :method => :delete -%>
                         <% end %>
                       <% end %>
                     <% else %>

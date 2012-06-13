@@ -24,7 +24,7 @@
         <%= link_to t('page.edit'), edit_user_group_path(user_group) -%>
       <% end %>
       <%- if can? :destroy, user_group -%>
-        <%= link_to t('page.destroy'), user_group_path(user_group), :confirm => t('page.are_you_sure'), :method => :delete -%>
+        <%= link_to t('page.destroy'), user_group_path(user_group), :data => {:confirm => t('page.are_you_sure')}, :method => :delete -%>
       <% end %>
     </td>
   </tr>

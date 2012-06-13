@@ -26,7 +26,7 @@
         <%= link_to t('page.edit'), edit_search_engine_path(search_engine) -%>
       <% end %>
       <%- if can? :destroy, search_engine -%>
-        <%= link_to t('page.destroy'), search_engine, :confirm => t('page.are_you_sure'), :method => :delete -%>
+        <%= link_to t('page.destroy'), search_engine, :data => {:confirm => t('page.are_you_sure')}, :method => :delete -%>
       <%- end -%>
     </td>
   </tr>

@@ -16,7 +16,7 @@
     <td>
       <%= link_to t('page.show'), series_has_manifestation %>
       <%= link_to t('page.edit'), edit_series_has_manifestation_path(series_has_manifestation) %>
-      <%= link_to t('page.destroy'), series_has_manifestation, :confirm => t('page.are_you_sure'), :method => :delete %>
+      <%= link_to t('page.destroy'), series_has_manifestation, :data => {:confirm => t('page.are_you_sure')}, :method => :delete %>
     </td>
   </tr>
 <% end %>

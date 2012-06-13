@@ -16,7 +16,7 @@
     <td>
       <%- if can? :destroy, realize -%>
         <%= link_to t('page.show'), realize -%>
-        <%= link_to t('page.destroy'), realize, :confirm => t('page.are_you_sure'), :method => :delete -%>
+        <%= link_to t('page.destroy'), realize, :data => {:confirm => t('page.are_you_sure')}, :method => :delete -%>
       <%- end -%>
     </td>
   </tr>

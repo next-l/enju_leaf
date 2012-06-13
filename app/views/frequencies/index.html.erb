@@ -24,7 +24,7 @@
         <%= link_to t('page.edit'), edit_frequency_path(frequency) -%>
       <% end %>
       <%- if can? :destroy, frequency -%>
-        <%= link_to t('page.destroy'), frequency, :confirm => t('page.are_you_sure'), :method => :delete -%>
+        <%= link_to t('page.destroy'), frequency, :data => {:confirm => t('page.are_you_sure')}, :method => :delete -%>
       <%- end -%>
     </td>
   </tr>

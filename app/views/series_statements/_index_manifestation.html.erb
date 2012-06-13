@@ -39,7 +39,7 @@
             <%= link_to t('page.select'), new_series_has_manifestation_path(:series_statement_id => series_statement.id, :manifestation_id => @manifestation.id) -%>
           <% end %>
         <%- else -%>
-          <%= link_to t('page.destroy'), manifestation_series_has_manifestation_path(@manifestation, series_statement.manifestation_included(@manifestation)), :confirm => t('page.are_you_sure'), :method => :delete if series_statement.manifestation_included(@manifestation) -%>
+          <%= link_to t('page.destroy'), manifestation_series_has_manifestation_path(@manifestation, series_statement.manifestation_included(@manifestation)), :data => {:confirm => t('page.are_you_sure')}, :method => :delete if series_statement.manifestation_included(@manifestation) -%>
         <%- end -%>
       <%- end -%>
     </td>

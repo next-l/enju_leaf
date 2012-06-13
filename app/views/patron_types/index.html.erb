@@ -26,7 +26,7 @@
         <%= link_to t('page.edit'), edit_patron_type_path(patron_type) -%>
       <% end %>
       <%- if can? :destroy, patron_type -%>
-        <%= link_to t('page.destroy'), patron_type, :confirm => t('page.are_you_sure'), :method => :delete -%>
+        <%= link_to t('page.destroy'), patron_type, :data => {:confirm => t('page.are_you_sure')}, :method => :delete -%>
       <%- end -%>
     </td>
   </tr>

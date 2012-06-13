@@ -17,7 +17,7 @@
     <td><%= link_to patron_relationship.child.full_name, patron_relationship.child %></td>
     <td><%= link_to t('page.show'), patron_relationship %></td>
     <td><%= link_to t('page.edit'), edit_patron_relationship_path(patron_relationship) %></td>
-    <td><%= link_to t('page.destroy'), patron_relationship, :confirm => t('page.are_you_sure'), :method => :delete %></td>
+    <td><%= link_to t('page.destroy'), patron_relationship, :data => {:confirm => t('page.are_you_sure')}, :method => :delete %></td>
   </tr>
 <% end %>
 </table>

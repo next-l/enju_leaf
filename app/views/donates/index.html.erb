@@ -24,7 +24,7 @@
     <td>
       <%- if can? :destroy, donate -%>
         <%= link_to t('page.edit'), edit_donate_path(donate) -%>
-        <%= link_to t('page.destroy'), donate, :confirm => t('page.are_you_sure'), :method => :delete -%>
+        <%= link_to t('page.destroy'), donate, :data => {:confirm => t('page.are_you_sure')}, :method => :delete -%>
       <%- end -%>
     </td>
   </tr>

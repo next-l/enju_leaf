@@ -26,7 +26,7 @@
     <td><%= link_to resource_import_result.item.item_identifier, resource_import_result.item if resource_import_result.item %></td>
     <td>
       <%= link_to t('page.show'), resource_import_result %>
-      <%= link_to t('page.destroy'), resource_import_result, :confirm => t('page.are_you_sure'), :method => :delete %>
+      <%= link_to t('page.destroy'), resource_import_result, :data => {:confirm => t('page.are_you_sure')}, :method => :delete %>
     </td>
   </tr>
 <% end %>

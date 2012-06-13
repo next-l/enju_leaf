@@ -10,7 +10,7 @@
   <ul>
     <li><%= link_to t('page.show'), @manifestation -%></li>
     <% if can? :destroy, @manifestation %>
-      <li><%= link_to t('page.destroy'), @manifestation, :confirm => t('page.are_you_sure'), :method => :delete -%></li>
+      <li><%= link_to t('page.destroy'), @manifestation, :data => {:confirm => t('page.are_you_sure')}, :method => :delete -%></li>
     <% end %>
     <%- case when @patron -%>
       <li><%= link_to t('page.back'), publisher_manifestations_path(@patron) -%></li>

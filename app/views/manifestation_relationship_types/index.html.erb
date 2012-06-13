@@ -26,7 +26,7 @@
         <%= link_to t('page.edit'), edit_manifestation_relationship_type_path(manifestation_relationship_type) -%>
       <% end %>
       <%- if can? :destroy, manifestation_relationship_type -%>
-        <%= link_to t('page.destroy'), manifestation_relationship_type, :confirm => t('page.are_you_sure'), :method => :delete -%>
+        <%= link_to t('page.destroy'), manifestation_relationship_type, :data => {:confirm => t('page.are_you_sure')}, :method => :delete -%>
       <% end %>
     </td>
   </tr>

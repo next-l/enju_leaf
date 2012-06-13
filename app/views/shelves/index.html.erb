@@ -52,7 +52,7 @@
         <%= link_to t('page.edit'), edit_shelf_path(shelf) -%>
       <% end %>
       <%- if can? :destroy, shelf -%>
-        <%= link_to t('page.destroy'), shelf, :confirm => t('page.are_you_sure'), :method => :delete -%>
+        <%= link_to t('page.destroy'), shelf, :data => {:confirm => t('page.are_you_sure')}, :method => :delete -%>
       <%- end -%>
     </td>
   </tr>

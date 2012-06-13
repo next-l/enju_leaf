@@ -49,7 +49,7 @@
             <%= link_to t('page.add'), new_patron_patron_relationship_path(patron, :child_id => patron.id) unless patron.derived_patrons.include?(patron) or patron == patron -%>
           <%- else -%>
             <%- patron_relationship = patron.to_patrons.where(:child_id => patron.id).first -%>
-            <%= link_to t('page.destroy'), patron_relationship, :confirm => t('page.are_you_sure'), :method => :delete if patron_relationship -%>
+            <%= link_to t('page.destroy'), patron_relationship, :data => {:confirm => t('page.are_you_sure')}, :method => :delete if patron_relationship -%>
           <%- end -%>
         <%- end -%>
       </td>

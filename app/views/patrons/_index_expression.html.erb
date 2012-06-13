@@ -37,7 +37,7 @@
           <%- if params[:mode] == 'add' -%>
             <%= link_to t('page.add'), new_expression_realize_path(expression, :patron_id => patron.id) unless expression.contributors.include?(patron) -%>
           <%- else -%>
-            <%= link_to t('page.destroy'), expression_realize_path(expression, expression.realized(patron)), :confirm => t('page.are_you_sure'), :method => :delete -%>
+            <%= link_to t('page.destroy'), expression_realize_path(expression, expression.realized(patron)), :data => {:confirm => t('page.are_you_sure')}, :method => :delete -%>
           <%- end -%>
         <%- end -%>
       </td>

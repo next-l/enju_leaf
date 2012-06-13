@@ -19,7 +19,7 @@
     <td><%= l(produce.updated_at) -%></td>
     <td>
       <%- if can? :destroy, produce -%>
-        <%= link_to t('page.destroy'), patron_produce_path(patron, produce), :confirm => t('page.are_you_sure'), :method => :delete -%>
+        <%= link_to t('page.destroy'), patron_produce_path(patron, produce), :data => {:confirm => t('page.are_you_sure')}, :method => :delete -%>
       <%- end -%>
     </td>
   </tr>

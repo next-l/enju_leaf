@@ -450,7 +450,7 @@ GEM
     uuidtools (2.1.2)
     validates_timeliness (3.0.11)
       timeliness (~> 0.3.6)
-    vcr (2.2.0)
+    vcr (2.2.1)
     warden (1.1.1)
       rack (>= 1.0)
     whenever (0.7.3)

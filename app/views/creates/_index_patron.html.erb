@@ -28,7 +28,7 @@
     <td>
       <%- if can? :destroy, create -%>
         <%= link_to t('page.show'), patron_create_path(patron, create) -%>
-        <%= link_to t('page.destroy'), patron_create_path(patron, create), :confirm => t('page.are_you_sure'), :method => :delete -%>
+        <%= link_to t('page.destroy'), patron_create_path(patron, create), :data => {:confirm => t('page.are_you_sure')}, :method => :delete -%>
       <%- end -%>
     </td>
   </tr>

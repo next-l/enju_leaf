@@ -11,7 +11,7 @@
   <ul>
     <li><%= link_to t('page.show'), @item -%></li>
     <% if can? :destroy, @item %>
-      <li><%= link_to t('page.destroy'), @item, :confirm => t('page.are_you_sure'), :method => :delete -%></li>
+      <li><%= link_to t('page.destroy'), @item, :data => {:confirm => t('page.are_you_sure')}, :method => :delete -%></li>
     <% end %>
     <li><%= link_to t('page.back'), manifestation_items_path(@item.manifestation) -%></li>
   </ul>
