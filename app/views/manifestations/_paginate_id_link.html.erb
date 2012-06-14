@@ -1,6 +1,24 @@
+<script>
+  $(function(){
+    if(typeof sessionStorage === "undefined"){
+      return;
+    }else{
+      var ids = JSON.parse(sessionStorage.getItem("<%= flash[:search_query] %>"));
+      var index = $.inArray(<%= manifestation.id %>, ids);
+      if(ids[index - 1] > 0){
+        $("#prev_link").html('<a href="<%= root_url %>manifestations/' + ids[index - 1] + '"><%= t('page.previous') %></a>');
+      };
+      if(ids[index + 1] > 0){
+        $("#next_link").html('<a href="<%= root_url %>manifestations/' + ids[index + 1] + '"><%= t('page.next') %></a>');
+      };
+    };
+  });
+</script>
+
 <%= form_for :manifestations, :url => manifestations_path, :html => {:method => 'get'} do -%>
   <div>
-    <%= paginate_id_link(manifestation, manifestation_ids) if manifestation_ids -%>
+    <span id="next_link"><%= t('page.next') %></span>
+    <span id="prev_link"><%= t('page.previous') %></span>
     <%= back_to_manifestation_index -%>
     <%= t('page.search_term') -%>:
     <%= search_field_tag 'query', @query, {:id => 'search_form_top', :class => 'search_form_short', :placeholder => t('page.search_term')} -%>

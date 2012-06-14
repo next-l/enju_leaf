@@ -50,6 +50,7 @@ describe SeriesStatementsController do
         series_statement = FactoryGirl.create(:series_statement)
         get :show, :id => series_statement.id
         assigns(:series_statement).should eq(series_statement)
+        response.should redirect_to series_statement_manifestations_url(assigns(:series_statement))
       end
     end
 
@@ -60,6 +61,7 @@ describe SeriesStatementsController do
         series_statement = FactoryGirl.create(:series_statement)
         get :show, :id => series_statement.id
         assigns(:series_statement).should eq(series_statement)
+        response.should redirect_to series_statement_manifestations_url(assigns(:series_statement))
       end
     end
 
@@ -70,6 +72,7 @@ describe SeriesStatementsController do
         series_statement = FactoryGirl.create(:series_statement)
         get :show, :id => series_statement.id
         assigns(:series_statement).should eq(series_statement)
+        response.should redirect_to series_statement_manifestations_url(assigns(:series_statement))
       end
     end
 
@@ -78,6 +81,7 @@ describe SeriesStatementsController do
         series_statement = FactoryGirl.create(:series_statement)
         get :show, :id => series_statement.id
         assigns(:series_statement).should eq(series_statement)
+        response.should redirect_to series_statement_manifestations_url(assigns(:series_statement))
       end
     end
   end

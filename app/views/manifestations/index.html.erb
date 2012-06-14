@@ -21,6 +21,10 @@
   <% end %>
   <%= set_focus_on_search_form %>
 
+  <% if @series_statement %>
+    <%= render 'show_series_statement' %>
+  <% end %>
+
   <%- if @manifestations.total_entries > 0 -%>
     <p>
       <%= t('page.number_of_search_results', :count => @count[:query_result], :numdocs => Manifestation.search.total, :seconds => sprintf("%.3f", @seconds)) -%>
@@ -75,6 +79,9 @@
 </div>
 
 <div id="submenu" class="ui-corner-all">
+  <% if @series_statement and can?(:update, @series_statement) %>
+    <%= render 'submenu_series_statement' %>
+  <% end %>
   <h3><%= link_to h("#{t('page.total')}: #{@count[:query_result]}"), url_for(params.merge(:action => 'index', :view => nil, :carrier_type => nil, :library => nil, :language => nil, :subject => nil, :only_path => true))  -%></h3>
     <%- if @manifestations.total_entries > 0 -%>
       <%= render 'manifestations/all_facet' -%>
@@ -98,4 +105,8 @@
       $("#spinner_tag_cloud").hide();
     }
   </script>
+<% end %>
+
+<% if @manifestation_ids and @search_query %>
+  <%= render 'session_ids' %>
 <% end %>
