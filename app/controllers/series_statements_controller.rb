@@ -55,6 +55,9 @@ class SeriesStatementsController < ApplicationController
       }
       format.json { render :json => @series_statement }
       #format.js
+      format.mobile {
+        redirect_to series_statement_manifestations_url(@series_statement)
+      }
     end
   end
 

@@ -116,7 +116,7 @@ GEM
       sunspot_rails
       sunspot_solr
       will_paginate (~> 3.0)
-    enju_circulation (0.0.57)
+    enju_circulation (0.0.58)
       acts_as_list (~> 0.1.6)
       attribute_normalizer (~> 1.1)
       cancan
@@ -226,7 +226,7 @@ GEM
       sunspot_rails
       sunspot_solr
       will_paginate (~> 3.0)
-    enju_resource_merge (0.0.13)
+    enju_resource_merge (0.0.14)
       acts_as_list (~> 0.1.6)
       attribute_normalizer (~> 1.1)
       cancan
@@ -487,7 +487,7 @@ DEPENDENCIES
   enju_barcode (~> 0.0.3)
   enju_book_jacket (~> 0.0.1)
   enju_bookmark (~> 0.0.19)
-  enju_circulation (~> 0.0.57)
+  enju_circulation (~> 0.0.58)
   enju_event (~> 0.0.24)
   enju_inventory (~> 0.0.10)
   enju_manifestation_viewer (~> 0.0.1)
@@ -496,7 +496,7 @@ DEPENDENCIES
   enju_oai (~> 0.0.3)
   enju_purchase_request (~> 0.0.10)
   enju_question (~> 0.0.17)
-  enju_resource_merge (~> 0.0.13)
+  enju_resource_merge (~> 0.0.14)
   enju_search_log (~> 0.0.5)
   enju_subject (~> 0.0.15)
   exception_notification (~> 2.6)
