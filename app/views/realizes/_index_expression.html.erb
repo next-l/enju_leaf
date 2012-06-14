@@ -17,8 +17,8 @@
   <tr class="line<%= cycle("0", "1") -%>">
     <td>
       <%- if can? :destroy, realize -%>
-        <%= realize.first? ? image_tag('icons/stop.png', :size => '16x16') : link_to(image_tag('icons/arrow_up.png', :size => '16x16', :alt => t('page.asc')), realize_path(realize, :move => 'higher'), :method => :put) -%>
-        <%= realize.last? ? image_tag('icons/stop.png', :size => '16x16') : link_to(image_tag('icons/arrow_down.png', :size => '16x16', :alt => t('page.desc')), realize_path(realize, :move => 'lower'), :method => :put) -%>
+        <%= realize.first? ? image_tag('icons/stop.png', :size => '16x16') : link_to(image_tag('icons/arrow_up.png', :size => '16x16', :alt => t('page.asc')), expression_realize_path(realize.expression, realize, :move => 'higher'), :method => :put) -%>
+        <%= realize.last? ? image_tag('icons/stop.png', :size => '16x16') : link_to(image_tag('icons/arrow_down.png', :size => '16x16', :alt => t('page.desc')), expression_realize_path(realize.expression, realize, :move => 'lower'), :method => :put) -%>
       <%- end -%>
     </td>
     <td><%= link_to realize.patron.try(:full_name), realize.patron -%></td>
