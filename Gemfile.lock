@@ -1,6 +1,6 @@
 GIT
-  remote: https://github.com/nabeta/sunspot-rails-tester.git
-  revision: 34a55ca47c935ada9540a76fa2e2261e1e8b407d
+  remote: https://github.com/justinko/sunspot-rails-tester.git
+  revision: cd3c0e85834389a27c6809eeeab8dd2cb0a724f0
   specs:
     sunspot-rails-tester (0.0.4)
       sunspot_rails (>= 1.2)
