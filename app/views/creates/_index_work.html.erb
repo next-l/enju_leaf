@@ -17,8 +17,8 @@
   <tr class="line<%= cycle("0", "1") -%>">
     <td>
       <%- if can? :destroy, create -%>
-        <%= create.first? ? image_tag('icons/stop.png') : link_to(image_tag('icons/arrow_up.png', :size => '16x16', :alt => t('page.asc')), create_path(create, :move => 'higher'), :method => :put) -%>
-        <%= create.last? ? image_tag('icons/stop.png') : link_to(image_tag('icons/arrow_down.png', :size => '16x16', :alt => t('page.desc')), create_path(create, :move => 'lower'), :method => :put) -%>
+        <%= create.first? ? image_tag('icons/stop.png') : link_to(image_tag('icons/arrow_up.png', :size => '16x16', :alt => t('page.asc')), work_create_path(create.work, create, :move => 'higher'), :method => :put) -%>
+        <%= create.last? ? image_tag('icons/stop.png') : link_to(image_tag('icons/arrow_down.png', :size => '16x16', :alt => t('page.desc')), work_create_path(create.work, create, :move => 'lower'), :method => :put) -%>
       <%- end-%>
     </td>
     <td><%= link_to create.patron.try(:full_name), create.patron -%></td>

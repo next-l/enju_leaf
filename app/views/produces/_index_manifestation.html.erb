@@ -17,8 +17,8 @@
   <tr class="line<%= cycle("0", "1") -%>">
     <td>
       <%- if can? :destroy, produce -%>
-        <%= produce.first? ? image_tag('icons/stop.png', :size => '16x16') : link_to(image_tag('icons/arrow_up.png', :size => '16x16', :alt => t('page.asc')), produce_path(produce, :move => 'higher'), :method => :put) -%>
-        <%= produce.last? ? image_tag('icons/stop.png', :size => '16x16') : link_to(image_tag('icons/arrow_down.png', :size => '16x16', :alt => t('page.desc')), produce_path(produce, :move => 'lower'), :method => :put) -%>
+        <%= produce.first? ? image_tag('icons/stop.png', :size => '16x16') : link_to(image_tag('icons/arrow_up.png', :size => '16x16', :alt => t('page.asc')), manifestation_produce_path(produce.manifestation, produce, :move => 'higher'), :method => :put) -%>
+        <%= produce.last? ? image_tag('icons/stop.png', :size => '16x16') : link_to(image_tag('icons/arrow_down.png', :size => '16x16', :alt => t('page.desc')), manifestation_produce_path(produce.manifestation, produce, :move => 'lower'), :method => :put) -%>
       <%- end -%>
     </td>
     <td><%= link_to produce.patron.try(:full_name), produce.patron -%></td>
