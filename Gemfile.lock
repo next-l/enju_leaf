@@ -116,7 +116,7 @@ GEM
       sunspot_rails
       sunspot_solr
       will_paginate (~> 3.0)
-    enju_circulation (0.0.58)
+    enju_circulation (0.0.59)
       acts_as_list (~> 0.1.6)
       attribute_normalizer (~> 1.1)
       cancan
@@ -277,7 +277,7 @@ GEM
     guard-rspec (1.0.1)
       guard (>= 1.1)
     has_scope (0.5.1)
-    highline (1.6.12)
+    highline (1.6.13)
     hike (1.2.1)
     httparty (0.8.3)
       multi_json (~> 1.0)
@@ -450,7 +450,7 @@ GEM
     uuidtools (2.1.2)
     validates_timeliness (3.0.11)
       timeliness (~> 0.3.6)
-    vcr (2.2.1)
+    vcr (2.2.2)
     warden (1.1.1)
       rack (>= 1.0)
     whenever (0.7.3)
@@ -487,7 +487,7 @@ DEPENDENCIES
   enju_barcode (~> 0.0.3)
   enju_book_jacket (~> 0.0.1)
   enju_bookmark (~> 0.0.19)
-  enju_circulation (~> 0.0.58)
+  enju_circulation (~> 0.0.59)
   enju_event (~> 0.0.24)
   enju_inventory (~> 0.0.10)
   enju_manifestation_viewer (~> 0.0.1)
