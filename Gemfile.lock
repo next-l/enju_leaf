@@ -358,7 +358,7 @@ GEM
       builder
       mime-types
       xml-simple
-    aws-sdk (1.5.3)
+    aws-sdk (1.5.4)
       httparty (~> 0.7)
       json (~> 1.4)
       nokogiri (>= 1.4.4)
@@ -479,7 +479,7 @@ GEM
     paper_trail (2.6.3)
       activerecord (~> 3.0)
       railties (~> 3.0)
-    paperclip (3.0.4)
+    paperclip (3.1.0)
       activemodel (>= 3.0.0)
       activerecord (>= 3.0.0)
       activesupport (>= 3.0.0)
@@ -685,7 +685,7 @@ DEPENDENCIES
   library_stdnums
   mobile-fu
   paper_trail (~> 2.6)
-  paperclip (~> 3.0)
+  paperclip (~> 3.1)
   paperclip-meta!
   parallel_tests (~> 0.8)
   pg

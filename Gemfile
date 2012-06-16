@@ -71,7 +71,7 @@ gem 'devise', '~> 2.1'
 gem 'devise-encryptable'
 #gem 'omniauth', '~> 1.1'
 gem 'addressable'
-gem 'paperclip', '~> 3.0'
+gem 'paperclip', '~> 3.1'
 gem 'paperclip-meta', :git => 'git://github.com/dce/paperclip-meta.git'
 gem 'aws-sdk'
 gem 'whenever', :require => false
