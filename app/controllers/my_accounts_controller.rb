@@ -27,15 +27,21 @@ class MyAccountsController < ApplicationController
   end
 
   def update
-    current_user.assign_attributes(params[:user])
     @user = current_user
 
     respond_to do |format|
-      if current_user.update_with_password(params[:user])
+      if current_user.has_role?('Librarian')
+        saved = current_user.update_with_password(params[:user], :as => :admin)
+      else
+        saved = current_user.update_with_password(params[:user])
+      end
+
+      if saved
         sign_in(current_user, :bypass => true)
         format.html { redirect_to my_account_url, :notice => t('controller.successfully_updated', :model => t('activerecord.models.user')) }
         format.json { head :no_content }
       else
+        @user = current_user
         prepare_options
         format.html { render :action => "edit" }
         format.json { render :json => current_user.errors, :status => :unprocessable_entity }
