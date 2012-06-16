@@ -157,7 +157,6 @@ class PictureFilesController < ApplicationController
     end
   end
 
-  private
   def render_image(file)
     case params[:mode]
     when 'download'

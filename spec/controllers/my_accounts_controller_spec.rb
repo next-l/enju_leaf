@@ -139,13 +139,13 @@ describe MyAccountsController do
       describe "with invalid params" do
         it "assigns the user as @user" do
           put :update, :user => @invalid_attrs
-          assigns(:user).should be_valid
+          assigns(:user).should_not be_valid
         end
 
         it "should ignore username" do
           put :update, :user => @invalid_attrs
           response.should render_template("edit")
-          assigns(:user).changed?.should be_false
+          assigns(:user).changed?.should be_true
         end
       end
     end
