@@ -158,9 +158,9 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_ndl.git
-  revision: f75013889c014a5f6fd0554df72da30145ba1f8f
+  revision: a695553329071c26d558c9dcc05b6342d4951866
   specs:
-    enju_ndl (0.0.32)
+    enju_ndl (0.0.33)
       acts_as_list
       attribute_normalizer
       devise
