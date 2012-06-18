@@ -31,3 +31,8 @@ ja:
           same_library: "移動元図書館と移動先図書館が同じです。"
         reminder_list:
           no_checkout: "該当する貸出が見つかりません。"
+      models:
+        inter_library_loan:
+          attributes:
+            state:
+              invalid_transition: "不正な処理です。"
