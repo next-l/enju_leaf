@@ -267,7 +267,7 @@ GIT
 
 GIT
   remote: git://github.com/next-l/enju_biblio.git
-  revision: 6002bf07499d6a483ded4e8e8bc0d7c921ffd4c5
+  revision: cd3ff33b15ddf8d371f130bf7be8620edb39d20a
   specs:
     enju_biblio (0.0.2)
       aws-sdk
@@ -284,12 +284,11 @@ GIT
       rails (~> 3.2)
       simple_form
       state_machine
-      sunspot_rails (~> 2.0.0.pre.120417)
       validates_timeliness
 
 GIT
   remote: git://github.com/next-l/enju_core.git
-  revision: 7b4b3da843ca2b391587b4f7ed67d356c4e9f2a8
+  revision: c945f52d1bddda6d7987a740e31b6b9ed8369d28
   specs:
     enju_core (0.0.1)
       acts_as_list
@@ -299,26 +298,27 @@ GIT
       devise
       friendly_id (~> 4.0)
       rails (~> 3.2)
+      sunspot_rails (~> 2.0.0.pre.120417)
       will_paginate
 
 GIT
-  remote: git://github.com/next-l/enju_library.git
-  revision: 7d62295f80dc51aefdd7f0d95bccbb3e4b918982
-  specs:
-    enju_library (0.0.1)
-      geocoder
-      inherited_resources
-      rails (~> 3.2)
-      sunspot_rails
-
-PATH
-  remote: ../enju_export
+  remote: git://github.com/next-l/enju_export.git
+  revision: e51cbf84d61b538add6583314d714a26ba00dcc5
   specs:
     enju_export (0.0.1)
       paperclip
       rails (~> 3.2)
       simple_form
       state_machine
+
+GIT
+  remote: git://github.com/next-l/enju_library.git
+  revision: 2c41a5fc9883131bd4653020dc3bf9cea88635d0
+  specs:
+    enju_library (0.0.1)
+      geocoder
+      inherited_resources
+      rails (~> 3.2)
 
 GEM
   remote: https://rubygems.org/
@@ -683,7 +683,6 @@ DEPENDENCIES
   factory_girl_rails (~> 3.4)
   fakeweb
   foreigner
-  friendly_id (~> 4.0)
   geocoder
   glassfish
   guard-rspec
@@ -720,7 +719,6 @@ DEPENDENCIES
   steak
   strong_parameters
   sunspot-rails-tester!
-  sunspot_rails (~> 2.0.0.pre.120417)
   sunspot_solr (~> 2.0.0.pre.120417)
   timecop
   uglifier (>= 1.0.3)
