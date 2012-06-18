@@ -2,32 +2,14 @@ en:
   activerecord:
     models:
       library: Library
-      patron_import_file: Patron import file
-      patron: Patron
-      language: Language
       user: User
-      picture_file: Picture file
-      form_of_work: Form of works
-      exemplify: Exemplify
-      own: Own
       shelf: Shelf
       donate: Donate
-      produce: Produce
       role: Role
       subscribe: Subscribe
-      item: Item
-      realize: Realize
-      frequency: Frequency of issue
-      content_type: Content type
-      patron_type: Patron type
-      embody: Embody
       request_status_type: Request status type
       search_engine: Search engine
-      create: Create
-      carrier_type: Carrier Type
-      manifestation: Manifestation
       user_group: User group
-      resource_import_file: Resource import file
       subscription: Subscription
       library_group: Library group
       attachment_file: Attachment file
@@ -35,24 +17,7 @@ en:
       country: Country
       request_type: Request type
       participate: Participate
-      patron_has_patron: Patron to patron relationship
-      extent: Extent
-      medium_of_performance: Medium of performance
-      content_type: Content type
-      patron_relationship_type: Patron relationship type
-      manifestation_relationship_type: Resource relationship type
-      license: License
-      series_statement: Series statement
-      import_request: Import request
       user_has_role: User and roles
-      patron_relationship: Patron relationship
-      manifestation_relationship: Resource relationship
-      resource_import_result: Resource Import Result
-      patron_import_result: Patron Import Result
-      series_has_manifestation: Series statement to manifestation
-      create_type: Create type
-      realize_type: Realize type
-      produce_type: Produce type
       budget_type: Budget type
       session: Login
       accept: Accept

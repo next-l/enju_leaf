@@ -5,6 +5,7 @@ gem 'rails', '3.2.6'
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
+gem 'enju_core', :git => 'git://github.com/next-l/enju_core.git'
 gem 'enju_biblio', :git => 'git://github.com/next-l/enju_biblio.git'
 gem 'enju_library', :git => 'git://github.com/next-l/enju_library.git'
 #gem 'enju_amazon', :git => 'git://github.com/nabeta/enju_amazon.git'
@@ -28,6 +29,8 @@ gem 'enju_event', :git => 'git://github.com/nabeta/enju_event.git'
 gem 'enju_search_log', :git => 'git://github.com/nabeta/enju_search_log.git'
 gem 'enju_book_jacket', :git => 'git://github.com/nabeta/enju_book_jacket.git'
 gem 'enju_manifestation_viewer', :git => 'git://github.com/nabeta/enju_manifestation_viewer.git'
+gem 'enju_export', :path => '../enju_export'
+#gem 'enju_export', :git => 'git://github.com/next-l/enju_export.git'
 
 gem 'pg'
 #gem 'mysql2', '~> 0.3'

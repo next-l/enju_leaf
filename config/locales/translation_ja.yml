@@ -2,32 +2,14 @@ ja:
   activerecord:
     models:
       library: 図書館
-      patron_import_file: 人物・団体のインポート用ファイル
-      patron: 人物・団体
-      language: 言語
       user: 利用者
-      picture_file: 画像ファイル
-      form_of_work: 書いた資料の形態
-      exemplify: 書誌と所蔵の関係
-      own: 所有関係
       shelf: 本棚
       donate: 寄贈
-      produce: 出版関係
       role: 権限
       subscribe: 購読
-      item: 所蔵情報
-      realize: 表現関係
-      frequency: 発行頻度
-      content_type: 協力した資料の形態
-      patron_type: 人物・団体の種類
-      embody: 具体化
       request_status_type: 依頼の状態の種類
       search_engine: 検索エンジン
-      create: 著作関係
-      carrier_type: 資料の形態
-      manifestation: 資料
       user_group: 利用者グループ
-      resource_import_file: 資料のインポート用ファイル
       subscription: 購読
       library_group: 図書館全体の設定
       attachment_file: 添付ファイル
@@ -35,23 +17,7 @@ ja:
       country: 国と地域
       request_type: 依頼の種類
       participate: 参加
-      extent: 大きさ
-      medium_of_performance: 演奏手段
-      content_type: 内容の種類
-      patron_relationship_type: 人物・団体の関係の種類
-      manifestation_relationship_type: 資料の関係の種類
-      license: ライセンス
-      series_statement: シリーズ情報
-      import_request: ISBNインポートのリクエスト
       user_has_role: 利用者と権限
-      patron_relationship: 著者・編者・出版社の関係
-      manifestation_relationship: 資料の関係
-      resource_import_result: 資料インポートの結果
-      patron_import_result: 人物・団体インポートの結果
-      series_has_manifestation: シリーズ情報と資料の関係
-      create_type: 著作の関係
-      realize_type: 表現の関係
-      produce_type: 体現の関係
       budget_type: 予算種別
       session: ログイン
       accept: 検収
