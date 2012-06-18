@@ -11,7 +11,7 @@ gem 'enju_book_jacket', :git => 'git://github.com/nabeta/enju_book_jacket.git'
 gem 'enju_manifestation_viewer', :git => 'git://github.com/nabeta/enju_manifestation_viewer.git'
 gem 'enju_message', :git => 'git://github.com/nabeta/enju_message.git'
 #gem 'enju_message', :path => '/home/reiko/app/enju_message'
-gem "enju_ndl", "~> 0.0.23"
+gem "enju_ndl", "~> 0.0.33"
 #gem 'enju_ndl', :git => 'git://github.com/nabeta/enju_ndl.git'
 #gem 'enju_question', :git => 'git://github.com/nabeta/enju_question.git'
 
