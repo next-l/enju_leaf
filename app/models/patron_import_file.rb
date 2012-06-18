@@ -197,39 +197,41 @@ class PatronImportFile < ActiveRecord::Base
     patron.address_2 = row['address_2'] if row['address_2']
     patron.zip_code_1 = row['zip_code_1'] if row['zip_code_1']
     patron.zip_code_2 = row['zip_code_2'] if row['zip_code_2']
-    patron.telephone_number_1 = row['telephone_number_1'] if row['telephone_number_1']
-    patron.telephone_number_2 = row['telephone_number_2'] if row['telephone_number_2']
-    patron.fax_number_1 = row['fax_number_1'] if row['fax_number_1']
-    patron.fax_number_2 = row['fax_number_2'] if row['fax_number_2']
-    patron.extelephone_number_1 = row['extelephone_number_1'] if row['extelephone_number_1']
-    patron.extelephone_number_2 = row['extelephone_number_2'] if row['extelephone_number_2']
+    if row['telephone_number_1']
+      patron.telephone_number_1 = row['telephone_number_1']
+      type_id = row['telephone_number_1_type_id'].to_i rescue 0
+      patron.telephone_number_1_type_id = ((0 < type_id and type_id < 5) ? type_id : 1)
+    end
+    if row['telephone_number_2']
+      patron.telephone_number_2 = row['telephone_number_2']
+      type_id = row['telephone_number_2_type_id'].to_i rescue 0
+      patron.telephone_number_2_type_id = ((0 < type_id and type_id < 5) ? type_id : 1)
+    end
+    if row['extelephone_number_1']
+      patron.extelephone_number_1 = row['extelephone_number_1']
+      type_id = row['extelephone_number_1_type_id'].to_i rescue 0
+      patron.extelephone_number_1_type_id = ((0 < type_id and type_id < 5) ? type_id : 1)
+    end
+    if row['extelephone_number_2']
+      patron.extelephone_number_2 = row['extelephone_number_2']
+      type_id = row['extelephone_number_2_type_id'].to_i rescue 0
+      patron.extelephone_number_2_type_id = ((0 < type_id and type_id < 5) ? type_id : 1)
+    end
+    if row['fax_number_1']
+      patron.fax_number_1 = row['fax_number_1']
+      type_id = row['fax_number_1_type_id'].to_i rescue 0
+      patron.fax_number_1_type_id = ((0 < type_id and type_id < 5) ? type_id : 1)
+    end
+    if row['fax_number_2']
+      patron.fax_number_2 = row['fax_number_2']
+      type_id = row['fax_number_2_type_id'].to_i rescue 0
+      patron.fax_number_2_type_id = ((0 < type_id and type_id < 5) ? type_id : 1)
+    end
+
     patron.note = row['note'] if row['note']
     patron.birth_date = row['birth_date'] if row['birth_date']
     patron.death_date = row['death_date'] if row['death_date']
-
-    unless row['patron_type_id'].to_s.strip.blank?
-      patron.patron_type_id = row['patron_type_id'] 
-    end
-
-    unless row['telephone_number_1_type_id'].to_s.strip.blank?
-      patron.telephone_number_1_type_id = row['telephone_number_1_type_id'] 
-    end
-    unless row['fax_number_1_type_id'].to_s.strip.blank?
-      patron.fax_number_1_type_id = row['fax_number_1_type_id'] 
-    end
-    unless row['extelephone_number_1_type_id'].to_s.strip.blank?
-      patron.extelephone_number_1_type_id = row['extelephone_number_1_type_id'] 
-    end
-    unless row['telephone_number_2_type_id'].to_s.strip.blank?
-      patron.telephone_number_2_type_id = row['telephone_number_2_type_id'] 
-    end
-    unless row['fax_number_2_type_id'].to_s.strip.blank?
-      patron.fax_number_2_type_id = row['fax_number_2_type_id'] 
-    end
-    unless row['extelephone_number_2_type_id'].to_s.strip.blank?
-      patron.extelephone_number_2_type_id = row['extelephone_number_2_type_id'] 
-    end
-
+    patron.patron_type_id = row['patron_type_id'] unless row['patron_type_id'].to_s.strip.blank?
 
     if row['username'].to_s.strip.blank?
       patron.email = row['email'].to_s.strip

@@ -38,7 +38,7 @@ shelf_00005:
   open_access: 9
 shelf_00006: 
   name: bunkan01
-  display_name: 分館１F
+  display_name: １丁目分館１F
   id: 6
   note:
   library_id: 3
@@ -50,4 +50,34 @@ shelf_00007:
   note:
   library_id: 3
   position: 7
+  open_access: 9
+shelf_00008: 
+  name: bunkan02
+  display_name: ２丁目分館１F
+  id: 8
+  note:
+  library_id: 4
+  position: 8
+shelf_00009: 
+  name: bunkan02_in_process
+  display_name: 受入手続き中
+  id: 9
+  note:
+  library_id: 4
+  position: 9
+  open_access: 9
+shelf_00010: 
+  name: bunkan03
+  display_name: ３丁目分館１F
+  id: 10
+  note:
+  library_id: 5
+  position: 10
+shelf_00011: 
+  name: bunkan03_in_process
+  display_name: 受入手続き中
+  id: 11
+  note:
+  library_id: 5
+  position: 11
   open_access: 9

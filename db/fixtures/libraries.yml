@@ -13,8 +13,8 @@ library_00001:
   call_number_delimiter: "|"
   position: 1
 library_00002: 
-  name: gotanda1
-  short_display_name: gotanda1
+  name: gotanda
+  short_display_name: gotanda
   display_name: 五反田中央図書館
   fax_number: 
   telephone_number_1: 
@@ -26,8 +26,8 @@ library_00002:
   call_number_delimiter: "|"
   position: 2
 library_00003: 
-  name: gotanda2
-  short_display_name: gotanda2
+  name: gotanda1
+  short_display_name: gotanda1
   display_name: 五反田１丁目分館
   fax_number: 
   telephone_number_1: 
@@ -38,3 +38,29 @@ library_00003:
   patron_id: 3
   call_number_delimiter: "|"
   position: 3
+library_00004: 
+  name: gotanda2
+  short_display_name: gotanda2
+  display_name: 五反田２丁目分館
+  fax_number: 
+  telephone_number_1: 
+  telephone_number_2: 
+  id: 4
+  region: somewhere
+  library_group_id: 1
+  patron_id: 4
+  call_number_delimiter: "|"
+  position: 4
+library_00005: 
+  name: gotanda3
+  short_display_name: gotanda3
+  display_name: 五反田３丁目分館
+  fax_number: 
+  telephone_number_1: 
+  telephone_number_2: 
+  id: 5
+  region: somewhere
+  library_group_id: 1
+  patron_id: 5
+  call_number_delimiter: "|"
+  position: 5
