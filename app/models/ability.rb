@@ -682,5 +682,19 @@ class Ability
         end
       end
     end
+
+    if defined?(EnjuExport)
+      case user.try(:role).try(:name)
+      when 'Administrator'
+        can [:read, :destroy], ExportFile
+      when 'Librarian'
+        can [:read, :destroy], ExportFile
+      when 'User'
+        can :read, ExportFile
+      end
+    end
+  end
+end
+    end
   end
 end
