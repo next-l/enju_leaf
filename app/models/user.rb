@@ -8,9 +8,17 @@ class User < ActiveRecord::Base
 
   # Setup accessible (or protected) attributes for your model
   #attr_accessible :email, :email_confirmation, :password, :password_confirmation, :username, :current_password, :user_number, :remember_me
-  attr_accessible :email, :email_confirmation, :password, :password_confirmation, :username, :current_password, :user_number, :remember_me, :auto_generated_password, :expired_at, :locked, :unable, :user_group_id, :library_id, :locale, :role_id, :keyword_list
   cattr_accessor :current_user
-  attr_accessor :new_user_number
+  #attr_accessor :new_user_number
+  attr_accessible :email, :password, :password_confirmation, :current_password,
+    :remember_me, :email_confirmation, :library_id, :locale,
+    :keyword_list, :auto_generated_password, :expired_at, :user_group_id
+  attr_accessible :email, :password, :password_confirmation, :username,
+    :current_password, :user_number, :remember_me,
+    :email_confirmation, :note, :user_group_id, :library_id, :locale,
+    :expired_at, :locked, :required_role_id, :role_id,
+    :keyword_list, :user_has_role_attributes, :auto_generated_password,
+    :as => :admin
 
   scope :administrators, where('roles.name = ?', 'Administrator').includes(:role)
   scope :librarians, where('roles.name = ? OR roles.name = ?', 'Administrator', 'Librarian').includes(:role)

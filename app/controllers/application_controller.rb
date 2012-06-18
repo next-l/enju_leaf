@@ -390,6 +390,14 @@ class ApplicationController < ActionController::Base
     @current_ability ||= Ability.new(current_user, request.remote_ip)
   end
 
+  def get_top_page_content
+    if defined?(EnjuNews)
+      @news_feeds = Rails.cache.fetch('news_feed_all'){NewsFeed.all}
+      @news_posts = NewsPost.limit(3)
+    end
+    @libraries = Library.real
+  end
+
   def prepare_for_mobile
     #request.format = :mobile if request.smart_phone?
   end
