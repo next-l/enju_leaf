@@ -454,6 +454,7 @@ class ResourceImportFile < ActiveRecord::Base
         :volume_number_string => row['volume_number_string'].to_s.split('　').first.try(:tr, '０-９', '0-9'),
         :issue_number_string => row['issue_number_string'],
         :serial_number => row['serial_number'],
+        :edition => row['edition'],
         :edition_string => row['edition_string'],
         :width => width,
         :depth => depth,

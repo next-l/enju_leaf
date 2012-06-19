@@ -63,6 +63,15 @@ GEM
     bcrypt-ruby (3.0.1)
     builder (3.0.0)
     cancan (1.6.7)
+    capybara (1.1.2)
+      mime-types (>= 1.16)
+      nokogiri (>= 1.3.3)
+      rack (>= 1.0.0)
+      rack-test (>= 0.5.4)
+      selenium-webdriver (~> 2.0)
+      xpath (~> 0.1.4)
+    childprocess (0.3.2)
+      ffi (~> 1.0.6)
     chronic (0.6.7)
     client_side_validations (3.2.0.beta.3)
     cloudfiles (1.5.0.1)
@@ -84,7 +93,7 @@ GEM
     delayed_job_active_record (0.3.2)
       activerecord (> 2.1.0)
       delayed_job (~> 3.0.0)
-    devise (2.1.1)
+    devise (2.1.2)
       bcrypt-ruby (~> 3.0)
       orm_adapter (~> 0.1)
       railties (~> 3.1)
@@ -103,34 +112,29 @@ GEM
     enju_book_jacket (0.0.1)
       configatron
       rails (~> 3.2)
-    enju_bookmark (0.0.19)
+    enju_bookmark (0.0.20)
       acts-as-taggable-on (~> 2.3)
-      acts_as_list (~> 0.1.6)
+      rails (~> 3.2)
+      state_machine
+    enju_circulation (0.0.62)
+      enju_core
+      enju_event (>= 0.0.24)
+      enju_message (>= 0.0.23)
+      inherited_resources
+      rails (~> 3.2)
+      simple_form
+      state_machine
+      validates_timeliness
+    enju_core (0.0.1)
+      acts_as_list
       addressable
       attribute_normalizer (~> 1.1)
       cancan
       devise
       friendly_id (~> 4.0)
       rails (~> 3.2)
-      state_machine
-      sunspot_rails
-      sunspot_solr
-      will_paginate (~> 3.0)
-    enju_circulation (0.0.59)
-      acts_as_list (~> 0.1.6)
-      attribute_normalizer (~> 1.1)
-      cancan
-      devise
-      enju_event (>= 0.0.12)
-      enju_message (>= 0.0.18)
-      friendly_id (~> 4.0)
-      inherited_resources
-      rails (~> 3.2)
-      simple_form
-      state_machine
-      sunspot_rails
-      validates_timeliness
-      will_paginate (~> 3.0)
+      sunspot_rails (~> 2.0.0.pre.120417)
+      will_paginate
     enju_event (0.0.24)
       acts_as_list (~> 0.1.6)
       addressable
@@ -213,12 +217,13 @@ GEM
       state_machine
       sunspot_rails
       will_paginate (~> 3.0)
-    enju_question (0.0.17)
+    enju_question (0.0.18)
       acts-as-taggable-on (~> 2.2)
       acts_as_list (~> 0.1.6)
       cancan
       devise
-      enju_ndl (~> 0.0.23)
+      enju_core
+      enju_ndl (~> 0.0.33)
       friendly_id (~> 4.0)
       nokogiri
       rails (~> 3.2)
@@ -241,12 +246,13 @@ GEM
       devise
       rails (~> 3.2)
       will_paginate
-    enju_subject (0.0.15)
+    enju_subject (0.0.16)
       acts_as_list (~> 0.1.6)
       attribute_normalizer (~> 1.1)
       cancan
       devise
       dynamic_form
+      enju_core
       friendly_id (~> 4.0)
       inherited_resources
       rails (~> 3.2)
@@ -259,7 +265,7 @@ GEM
       actionmailer (>= 3.0.4)
     execjs (1.4.0)
       multi_json (~> 1.0)
-    factory_girl (3.4.0)
+    factory_girl (3.4.1)
       activesupport (>= 3.0.0)
     factory_girl_rails (3.4.0)
       factory_girl (~> 3.4.0)
@@ -274,7 +280,7 @@ GEM
     guard (1.1.1)
       listen (>= 0.4.2)
       thor (>= 0.14.6)
-    guard-rspec (1.0.1)
+    guard-rspec (1.1.0)
       guard (>= 1.1)
     has_scope (0.5.1)
     highline (1.6.13)
@@ -296,6 +302,8 @@ GEM
     json (1.7.3)
     kgio (2.7.4)
     library_stdnums (1.1.0)
+    libwebsocket (0.1.3)
+      addressable
     lisbn (0.1.2)
       nori
     listen (0.4.5)
@@ -401,6 +409,7 @@ GEM
       rspec (~> 2.10.0)
     ruby-graphviz (0.9.21)
     ruby-prof (0.11.2)
+    rubyzip (0.9.9)
     sanitize (2.0.3)
       nokogiri (>= 1.4.4, < 1.6)
     sass (3.1.19)
@@ -408,6 +417,12 @@ GEM
       railties (~> 3.2.0)
       sass (>= 3.1.10)
       tilt (~> 1.3)
+    selenium-webdriver (2.22.2)
+      childprocess (>= 0.2.5)
+      ffi (~> 1.0)
+      libwebsocket (~> 0.1.3)
+      multi_json (~> 1.0)
+      rubyzip
     simple_form (2.0.2)
       actionpack (~> 3.0)
       activemodel (~> 3.0)
@@ -426,6 +441,9 @@ GEM
       rack (~> 1.0)
       tilt (~> 1.1, != 1.3.0)
     state_machine (1.1.2)
+    steak (2.0.0)
+      capybara (>= 1.0.0)
+      rspec-rails (>= 2.5.0)
     strong_parameters (0.1.3)
       actionpack (>= 3.2.0)
       activemodel (>= 3.2.0)
@@ -436,7 +454,7 @@ GEM
       nokogiri
       sunspot (= 2.0.0.pre.120417)
     sunspot_solr (2.0.0.pre.120417)
-    thor (0.15.2)
+    thor (0.15.3)
     tilt (1.3.3)
     timecop (0.3.5)
     timeliness (0.3.6)
@@ -458,6 +476,8 @@ GEM
       chronic (~> 0.6.3)
     will_paginate (3.0.3)
     xml-simple (1.1.1)
+    xpath (0.1.4)
+      nokogiri (~> 1.3)
     yamler (0.1.0)
     zipruby (0.3.6)
 
@@ -467,27 +487,23 @@ PLATFORMS
 DEPENDENCIES
   RedCloth (>= 4.2.9)
   activerecord-jdbc-adapter
-  acts_as_list (~> 0.1.6)
-  addressable
   annotate (~> 2.4.1.beta1)
   astrails-safe
   attribute_normalizer (~> 1.1)
   awesome_nested_set (~> 2.1)
   aws-sdk (~> 1.4)
-  cancan (>= 1.6.7)
   client_side_validations (~> 3.2.0.beta.3)
   coffee-rails (~> 3.2.1)
   configatron
   daemons
   dalli (~> 2.0)
   delayed_job_active_record
-  devise (~> 2.1.1)
   devise-encryptable
   dynamic_form
   enju_barcode (~> 0.0.3)
   enju_book_jacket (~> 0.0.1)
-  enju_bookmark (~> 0.0.19)
-  enju_circulation (~> 0.0.59)
+  enju_bookmark (~> 0.0.20)
+  enju_circulation (~> 0.0.61)
   enju_event (~> 0.0.24)
   enju_inventory (~> 0.0.10)
   enju_manifestation_viewer (~> 0.0.1)
@@ -495,7 +511,7 @@ DEPENDENCIES
   enju_ndl (~> 0.0.33)
   enju_oai (~> 0.0.3)
   enju_purchase_request (~> 0.0.10)
-  enju_question (~> 0.0.17)
+  enju_question (~> 0.0.18)
   enju_resource_merge (~> 0.0.14)
   enju_search_log (~> 0.0.5)
   enju_subject (~> 0.0.15)
@@ -503,7 +519,6 @@ DEPENDENCIES
   factory_girl_rails (~> 3.4)
   fakeweb
   foreigner
-  friendly_id (~> 4.0)
   geocoder
   glassfish
   guard-rspec
@@ -530,7 +545,7 @@ DEPENDENCIES
   ri_cal
   rspec-rails (~> 2.10)
   ruby-prof
-  rubyzip2
+  rubyzip
   sanitize
   sass-rails (~> 3.2.3)
   simple_form (~> 2.0)
@@ -538,14 +553,13 @@ DEPENDENCIES
   sitemap_generator (~> 3.1)
   spork-rails
   state_machine (~> 1.1.2)
+  steak
   strong_parameters
   sunspot-rails-tester!
-  sunspot_rails (~> 2.0.0.pre.120417)
   sunspot_solr (~> 2.0.0.pre.120417)
   timecop
   uglifier (>= 1.0.3)
   validates_timeliness
   vcr (~> 2.2)
   whenever
-  will_paginate (~> 3.0)
   zipruby
