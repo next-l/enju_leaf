@@ -15,8 +15,8 @@
   <%- @expenses.each_with_index do |r, i| -%>
     <tr class="line<%= cycle("0", "1") -%>" >
       <td><%= i+1 -%></td>
-      <td><%= r.item.manifestation.original_title -%></td>
-      <td><%= r.item.item_identifier -%></td>
+      <td><%= r.try(:item).try(:manifestation).try(:original_title) -%></td>
+      <td><%= r.try(:item).try(:item_identifier) -%></td>
       <td align="right"><%= number_to_currency(r.price, :unit => "") -%></td>
     </tr>
   <%- end -%>
