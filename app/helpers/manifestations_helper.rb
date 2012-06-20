@@ -76,15 +76,19 @@ module ManifestationsHelper
     end
   end
 
-  def library_facet(library, current_libraries, facet)
+  def library_facet(current_libraries, facet)
+    library = Library.where(:name => facet.value).select([:name, :display_name]).first
+    return nil unless library
     string = ''
     current = true if current_libraries.include?(library.name)
-    if current
-      content_tag :strong do
+    content_tag :li do
+      if current
+        content_tag :strong do
+          link_to("#{library.display_name.localize} (" + facet.count.to_s + ")", url_for(params.merge(:page => nil, :library => (current_libraries << library.name).uniq.join(' '), :view => nil, :only_path => true)))
+        end
+      else
         link_to("#{library.display_name.localize} (" + facet.count.to_s + ")", url_for(params.merge(:page => nil, :library => (current_libraries << library.name).uniq.join(' '), :view => nil, :only_path => true)))
       end
-    else
-      link_to("#{library.display_name.localize} (" + facet.count.to_s + ")", url_for(params.merge(:page => nil, :library => (current_libraries << library.name).uniq.join(' '), :view => nil, :only_path => true)))
     end
   end
 

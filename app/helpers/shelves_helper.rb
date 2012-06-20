@@ -1,5 +1,7 @@
 module ShelvesHelper
-  def library_shelf_facet(library, current_library, facet)
+  def library_shelf_facet(current_library, facet)
+    library = Library.where(:name => facet.value).select([:name, :display_name]).first
+    return nil unless library
     string = ''
     current = true if current_library.try(:name) == library.name
     if current
