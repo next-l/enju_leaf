@@ -282,6 +282,7 @@ class InterLibraryLoansController < ApplicationController
       end
     rescue Exception => e
       logger.error "Failed to accept item: #{e}"
+      render :json => {:error => t('inter_library_loan.failed_accept')}
     end
   end
 
