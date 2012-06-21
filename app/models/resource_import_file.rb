@@ -245,12 +245,14 @@ class ResourceImportFile < ActiveRecord::Base
         checkout_type = CheckoutType.where(:name => row['checkout_type']).first
         bookstore = Bookstore.where(:name => row['bookstore']).first
         required_role = Role.where(:name => row['required_role']).first
+        use_restriction = UseRestriction.where(:name => row['use_restriction'].to_s.strip).first
 
         item.shelf = shelf if shelf
         item.circulation_status = circulation_status if circulation_status
         item.checkout_type = checkout_type if checkout_type
         item.bookstore = bookstore if bookstore
         item.required_role = required_role if required_role
+        item.use_restriction = use_restriction if use_restriction
         item.include_supplements = row['include_supplements'] if row['include_supplements']
         item.call_number = row['call_number'] if row['call_number']
         item.item_price = row['item_price'] if row['item_price']
@@ -345,8 +347,11 @@ class ResourceImportFile < ActiveRecord::Base
     })
     if defined?(EnjuCirculation)
       circulation_status = CirculationStatus.where(:name => row['circulation_status'].to_s.strip).first || CirculationStatus.where(:name => 'In Process').first
-      use_restriction = UseRestriction.where(:name => row['use_restriction'].to_s.strip).first
       item.circulation_status = circulation_status
+      use_restriction = UseRestriction.where(:name => row['use_restriction'].to_s.strip).first
+      unless use_restriction
+        use_restriction = UseRestriction.where(:name => 'Not For Loan').first
+      end
       item.use_restriction = use_restriction
     end
     item.bookstore = bookstore

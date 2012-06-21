@@ -17,12 +17,12 @@
     <%= f.text_area :display_name, :class => 'resource_textarea' -%>
   </div>
 
+  <% unless @library.web? %>
   <div class="field">
     <%= f.label :isil -%><br />
     <%= f.text_field :isil, :class => 'resource_identifierr' -%>
   </div>
 
-  <% unless @library.web? %>
   <div class="field">
     <%= f.label t('activerecord.models.country') -%><br />
     <%= f.select(:country_id, @countries.collect{|c| [c.display_name.localize, c.id]}) -%>

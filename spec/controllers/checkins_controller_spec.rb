@@ -312,8 +312,8 @@ describe CheckinsController do
   describe "PUT update" do
     before(:each) do
       @checkin = checkins(:checkin_00001)
-      @attrs = {:item_identifier => @checkin.item.item_identifier, :librarian_id => FactoryGirl.create(:librarian).id}
-      @invalid_attrs = {:basket_id => ''}
+      @attrs = {:item_identifier => @checkin.item.item_identifier}
+      @invalid_attrs = {:item_identifier => 'invalid'}
     end
 
     describe "When logged in as Administrator" do

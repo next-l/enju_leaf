@@ -64,6 +64,12 @@ describe CheckoutsController do
         response.should be_success
         assigns(:checkouts).should eq users(:admin).checkouts.not_returned.order('checkouts.id DESC').page(1)
       end
+
+      it "should get index with item_id" do
+        get :index, :item_id => 1
+        response.should be_success
+        assigns(:checkouts).should eq items(:item_00001).checkouts.order('checkouts.id DESC').page(1)
+      end
     end
 
     describe "When logged in as User" do
@@ -231,7 +237,7 @@ describe CheckoutsController do
     before(:each) do
       @checkout = checkouts(:checkout_00003)
       @attrs = {:due_date => 1.day.from_now}
-      @invalid_attrs = {:item_id => ''}
+      @invalid_attrs = {:item_identifier => 'invalid'}
     end
 
     describe "When logged in as Administrator" do
@@ -243,9 +249,11 @@ describe CheckoutsController do
         end
 
         it "assigns the requested checkout as @checkout" do
+          old_due_date = @checkout.due_date
           put :update, :id => @checkout.id, :checkout => @attrs
           assigns(:checkout).should eq(@checkout)
           response.should redirect_to(assigns(:checkout))
+          assigns(:checkout).due_date.should eq 1.day.from_now.end_of_day
         end
       end
 
