@@ -35,7 +35,7 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_bookmark.git
-  revision: 01dddb92cd2f6bea0fe3ff54c45483c0aa4e0b57
+  revision: 37153e202a2d0fd255fbf72ca8706e3f95ae7c10
   specs:
     enju_bookmark (0.0.20)
       acts-as-taggable-on (~> 2.3)
@@ -44,9 +44,9 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_circulation.git
-  revision: 62b290fd1f6e0339d9245b12913d274b8cb477f4
+  revision: f6a8cd3eb33b6f1d0d772fca84befa89229d7236
   specs:
-    enju_circulation (0.0.62)
+    enju_circulation (0.0.63)
       enju_core
       enju_event (>= 0.0.24)
       enju_message (>= 0.0.23)
@@ -216,7 +216,7 @@ GIT
 
 GIT
   remote: git://github.com/next-l/enju_biblio.git
-  revision: ddc59c51d99e185248d4b76136477a8fe5d07246
+  revision: c33e889be91c91c4f19953e0b1667c5eaaa956e0
   specs:
     enju_biblio (0.0.3)
       aws-sdk

@@ -34,7 +34,6 @@ gem 'enju_export', :git => 'git://github.com/next-l/enju_export.git'
 gem 'pg'
 #gem 'mysql2', '~> 0.3'
 #gem 'sqlite3'
-gem 'ruby-prof', :group => [:development, :test]
 gem 'zipruby'
 gem 'kgio'
 
@@ -110,6 +109,7 @@ end
 
 group :development, :test do
   gem 'simplecov', '~> 0.6', :require => false
+  gem 'ruby-prof'
   gem 'rspec-rails', '~> 2.10'
   gem 'guard-rspec'
   gem 'factory_girl_rails', '~> 3.4'
