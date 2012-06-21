@@ -44,7 +44,7 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_circulation.git
-  revision: 14197ec35239fde17ed41246f68146f1f7af0948
+  revision: 62b290fd1f6e0339d9245b12913d274b8cb477f4
   specs:
     enju_circulation (0.0.62)
       enju_core
@@ -216,7 +216,7 @@ GIT
 
 GIT
   remote: git://github.com/next-l/enju_biblio.git
-  revision: dd42cf8685191a5bcb1beaf35b153b2157c30452
+  revision: ddc59c51d99e185248d4b76136477a8fe5d07246
   specs:
     enju_biblio (0.0.3)
       aws-sdk
@@ -264,7 +264,7 @@ GIT
 
 GIT
   remote: git://github.com/next-l/enju_library.git
-  revision: 12eac82597fab73e0851e1fa33a3eac2b9d81b91
+  revision: d85c14143edfa4781d5738359d42d7f515d3ab21
   specs:
     enju_library (0.0.1)
       enju_core
@@ -328,7 +328,7 @@ GEM
     barby (0.5.0)
     bcrypt-ruby (3.0.1)
     builder (3.0.0)
-    cancan (1.6.7)
+    cancan (1.6.8.rc1)
     capybara (1.1.2)
       mime-types (>= 1.16)
       nokogiri (>= 1.3.3)
@@ -386,7 +386,7 @@ GEM
       activerecord (>= 3.0.0)
     friendly_id (4.0.7)
     geocoder (1.1.2)
-    guard (1.2.0)
+    guard (1.2.1)
       listen (>= 0.4.2)
       thor (>= 0.14.6)
     guard-rspec (1.1.0)
@@ -424,7 +424,7 @@ GEM
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
     marc (0.5.0)
-    mime-types (1.18)
+    mime-types (1.19)
     mobile-fu (1.1.0)
       rack-mobile-detect
       rails
@@ -600,14 +600,14 @@ DEPENDENCIES
   attribute_normalizer (~> 1.1)
   awesome_nested_set (~> 2.1)
   aws-sdk
-  cancan (>= 1.6.7)
+  cancan (>= 1.6.8.rc1)
   client_side_validations (~> 3.2.0.beta.3)
   coffee-rails (~> 3.2.1)
   configatron
   daemons
   dalli (~> 2.0)
   delayed_job_active_record
-  devise (~> 2.1.1)
+  devise (~> 2.1.2)
   devise-encryptable
   dynamic_form
   enju_barcode!
