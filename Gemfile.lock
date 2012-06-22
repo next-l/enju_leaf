@@ -239,7 +239,7 @@ GIT
 
 GIT
   remote: git://github.com/next-l/enju_core.git
-  revision: c945f52d1bddda6d7987a740e31b6b9ed8369d28
+  revision: 4f3f7365048208e3c42d950ff404b7fbe7ca205a
   specs:
     enju_core (0.0.1)
       acts_as_list
