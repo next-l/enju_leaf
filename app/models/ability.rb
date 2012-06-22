@@ -690,7 +690,9 @@ class Ability
       when 'Librarian'
         can [:read, :destroy], ExportFile
       when 'User'
-        can :read, ExportFile
+        can :read, ExportFile do |export_file|
+          export_file.user == user
+        end
       end
     end
   end

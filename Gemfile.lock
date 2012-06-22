@@ -27,26 +27,26 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_book_jacket.git
-  revision: df9510fe2bb918a61e297d373ab8c08876605290
+  revision: 7ed18e19a876e9452a8989121a63718f28b5917b
   specs:
-    enju_book_jacket (0.0.1)
+    enju_book_jacket (0.0.2)
       configatron
       rails (~> 3.2)
 
 GIT
   remote: git://github.com/nabeta/enju_bookmark.git
-  revision: 37153e202a2d0fd255fbf72ca8706e3f95ae7c10
+  revision: f2d428902fb02a93c6178af6f398f616b3601106
   specs:
-    enju_bookmark (0.0.20)
+    enju_bookmark (0.0.21)
       acts-as-taggable-on (~> 2.3)
       rails (~> 3.2)
       state_machine
 
 GIT
   remote: git://github.com/nabeta/enju_circulation.git
-  revision: f6a8cd3eb33b6f1d0d772fca84befa89229d7236
+  revision: 2464682719bda5280f3080eec7cce6104d377210
   specs:
-    enju_circulation (0.0.63)
+    enju_circulation (0.0.64)
       enju_core
       enju_event (>= 0.0.24)
       enju_message (>= 0.0.23)
@@ -102,9 +102,9 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_message.git
-  revision: 0cca8e815f638c26dd7b28dfa5cd9ad9f21ffd25
+  revision: 19f897c33149d871d6e670f5a002a4f44d7c0896
   specs:
-    enju_message (0.1.8)
+    enju_message (0.1.9)
       awesome_nested_set (~> 2.1)
       configatron
       delayed_job_active_record
@@ -149,9 +149,9 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_purchase_request.git
-  revision: 63c5b1cc899e7f8fee66957acc4d9a8e8b55ee4d
+  revision: c29fff8ca79d075bfd2e201519828bd4eaa88b5a
   specs:
-    enju_purchase_request (0.0.12)
+    enju_purchase_request (0.0.13)
       configatron
       enju_core
       rails (~> 3.2)
@@ -159,9 +159,9 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_question.git
-  revision: 8bfc16f2964aa51ac1177d56ffbe1ddabb6f03e9
+  revision: 6e38121eff79b7f3591d17dc1954643aa3d6b042
   specs:
-    enju_question (0.0.18)
+    enju_question (0.0.19)
       acts-as-taggable-on (~> 2.2)
       acts_as_list (~> 0.1.6)
       cancan
@@ -188,9 +188,9 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_search_log.git
-  revision: 053376f42f2cfb63e1785ff14d56d3746f430ef2
+  revision: 0649d6695e7cbac9b5ff4773628832b694176c3f
   specs:
-    enju_search_log (0.0.5)
+    enju_search_log (0.0.6)
       cancan
       devise
       rails (~> 3.2)
@@ -216,7 +216,7 @@ GIT
 
 GIT
   remote: git://github.com/next-l/enju_biblio.git
-  revision: c33e889be91c91c4f19953e0b1667c5eaaa956e0
+  revision: fa31d25af53048ed94c916579d3d60df0fff3d51
   specs:
     enju_biblio (0.0.3)
       aws-sdk
@@ -254,7 +254,7 @@ GIT
 
 GIT
   remote: git://github.com/next-l/enju_export.git
-  revision: e51cbf84d61b538add6583314d714a26ba00dcc5
+  revision: 2ca791ddc1feb9eb491398b3656758123aece0fe
   specs:
     enju_export (0.0.1)
       paperclip
