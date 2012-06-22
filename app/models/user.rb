@@ -64,6 +64,13 @@ class User < ActiveRecord::Base
   has_paper_trail
   normalize_attributes :username, :user_number #, :email
 
+  enju_circulation_user if defined?(EnjuCirculation)
+  enju_question_user if defined?(EnjuQuestion)
+  enju_purchase_request_user if defined?(EnjuPurchaseRequest)
+  enju_bookmark_user if defined?(EnjuBookmark)
+  enju_message_user if defined?(EnjuMessage)
+  enju_search_log_user if defined?(EnjuSearchLog)
+
   searchable do
     text :username, :email, :note, :user_number
     text :name do
@@ -235,115 +242,8 @@ class User < ActiveRecord::Base
       true if id != 1
     end
   end
-
-  if defined?(EnjuCirculation)
-    attr_accessible :save_checkout_history, :checkout_icalendar_token
-    attr_accessible :save_checkout_history, :checkout_icalendar_token,
-      :as => :admin
-
-    has_many :checkouts, :dependent => :nullify
-    has_many :reserves, :dependent => :destroy
-    has_many :reserved_manifestations, :through => :reserves, :source => :manifestation
-    has_many :checkout_stat_has_users
-    has_many :user_checkout_stats, :through => :checkout_stat_has_users
-    has_many :reserve_stat_has_users
-    has_many :user_reserve_stats, :through => :reserve_stat_has_users
-    has_many :baskets, :dependent => :destroy
-
-    before_destroy :check_item_before_destroy
-
-    def check_item_before_destroy
-      # TODO: 貸出記録を残す場合
-      if checkouts.size > 0
-        raise 'This user has items still checked out.'
-      end
-    end
-
-    def reset_checkout_icalendar_token
-      self.checkout_icalendar_token = Devise.friendly_token
-    end
-
-    def delete_checkout_icalendar_token
-      self.checkout_icalendar_token = nil
-    end
-
-    def checked_item_count
-      checkout_count = {}
-      CheckoutType.all.each do |checkout_type|
-        # 資料種別ごとの貸出中の冊数を計算
-        checkout_count[:"#{checkout_type.name}"] = self.checkouts.count_by_sql(["
-          SELECT count(item_id) FROM checkouts
-            WHERE item_id IN (
-              SELECT id FROM items
-                WHERE checkout_type_id = ?
-            )
-            AND user_id = ? AND checkin_id IS NULL", checkout_type.id, self.id]
-        )
-      end
-      return checkout_count
-    end
-
-    def reached_reservation_limit?(manifestation)
-      return true if self.user_group.user_group_has_checkout_types.available_for_carrier_type(manifestation.carrier_type).where(:user_group_id => self.user_group.id).collect(&:reservation_limit).max.to_i <= self.reserves.waiting.size
-      false
-    end
-  end
-
-  if defined?(EnjuQuestion)
-    has_many :questions
-    has_many :answers
-
-    def reset_answer_feed_token
-      self.answer_feed_token = Devise.friendly_token
-    end
-
-    def delete_answer_feed_token
-      self.answer_feed_token = nil
-    end
-  end
-
-  if defined?(EnjuBookmark)
-    has_many :bookmarks, :dependent => :destroy
-    acts_as_tagger
-
-    def owned_tags_by_solr
-      bookmark_ids = bookmarks.collect(&:id)
-      if bookmark_ids.empty?
-        []
-      else
-        Tag.bookmarked(bookmark_ids)
-      end
-    end
-  end
-
-  if defined?(EnjuMessage)
-    has_many :sent_messages, :foreign_key => 'sender_id', :class_name => 'Message'
-    has_many :received_messages, :foreign_key => 'receiver_id', :class_name => 'Message'
-
-    def send_message(status, options = {})
-      MessageRequest.transaction do
-        request = MessageRequest.new
-        request.sender = User.find(1)
-        request.receiver = self
-        request.message_template = MessageTemplate.localized_template(status, self.locale)
-        request.save_message_body(options)
-        request.sm_send_message!
-      end
-    end
-  end
-
-  if defined?(EnjuPurchaseRequest)
-    has_many :purchase_requests
-    has_many :order_lists
-  end
-
-  if defined?(EnjuSearchLog)
-    attr_accessible :save_search_history
-    attr_accessible :save_search_history, :as => :admin
-
-    has_many :search_histories, :dependent => :destroy
-  end
 end
+
 # == Schema Information
 #
 # Table name: users
