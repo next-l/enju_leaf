@@ -27,7 +27,7 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_book_jacket.git
-  revision: 7ed18e19a876e9452a8989121a63718f28b5917b
+  revision: 17dfceb94ad2bbf7e1a079c72008b7a5bab0bd34
   specs:
     enju_book_jacket (0.0.2)
       configatron
@@ -35,7 +35,7 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_bookmark.git
-  revision: f2d428902fb02a93c6178af6f398f616b3601106
+  revision: 355e0d49936dcb15168cf701110a95c3e3920e53
   specs:
     enju_bookmark (0.0.21)
       acts-as-taggable-on (~> 2.3)
@@ -216,7 +216,7 @@ GIT
 
 GIT
   remote: git://github.com/next-l/enju_biblio.git
-  revision: fa31d25af53048ed94c916579d3d60df0fff3d51
+  revision: b6f67bb681981ac63ff8febebb8281c2443a51c8
   specs:
     enju_biblio (0.0.3)
       aws-sdk
@@ -307,7 +307,8 @@ GEM
       rails (~> 3.0)
     acts_as_list (0.1.6)
     addressable (2.2.8)
-    annotate (2.4.1.beta1)
+    annotate (2.5.0.pre1)
+      rake
     arel (3.0.2)
     astrails-safe (0.2.7)
       aws-s3
@@ -595,7 +596,7 @@ DEPENDENCIES
   RedCloth (>= 4.2.9)
   activerecord-jdbc-adapter
   addressable
-  annotate (~> 2.4.1.beta1)
+  annotate (~> 2.5.0.pre1)
   astrails-safe
   attribute_normalizer (~> 1.1)
   awesome_nested_set (~> 2.1)
