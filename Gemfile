@@ -31,7 +31,6 @@ platforms :ruby do
   gem 'pg'
   #gem 'mysql2', '~> 0.3'
   #gem 'sqlite3'
-  gem 'ruby-prof', :group => [:development, :test]
   gem 'zipruby'
   gem 'kgio'
 end
@@ -128,6 +127,7 @@ group :development, :test do
   gem 'fakeweb'
 #  gem 'churn', '0.0.13'
   gem 'steak'
+  gem 'ruby-prof'
 end
 
 # Gems used only for assets and not required
