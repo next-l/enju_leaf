@@ -70,6 +70,7 @@ class User < ActiveRecord::Base
   enju_purchase_request_user if defined?(EnjuPurchaseRequest)
   enju_bookmark_user if defined?(EnjuBookmark)
   enju_message_user if defined?(EnjuMessage)
+  enju_search_log_user if defined?(EnjuSearchLog)
 
   searchable do
     text :username, :email, :note, :user_number
