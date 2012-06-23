@@ -44,9 +44,9 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_circulation.git
-  revision: 2464682719bda5280f3080eec7cce6104d377210
+  revision: 8e863d730b3acff7c9b4524c2d9785b90d6d6d30
   specs:
-    enju_circulation (0.0.64)
+    enju_circulation (0.0.65)
       enju_core
       enju_event (>= 0.0.24)
       enju_message (>= 0.0.23)
@@ -188,9 +188,9 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_search_log.git
-  revision: 0649d6695e7cbac9b5ff4773628832b694176c3f
+  revision: 073f9dcd9067f28a384b6f81e2492be8b5f51c77
   specs:
-    enju_search_log (0.0.6)
+    enju_search_log (0.0.7)
       cancan
       devise
       rails (~> 3.2)
@@ -216,7 +216,7 @@ GIT
 
 GIT
   remote: git://github.com/next-l/enju_biblio.git
-  revision: b6f67bb681981ac63ff8febebb8281c2443a51c8
+  revision: 13d5c89969d4ac38797172eb30f72ec87a975906
   specs:
     enju_biblio (0.0.3)
       aws-sdk
@@ -354,7 +354,7 @@ GEM
     configatron (2.9.1)
       yamler (>= 0.1.0)
     daemons (1.1.8)
-    dalli (2.0.5)
+    dalli (2.1.0)
     delayed_job (3.0.3)
       activesupport (~> 3.0)
     delayed_job_active_record (0.3.2)
@@ -375,10 +375,10 @@ GEM
       actionmailer (>= 3.0.4)
     execjs (1.4.0)
       multi_json (~> 1.0)
-    factory_girl (3.4.2)
+    factory_girl (3.5.0)
       activesupport (>= 3.0.0)
-    factory_girl_rails (3.4.0)
-      factory_girl (~> 3.4.0)
+    factory_girl_rails (3.5.0)
+      factory_girl (~> 3.5.0)
       railties (>= 3.0.0)
     fakeweb (1.3.0)
     fattr (2.2.1)
@@ -434,7 +434,7 @@ GEM
     net-sftp (2.0.5)
       net-ssh (>= 2.0.9)
     net-ssh (2.5.2)
-    nokogiri (1.5.4)
+    nokogiri (1.5.5)
     nori (1.1.0)
     options (2.3.0)
       fattr
@@ -451,7 +451,7 @@ GEM
     parallel (0.5.17)
     parallel_tests (0.8.2)
       parallel
-    pg (0.13.2)
+    pg (0.14.0)
     polyglot (0.3.3)
     pr_geohash (1.0.0)
     progress_bar (0.4.0)
@@ -574,7 +574,7 @@ GEM
       execjs (>= 0.3.0)
       multi_json (~> 1.3)
     uuidtools (2.1.2)
-    validates_timeliness (3.0.11)
+    validates_timeliness (3.0.12)
       timeliness (~> 0.3.6)
     vcr (2.2.2)
     warden (1.2.1)
@@ -606,7 +606,7 @@ DEPENDENCIES
   coffee-rails (~> 3.2.1)
   configatron
   daemons
-  dalli (~> 2.0)
+  dalli (~> 2.1)
   delayed_job_active_record
   devise (~> 2.1.2)
   devise-encryptable
@@ -632,7 +632,7 @@ DEPENDENCIES
   enju_search_log!
   enju_subject!
   exception_notification (~> 2.6)
-  factory_girl_rails (~> 3.4)
+  factory_girl_rails (~> 3.5)
   fakeweb
   foreigner
   geocoder
