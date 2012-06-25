@@ -50,7 +50,6 @@ gem 'will_paginate', '~> 3.0'
 gem 'exception_notification', '~> 2.6'
 gem 'configatron'
 gem 'delayed_job_active_record'
-gem 'resque'
 gem 'daemons'
 gem 'state_machine', '~> 1.1.2'
 gem 'progress_bar'
@@ -75,7 +74,6 @@ gem 'paperclip', '~> 3.1'
 gem 'paperclip-meta', :git => 'git://github.com/dce/paperclip-meta.git'
 gem 'aws-sdk'
 gem 'whenever', :require => false
-gem 'resque-scheduler', '~> 2.0.0.h', :require => 'resque_scheduler'
 #gem 'amazon-ecs', '>= 2.2.0', :require => 'amazon/ecs'
 #gem 'aws-s3', :require => 'aws/s3'
 gem 'astrails-safe'
@@ -95,10 +93,7 @@ gem 'rails_autolink'
 #gem 'oink', '>= 0.9.3'
 gem 'foreigner'
 gem 'strong_parameters'
-
-#group :production do
-#  gem 'vidibus-routing_error'
-#end
+gem 'resque-scheduler', '~> 2.0.0', :require => 'resque_scheduler'
 
 group :development do
   gem 'parallel_tests', '~> 0.8'
@@ -147,6 +142,7 @@ gem 'jquery-rails'
 # gem 'jbuilder'
 
 # Use unicorn as the app server
+# gem 'unicorn'
 
 # Deploy with Capistrano
 # gem 'capistrano'

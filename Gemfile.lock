@@ -44,9 +44,9 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_circulation.git
-  revision: 8e863d730b3acff7c9b4524c2d9785b90d6d6d30
+  revision: 28d22801479e6ae4b9baddd093ace2963ef09a46
   specs:
-    enju_circulation (0.0.65)
+    enju_circulation (0.0.66)
       enju_core
       enju_event (>= 0.0.24)
       enju_message (>= 0.0.23)
@@ -58,12 +58,12 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_event.git
-  revision: e04d2b133215f3c884c4af7251c6d4739f1bb1f0
+  revision: 658fdbda5f19cf4d09b0749d2879761db2bea83f
   specs:
-    enju_event (0.1.11)
+    enju_event (0.1.12)
       configatron
       enju_core
-      enju_message (>= 0.0.19)
+      enju_message (>= 0.0.24)
       event-calendar (~> 2.3.3)
       has_scope
       inherited_resources
@@ -178,9 +178,9 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_resource_merge.git
-  revision: 8bebf32ff27cb58affdea8fbe15bd34e45ff8dcf
+  revision: 0f6f77a1ce042d264625c0154aa2dad92d25fb8b
   specs:
-    enju_resource_merge (0.0.15)
+    enju_resource_merge (0.0.16)
       dynamic_form
       enju_core
       inherited_resources
@@ -677,8 +677,7 @@ DEPENDENCIES
   rails (= 3.2.6)
   rails-erd
   rails_autolink
-  resque
-  resque-scheduler (~> 2.0.0.h)
+  resque-scheduler (~> 2.0.0)
   ri_cal
   rspec-rails (~> 2.10)
   ruby-prof
