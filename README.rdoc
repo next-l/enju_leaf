@@ -13,9 +13,9 @@ Next-L Enju Leaf is an integrated library system developed by {Project Next-L}[h
 * http://enju2.slis.keio.ac.jp
 
 == 関連するプロジェクト (Related projects)
-* {Next-L Enju Root}[http://wiki.github.com/nabeta/enju_root]
-* {Next-L Enju Flower}[http://github.com/nabeta/enju_flower]
+* {Next-L Enju Root}[https://github.com/nabeta/enju_root]
+* {Next-L Enju Flower}[https://github.com/nabeta/enju_flower]
 
 == 製作者・貢献者 (Authors and contributors)
-* {TANABE, Kosuke}[http://mwr.mediacom.keio.ac.jp/~tanabe/]
-* {Project Next-L}[http://www.next-l.jp]
+* {TANABE, Kosuke}[http://mwr.mediacom.keio.ac.jp/~tanabe/] ({@nabeta}[https://twitter.com/nabeta])
+* {Project Next-L}[http://www.next-l.jp] ({@enju_library}[https://twitter.com/enju_library])
