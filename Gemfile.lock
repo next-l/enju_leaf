@@ -102,15 +102,15 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_message.git
-  revision: 19f897c33149d871d6e670f5a002a4f44d7c0896
+  revision: 432d9ca685be3107f9b9a7e8501dfcd175783218
   specs:
-    enju_message (0.1.9)
+    enju_message (0.1.10)
       awesome_nested_set (~> 2.1)
       configatron
-      delayed_job_active_record
       enju_core
       inherited_resources
       rails (~> 3.2)
+      resque_mailer
       simple_form
       state_machine
 
@@ -239,16 +239,18 @@ GIT
 
 GIT
   remote: git://github.com/next-l/enju_core.git
-  revision: 4f3f7365048208e3c42d950ff404b7fbe7ca205a
+  revision: 37a5f42e589e10a6d40115ff81a43d87e5d03346
   specs:
-    enju_core (0.0.1)
+    enju_core (0.0.2)
       acts_as_list
       addressable
       attribute_normalizer (~> 1.1)
       cancan
+      configatron
       devise
       friendly_id (~> 4.0)
       rails (~> 3.2)
+      resque
       sunspot_rails (~> 2.0.0.pre.120417)
       will_paginate
 
@@ -337,7 +339,7 @@ GEM
       rack-test (>= 0.5.4)
       selenium-webdriver (~> 2.0)
       xpath (~> 0.1.4)
-    childprocess (0.3.2)
+    childprocess (0.3.3)
       ffi (~> 1.0.6)
     chronic (0.6.7)
     client_side_validations (3.2.0.beta.3)
@@ -355,11 +357,6 @@ GEM
       yamler (>= 0.1.0)
     daemons (1.1.8)
     dalli (2.1.0)
-    delayed_job (3.0.3)
-      activesupport (~> 3.0)
-    delayed_job_active_record (0.3.2)
-      activerecord (> 2.1.0)
-      delayed_job (~> 3.0.0)
     devise (2.1.2)
       bcrypt-ruby (~> 3.0)
       orm_adapter (~> 0.1)
@@ -392,9 +389,9 @@ GEM
       thor (>= 0.14.6)
     guard-rspec (1.1.0)
       guard (>= 1.1)
-    has_scope (0.5.1)
+    has_scope (0.5.0)
     highline (1.6.13)
-    hike (1.2.0)
+    hike (1.2.1)
     httparty (0.8.3)
       multi_json (~> 1.0)
       multi_xml
@@ -416,7 +413,7 @@ GEM
       addressable
     lisbn (0.1.2)
       nori
-    listen (0.4.6)
+    listen (0.4.7)
       rb-fchange (~> 0.0.5)
       rb-fsevent (~> 0.9.1)
       rb-inotify (~> 0.8.8)
@@ -626,10 +623,8 @@ DEPENDENCIES
   cancan (>= 1.6.8)
   client_side_validations (~> 3.2.0.beta.3)
   coffee-rails (~> 3.2.1)
-  configatron
   daemons
   dalli (~> 2.1)
-  delayed_job_active_record
   devise (~> 2.1.2)
   devise-encryptable
   dynamic_form

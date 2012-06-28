@@ -48,8 +48,6 @@ end
 
 gem 'will_paginate', '~> 3.0'
 gem 'exception_notification', '~> 2.6'
-gem 'configatron'
-gem 'delayed_job_active_record'
 gem 'daemons'
 gem 'state_machine', '~> 1.1.2'
 gem 'progress_bar'

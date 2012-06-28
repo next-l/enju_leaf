@@ -193,7 +193,7 @@ class User < ActiveRecord::Base
 
   def send_confirmation_instructions
     unless self.operator
-      Devise::Mailer.delay.confirmation_instructions(self) if self.email.present?
+      Devise::Mailer.confirmation_instructions(self).deliver if self.email.present?
     end
   end
 
@@ -246,6 +246,10 @@ class User < ActiveRecord::Base
 
   def patron
     LocalPatron.new(self)
+  end
+
+  def full_name
+    username
   end
 end
 
