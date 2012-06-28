@@ -332,7 +332,7 @@ class ManifestationsController < ApplicationController
     case params[:mode]
     when 'send_email'
       if user_signed_in?
-        Notifier.delay.manifestation_info(current_user, @manifestation)
+        Notifier.manifestation_info(current_user.id, @manifestation.id).deliver
         flash[:notice] = t('page.sent_email')
         redirect_to @manifestation
         return

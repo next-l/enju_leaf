@@ -8,7 +8,8 @@ class Notifier < ActionMailer::Base
     default_url_options[:port] = configatron.enju.web_port_number if configatron.enju.web_port_number != 80
   end
 
-  def message_notification(message)
+  def message_notification(message_id)
+    message = Message.find(message_id)
     I18n.locale = message.receiver.locale.try(:to_sym) || I18n.default_locale
     from = "#{LibraryGroup.system_name(message.receiver.locale)} <#{LibraryGroup.site_config.email}>"
     if message.subject
@@ -26,7 +27,9 @@ class Notifier < ActionMailer::Base
     mail(:from => from, :to => message.receiver.email, :subject => subject)
   end
 
-  def manifestation_info(user, manifestation)
+  def manifestation_info(user_id, manifestation_id)
+    user = User.find(user_id)
+    manifestation = Manifestation.find(manifestation_id)
     from = "#{LibraryGroup.system_name(user.locale)} <#{LibraryGroup.site_config.email}>"
     subject = "#{manifestation.original_title} : #{LibraryGroup.system_name(user.locale)}"
     @user = user
