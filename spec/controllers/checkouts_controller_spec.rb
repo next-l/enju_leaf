@@ -276,13 +276,13 @@ describe CheckoutsController do
 
       it "should remove its own checkout history" do
         put :remove_all, :user_id => users(:user1).username
-        users(:user1).checkouts.count.should eq 0
+        users(:user1).checkouts.returned.count.should eq 0
         response.should redirect_to checkouts_url
       end
 
       it "should not remove other checkout history" do
         put :remove_all, :user_id => users(:user2).username
-        users(:user1).checkouts.count.should_not eq 0
+        users(:user1).checkouts.returned.count.should_not eq 0
         response.should redirect_to checkouts_url
       end
     end
@@ -327,13 +327,13 @@ describe CheckoutsController do
 
       it "should remove its own checkout history" do
         put :remove_all, :user_id => users(:user1).username
-        users(:user1).checkouts.count.should eq 0
+        users(:user1).checkouts.returned.count.should eq 0
         response.should redirect_to checkouts_url
       end
 
       it "should not remove other checkout history" do
         put :remove_all, :user_id => users(:user2).username
-        users(:user1).checkouts.count.should_not eq 0
+        users(:user1).checkouts.returned.count.should_not eq 0
         response.should redirect_to checkouts_url
       end
     end
@@ -386,13 +386,13 @@ describe CheckoutsController do
 
       it "should remove its own checkout history" do
         put :remove_all, :user_id => users(:user1).username
-        assigns(:user).checkouts.count.should eq 0
+        assigns(:user).checkouts.returned.count.should eq 0
         response.should redirect_to checkouts_url
       end
 
       it "should not remove other checkout history" do
         put :remove_all, :user_id => users(:admin).username
-        assigns(:user).checkouts.count.should_not eq 0
+        assigns(:user).checkouts.returned.count.should eq 0
         response.should be_forbidden
       end
     end
