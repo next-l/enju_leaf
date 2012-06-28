@@ -583,6 +583,7 @@ en:
     refine_by: "Refine by"
     standard_view: "Standard view"
     mobile_view: "Mobile view"
+    rearrange_order: "Rearrange order"
     only_lowercase_letters_and_numbers_are_allowed: "Only lowercase letters and numbers are allowed. The first character must be alphabetic."
   title:
     index: "index"
