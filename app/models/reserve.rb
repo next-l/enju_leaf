@@ -23,8 +23,8 @@ class Reserve < ActiveRecord::Base
   scope :sent_expiration_notice_to_library, where(:state => 'expired', :expiration_notice_to_library => true)
   scope :not_sent_cancel_notice_to_patron, where(:state => 'canceled', :expiration_notice_to_patron => false)
   scope :not_sent_cancel_notice_to_library, where(:state => 'canceled', :expiration_notice_to_library => false)
-  scope :show_reserves, where(:state => ['requested', 'retained', 'in_process', 'completed', 'expired', 'canceled'])  
-  scope :user_show_reserves, where(:state => ['requested', 'retained', 'in_process'])  
+  scope :show_reserves, joins(:manifestation).where(:state => ['requested', 'retained', 'in_process', 'completed', 'expired', 'canceled']) 
+  scope :user_show_reserves, joins(:manifestation).where(:state => ['requested', 'retained', 'in_process'])  
   acts_as_list :scope => :manifestation_id
 
   belongs_to :user, :validate => true
