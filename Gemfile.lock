@@ -266,7 +266,7 @@ GIT
 
 GIT
   remote: git://github.com/next-l/enju_library.git
-  revision: d85c14143edfa4781d5738359d42d7f515d3ab21
+  revision: 8eeeaff5471a8475438225d2770c0c99a4ef36be
   specs:
     enju_library (0.0.1)
       enju_core

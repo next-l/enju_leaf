@@ -26,6 +26,14 @@ Patron.reindex
 Library.reindex
 Shelf.reindex
 
+system_user = User.new
+system_user.username = 'system'
+system_user.password = SecureRandom.random_bytes(16)
+system_user.email = system_user.email_confirmation = LibraryGroup.first.email
+system_user.save!
+system_user.role = Role.where(:name => 'Administrator').first
+system_user.index
+
 user = User.new
 user.username = username
 user.email = email
@@ -39,5 +47,6 @@ user.operator = user
 user.save!
 #user.confirm!
 user.role = Role.where(:name => 'Administrator').first
-user.index!
+user.index
+Sunspot.commit
 puts 'Administrator account created.'
