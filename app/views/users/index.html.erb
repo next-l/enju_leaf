@@ -1,6 +1,6 @@
-<div id="content_detail" class="ui-corner-all">
-<h1 class="title"><%= t('page.listing', :model => t('activerecord.models.user')) -%></h1>
-<div id="content_list">
+<div class="row">
+  <div class="span8">
+  <h1 class="title"><%= t('page.listing', :model => t('activerecord.models.user')) -%></h1>
 
 <div class="search_form">
 <%= form_for :users, :url => users_path, :html => {:method => 'get'} do -%>
@@ -12,7 +12,7 @@
 <%- end -%>
 </div>
 
-<table class="index">
+<table class="table table-striped">
   <tr>
     <th>
       <%= t('activerecord.attributes.user.username') -%>
@@ -61,15 +61,15 @@
 <br />
 <%= will_paginate(@users) -%>
 
-</div>
-</div>
+  </div>
 
-<div id="submenu" class="ui-corner-all">
-  <ul>
-    <%- if user_signed_in? && current_user.has_role?('Librarian') -%>
-      <li><%= link_to t('page.new', :model => t('activerecord.models.user')), new_user_path -%></li>
-      <li><%= link_to t('page.import_from_file'), new_patron_import_file_path -%></li>
-    <%- end -%>
-    <li><%= link_to t('page.search_resource', :model => t('activerecord.models.patron')), patrons_path -%></li>
-  </ul>
+  <div class="span4">
+    <ul>
+      <%- if user_signed_in? && current_user.has_role?('Librarian') -%>
+        <li><%= link_to t('page.new', :model => t('activerecord.models.user')), new_user_path -%></li>
+        <li><%= link_to t('page.import_from_file'), new_patron_import_file_path -%></li>
+      <%- end -%>
+      <li><%= link_to t('page.search_resource', :model => t('activerecord.models.patron')), patrons_path -%></li>
+    </ul>
+  </div>
 </div>

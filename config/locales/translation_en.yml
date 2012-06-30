@@ -585,6 +585,7 @@ en:
     mobile_view: "Mobile view"
     rearrange_order: "Rearrange order"
     only_lowercase_letters_and_numbers_are_allowed: "Only lowercase letters and numbers are allowed. The first character must be alphabetic."
+    not_logged_in: "Not logged in"
   title:
     index: "index"
     show: "show"

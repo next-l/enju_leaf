@@ -569,6 +569,7 @@ ja:
     mobile_view: "携帯機器用の画面"
     rearrange_order: "順番を変更する"
     only_lowercase_letters_and_numbers_are_allowed: "英数小文字のみ使用できます。最初の文字に数字は使用できません。"
+    not_logged_in: "ログインしていません"
   title:
     index: "一覧"
     show: "表示"
