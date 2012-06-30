@@ -29,12 +29,9 @@
 
   <p><%= f.submit t('page.sign_in') %></p>
 
-<%= javascript_tag("$('#user_username').focus()") -%>
+<%= javascript_tag("$('#user_username').focus().select();") -%>
 
 <%= render "devise/shared/links" %>
 
-<!--
-<%= link_to 'Twitter Authentication', root_path(:warden_oauth_provider => 'twitter') -%>
--->
 </div>
 <% end -%>
