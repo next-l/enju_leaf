@@ -1,5 +1,5 @@
-<div class="column" id="col1">
-  <div class="portlet" id="search">
+<div class="row">
+  <div class="span6">
     <h2 class="title">
       <% if user_signed_in? %>
         <%= t('page.user_title', :login_name => current_user.username) -%>
@@ -19,28 +19,22 @@
         <% end %>
       <% end %>
     </div>
-  </div>
 
-  <% if defined?(EnjuNews) %>
-    <div class="portlet" id="news_feed">
+    <% if defined?(EnjuNews) %>
       <h3 class="title"><%= t('page.news') -%></h3>
       <div id="news_feed_box">
         <%= render :partial => 'news_feeds/list', :locals => {:news_feeds => @news_feeds} -%>
       </div>
-    </div>
-  <% end %>
-</div>
+    <% end %>
+  </div>
 
-<div class="column" id="col2">
-  <div class="portlet" id="pickup">
+  <div class="span6">
     <h3 class="title"><%= t('manifestation.pickup') -%></h3>
     <div id="picked_up_box">
       <%= render 'manifestations/pickup', :manifestation => @manifestation -%>
     </div>
-  </div>
 
-  <% if defined?(EnjuBookmark) %>
-    <div class="portlet" id="tag_cloud">
+    <% if defined?(EnjuBookmark) %>
       <h3 class="title">
         <% if user_signed_in? %>
           <%= t('tag.my_tag') -%>
@@ -52,6 +46,6 @@
         <%= render 'bookmarks/tag_cloud', :tags => @tags -%>
         <p>(<%= link_to t('page.listing', :model => t('activerecord.models.tag')), tags_path -%>)</p>
       </div>
-    </div>
-  <% end %>
+    <% end %>
+  </div>
 </div>

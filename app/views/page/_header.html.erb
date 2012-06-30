@@ -1,14 +1,10 @@
-<div class="header_and_footer">
-  <div id="header_left">
-    <div id="library_system_name">
-      <h1 class="resource_title"><%= link_to LibraryGroup.system_name(@locale), root_path, :title => LibraryGroup.system_name(@locale) %></h1>
-    </div>
-    <div id="header_micro_advertisement"></div>
+<header class="jumbotron subhead" id="overview">
+<div class="row">
+  <div class="span8">
+    <h1><%= link_to LibraryGroup.system_name(@locale), root_path, :title => LibraryGroup.system_name(@locale) %></h1>
   </div>
 
-  <div id="header_advertisement"></div>
-
-  <div id="header_right">
+  <div class="span4">
     <div id="user_account">
       <% if user_signed_in? %>
         <%= t('page.logged_in_as', :login_name => current_user.username) -%>
@@ -30,6 +26,6 @@
         <% end %>
       <% end %>
     </div>
-    <%= render 'page/select_locale' -%>
   </div>
 </div>
+</header>
