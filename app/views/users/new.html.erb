@@ -1,6 +1,6 @@
-<div id="content_detail" class="ui-corner-all">
-<h1 class="title"><%= t('page.new', :model => t('activerecord.models.user')) -%></h1>
-<div id="content_list">
+<div class="row">
+  <div class="span9">
+    <h1 class="title"><%= t('page.new', :model => t('activerecord.models.user')) -%></h1>
 <%= render 'page/required_field' %>
 <%= simple_form_for(@user, :validate => true) do |f| -%>
   <%= f.error_messages -%>
@@ -36,7 +36,6 @@
       <%= f.label t('activerecord.models.library') -%>
       <%= f.select(:library_id, @libraries.collect{|l| [l.display_name.localize, l.id]}) -%>
     </div>
-
   <%- end -%>
   <div class="field">
     <%= f.label :locale -%>
@@ -74,12 +73,12 @@
   </div>
 <%- end -%>
 <%= javascript_tag("$('#user_username').focus()") -%>
-</div>
-</div>
+  </div>
 
-<div id="submenu" class="ui-corner-all">
-  <ul>
-    <li><%= link_to t('page.listing', :model => t('activerecord.models.user')), users_path -%></li>
-    <li><%= link_to t('page.import'), new_patron_import_file_path -%></li>
-  </ul>
+  <div class="span3">
+    <ul>
+      <li><%= link_to t('page.listing', :model => t('activerecord.models.user')), users_path -%></li>
+      <li><%= link_to t('page.import'), new_patron_import_file_path -%></li>
+    </ul>
+  </div>
 </div>

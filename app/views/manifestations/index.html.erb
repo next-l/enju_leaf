@@ -1,5 +1,5 @@
 <div class="row">
-  <div class="span8">
+  <div class="span9">
   <%= render 'manifestations/title', :manifestation => @manifestation if @manifestation -%>
 
   <% case %>
@@ -51,9 +51,11 @@
         <%= link_to t('page.title'), url_for(params.merge(:sort_by => 'title', :only_path => true)) -%>
       <%- end -%>
     </p>
-
     <div class="autopagerize_page_element" id="list">
-      <%= render 'manifestations/list', :manifestations => @manifestations -%>
+      <table class="table table-striped" id="manifestation_list">
+        <%= render @manifestations %>
+      </table>
+      <%= will_paginate(@manifestations) -%>
     </div>
 
     <% if defined?(EnjuBookmark) %>
@@ -76,7 +78,7 @@
 
   </div>
 
-  <div class="span4">
+  <div class="span3">
     <% if @series_statement and can?(:update, @series_statement) %>
       <%= render 'submenu_series_statement' %>
     <% end %>

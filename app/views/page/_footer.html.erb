@@ -1,11 +1,26 @@
-  <footer class="footer">
-    <a href="https://github.com/nabeta/enju_leaf/wiki">Next-L Enju Leaf <%= EnjuLeaf.version %></a>,
-    <%= t('page.open_source_integrated_library_system') -%> |
-    <%= link_to t('page.about_this_system'), page_about_path -%> |
-    <%= link_to t('page.report_bugs'), "https://github.com/nabeta/enju_leaf/issues" -%>
-    <% if is_mobile_device? %>
-      | <%= link_to t('page.mobile_view'), url_for(:mobile_view => 'true') %>
+<footer class="footer">
+  <hr />
+
+  <div id="language">
+    Other languages:
+    <% @available_languages.each do |language| %>
+      <% if language.iso_639_1 == I18n.locale.to_s %>
+        <strong><%= language.native_name || language.name %></strong>
+      <% else %>
+        <%= link_to "#{language.native_name || language.name}", url_for(params.merge(:locale => language.iso_639_1, :only_path => true)) %>
+      <% end %>
     <% end %>
-    <br />
-    Developed by <a href="http://mwr.mediacom.keio.ac.jp/~tanabe/">Kosuke Tanabe</a> and <a href="http://www.next-l.jp/">Project Next-L</a>.
-  </footer>
+  </div>
+
+  <hr />
+
+  <a href="https://github.com/nabeta/enju_leaf/wiki">Next-L Enju Leaf <%= EnjuLeaf.version %></a>,
+  <%= t('page.open_source_integrated_library_system') -%> |
+  <%= link_to t('page.about_this_system'), page_about_path -%> |
+  <%= link_to t('page.report_bugs'), "https://github.com/nabeta/enju_leaf/issues" -%>
+  <% if is_mobile_device? %>
+    | <%= link_to t('page.mobile_view'), url_for(:mobile_view => 'true') %>
+  <% end %>
+  <br />
+  Developed by <a href="http://mwr.mediacom.keio.ac.jp/~tanabe/">Kosuke Tanabe</a> and <a href="http://www.next-l.jp/">Project Next-L</a>.
+</footer>

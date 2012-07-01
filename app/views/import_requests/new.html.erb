@@ -1,0 +1,26 @@
+<div class="row">
+  <div class="span9">
+    <h1 class="title"><%= t('page.new', :model => t('activerecord.models.import_request')) -%></h1>
+    <p id="notice"><%= notice %></p>
+
+    <%= form_for(@import_request) do |f| -%>
+      <%= f.error_messages -%>
+      <div class="field">
+        <%= f.label :isbn do -%>
+          <%= f.text_field :isbn, :class => 'resource_isbn_issn' -%>
+        <% end %>
+        <%= f.submit 'data-disable-with' => t('page.saving'), :class => 'btn' %>
+      </div>
+      <%= javascript_tag("$('#import_request_isbn').focus()") -%>
+    <%- end -%>
+  </div>
+
+  <div class="span3">
+    <ul>
+      <li><%= link_to t('page.back'), :back -%></li>
+      <li><%= link_to t('page.listing', :model => t('activerecord.models.import_request')), import_requests_path -%></li>
+      <li><%= link_to t('manifestation.add'), new_manifestation_path -%></li>
+      <li><%= link_to t('page.import_from_file'), page_import_path -%></li>
+    </ul>
+  </div>
+</div>

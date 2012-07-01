@@ -1,7 +1,6 @@
-<div class="column" id="col1">
-  <div class="portlet" id="library">
+<div class="row">
+  <div class="span6">
     <h2 class="title"><%= t('activerecord.models.library') -%></h2>
-    <div class="config_box">
       <ul>
         <li><%= link_to t('activerecord.models.library_group'), library_groups_path -%></li>
         <li><%= link_to t('activerecord.models.library'), libraries_path -%>
@@ -35,11 +34,8 @@
           <li><%= link_to t('activerecord.models.barcode'), barcodes_path -%></li>
         <% end %>
       </ul>
-    </div>
-  </div>
-  <div class="portlet" id="resource">
-    <h2 class="title"><%= t('page.resource') -%></h2>
-    <div class="config_box">
+
+      <h2 class="title"><%= t('page.resource') -%></h2>
       <ul>
         <li><%= link_to t('activerecord.models.manifestation'), manifestations_path -%>
         <ul>
@@ -66,48 +62,39 @@
           <li><%= link_to t('activerecord.models.series_statement_merge_list'), series_statement_merge_lists_path -%></li>
         <% end %>
       </ul>
-    </div>
   </div>
-</div>
 
-<div class="column" id="col2">
+  <div class="span6">
   <% if defined?(EnjuSubject) %>
-    <div class="portlet" id="subject_and_classification">
-      <h2 class="title"><%= t('page.subject_and_classification') -%></h2>
-      <div class="config_box">
-        <ul>
-          <li><%= link_to t('activerecord.models.subject'), subjects_path -%></li>
-          <li><%= link_to t('activerecord.models.subject_type'), subject_types_path -%></li>
-          <li><%= link_to t('activerecord.models.subject_heading_type'), subject_heading_types_path -%></li>
-          <li><%= link_to t('activerecord.models.classification'), classifications_path -%></li>
-          <li><%= link_to t('activerecord.models.classification_type'), classification_types_path -%></li>
-          <li><%= link_to t('activerecord.models.subject_has_classification'), subject_has_classifications_path -%></li>
-        </ul>
-      </div>
-    </div>
+    <h2 class="title"><%= t('page.subject_and_classification') -%></h2>
+    <ul>
+      <li><%= link_to t('activerecord.models.subject'), subjects_path -%></li>
+      <li><%= link_to t('activerecord.models.subject_type'), subject_types_path -%></li>
+      <li><%= link_to t('activerecord.models.subject_heading_type'), subject_heading_types_path -%></li>
+      <li><%= link_to t('activerecord.models.classification'), classifications_path -%></li>
+      <li><%= link_to t('activerecord.models.classification_type'), classification_types_path -%></li>
+      <li><%= link_to t('activerecord.models.subject_has_classification'), subject_has_classifications_path -%></li>
+    </ul>
   <% end %>
-  <div class="portlet" id="form">
     <h2 class="title"><%= t('page.form') -%></h2>
-    <div class="config_box">
-      <ul>
-        <li><%= link_to t('activerecord.models.form_of_work'), form_of_works_path -%></li>
-        <li><%= link_to t('activerecord.models.carrier_type'), carrier_types_path -%></li>
-        <% if defined?(EnjuCirculation) %>
-          <li><%= link_to t('activerecord.models.content_type'), content_types_path -%></li>
-          <li><%= link_to t('activerecord.models.circulation_status'), circulation_statuses_path -%></li>
-        <% end %>
-        <li><%= link_to t('activerecord.models.patron_type'), patron_types_path -%></li>
-        <li><%= link_to t('activerecord.models.language'), languages_path -%></li>
-        <li><%= link_to t('activerecord.models.country'), countries_path -%></li>
-        <li><%= link_to t('activerecord.models.use_restriction'), use_restrictions_path -%></li>
-        <li><%= link_to t('activerecord.models.frequency'), frequencies_path -%></li>
-        <li><%= link_to t('activerecord.models.patron_relationship_type'), patron_relationship_types_path -%></li>
-        <li><%= link_to t('activerecord.models.manifestation_relationship_type'), manifestation_relationship_types_path -%></li>
-        <li><%= link_to t('activerecord.models.license'), licenses_path -%></li>
-        <li><%= link_to t('activerecord.models.create_type'), create_types_path -%></li>
-        <li><%= link_to t('activerecord.models.realize_type'), realize_types_path -%></li>
-        <li><%= link_to t('activerecord.models.produce_type'), produce_types_path -%></li>
-      </ul>
-    </div>
+    <ul>
+      <li><%= link_to t('activerecord.models.form_of_work'), form_of_works_path -%></li>
+      <li><%= link_to t('activerecord.models.carrier_type'), carrier_types_path -%></li>
+      <% if defined?(EnjuCirculation) %>
+        <li><%= link_to t('activerecord.models.content_type'), content_types_path -%></li>
+        <li><%= link_to t('activerecord.models.circulation_status'), circulation_statuses_path -%></li>
+      <% end %>
+      <li><%= link_to t('activerecord.models.patron_type'), patron_types_path -%></li>
+      <li><%= link_to t('activerecord.models.language'), languages_path -%></li>
+      <li><%= link_to t('activerecord.models.country'), countries_path -%></li>
+      <li><%= link_to t('activerecord.models.use_restriction'), use_restrictions_path -%></li>
+      <li><%= link_to t('activerecord.models.frequency'), frequencies_path -%></li>
+      <li><%= link_to t('activerecord.models.patron_relationship_type'), patron_relationship_types_path -%></li>
+      <li><%= link_to t('activerecord.models.manifestation_relationship_type'), manifestation_relationship_types_path -%></li>
+      <li><%= link_to t('activerecord.models.license'), licenses_path -%></li>
+      <li><%= link_to t('activerecord.models.create_type'), create_types_path -%></li>
+      <li><%= link_to t('activerecord.models.realize_type'), realize_types_path -%></li>
+      <li><%= link_to t('activerecord.models.produce_type'), produce_types_path -%></li>
+    </ul>
   </div>
 </div>

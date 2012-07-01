@@ -1,6 +1,7 @@
 <%- if params[:mode] == 'add' -%>
-  <%= radio_button_tag 'mode', 'show' -%>
-  <%= label_tag 'mode_show', t('page.show') %>
+  <%= label_tag 'mode_show', t('page.show') do %>
+    <%= radio_button_tag 'mode', 'show' -%>
+  <% end %>
   <%= radio_button_tag 'mode', 'add', :checked => true -%>
   <%= label_tag 'mode_add', t('page.add') %>
 <%- else -%>

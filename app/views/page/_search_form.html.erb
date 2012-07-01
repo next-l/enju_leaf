@@ -2,7 +2,7 @@
   <%= form_for :manifestations, :url => manifestations_path, :html => {:method => 'get', :class => "well form-search"} do -%>
     <p>
       <%= t('page.search_term') -%>:
-      <%= search_field_tag 'query', nil, :class => 'input-large search-query', :placeholder => t('page.search_term') -%>
+      <%= search_field_tag 'query', nil, :class => 'input-medium search-query', :placeholder => t('page.search_term') -%>
       <%= submit_tag t('page.search'), :class => 'btn' -%><br />
       (<%= link_to t('page.advanced_search'), page_advanced_search_path -%>)
     </p>

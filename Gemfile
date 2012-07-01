@@ -42,7 +42,7 @@ platforms :jruby do
   gem 'activerecord-jdbc-adapter'
   gem 'jdbc-postgres', :require => false
   #gem 'jdbc-mysql', :require => false
-  gem 'rubyzip2'
+  gem 'rubyzip'
   gem 'glassfish'
 end
 
@@ -51,7 +51,7 @@ gem 'exception_notification', '~> 2.6'
 gem 'state_machine', '~> 1.1.2'
 gem 'progress_bar'
 gem 'inherited_resources', '~> 1.3'
-#gem 'attr_encryptor'
+gem 'strongbox'
 gem 'dalli', '~> 2.1'
 gem 'sitemap_generator', '~> 3.1'
 gem 'ri_cal'
@@ -91,6 +91,7 @@ gem 'foreigner'
 gem 'strong_parameters'
 gem 'resque-scheduler', '~> 2.0.0', :require => 'resque_scheduler'
 gem 'twitter-bootstrap-rails'
+gem 'bootstrap-will_paginate'
 
 group :development do
   gem 'parallel_tests', '~> 0.8'
