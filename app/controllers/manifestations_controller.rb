@@ -196,11 +196,14 @@ class ManifestationsController < ApplicationController
         if flash[:search_query] == @search_query
           flash.keep(:search_query)
         else
-          #raise flash[:search_query].to_s
-          flash[:search_query] = @search_query
-          @manifestation_ids = search.build do
-            paginate :page => 1, :per_page => configatron.max_number_of_results
-          end.execute.raw_results.collect(&:primary_key).map{|id| id.to_i}
+          if @series_statement
+            flash.keep(:search_query)
+          else
+            flash[:search_query] = @search_query
+            @manifestation_ids = search.build do
+              paginate :page => 1, :per_page => configatron.max_number_of_results
+            end.execute.raw_results.collect(&:primary_key).map{|id| id.to_i}
+          end
         end
 
         if defined?(EnjuBookmark)
@@ -349,7 +352,7 @@ class ManifestationsController < ApplicationController
     if @manifestation.periodical_master?
       flash.keep(:notice) if flash[:notice]
       flash[:manifestation_id] = @manifestation.id
-      redirect_to series_statement_url(@manifestation.series_statement, :manifestation_id => @manifestation.id)
+      redirect_to series_statement_manifestations_url(@manifestation.series_statement)
       return
     end
 
