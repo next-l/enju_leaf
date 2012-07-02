@@ -1,5 +1,5 @@
 <%= simple_form_for(@user, :validate => true) do |f| -%>
-<div class="row">
+<div class="row-fluid">
   <div class="span9">
     <h1 class="title"><%= t('page.edit_user_profile', :login_name => @user.username) -%></h1>
     <%= render 'page/required_field' %>
@@ -14,7 +14,7 @@
   </div>
 </div>
 
-<div class="row">
+<div class="row-fluid">
   <div class="field">
     <%= f.label :keyword_list -%><br />
     <%= f.text_area :keyword_list, :class => 'resource_textarea' -%>
