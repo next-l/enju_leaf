@@ -13,19 +13,16 @@ class ReservesController < ApplicationController
   # GET /reserves
   # GET /reserves.json
   def index
-    if current_user.has_role?('Librarian') and params[:user_id]
-      @reserve_user = User.find(params[:user_id]) rescue current_user
+    @reserve_user = current_user
+    if current_user.has_role?('Librarian')
+       @reserve_user = User.find(params[:user_id]) rescue current_user if params[:user_id]
     else
-      @reserve_user = current_user
-    end
-
-    unless current_user.has_role?('Librarian')
       if @user
-        unless current_user == @user
+        if current_user == @user
+          redirect_to user_reserves_path(current_user); return
+        else
           access_denied; return
         end
-      else
-        redirect_to user_reserves_path(current_user); return
       end
     end
 
@@ -101,7 +98,7 @@ class ReservesController < ApplicationController
 
         # search
         if (query.blank? and @address.blank? and @date_of_birth.blank?) or error_condition
-          @reserves = Reserve.where(:state => selected_state, :receipt_library_id => selected_library, :information_type_id => selected_information_type).order('expired_at ASC').includes(:manifestation).page(page)
+          @reserves = Reserve.joins(:manifestation).where(:state => selected_state, :receipt_library_id => selected_library, :information_type_id => selected_information_type).order('expired_at ASC').includes(:manifestation).page(page)
         else
           @reserves = Reserve.search do
             fulltext query

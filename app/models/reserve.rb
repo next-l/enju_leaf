@@ -23,8 +23,8 @@ class Reserve < ActiveRecord::Base
   scope :sent_expiration_notice_to_library, where(:state => 'expired', :expiration_notice_to_library => true)
   scope :not_sent_cancel_notice_to_patron, where(:state => 'canceled', :expiration_notice_to_patron => false)
   scope :not_sent_cancel_notice_to_library, where(:state => 'canceled', :expiration_notice_to_library => false)
-  scope :show_reserves, where(:state => ['requested', 'retained', 'in_process', 'completed', 'expired', 'canceled'])  
-  scope :user_show_reserves, where(:state => ['requested', 'retained', 'in_process'])  
+  scope :show_reserves, joins(:manifestation).where(:state => ['requested', 'retained', 'in_process', 'completed', 'expired', 'canceled']) 
+  scope :user_show_reserves, joins(:manifestation).where(:state => ['requested', 'retained', 'in_process'])  
   acts_as_list :scope => :manifestation_id
 
   belongs_to :user, :validate => true
@@ -84,23 +84,23 @@ class Reserve < ActiveRecord::Base
   searchable do
     text :title do
       titles = []
-      titles << self.manifestation.original_title
-      titles << self.manifestation.title_transcription
+      titles << self.manifestation.original_title if self.manifestation
+      titles << self.manifestation.title_transcription if self.manifestation
     end
     text :creator do
-      self.manifestation.creator
+      self.manifestation.creator if self.manifestation
     end
     text :publisher do
-      self.manifestation.publisher
+      self.manifestation.publisher if self.manifestation
     end
     text :contributor do
-      self.manifestation.contributor
+      self.manifestation.contributor if self.manifestation
     end
     text :username do
-      self.user.username
+      self.user.username if self.user
     end
     text :email do
-      self.user.email
+      self.user.email if self.user
     end
     text :full_name do
       full_name = []

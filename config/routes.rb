@@ -490,6 +490,7 @@ EnjuLeaf::Application.routes.draw do
   match '/page/statistics' => 'page#statistics'
   match '/page/exstatistics' => 'page#exstatistics'
   match '/page/routing_error' => 'page#routing_error'
+  match '/page/extensions' => 'page#extensions'
 
   match '/checkoutlists' => 'checkoutlists#index'
   match '/checkoutlists/output' => 'checkoutlists#output'

@@ -1293,6 +1293,7 @@ en:
     best_request: "best request"
     best_reader: "best reader"
     wait: "Wait.."
+    extensions: "Extensions"
 
     exstatistics:
       ranknumber: Rank
