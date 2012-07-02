@@ -3,11 +3,11 @@
     <h1 class="title"><%= t('page.new', :model => t('activerecord.models.import_request')) -%></h1>
     <p id="notice"><%= notice %></p>
 
-    <%= form_for(@import_request) do |f| -%>
+    <%= form_for(@import_request, :html => {:class => 'well form-search'}) do |f| -%>
       <%= f.error_messages -%>
       <div class="field">
         <%= f.label :isbn do -%>
-          <%= f.text_field :isbn, :class => 'resource_isbn_issn' -%>
+          <%= f.text_field :isbn, :class => 'search-query', :placeholder => 'ISBN' -%>
         <% end %>
         <%= f.submit 'data-disable-with' => t('page.saving'), :class => 'btn' %>
       </div>
