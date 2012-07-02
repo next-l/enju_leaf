@@ -5,7 +5,7 @@ class Statistic < ActiveRecord::Base
   belongs_to :shelf
   belongs_to :user_group
   belongs_to :area
-  validates_uniqueness_of :data_type, :scope => [:yyyymm, :yyyymmdd, :library_id, :hour, :checkout_type_id, :shelf_id, :ndc, :call_number, :age, :option, :area_id, :user_type, :borrowing_library_id, :user_id]
+  validates_uniqueness_of :data_type, :scope => [:yyyymm, :yyyymmdd, :library_id, :hour, :checkout_type_id, :shelf_id, :ndc, :call_number, :age, :option, :area_id, :user_type, :borrowing_library_id, :user_id, :user_group_id]
   @libraries = Library.all
   @checkout_types = CheckoutType.all
   @shelves = Shelf.all
@@ -1687,7 +1687,6 @@ class Statistic < ActiveRecord::Base
       statistic.save! if statistic.value > 0
     end
 
-##############################################
     # areas users 62 + 0~7
     data_type = term_id.to_s + 62.to_s
     # all areas
@@ -2298,7 +2297,7 @@ class Statistic < ActiveRecord::Base
   end
 
   def check_record
-    record = Statistic.where(:data_type => self.data_type, :yyyymmdd => self.yyyymmdd, :yyyymm => self.yyyymm, :library_id => self.library_id, :hour => self.hour, :checkout_type_id => self.checkout_type_id, :shelf_id => self.shelf_id, :ndc => self.ndc, :call_number => self.call_number, :age => self.age, :option => self.option, :area_id => self.area_id, :user_type => self.user_type, :user_id => self.user_id).first
+    record = Statistic.where(:data_type => self.data_type, :yyyymmdd => self.yyyymmdd, :yyyymm => self.yyyymm, :library_id => self.library_id, :hour => self.hour, :checkout_type_id => self.checkout_type_id, :shelf_id => self.shelf_id, :ndc => self.ndc, :call_number => self.call_number, :age => self.age, :option => self.option, :area_id => self.area_id, :user_type => self.user_type, :user_id => self.user_id, :user_group_id => self.user_group_id).first
     record.destroy if record
   end
   
