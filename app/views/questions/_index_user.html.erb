@@ -1,0 +1,16 @@
+<div class="row">
+  <div class="span9">
+    <h1 class="title"><%= t('page.listing', :model => t('activerecord.models.question')) -%></h1>
+    <%= form_for :questions, :url => user_questions_path(@user), :html => {:method => 'get', :class => 'well form-search'} do -%>
+      <%= t('page.search_term') -%>: <%= search_field_tag 'query', h(@query), {:id => 'search_form_top', :class => 'search_form', :placeholder => t('page.search_term')} -%>
+      <%= submit_tag t('page.search'), :class => 'btn' -%>
+    <%- end -%>
+
+    <%= render 'list' -%>
+  </div>
+
+  <div class="span3">
+    <%= render 'solved_facet' -%>
+    <%= render 'crd' -%>
+  </div>
+</div>
