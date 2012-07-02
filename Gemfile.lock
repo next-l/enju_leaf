@@ -138,7 +138,7 @@ GEM
       resque
       sunspot_rails (~> 2.0.0.pre.120417)
       will_paginate
-    enju_event (0.0.25)
+    enju_event (0.0.26)
       configatron
       enju_core
       enju_message (>= 0.0.24)
@@ -254,7 +254,7 @@ GEM
       activerecord (>= 3.0.0)
     friendly_id (4.0.7)
     geocoder (1.1.2)
-    guard (1.2.2)
+    guard (1.2.3)
       listen (>= 0.4.2)
       thor (>= 0.14.6)
     guard-rspec (1.1.0)
@@ -495,7 +495,7 @@ DEPENDENCIES
   enju_book_jacket (~> 0.0.2)
   enju_bookmark (~> 0.0.21)
   enju_circulation (~> 0.0.67)
-  enju_event (~> 0.0.25)
+  enju_event (~> 0.0.26)
   enju_inventory (~> 0.0.10)
   enju_manifestation_viewer (~> 0.0.1)
   enju_message (~> 0.0.24)

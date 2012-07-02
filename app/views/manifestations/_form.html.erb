@@ -19,8 +19,10 @@
         (<%= link_to t('page.listing', :model => t('activerecord.models.series_statement')), manifestation_series_statements_path(@manifestation) -%>)
       <%- end -%>
     <%- end -%>
-    <%= f.fields_for :series_has_manifestation do |s| %>
-      <%= s.hidden_field :series_statement_id %>
+    <% if @series_statement %>
+      <%= f.fields_for :series_has_manifestation do |s| %>
+        <%= s.hidden_field :series_statement_id %>
+      <% end %>
     <% end %>
   </div>
 
