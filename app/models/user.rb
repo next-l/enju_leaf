@@ -396,7 +396,8 @@ class User < ActiveRecord::Base
 
   def self.create_with_params(params, has_role_id)
     logger.debug "create_with_params start."
-    user = User.new(params)
+    user = User.new
+    user.assign_attributes(params, :as => :admin)
     user_group = UserGroup.find(params[:user_group_id])
     user.user_group = user_group if user_group
     user.locale = params[:locale]
