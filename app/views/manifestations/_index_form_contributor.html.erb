@@ -1,3 +1,4 @@
+<h2>[P] <%= link_to @contributor.full_name, @contributor %></h2>
 <div class="search_form">
   <%= form_for :manifestations, :url => contributor_manifestations_path(@index_patron[:contributor]), :html => {:method => 'get', :class => 'well form-search'} do -%>
     <%= t('page.search_term') -%>:
