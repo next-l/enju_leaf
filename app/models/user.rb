@@ -16,7 +16,7 @@ class User < ActiveRecord::Base
   attr_accessible :email, :password, :password_confirmation, :username,
     :current_password, :user_number, :remember_me,
     :email_confirmation, :note, :user_group_id, :library_id, :locale,
-    :expired_at, :locked, :required_role_id, :role_id,
+    :expired_at, :locked, :unable, :required_role_id, :role_id,
     :keyword_list, :user_has_role_attributes, :auto_generated_password,
     :as => :admin
 

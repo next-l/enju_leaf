@@ -194,37 +194,37 @@ class UsersController < ApplicationController
 
   def create
     respond_to do |format|
-    begin
-      Patron.transaction do
-        @family = params[:family]
-        @user = User.create_with_params(params[:user], params[:has_role_id])
-        @user.set_auto_generated_password
-        @patron = Patron.create_with_user(params[:patron], @user)
+      begin
+        Patron.transaction do
+          @family = params[:family]
+          @user = User.create_with_params(params[:user], params[:has_role_id])
+          @user.set_auto_generated_password
+          @patron = Patron.create_with_user(params[:patron], @user)
+ 
+          logger.info @patron
+          logger.info @user
 
-        logger.info @patron
-        logger.info @user
-
-        @patron.save!
-        @user.patron = @patron
-        @user.set_family(@family) unless @family.blank?
-        @user.save!
-        flash[:temporary_password] = @user.password
-        format.html { redirect_to @user, :notice => t('controller.successfully_created.', :model => t('activerecord.models.user')) }
-        #format.html { redirect_to new_user_patron_url(@user) }
-        format.json { render :json => @user, :status => :created, :location => @user }
+          @patron.save!
+          @user.patron = @patron
+          @user.set_family(@family) unless @family.blank?
+          @user.save!
+          flash[:temporary_password] = @user.password
+          format.html { redirect_to @user, :notice => t('controller.successfully_created.', :model => t('activerecord.models.user')) }
+          #format.html { redirect_to new_user_patron_url(@user) }
+          format.json { render :json => @user, :status => :created, :location => @user }
+        end
+      rescue ActiveRecord::RecordInvalid
+        prepare_options
+        @patron.errors.each do |attr, msg|
+          @user.errors.add(attr, msg)
+        end 
+        # flash[:error] = t('user.could_not_setup_account')
+        format.html { render :action => "new" }
+        format.json { render :json => @user.errors, :status => :unprocessable_entity }
+      rescue Exception => e
+        logger.error e
+        logger.error $@
       end
-    rescue ActiveRecord::RecordInvalid
-      prepare_options
-      @patron.errors.each do |attr, msg|
-        @user.errors.add(attr, msg)
-      end 
-#      flash[:error] = t('user.could_not_setup_account')
-      format.html { render :action => "new" }
-      format.json { render :json => @user.errors, :status => :unprocessable_entity }
-    rescue Exception => e
-      logger.error e
-      logger.error $@
-    end
     end
   end
 
@@ -240,7 +240,12 @@ class UsersController < ApplicationController
     @family = params[:family]
     begin
       # set user_info
-      @user.update_attributes!(params[:user])
+      if current_user.has_role?('Librarian')
+         @user.assign_attributes(params[:user], :as => :admin)
+      else
+         @user.assign_attributes(params[:user])
+      end
+      #@user.update_attributes!(params[:user])
       #@user.update_with_params(params[:user])
       @user.operator = current_user
       if params[:user][:auto_generated_password] == "1"
