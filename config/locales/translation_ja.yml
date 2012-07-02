@@ -1523,6 +1523,7 @@ ja:
     system_configuration: システム設定
     reminder_postal_card: "督促はがき"
     reminder_letter: "催告書"
+    extensions: "Enju_trunk 拡張機能"
 
     exstatistics:
       ranknumber: 順位
