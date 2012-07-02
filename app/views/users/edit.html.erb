@@ -1,16 +1,20 @@
-<div id="content_detail" class="ui-corner-all">
-<h1 class="title"><%= t('page.edit_user_profile', :login_name => @user.username) -%></h1>
-<div id="content_list">
-<%= render 'page/required_field' %>
 <%= simple_form_for(@user, :validate => true) do |f| -%>
-  <%= f.error_messages -%>
+<div class="row">
+  <div class="span9">
+    <h1 class="title"><%= t('page.edit_user_profile', :login_name => @user.username) -%></h1>
+    <%= render 'page/required_field' %>
+      <%= f.error_messages -%>
 
-  <%= render :partial => 'users/edit_credential', :locals => {:f => f, :user => @user} -%>
+      <%= render :partial => 'users/edit_credential', :locals => {:f => f, :user => @user} -%>
 
-  <div class="actions">
-    <%= f.submit %>
+      <div class="actions">
+        <%= f.submit :class => 'btn' %>
+      </div>
+    </div>
   </div>
-<div style="clear: both">
+</div>
+
+<div class="row">
   <div class="field">
     <%= f.label :keyword_list -%><br />
     <%= f.text_area :keyword_list, :class => 'resource_textarea' -%>
@@ -54,14 +58,11 @@
   <% end %>
 
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit :class => 'btn' %>
   </div>
 
-  <%- end -%>
-
 </div>
-</div>
-</div>
+<%- end -%>
 
 <div id="submenu" class="ui-corner-all">
   <ul>

@@ -2,11 +2,7 @@
     <div class="navbar-inner">
       <div class="container-fluid">
         <%= link_to @library_group.display_name.localize, root_path, :class => 'brand' %>
-        <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-        </a>
+        <%= render 'page/menu' %>
         <% unless controller_name == 'sessions' %>
           <div class="btn-group pull-right">
             <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">

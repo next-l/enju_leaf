@@ -1,4 +1,4 @@
-<%= simple_form_for(@user_group, :validate => true) do |f| %>
+<%= simple_form_for(@user_group, :validate => true, :html => {:class => 'well'}) do |f| %>
   <%= f.error_notification -%>
 
   <div class="field">
@@ -30,6 +30,6 @@
     <%= f.text_area :note %>
   </div>
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit :class => 'btn' %>
   </div>
 <% end %>
