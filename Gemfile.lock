@@ -15,7 +15,7 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_barcode.git
-  revision: 5af8d34b44f0f9c2c797a7c49c1ea44eed822b08
+  revision: 7555a49bb1cadfd4c6002aa6dad5b7e473b09493
   specs:
     enju_barcode (0.0.3)
       barby (~> 0.5)
@@ -35,7 +35,7 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_bookmark.git
-  revision: 355e0d49936dcb15168cf701110a95c3e3920e53
+  revision: b52da417c23c49692038646d04c6a6ed5afe8195
   specs:
     enju_bookmark (0.0.21)
       acts-as-taggable-on (~> 2.3)
@@ -44,9 +44,9 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_circulation.git
-  revision: 6675b6c4a3044136ddc8b8f9f7c172f44e1622e7
+  revision: a24a93286b7dff0a8d096d10f3e74f641201a626
   specs:
-    enju_circulation (0.0.66)
+    enju_circulation (0.0.67)
       enju_core
       enju_event (>= 0.0.24)
       enju_message (>= 0.0.23)
@@ -58,7 +58,7 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_event.git
-  revision: 658fdbda5f19cf4d09b0749d2879761db2bea83f
+  revision: 6b6fb5180518ec234b90cfa212dc88b96ae1d9fb
   specs:
     enju_event (0.1.12)
       configatron
@@ -75,7 +75,7 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_inter_library_loan.git
-  revision: ea4b5748b57ff4d4845dea43a93c9eeb48fdefb7
+  revision: 2dfeb265d89d627d771aa3963336f3343ea6c73c
   specs:
     enju_inter_library_loan (0.0.5)
       enju_core
@@ -84,7 +84,7 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_inventory.git
-  revision: cdef5a5f3781fd249649ba4d9ec6b4e05609ee28
+  revision: fd4d6189eea539a84dafdbcadc1a326e686ea04f
   specs:
     enju_inventory (0.1.6)
       enju_core
@@ -102,7 +102,7 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_message.git
-  revision: f00153184bda477a9c323829b41578ca94e2e9db
+  revision: 591967e7ce66021760850966c326cf6653870ca8
   specs:
     enju_message (0.1.10)
       awesome_nested_set (~> 2.1)
@@ -115,7 +115,7 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_ndl.git
-  revision: a695553329071c26d558c9dcc05b6342d4951866
+  revision: 0bb53341511d7dfc5df008dc18fb2f24e701689e
   specs:
     enju_ndl (0.0.33)
       acts_as_list
@@ -148,7 +148,7 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_purchase_request.git
-  revision: c29fff8ca79d075bfd2e201519828bd4eaa88b5a
+  revision: 776aa25cfd245e51242718d77747ad439387c807
   specs:
     enju_purchase_request (0.0.13)
       configatron
@@ -158,9 +158,9 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_question.git
-  revision: 6e38121eff79b7f3591d17dc1954643aa3d6b042
+  revision: ef06e5f706394539d9b8bcf65f38475f4f6777a6
   specs:
-    enju_question (0.0.19)
+    enju_question (0.0.20)
       acts-as-taggable-on (~> 2.2)
       acts_as_list (~> 0.1.6)
       cancan
@@ -177,7 +177,7 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_resource_merge.git
-  revision: 0f6f77a1ce042d264625c0154aa2dad92d25fb8b
+  revision: f42dd8f1b3d2128cd2b76b7fea6d9f904cf84018
   specs:
     enju_resource_merge (0.0.16)
       dynamic_form
@@ -187,7 +187,7 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_search_log.git
-  revision: 073f9dcd9067f28a384b6f81e2492be8b5f51c77
+  revision: 8b4745416a99a7795b6b9bb222563fcd655607a2
   specs:
     enju_search_log (0.0.7)
       cancan
@@ -197,7 +197,7 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_subject.git
-  revision: e5c74460ca9bdc3d0be27a487eb54a5d2db109c9
+  revision: dc1a002e6b92acb519364c5d612e15643b4def82
   specs:
     enju_subject (0.0.16)
       acts_as_list (~> 0.1.6)
@@ -215,7 +215,7 @@ GIT
 
 GIT
   remote: git://github.com/next-l/enju_biblio.git
-  revision: 68a41e457791144880d92fcce8fc8d16b891ead9
+  revision: 00ac9bb0e85de5f2f0db82f92f7ad162a7ddc6e7
   specs:
     enju_biblio (0.0.3)
       aws-sdk
@@ -255,7 +255,7 @@ GIT
 
 GIT
   remote: git://github.com/next-l/enju_export.git
-  revision: 8da7753c64b469a2c8a7bf986fb8b869f5fda330
+  revision: eae4b6e1b835e6af46f155de4969a1175d6a104b
   specs:
     enju_export (0.0.2)
       enju_core
@@ -266,7 +266,7 @@ GIT
 
 GIT
   remote: git://github.com/next-l/enju_library.git
-  revision: 8eeeaff5471a8475438225d2770c0c99a4ef36be
+  revision: 55448dd78bd31853a6a5c81384a15aacfe21d473
   specs:
     enju_library (0.0.1)
       enju_core
@@ -383,7 +383,7 @@ GEM
       activerecord (>= 3.0.0)
     friendly_id (4.0.7)
     geocoder (1.1.2)
-    guard (1.2.1)
+    guard (1.2.3)
       listen (>= 0.4.2)
       thor (>= 0.14.6)
     guard-rspec (1.1.0)
@@ -445,7 +445,7 @@ GEM
       cocaine (>= 0.0.2)
       mime-types
     parallel (0.5.17)
-    parallel_tests (0.8.2)
+    parallel_tests (0.8.3)
       parallel
     pg (0.14.0)
     polyglot (0.3.3)
@@ -493,14 +493,14 @@ GEM
       ffi (>= 0.5.0)
     rdoc (3.12)
       json (~> 1.4)
-    redis (2.2.2)
-    redis-namespace (1.0.3)
-      redis (< 3.0.0)
+    redis (3.0.1)
+    redis-namespace (1.2.0)
+      redis (~> 3.0.0)
     responders (0.9.1)
       railties (~> 3.1)
-    resque (1.20.0)
+    resque (1.21.0)
       multi_json (~> 1.0)
-      redis-namespace (~> 1.0.2)
+      redis-namespace (~> 1.0)
       sinatra (>= 0.9.2)
       vegas (~> 0.1.2)
     resque-scheduler (2.0.0)
