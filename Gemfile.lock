@@ -44,7 +44,7 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_circulation.git
-  revision: a24a93286b7dff0a8d096d10f3e74f641201a626
+  revision: 1f8c15e05d4278a342bcf6c23d2fe30a4b3dd44f
   specs:
     enju_circulation (0.0.67)
       enju_core
@@ -215,7 +215,7 @@ GIT
 
 GIT
   remote: git://github.com/next-l/enju_biblio.git
-  revision: 00ac9bb0e85de5f2f0db82f92f7ad162a7ddc6e7
+  revision: 97f12b934f9a4af2c5e520952fc92e5d3cbb852d
   specs:
     enju_biblio (0.0.3)
       aws-sdk
