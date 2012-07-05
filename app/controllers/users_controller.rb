@@ -463,11 +463,12 @@ class UsersController < ApplicationController
     return nil unless request.xhr?
     unless params[:user_number].blank?
       @user = User.where(:user_number => params[:user_number]).first
-      @patron = @user.patron unless @user.blank?
-      
-      manifestation = Manifestation.find(params[:manifestation_id])
-      expired_at = manifestation.reservation_expired_period(@user).days.from_now.end_of_day
-      expired_at = expired_at.try(:strftime, "%Y-%m-%d") if expired_at
+      if @user
+        @patron = @user.patron unless @user.blank?      
+        manifestation = Manifestation.find(params[:manifestation_id])
+        expired_at = manifestation.reservation_expired_period(@user).days.from_now.end_of_day
+        expired_at = expired_at.try(:strftime, "%Y-%m-%d") if expired_at
+      end
       render :json => {:success => 1, :user => @user, :patron => @patron, :expired_at => expired_at}
     end
   end
