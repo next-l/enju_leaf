@@ -659,11 +659,11 @@ class ManifestationsController < ApplicationController
     when params[:patron_id]
       patron[:patron] = Patron.find(params[:patron_id])
     when params[:creator_id]
-      patron[:creator] = Patron.find(params[:creator_id])
+      patron[:creator] = @creator = Patron.find(params[:creator_id])
     when params[:contributor_id]
-      patron[:contributor] = Patron.find(params[:contributor_id])
+      patron[:contributor] = @contributor = Patron.find(params[:contributor_id])
     when params[:publisher_id]
-      patron[:publisher] = Patron.find(params[:publisher_id])
+      patron[:publisher] = @publisher = Patron.find(params[:publisher_id])
     end
     patron
   end

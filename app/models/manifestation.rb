@@ -67,8 +67,8 @@ class Manifestation < ActiveRecord::Base
       [isbn, isbn10, wrong_isbn]
     end
     string :issn, :multiple => true do
-      if periodical_master?
-        series_statement.manifestations.collect{|m| m.issn}.compact
+      if series_statement
+        ([series_statement.issn] + series_statement.manifestations.collect(&:issn)).uniq.compact
       else
         [issn, series_statement.try(:issn)].compact
       end
@@ -157,8 +157,8 @@ class Manifestation < ActiveRecord::Base
       [isbn, isbn10, wrong_isbn]
     end
     text :issn do # 前方一致検索のためtext指定を追加
-      if periodical_master?
-        series_statement.issn
+      if series_statement
+        ([series_statement.issn] + series_statement.manifestations.collect(&:issn)).uniq.compact
       else
         issn
       end
