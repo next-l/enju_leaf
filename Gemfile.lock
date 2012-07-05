@@ -44,7 +44,7 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_circulation.git
-  revision: f7b91c7dafea239e6feab49d49ef913e80c9efbe
+  revision: 4505b597db35412f510c1e727b13c70535b78dfc
   specs:
     enju_circulation (0.0.67)
       enju_core
