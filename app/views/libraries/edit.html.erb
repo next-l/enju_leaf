@@ -1,0 +1,13 @@
+<div class="row-fluid">
+  <div class="span9">
+    <h1 class="title"><%= t('page.editing', :model => t('activerecord.models.library')) -%></h1>
+    <%= render 'form' %>
+  </div>
+
+  <div span="span3">
+    <ul>
+      <li><%= link_to t('page.show'), library_path(@library) -%></li>
+      <li><%= link_to t('page.back'), libraries_path -%></li>
+    </ul>
+  </div>
+</div>
