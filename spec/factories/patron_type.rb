@@ -1,5 +1,6 @@
 FactoryGirl.define do
-  factory :patron_type do |f|
-    f.sequence(:name){|n| "patron_type_#{n}"}
+  factory :type_user, :class => PatronType do |f|
+    f.sequence(:name){"User"}
+    f.sequence(:display_name){"User"}
   end
 end

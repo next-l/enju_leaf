@@ -1,6 +1,10 @@
 FactoryGirl.define do
-  factory :question do |f|
-    f.sequence(:body){|n| "question_#{n}"}
-    f.user_id{FactoryGirl.create(:user).id}
+  factory :question_libraryA, :class => Question do |f|
+    f.sequence(:body){|n| "question_LibraryA_#{n}"}
+    f.user {User.where(:library_id => 1).first}
+  end
+  factory :question_libraryB, :class => Question do |f|
+    f.sequence(:body){|n| "question_LibraryB_#{n}"}
+    f.user {User.where(:library_id => 2).first}
   end
 end
