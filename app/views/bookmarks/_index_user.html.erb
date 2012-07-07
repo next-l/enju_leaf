@@ -6,7 +6,7 @@
   </h2>
   <%= form_for :bookmarks, :url => user_bookmarks_path(@user), :html => {:method => 'get'} do -%>
     <p>
-      <%= t('page.search_term') -%>: <%= search_field_tag 'query', h(@query), {:id => 'search_form_top', :class => 'search_form', :placeholder => t('page.search_term')} -%>
+      <%= t('page.search_term') -%>: <%= search_field_tag 'query', h(@query), {:id => 'search_form_top', :class => 'search-query', :placeholder => t('page.search_term')} -%>
       <%= submit_tag t('page.search') -%>
     </p>
   <%- end -%>

@@ -2,7 +2,7 @@
   <div class="span9">
   <h1 class="title"><%= t('page.editing', :model => t('activerecord.models.question')) -%></h1>
 
-<%= simple_form_for(@question, :validate => true) do |f| -%>
+<%= simple_form_for(@question, :validate => true, :html => {:class => 'well'}) do |f| -%>
   <%= f.error_notification -%>
 
   <div class="field">

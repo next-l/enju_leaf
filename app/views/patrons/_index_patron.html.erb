@@ -9,7 +9,7 @@
 <div class="search_form">
 <%= form_for :patrons, :url => patron_patrons_path(patron), :html => {:method => 'get'} do -%>
   <p>
-    <%= t('page.search_term') -%>: <%= search_field_tag 'query', h(@query), {:id => 'search_form_top', :class => 'search_form', :placeholder => t('page.search_term')} -%>
+    <%= t('page.search_term') -%>: <%= search_field_tag 'query', h(@query), {:id => 'search_form_top', :class => 'search-query', :placeholder => t('page.search_term')} -%>
     <%- if can? :update, patron -%>
       <%= render 'page/add' %>
     <%- end -%>
