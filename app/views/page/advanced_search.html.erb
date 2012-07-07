@@ -1,8 +1,8 @@
-<div id="content_detail" class="ui-corner-all">
+<div class="row-fluid">
+<div class="span9">
 <h1 class="title"><%= t('page.advanced_search') -%></h1>
-<div id="content_list">
 
-<%= form_tag({:controller => 'manifestations'}, {:method => 'get'}) do -%>
+<%= form_tag({:controller => 'manifestations'}, {:method => 'get', :class => 'well form-search'}) do -%>
   <table style="width: 100%">
     <tr>
       <td><label><%= t('page.search_term') -%>:</label></td>
@@ -71,7 +71,7 @@
 <%- end -%>
 <%= javascript_tag("$('#query').focus()") -%>
 </div>
-</div>
 
-<div id="submenu" class="ui-corner-all">
+<div class="span3">
+</div>
 </div>
