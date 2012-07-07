@@ -197,7 +197,7 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_subject.git
-  revision: dc1a002e6b92acb519364c5d612e15643b4def82
+  revision: f8b50e69f77c8eb0eea9eec2399c1ebbd98260d2
   specs:
     enju_subject (0.0.16)
       acts_as_list (~> 0.1.6)
@@ -215,7 +215,7 @@ GIT
 
 GIT
   remote: git://github.com/next-l/enju_biblio.git
-  revision: 8a332de35b71e601e9879f7510bbf585dc8e759a
+  revision: 6b4f296d9e961027702f0f708b802eb97b5f8c43
   specs:
     enju_biblio (0.0.3)
       aws-sdk
