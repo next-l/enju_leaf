@@ -223,7 +223,7 @@ GEM
       devise
       rails (~> 3.2)
       will_paginate
-    enju_subject (0.0.16)
+    enju_subject (0.0.17)
       acts_as_list (~> 0.1.6)
       attribute_normalizer (~> 1.1)
       cancan
@@ -505,7 +505,7 @@ DEPENDENCIES
   enju_question (~> 0.0.20)
   enju_resource_merge (~> 0.0.16)
   enju_search_log (~> 0.0.7)
-  enju_subject (~> 0.0.16)
+  enju_subject (~> 0.0.17)
   exception_notification (~> 2.6)
   factory_girl_rails (~> 3.5)
   fakeweb
