@@ -1,8 +1,8 @@
-<div id="content_detail" class="ui-corner-all">
-<h1 class="title"><%= t('page.new', :model => t('activerecord.models.reserve')) -%></h1>
-<div id="content_list">
+<div class="row-fluid">
+  <div class="span9">
+    <h1 class="title"><%= t('page.new', :model => t('activerecord.models.reserve')) -%></h1>
 
-<%= form_for(@reserve, :url => user_reserves_path(@user)) do |f| -%>
+<%= form_for(@reserve, :url => user_reserves_path(@user), :html => {:class => 'well'}) do |f| -%>
   <%= f.error_messages -%>
 
   <div class="field">
@@ -33,18 +33,18 @@
   </div>
 
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit :class => 'btn' %>
   </div>
 <%- end -%>
-</div>
-</div>
+  </div>
 
-<div id="submenu" class="ui-corner-all">
-  <%= render 'manifestations/book_jacket', :manifestation => @reserve.manifestation -%>
-  <ul>
-    <li><%= link_to t('page.listing', :model => t('activerecord.models.reserve')), user_reserves_path(@reserve.user) -%></li>
-    <%- if @manifestation -%>
-      <li><%= link_to t('page.showing', :model => t('activerecord.models.manifestation')), @manifestation -%></li>
-    <%- end -%>
-  </ul>
+  <div class="span3">
+    <%= render 'manifestations/book_jacket', :manifestation => @reserve.manifestation -%>
+    <ul>
+      <li><%= link_to t('page.listing', :model => t('activerecord.models.reserve')), user_reserves_path(@reserve.user) -%></li>
+      <%- if @manifestation -%>
+        <li><%= link_to t('page.showing', :model => t('activerecord.models.manifestation')), @manifestation -%></li>
+      <%- end -%>
+    </ul>
+  </div>
 </div>
