@@ -93,6 +93,7 @@ gem 'thinreports'
 gem "rmagick", :require => false
 gem "crypt19"
 gem "rails_autolink"
+gem 'parallel'
 #gem 'oink', '>= 0.9.3'
 
 group :development do
