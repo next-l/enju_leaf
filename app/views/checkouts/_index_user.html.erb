@@ -19,6 +19,7 @@
         </li>
       <%- end -%>
     </ul>
+    <%= render 'reserved_facet' %>
     <ul>
       <li><%= link_to t('activerecord.models.reserve'), user_reserves_path(user) -%></li>
       <%- if current_user.has_role?('Librarian') -%>

@@ -62,7 +62,7 @@
 </div>
 <%- end -%>
 
-<div id="submenu" class="ui-corner-all">
+<div class="span3">
   <ul>
     <li><%= link_to t('page.show'), my_account_path -%></li>
     <% if current_user.has_role?('Librarian') %>
