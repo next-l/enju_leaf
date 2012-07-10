@@ -729,11 +729,11 @@ class Statistic < ActiveRecord::Base
         set_date(statistic, start_at, term_id)
         statistic.data_type = data_type
         statistic.option = 5
-        statistic.library = library
+        statistic.library_id = library.id
         statistic.value = Checkout.count_by_sql(["select count(*) from checkouts, users, libraries, reminder_lists where checkouts.librarian_id = users.id AND users.library_id= libraries.id AND libraries.id = ? AND checkouts.id = reminder_lists.checkout_id AND reminder_lists.created_at >= ? AND reminder_lists.created_at < ?", library.id, start_at, end_at])
         statistic.save! if statistic.value > 0
       end
-      # checkins remindered emiko
+      # checkins remindered
       data_type = term_id.to_s + 51.to_s   
       statistic = Statistic.new
       set_date(statistic, start_at, term_id)
@@ -795,7 +795,7 @@ class Statistic < ActiveRecord::Base
       statistic.option = 1
       statistic.value = Reserve.count_by_sql(["select count(*) from reserves where created_at >= ? AND created_at  < ? AND created_by IN (?)", start_at, end_at, @librarian_ids])
       statistic.save! if statistic.value > 0
-      # reserves from OPAC by user  33 option: 2
+      # reserves from OPAC by user 33 option: 2
       statistic = Statistic.new
       set_date(statistic, start_at, term_id)
       statistic.data_type = data_type

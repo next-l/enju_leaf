@@ -45,7 +45,7 @@ class StatisticReport < ActiveRecord::Base
               value = Statistic.where(:yyyymm => "#{term}#{"%02d" % (t + 1)}", :data_type => data_type, :library_id => 0, :checkout_type_id => checkout_type.id).first.value rescue 0
             end
             row.item("value#{t+1}").value(to_format(value))
-            row.item("valueall").value(to_format(value)) if t == 2 # Maarch(end of fiscal year)
+            row.item("valueall").value(to_format(value)) if t == 2 # March(end of fiscal year)
           end 
           if checkout_type == checkout_types.last
             row.item(:library_line).show

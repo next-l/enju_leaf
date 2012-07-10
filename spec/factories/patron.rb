@@ -11,7 +11,7 @@ FactoryGirl.define do
     f.patron_type_id{PatronType.find_by_name('Person').id}
     f.country_id{Country.first.id}
     f.language_id{Language.first.id}
-    f.date_of_birth DateTime.parse("#{DateTime.now.year-20}0101")
+    f.date_of_birth DateTime.parse("#{DateTime.now.year-25}0101")
   end
 
   factory :student_patron, :class => Patron do |f|

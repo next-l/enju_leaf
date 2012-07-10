@@ -66,6 +66,9 @@ describe Statistic do
 # create Questions (reference)
   FactoryGirl.create(:question_libraryA)
   FactoryGirl.create(:question_libraryB)
+# create LibraryReport
+  LibraryReport.create(:yyyymm => month, :yyyymmdd => date, :library_id => libraryA.id, :visiters => 30, :copies => 3, :consultations => 2)
+  LibraryReport.create(:yyyymm => month, :yyyymmdd => date, :library_id => libraryB.id, :visiters => 24, :copies => 2, :consultations => 5)
 
   Statistic.calc_sum(date)
   Statistic.calc_sum(month, true)
@@ -613,9 +616,9 @@ describe Statistic do
     data_type = 243; library_id = libraryA.id
     Statistic.where(:yyyymmdd => date, :data_type => data_type, :library_id => library_id).no_condition.first.value.should == 1
     data_type = 243; library_id = libraryA.id; age = 1
-    Statistic.where(:yyyymmdd => date, :data_type => data_type, :library_id => library_id, :age => age).first.value.should == 1
-    data_type = 243; library_id = libraryA.id; age = 2
     Statistic.where(:yyyymmdd => date, :data_type => data_type, :library_id => library_id, :age => age).should be_empty
+    data_type = 243; library_id = libraryA.id; age = 2
+    Statistic.where(:yyyymmdd => date, :data_type => data_type, :library_id => library_id, :age => age).first.value.should == 1
     data_type = 343; library_id = libraryA.id
     Statistic.where(:yyyymmdd => date, :data_type => data_type, :library_id => library_id, :hour => time_num).first.value.should == 1
     data_type = 343; library_id = libraryA.id
@@ -645,6 +648,31 @@ describe Statistic do
     pending
   end
 
+# number of consultations
+  it "number of consultaions" do
+    data_type = 214
+    Statistic.where(:yyyymmdd => date, :data_type => data_type, :library_id => 0).no_condition.first.value.should == 7
+    data_type = 214; library_id = libraryA.id
+    Statistic.where(:yyyymmdd => date, :data_type => data_type, :library_id => library_id).first.value.should == 2
+    data_type = 214; library_id = libraryB.id
+    Statistic.where(:yyyymmdd => date, :data_type => data_type, :library_id => library_id).first.value.should == 5
+  end
+
+# number of visiters
+  it "number of visiters" do
+    data_type = 116; library_id = libraryA.id
+    Statistic.where(:yyyymm => month, :data_type => data_type, :library_id => library_id).first.value.should == 30
+    data_type = 116; library_id = libraryB.id
+    Statistic.where(:yyyymm => month, :data_type => data_type, :library_id => library_id).first.value.should == 24
+  end
+
+# number of copies
+  it "number of copies" do
+    data_type = 115; library_id = libraryA.id
+    Statistic.where(:yyyymm => month, :data_type => data_type, :library_id => library_id).first.value.should == 3
+    data_type = 115; library_id = libraryB.id
+    Statistic.where(:yyyymm => month, :data_type => data_type, :library_id => library_id).first.value.should == 2
+  end
 end
 
 # == Schema Information
