@@ -89,7 +89,7 @@ gem 'validates_timeliness'
 gem 'rack-protection'
 gem 'awesome_nested_set', '~> 2.0'
 gem 'paranoia'
-gem 'thinreports'
+gem 'thinreports', '0.7.5'
 gem "rmagick", :require => false
 gem "crypt19"
 gem "rails_autolink"
