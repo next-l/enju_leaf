@@ -338,7 +338,9 @@ class UsersController < ApplicationController
     end
 
     begin 
-      @user.update_attributes({:user_number => params[:new_user_number]})
+      @user.assign_attributes({:user_number => params[:new_user_number]}, :as => :admin)
+      @user.save!
+      #@user.update_attributes({:user_number => params[:new_user_number]})
       flash[:notice] = t('controller.successfully_updated', :model => t('activerecord.attributes.user.user_number'))
       redirect_to(user_url(@user))       
     rescue # ActiveRecord::RecordInvalid
@@ -461,11 +463,12 @@ class UsersController < ApplicationController
     return nil unless request.xhr?
     unless params[:user_number].blank?
       @user = User.where(:user_number => params[:user_number]).first
-      @patron = @user.patron unless @user.blank?
-      
-      manifestation = Manifestation.find(params[:manifestation_id])
-      expired_at = manifestation.reservation_expired_period(@user).days.from_now.end_of_day
-      expired_at = expired_at.try(:strftime, "%Y-%m-%d") if expired_at
+      if @user
+        @patron = @user.patron unless @user.blank?      
+        manifestation = Manifestation.find(params[:manifestation_id])
+        expired_at = manifestation.reservation_expired_period(@user).days.from_now.end_of_day
+        expired_at = expired_at.try(:strftime, "%Y-%m-%d") if expired_at
+      end
       render :json => {:success => 1, :user => @user, :patron => @patron, :expired_at => expired_at}
     end
   end
