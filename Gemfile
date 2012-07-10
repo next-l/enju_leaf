@@ -80,7 +80,7 @@ gem 'attribute_normalizer', '~> 1.1'
 #gem 'geokit'
 gem 'geocoder'
 gem 'library_stdnums'
-gem 'client_side_validations', '~> 3.2.0.beta.3'
+gem 'client_side_validations', '~> 3.2.0.beta.4'
 gem 'simple_form', '~> 2.0'
 gem 'validates_timeliness'
 gem 'rack-protection'
@@ -103,7 +103,7 @@ end
 group :development, :test do
   gem 'simplecov', '~> 0.6', :require => false
   gem 'ruby-prof'
-  gem 'rspec-rails', '~> 2.10'
+  gem 'rspec-rails', '~> 2.11'
   gem 'guard-rspec'
   gem 'factory_girl_rails', '~> 3.5'
   gem 'spork-rails'

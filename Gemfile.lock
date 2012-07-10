@@ -44,7 +44,7 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_circulation.git
-  revision: 64a2d853655bc1b4bdd8b3f6b93dc334d2513502
+  revision: 7aa56217213206fcf94d58adb4af71451edfb6f8
   specs:
     enju_circulation (0.0.69)
       enju_core
@@ -342,7 +342,7 @@ GEM
     childprocess (0.3.3)
       ffi (~> 1.0.6)
     chronic (0.6.7)
-    client_side_validations (3.2.0.beta.3)
+    client_side_validations (3.2.0.beta.4)
     cloudfiles (1.5.0.1)
       json
     cocaine (0.2.1)
@@ -434,7 +434,7 @@ GEM
     nori (1.1.2)
     options (2.3.0)
       fattr
-    orm_adapter (0.3.0)
+    orm_adapter (0.4.0)
     paper_trail (2.6.3)
       activerecord (~> 3.0)
       railties (~> 3.0)
@@ -445,7 +445,7 @@ GEM
       cocaine (>= 0.0.2)
       mime-types
     parallel (0.5.17)
-    parallel_tests (0.8.3)
+    parallel_tests (0.8.4)
       parallel
     pg (0.14.0)
     polyglot (0.3.3)
@@ -518,7 +518,7 @@ GEM
       rspec-expectations (~> 2.11.0)
       rspec-mocks (~> 2.11.0)
     rspec-core (2.11.0)
-    rspec-expectations (2.11.0)
+    rspec-expectations (2.11.1)
       diff-lcs (~> 1.1.3)
     rspec-mocks (2.11.0)
     rspec-rails (2.11.0)
@@ -620,7 +620,7 @@ DEPENDENCIES
   awesome_nested_set (~> 2.1)
   aws-sdk
   cancan (>= 1.6.8)
-  client_side_validations (~> 3.2.0.beta.3)
+  client_side_validations (~> 3.2.0.beta.4)
   coffee-rails (~> 3.2.1)
   dalli (~> 2.1)
   devise (~> 2.1.2)
@@ -673,7 +673,7 @@ DEPENDENCIES
   rails_autolink
   resque-scheduler (~> 2.0.0)
   ri_cal
-  rspec-rails (~> 2.10)
+  rspec-rails (~> 2.11)
   ruby-prof
   rubyzip2
   sanitize
