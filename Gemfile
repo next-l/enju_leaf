@@ -114,6 +114,7 @@ group :development, :test do
   gem 'fakeweb'
   #gem 'churn', '0.0.13'
   gem 'ci_reporter'
+  gem 'database_cleaner'
 end
 
 # Gems used only for assets and not required
