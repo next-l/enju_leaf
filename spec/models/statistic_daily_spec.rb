@@ -15,13 +15,18 @@ describe Statistic do
   libraryA = FactoryGirl.create(:libraryA)
   libraryB = FactoryGirl.create(:libraryB)
   shelfA = Shelf.create(:name => "shelf_a", :library_id => libraryA.id)
+  area1 = Area.create(:name => "area1", :address => "gotanda, shinagawa")
+  area2 = Area.create(:name => "area2", :address => "shibuya, aoyama")
 # create Users
   5.times do |i|
-    FactoryGirl.create(:adult_user) # libraryA
-    FactoryGirl.create(:student_user) # libraryA
-    FactoryGirl.create(:juniors_user) # libraryB
-    FactoryGirl.create(:elements_user) # libraryB
-    FactoryGirl.create(:children_user) # libraryB
+    tmps = []
+    tmps << FactoryGirl.create(:adult_user) # libraryA
+    tmps << FactoryGirl.create(:student_user) # libraryA
+    tmps << FactoryGirl.create(:juniors_user) # libraryB
+    tmps << FactoryGirl.create(:elements_user) # libraryB
+    tmps << FactoryGirl.create(:children_user) # libraryB
+    tmps.map{|user| user.patron.update_attributes(:address_1 => "gotanda 2-3")} if i == 1
+    tmps.map{|user| user.patron.update_attributes(:address_1 => "aoyama 32")} if i == 2     
   end
   3.times do
     # not completely registed
@@ -69,6 +74,13 @@ describe Statistic do
 # create LibraryReport
   LibraryReport.create(:yyyymm => month, :yyyymmdd => date, :library_id => libraryA.id, :visiters => 30, :copies => 3, :consultations => 2)
   LibraryReport.create(:yyyymm => month, :yyyymmdd => date, :library_id => libraryB.id, :visiters => 24, :copies => 2, :consultations => 5)
+# create Event
+  FactoryGirl.build(:closing_day).update_attributes(:start_at => now, :end_at => now+2.days, :library_id => libraryA.id)
+# create InterLibraryloan
+  InterLibraryLoan.create(:from_library_id => libraryA.id, :to_library_id => libraryB.id, :item_id => Item.first.id, :reason => 1, :shipped_at => date, :received_at => date)
+  InterLibraryLoan.create(:from_library_id => libraryA.id, :to_library_id => libraryB.id, :item_id => Item.first.id, :reason => 2, :shipped_at => date, :received_at => date)
+  InterLibraryLoan.create(:from_library_id => libraryB.id, :to_library_id => libraryA.id, :item_id => Item.first.id, :reason => 1, :shipped_at => date, :received_at => date)
+  InterLibraryLoan.create(:from_library_id => libraryB.id, :to_library_id => libraryA.id, :item_id => Item.first.id, :reason => 2, :shipped_at => date, :received_at => date)
 
   Statistic.calc_sum(date)
   Statistic.calc_sum(month, true)
@@ -85,6 +97,10 @@ describe Statistic do
     Statistic.where(:yyyymm => month, :data_type => data_type, :library_id => 0, :checkout_type_id => checkout_type_id).first.value.should == 30
     data_type = 111; option = 1
     Statistic.where(:yyyymm => month, :data_type => data_type, :library_id => 0, :option => option).first.value.should == 3
+    data_type = 111; call_number = "A"
+    Statistic.where(:yyyymm => month, :data_type => data_type, :library_id => 0, :call_number => call_number).first.value.should == 40
+    data_type = 111; call_number = "B"
+    Statistic.where(:yyyymm => month, :data_type => data_type, :library_id => 0, :call_number => call_number).first.value.should == 15
   end
 
 # number of items in libraryA
@@ -99,6 +115,10 @@ describe Statistic do
     Statistic.where(:yyyymm => month, :data_type => data_type, :library_id => library_id, :checkout_type_id => checkout_type_id).first.value.should == 15
     data_type = 111; library_id = libraryA.id; option = 1
     Statistic.where(:yyyymm => month, :data_type => data_type, :library_id => library_id, :option => option).first.value.should == 1
+    data_type = 111; library_id = libraryA.id; call_number = "A"
+    Statistic.where(:yyyymm => month, :data_type => data_type, :library_id => library_id, :call_number => call_number).first.value.should == 40
+    data_type = 111; library_id = libraryA.id; call_number = "B"
+    Statistic.where(:yyyymm => month, :data_type => data_type, :library_id => library_id, :call_number => call_number).should be_empty
   end
 
 # number of items in libraryB
@@ -113,6 +133,10 @@ describe Statistic do
     Statistic.where(:yyyymm => month, :data_type => data_type, :library_id => library_id, :checkout_type_id => checkout_type_id).first.value.should == 15
     data_type = 111; library_id = libraryB.id; option = 1
     Statistic.where(:yyyymm => month, :data_type => data_type, :library_id => library_id, :option => option).first.value.should == 2
+    data_type = 111; library_id = libraryB.id; call_number = "A"
+    Statistic.where(:yyyymm => month, :data_type => data_type, :library_id => library_id, :call_number => call_number).should be_empty
+    data_type = 111; library_id = libraryB.id; call_number = "B"
+    Statistic.where(:yyyymm => month, :data_type => data_type, :library_id => library_id, :call_number => call_number).first.value.should == 15
   end
 
 # number of users in all libraries
@@ -129,6 +153,18 @@ describe Statistic do
     Statistic.where(:yyyymm => month, :data_type => data_type, :library_id => 0, :user_type => user_type).first.value.should == 5
     data_type = 112; user_type = 1
     Statistic.where(:yyyymm => month, :data_type => data_type, :library_id => 0, :user_type => user_type).first.value.should == 5
+    data_type = 212; age = 0
+    Statistic.where(:yyyymmdd => date, :data_type => data_type, :library_id => 0, :age => age).first.value.should == 10
+    data_type = 262; age = 0; area_id = area1.id
+    Statistic.where(:yyyymmdd => date, :data_type => data_type, :library_id => 0, :age => age, :area_id => area_id).first.value.should == 2
+    data_type = 212; age = 1
+    Statistic.where(:yyyymmdd => date, :data_type => data_type, :library_id => 0, :age => age).first.value.should == 10
+    data_type = 262; age = 1; area_id = area1.id
+    Statistic.where(:yyyymmdd => date, :data_type => data_type, :library_id => 0, :age => age, :area_id => area_id).first.value.should == 2
+    data_type = 212; age = 2
+    Statistic.where(:yyyymmdd => date, :data_type => data_type, :library_id => 0, :age => age).first.value.should == 5
+    data_type = 262; age = 2; area_id = area2.id
+    Statistic.where(:yyyymmdd => date, :data_type => data_type, :library_id => 0, :age => age, :area_id => area_id).first.value.should == 1
     data_type = 112; option = 1 # available
     Statistic.where(:yyyymm => month, :data_type => data_type, :library_id => 0, :option => option).first.value.should == 28
     data_type = 112; option = 2 # unavailable
@@ -151,6 +187,18 @@ describe Statistic do
     Statistic.where(:yyyymm => month, :data_type => data_type, :library_id => library_id, :user_type => user_type).should be_empty
     data_type = 112;library_id = libraryA.id; user_type = 1
     Statistic.where(:yyyymm => month, :data_type => data_type, :library_id => library_id, :user_type => user_type).should be_empty
+    data_type = 212; library_id = libraryA.id; age = 0
+    Statistic.where(:yyyymmdd => date, :data_type => data_type, :library_id => library_id, :age => age).should be_empty
+    data_type = 262; library_id = libraryA.id; age = 0; area_id = area1.id
+    Statistic.where(:yyyymmdd => date, :data_type => data_type, :library_id => library_id, :age => age, :area_id => area_id).first.value.should == 2
+    data_type = 212; library_id = libraryA.id; age = 1
+    Statistic.where(:yyyymmdd => date, :data_type => data_type, :library_id => library_id, :age => age).first.value.should == 5
+    data_type = 262; library_id = libraryA.id; age = 1; area_id = area1.id
+    Statistic.where(:yyyymmdd => date, :data_type => data_type, :library_id => library_id, :age => age, :area_id => area_id).first.value.should == 1
+    data_type = 212; library_id = libraryA.id; age = 2
+    Statistic.where(:yyyymmdd => date, :data_type => data_type, :library_id => library_id, :age => age).first.value.should == 5
+    data_type = 262; library_id = libraryA.id; age = 2; area_id = area2.id
+    Statistic.where(:yyyymmdd => date, :data_type => data_type, :library_id => library_id, :age => age, :area_id => area_id).first.value.should == 1
     data_type = 112;library_id = libraryA.id; option = 1 # available
     Statistic.where(:yyyymm => month, :data_type => data_type, :library_id => library_id, :option => option).first.value.should == 10
     data_type = 112;library_id = libraryA.id; option = 2 # unavailable
@@ -171,13 +219,25 @@ describe Statistic do
     Statistic.where(:yyyymm => month, :data_type => data_type, :library_id => library_id, :user_type => user_type).first.value.should == 5
     data_type = 112;library_id = libraryB.id; user_type = 2
     Statistic.where(:yyyymm => month, :data_type => data_type, :library_id => library_id, :user_type => user_type).first.value.should == 5
-    data_type = 112;library_id = libraryB.id; user_type = 1
+    data_type = 112; library_id = libraryB.id; user_type = 1
     Statistic.where(:yyyymm => month, :data_type => data_type, :library_id => library_id, :user_type => user_type).first.value.should == 5
-    data_type = 112;library_id = libraryB.id; option = 1 # available
+    data_type = 212; library_id = libraryB.id; age = 0
+    Statistic.where(:yyyymmdd => date, :data_type => data_type, :library_id => library_id, :age => age).first.value.should == 10
+    data_type = 262; library_id = libraryB.id; age = 0; area_id = area1.id
+    Statistic.where(:yyyymmdd => date, :data_type => data_type, :library_id => library_id, :age => age, :area_id => area_id).first.value.should == 2
+    data_type = 212; library_id = libraryB.id; age = 1
+    Statistic.where(:yyyymmdd => date, :data_type => data_type, :library_id => library_id, :age => age).first.value.should == 5
+    data_type = 262; library_id = libraryB.id; age = 1; area_id = area1.id
+    Statistic.where(:yyyymmdd => date, :data_type => data_type, :library_id => library_id, :age => age, :area_id => area_id).first.value.should == 1
+    data_type = 212; library_id = libraryB.id; age = 2
+    Statistic.where(:yyyymmdd => date, :data_type => data_type, :library_id => library_id, :age => age).should be_empty
+    data_type = 262; library_id = libraryB.id; age = 2; area_id = area2.id
+    Statistic.where(:yyyymmdd => date, :data_type => data_type, :library_id => library_id, :age => age, :area_id => area_id).should be_empty
+    data_type = 112; library_id = libraryB.id; option = 1 # available
     Statistic.where(:yyyymm => month, :data_type => data_type, :library_id => library_id, :option => option).first.value.should == 18
-    data_type = 112;library_id = libraryB.id; option = 2 # unavailable
+    data_type = 112; library_id = libraryB.id; option = 2 # unavailable
     Statistic.where(:yyyymm => month, :data_type => data_type, :library_id => library_id, :option => option).first.value.should == 3
-    data_type = 112;library_id = libraryB.id;  option = 3 # no user_number
+    data_type = 112; library_id = libraryB.id;  option = 3 # no user_number
     Statistic.where(:yyyymm => month, :data_type => data_type, :library_id => library_id, :option => option).first.value.should == 3
   end
 
@@ -189,6 +249,12 @@ describe Statistic do
     Statistic.where(:yyyymmdd => date, :data_type => data_type, :library_id => 0, :hour => time_num).first.value.should == 5
     data_type = 322
     Statistic.where(:yyyymmdd => date, :data_type => data_type, :library_id => 0, :hour => time_num-2).should be_empty
+    data_type = 222; age = 0
+    Statistic.where(:yyyymmdd => date, :data_type => data_type, :library_id => 0, :age => age).first.value.should == 2
+    data_type = 222; age = 1
+    Statistic.where(:yyyymmdd => date, :data_type => data_type, :library_id => 0, :age => age).first.value.should == 2
+    data_type = 222; age = 2
+    Statistic.where(:yyyymmdd => date, :data_type => data_type, :library_id => 0, :age => age).first.value.should == 1
   end
   it "number of checkout adults in all libraries" do
     data_type = 222; user_type = 5
@@ -239,6 +305,12 @@ describe Statistic do
     Statistic.where(:yyyymmdd => date, :data_type => data_type, :library_id => library_id, :hour => time_num).first.value.should == 3
     data_type = 322; library_id = libraryA.id
     Statistic.where(:yyyymmdd => date, :data_type => data_type, :library_id => library_id, :hour => 24-time_num).should be_empty
+    data_type = 222; library_id = libraryA.id; age = 0
+    Statistic.where(:yyyymmdd => date, :data_type => data_type, :library_id => library_id, :age => age).should be_empty
+    data_type = 222; library_id = libraryA.id; age = 1
+    Statistic.where(:yyyymmdd => date, :data_type => data_type, :library_id => library_id, :age => age).first.value.should == 1
+    data_type = 222; library_id = libraryA.id; age = 2
+    Statistic.where(:yyyymmdd => date, :data_type => data_type, :library_id => library_id, :age => age).first.value.should == 1
   end
   it "number of checkout adults in libraryA" do
     data_type = 222; library_id = libraryA.id; user_type = 5
@@ -289,6 +361,12 @@ describe Statistic do
     Statistic.where(:yyyymmdd => date, :data_type => data_type, :library_id => library_id, :hour => time_num).first.value.should == 2
     data_type = 322; library_id = libraryB.id
     Statistic.where(:yyyymmdd => date, :data_type => data_type, :library_id => library_id, :hour => 24-time_num).should be_empty
+    data_type = 222; library_id = libraryB.id; age = 0
+    Statistic.where(:yyyymmdd => date, :data_type => data_type, :library_id => library_id, :age => age).first.value.should == 2
+    data_type = 222; library_id = libraryB.id; age = 1
+    Statistic.where(:yyyymmdd => date, :data_type => data_type, :library_id => library_id, :age => age).first.value.should == 1
+    data_type = 222; library_id = libraryB.id; age = 2
+    Statistic.where(:yyyymmdd => date, :data_type => data_type, :library_id => library_id, :age => age).should be_empty
   end
   it "number of checkout adults in libraryB" do
     data_type = 222; library_id = libraryB.id; user_type = 5
@@ -343,6 +421,12 @@ describe Statistic do
     Statistic.where(:yyyymm => month, :data_type => data_type, :library_id => 0, :user_group_id => user_group_id).first.value.should == 64
     data_type = 121; user_group_id = 1
     Statistic.where(:yyyymm => month, :data_type => data_type, :library_id => 0, :user_group_id => user_group_id).should be_empty
+    data_type = 221; age = 0
+    Statistic.where(:yyyymmdd => date, :data_type => data_type, :library_id => 0, :age => age).first.value.should == 22
+    data_type = 221; age = 1
+    Statistic.where(:yyyymmdd => date, :data_type => data_type, :library_id => 0, :age => age).first.value.should == 22
+    data_type = 221; age = 2
+    Statistic.where(:yyyymmdd => date, :data_type => data_type, :library_id => 0, :age => age).first.value.should == 20
   end
   it "number of checkouts of general books in all libraries" do
     data_type = 221; option = 1
@@ -351,6 +435,12 @@ describe Statistic do
     Statistic.where(:yyyymmdd => date, :data_type => data_type, :library_id => 0, :option => option, :age => nil, :hour => time_num).first.value.should == 31
     data_type = 321; option = 1
     Statistic.where(:yyyymmdd => date, :data_type => data_type, :library_id => 0, :option => option, :age => nil, :hour => 24-time_num).should be_empty
+    data_type = 221; option = 1; age = 0
+    Statistic.where(:yyyymmdd => date, :data_type => data_type, :library_id => 0, :option => option, :age => age).should be_empty
+    data_type = 221; option = 1; age = 1
+    Statistic.where(:yyyymmdd => date, :data_type => data_type, :library_id => 0, :option => option, :age => age).first.value.should == 11
+    data_type = 221; option = 1; age = 2
+    Statistic.where(:yyyymmdd => date, :data_type => data_type, :library_id => 0, :option => option, :age => age).first.value.should == 20
   end
   it "number of checkouts of books for children in all libraries" do
     data_type = 221; option = 2
@@ -359,6 +449,12 @@ describe Statistic do
     Statistic.where(:yyyymmdd => date, :data_type => data_type, :library_id => 0, :option => option, :age => nil, :hour => time_num).first.value.should == 22
     data_type = 321; option = 2
     Statistic.where(:yyyymmdd => date, :data_type => data_type, :library_id => 0, :option => option, :age => nil, :hour => 24-time_num).should be_empty
+    data_type = 221; option = 2; age = 0
+    Statistic.where(:yyyymmdd => date, :data_type => data_type, :library_id => 0, :option => option, :age => age).first.value.should == 22
+    data_type = 221; option = 2; age = 1
+    Statistic.where(:yyyymmdd => date, :data_type => data_type, :library_id => 0, :option => option, :age => age).should be_empty
+    data_type = 221; option = 2; age = 2
+    Statistic.where(:yyyymmdd => date, :data_type => data_type, :library_id => 0, :option => option, :age => age).should be_empty
   end
   it "number of checkouts of other books in all libraries" do
     data_type = 221; option = 3
@@ -367,6 +463,12 @@ describe Statistic do
     Statistic.where(:yyyymmdd => date, :data_type => data_type, :library_id => 0, :option => option, :age => nil, :hour => time_num).first.value.should == 11
     data_type = 321; option = 3
     Statistic.where(:yyyymmdd => date, :data_type => data_type, :library_id => 0, :option => option, :age => nil, :hour => 24-time_num).should be_empty
+    data_type = 221; option = 3; age = 0
+    Statistic.where(:yyyymmdd => date, :data_type => data_type, :library_id => 0, :option => option, :age => age).should be_empty
+    data_type = 221; option = 3; age = 1
+    Statistic.where(:yyyymmdd => date, :data_type => data_type, :library_id => 0, :option => option, :age => age).first.value.should == 11
+    data_type = 221; option = 3; age = 2
+    Statistic.where(:yyyymmdd => date, :data_type => data_type, :library_id => 0, :option => option, :age => age).should be_empty
   end
 
 # number of checkouts in libraryA
@@ -381,6 +483,12 @@ describe Statistic do
     Statistic.where(:yyyymm => month, :data_type => data_type, :library_id => library_id, :user_group_id => user_group_id).first.value.should == 42
     data_type = 121; library_id = libraryA.id; user_group_id = 1
     Statistic.where(:yyyymm => month, :data_type => data_type, :library_id => library_id, :user_group_id => user_group_id).should be_empty
+    data_type = 221; library_id = libraryA.id; age = 0
+    Statistic.where(:yyyymmdd => date, :data_type => data_type, :library_id => library_id, :age => age).first.value.should == 11
+    data_type = 221; library_id = libraryA.id; age = 1
+    Statistic.where(:yyyymmdd => date, :data_type => data_type, :library_id => library_id, :age => age).first.value.should == 11
+    data_type = 221; library_id = libraryA.id; age = 2
+    Statistic.where(:yyyymmdd => date, :data_type => data_type, :library_id => library_id, :age => age).first.value.should == 20
   end
   it "number of checkouts of general books in libraryA" do
     data_type = 221; library_id = libraryA.id; option = 1
@@ -389,6 +497,12 @@ describe Statistic do
     Statistic.where(:yyyymmdd => date, :data_type => data_type, :library_id => library_id, :option => option, :age => nil, :hour => time_num).first.value.should == 31
     data_type = 321; library_id = libraryA.id; option = 1
     Statistic.where(:yyyymmdd => date, :data_type => data_type, :library_id => library_id, :option => option, :age => nil, :hour => 24-time_num).should be_empty
+    data_type = 221; library_id = libraryA.id; option = 1; age = 0
+    Statistic.where(:yyyymmdd => date, :data_type => data_type, :library_id => library_id, :option => option, :age => age).should be_empty
+    data_type = 221; library_id = libraryA.id; option = 1; age = 1
+    Statistic.where(:yyyymmdd => date, :data_type => data_type, :library_id => library_id, :option => option, :age => age).first.value.should == 11
+    data_type = 221; library_id = libraryA.id; option = 1; age = 2
+    Statistic.where(:yyyymmdd => date, :data_type => data_type, :library_id => library_id, :option => option, :age => age).first.value.should == 20
   end
   it "number of checkouts of books for children in libraryA" do
     data_type = 221; library_id = libraryA.id; option = 2
@@ -397,6 +511,12 @@ describe Statistic do
     Statistic.where(:yyyymmdd => date, :data_type => data_type, :library_id => library_id, :option => option, :age => nil, :hour => time_num).first.value.should == 11
     data_type = 321; library_id = libraryA.id; option = 2
     Statistic.where(:yyyymmdd => date, :data_type => data_type, :library_id => library_id, :option => option, :age => nil, :hour => 24-time_num).should be_empty
+    data_type = 221; library_id = libraryA.id; option = 2; age = 0
+    Statistic.where(:yyyymmdd => date, :data_type => data_type, :library_id => library_id, :option => option, :age => age).first.value.should == 11
+    data_type = 221; library_id = libraryA.id; option = 2; age = 1
+    Statistic.where(:yyyymmdd => date, :data_type => data_type, :library_id => library_id, :option => option, :age => age).should be_empty
+    data_type = 221; library_id = libraryA.id; option = 2; age = 2
+    Statistic.where(:yyyymmdd => date, :data_type => data_type, :library_id => library_id, :option => option, :age => age).should be_empty
   end
   it "number of checkouts of other books in libraryA" do
     data_type = 221; library_id = libraryA.id; option = 3
@@ -405,6 +525,12 @@ describe Statistic do
     Statistic.where(:yyyymmdd => date, :data_type => data_type, :library_id => library_id, :option => option, :age => nil, :hour => time_num).should be_empty
     data_type = 321; library_id = libraryA.id; option = 3
     Statistic.where(:yyyymmdd => date, :data_type => data_type, :library_id => library_id, :option => option, :age => nil, :hour => 24-time_num).should be_empty
+    data_type = 221; library_id = libraryA.id; option = 3; age = 0
+    Statistic.where(:yyyymmdd => date, :data_type => data_type, :library_id => library_id, :option => option, :age => age).should be_empty
+    data_type = 221; library_id = libraryA.id; option = 3; age = 1
+    Statistic.where(:yyyymmdd => date, :data_type => data_type, :library_id => library_id, :option => option, :age => age).should be_empty
+    data_type = 221; library_id = libraryA.id; option = 3; age = 2
+    Statistic.where(:yyyymmdd => date, :data_type => data_type, :library_id => library_id, :option => option, :age => age).should be_empty
   end
 
 # number of checkouts in libraryB
@@ -419,6 +545,12 @@ describe Statistic do
     Statistic.where(:yyyymm => month, :data_type => data_type, :library_id => library_id, :user_group_id => user_group_id).first.value.should == 22
     data_type = 121; library_id = libraryB.id; user_group_id = 1
     Statistic.where(:yyyymm => month, :data_type => data_type, :library_id => library_id, :user_group_id => user_group_id).should be_empty
+    data_type = 221; library_id = libraryB.id; age = 0
+    Statistic.where(:yyyymmdd => date, :data_type => data_type, :library_id => library_id, :age => age).first.value.should == 11
+    data_type = 221; library_id = libraryB.id; age = 1
+    Statistic.where(:yyyymmdd => date, :data_type => data_type, :library_id => library_id, :age => age).first.value.should == 11
+    data_type = 221; library_id = libraryB.id; age = 2
+    Statistic.where(:yyyymmdd => date, :data_type => data_type, :library_id => library_id, :age => age).should be_empty
   end
   it "number of checkouts of general books in libraryB" do
     data_type = 221; library_id = libraryB.id; option = 1
@@ -427,6 +559,12 @@ describe Statistic do
     Statistic.where(:yyyymmdd => date, :data_type => data_type, :library_id => library_id, :option => option, :age => nil, :hour => time_num).should be_empty
     data_type = 321; library_id = libraryB.id; option = 1
     Statistic.where(:yyyymmdd => date, :data_type => data_type, :library_id => library_id, :option => option, :age => nil, :hour => 24-time_num).should be_empty
+    data_type = 221; library_id = libraryB.id; option = 1; age = 0
+    Statistic.where(:yyyymmdd => date, :data_type => data_type, :library_id => library_id, :option => option, :age => age).should be_empty
+    data_type = 221; library_id = libraryB.id; option = 1; age = 1
+    Statistic.where(:yyyymmdd => date, :data_type => data_type, :library_id => library_id, :option => option, :age => age).should be_empty
+    data_type = 221; library_id = libraryB.id; option = 1; age = 2
+    Statistic.where(:yyyymmdd => date, :data_type => data_type, :library_id => library_id, :option => option, :age => age).should be_empty
   end
   it "number of checkouts of books for children in libraryB" do
     data_type = 221; library_id = libraryB.id; option = 2
@@ -435,6 +573,12 @@ describe Statistic do
     Statistic.where(:yyyymmdd => date, :data_type => data_type, :library_id => library_id, :option => option, :age => nil, :hour => time_num).first.value.should == 11
     data_type = 321; library_id = libraryB.id; option = 2
     Statistic.where(:yyyymmdd => date, :data_type => data_type, :library_id => library_id, :option => option, :age => nil, :hour => 24-time_num).should be_empty
+    data_type = 221; library_id = libraryA.id; option = 2; age = 0
+    Statistic.where(:yyyymmdd => date, :data_type => data_type, :library_id => library_id, :option => option, :age => age).first.value.should == 11
+    data_type = 221; library_id = libraryA.id; option = 2; age = 1
+    Statistic.where(:yyyymmdd => date, :data_type => data_type, :library_id => library_id, :option => option, :age => age).should be_empty
+    data_type = 221; library_id = libraryA.id; option = 2; age = 2
+    Statistic.where(:yyyymmdd => date, :data_type => data_type, :library_id => library_id, :option => option, :age => age).should be_empty
   end
   it "number of checkouts of other books in libraryB" do
     data_type = 221; library_id = libraryB.id; option = 3
@@ -443,6 +587,12 @@ describe Statistic do
     Statistic.where(:yyyymmdd => date, :data_type => data_type, :library_id => library_id, :option => option, :age => nil, :hour => time_num).first.value.should == 11
     data_type = 321; library_id = libraryB.id; option = 3
     Statistic.where(:yyyymmdd => date, :data_type => data_type, :library_id => library_id, :option => option, :age => nil, :hour => 24-time_num).should be_empty
+    data_type = 221; library_id = libraryA.id; option = 3; age = 0
+    Statistic.where(:yyyymmdd => date, :data_type => data_type, :library_id => library_id, :option => option, :age => age).should be_empty
+    data_type = 221; library_id = libraryA.id; option = 3; age = 1
+    Statistic.where(:yyyymmdd => date, :data_type => data_type, :library_id => library_id, :option => option, :age => age).should be_empty
+    data_type = 221; library_id = libraryA.id; option = 3; age = 2
+    Statistic.where(:yyyymmdd => date, :data_type => data_type, :library_id => library_id, :option => option, :age => age).should be_empty
   end
 
 # number of reminders
@@ -673,6 +823,27 @@ describe Statistic do
     data_type = 115; library_id = libraryB.id
     Statistic.where(:yyyymm => month, :data_type => data_type, :library_id => library_id).first.value.should == 2
   end
+
+# number of open days
+  it "number of open days" do
+    data_type = 113; library_id = libraryA.id
+    Statistic.where(:yyyymm => month, :data_type => data_type, :library_id => library_id).first.value.should == 28
+    data_type = 113; library_id = libraryB.id
+    Statistic.where(:yyyymm => month, :data_type => data_type, :library_id => library_id).first.value.should == 31
+  end
+
+# number of inter library loans
+  it "number of inter library loans" do
+    data_type = 261; from_library_id = libraryA.id; to_library_id = libraryB.id
+    Statistic.where(:yyyymmdd => date, :data_type => data_type, :library_id => from_library_id, :borrowing_library_id => to_library_id).first.value.should == 1
+    data_type = 262; from_library_id = libraryA.id; to_library_id = libraryB.id
+    Statistic.where(:yyyymmdd => date, :data_type => data_type, :library_id => from_library_id, :borrowing_library_id => to_library_id).first.value.should == 1
+    data_type = 261; from_library_id = libraryB.id; to_library_id = libraryA.id
+    Statistic.where(:yyyymmdd => date, :data_type => data_type, :library_id => from_library_id, :borrowing_library_id => to_library_id).first.value.should == 1
+    data_type = 262; from_library_id = libraryB.id; to_library_id = libraryA.id
+    Statistic.where(:yyyymmdd => date, :data_type => data_type, :library_id => from_library_id, :borrowing_library_id => to_library_id).first.value.should == 1
+  end
+  
 end
 
 # == Schema Information
