@@ -1,7 +1,7 @@
 <h4><%= t('activerecord.attributes.user.library') -%></h4>
 <ul>
   <%- libraries = params[:library].to_s.split -%>
-  <%- @library_facet.each do |facet| -%>
+  <%- @search.facet(:library).rows.each do |facet| -%>
     <%- current_libraries = libraries.dup -%>
     <%- library = Library.where(:name => facet.value).select([:name, :display_name]).first -%>
     <%- if library -%>

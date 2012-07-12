@@ -1,7 +1,7 @@
 <h4><%= t('activerecord.models.patron_type') -%></h4>
 <ul>
   <%- patron_types = params[:patron_type].to_s.split -%>
-  <%- @patron_type_facet.each do |facet| -%>
+  <%- @search.facet(:patron_type).rows.each do |facet| -%>
     <%- current_patron_type = patron_types.dup -%>
     <%- patron_type = PatronType.where(:name => facet.value).select([:name, :display_name]).first -%>
     <%- if patron_type -%>
