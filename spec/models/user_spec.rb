@@ -139,7 +139,7 @@ describe User do
   end
 
   it "should get reserves_count" do
-    users(:user5).reserves.waiting.count.should eq 1
+    users(:user5).reserves.waiting.count.should eq 3
   end
 
   it "should get highest_role" do
@@ -183,6 +183,37 @@ describe User do
   it "should retained when user has retained reserves  was not available for reservation" do
     users(:user1).delete_reserves
     reserves(:reserve_00021).state.should eq 'retained'
+  end
+
+  it "should return query" do
+    query, message = User.set_query('test', '20120707', 'Japan')
+    query.should_not be_nil
+  end
+
+  it "should message if input data of birth is wrong" do
+    query, message = User.set_query('test', '20120707', 'Japan')
+    message.should be_nil
+    query, message = User.set_query('test', 'aaa', 'Japan')
+    message.should_not be_nil 
+  end
+
+  it "should return sort" do
+    sort0 = User.set_sort('username', 'asc')
+    sort1 = User.set_sort('telephone_number_1', 'asc')
+    sort2 = User.set_sort('full_name', 'desc')
+    sort3 = User.set_sort('user_number', 'desc')
+    sort4 = User.set_sort(nil, nil)
+
+    sort0[:sort_by].should eq 'username'
+    sort0[:order].should eq 'asc'
+    sort1[:sort_by].should eq 'telephone_number'
+    sort1[:order].should eq 'asc'
+    sort2[:sort_by].should eq 'full_name'
+    sort2[:order].should eq 'desc'
+    sort3[:sort_by].should eq 'user_number'
+    sort3[:order].should eq 'desc'
+    sort4[:sort_by].should eq 'created_at'
+    sort4[:order].should eq 'desc'
   end
 end
 
