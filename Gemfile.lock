@@ -215,7 +215,7 @@ GIT
 
 GIT
   remote: git://github.com/next-l/enju_biblio.git
-  revision: f51cd2f72d869c6ca0c2305c94ab342557cdd128
+  revision: fa65fdbc7faef88178aa2049f8f8c8f9196313d5
   specs:
     enju_biblio (0.0.3)
       aws-sdk
