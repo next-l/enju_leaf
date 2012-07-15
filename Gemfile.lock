@@ -58,7 +58,7 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_event.git
-  revision: 6b6fb5180518ec234b90cfa212dc88b96ae1d9fb
+  revision: 23e24b49929caed9f945baa8709215a53354e3be
   specs:
     enju_event (0.1.12)
       configatron
@@ -215,7 +215,7 @@ GIT
 
 GIT
   remote: git://github.com/next-l/enju_biblio.git
-  revision: fa65fdbc7faef88178aa2049f8f8c8f9196313d5
+  revision: 4d6a0c314f516324e1453d7d7fcd4b4fe82381ab
   specs:
     enju_biblio (0.0.3)
       aws-sdk
@@ -255,7 +255,7 @@ GIT
 
 GIT
   remote: git://github.com/next-l/enju_export.git
-  revision: eae4b6e1b835e6af46f155de4969a1175d6a104b
+  revision: d3b1f18f4ad1fb288d53ae2f5923250f1e4e437b
   specs:
     enju_export (0.0.2)
       enju_core
