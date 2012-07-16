@@ -1,6 +1,8 @@
 require 'spec_helper'
 
 describe PageController do
+  fixtures :library_groups
+
   describe "GET page" do
     describe "When logged in as Librarian" do
       login_librarian
