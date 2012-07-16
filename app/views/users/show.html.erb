@@ -30,7 +30,7 @@
             <%= link_to checkout.item.item_identifier, checkout.item %><br />
             (<%= link_to checkout.item.manifestation.original_title, checkout.item.manifestation %>)
           </td>
-          <td><%=l checkout.due_date, :format => :only_date %></td>
+          <td><%=l checkout.due_date, :formats => :only_date %></td>
         </tr>
       <% end %>
     </table>

@@ -22,7 +22,7 @@
       <%= render 'title', :reserve => reserve -%>
     </td>
     <td><%= i18n_state(reserve.state) -%></td>
-    <td><%= l(reserve.expired_at, :format => :only_date) -%></td>
+    <td><%= l(reserve.expired_at, :formats => :only_date) -%></td>
     <%- if can? :destroy, reserve -%>
       <td>
         <%= link_to t('page.edit'), edit_reserve_path(reserve) -%>
