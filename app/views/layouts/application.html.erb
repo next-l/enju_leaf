@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="<%= @locale.to_s -%>">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="<%= @locale.to_s -%>" lang="<%= @locale.to_s -%>">
 <head>
   <meta charset="UTF-8" />
   <%= render 'page/include' %>
@@ -13,15 +13,18 @@
     <% end %>
   <% end %>
 </head>
-<body itemscope itemtype="http://schema.org/WebPage"  data-spy="scroll" data-target=".subnav" data-offset="50">
+<body itemscope itemtype="http://schema.org/WebPage">
 
-  <%= render 'page/header' %>
-  <div class="container">
+<%= render 'page/header' %>
+<%= render 'page/menu' %>
 
-    <%= yield %>
+<div id="content">
 
-    <%= render 'page/footer' %>
-  </div>
+<%= yield %>
+
+</div>
+
+<%= render 'page/footer' %>
 
 </body>
 </html>

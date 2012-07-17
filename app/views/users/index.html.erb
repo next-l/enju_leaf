@@ -1,18 +1,18 @@
-<div class="row-fluid">
-  <div class="span9">
-  <h1 class="title"><%= t('page.listing', :model => t('activerecord.models.user')) -%></h1>
+<div id="content_detail" class="ui-corner-all">
+<h1 class="title"><%= t('page.listing', :model => t('activerecord.models.user')) -%></h1>
+<div id="content_list">
 
 <div class="search_form">
 <%= form_for :users, :url => users_path, :html => {:method => 'get'} do -%>
   <p>
-    <%= t('page.search_term') -%>: <%= search_field_tag 'query', h(@query), {:id => 'search_form_top', :class => 'search-query', :placeholder => t('page.search_term')} -%>
+    <%= t('page.search_term') -%>: <%= search_field_tag 'query', h(@query), {:id => 'search_form_top', :class => 'search_form', :placeholder => t('page.search_term')} -%>
     <%= hidden_field_tag 'patron_id', @patron.id if @patron -%>
     <%= submit_tag t('page.search') -%>
   </p>
 <%- end -%>
 </div>
 
-<table class="table table-striped">
+<table class="table table-striped index">
   <tr>
     <th>
       <%= t('activerecord.attributes.user.username') -%>
@@ -37,8 +37,8 @@
     <td>
       <%= link_to user.username, user -%>
       <br />
-      <%- if user.patron.id -%>
-        <%= link_to user.patron.full_name, user.patron.url if current_user.has_role?('Librarian') -%>
+      <%- if user.patron -%>
+        <%= link_to user.patron.full_name, user.patron if current_user.has_role?('Librarian') -%>
       <%- end -%>
     </td>
     <td><%= user.user_number -%></td>
@@ -52,7 +52,8 @@
     <% end %>
     <td>
       <%= link_to t('user.edit_account'), edit_user_path(user) -%>
-      <%- # link_to t('user.edit_profile'), edit_patron_path(user.patron) if can? :update, user.patron -%>
+      <br />
+      <%= link_to t('user.edit_profile'), edit_patron_path(user.patron) if can? :update, user.patron -%>
     </td>
   </tr>
 <%- end -%>
@@ -61,15 +62,15 @@
 <br />
 <%= will_paginate(@users) -%>
 
-  </div>
+</div>
+</div>
 
-  <div class="span3">
-    <ul>
-      <%- if user_signed_in? && current_user.has_role?('Librarian') -%>
-        <li><%= link_to t('page.new', :model => t('activerecord.models.user')), new_user_path -%></li>
-        <li><%= link_to t('page.import_from_file'), new_patron_import_file_path -%></li>
-      <%- end -%>
-      <li><%= link_to t('page.search_resource', :model => t('activerecord.models.patron')), patrons_path -%></li>
-    </ul>
-  </div>
+<div id="submenu" class="ui-corner-all">
+  <ul>
+    <%- if user_signed_in? && current_user.has_role?('Librarian') -%>
+      <li><%= link_to t('page.new', :model => t('activerecord.models.user')), new_user_path -%></li>
+      <li><%= link_to t('page.import_from_file'), new_patron_import_file_path -%></li>
+    <%- end -%>
+    <li><%= link_to t('page.search_resource', :model => t('activerecord.models.patron')), patrons_path -%></li>
+  </ul>
 </div>

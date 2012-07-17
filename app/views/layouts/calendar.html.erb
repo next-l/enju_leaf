@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="<%= @locale -%>">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="<%= @locale -%>" lang="<%= @locale -%>">
 <head>
   <meta charset="UTF-8" />
   <%- if @library -%>
@@ -14,14 +14,16 @@
 </head>
 <body>
 
-  <%= render 'page/header' %>
-  <div class="container">
+<%= render 'page/header' -%>
+<%= render 'page/menu' -%>
 
-    <%= yield  -%>
+<div id="content">
 
-    <%= render 'page/footer' -%>
-  </div>
+<%= yield  -%>
 
+</div>
+
+<%= render 'page/footer' -%>
 
 </body>
 </html>

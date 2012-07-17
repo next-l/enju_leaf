@@ -1,20 +1,16 @@
+<div id="content_detail" class="ui-corner-all">
+<h1 class="title"><%= t('page.edit_user_profile', :login_name => @user.username) -%></h1>
+<div id="content_list">
+<%= render 'page/required_field' %>
 <%= simple_form_for(@user, :url => my_account_path) do |f| -%>
-<div class="row-fluid">
-  <div class="span9">
-    <h1 class="title"><%= t('page.edit_user_profile', :login_name => @user.username) -%></h1>
-    <%= render 'page/required_field' %>
-      <%= f.error_messages -%>
+  <%= f.error_messages -%>
 
-      <%= render :partial => 'edit_credential', :locals => {:f => f, :user => @user} -%>
+  <%= render :partial => 'edit_credential', :locals => {:f => f, :user => @user} -%>
 
-      <div class="actions">
-        <%= f.submit :class => 'btn' %>
-      </div>
-    </div>
+  <div class="actions">
+    <%= f.submit %>
   </div>
-</div>
-
-<div class="row-fluid">
+<div style="clear: both">
   <div class="field">
     <%= f.label :keyword_list -%><br />
     <%= f.text_area :keyword_list, :class => 'resource_textarea' -%>
@@ -50,23 +46,31 @@
     </div>
   <% end %>
 
-    <div class="field">
-      <%= f.label :note -%><br />
-      <%= f.text_area :note, :class => 'resource_textarea' -%>
-    </div>
-
-  <div class="actions">
-    <%= f.submit :class => 'btn' %>
+  <div class="field">
+    <%= f.label :note -%><br />
+    <%= f.text_area :note, :class => 'resource_textarea' -%>
   </div>
 
-</div>
-<%- end -%>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
 
-<div class="span3">
+  <%- end -%>
+
+</div>
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all">
   <ul>
     <li><%= link_to t('page.show'), my_account_path -%></li>
     <% if current_user.has_role?('Librarian') %>
       <li><%= link_to t('page.listing', :model => t('activerecord.models.user')), users_path -%></li>
     <% end %>
+    <%- if current_user.patron -%>
+      <li><%= link_to t('user.patron_profile'), @user.patron -%></li>
+    <%- else -%>
+      <li><%= link_to t('user.patron_profile'), new_user_patron_path(@user) -%></li>
+    <%- end -%>
   </ul>
 </div>
