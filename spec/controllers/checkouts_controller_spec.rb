@@ -3,7 +3,7 @@ require 'spec_helper'
 describe CheckoutsController do
   fixtures :all
 
-  describe "GET index" do
+  describe "GET index", :solr => true do
     before(:each) do
       FactoryGirl.create(:admin)
     end
@@ -13,7 +13,7 @@ describe CheckoutsController do
 
       it "assigns all checkouts as @checkouts" do
         get :index
-        assigns(:checkouts).should eq(Checkout.not_returned.order('checkouts.id DESC').page(1))
+        assigns(:checkouts).should eq Checkout.not_returned.order('checkouts.id DESC').page(1)
       end
 
       it "should get other user's index" do
