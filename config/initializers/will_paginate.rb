@@ -1,5 +1,4 @@
 WillPaginate::ViewHelpers.pagination_options.merge!({
-    :class => "pagination",
-    :inner_window => 2,
+    :class => "digg_pagination",
     :params => {:host => nil}
 })

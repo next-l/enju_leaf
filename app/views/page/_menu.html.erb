@@ -1,126 +1,147 @@
-    <ul class="nav nav-pills">
-      <li class="dropdown" id="menu1">
-        <a class="dropdown-toggle" data-toggle="dropdown" href="#menu1">
-          <% if current_user.try(:has_role?, 'Librarian') %>
-            <%= t('page.librarian_circulation') -%>
-          <% else %>
-            <%= t('page.user_circulation') -%>
+<div id="navibar">
+  <a tabindex="0" href="#circulation_menu" class="fg-button fg-button-icon-right ui-widget ui-state-default ui-corner-all" id="fg_circulation"><span class="ui-icon ui-icon-triangle-1-s"></span>
+    <% if current_user.try(:has_role?, 'Librarian') %>
+      <%= t('page.librarian_circulation') -%>
+    <% else %>
+      <%= t('page.user_circulation') -%>
+    <% end %>
+  </a>
+  <div id="circulation_menu" class="hidden">
+    <% if defined?(EnjuCirculation) %>
+      <%- if user_signed_in? -%>
+        <ul>
+          <%- if current_user.has_role?('Librarian') -%>
+            <li><%= link_to t('page.checkout'), new_basket_path -%></li>
+            <li><%= link_to t('page.checkin'), new_checkin_path -%></li>
           <% end %>
-          <b class="caret"></b>
-        </a>
-        <ul class="dropdown-menu">
+          <li>
+            <%= link_to t('page.listing', :model => t('activerecord.models.reserve')), reserves_path -%>
+          </li>
+          <%- if current_user.has_role?('Librarian') -%>
+            <% if defined?(EnjuInterLibraryLoan) %>
+              <li><%= link_to t('activerecord.models.inter_library_loan'), inter_library_loans_path -%></li>
+            <% end %>
+          <%- end -%>
           <% if defined?(EnjuCirculation) %>
-            <%- if user_signed_in? -%>
-              <%- if current_user.has_role?('Librarian') -%>
-                <li><%= link_to t('page.checkout'), new_basket_path -%></li>
-                <li><%= link_to t('page.checkin'), new_checkin_path -%></li>
-              <% end %>
-              <li>
-                <%= link_to t('page.listing', :model => t('activerecord.models.reserve')), reserves_path -%>
-              </li>
-              <%- if current_user.has_role?('Librarian') -%>
-                <% if defined?(EnjuInterLibraryLoan) %>
-                  <li><%= link_to t('activerecord.models.inter_library_loan'), inter_library_loans_path -%></li>
-                <% end %>
-              <%- end -%>
-              <% if defined?(EnjuCirculation) %>
-                <li><%= link_to t('page.checkout_history'), checkouts_path -%></li>
-              <% end %>
-            <%- else -%>
-              <% if defined?(EnjuCirculation) %>
-                <li><%= link_to t('page.checkout_history'), checkouts_path -%></li>
-                <li><%= link_to t('page.listing', :model => t('activerecord.models.reserve')), reserves_path -%></li>
-              <% end %>
-            <% end %>
+            <li><%= link_to t('page.checkout_history'), checkouts_path -%></li>
           <% end %>
         </ul>
-      </li>
-      <li class="dropdown" id="menu2">
-        <a class="dropdown-toggle" data-toggle="dropdown" href="#menu2">
-          <%= t('page.acquisition') -%>
-          <b class="caret"></b>
-        </a>
-        <ul class="dropdown-menu">
-          <%- if current_user.try(:has_role?, 'Librarian') -%>
-            <li><%= link_to t('import_request.enter_isbn'), new_import_request_path -%></li>
-            <% if defined?(EnjuNdl) %>
-              <li><%= link_to t('enju_ndl.import_from_ndl_search'), ndl_books_path -%></li>
-            <% end %>
-            <li><%= link_to t('page.add_manually'), new_manifestation_path -%></li>
-            <li><%= link_to t('page.serial'), series_statements_path -%></li>
-            <li><%= link_to t('page.import_from_file'), new_resource_import_file_path -%></li>
-            <li><%= link_to t('activerecord.models.accept'), new_accept_path -%></li>
-            <% if defined?(EnjuBookmark) %>
-              <li><%= link_to t('page.listing', :model => t('activerecord.models.bookmark')), bookmarks_path -%></li>
-            <% end %>
-          <%- else -%>
-            <% if defined?(EnjuBookmark) %>
-              <li><%= link_to t('page.listing', :model => t('activerecord.models.bookmark')), bookmarks_path -%></li>
-            <% end %>
+      <%- else -%>
+        <% if defined?(EnjuCirculation) %>
+          <ul>
+            <li><%= link_to t('page.checkout_history'), checkouts_path -%></li>
+            <li><%= link_to t('page.listing', :model => t('activerecord.models.reserve')), reserves_path -%></li>
+          </ul>
+        <% end %>
+      <%- end -%>
+    <% end %>
+  </div>
+  <a tabindex="1" href="#acquisition_menu" class="fg-button fg-button-icon-right ui-widget ui-state-default ui-corner-all" id="fg_acquisition"><span class="ui-icon ui-icon-triangle-1-s"></span><%= t('page.acquisition') -%></a>
+  <%- if user_signed_in? -%>
+    <div id="acquisition_menu" class="hidden">
+      <ul>
+        <%- if current_user.has_role?('Librarian') -%>
+          <li><%= link_to t('import_request.enter_isbn'), new_import_request_path -%></li>
+          <% if defined?(EnjuNdl) %>
+            <li><%= link_to t('enju_ndl.import_from_ndl_search'), ndl_books_path -%></li>
+          <% end %>
+          <li><%= link_to t('page.add_manually'), new_manifestation_path -%></li>
+          <li><%= link_to t('page.serial'), series_statements_path -%></li>
+          <li><%= link_to t('page.import_from_file'), new_resource_import_file_path -%></li>
+          <li><%= link_to t('activerecord.models.accept'), new_accept_path -%></li>
+          <% if defined?(EnjuBookmark) %>
+            <li><%= link_to t('page.listing', :model => t('activerecord.models.bookmark')), bookmarks_path -%></li>
+          <% end %>
+        <%- else -%>
+          <% if defined?(EnjuBookmark) %>
+            <li><%= link_to t('page.listing', :model => t('activerecord.models.bookmark')), bookmarks_path -%></li>
+          <% end %>
+        <%- end -%>
+      </ul>
+    </div>
+  <%- else -%>
+    <div id="acquisition_menu" class="hidden">
+      <ul>
+        <% if defined?(EnjuBookmark) %>
+          <li><%= link_to t('page.listing', :model => t('activerecord.models.bookmark')), bookmarks_path -%></li>
+        <% end %>
+      </ul>
+    </div>
+  <%- end -%>
+  <a tabindex="2" href="#request_menu" class="fg-button fg-button-icon-right ui-widget ui-state-default ui-corner-all" id="fg_request"><span class="ui-icon ui-icon-triangle-1-s"></span><%= t('page.request') -%></a>
+  <%- if user_signed_in? -%>
+    <div id="request_menu" class="hidden">
+      <ul>
+        <% if defined?(EnjuPurchaseRequest) %>
+          <li><%= link_to t('activerecord.models.purchase_request'), purchase_requests_path -%></li>
+        <% end %>
+        <% if defined?(EnjuQuestion) %>
+          <li><%= link_to t('activerecord.models.question'), questions_path -%></li>
+        <% end %>
+      </ul>
+    </div>
+  <%- else -%>
+    <div id="request_menu" class="hidden">
+      <ul>
+        <% if defined?(EnjuPurchaseRequest) %>
+          <li><%= link_to t('activerecord.models.purchase_request'), purchase_requests_path -%></li>
+        <% end %>
+        <% if defined?(EnjuQuestion) %>
+          <li><%= link_to t('activerecord.models.question'), questions_path -%></li>
+        <% end %>
+      </ul>
+    </div>
+  <%- end -%>
+  <a tabindex="3" href="#event_menu" class="fg-button fg-button-icon-right ui-widget ui-state-default ui-corner-all" id="fg_event"><span class="ui-icon ui-icon-triangle-1-s"></span><%= t('activerecord.models.event') -%></a>
+  <div id="event_menu" class="hidden">
+    <% if defined?(EnjuEvent) %>
+      <%- unless @library_group.real_libraries.empty? -%>
+        <ul>
+          <li><%= link_to t('page.calendar'), calendar_path -%></li>
+          <li><%= link_to t('event.all'), events_path -%></li>
+          <%- @library_group.real_libraries.each do |library| -%>
+            <li><%= link_to library.display_name.localize, library_events_path(library) -%></li>
+          <%- end -%>
+          <%- if can? :create, Event -%>
+            <li><%= link_to t('page.import'), new_event_import_file_path -%></li>
           <%- end -%>
         </ul>
-      </li>
-      <li class="dropdown" id="menu3">
-        <a class="dropdown-toggle" data-toggle="dropdown" href="#menu3">
-          <%= t('page.request') -%>
-          <b class="caret"></b>
-        </a>
-        <ul class="dropdown-menu">
+      <%- end -%>
+    <% end %>
+  </div>
+  <a tabindex="4" href="#configuration_menu" class="fg-button fg-button-icon-right ui-widget ui-state-default ui-corner-all" id="fg_configuration"><span class="ui-icon ui-icon-triangle-1-s"></span>
+    <% if current_user.try(:has_role?, 'Librarian') %>
+      <%= t('page.management') -%>
+    <% else %>
+      <%= t('page.configuration') -%>
+    <% end %>
+  </a>
+  <div id="configuration_menu" class="hidden">
+    <%- if user_signed_in? -%>
+      <%- if current_user.has_role?('Librarian') -%>
+        <ul>
+          <li><%= link_to t('user.management'), users_path -%></li>
+          <li><%= link_to t('page.patron_management'), patrons_path -%></li>
+          <li><%= link_to t('page.import'), page_import_path -%></li>
+          <!--
+          <li><%= link_to t('page.export'), 'page/export' -%></li>
+          -->
           <% if defined?(EnjuPurchaseRequest) %>
-            <li><%= link_to t('activerecord.models.purchase_request'), purchase_requests_path -%></li>
+            <li><%= link_to t('activerecord.models.order_list'), order_lists_path -%></li>
           <% end %>
-          <% if defined?(EnjuQuestion) %>
-            <li><%= link_to t('activerecord.models.question'), questions_path -%></li>
-          <% end %>
+          <li><%= link_to t('page.statistics'), page_statistics_path -%></li>
+          <li><%= link_to t('activerecord.models.search_history'), search_histories_path -%></li>
+          <li><%= link_to t('page.configuration'), page_configuration_path -%></li>
         </ul>
-      </li>
-      <li class="dropdown" id="menu4">
-        <a class="dropdown-toggle" data-toggle="dropdown" href="#menu4">
-          <%= t('activerecord.models.event') -%>
-          <b class="caret"></b>
-        </a>
-        <ul class="dropdown-menu">
-          <% if defined?(EnjuEvent) %>
-            <%- unless @library_group.real_libraries.empty? -%>
-              <li><%= link_to t('page.calendar'), calendar_path -%></li>
-              <li><%= link_to t('event.all'), events_path -%></li>
-              <%- @library_group.real_libraries.each do |library| -%>
-                <li><%= link_to library.display_name.localize, library_events_path(library) -%></li>
-              <%- end -%>
-              <%- if can? :create, Event -%>
-                <li><%= link_to t('page.import'), new_event_import_file_path -%></li>
-              <%- end -%>
-            <%- end -%>
-          <% end %>
+      <%- else -%>
+        <ul>
+          <li><%= link_to t('user.account_management'), edit_my_account_path -%></li>
         </ul>
-      </li>
-      <li class="dropdown" id="menu5">
-        <a class="dropdown-toggle" data-toggle="dropdown" href="#menu5">
-          <% if current_user.try(:has_role?, 'Librarian') %>
-            <%= t('page.management') -%>
-          <% else %>
-            <%= t('page.configuration') -%>
-          <% end %>
-          <b class="caret"></b>
-        </a>
-        <ul class="dropdown-menu">
-          <%- if user_signed_in? -%>
-            <%- if current_user.has_role?('Librarian') -%>
-              <li><%= link_to t('user.management'), users_path -%></li>
-              <li><%= link_to t('page.patron_management'), patrons_path -%></li>
-              <li><%= link_to t('page.import'), page_import_path -%></li>
-              <% if defined?(EnjuPurchaseRequest) %>
-                <li><%= link_to t('activerecord.models.order_list'), order_lists_path -%></li>
-              <% end %>
-              <li><%= link_to t('page.statistics'), page_statistics_path -%></li>
-              <li><%= link_to t('activerecord.models.search_history'), search_histories_path -%></li>
-              <li><%= link_to t('page.configuration'), page_configuration_path -%></li>
-            <%- else -%>
-              <li><%= link_to t('user.account_management'), edit_my_account_path -%></li>
-            <%- end -%>
-          <%- else -%>
-            <li><%= link_to t('page.sign_in'), new_user_session_path -%></li>
-          <%- end -%>
-        </ul>
-      </li>
-    </ul>
+      <%- end -%>
+    <%- else -%>
+      <ul>
+        <li><%= link_to t('page.sign_in'), new_user_session_path -%></li>
+      </ul>
+    <%- end -%>
+  </div>
+</div>
