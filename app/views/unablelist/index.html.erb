@@ -1,50 +1,45 @@
+<script>
+  function push_submit(format) {
+    var o = document.getElementById('form');
+    if(format == 'pdf')
+      o.action = "<%= unablelist_path(:format => 'pdf') %>";
+    else if(format == 'tsv')
+      o.action = "<%= unablelist_path(:format => 'tsv') %>";
+    else
+      o.action = "<%= unablelist_path %>";
+    o.submit();
+  }
+</script>
+
 <div id="content_detail" class="ui-corner-all">
 <h1 class="title"><%= t('page.listing', :model => t('activerecord.models.unablelist')) -%></h1>
 <div id="content_list">
-<%- if false -%>
-<%- unless @users.blank? -%>
-  <%= form_tag({:action => 'output'}) do -%>
-    <%= hidden_field_tag :sort_by, params[:sort_by] -%>
-    <%= hidden_field_tag :library, @selected_library -%>
-    <%= submit_tag t('page.output', :model => t('activerecord.models.unablelist')) -%>
-  <%- end -%>
-  <br />
-<%- end -%>
-<%- end -%>
 
-<%= form_for :unablelist, :html => {:method => 'get'} do -%>
+<%= form_for :unablelist, :html => {:method => 'get', :id => 'form'} do -%>
   <div style="color: red"><%= flash[:message] -%></div>
   <p>
-    <%= t('advanced_search.library') -%>: <%= select("library", "id", @libraries, {:include_blank => t('advanced_search.all_libraries'), :selected=>@selected_library})%> </td>
-    <%= hidden_field_tag :sort_by, params[:sort_by] -%>
-    <br />
-    <%= submit_tag t('page.search') -%>
-    <%= submit_tag t('page.output_pdf', :model => t('page.listing', :model => t('activerecord.models.unablelist'))), :name => 'output_pdf' -%>
-    <%= submit_tag t('page.output_tsv', :model => t('page.listing', :model => t('activerecord.models.unablelist'))), :name => 'output_tsv' -%>
+    <%= hidden_field_tag :sort_by,     params[:sort_by] %>
+    <%= hidden_field_tag :library,     params[:library]     if params[:library] %>
+    <%= hidden_field_tag :role,        params[:role]        if params[:role] %>
+    <%= hidden_field_tag :patron_type, params[:patron_type] if params[:patron_type] %>
+    <%= submit_tag t('page.output_pdf', :model => t('page.listing', :model => t('activerecord.models.unablelist'))), :onclick => "push_submit('pdf');" %>
+    <%= submit_tag t('page.output_tsv', :model => t('page.listing', :model => t('activerecord.models.unablelist'))), :onclick => "push_submit('tsv');" %>
     <br />
   </p>
 <%- end -%>
 
-<p>
-  <%- if @selected_library.blank?-%>
-    <%= t('page.sort_by') -%>:
-    <%- if params[:sort_by].blank? || params[:sort_by] == 'user_number' -%>
-      <strong><%= t('activerecord.attributes.user.user_number') -%></strong>
-    <%- else -%>
-      <%= link_to t('activerecord.attributes.user.user_number'), unablelist_path(:sort_by => 'user_number', :page => @page) -%>
-    <%- end -%>
-    <%- if params[:sort_by] == 'library' -%>
-      <strong><%= t('activerecord.attributes.user.library') -%></strong>
-    <%- else -%>
-      <%= link_to t('activerecord.attributes.user.library'), unablelist_path(:sort_by => 'library', :page => @page) -%>
-    <%- end -%>
-  <%- end -%>
-</p>
-
 <table class="index">
   <tr>
-    <th><%= t('activerecord.attributes.user.library') -%></th>
-    <th><%= t('activerecord.attributes.user.user_number') %></th>
+    <th>
+      <%= t('activerecord.attributes.user.library') -%>
+      <%= link_to image_tag('arrow_up.png', :size => '16x16', :alt => t('page.asc'), :title => t('tooltip.asc')), url_for(params.merge(:sort_by => 'library', :order => 'asc')) -%>
+      <%= link_to image_tag('arrow_down.png', :size => '16x16', :alt => t('page.desc'), :title => t('tooltip.desc')), url_for(params.merge(:sort_by => 'library', :order => 'desc')) -%>
+    </th>
+    <th>
+      <%= t('activerecord.attributes.user.user_number') %>
+      <%= link_to image_tag('arrow_up.png', :size => '16x16', :alt => t('page.asc'), :title => t('tooltip.asc')), url_for(params.merge(:sort_by => 'user_number', :order => 'asc')) -%>
+      <%= link_to image_tag('arrow_down.png', :size => '16x16', :alt => t('page.desc'), :title => t('tooltip.desc')), url_for(params.merge(:sort_by => 'user_number', :order => 'desc')) -%>
+    </th>
     <th><%= t('activerecord.attributes.patron.full_name') %></th>
     <th><%= t('activerecord.attributes.patron.telephone_number_1') %></th>
     <th><%= t('activerecord.attributes.patron.extelephone_number_1') %></th>
@@ -71,6 +66,11 @@
 </div>
 
 <div id="submenu" class="ui-corner-all">
+  <h3><%= link_to h("#{t('page.total')}: #{@users.total_entries}"), unablelist_path %></h3>
+  <% if @users && (@users.total_entries > 0) %>
+    <%= render 'users/all_facet' %>
+  <% end %>
+  <br />
   <ul>
     <li><%= link_to t('page.listing', :model => t('activerecord.models.user')), users_path -%></li>
   </ul>

@@ -176,6 +176,7 @@ class User < ActiveRecord::Base
     string :patron_type do
       patron.patron_type.name if patron
     end
+    boolean :unable
   end
 
   attr_accessor :first_name, :middle_name, :last_name, :full_name,
@@ -589,6 +590,8 @@ class User < ActiveRecord::Base
       sort = 'full_name'
     when 'user_number'
       sort = 'user_number'
+    when 'library'
+      sort = 'library'
     else
       sort = 'created_at'
     end
