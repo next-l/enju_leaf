@@ -10,7 +10,7 @@
     </p>
     <p>
       <strong><%= t('activerecord.attributes.checkout.due_date') -%></strong><br />
-      <%= l(@checkout.due_date, :format => :only_date) if @checkout.due_date -%>
+      <%= l(@checkout.due_date, :formats => :only_date) if @checkout.due_date -%>
     </p>
     <%- if can? :destroy, @checkout -%>
       <p>
