@@ -330,8 +330,6 @@ GEM
       uuidtools (~> 2.1)
     barby (0.5.0)
     bcrypt-ruby (3.0.1)
-    bootstrap-will_paginate (0.0.7)
-      will_paginate
     builder (3.0.0)
     cancan (1.6.8)
     capybara (1.1.2)
@@ -355,7 +353,6 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.3.3)
-    commonjs (0.2.6)
     configatron (2.9.1)
       yamler (>= 0.1.0)
     dalli (2.1.0)
@@ -410,13 +407,7 @@ GEM
       thor (~> 0.14)
     json (1.7.3)
     kgio (2.7.4)
-    less (2.2.1)
-      commonjs (~> 0.2.6)
-    less-rails (2.2.3)
-      actionpack (>= 3.1)
-      less (~> 2.2.0)
     library_stdnums (1.1.0)
-    libv8 (3.3.10.4)
     libwebsocket (0.1.4)
       addressable
     lisbn (0.1.2)
@@ -589,8 +580,6 @@ GEM
       nokogiri
       sunspot (= 2.0.0.pre.120417)
     sunspot_solr (2.0.0.pre.120417)
-    therubyracer (0.10.1)
-      libv8 (~> 3.3.10)
     thor (0.15.4)
     tilt (1.3.3)
     timecop (0.3.5)
@@ -598,11 +587,6 @@ GEM
     treetop (1.4.10)
       polyglot
       polyglot (>= 0.3.1)
-    twitter-bootstrap-rails (2.1.0)
-      actionpack (>= 3.1)
-      less-rails (~> 2.2.2)
-      railties (>= 3.1)
-      therubyracer (~> 0.10.1)
     tzinfo (0.3.33)
     uglifier (1.2.6)
       execjs (>= 0.3.0)
@@ -637,7 +621,6 @@ DEPENDENCIES
   attribute_normalizer (~> 1.1)
   awesome_nested_set (~> 2.1)
   aws-sdk
-  bootstrap-will_paginate
   cancan (>= 1.6.8)
   client_side_validations (~> 3.2.0.beta.4)
   coffee-rails (~> 3.2.1)
@@ -708,7 +691,6 @@ DEPENDENCIES
   sunspot-rails-tester!
   sunspot_solr (~> 2.0.0.pre.120417)
   timecop
-  twitter-bootstrap-rails
   uglifier (>= 1.0.3)
   validates_timeliness
   vcr (~> 2.2)
