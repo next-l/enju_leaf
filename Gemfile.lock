@@ -44,9 +44,9 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_circulation.git
-  revision: e762ff06031141d5df2d877ca4dd9896076729c3
+  revision: adbc01cc0035cb56fa24085f5b0600c60e8a79c5
   specs:
-    enju_circulation (0.0.69)
+    enju_circulation (0.0.70)
       enju_core
       enju_event (>= 0.0.24)
       enju_message (>= 0.0.23)
@@ -598,11 +598,11 @@ GEM
     treetop (1.4.10)
       polyglot
       polyglot (>= 0.3.1)
-    twitter-bootstrap-rails (2.1.0)
+    twitter-bootstrap-rails (2.1.1)
       actionpack (>= 3.1)
       less-rails (~> 2.2.2)
       railties (>= 3.1)
-      therubyracer (~> 0.10.1)
+      therubyracer (= 0.10.1)
     tzinfo (0.3.33)
     uglifier (1.2.6)
       execjs (>= 0.3.0)
