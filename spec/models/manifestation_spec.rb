@@ -140,7 +140,7 @@ describe Manifestation, :solr => true do
     #TODO ソート基準が入手しやすさの場合の処理
   end
 
-  it "should accept rangs in sru" do
+  it "should accept ranges in sru" do
     sru = Sru.new({:query => "from = 1993-02-24 AND until = 2006-08-06 AND title=プログラミング"})
     sru.search
     sru.manifestations.size.should eq 2
