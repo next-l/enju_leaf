@@ -411,7 +411,7 @@ manifestation_00114:
   price:
   manifestation_identifier:
   depth:
-  date_of_publication: 2001-03-20
+  pub_date: 2001-03-20
   access_address:
   id: 114
   height:
@@ -441,7 +441,7 @@ manifestation_00116:
   price:
   manifestation_identifier:
   depth:
-  date_of_publication: 1991-12-24
+  pub_date: 1991-12-24
   access_address:
   id: 116
   height:
@@ -501,7 +501,7 @@ manifestation_00120:
   price:
   manifestation_identifier:
   depth:
-  date_of_publication: 2000-10-01
+  pub_date: 2000-10-01
   access_address:
   id: 120
   height:
@@ -1581,7 +1581,7 @@ manifestation_00192:
   price:
   manifestation_identifier:
   depth:
-  date_of_publication: 2007-04-27
+  pub_date: 2007-04-27
   access_address:
   id: 192
   height:
@@ -1597,7 +1597,7 @@ manifestation_00193:
   price:
   manifestation_identifier:
   depth:
-  date_of_publication: 2007-02-01
+  pub_date: 2007-02-01
   access_address:
   id: 193
   height:
@@ -1642,7 +1642,7 @@ manifestation_00196:
   price:
   manifestation_identifier:
   depth:
-  date_of_publication: 2006-08-05
+  pub_date: 2006-08-05
   access_address:
   id: 196
   height:

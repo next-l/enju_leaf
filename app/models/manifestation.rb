@@ -45,9 +45,9 @@ class Manifestation < ActiveRecord::Base
     text :fulltext, :note, :creator, :contributor, :publisher, :description
     text :item_identifier do
       if periodical_master?
-        series_statement.manifestations.collect{|m| m.items.collect(&:item_identifier)}.flatten
+        series_statement.manifestations.map{|m| m.items.pluck(:item_identifier)}.flatten
       else
-        items.collect(&:item_identifier)
+        items.pluck(:item_identifier)
       end
     end
     string :title, :multiple => true
@@ -68,7 +68,7 @@ class Manifestation < ActiveRecord::Base
     end
     string :issn, :multiple => true do
       if series_statement
-        ([series_statement.issn] + series_statement.manifestations.collect(&:issn)).uniq.compact
+        ([series_statement.issn] + series_statement.manifestations.pluck(:issn)).uniq.compact
       else
         [issn, series_statement.try(:issn)].compact
       end
@@ -90,7 +90,7 @@ class Manifestation < ActiveRecord::Base
     end
     string :item_identifier, :multiple => true do
       if periodical_master?
-        series_statement.manifestations.collect{|m| m.items.collect(&:item_identifier)}.flatten
+        series_statement.manifestations.collect{|m| m.items.pluck(:item_identifier)}.flatten
       else
         items.collect(&:item_identifier)
       end
@@ -101,6 +101,9 @@ class Manifestation < ActiveRecord::Base
     time :created_at
     time :updated_at
     time :deleted_at
+    time :pub_date, :multiple => true do
+      pub_dates
+    end
     time :date_of_publication
     integer :creator_ids, :multiple => true
     integer :contributor_ids, :multiple => true
@@ -146,11 +149,7 @@ class Manifestation < ActiveRecord::Base
       if series_statement.try(:periodical)  # 雑誌の場合
         series_statement.titles
       else                  # 雑誌以外（雑誌の記事も含む）
-        titles = []
-        original_manifestations.each do |m|
-          titles << m.title
-        end
-        titles.flatten
+        original_manifestations.map{|m| m.title}.flatten
       end
     end
     text :isbn do  # 前方一致検索のためtext指定を追加
@@ -158,7 +157,7 @@ class Manifestation < ActiveRecord::Base
     end
     text :issn do # 前方一致検索のためtext指定を追加
       if series_statement
-        ([series_statement.issn] + series_statement.manifestations.collect(&:issn)).uniq.compact
+        ([series_statement.issn] + series_statement.manifestations.pluck(:issn)).uniq.compact
       else
         issn
       end
@@ -203,7 +202,7 @@ class Manifestation < ActiveRecord::Base
   before_validation :set_wrong_isbn, :check_issn, :check_lccn, :if => :during_import
   before_validation :convert_isbn, :if => :isbn_changed?
   after_create :clear_cached_numdocs
-  before_save :set_date_of_publication
+  before_save :set_date_of_publication, :set_number
   after_save :index_series_statement
   after_destroy :index_series_statement
   normalize_attributes :manifestation_identifier, :pub_date, :isbn, :issn, :nbn, :lccn, :original_title
@@ -394,10 +393,18 @@ class Manifestation < ActiveRecord::Base
   end
 
   def sort_title
-    if title_transcription
-      NKF.nkf('-w --katakana', title_transcription)
+    if periodical_master?
+      if series_statement.title_transcription?
+        NKF.nkf('-w --katakana', series_statement.title_transcription)
+      else
+        series_statement.original_title
+      end
     else
-      original_title
+      if title_transcription?
+        NKF.nkf('-w --katakana', title_transcription)
+      else
+        original_title
+      end
     end
   end
 
@@ -453,10 +460,10 @@ class Manifestation < ActiveRecord::Base
 
     searchable do
       text :subject do
-        (subjects.collect(&:term) + subjects.collect(&:term_transcription)).compact
+        subjects.map{|s| [:term, :term_transcription]}.compact
       end
       string :subject, :multiple => true do
-        (subjects.collect(&:term) + subjects.collect(&:term_transcription)).compact
+        subjects.map{|s| [:term, :term_transcription]}.compact
       end
       string :classification, :multiple => true do
         classifications.collect(&:category)
@@ -543,6 +550,30 @@ class Manifestation < ActiveRecord::Base
         raise "#{options[:scope]} is not supported!"
       end
     end
+  end
+
+  def set_number
+    self.volume_number = volume_number_string.scan(/\d*/).map{|s| s.to_i if s =~ /\d/}.compact.first if volume_number_string and !volume_number?
+    self.issue_number = issue_number_string.scan(/\d*/).map{|s| s.to_i if s =~ /\d/}.compact.first if issue_number_string and !issue_number?
+    self.edition = edition_string.scan(/\d*/).map{|s| s.to_i if s =~ /\d/}.compact.first if edition_string and !edition?
+  end
+
+  def pub_dates
+    return [] unless pub_date
+    pub_date_array = pub_date.split(';')
+    pub_date_array.map{|pub_date_string|
+      date = nil
+      while date.nil? do
+        pub_date_string += '-01'
+        break if pub_date_string =~ /-01-01-01$/
+        begin
+          date = Time.zone.parse(pub_date_string)
+        rescue ArgumentError
+        rescue TZInfo::AmbiguousTime
+        end
+      end
+      date
+    }.compact
   end
 
   if defined?(EnjuScribd)

@@ -171,7 +171,7 @@ GEM
       rails (~> 3.2)
       simple_form
       state_machine
-    enju_ndl (0.0.33)
+    enju_ndl (0.0.34)
       acts_as_list
       attribute_normalizer
       devise
@@ -368,7 +368,7 @@ GEM
     redis (3.0.1)
     redis-namespace (1.2.0)
       redis (~> 3.0.0)
-    responders (0.9.1)
+    responders (0.9.2)
       railties (~> 3.1)
     resque (1.21.0)
       multi_json (~> 1.0)
@@ -499,7 +499,7 @@ DEPENDENCIES
   enju_inventory (~> 0.0.10)
   enju_manifestation_viewer (~> 0.0.1)
   enju_message (~> 0.0.24)
-  enju_ndl (~> 0.0.33)
+  enju_ndl (~> 0.0.34)
   enju_oai (~> 0.0.3)
   enju_purchase_request (~> 0.0.13)
   enju_question (~> 0.0.20)

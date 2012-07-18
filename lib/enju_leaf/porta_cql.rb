@@ -65,7 +65,7 @@ class Cql
 
   def date_range(from_date, until_date)
     unless from_date == '*' and until_date == '*'
-      ["date_of_publication_d:[#{from_date} TO #{until_date}]"]
+      ["pub_date_dm:[#{from_date} TO #{until_date}]"]
     else
       []
     end
