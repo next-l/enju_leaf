@@ -7,6 +7,7 @@
     <%= f.search_field :item_identifier, :class => 'resource_item_identifier' -%>
     <%= f.submit t('checkin.checkin'), 'data-disable-with' => t('page.saving'), :class => 'btn' -%>
   <%- end -%>
+  <%= javascript_tag("$('#checkin_item_identifier').focus().select();") %>
 </div>
 
 <%= render 'checkin' %>

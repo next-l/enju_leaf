@@ -1,9 +1,9 @@
 <div class="row-fluid">
   <div class="span9">
     <h1 class="title"><%= t('page.new', :model => t('activerecord.models.checked_item')) -%></h1>
-    <p id="notice"><%= notice %></p>
 
     <div id="checked_item_list">
+      <p id="notice"><%= notice %></p>
       <%= render 'list' -%>
     </div>
     <%= render 'checkout' -%>
