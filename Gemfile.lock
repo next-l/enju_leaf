@@ -35,45 +35,6 @@ GIT
       state_machine
 
 GIT
-  remote: git://github.com/nabeta/enju_inventory.git
-  revision: fd4d6189eea539a84dafdbcadc1a326e686ea04f
-  specs:
-    enju_inventory (0.1.6)
-      enju_core
-      inherited_resources
-      paperclip (~> 3.0)
-      rails (~> 3.2)
-
-GIT
-  remote: git://github.com/nabeta/enju_purchase_request.git
-  revision: 02abcbca1a2e9b3cc6776c50447e5d2550f706ed
-  specs:
-    enju_purchase_request (0.0.13)
-      configatron
-      enju_core
-      rails (~> 3.2)
-      state_machine
-
-GIT
-  remote: git://github.com/nabeta/enju_question.git
-  revision: ef06e5f706394539d9b8bcf65f38475f4f6777a6
-  specs:
-    enju_question (0.0.20)
-      acts-as-taggable-on (~> 2.2)
-      acts_as_list (~> 0.1.6)
-      cancan
-      devise
-      enju_core
-      enju_ndl (~> 0.0.33)
-      friendly_id (~> 4.0)
-      nokogiri
-      rails (~> 3.2)
-      simple_form
-      sunspot_rails
-      sunspot_solr
-      will_paginate (~> 3.0)
-
-GIT
   remote: git://github.com/nabeta/enju_resource_merge.git
   revision: f42dd8f1b3d2128cd2b76b7fea6d9f904cf84018
   specs:
@@ -244,6 +205,11 @@ GEM
       simple_form
       state_machine
       sunspot_solr
+    enju_inventory (0.1.7)
+      enju_core
+      inherited_resources
+      paperclip (~> 3.0)
+      rails (~> 3.2)
     enju_library (0.0.2)
       enju_core
       geocoder
@@ -260,18 +226,11 @@ GEM
       resque_mailer
       simple_form
       state_machine
-    enju_ndl (0.0.34)
-      acts_as_list
-      attribute_normalizer
-      devise
-      library_stdnums
+    enju_ndl (0.0.35)
       library_stdnums
       lisbn
       nokogiri
       rails (~> 3.2)
-      sunspot_rails
-      sunspot_solr
-      will_paginate (~> 3.0)
     enju_oai (0.0.3)
       acts_as_list
       attribute_normalizer (~> 1.1)
@@ -283,6 +242,16 @@ GEM
       rails (~> 3.2)
       sunspot_rails
       will_paginate
+    enju_purchase_request (0.0.14)
+      enju_core
+      rails (~> 3.2)
+      state_machine
+    enju_question (0.0.21)
+      acts-as-taggable-on (~> 2.3)
+      enju_core
+      enju_ndl (~> 0.0.34)
+      rails (~> 3.2)
+      simple_form
     enju_search_log (0.0.7)
       cancan
       devise
@@ -574,14 +543,14 @@ DEPENDENCIES
   enju_event (~> 0.1.13)
   enju_export!
   enju_inter_library_loan!
-  enju_inventory!
+  enju_inventory (~> 0.1.7)
   enju_library (~> 0.0.2)
   enju_manifestation_viewer (~> 0.0.1)
   enju_message (~> 0.1.11)
-  enju_ndl (~> 0.0.34)
+  enju_ndl (~> 0.0.35)
   enju_oai (~> 0.0.3)
-  enju_purchase_request!
-  enju_question!
+  enju_purchase_request (~> 0.0.14)
+  enju_question (~> 0.0.21)
   enju_resource_merge!
   enju_search_log (~> 0.0.7)
   enju_subject (~> 0.0.18)
