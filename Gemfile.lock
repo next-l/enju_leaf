@@ -35,9 +35,9 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_bookmark.git
-  revision: aa0a158bae46e131695a6c116655d6c922e3201b
+  revision: ea2d1ffb11e28f99e525225caff9ac0975ab89de
   specs:
-    enju_bookmark (0.0.21)
+    enju_bookmark (0.0.22)
       acts-as-taggable-on (~> 2.3)
       rails (~> 3.2)
       state_machine
@@ -102,9 +102,9 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_message.git
-  revision: 275bec70a981ac95e73285e7e4d9ba23d6406781
+  revision: ef45b344017c9f5b023972e1567a98f9ee3a80e1
   specs:
-    enju_message (0.1.10)
+    enju_message (0.1.11)
       awesome_nested_set (~> 2.1)
       enju_core
       inherited_resources
@@ -215,9 +215,9 @@ GIT
 
 GIT
   remote: git://github.com/next-l/enju_biblio.git
-  revision: 2cc5d71220e1d444e447e2d6a1561e8433960904
+  revision: 3b61250830e15b94dc5ea8f3c94bc3b7c1daeb3a
   specs:
-    enju_biblio (0.0.7)
+    enju_biblio (0.0.8)
       aws-sdk
       dynamic_form
       enju_core
@@ -266,7 +266,7 @@ GIT
 
 GIT
   remote: git://github.com/next-l/enju_library.git
-  revision: 36f846db7aa37e4fd124d664262fdf00f0957f1c
+  revision: 902d42f73cb504e0ecde4a2e99a14819171b8620
   specs:
     enju_library (0.0.2)
       enju_core
