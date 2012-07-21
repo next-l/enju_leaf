@@ -35,7 +35,7 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_bookmark.git
-  revision: af50f686ac1599512d152551ede5216dcaa10d50
+  revision: a6ed361dffd78960875b4fa716ef18999a236984
   specs:
     enju_bookmark (0.0.21)
       acts-as-taggable-on (~> 2.3)
@@ -44,7 +44,7 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_circulation.git
-  revision: cc70b3aacac77c1ef8ec474f3544b5695ebd4276
+  revision: ffda0b440042774a034dec2a1e128af5f7ded160
   specs:
     enju_circulation (0.0.70)
       enju_core
@@ -58,7 +58,7 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_event.git
-  revision: e9f68f9ded869a0900b778d3e692e8f3b632a9a2
+  revision: ab915c2286e88144499e00a4b4ed2309c413aa72
   specs:
     enju_event (0.1.12)
       configatron
@@ -102,7 +102,7 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_message.git
-  revision: 958ff9aee46a38a4dc8e602aa07b0b11c99222d2
+  revision: 275bec70a981ac95e73285e7e4d9ba23d6406781
   specs:
     enju_message (0.1.10)
       awesome_nested_set (~> 2.1)
@@ -148,7 +148,7 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_purchase_request.git
-  revision: 7af04a57f735eb71a6c2dcfff596033c5257bfa5
+  revision: 02abcbca1a2e9b3cc6776c50447e5d2550f706ed
   specs:
     enju_purchase_request (0.0.13)
       configatron
@@ -197,7 +197,7 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_subject.git
-  revision: e9540e9a012697e6b3262b7b7ce51996b988713e
+  revision: 4522bfed1050c8590d7e768a32db574c63198585
   specs:
     enju_subject (0.0.17)
       acts_as_list (~> 0.1.6)
@@ -215,7 +215,7 @@ GIT
 
 GIT
   remote: git://github.com/next-l/enju_biblio.git
-  revision: 9f97be0bcf03b2f6c9835aa34a3c30d6606b4a99
+  revision: 88ffb73233d41e6475475dae4e1671235f77433d
   specs:
     enju_biblio (0.0.6)
       aws-sdk
@@ -266,9 +266,9 @@ GIT
 
 GIT
   remote: git://github.com/next-l/enju_library.git
-  revision: 8d00a57cb16fe6c50d744ad707b43c8a98f9d3c4
+  revision: 36f846db7aa37e4fd124d664262fdf00f0957f1c
   specs:
-    enju_library (0.0.1)
+    enju_library (0.0.2)
       enju_core
       geocoder
       inherited_resources
@@ -309,7 +309,7 @@ GEM
       rails (~> 3.0)
     acts_as_list (0.1.6)
     addressable (2.2.8)
-    annotate (2.5.0.pre1)
+    annotate (2.5.0.pre2)
       rake
     arel (3.0.2)
     astrails-safe (0.2.7)
@@ -339,11 +339,11 @@ GEM
       rack-test (>= 0.5.4)
       selenium-webdriver (~> 2.0)
       xpath (~> 0.1.4)
-    childprocess (0.3.3)
-      ffi (~> 1.0.6)
+    childprocess (0.3.4)
+      ffi (~> 1.0, >= 1.0.6)
     choice (0.1.6)
     chronic (0.6.7)
-    client_side_validations (3.2.0.beta.4)
+    client_side_validations (3.2.0.beta.6)
     cloudfiles (1.5.0.1)
       json
     cocaine (0.2.1)
@@ -379,7 +379,7 @@ GEM
       railties (>= 3.0.0)
     fakeweb (1.3.0)
     fattr (2.2.1)
-    ffi (1.0.11)
+    ffi (1.1.0)
     foreigner (1.2.0)
       activerecord (>= 3.0.0)
     friendly_id (4.0.7)
@@ -446,7 +446,7 @@ GEM
       cocaine (>= 0.0.2)
       mime-types
     parallel (0.5.17)
-    parallel_tests (0.8.5)
+    parallel_tests (0.8.6)
       parallel
     pg (0.14.0)
     polyglot (0.3.3)
@@ -575,13 +575,13 @@ GEM
       activemodel (>= 3.2.0)
     strongbox (0.6.0)
       activerecord
-    sunspot (2.0.0.pre.120417)
+    sunspot (2.0.0.pre.120720)
       pr_geohash (~> 1.0)
       rsolr (~> 1.0.7)
-    sunspot_rails (2.0.0.pre.120417)
+    sunspot_rails (2.0.0.pre.120720)
       nokogiri
-      sunspot (= 2.0.0.pre.120417)
-    sunspot_solr (2.0.0.pre.120417)
+      sunspot (= 2.0.0.pre.120720)
+    sunspot_solr (2.0.0.pre.120720)
     thor (0.15.4)
     tilt (1.3.3)
     timecop (0.3.5)
@@ -596,7 +596,7 @@ GEM
     uuidtools (2.1.3)
     validates_timeliness (3.0.12)
       timeliness (~> 0.3.6)
-    vcr (2.2.3)
+    vcr (2.2.4)
     vegas (0.1.11)
       rack (>= 1.0.0)
     warden (1.2.1)
@@ -618,13 +618,13 @@ DEPENDENCIES
   RedCloth (>= 4.2.9)
   activerecord-jdbc-adapter
   addressable
-  annotate (~> 2.5.0.pre1)
+  annotate (~> 2.5.0.pre2)
   astrails-safe
   attribute_normalizer (~> 1.1)
   awesome_nested_set (~> 2.1)
   aws-sdk
   cancan (>= 1.6.8)
-  client_side_validations (~> 3.2.0.beta.4)
+  client_side_validations (~> 3.2.0.beta.6)
   coffee-rails (~> 3.2.1)
   dalli (~> 2.1)
   devise (~> 2.1.2)
@@ -691,7 +691,7 @@ DEPENDENCIES
   strong_parameters
   strongbox
   sunspot-rails-tester!
-  sunspot_solr (~> 2.0.0.pre.120417)
+  sunspot_solr (~> 2.0.0.pre.120720)
   timecop
   uglifier (>= 1.0.3)
   validates_timeliness
