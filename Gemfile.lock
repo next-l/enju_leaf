@@ -123,19 +123,12 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_oai.git
-  revision: 4e35abdff93e0b9f4ef6ebd89f1c715e4967f90e
+  revision: e5df0e329ca287d77c23f670bb5fa39273d194ec
   specs:
-    enju_oai (0.0.3)
-      acts_as_list
-      attribute_normalizer (~> 1.1)
-      cancan
-      configatron
-      devise
-      friendly_id (~> 4.0)
+    enju_oai (0.0.4)
+      enju_core
       mobile-fu
       rails (~> 3.2)
-      sunspot_rails
-      will_paginate
 
 GIT
   remote: git://github.com/nabeta/enju_purchase_request.git
@@ -229,9 +222,9 @@ GIT
 
 GIT
   remote: git://github.com/next-l/enju_export.git
-  revision: d3b1f18f4ad1fb288d53ae2f5923250f1e4e437b
+  revision: abb2bc4440a3dacfa9d6e1d8a16b8ab4493257cb
   specs:
-    enju_export (0.0.2)
+    enju_export (0.0.3)
       enju_core
       paperclip
       rails (~> 3.2)
@@ -282,7 +275,7 @@ GEM
     acts-as-taggable-on (2.3.3)
       rails (~> 3.0)
     acts_as_list (0.1.6)
-    addressable (2.2.8)
+    addressable (2.3.1)
     annotate (2.5.0.pre2)
       rake
     arel (3.0.2)
