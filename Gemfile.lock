@@ -26,54 +26,6 @@ GIT
       will_paginate
 
 GIT
-  remote: git://github.com/nabeta/enju_book_jacket.git
-  revision: 17dfceb94ad2bbf7e1a079c72008b7a5bab0bd34
-  specs:
-    enju_book_jacket (0.0.2)
-      configatron
-      rails (~> 3.2)
-
-GIT
-  remote: git://github.com/nabeta/enju_bookmark.git
-  revision: aa0a158bae46e131695a6c116655d6c922e3201b
-  specs:
-    enju_bookmark (0.0.21)
-      acts-as-taggable-on (~> 2.3)
-      rails (~> 3.2)
-      state_machine
-
-GIT
-  remote: git://github.com/nabeta/enju_circulation.git
-  revision: 64b8d4bae568db9c880583f92b2fcb31d162771a
-  specs:
-    enju_circulation (0.0.71)
-      enju_core
-      enju_event (>= 0.0.27)
-      enju_message (>= 0.0.24)
-      inherited_resources
-      rails (~> 3.2)
-      simple_form
-      state_machine
-      validates_timeliness
-
-GIT
-  remote: git://github.com/nabeta/enju_event.git
-  revision: 7ecc0d557ac48fc1135a16dfbb98b27731c18581
-  specs:
-    enju_event (0.1.13)
-      configatron
-      enju_core
-      enju_message (>= 0.0.24)
-      event-calendar (~> 2.3.3)
-      has_scope
-      inherited_resources
-      paperclip
-      rails (~> 3.2)
-      simple_form
-      state_machine
-      sunspot_solr
-
-GIT
   remote: git://github.com/nabeta/enju_inter_library_loan.git
   revision: cf758e6257836c3e8d7137218ad5d2c9dadfe30d
   specs:
@@ -91,60 +43,6 @@ GIT
       inherited_resources
       paperclip (~> 3.0)
       rails (~> 3.2)
-
-GIT
-  remote: git://github.com/nabeta/enju_manifestation_viewer.git
-  revision: 46e748b0d56ab4be4a0f858f84785a75004880cd
-  specs:
-    enju_manifestation_viewer (0.0.1)
-      addressable
-      rails (~> 3.2)
-
-GIT
-  remote: git://github.com/nabeta/enju_message.git
-  revision: 275bec70a981ac95e73285e7e4d9ba23d6406781
-  specs:
-    enju_message (0.1.10)
-      awesome_nested_set (~> 2.1)
-      enju_core
-      inherited_resources
-      rails (~> 3.2)
-      resque_mailer
-      simple_form
-      state_machine
-
-GIT
-  remote: git://github.com/nabeta/enju_ndl.git
-  revision: bbec530382ab2c9695a7dd9eaf630b28ac38e0ac
-  specs:
-    enju_ndl (0.0.34)
-      acts_as_list
-      attribute_normalizer
-      devise
-      library_stdnums
-      library_stdnums
-      lisbn
-      nokogiri
-      rails (~> 3.2)
-      sunspot_rails
-      sunspot_solr
-      will_paginate (~> 3.0)
-
-GIT
-  remote: git://github.com/nabeta/enju_oai.git
-  revision: 4e35abdff93e0b9f4ef6ebd89f1c715e4967f90e
-  specs:
-    enju_oai (0.0.3)
-      acts_as_list
-      attribute_normalizer (~> 1.1)
-      cancan
-      configatron
-      devise
-      friendly_id (~> 4.0)
-      mobile-fu
-      rails (~> 3.2)
-      sunspot_rails
-      will_paginate
 
 GIT
   remote: git://github.com/nabeta/enju_purchase_request.git
@@ -186,74 +84,6 @@ GIT
       rails (~> 3.2)
 
 GIT
-  remote: git://github.com/nabeta/enju_search_log.git
-  revision: f691b33b97569e72e426fe4869ddfb7ba1632808
-  specs:
-    enju_search_log (0.0.7)
-      cancan
-      devise
-      rails (~> 3.2)
-      will_paginate
-
-GIT
-  remote: git://github.com/nabeta/enju_subject.git
-  revision: 91235a0fb7e3f0772b87b6e7511b9a2ce8524834
-  specs:
-    enju_subject (0.0.18)
-      acts_as_list (~> 0.1.6)
-      attribute_normalizer (~> 1.1)
-      cancan
-      devise
-      dynamic_form
-      enju_core
-      friendly_id (~> 4.0)
-      inherited_resources
-      rails (~> 3.2)
-      sunspot_rails
-      sunspot_solr
-      will_paginate (~> 3.0)
-
-GIT
-  remote: git://github.com/next-l/enju_biblio.git
-  revision: 2cc5d71220e1d444e447e2d6a1561e8433960904
-  specs:
-    enju_biblio (0.0.7)
-      aws-sdk
-      dynamic_form
-      enju_core
-      enju_export
-      enju_ndl
-      enju_oai
-      has_scope
-      inherited_resources
-      marc
-      paper_trail
-      paperclip
-      paperclip-meta
-      rails (~> 3.2)
-      resque_mailer
-      simple_form
-      state_machine
-      validates_timeliness
-
-GIT
-  remote: git://github.com/next-l/enju_core.git
-  revision: e3df1f1123c8bf84971c90512547e2e7ca8235ae
-  specs:
-    enju_core (0.0.3)
-      acts_as_list
-      addressable
-      attribute_normalizer (~> 1.1)
-      cancan
-      configatron
-      devise
-      friendly_id (~> 4.0)
-      rails (~> 3.2)
-      resque
-      sunspot_rails (~> 2.0.0.pre.120720)
-      will_paginate
-
-GIT
   remote: git://github.com/next-l/enju_export.git
   revision: d3b1f18f4ad1fb288d53ae2f5923250f1e4e437b
   specs:
@@ -263,16 +93,6 @@ GIT
       rails (~> 3.2)
       simple_form
       state_machine
-
-GIT
-  remote: git://github.com/next-l/enju_library.git
-  revision: 36f846db7aa37e4fd124d664262fdf00f0957f1c
-  specs:
-    enju_library (0.0.2)
-      enju_core
-      geocoder
-      inherited_resources
-      rails (~> 3.2)
 
 GEM
   remote: https://rubygems.org/
@@ -366,6 +186,121 @@ GEM
       devise (>= 2.1.0.rc)
     diff-lcs (1.1.3)
     dynamic_form (1.1.4)
+    enju_biblio (0.0.8)
+      aws-sdk
+      dynamic_form
+      enju_core
+      enju_export
+      enju_ndl
+      enju_oai
+      has_scope
+      inherited_resources
+      marc
+      paper_trail
+      paperclip
+      paperclip-meta
+      rails (~> 3.2)
+      resque_mailer
+      simple_form
+      state_machine
+      validates_timeliness
+    enju_book_jacket (0.0.2)
+      configatron
+      rails (~> 3.2)
+    enju_bookmark (0.0.22)
+      acts-as-taggable-on (~> 2.3)
+      rails (~> 3.2)
+      state_machine
+    enju_circulation (0.0.71)
+      enju_core
+      enju_event (>= 0.0.27)
+      enju_message (>= 0.0.24)
+      inherited_resources
+      rails (~> 3.2)
+      simple_form
+      state_machine
+      validates_timeliness
+    enju_core (0.0.3)
+      acts_as_list
+      addressable
+      attribute_normalizer (~> 1.1)
+      cancan
+      configatron
+      devise
+      friendly_id (~> 4.0)
+      rails (~> 3.2)
+      resque
+      sunspot_rails (~> 2.0.0.pre.120720)
+      will_paginate
+    enju_event (0.1.13)
+      configatron
+      enju_core
+      enju_message (>= 0.0.24)
+      event-calendar (~> 2.3.3)
+      has_scope
+      inherited_resources
+      paperclip
+      rails (~> 3.2)
+      simple_form
+      state_machine
+      sunspot_solr
+    enju_library (0.0.2)
+      enju_core
+      geocoder
+      inherited_resources
+      rails (~> 3.2)
+    enju_manifestation_viewer (0.0.1)
+      addressable
+      rails (~> 3.2)
+    enju_message (0.1.11)
+      awesome_nested_set (~> 2.1)
+      enju_core
+      inherited_resources
+      rails (~> 3.2)
+      resque_mailer
+      simple_form
+      state_machine
+    enju_ndl (0.0.34)
+      acts_as_list
+      attribute_normalizer
+      devise
+      library_stdnums
+      library_stdnums
+      lisbn
+      nokogiri
+      rails (~> 3.2)
+      sunspot_rails
+      sunspot_solr
+      will_paginate (~> 3.0)
+    enju_oai (0.0.3)
+      acts_as_list
+      attribute_normalizer (~> 1.1)
+      cancan
+      configatron
+      devise
+      friendly_id (~> 4.0)
+      mobile-fu
+      rails (~> 3.2)
+      sunspot_rails
+      will_paginate
+    enju_search_log (0.0.7)
+      cancan
+      devise
+      rails (~> 3.2)
+      will_paginate
+    enju_subject (0.0.18)
+      acts_as_list (~> 0.1.6)
+      attribute_normalizer (~> 1.1)
+      cancan
+      devise
+      dynamic_form
+      enju_core
+      friendly_id (~> 4.0)
+      inherited_resources
+      rails (~> 3.2)
+      sunspot_rails
+      sunspot_solr
+      will_paginate (~> 3.0)
     erubis (2.7.0)
     event-calendar (2.3.3)
     exception_notification (2.6.1)
@@ -631,25 +566,25 @@ DEPENDENCIES
   devise-encryptable
   dynamic_form
   enju_barcode!
-  enju_biblio!
-  enju_book_jacket!
-  enju_bookmark!
-  enju_circulation!
-  enju_core!
-  enju_event!
+  enju_biblio (~> 0.0.8)
+  enju_book_jacket (~> 0.0.2)
+  enju_bookmark (~> 0.0.22)
+  enju_circulation (~> 0.0.71)
+  enju_core (~> 0.0.3)
+  enju_event (~> 0.1.13)
   enju_export!
   enju_inter_library_loan!
   enju_inventory!
-  enju_library!
-  enju_manifestation_viewer!
-  enju_message!
-  enju_ndl!
-  enju_oai!
+  enju_library (~> 0.0.2)
+  enju_manifestation_viewer (~> 0.0.1)
+  enju_message (~> 0.1.11)
+  enju_ndl (~> 0.0.34)
+  enju_oai (~> 0.0.3)
   enju_purchase_request!
   enju_question!
   enju_resource_merge!
-  enju_search_log!
-  enju_subject!
+  enju_search_log (~> 0.0.7)
+  enju_subject (~> 0.0.18)
   exception_notification (~> 2.6)
   factory_girl_rails (~> 3.5)
   fakeweb
