@@ -14,37 +14,6 @@ GIT
       sunspot_solr (>= 1.2)
 
 GIT
-  remote: git://github.com/nabeta/enju_barcode.git
-  revision: 7555a49bb1cadfd4c6002aa6dad5b7e473b09493
-  specs:
-    enju_barcode (0.0.3)
-      barby (~> 0.5)
-      cancan
-      devise
-      rails (~> 3.2)
-      rqrcode
-      will_paginate
-
-GIT
-  remote: git://github.com/nabeta/enju_inter_library_loan.git
-  revision: cf758e6257836c3e8d7137218ad5d2c9dadfe30d
-  specs:
-    enju_inter_library_loan (0.0.5)
-      enju_core
-      rails (~> 3.2)
-      state_machine
-
-GIT
-  remote: git://github.com/nabeta/enju_resource_merge.git
-  revision: f42dd8f1b3d2128cd2b76b7fea6d9f904cf84018
-  specs:
-    enju_resource_merge (0.0.16)
-      dynamic_form
-      enju_core
-      inherited_resources
-      rails (~> 3.2)
-
-GIT
   remote: git://github.com/next-l/enju_export.git
   revision: d3b1f18f4ad1fb288d53ae2f5923250f1e4e437b
   specs:
@@ -109,7 +78,6 @@ GEM
       json (~> 1.4)
       nokogiri (>= 1.4.4)
       uuidtools (~> 2.1)
-    barby (0.5.0)
     bcrypt-ruby (3.0.1)
     builder (3.0.0)
     cancan (1.6.8)
@@ -205,6 +173,10 @@ GEM
       simple_form
       state_machine
       sunspot_solr
+    enju_inter_library_loan (0.0.6)
+      enju_core
+      rails (~> 3.2)
+      state_machine
     enju_inventory (0.1.7)
       enju_core
       inherited_resources
@@ -252,6 +224,11 @@ GEM
       enju_ndl (~> 0.0.34)
       rails (~> 3.2)
       simple_form
+    enju_resource_merge (0.0.17)
+      dynamic_form
+      enju_core
+      inherited_resources
+      rails (~> 3.2)
     enju_search_log (0.0.7)
       cancan
       devise
@@ -416,7 +393,6 @@ GEM
     resque_mailer (2.1.0)
       actionmailer (~> 3.0)
     ri_cal (0.8.8)
-    rqrcode (0.4.2)
     rsolr (1.0.8)
       builder (>= 2.1.2)
     rspec (2.11.0)
@@ -534,7 +510,6 @@ DEPENDENCIES
   devise (~> 2.1.2)
   devise-encryptable
   dynamic_form
-  enju_barcode!
   enju_biblio (~> 0.0.8)
   enju_book_jacket (~> 0.0.2)
   enju_bookmark (~> 0.0.22)
@@ -542,7 +517,7 @@ DEPENDENCIES
   enju_core (~> 0.0.3)
   enju_event (~> 0.1.13)
   enju_export!
-  enju_inter_library_loan!
+  enju_inter_library_loan (~> 0.0.6)
   enju_inventory (~> 0.1.7)
   enju_library (~> 0.0.2)
   enju_manifestation_viewer (~> 0.0.1)
@@ -551,7 +526,7 @@ DEPENDENCIES
   enju_oai (~> 0.0.3)
   enju_purchase_request (~> 0.0.14)
   enju_question (~> 0.0.21)
-  enju_resource_merge!
+  enju_resource_merge (~> 0.0.17)
   enju_search_log (~> 0.0.7)
   enju_subject (~> 0.0.18)
   exception_notification (~> 2.6)
