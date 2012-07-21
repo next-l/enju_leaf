@@ -1,7 +1,7 @@
 # Override your default settings for the Production environment here.
 # 
 # Example:
-#   configatron.uploaded_file.storage = :s3
+#   configatron.file.storage = :s3
 
 #configatron.uploaded_file.storage = :s3
 

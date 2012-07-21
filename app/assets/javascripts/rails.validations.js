@@ -15,8 +15,10 @@
       removeError = function(element) {
         return ClientSideValidations.formBuilders[settings.type].remove(element, settings);
       };
-      form.submit(function() {
-        return form.isValid(settings.validators);
+      form.submit(function(eventData) {
+        if (!form.isValid(settings.validators)) {
+          return eventData.preventDefault();
+        }
       });
       _ref = {
         'ajax:beforeSend': function(eventData) {
@@ -121,9 +123,10 @@
     form.trigger('form:validate:before');
     valid = true;
     form.find('[data-validate="true"]:input:enabled').each(function() {
-      if ($(this).isValid(validators)) {
-        return valid = false;
+      if (!$(this).isValid(validators)) {
+        valid = false;
       }
+      return true;
     });
     if (valid) {
       form.trigger('form:validate:pass');
@@ -135,7 +138,7 @@
   };
 
   validateElement = function(element, validators) {
-    var context, fn, kind, message, valid, _ref;
+    var context, fn, kind, message, valid, validator, _i, _j, _len, _len1, _ref, _ref1;
     element.trigger('element:validate:before');
     if (element.data('changed') !== false) {
       valid = true;
@@ -143,19 +146,37 @@
       context = ClientSideValidations.validators.local;
       for (kind in context) {
         fn = context[kind];
-        if (validators[kind] && (message = fn.call(context, element, validators[kind]))) {
-          element.trigger('element:validate:fail', message).data('valid', false);
-          valid = false;
-          break;
+        if (validators[kind]) {
+          _ref = validators[kind];
+          for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+            validator = _ref[_i];
+            if (message = fn.call(context, element, validator)) {
+              element.trigger('element:validate:fail', message).data('valid', false);
+              valid = false;
+              break;
+            }
+          }
+          if (!valid) {
+            break;
+          }
         }
       }
       if (valid) {
         context = ClientSideValidations.validators.remote;
         for (kind in context) {
           fn = context[kind];
-          if (validators[kind] && (message = fn.call(context, element, validators[kind]))) {
-            element.trigger('element:validate:fail', message).data('valid', false);
-            valid = false;
+          if (validators[kind]) {
+            _ref1 = validators[kind];
+            for (_j = 0, _len1 = _ref1.length; _j < _len1; _j++) {
+              validator = _ref1[_j];
+              if (message = fn.call(context, element, validator)) {
+                element.trigger('element:validate:fail', message).data('valid', false);
+                valid = false;
+                break;
+              }
+            }
+          }
+          if (!valid) {
             break;
           }
         }
@@ -166,9 +187,7 @@
       }
     }
     element.trigger('element:validate:after');
-    return (_ref = element.data('valid') === false) != null ? _ref : {
-      "false": true
-    };
+    return element.data('valid') !== false;
   };
 
   $(function() {
@@ -218,11 +237,15 @@
           }
         },
         numericality: function(element, options) {
-          var CHECKS, check, fn, operator;
-          if (!ClientSideValidations.patterns.numericality.test(element.val())) {
+          var CHECKS, check, check_value, fn, form, operator, val;
+          val = jQuery.trim(element.val());
+          if (!ClientSideValidations.patterns.numericality.test(val)) {
+            if (options.allow_blank === true) {
+              return;
+            }
             return options.messages.numericality;
           }
-          if (options.only_integer && !/^[+-]?\d+$/.test(element.val())) {
+          if (options.only_integer && !/^[+-]?\d+$/.test(val)) {
             return options.messages.only_integer;
           }
           CHECKS = {
@@ -232,20 +255,28 @@
             less_than: '<',
             less_than_or_equal_to: '<='
           };
+          form = $(element[0].form);
           for (check in CHECKS) {
             operator = CHECKS[check];
             if (!(options[check] != null)) {
               continue;
             }
-            fn = new Function("return " + (element.val()) + " " + operator + " " + options[check]);
+            if (!isNaN(parseFloat(options[check])) && isFinite(options[check])) {
+              check_value = options[check];
+            } else if (form.find("[name*=" + options[check] + "]").size() === 1) {
+              check_value = form.find("[name*=" + options[check] + "]").val();
+            } else {
+              return;
+            }
+            fn = new Function("return " + val + " " + operator + " " + check_value);
             if (!fn()) {
               return options.messages[check];
             }
           }
-          if (options.odd && !(parseInt(element.val(), 10) % 2)) {
+          if (options.odd && !(parseInt(val, 10) % 2)) {
             return options.messages.odd;
           }
-          if (options.even && (parseInt(element.val(), 10) % 2)) {
+          if (options.even && (parseInt(val, 10) % 2)) {
             return options.messages.even;
           }
         },
@@ -346,6 +377,35 @@
           if (element.val() !== jQuery("#" + (element.attr('id')) + "_confirmation").val()) {
             return options.message;
           }
+        },
+        uniqueness: function(element, options) {
+          var form, matches, name, name_prefix, name_suffix, valid, value;
+          name = element.attr('name');
+          if (/_attributes\]\[\d/.test(name)) {
+            matches = name.match(/^(.+_attributes\])\[\d+\](.+)$/);
+            name_prefix = matches[1];
+            name_suffix = matches[2];
+            value = element.val();
+            if (name_prefix && name_suffix) {
+              form = element.closest('form');
+              valid = true;
+              form.find(':input[name^="' + name_prefix + '"][name$="' + name_suffix + '"]').each(function() {
+                if ($(this).attr('name') !== name) {
+                  if ($(this).val() === value) {
+                    valid = false;
+                    return $(this).data('notLocallyUnique', true);
+                  } else {
+                    if ($(this).data('notLocallyUnique')) {
+                      return $(this).removeData('notLocallyUnique').data('changed', true);
+                    }
+                  }
+                }
+              });
+              if (!valid) {
+                return options.message;
+              }
+            }
+          }
         }
       },
       remote: {
@@ -404,11 +464,12 @@
     formBuilders: {
       'ActionView::Helpers::FormBuilder': {
         add: function(element, settings, message) {
-          var inputErrorField, label, labelErrorField;
-          if (element.data('valid') !== false && !(jQuery("label.message[for='" + (element.attr('id')) + "']")[0] != null)) {
+          var form, inputErrorField, label, labelErrorField;
+          form = $(element[0].form);
+          if (element.data('valid') !== false && !(form.find("label.message[for='" + (element.attr('id')) + "']")[0] != null)) {
             inputErrorField = jQuery(settings.input_tag);
             labelErrorField = jQuery(settings.label_tag);
-            label = jQuery("label[for='" + (element.attr('id')) + "']:not(.message)");
+            label = form.find("label[for='" + (element.attr('id')) + "']:not(.message)");
             if (element.attr('autofocus')) {
               element.attr('autofocus', false);
             }
@@ -416,16 +477,17 @@
             inputErrorField.find('span#input_tag').replaceWith(element);
             inputErrorField.find('label.message').attr('for', element.attr('id'));
             labelErrorField.find('label.message').attr('for', element.attr('id'));
-            label.replaceWith(labelErrorField);
+            labelErrorField.insertAfter(label);
             labelErrorField.find('label#label_tag').replaceWith(label);
           }
-          return jQuery("label.message[for='" + (element.attr('id')) + "']").text(message);
+          return form.find("label.message[for='" + (element.attr('id')) + "']").text(message);
         },
         remove: function(element, settings) {
-          var errorFieldClass, inputErrorField, label, labelErrorField;
+          var errorFieldClass, form, inputErrorField, label, labelErrorField;
+          form = $(element[0].form);
           errorFieldClass = jQuery(settings.input_tag).attr('class');
           inputErrorField = element.closest("." + (errorFieldClass.replace(" ", ".")));
-          label = jQuery("label[for='" + (element.attr('id')) + "']:not(.message)");
+          label = form.find("label[for='" + (element.attr('id')) + "']:not(.message)");
           labelErrorField = label.closest("." + errorFieldClass);
           if (inputErrorField[0]) {
             inputErrorField.find("#" + (element.attr('id'))).detach();
@@ -437,7 +499,7 @@
       }
     },
     patterns: {
-      numericality: /^-?(?:\d+|\d{1,3}(?:,\d{3})+)(?:\.\d*)?$/
+      numericality: /^(-|\+)?(?:\d+|\d{1,3}(?:,\d{3})+)(?:\.\d*)?$/
     },
     callbacks: {
       element: {
