@@ -34,7 +34,7 @@ class UsersController < ApplicationController
     search.build do
       fulltext query if query
       order_by sort[:sort_by], sort[:order]
-      with(:required_role_id).less_than role.id
+      with(:required_role_id).less_than_or_equal_to role.id
     end
     search.query.paginate(page.to_i, Patron.per_page)
     @users = search.execute!.results

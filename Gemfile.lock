@@ -44,12 +44,12 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_circulation.git
-  revision: ffda0b440042774a034dec2a1e128af5f7ded160
+  revision: 64b8d4bae568db9c880583f92b2fcb31d162771a
   specs:
-    enju_circulation (0.0.70)
+    enju_circulation (0.0.71)
       enju_core
-      enju_event (>= 0.0.24)
-      enju_message (>= 0.0.23)
+      enju_event (>= 0.0.27)
+      enju_message (>= 0.0.24)
       inherited_resources
       rails (~> 3.2)
       simple_form
@@ -58,9 +58,9 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_event.git
-  revision: ab915c2286e88144499e00a4b4ed2309c413aa72
+  revision: 7ecc0d557ac48fc1135a16dfbb98b27731c18581
   specs:
-    enju_event (0.1.12)
+    enju_event (0.1.13)
       configatron
       enju_core
       enju_message (>= 0.0.24)
@@ -197,9 +197,9 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_subject.git
-  revision: 4522bfed1050c8590d7e768a32db574c63198585
+  revision: 91235a0fb7e3f0772b87b6e7511b9a2ce8524834
   specs:
-    enju_subject (0.0.17)
+    enju_subject (0.0.18)
       acts_as_list (~> 0.1.6)
       attribute_normalizer (~> 1.1)
       cancan
@@ -215,7 +215,7 @@ GIT
 
 GIT
   remote: git://github.com/next-l/enju_biblio.git
-  revision: 25b16f0b077393eb2bcc4163ceab30df2111cd79
+  revision: 2cc5d71220e1d444e447e2d6a1561e8433960904
   specs:
     enju_biblio (0.0.7)
       aws-sdk
