@@ -173,17 +173,10 @@ GEM
       lisbn
       nokogiri
       rails (~> 3.2)
-    enju_oai (0.0.3)
-      acts_as_list
-      attribute_normalizer (~> 1.1)
-      cancan
-      configatron
-      devise
-      friendly_id (~> 4.0)
+    enju_oai (0.0.4)
+      enju_core
       mobile-fu
       rails (~> 3.2)
-      sunspot_rails
-      will_paginate
     enju_purchase_request (0.0.14)
       enju_core
       rails (~> 3.2)
@@ -482,7 +475,7 @@ DEPENDENCIES
   enju_manifestation_viewer (~> 0.0.1)
   enju_message (~> 0.0.25)
   enju_ndl (~> 0.0.35)
-  enju_oai (~> 0.0.3)
+  enju_oai (~> 0.0.4)
   enju_purchase_request (~> 0.0.14)
   enju_question (~> 0.0.21)
   enju_resource_merge (~> 0.0.17)
