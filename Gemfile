@@ -106,8 +106,8 @@ gem 'foreigner'
 
 group :development do
   gem 'parallel_tests', '~> 0.8'
-  gem 'annotate', '~> 2.5.0.pre1'
-  gem 'sunspot_solr', '~> 2.0.0.pre.120417'
+  gem 'annotate', '~> 2.5.0.pre2'
+  gem 'sunspot_solr', '~> 2.0.0.pre.120720'
   gem 'rails-erd'
   gem 'immigrant'
 end
