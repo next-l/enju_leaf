@@ -9,6 +9,8 @@
  *= require acts_as_taggable_stylesheet
  *= require colorbox
  *= require pagination
+ *= require portlets
  *= require event_calendar
+ *= require vendor
  *= require jquery.qtip
 */
