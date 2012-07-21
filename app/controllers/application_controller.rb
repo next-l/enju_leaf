@@ -162,7 +162,7 @@ class ApplicationController < ActionController::Base
   def set_role_query(user, search)
     role = user.try(:role) || Role.default_role
     search.build do
-      with(:required_role_id).less_than role.id
+      with(:required_role_id).less_than_or_equal_to role.id
     end
   end
 
