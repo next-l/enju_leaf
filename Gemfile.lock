@@ -73,9 +73,9 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_inter_library_loan.git
-  revision: cf758e6257836c3e8d7137218ad5d2c9dadfe30d
+  revision: a1ab08554a661ddfa6e7ff8b1e072f94aa8661b8
   specs:
-    enju_inter_library_loan (0.0.5)
+    enju_inter_library_loan (0.0.6)
       enju_core
       rails (~> 3.2)
       state_machine
@@ -159,9 +159,9 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_resource_merge.git
-  revision: f42dd8f1b3d2128cd2b76b7fea6d9f904cf84018
+  revision: 00da8fbc78687662032298f6c1dd292239c2a042
   specs:
-    enju_resource_merge (0.0.16)
+    enju_resource_merge (0.0.17)
       dynamic_form
       enju_core
       inherited_resources
