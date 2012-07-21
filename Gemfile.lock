@@ -194,7 +194,7 @@ GEM
       enju_ndl (~> 0.0.34)
       rails (~> 3.2)
       simple_form
-    enju_resource_merge (0.0.16)
+    enju_resource_merge (0.0.17)
       dynamic_form
       enju_core
       inherited_resources
@@ -485,7 +485,7 @@ DEPENDENCIES
   enju_oai (~> 0.0.3)
   enju_purchase_request (~> 0.0.14)
   enju_question (~> 0.0.21)
-  enju_resource_merge (~> 0.0.16)
+  enju_resource_merge (~> 0.0.17)
   enju_search_log (~> 0.0.7)
   enju_subject (~> 0.0.18)
   exception_notification (~> 2.6)
