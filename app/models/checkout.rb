@@ -290,6 +290,92 @@ class Checkout < ActiveRecord::Base
     end 
     return data
   end
+
+  def self.get_checkoutlists_pdf(displist)
+    report = ThinReports::Report.new :layout => File.join(Rails.root, 'report', 'circulation_status_list.tlf')
+
+    # set page_num
+    report.events.on :page_create do |e|
+      e.page.item(:page).value(e.page.no)
+    end
+    report.events.on :generate do |e|
+      e.pages.each do |page|
+        page.item(:total).value(e.report.page_count)
+      end
+    end
+    # set items
+    report.start_new_page do |page|
+      page.item(:date).value(Time.now)
+      before_status = nil
+      displist.each do |d|
+        unless d.items.blank?
+          d.items.each do |item|
+            page.list(:list).add_row do |row|
+              if before_status == d.circulation_status
+               row.item(:status_line).hide
+               row.item(:status).hide
+              end
+              row.item(:status).value(d.circulation_status)
+              row.item(:title).value(item.manifestation.original_title)
+              row.item(:library).value(item.shelf.library.display_name)
+              row.item(:shelf).value(item.shelf.display_name.localize)
+              row.item(:call_number).value(item.call_number) if item.call_number
+              row.item(:identifier).value(item.item_identifier) if item.item_identifier
+            end
+            before_status = d.circulation_status
+          end
+        else
+          page.list(:list).add_row do |row|
+            row.item(:status).value(d.circulation_status)
+            row.item(:title).value(I18n.t('page.no_record_found'))
+            row.item(:line2).hide
+            row.item(:line3).hide
+            row.item(:line4).hide
+            row.item(:line5).hide
+          end
+        end
+      end
+    end
+    return report
+  end
+
+  def self.get_checkoutlists_tsv(displist)
+    data = String.new
+    data << "\xEF\xBB\xBF".force_encoding("UTF-8") + "\n"
+    columns = [
+      [:title,           'activerecord.attributes.manifestation.original_title'],
+      [:library,         'activerecord.models.library'],
+      [:shelf,           'activerecord.models.shelf'],
+      [:call_number,     'activerecord.attributes.item.call_number'],
+      [:item_identifier, 'activerecord.attributes.item.item_identifier'],
+    ]
+
+    displist.each do |d|
+      data << '"'+d.circulation_status+"\"\n"
+      row = columns.map { |column| I18n.t(column[1]) }
+      data << '"'+row.join("\"\t\"")+"\"\n"
+      d.items.each do |item|
+        row = []
+        columns.each do |column|
+          case column[0]
+          when :title
+            row << item.manifestation.original_title 
+          when :library
+            row << item.shelf.library.display_name
+          when :shelf
+            row << item.shelf.display_name.localize
+          when :call_number
+            row << item.call_number if item.call_number
+          when :item_identifier
+            row << item.item_identifier if item.item_identifier
+          end
+        end
+        data << '"'+row.join("\"\t\"")+"\"\n"
+      end
+      data << "\n"
+    end
+    return data
+  end
 end
 
 # == Schema Information
