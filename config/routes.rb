@@ -1,4 +1,6 @@
 EnjuLeaf::Application.routes.draw do
+  resources :permissions
+
   devise_for :users, :path => 'accounts'
 
   resource :my_account

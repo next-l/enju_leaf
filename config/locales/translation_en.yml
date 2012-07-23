@@ -23,6 +23,7 @@ en:
       accept: Accept
       work: Work
       expression: Expression
+      permission: Permission
 
     attributes:
       library:

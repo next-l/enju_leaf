@@ -31,6 +31,7 @@ class User < ActiveRecord::Base
   belongs_to :required_role, :class_name => 'Role', :foreign_key => 'required_role_id' #, :validate => true
   has_many :export_files if defined?(EnjuExport)
   #has_one :patron_import_result
+  has_many :permissions
   accepts_nested_attributes_for :user_has_role
 
   validates :username, :presence => true, :uniqueness => true

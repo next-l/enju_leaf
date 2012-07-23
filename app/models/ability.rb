@@ -2,6 +2,13 @@ class Ability
   include CanCan::Ability
 
   def initialize(user, ip_address = nil)
+    #can do |action, subject_class, subject|
+    #  user.permissions.find_all_by_action(aliases_for_action(action)).any? do |permission|
+    #    permission.subject_class == subject_class.to_s &&
+    #      (subject.nil? || permission.subject_id.nil? || permission.subject_id == subject.id)
+    #  end
+    #end
+
     case user.try(:role).try(:name)
     when 'Administrator'
       can [:read, :create, :update], Bookstore
@@ -66,6 +73,7 @@ class Ability
         PatronImportFile,
         PatronRelationship,
         PatronRelationshipType,
+        Permission,
         PictureFile,
         Produce,
         ProduceType,

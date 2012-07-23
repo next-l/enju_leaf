@@ -23,6 +23,7 @@ ja:
       accept: 検収
       work: 著作
       expression: 表現
+      permission: 許可
 
     attributes:
       library:
