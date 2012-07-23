@@ -4,6 +4,7 @@ class Role < ActiveRecord::Base
   default_scope :order => "roles.position"
   has_many :user_has_roles
   has_many :users, :through => :user_has_roles
+  has_many :permissions
   after_save :clear_all_cache
   after_destroy :clear_all_cache
 
