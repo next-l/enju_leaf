@@ -12,9 +12,12 @@
 
   <div class="span3">
     <%= render 'solved_facet' -%>
-    <ul>
-      <li><%= link_to t('question.all'), questions_path %></li>
-    </ul>
+  <ul>
+  <%- if can? :create, Question -%>
+    <li><%= link_to t('question.my'), user_questions_path(current_user) -%></li>
+    <li><%= link_to t('page.new', :model => t('activerecord.models.question')), new_question_path -%></li>
+  <%- end -%>
+  </ul>
     <%= render 'crd' -%>
   </div>
 </div>

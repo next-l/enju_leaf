@@ -97,9 +97,7 @@ class User < ActiveRecord::Base
     :update_own_account, :auto_generated_password,
     :locked, :current_password #, :patron_id
 
-  def self.per_page
-    10
-  end
+  paginates_per 10
 
   def password_required?
     !persisted? || !password.nil? || !password_confirmation.nil?

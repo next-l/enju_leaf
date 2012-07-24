@@ -14,20 +14,8 @@ GIT
       sunspot_solr (>= 1.2)
 
 GIT
-  remote: git://github.com/nabeta/enju_barcode.git
-  revision: 7555a49bb1cadfd4c6002aa6dad5b7e473b09493
-  specs:
-    enju_barcode (0.0.3)
-      barby (~> 0.5)
-      cancan
-      devise
-      rails (~> 3.2)
-      rqrcode
-      will_paginate
-
-GIT
   remote: git://github.com/nabeta/enju_book_jacket.git
-  revision: 17dfceb94ad2bbf7e1a079c72008b7a5bab0bd34
+  revision: 8d1397dc5d586124bfc66de4883dbe4a50d40a02
   specs:
     enju_book_jacket (0.0.2)
       configatron
@@ -35,18 +23,18 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_bookmark.git
-  revision: ea2d1ffb11e28f99e525225caff9ac0975ab89de
+  revision: 9786a625d16cc6722aa09abd8960261dd547b7b5
   specs:
-    enju_bookmark (0.0.22)
+    enju_bookmark (0.1.0)
       acts-as-taggable-on (~> 2.3)
       rails (~> 3.2)
       state_machine
 
 GIT
   remote: git://github.com/nabeta/enju_circulation.git
-  revision: 64b8d4bae568db9c880583f92b2fcb31d162771a
+  revision: 573c104a86d3281d99fc89020150d482a6c00974
   specs:
-    enju_circulation (0.0.71)
+    enju_circulation (0.1.0)
       enju_core
       enju_event (>= 0.0.27)
       enju_message (>= 0.0.24)
@@ -58,9 +46,9 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_event.git
-  revision: 83cafd2a1b5b7446f4cd751cac4f2480af6af23b
+  revision: 2cdc912133d019a1bfb5a297d6a1733dac03999d
   specs:
-    enju_event (0.1.13)
+    enju_event (0.1.14)
       enju_core
       enju_message (>= 0.0.25)
       event-calendar (~> 2.3.3)
@@ -82,9 +70,9 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_inventory.git
-  revision: a38c52731ea45e1d4847fec14aa774a3a7505bd9
+  revision: 31a6ae3dd06659886ef0fec234138b4a89f30ca6
   specs:
-    enju_inventory (0.1.7)
+    enju_inventory (0.1.8)
       enju_core
       inherited_resources
       paperclip (~> 3.0)
@@ -100,9 +88,9 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_message.git
-  revision: ef45b344017c9f5b023972e1567a98f9ee3a80e1
+  revision: 8069ed048dd53aa88db996ae61a56d3ecf738b6a
   specs:
-    enju_message (0.1.11)
+    enju_message (0.1.12)
       awesome_nested_set (~> 2.1)
       enju_core
       inherited_resources
@@ -113,9 +101,9 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_ndl.git
-  revision: 5000357ea5e6659a6a4688471e274ced103133d6
+  revision: 1af4b61f8eb5d092c7c0c0e86233f1d92ace187d
   specs:
-    enju_ndl (0.0.35)
+    enju_ndl (0.1.0)
       library_stdnums
       lisbn
       nokogiri
@@ -132,49 +120,45 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_purchase_request.git
-  revision: 9a02ca37ffcb7299f1a8e4ee23040211af3c42a8
+  revision: e1f89c5060ad796c93f515298d17f8dd705ac6b1
   specs:
-    enju_purchase_request (0.0.14)
+    enju_purchase_request (0.1.0)
       enju_core
       rails (~> 3.2)
       state_machine
 
 GIT
   remote: git://github.com/nabeta/enju_question.git
-  revision: d5b44dff192a8149d342150e29e776ea099b2463
+  revision: d2125873881ecb8e01a2e1fe58552b1a78a6cb22
   specs:
     enju_question (0.0.21)
       acts-as-taggable-on (~> 2.3)
       enju_core
-      enju_ndl (~> 0.0.34)
       rails (~> 3.2)
       simple_form
 
 GIT
   remote: git://github.com/nabeta/enju_resource_merge.git
-  revision: 00da8fbc78687662032298f6c1dd292239c2a042
+  revision: b0b0c95e1034b178984032dbf50ceca39303807c
   specs:
     enju_resource_merge (0.0.17)
       dynamic_form
-      enju_core
       inherited_resources
       rails (~> 3.2)
 
 GIT
   remote: git://github.com/nabeta/enju_search_log.git
-  revision: f691b33b97569e72e426fe4869ddfb7ba1632808
+  revision: 719abffbf0c9b2e25762fb0d92bfc88ae50ea778
   specs:
-    enju_search_log (0.0.7)
-      cancan
-      devise
+    enju_search_log (0.1.0)
+      enju_core
       rails (~> 3.2)
-      will_paginate
 
 GIT
   remote: git://github.com/nabeta/enju_subject.git
-  revision: e367125469e0fee2fc9ab52aee875485af2a9ad9
+  revision: 54742f99c828124c2d651f032fa5b529bc141b80
   specs:
-    enju_subject (0.0.18)
+    enju_subject (0.1.0)
       dynamic_form
       enju_core
       inherited_resources
@@ -182,13 +166,12 @@ GIT
 
 GIT
   remote: git://github.com/next-l/enju_biblio.git
-  revision: 8c0bb4cbc951c29d07f74ba843de599ebc1b22c8
+  revision: 25e4db637f9ff82450462319fae9032dbb10ae35
   specs:
-    enju_biblio (0.0.9)
+    enju_biblio (0.1.0)
       aws-sdk
       dynamic_form
       enju_core
-      enju_export
       enju_ndl
       enju_oai
       has_scope
@@ -205,9 +188,9 @@ GIT
 
 GIT
   remote: git://github.com/next-l/enju_core.git
-  revision: a590edd7d54c29d85c9d45154a499e5de9a6ad94
+  revision: 48c14a6e7f82c6df7dba58017a10fd571021d91a
   specs:
-    enju_core (0.0.3)
+    enju_core (0.1.0)
       acts_as_list
       addressable
       attribute_normalizer (~> 1.1)
@@ -222,9 +205,9 @@ GIT
 
 GIT
   remote: git://github.com/next-l/enju_export.git
-  revision: abb2bc4440a3dacfa9d6e1d8a16b8ab4493257cb
+  revision: 283ac05a1b971d84bb49f1099bb16a369ac8424e
   specs:
-    enju_export (0.0.3)
+    enju_export (0.1.0)
       enju_core
       paperclip
       rails (~> 3.2)
@@ -233,9 +216,9 @@ GIT
 
 GIT
   remote: git://github.com/next-l/enju_library.git
-  revision: 902d42f73cb504e0ecde4a2e99a14819171b8620
+  revision: 4faa68b01d698573376db4a06cd61426c0be11f8
   specs:
-    enju_library (0.0.2)
+    enju_library (0.1.0)
       enju_core
       geocoder
       inherited_resources
@@ -295,10 +278,7 @@ GEM
       json (~> 1.4)
       nokogiri (>= 1.4.4)
       uuidtools (~> 2.1)
-    barby (0.5.0)
     bcrypt-ruby (3.0.1)
-    bootstrap-will_paginate (0.0.7)
-      will_paginate
     builder (3.0.0)
     cancan (1.6.8)
     capybara (1.1.2)
@@ -495,7 +475,6 @@ GEM
     resque_mailer (2.1.0)
       actionmailer (~> 3.0)
     ri_cal (0.8.8)
-    rqrcode (0.4.2)
     rsolr (1.0.8)
       builder (>= 2.1.2)
     rspec (2.11.0)
@@ -594,7 +573,6 @@ GEM
     whenever (0.7.3)
       activesupport (>= 2.3.4)
       chronic (~> 0.6.3)
-    will_paginate (3.0.3)
     xml-simple (1.1.1)
     xpath (0.1.4)
       nokogiri (~> 1.3)
@@ -613,7 +591,6 @@ DEPENDENCIES
   attribute_normalizer (~> 1.1)
   awesome_nested_set (~> 2.1)
   aws-sdk
-  bootstrap-will_paginate
   cancan (>= 1.6.8)
   client_side_validations (~> 3.2.0.beta.6)
   coffee-rails (~> 3.2.1)
@@ -622,7 +599,6 @@ DEPENDENCIES
   devise-encryptable
   devise_security_extension
   dynamic_form
-  enju_barcode!
   enju_biblio!
   enju_book_jacket!
   enju_bookmark!
@@ -690,5 +666,4 @@ DEPENDENCIES
   validates_timeliness
   vcr (~> 2.2)
   whenever
-  will_paginate (~> 3.0)
   zipruby

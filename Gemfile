@@ -9,7 +9,7 @@ gem 'enju_core', :git => 'git://github.com/next-l/enju_core.git'
 gem 'enju_biblio', :git => 'git://github.com/next-l/enju_biblio.git'
 gem 'enju_library', :git => 'git://github.com/next-l/enju_library.git'
 #gem 'enju_amazon', :git => 'git://github.com/nabeta/enju_amazon.git'
-gem 'enju_barcode', :git => 'git://github.com/nabeta/enju_barcode.git'
+#gem 'enju_barcode', :git => 'git://github.com/nabeta/enju_barcode.git'
 #gem 'enju_calil', :git => 'git://github.com/nabeta/enju_calil.git'
 gem 'enju_ndl', :git => 'git://github.com/nabeta/enju_ndl.git'
 #gem 'enju_nii', :git => 'git://github.com/nabeta/enju_nii.git'
@@ -46,7 +46,6 @@ platforms :jruby do
   gem 'glassfish'
 end
 
-gem 'will_paginate', '~> 3.0'
 gem 'exception_notification', '~> 2.6'
 gem 'state_machine', '~> 1.1.2'
 gem 'progress_bar'
@@ -92,7 +91,7 @@ gem 'foreigner'
 gem 'strong_parameters'
 gem 'resque-scheduler', '~> 2.0.0', :require => 'resque_scheduler'
 gem 'twitter-bootstrap-rails'
-gem 'bootstrap-will_paginate'
+#gem 'bootstrap-will_paginate'
 
 group :development do
   gem 'parallel_tests', '~> 0.8'

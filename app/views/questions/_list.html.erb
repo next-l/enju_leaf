@@ -64,6 +64,6 @@
   <p><%= t('question.no_record_found') -%></p>
 <%- end -%>
 
-<%= will_paginate(@questions, :class => 'content_pagination pagination') -%>
+<%= paginate(@questions) -%>
 
 </div>

@@ -2,7 +2,7 @@
 <div class="span9">
 <h1 class="title"><%= t('page.listing', :model => t('activerecord.models.checkin')) -%></h1>
   <%= render 'checkin' %>
-  <%= will_paginate @checkins %>
+  <%= paginate @checkins %>
 </div>
 
 <div class="span3">

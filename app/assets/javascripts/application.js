@@ -6,7 +6,6 @@
 //= require jquery.highlight
 //= require jquery.shortcut
 //= require jquery.cookie
-//= require pagination
 //= require select_locale
 //= require event_calendar
 //= require rails.validations
