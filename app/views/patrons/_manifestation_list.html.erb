@@ -1,5 +1,5 @@
 <div class="tab-pane" id="manifestation">
-  <%= paginate(@manifestations, :param_name => :manifestation_list_page, :remote => true, :theme => 'content') -%>
+  <%= paginate(@manifestations, :param_name => :manifestation_list_page, :remote => true) -%>
   <ul>
     <%- @manifestations.each do |manifestation| -%>
       <li>
@@ -15,5 +15,5 @@
       </li>
     <%- end -%>
   </ul>
-  <%= paginate(@manifestations, :param_name => :manifestation_list_page, :class => 'content_pagination pagination') -%>
+  <%= paginate(@manifestations, :param_name => :manifestation_list_page, :remote => true) -%>
 </div>
