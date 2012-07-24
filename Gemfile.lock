@@ -291,7 +291,7 @@ GEM
     paperclip-meta (0.4.2)
       paperclip
     parallel (0.5.17)
-    parallel_tests (0.8.6)
+    parallel_tests (0.8.7)
       parallel
     pg (0.14.0)
     polyglot (0.3.3)
@@ -470,6 +470,7 @@ DEPENDENCIES
   enju_book_jacket (~> 0.0.2)
   enju_bookmark (~> 0.0.22)
   enju_circulation (~> 0.0.71)
+  enju_core (~> 0.0.3)
   enju_event (~> 0.0.27)
   enju_inventory (~> 0.0.11)
   enju_manifestation_viewer (~> 0.0.1)
