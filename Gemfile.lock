@@ -166,7 +166,7 @@ GIT
 
 GIT
   remote: git://github.com/next-l/enju_biblio.git
-  revision: b5c2f9fbf834bd38a20588ec6003bc239ccc7772
+  revision: 2a91b8c5e9c5c6fba6233bf60d6253da849bf4a7
   specs:
     enju_biblio (0.1.0)
       aws-sdk
@@ -216,7 +216,7 @@ GIT
 
 GIT
   remote: git://github.com/next-l/enju_library.git
-  revision: 4faa68b01d698573376db4a06cd61426c0be11f8
+  revision: 3a8319e59d7379a51188359d03eb09fe43cf99c1
   specs:
     enju_library (0.1.0)
       enju_core
@@ -409,7 +409,7 @@ GEM
       cocaine (>= 0.0.2)
       mime-types
     parallel (0.5.17)
-    parallel_tests (0.8.6)
+    parallel_tests (0.8.7)
       parallel
     pg (0.14.0)
     polyglot (0.3.3)
