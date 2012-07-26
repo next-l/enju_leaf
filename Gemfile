@@ -106,6 +106,7 @@ group :development, :test do
   gem 'fakeweb'
 #  gem 'churn', '0.0.13'
   gem 'steak'
+  gem 'resque_spec'
 end
 
 # Gems used only for assets and not required
