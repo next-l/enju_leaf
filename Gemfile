@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '3.2.7.rc1'
+gem 'rails', '3.2.7'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
@@ -84,7 +84,7 @@ gem 'twitter-bootstrap-rails'
 
 group :development do
   gem 'parallel_tests', '~> 0.8'
-  gem 'annotate', '~> 2.5.0.pre2'
+  gem 'annotate', '~> 2.5.0.pre3'
   gem 'sunspot_solr', '~> 2.0.0.pre.120720'
   gem 'rails-erd'
   gem 'immigrant'
