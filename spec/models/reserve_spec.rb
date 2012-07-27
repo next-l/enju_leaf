@@ -135,6 +135,20 @@ describe Reserve do
     reserves(:reserve_00019).can_edit?.should_not be_true # expired
   end
 
+  it "should got a pdf file of retained manifestations" do
+    retained_manifestations = Reserve.retained
+    data = Reserve.get_retained_manifestation_list_pdf(retained_manifestations)
+    data.should_not be_nil
+  end
+
+  it "should got a pdf file of retained manifestations" do
+    retained_manifestations = Reserve.retained
+    data = Reserve.get_retained_manifestation_list_tsv(retained_manifestations)
+    data.should_not be_nil
+    cnt = 0
+    data.length.times { |i| cnt += 1 if data[i] =~ /^[\n]$/ }
+    cnt.should eq 4 # line of encord, title, and retained reserves
+  end
 end
 
 # == Schema Information
