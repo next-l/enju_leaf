@@ -6,7 +6,6 @@
 //= require jquery.highlight
 //= require jquery.shortcut
 //= require jquery.cookie
-//= require select_locale
 //= require event_calendar
 //= require rails.validations
 //= require jquery.qtip
