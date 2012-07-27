@@ -83,7 +83,6 @@ gem 'resque-scheduler', '~> 2.0.0', :require => 'resque_scheduler'
 gem 'twitter-bootstrap-rails'
 
 group :development do
-  gem 'parallel_tests', '~> 0.8'
   gem 'annotate', '~> 2.5.0.pre3'
   gem 'sunspot_solr', '~> 2.0.0.pre.120720'
   gem 'rails-erd'
@@ -107,6 +106,7 @@ group :development, :test do
 #  gem 'churn', '0.0.13'
   gem 'steak'
   gem 'resque_spec'
+  gem 'parallel_tests', '~> 0.8'
 end
 
 # Gems used only for assets and not required
