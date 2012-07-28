@@ -14,9 +14,7 @@ class UserGroup < ActiveRecord::Base
     :greater_than_or_equal_to => 0,
     :allow_blank => true
 
-  def self.per_page
-    10
-  end
+  paginates_per 10
 
   if defined?(EnjuCirculation)
     has_many :user_group_has_checkout_types, :dependent => :destroy
