@@ -15,7 +15,7 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_book_jacket.git
-  revision: 8d1397dc5d586124bfc66de4883dbe4a50d40a02
+  revision: 344c119cf7b9ddceb2478209b7e2fbf8cc1f488c
   specs:
     enju_book_jacket (0.0.2)
       configatron
@@ -23,7 +23,7 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_bookmark.git
-  revision: 9786a625d16cc6722aa09abd8960261dd547b7b5
+  revision: f66bb3396921c41100f11c4c14052f1443cd5401
   specs:
     enju_bookmark (0.1.0)
       acts-as-taggable-on (~> 2.3)
@@ -32,7 +32,7 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_circulation.git
-  revision: 573c104a86d3281d99fc89020150d482a6c00974
+  revision: 1de444809575ba6de5cab6a06cb970ec6d9f8fe1
   specs:
     enju_circulation (0.1.0)
       enju_core
@@ -46,7 +46,7 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_event.git
-  revision: 2cdc912133d019a1bfb5a297d6a1733dac03999d
+  revision: 3f4c264a000c1a03df31b2d3b1c0ae64a014c146
   specs:
     enju_event (0.1.14)
       enju_core
@@ -61,7 +61,7 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_inter_library_loan.git
-  revision: 654cc618e3e1fe0718badcc8830aa481cf6afb4b
+  revision: a95ae132e81f005939edc7f579a79c42ea54b095
   specs:
     enju_inter_library_loan (0.1.0)
       enju_core
@@ -70,7 +70,7 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_inventory.git
-  revision: 31a6ae3dd06659886ef0fec234138b4a89f30ca6
+  revision: f7439f154f939d4cd7cef314b6f97cef445f74af
   specs:
     enju_inventory (0.1.8)
       enju_core
@@ -80,7 +80,7 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_manifestation_viewer.git
-  revision: 46e748b0d56ab4be4a0f858f84785a75004880cd
+  revision: aed5b70bd3745f984f29c097e76a374400f6391c
   specs:
     enju_manifestation_viewer (0.0.1)
       addressable
@@ -88,7 +88,7 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_message.git
-  revision: c64872c63519d60aebe2c3fbbbb0897e1b412118
+  revision: 3f0ca19d5614ac5d322c8136ba5df94f71b680e5
   specs:
     enju_message (0.1.12)
       awesome_nested_set (~> 2.1)
@@ -101,7 +101,7 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_ndl.git
-  revision: 1af4b61f8eb5d092c7c0c0e86233f1d92ace187d
+  revision: 292f6bda76629a9e911b83303f58a86e2d12ca0e
   specs:
     enju_ndl (0.1.0)
       library_stdnums
@@ -111,7 +111,7 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_oai.git
-  revision: e5df0e329ca287d77c23f670bb5fa39273d194ec
+  revision: 74ff49d3a8cdfa2896ab0de040e9f360c362747b
   specs:
     enju_oai (0.0.4)
       enju_core
@@ -120,7 +120,7 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_purchase_request.git
-  revision: e1f89c5060ad796c93f515298d17f8dd705ac6b1
+  revision: 092871296737277aba43c6863fdfae13ab81b79c
   specs:
     enju_purchase_request (0.1.0)
       enju_core
@@ -129,7 +129,7 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_question.git
-  revision: d2125873881ecb8e01a2e1fe58552b1a78a6cb22
+  revision: 83c409d3f4504970a41dcaaec02537139f9455c8
   specs:
     enju_question (0.0.21)
       acts-as-taggable-on (~> 2.3)
@@ -139,7 +139,7 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_resource_merge.git
-  revision: b0b0c95e1034b178984032dbf50ceca39303807c
+  revision: 4829b904e51c55bd048cc114aff2fd26749a7a7d
   specs:
     enju_resource_merge (0.0.17)
       dynamic_form
@@ -148,7 +148,7 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_search_log.git
-  revision: 719abffbf0c9b2e25762fb0d92bfc88ae50ea778
+  revision: 3e2f985926f45348747c73ccde7a25c051b0cb96
   specs:
     enju_search_log (0.1.0)
       enju_core
@@ -156,7 +156,7 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_subject.git
-  revision: 54742f99c828124c2d651f032fa5b529bc141b80
+  revision: 8dfcfd39a085085ae82adad1153adae898f28552
   specs:
     enju_subject (0.1.0)
       dynamic_form
@@ -166,7 +166,7 @@ GIT
 
 GIT
   remote: git://github.com/next-l/enju_biblio.git
-  revision: 2a91b8c5e9c5c6fba6233bf60d6253da849bf4a7
+  revision: 25622f08fbc267bbf866b1a47c4552f0bd3dc4b6
   specs:
     enju_biblio (0.1.0)
       aws-sdk
@@ -205,7 +205,7 @@ GIT
 
 GIT
   remote: git://github.com/next-l/enju_export.git
-  revision: 283ac05a1b971d84bb49f1099bb16a369ac8424e
+  revision: 1e22f57b3c09c5cb01cff43742a098c2f6c9b139
   specs:
     enju_export (0.1.0)
       enju_core
@@ -216,7 +216,7 @@ GIT
 
 GIT
   remote: git://github.com/next-l/enju_library.git
-  revision: 618aec98e0d733832749d57518dcc5d287d39da5
+  revision: b440df187450903cc999f363b1f68e5349748fbc
   specs:
     enju_library (0.1.0)
       enju_core
