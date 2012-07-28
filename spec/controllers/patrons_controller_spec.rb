@@ -9,7 +9,6 @@ describe PatronsController do
 
   describe "GET index", :solr => true do
     before do
-      Patron.remove_all_from_index!
       Patron.reindex
     end
 
