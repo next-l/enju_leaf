@@ -8,6 +8,14 @@
     </div>
   <%- end -%>
 
+  <%- if @parent_series_statement -%>
+    <div class="field">
+      <%= f.label :parent_id %><br />
+      <%= link_to @parent_series_statement.original_title, @parent_series_statement -%>
+      <%= f.hidden_field :parent_id %>
+    </div>
+  <%- end -%>
+
   <div class="field">
     <%= f.label :original_title %><br />
     <%= f.text_field :original_title %>

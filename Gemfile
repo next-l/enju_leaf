@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '3.2.6'
+gem 'rails', '3.2.7'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
@@ -106,8 +106,7 @@ gem 'foreigner'
 #gem 'resque-scheduler', '~> 2.0.0', :require => 'resque_scheduler'
 
 group :development do
-  gem 'parallel_tests', '~> 0.8'
-  gem 'annotate', '~> 2.5.0.pre2'
+  gem 'annotate', '~> 2.5'
   gem 'sunspot_solr', '~> 2.0.0.pre.120720'
   gem 'rails-erd'
   gem 'immigrant'
@@ -131,6 +130,7 @@ group :development, :test do
 #  gem 'churn', '0.0.13'
   gem 'steak'
   gem 'ruby-prof'
+  gem 'parallel_tests', '~> 0.8'
 end
 
 # Gems used only for assets and not required

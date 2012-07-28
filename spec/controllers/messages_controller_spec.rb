@@ -4,6 +4,10 @@ describe MessagesController do
   fixtures :all
 
   describe "GET index", :solr => true do
+    before do
+      Message.reindex
+    end
+
     describe "When logged in as Administrator" do
       before(:each) do
         @user = FactoryGirl.create(:admin)

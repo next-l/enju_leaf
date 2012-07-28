@@ -8,6 +8,11 @@ describe PatronsController do
   end
 
   describe "GET index", :solr => true do
+    before do
+      Patron.remove_all_from_index!
+      Patron.reindex
+    end
+
     describe "When logged in as Administrator" do
       login_fixture_admin
 

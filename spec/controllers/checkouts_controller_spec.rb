@@ -4,6 +4,10 @@ describe CheckoutsController do
   fixtures :all
 
   describe "GET index", :solr => true do
+    before do
+      Checkout.reindex
+    end
+
     before(:each) do
       FactoryGirl.create(:admin)
     end

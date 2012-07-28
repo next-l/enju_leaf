@@ -75,13 +75,9 @@ class PatronsController < ApplicationController
       end
     end
 
-    role = current_user.try(:role) || Role.default_role
-    search.build do
-      with(:required_role_id).less_than_or_equal_to role.id
-    end
-
     page = params[:page] || 1
     search.query.paginate(page.to_i, Patron.per_page)
+    @search = search.query.to_params
     @patrons = search.execute!.results
 
     flash[:page_info] = {:page => page, :query => query}

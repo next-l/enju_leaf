@@ -213,8 +213,8 @@ class ManifestationsController < ApplicationController
                 paginate :page => 1, :per_page => configatron.max_number_of_results
               end.execute.raw_results.collect(&:primary_key).map{|id| id.to_i}
             end
-            #bookmark_ids = Bookmark.where(:manifestation_id => flash[:manifestation_ids]).limit(1000).select(:id).collect(&:id)
-            bookmark_ids = Bookmark.where(:manifestation_id => @manifestation_ids).limit(1000).select(:id).collect(&:id)
+            #bookmark_ids = Bookmark.where(:manifestation_id => flash[:manifestation_ids]).limit(1000).pluck(:id)
+            bookmark_ids = Bookmark.where(:manifestation_id => @manifestation_ids).limit(1000).pluck(:id)
             @tags = Tag.bookmarked(bookmark_ids)
             render :partial => 'manifestations/tag_cloud'
             return
@@ -361,8 +361,8 @@ class ManifestationsController < ApplicationController
       @reserve = current_user.reserves.where(:manifestation_id => @manifestation.id).first if user_signed_in?
     end
 
-    if @manifestation.root_of_series?
-      @manifestations = @manifestation.series_statement.manifestations.periodical_children.page(params[:manifestation_page]).per_page(Manifestation.per_page)
+    if defined?(EnjuQuestion)
+      @questions = @manifestation.questions(:user => current_user, :page => params[:question_page])
     end
 
     if @manifestation.attachment.path
@@ -462,6 +462,7 @@ class ManifestationsController < ApplicationController
         format.json { render :json => @manifestation, :status => :created, :location => @manifestation }
       else
         prepare_options
+        @series_statement = @manifestation.series_has_manifestation.series_statement if @manifestation.series_has_manifestation
         format.html { render :action => "new" }
         format.json { render :json => @manifestation.errors, :status => :unprocessable_entity }
       end
@@ -478,6 +479,7 @@ class ManifestationsController < ApplicationController
         format.json { head :no_content }
       else
         prepare_options
+        @series_statement = @manifestation.series_has_manifestation.series_statement if @manifestation.series_has_manifestation
         format.html { render :action => "edit" }
         format.json { render :json => @manifestation.errors, :status => :unprocessable_entity }
       end

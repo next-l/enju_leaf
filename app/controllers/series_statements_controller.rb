@@ -1,7 +1,7 @@
 # -*- encoding: utf-8 -*-
 class SeriesStatementsController < ApplicationController
   load_and_authorize_resource
-  before_filter :get_work, :get_manifestation, :except => [:create, :update, :destroy]
+  before_filter :get_work, :get_manifestation, :get_parent, :except => [:create, :update, :destroy]
   cache_sweeper :page_sweeper, :only => [:create, :update, :destroy]
   after_filter :solr_commit, :only => [:create, :update, :destroy]
   if defined?(EnjuResourceMerge)
@@ -65,6 +65,7 @@ class SeriesStatementsController < ApplicationController
   # GET /series_statements/new.json
   def new
     @series_statement = SeriesStatement.new
+    @series_statement.parent = @parent_series_statement if @parent_series_statement
 
     respond_to do |format|
       format.html # new.html.erb
@@ -75,6 +76,7 @@ class SeriesStatementsController < ApplicationController
   # GET /series_statements/1/edit
   def edit
     @series_statement.work = @work if @work
+    @series_statement.parent = @parent_series_statement if @parent_series_statement
   end
 
   # POST /series_statements
@@ -123,5 +125,10 @@ class SeriesStatementsController < ApplicationController
       format.html { redirect_to series_statements_url }
       format.json { head :no_content }
     end
+  end
+
+  private
+  def get_parent
+    @parent_series_statement = SeriesStatement.find(params[:parent_id]) if params[:parent_id]
   end
 end

@@ -8,6 +8,10 @@ describe SubjectsController do
   end
 
   describe "GET index", :solr => true do
+    before do
+      Subject.reindex
+    end
+
     describe "When logged in as Administrator" do
       login_admin
 

@@ -4,6 +4,10 @@ describe LibrariesController do
   fixtures :all
 
   describe "GET index", :solr => true do
+    before do
+      Library.reindex
+    end
+
     describe "When logged in as Administrator" do
       login_admin
 

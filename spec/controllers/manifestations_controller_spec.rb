@@ -8,6 +8,10 @@ describe ManifestationsController do
   end
 
   describe "GET index", :solr => true do
+    before do
+      Manifestation.reindex
+    end
+
     describe "When logged in as Administrator" do
       login_admin
 

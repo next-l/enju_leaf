@@ -2,7 +2,11 @@ require 'spec_helper'
 
 describe TagsController do
 
-  describe "GET index" do
+  describe "GET index", :solr => true do
+    before do
+      Tag.reindex
+    end
+
     describe "When logged in as Administrator" do
       login_admin
 

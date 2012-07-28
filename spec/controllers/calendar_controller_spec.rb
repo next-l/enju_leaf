@@ -4,6 +4,10 @@ describe CalendarController do
   fixtures :all
 
   describe "GET index", :solr => true do
+    before do
+      Event.reindex
+    end
+
     describe "When logged in as Administrator" do
       login_admin
 

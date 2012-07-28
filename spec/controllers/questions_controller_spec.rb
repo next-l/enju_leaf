@@ -4,6 +4,10 @@ describe QuestionsController do
   fixtures :all
 
   describe "GET index", :solr => true do
+    before do
+      Question.reindex
+    end
+
     describe "When logged in as Administrator" do
       login_fixture_admin
 

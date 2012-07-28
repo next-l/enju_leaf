@@ -4,6 +4,9 @@ require 'spec_helper'
 describe Manifestation, :solr => true do
   fixtures :all
   use_vcr_cassette "enju_ndl/manifestation", :record => :new_episodes
+  before do
+    Manifestation.reindex
+  end
 
   it "should set year_of_publication" do
     manifestation = FactoryGirl.create(:manifestation, :pub_date => '2000')
