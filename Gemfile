@@ -83,7 +83,7 @@ gem 'resque-scheduler', '~> 2.0.0', :require => 'resque_scheduler'
 gem 'twitter-bootstrap-rails'
 
 group :development do
-  gem 'annotate', '~> 2.5.0.pre3'
+  gem 'annotate', '~> 2.5'
   gem 'sunspot_solr', '~> 2.0.0.pre.120720'
   gem 'rails-erd'
   gem 'immigrant'
