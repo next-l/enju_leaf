@@ -7,7 +7,6 @@
 //= require jquery.cookie
 //= require fg.menu
 //= require fg.menu.enju
-//= require pagination
 //= require select_locale
 //= require portlets
 //= require tab_view
