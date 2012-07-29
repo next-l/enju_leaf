@@ -82,6 +82,7 @@ class Ability
         ResourceImportFile,
         SearchEngine,
         SeriesStatement,
+        SeriesStatementRelationship,
         SeriesHasManifestation,
         Subscribe,
         Subscription,
@@ -168,6 +169,7 @@ class Ability
         Realize,
         ResourceImportFile,
         SeriesStatement,
+        SeriesStatementRelationship,
         SeriesHasManifestation,
         Subscribe,
         Subscription
