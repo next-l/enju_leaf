@@ -15,7 +15,7 @@ GIT
 
 GIT
   remote: git://github.com/next-l/enju_biblio.git
-  revision: 6e4352e297099e39d5b1cd462ffd93a7565ff7f5
+  revision: 7e42608aa49ee3967382be9b66d76f88bd46a4cf
   specs:
     enju_biblio (0.1.0.pre2)
       aws-sdk
@@ -236,7 +236,7 @@ GEM
       railties (>= 3.0.0)
     fakeweb (1.3.0)
     fattr (2.2.1)
-    ffi (1.1.1)
+    ffi (1.1.2)
     foreigner (1.2.0)
       activerecord (>= 3.0.0)
     friendly_id (4.0.7)
