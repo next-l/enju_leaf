@@ -23,16 +23,16 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_bookmark.git
-  revision: 94a99ed8dfc9b718645175d860fbad4eb4baf7f1
+  revision: 5d3a7a3df63a128259d02b5c0483f8b68a0a81fa
   specs:
-    enju_bookmark (0.1.0.pre)
+    enju_bookmark (0.1.1)
       acts-as-taggable-on (~> 2.3)
       rails (~> 3.2)
       state_machine
 
 GIT
   remote: git://github.com/nabeta/enju_circulation.git
-  revision: 7722025e03309ab2080b1d7553edef2d7b63d6f1
+  revision: df6c76930e0d62e3183164c4b60e0a49ebbe0edc
   specs:
     enju_circulation (0.1.0.pre)
       enju_core
@@ -46,7 +46,7 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_event.git
-  revision: 5e9436aa95364e18e728deb75228ccbe80a700a2
+  revision: 87e738ae81b9e0d5fc1e36d157e9cc003e1565f5
   specs:
     enju_event (0.1.15)
       enju_core
@@ -164,7 +164,7 @@ GIT
 
 GIT
   remote: git://github.com/next-l/enju_biblio.git
-  revision: e641d970d4601d5e895aefaf469b0e40477a5564
+  revision: f7ef962f1874e6212569375bec0ab673fb2d288d
   specs:
     enju_biblio (0.1.0.pre2)
       aws-sdk
@@ -335,7 +335,7 @@ GEM
     guard (1.2.3)
       listen (>= 0.4.2)
       thor (>= 0.14.6)
-    guard-rspec (1.2.0)
+    guard-rspec (1.2.1)
       guard (>= 1.1)
     has_scope (0.5.1)
     highline (1.6.13)
