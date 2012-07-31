@@ -169,7 +169,7 @@ GEM
       enju_biblio (~> 0.1.0.pre)
       rails (~> 3.2)
       state_machine
-    enju_inventory (0.1.9)
+    enju_inventory (0.1.10)
       enju_biblio (~> 0.1.0.pre)
       inherited_resources
       paperclip (~> 3.0)
@@ -492,7 +492,7 @@ DEPENDENCIES
   enju_event (~> 0.1.16)
   enju_export (~> 0.1.0)
   enju_inter_library_loan (~> 0.1.0.pre2)
-  enju_inventory (~> 0.1.9)
+  enju_inventory (~> 0.1.10)
   enju_library (~> 0.1.0.pre2)
   enju_manifestation_viewer (~> 0.1.0.pre)
   enju_message (~> 0.1.13)
