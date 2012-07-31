@@ -1,4 +1,4 @@
-require 'csv' if RUBY_VERSION > '1.9'
+require 'csv'
 #require 'mathn'
 require 'rss'
 require 'nkf'
