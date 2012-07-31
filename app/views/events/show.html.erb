@@ -20,7 +20,7 @@
 <%- if @event.all_day -%>
   <p>
     <strong><%= t('activerecord.attributes.event.all_day') -%>:</strong>
-    <%= l(@event.start_at, :formats => :only_date) -%>
+    <%= l(@event.start_at, :format => :only_date) -%>
   </p>
 <%- else -%>
   <p>

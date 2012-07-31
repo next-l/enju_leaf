@@ -7,7 +7,7 @@
     <h3><%= t('checkout.renewal') -%></h3>
     <%- if @checkout.checkout_renewable? -%>
       <%= form_for(@checkout) do |f| -%>
-        <%= t('checkout.new_due_date') -%>: <%= l(@new_due_date, :formats => :only_date) if @new_due_date -%>
+        <%= t('checkout.new_due_date') -%>: <%= l(@new_due_date, :format => :only_date) if @new_due_date -%>
         <%= f.hidden_field :due_date, :value => @new_due_date -%>
         <br />
         <%= f.submit :class => 'btn'%>
