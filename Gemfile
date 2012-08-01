@@ -95,7 +95,7 @@ group :development, :test do
   gem 'ruby-prof'
   gem 'rspec-rails', '~> 2.11'
   gem 'guard-rspec'
-  gem 'factory_girl_rails', '~> 3.5'
+  gem 'factory_girl_rails', '~> 3.6'
   gem 'spork-rails'
 #  gem 'rcov', '0.9.11'
 #  gem 'metric_fu', '~> 2.1'

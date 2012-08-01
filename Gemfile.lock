@@ -32,9 +32,9 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_circulation.git
-  revision: df6c76930e0d62e3183164c4b60e0a49ebbe0edc
+  revision: c97aedfcbf7a316a4f5b1c3c37e1daa4b5a6719c
   specs:
-    enju_circulation (0.1.0.pre)
+    enju_circulation (0.1.0.pre3)
       enju_core
       enju_event (>= 0.0.27)
       enju_message (~> 0.1.12)
@@ -46,9 +46,9 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_event.git
-  revision: 87e738ae81b9e0d5fc1e36d157e9cc003e1565f5
+  revision: f052e93c0f61dc24246c88de7feeb7e519a4cee0
   specs:
-    enju_event (0.1.15)
+    enju_event (0.1.16)
       enju_core
       enju_message (>= 0.0.25)
       event-calendar (~> 2.3.3)
@@ -61,18 +61,18 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_inter_library_loan.git
-  revision: e87903d2e7da5281c2b50084b82f3f36bc26dc6d
+  revision: b78903e05f852ace852cf78d0dd1935c98ed3cdf
   specs:
-    enju_inter_library_loan (0.1.0.pre)
+    enju_inter_library_loan (0.1.0.pre2)
       enju_biblio (~> 0.1.0.pre)
       rails (~> 3.2)
       state_machine
 
 GIT
   remote: git://github.com/nabeta/enju_inventory.git
-  revision: 9a27612b625563d41904ee11bb5aa801904c1530
+  revision: 01db661c30ceb71d1b60619b5c0391f40780825e
   specs:
-    enju_inventory (0.1.9)
+    enju_inventory (0.1.10)
       enju_biblio (~> 0.1.0.pre)
       inherited_resources
       paperclip (~> 3.0)
@@ -87,9 +87,9 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_message.git
-  revision: 3f0ca19d5614ac5d322c8136ba5df94f71b680e5
+  revision: 4a3fb0caef80fd304ab749345a9bfbd50da00434
   specs:
-    enju_message (0.1.12)
+    enju_message (0.1.13)
       awesome_nested_set (~> 2.1)
       enju_core
       inherited_resources
@@ -100,9 +100,9 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_ndl.git
-  revision: 1e0f117caa8a50a02e934aa0e7db8979003285e8
+  revision: 9c526780319806b13b721a65afffe2c274b29b7f
   specs:
-    enju_ndl (0.1.0.pre)
+    enju_ndl (0.1.0.pre2)
       library_stdnums
       lisbn
       nokogiri
@@ -110,17 +110,17 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_oai.git
-  revision: c12fed82c36cfad3e27e1b7ce47509c03822144d
+  revision: 39796832d33c3916917b2c88551f4cfa253d498f
   specs:
-    enju_oai (0.1.0.pre3)
+    enju_oai (0.1.0.pre4)
       mobile-fu
       rails (~> 3.2)
 
 GIT
   remote: git://github.com/nabeta/enju_purchase_request.git
-  revision: ac69b0a2a4abbdb5f34a07ada45ddde8f55cecd7
+  revision: 7c301e185c248d8b4d4dc432ec543b96834fadbe
   specs:
-    enju_purchase_request (0.1.0.pre2)
+    enju_purchase_request (0.1.0.pre3)
       rails (~> 3.2)
       state_machine
 
@@ -164,9 +164,9 @@ GIT
 
 GIT
   remote: git://github.com/next-l/enju_biblio.git
-  revision: f7ef962f1874e6212569375bec0ab673fb2d288d
+  revision: b2a075d78b25d5ae57a23f7ae25425a79cd799c5
   specs:
-    enju_biblio (0.1.0.pre2)
+    enju_biblio (0.1.0.pre4)
       aws-sdk
       dynamic_form
       enju_core (~> 0.1.0.pre)
@@ -320,14 +320,14 @@ GEM
       actionmailer (>= 3.0.4)
     execjs (1.4.0)
       multi_json (~> 1.0)
-    factory_girl (3.5.0)
+    factory_girl (3.6.0)
       activesupport (>= 3.0.0)
-    factory_girl_rails (3.5.0)
-      factory_girl (~> 3.5.0)
+    factory_girl_rails (3.6.0)
+      factory_girl (~> 3.6.0)
       railties (>= 3.0.0)
     fakeweb (1.3.0)
     fattr (2.2.1)
-    ffi (1.1.2)
+    ffi (1.1.3)
     foreigner (1.2.0)
       activerecord (>= 3.0.0)
     friendly_id (4.0.7)
@@ -614,7 +614,7 @@ DEPENDENCIES
   enju_search_log!
   enju_subject!
   exception_notification (~> 2.6)
-  factory_girl_rails (~> 3.5)
+  factory_girl_rails (~> 3.6)
   fakeweb
   foreigner
   geocoder
