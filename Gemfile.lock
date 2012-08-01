@@ -32,9 +32,9 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_circulation.git
-  revision: c97aedfcbf7a316a4f5b1c3c37e1daa4b5a6719c
+  revision: 6fa4f9392ab03bebb12fed25b73b5dc9b652b3bd
   specs:
-    enju_circulation (0.1.0.pre3)
+    enju_circulation (0.1.0.pre2)
       enju_core
       enju_event (>= 0.0.27)
       enju_message (~> 0.1.12)
@@ -164,9 +164,9 @@ GIT
 
 GIT
   remote: git://github.com/next-l/enju_biblio.git
-  revision: b2a075d78b25d5ae57a23f7ae25425a79cd799c5
+  revision: c55b25551d5b24d01b8b552600f1dd35a343232e
   specs:
-    enju_biblio (0.1.0.pre4)
+    enju_biblio (0.1.0.pre3)
       aws-sdk
       dynamic_form
       enju_core (~> 0.1.0.pre)
