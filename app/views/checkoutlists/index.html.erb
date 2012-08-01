@@ -6,11 +6,15 @@
     <p id="notice"><%= notice %></p>
     <%= label :list_condition, t('activerecord.attributes.item_list.list_condition') %>:<br />
     <div class="parent">
-      <%= check_box_tag "all_circulation_status", true, @selected_circulation_status.size == @circulation_status.size ? true : false, :class => 'check-parent' %>
+      <%= check_box_tag "all_circulation_status", true,
+         @selected_circulation_status.size == @circulation_status.size ? true : false, :class => 'check-parent' %>
       <%= t('advanced_search.all', :model => t('activerecord.models.circulation_status')) %><br />
       <div id="list_condition_200">
         <% @circulation_status.each_with_index do |c, g| %>
-          &nbsp;&nbsp;<%= check_box_tag "circulation_status[]", c.id, @selected_circulation_status.index(c.id) ? true : false, :class => 'check-child' %><%= c.display_name.localize %><br />
+          &nbsp;&nbsp;
+          <%= check_box_tag "circulation_status[]", c.id,
+            @selected_circulation_status.index(c.id) ? true : false, :class => 'check-child' %>
+          <%= c.display_name.localize %><br />
           <% if g == 6 %>
         </div>
       <div id="list_condition_200">
@@ -21,8 +25,10 @@
     </div>
     <br style="clear:both;"/>
   <div class="actions">
-    <%= submit_tag t('page.output_pdf', :model => t('activerecord.models.checkoutlist')), :onclick => "push_submit('pdf');" %>
-    <%= submit_tag t('page.output_tsv', :model => t('activerecord.models.checkoutlist')), :onclick => "push_submit('tsv');" %>
+    <%= submit_tag t('page.output_pdf', :model => t('activerecord.models.checkoutlist')),
+      :onclick => "push_submit('pdf');" %>
+    <%= submit_tag t('page.output_tsv', :model => t('activerecord.models.checkoutlist')),
+      :onclick => "push_submit('tsv');" %>
   </div>
 <% end %>
 
