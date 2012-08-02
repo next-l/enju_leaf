@@ -1,256 +1,326 @@
 --- 
-reserve_00003: 
-  updated_at: 2007-09-02 17:46:52.791614 +09:00
-  manifestation_id: 6
-  user_id: 3
-  request_status_type_id: 4
-  id: 3
-  created_at: 2007-09-02 17:46:52.791614 +09:00
-  expired_at: <%= 1.week.from_now %>
-  state: requested
-  created_by: 1
-reserve_00004: 
-  updated_at: 2007-09-02 18:37:25.576087 +09:00
-  manifestation_id: 7
-  user_id: 1
-  request_status_type_id: 4
-  id: 4
-  created_at: 2007-09-02 18:37:25.576087 +09:00
-  expired_at: <%= 1.week.from_now %>
-  state: requested
-  created_by: 1
-reserve_00005: 
-  updated_at: 2007-09-02 19:16:55.714812 +09:00
-  manifestation_id: 8
-  user_id: 2
-  request_status_type_id: 4
-  id: 5
-  created_at: 2007-09-02 19:16:55.714812 +09:00
-  expired_at: <%= 1.week.from_now %>
-  state: requested
-  created_by: 1
 reserve_00001: 
-  updated_at: 2007-09-02 17:51:54.887849 +09:00
-  manifestation_id: 4
-  user_id: 1
-  request_status_type_id: 4
   id: 1
-  created_at: 2007-09-01 14:14:52.356803 +09:00
-  expired_at: <%= 1.week.from_now %>
-  state: requested
-  created_by: 1
-reserve_00002: 
-  updated_at: 2007-09-01 14:20:05.530854 +09:00
-  manifestation_id: 5
-  user_id: 2
-  request_status_type_id: 4
-  id: 2
-  created_at: 2007-09-01 14:20:05.530854 +09:00
-  expired_at: <%= 1.week.from_now %>
-  state: requested
-  created_by: 1
-reserve_00006: 
-  updated_at: 2007-09-01 14:20:05.530854 +09:00
+  user_id: 1
   manifestation_id: 4
+  request_status_type_id: 4
+  receipt_library_id: 2 
+  information_type_id: 1
+  expired_at: <%= 1.week.from_now %>
+  state: requested
+  retained: false
+  created_by: 1
+  created_at: 2007-09-01 14:14:52.356803 +09:00
+  updated_at: 2007-09-02 17:51:54.887849 +09:00
+reserve_00002: 
+  id: 2
   user_id: 2
+  manifestation_id: 5
   request_status_type_id: 4
-  id: 6
-  created_at: 2007-09-01 14:20:05.530854 +09:00
+  receipt_library_id: 2 
+  information_type_id: 1
   expired_at: <%= 1.week.from_now %>
   state: requested
+  retained: false
   created_by: 1
-reserve_00007: 
+  created_at: 2007-09-01 14:20:05.530854 +09:00
   updated_at: 2007-09-01 14:20:05.530854 +09:00
-  manifestation_id: 2
-  user_id: 4
+reserve_00003: 
+  id: 3
+  user_id: 3
+  manifestation_id: 6
   request_status_type_id: 4
-  id: 7
-  created_at: 2007-09-01 14:20:05.530854 +09:00
+  receipt_library_id: 2 
+  information_type_id: 1
   expired_at: <%= 1.week.from_now %>
   state: requested
+  retained: false
   created_by: 1
-reserve_00008: 
-  updated_at: 2007-09-02 17:46:52.791614 +09:00
-  manifestation_id: 6
-  user_id: 3
-  request_status_type_id: 3
-  id: 8
   created_at: 2007-09-02 17:46:52.791614 +09:00
+  updated_at: 2007-09-02 17:46:52.791614 +09:00
+reserve_00004: 
+  id: 4
+  user_id: 1
+  manifestation_id: 7
+  request_status_type_id: 4
+  receipt_library_id: 2 
+  information_type_id: 1
+  expired_at: <%= 1.week.from_now %>
+  state: requested
+  retained: false
+  created_by: 1
+  created_at: 2007-09-02 18:37:25.576087 +09:00
+  updated_at: 2007-09-02 18:37:25.576087 +09:00
+reserve_00005: 
+  id: 5
+  user_id: 2
+  manifestation_id: 8
+  request_status_type_id: 4
+  receipt_library_id: 2 
+  information_type_id: 1
+  expired_at: <%= 1.week.from_now %>
+  state: requested
+  retained: false
+  created_by: 1
+  created_at: 2007-09-02 19:16:55.714812 +09:00
+  updated_at: 2007-09-02 19:16:55.714812 +09:00
+reserve_00006: 
+  id: 6
+  user_id: 2
+  manifestation_id: 4
+  request_status_type_id: 4
+  receipt_library_id: 2 
+  information_type_id: 1
+  expired_at: <%= 1.week.from_now %>
+  state: requested
+  retained: false
+  created_by: 1
+  created_at: 2007-09-01 14:20:05.530854 +09:00
+  updated_at: 2007-09-01 14:20:05.530854 +09:00
+reserve_00007: 
+  id: 7
+  user_id: 4
+  manifestation_id: 2
+  request_status_type_id: 4
+  receipt_library_id: 2 
+  information_type_id: 1
+  expired_at: <%= 1.week.from_now %>
+  state: requested
+  retained: false
+  created_by: 1
+  created_at: 2007-09-01 14:20:05.530854 +09:00
+  updated_at: 2007-09-01 14:20:05.530854 +09:00
+reserve_00008: 
+  id: 8
+  user_id: 3
+  manifestation_id: 6
+  request_status_type_id: 3
+  receipt_library_id: 2 
+  information_type_id: 1
   expired_at: <%= 1.week.ago %>
   state: expired
+  retained: false
   created_by: 1
-reserve_00009: 
-  updated_at: 2007-09-02 17:46:52.791614 +09:00
-  manifestation_id: 7
-  user_id: 5
-  request_status_type_id: 3
-  id: 9
   created_at: 2007-09-02 17:46:52.791614 +09:00
+  updated_at: 2007-09-02 17:46:52.791614 +09:00
+reserve_00009: 
+  id: 9
+  user_id: 5
+  manifestation_id: 7
+  request_status_type_id: 3
   expired_at: <%= 1.day.ago %>
   state: requested
+  retained: false
   created_by: 1
-reserve_00010: 
-  updated_at: 2007-09-02 17:46:52.791614 +09:00
-  manifestation_id: 8
-  user_id: 5
-  request_status_type_id: 3
-  id: 10
   created_at: 2007-09-02 17:46:52.791614 +09:00
+  updated_at: 2007-09-02 17:46:52.791614 +09:00
+reserve_00010: 
+  id: 10
+  user_id: 5
+  manifestation_id: 8
+  request_status_type_id: 3
+  receipt_library_id: 2 
+  information_type_id: 1
   expired_at: <%= 1.hour.ago %>
   checked_out_at: <%= 1.week.ago %>
   state: completed
+  retained: false
   created_by: 1
+  created_at: 2007-09-02 17:46:52.791614 +09:00
+  updated_at: 2007-09-02 17:46:52.791614 +09:00
 reserve_00011: 
-  updated_at: 2007-09-01 14:20:05.530854 +09:00
-  manifestation_id: 7
-  user_id: 2
-  request_status_type_id: 3
   id: 11
-  created_at: 2007-09-01 14:20:05.530854 +09:00
+  user_id: 2
+  manifestation_id: 7
+  request_status_type_id: 3
+  receipt_library_id: 2 
+  information_type_id: 1
   expired_at: <%= 1.day.ago %>
   state: expired
+  retained: false
   created_by: 1
-reserve_00012: 
-  updated_at: 2007-09-01 14:20:05.530854 +09:00
-  manifestation_id: 8
-  user_id: 2
-  request_status_type_id: 4
-  id: 12
   created_at: 2007-09-01 14:20:05.530854 +09:00
+  updated_at: 2007-09-01 14:20:05.530854 +09:00
+reserve_00012: 
+  id: 12
+  user_id: 2
+  manifestation_id: 8
+  request_status_type_id: 4
+  receipt_library_id: 2 
+  information_type_id: 1
   expired_at: <%= 1.day.ago %>
   state: retained
+  retained: false
   created_by: 1
-reserve_00013: 
-  updated_at: 2007-09-01 14:20:05.530854 +09:00
-  manifestation_id: 11
-  user_id: 4
-  request_status_type_id: 3
-  id: 13
   created_at: 2007-09-01 14:20:05.530854 +09:00
+  updated_at: 2007-09-01 14:20:05.530854 +09:00
+reserve_00013: 
+  id: 13
+  user_id: 4
+  manifestation_id: 11
+  request_status_type_id: 3
+  receipt_library_id: 2
+  information_type_id: 1
   expired_at: <%= 1.day.ago %>
   state: requested
+  retained: false
   created_by: 1
-reserve_00014: 
+  created_at: 2007-09-01 14:20:05.530854 +09:00
   updated_at: 2007-09-01 14:20:05.530854 +09:00
+reserve_00014: 
+  id: 14
+  user_id: 4
   manifestation_id: 10
   item_id: 22
-  user_id: 4
   request_status_type_id: 4
-  id: 14
-  created_at: 2007-09-01 14:20:05.530854 +09:00
+  receipt_library_id: 2
+  information_type_id: 1
   expired_at: <%= 1.week.from_now %>
   state: requested
+  retained: false
   position: 1
   created_by: 1
-reserve_00015: 
+  created_at: 2007-09-01 14:20:05.530854 +09:00
   updated_at: 2007-09-01 14:20:05.530854 +09:00
+reserve_00015: 
+  id: 15
+  user_id: 1
   manifestation_id: 10
   item_id: 22
-  user_id: 1
   request_status_type_id: 4
-  id: 15
-  created_at: 2007-09-01 14:20:05.530854 +09:00
+  receipt_library_id: 2
+  information_type_id: 1
   expired_at: <%= 1.week.from_now %>
   state: requested
+  retained: false
   position: 2
   created_by: 1
+  created_at: 2007-09-01 14:20:05.530854 +09:00
+  updated_at: 2007-09-01 14:20:05.530854 +09:00
 reserve_00016: 
-  updated_at: 2007-09-02 17:51:54.887849 +09:00
-  manifestation_id: 4
-  user_id: 3
-  request_status_type_id: 4
   id: 16
-  created_at: 2007-09-01 14:14:52.356803 +09:00
+  user_id: 3
+  manifestation_id: 4
+  request_status_type_id: 4
+  receipt_library_id: 2
+  information_type_id: 1
   expired_at: <%= 1.week.from_now %>
   state: in_process
+  retained: false
   created_by: 1
-reserve_00017: 
-  updated_at: 2007-09-02 17:51:54.887849 +09:00
-  manifestation_id: 4
-  user_id: 3
-  request_status_type_id: 4
-  id: 17
   created_at: 2007-09-01 14:14:52.356803 +09:00
+  updated_at: 2007-09-02 17:51:54.887849 +09:00
+reserve_00017: 
+  id: 17
+  user_id: 3
+  manifestation_id: 4
+  request_status_type_id: 4
+  receipt_library_id: 2
+  information_type_id: 1
   expired_at: <%= 1.week.from_now %>
   state: completed
+  retained: false
   created_by: 1
-reserve_00018: 
-  updated_at: 2007-09-02 17:51:54.887849 +09:00
-  manifestation_id: 4
-  user_id: 3
-  request_status_type_id: 4
-  id: 18
   created_at: 2007-09-01 14:14:52.356803 +09:00
+  updated_at: 2007-09-02 17:51:54.887849 +09:00
+reserve_00018: 
+  id: 18
+  user_id: 3
+  manifestation_id: 4
+  request_status_type_id: 4
+  receipt_library_id: 2
+  information_type_id: 1
   expired_at: <%= 1.week.from_now %>
   state: canceled
+  retained: false
   created_by: 1
-reserve_00019: 
-  updated_at: 2007-09-02 17:51:54.887849 +09:00
-  manifestation_id: 4
-  user_id: 3
-  request_status_type_id: 4
-  id: 19
   created_at: 2007-09-01 14:14:52.356803 +09:00
+  updated_at: 2007-09-02 17:51:54.887849 +09:00
+reserve_00019: 
+  id: 19
+  user_id: 3
+  manifestation_id: 4
+  request_status_type_id: 4
+  receipt_library_id: 2
+  information_type_id: 1
   expired_at: <%= 1.week.from_now %>
   state: expired
+  retained: false
   created_by: 1
-reserve_00020: 
+  created_at: 2007-09-01 14:14:52.356803 +09:00
   updated_at: 2007-09-02 17:51:54.887849 +09:00
+reserve_00020: 
+  id: 20
+  user_id: 3
   manifestation_id: 27
   item_id: 27
-  user_id: 3
   request_status_type_id: 4
-  id: 20
-  created_at: 2007-09-01 14:14:52.356803 +09:00
+  receipt_library_id: 2
+  information_type_id: 1
   expired_at: <%= 1.week.from_now %>
   state: retained
+  retained: false
   created_by: 1
-reserve_00021: 
-  updated_at: 2007-09-02 17:51:54.887849 +09:00
-  manifestation_id: 27
-  user_id: 2
-  request_status_type_id: 4
-  id: 21
   created_at: 2007-09-01 14:14:52.356803 +09:00
+  updated_at: 2007-09-02 17:51:54.887849 +09:00
+reserve_00021: 
+  id: 21
+  user_id: 2
+  manifestation_id: 27
+  request_status_type_id: 4
+  receipt_library_id: 2
+  information_type_id: 1
   expired_at: <%= 1.week.from_now %>
   state: requested
+  retained: false
   created_by: 1
   position: 1
   receipt_library_id: 2 
-reserve_00022: 
-  updated_at: 2007-09-02 17:51:54.887849 +09:00
-  manifestation_id: 27
-  user_id: 8
-  request_status_type_id: 4
-  id: 22
   created_at: 2007-09-01 14:14:52.356803 +09:00
+  updated_at: 2007-09-02 17:51:54.887849 +09:00
+reserve_00022: 
+  id: 22
+  user_id: 8
+  manifestation_id: 27
+  request_status_type_id: 4
+  receipt_library_id: 2
+  information_type_id: 1
   expired_at: <%= 1.week.from_now %>
   state: requested
+  retained: false
   created_by: 1
   position: 2
-reserve_00023: 
+  created_at: 2007-09-01 14:14:52.356803 +09:00
   updated_at: 2007-09-02 17:51:54.887849 +09:00
+reserve_00023: 
+  id: 23
+  user_id: 8
   manifestation_id: 28
   item_id: 29
-  user_id: 8
   request_status_type_id: 4
-  id: 23
-  created_at: 2007-09-01 14:14:52.356803 +09:00
+  receipt_library_id: 2
+  information_type_id: 1
   expired_at: <%= 1.week.from_now %>
   state: retained
+  retained: true
   created_by: 1
-reserve_00024: 
-  updated_at: 2007-09-02 17:51:54.887849 +09:00
-  manifestation_id: 28
-  user_id: 8
-  request_status_type_id: 4
-  id: 24
   created_at: 2007-09-01 14:14:52.356803 +09:00
+  updated_at: 2007-09-02 17:51:54.887849 +09:00
+reserve_00024: 
+  id: 24
+  user_id: 8
+  manifestation_id: 28
+  request_status_type_id: 4
+  receipt_library_id: 2
+  information_type_id: 1
   expired_at: <%= 1.week.from_now %>
   state: requested
+  retained: false
   created_by: 1
   position: 1
   receipt_library_id: 3
+  created_at: 2007-09-01 14:14:52.356803 +09:00
+  updated_at: 2007-09-02 17:51:54.887849 +09:00
 
 # == Schema Information
 #

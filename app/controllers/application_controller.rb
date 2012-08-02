@@ -249,6 +249,14 @@ class ApplicationController < ActionController::Base
     @series_statement = SeriesStatement.find(params[:series_statement_id]) if params[:series_statement_id]
   end
 
+  def get_reserve_states
+    @reserve_states = Reserve.states
+  end
+
+  def get_reserve_information_types
+    @reserve_information_types = Reserve.information_type_ids
+  end
+
   def convert_charset
     case params[:format]
     when 'csv'

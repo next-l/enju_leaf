@@ -176,6 +176,7 @@ class User < ActiveRecord::Base
     string :patron_type do
       patron.patron_type.name if patron
     end
+    boolean :unable
   end
 
   attr_accessor :first_name, :middle_name, :last_name, :full_name,
@@ -543,6 +544,66 @@ class User < ActiveRecord::Base
     items.each do |item|
       item.cancel_retain!
       item.set_next_reservation if item.manifestation.next_reservation
+    end
+  end
+
+  def self.set_query(query = nil, birth = nil, add = nil)
+    # query
+    query = query.to_s
+    query = query.gsub("-", "") if query
+    query = "#{query}*" if query.size == 1
+    # birth date
+    birth_date = birth.to_s.gsub(/\D/, '') if birth
+    message = nil
+    unless birth.blank?
+      begin
+        date_of_birth = Time.zone.parse(birth_date).beginning_of_day.utc.iso8601
+      rescue
+        message = I18n.t('user.birth_date_invalid')
+      end
+    end
+    date_of_birth_end = Time.zone.parse(birth_date).end_of_day.utc.iso8601 rescue nil
+    # address
+    address = add
+
+    query = "#{query} date_of_birth_d:[#{date_of_birth} TO #{date_of_birth_end}]" unless date_of_birth.blank?
+    query = "#{query} address_text:#{address}" unless address.blank?
+
+    logger.error "query #{query}"
+    logger.error message
+
+    return query, message
+  end
+
+  def self.set_sort(sort_by, order)
+    sort = { :sort_by => set_sort_by(sort_by), :order => set_order(order) }
+  end
+
+  def self.set_sort_by(sort_by)
+    sort = nil
+    case sort_by
+    when 'username'
+      sort = 'username'
+    when 'telephone_number_1'
+      sort = 'telephone_number'
+    when 'full_name'
+      sort = 'full_name'
+    when 'user_number'
+      sort = 'user_number'
+    when 'library'
+      sort = 'library'
+    else
+      sort = 'created_at'
+    end
+  end
+
+  def self.set_order(order)
+    sort = nil
+    case order
+    when 'asc'
+      sort = 'asc'
+    else 'desc'
+      sort = 'desc'
     end
   end
 

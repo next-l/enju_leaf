@@ -1,5 +1,9 @@
 class Unablelist < ActiveRecord::Base
 
+  def self.per_page
+    10
+  end
+
   def self.get_unable_list_pdf(users, sort)
     report = ThinReports::Report.new :layout => File.join(Rails.root, 'report', 'unablelist.tlf')
     # set page_num
@@ -15,12 +19,12 @@ class Unablelist < ActiveRecord::Base
     # set data
     report.start_new_page do |page|
       page.item(:date).value(Time.now)
-      case sort
-      when sort = 'library'
-        page.item(:sort).value(I18n.t('activerecord.attributes.unablelist.output_format')+": " + I18n.t('activerecord.attributes.user.library'))
+      if sort == 'created_at'
+        page.item(:sort).value(I18n.t('activerecord.attributes.unablelist.output_format')+": " + I18n.t('page.created_at'))
       else
-        page.item(:sort).value(I18n.t('activerecord.attributes.unablelist.output_format')+": " + I18n.t('activerecord.attributes.user.user_number'))
+        page.item(:sort).value(I18n.t('activerecord.attributes.unablelist.output_format')+": " + I18n.t("activerecord.attributes.user.#{ sort }"))
       end
+
       if users.size > 0
         before_library = nil
         users.each do |user|
@@ -42,15 +46,15 @@ class Unablelist < ActiveRecord::Base
         end
       else
         page.list(:list).add_row do |row|
-            row.item(:not_found).show
-            row.item(:not_found).value(I18n.t('page.not_found_users'))
-            row.item(:line0).hide
-            row.item(:line1).hide
-            row.item(:line2).hide
-            row.item(:line3).hide
-            row.item(:line4).hide
-            row.item(:line5).hide
-            row.item(:line6).hide
+          row.item(:not_found).show
+          row.item(:not_found).value(I18n.t('page.not_found_users'))
+          row.item(:line0).hide
+          row.item(:line1).hide
+          row.item(:line2).hide
+          row.item(:line3).hide
+          row.item(:line4).hide
+          row.item(:line5).hide
+          row.item(:line6).hide
         end 
       end
     end
@@ -60,10 +64,9 @@ class Unablelist < ActiveRecord::Base
   def self.get_unable_list_tsv(users)
     data = String.new
     data << "\xEF\xBB\xBF".force_encoding("UTF-8") + "\n"
-
     columns = [
       [:library, 'activerecord.attributes.user.library'],
-      [:user_number, 'activerecord.attributes.user.user_number'],
+      ['user_number', 'activerecord.attributes.user.user_number'],
       [:full_name, 'activerecord.attributes.patron.full_name'],
       [:telephone_number_1, 'activerecord.attributes.patron.telephone_number_1'],
       [:extelephone_number_1, 'activerecord.attributes.patron.extelephone_number_1'],
@@ -73,17 +76,15 @@ class Unablelist < ActiveRecord::Base
     ]
 
     # title column
-    row = columns.map {|column| I18n.t(column[1])}
+    row = columns.map { |column| I18n.t(column[1]) }
     data << '"'+row.join("\"\t\"")+"\"\n"
-
+    # data
     users.each do |user|
       row = []
       columns.each do |column|
         case column[0]
         when :library
           row << user.library.display_name
-        when :user_number
-          row << user.user_number
         when :full_name
           row << user.patron.full_name
         when :telephone_number_1
@@ -103,5 +104,12 @@ class Unablelist < ActiveRecord::Base
       data << '"'+row.join("\"\t\"")+"\"\n"
     end
     return data
+  end
+
+  private
+  def self.get_object_method(obj,array)
+    _obj = obj.send(array.shift)
+    return get_object_method(_obj, array) if array.present?
+    return _obj
   end
 end

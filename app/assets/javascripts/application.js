@@ -16,3 +16,4 @@
 //= require function_key_control
 //= require jquery.auto_ruby
 //= require enju_audio_control
+//= require enju_trunk

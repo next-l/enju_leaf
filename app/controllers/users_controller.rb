@@ -11,57 +11,21 @@ class UsersController < ApplicationController
 
   def index
     @count = {}
+
+    # set query
+    @query = params[:query].to_s.dup
+    @date_of_birth = params[:birth_date].to_s.dup
+    @address = params[:address]
+    query, flash[:message] = User.set_query(params[:query], params[:birth_date], params[:address])
+
+    # set sort
+    sort = User.set_sort(params[:sort_by], params[:order])
+
+    # search
     page = params[:page] || 1
     role = current_user.try(:role) || Role.default_role
-
-    query = params[:query].to_s
-    @query = query.dup
-    query = params[:query].gsub("-", "") if params[:query]
-    query = "#{query}*" if query.size == 1
-    @date_of_birth = params[:birth_date].to_s.dup
-    birth_date = params[:birth_date].to_s.gsub(/\D/, '') if params[:birth_date]
-    flash[:message] = nil
-    unless params[:birth_date].blank?
-      begin
-        date_of_birth = Time.zone.parse(birth_date).beginning_of_day.utc.iso8601
-      rescue 
-        flash[:message] = t('user.birth_date_invalid')	
-      end
-    end
-    date_of_birth_end = Time.zone.parse(birth_date).end_of_day.utc.iso8601 rescue nil
-    address = params[:address]
-    @address = address
-    query = "#{query} date_of_birth_d:[#{date_of_birth} TO #{date_of_birth_end}]" unless date_of_birth.blank?
-    query = "#{query} address_text:#{address}" unless address.blank?
-    logger.error "query #{query}"
-    logger.error flash[:message]
-
-    sort = {:sort_by => 'created_at', :order => 'desc'}
-    case params[:sort_by]
-    when 'username'
-      sort[:sort_by] = 'username'
-    when 'telephone_number_1'
-      if query.blank?
-        sort[:sort_by] = 'patrons.telephone_number_1'
-      else
-        sort[:sort_by] = 'telephone_number'
-      end
-    when 'full_name'
-      if query.blank?
-        sort[:sort_by] = 'patrons.full_name_transcription'
-      else
-        sort[:sort_by] = 'full_name'
-      end
-    end
-    case params[:order]
-    when 'asc'
-      sort[:order] = 'asc'
-    when 'desc'
-      sort[:order] = 'desc'
-    end
-
     search = User.search
-    search_result = search.build do
+    @search = search.build do
       fulltext query unless query.blank?
       with(:library).equal_to params[:library] if params[:library]
       with(:role).equal_to params[:role] if params[:role]
@@ -74,13 +38,8 @@ class UsersController < ApplicationController
         facet :patron_type
         paginate :page => page.to_i, :per_page => User.per_page
       end
-    end.execute rescue nil
-    if params[:format].blank? or params[:format] == 'html'
-      @library_facet = search_result.facet(:library).rows
-      @role_facet = search_result.facet(:role).rows
-      @patron_type_facet = search_result.facet(:patron_type).rows
     end
-    @users = search_result.results
+    @users = @search.execute!.results
     @count[:query_result] = @users.total_entries
 
     respond_to do |format|

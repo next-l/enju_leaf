@@ -493,12 +493,10 @@ EnjuLeaf::Application.routes.draw do
   match '/page/extensions' => 'page#extensions'
 
   match '/checkoutlists' => 'checkoutlists#index'
-  match '/checkoutlists/output' => 'checkoutlists#output'
   match '/reservelists' => 'reservelists#index'
-  match '/reservelists/output' => 'reservelists#output'
   match '/unablelist' => 'unablelist#index'
   match '/retained_manifestations' => 'retained_manifestations#index'
-  match '/retained_manifestations/set_retained' => 'retained_manifestations#set_retained'
+  match '/retained_manifestations/informed' => 'retained_manifestations#informed'
 
   # http://techoctave.com/c7/posts/36-rails-3-0-rescue-from-routing-error-solution
   match '*a', :to => 'page#routing_error' unless Rails.application.config.consider_all_requests_local

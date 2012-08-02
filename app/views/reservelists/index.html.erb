@@ -23,10 +23,10 @@
         <tr class="line1">
         <%- line = 0 -%>
       <%- end -%>
-        <td><%= reserve.manifestation.original_title -%></td>
-        <td><%= reserve.user.user_number unless reserve.user.user_number.blank? -%></td>
-        <td><%= reserve.user.patron.full_name -%>(<%= reserve.user.username -%>)</td>
-        <td><%= reserve.item.item_identifier if !reserve.item.blank? and !reserve.item.item_identifier.blank? -%></td>
+        <td><%= link_to reserve.manifestation.original_title, reserve.manifestation %></td>
+        <td><%= link_to reserve.user.user_number, reserve.user unless reserve.user.user_number.blank? -%></td>
+        <td><%= link_to reserve.user.patron.full_name, reserve.user %>(<%= link_to reserve.user.username, reserve.user %>)</td>
+        <td><%= link_to reserve.item.item_identifier, reserve.item unless reserve.item.blank? or reserve.item.item_identifier.blank? -%></td>
       </tr>
     <%- end -%>
   </table>
