@@ -370,6 +370,8 @@ class Reserve < ActiveRecord::Base
         raise 'status not defined'
       end
     end
+    rescue Exception => e
+      logger.error e
   end
 
   def self.send_message_to_library(status, options = {})
