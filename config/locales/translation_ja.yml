@@ -1926,9 +1926,6 @@ ja:
     subjectable: "件名付与対象"
   library_group:
     configuration: "図書館の設定"
-  calendar:
-    calendar: "カレンダー"
-    library_calendar: "%{library_name}のカレンダー"
   series_statement:
     edit: "シリーズ情報の編集"
     you_should_specify_work: "シリーズ情報には書いた資料を指定しなければなりません。"

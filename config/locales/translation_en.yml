@@ -1626,9 +1626,6 @@ en:
     subjectable: "Subjectable"
   library_group:
     configuration: "Library configuration"
-  calendar:
-    calendar: "Calendar"
-    library_calendar: "Calendar of events at %{library_name}"
   series_statement:
     edit: "Edit series statement"
     you_should_specify_work: "You should specify a work in the series statement."
