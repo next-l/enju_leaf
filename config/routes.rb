@@ -243,8 +243,6 @@ EnjuLeaf::Application.routes.draw do
     resources :picture_files
   end
 
-  resources :participates
-
   resources :questions do
     resources :answers
   end
