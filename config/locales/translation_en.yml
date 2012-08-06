@@ -31,7 +31,6 @@ en:
       own: Own
       search_history: Search history
       shelf: Shelf
-      event_category: Event category
       advertisement: Advertisement
       porta_response: PORTA Response
       donate: Donate
@@ -419,11 +418,6 @@ en:
         open: Open
         closed: Closed
         in_process: In process
-      event_category:
-        name: Name
-        display_name: Display name
-        note: Note
-        position: Position
       advertisement:
         title: Title
         url: URL

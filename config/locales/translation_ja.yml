@@ -31,7 +31,6 @@ ja:
       own: 所有関係
       search_history: 検索履歴
       shelf: 本棚
-      event_category: 催し物の種類
       advertisement: 広告記事
       porta_response: PORTAの応答
       donate: 寄贈
@@ -500,16 +499,6 @@ ja:
         open: 開架 
         closed: 閉架
         in_process: 受入手続き中
-      event_category:
-        name: 名前
-        display_name: 表示名
-        note: 注記
-        position: 位置
-        checkin_ng: 返却不可
-        checkin_ng_yes: 可
-        checkin_ng_no: 不可
-        checkin_ng_pre: 前日を返却予定日にする
-        checkin_ng_post: 翌日を返却予定日にする
       advertisement:
         title: タイトル
         url: URL
