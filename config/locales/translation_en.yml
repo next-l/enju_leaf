@@ -66,7 +66,6 @@ en:
       order: Order
       order_list: Order list
       advertise: Advertise
-      event: Event
       embody: Embody
       item_has_use_restriction: Item has use restriction
       expression_merge: Expression merge
@@ -592,14 +591,6 @@ en:
         ordered_at_annotation: YYYY-MM-DD or YYYY-MM-DD HH:MM (e.g. 2011-04-01 09:00)
       advertise:
         position: Position
-      event:
-        name: Name
-        note: Note
-        start_at: Start at
-        end_at: End at
-        deleted_at: Deleted at
-        all_day: All day
-        display_name: Display name
       embody:
         position: Position
       item_has_use_restriction:
@@ -1490,13 +1481,6 @@ en:
     will_be_imported:
       one: "Resource will be impored in a %{minute} minute."
       other: "Resource will be impored in %{minute} minutes."
-  event:
-    library_group_event: "Events at %{library_group_name}"
-    all_libraries: "All libraries"
-    import_event: "Import events"
-    all: "All events"
-    past: "Past events"
-    upcoming: "Upcoming events"
   user:
     current_password: "Current password"
     new_password: "New password"
