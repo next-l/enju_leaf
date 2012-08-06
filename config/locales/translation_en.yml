@@ -146,7 +146,6 @@ en:
       manifestation_relationship: Resource relationship
       resource_import_result: Resource Import Result
       patron_import_result: Patron Import Result
-      event_import_result: Event Import Result
       series_statement_merge: Series statement merge
       series_statement_merge_list: Series statement merge list
       series_has_manifestation: Series statement to manifestation
@@ -1070,9 +1069,6 @@ en:
       resource_import_textresult:
         error_msg: Message
       patron_import_result:
-        body: Body
-        error_msg: Message
-      event_import_result:
         body: Body
         error_msg: Message
       series_statement_merge_list:
