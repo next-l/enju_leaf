@@ -84,7 +84,6 @@ en:
       patron_merge: Patron merge
       subject_related_term: Subject related term
       library_group: Library group
-      event_import_file: Event import file
       attachment_file: Attachment file
       reserve: Reserve
       retained_manifestation: Retaubed manifestation(not connected)
@@ -713,16 +712,6 @@ en:
         login_banner: Login banner
         post_to_union_catalog: Post to union catalog
         allow_bookmark_external_url: Allow bookmark external url
-      event_import_file:
-        event_import_file_name: Filename
-        event_import_content_type: Content type
-        event_import_file_size: Size
-        file_hash: File hash
-        note: Note
-        imported_at: Imported at
-        event_import_updated_at: Updated at
-        state: State
-        edit_mode: Edit mode
       attachment_file:
         attachable_type: Attachable type
         size: Size

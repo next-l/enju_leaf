@@ -231,10 +231,6 @@ EnjuLeaf::Application.routes.draw do
     resources :patron_import_results, :only => [:index, :show, :destroy]
   end
 
-  resources :event_import_files do
-    get :import_request, :on => :collection
-    resources :event_import_results, :only => [:index, :show, :destroy]
-  end
   resources :event_import_results, :only => [:index, :show, :destroy]
   resources :patron_import_results, :only => [:index, :show, :destroy]
   resources :resource_import_results, :only => [:index, :show, :destroy]

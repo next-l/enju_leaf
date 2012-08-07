@@ -85,7 +85,6 @@ ja:
       patron_merge: 人物・団体の統合
       subject_related_term: 件名の関連語
       library_group: 図書館全体の設定
-      event_import_file: 催し物のインポート用ファイル
       attachment_file: 添付ファイル
       reserve: 予約
       retained_manifestation: 取置済み(未連絡)資料
@@ -835,16 +834,6 @@ ja:
         login_banner: ログイン画面でのメッセージ
         post_to_union_catalog: 総合目録に登録する
         allow_bookmark_external_url: 外部サイトのURLをブックマークできるようにする
-      event_import_file:
-        event_import_file_name: ファイル名
-        event_import_content_type: Content-Type
-        event_import_file_size: ファイルサイズ
-        file_hash: ファイルのハッシュ
-        note: 注記
-        imported_at: インポート時刻
-        event_import_updated_at: 更新時刻
-        state: 状態
-        edit_mode: 編集モード
       attachment_file:
         attachable_type: 添付可能な種類
         size: ファイルサイズ
@@ -1966,11 +1955,6 @@ ja:
     invalid_isbn: "指定ISBNが不正です。 ISBN: %{isbn}"
     record_not_found: "指定ISBNの書誌情報を読み込めませんでした。 ISBN: %{isbn}"
   patron_import_file:
-    template_download: "テンプレートをダウンロード"
-    import_request: "すぐにインポート"
-    start_importing: "インポートを開始しました。"
-    unsuccess_start: "インポート開始に失敗しました。"
-  event_import_file:
     template_download: "テンプレートをダウンロード"
     import_request: "すぐにインポート"
     start_importing: "インポートを開始しました。"
