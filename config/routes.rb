@@ -231,13 +231,8 @@ EnjuLeaf::Application.routes.draw do
     resources :patron_import_results, :only => [:index, :show, :destroy]
   end
 
-  resources :event_import_results, :only => [:index, :show, :destroy]
   resources :patron_import_results, :only => [:index, :show, :destroy]
   resources :resource_import_results, :only => [:index, :show, :destroy]
-
-  resources :events do
-    resources :picture_files
-  end
 
   resources :questions do
     resources :answers
@@ -287,10 +282,6 @@ EnjuLeaf::Application.routes.draw do
     post :output, :on => :member
   end
 
-  resources :event_categories
-
-  resources :events
-
   resources :subject_types
 
   resources :work_has_subjects
@@ -319,7 +310,6 @@ EnjuLeaf::Application.routes.draw do
   end
 
   resources :libraries do
-    resources :events
     resources :shelves
   end
 
