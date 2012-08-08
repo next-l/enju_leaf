@@ -1,11 +1,4 @@
 GIT
-  remote: git://github.com/dce/paperclip-meta.git
-  revision: 07ef72bf5cfa84bbae454e61872d7eb1caf2a74b
-  specs:
-    paperclip-meta (0.4.1)
-      paperclip
-
-GIT
   remote: git://github.com/justinko/sunspot-rails-tester.git
   revision: cd3c0e85834389a27c6809eeeab8dd2cb0a724f0
   specs:
@@ -62,7 +55,7 @@ GEM
       builder
       mime-types
       xml-simple
-    aws-sdk (1.6.1)
+    aws-sdk (1.6.2)
       httparty (~> 0.7)
       json (~> 1.4)
       nokogiri (>= 1.4.4)
@@ -301,6 +294,8 @@ GEM
       activesupport (>= 3.0.0)
       cocaine (>= 0.0.2)
       mime-types
+    paperclip-meta (0.4.3)
+      paperclip
     parallel (0.5.17)
     parallel_tests (0.8.8)
       parallel
@@ -520,7 +515,7 @@ DEPENDENCIES
   mobile-fu
   paper_trail (~> 2.6)
   paperclip (~> 3.1)
-  paperclip-meta!
+  paperclip-meta (~> 0.4.3)
   parallel_tests (~> 0.8)
   pg
   progress_bar

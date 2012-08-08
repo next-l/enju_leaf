@@ -60,7 +60,7 @@ gem 'devise', '~> 2.1.2'
 gem 'devise-encryptable'
 gem 'addressable'
 gem 'paperclip', '~> 3.1'
-gem 'paperclip-meta', :git => 'git://github.com/dce/paperclip-meta.git'
+gem 'paperclip-meta', '~> 0.4.3'
 gem 'aws-sdk'
 gem 'whenever', :require => false
 gem 'astrails-safe'
