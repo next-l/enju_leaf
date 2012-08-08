@@ -32,13 +32,13 @@
   <tr>
     <th>
       <%= t('activerecord.attributes.user.library') -%>
-      <%= link_to image_tag('arrow_up.png', :size => '16x16', :alt => t('page.asc'), :title => t('tooltip.asc')), url_for(params.merge(:sort_by => 'library', :order => 'asc')) -%>
-      <%= link_to image_tag('arrow_down.png', :size => '16x16', :alt => t('page.desc'), :title => t('tooltip.desc')), url_for(params.merge(:sort_by => 'library', :order => 'desc')) -%>
+      <%= link_to image_tag('icons/arrow_up.png', :size => '16x16', :alt => t('page.asc'), :title => t('tooltip.asc')), url_for(params.merge(:sort_by => 'library', :order => 'asc')) -%>
+      <%= link_to image_tag('icons/arrow_down.png', :size => '16x16', :alt => t('page.desc'), :title => t('tooltip.desc')), url_for(params.merge(:sort_by => 'library', :order => 'desc')) -%>
     </th>
     <th>
       <%= t('activerecord.attributes.user.user_number') %>
-      <%= link_to image_tag('arrow_up.png', :size => '16x16', :alt => t('page.asc'), :title => t('tooltip.asc')), url_for(params.merge(:sort_by => 'user_number', :order => 'asc')) -%>
-      <%= link_to image_tag('arrow_down.png', :size => '16x16', :alt => t('page.desc'), :title => t('tooltip.desc')), url_for(params.merge(:sort_by => 'user_number', :order => 'desc')) -%>
+      <%= link_to image_tag('icons/arrow_up.png', :size => '16x16', :alt => t('page.asc'), :title => t('tooltip.asc')), url_for(params.merge(:sort_by => 'user_number', :order => 'asc')) -%>
+      <%= link_to image_tag('icons/arrow_down.png', :size => '16x16', :alt => t('page.desc'), :title => t('tooltip.desc')), url_for(params.merge(:sort_by => 'user_number', :order => 'desc')) -%>
     </th>
     <th><%= t('activerecord.attributes.patron.full_name') %></th>
     <th><%= t('activerecord.attributes.patron.telephone_number_1') %></th>

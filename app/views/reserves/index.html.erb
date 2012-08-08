@@ -184,7 +184,7 @@
   </ul>
   <p>
     <%- if @user -%>
-      <%= link_to (image_tag 'feed-icon-14x14.png', :size => '14x14', :alt => t('page.feed'), :title => t('tooltip.feed'), :class => 'icon'), user_reserves_path(@user, :format => :rss) -%>
+      <%= link_to (image_tag 'icons/feed.png', :size => '16x16', :alt => t('page.feed'), :title => t('tooltip.feed'), :class => 'icon'), user_reserves_path(@user, :format => :rss) -%>
       (<%= link_to 'RSS', user_reserves_path(@user, :format => :rss) -%>)
       <%= link_to (image_tag 'icons/page_white_excel.png', :size => '16x16', :alt => 'TSV', :title => 'TSV', :class => 'icon'), user_reserves_path(@user, :format => :tsv) -%>
       (<%= link_to 'TSV', user_reserves_path(@user, :format => :tsv) -%>)
