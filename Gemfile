@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '3.2.8.rc2'
+gem 'rails', '3.2.8'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
@@ -52,7 +52,7 @@ gem 'progress_bar'
 gem 'inherited_resources', '~> 1.3'
 gem 'strongbox'
 gem 'dalli', '~> 2.1'
-gem 'sitemap_generator', '~> 3.1'
+gem 'sitemap_generator', '~> 3.2'
 gem 'ri_cal'
 gem 'paper_trail', '~> 2.6'
 gem 'RedCloth', '>= 4.2.9'
@@ -81,6 +81,7 @@ gem 'foreigner'
 gem 'strong_parameters'
 gem 'resque-scheduler', '~> 2.0.0', :require => 'resque_scheduler'
 gem 'twitter-bootstrap-rails'
+gem 'acts_as_list', '0.1.7'
 
 group :development do
   gem 'annotate', '~> 2.5'
