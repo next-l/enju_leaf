@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '3.2.8.rc2'
+gem 'rails', '3.2.8'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
@@ -80,6 +80,7 @@ gem 'rails_autolink'
 gem 'foreigner'
 gem 'strong_parameters'
 gem 'resque-scheduler', '~> 2.0.0', :require => 'resque_scheduler'
+gem 'acts_as_list', '0.1.7'
 
 group :development do
   gem 'annotate', '~> 2.5'
