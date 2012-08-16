@@ -54,20 +54,22 @@ $(document).FunctionKeys(
     </div>
   </div>
 
-  <div class="portlet" id="tag_cloud">
-    <h3 class="title">
-      <% if user_signed_in? %>
-        <%= t('tag.my_tag') -%>
-      <% else %>
-        <%= t('tag.popular_tag') -%>
-      <% end %>
-    </h3>
-    <div id="tag_cloud_box">
-      <%= render 'bookmarks/tag_cloud', :tags => @tags -%>
-      <%- if can? :index, Tag -%>
-        <p>(<%= link_to t('page.listing', :model => t('activerecord.models.tag')), tags_path -%>)</p>
-      <%- end -%>
+  <% if defined?(EnjuBookmark) %>
+    <div class="portlet" id="tag_cloud">
+      <h3 class="title">
+        <% if user_signed_in? %>
+          <%= t('tag.my_tag') -%>
+        <% else %>
+          <%= t('tag.popular_tag') -%>
+        <% end %>
+      </h3>
+      <div id="tag_cloud_box">
+        <%= render 'bookmarks/tag_cloud', :tags => @tags -%>
+        <%- if can? :index, Tag -%>
+          <p>(<%= link_to t('page.listing', :model => t('activerecord.models.tag')), tags_path -%>)</p>
+        <%- end -%>
+      </div>
     </div>
-  </div>
+  <% end %>
 </div>
 
