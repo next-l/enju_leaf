@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '3.2.7'
+gem 'rails', '3.2.8'
 
 #gem 'enju_amazon', :git => 'git://github.com/nabeta/enju_amazon.git'
 #gem 'enju_calil', :git => 'git://github.com/nabeta/enju_calil.git'
