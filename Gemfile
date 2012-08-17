@@ -31,11 +31,13 @@ gem 'enju_book_jacket', :git => 'git://github.com/nabeta/enju_book_jacket.git'
 gem 'enju_manifestation_viewer', :git => 'git://github.com/nabeta/enju_manifestation_viewer.git'
 gem 'enju_export', :git => 'git://github.com/next-l/enju_export.git'
 
-gem 'pg'
-#gem 'mysql2', '~> 0.3'
-#gem 'sqlite3'
-gem 'zipruby'
-gem 'kgio'
+platforms :mri_19 do
+  gem 'pg'
+  #gem 'mysql2', '~> 0.3'
+  #gem 'sqlite3'
+  gem 'zipruby'
+  gem 'kgio'
+end
 
 platforms :jruby do
   gem 'jruby-openssl'
@@ -43,7 +45,7 @@ platforms :jruby do
   gem 'jdbc-postgres', :require => false
   #gem 'jdbc-mysql', :require => false
   gem 'rubyzip'
-  gem 'glassfish'
+  gem 'trinidad'
 end
 
 gem 'exception_notification', '~> 2.6'
@@ -80,7 +82,7 @@ gem 'rails_autolink'
 gem 'foreigner'
 gem 'strong_parameters'
 gem 'resque-scheduler', '~> 2.0.0', :require => 'resque_scheduler'
-gem 'twitter-bootstrap-rails'
+gem 'twitter-bootstrap-rails', :platforms => :mri_19
 gem 'acts_as_list', '0.1.7'
 
 group :development do
@@ -90,21 +92,17 @@ group :development do
   gem 'immigrant'
 end
 
-
 group :development, :test do
   gem 'simplecov', '~> 0.6', :require => false
-  gem 'ruby-prof'
+  gem 'ruby-prof', :platforms => :mri_19
   gem 'rspec-rails', '~> 2.11'
   gem 'guard-rspec'
-  gem 'factory_girl_rails', '~> 3.6'
+  gem 'factory_girl_rails', '~> 4.0'
   gem 'spork-rails'
-#  gem 'rcov', '0.9.11'
-#  gem 'metric_fu', '~> 2.1'
   gem 'timecop'
   gem 'sunspot-rails-tester', :git => 'git://github.com/justinko/sunspot-rails-tester.git'
   gem 'vcr', '~> 2.2'
   gem 'fakeweb'
-#  gem 'churn', '0.0.13'
   gem 'steak'
   gem 'resque_spec'
   gem 'parallel_tests', '~> 0.8'

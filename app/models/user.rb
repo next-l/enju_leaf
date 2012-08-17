@@ -57,8 +57,6 @@ class User < ActiveRecord::Base
   before_create :set_expired_at
   after_destroy :remove_from_index
   after_create :set_confirmation
-  #after_save :index_patron
-  #after_destroy :index_patron
 
   extend FriendlyId
   friendly_id :username
@@ -119,9 +117,6 @@ class User < ActiveRecord::Base
   def set_role_and_patron
     self.required_role = Role.where(:name => 'Librarian').first
     self.locale = I18n.default_locale.to_s
-    #unless self.patron
-    #  self.patron = Patron.create(:full_name => self.username) if self.username
-    #end
   end
 
   def set_lock_information
@@ -136,12 +131,6 @@ class User < ActiveRecord::Base
     if operator and respond_to?(:confirm!)
       reload
       confirm!
-    end
-  end
-
-  def index_patron
-    if self.patron
-      self.patron.index
     end
   end
 
