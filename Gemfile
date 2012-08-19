@@ -26,15 +26,17 @@ gem 'enju_inventory', '~> 0.1.10'
 gem 'enju_event', '~> 0.1.16'
 #gem 'enju_news', '~> 0.1.0.pre2'
 gem 'enju_search_log', '~> 0.1.0.pre'
-gem 'enju_book_jacket', '~> 0.1.0.pre'
+gem 'enju_book_jacket', '~> 0.1.0.pre2'
 gem 'enju_manifestation_viewer', '~> 0.1.0.pre'
 gem 'enju_export', '~> 0.1.0'
 
-gem 'pg'
-#gem 'mysql2', '~> 0.3'
-#gem 'sqlite3'
-gem 'zipruby'
-gem 'kgio'
+platforms :mri_19 do
+  gem 'pg'
+  #gem 'mysql2', '~> 0.3'
+  #gem 'sqlite3'
+  gem 'zipruby'
+  gem 'kgio'
+end
 
 platforms :jruby do
   gem 'jruby-openssl'
@@ -42,7 +44,7 @@ platforms :jruby do
   gem 'jdbc-postgres', :require => false
   #gem 'jdbc-mysql', :require => false
   gem 'rubyzip'
-  gem 'glassfish'
+  gem 'trinidad'
 end
 
 gem 'exception_notification', '~> 2.6'
@@ -51,13 +53,12 @@ gem 'progress_bar'
 gem 'inherited_resources', '~> 1.3'
 gem 'strongbox'
 gem 'dalli', '~> 2.1'
-gem 'sitemap_generator', '~> 3.1'
+gem 'sitemap_generator', '~> 3.2'
 gem 'ri_cal'
 gem 'paper_trail', '~> 2.6'
 gem 'RedCloth', '>= 4.2.9'
-gem 'cancan', '>= 1.6.8'
-gem 'devise', '~> 2.1.2'
 gem 'devise-encryptable'
+#gem 'devise_security_extension'
 gem 'addressable'
 gem 'paperclip', '~> 3.1'
 gem 'paperclip-meta', '~> 0.4.3'
@@ -89,22 +90,19 @@ group :development do
   gem 'immigrant'
 end
 
-
 group :development, :test do
   gem 'simplecov', '~> 0.6', :require => false
-  gem 'ruby-prof'
+  gem 'ruby-prof', :platforms => :mri_19
   gem 'rspec-rails', '~> 2.11'
   gem 'guard-rspec'
   gem 'factory_girl_rails', '~> 4.0'
   gem 'spork-rails'
-#  gem 'rcov', '0.9.11'
-#  gem 'metric_fu', '~> 2.1'
   gem 'timecop'
   gem 'sunspot-rails-tester', :git => 'git://github.com/justinko/sunspot-rails-tester.git'
   gem 'vcr', '~> 2.2'
   gem 'fakeweb'
-#  gem 'churn', '0.0.13'
   gem 'steak'
+  gem 'resque_spec'
   gem 'parallel_tests', '~> 0.8'
 end
 
