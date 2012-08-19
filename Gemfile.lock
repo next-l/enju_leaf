@@ -143,7 +143,7 @@ GEM
       resque
       settingslogic
       sunspot_rails (~> 2.0.0.pre.120720)
-    enju_event (0.1.16)
+    enju_event (0.1.17.pre2)
       enju_core
       enju_message (>= 0.0.25)
       event-calendar (~> 2.3.3)
@@ -153,8 +153,8 @@ GEM
       rails (~> 3.2)
       simple_form
       state_machine
-    enju_export (0.1.0)
-      enju_core
+    enju_export (0.1.1.pre)
+      enju_biblio (~> 0.1.0.pre5)
       paperclip
       rails (~> 3.2)
       simple_form
@@ -163,8 +163,8 @@ GEM
       enju_biblio (~> 0.1.0.pre)
       rails (~> 3.2)
       state_machine
-    enju_inventory (0.1.10)
-      enju_biblio (~> 0.1.0.pre)
+    enju_inventory (0.1.11.pre)
+      enju_biblio (~> 0.1.0.pre5)
       inherited_resources
       paperclip (~> 3.0)
       rails (~> 3.2)
@@ -499,10 +499,10 @@ DEPENDENCIES
   enju_bookmark (~> 0.1.1)
   enju_circulation (~> 0.1.0.pre2)
   enju_core (~> 0.1.0)
-  enju_event (~> 0.1.16)
-  enju_export (~> 0.1.0)
+  enju_event (~> 0.1.17.pre2)
+  enju_export (~> 0.1.1.pre)
   enju_inter_library_loan (~> 0.1.0.pre2)
-  enju_inventory (~> 0.1.10)
+  enju_inventory (~> 0.1.11.pre)
   enju_library (~> 0.1.0.pre3)
   enju_manifestation_viewer (~> 0.1.0.pre)
   enju_message (~> 0.1.13)

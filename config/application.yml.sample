@@ -19,6 +19,7 @@ defaults: &defaults
 # :google, :amazon
   book_jacket:
     source: :google
+    unknown_resource: 
 
 # :mozshot, :simpleapi, :heartrails, :thumbalizr
   screenshot:
