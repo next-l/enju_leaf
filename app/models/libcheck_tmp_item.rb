@@ -1,4 +1,5 @@
 class LibcheckTmpItem < ActiveRecord::Base
+  self.extend ItemsHelper
   belongs_to :libcheck_shelf, :foreign_key => 'shelf_id'
   belongs_to :item
 
@@ -119,7 +120,7 @@ class LibcheckTmpItem < ActiveRecord::Base
 
             # check NDC / class_type1 / class_type2
             # if call_number is empty, set STS_INVALID_CALL_NO
-            call_number = item.call_number
+            call_number = call_numberformat(item.call_number)
             unless call_number.nil? || call_number.empty? then
               logger.debug "call_number: #{line.strip} => #{call_number}"
               vals = call_number.split(delimi)

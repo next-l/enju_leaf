@@ -15,7 +15,7 @@
         <%= item.shelf_display_name.localize -%>
       </td>
       <td>
-        <%= item.call_number -%>
+        <%= call_numberformat(item.call_number) -%>
       </td>
       <td>
         <%- if item.item_identifier? -%>

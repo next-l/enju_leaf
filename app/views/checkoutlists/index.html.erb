@@ -49,7 +49,7 @@
         <td><%= link_to item.manifestation.original_title, item.manifestation %></td>
         <td><%= link_to item.shelf.library.display_name, item.shelf.library %></td>
         <td><%= link_to item.shelf.display_name.localize, item.shelf %></td>
-        <td><%= item.call_number if item.call_number %></td>
+        <td><%= call_numberformat(item.call_number) if item.call_number %></td>
         <td><%= link_to item.item_identifier, item if item.item_identifier %></td>
       </tr>
       <% num = num == 0 ? 1 : 0 %>

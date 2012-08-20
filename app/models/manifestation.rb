@@ -1,4 +1,5 @@
 class Manifestation < ActiveRecord::Base
+  self.extend ItemsHelper
   scope :periodical_master, where(:periodical_master => true)
   scope :periodical_children, where(:periodical_master => false)
   has_many :creates, :dependent => :destroy, :foreign_key => 'work_id'
@@ -931,7 +932,7 @@ private
               data  = item.shelf.display_name.localize
             when 3
               label = I18n.t('activerecord.attributes.item.call_number')
-              data  = item.call_number
+              data  = call_numberformat(item.call_number)
             when 4
               label = I18n.t('activerecord.attributes.item.item_identifier')
               data  = item.item_identifier
