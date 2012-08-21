@@ -10,12 +10,14 @@
       <%= link_to subject.term, manifestations_path(:query => "subject_sm: #{h(subject.term)}") -%>
     <%- end -%>
     </p>
-    <p>
-      <strong><%= t('page.tag') -%>:</strong>
-      <%- manifestation.tags.each do |tag| -%>
-        <%= link_to tag.name, manifestations_path(:tag => tag.name) -%>
-      <%- end -%>
-    </p>
+    <% if defined?(EnjuBookmark) %>
+      <p>
+        <strong><%= t('page.tag') -%>:</strong>
+        <%- manifestation.tags.each do |tag| -%>
+          <%= link_to tag.name, manifestations_path(:tag => tag.name) -%>
+        <%- end -%>
+      </p>
+    <% end %>
   </div>
   <div style="clear: both"></div>
   <div style="margin-top: 5px">

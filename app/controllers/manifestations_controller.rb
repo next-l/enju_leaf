@@ -94,7 +94,9 @@ class ManifestationsController < ApplicationController
       @query = query.dup
       query = query.gsub('　', ' ')
 
-      search = Manifestation.search(:include => [:carrier_type, :required_role, :items, :creators, :contributors, :publishers, :bookmarks])
+      includes = [:carrier_type, :required_role, :items, :creators, :contributors, :publishers]
+      includes << :bookmarks if defined?(EnjuBookmark)
+      search = Manifestation.search(:include => includes)
       role = current_user.try(:role) || Role.default_role
       oai_search = true if params[:format] == 'oai'
       case @reservable
@@ -198,12 +200,14 @@ class ManifestationsController < ApplicationController
       end
 
       if session[:manifestation_ids]
-        if params[:view] == 'tag_cloud'
-          bookmark_ids = Bookmark.where(:manifestation_id => session[:manifestation_ids]).limit(1000).select(:id).collect(&:id)
-          @tags = Tag.bookmarked(bookmark_ids)
-          render :partial => 'manifestations/tag_cloud'
-          #session[:manifestation_ids] = nil
-          return
+        if defined?(EnjuBookmark)
+          if params[:view] == 'tag_cloud'
+            bookmark_ids = Bookmark.where(:manifestation_id => session[:manifestation_ids]).limit(1000).select(:id).collect(&:id)
+            @tags = Tag.bookmarked(bookmark_ids)
+            render :partial => 'manifestations/tag_cloud'
+            #session[:manifestation_ids] = nil
+            return
+          end
         end
       end
       page ||= params[:page] || 1
@@ -248,12 +252,15 @@ class ManifestationsController < ApplicationController
 
       @search_engines = Rails.cache.fetch('search_engine_all'){SearchEngine.all}
 
-      # TODO: 検索結果が少ない場合にも表示させる
-      if manifestation_ids.blank?
-        if query.respond_to?(:suggest_tags)
-          @suggested_tag = query.suggest_tags.first
+      if defined?(EnjuBookmark)
+        # TODO: 検索結果が少ない場合にも表示させる
+        if manifestation_ids.blank?
+          if query.respond_to?(:suggest_tags)
+            @suggested_tag = query.suggest_tags.first
+          end
         end
       end
+
       save_search_history(query, @manifestations.offset, @count[:query_result], current_user)
       if params[:format] == 'oai'
         unless @manifestations.empty?
@@ -415,11 +422,13 @@ class ManifestationsController < ApplicationController
     end
     @original_manifestation = Manifestation.where(:id => params[:manifestation_id]).first
     @manifestation.series_statement = @series_statement if @series_statement
-    if params[:mode] == 'tag_edit'
-      @bookmark = current_user.bookmarks.where(:manifestation_id => @manifestation.id).first if @manifestation rescue nil
-      render :partial => 'manifestations/tag_edit', :locals => {:manifestation => @manifestation}
+    if defined?(EnjuBookmark)
+      if params[:mode] == 'tag_edit'
+        @bookmark = current_user.bookmarks.where(:manifestation_id => @manifestation.id).first if @manifestation rescue nil
+        render :partial => 'manifestations/tag_edit', :locals => {:manifestation => @manifestation}
+      end
+      store_location unless params[:mode] == 'tag_edit'
     end
-    store_location unless params[:mode] == 'tag_edit'
   end
 
   # POST /manifestations
@@ -619,9 +628,13 @@ class ManifestationsController < ApplicationController
     when 'holding'
       render :partial => 'manifestations/show_holding', :locals => {:manifestation => @manifestation}
     when 'tag_edit'
-      render :partial => 'manifestations/tag_edit', :locals => {:manifestation => @manifestation}
+      if defined?(EnjuBookmark)
+        render :partial => 'manifestations/tag_edit', :locals => {:manifestation => @manifestation}
+      end
     when 'tag_list'
-      render :partial => 'manifestations/tag_list', :locals => {:manifestation => @manifestation}
+      if defined?(EnjuBookmark)
+        render :partial => 'manifestations/tag_list', :locals => {:manifestation => @manifestation}
+      end
     when 'show_index'
       render :partial => 'manifestations/show_index', :locals => {:manifestation => @manifestation}
     when 'show_creators'

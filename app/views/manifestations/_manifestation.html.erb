@@ -12,10 +12,12 @@
                 <%- if manifestation.original_manifestations.first or manifestation.derived_manifestations.first -%>
                   <%= link_to t('page.has_relationships'), manifestation, :itemprop => 'name' -%>
                 <%- end -%>
-                <%- if manifestation.tags.first -%>
-                  (<%= link_to_function t('activerecord.models.tag'), "$('#tag_#{manifestation.id}').toggle()" -%>)
-                <%- end -%>
-                <%= render 'manifestations/show_tag', :manifestation => manifestation -%>
+                <% if defined?(EnjuBookmark) %>
+                  <%- if manifestation.tags.first -%>
+                    (<%= link_to_function t('activerecord.models.tag'), "$('#tag_#{manifestation.id}').toggle()" -%>)
+                  <%- end -%>
+                  <%= render 'manifestations/show_tag', :manifestation => manifestation -%>
+                <% end %>
                 <%= render 'manifestations/holding', :manifestation => manifestation -%>
                 <%# グループ表示の部分テンプレート %>
                 <%= render 'manifestations/show_group', :manifestation => manifestation -%>
