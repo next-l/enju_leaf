@@ -541,7 +541,7 @@ class Item < ActiveRecord::Base
             when :marc_number
               row << item.manifestation.marc_number[0, 10] if item.manifestation.marc_number
             when :call_number
-              row << call_numberformat(item.call_number) if item.call_number
+              row << call_numberformat(item) if item.call_number
             else
               row << get_object_method(item, column[0].split('.')).to_s.gsub(/\r\n|\r|\n/," ").gsub(/\"/,"\"\"")
             end
@@ -599,7 +599,7 @@ class Item < ActiveRecord::Base
             when :shelf
               row << item.shelf.display_name.localize if item.shelf
             when :call_number
-              row << call_numberformat(item.call_number)
+              row << call_numberformat(item)
             else
               row << get_object_method(item, column[0].split('.')).to_s.gsub(/\r\n|\r|\n/," ").gsub(/\"/,"\"\"")
             end
@@ -637,7 +637,7 @@ class Item < ActiveRecord::Base
                 row.item(:pub_year).value(item.manifestation.date_of_publication.strftime("%Y")) if item.manifestation && item.manifestation.date_of_publication
                 row.item(:publisher).value(item.publisher.delete_if{|p|p.blank?}[0]) if item.publisher
                 row.item(:price).value(to_format(item.price)) if item.price
-                row.item(:call_number).value(call_numberformat(item.call_number))
+                row.item(:call_number).value(call_numberformat(item)) if item.call_number
                 row.item(:marc_number).value(item.manifestation.marc_number[0,10]) if item.manifestation && item.manifestation.marc_number
                 row.item(:note).value(item.note.split("\r\n")[0]) if item.note
               end
@@ -677,7 +677,7 @@ class Item < ActiveRecord::Base
         row.item(:shelf).value(item.shelf.display_name) if item.shelf
         row.item(:ndc).value(item.manifestation.ndc) if item.manifestation
         row.item(:item_identifier).value(item.item_identifier)
-        row.item(:call_number).value(call_numberformat(item.call_number))
+        row.item(:call_number).value(call_numberformat(item))
         row.item(:title).value(item.manifestation.original_title) if item.manifestation
       end
     end
@@ -707,7 +707,7 @@ class Item < ActiveRecord::Base
         row.item(:shelf).value(item.shelf.display_name) if item.shelf
         row.item(:ndc).value(item.manifestation.ndc) if item.manifestation
         row.item(:item_identifier).value(item.item_identifier)
-        row.item(:call_number).value(call_numberformat(item.call_number))
+        row.item(:call_number).value(call_numberformat(item))
         row.item(:title).value(item.manifestation.original_title) if item.manifestation
       end
     end
@@ -746,7 +746,7 @@ class Item < ActiveRecord::Base
         when :title
           row << item.manifestation.original_title
         when :call_number
-          row << call_numberformat(item.call_number)
+          row << call_numberformat(item)
         else
           row << get_object_method(item, column[0].split('.')).to_s.gsub(/\r\n|\r|\n/," ").gsub(/\"/,"\"\"")
         end
@@ -779,7 +779,7 @@ class Item < ActiveRecord::Base
         row.item(:shelf).value(item.shelf.display_name) if item.shelf
         row.item(:ndc).value(item.manifestation.ndc) if item.manifestation
         row.item(:item_identifier).value(item.item_identifier)
-        row.item(:call_number).value(call_numberformat(item.call_number))
+        row.item(:call_number).value(call_numberformat(item))
         row.item(:created_at).value(item.created_at.strftime("%Y/%m/%d"))
         row.item(:title).value(item.manifestation.original_title) if item.manifestation
       end
@@ -827,7 +827,7 @@ class Item < ActiveRecord::Base
         when :created_at
           row << item.created_at.strftime("%Y/%m/%d") if item.created_at
         when :call_number
-          row << call_numberformat(item.call_number)
+          row << call_numberformat(item)
         else
           row << get_object_method(item, column[0].split('.')).to_s.gsub(/\r\n|\r|\n/," ").gsub(/\"/,"\"\"")
         end
@@ -858,7 +858,7 @@ class Item < ActiveRecord::Base
         row.item(:shelf).value(item.shelf.display_name) if item.shelf
         row.item(:ndc).value(item.manifestation.ndc) if item.manifestation
         row.item(:item_identifier).value(item.item_identifier)
-        row.item(:call_number).value(call_numberformat(item.call_number))
+        row.item(:call_number).value(call_numberformat(item))
         row.item(:removed_at).value(item.removed_at.strftime("%Y/%m/%d")) if item.removed_at
         row.item(:title).value(item.manifestation.original_title) if item.manifestation
       end
@@ -902,7 +902,7 @@ class Item < ActiveRecord::Base
         when :removed_at
           row << item.removed_at.strftime("%Y/%m/%d") if item.removed_at
         when :call_number
-          row << coll_numberformat(item.call_number)
+          row << coll_numberformat(item)
         else
           row << get_object_method(item, column[0].split('.')).to_s.gsub(/\r\n|\r|\n/," ").gsub(/\"/,"\"\"")
         end

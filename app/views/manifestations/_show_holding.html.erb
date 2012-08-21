@@ -20,7 +20,7 @@
         <%= render 'items/shelf_picture', :item => item -%>
       </td>
       <td>
-        <%= call_numberformat(item.call_number) -%>
+        <%= call_numberformat(item) -%>
       </td>
       <td>
         <%- if item.item_identifier? -%>

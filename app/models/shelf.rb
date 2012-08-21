@@ -61,7 +61,7 @@ class Shelf < ActiveRecord::Base
       report.start_new_page
       report.page.item(:export_date).value(Time.now)
       report.page.item(:title).value(item.manifestation.original_title)
-      report.page.item(:call_number).value(call_numberformat(item.call_number))
+      report.page.item(:call_number).value(call_numberformat(item))
       report.page.item(:library).value(item.shelf.library.display_name.localize)
       report.page.item(:shelf).value(item.shelf.display_name.localize)
       logger.error "created report: #{Time.now}"

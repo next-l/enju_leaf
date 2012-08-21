@@ -932,7 +932,7 @@ private
               data  = item.shelf.display_name.localize
             when 3
               label = I18n.t('activerecord.attributes.item.call_number')
-              data  = call_numberformat(item.call_number)
+              data  = call_numberformat(item)
             when 4
               label = I18n.t('activerecord.attributes.item.item_identifier')
               data  = item.item_identifier
