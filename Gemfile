@@ -44,7 +44,7 @@ platforms :jruby do
   gem 'jdbc-postgres', :require => false
   #gem 'jdbc-mysql', :require => false
   gem 'rubyzip'
-  gem 'trinidad'
+  gem 'trinidad', :require => false
 end
 
 gem 'exception_notification', '~> 2.6'
