@@ -8,7 +8,7 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_book_jacket.git
-  revision: 77f5202206f31dbce76b0837f89673c75f7cc49d
+  revision: 5fd3ffe304a31217241161e404427b78d0a52b30
   specs:
     enju_book_jacket (0.1.0.pre2)
       rails (~> 3.2)
@@ -38,9 +38,9 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_event.git
-  revision: 500a8e815188b4002d43b79425c489c099408abf
+  revision: 4914091ade51cfbb7cc5594630e695415f7656a8
   specs:
-    enju_event (0.1.17.pre)
+    enju_event (0.1.17.pre2)
       enju_core
       enju_message (>= 0.0.25)
       event-calendar (~> 2.3.3)
@@ -62,10 +62,10 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_inventory.git
-  revision: 32d756e18a433a3b2cf81d8f0d6733744c430578
+  revision: c1160fd71ca422e4ebe89ab1035c31986d41adf9
   specs:
     enju_inventory (0.1.11.pre)
-      enju_biblio (~> 0.1.0.pre3)
+      enju_biblio (~> 0.1.0.pre5)
       inherited_resources
       paperclip (~> 3.0)
       rails (~> 3.2)
@@ -138,10 +138,10 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_search_log.git
-  revision: cb3fcdf5fd4181a14ed859b59d7c11a41137a9d6
+  revision: 64101de170873401088c624753608a892797de13
   specs:
-    enju_search_log (0.1.0.pre)
-      enju_biblio (~> 0.1.0.pre)
+    enju_search_log (0.1.0.pre2)
+      enju_biblio (~> 0.1.0.pre5)
       rails (~> 3.2)
 
 GIT
@@ -156,13 +156,13 @@ GIT
 
 GIT
   remote: git://github.com/next-l/enju_biblio.git
-  revision: 814fcb2d0d5022f125e12bc640cef3d19908de72
+  revision: 0adaa422fb310ee94b6b572e0fe1e9bbcde5c6e2
   specs:
     enju_biblio (0.1.0.pre5)
       aws-sdk
       dynamic_form
       enju_core (~> 0.1.1.pre)
-      enju_ndl
+      enju_ndl (~> 0.1.0.pre2)
       enju_oai
       has_scope
       inherited_resources
@@ -195,10 +195,10 @@ GIT
 
 GIT
   remote: git://github.com/next-l/enju_export.git
-  revision: 139ab2de60d4acfbf6db91e94f2517a207608d18
+  revision: fea7dc2bd0335abdafb29274124788ad4657cb6c
   specs:
     enju_export (0.1.1.pre)
-      enju_biblio (~> 0.1.0.pre4)
+      enju_biblio (~> 0.1.0.pre5)
       paperclip
       rails (~> 3.2)
       simple_form
@@ -259,13 +259,13 @@ GEM
       cloudfiles
       net-sftp
     attribute_normalizer (1.1.0)
-    awesome_nested_set (2.1.3)
+    awesome_nested_set (2.1.4)
       activerecord (>= 3.0.0)
     aws-s3 (0.6.3)
       builder
       mime-types
       xml-simple
-    aws-sdk (1.6.3)
+    aws-sdk (1.6.4)
       httparty (~> 0.7)
       json (~> 1.4)
       nokogiri (>= 1.4.4)
@@ -461,7 +461,7 @@ GEM
       redis (~> 3.0.0)
     responders (0.9.2)
       railties (~> 3.1)
-    resque (1.21.0)
+    resque (1.22.0)
       multi_json (~> 1.0)
       redis-namespace (~> 1.0)
       sinatra (>= 0.9.2)
@@ -558,7 +558,7 @@ GEM
     trinidad (1.4.1)
       jruby-rack (>= 1.1.7)
       trinidad_jars (>= 1.0.5)
-    trinidad_jars (1.0.5)
+    trinidad_jars (1.0.6)
     twitter-bootstrap-rails (2.1.1)
       actionpack (>= 3.1)
       less-rails (~> 2.2.2)
@@ -569,7 +569,7 @@ GEM
       execjs (>= 0.3.0)
       multi_json (~> 1.3)
     uuidtools (2.1.3)
-    validates_timeliness (3.0.12)
+    validates_timeliness (3.0.13)
       timeliness (~> 0.3.6)
     vcr (2.2.4)
     vegas (0.1.11)
