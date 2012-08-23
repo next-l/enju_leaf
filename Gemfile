@@ -7,7 +7,7 @@ gem 'rails', '3.2.8'
 #gem 'enju_scribd', :git => 'git://github.com/nabeta/enju_scribd.git'
 #gem 'enju_nii', :git => 'git://github.com/nabeta/enju_nii.git'
 gem 'enju_oai', :git => 'git://github.com/nabeta/enju_oai.git'
-gem 'enju_book_jacket', :git => 'git://github.com/nabeta/enju_book_jacket.git'
+gem 'enju_book_jacket', "0.1.0.pre"
 gem 'enju_manifestation_viewer', :git => 'git://github.com/nabeta/enju_manifestation_viewer.git'
 gem 'enju_message', :git => 'git://github.com/nabeta/enju_message.git'
 gem "enju_ndl", "~> 0.0.33"
