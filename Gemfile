@@ -82,7 +82,7 @@ gem 'rails_autolink'
 gem 'foreigner'
 gem 'strong_parameters'
 gem 'resque-scheduler', '~> 2.0.0', :require => 'resque_scheduler'
-gem 'twitter-bootstrap-rails', :platforms => :mri_19
+gem 'twitter-bootstrap-rails', :group => :assets, :platforms => :mri_19
 gem 'acts_as_list', '0.1.7'
 
 group :development do
