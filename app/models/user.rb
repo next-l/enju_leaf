@@ -243,7 +243,7 @@ class User < ActiveRecord::Base
   end
 
   def patron
-    LocalPatron.new(self)
+    LocalPatron.new({:username => username})
   end
 
   def full_name

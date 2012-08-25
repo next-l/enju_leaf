@@ -122,10 +122,9 @@ GEM
       acts-as-taggable-on (~> 2.3)
       rails (~> 3.2)
       state_machine
-    enju_circulation (0.1.0.pre2)
-      enju_core
-      enju_event (>= 0.0.27)
-      enju_message (~> 0.1.12)
+    enju_circulation (0.1.0.pre4)
+      enju_event (~> 0.1.17.pre2)
+      enju_message (~> 0.1.13)
       inherited_resources
       rails (~> 3.2)
       simple_form
@@ -305,7 +304,7 @@ GEM
     paperclip-meta (0.4.3)
       paperclip
     parallel (0.5.18)
-    parallel_tests (0.8.8)
+    parallel_tests (0.8.9)
       parallel
     pg (0.14.0)
     polyglot (0.3.3)
@@ -460,7 +459,7 @@ GEM
       execjs (>= 0.3.0)
       multi_json (~> 1.3)
     uuidtools (2.1.3)
-    validates_timeliness (3.0.13)
+    validates_timeliness (3.0.14)
       timeliness (~> 0.3.6)
     vcr (2.2.4)
     vegas (0.1.11)
