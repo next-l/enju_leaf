@@ -15,21 +15,20 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_bookmark.git
-  revision: 5d3a7a3df63a128259d02b5c0483f8b68a0a81fa
+  revision: 73d628fc7ccfbebf62dc4e686dfbfa5a1e874810
   specs:
-    enju_bookmark (0.1.1)
+    enju_bookmark (0.1.2.pre3)
       acts-as-taggable-on (~> 2.3)
       rails (~> 3.2)
       state_machine
 
 GIT
   remote: git://github.com/nabeta/enju_circulation.git
-  revision: 6fa4f9392ab03bebb12fed25b73b5dc9b652b3bd
+  revision: 3e3eec7db318ae69a45658cd00ab363dc1aed834
   specs:
-    enju_circulation (0.1.0.pre2)
-      enju_core
-      enju_event (>= 0.0.27)
-      enju_message (~> 0.1.12)
+    enju_circulation (0.1.0.pre4)
+      enju_event (~> 0.1.17.pre2)
+      enju_message (~> 0.1.13)
       inherited_resources
       rails (~> 3.2)
       simple_form
@@ -62,9 +61,9 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_inventory.git
-  revision: c1160fd71ca422e4ebe89ab1035c31986d41adf9
+  revision: 734aa4bad0e11f9d515d1799ef1659c97999a641
   specs:
-    enju_inventory (0.1.11.pre)
+    enju_inventory (0.1.11.pre2)
       enju_biblio (~> 0.1.0.pre5)
       inherited_resources
       paperclip (~> 3.0)
@@ -118,9 +117,9 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_question.git
-  revision: 4986b23f45d59938fd37df6e2e0a9522b5fed7ff
+  revision: 646b6f558488c82beae32a0e257a0c8e18e602f6
   specs:
-    enju_question (0.1.0.pre)
+    enju_question (0.1.0.pre2)
       acts-as-taggable-on (~> 2.3)
       enju_core
       rails (~> 3.2)
@@ -308,121 +307,6 @@ GEM
       devise (>= 2.1.0.rc)
     diff-lcs (1.1.3)
     dynamic_form (1.1.4)
-<<<<<<< HEAD
-=======
-    enju_biblio (0.1.0.pre5)
-      aws-sdk
-      dynamic_form
-      enju_core (~> 0.1.1.pre)
-      enju_ndl
-      enju_oai
-      has_scope
-      inherited_resources
-      marc
-      paper_trail
-      paperclip
-      paperclip-meta
-      rails (~> 3.2)
-      resque_mailer
-      simple_form
-      state_machine
-      validates_timeliness
-    enju_book_jacket (0.1.0.pre2)
-      rails (~> 3.2)
-    enju_bookmark (0.1.1)
-      acts-as-taggable-on (~> 2.3)
-      rails (~> 3.2)
-      state_machine
-    enju_circulation (0.1.0.pre4)
-      enju_event (~> 0.1.17.pre2)
-      enju_message (~> 0.1.13)
-      inherited_resources
-      rails (~> 3.2)
-      simple_form
-      state_machine
-      validates_timeliness
-    enju_core (0.1.1.pre)
-      acts_as_list
-      addressable
-      attribute_normalizer (~> 1.1)
-      cancan
-      devise
-      friendly_id (~> 4.0)
-      kaminari
-      rails (~> 3.2)
-      resque
-      settingslogic
-      sunspot_rails (~> 2.0.0.pre.120720)
-    enju_event (0.1.17.pre2)
-      enju_core
-      enju_message (>= 0.0.25)
-      event-calendar (~> 2.3.3)
-      has_scope
-      inherited_resources
-      paperclip
-      rails (~> 3.2)
-      simple_form
-      state_machine
-    enju_export (0.1.1.pre)
-      enju_biblio (~> 0.1.0.pre5)
-      paperclip
-      rails (~> 3.2)
-      simple_form
-      state_machine
-    enju_inter_library_loan (0.1.0.pre2)
-      enju_biblio (~> 0.1.0.pre)
-      rails (~> 3.2)
-      state_machine
-    enju_inventory (0.1.11.pre)
-      enju_biblio (~> 0.1.0.pre5)
-      inherited_resources
-      paperclip (~> 3.0)
-      rails (~> 3.2)
-    enju_library (0.1.0.pre3)
-      enju_core (~> 0.1.1.pre)
-      geocoder
-      inherited_resources
-      rails (~> 3.2)
-    enju_manifestation_viewer (0.1.0.pre)
-      rails (~> 3.2)
-    enju_message (0.1.13)
-      awesome_nested_set (~> 2.1)
-      enju_core
-      inherited_resources
-      rails (~> 3.2)
-      resque_mailer
-      simple_form
-      state_machine
-    enju_ndl (0.1.0.pre2)
-      library_stdnums
-      lisbn
-      nokogiri
-      rails (~> 3.2)
-    enju_oai (0.1.0.pre4)
-      mobile-fu
-      rails (~> 3.2)
-    enju_purchase_request (0.1.0.pre3)
-      rails (~> 3.2)
-      state_machine
-    enju_question (0.1.0.pre)
-      acts-as-taggable-on (~> 2.3)
-      enju_core
-      rails (~> 3.2)
-      simple_form
-    enju_resource_merge (0.1.0.pre2)
-      dynamic_form
-      enju_biblio (~> 0.1.0.pre3)
-      inherited_resources
-      rails (~> 3.2)
-    enju_search_log (0.1.0.pre2)
-      enju_biblio (~> 0.1.0.pre5)
-      rails (~> 3.2)
-    enju_subject (0.1.0.pre)
-      dynamic_form
-      enju_core
-      inherited_resources
-      rails (~> 3.2)
->>>>>>> 614b2ff... removed configatron
     erubis (2.7.0)
     event-calendar (2.3.3)
     exception_notification (2.6.1)
@@ -661,7 +545,7 @@ GEM
       nokogiri
       sunspot (= 2.0.0.pre.120720)
     sunspot_solr (2.0.0.pre.120720)
-    therubyracer (0.10.1)
+    therubyracer (0.10.2)
       libv8 (~> 3.3.10)
     thor (0.16.0)
     tilt (1.3.3)
@@ -674,11 +558,11 @@ GEM
       jruby-rack (>= 1.1.7)
       trinidad_jars (>= 1.0.5)
     trinidad_jars (1.0.6)
-    twitter-bootstrap-rails (2.1.1)
+    twitter-bootstrap-rails (2.1.3)
       actionpack (>= 3.1)
-      less-rails (~> 2.2.2)
+      less-rails (~> 2.2.3)
       railties (>= 3.1)
-      therubyracer (= 0.10.1)
+      therubyracer (~> 0.10.2)
     tzinfo (0.3.33)
     uglifier (1.2.7)
       execjs (>= 0.3.0)
