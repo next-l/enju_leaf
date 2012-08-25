@@ -117,11 +117,11 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_question.git
-  revision: 646b6f558488c82beae32a0e257a0c8e18e602f6
+  revision: 65877ebf4536610ec2e05e11b7399d9f35b83af0
   specs:
     enju_question (0.1.0.pre2)
       acts-as-taggable-on (~> 2.3)
-      enju_core
+      enju_core (~> 0.1.1.pre)
       rails (~> 3.2)
       simple_form
 
