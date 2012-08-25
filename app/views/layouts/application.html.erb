@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html lang="<%= @locale.to_s -%>">
-<head>
-  <meta charset="UTF-8" />
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
   <%= render 'page/include' %>
   <title><%= title(controller.controller_name) %></title>
   <%- if controller.controller_name == 'manifestations' and controller.action_name == 'index' -%>
@@ -13,7 +14,7 @@
     <% end %>
   <% end %>
 </head>
-<body itemscope itemtype="http://schema.org/WebPage"  data-spy="scroll" data-target=".subnav" data-offset="50">
+<body itemscope itemtype="http://schema.org/WebPage" data-spy="scroll" data-target=".subnav" data-offset="50">
 
   <%= render 'page/header' %>
   <div class="container">

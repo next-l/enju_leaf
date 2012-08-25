@@ -5,7 +5,7 @@
         <%= render 'page/menu' %>
         <% unless controller_name == 'sessions' %>
           <div class="btn-group pull-right">
-            <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+            <a id="menu-account" class="btn dropdown-toggle" data-toggle="dropdown" href="#">
               <i class="icon-user"></i>
               <% if user_signed_in? %>
                 <%= current_user.username %>
@@ -14,7 +14,7 @@
               <% end %>
               <span class="caret"></span>
             </a>
-            <ul class="dropdown-menu">
+            <ul class="dropdown-menu" role="menu" aria-labelledby="menu-account">
               <% if user_signed_in? %>
                 <li><%= link_to t('page.account'), my_account_path %></li>
                 <li>

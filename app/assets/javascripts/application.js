@@ -8,4 +8,3 @@
 //= require jquery.cookie
 //= require event_calendar
 //= require rails.validations
-//= require jquery.qtip
