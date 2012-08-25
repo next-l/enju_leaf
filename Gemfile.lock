@@ -193,9 +193,9 @@ GEM
     enju_purchase_request (0.1.0.pre3)
       rails (~> 3.2)
       state_machine
-    enju_question (0.1.0.pre)
+    enju_question (0.1.0.pre2)
       acts-as-taggable-on (~> 2.3)
-      enju_core
+      enju_core (~> 0.1.1.pre)
       rails (~> 3.2)
       simple_form
     enju_resource_merge (0.1.0.pre2)
@@ -508,7 +508,7 @@ DEPENDENCIES
   enju_ndl (~> 0.1.0.pre2)
   enju_oai (~> 0.1.0.pre4)
   enju_purchase_request (~> 0.1.0.pre3)
-  enju_question (~> 0.1.0.pre)
+  enju_question (~> 0.1.0.pre2)
   enju_resource_merge (~> 0.1.0.pre2)
   enju_search_log (~> 0.1.0.pre)
   enju_subject (~> 0.1.0.pre)
