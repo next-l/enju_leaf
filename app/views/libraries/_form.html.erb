@@ -3,84 +3,84 @@
   <%= f.error_notification -%>
 
   <div class="field">
-    <%= f.label :name -%><br />
+    <%= f.label :name -%>
     <%= f.text_field :name, :class => 'short_name' -%>
   </div>
 
   <div class="field">
-    <%= f.label :short_display_name -%><br />
-    <%= f.text_area :short_display_name, :class => 'resource_textarea' -%>
+    <%= f.label :short_display_name -%>
+    <%= f.text_area :short_display_name, :class => 'span12' -%>
   </div>
 
   <div class="field">
-    <%= f.label :display_name -%><br />
-    <%= f.text_area :display_name, :class => 'resource_textarea' -%>
+    <%= f.label :display_name -%>
+    <%= f.text_area :display_name, :class => 'span12' -%>
   </div>
 
   <% unless @library.web? %>
   <div class="field">
-    <%= f.label :isil -%><br />
+    <%= f.label :isil -%>
     <%= f.text_field :isil, :class => 'resource_identifierr' -%>
   </div>
 
   <div class="field">
-    <%= f.label t('activerecord.models.country') -%><br />
+    <%= f.label t('activerecord.models.country') -%>
     <%= f.select(:country_id, @countries.collect{|c| [c.display_name.localize, c.id]}) -%>
   </div>
 
   <div class="field">
-    <%= f.label :zip_code -%><br />
+    <%= f.label :zip_code -%>
     <%= f.text_field :zip_code -%>
   </div>
 
   <div class="field">
-    <%= f.label :region -%><br />
-    <%= f.text_area :region, :class => 'resource_textarea' -%>
+    <%= f.label :region -%>
+    <%= f.text_area :region, :class => 'span12' -%>
   </div>
 
   <div class="field">
-    <%= f.label :locality -%><br />
-    <%= f.text_area :locality, :class => 'resource_textarea' -%>
+    <%= f.label :locality -%>
+    <%= f.text_area :locality, :class => 'span12' -%>
   </div>
 
   <div class="field">
-    <%= f.label :street -%><br />
-    <%= f.text_area :street, :class => 'resource_textarea' -%>
+    <%= f.label :street -%>
+    <%= f.text_area :street, :class => 'span12' -%>
   </div>
 
   <div class="field">
-    <%= f.label :telephone_number_1 -%><br />
+    <%= f.label :telephone_number_1 -%>
     <%= f.phone_field :telephone_number_1 -%>
   </div>
 
   <div class="field">
-    <%= f.label :telephone_number_2 -%><br />
+    <%= f.label :telephone_number_2 -%>
     <%= f.phone_field :telephone_number_2 -%>
   </div>
 
   <div class="field">
-    <%= f.label :fax_number -%><br />
+    <%= f.label :fax_number -%>
     <%= f.phone_field :fax_number -%>
   </div>
 
   <div class="field">
-    <%= f.label :call_number_rows -%><br />
+    <%= f.label :call_number_rows -%>
     <%= f.text_field :call_number_rows, :class => 'resource_integer' -%>
   </div>
 
   <div class="field">
-    <%= f.label :call_number_delimiter -%><br />
+    <%= f.label :call_number_delimiter -%>
     <%= f.text_field :call_number_delimiter, :class => 'resource_integer' -%>
   </div>
 
   <div class="field">
-    <%= f.label :opening_hour -%><br />
-    <%= f.text_area :opening_hour, :class => 'resource_textarea' -%>
+    <%= f.label :opening_hour -%>
+    <%= f.text_area :opening_hour, :class => 'span12' -%>
   </div>
 
   <div class="field">
-    <%= f.label :note -%><br />
-    <%= f.text_area :note, :class => 'resource_textarea' -%>
+    <%= f.label :note -%>
+    <%= f.text_area :note, :class => 'span12' -%>
   </div>
   <% end %>
 

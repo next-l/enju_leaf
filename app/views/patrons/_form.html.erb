@@ -22,7 +22,7 @@
     <%= link_to_function t('activerecord.attributes.patron.full_name_alternative'), "$('#full_name_alternative').toggle()" -%>
     <span id="full_name_alternative" style="display: none">
       <br />
-      <%= f.text_area :full_name_alternative, :class => 'resource_textarea' -%>
+      <%= f.text_area :full_name_alternative, :class => 'span12' -%>
     </span>
   </div>
 
@@ -83,28 +83,28 @@
 
   <div id="address_1">
   <div class="field">
-    <%= f.label :zip_code_1 -%><br />
+    <%= f.label :zip_code_1 -%>
     <%= f.text_field :zip_code_1, :class => 'resource_zip_code' -%>
   </div>
 
   <div class="field">
-    <%= f.label :address_1 -%><br />
-    <%= f.text_area :address_1, :class => 'resource_textarea' -%>
+    <%= f.label :address_1 -%>
+    <%= f.text_area :address_1, :class => 'span12' -%>
   </div>
 
   <div class="field">
-    <%= f.label :telephone_number_1 -%><br />
+    <%= f.label :telephone_number_1 -%>
     <%= f.phone_field :telephone_number_1, :class => 'resource_telephone_number' -%>
   </div>
 
   <div class="field">
-    <%= f.label :fax_number_1 -%><br />
+    <%= f.label :fax_number_1 -%>
     <%= f.phone_field :fax_number_1, :class => 'resource_telephone_number' -%>
   </div>
 
   <div class="field">
-    <%= f.label :address_1_note -%><br />
-    <%= f.text_area :address_1_note, :class => 'resource_textarea' -%>
+    <%= f.label :address_1_note -%>
+    <%= f.text_area :address_1_note, :class => 'span12' -%>
   </div>
   <div class="field"><%= link_to_function t('patron.other_address'), "$('#address_2').toggle()" -%></div>
   </div>
@@ -112,35 +112,35 @@
   <div id="address_2" style="display: none">
   <hr />
   <div class="field">
-    <%= f.label :zip_code_2 -%><br />
+    <%= f.label :zip_code_2 -%>
     <%= f.text_field :zip_code_2, :class => 'resource_zip_code' -%>
   </div>
 
   <div class="field">
-    <%= f.label :address_2 -%><br />
-    <%= f.text_area :address_2, :class => 'resource_textarea' -%>
+    <%= f.label :address_2 -%>
+    <%= f.text_area :address_2, :class => 'span12' -%>
   </div>
 
   <div class="field">
-    <%= f.label :telephone_number_2 -%><br />
+    <%= f.label :telephone_number_2 -%>
     <%= f.phone_field :telephone_number_2, :class => 'resource_telephone_number' -%>
   </div>
 
   <div class="field">
-    <%= f.label :fax_number_2 -%><br />
+    <%= f.label :fax_number_2 -%>
     <%= f.phone_field :fax_number_2, :class => 'resource_telephone_number' -%>
   </div>
 
   <div class="field">
-    <%= f.label :address_2_note -%><br />
-    <%= f.text_area :address_2_note, :class => 'resource_textarea' -%>
+    <%= f.label :address_2_note -%>
+    <%= f.text_area :address_2_note, :class => 'span12' -%>
   </div>
   </div>
 
   <hr />
   <div class="field">
-    <%= f.label :note -%><br />
-    <%= f.text_area :note, :class => 'resource_textarea' -%>
+    <%= f.label :note -%>
+    <%= f.text_area :note, :class => 'span12' -%>
   </div>
 
   <div class="actions">
