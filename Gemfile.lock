@@ -155,13 +155,12 @@ GIT
 
 GIT
   remote: git://github.com/next-l/enju_biblio.git
-  revision: 1b56d4dd88cdb12a80abb8e72ce96492c8944adb
+  revision: 7fb6f50136d92d3035e3e22e35cc88c93f4f25c3
   specs:
     enju_biblio (0.1.0.pre7)
       aws-sdk
       dynamic_form
       enju_core (~> 0.1.1.pre)
-      enju_ndl (~> 0.1.0.pre2)
       has_scope
       inherited_resources
       marc
