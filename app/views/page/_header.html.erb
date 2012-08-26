@@ -19,11 +19,7 @@
                 <li><%= link_to t('page.account'), my_account_path %></li>
                 <li>
                 <% if defined?(EnjuMessage) %>
-                  <% if current_user.received_messages.unread.size > 0 %>
-                    <%= link_to "#{t('activerecord.models.message')} (#{h(current_user.received_messages.unread.size)})", messages_path %>
-                  <% else %>
-                    (<%= current_user.received_messages.unread.size %>)
-                  <% end %>
+                  <%= link_to "#{t('activerecord.models.message')} (#{h(current_user.received_messages.unread.size)})", messages_path %>
                 <% end %>
                 </li>
                 <li class="divider"></li>

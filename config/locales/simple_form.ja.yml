@@ -13,13 +13,15 @@ ja:
       default_message: "エラーがあります。確認してください。"
     # Labels and hints examples
     # labels:
-    #   password: 'Password'
+    #   defaults:
+    #     password: 'Password'
     #   user:
     #     new:
-    #       email: 'E-mail para efetuar o sign in.'
+    #       email: 'E-mail to sign in.'
     #     edit:
     #       email: 'E-mail.'
     # hints:
-    #   username: 'User name to sign in.'
-    #   password: 'No special characters, please.'
+    #   defaults:
+    #     username: 'User name to sign in.'
+    #     password: 'No special characters, please.'
 
