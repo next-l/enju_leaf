@@ -15,7 +15,7 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_bookmark.git
-  revision: 73d628fc7ccfbebf62dc4e686dfbfa5a1e874810
+  revision: 16d1a00b37585fa0f074a35f5dd8a2311b36f7a7
   specs:
     enju_bookmark (0.1.2.pre3)
       acts-as-taggable-on (~> 2.3)
@@ -24,9 +24,9 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_circulation.git
-  revision: 3e3eec7db318ae69a45658cd00ab363dc1aed834
+  revision: 5756ac32dc6c3b94d53ac7064c1e0401ea4fe4c7
   specs:
-    enju_circulation (0.1.0.pre4)
+    enju_circulation (0.1.0.pre5)
       enju_event (~> 0.1.17.pre2)
       enju_message (~> 0.1.13)
       inherited_resources
@@ -37,11 +37,11 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_event.git
-  revision: 4914091ade51cfbb7cc5594630e695415f7656a8
+  revision: f5941a1e852de3aa4e7d918fd452e4515e8e8787
   specs:
-    enju_event (0.1.17.pre2)
-      enju_core
-      enju_message (>= 0.0.25)
+    enju_event (0.1.17.pre3)
+      enju_core (~> 0.1.1.pre)
+      enju_message (~> 0.1.14.pre)
       event-calendar (~> 2.3.3)
       has_scope
       inherited_resources
@@ -52,10 +52,10 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_inter_library_loan.git
-  revision: b78903e05f852ace852cf78d0dd1935c98ed3cdf
+  revision: b4912d96a748509aafbb4aaf5407887ae958e88f
   specs:
-    enju_inter_library_loan (0.1.0.pre2)
-      enju_biblio (~> 0.1.0.pre)
+    enju_inter_library_loan (0.1.0.pre3)
+      enju_biblio (~> 0.1.0.pre6)
       rails (~> 3.2)
       state_machine
 
@@ -71,18 +71,18 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_manifestation_viewer.git
-  revision: 29c157e4fcc7bc9590968df9057ca685b89031ac
+  revision: 8ba262e340dc769c795dad1fc0db421e6265b689
   specs:
-    enju_manifestation_viewer (0.1.0.pre)
+    enju_manifestation_viewer (0.1.0.pre2)
       rails (~> 3.2)
 
 GIT
   remote: git://github.com/nabeta/enju_message.git
-  revision: 4a3fb0caef80fd304ab749345a9bfbd50da00434
+  revision: 76eb05c7b6370b1b4c10ef3d291064848f5241f3
   specs:
-    enju_message (0.1.13)
+    enju_message (0.1.14.pre)
       awesome_nested_set (~> 2.1)
-      enju_core
+      enju_core (~> 0.1.1.pre)
       inherited_resources
       rails (~> 3.2)
       resque_mailer
@@ -91,9 +91,9 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_ndl.git
-  revision: 9c526780319806b13b721a65afffe2c274b29b7f
+  revision: 02be259af7d507dc99b42b827be20ee553664e1a
   specs:
-    enju_ndl (0.1.0.pre2)
+    enju_ndl (0.1.0.pre3)
       library_stdnums
       lisbn
       nokogiri
@@ -109,15 +109,15 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_purchase_request.git
-  revision: 7c301e185c248d8b4d4dc432ec543b96834fadbe
+  revision: 3f9446b1a0e95c0fe4b0f7e90b3bb43f151bf6b4
   specs:
-    enju_purchase_request (0.1.0.pre3)
+    enju_purchase_request (0.1.0.pre4)
       rails (~> 3.2)
       state_machine
 
 GIT
   remote: git://github.com/nabeta/enju_question.git
-  revision: 65877ebf4536610ec2e05e11b7399d9f35b83af0
+  revision: 63d68fad0e7d8ff8d1294f4c6f6c8111deee7521
   specs:
     enju_question (0.1.0.pre2)
       acts-as-taggable-on (~> 2.3)
@@ -127,11 +127,11 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_resource_merge.git
-  revision: fd4aa95edf55b4d1eab8c2d06214923deec50bc6
+  revision: a04fa3117016c9d8bdbe826af75e82f092170c4d
   specs:
-    enju_resource_merge (0.1.0.pre2)
+    enju_resource_merge (0.1.0.pre3)
       dynamic_form
-      enju_biblio (~> 0.1.0.pre3)
+      enju_biblio (~> 0.1.0.pre6)
       inherited_resources
       rails (~> 3.2)
 
@@ -145,7 +145,7 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_subject.git
-  revision: f97f61d32fd189b8de8de9931e37749b3196c0f3
+  revision: 1d75ad58e2779b95afdefe016d49b4c51e386d3d
   specs:
     enju_subject (0.1.0.pre2)
       dynamic_form
@@ -155,14 +155,13 @@ GIT
 
 GIT
   remote: git://github.com/next-l/enju_biblio.git
-  revision: 0adaa422fb310ee94b6b572e0fe1e9bbcde5c6e2
+  revision: 1b56d4dd88cdb12a80abb8e72ce96492c8944adb
   specs:
-    enju_biblio (0.1.0.pre5)
+    enju_biblio (0.1.0.pre7)
       aws-sdk
       dynamic_form
       enju_core (~> 0.1.1.pre)
       enju_ndl (~> 0.1.0.pre2)
-      enju_oai
       has_scope
       inherited_resources
       marc
@@ -205,9 +204,9 @@ GIT
 
 GIT
   remote: git://github.com/next-l/enju_library.git
-  revision: c7926197d551d5115e04cc450992bc91473e039c
+  revision: 5ab4bbc760c65b682e20bfb6cd72a7307eb86531
   specs:
-    enju_library (0.1.0.pre3)
+    enju_library (0.1.0.pre4)
       enju_core (~> 0.1.1.pre)
       geocoder
       inherited_resources
@@ -332,7 +331,7 @@ GEM
     guard-rspec (1.2.1)
       guard (>= 1.1)
     has_scope (0.5.1)
-    highline (1.6.13)
+    highline (1.6.14)
     hike (1.2.1)
     httparty (0.8.3)
       multi_json (~> 1.0)
