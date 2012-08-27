@@ -1,5 +1,0 @@
-<div class="tag" id="tag_<%= manifestation.id -%>" style="display: none">
-  <%- manifestation.tags.each do |tag| -%>
-    <%= link_to tag.name, manifestations_path(:tag => tag.name) -%>
-  <%- end -%>
-</div>

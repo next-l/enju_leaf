@@ -3,6 +3,7 @@ module ApplicationHelper
   include PictureFilesHelper
   include EnjuBookJacket::BookJacketHelper if defined?(EnjuBookJacket)
   include EnjuManifestationViewer::ManifestationViewerHelper if defined?(EnjuManifestationViewer)
+  include EnjuBookmark::BookmarkHelper if defined?(EnjuBookmark)
   include JaDateFormat
 
   def form_icon(carrier_type)

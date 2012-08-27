@@ -5,7 +5,7 @@ class ReservesController < ApplicationController
   before_filter :store_location, :only => [:index, :new]
   load_and_authorize_resource :except => [:index, :show, :edit]
 #  load_and_authorize_resource :except => [:index, :show, :edit] :TODO
-  before_filter :get_user_if_nil #, :only => [:show, :edit, :create, :update, :destroy]
+  before_filter :get_user #, :only => [:show, :edit, :create, :update, :destroy]
   before_filter :store_page, :only => :index
   helper_method :get_manifestation
   helper_method :get_item

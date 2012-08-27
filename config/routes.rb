@@ -119,7 +119,6 @@ EnjuLeaf::Application.routes.draw do
       resources :answers
     end
     resources :reserves
-    resources :bookmarks
     resources :purchase_requests
     resources :questions
     resource :patron
@@ -133,8 +132,6 @@ EnjuLeaf::Application.routes.draw do
   resources :answers
   resources :imported_objects
   resources :nii_types
-  resources :bookmark_stats
-  resources :bookmark_stat_has_manifestations
   resources :user_checkout_stats
   resources :user_reserve_stats
   resources :manifestation_checkout_stats
@@ -244,10 +241,6 @@ EnjuLeaf::Application.routes.draw do
     get :reject, :on => :member
     get :do_order, :on => :member
   end
-
-  resources :bookmarks
-
-  resources :tags
 
   resources :patron_relationships
 

@@ -1,7 +1,7 @@
 class MessagesController < ApplicationController
   load_and_authorize_resource :except => :index
   authorize_resource :only => :index
-  before_filter :get_user_if_nil, :only => :index
+  before_filter :get_user, :only => :index
   after_filter :solr_commit, :only => [:create, :update, :destroy, :destroy_selected]
   cache_sweeper :page_sweeper, :only => [:create, :update, :destroy]
 

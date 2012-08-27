@@ -2,7 +2,7 @@
 class QuestionsController < ApplicationController
   before_filter :store_location, :only => [:index, :show, :new, :edit]
   load_and_authorize_resource
-  before_filter :get_user_if_nil, :except => [:edit]
+  before_filter :get_user, :except => [:edit]
   after_filter :solr_commit, :only => [:create, :update, :destroy]
   if !SystemConfiguration.get("user_show_questions") and !current_user.has_role?('Librarian')
     before_filter :check_librarian
