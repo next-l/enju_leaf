@@ -108,7 +108,6 @@ en:
       expression_has_expression: Expression to expression relationship
       manifestation_has_manifestation: Manifestation to manifestation relationship
       item_has_item: Item to item relationship
-      bookmark_stat_has_manifestation: Bookmark stat to manifestation relationship
       reserve_stat_has_manifestation: Reserve stat to manifestation relationship
       reserve_stat_has_user: Reserve stat to user relationship
       concept: Concept
@@ -923,8 +922,6 @@ en:
         reserves_count: Reserve count
       reserve_stat_has_manifestation:
         reserves_count: Reserve count
-      bookmark_stat_has_manifestation:
-        bookmarks_count: Bookmark count
       work_has_work:
         from_work: From
         to_work: To

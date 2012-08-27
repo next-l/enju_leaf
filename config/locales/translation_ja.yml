@@ -112,7 +112,6 @@ ja:
       expression_has_expression: 協力した資料間の関係
       manifestation_has_manifestation: 資料間の関係
       item_has_item: 所蔵情報間の関係
-      bookmark_stat_has_manifestation: ブックマーク統計と資料の関係
       reserve_stat_has_manifestation: 予約統計と資料の関係
       reserve_stat_has_user: 予約統計と利用者の関係
       concept: 概念
@@ -1046,8 +1045,6 @@ ja:
         reserves_count: 利用者の予約回数
       reserve_stat_has_manifestation:
         reserves_count: 資料の予約回数
-      bookmark_stat_has_manifestation:
-        bookmarks_count: ブックマーク回数
       work_has_work:
         from_work: 始点
         to_work: 終点
