@@ -72,7 +72,6 @@ en:
       news_feed: News feed
       news_post: News post
       search_engine: Search engine
-      bookmark: Bookmark
       create: Create
       carrier_type: Carrier Type
       manifestation: Manifestation
@@ -321,7 +320,6 @@ en:
         answer_rss_token: Answer rss token
         due_date_reminder_days: Due date reminder days
         note: Note
-        share_bookmarks: Share bookmarks
         save_search_history: Save search history
         save_checkout_history: Save checkout history
         lock_version: Lock version
@@ -612,10 +610,6 @@ en:
         additional_param: Additional param
         note: Note
         position: Position
-      bookmark:
-        note: Note
-        shared: Shared
-        url: URL
       create:
         position: Position
       carrier_type:
@@ -708,7 +702,6 @@ en:
         note: Note
         login_banner: Login banner
         post_to_union_catalog: Post to union catalog
-        allow_bookmark_external_url: Allow bookmark external url
       attachment_file:
         attachable_type: Attachable type
         size: Size
@@ -1062,7 +1055,6 @@ en:
     sign_up: "Sign up"
     logged_in_as: "logged in as %{login_name}"
     edit_user_profile: "Edit %{login_name}'s profile"
-    user_bookmark_title: "%{login_name}'s bookmark"
     login_name: "Login name"
     password: "Password"
     email_and_password: "Email and password"
@@ -1291,17 +1283,6 @@ en:
     to: "to"
     all: "All %{model}"
     all_libraries: "All libraries"
-  bookmark:
-    new: "New bookmark"
-    not_bookmarked: "Not bookmarked."
-    add_to_my_bookmark: "Add to my bookmark"
-    add_to_library_bookmark: "Add to my library bookmark"
-    remove_from_my_bookmark: "Remove from my bookmark"
-    invalid_url: "Invalid URL."
-    specify_title_and_url: "Specify the title and URL of the page."
-    already_bookmarked: "This resource is already bookmarked."
-    only_manifestation_should_be_bookmarked: "You can bookmark only manifestatons in this site."
-    not_our_holding: "This resource is not our holding."
   work:
     patrons_work: "%{patron_name}'s works"
     library_group_work: "Works in %{library_group_name}"
@@ -1327,7 +1308,6 @@ en:
     library_group_manifestation: "Manifestations in %{library_group_name}"
     reserve_this: "Reserve this manifestation"
     cancel_reservation: "Cancel this reservation"
-    user_who_bookmark_this_resource: "Users who bookmark this resource"
     query_search_result: "Search results for %{query} in %{library_group_name}"
     serial: "Serial"
     number: "Number"
