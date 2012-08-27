@@ -28,15 +28,15 @@
 
   <div class="field">
     <%= f.label :original_title -%>
-    <%= f.text_field :original_title, :class => 'resource_title' -%>
+    <%= f.text_field :original_title, :class => 'span12' -%>
   </div>
   <div class="field">
     <%= f.label :title_transcription -%>
-    <%= f.text_field :title_transcription, :class => 'resource_title' -%>
+    <%= f.text_field :title_transcription, :class => 'span12' -%>
   </div>
   <div class="field">
     <%= f.label :title_alternative -%>
-    <%= f.text_field :title_alternative, :class => 'resource_title' -%>
+    <%= f.text_field :title_alternative, :class => 'span12' -%>
   </div>
 
   <%- if @series_statement.try(:periodical?) -%>
@@ -124,7 +124,7 @@
 
   <div class="field">
     <%= f.label :access_address -%>
-    <%= f.url_field :access_address, :class => 'resource_url' -%>
+    <%= f.url_field :access_address, :class => 'span12' -%>
   </div>
 
   <div class="field">
