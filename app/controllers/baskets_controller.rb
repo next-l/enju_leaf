@@ -2,13 +2,13 @@ class BasketsController < ApplicationController
   include NotificationSound
   before_filter :check_client_ip_address
   load_and_authorize_resource
-  helper_method :get_user
+  helper_method :get_user_if_nil
   cache_sweeper :basket_sweeper, :only => [:create, :update, :destroy]
 
   # GET /baskets
   # GET /baskets.json
   def index
-    get_user
+    get_user_if_nil
     if @user
       @baskets = @user.baskets.page(params[:page])
     else

@@ -1,7 +1,7 @@
 class CheckoutsController < ApplicationController
   before_filter :store_location, :only => :index
-  before_filter :get_user_if_nil, :only => :index
-  before_filter :get_user, :except => :index
+  before_filter :get_user, :only => :index
+  before_filter :get_user_if_nil, :except => :index
   helper_method :get_item
   after_filter :convert_charset, :only => :index
 

@@ -2,7 +2,7 @@
 class PatronsController < ApplicationController
   load_and_authorize_resource :except => :index
   authorize_resource :only => :index
-  before_filter :get_user_if_nil
+  before_filter :get_user
   helper_method :get_work, :get_expression
   helper_method :get_manifestation, :get_item
   helper_method :get_patron
