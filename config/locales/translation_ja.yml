@@ -103,7 +103,6 @@ ja:
       libcheck_data_file: 点検ファイル
       user_group_has_checkout_type: 利用者グループと貸出区分の関係
       carrier_type_has_checkout_type: 資料の種類と貸出区分の関係
-      bookmark_stat: ブックマーク統計
       manifestation_checkout_stat: 資料別貸出統計
       user_checkout_stat: 利用者別貸出統計
       manifestation_reserve_stat: 資料別予約統計
@@ -936,11 +935,6 @@ ja:
         checkout_type: 貸出区分
         note: 注記
         position: 位置
-      bookmark_stat:
-        start_date: 開始日
-        end_date: 終了日
-        note: 注記
-        state: 状態
       manifestation_checkout_stat:
         start_date: 開始日
         end_date: 終了日

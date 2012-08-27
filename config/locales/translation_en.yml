@@ -99,7 +99,6 @@ en:
       inventory_file: Inventory file
       user_group_has_checkout_type: User group has checkout type
       carrier_type_has_checkout_type: Carrier type and checkout type
-      bookmark_stat: Bookmark stat
       manifestation_checkout_stat: Manifestation checkout stat
       user_checkout_stat: User checkout stat
       manifestation_reserve_stat: Manifestation reserve stat
@@ -808,11 +807,6 @@ en:
       carrier_type_has_checkout_type:
         note: Note
         position: Position
-      bookmark_stat:
-        start_date: Start date
-        end_date: End date
-        note: Note
-        state: State
       manifestation_checkout_stat:
         start_date: Start date
         end_date: End date
