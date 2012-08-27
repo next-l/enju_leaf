@@ -12,9 +12,7 @@ class LossItem < ActiveRecord::Base
   # consts
   UnPaid=0
 
-  def self.per_page
-    10
-  end
+  paginates_per 10
 
   def check_user_number
     unless self.user_number.blank?
