@@ -78,7 +78,7 @@
             </td>
           </tr>
         <%- end -%>
-        <% if defined?(EnjuSubject) %>
+        <% if defined?(EnjuBookmark) %>
           <tr>
             <td><%= t('activerecord.models.tag') -%>:</td>
             <td><%= render 'manifestations/tag_list', :manifestation => manifestation -%></td>

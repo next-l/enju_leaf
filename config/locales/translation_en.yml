@@ -99,7 +99,6 @@ en:
       inventory_file: Inventory file
       user_group_has_checkout_type: User group has checkout type
       carrier_type_has_checkout_type: Carrier type and checkout type
-      tag: Tag
       bookmark_stat: Bookmark stat
       manifestation_checkout_stat: Manifestation checkout stat
       user_checkout_stat: User checkout stat
@@ -835,10 +834,6 @@ en:
         end_date: End date
         note: Note
         state: State
-      tag:
-        name: Name
-        synonym: Synonym
-        taggings_count: Taggings count
       concept:
         term: Term
         note: Note
@@ -1395,13 +1390,6 @@ en:
     contributor: "Contributor"
     publisher: "Publisher"
     owner: "Owner"
-  tag:
-    popular_tag: "Popular tags"
-    my_tag: "My tags"
-    user_tag: "%{login_name}'s tags"
-    use_space_as_delimiter: "Use space as a delimiter."
-    contain_space: " contains a space character"
-    space: "　"
   question:
     my: "My questions"
     all: "All questions"

@@ -103,7 +103,6 @@ ja:
       libcheck_data_file: 点検ファイル
       user_group_has_checkout_type: 利用者グループと貸出区分の関係
       carrier_type_has_checkout_type: 資料の種類と貸出区分の関係
-      tag: タグ
       bookmark_stat: ブックマーク統計
       manifestation_checkout_stat: 資料別貸出統計
       user_checkout_stat: 利用者別貸出統計
@@ -963,10 +962,6 @@ ja:
         end_date: 終了日
         note: 注記
         state: 状態
-      tag:
-        name: 名前
-        synonym: 同義語
-        taggings_count: このタグのついている回数
       concept:
         term: 用語
         note: 注記
@@ -1651,13 +1646,6 @@ ja:
     last_update_by: 更新者 
     duplicate_user: "同じフルネーム(ヨミ)、電話番号１ー１、生年月日の人が既に登録されています。"
     patron_identifier: 人物団体の識別番号
-  tag:
-    popular_tag: "人気のあるタグ"
-    my_tag: "自分のつけたタグ"
-    user_tag: "%{login_name} さんのタグ"
-    use_space_as_delimiter: "半角スペースで区切ってください。"
-    contain_space: "には空白文字を使用することはできません。"
-    space: "　"
   question:
     my: "自分の質問"
     all: "全ての質問"
