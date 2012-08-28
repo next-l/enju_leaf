@@ -277,3 +277,9 @@ configatron.send_message.reserve_reverted_for_library = true
 
 # 請求記号の先頭文字がセパレータのとき先頭文字を削除するか
 configatron.items.call_number.delete_first_delimiter = true
+
+# refs 3861資料の検索時、キーワードがスペースで区切られている場合はそれぞれの語によってAND検索を行うか
+configatron.search.use_and = true
+
+# refs 3861 資料の詳細検索時、各項目に関しANDで検索を行うか
+configatron.advanced_search.use_and = true

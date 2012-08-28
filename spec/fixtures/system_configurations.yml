@@ -1,6 +1,7 @@
----
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
 system_configuration_00001:
-  id: 1 
+  id: 1
   keyname: header.disp_date
   v: 2
   typename: Numeric
@@ -9,7 +10,7 @@ system_configuration_00002:
   id: 2
   keyname: disp_alert_when_move_page_with_function
   v: "true"
-  typename: Boolean 
+  typename: Boolean
   description: "フォームに入力済みの状態で、ファンクションキーによる画面遷移を行おうとするとアラート面を表示するか。trueのとき表示。"
 system_configuration_00003:
   id: 3
@@ -41,7 +42,7 @@ system_configuration_00007:
   v: "true"
   typename: Boolean
   description: "貸出画面で本のタイトルを表示するか。trueのとき表示。"
-system_configuration_00008:
+ystem_configuration_00008:
   id: 8
   keyname: checked_items.disp_user
   v: "true"
@@ -54,7 +55,7 @@ system_configuration_00009:
   typename: Numeric
   description: "無操作待機時間 (sec)。0のときは作動しない。"
 system_configuration_00010:
-  id: 10 
+  id: 10
   keyname: checkouts_print.message
   v: "本は大事に扱いましょう。期限はきちんと守りましょう。インターネットで延長ができます。"
   typename: String
@@ -80,7 +81,9 @@ system_configuration_00013:
 system_configuration_00014:
   id: 14
   keyname: reminder_letter_message
-  v: "図書館からお借りになったなった本や視聴覚資料などを、返す日が過ぎております。\n速やかにお返しください。\n\n・お返しになった後、行き違いにこの手紙が届きましたらご容赦ください。\n・図書館が閉まっているときは、入り口脇のブックポストをご利用ください。\n・視聴覚資料に限りましてはブックポストへの返却はご遠慮いただき、直接カウンターにお返しください。\n・資料を、郵送や宅配便でお返しいただく場合は、
+  v: "図書館からお借りになったなった本や視聴覚資料などを、返す日が過ぎております。\n速やかにお返しください。\n\n・お返しになった後、行き違いにこの手紙が
+届きましたらご容赦ください。\n・図書館が閉まっているときは、入り口脇のブックポストをご利用ください。\n・視聴覚資料に限りましてはブックポストへの返却はご
+遠慮いただき、直接カウンターにお返しください。\n・資料を、郵送や宅配便でお返しいただく場合は、
 壊れないようご配慮の上お送りください。\n・ご不明な点がありましたらお問い合わせください。"
   typename: String
   description: "督促書の図書館メッセージ。"
@@ -372,3 +375,17 @@ system_configuration_00062:
   v: "true"
   typename: Boolean
   description: "資料の詳細検索時、各項目に関しANDで検索を行うか。trueのときAND検索、falseのときOR検索。"
+
+# == Schema Information
+#
+# Table name: search_engines
+#
+#  id               :integer         not null, primary key
+#  keyname          :string(255)     not null
+#  v                :string(255)     not null
+#  typename         :string(255)     not null
+#  description      :string(255)     not null
+#  created_at       :datetime
+#  updated_at       :datetime
+#
+
