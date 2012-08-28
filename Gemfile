@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '3.2.7'
+gem 'rails', '3.2.8'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
@@ -71,7 +71,7 @@ gem 'has_scope'
 gem 'marc'
 #gem 'attr_encryptor'
 gem 'dalli', '~> 2.1'
-gem 'sitemap_generator', '~> 3.1'
+gem 'sitemap_generator', '~> 3.2'
 gem 'ri_cal'
 gem 'paper_trail', '~> 2.6'
 #gem 'recurrence'
@@ -84,7 +84,7 @@ gem 'devise-encryptable'
 #gem 'omniauth', '~> 1.1'
 gem 'paperclip', '~> 2.7'
 gem 'paperclip-meta'
-gem 'aws-sdk', '~> 1.4'
+gem 'aws-sdk', '~> 1.6'
 gem 'whenever', :require => false
 #gem 'amazon-ecs', '>= 2.2.0', :require => 'amazon/ecs'
 #gem 'aws-s3', :require => 'aws/s3'
@@ -95,7 +95,7 @@ gem 'mobile-fu'
 gem 'attribute_normalizer', '~> 1.1'
 #gem 'geokit'
 gem 'geocoder'
-gem 'client_side_validations', '~> 3.2.0.beta.3'
+gem 'client_side_validations', '~> 3.2.0.beta.6'
 gem 'simple_form', '~> 2.0'
 gem 'validates_timeliness'
 gem 'rack-protection'
@@ -113,21 +113,18 @@ group :development do
 end
 
 group :development, :test do
-  gem 'rspec-rails', '~> 2.10'
+  gem 'rspec-rails', '~> 2.11'
   gem 'guard-rspec'
   if RUBY_VERSION > '1.9'
-    gem 'factory_girl_rails', '~> 3.5'
+    gem 'factory_girl_rails', '~> 4.0'
   else
     gem 'factory_girl_rails', '~> 1.7'
   end
   gem 'spork-rails'
-#  gem 'rcov', '0.9.11'
-#  gem 'metric_fu', '~> 2.1'
   gem 'timecop'
   gem 'sunspot-rails-tester', :git => 'https://github.com/justinko/sunspot-rails-tester.git'
   gem 'vcr', '~> 2.2'
   gem 'fakeweb'
-#  gem 'churn', '0.0.13'
   gem 'steak'
   gem 'ruby-prof'
   gem 'parallel_tests', '~> 0.8'

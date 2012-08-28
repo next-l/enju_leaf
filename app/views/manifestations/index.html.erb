@@ -98,7 +98,7 @@
 <% if defined?(EnjuBookmark) %>
   <script type="text/javascript">
     window.onload = function() {
-      $("#tag_cloud_list").load('<%= url_for(params.merge(:view => "tag_cloud", :only_path => true)) -%>', null, hideTagCloudSpinner);
+      $("#tag_cloud_list").load('<%= url_for(params.merge(:view => "tag_cloud", :only_path => true)) -%>', hideTagCloudSpinner);
     }
 
     function hideTagCloudSpinner(){
