@@ -62,7 +62,7 @@
     <li><%= link_to t('purchase_request.all_request'), purchase_requests_path -%></li>
   </ul>
   <p>
-    <%= link_to (image_tag 'feed-icon-14x14.png', :size => '14x14', :alt => t('page.feed'), :title => t('tooltip.feed'), :class => 'icon'), order_list_purchase_requests_path(@order_list, :format => :rss) -%>
+    <%= link_to (image_tag 'icons/feed.png', :size => '16x16', :alt => t('page.feed'), :title => t('tooltip.feed'), :class => 'icon'), order_list_purchase_requests_path(@order_list, :format => :rss) -%>
     (<%= link_to 'RSS', order_list_purchase_requests_path(@order_list, :format => :rss) -%>)
     <%= link_to (image_tag 'icons/page_white_excel.png', :size => '16x16', :alt => 'TSV', :title => 'TSV', :class => 'icon'), order_list_purchase_requests_path(@order_list, :format => :tsv, :locale => @locale.to_s) -%>
     (<%= link_to 'TSV', order_list_purchase_requests_path(@order_list, :format => :tsv, :locale => @locale.to_s) -%>)

@@ -69,9 +69,6 @@ class Ability
         Answer,
         Barcode,
         Basket,
-        Bookmark,
-        BookmarkStat,
-        BookmarkStatHasManifestation,
         CarrierTypeHasCheckoutType,
         CheckedItem,
         Checkin,
@@ -133,7 +130,6 @@ class Ability
         Subscribe,
         Subscription,
         SystemConfiguration,
-        Tag,
         Term,
         UserCheckoutStat,
         UserGroupHasCheckoutType,
@@ -166,10 +162,6 @@ class Ability
         ResourceImportTextresult
       ]
     when 'Librarian'
-      can [:index, :create], Bookmark
-      can [:show, :update, :destroy], Bookmark do |bookmark|
-        bookmark.user == user
-      end
       can [:read, :create, :update], Budget
       can :destroy, Budget do |budget|
         budget.expenses.empty?
@@ -178,7 +170,6 @@ class Ability
       can :destroy, BudgetType do |budget_type|
         budget_type.budgets.empty?
       end
-      can [:read, :create, :update], BookmarkStat
       can [:read, :new, :create], EventCategory
       can [:edit, :update, :destroy], EventCategory do |event_category|
         !['unknown', 'closed'].include?(event_category.name)
@@ -236,7 +227,6 @@ class Ability
       can :manage, [
         Answer,
         Basket,
-        Bookmark,
         CheckedItem,
         Checkin,
         Checkout,
@@ -282,12 +272,10 @@ class Ability
         Subscribe,
         Subscription,
         SystemConfiguration,
-        Tag,
         Term,
         WorkHasSubject
       ]
       can :read, [
-        BookmarkStatHasManifestation,
         Bookstore,
         CarrierType,
         CarrierTypeHasCheckoutType,
@@ -343,11 +331,6 @@ class Ability
       can [:update, :destroy], Answer do |answer|
         answer.user == user
       end
-      can [:index, :create], Bookmark
-      can [:show, :update, :destroy], Bookmark do |bookmark|
-        bookmark.user == user
-      end
-      can [:create, :update, :show], Tag
       can [:index, :create], Checkout
       can [:show, :update, :destroy], Checkout do |checkout|
         checkout.user == user
@@ -403,7 +386,6 @@ class Ability
         u == user
       end
       can :read, [
-        BookmarkStat,
         CarrierType,
         CirculationStatus,
         Classification,
@@ -457,7 +439,6 @@ class Ability
         question.user == user or question.shared
       end
       can :read, [
-        BookmarkStat,
         CarrierType,
         CirculationStatus,
         Classification,
@@ -494,12 +475,49 @@ class Ability
         Subject,
         SubjectHasClassification,
         SubjectHeadingType,
-        Tag,
         UserCheckoutStat,
         UserGroup,
         UserReserveStat,
         WorkHasSubject
       ]
+    end
+
+    if defined?(EnjuBookmark)
+      case user.try(:role).try(:name)
+      when 'Administrator'
+        can :manage, [
+          Bookmark,
+          BookmarkStat,
+          BookmarkStatHasManifestation,
+          Tag
+        ]
+      when 'Librarian'
+        can [:read, :create, :update], BookmarkStat
+        can :read, BookmarkStatHasManifestation
+        can :manage, [
+          Bookmark,
+          Tag
+        ]
+      when 'User'
+        can [:index, :create], Bookmark
+        can :show, Bookmark do |bookmark|
+          if bookmark.user == user
+            true
+          elsif user.share_bookmarks
+            true
+          else
+            false
+          end
+        end
+        can [:update, :destroy], Bookmark do |bookmark|
+          bookmark.user == user
+        end
+        can :read, BookmarkStat
+        can :read, Tag
+      else
+        can :read, BookmarkStat
+        can :read, Tag
+      end
     end
 
     #if defined?(EnjuMessage)

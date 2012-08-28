@@ -270,7 +270,10 @@ configatron.send_message.purchase_request_accepted = true
 configatron.send_message.purchase_request_rejected = true
 
 # refs 3563 取置き済資料が貸出不可になったとき利用者に取置き取消メッセージを送信するか
-configatron.send_message.reserve_reverted_for_patron
+configatron.send_message.reserve_reverted_for_patron = true
 
 # refs 3563 取置き済資料が貸出不可になったとき管理者に取置き取消メッセージを送信するか
-configatron.send_message.reserve_reverted_for_library
+configatron.send_message.reserve_reverted_for_library = true
+
+# 請求記号の先頭文字がセパレータのとき先頭文字を削除するか
+configatron.items.call_number.delete_first_delimiter = true

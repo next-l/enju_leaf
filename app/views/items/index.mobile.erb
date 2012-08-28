@@ -34,7 +34,7 @@
           <%= link_to item.item_identifier, item -%>
         <%- end -%>
       </td>
-      <td><%= item.call_number -%></td>
+      <td><%= call_numberformat(item) -%></td>
       <td>
         <%= render 'manifestations/show_index', :manifestation => item.manifestation -%>
       </td>

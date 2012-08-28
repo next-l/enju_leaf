@@ -26,8 +26,10 @@ $(document).FunctionKeys(
       <%= render 'page/search_form' -%>
       <p><%= t('page.number_of_manifestations', :numdocs => Manifestation.cached_numdocs, :count => Manifestation.cached_numdocs) -%></p>
       <h3 style="display: inline"><%= link_to t('page.new_resource'), manifestations_path(:mode => 'recent') -%></h3>
-      <% if user_signed_in? %>
-        <h4 style="display: inline"><%= link_to t('activerecord.models.bookmark'), user_bookmarks_path(current_user) %></h4>
+      <% if defined?(EnjuBookmark) %>
+        <% if user_signed_in? %>
+          <h4 style="display: inline"><%= link_to t('activerecord.models.bookmark'), user_bookmarks_path(current_user) %></h4>
+        <% end %>
       <% end %>
     </div>
   </div>
@@ -54,20 +56,22 @@ $(document).FunctionKeys(
     </div>
   </div>
 
-  <div class="portlet" id="tag_cloud">
-    <h3 class="title">
-      <% if user_signed_in? %>
-        <%= t('tag.my_tag') -%>
-      <% else %>
-        <%= t('tag.popular_tag') -%>
-      <% end %>
-    </h3>
-    <div id="tag_cloud_box">
-      <%= render 'bookmarks/tag_cloud', :tags => @tags -%>
-      <%- if can? :index, Tag -%>
-        <p>(<%= link_to t('page.listing', :model => t('activerecord.models.tag')), tags_path -%>)</p>
-      <%- end -%>
+  <% if defined?(EnjuBookmark) %>
+    <div class="portlet" id="tag_cloud">
+      <h3 class="title">
+        <% if user_signed_in? %>
+          <%= t('tag.my_tag') -%>
+        <% else %>
+          <%= t('tag.popular_tag') -%>
+        <% end %>
+      </h3>
+      <div id="tag_cloud_box">
+        <%= render 'bookmarks/tag_cloud', :tags => @tags -%>
+        <%- if can? :index, Tag -%>
+          <p>(<%= link_to t('page.listing', :model => t('activerecord.models.tag')), tags_path -%>)</p>
+        <%- end -%>
+      </div>
     </div>
-  </div>
+  <% end %>
 </div>
 

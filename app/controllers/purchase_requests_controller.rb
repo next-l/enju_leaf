@@ -1,7 +1,7 @@
 class PurchaseRequestsController < ApplicationController
   before_filter :store_location, :only => :index
   load_and_authorize_resource
-  before_filter :get_user_if_nil
+  before_filter :get_user
   before_filter :get_order_list
   before_filter :store_page, :only => :index
   after_filter :solr_commit, :only => [:create, :update, :destroy]

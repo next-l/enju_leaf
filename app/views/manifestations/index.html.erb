@@ -61,12 +61,14 @@
       <%= render 'manifestations/list', :manifestations => @manifestations -%>
     </div>
 
-    <div id="tag_cloud">
-      <h3><%= t('activerecord.models.tag') -%></h3>
-      <div id="tag_cloud_list"></div>
-      <%= image_tag 'spinner.gif', :id => 'spinner_tag_cloud',
-        :style => 'padding-bottom: 15px; padding-left: 40px;' -%>
-    </div>
+    <% if defined?(EnjuBookmark) %>
+      <div id="tag_cloud">
+        <h3><%= t('activerecord.models.tag') -%></h3>
+        <div id="tag_cloud_list"></div>
+        <%= image_tag 'spinner.gif', :id => 'spinner_tag_cloud',
+          :style => 'padding-bottom: 15px; padding-left: 40px;' -%>
+      </div>
+    <% end %>
   <%- else -%>
     <!-- TODO: 検索結果が少ない場合にも表示させる -->
     <%- if @suggested_tag -%>
@@ -87,9 +89,9 @@
     <%- end -%>
   <div>
     <%- if params[:library_id].blank? -%>
-      <%= link_to (image_tag 'feed-icon-14x14.png', :size => '14x14', :alt => t('page.feed'), :title => t('tooltip.feed'), :class => 'icon'), url_for(params.merge(:format => :rss, :page => nil, :library_id => nil)) -%> <%= link_to t('page.search_result_feed'), url_for(params.merge(:format => :rss, :page => nil, :library_id => nil, :commit => nil)) -%>
+      <%= link_to (image_tag 'icons/feed.png', :size => '16x16', :alt => t('page.feed'), :title => t('tooltip.feed'), :class => 'icon'), url_for(params.merge(:format => :rss, :page => nil, :library_id => nil)) -%> <%= link_to t('page.search_result_feed'), url_for(params.merge(:format => :rss, :page => nil, :library_id => nil, :commit => nil)) -%>
     <%- else -%>
-      <%= link_to (image_tag 'feed-icon-14x14.png', :size => '14x14', :alt => t('page.feed'), :title => t('tooltip.feed'), :class => 'icon'), url_for(params.merge(:format => :rss, :page => nil)) -%> <%= link_to t('page.search_result_feed'), url_for(params.merge(:format => :rss, :page => nil, :commit => nil)) -%>
+      <%= link_to (image_tag 'icons/feed.png', :size => '16x16', :alt => t('page.feed'), :title => t('tooltip.feed'), :class => 'icon'), url_for(params.merge(:format => :rss, :page => nil)) -%> <%= link_to t('page.search_result_feed'), url_for(params.merge(:format => :rss, :page => nil, :commit => nil)) -%>
     <%- end -%>
     <div id="iconmenu" class="ui-corner-all">
       <strong><%= t('tooltip.icons_info') -%></strong>
@@ -101,12 +103,14 @@
   </div>
 </div>
 
-<script type="text/javascript">
-  window.onload = function() {
-    $("#tag_cloud_list").load('<%= url_for(params.merge(:view => "tag_cloud")) -%>', null, hideTagCloudSpinner);
-  }
+<% if defined?(EnjuBookmark) %>
+  <script type="text/javascript">
+    window.onload = function() {
+      $("#tag_cloud_list").load('<%= url_for(params.merge(:view => "tag_cloud")) -%>', null, hideTagCloudSpinner);
+    }
 
-  function hideTagCloudSpinner(){
-    $("#spinner_tag_cloud").hide();
-  }
+    function hideTagCloudSpinner(){
+      $("#spinner_tag_cloud").hide();
+    }
+<% end %>
 </script>

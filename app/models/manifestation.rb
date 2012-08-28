@@ -1,4 +1,5 @@
 class Manifestation < ActiveRecord::Base
+  self.extend ItemsHelper
   scope :periodical_master, where(:periodical_master => true)
   scope :periodical_children, where(:periodical_master => false)
   has_many :creates, :dependent => :destroy, :foreign_key => 'work_id'
@@ -15,8 +16,6 @@ class Manifestation < ActiveRecord::Base
   has_many :original_manifestations, :through => :parents, :source => :parent
   has_many :work_has_subjects, :foreign_key => 'work_id', :dependent => :destroy
   has_many :subjects, :through => :work_has_subjects
-  has_many :bookmarks, :include => :tags, :dependent => :destroy, :foreign_key => :manifestation_id
-  has_many :users, :through => :bookmarks
   has_many :reserves, :foreign_key => :manifestation_id, :order => :position
   has_many :picture_files, :as => :picture_attachable, :dependent => :destroy
   belongs_to :language
@@ -53,9 +52,6 @@ class Manifestation < ActiveRecord::Base
     string :connect_publisher do
       publisher.join('').gsub(/\s/, '').downcase
     end
-    text :tag do
-      tags.collect(&:name)
-    end
     string :isbn, :multiple => true do
       [isbn, isbn10, wrong_isbn]
     end
@@ -63,9 +59,6 @@ class Manifestation < ActiveRecord::Base
     string :marc_number
     string :lccn
     string :nbn
-    string :tag, :multiple => true do
-      tags.collect(&:name)
-    end
     string :subject, :multiple => true do
       subjects.collect(&:term) + subjects.collect(&:term_transcription)
     end
@@ -227,6 +220,33 @@ class Manifestation < ActiveRecord::Base
     10
   end
 
+  if defined?(EnjuBookmark)
+    has_many :bookmarks, :include => :tags, :dependent => :destroy, :foreign_key => :manifestation_id
+    has_many :users, :through => :bookmarks
+
+    searchable do
+      string :tag, :multiple => true do
+        tags.collect(&:name)
+      end
+      text :tag do
+        tags.collect(&:name)
+      end
+    end
+
+    def bookmarked?(user)
+      return true if user.bookmarks.where(:url => url).first
+      false
+    end
+
+    def tags
+      if self.bookmarks.first
+        self.bookmarks.tag_counts
+      else
+        []
+      end
+    end
+  end
+
   def check_pub_date
     logger.info "manifestaion#check pub_date=#{self.pub_date}"
     date = self.pub_date.to_s.gsub(' ', '').dup
@@ -372,14 +392,6 @@ class Manifestation < ActiveRecord::Base
     end
   end
 
-  def tags
-    if self.bookmarks.first
-      self.bookmarks.tag_counts
-    else
-      []
-    end
-  end
-
   def titles
     title = []
     title << original_title.to_s.strip
@@ -425,10 +437,6 @@ class Manifestation < ActiveRecord::Base
 
   def patrons
     (creators + contributors + publishers).flatten
-  end
-
-  def bookmarked?(user)
-    self.users.include?(user)
   end
 
   def set_serial_number
@@ -931,7 +939,7 @@ private
               data  = item.shelf.display_name.localize
             when 3
               label = I18n.t('activerecord.attributes.item.call_number')
-              data  = item.call_number
+              data  = call_numberformat(item)
             when 4
               label = I18n.t('activerecord.attributes.item.item_identifier')
               data  = item.item_identifier

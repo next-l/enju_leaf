@@ -1,4 +1,5 @@
 class Checkout < ActiveRecord::Base
+  self.extend ItemsHelper
   default_scope :order => 'due_date ASC, id DESC'#:order => 'id DESC'
   scope :not_returned, where(:checkin_id => nil)
   scope :overdue, lambda {|date| {:conditions => ['checkin_id IS NULL AND due_date < ?', date]}}
@@ -319,7 +320,7 @@ class Checkout < ActiveRecord::Base
               row.item(:title).value(item.manifestation.original_title)
               row.item(:library).value(item.shelf.library.display_name)
               row.item(:shelf).value(item.shelf.display_name.localize)
-              row.item(:call_number).value(item.call_number) if item.call_number
+              row.item(:call_number).value(call_numberformat(item)) if item.call_number
               row.item(:identifier).value(item.item_identifier) if item.item_identifier
             end
             before_status = d.circulation_status
@@ -365,7 +366,7 @@ class Checkout < ActiveRecord::Base
           when :shelf
             row << item.shelf.display_name.localize
           when :call_number
-            row << item.call_number if item.call_number
+            row << call_numberformat(item) if item.call_number
           when :item_identifier
             row << item.item_identifier if item.item_identifier
           end

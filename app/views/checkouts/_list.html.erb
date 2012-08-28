@@ -17,7 +17,7 @@
     </td>
     <td>
       <%= render 'manifestations/show_index', :manifestation => checkout.item.manifestation -%>
-      <%= t('activerecord.attributes.item.call_number') -%>: <%= link_to checkout.item.call_number, item_path(checkout.item) -%> /
+      <%= t('activerecord.attributes.item.call_number') -%>: <%= link_to call_numberformat(checkout.item), item_path(checkout.item) -%> /
       <%= t('activerecord.attributes.item.item_identifier') -%>: <%= link_to checkout.item.item_identifier, item_path(checkout.item) -%>
     </td>
     <td><%= l(checkout.due_date, :format => :only_date) -%></td>

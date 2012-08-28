@@ -1,5 +1,6 @@
 # -*- encoding: utf-8 -*-
 class Item < ActiveRecord::Base
+  self.extend ItemsHelper
   scope :for_checkout, where('item_identifier IS NOT NULL')
   scope :not_for_checkout, where(:item_identifier => nil)
   scope :on_shelf, where('shelf_id != 1')
@@ -503,7 +504,7 @@ class Item < ActiveRecord::Base
       [:pub_year, 'activerecord.attributes.manifestation.pub_year'],
       [:publisher, 'patron.publisher'],
       [:price, 'activerecord.attributes.manifestation.price'],
-      ['call_number', 'activerecord.attributes.item.call_number'],
+      [:call_number, 'activerecord.attributes.item.call_number'],
       [:marc_number, 'activerecord.attributes.manifestation.marc_number'],
       ['note', 'activerecord.attributes.item.note']
     ]
@@ -526,47 +527,21 @@ class Item < ActiveRecord::Base
           columns.each do |column|
             case column[0]
             when :bookstore
-              if item.bookstore
-                row << item.bookstore.name
-              else
-                row << ""
-              end
+              row << item.bookstore.name if item.bookstore
             when :creator
-              if item.manifestation && item.manifestation.creators
-                row << item.manifestation.creators.inject([]){|names, creator| names << creator.full_name if creator.full_name; names}.join("\t")
-              else
-                row << ""
-              end
+              row << item.manifestation.creators.inject([]){|names, creator| names << creator.full_name if creator.full_name; names}.join("\t")
             when :original_title
-              if item.manifestation
-                row << item.manifestation.original_title
-              else
-                row << ""
-              end
+              row << item.manifestation.original_title if item.manifestation
             when :pub_year
-              if item.manifestation && item.manifestation.date_of_publication
-                row << item.manifestation.date_of_publication.strftime("%Y")
-              else 
-                row << ""
-              end
+              row << item.manifestation.date_of_publication.strftime("%Y") if item.manifestation.date_of_publication
             when :publisher
-              if item.publisher
-                row << item.publisher.delete_if{|p|p.blank?}.join("\t")
-              else
-                row << ""
-              end
+              row << item.publisher.delete_if{|p|p.blank?}.join("\t") if item.publisher
             when :price
-              if item.manifestation && item.manifestation.price
-                row << item.manifestation.price
-              else
-                row << ""
-              end
+              row << item.manifestation.price if item.manifestation.price
             when :marc_number
-              if item.manifestation && item.manifestation.marc_number
-                row << item.manifestation.marc_number[0, 10]
-              else
-                row << ""
-              end
+              row << item.manifestation.marc_number[0, 10] if item.manifestation.marc_number
+            when :call_number
+              row << call_numberformat(item) if item.call_number
             else
               row << get_object_method(item, column[0].split('.')).to_s.gsub(/\r\n|\r|\n/," ").gsub(/\"/,"\"\"")
             end
@@ -588,7 +563,7 @@ class Item < ActiveRecord::Base
       [:creator, 'patron.creator'],
       [:pub_year, 'activerecord.attributes.manifestation.pub_year'],
       [:publisher, 'patron.publisher'],
-      ['call_number', 'activerecord.attributes.item.call_number'],
+      [:call_number, 'activerecord.attributes.item.call_number'],
       ['note', 'activerecord.attributes.item.note']
     ]
   
@@ -610,47 +585,21 @@ class Item < ActiveRecord::Base
           columns.each do |column|
             case column[0]
             when :library
-              if item.shelf && item.shelf.library
-                row << item.shelf.library.display_name.localize
-              else
-                row << ""
-              end
+              row << item.shelf.library.display_name.localize if item.shelf && item.shelf.library
             when :creator
-              if item.manifestation && item.manifestation.creators
-                row << item.manifestation.creators.inject([]){|names, creator| names << creator.full_name if creator.full_name; names}.join("\t")
-              else
-                row << ""
-              end
+              row << item.manifestation.creators.inject([]){|names, creator| names << creator.full_name if creator.full_name; names}.join("\t") if item.manifestation.creators
             when :original_title
-              if item.manifestation
-                row << item.manifestation.original_title
-              else
-                row << ""
-              end
+              row << item.manifestation.original_title if item.manifestation
             when :pub_year
-              if item.manifestation && item.manifestation.date_of_publication
-                row << item.manifestation.date_of_publication.strftime("%Y")
-              else 
-                row << ""
-              end
+              row << item.manifestation.date_of_publication.strftime("%Y") if item.manifestation.date_of_publication
             when :publisher
-              if item.publisher
-                row << item.publisher.delete_if{|p|p.blank?}.join("\t")
-              else
-                row << ""
-              end
+              row << item.publisher.delete_if{|p|p.blank?}.join("\t") if item.publisher
             when :carrier_type
-              if item.manifestation && item.manifestation.carrier_type
-                row << item.manifestation.carrier_type.display_name.localize
-              else
-                row << ""
-              end
+              row << item.manifestation.carrier_type.display_name.localize if item.manifestation.carrier_type
             when :shelf
-              if item.shelf
-                row << item.shelf.display_name.localize
-              else
-                row << ""
-              end
+              row << item.shelf.display_name.localize if item.shelf
+            when :call_number
+              row << call_numberformat(item)
             else
               row << get_object_method(item, column[0].split('.')).to_s.gsub(/\r\n|\r|\n/," ").gsub(/\"/,"\"\"")
             end
@@ -688,7 +637,7 @@ class Item < ActiveRecord::Base
                 row.item(:pub_year).value(item.manifestation.date_of_publication.strftime("%Y")) if item.manifestation && item.manifestation.date_of_publication
                 row.item(:publisher).value(item.publisher.delete_if{|p|p.blank?}[0]) if item.publisher
                 row.item(:price).value(to_format(item.price)) if item.price
-                row.item(:call_number).value(item.call_number)
+                row.item(:call_number).value(call_numberformat(item)) if item.call_number
                 row.item(:marc_number).value(item.manifestation.marc_number[0,10]) if item.manifestation && item.manifestation.marc_number
                 row.item(:note).value(item.note.split("\r\n")[0]) if item.note
               end
@@ -728,7 +677,7 @@ class Item < ActiveRecord::Base
         row.item(:shelf).value(item.shelf.display_name) if item.shelf
         row.item(:ndc).value(item.manifestation.ndc) if item.manifestation
         row.item(:item_identifier).value(item.item_identifier)
-        row.item(:call_number).value(item.call_number)
+        row.item(:call_number).value(call_numberformat(item))
         row.item(:title).value(item.manifestation.original_title) if item.manifestation
       end
     end
@@ -758,7 +707,7 @@ class Item < ActiveRecord::Base
         row.item(:shelf).value(item.shelf.display_name) if item.shelf
         row.item(:ndc).value(item.manifestation.ndc) if item.manifestation
         row.item(:item_identifier).value(item.item_identifier)
-        row.item(:call_number).value(item.call_number)
+        row.item(:call_number).value(call_numberformat(item))
         row.item(:title).value(item.manifestation.original_title) if item.manifestation
       end
     end
@@ -774,7 +723,7 @@ class Item < ActiveRecord::Base
       [:shelf, 'activerecord.models.shelf'],
       [:ndc, 'activerecord.attributes.manifestation.ndc'],
       ['item_identifier', 'activerecord.attributes.item.item_identifier'],
-      ['call_number', 'activerecord.attributes.item.call_number'],
+      [:call_number, 'activerecord.attributes.item.call_number'],
       [:title, 'activerecord.attributes.manifestation.original_title'],
     ]
 
@@ -796,6 +745,8 @@ class Item < ActiveRecord::Base
           row << item.manifestation.ndc
         when :title
           row << item.manifestation.original_title
+        when :call_number
+          row << call_numberformat(item)
         else
           row << get_object_method(item, column[0].split('.')).to_s.gsub(/\r\n|\r|\n/," ").gsub(/\"/,"\"\"")
         end
@@ -828,7 +779,7 @@ class Item < ActiveRecord::Base
         row.item(:shelf).value(item.shelf.display_name) if item.shelf
         row.item(:ndc).value(item.manifestation.ndc) if item.manifestation
         row.item(:item_identifier).value(item.item_identifier)
-        row.item(:call_number).value(item.call_number)
+        row.item(:call_number).value(call_numberformat(item))
         row.item(:created_at).value(item.created_at.strftime("%Y/%m/%d"))
         row.item(:title).value(item.manifestation.original_title) if item.manifestation
       end
@@ -850,7 +801,7 @@ class Item < ActiveRecord::Base
       [:shelf, 'activerecord.models.shelf'],
       [:ndc, 'activerecord.attributes.manifestation.ndc'],
       ['item_identifier', 'activerecord.attributes.item.item_identifier'],
-      ['call_number', 'activerecord.attributes.item.call_number'],
+      [:call_number, 'activerecord.attributes.item.call_number'],
       [:created_at, 'activerecord.attributes.item.created_at'],
       [:title, 'activerecord.attributes.manifestation.original_title'],
     ]
@@ -875,6 +826,8 @@ class Item < ActiveRecord::Base
           row << item.manifestation.original_title
         when :created_at
           row << item.created_at.strftime("%Y/%m/%d") if item.created_at
+        when :call_number
+          row << call_numberformat(item)
         else
           row << get_object_method(item, column[0].split('.')).to_s.gsub(/\r\n|\r|\n/," ").gsub(/\"/,"\"\"")
         end
@@ -905,7 +858,7 @@ class Item < ActiveRecord::Base
         row.item(:shelf).value(item.shelf.display_name) if item.shelf
         row.item(:ndc).value(item.manifestation.ndc) if item.manifestation
         row.item(:item_identifier).value(item.item_identifier)
-        row.item(:call_number).value(item.call_number)
+        row.item(:call_number).value(call_numberformat(item))
         row.item(:removed_at).value(item.removed_at.strftime("%Y/%m/%d")) if item.removed_at
         row.item(:title).value(item.manifestation.original_title) if item.manifestation
       end
@@ -923,7 +876,7 @@ class Item < ActiveRecord::Base
       [:shelf, 'activerecord.models.shelf'],
       [:ndc, 'activerecord.attributes.manifestation.ndc'],
       ['item_identifier', 'activerecord.attributes.item.item_identifier'],
-      ['call_number', 'activerecord.attributes.item.call_number'],
+      [:call_number, 'activerecord.attributes.item.call_number'],
       [:removed_at, 'activerecord.attributes.item.removed_at'],
       [:title, 'activerecord.attributes.manifestation.original_title'],
     ]
@@ -948,6 +901,8 @@ class Item < ActiveRecord::Base
           row << item.manifestation.original_title
         when :removed_at
           row << item.removed_at.strftime("%Y/%m/%d") if item.removed_at
+        when :call_number
+          row << coll_numberformat(item)
         else
           row << get_object_method(item, column[0].split('.')).to_s.gsub(/\r\n|\r|\n/," ").gsub(/\"/,"\"\"")
         end

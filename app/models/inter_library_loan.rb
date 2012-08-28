@@ -1,4 +1,5 @@
 class InterLibraryLoan < ActiveRecord::Base
+  self.extend ItemsHelper
   default_scope :order => "created_at DESC"
   scope :completed, where(:state => 'return_received')
   #scope :processing, lambda {|item, to_library| {:conditions => ['item_id = ? AND to_library_id = ? AND state != ?', item.id, wto_library.id, 'return_received']}}
@@ -138,7 +139,7 @@ class InterLibraryLoan < ActiveRecord::Base
       report.start_new_page
       report.page.item(:export_date).value(Time.now)
       report.page.item(:title).value(@loan.item.manifestation.original_title)
-      report.page.item(:call_number).value(@loan.item.call_number)
+      report.page.item(:call_number).value(call_numberformat(@loan.item))
       report.page.item(:from_library).value(@loan.from_library.display_name.localize)
       report.page.item(:to_library).value(@loan.to_library.display_name.localize)
       report.page.item(:reason).value(I18n.t('inter_library_loan.checkout')) if @loan.reason == 1
@@ -185,7 +186,7 @@ class InterLibraryLoan < ActiveRecord::Base
               row.item(:reason).value(I18n.t('inter_library_loan.checkout'))
               row.item(:item_identifier).value(loan.item.item_identifier)
               row.item(:shelf).value(loan.item.shelf.display_name) if loan.item.shelf
-              row.item(:call_number).value(loan.item.call_number)
+              row.item(:call_number).value(call_numberformat(loan.item))
               row.item(:title).value(loan.item.manifestation.original_title) if loan.item.manifestation
             end
           end
@@ -196,7 +197,7 @@ class InterLibraryLoan < ActiveRecord::Base
               row.item(:reason).value(I18n.t('inter_library_loan.checkin'))
               row.item(:item_identifier).value(loan.item.item_identifier)
               row.item(:shelf).value(loan.item.shelf.display_name) if loan.item.shelf
-              row.item(:call_number).value(loan.item.call_number)
+              row.item(:call_number).value(call_numberformat(loan.item))
               row.item(:title).value(loan.item.manifestation.original_title) if loan.item.manifestation
             end
           end
@@ -212,7 +213,7 @@ class InterLibraryLoan < ActiveRecord::Base
     report.start_new_page
     report.page.item(:export_date).value(Time.now)
     report.page.item(:title).value(pickup_item.manifestation.original_title)
-    report.page.item(:call_number).value(pickup_item.call_number)
+    report.page.item(:call_number).value(call_numberformat(pickup_item))
     report.page.item(:from_library).value(loan.from_library.display_name.localize)
     report.page.item(:to_library).value(loan.to_library.display_name.localize)
     report.page.item(:reason).value(I18n.t('inter_library_loan.checkout')) if loan.reason == 1

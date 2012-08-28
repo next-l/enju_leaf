@@ -31,7 +31,6 @@ ja:
       own: 所有関係
       search_history: 検索履歴
       shelf: 本棚
-      event_category: 催し物の種類
       advertisement: 広告記事
       porta_response: PORTAの応答
       donate: 寄贈
@@ -66,7 +65,6 @@ ja:
       order: 発注
       order_list: 発注リスト
       advertise: 広告
-      event: 開館日と催し物
       embody: 具体化
       item_has_use_restriction: 項目を制限している
       expression_merge: 協力した資料の統合
@@ -74,7 +72,6 @@ ja:
       news_feed: お知らせのフィード
       news_post: 図書館からのお知らせ
       search_engine: 検索エンジン
-      bookmark: ブックマーク
       create: 著作関係
       carrier_type: 資料の形態
       manifestation: 資料
@@ -87,7 +84,6 @@ ja:
       patron_merge: 人物・団体の統合
       subject_related_term: 件名の関連語
       library_group: 図書館全体の設定
-      event_import_file: 催し物のインポート用ファイル
       attachment_file: 添付ファイル
       reserve: 予約
       retained_manifestation: 取置済み(未連絡)資料
@@ -106,8 +102,6 @@ ja:
       libcheck_data_file: 点検ファイル
       user_group_has_checkout_type: 利用者グループと貸出区分の関係
       carrier_type_has_checkout_type: 資料の種類と貸出区分の関係
-      tag: タグ
-      bookmark_stat: ブックマーク統計
       manifestation_checkout_stat: 資料別貸出統計
       user_checkout_stat: 利用者別貸出統計
       manifestation_reserve_stat: 資料別予約統計
@@ -116,7 +110,6 @@ ja:
       expression_has_expression: 協力した資料間の関係
       manifestation_has_manifestation: 資料間の関係
       item_has_item: 所蔵情報間の関係
-      bookmark_stat_has_manifestation: ブックマーク統計と資料の関係
       reserve_stat_has_manifestation: 予約統計と資料の関係
       reserve_stat_has_user: 予約統計と利用者の関係
       concept: 概念
@@ -130,7 +123,6 @@ ja:
       unablelist: 連絡不能者
       subject_heading_type_has_subject: 件名標目と件名の関係
       user_has_shelf: 利用者と書棚の関係
-      participate: 参加
       patron_has_patron: 人物・団体間の関係
       shelf_has_manifestation: 書棚と資料の関係
       extent: 大きさ
@@ -156,7 +148,6 @@ ja:
       resource_import_result: 資料インポートの結果
       resource_import_textresult: 資料インポートの結果
       patron_import_result: 人物・団体インポートの結果
-      event_import_result: 催し物インポートの結果
       series_statement_merge: シリーズ情報の統合
       series_statement_merge_list: シリーズ情報統合リスト
       series_has_manifestation: シリーズ情報と資料の関係
@@ -398,7 +389,6 @@ ja:
         answer_rss_token: 回答用RSSのトークン
         duedate_reminder_days: Duedateリマインダー日
         note: 注記
-        share_bookmarks: ブックマークを他の人物・団体と共有する
         save_search_history: 検索履歴を保存する
         save_checkout_history: 貸出の履歴を保存する
         lock_version: ロックバージョン
@@ -502,16 +492,6 @@ ja:
         open: 開架 
         closed: 閉架
         in_process: 受入手続き中
-      event_category:
-        name: 名前
-        display_name: 表示名
-        note: 注記
-        position: 位置
-        checkin_ng: 返却不可
-        checkin_ng_yes: 可
-        checkin_ng_no: 不可
-        checkin_ng_pre: 前日を返却予定日にする
-        checkin_ng_post: 翌日を返却予定日にする
       advertisement:
         title: タイトル
         url: URL
@@ -692,14 +672,6 @@ ja:
         ordered_at_annotation: YYYY-MM-DD あるいは YYYY-MM-DD HH:MM (例 "2011-04-01 09:00")
       advertise:
         position: 位置
-      event:
-        name: 名前
-        note: 注記
-        start_at: 開始時刻
-        end_at: 終了時刻
-        deleted_at: 削除時刻
-        all_day: 終日
-        display_name: 表示名
       embody:
         position: 位置
       item_has_use_restriction:
@@ -732,10 +704,6 @@ ja:
         additional_param: 追加のパラメータ
         note: 注記
         position: 位置
-      bookmark:
-        note: 注記
-        shared: 共有する
-        url: URL
       create:
         position: 位置
       carrier_type:
@@ -856,17 +824,6 @@ ja:
         note: 注記
         login_banner: ログイン画面でのメッセージ
         post_to_union_catalog: 総合目録に登録する
-        allow_bookmark_external_url: 外部サイトのURLをブックマークできるようにする
-      event_import_file:
-        event_import_file_name: ファイル名
-        event_import_content_type: Content-Type
-        event_import_file_size: ファイルサイズ
-        file_hash: ファイルのハッシュ
-        note: 注記
-        imported_at: インポート時刻
-        event_import_updated_at: 更新時刻
-        state: 状態
-        edit_mode: 編集モード
       attachment_file:
         attachable_type: 添付可能な種類
         size: ファイルサイズ
@@ -971,11 +928,6 @@ ja:
         checkout_type: 貸出区分
         note: 注記
         position: 位置
-      bookmark_stat:
-        start_date: 開始日
-        end_date: 終了日
-        note: 注記
-        state: 状態
       manifestation_checkout_stat:
         start_date: 開始日
         end_date: 終了日
@@ -996,10 +948,6 @@ ja:
         end_date: 終了日
         note: 注記
         state: 状態
-      tag:
-        name: 名前
-        synonym: 同義語
-        taggings_count: このタグのついている回数
       concept:
         term: 用語
         note: 注記
@@ -1084,8 +1032,6 @@ ja:
         reserves_count: 利用者の予約回数
       reserve_stat_has_manifestation:
         reserves_count: 資料の予約回数
-      bookmark_stat_has_manifestation:
-        bookmarks_count: ブックマーク回数
       work_has_work:
         from_work: 始点
         to_work: 終点
@@ -1271,11 +1217,6 @@ ja:
         error_msg: メッセージ
         imported_row: 処理済み件数
       patron_import_result:
-        body: 本文
-        error_msg: メッセージ
-        index: 項番
-        imported_row: 処理済み件数
-      event_import_result:
         body: 本文
         error_msg: メッセージ
         index: 項番
@@ -1581,18 +1522,6 @@ ja:
     help_query: "タイトル、著者、出版者、シリーズ名、注記等を対象に検索を行います。"
     help_isbn: "半角英数字で入力してください。ハイフン（-）の入力は不要です。"
     help_issn: "半角英数字で入力してください。ハイフン（-）の入力は不要です。"
-  bookmark:
-    new: "新しいブックマーク"
-    not_bookmarked: "ブックマークされていません。"
-    add_to_my_bookmark: "ブックマークに追加"
-    add_to_library_bookmark: "図書館のブックマークに追加"
-    remove_from_my_bookmark: "ブックマークから削除"
-    invalid_url: "無効なURLです。"
-    specify_title_and_url: "タイトルとURLを指定してください。"
-    already_bookmarked: "すでにブックマークに登録されています。"
-    user_bookmark: "%{login_name} さんのブックマーク"
-    only_manifestation_should_be_bookmarked: "サイト内のブックマークは資料に対してのみ行えます。"
-    not_our_holding: "当館の所蔵資料ではありません。"
   work:
     patron_work: "%{patron_name} の書いた資料"
     library_group_work: "%{library_group_name} にある書いた資料"
@@ -1618,7 +1547,6 @@ ja:
     library_group_manifestation: "%{library_group_name} にある資料"
     reserve_this: "この資料を予約"
     cancel_reservation: "この資料の予約を解除"
-    user_who_bookmark_this_resource: "この資料をブックマークしている利用者"
     query_search_result: "検索語 %{query} による %{library_group_name} の資料の検索結果"
     serial: "定期刊行物"
     new_serial: "(最新号)"
@@ -1689,13 +1617,6 @@ ja:
     last_update_by: 更新者 
     duplicate_user: "同じフルネーム(ヨミ)、電話番号１ー１、生年月日の人が既に登録されています。"
     patron_identifier: 人物団体の識別番号
-  tag:
-    popular_tag: "人気のあるタグ"
-    my_tag: "自分のつけたタグ"
-    user_tag: "%{login_name} さんのタグ"
-    use_space_as_delimiter: "半角スペースで区切ってください。"
-    contain_space: "には空白文字を使用することはできません。"
-    space: "　"
   question:
     my: "自分の質問"
     all: "全ての質問"
@@ -1755,13 +1676,6 @@ ja:
     from_file: "ファイルから"
     from_isbn: "ISBNから"
     will_be_imported: "%{minute} 分以内にインポートされます。"
-  event:
-    library_group_event: "%{library_group_name} での催し物"
-    all_libraries: "全ての図書館"
-    import_event: "催し物のインポート"
-    all: "全ての催し物"
-    past: "過去の催し物"
-    upcoming: "今後の催し物"
   user:
     current_password: "現在のパスワード"
     new_password: "新しいパスワード"
@@ -1927,9 +1841,6 @@ ja:
     subjectable: "件名付与対象"
   library_group:
     configuration: "図書館の設定"
-  calendar:
-    calendar: "カレンダー"
-    library_calendar: "%{library_name}のカレンダー"
   series_statement:
     edit: "シリーズ情報の編集"
     you_should_specify_work: "シリーズ情報には書いた資料を指定しなければなりません。"
@@ -2003,11 +1914,6 @@ ja:
     invalid_isbn: "指定ISBNが不正です。 ISBN: %{isbn}"
     record_not_found: "指定ISBNの書誌情報を読み込めませんでした。 ISBN: %{isbn}"
   patron_import_file:
-    template_download: "テンプレートをダウンロード"
-    import_request: "すぐにインポート"
-    start_importing: "インポートを開始しました。"
-    unsuccess_start: "インポート開始に失敗しました。"
-  event_import_file:
     template_download: "テンプレートをダウンロード"
     import_request: "すぐにインポート"
     start_importing: "インポートを開始しました。"

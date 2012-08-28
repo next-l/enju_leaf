@@ -1,7 +1,7 @@
 class LossItemsController < ApplicationController
   include NotificationSound
   before_filter :check_librarian
-  before_filter :get_user_if_nil
+  before_filter :get_user
   before_filter :get_patron, :get_manifestation
   helper_method :get_shelf
   helper_method :get_library

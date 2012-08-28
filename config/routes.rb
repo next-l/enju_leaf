@@ -119,7 +119,6 @@ EnjuLeaf::Application.routes.draw do
       resources :answers
     end
     resources :reserves
-    resources :bookmarks
     resources :purchase_requests
     resources :questions
     resource :patron
@@ -133,8 +132,6 @@ EnjuLeaf::Application.routes.draw do
   resources :answers
   resources :imported_objects
   resources :nii_types
-  resources :bookmark_stats
-  resources :bookmark_stat_has_manifestations
   resources :user_checkout_stats
   resources :user_reserve_stats
   resources :manifestation_checkout_stats
@@ -231,19 +228,8 @@ EnjuLeaf::Application.routes.draw do
     resources :patron_import_results, :only => [:index, :show, :destroy]
   end
 
-  resources :event_import_files do
-    get :import_request, :on => :collection
-    resources :event_import_results, :only => [:index, :show, :destroy]
-  end
-  resources :event_import_results, :only => [:index, :show, :destroy]
   resources :patron_import_results, :only => [:index, :show, :destroy]
   resources :resource_import_results, :only => [:index, :show, :destroy]
-
-  resources :events do
-    resources :picture_files
-  end
-
-  resources :participates
 
   resources :questions do
     resources :answers
@@ -255,10 +241,6 @@ EnjuLeaf::Application.routes.draw do
     get :reject, :on => :member
     get :do_order, :on => :member
   end
-
-  resources :bookmarks
-
-  resources :tags
 
   resources :patron_relationships
 
@@ -293,10 +275,6 @@ EnjuLeaf::Application.routes.draw do
     post :output, :on => :member
   end
 
-  resources :event_categories
-
-  resources :events
-
   resources :subject_types
 
   resources :work_has_subjects
@@ -325,7 +303,6 @@ EnjuLeaf::Application.routes.draw do
   end
 
   resources :libraries do
-    resources :events
     resources :shelves
   end
 
@@ -476,8 +453,6 @@ EnjuLeaf::Application.routes.draw do
   # This is a legacy wild controller route that's not recommended for RESTful applications.
   # Note: This route will make all actions in every controller accessible via GET requests.
   match '/isbn/:isbn' => 'manifestations#show'
-  match '/calendar(/:year(/:month))' => 'calendar#index', :as => :calendar, :constraints => {:year => /\d{4}/, :month => /\d{1,2}/}
-  match "/calendar/:year/:month/:day" => "calendar#show"
   # match ':controller(/:action(/:id(.:format)))'
   match '/page/about' => 'page#about'
   match '/page/configuration' => 'page#configuration'

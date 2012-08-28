@@ -10,7 +10,7 @@ ISBN: <%=h @manifestation.isbn %>
 URL: <%=h @manifestation.access_address %>
 所蔵場所:
 <% @manifestation.items.on_shelf.each do |item| -%>
- <%=h item.shelf_display_name.localize %> <%=h item.call_number %> <%=h item.item_identifier %>
+ <%=h item.shelf_display_name.localize %> <%=h call_numberformat(item) %> <%=h item.item_identifier %>
 <% end -%>
 
 -- 
