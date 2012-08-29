@@ -768,6 +768,7 @@ ja:
         reserves_number: 予約数
         detail: 資料確認票
         supplement: 付録
+        per_page: 表示件数
       user_group:
         name: 名前
         display_name: 表示名

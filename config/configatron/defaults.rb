@@ -283,3 +283,6 @@ configatron.search.use_and = true
 
 # refs 3861 資料の詳細検索時、各項目に関しANDで検索を行うか
 configatron.advanced_search.use_and = true
+
+# refs 3806 資料の検索結果一覧の表示件数のセレクタ値
+configatron.manifestations.per_page = '10, 20, 50, 100'

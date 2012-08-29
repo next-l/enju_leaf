@@ -657,10 +657,21 @@ en:
         issn: ISSN
         subscription_master: Subscription master
         description: Description
+        except_recent: Except recent
+        checkouts_count: Checkouts count
+        reserves_count: Reserves count
+        last_checkout_datetim: Last checkout datetime
+        ndc: NDC
+        exinfo_1: Exinfo1
+        exinfo_2: Exinfo2
+        exinfo_3: Exinfo3
+        exinfo_4: Exinfo4
+        exinfo_5: Exinfo5
         edition_display_value: Edition display value
         reserves_number: Reserves number
         detail: Detail
         supplement: Supplement
+        per_page: Per page
       user_group:
         name: Name
         display_name: Display name

@@ -15,6 +15,7 @@ class ManifestationsController < ApplicationController
   include EnjuOai::OaiController if defined?(EnjuOai)
   include EnjuSearchLog if defined?(EnjuSearchLog)
   include ApplicationHelper
+  include ManifestationsHelper
 
   # GET /manifestations
   # GET /manifestations.json
@@ -30,6 +31,7 @@ class ManifestationsController < ApplicationController
       end
     end
 
+    per_page = per_pages[0] if per_pages
     @seconds = Benchmark.realtime do
       @oai = check_oai_params(params)
       next if @oai[:need_not_to_search]
@@ -211,7 +213,10 @@ class ManifestationsController < ApplicationController
         end
       end
       page ||= params[:page] || 1
-      per_page ||= Manifestation.per_page
+      per_page = cookies[:per_page] if cookies[:per_page]
+      per_page = params[:per_page] if params[:per_page]#Manifestation.per_page
+      @per_page = per_page
+      cookies.permanent[:per_page] = { :value => per_page }
       if params[:format] == 'sru'
         search.query.start_record(params[:startRecord] || 1, params[:maximumRecords] || 200)
       else
