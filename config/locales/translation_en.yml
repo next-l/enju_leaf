@@ -145,6 +145,11 @@ en:
       series_statement_merge_list: Series statement merge list
       series_has_manifestation: Series statement to manifestation
       loss_item: Loss item
+      system_configuration: System configuration
+      reminder_list: Reminder list
+      expense: Expense
+      budget_and_results_managements: Budget and results managements
+      manifestation_type: Manifestation type
 
     attributes:
       library:
@@ -1047,6 +1052,12 @@ en:
         list_number: List number
         page_number: Page number
         sort_by: Sort by
+      system_configuration:
+        keyname: Key
+        v: Value
+        typename: Type name
+        description: Description
+        invalid_format: " invalid format"
 
   page:
     user_title: "Welcome %{login_name}"
@@ -1594,6 +1605,19 @@ en:
   item_list:
     list_condition: List Condition
     no_list_condition: Check list condition
+  system_configuration:
+    general: General
+    user: User
+    manifestation: Manifestation
+    checkout: Checkout
+    checkin: Checkin
+    reserve: Reserve
+    purchase_request: Purchase_request
+    question: Question
+    order_list: Order list
+    reminder: Reminder
+    statistics: Statistics
+    sound: Sound
   manifestation_relationships:
     no_parent_id: "Not found parent id"
     no_child_id: "Not found child id"

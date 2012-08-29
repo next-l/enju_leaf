@@ -1,9 +1,13 @@
 class SystemConfigurationsController < ApplicationController
+  include SystemConfigurationsHelper
   before_filter :check_client_ip_address
   load_and_authorize_resource
 
   def index
-    @system_configurations = SystemConfiguration.all
+    #@system_configurations = SystemConfiguration.all
+    @category = 'general'
+    @category = params[:system_configuration][:category] if params[:system_configuration]
+    @system_configurations = SystemConfiguration.where(:category => @category)
   end
 
   def new

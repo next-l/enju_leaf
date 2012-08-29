@@ -1,7 +1,10 @@
 <div id="content_detail" class="ui-corner-all">
 <h1 class="title"><%= t('page.listing', :model => t('activerecord.models.system_configuration')) -%></h1>
 <div id="content_list">
-
+<%= form_for :system_configurations, :html => {:method => 'get'} do %>
+  <%= select("system_configuration", "category", system_configuration_categories.collect{ |c| [i18n_system_configuration_categories(c), c] }, {:selected => @category}) %>
+  <%= submit_tag t('page.search') %>
+<% end %>
 <table class="index">
   <tr>
     <th><%= t('activerecord.attributes.system_configuration.key') -%></th>
