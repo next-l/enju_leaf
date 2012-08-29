@@ -523,7 +523,7 @@ class ManifestationsController < ApplicationController
     fix_query = ""
     query_words.each_with_index do |q, i|
       unless i == 0
-        unless q =~ /^AND$|^OR$|^NOT$|^\(|\)$/ or query_words[i - 1] =~ /^AND$|^OR$|^NOT$|^\(|\)$/ 
+        unless q =~ /^AND$|^OR$|^NOT$|^TO$|^\(|\)$|^\[|\]$/ or query_words[i - 1] =~ /^AND$|^OR$|^NOT$|^\(|\)$|^TO$|^\[|\]$/ 
           if SystemConfiguration.get("search.use_and")
             fix_query = "#{fix_query} AND "
           else
