@@ -512,11 +512,23 @@ class ManifestationsController < ApplicationController
       query = ''
       #  end
     end
-    if SystemConfiguration.get("search.use_and")
-      query = query.gsub(/[ 　\s]+/," AND ")
-    else
-      query = query.gsub(/[ 　\s]+/," OR ")
+
+    query = query.gsub(/[ 　\s]+/," ")
+    query_words = query.split(' ')
+    fix_query = ""
+    query_words.each_with_index do |q, i|
+      unless i == 0
+        unless q =~ /^AND$|^OR$|^NOT$|^\(|\)$/ or query_words[i - 1] =~ /^AND$|^OR$|^NOT$|^\(|\)$/ 
+          if SystemConfiguration.get("search.use_and")
+            fix_query = "#{fix_query} AND "
+          else
+            fix_query = "#{fix_query} OR "
+          end
+        end
+      end
+      fix_query = fix_query + "#{q} "
     end
+    query = fix_query
 
     # advanced_search
     queries = []
@@ -577,6 +589,7 @@ class ManifestationsController < ApplicationController
     unless options[:manifestation_type].blank?
       queries << "manifestation_type_sm:#{options[:manifestation_type]}"
     end
+    
     if SystemConfiguration.get("advanced_search.use_and")
       advanced_query = queries.join(' AND ')
       query = query + " AND " +  advanced_query unless advanced_query.blank?
