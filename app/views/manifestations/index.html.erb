@@ -13,7 +13,7 @@
       parameters = parameter.split('&');
       var fix_parameter = "";
       for(var i = 0; i < parameters.length; i++) {
-        if (!parameters[i].match(/^per_page=/))
+        if (!parameters[i].match(/^per_page=|^page=/))
           fix_parameter += "&" + parameters[i];
       }
       if (fix_parameter != null)
