@@ -2,8 +2,7 @@
 <h1 class="title"><%= t('page.listing', :model => t('activerecord.models.system_configuration')) -%></h1>
 <div id="content_list">
 <%= form_for :system_configurations, :html => {:method => 'get'} do %>
-  <%= select("system_configuration", "category", system_configuration_categories.collect{ |c| [i18n_system_configuration_categories(c), c] }, {:selected => @category}) %>
-  <%= submit_tag t('page.search') %>
+  <%= select("system_configuration", "category", system_configuration_categories.collect{ |c| [i18n_system_configuration_categories(c), c] }, { :selected => @category }, :onchange=>'submit();') %>
 <% end %>
 <table class="index">
   <tr>
