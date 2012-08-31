@@ -447,22 +447,26 @@ class Manifestation < ActiveRecord::Base
       self.issn = m.issn
       unless m.serial_number_string.blank?
         self.serial_number_string = m.serial_number_string.to_i + 1
-        unless m.issue_number.blank?
+        unless m.issue_number_string.blank?
 #          self.issue_number = m.issue_number.split.last.to_i + 1
-          self.issue_number = m.issue_number.last.to_i + 1
+          self.issue_number_string = m.issue_number_string.last.to_i + 1
         else
-          self.issue_number = m.issue_number
+          self.issue_number_string = m.issue_number_string
         end
-        self.volume_number = m.volume_number
+        self.volume_number_string = m.volume_number_string
       else
-        unless m.issue_number.blank?
+        unless m.issue_number_string.blank?
 #          self.issue_number = m.issue_number.split.last.to_i + 1
-          self.issue_number = m.issue_number.last.to_i + 1
-          self.volume_number = m.volume_number_string
+#          self.issue_number_string = m.issue_number.last.to_i + 1
+#          self.issue_number_string = m.issue_number_string.last.to_i + 1
+          self.issue_number_string = m.issue_number_string.to_i + 1
+          self.volume_number_string = m.volume_number_string
         else
-          unless m.volume_number.blank?
+          unless m.volume_number_string.blank?
 #            self.volume_number = m.volume_number.split.last.to_i + 1
-            self.volume_number = m.volume_number.last.to_i + 1
+#            self.volume_number = m.volume_number.last.to_i + 1
+#            self.volume_number_string = m.volume_number_string.last.to_i + 1
+            self.volume_number_string = m.volume_number_string.to_i + 1
           end
         end
       end
