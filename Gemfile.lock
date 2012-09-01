@@ -155,7 +155,7 @@ GIT
 
 GIT
   remote: git://github.com/next-l/enju_biblio.git
-  revision: 7fb6f50136d92d3035e3e22e35cc88c93f4f25c3
+  revision: e4a8965a289e908a0a980efc37931dc9ab38e2f0
   specs:
     enju_biblio (0.1.0.pre7)
       aws-sdk
@@ -289,7 +289,7 @@ GEM
     client_side_validations (3.2.0.beta.6)
     cloudfiles (1.5.0.1)
       json
-    cocaine (0.2.1)
+    cocaine (0.3.0)
     coffee-rails (3.2.2)
       coffee-script (>= 2.2.0)
       railties (~> 3.2.0)
@@ -338,7 +338,7 @@ GEM
     httparty (0.8.3)
       multi_json (~> 1.0)
       multi_xml
-    i18n (0.6.0)
+    i18n (0.6.1)
     immigrant (0.1.2)
       activerecord (>= 3.0)
       foreigner (>= 1.1.6)
@@ -371,10 +371,7 @@ GEM
       addressable
     lisbn (0.1.2)
       nori
-    listen (0.4.7)
-      rb-fchange (~> 0.0.5)
-      rb-fsevent (~> 0.9.1)
-      rb-inotify (~> 0.8.8)
+    listen (0.5.0)
     mail (2.4.4)
       i18n (>= 0.4.0)
       mime-types (~> 1.16)
@@ -449,11 +446,6 @@ GEM
       rdoc (~> 3.4)
       thor (>= 0.14.6, < 2.0)
     rake (0.9.2.2)
-    rb-fchange (0.0.5)
-      ffi
-    rb-fsevent (0.9.1)
-    rb-inotify (0.8.8)
-      ffi (>= 0.5.0)
     rdoc (3.12)
       json (~> 1.4)
     redis (3.0.1)
