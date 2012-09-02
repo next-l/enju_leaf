@@ -41,9 +41,8 @@ end
 
 platforms :jruby do
   gem 'jruby-openssl'
-  gem 'activerecord-jdbc-adapter'
-  gem 'jdbc-postgres', :require => false
-  #gem 'jdbc-mysql', :require => false
+  gem 'activerecord-jdbcpostgresql-adapter'
+  #gem 'activerecord-jdbcmysql-adapter'
   gem 'rubyzip'
   gem 'trinidad', :require => false
 end
