@@ -596,11 +596,14 @@ class ManifestationsController < ApplicationController
     end
     
     if SystemConfiguration.get("advanced_search.use_and")
+
       advanced_query = queries.join(' AND ')
-      query = query + " AND " +  advanced_query unless advanced_query.blank?
+      query = query + " AND " unless query
+      query = query + advanced_query unless advanced_query.blank?
     else
       advanced_query = queries.join(' OR ')
-      query = query + " OR " +  advanced_query unless advanced_query.blank?
+      query = query + " OR " unless query
+      query = query + advanced_query unless advanced_query.blank?
     end
 
     return query
