@@ -61,7 +61,7 @@ gem 'RedCloth', '>= 4.2.9'
 gem 'devise-encryptable'
 #gem 'devise_security_extension'
 gem 'addressable'
-gem 'paperclip', '~> 3.1'
+gem 'paperclip', '~> 3.2'
 gem 'paperclip-meta', '~> 0.4.3'
 gem 'aws-sdk'
 gem 'whenever', :require => false
