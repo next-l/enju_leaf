@@ -1,51 +1,40 @@
 <div id="content_detail" class="ui-corner-all">
 <h1 class="title"><%= t('page.listing', :model => t('activerecord.models.system_configuration')) -%></h1>
 <div id="content_list">
-<%= form_for :system_configurations, :html => {:method => 'get'} do %>
+
+<%= form_for :system_configurations, :url => { :action => "index" }, :html => { :method => 'get' } do %>
   <%= select("system_configuration", "category", system_configuration_categories.collect{ |c| [i18n_system_configuration_categories(c), c] }, { :selected => @category }, :onchange=>'submit();') %>
 <% end %>
-<table class="index">
-  <tr>
-    <th><%= t('activerecord.attributes.system_configuration.key') -%></th>
-    <th><%= t('activerecord.attributes.system_configuration.v') -%></th>
-    <th><%= t('activerecord.attributes.system_configuration.typename') -%></th>
-    <th><%= t('activerecord.attributes.system_configuration.description') -%></th>
-    <th></th>
-  </tr>
 
-<%- @system_configurations.each do |system_configuration| -%>
-  <tr class="line<%= cycle("0", "1") -%>">
-    <td><%= system_configuration.keyname -%></td>
-    <td>
-      <%- if system_configuration.v.length > 15 -%>
-        <%= system_configuration.v.slice(0..15) -%>...
-      <%- else -%>
-        <%= system_configuration.v-%>
-      <%- end -%>
-    </td>
-    <td><%= system_configuration.typename-%></td>
-    <td>
-      <%- if system_configuration.description.length > 15 -%>
-        <%= system_configuration.description.slice(0..15) -%>...
-      <%- else -%>
-        <%= system_configuration.description -%>
-      <%- end -%>
-    </td>
-    <td>
-      <%- if can? :update, system_configuration -%>
-        <%= link_to t('page.edit'), edit_system_configuration_path(system_configuration) -%>
-      <% end %>
-      <%- if false -%>
-        <%- if can? :destroy, system_configuration -%>
-          <%= link_to t('page.destroy'), system_configuration, :confirm => t('page.are_you_sure'), :method => :delete -%>
-        <%- end -%>
-      <%- end -%>
-        <%= link_to t('page.show'), system_configuration -%>
-    </td>
-  </tr>
-<%- end -%>
-</table>
+<br />
+<div style="color: green"><%= notice %></div>
+<%= form_for :system_configurations, :url => { :action => "update" } do |f| %>
+  <% unless @errors.blank? %>
+    <div id="errorExplanation">
+      <h2><%= t('page.error_occured') %> </h2>
+      <ul>
+        <% @errors.each do |error| %>
+          <li><%= error.msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
 
+  <table id="system_configurations">
+    <% @system_configurations.each do |system_configuration| %>
+      <tr>
+        <td id="system_configurations-key">
+          <%= system_configuration.description %>:
+        </td>
+        <td id="system_configurations-value">
+          <%= make_form(system_configuration, @errors) %>
+        </td>
+      </tr>
+    <% end%>
+  </table>
+  <%= hidden_field_tag :category, @category %>
+  <%= submit_tag t('page.update') %>
+<% end %>
 </div>
 </div>
 
