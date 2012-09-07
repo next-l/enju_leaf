@@ -1629,6 +1629,46 @@ en:
     reminder: Reminder
     statistics: Statistics
     sound: Sound
+    disp_date:
+      not_display: Not display
+      christian_era: Christian era
+      japanese_era: Japanese era
+    color:
+      white: white
+      lightgrey: light grey
+      skyblue: sky blue
+      springgreen: spring green
+      yellow: yellow
+      pink: pink
+      red: red
+    boolean_display: "Display"
+    boolean_not_display: "Not display"
+    boolean_do: "Do"
+    boolean_not_do: "Not do"
+    boolean_send: "Send" 
+    boolean_not_send: "Not send"
+    boolean_use: "Use" 
+    boolean_not_use: "Not use"
+    boolean_delete: "Delete"
+    boolean_not_delete: "Not delete"
+    boolean_disable: "Disable"
+    boolean_not_disable: "Not disable"
+    boolean_output_button_all: "All"
+    boolean_output_button_librarian: "Librarian"
+    boolean_item_remove: "after removed"
+    boolean_item_destroy: "immediately destroy"
+    boolean_file: "File"
+    boolean_db: "DB"
+    boolean_and: "AND search"
+    boolean_or: "OR search"
+    boolean_reserve_only_checkout_item: "Only checkout item"
+    boolean_reserve_all_item: "All item"
+    boolean_reserve_able_for_not_item: "Can be reserved"
+    boolean_reserve_not_able_for_not_item: "Can not be reserved"
+    error:
+      over_checkouts_print_message: "checkouts print message exceed the limit. max %{num}."
+      over_reminder_postal_card_message: "reminder postal card message exceed the limit. max %{num}."
+      over_reminder_letter_message: "reminder letter message exceed the limit. max %{num}."
   manifestation_relationships:
     no_parent_id: "Not found parent id"
     no_child_id: "Not found child id"

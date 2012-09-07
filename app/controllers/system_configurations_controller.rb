@@ -10,57 +10,31 @@ class SystemConfigurationsController < ApplicationController
     @system_configurations = SystemConfiguration.where(:category => @category)
   end
 
-  def new
-    @system_configuration = SystemConfiguration.new
-  end
-
-  def create
-    @system_configuration = SystemConfiguration.new(params[:system_configuration])
-
-    respond_to do |format|
-      if @system_configuration.save
-        flash[:notice] = t('controller.successfully_created', :model => t('activerecord.models.system_configuration'))
-        format.html { redirect_to(@system_configuration) }
-        format.json { render :json => @system_configuration, :status => :created, :location => @system_configuration }
-      else
-        #prepare_options
-        format.html { render :action => "new" }
-        format.json { render :json => @system_configuration.errors, :status => :unprocessable_entity }
+  def update
+    @errors = []
+    error = Struct.new(:id, :msg, :v)
+    params[:system_configurations].each do |id, value|
+      begin
+        system_configuration = SystemConfiguration.find(id.to_i)
+        system_configuration.v = value
+        system_configuration.save!
+      rescue Exception => e
+        @errors << error.new(id, e, value)
+        logger.error "system_configurations update error: #{e}"
       end
     end
-  end
-
-  def edit
-    @system_configuration = SystemConfiguration.find(params[:id])
-  end
-
-  def update
-    @system_configuration = SystemConfiguration.find(params[:id])
-
+  
     respond_to do |format|
-      if @system_configuration.update_attributes(params[:system_configuration])
-        flash[:notice] = t('controller.successfully_updated', :model => t('activerecord.models.system_configuration'))
-        format.html { redirect_to(@system_configuration) }
+      if @errors.blank?
+        format.html { redirect_to system_configurations_path(:system_configuration => { :category => params[:category] }),
+          :notice => t('controller.successfully_updated', :model => t('activerecord.models.system_configuration')) }
         format.json { head :no_content }
       else
-        #prepare_options
-        format.html { render :action => "edit" }
-        format.json { render :json => @system_configuration.errors, :status => :unprocessable_entity }
+        @category = params[:category]
+        @system_configurations = SystemConfiguration.where(:category => @category)
+        format.html { render :action => "index" }
+        format.json { render :json => @system_configurations.errors, :status => :unprocessable_entity }
       end
-    end
-  end
-
-  def show
-    @system_configuration = SystemConfiguration.find(params[:id])
-  end
-
-  def destroy
-    @system_configuration = SystemConfiguration.find(params[:id])
-    @system_configuration.destroy
-
-    respond_to do |format|
-      format.html { redirect_to(system_configurations_url) }
-      format.json { head :no_content }
-    end
+    end    
   end
 end
