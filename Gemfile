@@ -36,6 +36,7 @@ end
 
 gem 'will_paginate', '~> 3.0'
 gem 'configatron'
+gem 'settingslogic'
 gem 'delayed_job_active_record'
 gem 'daemons'
 gem 'exception_notification', '~> 2.5.2'
