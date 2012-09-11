@@ -1,6 +1,6 @@
 <div id="manifestation">
 <h2><%= t('page.listing', :model => t('activerecord.models.manifestation')) -%></h2>
-  <%= will_paginate(@manifestations, :param_name => :manifestation_page, :class => 'content_pagination digg_pagination') -%>
+  <%= paginate(@manifestations, :param_name => :manifestation_page, :class => 'content_pagination digg_pagination') -%>
   <table class="index">
     <%- @manifestations.each do |manifestation| -%>
       <% next if manifestation.periodical_master? %>
@@ -11,5 +11,5 @@
       </tr>
     <%- end -%>
   </table>
-  <%= will_paginate(@manifestations, :param_name => :manifestation_page, :class => 'content_pagination digg_pagination') -%>
+  <%= paginate(@manifestations, :param_name => :manifestation_page, :class => 'content_pagination digg_pagination') -%>
 </div>
