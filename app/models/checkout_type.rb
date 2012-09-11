@@ -13,9 +13,7 @@ class CheckoutType < ActiveRecord::Base
   has_many :items
   has_many :statistics
 
-  def self.per_page
-    10
-  end
+  paginates_per 10
 end
 
 # == Schema Information

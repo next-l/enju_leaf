@@ -10,9 +10,7 @@ class Own < ActiveRecord::Base
 
   acts_as_list :scope => :item
 
-  def self.per_page
-    10
-  end
+  paginates_per 10
   attr_accessor :item_identifier
 
   def reindex

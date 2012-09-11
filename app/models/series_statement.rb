@@ -20,9 +20,7 @@ class SeriesStatement < ActiveRecord::Base
 
   normalize_attributes :original_title, :issn
 
-  def self.per_page
-    10
-  end
+  paginates_per 10
 
   def last_issue
     manifestations.where('serial_number IS NOT NULL').order('serial_number DESC').first || manifestations.first

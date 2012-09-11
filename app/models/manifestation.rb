@@ -216,9 +216,7 @@ class Manifestation < ActiveRecord::Base
   attr_accessible :delete_attachment
   attr_protected :periodical_master
 
-  def self.per_page
-    10
-  end
+  paginates_per 10
 
   if defined?(EnjuBookmark)
     has_many :bookmarks, :include => :tags, :dependent => :destroy, :foreign_key => :manifestation_id

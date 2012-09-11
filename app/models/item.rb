@@ -69,9 +69,7 @@ class Item < ActiveRecord::Base
 
   attr_accessor :library_id, :manifestation_id, :use_restriction_id
 
-  def self.per_page
-    10
-  end
+  paginates_per 10
 
   def set_circulation_status
     self.circulation_status = CirculationStatus.where(:name => 'In Process').first if self.circulation_status.nil?

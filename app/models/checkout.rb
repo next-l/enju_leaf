@@ -23,9 +23,7 @@ class Checkout < ActiveRecord::Base
   validate :is_not_checked?, :on => :create
   validates_date :due_date
 
-  def self.per_page
-    10
-  end
+  paginates_per 10
 
   def day_of_overdue
     due_date_datetype = due_date.strftime("%Y-%m-%d")
