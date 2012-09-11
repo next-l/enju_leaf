@@ -40,8 +40,8 @@ class ReservelistsController < ApplicationController
 
     respond_to do |format|
       format.html # index.html.erb
-      format.pdf { send_data Reserve.get_reservelist_pdf(@displist).generate, :filename => configatron.reservelist_report_pdf.filename }
-      format.tsv { send_data Reserve.get_reservelist_tsv(@displist), :filename => configatron.reservelist_report_tsv.filename }
+      format.pdf { send_data Reserve.get_reservelist_pdf(@displist).generate, :filename => Setting.reservelist_report_pdf.filename }
+      format.tsv { send_data Reserve.get_reservelist_tsv(@displist), :filename => Setting.reservelist_report_tsv.filename }
     end
   end
 end

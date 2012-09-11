@@ -34,8 +34,9 @@ platforms :ruby_19 do
   gem 'simplecov', '~> 0.6', :require => false, :group => :test
 end
 
+gem 'roo'
+
 gem 'will_paginate', '~> 3.0'
-gem 'configatron'
 gem 'settingslogic'
 gem 'delayed_job_active_record'
 gem 'daemons'

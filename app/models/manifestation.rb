@@ -186,7 +186,7 @@ class Manifestation < ActiveRecord::Base
   #has_ipaper_and_uses 'Paperclip'
   #enju_scribd
   has_paper_trail
-  if configatron.uploaded_file.storage == :s3
+  if Setting.uploaded_file.storage == :s3
     has_attached_file :attachment, :storage => :s3, :s3_credentials => "#{Rails.root.to_s}/config/s3.yml"
   else
     has_attached_file :attachment

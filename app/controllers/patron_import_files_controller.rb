@@ -17,7 +17,7 @@ class PatronImportFilesController < ApplicationController
   # GET /patron_import_files/1.json
   def show
     if @patron_import_file.patron_import.path
-      unless configatron.uploaded_file.storage == :s3
+      unless Setting.uploaded_file.storage == :s3
         file = @patron_import_file.patron_import.path
       end
     end
@@ -26,7 +26,7 @@ class PatronImportFilesController < ApplicationController
       format.html # show.html.erb
       format.json { render :json => @patron_import_file }
       format.download {
-        if configatron.uploaded_file.storage == :s3
+        if Setting.uploaded_file.storage == :s3
           redirect_to @patron_import_file.patron_import.expiring_url(10)
         else
           send_file file, :filename => @patron_import_file.patron_import_file_name, :type => 'application/octet-stream'

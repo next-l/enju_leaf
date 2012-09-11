@@ -17,7 +17,7 @@ class ResourceImportFilesController < ApplicationController
   # GET /resource_import_files/1.json
   def show
     if @resource_import_file.resource_import.path
-      unless configatron.uploaded_file.storage == :s3
+      unless Setting.uploaded_file.storage == :s3
         file = @resource_import_file.resource_import.path
       end
     end
@@ -26,7 +26,7 @@ class ResourceImportFilesController < ApplicationController
       format.html # show.html.erb
       format.json { render :json => @resource_import_file }
       format.download {
-        if configatron.uploaded_file.storage == :s3
+        if Setting.uploaded_file.storage == :s3
           redirect_to @resource_import_file.resource_import.expiring_url(10)
         else
           send_file file, :filename => @resource_import_file.resource_import_file_name, :type => 'application/octet-stream'
@@ -39,7 +39,7 @@ class ResourceImportFilesController < ApplicationController
   # GET /resource_import_files/new.json
   def new
     @resource_import_file = ResourceImportFile.new
-    @file_path = root_url + configatron.resource_import_template
+    @file_path = root_url + Setting.resource_import_template
     respond_to do |format|
       format.html # new.html.erb
       format.json { render :json => @resource_import_file }

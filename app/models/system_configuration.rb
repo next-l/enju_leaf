@@ -26,8 +26,6 @@ class SystemConfiguration < ActiveRecord::Base
       typename = s.typename
     end
 
-    #value = SystemConfiguration.where(:keyname => keyname).first.v rescue nil
-    #typename = SystemConfiguration.where(:keyname => keyname).first.typename rescue nil
     if value and typename
       case typename
       when "Text"
@@ -44,7 +42,7 @@ class SystemConfiguration < ActiveRecord::Base
         return value.to_i
       end
     else
-      return eval("configatron.#{keyname}") 
+      return eval("Setting.#{keyname}") 
     end
   end
 

@@ -46,9 +46,9 @@ class RetainedManifestationsController < ApplicationController
     respond_to do |format|
       format.html # index.html.erb
       format.pdf { send_data Reserve.get_retained_manifestation_list_pdf(@retained_manifestations).generate, 
-        :filename => configatron.configatron.retained_manifestation_list_print_pdf.filename }
+        :filename => Setting.retained_manifestation_list_print_pdf.filename }
       format.tsv { send_data Reserve.get_retained_manifestation_list_tsv(@retained_manifestations), 
-        :filename => configatron.configatron.retained_manifestation_list_print_tsv.filename  }
+        :filename => Setting.retained_manifestation_list_print_tsv.filename  }
     end
   end
 

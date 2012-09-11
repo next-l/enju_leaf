@@ -13,7 +13,7 @@ class PatronImportResultsController < InheritedResources::Base
 
     if params[:format] == 'tsv'
       respond_to do |format|
-        format.tsv { send_data PatronImportResult.get_patron_import_results_tsv(@patron_import_results), :filename => configatron.patron_import_results_print_tsv.filename }
+        format.tsv { send_data PatronImportResult.get_patron_import_results_tsv(@patron_import_results), :filename => Setting.patron_import_results_print_tsv.filename }
       end
     end
   end

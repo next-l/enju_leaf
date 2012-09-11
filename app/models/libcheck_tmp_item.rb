@@ -33,7 +33,7 @@ class LibcheckTmpItem < ActiveRecord::Base
     unless File.exist?(in_file_name)
       logger.error "#{in_file_name} is not found"
     else # found!
-      serial_types = configatron.libcheck_serial
+      serial_types = Setting.libcheck_serial
       serial_types = [] if serial_types.nil?
 
       File.open(in_file_name) do |f|

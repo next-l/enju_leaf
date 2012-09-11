@@ -70,12 +70,12 @@ class CheckoutsController < ApplicationController
       #format.csv
       format.pdf  { 
         if @user
-          send_data Checkout.output_checkouts(checkouts, @user, current_user).generate, :filename => configatron.checkouts_print.filename
+          send_data Checkout.output_checkouts(checkouts, @user, current_user).generate, :filename => Setting.checkouts_print.filename
         else
-          send_data Checkout.output_checkoutlist_pdf(checkouts, params[:view]).generate, :filename => configatron.checkout_list_print_pdf.filename 
+          send_data Checkout.output_checkoutlist_pdf(checkouts, params[:view]).generate, :filename => Setting.checkout_list_print_pdf.filename 
         end
       }
-      format.tsv  { send_data Checkout.output_checkoutlist_csv(checkouts, params[:view]), :filename => configatron.checkout_list_print_tsv.filename }
+      format.tsv  { send_data Checkout.output_checkoutlist_csv(checkouts, params[:view]), :filename => Setting.checkout_list_print_tsv.filename }
       format.atom
     end
   end
