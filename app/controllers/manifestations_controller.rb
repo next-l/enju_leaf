@@ -243,9 +243,9 @@ class ManifestationsController < ApplicationController
       else
         max_count = @count[:query_result]
       end
-      @manifestations = WillPaginate::Collection.create(page, per_page, max_count) do |pager|
-        pager.replace(search_result.results)
-      end
+      @manifestations = Kaminari.paginate_array(
+        search_result.results, :total_count => max_count
+      ).page(page)
       get_libraries
 
       if params[:format].blank? or params[:format] == 'html'
@@ -266,7 +266,8 @@ class ManifestationsController < ApplicationController
         end
       end
 
-      save_search_history(query, @manifestations.offset, @count[:query_result], current_user)
+      save_search_history(query, @manifestations.limit_value, @count[:query_result], current_user)
+
       if params[:format] == 'oai'
         unless @manifestations.empty?
           set_resumption_token(params[:resumptionToken], @from_time || Manifestation.last.updated_at, @until_time || Manifestation.first.updated_at)

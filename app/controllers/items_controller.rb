@@ -19,7 +19,7 @@ class ItemsController < ApplicationController
   # GET /items.json
   def index
     query = params[:query].to_s.strip
-    per_page = Item.per_page
+    per_page = Item.default_per_page
     @count = {}
     if user_signed_in?
       if current_user.has_role?('Librarian')

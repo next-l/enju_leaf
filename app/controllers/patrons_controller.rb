@@ -84,7 +84,7 @@ class PatronsController < ApplicationController
     end
 
     page = params[:page] || 1
-    search.query.paginate(page.to_i, Patron.per_page)
+    search.query.paginate(page.to_i, Patron.default_per_page)
     @patrons = search.execute!.results
 
     respond_to do |format|
@@ -104,12 +104,11 @@ class PatronsController < ApplicationController
       access_denied; return
     end
 
-    get_work; get_expression; get_manifestation; get_item
-    case
+    #get_work; get_expression; get_manifestation; get_item
+
+    case 
     when @work
       @patron = @work.creators.find(params[:id])
-    when @expression
-      @patron = @expression.contributors.find(params[:id])
     when @manifestation
       @patron = @manifestation.publishers.find(params[:id])
     when @item
@@ -120,9 +119,23 @@ class PatronsController < ApplicationController
       end
     end
 
-    @works = @patron.works.page(params[:work_list_page]).per_page(Manifestation.per_page)
-    @expressions = @patron.expressions.page(params[:expression_list_page]).per_page(Manifestation.per_page)
-    @manifestations = @patron.manifestations.order('date_of_publication DESC').page(params[:manifestation_list_page]).per_page(Manifestation.per_page)
+    patron = @patron
+    role = current_user.try(:role) || Role.default_role
+    @works = Manifestation.search do
+      with(:creator_ids).equal_to patron.id
+      with(:required_role_id).less_than_or_equal_to role.id
+      paginate :page => params[:work_list_page], :per_page => Manifestation.default_per_page
+    end.results
+    @expressions = Manifestation.search do
+      with(:contributor_ids).equal_to patron.id
+      with(:required_role_id).less_than_or_equal_to role.id
+      paginate :page => params[:expression_list_page], :per_page => Manifestation.default_per_page
+    end.results
+    @manifestations = Manifestation.search do
+      with(:publisher_ids).equal_to patron.id
+      with(:required_role_id).less_than_or_equal_to role.id
+      paginate :page => params[:manifestation_list_page], :per_page => Manifestation.default_per_page
+    end.results
 
     respond_to do |format|
       format.html # show.html.erb
