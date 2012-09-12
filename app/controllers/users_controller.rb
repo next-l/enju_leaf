@@ -36,7 +36,7 @@ class UsersController < ApplicationController
         facet :library
         facet :role
         facet :patron_type
-        paginate :page => page.to_i, :per_page => User.per_page
+        paginate :page => page.to_i, :per_page => User.default_per_page
       end
     end
     @users = @search.execute!.results
