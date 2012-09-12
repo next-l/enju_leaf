@@ -28,7 +28,7 @@ class PurchaseRequestsController < ApplicationController
     if params[:format] == 'tsv'
       per_page = 65534
     else
-      per_page = PurchaseRequest.per_page
+      per_page = PurchaseRequest.default_per_page
     end
 
     query = params[:query].to_s.strip
