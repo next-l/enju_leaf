@@ -297,13 +297,13 @@ defaults: &defaults
   new_book_term: 14
 
   # refs 3127 ユーザー権限以下でログイン時、購入リクエスト画面を表示するかどうか。trueのとき表示
-  user_show_purchase_requests
+  user_show_purchase_requests:
 
   # refs 3127 ユーザー権限以下でログイン時、質問(レファレンス)ト画面を表示するかどうか。trueのとき表示
-  user_show_questions
+  user_show_questions:
 
   # refs 3128 発注リストを使用するかどうか。trueのとき使用可能
-  use_order_lists
+  use_order_lists:
 
   # 書影
   manifestation_book_jacket:
