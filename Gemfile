@@ -97,7 +97,7 @@ group :development, :test do
   gem 'ruby-prof', :platforms => :mri_19
   gem 'rspec-rails', '~> 2.11'
   gem 'guard-rspec'
-  gem 'factory_girl_rails', '~> 4.0'
+  gem 'factory_girl_rails', '~> 4.1'
   gem 'spork-rails'
   gem 'timecop'
   gem 'sunspot-rails-tester', :git => 'git://github.com/justinko/sunspot-rails-tester.git'
