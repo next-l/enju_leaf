@@ -42,7 +42,12 @@ class SystemConfiguration < ActiveRecord::Base
         return value.to_i
       end
     else
-      return eval("Setting.#{keyname}") 
+      begin
+        v = eval("Setting.#{keyname}") 
+      rescue
+        logger.warn "key not found: #{keyname}"
+      end
+      return v
     end
   end
 

@@ -63,8 +63,10 @@ defaults: &defaults
   advanced_search:
     use_and: true
 
-  # refs 3806 資料の検索結果一覧の表示件数のセレクタ値
   manifestations:
+    # refs 2601 すべてのユーザに検索結果の一覧の取得が出来るようにする
+    users_show_output_button: false
+    # refs 3806 資料の検索結果一覧の表示件数のセレクタ値
     per_page: '10, 20, 50, 100'
 
   send_message:
@@ -279,10 +281,6 @@ defaults: &defaults
     unable:
       background: "yellow"
   
-  # refs 2601 すべてのユーザに検索結果の一覧の取得が出来るようにする
-  manifestations:
-    users_show_output_button: false
-
   # refs 1989 trueの場合 => itemがひとつだけのmanifestationのitemを削除するとき、除籍してからのみ削除できる
   items:
     confirm_destroy = true
