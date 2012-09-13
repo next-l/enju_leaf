@@ -19,7 +19,7 @@ $(function() {
 </div>
 
 <div id="opac_content_detail"> 
-  <% if @manifestations && (@manifestations.total_entries > 0) %> 
+  <% if @manifestations && (@manifestations.size > 0) %> 
     <p>
       <%= t('page.number_of_search_results', 
         :count => @count[:query_result], 
@@ -70,7 +70,7 @@ $(function() {
         </tr>
       <% end %>
     </table>
-    <%= will_paginate(@manifestations) -%>
+    <%= paginate(@manifestations) -%>
   <% else %>
     <%= render 'manifestations/not_found' %>
   <% end %>
