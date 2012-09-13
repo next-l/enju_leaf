@@ -1,0 +1,42 @@
+<div class="push_touchpanel">
+  <%= t('opac.push_touchpanel') %>
+</div>
+
+<div id="opac_contents">
+  <div id="opac_topmenu">
+    <%= link_to opac_search_path do %>
+      <div id="opac_search_col">
+        <h1><img src="/assets/opac/book.png"/ style="width:20px;">&nbsp<%= t('opac.catalog_search') %></h1>
+      </div>
+    <% end %>
+    <%= link_to new_user_session_path do %>
+      <div id="opac_session_col"><%= t('opac.edit_user') %></div>
+    <% end %>
+    <div id="opac_easy">
+      <%= link_to manifestation_exstats_bestreader_path do %>
+        <div class="opac_bestreader"><%= t('opac.best_reader') %></div>
+      <% end %>
+      <%= link_to manifestation_exstats_bestrequest_path do %>
+        <div class="opac_bestrequest"><%= t('opac.best_request') %></div>
+      <% end %>
+    </div>
+  </div>
+
+  <div id="opac_news">
+    <h3><%= t('opac.news') %></h3>
+    <pre id="opac_news_box">
+      2012/09/10: aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa<br />
+      2012/09/08: bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb<br />
+      2012/09/07: ccccccccccccccccccccccccccccccc<br />
+      2012/09/10: aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa<br />
+      2012/09/10: aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa<br />
+      2012/09/10: aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa<br />
+      2012/09/08: bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb<br />
+      2012/09/07: ccccccccccccccccccccccccccccccc<br />
+      2012/09/08: bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb<br />
+      2012/09/07: ccccccccccccccccccccccccccccccc<br />
+      2012/09/08: bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb<br />
+      2012/09/07: ccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc<br />
+    </pre>
+  </div>
+</div>

@@ -1,0 +1,205 @@
+// Place all the styles related to the opac controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+div#opac_content {
+  margin:0 auto;
+  width:900px;
+  padding: 0 10px;
+}
+div#opac_content, div#opac_content p, div#opac_content td {
+  font-size: 16px;
+}
+
+div#opac_header {
+  width: 100%;
+  margin-bottom: 50px;
+  padding: 20px 10px;
+  text-align: right;
+  overflow: auto;
+  background: -webkit-gradient(linear, left top, left bottom, from(#DDD), to(#FFF));
+  border-top: 2px solid #000;
+  border-bottom: 15px solid #63CBF7;
+}
+div.opac_title {
+  float: left;
+}
+
+div.opac_head_button_area {
+  float: right;
+}
+.opac_head_button {
+  float: left;
+  width: 120px;
+  padding: 10px 0;
+  text-align: center;
+  font-weight: 900;
+  margin-left: 10px;
+  border: 1px solid #ccc;
+  background: -webkit-gradient(linear, left top, left bottom, from(#fff), to(#ddd));
+  border-radius: 5px;         /* CSS3 */
+  -moz-border-radius: 5px;    /* Firefox */
+  -webkit-border-radius: 5px; /* Safari,Chrome */
+  text-decoration: none;
+}
+
+div#opac_content table {
+  border: none;
+}
+div#opac_content th, div#opac_content td {
+  border: none;
+  padding: 5px
+}
+
+tr.opac_line0 {
+  background-color: #EEE;
+}
+tr.opac_line1 {
+  background-color: #FFF;
+}
+tr.opac_manifestations_row:hover td {
+  cursor: pointer;
+  background-color: #A2DCEA ;
+}
+
+div.push_touchpanel{
+  width: 100%;
+  font-size: 25px;
+  padding: 20px 0;
+  margin-bottom: 50px; 
+  border-top: 2px solid #000;
+  text-align: center;
+  background: -webkit-gradient(linear, left top, left bottom, from(#DDD), to(#FFF));
+}
+
+div#opac_topmenu {
+  width: 400px;
+  float: left;
+}
+
+div#opac_search_col, div#opac_session_col {
+  width: 100%;
+  color: white;
+  margin-bottom: 10px;
+  border-radius: 10px;         /* CSS3 */
+  -moz-border-radius: 10px;    /* Firefox */
+  -webkit-border-radius: 10px; /* Safari,Chrome */
+}
+
+div#opac_topmenu a {
+  color: white;
+  font-weight: 900;
+  text-decoration: none;
+}
+div#opac_topmenu a:hover {
+  background: #5970b2;
+  color: red;
+}
+div#opac_topmenu a:active{
+   border-top-color: #3151a6;
+   background: #3151a6;
+  }
+
+#opac_search_col {
+  padding: 50px 20px;
+  background: -webkit-gradient(linear, left top, left bottom, from(#A2DCEA), to(#17649A));
+}
+
+div#opac_session_col {
+  padding: 20px 20px;
+  background: -webkit-gradient(linear, left top, left bottom, from(#396A92), to(#091D42));
+}
+
+div#opac_easy div {
+  width: 170px;
+  float: left; 
+  background: -webkit-gradient(linear, left top, left bottom, from(#396A92), to(#091D42));
+  border-radius: 10px;         /* CSS3 */
+  -moz-border-radius: 10px;    /* Firefox */
+  -webkit-border-radius: 10px; /* Safari,Chrome */
+  padding: 20px 10px;
+}
+div.opac_bestreader {
+  margin-right: 5px;
+}
+
+div#opac_news {
+  margin-left: 100px;
+  width: 400px;
+  float: left;
+}
+pre#opac_news_box {
+  font-size: 16px;
+}
+
+input.opac_search_button {
+  width: 100px;
+  padding: 5px;
+  font-size: 20px;
+  font-weight: 900;
+  color: white;
+  background: -webkit-gradient(linear, left top, left bottom, from(#444), to(#000));
+  border-radius: 10px;         /* CSS3 */
+  -moz-border-radius: 10px;    /* Firefox */
+  -webkit-border-radius: 10px; /* Safari,Chrome */
+}
+div#opac_search .text-field {
+  font-size: 20px;
+  width: 400px;
+}
+div#opac_search .date-text-field {
+  font-size: 20px;
+  width: 190px;
+}
+
+.opac_sort_button_on, .opac_sort_button_off {
+  color: white;
+  font-weight: 900px;
+  width: 160px;
+  padding: 10px 7px;
+  margin-right: 5px;
+  margin-bottom: 20px;
+  text-align: center;
+  float: left;
+  border-radius: 5px;         /* CSS3 */
+  -moz-border-radius: 5px;    /* Firefox */
+  -webkit-border-radius: 5px; /* Safari,Chrome */
+  text-decoration: none;
+}
+.opac_sort_button_on {
+  background: -webkit-gradient(linear, left top, left bottom, from(#D8E988), to(#9CBD00));
+}
+.opac_sort_button_off {
+  background: -webkit-gradient(linear, left top, left bottom, from(#396A92), to(#091D42));
+}
+
+.opac_output_button {
+  color: white;
+  font-weight: 900px;
+  width: 200px;
+  padding: 10px 7px;
+  margin-right: 5px;
+  margin-bottom: 20px;
+  text-align: center;
+  float: left;
+  background: -webkit-gradient(linear, left top, left bottom, from(#396A92), to(#091D42));
+  border-radius: 10px;         /* CSS3 */
+  -moz-border-radius: 10px;    /* Firefox */
+  -webkit-border-radius: 10px; /* Safari,Chrome */
+  text-decoration: none;
+}
+.opac_reserve_button {
+  color: white;
+  font-weight: 900px;
+  width: 200px;
+  padding: 10px 7px;
+  margin-right: 5px;
+  margin-bottom: 20px;
+  text-align: center;
+  float: left;
+  background: -webkit-gradient(linear, left top, left bottom, from(#396A92), to(#091D42));
+  border-radius: 10px;         /* CSS3 */
+  -moz-border-radius: 10px;    /* Firefox */
+  -webkit-border-radius: 10px; /* Safari,Chrome */
+  text-decoration: none;
+}

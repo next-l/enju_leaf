@@ -465,6 +465,9 @@ EnjuLeaf::Application.routes.draw do
   match '/page/routing_error' => 'page#routing_error'
   match '/page/extensions' => 'page#extensions'
 
+  match '/opac' => 'opac#index'
+  match '/opac/search' => 'opac#search'
+
   match '/checkoutlists' => 'checkoutlists#index'
   match '/reservelists' => 'reservelists#index'
   match '/unablelist' => 'unablelist#index'

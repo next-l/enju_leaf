@@ -2136,3 +2136,21 @@ ja:
     no_child_id: "指定の派生先の資料ID が見つかりません。"
   function_key:
     will_move: "フォームに値が入力されています。画面遷移してもよろしいですか。"
+
+  opac:
+    finish: 終わる
+    push_touchpanel: 希望の項目を押してください
+    catalog_search: 資料の検索
+    edit_user: 利用者情報の変更
+    news: 図書館からのお知らせ
+    best_reader: ベストリーダ
+    best_request: ベストリクエスト
+    search:
+      input_keyword: キーワードを入力してください
+      keypad:
+        kana: カナ
+        alnum: 英数
+        space: スペース
+        back: 最後から一文字消す
+        clear: 全部消す
+      sort: "%{target}順に並べる"
