@@ -5,6 +5,7 @@
 //= require jquery.highlight-3
 //= require jquery.hotkeys
 //= require jquery.cookie
+//= require jquery.keypad
 //= require fg.menu
 //= require fg.menu.enju
 //= require pagination

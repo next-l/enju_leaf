@@ -278,6 +278,7 @@ class ManifestationsController < ApplicationController
     store_location # before_filter ではファセット検索のURLを記憶してしまう
 
     respond_to do |format|
+      format.html { render :template => 'opac/manifestations_index', :layout => 'opac' } if params[:opac]
       format.html
       format.mobile
       format.xml  { render :xml => @manifestations }
@@ -362,6 +363,7 @@ class ManifestationsController < ApplicationController
     end
 
     respond_to do |format|
+      format.html { render :template => 'opac/manifestations_show', :layout => 'opac' } if params[:opac]
       format.html # show.html.erb
       format.mobile
       format.xml  {
@@ -501,6 +503,7 @@ class ManifestationsController < ApplicationController
     @manifestation = Manifestation.find(params[:id])
     data = Manifestation.get_manifestation_locate(@manifestation, current_user)
     send_data data.generate, :filename => configatron.manifestation_locate_print.filename
+
   end
   
   private
