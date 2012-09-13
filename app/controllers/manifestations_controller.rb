@@ -15,6 +15,7 @@ class ManifestationsController < ApplicationController
   include EnjuOai::OaiController if defined?(EnjuOai)
   include EnjuSearchLog if defined?(EnjuSearchLog)
   include ApplicationHelper
+  include ManifestationsHelper
 
   # GET /manifestations
   # GET /manifestations.json
@@ -30,6 +31,7 @@ class ManifestationsController < ApplicationController
       end
     end
 
+    per_page = per_pages[0] if per_pages
     @seconds = Benchmark.realtime do
       @oai = check_oai_params(params)
       next if @oai[:need_not_to_search]
@@ -130,12 +132,12 @@ class ManifestationsController < ApplicationController
         order_by :created_at, :desc unless oai_search
         order_by :updated_at, :desc if oai_search
         with(:subject_ids).equal_to subject.id if subject
-        if series_statement
-          with(:series_statement_id).equal_to series_statement.id
-          with(:periodical).equal_to true
-        else
-          with(:periodical).equal_to false
-        end
+        #if series_statement
+        #  with(:series_statement_id).equal_to series_statement.id
+        #  with(:periodical).equal_to true
+        #else
+        #  with(:periodical).equal_to false
+        #end
         facet :reservable
       end
       search = make_internal_query(search)
@@ -185,10 +187,10 @@ class ManifestationsController < ApplicationController
         end.execute.results
         if params[:output_pdf]
           data = Manifestation.get_manifestation_list_pdf(manifestations_for_output, current_user)
-          send_data data.generate, :filename => configatron.manifestation_list_print_pdf.filename
+          send_data data.generate, :filename => Setting.manifestation_list_print_pdf.filename
         elsif params[:output_tsv]
           data = Manifestation.get_manifestation_list_tsv(manifestations_for_output, current_user)
-          send_data data, :filename => configatron.manifestation_list_print_tsv.filename
+          send_data data, :filename => Setting.manifestation_list_print_tsv.filename
         end
         return 
       end
@@ -211,7 +213,10 @@ class ManifestationsController < ApplicationController
         end
       end
       page ||= params[:page] || 1
-      per_page ||= Manifestation.per_page
+      per_page = cookies[:per_page] if cookies[:per_page]
+      per_page = params[:per_page] if params[:per_page]#Manifestation.per_page
+      @per_page = per_page
+      cookies.permanent[:per_page] = { :value => per_page }
       if params[:format] == 'sru'
         search.query.start_record(params[:startRecord] || 1, params[:maximumRecords] || 200)
       else
@@ -238,9 +243,9 @@ class ManifestationsController < ApplicationController
       else
         max_count = @count[:query_result]
       end
-      @manifestations = WillPaginate::Collection.create(page, per_page, max_count) do |pager|
-        pager.replace(search_result.results)
-      end
+      @manifestations = Kaminari.paginate_array(
+        search_result.results, :total_count => max_count
+      ).page(page)
       get_libraries
 
       if params[:format].blank? or params[:format] == 'html'
@@ -261,7 +266,8 @@ class ManifestationsController < ApplicationController
         end
       end
 
-      save_search_history(query, @manifestations.offset, @count[:query_result], current_user)
+      save_search_history(query, @manifestations.limit_value, @count[:query_result], current_user)
+
       if params[:format] == 'oai'
         unless @manifestations.empty?
           set_resumption_token(params[:resumptionToken], @from_time || Manifestation.last.updated_at, @until_time || Manifestation.first.updated_at)
@@ -349,7 +355,7 @@ class ManifestationsController < ApplicationController
     store_location
 
     if @manifestation.attachment.path
-      if configatron.uploaded_file.storage == :s3
+      if Setting.uploaded_file.storage == :s3
         data = open(@manifestation.attachment.url).read.force_encoding('UTF-8')
       else
         file = @manifestation.attachment.path
@@ -375,7 +381,7 @@ class ManifestationsController < ApplicationController
       #format.js
       format.download {
         if @manifestation.attachment.path
-          if configatron.uploaded_file.storage == :s3
+          if Setting.uploaded_file.storage == :s3
             send_data @manifestation.attachment.data, :filename => @manifestation.attachment_file_name, :type => 'application/octet-stream'
           else
             send_file file, :filename => @manifestation.attachment_file_name, :type => 'application/octet-stream'
@@ -495,97 +501,110 @@ class ManifestationsController < ApplicationController
   def output_show
     @manifestation = Manifestation.find(params[:id])
     data = Manifestation.get_manifestation_locate(@manifestation, current_user)
-    send_data data.generate, :filename => configatron.manifestation_locate_print.filename
+    send_data data.generate, :filename => Setting.manifestation_locate_print.filename
   end
   
   private
   def make_query(query, options = {})
     # TODO: integerやstringもqfに含める
+    # query
     query = query.to_s.strip
-
     if query.size == 1
       query = "#{query}*"
     end
-
-    if options[:mode] == 'recent'
-      query = "#{query} created_at_d:[NOW-1MONTH TO NOW] AND except_recent_b:false"
+    query = query.strip
+    if query == '[* TO *]'
+      #  unless params[:advanced_search]
+      query = ''
+      #  end
     end
 
-    #unless options[:carrier_type].blank?
-    #  query = "#{query} carrier_type_s:#{options[:carrier_type]}"
-    #end
+    query = query.gsub(/[ 　\s]+/," ")
+    query_words = query.split(' ')
+    fix_query = ""
+    query_words.each_with_index do |q, i|
+      unless i == 0
+        unless q =~ /^AND$|^OR$|^NOT$|^TO$|^\(|\)$|^\[|\]$/ or query_words[i - 1] =~ /^AND$|^OR$|^NOT$|^\(|\)$|^TO$|^\[|\]$/ 
+          if SystemConfiguration.get("search.use_and")
+            fix_query = "#{fix_query} AND "
+          else
+            fix_query = "#{fix_query} OR "
+          end
+        end
+      end
+      fix_query = fix_query + "#{q} "
+    end
+    query = fix_query
 
+    # advanced_search
+    queries = []
+    #unless options[:carrier_type].blank?
+    #  queries << "carrier_type_s:#{options[:carrier_type]}"
+    #end
     #unless options[:library].blank?
     #  library_list = options[:library].split.uniq.join(' and ')
-    #  query = "#{query} library_sm:#{library_list}"
+    #  queries << "library_sm:#{library_list}"
     #end
-
     #unless options[:language].blank?
-    #  query = "#{query} language_sm:#{options[:language]}"
+    #  queries << "language_sm:#{options[:language]}"
     #end
-
     #unless options[:subject].blank?
-    #  query = "#{query} subject_sm:#{options[:subject]}"
+    #  queries << "subject_sm:#{options[:subject]}"
     #end
-
     unless options[:tag].blank?
-      query = "#{query} tag_sm:#{options[:tag]}"
+      queries << "tag_sm:#{options[:tag]}"
     end
-
     unless options[:creator].blank?
-      query = "#{query} creator_text:#{options[:creator]}"
+      queries << "creator_text:#{options[:creator]}"
     end
-
     unless options[:contributor].blank?
-      query = "#{query} contributor_text:#{options[:contributor]}"
+      queries << "contributor_text:#{options[:contributor]}"
     end
-
     unless options[:isbn].blank?
-      query = "#{query} isbn_sm:#{options[:isbn]}"
+      queries << "isbn_sm:#{options[:isbn]}"
     end
-
     unless options[:issn].blank?
-      query = "#{query} issn_sm:#{options[:issn]}"
+      queries << "issn_sm:#{options[:issn]}"
     end
-
     unless options[:lccn].blank?
-      query = "#{query} lccn_s:#{options[:lccn]}"
+      queries << "lccn_s:#{options[:lccn]}"
     end
-
     unless options[:nbn].blank?
-      query = "#{query} nbn_s:#{options[:nbn]}"
+      queries << "nbn_s:#{options[:nbn]}"
     end
-
     unless options[:publisher].blank?
-      query = "#{query} publisher_text:#{options[:publisher]}"
+      queries << "publisher_text:#{options[:publisher]}"
     end
-
     unless options[:item_identifier].blank?
-      query = "#{query} item_identifier_sm:#{options[:item_identifier]}"
+      queries << "item_identifier_sm:#{options[:item_identifier]}"
     end
-
     unless options[:number_of_pages_at_least].blank? and options[:number_of_pages_at_most].blank?
       number_of_pages = {}
       number_of_pages[:at_least] = options[:number_of_pages_at_least].to_i
       number_of_pages[:at_most] = options[:number_of_pages_at_most].to_i
       number_of_pages[:at_least] = "*" if number_of_pages[:at_least] == 0
       number_of_pages[:at_most] = "*" if number_of_pages[:at_most] == 0
-
-      query = "#{query} number_of_pages_i:[#{number_of_pages[:at_least]} TO #{number_of_pages[:at_most]}]"
+      queries << "number_of_pages_i:[#{number_of_pages[:at_least]} TO #{number_of_pages[:at_most]}]"
     end
-
-    query = set_pub_date(query, options)
-    query = set_acquisition_date(query, options)
-
+    unless options[:pub_date_from].blank? and options[:pub_date_to].blank?
+      queries << set_pub_date(options)
+    end
+    unless options[:acquired_from].blank? and options[:acquired_to].blank?
+      queries << set_acquisition_date(options)
+    end
     unless options[:manifestation_type].blank?
-      query = "#{query} manifestation_type_sm:#{options[:manifestation_type]}"
+      queries << "manifestation_type_sm:#{options[:manifestation_type]}"
     end
+    
+    if SystemConfiguration.get("advanced_search.use_and")
 
-    query = query.strip
-    if query == '[* TO *]'
-      #  unless params[:advanced_search]
-      query = ''
-      #  end
+      advanced_query = queries.join(' AND ')
+      query = query + " AND " unless query
+      query = query + advanced_query unless advanced_query.blank?
+    else
+      advanced_query = queries.join(' OR ')
+      query = query + " OR " unless query
+      query = query + advanced_query unless advanced_query.blank?
     end
 
     return query
@@ -697,59 +716,55 @@ class ManifestationsController < ApplicationController
     end
   end
 
-  def set_pub_date(query, options)
-    unless options[:pub_date_from].blank? and options[:pub_date_to].blank?
-      options[:pub_date_from].to_s.gsub!(/\D/, '')
-      options[:pub_date_to].to_s.gsub!(/\D/, '')
+  def set_pub_date(options)
+    options[:pub_date_from].to_s.gsub!(/\D/, '')
+    options[:pub_date_to].to_s.gsub!(/\D/, '')
 
-      pub_date = {}
-      if options[:pub_date_from].blank?
-        pub_date[:from] = "*"
-      else
-        pub_date[:from] = Time.zone.parse(options[:pub_date_from]).beginning_of_day.utc.iso8601 rescue nil
-        unless pub_date[:from]
-          pub_date[:from] = Time.zone.parse(Time.mktime(options[:pub_date_from]).to_s).beginning_of_day.utc.iso8601
-        end
+    pub_date = {}
+    if options[:pub_date_from].blank?
+      pub_date[:from] = "*"
+    else
+      pub_date[:from] = Time.zone.parse(options[:pub_date_from]).beginning_of_day.utc.iso8601 rescue nil
+      unless pub_date[:from]
+        pub_date[:from] = Time.zone.parse(Time.mktime(options[:pub_date_from]).to_s).beginning_of_day.utc.iso8601
       end
-
-      if options[:pub_date_to].blank?
-        pub_date[:to] = "*"
-      else
-        pub_date[:to] = Time.zone.parse(options[:pub_date_to]).end_of_day.utc.iso8601 rescue nil
-        unless pub_date[:to]
-          pub_date[:to] = Time.zone.parse(Time.mktime(options[:pub_date_to]).to_s).end_of_year.utc.iso8601
-        end
-      end
-      query = "#{query} date_of_publication_d:[#{pub_date[:from]} TO #{pub_date[:to]}]"
     end
-    query
+
+    if options[:pub_date_to].blank?
+      pub_date[:to] = "*"
+    else
+      pub_date[:to] = Time.zone.parse(options[:pub_date_to]).end_of_day.utc.iso8601 rescue nil
+      unless pub_date[:to]
+        pub_date[:to] = Time.zone.parse(Time.mktime(options[:pub_date_to]).to_s).end_of_year.utc.iso8601
+      end
+    end
+    #query = "#{query} date_of_publication_d:[#{pub_date[:from]} TO #{pub_date[:to]}]"
+    return "date_of_publication_d:[#{pub_date[:from]} TO #{pub_date[:to]}]"
   end
 
-  def set_acquisition_date(query, options)
-    unless options[:acquired_from].blank? and options[:acquired_to].blank?
-      options[:acquired_from].to_s.gsub!(/\D/, '')
-      options[:acquired_to].to_s.gsub!(/\D/, '')
+  def set_acquisition_date(options)
+    options[:acquired_from].to_s.gsub!(/\D/, '')
+    options[:acquired_to].to_s.gsub!(/\D/, '')
 
-      acquisition_date = {}
-      if options[:acquired_from].blank?
-        acquisition_date[:from] = "*"
-      else
-        acquisition_date[:from] = Time.zone.parse(options[:acquired_from]).beginning_of_day.utc.iso8601 rescue nil
-        unless acquisition_date[:from]
-          acquisition_date[:from] = Time.zone.parse(Time.mktime(options[:acquired_from]).to_s).beginning_of_day.utc.iso8601
-        end
+    acquisition_date = {}
+    if options[:acquired_from].blank?
+      acquisition_date[:from] = "*"
+    else
+      acquisition_date[:from] = Time.zone.parse(options[:acquired_from]).beginning_of_day.utc.iso8601 rescue nil
+      unless acquisition_date[:from]
+        acquisition_date[:from] = Time.zone.parse(Time.mktime(options[:acquired_from]).to_s).beginning_of_day.utc.iso8601
       end
-
-      if options[:acquired_to].blank?
-        acquisition_date[:to] = "*"
-      else
-        acquisition_date[:to] = Time.zone.parse(options[:acquired_to]).end_of_day.utc.iso8601 rescue nil
-        unless acquisition_date[:to]
-          acquisition_date[:to] = Time.zone.parse(Time.mktime(options[:acquired_to]).to_s).end_of_year.utc.iso8601
-        end
-      end
-      query = "#{query} acquired_at_d:[#{acquisition_date[:from]} TO #{acquisition_date[:to]}]"
     end
-    query
+
+    if options[:acquired_to].blank?
+      acquisition_date[:to] = "*"
+    else
+      acquisition_date[:to] = Time.zone.parse(options[:acquired_to]).end_of_day.utc.iso8601 rescue nil
+      unless acquisition_date[:to]
+        acquisition_date[:to] = Time.zone.parse(Time.mktime(options[:acquired_to]).to_s).end_of_year.utc.iso8601
+      end
+    end
+    #query = "#{query} acquired_at_d:[#{acquisition_date[:from]} TO #{acquisition_date[:to]}]"
+    return "acquired_at_d:[#{acquisition_date[:from]} TO #{acquisition_date[:to]}]"
   end
 end

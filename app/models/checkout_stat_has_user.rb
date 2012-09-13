@@ -5,9 +5,7 @@ class CheckoutStatHasUser < ActiveRecord::Base
   validates_uniqueness_of :user_id, :scope => :user_checkout_stat_id
   validates_presence_of :user_checkout_stat_id, :user_id
 
-  def self.per_page
-    10
-  end
+  paginates_per 10
 end
 
 # == Schema Information

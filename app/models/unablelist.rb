@@ -1,8 +1,6 @@
 class Unablelist < ActiveRecord::Base
 
-  def self.per_page
-    10
-  end
+  paginates_per 10
 
   def self.get_unable_list_pdf(users, sort)
     report = ThinReports::Report.new :layout => File.join(Rails.root, 'report', 'unablelist.tlf')

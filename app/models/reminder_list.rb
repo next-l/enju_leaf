@@ -9,9 +9,7 @@ class ReminderList < ActiveRecord::Base
 
   before_validation :set_checkout_id, :on => :create
 
-  def self.per_page
-    10
-  end
+  paginates_per 10
 
   def self.statuses
     #TODO

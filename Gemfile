@@ -18,7 +18,7 @@ gem 'enju_event', :git => 'git://github.com/shinozuka/enju_event.git'
 gem 'enju_bookmark', :git => 'git://github.com/shinozuka/enju_bookmark.git'
 
 #gem 'enju_standalone_interface', :path => '/Users/tmpz84/src/enju_standalone_interface'
-gem 'enju_standalone_interface', :git => 'git://github.com/nakamura-akifumi/enju_standalone_interface.git'
+#gem 'enju_standalone_interface', :git => 'git://github.com/nakamura-akifumi/enju_standalone_interface.git'
 gem "jpp_customercode_transfer", "~> 0.0.2"
 
 #
@@ -34,8 +34,10 @@ platforms :ruby_19 do
   gem 'simplecov', '~> 0.6', :require => false, :group => :test
 end
 
-gem 'will_paginate', '~> 3.0'
-gem 'configatron'
+gem 'roo'
+
+gem 'kaminari'
+gem 'settingslogic'
 gem 'delayed_job_active_record'
 gem 'daemons'
 gem 'exception_notification', '~> 2.5.2'

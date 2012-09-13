@@ -23,7 +23,7 @@ class UserReserveStatsController < ApplicationController
       format.html # show.html.erb
       format.json { render :json => @user_reserve_stat }
       format.csv
-      format.tsv  { send_data UserReserveStat.get_user_reserve_stats_tsv(@user_reserve_stat, @stats), :filename => configatron.user_reserve_stats_print_tsv.filename }
+      format.tsv  { send_data UserReserveStat.get_user_reserve_stats_tsv(@user_reserve_stat, @stats), :filename => Setting.user_reserve_stats_print_tsv.filename }
     end
   end
 

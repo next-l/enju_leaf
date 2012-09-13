@@ -130,6 +130,16 @@ module ManifestationsHelper
     end
   end
 
+  def per_pages
+    pages = []
+    per_pages = SystemConfiguration.get("manifestations.per_page").split(',')  
+    per_pages.each do |p|
+      p = p.strip
+      pages << p.to_i if p =~ /^[0-9]+$/
+    end 
+    return pages
+  end
+
   if defined?(EnjuBookmark)
     def link_to_bookmark(manifestation)
       if manifestation.bookmarked?(current_user)

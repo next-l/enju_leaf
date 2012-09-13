@@ -74,7 +74,7 @@ class QuestionsController < ApplicationController
     
     page = params[:page] || 1
     
-    search.query.paginate(page.to_i, Question.per_page)
+    search.query.paginate(page.to_i, Question.default_per_page)
     result = search.execute!
     @questions = result.results
     @count[:query_result] = @questions.total_entries

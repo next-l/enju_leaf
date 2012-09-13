@@ -19,7 +19,7 @@ class ResourceImportResultsController < InheritedResources::Base
 
     if params[:format] == 'tsv'
       respond_to do |format|
-        format.tsv { send_data ResourceImportResult.get_resource_import_results_tsv(@resource_import_results), :filename => configatron.resource_import_results_print_tsv.filename }
+        format.tsv { send_data ResourceImportResult.get_resource_import_results_tsv(@resource_import_results), :filename => Setting.resource_import_results_print_tsv.filename }
       end
     end
   end

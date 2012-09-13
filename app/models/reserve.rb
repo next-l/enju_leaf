@@ -137,9 +137,7 @@ class Reserve < ActiveRecord::Base
     time :expired_at
   end
 
-  def self.per_page
-    10
-  end
+  paginates_per 10
 
   def reserved_library
     #@reserve.user.library

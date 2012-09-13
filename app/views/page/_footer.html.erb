@@ -3,22 +3,6 @@
     <a href="https://github.com/nakamura-akifumi/enju_trunk">Next-L Enju Trunk <%= EnjuLeaf.version %></a>,
     <%= t('page.open_source_integrated_library_system') -%> |
     <%= link_to t('page.about_this_system'), page_about_path -%> 
-<%- if false -%>
-    | <%= link_to t('page.report_bugs'), "https://github.com/nabeta/enju_leaf/issues" -%>
-<%- end -%>
     <br />
-    <%= t('page.enju_leaf_extended_version') -%>
-    <br />
-<%- if false -%>
-    Developed by <a href="http://mwr.mediacom.keio.ac.jp/~tanabe/">Kosuke Tanabe</a> and <a href="http://www.next-l.jp/">Project Next-L</a> |
-    Powered by 
-    <a href="http://www.ruby-lang.org/">Ruby <%= RUBY_VERSION %></a>,
-    <a href="http://www.rubyonrails.org/">Ruby on Rails</a>,
-    <%= database_adapter -%>
-    and <a href="http://lucene.apache.org/solr/">Solr</a>
-    <%- if Manifestation.respond_to?(:enju_worldcat) -%>
-      <a href="http://www.worldcat.org/" target="_blank"><img class="icon" src="http://www.worldcat.org/images/wc_badge_144x19.gif?ai=Tokyo_nabeta" width="144" height="19" alt="WorldCat lets people access the collections of libraries worldwide [WorldCat.org]" title="WorldCat lets people access the collections of libraries worldwide [WorldCat.org]" /></a>
-<%- end -%>
-    <%- end -%>
   </div>
 </div>

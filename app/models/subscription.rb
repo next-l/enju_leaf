@@ -14,9 +14,7 @@ class Subscription < ActiveRecord::Base
     integer :work_ids, :multiple => true
   end
 
-  def self.per_page
-    10
-  end
+  paginates_per 10
 
   def subscribed(work)
     subscribes.where(:work_id => work.id).first

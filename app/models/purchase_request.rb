@@ -60,9 +60,7 @@ class PurchaseRequest < ActiveRecord::Base
     end
   end
 
-  def self.per_page
-    10
-  end
+  paginates_per 10
 
   def check_price
     errors.add(:price) unless self.price.nil? || self.price > 0

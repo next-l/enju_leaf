@@ -145,6 +145,11 @@ en:
       series_statement_merge_list: Series statement merge list
       series_has_manifestation: Series statement to manifestation
       loss_item: Loss item
+      system_configuration: System configuration
+      reminder_list: Reminder list
+      expense: Expense
+      budget_and_results_managements: Budget and results managements
+      manifestation_type: Manifestation type
 
     attributes:
       library:
@@ -652,10 +657,21 @@ en:
         issn: ISSN
         subscription_master: Subscription master
         description: Description
+        except_recent: Except recent
+        checkouts_count: Checkouts count
+        reserves_count: Reserves count
+        last_checkout_datetim: Last checkout datetime
+        ndc: NDC
+        exinfo_1: Exinfo1
+        exinfo_2: Exinfo2
+        exinfo_3: Exinfo3
+        exinfo_4: Exinfo4
+        exinfo_5: Exinfo5
         edition_display_value: Edition display value
         reserves_number: Reserves number
         detail: Detail
         supplement: Supplement
+        per_page: Per page
       user_group:
         name: Name
         display_name: Display name
@@ -1047,6 +1063,12 @@ en:
         list_number: List number
         page_number: Page number
         sort_by: Sort by
+      system_configuration:
+        keyname: Key
+        v: Value
+        typename: Type name
+        description: Description
+        invalid_format: " invalid format"
 
   page:
     user_title: "Welcome %{login_name}"
@@ -1594,6 +1616,59 @@ en:
   item_list:
     list_condition: List Condition
     no_list_condition: Check list condition
+  system_configuration:
+    general: General
+    user: User
+    manifestation: Manifestation
+    checkout: Checkout
+    checkin: Checkin
+    reserve: Reserve
+    purchase_request: Purchase_request
+    question: Question
+    order_list: Order list
+    reminder: Reminder
+    statistics: Statistics
+    sound: Sound
+    disp_date:
+      not_display: Not display
+      christian_era: Christian era
+      japanese_era: Japanese era
+    color:
+      white: white
+      lightgrey: light grey
+      skyblue: sky blue
+      springgreen: spring green
+      yellow: yellow
+      pink: pink
+      red: red
+    boolean_display: "Display"
+    boolean_not_display: "Not display"
+    boolean_do: "Do"
+    boolean_not_do: "Not do"
+    boolean_send: "Send" 
+    boolean_not_send: "Not send"
+    boolean_use: "Use" 
+    boolean_not_use: "Not use"
+    boolean_delete: "Delete"
+    boolean_not_delete: "Not delete"
+    boolean_disable: "Disable"
+    boolean_not_disable: "Not disable"
+    boolean_output_button_all: "All"
+    boolean_output_button_librarian: "Librarian"
+    boolean_item_remove: "after removed"
+    boolean_item_destroy: "immediately destroy"
+    boolean_file: "File"
+    boolean_db: "DB"
+    boolean_and: "AND search"
+    boolean_or: "OR search"
+    boolean_reserve_only_checkout_item: "Only checkout item"
+    boolean_reserve_all_item: "All item"
+    boolean_reserve_able_for_not_item: "Can be reserved"
+    boolean_reserve_not_able_for_not_item: "Can not be reserved"
+    error:
+      over_checkouts_print_message: "checkouts print message exceed the limit. max %{num}."
+      over_reminder_postal_card_message: "reminder postal card message exceed the limit. max %{num}."
+      over_reminder_letter_message: "reminder letter message exceed the limit. max %{num}."
   manifestation_relationships:
     no_parent_id: "Not found parent id"
     no_child_id: "Not found child id"

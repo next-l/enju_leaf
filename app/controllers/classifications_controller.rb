@@ -26,7 +26,7 @@ class ClassificationsController < ApplicationController
     end
 
     page = params[:page] || 1
-    search.query.paginate(page.to_i, Classification.per_page)
+    search.query.paginate(page.to_i, Classification.default_per_page)
     @classifications = search.execute!.results
 
     session[:params] = {} unless session[:params]

@@ -6,6 +6,8 @@ class Create < ActiveRecord::Base
   after_save :reindex
   after_destroy :reindex
 
+  paginates_per 10
+
   def reindex
     patron.try(:index)
     work.try(:index)

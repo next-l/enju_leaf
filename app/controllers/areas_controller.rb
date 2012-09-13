@@ -10,7 +10,7 @@ class AreasController < InheritedResources::Base
     unless query.blank?
       @areas = Area.search do
         fulltext query
-        paginate :page => page.to_i, :per_page => Area.per_page
+          paginate :page => page.to_i, :per_page => Area.default_per_page
       end.results
     else
       @areas = Area.page(page)

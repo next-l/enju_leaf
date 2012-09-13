@@ -25,8 +25,8 @@ class UnablelistController < ApplicationController
 
     respond_to do |format|
       format.html # index.html.erb
-      format.pdf { send_data Unablelist.get_unable_list_pdf(@users, sort[:sort_by]).generate, :filename => configatron.unable_list_print_pdf.filename }
-      format.tsv { send_data Unablelist.get_unable_list_tsv(@users), :filename => configatron.unable_list_print_tsv.filename }
+      format.pdf { send_data Unablelist.get_unable_list_pdf(@users, sort[:sort_by]).generate, :filename => Setting.unable_list_print_pdf.filename }
+      format.tsv { send_data Unablelist.get_unable_list_tsv(@users), :filename => Setting.unable_list_print_tsv.filename }
     end
   end
 end

@@ -23,7 +23,7 @@ class ManifestationCheckoutStatsController < ApplicationController
       format.html # show.html.erb
       format.json { render :json => @manifestation_checkout_stat }
       format.csv
-      format.tsv { send_data ManifestationCheckoutStat.get_manifestation_checkout_stats_tsv(@manifestation_checkout_stat, @stats) , :filename => configatron.manifestation_checkout_stats_print_tsv.filename }
+      format.tsv { send_data ManifestationCheckoutStat.get_manifestation_checkout_stats_tsv(@manifestation_checkout_stat, @stats) , :filename => Setting.manifestation_checkout_stats_print_tsv.filename }
 
     end
   end

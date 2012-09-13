@@ -1,17 +1,11 @@
 class SystemConfiguration < ActiveRecord::Base
   default_scope order('id ASC') 
+  validate :value_by_typename_is_valid
+  validate :check_length
 
   after_commit lambda {    
     Rails.cache.clear
   }
-
-  def self.typenames
-    ["String","Boolean","Numeric"]
-  end
-
-  validates_presence_of :keyname, :v, :typename
-  validates_inclusion_of :typename, :in => SystemConfiguration.typenames
-  validate :value_by_typename_is_valid
 
   Prefix_Key = "systemconfig_"
 
@@ -32,10 +26,10 @@ class SystemConfiguration < ActiveRecord::Base
       typename = s.typename
     end
 
-    #value = SystemConfiguration.where(:keyname => keyname).first.v rescue nil
-    #typename = SystemConfiguration.where(:keyname => keyname).first.typename rescue nil
     if value and typename
       case typename
+      when "Text"
+        return value.to_s
       when "String"
         return value.to_s
       when "Boolean"
@@ -48,26 +42,49 @@ class SystemConfiguration < ActiveRecord::Base
         return value.to_i
       end
     else
-      return eval("configatron.#{keyname}") 
+      begin
+        v = eval("Setting.#{keyname}") 
+      rescue
+        logger.warn "key not found: #{keyname}"
+      end
+      return v
     end
   end
 
   private  
   def value_by_typename_is_valid
-    unless self.v.blank?
-      case typename
-      when "String"
-      when "Boolean"
-        unless ["true","false"].include?(v)
-          errors.add(:v, I18n.t('activerecord.attributes.system_configuration.invalid_format')) 
-        end
-      when "Numeric"
+    case typename
+    when "Text"
+    when "String"
+    when "Boolean"
+      unless ["true","false"].include?(v)
+        errors.add(:v, I18n.t('activerecord.attributes.system_configuration.invalid_format')) 
+      end
+    when "Numeric"
+      unless self.v.blank?
         unless v =~ /^[0-9]+$/ 
           errors.add(:v, I18n.t('activerecord.attributes.system_configuration.invalid_format')) 
         end
+      else
+        self.v = 0
       end
     end
   end
 
-
+  def check_length
+    case keyname
+    when 'checkouts_print.message'
+      if v.length > 152
+        errors[:base] = I18n.t('system_configuration.error.over_checkouts_print_message', :num => 76)
+      end
+    when 'reminder_postal_card_message'
+      if v.length > 484
+        errors[:base] = I18n.t('system_configuration.error.over_reminder_postal_card_message', :num => 242)
+      end 
+    when 'reminder_letter_message'
+      if v.length > 1100
+        errors[:base] = I18n.t('system_configuration.error.over_reminder_letter_message', :num => 550)
+      end
+    end
+  end
 end

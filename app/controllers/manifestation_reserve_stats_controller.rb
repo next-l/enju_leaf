@@ -23,7 +23,7 @@ class ManifestationReserveStatsController < ApplicationController
       format.html # show.html.erb
       format.json { render :json => @manifestation_reserve_stat }
       format.csv
-      format.tsv  { send_data ManifestationReserveStat.get_manifestation_reserve_stats_tsv(@manifestation_reserve_stat, @stats), :filename => configatron.manifestation_reserve_stats_print_tsv.filename }
+      format.tsv  { send_data ManifestationReserveStat.get_manifestation_reserve_stats_tsv(@manifestation_reserve_stat, @stats), :filename => Setting.manifestation_reserve_stats_print_tsv.filename }
     end
   end
 

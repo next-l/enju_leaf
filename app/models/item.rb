@@ -61,6 +61,8 @@ class Item < ActiveRecord::Base
     time :updated_at
   end
 
+  paginates_per 10
+
   def set_circulation_status
     self.circulation_status = CirculationStatus.where(:name => 'In Process').first if self.circulation_status.nil?
   end

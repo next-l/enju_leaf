@@ -41,11 +41,11 @@ class ReminderListsController < ApplicationController
     unless @selected_state.blank? 
       if params[:output_pdf]
         data = ReminderList.output_reminder_list_pdf(@reminder_lists)
-        send_data data.generate, :filename => configatron.reminder_list_print_pdf.filename; return
+        send_data data.generate, :filename => Setting.reminder_list_print_pdf.filename; return
       end
       if params[:output_tsv]
         data = ReminderList.output_reminder_list_tsv(@reminder_lists)
-        send_data data, :filename => configatron.reminder_list_print_tsv.filename; return
+        send_data data, :filename => Setting.reminder_list_print_tsv.filename; return
       end
     end
   end
@@ -177,11 +177,11 @@ class ReminderListsController < ApplicationController
 
     case output_type
     when :reminder_postal_card
-      file = out_dir + configatron.reminder_postal_card_print.filename
+      file = out_dir + Setting.reminder_postal_card_print.filename
       ReminderList.output_reminder_postal_card(file, @reminder_lists, @user, current_user)
       flash[:path] = file
     when :reminder_letter
-      file = out_dir + configatron.reminder_letter_print.filename
+      file = out_dir + Setting.reminder_letter_print.filename
       ReminderList.output_reminder_letter(file, @reminder_lists, @user, current_user)
       flash[:path] = file
     end

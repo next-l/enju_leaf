@@ -17,7 +17,7 @@ class EventImportFilesController < ApplicationController
   # GET /event_import_files/1.json
   def show
     if @event_import_file.event_import.path
-      unless configatron.uploaded_file.storage == :s3
+      unless Setting.uploaded_file.storage == :s3
         file = @event_import_file.event_import.path
       end
     end
@@ -26,7 +26,7 @@ class EventImportFilesController < ApplicationController
       format.html # show.html.erb
       format.json { render :json => @event_import_file }
       format.download {
-        if configatron.uploaded_file.storage == :s3
+        if Setting.uploaded_file.storage == :s3
           redirect_to @event_import_file.event_import.expiring_url(10)
         else
           send_file file, :filename => @event_import_file.event_import_file_name, :type => 'application/octet-stream'

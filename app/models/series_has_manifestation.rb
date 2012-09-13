@@ -12,9 +12,7 @@ class SeriesHasManifestation < ActiveRecord::Base
   after_create :reindex
   after_destroy :reindex
 
-  def self.per_page
-    10
-  end
+  paginates_per 10
 
   def reindex
     series_statement.try(:index)

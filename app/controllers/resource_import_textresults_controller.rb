@@ -13,7 +13,7 @@ class ResourceImportTextresultsController < ApplicationController
 
     if params[:format] == 'tsv'
       respond_to do |format|
-        format.tsv { send_data ResourceImportTextresult.get_resource_import_textresults_tsv(@resource_import_textresults), :filename => configatron.resource_import_textresults_print_tsv.filename}
+        format.tsv { send_data ResourceImportTextresult.get_resource_import_textresults_tsv(@resource_import_textresults), :filename => Setting.resource_import_textresults_print_tsv.filename}
       end
     end
   end

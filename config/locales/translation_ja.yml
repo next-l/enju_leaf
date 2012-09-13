@@ -768,6 +768,7 @@ ja:
         reserves_number: 予約数
         detail: 資料確認票
         supplement: 付録
+        per_page: 表示件数
       user_group:
         name: 名前
         display_name: 表示名
@@ -1461,10 +1462,11 @@ ja:
     budget_and_order: "予算と発注の管理" 
     budget: "予算"
     wait: "処理中.."
-    system_configuration: システム設定
+    system_configuration: "システム設定"
     reminder_postal_card: "督促はがき"
     reminder_letter: "催告書"
     extensions: "Enju_trunk 拡張機能"
+    budgets: "予算"
 
     exstatistics:
       ranknumber: 順位
@@ -2077,6 +2079,59 @@ ja:
     no_item: "督促対象になっている資料が見つかりません。"
     failed_output: "督促の出力に失敗しました。"
     successfully__output: "督促を出力しました。"
+  system_configuration:
+    general: 全般
+    user: 利用者
+    manifestation: 資料
+    checkout: 貸出
+    checkin: 返却
+    reserve: 予約
+    purchase_request: 購入リクエスト
+    question: 質問（レファレンス）
+    order_list: 発注リスト
+    reminder: 督促
+    statistics: 統計
+    sound: 音
+    disp_date:
+      not_display: 非表示
+      christian_era: 西暦
+      japanese_era: 和暦
+    color:
+      white: white
+      lightgrey: light grey
+      skyblue: sky blue
+      springgreen: spring green
+      yellow: yellow
+      pink: pink
+      red: red
+    boolean_display: "表示する"
+    boolean_not_display: "表示しない"
+    boolean_do: "行う"
+    boolean_not_do: "行わない"
+    boolean_send: "送信する"
+    boolean_not_send: "送信しない"
+    boolean_use: "使用する"
+    boolean_not_use: "使用しない"
+    boolean_delete: "削除する"
+    boolean_not_delete: "削除しない"
+    boolean_disable: "禁止にする"
+    boolean_not_disable: "禁止にしない"
+    boolean_output_button_all: "全ての権限"
+    boolean_output_button_librarian: "ライブラリアン以上の権限"
+    boolean_item_remove: "除籍してから削除"
+    boolean_item_destroy: "すぐに削除"
+    boolean_file: "ファイル"
+    boolean_db: "DB"
+    boolean_and: "AND検索"
+    boolean_or: "OR検索"
+    boolean_reserve_only_checkout_item: "貸出中の所蔵のみを予約対象とする" 
+    boolean_reserve_all_item: "全ての所蔵を予約対象とする"
+    boolean_reserve_able_for_not_item: "予約できる"
+    boolean_reserve_not_able_for_not_item: "予約できない"
+    error:
+      over_checkouts_print_message: "貸出表に表示できるメッセージは最大全角%{num}文字までです"
+      over_reminder_postal_card_message: "督促はがきに表示できるメッセージは最大全角%{num}文字までです"
+      over_reminder_letter_message: "督促書に表示できるメッセージは最大全角%{num}文字までです"
   manifestation_relationships: 
     no_parent_id: "指定の派生元の資料ID が見つかりません。"
     no_child_id: "指定の派生先の資料ID が見つかりません。"

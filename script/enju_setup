@@ -26,6 +26,7 @@ sample_files = [
   "config/environments/production.rb.sample",
   "config/schedule.rb.sample",
   "config/sunspot.yml.sample",
+  "config/config.yml.sample",
   "db/seeds.rb.sample"
 ]
   

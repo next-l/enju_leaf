@@ -80,7 +80,7 @@
   </div>
 <%- end -%>
 
-<%= will_paginate(@reserves) -%>
+<%= paginate(@reserves) -%>
 
 <% unless @in_process_reserves.blank? %>
 <br />
@@ -121,7 +121,7 @@
   </tr>
 <%- end -%>
 </table>
-<%= will_paginate(@reserves) -%>
+<%= paginate(@reserves) -%>
 <% end %>
 
 <% unless @completed_reserves.blank? %>
@@ -158,7 +158,7 @@
   </tr>
 <%- end -%>
 </table>
-<%= will_paginate(@reserves) -%>
+<%= paginate(@reserves) -%>
 <% end %>
 
 </div>

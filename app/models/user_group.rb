@@ -16,9 +16,7 @@ class UserGroup < ActiveRecord::Base
     :number_of_time_to_notify_overdue,
     :greater_than_or_equal_to => 0
 
-  def self.per_page
-    10
-  end
+  paginates_per 10
 end
 
 # == Schema Information
