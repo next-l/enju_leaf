@@ -1,5 +1,5 @@
 <div id="periodical">
-  <%= will_paginate(@periodicals, :param_name => :periodical_list_page, :class => 'content_pagination digg_pagination') -%>
+  <%= paginate(@periodicals, :param_name => :periodical_list_page, :class => 'content_pagination digg_pagination') -%>
   <ul>
     <%- @periodicals.each do |periodical| -%>
       <li>
@@ -15,5 +15,5 @@
       </li>
     <%- end -%>
   </ul>
-  <%= will_paginate(@periodicals, :param_name => :periodical_list_page, :class => 'content_pagination digg_pagination') -%>
+  <%= paginate(@periodicals, :param_name => :periodical_list_page, :class => 'content_pagination digg_pagination') -%>
 </div>

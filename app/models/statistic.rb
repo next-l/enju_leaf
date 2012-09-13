@@ -19,7 +19,7 @@ class Statistic < ActiveRecord::Base
   @librarian_ids = User.librarians.inject([]){|ids, user| ids << user.id}
   @corporate_user_ids = User.corporate.inject([]){|ids, user| ids << user.id}
   before_validation :check_record
-  scope :no_condition, where(:checkout_type_id => nil, :shelf_id => nil, :ndc => nil, :call_number => nil, :age => nil, :option => 0, :area_id => 0, :user_type => nil, :user_id => nil)
+  scope :no_condition, where(:checkout_type_id => nil, :shelf_id => nil, :ndc => nil, :call_number => nil, :age => nil, :option => 0, :area_id => nil, :user_type => nil, :user_id => nil)
 
   def self.calc_users(start_at, end_at, term_id)
     Statistic.transaction do
@@ -920,7 +920,7 @@ class Statistic < ActiveRecord::Base
     # monthly checkout items 121, option 0-3
     4.times do |i|
       data_type = 21
-      datas = Statistic.select(:value).where(:data_type=> "2#{data_type}", :yyyymm => month, :library_id => 0, :option => i, :user_group_id => nil)
+      datas = Statistic.select(:value).where(:data_type=> "2#{data_type}", :yyyymm => month, :library_id => 0, :option => i, :user_group_id => nil).no_condition
       value = 0
       datas.each do |data|
         value = value + data.value
@@ -1008,7 +1008,7 @@ class Statistic < ActiveRecord::Base
       statistic.data_type = 121
       statistic.option = 4
       statistic.library_id = library.id
-      monthly_data = Statistic.select(:value).where(:data_type=> '121', :yyyymm => month, :library_id => library.id).first
+      monthly_data = Statistic.select(:value).where(:data_type=> '121', :yyyymm => month, :library_id => library.id).no_condition.first
       statistic.value = monthly_data.value / days rescue 0
       statistic.save! 
     end 
@@ -1318,7 +1318,7 @@ class Statistic < ActiveRecord::Base
       end
     end
     # each ndc for report
-    calc_ndc_checkouts(date_timestamp.beginning_of_month, date_timestamp.end_of_month, 2)
+#    calc_ndc_checkouts(date_timestamp.beginning_of_month, date_timestamp.end_of_month, 2)
    
  
     # daily checkout users 222
@@ -1687,10 +1687,9 @@ class Statistic < ActiveRecord::Base
       statistic.save! if statistic.value > 0
     end
 
-    # areas users 62 + 0~7
-    data_type = term_id.to_s + 62.to_s
+    # areas users 12 + 0~7 and area_id
+    data_type = term_id.to_s + 12.to_s
     # all areas
-=begin
     8.times do |age|
       statistic = Statistic.new
       set_date(statistic, end_at, term_id)
@@ -1715,7 +1714,6 @@ class Statistic < ActiveRecord::Base
     sql = "select count(*) from users, patrons where users.id = patrons.user_id AND patrons.date_of_birth IS NULL AND users.created_at <= ?"
     statistic.value = User.count_by_sql([sql, end_at])
     statistic.save! if statistic.value > 0
-=end
     # each area
     @known_users = []
     @areas.each do |area|
@@ -1729,7 +1727,7 @@ class Statistic < ActiveRecord::Base
           statistic.data_type = data_type
           statistic.age = age
           statistic.area_id = area.id
-          statistic.option = i * 10  + 1
+#          statistic.option = i * 10  + 1
           start_date = Time.now
           end_date = Time.now
           end_date = end_date.years_ago((age.to_s + 0.to_s).to_i)
@@ -1756,7 +1754,7 @@ class Statistic < ActiveRecord::Base
         statistic.data_type = data_type
         statistic.age = 10
         statistic.area_id = area.id
-        statistic.option = i * 10
+#        statistic.option = i * 10
         query = "-date_of_birth_d: [* TO *]"
         query = "#{query} address_1_text: #{include_area}"
         users = User.search do
@@ -1777,8 +1775,8 @@ class Statistic < ActiveRecord::Base
       if @known_users.index(user) == nil
         if user.patron.date_of_birth
           8.times do |age|
-            #start_date = Time.now
-            #end_date = Time.now
+            start_date = Time.now
+            end_date = Time.now
             end_date = Time.now.years_ago((age.to_s + 0.to_s).to_i)
             start_date = Time.now.years_ago((age.to_s + 9.to_s).to_i) unless age == 7
             start_date = Time.now.years_ago(200) if age == 7
@@ -1797,6 +1795,7 @@ class Statistic < ActiveRecord::Base
       set_date(statistic, end_at, term_id)
       statistic.data_type = data_type
       statistic.area_id = 0
+      statistic.option = 3
       statistic.age = i unless i == 8
       statistic.age = 10 if i == 8
       statistic.value = age
@@ -1968,7 +1967,7 @@ class Statistic < ActiveRecord::Base
       end
     end
 
-    # checkout items 21 withou date_of_birth
+    # checkout items 21 without date_of_birth
     statistic = Statistic.new
     set_date(statistic, start_at, term_id)
     statistic.data_type = data_type
@@ -2256,6 +2255,7 @@ class Statistic < ActiveRecord::Base
       date_timestamp =  Time.zone.parse("#{date}01")
       calc_users(Time.new('1970-01-01'), date_timestamp.end_of_month, 1)
       calc_items(Time.new('1970-01-01'), date_timestamp.end_of_month, 1)
+      calc_ndc_checkouts(Time.new('1970-01-01'), date_timestamp.end_of_month, 1)
       calc_missing_items(Time.new('1970-01-01'), date_timestamp.end_of_month, 1)
       calc_consultations(date_timestamp.beginning_of_month, date_timestamp.end_of_month, 1)      
       calc_inout_items(date_timestamp.beginning_of_month, date_timestamp.end_of_month, 1)
@@ -2275,6 +2275,7 @@ class Statistic < ActiveRecord::Base
       end
       i = 0
       calc_items(Time.new('1970-01-01'), date.end_of_day, 2)
+      calc_ndc_checkouts(Time.new('1970-01-01'), date.end_of_day, 2)
       calc_missing_items(Time.new('1970-01-01'), date.end_of_day, 2)
       while i < 24 #  0 ~ 24 hour
         calc_checkouts(date.change(:hour => i), date.change(:hour => i + 1), 3)

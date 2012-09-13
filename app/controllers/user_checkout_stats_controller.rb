@@ -23,7 +23,7 @@ class UserCheckoutStatsController < ApplicationController
       format.html # show.html.erb
       format.xml { render :xml => @user_checkout_stat }
       format.csv
-      format.tsv { send_data UserCheckoutStat.get_user_checkout_stats_tsv(@user_checkout_stat, @stats) , :filename => configatron.user_checkout_stats_print_tsv.filename }
+      format.tsv { send_data UserCheckoutStat.get_user_checkout_stats_tsv(@user_checkout_stat, @stats) , :filename => Setting.user_checkout_stats_print_tsv.filename }
     end
   end
 

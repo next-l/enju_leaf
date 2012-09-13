@@ -10,7 +10,5 @@ class Area < ActiveRecord::Base
     time :updated_at
   end
 
-  def self.per_page
-    10
-  end
+  paginates_per 10
 end

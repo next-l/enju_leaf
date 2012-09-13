@@ -1,5 +1,3 @@
 class Checkoutlist < ActiveRecord::Base
-  def self.per_page
-    10
-  end
+  paginates_per 10
 end

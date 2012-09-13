@@ -14,9 +14,7 @@ class InterLibraryLoan < ActiveRecord::Base
   validates_presence_of :item_id, :from_library_id, :to_library_id
   validates_associated :item, :from_library, :to_library
 
-  def self.per_page
-    10
-  end
+  paginates_per 10
 
   attr_accessor :item_identifier
 

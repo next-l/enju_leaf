@@ -7,7 +7,10 @@ class MyAccountsController < ApplicationController
     unless @user.patron
       redirect_to new_user_patron_url(@user); return
     end
-    @tags = @user.bookmarks.tag_counts.sort{|a,b| a.count <=> b.count}.reverse
+    #TODO
+    if defined?(EnjuBookmark) 
+      @tags = @user.bookmarks.tag_counts.sort{|a,b| a.count <=> b.count}.reverse
+    end
     @manifestation = Manifestation.pickup(@user.keyword_list.to_s.split.sort_by{rand}.first) rescue nil
     prepare_options
 

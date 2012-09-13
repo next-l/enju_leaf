@@ -36,7 +36,7 @@ class InterLibraryLoansController < ApplicationController
           with(:from_library_id, from_library_id)
           with(:to_library_id, to_library)
           with(:reason, reason)
-          paginate :page => page.to_i, :per_page => InterLibraryLoan.per_page
+          paginate :page => page.to_i, :per_page => InterLibraryLoan.default_per_page
         end.results
       else
         @inter_library_loans = @item.inter_library_loans.where(:from_library_id => @selected_from_library, :to_library_id => @selected_to_library, :reason => @selected_reason).page(page)
@@ -49,7 +49,7 @@ class InterLibraryLoansController < ApplicationController
           with(:to_library_id, to_library)
           with(:reason, reason) 
           #with(:reason).equal_to 2
-          paginate :page => page.to_i, :per_page => InterLibraryLoan.per_page
+          paginate :page => page.to_i, :per_page => InterLibraryLoan.default_per_page
         end.results
       else
         @inter_library_loans = InterLibraryLoan.where(:from_library_id => @selected_from_library, :to_library_id => @selected_to_library, :reason => @selected_reason).page(page)

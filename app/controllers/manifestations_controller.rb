@@ -187,10 +187,10 @@ class ManifestationsController < ApplicationController
         end.execute.results
         if params[:output_pdf]
           data = Manifestation.get_manifestation_list_pdf(manifestations_for_output, current_user)
-          send_data data.generate, :filename => configatron.manifestation_list_print_pdf.filename
+          send_data data.generate, :filename => Setting.manifestation_list_print_pdf.filename
         elsif params[:output_tsv]
           data = Manifestation.get_manifestation_list_tsv(manifestations_for_output, current_user)
-          send_data data, :filename => configatron.manifestation_list_print_tsv.filename
+          send_data data, :filename => Setting.manifestation_list_print_tsv.filename
         end
         return 
       end
@@ -243,9 +243,9 @@ class ManifestationsController < ApplicationController
       else
         max_count = @count[:query_result]
       end
-      @manifestations = WillPaginate::Collection.create(page, per_page, max_count) do |pager|
-        pager.replace(search_result.results)
-      end
+      @manifestations = Kaminari.paginate_array(
+        search_result.results, :total_count => max_count
+      ).page(page)
       get_libraries
 
       if params[:format].blank? or params[:format] == 'html'
@@ -266,7 +266,8 @@ class ManifestationsController < ApplicationController
         end
       end
 
-      save_search_history(query, @manifestations.offset, @count[:query_result], current_user)
+      save_search_history(query, @manifestations.limit_value, @count[:query_result], current_user)
+
       if params[:format] == 'oai'
         unless @manifestations.empty?
           set_resumption_token(params[:resumptionToken], @from_time || Manifestation.last.updated_at, @until_time || Manifestation.first.updated_at)
@@ -355,7 +356,7 @@ class ManifestationsController < ApplicationController
     store_location
 
     if @manifestation.attachment.path
-      if configatron.uploaded_file.storage == :s3
+      if Setting.uploaded_file.storage == :s3
         data = open(@manifestation.attachment.url).read.force_encoding('UTF-8')
       else
         file = @manifestation.attachment.path
@@ -382,7 +383,7 @@ class ManifestationsController < ApplicationController
       #format.js
       format.download {
         if @manifestation.attachment.path
-          if configatron.uploaded_file.storage == :s3
+          if Setting.uploaded_file.storage == :s3
             send_data @manifestation.attachment.data, :filename => @manifestation.attachment_file_name, :type => 'application/octet-stream'
           else
             send_file file, :filename => @manifestation.attachment_file_name, :type => 'application/octet-stream'
@@ -502,8 +503,7 @@ class ManifestationsController < ApplicationController
   def output_show
     @manifestation = Manifestation.find(params[:id])
     data = Manifestation.get_manifestation_locate(@manifestation, current_user)
-    send_data data.generate, :filename => configatron.manifestation_locate_print.filename
-
+    send_data data.generate, :filename => Setting.manifestation_locate_print.filename
   end
   
   private

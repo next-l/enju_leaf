@@ -208,7 +208,7 @@ p "ready status is OK"
     end
     logger.info "end load check barcode data"
 
-    do_notfound_flg = configatron.libcheck_test_do_notfound
+    do_notfound_flg = Setting.libcheck_test_do_notfound
     logger.info "don't check not found" unless do_notfound_flg
 
     logger.info "start check not found items"
@@ -450,7 +450,7 @@ p "ready status is OK"
     # clear not found items table
     LibcheckNotfoundItem.destroy_all
 
-    s_name = configatron.libcheck_serial_name
+    s_name = Setting.libcheck_serial_name
     s_type = CheckoutType.find_by_name(s_name) rescue nil
     s_id = s_type.nil? ? 0:s_type.id
     logger.info "checkout type id of the serial => #{s_id}"
@@ -549,7 +549,7 @@ p "ready status is OK"
     raise "parameter error: shelf is nil" if shelf.nil?
 
     # min 
-    outskirts_cnt = configatron.libcheck_outskirts_count
+    outskirts_cnt = Setting.libcheck_outskirts_count
     outskirts_cnt = 2 if outskirts_cnt.nil?
     logger.info "start confusion check in shelf => #{shelf.shelf_name}"
 
@@ -565,7 +565,7 @@ p "ready status is OK"
       logger.info "There is only a book in #{shelf.shelf_name}"
     else
       logger.info "start check confution : #{shelf.shelf_name}"
-      min_cnt = configatron.libcheck_disorder_count rescue 3
+      min_cnt = Setting.libcheck_disorder_count rescue 3
       b_first = books[0]
       b_end = books[books.length-1]
       logger.debug "first : #{b_first.item_identifier}"
@@ -823,7 +823,7 @@ p "ready status is OK"
   def check_ndc_type?(checkout_type_name)
     raise "parameter error: checkout_type is nil" if checkout_type_name.nil?
 
-    ndc_check_types = configatron.libcheck_ndc_check
+    ndc_check_types = Setting.libcheck_ndc_check
     ndc_check_types = [] if ndc_check_types.nil?
 
     return ndc_check_types.include?(checkout_type_name)

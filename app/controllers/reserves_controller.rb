@@ -120,18 +120,18 @@ class ReservesController < ApplicationController
       format.csv
       format.pdf  { 
         if @user
-          send_data Reserve.get_reserves(@user, current_user).generate, :filename => configatron.reserve_list_user_print.filename
+          send_data Reserve.get_reserves(@user, current_user).generate, :filename => Setting.reserve_list_user_print.filename
         else
           send_data Reserve.get_reserve_list_all_pdf(query, selected_state, selected_library, selected_information_type).generate,
-          :filename => configatron.reserve_list_all_print_pdf.filename, :type => 'application/pdf'
+          :filename => Setting.reserve_list_all_print_pdf.filename, :type => 'application/pdf'
         end
       }
       format.tsv  { 
         if @user
-          send_data Reserve.get_reserve_list_user_tsv(@user.id, current_user), :filename => configatron.reserve_list_all_print_tsv.filename
+          send_data Reserve.get_reserve_list_user_tsv(@user.id, current_user), :filename => Setting.reserve_list_all_print_tsv.filename
         else
           send_data Reserve.get_reserve_list_all_tsv(query, selected_state, selected_library, selected_information_type),
-          :filename => configatron.reserve_list_all_print_tsv.filename 
+          :filename => Setting.reserve_list_all_print_tsv.filename 
         end
       }
     end
@@ -358,7 +358,7 @@ class ReservesController < ApplicationController
   def output
     @reserve = Reserve.find(params[:reserve_id])
     data = Reserve.get_reserve(@reserve, current_user)
-    send_data data.generate, :filename => configatron.reserve_print.filename
+    send_data data.generate, :filename => Setting.reserve_print.filename
   end
 
   private

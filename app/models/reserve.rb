@@ -137,9 +137,7 @@ class Reserve < ActiveRecord::Base
     time :expired_at
   end
 
-  def self.per_page
-    10
-  end
+  paginates_per 10
 
   def reserved_library
     #@reserve.user.library
@@ -371,6 +369,8 @@ class Reserve < ActiveRecord::Base
         raise 'status not defined'
       end
     end
+    rescue Exception => e
+      logger.error e
   end
 
   def self.send_message_to_library(status, options = {})

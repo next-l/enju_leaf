@@ -36,7 +36,7 @@ class UsersController < ApplicationController
         facet :library
         facet :role
         facet :patron_type
-        paginate :page => page.to_i, :per_page => User.per_page
+        paginate :page => page.to_i, :per_page => User.default_per_page
       end
     end
     @users = @search.execute!.results
@@ -45,8 +45,8 @@ class UsersController < ApplicationController
     respond_to do |format|
       format.html # index.html.erb
       format.json { render :json => @users }
-      format.pdf  { send_data User.output_userlist_pdf(@users).generate, :filename => configatron.user_list_print_pdf.filename }
-      format.tsv  { send_data User.output_userlist_tsv(@users), :filename => configatron.user_list_print_tsv.filename }
+      format.pdf  { send_data User.output_userlist_pdf(@users).generate, :filename => Setting.user_list_print_pdf.filename }
+      format.tsv  { send_data User.output_userlist_tsv(@users), :filename => Setting.user_list_print_tsv.filename }
     end
   end
 

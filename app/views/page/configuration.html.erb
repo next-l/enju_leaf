@@ -29,8 +29,6 @@
           <li><%= link_to t('activerecord.models.search_engine'), search_engines_path -%></li>
           <li><%= link_to t('activerecord.models.barcode'), barcodes_path -%></li>
         <%- end -%>
-        <li><%= link_to t('activerecord.models.barcode_list'), barcode_lists_path -%></li>
-        <li><%= link_to t('activerecord.models.print_label'), print_labels_path -%></li>
         <li><%= link_to t('activerecord.models.loss_item'), loss_items_path -%></li>
         <li><%= link_to t('activerecord.models.reminder_list'), reminder_lists_path -%></li>
       </ul>
@@ -93,21 +91,6 @@
         <li><%= link_to t('activerecord.models.patron_relationship_type'), patron_relationship_types_path -%></li>
         <li><%= link_to t('activerecord.models.manifestation_relationship_type'), manifestation_relationship_types_path -%></li>
         <li><%= link_to t('activerecord.models.license'), licenses_path -%></li>
-      </ul>
-    </div>
-  </div>
-  <div class="portlet" id="form">
-    <h2 class="title"><%= t('page.budget_and_order') -%></h2>
-    <div class="config_box">
-      <ul>
-        <% if SystemConfiguration.get("use_order_lists") %>
-          <li><%= link_to t('activerecord.models.order_list'), order_lists_path -%></li>
-        <% end %>
-        <li><%= link_to t('activerecord.models.term'), terms_path -%></li>
-        <li><%= link_to t('activerecord.models.budget_type'), budget_types_path -%></li>
-        <li><%= link_to t('activerecord.models.budget'), budgets_path -%></li>
-        <li><%= link_to t('activerecord.models.expense'), expenses_path -%></li>
-        <li><%= link_to t('activerecord.models.budget_and_results_managements'), budget_and_results_managements_path -%></li>
       </ul>
     </div>
   </div>

@@ -31,7 +31,7 @@ class PictureFilesController < ApplicationController
     end
 
     if @picture_file.picture.path
-      if configatron.uploaded_file.storage == :s3
+      if Setting.uploaded_file.storage == :s3
         data = open(@picture_file.picture.url(size)).read.force_encoding('UTF-8')
       else
         file = @picture_file.picture.path(size)
@@ -43,7 +43,7 @@ class PictureFilesController < ApplicationController
       format.json { render :json => @picture_file }
       format.download {
         if @picture_file.picture.path
-          if configatron.uploaded_file.storage == :s3
+          if Setting.uploaded_file.storage == :s3
             send_data data, :filename => @picture_file.picture_file_name, :type => @picture_file.picture_content_type, :disposition => 'attachment'
           else
             send_file file, :filename => @picture_file.picture_file_name, :type => @picture_file.picture_content_type, :disposition => 'attachment'
@@ -52,7 +52,7 @@ class PictureFilesController < ApplicationController
       }
       format.jpeg {
         if @picture_file.picture.path
-          if configatron.uploaded_file.storage == :s3
+          if Setting.uploaded_file.storage == :s3
             send_data data, :filename => @picture_file.picture_file_name, :type => 'image/jpeg', :disposition => 'inline'
           else
             send_file file, :filename => @picture_file.picture_file_name, :type => 'image/jpeg', :disposition => 'inline'
@@ -61,7 +61,7 @@ class PictureFilesController < ApplicationController
       }
       format.gif {
         if @picture_file.picture.path
-          if configatron.uploaded_file.storage == :s3
+          if Setting.uploaded_file.storage == :s3
             send_data data, :filename => @picture_file.picture_file_name, :type => 'image/gif', :disposition => 'inline'
           else
             send_file file, :filename => @picture_file.picture_file_name, :type => 'image/gif', :disposition => 'inline'
@@ -70,7 +70,7 @@ class PictureFilesController < ApplicationController
       }
       format.png {
         if @picture_file.picture.path
-          if configatron.uploaded_file.storage == :s3
+          if Setting.uploaded_file.storage == :s3
             send_data data, :filename => @picture_file.picture_file_name, :type => 'image/png', :disposition => 'inline'
           else
             send_file file, :filename => @picture_file.picture_file_name, :type => 'image/png', :disposition => 'inline'
@@ -79,7 +79,7 @@ class PictureFilesController < ApplicationController
       }
       format.svg {
         if @picture_file.picture.path
-          if configatron.uploaded_file.storage == :s3
+          if Setting.uploaded_file.storage == :s3
             send_data data, :filename => @picture_file.picture_file_name, :type => 'image/svg+xml', :disposition => 'inline'
           else
             send_file file, :filename => @picture_file.picture_file_name, :type => 'image/svg+xml', :disposition => 'inline'

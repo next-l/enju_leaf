@@ -8,6 +8,6 @@
         </li>
       <% end %>
     </ul>
-    <%= will_paginate(manifestation.questions(:user => current_user), :param_name => :question_page, :class => 'content_pagination digg_pagination') -%>
+    <%= paginate(manifestation.questions(:user => current_user), :param_name => :question_page, :class => 'content_pagination digg_pagination') -%>
   </div>
 </div>

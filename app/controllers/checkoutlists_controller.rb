@@ -27,8 +27,8 @@ class CheckoutlistsController < ApplicationController
 
     respond_to do |format|
       format.html # index.html.erb
-      format.pdf { send_data Checkout.get_checkoutlists_pdf(@displist).generate, :filename => configatron.checkoutlist_report_pdf.filename }
-      format.tsv { send_data Checkout.get_checkoutlists_tsv(@displist), :filename => configatron.checkoutlist_report_tsv.filename }
+      format.pdf { send_data Checkout.get_checkoutlists_pdf(@displist).generate, :filename => Setting.checkoutlist_report_pdf.filename }
+      format.tsv { send_data Checkout.get_checkoutlists_tsv(@displist), :filename => Setting.checkoutlist_report_tsv.filename }
     end
   end
 end

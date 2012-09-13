@@ -16,7 +16,7 @@ class LibcheckNotfoundItem < ActiveRecord::Base
     # create output path
     FileUtils.mkdir_p(dir) unless FileTest.exist?(dir)
 
-    min_cnt = configatron.libcheck_notfound_with_title_cout rescue 100
+    min_cnt = Setting.libcheck_notfound_with_title_cout rescue 100
     min_cnt = 100 if min_cnt.nil?
     logger.info "write not found item title if not found items count less than #{min_cnt}"
 

@@ -260,7 +260,7 @@ class ApplicationController < ActionController::Base
   def convert_charset
     case params[:format]
     when 'csv'
-      return unless configatron.csv_charset_conversion
+      return unless Setting.csv_charset_conversion
       # TODO: 他の言語
       if @locale.to_sym == :ja
         headers["Content-Type"] = "text/csv; charset=Shift_JIS"

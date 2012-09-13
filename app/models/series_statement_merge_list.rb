@@ -3,9 +3,7 @@ class SeriesStatementMergeList < ActiveRecord::Base
   has_many :series_statements, :through => :series_statement_merges
   validates_presence_of :title
 
-  def self.per_page
-    10
-  end
+  paginates_per 10
 
   def merge_series_statements(selected_series_statement)
     self.series_statements.each do |series_statement|

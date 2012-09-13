@@ -19,9 +19,7 @@ class ImportRequest < ActiveRecord::Base
     end
   end
 
-  def self.per_page
-    10
-  end
+  paginates_per 10
 
   def check_isbn
     if isbn.present?

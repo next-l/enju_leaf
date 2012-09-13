@@ -1,30 +1,17 @@
+require EnjuTrunkFrbr::Engine.root.join('app', 'models', 'manifestation')
 class Manifestation < ActiveRecord::Base
   self.extend ItemsHelper
-  scope :periodical_master, where(:periodical_master => true)
-  scope :periodical_children, where(:periodical_master => false)
-  has_many :creates, :dependent => :destroy, :foreign_key => 'work_id'
   has_many :creators, :through => :creates, :source => :patron
-  has_many :realizes, :dependent => :destroy, :foreign_key => 'expression_id'
   has_many :contributors, :through => :realizes, :source => :patron
-  has_many :produces, :dependent => :destroy, :foreign_key => 'manifestation_id'
   has_many :publishers, :through => :produces, :source => :patron
-  has_many :exemplifies, :foreign_key => 'manifestation_id'
-  has_many :items, :through => :exemplifies #, :foreign_key => 'manifestation_id'
-  has_many :children, :foreign_key => 'parent_id', :class_name => 'ManifestationRelationship', :dependent => :destroy
-  has_many :parents, :foreign_key => 'child_id', :class_name => 'ManifestationRelationship', :dependent => :destroy
-  has_many :derived_manifestations, :through => :children, :source => :child
-  has_many :original_manifestations, :through => :parents, :source => :parent
   has_many :work_has_subjects, :foreign_key => 'work_id', :dependent => :destroy
   has_many :subjects, :through => :work_has_subjects
   has_many :reserves, :foreign_key => :manifestation_id, :order => :position
   has_many :picture_files, :as => :picture_attachable, :dependent => :destroy
   belongs_to :language
   belongs_to :carrier_type
-  belongs_to :manifestation_content_type, :class_name => 'ContentType', :foreign_key => 'content_type_id'
-  #belongs_to :content_type
   has_one :series_has_manifestation
   has_one :series_statement, :through => :series_has_manifestation
-  belongs_to :manifestation_relationship_type
   belongs_to :frequency
   belongs_to :required_role, :class_name => 'Role', :foreign_key => 'required_role_id', :validate => true
   has_one :resource_import_result
@@ -186,39 +173,22 @@ class Manifestation < ActiveRecord::Base
   #has_ipaper_and_uses 'Paperclip'
   #enju_scribd
   has_paper_trail
-  if configatron.uploaded_file.storage == :s3
+  if Setting.uploaded_file.storage == :s3
     has_attached_file :attachment, :storage => :s3, :s3_credentials => "#{Rails.root.to_s}/config/s3.yml"
   else
     has_attached_file :attachment
   end
 
-  validates_presence_of :original_title, :carrier_type, :language
+  validates_presence_of :carrier_type, :language
   validates_associated :carrier_type, :language
-  validates :start_page, :numericality => true, :allow_blank => true
-  validates :end_page, :numericality => true, :allow_blank => true
-  validates :isbn, :uniqueness => true, :allow_blank => true, :unless => proc{|manifestation| manifestation.series_statement}
-  validates :nbn, :uniqueness => true, :allow_blank => true
-  validates :identifier, :uniqueness => true, :allow_blank => true
-  validates :access_address, :url => true, :allow_blank => true, :length => {:maximum => 255}
-  validate :check_isbn, :check_issn, :check_lccn, :unless => :during_import
-  #validate :check_pub_date
-  before_validation :set_wrong_isbn, :check_issn, :check_lccn, :set_language, :if => :during_import
-  before_validation :convert_isbn
-  before_create :set_digest
-  after_create :clear_cached_numdocs
-  before_save :set_date_of_publication, :set_new_serial_number, :set_volume_issue_number
+  before_validation :set_language, :if => :during_import
   before_save :set_series_statement
-  before_save :delete_attachment?
+
   after_save :index_series_statement
   after_destroy :index_series_statement
-  normalize_attributes :identifier, :pub_date, :isbn, :issn, :nbn, :lccn, :original_title
   attr_accessor :during_import, :series_statement_id
-  attr_accessible :delete_attachment
-  attr_protected :periodical_master
 
-  def self.per_page
-    10
-  end
+  paginates_per 10
 
   if defined?(EnjuBookmark)
     has_many :bookmarks, :include => :tags, :dependent => :destroy, :foreign_key => :manifestation_id
@@ -247,128 +217,8 @@ class Manifestation < ActiveRecord::Base
     end
   end
 
-  def check_pub_date
-    logger.info "manifestaion#check pub_date=#{self.pub_date}"
-    date = self.pub_date.to_s.gsub(' ', '').dup
-    return if date.blank?
-
-    unless date =~ /^\d+(-\d{0,2}){0,2}$/
-      errors.add(:pub_date); return
-    end
-
-    if date =~ /^[0-9]+$/  # => YYYY / YYYYMM / YYYYMMDD
-      case date.length
-      when 4
-        date = "#{date}-01-01"
-      when 6
-        year = date.slice(0, 4)
-        month = date.slice(4, 2)
-        date = "#{year}-#{month}-01"
-      when 8
-        year = date.slice(0, 4)
-        month = date.slice(4, 2)
-        day = date.slice(6, 2) 
-        date = "#{year}-#{month}-#{day}"
-      else
-        errors.add(:pub_date); return
-      end
-    else
-      date_a = date.split(/\D/) #=> ex. YYYY / YYYY-MM / YYYY-MM-DD / YY-MM-DD
-      year = date_a[0]
-      month = date_a[1]
-      day = date_a[2]
-      date = "#{year}-01-01" unless month and day
-      date = "#{year}-#{month}-01" unless day
-      date = "#{year}-#{month}-#{day}" if year and month and day
-    end
-
-    begin
-      date = Time.zone.parse(date)
-    rescue
-      errors.add(:pub_date)
-    end
-  end
-
-  def check_isbn
-    if isbn.present?
-      unless ISBN_Tools.is_valid?(isbn)
-        errors.add(:isbn)
-      end
-    end
-  end
-
-  def check_issn
-    self.issn = ISBN_Tools.cleanup(issn)
-    if issn.present?
-      unless StdNum::ISSN.valid?(issn)
-        errors.add(:issn)
-      end
-    end
-  end
-
-  def check_lccn
-    if lccn.present?
-      unless StdNum::LCCN.valid?(lccn, true)
-        errors.add(:lccn)
-      end
-    end
-  end
-
-  def set_wrong_isbn
-    if isbn.present?
-      unless ISBN_Tools.is_valid?(isbn)
-        self.wrong_isbn
-        self.isbn = nil
-      end
-    end
-  end
-
-  def convert_isbn
-    num = ISBN_Tools.cleanup(isbn) if isbn
-    if num
-      if num.length == 10
-        self.isbn10 = num
-        self.isbn = ISBN_Tools.isbn10_to_isbn13(num)
-      elsif num.length == 13
-        self.isbn10 = ISBN_Tools.isbn13_to_isbn10(num)
-      end
-    end
-  end
-
-  def set_date_of_publication
-    return if pub_date.blank?
-    begin
-      date = Time.zone.parse("#{pub_date}")
-    rescue ArgumentError
-      begin
-        date = Time.zone.parse("#{pub_date}-01")
-        date = date.end_of_month
-      rescue ArgumentError
-        begin
-          date = Time.zone.parse("#{pub_date}-12-01")
-          date = date.end_of_month
-        rescue ArgumentError
-          nil
-        end
-      end
-    end
-    self.date_of_publication = date
-  end
-  
   def set_language
     self.language = Language.where(:name => "Japanese").first if self.language.nil?
-  end
-
-  def self.cached_numdocs
-    Rails.cache.fetch("manifestation_search_total"){Manifestation.search.total}
-  end
-
-  def clear_cached_numdocs
-    Rails.cache.delete("manifestation_search_total")
-  end
-
-  def parent_of_series
-    original_manifestations
   end
 
   def next_reservation
@@ -384,23 +234,6 @@ class Manifestation < ActiveRecord::Base
       return true unless  series_statement.initial_manifestation == self
     end
     false
-  end
-
-  def number_of_pages
-    if self.start_page and self.end_page
-      page = self.end_page.to_i - self.start_page.to_i + 1
-    end
-  end
-
-  def titles
-    title = []
-    title << original_title.to_s.strip
-    title << title_transcription.to_s.strip
-    title << title_alternative.to_s.strip
-    #title << original_title.wakati
-    #title << title_transcription.wakati rescue nil
-    #title << title_alternative.wakati rescue nil
-    title
   end
 
   def url
@@ -474,19 +307,6 @@ class Manifestation < ActiveRecord::Base
     self
   end
 
-  def set_new_serial_number
-    self.serial_number = self.serial_number_string.gsub(/\D/, "").to_i if self.serial_number_string rescue nil
-  end
-
-  def set_volume_issue_number
-    self.volume_number = (self.volume_number_string.gsub(/\D/, "")).to_i if self.volume_number_string rescue nil
-    self.issue_number = self.issue_number_string.gsub(/\D/, "").to_i if self.issue_number_string rescue nil     
-
-    if self.volume_number && self.volume_number.to_s.length > 9
-      self.volume_number = nil
-    end
-  end
-
   def reservable_with_item?(user = nil)
     if SystemConfiguration.get("reserve.not_reserve_on_loan").nil?
       return true
@@ -544,14 +364,6 @@ class Manifestation < ActiveRecord::Base
     publishers.collect(&:name).flatten
   end
 
-  def title
-    titles
-  end
-
-  def hyphenated_isbn
-    ISBN_Tools.hyphenate(isbn)
-  end
-
   # TODO: よりよい推薦方法
   def self.pickup(keyword = nil)
     return nil if self.cached_numdocs < 5
@@ -563,14 +375,6 @@ class Manifestation < ActiveRecord::Base
       paginate :page => 1, :per_page => 1
     end
     manifestation = response.results.first
-  end
-
-  def set_digest(options = {:type => 'sha1'})
-    if attachment.queued_for_write[:original]
-      if File.exists?(attachment.queued_for_write[:original])
-        self.file_hash = Digest::SHA1.hexdigest(File.open(attachment.queued_for_write[:original].path, 'rb').read)
-      end
-    end
   end
 
   def extract_text
@@ -601,20 +405,6 @@ class Manifestation < ActiveRecord::Base
     subjects.collect(&:classifications).flatten
   end
 
-=begin
-  def volume_number
-    volume_number_string.gsub(/\D/, ' ').split(" ") if volume_number_string
-  end
-
-  def issue_number
-    issue_number_string.gsub(/\D/, ' ').split(" ") if issue_number_string
-  end
-
-  def serial_number
-    serial_number_string.gsub(/\D/, ' ').split(" ") if serial_number_string
-  end
-=end
-
   def questions(options = {})
     id = self.id
     options = {:page => 1, :per_page => Question.per_page}.merge(options)
@@ -637,23 +427,8 @@ class Manifestation < ActiveRecord::Base
     items.where(:shelf_id => Shelf.web.id).first
   end
 
-  def self.find_by_isbn(isbn)
-    if ISBN_Tools.is_valid?(isbn)
-      ISBN_Tools.cleanup!(isbn)
-      if isbn.size == 10
-        Manifestation.where(:isbn => ISBN_Tools.isbn10_to_isbn13(isbn)).first || Manifestation.where(:isbn => isbn).first
-      else
-        Manifestation.where(:isbn => isbn).first || Manifestation.where(:isbn => ISBN_Tools.isbn13_to_isbn10(isbn)).first
-      end
-    end
-  end
-
   def index_series_statement
     series_statement.try(:index)
-  end
-
-  def acquired_at
-    items.order(:acquired_at).first.try(:acquired_at)
   end
 
   def set_series_statement
@@ -662,14 +437,6 @@ class Manifestation < ActiveRecord::Base
       self.series_statement = series_statement unless series_statement.blank?   
     end
   end 
-
-  def delete_attachment
-    @delete_attachment ||= "0"
-  end
-  
-  def delete_attachment=(value)
-    @delete_attachment = value
-  end
 
   def last_checkout_datetime
     Manifestation.find(:last, :include => [:items, :items => :checkouts], :conditions => {:manifestations => {:id => self.id}}, :order => 'items.created_at DESC').items.first.checkouts.first.created_at rescue nil
@@ -739,10 +506,6 @@ class Manifestation < ActiveRecord::Base
   end
 
 private
-  def delete_attachment?
-    self.attachment.clear if @delete_attachment == "1"
-  end
-
   def self.get_manifestation_list_pdf(manifestations, current_user)
     report = ThinReports::Report.new :layout => File.join(Rails.root, 'report', 'searchlist.tlf')
 

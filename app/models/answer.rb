@@ -16,9 +16,7 @@ class Answer < ActiveRecord::Base
 #  validates_presence_of :user, :question, :body
   validate :check_url_list
 
-  def self.per_page
-    10
-  end
+  paginates_per 10
 
   def save_questions
     self.question.save

@@ -9,5 +9,5 @@
     <%- end -%>
   </ul>
 
-  <%= will_paginate(@events, :param_name => :event_page, :class => 'content_pagination digg_pagination') -%>
+  <%= paginate(@events, :param_name => :event_page, :class => 'content_pagination digg_pagination') -%>
 </div>

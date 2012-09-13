@@ -12,9 +12,7 @@ class LibraryReport < ActiveRecord::Base
     integer :yyyymm
   end
 
-  def self.per_page
-    10
-  end
+  paginates_per 10
 
   def set_yyyymm
     self.yyyymm = self.yyyymmdd.to_s[0,6].to_i

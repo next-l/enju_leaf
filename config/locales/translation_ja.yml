@@ -1462,10 +1462,11 @@ ja:
     budget_and_order: "予算と発注の管理" 
     budget: "予算"
     wait: "処理中.."
-    system_configuration: システム設定
+    system_configuration: "システム設定"
     reminder_postal_card: "督促はがき"
     reminder_letter: "催告書"
     extensions: "Enju_trunk 拡張機能"
+    budgets: "予算"
 
     exstatistics:
       ranknumber: 順位

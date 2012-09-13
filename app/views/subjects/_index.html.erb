@@ -13,7 +13,8 @@
     <th><%= t('activerecord.attributes.subject.term') -%></th>
     <th></th>
   </tr>
-  <%- subjects.each do |subject| -%>
+  <%- if subjects -%>
+   <%- subjects.each do |subject| -%>
     <tr class="line<%= cycle("0", "1") -%>">
       <td><%= link_to subject.term, subject -%></td>
       <td>
@@ -25,10 +26,13 @@
         <%- end -%>
       </td>
     </tr>
+   <%- end -%>
   <%- end -%>
 </table>
 
-<%= will_paginate(subjects) -%>
+<%- if subjects -%>
+<%= paginate(subjects) -%>
+<%- end -%>
 </div>
 </div>
 

@@ -28,7 +28,7 @@ class PurchaseRequestsController < ApplicationController
     if params[:format] == 'tsv'
       per_page = 65534
     else
-      per_page = PurchaseRequest.per_page
+      per_page = PurchaseRequest.default_per_page
     end
 
     query = params[:query].to_s.strip
@@ -64,7 +64,7 @@ class PurchaseRequestsController < ApplicationController
       format.json { render :json => @purchase_requests }
       format.rss  { render :layout => false }
       format.atom
-      format.tsv { send_data PurchaseRequest.get_purchase_requests_tsv(@purchase_requests), :filename => configatron.purchase_requests_print_tsv.filename }
+      format.tsv { send_data PurchaseRequest.get_purchase_requests_tsv(@purchase_requests), :filename => Setting.purchase_requests_print_tsv.filename }
     end
   end
 
