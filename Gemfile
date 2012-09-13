@@ -147,3 +147,5 @@ gem 'capistrano'
 # To use debugger (ruby-debug for Ruby 1.8.7+, ruby-debug19 for Ruby 1.9.2+)
 # gem 'ruby-debug19', :require => 'ruby-debug'
 
+# FRBR models
+gem 'enju_trunk_frbr', :git => 'git://github.com/emiko/enju_trunk_frbr.git'

@@ -1,15 +1,13 @@
 # -*- encoding: utf-8 -*-
+require EnjuTrunkFrbr::Engine.root.join('app', 'models', 'item')
 class Item < ActiveRecord::Base
   self.extend ItemsHelper
   scope :for_checkout, where('item_identifier IS NOT NULL')
   scope :not_for_checkout, where(:item_identifier => nil)
   scope :on_shelf, where('shelf_id != 1')
   scope :on_web, where(:shelf_id => 1)
-  scope :recent, where(['items.created_at >= ?', Time.zone.now.months_ago(1)])
   scope :for_retain_from_own, lambda{|library| where('shelf_id IN (?)', library.excludescope_shelf_ids).order('created_at ASC')}
   scope :for_retain_from_others, lambda{|library| where('shelf_id NOT IN (?)', library.excludescope_shelf_ids).order('created_at ASC')}
-  has_one :exemplify
-  has_one :manifestation, :through => :exemplify
   has_many :checkouts
   has_many :reserves
   has_many :reserved_patrons, :through => :reserves, :class_name => 'Patron'
@@ -40,16 +38,12 @@ class Item < ActiveRecord::Base
 
   validates_associated :circulation_status, :shelf, :bookstore, :checkout_type
   validates_presence_of :circulation_status, :checkout_type
-  validates :item_identifier, :allow_blank => true, :uniqueness => true, :format => {:with => /\A[0-9A-Za-z_]+\Z/}
-  validates :url, :url => true, :allow_blank => true, :length => {:maximum => 255}
-  validates_date :acquired_at, :allow_blank => true
   before_validation :set_circulation_status, :on => :create
   before_save :set_use_restriction, :check_remove_item
   after_save :check_price
 
   #enju_union_catalog
   has_paper_trail
-  normalize_attributes :item_identifier
 
   searchable do
     text :item_identifier, :note, :title, :creator, :contributor, :publisher, :library
@@ -65,12 +59,6 @@ class Item < ActiveRecord::Base
     integer :inventory_file_ids, :multiple => true
     time :created_at
     time :updated_at
-  end
-
-  attr_accessor :library_id, :manifestation_id, :use_restriction_id
-
-  def self.per_page
-    10
   end
 
   def set_circulation_status
@@ -222,10 +210,6 @@ class Item < ActiveRecord::Base
     true if self.inter_library_loans.size > 0
   end
 
-  def title
-    manifestation.try(:original_title)
-  end
-
   def creator
     manifestation.try(:creator)
   end
@@ -297,14 +281,6 @@ class Item < ActiveRecord::Base
       self.removed_at = Time.zone.now if self.removed_at.nil?
     else
       self.removed_at = nil
-    end
-  end
-
-  def select_acquired_at
-    if self.acquired_at
-      return self.acquired_at.strftime("%Y%m")
-    else
-      return Time.now.strftime("%Y%m")
     end
   end
 
@@ -480,18 +456,8 @@ class Item < ActiveRecord::Base
   end
 
   private
-  def self.to_format(num)
-    num.to_s.gsub(/(\d)(?=(\d{3})+(?!\d))/, '\1,')
-  end
-
   def self.patrons_list(patrons)
     ApplicationController.helpers.patrons_list(patrons, {:nolink => true})
-  end
-
-  def self.get_object_method(obj,array)
-    _obj = obj.send(array.shift)
-    return get_object_method(_obj, array) if array.present?
-    return _obj
   end
 
   def self.make_item_register_tsv(tsvfile, items)
