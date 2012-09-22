@@ -163,6 +163,8 @@ defaults: &defaults
   # 予約票の出力
   reserve_print:
     filename: "reserve.pdf"
+    # 予約表に利用者の年齢を表示するかどうか
+    old: true
   # 予約リスト(個人)の出力
   reserve_list_user_print:
     filename: "reserve_list_user.pdf"
@@ -178,9 +180,6 @@ defaults: &defaults
   # 取置済み資料の出力(TSV)
   retained_manifestation_list_print_tsv:
     filename: "retained_manifestation_list.tsv"
-  # 予約表に利用者の年齢を表示するかどうか
-  reserve_print:
-    old: true
 
   # 利用者リストの出力(PDF)
   user_list_print_pdf:
@@ -281,27 +280,25 @@ defaults: &defaults
     unable:
       background: "yellow"
   
-  # refs 1989 trueの場合 => itemがひとつだけのmanifestationのitemを削除するとき、除籍してからのみ削除できる
-  items:
-    confirm_destroy = true
-
   # refs 1991 雑誌最新号の貸出禁止
-  checkouts.cannot_for_new_serial: true
+  checkouts:
+    cannot_for_new_serial: true
 
   # refs 2588 所蔵のない資料の予約
-  reserves.able_for_not_item: true
+  reserves:
+    able_for_not_item: true
 
   # refs 1978 拡張統計-図書リストの新刊購入受入リスト 出版日がシステム日付からn日前以降であるものを抽出
   new_book_term: 14
 
   # refs 3127 ユーザー権限以下でログイン時、購入リクエスト画面を表示するかどうか。trueのとき表示
-  user_show_purchase_requests:
+  user_show_purchase_requests: true
 
   # refs 3127 ユーザー権限以下でログイン時、質問(レファレンス)ト画面を表示するかどうか。trueのとき表示
-  user_show_questions:
+  user_show_questions: true
 
   # refs 3128 発注リストを使用するかどうか。trueのとき使用可能
-  use_order_lists:
+  use_order_lists: true
 
   # 書影
   manifestation_book_jacket:
@@ -311,7 +308,9 @@ defaults: &defaults
   items:
     call_number:
       delete_first_delimiter: true
-
+    # refs 1989 trueの場合 => itemがひとつだけのmanifestationのitemを削除するとき、除籍してからのみ削除できる
+    confirm_destroy: true
+ 
   # refs 3861資料の検索時、キーワードがスペースで区切られている場合はそれぞれの語によってAND検索を行うか
   search:
     use_and: true
@@ -319,9 +318,6 @@ defaults: &defaults
   # 音
   sounds:
     basedir: "sounds/"
-    #sounds.errors.a = "chimeA08.ogg"
-    #sounds.errors.c = "churchA08.ogg"
-    #sounds.errors.d = "missA11.ogg"
     errors:
       default: "sounds/missA11.ogg"
       item:
@@ -352,7 +348,7 @@ defaults: &defaults
   patron:
     check_duplicate_user: false
 
-  standalone:
+  standaloneclient:
     # refs 2552 クライアント接続パスフレーズ
     clientkey: "Next-L/Enju:Next-L/Enju:Next-L/E"
     # refs 2552 データを暗号化する
