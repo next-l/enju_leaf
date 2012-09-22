@@ -143,7 +143,7 @@ defaults: &defaults
   manifestation_list_print_tsv:
     filename: "manifestation_list.tsv"
   # 資料確認票のファイル名
-  manifestation_locate_print
+  manifestation_locate_print:
     filename: "manifestation.pdf"
 
   # 貸出票の出力
