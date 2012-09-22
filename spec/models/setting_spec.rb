@@ -142,13 +142,12 @@ describe Setting do
     Setting.send_message.purchase_request_accepted.should be_true
     Setting.send_message.purchase_request_rejected.should be_true
     
-    # # refs 3563 取置き済資料が貸出不可になったとき利用者に取置き取消メッセージを送信するか
-    # configatron.send_message.reserve_reverted_for_patron = true
-    # configatron.send_message.reserve_reverted_for_library = true
-    # configatron.items.call_number.delete_first_delimiter = true
-    # configatron.search.use_and = true
-    # configatron.advanced_search.use_and = true
-    # configatron.manifestations.per_page = '10, 20, 50, 100'
+    Setting.send_message.reserve_reverted_for_patron.should be_true
+    Setting.send_message.reserve_reverted_for_library.should be_true
+    Setting.items.call_number.delete_first_delimiter.should be_true
+    Setting.search.use_and.should be_true
+    Setting.advanced_search.use_and.should be_true
+    Setting.manifestations.per_page.should == '10, 20, 50, 100'
   end
 end
 
