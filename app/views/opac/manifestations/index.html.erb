@@ -1,0 +1,77 @@
+<script>
+$(function() {
+    $('.opac_manifestations_row').click(function(e) {
+      if(!$(e.target).is('a')){
+        window.location = $(e.target).closest('tr').data('href');
+      };
+  });
+});
+</script>
+
+<div id="opac_header">
+  <div class="opac_title">
+    <h1><%= t('page.search_resource', :model => t('page.resource')) %></h1>
+  </div>
+  <div class="opac_head_button_area">
+    <%= link_to opac_search_path do %><div class="opac_head_button"><%= t('opac.catalog_search') %></div><% end %> 
+    <%= link_to opac_path do %><div class="opac_head_button"><%= t('opac.finish') %></div><% end %>
+  </div>
+</div>
+
+<div id="opac_content_detail"> 
+  <% if @manifestations && (@manifestations.size > 0) %> 
+    <p>
+      <%= t('page.number_of_search_results', 
+        :count => @count[:query_result], 
+        :numdocs => Manifestation.cached_numdocs, 
+        :seconds => sprintf("%.3f", @seconds)) %>
+      <% if @count[:query_result] > SystemConfiguration.get("max_number_of_results") %>
+        <br />
+        <%= t('page.limit_exceeded', :count => SystemConfiguration.get("max_number_of_results")) %>
+      <% end %>
+    </p>
+
+    <div class="opac_sort">
+      <%= link_to params.merge(:sort_by => nil) do %>
+        <div class="opac_sort_button_<%= params[:sort_by].blank? ? 'on' : 'off'%>">
+          <%= t('opac.search.sort', :target => t('manifestation.date_of_acquisition')) %>
+        </div>
+      <% end %>
+      <%= link_to params.merge(:sort_by => 'pub_date') do %>
+        <div class="opac_sort_button_<%= params[:sort_by] == 'pub_date' ? 'on' : 'off'%>">
+          <%= t('opac.search.sort', :target => t('activerecord.attributes.manifestation.date_of_publication')) %>
+        </div> 
+      <% end %>
+      <%= link_to params.merge(:sort_by => 'title') do %>
+        <div class="opac_sort_button_<%= params[:sort_by] == 'title' ? 'on' : 'off'%>">
+          <%= t('opac.search.sort', :target => t('page.title')) %>
+        </div> 
+      <% end %>
+      <%= link_to params.merge(:sort_by => 'author') do %>
+        <div class="opac_sort_button_<%= params[:sort_by] == 'author' ? 'on' : 'off'%>">
+          <%= t('opac.search.sort', :target => t('patron.creator')) %>
+        </div> 
+      <% end %>
+      <%= link_to params.merge(:sort_by => 'carrier_type') do %>
+        <div class="opac_sort_button_<%= params[:sort_by] == 'carrier_type' ? 'on' : 'off'%>">
+          <%= t('opac.search.sort', :target => t('activerecord.models.carrier_type')) %>
+        </div> 
+      <% end %>
+    </div>
+
+    <table class="index" id="opac_manifestation_list" style="clear: both;">
+      <% @manifestations.each do |manifestation| %>
+        <tr class="opac_line<%= cycle("0", "1") %> opac_manifestations_row" data-href="<%= manifestation_path(manifestation, :opac => true) %>">
+          <td><%= manifestation.original_title %></td>
+          <td><%= patrons_list(manifestation.creators.readable_by(current_user)) %></td>
+          <td><%= patrons_list(manifestation.publishers.readable_by(current_user)) %></td>
+          <td><%= manifestation.pub_date %></td>
+          <td></td>
+        </tr>
+      <% end %>
+    </table>
+    <%= paginate(@manifestations) -%>
+  <% else %>
+    <%= render 'manifestations/not_found' %>
+  <% end %>
+</div>

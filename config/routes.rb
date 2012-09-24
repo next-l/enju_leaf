@@ -466,6 +466,9 @@ EnjuLeaf::Application.routes.draw do
   match '/page/extensions' => 'page#extensions'
   match '/page/budgets' => 'page#budgets'
 
+  match '/opac' => 'opac#index'
+  match '/opac/search' => 'opac#search'
+
   match '/checkoutlists' => 'checkoutlists#index'
   match '/reservelists' => 'reservelists#index'
   match '/unablelist' => 'unablelist#index'

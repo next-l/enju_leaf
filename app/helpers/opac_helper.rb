@@ -1,0 +1,2 @@
+module OpacHelper
+end

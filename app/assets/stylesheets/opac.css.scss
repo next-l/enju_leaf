@@ -1,0 +1,235 @@
+// Place all the styles related to the opac controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+div#opac_content {
+  margin:0 auto;
+  width:1024px;
+  padding: 0 10px;
+}
+div#opac_content, div#opac_content p, div#opac_content td {
+  font-size: 16px;
+}
+
+div#opac_header {
+  width: 100%;
+  margin-bottom: 50px;
+  padding: 20px 10px;
+  text-align: right;
+  overflow: auto;
+  border-top: 2px solid #000;
+  border-bottom: 15px solid #63CBF7;
+  // color
+  background: -moz-linear-gradient(top, #ddd, #fff); /* mozilla */
+  background: -webkit-gradient(linear, center top, center bottom, from(#ddd), to(#fff)); /* Webkit */
+  filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#FFDDDDDD', endColorstr='#FFFFFFFF'); /* IE5.5以上 */
+}
+div.opac_title {
+  float: left;
+}
+
+div.opac_head_button_area {
+  float: right;
+}
+.opac_head_button {
+  float: left;
+  width: 120px;
+  padding: 10px 0;
+  text-align: center;
+  font-weight: 900;
+  margin-left: 10px;
+  border: 1px solid #ccc;
+  text-decoration: none;
+  // radius 
+  border-radius: 5px;         /* CSS3 */
+  -moz-border-radius: 5px;    /* Firefox */
+  -webkit-border-radius: 5px; /* Safari,Chrome */
+  // color
+  background: -moz-linear-gradient(top, #fff, #ddd); /* mozilla */
+  background: -webkit-gradient(linear, center top, center bottom, from(#fff), to(#ddd)); /* Webkit */
+  filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#FFFFFFFF', endColorstr='#FFDDDDDD'); /* IE5.5以上 */
+}
+
+div#opac_content table {
+  border: none;
+}
+div#opac_content th, div#opac_content td {
+  border: none;
+  padding: 10px
+}
+
+tr.opac_line0 {
+  background-color: #EEE;
+}
+tr.opac_line1 {
+  background-color: #FFF;
+}
+tr.opac_manifestations_row:hover td {
+  cursor: pointer;
+  background-color: #A2DCEA ;
+}
+
+div.push_touchpanel{
+  width: 100%;
+  font-size: 25px;
+  padding: 20px 0;
+  margin-bottom: 50px; 
+  border-top: 2px solid #000;
+  text-align: center;
+  background-color: #eee;
+  // color
+  background: -moz-linear-gradient(top, #ddd, #fff); /* mozilla */
+  background: -webkit-gradient(linear, center top, center bottom, from(#ddd), to(#fff)); /* Webkit */
+  filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#FFDDDDDD', endColorstr='#FFFFFFFF'); /* IE5.5以上 */
+}
+
+div#opac_menu {
+  width: 400px;
+  color: white;
+  font-weight: 900;
+  float: left;
+}
+div#opac_menu a {
+  text-decoration: none;
+}
+
+div#opac_search_col, div#opac_session_col, div#opac_easy div {
+  color: white;
+  // raduis
+  border-radius: 10px;         /* CSS3 */
+  -moz-border-radius: 10px;    /* Firefox */
+  -webkit-border-radius: 10px; /* Safari,Chrome */
+  // shadow
+  box-shadow: 2px 2px 4px #000; /*CSS3*/
+  -moz-box-shadow: 2px 2px 4px #000; /* Firefox用*/
+  -webkit-box-shadow: 3px 3px 4px #000; /* Google Chrome, Safari用*/
+}
+
+#opac_search_col {
+  padding: 50px 20px;
+  margin-bottom: 50px;
+  // color
+  background: -moz-linear-gradient(top, #A2DCEA, #17649A); /* mozilla */
+  background: -webkit-gradient(linear, center top, center bottom, from(#A2DCEA), to(#17649A)); /* Webkit */
+  filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#FFA2DCEA', endColorstr='#FF17649A'); /* IE5.5以上 */
+}
+
+div#opac_session_col {
+  padding: 20px 20px;
+  background: -webkit-gradient(linear, left top, left bottom, from(#396A92), to(#091D42));
+  margin-bottom: 15px;
+  //color
+  background: -moz-linear-gradient(top, #396A92, #091D42); /* mozilla */
+  background: -webkit-gradient(linear, center top, center bottom, from(#396A92), to(#091D42)); /* Webkit */
+  filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#FF396A92', endColorstr='#FF091D42'); /* IE5.5以上 */
+}
+
+div#opac_easy div {
+  width: 152px;
+  float: left; 
+  padding: 20px 20px;
+  // color
+  background: -moz-linear-gradient(top, #396A92, #091D42); /* mozilla */
+  background: -webkit-gradient(linear, center top, center bottom, from(#396A92), to(#091D42)); /* Webkit */
+  filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#FF396A92', endColorstr='#FF091D42'); /* IE5.5以上 */
+}
+div.opac_bestreader {
+  margin-right: 15px;
+}
+
+div#opac_news {
+  margin-left: 80px;
+  width: 544px;
+  float: left;
+}
+dl.opac_news_column dd{
+  margin: 2px 0px 10px 10px;
+}
+
+input.opac_search_button {
+  width: 100px;
+  padding: 5px;
+  font-size: 20px;
+  font-weight: 900;
+  color: white;
+  // radius
+  border-radius: 10px;         /* CSS3 */
+  -moz-border-radius: 10px;    /* Firefox */
+  -webkit-border-radius: 10px; /* Safari,Chrome */
+  // color
+  background: -moz-linear-gradient(top, #444, #000); /* mozilla */
+  background: -webkit-gradient(linear, center top, center bottom, from(#444), to(#000)); /* Webkit */
+  filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#FF444444', endColorstr='#FF000000'); /* IE5.5以上 */
+}
+div#opac_search .text-field {
+  font-size: 20px;
+  width: 400px;
+}
+div#opac_search .date-text-field {
+  font-size: 20px;
+  width: 190px;
+}
+
+.opac_sort {
+  width: 100%;
+}
+.opac_sort_button_on, .opac_sort_button_off {
+  color: white;
+  font-weight: 900px;
+  width: 180px;
+  padding: 10px 7px;
+  margin-right: 10px;
+  margin-bottom: 20px;
+  text-align: center;
+  float: left;
+  // radius
+  border-radius: 5px;         /* CSS3 */
+  -moz-border-radius: 5px;    /* Firefox */
+  -webkit-border-radius: 5px; /* Safari,Chrome */
+  text-decoration: none;
+  // shadow
+  box-shadow: 2px 2px 4px #000; /*CSS3*/
+  -moz-box-shadow: 2px 2px 4px #000; /* Firefox用*/
+  -webkit-box-shadow: 2px 3px 4px #000; /* Google Chrome, Safari用*/
+}
+.opac_sort_button_on {
+  // color
+  background: -moz-linear-gradient(top, #D8E988, #9CBD00); /* mozilla */
+  background: -webkit-gradient(linear, center top, center bottom, from(#D8E988), to(#9CBD00)); /* Webkit */
+  filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#FFD8E988', endColorstr='#FF9CBD00'); /* IE5.5以上 */
+}
+.opac_sort_button_off {
+  // color
+  background: -moz-linear-gradient(top, #396A92, #091D42); /* mozilla */
+  background: -webkit-gradient(linear, center top, center bottom, from(#396A92), to(#091D42)); /* Webkit */
+  filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#FF396A92', endColorstr='#FF091D42'); /* IE5.5以上 */
+}
+
+#opac_output_button, #opac_reserve_button {
+  color: white;
+  font-weight: 900px;
+  padding: 10px 7px;
+  margin-right: 5px;
+  margin-bottom: 20px;
+  text-align: center;
+  text-decoration: none;
+  float: left;
+  // radius
+  border-radius: 10px;         /* CSS3 */
+  -moz-border-radius: 10px;    /* Firefox */
+  -webkit-border-radius: 10px; /* Safari,Chrome */
+  // color
+  background: -moz-linear-gradient(top, #396A92, #091D42); /* mozilla */
+  background: -webkit-gradient(linear, center top, center bottom, from(#396A92), to(#091D42)); /* Webkit */
+  filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#FF396A92', endColorstr='#FF091D42'); /* IE5.5以上 */
+  // shadow
+  box-shadow: 2px 2px 4px #000; /*CSS3*/
+  -moz-box-shadow: 2px 2px 4px #000; /* Firefox用*/
+  -webkit-box-shadow: 2px 3px 4px #000; /* Google Chrome, Safari用*/
+}
+#opac_output_button {
+  width: 200px;
+}
+#opac_reserve_button {
+  width: 200px;
+}
