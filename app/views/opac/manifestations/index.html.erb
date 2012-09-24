@@ -31,7 +31,7 @@ $(function() {
       <% end %>
     </p>
 
-    <div>
+    <div class="opac_sort">
       <%= link_to params.merge(:sort_by => nil) do %>
         <div class="opac_sort_button_<%= params[:sort_by].blank? ? 'on' : 'off'%>">
           <%= t('opac.search.sort', :target => t('manifestation.date_of_acquisition')) %>

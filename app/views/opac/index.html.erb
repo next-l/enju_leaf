@@ -3,13 +3,13 @@
 </div>
 
 <div id="opac_contents">
-  <div id="opac_topmenu">
+  <div id="opac_menu">
     <%= link_to opac_search_path do %>
       <div id="opac_search_col">
         <h1><img src="/assets/opac/book.png"/ style="width:20px;">&nbsp<%= t('opac.catalog_search') %></h1>
       </div>
     <% end %>
-    <%= link_to new_user_session_path do %>
+    <%= link_to edit_my_account_path do %>
       <div id="opac_session_col"><%= t('opac.edit_user') %></div>
     <% end %>
     <div id="opac_easy">
@@ -24,19 +24,17 @@
 
   <div id="opac_news">
     <h3><%= t('opac.news') %></h3>
-    <pre id="opac_news_box">
-      2012/09/10: aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa<br />
-      2012/09/08: bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb<br />
-      2012/09/07: ccccccccccccccccccccccccccccccc<br />
-      2012/09/10: aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa<br />
-      2012/09/10: aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa<br />
-      2012/09/10: aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa<br />
-      2012/09/08: bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb<br />
-      2012/09/07: ccccccccccccccccccccccccccccccc<br />
-      2012/09/08: bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb<br />
-      2012/09/07: ccccccccccccccccccccccccccccccc<br />
-      2012/09/08: bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb<br />
-      2012/09/07: ccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc<br />
-    </pre>
+    <dl class="opac_news_column">
+      <dt class="opac_new_date">2012/09/10:</dt>
+      <dd class="opac_new_detail">aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</dd>
+      <dt class="opac_new_date">2012/09/12:</dt>
+      <dd class="opac_new_detail">bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb</dd>
+      <dt class="opac_new_date">2012/09/15:</dt>
+      <dd class="opac_new_detail">cccccccccccccccccccccccccccccccc</dd>
+      <dt class="opac_new_date">2012/09/18:</dt>
+      <dd class="opac_new_detail">dddddddddddddddddddddddddddddddd</dd>
+      <dt class="opac_new_date">2012/09/22:</dt>
+      <dd class="opac_new_detail">eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee</dd>
+    </dl>
   </div>
 </div>

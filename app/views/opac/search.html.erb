@@ -28,8 +28,8 @@ $(function () {
 
   $('#keys_area').keypad({
     layout: kana,
-    //target: $('.text-field'),
-    target: $(':focus'),
+    target: $('.text-field'),
+    //target: $(':focus'),
     keypadOnly: false,
   });
 
@@ -78,6 +78,7 @@ $(function () {
           <td><%= t('page.search_term') %>:</td>
           <td><%= search_field_tag 'query', nil, :class => 'text-field' %></td>
         </tr>
+<% if false %>
         <tr>
           <td><%= t('patron.creator') %>:</td>
           <td><%= search_field_tag 'creator', nil, :class => 'text-field' %></td>
@@ -96,6 +97,7 @@ $(function () {
               :placeholder => "#{t('page.example')}: 2011, 2011-04-12" %>
          </td>
         </tr>
+<% end %>
       </table>
       <%= hidden_field_tag 'opac', 'true' %>
       <%= submit_tag t('page.search'), :class => 'opac_search_button' %><br />

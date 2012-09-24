@@ -22,35 +22,37 @@
       <%= t('page.number_of_pictures', :count => @manifestation.picture_files.count) %>
     <% end %>
 
-
     <div>
       <% unless @manifestation.carrier_type.name == 'file' %>
         <% if @manifestation.reservable? %>
           <div>
             <% if (user_signed_in? && current_user.has_role?('Librarian')) or !user_signed_in? %>
-              <%= link_to t('manifestation.reserve_this'), 
-                 new_reserve_path(:manifestation_id => @manifestation.id), :class => 'opac_reserve_button' %>
+              <%= link_to new_reserve_path(:manifestation_id => @manifestation.id) do %>
+                <div id="opac_reserve_button"><%= t('manifestation.reserve_this') %></div>
+              <% end %>
             <% else %>
               <% if @manifestation.is_reserved_by(current_user) %>
-                <%= link_to t('manifestation.cancel_reservation'), 
-                  user_reserve_path(@reserve.user, @reserve), :class => 'opac_reserve_button' %>
+                <%= link_to user_reserve_path(@reserve.user, @reserve) do %>
+                  <div id="opac_reserve_button"><%= t('manifestation.cancel_reservation') %></div>
+                <% end %>
               <% else %>
                 <% if @manifestation.reservable_with_item?(current_user) %>
-                  <%= link_to t('manifestation.reserve_this'),
-                    new_user_reserve_path(current_user, :manifestation_id => @manifesation.id), :class => 'opac_reserve_button' %>
+                  <%= link_to new_user_reserve_path(current_user, :manifestation_id => @manifesation.id) do %>
+                    <div id="opac_reserve_button"><%= t('manifestation.reserve_this') %></div>
+                  <% end %>
                 <% end %>
-               <% end %>
+              <% end %>
             <% end %>
            </div>
         <% end %>
       <% end %>
+
       <div>
         <%= form_tag({:action => 'output_show'}) do %>
-          <%= submit_tag t('page.output', :model => t('activerecord.attributes.manifestation.detail')),
-            :class => 'opac_output_button' %>
+          <%= submit_tag t('page.output', :model => t('activerecord.attributes.manifestation.detail')), :id => 'opac_output_button' %>
         <% end %>
-        <br style="clear:both;"/>
       </div>
+      <br style="clear:both;"/>
       <% unless @manifestation.carrier_type.name == 'file' %>
         <% if @manifestation.reservable? %>
           <div>
@@ -65,17 +67,18 @@
       <% end %>
     </div>
 
+    <% if @manifestation.items.exists? %>
+      <%= render 'opac/manifestations/show_holding', :manifestation => @manifestation %>
+    <% end %>
+
     <% if @version %>
       <p>(<%= l(@manifestation.versions.find(@version).created_at) -%>)</p>
     <% end %>
     <% if @manifestation.periodical_master? %>
       <%= render 'manifestations/periodical_list', :manifestation => @manifestation %>
     <% else %>
-      <% if current_user.try(:has_role?, 'Librarian') %>
-        <%= render 'manifestations/show_detail_librarian', :manifestation => @manifestation %>
-      <% else %>
-        <%= render 'manifestations/show_detail_user', :manifestation => @manifestation %>
-      <% end %>
+      <%= render 'opac/manifestations/show_detail', :manifestation => @manifestation %>
     <% end %>
+   </div>
 </div>
 

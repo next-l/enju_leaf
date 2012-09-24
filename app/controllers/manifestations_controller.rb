@@ -279,7 +279,7 @@ class ManifestationsController < ApplicationController
     store_location # before_filter ではファセット検索のURLを記憶してしまう
 
     respond_to do |format|
-      format.html { render :template => 'opac/manifestations_index', :layout => 'opac' } if params[:opac]
+      format.html { render :template => 'opac/manifestations/index', :layout => 'opac' } if params[:opac]
       format.html
       format.mobile
       format.xml  { render :xml => @manifestations }
@@ -364,7 +364,7 @@ class ManifestationsController < ApplicationController
     end
 
     respond_to do |format|
-      format.html { render :template => 'opac/manifestations_show', :layout => 'opac' } if params[:opac]
+      format.html { render :template => 'opac/manifestations/show', :layout => 'opac' } if params[:opac]
       format.html # show.html.erb
       format.mobile
       format.xml  {
