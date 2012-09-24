@@ -202,7 +202,7 @@ module ApplicationHelper
 
   def title(controller_name)
     string = ''
-    unless controller_name == 'page' or controller_name == 'my_accounts'
+    unless controller_name == 'page' or controller_name == 'my_accounts' or controller_name == 'opac'
       string << t("activerecord.models.#{controller_name.singularize}") + ' - '
     end
     string << LibraryGroup.system_name + ' - Next-L Enju Leaf'
