@@ -18,6 +18,8 @@ class Manifestation < ActiveRecord::Base
   has_many :purchase_requests
   has_many :table_of_contents
 
+  belongs_to :manifestation_content_type, :class_name => 'ContentType', :foreign_key => 'content_type_id'
+
   searchable do
     text :title, :default_boost => 2 do
       titles
