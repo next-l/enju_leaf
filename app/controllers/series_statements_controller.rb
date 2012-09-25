@@ -18,7 +18,7 @@ class SeriesStatementsController < ApplicationController
     end
     search.build do
       fulltext query if query.present?
-      paginate :page => page.to_i, :per_page => SeriesStatement.per_page
+      paginate :page => page.to_i, :per_page => SeriesStatement.default_per_page
       order_by :position, :asc
     end
     #work = @work
@@ -30,7 +30,7 @@ class SeriesStatementsController < ApplicationController
       end
     end
     page = params[:page] || 1
-    search.query.paginate(page.to_i, SeriesStatement.per_page)
+    search.query.paginate(page.to_i, SeriesStatement.default_per_page)
     @series_statements = search.execute!.results
 
     respond_to do |format|
@@ -42,13 +42,19 @@ class SeriesStatementsController < ApplicationController
   # GET /series_statements/1
   # GET /series_statements/1.json
   def show
-    @manifestations = @series_statement.manifestations.periodical_children.page(params[:manifestation_page]).per_page(Manifestation.per_page)
+    #@manifestations = @series_statement.manifestations.periodical_children.page(params[:manifestation_page]).per_page(Manifestation.default_per_page)
 
     respond_to do |format|
-      format.html # show.html.erb
+      format.html { # show.html.erb
+        redirect_to series_statement_manifestations_url(@series_statement)
+      }
       format.json { render :json => @series_statement }
-      format.js
+      #format.js
+      format.mobile {
+        redirect_to series_statement_manifestations_url(@series_statement)
+      }
     end
+
   end
 
   # GET /series_statements/new
