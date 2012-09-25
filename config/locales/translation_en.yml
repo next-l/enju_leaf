@@ -672,6 +672,7 @@ en:
         detail: Detail
         supplement: Supplement
         per_page: Per page
+        last_checkout_datetime: Last used at
       user_group:
         name: Name
         display_name: Display name
