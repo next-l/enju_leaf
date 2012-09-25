@@ -1,5 +1,5 @@
 /*
-* jQuery Mobile Framework Git Build: SHA1: cc5e61cd05507694745978822e1cf22ebbd0d61b <> Date: Tue Sep 4 15:35:37 2012 -0700
+* jQuery Mobile Framework Git Build: SHA1: ce06297f5caebeafa243e0a72efc422700292cca <> Date: Fri Sep 21 09:37:21 2012 -0700
 * http://jquerymobile.com
 *
 * Copyright 2012 jQuery Foundation and other contributors
@@ -29,7 +29,7 @@
 	$.mobile = $.extend( {}, {
 
 		// Version of the jQuery Mobile Framework
-		version: "1.2.0-beta.1",
+		version: "1.2.0-rc.2",
 
 		// Namespace used framework-wide for data-attrs. Default is no namespace
 		ns: "",
@@ -77,6 +77,10 @@
 
 		// For error messages, which theme does the box uses?
 		pageLoadErrorMessageTheme: "e",
+
+		// replace calls to window.history.back with phonegaps navigation helper
+		// where it is provided on the window object
+		phonegapNavigationEnabled: false,
 
 		//automatically initialize the DOM when it's ready
 		autoInitializePage: true,
@@ -2031,14 +2035,6 @@ $.mobile.media = (function() {
 
 (function( $, undefined ) {
 
-var fakeBody = $( "<body>" ).prependTo( "html" ),
-	fbCSS = fakeBody[ 0 ].style,
-	vendors = [ "Webkit", "Moz", "O" ],
-	webos = "palmGetResource" in window, //only used to rule out scrollTop
-	opera = window.opera,
-	operamini = window.operamini && ({}).toString.call( window.operamini ) === "[object OperaMini]",
-	bb = window.blackberry; //only used to rule out box shadow, as it's filled opaque on BB
-
 // thx Modernizr
 function propExists( prop ) {
 	var uc_prop = prop.charAt( 0 ).toUpperCase() + prop.substr( 1 ),
@@ -2050,6 +2046,15 @@ function propExists( prop ) {
 		}
 	}
 }
+
+var fakeBody = $( "<body>" ).prependTo( "html" ),
+	fbCSS = fakeBody[ 0 ].style,
+	vendors = [ "Webkit", "Moz", "O" ],
+	webos = "palmGetResource" in window, //only used to rule out scrollTop
+	opera = window.opera,
+	operamini = window.operamini && ({}).toString.call( window.operamini ) === "[object OperaMini]",
+	bb = window.blackberry && !propExists( "-webkit-transform" ); //only used to rule out box shadow, as it's filled opaque on BB 5 and lower
+
 
 function validStyle( prop, value, check_vend ) {
 	var div = document.createElement( 'div' ),
@@ -2129,6 +2134,10 @@ function cssPointerEventsTest() {
 	return !!supports;
 }
 
+function boundingRect() {
+	var div = document.createElement( "div" );
+	return typeof div.getBoundingClientRect !== "undefined";
+}
 
 // non-UA-based IE version check by James Padolsey, modified by jdalton - from http://gist.github.com/527683
 // allows for inclusion of IE 6+, including Windows Mobile 7
@@ -2156,7 +2165,8 @@ $.extend( $.support, {
 	boxShadow: !!propExists( "boxShadow" ) && !bb,
 	scrollTop: ( "pageXOffset" in window || "scrollTop" in document.documentElement || "scrollTop" in fakeBody[ 0 ] ) && !webos && !operamini,
 	dynamicBaseTag: baseTagTest(),
-	cssPointerEvents: cssPointerEventsTest()
+	cssPointerEvents: cssPointerEventsTest(),
+	boundingRect: boundingRect()
 });
 
 fakeBody.remove();
@@ -2179,8 +2189,9 @@ var nokiaLTE7_3 = (function() {
 
 // Support conditions that must be met in order to proceed
 // default enhanced qualifications are media query support OR IE 7+
+
 $.mobile.gradeA = function() {
-	return $.support.mediaquery || $.mobile.browser.ie && $.mobile.browser.ie >= 7;
+	return ( $.support.mediaquery || $.mobile.browser.ie && $.mobile.browser.ie >= 7 ) && ( $.support.boundingRect || $.fn.jquery.match(/1\.[0-7+]\.[0-9+]?/) !== null );
 };
 
 $.mobile.ajaxBlacklist =
@@ -2848,7 +2859,7 @@ $.mobile.getMaxScrollForTransition = $.mobile.getMaxScrollForTransition || defau
 			// browsers that auto	decode it. All references to location.href should be
 			// replaced with a call to this method so that it can be dealt with properly here
 			getLocation: function( url ) {
-				var uri = url ? $.mobile.path.parseUrl( url ) : location;
+				var uri = url ? this.parseUrl( url ) : this.parseUrl( location.href );
 
 				return uri.protocol + "//" + uri.host + uri.pathname + uri.search + uri.hash;
 			},
@@ -2988,7 +2999,7 @@ $.mobile.getMaxScrollForTransition = $.mobile.getMaxScrollForTransition || defau
 			//get path from current hash, or from a file path
 			get: function( newPath ) {
 				if ( newPath === undefined ) {
-					newPath = location.hash;
+					newPath = path.parseLocation().hash;
 				}
 				return path.stripHash( newPath ).replace( /[^\/]*\.[^\/*]+$/, '' );
 			},
@@ -3206,10 +3217,27 @@ $.mobile.getMaxScrollForTransition = $.mobile.getMaxScrollForTransition || defau
 
 		} : undefined;
 
-/*
-	internal utility functions
---------------------------------------*/
+	/* internal utility functions */
 
+	// NOTE Issue #4950 Android phonegap doesn't navigate back properly
+	//      when a full page refresh has taken place. It appears that hashchange
+	//      and replacestate history alterations work fine but we need to support
+	//      both forms of history traversal in our code that uses backward history
+	//      movement
+	$.mobile.back = function() {
+		var nav = window.navigator;
+
+		// if the setting is on and the navigator object is
+		// available use the phonegap navigation capability
+		if( this.phonegapNavigationEnabled &&
+			nav &&
+			nav.app &&
+			nav.app.backHistory ){
+			nav.app.backHistory();
+		} else {
+			window.history.back();
+		}
+	};
 
 	//direct focus to the page title, or otherwise first focusable element
 	$.mobile.focusPage = function ( page ) {
@@ -4124,7 +4152,7 @@ $.mobile.getMaxScrollForTransition = $.mobile.getMaxScrollForTransition || defau
 
 			//if there's a data-rel=back attr, go back in history
 			if ( $link.is( ":jqmData(rel='back')" ) ) {
-				window.history.back();
+				$.mobile.back();
 				return false;
 			}
 
@@ -4258,7 +4286,7 @@ $.mobile.getMaxScrollForTransition = $.mobile.getMaxScrollForTransition || defau
 					//the current dialog
 					urlHistory.directHashChange({
 						currentUrl: to,
-						isBack: function() { window.history.back(); },
+						isBack: function() { $.mobile.back(); },
 						isForward: function() { window.history.forward(); }
 					});
 
@@ -4417,7 +4445,7 @@ $.mobile.getMaxScrollForTransition = $.mobile.getMaxScrollForTransition || defau
 			// Note that in some cases we might be replacing an url with the
 			// same url. We do this anyways because we need to make sure that
 			// all of our history entries have a state object associated with
-			// them. This allows us to work around the case where window.history.back()
+			// them. This allows us to work around the case where $.mobile.back()
 			// is called to transition from an external page to an embedded page.
 			// In that particular case, a hashchange event is *NOT* generated by the browser.
 			// Ensuring each history entry has a state object means that onPopState()
@@ -4686,7 +4714,7 @@ $.widget( "mobile.dialog", $.mobile.widget, {
 		if ( this._isCloseable ) {
 			this._isCloseable = false;
 			if ( $.mobile.hashListeningEnabled ) {
-				window.history.back();
+				$.mobile.back();
 			} else {
 				dst = $.mobile.urlHistory.getPrev().url;
 				if ( !$.mobile.path.isPath( dst ) ) {
@@ -6402,6 +6430,8 @@ $( document ).bind( "pagecreate create", function( e ) {
 			// NOTE Windows Phone 7 has a scroll position caching issue that
 			//      requires us to disable popup history management by default
 			//      https://github.com/jquery/jquery-mobile/issues/4784
+			//
+			// NOTE this option is modified in _create!
 			history: !$.mobile.browser.ie
 		},
 
@@ -6493,6 +6523,11 @@ $( document ).bind( "pagecreate create", function( e ) {
 				thisPage = this.element.closest( ".ui-page" ),
 				myId = this.element.attr( "id" ),
 				self = this;
+
+			// We need to adjust the history option to be false if there's no AJAX nav.
+			// We can't do it in the option declarations because those are run before
+			// it is determined whether there shall be AJAX nav.
+			this.options.history = this.options.history && $.mobile.ajaxEnabled && $.mobile.hashListeningEnabled;
 
 			if ( thisPage.length === 0 ) {
 				thisPage = $( "body" );
@@ -6665,14 +6700,26 @@ $( document ).bind( "pagecreate create", function( e ) {
 		},
 
 		_setOption: function( key, value ) {
-			var setter = "_set" + key.charAt( 0 ).toUpperCase() + key.slice( 1 );
+			var exclusions, setter = "_set" + key.charAt( 0 ).toUpperCase() + key.slice( 1 );
 
 			if ( this[ setter ] !== undefined ) {
 				this[ setter ]( value );
 			}
-			if ( key !== "initSelector" ) {
+
+			// TODO REMOVE FOR 1.2.1 by moving them out to a default options object
+			exclusions = [
+				"initSelector",
+				"closeLinkSelector",
+				"closeLinkEvents",
+				"navigateEvents",
+				"closeEvents",
+				"history",
+				"container"
+			];
+
+			$.mobile.widget.prototype._setOption.apply( this, arguments );
+			if ( $.inArray( key, exclusions ) === -1 ) {
 				// Record the option change in the options and in the DOM data-* attributes
-				$.mobile.widget.prototype._setOption.apply( this, arguments );
 				this.element.attr( "data-" + ( $.mobile.ns || "" ) + ( key.replace( /([A-Z])/, "-$1" ).toLowerCase() ), value );
 			}
 		},
@@ -6860,14 +6907,12 @@ $( document ).bind( "pagecreate create", function( e ) {
 					}
 					return false;
 				}());
-			// set the global popup mutex
-			$.mobile.popup.active = this;
 
 			// Make sure options is defined
 			options = ( options || {} );
 
 			// Copy out the transition, because we may be overwriting it later and we don't want to pass that change back to the caller
-			transition = options.transition;
+			transition = options.transition || this.options.transition;
 
 			// Give applications a chance to modify the contents of the container before it appears
 			this._trigger( "beforeposition" );
@@ -6903,7 +6948,7 @@ $( document ).bind( "pagecreate create", function( e ) {
 				/* TODO:
 				The native browser on Android 4.0.X ("Ice Cream Sandwich") suffers from an issue where the popup overlay appears to be z-indexed
 				above the popup itself when certain other styles exist on the same page -- namely, any element set to `position: fixed` and certain
-				types of input. These issues are reminiscent of previously uncovered bugs in older versions of Android’s native browser:
+				types of input. These issues are reminiscent of previously uncovered bugs in older versions of Android's native browser:
 				https://github.com/scottjehl/Device-Bugs/issues/3
 
 				This fix closes the following bugs ( I use "closes" with reluctance, and stress that this issue should be revisited as soon as possible ):
@@ -7019,19 +7064,20 @@ $( document ).bind( "pagecreate create", function( e ) {
 		// TODO no clear deliniation of what should be here and
 		// what should be in _open. Seems to be "visual" vs "history" for now
 		open: function( options ) {
-			var self = this, opts = this.options, url, hashkey, activePage;
+			var self = this, opts = this.options, url, hashkey, activePage, currentIsDialog, hasHash, urlHistory;
 
 			// make sure open is idempotent
 			if( $.mobile.popup.active ) {
 				return;
 			}
 
-			// forward the options on to the visual open
-			self._open( options );
+			// set the global popup mutex
+			$.mobile.popup.active = this;
 
 			// if history alteration is disabled close on navigate events
 			// and leave the url as is
-			if( !opts.history ) {
+			if( !( opts.history ) ) {
+				self._open( options );
 				self._bindContainerClose();
 
 				// When histoy is disabled we have to grab the data-rel
@@ -7053,26 +7099,41 @@ $( document ).bind( "pagecreate create", function( e ) {
 			// cache some values for min/readability
 			hashkey = $.mobile.dialogHashKey;
 			activePage = $.mobile.activePage;
+			currentIsDialog = activePage.is( ".ui-dialog" );
+			url = $.mobile.urlHistory.getActive().url;
+			hasHash = ( url.indexOf( hashkey ) > -1 ) && !currentIsDialog;
+			urlHistory = $.mobile.urlHistory;
 
-			// NOTE I'm not 100% that this is the right place to get the default url
-			url = activePage.jqmData( "url" );
+			if ( hasHash ) {
+				self._open( options );
+				self._bindContainerClose();
+				return;
+			}
 
 			// if the current url has no dialog hash key proceed as normal
 			// otherwise, if the page is a dialog simply tack on the hash key
-			if ( url.indexOf( hashkey ) === -1 && !activePage.is( ".ui-dialog" ) ){
+			if ( url.indexOf( hashkey ) === -1 && !currentIsDialog ){
 				url = url + hashkey;
 			} else {
 				url = $.mobile.path.parseLocation().hash + hashkey;
 			}
 
+			// Tack on an extra hashkey if this is the first page and we've just reconstructed the initial hash
+			if ( urlHistory.activeIndex === 0 && url === urlHistory.initialDst ) {
+				url += hashkey;
+			}
+
 			// swallow the the initial navigation event, and bind for the next
 			opts.container.one( opts.navigateEvents, function( e ) {
 				e.preventDefault();
+				self._open( options );
 				self._bindContainerClose();
 			});
 
+			urlHistory.ignoreNextHashChange = currentIsDialog;
+
 			// Gotta love methods with 1mm args :(
-			$.mobile.urlHistory.addNew( url, undefined, undefined, undefined, "dialog" );
+			urlHistory.addNew( url, undefined, undefined, undefined, "dialog" );
 
 			// set the new url with (or without) the new dialog hash key
 			$.mobile.path.set( url );
@@ -7085,7 +7146,7 @@ $( document ).bind( "pagecreate create", function( e ) {
 			}
 
 			if( this.options.history ) {
-				window.history.back();
+				$.mobile.back();
 			} else {
 				this._close();
 			}
@@ -8064,7 +8125,9 @@ $.widget( "mobile.selectmenu", $.mobile.widget, {
 			}
 		}).bind( "mouseup", function() {
 			if ( self.options.preventFocusZoom ) {
-				$.mobile.zoom.enable( true );
+				setTimeout(function() {
+					$.mobile.zoom.enable( true );
+				}, 0);
 			}
 		});
 	},
@@ -8437,7 +8500,7 @@ $( document ).bind( "pagecreate create", function( e ) {
 					// doesn't solve the possible issue with calling change page
 					// where the objects don't define data urls which prevents dialog key
 					// stripping - changePage has incoming refactor
-					window.history.back();
+					$.mobile.back();
 				} else {
 					self.listbox.popup( "close" );
 					self.list.appendTo( self.listbox );
@@ -8652,7 +8715,7 @@ $( document ).bind( "pagecreate create", function( e ) {
 			transition: "slide", //can be none, fade, slide (slide maps to slideup or slidedown)
 			fullscreen: false,
 			tapToggle: true,
-			tapToggleBlacklist: "a, button, input, select, textarea, .ui-header-fixed, .ui-footer-fixed",
+			tapToggleBlacklist: "a, button, input, select, textarea, .ui-header-fixed, .ui-footer-fixed, .ui-popup",
 			hideDuringFocus: "input, textarea, select",
 			updatePagePadding: true,
 			trackPersistentToolbars: true,
@@ -9024,7 +9087,8 @@ $( document ).bind( "pagecreate create", function( e ) {
 			if ( ! ( $.mobile.hashListeningEnabled &&
 				$.mobile.path.isHashValid( location.hash ) &&
 				( $( hashPage ).is( ':jqmData(role="page")' ) ||
-					$.mobile.path.isPath( hash ) ) ) ) {
+					$.mobile.path.isPath( hash ) ||
+					hash === $.mobile.dialogHashKey ) ) ) {
 
 				// Store the initial destination
 				if ( $.mobile.path.isHashValid( location.hash ) ) {
