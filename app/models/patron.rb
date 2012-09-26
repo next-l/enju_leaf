@@ -314,11 +314,11 @@ private
   
     return false if chash.empty?
   
-    p = Patron.find(:all, :conditions => chash)
+    patrons = Patron.find(:all, :conditions => chash)
  
-    p.delete_if {|p| p.id == self.id} if p
+    patrons.delete_if {|p| p.id == self.id} if p
  
-    if p && p.size > 0
+    if patrons && patrons.size > 0
       errors.add_to_base(I18n.t('patron.duplicate_user'))
     end
     #logger.info errors.inspect
