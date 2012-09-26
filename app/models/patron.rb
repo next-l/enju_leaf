@@ -104,9 +104,9 @@ class Patron < ActiveRecord::Base
   end
 
   def set_full_name
-    puts "@@@"
-    puts self
-    puts "@@@"
+    #puts "@@@"
+    #puts self
+    #puts "@@@"
 
     if self.full_name.blank?
       logger.info "full_name is blank"
