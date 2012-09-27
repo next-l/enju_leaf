@@ -554,6 +554,7 @@ ja:
         fail_update_loss_item: 紛失処理に失敗しました。
         created_at: 作成日
         removed_at: 除籍日
+        items_number: 所蔵数
 
       loss_item:
         user_id: 利用者番号
@@ -2142,10 +2143,11 @@ ja:
     finish: 終わる
     push_touchpanel: 希望の項目を押してください
     catalog_search: 資料の検索
-    edit_user: 利用者情報の変更
+    login: 登録利用者ログイン
+    login_description: "利用者登録している方はこちらからログインしてください"
     news: 図書館からのお知らせ
-    best_reader: ベストリーダ
-    best_request: ベストリクエスト
+    best_reader: 貸出の多い本
+    best_request: 予約の多い本
     search:
       input_keyword: キーワードを入力してください
       keypad:

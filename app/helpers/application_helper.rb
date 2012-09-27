@@ -97,6 +97,22 @@ module ApplicationHelper
     patrons_list.join(" ").html_safe
   end
 
+  def patrons_short_list(patrons = [], options = {})
+    return nil if patrons.blank?
+    patrons_list = []
+    patrons.each_with_index do |patron, i|
+      if i < 3
+        if options[:nolink]
+          patrons_list << patron.full_name
+        else
+          patrons_list << link_to(patron.full_name, patron, options)
+        end
+      end
+    end
+    patrons_list << '...' if patrons.size > 3 
+    patrons_list.join(" ").html_safe
+  end
+
   def book_jacket(manifestation)
     if manifestation.picture_files.exists?
       link = ''

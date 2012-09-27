@@ -1,4 +1,6 @@
-<div class="push_touchpanel">
+<div id="opac_index_header">
+  <h1 class="opac_index_libraryname"><%= LibraryGroup.system_name(@locale) %></h1>
+  <br />
   <%= t('opac.push_touchpanel') %>
 </div>
 
@@ -10,14 +12,21 @@
       </div>
     <% end %>
     <%= link_to edit_my_account_path do %>
-      <div id="opac_session_col"><%= t('opac.edit_user') %></div>
+      <div id="opac_session_col">
+        <%= t('opac.login') %>
+        <div class="opac_button_description"><%= t('opac.login_description')%></div>
+      </div>
     <% end %>
     <div id="opac_easy">
       <%= link_to manifestation_exstats_bestreader_path do %>
-        <div class="opac_bestreader"><%= t('opac.best_reader') %></div>
+        <div class="opac_bestreader">
+          <%= t('opac.best_reader') %>
+        </div>
       <% end %>
       <%= link_to manifestation_exstats_bestrequest_path do %>
-        <div class="opac_bestrequest"><%= t('opac.best_request') %></div>
+        <div class="opac_bestrequest">
+          <%= t('opac.best_request') %>
+        </div>
       <% end %>
     </div>
   </div>
@@ -25,16 +34,12 @@
   <div id="opac_news">
     <h3><%= t('opac.news') %></h3>
     <dl class="opac_news_column">
-      <dt class="opac_new_date">2012/09/10:</dt>
-      <dd class="opac_new_detail">aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</dd>
-      <dt class="opac_new_date">2012/09/12:</dt>
-      <dd class="opac_new_detail">bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb</dd>
-      <dt class="opac_new_date">2012/09/15:</dt>
-      <dd class="opac_new_detail">cccccccccccccccccccccccccccccccc</dd>
-      <dt class="opac_new_date">2012/09/18:</dt>
-      <dd class="opac_new_detail">dddddddddddddddddddddddddddddddd</dd>
-      <dt class="opac_new_date">2012/09/22:</dt>
-      <dd class="opac_new_detail">eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee</dd>
+      <% @events.each do |event| %>
+        <dt class="opac_new_date">
+          <%= l(event.start_at, :format => :short) %> - <%= l(event.end_at, :format => :short) -%>
+        </dt>
+        <dd class="opac_new_detail"><%= event.display_name %></dd>
+      <% end %>
     </dl>
   </div>
 </div>
