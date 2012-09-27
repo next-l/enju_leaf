@@ -1,7 +1,7 @@
 # -*- encoding: utf-8 -*-
 class UsersController < ApplicationController
   #before_filter :reset_params_session
-  load_and_authorize_resource :except => [:search_family, :get_family_info, :get_user_info, :get_user_rent, :output_password, :edit_user_number, :update_user_number]
+  load_and_authorize_resource :except => [:search_family, :get_family_info, :get_user_info, :get_user_rent, :output_password, :edit_user_number, :update_user_number, :create]
   helper_method :get_patron
   before_filter :store_location, :only => [:index]
   before_filter :clear_search_sessions, :only => [:show]
@@ -159,6 +159,7 @@ class UsersController < ApplicationController
         Patron.transaction do
           @family = params[:family]
           @user = User.create_with_params(params[:user], params[:has_role_id])
+          authorize! :create, @user
           @user.set_auto_generated_password
           @patron = Patron.create_with_user(params[:patron], @user)
  
