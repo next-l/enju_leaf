@@ -29,7 +29,7 @@ class ShelvesController < ApplicationController
         facet :library
         facet :open_access
       end
-      paginate :page => page.to_i, :per_page => Shelf.per_page
+      paginate :page => page.to_i, :per_page => Shelf.default_per_page
     end.execute rescue nil
     if params[:format].blank? or params[:format] == 'html'
       @library_facet = search_result.facet(:library).rows
