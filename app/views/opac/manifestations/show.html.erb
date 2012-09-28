@@ -61,12 +61,10 @@
             </span>
           <% end %>
         <% end %>
-        <% if @manifestation.items.exists? %>
-          <span class="manifestation_items_number">
-            <%= t('activerecord.attributes.item.items_number') %>
-            <%= @manifestation.items.size %>
-          </span>
-        <% end %>
+        <span class="manifestation_items_number">
+          <%= t('activerecord.attributes.item.items_number') %>
+          <%= @manifestation.items.size %>
+        </span>
        </div>
     </div>
   </div>
@@ -107,7 +105,7 @@
   </div>
 
   <% if @manifestation.periodical_master? %>
-    <%= render 'manifestations/periodical_list', :manifestation => @manifestation %>
+    <%= render 'opac/manifestations/periodical_list', :manifestation => @manifestation %>
   <% else %>
     <%= render 'opac/manifestations/show_detail', :manifestation => @manifestation %>
   <% end %>
