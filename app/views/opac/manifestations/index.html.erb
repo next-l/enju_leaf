@@ -13,15 +13,17 @@ $(function() {
     <h1><%= t('page.search_resource', :model => t('page.resource')) %></h1>
   </div>
   <div class="opac_head_button_area">
-    <%= link_to opac_search_path do %><div class="opac_head_button"><%= t('opac.catalog_search') %></div><% end %> 
-    <%= link_to opac_path do %><div class="opac_head_button"><%= t('opac.finish') %></div><% end %>
+    <div class="opac_head_button"><%= link_to t('opac.catalog_search'), opac_search_path %></div>
+    <div class="opac_head_button"><%= link_to t('opac.finish'), opac_path %></div>
   </div>
 </div>
 
 <div id="opac_content_detail"> 
+  <div>
+    <%= t('page.search_term') %>: <%= @query %><br />
+  </div>
   <% if @manifestations && (@manifestations.size > 0) %> 
     <p>
-      <%= t('page.search_term') %>: <%= @query %><br />
       <%= t('page.number_of_search_results', 
         :count => @count[:query_result], 
         :numdocs => Manifestation.cached_numdocs, 
@@ -57,6 +59,7 @@ $(function() {
     </table>
     <%= paginate @manifestations, :theme => 'opac_theme' %>
   <% else %>
-    <%= render 'opac/manifestations/not_found' %>
+    <br />
+    <h4><%= render 'opac/manifestations/not_found' %></h4>
   <% end %>
 </div>

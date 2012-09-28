@@ -83,15 +83,16 @@ div#keys_area {
 	padding: 0em;
 	text-align: center;
 	cursor: pointer;
-        height: 70px;
+        height: 68px;
+        margin: 1px;
 }
 
 .keypad-key {
-	width: 70px;
-        // color
-        filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#FFA2DCEA', endColorstr='#FF58B2B'); /* IE5.5以上 */
-        background: -webkit-gradient(linear, center top, center bottom, from(#A2DCEA), to(#58B2CB)); /* Webkit */
-        background: -moz-linear-gradient(top, #A2DCEA, #58B2CB); /* mozilla */
+        width: 68px;
+        border: 0.5px solid #4891A6; 
+        background: -webkit-gradient(linear, left top, left bottom, from(#A2DCEA), to(#58B2CB)); /* Webkit */
+        background: -moz-linear-gradient(-90deg, #A2DCEA, #58B2CB);/* mozilla */
+        filter:  progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#A2DCEA', endColorstr='#58B2CB');/* IE5.5以上 */
 }
 .keypad-key[disabled] {
 	border: 0.125em outset;
@@ -99,11 +100,10 @@ div#keys_area {
 .keypad-key-down {
 }
 .keypad-special {
-	width: 184px;
+	width: 182px;
 }
 .keypad-spacebar {
-	//width: 7em;
-        // color
+        border: 0.5px solid #C2604C; 
         filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#FFFE7E64', endColorstr='#FFF1785F'); /* IE5.5以上 */
         background: -webkit-gradient(linear, left top, left bottom, from(#FE7E64), to(#F1785F)); /* Webkit */
         background: -moz-linear-gradient(top, #FE7E64, #F1785F); /* mozilla */
@@ -113,14 +113,14 @@ div#keys_area {
 }
 .keypad-clear {
 	//background-color: #a00;
-        // color
+        border: 0.5px solid #C2604C; 
         filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#FFFE7E64', endColorstr='#FFF1785F'); /* IE5.5以上 */
         background: -webkit-gradient(linear, left top, left bottom, from(#FE7E64), to(#F1785F)); /* Webkit */
         background: -moz-linear-gradient(top, #FE7E64, #F1785F); /* mozilla */
 }
 .keypad-back {
 	//background-color: #00a;
-        // color
+        border: 0.5px solid #C2604C; 
         filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#FFFE7E64', endColorstr='#FFF1785F'); /* IE5.5以上 */
         background: -webkit-gradient(linear, left top, left bottom, from(#FE7E64), to(#F1785F)); /* Webkit */
         background: -moz-linear-gradient(top, #FE7E64, #F1785F); /* mozilla */
@@ -132,13 +132,13 @@ div#keys_area {
 	background-color: #0aa;
 }
 .keypad-kana {
-        // color
+        border: 0.5px solid #809C00; 
         filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#FFD8E988', endColorstr='#FF9CBD00'); /* IE5.5以上 */
         background: -webkit-gradient(linear, center top, center bottom, from(#D8E988), to(#9CBD00)); /* Webkit */
         background: -moz-linear-gradient(top, #D8E988, #9CBD00); /* mozilla */
 }
 .keypad-alnum {
-        // color
+        border: 0.5px solid #809C00; 
         filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#FFD8E988', endColorstr='#FF9CBD00'); /* IE5.5以上 */
         background: -webkit-gradient(linear, center top, center bottom, from(#D8E988), to(#9CBD00)); /* Webkit */
         background: -moz-linear-gradient(top, #D8E988, #9CBD00); /* mozilla */

@@ -6,11 +6,10 @@
     display: block;
     float: left;
     margin-right: 3px;
-    // radius
     border-radius: 5px;         /* CSS3 */
     -moz-border-radius: 5px;    /* Firefox */
     -webkit-border-radius: 5px; /* Safari,Chrome */
-    // color
+    background: #ddd;
     background: -moz-linear-gradient(top, #fff, #ddd); /* mozilla */
     background: -webkit-gradient(linear, center top, center bottom, from(#fff), to(#ddd)); /* Webkit */
     filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#FFFFFFFF', endColorstr='#FFDDDDDD'); /* IE5.5以上 */
@@ -22,7 +21,7 @@
     font-weight: bold;
     color: #fff;
     border: 1px solid #000;
-    // color
+    background: #000;
     background: -moz-linear-gradient(top, #444, #000); /* mozilla */
     background: -webkit-gradient(linear, center top, center bottom, from(#444), to(#000)); /* Webkit */
     filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#FF444444', endColorstr='#FF000000'); /* IE5.5以上 */
@@ -34,13 +33,12 @@
     .opac_digg_pagination a:hover, .opac_digg_pagination a:focus {
       color: #fff;
       border-color: #eee;
-      // color
+      background: #555;
       background: -moz-linear-gradient(top, #999, #555); /* mozilla */
       background: -webkit-gradient(linear, center top, center bottom, from(#999), to(#555)); /* Webkit */
       filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#FF999999', endColorstr='#FF555555'); /* IE5.5以上 */
     }
   .opac_digg_pagination .page_info {
-    // color
     background: -moz-linear-gradient(top, #444, #000); /* mozilla */
     background: -webkit-gradient(linear, center top, center bottom, from(#444), to(#000)); /* Webkit */
     filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#FF444444', endColorstr='#FF000000'); /* IE5.5以上 */
@@ -51,8 +49,8 @@
     text-align: center; }
     .opac_digg_pagination .page_info b {
       color: #fff;
-      padding: .1em .25em; 
-      // color
+      padding: .1em .25em;
+      background: #000; 
       background: -moz-linear-gradient(top, #444, #000); /* mozilla */
       background: -webkit-gradient(linear, center top, center bottom, from(#444), to(#000)); /* Webkit */
       filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#FF444444', endColorstr='#FF000000'); /* IE5.5以上 */

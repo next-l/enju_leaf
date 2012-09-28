@@ -6,28 +6,28 @@
 
 <div id="opac_contents">
   <div id="opac_menu">
-    <%= link_to opac_search_path do %>
-      <div id="opac_search_col">
+    <div id="opac_search_col">
+      <%= link_to opac_search_path do %>
         <h1><img src="/assets/opac/book.png"/ style="width:20px;">&nbsp<%= t('opac.catalog_search') %></h1>
-      </div>
-    <% end %>
-    <%= link_to edit_my_account_path do %>
-      <div id="opac_session_col">
+      <% end %>
+    </div>
+    <div id="opac_session_col">
+      <%= link_to edit_my_account_path do %>
         <%= t('opac.login') %>
         <div class="opac_button_description"><%= t('opac.login_description')%></div>
-      </div>
-    <% end %>
+      <% end %>
+    </div>
     <div id="opac_easy">
-      <%= link_to manifestation_exstats_bestreader_path do %>
-        <div class="opac_bestreader">
+      <div class="opac_bestreader">
+        <%= link_to manifestation_exstats_bestreader_path do %>
           <%= t('opac.best_reader') %>
-        </div>
-      <% end %>
-      <%= link_to manifestation_exstats_bestrequest_path do %>
-        <div class="opac_bestrequest">
+        <% end %>
+      </div>
+      <div class="opac_bestrequest">
+        <%= link_to manifestation_exstats_bestrequest_path do %>
           <%= t('opac.best_request') %>
-        </div>
-      <% end %>
+        <% end %>
+      </div>
     </div>
   </div>
 

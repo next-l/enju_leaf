@@ -10,10 +10,10 @@
  *= require acts_as_taggable_stylesheet
  *= require colorbox
  *= require pagination
- *= require opac_pagination
  *= require portlets
  *= require event_calendar
  *= require vendor
  *= require opac
+ *= require opac_pagination
  *= require jquery.keypad
 */

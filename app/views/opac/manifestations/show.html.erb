@@ -3,18 +3,18 @@
     <h1><%= t('page.showing', :model => t('activerecord.models.manifestation')) %></h1>
   </div>
   <div class="opac_head_button_area">
-    <%= link_to opac_search_path do %><div class="opac_head_button"><%= t('opac.catalog_search') %></div><% end %>
-    <%= link_to opac_path do %><div class="opac_head_button"><%= t('opac.finish') %></div><% end %>
+    <div class="opac_head_button"><%= link_to t('opac.catalog_search'), opac_search_path %></div>
+    <div class="opac_head_button"><%= link_to t('opac.finish'), opac_path %> </div>
   </div>
 </div>
 
 <div id="opac_content_detail">
   <div>
-    <div style="float: right;">
+    <div class="opac_head_button_area" style="float: right;">
       <% if session[:params] %>
-        <%= link_to url_for(session[:params].merge(:view => nil, :controller => :manifestations)) do %>
-          <div class="opac_head_button"><%= t('page.back') %></div>
-        <% end %>
+        <div class="opac_head_button">
+          <%= link_to t('page.back'), url_for(session[:params].merge(:view => nil, :controller => :manifestations)) %>
+        </div>
       <% else %>
         <%= link_to :back do %>
           <div class="opac_head_button"><%= t('page.back') %></div>
@@ -24,14 +24,16 @@
       <% if session[:manifestation_ids].is_a?(Array) %>
         <% if session[:manifestation_ids].index(@manifestation.id) %>
            <% unless @manifestation.id == session[:manifestation_ids].last %>
-             <%= link_to manifestation_path(session[:manifestation_ids][session[:manifestation_ids].index(@manifestation.id) + 1], :opac => true) do %>
-               <div class="opac_head_button"><%= t('page.next') %></div>
-             <% end %>
+             <div class="opac_head_button">
+               <%= link_to t('page.next'),
+                 manifestation_path(session[:manifestation_ids][session[:manifestation_ids].index(@manifestation.id) + 1], :opac => true) %>
+             </div>
            <% end %>
            <% unless @manifestation.id == session[:manifestation_ids].first %>
-             <%= link_to manifestation_path(session[:manifestation_ids][session[:manifestation_ids].index(@manifestation.id) - 1], :opac => true) do %>
-               <div class="opac_head_button"><%= t('page.previous') %></div>
-             <% end %>
+             <div class="opac_head_button">
+               <%= link_to t('page.previous'),
+                 manifestation_path(session[:manifestation_ids][session[:manifestation_ids].index(@manifestation.id) - 1], :opac => true) %>
+             </div>
            <% end %>
         <% end %>
       <% end %>
@@ -71,28 +73,26 @@
   <br style="clear: both;" />
 
   <div>
-    <%= link_to({:action => 'output_show'}, {:method => :post}) do %>
-      <div id="opac_reserve_button">
-        <%= t('page.output', :model => t('activerecord.attributes.manifestation.detail')) %>
-      </div>
-    <% end %>
+    <div id="opac_reserve_button">
+      <%= link_to t('page.output', :model => t('activerecord.attributes.manifestation.detail')), {:action => 'output_show'}, {:method => :post} %>
+    </div>
     <% unless @manifestation.carrier_type.name == 'file' %>
       <% if @manifestation.reservable? %>
         <div>
           <% if (user_signed_in? && current_user.has_role?('Librarian')) or !user_signed_in? %>
-            <%= link_to new_reserve_path(:manifestation_id => @manifestation.id) do %>
-              <div id="opac_reserve_button"><%= t('manifestation.reserve_this') %></div>
-            <% end %>
+            <div id="opac_reserve_button">
+              <%= link_to t('manifestation.reserve_this'), new_reserve_path(:manifestation_id => @manifestation.id) %>
+            </div>
           <% else %>
             <% if @manifestation.is_reserved_by(current_user) %>
-              <%= link_to user_reserve_path(@reserve.user, @reserve) do %>
-                <div id="opac_reserve_button"><%= t('manifestation.cancel_reservation') %></div>
-              <% end %>
+              <div id="opac_reserve_button">
+                <%= link_to t('manifestation.cancel_reservation'), user_reserve_path(@reserve.user, @reserve) %>
+              </div>
             <% else %>
               <% if @manifestation.reservable_with_item?(current_user) %>
-                <%= link_to new_user_reserve_path(current_user, :manifestation_id => @manifesation.id) do %>
-                  <div id="opac_reserve_button"><%= t('manifestation.reserve_this') %></div>
-                <% end %>
+                <div id="opac_reserve_button">
+                  <%= link_to t('manifestation.reserve_this'), new_user_reserve_path(current_user, :manifestation_id => @manifesation.id) %>
+                </div>
               <% end %>
             <% end %>
           <% end %>
