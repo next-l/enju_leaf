@@ -1,4 +1,5 @@
 class UseRestriction < ActiveRecord::Base
+  attr_accessible :name, :display_name, :note
   include MasterModel
   default_scope :order => 'position'
   scope :available, where(:name => ['Not For Loan', 'Limited Circulation, Normal Loan Period'])
