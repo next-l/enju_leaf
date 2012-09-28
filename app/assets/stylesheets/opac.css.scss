@@ -5,14 +5,15 @@
 div#opac_content {
   margin:0 auto;
   width:1024px;
+  height: 100%;
   padding: 0 10px;
+  background: #fff;
 }
 div#opac_content, div#opac_content p, div#opac_content td {
   font-size: 16px;
 }
 
 div#opac_header {
-  width: 100%;
   margin-bottom: 10px;
   padding: 20px 10px;
   text-align: right;
@@ -20,9 +21,9 @@ div#opac_header {
   border-top: 2px solid #000;
   border-bottom: 15px solid #63CBF7;
   // color
-  background: -moz-linear-gradient(top, #ddd, #fff); /* mozilla */
-  background: -webkit-gradient(linear, center top, center bottom, from(#ddd), to(#fff)); /* Webkit */
-  filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#FFDDDDDD', endColorstr='#FFFFFFFF'); /* IE5.5以上 */
+  background: -moz-linear-gradient(top, #eee, #fff); /* mozilla */
+  background: -webkit-gradient(linear, center top, center bottom, from(#eee), to(#fff)); /* Webkit */
+  filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#FFEEEEEE', endColorstr='#FFFFFFFF'); /* IE5.5以上 */
 }
 div#opac_index_header {
   width: 100%;
@@ -112,6 +113,7 @@ div#opac_menu a {
 
 div#opac_search_col, div#opac_session_col, div.opac_bestreader, div.opac_bestrequest {
   color: white;
+  margin-left:20px;
   // radius
   border-radius: 10px;         /* CSS3 */
   -moz-border-radius: 10px;    /* Firefox */
@@ -137,6 +139,7 @@ div.opac_button_description {
 #opac_search_col {
   padding: 50px 20px;
   margin-bottom: 50px;
+  border: 1px solid #1D7FC4;
   // color
   background: -moz-linear-gradient(top, #A2DCEA, #17649A); /* mozilla */
   background: -webkit-gradient(linear, center top, center bottom, from(#A2DCEA), to(#17649A)); /* Webkit */
@@ -146,7 +149,8 @@ div.opac_button_description {
 div#opac_session_col {
   padding: 20px 20px;
   background: -webkit-gradient(linear, left top, left bottom, from(#396A92), to(#091D42));
-  margin-bottom: 15px;
+  margin-bottom: 20px;
+  border: 1px solid #091D42;
   //color
   background: -moz-linear-gradient(top, #396A92, #091D42); /* mozilla */
   background: -webkit-gradient(linear, center top, center bottom, from(#396A92), to(#091D42)); /* Webkit */
@@ -154,21 +158,21 @@ div#opac_session_col {
 }
 
 div.opac_bestrequest, div.opac_bestreader {
-  width: 172px;
+  width: 158px;
   float: left; 
   padding: 20px 20px;
+  border: 1px solid #091D42;
   // color
   background: -moz-linear-gradient(top, #396A92, #091D42); /* mozilla */
   background: -webkit-gradient(linear, center top, center bottom, from(#396A92), to(#091D42)); /* Webkit */
   filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#FF396A92', endColorstr='#FF091D42'); /* IE5.5以上 */
 }
 div.opac_bestreader {
-  margin-right: 15px;
 }
 
 div#opac_news {
   margin-left: 80px;
-  width: 504px;
+  width: 484px;
   float: left;
 }
 dl.opac_news_column dd{
