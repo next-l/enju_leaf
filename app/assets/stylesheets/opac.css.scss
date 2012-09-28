@@ -164,6 +164,14 @@ div#opac_search_col a{
   background: -webkit-gradient(linear, center top, center bottom, from(#A2DCEA), to(#17649A)); /* Webkit */
   filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#FFA2DCEA', endColorstr='#FF17649A'); /* IE5.5以上 */
 }
+div#opac_search_col a:hover {
+  border: 1px solid #091D42;
+  // color
+  background: #155B8C;
+  background: -moz-linear-gradient(top, #93C7D4, #155B8C); /* mozilla */
+  background: -webkit-gradient(linear, center top, center bottom, from(#93C7D4), to(#155B8C)); /* Webkit */
+  filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#FF93C7D4', endColorstr='#FF155B8C'); /* IE5.5以上 */
+} 
 
 div#opac_session_col a{
   display: block;
@@ -177,7 +185,14 @@ div#opac_session_col a{
   background: -webkit-gradient(linear, center top, center bottom, from(#396A92), to(#091D42)); /* Webkit */
   filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#FF396A92', endColorstr='#FF091D42'); /* IE5.5以上 */
 }
-
+div#opac_session_col a:hover {
+  border: 1px solid #091D42;
+  // color
+  background: #000;
+  background: -moz-linear-gradient(top, #2E5575, #000); /* mozilla */
+  background: -webkit-gradient(linear, center top, center bottom, from(#2E5575), to(#000)); /* Webkit */
+  filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#FF2E5575', endColorstr='#FF000000'); /* IE5.5以上 */
+} 
 div.opac_bestrequest a, div.opac_bestreader a{
   display: block;
   width: 158px;
@@ -190,6 +205,14 @@ div.opac_bestrequest a, div.opac_bestreader a{
   background: -webkit-gradient(linear, center top, center bottom, from(#396A92), to(#091D42)); /* Webkit */
   filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#FF396A92', endColorstr='#FF091D42'); /* IE5.5以上 */
 }
+div.opac_bestrequest a:hover, div.opac_bestreader a:hover {
+  border: 1px solid #091D42;
+  // color
+  background: #000;
+  background: -moz-linear-gradient(top, #2E5575, #000); /* mozilla */
+  background: -webkit-gradient(linear, center top, center bottom, from(#2E5575), to(#000)); /* Webkit */
+  filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#FF2E5575', endColorstr='#FF000000'); /* IE5.5以上 */
+} 
 div.opac_bestreader {
 }
 
