@@ -55,7 +55,7 @@ $(function() {
         </tr>
       <% end %>
     </table>
-    <%= paginate @manifestations %>
+    <%= paginate @manifestations, :theme => 'opac_theme' %>
   <% else %>
     <%= render 'opac/manifestations/not_found' %>
   <% end %>
