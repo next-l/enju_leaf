@@ -9,7 +9,11 @@ class Patron < ActiveRecord::Base
     :other_designation, :place, :street, :locality, :region, :language_id,
     :country_id, :patron_type_id, :note, :required_role_id, :email, :url,
     :full_name_alternative_transcription, :title, :birth_date, :death_date,
-    :patron_identifier
+    :patron_identifier,
+    :telephone_number_1_type_id, :extelephone_number_1,
+    :extelephone_number_1_type_id, :fax_number_1_type_id,
+    :telephone_number_2_type_id, :extelephone_number_2,
+    :extelephone_number_2_type_id, :fax_number_2_type_id, :user_username
 
   scope :readable_by, lambda{|user| {:conditions => ['required_role_id <= ?', user.try(:user_has_role).try(:role_id) || Role.where(:name => 'Guest').select(:id).first.id]}}
   has_many :creates, :dependent => :destroy
