@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="<%= @locale.to_s -%>" lang="<%= @locale.to_s -%>">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="<%= @locale.to_s -%>" lang="<%= @locale.to_s -%>" style="height:100%;">
 <head>
   <meta charset="UTF-8" />
   <%= render 'page/include' %>
@@ -10,7 +10,7 @@
   <% end %>
   <%= render 'page/portlets' %>
 </head>
-<body itemscope itemtype="http://schema.org/WebPage">
+<body itemscope itemtype="http://schema.org/WebPage" style="height:100%; background: #eee;">
 
 <div id="opac_content">
   <%= yield %>
