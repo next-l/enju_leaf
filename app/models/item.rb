@@ -1,6 +1,12 @@
 # -*- encoding: utf-8 -*-
 require EnjuTrunkFrbr::Engine.root.join('app', 'models', 'item')
 class Item < ActiveRecord::Base
+  attr_accessible :library_id, :shelf_id, :checkout_type_id, :circulation_status_id,
+                  :call_number, :bookstore_id, :price, :url, 
+                  :include_supplements, :use_restriction_id, :required_role_id, 
+                  :acquired_at, :note, :item_identifier,
+                  :use_restriction, :manifestation_id, :manifestation
+
   self.extend ItemsHelper
   scope :for_checkout, where('item_identifier IS NOT NULL')
   scope :not_for_checkout, where(:item_identifier => nil)
