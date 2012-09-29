@@ -1,4 +1,9 @@
 class SeriesStatement < ActiveRecord::Base
+  attr_accessible :original_title, :numbering, :title_subseries,
+    :numbering_subseries, :title_transcription, :title_alternative,
+    :series_statement_identifier, :issn, :periodical, :note,
+    :title_subseries_transcription
+
   has_many :series_has_manifestations
   has_many :manifestations, :through => :series_has_manifestations
   validates_presence_of :original_title
