@@ -13,12 +13,15 @@ $(function() {
     <h1><%= t('page.search_resource', :model => t('page.resource')) %></h1>
   </div>
   <div class="opac_head_button_area">
-    <%= link_to opac_search_path do %><div class="opac_head_button"><%= t('opac.catalog_search') %></div><% end %> 
-    <%= link_to opac_path do %><div class="opac_head_button"><%= t('opac.finish') %></div><% end %>
+    <div class="opac_head_button"><%= link_to t('opac.catalog_search'), opac_search_path %></div>
+    <div class="opac_head_button"><%= link_to t('opac.finish'), opac_path %></div>
   </div>
 </div>
 
 <div id="opac_content_detail"> 
+  <div>
+    <%= t('page.search_term') %>: <%= @query %><br />
+  </div>
   <% if @manifestations && (@manifestations.size > 0) %> 
     <p>
       <%= t('page.number_of_search_results', 
@@ -31,47 +34,32 @@ $(function() {
       <% end %>
     </p>
 
-    <div class="opac_sort">
-      <%= link_to params.merge(:sort_by => nil) do %>
-        <div class="opac_sort_button_<%= params[:sort_by].blank? ? 'on' : 'off'%>">
-          <%= t('opac.search.sort', :target => t('manifestation.date_of_acquisition')) %>
-        </div>
-      <% end %>
-      <%= link_to params.merge(:sort_by => 'pub_date') do %>
-        <div class="opac_sort_button_<%= params[:sort_by] == 'pub_date' ? 'on' : 'off'%>">
-          <%= t('opac.search.sort', :target => t('activerecord.attributes.manifestation.date_of_publication')) %>
-        </div> 
-      <% end %>
-      <%= link_to params.merge(:sort_by => 'title') do %>
-        <div class="opac_sort_button_<%= params[:sort_by] == 'title' ? 'on' : 'off'%>">
-          <%= t('opac.search.sort', :target => t('page.title')) %>
-        </div> 
-      <% end %>
-      <%= link_to params.merge(:sort_by => 'author') do %>
-        <div class="opac_sort_button_<%= params[:sort_by] == 'author' ? 'on' : 'off'%>">
-          <%= t('opac.search.sort', :target => t('patron.creator')) %>
-        </div> 
-      <% end %>
-      <%= link_to params.merge(:sort_by => 'carrier_type') do %>
-        <div class="opac_sort_button_<%= params[:sort_by] == 'carrier_type' ? 'on' : 'off'%>">
-          <%= t('opac.search.sort', :target => t('activerecord.models.carrier_type')) %>
-        </div> 
-      <% end %>
-    </div>
+    <%= render 'opac/manifestations/sort_menu' %>
 
     <table class="index" id="opac_manifestation_list" style="clear: both;">
       <% @manifestations.each do |manifestation| %>
         <tr class="opac_line<%= cycle("0", "1") %> opac_manifestations_row" data-href="<%= manifestation_path(manifestation, :opac => true) %>">
-          <td><%= manifestation.original_title %></td>
-          <td><%= patrons_list(manifestation.creators.readable_by(current_user)) %></td>
-          <td><%= patrons_list(manifestation.publishers.readable_by(current_user)) %></td>
-          <td><%= manifestation.pub_date %></td>
-          <td></td>
+          <td>
+            <div class="opac_list_title">
+              <%= manifestation.original_title %>
+            </div>
+            <% unless manifestation.creators.readable_by(current_user).empty? and manifestation.publishers.readable_by(current_user).empty? %>
+              <div class="opac_list_patrons">
+                <% unless manifestation.creators.readable_by(current_user).empty? %>
+                  <%= t('patron.creator')%>:<%= patrons_short_list(manifestation.creators.readable_by(current_user), { :nolink => 'true' }) %>&nbsp;&nbsp;  
+                <% end %>
+                <% unless manifestation.publishers.readable_by(current_user).empty? %>
+                  <%= t('patron.publisher') %>: <%= patrons_short_list(manifestation.publishers.readable_by(current_user), { :nolink => 'true' }) %>
+                <% end %>
+              </div>
+             <% end %>
+          </td>
         </tr>
       <% end %>
     </table>
-    <%= paginate(@manifestations) -%>
+    <%= paginate @manifestations, :theme => 'opac_theme' %>
   <% else %>
-    <%= render 'manifestations/not_found' %>
+    <br />
+    <h4><%= render 'opac/manifestations/not_found' %></h4>
   <% end %>
 </div>

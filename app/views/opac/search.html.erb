@@ -6,22 +6,20 @@ $(function () {
     $.keypad.BACK,
     $.keypad.CLEAR
   ];
-
   var kana = [
-     'ャァワラヤマハナタサカア',
-     'ュィヲリ　ミヒニチシキイ',
-     'ョゥンルユムフヌツスクウ',
-     'ッェﾟレ　メヘネテセケエ',
-     'ーォ゛ロヨモホノトソコオ',
+    'ャァワラヤマハナタサカア',
+    'ュィヲリ　ミヒニチシキイ',
+    'ョゥンルユムフヌツスクウ',
+    'ッェﾟレ　メヘネテセケエ',
+    'ーォ゛ロヨモホノトソコオ'
   ];
   var alnum = [
-    'ABCDEFGHIJKL',
-    'MNOPQRSTUVWX',
-    'YZ0123456789',
-    '*?!&:;-/()[]',
-    '.,+@%       ',
+    'ABCDEFGHI123',
+    'JKLMNOPQR456',
+    'STUVWXYZ@789',
+    '?!&:;~-_/*0#',
+    '"()[].,+=|$%'
   ];
-
   //focus
   $('#query').focus();
 
@@ -65,7 +63,9 @@ $(function () {
 <div id="opac_header">
   <div class="opac_title"><h1><%= t('opac.catalog_search') %></h1></div>
   <div class="opac_head_button_area">
-    <%= link_to opac_path do %><div class="opac_head_button"><%= t('opac.finish') %></div><% end %>
+    <div class="opac_head_button">
+      <%= link_to t('opac.finish'), opac_path %>
+    </div>
   </div>
 </div>
 
@@ -107,7 +107,7 @@ $(function () {
   <div id="keypad">
     <div id="special_keys_area">
       <div><button class="keypad-special keypad-kana"><%= t('opac.search.keypad.kana') %></button></div>
-      <div><button class="keypad-special keypad-alnum"><%= t('opac.search.keypad.alnum') %></button></div>
+      <div style="clear: both;"><button class="keypad-special keypad-alnum"><%= t('opac.search.keypad.alnum') %></button></div>
     </div>
     <div id="keys_area"></div>
     <br style="cleat:both;"/>

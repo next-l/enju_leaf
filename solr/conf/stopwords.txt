@@ -22,6 +22,8 @@ stopwordb
 #custom word
 ．
 ・
+ﾟ
+゛
 
 #Standard english stop words taken from Lucene's StopAnalyzer
 a

@@ -1,0 +1,17 @@
+<div class="opac_sort">
+  <div class="opac_sort_button_<%= params[:sort_by].blank? ? 'on' : 'off'%>">
+    <%= link_to t('opac.search.sort', :target => t('manifestation.date_of_acquisition')), params.merge(:sort_by => nil) %>
+  </div>
+  <div class="opac_sort_button_<%= params[:sort_by] == 'pub_date' ? 'on' : 'off'%>">
+    <%= link_to t('opac.search.sort', :target => t('activerecord.attributes.manifestation.date_of_publication')), params.merge(:sort_by => 'pub_date') %>
+  </div>
+  <div class="opac_sort_button_<%= params[:sort_by] == 'title' ? 'on' : 'off'%>">
+    <%= link_to t('opac.search.sort', :target => t('page.title')), params.merge(:sort_by => 'title') %>
+  </div>
+  <div class="opac_sort_button_<%= params[:sort_by] == 'author' ? 'on' : 'off'%>">
+    <%= link_to t('opac.search.sort', :target => t('patron.creator')), params.merge(:sort_by => 'author') %>
+  </div>
+  <div class="opac_sort_button_<%= params[:sort_by] == 'carrier_type' ? 'on' : 'off'%>">
+    <%= link_to t('opac.search.sort',:target => t('activerecord.models.carrier_type')), params.merge(:sort_by => 'carrier_type') %>
+  </div>
+</div>

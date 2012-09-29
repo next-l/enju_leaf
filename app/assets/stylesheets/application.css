@@ -14,5 +14,6 @@
  *= require event_calendar
  *= require vendor
  *= require opac
+ *= require opac_pagination
  *= require jquery.keypad
 */
