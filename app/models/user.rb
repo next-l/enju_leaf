@@ -6,13 +6,13 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, #:validatable,
          :lockable, :lock_strategy => :none, :unlock_strategy => :none
 
-  # Setup accessible (or protected) attributes for your model
-  #attr_accessible :email, :email_confirmation, :password, :password_confirmation, :username, :current_password, :user_number, :remember_me
   cattr_accessor :current_user
   attr_accessor :new_user_number
+
+  # Setup accessible (or protected) attributes for your model
   attr_accessible :email, :password, :password_confirmation, :current_password,
     :remember_me, :email_confirmation, :library_id, :locale,
-    :keyword_list, :auto_generated_password, :expired_at, :user_group_id
+    :keyword_list, :auto_generated_password, :expired_at, :user_group_id, :role_id
   attr_accessible :email, :password, :password_confirmation, :username,
     :current_password, :user_number, :remember_me,
     :email_confirmation, :note, :user_group_id, :library_id, :locale,
@@ -397,6 +397,10 @@ class User < ActiveRecord::Base
     logger.debug "create_with_params start."
     user = User.new
     user.assign_attributes(params, :as => :admin)
+
+    #puts "****"
+    #puts params
+
     user_group = UserGroup.find(params[:user_group_id])
     user.user_group = user_group if user_group
     user.locale = params[:locale]
