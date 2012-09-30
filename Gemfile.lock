@@ -155,7 +155,7 @@ GIT
 
 GIT
   remote: git://github.com/next-l/enju_biblio.git
-  revision: e4a8965a289e908a0a980efc37931dc9ab38e2f0
+  revision: 2ac93e50e9ab5875170316359fe87f8c0e25744e
   specs:
     enju_biblio (0.1.0.pre7)
       aws-sdk
@@ -289,7 +289,7 @@ GEM
     client_side_validations (3.2.0.beta.6)
     cloudfiles (1.5.0.1)
       json
-    cocaine (0.3.1)
+    cocaine (0.3.2)
     coffee-rails (3.2.2)
       coffee-script (>= 2.2.0)
       railties (~> 3.2.0)
@@ -330,8 +330,9 @@ GEM
     guard (1.4.0)
       listen (>= 0.4.2)
       thor (>= 0.14.6)
-    guard-rspec (1.2.1)
+    guard-rspec (2.0.0)
       guard (>= 1.1)
+      rspec (~> 2.11)
     has_scope (0.5.1)
     highline (1.6.15)
     hike (1.2.1)
@@ -453,7 +454,7 @@ GEM
     redis (3.0.1)
     redis-namespace (1.2.1)
       redis (~> 3.0.0)
-    responders (0.9.2)
+    responders (0.9.3)
       railties (~> 3.1)
     resque (1.22.0)
       multi_json (~> 1.0)
@@ -503,7 +504,7 @@ GEM
       multi_json (~> 1.0)
       rubyzip
     settingslogic (2.0.8)
-    simple_form (2.0.2)
+    simple_form (2.0.3)
       actionpack (~> 3.0)
       activemodel (~> 3.0)
     simplecov (0.6.4)
