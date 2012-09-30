@@ -7,7 +7,7 @@ gem 'rails', '3.2.8'
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
 gem 'enju_core', '~> 0.1.1.pre'
-gem 'enju_biblio', '~> 0.1.0.pre6'
+gem 'enju_biblio', '~> 0.1.0.pre7'
 gem 'enju_library', '~> 0.1.0.pre4'
 #gem 'enju_barcode', :git => 'git://github.com/nabeta/enju_barcode.git'
 #gem 'enju_calil', :git => 'git://github.com/nabeta/enju_calil.git'
