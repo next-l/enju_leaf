@@ -372,8 +372,11 @@ class ResourceImportFile < ActiveRecord::Base
 
     if RUBY_VERSION > '1.9'
       file = CSV.open(tempfile.path, :col_sep => "\t")
-      header = file.first
+      header, index = get_header(file)
       rows = CSV.open(tempfile.path, :headers => header, :col_sep => "\t")
+      index.times do
+        rows.shift
+      end
     else
       file = FasterCSV.open(tempfile.path, :col_sep => "\t")
       header = file.first
@@ -587,6 +590,14 @@ class ResourceImportFile < ActiveRecord::Base
     series_statement = SeriesStatement.where(:original_title => row['series_statement_original_title'].to_s.strip).first unless series_statement
     series_statement
   end
+ 
+  def get_header(file)
+    file.each_with_index do |f, i|
+      return f, i if f.include?("kbn")
+    end
+    return false
+  end
+
 end
 
 # == Schema Information
