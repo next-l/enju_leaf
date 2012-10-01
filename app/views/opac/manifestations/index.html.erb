@@ -19,9 +19,18 @@ $(function() {
 </div>
 
 <div id="opac_content_detail"> 
-  <div>
-    <%= t('page.search_term') %>: <%= @query %><br />
-  </div>
+  <% case %>
+  <% when @series_statement %>
+    <h2 class="resource_title">
+      [S]
+      <%= @series_statement.original_title %>
+    </h2>
+  <% else%>
+    <div>
+      <%= t('page.search_term') %>: <%= @query %><br />
+    </div>
+  <% end %>
+
   <% if @manifestations && (@manifestations.size > 0) %> 
     <p>
       <%= t('page.number_of_search_results', 
