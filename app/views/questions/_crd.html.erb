@@ -6,7 +6,7 @@
       <li><%= link_to h(truncate(result[:question])), result[:url] -%></li>
     <%- end -%>
   </ul>
-  <%= paginate(@crd_results, :param_name => :crd_page, :class => 'sidebar_pagination') -%>
+  <%= paginate(@crd_results, :param_name => :crd_page, :remote => true) -%>
 <%- else -%>
   <p><%= link_to t('question.you_can_search_crd'), "http://crd.ndl.go.jp/" -%></p>
 <%- end -%>

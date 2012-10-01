@@ -1,6 +1,8 @@
 # -*- encoding: utf-8 -*-
 require 'timeout'
 class Question < ActiveRecord::Base
+  attr_accessible :user_id, :body, :shared, :solved, :note
+
   default_scope :order => 'id DESC'
   scope :public_questions, where(:shared => true)
   scope :private_questions, where(:shared => false)
