@@ -2,6 +2,7 @@ source 'https://rubygems.org'
 
 gem 'rails', '3.2.8'
 
+gem 'cocaine', '0.3.1'
 #gem 'enju_amazon', :git => 'git://github.com/nabeta/enju_amazon.git'
 #gem 'enju_calil', :git => 'git://github.com/nabeta/enju_calil.git'
 #gem 'enju_scribd', :git => 'git://github.com/nabeta/enju_scribd.git'
@@ -151,3 +152,6 @@ gem 'capistrano'
 
 # FRBR models
 gem 'enju_trunk_frbr', :git => 'git://github.com/emiko/enju_trunk_frbr.git'
+
+# circulation gem
+gem 'enju_circulation', :git => 'git://github.com/emiko/enju_circulation.git'
