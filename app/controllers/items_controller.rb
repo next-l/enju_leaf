@@ -1,7 +1,7 @@
 # -*- encoding: utf-8 -*-
 class ItemsController < ApplicationController
   include NotificationSound
-  load_and_authorize_resource
+  load_and_authorize_resource 
   before_filter :get_user
   before_filter :get_patron, :get_manifestation, :get_inventory_file
   helper_method :get_shelf
@@ -149,10 +149,10 @@ class ItemsController < ApplicationController
   def create
     @item = Item.new(params[:item])
     manifestation = Manifestation.find(@item.manifestation_id)
-    @item.manifestation = manifestation
 
     respond_to do |format|
       if @item.save
+        @item.manifestation = manifestation 
         Item.transaction do
           if @item.shelf
             @item.shelf.library.patron.items << @item

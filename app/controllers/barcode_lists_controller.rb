@@ -4,7 +4,8 @@ class BarcodeListsController < ApplicationController
   # GET /barcode_lists
   # GET /barcode_lists.json
   def index
-    @barcode_lists = BarcodeList.paginate(:page => params[:page])
+    page ||= params[:page] || 1
+    @barcode_lists = Kaminari.paginate_array(BarcodeList.all).page(page)
     @start_rows = params[:start_rows]
     @start_cols = params[:start_cols]
 
