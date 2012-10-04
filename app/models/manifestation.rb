@@ -1,4 +1,5 @@
 require EnjuTrunkFrbr::Engine.root.join('app', 'models', 'manifestation')
+require EnjuTrunkCirculation::Engine.root.join('app', 'models', 'manifestation') if Setting.operation
 class Manifestation < ActiveRecord::Base
   self.extend ItemsHelper
   has_many :creators, :through => :creates, :source => :patron
@@ -223,14 +224,6 @@ class Manifestation < ActiveRecord::Base
     self.language = Language.where(:name => "Japanese").first if self.language.nil?
   end
 
-  def next_reservation
-    self.reserves.not_retained.order('reserves.position ASC').first
-  end
-
-  def next_reserve
-    self.reserves.not_retained.order('reserves.position ASC').first
-  end
-
   def serial?
     if series_statement.try(:periodical) and !periodical_master
       return true unless  series_statement.initial_manifestation == self
@@ -332,22 +325,6 @@ class Manifestation < ActiveRecord::Base
     end
     return false if self.periodical_master?
     true
-  end
-
-  def is_reserved_by(user = nil)
-    if user
-      Reserve.waiting.where(:user_id => user.id, :manifestation_id => self.id).first
-    else
-      false
-    end
-  end
-
-  def is_reserved?
-    if self.reserves.present?
-      true
-    else
-      false
-    end
   end
 
   def checkouts(start_date, end_date)

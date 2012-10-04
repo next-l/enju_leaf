@@ -13,7 +13,7 @@
     <% end %>
   </a>
   <div id="circulation_menu" class="hidden">
-    <%- if user_signed_in? -%>
+    <%- if user_signed_in? && Setting.operation -%>
       <ul>
         <%- if current_user.has_role?('Librarian') -%>
           <li><%= link_to t('page.checkout'), new_basket_path -%></li>
@@ -38,7 +38,7 @@
         <%- end -%>
         <li><%= link_to t('page.checkout_history'), user_checkouts_path(current_user) -%></li>
       </ul>
-    <%- else -%>
+    <%- elsif Setting.operation -%>
       <ul>
         <li><%= link_to t('page.checkout_history'), checkouts_path -%></li>
         <li><%= link_to t('page.listing', :model => t('activerecord.models.reserve')), reserves_path -%></li>

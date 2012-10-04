@@ -345,8 +345,10 @@ class ManifestationsController < ApplicationController
 
     return if render_mode(params[:mode])
 
-    @reserved_count = Reserve.waiting.where(:manifestation_id => @manifestation.id, :checked_out_at => nil).count
-    @reserve = current_user.reserves.where(:manifestation_id => @manifestation.id).first if user_signed_in?
+    if Setting.operation
+      @reserved_count = Reserve.waiting.where(:manifestation_id => @manifestation.id, :checked_out_at => nil).count
+      @reserve = current_user.reserves.where(:manifestation_id => @manifestation.id).first if user_signed_in?
+    end
 
     if @manifestation.periodical_master?
       if params[:opac]

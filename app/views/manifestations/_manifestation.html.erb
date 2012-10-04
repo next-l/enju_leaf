@@ -25,7 +25,7 @@
               </td>
               <%- if user_signed_in? -%>
                 <td>
-                  <% if manifestation.reservable? %>
+                  <% if manifestation.reservable? && Setting.operation %>
                     <%- if reserve = manifestation.is_reserved_by(@reserve_user) -%>
                       <%= link_to t('reserve.show'), user_reserve_path(reserve.user, reserve) -%><br />
                     <%- else -%>

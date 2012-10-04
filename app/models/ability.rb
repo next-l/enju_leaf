@@ -1,7 +1,9 @@
+require EnjuTrunkCirculation::Engine.root.join('app', 'models', 'ability') if Setting.operation
 class Ability
   include CanCan::Ability
 
   def initialize(user, ip_address = nil)
+    initialize_circulation(user) if Setting.operation
     case user.try(:role).try(:name)
     when 'Administrator'
       can [:read, :create, :update], Bookstore
@@ -39,7 +41,7 @@ class Ability
       end
       can [:read, :create, :update], Manifestation
       can :destroy, Manifestation do |manifestation|
-        manifestation.items.empty? and !manifestation.is_reserved?
+        manifestation.items.empty? and Setting.operation and !manifestation.is_reserved?
       end
       can [:read, :create, :update], SeriesStatement
       can :destroy, SeriesStatement do |series_statement|
@@ -68,11 +70,7 @@ class Ability
       can :manage, [
         Answer,
         Barcode,
-        Basket,
         CarrierTypeHasCheckoutType,
-        CheckedItem,
-        Checkin,
-        Checkout,
         Checkoutlist,
         CheckoutStatHasManifestation,
         CheckoutStatHasUser,
@@ -88,7 +86,6 @@ class Ability
         ImportRequest,
         Inventory,
         InventoryFile,
-        LendingPolicy,
         LibcheckDataFile,
         LibraryCheck,
         LibraryCheckShelf,
@@ -112,7 +109,6 @@ class Ability
         PurchaseRequest,
         Question,
         Realize,
-        Reserve,
         ReserveStatHasManifestation,
         ReserveStatHasUser,
         ResourceImportFile,
@@ -210,7 +206,6 @@ class Ability
       can :show, Question do |question|
         question.user == user or question.shared
       end
-      can [:index, :create, :update, :destroy, :show], Reserve
 #      can [:update, :destroy, :show], Reserve do |reserve|
 #        reserve.try(:user) == user
 #      end
@@ -226,10 +221,6 @@ class Ability
       can [:read, :create, :update], UserReserveStat
       can :manage, [
         Answer,
-        Basket,
-        CheckedItem,
-        Checkin,
-        Checkout,
         Checkoutlist,
         Create,
         Donate,
@@ -261,7 +252,6 @@ class Ability
         PurchaseRequest,
         Question,
         Realize,
-        Reserve,
         ResourceImportFile,
         ResourceImportTextfile,
         SearchHistory,
@@ -293,7 +283,6 @@ class Ability
         FormOfWork,
         ItemHasUseRestriction,
         Language,
-        LendingPolicy,
         Library,
         LibraryGroup,
         License,
@@ -330,10 +319,6 @@ class Ability
       end
       can [:update, :destroy], Answer do |answer|
         answer.user == user
-      end
-      can [:index, :create], Checkout
-      can [:show, :update, :destroy], Checkout do |checkout|
-        checkout.user == user
       end
       can :index, Item
       can :show, Item do |item|
@@ -372,10 +357,6 @@ class Ability
       can [:index, :create], PurchaseRequest
       can [:show, :update, :destroy], PurchaseRequest do |purchase_request|
         purchase_request.user == user
-      end
-      can [:index, :create], Reserve
-      can [:show, :update, :destroy], Reserve do |reserve|
-        reserve.user == user && reserve.expired_at.end_of_day > Time.zone.now
       end
       can :index, SearchHistory
       can [:show, :destroy], SearchHistory do |search_history|
@@ -429,7 +410,6 @@ class Ability
       can :show, Answer do |answer|
         answer.user == user or answer.shared
       end
-      can :index, Checkout
       can :index, Patron
       can :show, Patron do |patron|
         patron.required_role_id == 1 #name == 'Guest'

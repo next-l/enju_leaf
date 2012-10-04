@@ -20,14 +20,16 @@
   <%= link_to @item.checkout_type.display_name.localize, @item.checkout_type -%>
 </p>
 
-<p>
-  <strong><%= t('activerecord.models.lending_policy') -%>:</strong>
-  <ul>
-    <%- @item.lending_policies.each do |lending_policy| -%>
-      <li><%= link_to lending_policy.user_group.display_name.localize, lending_policy -%></li>
-    <%- end -%>
-  </ul>
-</p>
+<%- if Setting.operation -%>
+  <p>
+    <strong><%= t('activerecord.models.lending_policy') -%>:</strong>
+    <ul>
+      <%- @item.lending_policies.each do |lending_policy| -%>
+        <li><%= link_to lending_policy.user_group.display_name.localize, lending_policy -%></li>
+      <%- end -%>
+    </ul>
+  </p>
+<%- end -%>
 
 <p>
   <strong><%= t('activerecord.models.circulation_status') -%>:</strong>
@@ -35,7 +37,7 @@
   <%- if @item.manifestation.series_statement && @item.manifestation == @item.manifestation.series_statement.last_issue -%>
     <%= t('item.new_serial') -%>
   <%- end -%>
-  <%- if user_signed_in? -%>
+  <%- if user_signed_in? && Setting.operation -%>
     <%- if current_user.has_role?('Librarian') -%>
       <%- unless @item.checkouts.not_returned.blank? -%>
         (<%= link_to t('item.current_checkout'), user_checkout_path(@item.checkouts.not_returned.first.user, @item.checkouts.not_returned.first) -%>)
@@ -84,16 +86,6 @@
 </p>
 
 <%- cache(:controller => :items, :action => :show, :id => @item.id, :page => 'detail', :role => current_user_role_name, :locale => @locale, :item_id => nil) do -%>
-<!--
-<%- if can? :update, @item -%>
-  <p>
-    <strong><%= t('item.donor') -%>:</strong>
-    <%- @item.donors.each do |patron| -%>
-      <%= link_to patron.full_name, patron -%>
-    <%- end -%>
-  </p>
-<%- end -%>
--->
 
 <p>
   <strong><%= t('activerecord.attributes.item.acquired_at') -%>:</strong>
@@ -116,7 +108,7 @@
 </p>
 <%- end -%>
 
-<%- if @item.reserve -%>
+<%- if Setting.operation && @item.reserve -%>
   <%- if @item.reserve.user == current_user or (user_signed_in? and current_user.has_role?('Librarian')) -%>
     <%- if @item.reserve.can_checkout? -%>
       <%= form_tag ({:controller => 'reserves', :action => 'output'}) do -%>
