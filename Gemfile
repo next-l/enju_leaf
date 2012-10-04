@@ -153,5 +153,7 @@ gem 'capistrano'
 # FRBR models
 gem 'enju_trunk_frbr', :git => 'git://github.com/emiko/enju_trunk_frbr.git'
 
-# circulation gem
-gem 'enju_trunk_circulation', :git => 'git://github.com/emiko/enju_trunk_circulation.git'
+group :operation do
+  # circulation gem
+  gem 'enju_trunk_circulation', :git => 'git://github.com/emiko/enju_trunk_circulation.git'
+end
