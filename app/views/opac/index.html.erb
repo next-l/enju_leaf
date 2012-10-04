@@ -19,13 +19,13 @@
     </div>
     <div id="opac_easy">
       <div class="opac_bestreader">
-        <%= link_to manifestation_exstats_bestreader_path do %>
-          <%= t('opac.best_reader') %>
+        <%= link_to manifestation_exstats_bestreader_path(:opac => true) do %>
+          <%= t('opac.manifestation_exstats.bestreader') %>
         <% end %>
       </div>
       <div class="opac_bestrequest">
-        <%= link_to manifestation_exstats_bestrequest_path do %>
-          <%= t('opac.best_request') %>
+        <%= link_to manifestation_exstats_bestrequest_path(:opac => true) do %>
+          <%= t('opac.manifestation_exstats.bestrequest') %>
         <% end %>
       </div>
     </div>
