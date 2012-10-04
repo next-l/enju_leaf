@@ -99,7 +99,14 @@ tr.opac_line0 {
 tr.opac_line1 {
   background-color: #FFF;
 }
-tr.opac_manifestations_row:hover td {
+#opac_lists th {
+  color: white;
+  background-color: #555 ;
+}
+#opac_lists td {
+  vertical-align: middle;
+}
+tr.opac_lists_row:hover td {
   cursor: pointer;
   background-color: #A2DCEA ;
 }
