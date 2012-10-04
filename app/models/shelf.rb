@@ -1,4 +1,6 @@
 class Shelf < ActiveRecord::Base
+  attr_accessible  :name, :display_name, :note, :library_id, :open_access
+
   include MasterModel
   self.extend ItemsHelper
   default_scope :order => 'shelves.position'
