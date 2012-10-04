@@ -35,7 +35,7 @@ $(function() {
         <td>
           <%= render 'opac/manifestations/title', :manifestation => r.manifestation %>
         </td>
-        <td><%= @reserves[i].cnt if @reserves[i] -%></td>
+        <td><%= @checkouts[i].cnt if @checkouts[i] %></td>
       </tr>
     <% end %>
   <% end %>
