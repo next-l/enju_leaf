@@ -354,6 +354,8 @@ defaults: &defaults
     # refs 2552 データを暗号化する
     encoding: false
 
+  # 業務用サーバ(貸出・返却・予約可)
+  operation: <%= Gem.available?('enju_trunk_circulation') %>
 
  
 development:

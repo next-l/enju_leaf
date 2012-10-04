@@ -181,7 +181,7 @@
             <%= raw simple_format(h(manifestation.note)) -%>
           </td>
         </tr>
-        <%- if SystemConfiguration.get("manifestation.display_checkouts_count") -%>
+        <%- if SystemConfiguration.get("manifestation.display_checkouts_count") && Setting.operation -%>
         <tr>
           <td><%= t('activerecord.attributes.manifestation.checkouts_count') -%>:</td>
           <td>
@@ -191,7 +191,7 @@
           </td>
         </tr>
         <%- end -%>
-        <%- if SystemConfiguration.get("manifestation.display_reserves_count") -%>
+        <%- if SystemConfiguration.get("manifestation.display_reserves_count") && Setting.operation -%>
         <tr>
           <td><%= t('activerecord.attributes.manifestation.reserves_count') -%>:</td>
           <td>
