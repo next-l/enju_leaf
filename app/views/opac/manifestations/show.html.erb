@@ -53,7 +53,7 @@
       <% end %>
     </div>
     <div id="opac_manifestation_title">
-      <%= render 'opac/manifestations/title', :manifestation => @manifestation %>
+      <%= render 'opac/manifestations/title_detail', :manifestation => @manifestation %>
       <div>
         <% unless @manifestation.carrier_type.name == 'file' %>
           <% if @manifestation.reservable? %>
