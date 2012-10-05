@@ -1,4 +1,5 @@
 class LendingPolicy < ActiveRecord::Base
+  attr_accessible :item_id, :user_group_id, :fixed_due_date, :loan_period, :renewal
   default_scope :order => 'position'
   belongs_to :item
   belongs_to :user_group

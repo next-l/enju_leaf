@@ -1,0 +1,121 @@
+<script>
+//keypad
+var specials  = [
+  $.keypad.SPACE_BAR,
+  $.keypad.BACK,
+  $.keypad.CLEAR
+];
+var lower = [
+  'abcdefghi123',
+  'jklmnopqr456',
+  'stuvwxyz 789',
+  '@+.-      0 ',
+];
+var upper = [
+  'ABCDEFGHI123',
+  'JKLMNOPQR456',
+  'STUVWXYZ 789',
+  '@+.-      0 ',
+];
+
+$(function() {
+  $('#user_email').focus();
+
+  // keypad
+  var default_layout = lower;                           // keys layout
+  var default_target = '#' + document.activeElement.id; // input form
+
+  make_keys_area(default_target, default_layout);
+  make_special_keys_area(default_target);
+});
+
+function make_keys_area (target, layout) {
+  $('#keys_area').html('');
+  $('#keys_area').keypad({
+    layout: layout,
+    target: $(target),
+    keypadOnly: false,
+    beforeShow : function(inst){
+      $("input[type=search]").click(function(){
+        target = '#' + document.activeElement.id;
+        $('#keys_area').html('');
+        $('.keypad-inline').html('');
+        make_keys_area(target, layout);
+        make_special_keys_area(target);
+      });
+    }
+  });
+}
+
+function make_special_keys_area(target) {
+  $('#special_keys_area').keypad({
+    target: $(target),
+    layout: specials,
+    spacebarText : "<%= t('opac.keypad.space') %>",
+    clearText    : "<%= t('opac.keypad.clear') %>",
+    backText     : "<%= t('opac.keypad.back') %>",
+    beforeShow : function(inst){
+      // change layout
+      $('#keypad-toggle').click(function(){
+        $('.keypad-lower').click(function(){
+          $('#keypad-toggle').html('');
+          $('#keypad-toggle').html('<button class="keypad-special keypad-upper"><%= t('opac.keypad.upper') %></button>');
+          make_keys_area(target, lower);
+        });
+        $('.keypad-upper').click(function(){
+          $('#keypad-toggle').html('');
+          $('#keypad-toggle').html('<button class="keypad-special keypad-lower"><%= t('opac.keypad.lower') %></button>');
+          make_keys_area(target, upper);
+        });
+     });
+    }
+  });
+}
+</script>
+
+<div id="opac_header">
+  <div class="opac_title">
+    <h1><%= t('page.edit_user_profile', :login_name => @user.username) %></h1>
+  </div>
+  <div class="opac_head_button_area">
+    <div class="opac_head_button"><%= link_to t('opac.finish'), opac_path %> </div>
+  </div>
+</div>
+
+<div id="opac_content_detail">
+  <div id="content_list">
+    <%= simple_form_for(@user, :url => my_account_path(:opac => true)) do |f| -%>
+      <%= f.error_messages -%>
+      <div class="opac_field">
+        <%= f.label :email %><br />
+        <%= f.email_field :email, :class => 'text-field' %>
+      </div> 
+      
+      <br />
+      <div class="opac_field">
+        <%= f.label :current_password -%><br />
+        <%= f.password_field :current_password, :class => 'text-field' %>
+      </div>
+      <div class="opac_field">
+        <%= f.label :password -%><br />
+        <%= f.password_field :password, :class => 'text-field' %>
+      </div>
+      <div class="opac_field">
+        <%= f.label :password_confirmation -%><br />
+        <%= f.password_field :password_confirmation, :class => 'text-field' %>
+      </div>
+      <div class="actions" style="clear: both">
+        <%= f.submit :class => 'opac_submit_button' %>
+      </div>
+    <% end %>
+  </div>
+  <div id="keypad">
+    <div id="special_keys_area">
+      <div id="keypad-toggle">
+        <button class="keypad-special keypad-upper"><%= t('opac.keypad.upper') %></button>
+      </div>
+    </div>
+    <div id="keys_area"></div>
+  </div>
+  <br style="cleat:both;"/>
+</div>

@@ -6,7 +6,8 @@ class Item < ActiveRecord::Base
                   :call_number, :bookstore_id, :price, :url, 
                   :include_supplements, :use_restriction_id, :required_role_id, 
                   :acquired_at, :note, :item_identifier,
-                  :use_restriction, :manifestation_id, :manifestation
+                  :use_restriction, :manifestation_id, :manifestation,
+                  :shelf_id, :circulation_status, :bookstore_id
 
   self.extend ItemsHelper
   scope :for_checkout, where('item_identifier IS NOT NULL')
