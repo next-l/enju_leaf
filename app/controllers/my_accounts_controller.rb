@@ -24,6 +24,8 @@ class MyAccountsController < ApplicationController
     @user = current_user
     @user.role_id = @user.role.id
     prepare_options
+
+    render :template => 'opac/my_accounts/edit', :layout => 'opac' if params[:opac]
   end
 
   def update
@@ -38,11 +40,13 @@ class MyAccountsController < ApplicationController
 
       if saved
         sign_in(current_user, :bypass => true)
+        format.html { redirect_to opac_path, :notice => t('controller.successfully_updated', :model => t('activerecord.models.user')) } if params[:opac]
         format.html { redirect_to my_account_url, :notice => t('controller.successfully_updated', :model => t('activerecord.models.user')) }
         format.json { head :no_content }
       else
         @user = current_user
         prepare_options
+        format.html { render :action => "edit", :template => 'opac/my_accounts/edit', :layout => 'opac' } if params[:opac]
         format.html { render :action => "edit" }
         format.json { render :json => current_user.errors, :status => :unprocessable_entity }
       end
