@@ -108,6 +108,8 @@ function make_special_keys_area(target) {
         </tr>
       </table>
       <%= hidden_field_tag 'opac', 'true' %>
+      <%= hidden_field_tag 'sort_by', 'date_of_acquisition' %>
+      <%= hidden_field_tag 'order', 'desc' %>
       <%= submit_tag t('page.search'), :class => 'opac_submit_button' %><br />
     <% end %>
   </div>
