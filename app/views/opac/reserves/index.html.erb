@@ -20,8 +20,9 @@ $(function() {
 <div id="opac_content_detail">
   <div style="color: red"><%= flash[:message].to_s -%></div>
 
-  <p id="notice"><%= notice %></p>
-  <%= render 'reserves/output_user' -%>
+  <div id="opac_button_200">
+    <%= link_to t('page.output', :model => t('activerecord.attributes.reserve.reserve_list')), user_reserves_path(@user, :format => :pdf) %>
+  </div>
 
   <table class="index" id="opac_lists">
     <tr>

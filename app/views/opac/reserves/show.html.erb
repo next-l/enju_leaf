@@ -3,7 +3,8 @@
     <h1><%= t('page.showing', :model => t('activerecord.models.reserve')) %></h1>
   </div>
   <div class="opac_head_button_area">
-    <div class="opac_head_button"><%= link_to t('opac.finish'), opac_path %> </div>
+    <div class="opac_head_button"><%= link_to t('page.listing', :model => t('activerecord.models.reserve')), user_reserves_path(current_user, :opac => true) %></div>
+    <div class="opac_head_button"><%= link_to t('opac.finish'), opac_path %></div>
     <% if user_signed_in? %>
       <div class="opac_head_button"><%= link_to t('page.sign_out'), destroy_user_session_path %></div>
     <% end %>
@@ -12,7 +13,6 @@
 
 <div id="opac_content_detail">
   <p id="notice"><%= notice %></p>
-
   <div>
     <div id="opac_manifestation_book_jacket">
       <% if @reserve.manifestation %>
@@ -26,26 +26,30 @@
     </div>
     <div id="opac_manifestation_title">
       <%= render 'opac/manifestations/title_detail', :manifestation => @reserve.manifestation %>
-     </div>
+      <br />
+      <%= render 'manifestations/show_series_number', :manifestation => @reserve.manifestation %>
+      <div><%= t('page.number_of_reservations', :count => @reserved_count) %></div>
+    </div>
   </div>
   <br style="clear: both;" />
 
+  <div>
+    <% if @reserve.can_edit? and  @reserve.can_checkout? %>
+      <div><%= link_to t('page.edit'), edit_user_reserve_path(@reserve.user, @reserve) %></div>
+    <% end %>
+    <% if @reserve.user.reserves.waiting.include?(@reserve) %>
+      <% if @reserve.can_cancel? %>
+        <div><%= link_to t('page.cancel'), user_reserve_path(@reserve.user, @reserve, :mode => 'cancel'), :confirm => t('page.cancel_confirm'), :method => :put %></div>
+      <% end %>
+    <% end %>
 
-<%= render 'manifestations/show_series_number', :manifestation => @reserve.manifestation -%>
-
-<p>
-  <%- if user_signed_in? and current_user.has_role?('Librarian') -%>
-    (<%= link_to t('page.number_of_reservations', :count => @reserved_count), manifestation_reserves_path(@reserve.manifestation) -%>)
-    <br /><br/ >
-  <%- end -%>
-</p>
-
-<%- if @reserve.can_checkout? -%>
-  <%= form_tag ({:action => 'output'}) do -%>
-    <%= hidden_field_tag :reserve_id, @reserve.id -%>
-    <%= submit_tag t('page.output', :model => t('activerecord.attributes.reserve.reserve_list')) -%>
-  <%- end -%>
-<%- end -%>
+    <% if @reserve.can_checkout? %>
+      <%= form_tag ({:action => 'output'}) do -%>
+        <%= hidden_field_tag :reserve_id, @reserve.id -%>
+        <%= submit_tag t('page.output', :model => t('activerecord.attributes.reserve.reserve_list')) -%>
+      <%- end -%>
+    <% end %>
+  </div>
 
   <table>
     <tr>
@@ -106,18 +110,3 @@
   </table>
 </div>
 
-<div id="submenu" class="ui-corner-all">
-  <ul>
-    <%- if @reserve.can_edit? and  @reserve.can_checkout? -%>
-      <li><%= link_to t('page.edit'), edit_user_reserve_path(@reserve.user, @reserve) -%></li>
-    <%- end -%>
-    <%- if @reserve.user.reserves.waiting.include?(@reserve) -%>
-      <%- if @reserve.can_cancel? -%>
-        <li><%= link_to t('page.cancel'), user_reserve_path(@reserve.user, @reserve, :mode => 'cancel'), :confirm => t('page.cancel_confirm'), :method => :put -%></li>
-      <%- end -%>
-    <%- else -%>
-      <li><%= link_to t('page.destroy'), user_reserve_path(@reserve.user, @reserve), :confirm => t('page.are_you_sure'), :method => :delete -%></li>
-    <%- end -%>
-    <li><%= link_to t('page.back'), user_reserves_path(@reserve.user) -%></li>
-  </ul>
-</div>

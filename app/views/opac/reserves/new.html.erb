@@ -37,13 +37,10 @@
     <div>
       <div id="opac_manifestation_title">
         <%= render 'opac/manifestations/title_detail', :manifestation => @manifestation %>
+        <%= render 'manifestations/show_series_number', :manifestation => @reserve.manifestation -%>
       </div>
       <br style="clear: both;" />
   
-      <div class="field">
-        <%= render 'manifestations/show_series_number', :manifestation => @reserve.manifestation -%>
-      </div>
-
       <div class="field">
         <%= f.label t('activerecord.models.user') %>
         <%= @reserve.user.username %>(<%= @reserve.user.user_number %>)
