@@ -15,6 +15,9 @@ $(function() {
   <div class="opac_head_button_area">
     <div class="opac_head_button"><%= link_to t('opac.catalog_search'), opac_search_path %></div>
     <div class="opac_head_button"><%= link_to t('opac.finish'), opac_path %></div>
+    <% if user_signed_in? %>
+      <div class="opac_head_button"><%= link_to t('page.sign_out'), destroy_user_session_path %></div>
+    <% end %>
   </div>
 </div>
 
