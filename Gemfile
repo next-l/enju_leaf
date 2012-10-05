@@ -156,4 +156,5 @@ gem 'enju_trunk_frbr', :git => 'git://github.com/emiko/enju_trunk_frbr.git'
 group :operation do
   gem 'enju_trunk_circulation', :git => 'git://github.com/emiko/enju_trunk_circulation.git'
   gem 'enju_trunk_ill', :git => 'git@github.com:emiko/enju_trunk_ill.git'
+  gem 'enju_trunk_statistics', :git => 'git@github.com:emiko/enju_trunk_statistics.git'
 end
