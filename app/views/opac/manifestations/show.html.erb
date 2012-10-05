@@ -5,6 +5,9 @@
   <div class="opac_head_button_area">
     <div class="opac_head_button"><%= link_to t('opac.catalog_search'), opac_search_path %></div>
     <div class="opac_head_button"><%= link_to t('opac.finish'), opac_path %> </div>
+    <% if user_signed_in? %>
+      <div class="opac_head_button"><%= link_to t('page.sign_out'), destroy_user_session_path %></div>
+    <% end %>
   </div>
 </div>
 
@@ -53,7 +56,7 @@
       <% end %>
     </div>
     <div id="opac_manifestation_title">
-      <%= render 'opac/manifestations/title', :manifestation => @manifestation %>
+      <%= render 'opac/manifestations/title_detail', :manifestation => @manifestation %>
       <div>
         <% unless @manifestation.carrier_type.name == 'file' %>
           <% if @manifestation.reservable? %>
@@ -79,21 +82,15 @@
     <% unless @manifestation.carrier_type.name == 'file' %>
       <% if @manifestation.reservable? %>
         <div>
-          <% if (user_signed_in? && current_user.has_role?('Librarian')) or !user_signed_in? %>
+          <% if @manifestation.is_reserved_by(current_user) %>
             <div id="opac_reserve_button">
-              <%= link_to t('manifestation.reserve_this'), new_reserve_path(:manifestation_id => @manifestation.id) %>
+              <%= link_to t('manifestation.cancel_reservation'), user_reserve_path(@reserve.user, @reserve, :opac => true) %>
             </div>
           <% else %>
-            <% if @manifestation.is_reserved_by(current_user) %>
+            <% if @manifestation.reservable_with_item?(current_user) %>
               <div id="opac_reserve_button">
-                <%= link_to t('manifestation.cancel_reservation'), user_reserve_path(@reserve.user, @reserve) %>
+                <%= link_to t('manifestation.reserve_this'), new_user_reserve_path(current_user, :manifestation_id => @manifestation.id, :opac => true) %>
               </div>
-            <% else %>
-              <% if @manifestation.reservable_with_item?(current_user) %>
-                <div id="opac_reserve_button">
-                  <%= link_to t('manifestation.reserve_this'), new_user_reserve_path(current_user, :manifestation_id => @manifesation.id) %>
-                </div>
-              <% end %>
             <% end %>
           <% end %>
         </div>

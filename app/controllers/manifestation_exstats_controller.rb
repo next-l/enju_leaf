@@ -17,7 +17,7 @@ class ManifestationExstatsController < ApplicationController
     if params[:search_date_first] || params[:search_date_last]
       @start_d = params[:search_date_first]
       @end_d = params[:search_date_last]
-      @selected_library = params[:library][:id]
+      @selected_library = params[:library][:id] if params[:library]
     end
     flash[:message] = date_check(@start_d, @end_d)
     return unless flash[:message].blank?
@@ -54,13 +54,14 @@ class ManifestationExstatsController < ApplicationController
       end
       @offset += @limit
     end
+    render :template => 'opac/manifestation_exstats/bestreader', :layout => 'opac' if params[:opac]
   end
 
   def bestrequest
     if params[:search_date_first] && params[:search_date_last]
       @start_d = params[:search_date_first]
       @end_d = params[:search_date_last]
-      @selected_library = params[:library][:id]
+      @selected_library = params[:library][:id] if params[:library]
     end
     flash[:message] = date_check(@start_d, @end_d)
     return unless flash[:message].blank?
@@ -91,6 +92,7 @@ class ManifestationExstatsController < ApplicationController
       end
       @offset += @limit
     end
+    render :template => 'opac/manifestation_exstats/bestrequest', :layout => 'opac' if params[:opac]
   end
 
   private

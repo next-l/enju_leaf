@@ -1,0 +1,53 @@
+<script>
+$(function() {
+    $('.opac_lists_row').click(function(e) {
+      if(!$(e.target).is('a')){
+        window.location = $(e.target).closest('tr').data('href');
+      };
+  });
+});
+</script>
+
+<div id="opac_header">
+  <div class="opac_title"><h1><%= t('page.listing', :model => t('activerecord.models.checkout')) %></h1></div>
+  <div class="opac_head_button_area">
+    <div class="opac_head_button">
+      <%= link_to t('opac.finish'), opac_path %>
+    </div>
+  </div>
+</div>
+
+<div id="opac_content_detail">
+  <p id="notice"><%= notice %></p>
+  <% unless @checkouts.size == 0 %>
+    <%= form_for(:checkouts, :url => user_checkouts_path(@user), :html => {:method => 'get', :id => 'form'}) do %>
+      <%= submit_tag t('activerecord.attributes.checkout.output_checkoutlist'), :onclick => "push_user_submit('pdf');" %>
+    <% end %>
+  <% end %>
+
+  <table class="index" id="opac_lists">
+    <tr>
+      <th class="checked_item_title"><%= t('page.title') %></th>
+      <th><%= t('activerecord.attributes.checkout.due_date') %></th>
+      <th><%= t('activerecord.attributes.checkout.renewal_count') %></th>
+    </tr>
+    <% @checkouts.each_with_index do |checkout, i| %>
+      <tr class="opac_line<%= cycle("0", "1") %> opac_lists_row" data-href="<%= user_checkout_path(checkout.user, checkout, :opac => true) %>">
+        <td>
+          <%= render 'opac/manifestations/title', :manifestation => checkout.item.manifestation %>
+          <%= t('activerecord.attributes.item.call_number') %>: 
+          <%= link_to call_numberformat(checkout.item), item_path(checkout.item) %> /
+          <%= t('activerecord.attributes.item.item_identifier') %>: 
+          <%= checkout.item.item_identifier %>
+        </td>
+        <td><%= l(checkout.due_date, :format => :only_date) -%></td>
+        <td><%= checkout.checkout_renewal_count -%> / <%= checkout.item.checkout_status(checkout.user).checkout_renewal_limit-%></td>
+      </tr>
+    <% end %>
+  </table>
+  <%= paginate(@checkouts) %>
+
+  <% if @checkouts.size == 0 %>
+    <p><%= t('checkout.no_checkout') %></p>
+  <% end %>
+</div>

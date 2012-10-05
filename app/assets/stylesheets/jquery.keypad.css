@@ -143,6 +143,18 @@ div#keys_area {
         background: -webkit-gradient(linear, center top, center bottom, from(#D8E988), to(#9CBD00)); /* Webkit */
         background: -moz-linear-gradient(top, #D8E988, #9CBD00); /* mozilla */
 }
+.keypad-lower {
+        border: 0.5px solid #809C00; 
+        filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#FFD8E988', endColorstr='#FF9CBD00'); /* IE5.5以上 */
+        background: -webkit-gradient(linear, center top, center bottom, from(#D8E988), to(#9CBD00)); /* Webkit */
+        background: -moz-linear-gradient(top, #D8E988, #9CBD00); /* mozilla */
+}
+.keypad-upper {
+        border: 0.5px solid #809C00; 
+        filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#FFD8E988', endColorstr='#FF9CBD00'); /* IE5.5以上 */
+        background: -webkit-gradient(linear, center top, center bottom, from(#D8E988), to(#9CBD00)); /* Webkit */
+        background: -moz-linear-gradient(top, #D8E988, #9CBD00); /* mozilla */
+}
 .keypad-cover {
 	display: none;
 	display/**/: block;
