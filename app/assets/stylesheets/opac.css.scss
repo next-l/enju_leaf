@@ -269,7 +269,8 @@ div.opac_field .date-text-field {
   display: block;
   color: white;
   font-weight: 900px;
-  width: 178px;
+  min-width: 177px;
+  max-width: 184px;
   padding: 10px 7px;
   margin-right: 10px;
   margin-bottom: 20px;
@@ -338,11 +339,12 @@ span.manifestation_reserves_number, span.manifestation_items_number {
   padding: 2px 15px;
 }
 
-#opac_output_button a, #opac_reserve_button a{
+#opac_button_200 a {
   display: block;
   color: white;
   font-weight: 900px;
   padding: 10px 5px;
+  width: 200px;
   margin: 5px 0 20px 10px;
   text-align: center;
   text-decoration: none;
@@ -360,10 +362,4 @@ span.manifestation_reserves_number, span.manifestation_items_number {
   box-shadow: 2px 2px 4px #000; /*CSS3*/
   -moz-box-shadow: 2px 2px 4px #000; /* Firefox用*/
   -webkit-box-shadow: 2px 3px 4px #000; /* Google Chrome, Safari用*/
-}
-#opac_output_button a{
-  width: 200px;
-} 
-#opac_reserve_button a {
-  width: 200px;
 }
