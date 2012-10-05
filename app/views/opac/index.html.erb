@@ -3,30 +3,48 @@
   <br />
   <%= t('opac.push_touchpanel') %>
 </div>
+<div>
+  <div class="opac_head_button_area">
+    <% if user_signed_in? %>
+      <div class="opac_head_button"><%= link_to t('page.sign_out'), destroy_user_session_path(:opac => true) %></div>
+    <% end %>
+  </div>
+</div>
 
 <div id="opac_contents">
   <div id="opac_menu">
+    <div><p id="notice"><%= notice %></p></div>
     <div id="opac_search_col">
       <%= link_to opac_search_path do %>
         <h1><img src="/assets/opac/book.png"/ style="width:20px;">&nbsp<%= t('opac.catalog_search') %></h1>
       <% end %>
     </div>
-    <div id="opac_session_col">
-      <%= link_to edit_my_account_path do %>
-        <%= t('opac.login') %>
-        <div class="opac_button_description"><%= t('opac.login_description')%></div>
-      <% end %>
-    </div>
-    <div id="opac_easy">
-      <div class="opac_bestreader">
-        <%= link_to manifestation_exstats_bestreader_path(:opac => true) do %>
-          <%= t('opac.manifestation_exstats.bestreader') %>
+
+    <% if user_signed_in? %>
+      <div id="opac_session_col">
+        <%= link_to t('user.edit_profile'), edit_my_account_path(:opac => true) %>
+      </div>
+      <div id="opac_session_col">
+        <%= link_to t('page.listing', :model => t('activerecord.models.reserve')), user_reserves_path(current_user, :opac => true) %> 
+      </div>
+      <div id="opac_session_col">
+        <%= link_to t('page.checkout_history'), user_checkouts_path(current_user, :opac => true) %>
+      </div>
+    <% else %>
+      <div id="opac_session_col">
+        <%= link_to new_user_session_path(:opac => true) do %>
+          <%= t('opac.login') %>
+          <div class="opac_button_description"><%= t('opac.login_description')%></div>
         <% end %>
       </div>
+    <% end %>
+
+    <div id="opac_easy">
+      <div class="opac_bestreader">
+        <%= link_to t('opac.manifestation_exstats.bestreader'), manifestation_exstats_bestreader_path(:opac => true) %>
+      </div>
       <div class="opac_bestrequest">
-        <%= link_to manifestation_exstats_bestrequest_path(:opac => true) do %>
-          <%= t('opac.manifestation_exstats.bestrequest') %>
-        <% end %>
+        <%= link_to t('opac.manifestation_exstats.bestrequest'), manifestation_exstats_bestrequest_path(:opac => true) %>
       </div>
     </div>
   </div>

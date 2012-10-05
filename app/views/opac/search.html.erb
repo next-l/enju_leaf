@@ -52,9 +52,9 @@ function make_special_keys_area(target) {
   $('#special_keys_area').keypad({
     target: target,
     layout: specials,
-    spacebarText : "<%= t('opac.search.keypad.space') %>",
-    clearText    : "<%= t('opac.search.keypad.clear') %>",
-    backText     : "<%= t('opac.search.keypad.back') %>",
+    spacebarText : "<%= t('opac.keypad.space') %>",
+    clearText    : "<%= t('opac.keypad.clear') %>",
+    backText     : "<%= t('opac.keypad.back') %>",
     beforeShow : function(inst){
       // change layout
       $('.keypad-kana').click(function(){
@@ -71,16 +71,17 @@ function make_special_keys_area(target) {
 <div id="opac_header">
   <div class="opac_title"><h1><%= t('opac.catalog_search') %></h1></div>
   <div class="opac_head_button_area">
-    <div class="opac_head_button">
-      <%= link_to t('opac.finish'), opac_path %>
-    </div>
+    <div class="opac_head_button"><%= link_to t('opac.finish'), opac_path %></div>
+    <% if user_signed_in? %>
+      <div class="opac_head_button"><%= link_to t('page.sign_out'), destroy_user_session_path %></div>
+    <% end %>
   </div>
 </div>
 
 <div id="opac_content_detail">
-  <div id="opac_search">
+  <h4><%= t('opac.keypad.input_keyword') %></h4>
+  <div class="opac_field">
     <%= form_tag({:controller => 'manifestations'}, {:method => 'get'}) do -%>
-      <h3><%= t('opac.search.input_keyword') %></h3>
       <table>
         <tr>
           <td><%= t('page.search_term') %>:</td>
@@ -106,17 +107,17 @@ function make_special_keys_area(target) {
         </tr>
       </table>
       <%= hidden_field_tag 'opac', 'true' %>
-      <%= submit_tag t('page.search'), :class => 'opac_search_button' %><br />
+      <%= submit_tag t('page.search'), :class => 'opac_submit_button' %><br />
     <% end %>
   </div>
   <br />
   <div id="keypad">
     <div id="special_keys_area">
       <div>
-        <button class="keypad-special keypad-kana"><%= t('opac.search.keypad.kana') %></button>
+        <button class="keypad-special keypad-kana"><%= t('opac.keypad.kana') %></button>
       </div>
       <div style="clear: both;">
-        <button class="keypad-special keypad-alnum"><%= t('opac.search.keypad.alnum') %></button>
+        <button class="keypad-special keypad-alnum"><%= t('opac.keypad.alnum') %></button>
       </div>
     </div>
     <div id="keys_area"></div>
