@@ -319,7 +319,7 @@ defaults: &defaults
   sounds:
     basedir: "sounds/"
     errors:
-      default: "sounds/missA11.ogg"
+      default: "missA11.ogg"
       item:
         this_item_is_reserved: "missA11.ogg"
       checkin:
