@@ -1,6 +1,6 @@
 <script>
 $(function() {
-    $('.opac_manifestations_row').click(function(e) {
+    $('.opac_lists_row').click(function(e) {
       if(!$(e.target).is('a')){
         window.location = $(e.target).closest('tr').data('href');
       };
@@ -15,13 +15,25 @@ $(function() {
   <div class="opac_head_button_area">
     <div class="opac_head_button"><%= link_to t('opac.catalog_search'), opac_search_path %></div>
     <div class="opac_head_button"><%= link_to t('opac.finish'), opac_path %></div>
+    <% if user_signed_in? %>
+      <div class="opac_head_button"><%= link_to t('page.sign_out'), destroy_user_session_path %></div>
+    <% end %>
   </div>
 </div>
 
 <div id="opac_content_detail"> 
-  <div>
-    <%= t('page.search_term') %>: <%= @query %><br />
-  </div>
+  <% case %>
+  <% when @series_statement %>
+    <h2 class="resource_title">
+      [S]
+      <%= @series_statement.original_title %>
+    </h2>
+  <% else%>
+    <div>
+      <%= t('page.search_term') %>: <%= @query %><br />
+    </div>
+  <% end %>
+
   <% if @manifestations && (@manifestations.size > 0) %> 
     <p>
       <%= t('page.number_of_search_results', 
@@ -36,23 +48,11 @@ $(function() {
 
     <%= render 'opac/manifestations/sort_menu' %>
 
-    <table class="index" id="opac_manifestation_list" style="clear: both;">
+    <table class="index" id="opac_lists" style="clear: both;">
       <% @manifestations.each do |manifestation| %>
-        <tr class="opac_line<%= cycle("0", "1") %> opac_manifestations_row" data-href="<%= manifestation_path(manifestation, :opac => true) %>">
+        <tr class="opac_line<%= cycle("0", "1") %> opac_lists_row" data-href="<%= manifestation_path(manifestation, :opac => true) %>">
           <td>
-            <div class="opac_list_title">
-              <%= manifestation.original_title %>
-            </div>
-            <% unless manifestation.creators.readable_by(current_user).empty? and manifestation.publishers.readable_by(current_user).empty? %>
-              <div class="opac_list_patrons">
-                <% unless manifestation.creators.readable_by(current_user).empty? %>
-                  <%= t('patron.creator')%>:<%= patrons_short_list(manifestation.creators.readable_by(current_user), { :nolink => 'true' }) %>&nbsp;&nbsp;  
-                <% end %>
-                <% unless manifestation.publishers.readable_by(current_user).empty? %>
-                  <%= t('patron.publisher') %>: <%= patrons_short_list(manifestation.publishers.readable_by(current_user), { :nolink => 'true' }) %>
-                <% end %>
-              </div>
-             <% end %>
+            <%= render 'opac/manifestations/title', :manifestation => manifestation %>
           </td>
         </tr>
       <% end %>

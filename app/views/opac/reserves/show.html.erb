@@ -1,0 +1,123 @@
+<div id="opac_header">
+  <div class="opac_title">
+    <h1><%= t('page.showing', :model => t('activerecord.models.reserve')) %></h1>
+  </div>
+  <div class="opac_head_button_area">
+    <div class="opac_head_button"><%= link_to t('opac.finish'), opac_path %> </div>
+    <% if user_signed_in? %>
+      <div class="opac_head_button"><%= link_to t('page.sign_out'), destroy_user_session_path %></div>
+    <% end %>
+  </div>
+</div>
+
+<div id="opac_content_detail">
+  <p id="notice"><%= notice %></p>
+
+  <div>
+    <div id="opac_manifestation_book_jacket">
+      <% if @reserve.manifestation %>
+        <%= opac_book_jacket(@reserve.manifestation) %>
+      <% end %>
+      <% if @reserve.manifestation.picture_files.exists? %>
+        <br />
+        <%= t('page.total') %>: <%= @reserve.manifestation.picture_files.count %>
+        <%= t('page.number_of_pictures', :count => @reserve.manifestation.picture_files.count) %>
+      <% end %>
+    </div>
+    <div id="opac_manifestation_title">
+      <%= render 'opac/manifestations/title_detail', :manifestation => @reserve.manifestation %>
+     </div>
+  </div>
+  <br style="clear: both;" />
+
+
+<%= render 'manifestations/show_series_number', :manifestation => @reserve.manifestation -%>
+
+<p>
+  <%- if user_signed_in? and current_user.has_role?('Librarian') -%>
+    (<%= link_to t('page.number_of_reservations', :count => @reserved_count), manifestation_reserves_path(@reserve.manifestation) -%>)
+    <br /><br/ >
+  <%- end -%>
+</p>
+
+<%- if @reserve.can_checkout? -%>
+  <%= form_tag ({:action => 'output'}) do -%>
+    <%= hidden_field_tag :reserve_id, @reserve.id -%>
+    <%= submit_tag t('page.output', :model => t('activerecord.attributes.reserve.reserve_list')) -%>
+  <%- end -%>
+<%- end -%>
+
+  <table>
+    <tr>
+      <td><%= t('activerecord.models.user') %>:</td>
+      <td><%=@reserve.user.username %>(<%= @reserve.user.user_number %>)</td>
+    </tr>
+    <tr>
+      <td><%= t('activerecord.attributes.user.reserved_library') %>:</td>
+      <td><%= @reserve.reserved_library_name %></td>
+    </tr>
+    <% if @reserve.user and @reserve.user.patron %>
+      <tr>
+        <td><%= t('activerecord.attributes.reserve.contact') %>:</td>
+        <td>
+          <%= @reserve.user.patron.full_name %><br />
+          <% unless @reserve.user.patron.address_1.blank? %>
+            <% unless @reserve.user.patron.zip_code_1.blank %>
+              <%= t('activerecord.attributes.reserve.zipcode') %>
+              <%= @reserve.user.patron.zip_code_1 %><br />
+            <% end %>
+            <%= @reserve.user.patron.address_1 %>
+          <% end %>
+          <% unless @reserve.user.patron.telephone_number_1.blank? %>
+            <%= t('activerecord.attributes.patron.telephone_number') %>:
+            <%= @reserve.user.patron.telephone_number_1 %>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+    <tr>
+      <td><%= t('activerecord.attributes.reserve.receipt_library') %>:</td>
+      <td><%= @receipt_library.display_name %></td>
+    </tr>
+    <tr>
+      <td><%= t('activerecord.attributes.reserve.information_type') %>:</td>
+      <td>
+        <%= i18n_information_type(@reserve.information_type_id) %>
+         &nbsp;<%= @information_type unless @information_type.blank? %>
+      </td>
+    </tr>
+    <tr>
+      <td><%= t('activerecord.attributes.reserve.state') %>:</td>
+      <td>
+        <%= i18n_state(@reserve.state) %>
+        <% if @reserve.retained %>
+          (<%= t('reserve.called') %>)
+        <% end %>
+      </td>
+    </tr> 
+    <tr>
+      <td><%= t('activerecord.attributes.reserve.created_at') %>:</td>
+      <td><%= l(@reserve.created_at) %></td>
+    </tr>
+    <tr>
+      <td><%= t('activerecord.attributes.reserve.expired_at') %>:</td>
+      <td><%= l(@reserve.expired_at, :format => :only_date) if @reserve.expired_at %></td>
+    </tr>
+  </table>
+</div>
+
+<div id="submenu" class="ui-corner-all">
+  <ul>
+    <%- if @reserve.can_edit? and  @reserve.can_checkout? -%>
+      <li><%= link_to t('page.edit'), edit_user_reserve_path(@reserve.user, @reserve) -%></li>
+    <%- end -%>
+    <%- if @reserve.user.reserves.waiting.include?(@reserve) -%>
+      <%- if @reserve.can_cancel? -%>
+        <li><%= link_to t('page.cancel'), user_reserve_path(@reserve.user, @reserve, :mode => 'cancel'), :confirm => t('page.cancel_confirm'), :method => :put -%></li>
+      <%- end -%>
+    <%- else -%>
+      <li><%= link_to t('page.destroy'), user_reserve_path(@reserve.user, @reserve), :confirm => t('page.are_you_sure'), :method => :delete -%></li>
+    <%- end -%>
+    <li><%= link_to t('page.back'), user_reserves_path(@reserve.user) -%></li>
+  </ul>
+</div>

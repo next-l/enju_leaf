@@ -2146,14 +2146,23 @@ ja:
     login: 登録利用者ログイン
     login_description: "利用者登録している方はこちらからログインしてください"
     news: 図書館からのお知らせ
-    best_reader: 貸出の多い本
-    best_request: 予約の多い本
-    search:
+    manifestation_exstats:
+      bestreader: 貸出の多い本
+      bestrequest: 予約の多い本
+      rank: "過去%{term}の順位"
+      1year: 1年間
+      6months: 6ヶ月間
+      3months: 3ヶ月間
+      1month: 1ヶ月間
+      2weeks: 2週間
+    keypad:
       input_keyword: キーワードを入力してください
-      keypad:
-        kana: カナ
-        alnum: 英数
-        space: スペース
-        back: 最後から一文字消す
-        clear: 全部消す
+      kana: カナ
+      alnum: 英数
+      lower: 小文字
+      upper: 大文字
+      space: スペース
+      back: 最後から一文字消す
+      clear: 全部消す
+    search:
       sort: "%{target}順に並べる"

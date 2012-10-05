@@ -99,7 +99,14 @@ tr.opac_line0 {
 tr.opac_line1 {
   background-color: #FFF;
 }
-tr.opac_manifestations_row:hover td {
+#opac_lists th {
+  color: white;
+  background-color: #555 ;
+}
+#opac_lists td {
+  vertical-align: middle;
+}
+tr.opac_lists_row:hover td {
   cursor: pointer;
   background-color: #A2DCEA ;
 }
@@ -225,9 +232,15 @@ dl.opac_news_column dd{
   margin: 2px 0px 10px 10px;
 }
 
-input.opac_search_button {
-  width: 100px;
-  padding: 5px;
+input.opac_radio_button {
+  width: 24px;
+  height: 24px;
+   border-radius: 12px;
+  margin-bottom: 10px;
+}
+
+input.opac_submit_button {
+  padding: 5px 25px;
   font-size: 20px;
   font-weight: 900;
   color: white;
@@ -240,11 +253,11 @@ input.opac_search_button {
   background: -webkit-gradient(linear, center top, center bottom, from(#444), to(#000)); /* Webkit */
   filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#FF444444', endColorstr='#FF000000'); /* IE5.5以上 */
 }
-div#opac_search .text-field {
+div.opac_field .text-field {
   font-size: 20px;
   width: 400px;
 }
-div#opac_search .date-text-field {
+div.opac_field .date-text-field {
   font-size: 20px;
   width: 190px;
 }
