@@ -10,7 +10,7 @@ gem 'cocaine', '0.3.1'
 gem 'enju_oai', :git => 'git://github.com/nabeta/enju_oai.git'
 gem 'enju_book_jacket', "0.1.0.pre"
 gem 'enju_manifestation_viewer', :git => 'git://github.com/nabeta/enju_manifestation_viewer.git'
-gem 'enju_message', :git => 'git://github.com/nabeta/enju_message.git'
+gem 'enju_message', "0.1.14.pre"
 gem "enju_ndl", "0.1.0.pre3"
 #gem 'enju_ndl', :git => 'git://github.com/nabeta/enju_ndl.git'
 #gem 'enju_question', :git => 'git://github.com/nabeta/enju_question.git'
@@ -18,8 +18,6 @@ gem 'enju_event', :git => 'git://github.com/shinozuka/enju_event.git'
 #gem 'enju_bookmark', :git => 'git://github.com/nabeta/enju_bookmark'
 gem 'enju_bookmark', :git => 'git://github.com/shinozuka/enju_bookmark.git'
 
-#gem 'enju_standalone_interface', :path => '/Users/tmpz84/src/enju_standalone_interface'
-#gem 'enju_standalone_interface', :git => 'git://github.com/nakamura-akifumi/enju_standalone_interface.git'
 gem "jpp_customercode_transfer", "~> 0.0.2"
 
 #
