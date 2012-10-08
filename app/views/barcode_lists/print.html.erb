@@ -1,0 +1,34 @@
+<%- form_for(@barcode_list) do |f| -%>
+  <%= f.error_messages -%>
+
+  <p>
+    <%= f.label t('activerecord.attributes.barcode_list.barcode_type') -%><br />
+    <%= f.text_field :barcode_type -%>
+    <%= javascript_tag("$('#barcode_barcode_type').focus()") -%>
+  </p>
+  <p>
+    <%= f.label t('activerecord.attributes.barcode_list.barcode_prefix') -%><br />
+    <%= f.text_field :barcode_prefix -%>
+    <%= javascript_tag("$('#barcode_prefix').focus()") -%>
+  </p>
+  <p>
+    <%= f.label t('activerecord.attributes.barcode_list.start_number') -%><br />
+    <%= f.text_field :start_number -%>
+    <%= javascript_tag("$('#barcode_start_number').focus()") -%>
+  </p>
+  <p>
+    <%= f.label t('activerecord.attributes.barcode_list.number_of_barcode') -%><br />
+    <%= f.text_field :number_of_barcode -%>
+    <%= javascript_tag("$('#barcode_number_of_barcode').focus()") -%>
+  </p>
+  <p>
+    <%= f.label t('activerecord.attributes.barcode_list.created_as') -%><br />
+    <%= f.text_field :created_as -%>
+    <%= javascript_tag("$('#barcode_created_as').focus()") -%>
+  </p>
+  <p>
+    <%= f.submit -%>
+  </p>
+<%- end -%>
+
+

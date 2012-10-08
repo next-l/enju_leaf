@@ -1,7 +1,13 @@
 class BarcodeList < ActiveRecord::Base
+  attr_accessible :barcode_name, :sheet_id, :usage_type, :barcode_type, :barcode_prefix, :barcode_suffix
+
   default_scope :order => 'barcode_prefix'
+  BARCODE_TYPES = ["Code128B"]
+  GENERATED_FROM = (I18n.t('activerecord.attributes.barcode_list.generated_from')).split(",")
 
   attr_accessor :end_number
+
+  belongs_to :sheet
 
   def create_pdf_user_number_list(start_number, end_number)
     dir_base = "#{Rails.root}/private/system/barcode_list/#{self.id}/original/"
