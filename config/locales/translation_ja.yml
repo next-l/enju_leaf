@@ -48,6 +48,7 @@ ja:
       item: 所蔵情報
       barcode: バーコード
       barcode_list: 拡張バーコード
+      sheet: 印刷用紙
       work: 書いた資料
       purchase_request: 購入リクエスト
       realize: 表現関係
@@ -1274,6 +1275,19 @@ ja:
         item: 所蔵情報
         price: 値段
         created_at: 受入日
+      sheet:
+        name: 名称
+        note: 備考
+        height: 高さ
+        width: 幅
+        cell_h: セル(H)
+        cell_w: セル(W)
+        margin_h: マージン(H)
+        margin_w: マージン(W)
+        space_h: 間隔(H)
+        space_w: 間隔(W)
+        cell_x: セル個数(H)
+        cell_y: セル個数(W)
 
   page:
     user_title: "ようこそ %{login_name} さん"

@@ -1,0 +1,70 @@
+<div id="content_detail" class="ui-corner-all">
+  <h1 class="title"><%= t('page.showing', :model => t('activerecord.models.sheet')) -%></h1>
+  <div id="content_list">
+  <p id="notice"><%= notice %></p>
+
+  <p>
+  <strong><%= t('activerecord.attributes.sheet.name') -%>:</strong>
+  <%= @sheet.name -%>
+  </p>
+  <p>
+  <strong><%= t('activerecord.attributes.sheet.note') -%>:</strong>
+  <%= @sheet.note -%>
+  </p>
+  <p>
+  <strong><%= t('activerecord.attributes.sheet.width') -%>:</strong>
+  <%= @sheet.width -%>
+  </p>
+  <p>
+  <strong><%= t('activerecord.attributes.sheet.height') -%>:</strong>
+  <%= @sheet.height -%>
+  </p>
+  <p>
+  <strong><%= t('activerecord.attributes.sheet.cell_h') -%>:</strong>
+  <%= @sheet.cell_h -%>
+  </p>
+  <p>
+  <strong><%= t('activerecord.attributes.sheet.cell_w') -%>:</strong>
+  <%= @sheet.cell_w -%>
+  </p>
+
+  <p>
+  <strong><%= t('activerecord.attributes.sheet.margin_h') -%>:</strong>
+  <%= @sheet.margin_h -%>
+  </p>
+
+ <p>
+  <strong><%= t('activerecord.attributes.sheet.margin_w') -%>:</strong>
+  <%= @sheet.margin_w -%>
+  </p>
+
+  <p>
+  <strong><%= t('activerecord.attributes.sheet.space_h') -%>:</strong>
+  <%= @sheet.space_h -%>
+  </p>
+
+ <p>
+  <strong><%= t('activerecord.attributes.sheet.space_w') -%>:</strong>
+  <%= @sheet.space_w -%>
+  </p>
+
+ <p>
+  <strong><%= t('activerecord.attributes.sheet.cell_x') -%>:</strong>
+  <%= @sheet.cell_x -%>
+  </p>
+
+ <p>
+  <strong><%= t('activerecord.attributes.sheet.cell_y') -%>:</strong>
+  <%= @sheet.cell_y -%>
+  </p>
+
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all">
+  <ul>
+    <li><%= link_to t('page.edit'), edit_sheet_path(@sheet) -%></li>
+    <li><%= link_to t('page.new', :model => t('activerecord.models.sheet')), new_sheet_path -%></li>
+    <li><%= link_to t('page.listing', :model => t('activerecord.models.sheet')), sheets_path -%></li>
+  </ul>
+</div>

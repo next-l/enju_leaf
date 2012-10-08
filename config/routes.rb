@@ -1,4 +1,6 @@
 EnjuLeaf::Application.routes.draw do
+  resources :sheets
+
   devise_for :users, :path => 'accounts'
 
   resource :my_account
@@ -468,6 +470,9 @@ EnjuLeaf::Application.routes.draw do
 
   match '/opac' => 'opac#index'
   match '/opac/search' => 'opac#search'
+
+  match '/batch_checkin' => 'checkins#batchexec', :via => :post
+  match '/batch_checkout' => 'checkout#batchexec', :via => :post
 
   match '/checkoutlists' => 'checkoutlists#index'
   match '/reservelists' => 'reservelists#index'
