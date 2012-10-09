@@ -2162,7 +2162,7 @@ ja:
 
   opac:
     finish: 終わる
-    push_touchpanel: 希望の項目を押してください
+    push_touchpanel: ▼ 希望の項目を押してください
     catalog_search: 資料の検索
     login: 登録利用者ログイン
     login_description: "利用者登録している方はこちらからログインしてください"

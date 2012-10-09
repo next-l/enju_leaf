@@ -33,7 +33,7 @@ div#opac_header {
 }
 div#opac_index_header {
   width: 100%;
-  padding: 20px 0;
+  padding: 20px 10px;
   margin-bottom: 50px; 
   border-top: 4px solid #000;
   text-align: center;
@@ -123,15 +123,21 @@ table#opac_detail_table td {
 }
 
 
-
 div#opac_menu {
   width: 440px;
-  color: white;
   font-weight: 900;
+  text-align: center;  
   float: left;
+}
+div#opac_menu div {
+  margin-bottom: 20px;
 }
 div#opac_menu a {
   text-decoration: none;
+}
+div.opac_menu_info {
+  text-align: left;
+  margin-left:20px;
 }
 
 div#opac_search_col a, div#opac_session_col a, div.opac_bestreader a, div.opac_bestrequest a {
@@ -151,7 +157,6 @@ div.opac_button_description {
   color: #000;
   font-size: 15px;
   font-weight: 600;
-  margin-top: 10px;
   padding: 3px; 
   // radius
   border-radius: 5px;         /* CSS3 */
@@ -162,7 +167,6 @@ div.opac_button_description {
 div#opac_search_col a{
   display: block;
   padding: 50px 20px;
-  margin-bottom: 50px;
   border: 1px solid #1D7FC4;
   // color
   background: #17649A;
@@ -182,7 +186,6 @@ div#opac_search_col a:hover {
 div#opac_session_col a{
   display: block;
   padding: 20px 20px;
-  margin-bottom: 20px;
   border: 1px solid #091D42;
   filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#FFA2DCEA', endColorstr='#FF17649A'); /* IE5.5以上 */
   //color
@@ -227,8 +230,12 @@ div#opac_news {
   width: 484px;
   float: left;
 }
+dl.opac_news_column {
+  padding: 20px;
+  border: solid 1px #aaa;
+}
 dl.opac_news_column dd{
-  margin: 2px 0px 10px 10px;
+  margin: 5px 0px 0px 10px;
 }
 
 input.opac_radio_button {

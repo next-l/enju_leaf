@@ -1,18 +1,19 @@
 <div id="opac_index_header">
-  <h1 class="opac_index_libraryname"><%= LibraryGroup.system_name(@locale) %></h1>
-  <br />
-  <%= t('opac.push_touchpanel') %>
-</div>
-<div>
   <div class="opac_head_button_area">
     <% if user_signed_in? %>
       <div class="opac_head_button"><%= link_to t('page.sign_out'), destroy_user_session_path(:opac => true) %></div>
     <% end %>
   </div>
+  <div style="clear: both;">
+    <h1 class="opac_index_libraryname"><%= LibraryGroup.system_name(@locale) %></h1>
+  </div>
 </div>
 
 <div id="opac_contents">
   <div id="opac_menu">
+    <div class="opac_menu_info">  
+      <%= t('opac.push_touchpanel') %>
+    </div>
     <div><p id="notice"><%= notice %></p></div>
     <div id="opac_search_col">
       <%= link_to opac_search_path do %>
@@ -50,7 +51,7 @@
   </div>
 
   <div id="opac_news">
-    <h3><%= t('opac.news') %></h3>
+    <h4><%= t('opac.news') %></h4>
     <dl class="opac_news_column">
       <% @events.each do |event| %>
         <dt class="opac_new_date">
