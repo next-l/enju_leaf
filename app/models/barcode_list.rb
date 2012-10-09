@@ -1,11 +1,11 @@
 class BarcodeList < ActiveRecord::Base
-  attr_accessible :barcode_name, :sheet_id, :usage_type, :barcode_type, :barcode_prefix, :barcode_suffix
+  attr_accessible :barcode_name, :sheet_id, :usage_type, :barcode_type, :barcode_prefix, :barcode_suffix, :label_note
 
   default_scope :order => 'barcode_prefix'
   BARCODE_TYPES = ["Code128B"]
   GENERATED_FROM = (I18n.t('activerecord.attributes.barcode_list.generated_from')).split(",")
 
-  attr_accessor :end_number
+  attr_accessor :start_number, :end_number
 
   belongs_to :sheet
 

@@ -183,6 +183,8 @@ EnjuLeaf::Application.routes.draw do
   end
   resources :barcodes
   resources :barcode_lists do
+    match 'print', :to => 'barcode_lists#print'
+    match 'create_pdf', :to => 'barcode_lists#create_pdf'
     get :show_pdf, :on => :collection
   end
   resources :message_requests, :except => [:new, :create]
