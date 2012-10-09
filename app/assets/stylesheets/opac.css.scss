@@ -33,7 +33,6 @@ div#opac_header {
 }
 div#opac_index_header {
   width: 100%;
-  font-size: 24px;
   padding: 20px 0;
   margin-bottom: 50px; 
   border-top: 4px solid #000;
@@ -253,13 +252,33 @@ input.opac_submit_button {
   background: -webkit-gradient(linear, center top, center bottom, from(#444), to(#000)); /* Webkit */
   filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#FF444444', endColorstr='#FF000000'); /* IE5.5以上 */
 }
+
+div.opac_field div {
+  margin-bottom: 20px;
+}
 div.opac_field .text-field {
   font-size: 20px;
-  width: 400px;
+  width: 415px;
+}
+div.opac_field .telephone-field {
+  font-size: 20px;
+  width: 300px;
+}
+div.opac_field select {
+  font-size: 20px;
+}
+div.opac_field .password-field {
+  font-size: 20px;
+  width: 200px;
 }
 div.opac_field .date-text-field {
   font-size: 20px;
   width: 190px;
+}
+div.opac_field .formError {
+  font-size: 95%;
+  font-weight: 900;
+  color: red;
 }
 
 .opac_sort {
