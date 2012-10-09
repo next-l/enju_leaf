@@ -47,7 +47,7 @@ platforms :jruby do
   gem 'trinidad', :require => false
 end
 
-gem 'exception_notification', '~> 2.6'
+gem 'exception_notification', '~> 3.0.0.rc1'
 gem 'state_machine', '~> 1.1.2'
 gem 'progress_bar'
 gem 'inherited_resources', '~> 1.3'
@@ -60,7 +60,7 @@ gem 'RedCloth', '>= 4.2.9'
 gem 'devise-encryptable'
 #gem 'devise_security_extension'
 gem 'addressable'
-gem 'paperclip', '~> 3.2'
+gem 'paperclip', '~> 3.3'
 gem 'paperclip-meta', '~> 0.4.3'
 gem 'aws-sdk'
 gem 'whenever', :require => false
@@ -71,7 +71,7 @@ gem 'mobile-fu'
 gem 'attribute_normalizer', '~> 1.1'
 gem 'geocoder'
 gem 'library_stdnums'
-gem 'client_side_validations', '~> 3.2.0.beta.6'
+gem 'client_side_validations', '~> 3.2.0.rc.2'
 gem 'simple_form', '~> 2.0'
 gem 'validates_timeliness'
 gem 'rack-protection'
