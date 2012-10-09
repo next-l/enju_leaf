@@ -89,7 +89,7 @@ function make_special_keys_area(target) {
       <%= form_for(@user.patron, :url => my_account_path(:opac => true)) do |p_f| %>
         <!-- <%= f.error_messages %> -->
         <div>
-          <div class="opac_field" style="float: left;">
+          <div class="opac_field opac_my_account_left_field"">
             <div>
               <%= t('activerecord.attributes.user.email') %>: <br />
               <%= f.email_field :email, :class => 'text-field' %>
@@ -127,7 +127,7 @@ function make_special_keys_area(target) {
             </div>
           </div>
 
-          <div class="opac_field" style="float: left; margin-left: 60px;">
+          <div class="opac_field opac_my_account_right_field">
             <div>
               <%= t('activerecord.attributes.user.current_password') %>:<br />
               <%= f.password_field :current_password, :class => 'password-field' %>
