@@ -38,7 +38,7 @@ class BarcodeListsController < ApplicationController
   # GET /barcode_lists/new.json
   def new
     @barcode_list = BarcodeList.new
-    @sheets = Sheet.all
+    prepare_options
 
     respond_to do |format|
       format.html # new.html.erb
@@ -80,7 +80,8 @@ class BarcodeListsController < ApplicationController
 
   # GET /barcode_lists/1/print
   def print
-    @barcode_list = BarcodeList.find(params[:id])
+    prepare_options
+    @barcode_list = BarcodeList.find(params[:barcode_list_id])
     case @barcode_list.usage_type 
     when "user"
       flash[:message] = I18n.t("activerecord.attributes.barcode_list.output_user_numbers")
@@ -91,6 +92,54 @@ class BarcodeListsController < ApplicationController
     else
       @hide_textbox = false
     end
+  end
+
+  # POST /barcode_lists/1/create_pdf
+  def create_pdf
+    @barcode_list = BarcodeList.find(params[:barcode_list_id])
+    start_number = params[:barcode_list][:start_number]
+    end_number = params[:barcode_list][:end_number]
+
+    respond_to do |format|
+      if params[:start_number] =~ /^[0-9]+$/ && params[:print_sheet] =~ /^[0-9]+$/
+        #@barcode_list.errors.add_to_base t('activerecord.attributes.barcode_list.error')
+        format.html { render :action => "print" }
+      end
+
+      case @barcode_list.usage_type
+      when "2"
+        pdf = @barcode_list.create_pdf_user_number_list(start_number, end_number)
+        if pdf
+          flash[:notice] = t('controller.successfully_updated', :model => t('activerecord.models.barcode_list'))
+          format.html { redirect_to :action => 'show_pdf', :id => @barcode_list, :status => 301}
+        else
+          #@barcode_list.errors.add_to_base t('activerecord.attributes.barcode_list.error')
+          format.html { render :action => "print" }
+        end
+
+      when "3"
+        pdf = @barcode_list.create_pdf_item_identifier_list(start_number, end_number)
+        if pdf
+          #flash[:notice] = t('controller.successfully_updated', :model => t('activerecord.models.barcode_list'))
+          format.html { redirect_to :action => 'show_pdf', :id => @barcode_list, :status => 301}
+        else
+          #@barcode_list.errors.add_to_base t('activerecord.attributes.barcode_list.error')
+          format.html { render :action => "print" }
+        end
+
+      when "1"
+        pdf = @barcode_list.create_pdf_sheet(start_number, end_number)
+        @barcode_list.last_number = end_number
+        if @barcode_list.save && pdf
+          #flash[:notice] = t('controller.successfully_updated', :model => t('activerecord.models.barcode_list'))
+          format.html { redirect_to :action => 'show_pdf', :id => @barcode_list, :status => 301}
+        else
+          #@barcode_list.errors.add_to_base t('activerecord.attributes.barcode_list.error')
+          format.html { render :action => "print" }
+        end
+      end
+    end
+ 
   end
 
   # POST /barcode_lists/1
@@ -156,5 +205,9 @@ class BarcodeListsController < ApplicationController
     respond_to do |format|
       format.html { redirect_to(barcode_lists_url) }
     end
+  end
+
+  def prepare_options
+    @sheets = Sheet.all
   end
 end

@@ -16,7 +16,7 @@
 <% unless @barcode_lists.blank? %>
 <%- for barcode_list in @barcode_lists -%>
   <tr class="line<%= cycle("0", "1") -%>">
-    <td><%= link_to barcode_list.barcode_name, edit_barcode_list_path(barcode_list) -%></td>
+    <td><%= link_to barcode_list.barcode_name, barcode_list -%></td>
     <td><%= barcode_list.usage_type -%></td>
     <td><%= barcode_list.barcode_type -%></td>
     <td><%= barcode_list.barcode_prefix -%></td>

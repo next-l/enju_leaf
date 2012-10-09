@@ -29,6 +29,10 @@
   <strong><%= t('activerecord.attributes.barcode_list.sheet_id') -%>:</strong>
   <%= @barcode_list.sheet.name -%>
 </p>
+<p>
+  <strong><%= t('activerecord.attributes.barcode_list.label_note') -%>:</strong>
+  <%= @barcode_list.label_note -%>
+  </p>
 </div>
 </div>
 
@@ -36,5 +40,6 @@
   <ul>
     <li><%= link_to t('page.edit'), edit_barcode_list_path(@barcode_list) -%></li>
     <li><%= link_to t('page.back'), barcode_lists_path -%></li>
+    <li><%= link_to t('activerecord.attributes.barcode_list.print_label'), barcode_list_print_path(@barcode_list) -%></li>
   </ul>
 </div>
