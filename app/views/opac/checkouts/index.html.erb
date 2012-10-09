@@ -20,9 +20,9 @@ $(function() {
 <div id="opac_content_detail">
   <p id="notice"><%= notice %></p>
   <% unless @checkouts.size == 0 %>
-    <%= form_for(:checkouts, :url => user_checkouts_path(@user), :html => {:method => 'get', :id => 'form'}) do %>
-      <%= submit_tag t('activerecord.attributes.checkout.output_checkoutlist'), :onclick => "push_user_submit('pdf');" %>
-    <% end %>
+    <div id="opac_button_200">
+      <%= link_to t('activerecord.attributes.checkout.output_checkoutlist'), user_checkouts_path(@user, :format => 'pdf') %>
+    </div>
   <% end %>
 
   <table class="index" id="opac_lists">

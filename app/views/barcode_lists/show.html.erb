@@ -11,7 +11,7 @@
 </p>
 <p>
   <strong><%= t('activerecord.attributes.barcode_list.usage_type') -%>:</strong>
-  <%= @barcode_list.usage_type -%>
+  <%= barcode_list_usage_name(@barcode_list.usage_type) -%>
 </p>
 <p>
   <strong><%= t('activerecord.attributes.barcode_list.barcode_type') -%>:</strong>
@@ -22,16 +22,12 @@
   <%= @barcode_list.barcode_prefix -%>
 </p>
 <p>
-  <strong><%= t('activerecord.attributes.barcode_list.printed_number') -%>:</strong>
-  <%= @barcode_list.printed_number -%>
+  <strong><%= t('activerecord.attributes.barcode_list.barcode_suffix') -%>:</strong>
+  <%= @barcode_list.barcode_suffix -%>
 </p>
 <p>
-  <strong><%= t('activerecord.attributes.barcode_list.sheet_type') -%>:</strong>
-  <%= @barcode_list.sheet_type -%>
-</p>
-<p>
-  <strong><%= t('activerecord.attributes.barcode_list.last_number') -%>:</strong>
-  <%= @barcode_list.last_number -%>
+  <strong><%= t('activerecord.attributes.barcode_list.sheet_id') -%>:</strong>
+  <%= @barcode_list.sheet.name -%>
 </p>
 </div>
 </div>

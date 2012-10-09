@@ -1,5 +1,7 @@
 class BarcodeListsController < ApplicationController
-#  load_and_authorize_resource
+  #load_and_authorize_resource
+  
+  BARCODE_TYPES = ["CODE128B"]
 
   # GET /barcode_lists
   # GET /barcode_lists.json
@@ -36,15 +38,48 @@ class BarcodeListsController < ApplicationController
   # GET /barcode_lists/new.json
   def new
     @barcode_list = BarcodeList.new
+    @sheets = Sheet.all
 
     respond_to do |format|
       format.html # new.html.erb
-      format.json { render :json => @barcode }
+    end
+  end
+
+  def create
+    @barcode_list = BarcodeList.new(params[:barcode_list])
+
+    respond_to do |format|
+      if @barcode_list.save
+        flash[:notice] = t('controller.successfully_created', :model => t('activerecord.models.barcode_list'))
+        format.html { redirect_to(@barcode_list) }
+      else
+        format.html { render :action => "new" }
+      end
     end
   end
 
   # GET /barcode_lists/1/edit
   def edit
+    @barcode_list = BarcodeList.find(params[:id])
+    @sheets = Sheet.all
+  end
+
+  def update
+    @barcode_list = BarcodeList.find(params[:id])
+
+    respond_to do |format|
+      if @barcode_list.update_attributes(params[:barcode_list])
+        flash[:notice] = t('controller.successfully_updated', :model => t('activerecord.models.barcode_list'))
+        format.html { redirect_to(@barcode_list) }
+      else
+        prepare_options
+        format.html { render :action => "edit" }
+      end
+    end
+  end
+
+  # GET /barcode_lists/1/print
+  def print
     @barcode_list = BarcodeList.find(params[:id])
     case @barcode_list.usage_type 
     when "user"
@@ -60,7 +95,7 @@ class BarcodeListsController < ApplicationController
 
   # POST /barcode_lists/1
   # POST /barcode_lists/1.json
-  def update
+  def exec_print
     @barcode_list = BarcodeList.find(params[:id])
 
     respond_to do |format|
@@ -114,15 +149,12 @@ class BarcodeListsController < ApplicationController
   end
 
   # DELETE /barcode_lists/1
-  # DELETE /barcode_lists/1.json
   def destroy
     @barcode_list = BarcodeList.find(params[:id])
-    @barcode_list.deleted_at = Time.now
-    @barcode_list.save
+    @barcode_list.destroy
 
     respond_to do |format|
       format.html { redirect_to(barcode_lists_url) }
-      format.json { head :no_content }
     end
   end
 end

@@ -1,0 +1,30 @@
+<div id="opac_header">
+  <div class="opac_title">
+    <h1><%= t('page.showing', :model => t('activerecord.models.checkout')) %></h1>
+  </div>
+  <div class="opac_head_button_area">
+    <div class="opac_head_button"><%= link_to t('page.listing', :model => t('activerecord.models.checkout')), opac_search_path %></div>
+    <div class="opac_head_button"><%= link_to t('opac.finish'), opac_path %> </div>
+    <% if user_signed_in? %>
+      <div class="opac_head_button"><%= link_to t('page.sign_out'), destroy_user_session_path %></div>
+    <% end %>
+  </div>
+</div>
+
+<div id="opac_content_detail">
+  <p id="notice"><%= notice %></p>
+  <%= render 'opac/manifestations/manifestation_info', :manifestation => @checkout.item.manifestation %>
+
+  <div id="opac_button_200"><%= link_to t('checkout.renewal'), edit_user_checkout_path(@checkout.user, @checkout, :opac => true) %></div>
+  <br style="clear: both;"/> 
+  
+  <p>
+    <strong><%= t('activerecord.attributes.item.item_identifier') -%></strong><br />
+    <%= @checkout.item.item_identifier %>
+  </p>
+  <p>
+    <strong><%= t('activerecord.attributes.checkout.due_date') -%></strong><br />
+    <%= l(@checkout.due_date, :format => :only_date) if @checkout.due_date %>
+  </p>
+
+</div>

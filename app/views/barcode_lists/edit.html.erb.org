@@ -1,0 +1,35 @@
+<div id="content_detail" class="ui-corner-all">
+<h1 class="title"><%= t('page.output', :model => t('activerecord.models.barcode_list')) -%></h1>
+<div id="content_list">
+<p id="notice"><%= notice %></p>
+<p id="notice"><%= flash[:message] %></p>
+<%= form_for(@barcode_list, :url => {:action => "update"}) do |f| -%>
+  <%= f.error_messages -%>
+  <%- unless @hide_textbox -%>
+  <p>
+    <%= f.label t('activerecord.attributes.barcode_list.start_number') -%> <br />
+    <input type="text" name="start_number" value="<%= @barcode_list.last_number + 1 %>" />
+  </p>
+  <p>
+    <%= f.label t('activerecord.attributes.barcode_list.print_sheet') -%> <br />
+    <input type="text" name="print_sheet" value=1 />
+  </p>
+  <%- else -%>
+  <p>
+    <%= f.label t('activerecord.attributes.barcode_list.sp_start_number') -%> 〜
+    <%= f.label t('activerecord.attributes.barcode_list.sp_end_number') -%> <br />
+    <input type="text" name="start_number" value="<%= @start_number %>" /> 〜
+    <input type="text" name="end_number" value="<%= @last_number %>" />
+  </p>
+  <%- end -%>
+  <p>
+    <%= f.submit t('page.output', :model => t('activerecord.models.barcode_list')) %>
+  </p>
+<%- end -%>
+</div>
+</div>
+<div id="submenu" class="ui-corner-all">
+  <ul>
+    <li><%= link_to t('page.back'), barcode_lists_path -%></li>
+  </ul>
+</div>

@@ -1,5 +1,5 @@
 <div id="content_detail" class="ui-corner-all">
-<h1 class="title"><%= t('page.listing', :model => t('activerecord.models.barcode_list')) -%></h1>
+<h1 class="title"><%= t('page.listing', :model => t('activerecord.models.barcode')) -%></h1>
 <div id="content_list">
 
 <table class="index">
@@ -9,8 +9,9 @@
     <th><%= t('activerecord.attributes.barcode_list.barcode_type') -%></th>
     <th><%= t('activerecord.attributes.barcode_list.barcode_prefix') -%></th>
     <th><%= t('activerecord.attributes.barcode_list.printed_number') -%></th>
-    <th><%= t('activerecord.attributes.barcode_list.sheet_type') -%></th>
+    <th><%= t('activerecord.attributes.barcode_list.sheet_id') -%></th>
     <th><%= t('activerecord.attributes.barcode_list.last_number') -%></th>
+    <th></th>
   </tr>
 <% unless @barcode_lists.blank? %>
 <%- for barcode_list in @barcode_lists -%>
@@ -20,8 +21,11 @@
     <td><%= barcode_list.barcode_type -%></td>
     <td><%= barcode_list.barcode_prefix -%></td>
     <td><%= barcode_list.printed_number -%></td>
-    <td><%= barcode_list.sheet_type -%></td>     
+    <td><%= barcode_list.sheet.name -%></td>     
     <td><%= barcode_list.last_number -%></td>
+    <td><%= link_to t('page.edit'), edit_barcode_list_path(barcode_list) %>
+      <%= link_to t('page.destroy'), barcode_list, method: :delete, data: { confirm: 'Are you sure?' } %>
+      <%= link_to t('page.show'), barcode_list %></td>
   </tr>
 <%- end -%>
 <% end %>
@@ -29,4 +33,12 @@
 
 <%= paginate(@barcode_lists) -%>
 </div>
+</div>
+
+<div id="submenu" class="ui-corner-all">
+  <ul>
+    <%- if user_signed_in? && current_user.has_role?('Librarian') -%>
+      <li><%= link_to t('page.new', :model => t('activerecord.models.barcode')), new_barcode_list_path -%></li>
+    <%- end -%>
+  </ul>
 </div>
