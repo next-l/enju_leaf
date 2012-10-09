@@ -142,7 +142,8 @@ div.opac_menu_info {
 
 div#opac_search_col a, div#opac_session_col a, div.opac_bestreader a, div.opac_bestrequest a {
   color: white;
-  margin-left:20px;
+  font-size: 18px;
+  margin-left: 20px;
   // radius
   border-radius: 10px;         /* CSS3 */
   -moz-border-radius: 10px;    /* Firefox */
@@ -157,6 +158,7 @@ div.opac_button_description {
   color: #000;
   font-size: 15px;
   font-weight: 600;
+  margin-top: 15px;
   padding: 3px; 
   // radius
   border-radius: 5px;         /* CSS3 */
