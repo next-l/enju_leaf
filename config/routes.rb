@@ -466,6 +466,14 @@ EnjuLeaf::Application.routes.draw do
   match '/page/extensions' => 'page#extensions'
   match '/page/budgets' => 'page#budgets'
 
+  scope "/opac" do
+    resources :manifestations, :opac => true do
+      post :output_show, :on => :member
+    end
+    resources :users, :opac => true do
+      resources :reserves, :opac => true
+    end
+  end
   match '/opac' => 'opac#index'
   match '/opac/search' => 'opac#search'
 
