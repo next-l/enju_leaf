@@ -137,6 +137,7 @@ div#opac_menu a {
 }
 div.opac_menu_info {
   text-align: left;
+  font-weight: 900;
   margin-left:20px;
 }
 
@@ -228,16 +229,17 @@ div.opac_bestreader {
 }
 
 div#opac_news {
+  margin-top: 14px;
   margin-left: 80px;
   width: 484px;
   float: left;
 }
 dl.opac_news_column {
-  padding: 20px;
+  padding: 20px 20px 5px 20px;
   border: solid 1px #aaa;
 }
 dl.opac_news_column dd{
-  margin: 5px 0px 0px 10px;
+  margin: 5px 0px 15px 10px;
 }
 
 input.opac_radio_button {
