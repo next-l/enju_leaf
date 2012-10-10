@@ -46,12 +46,23 @@ img.keypad-trigger {
 .keypad-prompt.ui-widget-header {
 	margin: 0.125em;
 }
+
 div#special_keys_area {
   float: left;
+}
+div#special_keys_area button {
+  font-size: 18px;
 }
 div#keys_area {
   float: left;
 }
+div#keys_area button {
+  font-size: 24px;
+}
+div#keypad-toggle button {
+  font-size: 18px;
+}
+
 .keypad-row {
 	clear: both;
 	float: left;
