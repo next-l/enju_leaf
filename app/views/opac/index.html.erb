@@ -29,7 +29,7 @@
         <%= link_to t('page.listing', :model => t('activerecord.models.reserve')), user_reserves_path(current_user, :opac => true) %> 
       </div>
       <div id="opac_session_col">
-        <%= link_to t('page.checkout_history'), user_checkouts_path(current_user, :opac => true) %>
+        <%= link_to t('page.listing', :model => t('activerecord.models.checkout')), user_checkouts_path(current_user, :opac => true) %>
       </div>
     <% else %>
       <div id="opac_session_col">
