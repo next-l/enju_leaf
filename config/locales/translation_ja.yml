@@ -1758,7 +1758,7 @@ ja:
     expired_at_of_this_user_is_over: "予約の有効期限が利用者の有効期限を超えています。"
     invalid_item: "無効な所蔵情報です。"
     show: "予約の詳細"
-    invalid_date: "無効な日付です。"
+    invalid_date: "は無効な日付です。"
     pending: "受付待ち"
     requested: "受付済み"
     in_process: "作業中"
@@ -2176,6 +2176,8 @@ ja:
       3months: 3ヶ月間
       1month: 1ヶ月間
       2weeks: 2週間
+    reserves:
+      no_reserve: 予約中の資料はありません。 
     keypad:
       input_keyword: キーワードを入力してください
       kana: カナ

@@ -25,7 +25,7 @@ div#opac_header {
   text-align: right;
   overflow: auto;
   border-top: 2px solid #000;
-  border-bottom: 15px solid #63CBF7;
+  border-bottom: 10px solid #63CBF7;
   // color
   background: -moz-linear-gradient(top, #eee, #fff); /* mozilla */
   background: -webkit-gradient(linear, center top, center bottom, from(#eee), to(#fff)); /* Webkit */
@@ -120,6 +120,9 @@ table#opac_detail_table th {
 table#opac_detail_table td {
   word-break: break-all;
   border-bottom: 1px solid #aaa;
+}
+td.opac_reserve_table_column {
+  width: 300px;
 }
 
 
@@ -286,10 +289,14 @@ div.opac_field .date-text-field {
   font-size: 20px;
   width: 190px;
 }
+div.opac_field div.formError {
+  margin-top: -20px;
+}
 div.opac_field .formError {
   font-size: 95%;
   font-weight: 900;
   color: red;
+  margin: 0px;
 }
 .opac_my_account_left_field {
   float: left;
@@ -368,6 +375,10 @@ div.opac_field .formError {
 #opac_manifestation_title {
   float: left;
 }
+#opac_manifestation_info_area {
+  margin-bottom: 20px;
+}
+
 table#opac_patrons_table td {
   padding: 4px;
 }
@@ -400,4 +411,19 @@ span.manifestation_reserves_number, span.manifestation_items_number {
   box-shadow: 2px 2px 4px #000; /*CSS3*/
   -moz-box-shadow: 2px 2px 4px #000; /* Firefox用*/
   -webkit-box-shadow: 2px 3px 4px #000; /* Google Chrome, Safari用*/
+}
+
+#reserve_information_type label {
+  width: 700px;
+  // radius
+  border-radius: 0px;         /* CSS3 */
+  -moz-border-radius: 0px;    /* Firefox */
+  -webkit-border-radius: 0px; /* Safari,Chrome */
+}
+#reserve_receipt_library label {
+  width: 500px;
+  // radius
+  border-radius: 0px;         /* CSS3 */
+  -moz-border-radius: 0px;    /* Firefox */
+  -webkit-border-radius: 0px; /* Safari,Chrome */
 }
