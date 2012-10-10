@@ -3,12 +3,13 @@ class Devise::SessionsController < ApplicationController
   prepend_before_filter :allow_params_authentication!, :only => :create
   prepend_before_filter :clear_locale, :only => [:create]
   include Devise::Controllers::InternalHelpers
+  layout :select_layout
 
   # GET /resource/sign_in
   def new
     resource = build_resource
     clean_up_passwords(resource)
-    respond_with_navigational(resource, stub_options(resource)){ render_with_scope :new }
+    respond_with_navigational(resource, stub_options(resource)){render  :template => 'opac/devise/sessions/new'} if params[:opac]
   end
 
   # POST /resource/sign_in
@@ -16,13 +17,21 @@ class Devise::SessionsController < ApplicationController
     resource = warden.authenticate!(:scope => resource_name, :recall => "#{controller_path}#new")
     set_flash_message(:notice, :signed_in) if is_navigational_format?
     sign_in(resource_name, resource)
-    respond_with resource, :location => after_sign_in_path_for(resource)
+    if params[:opac]
+      respond_with resource, :location => opac_signed_in_path
+    else
+      respond_with resource, :location => after_sign_in_path_for(resource)
+    end
   end
 
   # DELETE /resource/sign_out
   def destroy
     signed_in = signed_in?(resource_name)
-    redirect_path = after_sign_out_path_for(resource_name)
+    if params[:opac]
+      redirect_path = opac_path
+    else
+      redirect_path = after_sign_out_path_for(resource_name)
+    end
     Devise.sign_out_all_scopes ? sign_out : sign_out(resource_name)
     set_flash_message :notice, :signed_out if signed_in
 
@@ -35,6 +44,14 @@ class Devise::SessionsController < ApplicationController
         text = {}.respond_to?(method) ? {}.send(method) : ""
         render :text => text, :status => :ok
       end
+    end
+  end
+
+  def select_layout
+    if params[:opac]
+      "opac"
+    else
+      "application"
     end
   end
 

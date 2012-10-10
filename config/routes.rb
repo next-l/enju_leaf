@@ -186,6 +186,7 @@ EnjuLeaf::Application.routes.draw do
     match 'print', :to => 'barcode_lists#print'
     match 'create_pdf', :to => 'barcode_lists#create_pdf'
     get :show_pdf, :on => :collection
+    post :exec_print, :on => :collection
   end
   resources :message_requests, :except => [:new, :create]
   resources :message_templates
@@ -470,7 +471,19 @@ EnjuLeaf::Application.routes.draw do
   match '/page/extensions' => 'page#extensions'
   match '/page/budgets' => 'page#budgets'
 
+  scope "opac", :path => "opac", :as => "opac"do
+    devise_for :users, :path => 'accounts', :options => {:opac => true}
+    resources :manifestations, :opac => true do
+      post :output_show, :on => :member
+    end
+    resources :users do
+      resources :reserves, :opac => true
+    end
+    match '/manifestation_exstats/bestreader' => 'manifestation_exstats#bestreader', :opac => true
+    match '/manifestation_exstats/bestrequest' => 'manifestation_exstats#bestrequest', :opac => true
+  end
   match '/opac' => 'opac#index'
+  match '/opac/signed_in' => 'opac#signed_in'
   match '/opac/search' => 'opac#search'
 
   match '/batch_checkin' => 'checkins#batchexec', :via => :post
@@ -486,4 +499,3 @@ EnjuLeaf::Application.routes.draw do
   # http://techoctave.com/c7/posts/36-rails-3-0-rescue-from-routing-error-solution
   match '*a', :to => 'page#routing_error' unless Rails.application.config.consider_all_requests_local
 end
-
