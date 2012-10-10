@@ -89,7 +89,7 @@ function make_special_keys_area(target) {
       <%= form_for(@user.patron, :url => my_account_path(:opac => true)) do |p_f| %>
         <!-- <%= f.error_messages %> -->
         <div>
-          <div class="opac_field opac_my_account_left_field"">
+          <div class="opac_field opac_my_account_left_field">
             <div>
               <%= t('activerecord.attributes.user.email') %>: <br />
               <%= f.email_field :email, :class => 'text-field' %>
