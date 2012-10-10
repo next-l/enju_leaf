@@ -80,16 +80,16 @@
       <%= link_to t('page.output', :model => t('activerecord.attributes.manifestation.detail')), {:action => 'output_show'}, {:method => :post} %>
     </div>
     <% unless @manifestation.carrier_type.name == 'file' %>
-      <% if @manifestation.reservable? %>
+      <% if @manifestation.reservable? && user_signed_in? %>
         <div>
           <% if @manifestation.is_reserved_by(current_user) %>
             <div id="opac_button_200">
-              <%= link_to t('manifestation.cancel_reservation'), user_reserve_path(@reserve.user, @reserve, :opac => true) %>
+              <%= link_to t('manifestation.cancel_reservation'), user_reserve_path(@reserve.user, @reserve) %>
             </div>
           <% else %>
             <% if @manifestation.reservable_with_item?(current_user) %>
               <div id="opac_button_200">
-                <%= link_to t('manifestation.reserve_this'), new_user_reserve_path(current_user, :manifestation_id => @manifestation.id, :opac => true) %>
+                <%= link_to t('manifestation.reserve_this'), new_opac_user_reserve_path(current_user, :manifestation_id => @manifestation.id) %>
               </div>
             <% end %>
           <% end %>

@@ -1,12 +1,12 @@
 <div id="opac_index_header">
-  <h1 class="opac_index_libraryname"><%= LibraryGroup.system_name(@locale) %></h1>
+  <h1 class="opac_index_libraryname"><%= LibraryGroup.system_name(@locale) %><%= current_user %></h1>
   <br />
   <%= t('opac.push_touchpanel') %>
 </div>
 <div>
   <div class="opac_head_button_area">
     <% if user_signed_in? %>
-      <div class="opac_head_button"><%= link_to t('page.sign_out'), destroy_user_session_path(:opac => true) %></div>
+      <div class="opac_head_button"><%= link_to t('page.sign_out'), destroy_opac_user_session_path %></div>
     <% end %>
   </div>
 </div>
@@ -32,7 +32,7 @@
       </div>
     <% else %>
       <div id="opac_session_col">
-        <%= link_to new_user_session_path(:opac => true) do %>
+        <%= link_to new_opac_user_session_path do %>
           <%= t('opac.login') %>
           <div class="opac_button_description"><%= t('opac.login_description')%></div>
         <% end %>
@@ -41,10 +41,10 @@
 
     <div id="opac_easy">
       <div class="opac_bestreader">
-        <%= link_to t('opac.manifestation_exstats.bestreader'), manifestation_exstats_bestreader_path(:opac => true) %>
+        <%= link_to t('opac.manifestation_exstats.bestreader'), opac_manifestation_exstats_bestreader_path %>
       </div>
       <div class="opac_bestrequest">
-        <%= link_to t('opac.manifestation_exstats.bestrequest'), manifestation_exstats_bestrequest_path(:opac => true) %>
+        <%= link_to t('opac.manifestation_exstats.bestrequest'), opac_manifestation_exstats_bestrequest_path %>
       </div>
     </div>
   </div>

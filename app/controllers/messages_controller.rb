@@ -30,7 +30,7 @@ class MessagesController < ApplicationController
       with(:is_read).equal_to is_read unless is_read.nil?
     end
     page = params[:page] || 1
-    search.query.paginate(page.to_i, Message.per_page)
+    search.query.paginate(page.to_i, Message.default_per_page)
     @messages = search.execute!.results
 
     respond_to do |format|

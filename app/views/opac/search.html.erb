@@ -73,7 +73,7 @@ function make_special_keys_area(target) {
   <div class="opac_head_button_area">
     <div class="opac_head_button"><%= link_to t('opac.finish'), opac_path %></div>
     <% if user_signed_in? %>
-      <div class="opac_head_button"><%= link_to t('page.sign_out'), destroy_user_session_path %></div>
+      <div class="opac_head_button"><%= link_to t('page.sign_out'), destroy_opac_user_session_path %></div>
     <% end %>
   </div>
 </div>
@@ -82,7 +82,8 @@ function make_special_keys_area(target) {
   <p style="color: red;"><%= flash[:notice] %></p>
   <h4><%= t('opac.keypad.input_keyword') %></h4>
   <div class="opac_field">
-    <%= form_tag({:controller => 'manifestations'}, {:method => 'get'}) do -%>
+    <%# = form_tag({:controller => 'manifestations'}, {:method => 'get'}) do -%>
+    <%= form_tag opac_manifestations_path, :method => 'get' do -%>
       <table>
         <tr>
           <td><%= t('page.search_term') %>:</td>
@@ -107,7 +108,6 @@ function make_special_keys_area(target) {
          </td>
         </tr>
       </table>
-      <%= hidden_field_tag 'opac', 'true' %>
       <%= hidden_field_tag 'sort_by', 'date_of_acquisition' %>
       <%= hidden_field_tag 'order', 'desc' %>
       <%= submit_tag t('page.search'), :class => 'opac_submit_button' %><br />
