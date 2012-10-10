@@ -1,6 +1,6 @@
 <div id="opac_header">
   <div class="opac_title">
-    <h1><%= t('page.new', :model => t('activerecord.models.reserve')) %></h1>
+    <h1><%= t('checkout.renewal') %></h1>
   </div>
   <div class="opac_head_button_area">
     <div class="opac_head_button">
@@ -22,16 +22,22 @@
 
 <div id="opac_content_detail">
   <%= render 'opac/manifestations/manifestation_info', :manifestation => @checkout.item.manifestation if @checkout.item -%>
-  <br />
-  <h4><%= t('checkout.renewal') %></h4>
-  <% if @checkout.checkout_renewable? %>
-    <%= form_for(@checkout, :url => user_checkout_path(@checkout.user, @checkout)) do |f| %>
-      <%= t('checkout.new_due_date') %>: <%= l(@renew_due_date, :format => :only_date) if @renew_due_date %>
-      <%= f.hidden_field :due_date, :value => @renew_due_date %>
-      <br />
-      <%= f.submit :disable_with => t('page.wait'), :class => 'opac_submit_button' %>
+
+  <div class="opac_field">
+    <div>
+      <%= t('activerecord.attributes.checkout.renewal_count')%>: 
+      <%= @checkout.checkout_renewal_count -%> / <%= @checkout.item.checkout_status(@checkout.user).checkout_renewal_limit %><br />
+    </div>
+    <% if @checkout.checkout_renewable? %>
+      <%= form_for(@checkout, :url => user_checkout_path(@checkout.user, @checkout, :opac => true)) do |f| %>
+        <div>
+          <%= t('checkout.new_due_date') %>: <%= l(@renew_due_date, :format => :only_date) if @renew_due_date %>
+          <%= f.hidden_field :due_date, :value => @renew_due_date %>
+        </div>
+        <%= f.submit :disable_with => t('page.wait'), :class => 'opac_submit_button' %>
+      <% end %>
+    <% else %>
+      <div class="field"><%= t('checkout.this_item_cant_be_renewed') %></div>
     <% end %>
-  <% else %>
-    <div class="field"><%= t('checkout.this_item_cant_be_renewed') %></div>
-  <% end %>
+  </div>
 </div>

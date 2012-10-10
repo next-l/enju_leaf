@@ -2178,6 +2178,8 @@ ja:
       2weeks: 2週間
     reserves:
       no_reserve: 予約中の資料はありません。 
+    checkouts:
+      checkout_at: 貸出日
     keypad:
       input_keyword: キーワードを入力してください
       kana: カナ

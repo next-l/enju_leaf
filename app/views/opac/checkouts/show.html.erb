@@ -17,14 +17,19 @@
 
   <div id="opac_button_200"><%= link_to t('checkout.renewal'), edit_user_checkout_path(@checkout.user, @checkout, :opac => true) %></div>
   <br style="clear: both;"/> 
-  
-  <p>
-    <strong><%= t('activerecord.attributes.item.item_identifier') -%></strong><br />
-    <%= @checkout.item.item_identifier %>
-  </p>
-  <p>
-    <strong><%= t('activerecord.attributes.checkout.due_date') -%></strong><br />
-    <%= l(@checkout.due_date, :format => :only_date) if @checkout.due_date %>
-  </p>
 
+  <table id="opac_detail_table">
+    <tr>  
+      <td class="opac_checkout_table_column"><%= t('activerecord.attributes.item.item_identifier') %>:</td>
+      <td><%= @checkout.item.item_identifier %></td>
+    </tr>
+    <tr>
+      <td class="opac_checkout_table_column"><%= t('opac.checkouts.checkout_at') %>:</td>
+      <td><%= l(@checkout.created_at, :format => :only_date) %></td>
+    </tr>
+    <tr>
+      <td class="opac_checkout_table_column"><%= t('activerecord.attributes.checkout.due_date') %>:</td>
+      <td><%= l(@checkout.due_date, :format => :only_date) if @checkout.due_date %></td>
+    </tr>
+  </table>
 </div>

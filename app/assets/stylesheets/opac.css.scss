@@ -124,7 +124,9 @@ table#opac_detail_table td {
 td.opac_reserve_table_column {
   width: 300px;
 }
-
+td.opac_checkout_table_column {
+  width: 200px;
+}
 
 div#opac_menu {
   width: 440px;
@@ -379,8 +381,11 @@ div.opac_field .formError {
   margin-bottom: 20px;
 }
 
+table#opac_patrons_table {
+  margin-bottom: 10px;
+}
 table#opac_patrons_table td {
-  padding: 4px;
+  padding: 3px;
 }
 span.manifestation_reserves_number, span.manifestation_items_number {
   background-color: #D8E988;

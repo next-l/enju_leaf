@@ -27,9 +27,9 @@ $(function() {
 
   <table class="index" id="opac_lists">
     <tr>
-      <th class="checked_item_title"><%= t('page.title') %></th>
-      <th><%= t('activerecord.attributes.checkout.due_date') %></th>
-      <th><%= t('activerecord.attributes.checkout.renewal_count') %></th>
+      <th class="checkout_title"><%= t('page.title') %></th>
+      <th class="checkout_due_date"><%= t('activerecord.attributes.checkout.due_date') %></th>
+      <th class="checkout_renewal_count"><%= t('activerecord.attributes.checkout.renewal_count') %></th>
     </tr>
     <% @checkouts.each_with_index do |checkout, i| %>
       <tr class="opac_line<%= cycle("0", "1") %> opac_lists_row" data-href="<%= user_checkout_path(checkout.user, checkout, :opac => true) %>">
@@ -48,6 +48,6 @@ $(function() {
   <%= paginate(@checkouts) %>
 
   <% if @checkouts.size == 0 %>
-    <p><%= t('checkout.no_checkout') %></p>
+    <h4><%= t('checkout.no_checkout') %></h4>
   <% end %>
 </div>
