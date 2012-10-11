@@ -7,14 +7,16 @@
   <div style="clear: both;">
     <h1 class="opac_index_libraryname"><%= LibraryGroup.system_name(@locale) %></h1>
   </div>
+  <br />
+  <div><p id="notice" class="opac_index_notice_area"><%= notice %></p></div>
 </div>
 
 <div class="opac_menu_info">  
   <%= t('opac.push_touchpanel') %>
 </div>
+<br />
 <div id="opac_contents">
   <div id="opac_menu">
-    <div><p id="notice"><%= notice %></p></div>
     <div id="opac_search_col">
       <%= link_to opac_search_path do %>
         <h1><img src="/assets/opac/book.png"/ style="width:20px;">&nbsp<%= t('opac.catalog_search') %></h1>

@@ -47,6 +47,10 @@ div#opac_index_header {
   font-size: 72px;
   font-weight: 900px;
 }
+.opac_index_notice_area {
+  text-align: center;
+}
+
 div.opac_title {
   float: left;
 }
@@ -234,7 +238,6 @@ div.opac_bestreader {
 }
 
 div#opac_news {
-  margin-top: 14px;
   margin-left: 80px;
   width: 484px;
   float: left;
