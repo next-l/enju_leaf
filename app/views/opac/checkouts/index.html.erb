@@ -38,7 +38,7 @@ $(function() {
       <% if checkout.due_date > Date.today %>
         <tr class="opac_line<%= cycle("0", "1") %> opac_lists_row" data-href="<%= user_checkout_path(checkout.user, checkout, :opac => true) %>">
       <% else %>
-        <tr class="opac_line_over_due_date %> opac_lists_row" data-href="<%= user_checkout_path(checkout.user, checkout, :opac => true) %>">
+        <tr class="opac_line_checkout_overdue_date %> opac_lists_row" data-href="<%= user_checkout_path(checkout.user, checkout, :opac => true) %>">
       <% end %>
         <td>
           <%= render 'opac/manifestations/title', :manifestation => checkout.item.manifestation %>
