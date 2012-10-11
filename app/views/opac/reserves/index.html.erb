@@ -11,9 +11,10 @@ $(function() {
 <div id="opac_header">
   <div class="opac_title"><h1><%= t('page.listing', :model => t('activerecord.models.reserve')) %></h1></div>
   <div class="opac_head_button_area">
-    <div class="opac_head_button">
-      <%= link_to t('opac.finish'), opac_path %>
-    </div>
+    <div class="opac_head_button"><%= link_to t('opac.finish'), opac_path %></div>
+    <% if user_signed_in? %>
+      <div class="opac_head_button"><%= link_to t('page.sign_out'), destroy_opac_user_session_path %></div>
+    <% end %>
   </div>
 </div>
 
@@ -33,7 +34,11 @@ $(function() {
         <th><%= t('activerecord.attributes.reserve.expired_at') %></th>
       </tr>
       <% @reserves.each_with_index do |reserve, i| %>
-        <tr class="opac_line<%= cycle("0", "1") %> opac_lists_row" data-href="<%= reserve_path(reserve, :opac => true) %>">
+        <% if reserve.state == 'retained' %>
+          <tr class="opac_line_reserve_retained opac_lists_row" data-href="<%= reserve_path(reserve, :opac => true) %>">
+        <% else %>
+          <tr class="opac_line<%= cycle("0", "1") %> opac_lists_row" data-href="<%= reserve_path(reserve, :opac => true) %>">
+        <% end %>
           <td><%= reserve.id %></td>
           <td><%= render 'opac/manifestations/title', :manifestation => reserve.manifestation %></td>
           <td>

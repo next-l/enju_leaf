@@ -103,8 +103,12 @@ tr.opac_line1 {
   background-color: #FFF;
   border-bottom: solid 1px #999;
 }
-tr.opac_line_over_due_date {
+tr.opac_line_checkout_overdue_date {
   background-color: pink;
+  border-bottom: solid 1px #999;
+}
+tr.opac_line_reserve_retained {
+  background-color: #DFFFAA;
   border-bottom: solid 1px #999;
 }
 
