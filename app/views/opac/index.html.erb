@@ -8,7 +8,12 @@
     <h1 class="opac_index_libraryname"><%= LibraryGroup.system_name(@locale) %></h1>
   </div>
   <br />
-  <div><p id="notice" class="opac_index_notice_area"><%= notice %></p></div>
+  <% if user_signed_in? %>
+    <div>
+      <p id="notice" class="opac_index_notice_area"><%= notice %></p>
+      <p style="color: red;"><%= user_notice(current_user) %></p>
+    </div>
+  <% end %>
 </div>
 
 <div class="opac_menu_info">  
