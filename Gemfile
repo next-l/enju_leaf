@@ -72,7 +72,7 @@ gem 'mobile-fu'
 gem 'attribute_normalizer', '~> 1.1'
 gem 'geocoder'
 gem 'library_stdnums'
-gem 'client_side_validations', '~> 3.2.0.rc.2'
+gem 'client_side_validations', '~> 3.2'
 gem 'simple_form', '~> 2.0'
 gem 'validates_timeliness'
 gem 'rack-protection'
@@ -93,7 +93,7 @@ group :development do
 end
 
 group :development, :test do
-  gem 'simplecov', '~> 0.6', :require => false
+  gem 'simplecov', '~> 0.7', :require => false
   gem 'ruby-prof', :platforms => :mri_19
   gem 'rspec-rails', '~> 2.11'
   gem 'guard-rspec'
