@@ -97,18 +97,22 @@ div#opac_content th, div#opac_content td {
 
 tr.opac_line0 {
   background-color: #DDD;
+  border-top: solid 1px #999;
   border-bottom: solid 1px #999;
 }
 tr.opac_line1 {
   background-color: #FFF;
+  border-top: solid 1px #999;
   border-bottom: solid 1px #999;
 }
 tr.opac_line_checkout_overdue_date {
   background-color: pink;
+  border-top: solid 1px #999;
   border-bottom: solid 1px #999;
 }
 tr.opac_line_reserve_retained {
   background-color: #DFFFAA;
+  border-top: solid 1px #999;
   border-bottom: solid 1px #999;
 }
 
