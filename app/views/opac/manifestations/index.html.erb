@@ -54,6 +54,16 @@ $(function() {
           <td>
             <%= render 'opac/manifestations/title', :manifestation => manifestation %>
           </td>
+          <td class="sub_column">
+            <% unless manifestation.items.empty? %>
+              <div class="opac_list_sub"><%= t('opac.manifestations.holding') %></div>
+            <% end %>
+            <% if user_signed_in? %>
+              <% if current_user.reserves.user_show_reserves.inject([]){ |manifestations, reserve| manifestations << reserve.manifestation }.include?(manifestation) %>
+                <div class="opac_list_sub"><%= t('opac.manifestations.reserved') %></div>
+              <% end %> 
+            <% end %>
+          </td>
         </tr>
       <% end %>
     </table>

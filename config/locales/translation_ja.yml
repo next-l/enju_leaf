@@ -2176,6 +2176,9 @@ ja:
       3months: 3ヶ月間
       1month: 1ヶ月間
       2weeks: 2週間
+    manifestations:
+      holding: 所蔵あり
+      reserved: 予約済
     reserves:
       no_reserve: 予約中の資料はありません。 
     checkouts:

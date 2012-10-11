@@ -83,9 +83,9 @@
       <% if @manifestation.reservable? && user_signed_in? %>
         <div>
           <% if @manifestation.is_reserved_by(current_user) %>
-            <% if @reserve.can_cancel? %>
+            <% if current_user.reserves.user_show_reserves.inject([]){ |manifestations, reserve| manifestations << reserve.manifestation }.include?(@manifestation) %>
               <div id="opac_button_200">
-                <%= link_to t('manifestation.cancel_reservation'), user_reserve_path(@reserve.user, @reserve, :opac => true) %>
+                <%= link_to t('page.showing', :model => t('activerecord.models.reserve')), user_reserve_path(@reserve.user, @reserve, :opac => true) %>
               </div>
             <% end %>
           <% else %>

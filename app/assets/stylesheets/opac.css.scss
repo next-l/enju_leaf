@@ -131,8 +131,13 @@ tr.opac_lists_row:hover td {
   font-weight: 700;
   margin-bottom: 8px;
 }
+#opac_lists .sub_column {
+  width: 1%;
+  white-space: nowrap;
+}
 .opac_list_sub {
   font-size: 15px; 
+  margin-top: 4px;
 }
 
 table#opac_detail_table {

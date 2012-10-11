@@ -37,7 +37,7 @@
 
     <div id="reserve_receipt_library">
       <%= t('activerecord.attributes.reserve.receipt_library') %>:<br />
-      <% unless reserve.state == 'requested' %>
+      <% if reserve and !reserve.state == 'requested' %>
         <%= reserve.item.shelf.library.display_name.localize %>
       <% else %>
         <% libraries.each do |l| %>
@@ -54,7 +54,7 @@
 
     <div>
       <%= t('activerecord.attributes.reserve.expired_at') %>:<br />
-      <% unless reserve.state == 'requested' %>
+      <% if reserve and !reserve.state == 'requested' %>
         <%= l(reserve.expired_at, :format => :only_date) %>
       <% else %>
         <%= f.text_field :expired_at, :value => reserve.expired_at.try(:strftime, "%Y-%m-%d"), :class => 'date-text-field' %>
