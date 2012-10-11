@@ -84,7 +84,7 @@
         <div>
           <% if @manifestation.is_reserved_by(current_user) %>
             <div id="opac_button_200">
-              <%= link_to t('manifestation.cancel_reservation'), user_reserve_path(@reserve.user, @reserve) %>
+              <%= link_to t('manifestation.cancel_reservation'), user_reserve_path(@reserve.user, @reserve, :opac => true) %>
             </div>
           <% else %>
             <% if @manifestation.reservable_with_item?(current_user) %>
