@@ -3,7 +3,7 @@
     <h1><%= t('page.showing', :model => t('activerecord.models.checkout')) %></h1>
   </div>
   <div class="opac_head_button_area">
-    <div class="opac_head_button"><%= link_to t('page.listing', :model => t('activerecord.models.checkout')), opac_search_path %></div>
+    <div class="opac_head_button"><%= link_to t('page.listing', :model => t('activerecord.models.checkout')), user_checkouts_path(current_user, :opac => true) %></div>
     <div class="opac_head_button"><%= link_to t('opac.finish'), opac_path %> </div>
     <% if user_signed_in? %>
       <div class="opac_head_button"><%= link_to t('page.sign_out'), destroy_user_session_path %></div>
@@ -15,13 +15,27 @@
   <p id="notice"><%= notice %></p>
   <%= render 'opac/manifestations/manifestation_info', :manifestation => @checkout.item.manifestation %>
 
-  <div id="opac_button_200"><%= link_to t('checkout.renewal'), edit_user_checkout_path(@checkout.user, @checkout, :opac => true) %></div>
-  <br style="clear: both;"/> 
+  <% if @checkout.checkout_renewable? %>  
+    <div id="opac_button_200"><%= link_to t('checkout.renewal'), edit_user_checkout_path(@checkout.user, @checkout, :opac => true) %></div>
+    <br style="clear: both;"/> 
+  <% else %>
+    <div style="color: red;">
+      <%= t('checkout.this_item_cant_be_renewed') %>
+      <% if @checkout.due_date < Date.today %>
+        <br />
+        <%= t('opac.checkouts.overdue_item') %>
+      <% end %>
+    </div>
+  <% end %>
 
-  <table id="opac_detail_table">
+  <table id="opac_detail_table" style="clear: both;">
     <tr>  
       <td class="opac_checkout_table_column"><%= t('activerecord.attributes.item.item_identifier') %>:</td>
       <td><%= @checkout.item.item_identifier %></td>
+    </tr>
+    <tr>
+      <td class="opac_checkout_table_column"><%= t('activerecord.attributes.checkout.renewal_count')%>: </td>
+      <td><%= @checkout.checkout_renewal_count -%> / <%= @checkout.item.checkout_status(@checkout.user).checkout_renewal_limit %></td>
     </tr>
     <tr>
       <td class="opac_checkout_table_column"><%= t('opac.checkouts.checkout_at') %>:</td>

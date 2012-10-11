@@ -32,13 +32,20 @@ $(function() {
       <th class="checkout_renewal_count"><%= t('activerecord.attributes.checkout.renewal_count') %></th>
     </tr>
     <% @checkouts.each_with_index do |checkout, i| %>
-      <tr class="opac_line<%= cycle("0", "1") %> opac_lists_row" data-href="<%= user_checkout_path(checkout.user, checkout, :opac => true) %>">
+      <% if checkout.due_date > Date.today %>
+        <tr class="opac_line<%= cycle("0", "1") %> opac_lists_row" data-href="<%= user_checkout_path(checkout.user, checkout, :opac => true) %>">
+      <% else %>
+        <tr class="opac_line_over_due_date %> opac_lists_row" data-href="<%= user_checkout_path(checkout.user, checkout, :opac => true) %>">
+      <% end %>
         <td>
           <%= render 'opac/manifestations/title', :manifestation => checkout.item.manifestation %>
-          <%= t('activerecord.attributes.item.call_number') %>: 
-          <%= link_to call_numberformat(checkout.item), item_path(checkout.item) %> /
-          <%= t('activerecord.attributes.item.item_identifier') %>: 
-          <%= checkout.item.item_identifier %>
+          <div class="opac_list_sub">
+            <%= t('activerecord.attributes.item.call_number') %>: 
+            <%= link_to call_numberformat(checkout.item), item_path(checkout.item) %> /
+            &nbsp;&nbsp;
+            <%= t('activerecord.attributes.item.item_identifier') %>: 
+            <%= checkout.item.item_identifier %>
+          </div>
         </td>
         <td><%= l(checkout.due_date, :format => :only_date) -%></td>
         <td><%= checkout.checkout_renewal_count -%> / <%= checkout.item.checkout_status(checkout.user).checkout_renewal_limit-%></td>

@@ -2180,6 +2180,7 @@ ja:
       no_reserve: 予約中の資料はありません。 
     checkouts:
       checkout_at: 貸出日
+      overdue_item: この資料は貸出期限が過ぎています。
     keypad:
       input_keyword: キーワードを入力してください
       kana: カナ

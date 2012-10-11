@@ -1,4 +1,3 @@
-// Place all the styles related to the opac controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
@@ -98,10 +97,17 @@ div#opac_content th, div#opac_content td {
 
 tr.opac_line0 {
   background-color: #DDD;
+  border-bottom: solid 1px #999;
 }
 tr.opac_line1 {
   background-color: #FFF;
+  border-bottom: solid 1px #999;
 }
+tr.opac_line_over_due_date {
+  background-color: pink;
+  border-bottom: solid 1px #999;
+}
+
 #opac_lists th {
   color: white;
   background-color: #555 ;
@@ -112,6 +118,13 @@ tr.opac_line1 {
 tr.opac_lists_row:hover td {
   cursor: pointer;
   background-color: #A2DCEA ;
+}
+.opac_list_title {
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+.opac_list_sub {
+  font-size: 15px; 
 }
 
 table#opac_detail_table {
@@ -366,22 +379,13 @@ div.opac_field .formError {
   background: -webkit-gradient(linear, center top, center bottom, from(#2E5575), to(#000)); /* Webkit */
   filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#FF2E5575', endColorstr='#FF000000'); /* IE5.5以上 */
 } 
-.opac_list_title {
-  font-weight: 700;
-}
-.opac_list_patrons {
-  margin-top: 8px;
-  font-size: 15px; 
-}
 
 #opac_manifestation_book_jacket {
   float: left;
+  margin-bottom: 40px;
 }
 #opac_manifestation_title {
   float: left;
-}
-#opac_manifestation_info_area {
-  margin-bottom: 20px;
 }
 
 table#opac_patrons_table {

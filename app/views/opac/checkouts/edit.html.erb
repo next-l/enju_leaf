@@ -4,10 +4,10 @@
   </div>
   <div class="opac_head_button_area">
     <div class="opac_head_button">
-      <%= link_to t('page.showing', :model => t('activerecord.models.checkout')), manifestation_path(@checkout, :opac => true) %>
+      <%= link_to t('page.listing', :model => t('activerecord.models.checkout')), user_checkouts_path(current_user, :opac => true) %>
     </div>
     <div class="opac_head_button">
-      <%= link_to t('page.listing', :model => t('activerecord.models.checkout')), user_checkouts_path(@checkout.user, :opac => true) %>
+      <%= link_to t('page.showing', :model => t('activerecord.models.checkout')), user_checkout_path(current_user, @checkout, :opac => true) %>
     </div>
     <div class="opac_head_button">
       <%= link_to t('opac.finish'), opac_path %>
