@@ -479,6 +479,7 @@ EnjuLeaf::Application.routes.draw do
     resources :users do
       resources :reserves, :opac => true
     end
+    resources :events, :opac => true
     match '/manifestation_exstats/bestreader' => 'manifestation_exstats#bestreader', :opac => true
     match '/manifestation_exstats/bestrequest' => 'manifestation_exstats#bestrequest', :opac => true
   end

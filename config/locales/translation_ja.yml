@@ -2188,6 +2188,8 @@ ja:
       checkout_at: 貸出日
       overdue_item: この資料は貸出期限が過ぎています。
       renewal_description: "貸出期間を延長するには「貸出の更新」を押してください。<br />貸出の更新回数の制限を超えている場合、更新はできません。"
+    events:
+      category: 種類
     keypad:
       input_keyword: キーワードを入力してください
       kana: カナ

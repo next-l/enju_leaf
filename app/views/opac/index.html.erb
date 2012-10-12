@@ -63,12 +63,14 @@
           </dl>
         <% end %>
       </div>
-      <div class="opac_news_more">
-        <%= link_to opac_path do %>
-          <img src="assets/opac/arrow-forward.png"/ style="width:20px;">
-          <%= t('page.listing', :model => t('activerecord.models.event'))%>
-        <% end %>
-      </div>
+      <% if @events.size > 0 %>
+        <div class="opac_news_more">
+          <%= link_to opac_events_path do %>
+            <img src="assets/opac/arrow-forward.png"/ style="width:20px;">
+            <%= t('page.listing', :model => t('activerecord.models.event'))%>
+          <% end %>
+        </div>
+      <% end %>
     </div>
   </div>
 </div>
