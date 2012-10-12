@@ -24,6 +24,10 @@
   <%= render 'opac/manifestations/manifestation_info', :manifestation => @checkout.item.manifestation if @checkout.item -%>
 
   <div class="opac_field">
+    <div class="renewal_description">
+      <%= raw t('opac.checkouts.renewal_description') %>
+    </div>
+    <br />
     <div>
       <%= t('activerecord.attributes.checkout.renewal_count')%>: 
       <%= @checkout.checkout_renewal_count -%> / <%= @checkout.item.checkout_status(@checkout.user).checkout_renewal_limit %><br />
