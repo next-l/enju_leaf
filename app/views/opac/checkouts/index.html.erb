@@ -50,7 +50,12 @@ $(function() {
             <%= checkout.item.item_identifier %>
           </div>
         </td>
-        <td><%= l(checkout.due_date, :format => :only_date) -%></td>
+        <td>
+          <%= l(checkout.due_date, :format => :only_date) %>
+          <% if checkout.due_date < Date.today %>
+            <br /><p style="color: red;"><%= t('page.overdue')%></p>
+          <% end %>
+        </td>
         <td><%= checkout.checkout_renewal_count -%> / <%= checkout.item.checkout_status(checkout.user).checkout_renewal_limit-%></td>
       </tr>
     <% end %>
