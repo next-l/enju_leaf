@@ -115,9 +115,9 @@ div#keypad-toggle button {
 }
 .keypad-spacebar {
         border: 0.5px solid #C2604C; 
-        filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#FFFE7E64', endColorstr='#FFF1785F'); /* IE5.5以上 */
-        background: -webkit-gradient(linear, left top, left bottom, from(#FE7E64), to(#F1785F)); /* Webkit */
-        background: -moz-linear-gradient(top, #FE7E64, #F1785F); /* mozilla */
+        filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#FFFE7E64', endColorstr='#FFD44865'); /* IE5.5以上 */
+        background: -webkit-gradient(linear, left top, left bottom, from(#FE7E64), to(#D44865)); /* Webkit */
+        background: -moz-linear-gradient(top, #FE7E64, #D44865); /* mozilla */
 }
 .keypad-tab {
 	width: 2em;
@@ -125,16 +125,16 @@ div#keypad-toggle button {
 .keypad-clear {
 	//background-color: #a00;
         border: 0.5px solid #C2604C; 
-        filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#FFFE7E64', endColorstr='#FFF1785F'); /* IE5.5以上 */
-        background: -webkit-gradient(linear, left top, left bottom, from(#FE7E64), to(#F1785F)); /* Webkit */
-        background: -moz-linear-gradient(top, #FE7E64, #F1785F); /* mozilla */
+        filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#FFFE7E64', endColorstr='#FFD44865'); /* IE5.5以上 */
+        background: -webkit-gradient(linear, left top, left bottom, from(#FE7E64), to(#D44865)); /* Webkit */
+        background: -moz-linear-gradient(top, #FE7E64, #D44865); /* mozilla */
 }
 .keypad-back {
 	//background-color: #00a;
         border: 0.5px solid #C2604C; 
-        filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#FFFE7E64', endColorstr='#FFF1785F'); /* IE5.5以上 */
-        background: -webkit-gradient(linear, left top, left bottom, from(#FE7E64), to(#F1785F)); /* Webkit */
-        background: -moz-linear-gradient(top, #FE7E64, #F1785F); /* mozilla */
+        filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#FFFE7E64', endColorstr='#FFD44865'); /* IE5.5以上 */
+        background: -webkit-gradient(linear, left top, left bottom, from(#FE7E64), to(#D44865)); /* Webkit */
+        background: -moz-linear-gradient(top, #FE7E64, #D44865); /* mozilla */
 }
 .keypad-close {
 	background-color: #0a0;

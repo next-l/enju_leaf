@@ -1,59 +1,105 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+#wrapper {
+  height: 100%;
+}
+body > #wrapper{
+  height: auto;
+  min-height: 100%;
+}
+
 div#opac_content {
   margin:0 auto;
   width:1024px;
   height: 100%;
   min-height: 100%;
-  padding: 0 10px;
-  background: #fff;
 }
-
-body > #opac_content{
-    height: auto;
-}
-
 div#opac_content, div#opac_content p, div#opac_content td {
   font-size: 16px;
 }
 
+
+//--- header ---------------------/
 div#opac_header {
-  margin-bottom: 10px;
+  width: 100%;
+  height: 40px;
+  background: #17293f;
+}
+
+div.opac_header_right {
+  float: right;
+  margin: 10px 20px;
+}
+.opac_user_singed_in {
+  float: left;
+  color: #fff;
+  margin-right: 30px;
+}
+.opac_user_singed_in_icon {
+  width: 20px;
+  vertical-align: bottom;
+}
+.opac_logout_button {
+  float: left;
+}
+.opac_logout_button a {
+  color: #000; 
+  font-weight: 900;
+  padding: 5px 30px;
+  text-decoration: none;
+  // radius 
+  border-radius: 3px;         /* CSS3 */
+  -moz-border-radius: 3px;    /* Firefox */
+  -webkit-border-radius: 3px; /* Safari,Chrome */
+  // color
+  background: #ddd;
+  background: -moz-linear-gradient(top, #fff, #ccc); /* mozilla */
+  background: -webkit-gradient(linear, center top, center bottom, from(#fff), to(#ccc)); /* Webkit */
+  filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#FFFFFFFF', endColorstr='#FFCCCCCC'); /* IE5.5以上 */
+}
+.opac_logout_button a:hover {
+  color: #fff;
+  border-color: #555;
+  background: -moz-linear-gradient(top, #999, #555); /* mozilla */
+  background: -webkit-gradient(linear, center top, center bottom, from(#999), to(#555)); /* Webkit */
+  filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#FF999999', endColorstr='#FF555555'); /* IE5.5以上 */
+} 
+
+//--- header - index -------------/
+div#opac_index_header {
+  width: 100%;
+  color: #fff;
+  border-bottom: solid 2px #fff;
+  margin-bottom: 50px; 
+  text-align: center;
+  // color
+  background: #52a3b6;
+  background: -moz-linear-gradient(top, #51c7bb, #138bb9); /* mozilla */
+  background: -webkit-gradient(linear, center top, center bottom, from(#51c7bb), to(#138bb9)); /* Webkit */
+  filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#FF51c7bb', endColorstr='#FF138bb9'); /* IE5.5以上 */
+}
+.opac_index_libraryname {
+  font-size: 72px;
+  font-weight: 900px;
+  letter-spacing: 10px;
+}
+
+//--- header - content -------------/
+div#opac_content_header {
+  margin-bottom: 20px;
   padding: 20px 10px;
   text-align: right;
   overflow: auto;
-  border-top: 2px solid #000;
-  border-bottom: 10px solid #63CBF7;
   // color
   background: -moz-linear-gradient(top, #eee, #fff); /* mozilla */
   background: -webkit-gradient(linear, center top, center bottom, from(#eee), to(#fff)); /* Webkit */
   filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#FFEEEEEE', endColorstr='#FFFFFFFF'); /* IE5.5以上 */
 }
-div#opac_index_header {
-  width: 100%;
-  padding: 20px 10px;
-  margin-bottom: 50px; 
-  border-top: 4px solid #000;
-  text-align: center;
-  background-color: #eee;
-  // color
-  background: -moz-linear-gradient(top, #ddd, #fff); /* mozilla */
-  background: -webkit-gradient(linear, center top, center bottom, from(#ddd), to(#fff)); /* Webkit */
-  filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#FFDDDDDD', endColorstr='#FFFFFFFF'); /* IE5.5以上 */
-}
-.opac_index_libraryname {
-  font-size: 72px;
-  font-weight: 900px;
-}
-.opac_index_notice_area {
-  text-align: center;
-}
-
 div.opac_title {
+  letter-spacing: 3px;
   float: left;
 }
-
 div.opac_head_button_area {
   float: right;
 }
@@ -86,6 +132,15 @@ div.opac_head_button a:hover {
   background: -webkit-gradient(linear, center top, center bottom, from(#999), to(#555)); /* Webkit */
   filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#FF999999', endColorstr='#FF555555'); /* IE5.5以上 */
 } 
+
+//--- footer ---------------------/
+div#opac_footer {
+  background: #17293f;
+  width: 100%;
+  height: 10px;
+  margin-top: -10px;
+}
+
 
 div#opac_content table {
   border: none;
@@ -158,6 +213,12 @@ td.opac_checkout_table_column {
   width: 200px;
 }
 
+
+//--- index -------------------------------/
+div.opac_index_notice {
+  text-align: center;
+}
+//--- index - menu --------------/
 div#opac_menu {
   width: 440px;
   font-weight: 900;
@@ -167,19 +228,15 @@ div#opac_menu {
 div#opac_menu div {
   margin-bottom: 20px;
 }
-div#opac_menu a {
-  text-decoration: none;
-}
 div.opac_menu_info {
   text-align: left;
   font-weight: 900;
-  margin-left:20px;
 }
 
 div#opac_search_col a, div#opac_session_col a, div.opac_bestreader a, div.opac_bestrequest a {
   color: white;
   font-size: 18px;
-  margin-left: 20px;
+  text-decoration: none;
   // radius
   border-radius: 10px;         /* CSS3 */
   -moz-border-radius: 10px;    /* Firefox */
@@ -189,22 +246,11 @@ div#opac_search_col a, div#opac_session_col a, div.opac_bestreader a, div.opac_b
   -moz-box-shadow: 2px 2px 4px #000; /* Firefox用*/
   -webkit-box-shadow: 3px 3px 4px #000; /* Google Chrome, Safari用*/
 }
-div.opac_button_description {
-  background-color: #eee;
-  color: #000;
-  font-size: 15px;
-  font-weight: 600;
-  margin-top: 15px;
-  padding: 3px; 
-  // radius
-  border-radius: 5px;         /* CSS3 */
-  -moz-border-radius: 5px;    /* Firefox */
-  -webkit-border-radius: 5px; /* Safari,Chrome */
-}
-
-div#opac_search_col a{
+div#opac_search_col a {
   display: block;
+  font-size: 36px;
   padding: 50px 20px;
+  letter-spacing: 5px;
   border: 1px solid #1D7FC4;
   // color
   background: #17649A;
@@ -221,11 +267,11 @@ div#opac_search_col a:hover {
   filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#FF93C7D4', endColorstr='#FF155B8C'); /* IE5.5以上 */
 } 
 
-div#opac_session_col a{
+div#opac_session_col a {
   display: block;
   padding: 20px 20px;
+  letter-spacing: 3px;
   border: 1px solid #091D42;
-  filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#FFA2DCEA', endColorstr='#FF17649A'); /* IE5.5以上 */
   //color
   background: #091D42;
   background: -moz-linear-gradient(top, #396A92, #091D42); /* mozilla */
@@ -240,17 +286,35 @@ div#opac_session_col a:hover {
   background: -webkit-gradient(linear, center top, center bottom, from(#2E5575), to(#000)); /* Webkit */
   filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#FF2E5575', endColorstr='#FF000000'); /* IE5.5以上 */
 } 
+div.opac_button_description {
+  background-color: #eee;
+  color: #000;
+  font-size: 15px;
+  font-weight: 600;
+  margin-top: 15px;
+  padding: 3px; 
+  letter-spacing: 0px;
+  // radius
+  border-radius: 3px;         /* CSS3 */
+  -moz-border-radius: 3px;    /* Firefox */
+  -webkit-border-radius: 3px; /* Safari,Chrome */
+}
+
 div.opac_bestrequest a, div.opac_bestreader a{
   display: block;
-  width: 158px;
+  width: 168px;
   float: left; 
   padding: 20px 20px;
+  letter-spacing: 3px;
   border: 1px solid #091D42;
   // color
   background: #091D42;
   background: -moz-linear-gradient(top, #396A92, #091D42); /* mozilla */
   background: -webkit-gradient(linear, center top, center bottom, from(#396A92), to(#091D42)); /* Webkit */
   filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#FF396A92', endColorstr='#FF091D42'); /* IE5.5以上 */
+}
+div.opac_bestrequest a{
+  margin-left: 20px;
 }
 div.opac_bestrequest a:hover, div.opac_bestreader a:hover {
   border: 1px solid #091D42;
@@ -260,21 +324,71 @@ div.opac_bestrequest a:hover, div.opac_bestreader a:hover {
   background: -webkit-gradient(linear, center top, center bottom, from(#2E5575), to(#000)); /* Webkit */
   filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#FF2E5575', endColorstr='#FF000000'); /* IE5.5以上 */
 } 
-div.opac_bestreader {
-}
 
-div#opac_news {
+//--- index - information --------------/
+div#opac_information {
   margin-left: 80px;
   width: 484px;
   float: left;
 }
-dl.opac_news_column {
-  padding: 20px 20px 5px 20px;
-  border: solid 1px #aaa;
+div.user_notice_column { 
+  background: #fff;
+  padding: 10px;
+  border: solid 2px #000; 
+  // radius 
+  border-radius: 5px;         /* CSS3 */
+  -moz-border-radius: 5px;    /* Firefox */
+  -webkit-border-radius: 5px; /* Safari,Chrome */
 }
-dl.opac_news_column dd{
-  margin: 5px 0px 15px 10px;
+div.opac_news_column { 
+  background: #fff;
+  padding: 10px;
+  border: solid 2px #000; 
+  // radius 
+  border-radius: 5px;         /* CSS3 */
+  -moz-border-radius: 5px;    /* Firefox */
+  -webkit-border-radius: 5px; /* Safari,Chrome */
 }
+div.user_notice_column {
+  margin-bottom: 20px;
+}
+div.opac_news dl {
+  padding: 10px;
+  border-top: dotted 1px #000;
+}
+div.opac_news dt {
+  font-size: 14px;
+  font-weight: bold;
+  margin-bottom: 10px; 
+}
+div.opac_news .library_name {
+  font-size: 14px;
+  font-weight: bold;
+  padding: 2px 15px;
+  background: #e6f598;; 
+}
+div.opac_news_more {
+  font-size: 14px;
+  font-weight: bold;
+  text-align: right;
+  padding: 10px 10px 0 0;
+}
+div.opac_news_more img {
+  vertical-align: bottom;
+}
+div.opac_news_more a {
+  color: white;
+  padding: 5px 20px;
+  text-decoration: none;
+  background: #de406e;
+  border: solid 2px #c83288;
+  // radius 
+  border-radius: 3px;         /* CSS3 */
+  -moz-border-radius: 3px;    /* Firefox */
+  -webkit-border-radius: 3px; /* Safari,Chrome */
+}
+
+
 
 input.opac_radio_button {
   width: 24px;
@@ -398,6 +512,7 @@ div.opac_field .formError {
   margin-bottom: 40px;
 }
 #opac_manifestation_title {
+  margin-left: 20px;
   float: left;
 }
 

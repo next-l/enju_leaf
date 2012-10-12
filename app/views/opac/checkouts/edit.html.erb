@@ -1,26 +1,23 @@
-<div id="opac_header">
-  <div class="opac_title">
-    <h1><%= t('checkout.renewal') %></h1>
-  </div>
-  <div class="opac_head_button_area">
-    <div class="opac_head_button">
-      <%= link_to t('page.showing', :model => t('activerecord.models.checkout')), user_checkout_path(current_user, @checkout, :opac => true) %>
+<div id="opac_content_header">
+  <div id="opac_content" %>
+    <div class="opac_title">
+      <h1><%= t('checkout.renewal') %></h1>
     </div>
-    <div class="opac_head_button">
-      <%= link_to t('page.listing', :model => t('activerecord.models.checkout')), user_checkouts_path(current_user, :opac => true) %>
-    </div>
-    <div class="opac_head_button">
-      <%= link_to t('opac.finish'), opac_path %>
-    </div>
-    <% if user_signed_in? %>
+    <div class="opac_head_button_area">
       <div class="opac_head_button">
-        <%= link_to t('page.sign_out'), destroy_user_session_path %>
+        <%= link_to t('page.showing', :model => t('activerecord.models.checkout')), user_checkout_path(current_user, @checkout, :opac => true) %>
       </div>
-    <% end %>
+      <div class="opac_head_button">
+        <%= link_to t('page.listing', :model => t('activerecord.models.checkout')), user_checkouts_path(current_user, :opac => true) %>
+      </div>
+      <div class="opac_head_button">
+        <%= link_to t('opac.finish'), opac_path %>
+      </div>
+    </div>
   </div>
 </div>
 
-<div id="opac_content_detail">
+<div id="opac_content">
   <%= render 'opac/manifestations/manifestation_info', :manifestation => @checkout.item.manifestation if @checkout.item -%>
 
   <div class="opac_field">

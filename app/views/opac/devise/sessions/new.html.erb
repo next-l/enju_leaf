@@ -67,17 +67,16 @@ function make_special_keys_area(target) {
 }
 </script>
 
-<div id="opac_header">
-  <div class="opac_title"><h1>OPAC<%= t('page.sign_in') -%></h1></div>
-  <div class="opac_head_button_area">
-    <div class="opac_head_button"><%= link_to t('opac.finish'), opac_path %></div>
-    <% if user_signed_in? %>
-      <div class="opac_head_button"><%= link_to t('page.sign_out'), destroy_user_session_path %></div>
-    <% end %>
+<div id="opac_content_header">
+  <div id="opac_content">
+    <div class="opac_title"><h1>OPAC<%= t('page.sign_in') -%></h1></div>
+    <div class="opac_head_button_area">
+      <div class="opac_head_button"><%= link_to t('opac.finish'), opac_path %></div>
+    </div>
   </div>
 </div>
 
-<div id="opac_content_detail">
+<div id="opac_content">
   <%= form_for(resource, :as => resource_name, :url => opac_user_session_path) do |f| %>
     <%= f.error_messages -%>
     <div>

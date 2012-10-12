@@ -8,19 +8,18 @@ $(function() {
 });
 </script>
 
-<div id="opac_header">
-  <div class="opac_title"><h1><%= t('page.listing', :model => t('activerecord.models.checkout')) %></h1></div>
-  <div class="opac_head_button_area">
-    <div class="opac_head_button">
-      <%= link_to t('opac.finish'), opac_path %>
+<div id="opac_content_header">
+  <div id="opac_content">
+    <div class="opac_title"><h1><%= t('page.listing', :model => t('activerecord.models.checkout')) %></h1></div>
+    <div class="opac_head_button_area">
+      <div class="opac_head_button">
+        <%= link_to t('opac.finish'), opac_path %>
+      </div>
     </div>
-    <% if user_signed_in? %>
-      <div class="opac_head_button"><%= link_to t('page.sign_out'), destroy_opac_user_session_path %></div>
-    <% end %>
   </div>
 </div>
 
-<div id="opac_content_detail">
+<div id="opac_content">
   <p id="notice"><%= notice %></p>
   <% unless @checkouts.size == 0 %>
     <div id="opac_button_200">

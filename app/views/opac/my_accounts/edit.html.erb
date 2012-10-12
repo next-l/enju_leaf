@@ -74,16 +74,18 @@ function make_special_keys_area(target) {
 }
 </script>
 
-<div id="opac_header">
-  <div class="opac_title">
-    <h1><%= t('page.edit_user_profile', :login_name => @user.username) %></h1>
-  </div>
-  <div class="opac_head_button_area">
-    <div class="opac_head_button"><%= link_to t('opac.finish'), opac_path %> </div>
+<div id="opac_content_header">
+  <div id="opac_content">
+    <div class="opac_title">
+      <h1><%= t('page.edit_user_profile', :login_name => @user.username) %></h1>
+    </div>
+    <div class="opac_head_button_area">
+      <div class="opac_head_button"><%= link_to t('opac.finish'), opac_path %> </div>
+    </div>
   </div>
 </div>
 
-<div id="opac_content_detail">
+<div id="opac_content">
   <div>
     <%= form_for(@user, :url => my_account_path(:opac => true)) do |f| %>
       <%= form_for(@user.patron, :url => my_account_path(:opac => true)) do |p_f| %>
