@@ -19,9 +19,9 @@
           <%= link_to t('page.back'), url_for(session[:params].merge(:view => nil, :controller => :manifestations)) %>
         </div>
       <% else %>
-        <%= link_to :back do %>
-          <div class="opac_head_button"><%= t('page.back') %></div>
-        <% end %>
+        <div class="opac_head_button">
+          <%= link_to t('page.back'), :back %>
+        </div>
       <% end %>
 
       <% if session[:manifestation_ids].is_a?(Array) %>
