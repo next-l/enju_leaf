@@ -183,7 +183,7 @@ GEM
       resque_mailer
       simple_form
       state_machine
-    enju_ndl (0.1.0.pre3)
+    enju_ndl (0.1.0.pre4)
       library_stdnums
       lisbn
       nokogiri
@@ -417,10 +417,10 @@ GEM
       actionpack (~> 3.0)
       activemodel (~> 3.0)
     simple_oauth (0.1.9)
-    simplecov (0.7.0)
+    simplecov (0.7.1)
       multi_json (~> 1.0)
-      simplecov-html (~> 0.7.0)
-    simplecov-html (0.7.0)
+      simplecov-html (~> 0.7.1)
+    simplecov-html (0.7.1)
     sinatra (1.3.3)
       rack (~> 1.3, >= 1.3.6)
       rack-protection (~> 1.2)
@@ -528,7 +528,7 @@ DEPENDENCIES
   enju_library (~> 0.1.0.pre4)
   enju_manifestation_viewer (~> 0.1.0.pre2)
   enju_message (~> 0.1.14.pre)
-  enju_ndl (~> 0.1.0.pre3)
+  enju_ndl (~> 0.1.0.pre4)
   enju_oai (~> 0.1.0.pre4)
   enju_purchase_request (~> 0.1.0.pre3)
   enju_question (~> 0.1.0.pre2)
