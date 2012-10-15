@@ -245,7 +245,7 @@ class ManifestationsController < ApplicationController
       end
       @manifestations = Kaminari.paginate_array(
         search_result.results, :total_count => max_count
-      ).page(page)
+      ).page(page).per(per_page)
       get_libraries
 
       if params[:format].blank? or params[:format] == 'html'
