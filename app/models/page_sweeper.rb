@@ -1,7 +1,7 @@
 class PageSweeper < ActionController::Caching::Sweeper
   include ExpireEditableFragment
   observe Create, Realize, Produce, Own, Patron, Language, Checkin,
-    SeriesStatement, SubjectHeadingType, PictureFile, Shelf, Tag, Answer,
+    SeriesStatement, SubjectHeadingType, PictureFile, Shelf, Answer,
     Subject, Classification, Library, SubjectHeadingTypeHasSubject,
     WorkHasSubject, SeriesHasManifestation, InterLibraryLoan
 
