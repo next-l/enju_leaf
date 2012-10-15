@@ -130,6 +130,7 @@ en:
       work_to_expression_rel_type: Work-to-Expression relationship type
       expression_to_manifestation_rel_type: Expression-to-Manifestation relationship type
       series_statement: Series statement
+      series_statement_relationship: Series statement relationship
       checkout_stat_has_manifestation: Checkout stat has manifestation
       checkout_stat_has_user: Checkout stat has user
       reserve_stat_has_manifestation: Reserve stat has manifestation
@@ -1027,6 +1028,9 @@ en:
         issn: ISSN
         periodical: Periodical
         title_transcription: Title transcription
+      series_statement_relationship:
+        parent_id: Parent
+        child_id: Child
       import_request:
         isbn: ISBN
         state: State
@@ -1264,6 +1268,7 @@ en:
     best_reader: "best reader"
     wait: "Wait.."
     extensions: "Extensions"
+    add_child: "Add a child"
 
     exstatistics:
       ranknumber: Rank

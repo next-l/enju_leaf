@@ -180,7 +180,9 @@ EnjuLeaf::Application.routes.draw do
   resources :series_statements do
     resources :manifestations, :controller => :manifestations
     resources :series_has_manifestations
+    resources :series_statement_relationships
   end
+  resources :series_statement_relationships
   resources :barcodes
   resources :barcode_lists do
     match 'print', :to => 'barcode_lists#print'

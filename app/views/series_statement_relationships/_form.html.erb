@@ -1,0 +1,27 @@
+<%= form_for(@series_statement_relationship) do |f| %>
+  <%= f.error_messages -%>
+
+  <div class="field">
+    <% if @series_statement_relationship.try(:parent) %>
+      <%= f.label :parent_id %><br />
+      <%= link_to @series_statement_relationship.parent.original_title, @series_statement_relationship.parent %>
+      <%= f.hidden_field :parent_id %>
+    <% else %>
+      <%= f.label :parent_id %><br />
+      <%= f.text_field :parent_id %>
+    <% end %>
+  </div>
+  <div class="field">
+    <% if @series_statement_relationship.child.try(:original_title) %>
+      <%= f.label :child_id %><br />
+      <%= link_to @series_statement_relationship.child.original_title, @series_statement_relationship.child %>
+      <%= f.hidden_field :child_id %>
+    <% else %>
+      <%= f.label :child_id %><br />
+      <%= f.text_field :child_id %>
+    <% end %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
