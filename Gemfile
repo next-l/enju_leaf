@@ -47,7 +47,7 @@ platforms :jruby do
   gem 'trinidad', :require => false
 end
 
-gem 'exception_notification', '~> 3.0.0.rc1'
+gem 'exception_notification', '~> 3.0'
 gem 'state_machine', '~> 1.1.2'
 gem 'progress_bar'
 gem 'inherited_resources', '~> 1.3'
