@@ -41,7 +41,9 @@ class User < ActiveRecord::Base
   has_many :import_requests
   has_one :user_has_role
   has_one :role, :through => :user_has_role
-  has_many :bookmarks, :dependent => :destroy
+  if defined?(EnjuBookmark)
+    has_many :bookmarks, :dependent => :destroy
+  end
   has_many :reserves, :dependent => :destroy
   has_many :reserved_manifestations, :through => :reserves, :source => :manifestation
   has_many :questions
