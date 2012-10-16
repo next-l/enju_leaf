@@ -46,6 +46,10 @@
     <%= render 'index_form' %>
   <% end %>
 
+  <% if @series_statement %>
+    <%= render 'show_series_statement' %>
+  <% end %>
+
   <%- if @manifestations && (@manifestations.total_count > 0) -%>
     <p>
       <%= t('page.number_of_search_results', :count => @count[:query_result], :numdocs => Manifestation.cached_numdocs, :seconds => sprintf("%.3f", @seconds)) -%>
