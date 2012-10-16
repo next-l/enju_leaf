@@ -364,7 +364,7 @@ class User < ActiveRecord::Base
 
   def deletable_by(current_user)
     # 未返却の資料のあるユーザを削除しようとした
-    if self.checkouts.count > 0
+    if self.checkouts.not_returned.count > 0
       errors[:base] << I18n.t('user.this_user_has_checked_out_item')
     end
 
