@@ -15,10 +15,6 @@ class PageSweeper < ActionController::Caching::Sweeper
       #record.items.each do |item|
       #  expire_editable_fragment(item, ['holding'])
       #end
-    when record.is_a?(Tag)
-      record.taggings.collect(&:taggable).each do |taggable|
-        expire_editable_fragment(taggable)
-      end
     when record.is_a?(Subject)
       expire_editable_fragment(record)
       record.works.each do |work|
