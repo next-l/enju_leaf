@@ -47,12 +47,12 @@ platforms :jruby do
   gem 'trinidad', :require => false
 end
 
-gem 'exception_notification', '~> 3.0.0.rc1'
+gem 'exception_notification', '~> 3.0'
 gem 'state_machine', '~> 1.1.2'
 gem 'progress_bar'
 gem 'inherited_resources', '~> 1.3'
 gem 'strongbox'
-gem 'dalli', '~> 2.2'
+gem 'dalli', '~> 2.3'
 gem 'sitemap_generator', '~> 3.4'
 gem 'ri_cal'
 gem 'paper_trail', '~> 2.6'
