@@ -262,12 +262,12 @@ class UsersController < ApplicationController
           @user.destroy
         else
           flash[:notice] = @user.errors[:base].join(' ')
-          redirect_to current_user
+          redirect_to @user
           return
         end
       end
     rescue
-      redirect_to current_user
+      redirect_to @user
       return
     end
 
