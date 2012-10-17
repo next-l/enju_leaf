@@ -88,9 +88,9 @@ class BarcodeSheet
     end
     img_path = img_dir + code_word + "_" + @code_type + ".jpg"
     begin
-      img = encode(code_word)
+      img = encode(code_word)    
     rescue => exc
-      Rails.logger.info(exc)
+      Rails.logger.info("failed created_jpg_new: #{exc}")
     else
       File.open(img_path, "w+b") { |f|
         f << img
@@ -160,19 +160,18 @@ class BarcodeSheet
   end
 
   def encode(code_word)
-    case @code_type
-    when "Code128A"
+    case @code_type.upcase
+    when "CODE128A"
       barcode = Barby::Code128A.new(code_word)
-    when "Code128B"
+    when "CODE128B"
       barcode = Barby::Code128B.new(code_word)
-    when "Code128C"
+    when "CODE128C"
       barcode = Barby::Code128C.new(code_word)      
-    when "nw-7"
-      Rails.logger.error "creating nw-7"
-#      doc = RGhost::Document.new :paper => ['25 mm', '12 mm']
-#      barcode = doc.barcode_rationalizedcodabar code_word, :x => 0, :y => 0, :width => '25 mm', :height => '12 mm'
-#      io = StringIO.new(doc.render_stream(:jng))
-#      return io.respond_to?(:set_encoding) ? io.set_encoding('UTF-8') : io
+    when "NW-7"
+      doc = RGhost::Document.new # :paper => ['15 cm', '1cm']
+      doc.barcode_rationalizedCodabar(code_word,{:x => 0, :y => 0, :width => to_pt(25), :height => to_pt(12)})
+      io = StringIO.new(doc.render_stream(:png))
+      return io.respond_to?(:set_encoding) ? io.set_encoding('UTF-8') : io
     end
     return barcode.to_jpg(:height => to_pt(12), :width => to_pt(25), :margin => 0)
   end
