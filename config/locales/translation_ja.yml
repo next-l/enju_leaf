@@ -137,6 +137,7 @@ ja:
       work_to_expression_rel_type: 書いた資料と協力した資料の関係の種類
       expression_to_manifestation_rel_type: 協力した資料と出版した資料の関係の種類
       series_statement: シリーズ情報
+      series_statement_relationship: シリーズ情報の関係
       checkout_stat_has_manifestation: 資料別貸出統計
       checkout_stat_has_user: 利用者別貸出統計
       reserve_stat_has_manifestation: 資料別予約統計
@@ -1149,6 +1150,9 @@ ja:
         issn: ISSN
         periodical: 定期刊行物
         title_transcription: シリーズ名（ヨミ）
+      series_statement_relationship:
+        parent_id: 親
+        child_id: 子
       import_request:
         isbn: ISBN
         state: 状態
@@ -1489,6 +1493,7 @@ ja:
     reminder_letter: "催告書"
     extensions: "Enju_trunk 拡張機能"
     budgets: "予算"
+    add_child: "子を追加"
 
     exstatistics:
       ranknumber: 順位
@@ -1758,7 +1763,7 @@ ja:
     expired_at_of_this_user_is_over: "予約の有効期限が利用者の有効期限を超えています。"
     invalid_item: "無効な所蔵情報です。"
     show: "予約の詳細"
-    invalid_date: "無効な日付です。"
+    invalid_date: "は無効な日付です。"
     pending: "受付待ち"
     requested: "受付済み"
     in_process: "作業中"
@@ -2162,11 +2167,14 @@ ja:
 
   opac:
     finish: 終わる
-    push_touchpanel: 希望の項目を押してください
+    push_touchpanel: ▼ 希望の項目を押してください
     catalog_search: 資料の検索
-    login: 登録利用者ログイン
-    login_description: "利用者登録している方はこちらからログインしてください"
     news: 図書館からのお知らせ
+    login:
+      sign_in: 登録利用者ログイン
+      sign_out: ログアウト
+      login_description: "利用者登録している方はこちらからログインしてください"
+      logged_in: ログインしています
     manifestation_exstats:
       bestreader: 貸出の多い本
       bestrequest: 予約の多い本
@@ -2176,6 +2184,17 @@ ja:
       3months: 3ヶ月間
       1month: 1ヶ月間
       2weeks: 2週間
+    manifestations:
+      holding: 所蔵あり
+      reserved: 予約済
+    reserves:
+      no_reserve: 予約中の資料はありません。 
+    checkouts:
+      checkout_at: 貸出日
+      overdue_item: この資料は貸出期限が過ぎています。
+      renewal_description: "貸出期間を延長するには「貸出の更新」を押してください。<br />貸出の更新回数の制限を超えている場合、更新はできません。"
+    events:
+      category: 種類
     keypad:
       input_keyword: キーワードを入力してください
       kana: カナ

@@ -1,10 +1,10 @@
 <script>
 <!--
   $(document).ready(function() {
-    $('#manifestation_per_page').change(function() {
+    $('#per_page').change(function() {
       url = "<%= url_for(:controller => :manifestations,:action => :index) %>";
 
-      var per_page = $('#manifestation_per_page').val();
+      var per_page = $('#per_page').val();
       url += "?per_page=" + per_page;
 
       var parameter = location.search;
@@ -44,6 +44,10 @@
     <%= render 'index_form_series_statement' %>
   <% else %>
     <%= render 'index_form' %>
+  <% end %>
+
+  <% if @series_statement %>
+    <%= render 'show_series_statement' %>
   <% end %>
 
   <%- if @manifestations && (@manifestations.total_count > 0) -%>
@@ -89,7 +93,7 @@
 
       <div style="float: right;">
         <%= t('activerecord.attributes.manifestation.per_page') %>: 
-        <%= select("manifestation", "per_page", per_pages, {:selected => @per_page}) %>
+        <%= select_tag("per_page", options_for_select(per_pages, @per_page)) %>
       </div>
       <br style="clear: both;"/>
     </div>
@@ -120,10 +124,14 @@
 </div>
 
 <div id="submenu" class="ui-corner-all">
-    <h3><%= link_to h("#{t('page.total')}: #{@count[:query_result]}"), url_for(params.merge(:action => 'index', :view => nil, :carrier_type => nil, :library => nil, :language => nil, :subject => nil))  -%></h3>
-    <%- if @manifestations && (@manifestations.total_count > 0) -%>
-      <%= render 'manifestations/all_facet' -%>
-    <%- end -%>
+  <h3><%= link_to h("#{t('page.total')}: #{@count[:query_result]}"), url_for(params.merge(:action => 'index', :view => nil, :carrier_type => nil, :library => nil, :language => nil, :subject => nil))  -%></h3>
+  <%- if @manifestations && (@manifestations.total_count > 0) -%>
+    <%= render 'manifestations/all_facet' -%>
+  <%- end -%>
+  <br />
+  <% if @series_statement and can?(:update, @series_statement) %>
+    <%= render 'submenu_series_statement' %>
+  <% end %>
   <div>
     <%- if params[:library_id].blank? -%>
       <%= link_to (image_tag 'icons/feed.png', :size => '16x16', :alt => t('page.feed'), :title => t('tooltip.feed'), :class => 'icon'), url_for(params.merge(:format => :rss, :page => nil, :library_id => nil)) -%> <%= link_to t('page.search_result_feed'), url_for(params.merge(:format => :rss, :page => nil, :library_id => nil, :commit => nil)) -%>

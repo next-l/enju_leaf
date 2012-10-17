@@ -14,7 +14,7 @@
       <td><%= item.shelf.library.display_name.localize %></td>
       <td>
         <%= item.shelf.display_name.localize %>
-        <%= render 'items/shelf_picture', :item => item -%>
+        <%= render 'opac/manifestations/shelf_picture', :item => item -%>
       </td>
       <td><%= call_numberformat(item) %></td>
       <td>

@@ -8,20 +8,19 @@ $(function() {
 });
 </script>
 
-<div id="opac_header">
-  <div class="opac_title">
-    <h1><%= t('page.search_resource', :model => t('page.resource')) %></h1>
-  </div>
-  <div class="opac_head_button_area">
-    <div class="opac_head_button"><%= link_to t('opac.catalog_search'), opac_search_path %></div>
-    <div class="opac_head_button"><%= link_to t('opac.finish'), opac_path %></div>
-    <% if user_signed_in? %>
-      <div class="opac_head_button"><%= link_to t('page.sign_out'), destroy_user_session_path %></div>
-    <% end %>
+<div id="opac_content_header">
+  <div id="opac_content">
+    <div class="opac_title">
+      <h1><%= t('page.search_resource', :model => t('page.resource')) %></h1>
+    </div>
+    <div class="opac_head_button_area">
+      <div class="opac_head_button"><%= link_to t('opac.catalog_search'), opac_search_path %></div>
+      <div class="opac_head_button"><%= link_to t('opac.finish'), opac_path %></div>
+    </div>
   </div>
 </div>
 
-<div id="opac_content_detail"> 
+<div id="opac_content"> 
   <% case %>
   <% when @series_statement %>
     <h2 class="resource_title">
@@ -53,6 +52,16 @@ $(function() {
         <tr class="opac_line<%= cycle("0", "1") %> opac_lists_row" data-href="<%= opac_manifestation_path(manifestation) %>">
           <td>
             <%= render 'opac/manifestations/title', :manifestation => manifestation %>
+          </td>
+          <td class="sub_column">
+            <% unless manifestation.items.empty? %>
+              <div class="opac_list_sub"><%= t('opac.manifestations.holding') %></div>
+            <% end %>
+            <% if user_signed_in? %>
+              <% if current_user.reserves.user_show_reserves.inject([]){ |manifestations, reserve| manifestations << reserve.manifestation }.include?(manifestation) %>
+                <div class="opac_list_sub"><%= t('opac.manifestations.reserved') %></div>
+              <% end %> 
+            <% end %>
           </td>
         </tr>
       <% end %>

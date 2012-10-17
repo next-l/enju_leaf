@@ -1,80 +1,22 @@
-<div id="opac_header">
-  <div class="opac_title">
-    <h1><%= t('page.new', :model => t('activerecord.models.reserve')) %></h1>
-  </div>
-  <div class="opac_head_button_area">
-    <div class="opac_head_button">
-      <%= link_to t('page.showing', :model => t('activerecord.models.manifestation')), manifestation_path(@manifestation, :opac => true) %>
+<div id="opac_content_header">
+  <div id="opac_content">
+    <div class="opac_title">
+      <h1><%= t('page.new', :model => t('activerecord.models.reserve')) %></h1>
     </div>
-    <div class="opac_head_button">
-      <%= link_to t('page.listing', :model => t('activerecord.models.reserve')), user_reserves_path(@reserve.user, :opac => true) %>
-    </div>
-    <div class="opac_head_button">
-      <%= link_to t('opac.finish'), opac_path %>
-    </div>
-    <% if user_signed_in? %>
+    <div class="opac_head_button_area">
       <div class="opac_head_button">
-        <%= link_to t('page.sign_out'), destroy_user_session_path %>
+        <%= link_to t('page.showing', :model => t('activerecord.models.manifestation')), manifestation_path(@manifestation, :opac => true) %>
       </div>
-    <% end %>
+      <div class="opac_head_button">
+        <%= link_to t('page.listing', :model => t('activerecord.models.reserve')), user_reserves_path(@reserve.user, :opac => true) %>
+      </div>
+      <div class="opac_head_button">
+        <%= link_to t('opac.finish'), opac_path %>
+      </div>
+    </div>
   </div>
 </div>
 
-<div id="opac_content_detail">
-  <%= form_for(@reserve, :url => user_reserves_path(@user, :opac => true)) do |f| %>
-    <%= f.error_messages %>
-
-    <div id="opac_manifestation_book_jacket">
-      <% if @manifestation %>
-        <%= opac_book_jacket(@manifestation) %>
-      <% end %>
-      <% if @manifestation.picture_files.exists? %>
-        <br />
-        <%= t('page.total') %>: <%= @manifestation.picture_files.count %>
-        <%= t('page.number_of_pictures', :count => @manifestation.picture_files.count) %>
-      <% end %>
-    </div>
-    <div>
-      <div id="opac_manifestation_title">
-        <%= render 'opac/manifestations/title_detail', :manifestation => @manifestation %>
-        <%= render 'manifestations/show_series_number', :manifestation => @reserve.manifestation -%>
-      </div>
-      <br style="clear: both;" />
-  
-      <div class="field">
-        <%= f.label t('activerecord.models.user') %>
-        <%= @reserve.user.username %>(<%= @reserve.user.user_number %>)
-      </div>
-      <div class="field">
-        <%= f.label t('activerecord.attributes.reserve.information_type') -%><br />
-        <% @informations.each do |i| %>
-          <% if i == @informations.first %>
-            <%= f.radio_button :information_type_id, i.id, :checked => true, :class => 'opac_radio_button' %><%= i.display_name + " " + i.information %><br />
-          <% else %>
-            <%= f.radio_button :information_type_id, i.id, :class => 'opac_radio_button' %><%= i.display_name + " " + i.information %><br />
-          <% end %>
-        <% end %>
-      </div>
-      <div class="field">
-        <%= f.label t('activerecord.attributes.reserve.receipt_library') -%><br />
-        <% @libraries.each do |l| %>
-          <% if l == @libraries.first %>
-            <%= f.radio_button :receipt_library_id, l.id, :checked => true, :class => 'opac_radio_button' %><%= l.display_name.localize %><br />
-          <% else %>
-            <%= f.radio_button :receipt_library_id, l.id, :class => 'opac_radio_button' %><%= l.display_name.localize %><br />
-          <% end %>
-        <% end %>
-      </div>
-      <div class="field">
-        <%= f.label :expired_at -%><br />
-        <%= l(@reserve.expired_at, :format => :only_date) %>
-      </div>
-      <div class="field">
-        <%= f.hidden_field :expired_at, :value => @reserve.expired_at.try(:strftime, "%Y-%m-%d") %>
-        <%= f.hidden_field :user_number, :value => @user.user_number %>
-        <%= f.hidden_field :manifestation_id %>
-        <%= f.submit t('page.create'), :disable_with => t('page.wait'), :class => 'opac_submit_button' %>
-      </div>
-    </div>
-  <% end %>
+<div id="opac_content">
+  <%= render 'opac/reserves/form', :reserve => @reserve, :manifestation => @manifestation, :user => @reserve.user, :informations => @informations, :libraries => @libraries %>
 </div>

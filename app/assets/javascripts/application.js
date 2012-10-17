@@ -18,3 +18,4 @@
 //= require jquery.auto_ruby
 //= require enju_audio_control
 //= require enju_trunk
+//= require jquery.ui.datepicker-ja

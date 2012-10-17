@@ -245,7 +245,7 @@ class ManifestationsController < ApplicationController
       end
       @manifestations = Kaminari.paginate_array(
         search_result.results, :total_count => max_count
-      ).page(page)
+      ).page(page).per(per_page)
       get_libraries
 
       if params[:format].blank? or params[:format] == 'html'
@@ -354,7 +354,7 @@ class ManifestationsController < ApplicationController
 
     if Setting.operation
       @reserved_count = Reserve.waiting.where(:manifestation_id => @manifestation.id, :checked_out_at => nil).count
-      @reserve = current_user.reserves.where(:manifestation_id => @manifestation.id).first if user_signed_in?
+      @reserve = current_user.reserves.where(:manifestation_id => @manifestation.id).last if user_signed_in?
     end
 
     if @manifestation.periodical_master?

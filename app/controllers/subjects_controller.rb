@@ -48,7 +48,7 @@ class SubjectsController < ApplicationController
     end
 
     page = params[:page] || 1
-    search.query.paginate(page.to_i, Subject.per_page)
+    search.query.paginate(page.to_i, Subject.default_per_page)
     @subjects = search.execute!.results
     session[:params] = {} unless session[:params]
     session[:params][:subject] = params
@@ -81,7 +81,7 @@ class SubjectsController < ApplicationController
       with(:subject_ids).equal_to subject.id if subject
     end
     page = params[:work_page] || 1
-    search.query.paginate(page.to_i, Manifestation.per_page)
+    search.query.paginate(page.to_i, Manifestation.default_per_page)
     @works = search.execute!.results
 
     respond_to do |format|

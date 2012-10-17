@@ -8,24 +8,21 @@ $(function() {
 });
 </script>
 
-<div id="opac_header">
-  <div class="opac_title"><h1><%= t('opac.manifestation_exstats.bestrequest') %></h1></div>
-  <div class="opac_head_button_area">
-    <div class="opac_head_button">
-      <%= link_to t('opac..manifestation_exstats.bestreader'), manifestation_exstats_bestreader_path(:opac => true) %>
-    </div>
-    <div class="opac_head_button">
-      <%= link_to t('opac.finish'), opac_path %>
-    </div>
-    <% if user_signed_in? %>
+<div id="opac_content_header">
+  <div id="opac_content" %>
+    <div class="opac_title"><h1><%= t('opac.manifestation_exstats.bestrequest') %></h1></div>
+    <div class="opac_head_button_area">
       <div class="opac_head_button">
-        <%= link_to t('page.sign_out'), destroy_user_session_path %>
+        <%= link_to t('opac..manifestation_exstats.bestreader'), manifestation_exstats_bestreader_path(:opac => true) %>
       </div>
-    <% end %>
+      <div class="opac_head_button">
+        <%= link_to t('opac.finish'), opac_path %>
+      </div>
+    </div>
   </div>
 </div>
 
-<div id="opac_content_detail">
+<div id="opac_content">
   <%= render 'opac/manifestation_exstats/sort_menu_bestrequest' %>
   <table class="index" id="opac_lists">
     <tr>

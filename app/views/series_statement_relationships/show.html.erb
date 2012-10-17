@@ -1,0 +1,24 @@
+<div id="content_detail" class="ui-corner-all">
+<h1 class="title"><%= t('page.showing', :model => t('activerecord.models.series_statement_relationship')) -%></h1>
+  <div id="content_list">
+  <p id="notice"><%= notice %></p>
+
+<p>
+  <b><%= t('activerecord.attributes.series_statement_relationship.parent_id') %></b>
+  <%= link_to @series_statement_relationship.parent.original_title, @series_statement_relationship.parent %>
+</p>
+
+<p>
+  <b><%= t('activerecord.attributes.series_statement_relationship.child_id') %></b>
+  <%= link_to @series_statement_relationship.child.original_title, @series_statement_relationship.child %>
+</p>
+
+  </div>
+</div>
+
+<div id="submenu" class="ui-corner-all">
+  <ul>
+    <li><%= link_to t('page.edit'), edit_series_statement_relationship_path(@series_statement_relationship) %></li>
+    <li><%= link_to t('page.back'), series_statement_relationships_path %></li>
+  </ul>
+</div>

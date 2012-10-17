@@ -41,7 +41,9 @@ class User < ActiveRecord::Base
   has_many :import_requests
   has_one :user_has_role
   has_one :role, :through => :user_has_role
-  has_many :bookmarks, :dependent => :destroy
+  if defined?(EnjuBookmark)
+    has_many :bookmarks, :dependent => :destroy
+  end
   has_many :reserves, :dependent => :destroy
   has_many :reserved_manifestations, :through => :reserves, :source => :manifestation
   has_many :questions
@@ -364,7 +366,7 @@ class User < ActiveRecord::Base
 
   def deletable_by(current_user)
     # 未返却の資料のあるユーザを削除しようとした
-    if self.checkouts.count > 0
+    if self.checkouts.not_returned.count > 0
       errors[:base] << I18n.t('user.this_user_has_checked_out_item')
     end
 

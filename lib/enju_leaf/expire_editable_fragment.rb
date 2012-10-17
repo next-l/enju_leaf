@@ -23,8 +23,10 @@ module ExpireEditableFragment
     fragments.uniq.each do |fragment|
       expire_manifestation_fragment(manifestation, fragment, formats)
     end
-    manifestation.bookmarks.each do |bookmark|
-      expire_tag_cloud(bookmark)
+    if defined?(EnjuBookmark)
+      manifestation.bookmarks.each do |bookmark|
+        expire_tag_cloud(bookmark)
+      end
     end
   end
 

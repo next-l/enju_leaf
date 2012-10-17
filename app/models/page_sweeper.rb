@@ -1,7 +1,7 @@
 class PageSweeper < ActionController::Caching::Sweeper
   include ExpireEditableFragment
   observe Create, Realize, Produce, Own, Patron, Language, Checkin,
-    SeriesStatement, SubjectHeadingType, PictureFile, Shelf, Tag, Answer,
+    SeriesStatement, SubjectHeadingType, PictureFile, Shelf, Answer,
     Subject, Classification, Library, SubjectHeadingTypeHasSubject,
     WorkHasSubject, SeriesHasManifestation, InterLibraryLoan
 
@@ -15,10 +15,6 @@ class PageSweeper < ActionController::Caching::Sweeper
       #record.items.each do |item|
       #  expire_editable_fragment(item, ['holding'])
       #end
-    when record.is_a?(Tag)
-      record.taggings.collect(&:taggable).each do |taggable|
-        expire_editable_fragment(taggable)
-      end
     when record.is_a?(Subject)
       expire_editable_fragment(record)
       record.works.each do |work|

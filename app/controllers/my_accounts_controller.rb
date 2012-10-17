@@ -32,19 +32,43 @@ class MyAccountsController < ApplicationController
     @user = current_user
 
     respond_to do |format|
+=begin
       if current_user.has_role?('Librarian')
         saved = current_user.update_with_password(params[:user], :as => :admin)
       else
         saved = current_user.update_with_password(params[:user])
       end
-
-      if saved
+=end
+#      if saved
+      begin
+        # update patron
+        if params[:opac]
+          @user.patron.update_attributes!(params[:patron])
+          @user.patron.email = params[:user][:email] if params[:user] and params[:user][:email]
+          @user.patron.save!
+        end
+  
+        # update user
+        if current_user.has_role?('Librarian')
+          saved = current_user.update_with_password(params[:user], :as => :admin)
+        else
+          saved = current_user.update_with_password(params[:user])
+        end
+        raise unless saved
         sign_in(current_user, :bypass => true)
-        format.html { redirect_to opac_path, :notice => t('controller.successfully_updated', :model => t('activerecord.models.user')) } if params[:opac]
+        if params[:opac]
+          format.html { redirect_to opac_path, :notice => t('controller.successfully_updated', :model => t('activerecord.models.user')) }
+        end
         format.html { redirect_to my_account_url, :notice => t('controller.successfully_updated', :model => t('activerecord.models.user')) }
         format.json { head :no_content }
-      else
+#      else
+      rescue 
         @user = current_user
+        if params[:opac] and @user.patron.errors
+          @user.patron.errors.each do |attr, msg|
+            @user.errors.add(attr, msg)
+          end
+        end
         prepare_options
         format.html { render :action => "edit", :template => 'opac/my_accounts/edit', :layout => 'opac' } if params[:opac]
         format.html { render :action => "edit" }

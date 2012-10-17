@@ -1,5 +1,7 @@
 <%- if @manifestation -%>
   <%= render 'index_manifestation' -%>
+<%- elsif @parent -%>
+  <%= render 'index_parent' -%>
 <%- else -%>
   <%= render 'index' -%>
 <%- end -%>

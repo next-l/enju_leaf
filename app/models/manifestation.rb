@@ -125,22 +125,16 @@ class Manifestation < ActiveRecord::Base
       creator
     end
     text :atitle do
-      title if original_manifestations.present? # 親がいることが条件
+      title if series_statement.try(:periodical)
     end
     text :btitle do
-      title if frequency_id == 1  # 発行頻度1が単行本
+      title unless series_statement.try(:periodical)
     end
     text :jtitle do
-      if frequency_id != 1  # 雑誌の場合
-        title
+      if series_statement.try(:periodical)  # 雑誌の場合
+        series_statement.titles
       else                  # 雑誌以外（雑誌の記事も含む）
-        titles = []
-        original_manifestations.each do |m|
-          if m.frequency_id != 1
-            titles << m.title
-          end
-        end
-        titles.flatten
+        original_manifestations.map{|m| m.title}.flatten
       end
     end
     text :isbn do  # 前方一致検索のためtext指定を追加

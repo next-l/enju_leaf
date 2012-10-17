@@ -1,0 +1,18 @@
+<table class="table table-striped" id="resource_detail">
+  <tr class="line<%= cycle("0", "1") %>">
+    <td style="width: 200px"><%= t('activerecord.attributes.series_statement.title_transcription') -%></td>
+    <td style="width: 490px"><%= @series_statement.title_transcription %></td>
+  </tr>
+  <tr class="line<%= cycle("0", "1") %>">
+    <td><%= t('activerecord.attributes.series_statement.periodical') -%></td>
+    <td><%= localized_boolean(@series_statement.periodical) %></td>
+  </tr>
+  <tr class="line<%= cycle("0", "1") %>">
+    <td><%= t('activerecord.attributes.series_statement.issn') -%></td>
+    <td><%= @series_statement.issn %></td>
+  </tr>
+  <tr class="line<%= cycle("0", "1") %>">
+    <td><%= t('activerecord.attributes.series_statement.series_statement_identifier') -%></td>
+    <td><%= @series_statement.series_statement_identifier %></td>
+  </tr>
+</table>

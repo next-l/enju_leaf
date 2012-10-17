@@ -1,4 +1,6 @@
 class ReminderList < ActiveRecord::Base
+  attr_accessible :item_identifier, :status
+
   default_scope :order => 'reminder_lists.id DESC'
 
   validates_presence_of :checkout_id, :status

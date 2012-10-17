@@ -180,7 +180,9 @@ EnjuLeaf::Application.routes.draw do
   resources :series_statements do
     resources :manifestations, :controller => :manifestations
     resources :series_has_manifestations
+    resources :series_statement_relationships
   end
+  resources :series_statement_relationships
   resources :barcodes
   resources :barcode_lists do
     match 'print', :to => 'barcode_lists#print'
@@ -479,6 +481,7 @@ EnjuLeaf::Application.routes.draw do
     resources :users do
       resources :reserves, :opac => true
     end
+    resources :events, :opac => true
     match '/manifestation_exstats/bestreader' => 'manifestation_exstats#bestreader', :opac => true
     match '/manifestation_exstats/bestrequest' => 'manifestation_exstats#bestrequest', :opac => true
   end
