@@ -57,7 +57,7 @@ class Ability
       end
       can [:read, :create, :update, :output], Shelf
       can :destroy, Shelf do |shelf|
-        shelf.items.empty?
+        shelf.items.count == 0
       end
       can [:read, :create, :update], User
       can :destroy, User do |u|
