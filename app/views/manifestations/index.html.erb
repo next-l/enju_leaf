@@ -1,10 +1,10 @@
 <script>
 <!--
   $(document).ready(function() {
-    $('#manifestation_per_page').change(function() {
+    $('#per_page').change(function() {
       url = "<%= url_for(:controller => :manifestations,:action => :index) %>";
 
-      var per_page = $('#manifestation_per_page').val();
+      var per_page = $('#per_page').val();
       url += "?per_page=" + per_page;
 
       var parameter = location.search;
@@ -93,7 +93,7 @@
 
       <div style="float: right;">
         <%= t('activerecord.attributes.manifestation.per_page') %>: 
-        <%= select("manifestation", "per_page", per_pages, {:selected => @per_page}) %>
+        <%= select_tag("per_page", options_for_select(per_pages, @per_page)) %>
       </div>
       <br style="clear: both;"/>
     </div>
