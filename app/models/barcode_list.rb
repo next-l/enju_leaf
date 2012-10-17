@@ -102,7 +102,7 @@ class BarcodeList < ActiveRecord::Base
       sheet = BarcodeSheet.new
       sheet.path = dir_base
       sheet.code_type = type
-      sheet.create_pdf(self, filename, @code_words)
+      sheet.create_pdf_new(self, filename, @code_words)
       return dir_base + filename
     rescue => exc
       logger.error("barcode pdf sheet create failed: " + dir_base + filename)
