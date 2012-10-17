@@ -70,6 +70,7 @@ class Ability
       can :manage, [
         Answer,
         Barcode,
+        BarcodeList,
         CarrierTypeHasCheckoutType,
         Checkoutlist,
         CheckoutStatHasManifestation,
@@ -221,6 +222,8 @@ class Ability
       can [:read, :create, :update], UserReserveStat
       can :manage, [
         Answer,
+        Barcode,
+        BarcodeList,
         Checkoutlist,
         Create,
         Donate,
@@ -536,5 +539,7 @@ class Ability
         can :read, NiiType
       end
     end
+
+    can :manage, :opac
   end
 end

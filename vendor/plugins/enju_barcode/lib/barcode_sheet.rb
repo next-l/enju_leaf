@@ -1,80 +1,87 @@
 class BarcodeSheet
+  require "prawn/measurement_extensions"
   attr_accessor :path, :code_type
 
   def initialization
-    @path = ""
-    @code_type = "Code128B"
+    @path = self.path
+    @code_type = self.code_type
   end
 
-  def create_jpgs(code_words, sup_words = nil)
+  def create_jpgs(code_word)
     img_dir = @path + "jpg/"
     unless File::directory?(img_dir)
       Dir::mkdir(img_dir)
     end
-    @img_files = []
-    @code_words = code_words
-    @sup_words = sup_words
-    @code_words.each do |code_word|
-      img_path = img_dir + code_word + "_" + @code_type + "jpg"
-      @img_files << img_path
-      begin
-        img = encode(code_word)
-      rescue => exc
-        Rails.logger.info(exc)
-      else
-        File.open(img_path, "w+b") { |f|
-          f << img
-        }
-      end
-    end 
+    img_path = img_dir + code_word + "_" + @code_type + ".jpg"
+    begin
+      img = encode(code_word)
+    rescue => exc
+      Rails.logger.info(exc)
+    else
+      File.open(img_path, "w+b") { |f|
+        f << img
+      }
+    end
+    return img_path
   end
 
-  def create_pdf(filename)
+  def create_pdf(barcode_list, filename, code_words)
+    Rails.logger.error "create_pdf"
     coord = Struct.new("Coord", :x, :y)
-    init = coord.new(30, 731)
-    pos = coord.new(init.x, init.y)
-    inter = coord.new(170, 72)
-    code_words = @code_words
-    img_files = @img_files
-    code_type = @code_type
+    sheet = barcode_list.sheet
+    # cell size (a label)
+    cell = coord.new(to_pt(sheet.cell_w), to_pt(sheet.cell_h))
+    cell_padding = coord.new(10,5)
+    space = coord.new(to_pt(sheet.space_w), to_pt(sheet.space_h))
+    
+    # cell number for a sheet
+    table_margin = coord.new(to_pt(sheet.margin_w-1), to_pt(sheet.margin_h))
+    # barcode size
+    b_width = to_pt(25)
+    b_height = to_pt(12)  
+  
     page = 1
-    sup_words = @sup_words
+
     Prawn::Document.generate(@path+filename,
       :page_layout => :portrait,
-      :page_size => "A4") do
-      font("#{Rails.root}/vendor/fonts/ipag.ttf")
-      code_words.each_with_index { |code_word, index|
-        if File.exist?(img_files[index])
-          image img_files[index], :at => [pos.x, pos.y], :scale => 0.75
-          draw_text code_word, :at => [pos.x,pos.y-40], :size => 10
-          if sup_words and sup_words[index].present?
-            t = sup_words[index].slice(0, 20)
-            draw_text t, :at => [pos.x,pos.y-50], :size => 8
-          end
+      :page_size => "A4",
+      :left_margin => table_margin.x,
+      :top_margin => table_margin.y) do |pdf|
+      pdf.font("#{Rails.root}/vendor/fonts/ipag.ttf")
+
+      contents = []
+      table_cells = []
+      code_words.each_with_index do |code_word, index|
+        barcode = create_jpgs(code_word)
+        if File.exist?(barcode)
+          contents[index] = pdf.make_table([[{:image => barcode, :fit => [b_width, b_height], :vposition => 5, :position => :center, :height => 30}], 
+                                            [code_word], [barcode_list.label_note]],
+                                            :width => cell.x+space.x, :cell_style => {:width => cell.x+space.x, :border_width => [0,0,0,0]})
         else
-          draw_text code_type, :at => [pos.x, pos.y]
-          draw_text "encoding error", :at => [pos.x, pos.y-20]
-          draw_text code_word, :at => [pos.x,pos.y-40], :size => 10
+          contents[index] = pdf.make_table([["NO BARCODE"], [code_word], [barcode_list.label_note]],
+                                           :width => cell.x+space.x, :cell_style => {:width => cell.x+space.x, :border_width => [0,0,0,0]})
         end
-        # next step
-        if (index + 1) % 3 == 0
-          pos.x = init.x
-          pos.y -= inter.y
-        else
-          pos.x += inter.x
+      end
+      contents.each_slice(4){|row| table_cells << row}
+
+      pdf.table(table_cells) do |t|
+        t.cells.borders = [:top, :bottom, :left, :right]
+        t.cells.border_width = [0,space.x,space.y,0]
+        t.cells.border_colors = 'ffffff'
+        t.cells.height = cell.y+space.y
+        t.cells.width = cell.x+space.x
+
+        t.cells.each do |cell|
+          cell.padding = [space.y/2,space.x/2,8,0]
+          cell.subtable.row(1..2).align = :center
+          cell.subtable.row(1..2).overflow = :shrink_to_fit
+          cell.subtable.row(1..2).padding = 0
+          cell.subtable.row(1).size = 8 
+          cell.subtable.row(1).height = 10
+          cell.subtable.row(2).size = 10
+          cell.subtable.row(2).height = 10
         end
-        if (index + 1) % 30 == 0
-            unless code_words[index + 1].nil?
-              start_new_page
-              page += 1
-              draw_text "Page " + page.to_s, :at => [30, 5]
-              pos.y = init.y
-            end
-        end
-        if index == 0
-          draw_text "Page " + page.to_s, :at => [30, 5]
-        end
-      }
+      end
     end
     return @path+filename
   end
@@ -87,7 +94,18 @@ class BarcodeSheet
       barcode = Barby::Code128B.new(code_word)
     when "Code128C"
       barcode = Barby::Code128C.new(code_word)      
+    when "nw-7"
+      Rails.logger.error "creating nw-7"
+#      doc = RGhost::Document.new :paper => ['25 mm', '12 mm']
+#      barcode = doc.barcode_rationalizedcodabar code_word, :x => 0, :y => 0, :width => '25 mm', :height => '12 mm'
+#      io = StringIO.new(doc.render_stream(:jng))
+#      return io.respond_to?(:set_encoding) ? io.set_encoding('UTF-8') : io
     end
-    return barcode.to_jpg(:height =>30, :margin => 0)
+    return barcode.to_jpg(:height => to_pt(12), :width => to_pt(25), :margin => 0)
   end
+
+  def to_pt(num)
+    num.mm2pt(num)
+  end
+
 end

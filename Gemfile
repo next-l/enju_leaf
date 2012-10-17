@@ -92,7 +92,8 @@ gem 'validates_timeliness'
 gem 'rack-protection'
 gem 'awesome_nested_set', '~> 2.0'
 gem 'paranoia'
-gem 'thinreports', '0.7.5'
+gem 'thinreports', :git => 'git://github.com/emiko/thinreports-generator.git'
+gem 'prawn', '1.0.0.rc1'
 gem "rmagick", :require => false
 gem "crypt19"
 gem "rails_autolink"
@@ -156,3 +157,4 @@ group :operation do
   gem 'enju_trunk_ill', :git => 'git://github.com/emiko/enju_trunk_ill.git'
   gem 'enju_trunk_statistics', :git => 'git://github.com/emiko/enju_trunk_statistics.git'
 end
+

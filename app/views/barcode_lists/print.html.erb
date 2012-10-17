@@ -35,19 +35,24 @@
   <%= @barcode_list.last_number -%>
 </p>
 <br />
-<p>
-  <strong><%= t('activerecord.attributes.barcode_list.start_number') -%>:</strong>
-  <%= text_field_tag "barcode_list[start_number]" -%>
-</p>
-<p>
-  <strong><%= t('activerecord.attributes.barcode_list.end_number') -%>:</strong>
-  <%= text_field_tag "barcode_list[end_number]" -%>
-</p>
-<br />
-<br />
-  <div class="actions">
-    <%= submit_tag t('activerecord.attributes.barcode_list.print_label_2') %>
-  </div>
+
+<%= form_for @barcode_list, :url => {:action => 'exec_print'}, :method => 'post',  :html => { :class => "barcode_list", :id => @barcode_list.id }  do |f|%>
+  <p>
+    <strong><%= t('activerecord.attributes.barcode_list.start_number') -%>:</strong>
+    <%= f. text_field :start_number -%>
+  </p>
+  <p>
+    <strong><%= t('activerecord.attributes.barcode_list.end_number') -%>:</strong>
+    <%= f.text_field :end_number -%>
+  </p>
+  <%= hidden_field_tag :"barcode_list[:usage_type]", 1 -%>
+  <br />
+  <br />
+    <div class="actions">
+      <%= f.submit %> <%# t('activerecord.attributes.barcode_list.print_label_2') %>
+    </div>
+<%- end -%>
+ 
 <%- end -%>
 
 

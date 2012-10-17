@@ -21,7 +21,7 @@
     <td><%= barcode_list.barcode_type -%></td>
     <td><%= barcode_list.barcode_prefix -%></td>
     <td><%= barcode_list.printed_number -%></td>
-    <td><%= barcode_list.sheet.name -%></td>     
+    <td><%= barcode_list.try(:sheet).try(:name) -%></td>     
     <td><%= barcode_list.last_number -%></td>
     <td><%= link_to t('page.edit'), edit_barcode_list_path(barcode_list) %>
       <%= link_to t('page.destroy'), barcode_list, method: :delete, data: { confirm: 'Are you sure?' } %>
