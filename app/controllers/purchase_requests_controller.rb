@@ -178,7 +178,8 @@ class PurchaseRequestsController < ApplicationController
     end
     next_state = params[:purchase_request][:next_state]
     respond_to do |format|
-      if next_state && @purchase_request.update_attributes_with_state(params[:purchase_request])
+      #if next_state && @purchase_request.update_attributes_with_state(params[:purchase_request])
+      if next_state && @purchase_request.assign_attributes(params[:purchase_request])
         @purchase_request.send_message(@purchase_request.state, params[:purchase_request][:reason])
         flash[:notice] = t("purchase_request.request_#{@purchase_request.state}")
         format.html { redirect_to user_purchase_request_url(@purchase_request.user, @purchase_request) }
