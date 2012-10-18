@@ -8,7 +8,7 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_book_jacket.git
-  revision: 626081dcdd4992fce31509c8e5bda9a1245c3559
+  revision: 5408f8d4c688418985389c6a720a7a1de60ce074
   specs:
     enju_book_jacket (0.1.0.pre3)
       rails (~> 3.2)
@@ -282,7 +282,7 @@ GEM
       rack-test (>= 0.5.4)
       selenium-webdriver (~> 2.0)
       xpath (~> 0.1.4)
-    childprocess (0.3.5)
+    childprocess (0.3.6)
       ffi (~> 1.0, >= 1.0.6)
     choice (0.1.6)
     chronic (0.6.7)
@@ -418,7 +418,7 @@ GEM
     paperclip-meta (0.4.3)
       paperclip
     parallel (0.5.19)
-    parallel_tests (0.8.13)
+    parallel_tests (0.8.14)
       parallel
     pg (0.14.1)
     polyglot (0.3.3)
@@ -576,7 +576,7 @@ GEM
     trinidad (1.4.3)
       jruby-rack (>= 1.1.10)
       trinidad_jars (>= 1.1.0)
-    trinidad_jars (1.1.0)
+    trinidad_jars (1.1.1)
     twitter-bootstrap-rails (2.1.4)
       actionpack (>= 3.1)
       less-rails (~> 2.2.3)
