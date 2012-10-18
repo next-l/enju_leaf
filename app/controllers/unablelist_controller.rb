@@ -18,7 +18,7 @@ class UnablelistController < ApplicationController
         facet :library
         facet :role
         facet :patron_type
-        paginate :page => page.to_i, :per_page => Unablelist.per_page if params[:format] == 'html' or params[:format].nil?
+        paginate :page => page.to_i, :per_page => Unablelist.default_per_page if params[:format] == 'html' or params[:format].nil?
       end
     end
     @users = @search.results
