@@ -30,7 +30,7 @@ class LibraryReportsController < ApplicationController
     end
 
     page = params[:page] || 1
-    search.query.paginate(page.to_i, LibraryReport.per_page)
+    search.query.paginate(page.to_i, LibraryReport.default_per_page)
     @library_reports = search.execute!.results
     @count[:query_result] = @library_reports.total_entries
     @libraries = Library.all
