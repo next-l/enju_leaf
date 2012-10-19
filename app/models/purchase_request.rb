@@ -1,4 +1,8 @@
 class PurchaseRequest < ActiveRecord::Base
+  attr_accessible :reason, :title, :author, :publisher, :isbn,
+                  :date_of_publication, :price, :url, :note, :next_state, 
+                  :user_id, :pub_date, :accepted_at, :manifestation_id, :denied_at
+
 #  scope :not_ordered, includes(:order_list).where('order_lists.ordered_at IS NULL')
 #  scope :ordered, includes(:order_list).where('order_lists.ordered_at IS NOT NULL')
   scope :pending, where("state = pending")
@@ -19,9 +23,6 @@ class PurchaseRequest < ActiveRecord::Base
   before_save :set_date_of_publication
   attr_protected :user
   attr_accessor :next_state, :reason
-  attr_accessible :reason, :title, :author, :publisher, :isbn, :date_of_publication,
-    :price, :url, :note, :next_state, :user_id, :pub_date, :accepted_at, :manifestation_id
-
   normalize_attributes :url, :pub_date
 
   state_machine :initial => :pending do
@@ -118,15 +119,17 @@ class PurchaseRequest < ActiveRecord::Base
       when 'accepted'
         if SystemConfiguration.get("send_message.purchase_request_accepted")
           message_template = MessageTemplate.localized_template('purchase_request_accepted', self.user.locale)
-          request = MessageRequest.create!(:sender => system_user, :receiver => self.user, :message_template => message_template)
+          request = MessageRequest.new
+          request.assign_attributes({ :sender => system_user, :receiver => self.user, :message_template => message_template }, :as => :admin)
           request.save_message_body(:purchase_request => Array[self], :user => self.user)
           request.sm_send_message
         end
       when 'rejected'
         if SystemConfiguration.get("send_message.purchase_request_rejected")
           message_template = MessageTemplate.localized_template('purchase_request_rejected', self.user.locale)
-          request = MessageRequest.create!(:sender => system_user, :receiver => self.user, :message_template => message_template)
-          request.save_message_body(:purchase_request => Array[self], :user => self.user, :reason => reason)
+          request = MessageRequest.new
+          request.assign_attributes({ :sender => system_user, :receiver => self.user, :message_template => message_template }, :as => :admin)
+          request.save_message_body(:purchase_request => Array[self], :user => self.user)
           request.sm_send_message!
         end
       else
