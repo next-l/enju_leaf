@@ -1,4 +1,8 @@
 class PurchaseRequest < ActiveRecord::Base
+  attr_accessible :reason, :title, :author, :publisher, :isbn,
+                  :date_of_publication, :price, :url, :note, :next_state, 
+                  :user_id, :pub_date, :accepted_at, :manifestation_id, :denied_at
+
 #  scope :not_ordered, includes(:order_list).where('order_lists.ordered_at IS NULL')
 #  scope :ordered, includes(:order_list).where('order_lists.ordered_at IS NOT NULL')
   scope :pending, where("state = pending")
@@ -19,9 +23,6 @@ class PurchaseRequest < ActiveRecord::Base
   before_save :set_date_of_publication
   attr_protected :user
   attr_accessor :next_state, :reason
-  attr_accessible :reason, :title, :author, :publisher, :isbn, :date_of_publication,
-    :price, :url, :note, :next_state, :user_id, :pub_date, :accepted_at, :manifestation_id
-
   normalize_attributes :url, :pub_date
 
   state_machine :initial => :pending do
