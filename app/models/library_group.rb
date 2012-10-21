@@ -1,5 +1,9 @@
 # -*- encoding: utf-8 -*-
 class LibraryGroup < ActiveRecord::Base
+  attr_accessible :name, :display_name, :email, :url, :login_banner, 
+                  :allow_bookmark_external_url, :my_networks, :admin_networks, 
+                  :use_dsbl, :dsbl_list, :note, :country_id
+
   #include Singleton
   #include Configurator
   include MasterModel
