@@ -485,7 +485,9 @@ EnjuLeaf::Application.routes.draw do
     match '/manifestation_exstats/bestreader' => 'manifestation_exstats#bestreader', :opac => true
     match '/manifestation_exstats/bestrequest' => 'manifestation_exstats#bestrequest', :opac => true
   end
-  match '/opac' => 'opac#index'
+  devise_scope :user do
+    match '/opac' => 'opac#index'
+  end
   match '/opac/signed_in' => 'opac#signed_in'
   match '/opac/search' => 'opac#search'
 
