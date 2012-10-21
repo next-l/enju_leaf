@@ -2,7 +2,7 @@ class BarcodeList < ActiveRecord::Base
   attr_accessible :barcode_name, :sheet_id, :usage_type, :barcode_type, :barcode_prefix, :barcode_suffix, :label_note
 
   default_scope :order => 'barcode_prefix'
-  BARCODE_TYPES = ["Code128B"]
+  BARCODE_TYPES = ["Code128B","NW-7"]
   GENERATED_FROM = (I18n.t('activerecord.attributes.barcode_list.generated_from')).split(",")
 
   attr_accessor :start_number, :end_number
@@ -97,7 +97,8 @@ class BarcodeList < ActiveRecord::Base
       num_barcode = end_number.to_i - start_number.to_i
       num_barcode.times do |i|
         digit = start_number.to_i + i 
-        @code_words << prefix + sprintf('%0'+digit_number.to_s+'d',digit.to_s) + suffix
+        #@code_words << prefix + sprintf('%0'+digit_number.to_s+'d',digit.to_s) + suffix
+        @code_words << sprintf('%0'+digit_number.to_s+'d',digit.to_s) 
       end
       sheet = BarcodeSheet.new
       sheet.path = dir_base
