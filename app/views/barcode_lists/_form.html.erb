@@ -16,11 +16,16 @@
     <%= f.label :usage_type -%><br />
     <%= f.select(:usage_type, BarcodeList::GENERATED_FROM.collect{|t| [t.split(":").last, t.split(":").first]}) -%>
   </div>
+
   <div class="field">
     <%= f.label :barcode_type -%><br />
     <%= f.select(:barcode_type, BarcodeList::BARCODE_TYPES) -%>
   </div>
  
+  <div class="field">
+    <%= f.label :printed_number -%><br />
+    <%= f.text_field :printed_number, :class => 'short_name' -%>
+  </div>
   <div class="field">
     <%= f.label :barcode_prefix -%><br />
     <%= f.text_field :barcode_prefix, :class => 'short_name' -%>
