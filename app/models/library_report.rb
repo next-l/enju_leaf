@@ -1,4 +1,6 @@
 class LibraryReport < ActiveRecord::Base
+  attr_accessible :yyyymmdd, :library_id, :visiters, :copies, :consultations
+
   belongs_to :library
   default_scope :order => 'yyyymmdd DESC, library_id'
   attr_accessor :report_date
