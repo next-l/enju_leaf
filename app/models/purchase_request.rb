@@ -129,7 +129,7 @@ class PurchaseRequest < ActiveRecord::Base
           message_template = MessageTemplate.localized_template('purchase_request_rejected', self.user.locale)
           request = MessageRequest.new
           request.assign_attributes({ :sender => system_user, :receiver => self.user, :message_template => message_template }, :as => :admin)
-          request.save_message_body(:purchase_request => Array[self], :user => self.user)
+          request.save_message_body(:purchase_request => Array[self], :user => self.user, :reason => reason)
           request.sm_send_message!
         end
       else
