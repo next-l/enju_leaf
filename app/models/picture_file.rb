@@ -1,4 +1,6 @@
 class PictureFile < ActiveRecord::Base
+  attr_accessible :picture_attachable_id, :picture_attachable_type, :picture
+
   scope :attached, where('picture_attachable_id > 0')
   belongs_to :picture_attachable, :polymorphic => true, :validate => true
 
