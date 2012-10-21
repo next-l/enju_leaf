@@ -169,9 +169,10 @@ class BarcodeSheet
       barcode = Barby::Code128C.new(code_word)      
     when "NW-7"
       doc = RGhost::Document.new # :paper => ['15 cm', '1cm']
-      doc.barcode_rationalizedCodabar(code_word,{:x => 0, :y => 0, :width => to_pt(25), :height => to_pt(12)})
-      io = StringIO.new(doc.render_stream(:png))
-      return io.respond_to?(:set_encoding) ? io.set_encoding('UTF-8') : io
+      #doc.barcode_rationalizedCodabar(code_word,{:x => 0, :y => 0, :width => to_pt(25), :height => to_pt(12)})
+      #doc.barcode_rationalizedCodabar(code_word, {:text=>{:size=>8}, :enable=>[:text, :checkintext, :check]})
+      doc.barcode_rationalizedCodabar(code_word, {:height => to_pt(12)})
+      return doc.render_stream(:jpg)
     end
     return barcode.to_jpg(:height => to_pt(12), :width => to_pt(25), :margin => 0)
   end
