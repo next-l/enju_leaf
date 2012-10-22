@@ -132,12 +132,20 @@ class ManifestationsController < ApplicationController
         order_by :created_at, :desc unless oai_search
         order_by :updated_at, :desc if oai_search
         with(:subject_ids).equal_to subject.id if subject
-        #if series_statement
-        #  with(:series_statement_id).equal_to series_statement.id
-        #  with(:periodical).equal_to true
-        #else
-        #  with(:periodical).equal_to false
-        #end
+        if series_statement
+          with(:series_statement_id).equal_to series_statement.id
+          if series_statement.periodical?
+            if params[:mode] != 'add'
+              with(:periodical).equal_to true
+            end
+          else
+            if params[:mode] != 'add'
+              with(:periodical).equal_to false
+            end
+          end
+        else
+          with(:periodical).equal_to false
+        end
         facet :reservable
       end
       search = make_internal_query(search)
