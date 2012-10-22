@@ -87,7 +87,8 @@ class BarcodeList < ActiveRecord::Base
   def create_pdf_sheet(start_number,end_number)
       dir_base = "#{Rails.root}/private/system/barcode_list/#{self.id}/original/"
       FileUtils.mkdir_p(dir_base) unless FileTest.exist?(dir_base)
-      filename = "barcode#{Time.now.strftime('%s')}.pdf"
+      #filename = "barcode#{Time.now.strftime('%s')}.pdf"
+      filename = "barcode.pdf"
       File.delete(dir_base+filename) if File.exist?(dir_base+filename)
 
       barcode_sheet = self.sheet
