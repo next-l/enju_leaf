@@ -152,6 +152,7 @@ class Manifestation < ActiveRecord::Base
     boolean :periodical do
       serial?
     end
+    boolean :periodical_master
     time :acquired_at
     boolean :except_recent
     string :exinfo_1
@@ -218,9 +219,14 @@ class Manifestation < ActiveRecord::Base
     self.language = Language.where(:name => "Japanese").first if self.language.nil?
   end
 
+  def root_of_series?
+    return true if series_statement.try(:root_manifestation) == self
+    false
+  end
+
   def serial?
     if series_statement.try(:periodical) and !periodical_master
-      return true unless  series_statement.initial_manifestation == self
+      return true unless root_of_series?
     end
     false
   end

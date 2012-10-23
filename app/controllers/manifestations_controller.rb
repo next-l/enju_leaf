@@ -134,15 +134,12 @@ class ManifestationsController < ApplicationController
         with(:subject_ids).equal_to subject.id if subject
         if series_statement
           with(:series_statement_id).equal_to series_statement.id
-          if series_statement.periodical?
-            if params[:mode] != 'add'
-              with(:periodical).equal_to true
-            end
-          else
-            if params[:mode] != 'add'
-              with(:periodical).equal_to false
-            end
-          end
+          #if series_statement.periodical?
+            #with(:periodical).equal_to true
+            with(:periodical_master).equal_to false
+          #else
+          #  with(:periodical).equal_to false
+          #end
         else
           with(:periodical).equal_to false
         end
