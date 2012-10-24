@@ -180,9 +180,19 @@ class Manifestation < ActiveRecord::Base
       end
     end
     text :isbn do  # 前方一致検索のためtext指定を追加
-      [isbn, isbn10, wrong_isbn]
+      if series_statement.try(:periodical)  # 雑誌の場合
+        series_statement.manifestations.map{|manifestation| [manifestation.isbn, manifestation.isbn10, manifestation.wrong_isbn]}.flatten.compact
+      else
+        [isbn, isbn10, wrong_isbn]
+      end
     end
-    text :issn  # 前方一致検索のためtext指定を追加
+    text :issn do  # 前方一致検索のためtext指定を追加
+      if series_statement.try(:periodical)  # 雑誌の場合
+        series_statement.manifestations.map{|manifestation| [manifestation.issn]}.flatten.compact
+      else
+        issn  
+      end
+    end
     text :ndl_jpno do
       # TODO 詳細不明
     end
