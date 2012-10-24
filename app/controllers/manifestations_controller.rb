@@ -604,7 +604,7 @@ class ManifestationsController < ApplicationController
       number_of_pages[:at_most] = options[:number_of_pages_at_most].to_i
       number_of_pages[:at_least] = "*" if number_of_pages[:at_least] == 0
       number_of_pages[:at_most] = "*" if number_of_pages[:at_most] == 0
-      queries << "number_of_pages_i:[#{number_of_pages[:at_least]} TO #{number_of_pages[:at_most]}]"
+      queries << "number_of_pages_sm:[#{number_of_pages[:at_least]} TO #{number_of_pages[:at_most]}]"
     end
     unless options[:pub_date_from].blank? and options[:pub_date_to].blank?
       queries << set_pub_date(options)
@@ -759,7 +759,7 @@ class ManifestationsController < ApplicationController
       end
     end
     #query = "#{query} date_of_publication_d:[#{pub_date[:from]} TO #{pub_date[:to]}]"
-    return "date_of_publication_d:[#{pub_date[:from]} TO #{pub_date[:to]}]"
+    return "date_of_publication_sm:[#{pub_date[:from]} TO #{pub_date[:to]}]"
   end
 
   def set_acquisition_date(options)
@@ -785,6 +785,6 @@ class ManifestationsController < ApplicationController
       end
     end
     #query = "#{query} acquired_at_d:[#{acquisition_date[:from]} TO #{acquisition_date[:to]}]"
-    return "acquired_at_d:[#{acquisition_date[:from]} TO #{acquisition_date[:to]}]"
+    return "acquired_at_sm:[#{acquisition_date[:from]} TO #{acquisition_date[:to]}]"
   end
 end

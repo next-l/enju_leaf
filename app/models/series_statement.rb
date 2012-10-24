@@ -95,8 +95,9 @@ class SeriesStatement < ActiveRecord::Base
     [
       original_title,
       title_transcription,
-      parents.map{|parent| [parent.original_title, parent.title_transcription]},
-      children.map{|child| [child.original_title, child.title_transcription]}
+      #parents.map{|parent| [parent.original_title, parent.title_transcription]},
+      #children.map{|child| [child.original_title, child.title_transcription]}
+      manifestations.map { |manifestation| [manifestation.original_title, manifestation.title_transcription] }
     ].flatten.compact
   end
 end
