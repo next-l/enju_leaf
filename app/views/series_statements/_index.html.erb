@@ -21,13 +21,15 @@
 <% @series_statements.each do |series_statement| %>
   <tr class="line<%= cycle("0", "1") -%>">
     <td>
-      <%- if can? :update, series_statement -%>
+      <%- if @query.present? and can? :update, series_statement -%>
         <%= move_position(series_statement) -%>
       <%- end -%>
     </td>
     <td>
-      <%= link_to series_statement.original_title, series_statement %>
+      <strong><%= link_to series_statement.original_title, series_statement %></strong>
+      <%= image_tag('icons/newspaper.png', :size => '16x16', :alt => t('manifestation.serial')) if series_statement.periodical -%>
       <% if series_statement.issn? %>
+        <br />
         ISSN: <%= series_statement.issn %>
       <% end %>
     </td>
