@@ -1494,6 +1494,8 @@ ja:
     extensions: "Enju_trunk 拡張機能"
     budgets: "予算"
     add_child: "子を追加"
+    extensions_1: "その他の機能"
+    library_check: "蔵書点検"
 
     exstatistics:
       ranknumber: 順位
