@@ -3,7 +3,7 @@ EnjuLeaf::Application.routes.draw do
 
   devise_for :users, :path => 'accounts'
 
-  resource :my_account
+  resource :my_account, :only => [:show, :edit, :update, :destroy]
 
   #resources :users do
   #  resource :patron
