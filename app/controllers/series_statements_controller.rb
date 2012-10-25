@@ -111,10 +111,28 @@ class SeriesStatementsController < ApplicationController
     end
 
     respond_to do |format|
-      if @series_statement.update_attributes(params[:series_statement])
-        format.html { redirect_to @series_statement, :notice => t('controller.successfully_updated', :model => t('activerecord.models.series_statement')) }
-        format.json { head :no_content }
-      else
+      begin
+        SeriesStatement.transaction do
+          unless params[:series_statement][:periodical] == 0.to_s
+            unless @series_statement.root_manifestation
+              manifestation = Manifestation.new(
+                :original_title => @series_statement.original_title,
+              )
+              manifestation.periodical_master = true
+              @series_statement.root_manifestation = manifestation
+              @series_statement.manifestations << manifestation
+            end
+          else
+            @series_statement.manifestations.collect{ |manifestation| manifestation.destroy if manifestation.periodical_master }
+            @series_statement.root_manifestation_id = nil
+          end
+
+          @series_statement.update_attributes(params[:series_statement])
+          Manifestation.index
+          format.html { redirect_to @series_statement, :notice => t('controller.successfully_updated', :model => t('activerecord.models.series_statement')) }
+          format.json { head :no_content }
+        end
+      rescue 
         format.html { render :action => "edit" }
         format.json { render :json => @series_statement.errors, :status => :unprocessable_entity }
       end

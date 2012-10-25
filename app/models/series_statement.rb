@@ -6,6 +6,7 @@ class SeriesStatement < ActiveRecord::Base
 
   has_many :series_has_manifestations
   has_many :manifestations, :through => :series_has_manifestations
+  belongs_to :root_manifestation, :foreign_key => :root_manifestation_id, :class_name => 'Manifestation'
   has_many :child_relationships, :foreign_key => 'parent_id', :class_name => 'SeriesStatementRelationship', :dependent => :destroy
   has_many :parent_relationships, :foreign_key => 'child_id', :class_name => 'SeriesStatementRelationship', :dependent => :destroy
   has_many :children, :through => :child_relationships, :source => :child
@@ -94,8 +95,9 @@ class SeriesStatement < ActiveRecord::Base
     [
       original_title,
       title_transcription,
-      parents.map{|parent| [parent.original_title, parent.title_transcription]},
-      children.map{|child| [child.original_title, child.title_transcription]}
+      #parents.map{|parent| [parent.original_title, parent.title_transcription]},
+      #children.map{|child| [child.original_title, child.title_transcription]}
+      manifestations.map { |manifestation| [manifestation.original_title, manifestation.title_transcription] }
     ].flatten.compact
   end
 end

@@ -25,7 +25,21 @@ class Manifestation < ActiveRecord::Base
     text :title, :default_boost => 2 do
       titles
     end
-    text :fulltext, :note, :creator, :contributor, :publisher, :description
+    text :fulltext, :note, :contributor, :description
+    text :creator do
+      if series_statement.try(:periodical)  # 雑誌の場合
+        [series_statement.manifestations.map{|manifestation| [manifestation.creator]}].flatten.compact
+      else
+        creator
+      end
+    end
+    text :publisher do
+      if series_statement.try(:periodical)  # 雑誌の場合
+        [series_statement.manifestations.map{|manifestation| [manifestation.publisher]}].flatten.compact
+      else
+        publisher
+      end
+    end
     text :subject do
       subjects.collect(&:term) + subjects.collect(&:term_transcription)
     end
@@ -43,9 +57,19 @@ class Manifestation < ActiveRecord::Base
       publisher.join('').gsub(/\s/, '').downcase
     end
     string :isbn, :multiple => true do
-      [isbn, isbn10, wrong_isbn]
+      if series_statement.try(:periodical)  # 雑誌の場合
+        [series_statement.manifestations.map{|manifestation| [manifestation.isbn, manifestation.isbn10, manifestation.wrong_isbn]}].flatten.compact
+      else
+        [isbn, isbn10, wrong_isbn]
+      end
     end
-    string :issn
+    string :issn, :multiple => true do
+      if series_statement.try(:periodical)  # 雑誌の場合
+        [series_statement.manifestations.map{|manifestation| [manifestation.issn]}].flatten.compact
+      else
+        issn
+      end
+    end
     string :marc_number
     string :lccn
     string :nbn
@@ -72,7 +96,11 @@ class Manifestation < ActiveRecord::Base
       language.try(:name)
     end
     string :item_identifier, :multiple => true do
-      items.collect(&:item_identifier)
+      if series_statement.try(:periodical)  # 雑誌の場合
+        [series_statement.manifestations.map{ |manifestation| [manifestation.items.collect(&:item_identifier)] }].flatten.compact
+      else
+        items.collect(&:item_identifier)
+      end
     end
     string :shelf, :multiple => true do
       items.collect{|i| "#{i.shelf.library.name}_#{i.shelf.name}"}
@@ -83,6 +111,13 @@ class Manifestation < ActiveRecord::Base
     time :updated_at
     time :deleted_at
     time :date_of_publication
+    string :date_of_publication, :multiple => true do
+      if series_statement.try(:periodical)  # 雑誌の場合
+        [series_statement.manifestations.map{|manifestation| manifestation.date_of_publication}].flatten.compact
+      else
+        date_of_publication
+      end
+    end
     integer :creator_ids, :multiple => true
     integer :contributor_ids, :multiple => true
     integer :publisher_ids, :multiple => true
@@ -99,6 +134,13 @@ class Manifestation < ActiveRecord::Base
     integer :start_page
     integer :end_page
     integer :number_of_pages
+    string :number_of_pages, :multiple => true do
+      if series_statement.try(:periodical)  # 雑誌の場合
+        [series_statement.manifestations.map{|manifestation| manifestation.number_of_pages}].flatten.compact
+      else
+        number_of_pages
+      end
+    end
     float :price
     boolean :reservable do
       self.reservable?
@@ -138,9 +180,19 @@ class Manifestation < ActiveRecord::Base
       end
     end
     text :isbn do  # 前方一致検索のためtext指定を追加
-      [isbn, isbn10, wrong_isbn]
+      if series_statement.try(:periodical)  # 雑誌の場合
+        series_statement.manifestations.map{|manifestation| [manifestation.isbn, manifestation.isbn10, manifestation.wrong_isbn]}.flatten.compact
+      else
+        [isbn, isbn10, wrong_isbn]
+      end
     end
-    text :issn  # 前方一致検索のためtext指定を追加
+    text :issn do  # 前方一致検索のためtext指定を追加
+      if series_statement.try(:periodical)  # 雑誌の場合
+        series_statement.manifestations.map{|manifestation| [manifestation.issn]}.flatten.compact
+      else
+        issn  
+      end
+    end
     text :ndl_jpno do
       # TODO 詳細不明
     end
@@ -152,7 +204,15 @@ class Manifestation < ActiveRecord::Base
     boolean :periodical do
       serial?
     end
+    boolean :periodical_master
     time :acquired_at
+    string :acquired_at, :multiple => true do
+      if series_statement.try(:periodical)  # 雑誌の場合
+        [series_statement.manifestations.map{|manifestation| manifestation.acquired_at}].flatten.compact
+      else
+       acquired_at
+      end
+    end
     boolean :except_recent
     string :exinfo_1
     string :exinfo_2
@@ -193,10 +253,18 @@ class Manifestation < ActiveRecord::Base
 
     searchable do
       string :tag, :multiple => true do
-        tags.collect(&:name)
+        if series_statement.try(:periodical)  # 雑誌の場合
+          [series_statement.manifestations.map{ |manifestation| [manifestation.tags.collect(&:name)] }].flatten.compact
+        else
+          tags.collect(&:name)
+        end
       end
       text :tag do
-        tags.collect(&:name)
+        if series_statement.try(:periodical)  # 雑誌の場合
+          [series_statement.manifestations.map{ |manifestation| [manifestation.tags.collect(&:name)] }].flatten.compact
+        else
+          tags.collect(&:name)
+        end
       end
     end
 
@@ -218,9 +286,14 @@ class Manifestation < ActiveRecord::Base
     self.language = Language.where(:name => "Japanese").first if self.language.nil?
   end
 
+  def root_of_series?
+    return true if series_statement.try(:root_manifestation) == self
+    false
+  end
+
   def serial?
     if series_statement.try(:periodical) and !periodical_master
-      return true unless  series_statement.initial_manifestation == self
+      return true unless root_of_series?
     end
     false
   end
