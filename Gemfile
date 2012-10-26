@@ -10,7 +10,8 @@ gem 'cocaine', '0.3.1'
 gem 'enju_oai', :git => 'git://github.com/nabeta/enju_oai.git'
 gem 'enju_book_jacket', "0.1.0.pre"
 gem 'enju_manifestation_viewer', :git => 'git://github.com/nabeta/enju_manifestation_viewer.git'
-gem 'enju_message', "0.1.14.pre"
+#gem 'enju_message', "0.1.14.pre"
+gem 'enju_message', :git => 'git://github.com/shinozuka/enju_message.git'
 gem "enju_ndl", "0.1.0.pre3"
 #gem 'enju_ndl', :git => 'git://github.com/nabeta/enju_ndl.git'
 #gem 'enju_question', :git => 'git://github.com/nabeta/enju_question.git'
