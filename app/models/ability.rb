@@ -45,7 +45,11 @@ class Ability
       end
       can [:read, :create, :update], SeriesStatement
       can :destroy, SeriesStatement do |series_statement|
-        series_statement.manifestations.empty?
+        if series_statement.periodical
+          series_statement.manifestations.size == 1 and series_statement.manifestations[0].periodical_master
+        else
+          series_statement.manifestations.empty?
+        end
       end
       can [:read, :create, :update], Patron
       can :destroy, Patron do |patron|
@@ -186,7 +190,11 @@ class Ability
       end
       can [:read, :create, :update], SeriesStatement
       can :destroy, SeriesStatement do |series_statement|
-        series_statement.manifestations.empty?
+        if series_statement.periodical
+          series_statement.manifestations.size == 1 and series_statement.manifestations[0].periodical_master == false
+        else
+          series_statement.manifestations.empty?
+        end
       end
       can [:output], Shelf
       can [:index, :create], Patron
