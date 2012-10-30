@@ -151,6 +151,7 @@ en:
       expense: Expense
       budget_and_results_managements: Budget and results managements
       manifestation_type: Manifestation type
+      access_log: Access log
 
     attributes:
       library:
@@ -1269,6 +1270,7 @@ en:
     wait: "Wait.."
     extensions: "Extensions"
     add_child: "Add a child"
+    access_logs: Access logs
 
     exstatistics:
       ranknumber: Rank
@@ -1680,3 +1682,10 @@ en:
     no_child_id: "Not found child id"
   function_key:
     will_move: "Form is inputted.Are page changes carried out?"
+  access_log:
+    date: Date
+    type: Type
+    value: Value
+    top_access: Top access
+    manifestations_index: Manifestations index
+    materials_show: Materials show

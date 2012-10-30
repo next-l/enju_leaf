@@ -402,6 +402,8 @@ EnjuLeaf::Application.routes.draw do
     get :download_file, :on => :collection
   end
 
+  resources :access_logs
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

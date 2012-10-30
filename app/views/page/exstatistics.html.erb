@@ -25,6 +25,15 @@
     <h2 class="title"></h2>
     <div class="config_box">
       <ul>
+        <li><%= link_to t('page.access_logs'), access_logs_path %></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="portlet" id="item_list">
+    <h2 class="title"></h2>
+    <div class="config_box">
+      <ul>
         <li><%= link_to t('activerecord.models.export_item_list'), export_item_lists_path -%></li>
         <li><%= link_to t('activerecord.models.export_item_register'), export_item_registers_path -%></li>
       </ul>
