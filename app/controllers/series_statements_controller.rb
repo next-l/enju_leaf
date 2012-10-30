@@ -128,7 +128,9 @@ class SeriesStatementsController < ApplicationController
           end
 
           @series_statement.update_attributes(params[:series_statement])
-          Manifestation.index
+          @series_statement.manifestations.each do |manifestation|
+            manifestation.index
+          end
           format.html { redirect_to @series_statement, :notice => t('controller.successfully_updated', :model => t('activerecord.models.series_statement')) }
           format.json { head :no_content }
         end
