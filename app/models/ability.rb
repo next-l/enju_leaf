@@ -72,6 +72,7 @@ class Ability
         user_group.users.empty?
       end
       can :manage, [
+        AccessLog,
         Answer,
         Barcode,
         BarcodeList,
@@ -230,6 +231,7 @@ class Ability
       can [:read, :create, :update], UserCheckoutStat
       can [:read, :create, :update], UserReserveStat
       can :manage, [
+        AccessLog,
         Answer,
         Barcode,
         BarcodeList,

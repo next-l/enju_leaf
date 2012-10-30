@@ -171,6 +171,8 @@ ja:
       expense: 購入情報
       budget_and_results_managements: 予算実績対比 
       manifestation_type: 資料区分
+      access_log: アクセス件数
+
     attributes:
       manifestation_types:
         book: 図書
@@ -1496,6 +1498,7 @@ ja:
     add_child: "子を追加"
     extensions_1: "その他の機能"
     library_check: "蔵書点検"
+    access_logs: アクセス件数
 
     exstatistics:
       ranknumber: 順位
@@ -2166,6 +2169,13 @@ ja:
     no_child_id: "指定の派生先の資料ID が見つかりません。"
   function_key:
     will_move: "フォームに値が入力されています。画面遷移してもよろしいですか。"
+  access_log:
+    date: 集計対象月
+    type: 集計対象画面
+    value: アクセス数
+    top_access: トップ画面
+    manifestations_index: 資料の一覧画面
+    materials_show: 資料の閲覧画面
 
   opac:
     finish: 終わる
