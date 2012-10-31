@@ -759,7 +759,7 @@ class ManifestationsController < ApplicationController
       end
     end
     #query = "#{query} date_of_publication_d:[#{pub_date[:from]} TO #{pub_date[:to]}]"
-    return "date_of_publication_sm:[#{pub_date[:from]} TO #{pub_date[:to]}]"
+    return "pub_date_sm:[#{pub_date[:from]} TO #{pub_date[:to]}]"
   end
 
   def set_acquisition_date(options)

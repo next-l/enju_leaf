@@ -111,7 +111,7 @@ class Manifestation < ActiveRecord::Base
     time :updated_at
     time :deleted_at
     time :date_of_publication
-    string :date_of_publication, :multiple => true do
+    string :pub_date, :multiple => true do
       if series_statement.try(:periodical)  # 雑誌の場合
         [series_statement.manifestations.map{|manifestation| manifestation.date_of_publication}].flatten.compact
       else
