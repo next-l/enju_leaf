@@ -2,8 +2,8 @@ class AccessLog < ActiveRecord::Base
   validates_uniqueness_of :date, :scope => [:log_type]
 
   def self.calc(date = Time.now.to_s)
-    log_file = "#{Rails.root}/log/development.log"
-    #log_file = "#{Rails.root}/log/production.log"
+    #log_file = "#{Rails.root}/log/development.log"
+    log_file = "#{Rails.root}/log/production.log"
 
     require "time"
     date = Time.parse(date).strftime("%Y-%m-%d")
