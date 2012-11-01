@@ -23,7 +23,7 @@ class ManifestationExstatsController < ApplicationController
       @end_d = params[:search_date_last]
       @selected_library = params[:library][:id] if params[:library]
     end
-    flash[:message] = date_check(@start_d, @end_d)
+    flash[:message] = ApplicationController.helpers.term_check(@start_d, @end_d)
     return unless flash[:message].blank?
   
     i = 0
@@ -72,7 +72,7 @@ class ManifestationExstatsController < ApplicationController
       @end_d = params[:search_date_last]
       @selected_library = params[:library][:id] if params[:library]
     end
-    flash[:message] = date_check(@start_d, @end_d)
+    flash[:message] = ApplicationController.helpers.term_check(@start_d, @end_d)
     return unless flash[:message].blank?
 
     i = 0
@@ -102,33 +102,5 @@ class ManifestationExstatsController < ApplicationController
       @offset += @limit
     end
     render :template => 'opac/manifestation_exstats/bestrequest', :layout => 'opac' if params[:opac]
-  end
-
-  private
-  def date_check(start_d, end_d)
-    if start_d.blank? || end_d.blank?
-      return t('page.exstatistics.nil_date')
-    elsif !start_d =~ /^[+-]?\d+$/ || !end_d =~ /^[+-]?\d+$/
-      return t('page.exstatistics.invalid_input_date')
-    elsif date_format_check(start_d) == nil
-      return t('page.exstatistics.invalid_input_date')
-    elsif date_format_check(end_d) == nil
-      return t('page.exstatistics.invalid_input_date')
-    elsif end_d < start_d
-      return t('page.exstatistics.over_end_date')
-    end
-    nil
-  end
-
-  def date_format_check(date_string)
-    date_string = date_string.to_s.gsub(/\D/, '')
-    return nil if date_string == nil || date_string.length != 8 
-
-    @year = date_string[0, 4].to_i
-    @month = date_string[4, 2].to_i
-    @day = date_string[6, 4].to_i
-    return nil unless Date.valid_date?(@year, @month, @day)
-
-    date = Time.zone.parse(date_string)
   end
 end

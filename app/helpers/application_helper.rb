@@ -255,4 +255,23 @@ module ApplicationHelper
     v.strftime "%Y/%m/%d %H:%M:%S" rescue ""
   end
 
+  def term_check(start_d, end_d)
+    return t('page.exstatistics.nil_date') if start_d.blank? or end_d.blank?
+    return t('page.exstatistics.invalid_input_date') unless start_d =~ /^((\d+)-?)*\d$/
+    return t('page.exstatistics.invalid_input_date') unless end_d =~ /^((\d+)-?)*\d$/
+    return t('page.exstatistics.invalid_input_date') if date_format_check(start_d) == nil
+    return t('page.exstatistics.invalid_input_date') if date_format_check(end_d) == nil
+    return t('page.exstatistics.over_end_date') if end_d.gsub(/\D/, '') < start_d.gsub(/\D/, '')
+    nil
+  end
+
+  def date_format_check(date)
+    date = date.to_s.gsub(/\D/, '')
+    return nil if date == nil or date.length != 8
+    year = date[0, 4].to_i
+    month = date[4, 2].to_i
+    day = date[6, 4].to_i
+    return nil unless Date.valid_date?(year, month, day)
+    date = Time.zone.parse(date)
+  end
 end
