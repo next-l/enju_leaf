@@ -152,6 +152,7 @@ en:
       budget_and_results_managements: Budget and results managements
       manifestation_type: Manifestation type
       access_log: Access log
+      keyword_count: Keyword count
 
     attributes:
       library:
@@ -1075,6 +1076,10 @@ en:
         typename: Type name
         description: Description
         invalid_format: " invalid format"
+      keyword_count:
+        rank: Rank
+        keyword: Keyword
+        count: Count
 
   page:
     user_title: "Welcome %{login_name}"
@@ -1258,6 +1263,7 @@ en:
     connection_faild: "Connection failed."
     timed_out: "Operation timed out."
     example: "Example"
+    example_date: "2012-04-01"
     saving: "Saving..."
     previous: "Previous"
     next: "Next"

@@ -403,6 +403,7 @@ EnjuLeaf::Application.routes.draw do
   end
 
   resources :access_logs
+  resources :keyword_counts
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

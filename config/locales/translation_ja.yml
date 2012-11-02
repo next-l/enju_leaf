@@ -172,6 +172,7 @@ ja:
       budget_and_results_managements: 予算実績対比 
       manifestation_type: 資料区分
       access_log: アクセス件数
+      keyword_count: 検索キーワード
 
     attributes:
       manifestation_types:
@@ -559,7 +560,6 @@ ja:
         created_at: 作成日
         removed_at: 除籍日
         items_number: 所蔵数
-
       loss_item:
         user_id: 利用者番号
         item_id: 紛失資料
@@ -1301,6 +1301,10 @@ ja:
         space_w: 間隔(W)
         cell_x: セル個数(H)
         cell_y: セル個数(W)
+      keyword_count:
+        rank: 順位
+        keyword: 検索ワード
+        count: 検索回数
 
   page:
     user_title: "ようこそ %{login_name} さん"
@@ -1478,6 +1482,7 @@ ja:
     connection_failed: "ネットワーク接続に失敗しました。"
     timed_out: "タイムアウトしました。"
     example: "例"
+    example_date: "2012-04-01"
     saving: "保存中..."
     previous: "前へ"
     next: "次へ"

@@ -26,6 +26,7 @@
     <div class="config_box">
       <ul>
         <li><%= link_to t('page.access_logs'), access_logs_path %></li>
+        <li><%= link_to t('activerecord.models.keyword_count'), keyword_counts_path %></li>
         <% if SystemConfiguration.get("write_search_log_to_file") %>
           <li><%= link_to t('activerecord.models.search_history'), search_histories_path -%></li>
         <% end %>
