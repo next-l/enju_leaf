@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
 ruby '1.9.3'
-gem 'rails', '3.2.8'
+gem 'rails', '3.2.9.rc2'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
@@ -99,7 +99,7 @@ group :development, :test do
   gem 'spork-rails'
   gem 'timecop'
   gem 'sunspot-rails-tester', :git => 'git://github.com/justinko/sunspot-rails-tester.git'
-  gem 'vcr', '~> 2.2'
+  gem 'vcr', '~> 2.3'
   gem 'fakeweb'
   gem 'steak'
   gem 'resque_spec'
