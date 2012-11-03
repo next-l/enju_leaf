@@ -28,15 +28,15 @@
 
   <div class="field">
     <%= f.label :original_title -%>
-    <%= f.text_field :original_title, :class => 'span12' -%>
+    <%= f.text_field :original_title, :class => 'span9' -%>
   </div>
   <div class="field">
     <%= f.label :title_transcription -%>
-    <%= f.text_field :title_transcription, :class => 'span12' -%>
+    <%= f.text_field :title_transcription, :class => 'span9' -%>
   </div>
   <div class="field">
     <%= f.label :title_alternative -%>
-    <%= f.text_field :title_alternative, :class => 'span12' -%>
+    <%= f.text_field :title_alternative, :class => 'span9' -%>
   </div>
 
   <%- if @series_statement.try(:periodical?) -%>
@@ -124,7 +124,7 @@
 
   <div class="field">
     <%= f.label :access_address -%>
-    <%= f.url_field :access_address, :class => 'span12' -%>
+    <%= f.url_field :access_address, :class => 'span9' -%>
   </div>
 
   <div class="field">
@@ -152,5 +152,5 @@
     <%= hidden_field_tag :manifestation_id, @original_manifestation.id if @original_manifestation -%>
     <%= f.submit :class => 'btn' %>
   </div>
-  <%= javascript_tag("$('#manifestation_original_title').focus()") -%>
+  <%= javascript_tag("$('#manifestation_original_title').focus()") if @manifestation.new_record? %>
 <%- end -%>
