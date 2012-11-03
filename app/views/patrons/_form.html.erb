@@ -15,9 +15,9 @@
         <%= render 'patrons/form_family_name_last', :f => f -%>
       <%- end -%>
     </span>
-    <%= f.label :full_name -%><br />
+    <%= f.label :full_name -%>
     <%= f.text_field :full_name, :class => 'resource_title' -%><br />
-    <%= f.label :full_name_transcription -%><br />
+    <%= f.label :full_name_transcription -%>
     <%= f.text_field :full_name_transcription, :class => 'resource_title' -%><br />
     <%= link_to_function t('activerecord.attributes.patron.full_name_alternative'), "$('#full_name_alternative').toggle()" -%>
     <span id="full_name_alternative" style="display: none">
@@ -29,7 +29,7 @@
   <script>
     $("select#patron_patron_type_id").change(function(){
       str = $("select#patron_patron_type_id option:selected").val();
-      if(str == <%= @patron_type.id %>){
+      if(str === "<%= @patron_type.id %>"){
         $("#name_person").show();
       }else{
         $("#name_person").hide();
@@ -39,13 +39,13 @@
   </script>
 
   <div class="field">
-    <%= f.label :date_of_birth -%><br />
+    <%= f.label :date_of_birth -%>
     <%= f.text_field :birth_date, :class => 'date_field' -%>
   </div>
 
   <% unless @user %>
     <div class="field">
-      <%= f.label :date_of_death -%><br />
+      <%= f.label :date_of_death -%>
       <%= f.text_field :death_date, :class => 'date_field' -%>
     </div>
   <% end %>
@@ -61,12 +61,12 @@
   </div>
 
   <div class="field">
-    <%= f.label :email -%><br />
+    <%= f.label :email -%>
     <%= f.email_field :email, :class => 'resource_email'  -%>
   </div>
 
   <div class="field">
-    <%= f.label :url -%><br />
+    <%= f.label :url -%>
     <%= f.url_field :url, :class => 'resource_url' -%>
   </div>
 

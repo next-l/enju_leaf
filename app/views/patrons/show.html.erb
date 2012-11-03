@@ -80,12 +80,11 @@
         </tr>
         <%- if can? :destroy, @patron -%>
           <tr>
-            <td><strong><%= t('activerecord.attributes.patron.zip_code_1') -%>:</strong></td>
-            <td><%= @patron.zip_code_1 -%></td>
-          </tr>
-          <tr>
             <td><strong><%= t('activerecord.attributes.patron.address_1') -%>:</strong></td>
-            <td><%= @patron.address_1 -%></td>
+            <td>
+              <%= @patron.address_1 -%>
+              <%= @patron.zip_code_1 -%>
+            </td>
           </tr>
           <tr>
             <td><strong><%= t('activerecord.attributes.patron.telephone_number_1') -%>:</strong></td>
@@ -100,12 +99,11 @@
             <td><%= @patron.address_1_note -%></td>
           </tr>
           <tr>
-            <td><strong><%= t('activerecord.attributes.patron.zip_code_2') -%>:</strong></td>
-            <td><%= @patron.zip_code_2 -%></td>
-          </tr>
-          <tr>
             <td><strong><%= t('activerecord.attributes.patron.address_2') -%>:</strong></td>
-            <td><%= @patron.address_2 -%></td>
+            <td>
+              <%= @patron.zip_code_2 -%>
+              <%= @patron.address_2 -%>
+            </td>
           </tr>
           <tr>
             <td><strong><%= t('activerecord.attributes.patron.telephone_number_2') -%>:</strong></td>

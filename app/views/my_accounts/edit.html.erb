@@ -6,13 +6,13 @@
     <%= f.error_messages -%>
 
     <div class="row-fluid">
-      <%= render :partial => 'users/edit_credential', :locals => {:f => f, :user => @user} -%>
+      <%= render :partial => 'edit_credential', :locals => {:f => f, :user => @user} -%>
     </div>
 
     <hr />
 
     <div class="field">
-      <%= f.label :keyword_list -%><br />
+      <%= f.label :keyword_list -%>
       <%= f.text_area :keyword_list, :class => 'span12' -%>
     </div>
 
@@ -25,8 +25,8 @@
             <%= f.hidden_field :checkout_icalendar_token -%>
           <%- end -%>
           <br />
-          <input onclick="$.ajax({data:'authenticity_token=' + encodeURIComponent('<%= form_authenticity_token %>'), success:function(request){$('#feed_token').html(request);}, type:'get', url:'<%= edit_my_account_path(:mode => 'feed_token') %>'});" type="button" value="<%= t('page.reset') %>" />
-          <input onclick="$.ajax({data:'authenticity_token=' + encodeURIComponent('<%= form_authenticity_token %>'), success:function(request){$('#feed_token').html(request);}, type:'get', url:'<%= edit_my_account_path(:disable => true, :mode => 'feed_token') %>'});" type="button" value="<%= t('page.delete') %>" />
+          <input onclick="$.ajax({data:'authenticity_token=' + encodeURIComponent('<%= form_authenticity_token %>'), success:function(request){$('#feed_token').html(request);}, type:'get', url:'<%= edit_my_account_path(:mode => 'feed_token') %>'});" type="button" value="<%= t('page.reset') %>" class="btn" />
+          <input onclick="$.ajax({data:'authenticity_token=' + encodeURIComponent('<%= form_authenticity_token %>'), success:function(request){$('#feed_token').html(request);}, type:'get', url:'<%= edit_my_account_path(:disable => true, :mode => 'feed_token') %>'});" type="button" value="<%= t('page.delete') %>" class="btn" />
         </div>
         <br />
       </div>
@@ -47,7 +47,7 @@
     <% end %>
 
     <div class="field">
-      <%= f.label :note -%><br />
+      <%= f.label :note -%>
       <%= f.text_area :note, :class => 'span12' -%>
     </div>
 
