@@ -213,15 +213,6 @@ GIT
       inherited_resources
       rails (~> 3.2)
 
-GIT
-  remote: git://github.com/seyhunak/twitter-bootstrap-rails.git
-  revision: 877fd4d67dd844f09515ca139d27e78c904a6b58
-  specs:
-    twitter-bootstrap-rails (2.1.5)
-      actionpack (>= 3.1)
-      execjs
-      railties (>= 3.1)
-
 GEM
   remote: https://rubygems.org/
   specs:
@@ -602,6 +593,10 @@ GEM
       jruby-rack (>= 1.1.10)
       trinidad_jars (>= 1.1.0)
     trinidad_jars (1.1.1)
+    twitter-bootstrap-rails (2.1.6)
+      actionpack (>= 3.1)
+      execjs
+      railties (>= 3.1)
     twitter-stream (0.1.16)
       eventmachine (>= 0.12.8)
       http_parser.rb (~> 0.5.1)
@@ -709,7 +704,7 @@ DEPENDENCIES
   therubyracer
   timecop
   trinidad
-  twitter-bootstrap-rails!
+  twitter-bootstrap-rails
   uglifier (>= 1.0.3)
   validates_timeliness
   vcr (~> 2.2)
