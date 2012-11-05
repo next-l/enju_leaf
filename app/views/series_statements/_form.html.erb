@@ -1,6 +1,11 @@
 <script>
 jQuery(function(){
   $('#series_statement_original_title').auto_ruby($('#series_statement_title_transcription'))
+
+  // Shows the default spinner
+  $("input[type=submit]").click(function(){
+    $(".spinner").spin();
+  });
 })
 </script>
 
@@ -26,6 +31,7 @@ jQuery(function(){
     <%= f.label :periodical %><br />
     <%= f.check_box :periodical %>
   </div>
+  <div class="spinner"></div>
   <div class="field">
     <%= f.label :issn %><br />
     <%= f.text_field :issn %>
@@ -49,6 +55,6 @@ jQuery(function(){
     <%= f.text_field :series_statement_identifier, :class => 'resource_item_identifier' %>
   </div>
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit :disable_with => t('page.wait') %>
   </div>
 <% end %>
