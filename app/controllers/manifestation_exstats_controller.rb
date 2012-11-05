@@ -15,8 +15,8 @@ class ManifestationExstatsController < ApplicationController
 
   def bestreader
     if params[:opac] and params[:search_date_first].blank? and params[:search_date_last].blank?
-      @start_d = (Date.today - 2.weeks)
-      @end_d = Date.today
+      @start_d = (Date.today - 2.weeks).to_s
+      @end_d = Date.today.to_s
     end
     if params[:search_date_first] || params[:search_date_last]
       @start_d = params[:search_date_first]
@@ -68,8 +68,8 @@ class ManifestationExstatsController < ApplicationController
   def bestrequest
     logger.info "bestrequest start"
     if params[:opac] and params[:search_date_first].blank? and params[:search_date_last].blank?
-      @start_d = (Date.today - 2.weeks)
-      @end_d = Date.today
+      @start_d = (Date.today - 2.weeks).to_s
+      @end_d = Date.today.to_s
     end
       
     if params[:search_date_first] && params[:search_date_last]
