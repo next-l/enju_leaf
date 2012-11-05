@@ -27,7 +27,7 @@
       </div>
     <% else %>
       <div id="opac_session_col">
-        <%= link_to new_user_session_path, :options => {:opac => true}  do %>
+        <%= link_to new_user_session_path(:opac => true) do %>
           <%= t('opac.login.sign_in') %>
           <div class="opac_button_description"><%= t('opac.login.login_description')%></div>
         <% end %>

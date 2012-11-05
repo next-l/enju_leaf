@@ -21,14 +21,10 @@ class Devise::SessionsController < ApplicationController
     resource = warden.authenticate!(:scope => resource_name, :recall => "#{controller_path}#new")
     set_flash_message(:notice, :signed_in) if is_navigational_format?
     sign_in(resource_name, resource)
-=begin
-    pp '@@@@ 1 name'
-    pp resource_name
-    pp '@@@@ 2 resource'
-    pp resource
+
     pp '@@@@ 3 params'
     pp params
-=end
+
     if params[:opac]
       respond_with resource, :location => opac_path
     else
