@@ -476,13 +476,18 @@ EnjuLeaf::Application.routes.draw do
   match '/page/extensions' => 'page#extensions'
   match '/page/budgets' => 'page#budgets'
 
-  scope "opac", :path => "opac", :as => "opac"do
-    devise_for :users, :path => 'accounts', :options => {:opac => true}
+  # for opac begin
+  match '/opac/signed_in' => 'opac#signed_in'
+  match '/opac/search' => 'opac#search'
+  devise_for :users, :path => 'opac_accounts', :options => {:opac => true}
+  scope "opac", :path => "opac", :as => "opac" do
+    #devise_for :users, :path => 'accounts', :options => {:opac => true}
     resources :manifestations, :opac => true do
       post :output_show, :on => :member
     end
     resources :users do
       resources :reserves, :opac => true
+      resources :checkouts, :opac => true
     end
     resources :events, :opac => true
     match '/manifestation_exstats/bestreader' => 'manifestation_exstats#bestreader', :opac => true
@@ -491,8 +496,7 @@ EnjuLeaf::Application.routes.draw do
   devise_scope :user do
     match '/opac' => 'opac#index'
   end
-  match '/opac/signed_in' => 'opac#signed_in'
-  match '/opac/search' => 'opac#search'
+  # for opac end
 
   match '/batch_checkin' => 'checkins#batchexec' , :via => :post
   match '/batch_checkout' => 'checkouts#batchexec' , :via => :post

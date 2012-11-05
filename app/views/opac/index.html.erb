@@ -20,14 +20,14 @@
         <%= link_to t('user.edit_profile'), edit_my_account_path(:opac => true) %>
       </div>
       <div id="opac_session_col">
-        <%= link_to t('page.listing', :model => t('activerecord.models.reserve')), user_reserves_path(current_user, :opac => true) %> 
+        <%= link_to t('page.listing', :model => t('activerecord.models.reserve')), opac_user_reserves_path(current_user) %> 
       </div>
       <div id="opac_session_col">
-        <%= link_to t('page.listing', :model => t('activerecord.models.checkout')), user_checkouts_path(current_user, :opac => true) %>
+        <%= link_to t('page.listing', :model => t('activerecord.models.checkout')), opac_user_checkouts_path(current_user) %>
       </div>
     <% else %>
       <div id="opac_session_col">
-        <%= link_to new_opac_user_session_path do %>
+        <%= link_to new_user_session_path, :options => {:opac => true}  do %>
           <%= t('opac.login.sign_in') %>
           <div class="opac_button_description"><%= t('opac.login.login_description')%></div>
         <% end %>

@@ -9,7 +9,11 @@ class Devise::SessionsController < ApplicationController
   def new
     resource = build_resource
     clean_up_passwords(resource)
-    respond_with_navigational(resource, stub_options(resource)){render  :template => 'opac/devise/sessions/new'} if params[:opac]
+    if params[:opac]
+      respond_with_navigational(resource, stub_options(resource)){render  :template => 'opac/devise/sessions/new'} 
+    else
+      respond_with_navigational(resource, stub_options(resource)){ render_with_scope :new }
+    end
   end
 
   # POST /resource/sign_in
@@ -17,8 +21,16 @@ class Devise::SessionsController < ApplicationController
     resource = warden.authenticate!(:scope => resource_name, :recall => "#{controller_path}#new")
     set_flash_message(:notice, :signed_in) if is_navigational_format?
     sign_in(resource_name, resource)
+=begin
+    pp '@@@@ 1 name'
+    pp resource_name
+    pp '@@@@ 2 resource'
+    pp resource
+    pp '@@@@ 3 params'
+    pp params
+=end
     if params[:opac]
-      respond_with resource, :location => opac_signed_in_path
+      respond_with resource, :location => opac_path
     else
       respond_with resource, :location => after_sign_in_path_for(resource)
     end
