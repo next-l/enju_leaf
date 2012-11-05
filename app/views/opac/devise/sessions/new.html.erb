@@ -77,7 +77,7 @@ function make_special_keys_area(target) {
 </div>
 
 <div id="opac_content">
-  <%= form_for(resource, :as => resource_name, :url => opac_user_session_path) do |f| %>
+  <%= form_for(resource, :as => resource_name, :url => new_user_session_path, :options => {:opac => true}) do |f| %>
     <%= f.error_messages -%>
     <div>
       <%= raw sanitize(textilize(h(@library_group.login_banner))) %>
