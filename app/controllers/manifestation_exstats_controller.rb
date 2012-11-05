@@ -24,8 +24,12 @@ class ManifestationExstatsController < ApplicationController
       @selected_library = params[:library][:id] if params[:library]
     end
     flash[:message] = ApplicationController.helpers.term_check(@start_d, @end_d)
-    return unless flash[:message].blank?
-  
+    unless flash[:message].blank?
+      render :template => 'opac/manifestation_exstats/bestreader', :layout => 'opac' if params[:opac]
+      return
+    end
+
+ 
     i = 0
     @checkouts = []
     while @rank <= @limit
@@ -62,6 +66,7 @@ class ManifestationExstatsController < ApplicationController
   end
 
   def bestrequest
+    logger.info "bestrequest start"
     if params[:opac] and params[:search_date_first].blank? and params[:search_date_last].blank?
       @start_d = (Date.today - 2.weeks)
       @end_d = Date.today
@@ -73,7 +78,10 @@ class ManifestationExstatsController < ApplicationController
       @selected_library = params[:library][:id] if params[:library]
     end
     flash[:message] = ApplicationController.helpers.term_check(@start_d, @end_d)
-    return unless flash[:message].blank?
+    unless flash[:message].blank?
+      render :template => 'opac/manifestation_exstats/bestrequest', :layout => 'opac' if params[:opac]
+      return
+    end
 
     i = 0
     @reserves = []
@@ -101,6 +109,7 @@ class ManifestationExstatsController < ApplicationController
       end
       @offset += @limit
     end
+
     render :template => 'opac/manifestation_exstats/bestrequest', :layout => 'opac' if params[:opac]
   end
 end
