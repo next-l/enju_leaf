@@ -36,6 +36,7 @@ end
 
 gem 'roo'
 
+gem 'spinjs-rails'
 gem 'kaminari'
 gem 'settingslogic'
 gem 'delayed_job_active_record'
