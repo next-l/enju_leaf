@@ -479,7 +479,7 @@ EnjuLeaf::Application.routes.draw do
   # for opac begin
   match '/opac/signed_in' => 'opac#signed_in'
   match '/opac/search' => 'opac#search'
-  devise_for :users, :path => 'opac_accounts', :options => {:opac => true}
+  #devise_for :users, :path => 'opac_accounts', :options => {:opac => true}
   scope "opac", :path => "opac", :as => "opac" do
     #devise_for :users, :path => 'accounts', :options => {:opac => true}
     resources :manifestations, :opac => true do
