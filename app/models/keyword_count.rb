@@ -2,7 +2,7 @@ class KeywordCount < ActiveRecord::Base
   validates_uniqueness_of :date, :scope => [:keyword]
   attr_accessible :count, :date, :keyword
 
-  def self.calc(date = Time.now.to_s)
+  def self.calc(date = (Time.now - 1.day).to_s)
     require "time"
     date = Time.parse(date).strftime("%Y-%m-%d") rescue nil
     return puts "KeywordCount> wrong date" if date == nil
