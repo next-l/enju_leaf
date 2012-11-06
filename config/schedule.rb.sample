@@ -31,8 +31,8 @@ every 1.day, :at => '0:00 am' do
   runner "Reserve.expire; Basket.expire; User.lock_expired_users"
 end
 
-every 1.day, :at => '0:15 am' do
-  runner "Statistic.calc_sum"
+every 1.day, :at => '0:10 am' do
+  runner "KeywordCount.calc; Statistic.calc_sum"
 end
 
 every 1.day, :at => '1:00 am' do
