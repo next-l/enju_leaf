@@ -5,13 +5,13 @@
       <%- if @patron.derived_patrons.exists? or @patron.original_patrons.exists? -%>
         <li><a href="#related"><em><%= t('page.related') -%></em></a></li>
       <%- end -%>
-      <%- if @patron.works.exists? -%>
+      <%- if @works -%>
         <li><a href="#work"><em><%= t('activerecord.models.work') -%></em></a></li>
       <%- end -%>
-      <%- if @patron.expressions.exists? -%>
+      <%- if @expressions -%>
         <li><a href="#expression"><em><%= t('activerecord.models.expression') -%></em></a></li>
       <%- end -%>
-      <%- if @patron.manifestations.exists? -%>
+      <%- if @manifestations -%>
         <li><a href="#manifestation"><em><%= t('activerecord.models.manifestation') -%></em></a></li>
       <%- end -%>
     <%- end -%>
