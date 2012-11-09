@@ -88,14 +88,25 @@ class SeriesStatementsController < ApplicationController
   # POST /series_statements.json
   def create
     @series_statement = SeriesStatement.new(params[:series_statement])
-    manifestation = Manifestation.find(@series_statement.manifestation_id) rescue nil
+    #manifestation = Manifestation.find(@series_statement.manifestation_id) rescue nil
 
     respond_to do |format|
-      if @series_statement.save
-        @series_statement.manifestations << manifestation if manifestation
-        format.html { redirect_to @series_statement, :notice => t('controller.successfully_created', :model => t('activerecord.models.series_statement')) }
-        format.json { render :json => @series_statement, :status => :created, :location => @series_statement }
-      else
+      begin
+        SeriesStatement.transaction do
+          unless params[:series_statement][:periodical] == 0.to_s
+            manifestation = Manifestation.new(
+              :original_title => @series_statement.original_title,
+            )
+            manifestation.periodical_master = true
+            @series_statement.root_manifestation = manifestation
+            @series_statement.manifestations << manifestation if manifestation
+          end
+          @series_statement.save!
+          format.html { redirect_to @series_statement,
+            :notice => t('controller.successfully_created', :model => t('activerecord.models.series_statement')) }
+          format.json { render :json => @series_statement, :status => :created, :location => @series_statement }
+        end
+      rescue
         format.html { render :action => "new" }
         format.json { render :json => @series_statement.errors, :status => :unprocessable_entity }
       end
@@ -127,7 +138,7 @@ class SeriesStatementsController < ApplicationController
             @series_statement.root_manifestation_id = nil
           end
 
-          @series_statement.update_attributes(params[:series_statement])
+          @series_statement.update_attributes!(params[:series_statement])
           @series_statement.manifestations.map { |manifestation| manifestation.index }
           format.html { redirect_to @series_statement, :notice => t('controller.successfully_updated', :model => t('activerecord.models.series_statement')) }
           format.json { head :no_content }
