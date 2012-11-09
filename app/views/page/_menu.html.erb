@@ -1,7 +1,149 @@
 <div id="navibar">
-  <%= render 'page/menu_tabindex0' %>
-  <%= render 'page/menu_tabindex1' %>
-  <%= render 'page/menu_tabindex2' %>
-  <%= render 'page/menu_tabindex3' %>
-  <%= render 'page/menu_tabindex4' %>
+  <a tabindex="0" href="#circulation_menu" class="fg-button fg-button-icon-right ui-widget ui-state-default ui-corner-all
+    <%- if !SystemConfiguration.get("user_show_purchase_requests") and !SystemConfiguration.get("user_show_questions") -%>
+      <%- if !user_signed_in? or !current_user.has_role?('Librarian') -%> fg-3button<%- end -%>
+    <%- else -%>
+      <%- if !user_signed_in? or !current_user.has_role?('Librarian') -%> fg-4button<%- end -%>
+    <%- end -%>" id="fg_circulation">
+    <span class="ui-icon ui-icon-triangle-1-s"></span>
+    <% if current_user.try(:has_role?, 'Librarian') %>
+      <%= t('page.librarian_circulation') -%>
+    <% else %>
+      <%= t('page.user_circulation') -%>
+    <% end %>
+  </a>
+  <div id="circulation_menu" class="hidden">
+    <%- if user_signed_in? && Setting.operation -%>
+      <ul>
+        <%- if current_user.has_role?('Librarian') -%>
+          <li><%= link_to t('page.checkout'), new_basket_path -%></li>
+          <li>
+            <%- if @checkins and @basket -%>
+              <%= link_to t('page.checkin'), user_basket_checkins_path(@basket.user, @basket) -%>
+            <%- else -%>
+              <%= link_to t('page.checkin'), checkins_path -%>
+            <%- end -%>
+          </li>
+        <% end %>
+        <li>
+          <%- if current_user.has_role?('Librarian') -%>
+            <%= link_to t('page.listing', :model => t('activerecord.models.reserve')), reserves_path -%>
+          <%- else -%>
+            <%= link_to t('page.listing', :model => t('activerecord.models.reserve')), user_reserves_path(current_user) -%>
+          <%- end -%>
+        </li>
+        <%- if current_user.has_role?('Librarian') -%>
+          <li><%= link_to t('activerecord.models.inter_library_loan'), inter_library_loans_path -%></li>
+          <!-- <li><%= link_to 'NACSIS ILL', 'page/under_construction' -%></li> -->
+        <%- end -%>
+        <li><%= link_to t('page.checkout_history'), user_checkouts_path(current_user) -%></li>
+      </ul>
+    <%- elsif Setting.operation -%>
+      <ul>
+        <li><%= link_to t('page.checkout_history'), checkouts_path -%></li>
+        <li><%= link_to t('page.listing', :model => t('activerecord.models.reserve')), reserves_path -%></li>
+      </ul>
+    <%- end -%>
+  </div>
+
+  <%- if user_signed_in? and current_user.has_role?('Librarian') -%>
+    <a tabindex="1" href="#acquisition_menu" class="fg-button fg-button-icon-right ui-widget ui-state-default ui-corner-all" id="fg_acquisition"><span class="ui-icon ui-icon-triangle-1-s"></span><%= t('page.acquisition') -%></a>
+    <div id="acquisition_menu" class="hidden">
+      <ul>
+        <li><%= link_to t('import_request.enter_isbn'), new_import_request_path -%></li>
+        <% if defined?(EnjuNdl) %>
+          <li><%= link_to t('enju_ndl.import_from_ndl_search'), ndl_books_path -%></li>
+        <% end %>
+        <li><%= link_to t('page.add_manually'), new_manifestation_path -%></li>
+        <li><%= link_to t('page.serial'), series_statements_path -%></li>
+        <li><%= link_to t('page.import_from_tsvfile'), new_resource_import_file_path -%></li>
+        <li><%= link_to t('page.import_from_file'), new_resource_import_textfile_path -%></li>
+      </ul>
+    </div>
+  <%- end  -%>
+
+  <% if (SystemConfiguration.get("user_show_purchase_requests") or SystemConfiguration.get("user_show_questions")) or (user_signed_in? and current_user.has_role?('Librarian')) %>
+    <a tabindex="2" href="#request_menu" class="fg-button fg-button-icon-right ui-widget ui-state-default ui-corner-all <%- unless user_signed_in? and current_user.has_role?('Librarian') -%> fg-4button<%- end -%>" id="fg_request"><span class="ui-icon ui-icon-triangle-1-s"></span><%= t('page.request') -%></a>
+    <div id="request_menu" class="hidden">
+      <ul>
+        <% if SystemConfiguration.get("user_show_purchase_requests") or (user_signed_in? and current_user.has_role?('Librarian')) %>
+          <li><%= link_to t('activerecord.models.purchase_request'), purchase_requests_path -%></li>
+        <% end %>
+        <% if SystemConfiguration.get("user_show_questions") or (user_signed_in? and current_user.has_role?('Librarian')) %>
+          <li><%= link_to t('activerecord.models.question'), questions_path -%></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <a tabindex="3" href="#event_menu" class="fg-button fg-button-icon-right ui-widget ui-state-default ui-corner-all
+    <%- if !SystemConfiguration.get("user_show_purchase_requests") and !SystemConfiguration.get("user_show_questions") -%>
+      <%- if !user_signed_in? or !current_user.has_role?('Librarian') -%> fg-3button<%- end -%>
+    <%- else -%>
+      <%- if !user_signed_in? or !current_user.has_role?('Librarian') -%> fg-4button<%- end -%>
+    <%- end -%>" id="fg_event">
+    <span class="ui-icon ui-icon-triangle-1-s"></span><%= t('activerecord.models.event') -%>
+  </a>
+  <div id="event_menu" class="hidden">
+    <%- unless @library_group.real_libraries.empty? -%>
+      <ul>
+        <li><%= link_to t('page.calendar'), calendar_path -%></li>
+        <li><%= link_to t('event.all'), events_path -%></li>
+        <%- @library_group.real_libraries.each do |library| -%>
+          <li><%= link_to library.display_name.localize, library_events_path(library) -%></li>
+        <%- end -%>
+        <%- if can? :create, Event -%>
+          <li><%= link_to t('page.import'), new_event_import_file_path -%></li>
+        <%- end -%>
+      </ul>
+    <%- end -%>
+  </div>
+
+  <a tabindex="4" href="#configuration_menu" class="fg-button fg-button-icon-right ui-widget ui-state-default ui-corner-all
+    <%- if !SystemConfiguration.get("user_show_purchase_requests") and !SystemConfiguration.get("user_show_questions") -%>
+      <%- if !user_signed_in? or !current_user.has_role?('Librarian') -%> fg-3button<%- end -%>
+    <%- else -%>
+      <%- if !user_signed_in? or !current_user.has_role?('Librarian') -%> fg-4button<%- end -%>
+    <%- end -%>" id="fg_configuration">
+    <span class="ui-icon ui-icon-triangle-1-s"></span>
+    <% if current_user.try(:has_role?, 'Librarian') %>
+      <%= t('page.management') -%>
+    <% else %>
+      <%= t('page.configuration') -%>
+    <% end %>
+  </a>
+  <div id="configuration_menu" class="hidden">
+    <%- if user_signed_in? -%>
+      <%- if current_user.has_role?('Librarian') -%>
+        <ul>
+          <li><%= link_to t('user.management'), users_path -%></li>
+          <li><%= link_to t('page.patron_management'), patrons_path -%></li>
+          <li><%= link_to t('page.import'), page_import_path -%></li>
+          <!--
+          <li><%= link_to t('page.export'), 'page/export' -%></li>
+          -->
+          <% if SystemConfiguration.get("use_order_lists") %>
+            <li><%= link_to t('activerecord.models.order_list'), order_lists_path -%></li>
+          <% end %>
+          <li><%= link_to t('page.statistics'), page_exstatistics_path -%></li>
+          <!--
+          <li><%= link_to t('page.recommendation'), 'page/under_construction' -%></li>
+          <li><%= link_to 'Send questions and answers to CRD', 'page/under_construction' -%></li>
+          -->
+          <li><%= link_to t('page.extensions_1'), page_extensions_path -%></li>
+          <li><%= link_to t('page.library_check'), library_checks_path -%></li>
+          <li><%= link_to t('page.budgets'), page_budgets_path -%></li>
+          <li><%= link_to t('page.configuration'), page_configuration_path -%></li>
+        </ul>
+      <%- else -%>
+        <ul>
+          <li><%= link_to t('user.account_management'), edit_user_path(current_user) -%></li>
+        </ul>
+      <%- end -%>
+    <%- else -%>
+      <ul>
+        <li><%= link_to t('page.sign_in'), new_user_session_path -%></li>
+      </ul>
+    <%- end -%>
+  </div>
 </div>

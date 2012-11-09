@@ -163,6 +163,9 @@ class ItemsController < ApplicationController
             @item.set_next_reservation if @item.available_for_retain?
           end
         end
+        if @item.manifestation.series_statement and @item.manifestation.series_statement.periodical
+          Manifestation.find(@item.manifestation.series_statement.root_manifestation_id).index
+        end
         flash[:notice] = t('controller.successfully_created', :model => t('activerecord.models.item'))
         @item.post_to_union_catalog if LibraryGroup.site_config.post_to_union_catalog
         if @patron
@@ -185,6 +188,9 @@ class ItemsController < ApplicationController
   def update
     respond_to do |format|
       if @item.update_attributes(params[:item])
+        if @item.manifestation.series_statement and @item.manifestation.series_statement.periodical
+          Manifestation.find(@item.manifestation.series_statement.root_manifestation_id).index
+        end
         format.html { redirect_to @item, :notice => t('controller.successfully_updated', :model => t('activerecord.models.item')) }
         format.json { head :no_content }
       else

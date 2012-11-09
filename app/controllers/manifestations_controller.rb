@@ -480,6 +480,9 @@ class ManifestationsController < ApplicationController
             @manifestation.derived_manifestations << @original_manifestation
           end
         end
+        if @manifestation.series_statement and @manifestation.series_statement.periodical
+          Manifestation.find(@manifestation.series_statement.root_manifestation_id).index
+        end
 
         format.html { redirect_to @manifestation, :notice => t('controller.successfully_created', :model => t('activerecord.models.manifestation')) }
         format.json { render :json => @manifestation, :status => :created, :location => @manifestation }
@@ -496,6 +499,9 @@ class ManifestationsController < ApplicationController
   def update
     respond_to do |format|
       if @manifestation.update_attributes(params[:manifestation])
+        if @manifestation.series_statement and @manifestation.series_statement.periodical
+          Manifestation.find(@manifestation.series_statement.root_manifestation_id).index
+        end
         format.html { redirect_to @manifestation, :notice => t('controller.successfully_updated', :model => t('activerecord.models.manifestation')) }
         format.json { head :no_content }
       else

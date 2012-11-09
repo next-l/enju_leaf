@@ -1,11 +1,13 @@
 class ResourceImportTextfile < ActiveRecord::Base
+  attr_accessible :adapter_name, :resource_import_text
+
   include ImportFile
   default_scope :order => 'resource_import_textfiles.id DESC'
   scope :not_imported, where(:state => 'pending', :imported_at => nil)
 
   has_attached_file :resource_import_text, :path => ":rails_root/private:url"
 
-  validates_attachment_content_type :resource_import_text, :content_type => ['text/plain', 'application/octet-stream']
+  validates_attachment_content_type :resource_import_text, :content_type => ['text/plain', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', 'application/octet-stream']
   validates_attachment_presence :resource_import_text
   belongs_to :user, :validate => true
   has_many :resource_import_textresults
