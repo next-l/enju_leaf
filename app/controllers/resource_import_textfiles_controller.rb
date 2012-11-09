@@ -1,6 +1,7 @@
 class ResourceImportTextfilesController < ApplicationController
   before_filter :check_client_ip_address
   load_and_authorize_resource
+
     
   def index
     @resource_import_textfiles = ResourceImportTextfile.page(params[:page])
@@ -28,6 +29,10 @@ class ResourceImportTextfilesController < ApplicationController
   def create
     @resource_import_textfile = ResourceImportTextfile.new(params[:resource_import_textfile])
     @resource_import_textfile.user = current_user
+    extraparams = params[:extraparams]
+    extraparams = extraparams.to_hash
+  
+    @resource_import_textfile.extraparams = extraparams.to_s
 
     respond_to do |format|
       if @resource_import_textfile.save
@@ -59,6 +64,18 @@ class ResourceImportTextfilesController < ApplicationController
     respond_to do |format|
       format.html {redirect_to(resource_import_textfile_resource_import_textresults_path(@resource_import_textfile))}
     end
+  end
+
+  def inherent_view
+    a = EnjuTrunk::ResourceAdapter::Base.find_by_classname(params[:name])
+    unless a.respond_to?(:template_filename_edit)
+      logger.debug "no method template_filename_edit" 
+      render :nothing => true, :status => 404 and return
+    end
+    templatename = a.template_filename_edit
+    filename = "lib/enju_trunk/resourceadapter/views/#{templatename}"
+    logger.debug "filename=#{filename}"
+    render :layout => false, :file => filename
   end
 
 end
