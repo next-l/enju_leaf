@@ -1,5 +1,5 @@
 class ResourceImportTextfile < ActiveRecord::Base
-  attr_accessible :adapter_name, :resource_import_text
+  attr_accessible :adapter_name, :resource_import_text, :extraparams
 
   include ImportFile
   default_scope :order => 'resource_import_textfiles.id DESC'
@@ -55,6 +55,7 @@ class ResourceImportTextfile < ActiveRecord::Base
   def import_start
     sm_start!
     adapter = EnjuTrunk::ResourceAdapter::Base.find_by_classname(self.adapter_name)
+    adapter.logger = logger
     logger.info "adapter=#{adapter.to_s}"
     adapter.new.import(self.id, self.resource_import_text.path, self.user_id)
     self.update_attribute(:imported_at, Time.zone.now)

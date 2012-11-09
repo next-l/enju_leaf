@@ -1,0 +1,10 @@
+<div class="field">
+  <%= f.label :edit_mode -%><br />
+  <%= f.radio_button :edit_mode, 'create', :checked => 'checked' %>
+  <%= f.label :edit_mode, t('page.create'), :value => 'create' %>
+  <%= f.radio_button :edit_mode, 'update' %>
+  <%= f.label :edit_mode, t('page.update'), :value => 'update' %>
+  <%= f.radio_button :edit_mode, 'destroy' %>
+  <%= f.label :edit_mode, t('page.destroy'), :value => 'destroy' %>
+</div>
+
