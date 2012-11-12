@@ -222,7 +222,7 @@ configatron.reserves.able_for_not_item = true
 configatron.new_book_term = 14
 
 # refs 3127 ユーザー権限以下でログイン時、購入リクエスト画面を表示するかどうか。trueのとき表示
-configatron.user_show_purchase_requests
+configatron.purchase_request.can_use = ''
 
 # refs 3127 ユーザー権限以下でログイン時、質問(レファレンス)ト画面を表示するかどうか。trueのとき表示
 configatron.user_show_questions
@@ -264,7 +264,10 @@ configatron.send_message.recall_item = true
 configatron.send_message.recall_overdue_item = true
 
 # refs 2506 購入リクエストを受付時に利用者に受付完了メッセージを送信するか
-configatron.send_message.purchase_request_accepted = true
+configatron.send_message.purchase_request_accepted_for_patron = true
+
+# refs 4067  購入リクエストを受付時に管理者に受付完了メッセージを送信するか
+configatron.send_message.purchase_request_accepted_for_library = true
 
 # refs 2506 購入リクエスト謝絶時に利用者に謝絶完了メッセージを送信するか
 configatron.send_message.purchase_request_rejected = true

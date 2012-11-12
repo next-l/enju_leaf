@@ -1789,6 +1789,7 @@ ja:
     user_purchase_request: "%{login_name} さんの購入依頼資料"
     library_group_purchase_request: "%{library_group_name} での購入依頼資料"
     add_to_purchase_request: "図書館の購入依頼に追加"
+    my_request: "自分の購入依頼"
     all_request: "全ての購入依頼"
     ordered: "発注済み"
     not_ordered: 発注待ち # "未発注"
@@ -1803,6 +1804,7 @@ ja:
     add_to_order_list: "発注リストに追加"
     remove_from_order_list: "発注リストから削除"
     input_into_form_as_much_as_possible: "わかる範囲で入力してください。"
+    guest: ゲスト
   order_list:
     library_group_order_list: "%{library_group_name} の発注リスト"
     total_price: "合計価格"
@@ -2141,6 +2143,8 @@ ja:
       yellow: yellow
       pink: pink
       red: red
+    role:
+      all: "全て"
     boolean_display: "表示する"
     boolean_not_display: "表示しない"
     boolean_do: "行う"
