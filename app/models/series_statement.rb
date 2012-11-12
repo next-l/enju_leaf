@@ -13,7 +13,7 @@ class SeriesStatement < ActiveRecord::Base
   has_many :parents, :through => :parent_relationships, :source => :parent
   validates_presence_of :original_title
   validate :check_issn
-  after_create :create_initial_manifestation
+  #after_create :create_initial_manifestation
 
   acts_as_list
   searchable do
