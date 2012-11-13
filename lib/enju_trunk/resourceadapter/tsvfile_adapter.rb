@@ -8,6 +8,7 @@ class Tsvfile_Adapter < EnjuTrunk::ResourceAdapter::Base
   end
 
   def self.template_filename_show
+    "tsvfile_show.html.erb"
   end
 
   def self.template_filename_edit
@@ -26,17 +27,13 @@ class Tsvfile_Adapter < EnjuTrunk::ResourceAdapter::Base
       raise "You should specify isbn or original_tile in the first line"
     end
 
-    puts "aaa3"
-
     rows.each_with_index do |row, index|
       Rails.logger.info("import block start. row_num=#{row_num} index=#{index}")
 
       next if row['dummy'].to_s.strip.present?
 
-    puts "aaa4"
       import_result = ResourceImportTextresult.create!({:resource_import_textfile_id => self.import_id, :body => row.fields.join("\t")})
 
-    puts "aaa5"
       item_identifier = row['item_identifier'].to_s.strip
       item = Item.where(:item_identifier => item_identifier).first
       if item
@@ -157,13 +154,12 @@ class Tsvfile_Adapter < EnjuTrunk::ResourceAdapter::Base
     resource_import_textfile.update_attribute(:imported_at, Time.zone.now)
     Sunspot.commit
     rows.close
-    #sm_complete!
     resource_import_textfile.sm_complete!
     Rails.cache.write("manifestation_search_total", Manifestation.search.total)
     return num
   end
 
-  def import(id, filename, user_id)
+  def import(id, filename, user_id, extraparameters = {})
     logger.info "#{Time.now} start import #{self.class.display_name}"
     logger.info "id=#{id} filename=#{filename}"
 
@@ -203,7 +199,6 @@ class Tsvfile_Adapter < EnjuTrunk::ResourceAdapter::Base
       rows.shift
     end
 
-    puts "aaa2"
     ResourceImportTextresult.create({:resource_import_textfile_id => self.import_id, :body => header.join("\t"), :error_msg => "HEADER DATA"})
     tempfile.close(true)
     file.close
