@@ -319,6 +319,8 @@ EnjuLeaf::Application.routes.draw do
   resources :checkouts do
     collection do
       post 'output'
+      get 'extend'
+      post 'extend_checkout'
     end
   end
 
