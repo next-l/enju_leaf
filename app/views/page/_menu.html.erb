@@ -46,6 +46,9 @@
             <% if defined?(EnjuNdl) %>
               <li><%= link_to t('enju_ndl.import_from_ndl_search'), ndl_books_path -%></li>
             <% end %>
+            <% if defined?(EnjuNii) %>
+              <li><%= link_to t('enju_ndl.import_from_cinii_books'), cinii_books_path -%></li>
+            <% end %>
             <li><%= link_to t('page.add_manually'), new_manifestation_path -%></li>
             <li><%= link_to t('page.serial'), series_statements_path -%></li>
             <li><%= link_to t('page.import_from_file'), new_resource_import_file_path -%></li>

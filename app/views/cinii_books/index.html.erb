@@ -1,14 +1,14 @@
 <div class="row-fluid">
 <div class="span9">
-<h1 class="title"><%= t('enju_ndl.import_from_ndl_search') %></h1>
+<h1 class="title"><%= t('enju_nii.import_from_cinii_books') %></h1>
   <p id="notice"><%= notice %></p>
 
-	<%= form_for :books, :url => ndl_books_path, :html => {:method => 'get', :class => 'well form-search' } do -%>
-  	<p>
-    	<%= search_field_tag 'query', h(@query), {:id => 'search_form_top', :class => 'search-query'} -%>
-    	<%= submit_tag t('page.search'), :class => 'btn' -%>
-  	</p>
-	<%- end -%>
+<%= form_for :books, :url => cinii_books_path, :html => {:method => 'get'} do -%>
+  <p>
+    <%= search_field_tag 'query', h(@query), {:id => 'search_form_top', :class => 'search_form'} -%>
+    <%= submit_tag '検索' -%>
+  </p>
+<%- end -%>
 
 <% if @query.present? %>
 <p><%= @books.total_count %> 件が見つかりました。</p>
@@ -21,15 +21,14 @@
   <% @books.each do |book| %>
     <tr class="line<%= cycle("0", "1") -%>">
       <td>
-        <%= link_to_import(book.jpno) %>
+        <%= link_to_import_from_cinii(book.ncid) %>
       </td>
       <td>
-        <%= link_to "#{book.title} #{book.volume}".strip , book.permalink %>
+        <%= link_to "#{book.title}", book.link %>
         <br />
         <%= book.creator %>
       	<%= book.publisher %>
-        (<%= book.issued %>,
-        ISBN: <%= book.isbn %>)
+        (<%= book.issued %>)
       </td>
     </tr>
   <% end %>

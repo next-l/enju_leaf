@@ -13,7 +13,7 @@ gem 'enju_library', :git => 'git://github.com/next-l/enju_library.git'
 #gem 'enju_barcode', :git => 'git://github.com/nabeta/enju_barcode.git'
 #gem 'enju_calil', :git => 'git://github.com/nabeta/enju_calil.git'
 gem 'enju_ndl', :git => 'git://github.com/nabeta/enju_ndl.git'
-#gem 'enju_nii', :git => 'git://github.com/nabeta/enju_nii.git'
+gem 'enju_nii', :git => 'git://github.com/nabeta/enju_nii.git'
 gem 'enju_oai', :git => 'git://github.com/nabeta/enju_oai.git'
 #gem 'enju_scribd', :git => 'git://github.com/nabeta/enju_scribd.git'
 gem 'enju_subject', :git => 'git://github.com/nabeta/enju_subject.git'
@@ -38,6 +38,7 @@ platforms :mri_19 do
   #gem 'sqlite3'
   gem 'zipruby'
   gem 'kgio'
+  gem 'charlock_holmes'
 end
 
 platforms :jruby do
@@ -48,12 +49,12 @@ platforms :jruby do
   gem 'trinidad'
 end
 
-gem 'exception_notification', '~> 3.0.0.rc1'
+gem 'exception_notification', '~> 3.0.0'
 gem 'state_machine', '~> 1.1.2'
 gem 'progress_bar'
 gem 'inherited_resources', '~> 1.3'
 gem 'strongbox'
-gem 'dalli', '~> 2.2'
+gem 'dalli', '~> 2.5'
 gem 'sitemap_generator', '~> 3.4'
 gem 'ri_cal'
 gem 'paper_trail', '~> 2.6'
@@ -86,7 +87,7 @@ gem 'acts_as_list', '0.1.7'
 
 group :development do
   gem 'annotate', '~> 2.5'
-  gem 'sunspot_solr', '~> 2.0.0.pre.120720'
+  gem 'sunspot_solr', '~> 2.0.0.pre.120925'
   gem 'rails-erd'
   gem 'immigrant'
 end
@@ -94,7 +95,7 @@ end
 group :development, :test do
   gem 'simplecov', '~> 0.7', :require => false
   gem 'ruby-prof', :platforms => :mri_19
-  gem 'rspec-rails', '~> 2.11'
+  gem 'rspec-rails', '~> 2.12'
   gem 'guard-rspec'
   gem 'factory_girl_rails', '~> 4.1'
   gem 'spork-rails'
