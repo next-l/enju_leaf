@@ -37,7 +37,7 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_event.git
-  revision: f5941a1e852de3aa4e7d918fd452e4515e8e8787
+  revision: 13dd62ac6f3ebec14f04b9f67d8b93cfd7dbc5be
   specs:
     enju_event (0.1.17.pre3)
       enju_core (~> 0.1.1.pre)
@@ -101,7 +101,7 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_nii.git
-  revision: 4cc223166039f138e848974477f8949451895560
+  revision: 7686c9ab0c73be321f4d6a498011d474cdd83cc6
   specs:
     enju_nii (0.1.0.pre)
       attribute_normalizer
@@ -164,7 +164,7 @@ GIT
 
 GIT
   remote: git://github.com/next-l/enju_biblio.git
-  revision: 82270f970d2edf3d399149ee32bb7dabc8b99bef
+  revision: bc248cf589f84dc59ab0b52152459faa532ff028
   specs:
     enju_biblio (0.1.0.pre9)
       aws-sdk
@@ -483,7 +483,7 @@ GEM
       rake (>= 0.8.7)
       rdoc (~> 3.4)
       thor (>= 0.14.6, < 2.0)
-    rake (10.0.0)
+    rake (10.0.1)
     rdoc (3.12)
       json (~> 1.4)
     redis (3.0.2)
