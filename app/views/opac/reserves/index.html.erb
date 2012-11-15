@@ -50,7 +50,7 @@ $(function() {
         </tr>
       <% end %>
     </table>
-    <%= paginate(@reserves) %>
+    <%= paginate @reserves, :theme => 'opac_theme' %>
   <% else %>
     <h4><%= t('opac.reserves.no_reserve') %></h4>
   <% end %>
