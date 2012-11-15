@@ -94,12 +94,12 @@ div#keypad-toggle button {
 	padding: 0em;
 	text-align: center;
 	cursor: pointer;
-        height: 68px;
+        height: 60px;
         margin: 1px;
 }
 
 .keypad-key {
-        width: 68px;
+        width: 60px;
         border: 0.5px solid #4891A6; 
         background: -webkit-gradient(linear, left top, left bottom, from(#A2DCEA), to(#58B2CB)); /* Webkit */
         background: -moz-linear-gradient(-90deg, #A2DCEA, #58B2CB);/* mozilla */
