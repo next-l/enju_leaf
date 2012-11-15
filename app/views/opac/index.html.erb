@@ -46,9 +46,11 @@
 
   <div id="opac_information">
     <% if user_signed_in? %>
-      <div class="user_notice_column">
-        <p style="color: red;"><%= user_notice(current_user) %></p>
-      </div>
+      <% unless user_notice(current_user) %>
+        <div class="user_notice_column">
+          <p style="color: red;"><%= user_notice(current_user) %></p>
+        </div>
+      <% end %>
     <% end %>
     <div class="opac_news_column">
       <div><h4><%= t('opac.news') %></h4></div>
