@@ -25,6 +25,5 @@ class CreateItems < ActiveRecord::Migration
     add_index :items, :checkout_type_id
     add_index :items, :shelf_id
     add_index :items, :item_identifier
-    add_index :items, :required_role_id
   end
 end

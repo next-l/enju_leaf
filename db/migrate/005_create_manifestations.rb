@@ -45,15 +45,12 @@ class CreateManifestations < ActiveRecord::Migration
       t.integer :frequency_id, :default => 1, :null => false
       t.boolean :subscription_master, :default => false, :null => false
     end
-    add_index :manifestations, :carrier_type_id
-    add_index :manifestations, :required_role_id
     add_index :manifestations, :isbn
     add_index :manifestations, :nbn
     add_index :manifestations, :lccn
     add_index :manifestations, :oclc_number
     add_index :manifestations, :issn
     add_index :manifestations, :access_address
-    add_index :manifestations, :frequency_id
     add_index :manifestations, :manifestation_identifier
     add_index :manifestations, :updated_at
   end

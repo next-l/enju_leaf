@@ -60,7 +60,6 @@ class DeviseCreateUsers < ActiveRecord::Migration
     add_index :users, :authentication_token, :unique => true
     add_index :users, :username, :unique => true
     add_index :users, :user_group_id
-    add_index :users, :required_role_id
     add_index :users, :user_number, :unique => true
   end
 
