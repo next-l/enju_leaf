@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 
 gem 'rails', '3.2.8'
 
-gem 'cocaine', '0.3.1'
+gem 'cocaine', '0.4.2'
 #gem 'enju_amazon', :git => 'git://github.com/nabeta/enju_amazon.git'
 #gem 'enju_calil', :git => 'git://github.com/nabeta/enju_calil.git'
 #gem 'enju_scribd', :git => 'git://github.com/nabeta/enju_scribd.git'
@@ -69,7 +69,7 @@ gem 'scribd_fu'
 gem 'devise', '~> 1.5'
 gem 'omniauth', '>= 0.2.6'
 gem 'addressable'
-gem 'paperclip', '~> 2.6'
+gem 'paperclip', '2.8'
 gem 'whenever', '~> 0.6', :require => false
 #gem 'amazon-ecs', '>= 2.2.0', :require => 'amazon/ecs'
 #gem 'aws-s3', :require => 'aws/s3'
