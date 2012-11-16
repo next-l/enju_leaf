@@ -78,4 +78,19 @@ class ResourceImportTextfilesController < ApplicationController
     render :layout => false, :file => filename
   end
 
+  def upload
+    file = params[:resource_import_textfile][:resource_import_text]
+    if file.original_filename !~ /.xlsx$/
+      render :nothing => true, :status => 404 and return
+    end
+
+    filename =  "#{Time.now.instance_eval { '%s%03d' % [strftime('%Y%m%d%H%M%S'), (usec / 1000.0).round] }}.xlsx"
+    out_dir = "#{Rails.root}/private/system/resource_import_texts_temp"
+    path = "#{out_dir}/#{filename}"
+    FileUtils.mkdir_p(out_dir) unless FileTest.exist?(out_dir)
+    File.open(path, "wb"){ |f| f.write(file.read) }
+    @oo = Excelx.new(path)
+    data = "lib/enju_trunk/resourceadapter/views/excelsheets_checkbox.html.erb"
+    render :layout => false, :file => data
+  end
 end
