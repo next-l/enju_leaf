@@ -6,7 +6,7 @@ barcode_list_00001:
   barcode_type: 'Code128B'
   barcode_prefix: 'S'
   printed_number: 10
-  sheet_type: 10
+  sheet_id: 1
   last_number: 0
 barcode_list_00002:
   id: 2
@@ -15,7 +15,7 @@ barcode_list_00002:
   barcode_type: 'Code128B'
   barcode_prefix: ''
   printed_number: 10
-  sheet_type: 5
+  sheet_id: 1
   last_number: 0
 barcode_list_00003:
   id: 3
@@ -24,5 +24,5 @@ barcode_list_00003:
   barcode_type: 'Code128B'
   barcode_prefix: ''
   printed_number: 10
-  sheet_type: 8
+  sheet_id: 1
   last_number: 0
