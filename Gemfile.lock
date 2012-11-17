@@ -77,6 +77,7 @@ GEM
       rack-test (>= 0.5.4)
       selenium-webdriver (~> 2.0)
       xpath (~> 1.0.0)
+    charlock_holmes (0.6.9)
     childprocess (0.3.6)
       ffi (~> 1.0, >= 1.0.6)
     choice (0.1.6)
@@ -530,6 +531,7 @@ DEPENDENCIES
   attribute_normalizer (~> 1.1)
   awesome_nested_set (~> 2.1)
   aws-sdk
+  charlock_holmes
   client_side_validations (~> 3.2)
   coffee-rails (~> 3.2.1)
   dalli (~> 2.3)

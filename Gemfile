@@ -37,6 +37,7 @@ platforms :mri_19 do
   #gem 'sqlite3'
   gem 'zipruby'
   gem 'kgio'
+  gem 'charlock_holmes'
 end
 
 platforms :jruby do
