@@ -26,13 +26,13 @@ platforms :ruby do
   gem 'pg'
   #gem 'mysql2', '~> 0.3'
   gem 'ruby-prof', :group => [:development, :test]
-  gem 'zipruby'
+  ##gem 'zipruby'
   gem 'kgio'
 end
 
-platforms :ruby_19 do
-  gem 'simplecov', '~> 0.6', :require => false, :group => :test
-end
+#platforms :ruby_19 do
+#  gem 'simplecov', '~> 0.6', :require => false, :group => :test
+#end
 
 gem 'roo'
 
@@ -57,13 +57,8 @@ gem 'sitemap_generator', '~> 3.0'
 gem 'ri_cal'
 gem 'file_wrapper'
 gem 'paper_trail', '~> 2.6'
-gem 'aws-sdk', '~> 1.3'
-#gem 'recurrence'
-#gem 'prism'
-#gem 'money'
 gem 'RedCloth', '>= 4.2.9'
 gem 'isbn-tools', :git => 'git://github.com/nabeta/isbn-tools.git', :require => 'isbn/tools'
-#gem 'extractcontent'
 gem 'cancan', '>= 1.6.7'
 gem 'scribd_fu'
 gem 'devise', '~> 1.5'
@@ -71,9 +66,13 @@ gem 'omniauth', '>= 0.2.6'
 gem 'addressable'
 gem 'paperclip', '2.8'
 gem 'whenever', '~> 0.6', :require => false
+
+#aws
+#gem 'aws-sdk', '~> 1.3'
 #gem 'amazon-ecs', '>= 2.2.0', :require => 'amazon/ecs'
 #gem 'aws-s3', :require => 'aws/s3'
 #gem 'astrails-safe'
+
 gem 'dynamic_form'
 gem 'sanitize'
 gem 'mobile-fu'
@@ -97,7 +96,7 @@ gem 'paranoia'
 gem 'thinreports', :git => 'git://github.com/emiko/thinreports-generator.git'
 gem 'prawn', '1.0.0.rc1'
 gem "rmagick", :require => false
-gem "crypt19"
+#gem "crypt19"
 gem "rails_autolink"
 gem 'parallel'
 #gem 'oink', '>= 0.9.3'
@@ -113,8 +112,8 @@ group :development, :test do
   gem 'guard-rspec'
   gem 'factory_girl_rails', '~> 3.0'
   gem 'spork-rails'
-  gem 'rcov', '0.9.11'
-  gem 'metric_fu', '~> 2.1'
+  #gem 'rcov', '0.9.11'
+  #gem 'metric_fu', '~> 2.1'
   gem 'timecop'
   gem 'sunspot-rails-tester', :git => 'git://github.com/nabeta/sunspot-rails-tester.git'
   gem 'vcr', '~> 2.0.0.rc2'
