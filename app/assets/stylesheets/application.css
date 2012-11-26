@@ -11,6 +11,8 @@
  *= require pagination
  *= require portlets
  *= require event_calendar
- *= require vendor
+ *= require jquery.ui.all
+ *= require fg.menu
+ *= require fg.menu.button
  *= require jquery.qtip
 */
