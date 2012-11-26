@@ -74,6 +74,7 @@ en:
       search_engine: Search engine
       create: Create
       carrier_type: Carrier Type
+      retention_period: Retention Period
       manifestation: Manifestation
       user_group: User group
       resource_import_file: Resource import file
@@ -473,6 +474,7 @@ en:
         price: Price
         lock_version: Lock version
         checkout_type: Checkout type
+        retention_period: Retention Period
         acquired_at: Acquired at
         loss_item: Loss item
         set_status: Loss item processing
@@ -621,6 +623,11 @@ en:
       create:
         position: Position
       carrier_type:
+        name: Name
+        display_name: Display name
+        note: Note
+        position: Position
+      retention_period:
         name: Name
         display_name: Display name
         note: Note

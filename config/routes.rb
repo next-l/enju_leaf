@@ -300,6 +300,8 @@ EnjuLeaf::Application.routes.draw do
 
   resources :carrier_types
 
+  resources :retention_periods
+
   resources :import_requests
 
   resources :user_groups do

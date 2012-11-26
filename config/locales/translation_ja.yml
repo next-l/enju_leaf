@@ -75,6 +75,7 @@ ja:
       search_engine: 検索エンジン
       create: 著作関係
       carrier_type: 資料の形態
+      retention_period: 保存種別
       manifestation: 資料
       user_group: 利用者グループ
       resource_import_file: 資料のインポート用ファイル
@@ -552,6 +553,7 @@ ja:
         price: 価格
         lock_version: ロックバージョン
         checkout_type: 貸出区分
+        retention_period: 保存種別
         acquired_at: 受入日
         loss_item: 紛失処理
         set_status: 紛失処理を実行
@@ -719,6 +721,11 @@ ja:
       create:
         position: 位置
       carrier_type:
+        name: 名前
+        display_name: 表示名
+        note: 注記
+        position: 位置
+      retention_period:
         name: 名前
         display_name: 表示名
         note: 注記
