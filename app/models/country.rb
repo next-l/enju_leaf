@@ -6,6 +6,7 @@ class Country < ActiveRecord::Base
   #has_many :corporate_bodies
   #has_many :families
   has_many :libraries
+  has_many :manifestations
   has_one :library_group
 
   # If you wish to change the field names for brevity, feel free to enable/modify these.

@@ -20,6 +20,7 @@ class Manifestation < ActiveRecord::Base
   has_many :table_of_contents
 
   belongs_to :manifestation_content_type, :class_name => 'ContentType', :foreign_key => 'content_type_id'
+  belongs_to :country_of_publication, :class_name => 'Country', :foreign_key => 'country_of_publication_id'
 
   searchable do
     text :title, :default_boost => 2 do
@@ -236,8 +237,8 @@ class Manifestation < ActiveRecord::Base
     has_attached_file :attachment
   end
 
-  validates_presence_of :carrier_type, :language
-  validates_associated :carrier_type, :language
+  validates_presence_of :carrier_type, :language, :country_of_publication
+  validates_associated :carrier_type, :language, :country_of_publication
   before_validation :set_language, :if => :during_import
   before_save :set_series_statement
 

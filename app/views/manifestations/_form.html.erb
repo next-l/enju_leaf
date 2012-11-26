@@ -75,6 +75,16 @@ jQuery(function(){
   </div>
 
   <div class="field">
+    <%= f.label t('activerecord.attributes.manifestation.country_of_publication') -%>
+    <%= f.select(:country_of_publication_id, @countries.collect{|country| [country.display_name.localize, country.id]}) -%>
+  </div>
+
+  <div class="field">
+    <%= f.label t('activerecord.attributes.manifestation.place_of_publication') -%>
+    <%= f.text_field :place_of_publication %>
+  </div>
+
+  <div class="field">
     <%= f.label t('activerecord.models.language') -%>
     <%= f.select(:language_id, @languages.collect{|language| [language.display_name.localize, language.id]}) -%>
   </div>

@@ -639,6 +639,8 @@ en:
         classification_number: Classification number
         identifier: Manifestation identifier
         date_of_publication: Date of publication
+        country_of_publication: Country of publication
+        place_of_publication: Place of publication
         pub_date: Date of publication
         deleted_at: Deleted at
         access_address: Access address

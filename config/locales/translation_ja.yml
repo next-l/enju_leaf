@@ -739,6 +739,8 @@ ja:
         identifier: 識別子
         date_of_publication: 出版日
         pub_date: 出版日
+        country_of_publication: 出版国
+        place_of_publication: 出版地
         pub_year: 版年
         deleted_at: 削除時刻
         access_address: アクセスアドレス
@@ -1952,6 +1954,16 @@ ja:
     import_request: "すぐにインポート"
     start_importing: "インポートを開始しました。"
     unsuccess_start: "インポート開始に失敗しました。"
+    excel:
+      item_identifier: 受入番号
+      accept_at: 受入日
+      original_title: 書名
+      title_transcription: 書名の読み（半角）
+      title_alternative: 書籍の副名
+      author: 著者・編集者
+      issn_isbn: ISSN・ISBN番号
+      number_of_page: ページ
+      note: 備考
   resource_import_file:
     template_download: "テンプレートをダウンロード"
     import_request: "すぐにインポート"

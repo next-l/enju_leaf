@@ -699,6 +699,7 @@ class ManifestationsController < ApplicationController
     @carrier_types = CarrierType.all
     @roles = Role.all
     @languages = Language.all_cache
+    @countries = Country.all
     @frequencies = Frequency.all
     @nii_types = NiiType.all if defined?(NiiType)
   end
