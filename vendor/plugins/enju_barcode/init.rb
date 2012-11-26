@@ -1,1 +1,0 @@
-require 'enju_barcode'
