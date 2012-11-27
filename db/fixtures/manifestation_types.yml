@@ -49,13 +49,13 @@ retention_period_00008:
   position: 8
 retention_period_00009:
   id: 9
-  name: japanese_reference
+  name: japanese_article
   display_name: "和文献"
   note:
   position: 9
 retention_period_00010:
   id: 10
-  name: foreign_reference
+  name: foreign_article
   display_name: "洋文献"
   note:
   position: 10
