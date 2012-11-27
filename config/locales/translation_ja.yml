@@ -173,6 +173,8 @@ ja:
       manifestation_type: 資料区分
       access_log: アクセス件数
       keyword_count: 検索キーワード
+      bookbinding: 製本処理
+      binding_item: 製本資料
 
     attributes:
       manifestation_types:
@@ -1611,6 +1613,8 @@ ja:
     question: "この資料で調べた質問"
     add_derivation: "派生資料を追加"
     delete_attachment: "添付ファイルを削除(アップロード不可)"
+    binding_status: "製本雑誌"
+    undo_binding: "製本解除"
   item:
     current_checkout: "現在の貸出"
     donor: "寄贈者"
@@ -1634,6 +1638,8 @@ ja:
     all_type: 全ての資料区分
     general_item: 一般資料
     audio_item: 視聴覚資料
+    binding_status: 製本ステータス
+    binding_item: 製本雑誌
   patron:
     library_group_patron: "%{library_group_name} の人物・団体"
     work_patron: "%{work_title} の著作者"
@@ -2181,6 +2187,10 @@ ja:
     top_access: トップ画面
     manifestations_index: 資料の一覧画面
     materials_show: 資料の閲覧画面
+  binding_item:
+    bind: "上記の資料を製本する"
+  bookbinding:
+    bookbinding_completed: "製本処理が完了しました。"
 
   opac:
     finish: 終わる

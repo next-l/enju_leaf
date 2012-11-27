@@ -2,6 +2,7 @@ require EnjuTrunkFrbr::Engine.root.join('app', 'models', 'manifestation')
 require EnjuTrunkCirculation::Engine.root.join('app', 'models', 'manifestation') if Setting.operation
 class Manifestation < ActiveRecord::Base
   self.extend ItemsHelper
+  acts_as_paranoid
   has_many :creators, :through => :creates, :source => :patron
   has_many :contributors, :through => :realizes, :source => :patron
   has_many :publishers, :through => :produces, :source => :patron

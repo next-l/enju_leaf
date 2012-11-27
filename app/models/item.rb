@@ -2,6 +2,7 @@
 require EnjuTrunkFrbr::Engine.root.join('app', 'models', 'item')
 require EnjuTrunkCirculation::Engine.root.join('app', 'models', 'item') if Setting.operation
 class Item < ActiveRecord::Base
+  acts_as_paranoid
   attr_accessible :library_id, :shelf_id, :checkout_type_id, :circulation_status_id,
                   :call_number, :bookstore_id, :price, :url, 
                   :include_supplements, :use_restriction_id, :required_role_id, 
@@ -48,8 +49,8 @@ class Item < ActiveRecord::Base
   validates_associated :circulation_status, :shelf, :bookstore, :checkout_type
   validates_presence_of :circulation_status, :checkout_type
   before_validation :set_circulation_status, :on => :create
-  before_save :set_use_restriction, :check_remove_item
-  after_save :check_price
+  before_save :set_use_restriction, :check_remove_item, :except => :delete
+  after_save :check_price, :except => :delete
 
   #enju_union_catalog
   has_paper_trail
