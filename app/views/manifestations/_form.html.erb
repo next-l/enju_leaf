@@ -1,7 +1,14 @@
 <script>
 jQuery(function(){
   $('#manifestation_original_title').auto_ruby($('#manifestation_title_transcription'))
+
+  $('#manifestation_manifestation_type_id').change(displayArticleTitle);
 })
+
+function displayArticleTitle() {
+  var manifestation_type = $('#manifestation_manifestation_type_id').val();
+  $('manifestation_article_title').toggle()"
+}
 </script>
 
 <%= render 'page/required_field' %>
@@ -37,6 +44,10 @@ jQuery(function(){
   <div class="field">
     <%= f.label :title_alternative -%><br />
     <%= f.text_field :title_alternative, :class => 'resource_title' -%>
+  </div>
+  <div class="field">
+    <%= f.label :article_title %><br />
+    <%= f.text_field :article_title, :class => 'resource_title' %>
   </div>
 
   <div class="field">

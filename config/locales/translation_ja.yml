@@ -740,6 +740,7 @@ ja:
         original_title: タイトル # 原題
         title_alternative: 代替タイトル
         title_transcription: タイトル（ヨミ）
+        article_title: 誌名
         classification_number: 分類番号
         identifier: 識別子
         date_of_publication: 出版日

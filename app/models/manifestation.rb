@@ -27,7 +27,7 @@ class Manifestation < ActiveRecord::Base
     text :title, :default_boost => 2 do
       titles
     end
-    text :fulltext, :note, :contributor, :description
+    text :fulltext, :note, :contributor, :description, :article_title
     text :creator do
       if series_statement.try(:periodical)  # 雑誌の場合
         [series_statement.manifestations.map{|manifestation| [manifestation.creator]}].flatten.compact
@@ -297,6 +297,13 @@ class Manifestation < ActiveRecord::Base
   def serial?
     if series_statement.try(:periodical) and !periodical_master
       return true unless root_of_series?
+    end
+    false
+  end
+
+  def article?
+    if ['japanese_article', 'foreign_article'].index(manifestation_type.name)
+      return true
     end
     false
   end
