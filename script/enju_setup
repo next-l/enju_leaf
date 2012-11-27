@@ -22,7 +22,6 @@ sample_files = [
   "config/application.rb.sample",
   "config/initializers/devise.rb.sample",
   "config/initializers/secret_token.rb.sample",
-  "config/configatron/production.rb.sample",
   "config/environments/production.rb.sample",
   "config/schedule.rb.sample",
   "config/sunspot.yml.sample",

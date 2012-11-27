@@ -4,12 +4,12 @@ require EnjuTrunkCirculation::Engine.root.join('app', 'models', 'item') if Setti
 class Item < ActiveRecord::Base
   acts_as_paranoid
   attr_accessible :library_id, :shelf_id, :checkout_type_id, :circulation_status_id,
-                  :call_number, :bookstore_id, :price, :url, 
+                  :retention_period_id, :call_number, :bookstore_id, :price, :url, 
                   :include_supplements, :use_restriction_id, :required_role_id, 
                   :acquired_at, :note, :item_identifier,
                   :use_restriction, :manifestation_id, :manifestation,
                   :shelf_id, :circulation_status, :bookstore_id,
-                  :shelf, :bookstore
+                  :shelf, :bookstore, :retention_period
 
   self.extend ItemsHelper
   scope :for_checkout, where('item_identifier IS NOT NULL')
@@ -28,6 +28,7 @@ class Item < ActiveRecord::Base
   has_many :checked_items, :dependent => :destroy
   has_many :baskets, :through => :checked_items
   belongs_to :circulation_status, :validate => true
+  belongs_to :retention_period, :validate => true
   belongs_to :bookstore, :validate => true
   has_many :donates
   has_many :donors, :through => :donates, :source => :patron
@@ -46,8 +47,8 @@ class Item < ActiveRecord::Base
   has_many :libcheck_tmp_items
   has_many :expenses
 
-  validates_associated :circulation_status, :shelf, :bookstore, :checkout_type
-  validates_presence_of :circulation_status, :checkout_type
+  validates_associated :circulation_status, :shelf, :bookstore, :checkout_type, :retention_period
+  validates_presence_of :circulation_status, :checkout_type, :retention_period
   before_validation :set_circulation_status, :on => :create
   before_save :set_use_restriction, :check_remove_item, :except => :delete
   after_save :check_price, :except => :delete
@@ -61,6 +62,7 @@ class Item < ActiveRecord::Base
     string :library
     integer :required_role_id
     integer :circulation_status_id
+    integer :retention_period_id
     integer :manifestation_id do
       manifestation.id if manifestation
     end

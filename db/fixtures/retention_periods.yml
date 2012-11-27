@@ -1,0 +1,19 @@
+---
+retention_period_00001:
+  id: 1
+  name: permanent
+  display_name: "永年"
+  note:
+  position: 1
+retention_period_00002:
+  id: 2
+  name: temporary
+  display_name: "短期"
+  note:
+  position: 2
+retention_period_00003:
+  id: 3
+  name: scrap
+  display_name: "廃棄"
+  note:
+  position: 3

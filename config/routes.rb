@@ -223,6 +223,7 @@ EnjuLeaf::Application.routes.draw do
   match '/resource_import_textfiles/adapters/:name' => 'resource_import_textfiles#inherent_view'
   resources :resource_import_textfiles do
     get :import_request, :on => :collection
+    post :upload, :on => :collection
     resources :resource_import_textresults, :only => [:index, :show, :destroy]
   end
 
@@ -298,6 +299,10 @@ EnjuLeaf::Application.routes.draw do
   resources :content_types
 
   resources :carrier_types
+
+  resources :retention_periods
+
+  resources :manifestation_types
 
   resources :import_requests
 

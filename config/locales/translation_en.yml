@@ -74,6 +74,7 @@ en:
       search_engine: Search engine
       create: Create
       carrier_type: Carrier Type
+      retention_period: Retention Period
       manifestation: Manifestation
       user_group: User group
       resource_import_file: Resource import file
@@ -473,6 +474,7 @@ en:
         price: Price
         lock_version: Lock version
         checkout_type: Checkout type
+        retention_period: Retention Period
         acquired_at: Acquired at
         loss_item: Loss item
         set_status: Loss item processing
@@ -625,6 +627,16 @@ en:
         display_name: Display name
         note: Note
         position: Position
+      retention_period:
+        name: Name
+        display_name: Display name
+        note: Note
+        position: Position
+      manifestation_type:
+        name: Name
+        display_name: Display name
+        note: Note
+        position: Position
       manifestation:
         original_title: Original title
         title_alternative: Titlte alternative
@@ -632,6 +644,8 @@ en:
         classification_number: Classification number
         identifier: Manifestation identifier
         date_of_publication: Date of publication
+        country_of_publication: Country of publication
+        place_of_publication: Place of publication
         pub_date: Date of publication
         deleted_at: Deleted at
         access_address: Access address

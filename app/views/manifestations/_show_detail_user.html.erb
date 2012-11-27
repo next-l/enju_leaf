@@ -46,8 +46,20 @@
           </td>
         </tr>
         <tr>
+          <td><%= t('activerecord.models.manifestation_type') %>:</td>
+          <td><span><%= manifestation.manifestation_type.display_name.localize if manifestation.manifestation_type %></span></td>
+        </tr>
+        <tr>
           <td><%= t('activerecord.models.language') -%>:</td>
           <td><span itemprop="inLanguage"><%= manifestation.language.display_name.localize -%></span></td>
+        </tr>
+        <tr>
+          <td><%= t('activerecord.attributes.manifestation.country_of_publication') -%>:</td>
+          <td><%= manifestation.country_of_publication.display_name.localize if manifestation.country_of_publication_id -%></td>
+        </tr>
+        <tr>
+          <td><%= t('activerecord.attributes.manifestation.place_of_publication') -%>:</td>
+          <td><%= manifestation.place_of_publication -%></td>
         </tr>
         <tr>
           <td><%= t('manifestation.physical_description') -%>:</td>

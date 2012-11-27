@@ -20,6 +20,10 @@
   <%= link_to @item.checkout_type.display_name.localize, @item.checkout_type -%>
 </p>
 
+<p>
+  <strong><%= t('activerecord.attributes.item.retention_period') -%>:</strong>
+  <%= link_to @item.retention_period.display_name.localize, @item.retention_period if @item.retention_period -%>
+</p>
 <%- if Setting.operation -%>
   <p>
     <strong><%= t('activerecord.models.lending_policy') -%>:</strong>

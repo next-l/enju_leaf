@@ -1,0 +1,36 @@
+<div id="content_detail" class="ui-corner-all">
+<h1 class="title"><%= t('page.listing', :model => t('activerecord.models.manifestation_type')) %></h1>
+<div id="content_list">
+<table class="index">
+  <tr>
+    <th id="position"></th>
+    <th><%= t('activerecord.attributes.manifestation_type.name') %></th>
+    <th><%= t('activerecord.attributes.manifestation_type.display_name') %></th>
+    <th><%= t('activerecord.attributes.manifestation_type.note') %></th>
+    <th></th>
+  </tr>
+
+<% @manifestation_types.each do |manifestation_type| %>
+  <tr class="line<%= cycle("0", "1") %>">
+    <td>
+      <% if can? :update, manifestation_type %>
+        <%= move_position(manifestation_type) %>
+      <% end %>
+    </td>
+    <td><%= link_to manifestation_type.name, manifestation_type %></td>
+    <td><%= link_to manifestation_type.display_name, manifestation_type %></td>
+    <td><%= manifestation_type.note %></td>
+    <td>
+      <% if can? :update, manifestation_type %>
+        <%= link_to t('page.edit'), edit_manifestation_type_path(manifestation_type) %>
+      <% end %>
+    </td>
+  </tr>
+<% end %>
+</table>
+
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all">
+</div>

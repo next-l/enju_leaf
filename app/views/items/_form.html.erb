@@ -25,6 +25,11 @@
   </div>
 
   <div class="field">
+    <%= f.label t('activerecord.models.retention_period') -%><br />
+    <%= f.select(:retention_period_id, @retention_periods.collect{|r| [r.display_name.localize, r.id]}) -%>
+  </div>
+
+  <div class="field">
     <%= f.label :call_number -%><br />
     <%= f.text_field :call_number -%>
   </div>

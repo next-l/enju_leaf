@@ -63,6 +63,10 @@ jQuery(function(){
     <%= f.select(:carrier_type_id, @carrier_types.collect{|m| [m.display_name.localize, m.id]}) -%>
     <!-- TODO: Formの切り替え時に入力項目をAjaxで書き換える -->
   </div>
+  <div class="field">
+    <%= f.label t('activerecord.models.manifestation_type') -%>
+    <%= f.select(:manifestation_type_id, @manifestation_types.collect{|m| [m.display_name.localize, m.id]}) -%>
+  </div>
 
   <div class="field">
     <%= f.label t('activerecord.models.frequency') -%>
@@ -72,6 +76,16 @@ jQuery(function(){
   <div class="field">
     <%= f.label :pub_date -%>
     <%= f.text_field :pub_date, :class => 'date_field', :placeholder => "#{t('page.example')}: 2011, 2011-04-12"-%>
+  </div>
+
+  <div class="field">
+    <%= f.label t('activerecord.attributes.manifestation.country_of_publication') -%>
+    <%= f.select(:country_of_publication_id, @countries.collect{|country| [country.display_name.localize, country.id]}) -%>
+  </div>
+
+  <div class="field">
+    <%= f.label t('activerecord.attributes.manifestation.place_of_publication') -%>
+    <%= f.text_field :place_of_publication %>
   </div>
 
   <div class="field">

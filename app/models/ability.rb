@@ -63,6 +63,10 @@ class Ability
       can :destroy, Shelf do |shelf|
         shelf.items.count == 0
       end
+      can [:read, :create, :update], RetentionPeriod
+      can :destroy, RetentionPeriod do |retention_period|
+        retention_period.items.empty?
+      end 
       can [:read, :create, :update], User
       can :destroy, User do |u|
         u.deletable? and u != user
@@ -154,6 +158,7 @@ class Ability
         Language,
         LibraryGroup,
         License,
+        ManifestationType,
         MediumOfPerformance,
         PatronType,
         RequestStatusType,
@@ -307,6 +312,7 @@ class Ability
         Library,
         LibraryGroup,
         License,
+        ManifestationType,
         ManifestationRelationshipType,
         MediumOfPerformance,
         PatronImportResult,
@@ -318,6 +324,7 @@ class Ability
         ReserveStatHasUser,
         ResourceImportResult,
         ResourceImportTextresult,
+        RetentionPeriod,
         Role,
         SearchEngine,
         Shelf,
