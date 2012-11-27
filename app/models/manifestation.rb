@@ -11,6 +11,7 @@ class Manifestation < ActiveRecord::Base
   has_many :picture_files, :as => :picture_attachable, :dependent => :destroy
   belongs_to :language
   belongs_to :carrier_type
+  belongs_to :manifestation_type
   has_one :series_has_manifestation
   has_one :series_statement, :through => :series_has_manifestation
   belongs_to :frequency
@@ -84,11 +85,12 @@ class Manifestation < ActiveRecord::Base
       carrier_type.name
     end
     string :manifestation_type, :multiple => true do
-      if series_statement.try(:id) 
-        1
-      else
-        0
-      end
+      manifestation_type.try(:name)
+      #if series_statement.try(:id) 
+      #  1
+      #else
+      #  0
+      #end
     end
     string :library, :multiple => true do
       items.map{|i| i.shelf.library.name}
@@ -237,8 +239,8 @@ class Manifestation < ActiveRecord::Base
     has_attached_file :attachment
   end
 
-  validates_presence_of :carrier_type, :language, :country_of_publication
-  validates_associated :carrier_type, :language, :country_of_publication
+  validates_presence_of :carrier_type, :language, :manifestation_type, :country_of_publication
+  validates_associated :carrier_type, :language, :manifestation_type, :country_of_publication
   before_validation :set_language, :if => :during_import
   before_save :set_series_statement
 

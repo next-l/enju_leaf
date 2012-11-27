@@ -697,6 +697,7 @@ class ManifestationsController < ApplicationController
 
   def prepare_options
     @carrier_types = CarrierType.all
+    @manifestation_types = ManifestationType.all
     @roles = Role.all
     @languages = Language.all_cache
     @countries = Country.all

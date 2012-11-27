@@ -76,6 +76,7 @@ ja:
       create: 著作関係
       carrier_type: 資料の形態
       retention_period: 保存種別
+      manifestation_type: 資料区分
       manifestation: 資料
       user_group: 利用者グループ
       resource_import_file: 資料のインポート用ファイル
@@ -171,7 +172,6 @@ ja:
       reminder_list: 督促
       expense: 購入情報
       budget_and_results_managements: 予算実績対比 
-      manifestation_type: 資料区分
       access_log: アクセス件数
       keyword_count: 検索キーワード
 
@@ -726,6 +726,11 @@ ja:
         note: 注記
         position: 位置
       retention_period:
+        name: 名前
+        display_name: 表示名
+        note: 注記
+        position: 位置
+      manifestation_type:
         name: 名前
         display_name: 表示名
         note: 注記
@@ -1962,8 +1967,16 @@ ja:
       title_alternative: 書籍の副名
       author: 著者・編集者
       issn_isbn: ISSN・ISBN番号
-      number_of_page: ページ
       note: 備考
+      creator: 著者
+      series_original_title: 表題
+      series_title: 誌名
+      number: 巻号
+      number_of_page: ページ
+      series_pub_date: 年
+      call_number: 請求記号 
+      url: URL
+      subject: 件名 
   resource_import_file:
     template_download: "テンプレートをダウンロード"
     import_request: "すぐにインポート"

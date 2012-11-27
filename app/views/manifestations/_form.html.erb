@@ -63,6 +63,10 @@ jQuery(function(){
     <%= f.select(:carrier_type_id, @carrier_types.collect{|m| [m.display_name.localize, m.id]}) -%>
     <!-- TODO: Formの切り替え時に入力項目をAjaxで書き換える -->
   </div>
+  <div class="field">
+    <%= f.label t('activerecord.models.manifestation_type') -%>
+    <%= f.select(:manifestation_type_id, @manifestation_types.collect{|m| [m.display_name.localize, m.id]}) -%>
+  </div>
 
   <div class="field">
     <%= f.label t('activerecord.models.frequency') -%>

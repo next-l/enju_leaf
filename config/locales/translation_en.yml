@@ -632,6 +632,11 @@ en:
         display_name: Display name
         note: Note
         position: Position
+      manifestation_type:
+        name: Name
+        display_name: Display name
+        note: Note
+        position: Position
       manifestation:
         original_title: Original title
         title_alternative: Titlte alternative
