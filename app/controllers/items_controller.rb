@@ -205,10 +205,10 @@ class ItemsController < ApplicationController
   # DELETE /items/1.json
   def destroy
     manifestation = @item.manifestation
-    @item.destroy
     if @item.reserve
       @item.reserve.revert_request rescue nil
     end
+    @item.destroy!
 
     respond_to do |format|
       flash[:notice] = t('controller.successfully_deleted', :model => t('activerecord.models.item'))

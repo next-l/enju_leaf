@@ -515,7 +515,7 @@ class ManifestationsController < ApplicationController
   # DELETE /manifestations/1
   # DELETE /manifestations/1.json
   def destroy
-    @manifestation.destroy
+    @manifestation.destroy!
     flash[:notice] = t('controller.successfully_deleted', :model => t('activerecord.models.manifestation'))
 
     respond_to do |format|
