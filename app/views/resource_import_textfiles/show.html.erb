@@ -33,15 +33,22 @@
   <%= @resource_import_textfile.file_hash -%>
 </p>
 
-<p>
-  <strong><%= t('activerecord.attributes.resource_import_textfile.sheet') %>:</strong><br />
-  <% sheets = eval(@resource_import_textfile.extraparams)["sheet"] %>
-    <% if sheets.present? %>
-      <% sheets.each do |sheet| %>
-      &nbsp;&nbsp;<%= sheet %><br />
+<% if @resource_import_textfile.adapter_name == 'Excelfile_Adapter' %>
+  <p>
+    <strong><%= t('activerecord.models.manifestation_type') %>:</strong>
+    <%= ManifestationType.find(eval(@resource_import_textfile.extraparams)["manifestation_type"]).display_name.localize %>
+  </p>
+
+  <p>
+    <strong><%= t('activerecord.attributes.resource_import_textfile.sheet') %>:</strong><br />
+    <% sheets = eval(@resource_import_textfile.extraparams)["sheet"] %>
+      <% if sheets.present? %>
+        <% sheets.each do |sheet| %>
+        &nbsp;&nbsp;<%= sheet %><br />
+      <% end %>
     <% end %>
-  <% end %>
-</p>
+  </p>
+<% end %>
 
 <p>
   <strong><%= t('page.created_at') -%>:</strong>

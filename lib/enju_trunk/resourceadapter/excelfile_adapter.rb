@@ -5,8 +5,9 @@ class Excelfile_Adapter < EnjuTrunk::ResourceAdapter::Base
     "エクセルファイル(xlsx)"
   end
 
-  def import_from_file(filename)
-    num = 0
+  def self.template_filename_select_manifestation_type
+    "excelfile_select_manifestation_type.html.erb"
+  end
 
     oo = Excelx.new(filename)
 

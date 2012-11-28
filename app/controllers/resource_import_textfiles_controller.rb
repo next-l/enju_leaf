@@ -68,11 +68,19 @@ class ResourceImportTextfilesController < ApplicationController
 
   def inherent_view
     a = EnjuTrunk::ResourceAdapter::Base.find_by_classname(params[:name])
-    unless a.respond_to?(:template_filename_edit)
-      logger.debug "no method template_filename_edit" 
-      render :nothing => true, :status => 404 and return
+    if params[:name] == 'Excelfile_Adapter'
+      unless a.respond_to?(:template_filename_select_manifestation_type)
+        logger.debug "no method template_filename_select_manifestation_type"
+        render :nothing => true, :status => 404 and return
+      end
+      templatename = a.template_filename_select_manifestation_type
+    else
+      unless a.respond_to?(:template_filename_edit)
+        logger.debug "no method template_filename_edit" 
+        render :nothing => true, :status => 404 and return
+      end
+      templatename = a.template_filename_edit
     end
-    templatename = a.template_filename_edit
     filename = "lib/enju_trunk/resourceadapter/views/#{templatename}"
     logger.debug "filename=#{filename}"
     render :layout => false, :file => filename

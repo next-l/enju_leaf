@@ -1,0 +1,17 @@
+<div class="field">
+   
+  <strong><%= t('activerecord.models.manifestation_type') %></strong>
+  <br />
+  <% manifestation_types = get_manifestation_types %>
+  <% manifestation_types.each do |m| %>
+    <input type  = "radio" 
+           name  = "extraparams[manifestation_type]" 
+           value = <%= m.id %> 
+           <% if m == manifestation_types.first %>
+             checked
+           <% end%>>
+    <%= m.display_name.localize %><br />
+  <% end %>
+
+</div>
+
