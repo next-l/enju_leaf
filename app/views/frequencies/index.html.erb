@@ -8,6 +8,7 @@
     <th><%= t('activerecord.attributes.frequency.name') -%></th>
     <th><%= t('activerecord.attributes.frequency.display_name') -%></th>
     <th></th>
+    <th></th>
   </tr>
 
 <%- @frequencies.each do |frequency| -%>
@@ -19,6 +20,7 @@
     </td>
     <td><%= link_to frequency.name, frequency -%></td>
     <td><%= link_to frequency.display_name.localize, frequency -%></td>
+    <td><%= frequency.freq_string -%></td>
     <td>
       <%- if can? :update, frequency -%>
         <%= link_to t('page.edit'), edit_frequency_path(frequency) -%>

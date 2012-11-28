@@ -1,46 +1,98 @@
 --- 
 frequency_00001: 
-  name: unknown
-  display_name: unknown
+  name: daily
+  display_name: 日刊
   id: 1
   position: 1
+  freq_string: "1"
 frequency_00002: 
-  name: daily
-  display_name: daily
+  name: every_ten_days
+  display_name: 旬報
   id: 2
   position: 2
+  freq_string: "10"
 frequency_00003: 
-  name: weekly
-  display_name: weekly
+  name: monthly
+  display_name: 月刊
   id: 3
   position: 3
+  freq_string: "31"
 frequency_00004: 
   name: biweekly
-  display_name: biweekly
+  display_name: 半月
   id: 4
   position: 4
+  freq_string: "15"
 frequency_00005: 
-  name: monthly
-  display_name: monthly
+  name: bimonthly
+  display_name: 隔月
   id: 5
   position: 5
+  freq_string: "60"
 frequency_00006: 
   name: bimonthly
-  display_name: bimonthly
+  display_name: 月２回
   id: 6
   position: 6
+  freq_string: "15"
 frequency_00007: 
-  name: quarterly
-  display_name: quarterly
+  name: weekly
+  display_name: 週刊
   id: 7
   position: 7
+  freq_string: "0"
 frequency_00008: 
-  name: biyearly
-  display_name: biyearly
+  name: nonscheduled 
+  display_name: 不定期
   id: 8
   position: 8
+  freq_string: "0"
 frequency_00009: 
   name: yearly
-  display_name: yearly
+  display_name: 年刊
   id: 9
   position: 9
+  freq_string: "365"
+frequency_00010: 
+  name: ten_times
+  display_name: 年１０回
+  id: 10
+  position: 10
+  freq_string: "36"
+frequency_00011: 
+  name: half_yearly
+  display_name: 半年
+  id: 11
+  position: 11
+  freq_string: "183"
+frequency_00012: 
+  name: ten_times
+  display_name: 年３回
+  id: 12
+  position: 12
+  freq_string: "122"
+frequency_00013: 
+  name: quarterly
+  display_name: 季刊
+  id: 13
+  position: 13
+  freq_string: "0"
+frequency_00014: 
+  name: ten_times
+  display_name: 年５回
+  id: 14
+  position: 14
+  freq_string: "73"
+frequency_00015: 
+  name: six_times
+  display_name: 年６回
+  id: 15
+  position: 15
+  freq_string: "61"
+frequency_00016: 
+  name: unknown
+  display_name: 不定
+  id: 16
+  position: 16
+  freq_string: ""
+

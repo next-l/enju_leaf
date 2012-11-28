@@ -637,6 +637,7 @@ ja:
         display_name: 表示名
         note: 注記
         position: 位置
+        freq_string: 間隔
       expression_merge_list:
         title: タイトル
       use_restriction:

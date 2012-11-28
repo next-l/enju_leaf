@@ -1,4 +1,6 @@
 class Frequency < ActiveRecord::Base
+  attr_accessible :name, :display_name, :note, :freq_string, :position
+
   include MasterModel
   default_scope :order => "position"
   has_many :manifestations
