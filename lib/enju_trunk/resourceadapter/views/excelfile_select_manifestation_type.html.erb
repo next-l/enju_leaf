@@ -1,17 +1,33 @@
+<script type="text/javascript">
+  $(document).ready(function() {
+    $("input[name='extraparams[is_article]']").change(function(){
+      var is_article = $("input[name='extraparams[is_article]']:checked").val();
+      if (is_article == "true") {
+        var data = "<br />"
+                 + "<div class='field'>"
+                 + "<strong><%= t('resource_import_textfile.article_type') %></strong>"
+                 + "<br />"
+                 + "<input type = 'radio' value = 'ja' name = 'extraparams[article_type]' checked>"
+                 + " <%= t('resource_import_textfile.article_ja') %>"
+                 + "<br />"
+                 + "<input type = 'radio' value = 'en' name = 'extraparams[article_type]'>"
+                 + " <%= t('resource_import_textfile.article_en') %>"
+                 + "</div>"
+        $("#article_type").html(data);
+      } else {
+        $("#article_type").html("");
+      }
+    });
+  });
+</script>
+
 <div class="field">
-   
   <strong><%= t('activerecord.models.manifestation_type') %></strong>
   <br />
-  <% manifestation_types = get_manifestation_types %>
-  <% manifestation_types.each do |m| %>
-    <input type  = "radio" 
-           name  = "extraparams[manifestation_type]" 
-           value = <%= m.id %> 
-           <% if m == manifestation_types.first %>
-             checked
-           <% end%>>
-    <%= m.display_name.localize %><br />
-  <% end %>
-
+  <input type = "radio" value = false name = "extraparams[is_article]" checked>
+  <%= t('resource_import_textfile.book') %>
+  <br />
+  <input type = "radio" value = true name = "extraparams[is_article]">
+  <%= t('resource_import_textfile.article') %>
+  <div id = "article_type"></div>
 </div>
-

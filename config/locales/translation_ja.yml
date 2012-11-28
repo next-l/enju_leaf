@@ -1960,21 +1960,27 @@ ja:
     import_request: "すぐにインポート"
     start_importing: "インポートを開始しました。"
     unsuccess_start: "インポート開始に失敗しました。"
+    book: 書誌    
+    article: 文献
+    article_ja: 和文献
+    article_en: 英文献
+    article_type: 文献区分
     excel:
       item_identifier: 受入番号
       accept_at: 受入日
       original_title: 書名
       title_transcription: 書名の読み（半角）
       title_alternative: 書籍の副名
-      author: 著者・編集者
+      creator: 著者・編集者
       issn_isbn: ISSN・ISBN番号
+      items_num: 受入部数
       note: 備考
-      creator: 著者
-      series_original_title: 表題
-      series_title: 誌名
-      number: 巻号
+      article_creator: 著者
+      article_original_title: 表題
+      article_title: 誌名
+      volume_number_string: 巻号
       number_of_page: ページ
-      series_pub_date: 年
+      pub_date: 年
       call_number: 請求記号 
       url: URL
       subject: 件名 
