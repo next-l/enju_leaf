@@ -638,6 +638,7 @@ ja:
         note: 注記
         position: 位置
         freq_string: 間隔
+        nii_code: 識別コード
       expression_merge_list:
         title: タイトル
       use_restriction:
