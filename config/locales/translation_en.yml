@@ -482,6 +482,7 @@ en:
         fail_update_loss_item: Failed to update status
         created_at: Created at
         removed_at: Removed at
+        rank: Rank
       loss_item:
         user_id: User number
         item_id: Loss item 
@@ -1395,6 +1396,11 @@ en:
     no_manifestation: "No manifestation"
     no_number: "No number"
     add_lending_policy: "Add a new lending policy"
+    original_item_require_item_identidier: "Original item  require a item identifier."
+    already_original_item_created: "Already original title item is created."
+    original: Original
+    copy: Copy
+    spare: Spare
   patron:
     library_group_patron: "Patrons of %{library_group_name}"
     work_patron: "Creaters of %{work_title}"

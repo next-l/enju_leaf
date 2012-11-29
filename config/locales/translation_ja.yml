@@ -562,6 +562,7 @@ ja:
         created_at: 作成日
         removed_at: 除籍日
         items_number: 所蔵数
+        rank: 正本区分
       loss_item:
         user_id: 利用者番号
         item_id: 紛失資料
@@ -1652,6 +1653,11 @@ ja:
     all_type: 全ての資料区分
     general_item: 一般資料
     audio_item: 視聴覚資料
+    original_item_require_item_identidier: "正本登録する場合は所蔵情報IDが必要です。"
+    already_original_item_created: "正本は既に登録済みです。"
+    original: 正本
+    copy: 複本
+    spare: 予備資料
   patron:
     library_group_patron: "%{library_group_name} の人物・団体"
     work_patron: "%{work_title} の著作者"

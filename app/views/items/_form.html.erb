@@ -79,6 +79,11 @@
   </div>
 
   <div class="field">
+    <%= f.label t('activerecord.attributes.item.rank') %><br />
+    <%= f.select(:rank, item_ranks.collect{|r| [i18n_item(r), r]}) %>
+  </div>
+
+  <div class="field">
     <%= f.label :item_identifier -%><br />
     <%= f.text_field :item_identifier, :class => 'resource_item_identifier' -%>
   </div>

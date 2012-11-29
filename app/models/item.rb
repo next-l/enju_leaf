@@ -5,7 +5,7 @@ class Item < ActiveRecord::Base
   attr_accessible :library_id, :shelf_id, :checkout_type_id, :circulation_status_id,
                   :retention_period_id, :call_number, :bookstore_id, :price, :url, 
                   :include_supplements, :use_restriction_id, :required_role_id, 
-                  :acquired_at, :note, :item_identifier,
+                  :acquired_at, :note, :item_identifier, :rank,
                   :use_restriction, :manifestation_id, :manifestation,
                   :shelf_id, :circulation_status, :bookstore_id,
                   :shelf, :bookstore, :retention_period
@@ -47,7 +47,8 @@ class Item < ActiveRecord::Base
   has_many :expenses
 
   validates_associated :circulation_status, :shelf, :bookstore, :checkout_type, :retention_period
-  validates_presence_of :circulation_status, :checkout_type, :retention_period
+  validates_presence_of :circulation_status, :checkout_type, :retention_period, :rank
+  validate :is_original?
   before_validation :set_circulation_status, :on => :create
   before_save :set_use_restriction, :check_remove_item
   after_save :check_price
@@ -68,6 +69,7 @@ class Item < ActiveRecord::Base
     integer :shelf_id
     integer :patron_ids, :multiple => true
     integer :inventory_file_ids, :multiple => true
+    integer :rank
     time :created_at
     time :updated_at
   end
@@ -215,6 +217,18 @@ class Item < ActiveRecord::Base
     rescue Exception => e
       logger.error "Failed to update expense: #{e}"
       logger.error $@
+    end
+  end
+
+  def is_original?
+    if self.rank == 0
+      errors[:base] << I18n.t('item.original_item_require_item_identidier') unless self.item_identifier
+
+      manifestation = Manifestation.find(self.manifestation_id) rescue nil
+      return true unless manifestation
+
+      item_ranks = manifestation.items.inject([]){ |list, i| list << i.rank.to_i }
+      errors[:base] << I18n.t('item.already_original_item_created') if item_ranks.include?(0)
     end
   end
 

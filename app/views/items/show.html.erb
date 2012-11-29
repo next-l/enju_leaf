@@ -15,6 +15,14 @@
   (<%= link_to @item.shelf.library.display_name.localize, @item.shelf.library -%>)
 </p>
 
+  
+<% if user_signed_in? and current_user.has_role?('Librarian') %>
+  <p>
+    <strong><%= t('activerecord.attributes.item.rank') -%>:</strong>
+    <%= i18n_item(@item.rank) if @item.rank %>
+  </p>
+<% end %>
+
 <p>
   <strong><%= t('activerecord.attributes.item.checkout_type') -%>:</strong>
   <%= link_to @item.checkout_type.display_name.localize, @item.checkout_type -%>
