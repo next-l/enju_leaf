@@ -30,7 +30,7 @@ frequency_00005:
   position: 5
   freq_string: "60"
 frequency_00006: 
-  name: bimonthly
+  name: semimonthly
   display_name: 月２回
   id: 6
   position: 6
@@ -66,7 +66,7 @@ frequency_00011:
   position: 11
   freq_string: "183"
 frequency_00012: 
-  name: ten_times
+  name: three_times_a_year
   display_name: 年３回
   id: 12
   position: 12
@@ -78,20 +78,20 @@ frequency_00013:
   position: 13
   freq_string: "0"
 frequency_00014: 
-  name: ten_times
+  name: five_times_a_year
   display_name: 年５回
   id: 14
   position: 14
   freq_string: "73"
 frequency_00015: 
-  name: six_times
+  name: six_times_a_year
   display_name: 年６回
   id: 15
   position: 15
   freq_string: "61"
 frequency_00016: 
   name: unknown
-  display_name: 不定
+  display_name: 不明
   id: 16
   position: 16
   freq_string: ""
