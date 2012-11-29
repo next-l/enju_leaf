@@ -96,3 +96,9 @@ circulation_status_00014:
     ja:除籍"
   id: 14
   position: 14
+circulation_status_00015:
+  name: Binded
+  display_name: "en:Binded\r\n\
+    ja:製本済み"
+  id: 15
+  position: 15
