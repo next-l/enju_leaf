@@ -415,8 +415,10 @@ EnjuLeaf::Application.routes.draw do
   resources :bookbindings do
     resources :binding_items
     get :bind_undo, :on => :collection
+    get :add_binding_item, :on => :collection
   end
   resources :binding_items
+  match '/bookbindings/:bookbinder_id/manifestations' => 'manifestations#index'
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

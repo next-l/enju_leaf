@@ -28,6 +28,9 @@
         <li><%= link_to t('activerecord.models.barcode_list'), barcode_lists_path -%></li>
         <li><%= link_to t('activerecord.models.print_label'), print_labels_path -%></li>
       </ul>
+      <ul>
+        <li><%= link_to t('activerecord.models.bookbinding'), {:action=>"create", :controller=>"bookbindings"}, :method => :post -%></li>
+      </ul>
     </div>
   </div>
 

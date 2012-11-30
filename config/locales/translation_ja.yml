@@ -1550,6 +1550,7 @@ ja:
     add_derivation: 派生資料を追加
     answer: 回答
     serial: 定期刊行物
+    add: 追加
 
   exstatistics:
     report: 帳票
@@ -2222,8 +2223,16 @@ ja:
     materials_show: 資料の閲覧画面
   binding_item:
     bind: "上記の資料を製本する"
+    add: "追加"
+    search_items: "製本対象資料を検索してください。"
   bookbinding:
     bookbinding_completed: "製本処理が完了しました。"
+    unbinded: "製本を解除しました。"
+    added: "資料を製本資料に追加しました。"
+    binding_items: "製本した資料一覧"
+    binded: "製本済み"
+    binder: "製本資料"
+    status: "製本ステータス"
 
   opac:
     finish: 終わる

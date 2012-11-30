@@ -2,7 +2,6 @@
 require EnjuTrunkFrbr::Engine.root.join('app', 'models', 'item')
 require EnjuTrunkCirculation::Engine.root.join('app', 'models', 'item') if Setting.operation
 class Item < ActiveRecord::Base
-  acts_as_paranoid
   attr_accessible :library_id, :shelf_id, :checkout_type_id, :circulation_status_id,
                   :retention_period_id, :call_number, :bookstore_id, :price, :url, 
                   :include_supplements, :use_restriction_id, :required_role_id, 
@@ -46,11 +45,13 @@ class Item < ActiveRecord::Base
   has_one :resource_import_result
   has_many :libcheck_tmp_items
   has_many :expenses
+  has_many :binding_items, :class_name => 'Item', :foreign_key => 'bookbinder_id'
+  belongs_to :binder_item, :class_name => 'Item', :foreign_key => 'bookbinder_id'
 
   validates_associated :circulation_status, :shelf, :bookstore, :checkout_type, :retention_period
   validates_presence_of :circulation_status, :checkout_type, :retention_period
   before_validation :set_circulation_status, :on => :create
-  before_save :set_use_restriction, :check_remove_item, :except => :delete
+  before_save :set_use_restriction, :check_remove_item, :set_retention_period, :except => :delete
   after_save :check_price, :except => :delete
 
   #enju_union_catalog
@@ -69,6 +70,7 @@ class Item < ActiveRecord::Base
     integer :shelf_id
     integer :patron_ids, :multiple => true
     integer :inventory_file_ids, :multiple => true
+    integer :bookbinder_id
     time :created_at
     time :updated_at
   end
@@ -216,6 +218,25 @@ class Item < ActiveRecord::Base
     rescue Exception => e
       logger.error "Failed to update expense: #{e}"
       logger.error $@
+    end
+  end
+
+  def set_retention_period
+    if self.retention_period.blank?
+      self.retention_period = RetentionPeriod.find(1)
+    end
+  end
+
+  def item_bind(bookbinder_id)
+    Item.transaction do
+      self.bookbinder_id = bookbinder_id
+      self.circulation_status = CirculationStatus.where(:name => 'Binded').first
+      if self.save
+        self.manifestation.index
+        return true 
+      else
+        return false
+      end
     end
   end
 

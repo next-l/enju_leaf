@@ -29,6 +29,7 @@ class ManifestationsController < ApplicationController
       unless current_user.has_role?('Librarian')
         access_denied; return 
       end
+      @add = true
     end
 
     per_page = per_pages[0] if per_pages
@@ -114,6 +115,7 @@ class ManifestationsController < ApplicationController
       patron = get_index_patron
       @index_patron = patron
 
+      @binder = binder = Manifestation.find(params[:bookbinder_id]).try(:items).try(:first) if params[:bookbinder_id]
       unless params[:mode] == 'add'
         manifestation = @manifestation if @manifestation
         subject = @subject if @subject
@@ -125,7 +127,6 @@ class ManifestationsController < ApplicationController
           with(:original_manifestation_ids).equal_to manifestation.id if manifestation
         end
       end
-
       search.build do
         fulltext query unless query.blank?
         order_by sort[:sort_by], sort[:order] unless oai_search
@@ -144,6 +145,8 @@ class ManifestationsController < ApplicationController
           with(:periodical).equal_to false
         end
         facet :reservable
+        with(:bookbinder_id).equal_to binder.id if params[:mode] != 'add' && binder
+        without(:id, binder.manifestation.id) if binder
       end
       search = make_internal_query(search)
       search.data_accessor_for(Manifestation).select = [
@@ -232,7 +235,7 @@ class ManifestationsController < ApplicationController
           facet :language
           facet :subject_ids
           facet :manifestation_type
-          paginate :page => page.to_i, :per_page => per_page
+          paginate :page => page.to_i, :per_page => per_page unless request.xhr?
         end
       end
       # catch query error 
@@ -317,7 +320,7 @@ class ManifestationsController < ApplicationController
       }
       format.mods
       format.json { render :json => @manifestations }
-      format.js
+      format.js { render 'binding_items/manifestations'}
     end
   #rescue QueryError => e
   #  render :template => 'manifestations/error.xml', :layout => false

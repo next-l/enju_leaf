@@ -258,6 +258,10 @@ class ApplicationController < ActionController::Base
     @reserve_information_types = Reserve.information_type_ids
   end
 
+  def get_bookbinding
+    @bookbinding = Bookbinding.find(params[:bookbinding_id]) if params[:bookbinding_id]
+  end
+
   def convert_charset
     case params[:format]
     when 'csv'

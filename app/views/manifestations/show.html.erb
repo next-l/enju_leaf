@@ -123,7 +123,12 @@
           <%- end -%>
           <li><%= link_to t('manifestation.add_derivation'), manifestation_manifestations_path(@manifestation, :mode => 'add') -%></li>
           <li><%= link_to t('page.listing', :model => t('activerecord.models.subject')), work_subjects_path(@manifestation) -%></li>
-          <li><%= link_to t('manifestation.edit_item'), manifestation_items_path(@manifestation) -%></li>
+          <%- unless @manifestation.bookbinder -%>
+            <li><%= link_to t('manifestation.edit_item'), manifestation_items_path(@manifestation) -%></li>
+          <%- end -%>
+          <%- if @manifestation.bookbinder -%>
+            <li><%= link_to(t('manifestation.undo_binding'), {:controller => 'bookbindings', :action => 'bind_undo', :manifestation_id => @manifestation.id}, :confirm => t('page.are_you_sure')) -%></li>
+          <%- end -%>
         </ul>
       <%- end -%>
     <%- end -%>

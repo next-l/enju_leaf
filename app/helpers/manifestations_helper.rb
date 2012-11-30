@@ -149,4 +149,13 @@ module ManifestationsHelper
       end
     end
   end
+
+  def binding_items(manifestation, binder_id, mode)
+    if mode
+      manifestation.items
+    else  
+      manifestation.items.where(:bookbinder_id => binder_id)
+    end
+  end
+
 end
