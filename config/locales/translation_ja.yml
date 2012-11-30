@@ -1580,7 +1580,8 @@ ja:
     help_query: "タイトル、著者、出版者、シリーズ名、注記等を対象に検索を行います。"
     help_isbn: "半角英数字で入力してください。ハイフン（-）の入力は不要です。"
     help_issn: "半角英数字で入力してください。ハイフン（-）の入力は不要です。"
-  work:
+    all_manifestations: "検索非対象資料も表示"
+  worki:
     patron_work: "%{patron_name} の書いた資料"
     library_group_work: "%{library_group_name} にある書いた資料"
     add: "書いた資料を追加"

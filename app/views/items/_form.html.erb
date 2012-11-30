@@ -80,7 +80,7 @@
 
   <div class="field">
     <%= f.label t('activerecord.attributes.item.rank') %><br />
-    <%= f.select(:rank, item_ranks.collect{|r| [i18n_item(r), r]}) %>
+    <%= f.select(:rank, item_ranks.collect{|r| [i18n_rank(r), r]}) %>
   </div>
 
   <div class="field">

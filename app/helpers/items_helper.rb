@@ -16,7 +16,7 @@ module ItemsHelper
     return [0, 1, 2]
   end
 
-  def i18n_item(item)
+  def i18n_rank(item)
     case item
     when 0
       t('item.original')

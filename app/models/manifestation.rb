@@ -217,6 +217,13 @@ class Manifestation < ActiveRecord::Base
       end
     end
     boolean :except_recent
+    boolean :has_original do
+      if items.inject([]){ |list, i| list << i.rank.to_i }.include?(0)
+        true
+      else
+        false
+      end
+    end
     string :exinfo_1
     string :exinfo_2
     string :exinfo_3
