@@ -38,6 +38,7 @@ platforms :mri_19 do
   gem 'zipruby'
   gem 'kgio'
   gem 'charlock_holmes'
+  #gem 'charlock_holmes', :git => 'git://github.com/brianmario/charlock_holmes.git', :branch => 'bundle-icu'
 end
 
 platforms :jruby do
