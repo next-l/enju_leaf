@@ -59,7 +59,7 @@ class ResourceImportTextfilesController < ApplicationController
   def import_request
     @resource_import_textfile = ResourceImportTextfile.find(params[:id])
     #ResourceImportTextfile.send_later(:import, @resource_import_textfile.id, 0)
-    Asynchronized_Service.new.delay.perform(:ResoureceImportTextfile_import, @resource_import_textfile.id)
+    Asynchronized_Service.new.delay.perform(:ResourceImportTextfile_import, @resource_import_textfile.id)
     flash[:message] = t('resource_import_textfile.start_importing')
     respond_to do |format|
       format.html {redirect_to(resource_import_textfile_resource_import_textresults_path(@resource_import_textfile))}
