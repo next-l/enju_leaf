@@ -80,7 +80,7 @@ ja:
       manifestation: 資料
       user_group: 利用者グループ
       resource_import_file: 資料のインポート用ファイル
-      resource_import_textfile: テキストインポート用ファイル
+      resource_import_textfile: 資料のインポート用ファイル
       checkout: 貸出
       checkout_family: 家族の貸出
       subscription: 購読
@@ -1975,24 +1975,26 @@ ja:
     article_en: 英文献
     article_type: 文献区分
     excel:
-      item_identifier: 受入番号
-      accept_at: 受入日
-      original_title: 書名
-      title_transcription: 書名の読み（半角）
-      title_alternative: 書籍の副名
-      creator: 著者・編集者
-      issn_isbn: ISSN・ISBN番号
-      items_num: 受入部数
-      note: 備考
-      article_creator: 著者
-      article_original_title: 表題
-      article_title: 誌名
-      volume_number_string: 巻号
-      number_of_page: ページ
-      pub_date: 年
-      call_number: 請求記号 
-      url: URL
-      subject: 件名 
+      book:
+        item_identifier: 受入番号
+        accept_at: 受入日
+        original_title: 書名
+        creator: 著者・編集者
+        frequency: 発行サイクル
+        bookstore: 寄贈・購入先
+        issn_isbn: ISSN・ISBN番号
+        items_num: 受入部数
+        note: 備考
+      article: 
+        creator: 著者
+        original_title: 表題
+        title: 誌名
+        volume_number_string: 巻号
+        number_of_page: ページ
+        pub_date: 年
+        call_number: 請求記号 
+        url: ＵＲＬ
+        subject: 件名 
   resource_import_file:
     template_download: "テンプレートをダウンロード"
     import_request: "すぐにインポート"
