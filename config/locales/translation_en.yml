@@ -784,6 +784,7 @@ en:
         telephone_number: Telephone number
         fax_number: Fax number
         url: URL
+        email: Email
         position: Position
         deleted_at: Deleted at
       area:

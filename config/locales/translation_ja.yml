@@ -92,7 +92,7 @@ ja:
       retained_manifestation: 取置済み(未連絡)資料
       reserve_family: 家族の予約
       answer: 回答
-      bookstore: 書店
+      bookstore: 寄贈・購入先
       area: 地区
       checkout_type: 貸出区分
       classification_type: 分類型
@@ -904,6 +904,7 @@ ja:
         telephone_number: 電話番号
         fax_number: ファックス番号
         url: URL
+        email: メールアドレス
         position: 位置
         deleted_at: 削除時刻
       area:
@@ -2137,7 +2138,7 @@ ja:
     all_library: 全図書館
     carrier_type: 資料の形態
     all_carrier_type: 全ての資料の形態
-    all_bookstore: 全ての書店
+    all_bookstore: 全ての寄贈・購入先
     shelf: 保管場所
     ndc: NDC
     ndc_message: "(入力すると該当資料のみ出力します。)"

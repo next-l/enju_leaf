@@ -6,8 +6,20 @@ class Bookstore < ActiveRecord::Base
   acts_as_list
   validates_presence_of :name
   validates :url, :url => true, :allow_blank => true, :length => {:maximum => 255}
+  validates :email, :format => {:with => /^([\w\.%\+\-]+)@([\w\-]+\.)+([\w]{2,})$/i}, :allow_blank => true
 
   paginates_per 10
+
+  def self.import_bookstore(bookstore_name)
+    bookstore = Bookstore.where(:name => bookstore_name).first
+    unless bookstore
+      bookstore = Bookstore.new(
+        :name => bookstore_name
+      )
+      bookstore.save
+    end
+    bookstore
+  end
 end
 
 # == Schema Information
