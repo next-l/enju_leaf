@@ -57,7 +57,7 @@ class ResourceImportTextfile < ActiveRecord::Base
     adapter = EnjuTrunk::ResourceAdapter::Base.find_by_classname(self.adapter_name)
     adapter.logger = logger
     logger.info "adapter=#{adapter.to_s}"
-    adapter.new.import(self.id, self.resource_import_text.path, self.user_id, self.extraparameter)
+    adapter.new.import(self.id, self.resource_import_text.path, self.user_id, self.extraparams)
     self.update_attribute(:imported_at, Time.zone.now)
     sm_complete!
   end

@@ -8,6 +8,7 @@ class ResourceImportTextresult < ActiveRecord::Base
   belongs_to :resource_import_textfile
   belongs_to :manifestation
   belongs_to :item
+  #has_many :items
 
   validates_presence_of :resource_import_textfile_id
 

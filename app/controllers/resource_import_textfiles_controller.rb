@@ -57,10 +57,13 @@ class ResourceImportTextfilesController < ApplicationController
   end
 
   def import_request
-    @resource_import_textfile = ResourceImportTextfile.find(params[:id])
-    #ResourceImportTextfile.send_later(:import, @resource_import_textfile.id, 0)
-    Asynchronized_Service.new.delay.perform(:ResourceImportTextfile_import, @resource_import_textfile.id)
-    flash[:message] = t('resource_import_textfile.start_importing')
+    begin
+      @resource_import_textfile = ResourceImportImportTextfile.find(params[:id])
+      Asynchronized_Service.new.delay.perform(:ResourceImportTextfile_import, @resource_import_textfile.id)
+      flash[:message] = t('resource_import_textfile.start_importing')
+    rescue Exception => e
+      logger.error "Failed to send process to delayed_job: #{e}"
+    end
     respond_to do |format|
       format.html {redirect_to(resource_import_textfile_resource_import_textresults_path(@resource_import_textfile))}
     end

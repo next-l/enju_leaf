@@ -34,7 +34,7 @@
 </p>
 
 <% if @resource_import_textfile.adapter_name == 'Excelfile_Adapter' %>
-  <% unless eval(@resource_import_textfile.extraparams)["is_article"] %>
+  <% unless eval(@resource_import_textfile.extraparams)["is_article"] == 'true' %>
     <p>
       <strong><%= t('activerecord.models.manifestation_type') %>:</strong>
       <%= t('resource_import_textfile.book') %>
