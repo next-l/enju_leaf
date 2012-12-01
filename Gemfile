@@ -38,7 +38,6 @@ platforms :mri_19 do
   gem 'zipruby'
   gem 'kgio'
   gem 'charlock_holmes'
-  #gem 'charlock_holmes', :git => 'git://github.com/brianmario/charlock_holmes.git', :branch => 'bundle-icu'
 end
 
 platforms :jruby do
@@ -84,6 +83,7 @@ gem 'foreigner'
 gem 'strong_parameters'
 gem 'resque-scheduler', '~> 2.0.0', :require => 'resque_scheduler'
 gem 'acts_as_list', '0.1.7'
+gem 'bigdecimal'
 
 group :development do
   gem 'annotate', '~> 2.5'
