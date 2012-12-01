@@ -58,6 +58,13 @@
   <%- end -%>
 </p>
 
+<% if @item.remove_reason %>
+  <p>
+    <strong><%= t('activerecord.models.remove_reason') %>:</strong>
+    <%= link_to @item.remove_reason.display_name.localize, @item.remove_reason %>
+  </p>
+<% end %>
+
 <p>
   <strong><%= t('activerecord.attributes.item.call_number') -%>:</strong>
   <%= call_numberformat(@item) -%>
