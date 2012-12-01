@@ -5,9 +5,9 @@ class Item < ActiveRecord::Base
   attr_accessible :library_id, :shelf_id, :checkout_type_id, :circulation_status_id,
                   :retention_period_id, :call_number, :bookstore_id, :price, :url, 
                   :include_supplements, :use_restriction_id, :required_role_id, 
-                  :acquired_at, :note, :item_identifier, :rank,
+                  :acquired_at, :note, :item_identifier, :rank, :remove_reason_id,
                   :use_restriction, :manifestation_id, :manifestation,
-                  :shelf_id, :circulation_status, :bookstore_id,
+                  :shelf_id, :circulation_status, :bookstore_id, :remove_reason,
                   :shelf, :bookstore, :retention_period
 
   self.extend ItemsHelper
@@ -27,6 +27,7 @@ class Item < ActiveRecord::Base
   has_many :checked_items, :dependent => :destroy
   has_many :baskets, :through => :checked_items
   belongs_to :circulation_status, :validate => true
+  belongs_to :remove_reason
   belongs_to :retention_period, :validate => true
   belongs_to :bookstore, :validate => true
   has_many :donates
@@ -37,6 +38,7 @@ class Item < ActiveRecord::Base
   has_many :inter_library_loans, :dependent => :destroy
   belongs_to :required_role, :class_name => 'Role', :foreign_key => 'required_role_id', :validate => true
   belongs_to :checkout_type
+  #belongs_to :resource_import_textresult
   has_many :inventories, :dependent => :destroy
   has_many :inventory_files, :through => :inventories
   has_many :lending_policies, :dependent => :destroy
@@ -70,6 +72,7 @@ class Item < ActiveRecord::Base
     integer :patron_ids, :multiple => true
     integer :inventory_file_ids, :multiple => true
     integer :rank
+    integer :remove_reason_id
     time :created_at
     time :updated_at
   end

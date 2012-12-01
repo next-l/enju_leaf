@@ -302,6 +302,8 @@ EnjuLeaf::Application.routes.draw do
 
   resources :retention_periods
 
+  resources :remove_reasons
+
   resources :manifestation_types
 
   resources :import_requests

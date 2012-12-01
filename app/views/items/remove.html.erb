@@ -1,0 +1,35 @@
+<div id="content_detail" class="ui-corner-all">
+<h1 class="title"><%= t('item.set_remove_reason') %></h1>
+<div id="content_list">
+<p id="notice"><%= raw notice %></p>
+  <% if @item.manifestation %>
+    <%= render 'manifestations/title', :manifestation => @item.manifestation %>
+  <% end %>
+  <br />
+  <strong><%= t('item.select_remove_reason') %></strong>
+  <%= simple_form_for(@item) do |f| %>
+    <br />
+    <div class="field">
+    <% @remove_reasons.each do |remove_reason| %>
+      <% if remove_reason == @remove_reasons.first %>
+        <%= f.radio_button :remove_reason_id, remove_reason.id, :checked => true %>
+      <% else %>
+        <%= f.radio_button :remove_reason_id, remove_reason.id %>
+      <% end %>
+      <%= remove_reason.display_name.localize %><br />
+    <% end %>
+    </div>
+
+    <div class="actions">
+      <%= f.hidden_field :circulation_status_id, :value => @remove_id %>
+      <%= f.submit :disable_with => t('page.wait') %>
+    </div>
+  <% end %>
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all">
+  <ul>
+    <li><%= link_to t('page.back'), @item %></li>
+  </ul>
+</div>

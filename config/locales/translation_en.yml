@@ -5,6 +5,7 @@ en:
       question: Question
       patron_import_file: Patron import file
       circulation_status: Circulation status
+      remove_reason: Remove reason
       inventory: Inventory
       patron: Patron
       user_note: Note
@@ -193,6 +194,11 @@ en:
         state: State
         edit_mode: Edit mode
       circulation_status:
+        name: Name
+        display_name: Display name
+        note: Note
+        position: Position
+      remove_reason:
         name: Name
         display_name: Display name
         note: Note
@@ -1403,6 +1409,8 @@ en:
     original: Original
     copy: Copy
     spare: Spare
+    set_remove_reason: "Set a remove reason"
+    select_remove_reason: "Select a remove reason"
   patron:
     library_group_patron: "Patrons of %{library_group_name}"
     work_patron: "Creaters of %{work_title}"

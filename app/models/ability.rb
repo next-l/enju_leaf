@@ -67,6 +67,10 @@ class Ability
       can :destroy, RetentionPeriod do |retention_period|
         retention_period.items.empty?
       end 
+      can [:read, :create, :update], RemoveReason
+      can :destroy, RemoveReason do |remove_reason|
+        remove_reason.items.count == 0
+      end
       can [:read, :create, :update], User
       can :destroy, User do |u|
         u.deletable? and u != user
@@ -236,6 +240,10 @@ class Ability
       end
       can [:read, :create, :update], UserCheckoutStat
       can [:read, :create, :update], UserReserveStat
+      can [:read, :create, :update], RemoveReason
+      can :destroy, RemoveReason do |remove_reason|
+        remove_reason.items.count == 0
+      end
       can :manage, [
         AccessLog,
         Answer,
@@ -418,6 +426,7 @@ class Ability
         PatronRelationshipType,
         Produce,
         Realize,
+        RemoveReason,
         SeriesStatement,
         SeriesHasManifestation,
         Shelf,
@@ -473,6 +482,7 @@ class Ability
         PictureFile,
         Produce,
         Realize,
+        RemoveReason,
         SeriesStatement,
         SeriesHasManifestation,
         Shelf,

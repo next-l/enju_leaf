@@ -5,6 +5,7 @@ ja:
       question: 質問（レファレンス）
       patron_import_file: 人物・団体のインポート用ファイル
       circulation_status: 貸出状態
+      remove_reason: 除籍理由
       inventory: 蔵書点検
       patron: 人物・団体
       user_note: 利用者の注記
@@ -252,6 +253,11 @@ ja:
         edit_mode: 編集モード
         import_request: すぐにインポート
       circulation_status:
+        name: 名前
+        display_name: 表示名
+        note: 注記
+        position: 位置
+      remove_reason:
         name: 名前
         display_name: 表示名
         note: 注記
@@ -1660,6 +1666,8 @@ ja:
     original: 正本
     copy: 複本
     spare: 予備資料
+    set_remove_reason: "除籍理由の設定"
+    select_remove_reason: "除籍理由を選択してください。"
   patron:
     library_group_patron: "%{library_group_name} の人物・団体"
     work_patron: "%{work_title} の著作者"
