@@ -8,7 +8,7 @@ class Item < ActiveRecord::Base
                   :acquired_at, :note, :item_identifier, :rank, :remove_reason_id,
                   :use_restriction, :manifestation_id, :manifestation,
                   :shelf_id, :circulation_status, :bookstore_id, :remove_reason,
-                  :shelf, :bookstore, :retention_period
+                  :shelf, :bookstore, :retention_period, :accept_type_id, :accept_type
 
   self.extend ItemsHelper
   scope :for_checkout, where('item_identifier IS NOT NULL')
@@ -28,6 +28,7 @@ class Item < ActiveRecord::Base
   has_many :baskets, :through => :checked_items
   belongs_to :circulation_status, :validate => true
   belongs_to :remove_reason
+  belongs_to :accept_type
   belongs_to :retention_period, :validate => true
   belongs_to :bookstore, :validate => true
   has_many :donates
@@ -64,6 +65,7 @@ class Item < ActiveRecord::Base
     string :library
     integer :required_role_id
     integer :circulation_status_id
+    integer :accept_type_id
     integer :retention_period_id
     integer :manifestation_id do
       manifestation.id if manifestation

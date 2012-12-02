@@ -276,6 +276,7 @@ class ItemsController < ApplicationController
     @shelves = @library.shelves
     @circulation_statuses = CirculationStatus.all
     @circulation_statuses.reject!{|cs| cs.name == "Removed"}
+    @accept_types = AcceptType.all
     @remove_reasons = RemoveReason.all
     @retention_periods = RetentionPeriod.all
     @use_restrictions = UseRestriction.available

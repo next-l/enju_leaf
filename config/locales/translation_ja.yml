@@ -96,6 +96,7 @@ ja:
       bookstore: 寄贈・購入先
       area: 地区
       checkout_type: 貸出区分
+      accept_type: 受入区分
       classification_type: 分類型
       country: 国と地域
       manifestation_api_response: 資料APIの応答
@@ -917,6 +918,11 @@ ja:
         name: 地区名   
         address: 住所
       checkout_type:
+        name: 名前
+        display_name: 表示名
+        note: 注記
+        position: 位置
+      accept_type:
         name: 名前
         display_name: 表示名
         note: 注記

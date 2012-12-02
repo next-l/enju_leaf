@@ -93,6 +93,7 @@ en:
       bookstore: Bookstore
       area: Area
       checkout_type: Checkout type
+      accept_type: Accept type
       classification_type: Classification type
       country: Country
       manifestation_api_response: Manifestation API Response
@@ -797,6 +798,11 @@ en:
         name: Name
         address: Address
       checkout_type:
+        name: Name
+        display_name: Display name
+        note: Note
+        position: Position
+      Accept_type:
         name: Name
         display_name: Display name
         note: Note

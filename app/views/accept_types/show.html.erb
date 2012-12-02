@@ -1,0 +1,32 @@
+<div id="content_detail" class="ui-corner-all">
+<h1 class="title"><%= t('page.showing', :model => t('activerecord.models.accept_type')) %></h1>
+<div id="content_list">
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong><%= t('activerecord.attributes.accept_type.name') %>:</strong>
+  <%= @accept_type.name %>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.accept_type.display_name') %>:</strong>
+  <%= @accept_type.display_name %>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.accept_type.note') %>:</strong>
+  <%= @accept_type.note %>
+</p>
+
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all">
+  <ul>
+    <% if can? :update, @accept_type %>
+      <li><%= link_to t('page.edit'), edit_accept_type_path(@accept_type) %>
+    <% end %>
+    <li><%= link_to t('page.back'), accept_types_path %>
+  </ul>
+</div>
+

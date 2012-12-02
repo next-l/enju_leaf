@@ -20,6 +20,11 @@
   </div>
 
   <div class="field">
+    <%= f.label t('activerecord.models.accept_type') -%><br />
+    <%= f.select(:accept_type_id, @accept_types.collect{|a| [a.display_name.localize, a.id]}, :include_blank => true) -%>
+  </div>
+
+  <div class="field">
     <%= f.label t('activerecord.models.circulation_status') -%><br />
     <%= f.select(:circulation_status_id, @circulation_statuses.collect{|c| [c.display_name.localize, c.id]}) -%>
   </div>

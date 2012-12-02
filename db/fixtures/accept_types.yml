@@ -1,0 +1,31 @@
+---
+accept_type_00001:
+  id: 1
+  name: purchase
+  display_name: "購入"
+  note:
+  position: 1
+accept_type_00002:
+  id: 2
+  name: donation
+  display_name: "寄贈"
+  note:
+  position: 2
+accept_type_00003:
+  id: 3
+  name: jma
+  display_name: "気象庁刊行物"
+  note:
+  position: 3
+accept_type_00004:
+  id: 4
+  name: wmo
+  display_name: "WMO刊行物"
+  note:
+  position: 4
+accept_type_00005:
+  id: 5
+  name: production
+  display_name: "制作"
+  note:
+  position: 5

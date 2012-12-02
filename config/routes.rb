@@ -197,6 +197,7 @@ EnjuLeaf::Application.routes.draw do
   resources :checkout_types do
     resources :user_group_has_checkout_types
   end
+  resources :accept_types
   resources :search_histories, :only => [:index, :show, :destroy]
 
   resources :order_lists do

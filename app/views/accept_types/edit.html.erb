@@ -1,0 +1,15 @@
+<div id="content_detail" class="ui-corner-all">
+<h1 class="title"><%= t('page.editing', :model => t('activerecord.models.accept_type')) %></h1>
+<div id="content_list">
+
+<%= render 'form' %>
+
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all">
+  <ul>
+    <li><%= link_to 'Show', @accept_type %></li>
+    <li><%= link_to t('page.back'), accept_types_path %></li>
+  </ul>
+</div>

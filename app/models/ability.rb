@@ -6,6 +6,10 @@ class Ability
     initialize_circulation(user) if Setting.operation
     case user.try(:role).try(:name)
     when 'Administrator'
+      can [:read, :create, :update], AcceptType
+      can :destroy, AcceptType do |accept_type|
+        accept_type.items.count == 0
+      end
       can [:read, :create, :update], Bookstore
       can :destroy, Bookstore do |bookstore|
         bookstore.order_lists.empty?
@@ -150,6 +154,7 @@ class Ability
         WorkHasSubject
       ]
       can [:read, :update], [
+        AcceptType,
         CarrierType,
         CirculationStatus,
         ContentType,
@@ -296,6 +301,7 @@ class Ability
         WorkHasSubject
       ]
       can :read, [
+        AcceptType,
         Bookstore,
         CarrierType,
         CarrierTypeHasCheckoutType,
@@ -399,6 +405,7 @@ class Ability
         u == user
       end
       can :read, [
+        AcceptType,
         CarrierType,
         CirculationStatus,
         Classification,
