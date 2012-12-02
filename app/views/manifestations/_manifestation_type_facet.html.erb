@@ -6,7 +6,7 @@
     <% manifestation_type = ManifestationType.where(:name => facet.value).select([:name, :display_name]).first %>
     <% if manifestation_type %>
       <li>
-        <%= language_facet(manifestation_type, current_manifestation_type, facet) %>
+        <%= manifestation_type_facet(manifestation_type, current_manifestation_type, facet) %>
       </li>
     <% end %>
   <% end %>
