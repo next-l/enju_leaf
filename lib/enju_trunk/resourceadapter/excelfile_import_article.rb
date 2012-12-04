@@ -88,11 +88,16 @@ module EnjuTrunk
 
       manifestation_type = article_type == 'ja' ? ManifestationType.find(9) : ManifestationType.find(10)
 
+      number = oo.cell(row, field[I18n.t('resource_import_textfile.excel.article.volume_number_string')]).to_s.strip
+      volume_number_string = number.split('*')[0] rescue nil
+      issue_number_string = number.split('*')[1] rescue nil
+
       ResourceImportTextfile.transaction do
         begin
           manifestation = Manifestation.new(title)
           manifestation.pub_date = oo.cell(row, field[I18n.t('resource_import_textfile.excel.article.pub_date')]).to_s.strip
-          manifestation.volume_number_string = oo.cell(row, field[I18n.t('resource_import_textfile.excel.article.volume_number_string')]).to_s.strip
+          manifestation.volume_number_string = volume_number_string
+          manifestation.issue_number_string = issue_number_string
           manifestation.start_page = start_page
           manifestation.end_page = end_page
           manifestation.access_address = oo.cell(row, field[I18n.t('resource_import_textfile.excel.article.url')]).to_s.strip
