@@ -68,6 +68,10 @@
     <strong><%= t('activerecord.models.remove_reason') %>:</strong>
     <%= link_to @item.remove_reason.display_name.localize, @item.remove_reason %>
   </p>
+  <p>
+    <strong><%= t('activerecord.attributes.item.removed_at') %>:</strong>
+    <%= l(@item.removed_at) %>
+  </p>
 <% end %>
 
 <p>
