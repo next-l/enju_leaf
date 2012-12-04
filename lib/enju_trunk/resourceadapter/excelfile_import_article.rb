@@ -84,15 +84,7 @@ module EnjuTrunk
       title[:original_title] = oo.cell(row, field[I18n.t('resource_import_textfile.excel.article.original_title')]).to_s.strip
       title[:article_title] = oo.cell(row, field[I18n.t('resource_import_textfile.excel.article.title')]).to_s.strip
 
-      #TODO: ページの入力設定が不明
-      end_page = oo.cell(row, field[I18n.t('resource_import_textfile.excel.article.number_of_page')]).to_s
-      end_page = NKF.nkf('-eZ1', end_page).gsub(/\D/, '').to_i
-      if end_page >= 1
-        start_page = 1
-      else
-        start_page = nil
-        end_page = nil
-      end
+      start_page, end_page = set_page(oo.cell(row, field[I18n.t('resource_import_textfile.excel.article.number_of_page')]).to_s.strip)
 
       manifestation_type = article_type == 'ja' ? ManifestationType.find(9) : ManifestationType.find(10)
 
@@ -123,6 +115,16 @@ module EnjuTrunk
           raise e
         end
       end
+    end
+
+    def set_page(page)
+      start_page, end_page = nil, nil
+      if page.match(/-/) .nil?
+        start_page, end_page = page, page
+      else
+        start_page, end_page = pages.split('-')[0], pages.split('-')[1]
+      end
+      return start_page, end_page
     end
 
     def create_article_item(oo, row, field, manifestation, resource_import_textfile)
