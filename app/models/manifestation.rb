@@ -134,8 +134,8 @@ class Manifestation < ActiveRecord::Base
     integer :volume_number, :multiple => true
     integer :issue_number, :multiple => true
     integer :serial_number, :multiple => true
-    integer :start_page
-    integer :end_page
+    string :start_page
+    string :end_page
     integer :number_of_pages
     string :number_of_pages, :multiple => true do
       if series_statement.try(:periodical)  # 雑誌の場合
