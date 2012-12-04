@@ -133,14 +133,15 @@ module EnjuTrunk
     end
 
     def create_article_item(oo, row, field, manifestation, resource_import_textfile)
-      circulation_status = CirculationStatus.where(:name => 'Available On Shelf').first
-      shelf = select_item_shelf(resource_import_textfile.user)
 
       item = import_item(manifestation, {
         :call_number => oo.cell(row, field[I18n.t('resource_import_textfile.excel.article.call_number')]).to_s.strip,
-        :circulation_status => circulation_status,
-        :shelf => shelf,
+        :url => oo.cell(row, field[I18n.t('resource_import_textfile.excel.article.url')]).to_s.strip,
         :item_identifier => "a#{Time.now.instance_eval { '%s%03d' % [strftime('%Y%m%d%H%M%S'), (usec / 1000.0).round] }}", #TODO:
+        # default
+        :shelf => resource_import_textfile.user.library.article_shelf,
+        :circulation_status => CirculationStatus.where(:name => 'Not Available').first,
+        :use_restriction_id => UseRestriction.where(:name => 'Not For Loan').first,
         :rank => 0,
       })
       return item
