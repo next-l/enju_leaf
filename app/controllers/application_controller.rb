@@ -36,6 +36,9 @@ class ApplicationController < ActionController::Base
 
   def render_404
     return if performed?
+		logger.warn $@
+		logger.warn $!
+
     respond_to do |format|
       format.html {render :template => 'page/404', :status => 404}
       format.mobile {render :template => 'page/404', :status => 404}
@@ -51,6 +54,9 @@ class ApplicationController < ActionController::Base
 
   def render_500
     return if performed?
+		logger.warn $@
+		logger.warn $!
+
     #flash[:notice] = t('page.connection_failed')
     respond_to do |format|
       format.html {render :file => "#{Rails.root.to_s}/public/500.html", :layout => false, :status => 500}
@@ -61,6 +67,10 @@ class ApplicationController < ActionController::Base
   def render_500_solr
     return if performed?
     #flash[:notice] = t('page.connection_failed')
+
+		logger.warn $@
+		logger.warn $!
+
     respond_to do |format|
       format.html {render :template => 'page/500', :status => 500}
       format.mobile {render :template => 'page/500', :status => 500}

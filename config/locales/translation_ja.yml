@@ -189,7 +189,7 @@ ja:
         remain_amount: 予算残額(円)
         digestibility: 消化率(%)
         search: 検索
-        expense_label: %{yyyy}年%{mm}月分 
+        expense_label: ! '%yyyy年%mm月分'
         budget_sum: 予算総額
         expense_sum: 購入総額
         digestibility_sum: 消化率(%)
