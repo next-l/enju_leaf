@@ -72,7 +72,6 @@
     <%= f.hidden_field :accept_type_id,:value => nil %>
     <%= f.hidden_field :checkout_type_id, :value => @checkout_types.map{ |c| c if c.name == 'article' }.compact.first.id %>
     <%= f.hidden_field :circulation_status_id, :value => @circulation_statuses.map{ |c| c if c.name == 'Not Available' }.compact.first.id %>
-    <%= f.hidden_field :rank, :value => 0 %>
     <%= f.submit :disable_with => t('page.wait') %>
   </div>
   <%= javascript_tag("$('#item_retention_period_id').focus()") %>
