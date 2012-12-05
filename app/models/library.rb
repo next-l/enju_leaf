@@ -62,7 +62,7 @@ class Library < ActiveRecord::Base
   end
 
   def article_shelf
-    self.shelves.where(:open_access => 10, :name => 'article_shelf')
+    self.shelves.find_by_open_access(10)
   end
 
   def excludescope_shelf_ids
