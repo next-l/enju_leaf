@@ -20,3 +20,9 @@ checkout_type_00003:
   display_name: CD
   note: 
   position: 3
+eckout_type_00004:
+  id: 4
+  name: article
+  display_name: "文献"
+  note:
+  position: 4
