@@ -309,7 +309,7 @@ class Manifestation < ActiveRecord::Base
   end
 
   def article?
-    if ['japanese_article', 'foreign_article'].index(manifestation_type.name)
+    if [ManifestationType.where(:name => 'japanese_article'), ManifestationType.where(:name => 'foreign_article')].index(manifestation_type)
       return true
     end
     false
