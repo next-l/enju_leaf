@@ -90,4 +90,13 @@ namespace :enju do
       }
     end
   end
+
+  namespace :export do
+    desc "export items"
+    task :item => :environment do
+      Item.find_each do |item|
+        puts "#{item.id}\t#{item.manifestation.id}\t#{item.call_number}\t#{item.item_identifier}\t#{item.manifestation.ndc}\t#{item.shelf.name}"
+      end
+    end
+  end
 end
