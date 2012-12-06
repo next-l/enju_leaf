@@ -1,5 +1,6 @@
 # -*- encoding: utf-8 -*- 
 class EnjuTrunkNumberingError < StandardError ; end
+class EnjuTrunkNumberingConflictError < StandardError ; end
 
 class Numbering < ActiveRecord::Base
   attr_accessible :checkdigit, :display_name, :last_number, :name, :padding, :padding_number, :prefix, :suffix

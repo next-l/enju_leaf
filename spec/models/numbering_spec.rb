@@ -43,5 +43,8 @@ describe Numbering do
       numbering.should == "100000002"
     end
 
+    it '競合チェック' do
+
+    end
   end
 end
