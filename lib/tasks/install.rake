@@ -34,6 +34,7 @@ EOF
   task :setup => [
     'config/initializers/secret_token.rb',
     'enju:copy_config_files',
+    'enju:generate_secret_token',
     'db:create',
     'db:migrate'
   ]
