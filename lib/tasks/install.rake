@@ -11,7 +11,6 @@ EOF
   task :generate_secret_token => ['config/initializers/secret_token.rb']
 
   config_files = [
-    "config/application.rb",
     "config/application.yml",
     "config/environments/production.rb",
     "config/initializers/devise.rb",
@@ -32,7 +31,6 @@ EOF
 
   desc 'setup Next-L Enju'
   task :setup => [
-    'config/initializers/secret_token.rb',
     'enju:copy_config_files',
     'enju:generate_secret_token',
     'db:create',
