@@ -1,3 +1,18 @@
+<script type="text/javascript">
+  jQuery(function($) {
+      $("#resource_import_textfile_adapter_name").change(function() {
+        // make a POST call and replace the content
+        var name = $('select#resource_import_textfile_adapter_name :selected').val();
+        if(name == "") name="0";
+        $("#inherent").html("");
+        jQuery.get('/resource_import_textfiles/adapters/' + name, function(data){
+          $("#inherent").html(data);
+          })
+        return false;
+        });
+      })
+</script>
+
 <div id="content_detail" class="ui-corner-all">
   <h1 class="title"><%= t('page.new', :model => t('activerecord.models.resource_import_textfile')) -%></h1>
 <div id="content_list">
@@ -7,8 +22,10 @@
 
   <div class="field">
     <%= f.label t('activerecord.attributes.resource_import_textfile.adapter_name') -%><br />
-    <%= f.select(:adapter_name, @adapters.collect {|a| [a.display_name, a]}) -%>
+    <%= f.select(:adapter_name, @adapters.collect {|a| [a.display_name, a]}, :include_blank => true) -%>
   </div>
+
+  <div id="inherent"> </div>
 
   <div class="field">
     <%= f.label t('page.file') -%><br />

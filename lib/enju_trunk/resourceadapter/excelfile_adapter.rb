@@ -5,14 +5,8 @@ class Excelfile_Adapter < EnjuTrunk::ResourceAdapter::Base
     "エクセルファイル(xlsx)"
   end
 
-  def logger
-    Rails.logger
-  end
-
-  def import(id, filename, user_id)
-    logger.info "start import #{Excelfile_Adapter.display_name} #{Time.now}"
-    logger.info "id=#{id} filename=#{filename}"
-    puts filename
+  def import_from_file(filename)
+    num = 0
 
     oo = Excelx.new(filename)
 
@@ -29,9 +23,24 @@ class Excelfile_Adapter < EnjuTrunk::ResourceAdapter::Base
       c3 = oo.cell(line,'C')
       c4 = oo.cell(line,'D')
       puts "c1=#{c1} c2=#{c2} c3=#{c3} c4=#{c4}"
+      num = num + 1
     end
 
-    logger.info "end import #{Excelfile_Adapter.display_name} #{Time.now}"
+    return num;
+  end
+
+  def import(id, filename, user_id)
+    logger.info "#{Time.now} start import #{self.class.display_name}"
+    logger.info "id=#{id} filename=#{filename}"
+
+    Benchmark.bm do |x|
+      x.report {
+        num = import_from_file(filename)
+        logger.info "result: #{num}"
+      }
+    end
+
+    logger.info "#{Time.now} end import #{self.class.display_name}"
   end
 
 end

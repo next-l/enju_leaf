@@ -636,7 +636,7 @@ private
   end
 
   def self.get_manifestation_locate(manifestation, current_user)
-    report = ThinReports::Report.new :layout => File.join(Rails.root, 'report', 'manifestation.tlf')
+    report = ThinReports::Report.new :layout => File.join(Rails.root, 'report', 'manifestation_reseat.tlf')
    
     # footer
     report.layout.config.list(:list) do

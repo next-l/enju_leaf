@@ -2,9 +2,17 @@ module EnjuTrunk
   module ResourceAdapter
     class Base
 
+      attr_accessor :logger
+
       def logger
-        defined?(Rails.logger) ? Rails.logger : Logger.new($stderr)
+        @logger ||= begin
+           @logger = ::Logger.new(STDOUT)
+           @logger.level = ($DEBUG)?(::Logger.const_get((:debug).to_s.upcase)):(::Logger.const_get((:info).to_s.upcase))
+           @logger.datetime_format = "%Y-%m-%d %H:%M:%S"
+           @logger
+        end
       end
+
       def languages
         Language.all_cache
       end
@@ -16,6 +24,29 @@ module EnjuTrunk
       end
 
       class << self
+        def logger
+          @logger ||= begin
+                        @logger = ::Logger.new(STDOUT)
+                        @logger.level = ($DEBUG)?(::Logger.const_get((:debug).to_s.upcase)):(::Logger.const_get((:info).to_s.upcase))
+                        @logger.datetime_format = "%Y-%m-%d %H:%M:%S"
+                        @logger
+                      end
+        end
+
+        def logger=(value)
+          @logger = value
+        end
+=begin
+        def logger
+          @logger ||= begin
+                        @logger = ::Logger.new(STDOUT)
+                        @logger.level = ($DEBUG)?(::Logger.const_get((:debug).to_s.upcase)):(::Logger.const_get((:info).to_s.upcase))
+                        @logger.datetime_format = "%Y-%m-%d %H:%M:%S"
+                        @logger
+                      end
+        end
+=end
+
         def all
           @adapters
         end
@@ -44,6 +75,10 @@ module EnjuTrunk
 
         def delete(adapter_name)
           @adapters.delete(adapter_name)
+        end
+
+        def render
+          ""
         end
       end
     end

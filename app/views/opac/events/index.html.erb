@@ -27,9 +27,9 @@ $(function() {
     <% @events.each do |event| %>
       <tr class="opac_line<%= cycle("0", "1") %> opac_lists_row" data-href="<%= opac_event_path(event) %>">
         <td><%= event.library.display_name.localize %></td>
-        <td><%= event.event_category.display_name.localize %></td>
+        <td><%= event.event_category.display_name.localize if event.event_category %></td>
         <td>
-          <%= event.display_name.localize %>
+          <%= event.display_name.localize if event.display_name  %>
           <br />
           <div class="opac_list_sub">
             <%= l(event.start_at, :format => :short) %>

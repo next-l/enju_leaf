@@ -1,18 +1,18 @@
 source 'https://rubygems.org'
 
-gem 'rails', '3.2.8'
+gem 'rails', '3.2.9'
 
-gem 'cocaine', '0.3.1'
+gem 'cocaine', '0.4.2'
 #gem 'enju_amazon', :git => 'git://github.com/nabeta/enju_amazon.git'
 #gem 'enju_calil', :git => 'git://github.com/nabeta/enju_calil.git'
 #gem 'enju_scribd', :git => 'git://github.com/nabeta/enju_scribd.git'
 #gem 'enju_nii', :git => 'git://github.com/nabeta/enju_nii.git'
 gem 'enju_oai', :git => 'git://github.com/nabeta/enju_oai.git'
-gem 'enju_book_jacket', "0.1.0.pre"
+gem 'enju_book_jacket', '0.1.0.pre2'
 gem 'enju_manifestation_viewer', :git => 'git://github.com/nabeta/enju_manifestation_viewer.git'
 #gem 'enju_message', "0.1.14.pre"
 gem 'enju_message', :git => 'git://github.com/shinozuka/enju_message.git'
-gem "enju_ndl", "0.1.0.pre3"
+gem "enju_ndl", "0.1.0.pre5"
 #gem 'enju_ndl', :git => 'git://github.com/nabeta/enju_ndl.git'
 #gem 'enju_question', :git => 'git://github.com/nabeta/enju_question.git'
 gem 'enju_event', :git => 'git://github.com/shinozuka/enju_event.git'
@@ -25,14 +25,14 @@ gem "jpp_customercode_transfer", "~> 0.0.2"
 platforms :ruby do
   gem 'pg'
   #gem 'mysql2', '~> 0.3'
-  gem 'ruby-prof', :group => [:development, :test]
-  gem 'zipruby'
+  ##gem 'ruby-prof', :group => [:development, :test]
+  ##gem 'zipruby'
   gem 'kgio'
 end
 
-platforms :ruby_19 do
-  gem 'simplecov', '~> 0.6', :require => false, :group => :test
-end
+#platforms :ruby_19 do
+#  gem 'simplecov', '~> 0.6', :require => false, :group => :test
+#end
 
 gem 'roo'
 
@@ -43,7 +43,7 @@ gem 'delayed_job_active_record'
 gem 'daemons'
 gem 'exception_notification', '~> 2.5.2'
 gem 'state_machine'
-gem 'sunspot_rails', '~> 2.0.0.pre.120417'
+gem 'sunspot_rails', '~> 2.0.0.pre.120925'
 gem 'progress_bar'
 gem 'friendly_id', '~> 4.0'
 gem 'inherited_resources', '~> 1.3'
@@ -57,31 +57,30 @@ gem 'sitemap_generator', '~> 3.0'
 gem 'ri_cal'
 gem 'file_wrapper'
 gem 'paper_trail', '~> 2.6'
-gem 'aws-sdk', '~> 1.3'
-#gem 'recurrence'
-#gem 'prism'
-#gem 'money'
 gem 'RedCloth', '>= 4.2.9'
 gem 'isbn-tools', :git => 'git://github.com/nabeta/isbn-tools.git', :require => 'isbn/tools'
-#gem 'extractcontent'
 gem 'cancan', '>= 1.6.7'
 gem 'scribd_fu'
 gem 'devise', '~> 1.5'
 gem 'omniauth', '>= 0.2.6'
 gem 'addressable'
-gem 'paperclip', '~> 2.6'
+gem 'paperclip', '2.8'
 gem 'whenever', '~> 0.6', :require => false
+
+#aws
+#gem 'aws-sdk', '~> 1.3'
 #gem 'amazon-ecs', '>= 2.2.0', :require => 'amazon/ecs'
 #gem 'aws-s3', :require => 'aws/s3'
 #gem 'astrails-safe'
+
 gem 'dynamic_form'
 gem 'sanitize'
 gem 'mobile-fu'
 gem 'attribute_normalizer', '~> 1.1'
 gem 'barby', '~> 0.5'
 gem 'chunky_png', '1.2.5'
-gem 'rghost'  
-gem 'rghost_barcode'  
+gem 'rghost', :branch => 'patch-ruby20', :git => 'git://github.com/nakamura-akifumi/rghost.git'
+gem 'rghost_barcode'
 gem 'rqrcode'
 gem 'event-calendar', :require => 'event_calendar'
 gem 'geocoder'
@@ -97,7 +96,7 @@ gem 'paranoia'
 gem 'thinreports', :git => 'git://github.com/emiko/thinreports-generator.git'
 gem 'prawn', '1.0.0.rc1'
 gem "rmagick", :require => false
-gem "crypt19"
+#gem "crypt19"
 gem "rails_autolink"
 gem 'parallel'
 #gem 'oink', '>= 0.9.3'
@@ -113,8 +112,8 @@ group :development, :test do
   gem 'guard-rspec'
   gem 'factory_girl_rails', '~> 3.0'
   gem 'spork-rails'
-  gem 'rcov', '0.9.11'
-  gem 'metric_fu', '~> 2.1'
+  #gem 'rcov', '0.9.11'
+  #gem 'metric_fu', '~> 2.1'
   gem 'timecop'
   gem 'sunspot-rails-tester', :git => 'git://github.com/nabeta/sunspot-rails-tester.git'
   gem 'vcr', '~> 2.0.0.rc2'

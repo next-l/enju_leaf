@@ -220,6 +220,7 @@ EnjuLeaf::Application.routes.draw do
     resources :checked_items
   end
 
+  match '/resource_import_textfiles/adapters/:name' => 'resource_import_textfiles#inherent_view'
   resources :resource_import_textfiles do
     get :import_request, :on => :collection
     resources :resource_import_textresults, :only => [:index, :show, :destroy]
