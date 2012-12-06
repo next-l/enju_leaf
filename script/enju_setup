@@ -16,23 +16,3 @@ unless File.exists?("config/database.yml")
   FileUtils.cp "config/database.yml.sample-#{adapter}", "config/database.yml"
   puts "copied config/database.yml.sample"
 end
-
-sample_files = [
-  "config/application.rb.sample",
-  "config/application.yml.sample",
-  "config/initializers/devise.rb.sample",
-  "config/initializers/secret_token.rb.sample",
-  "config/environments/production.rb.sample",
-  "config/resque.yml.sample",
-  "config/schedule.rb.sample",
-  "config/sunspot.yml.sample",
-  "db/seeds.rb.sample"
-]
-  
-sample_files.each do |file|
-  dist = file.gsub(/\.sample$/, '')
-  unless File.exists?(dist)
-    FileUtils.cp file, dist
-    puts "copied #{file}"
-  end
-end
