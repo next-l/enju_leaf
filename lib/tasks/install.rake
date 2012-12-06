@@ -35,7 +35,6 @@ EOF
     'config/initializers/secret_token.rb',
     'enju:copy_config_files',
     'db:create',
-    'db:migrate',
-    'assets:precompile'
+    'db:migrate'
   ]
 end
