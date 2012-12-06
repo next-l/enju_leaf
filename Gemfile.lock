@@ -377,7 +377,7 @@ GEM
     jquery-rails (2.1.4)
       railties (>= 3.0, < 5.0)
       thor (>= 0.14, < 2.0)
-    jruby-openssl (0.7.7)
+    jruby-openssl (0.8.1)
       bouncy-castle-java (>= 1.5.0146.1)
     jruby-rack (1.1.12)
     json (1.7.5)
@@ -392,7 +392,6 @@ GEM
       actionpack (>= 3.1)
       less (~> 2.2.0)
     library_stdnums (1.2.0)
-    libv8 (3.3.10.4)
     libwebsocket (0.1.7.1)
       addressable
       websocket
@@ -490,6 +489,7 @@ GEM
     redis (3.0.2)
     redis-namespace (1.2.1)
       redis (~> 3.0.0)
+    ref (1.0.2)
     responders (0.9.3)
       railties (~> 3.1)
     resque (1.23.0)
@@ -584,9 +584,9 @@ GEM
       nokogiri
       sunspot (= 2.0.0.pre.120925)
     sunspot_solr (2.0.0.pre.120925)
-    therubyracer (0.10.2)
-      libv8 (~> 3.3.10)
-    therubyrhino (2.0.1)
+    therubyracer (0.11.0)
+      ref
+    therubyrhino (2.0.2)
       therubyrhino_jar (>= 1.7.3)
     therubyrhino_jar (1.7.4)
     thor (0.16.0)
@@ -610,7 +610,7 @@ GEM
       jruby-rack (>= 1.1.10)
       trinidad_jars (>= 1.1.0)
     trinidad_jars (1.1.1)
-    twitter-bootstrap-rails (2.1.6)
+    twitter-bootstrap-rails (2.1.7)
       actionpack (>= 3.1)
       execjs
       railties (>= 3.1)
