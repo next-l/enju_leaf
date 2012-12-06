@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-ruby '1.9.3'
+#ruby '1.9.3'
 gem 'rails', '3.2.9'
 
 # Bundle edge Rails instead:
@@ -94,7 +94,7 @@ end
 
 group :development, :test do
   gem 'simplecov', '~> 0.7', :require => false
-  gem 'ruby-prof', :platforms => :mri_19
+#  gem 'ruby-prof', :platforms => :mri_19
   gem 'rspec-rails', '~> 2.12'
   gem 'guard-rspec'
   gem 'factory_girl_rails', '~> 4.1'

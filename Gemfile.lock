@@ -227,7 +227,6 @@ GEM
   remote: https://rubygems.org/
   specs:
     RedCloth (4.2.9)
-    RedCloth (4.2.9-java)
     actionmailer (3.2.9)
       actionpack (= 3.2.9)
       mail (~> 2.4.4)
@@ -249,10 +248,6 @@ GEM
       activesupport (= 3.2.9)
       arel (~> 3.0.2)
       tzinfo (~> 0.3.29)
-    activerecord-jdbc-adapter (1.2.2.1)
-    activerecord-jdbcpostgresql-adapter (1.2.2.1)
-      activerecord-jdbc-adapter (~> 1.2.2.1)
-      jdbc-postgres (>= 9.0, < 9.2)
     activeresource (3.2.9)
       activemodel (= 3.2.9)
       activesupport (= 3.2.9)
@@ -283,8 +278,6 @@ GEM
       nokogiri (>= 1.4.4)
       uuidtools (~> 2.1)
     bcrypt-ruby (3.0.1)
-    bcrypt-ruby (3.0.1-java)
-    bouncy-castle-java (1.5.0146.1)
     builder (3.0.4)
     cancan (1.6.8)
     capybara (2.0.1)
@@ -325,7 +318,6 @@ GEM
     erubis (2.7.0)
     event-calendar (2.3.3)
     eventmachine (1.0.0)
-    eventmachine (1.0.0-java)
     exception_notification (3.0.0)
       actionmailer (>= 3.0.4)
       tinder (~> 1.8)
@@ -343,7 +335,6 @@ GEM
       faraday (>= 0.7.4, < 0.9)
     fattr (2.2.1)
     ffi (1.2.0)
-    ffi (1.2.0-java)
     foreigner (1.2.1)
       activerecord (>= 3.0.0)
     friendly_id (4.0.9)
@@ -361,7 +352,6 @@ GEM
     highline (1.6.15)
     hike (1.2.1)
     http_parser.rb (0.5.3)
-    http_parser.rb (0.5.3-java)
     httparty (0.9.0)
       multi_json (~> 1.0)
       multi_xml
@@ -372,7 +362,6 @@ GEM
     inherited_resources (1.3.1)
       has_scope (~> 0.5.0)
       responders (~> 0.6)
-    jdbc-postgres (9.1.901)
     journey (1.0.4)
     jquery-rails (2.1.4)
       railties (>= 3.0, < 5.0)
@@ -380,11 +369,7 @@ GEM
     jquery-ui-rails (2.0.2)
       jquery-rails
       railties (>= 3.1.0)
-    jruby-openssl (0.8.1)
-      bouncy-castle-java (>= 1.5.0146.1)
-    jruby-rack (1.1.12)
     json (1.7.5)
-    json (1.7.5-java)
     kaminari (0.14.1)
       actionpack (>= 3.0.0)
       activesupport (>= 3.0.0)
@@ -419,7 +404,6 @@ GEM
       net-ssh (>= 2.0.9)
     net-ssh (2.6.2)
     nokogiri (1.5.5)
-    nokogiri (1.5.5-java)
     nori (1.1.3)
     options (2.3.0)
       fattr
@@ -448,11 +432,6 @@ GEM
       coderay (~> 1.0.5)
       method_source (~> 0.8)
       slop (~> 3.3.1)
-    pry (0.9.10-java)
-      coderay (~> 1.0.5)
-      method_source (~> 0.8)
-      slop (~> 3.3.1)
-      spoon (~> 0.0)
     rack (1.4.1)
     rack-cache (1.2)
       rack (>= 0.4)
@@ -528,7 +507,6 @@ GEM
       rspec-expectations (~> 2.12.0)
       rspec-mocks (~> 2.12.0)
     ruby-graphviz (1.0.8)
-    ruby-prof (0.11.2)
     rubyzip (0.9.9)
     rufus-scheduler (2.0.17)
       tzinfo (>= 0.3.23)
@@ -560,7 +538,6 @@ GEM
     sitemap_generator (3.4)
       builder
     slop (3.3.3)
-    spoon (0.0.1)
     spork (1.0.0rc3)
     spork-rails (3.2.0)
       rails (>= 3.0.0, < 3.3.0)
@@ -589,9 +566,6 @@ GEM
     sunspot_solr (2.0.0.pre.120925)
     therubyracer (0.11.0)
       ref
-    therubyrhino (2.0.2)
-      therubyrhino_jar (>= 1.7.3)
-    therubyrhino_jar (1.7.4)
     thor (0.16.0)
     tilt (1.3.3)
     timecop (0.5.4)
@@ -609,10 +583,6 @@ GEM
     treetop (1.4.12)
       polyglot
       polyglot (>= 0.3.1)
-    trinidad (1.4.4)
-      jruby-rack (>= 1.1.10)
-      trinidad_jars (>= 1.1.0)
-    trinidad_jars (1.1.1)
     twitter-bootstrap-rails (2.1.7)
       actionpack (>= 3.1)
       execjs
@@ -643,7 +613,6 @@ GEM
     zipruby (0.3.6)
 
 PLATFORMS
-  java
   ruby
 
 DEPENDENCIES
@@ -711,7 +680,6 @@ DEPENDENCIES
   resque_spec
   ri_cal
   rspec-rails (~> 2.12)
-  ruby-prof
   rubyzip
   sanitize
   sass-rails (~> 3.2.3)
