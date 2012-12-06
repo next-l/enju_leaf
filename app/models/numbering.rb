@@ -23,7 +23,7 @@ class Numbering < ActiveRecord::Base
     n = nil
     number = ''
     Numbering.transaction do
-      n = Numbering.find_by_name(name, :lock => true)
+      n = Numbering.find_by_name(name, :lock => 'FOR UPDATE NOWAIT')
       unless n
         raise EnjuTrunkNumberingError, "NumberingType no record. name=#{name}"
       end

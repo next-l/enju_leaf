@@ -10,7 +10,21 @@ describe Numbering do
       @numberings.size.should == 8
     end
 
+		it "保存出来ること" do
+			n = Numbering.new({:name=>'test', :display_name=>'test_disp'})
+			n.save!
+			n.name.should == 'test'
+			n.display_name.should == 'test_disp'
+		end
+
   end
+
+	describe 'padding' do
+		it "padding" do
+			@numberings = Numbering.find_by_name('book')
+			@numberings.padding?.should be_true
+		end
+	end
 
   describe 'generate_checkdigit_modulas10_weight3' do
     it 'success' do
