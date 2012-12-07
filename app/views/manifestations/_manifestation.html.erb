@@ -9,7 +9,7 @@
                   (<%= link_to_function t('page.holding'), "$('#holding_#{manifestation.id}').toggle()" -%>)
                 <%- end -%>
                 <% if user_signed_in? and current_user.has_role?('Librarian') %>
-                  <% if manifestation.note %>
+                  <% unless manifestation.note.blank? %>
                     (<%= link_to_function t('activerecord.attributes.manifestation.note'), "$('#note_#{manifestation.id}').toggle()" %>)
                   <% end %>
                 <% end %>
