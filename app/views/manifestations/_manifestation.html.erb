@@ -1,4 +1,4 @@
-            <tr class="line<%= cycle("0", "1") -%>">
+            <tr class="line<% unless checkedout_original_book?(manifestation) %><%= cycle("0", "1") %><% else %>2<% end%>">
               <td style="480px">
                 <%= render 'manifestations/show_index', :manifestation => manifestation -%>
                 <div class="access_address">
