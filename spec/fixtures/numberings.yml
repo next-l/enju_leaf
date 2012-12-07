@@ -1,0 +1,81 @@
+--- 
+numbering_00001: 
+  name: 'haiki'
+  display_name: '廃棄'
+  prefix: 'F'
+  suffix: ''
+  padding: true
+  padding_number: 10
+  padding_character: '0'
+  last_number: 0
+  checkdigit: 0
+numbering_00002: 
+  name: 'haika'
+  display_name: '廃棄'
+  prefix: 'Y'
+  suffix: ''
+  padding: true
+  padding_number: 10
+  padding_character: '0'
+  last_number: 0
+  checkdigit: 0
+numbering_00003: 
+  name: 'tanki'
+  display_name: '廃棄'
+  prefix: 'T'
+  suffix: ''
+  padding: true
+  padding_number: 10
+  padding_character: '0'
+  last_number: 0
+  checkdigit: 0
+numbering_00004: 
+  name: 'seihon'
+  display_name: '廃棄'
+  prefix: 'C'
+  suffix: ''
+  padding: true
+  padding_number: 10
+  padding_character: '0'
+  last_number: 0
+  checkdigit: 0
+numbering_00005: 
+  name: 'book'
+  display_name: '図書'
+  prefix: '1'
+  suffix: ''
+  padding: true
+  padding_number: 8
+  padding_character: '0'
+  last_number: 0
+  checkdigit: 0
+numbering_00006: 
+  name: 'magazine'
+  display_name: '雑誌'
+  prefix: '2'
+  suffix: ''
+  padding: true
+  padding_number: 8 
+  padding_character: '0'
+  last_number: 0
+  checkdigit: 0
+numbering_00007: 
+  name: 'article'
+  display_name: '資料'
+  prefix: '3'
+  suffix: ''
+  padding: true
+  padding_number: 8
+  padding_character: '0'
+  last_number: 0
+  checkdigit: 0
+numbering_checkdigitsample: 
+  name: 'checkdigit-sample'
+  display_name: 'checkdigit-sample'
+  prefix: ''
+  suffix: ''
+  padding: true
+  padding_number: 13
+  padding_character: '0'
+  last_number: 192005502799
+  checkdigit: 1

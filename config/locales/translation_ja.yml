@@ -173,8 +173,19 @@ ja:
       manifestation_type: 資料区分
       access_log: アクセス件数
       keyword_count: 検索キーワード
+      numbering: 採番
 
     attributes:
+      numbering:
+        name: 名称
+        display_name: 表示名
+        prefix: プレフィックス
+        suffix: サフィックス
+        padding: 埋める
+        padding_number: 埋める桁数
+        padding_character: 埋める文字
+        last_number: 最後の番号
+        checkdigit: チェックデジットのルール
       manifestation_types:
         book: 図書
         series: 定期刊行物
