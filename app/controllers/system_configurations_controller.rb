@@ -8,6 +8,7 @@ class SystemConfigurationsController < ApplicationController
     @category = 'general'
     @category = params[:system_configuration][:category] if params[:system_configuration]
     @system_configurations = SystemConfiguration.where(:category => @category)
+    @roles = Role.find(:all, :select => 'name, display_name') if @category == 'purchase_request'
   end
 
   def update

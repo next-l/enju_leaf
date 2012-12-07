@@ -2,84 +2,80 @@ class PurchaseRequestsController < ApplicationController
   before_filter :store_location, :only => :index
   load_and_authorize_resource
   before_filter :get_user
-  before_filter :get_order_list
+  if SystemConfiguration.get("use_order_lists")
+    before_filter :get_order_list
+  end
   before_filter :store_page, :only => :index
   after_filter :solr_commit, :only => [:create, :update, :destroy]
   after_filter :convert_charset, :only => :index
+#  include PageHelper
+  include PurchaseRequestsHelper
 
   # GET /purchase_requests
   # GET /purchase_requests.json
   def index
-    unless current_user.has_role?('Librarian')
-      if SystemConfiguration.get("user_show_purchase_requests")
+    unless can_use_purchase_request?
+      access_denied; return
+    else
+      if !user_signed_in?
+        if @user
+          access_denied; return
+        end
+      elsif !current_user.has_role?('Librarian')
         if @user
           unless current_user == @user
             access_denied; return
           end
-        else
-          redirect_to user_purchase_requests_path(current_user); return
+       # else
+       #   redirect_to user_purchase_requests_path(current_user); return
         end
-      else
-        access_denied; return
       end
     end
 
     @count = {}
-    if params[:format] == 'tsv'
-      per_page = 65534
-    else
-      per_page = PurchaseRequest.default_per_page
-    end
-
+    page = params[:page] || 1
+    per_page = params[:format] == 'tsv' ? 65534 : PurchaseRequest.default_per_page
     query = params[:query].to_s.strip
     @query = query.dup
-    mode = params[:mode]
+    @state = params[:mode]
 
-    search = Sunspot.new_search(PurchaseRequest)
     user = @user
-    order_list = @order_list
-    search.build do
-      fulltext query if query.present?
-      with(:user_id).equal_to user.id if user
-      with(:order_list_id).equal_to order_list.id if order_list
-      case mode
-      when 'pending'
-        with(:state).equal_to "pending"
-      when 'not_ordered'
-        with(:state).equal_to "accepted"
-      when 'ordered'
-        with(:state).equal_to "ordered"
+    if user_signed_in?
+      unless current_user.has_role?('Librarian')
+        can_show_all = true unless @user 
       end
-      order_by(:created_at, :desc)
     end
-
-    page = params[:page] || 1
-    search.query.paginate(page.to_i, per_page)
-    @purchase_requests = search.execute!.results
+    order_list = @order_list
+    state = @state
+    search = PurchaseRequest.search.build do
+      fulltext query if query
+      with(:user_id).equal_to 0 unless user_signed_in? #TODO:
+      with(:user_id).equal_to user.id if user_signed_in? and user
+      with(:user_id, [0, current_user.id]) if can_show_all #TODO:
+      with(:order_list_id).equal_to order_list.id if order_list
+      with(:state).equal_to state if state
+      order_by(:created_at, :desc)
+      facet :state
+      paginate :page => page.to_i, :per_page => per_page
+    end.execute rescue nil
+    @state_facet = search.facet(:state).rows
+    @purchase_requests = search.results
 
     @count[:query_result] = @purchase_requests.size
-
     respond_to do |format|
       format.html # index.html.erb
       format.json { render :json => @purchase_requests }
       format.rss  { render :layout => false }
       format.atom
-      format.tsv { send_data PurchaseRequest.get_purchase_requests_tsv(@purchase_requests), :filename => Setting.purchase_requests_print_tsv.filename }
+      format.tsv { send_data PurchaseRequest.get_purchase_requests_tsv(@purchase_requests),
+        :filename => Setting.purchase_requests_print_tsv.filename }
     end
   end
 
   # GET /purchase_requests/1
   # GET /purchase_requests/1.json
   def show
-    unless current_user.has_role?('Librarian')
-      unless SystemConfiguration.get("user_show_purchase_requests")
-        access_denied; return
-      end
-    end
-
-    if @user
-      @purchase_request = @user.purchase_requests.find(params[:id])
-    end
+    check_can_access_purchase_request
 
     respond_to do |format|
       format.html # show.html.erb
@@ -90,21 +86,10 @@ class PurchaseRequestsController < ApplicationController
   # GET /purchase_requests/new
   # GET /purchase_requests/new.json
   def new
-    unless current_user.has_role?('Librarian')
-      if SystemConfiguration.get("user_show_purchase_requests")
-        if @user
-          unless current_user == @user
-            access_denied; return
-          end
-        else
-          redirect_to user_purchase_requests_path(current_user); return
-        end
-      else
-        access_denied; return
-      end
+    unless can_use_purchase_request?
+      access_denied; return
     end
 
-    @purchase_request = PurchaseRequest.new(params[:purchase_request])
     @purchase_request.user = @user if @user
 #    @purchase_request.title = Bookmark.get_title_from_url(@purchase_request.url) unless @purchase_request.title?
     if @purchase_request.manifestation
@@ -120,11 +105,7 @@ class PurchaseRequestsController < ApplicationController
 
   # GET /purchase_requests/1/edit
   def edit
-    unless current_user.has_role?('Librarian')
-      unless SystemConfiguration.get("user_show_purchase_requests")
-        access_denied; return
-      end
-    end
+    check_can_access_purchase_request
 
     if @user
       @purchase_request = @user.purchase_requests.find(params[:id])
@@ -139,23 +120,28 @@ class PurchaseRequestsController < ApplicationController
   # POST /purchase_requests
   # POST /purchase_requests.json
   def create
-    unless current_user.has_role?('Librarian')
-      unless SystemConfiguration.get("user_show_purchase_requests")
-        access_denied; return
-      end
+    unless can_use_purchase_request?
+      access_denied; return
     end
 
     if @user
       @purchase_request = @user.purchase_requests.new(params[:purchase_request])
-    else
+    elsif user_signed_in?
       @purchase_request = current_user.purchase_requests.new(params[:purchase_request])
+    else
+      @purchase_request = PurchaseRequest.new(params[:purchase_request])
+      @purchase_request.user_id = 0 #TODO:
     end
 
     respond_to do |format|
       if @purchase_request.save
         @order_list.purchase_requests << @purchase_request if @order_list
         flash[:notice] = t('controller.successfully_created', :model => t('activerecord.models.purchase_request'))
-        format.html { redirect_to user_purchase_request_url(@purchase_request.user, @purchase_request) }
+        if @purchase_request.user
+          format.html { redirect_to user_purchase_request_url(@purchase_request.user, @purchase_request) }
+        else 
+          format.html { redirect_to purchase_request_url(@purchase_request) }
+        end
         format.json { render :json => @purchase_request, :status => :created, :location => @purchase_request }
       else
         format.html { render :action => "new" }
@@ -167,11 +153,7 @@ class PurchaseRequestsController < ApplicationController
   # PUT /purchase_requests/1
   # PUT /purchase_requests/1.json
   def update
-    unless current_user.has_role?('Librarian')
-      unless SystemConfiguration.get("user_show_purchase_requests")
-        access_denied; return
-      end
-    end
+    check_can_access_purchase_request
 
     if @user
       @purchase_request = @user.purchase_requests.find(params[:id])
@@ -182,12 +164,20 @@ class PurchaseRequestsController < ApplicationController
       if next_state && @purchase_request.assign_attributes(params[:purchase_request])
         @purchase_request.send_message(@purchase_request.state, params[:purchase_request][:reason])
         flash[:notice] = t("purchase_request.request_#{@purchase_request.state}")
-        format.html { redirect_to user_purchase_request_url(@purchase_request.user, @purchase_request) }
+        if @purchase_request.user
+          format.html { redirect_to user_purchase_request_url(@purchase_request.user, @purchase_request) }
+        else
+          format.html { redirect_to purchase_request_url(@purchase_request) }
+        end
         format.json { head :no_content }
       elsif @purchase_request.update_attributes(params[:purchase_request])
         @order_list.purchase_requests << @purchase_request if @order_list
         flash[:notice] = t('controller.successfully_updated', :model => t('activerecord.models.purchase_request'))
-        format.html { redirect_to user_purchase_request_url(@purchase_request.user, @purchase_request) }
+        if @purchase_request.user
+          format.html { redirect_to user_purchase_request_url(@purchase_request.user, @purchase_request) }
+        else
+          format.html { redirect_to purchase_request_url(@purchase_request) }
+        end
         format.json { head :no_content }
       else
         format.html { render :action => "edit" }
@@ -197,23 +187,37 @@ class PurchaseRequestsController < ApplicationController
   end
 
   def accept
+    check_can_access_purchase_request
+
     if @purchase_request.sm_accept
       @purchase_request.send_message(@purchase_request.state)
       flash[:notice] = t('purchase_request.request_accepted')
     else
       flash[:notice] = t('purchase_request.failed_update')
     end
-    redirect_to user_purchase_request_url(@purchase_request.user, @purchase_request)
+
+    if @purchase_request.user
+      redirect_to user_purchase_request_url(@purchase_request.user, @purchase_request)
+    else
+      redirect_to purchase_request_url(@purchase_request)
+    end
   end
   
   def reject
+    check_can_access_purchase_request
+
     if @purchase_request.sm_reject
       @purchase_request.send_message(@purchase_request.state)
       flash[:notice] = t('purchase_request.request_rejected')
     else
       flash[:notice] = t('purchase_request.failed_update')
     end
-    redirect_to user_purchase_request_url(@purchase_request.user, @purchase_request)
+
+    if @purchase_request.user
+      redirect_to user_purchase_request_url(@purchase_request.user, @purchase_request)
+    else
+      redirect_to purchase_request_url(@purchase_request)
+    end
   end
 
   def do_order
@@ -222,14 +226,23 @@ class PurchaseRequestsController < ApplicationController
     else
       flash[:notice] = t('purchase_request.failed_update')
     end
-    redirect_to user_purchase_request_url(@purchase_request.user, @purchase_request)
+
+    if @purchase_request.user
+      redirect_to user_purchase_request_url(@purchase_request.user, @purchase_request)
+    else
+      redirect_to purchase_request_url(@purchase_request)
+    end
   end
 
   # DELETE /purchase_requests/1
   # DELETE /purchase_requests/1.json
   def destroy
-    unless current_user.has_role?('Librarian')
-      if SystemConfiguration.get("user_show_purchase_requests")
+    unless can_use_purchase_request?
+      access_denied; return
+    else
+      if !user_signed_in?
+        access_denied; return
+      elsif !current_user.has_role?('Librarian')
         if @user
           unless current_user == @user
             access_denied; return
@@ -237,8 +250,6 @@ class PurchaseRequestsController < ApplicationController
         else
           redirect_to user_purchase_requests_path(current_user); return
         end
-      else
-        access_denied; return
       end
     end
 
@@ -250,6 +261,27 @@ class PurchaseRequestsController < ApplicationController
     respond_to do |format|
       format.html { redirect_to(purchase_requests_url) }
       format.json { head :no_content }
+    end
+  end
+
+  private
+  def check_can_access_purchase_request
+    unless can_use_purchase_request?
+      access_denied; return
+    else
+      unless user_signed_in?
+        if @purchase_request.user
+          access_denied; return
+        end
+      else
+        unless current_user.has_role?('Librarian')
+          unless @purchase_request.user_id == 0
+            unless @purchase_request.user == current_user
+              access_denied; return
+            end
+          end
+        end
+      end
     end
   end
 end

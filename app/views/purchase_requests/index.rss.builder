@@ -30,8 +30,13 @@ xml.rss('version' => "2.0",
         #xml.description(purchase_request.title)
         # rfc822
         xml.pubDate purchase_request.created_at.utc.rfc822
-        xml.link user_purchase_request_url(purchase_request.user, purchase_request)
-        xml.guid user_purchase_request_url(purchase_request.user, purchase_request), :isPermaLink => "true"
+        if purchase_request.user
+          xml.link user_purchase_request_url(purchase_request.user, purchase_request)
+          xml.guid user_purchase_request_url(purchase_request.user, purchase_request), :isPermaLink => "true"
+        else
+          xml.link purchase_request_url(purchase_request)
+          xml.guid purchase_request_url(purchase_request), :isPermaLink => "true"
+        end
       end
     end
   }

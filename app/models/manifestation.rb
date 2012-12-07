@@ -563,7 +563,8 @@ class Manifestation < ActiveRecord::Base
  
   def ordered?
     self.purchase_requests.each do |p|
-      return true if p.state == "ordered"
+#      return true if p.state == "ordered"
+      return true if ["ordered", "accepted", "pending"].include?(p.state)
     end
     return false
   end
