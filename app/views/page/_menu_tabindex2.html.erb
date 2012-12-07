@@ -1,13 +1,17 @@
-  <% if (SystemConfiguration.get("user_show_purchase_requests") or SystemConfiguration.get("user_show_questions")) or (user_signed_in? and current_user.has_role?('Librarian')) %>
-    <a tabindex="2" href="#request_menu" class="fg-button fg-button-icon-right ui-widget ui-state-default ui-corner-all <%- unless user_signed_in? and current_user.has_role?('Librarian') -%> fg-4button<%- end -%>" id="fg_request"><span class="ui-icon ui-icon-triangle-1-s"></span><%= t('page.request') -%></a>
-    <div id="request_menu" class="hidden">
-      <ul>
-        <% if SystemConfiguration.get("user_show_purchase_requests") or (user_signed_in? and current_user.has_role?('Librarian')) %>
-          <li><%= link_to t('activerecord.models.purchase_request'), purchase_requests_path -%></li>
-        <% end %>
-        <% if SystemConfiguration.get("user_show_questions") or (user_signed_in? and current_user.has_role?('Librarian')) %>
-          <li><%= link_to t('activerecord.models.question'), questions_path -%></li>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>
+<% if (can_use_purchase_request? or SystemConfiguration.get("user_show_questions")) or (user_signed_in? and current_user.has_role?('Librarian')) %>
+  <a tabindex="2" href="#request_menu" class="fg-button fg-button-icon-right ui-widget ui-state-default ui-corner-all <%- unless user_signed_in? and current_user.has_role?('Librarian') -%> fg-4button<%- end -%>" id="fg_request">
+  <span class="ui-icon ui-icon-triangle-1-s"></span>
+  <%= t('page.request') %>
+  </a>
+
+  <div id="request_menu" class="hidden">
+    <ul>
+      <% if can_use_purchase_request? %>
+        <li><%= link_to t('activerecord.models.purchase_request'), purchase_requests_path %></li>
+      <% end %> 
+      <% if SystemConfiguration.get("user_show_questions") or (user_signed_in? and current_user.has_role?('Librarian')) %>
+        <li><%= link_to t('activerecord.models.question'), questions_path %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>

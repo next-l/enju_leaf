@@ -1,0 +1,19 @@
+<% if @state_facet.present? %>
+<h4><%= t('activerecord.attributes.purchase_request.state') %></h4>
+<ul>
+  <% @state_facet.each do |facet| %>
+    <li>
+      <% if facet.value %>
+        <% if @state == facet.value %><strong><% end %>
+          <%= link_to i18n_pr_state(facet.value), url_for(params.merge(:page => nil, :mode => facet.value, :view => nil)) %>
+          (<%= facet.count -%>)
+        <% if @state == facet.value %></strong><% end %>
+      <% end %>
+    </li>
+  <% end %>
+  <% if @state %>
+    <li><%= link_to t('page.remove_this_facet'), params.merge(:mode => nil, :page => nil, :view => nil) %></li>
+  <% end %>
+</ul>
+<br />
+<% end %>

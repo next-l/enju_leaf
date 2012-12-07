@@ -70,7 +70,8 @@ module SystemConfigurationsHelper
       case system_configuration.keyname
       when 'header.disp_date',
            'user.locked.background',
-           'user.unable.background'
+           'user.unable.background',
+           'purchase_request.can_use'
         string = make_form_selector(string, system_configuration)
       else
         string << "<input type='text' "
@@ -116,6 +117,19 @@ module SystemConfigurationsHelper
        string << t('system_configuration.color.white') if c == 'white'
        string << "</option>"
      end    
+   when 'purchase_request.can_use'
+     string << "<option value='' "
+     string << "selected='selected'" if system_configuration.v == ""
+     string << ">"
+     string << t('system_configuration.role.all')
+     string << "</option>"
+     @roles.each do |role|
+       string << "<option value=#{ role.name } "
+       string << "selected='selected'" if system_configuration.v == role.name
+       string << ">"
+       string << role.display_name
+       string << "</option>"
+     end
    end
    string << "</select>" 
    return string
@@ -156,7 +170,8 @@ module SystemConfigurationsHelper
      # => send
      when 'send_message.recall_item',
           'send_message.recall_overdue_item',
-          'send_message.purchase_request_accepted',
+          'send_message.purchase_request_accepted_for_patron',
+          'send_message.purchase_request_accepted_for_library',
           'send_message.purchase_request_rejected',
           'send_message.reservation_accepted_for_patron',
           'send_message.reservation_accepted_for_library',

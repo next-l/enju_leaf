@@ -7,14 +7,16 @@
 <%= form_for(@purchase_request) do |f| -%>
   <%= f.error_messages -%>
 
-  <div class="field">
-    <%= f.label t('activerecord.models.user') -%><br />
-    <%- if @user -%>
-      <%= link_to @user.username, @user -%>
-    <%- else -%>
-      <%= link_to current_user.username, current_user -%>
-    <%- end -%>
-  </div>
+  <% if user_signed_in? %>
+    <div class="field">
+      <%= f.label t('activerecord.models.user') %><br />
+      <% if @user %>
+        <%= link_to @user.username, @user %>
+      <% else %>
+        <%= link_to current_user.username, current_user %>
+      <% end %>
+    </div>
+  <% end %>
 
   <div class="field">
     <%= f.label :title -%><br />
@@ -61,20 +63,20 @@
   <div class="actions">
     <%= f.submit %>
   </div>
-<%- end -%>
+<% end %>
 
 </div>
 </div>
 
 <div id="submenu" class="ui-corner-all">
   <ul>
-    <%- if @user -%>
+    <% if @user %>
       <% if params[:url].try(:bookmarkable?) %>
         <li><%= link_to t('page.back'), :back %></li>
       <% end %>
-      <li><%= link_to t('page.listing', :model => t('activerecord.models.purchase_request')), user_purchase_requests_path(@user) -%></li>
-    <%- else -%>
-      <li><%= link_to t('page.listing', :model => t('activerecord.models.purchase_request')), purchase_requests_path -%></li>
-    <%- end -%>
+      <li><%= link_to t('page.listing', :model => t('activerecord.models.purchase_request')), user_purchase_requests_path(@user) %></li>
+    <% else %>
+      <li><%= link_to t('page.listing', :model => t('activerecord.models.purchase_request')), purchase_requests_path %></li>
+    <% end %>
   </ul>
 </div>

@@ -15,7 +15,8 @@ class PurchaseRequest < ActiveRecord::Base
   belongs_to :manifestation
 
   validates_associated :user
-  validates_presence_of :user, :title
+  #validates_presence_of :user, :title
+  validates_presence_of :title
   validate :check_price
   validates :url, :url => true, :allow_blank => true, :length => {:maximum => 255}
   after_save :index!
@@ -117,20 +118,31 @@ class PurchaseRequest < ActiveRecord::Base
     PurchaseRequest.transaction do
       case status
       when 'accepted'
-        if SystemConfiguration.get("send_message.purchase_request_accepted")
-          message_template = MessageTemplate.localized_template('purchase_request_accepted', self.user.locale)
+        if self.user
+          if SystemConfiguration.get("send_message.purchase_request_accepted_for_patron")
+            message_template = MessageTemplate.localized_template('purchase_request_accepted_for_patron', self.user.locale)
+            request = MessageRequest.new
+            request.assign_attributes({ :sender => system_user, :receiver => self.user, :message_template => message_template }, :as => :admin)
+            request.save_message_body(:purchase_request => Array[self], :user => self.user)
+            request.sm_send_message
+          end
+        end
+        if SystemConfiguration.get("send_message.purchase_request_accepted_for_library")
+          message_template = MessageTemplate.localized_template('purchase_request_accepted_for_library', system_user.locale)
           request = MessageRequest.new
-          request.assign_attributes({ :sender => system_user, :receiver => self.user, :message_template => message_template }, :as => :admin)
-          request.save_message_body(:purchase_request => Array[self], :user => self.user)
+          request.assign_attributes({ :sender => system_user, :receiver => system_user, :message_template => message_template }, :as => :admin)
+          request.save_message_body(:purchase_request => Array[self])
           request.sm_send_message
         end
       when 'rejected'
-        if SystemConfiguration.get("send_message.purchase_request_rejected")
-          message_template = MessageTemplate.localized_template('purchase_request_rejected', self.user.locale)
-          request = MessageRequest.new
-          request.assign_attributes({ :sender => system_user, :receiver => self.user, :message_template => message_template }, :as => :admin)
-          request.save_message_body(:purchase_request => Array[self], :user => self.user, :reason => reason)
-          request.sm_send_message!
+        if self.user
+          if SystemConfiguration.get("send_message.purchase_request_rejected")
+            message_template = MessageTemplate.localized_template('purchase_request_rejected', self.user.locale)
+            request = MessageRequest.new
+            request.assign_attributes({ :sender => system_user, :receiver => self.user, :message_template => message_template }, :as => :admin)
+            request.save_message_body(:purchase_request => Array[self], :user => self.user, :reason => reason)
+            request.sm_send_message!
+          end
         end
       else
         raise 'status to send message not defined'
