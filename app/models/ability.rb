@@ -371,8 +371,8 @@ class Ability
           true
         end
       end
-      can [:index, :create], PurchaseRequest
-      can [:show, :update, :destroy], PurchaseRequest do |purchase_request|
+      can [:index, :create, :show], PurchaseRequest
+      can [:update, :destroy], PurchaseRequest do |purchase_request|
         purchase_request.user == user
       end
       can :index, SearchHistory
@@ -435,6 +435,7 @@ class Ability
       can :show, Question do |question|
         question.user == user or question.shared
       end
+      can [:index, :create, :show], PurchaseRequest
       can :read, [
         CarrierType,
         CirculationStatus,

@@ -125,6 +125,17 @@
           <li><%= link_to t('page.listing', :model => t('activerecord.models.subject')), work_subjects_path(@manifestation) -%></li>
           <li><%= link_to t('manifestation.edit_item'), manifestation_items_path(@manifestation) -%></li>
         </ul>
+      <% else %>
+        <% if can_use_purchase_request? %>
+          <ul>
+          <% unless @manifestation.items or @manifestation.ordered? %>
+            <li>
+              <%= link_to t('activerecord.models.purchase_request'),
+                new_user_purchase_request_path(current_user, :purchase_request => {:manifestation_id => @manifestation, :url => manifestation_url(@manifestation)}) %>
+            </li>
+          <% end %>
+          </ul>
+        <% end %>
       <%- end -%>
     <%- end -%>
   </div>
