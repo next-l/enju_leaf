@@ -5,7 +5,7 @@
 <%= form_tag({:controller => 'manifestations'}, {:method => 'get'}) do -%>
   <table style="width: 100%">
     <tr>
-      <td><label><%= :query, t('page.search_term') -%>:</label></td>
+      <td><%= label_tag :query, t('page.search_term') -%>:</td>
       <td><%= search_field_tag 'query', nil, :class => 'search_form_short', :placeholder => t('page.search_term') -%></td>
     </tr>
     <tr>
