@@ -8,7 +8,8 @@
     </h2>
   <% end %>
 
-<%= t('activerecord.attributes.resource_import_textresult.imported_row') -%>: <%= @results_num if @results_num -%>
+<%= t('activerecord.attributes.resource_import_textresult.imported_row') -%>: <%= @results_num if @results_num -%><br />
+<%= link_to t('resource_import_textresult.show_error_list'), resource_import_textfile_resource_import_textresults_path(@resource_import_textfile, :only_error => true) %>
 <table class="index">
   <tr>
     <th><%= t('activerecord.attributes.resource_import_textresult.body') %></th>
@@ -19,8 +20,6 @@
   <tr class="line<%= cycle("0", "1") -%>">
     <td>
       <%= link_to r.manifestation.original_title, r.manifestation if r.manifestation %>
-
-      <!-----TODO:  cange from item to items ------>
       <% if r.item %>
         <br />
         (<%= link_to r.item.item_identifier, r.item %>)

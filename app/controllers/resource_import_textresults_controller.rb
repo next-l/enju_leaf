@@ -7,7 +7,13 @@ class ResourceImportTextresultsController < ApplicationController
 
   def index
     @resource_import_textfile = ResourceImportTextfile.where(:id => params[:resource_import_textfile_id]).first
-    @resource_import_textresults = @resource_import_textfile.resource_import_textresults if @resource_import_textfile
+    if @resource_import_textfile
+      if params[:only_error]
+        @resource_import_textresults = @resource_import_textfile.resource_import_textresults.where('error_msg IS NOT NULL')
+      else
+        @resource_import_textresults = @resource_import_textfile.resource_import_textresults
+      end
+    end
     @results_num = @resource_import_textresults.length
     @resource_import_textresults = @resource_import_textresults.page(params[:page]) unless params[:format] == 'tsv'
 

@@ -2023,6 +2023,8 @@ ja:
         call_number: 請求記号 
         url: ＵＲＬ
         subject: 件名 
+  resource_import_textresult:
+    show_error_list: "エラー行のみ表示"
   resource_import_file:
     template_download: "テンプレートをダウンロード"
     import_request: "すぐにインポート"
