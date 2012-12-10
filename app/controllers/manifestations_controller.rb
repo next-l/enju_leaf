@@ -152,6 +152,7 @@ class ManifestationsController < ApplicationController
         :original_title,
         :title_transcription,
         :required_role_id,
+        :manifestation_type_id,
         :carrier_type_id,
         :access_address,
         :volume_number_string,

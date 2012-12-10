@@ -1,33 +1,47 @@
 <script type="text/javascript">
-  $(document).ready(function() {
-    $("input[name='extraparams[is_article]']").change(function(){
-      var is_article = $("input[name='extraparams[is_article]']:checked").val();
-      if (is_article == "true") {
-        var data = "<br />"
-                 + "<div class='field'>"
-                 + "<strong><%= t('resource_import_textfile.article_type') %></strong>"
-                 + "<br />"
-                 + "<input type = 'radio' value = 'ja' name = 'extraparams[article_type]' checked>"
-                 + " <%= t('resource_import_textfile.article_ja') %>"
-                 + "<br />"
-                 + "<input type = 'radio' value = 'en' name = 'extraparams[article_type]'>"
-                 + " <%= t('resource_import_textfile.article_en') %>"
-                 + "</div>"
-        $("#article_type").html(data);
-      } else {
-        $("#article_type").html("");
-      }
-    });
-  });
-</script>
+$(document).ready(function() {
+  show_manifestation_types();
+  $("input[name='is_article']").change(show_manifestation_types);
+});
 
+function show_manifestation_types() {
+  var is_article = $("input[name='is_article']:checked").val();
+  var data = "<br />"
+           + "<div class='field'>"
+           + "<strong><%= t('activerecord.models.manifestation_type') %></strong>"
+           + "<br />"
+  if (is_article == 'true') {
+    data  += "<% @manifestation_article_types.each_with_index do |m, i| %>"
+           + "<% if i == 0 %>"
+           + "<input type = 'radio' value = <%= m.id %> name ='extraparams[manifestation_type]' checked>"
+           + "<% else %>"
+           + "<input type = 'radio' value = <%= m.id%>  name ='extraparams[manifestation_type]'>"
+           + "<% end %>"
+           + "<%= m.display_name.localize %>"
+           + "<br />"
+           + "<% end %>"
+  } else {
+    data  += "<% @manifestation_book_types.each_with_index do |m, i| %>"
+           + "<% if i == 0 %>"
+           + "<input type = 'radio' value = <%= m.id %> name ='extraparams[manifestation_type]' checked>"
+           + "<% else %>"
+           + "<input type = 'radio' value = <%= m.id%>  name ='extraparams[manifestation_type]'>"
+           + "<% end %>"
+           + "<%= m.display_name.localize %>"
+           + "<br />"
+           + "<% end %>"
+  }
+  data    += "</div>"
+  $("#article_type").html("");
+  $("#article_type").html(data);
+}
+</script>
 <div class="field">
-  <strong><%= t('activerecord.models.manifestation_type') %></strong>
-  <br />
-  <input type = "radio" value = false name = "extraparams[is_article]" checked>
+  <strong><%= t('resource_import_textfile.file_type') %></strong><br />
+  <input type = "radio" value = false name = "is_article" checked>
   <%= t('resource_import_textfile.book') %>
   <br />
-  <input type = "radio" value = true name = "extraparams[is_article]">
+  <input type = "radio" value = true name = "is_article">
   <%= t('resource_import_textfile.article') %>
   <div id = "article_type"></div>
 </div>

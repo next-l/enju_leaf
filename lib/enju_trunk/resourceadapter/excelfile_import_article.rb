@@ -36,7 +36,7 @@ module EnjuTrunk
         import_textresult = ResourceImportTextresult.create!(:resource_import_textfile_id => resource_import_textfile_id, :body => body.join("\t"))
 
         begin
-          manifestation = fetch_article(oo, row, field, extraparams["article_type"])
+          manifestation = fetch_article(oo, row, field, extraparams["manifestation_type"])
           num[:manifestation_imported] += 1 if manifestation
           import_textresult.manifestation = manifestation
 
@@ -75,10 +75,9 @@ module EnjuTrunk
       return num
     end
 
-    def fetch_article(oo, row, field, article_type)
+    def fetch_article(oo, row, field, manifestation_type_id)
       manifestation = nil
 
-      #TODO: shelfはどうする？
       # 更新、削除はどうする？
       title = {}
       title[:original_title] = oo.cell(row, field[I18n.t('resource_import_textfile.excel.article.original_title')]).to_s.strip
@@ -86,11 +85,11 @@ module EnjuTrunk
 
       start_page, end_page = set_page(oo.cell(row, field[I18n.t('resource_import_textfile.excel.article.number_of_page')]).to_s.strip)
 
-      manifestation_type = article_type == 'ja' ? ManifestationType.find(9) : ManifestationType.find(10)
-
       number = oo.cell(row, field[I18n.t('resource_import_textfile.excel.article.volume_number_string')]).to_s.strip
       volume_number_string = number.split('*')[0] rescue nil
       issue_number_string = number.split('*')[1] rescue nil
+
+      manifestation_type = ManifestationType.find(manifestation_type_id)
 
       ResourceImportTextfile.transaction do
         begin
@@ -105,13 +104,20 @@ module EnjuTrunk
           manifestation.required_role = Role.find('Guest')
           manifestation.during_import = true
 
-          creators = oo.cell(row, field[I18n.t('resource_import_textfile.excel.article.creator')]).to_s.strip.split('；')
+          creators = []
+          if manifestation_type.name == 'japanese_article'
+            creators = oo.cell(row, field[I18n.t('resource_import_textfile.excel.article.creator')]).to_s.strip.split('；')
+          else
+            creators = oo.cell(row, field[I18n.t('resource_import_textfile.excel.article.creator')]).to_s.strip.split(' ')
+          end
           creators_list = creators.inject([]){ |list, creator| list << {:full_name => creator.to_s.strip, :full_name_transcription => "" } }
           creator_patrons = Patron.import_patrons(creators_list)
-          manifestation.creators << creator_patrons
+#TODO:!!!!!!!!!!!!!!
+#          manifestation.creators << creator_patrons
 
-          subjects = import_article_subject(oo, row, field)
-          manifestation.subjects << subjects
+          subjects = import_article_subject(oo, row, field, manifestation_type)
+#TODO:!!!!!!!!!!!!!!
+#          manifestation.subjects << subjects
 
           manifestation.save!
           return manifestation
@@ -127,17 +133,16 @@ module EnjuTrunk
       if page.match(/-/) .nil?
         start_page, end_page = page, page
       else
-        start_page, end_page = pages.split('-')[0], pages.split('-')[1]
+        start_page, end_page = page.split('-')[0], page.split('-')[1]
       end
       return start_page, end_page
     end
 
     def create_article_item(oo, row, field, manifestation, resource_import_textfile)
-
       item = import_item(manifestation, {
         :call_number => oo.cell(row, field[I18n.t('resource_import_textfile.excel.article.call_number')]).to_s.strip,
         :url => oo.cell(row, field[I18n.t('resource_import_textfile.excel.article.url')]).to_s.strip,
-        :item_identifier => "a#{Time.now.instance_eval { '%s%03d' % [strftime('%Y%m%d%H%M%S'), (usec / 1000.0).round] }}", #TODO:
+        :item_identifier => Numbering.do_numbering('article'),
         # default
         :shelf => resource_import_textfile.user.library.article_shelf,
         :circulation_status => CirculationStatus.where(:name => 'Not Available').first,
@@ -147,13 +152,23 @@ module EnjuTrunk
       return item
     end
 
-    def import_article_subject(oo, row, field)
+    def import_article_subject(oo, row, field, manifestation_type)
       subjects = []
-      (oo.cell(row, field[I18n.t('resource_import_textfile.excel.article.subject')]).to_s).split('；').each do |s|
+      subject_list = nil
+      if manifestation_type.name == 'japanese_article'
+        subject_list = (oo.cell(row, field[I18n.t('resource_import_textfile.excel.article.subject')]).to_s).split('；')
+      else
+        subject_list = (oo.cell(row, field[I18n.t('resource_import_textfile.excel.article.subject')]).to_s).split('*')
+      end
+      subject_list.each do |s|
         subject = Subject.where(:term => s.to_s.strip).first
         unless subject
           # TODO: Subject typeの設定
-          subject = Subject.create(:term => s.to_s.strip, :subject_type_id => 1)
+          subject = Subject.new(
+            :term => s.to_s.strip,
+            :subject_type_id => 1,
+          )
+          subject.save
         end
         subjects << subject
       end

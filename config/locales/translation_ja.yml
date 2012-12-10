@@ -1997,11 +1997,11 @@ ja:
     import_request: "すぐにインポート"
     start_importing: "インポートを開始しました。"
     unsuccess_start: "インポート開始に失敗しました。"
+    file_type: ファイル形式
     book: 書誌    
     article: 文献
-    article_ja: 和文献
-    article_en: 英文献
-    article_type: 文献区分
+    wrong_file: "はインポートできません。"
+    wrong_extention: "拡張子がxlsx形式のファイルのみインポート可能です。"
     excel:
       book:
         item_identifier: 受入番号

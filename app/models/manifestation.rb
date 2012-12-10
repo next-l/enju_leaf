@@ -309,10 +309,7 @@ class Manifestation < ActiveRecord::Base
   end
 
   def article?
-    if [ManifestationType.where(:name => 'japanese_article'), ManifestationType.where(:name => 'foreign_article')].index(manifestation_type)
-      return true
-    end
-    false
+    ManifestationType.is_article?(manifestation_type.id)
   end
 
   def url

@@ -18,7 +18,7 @@ class Excelfile_Adapter < EnjuTrunk::ResourceAdapter::Base
     Benchmark.bm do |x|
       x.report { 
         extraparams = eval(extraparams)
-        if extraparams["is_article"] != 'true'
+        unless ManifestationType.is_article?(extraparams['manifestation_type'])
           import_book(filename, id, extraparams)
         else
           import_article(filename, id, extraparams)

@@ -76,6 +76,9 @@ class ResourceImportTextfilesController < ApplicationController
         logger.debug "no method template_filename_select_manifestation_type"
         render :nothing => true, :status => 404 and return
       end
+      manifestation_types = ManifestationType.all
+      @manifestation_book_types = manifestation_types.map{ |m| m unless ['japanese_article', 'foreign_article'].include?(m.name) }.compact
+      @manifestation_article_types = manifestation_types.map{ |m| m if ['japanese_article', 'foreign_article'].include?(m.name) }.compact
       templatename = a.template_filename_select_manifestation_type
     else
       unless a.respond_to?(:template_filename_edit)
