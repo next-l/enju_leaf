@@ -39,7 +39,7 @@ GEM
       multi_json (~> 1.0)
     acts-as-taggable-on (2.3.3)
       rails (~> 3.0)
-    acts_as_list (0.1.7)
+    acts_as_list (0.1.9)
     addressable (2.3.2)
     annotate (2.5.0)
       rake
@@ -503,7 +503,6 @@ PLATFORMS
 DEPENDENCIES
   RedCloth (>= 4.2.9)
   activerecord-jdbcpostgresql-adapter
-  acts_as_list (= 0.1.7)
   addressable
   annotate (~> 2.5)
   astrails-safe
