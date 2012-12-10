@@ -2025,6 +2025,7 @@ ja:
         subject: 件名 
   resource_import_textresult:
     show_error_list: "エラー行のみ表示"
+    show_all_list: "全ての行を表示"
   resource_import_file:
     template_download: "テンプレートをダウンロード"
     import_request: "すぐにインポート"

@@ -9,7 +9,11 @@
   <% end %>
 
 <%= t('activerecord.attributes.resource_import_textresult.imported_row') -%>: <%= @results_num if @results_num -%><br />
-<%= link_to t('resource_import_textresult.show_error_list'), resource_import_textfile_resource_import_textresults_path(@resource_import_textfile, :only_error => true) %>
+<% if params[:only_error] %>
+  <%= link_to t('resource_import_textresult.show_all_list'), resource_import_textfile_resource_import_textresults_path(@resource_import_textfile) %>
+<% else %>
+  <%= link_to t('resource_import_textresult.show_error_list'), resource_import_textfile_resource_import_textresults_path(@resource_import_textfile, :only_error => true) %>
+<% end %>
 <table class="index">
   <tr>
     <th><%= t('activerecord.attributes.resource_import_textresult.body') %></th>
