@@ -509,7 +509,7 @@ table#resource_detail{
   width: 100%;
 }
 
-div#holding{
+div.holding{
   margin-top: 10px;
 }
 
