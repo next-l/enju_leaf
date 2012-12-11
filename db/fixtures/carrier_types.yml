@@ -28,7 +28,7 @@ carrier_type_00003:
   note: 
   position: 3
 carrier_type_00006: 
-  name: DVD  
+  name: sheaf
   display_name: "en:sheaf\r\n\
     ja:加除式"
   id: 6
