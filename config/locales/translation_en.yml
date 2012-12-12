@@ -1325,6 +1325,7 @@ en:
     destroy: destroy
     feed: feed
     csv: CSV
+    tsv: TSV
     asc: asc
     desc: desc
     picture: picture
