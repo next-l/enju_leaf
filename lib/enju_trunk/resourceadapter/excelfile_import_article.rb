@@ -98,6 +98,7 @@ module EnjuTrunk
           manifestation.start_page           = start_page
           manifestation.end_page             = end_page
           manifestation.manifestation_type   = manifestation_type
+          manifestation.frequency            = Frequency.where(:name => 'unknown').first
           manifestation.required_role        = Role.find('Guest')
           manifestation.during_import        = true
 
