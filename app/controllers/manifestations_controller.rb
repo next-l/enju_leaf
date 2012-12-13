@@ -187,7 +187,7 @@ class ManifestationsController < ApplicationController
       end
 
       # output
-      if params[:output_pdf] or params[:output_tsv]
+      if params[:output_pdf] or params[:output_tsv] or params[:output_excelx]
         manifestations_for_output = search.build do
           paginate :page => 1, :per_page => all_result.total
         end.execute.results
@@ -197,6 +197,9 @@ class ManifestationsController < ApplicationController
         elsif params[:output_tsv]
           data = Manifestation.get_manifestation_list_tsv(manifestations_for_output, current_user)
           send_data data, :filename => Setting.manifestation_list_print_tsv.filename
+        elsif params[:output_excelx]
+          excel_filename = Manifestation.get_manifestation_list_excelx(manifestations_for_output, current_user)
+          send_file excel_filename, :filename => Setting.manifestation_list_print_excelx.filename, :type => 'application/octet-stream'
         end
         return 
       end

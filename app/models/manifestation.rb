@@ -1,3 +1,4 @@
+# -*- encoding: utf-8 -*-
 require EnjuTrunkFrbr::Engine.root.join('app', 'models', 'manifestation')
 require EnjuTrunkCirculation::Engine.root.join('app', 'models', 'manifestation') if Setting.operation
 class Manifestation < ActiveRecord::Base
@@ -553,6 +554,130 @@ class Manifestation < ActiveRecord::Base
   end
 
 private
+  def self.get_manifestation_list_excelx(manifestations, current_user)
+    # initialize
+    out_dir = "#{Rails.root}/private/system/manifestations_list_excelx" 
+    excel_filepath = "#{out_dir}/list#{Time.now.strftime('%s')}#{rand(10)}.xlsx"
+    FileUtils.mkdir_p(out_dir) unless FileTest.exist?(out_dir)
+
+    logger.info "get_manifestation_list_excelx filepath=#{excel_filepath}"
+    #
+    Axlsx::Package.new do |p|
+      wb = p.workbook
+      wb.styles do |s|
+        default_style = s.add_style :font_name => Setting.manifestation_list_print_excelx.fontname
+
+        wb.add_worksheet(:name => "item_list") do |sheet|
+          # header line
+          columns = [
+            [:manifestation_id, 'activerecord.attributes.manifestation.id'],
+            [:title, 'activerecord.attributes.manifestation.original_title'],
+            [:isbn, 'activerecord.attributes.manifestation.isbn'],
+            [:edition, 'activerecord.attributes.manifestation.edition'],
+            [:volume_number, 'activerecord.attributes.manifestation.volume_number_string'],
+            [:issue_number, 'activerecord.attributes.manifestation.issue_number_string'],
+            [:serial_number, 'activerecord.attributes.manifestation.serial_number_string'],
+            [:carrier_type, 'page.form'],
+            [:language, 'activerecord.models.language'],
+            [:creator, 'patron.creator'],
+            [:contributor, 'patron.contributor'],
+            [:publisher, 'patron.publisher'],
+            [:pub_date, 'activerecord.attributes.manifestation.pub_date'],
+            [:item_identifier, 'activerecord.attributes.item.item_identifier'],
+            [:call_number, 'activerecord.attributes.item.call_number'],
+            [:acquired_at, 'activerecord.attributes.item.acquired_at'],
+            [:library, 'activerecord.models.library'],
+            [:shelf, 'activerecord.models.shelf'],
+            [:circulation_status, 'activerecord.models.circulation_status'],
+          ]
+
+          # title column
+          row = columns.map{|column| I18n.t(column[1])}
+          sheet.add_row row, :style => Array.new(columns.size).fill(default_style)
+
+          # data lines
+          manifestations.each do |manifestation|
+            item_size = manifestation.items.size rescue 0 
+
+            if item_size > 0
+              manifestation.items.map { |item|
+                row = []
+                row.concat(get_basic(manifestation))
+                row.concat(get_item_basic(item))
+
+                sheet.add_row row, :style => Array.new(row.size).fill(default_style)
+              }
+            else
+              series_statement = manifestation.series_statement
+              if series_statement.try(:periodical)  # 雑誌の場合
+                series_statement.manifestations.each do |m| 
+                  m.items.each do |item|
+                    row = []
+                    row.concat(get_basic(m))
+                    row.concat(get_item_basic(item))
+
+                    sheet.add_row row, :style => Array.new(row.size).fill(default_style)
+                  end
+                end
+              else
+                # manifestation only
+                row = []
+                row.concat(get_basic(manifestation))
+                row << ""
+                row << ""
+                row << ""
+                row << ""
+                row << ""
+                row << ""
+              end
+
+              sheet.add_row row, :style => Array.new(row.size).fill(default_style)
+            end
+          end
+          p.serialize(excel_filepath)
+        end
+      end
+
+      return excel_filepath
+    end
+  end
+
+  def self.get_item_basic(item)
+    row = []
+
+    row << item.item_identifier
+    row << item.call_number
+    row << (item.acquired_at.strftime("%Y-%m-%d") rescue "")
+    row << item.shelf.library.display_name.localize
+    row << item.shelf.display_name.localize
+    row << item.circulation_status.display_name.localize
+
+    return row
+  end
+
+  def self.get_basic(manifestation)
+    creator = manifestation.creators.map{|patron| patron.full_name}
+    contributor = manifestation.contributors.map{|patron| patron.full_name}
+    publisher = manifestation.publishers.map{|patron| patron.full_name}
+
+    row = []
+    row << manifestation.id
+    row << manifestation.original_title
+    row << (manifestation.isbn rescue "")
+    row << (manifestation.edition rescue "")
+    row << (manifestation.volume_number_string rescue "")
+    row << manifestation.issue_number_string
+    row << manifestation.serial_number_string
+    row << manifestation.carrier_type.display_name.localize
+    row << manifestation.language.display_name.localize
+    row << creator.join(',')
+    row << contributor.join(',')
+    row << publisher.join(',')
+    row << manifestation.pub_date
+
+    return row
+  end
+
   def self.get_manifestation_list_pdf(manifestations, current_user)
     report = ThinReports::Report.new :layout => File.join(Rails.root, 'report', 'searchlist.tlf')
 

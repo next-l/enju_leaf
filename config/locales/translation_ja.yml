@@ -1443,6 +1443,7 @@ ja:
     output_pdf: "%{model}の出力(PDF)"
     output_csv: "%{model}の出力(CSV)"
     output_tsv: "%{model}の出力(TSV)"
+    output_excelx: "%{model}の出力(Excel 2007以降)"
     patron_management: "人物・団体の管理"
     user_management: "利用者の管理"
     back_to: "%{model}の一覧に戻る"
