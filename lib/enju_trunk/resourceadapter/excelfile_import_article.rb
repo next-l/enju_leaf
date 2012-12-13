@@ -2,15 +2,17 @@
 module EnjuTrunk
   module ExcelfileImportArticle
     def import_article(filename, id, extraparams)
+      manifestation_type = ManifestationType.find(eval(extraparams['manifestation_type']).to_i)
+
       oo = Excelx.new(filename)
       extraparams["sheet"].each_with_index do |sheet, i|
         logger.info "num=#{i}  sheet=#{sheet}"
         oo.default_sheet = sheet
-        import_article_start(oo, id, extraparams)
+        import_article_start(oo, id, manifestation_type)
       end
     end 
 
-    def import_article_start(oo, resource_import_textfile_id, extraparams)
+    def import_article_start(oo, resource_import_textfile_id, manifestation_type)
       num = { :manifestation_imported => 0, :item_imported => 0, :manifestation_found => 0, :item_found => 0, :failed => 0 }
       # setting read_area
       field_row_num = 1
@@ -36,7 +38,7 @@ module EnjuTrunk
         import_textresult = ResourceImportTextresult.create!(:resource_import_textfile_id => resource_import_textfile_id, :body => body.join("\t"))
 
         begin
-          manifestation = fetch_article(oo, row, field, extraparams["manifestation_type"])
+          manifestation = fetch_article(oo, row, field, manifestation_type)
           num[:manifestation_imported] += 1 if manifestation
           import_textresult.manifestation = manifestation
 
@@ -75,34 +77,29 @@ module EnjuTrunk
       return num
     end
 
-    def fetch_article(oo, row, field, manifestation_type_id)
+    def fetch_article(oo, row, field, manifestation_type)
       manifestation = nil
 
       # 更新、削除はどうする？
       title = {}
-      title[:original_title] = oo.cell(row, field[I18n.t('resource_import_textfile.excel.article.original_title')]).to_s.strip
-      title[:article_title] = oo.cell(row, field[I18n.t('resource_import_textfile.excel.article.title')]).to_s.strip
-
-      start_page, end_page = set_page(oo.cell(row, field[I18n.t('resource_import_textfile.excel.article.number_of_page')]).to_s.strip)
-
-      number = oo.cell(row, field[I18n.t('resource_import_textfile.excel.article.volume_number_string')]).to_s.strip
+      title[:original_title] = fix_data(oo.cell(row, field[I18n.t('resource_import_textfile.excel.article.original_title')]).to_s.strip)
+      title[:article_title]  = fix_data(oo.cell(row, field[I18n.t('resource_import_textfile.excel.article.title')]).to_s.strip)
+      start_page, end_page = set_page(fix_data(oo.cell(row, field[I18n.t('resource_import_textfile.excel.article.number_of_page')]).to_s.strip))
+      number = fix_data(oo.cell(row, field[I18n.t('resource_import_textfile.excel.article.volume_number_string')]).to_s.strip)
       volume_number_string = number.split('*')[0] rescue nil
       issue_number_string = number.split('*')[1] rescue nil
 
-      manifestation_type = ManifestationType.find(manifestation_type_id)
-
       ResourceImportTextfile.transaction do
         begin
-          manifestation = Manifestation.new(title)
-          manifestation.pub_date = oo.cell(row, field[I18n.t('resource_import_textfile.excel.article.pub_date')]).to_s.strip
+          manifestation                      = Manifestation.new(title)
+          manifestation.pub_date             = fix_data(oo.cell(row, field[I18n.t('resource_import_textfile.excel.article.pub_date')]).to_s.strip)
           manifestation.volume_number_string = volume_number_string
-          manifestation.issue_number_string = issue_number_string
-          manifestation.start_page = start_page
-          manifestation.end_page = end_page
-          manifestation.access_address = oo.cell(row, field[I18n.t('resource_import_textfile.excel.article.url')]).to_s.strip
-          manifestation.manifestation_type = manifestation_type
-          manifestation.required_role = Role.find('Guest')
-          manifestation.during_import = true
+          manifestation.issue_number_string  = issue_number_string
+          manifestation.start_page           = start_page
+          manifestation.end_page             = end_page
+          manifestation.manifestation_type   = manifestation_type
+          manifestation.required_role        = Role.find('Guest')
+          manifestation.during_import        = true
 
           creators = []
           if manifestation_type.name == 'japanese_article'
@@ -140,14 +137,13 @@ module EnjuTrunk
 
     def create_article_item(oo, row, field, manifestation, resource_import_textfile)
       item = import_item(manifestation, {
-        :call_number => oo.cell(row, field[I18n.t('resource_import_textfile.excel.article.call_number')]).to_s.strip,
-        :url => oo.cell(row, field[I18n.t('resource_import_textfile.excel.article.url')]).to_s.strip,
-        :item_identifier => Numbering.do_numbering('article'),
-        # default
-        :shelf => resource_import_textfile.user.library.article_shelf,
+        :call_number        => oo.cell(row, field[I18n.t('resource_import_textfile.excel.article.call_number')]).to_s.strip,
+        :url                => oo.cell(row, field[I18n.t('resource_import_textfile.excel.article.url')]).to_s.strip,
+        :item_identifier    => Numbering.do_numbering('article'),
+        :shelf              => resource_import_textfile.user.library.article_shelf,
         :circulation_status => CirculationStatus.where(:name => 'Not Available').first,
         :use_restriction_id => UseRestriction.where(:name => 'Not For Loan').first,
-        :rank => 0,
+        :rank               => 0,
       })
       return item
     end

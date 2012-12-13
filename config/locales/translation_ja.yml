@@ -2004,15 +2004,49 @@ ja:
     wrong_extention: "拡張子がxlsx形式のファイルのみインポート可能です。"
     excel:
       book:
-        item_identifier: 受入番号
-        accept_at: 受入日
-        original_title: 書名
-        creator: 著者・編集者
-        frequency: 発行サイクル
+        original_title: タイトル
+        title_transcription: タイトル（ヨミ）
+        title_alternative: 代替タイトル
+        isbn: ISBN
+        carrier_type: 資料の形態
+        frequency: 発行頻度
+        pub_date: 出版日
+        place_of_publication: 出版地
+        language: 言語
+        edition: 版（数字）
+        volume_number_string: 巻
+        issue_number_string: 号
+        start_page: 最初のページ
+        end_page: 最後のページ
+        height: 高さ(cm) 
+        width: 幅(cm) 
+        depth: 奥行き(cm)
+        price: 価格
+        access_address: アクセスアドレス
+        repository_content: リポジトリのコンテンツ
+        required_role: 参照に必要な権限
+        except_recent: 新刊対象から除外
+        description: 説明
+        supplement: 付録
+        note: 注記
+        creator: 著者
+        contributor: 編者
+        publisher: 出版者
+        subject: 件名
+        accept_type: 受入区分
+        acquired_at: 受入日
         bookstore: 寄贈・購入先
-        issn_isbn: ISSN・ISBN番号
-        items_num: 受入部数
-        note: 備考
+        shelf: 本棚
+        checkout_type: 貸出区分
+        circulation_status: 貸出状態
+        retention_period: 保存種別
+        call_number: 請求記号
+        item_price: 購入価格
+        url: URL
+        include_supplements: 付録を含む
+        use_restriction: 利用制限
+        item_note: 所蔵注記
+        rank: 正本区分
       article: 
         creator: 著者
         original_title: 表題
@@ -2023,6 +2057,14 @@ ja:
         call_number: 請求記号 
         url: ＵＲＬ
         subject: 件名 
+    error:
+      book:
+       original_title_and_isbn_is_blank: "タイトルまたはISBNを指定してください。"
+       wrong_data: "指定の%{field}は不正です。 %{field}: %{data}"
+       only_integer: "%{field}には整数以外の値を指定しないでください。 %{field}: %{data}"
+       only_numeric: "%{field}には数値以外の値を指定しないでください。 %{field}: %{data}"
+       not_exsit_shelf: "指定の本棚は存在しません。 本棚: %{shelf}"
+       wrong_rank: "指定の正本区分は不正です。 正本区分: %{data}"
   resource_import_textresult:
     show_error_list: "エラー行のみ表示"
     show_all_list: "全ての行を表示"

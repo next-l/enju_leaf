@@ -7,8 +7,8 @@ class Item < ActiveRecord::Base
                   :include_supplements, :use_restriction_id, :required_role_id, 
                   :acquired_at, :note, :item_identifier, :rank, :remove_reason_id,
                   :use_restriction, :manifestation_id, :manifestation,
-                  :shelf_id, :circulation_status, :bookstore_id, :remove_reason,
-                  :shelf, :bookstore, :retention_period, :accept_type_id, :accept_type
+                  :shelf_id, :circulation_status, :bookstore, :remove_reason, :checkout_type, 
+                  :shelf, :bookstore, :retention_period, :accept_type_id, :accept_type, :required_role
 
   self.extend ItemsHelper
   scope :for_checkout, where('item_identifier IS NOT NULL')

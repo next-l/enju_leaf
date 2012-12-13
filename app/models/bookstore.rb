@@ -11,12 +11,14 @@ class Bookstore < ActiveRecord::Base
   paginates_per 10
 
   def self.import_bookstore(bookstore_name)
-    bookstore = Bookstore.where(:name => bookstore_name).first
-    unless bookstore
-      bookstore = Bookstore.new(
-        :name => bookstore_name
-      )
-      bookstore.save
+    bookstore = Bookstore.where(:name => bookstore_name).first rescue nil
+    unless bookstore_name == ''
+      unless bookstore
+        bookstore = Bookstore.new(
+          :name => bookstore_name
+        )
+        bookstore.save
+      end
     end
     bookstore
   end
