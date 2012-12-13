@@ -154,9 +154,9 @@ class ItemsController < ApplicationController
       if @item.save
         @item.manifestation = manifestation 
         Item.transaction do
-          if @item.shelf
-            @item.shelf.library.patron.items << @item
-          end
+          #if @item.shelf
+          #  @item.shelf.library.patron.items << @item
+          #end
           if @item.manifestation.next_reserve
             #ReservationNotifier.deliver_reserved(@item.manifestation.next_reservation.user)
             flash[:message] = t('item.this_item_is_reserved')
@@ -191,11 +191,27 @@ class ItemsController < ApplicationController
         if @item.manifestation.series_statement and @item.manifestation.series_statement.periodical
           Manifestation.find(@item.manifestation.series_statement.root_manifestation_id).index
         end
-        format.html { redirect_to @item, :notice => t('controller.successfully_updated', :model => t('activerecord.models.item')) }
+
+        unless @item.remove_reason.nil?
+          if @item.reserve
+            @item.reserve.revert_request rescue nil
+          end
+          flash[:notice] = t('item.item_removed')
+        else
+          flash[:notice] =  t('controller.successfully_updated', :model => t('activerecord.models.item'))
+        end
+        format.html { redirect_to @item }
         format.json { head :no_content }
       else
         prepare_options
-        format.html { render :action => "edit" }
+        unless params[:item][:remove_reason_id]
+          format.html { render :action => "edit" }
+        else
+          @remove_reasons = RemoveReason.all
+          @remove_id = CirculationStatus.where(:name => "Removed").first.id rescue nil
+          flash[:notice] = t('item.update_failed')
+          format.html { render :action => "remove" }
+        end 
         format.json { render :json => @item.errors, :status => :unprocessable_entity }
       end
     end
@@ -223,26 +239,17 @@ class ItemsController < ApplicationController
   end
 
   def remove
-    @item.circulation_status = CirculationStatus.where(:name => "Removed").first rescue nil
-    if @item.reserve
-      @item.reserve.revert_request rescue nil
-    end
-
+    @remove_reasons = RemoveReason.all
+    @remove_id = CirculationStatus.where(:name => "Removed").first.id rescue nil
     respond_to do |format|
-      if @item.save
-        flash[:notice] = t('item.item_removed')
-        format.html { redirect_to item_url(@item) }
-        format.json { head :no_content }
-      else
-        flash[:notice] = t('item.update_failed')
-        format.html { redirect_to item_url(@item) }
-        format.json { head :no_content }
-      end
+      format.html # remove.html.erb
+      format.json { render :json => @item }
     end
   end
 
   def restore
     @item.circulation_status = CirculationStatus.where(:name => "In Process").first rescue nil
+    @item.remove_reason = nil
     respond_to do |format|
       if @item.save
         flash[:notice] = t('item.item_restored')
@@ -269,6 +276,9 @@ class ItemsController < ApplicationController
     @shelves = @library.shelves
     @circulation_statuses = CirculationStatus.all
     @circulation_statuses.reject!{|cs| cs.name == "Removed"}
+    @accept_types = AcceptType.all
+    @remove_reasons = RemoveReason.all
+    @retention_periods = RetentionPeriod.all
     @use_restrictions = UseRestriction.available
     @bookstores = Bookstore.all
     if @manifestation

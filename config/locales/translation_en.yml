@@ -5,6 +5,7 @@ en:
       question: Question
       patron_import_file: Patron import file
       circulation_status: Circulation status
+      remove_reason: Remove reason
       inventory: Inventory
       patron: Patron
       user_note: Note
@@ -74,6 +75,7 @@ en:
       search_engine: Search engine
       create: Create
       carrier_type: Carrier Type
+      retention_period: Retention Period
       manifestation: Manifestation
       user_group: User group
       resource_import_file: Resource import file
@@ -91,6 +93,7 @@ en:
       bookstore: Bookstore
       area: Area
       checkout_type: Checkout type
+      accept_type: Accept type
       classification_type: Classification type
       country: Country
       manifestation_api_response: Manifestation API Response
@@ -192,6 +195,11 @@ en:
         state: State
         edit_mode: Edit mode
       circulation_status:
+        name: Name
+        display_name: Display name
+        note: Note
+        position: Position
+      remove_reason:
         name: Name
         display_name: Display name
         note: Note
@@ -473,6 +481,7 @@ en:
         price: Price
         lock_version: Lock version
         checkout_type: Checkout type
+        retention_period: Retention Period
         acquired_at: Acquired at
         loss_item: Loss item
         set_status: Loss item processing
@@ -480,6 +489,7 @@ en:
         fail_update_loss_item: Failed to update status
         created_at: Created at
         removed_at: Removed at
+        rank: Rank
       loss_item:
         user_id: User number
         item_id: Loss item 
@@ -625,13 +635,26 @@ en:
         display_name: Display name
         note: Note
         position: Position
+      retention_period:
+        name: Name
+        display_name: Display name
+        note: Note
+        position: Position
+      manifestation_type:
+        name: Name
+        display_name: Display name
+        note: Note
+        position: Position
       manifestation:
         original_title: Original title
         title_alternative: Titlte alternative
         title_transcription: Title transcription
+        article_title: Article title
         classification_number: Classification number
         identifier: Manifestation identifier
         date_of_publication: Date of publication
+        country_of_publication: Country of publication
+        place_of_publication: Place of publication
         pub_date: Date of publication
         deleted_at: Deleted at
         access_address: Access address
@@ -768,12 +791,18 @@ en:
         telephone_number: Telephone number
         fax_number: Fax number
         url: URL
+        email: Email
         position: Position
         deleted_at: Deleted at
       area:
         name: Name
         address: Address
       checkout_type:
+        name: Name
+        display_name: Display name
+        note: Note
+        position: Position
+      Accept_type:
         name: Name
         display_name: Display name
         note: Note
@@ -1319,6 +1348,7 @@ en:
     to: "to"
     all: "All %{model}"
     all_libraries: "All libraries"
+    all_manifestations: "All manifestations diplay"
   work:
     patrons_work: "%{patron_name}'s works"
     library_group_work: "Works in %{library_group_name}"
@@ -1380,6 +1410,13 @@ en:
     no_manifestation: "No manifestation"
     no_number: "No number"
     add_lending_policy: "Add a new lending policy"
+    original_item_require_item_identidier: "Original item  require a item identifier."
+    already_original_item_created: "Already original title item is created."
+    original: Original
+    copy: Copy
+    spare: Spare
+    set_remove_reason: "Set a remove reason"
+    select_remove_reason: "Select a remove reason"
   patron:
     library_group_patron: "Patrons of %{library_group_name}"
     work_patron: "Creaters of %{work_title}"

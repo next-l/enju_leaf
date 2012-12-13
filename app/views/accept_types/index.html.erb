@@ -1,0 +1,45 @@
+<div id="content_detail" class="ui-corner-all">
+<h1 class="title"><%= t('page.listing', :model => t('activerecord.models.accept_type')) %></h1>
+<div id="content_list">
+
+<table class="index">
+  <tr>
+    <th id="position"></th>
+    <th><%= t('activerecord.attributes.accept_type.name') %></th>
+    <th><%= t('activerecord.attributes.accept_type.display_name') %></th>
+    <th><%= t('activerecord.attributes.accept_type.note') %></th>
+    <th></th>
+  </tr>
+  
+<% @accept_types.each do |accept_type| %>
+  <tr class="line<%= cycle("0", "1") %>">
+    <td>
+      <% if can? :update, accept_type %>
+        <%= move_position(accept_type) %>
+      <% end %>
+    </td>
+    <td><%= link_to accept_type.name, accept_type %></td>
+    <td><%= link_to accept_type.display_name, accept_type %></td>
+    <td><%= accept_type.note %></td>
+    <td>
+      <% if can? :update, accept_type %>
+        <%= link_to t('page.edit'), edit_accept_type_path(accept_type) %>
+      <% end %>
+      <% if can? :destroy, accept_type %>
+        <%= link_to t('page.destroy'), accept_type, method: :delete, data: { confirm: t('page.are_you_sure') } %>
+      <% end %>
+    </td>
+ </tr>
+<% end %>
+</table>
+
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all">
+  <ul>
+    <% if can? :create, AcceptType %>
+      <li><%= link_to t('page.new', :model => t('activerecord.models.accept_type')), new_accept_type_path %></li>
+    <% end %>
+  </ul>
+</div>

@@ -20,3 +20,4 @@
 //= require enju_trunk
 //= require jquery.ui.datepicker-ja
 //= require jquery.spin
+//= require jquery.upload-1.0.2

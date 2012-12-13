@@ -5,6 +5,7 @@ ja:
       question: 質問（レファレンス）
       patron_import_file: 人物・団体のインポート用ファイル
       circulation_status: 貸出状態
+      remove_reason: 除籍理由
       inventory: 蔵書点検
       patron: 人物・団体
       user_note: 利用者の注記
@@ -75,10 +76,12 @@ ja:
       search_engine: 検索エンジン
       create: 著作関係
       carrier_type: 資料の形態
+      retention_period: 保存種別
+      manifestation_type: 資料区分
       manifestation: 資料
       user_group: 利用者グループ
       resource_import_file: 資料のインポート用ファイル
-      resource_import_textfile: テキストインポート用ファイル
+      resource_import_textfile: 資料のインポート用ファイル
       checkout: 貸出
       checkout_family: 家族の貸出
       subscription: 購読
@@ -90,9 +93,10 @@ ja:
       retained_manifestation: 取置済み(未連絡)資料
       reserve_family: 家族の予約
       answer: 回答
-      bookstore: 書店
+      bookstore: 寄贈・購入先
       area: 地区
       checkout_type: 貸出区分
+      accept_type: 受入区分
       classification_type: 分類型
       country: 国と地域
       manifestation_api_response: 資料APIの応答
@@ -170,11 +174,21 @@ ja:
       reminder_list: 督促
       expense: 購入情報
       budget_and_results_managements: 予算実績対比 
-      manifestation_type: 資料区分
       access_log: アクセス件数
       keyword_count: 検索キーワード
+      numbering: 採番
 
     attributes:
+      numbering:
+        name: 名称
+        display_name: 表示名
+        prefix: プレフィックス
+        suffix: サフィックス
+        padding: 埋める
+        padding_number: 埋める桁数
+        padding_character: 埋める文字
+        last_number: 最後の番号
+        checkdigit: チェックデジットのルール
       manifestation_types:
         book: 図書
         series: 定期刊行物
@@ -251,6 +265,11 @@ ja:
         edit_mode: 編集モード
         import_request: すぐにインポート
       circulation_status:
+        name: 名前
+        display_name: 表示名
+        note: 注記
+        position: 位置
+      remove_reason:
         name: 名前
         display_name: 表示名
         note: 注記
@@ -552,6 +571,7 @@ ja:
         price: 価格
         lock_version: ロックバージョン
         checkout_type: 貸出区分
+        retention_period: 保存種別
         acquired_at: 受入日
         loss_item: 紛失処理
         set_status: 紛失処理を実行
@@ -560,6 +580,7 @@ ja:
         created_at: 作成日
         removed_at: 除籍日
         items_number: 所蔵数
+        rank: 正本区分
       loss_item:
         user_id: 利用者番号
         item_id: 紛失資料
@@ -637,6 +658,8 @@ ja:
         display_name: 表示名
         note: 注記
         position: 位置
+        freq_string: 間隔
+        nii_code: 識別コード
       expression_merge_list:
         title: タイトル
       use_restriction:
@@ -723,15 +746,28 @@ ja:
         display_name: 表示名
         note: 注記
         position: 位置
+      retention_period:
+        name: 名前
+        display_name: 表示名
+        note: 注記
+        position: 位置
+      manifestation_type:
+        name: 名前
+        display_name: 表示名
+        note: 注記
+        position: 位置
       manifestation:
         id: ID
         original_title: タイトル # 原題
         title_alternative: 代替タイトル
         title_transcription: タイトル（ヨミ）
+        article_title: 誌名
         classification_number: 分類番号
         identifier: 識別子
         date_of_publication: 出版日
         pub_date: 出版日
+        country_of_publication: 出版国
+        place_of_publication: 出版地
         pub_year: 版年
         deleted_at: 削除時刻
         access_address: アクセスアドレス
@@ -811,6 +847,7 @@ ja:
         resource_import_updated_at: 更新時刻
         state: 状態
         adapter_name: 取込ファイル種別
+        sheet: 取込シート
       checkout:
         due_date: 期日
         family_info: 家族情報
@@ -885,12 +922,18 @@ ja:
         telephone_number: 電話番号
         fax_number: ファックス番号
         url: URL
+        email: メールアドレス
         position: 位置
         deleted_at: 削除時刻
       area:
         name: 地区名   
         address: 住所
       checkout_type:
+        name: 名前
+        display_name: 表示名
+        note: 注記
+        position: 位置
+      accept_type:
         name: 名前
         display_name: 表示名
         note: 注記
@@ -1561,7 +1604,8 @@ ja:
     help_query: "タイトル、著者、出版者、シリーズ名、注記等を対象に検索を行います。"
     help_isbn: "半角英数字で入力してください。ハイフン（-）の入力は不要です。"
     help_issn: "半角英数字で入力してください。ハイフン（-）の入力は不要です。"
-  work:
+    all_manifestations: "検索非対象資料も表示"
+  worki:
     patron_work: "%{patron_name} の書いた資料"
     library_group_work: "%{library_group_name} にある書いた資料"
     add: "書いた資料を追加"
@@ -1634,6 +1678,13 @@ ja:
     all_type: 全ての資料区分
     general_item: 一般資料
     audio_item: 視聴覚資料
+    original_item_require_item_identidier: "正本登録する場合は所蔵情報IDが必要です。"
+    already_original_item_created: "正本は既に登録済みです。"
+    original: 正本
+    copy: 複本
+    spare: 予備資料
+    set_remove_reason: "除籍理由の設定"
+    select_remove_reason: "除籍理由を選択してください。"
   patron:
     library_group_patron: "%{library_group_name} の人物・団体"
     work_patron: "%{work_title} の著作者"
@@ -1945,6 +1996,32 @@ ja:
     import_request: "すぐにインポート"
     start_importing: "インポートを開始しました。"
     unsuccess_start: "インポート開始に失敗しました。"
+    book: 書誌    
+    article: 文献
+    article_ja: 和文献
+    article_en: 英文献
+    article_type: 文献区分
+    excel:
+      book:
+        item_identifier: 受入番号
+        accept_at: 受入日
+        original_title: 書名
+        creator: 著者・編集者
+        frequency: 発行サイクル
+        bookstore: 寄贈・購入先
+        issn_isbn: ISSN・ISBN番号
+        items_num: 受入部数
+        note: 備考
+      article: 
+        creator: 著者
+        original_title: 表題
+        title: 誌名
+        volume_number_string: 巻号
+        number_of_page: ページ
+        pub_date: 年
+        call_number: 請求記号 
+        url: ＵＲＬ
+        subject: 件名 
   resource_import_file:
     template_download: "テンプレートをダウンロード"
     import_request: "すぐにインポート"
@@ -2087,7 +2164,7 @@ ja:
     all_library: 全図書館
     carrier_type: 資料の形態
     all_carrier_type: 全ての資料の形態
-    all_bookstore: 全ての書店
+    all_bookstore: 全ての寄贈・購入先
     shelf: 保管場所
     ndc: NDC
     ndc_message: "(入力すると該当資料のみ出力します。)"

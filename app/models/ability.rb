@@ -6,6 +6,10 @@ class Ability
     initialize_circulation(user) if Setting.operation
     case user.try(:role).try(:name)
     when 'Administrator'
+      can [:read, :create, :update], AcceptType
+      can :destroy, AcceptType do |accept_type|
+        accept_type.items.count == 0
+      end
       can [:read, :create, :update], Bookstore
       can :destroy, Bookstore do |bookstore|
         bookstore.order_lists.empty?
@@ -59,9 +63,20 @@ class Ability
           true
         end
       end
-      can [:read, :create, :update, :output], Shelf
+      can [:read, :create, :output], Shelf
+      can :update, Shelf do |shelf|
+        shelf.open_access < 9
+      end
       can :destroy, Shelf do |shelf|
         shelf.items.count == 0
+      end
+      can [:read, :create, :update], RetentionPeriod
+      can :destroy, RetentionPeriod do |retention_period|
+        retention_period.items.empty?
+      end 
+      can [:read, :create, :update], RemoveReason
+      can :destroy, RemoveReason do |remove_reason|
+        remove_reason.items.count == 0
       end
       can [:read, :create, :update], User
       can :destroy, User do |u|
@@ -102,6 +117,7 @@ class Ability
         ManifestationRelationship,
         ManifestationRelationshipType,
         ManifestationReserveStat,
+        Numbering,
         Order,
         OrderList,
         Own,
@@ -142,6 +158,7 @@ class Ability
         WorkHasSubject
       ]
       can [:read, :update], [
+        AcceptType,
         CarrierType,
         CirculationStatus,
         ContentType,
@@ -152,6 +169,7 @@ class Ability
         Language,
         LibraryGroup,
         License,
+        ManifestationType,
         MediumOfPerformance,
         PatronType,
         RequestStatusType,
@@ -231,6 +249,10 @@ class Ability
       end
       can [:read, :create, :update], UserCheckoutStat
       can [:read, :create, :update], UserReserveStat
+      can [:read, :create, :update], RemoveReason
+      can :destroy, RemoveReason do |remove_reason|
+        remove_reason.items.count == 0
+      end
       can :manage, [
         AccessLog,
         Answer,
@@ -255,6 +277,7 @@ class Ability
         ManifestationCheckoutStat,
         ManifestationRelationship,
         ManifestationReserveStat,
+        Numbering,
         Order,
         OrderList,
         Own,
@@ -283,6 +306,7 @@ class Ability
         WorkHasSubject
       ]
       can :read, [
+        AcceptType,
         Bookstore,
         CarrierType,
         CarrierTypeHasCheckoutType,
@@ -303,6 +327,7 @@ class Ability
         Library,
         LibraryGroup,
         License,
+        ManifestationType,
         ManifestationRelationshipType,
         MediumOfPerformance,
         PatronImportResult,
@@ -314,6 +339,7 @@ class Ability
         ReserveStatHasUser,
         ResourceImportResult,
         ResourceImportTextresult,
+        RetentionPeriod,
         Role,
         SearchEngine,
         Shelf,
@@ -384,6 +410,7 @@ class Ability
         u == user
       end
       can :read, [
+        AcceptType,
         CarrierType,
         CirculationStatus,
         Classification,
@@ -411,6 +438,7 @@ class Ability
         PatronRelationshipType,
         Produce,
         Realize,
+        RemoveReason,
         SeriesStatement,
         SeriesHasManifestation,
         Shelf,
@@ -466,6 +494,7 @@ class Ability
         PictureFile,
         Produce,
         Realize,
+        RemoveReason,
         SeriesStatement,
         SeriesHasManifestation,
         Shelf,

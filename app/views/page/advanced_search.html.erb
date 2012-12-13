@@ -50,6 +50,15 @@
         <td><%= t('advanced_search.from') -%> <%= text_field_tag 'number_of_pages_at_least', nil, :size => 5 -%>
           <%= t('advanced_search.to') -%> <%= text_field_tag 'number_of_pages_at_most', nil, :size => 5 -%></td>
     </tr>
+    <% if user_signed_in? and current_user.has_role?('Librarian') %>
+      <tr>
+        <td></td>
+        <td>
+          <%= check_box_tag 'all_manifestations', true %>
+          <%= t('advanced_search.all_manifestations') %>
+        </td>
+      </tr>
+    <% end %>
     <!--
     <tr>
       <td><label><%= t('page.holding_library') -%>:</label></td>

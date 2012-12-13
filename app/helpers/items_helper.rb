@@ -11,4 +11,19 @@ module ItemsHelper
     end   
     return call_number
   end
+
+  def item_ranks
+    return [0, 1, 2]
+  end
+
+  def i18n_rank(item)
+    case item
+    when 0
+      t('item.original')
+    when 1
+      t('item.copy')
+    when 2
+      t('item.spare')
+    end
+  end
 end

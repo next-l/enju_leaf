@@ -8,7 +8,7 @@ class Asynchronized_Service
     case method_identifier
     when :ResoureceImportFile_import
       ResourceImportFile.import(param)
-    when :ResoureceImportTextfile_import
+    when :ResourceImportTextfile_import
       ResourceImportTextfile.import(param)
     when :PatronImportFile_import
       PatronImportFile.import(param)

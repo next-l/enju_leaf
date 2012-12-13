@@ -3,12 +3,12 @@ require EnjuTrunkFrbr::Engine.root.join('app', 'models', 'item')
 require EnjuTrunkCirculation::Engine.root.join('app', 'models', 'item') if Setting.operation
 class Item < ActiveRecord::Base
   attr_accessible :library_id, :shelf_id, :checkout_type_id, :circulation_status_id,
-                  :call_number, :bookstore_id, :price, :url, 
+                  :retention_period_id, :call_number, :bookstore_id, :price, :url, 
                   :include_supplements, :use_restriction_id, :required_role_id, 
-                  :acquired_at, :note, :item_identifier,
+                  :acquired_at, :note, :item_identifier, :rank, :remove_reason_id,
                   :use_restriction, :manifestation_id, :manifestation,
-                  :shelf_id, :circulation_status, :bookstore_id,
-                  :shelf, :bookstore
+                  :shelf_id, :circulation_status, :bookstore_id, :remove_reason,
+                  :shelf, :bookstore, :retention_period, :accept_type_id, :accept_type
 
   self.extend ItemsHelper
   scope :for_checkout, where('item_identifier IS NOT NULL')
@@ -27,6 +27,9 @@ class Item < ActiveRecord::Base
   has_many :checked_items, :dependent => :destroy
   has_many :baskets, :through => :checked_items
   belongs_to :circulation_status, :validate => true
+  belongs_to :remove_reason
+  belongs_to :accept_type
+  belongs_to :retention_period, :validate => true
   belongs_to :bookstore, :validate => true
   has_many :donates
   has_many :donors, :through => :donates, :source => :patron
@@ -36,6 +39,7 @@ class Item < ActiveRecord::Base
   has_many :inter_library_loans, :dependent => :destroy
   belongs_to :required_role, :class_name => 'Role', :foreign_key => 'required_role_id', :validate => true
   belongs_to :checkout_type
+  #belongs_to :resource_import_textresult
   has_many :inventories, :dependent => :destroy
   has_many :inventory_files, :through => :inventories
   has_many :lending_policies, :dependent => :destroy
@@ -45,8 +49,9 @@ class Item < ActiveRecord::Base
   has_many :libcheck_tmp_items
   has_many :expenses
 
-  validates_associated :circulation_status, :shelf, :bookstore, :checkout_type
-  validates_presence_of :circulation_status, :checkout_type
+  validates_associated :circulation_status, :shelf, :bookstore, :checkout_type, :retention_period
+  validates_presence_of :circulation_status, :checkout_type, :retention_period, :rank
+  validate :is_original?
   before_validation :set_circulation_status, :on => :create
   before_save :set_use_restriction, :check_remove_item
   after_save :check_price
@@ -60,12 +65,16 @@ class Item < ActiveRecord::Base
     string :library
     integer :required_role_id
     integer :circulation_status_id
+    integer :accept_type_id
+    integer :retention_period_id
     integer :manifestation_id do
       manifestation.id if manifestation
     end
     integer :shelf_id
     integer :patron_ids, :multiple => true
     integer :inventory_file_ids, :multiple => true
+    integer :rank
+    integer :remove_reason_id
     time :created_at
     time :updated_at
   end
@@ -213,6 +222,18 @@ class Item < ActiveRecord::Base
     rescue Exception => e
       logger.error "Failed to update expense: #{e}"
       logger.error $@
+    end
+  end
+
+  def is_original?
+    if self.rank == 0
+      errors[:base] << I18n.t('item.original_item_require_item_identidier') unless self.item_identifier
+
+      manifestation = Manifestation.find(self.manifestation_id) rescue nil
+      return true unless manifestation
+
+      item_ranks = manifestation.items.inject([]){ |list, i| list << i.rank.to_i }
+      errors[:base] << I18n.t('item.already_original_item_created') if item_ranks.include?(0)
     end
   end
 

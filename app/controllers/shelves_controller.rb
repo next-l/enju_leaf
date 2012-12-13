@@ -63,10 +63,6 @@ class ShelvesController < ApplicationController
 
   # GET /shelves/1/edit
   def edit
-    @shelf = Shelf.find(params[:id], :include => :library)
-    if @shelf.open_access == 9
-      access_denied; return
-    end
   end
 
   # POST /shelves
@@ -89,17 +85,6 @@ class ShelvesController < ApplicationController
   # PUT /shelves/1
   # PUT /shelves/1.json
   def update
-    @shelf= Shelf.find(params[:id])
-    if @shelf.open_access == 9
-      access_denied; return
-    end
-
-    #if params[:position]
-    #  @shelf.insert_at(params[:position])
-    #  redirect_to library_shelves_url(@shelf.library)
-    #  return
-    #end
-
     respond_to do |format|
       if @shelf.update_attributes(params[:shelf])
         format.html { redirect_to @shelf, :notice => t('controller.successfully_updated', :model => t('activerecord.models.shelf')) }

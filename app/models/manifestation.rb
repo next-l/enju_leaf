@@ -11,6 +11,7 @@ class Manifestation < ActiveRecord::Base
   has_many :picture_files, :as => :picture_attachable, :dependent => :destroy
   belongs_to :language
   belongs_to :carrier_type
+  belongs_to :manifestation_type
   has_one :series_has_manifestation
   has_one :series_statement, :through => :series_has_manifestation
   belongs_to :frequency
@@ -20,12 +21,13 @@ class Manifestation < ActiveRecord::Base
   has_many :table_of_contents
 
   belongs_to :manifestation_content_type, :class_name => 'ContentType', :foreign_key => 'content_type_id'
+  belongs_to :country_of_publication, :class_name => 'Country', :foreign_key => 'country_of_publication_id'
 
   searchable do
     text :title, :default_boost => 2 do
       titles
     end
-    text :fulltext, :note, :contributor, :description
+    text :fulltext, :note, :contributor, :description, :article_title
     text :creator do
       if series_statement.try(:periodical)  # 雑誌の場合
         [series_statement.manifestations.map{|manifestation| [manifestation.creator]}].flatten.compact
@@ -83,11 +85,12 @@ class Manifestation < ActiveRecord::Base
       carrier_type.name
     end
     string :manifestation_type, :multiple => true do
-      if series_statement.try(:id) 
-        1
-      else
-        0
-      end
+      manifestation_type.try(:name)
+      #if series_statement.try(:id) 
+      #  1
+      #else
+      #  0
+      #end
     end
     string :library, :multiple => true do
       items.map{|i| i.shelf.library.name}
@@ -131,8 +134,8 @@ class Manifestation < ActiveRecord::Base
     integer :volume_number, :multiple => true
     integer :issue_number, :multiple => true
     integer :serial_number, :multiple => true
-    integer :start_page
-    integer :end_page
+    string :start_page
+    string :end_page
     integer :number_of_pages
     string :number_of_pages, :multiple => true do
       if series_statement.try(:periodical)  # 雑誌の場合
@@ -214,6 +217,13 @@ class Manifestation < ActiveRecord::Base
       end
     end
     boolean :except_recent
+    boolean :has_original do
+      if items.inject([]){ |list, i| list << i.rank.to_i }.include?(0)
+        true
+      else
+        false
+      end
+    end
     string :exinfo_1
     string :exinfo_2
     string :exinfo_3
@@ -236,8 +246,8 @@ class Manifestation < ActiveRecord::Base
     has_attached_file :attachment
   end
 
-  validates_presence_of :carrier_type, :language
-  validates_associated :carrier_type, :language
+  validates_presence_of :carrier_type, :language, :manifestation_type, :country_of_publication
+  validates_associated :carrier_type, :language, :manifestation_type, :country_of_publication
   before_validation :set_language, :if => :during_import
   before_save :set_series_statement
 
@@ -294,6 +304,13 @@ class Manifestation < ActiveRecord::Base
   def serial?
     if series_statement.try(:periodical) and !periodical_master
       return true unless root_of_series?
+    end
+    false
+  end
+
+  def article?
+    if [ManifestationType.where(:name => 'japanese_article'), ManifestationType.where(:name => 'foreign_article')].index(manifestation_type)
+      return true
     end
     false
   end

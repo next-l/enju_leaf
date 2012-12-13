@@ -1,4 +1,6 @@
 EnjuLeaf::Application.routes.draw do
+  resources :numberings
+
   resources :sheets
 
   devise_for :users, :path => 'accounts'
@@ -197,6 +199,7 @@ EnjuLeaf::Application.routes.draw do
   resources :checkout_types do
     resources :user_group_has_checkout_types
   end
+  resources :accept_types
   resources :search_histories, :only => [:index, :show, :destroy]
 
   resources :order_lists do
@@ -223,6 +226,7 @@ EnjuLeaf::Application.routes.draw do
   match '/resource_import_textfiles/adapters/:name' => 'resource_import_textfiles#inherent_view'
   resources :resource_import_textfiles do
     get :import_request, :on => :collection
+    post :upload, :on => :collection
     resources :resource_import_textresults, :only => [:index, :show, :destroy]
   end
 
@@ -298,6 +302,12 @@ EnjuLeaf::Application.routes.draw do
   resources :content_types
 
   resources :carrier_types
+
+  resources :retention_periods
+
+  resources :remove_reasons
+
+  resources :manifestation_types
 
   resources :import_requests
 

@@ -5,19 +5,33 @@
         var name = $('select#resource_import_textfile_adapter_name :selected').val();
         if(name == "") name="0";
         $("#inherent").html("");
+        //jQuery.get('/enju_reiko/resource_import_textfiles/adapters/' + name, function(data){
         jQuery.get('/resource_import_textfiles/adapters/' + name, function(data){
           $("#inherent").html(data);
           })
         return false;
-        });
-      })
+      });
+
+      $("#resource_import_textfile_resource_import_text").change(function(){  
+        var name = $('select#resource_import_textfile_adapter_name :selected').val();
+        $(".excel_sheets").html("")
+        if(name == 'Excelfile_Adapter') {
+          $(".spinner").spin();
+          var csrf_token = $("meta[name=csrf-token]").attr("content");
+          $(this).upload('upload', { "authenticity_token": csrf_token }, function (data) {
+            $(".excel_sheets").html(data)
+          }, 'text');
+          $(".spinner").spin(false);
+        }
+      });
+  });
 </script>
 
 <div id="content_detail" class="ui-corner-all">
   <h1 class="title"><%= t('page.new', :model => t('activerecord.models.resource_import_textfile')) -%></h1>
 <div id="content_list">
 
-<%= form_for(@resource_import_textfile, :html => { :multipart => true }) do |f| -%>
+<%= form_for(@resource_import_textfile, :html => { :multipart => true }, :remote => true ) do |f| -%>
   <%= f.error_messages -%>
 
   <div class="field">
@@ -26,10 +40,12 @@
   </div>
 
   <div id="inherent"> </div>
-
+ 
   <div class="field">
     <%= f.label t('page.file') -%><br />
-    <%= f.file_field :resource_import_text -%>
+    <%= f.file_field :resource_import_text %>
+    <div class="spinner"></div>
+    <div class="excel_sheets"></div>
   </div>
 
   <div class="actions">
@@ -42,6 +58,6 @@
 
 <div id="submenu" class="ui-corner-all">
   <ul>
-    <li><%= link_to t('page.back'), resource_import_textfiles_path -%></li>
+    <li><%= link_to t('page.listing', :model => t('activerecord.models.resource_import_textfile')), resource_import_textfiles_path -%></li>
   </ul>
 </div>

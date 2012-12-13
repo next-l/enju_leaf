@@ -1,0 +1,31 @@
+<div id="content_detail" class="ui-corner-all">
+<h1 class="title"><%= t('page.showing', :model => t('activerecord.models.remove_reason')) %></h1>
+<div id="content_list">
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong><%= t('activerecord.attributes.remove_reason.name') %>:</strong>
+  <%= @remove_reason.name %>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.remove_reason.display_name') %>:</strong>
+  <%= @remove_reason.display_name %>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.remove_reason.note') %>:</strong>
+  <%= @remove_reason.note %>
+</p>
+
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all">
+  <ul>
+    <% if can? :update, @remove_reason %>
+      <li><%= link_to t('page.edit'), edit_remove_reason_path(@remove_reason) %></li>
+      <li><%= link_to t('page.back'), remove_reasons_path %></li>
+    <% end %>
+  </ul>
+</div>

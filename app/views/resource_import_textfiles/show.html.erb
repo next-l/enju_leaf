@@ -33,6 +33,38 @@
   <%= @resource_import_textfile.file_hash -%>
 </p>
 
+<% if @resource_import_textfile.adapter_name == 'Excelfile_Adapter' %>
+  <% unless eval(@resource_import_textfile.extraparams)["is_article"] == 'true' %>
+    <p>
+      <strong><%= t('activerecord.models.manifestation_type') %>:</strong>
+      <%= t('resource_import_textfile.book') %>
+    </p>
+  <% else %>
+    <p>
+      <strong><%= t('activerecord.models.manifestation_type') %>:</strong>
+      <%= t('resource_import_textfile.article') %>
+    </p>
+    <p>
+      <strong><%= t('resource_import_textfile.article_type') %>:</strong>
+      <% if eval(@resource_import_textfile.extraparams)["article_type"] == 'ja' %>
+        <%= t('resource_import_textfile.article_ja') %>
+      <% else %>
+        <%= t('resource_import_textfile.article_en') %>
+      <% end %>
+    </p>
+  <% end %>
+
+  <p>
+    <strong><%= t('activerecord.attributes.resource_import_textfile.sheet') %>:</strong><br />
+    <% sheets = eval(@resource_import_textfile.extraparams)["sheet"] %>
+      <% if sheets.present? %>
+        <% sheets.each do |sheet| %>
+        &nbsp;&nbsp;<%= sheet %><br />
+      <% end %>
+    <% end %>
+  </p>
+<% end %>
+
 <p>
   <strong><%= t('page.created_at') -%>:</strong>
   <%= l(@resource_import_textfile.created_at) if @resource_import_textfile.created_at -%>

@@ -1,48 +1,50 @@
 # -*- encoding: utf-8 -*-
 class Excelfile_Adapter < EnjuTrunk::ResourceAdapter::Base
+  include EnjuTrunk::ExcelfileImportBook
+  include EnjuTrunk::ExcelfileImportArticle
 
   def self.display_name
     "エクセルファイル(xlsx)"
   end
 
-  def import_from_file(filename)
-    num = 0
-
-    oo = Excelx.new(filename)
-
-    puts "sheet list"
-    oo.sheets.each_with_index do |s, i|
-      puts "sheet no=#{i} name=#{s.to_s}"
-    end
-
-    puts "first sheet cells"
-    oo.default_sheet = oo.sheets.first
-    2.upto(5) do |line|
-      c1 = oo.cell(line,'A')
-      c2 = oo.cell(line,'B')
-      c3 = oo.cell(line,'C')
-      c4 = oo.cell(line,'D')
-      puts "c1=#{c1} c2=#{c2} c3=#{c3} c4=#{c4}"
-      num = num + 1
-    end
-
-    return num;
+  def self.template_filename_select_manifestation_type
+    "excelfile_select_manifestation_type.html.erb"
   end
 
-  def import(id, filename, user_id)
+  def import(id, filename, user_id, extraparams = {})
     logger.info "#{Time.now} start import #{self.class.display_name}"
     logger.info "id=#{id} filename=#{filename}"
 
     Benchmark.bm do |x|
-      x.report {
-        num = import_from_file(filename)
-        logger.info "result: #{num}"
+      x.report { 
+        extraparams = eval(extraparams)
+        if extraparams["is_article"] != 'true'
+          import_book(filename, id, extraparams)
+        else
+          import_article(filename, id, extraparams)
+        end    
       }
     end
-
     logger.info "#{Time.now} end import #{self.class.display_name}"
   end
 
+  def import_item(manifestation, options)
+    item = Item.new(options)
+    item.manifestation = manifestation
+    if item.save!
+      item.patrons << options[:shelf].library.patron
+    end
+    return item
+  end
+
+  def select_item_shelf(user)
+    if user
+      return user.library.in_process_shelf
+    end
+    unless shelf
+      return Shelf.web
+    end
+  end
 end
 
 EnjuTrunk::ResourceAdapter::Base.add(Excelfile_Adapter)

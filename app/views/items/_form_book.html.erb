@@ -1,0 +1,100 @@
+<%- if @item.manifestation -%>
+  <%= render 'manifestations/title', :manifestation => @item.manifestation -%>
+<%- end -%>
+
+<%# = render 'page/required_field' %>
+<%= simple_form_for(@item) do |f| -%>
+  <%= f.error_messages -%>
+  <%= f.hidden_field :manifestation_id %>
+
+  <div class="field">
+    <%= f.label t('activerecord.models.library') -%><strong> / <%= t('activerecord.models.shelf') -%></strong><br />
+    <%= f.select :library_id, @libraries.map{|l| [l.display_name.localize, l.id]} %>
+    <%= f.select :shelf_id, @shelves.map{|s| [s.display_name.localize, s.id]} %>
+    <%= render 'observe_field' %>
+  </div>
+
+  <div class="field">
+    <%= f.label t('activerecord.models.checkout_type') -%><br />
+    <%= f.select(:checkout_type_id, @checkout_types.collect{|c| [c.display_name.localize, c.id]}) -%>
+  </div>
+
+  <div class="field">
+    <%= f.label t('activerecord.models.accept_type') -%><br />
+    <%= f.select(:accept_type_id, @accept_types.collect{|a| [a.display_name.localize, a.id]}, :include_blank => true) -%>
+  </div>
+
+  <div class="field">
+    <%= f.label t('activerecord.models.circulation_status') -%><br />
+    <%= f.select(:circulation_status_id, @circulation_statuses.collect{|c| [c.display_name.localize, c.id]}) -%>
+  </div>
+
+  <div class="field">
+    <%= f.label t('activerecord.models.retention_period') -%><br />
+    <%= f.select(:retention_period_id, @retention_periods.collect{|r| [r.display_name.localize, r.id]}) -%>
+  </div>
+
+  <div class="field">
+    <%= f.label :call_number -%><br />
+    <%= f.text_field :call_number -%>
+  </div>
+
+  <div class="field">
+    <%= f.label t('activerecord.models.bookstore') -%>
+    <%= f.select(:bookstore_id, @bookstores.collect{|b| [b.name, b.id]}, :include_blank => true) -%>
+  </div>
+
+  <div class="field">
+    <%= f.label :price -%><br />
+    <%= f.text_field :price -%>
+  </div>
+
+  <div class="field">
+    <%= f.label :url -%><br />
+    <%= f.url_field :url, :class => 'resource_url' -%>
+  </div>
+
+  <div class="field">
+    <%= f.label :include_supplements -%>
+    <%= f.check_box :include_supplements -%>
+  </div>
+
+  <div class="field">
+    <%= f.label t('activerecord.models.use_restriction') -%>
+    <%= f.select(:use_restriction_id, @use_restrictions.collect{|u| [u.display_name.localize, u.id]}) -%>
+  </div>
+
+  <div class="field">
+    <%= f.label t('role.required_role') -%>
+    <%= f.select(:required_role_id, @roles.collect{|r| [r.display_name.localize, r.id]}) -%>
+  </div>
+
+  <div class="field">
+    <%= f.label :acquired_at -%>
+    <%- if @item.acquired_at -%>
+      <%= f.text_field :acquired_at, :value => @item.acquired_at.try(:strftime, "%Y-%m-%d"), :class => 'date_field' -%>
+    <%- else -%>
+      <%= f.text_field :acquired_at, :class => 'date_field', :placeholder => "#{t('page.example')}: 2011-04-12"-%>
+    <%- end -%>
+  </div>
+
+  <div class="field">
+    <%= f.label :note -%><br />
+    <%= f.text_area :note, :class => 'resource_textarea' -%>
+  </div>
+
+  <div class="field">
+    <%= f.label t('activerecord.attributes.item.rank') %><br />
+    <%= f.select(:rank, item_ranks.collect{|r| [i18n_rank(r), r]}) %>
+  </div>
+
+  <div class="field">
+    <%= f.label :item_identifier -%><br />
+    <%= f.text_field :item_identifier, :class => 'resource_item_identifier' -%>
+  </div>
+
+  <div class="actions">
+    <%= f.submit :disable_with => t('page.wait') %>
+  </div>
+  <%= javascript_tag("$('#library_id').focus()") -%>
+<%- end -%>
