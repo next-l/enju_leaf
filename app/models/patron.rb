@@ -113,7 +113,6 @@ class Patron < ActiveRecord::Base
     #puts "@@@"
 
     if self.full_name.blank?
-      logger.info "full_name is blank"
       if self.last_name.to_s.strip and self.first_name.to_s.strip and SystemConfiguration.get("family_name_first") == true
         self.full_name = [last_name, middle_name, first_name].compact.join(" ").to_s.strip
       else
@@ -121,7 +120,6 @@ class Patron < ActiveRecord::Base
       end
     end
     if self.full_name_transcription.blank?
-      logger.info "full_name_transcription is blank"
       self.full_name_transcription = [last_name_transcription, middle_name_transcription, first_name_transcription].join(" ").to_s.strip
     end
     [self.full_name, self.full_name_transcription]
