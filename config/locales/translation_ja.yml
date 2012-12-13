@@ -1752,6 +1752,7 @@ ja:
     no_checkout: "貸出中の資料はありません。"
     number_of_day_overdue: "延滞日数"
     extend: "貸出期間の延長"
+    extended: "貸出期間が延長されました。"
   library:
     map: "地図"
     staff: "職員"
