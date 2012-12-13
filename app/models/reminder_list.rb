@@ -47,14 +47,14 @@ class ReminderList < ActiveRecord::Base
 
     text :full_name do
       full_name = []
-      full_name << self.checkout.user.patron.full_name if self.checkout.user.patron 
-      full_name << self.checkout.user.patron.full_name_transcription if self.checkout.user.patron
+      full_name << self.checkout.user.patron.full_name if self.try(:checkout).try(:user).try(:patron)
+      full_name << self.checkout.user.patron.full_name_transcription if self.try(:checkout).try(:user).try(:patron)
     end
 
     text :title do
       titles = []
-      titles << self.checkout.item.manifestation.original_title
-      titles << self.checkout.item.manifestation.title_transcription
+      titles << self.try(:checkout).try(:item).try(:manifestation).try(:original_title)
+      titles << self.try(:checkout).try(:item).try(:manifestation).try(:title_transcription)
     end
   end
 
