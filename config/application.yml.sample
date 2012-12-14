@@ -2,7 +2,7 @@ defaults: &defaults
   enju:
     web_hostname: localhost
     web_port_number: 3000
-    erms_url: https://erms.example.jp
+    erms_url: 
 
   family_name_first: true
   max_number_of_results: 500
