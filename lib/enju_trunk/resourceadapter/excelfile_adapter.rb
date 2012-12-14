@@ -1,4 +1,6 @@
 # -*- encoding: utf-8 -*-
+require File.join(File.expand_path(File.dirname(__FILE__)), 'excelfile_import_book')
+require File.join(File.expand_path(File.dirname(__FILE__)), 'excelfile_import_article')
 class Excelfile_Adapter < EnjuTrunk::ResourceAdapter::Base
   include EnjuTrunk::ExcelfileImportBook
   include EnjuTrunk::ExcelfileImportArticle
