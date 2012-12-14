@@ -7,156 +7,6 @@ GIT
       sunspot_solr (>= 1.2)
 
 GIT
-  remote: git://github.com/nabeta/enju_book_jacket.git
-  revision: 61857b41cb164d730d6368904c838acbc15563fd
-  specs:
-    enju_book_jacket (0.1.0.pre3)
-      rails (~> 3.2)
-
-GIT
-  remote: git://github.com/nabeta/enju_bookmark.git
-  revision: 4f9181011b2a830f54029898031d24da959a416e
-  specs:
-    enju_bookmark (0.1.2.pre7)
-      acts-as-taggable-on (~> 2.3)
-      rails (~> 3.2)
-      state_machine
-
-GIT
-  remote: git://github.com/nabeta/enju_circulation.git
-  revision: faa1963f986fb47e8768d43ee2e339e83ca0a773
-  specs:
-    enju_circulation (0.1.0.pre9)
-      enju_event (~> 0.1.17.pre5)
-      enju_message (~> 0.1.14.pre)
-      inherited_resources
-      rails (~> 3.2)
-      simple_form
-      state_machine
-      validates_timeliness
-
-GIT
-  remote: git://github.com/nabeta/enju_event.git
-  revision: 17d8a909092a6b35f19f2970bf0ba94a5597e784
-  specs:
-    enju_event (0.1.17.pre6)
-      enju_core (~> 0.1.1.pre)
-      enju_message (~> 0.1.14.pre3)
-      event-calendar (~> 2.3.3)
-      has_scope
-      inherited_resources
-      paperclip
-      rails (~> 3.2)
-      simple_form
-      state_machine
-
-GIT
-  remote: git://github.com/nabeta/enju_inter_library_loan.git
-  revision: 01c04d4afa85a54cf669c00d92d3693938ccb5cc
-  specs:
-    enju_inter_library_loan (0.1.0.pre5)
-      enju_biblio (~> 0.1.0.pre13)
-      rails (~> 3.2)
-      state_machine
-
-GIT
-  remote: git://github.com/nabeta/enju_inventory.git
-  revision: 9036803968839fd5b48465212dd8f1226f37dcf7
-  specs:
-    enju_inventory (0.1.11.pre5)
-      enju_biblio (~> 0.1.0.pre13)
-      inherited_resources
-      paperclip (~> 3.3)
-      rails (~> 3.2)
-
-GIT
-  remote: git://github.com/nabeta/enju_manifestation_viewer.git
-  revision: a7fb3b2094830d1d9ffbb23e7a19007027a0f984
-  specs:
-    enju_manifestation_viewer (0.1.0.pre3)
-      rails (~> 3.2)
-
-GIT
-  remote: git://github.com/nabeta/enju_message.git
-  revision: cf201b91408f6c749ca75144f7d28106daf5e216
-  specs:
-    enju_message (0.1.14.pre3)
-      awesome_nested_set (~> 2.1)
-      enju_core (~> 0.1.1.pre2)
-      inherited_resources
-      rails (~> 3.2)
-      resque_mailer
-      simple_form
-      state_machine
-
-GIT
-  remote: git://github.com/nabeta/enju_ndl.git
-  revision: 70b86fbba86f14d460a756cbc0e72f37e3f83952
-  specs:
-    enju_ndl (0.1.0.pre6)
-      library_stdnums
-      lisbn
-      nokogiri
-      nori (~> 1.1)
-      rails (~> 3.2)
-
-GIT
-  remote: git://github.com/nabeta/enju_nii.git
-  revision: 2a37e9d2f8d2eea7939e4b2275bf61b02c9c4f20
-  specs:
-    enju_nii (0.1.0.pre)
-      attribute_normalizer
-      enju_biblio (~> 0.1.0.pre13)
-      nori (~> 1.1)
-      rails (~> 3.2)
-
-GIT
-  remote: git://github.com/nabeta/enju_oai.git
-  revision: e9212aad2db683c4199a27ffc163b8edf63f642a
-  specs:
-    enju_oai (0.1.0.pre5)
-      mobile-fu
-      rails (~> 3.2)
-
-GIT
-  remote: git://github.com/nabeta/enju_purchase_request.git
-  revision: 349d270d011ce10aa3a59eaa31f1286284f507ae
-  specs:
-    enju_purchase_request (0.1.0.pre5)
-      rails (~> 3.2)
-      state_machine
-
-GIT
-  remote: git://github.com/nabeta/enju_question.git
-  revision: 0e5f7e4260d2e4b35c06114cfcfd2b97f5da22d1
-  specs:
-    enju_question (0.1.0.pre4)
-      acts-as-taggable-on (~> 2.3)
-      enju_core (~> 0.1.1.pre2)
-      rails (~> 3.2)
-      simple_form
-
-GIT
-  remote: git://github.com/nabeta/enju_resource_merge.git
-  revision: 2f7d2d3a6772c9dd3a71110832fd766b9b3cd91f
-  specs:
-    enju_resource_merge (0.1.0.pre5)
-      dynamic_form
-      enju_biblio (~> 0.1.0.pre13)
-      inherited_resources
-      rails (~> 3.2)
-
-GIT
-  remote: git://github.com/nabeta/enju_subject.git
-  revision: 6b3a905c3cd5286f1172c44b069413ffd43134fc
-  specs:
-    enju_subject (0.1.0.pre4)
-      dynamic_form
-      enju_core
-      inherited_resources
-      rails (~> 3.2)
-
-GIT
   remote: git://github.com/next-l/enju_biblio.git
   revision: 97e9c04088e55f0e9e753db958f20ab2a02b3224
   specs:
@@ -174,6 +24,35 @@ GIT
       paperclip-meta
       rails (~> 3.2)
       resque_mailer
+      simple_form
+      state_machine
+      validates_timeliness
+
+GIT
+  remote: git://github.com/next-l/enju_book_jacket.git
+  revision: ce803288cad1de39300205440c60271ced3f3206
+  specs:
+    enju_book_jacket (0.1.0.pre3)
+      rails (~> 3.2)
+
+GIT
+  remote: git://github.com/next-l/enju_bookmark.git
+  revision: 0f0d48c046e4c2dd3d58f99ba3990dd883aa1b83
+  specs:
+    enju_bookmark (0.1.2.pre7)
+      acts-as-taggable-on (~> 2.3)
+      rails (~> 3.2)
+      state_machine
+
+GIT
+  remote: git://github.com/next-l/enju_circulation.git
+  revision: c0afc1958b48c9f8c4ccc74bbbadf624edd8a543
+  specs:
+    enju_circulation (0.1.0.pre9)
+      enju_event (~> 0.1.17.pre5)
+      enju_message (~> 0.1.14.pre)
+      inherited_resources
+      rails (~> 3.2)
       simple_form
       state_machine
       validates_timeliness
@@ -197,6 +76,21 @@ GIT
       sunspot_rails (~> 2.0.0.pre.120925)
 
 GIT
+  remote: git://github.com/next-l/enju_event.git
+  revision: 5330aa51095ed7608e0d11d95159f75996eb915e
+  specs:
+    enju_event (0.1.17.pre6)
+      enju_core (~> 0.1.1.pre)
+      enju_message (~> 0.1.14.pre3)
+      event-calendar (~> 2.3.3)
+      has_scope
+      inherited_resources
+      paperclip
+      rails (~> 3.2)
+      simple_form
+      state_machine
+
+GIT
   remote: git://github.com/next-l/enju_export.git
   revision: 3d315e1e3793bce9625f696d6b09e3d315bb353d
   specs:
@@ -206,6 +100,25 @@ GIT
       rails (~> 3.2)
       simple_form
       state_machine
+
+GIT
+  remote: git://github.com/next-l/enju_inter_library_loan.git
+  revision: fca5341843cd97b643f15a91c2bc9c6627c840da
+  specs:
+    enju_inter_library_loan (0.1.0.pre5)
+      enju_biblio (~> 0.1.0.pre13)
+      rails (~> 3.2)
+      state_machine
+
+GIT
+  remote: git://github.com/next-l/enju_inventory.git
+  revision: f8767d4b33950aa98e9f9232c849ab44a6806033
+  specs:
+    enju_inventory (0.1.11.pre5)
+      enju_biblio (~> 0.1.0.pre13)
+      inherited_resources
+      paperclip (~> 3.3)
+      rails (~> 3.2)
 
 GIT
   remote: git://github.com/next-l/enju_library.git
@@ -218,11 +131,98 @@ GIT
       rails (~> 3.2)
 
 GIT
+  remote: git://github.com/next-l/enju_manifestation_viewer.git
+  revision: 5d0e9544ad946e31d03d8a9858c7e0ae7c1cd365
+  specs:
+    enju_manifestation_viewer (0.1.0.pre3)
+      rails (~> 3.2)
+
+GIT
+  remote: git://github.com/next-l/enju_message.git
+  revision: f3114288f7b1eaaa07da5f109ba8519d8792d0e0
+  specs:
+    enju_message (0.1.14.pre3)
+      awesome_nested_set (~> 2.1)
+      enju_core (~> 0.1.1.pre2)
+      inherited_resources
+      rails (~> 3.2)
+      resque_mailer
+      simple_form
+      state_machine
+
+GIT
+  remote: git://github.com/next-l/enju_ndl.git
+  revision: 994d3fc2d3de04d0e48a94702913e5c388f6a124
+  specs:
+    enju_ndl (0.1.0.pre6)
+      library_stdnums
+      lisbn
+      nokogiri
+      nori (~> 1.1)
+      rails (~> 3.2)
+
+GIT
+  remote: git://github.com/next-l/enju_nii.git
+  revision: 41c35980598bcd94cee4bb2e0f6c8df029ebdcb6
+  specs:
+    enju_nii (0.1.0.pre)
+      attribute_normalizer
+      enju_biblio (~> 0.1.0.pre13)
+      nori (~> 1.1)
+      rails (~> 3.2)
+
+GIT
+  remote: git://github.com/next-l/enju_oai.git
+  revision: 43b5d906cc53c4c25993d75ca991cffa24f3fc2c
+  specs:
+    enju_oai (0.1.0.pre5)
+      mobile-fu
+      rails (~> 3.2)
+
+GIT
+  remote: git://github.com/next-l/enju_purchase_request.git
+  revision: 349d270d011ce10aa3a59eaa31f1286284f507ae
+  specs:
+    enju_purchase_request (0.1.0.pre5)
+      rails (~> 3.2)
+      state_machine
+
+GIT
+  remote: git://github.com/next-l/enju_question.git
+  revision: 8cadd4381cca238a79142daa749d190d088eebe2
+  specs:
+    enju_question (0.1.0.pre4)
+      acts-as-taggable-on (~> 2.3)
+      enju_core (~> 0.1.1.pre2)
+      rails (~> 3.2)
+      simple_form
+
+GIT
+  remote: git://github.com/next-l/enju_resource_merge.git
+  revision: d4abad908378795e8e74017c9814f85c07a38558
+  specs:
+    enju_resource_merge (0.1.0.pre5)
+      dynamic_form
+      enju_biblio (~> 0.1.0.pre13)
+      inherited_resources
+      rails (~> 3.2)
+
+GIT
   remote: git://github.com/next-l/enju_search_log.git
   revision: 67215e96f6e397fcb920abee4c9c677e59eaa6e0
   specs:
     enju_search_log (0.1.0.pre3)
       enju_biblio (~> 0.1.0.pre13)
+      rails (~> 3.2)
+
+GIT
+  remote: git://github.com/next-l/enju_subject.git
+  revision: 6b3a905c3cd5286f1172c44b069413ffd43134fc
+  specs:
+    enju_subject (0.1.0.pre4)
+      dynamic_form
+      enju_core
+      inherited_resources
       rails (~> 3.2)
 
 GEM
@@ -382,6 +382,7 @@ GEM
       actionpack (>= 3.1)
       less (~> 2.2.0)
     library_stdnums (1.2.0)
+    libv8 (3.3.10.4)
     libwebsocket (0.1.7.1)
       addressable
       websocket
@@ -473,7 +474,6 @@ GEM
     redis (3.0.2)
     redis-namespace (1.2.1)
       redis (~> 3.0.0)
-    ref (1.0.2)
     responders (0.9.3)
       railties (~> 3.1)
     resque (1.23.0)
@@ -566,8 +566,8 @@ GEM
       nokogiri
       sunspot (= 2.0.0.pre.120925)
     sunspot_solr (2.0.0.pre.120925)
-    therubyracer (0.11.0)
-      ref
+    therubyracer (0.10.2)
+      libv8 (~> 3.3.10)
     thor (0.16.0)
     tilt (1.3.3)
     timecop (0.5.4)
@@ -695,7 +695,7 @@ DEPENDENCIES
   strongbox
   sunspot-rails-tester!
   sunspot_solr (~> 2.0.0.pre.120925)
-  therubyracer
+  therubyracer (= 0.10.2)
   therubyrhino
   timecop
   trinidad
