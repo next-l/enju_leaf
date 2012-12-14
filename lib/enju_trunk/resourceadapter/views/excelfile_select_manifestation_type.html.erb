@@ -1,17 +1,37 @@
 <script type="text/javascript">
 $(document).ready(function() {
   show_manifestation_types();
-  $("input[name='is_article']").change(show_manifestation_types);
+  $("input[name='manifestation_type']").change(show_manifestation_types);
 });
 
 function show_manifestation_types() {
-  var is_article = $("input[name='is_article']:checked").val();
+  var manifestation_type = $("input[name='manifestation_type']:checked").val();
   var data = "<br />"
            + "<div class='field'>"
            + "<strong><%= t('activerecord.models.manifestation_type') %></strong>"
            + "<br />"
-  if (is_article == 'true') {
+  if (manifestation_type == '1') {
     data  += "<% @manifestation_article_types.each_with_index do |m, i| %>"
+           + "<% if i == 0 %>"
+           + "<input type = 'radio' value = <%= m.id %> name ='extraparams[manifestation_type]' checked>"
+           + "<% else %>"
+           + "<input type = 'radio' value = <%= m.id%>  name ='extraparams[manifestation_type]'>"
+           + "<% end %>"
+           + "<%= m.display_name.localize %>"
+           + "<br />"
+           + "<% end %>"
+  } else if (manifestation_type == '2') {
+    data  += "<% @manifestation_series_types.each_with_index do |m, i| %>"
+           + "<% if i == 0 %>"
+           + "<input type = 'radio' value = <%= m.id %> name ='extraparams[manifestation_type]' checked>"
+           + "<% else %>"
+           + "<input type = 'radio' value = <%= m.id%>  name ='extraparams[manifestation_type]'>"
+           + "<% end %>"
+           + "<%= m.display_name.localize %>"
+           + "<br />"
+           + "<% end %>"
+  } else if (manifestation_type == '3') {
+    data  += "<% @manifestation_exinfo_types.each_with_index do |m, i| %>"
            + "<% if i == 0 %>"
            + "<input type = 'radio' value = <%= m.id %> name ='extraparams[manifestation_type]' checked>"
            + "<% else %>"
@@ -32,16 +52,22 @@ function show_manifestation_types() {
            + "<% end %>"
   }
   data    += "</div>"
-  $("#article_type").html("");
-  $("#article_type").html(data);
+  $("#type_area").html("");
+  $("#type_area").html(data);
 }
 </script>
 <div class="field">
   <strong><%= t('resource_import_textfile.file_type') %></strong><br />
-  <input type = "radio" value = false name = "is_article" checked>
+  <input type = "radio" value = 0 name = "manifestation_type" checked>
   <%= t('resource_import_textfile.book') %>
   <br />
-  <input type = "radio" value = true name = "is_article">
+  <input type = "radio" value = 1 name = "manifestation_type">
   <%= t('resource_import_textfile.article') %>
-  <div id = "article_type"></div>
+  <br />
+  <input type = "radio" value = 2 name = "manifestation_type">
+  <%= t('resource_import_textfile.series') %>
+  <br />
+  <input type = "radio" value = 3 name = "manifestation_type">
+  <%= t('resource_import_textfile.exinfo') %>
+  <div id = "type_area"></div>
 </div>

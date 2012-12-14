@@ -77,8 +77,10 @@ class ResourceImportTextfilesController < ApplicationController
         render :nothing => true, :status => 404 and return
       end
       manifestation_types = ManifestationType.all
-      @manifestation_book_types = manifestation_types.map{ |m| m unless ['japanese_article', 'foreign_article'].include?(m.name) }.compact
-      @manifestation_article_types = manifestation_types.map{ |m| m if ['japanese_article', 'foreign_article'].include?(m.name) }.compact
+      @manifestation_book_types = manifestation_types.map{ |m| m if m.is_book? }.compact
+      @manifestation_article_types = manifestation_types.map{ |m| m if m.is_article? }.compact
+      @manifestation_series_types = manifestation_types.map{ |m| m if m.is_series? }.compact
+      @manifestation_exinfo_types = manifestation_types.map{ |m| m if m.is_exinfo? }.compact
       templatename = a.template_filename_select_manifestation_type
     else
       unless a.respond_to?(:template_filename_edit)
