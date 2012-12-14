@@ -309,7 +309,7 @@ class Manifestation < ActiveRecord::Base
   end
 
   def article?
-    ManifestationType.is_article?(manifestation_type.id)
+    self.manifestation_type.is_article?
   end
 
   def url
