@@ -98,9 +98,6 @@ module EnjuTrunk
       start_page, end_page = set_page(fix_data(oo.cell(row, field[I18n.t('resource_import_textfile.excel.article.number_of_page')]).to_s.strip))
       number_field = field[I18n.t('resource_import_textfile.excel.article.volume_number_string')]
       volume_number_string, issue_number_string = set_number(fix_data(oo.cell(row, number_field).to_s.strip), manifestation_type)
-    #  number = fix_data(oo.cell(row, field[I18n.t('resource_import_textfile.excel.article.volume_number_string')]).to_s.strip)
-    #  volume_number_string = number.split('*')[0] rescue nil
-    #  issue_number_string = number.split('*')[1] rescue nil
 
       ResourceImportTextfile.transaction do
         begin
