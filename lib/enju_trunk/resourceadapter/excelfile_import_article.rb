@@ -24,9 +24,13 @@ module EnjuTrunk
         field.store(oo.cell(field_row_num, column).to_s, column)
       end
 
-      # check cell 
-      if [field[I18n.t('resource_import_textfile.excel.article.original_title')]].reject{|field| field.to_s.strip == ""}.empty?
-        raise "You should specify original_tile in the first line"
+      # check head
+      require_head_article = [field[I18n.t('resource_import_textfile.excel.article.original_title')]]
+      if require_head_article.reject{|field| field.to_s.strip == ""}.empty?
+        import_textresult = ResourceImportTextresult.create!(:resource_import_textfile_id => resource_import_textfile_id, :body => '' )
+        import_textresult.error_msg = I18n.t('resource_import_textfile.error.article.head_is_blank', :sheet => oo.default_sheet)
+        import_textresult.save
+        raise
       end
 
       first_row_num.upto(oo.last_row) do |row|
@@ -36,6 +40,13 @@ module EnjuTrunk
           body << oo.cell(row, column)
         end
         import_textresult = ResourceImportTextresult.create!(:resource_import_textfile_id => resource_import_textfile_id, :body => body.join("\t"))
+        # check cell
+        require_cell_article = [oo.cell(row, field[I18n.t('resource_import_textfile.excel.article.original_title')]).to_s.strip]
+        if require_cell_article.reject{|field| field.to_s.strip == ""}.empty?
+          import_textresult.error_msg = "FAIL[sheet:#{oo.default_sheet} row:#{row}] #{I18n.t('resource_import_textfile.error.article.cell_is_blank')}"
+          import_textresult.save
+          next
+        end
 
         begin
           manifestation = fetch_article(oo, row, field, manifestation_type)
@@ -59,9 +70,9 @@ module EnjuTrunk
             num[:failed] += 1
           end
         rescue => e
-          import_textresult.error_msg = "FAIL[#{row}]: #{e.message}"
-          Rails.logger.info("FAIL[#{row} resource registration failed: column #{row}: #{e.message}")
-          Rails.logger.info("FAIL[#{row} #{$@}")
+          import_textresult.error_msg = "FAIL[sheet:#{oo.default_sheet} row:#{row}]: #{e.message}"
+          Rails.logger.info("FAIL[sheet:#{oo.default_sheet} row:#{row}] resource registration failed: column #{row}: #{e.message}")
+          Rails.logger.info("FAIL[sheet:#{oo.default_sheet} row:#{row}] #{$@}")
           num[:failed] += 1
         end
 
@@ -85,9 +96,11 @@ module EnjuTrunk
       title[:original_title] = fix_data(oo.cell(row, field[I18n.t('resource_import_textfile.excel.article.original_title')]).to_s.strip)
       title[:article_title]  = fix_data(oo.cell(row, field[I18n.t('resource_import_textfile.excel.article.title')]).to_s.strip)
       start_page, end_page = set_page(fix_data(oo.cell(row, field[I18n.t('resource_import_textfile.excel.article.number_of_page')]).to_s.strip))
-      number = fix_data(oo.cell(row, field[I18n.t('resource_import_textfile.excel.article.volume_number_string')]).to_s.strip)
-      volume_number_string = number.split('*')[0] rescue nil
-      issue_number_string = number.split('*')[1] rescue nil
+      number_field = field[I18n.t('resource_import_textfile.excel.article.volume_number_string')]
+      volume_number_string, issue_number_string = set_number(fix_data(oo.cell(row, number_field).to_s.strip), manifestation_type)
+    #  number = fix_data(oo.cell(row, field[I18n.t('resource_import_textfile.excel.article.volume_number_string')]).to_s.strip)
+    #  volume_number_string = number.split('*')[0] rescue nil
+    #  issue_number_string = number.split('*')[1] rescue nil
 
       ResourceImportTextfile.transaction do
         begin
@@ -123,6 +136,16 @@ module EnjuTrunk
           p "error at fetch_new: #{e.message}"
           raise e
         end
+      end
+    end
+
+    def set_number(num, manifestation_type)
+      if manifestation_type.name == 'foreign_article'and !num.match(/\*/)
+        return '', num 
+      else
+        volume_number_string = num.split('*')[0] rescue nil
+        issue_number_string = num.split('*')[1] rescue nil
+        return volume_number_string, issue_number_string
       end
     end
 
