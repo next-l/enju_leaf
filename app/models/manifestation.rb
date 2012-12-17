@@ -243,7 +243,7 @@ class Manifestation < ActiveRecord::Base
 
   after_save :index_series_statement
   after_destroy :index_series_statement
-  attr_accessor :during_import, :series_statement_id
+  attr_accessor :during_import
 
   paginates_per 10
 
