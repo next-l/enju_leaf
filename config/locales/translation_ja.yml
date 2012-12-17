@@ -2006,10 +2006,12 @@ ja:
     wrong_file: "はインポートできません。"
     wrong_extention: "拡張子がxlsx形式のファイルのみインポート可能です。"
     excel:
-      series_statement:
+      series:
+        issn: ISSN
         original_title: シリーズ名
         title_transcription: シリーズ名（ヨミ）
         periodical: 定期刊行物 
+        frequency: シリーズ発行頻度
       book:
         original_title: タイトル
         title_transcription: タイトル（ヨミ）
@@ -2065,13 +2067,20 @@ ja:
         url: ＵＲＬ
         subject: 件名 
     error:
+      series:
+        head_is_blank: "%{sheet}の読み取りに失敗しました。\r\n1行目にはシリーズ名またはISSN,またタイトルまたはISBNが必須です。\r\n%{sheet}を再インポートする場合は資料インポートの新規登録より読み込みを再度行ってください。"
+        cell_is_blank: "シリーズ名またはISSN,タイトルまたはISBNを指定してください。"
       book:
-       original_title_and_isbn_is_blank: "タイトルまたはISBNを指定してください。"
-       wrong_data: "指定の%{field}は不正です。 %{field}: %{data}"
-       only_integer: "%{field}には整数以外の値を指定しないでください。 %{field}: %{data}"
-       only_numeric: "%{field}には数値以外の値を指定しないでください。 %{field}: %{data}"
-       not_exsit_shelf: "指定の本棚は存在しません。 本棚: %{shelf}"
-       wrong_rank: "指定の正本区分は不正です。 正本区分: %{data}"
+        head_is_blank: "%{sheet}の読み取りに失敗しました。\r\n1行目にはタイトルまたはISBNが必須です。\r\n%{sheet}を再インポートする場合は資料インポートの新規登録より読み込みを再度行ってください。"
+        cell_is_blank: "タイトルまたはISBNを指定してください。"
+        wrong_data: "指定の%{field}は不正です。 %{field}: %{data}"
+        only_integer: "%{field}には整数以外の値を指定しないでください。 %{field}: %{data}"
+        only_numeric: "%{field}には数値以外の値を指定しないでください。 %{field}: %{data}"
+        not_exsit_shelf: "指定の本棚は存在しません。 本棚: %{shelf}"
+        wrong_rank: "指定の正本区分は不正です。 正本区分: %{data}"
+      article:
+        head_is_blank: "%{sheet}の読み取りに失敗しました。\r\n1行目には表題が必須です。\r\n%{sheet}を再インポートする場合は資料インポートの新規登録より読み込みを再度行ってください。"
+        cell_is_blank: "表題を指定してください。"
   resource_import_textresult:
     show_error_list: "エラー行のみ表示"
     show_all_list: "全ての行を表示"

@@ -21,11 +21,11 @@ class Excelfile_Adapter < EnjuTrunk::ResourceAdapter::Base
       x.report { 
         extraparams = eval(extraparams)
         manifestation_type = ManifestationType.find(extraparams['manifestation_type'])
-        unless manifestation_type.is_article?
-          import_book(filename, id, extraparams)
-        else
+        if manifestation_type.is_article?
           import_article(filename, id, extraparams)
-        end    
+        else
+          import_book(filename, id, extraparams)
+        end
       }
     end
     logger.info "#{Time.now} end import #{self.class.display_name}"

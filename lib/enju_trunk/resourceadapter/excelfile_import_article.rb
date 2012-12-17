@@ -111,22 +111,20 @@ module EnjuTrunk
           manifestation.frequency            = Frequency.where(:name => 'unknown').first
           manifestation.required_role        = Role.find('Guest')
           manifestation.during_import        = true
+          manifestation.save!
 
           creators = []
           if manifestation_type.name == 'japanese_article'
-            creators = oo.cell(row, field[I18n.t('resource_import_textfile.excel.article.creator')]).to_s.strip.split('；')
+            creators = oo.cell(row, field[I18n.t('resource_import_textfile.excel.article.creator')]).to_s.strip.split(';')
           else
             creators = oo.cell(row, field[I18n.t('resource_import_textfile.excel.article.creator')]).to_s.strip.split(' ')
           end
           creators_list = creators.inject([]){ |list, creator| list << {:full_name => creator.to_s.strip, :full_name_transcription => "" } }
           creator_patrons = Patron.import_patrons(creators_list)
-#TODO:!!!!!!!!!!!!!!
-#          manifestation.creators << creator_patrons
-
+          manifestation.creators << creator_patrons
           subjects = import_article_subject(oo, row, field, manifestation_type)
-#TODO:!!!!!!!!!!!!!!
-#          manifestation.subjects << subjects
-
+          manifestation.subjects << subjects
+          #TODO: manifestationをsaveする前にcreateが先に呼ばれてしまうので一旦manifestationの作成を行ってから追加する
           manifestation.save!
           return manifestation
         rescue Exception => e
@@ -137,7 +135,7 @@ module EnjuTrunk
     end
 
     def set_number(num, manifestation_type)
-      if manifestation_type.name == 'foreign_article'and !num.match(/\*/)
+      unless num.match(/\*/)
         return '', num 
       else
         volume_number_string = num.split('*')[0] rescue nil
@@ -148,10 +146,13 @@ module EnjuTrunk
 
     def set_page(page)
       start_page, end_page = nil, nil
-      if page.match(/-/) .nil?
-        start_page, end_page = page, page
-      else
+      page = page.to_s
+      if page
+        unless page.match(/\-/)
+          start_page, end_page = page, page
+        else
         start_page, end_page = page.split('-')[0], page.split('-')[1]
+        end
       end
       return start_page, end_page
     end
@@ -173,7 +174,7 @@ module EnjuTrunk
       subjects = []
       subject_list = nil
       if manifestation_type.name == 'japanese_article'
-        subject_list = (oo.cell(row, field[I18n.t('resource_import_textfile.excel.article.subject')]).to_s).split('；')
+        subject_list = (oo.cell(row, field[I18n.t('resource_import_textfile.excel.article.subject')]).to_s).split(';')
       else
         subject_list = (oo.cell(row, field[I18n.t('resource_import_textfile.excel.article.subject')]).to_s).split('*')
       end
