@@ -13,7 +13,8 @@ class Patron < ActiveRecord::Base
     :telephone_number_1_type_id, :extelephone_number_1,
     :extelephone_number_1_type_id, :fax_number_1_type_id,
     :telephone_number_2_type_id, :extelephone_number_2,
-    :extelephone_number_2_type_id, :fax_number_2_type_id, :user_username
+    :extelephone_number_2_type_id, :fax_number_2_type_id, :user_username,
+    :exclude_state
 
   scope :readable_by, lambda{|user| {:conditions => ['required_role_id <= ?', user.try(:user_has_role).try(:role_id) || Role.where(:name => 'Guest').select(:id).first.id]}}
   has_many :creates, :dependent => :destroy
@@ -94,6 +95,7 @@ class Patron < ActiveRecord::Base
     integer :required_role_id
     integer :patron_type_id
     integer :user_id
+    integer :exclude_state
   end
 
   paginates_per 10

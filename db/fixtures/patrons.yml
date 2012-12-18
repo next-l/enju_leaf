@@ -54,3 +54,23 @@ patron_00005:
   language_id: 1
   patron_type_id: 1
   required_role_id: 1
+patron_00006: 
+  place: ""
+  full_name: 他
+  other_designation: ""
+  id: 6
+  address_1: 
+  language_id: 1
+  patron_type_id: 1
+  required_role_id: 1
+  exclude_state: 1
+patron_00007: 
+  place: ""
+  full_name: et-al.
+  other_designation: ""
+  id: 7
+  address_1: 
+  language_id: 1
+  patron_type_id: 1
+  required_role_id: 1
+  exclude_state: 1

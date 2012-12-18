@@ -81,6 +81,7 @@ class PatronsController < ApplicationController
     search.build do
       with(:required_role_id).less_than role.id
       with(:user_id).equal_to(nil)
+      without(:exclude_state).equal_to(1)
     end
 
     page = params[:page] || 1
