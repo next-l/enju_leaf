@@ -23,7 +23,6 @@ module EnjuTrunk
       first_column_num.upto(oo.last_column) do |column|
         field.store(oo.cell(field_row_num, column).to_s, column)
       end
-
       # check head
       require_head_article = [field[I18n.t('resource_import_textfile.excel.article.original_title')]]
       if require_head_article.reject{|field| field.to_s.strip == ""}.empty?
@@ -49,6 +48,7 @@ module EnjuTrunk
         end
 
         begin
+          exist_same_article?(oo, row, field, manifestation_type)
           manifestation = fetch_article(oo, row, field, manifestation_type)
           num[:manifestation_imported] += 1 if manifestation
           import_textresult.manifestation = manifestation
@@ -88,6 +88,31 @@ module EnjuTrunk
       return num
     end
 
+    def exist_same_article?(oo, row, field, manifestation_type)
+      # check field
+      original_title = fix_data(oo.cell(row, field[I18n.t('resource_import_textfile.excel.article.original_title')]).to_s.strip)
+      article_title  = fix_data(oo.cell(row, field[I18n.t('resource_import_textfile.excel.article.title')]).to_s.strip)
+      call_number    = fix_data(oo.cell(row, field[I18n.t('resource_import_textfile.excel.article.call_number')]).to_s.strip)
+      creators       = set_article_creatos(oo.cell(row, field[I18n.t('resource_import_textfile.excel.article.creator')]).to_s.strip, manifestation_type)     
+      subjects       = set_article_subjects(oo.cell(row, field[I18n.t('resource_import_textfile.excel.article.subject')]).to_s.strip, manifestation_type)
+
+      article = Manifestation.find(
+        :first,
+        :joins => :items,
+        :include => [:creators, :subjects],
+        :conditions => {
+          :original_title => original_title,
+          :article_title  => article_title,
+          :items => { :call_number  => call_number },
+        }
+      ) rescue nil
+      if article
+        if article.creators.map{ |c| c.full_name }.sort == creators.sort and article.subjects.map{ |s| s.term }.sort == subjects.sort
+          raise I18n.t('resource_import_textfile.error.article.exist_same_article')
+        end
+      end
+    end
+
     def fetch_article(oo, row, field, manifestation_type)
       manifestation = nil
 
@@ -95,7 +120,7 @@ module EnjuTrunk
       title = {}
       title[:original_title] = fix_data(oo.cell(row, field[I18n.t('resource_import_textfile.excel.article.original_title')]).to_s.strip)
       title[:article_title]  = fix_data(oo.cell(row, field[I18n.t('resource_import_textfile.excel.article.title')]).to_s.strip)
-      start_page, end_page = set_page(fix_data(oo.cell(row, field[I18n.t('resource_import_textfile.excel.article.number_of_page')]).to_s.strip))
+      start_page, end_page   = set_page(fix_data(oo.cell(row, field[I18n.t('resource_import_textfile.excel.article.number_of_page')]).to_s.strip))
       number_field = field[I18n.t('resource_import_textfile.excel.article.volume_number_string')]
       volume_number_string, issue_number_string = set_number(fix_data(oo.cell(row, number_field).to_s.strip), manifestation_type)
 
@@ -113,17 +138,17 @@ module EnjuTrunk
           manifestation.during_import        = true
           manifestation.save!
 
-          creators = []
-          if manifestation_type.name == 'japanese_article'
-            creators = oo.cell(row, field[I18n.t('resource_import_textfile.excel.article.creator')]).to_s.strip.split(';')
-          else
-            creators = oo.cell(row, field[I18n.t('resource_import_textfile.excel.article.creator')]).to_s.strip.split(' ')
-          end
+          creators_cell = oo.cell(row, field[I18n.t('resource_import_textfile.excel.article.creator')]).to_s.strip
+          creators = set_article_creatos(creators_cell, manifestation_type)
           creators_list = creators.inject([]){ |list, creator| list << {:full_name => creator.to_s.strip, :full_name_transcription => "" } }
           creator_patrons = Patron.import_patrons(creators_list)
           manifestation.creators << creator_patrons
-          subjects = import_article_subject(oo, row, field, manifestation_type)
+
+          subjects_cell = oo.cell(row, field[I18n.t('resource_import_textfile.excel.article.subject')]).to_s.strip
+          subjects_list = set_article_subjects(subjects_cell, manifestation_type)
+          subjects = Subject.import_subjects (subjects_list)
           manifestation.subjects << subjects
+
           #TODO: manifestationをsaveする前にcreateが先に呼ばれてしまうので一旦manifestationの作成を行ってから追加する
           manifestation.save!
           return manifestation
@@ -157,6 +182,18 @@ module EnjuTrunk
       return start_page, end_page
     end
 
+    def set_article_creatos(cell, manifestation_type)
+      creators = []
+      creators = manifestation_type.name == 'japanese_article' ? cell.split(';') : cell.split(' ')
+      return creators
+    end
+
+    def set_article_subjects(cell, manifestation_type)
+      subjects = []
+      subjects = manifestation_type.name == 'japanese_article' ? cell.split(';') : cell.split('*')
+      return subjects
+    end
+
     def create_article_item(oo, row, field, manifestation, resource_import_textfile)
       item = import_item(manifestation, {
         :call_number        => oo.cell(row, field[I18n.t('resource_import_textfile.excel.article.call_number')]).to_s.strip,
@@ -168,29 +205,6 @@ module EnjuTrunk
         :rank               => 0,
       })
       return item
-    end
-
-    def import_article_subject(oo, row, field, manifestation_type)
-      subjects = []
-      subject_list = nil
-      if manifestation_type.name == 'japanese_article'
-        subject_list = (oo.cell(row, field[I18n.t('resource_import_textfile.excel.article.subject')]).to_s).split(';')
-      else
-        subject_list = (oo.cell(row, field[I18n.t('resource_import_textfile.excel.article.subject')]).to_s).split('*')
-      end
-      subject_list.each do |s|
-        subject = Subject.where(:term => s.to_s.strip).first
-        unless subject
-          # TODO: Subject typeの設定
-          subject = Subject.new(
-            :term => s.to_s.strip,
-            :subject_type_id => 1,
-          )
-          subject.save
-        end
-        subjects << subject
-      end
-      subjects
     end
   end
 end

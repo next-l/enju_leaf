@@ -26,6 +26,23 @@ class Subject < ActiveRecord::Base
   normalize_attributes :term
 
   paginates_per 10
+
+  def self.import_subjects(subject_lists)
+    list = []
+    subject_lists.each do |s|
+      subject = Subject.where(:term => s.to_s.strip).first
+      unless subject
+        # TODO: Subject typeの設定
+        subject = Subject.new(
+          :term => s.to_s.strip,
+          :subject_type_id => 1,
+        )
+        subject.save
+      end
+      list << subject
+    end
+    list
+  end
 end
 
 # == Schema Information
