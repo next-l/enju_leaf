@@ -96,3 +96,9 @@ circulation_status_00014:
     ja:除籍"
   id: 14
   position: 14
+circulation_status_00015:
+  name: In Factory
+  display_name: "en:In Factory\r\n\
+    ja:製本または修理中"
+  id: 15
+  position: 15
