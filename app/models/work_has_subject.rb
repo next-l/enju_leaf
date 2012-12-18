@@ -7,6 +7,7 @@ class WorkHasSubject < ActiveRecord::Base
   validates_uniqueness_of :subject_id, :scope => :work_id
   after_save :reindex
   after_destroy :reindex
+  attr_accessible :work, :subject, :work_id, :subject_id
 
   acts_as_list :scope => :work_id
 

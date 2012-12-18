@@ -418,21 +418,22 @@ class ManifestationsController < ApplicationController
   # GET /manifestations/new.json
   def new
     @manifestation = Manifestation.new
-    @original_manifestation = Manifestation.where(:id => params[:manifestation_id]).first
-    @manifestation.series_statement = SeriesStatement.find(params[:series_statement_id]) unless params[:series_statement_id].nil?
-    if @manifestation.series_statement
-      @manifestation.original_title = @manifestation.series_statement.original_title
-      @manifestation.title_transcription = @manifestation.series_statement.title_transcription
-      @manifestation.issn = @manifestation.series_statement.issn
-    elsif @original_manifestation
-      @manifestation.original_title = @original_manifestation.original_title
-      @manifestation.title_transcription = @original_manifestation.title_transcription
+    original_manifestation = Manifestation.where(:id => params[:manifestation_id]).first
+    if original_manifestation
+      @manifestation = original_manifestation.dup
+      @creator = original_manifestation.creators.collect(&:full_name).flatten.join(';')
+      @contributor = original_manifestation.contributors.collect(&:full_name).flatten.join(';')
+      @publisher = original_manifestation.publishers.collect(&:full_name).flatten.join(';')
+      @subject = original_manifestation.subjects.collect(&:term).join(';')
+      @manifestation.isbn = nil
+      @manifestation.series_statement = original_manifestation.series_statement unless @manifestation.series_statement
     elsif @expression
       @manifestation.original_title = @expression.original_title
       @manifestation.title_transcription = @expression.title_transcription
     end
     @manifestation.language = Language.where(:iso_639_1 => @locale).first
-    @manifestation = @manifestation.set_serial_number unless params[:mode] == 'attachment'
+    @manifestation = @manifestation.set_serial_number if params[:mode] == 'new_issue'
+    @original_manifestation = original_manifestation if params[:mode] == 'add'
 
     respond_to do |format|
       format.html # new.html.erb
@@ -449,6 +450,10 @@ class ManifestationsController < ApplicationController
     end
     @original_manifestation = Manifestation.where(:id => params[:manifestation_id]).first
     @manifestation.series_statement = @series_statement if @series_statement
+    @creator = @manifestation.creators.collect(&:full_name).flatten.join(';')
+    @contributor = @manifestation.contributors.collect(&:full_name).flatten.join(';')
+    @publisher = @manifestation.publishers.collect(&:full_name).flatten.join(';')
+    @subject = @manifestation.subjects.collect(&:term).join(';')
     if defined?(EnjuBookmark)
       if params[:mode] == 'tag_edit'
         @bookmark = current_user.bookmarks.where(:manifestation_id => @manifestation.id).first if @manifestation rescue nil
@@ -473,6 +478,10 @@ class ManifestationsController < ApplicationController
       series_statement = SeriesStatement.find(params[:series_statement_id])
       @manifestation.series_statement = series_statement id series_statement
     end
+    @creator = params[:manifestation][:creator]
+    @publisher = params[:manifestation][:publisher]
+    @contributor = params[:manifestation][:contributor]
+    @subject = params[:manifestation][:subject]
 
     respond_to do |format|
       if @manifestation.save
@@ -480,9 +489,14 @@ class ManifestationsController < ApplicationController
           if @original_manifestation
             @manifestation.derived_manifestations << @original_manifestation
           end
-        end
-        if @manifestation.series_statement and @manifestation.series_statement.periodical
-          Manifestation.find(@manifestation.series_statement.root_manifestation_id).index
+          if @manifestation.series_statement and @manifestation.series_statement.periodical
+            Manifestation.find(@manifestation.series_statement.root_manifestation_id).index
+          end
+          @manifestation.creators = Patron.add_patrons(@creator) unless @creator.blank?
+          @manifestation.contributors = Patron.add_patrons(@contributor) unless @contributor.blank?
+          @manifestation.publishers = Patron.add_patrons(@publisher) unless @publisher.blank?
+          @manifestation.add_subject(@subject) unless @subject.blank?
+          @manifestation.save
         end
 
         format.html { redirect_to @manifestation, :notice => t('controller.successfully_created', :model => t('activerecord.models.manifestation')) }
@@ -498,6 +512,14 @@ class ManifestationsController < ApplicationController
   # PUT /manifestations/1
   # PUT /manifestations/1.json
   def update
+    @creator = params[:manifestation][:creator]
+    @publisher = params[:manifestation][:publisher]
+    @contributor = params[:manifestation][:contributor]
+    @subject = params[:manifestation][:subject]
+    @manifestation.creators = Patron.add_patrons(@creator) unless @creator.blank?
+    @manifestation.contributors = Patron.add_patrons(@contributor) unless @contributor.blank?
+    @manifestation.publishers = Patron.add_patrons(@publisher) unless @publisher.blank?
+    @manifestation.add_subject(@subject) unless @subject.blank?
     respond_to do |format|
       if @manifestation.update_attributes(params[:manifestation])
         if @manifestation.series_statement and @manifestation.series_statement.periodical

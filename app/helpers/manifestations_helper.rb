@@ -154,7 +154,7 @@ module ManifestationsHelper
     if manifestation.items
       original_item = manifestation.items.find_by_rank(0)
       if original_item 
-        return true if original_item.circulation_status.name == ('On Loan')
+        return true if original_item.try(:circulation_status).try(:name) == ('On Loan')
       end
     end
     false

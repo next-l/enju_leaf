@@ -794,6 +794,10 @@ ja:
         detail: 資料確認票
         supplement: 付録
         per_page: 表示件数
+        creator: 著者
+        contributor: 協力者・編者
+        publisher: 出版者
+        subject: 件名
       user_group:
         name: 名前
         display_name: 表示名
@@ -1589,6 +1593,7 @@ ja:
     date_of_acquisition: "受入日"
     physical_description: "ページ数と大きさ"
     add_next_issue: "次の号を追加"
+    copy: "コピーして新規"
     edit_creator: "著者を編集"
     edit_contributor: "編者を編集"
     edit_publisher: "出版者を編集"
@@ -1624,6 +1629,7 @@ ja:
     question: "この資料で調べた質問"
     add_derivation: "派生資料を追加"
     delete_attachment: "添付ファイルを削除(アップロード不可)"
+    delim_semicolon: "(セミコロン;で区切ると複数指定できます。)"
   item:
     current_checkout: "現在の貸出"
     donor: "寄贈者"

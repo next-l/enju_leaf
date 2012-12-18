@@ -239,11 +239,12 @@ class Manifestation < ActiveRecord::Base
   validates_presence_of :carrier_type, :language
   validates_associated :carrier_type, :language
   before_validation :set_language, :if => :during_import
+  before_validation :uniq_options
   before_save :set_series_statement
 
   after_save :index_series_statement
   after_destroy :index_series_statement
-  attr_accessor :during_import
+  attr_accessor :during_import, :creator, :contributor, :publisher, :subject
 
   paginates_per 10
 
@@ -483,6 +484,13 @@ class Manifestation < ActiveRecord::Base
       self.series_statement = series_statement unless series_statement.blank?   
     end
   end 
+ 
+  def uniq_options
+    self.creators.uniq!
+    self.contributors.uniq!
+    self.publishers.uniq!
+    self.subjects.uniq!
+  end
 
   def last_checkout_datetime
     Manifestation.find(:last, :include => [:items, :items => :checkouts], :conditions => {:manifestations => {:id => self.id}}, :order => 'items.created_at DESC').items.first.checkouts.first.created_at rescue nil
@@ -551,6 +559,18 @@ class Manifestation < ActiveRecord::Base
     end
     return false
   end
+
+  def add_subject(terms)
+    subjects = []
+    terms.to_s.split(';').each do |s|
+      subject = Subject.where(:term => s.to_s.strip).first
+      unless subject
+        subject = Subject.create(:term => s.to_s.strip, :subject_type_id => 1)
+      end
+      self.subjects << subject unless self.subjects.include?(subject)
+    end
+  end
+
 
 private
   def self.get_manifestation_list_pdf(manifestations, current_user)
