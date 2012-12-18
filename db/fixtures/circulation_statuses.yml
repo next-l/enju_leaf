@@ -91,9 +91,16 @@ circulation_status_00014:
   note: ""
   position: 14
 circulation_status_00015: 
-  name: Removed
-  display_name: "en: Removed\r\n\
-    ja: 除籍済み"
+  name: Not arrived
+  display_name: "en: Not arrived\r\n\
+    ja: 未着"
   id: 15
   note: ""
   position: 15
+circulation_status_00016: 
+  name: Removed
+  display_name: "en: Removed\r\n\
+    ja: 除籍済み"
+  id: 16
+  note: ""
+  position: 16
