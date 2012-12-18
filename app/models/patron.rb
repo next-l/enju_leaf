@@ -270,12 +270,17 @@ class Patron < ActiveRecord::Base
           :full_name_transcription => patron_list[:full_name_transcription],
           :language_id => 1
         )
+        patron.exclude_state = 1 if Patron.exclude_patrons.include?(patron_list[:full_name])
         patron.required_role = Role.where(:name => 'Guest').first
         patron.save
       end
       list << patron
     end
     list
+  end
+
+  def self.exclude_patrons
+    return ['他', 'et-al.']
   end
 
   def patrons

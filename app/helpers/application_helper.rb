@@ -89,11 +89,24 @@ module ApplicationHelper
   def patrons_list(patrons = [], options = {})
     return nil if patrons.blank?
     patrons_list = []
-    if options[:nolink]
-      patrons_list = patrons.map{|patron| patron.full_name}
-    else
-      patrons_list = patrons.map{|patron| link_to(patron.full_name, patron, options)}
+    has_extra_patron = false
+    patrons.each do |patron|
+      unless Patron.exclude_patrons.include?(patron.full_name)
+        if options[:nolink]
+          patrons_list << patron.full_name
+        else
+          patrons_list << link_to(patron.full_name, patron, options)
+        end
+      else
+        has_extra_patron = true
+      end
     end
+    patrons_list << I18n.t('page.et_al') if has_extra_patron
+#    if options[:nolink]
+#      patrons_list = patrons.map{|patron| patron.full_name}
+#    else
+#      #patrons_list = patrons.map{|patron| link_to(patron.full_name, patron, options)}
+#    end
     patrons_list.join(" ").html_safe
   end
 

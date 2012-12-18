@@ -1175,6 +1175,7 @@ en:
     search_resource: "Search %{model}"
     show_all: "Show all"
     hide: "Hide"
+    et_al: "et-al."
     overdue: "Overdue"
     number_of_reservations:
       one: "%{count} user"
