@@ -95,6 +95,7 @@ module EnjuTrunk
       call_number    = fix_data(oo.cell(row, field[I18n.t('resource_import_textfile.excel.article.call_number')]).to_s.strip)
       creators       = set_article_creatos(oo.cell(row, field[I18n.t('resource_import_textfile.excel.article.creator')]).to_s.strip, manifestation_type)     
       subjects       = set_article_subjects(oo.cell(row, field[I18n.t('resource_import_textfile.excel.article.subject')]).to_s.strip, manifestation_type)
+      pub_date       = fix_data(oo.cell(row, field[I18n.t('resource_import_textfile.excel.article.pub_date')]).to_s.strip)
 
       article = Manifestation.find(
         :first,
@@ -103,6 +104,7 @@ module EnjuTrunk
         :conditions => {
           :original_title => original_title,
           :article_title  => article_title,
+          :pub_date       => pub_date,
           :items => { :call_number  => call_number },
         }
       ) rescue nil

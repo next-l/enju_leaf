@@ -2082,7 +2082,7 @@ ja:
       article:
         head_is_blank: "%{sheet}の読み取りに失敗しました。\r\n1行目には表題が必須です。\r\n%{sheet}を再インポートする場合は資料インポートの新規登録より読み込みを再度行ってください。"
         cell_is_blank: "表題を指定してください。"
-        exist_same_article: "既に表題、誌名、著者、件名、請求記号が同一の文献が登録されています。"
+        exist_same_article: "既に表題、誌名、著者、件名、請求記号、年が同一の文献が登録されています。"
   resource_import_textresult:
     show_error_list: "エラー行のみ表示"
     show_all_list: "全ての行を表示"
