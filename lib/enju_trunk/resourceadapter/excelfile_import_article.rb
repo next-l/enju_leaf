@@ -90,12 +90,12 @@ module EnjuTrunk
 
     def exist_same_article?(oo, row, field, manifestation_type)
       # check field
-      original_title = fix_data(oo.cell(row, field[I18n.t('resource_import_textfile.excel.article.original_title')]).to_s.strip)
-      article_title  = fix_data(oo.cell(row, field[I18n.t('resource_import_textfile.excel.article.title')]).to_s.strip)
-      call_number    = fix_data(oo.cell(row, field[I18n.t('resource_import_textfile.excel.article.call_number')]).to_s.strip)
+      original_title = fix_data(oo.cell(row, field[I18n.t('resource_import_textfile.excel.article.original_title')]).to_s.strip).to_s
+      article_title  = fix_data(oo.cell(row, field[I18n.t('resource_import_textfile.excel.article.title')]).to_s.strip).to_s
+      call_number    = fix_data(oo.cell(row, field[I18n.t('resource_import_textfile.excel.article.call_number')]).to_s.strip).to_s
       creators       = set_article_creatos(oo.cell(row, field[I18n.t('resource_import_textfile.excel.article.creator')]).to_s.strip, manifestation_type)     
       subjects       = set_article_subjects(oo.cell(row, field[I18n.t('resource_import_textfile.excel.article.subject')]).to_s.strip, manifestation_type)
-      pub_date       = fix_data(oo.cell(row, field[I18n.t('resource_import_textfile.excel.article.pub_date')]).to_s.strip)
+      pub_date       = fix_data(oo.cell(row, field[I18n.t('resource_import_textfile.excel.article.pub_date')]).to_s.strip).to_s
 
       article = Manifestation.find(
         :first,
