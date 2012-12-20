@@ -127,16 +127,6 @@ module ManifestationsHelper
     return pages
   end
 
-  if defined?(EnjuBookmark)
-    def link_to_bookmark(manifestation)
-      if manifestation.bookmarked?(current_user)
-        link_to t('bookmark.remove_from_my_bookmark'), bookmark_path(Bookmark.where(:user_id => current_user.id, :manifestation_id => manifestation.id).first), :confirm => t('page.are_you_sure'), :method => :delete
-      else
-        link_to t('bookmark.add_to_my_bookmark'), new_bookmark_path(:bookmark => {:url => manifestation_url(manifestation)})
-      end
-    end
-  end
-
   def checkedout_original_book?(manifestation)
     if manifestation.items
       original_item = manifestation.items.find_by_rank(0)
@@ -145,5 +135,22 @@ module ManifestationsHelper
       end
     end
     false
+  end
+
+  def hide_item?(show_all = false, item)
+    return false if user_signed_in? and current_user.has_role?('Librarian') and show_all
+    return true  unless item.rank == 0
+    return true  if item.retention_period.non_searchable
+    false
+  end
+
+  if defined?(EnjuBookmark)
+    def link_to_bookmark(manifestation)
+      if manifestation.bookmarked?(current_user)
+        link_to t('bookmark.remove_from_my_bookmark'), bookmark_path(Bookmark.where(:user_id => current_user.id, :manifestation_id => manifestation.id).first), :confirm => t('page.are_you_sure'), :method => :delete
+      else
+        link_to t('bookmark.add_to_my_bookmark'), new_bookmark_path(:bookmark => {:url => manifestation_url(manifestation)})
+      end
+    end
   end
 end

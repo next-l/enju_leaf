@@ -9,16 +9,14 @@
     <% unless manifestation.article? %>
       <th><%= t('activerecord.models.circulation_status') %></th>
     <% end %>
-    <% unless @only_original %>
-      <% if user_signed_in? and current_user.has_role?('Librarian') %>
-        <th><%= t('activerecord.attributes.item.rank') %></th>
-      <% end %>
+    <% if user_signed_in? and current_user.has_role?('Librarian') and params[:all_manifestations] %>
+      <th><%= t('activerecord.attributes.item.rank') %></th>
     <% end %>
   </tr>
   <% cache(:controller => :manifestations, :action => :show, :id => manifestation.id, :page => 'holding', :role => current_user_role_name, :locale => @locale, :manifestation_id => nil) do %>
   <%# - manifestation.items.on_shelf.each do |item| -%>
     <% manifestation.items.each do |item| %>
-      <% next if @only_original and item.rank != 0 %>
+      <% next if hide_item?(params[:all_manifestations], item) %>
       <tr>
         <td>
           <%= link_to item.shelf.library.display_name.localize, item.shelf.library if item.shelf.library %>
@@ -48,12 +46,8 @@
             <% end %>
           </td>
         <% end %>
-        <% if user_signed_in? and current_user.has_role?('Librarian') %>
-          <% unless @only_original %>
-            <td>
-              <%= i18n_rank(item.rank) %>
-            </td>
-          <% end %>
+        <% if user_signed_in? and current_user.has_role?('Librarian') and params[:all_manifestations] %>
+          <td><%= i18n_rank(item.rank) %></td>
         <% end %>
       </tr>
     <% end %>

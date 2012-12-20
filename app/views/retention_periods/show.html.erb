@@ -14,6 +14,15 @@
 </p>
 
 <p>
+  <strong><%= t('activerecord.attributes.retention_period.non_searchable') %>:</strong>
+  <% if @retention_period.non_searchable %>
+    <%= t('activerecord.attributes.retention_period.able') %>
+  <% else %>
+    <%= t('activerecord.attributes.retention_period.unable') %>
+  <% end %>
+</p>
+
+<p>
   <strong><%= t('activerecord.attributes.retention_period.note') %>:</strong>
   <%= @retention_period.note %>
 </p>

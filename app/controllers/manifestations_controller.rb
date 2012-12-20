@@ -133,6 +133,7 @@ class ManifestationsController < ApplicationController
         order_by :updated_at, :desc if oai_search
         with(:subject_ids).equal_to subject.id if subject
         with(:has_original).equal_to true unless params[:all_manifestations]
+        without(:non_searchable).equal_to true unless params[:all_manifestations]
         if series_statement
           with(:series_statement_id).equal_to series_statement.id
           #if series_statement.periodical?
@@ -286,7 +287,6 @@ class ManifestationsController < ApplicationController
     end
     store_location # before_filter ではファセット検索のURLを記憶してしまう
 
-    @only_original = params[:all_manifestations] ? false : true
     respond_to do |format|
       if params[:opac]
         if @manifestations.size > 0

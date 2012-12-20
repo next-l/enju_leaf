@@ -640,6 +640,9 @@ en:
         display_name: Display name
         note: Note
         position: Position
+        non_searchable: Non-searchable
+        able: Able
+        unable: Unable
       manifestation_type:
         name: Name
         display_name: Display name

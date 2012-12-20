@@ -16,9 +16,7 @@
   <% cache(:controller => :manifestations, :action => :show, :id => manifestation.id, :page => 'holding', :role => current_user_role_name, :locale => @locale, :manifestation_id => nil) do %>
   <%# - manifestation.items.on_shelf.each do |item| -%>
     <% manifestation.items.each do |item| %>
-      <% unless user_signed_in? and current_user.has_role?('Librarian') %>
-        <% next if item.rank != 0 %>
-      <% end %>
+      <% next if hide_item?(true, item) %>
       <tr>
         <td>
           <%= link_to item.shelf.library.display_name.localize, item.shelf.library if item.shelf.library %>

@@ -224,6 +224,13 @@ class Manifestation < ActiveRecord::Base
         false
       end
     end
+    boolean :non_searchable do
+      unless items.inject([]){ |list, i| list << i.retention_period.non_searchable }.include?(false)
+        true
+      else
+        false
+      end
+    end
     string :exinfo_1
     string :exinfo_2
     string :exinfo_3
