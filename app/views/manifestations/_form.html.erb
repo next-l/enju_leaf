@@ -2,12 +2,29 @@
 jQuery(function(){
   $('#manifestation_original_title').auto_ruby($('#manifestation_title_transcription'))
 
-  $('#manifestation_manifestation_type_id').change(displayArticleTitle);
+  var article_title = "<%= @manifestation.article_title %>"
+  displayArticleTitle(article_title);
+  $('#manifestation_manifestation_type_id').change(function () {
+    article_title = ""
+    displayArticleTitle(article_title);
+  });
 })
 
-function displayArticleTitle() {
+function displayArticleTitle(article_title) {
   var manifestation_type = $('#manifestation_manifestation_type_id').val();
-  $('manifestation_article_title').toggle()"
+  var series_list = ['9', '10'];
+  if($.inArray(manifestation_type, series_list) != -1) {
+    var data = "<label class='text optional' for='manifestation_article_title'>"
+             + "<%= t('activerecord.attributes.manifestation.article_title') %>"
+             + "</label>"
+             + "<br />"
+             + "<input class='resource_title' id='manifestation_article_title' name='manifestation[article_title]' size='30' type='text'"
+             + " value=" + article_title
+             + ">"
+    $("#article_title_field").html(data);
+  } else {
+    $("#article_title_field").html("");
+  }
 }
 </script>
 
@@ -45,7 +62,7 @@ function displayArticleTitle() {
     <%= f.label :title_alternative -%><br />
     <%= f.text_field :title_alternative, :class => 'resource_title' -%>
   </div>
-  <div class="field">
+  <div class="field" id="article_title_field">
     <%= f.label :article_title %><br />
     <%= f.text_field :article_title, :class => 'resource_title' %>
   </div>
