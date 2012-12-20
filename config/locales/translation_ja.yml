@@ -2021,6 +2021,7 @@ ja:
         title_transcription: タイトル（ヨミ）
         title_alternative: 代替タイトル
         isbn: ISBN
+        lccn: LCCN
         carrier_type: 資料の形態
         frequency: 発行頻度
         pub_date: 出版日
@@ -2074,6 +2075,8 @@ ja:
       series:
         head_is_blank: "%{sheet}の読み取りに失敗しました。\r\n1行目にはシリーズ名またはISSN,またタイトルまたはISBNが必須です。\r\n%{sheet}を再インポートする場合は資料インポートの新規登録より読み込みを再度行ってください。"
         cell_is_blank: "シリーズ名またはISSN,タイトルまたはISBNを指定してください。"
+        exist_same_book: "既にシリーズ名、タイトル、著者、出版年、出版者が同一の資料が登録されています。"
+        wrong_issn: "指定のISSNは不正です。"
       book:
         head_is_blank: "%{sheet}の読み取りに失敗しました。\r\n1行目にはタイトルまたはISBNが必須です。\r\n%{sheet}を再インポートする場合は資料インポートの新規登録より読み込みを再度行ってください。"
         cell_is_blank: "タイトルまたはISBNを指定してください。"
@@ -2082,6 +2085,8 @@ ja:
         only_numeric: "%{field}には数値以外の値を指定しないでください。 %{field}: %{data}"
         not_exsit_shelf: "指定の本棚は存在しません。 本棚: %{shelf}"
         wrong_rank: "指定の正本区分は不正です。 正本区分: %{data}"
+        wrong_isbn: "指定のISBNは不正です。"
+        exist_same_book: "既にタイトル、著者、出版年、出版者が同一の資料が登録されています。"
       article:
         head_is_blank: "%{sheet}の読み取りに失敗しました。\r\n1行目には表題が必須です。\r\n%{sheet}を再インポートする場合は資料インポートの新規登録より読み込みを再度行ってください。"
         cell_is_blank: "表題を指定してください。"

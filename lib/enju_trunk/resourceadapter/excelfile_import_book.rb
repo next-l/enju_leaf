@@ -15,103 +15,28 @@ module EnjuTrunk
     def import_book_start(oo, resource_import_textfile_id, manifestation_type)
       num = { :manifestation_imported => 0, :item_imported => 0, :manifestation_found => 0, :item_found => 0, :failed => 0 }
       # setting read_area
-      field_row_num = 1
       first_row_num = 2
       first_column_num = 1
-      # set header field
-      field = Hash.new
-      first_column_num.upto(oo.last_column) do |column|
-        field.store(oo.cell(field_row_num, column).to_s.strip, column)
-      end
-      # check cell
-      if [field[I18n.t('resource_import_textfile.excel.book.original_title')],
-        field[I18n.t('resource_import_textfile.excel.book.isbn')]].reject{|field| field.to_s.strip == ""}.empty?
-        raise "You should specify isbn or original_tile in the first line"
-      end
+      field = set_field(oo, first_row_num, first_column_num)
+      # check field
+      raise unless has_necessary_field?(oo, field, manifestation_type, resource_import_textfile_id)
 
       first_row_num.upto(oo.last_row) do |row|
         Rails.logger.info("import block start. row_num=#{row}")
+        has_error = false
+
         body = []
         first_column_num.upto(oo.last_column) do |column|
           body << oo.cell(row, column)
         end
         import_textresult = ResourceImportTextresult.create!(:resource_import_textfile_id => resource_import_textfile_id, :body => body.join("\t"))
-        has_error = false
-
-        # check exsit isbn or original_title
-        if [oo.cell(row, field[I18n.t('resource_import_textfile.excel.book.original_title')]).to_s.strip,
-          oo.cell(row, field[I18n.t('resource_import_textfile.excel.book.isbn')]).to_s.strip].reject{|field| field.to_s.strip == ""}.empty?
-          import_textresult.error_msg = "FAIL[#{row}] #{I18n.t('resource_import_textfile.error.book.original_title_and_isbn_is_blank')}"
-          has_error = true
-        end
-
-#TODO　ISBNの処理を後で作成すること
-        if oo.cell(row, field[I18n.t('resource_import_textfile.excel.book.isbn')]).present?
-          #TODO: issnは?
-          #TODO isbnの処理はあとで
-          isbn = oo.cell(row, field[I18n.t('resource_import_textfile.excel.book.isbn')]).truncate.to_s
-          isbn = ISBN_Tools.cleanup(isbn)
-          m = Manifestation.find_by_isbn(isbn) #TODO: issnは?
-          if m
-            if m.series_statement
-              manifestation = m
-            end
-          end
-        end
-        num[:manifestation_found] += 1 if manifestation
-
-        unless manifestation
-          #TODO: series_statement = find_series_statement(row)
-          begin
-            manifestation = Manifestation.import_isbn(isbn)
-            if manifestation
-              #manifestation.series_statement = series_statement
-              manifestation.manifestation_type = manifestation_type
-              manifestation.save!
-            end
-          rescue EnjuNdl::InvalidIsbn
-            import_textresult.error_msg = "FAIL[#{row}]: "+I18n.t('resource_import_file.invalid_isbn', :isbn => isbn)
-            Rails.logger.error "FAIL[#{row}]: import_isbn catch EnjuNdl::InvalidIsbn isbn: #{isbn}"
-            manifestation = nil
-            num[:failed] += 1
-            has_error = true
-          rescue EnjuNdl::RecordNotFound
-            import_textresult.error_msg = "FAIL[#{row}]: "+I18n.t('resource_import_file.record_not_found', :isbn => isbn)
-            Rails.logger.error "FAIL[#{row}]: import_isbn catch EnjuNdl::RecordNotFound isbn: #{isbn}"
-            manifestation = nil
-            num[:failed] += 1
-            has_error = true
-          rescue ActiveRecord::RecordInvalid  => e
-            import_textresult.error_msg = "FAIL[#{row}]: fail save manifestation. (record invalid) #{e.message}"
-            Rails.logger.error "FAIL[#{row}]: fail save manifestation. (record invalid) #{e.message}"
-            Rails.logger.error "FAIL[#{row}]: #{$@}"
-            manifestation = nil
-            num[:failed] += 1
-            has_error = true
-          rescue ActiveRecord::StatementInvalid => e
-            import_textresult.error_msg = "FAIL[#{row}]: fail save manifestation. (statement invalid) #{e.message}"
-            Rails.logger.error "FAIL[#{row}]: fail save manifestation. (statement invalid) #{e.message}"
-            Rails.logger.error "FAIL[#{row}]: #{$@}"
-            manifestation = nil
-            num[:failed] += 1
-            has_error = true
-          rescue => e
-            import_textresult.error_msg = "FAIL[#{row}]: fail save manifestation. #{e.message}"
-            Rails.logger.error "FAIL[#{row}]: fail save manifestation. #{e.message}"
-            Rails.logger.error "FAIL[#{row}]: #{$@}"
-            manifestation = nil
-            num[:failed] += 1
-            has_error = true
-          end
-          num[:manifestation_imported] += 1 if manifestation
-        end
+        # check exist isbn or original_title
+        next unless has_necessary_cell?(oo, field, row, manifestation_type, import_textresult)
 
         unless has_error
           begin
-            unless manifestation
-              manifestation = fetch_book(oo, row, field, manifestation_type)
-              num[:manifestation_imported] += 1 if manifestation
-            end
+            manifestation = fetch_book(oo, row, field, manifestation_type)
+            num[:manifestation_imported] += 1 if manifestation
             import_textresult.manifestation = manifestation
             if manifestation.valid?
               resource_import_textfile = ResourceImportTextfile.find(resource_import_textfile_id)
@@ -152,82 +77,178 @@ module EnjuTrunk
       return num
     end
 
+    def exist_same_book?(oo, row, field, manifestation_type, manifestation)
+      original_title = manifestation.original_title
+      pub_date       = fix_data(oo.cell(row, field[I18n.t('resource_import_textfile.excel.book.pub_date')]).to_s.strip).to_s
+      creators       = fix_data(oo.cell(row, field[I18n.t('resource_import_textfile.excel.book.creator')]).to_s.strip).split(';')
+      publishers     = fix_data(oo.cell(row, field[I18n.t('resource_import_textfile.excel.book.publisher')]).to_s.strip).split(';')
+
+      book = nil
+      unless manifestation_type.is_series?
+        book = Manifestation.find(
+          :first,
+          :include => [:creators, :publishers],
+          :conditions => { :original_title => original_title, :pub_date => pub_date }
+        ) rescue nil
+      else
+        series_title = fix_data(oo.cell(row, field[I18n.t('resource_import_textfile.excel.series.original_title')]).to_s.strip).to_s
+        book = Manifestation.find(
+          :first,
+          :joins => :series_statement,
+          :include => [:creators, :publishers],
+          :conditions => { :original_title => original_title, :pub_date => pub_date, :series_statements => { :original_title => series_title } }
+        ) rescue nil 
+      end
+      if book
+        if book.creators.map{ |c| c.full_name }.sort == creators.sort and book.publishers.map{ |s| s.full_name }.sort == publishers.sort
+          unless manifestation_type.is_series?
+            raise I18n.t('resource_import_textfile.error.book.exist_same_book')
+          else
+            raise I18n.t('resource_import_textfile.error.series.exist_same_book')
+          end
+        end
+      end
+      return book
+    end
+
     def fetch_book(oo, row, field, manifestation_type)
       manifestation = nil
-      # 更新、削除はどうする？
-      title = {}
-      title[:original_title] = oo.cell(row, field[I18n.t('resource_import_textfile.excel.book.original_title')]).to_s.strip
-      title[:title_transcription] = oo.cell(row, field[I18n.t('resource_import_textfile.excel.book.title_transcription')]).to_s.strip
-      title[:title_alternative] = oo.cell(row, field[I18n.t('resource_import_textfile.excel.book.title_alternative')]).to_s.strip
-
-#TODO:wrong
-#     if ISBN_Tools.is_valid?(oo.cell(row, field[I18n.t('resource_import_textfile.excel.issn_isbn')]).truncate.to_s.strip)
-#       isbn = ISBN_Tools.cleanup(oo.cell(row, field[I18n.t('resource_import_textfile.excel.issn_isbn')]).truncate.to_s.strip)
-#     end
-
+      isbn = fix_data(oo.cell(row, field[I18n.t('resource_import_textfile.excel.book.isbn')]).to_s.strip).to_s
+      unless isbn.blank?
+        isbn = ISBN_Tools.cleanup(isbn)
+        begin
+          manifestation = Manifestation.import_isbn(isbn)
+          raise I18n.t('resource_import_textfile.error.book.wrong_isbn') unless manifestation
+        rescue EnjuNdl::InvalidIsbn
+          raise I18n.t('resource_import_textfile.error.book.wrong_isbn')
+        rescue EnjuNdl::RecordNotFound
+          raise I18n.t('resource_import_textfile.error.book.wrong_isbn')
+        end
+      end
+      isbn = ISBN_Tools.cleanup(isbn) if ISBN_Tools.is_valid?(isbn)
       # must be checked field
-      carrier_type_field  = field[I18n.t('resource_import_textfile.excel.book.carrier_type')] || nil
-      frequency_field     = field[I18n.t('resource_import_textfile.excel.book.frequency')] || nil
-      pub_date_field      = field[I18n.t('resource_import_textfile.excel.book.pub_date')] || nil
-      language_field      = field[I18n.t('resource_import_textfile.excel.book.language')] || nil 
-      edition_field       = field[I18n.t('resource_import_textfile.excel.book.edition')] || nil
-      height_field        = field[I18n.t('resource_import_textfile.excel.book.height')] || nil
-      width_field         = field[I18n.t('resource_import_textfile.excel.book.width')] || nil
-      depth_field         = field[I18n.t('resource_import_textfile.excel.book.depth')] || nil
-      price_field         = field[I18n.t('resource_import_textfile.excel.book.price')] || nil
-      required_role_field = field[I18n.t('resource_import_textfile.excel.book.required_role')] || nil
+      original_title_field      = field[I18n.t('resource_import_textfile.excel.book.original_title')] || nil
+      title_transcription_field = field[I18n.t('resource_import_textfile.excel.book.title_transcription')] || nil
+      title_alternative_field   = field[I18n.t('resource_import_textfile.excel.book.title_alternative')] || nil
+      carrier_type_field        = field[I18n.t('resource_import_textfile.excel.book.carrier_type')] || nil
+      pub_date_field            = field[I18n.t('resource_import_textfile.excel.book.pub_date')] || nil
+      language_field            = field[I18n.t('resource_import_textfile.excel.book.language')] || nil 
+      edition_field             = field[I18n.t('resource_import_textfile.excel.book.edition')] || nil
+      height_field              = field[I18n.t('resource_import_textfile.excel.book.height')] || nil
+      width_field               = field[I18n.t('resource_import_textfile.excel.book.width')] || nil
+      depth_field               = field[I18n.t('resource_import_textfile.excel.book.depth')] || nil
+      price_field               = field[I18n.t('resource_import_textfile.excel.book.price')] || nil
+      required_role_field       = field[I18n.t('resource_import_textfile.excel.book.required_role')] || nil
 
       ResourceImportTextfile.transaction do
         begin
-          manifestation                      = Manifestation.new(title)
-          manifestation.manifestation_type   = manifestation_type
-          manifestation.place_of_publication = oo.cell(row, field[I18n.t('resource_import_textfile.excel.book.place_of_publication')]).to_s.strip
-          manifestation.carrier_type         = set_data(CarrierType, oo.cell(row, carrier_type_field).to_s.strip, false, 'carrier_type', 'print')
-          manifestation.frequency            = set_data(Frequency, oo.cell(row, frequency_field).to_s.strip, false, 'frequency', '不明', :display_name)
-          manifestation.pub_date             = fix_data(oo.cell(row, pub_date_field).to_s.strip)
-          manifestation.language             = set_data(Language, oo.cell(row, language_field).to_s.strip, false, 'language', 'Japanese')
-          manifestation.edition              = check_data_is_integer(oo.cell(row, edition_field).to_s.strip, 'edition')
-          manifestation.volume_number_string = fix_data(oo.cell(row, field[I18n.t('resource_import_textfile.excel.book.volume_number_string')]).to_s.strip)
-          manifestation.issue_number_string  = fix_data(oo.cell(row, field[I18n.t('resource_import_textfile.excel.book.issue_number_string')]).to_s.strip)
-          manifestation.start_page           = fix_data(oo.cell(row, field[I18n.t('resource_import_textfile.excel.book.start_page')]).to_s.strip).to_s 
-          manifestation.end_page             = fix_data(oo.cell(row, field[I18n.t('resource_import_textfile.excel.book.end_page')]).to_s.strip).to_s
-          manifestation.height               = check_data_is_numeric(oo.cell(row, height_field).to_s.strip, 'height')
-          manifestation.width                = check_data_is_numeric(oo.cell(row, width_field).to_s.strip, 'width')
-          manifestation.depth                = check_data_is_numeric(oo.cell(row, depth_field).to_s.strip, 'depth')
-          manifestation.price                = check_data_is_integer(oo.cell(row, price_field).to_s.strip, 'price')
-          manifestation.access_address       = oo.cell(row, field[I18n.t('resource_import_textfile.excel.book.access_address')]).to_s.strip
-          manifestation.repository_content   = fix_boolean(oo.cell(row, field[I18n.t('resource_import_textfile.excel.book.repository_content')]).to_s.strip)
-          manifestation.required_role        = set_data(Role, oo.cell(row,required_role_field).to_s.strip, false, 'required_role', 'Guest')
-          manifestation.except_recent        = fix_boolean(oo.cell(row, field[I18n.t('resource_import_textfile.excel.book.except_recent')]).to_s.strip)
-          manifestation.description          = oo.cell(row, field[I18n.t('resource_import_textfile.excel.book.description')]).to_s.strip
-          manifestation.supplement           = oo.cell(row, field[I18n.t('resource_import_textfile.excel.book.supplement')]).to_s.strip
-          manifestation.note                 = oo.cell(row, field[I18n.t('resource_import_textfile.excel.book.note')]).to_s.strip
-          manifestation.during_import        = true
-=begin
+          title = {}
+          title[:original_title]      = fix_data(oo.cell(row, field[I18n.t('resource_import_textfile.excel.book.original_title')]).to_s.strip).to_s
+          title[:title_transcription] = fix_data(oo.cell(row, field[I18n.t('resource_import_textfile.excel.book.title_transcription')]).to_s.strip).to_s
+          title[:title_alternative]   = fix_data(oo.cell(row, field[I18n.t('resource_import_textfile.excel.book.title_alternative')]).to_s.strip).to_s
+          if manifestation.nil?
+            manifestation = Manifestation.new(title)
+          else
+            manifestation.original_title      = title[:original_title] unless title[:original_title].blank?
+            manifestation.title_transcription = title[:title_transcription] unless title[:title_transcription].blank?
+            manifestation.title_alternative   = title[:title_alternative] unless title[:title_alternative].blank?
+          end
+          exist_same_book?(oo, row, field, manifestation_type, manifestation)
+
+          params = {
+            :manifestation_type   => manifestation_type,
+            :place_of_publication => fix_data(oo.cell(row, field[I18n.t('resource_import_textfile.excel.book.place_of_publication')]).to_s.strip).to_s,
+            :carrier_type         => set_data(CarrierType, oo.cell(row, carrier_type_field).to_s.strip, false, 'carrier_type', 'print'),
+            :frequency            => set_frequency(oo, row, field, manifestation_type),
+            :pub_date             => fix_data(oo.cell(row, pub_date_field).to_s.strip),
+            :language             => set_data(Language, oo.cell(row, language_field).to_s.strip, false, 'language', 'Japanese'),
+            :isbn                 => isbn,
+            :lccn                 => fix_data(oo.cell(row, field[I18n.t('resource_import_textfile.excel.book.lccn')]).to_s.strip).to_s,
+            :edition              => check_data_is_integer(oo.cell(row, edition_field).to_s.strip, 'edition'),
+            :volume_number_string => fix_data(oo.cell(row, field[I18n.t('resource_import_textfile.excel.book.volume_number_string')]).to_s.strip),
+            :issue_number_string  => fix_data(oo.cell(row, field[I18n.t('resource_import_textfile.excel.book.issue_number_string')]).to_s.strip),
+            :start_page           => fix_data(oo.cell(row, field[I18n.t('resource_import_textfile.excel.book.start_page')]).to_s.strip).to_s,
+            :end_page             => fix_data(oo.cell(row, field[I18n.t('resource_import_textfile.excel.book.end_page')]).to_s.strip).to_s,
+            :height               => check_data_is_numeric(oo.cell(row, height_field).to_s.strip, 'height'),
+            :width                => check_data_is_numeric(oo.cell(row, width_field).to_s.strip, 'width'),
+            :depth                => check_data_is_numeric(oo.cell(row, depth_field).to_s.strip, 'depth'),
+            :price                => check_data_is_integer(oo.cell(row, price_field).to_s.strip, 'price'),
+            :access_address       => oo.cell(row, field[I18n.t('resource_import_textfile.excel.book.access_address')]).to_s.strip,
+            :repository_content   => fix_boolean(oo.cell(row, field[I18n.t('resource_import_textfile.excel.book.repository_content')]).to_s.strip),
+            :except_recent        => fix_boolean(oo.cell(row, field[I18n.t('resource_import_textfile.excel.book.except_recent')]).to_s.strip),
+            :description          => fix_data(oo.cell(row, field[I18n.t('resource_import_textfile.excel.book.description')]).to_s.strip).to_s,
+            :supplement           => fix_data(oo.cell(row, field[I18n.t('resource_import_textfile.excel.book.supplement')]).to_s.strip).to_s,
+            :note                 => fix_data(oo.cell(row, field[I18n.t('resource_import_textfile.excel.book.note')]).to_s.strip).to_s, 
+            :required_role        => set_data(Role, oo.cell(row,required_role_field).to_s.strip, false, 'required_role', 'Guest'),
+          }
+          #TODO:createrより後でmanifestationがつくられる場合があるので先にsaveしておく
+          manifestation.update_attributes!(params.merge(:during_import => true))
           # creator
-          creators = oo.cell(row, field[I18n.t('resource_import_textfile.excel.book.creator')]).to_s.strip.split('；')
+          creators = oo.cell(row, field[I18n.t('resource_import_textfile.excel.book.creator')]).to_s.strip.split(';')
           creators_list = creators.inject([]){ |list, creator| list << {:full_name => creator.to_s.strip, :full_name_transcription => "" } }
           creator_patrons = Patron.import_patrons(creators_list)
           manifestation.creators << creator_patrons
           # contributor
-          contributors = oo.cell(row, field[I18n.t('resource_import_textfile.excel.book.contributor')]).to_s.strip.split('；')
+          contributors = oo.cell(row, field[I18n.t('resource_import_textfile.excel.book.contributor')]).to_s.strip.split(';')
           contributors_list = contributors.inject([]){ |list, contributor| list << {:full_name => contributor.to_s.strip, :full_name_transcription => "" } }
           contributor_patrons = Patron.import_patrons(contributors_list)
           manifestation.contributors << contributor_patrons
           # publisher
-          publishers = oo.cell(row, field[I18n.t('resource_import_textfile.excel.book.publisher')]).to_s.strip.split('；')
+          publishers = oo.cell(row, field[I18n.t('resource_import_textfile.excel.book.publisher')]).to_s.strip.split(';')
           publishers_list = publishers.inject([]){ |list, publisher| list << {:full_name => publisher.to_s.strip, :full_name_transcription => "" } }
           publisher_patrons = Patron.import_patrons(publishers_list)
           manifestation.publishers << publisher_patrons
-=end
-          manifestation.save!
+          # subject
+          subjects_list = fix_data(oo.cell(row, field[I18n.t('resource_import_textfile.excel.article.subject')]).to_s.strip).to_s.split(';')
+          subjects = Subject.import_subjects (subjects_list)
+          manifestation.subjects << subjects
 
+          series_statement = import_series_statement(oo, row, field, manifestation_type)
+          manifestation.series_statement = series_statement if series_statement
+
+          manifestation.save!
           return manifestation
         rescue Exception => e
           p "error at fetch_new: #{e.message}"
           raise e
         end
       end
+    end
+
+    def import_series_statement(oo, row, field, manifestation_type)
+      issn = ISBN_Tools.cleanup(fix_data(oo.cell(row,field[I18n.t('resource_import_textfile.excel.series.issn')]).to_s.strip).to_s)
+      series_statement = find_series_statement(oo, row, field)
+
+      unless series_statement
+        if oo.cell(row, field[I18n.t('resource_import_textfile.excel.series.original_title')]).to_s.strip.present?
+          original_title_field      = field[I18n.t('resource_import_textfile.excel.series.original_title')] || nil
+          title_transcription_field = field[I18n.t('resource_import_textfile.excel.series.title_transcription')] || nil
+
+          series_statement = SeriesStatement.new(
+            :original_title        => fix_data(oo.cell(row, original_title_field).to_s.strip).to_s,
+            :title_transcription   => fix_data(oo.cell(row, title_transcription_field).to_s.strip).to_s,
+            :periodical            => fix_boolean(oo.cell(row, field[I18n.t('resource_import_textfile.excel.series.periodical')]).to_s.strip),
+          )
+          series_statement.issn = issn if issn.present?
+          series_statement.save!
+        end
+      end
+      return series_statement if series_statement
+      return nil
+    end
+
+    def find_series_statement(oo, row, field)
+      issn = ISBN_Tools.cleanup(fix_data(oo.cell(row,field[I18n.t('resource_import_textfile.excel.series.issn')]).to_s.strip).to_s)
+      series_statement = SeriesStatement.where(:issn => issn).first if issn.present?
+      unless series_statement
+        original_title_field = field[I18n.t('resource_import_textfile.excel.series.original_title')] || nil
+        original_title = fix_data(oo.cell(row, original_title_field).to_s.strip).to_s || nil
+        series_statement = SeriesStatement.where(:original_title => original_title).first
+      end
+      if series_statement
+        return series_statement
+      end
+      return nil
     end
 
     def create_book_item(oo, row, field, manifestation, resource_import_textfile)
@@ -286,6 +307,78 @@ module EnjuTrunk
       else
         raise I18n.t('resource_import_textfile.error.book.wrong_rank', :data => cell) 
       end
+    end
+
+    def set_field(oo, first_row_num, first_column_num)
+      field_row_num = 1
+
+      # set header field
+      field = Hash.new
+      first_column_num.upto(oo.last_column) do |column|
+        field.store(oo.cell(field_row_num, column).to_s.strip, column)
+      end
+      return field
+    end
+
+    def set_frequency(oo, row, field, manifestation_type)
+      frequency = nil
+#      frequency_series_field = field[I18n.t('resource_import_textfile.excel.series.frequency')] || nil
+      frequency_book_field   = field[I18n.t('resource_import_textfile.excel.book.frequency')] || nil
+#      if manifestation_type.is_series?
+#        unless oo.cell(row, frequency_book_field).to_s.strip.blank?
+#          frequency = set_data(Frequency, oo.cell(row, frequency_book_field).to_s.strip, false, 'frequency', '不明', :display_name)
+#        else
+#          frequency = set_data(Frequency, oo.cell(row, frequency_series_field).to_s.strip, false, 'frequency', '不明', :display_name)
+#        end
+#      else
+        frequency = set_data(Frequency, oo.cell(row, frequency_book_field).to_s.strip, false, 'frequency', '不明', :display_name)
+#      end
+      return frequency
+    end
+
+    def has_necessary_field?(oo, field, manifestation_type, resource_import_textfile_id)
+      require_head_book   = [field[I18n.t('resource_import_textfile.excel.book.original_title')],
+                             field[I18n.t('resource_import_textfile.excel.book.isbn')]]
+      require_head_series = [field[I18n.t('resource_import_textfile.excel.series.original_title')],
+                             field[I18n.t('resource_import_textfile.excel.series.issn')]]
+
+      if manifestation_type.is_book?
+        if require_head_book.reject{ |f| f.to_s.strip == "" }.empty?
+          import_textresult = ResourceImportTextresult.create!(:resource_import_textfile_id => resource_import_textfile_id, :body => '' )
+          import_textresult.error_msg = I18n.t('resource_import_textfile.error.series.head_is_blank', :sheet => oo.default_sheet)
+          import_textresult.save 
+          return false
+        end
+      else
+        if require_head_series.reject{ |f| f.to_s.strip == "" }.empty? or require_head_book.reject{ |f| f.to_s.strip == "" }.empty?
+          import_textresult = ResourceImportTextresult.create!(:resource_import_textfile_id => resource_import_textfile_id, :body => '' )
+          import_textresult.error_msg = I18n.t('resource_import_textfile.error.series.head_is_blank', :sheet => oo.default_sheet)
+          import_textresult.save 
+          return false
+        end
+      end
+      true
+    end
+
+    def has_necessary_cell?(oo, field, row, manifestation_type, import_textresult)
+      require_cell_book   = [oo.cell(row, field[I18n.t('resource_import_textfile.excel.book.original_title')]).to_s.strip,
+                             oo.cell(row, field[I18n.t('resource_import_textfile.excel.book.isbn')]).to_s.strip]
+      require_cell_series = [oo.cell(row, field[I18n.t('resource_import_textfile.excel.series.original_title')]).to_s.strip,
+                             oo.cell(row, field[I18n.t('resource_import_textfile.excel.series.issn')]).to_s.strip]
+      if manifestation_type.is_book?  
+        if require_cell_book.reject{ |f| f.to_s.strip == "" }.empty?
+          import_textresult.error_msg = "FAIL[sheet:#{oo.default_sheet} row:#{row}] #{I18n.t('resource_import_textfile.error.book.cell_is_blank')}"
+          import_textresult.save
+          return false
+        end
+      else
+        if require_cell_series.reject{ |f| f.to_s.strip == "" }.empty? or require_cell_book.reject{ |f| f.to_s.strip == "" }.empty?
+          import_textresult.error_msg = "FAIL[sheet:#{oo.default_sheet} row:#{row}] #{I18n.t('resource_import_textfile.error.series.cell_is_blank')}"
+          import_textresult.save
+          return false
+        end 
+      end
+      true
     end
   end
 end
