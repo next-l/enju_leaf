@@ -139,8 +139,9 @@ module ManifestationsHelper
 
   def hide_item?(show_all = false, item)
     return false if user_signed_in? and current_user.has_role?('Librarian') and show_all
-    return true  unless item.rank == 0
-    return true  if item.retention_period.non_searchable
+    return true unless item.rank == 0
+    return true if item.retention_period.non_searchable
+    return true if item.circulation_status.name == "Removed"
     false
   end
 

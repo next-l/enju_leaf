@@ -132,7 +132,6 @@ class ManifestationsController < ApplicationController
         order_by :created_at, :desc unless oai_search
         order_by :updated_at, :desc if oai_search
         with(:subject_ids).equal_to subject.id if subject
-        with(:has_original).equal_to true unless params[:all_manifestations]
         without(:non_searchable).equal_to true unless params[:all_manifestations]
         if series_statement
           with(:series_statement_id).equal_to series_statement.id

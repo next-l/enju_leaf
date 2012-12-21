@@ -54,7 +54,7 @@ class Item < ActiveRecord::Base
   validate :is_original?
   before_validation :set_circulation_status, :on => :create
   before_save :set_use_restriction, :check_remove_item
-  after_save :check_price
+  after_save :check_price, :reindex
 
   #enju_union_catalog
   has_paper_trail
@@ -80,6 +80,10 @@ class Item < ActiveRecord::Base
   end
 
   paginates_per 10
+
+  def reindex
+    manifestation.try(:index)
+  end
 
   def set_circulation_status
     self.circulation_status = CirculationStatus.where(:name => 'In Process').first if self.circulation_status.nil?

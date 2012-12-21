@@ -217,19 +217,8 @@ class Manifestation < ActiveRecord::Base
       end
     end
     boolean :except_recent
-    boolean :has_original do
-      if items.inject([]){ |list, i| list << i.rank.to_i }.include?(0)
-        true
-      else
-        false
-      end
-    end
     boolean :non_searchable do
-      unless items.inject([]){ |list, i| list << i.retention_period.non_searchable }.include?(false)
-        true
-      else
-        false
-      end
+      non_searchable?
     end
     string :exinfo_1
     string :exinfo_2
@@ -317,6 +306,16 @@ class Manifestation < ActiveRecord::Base
 
   def article?
     self.manifestation_type.is_article?
+  end
+
+  def non_searchable?
+    non_searchable = true
+    items.each do |i|
+      if i.rank == 0 and i.retention_period.non_searchable == false and i.circulation_status.name != "Removed"
+        non_searchable = false; break
+      end
+    end
+    return non_searchable
   end
 
   def url
