@@ -581,6 +581,7 @@ ja:
         removed_at: 除籍日
         items_number: 所蔵数
         rank: 正本区分
+        non_searchable: 検索対象から除外
       loss_item:
         user_id: 利用者番号
         item_id: 紛失資料

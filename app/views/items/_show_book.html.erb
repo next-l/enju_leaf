@@ -113,6 +113,13 @@
   <% end %>
 </p>
 
+<% if user_signed_in? and current_user.has_role?('Librarian') %>
+  <p>
+    <strong><%= t('activerecord.attributes.item.non_searchable') %>:</strong>
+    <%= localized_boolean(@item.non_searchable) %>
+  </p>
+<% end %>
+
 <%- cache(:controller => :items, :action => :show, :id => @item.id, :page => 'detail', :role => current_user_role_name, :locale => @locale, :item_id => nil) do -%>
 
 <p>

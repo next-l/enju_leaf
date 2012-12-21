@@ -50,6 +50,11 @@
   </div>
 
   <div class="field">
+    <%= f.label :non_searchable %>
+    <%= f.check_box :non_searchable %>
+  </div>
+
+  <div class="field">
     <%= f.label :acquired_at %>
     <% if @item.acquired_at %>
       <%= f.text_field :acquired_at, :value => @item.acquired_at.try(:strftime, "%Y-%m-%d"), :class => 'date_field' %>
