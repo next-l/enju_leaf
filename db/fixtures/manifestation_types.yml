@@ -77,3 +77,9 @@ retention_period_00013:
   display_name: "未使用種別3"
   note:
   position: 13
+retention_period_00014:
+  id: 14
+  name: unknown
+  display_name: "不明"
+  note:
+  position: 14

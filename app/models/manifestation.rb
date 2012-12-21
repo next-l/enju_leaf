@@ -245,6 +245,7 @@ class Manifestation < ActiveRecord::Base
   validates_presence_of :carrier_type, :language, :manifestation_type, :country_of_publication
   validates_associated :carrier_type, :language, :manifestation_type, :country_of_publication
   before_validation :set_language, :if => :during_import
+  before_validation :set_manifestation_type
   before_save :set_series_statement
 
   after_save :index_series_statement
@@ -290,6 +291,10 @@ class Manifestation < ActiveRecord::Base
 
   def set_language
     self.language = Language.where(:name => "Japanese").first if self.language.nil?
+  end
+
+  def set_manifestation_type
+    self.manifestation_type = ManifestationType.where(:name => 'unknown').first if self.manifestation_type.nil?
   end
 
   def root_of_series?
