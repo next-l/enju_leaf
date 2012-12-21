@@ -142,6 +142,7 @@ module ManifestationsHelper
     return true unless item.rank == 0
     return true if item.retention_period.non_searchable
     return true if item.circulation_status.name == "Removed"
+    return true if item.non_searchable
     false
   end
 

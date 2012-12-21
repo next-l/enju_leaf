@@ -316,7 +316,7 @@ class Manifestation < ActiveRecord::Base
   def non_searchable?
     non_searchable = true
     items.each do |i|
-      if i.rank == 0 and i.retention_period.non_searchable == false and i.circulation_status.name != "Removed"
+      if i.rank == 0 and !i.retention_period.non_searchable and i.circulation_status.name != "Removed" and !i.non_searchable
         non_searchable = false; break
       end
     end

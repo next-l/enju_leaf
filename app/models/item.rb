@@ -8,7 +8,8 @@ class Item < ActiveRecord::Base
                   :acquired_at, :note, :item_identifier, :rank, :remove_reason_id,
                   :use_restriction, :manifestation_id, :manifestation,
                   :shelf_id, :circulation_status, :bookstore, :remove_reason, :checkout_type, 
-                  :shelf, :bookstore, :retention_period, :accept_type_id, :accept_type, :required_role
+                  :shelf, :bookstore, :retention_period, :accept_type_id, :accept_type, :required_role,
+                  :non_searchable
 
   self.extend ItemsHelper
   scope :for_checkout, where('item_identifier IS NOT NULL')
@@ -75,6 +76,7 @@ class Item < ActiveRecord::Base
     integer :inventory_file_ids, :multiple => true
     integer :rank
     integer :remove_reason_id
+    boolean :non_searchable
     time :created_at
     time :updated_at
   end
