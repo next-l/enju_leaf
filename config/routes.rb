@@ -282,6 +282,9 @@ EnjuLeaf::Application.routes.draw do
 
   resources :reserves do
     post :output, :on => :member
+    get :retain, :on => :collection
+    post :retain_item, :on => :collection
+    post :informed, :on => :member
   end
 
   resources :subject_types

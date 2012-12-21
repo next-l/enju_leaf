@@ -2,7 +2,7 @@
 circulation_status_00001: 
   name: Available For Pickup  
   display_name: "en:Available For Pickup\r\n\
-    ja:持ち出し可能"
+    ja:予約取り置き済み"
   id: 1
   note: ""
   position: 1

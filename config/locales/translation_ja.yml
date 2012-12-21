@@ -1656,6 +1656,7 @@ ja:
     audio_item: 視聴覚資料
     binding_status: 製本ステータス
     binding_item: 製本雑誌
+    not_found: "資料が見つかりません"
   patron:
     library_group_patron: "%{library_group_name} の人物・団体"
     work_patron: "%{work_title} の著作者"
@@ -1807,6 +1808,11 @@ ja:
     completed_reserve: "取り置き済みの予約"
     in_process_reserve: "作業中の予約"
     update: "予約の更新"
+    retain: "予約資料の取り置き"
+    add: 登録
+    cannot_retain_item: "取り置きのできない資料です。"
+    not_found: "予約が見つかりません。"
+    retain_error: "取り置き処理に失敗しました。"
   purchase_request:
     user_purchase_request: "%{login_name} さんの購入依頼資料"
     library_group_purchase_request: "%{library_group_name} での購入依頼資料"
