@@ -92,24 +92,18 @@ module EnjuTrunk
       # check field
       original_title = fix_data(oo.cell(row, field[I18n.t('resource_import_textfile.excel.article.original_title')]).to_s.strip).to_s
       article_title  = fix_data(oo.cell(row, field[I18n.t('resource_import_textfile.excel.article.title')]).to_s.strip).to_s
-      call_number    = fix_data(oo.cell(row, field[I18n.t('resource_import_textfile.excel.article.call_number')]).to_s.strip).to_s
       creators       = set_article_creatos(oo.cell(row, field[I18n.t('resource_import_textfile.excel.article.creator')]).to_s.strip, manifestation_type)     
-      subjects       = set_article_subjects(oo.cell(row, field[I18n.t('resource_import_textfile.excel.article.subject')]).to_s.strip, manifestation_type)
-      pub_date       = fix_data(oo.cell(row, field[I18n.t('resource_import_textfile.excel.article.pub_date')]).to_s.strip).to_s
 
       article = Manifestation.find(
         :first,
-        :joins => :items,
         :include => [:creators, :subjects],
         :conditions => {
           :original_title => original_title,
           :article_title  => article_title,
-          :pub_date       => pub_date,
-          :items => { :call_number  => call_number },
         }
       ) rescue nil
       if article
-        if article.creators.map{ |c| c.full_name }.sort == creators.sort and article.subjects.map{ |s| s.term }.sort == subjects.sort
+        if article.creators.map{ |c| c.full_name }.sort == creators.sort
           raise I18n.t('resource_import_textfile.error.article.exist_same_article')
         end
       end
