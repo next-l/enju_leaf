@@ -4,6 +4,8 @@
     <%= search_field_tag 'query', h(@query), {:id => 'search_form_top', :class => 'search_form', :placeholder => t('page.search_term')} -%>
     <%= hidden_field_tag 'reservable', h(@reservable) if @reservable -%>
     <%= hidden_field_tag 'user_id', params[:user_id] if params[:user_id] -%>
+    <%= hidden_field_tag 'all_manifestations', params[:all_manifestations] if params[:all_manifestations] %>
+    <%= hidden_field_tag 'removed', true if @removed %>
     <%= submit_tag t('page.search') -%>
     <br />
     <%= link_to t('page.advanced_search'), page_advanced_search_path(:user_id => params[:user_id]) -%>
