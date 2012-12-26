@@ -1,7 +1,7 @@
 <% manifestation = @manifestation ? @manifestation : @item.manifestation %>
 
 <% if manifestation.article? %>
-  <%= render 'form_article' %>
+  <%= render 'form_article', :manifestation => manifestation %>
 <% else %>
-  <%= render 'form_book' %>
+  <%= render 'form_book', :manifestation => manifestation %>
 <% end %>

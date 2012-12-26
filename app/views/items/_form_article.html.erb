@@ -1,5 +1,5 @@
-<% if @item.manifestation %>
-  <%= render 'manifestations/title', :manifestation => @item.manifestation -%>
+<% if manifestation %>
+  <%= render 'manifestations/title', :manifestation => manifestation -%>
 <% end %>
 
 <%# = render 'page/required_field' %>
@@ -67,11 +67,11 @@
     <%= f.label t('activerecord.attributes.item.rank') %><br />
     <%= f.select(:rank, item_ranks.collect{|r| [i18n_rank(r), r]}) %>
   </div>
-
   <div class="actions">
     <%= f.hidden_field :accept_type_id,:value => nil %>
     <%= f.hidden_field :checkout_type_id, :value => @checkout_types.map{ |c| c if c.name == 'article' }.compact.first.id %>
     <%= f.hidden_field :circulation_status_id, :value => @circulation_statuses.map{ |c| c if c.name == 'Not Available' }.compact.first.id %>
+    <%= f.hidden_field :item_identifier, :value => Numbering.do_numbering('article') %>
     <%= f.submit :disable_with => t('page.wait') %>
   </div>
   <%= javascript_tag("$('#item_retention_period_id').focus()") %>

@@ -129,7 +129,11 @@ class ItemsController < ApplicationController
     @item.manifestation_id = @manifestation.id
     @circulation_statuses = CirculationStatus.where(:name => ['In Process', 'Available For Pickup', 'Available On Shelf', 'Claimed Returned Or Never Borrowed', 'Not Available']).order(:position)
     @item.circulation_status = CirculationStatus.where(:name => 'In Process').first
-    @item.checkout_type = @manifestation.carrier_type.checkout_types.first
+    if @manifestation.manifestation_type.is_article?
+      @item.checkout_type = CheckoutType.where(:name => 'article').first
+    else
+      @item.checkout_type = @manifestation.carrier_type.checkout_types.first
+    end
     @item.use_restriction_id = UseRestriction.where(:name => 'Limited Circulation, Normal Loan Period').select(:id).first.id
 
     respond_to do |format|
@@ -281,7 +285,7 @@ class ItemsController < ApplicationController
     @retention_periods = RetentionPeriod.all
     @use_restrictions = UseRestriction.available
     @bookstores = Bookstore.all
-    if @manifestation
+    if @manifestation and !@manifestation.manifestation_type.is_article?
       @checkout_types = CheckoutType.available_for_carrier_type(@manifestation.carrier_type)
     else
       @checkout_types = CheckoutType.all
