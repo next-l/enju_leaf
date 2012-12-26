@@ -1,5 +1,5 @@
 <h3><%= t('checked_item.previous_checkout') -%></h3>
-
+<%= checkout_checkout_types(@user) if @user %>
 <table class="index">
   <tr>
     <%- if SystemConfiguration.get("checked_items.disp_title") -%>
