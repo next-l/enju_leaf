@@ -105,6 +105,16 @@ class Manifestation < ActiveRecord::Base
         items.collect(&:item_identifier)
       end
     end
+    string :removed_at, :multiple => true do
+      if series_statement.try(:periodical)  # 雑誌の場合
+        [series_statement.manifestations.map{ |manifestation| [manifestation.items.collect(&:removed_at)] }].flatten.compact
+      else
+        items.collect(&:removed_at)
+      end
+    end
+    boolean :has_removed do
+      has_removed?
+    end
     string :shelf, :multiple => true do
       items.collect{|i| "#{i.shelf.library.name}_#{i.shelf.name}"}
     end
@@ -314,13 +324,19 @@ class Manifestation < ActiveRecord::Base
   end
 
   def non_searchable?
-    non_searchable = true
     items.each do |i|
       if i.rank == 0 and !i.retention_period.non_searchable and i.circulation_status.name != "Removed" and !i.non_searchable
-        non_searchable = false; break
+        return false
       end
     end
-    return non_searchable
+    true
+  end
+
+  def has_removed?
+    items.each do |i|
+      return true if i.circulation_status.name == "Removed" and !i.removed_at.nil?
+    end
+    false
   end
 
   def url

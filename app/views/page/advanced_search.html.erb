@@ -45,6 +45,17 @@
       <td><%= t('advanced_search.from') -%> <%= text_field_tag 'acquired_from', nil, :class => 'wide_date_text_field', :placeholder => "#{t('page.example')}: 2005, 2005-04-01" -%>
         <%= t('advanced_search.to') -%> <%= text_field_tag 'acquired_to', nil, :class => 'wide_date_text_field', :placeholder => "#{t('page.example')}: 2011, 2011-03-31"-%></td>
     </tr>
+    <% if user_signed_in? and current_user.has_role?('Librarian') %>
+      <tr>
+        <td><label><%= t('activerecord.attributes.item.removed_at') %>:</label></td>
+        <td>
+          <%= t('advanced_search.from') %>
+          <%= text_field_tag 'removed_from', nil, :class => 'wide_date_text_field', :placeholder => "#{t('page.example')}: 2005, 2005-04-01" %>
+          <%= t('advanced_search.to') %>
+          <%= text_field_tag 'removed_to', nil, :class => 'wide_date_text_field', :placeholder => "#{t('page.example')}: 2011, 2011-03-31" %>
+        </td>
+      </tr>
+    <% end %>
     <tr>
       <td><label><%= t('page.number_of_pages') -%>:</label></td>
         <td><%= t('advanced_search.from') -%> <%= text_field_tag 'number_of_pages_at_least', nil, :size => 5 -%>
