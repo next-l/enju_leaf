@@ -158,4 +158,31 @@ module ManifestationsHelper
     end
   end
 
+  def missing_issue_statuses
+    list = [[I18n.t('missing_issue.no_request'), 1],
+            [I18n.t('missing_issue.requested'), 2],
+            [I18n.t('missing_issue.received'), 3]]
+  end
+
+  def missing_status_facet(status, current_status, facet)
+    string = ''
+    current = missing_status(current_status)
+    string << "<strong>" if current
+    string << link_to("#{missing_status(status)}(" + facet.count.to_s + ")", url_for(params.merge(:page => nil, :missing_issue => status, :carrier_type => nil, :view => nil)))
+    string << "</strong>" if current
+    string.html_safe
+  end
+
+  def missing_status(num)
+    case num
+    when 1
+      I18n.t('missing_issue.no_request')
+    when 2
+      I18n.t('missing_issue.requested')
+    when 3
+      I18n.t('missing_issue.received')
+    else
+      nil
+    end
+  end
 end

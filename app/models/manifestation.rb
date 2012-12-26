@@ -226,6 +226,7 @@ class Manifestation < ActiveRecord::Base
       items.collect(&:bookbinder_id).compact
     end
     integer :id
+    integer :missing_issue
   end
 
   enju_manifestation_viewer
@@ -568,6 +569,14 @@ class Manifestation < ActiveRecord::Base
   end
 
 private
+  def self.get_missing_issue_list_pdf(manifestations, current_user)
+    manifestations.each do |m|
+      m.missing_issue = 2 unless m.missing_issue == 3
+      m.save!(:validate => false)
+    end
+    get_manifestation_list_pdf(manifestations, current_user)
+  end
+
   def self.get_manifestation_list_pdf(manifestations, current_user)
     report = ThinReports::Report.new :layout => File.join(Rails.root, 'report', 'searchlist.tlf')
 

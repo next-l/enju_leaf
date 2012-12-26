@@ -208,7 +208,7 @@ class ItemsController < ApplicationController
     if @item.reserve
       @item.reserve.revert_request rescue nil
     end
-    @item.destroy!
+    @item.destroy
 
     respond_to do |format|
       flash[:notice] = t('controller.successfully_deleted', :model => t('activerecord.models.item'))

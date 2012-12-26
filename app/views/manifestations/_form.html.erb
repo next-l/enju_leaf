@@ -179,6 +179,11 @@ jQuery(function(){
     <%= f.text_area :note, :class => 'resource_textarea' -%>
   </div>
 
+  <div class="field">
+    <%= f.label t('activerecord.attributes.manifestation.missing_issue') -%>
+    <%= f.select :missing_issue, missing_issue_statuses, :include_blank => true -%>
+  </div>
+
   <div class="actions">
     <%= hidden_field_tag :patron_id, @patron.id if @patron -%>
     <%= hidden_field_tag :manifestation_id, @original_manifestation.id if @original_manifestation -%>
