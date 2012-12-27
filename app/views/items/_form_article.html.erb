@@ -27,6 +27,8 @@
   <div class="field">
     <%= f.label t('activerecord.models.bookstore') %>
     <%= f.select(:bookstore_id, @bookstores.collect{|b| [b.name, b.id]}, :include_blank => true) %>
+    <%= text_field :search_bookstore, :input %>
+    <span id="error" style="color: red"></span>
   </div>
 
   <div class="field">
