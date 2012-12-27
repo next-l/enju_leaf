@@ -310,7 +310,7 @@ class Manifestation < ActiveRecord::Base
   end
 
   def article?
-    self.manifestation_type.is_article?
+    self.try(:manifestation_type).try(:is_article?)
   end
 
   def non_searchable?
