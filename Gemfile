@@ -35,6 +35,7 @@ end
 #end
 
 gem 'roo'
+gem 'axlsx'
 
 gem 'spinjs-rails'
 gem 'kaminari'

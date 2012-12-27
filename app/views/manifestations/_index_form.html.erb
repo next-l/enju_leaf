@@ -18,6 +18,7 @@
     <%- if SystemConfiguration.get("manifestations.users_show_output_button") or (user_signed_in? and current_user.has_role?('Librarian')) -%>
       <%= submit_tag t('page.output_pdf', :model => t('page.search_result')), :name => 'output_pdf' -%>
       <%= submit_tag t('page.output_tsv', :model => t('page.search_result')), :name => 'output_tsv'-%>
+      <%= submit_tag t('page.output_excelx', :model => t('page.search_result')), :name => 'output_excelx'-%>
     <%- end -%>
   </p>
 <%- end -%>

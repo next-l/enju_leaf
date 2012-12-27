@@ -142,6 +142,10 @@ defaults: &defaults
   # 検索結果一覧の出力(TSV)
   manifestation_list_print_tsv:
     filename: "manifestation_list.tsv"
+  # 検索結果一覧の出力(Excelx)
+  manifestation_list_print_excelx:
+    filename: "manifestation_list.xlsx"
+    fontname: "ＭＳ ゴシック"
   # 資料確認票のファイル名
   manifestation_locate_print:
     filename: "manifestation.pdf"
