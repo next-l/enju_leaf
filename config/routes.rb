@@ -257,6 +257,7 @@ EnjuLeaf::Application.routes.draw do
   resources :patron_relationships
 
   resources :bookstores do
+    get :search_bookstores, :on => :collection
     resources :order_lists
   end
   resources :areas
