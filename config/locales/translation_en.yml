@@ -237,6 +237,7 @@ en:
         mobile_phone: Mobile phone
         company_phone: Company phone
         fax: facsimile
+        extension: extension
         other_designation: Other designation
         place: Place
         date_of_birth: Date of birth

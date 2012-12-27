@@ -31,7 +31,19 @@ module UsersHelper
       t('activerecord.attributes.patron.mobile_phone')
     when 4
       t('activerecord.attributes.patron.company_phone')
+    when 5
+      t('activerecord.attributes.patron.extension')
     end
+  end
+
+  def telephone_types
+    types = {}
+    types.store(t('activerecord.attributes.patron.extension'), 5)
+    types.store(t('activerecord.attributes.patron.home_phone'), 1)
+    types.store(t('activerecord.attributes.patron.fax'),  2)
+    types.store(t('activerecord.attributes.patron.mobile_phone'), 3)
+    types.store(t('activerecord.attributes.patron.company_phone'), 4)
+    types
   end
 
   def library_facet(library, current_libraries, facet)
