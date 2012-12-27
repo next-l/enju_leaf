@@ -10,6 +10,18 @@ class Bookstore < ActiveRecord::Base
 
   paginates_per 10
 
+  searchable do
+    text :name, :address, :note
+    string :zip_code
+    string :telephone_number
+    string :fax_number
+    string :url
+    string :email
+    time :deleted_at
+    time :created_at
+    time :updated_at
+  end
+
   def self.import_bookstore(bookstore_name)
     bookstore = Bookstore.where(:name => bookstore_name).first rescue nil
     unless bookstore_name == ''
