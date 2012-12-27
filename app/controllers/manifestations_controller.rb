@@ -126,13 +126,18 @@ class ManifestationsController < ApplicationController
         end
       end
 
+      removed = @removed = true if params[:removed_from].present? or params[:removed_to].present? or params[:removed]
       search.build do
         fulltext query unless query.blank?
         order_by sort[:sort_by], sort[:order] unless oai_search
         order_by :created_at, :desc unless oai_search
         order_by :updated_at, :desc if oai_search
         with(:subject_ids).equal_to subject.id if subject
-        without(:non_searchable).equal_to true unless params[:all_manifestations]
+        unless removed
+          without(:non_searchable).equal_to true unless params[:all_manifestations]
+        else
+          with(:has_removed).equal_to true
+        end
         if series_statement
           with(:series_statement_id).equal_to series_statement.id
           #if series_statement.periodical?
@@ -616,10 +621,13 @@ class ManifestationsController < ApplicationController
       queries << "number_of_pages_sm:[#{number_of_pages[:at_least]} TO #{number_of_pages[:at_most]}]"
     end
     unless options[:pub_date_from].blank? and options[:pub_date_to].blank?
-      queries << set_pub_date(options)
+      queries << set_date('pub_date', options[:pub_date_from], options[:pub_date_to])
     end
     unless options[:acquired_from].blank? and options[:acquired_to].blank?
-      queries << set_acquisition_date(options)
+      queries << set_date('acquired_at', options[:acquired_from], options[:acquired_to])
+    end
+    unless options[:removed_from].blank? and options[:removed_to].blank?
+      queries << set_date('removed_at', options[:removed_from], options[:removed_to])
     end
     unless options[:manifestation_type].blank?
       queries << "manifestation_type_sm:#{options[:manifestation_type]}"
@@ -747,55 +755,22 @@ class ManifestationsController < ApplicationController
     end
   end
 
-  def set_pub_date(options)
-    options[:pub_date_from].to_s.gsub!(/\D/, '')
-    options[:pub_date_to].to_s.gsub!(/\D/, '')
-
-    pub_date = {}
-    if options[:pub_date_from].blank?
-      pub_date[:from] = "*"
+  def set_date(column, date_from, date_to)
+    date_from.to_s.gsub!(/\D/, '')
+    date_to.to_s.gsub!(/\D/, '')
+    date = {}
+    if date_from.blank?
+      date[:from] = "*"
     else
-      pub_date[:from] = Time.zone.parse(options[:pub_date_from]).beginning_of_day.utc.iso8601 rescue nil
-      unless pub_date[:from]
-        pub_date[:from] = Time.zone.parse(Time.mktime(options[:pub_date_from]).to_s).beginning_of_day.utc.iso8601
-      end
+      date[:from] = Time.zone.parse(date_from).beginning_of_day.utc.iso8601 rescue nil
+      date[:from] = Time.zone.parse(Time.mktime(date_from).to_s).beginning_of_day.utc.iso8601 unless date[:from]
     end
-
-    if options[:pub_date_to].blank?
-      pub_date[:to] = "*"
+    if date_to.blank?
+      date[:to] = "*"
     else
-      pub_date[:to] = Time.zone.parse(options[:pub_date_to]).end_of_day.utc.iso8601 rescue nil
-      unless pub_date[:to]
-        pub_date[:to] = Time.zone.parse(Time.mktime(options[:pub_date_to]).to_s).end_of_year.utc.iso8601
-      end
+      date[:to] = Time.zone.parse(date_to).end_of_day.utc.iso8601 rescue nil
+      date[:to] = Time.zone.parse(Time.mktime(date_to).to_s).beginning_of_day.utc.iso8601 unless date[:to] 
     end
-    #query = "#{query} date_of_publication_d:[#{pub_date[:from]} TO #{pub_date[:to]}]"
-    return "pub_date_sm:[#{pub_date[:from]} TO #{pub_date[:to]}]"
-  end
-
-  def set_acquisition_date(options)
-    options[:acquired_from].to_s.gsub!(/\D/, '')
-    options[:acquired_to].to_s.gsub!(/\D/, '')
-
-    acquisition_date = {}
-    if options[:acquired_from].blank?
-      acquisition_date[:from] = "*"
-    else
-      acquisition_date[:from] = Time.zone.parse(options[:acquired_from]).beginning_of_day.utc.iso8601 rescue nil
-      unless acquisition_date[:from]
-        acquisition_date[:from] = Time.zone.parse(Time.mktime(options[:acquired_from]).to_s).beginning_of_day.utc.iso8601
-      end
-    end
-
-    if options[:acquired_to].blank?
-      acquisition_date[:to] = "*"
-    else
-      acquisition_date[:to] = Time.zone.parse(options[:acquired_to]).end_of_day.utc.iso8601 rescue nil
-      unless acquisition_date[:to]
-        acquisition_date[:to] = Time.zone.parse(Time.mktime(options[:acquired_to]).to_s).end_of_year.utc.iso8601
-      end
-    end
-    #query = "#{query} acquired_at_d:[#{acquisition_date[:from]} TO #{acquisition_date[:to]}]"
-    return "acquired_at_sm:[#{acquisition_date[:from]} TO #{acquisition_date[:to]}]"
+    return "#{column}_sm:[#{date[:from]} TO #{date[:to]}]"
   end
 end

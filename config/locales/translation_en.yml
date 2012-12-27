@@ -490,6 +490,7 @@ en:
         created_at: Created at
         removed_at: Removed at
         rank: Rank
+        non_searchable: Non Searchable
       loss_item:
         user_id: User number
         item_id: Loss item 
