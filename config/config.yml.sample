@@ -146,6 +146,9 @@ defaults: &defaults
   manifestation_list_print_excelx:
     filename: "manifestation_list.xlsx"
     fontname: "ＭＳ ゴシック"
+  # 欠号リストの一覧の出力(PDF)
+  missing_list_print_pdf:
+    filename: "missing_list.pdf"
   # 資料確認票のファイル名
   manifestation_locate_print:
     filename: "manifestation.pdf"
