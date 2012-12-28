@@ -1,0 +1,25 @@
+<%- if @manifestations -%>
+  <div style="color: green"><%= flash[:message] -%></div>
+    <table class="index">
+      <tr>
+        <th class='binding_item_title'><%= t('activerecord.attributes.manifestation.original_title') %></th>
+        <th><%= t('activerecord.attributes.manifestation.pub_date') %></th>
+        <th><nobr><%= t('activerecord.attributes.item.item_identifier') %></nobr></th>
+        <th></th>
+      </tr>
+
+      <%- @manifestations.each_with_index do |manifestation, i| -%>
+        <% binding_items(manifestation, @binder.id, @add).each do |item| %>
+          <tr class="line<%= cycle("0", "1") -%>">
+            <td><%= link_to manifestation.original_title, manifestation -%></td>
+            <td><%= manifestation.pub_date %></td>
+            <td><%= link_to item.item_identifier, item if item.item_identifier -%></td>
+            <td><%- if @add && item.bookbinder_id.nil?%>
+              <%= link_to link_to image_tag('icons/arrow_divide.png', :size => '16x16', :alt => t('page.add'), :title => t('tooltip.add')), add_binding_item_bookbindings_path(:bookbinder_id => @binder.manifestation.id, :item_id => item.id) %>
+            <%- end -%></td>
+          </tr>
+        <%- end -%>
+      <%- end -%>
+    </table>
+  </div>
+<%- end -%>

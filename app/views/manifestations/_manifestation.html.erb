@@ -54,7 +54,7 @@
                     <% when @index_patron[:publisher] %>
                       <%= link_to link_to image_tag('icons/arrow_divide.png', :size => '16x16', :alt => t('page.add'), :title => t('tooltip.add_derivation')), new_patron_produce_path(@index_patron[:publisher], :manifestation_id => manifestation.id) unless manifestation.publishers.include?(@index_patron[:publisher]) -%>
                     <% when @series_statement %>
-                      <%= link_to link_to image_tag('icons/arrow_divide.png', :size => '16x16', :alt => t('page.add'), :title => t('tooltip.add_derivation')), edit_series_statement_manifestation_path(@series_statement, manifestation) -%>
+                      <%= link_to link_to image_tag('icons/arrow_divide.png', :size => '16x16', :alt => t('page.add'), :title => t('tooltip.add')), edit_series_statement_manifestation_path(@series_statement, manifestation) -%>
                     <% when @manifestation %>
                       <%= link_to link_to image_tag('icons/arrow_divide.png', :size => '16x16', :alt => t('page.add'), :title => t('tooltip.add_derivation')), new_manifestation_manifestation_relationship_path(@manifestation, :child_id => manifestation.id) unless @manifestation.derived_manifestations.include?(manifestation) or @manifestation == manifestation -%>
                     <% else %>

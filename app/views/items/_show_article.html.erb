@@ -8,6 +8,19 @@
     <%= render 'manifestations/title', :manifestation => @item.manifestation -%>
   <%- end -%>
 
+<%- if @item.bookbinder_id -%>
+  <p>
+    <strong><%= t('bookbinding.binded') %>:</strong>
+    <%= link_to @item.try(:binder_item).try(:manifestation).try(:original_title), manifestation_path(@item.try(:binder_item).try(:manifestation)) %>
+    (<%= link_to @item.binder_item.item_identifier || t('activerecord.attributes.item.item_identifier'), item_path(@item.binder_item) %>)
+  </p>
+<%- elsif @item.bookbinder -%>
+  <p>
+    <strong><%= t('bookbinding.binder') %>: </strong>
+    <%= link_to t('bookbinding.binding_items'), {:controller => 'manifestations', :action => 'index', :bookbinder_id => @item.manifestation.id} %>
+  </p>
+<%- end -%>
+
 <p>
   <strong><%= t('activerecord.models.shelf') -%>:</strong>
   <%= link_to @item.shelf_display_name.localize, @item.shelf -%>
@@ -138,6 +151,9 @@
       <%- if user_signed_in? and current_user.has_role?('Librarian') -%>
         <li><%= link_to t('item.add_new_copy'), new_manifestation_item_path(@item.manifestation) -%></li>
       <%- end -%>
+    <%- end -%>
+    <%- if @item.manifestation.bookbinder && -%>
+      <li><%= link_to(t('manifestation.undo_binding'), {:controller => 'bookbindings', :action => 'bind_undo', :item_id => @item.id}, :confirm => t('page.are_you_sure')) -%></li>
     <%- end -%>
   </ul>
 </div>

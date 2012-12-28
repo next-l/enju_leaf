@@ -236,6 +236,11 @@ class Manifestation < ActiveRecord::Base
     string :exinfo_3
     string :exinfo_4
     string :exinfo_5
+    integer :bookbinder_id, :multiple => true do
+      items.collect(&:bookbinder_id).compact
+    end
+    integer :id
+    integer :missing_issue
   end
 
   enju_manifestation_viewer
@@ -256,8 +261,8 @@ class Manifestation < ActiveRecord::Base
   validates_presence_of :carrier_type, :language, :manifestation_type, :country_of_publication
   validates_associated :carrier_type, :language, :manifestation_type, :country_of_publication
   before_validation :set_language, :if => :during_import
-  before_validation :set_manifestation_type
   before_validation :uniq_options
+  before_validation :set_manifestation_type, :set_country_of_publication
   before_save :set_series_statement
 
   after_save :index_series_statement
@@ -534,6 +539,14 @@ class Manifestation < ActiveRecord::Base
     self.subjects.uniq!
   end
 
+  def set_manifestation_type
+    self.manifestation_type = ManifestationType.find(1) if self.manifestation_type.blank?
+  end
+  
+  def set_country_of_publication
+    self.country_of_publication = Country.where(:name => 'Japan').first || Country.find(1) if self.country_of_publication.blank?
+  end
+
   def last_checkout_datetime
     Manifestation.find(:last, :include => [:items, :items => :checkouts], :conditions => {:manifestations => {:id => self.id}}, :order => 'items.created_at DESC').items.first.checkouts.first.created_at rescue nil
   end
@@ -737,6 +750,14 @@ private
     row << manifestation.pub_date
 
     return row
+  end 
+
+  def self.get_missing_issue_list_pdf(manifestations, current_user)
+    manifestations.each do |m|
+      m.missing_issue = 2 unless m.missing_issue == 3
+      m.save!(:validate => false)
+    end
+    get_manifestation_list_pdf(manifestations, current_user)
   end
 
   def self.get_manifestation_list_pdf(manifestations, current_user)

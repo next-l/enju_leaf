@@ -1,0 +1,18 @@
+<div id="content_detail" class="ui-corner-all">
+<h1 class="title"><%= t('page.listing', :model => t('activerecord.models.binding_item')) -%></h1>
+<div id="content_list">
+
+<div id="binding_item_list">
+  <%= render 'list' -%>
+</div>
+
+<br />
+
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all">
+<ul>
+  <li><%= link_to t('page.back'), page_extensions_path -%></li>
+</ul>
+</div>

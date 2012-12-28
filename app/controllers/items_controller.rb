@@ -152,11 +152,11 @@ class ItemsController < ApplicationController
   # POST /items.json
   def create
     @item = Item.new(params[:item])
-    manifestation = Manifestation.find(@item.manifestation_id)
+    @manifestation = Manifestation.find(@item.manifestation_id)
 
     respond_to do |format|
       if @item.save
-        @item.manifestation = manifestation 
+        @item.manifestation = @manifestation 
         Item.transaction do
           #if @item.shelf
           #  @item.shelf.library.patron.items << @item
@@ -225,10 +225,10 @@ class ItemsController < ApplicationController
   # DELETE /items/1.json
   def destroy
     manifestation = @item.manifestation
-    @item.destroy
     if @item.reserve
       @item.reserve.revert_request rescue nil
     end
+    @item.destroy
 
     respond_to do |format|
       flash[:notice] = t('controller.successfully_deleted', :model => t('activerecord.models.item'))

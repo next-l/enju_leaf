@@ -7,3 +7,4 @@ solr/data/*
 solr/pids
 vendor/bundle/*
 private/
+db/schema.rb

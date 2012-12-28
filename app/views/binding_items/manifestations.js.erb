@@ -1,0 +1,8 @@
+$('#result').html(
+    "<%= escape_javascript(render :partial => 'binding_items/manifestation_list') %>"
+);
+var selector = $("div#manifestations").find("input");
+selector.each(function() {
+ var value = $(this).val();
+ $('a#item_' + value).hide();
+});

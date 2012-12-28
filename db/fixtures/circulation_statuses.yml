@@ -2,7 +2,7 @@
 circulation_status_00001: 
   name: Available For Pickup  
   display_name: "en:Available For Pickup\r\n\
-    ja:持ち出し可能"
+    ja:予約取り置き済み"
   id: 1
   note: ""
   position: 1
@@ -101,7 +101,7 @@ circulation_status_00015:
   display_name: "en:Binded\r\n\
     ja:製本済み"
   id: 15
-  position: 16
+  position: 15
 circulation_status_00016:
   name: In Factory
   display_name: "en:In Factory\r\n\

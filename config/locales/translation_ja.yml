@@ -177,6 +177,8 @@ ja:
       access_log: アクセス件数
       keyword_count: 検索キーワード
       numbering: 採番
+      bookbinding: 製本処理
+      binding_item: 製本資料
 
     attributes:
       numbering:
@@ -826,6 +828,7 @@ ja:
         contributor: 協力者・編者
         publisher: 出版者
         subject: 件名
+        missing_issue: 欠号管理
       user_group:
         name: 名前
         display_name: 表示名
@@ -1484,6 +1487,7 @@ ja:
     output_csv: "%{model}の出力(CSV)"
     output_tsv: "%{model}の出力(TSV)"
     output_excelx: "%{model}の出力(Excel 2007以降)"
+    output_request: "欠号未請求リストの出力(PDF)"
     patron_management: "人物・団体の管理"
     user_management: "利用者の管理"
     back_to: "%{model}の一覧に戻る"
@@ -1587,6 +1591,7 @@ ja:
     add_derivation: 派生資料を追加
     answer: 回答
     serial: 定期刊行物
+    add: 追加
 
   exstatistics:
     report: 帳票
@@ -1668,6 +1673,12 @@ ja:
     add_derivation: "派生資料を追加"
     delete_attachment: "添付ファイルを削除(アップロード不可)"
     delim_semicolon: "(セミコロン;で区切ると複数指定できます。)"
+    binding_status: "製本雑誌"
+    undo_binding: "製本解除"
+  missing_issue:
+    no_request: 未請求
+    requested: 請求済
+    received: 受入済
   item:
     current_checkout: "現在の貸出"
     donor: "寄贈者"
@@ -1698,6 +1709,9 @@ ja:
     spare: 予備資料
     set_remove_reason: "除籍理由の設定"
     select_remove_reason: "除籍理由を選択してください。"
+    binding_status: 製本ステータス
+    binding_item: 製本雑誌
+    not_found: "資料が見つかりません"
   patron:
     library_group_patron: "%{library_group_name} の人物・団体"
     work_patron: "%{work_title} の著作者"
@@ -1850,6 +1864,11 @@ ja:
     completed_reserve: "取り置き済みの予約"
     in_process_reserve: "作業中の予約"
     update: "予約の更新"
+    retain: "予約資料の取り置き"
+    add: 登録
+    cannot_retain_item: "取り置きのできない資料です。"
+    not_found: "予約が見つかりません。"
+    retain_error: "取り置き処理に失敗しました。"
   purchase_request:
     user_purchase_request: "%{login_name} さんの購入依頼資料"
     library_group_purchase_request: "%{library_group_name} での購入依頼資料"
@@ -2344,6 +2363,18 @@ ja:
     top_access: トップ画面
     manifestations_index: 資料の一覧画面
     materials_show: 資料の閲覧画面
+  binding_item:
+    bind: "上記の資料を製本する"
+    add: "追加"
+    search_items: "製本対象資料を検索してください。"
+  bookbinding:
+    bookbinding_completed: "製本処理が完了しました。"
+    unbinded: "製本を解除しました。"
+    added: "資料を製本資料に追加しました。"
+    binding_items: "製本した資料一覧"
+    binded: "製本済み"
+    binder: "製本資料"
+    status: "製本ステータス"
 
   opac:
     finish: 終わる

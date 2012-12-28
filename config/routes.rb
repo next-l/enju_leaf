@@ -286,6 +286,9 @@ EnjuLeaf::Application.routes.draw do
 
   resources :reserves do
     post :output, :on => :member
+    get :retain, :on => :collection
+    post :retain_item, :on => :collection
+    post :informed, :on => :member
   end
 
   resources :subject_types
@@ -343,6 +346,7 @@ EnjuLeaf::Application.routes.draw do
   resources :manifestation_relationships
 
   resources :items do
+    resources :binding_items
     resources :checked_items
     resources :inter_library_loans
     resources :item_has_use_restrictions
@@ -418,6 +422,14 @@ EnjuLeaf::Application.routes.draw do
 
   resources :access_logs
   resources :keyword_counts
+
+  resources :bookbindings do
+    resources :binding_items
+    get :bind_undo, :on => :collection
+    get :add_binding_item, :on => :collection
+  end
+  resources :binding_items
+  match '/bookbindings/:bookbinder_id/manifestations' => 'manifestations#index'
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

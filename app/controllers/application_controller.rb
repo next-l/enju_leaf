@@ -268,6 +268,10 @@ class ApplicationController < ActionController::Base
     @reserve_information_types = Reserve.information_type_ids
   end
 
+  def get_bookbinding
+    @bookbinding = Bookbinding.find(params[:bookbinding_id]) if params[:bookbinding_id]
+  end
+
   def convert_charset
     case params[:format]
     when 'csv'
@@ -355,6 +359,7 @@ class ApplicationController < ActionController::Base
       subject = params[:subject]
       subject_by_term = Subject.where(:term => params[:subject]).first
       @subject_by_term = subject_by_term
+      missing_status = params[:missing_issue]
 
       search.build do
         with(:publisher_ids).equal_to patron.id if patron
@@ -379,6 +384,9 @@ class ApplicationController < ActionController::Base
         end
         unless subject.blank?
           with(:subject).equal_to subject_by_term.term
+        end
+        unless missing_status.blank?
+          with(:missing_issue).equal_to missing_status
         end
       end
     end

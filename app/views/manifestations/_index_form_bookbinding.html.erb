@@ -1,12 +1,19 @@
-<%= form_for :manifestations, :html => {:method => 'get'} do -%>
+<h2 class="resource_title">
+  [M]
+  <%= link_to @binder.manifestation.original_title, @binder.manifestation, :itemprop => 'name' -%>
+</h2>
+
+<%= form_for :manifestations, :url => {:controller => 'manifestations', :action => 'index', :bookbinder_id => @binder.manifestation.id}, :html => {:method => 'get'} do -%>
   <p>
     <%= t('page.search_term') -%>:
     <%= search_field_tag 'query', h(@query), {:id => 'search_form_top', :class => 'search_form', :placeholder => t('page.search_term')} -%>
-    <%= hidden_field_tag 'reservable', h(@reservable) if @reservable -%>
-    <%= hidden_field_tag 'user_id', params[:user_id] if params[:user_id] -%>
-    <%= hidden_field_tag 'all_manifestations', params[:all_manifestations] if params[:all_manifestations] %>
-    <%= hidden_field_tag 'removed', true if @removed %>
+    <%#= hidden_field_tag 'reservable', h(@reservable) if @reservable -%>
+    <%#= hidden_field_tag 'user_id', params[:user_id] if params[:user_id] -%>
+    <% if can? :update, Manifestation %>
+      <%= render 'page/add' %>
+    <% end %>
     <%= submit_tag t('page.search') -%>
+     
     <br />
     <%= link_to t('page.advanced_search'), page_advanced_search_path(:user_id => params[:user_id]) -%>
     <br />
@@ -15,12 +22,9 @@
     <%= hidden_field_tag 'library', params[:library] if params[:library] -%>
     <%= hidden_field_tag 'reservable', params[:reservable] if params[:reservable] -%>
     <%= hidden_field_tag 'sort_by', params[:sort_by] if params[:sort_by] -%>
-    <%= hidden_field_tag 'missing_issue', params[:missing_issue] if params[:missing_issue] -%>
     <%- if SystemConfiguration.get("manifestations.users_show_output_button") or (user_signed_in? and current_user.has_role?('Librarian')) -%>
       <%= submit_tag t('page.output_pdf', :model => t('page.search_result')), :name => 'output_pdf' -%>
       <%= submit_tag t('page.output_tsv', :model => t('page.search_result')), :name => 'output_tsv'-%>
-      <%= submit_tag t('page.output_excelx', :model => t('page.search_result')), :name => 'output_excelx'-%>
-      <% if params[:missing_issue] %><%= submit_tag t('page.output_request', :model => t('page.search_result')), :name => 'output_request'-%><% end %>
     <%- end -%>
   </p>
 <%- end -%>

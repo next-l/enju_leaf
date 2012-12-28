@@ -29,6 +29,7 @@ class ManifestationsController < ApplicationController
       unless current_user.has_role?('Librarian')
         access_denied; return 
       end
+      @add = true
     end
 
     per_page = per_pages[0] if per_pages
@@ -114,6 +115,7 @@ class ManifestationsController < ApplicationController
       patron = get_index_patron
       @index_patron = patron
 
+      @binder = binder = Manifestation.find(params[:bookbinder_id]).try(:items).try(:first) if params[:bookbinder_id]
       unless params[:mode] == 'add'
         manifestation = @manifestation if @manifestation
         subject = @subject if @subject
@@ -150,6 +152,8 @@ class ManifestationsController < ApplicationController
           with(:periodical).equal_to false
         end
         facet :reservable
+        with(:bookbinder_id).equal_to binder.id if params[:mode] != 'add' && binder
+        without(:id, binder.manifestation.id) if binder
       end
       search = make_internal_query(search)
       search.data_accessor_for(Manifestation).select = [
@@ -170,7 +174,7 @@ class ManifestationsController < ApplicationController
         :carrier_type_id,
         :created_at,
         :note
-      ] if params[:format] == 'html' or params[:format].nil?
+      ] if (params[:format] == 'html' or params[:format].nil?) && params[:missing_issue].nil?
       # catch query error 
       begin
         all_result = search.execute
@@ -194,7 +198,7 @@ class ManifestationsController < ApplicationController
       end
 
       # output
-      if params[:output_pdf] or params[:output_tsv] or params[:output_excelx]
+      if params[:output_pdf] or params[:output_tsv] or params[:output_excelx] or params[:output_request]
         manifestations_for_output = search.build do
           paginate :page => 1, :per_page => all_result.total
         end.execute.results
@@ -207,6 +211,9 @@ class ManifestationsController < ApplicationController
         elsif params[:output_excelx]
           excel_filename = Manifestation.get_manifestation_list_excelx(manifestations_for_output, current_user)
           send_file excel_filename, :filename => Setting.manifestation_list_print_excelx.filename, :type => 'application/octet-stream'
+        elsif params[:output_request]
+          data = Manifestation.get_missing_issue_list_pdf(manifestations_for_output, current_user)
+          send_data data.generate, :filename => Setting.missing_list_print_pdf.filename
         end
         return 
       end
@@ -243,7 +250,8 @@ class ManifestationsController < ApplicationController
           facet :language
           facet :subject_ids
           facet :manifestation_type
-          paginate :page => page.to_i, :per_page => per_page
+          facet :missing_issue
+          paginate :page => page.to_i, :per_page => per_page unless request.xhr?
         end
       end
       # catch query error 
@@ -269,6 +277,7 @@ class ManifestationsController < ApplicationController
         @language_facet = search_result.facet(:language).rows
         @library_facet = search_result.facet(:library).rows
         @manifestation_type_facet = search_result.facet(:manifestation_type).rows
+        @missing_issue_facet = search_result.facet(:missing_issue).rows
       end
 
       @search_engines = Rails.cache.fetch('search_engine_all'){SearchEngine.all}
@@ -328,7 +337,7 @@ class ManifestationsController < ApplicationController
       }
       format.mods
       format.json { render :json => @manifestations }
-      format.js
+      format.js { render 'binding_items/manifestations'}
     end
   #rescue QueryError => e
   #  render :template => 'manifestations/error.xml', :layout => false
@@ -548,7 +557,7 @@ class ManifestationsController < ApplicationController
   # DELETE /manifestations/1
   # DELETE /manifestations/1.json
   def destroy
-    @manifestation.destroy
+    @manifestation.destroy!
     flash[:notice] = t('controller.successfully_deleted', :model => t('activerecord.models.manifestation'))
 
     respond_to do |format|

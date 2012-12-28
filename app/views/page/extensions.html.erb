@@ -30,10 +30,14 @@
       </ul>
       <br />
       <ul>
+        <li><%= link_to t('activerecord.models.bookbinding'), {:action=>"create", :controller=>"bookbindings"}, :method => :post -%></li>
+      </ul>
+      <br />
+      <ul>
         <li><%= link_to t('activerecord.models.loss_item'), loss_items_path -%></li>
         <li><%= link_to t('activerecord.models.reminder_list'), reminder_lists_path -%></li></div>
       </ul>
-  </div>
+    </div>
 
-</div>
+  </div>
 </div>

@@ -42,6 +42,8 @@
     <%= render 'index_form_manifestation' %>
   <% when @series_statement %>
     <%= render 'index_form_series_statement' %>
+  <% when @binder %>
+    <%= render 'index_form_bookbinding' %> 
   <% else %>
     <%= render 'index_form' %>
   <% end %>

@@ -49,13 +49,16 @@ class Item < ActiveRecord::Base
   has_one :resource_import_result
   has_many :libcheck_tmp_items
   has_many :expenses
+  has_many :binding_items, :class_name => 'Item', :foreign_key => 'bookbinder_id'
+  belongs_to :binder_item, :class_name => 'Item', :foreign_key => 'bookbinder_id'
 
   validates_associated :circulation_status, :shelf, :bookstore, :checkout_type, :retention_period
   validates_presence_of :circulation_status, :checkout_type, :retention_period, :rank
   validate :is_original?
   before_validation :set_circulation_status, :on => :create
-  before_save :set_use_restriction, :check_remove_item
-  after_save :check_price, :reindex
+  before_save :set_use_restriction, :check_remove_item, :set_retention_period, :except => :delete
+  after_save :check_price, :except => :delete
+  after_save :reindex
 
   #enju_union_catalog
   has_paper_trail
@@ -77,6 +80,7 @@ class Item < ActiveRecord::Base
     integer :rank
     integer :remove_reason_id
     boolean :non_searchable
+    integer :bookbinder_id
     time :created_at
     time :updated_at
   end
@@ -240,6 +244,25 @@ class Item < ActiveRecord::Base
 
       item_ranks = manifestation.items.inject([]){ |list, i| list << i.rank.to_i }
       errors[:base] << I18n.t('item.already_original_item_created') if item_ranks.include?(0)
+    end
+  end
+
+  def set_retention_period
+    if self.retention_period.blank?
+      self.retention_period = RetentionPeriod.find(1)
+    end
+  end
+
+  def item_bind(bookbinder_id)
+    Item.transaction do
+      self.bookbinder_id = bookbinder_id
+      self.circulation_status = CirculationStatus.where(:name => 'Binded').first
+      if self.save
+        self.manifestation.index
+        return true 
+      else
+        return false
+      end
     end
   end
 

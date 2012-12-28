@@ -1,5 +1,9 @@
 <table class="index" id="manifestation_list">
-  <%= render manifestations %>
+  <%- if @binder -%>
+    <%= render 'binding_items' %>
+  <%- else %>
+    <%= render manifestations %>
+  <%- end %>
 </table>
 
 <%= paginate(manifestations) -%>
