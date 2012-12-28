@@ -114,8 +114,9 @@
               <li><%= link_to t('manifestation.edit_contributor'), expression_patrons_path(@manifestation) -%></li>
               <li><%= link_to t('manifestation.edit_publisher'), manifestation_patrons_path(@manifestation) -%></li>
               <%- if @manifestation.serial? -%>
-                <li><%= link_to t('manifestation.add_next_issue'), new_series_statement_manifestation_path(@manifestation.series_statement) if @manifestation.series_statement -%></li>
+                <li><%= link_to t('manifestation.add_next_issue'), new_series_statement_manifestation_path(@manifestation.series_statement, :manifestation_id => @manifestation, :mode => 'new_issue') if @manifestation.series_statement -%></li>
               <%- end -%>
+              <li><%= link_to t('manifestation.copy'), new_manifestation_path(:manifestation_id => @manifestation) -%></li>
             </ul>
           </li>
           <%- if @manifestation.items.blank? && !@manifestation.ordered? -%>

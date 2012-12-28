@@ -29,7 +29,8 @@ function displayArticleTitle(article_title) {
 </script>
 
 <%= render 'page/required_field' %>
-<%= simple_form_for(@manifestation, :html => { :multipart => true }) do |f| -%>
+<%#= simple_form_for(@manifestation, :html => { :multipart => true }) do |f| -%>
+<%= form_for(@manifestation, :html => { :multipart => true }) do |f| -%>
   <%= f.error_messages -%>
 
   <div class="field">
@@ -65,6 +66,19 @@ function displayArticleTitle(article_title) {
   <div class="field" id="article_title_field">
     <%= f.label :article_title %><br />
     <%= f.text_field :article_title, :class => 'resource_title' %>
+  </div>
+
+  <div class="field">
+    <%= f.label :creator -%><%= t('manifestation.delim_semicolon') -%><br />
+    <%= f.text_field :creator, :value => @creator -%>
+  </div>
+  <div class="field">
+    <%= f.label :contributor -%><%= t('manifestation.delim_semicolon') -%><br />
+    <%= f.text_field :contributor, :value => @contributor -%>
+  </div>
+  <div class="field">
+    <%= f.label :publisher -%><%= t('manifestation.delim_semicolon') -%><br />
+    <%= f.text_field :publisher, :value => @publisher -%>
   </div>
 
   <div class="field">
@@ -209,9 +223,18 @@ function displayArticleTitle(article_title) {
     <%= f.text_area :note, :class => 'resource_textarea' -%>
   </div>
 
+  <div class="field">
+    <%= f.label :subject -%><%= t('manifestation.delim_semicolon') -%><br />
+    <%= f.text_field :subject, :value => @subject -%>
+  </div>
+
   <div class="actions">
     <%= hidden_field_tag :patron_id, @patron.id if @patron -%>
     <%= hidden_field_tag :manifestation_id, @original_manifestation.id if @original_manifestation -%>
+    <%= hidden_field_tag :creators, @creators if @creators -%>
+    <%= hidden_field_tag :contributors, @contributors if @contributors -%>
+    <%= hidden_field_tag :publishers, @publishers if @publishers -%>
+    <%= hidden_field_tag :subjects, @subjects if @subjects -%>
     <%= f.submit :disable_with => t('page.wait') %>
   </div>
   <%= javascript_tag("$('#manifestation_original_title').focus()") -%>

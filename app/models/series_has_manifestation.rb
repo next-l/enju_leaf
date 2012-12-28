@@ -6,6 +6,7 @@ class SeriesHasManifestation < ActiveRecord::Base
   validates_presence_of :series_statement_id, :manifestation_id
   validates_uniqueness_of :manifestation_id, :scope => :series_statement_id
   validate :set_series_statement, :set_manifestation
+  attr_accessible :series_statement_id, :manifestation_id
 
   acts_as_list :scope => :series_statement_id
 

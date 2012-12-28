@@ -283,6 +283,23 @@ class Patron < ActiveRecord::Base
     return ['他', 'et-al.']
   end
 
+  def self.add_patrons(patron_names)
+    names = patron_names.split(/;/)
+    list = []
+    names.each do |name|
+      name.strip!
+      next if name.empty?
+      patron = Patron.find(:first, :conditions => ["full_name=?", name])
+      if patron.nil?
+        patron = Patron.new
+        patron.full_name = name
+        patron.save
+      end
+      list << patron
+    end
+    list
+  end
+
   def patrons
     self.original_patrons + self.derived_patrons
   end
