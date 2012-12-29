@@ -164,7 +164,8 @@ module SystemConfigurationsHelper
        string << t('system_configuration.boolean_not_display') if state == 'false'
      # => do
      when 'patron.check_duplicate_user',
-          'library_checks.auto_checkin'
+          'library_checks.auto_checkin',
+          'no_operation_logout'
        string << t('system_configuration.boolean_do') if state == 'true'
        string << t('system_configuration.boolean_not_do') if state == 'false'
      # => send
