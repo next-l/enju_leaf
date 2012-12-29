@@ -43,10 +43,14 @@
       }
       if (nooperation_cnt > <%= SystemConfiguration.get("no_operation_counter") %>) {
       <% if user_signed_in? %>      
-        <% if current_user.has_role?('Librarian') %>      
-          location.href = "<%= root_path %>";
-        <% else %>
+        <% if SystemConfiguration.get("no_operation_logout") %>
           location.href = "<%= destroy_user_session_path %>";
+        <% else %>
+          <% if current_user.has_role?('Librarian') %>      
+            location.href = "<%= root_path %>";
+          <% else %>
+            location.href = "<%= destroy_user_session_path %>";
+          <% end %>
         <% end %>
       <% else %>
         location.href = "<%= root_path %>";

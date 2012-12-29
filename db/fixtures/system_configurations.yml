@@ -441,3 +441,18 @@ system_configuration_00063:
   typename: Boolean
   description: "資料の詳細検索時、各項目に関する検索方式"
   category: 'manifestation'
+system_configuration_00064:
+  id: 64
+  keyname: no_operation_logout
+  v: "false"
+  typename: Boolean
+  description: "無操作待機時間で自動でログアウトする"
+  category: 'general'
+system_configuration_00065:
+  id: 65
+  keyname: checkouts_print.auto_print
+  v: "false"
+  typename: Boolean
+  description: "貸出票を自動印刷するか？"
+  category: 'checkout'
+
