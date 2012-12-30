@@ -277,7 +277,7 @@ GEM
       websocket
     lisbn (0.1.2)
       nori
-    listen (0.6.0)
+    listen (0.7.0)
     lumberjack (1.0.2)
     mail (2.4.4)
       i18n (>= 0.4.0)
@@ -300,7 +300,7 @@ GEM
     options (2.3.0)
       fattr
     orm_adapter (0.4.0)
-    paper_trail (2.6.4)
+    paper_trail (2.7.0)
       activerecord (~> 3.0)
       railties (~> 3.0)
     paperclip (3.4.0)
@@ -507,14 +507,13 @@ DEPENDENCIES
   addressable
   annotate (~> 2.5)
   astrails-safe
-  attribute_normalizer (~> 1.1)
   awesome_nested_set (~> 2.1)
   aws-sdk
   bigdecimal
   charlock_holmes
   client_side_validations (~> 3.2)
   coffee-rails (~> 3.2.1)
-  dalli (~> 2.3)
+  dalli (~> 2.6)
   devise-encryptable
   dynamic_form
   enju_biblio (~> 0.1.0.pre13)
@@ -548,10 +547,8 @@ DEPENDENCIES
   jquery-ui-rails
   jruby-openssl
   kgio
-  library_stdnums
   mobile-fu
-  paper_trail (~> 2.6)
-  paperclip (~> 3.3)
+  paper_trail (~> 2.7)
   paperclip-meta (~> 0.4.3)
   parallel_tests (~> 0.8)
   pg
