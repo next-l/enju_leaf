@@ -1,7 +1,21 @@
+<<<<<<< HEAD:config/initializers/geocoder.rb
 Geocoder.configure do |config|
   ## Configurable parameters: if you wish to change some configurable
   ## behaviour in Geocoder, feel free to uncomment the following lines
   ## and provide custom parameters.
+=======
+Geocoder.configure(
+  # geocoding options
+  # :timeout      => 3,           # geocoding service timeout (secs)
+  :lookup       => :google,     # name of geocoding service (symbol)
+  # :language     => :en,         # ISO-639 language code
+  :use_https    => true,       # use HTTPS for lookup requests? (if supported)
+  # :http_proxy   => nil,         # HTTP proxy server (user:pass@host:port)
+  # :https_proxy  => nil,         # HTTPS proxy server (user:pass@host:port)
+  # :api_key      => nil,         # API key for geocoding service
+  # :cache        => nil,         # cache object (must respond to #[], #[]=, and #keys)
+  # :cache_prefix => "geocoder:", # prefix (string) to use for all cache keys
+>>>>>>> 604d407... added sample geocoder file:config/initializers/geocoder.rb.sample
 
   # config.timeout      = 3           # geocoding service timeout (secs)
   # config.lookup       = :google     # name of geocoding service (symbol)

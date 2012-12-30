@@ -14,6 +14,7 @@ EOF
     "config/application.yml",
     "config/environments/production.rb",
     "config/initializers/devise.rb",
+    "config/initializers/geocoder.rb",
     "config/resque.yml",
     "config/schedule.rb",
     "config/sunspot.yml",
