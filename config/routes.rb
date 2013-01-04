@@ -418,6 +418,8 @@ EnjuLeaf::Application.routes.draw do
   resources :access_logs
   resources :keyword_counts
 
+  resources :checkout_histories
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

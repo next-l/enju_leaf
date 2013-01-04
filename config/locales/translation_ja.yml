@@ -174,9 +174,11 @@ ja:
       reminder_list: 督促
       expense: 購入情報
       budget_and_results_managements: 予算実績対比 
+      manifestation_type: 資料区分
       access_log: アクセス件数
       keyword_count: 検索キーワード
       numbering: 採番
+      checkout_history: 今日の操作履歴
 
     attributes:
       numbering:
