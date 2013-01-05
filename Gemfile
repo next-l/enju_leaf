@@ -97,11 +97,11 @@ group :development, :test do
   gem 'spork-rails'
   gem 'timecop'
   gem 'sunspot-rails-tester', :git => 'git://github.com/justinko/sunspot-rails-tester.git'
-  gem 'vcr', '~> 2.3'
+  gem 'vcr', '~> 2.4'
   gem 'fakeweb'
   gem 'steak'
   gem 'resque_spec'
-  gem 'parallel_tests', '~> 0.8'
+  gem 'parallel_tests', '~> 0.9'
 end
 
 # Gems used only for assets and not required
