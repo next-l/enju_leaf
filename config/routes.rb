@@ -430,6 +430,7 @@ EnjuLeaf::Application.routes.draw do
   end
   resources :binding_items
   match '/bookbindings/:bookbinder_id/manifestations' => 'manifestations#index'
+  resources :checkout_histories
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

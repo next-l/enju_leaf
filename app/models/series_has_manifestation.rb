@@ -13,6 +13,8 @@ class SeriesHasManifestation < ActiveRecord::Base
   after_create :reindex
   after_destroy :reindex
 
+  attr_accessible :series_statement_id
+
   paginates_per 10
 
   def reindex

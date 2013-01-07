@@ -36,6 +36,7 @@
         <!-- <li><%= link_to 'NACSIS ILL', 'page/under_construction' -%></li> -->
       <%- end -%>
       <li><%= link_to t('page.checkout_history'), user_checkouts_path(current_user) -%></li>
+      <li><%= link_to t('activerecord.models.checkout_history'), checkout_histories_path -%></li>
     </ul>
   <%- elsif Setting.operation -%>
     <ul>

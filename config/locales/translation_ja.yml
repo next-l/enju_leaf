@@ -174,11 +174,13 @@ ja:
       reminder_list: 督促
       expense: 購入情報
       budget_and_results_managements: 予算実績対比 
+      manifestation_type: 資料区分
       access_log: アクセス件数
       keyword_count: 検索キーワード
       numbering: 採番
       bookbinding: 製本処理
       binding_item: 製本資料
+      checkout_history: 今日の操作履歴
 
     attributes:
       numbering:
@@ -1773,7 +1775,7 @@ ja:
     current_user: "現在の貸出利用者"
     this_item_is_reserved: "この資料は予約されています。"
     you_have_overdue_item: "貸出期限を過ぎている資料があります。"
-    excessed_renewal_limit: "貸出更新回数の上限を超えています。"
+    over_renewal_limit: "貸出更新回数の上限を超えています。"
     all_checkout: "全ての貸出"
     my_checkout: "自分の貸出"
     no_checkout: "貸出中の資料はありません。"
