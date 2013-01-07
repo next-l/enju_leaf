@@ -142,6 +142,9 @@ defaults: &defaults
   # 検索結果一覧の出力(TSV)
   manifestation_list_print_tsv:
     filename: "manifestation_list.tsv"
+  # 欠号リストの一覧の出力(PDF)
+  missing_list_print_pdf:
+    filename: "missing_list.pdf"
   # 資料確認票のファイル名
   manifestation_locate_print:
     filename: "manifestation.pdf"
@@ -284,6 +287,10 @@ defaults: &defaults
   checkouts:
     cannot_for_new_serial: true
 
+  # refs 1989 trueの場合 => itemがひとつだけのmanifestationのitemを削除するとき、除籍してからのみ削除できる
+  items:
+    confirm_destroy: true
+
   # refs 2588 所蔵のない資料の予約
   reserves:
     able_for_not_item: true
@@ -334,6 +341,10 @@ defaults: &defaults
         this_group_cannot_checkout: "churchA08.ogg"
         in_transcation: "chimeA08.ogg"
         reserved_item_included: "chimeA08.ogg"
+      checkout:
+        this_item_is_reserved: "chimeA08.ogg"
+        over_renewal_limit: "chimeA08.ogg"
+        you_have_overdue_item: "chimeA08.ogg"
 
   # refs 1849 trueの場合=>一般利用者において、在架資料は、図書館利用時に借りることができる。
   # 予約対象は貸出中の図書のみ
@@ -357,6 +368,9 @@ defaults: &defaults
   # 業務用サーバ(貸出・返却・予約可)
   operation: true
 
+  # 未返却資料を貸出処理読み込んだ場合、再貸出可能にする
+  checkout:
+    auto_checkin: true
  
 development:
   <<: *defaults

@@ -1752,7 +1752,7 @@ ja:
     current_user: "現在の貸出利用者"
     this_item_is_reserved: "この資料は予約されています。"
     you_have_overdue_item: "貸出期限を過ぎている資料があります。"
-    excessed_renewal_limit: "貸出更新回数の上限を超えています。"
+    over_renewal_limit: "貸出更新回数の上限を超えています。"
     all_checkout: "全ての貸出"
     my_checkout: "自分の貸出"
     no_checkout: "貸出中の資料はありません。"
