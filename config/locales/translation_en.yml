@@ -704,6 +704,7 @@ en:
         supplement: Supplement
         per_page: Per page
         last_checkout_datetime: Last used at
+        acceptance_number: Acceptance number
       user_group:
         name: Name
         display_name: Display name
