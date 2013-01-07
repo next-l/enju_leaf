@@ -121,7 +121,7 @@ GEM
       acts-as-taggable-on (~> 2.3)
       rails (~> 3.2)
       state_machine
-    enju_circulation (0.1.0.pre9)
+    enju_circulation (0.1.0.pre10)
       enju_event (~> 0.1.17.pre5)
       enju_message (~> 0.1.14.pre)
       inherited_resources
@@ -277,7 +277,7 @@ GEM
       websocket
     lisbn (0.1.2)
       nori
-    listen (0.7.0)
+    listen (0.7.1)
     lumberjack (1.0.2)
     mail (2.4.4)
       i18n (>= 0.4.0)
@@ -324,7 +324,7 @@ GEM
       coderay (~> 1.0.5)
       method_source (~> 0.8)
       slop (~> 3.3.1)
-    rack (1.4.1)
+    rack (1.4.2)
     rack-cache (1.2)
       rack (>= 0.4)
     rack-mobile-detect (0.4.0)
@@ -398,7 +398,7 @@ GEM
       rspec-expectations (~> 2.12.0)
       rspec-mocks (~> 2.12.0)
     ruby-graphviz (1.0.8)
-    ruby-prof (0.11.3)
+    ruby-prof (0.12.0)
     rubyzip (0.9.9)
     rufus-scheduler (2.0.17)
       tzinfo (>= 0.3.23)
@@ -518,7 +518,7 @@ DEPENDENCIES
   enju_biblio (~> 0.1.0.pre13)
   enju_book_jacket (~> 0.1.0.pre3)
   enju_bookmark (~> 0.1.2.pre7)
-  enju_circulation (~> 0.1.0.pre9)
+  enju_circulation (~> 0.1.0.pre10)
   enju_core (~> 0.1.1.pre2)
   enju_event (~> 0.1.17.pre6)
   enju_export (~> 0.1.1.pre2)
