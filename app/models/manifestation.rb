@@ -539,10 +539,6 @@ class Manifestation < ActiveRecord::Base
     self.subjects.uniq!
   end
 
-  def set_manifestation_type
-    self.manifestation_type = ManifestationType.find(1) if self.manifestation_type.blank?
-  end
-  
   def set_country_of_publication
     self.country_of_publication = Country.where(:name => 'Japan').first || Country.find(1) if self.country_of_publication.blank?
   end
