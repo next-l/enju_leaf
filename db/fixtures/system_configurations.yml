@@ -455,4 +455,32 @@ system_configuration_00065:
   typename: Boolean
   description: "貸出票を自動印刷するか？"
   category: 'checkout'
+system_configuration_00066:
+  id: 66
+  keyname: view.pick_up
+  v: "true"
+  typename: Boolean
+  description: "トップ画面にピックアップボックスを表示するか？"
+  category: 'view'
+system_configuration_00067:
+  id: 67
+  keyname: view.tag_cloud
+  v: "true"
+  typename: Boolean
+  description: "トップ画面にタグクラウドを表示するか？"
+  category: 'view'
+system_configuration_00068:
+  id: 68
+  keyname: view.top_query_detail
+  v: "false"
+  typename: Boolean
+  description: "トップ画面は詳細検索を表示するか？"
+  category: 'view'
+system_configuration_00069:
+  id: 69
+  keyname: nacsis.can_use
+  v: "false"
+  typename: Boolean
+  description: "NACSIS-CAT/ILLを利用するか？"
+  category: 'nacsis'
 

@@ -13,6 +13,8 @@ module SystemConfigurationsHelper
       'reminder', 
       'statistics', 
       'sound', 
+      'view',
+      'nacsis',
     ]
   end
 
@@ -42,6 +44,10 @@ module SystemConfigurationsHelper
       t('system_configuration.statistics')
     when 'sound'
       t('system_configuration.sound')
+    when 'view'
+      t('system_configuration.view')
+    when 'nacsis'
+      t('system_configuration.nacsis')
     end
   end
 
@@ -159,6 +165,9 @@ module SystemConfigurationsHelper
           'checkout_print.old',
           'checkins.disp_title',
           'checkins.disp_user',
+          'view.pick_up',
+          'view.tag_cloud',
+          'view.top_query_detail',
           'reserve_print.old'
        string << t('system_configuration.boolean_display') if state == 'true'
        string << t('system_configuration.boolean_not_display') if state == 'false'
@@ -187,7 +196,8 @@ module SystemConfigurationsHelper
        string << t('system_configuration.boolean_send') if state == 'true'
        string << t('system_configuration.boolean_not_send') if state == 'false'
      # => use
-     when 'use_order_lists'
+     when 'use_order_lists',
+          'nacsis.can_use'
        string << t('system_configuration.boolean_use') if state == 'true'
        string << t('system_configuration.boolean_not_use') if state == 'false'
      # => delete

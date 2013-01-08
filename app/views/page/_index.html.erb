@@ -49,14 +49,16 @@ $(document).FunctionKeys(
 </div>
 
 <div class="column" id="col2">
+  <% if SystemConfiguration.get('view.pick_up') %>
   <div class="portlet" id="pickup">
     <h3 class="title"><%= t('manifestation.pickup') -%></h3>
     <div id="picked_up_box">
       <%= render 'manifestations/pickup', :manifestation => @manifestation -%>
     </div>
   </div>
+  <% end %>
 
-  <% if defined?(EnjuBookmark) %>
+  <% if defined?(EnjuBookmark) && SystemConfiguration.get('view.tag_cloud') %>
     <div class="portlet" id="tag_cloud">
       <h3 class="title">
         <% if user_signed_in? %>
