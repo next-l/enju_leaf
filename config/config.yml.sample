@@ -379,6 +379,10 @@ defaults: &defaults
   checkout:
     auto_checkin: true
  
+  # インポート時取込可能なファイル形式を設定する
+  # カンマ,区切りで利用可能アダプタを指定する
+  resource_adapters: Excelfile_Adapter
+
 development:
   <<: *defaults
 

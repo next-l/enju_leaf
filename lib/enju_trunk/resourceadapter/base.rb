@@ -52,7 +52,9 @@ module EnjuTrunk
         end
 
         def default
+          availables = Setting.resource_adapters.split(',').inject([]){|list, a| list << a.strip} rescue nil if Setting.resource_adapters
           list = @adapters.delete_if {|a| a.display_name =~ /^Template Adapter/ }
+          list.delete_if {|a| !availables.include?(a.to_s)} if availables
           return list
         end
 
