@@ -595,7 +595,7 @@ ja:
         reimbursed: 弁償済み
         not_reimbursed: 未弁償
         will_reimburse: 弁償処理を行い、資料の貸出状態を除籍扱いにしますか。
-        will_cancellation: 紛失処理を取り消し、資料の貸出状態を紛失扱いにしますか。
+        will_cancellation: 弁償処理を取り消し、資料の貸出状態を紛失扱いにしますか。
         note: 注記
         fail_update: 紛失弁償処理に失敗しました。
       barcode:

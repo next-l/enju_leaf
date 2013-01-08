@@ -1,0 +1,72 @@
+<script>
+$(document).ready(function() {
+  $("#user_number").change(function () {
+    $('#loss_item_item_id').children().remove();
+    $('#loss_item_item_id').attr('disabled', 'disabled');
+    $('input[type=submit]').attr('disabled', 'disabled');
+    $('div#username').remove();
+    search_manifestations();
+  });
+});
+
+function search_manifestations() {
+  var user_number = $("#user_number").val().replace(/^\s+|\s+$/g, "");
+  if (user_number != "") {
+    $.ajax({
+       type: "GET",
+       url: "<%= url_for(:controller => :users, :action => :get_user_rent)-%>",
+       data: {"user_number": user_number},
+       success: function(obj) {
+         if (obj.success) {
+           if (obj["items"].length > 0 && obj["user"] != null && obj["patron"] != null) {
+             $('#loss_item_item_id').removeAttr('disabled');
+             $("input[type=submit]").removeAttr('disabled');
+           }
+           if (obj["items"].length > 0) {
+             $.each(obj["items"], function() {
+               $('#loss_item_item_id').append($('<option>').attr({ value: this[0] }).text(this[1]));
+             });
+           }
+           if (obj["user"] != null && obj["patron"] != null) {
+             s = "<div id='username'>"
+               + "<p>"
+               + "<strong><%= t('activerecord.models.user') -%>: </strong>"
+               + "<a href='<%= "#{root_path}" %>users/"+obj["user"]["user"]["username"]+"'>" + obj["patron"]["patron"]["full_name"] + "</a>"
+               + "(" + "<a href='<%= "#{root_path}" %>users/"+obj["user"]["user"]["username"]+"'>" + obj["user"] ["user"]["username"]+ "</a>" + ")"
+               + "</p>"
+               + "<br />"
+               + "</div>"
+             $(s).appendTo('div#userinfo');
+           }
+         }
+       }
+    });
+  }
+}
+</script>
+
+<%= form_for(@loss_item) do |f| %>
+  <%= f.error_messages %>
+  <div style="color: red"><%= raw flash[:message] -%></div>
+
+  <div id="userinfo"></div>
+
+  <div class="field">
+    <%= f.label t('activerecord.attributes.user.user_number') -%><br />
+    <%= text_field_tag :user_number, @user_number, :class => 'resource_user_number' -%>
+  </div>
+
+  <div class="field">
+    <%= f.label t('activerecord.attributes.loss_item.loss_item') -%><br />
+    <%= f.select(:item_id, {}, {}, :disabled => true) -%>
+  </div>
+
+  <div class="field">
+    <%= f.label :note -%><br />
+    <%= f.text_area :note, :class => 'resource_note' -%>
+  </div>
+
+  <div class="actions">
+    <%= f.submit :disabled => true -%>
+  </div>
+<%- end -%>
