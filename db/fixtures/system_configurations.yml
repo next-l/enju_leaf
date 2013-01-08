@@ -483,4 +483,18 @@ system_configuration_00069:
   typename: Boolean
   description: "NACSIS-CAT/ILLを利用するか？"
   category: 'nacsis'
+system_configuration_00070:
+  id: 70
+  keyname: view.checkout.disp_reserves
+  v: "true"
+  typename: Boolean
+  description: "貸出画面で現在予約中の資料を表示するか？"
+  category: 'view'
+system_configuration_00071:
+  id: 71
+  keyname: view.checkout.disp_checkouts
+  v: "true"
+  typename: Boolean
+  description: "貸出画面で現在貸出中の資料を表示するか？"
+  category: 'view'
 

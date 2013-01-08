@@ -168,6 +168,8 @@ module SystemConfigurationsHelper
           'view.pick_up',
           'view.tag_cloud',
           'view.top_query_detail',
+          'view.checkout.disp_reserves',
+          'view.checkout.disp_checkouts',
           'reserve_print.old'
        string << t('system_configuration.boolean_display') if state == 'true'
        string << t('system_configuration.boolean_not_display') if state == 'false'
