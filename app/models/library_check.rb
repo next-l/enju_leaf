@@ -2,6 +2,7 @@ class LibraryCheck < ActiveRecord::Base
       scope :now_processing, where(:state => 'started')
       validates_presence_of :opeym
       attr_accessor :shelf_upload_file_name, :file_update_flg
+      attr_accessible :shelf_upload, :opeym
       has_attached_file :shelf_upload, :path => ":rails_root/private:url"
       validates_attachment_presence :shelf_upload, :message => I18n.t('activerecord.errors.messages.not_selected'), :if => :file_update_flg
       before_save { self.shelf_def_file = self.shelf_upload_file_name unless self.shelf_upload_file_name.nil?}
