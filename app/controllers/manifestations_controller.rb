@@ -173,7 +173,8 @@ class ManifestationsController < ApplicationController
         :language_id,
         :carrier_type_id,
         :created_at,
-        :note
+        :note,
+        :missing_issue
       ] if (params[:format] == 'html' or params[:format].nil?) && params[:missing_issue].nil?
       # catch query error 
       begin
