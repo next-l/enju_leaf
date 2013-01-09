@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '3.2.10'
+gem 'rails', '3.2.11'
 
 gem 'cocaine', '0.4.2'
 #gem 'enju_amazon', :git => 'git://github.com/nabeta/enju_amazon.git'
