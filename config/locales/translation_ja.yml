@@ -2073,6 +2073,7 @@ ja:
         repository_content: リポジトリのコンテンツ
         required_role: 参照に必要な権限
         except_recent: 新刊対象から除外
+        acceptance_number: 受入部数
         description: 説明
         supplement: 付録
         note: 注記
