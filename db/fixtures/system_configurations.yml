@@ -497,4 +497,11 @@ system_configuration_00071:
   typename: Boolean
   description: "貸出画面で現在貸出中の資料を表示するか？"
   category: 'view'
+system_configuration_00072:
+  id: 72
+  keyname: view.events
+  v: "true"
+  typename: Boolean
+  description: "トップ画面に開催日と催し物を表示するか？"
+  category: 'view'
 

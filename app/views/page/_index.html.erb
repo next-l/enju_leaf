@@ -77,7 +77,7 @@ $(document).FunctionKeys(
   <% end %>
 </div>
 
-<% if defined?(EnjuEvent) %>
+<% if defined?(EnjuEvent) && SystemConfiguration.get('view.events') %>
   <div class="column" id="col3">
     <div class="portlet" id="events">
       <h3 class="title"><%= t('activerecord.models.event') -%></h3>

@@ -168,6 +168,7 @@ module SystemConfigurationsHelper
           'view.pick_up',
           'view.tag_cloud',
           'view.top_query_detail',
+          'view.events',
           'view.checkout.disp_reserves',
           'view.checkout.disp_checkouts',
           'reserve_print.old'
