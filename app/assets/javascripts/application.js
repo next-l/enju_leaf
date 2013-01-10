@@ -5,8 +5,8 @@
 //= require jquery.highlight
 //= require jquery.shortcut
 //= require jquery.cookie
-//= require fg.menu
-//= require fg.menu.enju
+//= require jquery.ui.menubar
+//= require menu.enju
 //= require select_locale
 //= require portlets
 //= require tab_view
