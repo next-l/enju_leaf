@@ -13,6 +13,9 @@ class PageController < ApplicationController
       #@tags = Tag.all(:limit => 50, :order => 'taggings_count DESC')
       @tags = Bookmark.tag_counts.sort{|a,b| a.count <=> b.count}.reverse[0..49]
     end
+    if defined?(EnjuEvent)
+      @events = Event.order('start_at DESC').limit(5)
+    end
     @manifestation = Manifestation.pickup rescue nil
 
     respond_to do |format|
