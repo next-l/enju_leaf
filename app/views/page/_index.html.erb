@@ -77,3 +77,29 @@ $(document).FunctionKeys(
   <% end %>
 </div>
 
+<% if defined?(EnjuEvent) %>
+  <div class="column" id="col3">
+    <div class="portlet" id="events">
+      <h3 class="title"><%= t('activerecord.models.event') -%></h3>
+      <div id="tag_cloud_box">
+        <div>
+          <% @events.each do |event| %>
+            <dl>
+              <dt>
+                <%= event.library.display_name %><br/ >
+                <%= l(event.start_at, :format => :only_date) %> - <%= l(event.end_at, :format => :only_date) %>
+              </dt>
+              <strong>
+                <dd><%= event.display_name %></dd>
+              </strong>
+            </dl>
+            <br />
+          <% end %>
+        </div>
+        <% if @events.size > 0 %>
+          <div><%= link_to t('page.listing', :model => t('activerecord.models.event')), events_path %></div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+<% end %>
