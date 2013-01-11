@@ -260,6 +260,7 @@ class Manifestation < ActiveRecord::Base
 
   validates_presence_of :carrier_type, :language, :manifestation_type, :country_of_publication
   validates_associated :carrier_type, :language, :manifestation_type, :country_of_publication
+  validates_numericality_of :acceptance_number, :allow_nil => true
   before_validation :set_language, :if => :during_import
   before_validation :uniq_options
   before_validation :set_manifestation_type, :set_country_of_publication

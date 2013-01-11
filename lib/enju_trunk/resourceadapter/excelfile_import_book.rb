@@ -138,6 +138,7 @@ module EnjuTrunk
       width_field               = field[I18n.t('resource_import_textfile.excel.book.width')] || nil
       depth_field               = field[I18n.t('resource_import_textfile.excel.book.depth')] || nil
       price_field               = field[I18n.t('resource_import_textfile.excel.book.price')] || nil
+      acceptance_number_field   = field[I18n.t('resource_import_textfile.excel.book.acceptance_number')] || nil
       required_role_field       = field[I18n.t('resource_import_textfile.excel.book.required_role')] || nil
 
       ResourceImportTextfile.transaction do
@@ -173,6 +174,7 @@ module EnjuTrunk
             :width                => check_data_is_numeric(oo.cell(row, width_field).to_s.strip, 'width'),
             :depth                => check_data_is_numeric(oo.cell(row, depth_field).to_s.strip, 'depth'),
             :price                => check_data_is_integer(oo.cell(row, price_field).to_s.strip, 'price'),
+            :acceptance_number    => check_data_is_integer(oo.cell(row, acceptance_number_field).to_s.strip, 'acceptance_number'),
             :access_address       => oo.cell(row, field[I18n.t('resource_import_textfile.excel.book.access_address')]).to_s.strip,
             :repository_content   => fix_boolean(oo.cell(row, field[I18n.t('resource_import_textfile.excel.book.repository_content')]).to_s.strip),
             :except_recent        => fix_boolean(oo.cell(row, field[I18n.t('resource_import_textfile.excel.book.except_recent')]).to_s.strip),

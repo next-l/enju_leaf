@@ -11,6 +11,9 @@ class MyAccountsController < ApplicationController
     if defined?(EnjuBookmark) 
       @tags = @user.bookmarks.tag_counts.sort{|a,b| a.count <=> b.count}.reverse
     end
+    if defined?(EnjuEvent) 
+      @events = Event.order('start_at DESC').limit(5)
+    end
     @manifestation = Manifestation.pickup(@user.keyword_list.to_s.split.sort_by{rand}.first) rescue nil
     prepare_options
 

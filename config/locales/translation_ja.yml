@@ -831,6 +831,7 @@ ja:
         publisher: 出版者
         subject: 件名
         missing_issue: 欠号管理
+        acceptance_number: 受入部数
       user_group:
         name: 名前
         display_name: 表示名
@@ -2075,6 +2076,7 @@ ja:
         repository_content: リポジトリのコンテンツ
         required_role: 参照に必要な権限
         except_recent: 新刊対象から除外
+        acceptance_number: 受入部数
         description: 説明
         supplement: 付録
         note: 注記
@@ -2314,6 +2316,8 @@ ja:
     reminder: 督促
     statistics: 統計
     sound: 音
+    view: 表示
+    nacsis: 'NACSIS-CAT/ILL'
     disp_date:
       not_display: 非表示
       christian_era: 西暦

@@ -49,14 +49,16 @@ $(document).FunctionKeys(
 </div>
 
 <div class="column" id="col2">
+  <% if SystemConfiguration.get('view.pick_up') %>
   <div class="portlet" id="pickup">
     <h3 class="title"><%= t('manifestation.pickup') -%></h3>
     <div id="picked_up_box">
       <%= render 'manifestations/pickup', :manifestation => @manifestation -%>
     </div>
   </div>
+  <% end %>
 
-  <% if defined?(EnjuBookmark) %>
+  <% if defined?(EnjuBookmark) && SystemConfiguration.get('view.tag_cloud') %>
     <div class="portlet" id="tag_cloud">
       <h3 class="title">
         <% if user_signed_in? %>
@@ -75,3 +77,29 @@ $(document).FunctionKeys(
   <% end %>
 </div>
 
+<% if defined?(EnjuEvent) && SystemConfiguration.get('view.events') %>
+  <div class="column" id="col3">
+    <div class="portlet" id="events">
+      <h3 class="title"><%= t('activerecord.models.event') -%></h3>
+      <div id="tag_cloud_box">
+        <div>
+          <% @events.each do |event| %>
+            <dl>
+              <dt>
+                <%= event.library.display_name %><br/ >
+                <%= l(event.start_at, :format => :only_date) %> - <%= l(event.end_at, :format => :only_date) %>
+              </dt>
+              <strong>
+                <dd><%= event.display_name %></dd>
+              </strong>
+            </dl>
+            <br />
+          <% end %>
+        </div>
+        <% if @events.size > 0 %>
+          <div><%= link_to t('page.listing', :model => t('activerecord.models.event')), events_path %></div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+<% end %>
