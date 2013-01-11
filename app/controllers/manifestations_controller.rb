@@ -1,5 +1,9 @@
 # -*- encoding: utf-8 -*-
 class ManifestationsController < ApplicationController
+  add_breadcrumb "I18n.t('breadcrumb.search_manifestations')", "root_path", :only => [:index]
+  add_breadcrumb "I18n.t('page.showing', :model => I18n.t('activerecord.models.manifestation'))", 'manifestation_path(params[:id])', :only => [:show]
+  add_breadcrumb "I18n.t('page.new', :model => I18n.t('activerecord.models.manifestation'))", 'new_manifestation_path', :only => [:new, :create]
+  add_breadcrumb "I18n.t('page.edit', :model => I18n.t('activerecord.models.manifestation'))", 'edit_manifestation_path(params[:id])', :only => [:edit, :update]
   load_and_authorize_resource :except => [:index, :output_show]
   authorize_resource :only => :index
   before_filter :authenticate_user!, :only => :edit
@@ -129,6 +133,7 @@ class ManifestationsController < ApplicationController
       end
 
       removed = @removed = true if params[:removed_from].present? or params[:removed_to].present? or params[:removed]
+      missing_issue = true if params[:missing_issue]
       search.build do
         fulltext query unless query.blank?
         order_by sort[:sort_by], sort[:order] unless oai_search
@@ -136,7 +141,9 @@ class ManifestationsController < ApplicationController
         order_by :updated_at, :desc if oai_search
         with(:subject_ids).equal_to subject.id if subject
         unless removed
-          without(:non_searchable).equal_to true unless params[:all_manifestations]
+          unless missing_issue
+            without(:non_searchable).equal_to true unless params[:all_manifestations]
+          end
         else
           with(:has_removed).equal_to true
         end
@@ -151,6 +158,10 @@ class ManifestationsController < ApplicationController
         else
           with(:periodical).equal_to false
         end
+#TODO search missing issue
+#        if missing_issue
+#          with(:missing_issue)
+#        end
         facet :reservable
         with(:bookbinder_id).equal_to binder.id if params[:mode] != 'add' && binder
         without(:id, binder.manifestation.id) if binder

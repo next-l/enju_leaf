@@ -1481,6 +1481,7 @@ ja:
     subject_and_classification: "件名と分類"
     you_can_search_following_database: "以下のデータベースで検索することができます。"
     listing: "%{model}の一覧"
+    histories: "%{model}履歴"
     new: "%{model}の新規作成"
     editing: "%{model}の編集"
     showing: "%{model}の表示"
@@ -1677,6 +1678,7 @@ ja:
     delim_semicolon: "(セミコロン;で区切ると複数指定できます。)"
     binding_status: "製本雑誌"
     undo_binding: "製本解除"
+    missing: "[欠号]"
   missing_issue:
     no_request: 未請求
     requested: 請求済
@@ -2378,6 +2380,9 @@ ja:
     binded: "製本済み"
     binder: "製本資料"
     status: "製本ステータス"
+  breadcrumb:
+    lib_top: "図書館のトップページ"
+    search_manifestations: "資料の検索"
 
   opac:
     finish: 終わる

@@ -13,6 +13,33 @@ class ApplicationController < ActionController::Base
   before_filter :get_library_group, :set_locale, :set_available_languages, :set_current_user
   #helper_method :mobile_device?
 
+  protected
+  def add_breadcrumb name, url=''
+    name = eval(name) unless name.blank?
+    url = eval(url) if !url.blank? && url =~ /_path|_url|@|session/
+    while session[:breadcrumbs] && session[:breadcrumbs].key?(name)
+      session[:breadcrumbs].delete(session[:breadcrumbs].to_a.last.first)
+    end
+    session[:breadcrumbs] = {I18n.t('breadcrumb.lib_top') => root_path} if session[:breadcrumbs].nil? || session[:breadcrumbs].empty?
+    session[:breadcrumbs].store(name, url) unless name.blank?
+  end
+
+  def self.add_breadcrumb name, url, options = {}
+    before_filter options do |controller|
+      controller.send(:add_breadcrumb, name, url)
+    end
+  end
+
+  def clear_breadcrumbs
+    session[:breadcrumbs].clear if session[:breadcrumbs]
+  end
+
+  def self.clear_breadcrumbs options = {}
+    before_filter options do |controller|
+      controller.send(:clear_breadcrumbs)
+    end
+  end
+
   private
   def render_403
     #debugger
