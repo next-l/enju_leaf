@@ -207,6 +207,89 @@ describe Manifestation, :solr => true do
   it "should respond to pickup" do
     Manifestation.pickup.should_not raise_error(ActiveRecord::RecordNotFound)
   end
+
+  describe '.searchは' do
+    subject { Manifestation }
+
+    let(:exact_word) { 'アジャイル' }
+    let(:typo_word)  { 'アジイャル' }
+    let(:exact_title) { "Railsによる#{exact_word}Webアプリケーション開発" }
+    let(:typo_title)  { "Railsによる#{typo_word }Webアプリケーション開発" }
+
+    let(:search_spec) do
+      proc {
+        fulltext exact_title
+      }
+    end
+
+    before do
+      Sunspot.remove_all!
+
+      @manifestation = FactoryGirl.create(
+        :manifestation,
+        :original_title => exact_title,
+        :manifestation_type => FactoryGirl.create(:manifestation_type))
+
+      Sunspot.commit
+    end
+
+    before do
+      @result = subject.search(&search_spec).execute
+    end
+
+    it '書名により検索できること' do
+      @result.results.should have(1).item
+      @result.results.first.should == @manifestation
+
+      @result.raw_suggestions.should be_nil
+      @result.suggestions.should be_nil
+      @result.collation.should be_nil
+    end
+
+    shared_examples_for '「もしかして」検索' do
+      it '「もしかして」検索ができること' do
+        @result.results.should have(:no).items
+
+        raw = @result.raw_suggestions
+        raw.should be_a(Array)
+        raw.each_slice(2).to_a.assoc(typo_word).should be_present
+
+        sug = @result.suggestions
+        sug.should be_a(Hash)
+        sug.should be_include(typo_word)
+        sug[typo_word].should == [exact_word]
+      end
+    end
+
+    context 'spellcheck指定があるとき' do
+      let(:search_spec) do
+        proc {
+          fulltext typo_title
+          spellcheck
+        }
+      end
+      include_examples '「もしかして」検索'
+
+      it 'collationを返さないこと' do
+        @result.collation.should be_nil
+      end
+    end
+
+    context 'spellcheck collate指定があるとき' do
+      let(:search_spec) do
+        proc {
+          fulltext typo_title
+          spellcheck collate: true
+        }
+      end
+      include_examples '「もしかして」検索'
+
+      it 'collationを返すこと' do
+        @result.collation.should be_present
+        @result.collation.should == exact_title
+      end
+    end
+  end
 end
 
 # == Schema Information
