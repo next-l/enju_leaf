@@ -31,16 +31,22 @@ class Manifestation < ActiveRecord::Base
     text :fulltext, :note, :contributor, :description, :article_title
     text :creator do
       if series_statement.try(:periodical)  # 雑誌の場合
-        [series_statement.manifestations.map{|manifestation| [manifestation.creator]}].flatten.compact
+        # 同じ雑誌の全号の著者のリストを取得する
+        Patron.joins(:works).joins(:works => :series_statement).
+          where(['series_statements.id = ?', self.series_statement.id]).
+          collect(&:name).compact
       else
-        creator
+        creator(true)
       end
     end
     text :publisher do
       if series_statement.try(:periodical)  # 雑誌の場合
-        [series_statement.manifestations.map{|manifestation| [manifestation.publisher]}].flatten.compact
+        # 同じ雑誌の全号の出版社のリストを取得する
+        Patron.joins(:manifestations => :series_statement).
+          where(['series_statements.id = ?', self.series_statement.id]).
+          collect(&:name).compact
       else
-        publisher
+        publisher(true)
       end
     end
     text :subject do
@@ -61,14 +67,20 @@ class Manifestation < ActiveRecord::Base
     end
     string :isbn, :multiple => true do
       if series_statement.try(:periodical)  # 雑誌の場合
-        [series_statement.manifestations.map{|manifestation| [manifestation.isbn, manifestation.isbn10, manifestation.wrong_isbn]}].flatten.compact
+        # 同じ雑誌の全号のISBNのリストを取得する
+        Manifestation.joins(:series_statement).
+          where(['series_statements.id = ?', self.series_statement.id]).
+          map {|manifestation| [manifestation.isbn, manifestation.isbn10, manifestation.wrong_isbn] }.flatten.compact
       else
         [isbn, isbn10, wrong_isbn]
       end
     end
     string :issn, :multiple => true do
       if series_statement.try(:periodical)  # 雑誌の場合
-        [series_statement.manifestations.map{|manifestation| [manifestation.issn]}].flatten.compact
+        # 同じ雑誌の全号のISSNのリストを取得する
+        Manifestation.joins(:series_statement).
+          where(['series_statements.id = ?', self.series_statement.id]).
+          map(&:issn).compact
       else
         issn
       end
@@ -101,14 +113,20 @@ class Manifestation < ActiveRecord::Base
     end
     string :item_identifier, :multiple => true do
       if series_statement.try(:periodical)  # 雑誌の場合
-        [series_statement.manifestations.map{ |manifestation| [manifestation.items.collect(&:item_identifier)] }].flatten.compact
+        # 同じ雑誌の全号の蔵書の蔵書情報IDのリストを取得する
+        Item.joins(:manifestation => :series_statement).
+          where(['series_statements.id = ?', self.series_statement.id]).
+          collect(&:item_identifier).compact
       else
         items.collect(&:item_identifier)
       end
     end
     string :removed_at, :multiple => true do
       if series_statement.try(:periodical)  # 雑誌の場合
-        [series_statement.manifestations.map{ |manifestation| [manifestation.items.collect(&:removed_at)] }].flatten.compact
+        # 同じ雑誌の全号の除籍日のリストを取得する
+        Item.joins(:manifestation => :series_statement).
+          where(['series_statements.id = ?', self.series_statement.id]).
+          collect(&:removed_at).compact
       else
         items.collect(&:removed_at)
       end
@@ -127,7 +145,10 @@ class Manifestation < ActiveRecord::Base
     time :date_of_publication
     string :pub_date, :multiple => true do
       if series_statement.try(:periodical)  # 雑誌の場合
-        [series_statement.manifestations.map{|manifestation| manifestation.date_of_publication}].flatten.compact
+        # 同じ雑誌の全号の出版日のリストを取得する
+        Manifestation.joins(:series_statement).
+          where(['series_statements.id = ?', self.series_statement.id]).
+          map(&:date_of_publication).compact
       else
         date_of_publication
       end
@@ -150,7 +171,10 @@ class Manifestation < ActiveRecord::Base
     integer :number_of_pages
     string :number_of_pages, :multiple => true do
       if series_statement.try(:periodical)  # 雑誌の場合
-        [series_statement.manifestations.map{|manifestation| manifestation.number_of_pages}].flatten.compact
+        # 同じ雑誌の全号のページ数のリストを取得する
+        Manifestation.joins(:series_statement).
+          where(['series_statements.id = ?', self.series_statement.id]).
+          map(&:number_of_pages).compact
       else
         number_of_pages
       end
@@ -195,14 +219,20 @@ class Manifestation < ActiveRecord::Base
     end
     text :isbn do  # 前方一致検索のためtext指定を追加
       if series_statement.try(:periodical)  # 雑誌の場合
-        series_statement.manifestations.map{|manifestation| [manifestation.isbn, manifestation.isbn10, manifestation.wrong_isbn]}.flatten.compact
+        # 同じ雑誌の全号のISBNのリストを取得する
+        Manifestation.joins(:series_statement).
+          where(['series_statements.id = ?', self.series_statement.id]).
+          map {|manifestation| [manifestation.isbn, manifestation.isbn10, manifestation.wrong_isbn] }.flatten.compact
       else
         [isbn, isbn10, wrong_isbn]
       end
     end
     text :issn do  # 前方一致検索のためtext指定を追加
       if series_statement.try(:periodical)  # 雑誌の場合
-        series_statement.manifestations.map{|manifestation| [manifestation.issn]}.flatten.compact
+        # 同じ雑誌の全号のISSNのリストを取得する
+        Manifestation.joins(:series_statement).
+          where(['series_statements.id = ?', self.series_statement.id]).
+          map(&:issn).compact
       else
         issn  
       end
@@ -220,11 +250,63 @@ class Manifestation < ActiveRecord::Base
     end
     boolean :periodical_master
     time :acquired_at
+    # 受入最古の所蔵情報を取得するためのSQLを構成する
+    # (string :acquired_atでのみ使用する)
+    item1 = Item.arel_table
+    item2 = item1.alias
+
+    mani1 = Manifestation.arel_table
+    mani2 = mani1.alias
+
+    exem1 = Exemplify.arel_table
+    exem2 = exem1.alias
+
+    shas1 = SeriesHasManifestation.arel_table
+    shas2 = shas1.alias
+
+    acquired_at_subq = item1.
+      from(item2).
+      project(
+        shas2[:manifestation_id].as('grp_manifestation_id'),
+        item2[:acquired_at].minimum.as('grp_min_acquired_at')
+      ).
+      join(exem2).on(
+        item2[:id].eq(exem2[:item_id]).
+        and(item2[:acquired_at].not_eq(nil))
+      ).
+      join(mani2).on(
+        mani2[:id].eq(exem2[:manifestation_id])
+      ).
+      join(shas2).on(
+        shas2[:manifestation_id].eq(mani2[:id]).
+        and(shas2[:series_statement_id].eq(Arel.sql('?')))
+      ).
+      group(shas2[:manifestation_id]).
+      as('t')
+
+    acquired_at_q = item1.
+      project(item1['*']).
+      join(exem1).on(
+        item1[:id].eq(exem1[:item_id]).
+        and(item1[:acquired_at].not_eq(nil))
+      ).
+      join(mani1).on(
+        mani1[:id].eq(exem1[:manifestation_id])
+      ).
+      join(shas1).on(
+        shas1[:manifestation_id].eq(mani1[:id]).
+        and(shas1[:series_statement_id].eq(Arel.sql('?')))
+      ).
+      join(acquired_at_subq).on(
+        item1[:acquired_at].eq(acquired_at_subq['grp_min_acquired_at']).
+        and(mani1[:id].eq(acquired_at_subq['grp_manifestation_id']))
+      )
     string :acquired_at, :multiple => true do
       if series_statement.try(:periodical)  # 雑誌の場合
-        [series_statement.manifestations.map{|manifestation| manifestation.acquired_at}].flatten.compact
+        # 同じ雑誌の全号について、それぞれの最古の受入日のリストを取得する
+        Item.find_by_sql([acquired_at_q.to_sql, series_statement.id, series_statement.id]).map(&:acquired_at)
       else
-       acquired_at
+        acquired_at
       end
     end
     boolean :except_recent
@@ -279,14 +361,20 @@ class Manifestation < ActiveRecord::Base
     searchable do
       string :tag, :multiple => true do
         if series_statement.try(:periodical)  # 雑誌の場合
-          [series_statement.manifestations.map{ |manifestation| [manifestation.tags.collect(&:name)] }].flatten.compact
+          Bookmark.joins(:manifestation => :series_statement).
+            where(['series_statements.id = ?', self.series_statement.id]).
+            includes(:tags).
+            tag_counts.collect(&:name).compact
         else
           tags.collect(&:name)
         end
       end
       text :tag do
         if series_statement.try(:periodical)  # 雑誌の場合
-          [series_statement.manifestations.map{ |manifestation| [manifestation.tags.collect(&:name)] }].flatten.compact
+          Bookmark.joins(:manifestation => :series_statement).
+            where(['series_statements.id = ?', self.series_statement.id]).
+            includes(:tags).
+            tag_counts.collect(&:name).compact
         else
           tags.collect(&:name)
         end
@@ -447,16 +535,16 @@ class Manifestation < ActiveRecord::Base
     Checkout.completed(start_date, end_date).where(:item_id => self.items.collect(&:id))
   end
 
-  def creator
-    creators.collect(&:name).flatten
+  def creator(reload = false)
+    creators(reload).collect(&:name).flatten
   end
 
   def contributor
     contributors.collect(&:name).flatten
   end
 
-  def publisher
-    publishers.collect(&:name).flatten
+  def publisher(reload = false)
+    publishers(reload).collect(&:name).flatten
   end
 
   # TODO: よりよい推薦方法
