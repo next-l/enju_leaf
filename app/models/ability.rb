@@ -159,6 +159,7 @@ class Ability
         UserGroupHasCheckoutType,
         UserHasRole,
         UserReserveStat,
+        UserStatus,
         WorkHasSubject
       ]
       can [:read, :update], [
@@ -311,6 +312,7 @@ class Ability
         Subscription,
         SystemConfiguration,
         Term,
+        UserStatus,
         WorkHasSubject
       ]
       can :read, [
@@ -457,6 +459,7 @@ class Ability
         SubjectHeadingType,
         UserCheckoutStat,
         UserReserveStat,
+        UserStatus,
         UserGroup,
         WorkHasSubject
       ]

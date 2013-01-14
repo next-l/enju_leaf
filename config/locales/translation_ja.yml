@@ -95,6 +95,7 @@ ja:
       answer: 回答
       bookstore: 寄贈・購入先
       area: 地区
+      user_status: 利用者利用状況
       department: 部署
       classmark:  分類記号
       checkout_type: 貸出区分
@@ -185,6 +186,9 @@ ja:
       checkout_history: 今日の操作履歴
 
     attributes:
+      user_status:
+        name: 名前
+        display_name: 表示名
       classmark:
         name: 記号
         display_name: 表示名
