@@ -193,6 +193,7 @@ ja:
         display_name: 表示名
         short_name: 短縮名
         position: 位置
+        note: 注記
       numbering:
         name: 名称
         display_name: 表示名
