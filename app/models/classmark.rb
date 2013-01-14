@@ -4,4 +4,6 @@ class Classmark < ActiveRecord::Base
   validates_uniqueness_of :name
   validates_presence_of :name, :display_name
 
+  paginates_per 10
+
 end

@@ -15,10 +15,9 @@
   <tr class="line<%= cycle("0", "1") -%>">
     <td>
       <%- if can? :update, department -%>
-        <%= move_position(bookstore) -%>
       <%- end -%>
     </td>
-    <td><%= link_to department.name, bookstore -%> </td>
+    <td><%= link_to department.name, department -%> </td>
     <td><%= department.display_name -%></td>
     <td><%= department.short_name -%></td>
     <td>
