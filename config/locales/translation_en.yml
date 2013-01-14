@@ -1314,6 +1314,8 @@ en:
     extensions: "Extensions"
     add_child: "Add a child"
     access_logs: Access logs
+    search_results: "Search results (Book)"
+    search_article_results: "Search results (Paper)"
 
     exstatistics:
       ranknumber: Rank

@@ -6,7 +6,11 @@
   <%- end %>
 </table>
 
-<%= paginate(manifestations) -%>
+<%- if manifestations == @manifestations_article -%>
+  <%= paginate(manifestations, :param_name => :page_article) -%>
+<%- else -%>
+  <%= paginate(manifestations) -%>
+<%- end -%>
 <br />
 
 <div>

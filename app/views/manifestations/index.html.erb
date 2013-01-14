@@ -100,9 +100,22 @@
       <br style="clear: both;"/>
     </div>
 
-    <div class="autopagerize_page_element" id="list">
-      <%= render 'manifestations/list', :manifestations => @manifestations -%>
-    </div>
+    <%- @manifestations_all.each do |m| -%>
+      <div class="search_results_header"><strong>
+        <%- if m == @manifestations_article -%>
+	  <%= t('page.search_article_results') %>
+	<%- else -%>
+	  <%= t('page.search_results') %>
+	<%- end -%>
+      </strong></div>
+      <%- if m && (m.count > 0) -%>
+        <div class="autopagerize_page_element" id="list">
+        <%= render 'manifestations/list', :manifestations => m -%>
+        </div>
+      <%- else -%>
+        <%= render 'manifestations/not_found' -%>
+      <%- end -%>
+    <%- end -%>
 
     <% if defined?(EnjuBookmark) %>
       <div id="tag_cloud">
