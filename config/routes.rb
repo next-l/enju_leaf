@@ -1,6 +1,7 @@
 EnjuLeaf::Application.routes.draw do
   resources :numberings
-
+  resources :departments
+  resources :classmarks
   resources :sheets
 
   devise_for :users, :path => 'accounts'

@@ -96,6 +96,7 @@ ja:
       bookstore: 寄贈・購入先
       area: 地区
       department: 部署
+      classmark:  分類記号
       checkout_type: 貸出区分
       accept_type: 受入区分
       classification_type: 分類型
@@ -184,6 +185,9 @@ ja:
       checkout_history: 今日の操作履歴
 
     attributes:
+      classmark:
+        name: 記号
+        display_name: 表示名
       department:
         name: コード
         display_name: 表示名
