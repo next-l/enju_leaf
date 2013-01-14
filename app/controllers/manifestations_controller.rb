@@ -264,6 +264,9 @@ class ManifestationsController < ApplicationController
           facet :manifestation_type
           facet :missing_issue
           paginate :page => page.to_i, :per_page => per_page unless request.xhr?
+          if params[:format].blank? or params[:format] == 'html'
+            spellcheck :collate => true
+          end
         end
       end
       # catch query error 
@@ -294,13 +297,14 @@ class ManifestationsController < ApplicationController
 
       @search_engines = Rails.cache.fetch('search_engine_all'){SearchEngine.all}
 
-      if defined?(EnjuBookmark)
-        # TODO: 検索結果が少ない場合にも表示させる
-        if manifestation_ids.blank?
+      # TODO: 検索結果が少ない場合にも表示させる
+      if manifestation_ids.blank?
+        if defined?(EnjuBookmark)
           if query.respond_to?(:suggest_tags)
             @suggested_tag = query.suggest_tags.first
           end
         end
+        @collation = search_result.collation.try(:strip)
       end
 
       save_search_history(query, @manifestations.limit_value, @count[:query_result], current_user)

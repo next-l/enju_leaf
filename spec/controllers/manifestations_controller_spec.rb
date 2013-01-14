@@ -1,9 +1,44 @@
+# encoding: utf-8
 require 'spec_helper'
 
 describe ManifestationsController do
   fixtures :all
 
   describe "GET index", :solr => true do
+    shared_examples_for 'index can get a collation' do
+      describe "When no record found" do
+        let(:exact_title) { "RailsによるアジャイルWebアプリケーション開発" }
+        let(:typo_title)  { "RailsによるアジイャルWebアプリケーション開発" }
+
+        before do
+          Sunspot.remove_all!
+
+          @manifestation = FactoryGirl.create(
+            :manifestation,
+            :original_title => exact_title,
+            :manifestation_type => FactoryGirl.create(:manifestation_type))
+          @item = FactoryGirl.create(
+            :item_book,
+            :retention_period => FactoryGirl.create(:retention_period),
+            :manifestation => @manifestation)
+
+          Sunspot.commit
+        end
+
+        it "assings a collation as @collation" do
+          get :index, :query => typo_title
+          assigns(:manifestations).should be_empty
+          assigns(:collation).should be_present
+          assigns(:collation).should == exact_title
+        end
+
+        it "doesn't assing @collation" do
+          get :index, :query => exact_title
+          assigns(:collation).should be_blank
+        end
+      end
+    end
+
     describe "When logged in as Administrator" do
       before(:each) do
         sign_in FactoryGirl.create(:admin)
@@ -13,6 +48,8 @@ describe ManifestationsController do
         get :index
         assigns(:manifestations).should_not be_nil
       end
+
+      include_examples 'index can get a collation'
     end
 
     describe "When logged in as Librarian" do

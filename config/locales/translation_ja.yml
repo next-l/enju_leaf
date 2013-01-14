@@ -1478,6 +1478,7 @@ ja:
     import_from_file: "ファイルからのインポート"
     import_from_network: "ネットワークからインポート"
     no_record_found: "資料が見つかりませんでした。"
+    did_you_mean_to_search_for: "もしかして"
     not_found_users: "該当の利用者は見つかりませんでした。"
     limit_exceeded: "検索件数の上限を超えました。最初の%{count}件を表示しています。"
     enter_search_term: "検索語を入力してください。"
