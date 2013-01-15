@@ -362,6 +362,15 @@ defaults: &defaults
   library_checks:
     auto_checkin: true
 
+  # 蔵書点検
+  libcheck_test_do_notfound: true # set false if you want to don't check not_found items
+  libcheck_notfound_with_title_cout: 10000
+  libcheck_shelf_barcode_len: 12
+  libcheck_outskirts_count: 3
+  libcheck_ndc_check: ["book"]
+  libcheck_serial_name: "serial"
+  libcheck_serial: ["serial"]
+
   # refs 2553 ユーザ情報重複チェック機能
   patron:
     check_duplicate_user: false
@@ -383,6 +392,9 @@ defaults: &defaults
   # カンマ,区切りで利用可能アダプタを指定する
   resource_adapters: Excelfile_Adapter
 
+  # 利用者番号とユーザ名を同じ値にする
+  auto_user_number: true
+ 
 development:
   <<: *defaults
 

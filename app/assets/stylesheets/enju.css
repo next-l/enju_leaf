@@ -548,3 +548,9 @@ div.book_jacket{
   text-align: center;
   width: 150px;
 }
+div#breadcrumb{
+  padding: 10px;
+  clear: both;
+  position: relative;
+  width: 700px;
+}

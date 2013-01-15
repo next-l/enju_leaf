@@ -237,6 +237,14 @@
           </td>
         </tr>
         <%- end -%>
+        <%- if manifestation.missing_issue %>
+        <tr>
+          <td><%= t('activerecord.attributes.manifestation.missing_issue') -%>:</td>
+          <td>
+            <%= missing_status(manifestation.missing_issue) -%>
+          </td>
+        </tr>
+        <%- end -%>
       </table>
     <%# end %>
       <%# - if manifestation.items.on_shelf.exists? -%>

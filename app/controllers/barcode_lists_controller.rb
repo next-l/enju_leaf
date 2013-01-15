@@ -1,4 +1,9 @@
 class BarcodeListsController < ApplicationController
+  add_breadcrumb "I18n.t('page.configuration')", 'page_configuration_path'
+  add_breadcrumb "I18n.t('page.listing', :model => I18n.t('activerecord.models.barcode_list'))", 'barcode_lists_path'
+  add_breadcrumb "I18n.t('page.new', :model => I18n.t('activerecord.models.barcode_list'))", 'new_barcode_list_path', :only => [:new, :create]
+  add_breadcrumb "I18n.t('page.editing', :model => I18n.t('activerecord.models.barcode_list'))", 'edit_barcode_list_path(params[:id])', :only => [:edit, :update]
+  add_breadcrumb "I18n.t('activerecord.models.barcode_list')", 'barcode_list_path(params[:id])', :only => [:show]
   load_and_authorize_resource
   
   BARCODE_TYPES = ["CODE128B"]
