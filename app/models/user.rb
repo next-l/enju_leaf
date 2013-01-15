@@ -12,12 +12,12 @@ class User < ActiveRecord::Base
   # Setup accessible (or protected) attributes for your model
   attr_accessible :email, :password, :password_confirmation, :current_password,
     :remember_me, :email_confirmation, :library_id, :locale,
-    :keyword_list, :auto_generated_password, :expired_at, :user_group_id, :role_id, :username
+    :keyword_list, :auto_generated_password, :expired_at, :user_group_id, :role_id, :username, :own_password
   attr_accessible :email, :password, :password_confirmation, :username,
     :current_password, :user_number, :remember_me,
     :email_confirmation, :note, :user_group_id, :library_id, :locale,
     :expired_at, :locked, :unable, :required_role_id, :role_id,
-    :keyword_list, :user_has_role_attributes, :auto_generated_password,
+    :keyword_list, :user_has_role_attributes, :auto_generated_password, :own_password,
     :as => :admin
 
   scope :administrators, where('roles.name = ?', 'Administrator').includes(:role)
@@ -268,6 +268,7 @@ class User < ActiveRecord::Base
   def set_auto_generated_password
     password = Devise.friendly_token[0..7]
     self.reset_password!(password, password)
+    self.own_password = false
   end
 
   def reset_checkout_icalendar_token
@@ -811,6 +812,16 @@ class User < ActiveRecord::Base
       data << '"'+row.join("\"\t\"")+"\"\n"
     end
     return data
+  end
+
+  alias_method :original_update_with_password, :update_with_password
+  def update_with_password(params = {}, *options)
+    User.transaction do
+      self.own_password = true
+      saved = self.original_update_with_password(params, *options)
+      self.own_password = false unless saved
+      return saved
+    end
   end
 
   private

@@ -31,6 +31,8 @@ ja:
           same_library: "移動元図書館と移動先図書館が同じです。"
         reminder_list:
           no_checkout: "該当する貸出が見つかりません。"
+        user:
+          auto_generated_password: "仮パスワードが登録されています。\nパスワードを変更してください。"
       models:
         inter_library_loan:
           attributes:

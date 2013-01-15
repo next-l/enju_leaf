@@ -28,6 +28,12 @@
         <% end %>
       <% end %>
     </div>
+    <%- if current_user -%>
+      <%- unless current_user.own_password %>
+        <div style="color: red;"><%= simple_format(t('activerecord.errors.messages.user.auto_generated_password')) %></div>
+      <%- end -%>
+    <%- end -%>
+
     <%= render 'page/select_locale' -%>
     <%= l(Time.now, :format => :only_date) if SystemConfiguration.get("header.disp_date") == 1 -%>
     <%= wareki_dateformat(Time.now) if SystemConfiguration.get("header.disp_date") == 2 -%>
