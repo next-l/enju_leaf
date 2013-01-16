@@ -2348,6 +2348,8 @@ ja:
       red: red
     role:
       all: "全て"
+    boolean_yes: "はい"
+    boolean_no: "いいえ"
     boolean_display: "表示する"
     boolean_not_display: "表示しない"
     boolean_do: "行う"
