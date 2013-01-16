@@ -189,6 +189,7 @@ ja:
       user_status:
         name: 名前
         display_name: 表示名
+        state: 利用可否
       classmark:
         name: 記号
         display_name: 表示名
@@ -457,10 +458,11 @@ ja:
         disp_user_info: 利用者情報を表示する
         show_user: 利用者の表示
         unable: 連絡不能
-        locked_yes: 利用可能
-        locked_no: 利用禁止
+        locked_yes: (ログイン可) # 利用可能
+        locked_no: (ログイン不可) # 利用禁止
         unable_yes: 可能
         unable_no: 不能
+        user_status: 利用状況
       work_has_subject:
         work: 書いた資料
         subject: 件名
@@ -2405,6 +2407,10 @@ ja:
   breadcrumb:
     lib_top: "図書館のトップページ"
     search_manifestations: "資料の検索"
+  user_status:
+    general: 制限なし
+    guest: ログイン不可
+    suspended: 利用不可
 
   opac:
     finish: 終わる

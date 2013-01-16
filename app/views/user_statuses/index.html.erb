@@ -7,6 +7,7 @@
     <th id="position"></th>
     <th><%= t('activerecord.attributes.user_status.name') -%></th>
     <th><%= t('activerecord.attributes.user_status.display_name') -%></th>
+    <th><%= t('activerecord.attributes.user_status.state') -%></th>
     <th id="edit_icons"></th>
   </tr>
 
@@ -18,6 +19,7 @@
     </td>
     <td><%= link_to user_status.name, user_status -%> </td>
     <td><%= user_status.display_name -%></td>
+    <td><%= state(user_status.state_id) -%></td>
     <td>
       <%- if can? :update, user_status -%>
         <%= link_to image_tag('icons/page_white_edit.png', :size => '16x16', :alt => t('page.edit'), :title => t('tooltip.edit')), edit_user_status_path(user_status) -%>

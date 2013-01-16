@@ -47,8 +47,9 @@
         </tr>
         <%- if user_signed_in? and current_user.has_role?('Librarian') -%>
           <tr>
-            <td><strong><%= t('activerecord.attributes.user.locked') -%>:</strong></td>
+            <td><strong><%= t('activerecord.attributes.user.user_status') -%>:</strong></td>
             <td>
+              <%= @patron.user.user_status.display_name %>
               <%- if @patron.user.active_for_authentication? -%>
 	        <%= t('activerecord.attributes.user.locked_yes') -%>
               <%- else -%>

@@ -1,5 +1,8 @@
 # -*- encoding: utf-8 -*-
 class UsersController < ApplicationController
+  add_breadcrumb "I18n.t('page.listing', :model => I18n.t('activerecord.models.user'))", 'users_path', :only => [:index]
+  add_breadcrumb "I18n.t('page.new', :model => I18n.t('activerecord.models.user'))", 'new_user_path', :only => [:new, :create]
+  add_breadcrumb "I18n.t('page.editing', :model => I18n.t('activerecord.models.user'))", 'edit_user_path(params[:id])', :only => [:edit, :update]
   #before_filter :reset_params_session
   load_and_authorize_resource :except => [:search_family, :get_family_info, :get_user_info, :get_user_rent, :output_password, :edit_user_number, :update_user_number, :create]
   helper_method :get_patron
@@ -105,7 +108,7 @@ class UsersController < ApplicationController
       @patron.language = Language.where(:iso_639_1 => I18n.default_locale.to_s).first || Language.first 
       @patron.country = current_user.library.country if current_user.library
       @patron.country_id = LibraryGroup.site_config.country_id
-      @patron.telephone_number_1_type_id = 1
+      @patron.telephone_number_1_type_id = 0
       @patron.telephone_number_2_type_id = 1
       @patron.extelephone_number_1_type_id = 2
       @patron.extelephone_number_2_type_id = 2
@@ -478,5 +481,6 @@ class UsersController < ApplicationController
     end
     @patron_types = PatronType.all
     @patron_type_person = PatronType.find_by_name('Person').id
+    @user_statuses = UserStatus.all
   end
 end

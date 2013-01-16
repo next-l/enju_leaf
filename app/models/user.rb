@@ -12,13 +12,14 @@ class User < ActiveRecord::Base
   # Setup accessible (or protected) attributes for your model
   attr_accessible :email, :password, :password_confirmation, :current_password,
     :remember_me, :email_confirmation, :library_id, :locale,
-    :keyword_list, :auto_generated_password, :expired_at, :user_group_id, :role_id, :username, :own_password
+    :keyword_list, :auto_generated_password, :expired_at, :user_group_id, :role_id, 
+    :username, :own_password, :user_status_id
   attr_accessible :email, :password, :password_confirmation, :username,
     :current_password, :user_number, :remember_me,
     :email_confirmation, :note, :user_group_id, :library_id, :locale,
     :expired_at, :locked, :unable, :required_role_id, :role_id,
     :keyword_list, :user_has_role_attributes, :auto_generated_password, :own_password,
-    :as => :admin
+    :user_status_id, :as => :admin
 
   scope :administrators, where('roles.name = ?', 'Administrator').includes(:role)
   scope :librarians, where('roles.name = ? OR roles.name = ?', 'Administrator', 'Librarian').includes(:role)
@@ -64,6 +65,7 @@ class User < ActiveRecord::Base
   has_one :family, :through => :family_user
   has_one :family_user
   has_many :barcode_lists, :foreign_key => 'created_by'
+  belongs_to :user_status
 
   validates :username, :presence => true #, :uniqueness => true
   validates_uniqueness_of :user_name, :unless => proc{|user| SystemConfiguration.get('auto_user_number')}, :allow_blank => true
@@ -219,9 +221,9 @@ class User < ActiveRecord::Base
   end
 
   def set_lock_information
-    if self.locked == '1' and self.active_for_authentication?
+    if self.user_status.state_id > 1 and self.active_for_authentication?
       lock_access!
-    elsif self.locked == '0' and !self.active_for_authentication?
+    elsif self.user_status.state_id == 1 and !self.active_for_authentication?
       unlock_access!
     end
   end
