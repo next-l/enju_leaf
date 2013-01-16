@@ -65,7 +65,8 @@ class User < ActiveRecord::Base
   has_one :family_user
   has_many :barcode_lists, :foreign_key => 'created_by'
 
-  validates :username, :presence => true, :uniqueness => true
+  validates :username, :presence => true #, :uniqueness => true
+  validates_uniqueness_of :user_name, :unless => proc{|user| SystemConfiguration.get('auto_user_number')}, :allow_blank => true
   validates_uniqueness_of :email, :scope => authentication_keys[1..-1], :case_sensitive => false, :allow_blank => true
   validates :email, :format => {:with => /\A([\w\.%\+\-]+)@([\w\-]+\.)+([\w]{2,})\z/i}, :allow_blank => true
   validates_date :expired_at, :allow_blank => true
@@ -83,6 +84,7 @@ class User < ActiveRecord::Base
   validates_confirmation_of :email #, :on => :create, :if => proc{|user| !user.operator.try(:has_role?, 'Librarian')}
   before_validation :set_role_and_patron, :on => :create
   before_validation :set_lock_information
+  before_validation :set_user_number, :on => :create
   before_destroy :check_item_before_destroy, :check_role_before_destroy
   before_save :check_expiration
   before_create :set_expired_at
@@ -229,6 +231,10 @@ class User < ActiveRecord::Base
       reload
       confirm!
     end
+  end
+
+  def set_user_number
+    self.user_number = self.username if SystemConfiguration.get('auto_user_number')
   end
 
   def index_patron
