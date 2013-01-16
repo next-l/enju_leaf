@@ -2,6 +2,13 @@
 <h1 class="title"><%= t('activerecord.models.keyword_count') %></h1>
 <div id="content_list">
 
+<script>
+$(function(){
+  $('#start_d').setCalendar({src:'/assets/calendar.png'});
+  $('#end_d').setCalendar({src:'/assets/calendar.png'});
+});
+</script>
+
 <%= form_for :keyword_counts, :html => { :method => 'get' } do %>
   <div style="color: red"><%= flash[:message] %></div>
   <p>

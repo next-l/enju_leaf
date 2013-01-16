@@ -4,6 +4,12 @@
 <strong><%= t('purchase_request.input_into_form_as_much_as_possible') -%></strong><br />
 <br />
 
+<script>
+$(function(){
+  $('#purchase_request_pub_date').setCalendar({src:'/assets/calendar.png'});
+});
+</script>
+
 <%= form_for(@purchase_request) do |f| -%>
   <%= f.error_messages -%>
 

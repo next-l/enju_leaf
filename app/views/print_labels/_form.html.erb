@@ -56,6 +56,12 @@
   </div>
 <%- end -%>
 
+<script>
+$(function(){
+  $('#birth_date').setCalendar({src:'/assets/calendar.png'});
+});
+</script>
+
 <%= t('family.please_search_users') -%>
 <%= form_tag({:action=>'search_user'},{:remote=>true}) do -%>
   <p>

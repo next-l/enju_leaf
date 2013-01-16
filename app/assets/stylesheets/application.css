@@ -16,4 +16,5 @@
  *= require opac
  *= require opac_pagination
  *= require jquery.keypad
+ *= require calendar
 */

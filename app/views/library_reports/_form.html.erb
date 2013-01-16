@@ -1,6 +1,12 @@
 <%= form_for(@library_report) do |f| %>
   <%= f.error_messages %>
 
+<script>
+$(function(){
+  $('#library_report_yyyymmdd').setCalendar({src:'/assets/calendar.png', fmt:'%Y%m%d'});
+});
+</script>
+
   <div class="field">
     <%= f.label :yyyymmdd %>
     <%= f.text_field :yyyymmdd, :class => 'report_integer' %>&nbsp;&nbsp;<%= t('library_report.date_comment') -%>

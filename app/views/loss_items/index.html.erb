@@ -3,6 +3,12 @@
 <div id="content_list">
 <div style="color: green"><%= flash[:message] -%></div>
 
+<script>
+$(function(){
+  $('#birth_date').setCalendar({src:'/assets/calendar.png'});
+});
+</script>
+
 <%= form_for :loss_items, :url => loss_items_path, :html => {:method => 'get'} do -%>
   <p>
     <%= t('page.search_term') -%>: 
