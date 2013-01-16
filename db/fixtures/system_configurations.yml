@@ -504,4 +504,11 @@ system_configuration_00072:
   typename: Boolean
   description: "トップ画面に開催日と催し物を表示するか？"
   category: 'view'
+system_configuration_00073:
+  id: 73
+  keyname: auto_user_number
+  v: "false"
+  typename: Boolean
+  description: "ユーザ名と利用者番号は常に同一の値とするか？"
+  category: 'user'
 

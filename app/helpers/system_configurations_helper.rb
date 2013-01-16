@@ -180,6 +180,10 @@ module SystemConfigurationsHelper
           'no_operation_logout'
        string << t('system_configuration.boolean_do') if state == 'true'
        string << t('system_configuration.boolean_not_do') if state == 'false'
+     # => yes,no
+     when 'auto_user_number'
+       string << t('system_configuration.boolean_yes') if state == 'true'
+       string << t('system_configuration.boolean_no') if state == 'false'
      # => send
      when 'send_message.recall_item',
           'send_message.recall_overdue_item',
