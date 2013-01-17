@@ -108,3 +108,9 @@ circulation_status_00016:
     ja:製本または修理中"
   id: 16
   position: 16
+circulation_status_00017:
+  name: Missing
+  display_name: "en:Missing\r\n\
+    ja:欠号"
+  id: 17
+  position: 17

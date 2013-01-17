@@ -1,5 +1,8 @@
 # -*- encoding: utf-8 -*-
 class ItemsController < ApplicationController
+  add_breadcrumb "I18n.t('activerecord.models.item')", 'items_path'
+  add_breadcrumb "I18n.t('page.new', :model => I18n.t('activerecord.models.item'))", 'new_item_path', :only => [:new, :create]
+  add_breadcrumb "I18n.t('page.editing', :model => I18n.t('activerecord.models.item'))", 'edit_item_path(params[:id])', :only => [:edit, :update]
   include NotificationSound
   load_and_authorize_resource 
   before_filter :get_user
@@ -127,7 +130,7 @@ class ItemsController < ApplicationController
     @item = Item.new
     @item.shelf_id = @library.shelves.first.id
     @item.manifestation_id = @manifestation.id
-    @circulation_statuses = CirculationStatus.where(:name => ['In Process', 'Available For Pickup', 'Available On Shelf', 'Claimed Returned Or Never Borrowed', 'Not Available']).order(:position)
+    @circulation_statuses = CirculationStatus.order(:position).all # where(:name => ['In Process', 'Available For Pickup', 'Available On Shelf', 'Claimed Returned Or Never Borrowed', 'Not Available']).order(:position)
     @item.circulation_status = CirculationStatus.where(:name => 'In Process').first
     if @manifestation.try(:manifestation_type).try(:is_article?)
       @item.checkout_type = CheckoutType.where(:name => 'article').first
