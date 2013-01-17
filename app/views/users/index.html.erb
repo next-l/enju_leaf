@@ -68,9 +68,9 @@
       <%- if user.patron -%>
         <%= link_to user.patron.full_name, user -%>
       <%- end -%>
-      <%- if !user.locked_at.blank? or user.unable == true -%>
+      <%- if user.user_status.state_id == 3 or user.unable == true -%>
         <br/>
-        (<%= t('activerecord.attributes.user.unable') if user.unable == true -%><%- if !user.locked_at.blank? and user.unable == true -%>&nbsp;<%- end -%><%= t('activerecord.attributes.user.locked') if !user.locked_at.blank? -%>)
+        (<%= t('activerecord.attributes.user.unable') if user.unable == true -%><%- if user.user_status.state_id == 3 and user.unable == true -%>&nbsp;<%- end -%><%= t('activerecord.attributes.user.locked') if user.user_status.state_id == 3 -%>)
       <%- end -%>
     </td>
     <td><%= user.user_number -%></td>
