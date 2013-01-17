@@ -482,5 +482,6 @@ class UsersController < ApplicationController
     @patron_types = PatronType.all
     @patron_type_person = PatronType.find_by_name('Person').id
     @user_statuses = UserStatus.all
+    @departments = Department.all
   end
 end

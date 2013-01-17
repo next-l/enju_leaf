@@ -463,6 +463,7 @@ ja:
         unable_yes: 可能
         unable_no: 不能
         user_status: 利用状況
+        department: 所属部署
       work_has_subject:
         work: 書いた資料
         subject: 件名

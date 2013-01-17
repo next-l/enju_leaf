@@ -42,6 +42,10 @@
           <td><%= @patron.user.library.display_name unless @patron.user.library_id.blank? -%></td>
         </tr>
         <tr>
+          <td><strong><%= t('activerecord.attributes.user.department') -%>:</strong></td>
+          <td><%= @patron.user.department.display_name unless @patron.user.department_id.blank? -%></td>
+        </tr>
+        <tr>
           <td><strong><%= t('activerecord.attributes.user.expired_at') -%>:</strong></td>
           <td><%= l(@patron.user.expired_at, :format => :only_date) if @patron.user.expired_at -%></td>
         </tr>

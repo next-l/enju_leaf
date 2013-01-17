@@ -100,5 +100,6 @@ class MyAccountsController < ApplicationController
     else
       current_user.locked = '1'
     end
+    @departments = Department.all
   end
 end

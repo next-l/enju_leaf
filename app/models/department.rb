@@ -8,4 +8,6 @@ class Department < ActiveRecord::Base
   default_scope :order => 'position'
   paginates_per 10
 
+  has_many :users
+
 end
