@@ -36,15 +36,6 @@ GIT
       rails (~> 3.2)
 
 GIT
-  remote: git://github.com/next-l/enju_bookmark.git
-  revision: 6bc860cea8479cd1b817db821dbeb43fb83928f9
-  specs:
-    enju_bookmark (0.1.2.pre7)
-      acts-as-taggable-on (~> 2.3)
-      rails (~> 3.2)
-      state_machine
-
-GIT
   remote: git://github.com/next-l/enju_circulation.git
   revision: 574d40df75a1ff8770372d305adbb095f087b3a9
   specs:
@@ -59,7 +50,7 @@ GIT
 
 GIT
   remote: git://github.com/next-l/enju_core.git
-  revision: e71af2fb120db9d280883e87fcc4910e36204ecc
+  revision: 3991f7dd662f14e3cb2517550cd745b206e5045c
   specs:
     enju_core (0.1.1.pre2)
       acts_as_list
@@ -73,7 +64,7 @@ GIT
       rails (~> 3.2)
       resque
       settingslogic
-      sunspot_rails (~> 2.0.0.pre.120925)
+      sunspot_rails (~> 2.0.0.pre.130115)
 
 GIT
   remote: git://github.com/next-l/enju_event.git
@@ -138,19 +129,6 @@ GIT
       rails (~> 3.2)
 
 GIT
-  remote: git://github.com/next-l/enju_message.git
-  revision: f3114288f7b1eaaa07da5f109ba8519d8792d0e0
-  specs:
-    enju_message (0.1.14.pre3)
-      awesome_nested_set (~> 2.1)
-      enju_core (~> 0.1.1.pre2)
-      inherited_resources
-      rails (~> 3.2)
-      resque_mailer
-      simple_form
-      state_machine
-
-GIT
   remote: git://github.com/next-l/enju_ndl.git
   revision: 87dc33c0b755cc66b011b6b954562ed53fc790ea
   specs:
@@ -178,24 +156,6 @@ GIT
     enju_oai (0.1.0.pre5)
       mobile-fu
       rails (~> 3.2)
-
-GIT
-  remote: git://github.com/next-l/enju_purchase_request.git
-  revision: 349d270d011ce10aa3a59eaa31f1286284f507ae
-  specs:
-    enju_purchase_request (0.1.0.pre5)
-      rails (~> 3.2)
-      state_machine
-
-GIT
-  remote: git://github.com/next-l/enju_question.git
-  revision: 8cadd4381cca238a79142daa749d190d088eebe2
-  specs:
-    enju_question (0.1.0.pre4)
-      acts-as-taggable-on (~> 2.3)
-      enju_core (~> 0.1.1.pre2)
-      rails (~> 3.2)
-      simple_form
 
 GIT
   remote: git://github.com/next-l/enju_resource_merge.git
@@ -256,8 +216,6 @@ GEM
     activesupport (3.2.11)
       i18n (~> 0.6)
       multi_json (~> 1.0)
-    acts-as-taggable-on (2.3.3)
-      rails (~> 3.0)
     acts_as_list (0.1.9)
     addressable (2.3.2)
     annotate (2.5.0)
@@ -308,7 +266,7 @@ GEM
     coffee-script-source (1.4.0)
     commonjs (0.2.6)
     dalli (2.6.0)
-    devise (2.2.0)
+    devise (2.2.2)
       bcrypt-ruby (~> 3.0)
       orm_adapter (~> 0.1)
       railties (~> 3.1)
@@ -317,6 +275,14 @@ GEM
       devise (>= 2.1.0.rc)
     diff-lcs (1.1.3)
     dynamic_form (1.1.4)
+    enju_message (0.1.14.pre3)
+      awesome_nested_set (~> 2.1)
+      enju_core (~> 0.1.1.pre2)
+      inherited_resources
+      rails (~> 3.2)
+      resque_mailer
+      simple_form
+      state_machine
     erubis (2.7.0)
     event-calendar (2.3.3)
     eventmachine (1.0.0)
@@ -336,8 +302,8 @@ GEM
     faraday_middleware (0.9.0)
       faraday (>= 0.7.4, < 0.9)
     fattr (2.2.1)
-    ffi (1.3.0)
-    foreigner (1.2.1)
+    ffi (1.3.1)
+    foreigner (1.3.0)
       activerecord (>= 3.0.0)
     friendly_id (4.0.9)
     geocoder (1.1.6)
@@ -346,7 +312,7 @@ GEM
       lumberjack (>= 1.0.2)
       pry (>= 0.9.10)
       thor (>= 0.14.6)
-    guard-rspec (2.3.3)
+    guard-rspec (2.4.0)
       guard (>= 1.1)
       rspec (~> 2.11)
     has_scope (0.5.1)
@@ -354,7 +320,7 @@ GEM
     highline (1.6.15)
     hike (1.2.1)
     http_parser.rb (0.5.3)
-    httparty (0.9.0)
+    httparty (0.10.0)
       multi_json (~> 1.0)
       multi_xml
     i18n (0.6.1)
@@ -368,7 +334,7 @@ GEM
     jquery-rails (2.1.4)
       railties (>= 3.0, < 5.0)
       thor (>= 0.14, < 2.0)
-    jquery-ui-rails (3.0.0)
+    jquery-ui-rails (3.0.1)
       jquery-rails
       railties (>= 3.1.0)
     json (1.7.6)
@@ -388,7 +354,7 @@ GEM
       websocket
     lisbn (0.1.2)
       nori
-    listen (0.7.1)
+    listen (0.7.2)
     lumberjack (1.0.2)
     mail (2.4.4)
       i18n (>= 0.4.0)
@@ -401,13 +367,13 @@ GEM
       rack-mobile-detect
       rails
     multi_json (1.5.0)
-    multi_xml (0.5.1)
+    multi_xml (0.5.2)
     multipart-post (1.1.5)
     net-sftp (2.0.5)
       net-ssh (>= 2.0.9)
-    net-ssh (2.6.2)
+    net-ssh (2.6.3)
     nokogiri (1.5.6)
-    nori (1.1.3)
+    nori (1.1.4)
     options (2.3.0)
       fattr
     orm_adapter (0.4.0)
@@ -431,11 +397,11 @@ GEM
     progress_bar (0.4.0)
       highline (~> 1.6.1)
       options (~> 2.3.0)
-    pry (0.9.10)
+    pry (0.9.11.2)
       coderay (~> 1.0.5)
       method_source (~> 0.8)
-      slop (~> 3.3.1)
-    rack (1.4.3)
+      slop (~> 3.4)
+    rack (1.4.4)
     rack-cache (1.2)
       rack (>= 0.4)
     rack-mobile-detect (0.4.0)
@@ -501,7 +467,7 @@ GEM
     rspec-expectations (2.12.1)
       diff-lcs (~> 1.1.3)
     rspec-mocks (2.12.1)
-    rspec-rails (2.12.1)
+    rspec-rails (2.12.2)
       actionpack (>= 3.0)
       activesupport (>= 3.0)
       railties (>= 3.0)
@@ -515,7 +481,7 @@ GEM
     sanitize (2.0.3)
       nokogiri (>= 1.4.4, < 1.6)
     sass (3.2.5)
-    sass-rails (3.2.5)
+    sass-rails (3.2.6)
       railties (~> 3.2.0)
       sass (>= 3.1.10)
       tilt (~> 1.3)
@@ -539,7 +505,7 @@ GEM
       tilt (~> 1.3, >= 1.3.3)
     sitemap_generator (3.4)
       builder
-    slop (3.3.3)
+    slop (3.4.3)
     spork (1.0.0rc3)
     spork-rails (3.2.1)
       rails (>= 3.0.0, < 3.3.0)
@@ -559,18 +525,18 @@ GEM
       railties (~> 3.0)
     strongbox (0.6.0)
       activerecord
-    sunspot (2.0.0.pre.120925)
+    sunspot (2.0.0.pre.130115)
       pr_geohash (~> 1.0)
       rsolr (~> 1.0.7)
-    sunspot_rails (2.0.0.pre.120925)
+    sunspot_rails (2.0.0.pre.130115)
       nokogiri
-      sunspot (= 2.0.0.pre.120925)
-    sunspot_solr (2.0.0.pre.120925)
+      sunspot (= 2.0.0.pre.130115)
+    sunspot_solr (2.0.0.pre.130115)
     therubyracer (0.10.2)
       libv8 (~> 3.3.10)
     thor (0.16.0)
     tilt (1.3.3)
-    timecop (0.5.7)
+    timecop (0.5.9)
     timeliness (0.3.7)
     tinder (1.9.2)
       eventmachine (~> 1.0)
@@ -605,7 +571,7 @@ GEM
     warden (1.2.1)
       rack (>= 1.0)
     websocket (1.0.6)
-    whenever (0.8.1)
+    whenever (0.8.2)
       activesupport (>= 2.3.4)
       chronic (>= 0.6.3)
     xml-simple (1.1.2)
@@ -633,7 +599,6 @@ DEPENDENCIES
   dynamic_form
   enju_biblio!
   enju_book_jacket!
-  enju_bookmark!
   enju_circulation!
   enju_core!
   enju_event!
@@ -642,12 +607,9 @@ DEPENDENCIES
   enju_inventory!
   enju_library!
   enju_manifestation_viewer!
-  enju_message!
   enju_ndl!
   enju_nii!
   enju_oai!
-  enju_purchase_request!
-  enju_question!
   enju_resource_merge!
   enju_search_log!
   enju_subject!
@@ -690,7 +652,7 @@ DEPENDENCIES
   strong_parameters
   strongbox
   sunspot-rails-tester!
-  sunspot_solr (~> 2.0.0.pre.120925)
+  sunspot_solr (~> 2.0.0.pre.130115)
   therubyracer (= 0.10.2)
   therubyrhino
   timecop

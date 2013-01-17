@@ -15,9 +15,9 @@ class ApplicationController < ActionController::Base
   has_mobile_fu
   before_filter :set_request_format
 
-  enju_question
+  #enju_question
   enju_subject
-  enju_purchase_request
+  #enju_purchase_request
   enju_event
   enju_resource_merge
   enju_inventory
