@@ -76,14 +76,14 @@ gem 'validates_timeliness'
 gem 'rack-protection'
 gem 'awesome_nested_set', '~> 2.1'
 gem 'rails_autolink'
-#gem 'oink', '>= 0.9.3'
+#gem 'oink', '>= 0.10'
 gem 'foreigner'
 gem 'strong_parameters'
 gem 'resque-scheduler', '~> 2.0.0', :require => 'resque_scheduler'
 
 group :development do
   gem 'annotate', '~> 2.5'
-  gem 'sunspot_solr', '~> 2.0.0.pre.120925'
+  gem 'sunspot_solr', '~> 2.0.0.pre.130115'
   gem 'rails-erd'
   gem 'immigrant'
 end
@@ -91,7 +91,7 @@ end
 group :development, :test do
   gem 'simplecov', '~> 0.7', :require => false
   gem 'ruby-prof', :platforms => :mri_19
-  gem 'rspec-rails', '~> 2.11'
+  gem 'rspec-rails', '~> 2.12'
   gem 'guard-rspec'
   gem 'factory_girl_rails', '~> 4.1'
   gem 'spork-rails'
