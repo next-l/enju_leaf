@@ -1607,6 +1607,7 @@ ja:
     feed: フィード
     csv: CSV
     tsv: TSV
+    xlsx: XLSX
     asc: 昇順
     desc: 降順
     picture: 画像
