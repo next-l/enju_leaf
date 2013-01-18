@@ -1,6 +1,13 @@
 <div id="content_detail" class="ui-corner-all">
 <h1 class="title"><%= t('page.best_reader') -%></h1>
 
+<script>
+$(function(){
+  $('#search_date_first').setCalendar({src:'/assets/calendar.png'});
+  $('#search_date_last').setCalendar({src:'/assets/calendar.png'});
+});
+</script>
+
 <div id="content_list">
 <%= form_for :manifestations, :html => {:method => 'get'} do -%>
   <div style="color: red"><%= flash[:message] -%></div>

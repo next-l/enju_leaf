@@ -12,6 +12,9 @@
 <body>
 <script>
   $(document).ready(function(){
+    $('#patron_birth_date').setCalendar({src:'/assets/calendar.png'});
+    $('#patron_death_date').setCalendar({src:'/assets/calendar.png'});
+
     if ($("#errorExplanation").length > 0)
        playSound('<%= root_path -%><%= Setting.sounds.errors.default -%>');
   });

@@ -1,3 +1,14 @@
+<script>
+$(function(){
+  $('#pub_date_from').setCalendar({src:'/assets/calendar.png'});
+  $('#pub_date_to').setCalendar({src:'/assets/calendar.png'});
+  $('#acquired_from').setCalendar({src:'/assets/calendar.png'});
+  $('#acquired_to').setCalendar({src:'/assets/calendar.png'});
+  $('#removed_from').setCalendar({src:'/assets/calendar.png'});
+  $('#removed_to').setCalendar({src:'/assets/calendar.png'});
+});
+</script>
+
 <div id="content_detail" class="ui-corner-all">
 <h1 class="title"><%= t('page.advanced_search') -%></h1>
 <div id="content_list">
