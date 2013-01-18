@@ -116,6 +116,9 @@ class Manifestation < ActiveRecord::Base
     boolean :has_removed do
       has_removed?
     end
+    boolean :is_article do
+      self.article?
+    end
     string :shelf, :multiple => true do
       items.collect{|i| "#{i.shelf.library.name}_#{i.shelf.name}"}
     end

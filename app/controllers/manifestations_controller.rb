@@ -104,6 +104,9 @@ class ManifestationsController < ApplicationController
       includes = [:carrier_type, :required_role, :items, :creators, :contributors, :publishers]
       includes << :bookmarks if defined?(EnjuBookmark)
       search = Manifestation.search(:include => includes)
+      search_all = Manifestation.search(:include => includes)
+      search_book = Manifestation.search(:include => includes)
+      search_article = Manifestation.search(:include => includes)
       role = current_user.try(:role) || Role.default_role
       oai_search = true if params[:format] == 'oai'
       case @reservable
@@ -118,6 +121,17 @@ class ManifestationsController < ApplicationController
       get_manifestation; get_subject
       patron = get_index_patron
       @index_patron = patron
+
+      split_by_type = SystemConfiguration.get("manifestations.split_by_type")
+
+      searchs = [ search_all ]
+      if split_by_type
+        searchs << search_book
+        searchs << search_article
+      end
+
+      searchs.each do |s|
+      search = s
 
       @binder = binder = Manifestation.find(params[:bookbinder_id]).try(:items).try(:first) if params[:bookbinder_id]
       unless params[:mode] == 'add'
@@ -165,6 +179,11 @@ class ManifestationsController < ApplicationController
         facet :reservable
         with(:bookbinder_id).equal_to binder.id if params[:mode] != 'add' && binder
         without(:id, binder.manifestation.id) if binder
+	if s.equal?(search_book)
+	  with(:is_article).equal_to false
+	elsif s.equal?(search_article)
+	  without(:is_article).equal_to false
+	end
       end
       search = make_internal_query(search)
       search.data_accessor_for(Manifestation).select = [
@@ -187,6 +206,10 @@ class ManifestationsController < ApplicationController
         :note,
         :missing_issue
       ] if (params[:format] == 'html' or params[:format].nil?) && params[:missing_issue].nil?
+      end
+
+      search = search_all
+
       # catch query error 
       begin
         all_result = search.execute
@@ -248,6 +271,7 @@ class ManifestationsController < ApplicationController
         end
       end
       page ||= params[:page] || 1
+      page_article ||= params[:page_article] || 1
       per_page = cookies[:per_page] if cookies[:per_page]
       per_page = params[:per_page] if params[:per_page]#Manifestation.per_page
       @per_page = per_page
@@ -255,6 +279,8 @@ class ManifestationsController < ApplicationController
       if params[:format] == 'sru'
         search.query.start_record(params[:startRecord] || 1, params[:maximumRecords] || 200)
       else
+        searchs.each do |s|
+	search = s
         search.build do
           facet :reservable
           facet :carrier_type
@@ -263,15 +289,25 @@ class ManifestationsController < ApplicationController
           facet :subject_ids
           facet :manifestation_type
           facet :missing_issue
-          paginate :page => page.to_i, :per_page => per_page unless request.xhr?
+	  if s == search_article
+            paginate :page => page_article.to_i, :per_page => per_page unless request.xhr?
+	  else
+            paginate :page => page.to_i, :per_page => per_page unless request.xhr?
+	  end
           if params[:format].blank? or params[:format] == 'html'
             spellcheck :collate => true
           end
         end
+	end
+	search = search_all
       end
       # catch query error 
       begin
-        search_result = search.execute
+        search_result = search_all.execute
+	if split_by_type
+          search_book_result = search_book.execute
+          search_article_result = search_article.execute
+	end
       rescue Exception => e
         flash[:message] = t('manifestation.invalid_query')
         logger.error "query error: #{e}"
@@ -279,12 +315,31 @@ class ManifestationsController < ApplicationController
       end
       if @count[:query_result] > SystemConfiguration.get("max_number_of_results")
         max_count = SystemConfiguration.get("max_number_of_results")
+	if split_by_type
+	  max_book_count = max_count
+	  max_article_count = max_count
+	end
       else
         max_count = @count[:query_result]
+	if split_by_type
+          max_book_count = search_book_result.total
+          max_article_count = search_article_result.total
+	end
       end
       @manifestations = Kaminari.paginate_array(
         search_result.results, :total_count => max_count
       ).page(page).per(per_page)
+      @manifestations_all = [ @manifestations ]
+      if split_by_type
+        @manifestations_book = Kaminari.paginate_array(
+          search_book_result.results, :total_count => max_book_count
+        ).page(page).per(per_page)
+        @manifestations_article = Kaminari.paginate_array(
+          search_article_result.results, :total_count => max_article_count
+        ).page(page_article).per(per_page)
+        @manifestations_all = [ @manifestations_book, @manifestations_article ]
+	@split_by_type = split_by_type
+      end
       get_libraries
 
       if params[:format].blank? or params[:format] == 'html'
