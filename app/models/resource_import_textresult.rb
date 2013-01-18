@@ -1,5 +1,5 @@
 class ResourceImportTextresult < ActiveRecord::Base
-  attr_accessible :resource_import_textfile_id, :body, :error_msg
+  attr_accessible :resource_import_textfile_id, :body, :error_msg, :extraparams
 
   default_scope :order => 'resource_import_textresults.id DESC'
   scope :file_id, proc{|file_id| where(:resource_import_textfile_id => file_id)}
@@ -47,8 +47,55 @@ class ResourceImportTextresult < ActiveRecord::Base
     end
     return data
   end
-end
 
+  def self.get_resource_import_textresults_excelx(resource_import_textresults)
+    # initialize
+    out_dir = "#{Rails.root}/private/system/manifestations_list_excelx"
+    excel_filepath = "#{out_dir}/list#{Time.now.strftime('%s')}#{rand(10)}.xlsx"
+    FileUtils.mkdir_p(out_dir) unless FileTest.exist?(out_dir)
+
+    extraprams_list = resource_import_textresults.sort.map{ |r| r.extraparams }.uniq
+
+
+    logger.info "get_manifestation_list_excelx filepath=#{excel_filepath}"
+    Axlsx::Package.new do |p|
+      wb = p.workbook
+      wb.styles do |s|
+        default_style = s.add_style :font_name => Setting.manifestation_list_print_excelx.fontname
+
+
+        extraprams_list.each do |extraparams|
+          wb.add_worksheet(:name => eval(extraparams)['sheet']) do |sheet|
+            results = resource_import_textresults.where(:extraparams => extraparams)
+            results.sort.each do |result|
+              row = result.body.split(/\t/)
+              sheet.add_row row, :style => Array.new(columns.size).fill(default_style)
+              begin
+                item = Item.find(result.item_id) rescue nil
+                if item
+                  if item.manifestation.article?
+                    if item.reserve
+                      item.reserve.revert_request rescue nil
+                    end
+                    item.destroy
+                    result.item_id = nil
+                    result.save!
+                  end
+                end
+              rescue => e
+                logger.info "failed to destroy item: #{result.item_id}"
+                logger.info e.message
+              end
+            end
+          end
+        end
+        p.serialize(excel_filepath)
+      end
+    end
+    return excel_filepath
+  end
+
+end
 # == Schema Information
 #
 # Table name: resource_import_results

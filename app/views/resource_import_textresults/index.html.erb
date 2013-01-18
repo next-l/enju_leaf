@@ -44,10 +44,18 @@
     <li><%= link_to t('page.back'), @resource_import_textfile -%></li>
   </ul>
     <% if @resource_import_textfile %>
-      <%= link_to (image_tag 'icons/page_white_excel.png', :size => '16x16', :alt => 'TSV', :title => t('tooltip.tsv'), :class => 'icon'), resource_import_textfile_resource_import_textresults_path(@resource_import_textfile, :format => :tsv, :locale => @locale.to_s) -%>
+      <%= link_to (image_tag 'icons/page_white_excel.png', :size => '16x16', :alt => 'TSV', :title => t('tooltip.tsv'), :class => 'icon'),
+        resource_import_textfile_resource_import_textresults_path(@resource_import_textfile, :format => :tsv, :locale => @locale.to_s) -%>
       (<%= link_to 'TSV', resource_import_textfile_resource_import_textresults_path(:format => :tsv, :locale => @locale.to_s) -%>)
+      <%= link_to (image_tag 'icons/page_white_excel.png', :size => '16x16', :alt => 'XLSX', :title => t('tooltip.xlsx'), :class => 'icon'),
+        resource_import_textfile_resource_import_textresults_path(@resource_import_textfile, :only_error => params[:only_error], :format => :xlsx, :locale => @locale.to_s) -%>
+      (<%= link_to 'XLSX', resource_import_textfile_resource_import_textresults_path(:only_error => params[:only_error], :format => :xlsx, :locale => @locale.to_s) -%>)
     <% else %>
-      <%= link_to (image_tag 'icons/page_white_excel.png', :size => '16x16', :alt => 'TSV', :title => t('tooltip.tsv'), :class => 'icon'), resource_import_textresults_path(:format => :tsv, :locale => @locale.to_s) -%>
+      <%= link_to (image_tag 'icons/page_white_excel.png', :size => '16x16', :alt => 'TSV', :title => t('tooltip.tsv'), :class => 'icon'),
+        resource_import_textresults_path(:format => :tsv, :locale => @locale.to_s) -%>
       (<%= link_to 'TSV', resource_import_textresults_path(:format => :tsv, :locale => @locale.to_s) -%>)
+      <%= link_to (image_tag 'icons/page_white_excel.png', :size => '16x16', :alt => 'XLSX', :title => t('tooltip.xlsx'), :class => 'icon'),
+        resource_import_textresults_path(:only_error => params[:only_error], :format => :xlsx, :locale => @locale.to_s) -%>
+      (<%= link_to 'XLSX', resource_import_textresults_path(:only_error => params[:only_error],:format => :xlsx, :locale => @locale.to_s) -%>)
     <% end %>
 </div>
