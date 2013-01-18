@@ -1585,6 +1585,8 @@ ja:
     extensions_1: "その他の機能"
     library_check: "蔵書点検"
     access_logs: アクセス件数
+    search_results: "資料の検索結果"
+    search_article_results: "論文資料の検索結果"
 
     exstatistics:
       ranknumber: 順位
