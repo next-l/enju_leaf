@@ -69,7 +69,7 @@ class User < ActiveRecord::Base
   belongs_to :department
 
   validates :username, :presence => true #, :uniqueness => true
-  validates_uniqueness_of :user_name, :unless => proc{|user| SystemConfiguration.get('auto_user_number')}, :allow_blank => true
+  validates_uniqueness_of :username, :unless => proc{|user| SystemConfiguration.get('auto_user_number')}, :allow_blank => true
   validates_uniqueness_of :email, :scope => authentication_keys[1..-1], :case_sensitive => false, :allow_blank => true
   validates :email, :format => {:with => /\A([\w\.%\+\-]+)@([\w\-]+\.)+([\w]{2,})\z/i}, :allow_blank => true
   validates_date :expired_at, :allow_blank => true
