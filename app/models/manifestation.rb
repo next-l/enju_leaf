@@ -635,7 +635,9 @@ private
     FileUtils.mkdir_p(out_dir) unless FileTest.exist?(out_dir)
 
     logger.info "get_manifestation_list_excelx filepath=#{excel_filepath}"
+    
     #
+    require 'axlsx'
     Axlsx::Package.new do |p|
       wb = p.workbook
       wb.styles do |s|
@@ -644,24 +646,22 @@ private
         wb.add_worksheet(:name => "item_list") do |sheet|
           # header line
           columns = [
-            [:manifestation_id, 'activerecord.attributes.manifestation.id'],
+            [:shelf, 'activerecord.models.shelf'],
+            [:item_identifier, 'activerecord.attributes.item.item_identifier'],
             [:title, 'activerecord.attributes.manifestation.original_title'],
-            [:isbn, 'activerecord.attributes.manifestation.isbn'],
+            [:series, 'activerecord.attributes.series_statement.original_title'],
             [:edition, 'activerecord.attributes.manifestation.edition'],
             [:volume_number, 'activerecord.attributes.manifestation.volume_number_string'],
             [:issue_number, 'activerecord.attributes.manifestation.issue_number_string'],
             [:serial_number, 'activerecord.attributes.manifestation.serial_number_string'],
             [:carrier_type, 'page.form'],
-            [:language, 'activerecord.models.language'],
             [:creator, 'patron.creator'],
             [:contributor, 'patron.contributor'],
             [:publisher, 'patron.publisher'],
             [:pub_date, 'activerecord.attributes.manifestation.pub_date'],
-            [:item_identifier, 'activerecord.attributes.item.item_identifier'],
-            [:call_number, 'activerecord.attributes.item.call_number'],
             [:acquired_at, 'activerecord.attributes.item.acquired_at'],
-            [:library, 'activerecord.models.library'],
-            [:shelf, 'activerecord.models.shelf'],
+            [:isbn, 'activerecord.attributes.manifestation.isbn'],
+            [:call_number, 'activerecord.attributes.item.call_number'],
             [:circulation_status, 'activerecord.models.circulation_status'],
           ]
 
@@ -671,42 +671,74 @@ private
 
           # data lines
           manifestations.each do |manifestation|
-            item_size = manifestation.items.size rescue 0 
 
-            if item_size > 0
-              manifestation.items.map { |item|
+            item_size = manifestation.items.size rescue 0 
+            series_statement = manifestation.series_statement
+
+            #logger.debug "@@0 item_size=#{item_size}"
+            #logger.debug "@@01 title=#{manifestation.original_title}"
+
+            if series_statement.nil? || series_statement && series_statement.periodical == false
+              #logger.debug "@@1"
+              series_title = series_statement.original_title rescue ""
+              if item_size > 0
+                manifestation.items.map { |item|
+                  row = []
+                  row.concat(get_excel_row(manifestation, series_title, item))
+
+                  sheet.add_row row, :style => Array.new(row.size).fill(default_style)
+                }
+              else
+                # manifestation only
                 row = []
-                row.concat(get_basic(manifestation))
-                row.concat(get_item_basic(item))
+                row.concat(get_excel_row(manifestation, series_title))
 
                 sheet.add_row row, :style => Array.new(row.size).fill(default_style)
-              }
+              end
             else
-              series_statement = manifestation.series_statement
-              if series_statement.try(:periodical)  # 雑誌の場合
+              #logger.debug "@@3"
+              if series_statement
+                series_title = series_statement.original_title
                 series_statement.manifestations.each do |m| 
-                  m.items.each do |item|
+                  item_size = m.items.size rescue 0
+                  if item_size > 0
+                    m.items.each do |item|
+                      row = []
+                      row.concat(get_excel_row(m, series_title, item))
+
+                      sheet.add_row row, :style => Array.new(row.size).fill(default_style)
+                    end
+                  else 
+                    # skip?
+                    next if series_statement.manifestations.size > 1 && m.periodical_master
+
+                    if series_statement.manifestations.size == 1 && m.periodical_master
+                      # manifestation only or periodical only
+                      mt = Manifestation.new
+                      ms = series_title
+                    elsif series_statement.periodical == false
+                      mt = m
+                      ms = series_title
+                    else
+                      mt = m
+                      ms = manifestation.original_title
+                    end
                     row = []
-                    row.concat(get_basic(m))
-                    row.concat(get_item_basic(item))
+                    row.concat(get_excel_row(mt, ms))
 
                     sheet.add_row row, :style => Array.new(row.size).fill(default_style)
                   end
+
+                  break if series_statement.manifestations.size == 1 && m.periodical_master
                 end
               else
                 # manifestation only
                 row = []
-                row.concat(get_basic(manifestation))
-                row << ""
-                row << ""
-                row << ""
-                row << ""
-                row << ""
-                row << ""
-              end
+                row.concat(get_excel_row(manifestation))
 
-              sheet.add_row row, :style => Array.new(row.size).fill(default_style)
-            end
+                sheet.add_row row, :style => Array.new(row.size).fill(default_style)
+              end
+           end
           end
           p.serialize(excel_filepath)
         end
@@ -714,6 +746,33 @@ private
 
       return excel_filepath
     end
+  end
+
+  def self.get_excel_row(manifestation, series_title = '', item = nil)
+    creator = manifestation.creators.map{|patron| patron.full_name}
+    contributor = manifestation.contributors.map{|patron| patron.full_name}
+    publisher = manifestation.publishers.map{|patron| patron.full_name}
+
+    row = []
+    row << (item.shelf.display_name.localize rescue "")
+    row << (item.item_identifier rescue "")
+    row << manifestation.original_title
+    row << series_title
+    row << (manifestation.isbn rescue "")
+    row << (manifestation.edition rescue "")
+    row << (manifestation.volume_number_string rescue "")
+    row << manifestation.issue_number_string
+    row << manifestation.serial_number_string
+    row << creator.join(',')
+    row << contributor.join(',')
+    row << publisher.join(',')
+    row << manifestation.pub_date
+    row << (item.acquired_at.strftime("%Y-%m-%d") rescue "")
+    row << (manifestation.isbn rescue "")
+    row << (item.call_number rescue "")
+    row << (item.circulation_status.display_name.localize rescue "")
+
+    return row
   end
 
   def self.get_item_basic(item)
