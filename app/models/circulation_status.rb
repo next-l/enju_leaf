@@ -6,6 +6,8 @@ class CirculationStatus < ActiveRecord::Base
   scope :not_found, where(["name IN (?)", ["Circulation Status Undefined", "Lost", "Removed"]])
   has_many :items
   attr_protected :name
+
+  has_paper_trail
 end
 
 # == Schema Information

@@ -15,6 +15,8 @@ class SeriesStatement < ActiveRecord::Base
   validate :check_issn
   #after_create :create_initial_manifestation
 
+  has_paper_trail
+
   acts_as_list
   searchable do
     text :title do

@@ -20,6 +20,8 @@ class Country < ActiveRecord::Base
   after_save :clear_all_cache
   after_destroy :clear_all_cache
 
+  has_paper_trail
+
   def self.all_cache
     Rails.cache.fetch('country_all'){Country.all}
   end

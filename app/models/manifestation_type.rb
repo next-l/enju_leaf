@@ -4,6 +4,8 @@ class ManifestationType < ActiveRecord::Base
   default_scope :order => "position"
   has_many :manifestations
 
+  has_paper_trail
+
   def is_book?
     if ['japanese_book', 'foreign_book'].include?(self.name)
       return true
