@@ -225,19 +225,22 @@ describe Manifestation, :solr => true do
     before do
       Sunspot.remove_all!
 
+      @manifestation_type = FactoryGirl.create(:manifestation_type)
       @manifestation = FactoryGirl.create(
         :manifestation,
         :original_title => exact_title,
-        :manifestation_type => FactoryGirl.create(:manifestation_type))
+        :manifestation_type => @manifestation_type)
 
       Sunspot.commit
     end
 
-    before do
+    def do_test_search
       @result = subject.search(&search_spec).execute
     end
 
     it '書名により検索できること' do
+      do_test_search
+
       @result.results.should have(1).item
       @result.results.first.should == @manifestation
 
@@ -248,6 +251,8 @@ describe Manifestation, :solr => true do
 
     shared_examples_for '「もしかして」検索' do
       it '「もしかして」検索ができること' do
+        do_test_search
+
         @result.results.should have(:no).items
 
         raw = @result.raw_suggestions
@@ -271,6 +276,7 @@ describe Manifestation, :solr => true do
       include_examples '「もしかして」検索'
 
       it 'collationを返さないこと' do
+        do_test_search
         @result.collation.should be_nil
       end
     end
@@ -285,8 +291,38 @@ describe Manifestation, :solr => true do
       include_examples '「もしかして」検索'
 
       it 'collationを返すこと' do
+        do_test_search
         @result.collation.should be_present
-        @result.collation.should == exact_title
+        @result.collation.first.should == exact_title
+      end
+    end
+
+    context 'spellcheck collate=>3指定があるとき' do
+      before do
+        [
+          'JRuby on Rails実践開発ガイド',
+          '実践Ruby on Rails Webプログラミング入門 : 無駄なく迅速な開発環境 : Webアプリケーション開発を加速するJavaエンジニアのためのRoR入門!',
+          'はじめてのGrails : 「Ruby on Rails」風の「フレームワーク」をJavaで使いこなす!',
+        ].each do |title|
+          FactoryGirl.create(
+            :manifestation,
+            :original_title => title,
+            :manifestation_type => @manifestation_type)
+        end
+        Sunspot.commit
+      end
+
+      let(:search_spec) do
+        proc {
+          fulltext 'ruy on rails'
+          spellcheck collate: 3
+        }
+      end
+
+      it 'collationを複数返すこと' do
+        do_test_search
+        @result.collation.should be_present
+        @result.collation.count.should > 1
       end
     end
   end
