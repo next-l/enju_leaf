@@ -295,7 +295,7 @@ class ManifestationsController < ApplicationController
             paginate :page => page.to_i, :per_page => per_page unless request.xhr?
 	  end
           if params[:format].blank? or params[:format] == 'html'
-            spellcheck :collate => true
+            spellcheck :collate => 3, :q => params[:query]
           end
         end
 	end
@@ -359,7 +359,7 @@ class ManifestationsController < ApplicationController
             @suggested_tag = query.suggest_tags.first
           end
         end
-        @collation = search_result.collation.try(:strip)
+        @collation = search_result.collation
       end
 
       save_search_history(query, @manifestations.limit_value, @count[:query_result], current_user)
