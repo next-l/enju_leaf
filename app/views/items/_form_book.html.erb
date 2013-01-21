@@ -77,6 +77,11 @@
   </div>
 
   <div class="field">
+<script>
+$(function(){
+  $('#item_acquired_at').setCalendar({src:'/assets/calendar.png'});
+});
+</script>
     <%= f.label :acquired_at -%>
     <%- if @item.acquired_at -%>
       <%= f.text_field :acquired_at, :value => @item.acquired_at.try(:strftime, "%Y-%m-%d"), :class => 'date_field' -%>

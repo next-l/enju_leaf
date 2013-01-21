@@ -15,6 +15,11 @@
 <h1 class="title"><%= t('page.listing', :model => t('activerecord.models.user')) -%></h1>
 <div id="content_list">
 <div style="color: green"><%= flash[:message] -%></div>
+<script>
+$(function(){
+  $('#birth_date').setCalendar({src:'/assets/calendar.png'});
+});
+</script>
 <%= form_for :users, :url => users_path, :html => {:method => 'get', :id => 'form'} do -%>
   <p>
     <%= t('page.search_term') -%>: <%= search_field_tag 'query', h(@query), {:id => 'search_form_top', :class => 'search_form', :placeholder => t('page.search_term')} -%><br />

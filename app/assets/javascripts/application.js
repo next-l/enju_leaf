@@ -21,3 +21,4 @@
 //= require jquery.ui.datepicker-ja
 //= require jquery.spin
 //= require jquery.upload-1.0.2
+//= require jquery.simplecalendarjp

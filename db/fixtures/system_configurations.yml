@@ -511,4 +511,11 @@ system_configuration_00073:
   typename: Boolean
   description: "ユーザ名と利用者番号は常に同一の値とするか？"
   category: 'user'
+system_configuration_00074:
+  id: 74
+  keyname: manifestations.split_by_type
+  v: "true"
+  typename: Boolean
+  description: "資料区分で検索結果を分離するか？"
+  category: 'manifestation'
 

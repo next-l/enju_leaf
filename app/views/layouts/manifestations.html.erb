@@ -14,6 +14,10 @@
 </head>
 <body>
 <script>
+  $(function(){
+    $('#manifestation_pub_date').setCalendar({src:'/assets/calendar.png'});
+  });
+
   $(document).ready(function(){
     if ($("#errorExplanation").length > 0)
        playSound('<%= root_path -%><%= Setting.sounds.errors.default -%>');

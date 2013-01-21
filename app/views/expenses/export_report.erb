@@ -1,5 +1,7 @@
 <script>
   $(document).ready(function(){
+    $('#expense_term_from').setCalendar({src:'/assets/calendar.png', fmt:'%Y%m%d'});
+    $('#expense_term_to').setCalendar({src:'/assets/calendar.png', fmt:'%Y%m%d'});
     // for checked box
     var $tgt_parent = $("input.check-parent");
     var $tgt_child = $("input.check-child");
