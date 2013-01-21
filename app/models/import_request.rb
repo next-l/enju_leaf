@@ -25,7 +25,7 @@ class ImportRequest < ActiveRecord::Base
 
   def check_isbn
     if isbn.present?
-      errors.add(:isbn) unless ISBN_Tools.is_valid?(isbn)
+      errors.add(:isbn) unless Lisbn.new(isbn).valid?
     end
   end
 
