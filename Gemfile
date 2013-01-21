@@ -21,6 +21,9 @@ gem 'enju_bookmark', :git => 'git://github.com/shinozuka/enju_bookmark.git'
 
 gem "jpp_customercode_transfer", "~> 0.0.2"
 
+# special gem here.
+# gem 'enju_xxx', :git => 'https://xxx@github.com/'
+
 #
 platforms :ruby do
   gem 'pg'
