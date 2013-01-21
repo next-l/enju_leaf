@@ -326,6 +326,431 @@ describe Manifestation, :solr => true do
       end
     end
   end
+
+  describe '#searchableブロックは' do
+    before do
+      # NOTE:
+      # 2013-01-15現在、
+      # spec/fixtures/series_has_manifestations.yml中で
+      # series_statement_idに1、2、3が設定されているのに対し、
+      # spec/fixtures/series_statements.ymlでは
+      # idが1、2のレコードしか記述されていない。
+      # このため、fixtureのロード後に作成した
+      # SeriesStatmentレコードに意図しない
+      # Manifestationレコードが関連付けられてしまう。
+      #
+      # 以下で、こうした混乱を避けるために
+      # 空のSeriesStatmentを作成する。
+      10.times { FactoryGirl.create(:series_statement) }
+    end
+
+    def setup_manifestations_for_search
+      @series_statement =
+        case series_statement_type
+        when :periodical
+          # 雑誌
+          FactoryGirl.create(:series_statement, :periodical => true)
+        when true
+          # 定期刊行物
+          FactoryGirl.create(:series_statement, :periodical => false)
+        when false
+          # 書誌
+          nil
+        end
+
+      manifestation_type = FactoryGirl.create(:manifestation_type)
+
+      @manifestations = [
+        @manifestation1 = FactoryGirl.create(
+          :manifestation,
+          :manifestation_type => manifestation_type,
+          :series_statement => @series_statement),
+        @manifestation2 = FactoryGirl.create(
+          :manifestation,
+          :manifestation_type => manifestation_type,
+          :series_statement => @series_statement),
+        @manifestation3 = FactoryGirl.create( # 対比用のダミー
+          :manifestation,
+          :manifestation_type => manifestation_type,
+          :series_statement => nil),
+      ]
+    end
+
+    shared_examples_for 'Solrインデックスへの登録' do
+      before :each do
+        Sunspot.remove_all!
+
+        setup_manifestations_for_search
+      end
+
+      # Manifestation.searchableで正しくインデックス登録されることを検証する。
+      #
+      # extract_keys_method: インデックスに登録されることを検証するための検索で指定する値を導くメソッド(シンボルまたはprocで、前者ならばManifestationレコードにsendされ、後者ならばManifestationレコードとともにyieldされる)
+      # seaarch_method: Manifestation.searchで検索条件を指定するのに使うメソッド(およびその引数)
+      # prepared_keys: 検証のために用意したテスト用属性データ(オブジェクト)群
+      #
+      # ブロックには、用意された属性データから
+      # インデックスに登録されているはずの検索語(など)を
+      # 取り出す処理を与える。
+      def it_should_search_items_by_attr(extract_keys_method, *search_method, prepared_keys, &block)
+        Sunspot.commit
+
+        @manifestations.each do |manifestation|
+          if manifestation.series_statement.blank? ||
+              series_statement_type != :periodical
+            # manifestationが雑誌でなかったとき
+            expect = [manifestation]
+
+          else
+            # manifestationが雑誌であったとき
+            #
+            # NOTE:
+            # manifestationの一部属性値のインデックスへの格納は
+            # 同雑誌(SeriesStatement)に属する全レコードの属性値が
+            # 集約された上で行われる。
+            # ここで、manifestationがA、B、Cの順に登録されたとすると、
+            # manifestation AのためにはAの属性値だけが使用される。
+            # また、BのためにはBとAの属性値が使用され、
+            # CのためにはCとBとAの属性値が使用される。
+            t = Manifestation.arel_table
+            expect =
+              manifestation.series_statement.
+              manifestations.where(t[:id].gteq(manifestation.id))
+          end
+
+          # 検証のための検索に与える検索キー(検索条件)を取り出す
+          keys = if extract_keys_method.is_a?(Proc)
+                   extract_keys_method.call(manifestation)
+                 else
+                   manifestation.__send__(extract_keys_method)
+                 end
+          keys = [keys] unless keys.respond_to?(:each)
+
+          # 各検索キーで実際に検索してみる
+          keys.each do |key|
+            prepared_keys -= [key]
+
+            results = Manifestation.search do
+              __send__(*search_method, block ? block.call(key) : key)
+            end.execute.results
+
+            results.should have(expect.count).items,
+              "expected #{expect.count} items for '#{search_method.join(' ')}' search with #{search_key_record_inspect(key)}, got #{results.count} items"
+            (results - expect).should be_empty
+          end
+        end # @manifestations.each
+
+        # 検索キーとして使われなかった属性データは
+        # インデックスに登録されていないはずのものである。
+        # 最後に、たしかにインデックスに登録されていないことを検証する。
+        prepared_keys.each do |key|
+          results = Manifestation.search do
+            __send__(*search_method, block ? block.call(key) : key)
+          end.execute.results
+          results.should have(:no).items,
+            "expected no items for '#{search_method.join(' ')}' search with #{search_key_record_inspect(key)}, got #{results.count} items"
+        end
+      end
+
+      def search_key_record_inspect(obj)
+        case obj
+        when Patron; "patron '#{obj.full_name}'"
+        else; obj
+        end
+      end
+
+      def it_should_search_items_by_patron(reader)
+        setter = :"#{reader}="
+
+        patrons = [
+          @patron1 = FactoryGirl.create(:patron, :full_name => 'あいうえお'),
+          @patron2 = FactoryGirl.create(:patron, :full_name => 'かきくけこ'),
+          @patron3 = FactoryGirl.create(:patron, :full_name => 'さしすせそ'),
+          @patron4 = FactoryGirl.create(:patron, :full_name => 'たちつてと'),
+          @patron5 = FactoryGirl.create(:patron, :full_name => 'なにぬねの'),
+        ]
+        @manifestation1.__send__(setter, [@patron1])
+        @manifestation2.__send__(setter, [@patron2, @patron3])
+        @manifestation3.__send__(setter, [@patron4])
+
+        it_should_search_items_by_attr(reader, :fulltext, patrons) do |obj|
+          obj.full_name
+        end
+      end
+
+      it '著者をインデックスに登録すること' do
+        it_should_search_items_by_patron(:creators)
+      end
+
+      it '出版社をインデックスに登録すること' do
+        it_should_search_items_by_patron(:publishers)
+      end
+
+      it 'ISBNをインデックスに登録すること' do
+        isbn13 = %w(
+          9784010000007
+          9784020000004
+          9784030000001
+          9784090000003
+        )
+        isbn10 = %w(
+          4010000007
+          402000000X
+          4030000002
+          4090000009
+        )
+        wrong_isbn = %w(
+          978401000000X
+          978402000000X
+          978403000000X
+          978409000000X
+        )
+        [
+          @manifestation1, @manifestation2, @manifestation3
+        ].each_with_index do |manifestation, i|
+          manifestation.isbn = isbn13[i]
+          manifestation.isbn10 = isbn10[i]
+          manifestation.wrong_isbn = wrong_isbn[i]
+          manifestation.save!
+        end
+
+        it_should_search_items_by_attr(:isbn, :with, :isbn, isbn13)
+        it_should_search_items_by_attr(:isbn, :fulltext, isbn13)
+
+        it_should_search_items_by_attr(:isbn10, :with, :isbn, isbn10)
+        it_should_search_items_by_attr(:isbn10, :fulltext, isbn10)
+
+        it_should_search_items_by_attr(:wrong_isbn, :with, :isbn, wrong_isbn)
+        it_should_search_items_by_attr(:wrong_isbn, :fulltext, wrong_isbn)
+      end
+
+      it 'ISSNをインデックスに登録すること' do
+        issn = %w(
+          10000003
+          20000006
+          30000009
+          90000005
+        )
+        [
+          @manifestation1, @manifestation2, @manifestation3
+        ].each_with_index do |manifestation, i|
+          manifestation.issn = issn[i]
+          manifestation.save!
+        end
+
+        it_should_search_items_by_attr(:issn, :with, :issn, issn)
+        it_should_search_items_by_attr(:issn, :fulltext, issn)
+      end
+
+      it '出版日をインデックスに登録すること' do
+        pub_date = [
+          Date.new(1001, 1, 1),
+          Date.new(1002, 1, 1),
+          Date.new(1003, 1, 1),
+          Date.new(1009, 1, 1),
+        ]
+        [
+          @manifestation1, @manifestation2, @manifestation3
+        ].each_with_index do |manifestation, i|
+          manifestation.date_of_publication = pub_date[i]
+          manifestation.save!
+        end
+
+        it_should_search_items_by_attr(
+          :date_of_publication,
+          :with, :pub_date,
+          pub_date)
+      end
+
+      it 'ページ数をインデックスに登録すること' do
+        number_of_pages = [
+          100766,
+          200467,
+          300918,
+          900235,
+        ]
+        [
+          @manifestation1, @manifestation2, @manifestation3
+        ].each_with_index do |manifestation, i|
+          manifestation.start_page = 1
+          manifestation.end_page = number_of_pages[i]
+          manifestation.save!
+        end
+
+        it_should_search_items_by_attr(
+          :number_of_pages,
+          :with, :number_of_pages,
+          number_of_pages
+        )
+      end
+
+      describe '所蔵群の' do
+        before do
+          retention_period = FactoryGirl.create(:retention_period)
+          shelf = Shelf.first
+          circulation_status = CirculationStatus.find_by_name('Removed')
+
+          @item_spec = {
+            @manifestation1 => [
+              {
+                item_identifier: 'item11',
+                acquired_at: Time.zone.local(1001, 1, 10),
+                removed_at: Time.zone.local(1001, 1, 15),
+              },
+            ],
+            @manifestation2 => [
+              {
+                item_identifier: 'item21',
+                acquired_at: Time.zone.local(1002, 1, 10),
+                removed_at: Time.zone.local(1002, 1, 15),
+              },
+              {
+                item_identifier: 'item22',
+                acquired_at: Time.zone.local(1002, 2, 10),
+                removed_at: Time.zone.local(1002, 2, 15),
+              },
+              {
+                item_identifier: 'item23',
+                acquired_at: Time.zone.local(1002, 3, 10),
+                removed_at: Time.zone.local(1002, 3, 15),
+              },
+            ],
+            @manifestation3 => [
+              {
+                item_identifier: 'item31',
+                acquired_at: Time.zone.local(1003, 1, 10),
+                removed_at: Time.zone.local(1003, 1, 15),
+              },
+              {
+                item_identifier: 'item32',
+                acquired_at: Time.zone.local(1003, 2, 10),
+                removed_at: Time.zone.local(1003, 2, 15),
+              },
+            ],
+          }
+
+          @item_spec.each do |manifestation, spec|
+            spec.each do |s|
+              item = Item.new(
+                :item_identifier => s[:item_identifier],
+                :shelf => shelf,
+                :circulation_status => circulation_status,
+                :retention_period => retention_period
+              )
+              item.acquired_at = s[:acquired_at]
+              item.removed_at = s[:removed_at]
+              item.save!
+              manifestation.items << item
+            end
+          end
+        end
+
+        it '所蔵群の所蔵情報IDをインデックスに登録すること' do
+          item_identifier = 
+            @item_spec.values.flatten.map {|h| h[:item_identifier] }
+
+          it_should_search_items_by_attr(
+            proc {|manifestation| @item_spec[manifestation].map {|h| h[:item_identifier] } },
+            :with, :item_identifier,
+            item_identifier
+          )
+        end
+
+        it '所蔵群の除籍日をインデックスに登録すること' do
+          removed_at = 
+            @item_spec.values.flatten.map {|h| h[:removed_at] }
+
+          it_should_search_items_by_attr(
+            proc {|manifestation| @item_spec[manifestation].map {|h| h[:removed_at] } },
+            :with, :removed_at,
+            removed_at
+          )
+        end
+
+        it '所蔵群中の最古の受入日をインデックスに登録すること' do
+          acquired_at =
+            @item_spec.values.flatten.map {|h| h[:acquired_at] }
+
+          it_should_search_items_by_attr(
+            proc {|manifestation| @item_spec[manifestation].map {|h| h[:acquired_at] }.min },
+            :with, :acquired_at,
+            acquired_at
+          )
+        end
+      end
+
+      if defined?(EnjuBookmark)
+        it 'タグをインデックスに登録すること' do
+          tag_list = [
+            'foo',
+            'bar,baz',
+            'quux',
+            'empty',
+          ]
+          prepared_tags = []
+          [
+            @manifestation1, @manifestation2, @manifestation3
+          ].each_with_index do |manifestation, i|
+            user = FactoryGirl.create(:user)
+            url = "http://example.jp/#{i}"
+
+            manifestation.access_address = url # NOTE: manifestationがブックマーク追加により自動生成されるのを回避する
+            manifestation.save!
+
+            bookmark = manifestation.bookmarks.build(
+              :title => "bookmark title #{i}",
+              :url => url,
+              :tag_list => tag_list[i]
+            )
+            bookmark.user = user
+            bookmark.save!
+
+            prepared_tags << bookmark.tags
+
+            # NOTE
+            # bookmark追加によりmanifestationの
+            # 再インデックスが必要そうなのだが、
+            # そのようになっていないため
+            # ここで明示的に再インデックスする
+            manifestation.index!
+          end
+
+          it_should_search_items_by_attr(
+            :tags,
+            :with, :tag,
+            prepared_tags.flatten
+          ) {|obj| obj.name }
+
+          it_should_search_items_by_attr(
+            :tags,
+            :fulltext,
+            prepared_tags.flatten
+          ) {|obj| obj.name }
+        end
+      end
+    end
+
+    describe '書誌について' do
+      let :series_statement_type do
+        false
+      end
+      include_examples 'Solrインデックスへの登録'
+    end
+
+    describe '定期刊行物について' do
+      let :series_statement_type do
+        true
+      end
+      include_examples 'Solrインデックスへの登録'
+    end
+
+    describe '雑誌について' do
+      let :series_statement_type do
+        :periodical
+      end
+      include_examples 'Solrインデックスへの登録'
+    end
+  end
 end
 
 # == Schema Information
