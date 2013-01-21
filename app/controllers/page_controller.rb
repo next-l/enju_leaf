@@ -1,4 +1,9 @@
 class PageController < ApplicationController
+  clear_breadcrumbs :only => [:index]
+  add_breadcrumb "I18n.t('breadcrumb.search_manifestations')", 'root_path', :except => [:index]
+  add_breadcrumb "I18n.t('page.configuration')", 'page_configuration_path', :only => [:configuration]
+  add_breadcrumb "I18n.t('page.import_from_file')", 'page_import_path', :only => [:import]
+  add_breadcrumb "I18n.t('page.advanced_search')", 'page_import_path', :only => [:advanced_search]
   before_filter :redirect_user, :only => :index
   before_filter :clear_search_sessions, :only => [:index, :advanced_search]
   before_filter :store_location, :only => [:advanced_search, :about, :add_on, :msie_acceralator, :statistics]
@@ -19,7 +24,11 @@ class PageController < ApplicationController
     @manifestation = Manifestation.pickup rescue nil
 
     respond_to do |format|
-      format.html
+      if defined?(EnjuCustomize)
+        format.html { render :layout => EnjuCustomize.render_layout}
+      else
+        format.html
+      end
       format.json { render :json => user }
     end
   end

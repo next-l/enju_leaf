@@ -1,11 +1,4 @@
 --- 
-carrier_type_00004: 
-  name: file  
-  display_name: "en:file\r\n\
-    ja:コンピュータファイル"
-  id: 4
-  note:
-  position: 5
 carrier_type_00001: 
   name: print  
   display_name: "en:print\r\n\
@@ -34,6 +27,13 @@ carrier_type_00006:
   id: 6
   note: 
   position: 4
+carrier_type_00004:
+  name: file
+  display_name: "en:file\r\n\
+    ja:コンピュータファイル"
+  id: 4
+  note:
+  position: 5
 carrier_type_00005: 
   name: AV
   display_name: "en:Audio,Visual\r\n\
@@ -41,4 +41,12 @@ carrier_type_00005:
   id: 5
   note: 
   position: 6
+
+carrier_type_00007:
+  name: micro
+  display_name: "en:Micro Film\r\n\
+    ja:マイクロ資料"
+  id: 7
+  note:
+  position: 7
 
