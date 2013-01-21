@@ -1,4 +1,6 @@
 class Bookstore < ActiveRecord::Base
+  attr_accessible :name, :name_transcription, :email, :zip_code, :address,
+                  :telephone_number, :fax_number, :url, :note, :position
   default_scope :order => "position"
   has_many :items
   has_many :order_lists
