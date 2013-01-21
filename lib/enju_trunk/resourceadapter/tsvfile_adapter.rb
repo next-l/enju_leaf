@@ -56,7 +56,7 @@ class Tsvfile_Adapter < EnjuTrunk::ResourceAdapter::Base
 
       unless manifestation
         if row['isbn'].present?
-          isbn = ISBN_Tools.cleanup(row['isbn'])
+          isbn = Lisbn.new(row['isbn'])
           m = Manifestation.find_by_isbn(isbn)
           if m
             if m.series_statement
@@ -113,6 +113,7 @@ class Tsvfile_Adapter < EnjuTrunk::ResourceAdapter::Base
         num[:manifestation_imported] += 1 if manifestation
       end
 
+      Rails.logger.info "@@ step 100"
       unless has_error
         begin
           unless manifestation
@@ -121,8 +122,11 @@ class Tsvfile_Adapter < EnjuTrunk::ResourceAdapter::Base
           end
           import_result.manifestation = manifestation
 
+          Rails.logger.info "@@ step 110"
           if manifestation.valid? and item_identifier.present?
+            Rails.logger.info "@@ step 200"
             import_result.item = create_item(row, manifestation)
+            Rails.logger.info "@@ step 202"
             manifestation.index
             num[:item_imported] +=1 if import_result.item
 
@@ -219,14 +223,27 @@ class Tsvfile_Adapter < EnjuTrunk::ResourceAdapter::Base
   end
 
   def select_item_shelf(row)
+    Rails.logger.debug "@@select_item_shelf self"
+    Rails.logger.debug "user_id=#{@user_id}"
+    Rails.logger.debug self
     shelf = Shelf.where(:name => row['shelf'].to_s.strip).first 
-    if shelf.nil? && self.user
-      shelf = self.user.library.in_process_shelf
+    user = User.find(@user_id) rescue nil
+    if shelf.nil? && user
+      shelf = user.library.in_process_shelf
     end
     unless shelf 
       shelf = Shelf.web
     end
     shelf
+  end
+
+  def import_item(manifestation, options)
+    item = Item.new(options)
+    item.manifestation = manifestation
+    if item.save!
+      item.patrons << options[:shelf].library.patron
+    end
+    return item
   end
 
   def create_item(row, manifestation)
@@ -236,7 +253,7 @@ class Tsvfile_Adapter < EnjuTrunk::ResourceAdapter::Base
     acquired_at = Time.zone.parse(row['acquired_at']) rescue nil
     use_restriction = UseRestriction.where(:name => row['use_restriction'].to_s.strip).first
     use_restriction_id = use_restriction.id if use_restriction
-    item = self.class.import_item(manifestation, {
+    item = import_item(manifestation, {
       :item_identifier => row['item_identifier'],
       :price => row['item_price'],
       :call_number => row['call_number'].to_s.strip,
@@ -271,8 +288,10 @@ class Tsvfile_Adapter < EnjuTrunk::ResourceAdapter::Base
     ##      return nil
     ##    end
 
-    if ISBN_Tools.is_valid?(row['isbn'].to_s.strip)
-      isbn = ISBN_Tools.cleanup(row['isbn'])
+    if row['isbn'].preset?
+      if Lisbn.new(row['isbn'].to_s.strip).valid?
+        isbn = Lisbn.new(row['isbn'])
+      end
     end
 
     width = NKF.nkf('-eZ1', row['width'].to_s).gsub(/\D/, '').to_i
@@ -364,7 +383,7 @@ class Tsvfile_Adapter < EnjuTrunk::ResourceAdapter::Base
   end
 
   def import_series_statement(row)
-    issn = ISBN_Tools.cleanup(row['issn'].to_s)
+    issn = Lisbn.new(row['issn'].to_s)
     series_statement = find_series_statement(row)
     unless series_statement
       if row['series_statement_original_title'].to_s.strip.present?
@@ -399,7 +418,7 @@ class Tsvfile_Adapter < EnjuTrunk::ResourceAdapter::Base
   end
 
   def find_series_statement(row)
-    issn = ISBN_Tools.cleanup(row['issn'].to_s)
+    issn = Lisbn.new(row['issn'].to_s)
     series_statement_identifier = row['series_statement_identifier'].to_s.strip
     series_statement = SeriesStatement.where(:issn => issn).first if issn.present?
     unless series_statement
