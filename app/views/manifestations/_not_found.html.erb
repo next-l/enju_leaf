@@ -9,6 +9,8 @@
 </p>
 <%- if @collation -%>
   <p>
-    <%= t('page.did_you_mean_to_search_for') %>: <%= link_to @collation, params.merge(:query => @collation) %>
+    <%= t('page.did_you_mean_to_search_for') %>: <%- @collation.each do |collation| -%>
+      <%= link_to collation, params.merge(:query => collation) %>
+    <%- end -%>
   </p>
 <%- end -%>

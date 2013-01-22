@@ -1,98 +1,37 @@
-<script>
-  $(document).ready(function() {
-    $("#loss_item_user_number").blur(function() {
-      $('#loss_item_item_id').children().remove();
-      $('#loss_item_item_id').attr('disabled', 'disabled');
-      $('#loss_item_submit').attr('disabled', 'disabled');
-      $('div#username').remove();
-
-      var user_number = $("#loss_item_user_number").val().replace(/^\s+|\s+$/g, "");
-      if (user_number != "") {
-        $.ajax({
-           type: "GET",
-           url: "<%= url_for(:controller => :users, :action => :get_user_rent)-%>",
-           data: {"user_number": user_number},
-           success: function(obj) {
-             if (obj.success) {
-               if (obj["items"].length != 0 && obj["user"] != null && obj["patron"]) {
-                 $('#loss_item_item_id').removeAttr('disabled');
-                 $('#loss_item_submit').removeAttr('disabled');
-                 jQuery.each(obj["items"], function() {
-                   $('#loss_item_item_id').append($('<option>').attr({ value: this[0] }).text(this[1]));
-                 });
-                 $("#loss_item_user_id").val(obj["user_id"]);
-
-                 s = "<div id='username'>"
-                   + "<p>"
-                   + "<strong><%= t('activerecord.models.user') -%>:</strong>"
-                   + "<a href='<%= "#{root_path}" %>users/"+obj["user"]["user"]["username"]+"'>" + obj["patron"]["patron"]["full_name"] + "</a>"
-                   + "(" + "<a href='<%= "#{root_path}" %>users/"+obj["user"]["user"]["username"]+"'>" + obj["user"] ["user"]["username"]+ "</a>" + ")"
-                   + "</p>"
-                   + "<br />";
-                   + "</div>"
-                $(s).appendTo('div#userinfo');
-               }
-             }
-           }
-        });
-      }
-    });
-  });
-</script>
-
 <%= form_for(@loss_item) do |f| %>
   <%= f.error_messages %>
   <div style="color: red"><%= raw flash[:message] -%></div>
 
-  <%- if @inputed and @loss_item.item and @loss_item.item.manifestation -%>
-    <%= render 'manifestations/title', :manifestation => @loss_item.item.manifestation -%>
-    <%= f.hidden_field :item_id, :value => @loss_item.item.id -%>
-    <br />
-  <%- end -%>
+  <%= render 'manifestations/title', :manifestation => @loss_item.item.manifestation -%>
+  <%= f.hidden_field :item_id, :value => @loss_item.item.id -%>
+  <br />
 
-  <%- if @inputed and @loss_item.user -%>
-    <p>
-      <strong><%= t('activerecord.models.user') -%>:</strong>
-      <%= link_to @loss_item.user.patron.full_name, @loss_item.user -%>
-      (<%= link_to @loss_item.user.username, @loss_item.user -%>)
-    </p>
-    <%= f.hidden_field :user_id, :value => @loss_item.user.id -%>
-  <%- else -%>
-    <div id="userinfo">
-    </div>
-    <div class="field">
-      <%= f.label t('activerecord.attributes.user.user_number') -%><br />
-      <%= f.text_field :user_number, :value => @loss_item.user_number, :class => 'resource_user_number' -%>
-      <%= f.hidden_field :user_id, :value => nil -%>
-    </div>
-  <%- end -%>
-
-  <%- unless @inputed -%>
-    <div class="field">
-      <%= f.label t('activerecord.attributes.loss_item.loss_item') -%><br />
-      <%= f.select(:item_id, {}, {}, :disabled => true) -%>
-    </div>
-  <%- end -%>
+  <p>
+    <strong><%= t('activerecord.models.user') -%>:</strong>
+    <%= link_to @loss_item.user.patron.full_name, @loss_item.user -%>
+    (<%= link_to @loss_item.user.username, @loss_item.user -%>)
+  </p>
+  <%= f.hidden_field :user_id, :value => @loss_item.user.id -%>
 
   <div class="field">
     <%= f.label :note -%><br />
     <%= f.text_area :note, :class => 'resource_note' -%>
   </div>
   <br />
-  <div class="field">
-    <%- if @loss_item.status == 0 -%>
-      <strong><%= t('activerecord.attributes.loss_item.will_reimburse') -%></strong><br />
-      <%= f.hidden_field :status, :value => 1 -%>
-    <%- else -%>
-      <strong><%= t('activerecord.attributes.loss_item.will_cancellation') -%></strong><br />
-      <%= f.hidden_field :status, :value => 0 -%>
-    <%- end -%>
-  </div>
+
+  <% if controller.action_name == "edit" %>
+    <div class="field">
+      <%- if @loss_item.status == 0 -%>
+        <strong><%= t('activerecord.attributes.loss_item.will_reimburse') -%></strong><br />
+        <%= f.hidden_field :status, :value => 1 -%>
+      <%- else -%>
+        <strong><%= t('activerecord.attributes.loss_item.will_cancellation') -%></strong><br />
+        <%= f.hidden_field :status, :value => 0 -%>
+      <%- end -%>
+    </div>
+  <% end %>
+
   <div class="actions">
-    <%- if @loss_item.user and @loss_item.item -%>
-      <%= f.submit %>
-    <%- else -%>
-      <%= f.submit :disabled => true -%>
-    <%- end -%>
+    <%= f.submit %>
   </div>
 <%- end -%>

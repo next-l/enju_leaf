@@ -13,3 +13,4 @@ Mime::Type.register_alias "text/xml",  :oai
 Mime::Type.register "application/svg+xml",  :svg
 #Mime::Type.register_alias "text/html", :mobile
 Mime::Type.register "application/tsv",  :tsv
+Mime::Type.register "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", :xlsx

@@ -74,8 +74,7 @@ class LossItemsController < ApplicationController
   end
 
   def new
-    if params[:item_id] or params[:user_id]
-      @inputed = true
+    if params[:item_id] and params[:user_id]
       @loss_item = LossItem.new(:item_id => params[:item_id], :user_id => params[:user_id])
     else
       @loss_item = LossItem.new
@@ -91,6 +90,10 @@ class LossItemsController < ApplicationController
     LossItem.transaction do 
       flash[:notice] = ""
       @loss_item = LossItem.new(params[:loss_item])
+      if params[:user_number]
+        @user_number = params[:user_number]
+        @loss_item.user_id = User.where(:user_number => @user_number).first.id
+      end
       @loss_item.status = LossItem::UnPaid
       @loss_item.save!
       @item = Item.find(params[:loss_item][:item_id])
