@@ -79,9 +79,16 @@ class ResourceImportTextresult < ActiveRecord::Base
                     end
                     item.destroy
                     result.item_id = nil
-                    result.save!
                   end
                 end
+                manifestation = Manifestation.find(result.manifestation_id) rescue nil
+                if manifestation
+                  if manifestation.items.size == 0
+                    manifestation.destroy
+                    result.manifestation_id = nil
+                  end
+                end
+                result.save!
               rescue => e
                 logger.info "failed to destroy item: #{result.item_id}"
                 logger.info e.message
