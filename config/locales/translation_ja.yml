@@ -2164,9 +2164,11 @@ ja:
         call_number: 請求記号 
         url: ＵＲＬ
         subject: 件名 
+    message:
+      read_sheet: "シート『%{sheet}』の読み取りを開始します。"
     error:
       series:
-        head_is_blank: "%{sheet}の読み取りに失敗しました。\r\n1行目にはシリーズ名またはISSN,またタイトルまたはISBNが必須です。\r\n%{sheet}を再インポートする場合は資料インポートの新規登録より読み込みを再度行ってください。"
+        head_is_blank: "シート『%{sheet}』の読み取りに失敗しました。\r\n1行目にはシリーズ名またはISSN,またタイトルまたはISBNが必須です。\r\n%{sheet}を再インポートする場合は資料インポートの新規登録より読み込みを再度行ってください。"
         cell_is_blank: "シリーズ名またはISSN,タイトルまたはISBNを指定してください。"
         exist_same_book: "既にシリーズ名、タイトル、著者、出版年、出版者が同一の資料が登録されています。"
         wrong_issn: "指定のISSNは不正です。"
@@ -2181,9 +2183,8 @@ ja:
         wrong_isbn: "指定のISBNは不正です。"
         exist_same_book: "既にタイトル、著者、出版年、出版者が同一の資料が登録されています。"
       article:
-        head_is_blank: "%{sheet}の読み取りに失敗しました。\r\n1行目には表題が必須です。\r\n%{sheet}を再インポートする場合は資料インポートの新規登録より読み込みを再度行ってください。"
+        head_is_blank: "シート『%{sheet}』の読み取りに失敗しました。\r\n1行目には表題が必須です。\r\n%{sheet}を再インポートする場合は資料インポートの新規登録より読み込みを再度行ってください。"
         cell_is_blank: "表題を指定してください。"
-        exist_same_article: "既に表題、誌名、著者、件名、請求記号、年が同一の文献が登録されています。"
   resource_import_textresult:
     show_error_list: "エラー行のみ表示"
     show_all_list: "全ての行を表示"
