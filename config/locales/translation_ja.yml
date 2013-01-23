@@ -75,6 +75,7 @@ ja:
       news_post: 図書館からのお知らせ
       search_engine: 検索エンジン
       create: 著作関係
+      create_type: 著作の関係
       carrier_type: 資料の形態
       retention_period: 保存種別
       manifestation_type: 資料区分
@@ -184,7 +185,8 @@ ja:
       bookbinding: 製本処理
       binding_item: 製本資料
       checkout_history: 今日の操作履歴
-
+      produce_type: 体現の関係
+      realize_type: 表現の関係
     attributes:
       user_status:
         name: 名前
@@ -1313,6 +1315,18 @@ ja:
         error_msg: メッセージ
         index: 項番
         imported_row: 処理済み件数
+      create_type:
+        name: 名称
+        display_name: 表示名
+        note: 注記
+      realize_type:
+        name: 名称
+        display_name: 表示名
+        note: 注記
+      produce_type:
+        name: 名称
+        display_name: 表示名
+        note: 注記
       series_statement_merge_list:
         title: タイトル
       series_has_manifestation:

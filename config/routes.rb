@@ -5,6 +5,11 @@ EnjuLeaf::Application.routes.draw do
   resources :user_statuses
   resources :sheets
 
+  # TODO
+  resources :create_types
+  resources :realize_types
+  resources :produce_types
+
   devise_for :users, :path => 'accounts'
 
   resource :my_account
