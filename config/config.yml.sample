@@ -392,7 +392,7 @@ defaults: &defaults
  
   # インポート時取込可能なファイル形式を設定する
   # カンマ,区切りで利用可能アダプタを指定する
-  resource_adapters: Excelfile_Adapter
+  resource_adapters: Excelfile_Adapter, Tsvfile_Adapter
 
   # 利用者番号とユーザ名を同じ値にする
   auto_user_number: true
