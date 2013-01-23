@@ -715,16 +715,89 @@ class Manifestation < ActiveRecord::Base
   end
 
 
-private
+  # 要求された書式で書誌リストを生成する。
+  # 生成結果を構造体で返す。構造体がoutputのとき:
+  #
+  #  output.result_type: 生成結果のタイプ
+  #    :data: データそのもの
+  #    :path: データを書き込んだファイルのパス名
+  #    :delayed: 後で処理する
+  #  output.data: 生成結果のデータ(result_typeが:dataのとき)
+  #  output.path: 生成結果のパス名(result_typeが:pathのとき)
+  #  output.job_name: 後で処理する際のジョブ名(result_typeが:delayedのとき)
+  def self.generate_manifestation_list(solr_search, output_type, current_user, threshold = nil, &block)
+    get_total = proc do
+      solr_search.execute.total
+    end
+
+    get_all_ids = proc do
+      solr_search.build {
+        paginate :page => 1, :per_page => Manifestation.count
+      }.execute.raw_results.map(&:primary_key)
+    end
+
+    threshold ||= Setting.background_job.threshold.export rescue nil
+    if threshold && threshold > 0 &&
+        get_total.call > threshold
+      # 指定件数以上のときにはバックグラウンドジョブにする。
+      user_file = UserFile.new(current_user)
+
+      io, info = user_file.create(:manifestation_list_prepare, 'manifestation_list_prepare.tmp')
+      begin
+        Marshal.dump(get_all_ids.call, io)
+      ensure
+        io.close
+      end
+
+      job_name = GenerateManifestationListJob.generate_job_name
+      Delayed::Job.enqueue GenerateManifestationListJob.new(job_name, info, output_type, current_user)
+      output = OpenStruct.new
+      output.result_type = :delayed
+      output.job_name = job_name
+      block.call(output)
+      return
+    end
+
+    manifestation_ids = get_all_ids.call
+
+    generate_manifestation_list_internal(manifestation_ids, output_type, current_user, &block)
+  end
+
+  def self.generate_manifestation_list_internal(manifestation_ids, output_type, current_user, &block)
+    output = OpenStruct.new
+    output.result_type = :data
+
+    case output_type
+    when :pdf
+      method = 'get_manifestation_list_pdf'
+    when :tsv
+      method = 'get_manifestation_list_tsv'
+    when :excelx
+      method = 'get_manifestation_list_excelx'
+      output.result_type = :path
+    when :request
+      method = 'get_missing_issue_list_pdf'
+    end
+    filename_method = method.sub(/\Aget_(.*)(_[^_]+)\z/) { "#{$1}_print#{$2}" }
+    output.filename = Setting.__send__(filename_method).filename
+
+    manifestations = self.where(:id => manifestation_ids).all
+    result = output.__send__("#{output.result_type}=",
+                             self.__send__(method, manifestations, current_user))
+    if output.result_type == :path
+      output.path, output.data = result
+    else
+      output.data = /_pdf\z/ =~ method ? result.generate : result
+    end
+    block.call(output)
+  end
+
   def self.get_manifestation_list_excelx(manifestations, current_user)
-    # initialize
-    out_dir = "#{Rails.root}/private/system/manifestations_list_excelx" 
-    excel_filepath = "#{out_dir}/list#{Time.now.strftime('%s')}#{rand(10)}.xlsx"
-    FileUtils.mkdir_p(out_dir) unless FileTest.exist?(out_dir)
+    user_file = UserFile.new(current_user)
+    excel_filepath, excel_fileinfo = user_file.create(:manifestation_list, Setting.manifestation_list_print_excelx)
 
     logger.info "get_manifestation_list_excelx filepath=#{excel_filepath}"
     
-    #
     require 'axlsx'
     Axlsx::Package.new do |p|
       wb = p.workbook
@@ -832,7 +905,7 @@ private
         end
       end
 
-      return excel_filepath
+      return [excel_filepath, excel_fileinfo]
     end
   end
 
@@ -1122,6 +1195,39 @@ private
       end
     end
     return report 
+  end
+
+  class GenerateManifestationListJob < Struct.new(:name, :fileinfo, :output_type, :user)
+    include Rails.application.routes.url_helpers
+    include BackgroundJobUtils
+
+    def perform
+      user_file = UserFile.new(user)
+      path, = user_file.find(fileinfo[:category], fileinfo[:filename], fileinfo[:random])
+      manifestation_ids = open(path, 'r') {|io| Marshal.load(io) }
+
+      Manifestation.generate_manifestation_list_internal(manifestation_ids, output_type, user) do |output|
+        io, info = user_file.create(:manifestation_list, output.filename)
+        if output.result_type == :path
+          open(output.path) {|io2| FileUtils.copy_stream(io2, io) }
+        else
+          io.print output.data
+        end
+        io.close
+
+        url = my_account_url(:filename => info[:filename], :category => info[:category], :random => info[:random])
+        message(
+          user,
+          I18n.t('manifestation.output_job_success_subject', :job_name => name),
+          I18n.t('manifestation.output_job_success_body', :job_name => name, :url => url))
+      end
+
+    rescue => exception
+      message(
+        user,
+        I18n.t('manifestation.output_job_error_subject', :job_name => name),
+        I18n.t('manifestation.output_job_error_body', :job_name => name, :message => exception.message))
+    end
   end
 end
 
