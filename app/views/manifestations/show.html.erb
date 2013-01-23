@@ -27,9 +27,23 @@
         <%= render 'manifestations/show_detail_user', :manifestation => @manifestation %>
       <% end %>
     <% end %>
-
-    <%= form_tag({:action => 'output_show'}) do -%>
-      <%= submit_tag t('page.output', :model => t('activerecord.attributes.manifestation.detail')) -%>
+    <%- if is_manifestation_autoprint?(request.remote_ip) -%>
+      <object classid="clsid:CA8A9780-280D-11CF-A24D-444553540000" id="objPdf" width="0" height="0">
+        <param name="src" value="<%= output_pdf_manifestation_path -%>">
+      </object>
+<script>
+$(function(){
+  $('#button_print_pdf').click(function(){
+    objPdf.printAll();
+    $('#notice').html("<strong><%= t('activerecord.attributes.manifestation.printout_in_progress') -%></strong>");
+  });
+});
+</script>
+      <button id="button_print_pdf"><%= t('activerecord.attributes.manifestation.detail') -%></button>
+    <%- else -%>
+      <%= form_tag({:action => 'output_show'}) do -%>
+        <%= submit_tag t('page.output', :model => t('activerecord.attributes.manifestation.detail')) -%>
+      <%- end -%>
     <%- end -%>
   </div>
 </div>

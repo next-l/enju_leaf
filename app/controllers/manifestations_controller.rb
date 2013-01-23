@@ -4,7 +4,7 @@ class ManifestationsController < ApplicationController
   add_breadcrumb "I18n.t('page.showing', :model => I18n.t('activerecord.models.manifestation'))", 'manifestation_path(params[:id])', :only => [:show]
   add_breadcrumb "I18n.t('page.new', :model => I18n.t('activerecord.models.manifestation'))", 'new_manifestation_path', :only => [:new, :create]
   add_breadcrumb "I18n.t('page.edit', :model => I18n.t('activerecord.models.manifestation'))", 'edit_manifestation_path(params[:id])', :only => [:edit, :update]
-  load_and_authorize_resource :except => [:index, :output_show]
+  load_and_authorize_resource :except => [:index, :output_show, :output_pdf]
   authorize_resource :only => :index
   before_filter :authenticate_user!, :only => :edit
   before_filter :get_patron
@@ -12,7 +12,7 @@ class ManifestationsController < ApplicationController
   before_filter :get_series_statement, :only => [:index, :new, :edit]
   before_filter :prepare_options, :only => [:new, :edit]
   helper_method :get_libraries
-  before_filter :get_version, :only => [:show, :output_show]
+  before_filter :get_version, :only => [:show, :output_show, :output_pdf]
   after_filter :solr_commit, :only => [:create, :up, :outputdate, :destroy]
   after_filter :convert_charset, :only => :index
   cache_sweeper :manifestation_sweeper, :only => [:create, :update, :destroy]
@@ -643,6 +643,10 @@ class ManifestationsController < ApplicationController
     send_data data.generate, :filename => Setting.manifestation_locate_print.filename
   end
   
+  def output_pdf
+    output_show
+  end
+
   private
   def make_query(query, options = {})
     # TODO: integerやstringもqfに含める

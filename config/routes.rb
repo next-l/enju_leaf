@@ -1,4 +1,6 @@
 EnjuLeaf::Application.routes.draw do
+  resources :terminals
+
   resources :numberings
   resources :departments
   resources :classmarks
@@ -47,6 +49,7 @@ EnjuLeaf::Application.routes.draw do
     resources :series_has_manifestations
     resources :reserves
     post :output_show, :on => :member
+    get :output_pdf, :on => :member
   end
 
   resources :library_checks do
@@ -293,6 +296,7 @@ EnjuLeaf::Application.routes.draw do
 
   resources :reserves do
     post :output, :on => :member
+    get :output_pdf, :on => :member
     get :retain, :on => :collection
     post :retain_item, :on => :collection
     post :informed, :on => :member

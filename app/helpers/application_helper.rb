@@ -5,6 +5,7 @@ module ApplicationHelper
   include EnjuManifestationViewer::ManifestationViewerHelper if defined?(EnjuManifestationViewer)
   include EnjuBookmark::BookmarkHelper if defined?(EnjuBookmark)
   include JaDateFormat
+  include TerminalsHelper
 
   def form_icon(carrier_type)
     case carrier_type.name
