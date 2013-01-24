@@ -1,4 +1,8 @@
 class PatronImportFilesController < ApplicationController
+  add_breadcrumb "I18n.t('page.import_from_file')", 'page_import_path'
+  add_breadcrumb "I18n.t('activerecord.models.patron_import_file')", 'patron_import_files_path'
+  add_breadcrumb "I18n.t('page.new', :model => I18n.t('activerecord.models.patron_import_file'))", 'new_patron_import_file_path', :only => [:new, :create]
+  add_breadcrumb "I18n.t('page.editing', :model => I18n.t('activerecord.models.patron_import_file'))", 'edit_patron_import_file_path(params[:id])', :only => [:edit, :update]
   before_filter :check_client_ip_address
   load_and_authorize_resource
 

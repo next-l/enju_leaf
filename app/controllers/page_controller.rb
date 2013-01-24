@@ -25,7 +25,7 @@ class PageController < ApplicationController
 
     respond_to do |format|
       if defined?(EnjuCustomize)
-        format.html { render :layout => EnjuCustomize.render_layout}
+        format.html { render :file => "page/#{EnjuCustomize.render_dir}/index", :layout => EnjuCustomize.render_layout}
       else
         format.html
       end

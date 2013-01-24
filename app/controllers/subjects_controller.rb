@@ -1,5 +1,9 @@
 # -*- encoding: utf-8 -*-
 class SubjectsController < ApplicationController
+  add_breadcrumb "I18n.t('page.listing', :model => I18n.t('activerecord.models.subject'))", 'subjects_path'
+  add_breadcrumb "I18n.t('page.new', :model => I18n.t('activerecord.models.subject'))", 'new_subject_path', :only => [:new, :create]
+  add_breadcrumb "I18n.t('page.editing', :model => I18n.t('activerecord.models.subject'))", 'edit_subject_path(params[:id])', :only => [:edit, :update]
+  add_breadcrumb "I18n.t('activerecord.models.subject')", 'subject_path(params[:id])', :only => [:show]
   load_and_authorize_resource :except => :index
   authorize_resource :only => :index
   before_filter :get_work, :get_subject_heading_type, :get_classification

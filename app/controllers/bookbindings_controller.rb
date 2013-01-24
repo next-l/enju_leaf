@@ -1,5 +1,6 @@
 class BookbindingsController < ApplicationController
 #  load_and_authorize_resource
+  add_breadcrumb "I18n.t('activerecord.models.bookbinding')", 'bookbindings_path'
   cache_sweeper :item_sweeper, :only => [:create, :update, :destroy]
   cache_sweeper :manifestation_sweeper, :only => [:create, :update, :destroy]
   before_filter :access_denied, :only => :index

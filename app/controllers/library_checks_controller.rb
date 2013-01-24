@@ -1,4 +1,9 @@
 class LibraryChecksController < ApplicationController
+  add_breadcrumb "I18n.t('page.configuration')", 'page_configuration_path'
+  add_breadcrumb "I18n.t('page.listing', :model => I18n.t('activerecord.models.library_check'))", 'library_checks_path'
+  add_breadcrumb "I18n.t('page.new', :model => I18n.t('activerecord.models.library_check'))", 'new_library_check_path', :only => [:new, :create]
+  add_breadcrumb "I18n.t('page.editing', :model => I18n.t('activerecord.models.library_check'))", 'edit_library_check_path(params[:id])', :only => [:edit, :update]
+  add_breadcrumb "I18n.t('activerecord.models.library_check')", 'library_check_path(params[:id])', :only => [:show]
   load_and_authorize_resource
 
   # GET /library_checks

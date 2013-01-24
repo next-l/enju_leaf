@@ -1,4 +1,9 @@
 class CheckoutTypesController < ApplicationController
+  add_breadcrumb "I18n.t('page.configuration')", 'page_configuration_path'
+  add_breadcrumb "I18n.t('page.listing', :model => I18n.t('activerecord.models.checkout_type'))", 'checkout_types_path'
+  add_breadcrumb "I18n.t('page.new', :model => I18n.t('activerecord.models.checkout_type'))", 'new_checkout_type_path', :only => [:new, :create]
+  add_breadcrumb "I18n.t('page.editing', :model => I18n.t('activerecord.models.checkout_type'))", 'edit_checkout_type_path(params[:id])', :only => [:edit, :update]
+  add_breadcrumb "I18n.t('activerecord.models.checkout_type')", '', :only => [:show]
   load_and_authorize_resource
   before_filter :get_user_group
 
