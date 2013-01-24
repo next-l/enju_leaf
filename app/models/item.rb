@@ -248,7 +248,7 @@ class Item < ActiveRecord::Base
   end
 
   def set_retention_period
-    if self.retention_period.blank?
+    unless self.retention_period
       self.retention_period = RetentionPeriod.find(1)
     end
   end

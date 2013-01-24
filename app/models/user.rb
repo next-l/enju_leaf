@@ -225,9 +225,10 @@ class User < ActiveRecord::Base
   end
 
   def set_lock_information
-    if self.user_status.state_id > 1 and self.active_for_authentication?
+    return unless state_id = self.try(:user_status).try(:state_id)
+    if state_id > 1 and self.active_for_authentication?
       lock_access!
-    elsif self.user_status.state_id == 1 and !self.active_for_authentication?
+    elsif state_id == 1 and !self.active_for_authentication?
       unlock_access!
     end
   end
