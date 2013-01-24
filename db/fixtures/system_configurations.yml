@@ -518,4 +518,11 @@ system_configuration_00074:
   typename: Boolean
   description: "資料区分で検索結果を分離するか？"
   category: 'manifestation'
+system_configuration_00075:
+  id: 75
+  keyname: manifestations.google_book_search_preview
+  v: "true"
+  typename: Boolean
+  description: "google_book_search_previewを利用するか？"
+  category: 'manifestation'
 
