@@ -181,7 +181,7 @@ module SystemConfigurationsHelper
        string << t('system_configuration.boolean_do') if state == 'true'
        string << t('system_configuration.boolean_not_do') if state == 'false'
      # => yes,no
-     when 'auto_user_number', 'manifestations.split_by_type'
+     when 'auto_user_number', 'manifestations.split_by_type', 'manifestations.google_book_search_preview'
        string << t('system_configuration.boolean_yes') if state == 'true'
        string << t('system_configuration.boolean_no') if state == 'false'
      # => send
