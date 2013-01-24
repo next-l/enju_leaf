@@ -8,15 +8,16 @@ module EnjuTrunk
       extraparams["sheet"].each_with_index do |sheet, i|
         logger.info "num=#{i}  sheet=#{sheet}"
         oo.default_sheet = sheet
-        import_article_start(oo, id, manifestation_type)
+        import_article_start(oo, id, manifestation_type, sheet)
       end
     end 
 
-    def import_article_start(oo, resource_import_textfile_id, manifestation_type)
+    def import_article_start(oo, resource_import_textfile_id, manifestation_type, sheet)
       num = { :manifestation_imported => 0, :item_imported => 0, :manifestation_found => 0, :item_found => 0, :failed => 0 }
       # setting read_area
       field_row_num = 1
-      first_row_num = 2
+      first_row_num = 1
+      header_row_num = 1
       first_column_num = 1
       # set header field
       field = Hash.new
@@ -26,7 +27,7 @@ module EnjuTrunk
       # check head
       require_head_article = [field[I18n.t('resource_import_textfile.excel.article.original_title')]]
       if require_head_article.reject{|field| field.to_s.strip == ""}.empty?
-        import_textresult = ResourceImportTextresult.create!(:resource_import_textfile_id => resource_import_textfile_id, :body => '' )
+        import_textresult = ResourceImportTextresult.create!(:resource_import_textfile_id => resource_import_textfile_id, :body => '', :extraparams => "{'sheet'=>'#{sheet}'}")
         import_textresult.error_msg = I18n.t('resource_import_textfile.error.article.head_is_blank', :sheet => oo.default_sheet)
         import_textresult.save
         raise
@@ -38,7 +39,13 @@ module EnjuTrunk
         first_column_num.upto(oo.last_column) do |column|
           body << oo.cell(row, column)
         end
-        import_textresult = ResourceImportTextresult.create!(:resource_import_textfile_id => resource_import_textfile_id, :body => body.join("\t"))
+        import_textresult = ResourceImportTextresult.create!(:resource_import_textfile_id => resource_import_textfile_id, :body => body.join("\t"), :extraparams => "{'sheet'=>'#{sheet}'}")
+        if row.to_i == header_row_num.to_i
+          import_textresult.error_msg = 'HEADER DATA'
+          import_textresult.save!
+          next
+        end
+
         # check cell
         require_cell_article = [oo.cell(row, field[I18n.t('resource_import_textfile.excel.article.original_title')]).to_s.strip]
         if require_cell_article.reject{|field| field.to_s.strip == ""}.empty?

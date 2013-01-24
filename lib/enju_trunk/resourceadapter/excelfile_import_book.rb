@@ -8,18 +8,19 @@ module EnjuTrunk
       extraparams["sheet"].each_with_index do |sheet, i|
         logger.info "num=#{i}  sheet=#{sheet}"
         oo.default_sheet = sheet
-        import_book_start(oo, id, manifestation_type)
+        import_book_start(oo, id, manifestation_type, sheet)
       end
     end 
 
-    def import_book_start(oo, resource_import_textfile_id, manifestation_type)
+    def import_book_start(oo, resource_import_textfile_id, manifestation_type, sheet)
       num = { :manifestation_imported => 0, :item_imported => 0, :manifestation_found => 0, :item_found => 0, :failed => 0 }
       # setting read_area
-      first_row_num = 2
+      header_row_num = 1
+      first_row_num = 1
       first_column_num = 1
       field = set_field(oo, first_row_num, first_column_num)
       # check field
-      raise unless has_necessary_field?(oo, field, manifestation_type, resource_import_textfile_id)
+      raise unless has_necessary_field?(oo, field, manifestation_type, resource_import_textfile_id, sheet)
 
       first_row_num.upto(oo.last_row) do |row|
         Rails.logger.info("import block start. row_num=#{row}")
@@ -29,7 +30,12 @@ module EnjuTrunk
         first_column_num.upto(oo.last_column) do |column|
           body << oo.cell(row, column)
         end
-        import_textresult = ResourceImportTextresult.create!(:resource_import_textfile_id => resource_import_textfile_id, :body => body.join("\t"))
+        import_textresult = ResourceImportTextresult.create!(:resource_import_textfile_id => resource_import_textfile_id, :body => body.join("\t"), :extraparams => "{'sheet'=>'#{sheet}'}")
+        if row.to_i == header_row_num.to_i 
+          import_textresult.error_msg = 'HEADER DATA'
+          import_textresult.save!
+          next  
+        end
         # check exist isbn or original_title
         next unless has_necessary_cell?(oo, field, row, manifestation_type, import_textresult)
 
@@ -338,7 +344,7 @@ module EnjuTrunk
       return frequency
     end
 
-    def has_necessary_field?(oo, field, manifestation_type, resource_import_textfile_id)
+    def has_necessary_field?(oo, field, manifestation_type, resource_import_textfile_id, sheet)
       require_head_book   = [field[I18n.t('resource_import_textfile.excel.book.original_title')],
                              field[I18n.t('resource_import_textfile.excel.book.isbn')]]
       require_head_series = [field[I18n.t('resource_import_textfile.excel.series.original_title')],
@@ -346,14 +352,14 @@ module EnjuTrunk
 
       if manifestation_type.is_book?
         if require_head_book.reject{ |f| f.to_s.strip == "" }.empty?
-          import_textresult = ResourceImportTextresult.create!(:resource_import_textfile_id => resource_import_textfile_id, :body => '' )
+          import_textresult = ResourceImportTextresult.create!(:resource_import_textfile_id => resource_import_textfile_id, :body => body.join("\t"), :extraparams => "{'sheet'=>'#{sheet}'}")
           import_textresult.error_msg = I18n.t('resource_import_textfile.error.series.head_is_blank', :sheet => oo.default_sheet)
           import_textresult.save 
           return false
         end
       else
         if require_head_series.reject{ |f| f.to_s.strip == "" }.empty? or require_head_book.reject{ |f| f.to_s.strip == "" }.empty?
-          import_textresult = ResourceImportTextresult.create!(:resource_import_textfile_id => resource_import_textfile_id, :body => '' )
+          import_textresult = ResourceImportTextresult.create!(:resource_import_textfile_id => resource_import_textfile_id, :body => body.join("\t"), :extraparams => "{'sheet'=>'#{sheet}'}")
           import_textresult.error_msg = I18n.t('resource_import_textfile.error.series.head_is_blank', :sheet => oo.default_sheet)
           import_textresult.save 
           return false

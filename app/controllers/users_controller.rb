@@ -441,19 +441,10 @@ class UsersController < ApplicationController
   def get_user_rent
     return nil unless request.xhr?
     unless params[:user_number].blank?
-      @user = User.where(:user_number => params[:user_number]).first
-      @patron = @user.patron unless @user.blank?
-      user_id = nil
-      user_id = @user.id if @user
-      @checkouts = @user.checkouts.not_returned unless @user.blank?
-      @items = []
-      @Item = Struct.new(:item_id, :title)
-      unless @checkouts.blank?
-        @checkouts.each do |c|
-          @items << @Item.new(c.item.id, c.item.manifestation.original_title)
-        end
-      end
-      render :json => {:success => 1, :items => @items, :user => @user, :user_id => user_id, :patron => @patron}
+      user = User.where(:user_number => params[:user_number]).first
+      patron = user.patron unless user.blank?
+      items = user.checkouts.not_returned.inject([]){ |list, c| list << [c.item.id, c.item.manifestation.original_title ]} unless user.blank?
+      render :json => { :success => 1, :items => items, :user => user, :patron => patron }
     end
   end
 

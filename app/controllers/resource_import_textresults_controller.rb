@@ -16,12 +16,14 @@ class ResourceImportTextresultsController < ApplicationController
       end
     end
     @results_num = @resource_import_textresults.length
-    @resource_import_textresults = @resource_import_textresults.page(params[:page]) unless params[:format] == 'tsv'
+    unless params[:format] == 'tsv' or params[:format] == 'xlsx'
+      @resource_import_textresults = @resource_import_textresults.page(params[:page])
+    end
 
-    if params[:format] == 'tsv'
-      respond_to do |format|
-        format.tsv { send_data ResourceImportTextresult.get_resource_import_textresults_tsv(@resource_import_textresults), :filename => Setting.resource_import_textresults_print_tsv.filename}
-      end
+    respond_to do |format|
+      format.tsv  { send_data ResourceImportTextresult.get_resource_import_textresults_tsv(@resource_import_textresults), :filename => Setting.resource_import_textresults_print_tsv.filename}
+      format.xlsx { send_file ResourceImportTextresult.get_resource_import_textresults_excelx(@resource_import_textresults), :filename => Setting.resource_import_textresults_print_xlsx.filename; return}
+      format.html
     end
   end
 end

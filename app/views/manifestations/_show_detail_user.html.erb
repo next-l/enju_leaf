@@ -1,7 +1,7 @@
   <div id="tabs">
     <%= render 'manifestations/tab_menu', :manifestation => manifestation %>
     <div id="detail">
-      <%- if manifestation.isbn -%>
+      <%- if SystemConfiguration.get("manifestations.google_book_search_preview") && manifestation.isbn -%>
         <%= google_book_search_preview(manifestation.isbn) -%>
       <%- end -%>
     <%# cache(:controller => :manifestations, :action => :show, :id => manifestation.id, :page => 'detail', :role => current_user_role_name, :locale => @locale, :manifestation_id => nil) do %>
