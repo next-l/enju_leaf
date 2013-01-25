@@ -1,4 +1,9 @@
 class CarrierTypeHasCheckoutTypesController < ApplicationController
+  add_breadcrumb "I18n.t('page.configuration')", 'page_configuration_path'
+  add_breadcrumb "I18n.t('page.listing', :model => I18n.t('activerecord.models.carrier_type_has_checkout_type'))", 'carrier_type_has_checkout_types_path'
+  add_breadcrumb "I18n.t('page.new', :model => I18n.t('activerecord.models.carrier_type_has_checkout_type'))", 'new_carrier_type_has_checkout_type_path', :only => [:new, :create]
+  add_breadcrumb "I18n.t('page.editing', :model => I18n.t('activerecord.models.carrier_type_has_checkout_type'))", 'edit_carrier_type_has_checkout_type_path(params[:id])', :only => [:edit, :update]
+  add_breadcrumb "I18n.t('activerecord.models.carrier_type_has_checkout_type')", 'carrier_type_has_checkout_type_path(params[:id])', :only => [:show]
   load_and_authorize_resource
   before_filter :get_checkout_type
   before_filter :prepare_options, :only => [:new, :edit]

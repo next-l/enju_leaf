@@ -1,4 +1,8 @@
 class LibcheckDataFilesController < ApplicationController
+  add_breadcrumb "I18n.t('page.configuration')", 'page_configuration_path'
+  add_breadcrumb "I18n.t('page.listing', :model => I18n.t('activerecord.models.libcheck_data_file'))", 'library_check_libcheck_data_files_path(params[:library_check_id])', :except => [:show, :create]
+  add_breadcrumb "I18n.t('page.new', :model => I18n.t('activerecord.models.libcheck_data_file'))", 'new_library_check_libcheck_data_file_path', :only => [:new]
+  add_breadcrumb "I18n.t('activerecord.models.libcheck_data_file')", 'libcheck_data_file_path(params[:id])', :only => [:show]
   load_and_authorize_resource
 
   def index

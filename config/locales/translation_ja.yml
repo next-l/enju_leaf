@@ -951,6 +951,7 @@ ja:
         url_list: URLリスト
       bookstore:
         name: 名前
+        name_transcription: 名前ヨミ
         zip_code: 郵便番号
         address: 住所
         note: 注記
@@ -2215,9 +2216,11 @@ ja:
     inout_items_report: 受払統計
     loans_report: 相互貸借統計
     groups_report: 団体別貸出統計
+    departments_report: 所属別貸出統計
     invalid_year: "対象年度の指定が不正です。"
     invalid_month: "対象月の指定が不正です。"
     no_corporate: "団体が登録されていません。"
+    no_department: "部署が登録されていません。"
     year: 対象年度(YYYY) 
     month_ex: 対象月(YYYYMM)
     year_or_month: 対象年度(YYYY)または対象月(YYYYMM)
@@ -2275,6 +2278,7 @@ ja:
     loan_type: 貸借区分
     loan_library: 貸借図書館
     corporate_name: 団体名
+    department_name: 部署名
     option: オプション
     condition: ""
     day_0: 日曜日

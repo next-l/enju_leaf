@@ -1,5 +1,10 @@
 # -*- encoding: utf-8 -*-
 class LibraryGroupsController < ApplicationController
+  add_breadcrumb "I18n.t('page.configuration')", 'page_configuration_path'
+  add_breadcrumb "I18n.t('page.listing', :model => I18n.t('activerecord.models.library_group'))", 'library_groups_path'
+  add_breadcrumb "I18n.t('page.new', :model => I18n.t('activerecord.models.library_group'))", 'new_library_group_path', :only => [:new, :create]
+  add_breadcrumb "I18n.t('page.editing', :model => I18n.t('activerecord.models.library_group'))", 'edit_library_group_path(params[:id])', :only => [:edit, :update]
+  add_breadcrumb "I18n.t('activerecord.models.library_group')", 'library_group_path(params[:id])', :only => [:show]
   load_and_authorize_resource
   cache_sweeper :library_group_sweeper, :only => [:update]
 

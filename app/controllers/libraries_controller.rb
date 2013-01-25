@@ -1,5 +1,10 @@
 # -*- encoding: utf-8 -*-
 class LibrariesController < ApplicationController
+  add_breadcrumb "I18n.t('page.configuration')", 'page_configuration_path'
+  add_breadcrumb "I18n.t('page.listing', :model => I18n.t('activerecord.models.library'))", 'libraries_path'
+  add_breadcrumb "I18n.t('page.new', :model => I18n.t('activerecord.models.library'))", 'new_library_path', :only => [:new, :create]
+  add_breadcrumb "I18n.t('page.editing', :model => I18n.t('activerecord.models.library'))", 'edit_library_path(params[:id])', :only => [:edit, :update]
+  add_breadcrumb "I18n.t('activerecord.models.library')", 'library_path(params[:id])', :only => [:show]
   load_and_authorize_resource
   cache_sweeper :page_sweeper, :only => [:create, :update, :destroy]
   after_filter :solr_commit, :only => [:create, :update, :destroy]

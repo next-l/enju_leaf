@@ -1,4 +1,8 @@
 class ResourceImportResultsController < InheritedResources::Base
+  add_breadcrumb "I18n.t('activerecord.models.resource_import_result')", 'resource_import_results_path'
+  add_breadcrumb "I18n.t('page.new', :model => I18n.t('activerecord.models.resource_import_result'))", 'new_resource_import_result_path', :only => [:new, :create]
+  add_breadcrumb "I18n.t('page.showing', :model => I18n.t('activerecord.models.resource_import_result'))", 'new_resource_import_result_path', :only => [:show]
+  add_breadcrumb "I18n.t('page.editing', :model => I18n.t('activerecord.models.resource_import_result'))", 'edit_resource_import_result_path([:id])', :only => [:edit, :update]
   respond_to :html, :json, :csv
   before_filter :access_denied, :except => [:index, :show]
   before_filter :check_client_ip_address

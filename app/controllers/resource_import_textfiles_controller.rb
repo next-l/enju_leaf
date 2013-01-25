@@ -1,4 +1,8 @@
 class ResourceImportTextfilesController < ApplicationController
+  add_breadcrumb "I18n.t('page.listing', :model => I18n.t('activerecord.models.resource_import_textfile'))", 'resource_import_textfiles_path'
+  add_breadcrumb "I18n.t('page.new', :model => I18n.t('activerecord.models.resource_import_textfile'))", 'new_resource_import_textfile_path', :only => [:new, :create]
+  add_breadcrumb "I18n.t('page.showing', :model => I18n.t('activerecord.models.resource_import_textfile'))", 'new_resource_import_textfile_path', :only => [:show]
+  add_breadcrumb "I18n.t('page.editing', :model => I18n.t('activerecord.models.resource_import_textfile'))", 'edit_resource_import_textfile_path(params[:id])', :only => [:edit, :update]
   before_filter :check_client_ip_address
   load_and_authorize_resource
 

@@ -134,6 +134,8 @@ defaults: &defaults
     loans_tsv: "loans_report.tsv"
     groups: "groups_report.pdf"
     groups_tsv: "groups_report.tsv"
+    departments: "departments_report.pdf"
+    departments_tsv: "departments_report.tsv"
     # 時間別統計の設定
     open: 8
     hours: 14 
@@ -183,6 +185,9 @@ defaults: &defaults
   # 予約リスト(全体)の出力(TSV)
   reserve_list_all_print_tsv:
     filename: "reserve_list_all.tsv"
+  # 予約リスト(ピッキング用)の出力(PDF)
+  reserve_list_picking_pdf:
+    filename: "reserve_list_picking.pdf"
   # 取置済み資料の出力(PDF)
   retained_manifestation_list_print_pdf:
     filename: "retained_manifestation_list.pdf"

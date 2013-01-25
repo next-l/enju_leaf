@@ -1,5 +1,9 @@
 # -*- encoding: utf-8 -*-
 class PatronsController < ApplicationController
+  add_breadcrumb "I18n.t('page.listing', :model => I18n.t('activerecord.models.patron'))", 'patrons_path'
+  add_breadcrumb "I18n.t('activerecord.models.patron')", 'patron_path(params[:id])', :only => [:show]
+  add_breadcrumb "I18n.t('page.new', :model => I18n.t('activerecord.models.patron'))", 'new_patron_path', :only => [:new, :create]
+  add_breadcrumb "I18n.t('page.editing', :model => I18n.t('activerecord.models.patron'))", 'edit_patron_path(params[:id])', :only => [:edit, :update]
   load_and_authorize_resource :except => :index
   authorize_resource :only => :index
   before_filter :get_user

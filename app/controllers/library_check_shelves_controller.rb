@@ -1,4 +1,7 @@
 class LibraryCheckShelvesController < ApplicationController
+  add_breadcrumb "I18n.t('page.configuration')", 'page_configuration_path'
+  add_breadcrumb "I18n.t('activerecord.models.library_check')", 'library_check_path(params[:library_check_id])'
+  add_breadcrumb "I18n.t('activerecord.models.library_check_shelf')", ''
   load_and_authorize_resource
 
   def index

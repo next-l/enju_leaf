@@ -1,4 +1,9 @@
 class ShelvesController < ApplicationController
+  add_breadcrumb "I18n.t('page.configuration')", 'page_configuration_path'
+  add_breadcrumb "I18n.t('page.listing', :model => I18n.t('activerecord.models.shelf'))", 'shelves_path'
+  add_breadcrumb "I18n.t('page.new', :model => I18n.t('activerecord.models.shelf'))", 'new_shelf_path', :only => [:new, :create]
+  add_breadcrumb "I18n.t('page.editing', :model => I18n.t('activerecord.models.shelf'))", 'edit_shelf_path(params[:id])', :only => [:edit, :update]
+  add_breadcrumb "I18n.t('activerecord.models.shelf')", 'shelf_path(params[:id])', :only => [:show]
   load_and_authorize_resource
   before_filter :get_library, :only => [:new, :edit, :create, :update, :output]
   before_filter :get_libraries, :only => [:new, :edit, :create, :update]
