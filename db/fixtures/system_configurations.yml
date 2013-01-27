@@ -525,4 +525,18 @@ system_configuration_00075:
   typename: Boolean
   description: "google_book_search_previewを利用するか？"
   category: 'manifestation'
+system_configuration_00076:
+  id: 76
+  keyname: reserve_print.auto_print
+  v: "false"
+  typename: Boolean
+  description: "予約票を自動印刷するか？"
+  category: 'reserve'
+system_configuration_00077:
+  id: 77
+  keyname: manifestation_print.auto_print
+  v: "false"
+  typename: Boolean
+  description: "資料確認票を自動印刷するか？"
+  category: 'manifestation'
 

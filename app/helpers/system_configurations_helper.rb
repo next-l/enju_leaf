@@ -215,6 +215,12 @@ module SystemConfigurationsHelper
      when 'checkouts.cannot_for_new_serial'
        string << t('system_configuration.boolean_disable') if state == 'true'
        string << t('system_configuration.boolean_not_disable') if state == 'false'
+     # => print
+     when 'checkouts_print.auto_print',
+          'reserve_print.auto_print',
+          'manifestation_print.auto_print'
+       string << t('system_configuration.boolean_autoprint') if state == 'true'
+       string << t('system_configuration.boolean_not_autoprint') if state == 'false'
      # => other
      when 'manifestations.users_show_output_button'
        string << t('system_configuration.boolean_output_button_all') if state == 'true'

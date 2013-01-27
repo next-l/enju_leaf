@@ -156,8 +156,22 @@ en:
       manifestation_type: Manifestation type
       access_log: Access log
       keyword_count: Keyword count
+      terminal: Terminal
 
     attributes:
+      terminal:
+        ipaddr: IP Address
+        name: Hostname
+        comment: Comment
+        autoprint: Enable Auto-print?
+        checkouts: Checkout sheet
+        reserve: Reservation sheet
+        manifestation: Manifestation sheet
+        checkouts_autoprint: Auto-print checkout sheet
+        reserve_autoprint: Auto-print reservation sheet
+        manifestation_autoprint: Auto-print manifestation sheet
+        boolean_yes: yes
+        boolean_no: no
       library:
         name: Name
         display_name: Display name
@@ -1731,6 +1745,8 @@ en:
     boolean_reserve_all_item: "All item"
     boolean_reserve_able_for_not_item: "Can be reserved"
     boolean_reserve_not_able_for_not_item: "Can not be reserved"
+    boolean_autoprint: "Auto-print"
+    boolean_not_autoprint: "Not auto-print"
     error:
       over_checkouts_print_message: "checkouts print message exceed the limit. max %{num}."
       over_reminder_postal_card_message: "reminder postal card message exceed the limit. max %{num}."
