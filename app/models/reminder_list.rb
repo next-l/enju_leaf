@@ -1,5 +1,5 @@
 class ReminderList < ActiveRecord::Base
-  attr_accessible :item_identifier, :status
+  attr_accessible :item_identifier, :status, :mail_sent_at
 
   default_scope :order => 'reminder_lists.id DESC'
 
@@ -40,6 +40,9 @@ class ReminderList < ActiveRecord::Base
     integer :id
     integer :checkout_id 
     integer :status
+    integer :library_id do
+      checkout.try(:item).try(:shelf).try(:library_id)
+    end
     time :created_at
     time :updated_at
     time :type1_printed_at
@@ -55,6 +58,12 @@ class ReminderList < ActiveRecord::Base
       titles = []
       titles << self.try(:checkout).try(:item).try(:manifestation).try(:original_title)
       titles << self.try(:checkout).try(:item).try(:manifestation).try(:title_transcription)
+    end
+    boolean :checkin do
+      true if checkout.try(:checkin_id)
+    end
+    time :due_date do
+      checkout.try(:due_date)
     end
   end
 

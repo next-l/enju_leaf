@@ -20,6 +20,7 @@ EnjuLeaf::Application.routes.draw do
     post :output_reminder_letter, :on => :collection
     post :output_reminder_postal_card, :on => :collection
     get :download_file, :on => :collection
+    post :send_reminder, :on => :collection
   end
 
   resources :series_has_manifestations

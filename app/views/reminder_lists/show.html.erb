@@ -43,6 +43,10 @@ playSound('<%= root_path -%><%= flash[:sound] -%>');
   <strong><%= t('activerecord.attributes.reminder_list.type2_printed_at') -%>:</strong>
   <%= dateformat(@reminder_list.type2_printed_at) -%>
 </p>
+<p>
+  <strong><%= t('activerecord.attributes.reminder_list.mail_sent_at') -%>:</strong>
+  <%= dateformat(@reminder_list.mail_sent_at) -%>
+</p>
 
 <p>
   <strong><%= t('page.created_at') -%>:</strong>

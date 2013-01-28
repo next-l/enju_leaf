@@ -24,18 +24,22 @@ class ReminderListsController < ApplicationController
     end
     page = params[:page] || 1
 
+    @libraries = Library.find(:all).collect{|i| [ i.display_name, i.id ] }
+    @selected_library = params[:library][:id] unless params[:library].blank?
     state_ids = @selected_state
-    unless query.blank?
-      @reminder_lists = ReminderList.search do
-        fulltext query
-        with(:status, state_ids) 
-        order_by(:id, :asc)
-        paginate :page => page.to_i, :per_page => ReminderList.per_page unless params[:output_pdf] or params[:output_tsv]
-      end.results
-    else
-      @reminder_lists =  ReminderList.where(:status => state_ids).order('id').page(page)
-      @reminder_lists =  ReminderList.where(:status => state_ids).order('id') if params[:output_pdf] or params[:output_tsv]
-    end
+    library = params[:library][:id] if params[:library] and !params[:library][:id].blank?
+    date = 1.days.ago.end_of_day
+    date = params[:days_overdue].to_i.days.ago.end_of_day if params[:days_overdue]
+    @days_overdue = params[:days_overdue]
+    @reminder_lists = ReminderList.search do
+      fulltext query
+      with(:library_id, library.to_i) if library
+      with(:status, state_ids) 
+      without(:checkin, true) if date
+      with(:due_date).less_than(date)
+      order_by(:id, :desc) # asc
+      paginate :page => page.to_i, :per_page => ReminderList.default_per_page unless params[:output_pdf] or params[:output_tsv]
+    end.results
 
     # output reminder_list (pdf or tsv)
     unless @selected_state.blank? 
@@ -167,6 +171,27 @@ class ReminderListsController < ApplicationController
       logger.warn "not exist file. path:#{path}"
       render :back and return
     end
+  end
+
+  def send_reminder
+    reminder_lists = ReminderList.where("id in (#{params[:send_reminder].join(',')})") rescue []
+    if reminder_lists.empty?
+      flash[:message] = t('reminder_list.failed_sent')
+    else
+      reminder_lists.each do |reminder_list|
+        begin
+          if checkout = reminder_list.try(:checkout)
+            checkout.user.send_message('recall_overdue_item', :manifestations => [checkout.try(:item).try(:manifestation)])
+            reminder_list.update_attributes(:status => 1, :mail_sent_at => Time.zone.now)
+            flash[:message] = t('reminder_list.successfully_sent')
+          end
+        rescue Exception => e
+          flash[:message] = e
+          logger.error e
+        end     
+      end
+    end
+    redirect_to :action => :index
   end
 
   private

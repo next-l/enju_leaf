@@ -232,17 +232,18 @@ ja:
         checkout_id: 貸出番号
         original_title: タイトル 
         user_name: 利用者名
-        status: 状態
+        status: 連絡 # 状態
         due_date: 貸出期限
         number_of_day_overdue: 超過日数
         type1_printed: 督促はがき
         type1_printed_at: 督促はがき印刷日時
         type2_printed: 催告書
         type2_printed_at: 催告書印刷日時
+        mail_sent_at: 督促メール送信日時
         printed: 印字済
         status_name:
-          accepted: 未連絡
-          called: 連絡済    
+          accepted: 未 # 連絡
+          called: 済 # 連絡済    
         honorific1: 様
         honorific2: さん
         total : 全
@@ -2343,6 +2344,10 @@ ja:
     no_item: "督促対象になっている資料が見つかりません。"
     failed_output: "督促の出力に失敗しました。"
     successfully__output: "督促を出力しました。"
+    send: "チェックした利用者に督促メールを送信"
+    successfully_sent: "督促メールを送信しました。"
+    failed_sent: "督促メールの送信に失敗しました。"
+    reminder_mail: "メール"
   system_configuration:
     general: 全般
     user: 利用者

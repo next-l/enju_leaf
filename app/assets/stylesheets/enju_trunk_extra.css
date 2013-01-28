@@ -212,3 +212,7 @@ table #system_configurations-key {
   width: 25em;
   height: 8em;
 }
+
+div#reminder_send {
+  float: right;
+}

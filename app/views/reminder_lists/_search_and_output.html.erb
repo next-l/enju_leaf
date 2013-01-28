@@ -33,6 +33,8 @@
     </div>
   </div>
   <div>
+    <%= t('advanced_search.library') -%>:<%= select("library", "id", @libraries, {:include_blank => t('advanced_search.all_libraries'), :selected=>@selected_library})%>
+    <%= t('checkout.number_of_day_overdue') -%>:<%= text_field_tag 'days_overdue', h(@days_overdue), :class => 'resource_integer' -%><%= t('activerecord.attributes.checkout.over') -%><br />
     <%= t('page.search_term') -%>: <%= search_field_tag 'query', h(@query), {:id => 'search_form_top', :class => 'search_form', :placeholder => t('page.search_term')} -%><br />
   </div>
   <div class="actions">
