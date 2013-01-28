@@ -39,7 +39,7 @@ $(function(){
   });
 });
 </script>
-      <button id="button_print_pdf"><%= t('activerecord.attributes.manifestation.detail') -%></button>
+      <button id="button_print_pdf"><%= t('page.output', :model => t('activerecord.attributes.manifestation.detail')) -%></button>
     <%- else -%>
       <%= form_tag({:action => 'output_show'}) do -%>
         <%= submit_tag t('page.output', :model => t('activerecord.attributes.manifestation.detail')) -%>
