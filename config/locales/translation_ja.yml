@@ -187,7 +187,7 @@ ja:
       checkout_history: 今日の操作履歴
       produce_type: 体現の関係
       realize_type: 表現の関係
-      terminal: 端末
+      terminal: 端末設定
 
     attributes:
       terminal:
