@@ -16,6 +16,9 @@ class UserGroup < ActiveRecord::Base
     :number_of_time_to_notify_overdue,
     :greater_than_or_equal_to => 0
 
+  attr_accessible :name, :display_name, :valid_period_for_new_user, :number_of_day_to_notify_due_date,
+                 :number_of_day_to_notify_overdue, :number_of_time_to_notify_overdue, :note
+
   paginates_per 10
 end
 
