@@ -12,12 +12,13 @@ gem 'enju_book_jacket', '0.1.0.pre2'
 gem 'enju_manifestation_viewer', :git => 'git://github.com/next-l/enju_manifestation_viewer.git'
 #gem 'enju_message', "0.1.14.pre"
 gem 'enju_message', :git => 'git://github.com/shinozuka/enju_message.git'
-gem "enju_ndl", "0.1.0.pre5"
+gem "enju_ndl", "0.1.0.pre8"
 #gem 'enju_ndl', :git => 'git://github.com/nabeta/enju_ndl.git'
 #gem 'enju_question', :git => 'git://github.com/nabeta/enju_question.git'
 gem 'enju_event', :git => 'git://github.com/shinozuka/enju_event.git'
 #gem 'enju_bookmark', :git => 'git://github.com/nabeta/enju_bookmark'
 gem 'enju_bookmark', :git => 'git://github.com/shinozuka/enju_bookmark.git'
+gem 'enju_subject', '~> 0.1.0.pre4'
 
 gem "jpp_customercode_transfer", "~> 0.0.2"
 
@@ -63,7 +64,7 @@ gem 'file_wrapper'
 gem 'paper_trail', '~> 2.6'
 gem 'RedCloth', '>= 4.2.9'
 gem 'lisbn'
-gem 'nori', '~> 1.1'
+gem 'nori', '~> 2.0'
 gem 'cancan', '>= 1.6.7'
 gem 'scribd_fu'
 gem 'devise', '~> 1.5'

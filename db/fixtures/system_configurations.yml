@@ -609,3 +609,15 @@ system_configuration_00087:
   typename: Boolean
   description: "所属別統計を利用する"
   category: 'statistics'
+  keyname: reserve_print.auto_print
+  v: "false"
+  typename: Boolean
+  description: "予約票を自動印刷するか？"
+  category: 'reserve'
+system_configuration_00088:
+  id: 88
+  keyname: manifestation_print.auto_print
+  v: "false"
+  typename: Boolean
+  description: "資料確認票を自動印刷するか？"
+  category: 'manifestation'

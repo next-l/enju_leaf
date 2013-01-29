@@ -187,7 +187,22 @@ ja:
       checkout_history: 今日の操作履歴
       produce_type: 体現の関係
       realize_type: 表現の関係
+      terminal: 端末設定
+
     attributes:
+      terminal:
+        ipaddr: IPアドレス
+        name: ホスト名
+        comment: コメント
+        autoprint: 自動印刷
+        checkouts: 貸出票
+        reserve: 予約票
+        manifestation: 資料確認票
+        checkouts_autoprint: 貸出票の自動印刷
+        reserve_autoprint: 予約票の自動印刷
+        manifestation_autoprint: 資料確認票の自動印刷
+        boolean_yes: する
+        boolean_no: しない
       user_status:
         name: 名前
         display_name: 表示名
@@ -853,6 +868,7 @@ ja:
         subject: 件名
         missing_issue: 欠号管理
         acceptance_number: 受入部数
+        printout_in_progress: 資料確認票の印刷を開始しました
       user_group:
         name: 名前
         display_name: 表示名
@@ -2403,6 +2419,8 @@ ja:
     boolean_reserve_all_item: "全ての所蔵を予約対象とする"
     boolean_reserve_able_for_not_item: "予約できる"
     boolean_reserve_not_able_for_not_item: "予約できない"
+    boolean_autoprint: "自動印刷する"
+    boolean_not_autoprint: "自動印刷しない"
     error:
       over_checkouts_print_message: "貸出表に表示できるメッセージは最大全角%{num}文字までです"
       over_reminder_postal_card_message: "督促はがきに表示できるメッセージは最大全角%{num}文字までです"
