@@ -525,4 +525,87 @@ system_configuration_00075:
   typename: Boolean
   description: "google_book_search_previewを利用するか？"
   category: 'manifestation'
-
+system_configuration_00076:
+  id: 76
+  keyname: use_family
+  v: "true"
+  typename: Boolean
+  description: "家族機能を利用する"
+  category: 'user'
+system_configuration_00077:
+  id: 77
+  keyname: use_birth_day
+  v: "true"
+  typename: Boolean
+  description: "誕生日・年齢を管理する"
+  category: 'user'
+system_configuration_00078:
+  id: 78
+  keyname: statistic_report.monthly_public
+  v: "true"
+  typename: Boolean
+  description: "月別利用統計(公共図書館向け)を利用する"
+  category: 'statistics'
+system_configuration_00079:
+  id: 79
+  keyname: statistic_report.daily_public
+  v: "true"
+  typename: Boolean
+  description: "日別利用統計(公共図書館向け)を利用する"
+  category: 'statistics'
+system_configuration_00080:
+  id: 80
+  keyname: statistic_report.timezone_public
+  v: "true"
+  typename: Boolean
+  description: "時間帯別利用統計(公共図書館向け)を利用する"
+  category: 'statistics'
+system_configuration_00081:
+  id: 81
+  keyname: statistic_report.day_public
+  v: "true"
+  typename: Boolean
+  description: "曜日利用統計(公共図書館向け)を利用する"
+  category: 'statistics'
+system_configuration_00082:
+  id: 82
+  keyname: statistic_report.age_public
+  v: "true"
+  typename: Boolean
+  description: "年代別利用統計(公共図書館向け)を利用する"
+  category: 'statistics'
+system_configuration_00083:
+  id: 83
+  keyname: statistic_report.items
+  v: "true"
+  typename: Boolean
+  description: "蔵書統計を利用する"
+  category: 'statistics'
+system_configuration_00084:
+  id: 84
+  keyname: statistic_report.inouts
+  v: "true"
+  typename: Boolean
+  description: "受払統計を利用する"
+  category: 'statistics'
+system_configuration_00085:
+  id: 85
+  keyname: statistic_report.inter_library_loans
+  v: "true"
+  typename: Boolean
+  description: "相互貸借統計を利用する"
+  category: 'statistics'
+system_configuration_00086:
+  id: 86
+  keyname: statistic_report.user_group_checkouts
+  v: "true"
+  typename: Boolean
+  description: "団体別貸出統計を利用する"
+  category: 'statistics'
+system_configuration_00087:
+  id: 87
+  keyname: statistic_report.departments
+  v: "true"
+  typename: Boolean
+  description: "所属別統計を利用する"
+  category: 'statistics'
