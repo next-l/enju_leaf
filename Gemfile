@@ -11,11 +11,11 @@ gem 'enju_oai', :git => 'git://github.com/next-l/enju_oai.git'
 gem 'enju_book_jacket', '0.1.0.pre2'
 gem 'enju_manifestation_viewer', :git => 'git://github.com/next-l/enju_manifestation_viewer.git'
 #gem 'enju_message', "0.1.14.pre"
-gem 'enju_message', :git => 'git://github.com/shinozuka/enju_message.git'
+gem 'enju_message', :git => 'git://github.com/shinozuka/enju_trunk_message.git'
 gem "enju_ndl", "0.1.0.pre8"
 #gem 'enju_ndl', :git => 'git://github.com/nabeta/enju_ndl.git'
 #gem 'enju_question', :git => 'git://github.com/nabeta/enju_question.git'
-gem 'enju_event', :git => 'git://github.com/shinozuka/enju_event.git'
+gem 'enju_event', :git => 'git://github.com/shinozuka/enju_trunk_event.git'
 #gem 'enju_bookmark', :git => 'git://github.com/nabeta/enju_bookmark'
 gem 'enju_bookmark', :git => 'git://github.com/shinozuka/enju_bookmark.git'
 gem 'enju_subject', '~> 0.1.0.pre4'
