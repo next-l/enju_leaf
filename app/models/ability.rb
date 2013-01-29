@@ -26,10 +26,6 @@ class Ability
       can :destroy, ClassificationType do |classification_type|
         classification_type.classifications.empty?
       end
-      can [:read, :new, :create], EventCategory
-      can [:edit, :update, :destroy], EventCategory do |event_category|
-        !['unknown', 'closed'].include?(event_category.name)
-      end
       can [:read, :create, :export_loan_lists, :get_loan_lists, :pickup, :pickup_item, :accept, :accept_item, :download_file, :output], InterLibraryLoan
       can [:update, :destroy], InterLibraryLoan do |inter_library_loan|
         inter_library_loan.state == "pending" || inter_library_loan.state == "requested"
@@ -104,10 +100,8 @@ class Ability
         CreateType,
         Department,
         Donate,
-        Event,
         Exemplify,
         Expense,
-        EventImportFile,
         Family,
         ImportRequest,
         Inventory,
@@ -126,7 +120,6 @@ class Ability
         Order,
         OrderList,
         Own,
-        Participate,
         PatronImportFile,
         PatronMerge,
         PatronMergeList,
@@ -187,7 +180,6 @@ class Ability
         UseRestriction
       ]
       can :read, [
-        EventImportResult,
         PatronImportResult,
         ResourceImportResult,
         ResourceImportTextresult
@@ -200,10 +192,6 @@ class Ability
       can [:read, :create, :update], BudgetType
       can :destroy, BudgetType do |budget_type|
         budget_type.budgets.empty?
-      end
-      can [:read, :new, :create], EventCategory
-      can [:edit, :update, :destroy], EventCategory do |event_category|
-        !['unknown', 'closed'].include?(event_category.name)
       end
       can [:read, :create, :export_loan_lists, :get_loan_lists, :pickup, :pickup_item, :accept, :accept_item, :download_file, :output], InterLibraryLoan
       can [:update, :update, :destroy], InterLibraryLoan do |inter_library_loan|
@@ -275,10 +263,8 @@ class Ability
         CreateType,
 	      Department,
         Donate,
-        Event,
         Exemplify,
         Expense,
-        EventImportFile,
         Family,
         ImportRequest,
         Inventory,
@@ -295,7 +281,6 @@ class Ability
         Order,
         OrderList,
         Own,
-        Participate,
         PatronImportFile,
         PatronMerge,
         PatronMergeList,
@@ -335,7 +320,6 @@ class Ability
         ClassificationType,
         ContentType,
         Country,
-        EventImportResult,
         Extent,
         Frequency,
         FormOfWork,
@@ -439,8 +423,6 @@ class Ability
         Create,
         CreateType,
 	      Department,
-        Event,
-        EventCategory,
         Exemplify,
         Extent,
         Frequency,
@@ -499,8 +481,6 @@ class Ability
         Country,
         Create,
         CreateType,
-        Event,
-        EventCategory,
         Exemplify,
         Extent,
         Frequency,
@@ -601,6 +581,43 @@ class Ability
         can :show, Message do |message|
           message.receiver == user
         end
+      end
+    end
+
+    if defined?(EnjuEvent)
+      case user.try(:role).try(:name)
+      when 'Administrator'
+        can [:read, :new, :create], EventCategory
+        can [:edit, :update, :destroy], EventCategory do |event_category|
+          !['unknown', 'closed'].include?(event_category.name)
+        end
+        can :manage, [
+          Event,
+          EventImportFile,
+          Participate
+        ]
+        can :read, EventImportResult
+      when 'Librarian'
+        can [:read, :new, :create], EventCategory
+        can [:edit, :update, :destroy], EventCategory do |event_category|
+          !['unknown', 'closed'].include?(event_category.name)
+        end
+        can :manage, [
+          Event,
+          EventImportFile,
+          Participate
+        ]
+        can :read, EventImportResult
+      when 'User'
+        can :read, [
+          Event,
+          EventCategory
+        ]
+      else
+        can :read, [
+          Event,
+          EventCategory
+        ]
       end
     end
 
