@@ -1,7 +1,7 @@
-module TerminalsHelper
+module EnjuTerminalsHelper
 
   def is_checkouts_autoprint?(ipaddr)
-    x = Terminal.find(:first, :conditions => [ "ipaddr = ?", ipaddr])
+    x = EnjuTerminal.find(:first, :conditions => [ "ipaddr = ?", ipaddr])
     unless x.nil?
       return x.checkouts_autoprint
     else
@@ -12,7 +12,7 @@ module TerminalsHelper
   end
 
   def is_reserve_autoprint?(ipaddr)
-    x = Terminal.find(:first, :conditions => [ "ipaddr = ?", ipaddr])
+    x = EnjuTerminal.find(:first, :conditions => [ "ipaddr = ?", ipaddr])
     unless x.nil?
       return x.reserve_autoprint
     else
@@ -23,7 +23,7 @@ module TerminalsHelper
   end
 
   def is_manifestation_autoprint?(ipaddr)
-    x = Terminal.find(:first, :conditions => [ "ipaddr = ?", ipaddr])
+    x = EnjuTerminal.find(:first, :conditions => [ "ipaddr = ?", ipaddr])
     unless x.nil?
       return x.manifestation_autoprint
     else

@@ -1,8 +1,8 @@
 require 'spec_helper'
 
-describe "terminals/show" do
+describe "enju_terminals/show" do
   before(:each) do
-    @terminal = assign(:terminal, stub_model(Terminal,
+    @enju_terminal = assign(:enju_terminal, stub_model(EnjuTerminal,
       :ipaddr => "Ipaddr",
       :name => "Name",
       :comment => "Comment",

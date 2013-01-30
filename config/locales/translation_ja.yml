@@ -187,10 +187,10 @@ ja:
       checkout_history: 今日の操作履歴
       produce_type: 体現の関係
       realize_type: 表現の関係
-      terminal: 端末設定
+      enju_terminal: 端末設定
 
     attributes:
-      terminal:
+      enju_terminal:
         ipaddr: IPアドレス
         name: ホスト名
         comment: コメント
