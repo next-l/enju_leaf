@@ -32,15 +32,29 @@ class Excelfile_Adapter < EnjuTrunk::ResourceAdapter::Base
   end
 
   def fix_data(cell)
-    return nil unless cell
+#    return nil unless cell
     # when data is number, fix its type from float to integer
-    data = cell.match(/^[0-9]+.0$/) ? cell.to_i : cell
-    return data
+#    data = cell.match(/^[0-9]+.0$/) ? cell.to_i : cell
+#    return data
+    return nil unless cell
+    cell = cell.to_s.strip
+
+    if cell.match(/^[0-9]+.0$/)
+      return cell.to_i
+    elsif cell == 'delete'
+      return ''
+    elsif cell.blank?
+      return nil
+    else
+      return cell.to_s
+    end
   end
 
   def fix_boolean(cell)
-    return true unless cell.blank? or cell.upcase == 'FALSE'
-    false
+    return nil unless cell
+    cell = cell.to_s.strip
+    return 'true' unless cell.blank? or cell.upcase == 'FALSE'
+    return 'false'
   end
 end
 
