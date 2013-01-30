@@ -1,9 +1,9 @@
 require 'spec_helper'
 
-describe "terminals/index" do
+describe "enju_terminals/index" do
   before(:each) do
-    assign(:terminals, [
-      stub_model(Terminal,
+    assign(:enju_terminals, [
+      stub_model(EnjuTerminal,
         :ipaddr => "Ipaddr",
         :name => "Name",
         :comment => "Comment",
@@ -11,7 +11,7 @@ describe "terminals/index" do
         :reserve_autoprint => false,
         :manifestation_autoprint => false
       ),
-      stub_model(Terminal,
+      stub_model(EnjuTerminal,
         :ipaddr => "Ipaddr",
         :name => "Name",
         :comment => "Comment",
@@ -22,7 +22,7 @@ describe "terminals/index" do
     ])
   end
 
-  it "renders a list of terminals" do
+  it "renders a list of enju_terminals" do
     render
     # Run the generator again with the --webrat flag if you want to use webrat matchers
     assert_select "tr>td", :text => "Ipaddr".to_s, :count => 2

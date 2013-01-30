@@ -156,10 +156,10 @@ en:
       manifestation_type: Manifestation type
       access_log: Access log
       keyword_count: Keyword count
-      terminal: Terminal
+      enju_terminal: Terminal
 
     attributes:
-      terminal:
+      enju_terminal:
         ipaddr: IP Address
         name: Hostname
         comment: Comment
