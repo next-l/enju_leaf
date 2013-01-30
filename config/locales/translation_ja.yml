@@ -2456,6 +2456,11 @@ ja:
     general: 制限なし
     guest: ログイン不可
     suspended: 利用不可
+  manifestation_type:
+    book: "図書・資料"
+    series: "雑誌・新聞"
+    article: "文献"
+    exinfo: "その他"
 
   opac:
     finish: 終わる
