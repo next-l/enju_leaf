@@ -1,5 +1,5 @@
 class ResourceImportTextresultsController < ApplicationController
-  add_breadcrumb "I18n.t('page.listing', :model => I18n.t('activerecord.models.resource_import_textresult'))", 'new_resource_import_textresult_path([:id])'
+  add_breadcrumb "I18n.t('page.listing', :model => I18n.t('activerecord.models.resource_import_textresult'))", 'resource_import_textfile_resource_import_textresults_path(params[:resource_import_textfile_id])'
   respond_to :html, :json, :csv
   before_filter :access_denied, :except => [:index, :show]
   before_filter :check_client_ip_address
