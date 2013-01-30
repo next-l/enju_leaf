@@ -621,3 +621,10 @@ system_configuration_00088:
   typename: Boolean
   description: "資料確認票を自動印刷するか？"
   category: 'manifestation'
+system_configuration_00089:
+  id: 89
+  keyname: footer_message
+  v: "<p>気象庁：〒100-8122　東京都千代田区大手町1-3-4（<a href='/jma/kishou/intro/map.html'>案内図</a>）　代表電話：03-3212-8341</p><p><a href='/jma/kishou/info/coment.html'>著作権・リンク・個人情報保護</a>　|　<a href='/jma/kishou/info/coment.html#exclusion'>利用上の注意について（免責事項）</a></p>"
+  typename: Text	
+  description: "フッターの表示内容"
+  category: 'general'
