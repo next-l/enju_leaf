@@ -409,6 +409,10 @@ EnjuLeaf::Application.routes.draw do
     post :get_departments_report, :on => :collection
   end
 
+  resources :ndl_statistics do
+    post :get_ndl_report, :on => :collection
+  end
+
   resources :print_labels do
     post :get_user_label, :on => :collection
     post 'search_user', :on => :collection

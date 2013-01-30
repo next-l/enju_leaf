@@ -169,6 +169,7 @@ ja:
       reservelist: 予約状況
       manifestation_exstat: 拡張統計
       statistic_report: 利用統計の帳票
+      ndl_report: 支部図書館業務年報の出力
       print_label: 利用者ラベル
       export_item_list: 図書リスト
       export_item_register: 図書原簿
@@ -1657,6 +1658,7 @@ ja:
     reserve_report: 予約状況表
     statistic_report: 利用統計
     library_report: 報告書(日報・月報)
+    ndl_report: 支部図書館業務年報の出力
 
   title:
     index: "一覧"
@@ -2305,6 +2307,11 @@ ja:
     day_4: 木曜日
     day_5: 金曜日
     day_6: 土曜日
+  ndl_report:
+    invalid_term: "対象年度の指定が不正です。"
+    term_not_found: "対象年度の情報が収集されていません。"
+    submit: "出力(Excel 2007以降)"
+    filename_excelx: "支部図書館業務年報.xlsx"
   print_label:
     users: ラベルを作成する利用者
     submit: ラベルを作成
