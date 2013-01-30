@@ -20,8 +20,18 @@ module EnjuTrunk
 
       # read the field, then set field a hash
       @field = Hash::new
-      @oo.first_column.upto(@oo.last_column) do |column|
-        @field.store(@oo.cell(field_row_num, column).to_s, column)
+      begin
+        @oo.first_column.upto(@oo.last_column) do |column|
+          @field.store(@oo.cell(field_row_num, column).to_s, column)
+        end
+      rescue
+        import_textresult = ResourceImportTextresult.new(
+          :resource_import_textfile_id => @textfile_id,
+          :extraparams => "{'sheet'=>'#{sheet}'}",
+          :error_msg   => I18n.t('resource_import_textfile.error.blank_sheet', :sheet => sheet)
+        )
+        import_textresult.save
+        raise
       end
       import_textresult = ResourceImportTextresult.new(:resource_import_textfile_id => @textfile_id, :extraparams => "{'sheet'=>'#{sheet}'}" )
       require_book = [@field[I18n.t('resource_import_textfile.excel.book.original_title')],
@@ -51,7 +61,13 @@ module EnjuTrunk
 
     def import_book_data(sheet)
       first_data_row_num = 2
-      num = { :manifestation_imported => 0, :item_imported => 0, :manifestation_found => 0, :item_found => 0, :failed => 0 }
+      num = { 
+       :manifestation_imported => 0,
+       :item_imported          => 0,
+       :manifestation_found    => 0,
+       :item_found             => 0,
+       :failed                 => 0 
+      }
 
       first_data_row_num.upto(@oo.last_row) do |row|
         Rails.logger.info("import block start. row_num=#{row}")
@@ -62,12 +78,11 @@ module EnjuTrunk
         end
 
         import_textresult = ResourceImportTextresult.new(
-          :resource_import_textfile_id => @textfile_id, 
-          :body => datas.values.join("\t"), 
+          :resource_import_textfile_id => @textfile_id,
+          :body => datas.values.join("\t"),
           :extraparams => "{'sheet'=>'#{sheet}'}"
         )
         next unless has_necessary_cell?(datas, sheet, row, import_textresult)
-
         begin
           manifestation = fetch_book(datas)
           num[:manifestation_imported] += 1 if manifestation
@@ -110,119 +125,108 @@ module EnjuTrunk
 
     def fetch_book(datas)
       @mode = 'create'
-      manifestation = nil
-
-      isbn = datas[@field[I18n.t('resource_import_textfile.excel.book.isbn')]].to_s
-      unless isbn.blank?
-        begin
-          isbn = Lisbn.new(isbn)
-            manifestation = Manifestation.find_by_isbn(isbn)
-            if manifestation
-              @mode = "edit"
-            else
-              manifestation = Manifestation.import_isbn(isbn)
-            end
-          raise I18n.t('resource_import_textfile.error.book.wrong_isbn') unless manifestation
-        rescue EnjuNdl::InvalidIsbn
-          raise I18n.t('resource_import_textfile.error.book.wrong_isbn')
-        rescue EnjuNdl::RecordNotFound
-          raise I18n.t('resource_import_textfile.error.book.wrong_isbn')
-        end
-      end
-      unless  manifestation
-        manifestation = exist_same_book?(datas)
-        unless manifestation
-          manifestation = Manifestation.new
-        end
-      end
 
       ResourceImportTextfile.transaction do
         begin
-          original_title       = datas[@field[I18n.t('resource_import_textfile.excel.book.original_title')]].to_s 
-          title_transcription  = datas[@field[I18n.t('resource_import_textfile.excel.book.title_transcription')]].to_s
-          title_alternative    = datas[@field[I18n.t('resource_import_textfile.excel.book.title_alternative')]].to_s
+          isbn = datas[@field[I18n.t('resource_import_textfile.excel.book.isbn')]].to_s
+          manifestation = import_isbn(isbn)
+          series_statement = @manifestation_type.is_series? ? import_series_statement(datas, manifestation) : nil
+          manifestation = exist_same_book?(datas, manifestation, series_statement)
+
+          unless manifestation
+            manifestation = Manifestation.new
+          end
+
+          manifestation.series_statement = series_statement if series_statement
+          original_title       = datas[@field[I18n.t('resource_import_textfile.excel.book.original_title')]]
+          title_transcription  = datas[@field[I18n.t('resource_import_textfile.excel.book.title_transcription')]]
+          title_alternative    = datas[@field[I18n.t('resource_import_textfile.excel.book.title_alternative')]]
           carrier_type         = set_data(CarrierType, datas[@field[I18n.t('resource_import_textfile.excel.book.carrier_type')]], false, 'carrier_type', 'print')
           frequency            = set_data(Frequency, datas[@field[I18n.t('resource_import_textfile.excel.book.frequency')]], false, 'frequency', '不明', :display_name)
-          pub_date             = datas[@field[I18n.t('resource_import_textfile.excel.book.pub_date')]].to_s
-          place_of_publication = datas[@field[I18n.t('resource_import_textfile.excel.book.place_of_publication')]].to_s
+          pub_date             = datas[@field[I18n.t('resource_import_textfile.excel.book.pub_date')]]
+          place_of_publication = datas[@field[I18n.t('resource_import_textfile.excel.book.place_of_publication')]]
           language             = set_data(Language, datas[@field[I18n.t('resource_import_textfile.excel.book.language')]], false, 'language', 'Japanese')
-          edition              = check_data_is_integer(datas[@field[I18n.t('resource_import_textfile.excel.book.edition')]].to_s, 'edition')
-          volume_number_string = datas[@field[I18n.t('resource_import_textfile.excel.book.volume_number_string')]].to_s
-          issue_number_string  = datas[@field[I18n.t('resource_import_textfile.excel.book.issue_number_string')]].to_s
-          lccn                 = datas[@field[I18n.t('resource_import_textfile.excel.book.lccn')]].to_s
-          start_page           = datas[@field[I18n.t('resource_import_textfile.excel.book.start_page')]].to_s
-          end_page             = datas[@field[I18n.t('resource_import_textfile.excel.book.end_page')]].to_s 
-          height               = check_data_is_numeric(datas[@field[I18n.t('resource_import_textfile.excel.book.height')]].to_s, 'height')
-          width                = check_data_is_numeric(datas[@field[I18n.t('resource_import_textfile.excel.book.width')]].to_s, 'width') 
-          depth                = check_data_is_numeric(datas[@field[I18n.t('resource_import_textfile.excel.book.depth')]].to_s, 'depth')
-          price                = check_data_is_integer(datas[@field[I18n.t('resource_import_textfile.excel.book.price')]].to_s, 'price')
-          access_address       = datas[@field[I18n.t('resource_import_textfile.excel.book.access_address')]].to_s
-          acceptance_number    = check_data_is_integer(datas[@field[I18n.t('resource_import_textfile.excel.acceptance_number')]].to_s, 'acceptance_number')
+          edition              = check_data_is_integer(datas[@field[I18n.t('resource_import_textfile.excel.book.edition')]], 'edition')
+          volume_number_string = datas[@field[I18n.t('resource_import_textfile.excel.book.volume_number_string')]]
+          issue_number_string  = datas[@field[I18n.t('resource_import_textfile.excel.book.issue_number_string')]]
+          issn                 = datas[@field[I18n.t('resource_import_textfile.excel.series.issn')]]
+          lccn                 = datas[@field[I18n.t('resource_import_textfile.excel.book.lccn')]]
+          start_page           = datas[@field[I18n.t('resource_import_textfile.excel.book.start_page')]]
+          end_page             = datas[@field[I18n.t('resource_import_textfile.excel.book.end_page')]]
+          height               = check_data_is_numeric(datas[@field[I18n.t('resource_import_textfile.excel.book.height')]], 'height')
+          width                = check_data_is_numeric(datas[@field[I18n.t('resource_import_textfile.excel.book.width')]], 'width') 
+          depth                = check_data_is_numeric(datas[@field[I18n.t('resource_import_textfile.excel.book.depth')]], 'depth')
+          price                = check_data_is_integer(datas[@field[I18n.t('resource_import_textfile.excel.book.price')]], 'price')
+          access_address       = datas[@field[I18n.t('resource_import_textfile.excel.book.access_address')]]
+          acceptance_number    = check_data_is_integer(datas[@field[I18n.t('resource_import_textfile.excel.acceptance_number')]], 'acceptance_number')
           repository_content   = fix_boolean(datas[@field[I18n.t('resource_import_textfile.excel.book.repository_content')]])
           required_role        = set_data(Role, datas[@field[I18n.t('resource_import_textfile.excel.book.required_role')]], false, 'required_role', 'Guest')
           except_recent        = fix_boolean(datas[@field[I18n.t('resource_import_textfile.excel.book.except_recent')]])
-          description          = datas[@field[I18n.t('resource_import_textfile.excel.book.description')]].to_s
-          supplement           = datas[@field[I18n.t('resource_import_textfile.excel.book.supplement')]].to_s
-          note                 = datas[@field[I18n.t('resource_import_textfile.excel.book.note')]].to_s
+          description          = datas[@field[I18n.t('resource_import_textfile.excel.book.description')]]
+          supplement           = datas[@field[I18n.t('resource_import_textfile.excel.book.supplement')]]
+          note                 = datas[@field[I18n.t('resource_import_textfile.excel.book.note')]]
 
-p @mode
           manifestation.manifestation_type   = @manifestation_type
-          manifestation.original_title       = original_title       unless original_title.blank?
-          manifestation.title_transcription  = title_transcription  unless title_transcription.blank?
-          manifestation.title_alternative    = title_alternative    unless title_alternative.blank?
-          manifestation.pub_date             = pub_date             unless pub_date.blank?
-          manifestation.place_of_publication = place_of_publication unless place_of_publication.blank?
-          manifestation.language             = language             unless language.blank?
-          manifestation.edition              = edition              unless edition.blank?
-          manifestation.volume_number_string = volume_number_string unless volume_number_string.blank?
-          manifestation.issue_number_string  = issue_number_string  unless issue_number_string.blank?
-          manifestation.isbn                 = isbn                 unless isbn.blank?
-          manifestation.lccn                 = lccn                 unless lccn.blank?
-          manifestation.start_page           = start_page           unless start_page.blank?
-          manifestation.end_page             = end_page             unless end_page.blank?
-          manifestation.height               = height               unless height.blank?
-          manifestation.width                = width                unless width.blank?
-          manifestation.depth                = depth                unless depth.blank?
-          manifestation.price                = price                unless price.blank?
-          manifestation.access_address       = access_address       unless access_address.blank?
-          manifestation.acceptance_number    = acceptance_number    unless acceptance_number.blank?
-          manifestation.required_role        = required_role        unless required_role.blank?
-          manifestation.description          = description          unless description.blank?
-          manifestation.supplement           = supplement           unless supplement.blank?
-          manifestation.note                 = note                 unless note.blank?
+          manifestation.original_title       = original_title.to_s       unless original_title.nil?
+          manifestation.title_transcription  = title_transcription.to_s  unless title_transcription.nil?
+          manifestation.title_alternative    = title_alternative.to_s    unless title_alternative.nil?
+          manifestation.carrier_type         = carrier_type              unless carrier_type.nil?
+          manifestation.frequency            = frequency                 unless frequency.nil?
+          manifestation.pub_date             = pub_date.to_s             unless pub_date.nil?
+          manifestation.place_of_publication = place_of_publication.to_s unless place_of_publication.nil?
+          manifestation.language             = language                  unless language.nil?
+          manifestation.edition              = edition                   unless edition.nil?
+          manifestation.volume_number_string = volume_number_string.to_s unless volume_number_string.nil?
+          manifestation.issue_number_string  = issue_number_string.to_s  unless issue_number_string.nil?
+          manifestation.isbn                 = isbn.to_s                 unless isbn.nil?
+          manifestation.issn                 = issn.to_s                 unless issn.nil?
+          manifestation.lccn                 = lccn.to_s                 unless lccn.nil?
+          manifestation.start_page           = start_page.to_s           unless start_page.nil?
+          manifestation.end_page             = end_page.to_s             unless end_page.nil?
+          manifestation.height               = height                    unless height.nil?
+          manifestation.width                = width                     unless width.nil?
+          manifestation.depth                = depth                     unless depth.nil?
+          manifestation.price                = price                     unless price.nil?
+          manifestation.access_address       = access_address.to_s       unless access_address.nil?
+          manifestation.acceptance_number    = acceptance_number         unless acceptance_number.nil?
+          manifestation.required_role        = required_role             unless required_role.nil?
+          manifestation.description          = description.to_s          unless description.nil?
+          manifestation.supplement           = supplement.to_s           unless supplement.nil?
+          manifestation.note                 = note.to_s                 unless note.blank?
           manifestation.during_import        = true
           manifestation.save!
 
           # creator
-          creators        = datas[@field[I18n.t('resource_import_textfile.excel.book.creator')]].split(';')
-          unless creators.blank?
+          creators_string = datas[@field[I18n.t('resource_import_textfile.excel.book.creator')]].to_s
+          creators        = creators_string.nil? ? nil : creators_string.split(';')
+          unless creators.nil?
             creators_list   = creators.inject([]){ |list, creator| list << {:full_name => creator.to_s.strip, :full_name_transcription => "" } }
             creator_patrons = Patron.import_patrons(creators_list)
             manifestation.creators = creator_patrons
           end
           # publisher
-          publishers        = datas[@field[I18n.t('resource_import_textfile.excel.book.publisher')]].split(';')
-          unless publishers.blank?
+          publishers_string = datas[@field[I18n.t('resource_import_textfile.excel.book.publisher')]].to_s
+          publishers        = publishers_string.nil? ? nil : publishers_string.split(';')
+          unless publishers.nil?
             publishers_list   = publishers.inject([]){ |list, publisher| list << {:full_name => publisher.to_s.strip, :full_name_transcription => "" } }
             publisher_patrons = Patron.import_patrons(publishers_list)
             manifestation.publishers = publisher_patrons
           end
           # contributor
-          contributors        = datas[@field[I18n.t('resource_import_textfile.excel.book.contributor')]].split(';')
-          unless contributors.blank?
-          contributors_list   = contributors.inject([]){ |list, contributor| list << {:full_name => contributor.to_s.strip, :full_name_transcription => "" } }
-          contributor_patrons = Patron.import_patrons(contributors_list)
-          manifestation.contributors = contributor_patrons
-          # subject
+          contributors_string = datas[@field[I18n.t('resource_import_textfile.excel.book.contributor')]].to_s
+          contributors        = contributors_string.nil? ? nil : contributors_string.split(';')
+          unless contributors.nil?
+            contributors_list   = contributors.inject([]){ |list, contributor| list << {:full_name => contributor.to_s.strip, :full_name_transcription => "" } }
+            contributor_patrons = Patron.import_patrons(contributors_list)
+            manifestation.contributors = contributor_patrons
           end
-          subjects_list = datas[@field[I18n.t('resource_import_textfile.excel.article.subject')]].to_s.split(';')
-          unless subjects_list.blank?
+          # subject
+          subjects_list_string = datas[@field[I18n.t('resource_import_textfile.excel.article.subject')]].to_s
+          subjects_list        = subjects_list_string.nil? ? nil : subjects_list_string.split(';')
+          unless subjects_list.nil?
             subjects = Subject.import_subjects (subjects_list)
             manifestation.subjects = subjects
           end
-
-          series_statement = import_series_statement(datas)
-          manifestation.series_statement = series_statement if series_statement
 
           return manifestation
         rescue Exception => e
@@ -232,23 +236,31 @@ p @mode
       end
     end
 
-    def exist_same_book?(datas, manifestation)
-      original_title = datas[@field[I18n.t('resource_import_textfile.excel.book.original_title')]].to_s
-      pub_date       = datas[@field[I18n.t('resource_import_textfile.excel.book.pub_date')]].to_s
-      creators       = datas[@field[I18n.t('resource_import_textfile.excel.book.creator')]].split(';')
-      publishers     = datas[@field[I18n.t('resource_import_textfile.excel.book.publisher')]].split(';') 
-      series_title   = datas[@field[I18n.t('resource_import_textfile.excel.series.original_title')]].to_s
-
+    def exist_same_book?(datas, manifestation, series_statement = nil)
+      original_title    = datas[@field[I18n.t('resource_import_textfile.excel.book.original_title')]]
+      pub_date          = datas[@field[I18n.t('resource_import_textfile.excel.book.pub_date')]]
+      creators_string   = datas[@field[I18n.t('resource_import_textfile.excel.book.creator')]]
+      creators          = creators_string.nil? ? nil : creators_string.to_s.split(';')
+      publishers_string = datas[@field[I18n.t('resource_import_textfile.excel.book.publisher')]]
+      publishers        = publishers_string.nil? ? nil : publishers_string.to_s.split(';')
+      if manifestation
+        original_title = manifestation.original_title.to_s                if original_title.nil?
+        pub_date       = manifestation.pub_date.to_s                      if pub_date.nil?
+        creators       = manifestation.creators.map{ |c| c.full_name }    if creators.nil?
+        publishers     = manifestation.publishers.map{ |p| p.full_name }  if publishers.nil?
+      end
+      series_title   = series_statement.original_title if series_statement
       book = nil
       if @manifestation_type.is_series?
         book = Manifestation.find(
           :first,
+          :readonly => false,
           :joins => :series_statement,
           :include => [:creators, :publishers],
           :conditions =>
-            "original_title = \'#{original_title}\'
-              and pub_date = \'#{pub_date}\'
-              and series_statements.original_title = \'#{series_title}\'
+            "(manifestations).original_title = \'#{original_title}\'
+              and (manifestations).pub_date = \'#{pub_date}\'
+              and (series_statements).original_title = \'#{series_title}\'
               and creates.id is not null
               and produces.id is not null"
         )
@@ -272,34 +284,64 @@ p @mode
       end
     end
 
-    def import_series_statement(datas)
-      series_statement = nil
-#!!!!!!!!!!!!! シリーズの書誌同定はどうするか
-      issn                = datas[@field[I18n.t('resource_import_textfile.excel.series.issn')]].to_s
-      original_title      = datas[@field[I18n.t('resource_import_textfile.excel.series.original_title')]].to_s
-      title_transcription = datas[@field[I18n.t('resource_import_textfile.excel.series.title_transcription')]].to_s
-      periodical          = fix_boolean(datas[@field[I18n.t('resource_import_textfile.excel.series.periodical')]])
-      series_identifier   = datas[@field[I18n.t('resource_import_textfile.excel.series.series_statement_identifier')]].to_s
+    def import_isbn(isbn)
+      manifestation = nil
 
-      unless issn.blank?
+      unless isbn.blank?
         begin
-          issn = Lisbn.new(issn)
-          series_statement = SeriesStatement.where(:issn => issn).first
-          series_statement = SeriesStatemen.new(:issn => issn) unless series_statement
-        rescue
-          raise I18n.t('resource_import_textfile.error.series.wrong_issn') 
+          isbn = Lisbn.new(isbn)
+          manifestation = Manifestation.find_by_isbn(isbn)
+          if manifestation
+            @mode = "edit"
+          else
+            manifestation = Manifestation.import_isbn(isbn)
+          end
+          raise I18n.t('resource_import_textfile.error.book.wrong_isbn') unless manifestation
+        rescue EnjuNdl::InvalidIsbn
+          raise I18n.t('resource_import_textfile.error.book.wrong_isbn')
+        rescue EnjuNdl::RecordNotFound
+          raise I18n.t('resource_import_textfile.error.book.wrong_isbn')
         end
       end
-      series_statement = SeriesStatemen.new unless series_statement
-      series_statement.original_title      = original_title      unless original_title.blank?
-      series_statement.title_transcription = title_transcription unless title_transcription.blank?
-      series_statement.periodical          = periodical          unless periodical.blank?
-      series_statement.series_identifier   = series_identifier   unless series_identifier.blank?
+      return manifestation
+    end
+
+    def import_series_statement(datas, manifestation)
+      series_statement = nil
+      series_statement = manifestation.series_statement if manifestation
+
+      issn = datas[@field[I18n.t('resource_import_textfile.excel.series.issn')]]
+      if issn
+        begin
+          issn = Lisbn.new(issn.to_s)
+        rescue
+          raise I18n.t('resource_import_textfile.error.series.wrong_issn')
+        end
+      end
+      series_statement = SeriesStatement.where(:issn => issn).first
+      original_title      = datas[@field[I18n.t('resource_import_textfile.excel.series.original_title')]]
+      title_transcription = datas[@field[I18n.t('resource_import_textfile.excel.series.title_transcription')]]
+      series_identifier   = datas[@field[I18n.t('resource_import_textfile.excel.series.series_statement_identifier')]]
+      unless series_statement.nil?
+        original_title      = series_statement.original_title              if original_title.nil?
+        title_transcription = series_statement.title_transcription         if title_transcription.nil?
+        periodical          = series_statement.periodical                  if periodical.nil?
+        series_identifier   = series_statement.series_statement_identifier if series_identifier.nil?
+      end
+      series_statement = SeriesStatement.where(:original_title => original_title.to_s, :periodical => periodical).first
+      series_statement = SeriesStatement.new unless series_statement
+
+      series_statement.original_title              = original_title.to_s      unless original_title.nil?
+      series_statement.title_transcription         = title_transcription.to_s unless title_transcription.nil?
+      series_statement.periodical                  = periodical               unless periodical.nil?
+      series_statement.series_statement_identifier = series_identifier.to_s   unless series_identifier.nil?
+      series_statement.issn                        = issn.to_s                unless issn.nil?
       series_statement.save! 
       return series_statement
     end
 
     def create_book_item(datas, manifestation, resource_import_textfile)
+      @mode_item = 'create'
       item = nil
       accept_type         = set_data(AcceptType, datas[@field[I18n.t('resource_import_textfile.excel.book.accept_type')]], true, 'accept_type', '', :display_name)
       acquired_at         = check_data_is_date(datas[@field[I18n.t('resource_import_textfile.excel.book.acquired_at')]], 'acquired_at')      
@@ -315,53 +357,50 @@ p @mode
       note                = datas[@field[I18n.t('resource_import_textfile.excel.book.item_note')]]
       rank                = fix_rank(datas[@field[I18n.t('resource_import_textfile.excel.book.rank')]])
       required_role       = set_data(Role, datas[@field[I18n.t('resource_import_textfile.excel.book.required_role')]], false, 'required_role', 'Guest')
-      #remove_reason       = set_data(AcceptType, datas[@field[I18n.t('resource_import_textfile.excel.book.remoce_reason')]], true, 'remove_reason', '', :display_name)
+      remove_reason       = set_data(RemoveReason, datas[@field[I18n.t('resource_import_textfile.excel.book.remove_reason')]], true, 'remove_reason', '', :display_name)
       item_identifier     = datas[@field[I18n.t('resource_import_textfile.excel.item_identifier')]]
 
-      @mode_item = 'create'
-      if item_identifier.blank?
-        if manifestation.items.size > 0
-          item = manifestation.items.first
-        end
-      else
-        item = Item.where(:item_identifier => item_identifer).first rescue nil
-      end
-      if item.nil?
-        item = Item.new
-      else
+      if manifestation.items.size > 0
+        item = manifestation.items.where(:item_identifier => item_identifier).first
+        item = manifestation.items.first unless item
         @mode_item = 'edit'
+      else
+        item = Item.new
       end
-p "mode_i_#{@mode_item}"
 
-      if item_identifier.blank? and rank == 0 and item.item_identifier.nil?
+      if @mode_item == 'create' and rank == 0 and item_identifier.nil?
         item_identifier = Numbering.do_numbering('book')
       end
+      unless item.remove_reason.nil?
+        circulation_status = CirculationStatus.where(:name => "Removed").first
+      end
 
-      item.accept_type         = accept_type         unless accept_type.blank?
-      item.acquired_at         = acquired_at         unless acquired_at.blank?
-      item.shelf               = shelf               unless shelf.blank?
-      item.checkout_type       = checkout_type       unless checkout_type.blank?
-      item.circulation_status  = circulation_status  unless circulation_status.blank?
-      item.call_number         = call_number         unless call_number.blank?
-      item.price               = price               unless price.blank?
-      item.url                 = url                 unless url.blank?
-      item.include_supplements = include_supplements unless include_supplements.blank?
-      item.use_restriction     = use_restriction     unless use_restriction.blank?
-      item.note                = note                unless note.blank?
-      item.rank                = rank                unless rank.blank?
-      item.required_role       = required_role       unless required_role.blank?
-      item.item_identifier     = item_identifier     unless item_identifier.blank?  
+      item.accept_type         = accept_type          unless accept_type.nil?
+      item.acquired_at         = acquired_at          unless acquired_at.nil?
+      item.shelf               = shelf                unless shelf.nil?
+      item.checkout_type       = checkout_type        unless checkout_type.nil?
+      item.circulation_status  = circulation_status   unless circulation_status.nil?
+      item.call_number         = call_number.to_s     unless call_number.nil?
+      item.price               = price                unless price.nil?
+      item.url                 = url.to_s             unless url.nil?
+      item.include_supplements = include_supplements  unless include_supplements.nil?
+      item.use_restriction     = use_restriction      unless use_restriction.nil?
+      item.note                = note.to_s            unless note.nil?
+      item.rank                = rank                 unless rank.nil?
+      item.required_role       = required_role        unless required_role.nil?
+      item.item_identifier     = item_identifier.to_s unless item_identifier.nil?  
+      item.remove_reason       = remove_reason        unless remove_reason.nil?
 
+      item.manifestation = manifestation
       item.save!
       item.patrons << shelf.library.patron if @mode_item == 'create'
 
-=begin
       unless item.remove_reason.nil?
         if item.reserve
           item.reserve.revert_request rescue nil
         end
       end
-=end
+
       return item
     end
 
@@ -383,10 +422,11 @@ p "mode_i_#{@mode_item}"
           return false
         end 
       end
-      true
+      return true
     end
 
     def fix_use_restriction(cell)
+      return nil unless cell
       unless cell.size == 0 or cell.upcase == 'FALSE'
         return UseRestriction.where(:name => 'Not For Loan').first
       end
@@ -395,7 +435,7 @@ p "mode_i_#{@mode_item}"
 
     def fix_rank(cell)
       case cell
-      when '', I18n.t('item.original')
+      when nil, I18n.t('item.original')
         return 0
       when I18n.t('item.copy')
         return 1
@@ -407,16 +447,18 @@ p "mode_i_#{@mode_item}"
     end
 
     def set_data(model, cell, can_blank, field_name, default, check_column = :name)
-      if cell.blank?
-        unless @mode =='create' and can_blank
+      obj = nil
+      if cell.nil?
+        cell = cell.to_s.strip
+        unless can_blank#@mode =='create' and can_blank
           obj = model.where(check_column => default).first 
         else
           obj = nil
         end
       else
-        obj = model.where(check_column => cell).first rescue nil
+        obj = model.where(check_column => cell).first# rescue nil
         if obj.nil?
-          raise I18n.t('resource_import_textfile.error.book.wrong_data',
+          raise I18n.t('resource_import_textfile.error.wrong_data',
              :field => I18n.t("resource_import_textfile.excel.book.#{field_name}"), :data => cell)
         end
       end
@@ -424,7 +466,8 @@ p "mode_i_#{@mode_item}"
     end
 
     def check_data_is_integer(cell, field_name)
-      cell = cell.to_s
+      return nil unless cell
+      cell = cell.to_s.strip
       if cell.match(/^\d*$/)
         return cell
       elsif cell.match(/^[0-9]+\.0$/)
@@ -436,7 +479,8 @@ p "mode_i_#{@mode_item}"
     end
 
     def check_data_is_numeric(cell, field_name)
-      cell = cell.to_s
+      return nil unless cell
+      cell = cell.to_s.strip
       if cell.match(/^\d*$/)
         return cell
       elsif cell.match(/^[0-9]+\.0$/)
@@ -450,10 +494,12 @@ p "mode_i_#{@mode_item}"
     end
 
     def check_data_is_date(cell, field_name)
-      time = Time.zone.parse(cell) rescue nil
+      return nil unless cell
+      cell = cell.to_s.strip
       unless cell.blank?
+        time = Time.zone.parse(cell) rescue nil
         if time.nil?
-          raise I18n.t('resource_import_textfile.error.book.only_integer',
+          raise I18n.t('resource_import_textfile.error.book.only_date',
             :field => I18n.t("resource_import_textfile.excel.book.#{field_name}"), :data => cell)
         end
       end

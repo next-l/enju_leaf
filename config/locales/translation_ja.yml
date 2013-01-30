@@ -2155,6 +2155,8 @@ ja:
         item_note: 所蔵注記
         rank: 正本区分
         item_identifier: 所蔵情報ID
+        remove_reason: 除籍理由
+        del_flg: 削除フラグ
       article: 
         creator: 著者
         original_title: 表題
@@ -2168,6 +2170,8 @@ ja:
     message:
       read_sheet: "シート『%{sheet}』の読み取りを開始します。"
     error:
+      blank_sheet: "%{sheet}の読み取りに失敗しました。データが記述されていません。"
+      wrong_data: "指定の%{field}は不正です。 %{field}: %{data}"
       series:
         head_is_blank: "シート『%{sheet}』の読み取りに失敗しました。\r\n1行目にはシリーズ名またはISSN,またタイトルまたはISBNが必須です。\r\n%{sheet}を再インポートする場合は資料インポートの新規登録より読み込みを再度行ってください。"
         cell_is_blank: "シリーズ名またはISSN,タイトルまたはISBNを指定してください。"
@@ -2175,9 +2179,9 @@ ja:
       book:
         head_is_blank: "%{sheet}の読み取りに失敗しました。\r\n1行目にはタイトルまたはISBNが必須です。\r\n%{sheet}を再インポートする場合は資料インポートの新規登録より読み込みを再度行ってください。"
         cell_is_blank: "タイトルまたはISBNを指定してください。"
-        wrong_data: "指定の%{field}は不正です。 %{field}: %{data}"
         only_integer: "%{field}には整数以外の値を指定しないでください。 %{field}: %{data}"
         only_numeric: "%{field}には数値以外の値を指定しないでください。 %{field}: %{data}"
+        only_date: "%{field}には日時以外の値を指定しないでください。 %{field}: %{data}"
         not_exsit_shelf: "指定の本棚は存在しません。 本棚: %{shelf}"
         wrong_rank: "指定の正本区分は不正です。 正本区分: %{data}"
         wrong_isbn: "指定のISBNは不正です。"
