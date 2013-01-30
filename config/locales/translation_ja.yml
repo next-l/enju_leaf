@@ -2106,8 +2106,8 @@ ja:
         issn: ISSN
         original_title: シリーズ名
         title_transcription: シリーズ名（ヨミ）
-        periodical: 定期刊行物 
-        frequency: シリーズ発行頻度
+        periodical: 定期刊行物
+        series_statement_identifier: シリーズ識別子
       book:
         original_title: タイトル
         title_transcription: タイトル（ヨミ）
@@ -2154,6 +2154,7 @@ ja:
         use_restriction: 利用制限
         item_note: 所蔵注記
         rank: 正本区分
+        item_identifier: 所蔵情報ID
       article: 
         creator: 著者
         original_title: 表題
@@ -2170,7 +2171,6 @@ ja:
       series:
         head_is_blank: "シート『%{sheet}』の読み取りに失敗しました。\r\n1行目にはシリーズ名またはISSN,またタイトルまたはISBNが必須です。\r\n%{sheet}を再インポートする場合は資料インポートの新規登録より読み込みを再度行ってください。"
         cell_is_blank: "シリーズ名またはISSN,タイトルまたはISBNを指定してください。"
-        exist_same_book: "既にシリーズ名、タイトル、著者、出版年、出版者が同一の資料が登録されています。"
         wrong_issn: "指定のISSNは不正です。"
       book:
         head_is_blank: "%{sheet}の読み取りに失敗しました。\r\n1行目にはタイトルまたはISBNが必須です。\r\n%{sheet}を再インポートする場合は資料インポートの新規登録より読み込みを再度行ってください。"
@@ -2181,7 +2181,6 @@ ja:
         not_exsit_shelf: "指定の本棚は存在しません。 本棚: %{shelf}"
         wrong_rank: "指定の正本区分は不正です。 正本区分: %{data}"
         wrong_isbn: "指定のISBNは不正です。"
-        exist_same_book: "既にタイトル、著者、出版年、出版者が同一の資料が登録されています。"
       article:
         head_is_blank: "シート『%{sheet}』の読み取りに失敗しました。\r\n1行目には表題が必須です。\r\n%{sheet}を再インポートする場合は資料インポートの新規登録より読み込みを再度行ってください。"
         cell_is_blank: "表題を指定してください。"
