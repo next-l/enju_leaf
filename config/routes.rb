@@ -1,5 +1,5 @@
 EnjuLeaf::Application.routes.draw do
-  resources :terminals
+  resources :enju_terminals
 
   resources :numberings
   resources :departments
@@ -407,6 +407,10 @@ EnjuLeaf::Application.routes.draw do
     post :get_loans_report, :on => :collection
     post :get_groups_report, :on => :collection
     post :get_departments_report, :on => :collection
+  end
+
+  resources :ndl_statistics do
+    post :get_ndl_report, :on => :collection
   end
 
   resources :print_labels do

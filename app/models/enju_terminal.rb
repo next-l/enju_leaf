@@ -1,4 +1,4 @@
-class Terminal < ActiveRecord::Base
+class EnjuTerminal < ActiveRecord::Base
   attr_accessible :checkouts_autoprint, :comment, :ipaddr, :manifestation_autoprint, :name, :reserve_autoprint
 
   require 'resolv'

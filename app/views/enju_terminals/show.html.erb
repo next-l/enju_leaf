@@ -1,0 +1,44 @@
+<div id="content_detail" class="ui-corner-all">
+<h1 class="title"><%= t('page.showing', :model => t('activerecord.models.enju_terminal')) -%></h1>
+<div id="content_list">
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong><%= t('activerecord.attributes.enju_terminal.ipaddr') -%>:</strong>
+  <%= @enju_terminal.ipaddr -%>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.enju_terminal.name') -%>:</strong>
+  <%= @enju_terminal.name %>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.enju_terminal.comment') -%>:</strong>
+  <%= @enju_terminal.comment %>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.enju_terminal.checkouts_autoprint') -%>:</strong>
+  <%= @enju_terminal.checkouts_autoprint ? t('activerecord.attributes.enju_terminal.boolean_yes') : t('activerecord.attributes.enju_terminal.boolean_no') -%>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.enju_terminal.reserve_autoprint') -%>:</strong>
+  <%= @enju_terminal.reserve_autoprint ? t('activerecord.attributes.enju_terminal.boolean_yes') : t('activerecord.attributes.enju_terminal.boolean_no') -%>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.enju_terminal.manifestation_autoprint') -%>:</strong>
+  <%= @enju_terminal.manifestation_autoprint ? t('activerecord.attributes.enju_terminal.boolean_yes') : t('activerecord.attributes.enju_terminal.boolean_no') -%>
+</p>
+</div>
+</div>
+
+
+<div id="submenu" class="ui-corner-all">
+  <ul>
+    <li><%= link_to t('page.edit'), edit_enju_terminal_path(@enju_terminal) -%></li>
+    <li><%= link_to t('page.back'), enju_terminals_path -%></li>
+  </ul>
+</div>
