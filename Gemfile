@@ -1,5 +1,7 @@
 source 'https://rubygems.org'
 
+ruby "1.9.3"
+
 gem 'rails', '3.2.11'
 
 gem 'cocaine', '0.4.2'
@@ -7,9 +9,9 @@ gem 'cocaine', '0.4.2'
 #gem 'enju_calil', :git => 'git://github.com/nabeta/enju_calil.git'
 #gem 'enju_scribd', :git => 'git://github.com/nabeta/enju_scribd.git'
 #gem 'enju_nii', :git => 'git://github.com/nabeta/enju_nii.git'
-gem 'enju_oai', :git => 'git://github.com/next-l/enju_oai.git'
+gem 'enju_oai', '0.1.0.pre5'
 gem 'enju_book_jacket', '0.1.0.pre2'
-gem 'enju_manifestation_viewer', :git => 'git://github.com/next-l/enju_manifestation_viewer.git'
+gem 'enju_manifestation_viewer', '0.1.0.pre3'
 #gem 'enju_message', "0.1.14.pre"
 gem 'enju_message', :git => 'git://github.com/shinozuka/enju_trunk_message.git'
 gem "enju_ndl", "0.1.0.pre8"
@@ -152,7 +154,7 @@ gem 'jquery-rails'
 # gem 'unicorn'
 
 # Deploy with Capistrano
-gem 'capistrano'
+# gem 'capistrano'
 
 # To use debugger (ruby-debug for Ruby 1.8.7+, ruby-debug19 for Ruby 1.9.2+)
 # gem 'ruby-debug19', :require => 'ruby-debug'
