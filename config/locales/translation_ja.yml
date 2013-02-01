@@ -2235,7 +2235,7 @@ ja:
     inout_items_report: 受払統計
     loans_report: 相互貸借統計
     groups_report: 団体別貸出統計
-    departments_report: 所属別貸出統計
+    departments_report: 利用統計
     invalid_year: "対象年度の指定が不正です。"
     invalid_month: "対象月の指定が不正です。"
     no_corporate: "団体が登録されていません。"
