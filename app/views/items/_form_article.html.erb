@@ -75,10 +75,13 @@ $(function(){
     <%= f.text_area :note, :class => 'resource_textarea' %>
   </div>
 
+	<% if SystemConfiguration.get('manifestation.manage_item_rank') %>
   <div class="field">
     <%= f.label t('activerecord.attributes.item.rank') %><br />
     <%= f.select(:rank, item_ranks.collect{|r| [i18n_rank(r), r]}) %>
   </div>
+	<% end %>
+
   <div class="actions">
     <%= f.hidden_field :accept_type_id,:value => nil %>
     <%= f.hidden_field :checkout_type_id, :value => @checkout_types.map{ |c| c if c.name == 'article' }.compact.first.id %>
