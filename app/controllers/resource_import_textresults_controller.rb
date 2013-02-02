@@ -10,7 +10,7 @@ class ResourceImportTextresultsController < ApplicationController
     @resource_import_textfile = ResourceImportTextfile.where(:id => params[:resource_import_textfile_id]).first
     if @resource_import_textfile
       if params[:only_error]
-        @resource_import_textresults = @resource_import_textfile.resource_import_textresults.where('error_msg IS NOT NULL')
+        @resource_import_textresults = @resource_import_textfile.resource_import_textresults.where(:item_id => nil)
       else
         @resource_import_textresults = @resource_import_textfile.resource_import_textresults
       end
