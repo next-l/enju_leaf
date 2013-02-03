@@ -26,8 +26,8 @@ class Bookstore < ActiveRecord::Base
 
   def self.import_bookstore(bookstore_name)
     bookstore = Bookstore.where(:name => bookstore_name).first rescue nil
-    unless bookstore_name == ''
-      unless bookstore
+    unless bookstore
+      unless bookstore_name == '' or bookstore_name.nil?
         bookstore = Bookstore.new(
           :name => bookstore_name
         )
