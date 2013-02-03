@@ -2114,6 +2114,8 @@ ja:
         title_alternative: 代替タイトル
         isbn: ISBN
         lccn: LCCN
+        marc_number: MARC番号
+        ndc: NDC
         carrier_type: 資料の形態
         frequency: 発行頻度
         pub_date: 出版日
@@ -2143,6 +2145,7 @@ ja:
         accept_type: 受入区分
         acquired_at: 受入日
         bookstore: 寄贈・購入先
+        library: 図書館
         shelf: 本棚
         checkout_type: 貸出区分
         circulation_status: 貸出状態
@@ -2156,6 +2159,7 @@ ja:
         rank: 正本区分
         item_identifier: 所蔵情報ID
         remove_reason: 除籍理由
+        non_searchable: 検索対象から除外
         del_flg: 削除フラグ
       article: 
         creator: 著者
@@ -2171,7 +2175,9 @@ ja:
       read_sheet: "シート『%{sheet}』の読み取りを開始します。"
     error:
       blank_sheet: "%{sheet}の読み取りに失敗しました。データが記述されていません。"
+      overlap: "%{sheet}の読み取りに失敗しました。ヘッダーのフィールド名に重複したものがあります。"
       wrong_data: "指定の%{field}は不正です。 %{field}: %{data}"
+      failed_delete_not_find: "対象の資料が見つからなかったため削除を実行できませんでした。"
       series:
         head_is_blank: "シート『%{sheet}』の読み取りに失敗しました。\r\n1行目にはシリーズ名またはISSN,またタイトルまたはISBNが必須です。\r\n%{sheet}を再インポートする場合は資料インポートの新規登録より読み込みを再度行ってください。"
         cell_is_blank: "シリーズ名またはISSN,タイトルまたはISBNを指定してください。"
@@ -2183,8 +2189,11 @@ ja:
         only_numeric: "%{field}には数値以外の値を指定しないでください。 %{field}: %{data}"
         only_date: "%{field}には日時以外の値を指定しないでください。 %{field}: %{data}"
         not_exsit_shelf: "指定の本棚は存在しません。 本棚: %{shelf}"
+        not_exsit_library: "指定の図書館は存在しません。 図書館: %{library}"
         wrong_rank: "指定の正本区分は不正です。 正本区分: %{data}"
         wrong_isbn: "指定のISBNは不正です。"
+        not_delete: "タイトルを空白登録することはできません。"
+        has_original: "既に正本登録済みの資料に、正本資料の追加はできません。"
       article:
         head_is_blank: "シート『%{sheet}』の読み取りに失敗しました。\r\n1行目には表題が必須です。\r\n%{sheet}を再インポートする場合は資料インポートの新規登録より読み込みを再度行ってください。"
         cell_is_blank: "表題を指定してください。"
