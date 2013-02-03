@@ -57,6 +57,7 @@ class Item < ActiveRecord::Base
   validates_presence_of :circulation_status, :checkout_type, :retention_period, :rank
   validate :is_original?
   before_validation :set_circulation_status, :on => :create
+  before_validation :set_for_article
   before_save :set_use_restriction, :check_remove_item, :set_retention_period, :except => :delete
   after_save :check_price, :except => :delete
   after_save :reindex
@@ -192,7 +193,16 @@ class Item < ActiveRecord::Base
   def check_remove_item
     if self.circulation_status_id == CirculationStatus.find(:first, :conditions => ["name = ?", 'Removed']).id
       self.removed_at = Time.zone.now if self.removed_at.nil?
-      self.rank = 1 if self.rank == 0
+      
+      manifestation = nil
+      if self.manifestation
+        manifestation = self.manifestation
+      else
+        manifestation = Manifestation.find(self.manifestation_id)
+      end
+      unless manifestation.article?
+        self.rank = 1 if self.rank == 0
+      end
     else
       self.removed_at = nil
     end
@@ -239,19 +249,39 @@ class Item < ActiveRecord::Base
 
   def is_original?
     if self.rank == 0
-      errors[:base] << I18n.t('item.original_item_require_item_identidier') unless self.item_identifier
-
-      manifestation = Manifestation.find(self.manifestation_id) rescue nil
-      return true unless manifestation
-
-      item_ranks = manifestation.items.inject([]){ |list, i| list << i.rank.to_i }
-      errors[:base] << I18n.t('item.already_original_item_created') if item_ranks.include?(0)
+      manifestation = nil
+      if self.manifestation
+        manifestation = self.manifestation
+      else
+        manifestation = Manifestation.find(self.manifestation_id)
+      end
+      unless manifestation.article?
+        errors[:base] << I18n.t('item.original_item_require_item_identidier') unless self.item_identifier
+      end
+      ranks = manifestation.items.map { |i| i.rank }.compact.uniq
+      errors[:base] << I18n.t('item.already_original_item_created') if ranks.include?(0)
     end
   end
 
   def set_retention_period
     unless self.retention_period
       self.retention_period = RetentionPeriod.find(1)
+    end
+  end
+
+  def set_for_article
+    manifestation = nil
+    if self.manifestation
+      manifestation = self.manifestation
+    else
+      manifestation = Manifestation.find(self.manifestation_id)
+    end
+    if manifestation.article?
+      self.accept_type = nil
+      self.checkout_type = CheckoutType.where(:name => 'article').first
+      self.circulation_status = CirculationStatus.where(:name => 'Not Available').first
+      self.item_identifier = Numbering.do_numbering('article') unless self.item_identifier
+      self.rank = 0
     end
   end
 
