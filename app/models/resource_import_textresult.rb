@@ -1,5 +1,5 @@
 class ResourceImportTextresult < ActiveRecord::Base
-  attr_accessible :resource_import_textfile_id, :body, :error_msg, :extraparams
+  attr_accessible :resource_import_textfile_id, :body, :error_msg, :extraparams, :failed
 
   default_scope :order => 'resource_import_textresults.id DESC'
   scope :file_id, proc{|file_id| where(:resource_import_textfile_id => file_id)}
