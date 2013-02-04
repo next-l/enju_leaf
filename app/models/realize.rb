@@ -8,6 +8,8 @@ class Realize < ActiveRecord::Base
 
   paginates_per 10
 
+  has_paper_trail
+
   def reindex
     patron.try(:index)
     expression.try(:index)

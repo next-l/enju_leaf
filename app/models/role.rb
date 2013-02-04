@@ -6,6 +6,8 @@ class Role < ActiveRecord::Base
   after_save :clear_all_cache
   after_destroy :clear_all_cache
 
+  has_paper_trail
+
   extend FriendlyId
   friendly_id :name
 

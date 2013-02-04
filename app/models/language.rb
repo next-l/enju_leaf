@@ -11,6 +11,8 @@ class Language < ActiveRecord::Base
   after_save :clear_available_languages_cache
   after_destroy :clear_available_languages_cache
 
+  has_paper_trail
+
   def self.all_cache
     if Rails.env == 'production'
       Rails.cache.fetch('language_all'){Language.all}

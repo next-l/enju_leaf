@@ -9,6 +9,8 @@ class ManifestationType < ActiveRecord::Base
   scope :article, where(["name like ?", '%article'])
   scope :exinfo, where(["name like ? OR name like ?", 'unkown', 'exinfo%'])
 
+  has_paper_trail
+
   def is_book?
     if ['japanese_book', 'foreign_book',
         'japanese_monograph', 'foreign_monograph'].include?(self.name)

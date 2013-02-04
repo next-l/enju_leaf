@@ -26,6 +26,8 @@ class Library < ActiveRecord::Base
   geocoded_by :address
   #enju_calil_library
 
+  has_paper_trail
+
   searchable do
     text :name, :display_name, :note, :address
     time :created_at

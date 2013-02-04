@@ -14,6 +14,8 @@ class CheckoutType < ActiveRecord::Base
   has_many :statistics
 
   paginates_per 10
+
+  has_paper_trail
 end
 
 # == Schema Information

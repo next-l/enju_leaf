@@ -17,6 +17,8 @@ class SeriesHasManifestation < ActiveRecord::Base
 
   paginates_per 10
 
+  has_paper_trail
+
   def reindex
     series_statement.try(:index)
     manifestation.try(:index)

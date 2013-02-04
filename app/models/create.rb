@@ -8,6 +8,8 @@ class Create < ActiveRecord::Base
 
   paginates_per 10
 
+  has_paper_trail
+
   def reindex
     patron.try(:index)
     work.try(:index)
