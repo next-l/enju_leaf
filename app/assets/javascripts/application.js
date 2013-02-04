@@ -12,4 +12,4 @@
 //= require tab_view
 //= require event_calendar
 //= require rails.validations
-//= require jquery.qtip
+//= require jquery.powertip

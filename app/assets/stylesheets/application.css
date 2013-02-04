@@ -11,7 +11,7 @@
  *= require pagination
  *= require portlets
  *= require event_calendar
- *= require jquery.qtip
+ *= require jquery.powertip
  *= require jquery.ui.all
  *= require jquery.ui.menubar
 */
