@@ -70,14 +70,15 @@ class Unablelist < ActiveRecord::Base
     data = String.new
     data << "\xEF\xBB\xBF".force_encoding("UTF-8") + "\n"
     columns = [
-      [:library, 'activerecord.attributes.user.library'],
+#      [:library, 'activerecord.attributes.user.library'],
       ['user_number', 'activerecord.attributes.user.user_number'],
       [:full_name, 'activerecord.attributes.patron.full_name'],
+      [:department, 'activerecord.attributes.user.department'],
       [:telephone_number_1, 'activerecord.attributes.patron.telephone_number_1'],
-      [:extelephone_number_1, 'activerecord.attributes.patron.extelephone_number_1'],
-      [:fax_number_1, 'activerecord.attributes.patron.fax_number_1'],
-      [:birth, 'activerecord.attributes.patron.date_of_birth'],
+#      [:extelephone_number_1, 'activerecord.attributes.patron.extelephone_number_1'],
       [:email, 'activerecord.attributes.patron.email'],
+#      [:fax_number_1, 'activerecord.attributes.patron.fax_number_1'],
+#      [:birth, 'activerecord.attributes.patron.date_of_birth'],
     ]
 
     # title column
@@ -89,19 +90,21 @@ class Unablelist < ActiveRecord::Base
       columns.each do |column|
         case column[0]
         when :library
-          row << user.library.display_name
+          row << user.try(:library).try(:display_name)
         when :full_name
-          row << user.patron.full_name
+          row << user.try(:patron).try(:full_name)
         when :telephone_number_1
-          row << user.patron.telephone_number_1
+          row << user.try(:patron).try(:telephone_number_1)
         when :extelephone_number_1
-          row << user.patron.extelephone_number_1
+          row << user.try(:patron).try(:extelephone_number_1)
         when :fax_number_1
-          row << user.patron.fax_number_1
+          row << user.try(:patron).try(:fax_number_1)
         when :birth
-          row << user.patron.date_of_birth.strftime("%Y/%m/%d") if user.patron.date_of_birth
+          row << user.patron.date_of_birth.strftime("%Y/%m/%d") if user.try(:patron).try(:date_of_birth)
         when :email
-          row << user.patron.email
+          row << user.try(:patron).try(:email)
+        when :department
+          row << user.try(:department).try(:display_name)
         else
           row << get_object_method(user, column[0].split('.')).to_s.gsub(/\r\n|\r|\n/," ").gsub(/\"/,"\"\"")
         end
