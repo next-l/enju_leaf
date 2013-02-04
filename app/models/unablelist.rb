@@ -3,13 +3,14 @@ class Unablelist < ActiveRecord::Base
   paginates_per 10
 
   def self.get_unable_list_pdf(users, sort)
-    report = ThinReports::Report.new :layout => File.join(Rails.root, 'report', 'unablelist.tlf')
+    report = ThinReports::Report.new :layout => File.join(Rails.root, 'report', 'userlist.tlf')
     # set page_num
     report.events.on :page_create do |e|
       e.page.item(:page).value(e.page.no)
     end
     report.events.on :generate do |e|
       e.pages.each do |page|
+        page.item(:list_title).value(I18n.t('page.listing', :model => I18n.t('activerecord.models.unablelist')))
         page.item(:total).value(e.report.page_count)
       end
     end
@@ -28,17 +29,23 @@ class Unablelist < ActiveRecord::Base
         users.each do |user|
           page.list(:list).add_row do |row|
             if sort == 'library' and before_library == user.library
-             row.item(:library_line).hide
-             row.item(:library).hide
+              row.item(:library_line).hide
+              row.item(:library).hide
             end
-            row.item(:library).value(user.library.display_name)
-            row.item(:user_number).value(user.user_number) if user.user_number
-            row.item(:full_name).value(user.patron.full_name)
-            row.item(:tel1).value(user.patron.telephone_number_1)
-            row.item(:tel2).value(user.patron.extelephone_number_1)
-            row.item(:tel3).value(user.patron.fax_number_1)
-            row.item(:birth).value(user.patron.date_of_birth)
-            row.item(:email).value(user.patron.email)
+            row.item(:full_name).value(user.try(:patron).try(:full_name))
+#            row.item(:username).value(user.username)
+            row.item(:department).value(user.try(:department).try(:display_name))
+            row.item(:user_number).value(user.user_number)
+            row.item(:tel1).value(user.try(:patron).try(:telephone_number_1)) if user.try(:patron).try(:telephone_number_1)
+            row.item(:e_mail).value(user.try(:patron).try(:email)) if user.try(:patron).try(:email)
+            row.item(:created_at).value(user.created_at)
+            if user.active_for_authentication?
+              row.item(:user_status).value(user.try(:user_status).try(:display_name))
+            else
+              row.item(:user_status).value(user.try(:user_status).try(:display_name) + "#{I18n.t('activerecord.attributes.user.locked_no')}")
+            end
+            row.item(:unable).value(I18n.t('activerecord.attributes.user.unable_yes')) unless user.unable
+            row.item(:unable).value(I18n.t('activerecord.attributes.user.unable_no')) if user.unable
           end
           before_library = user.library
         end

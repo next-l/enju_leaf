@@ -634,6 +634,7 @@ class User < ActiveRecord::Base
     end
     report.events.on :generate do |e|
       e.pages.each do |page|
+        page.item(:list_title).value(I18n.t('page.listing', :model => I18n.t('activerecord.models.user')))
         page.item(:total).value(e.report.page_count)
       end
     end
@@ -642,14 +643,18 @@ class User < ActiveRecord::Base
       page.item(:date).value(Time.now)
       users.each do |user|
         page.list(:list).add_row do |row|
-          row.item(:full_name).value(user.patron.full_name)
-          row.item(:username).value(user.username)
+          row.item(:full_name).value(user.try(:patron).try(:full_name))
+#          row.item(:username).value(user.username)
+          row.item(:department).value(user.try(:department).try(:display_name))
           row.item(:user_number).value(user.user_number)
-          row.item(:tel1).value(user.patron.telephone_number_1) if user.patron.telephone_number_1
-          row.item(:tel2).value(user.patron.telephone_number_2) if user.patron.telephone_number_2
+          row.item(:tel1).value(user.try(:patron).try(:telephone_number_1)) if user.try(:patron).try(:telephone_number_1)
+          row.item(:e_mail).value(user.try(:patron).try(:email)) if user.try(:patron).try(:email)
           row.item(:created_at).value(user.created_at)
-          row.item(:locked).value(I18n.t('activerecord.attributes.user.locked_yes')) if user.active_for_authentication?
-          row.item(:locked).value(I18n.t('activerecord.attributes.user.locked_no')) unless user.active_for_authentication?
+          if user.active_for_authentication?
+            row.item(:user_status).value(user.try(:user_status).try(:display_name))
+          else
+            row.item(:user_status).value(user.try(:user_status).try(:display_name) + "#{I18n.t('activerecord.attributes.user.locked_no')}")
+          end
           row.item(:unable).value(I18n.t('activerecord.attributes.user.unable_yes')) unless user.unable
           row.item(:unable).value(I18n.t('activerecord.attributes.user.unable_no')) if user.unable
         end

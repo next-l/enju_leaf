@@ -42,21 +42,29 @@
     </th>
     <th><%= t('activerecord.attributes.patron.full_name') %></th>
     <th><%= t('activerecord.attributes.patron.telephone_number_1') %></th>
-    <th><%= t('activerecord.attributes.patron.extelephone_number_1') %></th>
-    <th><%= t('activerecord.attributes.patron.fax_number_1') %></th>
-    <th><%= t('activerecord.attributes.patron.date_of_birth') %></th>
+    <%- if false -%>
+      <th><%= t('activerecord.attributes.patron.extelephone_number_1') %></th>
+      <th><%= t('activerecord.attributes.patron.fax_number_1') %></th>
+    <%- end -%>
+    <%- if SystemConfiguration.get('use_birth_day') -%>
+      <th><%= t('activerecord.attributes.patron.date_of_birth') %></th> 
+    <%- end -%>
     <th><%= t('activerecord.attributes.patron.email') %></th>
   </tr>
     <%- @users.each do |user| -%>
       <tr class="line<%= cycle("0", "1") -%>">
         <td><%= link_to user.library.display_name, user.library -%></td>
         <td><%= link_to user.user_number if user.user_number -%></td>
-        <td><%= link_to user.patron.full_name, user -%></td>
-        <td><%= user.patron.telephone_number_1 -%></td>
-        <td><%= user.patron.extelephone_number_1 -%></td>
-        <td><%= user.patron.fax_number_1 -%></td>
-        <td><%= l(user.patron.date_of_birth, :format => :only_date) if user.patron.date_of_death -%></td>
-        <td><%= user.patron.email -%></td>
+        <td><%= link_to user.try(:patron).try(:full_name), user -%></td>
+        <td><%= user.try(:patron).try(:telephone_number_1) -%></td>
+        <%- if false -%>
+          <td><%= user.try(:patron).try(:extelephone_number_1) -%></td>
+          <td><%= user.try(:patron).try(:fax_number_1) -%></td>
+        <%- end -%>
+        <%- if SystemConfiguration.get('use_birth_day') -%>
+          <td><%= l(user.patron.date_of_birth, :format => :only_date) if user.try(:patron).try(:date_of_birth) -%></td>
+        <%- end -%>
+        <td><%= user.try(:patron).try(:email) -%></td>
       </tr>
     <%- end -%>
 </table>
