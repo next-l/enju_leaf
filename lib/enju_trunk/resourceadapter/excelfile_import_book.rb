@@ -105,13 +105,13 @@ module EnjuTrunk
               item = nil
               item_identifier = datas[@field[I18n.t('resource_import_textfile.excel.book.item_identifier')]]
               item = Item.where(:item_identifier => item_identifier.to_s).first unless item_identifier.nil? or item_identifier.to_s == ""
-
               manifestation = fetch_book(datas, item)
-              num[:manifestation_imported] += 1 if manifestation
-              import_textresult.manifestation = manifestation
               if manifestation.valid?
-                import_textresult.item = create_book_item(datas, manifestation, item)
+                item = create_book_item(datas, manifestation, item)
+                import_textresult.manifestation = manifestation
+                import_textresult.item = item
                 manifestation.index
+                num[:manifestation_imported] += 1 if import_textresult.manifestation
                 num[:item_imported] += 1 if import_textresult.item
                 if import_textresult.item.manifestation.next_reserve
                   current_user = User.where(:username => 'admin').first
@@ -132,11 +132,11 @@ module EnjuTrunk
         rescue => e
           import_textresult.error_msg = "FAIL[sheet:#{sheet} row:#{row}]: #{e.message}"
           import_textresult.failed = true
+          import_textresult.manifestation_id = nil
           Rails.logger.info("FAIL[sheet:#{sheet} #{row} resource registration failed: column #{row}: #{e.message}")
           Rails.logger.info("FAIL[sheet:#{sheet} #{row} #{$@}")
           num[:failed] += 1
         end
-
         import_textresult.save!
         if row % 50 == 0
           Sunspot.commit
@@ -280,6 +280,14 @@ module EnjuTrunk
         publishers     = manifestation.publishers.map{ |p| p.full_name }  if publishers.nil?
       end
       series_title   = series_statement.original_title if series_statement
+
+      conditions = []
+      conditions << "(manifestations).original_title = \'#{original_title}\'" 
+      conditions << "(manifestations).pub_date = \'#{pub_date}\'"
+      conditions << "(series_statements).original_title = \'#{series_title}\'" if @manifestation_type.is_series?
+      conditions << "creates.id is not null"
+      conditions << "produces.id is not null"
+      conditions = conditions.join(' and ')
       book = nil
 =begin
       if @manifestation_type.is_series?
@@ -307,17 +315,14 @@ module EnjuTrunk
         )
       end
 =end
+=begin
       book = Manifestation.find(
         :first,
         :readonly => false,
         :include => [:series_statement, :creators, :publishers],
-        :conditions =>
-          "(manifestations).original_title = \'#{original_title}\'
-            and (manifestations).pub_date = \'#{pub_date}\'
-            and (series_statements).original_title = \'#{series_title}\'
-             and creates.id is not null
-            and produces.id is not null"
+        :conditions => conditions
       )
+=end
       if book
         if book.creators.map{ |c| c.full_name }.sort == creators.sort and book.publishers.map{ |s| s.full_name }.sort == publishers.sort
           @mode = 'edit'
@@ -384,78 +389,83 @@ module EnjuTrunk
     end
 
     def create_book_item(datas, manifestation, item)
-      resource_import_textfile = ResourceImportTextfile.find(@textfile_id)
-      @mode_item = 'edit'
-      accept_type         = set_data(datas, AcceptType, 'accept_type', { :can_blank => true, :check_column => :display_name })
-      acquired_at         = check_data_is_date(datas[@field[I18n.t('resource_import_textfile.excel.book.acquired_at')]], 'acquired_at')      
-      library             = set_library(datas[@field[I18n.t('resource_import_textfile.excel.book.library')]], resource_import_textfile.user)
-      shelf               = set_shelf(datas[@field[I18n.t('resource_import_textfile.excel.book.shelf')]], resource_import_textfile.user)
-      checkout_type       = set_data(datas, CheckoutType, 'checkout_type', { :default => 'book' })
-      circulation_status  = set_data(datas, CirculationStatus, 'circulation_status', { :default => 'In Process' })
-      retention_period    = set_data(datas, RetentionPeriod, 'retention_period', { :default => '永年', :check_column => :display_name })
-      call_number         = datas[@field[I18n.t('resource_import_textfile.excel.book.call_number')]]
-      price               = check_data_is_integer(datas[@field[I18n.t('resource_import_textfile.excel.book.item_price')]], 'item_price')
-      url                 = datas[@field[I18n.t('resource_import_textfile.excel.book.url')]]
-      include_supplements = fix_boolean(datas[@field[I18n.t('resource_import_textfile.excel.book.include_supplements')]])
-      use_restriction     = fix_use_restriction(datas[@field[I18n.t('resource_import_textfile.excel.book.use_restriction')]])
-      note                = datas[@field[I18n.t('resource_import_textfile.excel.book.item_note')]]
-      required_role       = set_data(datas, Role, 'required_role', { :default => 'Guest' })
-      remove_reason       = set_data(datas, RemoveReason, 'remove_reason', { :can_blank => true, :check_column => :display_name })
-      item_identifier     = datas[@field[I18n.t('resource_import_textfile.excel.book.item_identifier')]]
-      non_searchable      = fix_boolean(datas[@field[I18n.t('resource_import_textfile.excel.book.non_searchable')]])
+      begin
+        resource_import_textfile = ResourceImportTextfile.find(@textfile_id)
+        @mode_item = 'edit'
+        accept_type         = set_data(datas, AcceptType, 'accept_type', { :can_blank => true, :check_column => :display_name })
+        acquired_at         = check_data_is_date(datas[@field[I18n.t('resource_import_textfile.excel.book.acquired_at')]], 'acquired_at')      
+        library             = set_library(datas[@field[I18n.t('resource_import_textfile.excel.book.library')]], resource_import_textfile.user)
+        shelf               = set_shelf(datas[@field[I18n.t('resource_import_textfile.excel.book.shelf')]], resource_import_textfile.user)
+        checkout_type       = set_data(datas, CheckoutType, 'checkout_type', { :default => 'book' })
+        circulation_status  = set_data(datas, CirculationStatus, 'circulation_status', { :default => 'In Process' })
+        retention_period    = set_data(datas, RetentionPeriod, 'retention_period', { :default => '永年', :check_column => :display_name })
+        call_number         = datas[@field[I18n.t('resource_import_textfile.excel.book.call_number')]]
+        price               = check_data_is_integer(datas[@field[I18n.t('resource_import_textfile.excel.book.item_price')]], 'item_price')
+        url                 = datas[@field[I18n.t('resource_import_textfile.excel.book.url')]]
+        include_supplements = fix_boolean(datas[@field[I18n.t('resource_import_textfile.excel.book.include_supplements')]])
+        use_restriction     = fix_use_restriction(datas[@field[I18n.t('resource_import_textfile.excel.book.use_restriction')]])
+        note                = datas[@field[I18n.t('resource_import_textfile.excel.book.item_note')]]
+        required_role       = set_data(datas, Role, 'required_role', { :default => 'Guest' })
+        remove_reason       = set_data(datas, RemoveReason, 'remove_reason', { :can_blank => true, :check_column => :display_name })
+        item_identifier     = datas[@field[I18n.t('resource_import_textfile.excel.book.item_identifier')]]
+        non_searchable      = fix_boolean(datas[@field[I18n.t('resource_import_textfile.excel.book.non_searchable')]])
 
-      if item.nil? and  manifestation.items.size > 0
-        item = manifestation.items.first if item_identifier.nil?
-      end
-      unless item
-        item = Item.new
-        @mode_item = 'create'
-      end
-
-      # rank
-      rank = fix_rank(datas[@field[I18n.t('resource_import_textfile.excel.book.rank')]], manifestation, @mode_item)
-
-      if @mode_item == 'create' and rank == 0 and item_identifier.nil?
-        item_identifier = Numbering.do_numbering('book')
-      end
-
-      item.accept_type         = accept_type          unless accept_type.nil?
-      item.acquired_at         = acquired_at          unless acquired_at.nil?
-      item.shelf               = shelf                unless shelf.nil?
-      item.checkout_type       = checkout_type        unless checkout_type.nil?
-      item.circulation_status  = circulation_status   unless circulation_status.nil?
-      item.retention_period    = retention_period     unless retention_period.nil?
-      item.call_number         = call_number.to_s     unless call_number.nil?
-      item.price               = price                unless price.nil?
-      item.url                 = url.to_s             unless url.nil?
-      item.include_supplements = include_supplements  unless include_supplements.nil?
-      item.use_restriction_id  = use_restriction.id   unless use_restriction.nil?
-      item.note                = note.to_s            unless note.nil?
-      item.required_role       = required_role        unless required_role.nil?
-      item.item_identifier     = item_identifier.to_s unless item_identifier.nil?
-      item.non_searchable      = non_searchable       unless non_searchable.nil?
-      item.remove_reason       = remove_reason        unless remove_reason.nil?
-      item.rank                = rank                 unless rank.nil?
-
-      # bookstore
-      bookstore_name = datas[@field[I18n.t('resource_import_textfile.excel.book.bookstore')]]
-      bookstore = Bookstore.import_bookstore(bookstore_name) rescue nil unless bookstore_name == ""
-      unless bookstore.nil?
-        item.bookstore = bookstore == "" ? nil : bookstore
-      end
-      # if remove?
-      item.circulation_status = CirculationStatus.where(:name => "Removed").first unless item.remove_reason.nil?
-
-      item.manifestation = manifestation
-      item.save!
-      item.patrons << shelf.library.patron if @mode_item == 'create'
-
-      unless item.remove_reason.nil?
-        if item.reserve
-          item.reserve.revert_request rescue nil
+        unless item
+          if manifestation.items.size > 0
+            item = manifestation.items.first if item_identifier.nil?
+          else
+            item = Item.new
+            @mode_item = 'create'
+          end
         end
+
+        # rank
+p "m_i_1_#{manifestation.id}"
+        rank = fix_rank(datas[@field[I18n.t('resource_import_textfile.excel.book.rank')]], manifestation, @mode_item)
+p "m_i_2#{manifestation.id}"
+        if rank == 0 and item.item_identifier.nil? and item_identifier.nil?#@mode_item == 'create' and rank == 0 and item_identifier.nil?
+          item_identifier = Numbering.do_numbering('book')
+        end
+
+        item.accept_type         = accept_type          unless accept_type.nil?
+        item.acquired_at         = acquired_at          unless acquired_at.nil?
+        item.shelf               = shelf                unless shelf.nil?
+        item.checkout_type       = checkout_type        unless checkout_type.nil?
+        item.circulation_status  = circulation_status   unless circulation_status.nil?
+        item.retention_period    = retention_period     unless retention_period.nil?
+        item.call_number         = call_number.to_s     unless call_number.nil?
+        item.price               = price                unless price.nil?
+        item.url                 = url.to_s             unless url.nil?
+        item.include_supplements = include_supplements  unless include_supplements.nil?
+        item.use_restriction_id  = use_restriction.id   unless use_restriction.nil?
+        item.note                = note.to_s            unless note.nil?
+        item.required_role       = required_role        unless required_role.nil?
+        item.item_identifier     = item_identifier.to_s unless item_identifier.nil?
+        item.non_searchable      = non_searchable       unless non_searchable.nil?
+        item.remove_reason       = remove_reason        unless remove_reason.nil?
+        item.rank                = rank                 unless rank.nil?
+
+        # bookstore
+        bookstore_name = datas[@field[I18n.t('resource_import_textfile.excel.book.bookstore')]]
+        bookstore = Bookstore.import_bookstore(bookstore_name) rescue nil unless bookstore_name == ""
+        unless bookstore.nil?
+          item.bookstore = bookstore == "" ? nil : bookstore
+        end
+        # if removed?
+        item.circulation_status = CirculationStatus.where(:name => "Removed").first unless item.remove_reason.nil?
+        item.save!(:validate => false)
+        item.patrons << shelf.library.patron if @mode_item == 'create'
+        item.manifestation = manifestation
+        unless item.remove_reason.nil?
+          if item.reserve
+            item.reserve.revert_request rescue nil
+          end
+        end
+        return item
+      rescue Exception => e
+        p "error at fetch_new: #{e.message}"
+        raise e
       end
-      return item
     end
 
     def has_necessary_cell?(datas, sheet, row, textresult)
@@ -498,11 +508,11 @@ module EnjuTrunk
     def fix_rank(cell, manifestation, mode)
       case cell
       when I18n.t('item.original')
-        if manifestation.items.map{ |i| i.rank.to_i }.compact.include?(0)
-          raise I18n.t('resource_import_textfile.error.book.has_original', :data => cell)
-        else
-          return 0
-        end
+        #if manifestation.items.map{ |i| i.rank.to_i }.compact.include?(0)
+        #  raise I18n.t('resource_import_textfile.error.book.has_original', :data => cell)
+        #else
+        return 0
+        #end
       when I18n.t('item.copy')
         return 1
       when I18n.t('item.spare')

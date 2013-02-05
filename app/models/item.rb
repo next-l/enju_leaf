@@ -55,9 +55,9 @@ class Item < ActiveRecord::Base
 
   validates_associated :circulation_status, :shelf, :bookstore, :checkout_type, :retention_period
   validates_presence_of :circulation_status, :checkout_type, :retention_period, :rank
-  validate :is_original?, :only => [:create, :update]
+  validate :is_original?
   before_validation :set_circulation_status, :on => :create
-  before_validation :set_for_article, :only => [:create, :update]
+  before_validation :set_for_article
   before_save :set_use_restriction, :set_retention_period, :except => :delete
   after_save :check_price, :check_remove_item, :except => :delete
   after_save :reindex
@@ -250,12 +250,10 @@ class Item < ActiveRecord::Base
         manifestation = Manifestation.find(self.manifestation_id) rescue nil
       end
       return true if manifestation.nil?
+      return errors[:base] << I18n.t('item.original_item_require_item_identidier') unless self.item_identifier
 
-      unless manifestation.article?
-        errors[:base] << I18n.t('item.original_item_require_item_identidier') unless self.item_identifier
-      end
       ranks = manifestation.items.map { |i| i.rank }.compact.uniq
-      errors[:base] << I18n.t('item.already_original_item_created') if ranks.include?(0)
+      return errors[:base] << I18n.t('item.already_original_item_created') if ranks.include?(0)
     end
   end
 
